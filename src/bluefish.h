@@ -100,6 +100,7 @@ typedef struct {
 /* document struct */
 /*******************/
 #define BFWIN(var) ((Tbfwin *)(var))
+#define DOCUMENT(var) ((Tdocument *)(var))
 
 typedef struct {
 	gchar *filename;
@@ -235,6 +236,8 @@ typedef struct {
 typedef struct {
 	Tdocument *current_document; /* one object out of the documentlist, the current visible document */
 	GList *documentlist; /* document.c and others: all Tdocument objects */
+	Tdocument *last_activated_doc;
+
 	GtkWidget *main_window;
 	GtkWidget *menubar;
 	gint last_notebook_page; /* a check to see if the notebook changed to a new page */
