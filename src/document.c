@@ -98,6 +98,16 @@ static void session_set_opendir(Tbfwin *bfwin, gchar *curi) {
 	}
 }
 
+void session_set_savedir(Tbfwin *bfwin, gchar *curi) {
+	if (curi) {
+		gchar *pos = strrchr(curi, '/');
+		if (pos!=NULL) {
+			if (bfwin->session->savedir) g_free(bfwin->session->savedir);
+			bfwin->session->savedir = g_strndup(curi, pos-curi);
+		}
+	}
+}
+
 /**
  * return_allwindows_documentlist:
  *
