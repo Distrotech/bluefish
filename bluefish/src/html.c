@@ -22,10 +22,10 @@
  */
 /* 
  * Changes by Antti-Juhani Kaijanaho <gaia@iki.fi> on 1999-10-20
- * $Id: html.c,v 1.3 2002-05-31 14:36:03 oli4 Exp $
+ * $Id: html.c,v 1.4 2002-08-07 12:39:50 oli4 Exp $
  */
 
- #include <gtk/gtk.h>
+#include <gtk/gtk.h>
 #include <stdio.h>
 /* #include <gdk/gdk.h>*/
 #include <string.h>
