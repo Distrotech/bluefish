@@ -1299,27 +1299,7 @@ GtkWidget *file_but_new(GtkWidget * which_entry, gint full_pathname, Tbfwin *bfw
 /************    FILE SELECTION FUNCTIONS  ******************************/
 /************************************************************************/
 
-#ifdef HAVE_ATLEAST_GTK_2_4
-static GList *file_dialog_backend(gchar *setfile, gchar *title, GtkFileChooserAction action, gboolean multiple) { 
-	GtkWidget *dialog;
-	dialog = gtk_file_chooser_dialog_new (title ? title : "Select File",NULL,
-			GTK_FILE_CHOOSER_ACTION_OPEN,
-			GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
-			GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT,
-			NULL);
-	if (setfile) {
-		gtk_file_chooser_set_filename(GTK_FILE_CHOOSER(dialog),setfile);
-	}
-	gtk_file_chooser_set_select_multiple(GTK_FILE_CHOOSER(dialog), multiple);
-	if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_ACCEPT) {
-		if (multiple) {
-			return gtk_file_chooser_get_filenames(GTK_FILE_CHOOSER(dialog));
-		} else {
-			return g_list_append(NULL, gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog)));
-		}
-	}
-}
-#else 
+#ifndef HAVE_ATLEAST_GTK_2_4
 typedef struct {
 	gboolean select_dir;
 	gint multipleselect;
