@@ -5,14 +5,14 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: bluefish gtk2-port\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-11-06 23:07-0300\n"
+"POT-Creation-Date: 2004-11-25 10:39+0100\n"
 "PO-Revision-Date: 2003-12-06 14:24+0100\n"
 "Last-Translator: Juho Roukala <j.mr@luukku.com>\n"
 "Language-Team: Not a memeber <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Report-Msgid-Bugs-To: \n"
 
 #: ../src/about.c:123
 msgid ""
@@ -38,14 +38,22 @@ msgstr ""
 "Tämä Bluefish-versio käännettiin seuraavien valintojen kanssa:\n"
 
 #: ../src/about.c:124
+#, fuzzy
 msgid ""
 "Project leader:\n"
 "  Olivier Sessink <olivier@bluefish.openoffice.nl>\n"
 "\n"
 "Developers for this release:\n"
-"  Jim Hayward <jimhayward@linuxexperience.net>\n"
-"  Oskar Świda <swida@aragorn.pb.bialystok.pl>\n"
-"  Eugene Morenko(More) <more@irpin.com>\n"
+"  Olivier Sessink\n"
+"   <olivier@bluefish.openoffice.nl>\n"
+"  Jim Hayward\n"
+"   <jimhayward@linuxexperience.net>\n"
+"  Oskar Świda\n"
+"   <swida@aragorn.pb.bialystok.pl>\n"
+"  Eugene Morenko(More)\n"
+"   <more@irpin.com>\n"
+"  Alastair Porter\n"
+"   <alastair@linuxexperience.com>\n"
 "\n"
 "Developers for previous releases:\n"
 "  Chris Mazuc\n"
@@ -55,20 +63,38 @@ msgid ""
 "  David Arno\n"
 "  Pablo De Napoli\n"
 "  Santiago Capel Torres\n"
-"  Rasmus Toftdahl Olesen <rto@pohldata.dk>\n"
-"  Roland Steinbach <roland@netzblick.de>\n"
-"  Christian Tellefsen <chris@tellefsen.net>\n"
+"  Rasmus Toftdahl Olesen\n"
+"   <rto@pohldata.dk>\n"
+"  Roland Steinbach\n"
+"   <roland@netzblick.de>\n"
+"  Christian Tellefsen\n"
+"   <chris@tellefsen.net>\n"
 "  Antti-Juhani Kaijanaho\n"
 "\n"
 "Documentation:\n"
-"  Alastair Porter <alastair@linuxexperience.com>\n"
-"  Daniel Blair <joecamel@realcoders.org>\n"
+"  Scott White\n"
+"   <wwsw3@earthlink.net>\n"
+"  Michèle Garoche\n"
+"   <michele.garoche@easyconnect.fr>\n"
+"  Anita Lewis\n"
+"   <ajreiki@highstream.net>\n"
+"  Alastair Porter\n"
+"   <alastair@linuxexperience.com>\n"
+"  Daniel Blair\n"
+"   <joecamel@realcoders.org>\n"
+"  Olivier Sessink\n"
+"   <olivier@bluefish.openoffice.nl>\n"
 "  Denny Reeh\n"
 "\n"
 "Package Maintainers:\n"
-"  Debian:   Davide Puricelli <evo@debian.org>\n"
-"  Redhat:   Matthias Haase <matthias_haase@bennewitz.com>\n"
-"  Mandrake: Todd Lyons <todd@mrball.net>\n"
+"  Debian:   Davide Puricelli\n"
+"   <evo@debian.org>\n"
+"  Redhat:   Matthias Haase\n"
+"   <matthias_haase@bennewitz.com>\n"
+"  Mandrake: Todd Lyons\n"
+"   <todd@mrball.net>\n"
+"  Fink: Michèle Garoche\n"
+"   <michele.garoche@easyconnect.fr>\n"
 "\n"
 "If you know of anyone missing from this list, please let us know\n"
 "<bluefish@bluefish.openoffice.nl>\n"
@@ -111,7 +137,7 @@ msgstr ""
 "\n"
 "Kiitos kaikille, jotka auttoivat tämän ohjelman luomisessa.\n"
 
-#: ../src/about.c:160
+#: ../src/about.c:185
 msgid ""
 "Current translators:\n"
 "\n"
@@ -221,20 +247,20 @@ msgstr ""
 "   <rupakov@jet.msk.su>\n"
 "\n"
 
-#: ../src/about.c:197
+#: ../src/about.c:222
 msgid "About Bluefish"
 msgstr "Tietoja: Bluefish"
 
-#: ../src/about.c:229 ../src/fref.c:1427 ../src/fref.c:1711 ../src/fref.c:1798
+#: ../src/about.c:254 ../src/fref.c:1427 ../src/fref.c:1711 ../src/fref.c:1798
 #: ../src/fref.c:1833 ../src/fref.c:2310
 msgid "Info"
 msgstr "Info"
 
-#: ../src/about.c:231
+#: ../src/about.c:256
 msgid "Authors"
 msgstr "Tekijät"
 
-#: ../src/about.c:232
+#: ../src/about.c:257
 msgid "Translators"
 msgstr "Kääntäjät"
 
@@ -582,7 +608,7 @@ msgstr "Tiedostoa ei voida näyttää, löydettiin tuntemattomia merkkejä."
 msgid "Replace"
 msgstr "Korvaa"
 
-#: ../src/document.c:2010
+#: ../src/document.c:2010 ../src/snr2.c:1335
 msgid "Find"
 msgstr "Etsi"
 
@@ -648,47 +674,49 @@ msgstr "Virhe tiedoston koodauksen muutoksessa"
 msgid "Previously: "
 msgstr "Ennen:"
 
-#: ../src/document.c:2421 ../src/document.c:2429
-msgid "Move/rename document to"
+#: ../src/document.c:2412
+#, fuzzy, c-format
+msgid "Move/rename %s to"
 msgstr "Siirrä/uudelleennimeä dokumentti"
 
-#: ../src/document.c:2421 ../src/document.c:2429
-msgid "Save document as"
-msgstr "Tallenna dokumentti nimellä"
+#: ../src/document.c:2412
+#, fuzzy, c-format
+msgid "Save %s as"
+msgstr "Tallenna nimellä..."
 
-#: ../src/document.c:2451 ../src/document.c:2466 ../src/document.c:2564
-#: ../src/document.c:3754 ../src/project.c:171
+#: ../src/document.c:2456 ../src/document.c:2471 ../src/document.c:2569
+#: ../src/document.c:3759 ../src/project.c:171
 msgid "_Cancel"
 msgstr "_Peruuta"
 
-#: ../src/document.c:2451 ../src/document.c:2466 ../src/document.c:2564
+#: ../src/document.c:2456 ../src/document.c:2471 ../src/document.c:2569
 #: ../src/project.c:171
 msgid "_Overwrite"
 msgstr "_Ylikirjoita"
 
-#: ../src/document.c:2452
+#: ../src/document.c:2457
 #, c-format
 msgid "File %s exists and is opened, overwrite?"
 msgstr "Tiedosto %s on olemassa ja avoinna, ylikirjoita?"
 
-#: ../src/document.c:2453
+#: ../src/document.c:2458
 msgid "The file you have selected is being edited in Bluefish."
 msgstr "Valitsemaasi tiedostoa muokataan Bluefishillä."
 
-#: ../src/document.c:2467 ../src/project.c:172
+#: ../src/document.c:2472 ../src/project.c:172
 #, c-format
 msgid "A file named \"%s\" already exists."
 msgstr "Tiedosto nimeltä \"%s\" on jo olemassa."
 
-#: ../src/document.c:2469 ../src/project.c:174
+#: ../src/document.c:2474 ../src/project.c:174
 msgid "Do you want to replace the existing file?"
 msgstr "Haluatko korvata olemassaolevan tiedoston?"
 
-#: ../src/document.c:2519
+#: ../src/document.c:2524
 msgid "Save as..."
 msgstr "Tallenna nimellä..."
 
-#: ../src/document.c:2568
+#: ../src/document.c:2573
 #, c-format
 msgid ""
 "File: %s\n"
@@ -701,16 +729,16 @@ msgstr ""
 "Uusi muokattu-aika: %s\n"
 "Vanha muokattu-aika: %s"
 
-#: ../src/document.c:2569
+#: ../src/document.c:2574
 msgid "File has been modified by another process."
 msgstr "Toinen prosessi on muokannut tiedostoa."
 
-#: ../src/document.c:2582
+#: ../src/document.c:2587
 #, c-format
 msgid "Saving %s"
 msgstr "Tallentaa %s"
 
-#: ../src/document.c:2596
+#: ../src/document.c:2601
 msgid ""
 "Could not backup file:\n"
 "\""
@@ -718,11 +746,11 @@ msgstr ""
 "Ei voitu varmuuskopioida tiedostoa:\n"
 "\""
 
-#: ../src/document.c:2597
+#: ../src/document.c:2602
 msgid "File save aborted.\n"
 msgstr "Tiedoston tallennus keskeytyi.\n"
 
-#: ../src/document.c:2602
+#: ../src/document.c:2607
 msgid ""
 "Could not write file:\n"
 "\""
@@ -730,35 +758,32 @@ msgstr ""
 "Ei voitu kirjoittaa tiedostoa:\n"
 "\""
 
-#: ../src/document.c:2603
+#: ../src/document.c:2608
 msgid "File save error"
 msgstr "Tiedoston tallennusvirhe"
 
-#: ../src/document.c:2653
+#: ../src/document.c:2658
+#, c-format
 msgid "Save changes to \"%s\" before closing?."
 msgstr "Tallenna muutokset \"%s\" ennen sulkemista?"
 
-#: ../src/document.c:2656
-msgid "Save changes to this untitled file before closing?"
-msgstr "Tallennetaanko muutokset tähän nimettömään tiedostoon ennen sulkemista?"
-
-#: ../src/document.c:2660 ../src/project.c:324
+#: ../src/document.c:2665 ../src/project.c:324
 msgid "Do_n't save"
 msgstr "_Älä tallenna"
 
-#: ../src/document.c:2662 ../src/document.c:3756 ../src/project.c:333
+#: ../src/document.c:2667 ../src/document.c:3761 ../src/project.c:333
 msgid "If you don't save your changes they will be lost."
 msgstr "Jos et tallenna tekemiäsi muutoksia, ne katoavat."
 
-#: ../src/document.c:2942
+#: ../src/document.c:2947
 msgid "No filename"
 msgstr "Ei tiedostonimeä"
 
-#: ../src/document.c:3079
+#: ../src/document.c:3084
 msgid "Loading files..."
 msgstr "Ladataan tiedostoja..."
 
-#: ../src/document.c:3097
+#: ../src/document.c:3102
 msgid ""
 "These files could not opened:\n"
 "\n"
@@ -766,23 +791,23 @@ msgstr ""
 "Seuraavia tiedostoja ei voitu avata:\n"
 "\n"
 
-#: ../src/document.c:3099 ../src/msg_queue.c:235
+#: ../src/document.c:3104 ../src/msg_queue.c:235
 msgid "Unable to open file(s)\n"
 msgstr "Tiedosto(j)a ei voitu avata\n"
 
-#: ../src/document.c:3130
+#: ../src/document.c:3135
 msgid "Unable to open file"
 msgstr "Tiedostoa ei voitu avata"
 
-#: ../src/document.c:3192
+#: ../src/document.c:3197
 msgid "_Reload"
 msgstr "Lataa _uudelleen"
 
-#: ../src/document.c:3192
+#: ../src/document.c:3197
 msgid "_Ignore"
 msgstr "_Hylkää"
 
-#: ../src/document.c:3196
+#: ../src/document.c:3201
 #, c-format
 msgid ""
 "Filename: %s\n"
@@ -795,198 +820,198 @@ msgstr ""
 "Uusi muokattu-aika on: %s\n"
 "Vanha muokattu-aika on: %s"
 
-#: ../src/document.c:3197
+#: ../src/document.c:3202
 msgid "File has been modified by another process\n"
 msgstr "Toinen prosessi on muokannut tiedostoa\n"
 
-#: ../src/document.c:3304
+#: ../src/document.c:3309
 msgid "searching files..."
 msgstr "etsitään tiedostoja..."
 
-#: ../src/document.c:3335 ../src/document.c:3342
+#: ../src/document.c:3340 ../src/document.c:3347
 msgid "Select basedir"
 msgstr "Valitse perushakemisto"
 
-#: ../src/document.c:3361
+#: ../src/document.c:3366
 msgid "Advanced open file selector"
 msgstr "Edistynyt tiedoston avaaja."
 
-#: ../src/document.c:3372
+#: ../src/document.c:3377
 msgid "grep {contains} `find {basedir} -name '{file type}'`"
 msgstr "grep {sisältää} `find {perushakemisto} -name '{tiedoston tyyppi}'`"
 
-#: ../src/document.c:3377
+#: ../src/document.c:3382
 msgid "<b>General</b>"
 msgstr "<b>Yleistä</b>"
 
-#: ../src/document.c:3379
+#: ../src/document.c:3384
 msgid "Base_dir:"
 msgstr "Perus_hakemisto:"
 
-#: ../src/document.c:3381 ../src/gtk_easy.c:1305
+#: ../src/document.c:3386 ../src/gtk_easy.c:1305
 msgid "_Browse..."
 msgstr "_Selaa..."
 
-#: ../src/document.c:3399
+#: ../src/document.c:3404
 msgid "_File Type:"
 msgstr "_Tiedoston tyyppi:"
 
-#: ../src/document.c:3405
+#: ../src/document.c:3410
 msgid "_Recursive:"
 msgstr "_Rekursiivinen:"
 
-#: ../src/document.c:3410
+#: ../src/document.c:3415
 msgid "<b>Contains</b>"
 msgstr "<b>Sisältää</b>"
 
-#: ../src/document.c:3413
+#: ../src/document.c:3418
 msgid "Pa_ttern:"
 msgstr "Ku_vio:"
 
-#: ../src/document.c:3417
+#: ../src/document.c:3422
 msgid "Is rege_x:"
 msgstr "O_n säänn. lauseke:"
 
-#: ../src/document.c:3552
+#: ../src/document.c:3557
 msgid "Open URL"
 msgstr "Avaa URL"
 
-#: ../src/document.c:3556
+#: ../src/document.c:3561
 msgid "<b>Open URL</b>"
 msgstr "<b>Avaa URL</b>"
 
-#: ../src/document.c:3602 ../src/gtk_easy.c:1601
+#: ../src/document.c:3607 ../src/gtk_easy.c:1601
 msgid "Select files"
 msgstr "Valitse tiedostoja"
 
-#: ../src/document.c:3622 ../src/document.c:3642 ../src/document.c:3659
+#: ../src/document.c:3627 ../src/document.c:3647 ../src/document.c:3664
 #, c-format
 msgid "Loading %d file(s)..."
 msgstr "Ladataan %d tiedosto(a)..."
 
-#: ../src/document.c:3637
+#: ../src/document.c:3642
 msgid "No matching files found"
 msgstr "Vastaavia tiedostoja ei löytynyt"
 
-#: ../src/document.c:3692 ../src/document.c:3699
+#: ../src/document.c:3697 ../src/document.c:3704
 msgid "Select file to insert"
 msgstr "Valitse lisättävä tiedosto"
 
-#: ../src/document.c:3702
+#: ../src/document.c:3707
 msgid "No file to insert"
 msgstr "Ei lisättävää tiedostoa"
 
-#: ../src/document.c:3754
+#: ../src/document.c:3759
 msgid "_Save All"
 msgstr "T_allenna kaikki"
 
-#: ../src/document.c:3754
+#: ../src/document.c:3759
 msgid "Close _All"
 msgstr "S_ulje kaikki"
 
-#: ../src/document.c:3754
+#: ../src/document.c:3759
 msgid "Choose per _File"
 msgstr "Valitse _tiedostot erikseen"
 
-#: ../src/document.c:3755
+#: ../src/document.c:3760
 msgid "Multiple open files have been changed."
 msgstr "Useita avoimia tiedostoja on muokattu."
 
-#: ../src/document.c:4003
+#: ../src/document.c:4008
 #, c-format
 msgid "Statistics: %d lines, %d words, %d characters"
 msgstr "Tilastoja: %d riviä, %d sanaa, %d merkkiä"
 
-#: ../src/filebrowser.c:1015
+#: ../src/filebrowser.c:1057
 msgid "Error creating path"
 msgstr "Virhe luotaessa hakemistoa"
 
-#: ../src/filebrowser.c:1015
+#: ../src/filebrowser.c:1057
 msgid "The specified pathname already exists."
 msgstr "Annettu hakemistopolku on jo olemassa."
 
-#: ../src/filebrowser.c:1082
+#: ../src/filebrowser.c:1127
 msgid "File name"
 msgstr "Tiedoston nimi"
 
-#: ../src/filebrowser.c:1084
+#: ../src/filebrowser.c:1129
 msgid "Directory name"
 msgstr "Hakemiston nimi"
 
-#: ../src/filebrowser.c:1115
+#: ../src/filebrowser.c:1160
 msgid "Opening directory..."
 msgstr "Avataan hakemistoa..."
 
-#: ../src/filebrowser.c:1204 ../src/filebrowser.c:1208
+#: ../src/filebrowser.c:1249 ../src/filebrowser.c:1253
 msgid "Could not rename\n"
 msgstr "Ei voitu uudelleennimetä\n"
 
-#: ../src/filebrowser.c:1251
+#: ../src/filebrowser.c:1296
 #, c-format
 msgid "Are you sure you want to delete \"%s\" ?"
 msgstr "Oletko varma että haluat poistaa \"%s\" ?"
 
-#: ../src/filebrowser.c:1252
+#: ../src/filebrowser.c:1297
 msgid "If you delete this file, it will be permanently lost."
 msgstr "Jos poistat tämän tiedoston, se katoaa lopullisesti."
 
-#: ../src/filebrowser.c:1261 ../src/filebrowser.c:1265
+#: ../src/filebrowser.c:1306 ../src/filebrowser.c:1310
 msgid "Could not delete \n"
 msgstr "Ei voitu poistaa \n"
 
-#: ../src/filebrowser.c:1404
+#: ../src/filebrowser.c:1449
 msgid "/Open _Advanced..."
 msgstr "/Avaa _edistyneesti..."
 
-#: ../src/filebrowser.c:1408
+#: ../src/filebrowser.c:1453
 msgid "/_Refresh"
 msgstr "/_Päivitä"
 
-#: ../src/filebrowser.c:1409
+#: ../src/filebrowser.c:1454
 msgid "/_Set as basedir"
 msgstr "/_Aseta perushakemistoksi"
 
-#: ../src/filebrowser.c:1413
+#: ../src/filebrowser.c:1458
 msgid "/New _File"
 msgstr "/_Uusi tiedosto"
 
-#: ../src/filebrowser.c:1414
+#: ../src/filebrowser.c:1459
 msgid "/_New Directory"
 msgstr "/U_usi hakemisto"
 
-#: ../src/filebrowser.c:1419
+#: ../src/filebrowser.c:1464
 msgid "/_Open"
 msgstr "/Av_aa"
 
-#: ../src/filebrowser.c:1420
+#: ../src/filebrowser.c:1465
 msgid "/Rena_me"
 msgstr "/Uudelleenni_meä"
 
-#: ../src/filebrowser.c:1421
+#: ../src/filebrowser.c:1466
 msgid "/_Delete"
 msgstr "/Po_ista"
 
-#: ../src/filebrowser.c:1443
+#: ../src/filebrowser.c:1488
 msgid "Show hidden files"
 msgstr "Näytä piilotiedostot"
 
-#: ../src/filebrowser.c:1448
+#: ../src/filebrowser.c:1493
 msgid "Show backup files"
 msgstr "Näytä varmuuskopiotiedostot"
 
-#: ../src/filebrowser.c:1454
+#: ../src/filebrowser.c:1499
 msgid "Filter"
 msgstr "Suodin"
 
-#: ../src/filebrowser.c:1654 ../src/gtk_easy.c:1383
+#: ../src/filebrowser.c:1699 ../src/gtk_easy.c:1383
 msgid "All files"
 msgstr "Kaikki tiedostot"
 
-#: ../src/filebrowser.c:1926
+#: ../src/filebrowser.c:1971
 msgid "Show full tree"
 msgstr "Näytä koko puu"
 
-#: ../src/filebrowser.c:1927
+#: ../src/filebrowser.c:1972
 msgid "Follow focus"
 msgstr "Seuraa kohdistinta"
 
@@ -1052,7 +1077,7 @@ msgstr "Et tainnut ladata viittausta tai et valinnut viittausta josta hakea."
 msgid "Show info window"
 msgstr "Näytä info-ikkuna"
 
-#: ../src/fref.c:2311 ../src/snr2.c:1335
+#: ../src/fref.c:2311
 msgid "Search"
 msgstr "Etsi"
 
@@ -1486,12 +1511,14 @@ msgid "Paste"
 msgstr "Liitä"
 
 #: ../src/gui.c:1090
-msgid "Search..."
-msgstr "Etsi..."
+#, fuzzy
+msgid "Find..."
+msgstr "Etsi"
 
 #: ../src/gui.c:1092
-msgid "Search and Replace..."
-msgstr "Etsi ja korvaa..."
+#, fuzzy
+msgid "Replace..."
+msgstr "Korvaa"
 
 #: ../src/gui.c:1095 ../src/preferences.c:1992
 msgid "Undo"
@@ -1573,55 +1600,6 @@ msgstr "kääntää toista mallia '%s': %s paikassa %d"
 #, c-format
 msgid "studying 2nd pattern '%s': %s"
 msgstr "lukee toista mallia '%s': %s"
-
-#: ../src/html2.c:554
-msgid "Cascading StyleSheet dialog"
-msgstr "Limitetty tyylisivu -dialogi"
-
-#: ../src/html2.c:574
-msgid "_Selector:"
-msgstr "_Valitsija:"
-
-#: ../src/html2.c:593
-msgid "_Property:"
-msgstr "_Ominaisuus:"
-
-#: ../src/html2.c:595 ../src/html_form.c:650 ../src/html_form.c:799
-#: ../src/html_form.c:894
-msgid "_Value:"
-msgstr "_Arvo:"
-
-#: ../src/html2.c:613
-msgid "Selector"
-msgstr "Valitsija:"
-
-#: ../src/html2.c:613 ../src/html2.c:616
-msgid "Property"
-msgstr "Ominaisuus"
-
-#: ../src/html2.c:613 ../src/html2.c:616
-msgid "Value"
-msgstr "Arvo"
-
-#: ../src/html2.c:631
-msgid " _Add "
-msgstr " _Lisää "
-
-#: ../src/html2.c:634
-msgid " _Update "
-msgstr " _Päivitä "
-
-#: ../src/html2.c:637
-msgid " _Delete "
-msgstr " P_oista "
-
-#: ../src/html2.c:893 ../src/html2.c:930
-msgid "_Style..."
-msgstr "_Tyyli..."
-
-#: ../src/html2.c:1087
-msgid "Bluefish: Select color"
-msgstr "Bluefish: Valitse väri"
 
 #: ../src/html.c:392
 msgid "Insert Time"
@@ -2016,6 +1994,55 @@ msgstr "K_ieli:"
 #: ../src/html.c:2112
 msgid "_Custom:"
 msgstr "_Mukautettu:"
+
+#: ../src/html2.c:554
+msgid "Cascading StyleSheet dialog"
+msgstr "Limitetty tyylisivu -dialogi"
+
+#: ../src/html2.c:574
+msgid "_Selector:"
+msgstr "_Valitsija:"
+
+#: ../src/html2.c:593
+msgid "_Property:"
+msgstr "_Ominaisuus:"
+
+#: ../src/html2.c:595 ../src/html_form.c:650 ../src/html_form.c:799
+#: ../src/html_form.c:894
+msgid "_Value:"
+msgstr "_Arvo:"
+
+#: ../src/html2.c:613
+msgid "Selector"
+msgstr "Valitsija:"
+
+#: ../src/html2.c:613 ../src/html2.c:616
+msgid "Property"
+msgstr "Ominaisuus"
+
+#: ../src/html2.c:613 ../src/html2.c:616
+msgid "Value"
+msgstr "Arvo"
+
+#: ../src/html2.c:631
+msgid " _Add "
+msgstr " _Lisää "
+
+#: ../src/html2.c:634
+msgid " _Update "
+msgstr " _Päivitä "
+
+#: ../src/html2.c:637
+msgid " _Delete "
+msgstr " P_oista "
+
+#: ../src/html2.c:893 ../src/html2.c:930
+msgid "_Style..."
+msgstr "_Tyyli..."
+
+#: ../src/html2.c:1087
+msgid "Bluefish: Select color"
+msgstr "Bluefish: Valitse väri"
 
 #: ../src/html_form.c:141
 msgid "Form"
@@ -3872,7 +3899,8 @@ msgid "Custom Dialo_g"
 msgstr "Muokattu dialo_gi"
 
 #: ../src/menu.c:2449
-msgid "Custom _Search and Replace"
+#, fuzzy
+msgid "Custom Replace"
 msgstr "M_uokattu Etsi ja korvaa"
 
 #: ../src/menu.c:2461
@@ -4442,7 +4470,6 @@ msgstr "Valitse Bluefish-projektin tiedostonimi"
 msgid "Do you want to save the project?"
 msgstr "Haluatko tallentaa projektin?"
 
-
 #: ../src/project.c:460
 msgid "Create New Project"
 msgstr "Luo uusi projekti"
@@ -4768,6 +4795,19 @@ msgstr "Lähde:"
 #: ../src/wizards.c:224
 msgid "Size:"
 msgstr "Koko:"
+
+#~ msgid "Save document as"
+#~ msgstr "Tallenna dokumentti nimellä"
+
+#~ msgid "Save changes to this untitled file before closing?"
+#~ msgstr ""
+#~ "Tallennetaanko muutokset tähän nimettömään tiedostoon ennen sulkemista?"
+
+#~ msgid "Search..."
+#~ msgstr "Etsi..."
+
+#~ msgid "Search and Replace..."
+#~ msgstr "Etsi ja korvaa..."
 
 #~ msgid "Do_n't Save"
 #~ msgstr "_Älä tallenna"
