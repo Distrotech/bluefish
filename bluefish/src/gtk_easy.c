@@ -787,7 +787,7 @@ void bf_mnemonic_label_tad_with_alignment(const gchar *labeltext, GtkWidget *m_w
 
 	label = gtk_label_new_with_mnemonic(labeltext);
 	gtk_misc_set_alignment(GTK_MISC(label), xalign, yalign);
-	gtk_table_attach(GTK_TABLE(table), label, left_attach, right_attach, top_attach, bottom_attach, GTK_FILL, GTK_FILL, 0, 0);  
+	gtk_table_attach(GTK_TABLE(table), label, left_attach, right_attach, top_attach, bottom_attach, GTK_FILL, GTK_FILL, 0, 0);
   
 	if (m_widget != NULL) {
 		if (GTK_IS_COMBO(m_widget)) {
@@ -822,8 +822,54 @@ void bf_label_tad_with_markup(const gchar *labeltext, gfloat xalign, gfloat yali
 	gtk_label_set_markup(GTK_LABEL(label), labeltext);
 	gtk_misc_set_alignment(GTK_MISC(label), xalign, yalign);
 	gtk_table_attach_defaults(GTK_TABLE(table), label, left_attach, right_attach, top_attach, bottom_attach);	
-}								
+}
+#ifdef NOTYETUSED
+typedef struct {
+	GtkWidget *win;
+	GtkWidget *entry[10];
+	gpointer data;
+} Tmultientrywidget;
 
+static void multi_entry_destroy(GtkObject *object, Tmultientrywidget *mew) {
+	g_free(mew);
+}
+
+static void multi_entry_cancel_clicked(GtkWidget *widget, Tmultientrywidget *mew) {
+	gtk_widget_destroy(mew->win);
+}
+
+Tmultientrywidget *build_multi_entry_window(gchar *title,GCallback ok_func
+			,gpointer data, const gchar **labelarr) {
+	gint arrlen,i;
+	GtkWidget *table,*hbox,*but;
+
+	arrlen = count_array(labelarr);
+	if (arrlen >10) arrlen = 10;
+	Tmultientrywidget *mew = g_new0(Tmultientrywidget,1);
+	mew->data = data;
+	mew->win = window_full2(title, GTK_WIN_POS_MOUSE, 10, multi_entry_destroy,mew, TRUE, NULL);
+	table = gtk_table_new(arrlen+2,2,FALSE);
+	gtk_table_set_row_spacings(GTK_TABLE(table),6);
+	gtk_table_set_col_spacings(GTK_TABLE(table),6);
+	gtk_container_add(GTK_CONTAINER(mew->win),table);
+	for (i=0;i<arrlen;i++) {
+		GtkWidget *label = gtk_label_new(labelarr[i]);
+		gtk_table_attach_defaults(GTK_TABLE(table), label, 0, 1, i, i+1);
+		mew->entry[i] = entry_with_text(NULL, 255);
+		gtk_table_attach_defaults(GTK_TABLE(table), mew->entry[i], 1, 2, i, i+1);
+	}
+	gtk_table_attach_defaults(GTK_TABLE(table), gtk_hseparator_new(), 0, 2, i, i+1);
+	hbox = gtk_hbutton_box_new();
+	gtk_hbutton_box_set_layout_default(GTK_BUTTONBOX_END);
+	gtk_button_box_set_spacing(GTK_BUTTON_BOX(hbox), 12);
+	but = bf_stock_cancel_button(G_CALLBACK(multi_entry_cancel_clicked), NULL);
+	gtk_box_pack_start(GTK_BOX(hbox),but, FALSE, FALSE, 0);
+	but = bf_stock_ok_button(G_CALLBACK(ok_func), mew);
+	gtk_box_pack_start(GTK_BOX(hbox),but, FALSE, FALSE, 0);
+	gtk_table_attach_defaults(GTK_TABLE(table), hbox, 0, 2, i+1, i+2);
+	gtk_widget_show_all(mew->win);
+}
+#endif
 /**************************************************************************/
 /***********************  BUTTON DIALOG FUNCTIONS  ************************/
 /**************************************************************************/
