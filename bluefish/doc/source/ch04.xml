@@ -136,15 +136,72 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 			to color parts of that match. There are three
 			types of patterns:</para>
 	<itemizedlist>
-	  <listitem><para>Match from the start to the end pattern</para></listitem>
-	  <listitem><para>One pattern that matches from start to end</para></listitem>
-	  <listitem><para>Match a subpattern from the parent pattern</para></listitem>
+	  <listitem><para>1 Two patterns, match from the start to the end pattern</para></listitem>
+	  <listitem><para>2 One pattern that matches from start to end</para></listitem>
+	  <listitem><para>3 Match a subpattern from the parent pattern</para></listitem>
 	</itemizedlist>
 	<para>
 		One specific pattern can also be used within several other parent patterns. The parent-match
 		option is a regular expression that defines all parents for a certain pattern. If emty
 		it will default to ^top$, so basically it will be on the top level.
-	</para>
+	</para><para>
+	So how does it work? Lets take a look at a little example text, a piece of PHP code within some html code:
+</para>
+<code>
+&lt;p align=&quot;center&quot;&gt;
+&lt;?php
+// this is a comment ?&gt;
+?&gt;
+</code>
+<para>
+The first thing the highlighting engine does is finding the pattern that has the lowest match. Using the default pattern for PHP, the pattern named 'html' has a match at position 0:
+</para>
+<code>
+&lt;p align=&quot;center&quot;&gt;
+</code>
+<para>
+So now the highlightiong engine searches for the lowest match in all subpatterns of 'html', in the region matched by the type 2 'html' pattern. Again, the lowest match will count. The pattern named 'html-tag' has a match at position 1. This pattern is a type 3 pattern, so it matches a subpattern of the parent:
+</para>
+<code>
+p
+</code>
+<para>
+the match from subpattern 'html-tag' ends at position 2 and it does not have any child patterns, so the highlighting engine continues at position 2 with all subpatterns from 'html'. A type 2 pattern named 'html-attrib' has the lowest match:
+</para>
+<code>
+align=&quot;center&quot;
+</code>
+<para>
+This pattern does have a child pattern, again a type 3 pattern called 'html-attrib-sub2' matching:
+</para>
+<code>
+&quot;center&quot;
+</code>
+<para>
+The pattern 'html-attrib-sub2' does not have any child patterns, and subpatterns of 'html-attrib' do not have any more matches, and also 'html' subpatterns do not have any more matches. So we are back on the main level, the remaining code to highlight is:
+</para>
+<code>
+&lt;?php
+// this is a comment ?&gt;
+?&gt;
+</code>
+<para>
+Now a pattern named 'php' has the lowest match. This is a type 0 pattern, so the highlight engine continues with all the remaining code, but it will not only search for the lowest match of the child patterns of 'php', but it will also use for the end pattern of 'php'. The lowest match in this example is a pattern named 'php-comment-C++' As you can see the ?&gt; within the comment does not end the 'php' pattern, because it lies within a subpattern of 'php':
+</para>
+<code>
+// this is a comment ?&gt;
+</code>
+<para>
+The pattern 'php-comment-C++' does not have any child patterns, so the remaining code for the 'php' subpatterns is:
+</para>
+<code>
+?&gt;
+</code>
+<para>
+It is very obvious now, the lowest match will be the end pattern of the 'php' pattern, so we're back on the main level, and we have matched all of the code!
+</para>
+
+
 		</sect2>
 	</sect1>
 	<sect1 id="bluefish-ch-4-sect-9">
