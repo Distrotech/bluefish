@@ -29,6 +29,7 @@
 #include "outputbox.h" /* myself */
 #include "bf_lib.h"
 #include "document.h"
+#include "file_dialogs.h"
 #include "gtk_easy.h"
 #include "stringlist.h"
 #include "pixmap.h"
