@@ -87,6 +87,33 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 				<para>Info about the Undo/Redo Functions. How to set levels of undo,
 				etc.</para>
 			</sect3>
+			<sect3 id="bluefish-ch-4-find-replace">
+				<title>Find and Replace Functions</title>
+				<para>
+				The edit menu features several options for Find and Replace. The Find... (ctrl+F)
+				and Replace... (Ctrl+H) menu items will simply start the dialogs described elsewhere in
+				this manual. The Find again (Ctrl+G) item will repeat the last used search. It will 
+				continue the search after the position where the previous search was stopped. If the 
+				end of file is reached, it will restart at the beginning or continue with the next file, 
+				depending on the search options used.
+				</para>
+				<para>
+				The Find from selection item will search for the currently selected text. If you select
+				for example the name of a function, in bluefish, or in any other program, and you choose
+				find from selection Bluefish will start a new search for this selected string.
+				</para>
+			</sect3>
+			<sect3 id="bluefish-ch-4-shift-left-right">
+				<title>Shift Right or Left</title>
+				<para>
+				These items will indent or unindent the currently selected text. It will normally use
+				tabs for indenting, or spaces if you have 
+				'indent with spaces' selected in the preferences. The number of spaces used is the same 
+				as the 'tabsize' option in the preferences.
+				
+				</para>
+			</sect3>
+			
 		</sect2>
 		<sect2 id="bluefish-ch-4-sect-1.2">
 			<title>The View Menu</title>
