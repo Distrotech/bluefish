@@ -100,9 +100,15 @@ static void bmark_free(gpointer ptr)
 		return;
 	m = BMARK(ptr);
 	if (m->doc && m->mark) {
+		DEBUG_MSG("bmark_free, deleting mark %p\n",m->mark);
 		gtk_text_buffer_delete_mark(m->doc->buffer, m->mark);
 		m->doc = NULL;
 	}
+#ifdef DEBUG
+	if (m->strarr) {
+		DEBUG_MSG("bmark_free, NOT GOOD, strarr should be NULL here...\n");
+	}
+#endif
 	g_free(m->filepath);
 	g_free(m->text);
 	g_free(m->name);
@@ -146,6 +152,7 @@ static void bmark_store(Tbfwin * bfwin, Tbmark * b)
 #endif
 
 	strarr[3] = g_strdup_printf("%d", b->offset);
+	DEBUG_MSG("bmark_store, offset string=%s, offset int=%d\n",strarr[3],b->offset);
 	strarr[5] = g_strdup_printf("%d", b->len);
 	DEBUG_MSG("bmark_store, arracount=%d\n",count_array(strarr));
 	if (b->strarr == NULL) {
@@ -328,7 +335,7 @@ static void bmark_popup_menu_goto_lcb(GtkWidget * widget, gpointer user_data)
 				g_free(string);
 				return;
 			}
-			tmpdoc = doc_new_with_file(BFWIN(user_data), b->filepath, TRUE, TRUE);
+			tmpdoc = doc_new_with_file(BFWIN(user_data), b->filepath, FALSE, TRUE);
 		}
 		/* now I have to check all bookmarks */
 		bmark_set_for_doc(tmpdoc);
@@ -623,7 +630,6 @@ void bmark_set_store(Tbfwin * bfwin)
 void bmark_clean_for_doc(Tdocument * doc)
 {
 	GtkTreeIter tmpiter;
-	GtkTextIter it;
 	gboolean cont;
 
 	if (doc->bmark_parent == NULL)
@@ -636,8 +642,10 @@ void bmark_clean_for_doc(Tdocument * doc)
 		gtk_tree_model_get(GTK_TREE_MODEL(BFWIN(doc->bfwin)->bookmarkstore), &tmpiter, PTR_COLUMN,
 						   &b, -1);
 		if (b) {
+			GtkTextIter it;
 			gtk_text_buffer_get_iter_at_mark(doc->buffer, &it, b->mark);
 			b->offset = gtk_text_iter_get_offset(&it);
+			DEBUG_MSG("bmark_clean_for_doc, bookmark=%p, new offset=%d\n",b,b->offset);
 			gtk_text_buffer_delete_mark(doc->buffer, b->mark);
 			b->mark = NULL;
 			b->doc = NULL;
@@ -683,10 +691,10 @@ void bmark_set_for_doc(Tdocument * doc)
 			if (mark) {
 				if (strcmp(mark->filepath, doc->filename) == 0) {	/* this is it */
 					gboolean cont2;
-					DEBUG_MSG("bmark_set_for_doc, we found a bookmark for document %s!\n",doc->filename);
+					DEBUG_MSG("bmark_set_for_doc, we found a bookmark for document %s at offset=%d!\n",doc->filename,mark->offset);
 					mark->doc = doc;
 					gtk_text_buffer_get_iter_at_offset(doc->buffer, &it, mark->offset);
-					mark->mark = gtk_text_buffer_create_mark(doc->buffer, mark->name, &it, TRUE);
+					mark->mark = gtk_text_buffer_create_mark(doc->buffer, NULL, &it, TRUE);
 					cont2 =
 						gtk_tree_model_iter_next(GTK_TREE_MODEL(BFWIN(doc->bfwin)->bookmarkstore),
 												 &child);
@@ -696,9 +704,10 @@ void bmark_set_for_doc(Tdocument * doc)
 										   PTR_COLUMN, &mark, -1);
 						if (mark) {
 							mark->doc = doc;
+							DEBUG_MSG("bmark_set_for_doc, next bookmark at offset=%d!\n",mark->offset);
 							gtk_text_buffer_get_iter_at_offset(doc->buffer, &it, mark->offset);
 							mark->mark =
-								gtk_text_buffer_create_mark(doc->buffer, mark->name, &it, TRUE);
+								gtk_text_buffer_create_mark(doc->buffer, NULL, &it, TRUE);
 						}
 						cont2 =
 							gtk_tree_model_iter_next(GTK_TREE_MODEL
@@ -713,7 +722,8 @@ void bmark_set_for_doc(Tdocument * doc)
 	}							/* cont */
 }
 
-/* called by document.c */
+/* called VERY OFTEN (might be 20X per second!!!!) by document.c
+so we obviously need to add some caching to this function  */
 GHashTable *bmark_get_lines(Tdocument * doc, gboolean temp)
 {
 	GHashTable *ret;
@@ -721,6 +731,7 @@ GHashTable *bmark_get_lines(Tdocument * doc, gboolean temp)
 	GtkTextIter it;
 	gboolean cont;
 	int *iaux;
+/*	DEBUG_MSG("bmark_get_lines, started\n");*/
 	ret = g_hash_table_new_full(g_int_hash, g_int_equal, g_free, g_free);
 	if (doc->bmark_parent == NULL)
 		return ret;
@@ -751,7 +762,7 @@ void bmark_add_backend(Tbfwin *bfwin, const gchar *name, gint offset, gboolean i
 	m->doc = DOCUMENT(bfwin->current_document);
 	
 	gtk_text_buffer_get_iter_at_offset(m->doc->buffer,&it,offset);
-	m->mark = gtk_text_buffer_create_mark(m->doc->buffer, name, &it, TRUE);
+	m->mark = gtk_text_buffer_create_mark(m->doc->buffer, NULL, &it, TRUE);
 	m->filepath = g_strdup(m->doc->filename);
 	m->is_temp = is_temp;
 	m->name = g_strdup(name);
@@ -893,7 +904,7 @@ void bmark_check_length(Tbfwin * bfwin, Tdocument * doc)
 	GtkTreeIter tmpiter;
 	gboolean cont;
 	glong size;
-
+	DEBUG_MSG("bmark_check_length, started\n");
 	if (!doc || !doc->bmark_parent)
 		return;
 
@@ -905,12 +916,12 @@ void bmark_check_length(Tbfwin * bfwin, Tdocument * doc)
 		gtk_tree_model_get(GTK_TREE_MODEL(BFWIN(doc->bfwin)->bookmarkstore), &tmpiter, PTR_COLUMN,
 						   &mark, -1);
 		if (mark) {
-
 #ifdef HAVE_GNOME_VFS
 			size = doc->fileinfo->size;
 #else
 			size = doc->statbuf.st_size;
 #endif
+			DEBUG_MSG("bmark_check_length, bmark has %d, file has %ld\n",mark->len, size);
 			if (mark->len != size) {
 				pstr = g_strdup_printf(_("Character count changed in file\n %s."), doc->filename);
 				warning_dialog(bfwin->main_window, pstr,
@@ -918,13 +929,13 @@ void bmark_check_length(Tbfwin * bfwin, Tdocument * doc)
 				g_free(pstr);
 				return;
 			}
+		} else {
+			DEBUG_MSG("bmark_check_length, NOT GOOD no mark in the treestore??\n");
 		}
+		
 		cont = gtk_tree_model_iter_next(GTK_TREE_MODEL(bfwin->bookmarkstore), &tmpiter);
 	}
 }
-
-
-
 
 void bmark_cleanup(Tbfwin * bfwin)
 {
