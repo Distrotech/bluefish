@@ -752,7 +752,9 @@ void filebrowser_refresh_dir(Tfilebrowser *filebrowser, gchar *dir) {
 }
 
 void bfwin_filebrowser_refresh_dir(Tbfwin *bfwin, gchar *dir) {
-	filebrowser_refresh_dir(FILEBROWSER(bfwin->filebrowser), dir);
+	if (bfwin->filebrowser) {
+		filebrowser_refresh_dir(FILEBROWSER(bfwin->filebrowser), dir);
+	}
 }
 
 static GtkTreePath *filebrowser_path_up_multi(GtkTreePath *path, gint num) {
