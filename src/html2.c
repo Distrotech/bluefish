@@ -18,6 +18,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
+/*#define DEBUG*/
 
 #include <gtk/gtk.h>
 #include <string.h>  	/* strlen() */
@@ -975,11 +976,17 @@ typedef struct {
 	GtkWidget *hexentry;
 	GtkWidget *websafe;
 	GtkWidget *csel;
-	gint is_modal;
-	gint startpos;
-	gint endpos;
 	gint hex_changed_id;
 	gint csel_changed_id;
+	/* the dialog is dual functional: it can be caklled directly from the text, and it can be called by return_color 
+	if called by return_color it is in the modal state */
+	gint is_modal;
+	/* for the modal state */
+	gchar *returnval;
+
+	/* for the non-modal state */
+	gint startpos;
+	gint endpos;
 	Tbfwin *bfwin;
 } Tcolsel;
 
@@ -1069,13 +1076,22 @@ static gdouble *hex_to_gdouble_arr(gchar *color)
 }
  
 static void colsel_destroy_lcb(GtkWidget *widget, Tcolsel *csd) {
+	DEBUG_MSG("colsel_destroy_lcb, started for csd=%p\n",csd);
+	g_free(csd->returnval);
+	g_free(csd);
+}
+
+static void colsel_ok_clicked_lcb(GtkWidget *widget, Tcolsel *csd) { 
+	gchar *tmpstr;
+	/* only on a OK click we do the setcolor thing */
+	tmpstr = gtk_editable_get_chars(GTK_EDITABLE(csd->hexentry), 0, -1);
 	if (csd->is_modal) {
+		g_free(csd->returnval);
+		csd->returnval = tmpstr;
 		gtk_main_quit();
 	} else {
-		gchar *tmpstr;
-		
-		tmpstr = gtk_editable_get_chars(GTK_EDITABLE(csd->hexentry), 0, -1);
-		if (strlen(tmpstr) == 7) {
+		DEBUG_MSG("colsel_destroy_lcb, NOT modal, entering the value %s\n",tmpstr);
+		if (string_is_color(tmpstr)) {
 			if (csd->startpos || csd->endpos) {
 				doc_replace_text(csd->bfwin->current_document, tmpstr, csd->startpos, csd->endpos);
 			} else {
@@ -1083,19 +1099,12 @@ static void colsel_destroy_lcb(GtkWidget *widget, Tcolsel *csd) {
 			}
 		}
 		g_free(tmpstr);
-		
 		window_destroy(csd->win);
-		g_free(csd);
 	}
 }
 
-static void colsel_ok_clicked_lcb(GtkWidget *widget, Tcolsel *csd) { 
-	colsel_destroy_lcb(NULL, csd);
-}
-
 static void colsel_cancel_clicked_lcb(GtkWidget *widget, Tcolsel *csd) {
-	gtk_entry_set_text(GTK_ENTRY(csd->hexentry), "");
-	colsel_destroy_lcb(NULL, csd);
+	window_destroy(csd->win);
 }
 /* declaration needed to connect/disconnect callback */
 static void colsel_color_changed(GtkWidget *widget, Tcolsel *csd);
@@ -1131,7 +1140,7 @@ static void colsel_color_changed(GtkWidget *widget, Tcolsel *csd) {
 	g_free(tmpstr);
 }
 
-static Tcolsel *colsel_dialog(Tbfwin *bfwin,gchar *setcolor, gint modal, gint startpos, gint endpos) {
+static Tcolsel *colsel_dialog(Tbfwin *bfwin,const gchar *setcolor, gint modal, gint startpos, gint endpos) {
 	Tcolsel *csd;
 	GtkWidget *vbox, *hbox, *but;
 	gdouble *color;
@@ -1143,7 +1152,9 @@ static Tcolsel *colsel_dialog(Tbfwin *bfwin,gchar *setcolor, gint modal, gint st
 	csd->is_modal = modal;
 	csd->startpos = startpos;
 	csd->endpos = endpos;
-	DEBUG_MSG("colsel_dialog, malloced at %p\n", csd);
+	csd->returnval = setcolor ? g_strdup(setcolor) : g_strdup("");
+	
+	DEBUG_MSG("colsel_dialog, malloced at %p, setcolor=%s\n", csd, setcolor);
 	csd->win = window_full2(_("Bluefish: Select color"), GTK_WIN_POS_MOUSE, 12, G_CALLBACK(colsel_destroy_lcb), csd, TRUE, NULL);
 	vbox = gtk_vbox_new(FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(csd->win), vbox);
@@ -1191,7 +1202,6 @@ void sel_colour_cb(GtkWidget *widget, Tbfwin *bfwin) {
 	gint startpos=0;
 	gint endpos=0;
 
-	
 	if (doc_get_selection(bfwin->current_document,&startpos , &endpos)) {
 		DEBUG_MSG("sel_colour_cb, selection found\n");
 		if (startpos > endpos) {
@@ -1229,12 +1239,10 @@ gchar *return_color(gchar *start_value) {
 	gtk_grab_add(csd->win);
 	gtk_main();
 
-	return_text = gtk_editable_get_chars(GTK_EDITABLE(csd->hexentry), 0, -1);
+	return_text = g_strdup(csd->returnval);
 	window_destroy(csd->win);
-	g_free(csd);
 	DEBUG_MSG("return_color, the new gtk_main stopped, return_text=%s, %p\n", return_text, return_text);
 	return return_text;
-
 }
 
 static void color_but_clicked(GtkWidget * widget, GtkWidget * entry)
