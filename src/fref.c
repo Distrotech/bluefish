@@ -2,6 +2,7 @@
 #include <string.h>
 #include <gdk/gdkkeysyms.h>
 
+#define DEBUG
 
 #include "fref.h"
 #include "rcfile.h" /* array_from_arglist() */
@@ -1179,7 +1180,61 @@ void frefcb_row_collapsed(GtkTreeView * treeview, GtkTreeIter * arg1,
  	}   
 }
 
+static GtkWidget *togglemenuitem(GSList *group, gchar *name, gboolean selected, GCallback toggledfunc, gpointer toggleddata) {
+	GtkWidget *retval;
+	retval = gtk_radio_menu_item_new_with_label(group, name);
+	gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(retval), selected);
+	g_signal_connect(GTK_OBJECT(retval), "toggled", toggledfunc, (toggleddata) ? toggleddata : retval);
+	return retval;
+}
 
+static void fref_ldblclck_changed(GtkWidget *widget, gpointer data) {
+	g_print("fref_ldblclck_changed not yet implemented\n");
+}
+
+static GtkWidget *fref_popup_menu(gboolean have_item) {
+	GtkWidget *menu, *menu_item;
+	DEBUG_MSG("fref_popup_menu, started\n");
+	menu = gtk_menu_new();
+	if (have_item) {
+		menu_item = gtk_menu_item_new_with_label(_("Dialog"));
+/*		g_signal_connect(GTK_OBJECT(menu_item), "activate", G_CALLBACK(filebrowser_rpopup_new_file_lcb), NULL);*/
+		gtk_menu_append(GTK_MENU(menu), menu_item);
+		menu_item = gtk_menu_item_new_with_label(_("Insert"));
+/*		g_signal_connect(GTK_OBJECT(menu_item), "activate", G_CALLBACK(filebrowser_rpopup_new_dir_lcb), NULL);*/
+		gtk_menu_append(GTK_MENU(menu), menu_item);
+		menu_item = gtk_menu_item_new_with_label(_("Info"));
+/*		g_signal_connect(GTK_OBJECT(menu_item), "activate", G_CALLBACK(filebrowser_rpopup_delete_lcb), NULL);*/
+		gtk_menu_append(GTK_MENU(menu), menu_item);
+		menu_item = gtk_menu_item_new();
+		gtk_menu_append(GTK_MENU(menu), menu_item);
+	}
+	menu_item = gtk_menu_item_new_with_label(_("Options"));
+	gtk_menu_append(GTK_MENU(menu), menu_item);
+	{
+		GtkWidget *optionsmenu, *ldblclckmenu;
+		GSList *group=NULL;
+		optionsmenu = gtk_menu_new();
+		gtk_menu_item_set_submenu(GTK_MENU_ITEM(menu_item), optionsmenu);
+		menu_item = gtk_menu_item_new_with_label(_("Rescan reference files"));
+		gtk_menu_append(GTK_MENU(optionsmenu), menu_item);
+		menu_item = gtk_menu_item_new_with_label(_("Left doubleclick action"));
+		gtk_menu_append(GTK_MENU(optionsmenu), menu_item);
+		
+		ldblclckmenu = gtk_menu_new();
+		gtk_menu_item_set_submenu(GTK_MENU_ITEM(menu_item), ldblclckmenu);
+		menu_item = togglemenuitem(NULL, _("Insert"), (main_v->props.fref_ldoubleclick_action == FREF_ACTION_INSERT), G_CALLBACK(fref_ldblclck_changed), NULL);
+		group = gtk_radio_menu_item_group(GTK_RADIO_MENU_ITEM(menu_item));
+		gtk_menu_append(GTK_MENU(ldblclckmenu), menu_item);
+		menu_item = togglemenuitem(group, _("Dialog"), (main_v->props.fref_ldoubleclick_action == FREF_ACTION_DIALOG), G_CALLBACK(fref_ldblclck_changed), NULL);
+		gtk_menu_append(GTK_MENU(ldblclckmenu), menu_item);
+		menu_item = togglemenuitem(group, _("Info"), (main_v->props.fref_ldoubleclick_action == FREF_ACTION_INFO), G_CALLBACK(fref_ldblclck_changed), NULL);
+		gtk_menu_append(GTK_MENU(ldblclckmenu), menu_item);
+
+		}
+	gtk_widget_show_all(menu);
+	return menu;
+}
 
 gboolean frefcb_event_mouseclick(GtkWidget * widget,
 								 GdkEventButton * event,
@@ -1196,8 +1251,14 @@ gboolean frefcb_event_mouseclick(GtkWidget * widget,
 
 
 	gtk_tree_view_get_cursor(GTK_TREE_VIEW(user_data), &path, &col);
-	if (path == NULL)
-		return FALSE;
+	if (path == NULL) {
+		if (event->button == 3 && event->type == GDK_BUTTON_PRESS) {
+			gtk_menu_popup(GTK_MENU(fref_popup_menu(FALSE)), NULL, NULL, NULL, NULL, event->button, event->time);
+			return TRUE;
+		} else {
+			return FALSE;
+		}
+	}
 	gtk_tree_model_get_iter(gtk_tree_view_get_model
 							(GTK_TREE_VIEW(user_data)), &iter, path);
 	val = g_new0(GValue, 1);
@@ -1205,30 +1266,50 @@ gboolean frefcb_event_mouseclick(GtkWidget * widget,
 							 (GTK_TREE_VIEW(user_data)), &iter, 1, val);
 	if (G_IS_VALUE(val) && g_value_peek_pointer(val) != NULL) {
 		entry = (FRInfo *) g_value_peek_pointer(val);
-		if (entry == NULL)
-			return FALSE;
-	} else
-		return FALSE;
+		if (entry == NULL) {
+			if (event->button == 3 && event->type == GDK_BUTTON_PRESS) {
+				gtk_menu_popup(GTK_MENU(fref_popup_menu(FALSE)), NULL, NULL, NULL, NULL, event->button, event->time);
+				return TRUE;
+			} else return FALSE;
+		}
+	} else {
+		if (event->button == 3 && event->type == GDK_BUTTON_PRESS) {
+				gtk_menu_popup(GTK_MENU(fref_popup_menu(FALSE)), NULL, NULL, NULL, NULL, event->button, event->time);
+				return TRUE;
+		} else return FALSE;
+	}
 
-
-	if (event->button == 3 && event->type == GDK_BUTTON_PRESS) {	/* right mouse click - insert */
-		doc_insert_two_strings(main_v->current_document,
-							   entry->insert_text, NULL);
-	} else if (event->button == 1 && event->type == GDK_2BUTTON_PRESS) {	/* double click  - dialog */
-		dialog = fref_prepare_dialog(entry);
-		if (dialog) {
-			resp = gtk_dialog_run(GTK_DIALOG(dialog));
-			if (resp == GTK_RESPONSE_OK) {
-				pomstr = fref_prepare_text(entry, dialog);
-				gtk_widget_destroy(dialog);
-				doc_insert_two_strings(main_v->current_document, pomstr,NULL);
-				g_free(pomstr);
-			} else
-				gtk_widget_destroy(dialog);
+	if (event->button == 3 && event->type == GDK_BUTTON_PRESS) {	/* right mouse click */
+		gtk_menu_popup(GTK_MENU(fref_popup_menu(TRUE)), NULL, NULL, NULL, NULL, event->button, event->time);
+	} else if (event->button == 1 && event->type == GDK_2BUTTON_PRESS) {	/* double click  */
+		switch (main_v->props.fref_ldoubleclick_action) {
+			case FREF_ACTION_INSERT:
+				doc_insert_two_strings(main_v->current_document,entry->insert_text, NULL);
+			break;
+			case FREF_ACTION_DIALOG:
+			{
+				dialog = fref_prepare_dialog(entry);
+				if (dialog) {
+					resp = gtk_dialog_run(GTK_DIALOG(dialog));
+					if (resp == GTK_RESPONSE_OK) {
+						pomstr = fref_prepare_text(entry, dialog);
+						gtk_widget_destroy(dialog);
+						doc_insert_two_strings(main_v->current_document, pomstr,NULL);
+						g_free(pomstr);
+					} else gtk_widget_destroy(dialog);
+				}
+			}
+			break;
+			case FREF_ACTION_INFO:
+				g_print("info not yet implemented\n");
+			break;
+			default:
+				g_print("do some statusbar message here\n");
+			break;
 		}
 	}
-	g_free(val);
-	return FALSE;
+	g_free(val);		
+	return TRUE; /* we have handled the event */
 }
 
 gboolean frefcb_event_keypress(GtkWidget * widget, GdkEventKey * event,

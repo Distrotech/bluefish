@@ -364,6 +364,7 @@ static GList *props_init_main(GList * config_rc)
 	init_prop_integer   (&config_rc, &main_v->props.ext_commands_in_submenu,"ext_commands_in_submenu:",1);
 	init_prop_integer   (&config_rc, &main_v->props.ext_outputbox_in_submenu,"ext_outputbox_in_submenu:",1);
 	init_prop_arraylist (&config_rc, &main_v->props.reference_files, "reference_files:");
+	init_prop_integer   (&config_rc, &main_v->props.fref_ldoubleclick_action,"fref_ldoubleclick_action:",0);
 	init_prop_integer   (&config_rc, &main_v->props.document_tabposition,"document_tabposition:",(gint)GTK_POS_BOTTOM);
 	init_prop_integer   (&config_rc, &main_v->props.leftpanel_tabposition,"leftpanel_tabposition:",(gint)GTK_POS_BOTTOM);
 #ifdef HAVE_LIBASPELL
