@@ -6,14 +6,14 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: bluefish gtk2-port\n"
-"POT-Creation-Date: 2003-11-19 10:53+0100\n"
-"PO-Revision-Date: 2003-11-06 22:32+0100\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2003-11-16 14:18-0300\n"
+"PO-Revision-Date: 2003-11-19 20:31+0100\n"
 "Last-Translator: David Smeringe <david.smeringe@telia.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Report-Msgid-Bugs-To: \n"
 
 #: ../src/bfspell.c:340
 msgid "Check Spelling"
@@ -35,7 +35,7 @@ msgstr "Ändra _till:"
 msgid "I_gnore"
 msgstr "I_gnorera"
 
-#: ../src/bfspell.c:361 ../src/snr2.c:836
+#: ../src/bfspell.c:361 ../src/snr2.c:886
 msgid "_Replace"
 msgstr "_Ersätt"
 
@@ -158,82 +158,76 @@ msgstr ""
 
 #: ../src/bookmark.c:148
 msgid "Bookmarked file is closed"
-msgstr ""
+msgstr "Bokmärkt fil är stängd"
 
 #: ../src/bookmark.c:148
-#, fuzzy
 msgid "Do you want to open it?"
-msgstr "Vill du ersätta den befintliga filen?"
+msgstr "Vill du öppna den?"
 
 #: ../src/bookmark.c:206
 msgid "Goto bookmark"
-msgstr ""
+msgstr "Gå till bokmärke"
 
 #: ../src/bookmark.c:212
-#, fuzzy
 msgid "Rename"
-msgstr "/Byt na_mn"
+msgstr "Byt namn"
 
 #: ../src/bookmark.c:214
-#, fuzzy
 msgid "Delete"
-msgstr " Ta bort "
+msgstr "Ta bort"
 
 #: ../src/bookmark.c:249
-#, fuzzy
 msgid "Show all bookmarks"
-msgstr "Visa all utdata"
+msgstr "Visa alla bokmärken"
 
 #: ../src/bookmark.c:251
-#, fuzzy
 msgid "Show bookmarks for project files"
-msgstr "Visa säkerhetskopior"
+msgstr "Visa bokmärken för projektfiler"
 
 #: ../src/bookmark.c:253
-#, fuzzy
 msgid "Show bookmarks for opened files"
-msgstr "Visa säkerhetskopior"
+msgstr "Visa bokmärken för öppnade filer"
 
 #: ../src/bookmark.c:255
 msgid "Show bookmarks for active file"
-msgstr ""
+msgstr "Visa bokmärken för aktiv fil"
 
 #: ../src/bookmark.c:261
 msgid "Temporary"
-msgstr ""
+msgstr "Tillfällig"
 
 #: ../src/bookmark.c:263
 msgid "Permanent"
-msgstr ""
+msgstr "Fast"
 
 #: ../src/bookmark.c:373
 msgid "Add temporary bookmark"
-msgstr ""
+msgstr "Lägg till tillfälligt bokmärke"
 
 #: ../src/bookmark.c:373
 msgid "You already have a bookmark here!"
-msgstr ""
+msgstr "Du har redan ett bokmärke här!"
 
 #: ../src/bookmark.c:387
 #, c-format
 msgid "You can overwrite next temp bookmark (number %d). Overwrite?"
-msgstr ""
+msgstr "Du kan skriva över nästa tillfälliga bokmärke (number %d). Skriv över?"
 
 #: ../src/bookmark.c:388
 msgid "Maximum number of temp bookmarks assigned"
-msgstr ""
+msgstr "Maximalt antal tillfälliga bokmärken angivna"
 
 #: ../src/bookmark.c:430
 msgid "Delete all temporary bookmarks."
-msgstr ""
+msgstr "Ta bort alla tillfälliga bokmärken."
 
 #: ../src/bookmark.c:430
 msgid "Are you sure?"
-msgstr ""
+msgstr "Är du säker?"
 
 #: ../src/bookmark.c:449
 msgid "Add permanent bookmark "
-msgstr ""
+msgstr "Lägg till fast bokmärke "
 
 #: ../src/bookmark.c:466 ../src/html.c:580 ../src/html.c:818
 #: ../src/html.c:1412 ../src/html.c:1840 ../src/html_form.c:218
@@ -244,62 +238,61 @@ msgid "_Name:"
 msgstr "_Namn:"
 
 #: ../src/bookmark.c:470
-#, fuzzy
 msgid "_Description:"
-msgstr "Beskrivning"
+msgstr "_Beskrivning:"
 
-#: ../src/document.c:235 ../src/gui.c:935
+#: ../src/document.c:233 ../src/gui.c:935
 msgid "/Document/Highlight Syntax"
 msgstr "/Dokument/Färgkodningssyntax"
 
-#: ../src/document.c:658
+#: ../src/document.c:656
 #, c-format
 msgid "Untitled %d"
 msgstr "Namnlöst %d"
 
-#: ../src/document.c:1006
+#: ../src/document.c:1004
 #, c-format
 msgid " Ln %d, Col %d"
 msgstr "Rad %d, Kol %d"
 
-#: ../src/document.c:1039 ../src/document.c:1040
+#: ../src/document.c:1037 ../src/document.c:1038
 #, c-format
 msgid "  %s, %s"
 msgstr "  %s, %s"
 
-#: ../src/document.c:1278 ../src/document.c:1297
+#: ../src/document.c:1276 ../src/document.c:1295
 msgid "Could not read file:\n"
 msgstr "Kunde inte läsa filen:\n"
 
-#: ../src/document.c:1328
+#: ../src/document.c:1326
 msgid "Opening file "
 msgstr "Öppnar fil "
 
-#: ../src/document.c:1438
+#: ../src/document.c:1436
 msgid "Cannot display file, unknown characters found."
 msgstr "Kan inte visa filen på grund av okända tecken."
 
-#: ../src/document.c:1667
+#: ../src/document.c:1665
 msgid "Edit tag"
 msgstr "Redigera tagg"
 
-#: ../src/document.c:1678
+#: ../src/document.c:1676
 msgid "Input _Methods"
 msgstr "Inmatnings_metoder"
 
-#: ../src/document.c:1828
+#: ../src/document.c:1826
 msgid "Saving file"
 msgstr "Sparar filen"
 
-#: ../src/document.c:1851
+#: ../src/document.c:1849
 msgid "_Abort save"
 msgstr "_Avbryt spara"
 
-#: ../src/document.c:1851
+#: ../src/document.c:1849
 msgid "_Continue save"
 msgstr "_Fortsätt spara"
 
-#: ../src/document.c:1853
+#: ../src/document.c:1851
 #, c-format
 msgid ""
 "A backupfile for %s could not be created. If you continue, this file will be "
@@ -308,54 +301,54 @@ msgstr ""
 "En säkerhetskopia för %s kunde inte skapas. Om du fortsätter så kommer filen "
 "att skrivas över. "
 
-#: ../src/document.c:1854
+#: ../src/document.c:1852
 msgid "File backup failure"
 msgstr "Säkerhetskopiering av fil misslyckades"
 
-#: ../src/document.c:2005
+#: ../src/document.c:2003
 msgid "Previously: "
 msgstr "Föregående: "
 
-#: ../src/document.c:2033
+#: ../src/document.c:2031
 msgid "Move/rename document to"
 msgstr "Flytta/byt namn på dokumentet till"
 
-#: ../src/document.c:2033
+#: ../src/document.c:2031
 msgid "Save document as"
 msgstr "Spara dokumentet som"
 
-#: ../src/document.c:2045 ../src/document.c:2059 ../src/document.c:2147
-#: ../src/document.c:3227 ../src/gui.c:1069
+#: ../src/document.c:2043 ../src/document.c:2057 ../src/document.c:2145
+#: ../src/document.c:3225 ../src/gui.c:1068
 msgid "_Cancel"
 msgstr "A_vbryt"
 
-#: ../src/document.c:2045 ../src/document.c:2059 ../src/document.c:2147
+#: ../src/document.c:2043 ../src/document.c:2057 ../src/document.c:2145
 msgid "_Overwrite"
 msgstr "_Skriv över"
 
-#: ../src/document.c:2046
+#: ../src/document.c:2044
 #, c-format
 msgid "File %s exists and is opened, overwrite?"
 msgstr "Filen %s finns och är öppen, skriv över?"
 
-#: ../src/document.c:2047
+#: ../src/document.c:2045
 msgid "The file you have selected is being edited in Bluefish."
 msgstr "Filen som du har valt redigeras i Bluefish."
 
-#: ../src/document.c:2060
+#: ../src/document.c:2058
 #, c-format
 msgid "A file named \"%s\" already exists."
 msgstr "En fil med namnet \"%s\" finns redan."
 
-#: ../src/document.c:2062
+#: ../src/document.c:2060
 msgid "Do you want to replace the existing file?"
 msgstr "Vill du ersätta den befintliga filen?"
 
-#: ../src/document.c:2109
+#: ../src/document.c:2107
 msgid "Save as..."
 msgstr "Spara som..."
 
-#: ../src/document.c:2151
+#: ../src/document.c:2149
 #, c-format
 msgid ""
 "File: %s\n"
@@ -368,16 +361,16 @@ msgstr ""
 "Ny modifieringstid: %s\n"
 "Gammal modifieringstid: %s"
 
-#: ../src/document.c:2152
+#: ../src/document.c:2150
 msgid "File has been modified by another process."
 msgstr "Filen har ändrats av en annan process."
 
-#: ../src/document.c:2165
+#: ../src/document.c:2163
 #, c-format
 msgid "Saving %s"
 msgstr "Sparar %s"
 
-#: ../src/document.c:2175
+#: ../src/document.c:2173
 msgid ""
 "Could not backup file:\n"
 "\""
@@ -385,11 +378,11 @@ msgstr ""
 "Kunde inte säkerhetskopiera filen:\n"
 "\""
 
-#: ../src/document.c:2176
+#: ../src/document.c:2174
 msgid "File save aborted.\n"
 msgstr "Sparande av fil är avbruten.\n"
 
-#: ../src/document.c:2181
+#: ../src/document.c:2179
 msgid ""
 "Could not write file:\n"
 "\""
@@ -397,11 +390,11 @@ msgstr ""
 "Kunde inte skriva filen:\n"
 "\""
 
-#: ../src/document.c:2182
+#: ../src/document.c:2180
 msgid "File save error"
 msgstr "Fel vid spara fil"
 
-#: ../src/document.c:2228
+#: ../src/document.c:2226
 #, c-format
 msgid ""
 "Do you want to save the changes made to\n"
@@ -410,27 +403,27 @@ msgstr ""
 "Vill du spara ändringarna gjorda för\n"
 "\"%s\"?"
 
-#: ../src/document.c:2231
+#: ../src/document.c:2229
 msgid "Do you want to save the changes made to this untitled file?"
 msgstr "Vill du spara ändringarna gjorda för den här namnlösa filen?"
 
-#: ../src/document.c:2235
+#: ../src/document.c:2233
 msgid "Do_n't save"
 msgstr "Spara i_nte"
 
-#: ../src/document.c:2236
+#: ../src/document.c:2234
 msgid "This file has not been saved."
 msgstr "Filen har inte blivit sparad."
 
-#: ../src/document.c:2510
+#: ../src/document.c:2508
 msgid "No filename"
 msgstr "Inget filnamn"
 
-#: ../src/document.c:2638
+#: ../src/document.c:2636
 msgid "Loading files..."
 msgstr "Läser in filer..."
 
-#: ../src/document.c:2656
+#: ../src/document.c:2654
 msgid ""
 "These files could not opened:\n"
 "\n"
@@ -438,23 +431,23 @@ msgstr ""
 "De här filerna kunde inte öppnas:\n"
 "\n"
 
-#: ../src/document.c:2658 ../src/msg_queue.c:205
+#: ../src/document.c:2656 ../src/msg_queue.c:205
 msgid "Unable to open file(s)\n"
 msgstr "Kan inte öppna fil(erna)\n"
 
-#: ../src/document.c:2689
+#: ../src/document.c:2687
 msgid "Unable to open file"
 msgstr "Kan inte öppna filen"
 
-#: ../src/document.c:2751
+#: ../src/document.c:2749
 msgid "_Reload"
 msgstr "_Läs om"
 
-#: ../src/document.c:2751
+#: ../src/document.c:2749
 msgid "_Ignore"
 msgstr "_Ignorera"
 
-#: ../src/document.c:2755
+#: ../src/document.c:2753
 #, c-format
 msgid ""
 "Filename: %s\n"
@@ -467,96 +460,96 @@ msgstr ""
 "Ny modifieringstid: %s\n"
 "Gammal modifieringstid: %s"
 
-#: ../src/document.c:2756
+#: ../src/document.c:2754
 msgid "File has been modified by another process\n"
 msgstr "Filen har ändrats av en annan process\n"
 
-#: ../src/document.c:2859
+#: ../src/document.c:2857
 msgid "searching files..."
 msgstr "söker filer..."
 
-#: ../src/document.c:2879
+#: ../src/document.c:2877
 msgid "Select basedir"
 msgstr "Välj startkatalog"
 
-#: ../src/document.c:2896
+#: ../src/document.c:2894
 msgid "Advanced open file selector"
 msgstr "Avancerad filöppningsväljare"
 
-#: ../src/document.c:2907
+#: ../src/document.c:2905
 msgid "grep {contains} `find {basedir} -name '{file type}'`"
 msgstr "grep {innehåller} `find {startkatalog} -name '{filtyp}'`"
 
-#: ../src/document.c:2912
+#: ../src/document.c:2910
 msgid "<b>General</b>"
 msgstr "<b>Vanlig</b>"
 
-#: ../src/document.c:2914
+#: ../src/document.c:2912
 msgid "Base_dir:"
 msgstr "Start_katalog:"
 
-#: ../src/document.c:2916 ../src/gtk_easy.c:1250
+#: ../src/document.c:2914 ../src/gtk_easy.c:1250
 msgid "_Browse..."
 msgstr "_Bläddra..."
 
-#: ../src/document.c:2931
+#: ../src/document.c:2929
 msgid "_File Type:"
 msgstr "_Filtyp:"
 
-#: ../src/document.c:2937
+#: ../src/document.c:2935
 msgid "_Recursive:"
 msgstr "_Rekursivt:"
 
-#: ../src/document.c:2942
+#: ../src/document.c:2940
 msgid "<b>Contains</b>"
 msgstr "<b>Innehåller</b>"
 
-#: ../src/document.c:2945
+#: ../src/document.c:2943
 msgid "Pa_ttern:"
 msgstr "Möns_ter:"
 
-#: ../src/document.c:2949
+#: ../src/document.c:2947
 msgid "Is rege_x:"
 msgstr "Är regulj_ärt uttryck:"
 
-#: ../src/document.c:3072
+#: ../src/document.c:3070
 msgid "Open URL"
 msgstr "Öppna URL"
 
-#: ../src/document.c:3105 ../src/document.c:3123 ../src/document.c:3140
+#: ../src/document.c:3103 ../src/document.c:3121 ../src/document.c:3138
 #, c-format
 msgid "Loading %d file(s)..."
 msgstr "Läser in %d fil(er)..."
 
-#: ../src/document.c:3164
+#: ../src/document.c:3162
 msgid "Select file to insert"
 msgstr "Välj fil att sätta in"
 
-#: ../src/document.c:3166
+#: ../src/document.c:3164
 msgid "No file to insert"
 msgstr "Ingen fil att sätta in"
 
-#: ../src/document.c:3227
+#: ../src/document.c:3225
 msgid "_Save All"
 msgstr "_Spara alla"
 
-#: ../src/document.c:3227
+#: ../src/document.c:3225
 msgid "Close _All"
 msgstr "Stäng _alla"
 
-#: ../src/document.c:3227
+#: ../src/document.c:3225
 msgid "Choose per _File"
 msgstr "Välj per _fil"
 
-#: ../src/document.c:3228
+#: ../src/document.c:3226
 msgid "Multiple open files have been changed."
 msgstr "Flera öppna filer har ändrats."
 
-#: ../src/document.c:3229
+#: ../src/document.c:3227
 msgid "Your changes will be lost if you don't save them."
 msgstr "Dina ändringar kommer gå förlorade om du inte sparar dom."
 
-#: ../src/document.c:3483
+#: ../src/document.c:3481
 #, c-format
 msgid "Statistics: %d lines, %d words, %d characters"
 msgstr "Statistik: %d rader, %d ord, %d tecken"
@@ -715,7 +708,7 @@ msgstr ""
 msgid "Show info window"
 msgstr "Visa infofönster"
 
-#: ../src/fref.c:2059 ../src/snr2.c:1228
+#: ../src/fref.c:2059 ../src/snr2.c:1278
 msgid "Search"
 msgstr "Sök"
 
@@ -1184,53 +1177,107 @@ msgstr "/Dokument/Radbrytning"
 msgid "/Document/Line Numbers"
 msgstr "/Dokument/Radnummer"
 
-#: ../src/gui.c:1069
+#: ../src/gui.c:1068
 msgid "Do_n't Save"
 msgstr "Spara i_nte"
 
-#: ../src/gui.c:1070
+#: ../src/gui.c:1069
 msgid "Failed to save the current project"
 msgstr "Misslyckades med att spara nuvarande projekt"
 
-#: ../src/gui.c:1094
+#: ../src/gui.c:1093
 msgid "New Bluefish Window"
 msgstr "Nytt Bluefish-fönster"
 
-#: ../src/gui.c:1147
+#: ../src/gui.c:1146
 msgid "Stand by..."
 msgstr "Vänta..."
 
-#: ../src/gui.c:1331
+#: ../src/gui.c:1330
 msgid "Goto line"
 msgstr "Gå till rad"
 
-#: ../src/gui.c:1339
+#: ../src/gui.c:1338
 msgid "_Line number:"
 msgstr "_Radnummer:"
 
-#: ../src/gui.c:1345
+#: ../src/gui.c:1344
 msgid "From _selection"
 msgstr "Från _markering"
 
-#: ../src/gui.c:1348
+#: ../src/gui.c:1347
 msgid "Keep _dialog"
 msgstr "Behåll _dialogrutan"
 
-#: ../src/gui.c:1417
+#: ../src/gui.c:1416
 msgid "starting bluefish"
 msgstr "startar bluefish"
 
-#: ../src/gui.c:1448 ../src/menu.c:891
+#: ../src/gui.c:1447 ../src/menu.c:891
 msgid "/View/View HTML Toolbar"
 msgstr "/Visa/Visa HTML-verktygsraden"
 
-#: ../src/gui.c:1455 ../src/menu.c:890
+#: ../src/gui.c:1454 ../src/menu.c:890
 msgid "/View/View Main Toolbar"
 msgstr "/Visa/Visa huvudverktygsraden"
 
-#: ../src/gui.c:1462 ../src/menu.c:892
+#: ../src/gui.c:1461 ../src/menu.c:892
 msgid "/View/View Custom Menu"
 msgstr "/Visa/Visa specialmenyn"
+
+#: ../src/html2.c:587
+msgid "Cascading StyleSheet dialog"
+msgstr "Stilmallsdialog"
+
+#: ../src/html2.c:607
+msgid "_Selector:"
+msgstr "V_äljare:"
+
+#: ../src/html2.c:626
+msgid "_Property:"
+msgstr "Egenskaper:"
+
+#: ../src/html2.c:628 ../src/html_form.c:283 ../src/html_form.c:350
+#: ../src/html_form.c:411 ../src/html_form.c:466 ../src/html_form.c:528
+#: ../src/html_form.c:636
+msgid "_Value:"
+msgstr "_Värde:"
+
+#: ../src/html2.c:646
+msgid "Selector"
+msgstr "Välj"
+
+#: ../src/html2.c:646 ../src/html2.c:649
+msgid "Property"
+msgstr "Egenskaper"
+
+#: ../src/html2.c:646 ../src/html2.c:649
+msgid "Value"
+msgstr "Värde"
+
+#: ../src/html2.c:664
+msgid " _Add "
+msgstr " L_ägg till "
+
+#: ../src/html2.c:667
+msgid " _Update "
+msgstr " _Uppdatera "
+
+#: ../src/html2.c:670
+msgid " _Delete "
+msgstr " _Ta bort "
+
+#: ../src/html2.c:926 ../src/html2.c:963
+msgid "_Style..."
+msgstr "_Stil..."
+
+#: ../src/html2.c:1157
+msgid "Bluefish: Select color"
+msgstr "Bluefish: Välj färg"
+
+#: ../src/html2.c:1177
+msgid "_websafe"
+msgstr "_webbsäker"
 
 #: ../src/html.c:356
 msgid "Insert Time"
@@ -1596,60 +1643,6 @@ msgstr "_Rel:"
 #: ../src/html.c:2050 ../src/html_form.c:358
 msgid "_Type:"
 msgstr "_Typ:"
-
-#: ../src/html2.c:587
-msgid "Cascading StyleSheet dialog"
-msgstr "Stilmallsdialog"
-
-#: ../src/html2.c:607
-msgid "_Selector:"
-msgstr "V_äljare:"
-
-#: ../src/html2.c:626
-msgid "_Property:"
-msgstr "Egenskaper:"
-
-#: ../src/html2.c:628 ../src/html_form.c:283 ../src/html_form.c:350
-#: ../src/html_form.c:411 ../src/html_form.c:466 ../src/html_form.c:528
-#: ../src/html_form.c:636
-msgid "_Value:"
-msgstr "_Värde:"
-
-#: ../src/html2.c:646
-msgid "Selector"
-msgstr "Välj"
-
-#: ../src/html2.c:646 ../src/html2.c:649
-msgid "Property"
-msgstr "Egenskaper"
-
-#: ../src/html2.c:646 ../src/html2.c:649
-msgid "Value"
-msgstr "Värde"
-
-#: ../src/html2.c:664
-msgid " _Add "
-msgstr " L_ägg till "
-
-#: ../src/html2.c:667
-msgid " _Update "
-msgstr " _Uppdatera "
-
-#: ../src/html2.c:670
-msgid " _Delete "
-msgstr " _Ta bort "
-
-#: ../src/html2.c:926 ../src/html2.c:963
-msgid "_Style..."
-msgstr "_Stil..."
-
-#: ../src/html2.c:1157
-msgid "Bluefish: Select color"
-msgstr "Bluefish: Välj färg"
-
-#: ../src/html2.c:1177
-msgid "_websafe"
-msgstr "_webbsäker"
 
 #: ../src/html_form.c:128
 msgid "Form"
@@ -3137,38 +3130,35 @@ msgstr "/Gå/Gå till _markering"
 
 #: ../src/menu.c:658
 msgid "/_Bookmarks"
-msgstr ""
+msgstr "/_Bokmärken"
 
 #: ../src/menu.c:659
-#, fuzzy
 msgid "/Bookmarks/tearoff1"
-msgstr "/Gå/tearoff1"
+msgstr "/Bokmärken/tearoff1"
 
 #: ../src/menu.c:660
-#, fuzzy
 msgid "/Bookmarks/Add _Temporary"
-msgstr "/Gå/tearoff1"
+msgstr "/Bokmärken/Lägg till _tillfällig"
 
 #: ../src/menu.c:661
 msgid "/Bookmarks/Add _Permanent"
-msgstr ""
+msgstr "/Bokmärken/Lägg till _Fast"
 
 #: ../src/menu.c:662
 msgid "/Bookmarks/sep2"
-msgstr ""
+msgstr "/Bokmärken/sep2"
 
 #: ../src/menu.c:663
-#, fuzzy
 msgid "/Bookmarks/Delete _All"
-msgstr "/Gå/tearoff1"
+msgstr "/Bokmärken/Ta bort _alla"
 
 #: ../src/menu.c:664
 msgid "/Bookmarks/Delete All Temporar_y"
-msgstr ""
+msgstr "/Bokmärken/Ta bort alla tillf_älliga"
 
 #: ../src/menu.c:665
 msgid "/Bookmarks/Delete All Per_manent"
-msgstr ""
+msgstr "/Bokmärken/Ta bort alla f_asta"
 
 #: ../src/menu.c:667
 msgid "/_Project"
@@ -3956,80 +3946,80 @@ msgstr "Tolkar för utdata"
 msgid "Outputbox"
 msgstr "Utdatabox"
 
-#: ../src/project.c:61
+#: ../src/project.c:60
 msgid "New project"
 msgstr "Nytt projekt"
 
-#: ../src/project.c:110
+#: ../src/project.c:107
 msgid "Enter Bluefish project filename"
 msgstr "Skriv in Bluefish-projektfilnamn"
 
-#: ../src/project.c:134
+#: ../src/project.c:131
 msgid "/Project/Save"
 msgstr "/Projekt/Spara"
 
-#: ../src/project.c:135
+#: ../src/project.c:132
 msgid "/Project/Save as..."
 msgstr "/Projekt/Spara som..."
 
-#: ../src/project.c:136
+#: ../src/project.c:133
 msgid "/Project/Close & save"
 msgstr "/Projekt/Stäng & spara"
 
-#: ../src/project.c:137
+#: ../src/project.c:134
 msgid "/Project/Edit Project Options..."
 msgstr "/Projekt/Redigera projektinställningar..."
 
-#: ../src/project.c:192
+#: ../src/project.c:189
 msgid "Select Bluefish project filename"
 msgstr "Välj Bluefish-projektfilnamn"
 
-#: ../src/project.c:323
+#: ../src/project.c:316
 msgid "Create New Project"
 msgstr "Skapa Nytt Projekt"
 
-#: ../src/project.c:326
+#: ../src/project.c:319
 msgid "Edit Project"
 msgstr "Redigera Projekt"
 
-#: ../src/project.c:349
+#: ../src/project.c:342
 #, c-format
 msgid "This project contains %d files"
 msgstr "Det här projektet innehåller %d filer"
 
-#: ../src/project.c:361
+#: ../src/project.c:353
 msgid "Project _Name:"
 msgstr "Projektnamn:"
 
-#: ../src/project.c:365
+#: ../src/project.c:357
 msgid "_Local Directory:"
 msgstr "_Lokal katalog:"
 
-#: ../src/project.c:369
+#: ../src/project.c:361
 msgid "_Remote Directory:"
 msgstr "_Fjärrkatalog:"
 
-#: ../src/project.c:373
+#: ../src/project.c:365
 msgid "_Template:"
 msgstr "_Template:"
 
-#: ../src/project.c:377
+#: ../src/project.c:369
 msgid "_Word wrap by default"
 msgstr "Ordbrytning som standard"
 
-#: ../src/project.c:388
+#: ../src/project.c:380
 msgid "Create _Project"
 msgstr "Skapa _Projekt"
 
-#: ../src/project.c:428
+#: ../src/project.c:420
 msgid "Create project"
 msgstr "Create project"
 
-#: ../src/project.c:432
+#: ../src/project.c:424
 msgid "Create project with currently opened documents"
 msgstr "Skapa ett projekt med de öppna dokumenten"
 
-#: ../src/project.c:433
+#: ../src/project.c:425
 msgid "Create empty project"
 msgstr "Skapa tomt projekt"
 
@@ -4097,124 +4087,124 @@ msgstr "Dölj objektfiler"
 msgid "Untitled Project"
 msgstr "Namnlöst Projekt"
 
-#: ../src/snr2.c:145
+#: ../src/snr2.c:195
 msgid "Regular expression error: "
 msgstr "Fel i regjulärt uttryck: "
 
-#: ../src/snr2.c:146 ../src/snr2.c:190
+#: ../src/snr2.c:196 ../src/snr2.c:240
 msgid "Search failed"
 msgstr "Sökning misslyckades"
 
-#: ../src/snr2.c:189
+#: ../src/snr2.c:239
 #, c-format
 msgid "Regular expression error: %s at offset %d"
 msgstr "Fel i reguljärt uttryck: %s vid avstånd %d"
 
-#: ../src/snr2.c:810
+#: ../src/snr2.c:860
 msgid "Confirm replace"
 msgstr "Bekräfta ersättning"
 
-#: ../src/snr2.c:822
+#: ../src/snr2.c:872
 msgid "Replace selected text?"
 msgstr "Ersätt markerad text?"
 
-#: ../src/snr2.c:835
+#: ../src/snr2.c:885
 msgid "_Skip"
 msgstr "_Hoppa över"
 
-#: ../src/snr2.c:837
+#: ../src/snr2.c:887
 msgid "Replace _all"
 msgstr "Ersätt alla"
 
-#: ../src/snr2.c:1023 ../src/snr2.c:1030
+#: ../src/snr2.c:1073 ../src/snr2.c:1080
 msgid "Search: no match found"
 msgstr "Sökning: hittade inget"
 
-#: ../src/snr2.c:1225
+#: ../src/snr2.c:1275
 msgid "Replace"
 msgstr "Ersätt"
 
-#: ../src/snr2.c:1254
+#: ../src/snr2.c:1304
 msgid "Search _for: "
 msgstr "Sök _efter: "
 
-#: ../src/snr2.c:1268
+#: ../src/snr2.c:1318
 msgid "Replace wit_h: "
 msgstr "Ersätt me_d: "
 
-#: ../src/snr2.c:1279
+#: ../src/snr2.c:1329
 msgid "\\0 refers to the first subsearch_pattern, \\1 to the second etc."
 msgstr "\\0 refererar till det första undermönstret, \\1 till det andra osv."
 
-#: ../src/snr2.c:1294
+#: ../src/snr2.c:1344
 msgid "Beginning of document till end"
 msgstr "Början av _dokumentet tills slutet"
 
-#: ../src/snr2.c:1294
+#: ../src/snr2.c:1344
 msgid "Current position till end"
 msgstr "Nuvarande position tills slutet"
 
-#: ../src/snr2.c:1294
+#: ../src/snr2.c:1344
 msgid "Beginning of selection till end of selection"
 msgstr "Början av u_rvalet tills slutet av urvalet"
 
-#: ../src/snr2.c:1294
+#: ../src/snr2.c:1344
 msgid "All opened files begin till end"
 msgstr "Alla öppnade filer tills slutet"
 
-#: ../src/snr2.c:1295
+#: ../src/snr2.c:1345
 msgid "Disabled"
 msgstr "Avstängd"
 
-#: ../src/snr2.c:1295
+#: ../src/snr2.c:1345
 msgid "POSIX type"
 msgstr "POSIX-typ"
 
-#: ../src/snr2.c:1295
+#: ../src/snr2.c:1345
 msgid "PERL type"
 msgstr "PERL-typ"
 
-#: ../src/snr2.c:1296
+#: ../src/snr2.c:1346
 msgid "Starts at:"
 msgstr "Börjar vid:"
 
-#: ../src/snr2.c:1308
+#: ../src/snr2.c:1358
 msgid "Regular expression:"
 msgstr "Reguljärt uttryck:"
 
-#: ../src/snr2.c:1322
+#: ../src/snr2.c:1372
 msgid "Normal"
 msgstr "Normal"
 
-#: ../src/snr2.c:1322
+#: ../src/snr2.c:1372
 msgid "Uppercase"
 msgstr "Versaler"
 
-#: ../src/snr2.c:1322
+#: ../src/snr2.c:1372
 msgid "Lowercase"
 msgstr "Gemener"
 
-#: ../src/snr2.c:1323
+#: ../src/snr2.c:1373
 msgid "Replace type:"
 msgstr "Ersättningstyp:"
 
-#: ../src/snr2.c:1336
+#: ../src/snr2.c:1386
 msgid "Patterns contain backslash escape sequences (\\n, \\t)"
 msgstr "Mönster innehåller bakåtstreckssekvenser (\\n, \\t)"
 
-#: ../src/snr2.c:1337
+#: ../src/snr2.c:1387
 msgid "Match ca_se"
 msgstr "Matcha versaler/gemener"
 
-#: ../src/snr2.c:1338
+#: ../src/snr2.c:1388
 msgid "O_verlap searches"
 msgstr "Ö_verlappande sökningar"
 
-#: ../src/snr2.c:1340
+#: ../src/snr2.c:1390
 msgid "Prompt _before replace"
 msgstr "Fråga _före ersättning"
 
-#: ../src/snr2.c:1341
+#: ../src/snr2.c:1391
 msgid "Rep_lace once"
 msgstr "Ers_ätt en gång"
 
