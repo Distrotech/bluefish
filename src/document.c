@@ -1534,16 +1534,20 @@ static gint doc_check_backup(Tdocument *doc) {
 
 static void doc_buffer_insert_text_lcb(GtkTextBuffer *textbuffer,GtkTextIter * iter,gchar * string,gint len, Tdocument * doc) {
 	gint pos = gtk_text_iter_get_offset(iter);
-	DEBUG_MSG("doc_buffer_insert_text_lcb, started, string='%s'\n", string);
-
+	gint clen = g_utf8_strlen(string, len);
+	DEBUG_MSG("doc_buffer_insert_text_lcb, started, string='%s', len=%d, clen=%d\n", string, len, clen);
+	/* the 'len' seems to be the number of bytes and not the number of characters.. */
 	/* undo_redo stuff */
 	if (len == 1) {
 		if ((string[0] == ' ' || string[0] == '\n' || string[0] == '\t') || !doc_undo_op_compare(doc,UndoInsert,pos)) {
 			DEBUG_MSG("doc_buffer_insert_text_lcb, need a new undogroup\n");
 			doc_unre_new_group(doc);
-		}	
+		}
+	} else if (clen != 1) {
+		doc_unre_new_group(doc);
 	}
-	doc_unre_add(doc, string, pos, pos+len, UndoInsert);
+	
+	doc_unre_add(doc, string, pos, pos+clen, UndoInsert);
 	doc_set_modified(doc, 1);	
 	DEBUG_MSG("doc_buffer_insert_text_lcb, done\n");
 }
@@ -1608,6 +1612,7 @@ static void doc_buffer_delete_range_lcb(GtkTextBuffer *textbuffer,GtkTextIter * 
 	gchar *string;
 	gboolean do_highlighting=FALSE;
 	string = gtk_text_buffer_get_text(doc->buffer, itstart, itend, FALSE);
+	DEBUG_MSG("doc_buffer_delete_range_lcb, string='%s'\n",string);
 	if (string) {
 		/* highlighting stuff */
 		if (doc->highlightstate && string && doc->hl) {
