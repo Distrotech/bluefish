@@ -22,7 +22,7 @@
  * indent --line-length 100 --k-and-r-style --tab-size 4 -bbo --ignore-newlines highlight.c
  */
 #define HL_TIMING
-#define HL_DEBUG
+/* #define HL_DEBUG */
 
 #ifdef HL_TIMING
 #include <sys/times.h>
@@ -1026,8 +1026,10 @@ void hl_reset_to_default()
 
 	arr = array_from_arglist("sql", "braces", "0", "[{()}]", "", "", "2", "", "#000000", "", "2", "0", NULL);
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
-	arr = array_from_arglist("sql", "keywords", "0","[ \t\n*](table|user|foreign key|index|unique|primary key|constraint|del|alter|values|insert|update|delete)[ \t\n*]","", "", "2", "", "#990000", "", "2", "0", NULL);
+	arr = array_from_arglist("sql", "commands", "1","(create|alter|insert|update|delete)","", "", "2", "", "#990000", "", "2", "0", NULL);
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
-	arr = array_from_arglist("sql", "storage", "0", "(integer|varchar|char|blob|double)", "", "", "2", "", "#880088", "", "2","0", NULL);
+	arr = array_from_arglist("sql", "keywords", "1","(references|cascade|not null|null|default|table|user|foreign key|index|unique|primary key|constraint|alter|values)","", "", "2", "", "#990000", "", "2", "0", NULL);
+	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
+	arr = array_from_arglist("sql", "storage", "1", "(integer|varchar|char|blob|double|timestamp)", "", "", "2", "", "#880088", "", "2","0", NULL);
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
 }
