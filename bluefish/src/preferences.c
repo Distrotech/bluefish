@@ -135,7 +135,8 @@ typedef struct {
 typedef enum {
 	string_none,
 	string_file,
-	string_font
+	string_font,
+	string_color
 } Tprefstringtype;
 
 static void font_dialog_response_lcb(GtkDialog *fsd,gint response,GtkWidget *entry) {
@@ -409,34 +410,118 @@ static GList *highlightpattern_poplist(Tprefdialog *pd, gint numcombo) {
 	return poplist;
 }
 
+static void highlightpattern_combo0_activate(GtkEntry *entry,Tprefdialog *pd) {
+	const gchar *entrytext = gtk_entry_get_text(GTK_ENTRY(GTK_COMBO(pd->hpd.combo[0])->entry));
+	GList *poplist=NULL, *tmplist = g_list_first(pd->lists[highlight_patterns]);
+
+	if (pd->hpd.curstrarr) {
+		DEBUG_MSG("highlightpattern_combo0_activate, applying current change not implemented");		
+	} else {
+		DEBUG_MSG("highlightpattern_combo0_activate, no previous, new is %s\n", entrytext);
+	}
+
+	while (tmplist) {
+		gchar **strarr =(gchar **)tmplist->data;
+		if (strcmp(strarr[0], entrytext)==0) {
+			poplist = g_list_append(poplist, strarr[1]);
+			
+		}
+		tmplist = g_list_next(tmplist);
+	}
+	if (!poplist) {
+		poplist = g_list_append(poplist, "");
+		gtk_widget_set_sensitive(pd->hpd.combo[1], FALSE);
+	} else {
+		gtk_widget_set_sensitive(pd->hpd.combo[1], TRUE);
+	}
+	gtk_combo_set_popdown_strings(GTK_COMBO(pd->hpd.combo[1]),poplist);
+	g_list_free(poplist);
+}
+
+static void highlightpattern_combo1_activate(GtkEntry *entry,Tprefdialog *pd) {
+	const gchar *entry0text = gtk_entry_get_text(GTK_ENTRY(GTK_COMBO(pd->hpd.combo[0])->entry));
+	const gchar *entry1text = gtk_entry_get_text(GTK_ENTRY(GTK_COMBO(pd->hpd.combo[1])->entry));
+	GList *tmplist = g_list_first(pd->lists[highlight_patterns]);
+	if (pd->hpd.curstrarr) {
+		DEBUG_MSG("highlightpattern_combo1_activate, applying current change not implemented");		
+	} else {
+		DEBUG_MSG("highlightpattern_combo1_activate, no previous, new is %s\n", entry1text);
+	}
+
+	while (tmplist) {
+		gchar **strarr =(gchar **)tmplist->data;
+		if (strcmp(strarr[1], entry1text)==0 && strcmp(strarr[0], entry0text)==0) {
+			DEBUG_MSG("found strarr for new settings\n");
+			
+			
+			return;
+		}
+		tmplist = g_list_next(tmplist);
+	}
+}
 
 static void create_highlightpattern_gui(Tprefdialog *pd, GtkWidget *vbox1) {
-	GtkWidget *hbox, *but;
-	GList *poplist;	
+	GtkWidget *hbox, *but, *vbox3;
+	GList *poplist;
 	pd->lists[highlight_patterns] = duplicate_arraylist(main_v->props.highlight_patterns);
-	hbox = gtk_hbox_new(FALSE, 0);
-	gtk_box_pack_start(GTK_BOX(vbox1), hbox, TRUE, TRUE, 0);
 
 	poplist = highlightpattern_poplist(pd, 0);
 	pd->hpd.combo[0] = prefs_combo(_("Filetype"), NULL, vbox1, pd, poplist, FALSE);
-/*	g_signal_connect_after(G_OBJECT(GTK_COMBO(pd->hpd.combo[0])->list), "selection-changed", G_CALLBACK(highlightpattern_combo_activate), pd);*/
+	g_signal_connect_after(G_OBJECT(GTK_COMBO(pd->hpd.combo[0])->list), "selection-changed", G_CALLBACK(highlightpattern_combo0_activate), pd);
 	g_list_free(poplist);
 
+	hbox = gtk_hbox_new(FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(vbox1), hbox, TRUE, TRUE, 0);
 	pd->hpd.entry[0] = boxed_entry_with_text(NULL, 1023, hbox);
 	but = gtk_button_new_with_label(_("Add new pattern"));
-/*	g_signal_connect(G_OBJECT(but), "clicked", G_CALLBACK(add_new_highlightpattern_lcb), pd);*/
+/*	g_signal_connect(G_OBJECT(but), "clicked", G_CALLBACK(), pd);*/
 	gtk_box_pack_start(GTK_BOX(hbox), but, TRUE, TRUE, 3);
 
 	gtk_box_pack_start(GTK_BOX(vbox1), gtk_hseparator_new(), FALSE, FALSE, 3);
 
 	poplist = highlightpattern_poplist(pd, 1);
 	pd->hpd.combo[1] = prefs_combo(_("Pattern"), NULL, vbox1, pd, poplist, FALSE);
-/*	g_signal_connect_after(G_OBJECT(GTK_COMBO(pd->hpd.combo[1])->list), "selection-changed", G_CALLBACK(highlightpattern_combo_activate), pd);*/
+	g_signal_connect_after(G_OBJECT(GTK_COMBO(pd->hpd.combo[1])->list), "selection-changed", G_CALLBACK(highlightpattern_combo1_activate), pd);
 	g_list_free(poplist);
+
+	pd->hpd.radio[0] = gtk_radio_button_new_with_label(NULL, _("Start pattern and end pattern"));
+	gtk_box_pack_start(GTK_BOX(vbox1),pd->hpd.radio[0], TRUE, TRUE, 0);
+	pd->hpd.radio[1] = gtk_radio_button_new_with_label_from_widget(GTK_RADIO_BUTTON(pd->hpd.radio[0]), _("Only start pattern"));
+	gtk_box_pack_start(GTK_BOX(vbox1),pd->hpd.radio[1], TRUE, TRUE, 0);
+	pd->hpd.radio[2] = gtk_radio_button_new_with_label_from_widget(GTK_RADIO_BUTTON(pd->hpd.radio[0]), _("Subpattern from parent"));
+	gtk_box_pack_start(GTK_BOX(vbox1),pd->hpd.radio[2], TRUE, TRUE, 0);
 
 	pd->hpd.entry[0] = boxed_full_entry(_("Start pattern"), NULL, 100, vbox1);
 	pd->hpd.entry[1] = boxed_full_entry(_("End pattern"), NULL, 100, vbox1);
 	pd->hpd.check = boxed_checkbut_with_value(_("Case sensitive matching"), FALSE, vbox1);
+	pd->hpd.entry[2] = boxed_full_entry(_("Parentmatch"), NULL, 100, vbox1);
+	pd->hpd.entry[3] = prefs_string(_("Foreground color"), "", vbox1, pd, string_color);
+	pd->hpd.entry[4] = prefs_string(_("Background color"), "", vbox1, pd, string_color);
+
+	hbox = gtk_hbox_new(FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(vbox1), hbox, TRUE, TRUE, 0);
+	
+	vbox3 = gtk_vbox_new(FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(hbox), vbox3, TRUE, TRUE, 0);
+	
+	pd->hpd.radio[3] = gtk_radio_button_new_with_label(NULL, _("don't change weight"));
+	gtk_box_pack_start(GTK_BOX(vbox3),pd->hpd.radio[3], TRUE, TRUE, 0);
+	pd->hpd.radio[4] = gtk_radio_button_new_with_label_from_widget(GTK_RADIO_BUTTON(pd->hpd.radio[3]), _("force non-bold weight"));
+	gtk_box_pack_start(GTK_BOX(vbox3),pd->hpd.radio[4], TRUE, TRUE, 0);
+	pd->hpd.radio[5] = gtk_radio_button_new_with_label_from_widget(GTK_RADIO_BUTTON(pd->hpd.radio[3]), _("force bold weight"));
+	gtk_box_pack_start(GTK_BOX(vbox3),pd->hpd.radio[5], TRUE, TRUE, 0);
+
+	vbox3 = gtk_vbox_new(FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(hbox), vbox3, TRUE, TRUE, 0);
+
+	pd->hpd.radio[6] = gtk_radio_button_new_with_label(NULL, _("don't change style"));
+	gtk_box_pack_start(GTK_BOX(vbox3),pd->hpd.radio[6], TRUE, TRUE, 0);
+	pd->hpd.radio[7] = gtk_radio_button_new_with_label_from_widget(GTK_RADIO_BUTTON(pd->hpd.radio[6]), _("force non-italic style"));
+	gtk_box_pack_start(GTK_BOX(vbox3),pd->hpd.radio[7], TRUE, TRUE, 0);
+	pd->hpd.radio[8] = gtk_radio_button_new_with_label_from_widget(GTK_RADIO_BUTTON(pd->hpd.radio[6]), _("force italic style"));
+	gtk_box_pack_start(GTK_BOX(vbox3),pd->hpd.radio[8], TRUE, TRUE, 0);
+
+	
 }
 
 

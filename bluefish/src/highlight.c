@@ -1121,9 +1121,9 @@ void hl_reset_to_default()
 	arr = array_from_arglist("xml", "doctype", "1", "<![a-z0-9]+", "[^?-]>",  "1", "", "#bb8800", "", "0", "0",  NULL);
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
 
-	arr = array_from_arglist("java", "comment-C", "0", "/\\*", "\\*/", "1", "", "#AAAAAA", "", "1", "2",  NULL);
+	arr = array_from_arglist("java", "comment-C-style", "0", "/\\*", "\\*/", "1", "", "#AAAAAA", "", "1", "2",  NULL);
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
-	arr = array_from_arglist("java", "comment-C++", "0", "//.*$", "", "2", "", "#AAAAAA", "", "1", "2",  NULL);
+	arr = array_from_arglist("java", "comment-C++-style", "0", "//.*$", "", "2", "", "#AAAAAA", "", "1", "2",  NULL);
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
 	arr = array_from_arglist("java", "string", "0", "\"", "\"", "1", "", "#009900", "", "0", "0",  NULL);
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
@@ -1137,7 +1137,7 @@ void hl_reset_to_default()
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
 	arr = array_from_arglist("java", "modifiers", "0", "\\b(abstract|final|native|private|protected|public|static|transient|synchronized|volatile|extends|implements)\\b","", "2", "", "#990000", "", "2", "0",  NULL);
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
-	arr = array_from_arglist("java", "\\bthis", "0", "this\\.", "",  "2", "", "#000099", "", "2", "0", NULL);
+	arr = array_from_arglist("java", "this", "0", "\\bthis\\.", "",  "2", "", "#000099", "", "2", "0", NULL);
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
 	arr = array_from_arglist("java", "primitive-types", "0", "\\b(void|double|boolean|int)\\b", "",  "2", "", "#880088", "", "2","0",  NULL);
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
