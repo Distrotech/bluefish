@@ -398,6 +398,9 @@ static GList *props_init_main(GList * config_rc)
 #ifdef WITH_MSG_QUEUE
 	init_prop_integer (&config_rc, &main_v->props.open_in_running_bluefish,"open_in_running_bluefish:",1);
 #endif
+#ifdef HAVE_LIBASPELL
+	init_prop_string(&config_rc, &main_v->props.spell_default_lang, "spell_default_lang:", "en");
+#endif /* HAVE_LIBASPELL */
 	return config_rc;
 }
 
