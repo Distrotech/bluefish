@@ -114,7 +114,7 @@ typedef struct {
 #define DOCUMENT(var) ((Tdocument *)(var))
 
 typedef struct {
-	gchar *filename; /* or NULL if no filename known */
+	gchar *filename; /* the on-disk-encoded filename (so possibly not UTF-8) or NULL if no filename known */
 	gchar *encoding;
 	gint modified;
 /*	time_t mtime; */ /* from stat() */
