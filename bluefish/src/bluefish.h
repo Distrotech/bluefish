@@ -209,6 +209,7 @@ typedef struct {
 	GList *reference_files; /* all reference files */
 	gint fref_ldoubleclick_action; /* left doubleclick in the function reference */
 	gint fref_info_type; /* type of info shown in a small function reference window */
+	gint bookmarks_sort; /* 0=no sort, 1=sort */
 	gint document_tabposition;
 	gint leftpanel_tabposition;
 	gchar *default_basedir;
