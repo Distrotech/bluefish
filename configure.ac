@@ -58,6 +58,20 @@ if test "$CYGWIN" = "yes"; then
 	LIBS="$LIBS -lintl.dll"
 fi  
 
+case "${host}" in
+powerpc-apple-darwin*)
+	OSTYPE="DARWIN"
+	;;
+esac
+
+echo -n "checking for Mac OS X... "
+if test "x$OSTYPE" = "xDARWIN";then
+	echo "yes"
+	AC_DEFINE(PLATFORM_DARWIN)
+else
+	echo "no"
+fi
+
 AC_ARG_ENABLE(auto-optimization, 
 		AC_HELP_STRING([--enable-auto-optimization],
 				[try to automatically determine the most optimal build options for your architecture]),
