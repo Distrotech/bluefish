@@ -871,6 +871,7 @@ static void doc_set_stat_info(Tdocument *doc) {
 			doc->statbuf = statbuf;
 		}
 #endif
+		doc_set_tooltip(doc);
 	}
 }
 
