@@ -309,7 +309,7 @@ gchar *insert_integer_if_spin(GtkWidget * spin, gchar * itemname, gchar * string
 	gint val = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(spin));
 	if (val != dontinsertonvalue) {
 		gchar *tempstring;
-		if (ispercentage && (GTK_TOGGLE_BUTTON(ispercentage)->active)) {
+		if (ispercentage) {
 			tempstring = g_strdup_printf("%s %s=\"%d%%\"", string2add2, itemname, val);
 		} else {
 			tempstring = g_strdup_printf("%s %s=\"%d\"", string2add2, itemname, val);
