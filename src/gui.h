@@ -24,7 +24,7 @@ void gui_toggle_hidewidget_cb(gpointer callback_data,guint action,GtkWidget *wid
 void notebook_changed(gint newpage);
 
 void gui_notebook_switch(gpointer callback_data,guint action,GtkWidget *widget);
-
+void  gui_apply_settings();
 void gui_set_undo_redo_widgets(gboolean undo, gboolean redo);
 void gui_set_widgets(gboolean undo, gboolean redo, gboolean wrap, gboolean highlight, Tfiletype *hl, gchar *encoding, gboolean linenumbers);
 

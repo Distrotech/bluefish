@@ -46,12 +46,12 @@ enum {
 	ext_browsers_in_submenu,
 	ext_commands_in_submenu,
 	ext_outputbox_in_submenu,
+	document_tabposition,
+	leftpanel_tabposition,
 	default_advanced_snr,
 	cont_highlight_full, 	/* if you want to highlight the full text or just the line */
 	/* not yet in use */
 	image_editor_cline, 	/* image editor commandline */
-	cfg_weblint_cline,	/* weblint command line */
-	cfg_tab_pos,			/* notebook tabs positioning */
 	full_p,				/* use </p> */
 	full_li,				/* use </li> */
 	allow_css,				/* CSS allowed */
@@ -230,7 +230,29 @@ static GtkWidget *prefs_combo(const gchar *title, const gchar *curval, GtkWidget
 	gtk_box_pack_start(GTK_BOX(hbox), gtk_label_new(title), FALSE, FALSE, 3);
 	return_widget = boxed_combo_with_popdown(curval, poplist, editable, hbox);
 	return return_widget;
+}
 
+static GtkWidget *prefs_optionmenu(const gchar  *title, gint curval, GtkWidget *box, gchar **options) {
+	GtkWidget *returnwidget;
+	GtkWidget *hbox, *menu, *menuitem;
+	gchar **str;
+
+	hbox = gtk_hbox_new(FALSE,3);
+	gtk_box_pack_start(GTK_BOX(box), hbox, FALSE, FALSE, 3);
+	gtk_box_pack_start(GTK_BOX(hbox), gtk_label_new(title), FALSE, FALSE, 3);
+	returnwidget = gtk_option_menu_new();
+	menu = gtk_menu_new();
+	str = options;
+	while (*str) {
+		DEBUG_MSG("prefs_optionmenu, adding %s to optionmenu\n",*str);
+		menuitem = gtk_menu_item_new_with_label(_(*str));
+		gtk_menu_shell_append(GTK_MENU_SHELL(menu), menuitem);
+		str++;
+	}
+	gtk_option_menu_set_menu(GTK_OPTION_MENU(returnwidget),menu);
+	gtk_option_menu_set_history(GTK_OPTION_MENU(returnwidget),curval);
+	gtk_box_pack_start(GTK_BOX(hbox), returnwidget, FALSE, FALSE, 3);
+	return returnwidget;
 }
 
 static GtkWidget *prefs_integer(const gchar *title, const gint curval, GtkWidget *box, Tprefdialog *pd, gfloat lower, gfloat upper) {
@@ -1530,6 +1552,9 @@ static void preferences_ok_clicked_lcb(GtkWidget *wid, Tprefdialog *pd) {
 		integer_apply(&main_v->props.main_window_w, pd->prefs[main_window_w], FALSE);
 	}
 	string_apply(&main_v->props.tab_font_string, pd->prefs[tab_font_string]);
+	main_v->props.document_tabposition = gtk_option_menu_get_history(GTK_OPTION_MENU(pd->prefs[document_tabposition]));
+	main_v->props.leftpanel_tabposition = gtk_option_menu_get_history(GTK_OPTION_MENU(pd->prefs[leftpanel_tabposition]));
+	
 	integer_apply(&main_v->props.ext_browsers_in_submenu, pd->prefs[ext_browsers_in_submenu], TRUE);
 	integer_apply(&main_v->props.ext_commands_in_submenu, pd->prefs[ext_commands_in_submenu], TRUE);
 	integer_apply(&main_v->props.ext_outputbox_in_submenu, pd->prefs[ext_outputbox_in_submenu], TRUE);
@@ -1582,7 +1607,7 @@ static void preferences_ok_clicked_lcb(GtkWidget *wid, Tprefdialog *pd) {
 	menu_outputbox_rebuild();
 	encoding_menu_rebuild();
 	external_menu_rebuild(); /* browsers is also rebuild here! */
-	
+	gui_apply_settings();
 	preferences_destroy_lcb(NULL, pd);
 }
 static void preferences_cancel_clicked_lcb(GtkWidget *wid, Tprefdialog *pd) {
@@ -1613,6 +1638,7 @@ static void create_backup_toggled_lcb(GtkToggleButton *togglebutton,Tprefdialog 
 static void preferences_dialog() {
 	Tprefdialog *pd;
 	GtkWidget *dvbox, *frame, *vbox1, *vbox2;
+	gchar *notebooktabpositions[] = {N_("left"), N_("right"), N_("top"), N_("bottom"), NULL};
 
 	pd = g_new0(Tprefdialog,1);
 	pd->win = window_full(_("Edit preferences"), GTK_WIN_POS_NONE, 0, G_CALLBACK(preferences_destroy_lcb), pd, TRUE);
@@ -1732,6 +1758,10 @@ static void preferences_dialog() {
 	pd->prefs[ext_outputbox_in_submenu] = boxed_checkbut_with_value(_("External outputbox in submenu"), main_v->props.ext_outputbox_in_submenu, vbox2);
 	
 	pd->prefs[tab_font_string] = prefs_string(_("Notebook tab font (leave empty for gtk default)"), main_v->props.tab_font_string, vbox2, pd, string_font);
+	
+	pd->prefs[document_tabposition] = prefs_optionmenu(_("Document notebook tab position"), main_v->props.document_tabposition, vbox2, notebooktabpositions);
+	pd->prefs[leftpanel_tabposition] = prefs_optionmenu(_("Left panel notebook tab position"), main_v->props.leftpanel_tabposition, vbox2, notebooktabpositions);
+	
 	pd->prefs[transient_htdialogs] = boxed_checkbut_with_value(_("Make HTML dialogs transient"), main_v->props.transient_htdialogs, vbox2);
 	pd->prefs[default_advanced_snr] = boxed_checkbut_with_value(_("Advanced search and replace by default"), main_v->props.default_advanced_snr, vbox2);
 
