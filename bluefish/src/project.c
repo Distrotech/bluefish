@@ -392,9 +392,14 @@ gboolean project_save_and_close(Tbfwin *bfwin, gboolean close_win) {
 		}
 		add_to_recent_list(bfwin,bfwin->project->filename, TRUE, TRUE);
 	}
-	bfwin->project->close = TRUE;
-	doc_close_multiple_backend(bfwin, close_win);
-	DEBUG_MSG("project_save_and_close, documents are closing!\n");
+	if (test_only_empty_doc_left(bfwin->documentlist)) {
+		project_destroy(bfwin->project);
+		setup_bfwin_for_nonproject(bfwin);
+	} else {
+		bfwin->project->close = TRUE;
+		doc_close_multiple_backend(bfwin, close_win);
+		DEBUG_MSG("project_save_and_close, documents are closing!\n");
+	}
 	return TRUE;
 }
 
