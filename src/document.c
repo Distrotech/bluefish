@@ -2166,6 +2166,7 @@ gboolean buffer_to_file(Tbfwin *bfwin, gchar *buffer, gchar *filename) {
  * gint doc_textbox_to_file
  * @doc: a #Tdocument*
  * @filename: a #gchar*
+ * @window_closing: a #gboolean if the window is closing, we should supress any statusbar messages then
  *
  * If applicable, backup existing file,
  * possibly update meta-tags (HTML),
@@ -2179,13 +2180,13 @@ gboolean buffer_to_file(Tbfwin *bfwin, gchar *buffer, gchar *filename) {
  * -3: if the backup failed and save was aborted by the user
  * -4: if the charset encoding conversion failed and the save was aborted by the user
  **/
-gint doc_textbox_to_file(Tdocument * doc, gchar * filename) {
+gint doc_textbox_to_file(Tdocument * doc, gchar * filename, gboolean window_closing) {
 	gint backup_retval;
 	gint write_retval;
 	gchar *buffer;
 	GtkTextIter itstart, itend;
 
-	statusbar_message(BFWIN(doc->bfwin),_("Saving file"), 1000);
+	if (!window_closing) statusbar_message(BFWIN(doc->bfwin),_("Saving file"), 1000);
 	if (main_v->props.auto_update_meta) {
 		const gchar *realname = g_get_real_name();
 		if (realname && strlen(realname) > 0)  {
@@ -2484,6 +2485,7 @@ gchar *ask_new_filename(Tbfwin *bfwin,gchar *oldfilename, gint is_move) {
  * @doc: the #Tdocument to save
  * @do_save_as: #gint set to 1 if "save as"
  * @do_move: #gint set to 1 if moving the file.
+ * @window_closing: #gboolean if the window is closing, should suppress statusbar messages then
  *
  * Performs all neccessary actions to save an open document.
  * Warns the user of problems, and asks for a filename if neccessary.
@@ -2498,7 +2500,7 @@ gchar *ask_new_filename(Tbfwin *bfwin,gchar *oldfilename, gint is_move) {
  * -4: if there is no filename, after asking one from the user
  * -5: if another process modified the file, and the user chose cancel
  **/
-gint doc_save(Tdocument * doc, gint do_save_as, gboolean do_move) {
+gint doc_save(Tdocument * doc, gint do_save_as, gboolean do_move, gboolean window_closing) {
 	gint retval;
 #ifdef DEBUG
 	g_assert(doc);
@@ -2514,7 +2516,7 @@ gint doc_save(Tdocument * doc, gint do_save_as, gboolean do_move) {
 
 	if (do_save_as) {
 		gchar *newfilename = NULL;
-		statusbar_message(BFWIN(doc->bfwin),_("Save as..."), 1);
+		if (!window_closing) statusbar_message(BFWIN(doc->bfwin),_("Save as..."), 1);
 		newfilename = ask_new_filename(BFWIN(doc->bfwin), doc->filename, do_move);
 		if (!newfilename) {
 			return 3;
@@ -2578,14 +2580,14 @@ gint doc_save(Tdocument * doc, gint do_save_as, gboolean do_move) {
 	}*/
 	{
 		gchar *tmp = g_strdup_printf(_("Saving %s"), doc->filename);
-		statusbar_message(BFWIN(doc->bfwin),tmp, 1);
+		if (!window_closing) statusbar_message(BFWIN(doc->bfwin),tmp, 1);
 		g_free(tmp);
 		/* re-use tmp */
 		tmp = g_path_get_dirname(doc->filename);
 		if (BFWIN(doc->bfwin)->session->savedir) g_free(BFWIN(doc->bfwin)->session->savedir);
 		BFWIN(doc->bfwin)->session->savedir = tmp;
 	}
-	retval = doc_textbox_to_file(doc, doc->filename);
+	retval = doc_textbox_to_file(doc, doc->filename, window_closing);
 
 	switch (retval) {
 		gchar *errmessage;
@@ -2667,7 +2669,7 @@ gint doc_close(Tdocument * doc, gint warn_only)
 			return 2;
 			break;
 		case 2:
-			doc_save(doc, 0, 0);
+			doc_save(doc, 0, 0, FALSE);
 			if (doc->modified == 1) {
 				/* something went wrong it's still not saved */
 				return 0;
@@ -2958,7 +2960,7 @@ void doc_new_with_new_file(Tbfwin *bfwin, gchar * new_filename) {
 	if (ft) doc->hl = ft;
 /*	doc->modified = 1;*/
 	doc_set_title(doc);
-	doc_save(doc, 0, 0);
+	doc_save(doc, 0, 0, FALSE);
 	doc_set_stat_info(doc); /* also sets mtime field */
 	switch_to_document_by_pointer(bfwin,doc);
 	doc_activate(doc);
@@ -3482,7 +3484,7 @@ void file_open_from_selection(Tbfwin *bfwin) {
  * Return value: void
  **/
 void file_save_cb(GtkWidget * widget, Tbfwin *bfwin) {
-	doc_save(bfwin->current_document, 0, 0);
+	doc_save(bfwin->current_document, 0, 0, FALSE);
 }
 
 /**
@@ -3495,7 +3497,7 @@ void file_save_cb(GtkWidget * widget, Tbfwin *bfwin) {
  * Return value: void
  **/
 void file_save_as_cb(GtkWidget * widget, Tbfwin *bfwin) {
-	doc_save(bfwin->current_document, 1, 0);
+	doc_save(bfwin->current_document, 1, 0, FALSE);
 }
 
 /**
@@ -3508,7 +3510,7 @@ void file_save_as_cb(GtkWidget * widget, Tbfwin *bfwin) {
  * Return value: void
  **/
 void file_move_to_cb(GtkWidget * widget, Tbfwin *bfwin) {
-	doc_save(bfwin->current_document, 1, 1);
+	doc_save(bfwin->current_document, 1, 1, FALSE);
 }
 
 #ifdef HAVE_GNOME_VFS
@@ -3737,16 +3739,7 @@ void file_close_cb(GtkWidget * widget, Tbfwin *bfwin) {
 	doc_close(bfwin->current_document, 0);
 }
 
-/**
- * file_close_all_cb:
- * @widget: unused #GtkWidget
- * @data: unused #gpointer
- *
- * Close all open files. Prompt user when neccessary.
- *
- * Return value: void
- **/
-void file_close_all_cb(GtkWidget * widget, Tbfwin *bfwin) {
+void bfwin_close_all_documents(Tbfwin *bfwin, gboolean window_closing) {
 	GList *tmplist;
 	Tdocument *tmpdoc;
 	gint retval = -1;
@@ -3780,7 +3773,7 @@ void file_close_all_cb(GtkWidget * widget, Tbfwin *bfwin) {
 		
 		switch (retval) {
 		case 0:
-			doc_save(tmpdoc, 0, 0);
+			doc_save(tmpdoc, 0, 0, window_closing);
 			if (!tmpdoc->modified) {
 				doc_destroy(tmpdoc, TRUE);
 			} else {
@@ -3810,6 +3803,19 @@ void file_close_all_cb(GtkWidget * widget, Tbfwin *bfwin) {
 	DEBUG_MSG("file_close_all_cb, finished\n");
 }
 
+/**
+ * file_close_all_cb:
+ * @widget: unused #GtkWidget
+ * @bfwin: #Tbfwin* 
+ *
+ * Close all open files. Prompt user when neccessary.
+ *
+ * Return value: void
+ **/
+void file_close_all_cb(GtkWidget * widget, Tbfwin *bfwin) {
+	bfwin_close_all_documents(bfwin, FALSE);
+}
+
 
 /**
  * file_save_all_cb:
@@ -3829,7 +3835,7 @@ void file_save_all_cb(GtkWidget * widget, Tbfwin *bfwin) {
 	while (tmplist) {
 		tmpdoc = (Tdocument *) tmplist->data;
 		if (tmpdoc->modified) {
-			doc_save(tmpdoc, 0, 0);
+			doc_save(tmpdoc, 0, 0, FALSE);
 		}
 		tmplist = g_list_next(tmplist);
 	}
