@@ -124,7 +124,7 @@ static void print_meta_for_pattern(Tpattern *pat) {
 	GList *tmplist = g_list_first(highlight.all_highlight_patterns);
 	while (tmplist) {
 		if (((Tmetapattern *)tmplist->data)->pat == pat) {
-			g_print("pattern %p: filetype=%s, name=%s, num_childs=%d\n", pat, ((Tmetapattern *)tmplist->data)->filetype, ((Tmetapattern *)tmplist->data)->name, g_list_length(pat->childs));
+			g_print("pattern %p: filetype=%s, name=%s, num_childs=%d, numsub=%d, mode=%d\n", pat, ((Tmetapattern *)tmplist->data)->filetype, ((Tmetapattern *)tmplist->data)->name, g_list_length(pat->childs), pat->numsub, pat->mode);
 			return;
 		}
 		tmplist = g_list_next(tmplist);
@@ -471,6 +471,10 @@ Tfiletype *hl_get_highlightset_by_filename(gchar * filename)
 /*****************************/
 
 static void patmatch_rematch(gboolean is_parentmatch, Tpatmatch *patmatch, gint offset, gchar *buf, gint length, Tpatmatch *parentmatch) {
+#ifdef DEBUG
+	DEBUG_MSG("patmatch_rematch, started for pat ");
+	print_meta_for_pattern(patmatch->pat);
+#endif
 	if (is_parentmatch) {
 #ifdef HL_TIMING
 		timing_start(TIMING_PCRE_EXEC);
@@ -481,6 +485,14 @@ static void patmatch_rematch(gboolean is_parentmatch, Tpatmatch *patmatch, gint 
 #endif
 	} else {
 		if (patmatch->pat->mode == 3) {
+#ifdef DEBUG
+			DEBUG_MSG("patmatch_rematch, getting value from  parentmatch->ovector[%d]\n", patmatch->pat->numsub*2+1);
+			if ((patmatch->pat->numsub*2+1) >= NUM_SUBMATCHES) {
+				DEBUG_MSG("ovector out of bounds!!\n");
+			} else {
+				DEBUG_MSG("parentmatch=%p\n",parentmatch);
+			}
+#endif
 			patmatch->ovector[0] = parentmatch->ovector[patmatch->pat->numsub*2];
 			patmatch->ovector[1] = parentmatch->ovector[patmatch->pat->numsub*2+1];
 			patmatch->is_match = TRUE;
@@ -795,6 +807,17 @@ static Tpattern *find_pattern_by_tag(GList * parentlist, GtkTextTag * tag)
 	return NULL;
 }
 
+static gboolean pattern_has_mode3_child(Tpattern *pat) {
+	GList *tmplist;
+
+	tmplist = g_list_first(pat->childs);
+	while (tmplist) {
+		if (((Tpattern *)tmplist->data)->mode == 3) return TRUE;
+		tmplist = g_list_next(tmplist);
+	}
+	return FALSE;
+}
+
 void doc_highlight_line(Tdocument * doc)
 {
 	gint so, eo;
@@ -869,8 +892,11 @@ void doc_highlight_line(Tdocument * doc)
 					/* both the start and endpoint are within this 
 					   tag --> pattern matching can start with this
 					   subpattern */
-						pat = find_pattern_by_tag(patternlist, GTK_TEXT_TAG(slist->data));
-					DEBUG_MSG("found pattern %p with tag %p and childs %p\n", pat, pat->tag,pat->childs);
+					pat = find_pattern_by_tag(patternlist, GTK_TEXT_TAG(slist->data));
+#ifdef DEBUG
+					DEBUG_MSG("found pattern %p with tag %p and childs %p", pat, pat->tag,pat->childs);
+					print_meta_for_pattern(pat);
+#endif					
 					if (pat && (pat->mode == 1)) {
 						gchar *string;
 						int ovector[NUM_SUBMATCHES];
@@ -886,7 +912,7 @@ void doc_highlight_line(Tdocument * doc)
 						}
 						g_free(string);
 					}
-					if (pat) {
+					if (pat && !pattern_has_mode3_child(pat)) {
 						/* what happens if patternlist = NULL ?
 						   that means we are inside a match without any subpatterns, but 
 						   perhaps the subpattern should be invalidated... hmm..
@@ -896,6 +922,8 @@ void doc_highlight_line(Tdocument * doc)
 						DEBUG_MSG("doc_highlight_line, going to use patternlist %p from pattern ", patternlist);
 						print_meta_for_pattern(pat);
 #endif
+					} else {
+						DEBUG_MSG("doc_highlight_line, no pat or pat has a mode3 child, continue with next tag\n");
 					}
 				} else {
 					/* this tag stops somewhere in the middle of the line, move 
@@ -909,7 +937,10 @@ void doc_highlight_line(Tdocument * doc)
 						gtk_text_iter_backward_to_tag_toggle(&itstart, GTK_TEXT_TAG(slist->data));
 						DEBUG_MSG("doc_highlight_line, itstart is set back to %d\n", gtk_text_iter_get_offset(&itstart));
 					}
-					slist = g_slist_last(slist);
+					if (pat) {
+						DEBUG_MSG("doc_highlight_line, skip all other tags, slist=g_list_last()\n");
+						slist = g_slist_last(slist);
+					}
 				}
 			}
 			itsearch = itstart;
