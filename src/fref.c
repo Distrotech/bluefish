@@ -338,7 +338,7 @@ void fref_loader_start_element(GMarkupParseContext * context, const gchar * elem
 			g_hash_table_insert(aux->dict, g_strdup(info->name), rref);
 		} else if (strcmp(element_name, "ref") == 0) {
 		} else
-			g_warning("FREF Config Error: Unknown element");
+			g_warning("FREF Config Error: Unknown element %s", element_name);
 		break;					/* state NONE */
 
 

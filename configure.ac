@@ -344,166 +344,181 @@ dnl ************************
 dnl Program locations
 dnl ************************
 
-dnl ************************
-dnl do we have a gnome1 menu path ?
-dnl ************************
-AC_ARG_WITH(gnome1-menu, 
-	AC_HELP_STRING([--with-gnome1-menu],[enable gnome1 menu, use --with-gnome1-menu=/path to override the gnome1 prefix default /usr]),[
-	WITHGNOME1=$withval
-	],[
-	WITHGNOME1=no]
-)
-if test "x$WITHGNOME1" != "xno" ; then
-	if test "x$WITHGNOME2" = "xyes" ; then
-		GNOME1PREFIX=/usr/
-	else
-		GNOME1PREFIX=$WITHGNOME1
-	fi
-	echo -n "checking for gnome1 menu directory... "
-	if test -d ${GNOME1PREFIX}/share/gnome/apps ; then
-		GNOME1MENU=${GNOME1PREFIX}/share/gnome/apps
-		INSTALLDATA="$INSTALLDATA install-gnome1-menu"
-		AC_SUBST(GNOME1MENU)
-		echo "${GNOME1PREFIX}/share/gnome/apps"
-	else
-		echo "no"
-	fi
-fi
-
-AC_ARG_WITH(gnome2-menu, 
-	AC_HELP_STRING([--without-gnome2-menu],[disable gnome2 menu, use --with-gnome2-menu=/path to override the gnome2 prefix default /usr]),[
-	WITHGNOME2=$withval
-	],[
-	WITHGNOME2=yes]
-)
-AC_ARG_ENABLE([update-databases],
-	AC_HELP_STRING([--disable-update-databases],[do not run the update-desktop-database or update-mime-database utilities]),[
-	UPDATEDATABASES=$enableval
-	],[
-	UPDATEDATABASES=yes]
-)
-if test "x$WITHGNOME2" != "xno" ; then
-	if test "x$WITHGNOME2" = "xyes" ; then
-		GNOME2PREFIX=/usr/
-	else
-		GNOME2PREFIX=$WITHGNOME2
-	fi
-	if test "${UPDATEDATABASES}" = "no" ; then
-		UPDATE_MIME=true
-		UPDATE_DESKTOP=true
-	else
-		AC_PATH_PROG(UPDATE_MIME, update-mime-database, "no")
-		AC_PATH_PROG(UPDATE_DESKTOP, update-desktop-database, "no")
-	fi
-	echo -n "checking for gnome2 menu directory... "
-	if test -d ${GNOME2PREFIX}/share/applications ; then
-		echo "${GNOME2PREFIX}/share/applications"
-		GNOME2MENU=${GNOME2PREFIX}/share/applications
-		AC_SUBST(GNOME2MENU)
-		INSTALLDATA="$INSTALLDATA install-gnome2-menu"
-	else
-		if test -d ${GNOME2PREFIX}/applications ; then
-			# this is FreeBSD default
-			echo "${GNOME2PREFIX}/applications"
-			GNOME2MENU=${GNOME2PREFIX}/applications
-			AC_SUBST(GNOME2MENU)
-			INSTALLDATA="$INSTALLDATA install-gnome2-menu"
-		else
-			echo "no"
-		fi
-	fi	
-	if test "x$UPDATE_MIME" = "xno" -a "x$UPDATE_DESKTOP" = "xno" ; then
-		echo -n "checking for gnome2.6 mime-info directory... "
-		if test -d ${GNOME2PREFIX}/share/mime-info ; then
-			echo "${GNOME2PREFIX}/share/mime-info"
-			GNOME2MIMEINFO=${GNOME2PREFIX}/share/mime-info
-			AC_SUBST(GNOME2MIMEINFO)
-			INSTALLDATA="$INSTALLDATA install-gnome2.6"
-		else
-			if test -d ${GNOME2PREFIX}/mime-info ; then
-				echo "${GNOME2PREFIX}/mime-info"
-				GNOME2MIMEINFO=${GNOME2PREFIX}/mime-info
-				AC_SUBST(GNOME2MIMEINFO)
-				INSTALLDATA="$INSTALLDATA install-gnome2.6"
-			else
-				echo "no"
-			fi
-		fi
-		echo -n "checking for gnome2.6 application-registry directory... "
-		if test -d ${GNOME2PREFIX}/share/application-registry ; then
-			echo "${GNOME2PREFIX}/share/application-registry"
-			GNOME2APPLICATIONREGISTRY=${GNOME2PREFIX}/share/application-registry
-			AC_SUBST(GNOME2APPLICATIONREGISTRY)
-		else
-			if test -d ${GNOME2PREFIX}/application-registry ; then
-				echo "${GNOME2PREFIX}/application-registry"
-				GNOME2APPLICATIONREGISTRY=${GNOME2PREFIX}/application-registry
-				AC_SUBST(GNOME2APPLICATIONREGISTRY)
-			else
-				echo "no"
-			fi
-		fi
-	fi
-	if test "x$UPDATE_MIME" != "xno" -a "x$UPDATE_DESKTOP" != "xno" ; then
-		echo -n "checking for gnome2.8 mime directory... "
-		if test -d ${GNOME2PREFIX}/share/mime/ ; then
-			echo "${GNOME2PREFIX}/share/mime/"
-			GNOME2MIME=${GNOME2PREFIX}/share/mime/
-			AC_SUBST(GNOME2MIME)
-			INSTALLDATA="$INSTALLDATA install-gnome2.8"
-		else
-			if test -d ${GNOME2PREFIX}/mime/ ; then
-				# future FreeBSD default ?
-				echo "${GNOME2PREFIX}/mime/"
-				GNOME2MIME=${GNOME2PREFIX}/mime/
-				AC_SUBST(GNOME2MIME)
-				INSTALLDATA="$INSTALLDATA install-gnome2.8"
-			else
-				echo "no"
-			fi
-		fi
-		AC_SUBST(UPDATE_MIME_PATH, ${UPDATE_MIME})
-		AC_SUBST(UPDATE_DESKTOP_PATH, ${UPDATE_DESKTOP})
-	fi
-fi
-
-AC_SUBST(INSTALLDATA)
-
-AC_ARG_WITH(icon-path,
-	AC_HELP_STRING([--without-icon-path],[do not install icon in /usr/share/pixmaps/, use --with-icon-path=/path to override the default path]),[
-	WITHICON=$withval
-], [
-	WITHICON=yes
-])
-
-if test "x$WITHICON" != "xno" ; then
-	echo -n "checking icon path... "
-	if test "x$WITHICON" = "xyes" ; then
-		# the default answer is yes, so this is for users that did not use theicon-path option at all
-		ICONPREFIX=/usr/share/pixmaps
-		if test -d ${ICONPREFIX} ; then
-			echo "${ICONPREFIX}"
-			ICONPATH=${ICONPREFIX}
-			AC_SUBST(ICONPATH)
-			INSTALLMAIN="${INSTALLMAIN} install-icon"
-		else
-			# the user did not specify an icon-path, and the default path seems to be wrong for this system
-			# we will not install an icon
-			echo "no"
-		fi
-	else
-		# the user did specify an icon-path, we will install the icon there
-		ICONPREFIX=$WITHICON
-		echo "${ICONPREFIX}"
-		ICONPATH=${ICONPREFIX}
-		AC_SUBST(ICONPATH)
-		INSTALLMAIN="${INSTALLMAIN} install-icon"
-	fi	
-fi
+#####################################################
 
 if test "${prefix}" == "NONE"; then
 	prefix=${ac_default_prefix}
 	AC_SUBST(prefix)
+fi
+
+AC_ARG_WITH(gnome1-menu, 
+	AC_HELP_STRING([--with-gnome1-menu],[enable gnome1 menu, use --with-gnome1-menu=/path to override the gnome1 prefix default /usr/share/gnome/apps]),[
+	GNOME1MENU=$withval
+	],[
+	GNOME1MENU=no]
+)
+if test "x${GNOME1MENU}" != "xno" ; then
+	if test "x$GNOME1MENU" = "xyes" ; then
+		echo -n "checking for gnome1 menu directory... "
+		if test -d /usr/share/gnome/apps ; then
+			GNOME1MENU=/usr/share/gnome/apps
+		else
+			GNOME1MENU=no
+		fi
+		echo $GNOME1MENU
+	fi
+	if test "x${GNOME1MENU}" != "xno" ; then
+		INSTALLDATA="$INSTALLDATA install-gnome1-menu"
+		AC_SUBST(GNOME1MENU)
+	fi
+fi
+
+AC_ARG_ENABLE([update-databases],
+	AC_HELP_STRING([--disable-update-databases],[do not run the update-desktop-database or update-mime-database utilities, mostly useful for package maintainers]),[
+	UPDATEDATABASES=$enableval
+	],[
+	UPDATEDATABASES=yes]
+)
+
+AC_ARG_WITH(freedesktop_org-menu, 
+	AC_HELP_STRING([--without-freedesktop_org-menu],[disable freedesktop_org menu, use --with-freedesktop_org-menu=/path to override the default location /usr/share/applications]),[
+	FDMENU=$withval
+	],[
+	FDMENU=yes]
+)
+if test "${FDMENU}" != "no" ; then
+	if test "${FDMENU}" = "yes" ; then
+		echo -n "checking freedesktop.org menu directory... "
+		if test -d /usr/share/applications ; then
+			FDMENU=/usr/share/applications
+		else
+			if test -d ${prefix}/share/applications ; then
+				FDMENU=${prefix}/share/applications
+			else
+				FDMENU=no
+			fi
+		fi
+		echo $FDMENU
+	fi
+	if test "${FDMENU}" != "no" ; then
+		INSTALLDATA="$INSTALLDATA install-fdmenu"
+		AC_SUBST(FDMENU)
+		AC_PATH_PROG(UPDATE_DESKTOP, update-desktop-database, "no")
+		if test "${UPDATEDATABASES}" != "no" -a "${UPDATE_DESKTOP}" != "no"; then
+			INSTALLDATA="$INSTALLDATA install-update-menu"
+			AC_SUBST(UPDATE_DESKTOP)
+		fi
+	fi
+fi
+
+AC_ARG_WITH(freedesktop_org-mime, 
+	AC_HELP_STRING([--without-freedesktop_org-mime],[disable freedesktop_org mime, use --with-freedesktop_org-mime=/path to override the default location /usr/share/mime]),[
+	FDMIME=$withval
+	],[
+	FDMIME=yes]
+)
+if test "${FDMIME}" != "no" ; then
+	if test "${FDMIME}" = "yes" ; then
+		echo -n "checking freedesktop.org mime directory... "
+		if test -d /usr/share/mime ; then
+			FDMIME=/usr/share/mime
+		else
+			if test -d ${prefix}/share/mime ; then
+				FDMIME=${prefix}/share/mime
+			else
+				FDMIME=no
+			fi
+		fi
+		echo ${FDMIME}
+	fi
+	if test "${FDMIME}" != "no" ; then
+		INSTALLDATA="$INSTALLDATA install-fdmime"
+		AC_SUBST(FDMIME)
+		AC_PATH_PROG(UPDATE_MIME, update-mime-database, "no")
+		if test "${UPDATEDATABASES}" != "no" -a "${UPDATE_MIME}" != "no"; then
+			INSTALLDATA="$INSTALLDATA install-update-mime"
+			AC_SUBST(UPDATE_MIME)
+		fi
+	fi
+fi
+
+AC_ARG_WITH(gnome2_4-mime, 
+	AC_HELP_STRING([--without-gnome2_4-mime],[disable gnome2.4 mime install, use --with-gnome2_4-mime=/path to override the default /usr/share/mime-info]),[
+	GMIMEINFO=$withval
+	],[
+	GMIMEINFO=yes]
+)
+if test "${GMIMEINFO}" != "no" ; then
+	if test "${GMIMEINFO}" = "yes" ; then
+		echo -n "checking gnome 2.4 mime-info directory... "
+		if test -d /usr/share/mime-info ; then
+			GMIMEINFO=/usr/share/mime-info
+		else
+			if test -d ${prefix}/share/mime-info ; then
+				GMIMEINFO=${prefix}/share/mime-info
+			else
+				GMIMEINFO=no
+			fi
+		fi
+		echo $GMIMEINFO
+	fi
+	if test "${GMIMEINFO}" != "no" ; then
+		AC_SUBST(GMIMEINFO)
+		INSTALLDATA="$INSTALLDATA install-gnome-2.4-mime"
+	fi
+fi
+
+AC_ARG_WITH(gnome2_4-appreg, 
+	AC_HELP_STRING([--without-gnome2_4-appreg],[disable gnome2.4 application-registry install, use --with-gnome2_4-appreg=/path to override the default /usr/share/application-registry]),[
+	GAPPREG=$withval
+	],[
+	GAPPREG=yes]
+)
+if test "${GAPPREG}" != "no" ; then
+	if test "${GAPPREG}" = "yes" ; then
+		echo -n "checking gnome 2.4 application-registry directory... "
+		if test -d /usr/share/application-registry ; then
+			GAPPREG=/usr/share/application-registry
+		else
+			if test -d ${prefix}/share/application-registry ; then
+				GAPPREG=${prefix}/share/application-registry
+			else
+				GAPPREG=no
+			fi
+		fi
+		echo $GAPPREG
+	fi
+	if test "${GAPPREG}" != "no" ; then 
+		INSTALLDATA="$INSTALLDATA install-gnome-2.4-appreg"
+		AC_SUBST(GAPPREG)
+	fi
+fi
+
+AC_ARG_WITH(icon-path,
+	AC_HELP_STRING([--without-icon-path],[do not install icon in /usr/share/pixmaps/, use --with-icon-path=/path to override the default path]),[
+	ICONPATH=$withval
+], [
+	ICONPATH=yes
+])
+
+if test "x$ICONPATH" != "xno" ; then
+	if test "x${ICONPATH}" = "xyes" ; then
+		echo -n "checking icon path... "
+		# the default answer is yes, so this is for users that did not use theicon-path option at all
+		if test -d /usr/share/pixmaps ; then
+			ICONPATH=/usr/share/pixmaps
+		else
+			# the user did not specify an icon-path, and the default path seems to be wrong for this system
+			# we will not install an icon
+			ICONPATH=no
+		fi
+		echo $ICONPATH
+	fi	
+	if test "${ICONPATH}" != "no" ; then
+		AC_SUBST(ICONPATH)
+		INSTALLMAIN="${INSTALLMAIN} install-icon"
+		INSTALLDATA="${INSTALLDATA} install-icon"
+	fi
 fi
 
 pkgdatadir=${datadir}/${PACKAGE}/
@@ -535,44 +550,9 @@ if test "$USE_NLS" = "yes" ; then
 	MAKEMAIN="${MAKEMAIN} make-nls"
 fi
 
+AC_SUBST(INSTALLDATA)
 AC_SUBST(INSTALLMAIN)
 AC_SUBST(MAKEMAIN)
-
-dnl AC_ARG_WITH(gnome1-menu,
-dnl 	AC_HELP_STRING([--with-gnome1-menu=/path],[gnome1 menu path (default=no)]),[
-dnl 	GNOME1MENUPATH=$withval
-dnl ], [
-dnl 	GNOME1MENUPATH=none
-dnl ])
-dnl AC_ARG_WITH(gnome2-prefix,
-dnl 	AC_HELP_STRING([--with-gnome2-prefix=/path],[if the gnome2 menu & mime-types are not in /usr/share/]),[
-dnl 	GNOME2PREFIX=$withval
-dnl ], [
-dnl 	GNOME2PREFIX=/usr/share/
-dnl ])
-dnl 
-dnl AC_ARG_ENABLE(update_mime,
-dnl 		AC_HELP_STRING([--disable-update-mime],[do not run update-mime-database during install]), UPDATE_MIME=$enableval,UPDATE_MIME=yes)
-dnl AM_CONDITIONAL(UPDATE_MIME, test x"$UPDATE_MIME" = x"yes")
-dnl 
-dnl AC_ARG_ENABLE(update_desktop,
-dnl 		AC_HELP_STRING([--disable-update-desktop],[do not run update-desktop-database during install]), UPDATE_DESKTOP=$enableval,UPDATE_DESKTOP=yes)
-dnl update_desktop_database=`which update-desktop-database`
-dnl if test -z "$update_desktop_database" ; then
-dnl 	UPDATE_DESKTOP=no
-dnl fi
-dnl AM_CONDITIONAL(UPDATE_DESKTOP, test x"$UPDATE_DESKTOP" = x"yes")
-dnl 
-dnl AC_SUBST(ICONPATH)
-dnl AC_SUBST(GNOME1MENUPATH)
-dnl AC_SUBST(GNOME2PREFIX)
-dnl AC_SUBST(HAVE_GNOME_VFS)
-
-dnl AC_PREFIX_DEFAULT("/usr/local")
-dnl you only need this macro if you want something other then /usr/local
-dnl 
-
-
 
 AC_CONFIG_FILES(Makefile icons/Makefile src/Makefile po/Makefile data/Makefile)
 AC_OUTPUT

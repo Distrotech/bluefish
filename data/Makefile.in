@@ -17,15 +17,21 @@ datadir = @datadir@
 localedir = $(datadir)/locale
 
 GNOME1MENU=@GNOME1MENU@
-GNOME2MENU=@GNOME2MENU@
+FDMENU=@FDMENU@
+FDMIME=@FDMIME@
+UPDATE_DESKTOP=@UPDATE_DESKTOP@
+UPDATE_MIME=@UPDATE_MIME@
+GMIMEINFO=@GMIMEINFO@
+GAPPREG=@GAPPREG@
+ICONPATH=@ICONPATH@
+INSTALLDATA=@INSTALLDATA@
+HAVE_GNOME_VFS=@HAVE_GNOME_VFS@
+
 GNOME2MIMEINFO=@GNOME2MIMEINFO@
 GNOME2APPLICATIONREGISTRY=@GNOME2APPLICATIONREGISTRY@
 GNOME2MIME=@GNOME2MIME@
 UPDATE_MIME_PATH=@UPDATE_MIME_PATH@
-UPDATE_DESKTOP_PATH=@UPDATE_DESKTOP_PATH@
-ICONPATH=@ICONPATH@
-INSTALLDATA=@INSTALLDATA@
-HAVE_GNOME_VFS=@HAVE_GNOME_VFS@
+
 
 INSTALL = @INSTALL@
 INSTALL_DIR = $(INSTALL) -d -m 755 
@@ -47,25 +53,35 @@ all: $(DEFAULTFILES)
 	fi
 
 install-gnome1-menu:
+	$(INSTALL_DIR) $(DESTDIR)$(GNOME1MENU)
 	$(INSTALL_DATA) bluefish.desktop $(DESTDIR)$(GNOME1MENU)
 
-install-gnome2-menu:
-	$(INSTALL_DATA) bluefish.desktop $(DESTDIR)$(GNOME2MENU)
+install-fdmenu:
+	$(INSTALL_DIR) $(DESTDIR)$(FDMENU)
+	$(INSTALL_DATA) bluefish.desktop $(DESTDIR)$(FDMENU)
+
+install-update-menu:
+	$(UPDATE_DESKTOP)
+
+install-fdmime:
+	$(INSTALL_DIR) $(DESTDIR)$(FDMIME)
+	$(INSTALL_DATA) bluefish.xml $(DESTDIR)$(FDMIME)
+
+install-update-mime:
+	$(UPDATE_MIME) $(FDMIME)
+
+install-gnome-2.4-mime:
+	$(INSTALL_DIR) $(DESTDIR)$(GMIMEINFO)
+	$(INSTALL_DATA) bluefish.mime $(DESTDIR)$(GMIMEINFO)
+	$(INSTALL_DATA) bluefish.keys $(DESTDIR)$(GMIMEINFO)
+
+install-gnome-2.4-appreg:
+	$(INSTALL_DIR) $(DESTDIR)$(GAPPREG)
+	$(INSTALL_DATA) bluefish.applications $(DESTDIR)$(GAPPREG)
 
 install-icon:
 	$(INSTALL_DIR) $(DESTDIR)$(ICONPATH)
 	$(INSTALL_DATA) gnome-application-bluefish.png $(DESTDIR)$(ICONPATH)/gnome-application-bluefish-project.png
-
-install-gnome2.8: install-gnome2-menu install-icon
-	$(INSTALL_DIR) $(DESTDIR)$(GNOME2MIME)/packages/
-	$(INSTALL_DATA) bluefish.xml $(DESTDIR)$(GNOME2MIME)/packages/
-	$(UPDATE_MIME_PATH) $(GNOME2MIME)
-	$(UPDATE_DESKTOP_PATH)
-
-install-gnome2.6: install-gnome2-menu install-icon
-	$(INSTALL_DATA) bluefish.mime $(DESTDIR)$(GNOME2MIMEINFO)
-	$(INSTALL_DATA) bluefish.keys $(DESTDIR)$(GNOME2MIMEINFO)
-	$(INSTALL_DATA) bluefish.applications $(DESTDIR)$(GNOME2APPLICATIONREGISTRY)
 
 install: all $(INSTALLDATA)
 	$(INSTALL_DIR) $(DESTDIR)$(pkgdatadir)
