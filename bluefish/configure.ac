@@ -139,6 +139,11 @@ AC_ARG_ENABLE(splash-screen,
    echo "Without splash screen",
 	AC_DEFINE(NOSPLASH)],)
 
+AC_ARG_WITH(highlight-profiling,
+[  --with-highlight-profiling Enables profiling information about highlighting patterns],[
+   echo "With highlighting profiling",
+AC_DEFINE(HL_PROFILING)],)
+
 dnl ************************
 dnl Checks for librarries
 dnl ************************
