@@ -628,6 +628,28 @@ gchar **array_from_arglist(const gchar *string1, ...) {
 	*index = NULL;
 	return retval;
 }
+/**
+ * array_from_arglist:
+ * @allocate_strings: #gboolean if the strings should be newly allocated
+ * @...: #gchar* with the first string, NULL terminated
+ *
+ * builds a GList with strings (a stringlist), copied by reference or by content
+ *
+ * Return value: GList *
+ */
+GList *list_from_arglist(gboolean allocate_strings, const gchar *string1, ...) {
+	GList *retval=NULL;
+	va_list args;
+	gchar *s;
+	va_start(args, string1);
+	s = va_arg(args, gchar*);
+	while (s) {
+		retval = g_list_append(retval, s);
+		s = va_arg (args, gchar*);
+	}
+	va_end (args);
+	return retval;
+}
 
 GList *duplicate_stringlist(GList *list, gint dup_data) {
 	GList *retlist=NULL;
