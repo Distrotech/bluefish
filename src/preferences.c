@@ -893,6 +893,11 @@ static void preferences_ok_clicked_lcb(GtkWidget *wid, Tprefdialog *pd) {
 	preferences_destroy_lcb(NULL, NULL, pd);
 }
 static void preferences_cancel_clicked_lcb(GtkWidget *wid, Tprefdialog *pd) {
+	free_arraylist(pd->lists[filetypes]);
+	free_arraylist(pd->lists[filefilters]);
+	free_arraylist(pd->lists[highlight_patterns]);
+	free_arraylist(pd->lists[browsers]);
+	free_arraylist(pd->lists[external_commands]);
 	preferences_destroy_lcb(NULL, NULL, pd);
 }
 
