@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-#define DEBUG
+/*#define DEBUG*/
 
 /* ******* FILEBROWSER DESIGN ********
 there is only one treestore left for all bluefish windows. This treestore has all files 
@@ -648,15 +648,6 @@ static gboolean tree_model_filter_func(GtkTreeModel *model,GtkTreeIter *iter,gpo
 	gchar *name;
 	gint len, type;
 	GnomeVFSURI *uri;
-#ifdef DEBUG
-	if (model != GTK_TREE_MODEL(FB2CONFIG(main_v->fb2config)->filesystem_tstore)) {
-		DEBUG_MSG("tree_model_filter_func, WRONG MODEL\n");
-	}
-	if (sizeof(*fb2) != sizeof(Tfilebrowser2)) {
-		DEBUG_MSG("tree_model_filter_func, sizeof(*fb2)=%d,sizeof(Tfilebrowser2)=%d\n",sizeof(*fb2),sizeof(Tfilebrowser2));
-	}
-	DEBUG_MSG("tree_model_filter_func, model=%p, fb2=%p, bfwin=%p\n",model, fb2, fb2->bfwin);
-#endif
 	gtk_tree_model_get(GTK_TREE_MODEL(model), iter, FILENAME_COLUMN, &name, URI_COLUMN, &uri, TYPE_COLUMN, &type, -1);
 	
 	if (type != TYPE_DIR) {
@@ -722,11 +713,6 @@ static gboolean file_list_filter_func(GtkTreeModel *model,GtkTreeIter *iter,gpoi
 	Tfilebrowser2 *fb2 = data;
 	gchar *name;
 	gint len, type;
-#ifdef DEBUG
-	if (model != GTK_TREE_MODEL(FB2CONFIG(main_v->fb2config)->filesystem_tstore)) {
-		DEBUG_MSG("file_list_filter_func, WRONG MODEL\n");
-	}
-#endif
 	gtk_tree_model_get(GTK_TREE_MODEL(model), iter, FILENAME_COLUMN, &name, TYPE_COLUMN, &type, -1);
 	if (type != TYPE_FILE) return FALSE;
 	if (!name) return FALSE;
@@ -774,8 +760,8 @@ static void refilter_dirlist(Tfilebrowser2 *fb2, GtkTreePath *newroot) {
 	gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE(fb2->dir_tsort),FILENAME_COLUMN,GTK_SORT_ASCENDING);
 	DEBUG_MSG("refilter_dirlist, connect dir_v to new sort(%p)&filter(%p) model\n", fb2->dir_tsort, fb2->dir_tfilter);
 	gtk_tree_view_set_model(GTK_TREE_VIEW(fb2->dir_v),GTK_TREE_MODEL(fb2->dir_tsort));
-	g_object_unref(oldmodel1);
 	g_object_unref(oldmodel2);
+	g_object_unref(oldmodel1);
 }
 /**
  * refilter_filelist:
@@ -800,8 +786,8 @@ static void refilter_filelist(Tfilebrowser2 *fb2, GtkTreePath *newroot) {
 			gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE(fb2->file_lsort),FILENAME_COLUMN,GTK_SORT_ASCENDING);
 			DEBUG_MSG("refilter_filelist, connect file_v to new sort(%p)&filter(%p) model\n", fb2->file_lsort, fb2->file_lfilter);
 			gtk_tree_view_set_model(GTK_TREE_VIEW(fb2->file_v),GTK_TREE_MODEL(fb2->file_lsort));
-			g_object_unref(oldmodel1);
 			g_object_unref(oldmodel2);
+			g_object_unref(oldmodel1);
 		}
 #ifdef DEBUG
 		else DEBUG_MSG("refilter_filelist, root did not change!\n");
