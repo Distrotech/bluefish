@@ -28,10 +28,10 @@ void doc_unre_init(Tdocument *doc);
 void doc_unre_destroy(Tdocument *doc);
 void doc_unre_clear_all(Tdocument *doc);
 gint doc_undo_op_compare(Tdocument *doc, undo_op_t testfor);
-void redo_cb(GtkWidget * widget, gpointer data);
-void undo_cb(GtkWidget * widget, gpointer data);
-void redo_all_cb(GtkWidget * widget, gpointer data);
-void undo_all_cb(GtkWidget * widget, gpointer data);
+void redo_cb(GtkWidget * widget, Tbfwin *bfwin);
+void undo_cb(GtkWidget * widget, Tbfwin *bfwin);
+void redo_all_cb(GtkWidget * widget, Tbfwin *bfwin);
+void undo_all_cb(GtkWidget * widget, Tbfwin *bfwin);
 gboolean doc_has_undo_list(Tdocument *doc);
 gboolean doc_has_redo_list(Tdocument *doc);
 #endif /* __UNDO_REDO_H_ */

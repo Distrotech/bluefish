@@ -2580,46 +2580,46 @@ GList *return_files_advanced() {
 /**
  * file_save_cb:
  * @widget: unused #GtkWidget
- * @data: unused #gpointer
+ * @bfwin: #Tbfwin* with the current window
  *
  * Save the current document.
  *
  * Return value: void
  **/
-void file_save_cb(GtkWidget * widget, gpointer data) {
+void file_save_cb(GtkWidget * widget, Tbfwin *bfwin) {
 	doc_save(main_v->current_document, 0, 0);
 }
 
 /**
  * file_save_as_cb:
  * @widget: unused #GtkWidget
- * @data: unused #gpointer
+ * @bfwin: #Tbfwin* with the current window
  *
  * Save current document, let user choose filename.
  *
  * Return value: void
  **/
-void file_save_as_cb(GtkWidget * widget, gpointer data) {
+void file_save_as_cb(GtkWidget * widget, Tbfwin *bfwin) {
 	doc_save(main_v->current_document, 1, 0);
 }
 
 /**
  * file_move_to_cb:
  * @widget: unused #GtkWidget
- * @data: unused #gpointer
+ * @bfwin: #Tbfwin* with the current window
  *
  * Move current document, let user choose filename.
  *
  * Return value: void
  **/
-void file_move_to_cb(GtkWidget * widget, gpointer data) {
+void file_move_to_cb(GtkWidget * widget, Tbfwin *bfwin) {
 	doc_save(main_v->current_document, 1, 1);
 }
 
 /**
  * file_open_cb:
  * @widget: unused #GtkWidget
- * @data: Pointer to int as #gpointer. 1 == Advanced Open
+ * @bfwin: #Tbfwin* with the current window
  *
  * Prompt user for files to open.
  *
@@ -2663,28 +2663,16 @@ void file_open_advanced_cb(GtkWidget * widget, Tbfwin *bfwin) {
 #endif
 
 /**
- * file_revert_to_saved_cb:
- * @widget: unused #GtkWidget
- * @data: unused #gpointer
- *
- * Revert current document to file on disk.
- *
- * Return value: void
- **/
-void file_revert_to_saved_cb(GtkWidget * widget, gpointer data) {
-	doc_reload(main_v->current_document);
-}
-
-/**
- * file_insert_cb:
- * @widget: unused #GtkWidget
- * @data: unused #gpointer
+ * file_insert_menucb:
+ * @bfwin: Tbfwin* which window
+ * @callback_action: unused #guint
+ * @widget: #GtkWidget* unused
  *
  * Prompt user for a file, and insert the contents into the current document.
  *
  * Return value: void
  **/
-void file_insert_cb(GtkWidget * widget, gpointer data) {
+void file_insert_menucb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget) {
 	gchar *tmpfilename;
 
 	tmpfilename = return_file_w_title(NULL, _("Select file to insert"));
@@ -2693,9 +2681,9 @@ void file_insert_cb(GtkWidget * widget, gpointer data) {
 		return;
 	} else {
 		/* do we need to set the insert point in some way ?? */
-		doc_file_to_textbox(main_v->current_document, tmpfilename, TRUE, FALSE);
+		doc_file_to_textbox(bfwin->current_document, tmpfilename, TRUE, FALSE);
 		g_free(tmpfilename);
-		doc_set_modified(main_v->current_document, 1);
+		doc_set_modified(bfwin->current_document, 1);
 	}
 }
 
@@ -2835,8 +2823,8 @@ void file_save_all_cb(GtkWidget * widget, gpointer data)
  *
  * Return value: void
  **/
-void edit_cut_cb(GtkWidget * widget, gpointer data) {
-	gtk_text_buffer_cut_clipboard(main_v->current_document->buffer,gtk_clipboard_get(GDK_SELECTION_CLIPBOARD),TRUE);
+void edit_cut_cb(GtkWidget * widget, Tbfwin *bfwin) {
+	gtk_text_buffer_cut_clipboard(bfwin->current_document->buffer,gtk_clipboard_get(GDK_SELECTION_CLIPBOARD),TRUE);
 }
 
 /**
@@ -2848,8 +2836,8 @@ void edit_cut_cb(GtkWidget * widget, gpointer data) {
  *
  * Return value: void
  **/
-void edit_copy_cb(GtkWidget * widget, gpointer data) {
-	gtk_text_buffer_copy_clipboard  (main_v->current_document->buffer,gtk_clipboard_get(GDK_SELECTION_CLIPBOARD));
+void edit_copy_cb(GtkWidget * widget, Tbfwin *bfwin) {
+	gtk_text_buffer_copy_clipboard(bfwin->current_document->buffer,gtk_clipboard_get(GDK_SELECTION_CLIPBOARD));
 }
 
 /**
@@ -2861,24 +2849,23 @@ void edit_copy_cb(GtkWidget * widget, gpointer data) {
  *
  * Return value: void
  **/
-void edit_paste_cb(GtkWidget * widget, gpointer data)
-{
+void edit_paste_cb(GtkWidget * widget, Tbfwin *bfwin) {
 	gboolean wasHighlighted = FALSE;
 	
-	if (main_v->current_document->highlightstate == 1)
+	if (bfwin->current_document->highlightstate == 1)
 	{
-		 main_v->current_document->highlightstate = 0;
+		 bfwin->current_document->highlightstate = 0;
 		 wasHighlighted = TRUE;
 	}
 	
-	gtk_text_buffer_paste_clipboard (main_v->current_document->buffer,gtk_clipboard_get(GDK_SELECTION_CLIPBOARD),NULL,TRUE);
+	gtk_text_buffer_paste_clipboard (bfwin->current_document->buffer,gtk_clipboard_get(GDK_SELECTION_CLIPBOARD),NULL,TRUE);
 	
-	doc_scroll_to_cursor (main_v->current_document);
+	doc_scroll_to_cursor (bfwin->current_document);
 	
 	if (wasHighlighted)
 	{
-		main_v->current_document->highlightstate = 1;
-		doc_highlight_full(main_v->current_document);
+		bfwin->current_document->highlightstate = 1;
+		doc_highlight_full(bfwin->current_document);
 	}
 }
 
@@ -2891,11 +2878,11 @@ void edit_paste_cb(GtkWidget * widget, gpointer data)
  *
  * Return value: void
  **/
-void edit_select_all_cb(GtkWidget * widget, gpointer data) {
+void edit_select_all_cb(GtkWidget * widget, Tbfwin *bfwin) {
 	GtkTextIter itstart, itend;
-	gtk_text_buffer_get_bounds(main_v->current_document->buffer,&itstart,&itend);
-	gtk_text_buffer_move_mark_by_name(main_v->current_document->buffer,"insert",&itstart);
-	gtk_text_buffer_move_mark_by_name(main_v->current_document->buffer,"selection_bound",&itend);
+	gtk_text_buffer_get_bounds(bfwin->current_document->buffer,&itstart,&itend);
+	gtk_text_buffer_move_mark_by_name(bfwin->current_document->buffer,"insert",&itstart);
+	gtk_text_buffer_move_mark_by_name(bfwin->current_document->buffer,"selection_bound",&itend);
 }
 
 /**

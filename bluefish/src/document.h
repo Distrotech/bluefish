@@ -72,6 +72,7 @@ void doc_new_with_new_file(gchar * new_filename);
 Tdocument *doc_new(gboolean delay_activate);
 gboolean doc_new_with_file(gchar * filename, gboolean delay_activate);
 void docs_new_from_files(GList * file_list);
+void doc_reload(Tdocument *doc);
 void doc_activate(Tdocument *doc);
 
 /* callbacks for the menu and toolbars */
@@ -79,17 +80,16 @@ void file_save_cb(GtkWidget * widget, gpointer data);
 void file_save_as_cb(GtkWidget * widget, gpointer data);
 void file_move_to_cb(GtkWidget * widget, gpointer data);
 void file_open_cb(GtkWidget * widget, gpointer data);
-void file_revert_to_saved_cb(GtkWidget * widget, gpointer data);
-void file_insert_cb(GtkWidget * widget, gpointer data);
+void file_insert_menucb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget);
 void file_new_cb(GtkWidget * widget, gpointer data);
 void file_close_cb(GtkWidget * widget, gpointer data);
 void file_close_all_cb(GtkWidget * widget, gpointer data);
 void file_save_all_cb(GtkWidget * widget, gpointer data);
 
-void edit_cut_cb(GtkWidget * widget, gpointer data);
-void edit_copy_cb(GtkWidget * widget, gpointer data);
-void edit_paste_cb(GtkWidget * widget, gpointer data);
-void edit_select_all_cb(GtkWidget * widget, gpointer data);
+void edit_cut_cb(GtkWidget * widget, Tbfwin *bfwin);
+void edit_copy_cb(GtkWidget * widget, Tbfwin *bfwin);
+void edit_paste_cb(GtkWidget * widget, Tbfwin *bfwin);
+void edit_select_all_cb(GtkWidget * widget, Tbfwin *bfwin);
 
 void doc_toggle_highlighting_cb(gpointer callback_data,guint action,GtkWidget *widget);
 void doc_toggle_wrap_cb(gpointer callback_data,guint action,GtkWidget *widget);

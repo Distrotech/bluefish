@@ -53,70 +53,134 @@ callback_data is a pointer to an arbitrary piece of data and is set during the c
 
 we want to pass the Tbfwin* so we should never use a callback_action of zero
 */
-void menu_file_new_cb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget) {
-	file_new_cb(NULL,bfwin);
-}
-void menu_file_open_cb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget) {
-	if (callback_action == 1) {
+void menu_file_operations_cb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget) {
+	switch(callback_action) {
+	case 1:
+		file_new_cb(NULL,bfwin);
+	break;
+	case 2:
 		file_open_cb(NULL,bfwin);
-	} 
+	break;
 #ifdef EXTERNAL_GREP
 #ifdef EXTERNAL_FIND
-	else if (callback_action == 2) {
+	case 3:
 		file_open_advanced_cb(NULL,bfwin);
+	break;
+#endif
+#endif
+	case 4:
+		doc_reload(bfwin->current_document);
+	break;
+	case 5:
+		file_save_cb(NULL, bfwin);
+	break;
+	case 6:
+		file_save_as_cb(NULL, bfwin);
+	break;
+	case 7:
+		file_move_to_cb(NULL, bfwin);
+	break;
+	case 8:
+		file_save_all_cb(NULL, bfwin);
+	break;
+	case 9:
+		file_close_cb(NULL, bfwin);
+	break;
+	case 10:
+		edit_cut_cb(NULL, bfwin);
+	break;
+	case 11:
+		edit_copy_cb(NULL, bfwin);
+	break;
+	case 12:
+		edit_paste_cb(NULL, bfwin);
+	break;
+	case 13:
+		edit_select_all_cb(NULL, bfwin);
+	break;
+	case 14:
+		search_cb(NULL, bfwin);
+	break;
+	case 15:
+		new_search_cb(NULL, bfwin);
+	break;
+	case 16:
+		search_again_cb(NULL, bfwin);
+	break;
+	case 17:
+		replace_cb(NULL, bfwin);
+	break;
+	case 18:
+		new_replace_cb(NULL, bfwin);
+	break;
+	case 19:
+		replace_again_cb(NULL, bfwin);
+	break;
+	case 20:
+		undo_cb(NULL, bfwin);
+	break;
+	case 21:
+		redo_cb(NULL, bfwin);
+	break;
+	case 22:
+		undo_all_cb(NULL, bfwin);
+	break;
+	case 23:
+		redo_all_cb(NULL, bfwin);
+	break;
+	default:
+		g_print("menu_file_operations_cb, unknown action, abort!\n");
+		exit(123);
 	}
-#endif
-#endif
 }
-
 
 static GtkItemFactoryEntry menu_items[] = {
 	{N_("/_File"), NULL, NULL, 0, "<Branch>"},
 	{N_("/File/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
-	{N_("/File/_New"), "<control>n", menu_file_new_cb, 1, "<StockItem>", GTK_STOCK_NEW},
-	{N_("/File/_Open..."), "<control>O", menu_file_open_cb, 1, "<StockItem>", GTK_STOCK_OPEN},
+	{N_("/File/_New"), "<control>n", menu_file_operations_cb, 1, "<StockItem>", GTK_STOCK_NEW},
+	{N_("/File/_Open..."), "<control>O", menu_file_operations_cb, 2, "<StockItem>", GTK_STOCK_OPEN},
 #ifdef EXTERNAL_GREP
 #ifdef EXTERNAL_FIND
-	{N_("/File/Open A_dvanced..."), "<shift><control>O", menu_file_open_cb, 2, NULL},
+	{N_("/File/Open A_dvanced..."), "<shift><control>O", menu_file_operations_cb, 3, NULL},
 #endif
 #endif
 	{N_("/File/Open r_ecent"), NULL, NULL, 0, "<Branch>"},
 	{N_("/File/Open recent/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
-	{N_("/File/_Revert to Saved"), NULL, file_revert_to_saved_cb, 0, "<StockItem>", GTK_STOCK_REVERT_TO_SAVED},
-	{N_("/File/_Insert..."), NULL, file_insert_cb, 0, NULL},
+	{N_("/File/_Revert to Saved"), NULL, menu_file_operations_cb, 4, "<StockItem>", GTK_STOCK_REVERT_TO_SAVED},
+	{N_("/File/_Insert..."), NULL, file_insert_menucb, 1, NULL},
 	{N_("/File/sep2"), NULL, NULL, 0, "<Separator>"},
-	{N_("/File/_Save"), "<control>S", file_save_cb, 0, "<StockItem>", GTK_STOCK_SAVE},
-	{N_("/File/Save _As..."), "<shift><control>S", file_save_as_cb, 0, "<StockItem>", GTK_STOCK_SAVE_AS},
-	{N_("/File/_Move to..."), NULL, file_move_to_cb, 0, NULL},
-	{N_("/File/Sa_ve All"), NULL, file_save_all_cb, 0, NULL},
+	{N_("/File/_Save"), "<control>S", menu_file_operations_cb, 5, "<StockItem>", GTK_STOCK_SAVE},
+	{N_("/File/Save _As..."), "<shift><control>S", menu_file_operations_cb, 6, "<StockItem>", GTK_STOCK_SAVE_AS},
+	{N_("/File/_Move to..."), NULL, menu_file_operations_cb, 7, NULL},
+	{N_("/File/Sa_ve All"), NULL, menu_file_operations_cb, 8, NULL},
 	{N_("/File/sep3"), NULL, NULL, 0, "<Separator>"},
-	{N_("/File/_Close"), "<control>w", file_close_cb, 0, "<StockItem>", GTK_STOCK_CLOSE},
+	{N_("/File/_Close"), "<control>w", menu_file_operations_cb, 9, "<StockItem>", GTK_STOCK_CLOSE},
 	{N_("/File/Close A_ll"), "<shift><control>w", file_close_all_cb, 0, NULL},
 	{N_("/File/sep5"), NULL, NULL, 0, "<Separator>"},
 	{N_("/File/_Quit"), "<control>Q", bluefish_exit_request, 0, "<StockItem>", GTK_STOCK_QUIT},
 	{N_("/_Edit"), NULL, NULL, 0, "<Branch>"},
 	{N_("/Edit/Tearoff1"), NULL, NULL, 0, "<Tearoff>"},
-	{N_("/Edit/Cu_t"), "<control>x", edit_cut_cb, 0, "<StockItem>", GTK_STOCK_CUT},
-	{N_("/Edit/_Copy"), "<control>c", edit_copy_cb, 0, "<StockItem>", GTK_STOCK_COPY},
-	{N_("/Edit/_Paste"), "<control>v", edit_paste_cb, 0, "<StockItem>", GTK_STOCK_PASTE},
-	{N_("/Edit/Select _All"), "<control>a", edit_select_all_cb, 0, NULL},
+	{N_("/Edit/Cu_t"), "<control>x", menu_file_operations_cb, 10, "<StockItem>", GTK_STOCK_CUT},
+	{N_("/Edit/_Copy"), "<control>c", menu_file_operations_cb, 11, "<StockItem>", GTK_STOCK_COPY},
+	{N_("/Edit/_Paste"), "<control>v", menu_file_operations_cb, 12, "<StockItem>", GTK_STOCK_PASTE},
+	{N_("/Edit/Select _All"), "<control>a", menu_file_operations_cb, 13, NULL},
 	{N_("/Edit/sep3"), NULL, NULL, 0, "<Separator>"},
-	{N_("/Edit/_Find..."), "<control>f", search_cb, 0, "<StockItem>", GTK_STOCK_FIND},
-	{N_("/Edit/Ne_w Find..."), NULL, new_search_cb, 0, NULL},
-	{N_("/Edit/Find A_gain"), "<control>g", search_again_cb, 0, NULL},
-	{N_("/Edit/R_eplace..."), "<control>h", replace_cb, 0, "<StockItem>", GTK_STOCK_FIND_AND_REPLACE},
-	{N_("/Edit/New Re_place..."), NULL, new_replace_cb, 0, NULL},
-	{N_("/Edit/Replace Agai_n"), "<shift><control>h", replace_again_cb, 0, NULL},
+	{N_("/Edit/_Find..."), "<control>f", menu_file_operations_cb, 14, "<StockItem>", GTK_STOCK_FIND},
+	{N_("/Edit/Ne_w Find..."), NULL, menu_file_operations_cb, 15, NULL},
+	{N_("/Edit/Find A_gain"), "<control>g", menu_file_operations_cb, 16, NULL},
+	{N_("/Edit/R_eplace..."), "<control>h", menu_file_operations_cb, 17, "<StockItem>", GTK_STOCK_FIND_AND_REPLACE},
+	{N_("/Edit/New Re_place..."), NULL, menu_file_operations_cb, 18, NULL},
+	{N_("/Edit/Replace Agai_n"), "<shift><control>h", menu_file_operations_cb, 19, NULL},
 	{N_("/Edit/Replace _special"), NULL, NULL, 0, "<Branch>"},
 	{N_("/Edit/Replace special/Tearoff1"), NULL, NULL, 0, "<Tearoff>"},
 	{N_("/Edit/Replace special/_ASCII to HTML Entities"), NULL, doc_convert_asciichars_in_selection, 1, NULL},
 	{N_("/Edit/Replace special/_ISO8859 to HTML Entities"), NULL, doc_convert_asciichars_in_selection, 2, NULL},
 	{N_("/Edit/Replace special/_Both Types to HTML Entities"), NULL, doc_convert_asciichars_in_selection, 3, NULL},
 	{N_("/Edit/sep4"), NULL, NULL, 0, "<Separator>"},
-	{N_("/Edit/_Undo"), "<control>z", undo_cb, 0, "<StockItem>", GTK_STOCK_UNDO},
-	{N_("/Edit/_Redo"), "<shift><control>z", redo_cb, 0, "<StockItem>", GTK_STOCK_REDO},
-	{N_("/Edit/Undo All"), NULL, undo_all_cb, 0, NULL},
-	{N_("/Edit/Redo All"), NULL, redo_all_cb, 0, NULL},
+	{N_("/Edit/_Undo"), "<control>z", menu_file_operations_cb, 20, "<StockItem>", GTK_STOCK_UNDO},
+	{N_("/Edit/_Redo"), "<shift><control>z", menu_file_operations_cb, 21, "<StockItem>", GTK_STOCK_REDO},
+	{N_("/Edit/Undo All"), NULL, menu_file_operations_cb, 22, NULL},
+	{N_("/Edit/Redo All"), NULL, menu_file_operations_cb, 23, NULL},
 	{N_("/Edit/sep5"), NULL, NULL, 0, "<Separator>"},
 	{N_("/Edit/_Block operations"), NULL, NULL, 0, "<Branch>"},
 	{N_("/Edit/Block operations/Tearoff1"), NULL, NULL, 0, "<Tearoff>"},
