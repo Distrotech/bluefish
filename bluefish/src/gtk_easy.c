@@ -669,22 +669,17 @@ GtkWidget *apply_font_style(GtkWidget * this_widget, gchar * fontstring) {
  *
  * Return value: #GtkWidget* to the hbox
  */
-GtkWidget *hbox_with_pix_and_text(const gchar *label, gint bf_pixmaptype, const char *stock_pixmaptype) {
+GtkWidget *hbox_with_pix_and_text(const gchar *label, gint bf_pixmaptype, gboolean w_mnemonic) {
 	GtkWidget *hbox = gtk_hbox_new(FALSE, 0);
-	if (stock_pixmaptype) {
-		gtk_box_pack_start(GTK_BOX(hbox), gtk_image_new_from_stock(stock_pixmaptype,GTK_ICON_SIZE_BUTTON), FALSE, FALSE, 1);
-	} else {
-		gtk_box_pack_start(GTK_BOX(hbox), new_pixmap(bf_pixmaptype), FALSE, FALSE, 1);
-	}
-	gtk_box_pack_start(GTK_BOX(hbox), gtk_label_new_with_mnemonic(label), TRUE, TRUE, 1);
+	gtk_box_pack_start(GTK_BOX(hbox), new_pixmap(bf_pixmaptype), FALSE, FALSE, 1);
+	gtk_box_pack_start(GTK_BOX(hbox), ((w_mnemonic) ? gtk_label_new_with_mnemonic(label) : gtk_label_new(label)), TRUE, TRUE, 1);
 	gtk_widget_show_all(hbox);
 	return hbox;
 }
 
-GtkWidget *bf_allbuttons_backend(const gchar *label, gboolean w_mnemonic, gint bf_pixmaptype
-		, const gchar *stock_pixmaptype, GCallback func, gpointer func_data ) {
+GtkWidget *bf_allbuttons_backend(const gchar *label, gboolean w_mnemonic, gint bf_pixmaptype, GCallback func, gpointer func_data) {
 	GtkWidget *button;
-	if (bf_pixmaptype == -1 && stock_pixmaptype == NULL) {
+	if (bf_pixmaptype == -1) {
 		/* there is no image needed, only text */
 		if (w_mnemonic) {
 			button = gtk_button_new_with_mnemonic(label);
@@ -697,14 +692,10 @@ GtkWidget *bf_allbuttons_backend(const gchar *label, gboolean w_mnemonic, gint b
 		if (label) {
 			/* both a pixmap and text */
 			gtk_container_set_border_width(GTK_CONTAINER(button), 0);
-			gtk_container_add(GTK_CONTAINER(button), hbox_with_pix_and_text(label, bf_pixmaptype, stock_pixmaptype));
+			gtk_container_add(GTK_CONTAINER(button), hbox_with_pix_and_text(label, bf_pixmaptype, w_mnemonic));
 		} else {
 			/* only pixmap */
-			if (stock_pixmaptype) {
-				gtk_container_add(GTK_CONTAINER(button), gtk_image_new_from_stock(stock_pixmaptype,GTK_ICON_SIZE_BUTTON));
-			} else {
-				gtk_container_add(GTK_CONTAINER(button), new_pixmap(bf_pixmaptype));
-			}
+			gtk_container_add(GTK_CONTAINER(button), new_pixmap(bf_pixmaptype));
 		}
 	}
 	GTK_WIDGET_SET_FLAGS(button, GTK_CAN_DEFAULT);
@@ -1280,7 +1271,7 @@ GtkWidget *file_but_new(GtkWidget * which_entry, gint full_pathname, Tbfwin *bfw
 	file_but = gtk_button_new();
 	g_signal_connect(G_OBJECT(file_but), "destroy", G_CALLBACK(file_but_destroy), fb);
 	DEBUG_MSG("file_but_new, entry=%p, button=%p\n",which_entry,file_but);
-	gtk_container_add(GTK_CONTAINER(file_but), hbox_with_pix_and_text(_("_Browse..."), 112,NULL));
+	gtk_container_add(GTK_CONTAINER(file_but), hbox_with_pix_and_text(_("_Browse..."), 112,TRUE));
 	g_signal_connect(G_OBJECT(file_but), "clicked", G_CALLBACK(file_but_clicked_lcb), fb);
 	gtk_widget_show(file_but);
 	return file_but;

@@ -882,8 +882,8 @@ void replace_prompt_dialog(Tbfwin *bfwin) {
 	gtk_box_set_spacing (GTK_BOX (hbox), 6);
 
 	butclose = bf_gtkstock_button(GTK_STOCK_CLOSE, G_CALLBACK(window_close_by_widget_cb), NULL);
-	butskip = bf_allbuttons_backend(_("_Skip"), TRUE, -1, GTK_STOCK_FIND, G_CALLBACK(replace_prompt_dialog_skip_lcb), bfwin);
-	butok = bf_allbuttons_backend(_("_Replace"), TRUE, -1, GTK_STOCK_FIND_AND_REPLACE, G_CALLBACK(replace_prompt_dialog_ok_lcb), bfwin);
+	butskip = bf_allbuttons_backend(_("_Skip"), TRUE, 1000, G_CALLBACK(replace_prompt_dialog_skip_lcb), bfwin);
+	butok = bf_allbuttons_backend(_("_Replace"), TRUE, 1001, G_CALLBACK(replace_prompt_dialog_ok_lcb), bfwin);
 	butall = bf_generic_mnemonic_button(_("Replace _all"), G_CALLBACK(replace_prompt_dialog_all_lcb), bfwin);
 	gtk_box_pack_start(GTK_BOX(hbox), butclose, FALSE, FALSE, 0);
 	gtk_box_pack_start(GTK_BOX(hbox), butall, FALSE, FALSE, 0);
