@@ -1499,13 +1499,14 @@ static void cust_con_struc_dialog_ok_lcb(GtkWidget *widget, Tcust_con_struc *ccs
 	cust_con_struc_dialog_cancel_lcb(NULL, ccs);
 }
 
-static void cust_con_struc_dialog(gchar **array, gint type) {
+static void cust_con_struc_dialog(Tbfwin *bfwin, gchar **array, gint type) {
 	Tcust_con_struc *ccs;
 	GtkWidget *vbox, *hbox, *okb, *cancb;
 	gint i, num_vars;
 
 	ccs = g_malloc(sizeof(Tcust_con_struc));
 	ccs->type = type;
+	ccs->bfwin = bfwin;
 	DEBUG_MSG("cust_con_struc_dialog_cb, ccs at %p\n", ccs);
 	ccs->array = array;
 	DEBUG_MSG("cust_con_struc_dialog_cb, array at %p, &array[0]=%p\n", ccs->array, &ccs->array[0]);
@@ -1557,7 +1558,7 @@ static void cust_menu_lcb(Tcmenu_entry *cmentry,guint callback_action,GtkWidget 
 	if (cmentry->type == 0) {
 		DEBUG_MSG("cust_menu_lcb, a custom insert, array[3]=%s\n", cmentry->array[3]);
 		if (atoi(cmentry->array[3]) > 0) {
-		     cust_con_struc_dialog(cmentry->array, 0);
+		     cust_con_struc_dialog(cmentry->bfwin,cmentry->array, 0);
 		} else {
 		     doc_insert_two_strings(cmentry->bfwin->current_document, cmentry->array[1],cmentry->array[2]);
 		}
@@ -1568,7 +1569,7 @@ static void cust_menu_lcb(Tcmenu_entry *cmentry,guint callback_action,GtkWidget 
 			return;
 		}
 		if (atoi(cmentry->array[6]) > 0) {
-			cust_con_struc_dialog(cmentry->array, 1);
+			cust_con_struc_dialog(cmentry->bfwin,cmentry->array, 1);
 		} else {
 		     snr2_run_extern_replace(cmentry->bfwin->current_document,cmentry->array[1], atoi(cmentry->array[3]),
 							atoi(cmentry->array[4]), atoi(cmentry->array[5]), cmentry->array[2],TRUE);
