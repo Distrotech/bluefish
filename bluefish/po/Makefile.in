@@ -25,8 +25,8 @@ XGETTEXT = @XGETTEXT@
 MSGMERGE = @MSGMERGE@
 
 #en.gmo should not be installed anymore!!
-FINISHED_CATALOGS = da.gmo fr.gmo es.gmo it.gmo hu.gmo pl.gmo no.gmo ru.gmo sv.gmo
-NONFINISHED_CATALOGS = de.gmo ro.gmo cs.gmo el.gmo ja.gmo pt_BR.gmo nl.gmo
+FINISHED_CATALOGS = da.gmo fr.gmo es.gmo it.gmo hu.gmo pl.gmo no.gmo ru.gmo sv.gmo de.gmo
+NONFINISHED_CATALOGS = ro.gmo cs.gmo el.gmo ja.gmo pt_BR.gmo nl.gmo
 CATALOGS = ${FINISHED_CATALOGS} ${NONFINISHED_CATALOGS}
 
 %.gmo : %.po
