@@ -17,8 +17,8 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-#define DEBUG
-#define DEBUG_ADDING_TO_TREE
+/*#define DEBUG
+#define DEBUG_ADDING_TO_TREE*/
 
 #include <gtk/gtk.h>
 #include <sys/types.h> /* stat() getuid */
@@ -655,13 +655,19 @@ static GtkTreePath *build_tree_from_path(Tfilebrowser *filebrowser, const gchar 
 		
 		totlen = strlen(filepath);
 		DEBUG_MSG("build_tree_from_path, totlen=%d\n", totlen);
-		curlen = strlen(strchr(&filepath[prevlen], '/'));
-		DEBUG_MSG("build_tree_from_path, curlen=%d\n", curlen);
+		if (prevlen > totlen) {
+			prevlen = totlen;
+		}
 		if (filebrowser->basedir) {
 			prevlen = strlen(filebrowser->basedir);
 		}
 		DEBUG_MSG("build_tree_from_path, initial prevlen=%d, searching for / in '%s'\n", prevlen, &filepath[prevlen]);
-		p = strchr(&filepath[prevlen], '/');
+		if (prevlen >= totlen) {
+			DEBUG_MSG("build_tree_from_path, it seems we're building only the root ?!?\n");
+			p = NULL;
+		} else {
+			p = strchr(&filepath[prevlen], '/');
+		}
 		while (p) {
 			curlen = strlen(p);
 	#ifdef DEBUG_ADDING_TO_TREE
@@ -1481,7 +1487,7 @@ void filebrowser_set_basedir(Tbfwin *bfwin, const gchar *basedir) {
 		if (FILEBROWSER(bfwin->filebrowser)->store2) {
 			gtk_list_store_clear(FILEBROWSER(bfwin->filebrowser)->store2);
 		}
-		path = build_tree_from_path(FILEBROWSER(bfwin->filebrowser), FILEBROWSER(bfwin->filebrowser)->basedir);
+		path = build_tree_from_path(FILEBROWSER(bfwin->filebrowser), basedir ? FILEBROWSER(bfwin->filebrowser)->basedir : "/");
 		if (path) {
 			filebrowser_expand_to_root(FILEBROWSER(bfwin->filebrowser),path);
 			gtk_tree_path_free(path);
