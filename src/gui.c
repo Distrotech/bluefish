@@ -649,7 +649,7 @@ static Ttoolbaritem tbi[] = {
 
 static void html_toolbar_remove_from_quickbar_lcb(GtkMenuItem *menuitem, Ttoolbaritem *tbitem) {
 	GList *bfwlist;
-	main_v->props.quickbar_items = remove_from_stringlist(main_v->props.quickbar_items, tbitem->ident);
+	main_v->globses.quickbar_items = remove_from_stringlist(main_v->globses.quickbar_items, tbitem->ident);
 	bfwlist = g_list_first(main_v->bfwinlist);
 	while (bfwlist) {
 		Tquickbaritem *qbi=NULL;
@@ -689,7 +689,7 @@ static gboolean html_toolbar_quickbar_item_button_press_lcb(GtkWidget *widget,Gd
 static void html_toolbar_add_to_quickbar_lcb(GtkMenuItem *menuitem, Ttoolbaritem *tbitem) {
 	GList *tmplist = g_list_first(main_v->bfwinlist);
 	DEBUG_MSG("adding tbitem %p to quickbars\n", tbitem);
-	main_v->props.quickbar_items = add_to_stringlist(main_v->props.quickbar_items, tbitem->ident);
+	main_v->globses.quickbar_items = add_to_stringlist(main_v->globses.quickbar_items, tbitem->ident);
 	while (tmplist) {
 		Tquickbaritem *qbi;
 		Tbfwin *bfwin = BFWIN(tmplist->data);
@@ -785,7 +785,7 @@ void make_html_toolbar(Tbfwin *bfwin) {
 	{
 		GList *tmplist;
 		gint i, numitems=(sizeof(tbi)/sizeof(Ttoolbaritem));
-		tmplist = g_list_first(main_v->props.quickbar_items);
+		tmplist = g_list_first(main_v->globses.quickbar_items);
 		while (tmplist) {
 			gchar *tmpstr = tmplist->data;
 			DEBUG_MSG("make_html_toolbar, searching for %s\n", tmpstr);
@@ -949,19 +949,19 @@ static gboolean gui_main_window_configure_event_lcb(GtkWidget *widget,GdkEvent *
 	if (main_v->props.restore_dimensions) {
 		if (revent->type == GDK_CONFIGURE) {
 			GdkEventConfigure *event = (GdkEventConfigure *)revent;
-			if (main_v->props.main_window_w > 0 ) {
-				main_v->props.main_window_w = event->width;
-				main_v->props.main_window_h = event->height;
+			if (main_v->globses.main_window_w > 0 ) {
+				main_v->globses.main_window_w = event->width;
+				main_v->globses.main_window_h = event->height;
 				DEBUG_MSG("gui_main_window_configure_event_lcb, width=%d, height=%d\n",event->width,event->height);
 			}
 		} else if (revent->type == GDK_WINDOW_STATE) {
 			GdkEventWindowState *event = (GdkEventWindowState *)revent;
-			if (event->new_window_state == GDK_WINDOW_STATE_MAXIMIZED && main_v->props.main_window_w > 0) {
-				main_v->props.main_window_w = -1 * main_v->props.main_window_w; /* negative means it is maximized !! */
-				DEBUG_MSG("gui_main_window_configure_event_lcb, maximized!! width=%d\n",main_v->props.main_window_w);
-			} else if (event->new_window_state != GDK_WINDOW_STATE_MAXIMIZED && main_v->props.main_window_w < 0) {
-				main_v->props.main_window_w = -1 * main_v->props.main_window_w; /* make it positive again */
-				DEBUG_MSG("gui_main_window_configure_event_lcb, NOT-maximized, width=%d\n",main_v->props.main_window_w);
+			if (event->new_window_state == GDK_WINDOW_STATE_MAXIMIZED && main_v->globses.main_window_w > 0) {
+				main_v->globses.main_window_w = -1 * main_v->globses.main_window_w; /* negative means it is maximized !! */
+				DEBUG_MSG("gui_main_window_configure_event_lcb, maximized!! width=%d\n",main_v->globses.main_window_w);
+			} else if (event->new_window_state != GDK_WINDOW_STATE_MAXIMIZED && main_v->globses.main_window_w < 0) {
+				main_v->globses.main_window_w = -1 * main_v->globses.main_window_w; /* make it positive again */
+				DEBUG_MSG("gui_main_window_configure_event_lcb, NOT-maximized, width=%d\n",main_v->globses.main_window_w);
 			}
 		}
 	}
@@ -1107,10 +1107,10 @@ void gui_create_main(Tbfwin *bfwin, GList *filenames) {
 	DEBUG_MSG("gui_create_main, bfwin=%p, bfwin->bookmarkstore=%p\n",bfwin,bfwin->bookmarkstore);
 	bfwin->main_window = window_full2(_("New Bluefish Window"), GTK_WIN_POS_CENTER, 0, G_CALLBACK(main_window_destroy_lcb), bfwin, FALSE, NULL);
 	gtk_window_set_role(GTK_WINDOW(bfwin->main_window), "bluefish");
-	if (main_v->props.main_window_w > 0) {
-		gtk_window_set_default_size(GTK_WINDOW(bfwin->main_window), main_v->props.main_window_w, main_v->props.main_window_h);
+	if (main_v->globses.main_window_w > 0) {
+		gtk_window_set_default_size(GTK_WINDOW(bfwin->main_window), main_v->globses.main_window_w, main_v->globses.main_window_h);
 	} else {
-		gtk_window_set_default_size(GTK_WINDOW(bfwin->main_window), main_v->props.main_window_w * -1, main_v->props.main_window_h);
+		gtk_window_set_default_size(GTK_WINDOW(bfwin->main_window), main_v->globses.main_window_w * -1, main_v->globses.main_window_h);
 		gtk_window_maximize(GTK_WINDOW(bfwin->main_window));
 	}
 	g_signal_connect(G_OBJECT(bfwin->main_window), "delete_event", G_CALLBACK(main_window_delete_event_lcb), bfwin);

@@ -22,7 +22,7 @@
  */
 /* 
  * Changes by Antti-Juhani Kaijanaho <gaia@iki.fi> on 1999-10-20
- * $Id: html.c,v 1.41 2004-02-22 22:28:43 oli4 Exp $
+ * $Id: html.c,v 1.42 2004-03-07 11:33:42 oli4 Exp $
  */
 /*#define DEBUG*/
 
@@ -92,7 +92,7 @@ void general_html_menu_cb(Tbfwin* bfwin,guint callback_action, GtkWidget *widget
 		doc_insert_two_strings(bfwin->current_document, cap("<STRIKE>"), cap("</STRIKE>"));
 		break;
 	case 5:
-		doc_insert_two_strings(bfwin->current_document, cap("<P>"), main_v->props.full_p == 1 ? cap("</P>") : NULL);
+		doc_insert_two_strings(bfwin->current_document, cap("<P>"), cap("</P>"));
 		break;
 	case 6:
 		doc_insert_two_strings(bfwin->current_document, main_v->props.xhtml == 1 ? cap("<br />") : cap("<br>"), NULL);
@@ -184,16 +184,16 @@ void general_html_menu_cb(Tbfwin* bfwin,guint callback_action, GtkWidget *widget
 		doc_insert_two_strings(bfwin->current_document, cap("<OL>"), cap("</OL>"));
 		break;
 	case 35:
-		doc_insert_two_strings(bfwin->current_document, cap("<LI>"), main_v->props.full_li == 1 ? cap("</LI>") : NULL);
+		doc_insert_two_strings(bfwin->current_document, cap("<LI>"), cap("</LI>"));
 		break;
 	case 36:
-		doc_insert_two_strings(bfwin->current_document, main_v->props.full_li == 1 ? cap("<DL>\n<DT></DT>\n\t<DD></DD>\n</DL>") : cap("<DL>\n<DT>\n\t<DD>\n</DL>"), "\n");
+		doc_insert_two_strings(bfwin->current_document, cap("<DL>\n<DT></DT>\n\t<DD></DD>\n</DL>"), "\n");
 		break;
 	case 37:
-		doc_insert_two_strings(bfwin->current_document, cap("<DT>"), main_v->props.full_li == 1 ? cap("</DT>") : NULL);
+		doc_insert_two_strings(bfwin->current_document, cap("<DT>"), cap("</DT>"));
 		break;
 	case 38:
-		doc_insert_two_strings(bfwin->current_document, cap("<DD>"), main_v->props.full_li == 1 ? cap("</DD>") : NULL);
+		doc_insert_two_strings(bfwin->current_document, cap("<DD>"), cap("</DD>"));
 		break;
 	case 39:
 		doc_insert_two_strings(bfwin->current_document, cap("<MENU>"), cap("</MENU>"));
@@ -1624,7 +1624,7 @@ static void quicklistok_lcb(GtkWidget * widget, Thtml_diag *dg)
 		/* TODO: use bf_str_repeat() function !!!!!!! */
 		/**********************************************/
 		for (i = 0; i < temp; i++) {
-			strcat(finalstring,  main_v->props.full_li == 1 ? cap("\n\t<LI></LI>") : cap("\n\t<LI>"));
+			strcat(finalstring,  cap("\n\t<LI></LI>"));
 		}
 		strcat(finalstring, "\n");
 

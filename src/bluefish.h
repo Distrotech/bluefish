@@ -168,7 +168,6 @@ typedef struct {
 	GList *cust_menu; 		/* DEPRECATED entries in the custom menu */
 	GList *cmenu_insert; /* custom menu inserts */
 	GList *cmenu_replace; /* custom menu replaces */
-	GList *quickbar_items; /* items in the quickbar toolbar */
 	gint highlight_num_lines_count; /* number of lines to highlight in continous highlighting */	
 	gint defaulthighlight;		/* highlight documents by default */
 	GList *filetypes; /* filetypes for highlighting and filtering */
@@ -179,9 +178,6 @@ typedef struct {
 	gint transient_htdialogs;  /* set html dialogs transient ro the main window */
 	gint restore_dimensions; /* use the dimensions as used the previous run */
 	gint left_panel_width; 	/* width of filelist */
-	gint two_pane_filebrowser_height; /* position of the pane separater on the two paned file browser */
-	gint main_window_h;			/* main window height */
-	gint main_window_w;			/* main window width */
 	gint max_recent_files;	/* length of Open Recent list */
 	gint max_dir_history;	/* length of directory history */
 	gint backup_file; 			/* wheather to use a backup file */
@@ -209,8 +205,6 @@ typedef struct {
 	gint ext_commands_in_submenu;
 	gint ext_outputbox_in_submenu;
 	GList *reference_files; /* all reference files */
-	gint fref_ldoubleclick_action; /* left doubleclick in the function reference */
-	gint fref_info_type; /* type of info shown in a small function reference window */
 	gint bookmarks_sort; /* 0=no sort, 1=sort */
 	gint bookmarks_default_store; /* 0= temporary by default, 1= permanent by default */
 	gint bookmarks_filename_mode; /* 0=FULLPATH, 1=DIR FROM BASE 2=BASENAME */
@@ -221,21 +215,12 @@ typedef struct {
 #ifdef HAVE_LIBASPELL
 	gchar *spell_default_lang;
 #endif /* HAVE_LIBASPELL */
-	gint lasttime_cust_menu; /* the last time the defaultfile was checked for new entries */
-	gint lasttime_highlighting; /* see above */
-	gint lasttime_filetypes; /* see above */
-	gint lasttime_encodings; /* see above */
 	/* not yet in use */
 	gchar *image_editor_cline; 	/* image editor commandline */
-	gint full_p;				/* use </p> */
-	gint full_li;				/* use </li> */
-	gint allow_css;				/* CSS allowed */
 	gint allow_dep;				/* allow <FONT>... */
 	gint format_by_context; 	/* use <strong> instead of <b>, <emphasis instead of <i> etc. (W3C reccomendation) */
 	gint xhtml;					/* write <br /> */
 	gint allow_ruby;			/* allow <ruby> */
-	gint allow_h4;				/* allow <Q>... */
-	gint allow_frames;			/* allow <FRAME> */
 	gint force_dtd;				/* write <!DOCTYPE...> */
 	gint dtd_url;				/* URL in DTD */
 	gint xml_start;				/* <?XML...> */
@@ -245,18 +230,29 @@ typedef struct {
 	gint drop_at_drop_pos; 	/* drop at drop position instead of cursor position */
 	gint link_management; 	/* perform link management */
 	gint cont_highlight_update;	/* update the syntax highlighting continuous */
-	gchar *html_ver;
 	/* key conversion */
-	gint conv_ctrl_enter;		/* convert control-enter key press */
-	gchar *ctrl_enter_text;		/* inserted text */
-	gint conv_shift_enter;		/* convert shift-enter key press */
-	gchar *shift_enter_text;	/* inserted text */
-	gint conv_special_char;		/* convert ctrl-'<','>','&' */
 	gint open_in_running_bluefish; /* open commandline documents in already running session*/
 #ifdef HAVE_GNOME_VFS
 	gint server_zope_compat;        /* add 'document_src' to uri when reading remote files */
 #endif
 } Tproperties;
+
+/* the Tglobalsession contains all settings that can change 
+over every time you run Bluefish, so things that *need* to be
+saved after every run! */
+typedef struct {
+	GList *quickbar_items; /* items in the quickbar toolbar */	
+	gint main_window_h;			/* main window height */
+	gint main_window_w;			/* main window width */
+	gint two_pane_filebrowser_height; /* position of the pane separater on the two paned file browser */
+	gint fref_ldoubleclick_action; /* left doubleclick in the function reference */
+	gint fref_info_type; /* type of info shown in a small function reference window */
+	gint lasttime_cust_menu; /* the last time the defaultfile was checked for new entries */
+	gint lasttime_highlighting; /* see above */
+	gint lasttime_filetypes; /* see above */
+	gint lasttime_encodings; /* see above */
+	GList *recent_projects;
+} Tglobalsession;
 
 typedef struct {
 	GList *classlist;
@@ -347,7 +343,8 @@ typedef struct {
 } Tbfwin;
 
 typedef struct {
-	Tproperties props;
+	Tproperties props; /* preferences */
+	Tglobalsession globses; /* global session */
 	GList *filetypelist; /* highlighting.c: a list of all filetypes with their icons and highlighting sets */
 	GList *bfwinlist;
 	GList *recent_directories; /* a stringlist with the most recently used directories */

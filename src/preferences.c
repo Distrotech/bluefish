@@ -1755,8 +1755,8 @@ static void preferences_apply(Tprefdialog *pd) {
 	integer_apply(&main_v->props.restore_dimensions, pd->prefs[restore_dimensions], TRUE);
 	if (!main_v->props.restore_dimensions) {
 		integer_apply(&main_v->props.left_panel_width, pd->prefs[left_panel_width], FALSE);
-		integer_apply(&main_v->props.main_window_h, pd->prefs[main_window_h], FALSE);
-		integer_apply(&main_v->props.main_window_w, pd->prefs[main_window_w], FALSE);
+		integer_apply(&main_v->globses.main_window_h, pd->prefs[main_window_h], FALSE);
+		integer_apply(&main_v->globses.main_window_w, pd->prefs[main_window_w], FALSE);
 	}
 	string_apply(&main_v->props.tab_font_string, pd->prefs[tab_font_string]);
 	main_v->props.document_tabposition = gtk_option_menu_get_history(GTK_OPTION_MENU(pd->prefs[document_tabposition]));
@@ -1987,8 +1987,8 @@ static void preferences_dialog() {
 	gtk_container_add(GTK_CONTAINER(frame), vbox2);
 	pd->prefs[restore_dimensions] = boxed_checkbut_with_value(_("Restore last used dimensions"), main_v->props.restore_dimensions, vbox2);
 	pd->prefs[left_panel_width] = prefs_integer(_("Initial left panel width"), main_v->props.left_panel_width, vbox2, pd, 1, 4000);
-	pd->prefs[main_window_h] = prefs_integer(_("Initial window height"), main_v->props.main_window_h, vbox2, pd, 1, 4000);
-	pd->prefs[main_window_w] = prefs_integer(_("Initial window width"), main_v->props.main_window_w, vbox2, pd, 1, 4000);
+	pd->prefs[main_window_h] = prefs_integer(_("Initial window height"), main_v->globses.main_window_h, vbox2, pd, 1, 4000);
+	pd->prefs[main_window_w] = prefs_integer(_("Initial window width"), main_v->globses.main_window_w, vbox2, pd, 1, 4000);
 	restore_dimensions_toggled_lcb(GTK_TOGGLE_BUTTON(pd->prefs[restore_dimensions]), pd);
 	g_signal_connect(G_OBJECT(pd->prefs[restore_dimensions]), "toggled", G_CALLBACK(restore_dimensions_toggled_lcb), pd);
 
