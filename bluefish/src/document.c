@@ -1861,7 +1861,7 @@ static void files_advanced_win(Tfiles_advanced *tfs) {
 	vbox = gtk_vbox_new(FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(tfs->win), vbox);
 	
-	table = gtk_table_new(8, 5, FALSE);
+	table = gtk_table_new(9, 5, FALSE);
 	gtk_table_set_row_spacings(GTK_TABLE(table), 12);
 	gtk_table_set_col_spacings(GTK_TABLE(table), 12);
 	gtk_box_pack_start(GTK_BOX(vbox), table, FALSE, FALSE, 0);
@@ -1871,10 +1871,11 @@ static void files_advanced_win(Tfiles_advanced *tfs) {
 
 	/* filename part */
 	/* curdir should get a value */
+	bf_label_tad_with_markup(_("<b>General</b>"), 0, 0.5, table, 0, 3, 2, 3);
 	tfs->basedir = entry_with_text(curdir, 255);
-	bf_mnemonic_label_tad_with_alignment(_("Base_dir:"), tfs->basedir, 0, 0.5, table, 1, 2, 2, 3);
-	gtk_table_attach_defaults(GTK_TABLE(table), tfs->basedir, 2, 4, 2, 3);
-	gtk_table_attach(GTK_TABLE(table), bf_generic_button_with_image(_("_Browse..."), 112, G_CALLBACK(files_advanced_win_select_basedir_lcb), tfs), 4, 5, 2, 3, GTK_SHRINK, GTK_SHRINK, 0, 0);
+	bf_mnemonic_label_tad_with_alignment(_("Base_dir:"), tfs->basedir, 0, 0.5, table, 1, 2, 3, 4);
+	gtk_table_attach_defaults(GTK_TABLE(table), tfs->basedir, 2, 4, 3, 4);
+	gtk_table_attach(GTK_TABLE(table), bf_generic_button_with_image(_("_Browse..."), 112, G_CALLBACK(files_advanced_win_select_basedir_lcb), tfs), 4, 5, 3, 4, GTK_SHRINK, GTK_SHRINK, 0, 0);
 
 	g_free(curdir);
 	
@@ -1889,30 +1890,26 @@ static void files_advanced_win(Tfiles_advanced *tfs) {
 	list = g_list_append(list, "*.c");
 	list = g_list_append(list, "*.py");
 	tfs->find_pattern = combo_with_popdown("", list, 1);
-	bf_mnemonic_label_tad_with_alignment(_("_File Type:"), tfs->find_pattern, 0, 0.5, table, 1, 2, 3, 4);
-	gtk_table_attach_defaults(GTK_TABLE(table), tfs->find_pattern, 2, 4, 3, 4);
+	bf_mnemonic_label_tad_with_alignment(_("_File Type:"), tfs->find_pattern, 0, 0.5, table, 1, 2, 4, 5);
+	gtk_table_attach_defaults(GTK_TABLE(table), tfs->find_pattern, 2, 4, 4, 5);
 
 	g_list_free(list);
 
 	tfs->recursive = checkbut_with_value(NULL, 1);
-	bf_mnemonic_label_tad_with_alignment(_("_Recursive:"), tfs->recursive, 0, 0.5, table, 1, 2, 4, 5);
-	gtk_table_attach_defaults(GTK_TABLE(table), tfs->recursive, 2, 3, 4, 5);	
+	bf_mnemonic_label_tad_with_alignment(_("_Recursive:"), tfs->recursive, 0, 0.5, table, 1, 2, 5, 6);
+	gtk_table_attach_defaults(GTK_TABLE(table), tfs->recursive, 2, 3, 5, 6);	
 	
 	/* content */
-	gtk_table_set_row_spacing(GTK_TABLE(table), 6, 18);
-	{
-		GtkWidget * label = gtk_label_new(NULL);
-		gtk_label_set_markup(GTK_LABEL(label), "<b>Contains</b>");
-		gtk_misc_set_alignment(GTK_MISC(label), 0, 0.5);
-		gtk_table_attach_defaults(GTK_TABLE(table), label, 0, 3, 5, 6);
-	}
+	gtk_table_set_row_spacing(GTK_TABLE(table), 5, 18);
+	bf_label_tad_with_markup(_("<b>Contains</b>"), 0, 0.5, table, 0, 3, 6, 7);
+
 	tfs->grep_pattern = entry_with_text(NULL, 255);
-	bf_mnemonic_label_tad_with_alignment(_("Pa_ttern:"), tfs->grep_pattern, 0, 0.5, table, 1, 2, 6, 7);
-	gtk_table_attach_defaults(GTK_TABLE(table), tfs->grep_pattern, 2, 4, 6, 7);
+	bf_mnemonic_label_tad_with_alignment(_("Pa_ttern:"), tfs->grep_pattern, 0, 0.5, table, 1, 2, 7, 8);
+	gtk_table_attach_defaults(GTK_TABLE(table), tfs->grep_pattern, 2, 4, 7, 8);
 	
 	tfs->is_regex = checkbut_with_value(NULL, 0);
-	bf_mnemonic_label_tad_with_alignment(_("Is rege_x:"), tfs->is_regex, 0, 0.5, table, 1, 2, 7, 8);
-	gtk_table_attach_defaults(GTK_TABLE(table), tfs->is_regex, 2, 3, 7, 8);
+	bf_mnemonic_label_tad_with_alignment(_("Is rege_x:"), tfs->is_regex, 0, 0.5, table, 1, 2, 8, 9);
+	gtk_table_attach_defaults(GTK_TABLE(table), tfs->is_regex, 2, 3, 8, 9);
 	
 	/* buttons */
 	hbox = gtk_hbox_new(FALSE, 0);

@@ -625,7 +625,6 @@ GtkWidget *bf_generic_frame_new(const gchar *label, GtkShadowType shadowtype, gi
  * 	void
  * Description:
  * 	create a label with a mnemonic, align it, and attach it to a table
- *      using the table defaults
  */
 void bf_mnemonic_label_tad_with_alignment(const gchar *labeltext, GtkWidget *m_widget, gfloat xalign, gfloat yalign, 
 						GtkWidget *table, guint left_attach, guint right_attach, guint top_attach, guint bottom_attach)
@@ -647,6 +646,34 @@ void bf_mnemonic_label_tad_with_alignment(const gchar *labeltext, GtkWidget *m_w
        gtk_label_set_mnemonic_widget(GTK_LABEL(label), m_widget);
    }
 }
+
+/*
+ * Function: bf_label_tad_with_markup
+ * Arguments:
+ * 	labeltext - label string
+ *      xalign - label horizontal alignment
+ *      yalign - label vertical alignment
+ *      table - table label is packed into
+ *      left_attach - column number to attach the left side of the label to
+ *      right_atach - column number to attach the right side of a label to
+ *      top_attach - row number to attach the top of a label to
+ *      bottom_attach - row number to attach the bottom of a label to 	
+ * Return value:
+ * 	void
+ * Description:
+ * 	create a label with markup, align it, and attach it to a table
+ *      using the table defaults
+ */
+void bf_label_tad_with_markup(const gchar *labeltext, gfloat xalign, gfloat yalign,
+								GtkWidget *table, guint left_attach, guint right_attach, guint top_attach, guint bottom_attach)
+{
+	GtkWidget *label;
+	
+	label = gtk_label_new(NULL);
+	gtk_label_set_markup(GTK_LABEL(label), labeltext);
+	gtk_misc_set_alignment(GTK_MISC(label), xalign, yalign);
+	gtk_table_attach_defaults(GTK_TABLE(table), label, left_attach, right_attach, top_attach, bottom_attach);	
+}								
 
 /*
  * Function: error_dialog
