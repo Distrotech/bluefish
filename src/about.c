@@ -125,7 +125,7 @@ void about_dialog_create(gpointer * data, guint * callback_action, GtkWidget * w
   Olivier Sessink <olivier@bluefish.openoffice.nl>\n\
 \n\
 Developers for this release:\n\
-  Jim Hayward <jimhayward@linuxexperience.com>\n\
+  Jim Hayward <jimhayward@linuxexperience.net>\n\
   Oskar Świda <swida@aragorn.pb.bialystok.pl>\n\
   Eugene Morenko(More) <more@irpin.com>\n\
 \n\
