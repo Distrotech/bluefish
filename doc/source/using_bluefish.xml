@@ -37,6 +37,11 @@ There are several useful command line options.
 	  <listitem><para>-h           this help screen</para></listitem>
 	  <listitem><para>--display</para></listitem>
 </itemizedlist>
+Many programs like browsers, email clients and file managers can be configured to 
+open files in Bluefish. For example <emphasis>bluefish '%s'</emphasis> will open
+a file in the current window, <emphasis>bluefish -n '%s'</emphasis> will open a
+file in a new window, and <emphasis>bluefish -p '%s'</emphasis> will open
+a project file.
 </para>
 </sect2>
 <sect2 id="user-interface">
@@ -119,7 +124,14 @@ There are several useful command line options.
 	Through <emphasis>File/Open</emphasis> 
 	one or more files can be opened. Recently opened files (up to 15?) can be 
 	opened by selecting from the list within <emphasis>File/Open recent. </emphasis>
-	</para><para>
+	</para>
+	<para>
+	Information about currently opened files can be seen if you move the mouse over
+	the document tab (by default on the bottom of the screen). A so called tooltip will
+	be shown with information about the full path, size, permissions, filetype and 
+	encoding of the file.
+	</para>
+	<para>
 	An interesting feature of Bluefish is the 
 	ability to open files by selecting the text of a currently opened file. 
 	For example, if a filename is shown in for example a terminal application, 
