@@ -35,26 +35,27 @@
 #endif
 
 #include <gtk/gtk.h>
-#include <sys/types.h>			/* _before_ regex.h for freeBSD */
-#include <pcre.h>				/* pcre_*() */
-#include <string.h>				/* strerror() */
-#include <stdlib.h>				/* atoi() */
+#include <sys/types.h>	/* _before_ regex.h for freeBSD */
+#include <pcre.h>			/* pcre_*() */
+#include <string.h>		/* strerror() */
+#include <stdlib.h>		/* atoi() */
 
-#include "config.h" /* HL_PROFILING might be defined there */
+#include "config.h"		/* HL_PROFILING might be defined there */
 
-#ifdef HL_PROFILING /* per pattern profiling information, interesting for users making a new pattern */
+#ifdef HL_PROFILING		/* per pattern profiling information, interesting for users making a new pattern */
 #include <sys/times.h>
 #include <unistd.h>
 #endif
 
 #include "bluefish.h"
-#include "bf_lib.h"				/* filename_test_extensions() */
-#include "rcfile.h"				/* array_from_arglist() */
-#include "stringlist.h" 	/* count_array() */
-#include "menu.h" 			/* menu_current_document_set_toggle_wo_activate */
-#include "document.h" /* doc_get_chars() */
+#include "bf_lib.h"			/* filename_test_extensions() */
+#include "dialog_utils.h"	/* error_dialog() */
+#include "document.h"		/* doc_get_chars() */
 #include "highlight.h"
-#include "gtk_easy.h" /* error_dialog() */
+#include "menu.h"				/* menu_current_document_set_toggle_wo_activate */
+#include "rcfile.h"			/* array_from_arglist() */
+#include "stringlist.h"		/* count_array() */
+
 
 #define MAX_OVECTOR 30 /* should be a multiple of three for pcre_exec(), 
 									and at maximum 2/3 of this size can really be used for substrings */
@@ -302,7 +303,7 @@ static void timing_stop(gint id) {
 
 static void highlight_error(gboolean gui_errors, gchar *str1, gchar *str2) {
 	if (gui_errors) {
-		error_dialog(NULL,str1, str2);
+		message_dialog_new(NULL, GTK_MESSAGE_ERROR, GTK_BUTTONS_CLOSE, str1, str2);
 	} else {
 		gchar *message = g_strconcat(str1, ", ", str2, "\n", NULL);
 		g_print(message);

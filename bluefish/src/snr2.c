@@ -46,21 +46,22 @@
 #endif /* HAVE_STRINGS_H */
 #include <stdio.h>
 #include <string.h>
-#include <sys/types.h>  /* _before_ regex.h for freeBSD */
+#include <sys/types.h>			/* _before_ regex.h for freeBSD */
 #include <regex.h> 				/* regcomp() */
-#include <pcre.h> 	/* pcre_compile */
-#include <gdk/gdkkeysyms.h> /* GDK_Return */
+#include <pcre.h>					/* pcre_compile */
+#include <gdk/gdkkeysyms.h>	/* GDK_Return */
 
 #include "bluefish.h"
-#include "bookmark.h" /* bmark_add_extern() */
+#include "bookmark.h"			/* bmark_add_extern() */
 #include "bf_lib.h"
-#include "undo_redo.h" /* doc_unre_new_group */
+#include "dialog_utils.h"
 #include "document.h"			/* doc_replace_text() */
-#include "gui.h" /* switch_to_document_by_pointer() */
 #include "gtk_easy.h"         /* a lot of GUI functions */
+#include "gui.h"					/* switch_to_document_by_pointer() */
+#include "highlight.h"			/* doc_highlight_full() */
 #include "snr2.h"
-#include "highlight.h" /* doc_highlight_full() */
-#include "stringlist.h" /* add_to_history_stringlist */
+#include "stringlist.h"			/* add_to_history_stringlist */
+#include "undo_redo.h"			/* doc_unre_new_group */
 
 /* Updates, May 2003, by Ruben Dorta */
 
@@ -185,7 +186,11 @@ Tsearch_result search_backend(Tbfwin *bfwin, gchar *search_pattern, Tmatch_types
 			
 			regerror(retval,  &reg_pat, errorstr, ERRORSTR_SIZE);
 			errorstr2 = g_strconcat(_("Regular expression error: "), errorstr, NULL);
-			warning_dialog(bfwin->main_window,_("Search failed"), errorstr2);
+			message_dialog_new(bfwin->main_window, 
+									 GTK_MESSAGE_WARNING, 
+							 	 	 GTK_BUTTONS_OK, 
+									 _("Search failed"), 
+									 errorstr2);
 			g_free(errorstr2);
 			/* error compiling the search_pattern, returning the default result set,
 			which is the 'nothing found' set */
@@ -230,7 +235,11 @@ Tsearch_result search_backend(Tbfwin *bfwin, gchar *search_pattern, Tmatch_types
 		if (err) {
 			gchar *errstring;
 			errstring = g_strdup_printf(_("Regular expression error: %s at offset %d"), err, erroffset);
-			warning_dialog(bfwin->main_window,_("Search failed"), errstring);
+			message_dialog_new(bfwin->main_window, 
+									 GTK_MESSAGE_WARNING, 
+							 	 	 GTK_BUTTONS_OK, 
+									 _("Search failed"), 
+									 errstring);
 			g_free(errstring);
 			return returnvalue;/* error compiling the search_pattern, returning the default result set,which is the 'nothing found' set */
 		}
@@ -1127,14 +1136,22 @@ void snr2_run(Tbfwin *bfwin, Tdocument *doc) {
 				if (result_all.end > 0) {
 					doc_show_result(result_all.doc, result_all.start, result_all.end);
 				} else {
-					info_dialog(bfwin->main_window,_("Search: no match found"), NULL);
+					message_dialog_new(bfwin->main_window, 
+								 	 		 GTK_MESSAGE_INFO, 
+											 GTK_BUTTONS_OK, 
+											 _("Search: no match found"), 
+											 NULL);
 				}
 			} else {
 				result = search_doc(bfwin,doc, LASTSNR2(bfwin->snr2)->search_pattern, LASTSNR2(bfwin->snr2)->matchtype_option, LASTSNR2(bfwin->snr2)->is_case_sens, startpos, LASTSNR2(bfwin->snr2)->unescape);
 				if (result.end > 0) {
 					doc_show_result(doc, result.start, result.end);
 				} else {
-					info_dialog(bfwin->main_window,_("Search: no match found"), NULL);
+					message_dialog_new(bfwin->main_window, 
+								 	 		 GTK_MESSAGE_INFO, 
+											 GTK_BUTTONS_OK, 
+											 _("Search: no match found"), 
+											 NULL);
 				}
 			}
 		}

@@ -75,3 +75,25 @@ dialog_table_in_vbox_defaults(gint rows, gint cols, gint borderWidth, GtkWidget 
 	
 	return table;
 }
+
+void
+message_dialog_new(GtkWidget *parent, GtkMessageType type, GtkButtonsType button, const gchar *primaryText, const gchar *secondaryText) {
+	GtkWidget *dialog;
+	gchar *text;
+	
+	if (!secondaryText) {
+		text = g_strconcat ("<span weight=\"bold\" size=\"larger\">", primaryText, "</span>\n", NULL);
+	} else {
+		text = g_strconcat ("<span weight=\"bold\" size=\"larger\">", primaryText, "</span>\n\n", secondaryText, "\n", NULL);
+	}
+	
+	dialog = gtk_message_dialog_new_with_markup (GTK_WINDOW (parent),
+																GTK_DIALOG_DESTROY_WITH_PARENT,
+																type,
+																button,
+																text);	
+
+	g_free (text);
+	gtk_dialog_run (GTK_DIALOG (dialog));
+	gtk_widget_destroy (dialog);
+}

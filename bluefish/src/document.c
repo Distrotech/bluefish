@@ -44,25 +44,25 @@
 #endif
 
 #include "bluefish.h"
-
-#include "document.h"
-#include "highlight.h" /* all highlight functions */
-#include "gui.h" /* statusbar_message() */
 #include "bf_lib.h"
-#include "menu.h" /* add_to_recent_list */
-#include "stringlist.h" /* free_stringlist() */
-#include "gtk_easy.h" /* *_dialog() */
-#include "undo_redo.h" /* doc_unre_init() */
-#include "rpopup.h" /* doc_bevent_in_html_tag(), rpopup_edit_tag_cb() */
-#include "char_table.h" /* convert_utf8...() */
-#include "pixmap.h"
-#include "snr2.h" /* snr2_run_extern_replace */
-#include "cap.h"
-#include "filebrowser.h"
 #include "bookmark.h"
+#include "cap.h"
+#include "char_table.h"		/* convert_utf8...() */
+#include "dialog_utils.h"
+#include "document.h"
 #include "file.h"
 #include "filebrowser2.h"
 #include "file_dialogs.h"
+#include "gtk_easy.h"		/* *_dialog() */
+#include "gui.h"				/* statusbar_message() */
+#include "highlight.h"		/* all highlight functions */
+#include "menu.h"				/* add_to_recent_list */
+#include "pixmap.h"
+#include "rpopup.h"			/* doc_bevent_in_html_tag(), rpopup_edit_tag_cb() */
+#include "snr2.h"				/* snr2_run_extern_replace */
+#include "stringlist.h"		/* free_stringlist() */
+#include "undo_redo.h"		/* doc_unre_init() */
+
 
 typedef struct {
 	GtkWidget *textview;
@@ -1565,7 +1565,11 @@ gboolean doc_buffer_to_textbox(Tdocument * doc, gchar * buffer, gsize buflen, gb
 		}
 	}
 	if (!newbuf) {
-		error_dialog(BFWIN(doc->bfwin)->main_window,_("Cannot display file, unknown characters found."), NULL);
+		message_dialog_new(BFWIN(doc->bfwin)->main_window, 
+								 GTK_MESSAGE_ERROR, 
+								 GTK_BUTTONS_CLOSE, 
+								 _("Cannot display file, unknown characters found."), 
+								 NULL);
 		return FALSE;
 	}
 	DEBUG_MSG("doc_buffer_to_textbox, will set encoding to %s\n",encoding);

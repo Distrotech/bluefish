@@ -25,4 +25,6 @@ GtkWidget * dialog_label_with_alignment(const gchar *labeltext, GtkWidget *box);
 GtkWidget * dialog_table_in_vbox(gint rows, gint cols, gint borderWidth, GtkWidget *box, gboolean expand, gboolean fill, guint padding);
 GtkWidget * dialog_table_in_vbox_defaults(gint rows, gint cols, gint borderWidth, GtkWidget *box);
 
+void message_dialog_new(GtkWidget *parent, GtkMessageType type, GtkButtonsType button, const gchar *primaryText, const gchar *secondaryText);
+
 #endif /* __DIALOG_UTILS_H_ */
