@@ -1,6 +1,19 @@
-bluefish (2.0-1) unstable; urgency=low
+bluefish (0.9-1) unstable; urgency=low
 
-  * Gtk2 porting beta release.
+  * New upstream version; closes: #181560.
+  * Added an option that let you decide to have meta author tag
+    changed on saving or not; closes: #180111.
+  * Fixed a wrong behaviour on inserting images and thumbnails; 
+    closes: #174445.
+  * Added a Gnome2 menu entry: closes: #173864.
+  * Fixed Debian menu entry to be standard; closes: #179451.
+
+ -- Davide Puricelli (evo) <evo@debian.org>  Tue, 18 Feb 2003 15:16:19 +0100
+
+bluefish (0.8-1) unstable; urgency=low
+
+  * New upstream version (now bluefish uses gtk2, cool!).
+  * Now Menu hotkeys are working in the right way; closes: #173028.
 
  -- Davide Puricelli (evo) <evo@debian.org>  Fri,  4 Oct 2002 23:14:20 +0200
 

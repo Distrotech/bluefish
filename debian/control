@@ -2,19 +2,19 @@ Source: bluefish
 Maintainer: Davide Puricelli (evo) <evo@debian.org>
 Section: web
 Priority: optional
-Build-Depends: debhelper, autoconf, libgtk2.0-dev, gettext, libtool, libatk1.0-dev, libfreetype6-dev, libglib2.0-dev, zlib1g-dev, libpcre3-dev
-Standards-Version: 3.5.6
+Build-Depends: debhelper, autoconf, libgtk2.0-dev, gettext, libtool, libatk1.0-dev, libfreetype6-dev, libglib2.0-dev, zlib1g-dev, libpcre3-dev, libaspell-dev
+Standards-Version: 3.5.8.0
 
 Package: bluefish
 Architecture: any
 Depends: ${shlibs:Depends}
 Suggests: www-browser, weblint
 Description: A Gtk+ HTML editor
- Bluefish is a GTK HTML editor for the experienced web designer.  It is
- currently in alpha stage, but still usable.  Its features include nice
- wizards for startup, tables and frame; a fully featured image insert
- dialog; thumbnail creation and automatically linking of the thumbnail
- with the original image; and configurable HTML syntax highlighting.
+ Bluefish is a GTK HTML editor for the experienced web designer.
+ Its features include nice wizards for startup, tables and frame; a
+ fully featured image insert dialog; thumbnail creation and automatically
+ linking of the thumbnail with the original image; and configurable HTML
+ syntax highlighting.
  .
  For validation to work you need weblint.  For preview to work,
  you need a web browser that can view local files given to it
