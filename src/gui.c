@@ -790,6 +790,8 @@ void gui_create_main(GList *filenames) {
 		gtk_widget_show(main_v->statusbar);
 		gtk_box_pack_start(GTK_BOX(hbox), main_v->statusbar, TRUE, TRUE, 0);
 	}
+	/* We have to know when the notebook changes */
+	gui_notebook_bind_signals();
 	
 	/* everything is ready - we can start loading documents */
 	/* start to open an empty doc */
@@ -798,8 +800,6 @@ void gui_create_main(GList *filenames) {
 		DEBUG_MSG("gui_create_main, we have filenames, load them\n");
 		docs_new_from_files(filenames);
 	}
-	/* We have to know when the notebook changes */
-	gui_notebook_bind_signals();
 
 	gtk_notebook_set_page(GTK_NOTEBOOK(main_v->notebook), 0);
 	gtk_notebook_set_scrollable(GTK_NOTEBOOK(main_v->notebook), TRUE);
