@@ -99,7 +99,7 @@ static GnomeVFSURI *fb2_uri_from_fspath(Tfilebrowser2 *fb2, GtkTreePath *fs_path
 static void DEBUG_DIRITER(Tfilebrowser2 *fb2, GtkTreeIter *diriter) {
 	gchar *name;
 	gtk_tree_model_get(GTK_TREE_MODEL(FILEBROWSER2CONFIG(main_v->fb2config)->filesystem_tstore), diriter, FILENAME_COLUMN, &name, -1);
-	g_print("DEBUG_DIRITER, iter(%p) has filename %s\n",diriter,name);
+	DEBUG_MSG("DEBUG_DIRITER, iter(%p) has filename %s\n",diriter,name);
 }
 static void DEBUG_URI(const GnomeVFSURI *uri, gboolean newline) {
 	guint hash;
