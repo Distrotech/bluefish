@@ -20,6 +20,8 @@
 #ifndef __BOOKMARK_H__
 #define __BOOKMARK_H__
 
+void bmark_store_bevent_location(Tdocument * doc, gint charoffset);
+void bmark_add_at_bevent(Tdocument *doc);
 GtkWidget *bmark_gui(Tbfwin *bfwin); /* used in gui.c */
 void bmark_init(void); /* only used once */
 void bmark_cleanup(Tbfwin *bfwin);
