@@ -1150,6 +1150,7 @@ static void highlightpattern_reset_clicked_lcb(GtkWidget *button, Tprefdialog *p
 		/* re-load selected filetype in preferences gui */
 		DEBUG_MSG("highlightpattern_reset_clicked_lcb, about to rebuild gui\n");
 		highlightpattern_fill_from_selected_filetype(pd);
+		g_free (defaultfile);
 	}
 }
 
