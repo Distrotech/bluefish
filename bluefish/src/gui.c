@@ -1115,17 +1115,17 @@ void gui_create_main(Tbfwin *bfwin, GList *filenames) {
 		bfwin->statusbar_lncol = gtk_statusbar_new();
 		gtk_statusbar_set_has_resize_grip(GTK_STATUSBAR(bfwin->statusbar_lncol), FALSE);
 		gtk_box_pack_start(GTK_BOX(hbox), bfwin->statusbar_lncol, FALSE, FALSE, 0);
-		gtk_widget_set_size_request(GTK_WIDGET(bfwin->statusbar_lncol), 100, -1);
+		gtk_widget_set_size_request(GTK_WIDGET(bfwin->statusbar_lncol), 120, -1);
 		gtk_widget_show(bfwin->statusbar_lncol);
 		gtk_statusbar_push(GTK_STATUSBAR(bfwin->statusbar_lncol), 0, " Line  1");
 		bfwin->statusbar_insovr = gtk_statusbar_new();
 		gtk_statusbar_set_has_resize_grip(GTK_STATUSBAR(bfwin->statusbar_insovr), FALSE);
 		gtk_box_pack_start(GTK_BOX(hbox), bfwin->statusbar_insovr, FALSE, FALSE, 0);
-		gtk_widget_set_size_request(GTK_WIDGET(bfwin->statusbar_insovr), 50, -1);
+		gtk_widget_set_size_request(GTK_WIDGET(bfwin->statusbar_insovr), 60, -1);
 		gtk_widget_show(bfwin->statusbar_insovr);
 		bfwin->statusbar_editmode = gtk_statusbar_new();
 		gtk_box_pack_start(GTK_BOX(hbox), bfwin->statusbar_editmode, FALSE, FALSE, 0);
-		gtk_widget_set_size_request(GTK_WIDGET(bfwin->statusbar_editmode), 200, -1);
+		gtk_widget_set_size_request(GTK_WIDGET(bfwin->statusbar_editmode), 150, -1);
 		gtk_widget_show(bfwin->statusbar_editmode);
 	}
 	/* We have to know when the notebook changes */
