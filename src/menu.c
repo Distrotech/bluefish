@@ -22,6 +22,7 @@
 #include <gtk/gtk.h>
 #include <stdlib.h> /* atoi */
 #include <string.h> /* strchr() */
+#include <gdk/gdkkeysyms.h>
 
 /*#define DEBUG*/
 
@@ -270,6 +271,8 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/File/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
 	{N_("/File/_New"), "<control>n", menu_file_operations_cb, 1, "<StockItem>", GTK_STOCK_NEW},
 	{N_("/File/_Open..."), "<control>O", menu_file_operations_cb, 2, "<StockItem>", GTK_STOCK_OPEN},
+	{N_("/File/Open r_ecent"), NULL, NULL, 0, "<Branch>"},
+	{N_("/File/Open recent/tearoff1"), NULL, NULL, 0, "<Tearoff>"},	
 #ifdef EXTERNAL_GREP
 #ifdef EXTERNAL_FIND
 	{N_("/File/Open A_dvanced..."), "<shift><control>O", menu_file_operations_cb, 3, "<Item>"},
@@ -279,8 +282,6 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/File/Open URL..."), NULL, menu_file_operations_cb, 25, "<Item>"},
 #endif /* HAVE_GNOME_VFS */
 	{N_("/File/Open from selection"), NULL, menu_file_operations_cb, 26, "<Item>"},
-	{N_("/File/Open r_ecent"), NULL, NULL, 0, "<Branch>"},
-	{N_("/File/Open recent/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
 	{N_("/File/sep1"), NULL, NULL, 0, "<Separator>"},
 	{N_("/File/_Save"), "<control>S", menu_file_operations_cb, 5, "<StockItem>", GTK_STOCK_SAVE},
 	{N_("/File/Save _As..."), "<shift><control>S", menu_file_operations_cb, 6, "<StockItem>", GTK_STOCK_SAVE_AS},
@@ -352,8 +353,8 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/View/Current Document _Encoding"), NULL, NULL, 0, "<Branch>"},
 	{N_("/View/Current Document Encoding/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
 	{N_("/View/sep1"), NULL, NULL, 0, "<Separator>"},
-	{N_("/View/_Previous document"), "F3", gui_notebook_switch, 1, "<Item>"},
-	{N_("/View/_Next document"), "F4", gui_notebook_switch, 2, "<Item>"},
+	{N_("/View/_Previous document"), NULL, gui_notebook_switch, 1, "<Item>"},
+	{N_("/View/_Next document"), NULL, gui_notebook_switch, 2, "<Item>"},
 	{N_("/View/sep2"), NULL, NULL, 0, "<Separator>"},
 	{N_("/View/_Save Settings"), NULL, rcfile_save_configfile_menu_cb, 0, "<Item>"},
 	{N_("/View/Save Shortcut _Keys"), NULL, rcfile_save_configfile_menu_cb, 3, "<Item>"},	
@@ -842,6 +843,10 @@ void menu_create_main(Tbfwin *bfwin, GtkWidget *vbox) {
 	gtk_window_add_accel_group(GTK_WINDOW(bfwin->main_window), accel_group);
 	bfwin->menubar = gtk_item_factory_get_widget(item_factory, "<bluefishmain>");
 	gtk_box_pack_start(GTK_BOX(vbox), bfwin->menubar, FALSE, TRUE, 0);
+	gtk_accel_map_add_entry("<bluefishmain>/Edit/Shift Right", GDK_period, GDK_CONTROL_MASK);
+	gtk_accel_map_add_entry("<bluefishmain>/Edit/Shift Left", GDK_comma, GDK_CONTROL_MASK);
+	gtk_accel_map_add_entry("<bluefishmain>/View/Previous document", GDK_Page_Up, GDK_CONTROL_MASK);
+	gtk_accel_map_add_entry("<bluefishmain>/View/Next document", GDK_Page_Down, GDK_CONTROL_MASK);
 	gtk_widget_show(bfwin->menubar);
 
 	setup_toggle_item(item_factory, N_("/View/Toolbars/View Main Toolbar"), main_v->props.view_main_toolbar);

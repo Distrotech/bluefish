@@ -835,12 +835,13 @@ void make_main_toolbar(Tbfwin *bfwin) {
 	gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), NULL, _("Close"), "",
 							new_pixmap(4), G_CALLBACK(file_close_cb), bfwin);
 	gtk_toolbar_append_space(GTK_TOOLBAR(toolbar));
+	gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), NULL, _("Cut"), "",
+							new_pixmap(6), G_CALLBACK(edit_cut_cb), bfwin);	
 	gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), NULL, _("Copy"), "",
 							new_pixmap(5), G_CALLBACK(edit_copy_cb), bfwin);
-	gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), NULL, _("Cut"), "",
-							new_pixmap(6), G_CALLBACK(edit_cut_cb), bfwin);
 	gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), NULL, _("Paste"), "",
 							new_pixmap(7), G_CALLBACK(edit_paste_cb), bfwin);
+	gtk_toolbar_append_space(GTK_TOOLBAR(toolbar));							
 	gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), NULL, _("Search..."), "",
 							new_pixmap(8), G_CALLBACK(search_cb), bfwin);
 	gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), NULL,_("Search and Replace..."), "", 
@@ -851,9 +852,9 @@ void make_main_toolbar(Tbfwin *bfwin) {
 	bfwin->toolbar_redo = gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), NULL, _("Redo"), "",
 							new_pixmap(11), G_CALLBACK(redo_cb), bfwin);
 	gtk_toolbar_append_space(GTK_TOOLBAR(toolbar));
-	gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), NULL, _("Unindent"),
+	gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), NULL, _("Shift Left"),
 							"", new_pixmap(111), G_CALLBACK(doc_unindent_lcb), bfwin);
-	gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), NULL, _("Indent"),
+	gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), NULL, _("Shift Right"),
 							"", new_pixmap(110), G_CALLBACK(doc_indent_lcb), bfwin);
 
 /*
