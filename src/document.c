@@ -3432,19 +3432,6 @@ void file_new_cb(GtkWidget *widget, Tbfwin *bfwin) {
  	}
 }
 
-/**
- * file_close_cb:
- * @widget: unused #GtkWidget
- * @data: unused #gpointer
- *
- * Close the current document.
- *
- * Return value: void
- **/
-void file_close_cb(GtkWidget * widget, Tbfwin *bfwin) {
-	doc_close(bfwin->current_document, 0);
-}
-
 void bfwin_close_all_documents(Tbfwin *bfwin, gboolean window_closing) {
 	GList *tmplist;
 	Tdocument *tmpdoc;
