@@ -52,6 +52,10 @@
 #include "project.h"
 #include "authen.h" /* set_authen_callbacks() */
 
+#ifdef FB2
+#include "filebrowser2.h"
+#endif
+
 /*********************************************/
 /* this var is global for all bluefish files */
 /*********************************************/
@@ -190,6 +194,9 @@ int main(int argc, char *argv[])
 	splash_screen_set_label(_("compiling highlighting patterns..."));
 #endif /* #ifndef NOSPLASH */
 	hl_init();
+#ifdef FB2
+	fb2config_init(); /* filebrowser2config */
+#endif
 	filebrowserconfig_init();
 	filebrowser_filters_rebuild();
 	autoclosing_init();

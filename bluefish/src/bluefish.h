@@ -335,7 +335,9 @@ typedef struct {
 	gpointer outputbox;
 	gpointer bfspell;
 	gpointer filebrowser;
-	gpointer fb2;
+#ifdef FB2
+	gpointer fb2; /* filebrowser2 gui */
+#endif
 	gpointer snr2;
 	gpointer fref;
 	gpointer bmark;
@@ -353,6 +355,9 @@ typedef struct {
 	GList *recent_directories; /* a stringlist with the most recently used directories */
 	Tsessionvars *session; /* holds all session variables for non-project windows */
 	gpointer filebrowserconfig;
+#ifdef FB2
+	gpointer fb2config; /* filebrowser2config */
+#endif
 	gpointer frefdata;
 	gpointer bmarkdata;
 	GtkTreeStore *bookmarkstore; /* the global bookmarks from the global session */
