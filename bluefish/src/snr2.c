@@ -454,7 +454,7 @@ static gchar *reg_replace(gchar *replace_string, gint offset, Tsearch_result res
 
 Tsearch_result replace_backend(gchar *pattern, gint matchtype, gint is_case_sens
 			, gchar *buf, gchar *replace_string, Tdocument *doc, gint offset, replacetypes replacetype
-			, gint use_mb, gint *replacelen) {
+			, gint *replacelen) {
 /* the offset in this function is the difference between the buffer and the text widget because of previous replace 
 actions, so the first char in buf is actually number offset in the text widget */
 /* replacelen -1 means there is no replacelen known yet, so we have to calculate it */
@@ -507,7 +507,7 @@ Tsearch_result replace_doc_once(gchar *pattern, gint matchtype, gint is_case_sen
 
 	doc_unre_new_group(doc);
 	fulltext = doc_get_chars(doc, startpos, endpos);
-	result = replace_backend(pattern, matchtype, is_case_sens, fulltext, replace_string, doc, startpos, replacetype, FALSE, &replacelen);
+	result = replace_backend(pattern, matchtype, is_case_sens, fulltext, replace_string, doc, startpos, replacetype, &replacelen);
 	if ( result.end > 0) {
 		last_snr2.result.start = result.start + startpos;
 		last_snr2.result.end = result.end + startpos;
@@ -543,11 +543,11 @@ void replace_doc_multiple(gchar *pattern, gint matchtype, gint is_case_sens, gin
 /*		if (GTK_TEXT(doc->textbox)->use_wchar) {
 			replacelen = wchar_len(replace_string, -1);
 		} else {*/
-			replacelen = strlen(replace_string);
+			replacelen = g_utf8_strlen(replace_string,-1);
 /*		}*/
 	}
 	fulltext = doc_get_chars(doc, startpos, endpos);
-	result = replace_backend(pattern, matchtype, is_case_sens, fulltext, replace_string, doc, buf_text_offset, replacetype, FALSE, &replacelen);
+	result = replace_backend(pattern, matchtype, is_case_sens, fulltext, replace_string, doc, buf_text_offset, replacetype, &replacelen);
 	while (result.end > 0) {
 		if (replacetype == string) {
 			buf_text_offset += replacelen - (result.end - result.start);
@@ -574,7 +574,7 @@ void replace_doc_multiple(gchar *pattern, gint matchtype, gint is_case_sens, gin
 			/* all regex replaces can have different replace lengths, so they have to be re-calculated */
 			replacelen = -1;
 		}
-		result = replace_backend(pattern, matchtype, is_case_sens, &fulltext[in_buf_offset], replace_string, doc, buf_text_offset, replacetype, FALSE, &replacelen);
+		result = replace_backend(pattern, matchtype, is_case_sens, &fulltext[in_buf_offset], replace_string, doc, buf_text_offset, replacetype, &replacelen);
 
 		DEBUG_MSG("replace_doc_multiple, 1- buf_text_offset=%d, in_buf_offset=%d, result.start=%d, result.end=%d\n", buf_text_offset, in_buf_offset, result.start, result.end);
 	}
