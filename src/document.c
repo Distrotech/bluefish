@@ -1970,6 +1970,31 @@ void doc_destroy(Tdocument * doc, gboolean delay_activation) {
 }
 
 /**
+ * document_unset_filename:
+ * @document: #Tdocument*
+ *
+ * this function is called if some other document is saved with a filename
+ * equal to this files filename, or when this file is deleted in the filebrowser
+ *
+ * return value: void, ignored
+ */
+void document_unset_filename(Tdocument *doc) {
+	if (doc->filename) {
+		gchar *tmpstr, *oldfilename =  doc->filename;
+		doc->filename = NULL;
+		doc_set_title(doc);
+		{
+			gchar *tmpstr2 = g_path_get_basename(oldfilename);
+			tmpstr = g_strconcat(_("Previously: "), tmpstr2, NULL);
+			g_free(tmpstr2);
+		}
+		gtk_label_set(GTK_LABEL(doc->tab_label),tmpstr);
+		g_free(tmpstr);
+		g_free(oldfilename);
+	}
+}
+
+/**
  * ask_new_filename:
  * @bfwin: #Tbfwin* mainly used to set the dialog transient
  * @oldfilename: #gchar* with the old filename
@@ -2008,16 +2033,7 @@ gchar *ask_new_filename(Tbfwin *bfwin,gchar *oldfilename, gint is_move) {
 			g_free(newfilename);
 			return NULL;
 		} else {
-			g_free(exdoc->filename);
-			exdoc->filename = NULL;
-			doc_set_title(exdoc);
-			{
-				gchar *tmpstr2 = g_path_get_basename (newfilename);
-				tmpstr = g_strconcat(_("Previously: "), tmpstr2, NULL);
-				g_free(tmpstr2);
-			}
-			gtk_label_set(GTK_LABEL(exdoc->tab_label),tmpstr);
-			g_free(tmpstr);
+			document_unset_filename(exdoc);
 		}
 	} else {
 		if (g_file_test(newfilename, G_FILE_TEST_EXISTS)) {

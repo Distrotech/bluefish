@@ -1279,8 +1279,12 @@ static void filebrowser_rpopup_delete(Tfilebrowser *filebrowser) {
 			if (errmessage) {
 				error_dialog(filebrowser->bfwin->main_window,errmessage, NULL);
 				g_free(errmessage);
+			} else {
+				GList *alldocs = return_allwindows_documentlist();
+				Tdocument *exdoc = documentlist_return_document_from_filename(alldocs, filename);
+				g_list_free(alldocs);
+				document_unset_filename(exdoc);
 			}
-
 			tmp = g_path_get_dirname(filename);
 			dir = ending_slash(tmp);
 			g_free(tmp);
@@ -1471,8 +1475,10 @@ static gboolean filebrowser_button_press_lcb(GtkWidget *widget, GdkEventButton *
 			if (path) {
 				gtk_tree_model_get_iter(GTK_TREE_MODEL(filebrowser->store),&iter,path);
 				if (gtk_tree_model_iter_has_child(GTK_TREE_MODEL(filebrowser->store),&iter)) {
+					/* it is a directory */
 					menu = filebrowser_rpopup_create_menu(filebrowser, TRUE);
 				} else {
+					/* it is a file */
 					menu = filebrowser_rpopup_create_menu(filebrowser, FALSE);
 				}
 			}
@@ -1532,27 +1538,31 @@ static gboolean filebrowser_button_press_lcb(GtkWidget *widget, GdkEventButton *
 }
 
 static gboolean filebrowser_tree2_button_press_lcb(GtkWidget *widget, GdkEventButton *event, Tfilebrowser *filebrowser) {
-	if (event->button==1 && event->type == GDK_2BUTTON_PRESS) {
-		GtkTreePath *path2;
-		DEBUG_MSG("filebrowser_tree2_button_press_lcb, button=%d\n",event->button);
-		path2 = filebrowser_get_path_from_selection(GTK_TREE_MODEL(filebrowser->store2), GTK_TREE_VIEW(filebrowser->tree2),NULL);
+	GtkTreePath *path2;
+	DEBUG_MSG("filebrowser_tree2_button_press_lcb, button=%d\n",event->button);
+	path2 = filebrowser_get_path_from_selection(GTK_TREE_MODEL(filebrowser->store2), GTK_TREE_VIEW(filebrowser->tree2),NULL);
+	if (event->button==1 && event->type == GDK_2BUTTON_PRESS && path2) {
+		gchar *tmp1, *tmp3;
+		GtkTreeIter iter;
+		gtk_tree_model_get_iter(GTK_TREE_MODEL(filebrowser->store2),&iter,path2);
+		gtk_tree_model_get(GTK_TREE_MODEL(filebrowser->store2), &iter, FILENAME_COLUMN, &tmp1, -1);
+		DEBUG_MSG("filebrowser_tree2_button_press_lcb, last_opened=%s,tmp1=%s\n",filebrowser->last_opened_dir,tmp1);
+		tmp3 = g_strconcat(filebrowser->last_opened_dir,tmp1,NULL);
+		handle_activate_on_file(filebrowser,tmp3);
+		g_free(tmp1);
+		g_free(tmp3);
+		gtk_tree_path_free(path2);
+		return TRUE;
+	} else if (event->button == 3) {
+		GtkWidget *menu;
 		if (path2) {
-			gchar *tmp1, *tmp3;
-			GtkTreeIter iter;
-			gtk_tree_model_get_iter(GTK_TREE_MODEL(filebrowser->store2),&iter,path2);
-			gtk_tree_model_get(GTK_TREE_MODEL(filebrowser->store2), &iter, FILENAME_COLUMN, &tmp1, -1);
-			DEBUG_MSG("filebrowser_tree2_button_press_lcb, last_opened=%s,tmp1=%s\n",filebrowser->last_opened_dir,tmp1);
-			tmp3 = g_strconcat(filebrowser->last_opened_dir,tmp1,NULL);
-			handle_activate_on_file(filebrowser,tmp3);
-			g_free(tmp1);
-			g_free(tmp3);
-			return TRUE;
+			menu = filebrowser_rpopup_create_menu(filebrowser, FALSE);
+		} else {
+			menu = filebrowser_rpopup_create_menu(filebrowser, TRUE);
 		}
-	}
-	if (event->button == 3) {
-		GtkWidget *menu = filebrowser_rpopup_create_menu(filebrowser, FALSE);
 		gtk_menu_popup(GTK_MENU(menu), NULL, NULL, NULL, NULL, event->button, event->time);
 	}
+	if (path2) gtk_tree_path_free(path2);
 	return FALSE; /* pass the event on */
 }
 
