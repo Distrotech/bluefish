@@ -619,7 +619,7 @@ void filebrowser_open_dir(gchar *dir) {
 /*		path = return_path_from_filename(GTK_TREE_STORE(filebrowser.store), dir);*/
 /*		gtk_tree_view_expand_row(GTK_TREE_VIEW(filebrowser.tree),path,FALSE);*/
 		filebrowser_expand_to_root(path);
-		gtk_tree_view_scroll_to_cell(GTK_TREE_VIEW(filebrowser.tree),path,0,TRUE,0.5,0.5);
+		gtk_tree_view_scroll_to_cell(GTK_TREE_VIEW(filebrowser.tree),path,0,TRUE,0.5,1.0);
 	}
 	gtk_tree_path_free(path);
 }
@@ -1119,6 +1119,7 @@ GtkWidget *filebrowser_init() {
 
 	{
 		GtkWidget *vbox, *scrolwin;
+	/*	GtkAdjustment* adj;*/
 		vbox = gtk_vbox_new(FALSE, 0);
 		
 		filebrowser.dirmenu = gtk_option_menu_new();
@@ -1131,7 +1132,14 @@ GtkWidget *filebrowser_init() {
 		gtk_widget_set_size_request(scrolwin, main_v->props.left_panel_width, -1);
 		gtk_container_add(GTK_CONTAINER(scrolwin), filebrowser.tree);
 		gtk_box_pack_start(GTK_BOX(vbox), scrolwin, TRUE, TRUE, 0);
+/*		adj = gtk_scrolled_window_get_hadjustment(GTK_SCROLLED_WINDOW(scrolwin));
+		gtk_adjustment_set_value(GTK_ADJUSTMENT(adj), GTK_ADJUSTMENT(adj)->lower);
+		adj = gtk_scrolled_window_get_vadjustment(GTK_SCROLLED_WINDOW(scrolwin));
+		gtk_adjustment_set_value(GTK_ADJUSTMENT(adj), GTK_ADJUSTMENT(adj)->lower);*/
 		return vbox;
 	}
 }
 
+void filebrowser_scroll_initial() {
+	gtk_tree_view_scroll_to_point(GTK_TREE_VIEW(filebrowser.tree), 2000, 2000);
+}

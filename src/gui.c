@@ -442,7 +442,7 @@ void make_html_toolbar(GtkWidget *handlebox) {
 	html_toolbar = gtk_toolbar_new();
 	html_toolbar_add_items(html_toolbar, tbi, 0, 14);
 	html_toolbar_add_items_to_submenu(html_toolbar, tbi, 26, 31, _("Heading"), 191);
-	html_toolbar_add_items(html_toolbar, tbi, 73, 76);
+	html_toolbar_add_items(html_toolbar, tbi, 73, 75);
 	gtk_notebook_append_page(GTK_NOTEBOOK(html_notebook), html_toolbar, gtk_label_new(_(" Standard bar ")));
 
 	html_toolbar = gtk_toolbar_new();
@@ -468,7 +468,7 @@ void make_html_toolbar(GtkWidget *handlebox) {
 	gtk_notebook_append_page(GTK_NOTEBOOK(html_notebook), html_toolbar, gtk_label_new(_(" List ")));
 
 	html_toolbar = gtk_toolbar_new();
-	html_toolbar_add_items(html_toolbar, tbi, 68, 73);
+	html_toolbar_add_items(html_toolbar, tbi, 68, 72);
 	gtk_notebook_append_page(GTK_NOTEBOOK(html_notebook), html_toolbar, gtk_label_new(_(" CSS ")));
 
 
@@ -655,6 +655,7 @@ void gui_show_main() {
 	gtk_widget_show(main_v->main_window);
 	flush_queue();
 	doc_scroll_to_cursor(main_v->current_document);
+	filebrowser_scroll_initial();
 }
 /***********************/
 /* statusbar functions */
