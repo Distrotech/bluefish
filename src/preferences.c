@@ -262,15 +262,23 @@ static void listpref_row_deleted(GtkTreeModel *treemodel,GtkTreePath *arg1,Tlist
 			GList *lprepend, *ldelete;
 			gint deleteloc = indices[0];
 			if (deleteloc > lp->insertloc) deleteloc--;
-			DEBUG_MSG("reorderable_row_deleted, deleteloc=%d, insertloc=%d\n",deleteloc,lp->insertloc);
+			DEBUG_MSG("reorderable_row_deleted, deleteloc=%d, insertloc=%d, listlen=%d\n",deleteloc,lp->insertloc,g_list_length(*lp->thelist));
 			*lp->thelist = g_list_first(*lp->thelist);
 			lprepend = g_list_nth(*lp->thelist,lp->insertloc);
 			ldelete = g_list_nth(*lp->thelist,deleteloc);
-			DEBUG_MSG("lprepend %s, ldelete %s\n",((gchar **)lprepend->data)[0], ((gchar **)ldelete->data)[0]);
-			if (ldelete != lprepend) {
+			if (ldelete && (ldelete != lprepend)) {
 				gpointer data = ldelete->data;
 				*lp->thelist = g_list_remove(*lp->thelist, data);
-				*lp->thelist = g_list_first(g_list_prepend(lprepend, data));
+				if (lprepend == NULL) {
+					DEBUG_MSG("lprepend=NULL, appending %s to the list\n",((gchar **)data)[0]);
+					*lp->thelist = g_list_append(g_list_last(*lp->thelist), data);
+				} else {
+					DEBUG_MSG("lprepend %s, ldelete %s\n",((gchar **)lprepend->data)[0], ((gchar **)data)[0]);
+					*lp->thelist = g_list_prepend(lprepend, data);
+				}
+				*lp->thelist = g_list_first(*lp->thelist);
+			} else {
+				DEBUG_MSG("listpref_row_deleted, ERROR: ldelete %p, lprepend %p\n", ldelete, lprepend);
 			}
 		}
 		lp->insertloc = -1;
