@@ -37,7 +37,7 @@
 #include <time.h>			/* ctime_r() */
 #include <pcre.h>
 
-#define DEBUG
+/*#define DEBUG*/
 
 #ifdef DEBUGPROFILING
 #include <sys/times.h>
@@ -473,11 +473,14 @@ gboolean doc_set_filetype(Tdocument *doc, Tfiletype *ft) {
 void doc_set_title(Tdocument *doc) {
 	gchar *label_string, *tabmenu_string;
 	if (doc->uri) {
-		gchar *utf8uri;
+		gchar *utf8uri, *tmp;
 		utf8uri = gnome_vfs_format_uri_for_display(doc->uri);
-		label_string = g_path_get_basename(utf8uri);
+		DEBUG_MSG("doc_set_title, uri=%s, utf8uri=%s\n",doc->uri,utf8uri);
+		tmp = g_path_get_basename(utf8uri);
+		label_string = gnome_vfs_unescape_string(tmp, "");
 		tabmenu_string = g_strdup(utf8uri);
 		g_free(utf8uri);
+		g_free(tmp);
 	} else {
 		label_string = g_strdup_printf(_("Untitled %d"),main_v->num_untitled_documents);
 		tabmenu_string =  g_strdup(label_string);
