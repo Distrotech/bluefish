@@ -80,6 +80,15 @@ gchar **array_from_arglist(const gchar *string1, ...) {
 	return retval;
 }
 
+static void free_configlist(GList *configlist) {
+	GList *tmplist = g_list_first(configlist);
+	while(tmplist) {
+		Tconfig_list_item *cli = tmplist->data;
+		g_free(cli);
+		tmplist = g_list_next(tmplist);
+	}
+	g_list_free(configlist);
+}
 
 /*this should add 1 empty entry to the configuration list */
 GList *make_config_list_item(GList * config_list, void *pointer_to_var, unsigned char type_of_var, gchar * name_of_var, gint len)
@@ -439,40 +448,6 @@ static gboolean config_file_is_newer(gint lasttime, const gchar *configfile) {
 	return FALSE;
 }
 
-static gboolean arraylist_value_exists(GList *arraylist, gchar **value, gint testlevel) {
-	GList *tmplist = g_list_first(arraylist);
-	while (tmplist) {
-		gchar **tmparr = tmplist->data;
-		gint i=0;
-		gboolean equal = TRUE;
-		while (i<testlevel && equal) {
-			if (strcmp(tmparr[i],value[i])!=0) {
-				equal = FALSE;
-			}
-			i++;
-		}
-		if (equal) return TRUE;
-		tmplist = g_list_next(tmplist);
-	}
-	return FALSE;
-}
-
-static GList *arraylist_load_new_identifiers(GList *mylist, const gchar *fromfilename, gint uniquelevel) {
-	GList *deflist = get_list(fromfilename,NULL,TRUE);
-	GList *tmplist = g_list_first(deflist);
-	while (tmplist) {
-		gchar **tmparr = tmplist->data;
-		if (count_array(tmparr) >= uniquelevel) {
-			if (!arraylist_value_exists(mylist, tmparr, uniquelevel)) {
-				DEBUG_MSG("arraylist_load_new_identifiers, adding %s to thelist\n",tmparr[0]);
-				mylist = g_list_append(mylist, duplicate_stringarray(tmparr));
-			}
-		}
-		tmplist = g_list_next(tmplist);
-	}
-	free_arraylist(deflist);
-	return mylist;
-}
 /*
 static GList *arraylist_load_defaults(GList *thelist, const gchar *filename, const gchar *name) {
 	GList *deflist,*tmplist = g_list_first(thelist);
@@ -567,7 +542,7 @@ void rcfile_parse_main(void)
 			}
 		} else {
 			if (config_file_is_newer(main_v->props.lasttime_encodings,defaultfile)) {
-				main_v->props.encodings = arraylist_load_new_identifiers(main_v->props.encodings,defaultfile,1);
+				main_v->props.encodings = arraylist_load_new_identifiers_from_file(main_v->props.encodings,defaultfile,1);
 				main_v->props.lasttime_encodings = TIME_T_TO_GINT(time(NULL));
 			}
 		}
@@ -602,7 +577,7 @@ void rcfile_parse_main(void)
 			}
 		} else {
 			if (config_file_is_newer(main_v->props.lasttime_filetypes,defaultfile)) {
-				main_v->props.filetypes = arraylist_load_new_identifiers(main_v->props.filetypes,defaultfile,1);
+				main_v->props.filetypes = arraylist_load_new_identifiers_from_file(main_v->props.filetypes,defaultfile,1);
 				main_v->props.lasttime_filetypes = TIME_T_TO_GINT(time(NULL));
 			}
 		}
@@ -684,7 +659,7 @@ void rcfile_parse_highlighting(void) {
 		DEBUG_MSG("rcfile_parse_highlighting, done saving\n");
 	} else {
 		if (config_file_is_newer(main_v->props.lasttime_highlighting,defaultfile)) {
-			main_v->props.highlight_patterns = arraylist_load_new_identifiers(main_v->props.highlight_patterns,defaultfile,2);
+			main_v->props.highlight_patterns = arraylist_load_new_identifiers_from_file(main_v->props.highlight_patterns,defaultfile,2);
 			main_v->props.lasttime_highlighting = TIME_T_TO_GINT(time(NULL));
 		}
 	}
@@ -703,10 +678,11 @@ static gint rcfile_save_highlighting(void) {
 void rcfile_parse_custom_menu(void) {
 	gchar *filename;
 	gchar *defaultfile;
+	GList *cust_menu = NULL;
 	DEBUG_MSG("rcfile_parse_custom_menu, started\n");
 
 	custom_menu_configlist = NULL;
-	init_prop_arraylist(&custom_menu_configlist, &main_v->props.cust_menu, "custom_menu:", 0);
+	init_prop_arraylist(&custom_menu_configlist, &cust_menu, "custom_menu:", 0);
 	init_prop_arraylist(&custom_menu_configlist, &main_v->props.cmenu_insert, "cmenu_insert:", 0);
 	init_prop_arraylist(&custom_menu_configlist, &main_v->props.cmenu_replace, "cmenu_replace:", 0);
 
@@ -717,21 +693,29 @@ void rcfile_parse_custom_menu(void) {
 	if (!parse_config_file(custom_menu_configlist, filename) || (main_v->props.cust_menu==NULL && main_v->props.cmenu_insert==NULL && main_v->props.cmenu_replace==NULL )) {
 		/* init the custom_menu in some way? */
 		if (defaultfile) {
-			main_v->props.cust_menu = get_list(defaultfile,NULL,TRUE);
+			parse_config_file(custom_menu_configlist, defaultfile);
 		} else {
 			g_print("Unable to find '"PKGDATADIR"custom_menu.default'\n");
 		}
 	} else {
 		if (config_file_is_newer(main_v->props.lasttime_cust_menu,defaultfile)) {
-			main_v->props.cust_menu = arraylist_load_new_identifiers(main_v->props.cust_menu,defaultfile,1);
+			GList *default_insert=NULL, *default_replace=NULL, *tmp_configlist=NULL;
+			init_prop_arraylist(&tmp_configlist, &default_insert, "cmenu_insert:", 0);
+			init_prop_arraylist(&tmp_configlist, &default_replace, "cmenu_replace:", 0);
+			parse_config_file(tmp_configlist, defaultfile);
+			main_v->props.cmenu_insert = arraylist_load_new_identifiers_from_list(main_v->props.cmenu_insert, default_insert, 1);
+			main_v->props.cmenu_replace = arraylist_load_new_identifiers_from_list(main_v->props.cmenu_replace, default_replace, 1);
 			main_v->props.lasttime_cust_menu = TIME_T_TO_GINT(time(NULL));
+			free_arraylist(default_replace);
+			free_arraylist(default_insert);
+			free_configlist(tmp_configlist);
 		}
 	}
 	/* for backwards compatibility with older (before Bluefish 0.10) custom menu files we can convert those.. 
 	we will not need the 'type' anymore, since we will put them in separate lists, hence the memmove() call
 	*/
-	if (main_v->props.cust_menu) {
-		GList *tmplist= g_list_first(main_v->props.cust_menu);
+	if (cust_menu) {
+		GList *tmplist= g_list_first(cust_menu);
 		while (tmplist) {
 			gchar **strarr = (gchar **)tmplist->data;
 			gint count = count_array(strarr);
@@ -765,8 +749,7 @@ void rcfile_parse_custom_menu(void) {
 			}
 			tmplist = g_list_next(tmplist);
 		}
-		g_list_free(main_v->props.cust_menu);
-		main_v->props.cust_menu = NULL;
+		g_list_free(cust_menu);
 	}
 	
 /*		main_v->props.cust_menu = g_list_append(main_v->props.cust_menu, array_from_arglist(N_("/php/ibase/ibase fetch row"), "0", "while ($%1 = ibase_fetch_row($%0)) {\n	echo $%1[0];\n", "\n}\nibase_free_result($%0);\n", "2", _("ibase result variable name"), _("row variable name"), NULL));
