@@ -2693,8 +2693,8 @@ width="80" height="53" border="0"&gt;&lt;/a&gt;
 <para>The <guimenu>External</guimenu> menu provides a quick access to external default or user-added programs and  text filters. It is divided into three parts by default (see <xref linkend="bluefish-preferences"/> for layout change):</para>
 <itemizedlist spacing="compact">
 <listitem><para>The <guimenu>Outputbox</guimenu> submenu for text filters. Its name is derived from the output box shown at the bottom of the document window, where you can see the output of the process,  when activating it.</para></listitem>
-<listitem><para>The <guimenu>Commands</guimenu> submenu for external programs. They are launched as subprocesses, hence you need to detach them to avoid freezing bluefish until the external program quits.</para></listitem>
-<listitem><para>All other items are browsers.</para></listitem>
+<listitem><para>The <guimenu>Commands</guimenu> submenu for external programs.</para></listitem>
+<listitem><para>All other items are browsers. They are launched as subprocesses, hence you need to detach them to avoid freezing bluefish until the external program quits.</para></listitem>
 </itemizedlist>
 <variablelist>
 <varlistentry>
@@ -2755,7 +2755,7 @@ width="80" height="53" border="0"&gt;&lt;/a&gt;
 <procedure id="external-browsers-order">
 <title>Changing the order of browsers items</title>
 <step>
-<para>Click on the <guilabel>Preferences...</guilabel> icon in the main tool bar to acceed the <guilabel>Edit preferences</guilabel> panel.</para>
+<para>Click on the <guilabel>Preferences...</guilabel> icon in the main tool bar to access the <guilabel>Edit preferences</guilabel> panel.</para>
 </step>
 <step>
 <para>Click on the <guilabel>External programs</guilabel> tab to display the <guilabel>Browsers</guilabel> panel.</para>
@@ -2823,7 +2823,7 @@ width="80" height="53" border="0"&gt;&lt;/a&gt;
 <procedure id="external-browsers-customize">
 <title>Customizing an existent browser</title>
 <step>
-<para>Click on the <guilabel>Preferences...</guilabel> icon in the main tool bar to acceed the <guilabel>Edit preferences</guilabel> panel.</para>
+<para>Click on the <guilabel>Preferences...</guilabel> icon in the main tool bar to access the <guilabel>Edit preferences</guilabel> panel.</para>
 </step>
 <step>
 <para>Click on the <guilabel>External programs</guilabel> tab to display the <guilabel>Browsers</guilabel> panel.</para>
@@ -2845,13 +2845,10 @@ width="80" height="53" border="0"&gt;&lt;/a&gt;
 <procedure id="external-browsers-add">
 <title>Adding a new browser</title>
 <step>
-<para>Click on the <guilabel>Preferences...</guilabel> icon in the main tool bar to acceed the <guilabel>Edit preferences</guilabel> panel.</para>
+<para>Click on the <guilabel>Preferences...</guilabel> icon in the main tool bar to access the <guilabel>Edit preferences</guilabel> panel.</para>
 </step>
 <step>
 <para>Click on the <guilabel>External programs</guilabel> tab to display the <guilabel>Browsers</guilabel> panel.</para>
-</step>
-<step>
-<para>Click on the <guilabel>Command</guilabel> region of the browser's line you want to change. The line will be hightlighted.</para>
 </step>
 <step>
 <para>Click on the <guibutton>Add</guibutton> button. A new line will be shown, with an <guilabel>Untitled</guilabel> label.</para>
@@ -2860,13 +2857,16 @@ width="80" height="53" border="0"&gt;&lt;/a&gt;
 <para>Double-click on the label to allow editing, and enter the string you want to appear in the <guimenu>External</guimenu> menu.</para>
 </step>
 <step>
-<para>Double-click in the <guilabel>Command</guilabel> zone and enter the command followed by the &amp; sign to detach it from the main bluefish process, for example: <userinput>amaya %s &amp;</userinput>.</para>
+<para>Double-click in the <guilabel>Command</guilabel> zone and enter the command followed by the &amp; sign to detach it from the main bluefish process, for example:</para>
+<para><userinput>amaya %s &amp;</userinput></para>
 </step>
 <step>
 <para>Click on the <guibutton>OK</guibutton> button to save and close the panel.</para>
 </step>
 </procedure>
-<para>Though nothing impedes you to put any command (not necessary a browser) in the panel, you may want to avoid to put it at the top range, since it will be somewhat strange to click on <guilabel>View in browser</guilabel> to launch <command>abs</command> for example.</para>
+<para>To delete a browser, just click on the <guibutton>Delete</guibutton> button.</para>
+<para>Though nothing impedes you to put any command (not necessary a browser) in the panel for quick access, you may want to avoid to put it at the top range, since it will be somewhat strange to click on <guilabel>View in browser</guilabel> to launch <command>abs</command> for example.</para>
+
 </sect3>
 
 <sect3 id="external-commands">
@@ -2883,25 +2883,67 @@ width="80" height="53" border="0"&gt;&lt;/a&gt;
 </textobject>
 </mediaobject></screenshot>
 </figure></para>
-<para>You can integrate external commands such as browsers, or text filters. If you want to use for example a sed command as a filter, you can add it like this to the external commands and filters (in the preferences dialog): sed -e 'some sed command' &gt; '%f' &lt; '%s'</para>
-<para>To add items to the external menu:</para>
-<orderedlist>
-<listitem><para>Edit &gt;Preferences</para></listitem><listitem><para>Choose the "External Programs" tab.</para>
-</listitem>
-<listitem><para>Click "Add" to add a new item</para>
-</listitem>
-<listitem><para>Double-click on the name field to give the command a name (this name will become an option in the "External" menu).</para>
+<para>You add, modify, delete, move commands or text filters the same way as described in <xref linkend="external-browsers"/>.</para>
+<para>Bluefish will apply the supplied command on the current document, while representing the document as it is before the command is applied by <literal>%s</literal> and the document after the command has been applied by <literal>%f</literal>. Usage of the <literal>%i</literal> parameter is not implemented yet. You should embed those parameters into simple quotes to prevent special characters to be interpreted by the shell.</para>
+<para>Usage of the parameters depends on the command:</para>
+<itemizedlist>
+<listitem>
+<para>If the command does not operate on the file, as <command>xterm</command>, you just supply it as you would in an xterm, detaching it to avoid bluefish freezing with:</para>
+<para><userinput>xterm &amp;</userinput></para>
 </listitem>
 <listitem>
-<para>Double-click on the command field to type the command to be executed.</para>
+<para>If the command does operate on the file, but not on the file's contents, as <command>chmod</command>, you supply it as you would in an xterm, using <literal>%s</literal> as a reference to the current document: </para>
+<para><userinput>chmod +x '%s'</userinput></para>
 </listitem>
-</orderedlist>
-<para>I WILL ADD AN EXAMPLE HERE LATER</para>
+<listitem>
+<para>If the command operates on the standard input device by default, as <command>tidy</command>, you will have to redirect the document's contents, i.e. <literal>%s</literal>, with <command>cat</command> for example, to the standard output device, pipe the result so that it will be used as standard input device for the command, then redirect the result of the command to the document, i.e. <literal>%f</literal>, as in:</para>
+<para><userinput>cat '%s' | tidy 'someoptions' &gt; '%f'</userinput></para>
+</listitem>
+<listitem>
+<para>If the command operates on file's contents, as <command>sed</command>, you should use input, i.e. <literal>%s</literal> and output, i.e. <literal>%f</literal> redirection to feed the command with the right pameters, as in:</para>
+<para><userinput>sed -e 'somesedcommand' &lt; '%s' &gt; '%f'</userinput></para>
+</listitem>
+</itemizedlist>
+<para>As those parameters are used internally to create temporary files, you cannot use them to modify the name of the final document for example. But you can redirect the standard output to a named file, if you do not want to override the current document, as in:</para>
+<para><userinput>sed -e 'somesedcommand' &lt; '%s' 1 &gt; 'namedfile'</userinput></para>
+<para>Here is an example to get rid of hard-coded <literal>/usr</literal> in a source file:</para>
+<procedure id="utitilities-add">
+<title>Adding a Commands menu item</title>
+<step>
+<para>Click on the <guilabel>Preferences...</guilabel> icon in the main tool bar to access the <guilabel>Edit preferences</guilabel> panel.</para>
+</step>
+<step>
+<para>Click on the <guilabel>External programs</guilabel> tab to display the <guilabel>Utilities and filters</guilabel> panel.</para>
+</step>
+<step>
+<para>Click on the <guibutton>Add</guibutton> button. A new line will be shown, with an <guilabel>Untitled</guilabel> label.</para>
+</step>
+<step>
+<para>Double-click on the label to allow editing, and enter the string you want to appear in the <guimenu>External</guimenu> menu.</para>
+</step>
+<step>
+<para>Double-click in the <guilabel>Command</guilabel> zone and enter:</para>
+<para><userinput>sed -e 's|\/usr|${PREFIX}|g' &lt; '%s' &gt; '%f'</userinput>.</para>
+<variablelist>
+<varlistentry>
+<term><emphasis>Note</emphasis></term>
+<listitem>
+<para>We need to escape the slash in <literal>/usr</literal> with a backslash to avoid interpretation by the shell.</para>
+</listitem>
+</varlistentry>
+</variablelist>
+</step>
+<step>
+<para>Click on the <guibutton>OK</guibutton> button to save and close the panel.</para>
+</step>
+</procedure>
 </sect3>
 
 <sect3 id="external-outputbox">
 <title>Customizing Ouputbox menu</title>
-<para>Items within External &gt; Outputbox allow for programs to give feedback by opening an output box within Bluefish's main window. To create an Outputbox menu item:</para> <orderedlist>
+<para>Items within External &gt; Outputbox allow for programs to give feedback by opening an output box within Bluefish's main window.</para>
+<para>To create an Outputbox menu item:</para>
+<orderedlist>
 <listitem>
 <para>Edit &gt; Preferences</para>
 </listitem>
@@ -2953,7 +2995,6 @@ width="80" height="53" border="0"&gt;&lt;/a&gt;
 <?linebreakus?>
 <para>What many people do not know is that they can be changed. Move the mouse over a menu entry, and press the key combination you would like to use. Immediately this combination will show up on the right of the menu entry. An entry can also be remo<?linebreakus?>ved, press the backspace key when you move the mouse over a menu entry to remove the shortcut.</para>
 <para>To save the shortcut key combinations for later Bluefish sessions, use <menuchoice><guimenu>Edit</guimenu><guimenuitem>Save Shortcut Keys</guimenuitem></menuchoice>. This will store the settings in the <filename>~/.bluefish/menudump_2</filename>. If you want to restore the default combinations simply remove this file and restart Bluefish.</para>
-<?pagebreaka4?>
 </sect2>
 
 <sect2 id="editor-preferences">
