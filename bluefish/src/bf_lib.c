@@ -98,7 +98,9 @@ gchar *table_convert_int2char(Tconvert_table *table, gint my_int) {
 	}
 	return NULL;
 }
-
+#ifdef __GNUC__
+__inline__ 
+#endif
 glong utf8_byteoffset_to_charsoffset(gchar *string, glong byteoffset) {
 	return g_utf8_pointer_to_offset(string, &string[byteoffset]);
 }

@@ -34,6 +34,9 @@ gint count_array(gchar **array);
 gint free_arraylist(GList * which_list);
 gchar **duplicate_stringarray(gchar **array);
 GList *duplicate_arraylist(GList *arraylist);
+
+/* removes a string from a stringlist if it is the same */
+GList *remove_from_stringlist(GList *which_list, gchar * string);
 /* adds a string to a stringlist if it is not yet in there */
 GList *add_to_stringlist(GList * which_list, gchar * string);
 
