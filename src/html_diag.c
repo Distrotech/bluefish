@@ -61,7 +61,6 @@ Thtml_diag *html_diag_new(gchar *title) {
 
 	gtk_window_set_role(GTK_WINDOW(dg->dialog), "html_dialog");
 	dg->vbox = gtk_vbox_new(FALSE, 1);
-	/*	gtk_container_set_border_width(GTK_CONTAINER(dg->vbox), 6); */
 	gtk_container_add(GTK_CONTAINER(dg->dialog), dg->vbox);
 #ifdef DEBUG
 	{
