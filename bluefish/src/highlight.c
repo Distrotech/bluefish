@@ -108,7 +108,7 @@ static gboolean add_pattern_to_name(GList * patternlist, regex_t * parentmatch, 
 
 static void hl_compile_pattern(Thighlightset * hlset, gchar * name, gint case_insens, gchar * pat1, gchar * pat2,
 							   gchar * pat3, gint mode, gchar * parent, gchar * fgcolor, gchar * bgcolor, gint weight,
-							   gint style)
+							   gint style, gchar *start_boundary, gchar *end_boundary)
 {
 	/*
 	 * test if the pattern is correct 
@@ -244,6 +244,17 @@ static void hl_compile_pattern(Thighlightset * hlset, gchar * name, gint case_in
 		default:
 			break;
 		}
+		if (start_boundary && strlen(start_boundary)) {
+			pat->start_boundary = g_strdup(start_boundary);
+		} else {
+			pat->start_boundary = NULL;
+		}
+		if (end_boundary && strlen(end_boundary)) {
+			pat->end_boundary = g_strdup(end_boundary);
+		} else {
+			pat->end_boundary = NULL;
+		}
+		
 		pat->tag = gtk_text_tag_new(NULL);
 
 		if (strlen(fgcolor)) {
@@ -350,15 +361,15 @@ void hl_init()
 		gchar **strarr;
 		strarr = (gchar **) tmplist->data;
 
-		if (count_array(strarr) == 12) {
+		if (count_array(strarr) == 14) {
 			hlset = hl_get_highlightset_by_type(strarr[0]);
 			hl_compile_pattern(hlset, strarr[1], atoi(strarr[2]), strarr[3]
 							   , strarr[4], strarr[5], atoi(strarr[6]), strarr[7], strarr[8]
-							   , strarr[9], atoi(strarr[10]), atoi(strarr[11]));
+							   , strarr[9], atoi(strarr[10]), atoi(strarr[11]), strarr[12], strarr[13]);
 		}
 #ifdef DEBUG
 		else {
-			DEBUG_MSG("hl_init, hl pattern needs 12 params in array\n");
+			DEBUG_MSG("hl_init, hl pattern needs 14 params in array, this one has %d\n", count_array(strarr));
 		}
 #endif
 		tmplist = g_list_next(tmplist);
@@ -393,7 +404,79 @@ Thighlightset *hl_get_highlightset_by_filename(gchar * filename)
 /* applying the highlighting */
 /*****************************/
 
-void applylevel(Tdocument * doc, GList * level_list, gint start, gint end, regmatch_t par_pmatch[], gchar * buf)
+static void patmatch_rematch(Tpatmatch *patmatch, gint offset, regmatch_t par_pmatch[], gchar *string) {
+	gboolean done = FALSE;
+	gint localoffset=0;
+#ifdef HL_DEBUG
+	g_print("patmatch(%p), offset=%d, string(%p)\n", patmatch, offset, string);
+	if (offset < 0) {
+		g_print("patmatch_rematch, offset=%d, ABORTING\n", offset);
+		exit(2);
+	}
+	if (offset > strlen(string)) {
+		g_print("patmatch_rematch, offset=%d, strlen(string)=%d, ABORTING\n", offset, strlen(string));
+		exit(3);
+	}
+#endif
+
+	while (!done) {
+		if (patmatch->pat->mode == 3) {
+			gint num = atoi(patmatch->pat->spat1);
+			patmatch->pmatch_offset = 0;
+			patmatch->pmatch[0].rm_so = par_pmatch[num].rm_so;
+			patmatch->pmatch[0].rm_eo = par_pmatch[num].rm_eo;
+			patmatch->pmatch[1].rm_so = -1;
+			done = TRUE;
+		} else {
+			gint res, nummatches;
+			nummatches = (patmatch->pat->need_subpatterns) ? NUM_SUBMATCHES : 1;
+			res = regexec(&patmatch->pat->rpat1, &string[offset+localoffset], nummatches, patmatch->pmatch, 0);
+			if (res != 0) {
+				patmatch->pmatch[0].rm_so = -1;
+				done = TRUE;
+			} else {
+				gboolean start_ok = TRUE, end_ok = TRUE;
+#ifdef HL_DEBUG
+				gchar *debugstr = g_strndup(&string[offset+localoffset+patmatch->pmatch[0].rm_so-1], (patmatch->pmatch[0].rm_eo - patmatch->pmatch[0].rm_so + 2));
+				g_print("patmatch_rematch, '%s', rm_so=%d, rm_eo=%d, offset=%d, localoffset=%d\n", debugstr, patmatch->pmatch[0].rm_so, patmatch->pmatch[0].rm_eo, offset, localoffset);
+				g_free(debugstr);
+#endif
+				if (patmatch->pat->start_boundary && ((patmatch->pmatch[0].rm_so + localoffset + offset) > 0)) { /* a start at position 0 does not have any characters in front */
+					gchar c = string[offset+localoffset+patmatch->pmatch[0].rm_so-1];
+					start_ok = (strchr(patmatch->pat->start_boundary, c) != NULL);
+#ifdef HL_DEBUG
+					g_print("patmatch_rematch, start_boundary='%c', test in '%s', result=%d\n", c, patmatch->pat->start_boundary, start_ok);
+#endif
+				}
+				if (patmatch->pat->end_boundary && patmatch->pat->mode == 2) {
+					gchar c = string[offset+localoffset+patmatch->pmatch[0].rm_eo];
+#ifdef HL_DEBUG
+					g_print("patmatch_rematch, end_boundary='%c' (at %d), test in '%s', result=%d\n", c, offset+localoffset+patmatch->pmatch[0].rm_eo+1,patmatch->pat->end_boundary, start_ok);
+#endif
+					end_ok = (strchr(patmatch->pat->end_boundary, c) != NULL);
+				}
+				if (start_ok && end_ok) {
+					done = TRUE;
+#ifdef HL_DEBUG
+					g_print("patmatch_rematch, start_ok&&end_ok, setting pmatch_offset to offset(%d)+localoffset(%d)=%d\n",offset, localoffset, offset+localoffset);
+#endif
+					patmatch->pmatch_offset = offset+localoffset;
+				} else {
+					/* we have to increase the offset for this pattern to the found start + 1 */
+#ifdef HL_DEBUG
+					g_print("patmatch_rematch, setting localoffset from %d to %d\n", localoffset, (localoffset + patmatch->pmatch[0].rm_so+1));
+#endif
+					localoffset += patmatch->pmatch[0].rm_so+1;
+				}
+			}
+		}
+	}
+#ifdef HL_DEBUG
+	g_print("patmatch_rematch, patmatch %s now starts at %d (offset=%d)\n", patmatch->pat->name,patmatch->pmatch[0].rm_so, patmatch->pmatch_offset);
+#endif
+}
+
+static void applylevel(Tdocument * doc, GList * level_list, gint start, gint end, regmatch_t par_pmatch[], gchar * buf)
 {
 #ifdef HL_DEBUG
 	DEBUG_MSG("applylevel, started on doc %p from %d to %d\n", doc, start, end);
@@ -443,24 +526,7 @@ void applylevel(Tdocument * doc, GList * level_list, gint start, gint end, regma
 		{
 			gint i;
 			for (i = 0; i < numpats; i++) {
-				if (patmatch[i].pat->mode == 3) {
-					gint num = atoi(patmatch[i].pat->spat1);
-					patmatch[i].pmatch[0].rm_so = par_pmatch[num].rm_so;
-					patmatch[i].pmatch[0].rm_eo = par_pmatch[num].rm_eo;
-					patmatch[i].pmatch[1].rm_so = -1;
-				} else {
-					gint res, nummatches;
-					nummatches = (patmatch[i].pat->need_subpatterns) ? NUM_SUBMATCHES : 1;
-					res = regexec(&patmatch[i].pat->rpat1, &string[offset], nummatches, patmatch[i].pmatch, 0);
-					if (res != 0) {
-						patmatch[i].pmatch[0].rm_so = -1;
-					}
-				}
-				patmatch[i].pmatch_offset = offset;
-#ifdef HL_DEBUG
-				DEBUG_MSG("applylevel, pat(%d) %s initial starts at %d\n", i, patmatch[i].pat->name,
-						  patmatch[i].pmatch[0].rm_so);
-#endif
+				patmatch_rematch(&patmatch[i], offset, par_pmatch, string);
 			}
 		}
 
@@ -501,21 +567,32 @@ void applylevel(Tdocument * doc, GList * level_list, gint start, gint end, regma
 					regmatch_t pmatch[1];
 					gint res2;
 #ifdef HL_DEBUG
-					DEBUG_MSG("type 1 2nd match: string from %d to end\n",
+					DEBUG_MSG("applylevel, %s has mode==1, we need a 2nd match starting at %d\n", patmatch[lowest_patmatch].pat->name,
 							  patmatch[lowest_patmatch].pmatch[0].rm_so + patmatch[lowest_patmatch].pmatch_offset + 1);
 #endif
-					res2 =
-						regexec(&patmatch[lowest_patmatch].pat->rpat2,
-								&string[patmatch[lowest_patmatch].pmatch[0].rm_so + patmatch[lowest_patmatch].pmatch_offset +
-										1], 1, pmatch, 0);
+					res2=regexec(&patmatch[lowest_patmatch].pat->rpat2,&string[patmatch[lowest_patmatch].pmatch[0].rm_so + patmatch[lowest_patmatch].pmatch_offset +1], 1, pmatch, 0);
 					if (res2 == 0) {
-						patmatch[lowest_patmatch].pmatch[0].rm_eo =
-							pmatch[0].rm_eo + patmatch[lowest_patmatch].pmatch[0].rm_so + 1;
+						gboolean boundary_ok = TRUE;
+						if (patmatch[lowest_patmatch].pat->end_boundary) {
+							gchar c = string[pmatch[0].rm_eo + patmatch[lowest_patmatch].pmatch[0].rm_so + patmatch[lowest_patmatch].pmatch_offset +1];
 #ifdef HL_DEBUG
-						DEBUG_MSG("found match at %d, adding offset in string minus pmatch_offset %d to that\n",
-								  pmatch[0].rm_eo, patmatch[lowest_patmatch].pmatch[0].rm_so + 1);
+							g_print("applylevel, end_boundary='%c' (at %d), test in '%s', result=%d\n", c,pmatch[0].rm_eo + patmatch[lowest_patmatch].pmatch[0].rm_so + patmatch[lowest_patmatch].pmatch_offset +1 ,patmatch[lowest_patmatch].pat->end_boundary, boundary_ok);
 #endif
-						patmatch[lowest_patmatch].is_match = TRUE;
+							if(strchr(patmatch[lowest_patmatch].pat->end_boundary, c) == NULL) {
+								boundary_ok = FALSE;
+							}
+						}
+						if (boundary_ok) {
+							patmatch[lowest_patmatch].pmatch[0].rm_eo =
+									pmatch[0].rm_eo + patmatch[lowest_patmatch].pmatch[0].rm_so + 1;
+#ifdef HL_DEBUG
+							DEBUG_MSG("found match at %d, adding offset in string minus pmatch_offset %d to that\n",
+									  pmatch[0].rm_eo, patmatch[lowest_patmatch].pmatch[0].rm_so + 1);
+#endif
+							patmatch[lowest_patmatch].is_match = TRUE;
+						} else {
+							patmatch[lowest_patmatch].is_match = FALSE;
+						}
 					} else {
 						patmatch[lowest_patmatch].is_match = FALSE;
 					}
@@ -571,28 +648,17 @@ void applylevel(Tdocument * doc, GList * level_list, gint start, gint end, regma
 #endif
 				offset = patmatch[lowest_patmatch].pmatch_offset + patmatch[lowest_patmatch].pmatch[0].rm_eo;
 
-				/* search for the next match for all patterns that did start < offset */
+				/* search for the next match for all patterns that did start < offset, 
+				we do not need to  check type 3 because it can only run once in every level, so we set it to -1 */
 				{
 					gint i;
 					for (i = 0; i < numpats; i++) {
-						if (patmatch[i].pmatch[0].rm_so >= 0
-							&& patmatch[i].pmatch[0].rm_so + patmatch[i].pmatch_offset < offset) {
-							/* re-search this pattern */
-							if (patmatch[i].pat->mode == 3) {
-								/* a mode 3 pattern has only one match every level */
-								patmatch[i].pmatch[0].rm_so = -1;
-							} else {
-								gint res1;
-								gint nummatches = (patmatch[i].pat->need_subpatterns) ? NUM_SUBMATCHES : 1;
-								res1 = regexec(&patmatch[i].pat->rpat1, &string[offset], nummatches, patmatch[i].pmatch, 0);
-								if (res1 != 0) {
-									patmatch[i].pmatch[0].rm_so = -1;
-								}
-								patmatch[i].pmatch_offset = offset;
-#ifdef HL_DEBUG
-								g_print("applylevel, pat(%d) %s now starts at %d (offset=%d)\n", i, patmatch[i].pat->name,
-										patmatch[i].pmatch[0].rm_so, patmatch[i].pmatch_offset);
-#endif
+						if (patmatch[i].pat->mode == 3) {
+							patmatch[i].pmatch[0].rm_so = -1;
+						} else {
+							if (patmatch[i].pmatch[0].rm_so >= 0 && patmatch[i].pmatch[0].rm_so + patmatch[i].pmatch_offset < offset) {
+								/* re-search this pattern */
+								patmatch_rematch(&patmatch[i], offset, par_pmatch, string);
 							}
 						}
 					}
@@ -601,7 +667,7 @@ void applylevel(Tdocument * doc, GList * level_list, gint start, gint end, regma
 				/* so there is no match at all eh? invalidate this pattern ??
 				this part is VERY PROBABLY NOT CORRECT YET
 				 */
-				patmatch[lowest_patmatch].pmatch[0].rm_so = -1;
+				offset += patmatch[lowest_patmatch].pmatch[0].rm_so +1;
 			}
 		}
 		g_free(string);
@@ -895,146 +961,149 @@ void hl_reset_to_default()
 	main_v->props.filetypes = g_list_append(main_v->props.filetypes, arr);
 	arr = array_from_arglist("sql", ".sql", "(){}'[]\n\"", "iconlocation", NULL);
 	main_v->props.filetypes = g_list_append(main_v->props.filetypes, arr);
-
 #ifdef MAKE_BLUEFISH_WITH_BLUEFISH
 	arr = array_from_arglist("c", ".c:.h", "(){}'[]\n\"", "iconlocation", NULL);
 	main_v->props.filetypes = g_list_append(main_v->props.filetypes, arr);
-	arr = array_from_arglist("c", "comment", "0", "/\\*", "\\*/", "", "1", "", "#AAAAAA", "", "1", "2", NULL);
+#endif 
+
+
+#ifdef MAKE_BLUEFISH_WITH_BLUEFISH
+	arr = array_from_arglist("c", "comment", "0", "/\\*", "\\*/", "", "1", "", "#AAAAAA", "", "1", "2", "", "", NULL);
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
-	arr = array_from_arglist("c", "string", "0", "\"", "\"", "", "1", "", "#009900", "", "0", "0", NULL);
+	arr = array_from_arglist("c", "string", "0", "\"", "\"", "", "1", "", "#009900", "", "0", "0", "", "", NULL);
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
 	arr =
 		array_from_arglist("c", "preprocessor", "0", "#(include|define|if|ifdef|else|endif)[^\n]*\n", "", "", "2", "",
-						   "#000099", "", "0", "0", NULL);
+						   "#000099", "", "0", "0", "", "", NULL);
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
 	arr =
 		array_from_arglist("c", "keywords", "0",
-						   "[ \t\n*](return|goto|if|else|case|default|switch|break|continue|while|do|for|sizeof)[ \t\n*]",
-						   "", "", "2", "", "#000000", "", "2", "0", NULL);
+						   "(return|goto|if|else|case|default|switch|break|continue|while|do|for|sizeof)",
+						   "", "", "2", "", "#000000", "", "2", "0", " \t\n*{};", " \t\n*{};", NULL);
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
 	arr =
 		array_from_arglist("c", "storage-keywords", "0",
-						   "[ \t\n*](const|extern|auto|register|static|unsigned|signed|volatile|char|double|float|int|long|short|void|typedef|struct|union|enum|FILE|gint|gchar|GList|GtkWidget|gpointer|guint|gboolean)[ \t\n*]",
-						   "", "", "2", "", "#990000", "", "2", "0", NULL);
+						   "(const|extern|auto|register|static|unsigned|signed|volatile|char|double|float|int|long|short|void|typedef|struct|union|enum|FILE|gint|gchar|GList|GtkWidget|gpointer|guint|gboolean)",
+						   "", "", "2", "", "#990000", "", "2", "0", " \t\n*;", " \t\n*;", NULL);
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
-	arr = array_from_arglist("c", "braces", "0", "[{()}]", "", "", "2", "", "#000000", "", "2", "0", NULL);
+	arr = array_from_arglist("c", "braces", "0", "[{()}]", "", "", "2", "", "#000000", "", "2", "0", "", "", NULL);
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
-	arr = array_from_arglist("c", "character", "0", "'", "'", "", "1", "", "#009900", "", "0", "0", NULL);
+	arr = array_from_arglist("c", "character", "0", "'", "'", "", "1", "", "#009900", "", "0", "0", "", "", NULL);
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
 #endif
 
 	/* the default php pattern */
-	arr = array_from_arglist("php", "html", "1", "<((/)?[a-z0-9]+)", "[^?-]>", "", "1", "", "#000077", "", "0", "0", NULL);
+	arr = array_from_arglist("php", "html", "1", "<((/)?[a-z0-9]+)", "[^?-]>", "", "1", "", "#000077", "", "0", "0", "", "", NULL);
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
-	arr = array_from_arglist("php", "html-tag", "1", "1", "", "", "3", "^html$", "#550044", "", "2", "0", NULL);
+	arr = array_from_arglist("php", "html-tag", "1", "1", "", "", "3", "^html$", "#550044", "", "2", "0", "", "", NULL);
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
 	arr =
 		array_from_arglist("php", "html-tag-table", "1", "^(/)?(table|td|tr|tbody)$", "", "", "2", "^html-tag$", "#5005AA",
-						   "", "0", "0", NULL);
+						   "", "0", "0", "", "", NULL);
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
 	arr =
 		array_from_arglist("php", "html-tag-special", "1", "^(/)?(img|a)$", "", "", "2", "^html-tag$", "#BB0540", "", "0",
-						   "0", NULL);
+						   "0", "", "", NULL);
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
 	arr =
 		array_from_arglist("php", "html-attrib", "1", "([a-z]*=)(\"[^\"]*\")", "", "", "2", "^html$", "", "", "0", "0",
-						   NULL);
+						   "", "", NULL);
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
 	arr =
-		array_from_arglist("php", "html-attrib-sub2", "1", "2", "", "", "3", "^html-attrib$", "#009900", "", "0", "0", NULL);
+		array_from_arglist("php", "html-attrib-sub2", "1", "2", "", "", "3", "^html-attrib$", "#009900", "", "0", "0", "", "", NULL);
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
-	arr = array_from_arglist("php", "specialchar", "1", "&[^;]*;", "", "", "2", "", "#999999", "", "2", "0", NULL);
+	arr = array_from_arglist("php", "specialchar", "1", "&[^;]*;", "", "", "2", "", "#999999", "", "2", "0", "", "", NULL);
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
-	arr = array_from_arglist("php", "comment", "0", "<!--", "-->", "", "1", "", "#AAAAAA", "", "1", "2", NULL);
+	arr = array_from_arglist("php", "comment", "0", "<!--", "-->", "", "1", "", "#AAAAAA", "", "1", "2", "", "", NULL);
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
 	arr =
 		array_from_arglist("php", "php", "1", "<\\?php", "\\?>", "", "1", "^(top|html|html-attrib-sub2)$", "#0000FF", "",
-						   "0", "0", NULL);
+						   "0", "0", "", "", NULL);
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
 	arr =
 		array_from_arglist("php", "php-keywords", "0",
-						   "[\n\t ](return|goto|if|else|case|default|switch|break|continue|while|do|for|global|var|class|function)[\n\t ]",
-						   "", "", "2", "^php$", "#000000", "", "2", "0", NULL);
+						   "(return|goto|if|else|case|default|switch|break|continue|while|do|for|global|var|class|function)",
+						   "", "", "2", "^php$", "#000000", "", "2", "0", " \t\n", " \t\n", NULL);
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
-	arr = array_from_arglist("php", "php-braces", "0", "[{()}]", "", "", "2", "^php$", "#000000", "", "2", "0", NULL);
+	arr = array_from_arglist("php", "php-braces", "0", "[{()}]", "", "", "2", "^php$", "#000000", "", "2", "0", "", "", NULL);
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
-	arr = array_from_arglist("php", "php-string-double", "0", "\"", "\"", "", "1", "^php$", "#009900", "", "1", "1", NULL);
+	arr = array_from_arglist("php", "php-string-double", "0", "\"", "\"", "", "1", "^php$", "#009900", "", "1", "1", "", "", NULL);
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
 	arr =
 		array_from_arglist("php", "php-var", "1", "\\$[a-z][][a-z0-9>_$-]*", "", "", "2", "^php$", "#CC0000", "", "2", "0",
-						   NULL);
+						   "", "", NULL);
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
 	arr =
 		array_from_arglist("php", "php-var-specialchars", "0", "(\\[|\\]|->)", "", "", "2", "^php-var$", "#0000CC", "", "0",
-						   "0", NULL);
+						   "0", "", "", NULL);
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
-	arr = array_from_arglist("php", "php-string-single", "0", "'", "'", "", "1", "^php$", "#009900", "", "1", "1", NULL);
+	arr = array_from_arglist("php", "php-string-single", "0", "'", "'", "", "1", "^php$", "#009900", "", "1", "1", "", "", NULL);
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
-	arr = array_from_arglist("php", "php-comment-C", "0", "/\\*", "\\*/", "", "1", "^php$", "#7777AA", "", "1", "2", NULL);
+	arr = array_from_arglist("php", "php-comment-C", "0", "/\\*", "\\*/", "", "1", "^php$", "#7777AA", "", "1", "2", "", "", NULL);
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
 	arr =
-		array_from_arglist("php", "php-comment-C++", "0", "//[^\n]*\n", "", "", "2", "^php$", "#7777AA", "", "1", "2", NULL);
+		array_from_arglist("php", "php-comment-C++", "0", "//[^\n]*\n", "", "", "2", "^php$", "#7777AA", "", "1", "2", "", "", NULL);
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
 	DEBUG_MSG("hl_reset_to_default, done\n");
 
 	/* the default HTML pattern */
-	arr = array_from_arglist("html", "html", "1", "<((/)?[a-z0-9]+)", "[^?-]>", "", "1", "", "#0000EE", "", "0", "0", NULL);
+	arr = array_from_arglist("html", "html", "1", "<((/)?[a-z0-9]+)", "[^?-]>", "", "1", "", "#0000EE", "", "0", "0", "", "", NULL);
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
-	arr = array_from_arglist("html", "html-tag", "1", "1", "", "", "3", "^html$", "#000077", "", "2", "0", NULL);
+	arr = array_from_arglist("html", "html-tag", "1", "1", "", "", "3", "^html$", "#000077", "", "2", "0", "", "", NULL);
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
-	arr = array_from_arglist("html", "html-attrib", "1", "([a-z]*=)(\"[^\"]*\")", "", "", "2", "^html$", "", "", "0", "0",NULL);
+	arr = array_from_arglist("html", "html-attrib", "1", "([a-z]*=)(\"[^\"]*\")", "", "", "2", "^html$", "", "", "0", "0","", "", NULL);
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
-	arr = array_from_arglist("html", "html-attrib-sub2", "1", "2", "", "", "3", "^html-attrib$", "#009900", "", "0", "0", NULL);
+	arr = array_from_arglist("html", "html-attrib-sub2", "1", "2", "", "", "3", "^html-attrib$", "#009900", "", "0", "0", "", "", NULL);
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
-	arr = array_from_arglist("html", "specialchar", "1", "&[^;]*;", "", "", "2", "", "#999999", "", "2", "0", NULL);
+	arr = array_from_arglist("html", "specialchar", "1", "&[^;]*;", "", "", "2", "", "#999999", "", "2", "0", "", "", NULL);
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
-	arr = array_from_arglist("html", "comment", "0", "<!--", "-->", "", "1", "", "#AAAAAA", "", "1", "2", NULL);
+	arr = array_from_arglist("html", "comment", "0", "<!--", "-->", "", "1", "", "#AAAAAA", "", "1", "2", "", "", NULL);
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
-	arr = array_from_arglist("html", "doctype", "1", "<![a-z0-9]", "[^?-]>", "", "1", "", "#bb8800", "", "0", "0", NULL);
+	arr = array_from_arglist("html", "doctype", "1", "<![a-z0-9]", "[^?-]>", "", "1", "", "#bb8800", "", "0", "0", "", "", NULL);
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
 
 	/* the default java pattern */
-	arr = array_from_arglist("java", "comment-C", "0", "/\\*", "\\*/", "", "1", "", "#AAAAAA", "", "1", "2", NULL);
+	arr = array_from_arglist("java", "comment-C", "0", "/\\*", "\\*/", "", "1", "", "#AAAAAA", "", "1", "2", "", "", NULL);
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
-	arr = array_from_arglist("java", "comment-C++", "0", "//[^\n]*\n", "", "", "2", "", "#AAAAAA", "", "1", "2", NULL);
+	arr = array_from_arglist("java", "comment-C++", "0", "//[^\n]*\n", "", "", "2", "", "#AAAAAA", "", "1", "2", "", "", NULL);
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
-	arr = array_from_arglist("java", "string", "0", "\"", "\"", "", "1", "", "#009900", "", "0", "0", NULL);
+	arr = array_from_arglist("java", "string", "0", "\"", "\"", "", "1", "", "#009900", "", "0", "0", "", "", NULL);
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
 	arr =
-		array_from_arglist("java", "include", "0", "^(import|package)[^\n]*\n", "", "", "2", "", "#000099", "", "0", "0",
-						   NULL);
+		array_from_arglist("java", "include", "0", "(import|package)[^\n]*\n", "", "", "2", "", "#000099", "", "0", "0",
+						   "\n", "", NULL);
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
 	arr =
 		array_from_arglist("java", "keywords", "0",
-						   "[ \t\n*](new|super|return|goto|if|else|case|default|switch|break|continue|while|do|for|catch|throw|finally|try|class)[ \t\n*]",
-						   "", "", "2", "", "#000000", "", "2", "0", NULL);
+						   "(new|super|return|goto|if|else|case|default|switch|break|continue|while|do|for|catch|throw|finally|try|class)",
+						   "", "", "2", "", "#000000", "", "2", "0", " \t\n*};", " \t\n{:;", NULL);
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
 	arr =
-		array_from_arglist("java", "special_values", "0", "[ \t\n*](false|null|true)[ \t\n*]", "", "", "2", "", "#990000",
-						   "", "2", "0", NULL);
+		array_from_arglist("java", "special_values", "0", "(false|null|true)", "", "", "2", "", "#5caeee",
+						   "", "0", "0", " \t\n=(", " \t\n);,", NULL);
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
 	arr =
 		array_from_arglist("java", "modifiers", "0",
-						   "[ \t\n*](abstract|final|native|private|protected|public|static|transient|synchronized|volatile|extends|implements)[ \t\n*]",
-						   "", "", "2", "", "#990000", "", "2", "0", NULL);
+						   "(abstract|final|native|private|protected|public|static|transient|synchronized|volatile|extends|implements)",
+						   "", "", "2", "", "#990000", "", "2", "0", " \t\n", " \t\n", NULL);
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
-	arr = array_from_arglist("java", "this", "0", "[ \t\n]this\\.", "", "", "2", "", "#000099", "", "2", "0", NULL);
+	arr = array_from_arglist("java", "this", "0", "this\\.", "", "", "2", "", "#000099", "", "2", "0", "=+*/ \n\t(", "", NULL);
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
 	arr =
 		array_from_arglist("java", "primitive-types", "0", "(void|double|boolean|int)", "", "", "2", "", "#880088", "", "2",
-						   "0", NULL);
+						   "0", " \t\n(,", " \t\n,;)", NULL);
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
-	arr = array_from_arglist("java", "braces", "0", "[{()}]", "", "", "2", "", "#000000", "", "2", "0", NULL);
+	arr = array_from_arglist("java", "braces", "0", "[{()}]", "", "", "2", "", "#000000", "", "2", "0", "", "", NULL);
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
-	arr = array_from_arglist("java", "character", "0", "'", "'", "", "1", "", "#009900", "", "0", "0", NULL);
+	arr = array_from_arglist("java", "character", "0", "'", "'", "", "1", "", "#009900", "", "0", "0", "", "", NULL);
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
 
-	arr = array_from_arglist("sql", "braces", "0", "[{()}]", "", "", "2", "", "#000000", "", "2", "0", NULL);
+	arr = array_from_arglist("sql", "braces", "0", "[{()}]", "", "", "2", "", "#000000", "", "2", "0", "", "", NULL);
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
-	arr = array_from_arglist("sql", "commands", "1","(create|alter|insert|update|delete)","", "", "2", "", "#990000", "", "2", "0", NULL);
+	arr = array_from_arglist("sql", "commands", "1","(create|alter|insert|update|delete)","", "", "2", "", "#990000", "", "2", "0", " \t\n", " \t\n", NULL);
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
-	arr = array_from_arglist("sql", "keywords", "1","(references|cascade|not null|null|default|table|user|foreign key|index|unique|primary key|constraint|alter|values)","", "", "2", "", "#990000", "", "2", "0", NULL);
+	arr = array_from_arglist("sql", "keywords", "1","(references|cascade|not null|null|default|table|user|foreign key|index|unique|primary key|constraint|alter|values)","", "", "2", "", "#990000", "", "2", "0", " \t\n", " \t\n", NULL);
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
-	arr = array_from_arglist("sql", "storage", "1", "(integer|varchar|char|blob|double|timestamp)", "", "", "2", "", "#880088", "", "2","0", NULL);
+	arr = array_from_arglist("sql", "storage", "1", "(integer|varchar|char|blob|double|timestamp)", "", "", "2", "", "#880088", "", "2","0", " \t\n", " \t\n", NULL);
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
 }
