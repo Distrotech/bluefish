@@ -263,6 +263,7 @@ void left_panel_show_hide_toggle(Tbfwin *bfwin,gboolean first_time, gboolean sho
 		gtk_widget_show(bfwin->hpane);
 	} else {
 		bfwin->hpane = NULL;
+		bfwin->leftpanel_notebook = NULL;
 		gtk_box_pack_start(GTK_BOX(bfwin->middlebox), bfwin->notebook_box, TRUE, TRUE, 0);
 	}
 	if (!first_time) {
@@ -287,7 +288,10 @@ void gui_set_title(Tbfwin *bfwin, Tdocument *doc) {
 }
 
 void gui_apply_settings(Tbfwin *bfwin) {
-	gtk_notebook_set_tab_pos(GTK_NOTEBOOK(bfwin->leftpanel_notebook),main_v->props.leftpanel_tabposition);
+	/* We don't want to set the tab position if the left panel is hidden */
+	if (bfwin->leftpanel_notebook) {
+		gtk_notebook_set_tab_pos(GTK_NOTEBOOK(bfwin->leftpanel_notebook),main_v->props.leftpanel_tabposition);
+	}
 	gtk_notebook_set_tab_pos(GTK_NOTEBOOK(bfwin->notebook),main_v->props.document_tabposition);
 }
 
