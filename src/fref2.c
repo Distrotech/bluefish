@@ -941,29 +941,37 @@ void fref_unload_all(GtkWidget * tree, GtkTreeStore * store,Tbfwin *bfwin)
 	/* gtk_tree_store_clear(store); */
 }
 
-static void fref_save_element(gpointer key,gpointer value,gpointer udata)
+static void fref_save_element(GtkTreeStore *store,GtkTreeIter *iter,xmlDocPtr doc,xmlNodePtr parent)
 {
-/*	xmlDocPtr doc;
-	Tfref_record *rec = FREFRECORD(value);
-	gchar *name = (gchar*)key;
-	xmlNodePtr node;
+	GValue *val=NULL;
+	xmlNodePtr node,txt;
 	
-	if (!udata) return;
-	doc = (xmlDoc*)udata;
-	switch (rec->etype)
+	val = g_new0(GValue, 1);	
+	gtk_tree_model_get_value(GTK_TREE_MODEL(store),iter,PTR_COLUMN, val);
+	if (G_IS_VALUE(val) && g_value_fits_pointer(val) && g_value_peek_pointer(val)) 
 	{
-		case FREF_EL_NOTE:
-			node = xmlNodeNew
-		break;
-	}*/
+		Tfref_record *rec = FREFRECORD(g_value_peek_pointer(val));
+		switch ( rec->etype )
+		{
+			case FREF_EL_NOTE: {
+				Tfref_note *n = FREFNOTE(rec->data);
+				node = xmlNewNode(NULL, "note");
+				xmlNewProp(node, "title", n->title);
+				txt = xmlNewText(n->text);
+				xmlAddChild(node,txt);
+				xmlAddChild(parent,node);
+			}	
+			break;
+		} /* switch */
+	}
 }
 
 static gboolean fref_save_ref(GtkTreeIter *iter,Tbfwin *bfwin)
 {
 		gchar *fname = NULL;
 		GValue *val,*val2;
-/*		GtkTreePath *path;
-		GtkTreeIter it;*/
+/*		GtkTreePath *path;*/
+		GtkTreeIter it;
 		xmlDocPtr doc;
 		xmlNodePtr rnode;
 
@@ -995,15 +1003,19 @@ static gboolean fref_save_ref(GtkTreeIter *iter,Tbfwin *bfwin)
 			{
 				xmlNewProp(rnode,"description",FREFINFO(rr->data)->description);
 			}	
-			g_hash_table_foreach(FREFINFO(rr->data)->commons,fref_save_element,doc);
+			gtk_tree_model_iter_children(GTK_TREE_MODEL(FREFDATA(main_v->frefdata)->store), &it, iter);
+			while (1) 
+			{	
+				fref_save_element(FREFDATA(main_v->frefdata)->store, &it,doc,rnode);		
+				if ( !gtk_tree_model_iter_next(GTK_TREE_MODEL(FREFDATA(main_v->frefdata)->store), &it)) break;
+			}							/* while */			
 		}
 		g_value_unset(val2);
 		g_free(val2);    	
-		
-    	
+		    	
 		xmlSaveFormatFileEnc(fname, doc, "UTF-8", 1);
     	xmlFreeDoc(doc);    	
-    	
+    	xmlCleanupParser();
 		g_value_unset(val);
 		g_free(val);    	
     	return TRUE;
