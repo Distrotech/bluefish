@@ -169,6 +169,95 @@ void doc_set_wrap(Tdocument * doc) {
 		gtk_text_view_set_wrap_mode(GTK_TEXT_VIEW(doc->view),GTK_WRAP_NONE);
 	}
 }
+/**
+ * doc_set_filetype:
+ * @doc: a #Tdocument
+ * @ft: a #Tfiletype with the new filetype
+ *
+ * this function will compare the filetype from the document and the new filetype
+ * and if they are different it will remove the old highlighting, set the newfiletype
+ * and set the filetype widget, it will return TRUE if the type was changed
+ *
+ * Return value: #gboolean if the value was changed
+ **/
+gboolean doc_set_filetype(Tdocument *doc, Tfiletype *ft) {
+	if (ft != doc->hl) {
+		doc_remove_highlighting(doc);
+		doc->hl = ft;
+		doc->need_highlighting = TRUE;
+		menu_current_document_set_toggle_wo_activate(ft, NULL);
+		return TRUE;
+	}
+	return FALSE;
+}
+/**
+ * get_filetype_by_name:
+ * @name: a #gchar* with the filetype name
+ *
+ * returns the Tfiletype* for corresponding to name
+ *
+ * Return value: Tfiletype* 
+ **/
+Tfiletype *get_filetype_by_name(gchar * name) {
+	GList *tmplist;
+	tmplist = g_list_first(main_v->filetypelist);
+	while (tmplist) {
+		if (strcmp(((Tfiletype *) tmplist->data)->type, name) == 0) {
+			return (Tfiletype *) tmplist->data;
+		}
+		tmplist = g_list_next(tmplist);
+	}
+	return NULL;
+}
+/**
+ * get_filetype_by_filename_and_content:
+ * @filename: a #gchar* with the filename
+ * @buf: a #gchar* with the contents of the file
+ *
+ * returns the Tfiletype* for corresponding to filename, using the file extension
+ * and any matches in the buffer
+ *
+ * Return value: Tfiletype* 
+ **/
+Tfiletype *get_filetype_by_filename_and_content(gchar *filename, gchar *buf) {
+	GList *tmplist;
+
+	if (!filename) return NULL;
+	
+	tmplist = g_list_first(main_v->filetypelist);
+	while (tmplist) {
+		if (filename_test_extensions(((Tfiletype *) tmplist->data)->extensions, filename)) {
+			return (Tfiletype *) tmplist->data;
+		}
+		tmplist = g_list_next(tmplist);
+	}
+	return NULL;
+}
+/**
+ * doc_reset_filetype:
+ * @doc: #Tdocument to reset
+ * @newfilename: a #gchar* with the new filename
+ * @buf: a #gchar* with the contents of the file
+ *
+ * sets the new filetype based on newfilename and content, updates the widgets and highlighting
+ * (using doc_set_filetype())
+ *
+ * Return value: void
+ **/
+void doc_reset_filetype(Tdocument * doc, gchar * newfilename, gchar *buf) {
+	Tfiletype *ft= get_filetype_by_filename_and_content(newfilename, buf);
+	if (!ft) {
+		GList *tmplist;
+		/* if none found return first set (is default set) */
+		tmplist = g_list_first(main_v->filetypelist);
+		if (!tmplist) {
+			DEBUG_MSG("doc_reset_filetype, no default filetype? huh?\n");
+			return;
+		}
+		ft = (Tfiletype *)tmplist->data;
+	}
+	doc_set_filetype(doc, ft);
+}	
 
 /**
  * doc_set_font:
@@ -1637,7 +1726,8 @@ gint doc_save(Tdocument * doc, gint do_save_as, gboolean do_move) {
 			g_free(doc->filename);
 		}
 		doc->filename = newfilename;
-		hl_reset_highlighting_type(doc, doc->filename);
+		/* TODO: should feed the contents to the function too !! */
+		doc_reset_filetype(doc, doc->filename, NULL);
 		doc_set_modified(doc, 1);
 		if (doc == main_v->current_document) {
 			doc_set_file_in_titlebar(doc);
@@ -1982,7 +2072,8 @@ gboolean doc_new_with_file(gchar * filename, gboolean delay_activate) {
 		doc = doc_new(delay_activate);
 	}
 	doc->filename = g_strdup(filename);
-	hl_reset_highlighting_type(doc, doc->filename);	
+	/* TODO: should feed the contents of the file too! */
+	doc_reset_filetype(doc, doc->filename, NULL);
 	DEBUG_MSG("doc_new_with_file, hl is resetted to filename, about to load file\n");
 	doc_file_to_textbox(doc, doc->filename, FALSE, delay_activate);
 	/* hey, this should be done by doc_activate 

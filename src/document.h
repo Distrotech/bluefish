@@ -32,6 +32,10 @@ Tdocument *documentlist_return_document_from_index(gint index);
 
 void doc_update_highlighting(GtkWidget *wid, gpointer data);
 void document_set_wrap(Tdocument *doc, gint wraptype);
+gboolean doc_set_filetype(Tdocument *doc, Tfiletype *ft);
+Tfiletype *get_filetype_by_name(gchar * name);
+Tfiletype *get_filetype_by_filename_and_content(gchar *filename, gchar *buf);
+void doc_reset_filetype(Tdocument * doc, gchar * newfilename, gchar *buf);
 void doc_set_font(Tdocument *doc, gchar *fontstring);
 void doc_set_tabsize(Tdocument *doc, gint tabsize);
 void gui_change_tabsize(gpointer callback_data,guint action,GtkWidget *widget);
