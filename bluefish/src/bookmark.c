@@ -1,9 +1,16 @@
 
 #include <gtk/gtk.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <unistd.h>
+#include <fcntl.h>
+#include <stdlib.h>
+#include <string.h>
 #include "bluefish.h"
 #include "gtk_easy.h"
 #include "gui.h"
 #include "document.h"
+#include "treetips.h"
 #include "bookmark.h"
 
 #ifdef BOOKMARKS
@@ -23,6 +30,13 @@ typedef struct {
    GtkTreeIter iter;  /* for tree view */
    gchar *description;
    gchar *text;
+   gchar *name;   
+   gint number;
+   gint len; /* file length for integrity check - perhaps some hash code is needed */
+   gboolean is_temp; /* is this bookmark temporary,... 
+                        I wonder if that means we should insert all bookmarks
+                        into the same table, ... keeping different tables
+                        can be comfortable ... */
 } Tbmark;
 
 #define BMARK(var) ((Tbmark *)(var))
@@ -34,20 +48,31 @@ typedef struct {
 	GtkWidget *buttons;
 	GtkTreeIter temp_branch,perm_branch; /* for easier access */
 	Tbfwin *bfwin;
+	TreeTips *tips;
 } Tbmark_gui;
 
 #define BMARKGUI(var) ((Tbmark_gui *)(var))
 
 typedef struct {
 	GtkTreeStore *store;
-	Tbmark *temporary[10];
+	GHashTable *temporary;  /* changed to GHashTable - will be faster ? */
 	GHashTable *permanent;
 	gint lasttemp;
 } Tbmark_data;
 
 #define BMARKDATA(var) ((Tbmark_data *)(var))
 
-	
+/* Hmm, I have to use this structure for data exchange in foreach function */
+typedef struct {
+   Tdocument *doc;
+   gchar *string;
+   gpointer ptr;
+   gint integer;
+} Tforeach_data;
+
+
+
+
 
 void bmark_free(gpointer ptr)
 {
@@ -55,50 +80,171 @@ void bmark_free(gpointer ptr)
 	
 	if (ptr==NULL) return;
 	m = BMARK(ptr);
-	if (m->doc)
+	if (m->doc && m->mark)
 	{
 	   gtk_text_buffer_delete_mark(m->doc->buffer,m->mark);
 	   m->doc = NULL;
 	}   
 	g_free(m->filepath);
 	g_free(m->text);
+	g_free(m->name);
+	g_free(m->description);
 	g_free(m);
 }
 
+
+void clean_proc(gpointer key,gpointer value,gpointer user_data)
+{
+  Tbmark *b = BMARK(value);
+  Tbmark_data *data = BMARKDATA(main_v->bmarkdata);
+  
+  if (b)
+     gtk_tree_store_remove(data->store,&(b->iter));       
+}
+
+gboolean delmark_proc(gpointer key,gpointer value,gpointer user_data)
+{
+  Tbmark_data *data = BMARKDATA(main_v->bmarkdata);
+  Tbmark *b = BMARK(value);
+  
+  gtk_tree_store_remove(data->store,&(b->iter));   
+  bmark_free(b);
+  return TRUE;
+}
+
+
 void bmark_clean_tree(Tbfwin *bfwin)
 {
-   gint i;
    Tbmark_data *data = BMARKDATA(main_v->bmarkdata);
 
    /* temporary */
-   for(i=0;i<10;i++)
-   {
-     if (data->temporary[i])
-     {
-      gtk_tree_store_remove(data->store,&(data->temporary[i]->iter));   
-     } 
-   }
+   g_hash_table_foreach(data->temporary,clean_proc,NULL);
+   /* permanent */
+   g_hash_table_foreach(data->permanent,clean_proc,NULL);
    gtk_tree_store_remove(data->store,&(BMARKGUI(bfwin->bmark)->temp_branch));
    gtk_tree_store_remove(data->store,&(BMARKGUI(bfwin->bmark)->perm_branch));
 }
 
 
+void load_bmarks_from_file(gchar *filename,GHashTable **tab)
+{
+   Tbmark *b;
+   gchar *content;
+   gchar **lines,**items;
+   gint i;
+   
+   
+   if (g_file_get_contents(filename,&content,NULL,NULL))
+   {
+     lines = g_strsplit(content,"\n",0);
+     i=0;
+     while (lines[i])
+     {
+       items = g_strsplit(lines[i],":",0);
+       if ( items && items[0] && items[1] && items[2] && items[3] && items[4] && items[5])
+       {
+          b = g_new0(Tbmark,1);
+          b->name = g_strdup(items[0]);
+          b->description = g_strdup(items[1]);
+          b->filepath = g_strdup(items[2]);
+          b->offset = atoi(items[3]);
+          b->text = g_strdup(items[4]);
+          b->len = atoi(items[5]);
+          g_hash_table_insert(*tab,g_strdup(b->name),b);
+        }  
+       g_strfreev(items);        
+       i++;        
+     }
+     g_strfreev(lines);
+   }
+}
+
+
+void set_offset_proc(gpointer key,gpointer value,gpointer user_data)
+{
+   Tbmark *b = BMARK(value);
+   GtkTextIter it;
+   if (b->doc && b->mark)
+   {
+     gtk_text_buffer_get_iter_at_mark(b->doc->buffer,&it,b->mark);
+     b->offset =  gtk_text_iter_get_offset(&it);             
+   }
+}
+
+
+void save_bmark_proc(gpointer key,gpointer value,gpointer user_data)
+{
+   Tbmark *b = BMARK(value);
+   int *fd = (int*)user_data;
+   gchar *pstr;
+
+   /* you have to update offset BEFORE calling this */   
+   /* setting length */
+   if (b->doc)
+      b->len = gtk_text_buffer_get_char_count(b->doc->buffer);
+   pstr = g_strdup_printf("%s:%s:%s:%d:%s:%d\n",b->name,b->description,b->filepath,b->offset,b->text,b->len);
+   write(*fd,pstr,strlen(pstr)); 
+}
+
+void store_mark(Tbmark *mark,gchar *oldname)
+{
+  gchar *fname = g_strconcat(g_get_home_dir(), "/.bluefish/bookmarks", NULL);
+  GHashTable *tab;
+  gchar  *pstr;
+  int fd;
+  GtkTextIter it;
+
+  tab = g_hash_table_new_full(g_str_hash,g_str_equal,g_free,bmark_free);
+  load_bmarks_from_file(fname,&tab);
+  if ( oldname!=NULL && g_hash_table_lookup(tab,oldname) )
+  {
+    g_hash_table_remove(tab,oldname);  
+  }  
+    pstr = g_strdup(mark->name);
+    gtk_text_buffer_get_iter_at_mark(mark->doc->buffer,&it,mark->mark);
+    mark->offset =  gtk_text_iter_get_offset(&it);          
+    g_hash_table_insert(tab,pstr,mark); 
+    fd = open(fname,O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+    g_hash_table_foreach(tab,save_bmark_proc,&fd);
+    close(fd);
+    g_hash_table_steal(tab,mark->name);
+    g_free(pstr);
+    g_free(fname);
+    g_hash_table_destroy(tab);
+}
+
+
+void bmark_save_all()
+{
+  gint fd;
+  gchar *fname = g_strconcat(g_get_home_dir(), "/.bluefish/bookmarks", NULL);
+  Tbmark_data *data = BMARKDATA(main_v->bmarkdata); 
+  
+  fd = open(fname,O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+  g_hash_table_foreach(data->permanent,set_offset_proc,NULL);
+  g_hash_table_foreach(data->permanent,save_bmark_proc,&fd);
+  close(fd);
+  
+}
 
 void bmark_init(void)
 {
-   gint i;
    Tbmark_data *data = g_new0(Tbmark_data,1);
+   gchar *fname = g_strconcat(g_get_home_dir(), "/.bluefish/bookmarks", NULL);
    
 	data->store = gtk_tree_store_new(N_COLUMNS,G_TYPE_STRING,G_TYPE_POINTER);
-	data->permanent = g_hash_table_new_full(g_str_hash,g_str_equal,g_free,g_free);
-	for(i=0;i<10;i++) data->temporary[i] = NULL;
+	data->permanent = g_hash_table_new_full(g_str_hash,g_str_equal,g_free,NULL);
+	data->temporary = g_hash_table_new_full(g_int_hash,g_int_equal,g_free,NULL);
 	data->lasttemp = 0;
 	main_v->bmarkdata = data;   
+	load_bmarks_from_file(fname,&data->permanent);
+	g_free(fname);
 }
 
 void bmark_cleanup(Tbfwin *bfwin)
 {
    bmark_clean_tree(bfwin);   
+   tree_tips_destroy(BMARKGUI(bfwin->bmark)->tips);
 	BMARKGUI(bfwin->bmark)->tree = NULL;
 	BMARKGUI(bfwin->bmark)->viewmenu = NULL;
 	BMARKGUI(bfwin->bmark)->buttons = NULL;
@@ -127,19 +273,31 @@ static Tbmark *get_current_bmark(Tbfwin *bfwin) {
 	return NULL;
 }
 
+
+void docset_proc(gpointer key,gpointer value,gpointer user_data)
+{
+  GtkTextIter it;
+  Tbmark *b = BMARK(value);
+  Tforeach_data *dat = (Tforeach_data*)(user_data);
+
+  if ( b && b->filepath && !b->doc && (g_ascii_strcasecmp(dat->string,b->filepath)==0) )
+      {
+         b->doc = dat->doc;
+         gtk_text_buffer_get_iter_at_offset(b->doc->buffer,&it,b->offset);
+         b->mark = gtk_text_buffer_create_mark(b->doc->buffer,b->name,&it,TRUE); 
+      }    
+}
+
 static void bmark_popup_menu_goto_lcb(GtkWidget *widget,gpointer user_data) 
 {
-	Tbmark *b,*baux;
+	Tbmark *b;
 	Tdocument *dd;
 	GtkTextIter it;
 	gint ret;
-	gchar *pomstr;
+	Tforeach_data *fa;
 	Tbmark_data *data = BMARKDATA(main_v->bmarkdata);
    gchar *btns[]={GTK_STOCK_NO,GTK_STOCK_YES,NULL};
    
-   
-
-	
 	if (!user_data) return;
    b = get_current_bmark(BFWIN(user_data));
    if (!b) return;
@@ -148,21 +306,13 @@ static void bmark_popup_menu_goto_lcb(GtkWidget *widget,gpointer user_data)
       ret = multi_query_dialog(BFWIN(user_data)->main_window,_("Bookmarked file is closed"), _("Do you want to open it?"), 1, 0, btns);   
       if (ret==0) return;
       dd = doc_new_with_file(BFWIN(user_data),b->filepath,TRUE,TRUE);
-/*      gtk_text_buffer_get_iter_at_offset(b->doc->buffer,&it,b->offset);
-      b->mark = gtk_text_buffer_create_mark(b->doc->buffer,"",&it,TRUE); */
       /* now I have to check all bookmarks */
-      for(ret=0;ret<10;ret++)
-      {
-        baux = data->temporary[ret];
-        if ( baux && baux->filepath && !baux->doc && (g_ascii_strcasecmp(baux->filepath,b->filepath)==0) )
-        {
-           pomstr = g_strdup_printf("%d",ret);
-           baux->doc = dd;
-           gtk_text_buffer_get_iter_at_offset(baux->doc->buffer,&it,baux->offset);
-           baux->mark = gtk_text_buffer_create_mark(baux->doc->buffer,pomstr,&it,TRUE); 
-           g_free(pomstr);
-        }
-      }
+      fa = g_new0(Tforeach_data,1);
+      fa->doc = dd;
+      fa->string = b->filepath;
+      g_hash_table_foreach(data->temporary,docset_proc,fa);
+      g_hash_table_foreach(data->permanent,docset_proc,fa);
+      g_free(fa);
    } 
    
    if (b->doc)
@@ -180,23 +330,111 @@ static void bmark_popup_menu_goto_lcb(GtkWidget *widget,gpointer user_data)
 static void bmark_popup_menu_del_lcb(GtkWidget *widget,gpointer user_data) 
 {
 	Tbmark *b;
-	gint i;
+	gint ret;
+	gchar *pstr;
 	Tbmark_data *data = BMARKDATA(main_v->bmarkdata);
-	
+   gchar *btns[]={GTK_STOCK_NO,GTK_STOCK_YES,NULL};   
+   	
 	if (!user_data) return;
    b = get_current_bmark(BFWIN(user_data));
    if (!b) return;
    /* check if it is temp mark */
-   for(i=0;i<10;i++)
-      if (data->temporary[i]==b) break;
-   if (i<10)
+   if (b->is_temp)
    {
-      gtk_tree_store_remove(data->store,&(b->iter));   
-      bmark_free(b);
-      data->temporary[i] = NULL;
+	      gtk_tree_store_remove(data->store,&(b->iter));   
+	      g_hash_table_remove(data->temporary,gtk_text_mark_get_name(b->mark));
+	      bmark_free(b);
    }   
+   else
+   {   
+      pstr = g_strdup_printf(_("Do you really want to remove %s?"),b->name);
+	   ret = multi_query_dialog(BFWIN(user_data)->main_window,_("Delete permanent bookmark."), pstr, 0, 0, btns);
+	   g_free(pstr);
+	   if (ret==0) return; 
+      gtk_tree_store_remove(data->store,&(b->iter));   
+      g_hash_table_remove(data->permanent,b->name);
+      bmark_free(b);
+   }
    gtk_widget_grab_focus(BFWIN(user_data)->current_document->view);
 }
+
+static void bmark_popup_menu_rename_lcb(GtkWidget *widget,gpointer user_data) 
+{
+   GtkWidget *dlg,*name,*desc,*button,*table;
+   gint result;
+   gchar *pstr;
+   Tbmark *m;
+   Tbmark_data *data = BMARKDATA(main_v->bmarkdata);
+   Tbfwin *bfwin = BFWIN(user_data);
+   Tbmark_gui *gui = BMARKGUI(bfwin->bmark);   
+
+
+   m = get_current_bmark(bfwin);
+   if (!m) return;
+   
+   if (m->is_temp)
+      dlg = gtk_dialog_new_with_buttons(_("Rename temporary"),GTK_WINDOW(bfwin->main_window),
+										GTK_DIALOG_MODAL,GTK_STOCK_OK,GTK_RESPONSE_OK,NULL);
+	else
+      dlg = gtk_dialog_new_with_buttons(_("Rename permanent"),GTK_WINDOW(bfwin->main_window),
+										GTK_DIALOG_MODAL,GTK_STOCK_OK,GTK_RESPONSE_OK,NULL);
+										
+	
+	button = gtk_button_new_from_stock(GTK_STOCK_CANCEL);
+	GTK_WIDGET_SET_FLAGS(button, GTK_CAN_DEFAULT);
+	gtk_dialog_add_action_widget(GTK_DIALOG(dlg), button, GTK_RESPONSE_CANCEL);									
+	table = gtk_table_new(2, 2, FALSE);
+	gtk_table_set_col_spacings(GTK_TABLE (table), 12);
+	gtk_table_set_row_spacings(GTK_TABLE (table), 6);		
+	gtk_box_pack_start (GTK_BOX(GTK_DIALOG(dlg)->vbox), table, FALSE, FALSE, 12);
+	
+ 	name = gtk_entry_new();
+	gtk_entry_set_activates_default(GTK_ENTRY(name), TRUE);
+	bf_mnemonic_label_tad_with_alignment(_("_Name:"), name, 0, 0.5, table, 0, 1, 0, 1);
+	gtk_table_attach_defaults (GTK_TABLE(table), name, 1, 2, 0, 1);
+	if (!m->is_temp)
+	   gtk_entry_set_text(GTK_ENTRY(name),m->name);
+	desc = gtk_entry_new();
+	gtk_entry_set_activates_default(GTK_ENTRY(desc), TRUE);
+ 	bf_mnemonic_label_tad_with_alignment(_("_Description:"), desc, 0, 0.5, table, 0, 1, 1, 2);
+	gtk_table_attach_defaults(GTK_TABLE(table), desc, 1, 2, 1, 2);
+	if (!m->is_temp)
+	   gtk_entry_set_text(GTK_ENTRY(desc),m->description);	
+	gtk_window_set_default(GTK_WINDOW(dlg), button);
+	gtk_widget_show_all(dlg);
+	result = gtk_dialog_run(GTK_DIALOG(dlg));     
+	if (result == GTK_RESPONSE_OK)
+	{
+     if (g_hash_table_lookup(data->permanent,gtk_entry_get_text(GTK_ENTRY(name))))
+     {
+       gtk_widget_destroy(dlg);
+       pstr = g_strdup_printf(_("You already have a bookmark named %s!"),gtk_entry_get_text(GTK_ENTRY(name)));
+       info_dialog(bfwin->main_window,_("Rename permanent"),pstr);	   
+       g_free(pstr);       
+       return;
+     }
+     pstr = g_strdup(m->name);
+	  g_free(m->name);
+	  m->name = g_strdup(gtk_entry_get_text(GTK_ENTRY(name)));
+	  g_free(m->description);
+	  m->description = g_strdup(gtk_entry_get_text(GTK_ENTRY(desc)));
+	  if (m->is_temp)
+	  {
+	    m->is_temp = FALSE;
+	    g_hash_table_remove(data->temporary,&(m->number));
+	    gtk_tree_store_remove(data->store,&m->iter);
+       g_hash_table_insert(data->permanent,g_strdup(m->name),m);
+ 		 gtk_tree_store_append(data->store, &m->iter, &(gui->perm_branch));
+ 		 gtk_tree_store_set(data->store, &m->iter, NAME_COLUMN,g_strdup_printf("[%s] --> %s",m->name,m->text),PTR_COLUMN, m, -1);	    
+	  }
+	  gtk_tree_store_set(data->store, &m->iter, NAME_COLUMN,g_strdup_printf("[%s] --> %s",m->name,m->text),-1);
+	  store_mark(m,pstr);
+	  g_free(pstr);
+	}
+	gtk_widget_destroy(dlg);
+}
+
+
 
 
 static GtkWidget *bmark_popup_menu(Tbfwin *bfwin, gpointer data) {
@@ -210,6 +448,7 @@ static GtkWidget *bmark_popup_menu(Tbfwin *bfwin, gpointer data) {
 	gtk_menu_append(GTK_MENU(menu), menu_item);
 	
 	menu_item = gtk_menu_item_new_with_label(_("Rename"));
+	g_signal_connect(GTK_OBJECT(menu_item), "activate", G_CALLBACK(bmark_popup_menu_rename_lcb), bfwin);
 	gtk_menu_append(GTK_MENU(menu), menu_item);
 	menu_item = gtk_menu_item_new_with_label(_("Delete"));
    g_signal_connect(GTK_OBJECT(menu_item), "activate", G_CALLBACK(bmark_popup_menu_del_lcb), bfwin);		
@@ -217,6 +456,7 @@ static GtkWidget *bmark_popup_menu(Tbfwin *bfwin, gpointer data) {
 	
 	gtk_widget_show_all(menu);
 	g_signal_connect_after(G_OBJECT(menu), "destroy", G_CALLBACK(destroy_disposable_menu_cb), menu);
+
 	return menu;
 }
 
@@ -232,13 +472,76 @@ static gboolean bmark_event_mouseclick(GtkWidget *widget,GdkEventButton *event,T
    return FALSE;
 }
 
+void restore_proc(gpointer key,gpointer value,gpointer user_data)
+{
+   Tbmark_data *bd = BMARKDATA(main_v->bmarkdata);
+   Tbmark *b = BMARK(value);
+   Tbfwin *bfwin = BFWIN(user_data);
+
+   if (b->is_temp) 
+      gtk_tree_store_append(bd->store, &(b->iter), &(BMARKGUI(bfwin->bmark)->temp_branch));
+   else   
+      gtk_tree_store_append(bd->store, &(b->iter), &(BMARKGUI(bfwin->bmark)->perm_branch));
+   
+   gtk_tree_store_set(bd->store, &(b->iter), NAME_COLUMN,g_strdup_printf("[%s] --> %s",b->name,
+							   b->text),PTR_COLUMN, b, -1);      
+
+}
+
+
+gchar* aa(gconstpointer win,gconstpointer tree,gint x, gint y)
+{
+  Tbfwin *bfwin = BFWIN(win);
+  Tbmark_gui *gui = BMARKGUI(bfwin->bmark);  
+  TreeTips *tips = TREE_TIPS(tips);
+  Tbmark *b;
+  GtkTreePath *path;
+  gchar *pstr;
+  
+  if ( !gtk_tree_view_get_path_at_pos(GTK_TREE_VIEW(gui->tree),x,y,&path,NULL,NULL,NULL) )
+     return NULL;
+ 
+
+   b = NULL;
+	if (path != NULL) {
+		GValue *val;
+		GtkTreeIter iter;
+		gtk_tree_model_get_iter(gtk_tree_view_get_model(GTK_TREE_VIEW(BMARKGUI(bfwin->bmark)->tree)), &iter, path);
+		gtk_tree_path_free(path);
+		val = g_new0(GValue, 1);
+		gtk_tree_model_get_value(gtk_tree_view_get_model(GTK_TREE_VIEW(BMARKGUI(bfwin->bmark)->tree)), &iter, 1, val);
+		if (G_IS_VALUE(val) && g_value_fits_pointer(val)) {
+			b = BMARK(g_value_peek_pointer(val));
+		}
+		g_value_unset(val);
+		g_free(val);
+	}
+	
+  if (!b) return NULL;
+
+  if (b->is_temp)
+  {
+    if (b->doc)
+       pstr = g_strdup_printf("<span style='italic' color='#768BEA'>Temporary</span>\nNumber: %d\nFile: %s",b->number,b->filepath);
+    else
+       pstr = g_strdup_printf("<span style='italic' color='#768BEA'>Temporary</span>\nNumber: %d\nFile: %s\n<span weight='bold'>File closed</span>",b->number,b->filepath);       
+  } 
+  else
+  {
+    if (b->doc)
+       pstr = g_strdup_printf("<span style='italic' color='#62CB7F'>Permanent</span>\nName: %s\nFile: %s",b->name,b->filepath);  
+    else
+       pstr = g_strdup_printf("<span style='italic' color='#62CB7F'>Permanent</span>\nNumber: %d\nFile: %s\n<span weight='bold'>File closed</span>",b->number,b->filepath);                  
+  } 
+  return pstr;
+}
+
 
 GtkWidget *bmark_gui(Tbfwin *bfwin)
 {
    GtkWidget *vbox,*mi,*menu;
 	GtkCellRenderer *cell;
 	GtkTreeViewColumn *column;
-	gint i;
    Tbmark_data *bd = BMARKDATA(main_v->bmarkdata);
    
    
@@ -273,80 +576,125 @@ GtkWidget *bmark_gui(Tbfwin *bfwin)
 	gtk_box_pack_start(GTK_BOX(vbox),BMARKGUI(bfwin->bmark)->tree,TRUE,TRUE,0);
    gtk_box_pack_start(GTK_BOX(vbox),BMARKGUI(bfwin->bmark)->buttons,FALSE,TRUE,0);	
    
- 	g_signal_connect(G_OBJECT(BMARKGUI(bfwin->bmark)->tree), "button-press-event",
-					 G_CALLBACK(bmark_event_mouseclick), bfwin);
+ 	g_signal_connect(G_OBJECT(BMARKGUI(bfwin->bmark)->tree), "button-press-event",G_CALLBACK(bmark_event_mouseclick), bfwin);
 
    /* restore bookmarks if it was after left panel hide */
-   for (i=0;i<10;i++)
-   {
-     if (bd->temporary[i])
-     {
-		 gtk_tree_store_insert(bd->store, &(bd->temporary[i]->iter), &(BMARKGUI(bfwin->bmark)->temp_branch),i+1);
-		 gtk_tree_store_set(bd->store, &(bd->temporary[i]->iter), NAME_COLUMN,g_strdup_printf("[%d] --> %s",i+1,
-							   bd->temporary[i]->text),PTR_COLUMN, bd->temporary[i], -1);      
-	  }	
-   }
-   gtk_tree_view_expand_all(GTK_TREE_VIEW(BMARKGUI(bfwin->bmark)->tree));
+   g_hash_table_foreach(bd->temporary,restore_proc,bfwin);
+   g_hash_table_foreach(bd->permanent,restore_proc,bfwin);
    
+   gtk_tree_view_expand_all(GTK_TREE_VIEW(BMARKGUI(bfwin->bmark)->tree));  
+   BMARKGUI(bfwin->bmark)->tips = tree_tips_new_full(bfwin,GTK_TREE_VIEW(BMARKGUI(bfwin->bmark)->tree),aa);
+
    return vbox;
 }
 
 
-GHashTable *bmark_get_temp_lines(Tdocument *doc)
+
+void check_line_proc(gpointer key,gpointer value, gpointer user_data)
 {
-  Tbmark_data *data = BMARKDATA(main_v->bmarkdata);
-  gint i,*iaux;
-  Tbmark *m;
-  GHashTable *ret;
+  Tbmark *b = BMARK(value);
+  Tforeach_data *dat = (Tforeach_data*)(user_data);
+  gint *iaux;
   GtkTextIter it;
   
-  ret = g_hash_table_new_full(g_int_hash,g_int_equal,g_free,g_free);
-  for(i=0;i<10;i++)
+  if (b && b->mark && b->doc==dat->doc)
   {
-    m = data->temporary[i];
-    if (m && m->doc==doc)
-    {
       iaux = g_new0(gint,1);
-      gtk_text_buffer_get_iter_at_mark(m->doc->buffer,&it,m->mark);
+      gtk_text_buffer_get_iter_at_mark(b->doc->buffer,&it,b->mark);
       *iaux = gtk_text_iter_get_line(&it);
-      g_hash_table_insert(ret,iaux,g_strdup("+"));      
-    }
+      g_hash_table_insert((GHashTable*)dat->ptr,iaux,g_strdup("+"));          
   }
+}
+
+GHashTable *bmark_get_lines(Tdocument *doc,gboolean temp)
+{
+  Tbmark_data *data = BMARKDATA(main_v->bmarkdata);
+  GHashTable *ret;
+  Tforeach_data *dat;
+  
+  
+  ret = g_hash_table_new_full(g_int_hash,g_int_equal,g_free,g_free);
+  dat = g_new0(Tforeach_data,1);
+  dat->ptr = ret;
+  dat->doc = doc;
+
+  if (temp)
+     g_hash_table_foreach(data->temporary,check_line_proc,dat);
+  else
+     g_hash_table_foreach(data->permanent,check_line_proc,dat);
+  g_free(dat);
   return ret;
 }
 
-void bmark_clean_for_doc(Tdocument *doc)
+
+void docclean_proc(gpointer key,gpointer value,gpointer user_data)
 {
-   gint i;
-   Tbmark *b;
    GtkTextIter it;
-   Tbmark_data *data = BMARKDATA(main_v->bmarkdata);
-   
-   /* clean temporary */
-   for(i=0;i<10;i++)
-   {
-     b = data->temporary[i];
-     if ( b && b->doc == doc )
+   Tbmark *b = BMARK(value);
+   Tdocument *doc = DOCUMENT(user_data);
+
+   if ( b && b->doc == doc )
      {
         gtk_text_buffer_get_iter_at_mark(b->doc->buffer,&it,b->mark);
         b->offset =  gtk_text_iter_get_offset(&it);      
         gtk_text_buffer_delete_mark(b->doc->buffer,b->mark);     
         b->mark = NULL;
         b->doc = NULL;
-     }   
-   }
+     }      
+}
+
+void bmark_clean_for_doc(Tdocument *doc)
+{
+   Tbmark_data *data = BMARKDATA(main_v->bmarkdata);
+   
+   /* clean temporary */
+   g_hash_table_foreach(data->temporary,docclean_proc,doc);
+   /* clean permanent */
+   g_hash_table_foreach(data->permanent,docclean_proc,doc);
+}
+
+
+void bmark_set_for_doc(Tdocument *doc)
+{
+   Tforeach_data *fa;
+   Tbmark_data *data = BMARKDATA(main_v->bmarkdata);
+   
+   fa = g_new0(Tforeach_data,1);
+   fa->doc = doc;
+   fa->string = doc->filename;
+   g_hash_table_foreach(data->temporary,docset_proc,fa);   
+   g_hash_table_foreach(data->permanent,docset_proc,fa);
+   g_free(fa);
+}
+
+
+
+
+void exists_proc(gpointer key,gpointer value,gpointer user_data)
+{
+   GtkTextIter it;
+   Tbmark *b = BMARK(value);
+   Tforeach_data *dat = (Tforeach_data*)(user_data);
+   
+   if (b && b->mark && b->doc==DOCUMENT(BFWIN(dat->ptr)->current_document))
+     {
+       gtk_text_buffer_get_iter_at_mark(DOCUMENT(BFWIN(dat->ptr)->current_document)->buffer,&it,b->mark);   
+       if ( dat->integer == gtk_text_iter_get_offset(&it) )
+          dat->string = g_strdup("yes");
+     } 
 }
 
 void bmark_add_temp(Tbfwin *bfwin)
 {
    Tbmark *m;
+   Tforeach_data *fa;
    GtkTextMark *im;
    GtkTextIter it,eit,sit;
-   gint ret,ffree,i;
-   GSList *lst;
+   gint ret,ffree,i,*iaux;
    gboolean has_mark;
    gchar *btns[]={GTK_STOCK_NO,GTK_STOCK_YES,NULL};
    gchar *pomstr;
+   gpointer ptr;
    Tbmark_data *data = BMARKDATA(main_v->bmarkdata);
    Tbmark_gui *gui = BMARKGUI(bfwin->bmark);
 
@@ -357,16 +705,17 @@ void bmark_add_temp(Tbfwin *bfwin)
    ret = gtk_text_iter_get_offset(&it);
    has_mark = FALSE;
    
-   for(i=0;i<10;i++)
+   fa = g_new0(Tforeach_data,1);   
+   fa->ptr = bfwin;
+   fa->string = NULL;
+   fa->integer = ret;
+   g_hash_table_foreach(data->temporary,exists_proc,fa);
+   if (fa->string) 
    {
-     m = data->temporary[i];
-     if (m && m->mark && m->doc==DOCUMENT(bfwin->current_document))
-     {
-       gtk_text_buffer_get_iter_at_mark(DOCUMENT(bfwin->current_document)->buffer,&it,m->mark);   
-       if ( ret == gtk_text_iter_get_offset(&it) )
-          { has_mark=TRUE;break;}       
-     } 
-   }
+      has_mark = TRUE;
+      g_free(fa->string);
+   }   
+   g_free(fa);   
    
    if (has_mark)
    {
@@ -377,11 +726,14 @@ void bmark_add_temp(Tbfwin *bfwin)
    /* find free number */
    ffree = -1;
    for(i=0;i<10;i++)
-      if (data->temporary[i]==NULL)
-         {
-            ffree = i;
-            break;
-         }
+   {
+     if (!g_hash_table_lookup(data->temporary,&i))
+       {
+         ffree = i;
+         break;
+       }
+   }   
+      
    if (ffree==-1)
    {       
        pomstr = g_strdup_printf(_("You can overwrite next temp bookmark (number %d). Overwrite?"),data->lasttemp+1);
@@ -392,10 +744,13 @@ void bmark_add_temp(Tbfwin *bfwin)
        data->lasttemp++;       
        if (data->lasttemp == 10) data->lasttemp = 0;          
    }
-   if (data->temporary[ffree]!=NULL)
+   
+   ptr = g_hash_table_lookup(data->temporary,&ffree);
+   if ( ptr )
     {
-         gtk_tree_store_remove(data->store,&(data->temporary[ffree]->iter));
-         bmark_free(data->temporary[ffree]);
+         gtk_tree_store_remove(data->store,&(BMARK(ptr)->iter));
+         g_hash_table_remove(data->temporary,&ffree);
+         bmark_free(ptr);         
     }   
    
       m = g_new0(Tbmark,1);	
@@ -405,7 +760,12 @@ void bmark_add_temp(Tbfwin *bfwin)
       gtk_text_buffer_get_iter_at_mark(m->doc->buffer,&it,im);
       m->mark = gtk_text_buffer_create_mark(m->doc->buffer,g_strdup_printf("%d",ffree),&it,TRUE);
       m->filepath = g_strdup(m->doc->filename);
-      data->temporary[ffree] = m;
+      m->is_temp = TRUE;
+      m->number = ffree;
+      m->name = g_strdup_printf("%d",ffree+1);
+      iaux = g_new0(gint,1);
+      *iaux = ffree;
+      g_hash_table_insert(data->temporary,iaux,m);
       /* add to the tree */
       sit=eit=it;
       gtk_text_iter_forward_to_line_end(&eit);
@@ -414,37 +774,49 @@ void bmark_add_temp(Tbfwin *bfwin)
          sit = eit;
       m->text = g_strdup(gtk_text_iter_get_slice(&it,&sit));   
 		gtk_tree_store_insert(data->store, &m->iter, &(gui->temp_branch),ffree);
-		gtk_tree_store_set(data->store, &m->iter, NAME_COLUMN,g_strdup_printf("[%d] --> %s",ffree+1,m->text),PTR_COLUMN, m, -1);      						   
+		gtk_tree_store_set(data->store, &m->iter, NAME_COLUMN,g_strdup_printf("[%d] --> %s",ffree+1,m->text),PTR_COLUMN, m, -1);
 		gtk_tree_view_expand_all(GTK_TREE_VIEW(gui->tree));
       gtk_widget_grab_focus(bfwin->current_document->view);		
 }
 
 
 
+
 void bmark_del_all_temp(Tbfwin *bfwin)
 {
-   gint ret,i;
+   gint ret;
    Tbmark_data *data = BMARKDATA(main_v->bmarkdata);
    gchar *btns[]={GTK_STOCK_NO,GTK_STOCK_YES,NULL};   
    
    ret = multi_query_dialog(bfwin->main_window,_("Delete all temporary bookmarks."), _("Are you sure?"), 0, 0, btns);
    if (ret==0) return;
-   for(i=0;i<10;i++)
-   {
-     if (data->temporary[i])
-     {
-      gtk_tree_store_remove(data->store,&(data->temporary[i]->iter));   
-      bmark_free(data->temporary[i]);
-      data->temporary[i] = NULL;   
-     } 
-      data->lasttemp=0;
-   }
+   g_hash_table_foreach_remove(data->temporary,delmark_proc,NULL);
 }
+
+void bmark_del_all_perm(Tbfwin *bfwin)
+{
+   gint ret;
+   Tbmark_data *data = BMARKDATA(main_v->bmarkdata);
+   gchar *btns[]={GTK_STOCK_NO,GTK_STOCK_YES,NULL};   
+   
+   ret = multi_query_dialog(bfwin->main_window,_("Delete all permanent bookmarks."), _("Are you REALLY sure?"), 0, 0, btns);
+   if (ret==0) return;
+   g_hash_table_foreach_remove(data->permanent,delmark_proc,NULL);
+   bmark_save_all();
+}
+
 
 void bmark_add_perm(Tbfwin *bfwin)
 {
    GtkWidget *dlg,*name,*desc,*button,*table;
+   GtkTextMark *im;   
    gint result;
+   gpointer ptr;
+   gchar *pstr;
+   GtkTextIter it,sit,eit;
+   Tbmark *m;
+   Tbmark_data *data = BMARKDATA(main_v->bmarkdata);
+   Tbmark_gui *gui = BMARKGUI(bfwin->bmark);   
    
    dlg = gtk_dialog_new_with_buttons(_("Add permanent bookmark "),
    										GTK_WINDOW(bfwin->main_window),
@@ -472,8 +844,69 @@ void bmark_add_perm(Tbfwin *bfwin)
 	gtk_window_set_default(GTK_WINDOW(dlg), button);
 	gtk_widget_show_all(dlg);
 	result = gtk_dialog_run(GTK_DIALOG(dlg));     
-    gtk_widget_destroy(dlg);
+	if (result == GTK_RESPONSE_OK)
+	{
+	   /* check if name exists */
+	   ptr = g_hash_table_lookup(data->permanent,gtk_entry_get_text(GTK_ENTRY(name)));
+	   if (ptr)
+	   {
+		     pstr = g_strdup_printf(_("You already have a bookmark named %s!"),gtk_entry_get_text(GTK_ENTRY(name)));
+	        info_dialog(bfwin->main_window,_("Add permanent bookmark"),pstr);	   
+	        g_free(pstr);
+	   }
+	   else
+	   {
+		      m = g_new0(Tbmark,1);	
+		      m->doc = DOCUMENT(bfwin->current_document);
+		      if (!m->doc) return;
+		      im = gtk_text_buffer_get_insert(m->doc->buffer);
+		      gtk_text_buffer_get_iter_at_mark(m->doc->buffer,&it,im);
+		      m->mark = gtk_text_buffer_create_mark(m->doc->buffer,g_strdup(gtk_entry_get_text(GTK_ENTRY(name))),&it,TRUE);
+		      m->filepath = g_strdup(m->doc->filename);
+		      m->is_temp = FALSE;	      
+		      m->name = g_strdup(gtk_entry_get_text(GTK_ENTRY(name)));
+		      m->description = g_strdup(gtk_entry_get_text(GTK_ENTRY(desc)));
+		      sit=eit=it;
+		      gtk_text_iter_forward_to_line_end(&eit);
+		      gtk_text_iter_forward_chars(&sit,10);
+		      if (!gtk_text_iter_in_range(&sit,&it,&eit)) 
+		         sit = eit;
+		      m->text = g_strdup(gtk_text_iter_get_slice(&it,&sit));   
+		      g_hash_table_insert(data->permanent,g_strdup(gtk_entry_get_text(GTK_ENTRY(name))),m);
+				gtk_tree_store_append(data->store, &m->iter, &(gui->perm_branch));
+				gtk_tree_store_set(data->store, &m->iter, NAME_COLUMN,g_strdup_printf("[%s] --> %s",gtk_entry_get_text(GTK_ENTRY(name)),m->text),PTR_COLUMN, m, -1);
+				gtk_tree_view_expand_all(GTK_TREE_VIEW(gui->tree));
+		      gtk_widget_grab_focus(bfwin->current_document->view);	
+		      store_mark(m,NULL);
+	   }
+	}
+   gtk_widget_destroy(dlg);
 }
+
+void check_len_proc(gpointer key,gpointer value,gpointer user_data)
+{
+  gchar *pstr;
+  Tbmark *b = BMARK(value);
+  Tbfwin *bfwin = BFWIN(user_data);
+  
+ if (b->doc && b->filepath)
+ { 
+  if (b->len != gtk_text_buffer_get_char_count(b->doc->buffer))
+  {
+     pstr = g_strdup_printf(_("Character count changed in file\n %s."),b->doc->filename);
+     warning_dialog(bfwin->main_window,pstr, _("Bookmark position can be incorrect."));
+     g_free(pstr);
+  }     
+ }
+}
+
+void bmark_check_lengths(Tbfwin *bfwin)
+{
+  Tbmark_data *data = BMARKDATA(main_v->bmarkdata);
+  
+  g_hash_table_foreach(data->permanent,check_len_proc,bfwin);
+}
+
 
 
 #endif /* BOOKMARKS */

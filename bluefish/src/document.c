@@ -2275,7 +2275,7 @@ static gboolean doc_textview_expose_event_lcb(GtkWidget * widget, GdkEventExpose
 	gchar *pomstr;
 	gint numlines,w,i;
 #ifdef BOOKMARKS
-   GHashTable *temp_tab;
+   GHashTable *temp_tab,*temp_tab2;
    gpointer ptr;
 #endif /* BOOKMARKS */	
 
@@ -2295,7 +2295,8 @@ static gboolean doc_textview_expose_event_lcb(GtkWidget * widget, GdkEventExpose
 	gtk_text_view_set_border_window_size(view,GTK_TEXT_WINDOW_LEFT,w+4);   
 	it = l_start;
 #ifdef BOOKMARKS
-   temp_tab = bmark_get_temp_lines(DOCUMENT(data));
+   temp_tab = bmark_get_lines(DOCUMENT(data),TRUE);
+   temp_tab2 = bmark_get_lines(DOCUMENT(data),FALSE);
 #endif /* BOOKMARKS */	
 	for(i=gtk_text_iter_get_line(&l_start);i<=gtk_text_iter_get_line(&l_end);i++) {
 		gtk_text_iter_set_line(&it,i);
@@ -2306,28 +2307,25 @@ static gboolean doc_textview_expose_event_lcb(GtkWidget * widget, GdkEventExpose
 	   ptr = g_hash_table_lookup(temp_tab,&i);      		
 	   if (ptr)
 	   {
-   	  /* pomstr = g_strdup_printf("<span background=\"#62CB7F\">%d</span>",i+1);
-	      pango_layout_set_markup(l,pomstr,-1);
-	      ptr = NULL;*/
-  	      pomstr = g_strdup_printf("<span background=\"#768BEA\">%d</span>",i+1);
+  	      pomstr = g_strdup_printf("<span background=\"#768BEA\" >%d</span>",i+1);
 	      pango_layout_set_markup(l,pomstr,-1);
 	      ptr = NULL;
 	   }   
-/*	   else
+	   else
 	   {
-	     ptr = g_hash_table_lookup(d->bm_lines2,&i);      		
+	     ptr = g_hash_table_lookup(temp_tab2,&i);      		
         if (ptr)
 	     {
-   	     pomstr = g_strdup_printf("<span background=\"#768BEA\">%d</span>",i+1);
+   	     pomstr = g_strdup_printf("<span background=\"#62CB7F\" >%d</span>",i+1);
 	        pango_layout_set_markup(l,pomstr,-1);
 	        ptr = NULL;
-	     }   */
+	     }   
 	     else
 	     {
 	        pomstr = g_strdup_printf("<span>%d</span>",i+1);
 		     pango_layout_set_markup(l,pomstr,-1);
 		  }   
-	/*	} */
+		} 
 #else		
 		pomstr = g_strdup_printf("%d",i+1);
 		pango_layout_set_text(l,pomstr,-1);
@@ -2339,6 +2337,7 @@ static gboolean doc_textview_expose_event_lcb(GtkWidget * widget, GdkEventExpose
 	g_object_unref(G_OBJECT(l));
 #ifdef BOOKMARKS
    g_hash_table_destroy(temp_tab);
+   g_hash_table_destroy(temp_tab2);
 #endif /* BOOKMARKS */	
 	return TRUE;
 }
@@ -2594,6 +2593,11 @@ Tdocument * doc_new_with_file(Tbfwin *bfwin, gchar * filename, gboolean delay_ac
 		doc_activate(doc);
 		/*filebrowser_open_dir(BFWIN(doc->bfwin),fullfilename); is already called by doc_activate() */
 	}
+#ifdef BOOKMARKS
+   bmark_set_for_doc(doc);
+   bmark_check_lengths(bfwin);
+#endif /* BOOKMARKS */
+	
 	return doc;
 }
 
