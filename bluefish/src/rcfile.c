@@ -665,8 +665,7 @@ static gint rcfile_save_highlighting(void) {
 }
 
 void rcfile_parse_custom_menu(void) {
-	gchar *filename;
-	gchar *defaultfile;
+	gchar *filename, *defaultfile, *langdefaultfile;
 	DEBUG_MSG("rcfile_parse_custom_menu, started\n");
 
 	custom_menu_configlist = NULL;
@@ -675,7 +674,9 @@ void rcfile_parse_custom_menu(void) {
 	init_prop_arraylist(&custom_menu_configlist, &main_v->props.cmenu_replace, "cmenu_replace:", 0, TRUE);
 
 	filename = g_strconcat(g_get_home_dir(), "/.bluefish/custom_menu", NULL);
-	defaultfile = return_first_existing_filename(PKGDATADIR"custom_menu.default",
+	langdefaultfile = g_strconcat(PKGDATADIR"custom_menu.default.", g_getenv("LANG"), NULL);
+	defaultfile = return_first_existing_filename(langdefaultfile, 
+									PKGDATADIR"custom_menu.default",
 									"data/custom_menu.default",
 									"../data/custom_menu.default",NULL);
 	if (!parse_config_file(custom_menu_configlist, filename) || (main_v->props.cust_menu==NULL && main_v->props.cmenu_insert==NULL && main_v->props.cmenu_replace==NULL )) {
@@ -792,6 +793,7 @@ void rcfile_parse_custom_menu(void) {
 
 	g_free(filename);
 	g_free(defaultfile);
+	g_free(langdefaultfile);
 }
 static gint rcfile_save_custom_menu(void) {
 	gint retval;
