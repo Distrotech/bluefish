@@ -1120,7 +1120,9 @@ gboolean file_exists_and_readable(const gchar * filename) {
 #else /* HAVE_GNOME_VFS */
 	{
 		struct stat naamstat;
-		retval = ((stat(ondiskencoding, &naamstat) == -1) && (errno == ENOENT));
+		errno = 0;
+		retval = ((stat(ondiskencoding, &naamstat) == 0) && (errno == 0));
+		DEBUG_MSG("file_exists_and_readable, retval=%d (ernno=%d) for %s\n",retval,errno,ondiskencoding);
 	}
 #endif /* HAVE_GNOME_VFS */
 	g_free(ondiskencoding);
