@@ -697,6 +697,15 @@ static void patmatch_init_run(GList *level) {
 	}
 }
 
+/**
+ * patmatch_rematch:
+ * @is_parentmatch: #gboolean if we search for the end pattern from (a mode 1??) parent
+ * @pat: #Tpattern* the pattern
+ * @offset: #gint where to start the search, in bytes
+ * @buf: #gchar* the buffer we work on
+ * @to: #gint with the end location where to stop searching in the buffer
+ * @parentpat: #Tpattern with the parent pattern, needed for a mode 3 subpattern
+ */
 static void patmatch_rematch(gboolean is_parentmatch, Tpattern *pat, gint offset, gchar *buf, gint to, Tpattern *parentpat) {
 #ifdef DEBUG
 	if (to < offset) {
@@ -706,12 +715,12 @@ static void patmatch_rematch(gboolean is_parentmatch, Tpattern *pat, gint offset
 		DEBUG_MSG("is_parentmatch=%d, pat=%p, offset=%d, to=%d, parentpat=%p\n", is_parentmatch, pat, offset, to, parentpat);
 		exit(23);
 	}
-	if (to < 20) {
+	if ((to-offset) < 20) {
 		gchar *tmp = g_strndup(&buf[offset],to-offset);
-		DEBUG_MSG("patmatch_rematch, searching offset=%d,to=%d '%s' with pat ",offset,to,tmp);
+		DEBUG_MSG("patmatch_rematch, searching offset=%d,to=%d, len=%d '%s' with pat ",offset,to,to-offset,tmp);
 		g_free(tmp);
 	} else {
-		DEBUG_MSG("patmatch_rematch, searching offset=%d,to=%d with pat ",offset,to);
+		DEBUG_MSG("patmatch_rematch, searching offset=%d,to=%d, len=%d with pat ",offset,to, to-offset);
 	}
 	print_meta_for_pattern(pat);
 #endif
@@ -723,6 +732,7 @@ static void patmatch_rematch(gboolean is_parentmatch, Tpattern *pat, gint offset
 #ifdef HL_TIMING
 		timing_start(TIMING_PCRE_EXEC);
 #endif
+		/* probably 'length' refers to the total buffer length, so if we want to stop at 'to', we need to pass 'to' as length*/
 		pat->is_match = pcre_exec(pat->reg2.pcre, pat->reg2.pcre_e, buf, to, offset, 0, pat->ovector, pat->ovector_size);
 #ifdef HL_TIMING
 		timing_stop(TIMING_PCRE_EXEC);
@@ -756,6 +766,7 @@ static void patmatch_rematch(gboolean is_parentmatch, Tpattern *pat, gint offset
 #ifdef HL_TIMING
 			timing_start(TIMING_PCRE_EXEC);
 #endif
+			/* probably 'length' refers to the total buffer length, so if we want to stop at 'to', we need to pass 'to' as length*/
 			pat->is_match = pcre_exec(pat->reg1.pcre, pat->reg1.pcre_e, buf, to, offset, 0, pat->ovector, pat->ovector_size);
 			if (pat->is_match == -1) {
 				pat->ovector[0] = to;
@@ -837,7 +848,7 @@ static void applystyle(Tdocument *doc, gchar *buf, guint buf_char_offset, gint s
  * buf: the buffer with all characters to apply the highlighting to
  * buf_char_offset: the character offset of the first char of the buffer 
  * offset: the byte offset where we start in the buffer
- * length: the length we apply the highlighting on in bytes
+ * to: the byte offset where we stop the search for this level
  * parentmatch: if there is a parent with mode 1 we have to search for the end together with it's children
  * childs_list: a list of Tpattern that needs to be applied in this region
  */
@@ -857,7 +868,7 @@ static void applylevel(Tdocument * doc, gchar * buf, guint buf_char_offset, gint
 		/* before any patmatch_rematch, this has the end of the start pattern */
 		parent_mode1_offset = parentpat->ovector[1];
 	}
-	DEBUG_MSG("applylevel, started with offset=%d, to=%d\n", offset, to);
+	DEBUG_MSG("applylevel, started with offset=%d, to=%d, len=%d\n", offset, to, to - offset);
 	if (!childs_list) {
 		/* if the parent is mode 1 we still need to find the end for the parent */
 		if (parentpat && parentpat->mode == 1) {
@@ -887,8 +898,15 @@ static void applylevel(Tdocument * doc, gchar * buf, guint buf_char_offset, gint
 				Tpattern *pat = (Tpattern *) tmplist->data;
 				/* check if we need to match the pattern */
 				if (pat->ovector[0] <= offset) {
+					DEBUG_MSG("1, rematching pattern %p, ovector[0]=%d, offset=%d\n",pat,pat->ovector[0], offset);
 					patmatch_rematch(FALSE, pat, offset, buf, to, parentpat);
 				}
+#ifdef DEBUG
+				else {
+					DEBUG_MSG("1 not rematching pattern %p, ovector[0]=%d, offset=%d, pattern ",pat, pat->ovector[0], offset);
+					print_meta_for_pattern(pat);
+				}
+#endif
 				if ((pat->is_match > 0) && (pat->ovector[1]<=to) &&(lowest_pm == NULL || (lowest_pm->ovector[0] > pat->ovector[0]))) {
 					lowest_pm = pat;
 #ifdef DEBUG
@@ -908,7 +926,7 @@ static void applylevel(Tdocument * doc, gchar * buf, guint buf_char_offset, gint
 				DEBUG_MSG("matching the parent-end with offset %d\n", offset > parent_mode1_start ? offset : parent_mode1_start);
 				patmatch_rematch(TRUE, parentpat, offset > parent_mode1_offset ? offset : parent_mode1_offset, buf, to, parentpat);
 				if (parentpat->is_match <=0) {
-					DEBUG_MSG("mode 1 parent has no match, matching to 'to' %d\n", to);
+					DEBUG_MSG("mode 1 parent has no match, matching to=%d\n", to);
 					parentpat->ovector[1] = to;
 					parentpat->ovector[0] = to;
 					parentpat->is_match = 1;
@@ -935,7 +953,7 @@ static void applylevel(Tdocument * doc, gchar * buf, guint buf_char_offset, gint
 					lowest_pm = NULL; /* makes us return */
 				} else {
 #ifdef DEBUG
-					DEBUG_MSG("*apply:a childs is the match, offset=%d, lowest_pm=%p with start=%d and ovector[1]=%d ", offset, lowest_pm, lowest_pm->ovector[0],lowest_pm->ovector[1]);
+					DEBUG_MSG("*apply:a child is the lowest match, offset=%d, lowest_pm=%p with start=%d and ovector[1]=%d ", offset, lowest_pm, lowest_pm->ovector[0],lowest_pm->ovector[1]);
 					print_meta_for_pattern(lowest_pm);
 #endif
 					switch (lowest_pm->mode) {
@@ -946,6 +964,7 @@ static void applylevel(Tdocument * doc, gchar * buf, guint buf_char_offset, gint
 						offset = lowest_pm->ovector[1];
 					break;
 					case 2:
+						/* ovector[0] and ovector[1] are both offsets in the buffer matched by the entire pattern */
 						applystyle(doc, buf,buf_char_offset, lowest_pm->ovector[0], lowest_pm->ovector[1], lowest_pm);
 						applylevel(doc, buf,buf_char_offset, lowest_pm->ovector[0], lowest_pm->ovector[1], lowest_pm, lowest_pm->childs);
 						offset = lowest_pm->ovector[1];
