@@ -1,6 +1,6 @@
 text:.txt:::1::
 php:.php\:.php4\:.inc\:.php3: <>'"/?$\\t-{}[]{}\n;:PKGDATADIRicon_php.png:1:^#!/[a-z/]+php:
-html:.html\:.htm\:.shtml\:.shtm:<> \n":PKGDATADIRicon_html.png:1:<html>:
+html:.html\:.htm\:.shtml\:.shtm:<> \n":PKGDATADIRicon_html.png:1:<html[^>]*>:
 python:.py::PKGDATADIRicon_python.png:1:^#!/[a-z/]+python:
 c:.c\:.h:(){}'[]\n/#" :PKGDATADIRicon_c.png:1::
 java:.java:(){}'[]\n/" :PKGDATADIRicon_java.png:1::
