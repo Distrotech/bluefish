@@ -54,6 +54,8 @@ typedef struct {
 	uid_t uid;
 	Tfilter *curfilter;
 	GList *filters;
+	GdkPixbuf *unknown_icon;
+	GdkPixbuf *dir_icon;
 	GtkWidget *tree;
 	GtkTreeStore *store;
 } Tfilebrowser;
@@ -378,9 +380,9 @@ static GtkTreeIter add_tree_item(GtkTreeIter *parent, GtkTreeStore *store, const
 
 	if (!pixbuf) {
 		if (type == TYPE_DIR) {	
-			pixbuf = gdk_pixbuf_new_from_file("/home/olivier/gtk2-testing/icon_dir.png", NULL);
+			pixbuf = filebrowser.dir_icon;
 		} else {
-			pixbuf = gdk_pixbuf_new_from_file("/home/olivier/gtk2-testing/icon_unknown.png", NULL);
+			pixbuf = filebrowser.unknown_icon;
 		}
 	}
 	g_assert(pixbuf);
@@ -709,6 +711,8 @@ GtkWidget *filebrowser_init() {
 	filebrowser.uid = getuid();
 	filebrowser.curfilter = new_filter("All files", NULL);
 	filebrowser.filters = g_list_append(NULL, filebrowser.curfilter);
+	filebrowser.unknown_icon = gdk_pixbuf_new_from_file(main_v->props.filebrowser_unknown_icon, NULL);
+	filebrowser.dir_icon = gdk_pixbuf_new_from_file(main_v->props.filebrowser_dir_icon, NULL);
 
 	tmplist = g_list_first(main_v->props.filefilters);
 	while (tmplist) {
@@ -775,7 +779,3 @@ GtkWidget *filebrowser_init() {
 	}
 }
 
-void filebrowser_autosize() {
-	gtk_widget_realize(filebrowser.tree);
-	gtk_tree_view_columns_autosize(GTK_TREE_VIEW(filebrowser.tree));
-}

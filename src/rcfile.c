@@ -416,6 +416,8 @@ static GList *props_init_main(GList * config_rc)
 	init_prop_integer(&config_rc, &main_v->props.highlight_num_lines_count, "highlight_num_lines_count:", 1);
 	init_prop_arraylist(&config_rc, &main_v->props.filetypes, "filetypes:");
 	init_prop_arraylist(&config_rc, &main_v->props.filefilters, "filefilters:");
+	init_prop_string(&config_rc, &main_v->props.filebrowser_unknown_icon, "fb_unknown_icon:", "/usr/share/bluefish/icons/icon_unknown.png");
+	init_prop_string(&config_rc, &main_v->props.filebrowser_dir_icon, "fb_dir_icon:", "/usr/share/bluefish/icons/icon_dir.png");
 	init_prop_integer(&config_rc, &main_v->props.filebrowser_show_hidden_files, "fb_show_hidden_f:", 0);
 	init_prop_integer(&config_rc, &main_v->props.filebrowser_show_others_files, "fb_show_others_f:", 0);
 	init_prop_integer(&config_rc, &main_v->props.filebrowser_show_backup_files, "fb_show_backup_f:", 0);
