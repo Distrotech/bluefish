@@ -24,7 +24,7 @@
 #include <string.h> /* strchr() */
 #include <gdk/gdkkeysyms.h>
 
-/*#define DEBUG*/
+/* #define DEBUG */
 
 #include "bluefish.h"
 #include "document.h"			/* file_open etc. */
@@ -2165,19 +2165,25 @@ static void cme_delete_lcb(GtkWidget *widget, Tcmenu_editor *cme) {
 		GtkTreeIter iter;
 		if (cme_iter_at_pointer(&iter, cme->lastarray, cme)) {
 			gint type;
+			DEBUG_MSG("cme_delete_lcb, removing from listmodel\n");
 			gtk_tree_model_get(GTK_TREE_MODEL(cme->lstore),&iter,1,&type,-1);
-			gtk_list_store_remove(GTK_LIST_STORE(cme->lstore),&iter);
 			if (type == 0) {
 				cme->worklist_insert = g_list_remove(cme->worklist_insert, cme->lastarray);
 			} else if (type == 1) {
 				cme->worklist_replace = g_list_remove(cme->worklist_replace, cme->lastarray);
 			} else {
-				DEBUG_MSG("type=%d ???\n",type);
+				DEBUG_MSG("NOT removed from lists, type=%d ???\n",type);
 			}
+			if (type == 1 || type == 0) {
+				g_strfreev(cme->lastarray);
+			}
+			/* removing the iter will call cme_clist_unselect_lcb which will set the lastarray to NULL
+			therefore we will do this as last action */
+			gtk_list_store_remove(GTK_LIST_STORE(cme->lstore),&iter);
 		} else {
-			DEBUG_MSG("no iter can be found for pointer %p?!?\n",cme->lastarray);
+			DEBUG_MSG("NOT REMOVED, no iter can be found for pointer %p?!?\n",cme->lastarray);
 		}
-		g_strfreev(cme->lastarray);
+		DEBUG_MSG("cme_delete_lcb, setting lastarray NULL\n");
 		cme->lastarray = NULL;
 	} else {
 		DEBUG_MSG("cme_delete_lcb, lastarray=NULL, nothing to delete\n");
