@@ -916,11 +916,11 @@ void menu_create_main(Tbfwin *bfwin, GtkWidget *vbox) {
 	gtk_accel_map_add_entry("<bluefishmain>/Go/Last document", GDK_Page_Down, GDK_SHIFT_MASK | GDK_CONTROL_MASK);	
 	gtk_widget_show(bfwin->menubar);
 
-	setup_toggle_item(item_factory, _("/View/View Main Toolbar"), main_v->props.view_main_toolbar);
-	setup_toggle_item(item_factory, _("/View/View HTML Toolbar"), main_v->props.view_html_toolbar);
-	setup_toggle_item(item_factory, _("/View/View Custom Menu"), main_v->props.view_custom_menu);
-	setup_toggle_item(item_factory, _("/View/View Sidebar"), main_v->props.view_left_panel);
-	setup_toggle_item(item_factory, _("/Document/Auto Indent"), main_v->props.autoindent);
+	setup_toggle_item(item_factory, "/View/View Main Toolbar", main_v->props.view_main_toolbar);
+	setup_toggle_item(item_factory, "/View/View HTML Toolbar", main_v->props.view_html_toolbar);
+	setup_toggle_item(item_factory, "/View/View Custom Menu", main_v->props.view_custom_menu);
+	setup_toggle_item(item_factory, "/View/View Sidebar", main_v->props.view_left_panel);
+	setup_toggle_item(item_factory, "/Document/Auto Indent", main_v->props.autoindent);
 	set_project_menu_widgets(bfwin, FALSE);
 	filetype_menu_rebuild(bfwin, item_factory);
 }
