@@ -703,6 +703,7 @@ typedef struct {
 	GnomeVFSURI *basedir;
 	gboolean recursive;
 	gchar *extension_filter;
+	GPatternSpec* patspec;
 	gchar *content_filter;
 	gboolean use_regex;
 } Topenadv_dir; /* can be typecasted to Tfileaction !!*/
@@ -789,6 +790,7 @@ static void open_adv_load_directory_cleanup(Topenadv_dir *oa) {
 	DEBUG_MSG("open_adv_load_directory_cleanup %p for %s\n", oa, gnome_vfs_uri_get_path(oa->basedir));
 	gnome_vfs_uri_unref(oa->basedir);
 	if (oa->extension_filter) g_free(oa->extension_filter);
+	if (oa->patspec) g_pattern_spec_free(oa->patspec);
 	if (oa->content_filter) g_free(oa->content_filter);
 	g_free(oa);
 }
@@ -796,9 +798,7 @@ static void open_adv_load_directory_cleanup(Topenadv_dir *oa) {
 static void open_adv_load_directory_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSResult result,GList *list,guint entries_read,gpointer data) {
 	Topenadv_dir *oa = data;
 	GList *tmplist;
-	gchar **ext;
 	DEBUG_MSG("open_adv_load_directory_lcb, called for %p %s with %d items, result=%d\n",oa, gnome_vfs_uri_get_path(oa->basedir), entries_read, result);
-	ext = array_from_arglist(oa->extension_filter, NULL);
 	tmplist = g_list_first(list);
 	while (tmplist) {
 		GnomeVFSFileInfo *finfo = tmplist->data;
@@ -813,8 +813,8 @@ static void open_adv_load_directory_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSResu
 				curi = gnome_vfs_uri_to_string(child_uri,0);
 				list = return_allwindows_documentlist();
 				if (documentlist_return_document_from_filename(list, curi)==NULL) { /* if this file is already open, there is no need to do any of these checks */
-					if (oa->extension_filter) {
-						if (filename_test_extensions(ext, finfo->name)) { /* test extension */
+					if (oa->patspec) {
+						if (g_pattern_match_string(oa->patspec, finfo->name)) { /* test extension */
 							if (oa->content_filter) { /* do we need content filtering */
 								DEBUG_MSG("open_adv_load_directory_lcb, content filter %s\n", gnome_vfs_uri_get_path(child_uri));
 								openadv_content_filter_file(oa->bfwin, child_uri, finfo, oa->content_filter, oa->use_regex);
@@ -839,7 +839,6 @@ static void open_adv_load_directory_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSResu
 	if (result == GNOME_VFS_ERROR_EOF) {
 		open_adv_load_directory_cleanup(oa);
 	}
-	g_strfreev(ext);
 }
 
 void open_advanced(Tbfwin *bfwin, GnomeVFSURI *basedir, gboolean recursive, gchar *extension_filter, gchar *content_filter, gboolean use_regex) {
@@ -852,7 +851,10 @@ void open_advanced(Tbfwin *bfwin, GnomeVFSURI *basedir, gboolean recursive, gcha
 		oa->bfwin = bfwin;
 		oa->basedir = gnome_vfs_uri_dup(basedir);
 		oa->recursive = recursive;
-		if (extension_filter) oa->extension_filter = g_strdup(extension_filter);
+		if (extension_filter) {
+			oa->extension_filter = g_strdup(extension_filter);
+			oa->patspec = g_pattern_spec_new(extension_filter);
+		}
 		if (content_filter) oa->content_filter = g_strdup(content_filter);
 		oa->use_regex = use_regex;
 	
