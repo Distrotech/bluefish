@@ -620,6 +620,19 @@ void rcfile_parse_main(void)
 		fref_rescan_dir(userdir);
 		g_free(userdir);
 	}
+	/* for backwards compatibility with old filetypes */
+	{
+		GList *tmplist = g_list_first(main_v->props.filetypes);
+		while (tmplist) {
+			gchar **orig = (gchar **)tmplist->data;
+			if (count_array(orig)==4) {
+				gchar **new = array_from_arglist(orig[0], orig[1], orig[2], orig[3], "1", "", NULL);
+				tmplist->data = new;
+				g_strfreev(orig);
+			}
+			tmplist = g_list_next(tmplist);
+		}
+	}
 }
 
 static gint rcfile_save_main(void) {

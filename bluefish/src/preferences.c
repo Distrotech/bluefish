@@ -375,30 +375,17 @@ static gchar **filetype_create_strarr(Tprefdialog *pd) {
 static void set_filetype_strarr_in_list(GtkTreeIter *iter, gchar **strarr, Tprefdialog *pd) {
 	gint arrcount;
 	arrcount = count_array(strarr);
-	if (arrcount>=4) {
+	if (arrcount==6) {
 		gchar *escaped = escapestring(strarr[2],'\0');
-		/* for backwards compatibility we accept 4 as well */
-		if (arrcount ==4) {
-			DEBUG_MSG("set_filetype_strarr_in_list, 4 will be set to %d\n",TRUE);
-			gtk_list_store_set(GTK_LIST_STORE(pd->ftd.lstore), iter
-				,0,strarr[0]
-				,1,strarr[1]
-				,2,escaped
-				,3,strarr[3]
-				,4,TRUE
-				,5,""
-				,-1);
-		} else if (arrcount == 6) {
-			DEBUG_MSG("set_filetype_strarr_in_list, 4=%d, string was %s\n",(strarr[4][0] != '0'), strarr[4]);
-			gtk_list_store_set(GTK_LIST_STORE(pd->ftd.lstore), iter
-				,0,strarr[0]
-				,1,strarr[1]
-				,2,escaped
-				,3,strarr[3]
-				,4,(strarr[4][0] != '0')
-				,5,strarr[5]
-				,-1);
-		}
+		DEBUG_MSG("set_filetype_strarr_in_list, 4=%d, string was %s\n",(strarr[4][0] != '0'), strarr[4]);
+		gtk_list_store_set(GTK_LIST_STORE(pd->ftd.lstore), iter
+			,0,strarr[0]
+			,1,strarr[1]
+			,2,escaped
+			,3,strarr[3]
+			,4,(strarr[4][0] != '0')
+			,5,strarr[5]
+			,-1);
 		g_free(escaped);
 	}
 }
@@ -473,13 +460,8 @@ static void filetype_selection_changed_cb(GtkTreeSelection *selection, Tprefdial
 				gtk_entry_set_text(GTK_ENTRY(pd->ftd.entry[1]), strarr[1]);
 				gtk_entry_set_text(GTK_ENTRY(pd->ftd.entry[2]), escaped);
 				gtk_entry_set_text(GTK_ENTRY(pd->ftd.entry[3]), strarr[3]);
-				if (count_array(strarr)==6) {
-					gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(pd->ftd.entry[4]), (strarr[4][0] != '0'));
-					gtk_entry_set_text(GTK_ENTRY(pd->ftd.entry[3]), strarr[5]);
-				} else {
-					gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(pd->ftd.entry[4]), TRUE);
-					gtk_entry_set_text(GTK_ENTRY(pd->ftd.entry[3]), "");
-				}
+				gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(pd->ftd.entry[4]), (strarr[4][0] != '0'));
+				gtk_entry_set_text(GTK_ENTRY(pd->ftd.entry[5]), strarr[5]);
 				pd->ftd.curstrarr = strarr;
 				g_free(escaped);
 				return;
@@ -532,7 +514,7 @@ static void create_filetype_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 			gint arrcount;
 			gchar **strarr = (gchar **)tmplist->data;
 			arrcount = count_array(strarr);
-			if (arrcount>=4) {
+			if (arrcount==6) {
 				GtkTreeIter iter;
 				gtk_list_store_append(GTK_LIST_STORE(pd->ftd.lstore), &iter);
 				set_filetype_strarr_in_list(&iter, strarr,pd);
