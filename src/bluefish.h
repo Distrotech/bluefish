@@ -236,10 +236,17 @@ typedef struct {
 } Tproperties;
 
 typedef struct {
+	gchar *name;
+	GList *files;
+	gchar *basedir;
+	gchar *webdir;
+} Tproject;
+
+typedef struct {
 	Tdocument *current_document; /* one object out of the documentlist, the current visible document */
 	GList *documentlist; /* document.c and others: all Tdocument objects */
 	Tdocument *last_activated_doc;
-
+	Tproject *project; /* might be NULL for a default project */
 	GtkWidget *main_window;
 	GtkWidget *menubar;
 	gint last_notebook_page; /* a check to see if the notebook changed to a new page */
