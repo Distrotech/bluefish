@@ -56,6 +56,33 @@ gint documentlist_return_index_from_filename(gchar *filename) {
 	}
 	return -1;
 }
+/* void document_set_wrap(Tdocument * document, gint wraptype)
+ * type=0 = none, type=1=word wrap
+ * type=-1 means get type from main_v->props.word_wrap
+ */
+
+void document_set_wrap(Tdocument * doc, gint wraptype) {
+	gint type;
+
+	if (wraptype == -1) {
+		type = main_v->props.word_wrap;
+	} else {
+		type = wraptype;
+	}
+	if (type) {
+		gtk_text_view_set_wrap_mode(GTK_TEXT_VIEW(doc->view),GTK_WRAP_WORD);
+	} else {
+		gtk_text_view_set_wrap_mode(GTK_TEXT_VIEW(doc->view),GTK_WRAP_NONE);
+	}
+}
+
+void doc_set_font(Tdocument *doc, gchar *fontstring) {
+	PangoFontDescription *font_desc;
+	font_desc = pango_font_description_from_string("courier 11");
+	gtk_widget_modify_font(doc->view, font_desc);
+	pango_font_description_free(font_desc);
+}
+
 
 gboolean doc_is_empty_non_modified_and_nameless(Tdocument *doc) {
 #ifdef DEBUG
@@ -488,6 +515,10 @@ void doc_unbind_signals(Tdocument *doc) {
 	}
 }
 
+static void doc_close_but_clicked_lcb(GtkWidget *wid, gpointer data) {
+	doc_close(data, 0);
+}
+
 
 Tdocument *doc_new() {
 	GtkWidget *scroll;
@@ -510,6 +541,8 @@ Tdocument *doc_new() {
 	newdoc->tab_menu = gtk_label_new(NULL);
 
 	doc_unre_init(newdoc);
+	doc_set_font(newdoc, NULL);
+	document_set_wrap(newdoc, -1);
 
 /* this will force function doc_set_modified to update the tab label*/
 	newdoc->modified = 1;
@@ -530,8 +563,18 @@ Tdocument *doc_new() {
 	gtk_widget_show(scroll);
 
 	DEBUG_MSG("doc_new, appending doc to notebook\n");
-	gtk_notebook_append_page_menu(GTK_NOTEBOOK(main_v->notebook), scroll ,newdoc->tab_label, newdoc->tab_menu);
-
+	{
+		GtkWidget *hbox, *but;
+		hbox = gtk_hbox_new(FALSE,0);
+		but = gtk_button_new_with_label("x");
+		gtk_button_set_relief(GTK_BUTTON(but), GTK_RELIEF_NONE);
+		g_signal_connect(G_OBJECT(but), "clicked", G_CALLBACK(doc_close_but_clicked_lcb), newdoc);
+		gtk_box_pack_start(GTK_BOX(hbox), newdoc->tab_label, FALSE, FALSE, 0);
+		gtk_box_pack_start(GTK_BOX(hbox), but, FALSE, FALSE, 0);
+		gtk_widget_show(hbox);
+		gtk_widget_show(but);
+		gtk_notebook_append_page_menu(GTK_NOTEBOOK(main_v->notebook), scroll ,hbox, newdoc->tab_menu);
+	}
 	DEBUG_MSG("doc_new, set notebook page to %d\n", g_list_length(main_v->documentlist) - 1);
 	gtk_notebook_set_page(GTK_NOTEBOOK(main_v->notebook),g_list_length(main_v->documentlist) - 1);
 
@@ -756,6 +799,7 @@ gint doc_save(Tdocument * doc, gint do_save_as, gint do_move)
 		break;
 	}
 	if (oldfilename) {
+		hl_reset_highlighting_type(doc, doc->filename);
 /*		populate_dir_file_list();*/
 		if (do_move && (retval > 0)) {
 			if (main_v->props.link_management) {
@@ -861,6 +905,7 @@ void doc_new_with_file(gchar * filename) {
 /*	file_and_dir_history_add(filename);*/
 	doc = doc_new();
 	doc->filename = g_strdup(filename);
+	hl_reset_highlighting_type(doc, doc->filename);	
 	doc_file_to_textbox(doc, doc->filename, FALSE);
 	doc->modified = 1; /* force doc_set_modified() to update the tab-label */
 	doc_set_modified(doc, 0);

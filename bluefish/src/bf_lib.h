@@ -42,6 +42,7 @@ gchar *create_full_path(gchar * filename, gchar *basedir);
 gchar *ending_slash(gchar *dirname);
 gint file_is_dir(gchar * filename);
 gint file_exists_and_readable(gchar * filename);
+gboolean filename_test_extensions(gchar **extensions, gchar *filename);
 gchar *bf_str_repeat(const gchar * str, gint number_of);
 gint get_int_from_string(gchar *string);
 gchar *create_secure_dir_return_filename();
