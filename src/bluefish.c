@@ -30,6 +30,9 @@
 #ifdef HAVE_GNOME_VFS
 #include <libgnomevfs/gnome-vfs.h>
 #endif
+#ifdef HAVE_ATLEAST_GNOMEUI_2_6
+#include <libgnomeui/libgnomeui.h>
+#endif
 
 #ifdef ENABLE_NLS
 #include <locale.h>
@@ -139,19 +142,28 @@ int main(int argc, char *argv[])
 	DEBUG_MSG("set bindtextdomain for %s to %s\n",PACKAGE,LOCALEDIR);
 	bind_textdomain_codeset(PACKAGE, "UTF-8");
 	textdomain(PACKAGE);                                                    
-#endif    
+#endif
+#ifdef HAVE_ATLEAST_GNOMEUI_2_6
+	gnome_init(PACKAGE, VERSION, argc, argv);
+#else
 	gtk_init(&argc, &argv);
+#endif /* HAVE_ATLEAST_GNOMEUI_2_6
+ */
 #ifdef HAVE_GNOME_VFS
 	DEBUG_MSG("main, we have gnome_vfs, so we init it\n");
 	gnome_vfs_init();
+#ifdef HAVE_ATLEAST_GNOMEUI_2_6
+	gnome_authentication_manager_init();
+#else
 #ifdef HAVE_ATLEAST_GNOMEVFS_2_5
 	set_authen_callbacks();
-#endif
-#endif
+#endif /* HAVE_ATLEAST_GNOMEVFS_2_5 */
+#endif /* HAVE_ATLEAST_GNOME_2_6 */
+#endif /* HAVE_GNOME_VFS */
 	main_v = g_new0(Tmain, 1);
 	main_v->session = g_new0(Tsessionvars,1);
 	DEBUG_MSG("main, main_v is at %p\n", main_v);
-	
+
 	rcfile_check_directory();
 	rcfile_parse_main();
 	

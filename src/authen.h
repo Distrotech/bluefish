@@ -2,6 +2,7 @@
  * authen.h - handle authentication requests for gnome-vfs
  *
  * Copyright (C) 2004 Salvador Fandino
+ * additions (C) 2004 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,7 +24,8 @@
 #define __AUTHEN_H_
 
 #ifdef HAVE_ATLEAST_GNOMEVFS_2_5
+#ifndef HAVE_ATLEAST_GNOMEUI_2_6
 void set_authen_callbacks(void);
 #endif
-
+#endif
 #endif							/* __AUTHEN_H_ */
