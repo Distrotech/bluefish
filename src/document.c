@@ -3172,7 +3172,18 @@ void file_open_from_selection(Tbfwin *bfwin) {
 	string = gtk_clipboard_wait_for_text(cb);
 	if (string) {
 		DEBUG_MSG("file_open_from_selection, opening %s\n",string);
-		doc_new_with_file(bfwin,string,FALSE,FALSE);
+		if (NULL == strchr(string,'/') && bfwin->current_document->filename) {
+			/* now we should look in the directory of the current file */
+			gchar *dir, *tmp;
+			dir = g_path_get_dirname(bfwin->current_document->filename);
+			tmp = g_strconcat(dir, "/", string, NULL);
+			DEBUG_MSG("file_open_from_selection, trying %s\n",tmp);
+			doc_new_with_file(bfwin,tmp,FALSE,FALSE);
+			g_free(dir);
+			g_free(tmp);
+		} else {
+			doc_new_with_file(bfwin,string,FALSE,FALSE);
+		}
 		g_free(string);
 	}
 }
