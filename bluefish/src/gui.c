@@ -1070,7 +1070,7 @@ gboolean main_window_delete_event_lcb(GtkWidget *widget,GdkEvent *event,Tbfwin *
 			DEBUG_MSG("main_window_delete_event_lcb, continue clicked, returning FALSE\n");
 			return FALSE;
 		}
-	} else {	
+	} else {
 		if (bfwin->documentlist && test_docs_modified(bfwin->documentlist)) {
 			DEBUG_MSG("main_window_delete_event_lcb, we have changed documents!\n");
 			file_close_all_cb(NULL, bfwin);
@@ -1079,6 +1079,9 @@ gboolean main_window_delete_event_lcb(GtkWidget *widget,GdkEvent *event,Tbfwin *
 				/* if there are still documents modified we should cancel the closing */
 				return TRUE;
 			}
+		} else {
+			/* no changed documents, but there might be changed bookmarks */
+			bmark_store_all(bfwin);
 		}
 	}
 	return FALSE;
