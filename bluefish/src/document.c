@@ -2493,13 +2493,16 @@ void doc_indent_selection(Tdocument *doc, gboolean unindent) {
 			} else { /* indent */
 				gint offsetstart = gtk_text_iter_get_offset(&itstart);
 				gchar *indentstring;
+				gint indentlen;
 				if (main_v->props.editor_indent_wspaces) {
 					indentstring = bf_str_repeat(" ", main_v->props.editor_tab_width);
+					indentlen = main_v->props.editor_tab_width;
 				} else {
 					indentstring = g_strdup("\t");
+					indentlen=1;
 				}
-				gtk_text_buffer_insert(doc->buffer,&itstart,indentstring,1);
-				doc_unre_add(doc, indentstring, offsetstart, offsetstart+1, UndoInsert);
+				gtk_text_buffer_insert(doc->buffer,&itstart,indentstring,indentlen);
+				doc_unre_add(doc, indentstring, offsetstart, offsetstart+indentlen, UndoInsert);
 				g_free(indentstring);
 			}
 			gtk_text_buffer_get_iter_at_mark(doc->buffer,&itstart,cur);
