@@ -140,7 +140,10 @@ AC_CHECK_HEADERS(stdlib.h unistd.h string.h strings.h errno.h stdio.h sys/stat.h
 dnl ************************
 dnl Checks for external programs.
 dnl ************************
-
+AC_PATH_PROG(EXTERNAL_FIND, find, /usr/bin/find)
+AC_PATH_PROG(EXTERNAL_GREP, grep, /bin/grep)
+AC_DEFINE_UNQUOTED(EXTERNAL_FIND, "$EXTERNAL_FIND")
+AC_DEFINE_UNQUOTED(EXTERNAL_GREP, "$EXTERNAL_GREP")
 
 dnl **************************
 dnl  For the spell checker
