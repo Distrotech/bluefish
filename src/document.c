@@ -2373,7 +2373,7 @@ gchar *ask_new_filename(Tbfwin *bfwin,gchar *oldfilename, gint is_move) {
 #ifdef HAVE_ATLEAST_GTK_2_4
 	{
 		GtkWidget *dialog;
-		dialog = gtk_file_chooser_dialog_new_with_backend ((is_move) ? _("Move/rename document to") : _("Save document as"),GTK_WINDOW(bfwin->main_window),
+/*		dialog = gtk_file_chooser_dialog_new_with_backend ((is_move) ? _("Move/rename document to") : _("Save document as"),GTK_WINDOW(bfwin->main_window),
 				GTK_FILE_CHOOSER_ACTION_SAVE,"gnome-vfs",
 				GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
 				GTK_STOCK_SAVE, GTK_RESPONSE_ACCEPT,
@@ -2381,7 +2381,9 @@ gchar *ask_new_filename(Tbfwin *bfwin,gchar *oldfilename, gint is_move) {
 		gtk_file_chooser_set_filename(GTK_FILE_CHOOSER(dialog),oldfilename);
 		gtk_file_chooser_set_local_only(GTK_FILE_CHOOSER(dialog),FALSE);
 		FILE_CHOOSER_USE_VFS(dialog);
-		gtk_file_chooser_set_select_multiple(GTK_FILE_CHOOSER(dialog), FALSE);
+		gtk_file_chooser_set_select_multiple(GTK_FILE_CHOOSER(dialog), FALSE);*/
+		dialog = file_chooser_dialog(bfwin, (is_move) ? _("Move/rename document to") : _("Save document as"),
+				 GTK_FILE_CHOOSER_ACTION_SAVE, NULL, FALSE, FALSE);
 		if (gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_ACCEPT) {
 			newfilename = gtk_file_chooser_get_uri(GTK_FILE_CHOOSER(dialog));
 		}
@@ -3255,13 +3257,14 @@ static void files_advanced_win_select_basedir_lcb(GtkWidget * widget, Tfiles_adv
 #ifdef HAVE_ATLEAST_GTK_2_4
 	{
 		GtkWidget *dialog;
-		dialog = gtk_file_chooser_dialog_new (_("Select basedir"),NULL,
+		/*dialog = gtk_file_chooser_dialog_new (_("Select basedir"),NULL,
 				GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER,
 				GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
 				GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT,
 				NULL);
 		gtk_file_chooser_set_local_only(GTK_FILE_CHOOSER(dialog),TRUE);
-		gtk_file_chooser_set_filename(GTK_FILE_CHOOSER(dialog),tmpdir);
+		gtk_file_chooser_set_filename(GTK_FILE_CHOOSER(dialog),tmpdir);*/
+		dialog = file_chooser_dialog(tfs->bfwin, _("Select basedir"), GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER, NULL, TRUE, FALSE);
 		if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_ACCEPT) {
 			newdir = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog));
 		}
@@ -3608,13 +3611,14 @@ void file_insert_menucb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget) 
 #ifdef HAVE_ATLEAST_GTK_2_4
 	{
 		GtkWidget *dialog;
-		dialog = gtk_file_chooser_dialog_new_with_backend(_("Select file to insert"),GTK_WINDOW(bfwin->main_window),
+		/*dialog = gtk_file_chooser_dialog_new_with_backend(_("Select file to insert"),GTK_WINDOW(bfwin->main_window),
 				GTK_FILE_CHOOSER_ACTION_OPEN,"gnome-vfs",
 				GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
 				GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT,
 				NULL);
 		FILE_CHOOSER_USE_VFS(dialog);
-		gtk_file_chooser_set_local_only(GTK_FILE_CHOOSER(dialog),FALSE);
+		gtk_file_chooser_set_local_only(GTK_FILE_CHOOSER(dialog),FALSE);*/
+		dialog = file_chooser_dialog(bfwin, _("Select file to insert"), GTK_FILE_CHOOSER_ACTION_OPEN, NULL, FALSE, FALSE);
 		if (gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_ACCEPT) {
 			tmpfilename = gtk_file_chooser_get_uri(GTK_FILE_CHOOSER(dialog));
 		}
