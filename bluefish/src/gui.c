@@ -1294,12 +1294,9 @@ gboolean main_window_delete_event_lcb(GtkWidget *widget,GdkEvent *event,Tbfwin *
 	} else {
 		if (bfwin->documentlist && test_docs_modified(bfwin->documentlist)) {
 			DEBUG_MSG("main_window_delete_event_lcb, we have changed documents!\n");
-			bfwin_close_all_documents(bfwin, TRUE);
-			if (bfwin->documentlist && test_docs_modified(bfwin->documentlist)) {
-				DEBUG_MSG("main_window_delete_event_lcb, we STILL have changed documents!?!\n");
-				/* if there are still documents modified we should cancel the closing */
-				return TRUE;
-			}
+			doc_close_multiple_backend(bfwin, TRUE);
+			/* if there are still documents modified we should cancel the closing */
+			return TRUE;
 		} else {
 			/* no changed documents, but there might be changed bookmarks */
 			bmark_store_all(bfwin);

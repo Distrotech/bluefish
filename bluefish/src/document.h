@@ -93,9 +93,6 @@ void file_open_from_selection(Tbfwin *bfwin);
 
 void file_insert_menucb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget);
 void file_new_cb(GtkWidget * widget, Tbfwin *bfwin);
-void file_close_cb(GtkWidget * widget, Tbfwin *bfwin);
-void bfwin_close_all_documents(Tbfwin *bfwin, gboolean window_closing);
-void file_close_all_cb(GtkWidget * widget, Tbfwin *bfwin);
 
 void edit_cut_cb(GtkWidget * widget, Tbfwin *bfwin);
 void edit_copy_cb(GtkWidget * widget, Tbfwin *bfwin);

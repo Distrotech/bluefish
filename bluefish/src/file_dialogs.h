@@ -28,5 +28,10 @@ void file_save_cb(GtkWidget * widget, Tbfwin *bfwin);
 void file_save_as_cb(GtkWidget * widget, Tbfwin *bfwin);
 void file_move_to_cb(GtkWidget * widget, Tbfwin *bfwin);
 void file_save_all_cb(GtkWidget * widget, Tbfwin *bfwin);
+void file_close_cb(GtkWidget * widget, Tbfwin *bfwin);
+
+void doc_close_multiple_backend(Tbfwin *bfwin, gboolean close_window);
+void file_close_all_cb(GtkWidget * widget, Tbfwin *bfwin);
+
 
 #endif /* __FILEDIALOGS_H_ */
