@@ -120,6 +120,7 @@ void setup_toggle_item(GtkItemFactory * ifactory, gchar * path, gint state)
 		DEBUG_MSG("warning, this menuitem (%s) does NOT exist!", path);
 		return;
 	}
+	DEBUG_MSG("setting path %s to %d\n",path,state);
 	if ((GTK_CHECK_MENU_ITEM(toggle)->active) && state == 0) {
 		GTK_CHECK_MENU_ITEM(toggle)->active = state;
 		return;
