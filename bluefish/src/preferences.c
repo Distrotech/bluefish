@@ -31,6 +31,7 @@ enum {
 	backup_file, 			/* wheather to use a backup file */
 	backup_filestring,  /* the string to append to the backup file */
 	backup_abort_style, /* if the backup fails, continue 'save', 'abort' save, or 'ask' user */
+	backup_cleanuponclose, /* remove the backupfile after close ? */
 	image_thumbnailstring,	/* string to append to thumbnail filenames */
 	image_thumbnailtype,	/* fileformat to use for thumbnails, "jpeg" or "png" can be handled by gdkpixbuf*/
 	image_thumbnailsizing_type,	/* scaling ratio=0, fixed width=1, height=2, width+height (discard aspect ratio)=3 */
@@ -1539,6 +1540,7 @@ static void preferences_ok_clicked_lcb(GtkWidget *wid, Tprefdialog *pd) {
 	integer_apply(&main_v->props.backup_file, pd->prefs[backup_file], TRUE);
 	string_apply(&main_v->props.backup_filestring, pd->prefs[backup_filestring]);
 	string_apply(&main_v->props.backup_abort_style, GTK_COMBO(pd->prefs[backup_abort_style])->entry);
+	integer_apply(&main_v->props.backup_cleanuponclose, pd->prefs[backup_cleanuponclose], TRUE);
 	integer_apply(&main_v->props.num_undo_levels, pd->prefs[num_undo_levels], FALSE);
 	integer_apply(&main_v->props.clear_undo_on_save, pd->prefs[clear_undo_on_save], TRUE);
 	integer_apply(&main_v->props.allow_multi_instances, pd->prefs[allow_multi_instances], TRUE);
@@ -1712,6 +1714,7 @@ static void preferences_dialog() {
 		pd->prefs[backup_abort_style] = prefs_combo(_("Action on backup failure"),main_v->props.backup_abort_style, vbox2, pd, poplist, FALSE);
 		g_list_free(poplist);
 	}
+	pd->prefs[backup_cleanuponclose] = boxed_checkbut_with_value(_("Remove backupfile on close"), main_v->props.backup_cleanuponclose, vbox2);
 	create_backup_toggled_lcb(GTK_TOGGLE_BUTTON(pd->prefs[backup_file]), pd);
 	g_signal_connect(G_OBJECT(pd->prefs[backup_file]), "toggled", G_CALLBACK(create_backup_toggled_lcb), pd);
 

@@ -156,6 +156,7 @@ typedef struct {
 	gint backup_file; 			/* wheather to use a backup file */
 	gchar *backup_filestring;  /* the string to append to the backup file */
 	gchar *backup_abort_style; /* if the backup fails, continue 'save', 'abort' save, or 'ask' user */
+	gint backup_cleanuponclose; /* remove the backupfile after close ? */
 	gchar *image_thumbnailstring;	/* string to append to thumbnail filenames */
 	gchar *image_thumbnailtype;	/* fileformat to use for thumbnails, "jpeg" or "png" can be handled by gdkpixbuf*/
 	gint image_thumbnail_refresh_quality; /* 1=GDK_INTERP_BILINEAR, 0=GDK_INTERP_NEAREST*/

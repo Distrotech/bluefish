@@ -1452,6 +1452,11 @@ gint doc_close(Tdocument * doc, gint warn_only)
 			doc_destroy(doc, FALSE);
 		}
 	}
+	if (main_v->props.backup_cleanuponclose) {
+		gchar *backupfile = g_strconcat(doc->filename, main_v->props.backup_filestring, NULL);
+		unlink(backupfile);
+		g_free(backupfile);
+	}
 	DEBUG_MSG("doc_close, finished\n");
 /*	notebook_changed();*/
 	return 1;
