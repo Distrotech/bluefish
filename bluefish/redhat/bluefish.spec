@@ -1,8 +1,7 @@
 %define	desktop_vendor 	endur
 %define name  		bluefish
-%define version		gtk2
-%define release 	20050306
-%define epoch 		1
+%define version		1.1
+%define release 	020050306
 %define source		bluefish-2005-03-06
 
 
@@ -10,7 +9,6 @@ Summary:	  A GTK2 web development application for experienced users.
 Name:		  %{name}
 Version:	  %{version}
 Release:	  %{release}
-Epoch:		  %{epoch}
 Source:		  ftp://ftp.ratisbona.com/pub/bluefish/snapshots/%{source}.tar.bz2
 URL:		  http://bluefish.openoffice.nl
 License:	  GPL
@@ -20,7 +18,6 @@ BuildRequires:    gtk2-devel >= 2.0.6, pcre-devel >= 3.9, gnome-vfs2-devel >= 2.
 BuildRequires:    aspell-devel >= 0.50, desktop-file-utils, gettext
 Requires(post):   desktop-file-utils, shared-mime-info
 Requires(postun): desktop-file-utils, shared-mime-info
-
 BuildRoot: %{_tmppath}/%{name}-%{version}
 Patch0:	bluefish_desktop_icon.patch
 
@@ -30,7 +27,7 @@ Bluefish supports many programming and markup languages, but it focuses on
 editing dynamic and interactive websites.
 
 %prep
-%setup -q -n %{name}-%{version}
+%setup -q -n %{name}-gtk2
 %patch0 -p0
 
 %build
@@ -74,5 +71,5 @@ update-desktop-database {_datadir}/applications > /dev/null 2>&1 || :
 
 
 %changelog
-* Fri Mar 11 2005 Matthias Haase <matthias_haase@bennewitz.com>
+* Sat Mar 12 2005 Matthias Haase <matthias_haase@bennewitz.com>
 - Automatic build - snapshot of 2005-03-06
