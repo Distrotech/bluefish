@@ -1,0 +1,13 @@
+CHANGES
+
+remove g_basename and strip_filename in favour of g_path_get_basename()
+(free the string alloc'ed by g_path_get_basename() !!!!)
+
+replace gtk_signal_connect with g_signal_connect
+GTK_CALLBACK with G_CALLBACK
+
+xpm images to png images and use gdk-pixbuf-csource to generate .c file 
+for the images
+remove the GtkPixmap widget in favour of GtkImage (use 
+gtk_image_new_from_pixbuf)
+

@@ -49,7 +49,7 @@ int main(int argc, char *argv[])
 
 void bluefish_exit_request() {
 
-	/* check for changed documents */
+	/* check for changed documents here */
 
 	gtk_main_quit();
 }
