@@ -25,6 +25,7 @@
 #include "menu.h" /* my own .h file */
 #include "undo_redo.h" /* undo_cb() redo_cb() etc. */
 #include "snr2.h" /* search_cb, replace_cb */
+#include "gui.h" /* go_to_line_win_cb */
 
 static GtkItemFactoryEntry menu_items[] = {
 	{N_("/_File"), NULL, NULL, 0, "<Branch>"},
@@ -58,7 +59,8 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/Edit/Redo"), "<control>r", redo_cb, 0, NULL},
 	{N_("/Edit/Undo all"), NULL, undo_all_cb, 0, NULL},
 	{N_("/Edit/Redo all"), NULL, redo_all_cb, 0, NULL},
-	{N_("/Edit/sep5"), NULL, NULL, 0, "<Separator>"}
+	{N_("/Edit/sep5"), NULL, NULL, 0, "<Separator>"},
+	{N_("/Edit/Goto line"), NULL, go_to_line_win_cb, 0, NULL}
 };
 
 
