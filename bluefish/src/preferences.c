@@ -1079,7 +1079,7 @@ static void browsers_apply_changes(Tprefdialog *pd) {
 				tmplist = g_list_next(tmplist);
 			}
 		} else {
-			DEBUG_MSG("browsers_apply_changes, NO strarr!!\n");
+			DEBUG_MSG("browsers_apply_changes, strarr=NULL!!\n");
 		}
 	} else {
 		DEBUG_MSG("browsers_apply_changes, NO curstrarr!!\n");
