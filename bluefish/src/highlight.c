@@ -558,12 +558,7 @@ static void applylevel(Tdocument * doc, GList * level_list, gint start, gint end
 			/* apply this match, if we can't find a ending match or so, we just set
 			 * the start to -1 so we will not use it anymore, and we set the start 
 			 * back to the current start */
-			switch (patmatch[lowest_patmatch].pat->mode) {
-			case 0:
-				g_print("pattern type 0 not yet implemented\n");
-				break;
-			case 1:
-				{
+			if (patmatch[lowest_patmatch].pat->mode == 0 || patmatch[lowest_patmatch].pat->mode == 1) {
 					regmatch_t pmatch[1];
 					gint res2;
 #ifdef HL_DEBUG
@@ -582,6 +577,11 @@ static void applylevel(Tdocument * doc, GList * level_list, gint start, gint end
 								boundary_ok = FALSE;
 							}
 						}
+						if (patmatch[lowest_patmatch].pat->mode == 0) {
+							/* invalidating a mode 0 pattern should go here */
+							g_print("the pattern invalidating part for mode 0 is not yet implemented\n");
+						}
+						
 						if (boundary_ok) {
 							patmatch[lowest_patmatch].pmatch[0].rm_eo =
 									pmatch[0].rm_eo + patmatch[lowest_patmatch].pmatch[0].rm_so + 1;
@@ -596,13 +596,9 @@ static void applylevel(Tdocument * doc, GList * level_list, gint start, gint end
 					} else {
 						patmatch[lowest_patmatch].is_match = FALSE;
 					}
+				} else {
+					patmatch[lowest_patmatch].is_match = TRUE;
 				}
-				break;
-			case 2:
-			case 3:
-				patmatch[lowest_patmatch].is_match = TRUE;
-				break;
-			}
 			if (patmatch[lowest_patmatch].is_match) {
 				GtkTextIter itstart, itend;
 				gint istart, iend;
@@ -665,7 +661,7 @@ static void applylevel(Tdocument * doc, GList * level_list, gint start, gint end
 				}
 			} else {
 				/* so there is no match at all eh? invalidate this pattern ??
-				this part is VERY PROBABLY NOT CORRECT YET
+				this part is perhaps NOT CORRECT YET
 				 */
 				offset += patmatch[lowest_patmatch].pmatch[0].rm_so +1;
 			}
