@@ -219,18 +219,17 @@ echo -n "checking for gtk+ ... "
 if pkg-config --exists gtk+-2.0 ; then
 	LIBS="$LIBS `pkg-config --libs gtk+-2.0`"
 	CFLAGS="$CFLAGS `pkg-config --cflags gtk+-2.0`"
-	echo "yes"
+	echo "yes, `pkg-config --modversion gtk+-2.0`"
 else
 	echo "no"
 	AC_MSG_ERROR(libgtk2.0-dev missing, please install libgtk2.0-dev)
 fi
 
 echo -n "checking for gtk+ >= 2.4... "
-VERSION=`pkg-config --modversion gtk+-2.0`
 if pkg-config gtk+-2.0 --atleast-version=2.4 ; then
 	AC_DEFINE(HAVE_ATLEAST_GTK_2_2)
 	AC_DEFINE(HAVE_ATLEAST_GTK_2_4)
-	echo "yes, ${VERSION}"
+	echo "yes"
 else
 	AC_MSG_ERROR(detected gtk $VERSION, but gtk version 2.4 is required)
 fi
@@ -247,7 +246,7 @@ echo -n "checking for gnome-vfs-2.0... "
 if pkg-config --exists gnome-vfs-2.0 ; then
 	LIBS="$LIBS `pkg-config --libs gnome-vfs-2.0`"
 	CFLAGS="$CFLAGS `pkg-config --cflags gnome-vfs-2.0`"
-	echo "yes"
+	echo "yes, `pkg-config --modversion gnome-vfs-2.0`"
 	HAVE_GNOME_VFS=1
 	AC_DEFINE(HAVE_GNOME_VFS)
 	AC_SUBST(HAVE_GNOME_VFS)
@@ -269,6 +268,15 @@ if pkg-config gnome-vfs-2.0 --atleast-version=2.6 ; then
 	echo "yes"
 else
 	echo "no"
+fi
+
+echo -n "checking for libxml... "
+if pkg-config --exists libxml-2.0 ; then
+	LIBS="$LIBS `pkg-config --libs libxml-2.0`"
+	CFLAGS="$CFLAGS `pkg-config --cflags libxml-2.0`"
+	echo "yes, `pkg-config --modversion libxml-2.0`"
+else
+	AC_MSG_ERROR(libxml is required, please install libxml-dev)
 fi
 
 echo -n "checking for libgnomeui >= 2.6... "
