@@ -28,7 +28,7 @@
 #include <stdlib.h> /* system() */
 #include <time.h> /* ctime_r() */
 
-/*#define DEBUG*/
+/* #define DEBUG*/
 
 #include "bluefish.h"
 #include "document.h"
@@ -1197,9 +1197,8 @@ void doc_destroy(Tdocument * doc, gboolean delay_activation)
 /*	flush_queue();*/
 	if (!delay_activation) {
 		notebook_changed(-1);
-	} else {
-		gui_notebook_bind_signals();
 	}
+	gui_notebook_bind_signals();
 
 	/* now we really start to destroy the document */
 	g_object_unref(doc->view->parent);
