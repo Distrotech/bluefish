@@ -62,25 +62,28 @@ gchar **array_from_arglist(const gchar *string1, ...) {
 }
 
 static gchar *array_to_string(gchar **array, gchar delimiter) {
-
-	gchar **tmp, *escaped1, *finalstring;
-	gint newsize=1;
-	DEBUG_MSG("array_to_string, started\n");
-	finalstring = g_malloc0(newsize);
-	tmp = array;
-	while(*tmp) {
-		DEBUG_MSG("array_to_string, *tmp = %s\n", *tmp);
-		escaped1 = escapestring(*tmp, delimiter);
-		newsize += strlen(escaped1)+1;
-		finalstring = g_realloc(finalstring, newsize);
-		strcat(finalstring, escaped1);
-		finalstring[newsize-2] = delimiter;
-		finalstring[newsize-1] = '\0';
-		g_free(escaped1);
-		tmp++;
-	}	
-	DEBUG_MSG("array_to_string, finalstring = %s\n", finalstring);
-	return finalstring;
+	if (array) {
+		gchar **tmp, *escaped1, *finalstring;
+		gint newsize=1;
+		DEBUG_MSG("array_to_string, started\n");
+		finalstring = g_malloc0(newsize);
+		tmp = array;
+		while(*tmp) {
+			DEBUG_MSG("array_to_string, *tmp = %s\n", *tmp);
+			escaped1 = escapestring(*tmp, delimiter);
+			newsize += strlen(escaped1)+1;
+			finalstring = g_realloc(finalstring, newsize);
+			strcat(finalstring, escaped1);
+			finalstring[newsize-2] = delimiter;
+			finalstring[newsize-1] = '\0';
+			g_free(escaped1);
+			tmp++;
+		}	
+		DEBUG_MSG("array_to_string, finalstring = %s\n", finalstring);
+		return finalstring;
+	} else {
+		return g_strdup("");
+	}
 }
 
 #define ARRAYBLOCKSIZE 6
