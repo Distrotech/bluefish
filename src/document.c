@@ -29,7 +29,7 @@
 #include <time.h>			/* ctime_r() */
 #include <pcre.h>
 
-/* #define DEBUG */
+/*#define DEBUG*/
 
 #ifdef DEBUGPROFILING
 #include <sys/times.h>
@@ -1486,20 +1486,17 @@ static gint doc_check_backup(Tdocument *doc) {
 }
 
 static void doc_buffer_insert_text_lcb(GtkTextBuffer *textbuffer,GtkTextIter * iter,gchar * string,gint len, Tdocument * doc) {
-
+	gint pos = gtk_text_iter_get_offset(iter);
 	DEBUG_MSG("doc_buffer_insert_text_lcb, started, string='%s'\n", string);
 
 	/* undo_redo stuff */
 	if (len == 1) {
-		if ((string[0] == ' ' || string[0] == '\n' || string[0] == '\t') || !doc_undo_op_compare(doc,UndoInsert)) {
+		if ((string[0] == ' ' || string[0] == '\n' || string[0] == '\t') || !doc_undo_op_compare(doc,UndoInsert,pos)) {
 			DEBUG_MSG("doc_buffer_insert_text_lcb, need a new undogroup\n");
 			doc_unre_new_group(doc);
 		}	
 	}
-	{
-		gint pos = gtk_text_iter_get_offset(iter);
-		doc_unre_add(doc, string, pos, pos+len, UndoInsert);
-	}
+	doc_unre_add(doc, string, pos, pos+len, UndoInsert);
 	doc_set_modified(doc, 1);	
 	DEBUG_MSG("doc_buffer_insert_text_lcb, done\n");
 }
@@ -1595,7 +1592,7 @@ static void doc_buffer_delete_range_lcb(GtkTextBuffer *textbuffer,GtkTextIter * 
 			len = end - start;
 			DEBUG_MSG("doc_buffer_delete_range_lcb, start=%d, end=%d, len=%d, string='%s'\n", start, end, len, string);
 			if (len == 1) {
-				if ((string[0] == ' ' || string[0] == '\n' || string[0] == '\t') || !doc_undo_op_compare(doc,UndoDelete)) {
+				if ((string[0] == ' ' || string[0] == '\n' || string[0] == '\t') || !doc_undo_op_compare(doc,UndoDelete,start)) {
 					DEBUG_MSG("doc_buffer_delete_range_lcb, need a new undogroup\n");
 					doc_unre_new_group(doc);
 				}			
@@ -3163,7 +3160,9 @@ void file_save_all_cb(GtkWidget * widget, Tbfwin *bfwin) {
  * Return value: void
  **/
 void edit_cut_cb(GtkWidget * widget, Tbfwin *bfwin) {
+	doc_unre_new_group(bfwin->current_document);
 	gtk_text_buffer_cut_clipboard(bfwin->current_document->buffer,gtk_clipboard_get(GDK_SELECTION_CLIPBOARD),TRUE);
+	doc_unre_new_group(bfwin->current_document);
 }
 
 /**
@@ -3191,12 +3190,12 @@ void edit_copy_cb(GtkWidget * widget, Tbfwin *bfwin) {
 void edit_paste_cb(GtkWidget * widget, Tbfwin *bfwin) {
 	gboolean wasHighlighted = FALSE;
 	GtkTextMark *mark;
-	
+	DEBUG_MSG("edit_paste_cb, started\n");
 	if (bfwin->current_document->highlightstate == 1) {
 		 bfwin->current_document->highlightstate = 0;
 		 wasHighlighted = TRUE;
 	}
-	
+	doc_unre_new_group(bfwin->current_document);
 	gtk_text_buffer_paste_clipboard (bfwin->current_document->buffer,gtk_clipboard_get(GDK_SELECTION_CLIPBOARD),NULL,TRUE);
 	
 	mark = gtk_text_buffer_get_insert(bfwin->current_document->buffer);
@@ -3206,6 +3205,8 @@ void edit_paste_cb(GtkWidget * widget, Tbfwin *bfwin) {
 		bfwin->current_document->highlightstate = 1;
 		doc_highlight_full(bfwin->current_document);
 	}
+	doc_unre_new_group(bfwin->current_document);
+	DEBUG_MSG("edit_paste_cb, finished\n");
 }
 
 /**

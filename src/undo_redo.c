@@ -17,6 +17,8 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
+/*#define DEBUG*/
+
 #include <gtk/gtk.h>
 #include <string.h>
 
@@ -71,8 +73,9 @@ static void doc_unre_destroy_last_group(Tdocument *doc) {
 	}
 }
 
-static void unregroup_activate(unregroup_t *curgroup, Tdocument *doc, gint is_redo) {
+static gint unregroup_activate(unregroup_t *curgroup, Tdocument *doc, gint is_redo) {
 	GList *tmplist;
+	gint lastpos=-1;
 
 	if (is_redo) {
 		tmplist = g_list_last(curgroup->entries);
@@ -93,6 +96,7 @@ static void unregroup_activate(unregroup_t *curgroup, Tdocument *doc, gint is_re
 			gtk_text_buffer_get_iter_at_offset(doc->buffer,&itstart,entry->start);
 			gtk_text_buffer_insert(doc->buffer,&itstart,entry->text,-1);
 		}
+		lastpos = entry->start;		
 		if (is_redo) {
 			tmplist = g_list_previous(tmplist);
 		} else {
@@ -105,8 +109,8 @@ static void unregroup_activate(unregroup_t *curgroup, Tdocument *doc, gint is_re
 		DEBUG_MSG("unregroup_activate, calling set modified with %d\n", curgroup->changed);
 		doc_set_modified(doc, curgroup->changed);
 	}
+	return lastpos;
 }
-
 
 static unreentry_t *unreentry_new(const char *text, int start, int end, undo_op_t op) {
 	unreentry_t *new_entry;
@@ -133,7 +137,7 @@ static void unre_list_cleanup(GList **list) {
 	}
 }
 
-static void doc_undo(Tdocument *doc) {
+static gint doc_undo(Tdocument *doc) {
 	unregroup_t *curgroup = NULL;
 	if (g_list_length(doc->unre.current->entries) > 0) {
 		/* if the current group has entries we have to undo that one */
@@ -161,11 +165,12 @@ static void doc_undo(Tdocument *doc) {
 		the undo/redo widgets, the lenght of the redolist should be > 0 _before_
 		activate is called */
 		DEBUG_MSG("doc_undo, calling unregroup_activate\n");
-		unregroup_activate(curgroup, doc, 0);
+		return unregroup_activate(curgroup, doc, 0);
 	}
+	return -1;
 }
 
-static void doc_redo(Tdocument *doc) {
+static gint doc_redo(Tdocument *doc) {
 	if (doc->unre.redofirst) {
 		unregroup_t *curgroup = NULL;
 	
@@ -181,8 +186,9 @@ static void doc_redo(Tdocument *doc) {
 		}
 		doc->unre.num_groups++;
 		DEBUG_MSG("doc_redo, added a group, num_groups =%d\n", doc->unre.num_groups);
-		unregroup_activate(curgroup, doc, 1);
+		return unregroup_activate(curgroup, doc, 1);
 	}
+	return -1;
 }
 
 /**
@@ -250,12 +256,17 @@ static void doc_unre_start(Tdocument *doc) {
 	doc_unbind_signals(doc);
 }
 
-static void doc_unre_finish(Tdocument *doc) {
+static void doc_unre_finish(Tdocument *doc, gint cursorpos) {
 	DEBUG_MSG("doc_unre_finish, started\n");
 	/* now re-establish the signals */
 	doc_bind_signals(doc);
-	if (doc->highlightstate) {
-		/* doc_need_highlighting(doc);*/
+/*	if (doc->highlightstate) {
+		doc_need_highlighting(doc);
+	}*/
+	{
+		GtkTextIter iter;
+		gtk_text_buffer_get_iter_at_offset(doc->buffer,&iter,cursorpos);
+		gtk_text_buffer_place_cursor(doc->buffer,&iter);
 	}
 }
 
@@ -334,16 +345,23 @@ void doc_unre_clear_all(Tdocument *doc) {
  * doc_undo_op_compare:
  * @doc: a #Tdocument
  * @testfor: a #undo_op_t, test for the last operation
+ * @position: a #gint, test if this was the last position
  * 
- * tests the last undo/redo operation, if it was insert or delete
+ * tests the last undo/redo operation, if it was insert or delete, and if the position
+ * does match the previous position
  * 
- * Return value: gboolean, TRUE if testfor was the last operation, FALSE if not
+ * Return value: gboolean, TRUE if everything matches or if there was no previous operation, FALSE if not
  **/
-gint doc_undo_op_compare(Tdocument *doc, undo_op_t testfor) {
+gint doc_undo_op_compare(Tdocument *doc, undo_op_t testfor, gint position) {
+	DEBUG_MSG("doc_undo_op_compare, testfor=%d, position=%d\n", testfor, position);
 	if (doc->unre.current->entries && doc->unre.current->entries->data) {
 		unreentry_t *entry = doc->unre.current->entries->data;
+		DEBUG_MSG("doc_undo_op_compare, entry->op=%d, entry->start=%d, entry->end=%d\n", entry->op, entry->start, entry->end);
 		if (entry->op == testfor) {
-			return 1;
+			gint testforpos = (entry->op == UndoDelete) ? entry->start : entry->end;
+			if (testforpos == position) {
+				return 1;
+			}
 		}
 		return 0;
 	}
@@ -361,9 +379,10 @@ gint doc_undo_op_compare(Tdocument *doc, undo_op_t testfor) {
 void undo_cb(GtkWidget * widget, Tbfwin *bfwin) {
 	DEBUG_MSG("undo_cb, started\n");
 	if (bfwin->current_document) {
+		gint lastpos;
 		doc_unre_start(bfwin->current_document);
-		doc_undo(bfwin->current_document);
-		doc_unre_finish(bfwin->current_document);
+		lastpos = doc_undo(bfwin->current_document);
+		doc_unre_finish(bfwin->current_document, lastpos);
 	}
 }
 /**
@@ -377,9 +396,10 @@ void undo_cb(GtkWidget * widget, Tbfwin *bfwin) {
  **/
 void redo_cb(GtkWidget * widget, Tbfwin *bfwin) {
 	if (bfwin->current_document) {
+		gint lastpos;
 		doc_unre_start(bfwin->current_document);
-		doc_redo(bfwin->current_document);
-		doc_unre_finish(bfwin->current_document);
+		lastpos = doc_redo(bfwin->current_document);
+		doc_unre_finish(bfwin->current_document,lastpos);
 	}
 }
 /**
@@ -392,13 +412,14 @@ void redo_cb(GtkWidget * widget, Tbfwin *bfwin) {
  * Return value: void
  **/
 void undo_all_cb(GtkWidget * widget, Tbfwin *bfwin) {
-	/* TODO */
+	/* TODO  -> what needs to be done?? */
 	if (bfwin->current_document) {
+		gint lastpos = -1;
 		doc_unre_start(bfwin->current_document);
 		while (bfwin->current_document->unre.first) {
-			doc_undo(bfwin->current_document);
+			lastpos = doc_undo(bfwin->current_document);
 		}
-		doc_unre_finish(bfwin->current_document);
+		doc_unre_finish(bfwin->current_document, lastpos);
 	}
 }
 /**
@@ -411,13 +432,14 @@ void undo_all_cb(GtkWidget * widget, Tbfwin *bfwin) {
  * Return value: void
  **/
 void redo_all_cb(GtkWidget * widget, Tbfwin *bfwin) {
-	/* TODO */
+	/* TODO -> what needs to be done?? */
 	if (bfwin->current_document) {
+		gint lastpos = -1;
 		doc_unre_start(bfwin->current_document);
 		while (bfwin->current_document->unre.redofirst) {
-			doc_redo(bfwin->current_document);
+			lastpos = doc_redo(bfwin->current_document);
 		}
-		doc_unre_finish(bfwin->current_document);
+		doc_unre_finish(bfwin->current_document, lastpos);
 	}
 }
 /**
