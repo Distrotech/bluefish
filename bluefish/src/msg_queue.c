@@ -10,6 +10,8 @@
 
 #include "bluefish.h"
 #include "stringlist.h"
+#include "gtk_easy.h" /* error_dialog */
+#include "gui.h" /* notebook_changed() */
 #include "document.h"
 
 #undef DEBUG
@@ -172,7 +174,7 @@ static gboolean msg_queue_check(gint started_by_gtk_timeout)
 			if (!doc_new_with_file(msgp.mtext, TRUE)) {
 				msg_queue.file_error_list = g_list_append(msg_queue.file_error_list, g_strdup(msgp.mtext));
 			}
-			msg_queue_check(GINT_TO_POINTER(0));	/* call myself again, there may have been multiple files */
+			msg_queue_check(0);	/* call myself again, there may have been multiple files */
 			if (started_by_gtk_timeout) {
 				if (msg_queue.file_error_list) {
 					gchar *message, *tmp;
@@ -385,7 +387,7 @@ void msg_queue_start(GList * filenames)
 		msg_queue.server = TRUE;
 		DEBUG_MSG
 			("msg_queue_start, we opened the queue, or we didn't get a keepalive, we will be server!\n");
-		gtk_timeout_add(MSQ_QUEUE_CHECK_TIME, msg_queue_check, GINT_TO_POINTER(1));
+		gtk_timeout_add(MSQ_QUEUE_CHECK_TIME, (GtkFunction)msg_queue_check, GINT_TO_POINTER(1));
 	}
 }
 
