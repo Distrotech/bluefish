@@ -629,18 +629,9 @@ void doc_close_multiple_backend(Tbfwin *bfwin, gboolean close_window) {
 			doc_save_backend(tmpdoc, FALSE, FALSE, TRUE, close_window);
 		break;
 		case 1: /* close all */
-      	if (tmpdoc->action.checkmodified) checkmodified_cancel(tmpdoc->action.checkmodified);
-      	if (tmpdoc->action.load != NULL || tmpdoc->action.info != NULL) {
-      		/* we should cancel the action now..., and then let the callbacks close it...
-      		the order is important, because the info callback will not close the document, 
-      		only the load callback will call doc_close_single_backend */
-      		tmpdoc->action.close_doc = TRUE;
-      		tmpdoc->action.close_window = close_window;
-         	if (tmpdoc->action.info) file_asyncfileinfo_cancel(tmpdoc->action.info);
-      		if (tmpdoc->action.load) file2doc_cancel(tmpdoc->action.load);
-      	} else {
-   			doc_destroy(tmpdoc, TRUE);
-   		}
+		   /* fake that this document was not modified */
+		   tmpdoc->modified = FALSE;
+  			doc_close_single_backend(tmpdoc, close_window);
 		break;
 		case 2: /* choose per file */
 			doc_close_single_backend(tmpdoc, close_window);
