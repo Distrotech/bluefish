@@ -67,6 +67,7 @@ TOOLBAR = \
 	pixmap_framewhiz framewhiz.png \
 	pixmap_fref fref.png \
 	pixmap_frdialog frdialog.png \
+	pixmap_frdialog2 frdialog2.png \
 	pixmap_frhide frhide.png \
 	pixmap_frinfo frinfo.png \
 	pixmap_frsearch frsearch.png \
