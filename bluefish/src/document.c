@@ -685,7 +685,7 @@ void file_open_cb(GtkWidget * widget, gpointer data) {
 	free_stringlist(tmplist);
 }
 
-void revert_to_saved_cb(GtkWidget * widget, gpointer data) {
+void file_revert_to_saved_cb(GtkWidget * widget, gpointer data) {
 	doc_reload(main_v->current_document);
 }
 
