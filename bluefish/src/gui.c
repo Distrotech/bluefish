@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-/*#define DEBUG*/
+/* #define DEBUG */
 
 #include <gtk/gtk.h>
 #include <time.h> /* nanosleep() */
@@ -932,30 +932,21 @@ static void main_win_on_drag_data_lcb(GtkWidget * widget, GdkDragContext * conte
 
 	/* construct both filename and url from the given data */
 	if (info == TARGET_STRING) {
-		DEBUG_MSG("on_drag_data_cb, TARGET_STRING\n");
 		filename = g_strndup(data->data, data->length);
 		filename = trunc_on_char(trunc_on_char(filename, '\n'), '\r');
 		url = g_strconcat("file:", filename, NULL);
 		url_is_local = 1;
+		DEBUG_MSG("on_drag_data_cb, TARGET_STRING, url=%s\n",url);
 	} else { /* TARGET_UTI_LIST*/
 		gchar *tmp2;
 		gint len;
 
-		DEBUG_MSG("on_drag_data_cb, TARGET_URI_LIST\n");
 		url = g_strndup(data->data, data->length);
 		url = trunc_on_char(trunc_on_char(url, '\n'), '\r');
-		if (strncmp(url, "file:", 5) == 0) {
-			gchar *tmp1;
-
-			tmp1 = strchr(url, ':');
-			tmp1++;
-			len = strlen(tmp1);
-			tmp2 = strrchr(url, '#');
-			if (tmp2) {
-				len -= strlen(tmp2);
-			}
-			filename = g_strndup(tmp1, len);
+		if (strncmp(url, "file://", 7) == 0) {
+			filename = g_strdup(url+7);
 			url_is_local = 1;
+			DEBUG_MSG("on_drag_data_cb, TARGET_URI_LIST, url=%s, filename=%s\n",url,filename);
 		} else {
 			len = strlen(url);
 			tmp2 = strrchr(url, '#');
@@ -964,11 +955,11 @@ static void main_win_on_drag_data_lcb(GtkWidget * widget, GdkDragContext * conte
 			}
 			filename = g_strndup(url, len);
 			url_is_local = 0;
+			DEBUG_MSG("on_drag_data_cb, TARGET_URI_LIST, url=%s\n",url);
 		}
 	}
 	DEBUG_MSG("on_drag_data_cb, filename='%s', url='%s'\n", filename, url);
-
-	doc_new_with_file(bfwin,filename, FALSE, FALSE);
+	doc_new_with_file(bfwin,url_is_local ? filename : url, FALSE, FALSE);
 
 	gtk_drag_finish(context, TRUE, (mode == GDK_ACTION_COPY), time);
 	g_free(filename);
