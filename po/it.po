@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: bluefish gtk2-port\n"
-"POT-Creation-Date: 2003-06-23 10:36+0200\n"
-"PO-Revision-Date: 2003-05-14 14:31+0100\n"
+"POT-Creation-Date: 2003-06-24 02:46-0300\n"
+"PO-Revision-Date: 2003-06-24 18:41+0200\n"
 "Last-Translator: Stefano Canepa <sc@linux.it>\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
 "MIME-Version: 1.0\n"
@@ -133,7 +133,6 @@ msgid "showing main gui..."
 msgstr "costruzione della GUI in corso"
 
 #: ../src/document.c:148 ../src/gui.c:635
-#, fuzzy
 msgid "/Document/Highlight Syntax"
 msgstr "/Documento/Evidenzia sintassi"
 
@@ -144,7 +143,7 @@ msgstr "Senza nome"
 #: ../src/document.c:825 ../src/document.c:826
 #, c-format
 msgid "  %s, %s"
-msgstr ""
+msgstr "  %s, %s"
 
 #: ../src/document.c:1045
 msgid "Opening file "
@@ -159,9 +158,9 @@ msgid "Cannot display file, unknown characters found."
 msgstr "Impossibile mostrare il file, trovati caratteri sconosciuti."
 
 #: ../src/document.c:1300
-#, fuzzy, c-format
+#, c-format
 msgid " Line  %d"
-msgstr " riga %4d "
+msgstr " Riga %4d "
 
 #: ../src/document.c:1445
 msgid "Edit tag"
@@ -189,16 +188,16 @@ msgid ""
 "A backupfile for %s could not be created. If you continue, this file will be "
 "overwritten."
 msgstr ""
+"Impossibile creare un file di backup per il file %s. Continuando il file "
+"sarà sovrascritto."
 
 #: ../src/document.c:1589
-#, fuzzy
 msgid "File backup failure"
-msgstr "Azione in caso di fallimento del backup"
+msgstr "Fallimento del backup"
 
 #: ../src/document.c:1727
-#, fuzzy
 msgid "Move/rename document to"
-msgstr "Salva documento come"
+msgstr "Sposta/rinomina il documento"
 
 #: ../src/document.c:1727
 msgid "Save document as"
@@ -213,48 +212,47 @@ msgid "Overwrite"
 msgstr "Sovrascrivi"
 
 #: ../src/document.c:1738
-#, fuzzy, c-format
+#, c-format
 msgid "File %s exists and is opened, overwrite?"
-msgstr "Il file %s è aperto, sovrascrivere?"
+msgstr "Il file %s esite ed è aperto, sovrascrivere?"
 
 #: ../src/document.c:1739
 msgid "The file you have selected is being edited in Bluefish."
-msgstr ""
+msgstr "Il file selezionato è usato da Bluefish."
 
 #: ../src/document.c:1753
 msgid "Previously: "
 msgstr "Precedentemente: "
 
 #: ../src/document.c:1764
-#, fuzzy, c-format
+#, c-format
 msgid "File %s exists, overwrite?"
-msgstr "Il file %s è aperto, sovrascrivere?"
+msgstr "Il file %s esite, sovrascrivere?"
 
 #: ../src/document.c:1765
 msgid "The file you have selected exists."
-msgstr ""
+msgstr "Il fiel selezionato esiste."
 
 #: ../src/document.c:1812
 msgid "Save as..."
 msgstr "Salva come..."
 
 #: ../src/document.c:1838
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "File: %s\n"
 "\n"
 "New modification time: %s\n"
 "Old modification time: %s"
 msgstr ""
-"Il file %s\n"
-"è stato modificato da un'altro processo\n"
+"File: %s\n"
+"\n"
 "ora della nuova modifica: %s\n"
-"ora della vecchia modifica: %s\n"
-"sovrascrivere?"
+"ora della vecchia modifica: %s"
 
 #: ../src/document.c:1839
 msgid "The file has been modified by another process."
-msgstr ""
+msgstr "Il fiel è stato modificato da un'altro processo."
 
 #: ../src/document.c:1852
 #, c-format
@@ -262,20 +260,16 @@ msgid "Saving %s"
 msgstr "Salvataggio di %s in corso"
 
 #: ../src/document.c:1862 ../src/document.c:1868 ../src/menu.c:761
-#, fuzzy
 msgid "The filename was:\n"
-msgstr "Nessun file conosciuto"
+msgstr "Il nome del file era:\n"
 
 #: ../src/document.c:1863
-#, fuzzy
 msgid "File save aborted, could not backup file\n"
-msgstr ""
-"Salvataggio file interrotto, impossibile eseguire il backup del file:\n"
+msgstr "Salvataggio file interrotto, impossibile eseguire il backup del file\n"
 
 #: ../src/document.c:1869
-#, fuzzy
 msgid "File save error, could not write file\n"
-msgstr "Errore nel salvataggio del file, impossibile scrivere il file:\n"
+msgstr "Errore nel salvataggio del file, impossibile scrivere il file\n"
 
 #: ../src/document.c:1916
 #, c-format
@@ -283,35 +277,32 @@ msgid ""
 "Do you want to save the changes done to\n"
 "%s?."
 msgstr ""
+"Salvare le modifiche in\n"
+"%s?"
 
 #: ../src/document.c:1921
-#, fuzzy
 msgid "Do you want to save the changes done to this untitled file?"
-msgstr ""
-"Sicuro di volere chiudere\n"
-"questo file senza nome?"
+msgstr "Salvare i cambiamenti in questo file senza none?"
 
 #: ../src/document.c:1925
-#, fuzzy
 msgid "Do_n't save"
-msgstr "Interrompi salvataggio"
+msgstr "_Non salvare"
 
 #: ../src/document.c:1926
 msgid "The file is not saved"
-msgstr ""
+msgstr "Il file non è stato salvato"
 
 #: ../src/document.c:2153
 msgid "No filename"
 msgstr "Nessun nome del file"
 
 #: ../src/document.c:2257
-#, fuzzy
 msgid "Loading files..."
-msgstr "Ricerca file in corso"
+msgstr "Caricamento file in corso"
 
 #: ../src/document.c:2275 ../src/msg_queue.c:180
 msgid "These files were not opened:\n"
-msgstr ""
+msgstr "Questi file non sono aperti:\n"
 
 #: ../src/document.c:2277 ../src/msg_queue.c:182
 msgid "Unable to open file(s)\n"
@@ -397,43 +388,37 @@ msgid "Loading %d file(s)..."
 msgstr "Caricamento di %d file in corso"
 
 #: ../src/document.c:2669
-#, fuzzy
 msgid "Select file to insert"
-msgstr "Nessun file da inserire"
+msgstr "Selezionare il file da inserire"
 
 #: ../src/document.c:2671
 msgid "No file to insert"
 msgstr "Nessun file da inserire"
 
 #: ../src/document.c:2733
-#, fuzzy
 msgid "_Save all"
-msgstr "salva tutto"
+msgstr "_Salva tutto"
 
 #: ../src/document.c:2733
-#, fuzzy
 msgid "Close _all"
-msgstr "chiudi tutto"
+msgstr "Ch_iudi tutto"
 
 #: ../src/document.c:2733
-#, fuzzy
 msgid "Choose per _file"
-msgstr "scegli per ogni file"
+msgstr "Scegli per ogni file"
 
 #: ../src/document.c:2733
-#, fuzzy
 msgid "_Cancel"
-msgstr "Annulla"
+msgstr "_Annulla"
 
 #: ../src/document.c:2734
-#, fuzzy
 msgid "Some file(s) have been modified"
 msgstr "Alcuni file sono stati modificati"
 
 #: ../src/document.c:2965
 #, c-format
 msgid "Statistics: %d lines, %d words, %d characters"
-msgstr ""
+msgstr "Statistiche: %d righe, %d parole, %d caratteri"
 
 #: ../src/document.c:3067
 msgid "No selection to indent"
@@ -445,7 +430,7 @@ msgstr "Errore nel creare il percorso"
 
 #: ../src/filebrowser.c:812
 msgid "The specified pathname already exists."
-msgstr ""
+msgstr "Il percorso specificato esiste."
 
 #: ../src/filebrowser.c:857
 msgid "File name"
@@ -456,14 +441,12 @@ msgid "Directory name"
 msgstr "Nome directory"
 
 #: ../src/filebrowser.c:891
-#, fuzzy
 msgid "Opening directory..."
 msgstr "Apertura file in corso "
 
 #: ../src/filebrowser.c:979
-#, fuzzy
 msgid "Could not rename\n"
-msgstr "Impossibile aprire il file\n"
+msgstr "Impossibile rinominare il file\n"
 
 #: ../src/filebrowser.c:1025
 #, c-format
@@ -474,50 +457,43 @@ msgstr "Sicuro di voler cancellare «%s» ?"
 
 #: ../src/filebrowser.c:1026
 msgid "The file will be permanently deleted."
-msgstr ""
+msgstr "Il file sarà eliminato."
 
 #: ../src/filebrowser.c:1084
-#, fuzzy
 msgid "/_Open"
-msgstr "Apertura file in corso "
+msgstr "/_Apri file "
 
 #: ../src/filebrowser.c:1085
 msgid "/sep1"
-msgstr ""
+msgstr "/sep1"
 
 #: ../src/filebrowser.c:1086
 msgid "/Rena_me"
-msgstr ""
+msgstr "/Rino_mina file"
 
 #: ../src/filebrowser.c:1087
-#, fuzzy
 msgid "/_Delete"
-msgstr " _Cancella "
+msgstr "/_Cancella "
 
 #: ../src/filebrowser.c:1088
-#, fuzzy
 msgid "/sep2"
-msgstr "/File/sep2"
+msgstr "/sep2"
 
 #: ../src/filebrowser.c:1089
-#, fuzzy
 msgid "/New _File"
-msgstr "Nuovo file"
+msgstr "/_Nuovo file"
 
 #: ../src/filebrowser.c:1090
-#, fuzzy
 msgid "/_New Directory"
-msgstr "Nuova directory"
+msgstr "/_Nuova directory"
 
 #: ../src/filebrowser.c:1091
-#, fuzzy
 msgid "/sep3"
-msgstr "/Edit/sep3"
+msgstr "/sep3"
 
 #: ../src/filebrowser.c:1092
-#, fuzzy
 msgid "/_Refresh"
-msgstr "Aggiorna"
+msgstr "/A_ggiorna"
 
 #: ../src/filebrowser.c:1212
 msgid "All files"
@@ -575,12 +551,11 @@ msgstr "Note"
 #: ../src/gtk_easy.c:1050
 #, c-format
 msgid "%d of %d"
-msgstr ""
+msgstr "%d di %d"
 
 #: ../src/gtk_easy.c:1242
-#, fuzzy
 msgid "No file to insert."
-msgstr "Nessun file da inserire"
+msgstr "Nessun file da inserire."
 
 #: ../src/gtk_easy.c:1346
 msgid "Select file"
@@ -1019,7 +994,6 @@ msgid "/Edit/Undo"
 msgstr "/Modifica/Annulla"
 
 #: ../src/gui.c:628 ../src/menu.c:98
-#, fuzzy
 msgid "/Edit/Undo All"
 msgstr "/Modifica/Annulla tutto"
 
@@ -1028,7 +1002,6 @@ msgid "/Edit/Redo"
 msgstr "/Modifica/Ripeti"
 
 #: ../src/gui.c:630 ../src/menu.c:99
-#, fuzzy
 msgid "/Edit/Redo All"
 msgstr "/Modifica/Ripeti tutto"
 
@@ -1037,19 +1010,16 @@ msgid "/Document/Wrap"
 msgstr "/Documento/A capo automatico"
 
 #: ../src/gui.c:637
-#, fuzzy
 msgid "/Document/Line Numbers"
 msgstr "/Documento/Numeri di riga"
 
 #: ../src/gui.c:749
-#, fuzzy
 msgid "Bluefish"
-msgstr "Suggerimento di Bluefish:"
+msgstr "Bluefish"
 
 #: ../src/gui.c:796
-#, fuzzy
 msgid "Stand by..."
-msgstr "Span..."
+msgstr "Attendere"
 
 #: ../src/gui.c:887
 msgid "Bluefish tip:"
@@ -1086,6 +1056,60 @@ msgstr "Mantieni la _finestra aperta"
 #: ../src/gui.c:1069
 msgid "starting bluefish"
 msgstr "Bluefish sta avviandosi"
+
+#: ../src/html2.c:586
+msgid "Cascading StyleSheet dialog"
+msgstr "Fogli di stile a cascata"
+
+#: ../src/html2.c:606
+msgid "_Selector:"
+msgstr "_Selettore:"
+
+#: ../src/html2.c:625
+msgid "_Property:"
+msgstr "_Proprietà:"
+
+#: ../src/html2.c:627 ../src/html_form.c:286 ../src/html_form.c:353
+#: ../src/html_form.c:415 ../src/html_form.c:471 ../src/html_form.c:534
+#: ../src/html_form.c:644
+msgid "_Value:"
+msgstr "_Valore:"
+
+#: ../src/html2.c:645
+msgid "Selector"
+msgstr "Selettore"
+
+#: ../src/html2.c:645 ../src/html2.c:648
+msgid "Property"
+msgstr "Proprietà"
+
+#: ../src/html2.c:645 ../src/html2.c:648
+msgid "Value"
+msgstr "Valore"
+
+#: ../src/html2.c:663
+msgid " _Add "
+msgstr " _Aggiungi "
+
+#: ../src/html2.c:666
+msgid " _Update "
+msgstr " _Aggiorna "
+
+#: ../src/html2.c:669
+msgid " _Delete "
+msgstr " _Cancella "
+
+#: ../src/html2.c:925 ../src/html2.c:962
+msgid "_Style..."
+msgstr "_Stile..."
+
+#: ../src/html2.c:1145
+msgid "Bluefish: Select color"
+msgstr "Bluefish: selezionare il colore"
+
+#: ../src/html2.c:1165
+msgid "_websafe"
+msgstr "_websafe"
 
 #: ../src/html.c:353
 msgid "Insert Time"
@@ -1459,60 +1483,6 @@ msgstr "_Rel:"
 msgid "_Type:"
 msgstr "_Tipo:"
 
-#: ../src/html2.c:586
-msgid "Cascading StyleSheet dialog"
-msgstr "Fogli di stile a cascata"
-
-#: ../src/html2.c:606
-msgid "_Selector:"
-msgstr "_Selettore:"
-
-#: ../src/html2.c:625
-msgid "_Property:"
-msgstr "_Proprietà:"
-
-#: ../src/html2.c:627 ../src/html_form.c:286 ../src/html_form.c:353
-#: ../src/html_form.c:415 ../src/html_form.c:471 ../src/html_form.c:534
-#: ../src/html_form.c:644
-msgid "_Value:"
-msgstr "_Valore:"
-
-#: ../src/html2.c:645
-msgid "Selector"
-msgstr "Selettore"
-
-#: ../src/html2.c:645 ../src/html2.c:648
-msgid "Property"
-msgstr "Proprietà"
-
-#: ../src/html2.c:645 ../src/html2.c:648
-msgid "Value"
-msgstr "Valore"
-
-#: ../src/html2.c:663
-msgid " _Add "
-msgstr " _Aggiungi "
-
-#: ../src/html2.c:666
-msgid " _Update "
-msgstr " _Aggiorna "
-
-#: ../src/html2.c:669
-msgid " _Delete "
-msgstr " _Cancella "
-
-#: ../src/html2.c:925 ../src/html2.c:962
-msgid "_Style..."
-msgstr "_Stile..."
-
-#: ../src/html2.c:1145
-msgid "Bluefish: Select color"
-msgstr "Bluefish: selezionare il colore"
-
-#: ../src/html2.c:1165
-msgid "_websafe"
-msgstr "_websafe"
-
 #: ../src/html_form.c:129
 msgid "Form"
 msgstr "Form"
@@ -1741,9 +1711,8 @@ msgid "/File/_Open..."
 msgstr "/File/_Apri"
 
 #: ../src/menu.c:62
-#, fuzzy
 msgid "/File/Open A_dvanced..."
-msgstr "/File/Apri avanzato..."
+msgstr "/File/Apri avan_zato..."
 
 #: ../src/menu.c:63
 msgid "/File/Open r_ecent"
@@ -1754,7 +1723,6 @@ msgid "/File/Open recent/tearoff1"
 msgstr "/File/Open recent/tearoff1"
 
 #: ../src/menu.c:65
-#, fuzzy
 msgid "/File/_Revert to Saved"
 msgstr "/File/_Ripristina"
 
@@ -1771,7 +1739,6 @@ msgid "/File/_Save"
 msgstr "/File/_Salva"
 
 #: ../src/menu.c:69
-#, fuzzy
 msgid "/File/Save _As..."
 msgstr "/File/Sa_lva come..."
 
@@ -1780,9 +1747,8 @@ msgid "/File/_Move to..."
 msgstr "/File/Spos_ta..."
 
 #: ../src/menu.c:71
-#, fuzzy
 msgid "/File/Sa_ve All"
-msgstr "/File/Salva tutti"
+msgstr "/File/Sal_va tutti"
 
 #: ../src/menu.c:72
 msgid "/File/sep3"
@@ -1793,9 +1759,8 @@ msgid "/File/_Close"
 msgstr "/File/_Chiudi"
 
 #: ../src/menu.c:74
-#, fuzzy
 msgid "/File/Close A_ll"
-msgstr "/File/Chiudi tutti"
+msgstr "/File/Chiud_i tutti"
 
 #: ../src/menu.c:75
 msgid "/File/sep5"
@@ -1826,7 +1791,6 @@ msgid "/Edit/_Paste"
 msgstr "/Modifica/_Incolla"
 
 #: ../src/menu.c:82
-#, fuzzy
 msgid "/Edit/Select _All"
 msgstr "/Modifica/_Seleziona tutto"
 
@@ -1839,12 +1803,10 @@ msgid "/Edit/_Find..."
 msgstr "/Modifica/Tr_ova"
 
 #: ../src/menu.c:85
-#, fuzzy
 msgid "/Edit/Ne_w Find..."
-msgstr "/Modifica/Nuova trova"
+msgstr "/Modifica/Nu_ova trova"
 
 #: ../src/menu.c:86
-#, fuzzy
 msgid "/Edit/Find A_gain"
 msgstr "/Modifica/Trova successi_vo"
 
@@ -1853,12 +1815,10 @@ msgid "/Edit/R_eplace..."
 msgstr "/Modifica/Sostit_uisci..."
 
 #: ../src/menu.c:88
-#, fuzzy
 msgid "/Edit/New Re_place..."
 msgstr "/Modifica/Nuova _sostituisci"
 
 #: ../src/menu.c:89
-#, fuzzy
 msgid "/Edit/Replace Agai_n"
 msgstr "/Modifica/Sos_tituisci successivo"
 
@@ -1871,19 +1831,16 @@ msgid "/Edit/Replace special/Tearoff1"
 msgstr "/Edit/Replace special/Tearoff1"
 
 #: ../src/menu.c:92
-#, fuzzy
 msgid "/Edit/Replace special/_ASCII to HTML Entities"
-msgstr "/Modifica/Sostituisci speciale/da _asci ad HTML"
+msgstr "/Modifica/Sostituisci speciale/da _ASCII ad HTML"
 
 #: ../src/menu.c:93
-#, fuzzy
 msgid "/Edit/Replace special/_ISO8859 to HTML Entities"
-msgstr "/Modifica/Sostituisci speciale/da _iso8859 a HTML"
+msgstr "/Modifica/Sostituisci speciale/da _ISO8859 a HTML"
 
 #: ../src/menu.c:94
-#, fuzzy
 msgid "/Edit/Replace special/_Both Types to HTML Entities"
-msgstr "/Modifica/Sostituisci speciale/_entrambi i tipi in entità HTML"
+msgstr "/Modifica/Sostituisci speciale/_Entrambi i tipi in entità HTML"
 
 #: ../src/menu.c:95
 msgid "/Edit/sep4"
@@ -1902,35 +1859,30 @@ msgid "/Edit/sep5"
 msgstr "/Edit/sep5"
 
 #: ../src/menu.c:101
-#, fuzzy
 msgid "/Edit/_Block operations"
-msgstr "/Modifica/Operazioni sui blocchi"
+msgstr "/Modifica/Operazioni sui _blocchi"
 
 #: ../src/menu.c:102
 msgid "/Edit/Block operations/Tearoff1"
 msgstr "/Edit/Replace special/Tearoff1"
 
 #: ../src/menu.c:103
-#, fuzzy
 msgid "/Edit/Block operations/_Indent Block"
-msgstr "/Modifica/Operazioni sui blocchi/Indenta il blocco"
+msgstr "/Modifica/Operazioni sui blocchi/_Indenta il blocco"
 
 #: ../src/menu.c:104
-#, fuzzy
 msgid "/Edit/Block operations/_Unindent Block"
-msgstr "/Modifica/Operazioni sui blocchi/Deindenta blocco"
+msgstr "/Modifica/Operazioni sui blocchi/_Deindenta blocco"
 
 #: ../src/menu.c:105
 msgid "/Edit/sep6"
 msgstr "/Edit/sep6"
 
 #: ../src/menu.c:106
-#, fuzzy
 msgid "/Edit/Goto _Line"
 msgstr "/Modifica/_Vai alla riga"
 
 #: ../src/menu.c:107
-#, fuzzy
 msgid "/Edit/G_oto Selection"
 msgstr "/Modifica/Vai alla selezio_ne"
 
@@ -2622,24 +2574,20 @@ msgid "/Tags/Table/_Table"
 msgstr "/Tag/Tabella/_Tabella"
 
 #: ../src/menu.c:345
-#, fuzzy
 msgid "/Tags/Table/Table _Row"
 msgstr "/Tag/Tabella/_Riga Tabella"
 
 #: ../src/menu.c:346
-#, fuzzy
 msgid "/Tags/Table/Table _Header"
 msgstr "/Tag/Tabella/T_estata"
 
 #: ../src/menu.c:347
-#, fuzzy
 msgid "/Tags/Table/Table _Data"
 msgstr "/Tag/Tabella/_Dati della cella"
 
 #: ../src/menu.c:348
-#, fuzzy
 msgid "/Tags/Table/Table _Caption"
-msgstr "/Tag/Tabella/Didascalia"
+msgstr "/Tag/Tabella/Didas_calia"
 
 #: ../src/menu.c:349
 msgid "/Tags/_List"
@@ -2650,27 +2598,22 @@ msgid "/Tags/List/tearoff1"
 msgstr "/Tags/Elenco/tearoff1"
 
 #: ../src/menu.c:351
-#, fuzzy
 msgid "/Tags/List/_Unordered List"
 msgstr "/Tag/Elenco/Elenco _non ordinato"
 
 #: ../src/menu.c:352
-#, fuzzy
 msgid "/Tags/List/_Ordered List"
 msgstr "/Tag/Elenco/Elenco _ordinato"
 
 #: ../src/menu.c:353
-#, fuzzy
 msgid "/Tags/List/List _Item"
 msgstr "/Tag/Elenco/_Voce elenco"
 
 #: ../src/menu.c:354
-#, fuzzy
 msgid "/Tags/List/Definition _List"
 msgstr "/Tag/Elenco/E_lenco di definizioni"
 
 #: ../src/menu.c:355
-#, fuzzy
 msgid "/Tags/List/Definition _Term"
 msgstr "/Tag/Elenco/_Termine della definizione"
 
@@ -2683,7 +2626,6 @@ msgid "/Tags/List/_Menu"
 msgstr "/Tag/Elenco/_Menù"
 
 #: ../src/menu.c:358
-#, fuzzy
 msgid "/Tags/Insert Generator _META-Tag"
 msgstr "/Tag/_Inserisci generatore di META-Tag "
 
@@ -2748,22 +2690,18 @@ msgid "/Dialogs/General/Embe_d..."
 msgstr "/Dialoghi/Generale/Embe_d..."
 
 #: ../src/menu.c:376
-#, fuzzy
 msgid "/Dialogs/General/Select _Color..."
 msgstr "/Dialoghi/Generale/Seleziona il _colore..."
 
 #: ../src/menu.c:377
-#, fuzzy
 msgid "/Dialogs/General/Insert _Time..."
-msgstr "/Dialoghi/Generale/Inserisci _ora"
+msgstr "/Dialoghi/Generale/Inserisci _ora..."
 
 #: ../src/menu.c:378
-#, fuzzy
 msgid "/Dialogs/General/Insert _Image..."
-msgstr "/Dialoghi/Generale/Inserisci _immagine"
+msgstr "/Dialoghi/Generale/Inserisci _immagine..."
 
 #: ../src/menu.c:379
-#, fuzzy
 msgid "/Dialogs/General/Insert T_humbnail..."
 msgstr "/Dialoghi/Generale/Inserisci t_humbnail..."
 
@@ -2776,28 +2714,24 @@ msgid "/Dialogs/Table/tearoff1"
 msgstr "/Dialogs/Table/tearoff1"
 
 #: ../src/menu.c:382
-#, fuzzy
 msgid "/Dialogs/Table/Table _Wizard..."
-msgstr "/Dialoghi/Tabella/Autocomposizione tabella..."
+msgstr "/Dialoghi/Tabella/Au_tocomposizione tabella..."
 
 #: ../src/menu.c:383
 msgid "/Dialogs/Table/_Table..."
 msgstr "/Dialoghi/Tabella/_Tabella..."
 
 #: ../src/menu.c:384
-#, fuzzy
 msgid "/Dialogs/Table/Table _Row..."
 msgstr "/Dialoghi/Tabella/_Riga della tabella..."
 
 #: ../src/menu.c:385
-#, fuzzy
 msgid "/Dialogs/Table/Table _Head..."
-msgstr "/Dialoghi/Tabella/Intestazione tabella"
+msgstr "/Dialoghi/Tabella/I_ntestazione tabella..."
 
 #: ../src/menu.c:386
-#, fuzzy
 msgid "/Dialogs/Table/Table _Data..."
-msgstr "/Dialoghi/Tabella/Dati della cella"
+msgstr "/Dialoghi/Tabella/_Dati della cella..."
 
 #: ../src/menu.c:387
 msgid "/Dialogs/_CSS"
@@ -2808,7 +2742,6 @@ msgid "/Dialogs/CSS/tearoff1"
 msgstr "/Dialogs/CSS/tearoff1"
 
 #: ../src/menu.c:389
-#, fuzzy
 msgid "/Dialogs/CSS/_Create Style..."
 msgstr "/Dialoghi/CSS/_Crea stile..."
 
@@ -2825,9 +2758,8 @@ msgid "/Dialogs/CSS/_Style..."
 msgstr "/Dialogs/CSS/_Stile..."
 
 #: ../src/menu.c:393
-#, fuzzy
 msgid "/Dialogs/CSS/_Link to Stylesheet..."
-msgstr "/Dialogs/CSS/Co_legamento al foglio di stile..."
+msgstr "/Dialogs/CSS/Co_llegamento al foglio di stile..."
 
 #: ../src/menu.c:394
 msgid "/Dialogs/_Frame"
@@ -2838,7 +2770,6 @@ msgid "/Dialogs/Frame/tearoff1"
 msgstr "/Dialogs/Frame/tearoff1"
 
 #: ../src/menu.c:396
-#, fuzzy
 msgid "/Dialogs/Frame/Frame _Wizard..."
 msgstr "/Dialoghi/Frame/_Autocomposizione frame..."
 
@@ -2863,7 +2794,6 @@ msgid "/Dialogs/Form/F_orm..."
 msgstr "/Dialoghi/Form/F_orm..."
 
 #: ../src/menu.c:402
-#, fuzzy
 msgid "/Dialogs/Form/_Input Button..."
 msgstr "/Dialoghi/Form/_Pulsante..."
 
@@ -2880,12 +2810,10 @@ msgid "/Dialogs/Form/Text_area..."
 msgstr "/Dialoghi/Form/_Campo di testo a righe multiple..."
 
 #: ../src/menu.c:406
-#, fuzzy
 msgid "/Dialogs/Form/Radio _Buttons..."
 msgstr "/Dialoghi/Form/Pulsanti _basculanti..."
 
 #: ../src/menu.c:407
-#, fuzzy
 msgid "/Dialogs/Form/_Check Buttons..."
 msgstr "/Dialoghi/Form/_Quadratini..."
 
@@ -2898,7 +2826,6 @@ msgid "/Dialogs/Form/O_ption..."
 msgstr "/Dialoghi/Form/_Scelta selezionabile..."
 
 #: ../src/menu.c:410
-#, fuzzy
 msgid "/Dialogs/Form/Option _Group..."
 msgstr "/Dialoghi/Form/Gruppo d'_opzioni..."
 
@@ -2935,7 +2862,6 @@ msgid "/Document/Encoding/tearoff1"
 msgstr "/Document/Encoding/tearoff1"
 
 #: ../src/menu.c:450
-#, fuzzy
 msgid "/Document/_Highlight Syntax"
 msgstr "/Documento/Evidenzia la _sintassi"
 
@@ -2944,7 +2870,6 @@ msgid "/Document/_Wrap"
 msgstr "/Documento/A _capo automantico"
 
 #: ../src/menu.c:452
-#, fuzzy
 msgid "/Document/_Line Numbers"
 msgstr "/Documento/Numeri di _riga"
 
@@ -2953,7 +2878,6 @@ msgid "/Document/sep1"
 msgstr "/Document/sep1"
 
 #: ../src/menu.c:454
-#, fuzzy
 msgid "/Document/_Update Highlighting"
 msgstr "/Documento/_Aggiorna l'evindenziazione"
 
@@ -2990,22 +2914,18 @@ msgid "/Options/Display/tearoff1"
 msgstr "/Options/Display/tearoff1"
 
 #: ../src/menu.c:464
-#, fuzzy
 msgid "/Options/Display/View _Main Toolbar"
 msgstr "/Opzioni/Visualizza/Barra _principale"
 
 #: ../src/menu.c:465
-#, fuzzy
 msgid "/Options/Display/View _HTML Toolbar"
 msgstr "/Opzioni/Visualizza/Barra _HTML"
 
 #: ../src/menu.c:466
-#, fuzzy
 msgid "/Options/Display/View _Custom Menu"
 msgstr "/Opzioni/Visualizza/Barra p_ersonalizzata"
 
 #: ../src/menu.c:467
-#, fuzzy
 msgid "/Options/Display/View _Left Panel"
 msgstr "/Opzioni/Visualizza/Panne_llo laterare"
 
@@ -3018,12 +2938,10 @@ msgid "/Options/Tabsize/tearoff1"
 msgstr "/Options/Tabsize/tearoff1"
 
 #: ../src/menu.c:471
-#, fuzzy
 msgid "/Options/Tabsize/_Increase Tabsize"
 msgstr "/Opzioni/Dimensione _tabulatore/_Aumenta"
 
 #: ../src/menu.c:472
-#, fuzzy
 msgid "/Options/Tabsize/_Decrease Tabsize"
 msgstr "/Opzioni/Dimensione _tabulatore/_Diminusci"
 
@@ -3032,17 +2950,14 @@ msgid "/Options/sep2"
 msgstr "/Options/sep2"
 
 #: ../src/menu.c:474
-#, fuzzy
 msgid "/Options/_Auto Indent"
 msgstr "/Opzioni/Indentazione automatica"
 
 #: ../src/menu.c:476
-#, fuzzy
 msgid "/Options/_Save Settings"
 msgstr "/Opzioni/_Salva impostazioni"
 
 #: ../src/menu.c:477
-#, fuzzy
 msgid "/Options/Save Shortcut _Keys"
 msgstr "/Opzioni/Salva _tasti accelleratori"
 
@@ -3051,27 +2966,22 @@ msgid "/Document/Type"
 msgstr "/Documento/Tipo"
 
 #: ../src/menu.c:650
-#, fuzzy
 msgid "/Options/Display/View Main Toolbar"
 msgstr "/Opzioni/Visualizza/Barra principale"
 
 #: ../src/menu.c:651
-#, fuzzy
 msgid "/Options/Display/View HTML Toolbar"
 msgstr "/Opzioni/Visualizza/Barra HTML"
 
 #: ../src/menu.c:652
-#, fuzzy
 msgid "/Options/Display/View Custom Menu"
 msgstr "/Opzioni/Visualizza/Barra personalizzata"
 
 #: ../src/menu.c:653
-#, fuzzy
 msgid "/Options/Display/View Left Panel"
 msgstr "/Opzioni/Visualizza/Pannello laterale"
 
 #: ../src/menu.c:654
-#, fuzzy
 msgid "/Options/Auto Indent"
 msgstr "/Opzioni/Indenta automaticamente"
 
@@ -3167,55 +3077,44 @@ msgid "normal"
 msgstr "normale"
 
 #: ../src/menu.c:1563
-#, fuzzy
 msgid "posix regular expressions"
 msgstr "espressione regolare posix"
 
 #: ../src/menu.c:1563
-#, fuzzy
 msgid "perl regular expressions"
 msgstr "espressione regolare perl"
 
 #: ../src/menu.c:1628
-#, fuzzy
 msgid "Search Pattern"
 msgstr "Modello da trovare"
 
 #: ../src/menu.c:1629
-#, fuzzy
 msgid "Replace String"
 msgstr "Sostituisci"
 
 #: ../src/menu.c:1632
-#, fuzzy
 msgid "Formatstring Before"
 msgstr "Stringa iniziale"
 
 #: ../src/menu.c:1633
-#, fuzzy
 msgid "Formatstring After"
 msgstr "Stringa finale"
 
 #: ../src/menu.c:1670
-#, fuzzy
 msgid "The menupath you want to update does not exist yet"
-msgstr ""
-"il percorso del menù che si vuole aggiornare non esiste ancora: provare "
-"'aggiungi'"
+msgstr "il percorso del menù che si vuole aggiornare non esiste ancora"
 
 #: ../src/menu.c:1670
 msgid "Try 'add' instead."
-msgstr ""
+msgstr "Provare 'add'."
 
 #: ../src/menu.c:1672
-#, fuzzy
 msgid "The menupath you want to add already exists."
-msgstr "il percorso del menù esiste già"
+msgstr "Il percorso del menù che si vuole aggiungere esiste già."
 
 #: ../src/menu.c:1677
-#, fuzzy
 msgid "The menupath should start with a / character"
-msgstr "il percorso del menù deve iniziare con /"
+msgstr "Il percorso del menù deve iniziare con /"
 
 #: ../src/menu.c:1699 ../src/menu.c:1947
 msgid "posix regular expresions"
@@ -3226,48 +3125,40 @@ msgid "perl regular expresions"
 msgstr "espressione regolare perl"
 
 #: ../src/menu.c:1819
-#, fuzzy
 msgid "Custom Menu Editor"
-msgstr "/Menù _personalizzato"
+msgstr "Menù _personalizzato"
 
 #: ../src/menu.c:1849
-#, fuzzy
 msgid "_Menu Path:"
-msgstr "Percorso del menù"
+msgstr "Percorso del _menù"
 
 #: ../src/menu.c:1890
-#, fuzzy
 msgid "Number of _Variables:"
-msgstr "Numero di variabili"
+msgstr "Numero di _variabili:"
 
 #: ../src/menu.c:1898
 msgid "Variables"
 msgstr "Variabili"
 
 #: ../src/menu.c:1917
-#, fuzzy
 msgid "Custom Dialo_g"
-msgstr "Dialogo personalizzato"
+msgstr "Dialo_go personalizzato"
 
 #: ../src/menu.c:1919
-#, fuzzy
 msgid "Custom _Search and Replace"
-msgstr "comando sostituisci personalizzato"
+msgstr "Comando _sostituisci personalizzato"
 
 #: ../src/menu.c:1931
-#, fuzzy
 msgid "_Replace:"
-msgstr "Sostituisci"
+msgstr "_Sostituisci:"
 
 #: ../src/menu.c:1944
-#, fuzzy
 msgid "Matc_hing:"
-msgstr "Come"
+msgstr "Come:"
 
 #: ../src/menu.c:1954
-#, fuzzy
 msgid "Case Se_nsitive"
-msgstr "Maiuscole/minuscole"
+msgstr "M_aiuscole/minuscole"
 
 #: ../src/preferences.c:202
 msgid "Select font"
@@ -3290,14 +3181,12 @@ msgid "Icon"
 msgstr "Icona"
 
 #: ../src/preferences.c:498 ../src/preferences.c:538
-#, fuzzy
 msgid "Editable"
-msgstr "Modifica il tag"
+msgstr "Modificabile"
 
 #: ../src/preferences.c:500
-#, fuzzy
 msgid "Content regex"
-msgstr "Con_tenuto:"
+msgstr "Contenuto"
 
 #: ../src/preferences.c:535
 msgid "Extensions (colon separated)"
@@ -3308,7 +3197,6 @@ msgid "Highlight update characters"
 msgstr "Caratteri per l'aggiornamento dell'evidenziazione"
 
 #: ../src/preferences.c:539
-#, fuzzy
 msgid "Content regex pattern"
 msgstr "Formattazione in base al contesto"
 
@@ -3495,7 +3383,7 @@ msgstr "Ampliezza tabulatore"
 
 #: ../src/preferences.c:1720
 msgid "Use spaces to indent, not tabs"
-msgstr ""
+msgstr "Usa spazi per indentare. non caratteri tabulazione"
 
 #: ../src/preferences.c:1721
 msgid "Word wrap default"
@@ -3810,9 +3698,8 @@ msgid "Regular expression error: "
 msgstr "Errore nell'espressione regolare"
 
 #: ../src/snr2.c:188 ../src/snr2.c:232
-#, fuzzy
 msgid "Search failed"
-msgstr "Modello da trovare"
+msgstr "Ricerca fallita"
 
 #: ../src/snr2.c:231
 #, c-format
@@ -3825,16 +3712,15 @@ msgstr "Confermare la sostituzione"
 
 #: ../src/snr2.c:813
 msgid "Replace selected text?"
-msgstr ""
+msgstr "Sostituire il testo selezionato?"
 
 #: ../src/snr2.c:826
 msgid "_Skip"
-msgstr ""
+msgstr "_Salta"
 
 #: ../src/snr2.c:827
-#, fuzzy
 msgid "_Replace"
-msgstr "Sostituisci"
+msgstr "_Sostituisci"
 
 #: ../src/snr2.c:828
 msgid "Replace _all"
@@ -3857,65 +3743,54 @@ msgid "Replace wit_h: "
 msgstr "Sostituisci _con: "
 
 #: ../src/snr2.c:1234
-#, fuzzy
 msgid "\\0 refers to the first subsearch_pattern, \\1 to the second etc."
 msgstr "\\0 si riferisce alla prima parte del modello, \\1 alla seconda, ecc."
 
 #: ../src/snr2.c:1249
-#, fuzzy
 msgid "Beginning of document till end"
-msgstr "Inizia ricerca dall'inizio del _documento"
+msgstr "Dall'inizio fino alla fine documento"
 
 #: ../src/snr2.c:1249
-#, fuzzy
 msgid "Current position till end"
-msgstr "Inizia ricerca dalla pos_izione del cursore"
+msgstr "Dalla posizione corrente fino alla fine"
 
 #: ../src/snr2.c:1249
-#, fuzzy
 msgid "Beginning of selection till end of selection"
-msgstr "All'inizo della s_elezione"
+msgstr "Dall'inizio alla fine della s_elezione"
 
 #: ../src/snr2.c:1249
-#, fuzzy
 msgid "All opened files begin till end"
-msgstr "Tutti i file web"
+msgstr "Tutti i file aperti dall'inizio alla fine"
 
 #: ../src/snr2.c:1250
-#, fuzzy
 msgid "Disabled"
-msgstr "Variabile"
+msgstr "Disabilitato"
 
 #: ../src/snr2.c:1250
-#, fuzzy
 msgid "POSIX type"
-msgstr "Informazioni sui tipi"
+msgstr "Tipo POSIX"
 
 #: ../src/snr2.c:1250
 msgid "PERL type"
-msgstr ""
+msgstr "Tipo PERL"
 
 #: ../src/snr2.c:1277
-#, fuzzy
 msgid "Normal"
-msgstr "normale"
+msgstr "Normale"
 
 #: ../src/snr2.c:1277
-#, fuzzy
 msgid "Uppercase"
-msgstr "Mai_uscole"
+msgstr "Maiuscole"
 
 #: ../src/snr2.c:1277
-#, fuzzy
 msgid "Lowercase"
-msgstr "M_inuscole"
+msgstr "Minuscole"
 
 #: ../src/snr2.c:1292
 msgid "Match ca_se"
 msgstr "Maiu_scolo/minuscolo"
 
 #: ../src/snr2.c:1293
-#, fuzzy
 msgid "O_verlap searches"
 msgstr "Risultati di ricerca so_vrapposti"
 
@@ -4011,9 +3886,8 @@ msgstr "Sorgente:"
 msgid "Size:"
 msgstr "Dimensione:"
 
-#, fuzzy
 #~ msgid "/_Delete file"
-#~ msgstr "Cancella il file"
+#~ msgstr "/_Elimina il file"
 
 #~ msgid "Edit custom menu"
 #~ msgstr "Modifica il menu personalizzato"
@@ -4083,7 +3957,6 @@ msgstr "Dimensione:"
 #~ msgid "Bluefish message"
 #~ msgstr "Messaggio di Bluefish"
 
-#, fuzzy
 #~ msgid "Bluefish - "
 #~ msgstr "Suggerimento di Bluefish:"
 
