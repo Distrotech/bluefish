@@ -2310,25 +2310,111 @@ width="%x" height="%y" border="0"></a>
 </step>
 </procedure>
 <para>Note that the new menu is placed at the right end of the custom menu tool bar. When closing Bluefish and relaunching it, it will be placed in alphabetical order, except that the <guilabel>Replace</guilabel> menu will always be at the far right side.</para>
-	<para>
-	In another example, you have a string you often need to set before 
-	and after some block of text. For example 
-	&lt;div class=&quot;MyClass&quot;&gt;&lt;/div&gt;. Now you choose menupath /MySite/div with class
-	and you choose &lt;div class=&quot;MyClass&quot;&gt; as formatstring before, and you 
-	choose &lt;/div&gt; as formatstring after. Click add, and the item is in the menu. 
-	If you now select some text, and activate this menu item, you will see that the
-	first bit of text is added before the selection, and the second bit is added after
-	the selection.
-	</para>
-	<para>
-	Suppose you want to improve this last example. You have both MyClass1 and MyClass2. 
-	Now use 'Number of variables' 1 in the custom menu editor. As you see a new entry 
-	appears where you can enter the name for variable %0. As name we enter 'MyClass number', 
-	and now we change the formatstring before to &lt;div class=&quot;MyClass%0&quot;&gt;.
-	If you now activate this menu, it will ask you for a value for 'MyClass number', and then
-	insert the strings, using the value you provided.
-	</para>
-	<para>SCREENSHOT BY ????</para>
+<para>In another example, you have a string you often need to set before and after some block of text, for example &lt;div class=&quot;MyClass&quot;&gt;YourBlockOfText&lt;/div&gt;. To do it:</para>
+<orderedlist>
+<listitem>
+<para>Open the <guilabel>Custom Menu Editor</guilabel></para>
+</listitem>
+<listitem>
+<para>Enter <userinput>/MySite/div with class</userinput> in the <guilabel>Menu Path</guilabel> field</para>
+</listitem>
+<listitem>
+<para>Enter &lt;div class=&quot;MyClass&quot;&gt; in the <guilabel>Formatstring Before</guilabel> field</para>
+</listitem>
+<listitem>
+<para>Enter &lt;/div&gt; in the <guilabel>Formatstring After</guilabel> field</para>
+</listitem>
+<listitem>
+<para>Click on <guilabel>Add</guilabel>, then on Save. The item will appear in the menu.</para>
+</listitem>
+</orderedlist>
+<para>If you now select some text:
+<figure id="figure-custom-menu-div-before">
+<title id="figure-custom-menu-div-before-title">A block of selected text before activating the menu</title>
+<screenshot>
+<mediaobject>
+<imageobject>
+<imagedata fileref="figures/custom_menu_div_before.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>A screen shot of a block of selected text before activating the menu</phrase>
+</textobject>
+</mediaobject>
+</screenshot>
+</figure>
+</para>
+<para>And activate this menu item, you will see that the first bit of text is added before the selection, and the second bit is added after the selection:
+<figure id="figure-custom-menu-div-after">
+<title id="figure-custom-menu-div-after-title">A block of text after activating the menu</title>
+<screenshot>
+<mediaobject>
+<imageobject>
+<imagedata fileref="figures/custom_menu_div_after.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>A screen shot of a block of text after activating the menu</phrase>
+</textobject>
+</mediaobject>
+</screenshot>
+</figure>
+</para>
+<para>Suppose you want to improve this last example. You have both MyClass1 and MyClass2 and want to be able to choose the desired class when activating the menu. Here's how to do it:</para>
+<orderedlist>
+<listitem>
+<para>Open the <guilabel>Custom Menu Editor</guilabel></para>
+</listitem>
+<listitem>
+<para>Browse the <guilabel>Menu path</guilabel> list to retrieve the /MySite/class with div entry and click on it to make appear its components in the <guilabel>Menu Path</guilabel> and <guilabel>Custom Dialog</guilabel> fields</para>
+</listitem>
+<listitem>
+<para>Click on the top arrow of the <guilabel>Number of Variables</guilabel> popup menu to get 1 in the field. As you see a <guilabel>Variables</guilabel> entry appears where you can enter the name for variable %0. As name we enter <emphasis>MyClass number</emphasis></para>
+</listitem>
+<listitem>
+<para>Now change the <guilabel>FormatString Before</guilabel> field to take this new variable into account, as following:  &lt;div class=&quot;MyClass%0&quot;&gt;</para>
+</listitem>
+<listitem>
+<para>Click on <guilabel>Apply</guilabel> so that your changes will be taken in account, and click on Save to update the menu.</para>
+</listitem>
+</orderedlist> 
+<para>If you now activate this menu after having selected a block of text, you will be presented with a new dialog asking you for the value of <emphasis>MyClass number</emphasis>:
+<figure id="figure-custom-menu-div-dialog">
+<title id="figure-custom-menu-div-dialog-title">The new div with class dialog</title>
+<screenshot>
+<mediaobject>
+<imageobject>
+<imagedata fileref="figures/custom_menu_div_dialog.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>A screen shot of the new div with class dialog</phrase>
+</textobject>
+</mediaobject>
+</screenshot>
+</figure>
+</para>
+<para>After entering the desired value, the same process as before will occur, using the value you provided. Here we have entered 1 as value:
+<figure id="figure-custom-menu-div-dialog-result">
+<title id="figure-custom-menu-div-dialog-resul-ttitle">The block of text after entering the value</title>
+<screenshot>
+<mediaobject>
+<imageobject>
+<imagedata fileref="figures/custom_menu_div_dialog_result.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>A screen shot of the block of text after entering the value</phrase>
+</textobject>
+</mediaobject>
+</screenshot>
+</figure>
+</para>
+<variablelist>
+<varlistentry>
+<term><emphasis>Tip</emphasis></term>
+<listitem>
+<para>you can use the <keycap>Return</keycap> and <keycap>Tab</keycap> keys to format the output.</para>
+<para>Any variable can be used any times you want in the dialog.</para>
+</listitem>
+</varlistentry>
+</variablelist>
 	<para>
 	Find and replace items are no different. The dialog has some more options, each of these
 	options correspond to the regular replace dialog. Again you can use variables like %0, %1 etc. 
