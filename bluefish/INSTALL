@@ -1,16 +1,33 @@
-To install bluefish from source:
+To install Bluefish from source:
 
-1) get the required libraries, you need the development packages!
-	- libgtk+-2
-	- libpcre
-2) run ./configure --help
-for information about possible options
-choose the options you like most
+  1) get the required libraries (You will need the development versions)
+    gtk2
+    pcre
+    gnome-vfs2 (Optional; for remote file handling)
+    aspell (Optional; for spell checking)
+    grep and find are required to use the Advance Open function
+	
+	
+  2) run ./configure --help
+    for information about possible options.
+    (This step is usually not required)
 
-3) now compile the thing
-./configure [options-you-like-most-here]
-make
+  3) configure and compile
+    ./configure [options-you-like-most-here]
+    make
 
-3) now install everything
-make install
+  3) install everything
+    su
+    make install
 
+
+To install on debian:
+  apt-get install bluefish
+
+To install on rpm based systems:
+  rpm -Uvh bluefish-version-distro.arch.rpm
+  
+  where: `version' is the version
+         `distro' is your distribution (redhat, mdk or SuSE)
+         `arch' is the architecture (i386, i586)
+  
