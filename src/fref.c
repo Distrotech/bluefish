@@ -744,7 +744,8 @@ void fref_loader_unload_all(GtkWidget * tree, GtkTreeStore * store)
 
 	DEBUG_MSG("fref_loader_unload_all, started for tree=%p, store=%p\n", tree, store);
 	while (gtk_tree_model_iter_nth_child(GTK_TREE_MODEL(store), &iter, NULL, 0)) {
-		if (gtk_tree_path_get_depth(gtk_tree_model_get_path(GTK_TREE_MODEL(store), &iter)) == 1) {
+		GtkTreePath *path = gtk_tree_model_get_path(GTK_TREE_MODEL(store), &iter);
+		if (gtk_tree_path_get_depth(path) == 1) {
 			gchar *cat;
 			gtk_tree_model_get(GTK_TREE_MODEL(store), &iter, STR_COLUMN, &cat, -1);
 			DEBUG_MSG("fref_loader_unload_all, cat=%s\n", cat);
@@ -777,6 +778,8 @@ void fref_loader_unload_all(GtkWidget * tree, GtkTreeStore * store)
 			}
 			gtk_tree_store_remove(store, &iter);
 		}						/* do_unload */
+		if (path)
+			gtk_tree_path_free (path);
 	}							/* while */
 	/* gtk_tree_store_clear(store); */
 }
@@ -825,6 +828,8 @@ void fref_cleanup(Tbfwin * bfwin)
 	FREFGUI(bfwin->fref)->tree = NULL;
 	FREFGUI(bfwin->fref)->argtips = NULL;
 	tree_tips_destroy(FREFGUI(bfwin->fref)->tips);
+	g_free (bfwin->fref);
+	bfwin->fref = NULL;
 }
 
 /* fref_init is ONCE called by bluefish.c to init the fref_data structure */
