@@ -164,7 +164,6 @@ static void reset_last_snr2(void) {
 /***********************************************************/
 
 Tsearch_result search_backend(gchar *pattern, gint matchtype, gint is_case_sens, gchar *buf, gboolean want_submatches) {
-
 	Tsearch_result returnvalue;
 	int (*f) ();
 	gint buflen, patlen, match, i;
@@ -231,8 +230,10 @@ Tsearch_result search_backend(gchar *pattern, gint matchtype, gint is_case_sens,
 	} else if (matchtype == match_pcre) {
 		pcre *pcre_c;
 		const char *err=NULL;
-		int erroffset=0;		
-		pcre_c = pcre_compile(pattern, (is_case_sens ? 0 : PCRE_CASELESS),&err,&erroffset,NULL);
+		int erroffset=0;
+		int ovector[30];
+		gint retval;
+		pcre_c = pcre_compile(pattern, (is_case_sens ? PCRE_DOTALL|PCRE_MULTILINE : PCRE_DOTALL|PCRE_CASELESS|PCRE_MULTILINE),&err,&erroffset,NULL);
 		if (err) {
 			gchar *errstring;
 			errstring = g_strdup_printf(_("Regular expression error: %s at offset %d"), err, erroffset);
@@ -240,7 +241,28 @@ Tsearch_result search_backend(gchar *pattern, gint matchtype, gint is_case_sens,
 			g_free(errstring);
 			return returnvalue;/* error compiling the pattern, returning the default result set,which is the 'nothing found' set */
 		}
-		
+		retval = pcre_exec(pcre_c,NULL,buf,strlen(buf),0,0,ovector,30);
+		if (retval > 0) {
+			returnvalue.bstart = ovector[0];
+			returnvalue.bend = ovector[1];
+		} else {
+			returnvalue.bstart = -1;
+			returnvalue.bend = -1;
+		}
+		if (want_submatches) {
+			int nmatch,i;
+			regmatch_t *pmatch;
+			pcre_fullinfo(pcre_c, NULL, PCRE_INFO_CAPTURECOUNT, &nmatch);
+			pmatch = g_malloc(nmatch*sizeof(regmatch_t));
+			for (i=0;i<nmatch;i+=2) {
+				pmatch[i].rm_so = ovector[i];
+				pmatch[i].rm_eo = ovector[i+1];
+			}
+			returnvalue.pmatch = pmatch;
+			returnvalue.nmatch = nmatch;
+			/* if want_submatches is set, pmatch should be 
+			free`ed by the calling function! */
+		}
 		pcre_free(pcre_c);
 	} else {
 		/* non regex part start */
@@ -436,10 +458,10 @@ actions, so the first char in buf is actually number offset in the text widget *
 	if (result.end > 0) {
 		switch (replacetype) {
 		case string:
-			if (matchtype == match_regex) {
-				tmpstr = reg_replace(replace_string, offset, result, doc);
-			} else {
+			if (matchtype == match_normal) {
 				tmpstr = g_strdup(replace_string);
+			} else {
+				tmpstr = reg_replace(replace_string, offset, result, doc);
 			}
 			DEBUG_MSG("replace_backend, tmpstr='%s'\n", tmpstr);
 		break;
@@ -952,6 +974,7 @@ static void snr2dialog(gint is_replace, gint is_new_search) {
 	
 	snr2win->is_case_sens = boxed_checkbut_with_value(_("Case sensitive"), last_snr2.is_case_sens, vbox);
 	snr2win->overlapping_search = boxed_checkbut_with_value(_("Overlapping searches"), last_snr2.overlapping_search, vbox);
+	
 	if (is_replace) {
 		frame = gtk_frame_new(_("Replace"));
 		gtk_box_pack_start(GTK_BOX(vbox), frame, FALSE, FALSE, 0);
