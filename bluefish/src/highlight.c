@@ -1024,8 +1024,8 @@ void hl_reset_to_default()
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
 	arr =
 		array_from_arglist("php", "php-keywords", "0",
-						   "(return|goto|if|else|case|default|switch|break|continue|while|do|for|global|var|class|function)",
-						   "", "", "2", "^php$", "#000000", "", "2", "0", " \t\n", " \t\n", NULL);
+						   "(return|goto|if|else|case|default|switch|break|continue|while|do|for|global|var|class|function|new)",
+						   "", "", "2", "^php$", "#000000", "", "2", "0", " \t\n", " \t\n;:", NULL);
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
 	arr = array_from_arglist("php", "php-braces", "0", "[{()}]", "", "", "2", "^php$", "#000000", "", "2", "0", "", "", NULL);
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
@@ -1062,6 +1062,22 @@ void hl_reset_to_default()
 	arr = array_from_arglist("html", "comment", "0", "<!--", "-->", "", "1", "", "#AAAAAA", "", "1", "2", "", "", NULL);
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
 	arr = array_from_arglist("html", "doctype", "1", "<![a-z0-9]+", "[^?-]>", "", "1", "", "#bb8800", "", "0", "0", "", "", NULL);
+	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
+
+	/* the default XML pattern */
+	arr = array_from_arglist("xml", "tag", "1", "<((/)?[a-z0-9]+)", "[^?-]>", "", "1", "", "#0000EE", "", "0", "0", "", "", NULL);
+	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
+	arr = array_from_arglist("xml", "tag-name", "1", "1", "", "", "3", "^html$", "#000077", "", "2", "0", "", "", NULL);
+	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
+	arr = array_from_arglist("xml", "tag-attrib", "1", "([a-z]*=)(\"[^\"]*\")", "", "", "2", "^tag$", "", "", "0", "0","", "", NULL);
+	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
+	arr = array_from_arglist("xml", "tag-attrib-sub2", "1", "2", "", "", "3", "^tag-attrib$", "#009900", "", "0", "0", "", "", NULL);
+	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
+	arr = array_from_arglist("xml", "specialchar", "1", "&[^;]*;", "", "", "2", "", "#999999", "", "2", "0", "", "", NULL);
+	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
+	arr = array_from_arglist("xml", "comment", "0", "<!--", "-->", "", "1", "", "#AAAAAA", "", "1", "2", "", "", NULL);
+	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
+	arr = array_from_arglist("xml", "doctype", "1", "<![a-z0-9]+", "[^?-]>", "", "1", "", "#bb8800", "", "0", "0", "", "", NULL);
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
 
 	/* the default java pattern */
