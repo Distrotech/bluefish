@@ -1,26 +1,19 @@
 # translation of ru.po to Русский
-# translation of ru.po to
-# translation of ru.po to
-# translation of ru.po to
-# translation of ru.po to
-# translation of ru.po to Russian
 # Russian language file for Bluefish.
 # Copyright (C) 2000,2003,2004 Free Software Foundation, Inc.
-# Eugene Rupakov <rupakov@jet.msk.su>, 2003
-#  <taurus@croco.net>, 2003
-# Eugene Rupakov <taurus@croco.net>, 2003,2004
+# Eugene Rupakov <rupakov@jet.msk.su>, 2003,2004
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: ru\n"
-"POT-Creation-Date: 2004-03-29 14:55+0200\n"
-"PO-Revision-Date: 2004-03-14 21:59+0300\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-03-30 10:26-0300\n"
+"PO-Revision-Date: 2004-03-26 20:22+0300\n"
 "Last-Translator: Eugene Rupakov <taurus@croco.net>\n"
 "Language-Team: Русский <ru@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Report-Msgid-Bugs-To: \n"
 "X-Generator: KBabel 1.0\n"
 
 #: ../src/about.c:123
@@ -47,7 +40,6 @@ msgstr ""
 "Эта версия Bluefish была собрана со следующими опциями:\n"
 
 #: ../src/about.c:124
-#, fuzzy
 msgid ""
 "Project leader:\n"
 "  Olivier Sessink <olivier@bluefish.openoffice.nl>\n"
@@ -120,7 +112,6 @@ msgstr ""
 "Благодарим всех, кто помог сделать этот проект доступным.\n"
 
 #: ../src/about.c:161
-#, fuzzy
 msgid ""
 "Current translators:\n"
 "\n"
@@ -269,6 +260,8 @@ msgid ""
 "Bluefish has trouble reading the filenames. Try to set the environment "
 "variable G_BROKEN_FILENAMES=1\n"
 msgstr ""
+"Bluefish не смог прочитать имена файлов. Попробуйте установить переменную "
+"окружения G_BROKEN_FILENAMES=1\n"
 
 #: ../src/bfspell.c:346
 msgid "Check Spelling"
@@ -436,7 +429,7 @@ msgid "This bookmark is set in a file that no longer exists."
 msgstr "Эта закладка установлена на файл, который больше не существует."
 
 #: ../src/bookmark.c:443
-#, fuzzy, c-format
+#, c-format
 msgid "Do you really want to delete %s?"
 msgstr "Вы действительно хотите удвлить %s?"
 
@@ -445,47 +438,40 @@ msgid "Delete permanent bookmark."
 msgstr "Удалить постоянную закладку."
 
 #: ../src/bookmark.c:462
-#, fuzzy
 msgid "Edit bookmark"
-msgstr "Перейти к закладке"
+msgstr "Редактировать закладку"
 
 #: ../src/bookmark.c:470
 msgid "Goto bookmark"
 msgstr "Перейти к закладке"
 
 #: ../src/bookmark.c:478
-#, fuzzy
 msgid "Edit"
-msgstr "/Р_едактирование"
+msgstr "Редактирование"
 
 #: ../src/bookmark.c:482
 msgid "Delete"
 msgstr "Удалить"
 
 #: ../src/bookmark.c:904 ../src/bookmark.c:939 ../src/document.c:1987
-#, fuzzy
 msgid "Add bookmark"
-msgstr "Перейти к закладке"
+msgstr "Добавить закладку"
 
 #: ../src/bookmark.c:905
-#, fuzzy
 msgid "Cannot add bookmarks in unnamed files."
-msgstr ""
-"Невозможно установить закладки в безымянном файле\n"
-"Пожалуйста, сначала сохраните файл."
+msgstr "Невозможно установить закладки в безымянных файлах."
 
 #: ../src/bookmark.c:940
 msgid "You already have a bookmark here!"
 msgstr "У Вас здесь уже есть закладка!"
 
 #: ../src/bookmark.c:945
-#, fuzzy
 msgid "default"
-msgstr "Установить по _умолчанию"
+msgstr "по умолчанию"
 
 #: ../src/bookmark.c:975
 msgid "temp"
-msgstr ""
+msgstr "временная"
 
 #: ../src/bookmark.c:1043
 #, c-format
@@ -497,7 +483,6 @@ msgstr ""
 " %s."
 
 #: ../src/bookmark.c:1045
-#, fuzzy
 msgid "Bookmarks positions could be incorrect."
 msgstr "Расположение закладок может быть ошибочным."
 
@@ -1585,6 +1570,55 @@ msgstr "/Вид/Показывать основную панель инстру�
 msgid "/View/View Custom Menu"
 msgstr "/Вид/Показывать меню пользователя"
 
+#: ../src/html2.c:554
+msgid "Cascading StyleSheet dialog"
+msgstr "диалог Cascading Style Sheet"
+
+#: ../src/html2.c:574
+msgid "_Selector:"
+msgstr "Панель в_ыбора:"
+
+#: ../src/html2.c:593
+msgid "_Property:"
+msgstr "_Свойство:"
+
+#: ../src/html2.c:595 ../src/html_form.c:650 ../src/html_form.c:799
+#: ../src/html_form.c:894
+msgid "_Value:"
+msgstr "_Значение:"
+
+#: ../src/html2.c:613
+msgid "Selector"
+msgstr "Панель выбора"
+
+#: ../src/html2.c:613 ../src/html2.c:616
+msgid "Property"
+msgstr "Свойство"
+
+#: ../src/html2.c:613 ../src/html2.c:616
+msgid "Value"
+msgstr "Значение"
+
+#: ../src/html2.c:631
+msgid " _Add "
+msgstr " _Добавить "
+
+#: ../src/html2.c:634
+msgid " _Update "
+msgstr " О_бновить  "
+
+#: ../src/html2.c:637
+msgid " _Delete "
+msgstr " _Удалить "
+
+#: ../src/html2.c:893 ../src/html2.c:930
+msgid "_Style..."
+msgstr "_Стиль..."
+
+#: ../src/html2.c:1087
+msgid "Bluefish: Select color"
+msgstr "Bluefish: Выберите цвет"
+
 #: ../src/html.c:356
 msgid "Insert Time"
 msgstr "Вставить время"
@@ -1979,55 +2013,6 @@ msgstr "_Язык:"
 msgid "_Custom:"
 msgstr "Про_чее:"
 
-#: ../src/html2.c:554
-msgid "Cascading StyleSheet dialog"
-msgstr "диалог Cascading Style Sheet"
-
-#: ../src/html2.c:574
-msgid "_Selector:"
-msgstr "Панель в_ыбора:"
-
-#: ../src/html2.c:593
-msgid "_Property:"
-msgstr "_Свойство:"
-
-#: ../src/html2.c:595 ../src/html_form.c:650 ../src/html_form.c:799
-#: ../src/html_form.c:894
-msgid "_Value:"
-msgstr "_Значение:"
-
-#: ../src/html2.c:613
-msgid "Selector"
-msgstr "Панель выбора"
-
-#: ../src/html2.c:613 ../src/html2.c:616
-msgid "Property"
-msgstr "Свойство"
-
-#: ../src/html2.c:613 ../src/html2.c:616
-msgid "Value"
-msgstr "Значение"
-
-#: ../src/html2.c:631
-msgid " _Add "
-msgstr " _Добавить "
-
-#: ../src/html2.c:634
-msgid " _Update "
-msgstr " О_бновить  "
-
-#: ../src/html2.c:637
-msgid " _Delete "
-msgstr " _Удалить "
-
-#: ../src/html2.c:893 ../src/html2.c:930
-msgid "_Style..."
-msgstr "_Стиль..."
-
-#: ../src/html2.c:1087
-msgid "Bluefish: Select color"
-msgstr "Bluefish: Выберите цвет"
-
 #: ../src/html_form.c:141
 msgid "Form"
 msgstr "Форма"
@@ -2421,14 +2406,12 @@ msgid "/Edit/Replace special/_Both Types to HTML Entities"
 msgstr "/Редактирование/Особая замена/О_ба типа в элементы HTML"
 
 #: ../src/menu.c:362
-#, fuzzy
 msgid "/Edit/Replace special/To _Uppercase"
-msgstr "/Редактирование/Особая замена/Tearoff1"
+msgstr "/Редактирование/Особая замена/В пр_описные"
 
 #: ../src/menu.c:363
-#, fuzzy
 msgid "/Edit/Replace special/To _Lowercase"
-msgstr "/Редактирование/Особая замена/Tearoff1"
+msgstr "/Редактирование/Особая замена/В с_трочные"
 
 #: ../src/menu.c:364
 msgid "/Edit/sep4"
@@ -2447,14 +2430,12 @@ msgid "/Edit/sep5"
 msgstr "/Редактирование/sep5"
 
 #: ../src/menu.c:368
-#, fuzzy
 msgid "/Edit/Add _Bookmark"
-msgstr "/_Закладки"
+msgstr "/Редактирование/Добавить _закладку"
 
 #: ../src/menu.c:369
-#, fuzzy
 msgid "/Edit/sep6"
-msgstr "/Редактирование/sep1"
+msgstr "/Редактирование/sep6"
 
 #: ../src/menu.c:370
 msgid "/Edit/_Save Settings"
@@ -3585,9 +3566,8 @@ msgid "/Project/Save _as..."
 msgstr "/Проект/Сохранить _как"
 
 #: ../src/menu.c:686
-#, fuzzy
 msgid "/Project/Save & _close"
-msgstr "/Проект/Сохранить _как"
+msgstr "/Проект/Сохранить и _закрыть"
 
 #: ../src/menu.c:687
 msgid "/Project/sep2"
@@ -4080,39 +4060,33 @@ msgid "Clear undo history on save"
 msgstr "Очищать историю отмены действий при сохранении файла"
 
 #: ../src/preferences.c:1896
-#, fuzzy
 msgid "Bookmark options"
-msgstr "Закладки"
+msgstr "Параметры закладок"
 
 #: ../src/preferences.c:1901
 #, fuzzy
 msgid "Sort by line number"
-msgstr "Нет имени файла"
+msgstr "Сортировать по имени файла"
 
 #: ../src/preferences.c:1902
-#, fuzzy
 msgid "Make permanent by default"
-msgstr "Показывать левую панель по умолчанию"
+msgstr "Ставить постоянными по умолчанию"
 
 #: ../src/preferences.c:1904
-#, fuzzy
 msgid "full path"
-msgstr "Путь к меню"
+msgstr "полный путь"
 
 #: ../src/preferences.c:1904
-#, fuzzy
 msgid "path from basedir"
-msgstr "Базовый каталог по умолчанию"
+msgstr "путь от базовой директории"
 
 #: ../src/preferences.c:1904
-#, fuzzy
 msgid "filename"
-msgstr "Нет имени файла"
+msgstr "имя файла"
 
 #: ../src/preferences.c:1905
-#, fuzzy
 msgid "Bookmarks filename display"
-msgstr "Файл, на который ссылаются закладки, закрыт"
+msgstr "Отображение имени файла закладок"
 
 #: ../src/preferences.c:1909
 msgid "HTML"
@@ -4381,9 +4355,8 @@ msgid "/Project/Save as..."
 msgstr "/Проект/Сохранить как..."
 
 #: ../src/project.c:170
-#, fuzzy
 msgid "/Project/Save & close"
-msgstr "/Проект/Сохранить"
+msgstr "/Проект/Сохранить и закрыть"
 
 #: ../src/project.c:171
 msgid "/Project/Edit Project Options..."
@@ -4708,160 +4681,3 @@ msgstr "Источник:"
 #: ../src/wizards.c:223
 msgid "Size:"
 msgstr "Размер:"
-
-#~ msgid "\n"
-#~ msgstr "\n"
-
-#~ msgid "You already have a bookmark named %s!"
-#~ msgstr "У Вас уже есть закладка с меткой %s!"
-
-#~ msgid "Do you want to open it?"
-#~ msgstr "Вы уверены, что хотите открыть его?"
-
-#~ msgid "Rename permanent bookmark"
-#~ msgstr "Переименовать постоянную закладку"
-
-#~ msgid "Rename temporary bookmark"
-#~ msgstr "Переименовать временную закладку"
-
-#~ msgid "Rename"
-#~ msgstr "Переименовать"
-
-#~ msgid "Permanent"
-#~ msgstr "Постоянные"
-
-#~ msgid "Add temporary bookmark"
-#~ msgstr "Добавить временную закладку"
-
-#~ msgid "Delete all temporary bookmarks."
-#~ msgstr "Удалить все временные закладки"
-
-#~ msgid "Are you sure?"
-#~ msgstr "Вы уверены?"
-
-#~ msgid "Delete all permanent bookmarks."
-#~ msgstr "Удалить все постоянные закладки."
-
-#~ msgid "Are you REALLY sure?"
-#~ msgstr "Вы абсолютно уверены?"
-
-#~ msgid "Add permanent bookmark"
-#~ msgstr "Добавить постоянную закладку"
-
-#~ msgid "/Bookmarks/tearoff1"
-#~ msgstr "/Закладки/tearoff1"
-
-#~ msgid "/Bookmarks/Add _Temporary"
-#~ msgstr "/Закладки/Добавить _временную"
-
-#~ msgid "/Bookmarks/Add _Permanent"
-#~ msgstr "/Закладки/Добавить _постоянную"
-
-#~ msgid "/Bookmarks/sep2"
-#~ msgstr "/Закладки/sep2"
-
-#~ msgid "/Bookmarks/Delete All Temporar_y"
-#~ msgstr "/Закладки/Удалить все в_ременные"
-
-#~ msgid "/Bookmarks/Delete All Per_manent"
-#~ msgstr "/Закладки/Удалить все п_остоянные"
-
-#~ msgid "/Project/_Close & save"
-#~ msgstr "/Проект/Со_хранить и закрыть"
-
-#~ msgid "/Project/Close & save"
-#~ msgstr "/Проект/Сохранить и закрыть"
-
-#~ msgid "Show all bookmarks"
-#~ msgstr "Показать все закладки"
-
-#~ msgid "Show bookmarks for opened files"
-#~ msgstr "Показать закладки для открытых файлов"
-
-#~ msgid "Show bookmarks for active file"
-#~ msgstr "Показать закладки для текущего файла"
-
-#~ msgid "You can overwrite next temp bookmark (number %d). Overwrite?"
-#~ msgstr ""
-#~ "Вы можете перезаписать следующую временную закладку (номер %d). "
-#~ "Перезаписать?"
-
-#~ msgid "Maximum number of temp bookmarks assigned"
-#~ msgstr "Максимальное число временных закладок"
-
-#~ msgid "Text..."
-#~ msgstr "Текст..."
-
-#~ msgid "_Rel:"
-#~ msgstr "_Относительная ссылка:"
-
-#~ msgid "_websafe"
-#~ msgstr "_websafe"
-
-#~ msgid "Text"
-#~ msgstr "Текст"
-
-#~ msgid "Hidden"
-#~ msgstr "Скрытое поле"
-
-#~ msgid "Radio Button"
-#~ msgstr "Переключатель"
-
-#~ msgid "Check Box"
-#~ msgstr "Флажок"
-
-#~ msgid "/File/Open r_ecent"
-#~ msgstr "/Файл/Открыть не_давние"
-
-#~ msgid "/Dialogs/Form/_Hidden..."
-#~ msgstr "/Диалоги/Форма/Скрытое поле... _H"
-
-#~ msgid "/Dialogs/Form/Radio _Buttons..."
-#~ msgstr "/Диалоги/Форма/_Радиокнопки..."
-
-#~ msgid "/Dialogs/Form/_Check Buttons..."
-#~ msgstr "/Диалоги/Форма/_Флажки..."
-
-#~ msgid "Extensions (colon separated)"
-#~ msgstr "Расширения (разделенные двоеточием)"
-
-#~ msgid "Highlight update characters"
-#~ msgstr "Highlight update characters"
-
-#~ msgid "Content regex pattern"
-#~ msgstr "Контекстный шаблон regex"
-
-#, fuzzy
-#~ msgid "Rename temporary"
-#~ msgstr "Временные"
-
-#, fuzzy
-#~ msgid "Rename permanent"
-#~ msgstr "Постоянные"
-
-#~ msgid "Add permanent bookmark "
-#~ msgstr "Добавить постоянную закладку"
-
-#~ msgid "/Document/Document _Type"
-#~ msgstr "/Документ/_Тип документа"
-
-#~ msgid "_Local Directory:"
-#~ msgstr "_Локальная директория:"
-
-#~ msgid "Show bookmarks for project files"
-#~ msgstr "Показать закладки для файлов проекта"
-
-#~ msgid "Input _Methods"
-#~ msgstr "Методы ввода (_M)"
-
-#~ msgid "/Bookmarks/Delete _All"
-#~ msgstr "/Закладки/У_далить все"
-
-#~ msgid "posix regular expressions"
-#~ msgstr "регулярные выражения POSIX"
-
-#~ msgid "perl regular expressions"
-#~ msgstr "регулярные выражения Perl"
-
-#~ msgid "Always highlight full document"
-#~ msgstr "Всегда подсвечивать синтаксис целого документа"
