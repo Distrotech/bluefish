@@ -241,8 +241,10 @@ static void textok_lcb(GtkWidget * widget, Thtml_diag *dg)
 
 	thestring = g_strdup(cap("<INPUT TYPE=\"TEXT\""));
 	thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(dg->entry[1])), cap("NAME"), thestring, NULL);
-	thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(dg->spin[1])), cap("SIZE"), thestring, NULL);
-	thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(dg->spin[2])), cap("MAXLENGTH"), thestring, NULL);
+	thestring = insert_integer_if_spin(dg->spin[1], cap("SIZE"), thestring, FALSE, 0);
+	thestring = insert_integer_if_spin(dg->spin[2], cap("MAXLENGTH"), thestring, FALSE, 0);
+/*	thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(dg->spin[1])), cap("SIZE"), thestring, NULL);
+	thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(dg->spin[2])), cap("MAXLENGTH"), thestring, NULL);*/
 	thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(dg->entry[2])), cap("VALUE"), thestring, NULL);	
 	thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(dg->entry[3])), NULL, thestring, NULL);
 	if (main_v->props.xhtml == 1) {
