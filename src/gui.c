@@ -32,6 +32,7 @@
 #include "html_table.h"
 #include "html.h"
 #include "html2.h"
+#include "image.h"
 #include "html_form.h"
 #include "filebrowser.h"
 #include "stringlist.h"
@@ -250,10 +251,11 @@ static Ttoolbaritem tbi[] = {
 	{"definitionterm", general_html_cb, GINT_TO_POINTER(37), 164, N_("Definition Term")},
 	{"definition", general_html_cb, GINT_TO_POINTER(38), 165, N_("Definition")},
 	{"createstylesheet...", new_css_dialog, NULL, 180, N_("Create stylesheet...")},
-	{"Span...", span_dialog, NULL,181 , N_("Span...")},
-	{"Div...",div_dialog , NULL,182 , N_("Div...")},
-	{"Style", general_html_cb, GINT_TO_POINTER(42), 184, N_("Style")},
-	{"Link to stylesheet...", link_cb, NULL,189 , N_("Link to stylesheet...")},
+	{"span...", span_dialog, NULL,181 , N_("Span...")},
+	{"div...",div_dialog , NULL,182 , N_("Div...")},
+	{"style", general_html_cb, GINT_TO_POINTER(42), 184, N_("Style")},
+	{"linkstylesheet...", link_cb, NULL,189 , N_("Link to stylesheet...")},
+	{"image...", image_insert_dialog_cb, NULL, 113, N_("Insert image...")},
 /*	{"", general_html_cb, GINT_TO_POINTER(), , N_("")},
 	{"", general_html_cb, GINT_TO_POINTER(), , N_("")},
 
@@ -389,6 +391,7 @@ void make_html_toolbar(GtkWidget *handlebox) {
 
 	html_toolbar = gtk_toolbar_new();
 	html_toolbar_add_items(html_toolbar, tbi, 0, 14);
+	html_toolbar_add_items(html_toolbar, tbi, 73, 74);
 	gtk_notebook_append_page(GTK_NOTEBOOK(html_notebook), html_toolbar, gtk_label_new(_(" Standard bar ")));
 
 	html_toolbar = gtk_toolbar_new();
