@@ -1,9 +1,9 @@
 %define	desktop_vendor 	endur
 %define name  		bluefish
 %define version		gtk2
-%define release 	20040317
+%define release 	20040328
 %define epoch 		1
-%define source		bluefish-2004-03-17
+%define source		bluefish-2004-03-28
 	
 
 Summary:	A GTK2 web development application for experienced users.
@@ -32,32 +32,27 @@ support.
 %setup -q -n %{name}-%{version}
 
 %build
-%configure --with-gnome2-prefix=%{buildroot}/usr/share/
+%configure
 make %{?_smp_mflags}
 
 %install
 rm -rf %{buildroot}
-mkdir -p %{buildroot}%{_datadir}/pixmaps
-mkdir -p %{buildroot}%{_datadir}/applications
-mkdir -p %{buildroot}%{_datadir}/application-registry
-mkdir -p %{buildroot}%{_datadir}/mime-info
-make install                                            \
-    bindir=%{buildroot}%{_bindir}                       \
-    pkgdatadir=%{buildroot}%{_datadir}/%{name}          \
-    datadir=%{buildroot}%{_datadir}                     \
-    gnome2prefix=%{buildroot}%{_datadir}                \
-    gnome1menupath=/_none                               \
-    iconpath=%{buildroot}%{_datadir}/pixmaps            \
-    localedir=%{buildroot}%{_datadir}/locale
-
-%find_lang %{name}
 install -D -m644 inline_images/bluefish_icon1.png \
     %{buildroot}%{_datadir}/pixmaps/%{name}-icon.png
 
-rm -f %{buildroot}%{_datadir}/applications/%{name}.desktop
+%makeinstall                                            \
+    pkgdatadir=%{buildroot}%{_datadir}/%{name}          \
+    gnome2prefix=%{buildroot}%{_datadir}/applications   \
+    gnome2menupath=%{buildroot}%{_datadir}/applications \
+    gnome1menupath=/_not_used_here_                     \
+    iconpath=%{buildroot}%{_datadir}/pixmaps       
 
-cat << EOF > %{name}.desktop
+%find_lang %{name}
+
+cat > %{name}.desktop << EOF
 [Desktop Entry]
+Encoding=UTF-8
+StartupNotify=true
 Name=Bluefish web editor
 Comment=A GTK2 web development application for experienced users.
 Exec=%{name}
@@ -65,16 +60,12 @@ Icon=%{name}-icon.png
 Terminal=0
 Type=Application
 EOF
-
-install -D -m644 %{name}.desktop \
-    %{buildroot}%{_datadir}/applications/%{name}.desktop
-
 desktop-file-install --vendor %{desktop_vendor} --delete-original \
   --dir %{buildroot}%{_datadir}/applications                      \
   --add-category X-Red-Hat-Base                                   \
   --add-category Application                                      \
   --add-category Development                                      \
-  %{buildroot}%{_datadir}/applications/%{name}.desktop
+  %{name}.desktop
 
 %clean
 rm -rf %{buildroot}
@@ -85,11 +76,10 @@ rm -rf %{buildroot}
 %{_bindir}/*
 %dir %{_datadir}/%{name}
 %{_datadir}/bluefish/*
-%{_datadir}/applications/%{desktop_vendor}-%{name}.desktop
-%{_datadir}/application-registry/%{name}.applications
+%{_datadir}/applications/*
 %{_datadir}/pixmaps/%{name}-icon.png
 
 
 %changelog
-* Thu Mar 18 2004 Matthias Haase <matthias_haase@bennewitz.com>
-- Automatic build - snapshot of 2004-03-17
+* Sun Apr 04 2004 Matthias Haase <matthias_haase@bennewitz.com>
+- Automatic build - snapshot of 2004-03-28
