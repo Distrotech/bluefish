@@ -328,6 +328,7 @@ void bluefish_exit_request() {
 	/* do the cleanup */
 	msg_queue_cleanup();
 #endif /* WITH_MSG_QUEUE */
+	fb2config_cleanup();
 	DEBUG_MSG("Bluefish: exiting cleanly\n");
 	exit(0);
 }
