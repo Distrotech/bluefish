@@ -99,6 +99,7 @@ typedef struct {
 /*******************/
 /* document struct */
 /*******************/
+#define BFWIN(var) ((Tbfwin *)(var))
 
 typedef struct {
 	gchar *filename;
