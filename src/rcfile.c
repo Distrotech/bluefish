@@ -339,7 +339,7 @@ static GList *props_init_main(GList * config_rc)
 	init_prop_integer   (&config_rc, &main_v->props.left_panel_width, "left_panel_width:", 150, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.two_pane_filebrowser_height, "two_pane_filebrowser_height:", 250, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.main_window_h, "main_window_height:", 400, TRUE);
-	init_prop_integer   (&config_rc, &main_v->props.main_window_w, "main_window_width:", 600, TRUE);
+	init_prop_integer   (&config_rc, &main_v->props.main_window_w, "main_window_width:", 600, TRUE); /* negative width means maximized */
 	init_prop_integer   (&config_rc, &main_v->props.max_recent_files, "max_recent_files:", 15, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.max_dir_history, "max_dir_history:", 10, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.backup_file,"backup_file:",1, TRUE);
