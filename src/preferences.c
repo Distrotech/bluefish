@@ -460,7 +460,7 @@ static void create_filetype_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 		scrolwin = gtk_scrolled_window_new(NULL, NULL);
 		gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolwin),GTK_POLICY_AUTOMATIC,GTK_POLICY_AUTOMATIC);
 		gtk_container_add(GTK_CONTAINER(scrolwin), pd->ftd.lview);
-		gtk_widget_set_usize(scrolwin, 200, 200);
+		gtk_widget_set_usize(scrolwin, 150, 150);
 		gtk_box_pack_start(GTK_BOX(vbox1), scrolwin, TRUE, TRUE, 2);
 		
 		select = gtk_tree_view_get_selection(GTK_TREE_VIEW(pd->ftd.lview));
@@ -530,7 +530,7 @@ static void filefilter_apply_changes(Tprefdialog *pd) {
 				if (strcmp(curval,pd->ffd.curstrarr[0])==0) {
 					gtk_list_store_set(GTK_LIST_STORE(pd->ffd.lstore), &iter
 						,0,strarr[0]
-						,1,strarr[1][0]
+						,1,(strarr[1][0] == '0')
 						,2,strarr[2]
 						,-1);
 					DEBUG_MSG("filefilters_apply_changes, changed in tree model\n");
@@ -567,7 +567,7 @@ static void add_new_filefilter_lcb(GtkWidget *wid, Tprefdialog *pd) {
 		gtk_list_store_append(GTK_LIST_STORE(pd->ffd.lstore), &iter);
 		gtk_list_store_set(GTK_LIST_STORE(pd->ffd.lstore), &iter
 				,0,strarr[0]
-				,1,strarr[1][0]
+				,1,(strarr[1][0]=='0')
 				,2,strarr[2]
 				,-1);
 	}
@@ -577,21 +577,23 @@ static void filefilter_selection_changed_cb(GtkTreeSelection *selection, Tprefdi
 	GtkTreeModel *model;
 	DEBUG_MSG("filefilter_selection_changed_cb, curstrarr=%p, &curstrarr=%p\n", pd->ftd.curstrarr, &pd->ffd.curstrarr);
 	if (gtk_tree_selection_get_selected(selection, &model, &iter)) {
-		gchar *filetype;
+		gchar *filefilter;
 		GList *tmplist = g_list_first(pd->lists[filefilters]);
-		gtk_tree_model_get(model, &iter, 0, &filetype, -1);
+		gtk_tree_model_get(model, &iter, 0, &filefilter, -1);
 		filefilter_apply_changes(pd);
 		while (tmplist) {
 			gchar **strarr =(gchar **)tmplist->data;
-			if (strcmp(strarr[0],filetype)==0) {
+			if (strcmp(strarr[0],filefilter)==0) {
 				gtk_entry_set_text(GTK_ENTRY(pd->ffd.entry[0]), strarr[0]);
 				gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(pd->ffd.check), (strarr[1][0] == '0'));
 				gtk_entry_set_text(GTK_ENTRY(pd->ffd.entry[1]), strarr[2]);
-				pd->ftd.curstrarr = strarr;
+				pd->ffd.curstrarr = strarr;
+				DEBUG_MSG("filefilter_selection_changed_cb, found %s, curstrarr=%p\n", filefilter, strarr);
 				return;
 			}
 			tmplist = g_list_next(tmplist);
 		}
+		DEBUG_MSG("filefilter_selection_changed_cb, could not find the selected text %s\n", filefilter);
 	} else {
 		DEBUG_MSG("filefilter_selection_changed_cb, no selection ?!?!\n");
 	}

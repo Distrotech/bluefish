@@ -534,7 +534,7 @@ void rcfile_parse_main(void)
 		main_v->props.encodings = g_list_append(main_v->props.encodings,array_from_arglist(_("ISO-8859-11 (Thai)"),"ISO-8859-11",NULL));
 		main_v->props.encodings = g_list_append(main_v->props.encodings,array_from_arglist(_("ISO-8859-13 (Latin 7)"),"ISO-8859-13",NULL));
 		main_v->props.encodings = g_list_append(main_v->props.encodings,array_from_arglist(_("ISO-8859-14 (Latin 8)"),"ISO-8859-14",NULL));
-		main_v->props.encodings = g_list_append(main_v->props.encodings,array_from_arglist(_("ISO-8859-15 (Latin 9)"),"ISO-8859-15",NULL));
+		main_v->props.encodings = g_list_append(main_v->props.encodings,array_from_arglist(_("ISO-8859-15 (Latin 9, West European with EURO)"),"ISO-8859-15",NULL));
 		main_v->props.encodings = g_list_append(main_v->props.encodings,array_from_arglist(_("BIG5 (Chinese)"),"BIG5",NULL));
 		main_v->props.encodings = g_list_append(main_v->props.encodings,array_from_arglist(_("SJIS (Japanese)"),"SJIS",NULL));
 		main_v->props.encodings = g_list_append(main_v->props.encodings,array_from_arglist(_("KSC (Korean)"),"KSC",NULL));
