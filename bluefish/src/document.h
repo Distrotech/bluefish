@@ -21,6 +21,11 @@
 #ifndef __DOCUMENT_H_
 #define __DOCUMENT_H_
 
+void doc_new_with_file(gchar * filename);
+void docs_new_from_files(GList * file_list);
+void doc_activate(Tdocument *doc);
+
+/* callbacks for the menu and toolbars */
 void file_save_cb(GtkWidget * widget, gpointer data);
 void file_save_as_cb(GtkWidget * widget, gpointer data);
 void file_move_to_cb(GtkWidget * widget, gpointer data);
