@@ -103,7 +103,7 @@ clean-xsl-us:
 clean-pdf-a4: clean-fo clean-xsl-a4
 	rm -f ${BOOK_PDF_A4_TARGET}
 	
-clean-pdf-us: clean-fo clean-xls-us
+clean-pdf-us: clean-fo clean-xsl-us
 	rm -f ${BOOK_PDF_US_TARGET}
 
 clean-ps-a4: clean-fo clean-xsl-a4
