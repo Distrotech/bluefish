@@ -778,11 +778,13 @@ static void fs_ok_clicked_lcb(GtkWidget * widget, Tfileselect *fileselect)
 		gchar **filenames, **orig;
 		/* multiple files allowed --> scan trough the list for selections */
 		orig = filenames = gtk_file_selection_get_selections(GTK_FILE_SELECTION(fileselect->fs));
-		while (*filenames) {
-			fileselect->filenames_to_return = g_list_append(fileselect->filenames_to_return, g_strdup(*filenames));
-			filenames++;
+		if (filenames) {
+			while (*filenames) {
+				fileselect->filenames_to_return = g_list_append(fileselect->filenames_to_return, g_strdup(*filenames));
+				filenames++;
+			}
+			g_strfreev(orig);
 		}
-		g_strfreev(orig);
 	} else {
 		/* NO multiple files allowed --> return just one file */
 		fileselect->filename_to_return = g_strdup(gtk_file_selection_get_filename(GTK_FILE_SELECTION(fileselect->fs)));
