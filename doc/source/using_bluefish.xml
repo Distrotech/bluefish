@@ -418,7 +418,7 @@ The latest opened directories appear in the upper part of the left side panel, w
 <title>Renaming files</title>
 <para>
 It is also possible to move or rename a document, using the 
-<menuchoice><shortcut><keycap>F2</keycap></shortcut><guimenu>File</guimenu><guimenuitem>Rename...</guimenuitem></menuchoice> menu item.
+<menuchoice><shortcut><keycap>F2</keycap></shortcut><guimenu>File</guimenu><guimenuitem>Rename...</guimenuitem></menuchoice> menu item, or right-clicking the file name in the side panel and choosing the <guimenuitem>Rename</guimenuitem> item.
 		<figure id="figure-moving-file">
 				<title id="figure-moving-file-title">Moving a file to another location</title>
 				<screenshot>
@@ -434,6 +434,75 @@ It is also possible to move or rename a document, using the
 			</figure>
 </para>
 </sect2>
+<sect2 id="closing">
+<title>Closing files</title>
+<para>When you want to close a file quickly, click on the <guilabel>close</guilabel> icon in the document tab. You may also use the <guilabel>Close</guilabel> icon in the main toolbar, or the <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>W</keycap></keycombo></shortcut><guimenu>File</guimenu><guimenuitem>Close</guimenuitem></menuchoice> menu item.		
+		<figure id="figure-document-tab-icon">
+				<title id="figure-document-tab-icon-title">Closing a file with the document tab icon</title>
+				<screenshot>
+					<mediaobject>
+						<imageobject>
+							<imagedata fileref="figures/closing_file_with_tab_icon.png" format="PNG"/>
+						</imageobject>
+						<textobject>
+							<phrase>The close icon in the document tab</phrase>
+						</textobject>
+					</mediaobject>
+				</screenshot>
+			</figure>
+</para>
+<para>If the file is unchanged, it is merely closed. If the file has been modified, you will be presented with a save dialog.
+		<figure id="figure-closing-a-file">
+				<title id="figure-closing-a-file-title">Closing a modified file</title>
+				<screenshot>
+					<mediaobject>
+						<imageobject>
+							<imagedata fileref="figures/closing_a_file.png" format="PNG"/>
+						</imageobject>
+						<textobject>
+							<phrase>Closing a modified file</phrase>
+						</textobject>
+					</mediaobject>
+				</screenshot>
+			</figure>
+</para>
+	<variablelist>
+	<varlistentry>
+          <term><emphasis>Tip</emphasis></term>
+          <listitem>
+            <para>Use it to save and close a file in one step.</para>
+            </listitem>
+     </varlistentry>
+     </variablelist>
+<para>When dealing with multiple files, you may want to use the <menuchoice><shortcut><keycombo><keycap>Shift</keycap><keycap>Ctrl</keycap><keycap>W</keycap></keycombo></shortcut><guimenu>File</guimenu><guimenuitem>Close All</guimenuitem></menuchoice> menu item.</para>
+<para>For each modified file, you will be presented with a save dialog, where you can choose to save the changes, close the file (i.e. discarding any change), or cancel the operation.
+		<figure id="figure-closing-all-files">
+				<title id="figure-closing-all-files-title">Closing all files</title>
+				<screenshot>
+					<mediaobject>
+						<imageobject>
+							<imagedata fileref="figures/closing_all_files.png" format="PNG"/>
+						</imageobject>
+						<textobject>
+							<phrase>Closing all files</phrase>
+						</textobject>
+					</mediaobject>
+				</screenshot>
+			</figure>
+</para>
+	<variablelist>
+	<varlistentry>
+          <term><emphasis>Tip</emphasis></term>
+          <listitem>
+            <para>Say you have a number of open files, and only a few of them have been changed. To quickly close the unchanged files, and remain with the modified ones, use it answering cancel for the latter ones.</para>
+            </listitem>
+     </varlistentry>
+     </variablelist>
+<para>Note that the <menuchoice><guimenu>File</guimenu><guimenuitem>Close Window</guimenuitem></menuchoice> menu item offers the same behaviour.</para>
+</sect2>
+<sect2 id="inserting">
+<title>Inserting files</title>
+<para>You can insert any file into the current document with the <menuchoice><guimenu>File</guimenu><guimenuitem>Insert...</guimenuitem></menuchoice> menu item. The file will be inserting at the cursor location.</para></sect2>
 <sect2 id="editing">
 <title>Editing</title>
 <sect3 id="undo-redo">
@@ -920,42 +989,7 @@ Bluefish can automatically generate thumbnails for images. ..... TO BE WRITTEN B
 	the custom menu.</para>
 	
 	<para>
-	The location for entries in the custom menu is defined by their menu path. A menu path
-	looks like /Main menu/submenu/item or /Main menu/item. 
-	</para>
-	<para>There are two types of items in the custom menu. First is the Custom dialog, which will 
-	insert a string, optionally based on values asked in a dialog. Second is 
-	the Custom Find and Replace, which will run a replace, also optionally based
-	on values asked in a dialog.</para>
-	<para>
-	The most simple custom dialog item has a menupath, for example /MySite/author, and a Formatstring 
-	before, for example 'written by Olivier'. If you add this item, you can add this string
-	by selecting the menu item.
-	</para>
-	<para>SCREENSHOT BY ????</para>
-	<para>
-	In another example, you have a string you often need to set before 
-	and after some block of text. For example 
-	&lt;div class=&quot;MyClass&quot;&gt;&lt;/div&gt;. Now you choose menupath /MySite/div with class
-	and you choose &lt;div class=&quot;MyClass&quot;&gt; as formatstring before, and you 
-	choose &lt;/div&gt; as formatstring after. Click add, and the item is in the menu. 
-	If you now select some text, and activate this menu item, you will see that the
-	first bit of text is added before the selection, and the second bit is added after
-	the selection.
-	</para>
-	<para>
-	Suppose you want to improve this last example. You have both MyClass1 and MyClass2. 
-	Now use 'Number of variables' 1 in the custom menu editor. As you see a new entry 
-	appears where you can enter the name for variable %0. As name we enter 'MyClass number', 
-	and now we change the formatstring before to &lt;div class=&quot;MyClass%0&quot;&gt;.
-	If you now activate this menu, it will ask you for a value for 'MyClass number', and then
-	insert the strings, using the value you provided.
-	</para>
-	<para>SCREENSHOT BY ????</para>
-	<para>
-	Find and replace items are no different. The dialog has some more options, each of these
-	options correspond to the regular replace dialog. Again you can use variables like %0, %1 etc. 
-	to make a certain menu item more flexible.
+	To add your own entries to the custom menu .... TO BE WRITTEN BY ???
 	</para>
 	<para>SCREENSHOT BY ????</para>
 </sect2>
