@@ -147,58 +147,58 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 	</para><para>
 	So how does it work? Lets take a look at a little example text, a piece of PHP code within some html code:
 </para>
-<code>
+<programlisting>
 &lt;p align=&quot;center&quot;&gt;
 &lt;?php
 // this is a comment ?&gt;
 ?&gt;
-</code>
+</programlisting>
 <para>
-The first thing the highlighting engine does is finding the pattern that has the lowest match. Using the default pattern for PHP, the pattern named 'html' has a match at position 0:
+The first thing the highlighting engine does is finding the pattern that has the lowest match. Using the default patterns for PHP, the pattern named <literal>html</literal> has a match at position 0:
 </para>
-<code>
+<programlisting>
 &lt;p align=&quot;center&quot;&gt;
-</code>
+</programlisting>
 <para>
-So now the highlightiong engine searches for the lowest match in all subpatterns of 'html', in the region matched by the type 2 'html' pattern. Again, the lowest match will count. The pattern named 'html-tag' has a match at position 1. This pattern is a type 3 pattern, so it matches a subpattern of the parent:
+So now the highlightiong engine searches for the lowest match in all subpatterns of <literal>html</literal>, in the region matched by the type 2 <literal>html</literal> pattern. Again, the lowest match will count. The pattern named <literal>html-tag</literal> has a match at position 1. This pattern is a type 3 pattern, so it matches a subpattern of the parent:
 </para>
-<code>
+<programlisting>
 p
-</code>
+</programlisting>
 <para>
-the match from subpattern 'html-tag' ends at position 2 and it does not have any child patterns, so the highlighting engine continues at position 2 with all subpatterns from 'html'. A type 2 pattern named 'html-attrib' has the lowest match:
+the match from subpattern <literal>html-tag</literal> ends at position 2 and it does not have any child patterns, so the highlighting engine continues at position 2 with all subpatterns from <literal>html</literal>. A type 2 pattern named <literal>html-attrib</literal> has the lowest match:
 </para>
-<code>
+<programlisting>
 align=&quot;center&quot;
-</code>
+</programlisting>
 <para>
-This pattern does have a child pattern, again a type 3 pattern called 'html-attrib-sub2' matching:
+This pattern does have a child pattern, again a type 3 pattern called <literal>html-attrib-sub2</literal> matching:
 </para>
-<code>
+<programlisting>
 &quot;center&quot;
-</code>
+</programlisting>
 <para>
-The pattern 'html-attrib-sub2' does not have any child patterns, and subpatterns of 'html-attrib' do not have any more matches, and also 'html' subpatterns do not have any more matches. So we are back on the main level, the remaining code to highlight is:
+The pattern <literal>html-attrib-sub2</literal> does not have any child patterns, and subpatterns of <literal>html-attrib</literal> do not have any more matches, and also <literal>html</literal> subpatterns do not have any more matches. So we are back on the main level, the remaining code to highlight is:
 </para>
-<code>
+<programlisting>
 &lt;?php
 // this is a comment ?&gt;
 ?&gt;
-</code>
+</programlisting>
 <para>
-Now a pattern named 'php' has the lowest match. This is a type 0 pattern, so the highlight engine continues with all the remaining code, but it will not only search for the lowest match of the child patterns of 'php', but it will also use for the end pattern of 'php'. The lowest match in this example is a pattern named 'php-comment-C++' As you can see the ?&gt; within the comment does not end the 'php' pattern, because it lies within a subpattern of 'php':
+Now a pattern named <literal>php</literal> has the lowest match. This is a type 0 pattern, so the highlight engine continues with all the remaining code, but it will not only search for the lowest match of the child patterns of <literal>php</literal>, but it will also use for the end pattern of <literal>php</literal>. The lowest match in this example is a pattern named <literal>php-comment-C++</literal> As you can see the ?&gt; within the comment does not end the <literal>php</literal> pattern, because it lies within a subpattern of <literal>php</literal>:
 </para>
-<code>
+<programlisting>
 // this is a comment ?&gt;
-</code>
+</programlisting>
 <para>
-The pattern 'php-comment-C++' does not have any child patterns, so the remaining code for the 'php' subpatterns is:
+The pattern <literal>php-comment-C++</literal> does not have any child patterns, so the remaining code for the <literal>php</literal> subpatterns is:
 </para>
-<code>
+<programlisting>
 ?&gt;
-</code>
+</programlisting>
 <para>
-It is very obvious now, the lowest match will be the end pattern of the 'php' pattern, so we're back on the main level, and we have matched all of the code!
+It is very obvious now, the lowest match will be the end pattern of the <literal>php</literal> pattern, so we're back on the main level, and we have matched all of the code!
 </para>
 
 
