@@ -24,14 +24,14 @@
  *              ________________/ | \  \___________________________
  *             /      / |         |  \                   \  \      \
  *  search_bookmark  |  |         |  replace_prompt_all  |   \      \
- *     |     |      /   |         |         /           /     \      \
+ *     |            /   |         |         /           /     \      \
  *     |   search_all   |   _____replace_prompt_doc    /       \    replace_all
- *      \    |          |  /          /               /         \     /
- *       \   \   doc_show_result     /  replace_doc_once   replace_doc_multiple
- *        \   \                   __/                  \         /
- *        search_doc             /                   replace_backend
- *                \             /  ___________________________/
- *                 \           /  /
+ *     |     |          |  /          /               /         \     /
+ *     |     \   doc_show_result     /  replace_doc_once   replace_doc_multiple
+ *     |      \                   __/                  \         /
+ *     |  search_doc             /                   replace_backend
+ *      \________ \             /  ___________________________/
+ *               \ \           /  /
  *                 search_backend
  */
 /*****************************************************/
@@ -147,6 +147,7 @@ static void reset_last_snr2(Tbfwin *bfwin) {
  * @matchtype: see #Tmatch_types
  * @is_case_sens: If the search is case sensitive, #gint
  * @buf: #gchar* to the document buffer
+ * @byte_offset: #guint where in the buffer the search should start, in bytes, not characters
  * @want_submatches: #gint
  * 
  * Performs an actual search in a supplied buffer (#gchar*, aka string).
@@ -154,7 +155,7 @@ static void reset_last_snr2(Tbfwin *bfwin) {
  *
  * Return value: #Tsearch_result, contains both character and byte offsets, for wide-char-compatibility. Note values for start/end are set to -1 on error.
  **/
-Tsearch_result search_backend(Tbfwin *bfwin, gchar *search_pattern, Tmatch_types matchtype, gint is_case_sens, gchar *buf, gboolean want_submatches) {
+Tsearch_result search_backend(Tbfwin *bfwin, gchar *search_pattern, Tmatch_types matchtype, gint is_case_sens, gchar *buf, guint byte_offset, gboolean want_submatches) {
 	Tsearch_result returnvalue;
 	int (*f) ();
 	gint buflen, patlen, match, i;
@@ -169,7 +170,7 @@ Tsearch_result search_backend(Tbfwin *bfwin, gchar *search_pattern, Tmatch_types
 		DEBUG_MSG("search_backend, search_pattern or buf is NULL\n");
 		return returnvalue;
 	}
-	
+	DEBUG_MSG("search_backend, starting for byte_offset=%u\n",byte_offset);
 	if (matchtype == match_posix) {
 		/* regex part start */
 		regex_t reg_pat;
@@ -193,7 +194,7 @@ Tsearch_result search_backend(Tbfwin *bfwin, gchar *search_pattern, Tmatch_types
 		nmatch = (want_submatches) ? reg_pat.re_nsub+1 : 1;
 		DEBUG_MSG("search_backend, expr. contains %d sub search_patterns\n", reg_pat.re_nsub );
 		pmatch = g_malloc(nmatch*sizeof(regmatch_t));
-		retval = regexec(&reg_pat, buf, nmatch, pmatch, 0);
+		retval = regexec(&reg_pat, buf+byte_offset, nmatch, pmatch, 0);
 		DEBUG_MSG("search_backend, regexec retval=%d\n", retval);
 		if (retval != 0) {
 			pmatch[0].rm_so = -1;
@@ -206,8 +207,8 @@ Tsearch_result search_backend(Tbfwin *bfwin, gchar *search_pattern, Tmatch_types
 			}
 		}
 #endif
-		returnvalue.bstart = pmatch[0].rm_so;
-		returnvalue.bend = pmatch[0].rm_eo;
+		returnvalue.bstart = pmatch[0].rm_so + byte_offset;
+		returnvalue.bend = pmatch[0].rm_eo + byte_offset;
 		regfree(&reg_pat);
 		if (want_submatches) {
 			returnvalue.pmatch = pmatch;
@@ -232,10 +233,10 @@ Tsearch_result search_backend(Tbfwin *bfwin, gchar *search_pattern, Tmatch_types
 			g_free(errstring);
 			return returnvalue;/* error compiling the search_pattern, returning the default result set,which is the 'nothing found' set */
 		}
-		retval = pcre_exec(pcre_c,NULL,buf,strlen(buf),0,0,ovector,30);
+		retval = pcre_exec(pcre_c,NULL,buf+byte_offset,strlen(buf+byte_offset),0,0,ovector,30);
 		if (retval > 0) {
-			returnvalue.bstart = ovector[0];
-			returnvalue.bend = ovector[1];
+			returnvalue.bstart = ovector[0] + byte_offset;
+			returnvalue.bend = ovector[1] + byte_offset;
 		} else {
 			returnvalue.bstart = -1;
 			returnvalue.bend = -1;
@@ -247,8 +248,8 @@ Tsearch_result search_backend(Tbfwin *bfwin, gchar *search_pattern, Tmatch_types
 			DEBUG_MSG("search_backend, nmatch=%d, retval=%d\n", nmatch, retval);
 			pmatch = g_malloc((nmatch+1)*sizeof(regmatch_t));
 			for (i=0;i<=nmatch;i++) { /* nmatch==1 means 1 subsearch_pattern, so 2 search_patterns in total*/
-				pmatch[i].rm_so = ovector[i*2];
-				pmatch[i].rm_eo = ovector[i*2+1];
+				pmatch[i].rm_so = ovector[i*2] + byte_offset;
+				pmatch[i].rm_eo = ovector[i*2+1] + byte_offset;
 			}
 			returnvalue.pmatch = pmatch;
 			returnvalue.nmatch = retval;
@@ -273,7 +274,7 @@ Tsearch_result search_backend(Tbfwin *bfwin, gchar *search_pattern, Tmatch_types
 		buflen = strlen(buf);
 		patlen = strlen(search_pattern);
 		
-		for (i = 0; i <= (buflen - patlen); i++) {
+		for (i = byte_offset; i <= (buflen - patlen); i++) {
 			match = f(&buf[i], search_pattern, patlen);
 			if (match == 0) {
 				returnvalue.bstart = i;
@@ -284,9 +285,9 @@ Tsearch_result search_backend(Tbfwin *bfwin, gchar *search_pattern, Tmatch_types
 		/* non regex part end */	
 	}
 	
-	/* for multibyte characters */
+	/* if we have a valid result, we now calculate the character offsets for this result */
 	if (returnvalue.bstart >= 0 && returnvalue.bend >= 0) {
-		utf8_offset_cache_reset();
+		/* utf8_offset_cache_reset(); */
 		if (returnvalue.bstart >= 0) {
 			returnvalue.start = utf8_byteoffset_to_charsoffset_cached(buf, returnvalue.bstart);
 		}
@@ -307,7 +308,7 @@ Tsearch_result search_backend(Tbfwin *bfwin, gchar *search_pattern, Tmatch_types
 		returnvalue.bend = -1;
 	}
 
-	DEBUG_MSG("search_backend, returning result.start=%d, result.end=%d\n", returnvalue.start, returnvalue.end);
+	DEBUG_MSG("search_backend, returning result.start=%d, result.end=%d, bstart=%d, bend=%d\n", returnvalue.start, returnvalue.end, returnvalue.bstart, returnvalue.bend);
 	return returnvalue;
 }
 
@@ -332,6 +333,7 @@ Tsearch_result search_doc(Tbfwin *bfwin,Tdocument *document, gchar *search_patte
 	Tsearch_result result;
 	
 	DEBUG_MSG("search_doc, started on document %p, startpos=%d\n", document, startpos);
+	utf8_offset_cache_reset();
 	fulltext = doc_get_chars(document, startpos, -1);
 	DEBUG_MSG("search_doc, fulltext=%p, search_pattern=%p\n", fulltext, search_pattern);
 	if (unescape) {
@@ -339,7 +341,7 @@ Tsearch_result search_doc(Tbfwin *bfwin,Tdocument *document, gchar *search_patte
 	} else {
 		realpat = search_pattern;
 	}
-	result = search_backend(bfwin,realpat, matchtype, is_case_sens, fulltext, FALSE);
+	result = search_backend(bfwin,realpat, matchtype, is_case_sens, fulltext, 0, FALSE);
 	if (unescape) {
 		g_free(realpat);
 	}
@@ -533,7 +535,7 @@ static gchar *reg_replace(gchar *replace_pattern, gint offset, Tsearch_result re
  * Return value: #Tsearch_result
  **/
 Tsearch_result replace_backend(Tbfwin *bfwin,gchar *search_pattern, Tmatch_types matchtype, gint is_case_sens
-			, gchar *buf, gchar *replace_pattern, Tdocument *doc, gint offset, Treplace_types replacetype
+			, gchar *buf, guint byte_offset, gchar *replace_pattern, Tdocument *doc, gint offset, Treplace_types replacetype
 			, gint *replacelen, gboolean unescape) {
 /* the offset in this function is the difference between the buffer and the text widget because of previous replace 
 actions, so the first char in buf is actually number offset in the text widget */
@@ -547,7 +549,7 @@ actions, so the first char in buf is actually number offset in the text widget *
 	} else {
 		realpat = search_pattern;
 	}
-	result = search_backend(bfwin,realpat, matchtype, is_case_sens, buf, (matchtype != match_normal));
+	result = search_backend(bfwin,realpat, matchtype, is_case_sens, buf, byte_offset, (matchtype != match_normal));
 	if (unescape) {
 		DEBUG_MSG("replace_backend, free-ing realpat\n");
 		g_free(realpat);
@@ -619,7 +621,7 @@ Tsearch_result replace_doc_once(Tbfwin *bfwin,gchar *search_pattern, Tmatch_type
 
 	doc_unre_new_group(doc);
 	fulltext = doc_get_chars(doc, startpos, endpos);
-	result = replace_backend(bfwin,search_pattern, matchtype, is_case_sens, fulltext, replace_pattern, doc, startpos, replacetype, &replacelen, unescape);
+	result = replace_backend(bfwin,search_pattern, matchtype, is_case_sens, fulltext, 0, replace_pattern, doc, startpos, replacetype, &replacelen, unescape);
 	if ( result.end > 0) {
 		LASTSNR2(bfwin->snr2)->result.start = result.start + startpos;
 		LASTSNR2(bfwin->snr2)->result.end = result.end + startpos;
@@ -660,7 +662,7 @@ void replace_doc_multiple(Tbfwin *bfwin,gchar *search_pattern, Tmatch_types matc
 	gchar *fulltext, *realpats, *realpatr;
 	gboolean realunesc;
 	Tsearch_result result;
-	gint in_buf_offset=0;
+	gint buf_byte_offset=0;
 	gint buf_text_offset=startpos;
 	gint replacelen; /* replacelen -1 means there is no replacelen known yet */
 	doc_unre_new_group(doc);
@@ -686,36 +688,26 @@ void replace_doc_multiple(Tbfwin *bfwin,gchar *search_pattern, Tmatch_types matc
 		realunesc = unescape;
 	}
 	fulltext = doc_get_chars(doc, startpos, endpos);
-	result = replace_backend(bfwin,realpats, matchtype, is_case_sens, fulltext, realpatr, doc, buf_text_offset, replacetype, &replacelen, realunesc);
+	result = replace_backend(bfwin,realpats, matchtype, is_case_sens, fulltext, 0, realpatr, doc, buf_text_offset, replacetype, &replacelen, realunesc);
 	while (result.end > 0) {
 		if (replacetype == string) {
 			buf_text_offset += replacelen - (result.end - result.start);
 		}
 		if (LASTSNR2(bfwin->snr2)->overlapping_search) {
-/*			if (GTK_TEXT(doc->textbox)->use_wchar) {
-				onechar = gtk_editable_get_chars(GTK_EDITABLE(doc->textbox), startpos + result.start, startpos + result.start + 1);
-				if (onechar) {
-					in_buf_offset += result.bstart + strlen(onechar);
-				} else {
-					in_buf_offset += result.bstart + 1;
-				}
-				g_free(onechar);
-			} else {*/
-				in_buf_offset += result.bstart + 1;
-/*			}*/
-			buf_text_offset += result.start + 1;
+			buf_byte_offset = result.bstart + 1;
+			/* buf_text_offset += result.start + 1; */
 		} else {
-			in_buf_offset += result.bend;
-			buf_text_offset += result.end;
+			buf_byte_offset = result.bend;
+			/* buf_text_offset += result.end; */
 		}
-		DEBUG_MSG("replace_doc_multiple, after first search, buf_text_offset=%d, in_buf_offset=%d\n", buf_text_offset, in_buf_offset);
+		DEBUG_MSG("replace_doc_multiple, after first search, buf_text_offset=%d, buf_byte_offset=%d\n", buf_text_offset, buf_byte_offset);
 		if (matchtype != match_normal && replacetype == string) {
 			/* all regex replaces can have different replace lengths, so they have to be re-calculated */
 			replacelen = -1;
 		}
-		result = replace_backend(bfwin,realpats, matchtype, is_case_sens, &fulltext[in_buf_offset], realpatr, doc, buf_text_offset, replacetype, &replacelen, realunesc);
+		result = replace_backend(bfwin,realpats, matchtype, is_case_sens, fulltext, buf_byte_offset, realpatr, doc, buf_text_offset, replacetype, &replacelen, realunesc);
 
-		DEBUG_MSG("replace_doc_multiple, 1- buf_text_offset=%d, in_buf_offset=%d, result.start=%d, result.end=%d\n", buf_text_offset, in_buf_offset, result.start, result.end);
+		DEBUG_MSG("replace_doc_multiple, 1- buf_text_offset=%d, buf_byte_offset=%d, result.start=%d, result.end=%d\n", buf_text_offset, buf_byte_offset, result.start, result.end);
 	}
 	if (unescape && (matchtype == match_normal || replacetype != string)) {
 		DEBUG_MSG("replace_doc_multiple, free-ing realpats and realpatr\n");
@@ -927,12 +919,13 @@ gint replace_prompt_doc(Tbfwin *bfwin, gchar *search_pattern, Tmatch_types match
 		LASTSNR2(bfwin->snr2)->result.pmatch = NULL;
 	}
 	fulltext = doc_get_chars(doc, startpos, endpos);
+	utf8_offset_cache_reset();
 	if (unescape) {
 		realpat = unescape_string(search_pattern, FALSE);
 	} else {
 		realpat = search_pattern;
 	}
-	result = search_backend(bfwin,realpat, matchtype, is_case_sens, fulltext, 1);
+	result = search_backend(bfwin,realpat, matchtype, is_case_sens, fulltext,0, 1);
 	if (unescape) {
 		g_free(realpat);
 	}
@@ -997,26 +990,27 @@ void replace_prompt_all(Tbfwin *bfwin,gchar *search_pattern, Tmatch_types matcht
 
 static void search_doc_bookmark_backend(Tbfwin *bfwin,Tdocument *document, gchar *search_pattern, Tmatch_types matchtype, gint is_case_sens, gint startpos, gboolean unescape) {
 	gchar *fulltext, *realpat;
-	gint in_buf_offset=0;
+	gint buf_byte_offset=0;
 	Tsearch_result result;
 	fulltext = doc_get_chars(document, 0, -1);
+	utf8_offset_cache_reset();
 	if (unescape) {
 		realpat = unescape_string(search_pattern, FALSE);
 	} else {
 		realpat = search_pattern;
 	}
-	result = search_backend(bfwin,realpat, matchtype, is_case_sens, fulltext, FALSE);
+	result = search_backend(bfwin,realpat, matchtype, is_case_sens, fulltext, 0, FALSE);
 	while (result.end > 0) {
-		gchar *text = doc_get_chars(document, in_buf_offset +result.start, in_buf_offset +result.end);
-		DEBUG_MSG("search_bookmark, adding bookmark '%s' at %d\n", text, in_buf_offset +result.start);
-		bmark_add_extern(document, in_buf_offset +result.start, NULL, text, !main_v->props.bookmarks_default_store);
+		gchar *text = doc_get_chars(document, result.start, result.end);
+		DEBUG_MSG("search_bookmark, adding bookmark '%s' at %d\n", text, result.start);
+		bmark_add_extern(document, result.start, NULL, text, !main_v->props.bookmarks_default_store);
 		g_free(text);
 		if (LASTSNR2(bfwin->snr2)->overlapping_search) {
-			in_buf_offset += result.start + 1;
+			buf_byte_offset = result.bstart + 1;
 		} else {
-			in_buf_offset += result.end;
+			buf_byte_offset = result.bend;
 		}
-		result = search_backend(bfwin,realpat, matchtype, is_case_sens, &fulltext[in_buf_offset], FALSE);
+		result = search_backend(bfwin,realpat, matchtype, is_case_sens, fulltext, buf_byte_offset, FALSE);
 	}
 	if (unescape) {
 		g_free(realpat);
@@ -1200,6 +1194,7 @@ void snr2_run_extern_replace(Tdocument *doc, gchar *search_pattern, gint region,
  	LASTSNR2(bfwin->snr2)->unescape = 0;
 	LASTSNR2(bfwin->snr2)->matchtype_option = matchtype;
  	LASTSNR2(bfwin->snr2)->replacetype_option = string;
+ 	LASTSNR2(bfwin->snr2)->bookmark_results = 0;
 	snr2_run(BFWIN(doc->bfwin),doc);
 	if (store_as_last_snr2) {
 		DEBUG_MSG("free-ing old patterns at %p and %p\n",search_pattern_bck,replace_pattern_bck);
@@ -1659,6 +1654,7 @@ void update_filenames_in_file(Tdocument *doc, gchar *oldfilename, gchar *newfile
 	}
 
 	fulltext = doc_get_chars(doc, 0, -1);
+	utf8_offset_cache_reset();
 	result = search_backend(search_pattern, matchtype, is_case_sens, fulltext, 0);
 	while (result.end > 0) {
 		if (doc_has_newfilename) {
@@ -1695,7 +1691,8 @@ void update_encoding_meta_in_file(Tdocument *doc, gchar *encoding) {
 		/* first find if there is a meta encoding tag already */
 		search_pattern = "<meta[ \t\n]http-equiv[ \t\n]*=[ \t\n]*\"content-type\"[ \t\n]+content[ \t\n]*=[ \t\n]*\"text/html;[ \t\n]*charset=[a-z0-9-]+\"[ \t\n]*>";
 		fulltext = doc_get_chars(doc, 0, -1);
-		result = search_backend(bfwin,search_pattern, match_posix, 0, fulltext, 0);
+		utf8_offset_cache_reset();
+		result = search_backend(bfwin,search_pattern, match_posix, 0, fulltext, 0, 0);
 		if (result.end > 0) {
 			gchar *replacestring = g_strconcat("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=",encoding,"\">", NULL);
 			DEBUG_MSG("update_encoding_meta_in_file, 1: we have a match\n");
@@ -1705,7 +1702,7 @@ void update_encoding_meta_in_file(Tdocument *doc, gchar *encoding) {
 			DEBUG_MSG("update_encoding_meta_in_file, 1: NO match\n");
 			/* now search for <head>, we can append it to this tag */
 			search_pattern = "<head>";
-			result = search_backend(bfwin,search_pattern, match_posix, 0, fulltext, 0);
+			result = search_backend(bfwin,search_pattern, match_posix, 0, fulltext, 0, 0);
 			if (result.end > 0) {
 				gchar *replacestring = g_strconcat("<head>\n<meta http-equiv=\"Content-Type\" content=\"text/html; charset=",encoding,"\">", NULL);
 				DEBUG_MSG("update_encoding_meta_in_file, 2: we have a match\n");

@@ -1047,7 +1047,13 @@ static Tbmark *bmark_get_bmark_at_line(Tdocument *doc, gint offset) {
 	eit = sit;
 	gtk_text_iter_set_line_offset(&sit, 0);
 	gtk_text_iter_forward_to_line_end(&eit);
-	DEBUG_MSG("bmark_get_bmark_at_line, searching bookmarks between offsets %d - %d\n",gtk_text_iter_get_offset(&sit),gtk_text_iter_get_offset(&eit));
+#ifdef DEBUG
+	{
+		gchar *tmp = gtk_text_buffer_get_text(doc->buffer, &sit,&eit,FALSE);
+		DEBUG_MSG("bmark_get_bmark_at_line, searching bookmarks between offsets %d - %d --> '%s'\n",gtk_text_iter_get_offset(&sit),gtk_text_iter_get_offset(&eit),tmp);
+		g_free(tmp);
+	}
+#endif
 	/* check for existing bookmark in this place */
 	if (DOCUMENT(doc)->bmark_parent) {
 		gboolean cont;
