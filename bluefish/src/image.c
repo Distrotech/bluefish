@@ -471,7 +471,7 @@ void multi_thumbnail_dialog_cb(GtkWidget * widget, gpointer data) {
 	
 	
 	mtd = g_new(Tmuthudia, 1);
-	mtd->win = window_full(_("Multi thumbnail"), GTK_WIN_POS_MOUSE, 5, G_CALLBACK(multi_thumbnail_dialog_destroy), mtd);
+	mtd->win = window_full(_("Multi thumbnail"), GTK_WIN_POS_MOUSE, 5, G_CALLBACK(multi_thumbnail_dialog_destroy), mtd, TRUE);
 	vbox = gtk_vbox_new(FALSE,5);
 	gtk_container_add(GTK_CONTAINER(mtd->win), vbox);
 	

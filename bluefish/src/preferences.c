@@ -1388,7 +1388,7 @@ static void preferences_dialog() {
 	GtkWidget *dvbox, *frame, *vbox1, *vbox2;
 
 	pd = g_new0(Tprefdialog,1);
-	pd->win = window_full(_("Edit preferences"), GTK_WIN_POS_NONE, 0, G_CALLBACK(preferences_destroy_lcb), pd);
+	pd->win = window_full(_("Edit preferences"), GTK_WIN_POS_NONE, 0, G_CALLBACK(preferences_destroy_lcb), pd, TRUE);
 	
 	dvbox = gtk_vbox_new(FALSE, 5);
 	gtk_container_add(GTK_CONTAINER(pd->win), dvbox);

@@ -777,7 +777,7 @@ static void create_file_or_dir_win(gint is_file) {
 		}
 		ws->is_file = is_file;
 
-		ws->win = window_full(title, GTK_WIN_POS_MOUSE, 5,G_CALLBACK(create_file_or_dir_destroy_lcb), ws);
+		ws->win = window_full(title, GTK_WIN_POS_MOUSE, 5,G_CALLBACK(create_file_or_dir_destroy_lcb), ws, TRUE);
 		vbox = gtk_vbox_new(FALSE, 0);
 		gtk_container_add(GTK_CONTAINER(ws->win), vbox);
 		ws->entry = boxed_entry_with_text(NULL, 250, vbox);

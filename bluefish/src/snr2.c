@@ -35,7 +35,7 @@
  *             search_backend
  */
 /*****************************************************/
-/*#define DEBUG*/
+#define DEBUG
 
 #include <gtk/gtk.h>
 
@@ -674,7 +674,7 @@ void replace_prompt_dialog() {
 	GtkWidget *butok, *butcancel, *butall;
 
 	DEBUG_MSG("replace_prompt_dialog, start\n");
-	win = window_full(_("Confirm replace"), GTK_WIN_POS_MOUSE, 5, G_CALLBACK(window_close_by_widget_cb), NULL);
+	win = window_full(_("Confirm replace"), GTK_WIN_POS_MOUSE, 5, G_CALLBACK(window_close_by_widget_cb), NULL, TRUE);
 	vbox = gtk_vbox_new(FALSE, 3);
 	gtk_container_add(GTK_CONTAINER(win), vbox);
 	gtk_box_pack_start(GTK_BOX(vbox), gtk_label_new(_("Are you sure you want to replace this?")), FALSE, FALSE,3);
@@ -887,8 +887,11 @@ void snr2_run_extern_replace(gchar *pattern, gint region,
 /*****************************************************/
 
 static void snr2dialog_destroy_lcb(GtkWidget *widget, GdkEvent *event, gpointer data) {
+	DEBUG_MSG("snr2dialog_destroy_lcb, started, about to call window_destroy\n");
 	window_destroy(((Tsnr2_win *)data)->window);
+	DEBUG_MSG("snr2dialog_destroy_lcb, about to free data %p\n", data);
 	g_free(data);
+	DEBUG_MSG("snr2dialog_destroy_lcb, done\n");
 }
 
 static void snr2dialog_cancel_lcb(GtkWidget *widget, gpointer data) {
@@ -989,7 +992,7 @@ static void snr2dialog(gint is_replace, gint is_new_search) {
 		last_snr2.result.end = -1;
 		last_snr2.doc = NULL;
 	}
-	snr2win->window = window_full(tmptext, GTK_WIN_POS_MOUSE, 5, G_CALLBACK(snr2dialog_destroy_lcb), snr2win);
+	snr2win->window = window_full(tmptext, GTK_WIN_POS_MOUSE, 5, G_CALLBACK(snr2dialog_destroy_lcb), snr2win, TRUE);
 	gtk_window_set_role(GTK_WINDOW(snr2win->window), "snr");
 	vbox = gtk_vbox_new(FALSE, 1);
 	gtk_container_add(GTK_CONTAINER(snr2win->window), vbox);
@@ -1000,7 +1003,7 @@ static void snr2dialog(gint is_replace, gint is_new_search) {
 	{
 		GtkWidget *scrolwin = textview_buffer_in_scrolwin(&snr2win->patternv, 300, 50, last_snr2.pattern, GTK_WRAP_NONE);
 		gtk_box_pack_start(GTK_BOX(hbox), scrolwin, TRUE, TRUE, 0);
-		g_signal_connect(G_OBJECT(snr2win->patternv), "key_press_event", patternv_key_press_event_lcb, snr2win);
+		g_signal_connect(G_OBJECT(snr2win->patternv), "key_press_event", G_CALLBACK(patternv_key_press_event_lcb), snr2win);
 	}
 
 	frame = gtk_frame_new(_("Where"));

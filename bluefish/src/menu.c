@@ -1085,7 +1085,7 @@ static void cust_con_struc_dialog(gchar **array, gint type) {
 	DEBUG_MSG("cust_con_struc_dialog_cb, array at %p, &array[0]=%p\n", ccs->array, &ccs->array[0]);
 	DEBUG_MSG("cust_con_struc_dialog_cb, array[0] at %p, *array=%p\n", ccs->array[0], *ccs->array);
 	ccs->dialog = window_full(ccs->array[0], GTK_WIN_POS_MOUSE,  
-			5, G_CALLBACK(cust_con_struc_dialog_cancel_lcb), ccs);
+			5, G_CALLBACK(cust_con_struc_dialog_cancel_lcb), ccs, TRUE);
 	vbox = gtk_vbox_new(TRUE, 0);
 	gtk_container_add(GTK_CONTAINER(ccs->dialog), vbox);
 	DEBUG_MSG("cust_con_struc_dialog_cb, ccs->array[0]=%s\n", ccs->array[0]);
@@ -1645,7 +1645,7 @@ void cmenu_editor(GtkWidget *widget, gpointer data) {
 	cme = g_malloc0(sizeof(Tcmenu_editor));
 	DEBUG_MSG("cmenu_editor, cme is at %p\n", cme);
 	cme->win = window_full(_("Edit custom menu"), GTK_WIN_POS_NONE
-			, 5, G_CALLBACK(cme_destroy_lcb), cme);
+			, 5, G_CALLBACK(cme_destroy_lcb), cme, TRUE);
 
 	vbox = gtk_vbox_new(FALSE, 2);
 	gtk_container_add(GTK_CONTAINER(cme->win), vbox);

@@ -16,10 +16,11 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-/*#define DEBUG*/
+#define DEBUG
 #include <gtk/gtk.h>
 #include <stdlib.h> /* strtod() */
 #include <string.h> /* strlen() */
+#include <gdk/gdkkeysyms.h> /* GDK_Return */
 
 #include "bluefish.h"
 #include "gtk_easy.h"
@@ -61,10 +62,13 @@ void flush_queue(void)
  */
 void window_destroy(GtkWidget * windowname)
 {
-	DEBUG_MSG("window_destroy, windowname=%p\n", windowname);
+	DEBUG_MSG("window_destroy, windowname=%p, first the signal handlers\n", windowname);
 	g_signal_handlers_destroy(G_OBJECT(windowname));
+	DEBUG_MSG("window_destroy, then remove the grab\n");
 	gtk_grab_remove(windowname);
+	DEBUG_MSG("window_destroy, then destroy the widget\n");
 	gtk_widget_destroy(windowname);
+	DEBUG_MSG("window_destroy, done\n");
 }
 
 /*
@@ -380,6 +384,16 @@ GTK_WIN_POS_NONE
 GTK_WIN_POS_CENTER
 GTK_WIN_POS_MOUSE */
 
+static gboolean window_full_key_press_event_lcb(GtkWidget *widget,GdkEventKey *event,GtkWidget *win) {
+	DEBUG_MSG("window_full_key_press_event_lcb, started\n");
+	if (event->keyval == GDK_Escape) {
+		DEBUG_MSG("window_full_key_press_event_lcb, emit delete_event on %p\n", win);
+/*		g_signal_emit_by_name(G_OBJECT(win), "delete_event");*/
+		return TRUE;
+	}
+	return FALSE;
+}
+
 /*
  * Function: window_full
  * Arguments:
@@ -395,7 +409,8 @@ GTK_WIN_POS_MOUSE */
  */
 GtkWidget *window_full(gchar * title, GtkWindowPosition position
 			, gint borderwidth, GCallback close_func
-			, gpointer close_data)
+			, gpointer close_data
+			, gboolean delete_on_escape)
 {
 
 	GtkWidget *returnwidget;
@@ -403,7 +418,10 @@ GtkWidget *window_full(gchar * title, GtkWindowPosition position
 	returnwidget = window_with_title(title, position, borderwidth);
 	g_signal_connect(G_OBJECT(returnwidget), "delete_event", close_func, close_data);
 	g_signal_connect(G_OBJECT(returnwidget), "destroy", close_func, close_data);
-
+	if (delete_on_escape) {
+		g_signal_connect(G_OBJECT(returnwidget), "key_press_event", G_CALLBACK(window_full_key_press_event_lcb), returnwidget);
+	}
+	DEBUG_MSG("window_full, return %p\n", returnwidget);
 	return returnwidget;
 }
 /*
@@ -677,7 +695,7 @@ gint multi_button_dialog_backend(gboolean use_gtk_stock_buttons, gchar *title, g
 	mbd->retval = defval;
 
 	mbd->win = window_full(title, GTK_WIN_POS_CENTER, 5,
-			G_CALLBACK(mubudi_destroy_lcb), mbd);
+			G_CALLBACK(mubudi_destroy_lcb), mbd, FALSE);
 	gtk_grab_add(mbd->win);
 
 	vbox = gtk_vbox_new(FALSE, 5);

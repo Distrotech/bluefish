@@ -21,7 +21,7 @@
 #include <gtk/gtk.h>
 #include <string.h>	/* strrchr */
 #include <stdlib.h> /* strtod */
-
+#define DEBUG
 
 #include "bluefish.h"
 #include "html_diag.h" /* myself */
@@ -36,7 +36,9 @@ Trecent_attribs recent_attribs;
 /*****************************************/
 
 void html_diag_destroy_cb(GtkWidget * widget, GdkEvent *event,  Thtml_diag *dg) {
+	DEBUG_MSG("html_diag_destroy_cb, widget=%p, dg->dialog=%p\n",widget,dg->dialog);
 	window_destroy(dg->dialog);
+	DEBUG_MSG("html_diag_destroy_cb, about to free dg=%p\n",dg);
 	g_free(dg);
 }
 
@@ -48,8 +50,9 @@ Thtml_diag *html_diag_new(gchar *title) {
 	Thtml_diag *dg;
 	
 	dg = g_malloc(sizeof(Thtml_diag));
+	DEBUG_MSG("html_diag_new, dg=%p\n",dg);
 	dg->dialog = window_full(title, GTK_WIN_POS_MOUSE
-		, 5,G_CALLBACK(html_diag_destroy_cb), dg);
+		, 5,G_CALLBACK(html_diag_destroy_cb), dg, TRUE);
 	gtk_window_set_type_hint(GTK_WINDOW(dg->dialog), GDK_WINDOW_TYPE_HINT_DIALOG);
 
 	gtk_window_set_role(GTK_WINDOW(dg->dialog), "html_dialog");
