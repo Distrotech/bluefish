@@ -300,7 +300,7 @@ The latest opened directories appear in the upper part of the left side panel, w
 	Recently opened files can be opened by selecting them from the list within <menuchoice><guimenu>File</guimenu><guimenuitem>Open recent</guimenuitem></menuchoice>. The number of files in this menu can be set in the preferences under <emphasis>Files</emphasis>.
 	</para>
 	<para>
-	The file browser in the side panel can also be used to open files. It supports filtering files, by right clicking the contextual menu in the filebrowser. If you right click a directory, you can make this directory the base directory for the filebrowser using the <guimenuitem>Set as basedir</guimenuitem> option. Then you can access it directly from the popup menu in the upper part of the file browser.
+	The file browser in the side panel can also be used to open files. It supports filtering files, by right clicking the contextual menu in the filebrowser.
 				<figure id="figure-file-browser-filtering">
 				<title id="figure-file-browser-filtering-title">Filtering Files with the Bluefish File Browser</title>
 				<screenshot>
@@ -315,7 +315,9 @@ The latest opened directories appear in the upper part of the left side panel, w
 				</screenshot>
 			</figure>
 </para>
-	<para> By default the filebrowser follows the document focus. If you change to
+<para>The available filters may be modified in Preferences. For more information, see <xref linkend="modifying-filefilters" />.
+</para>
+<para>If you right click a directory, you can make this directory the base directory for the filebrowser using the <guimenuitem>Set as basedir</guimenuitem> option. Then you can access it directly from the popup menu in the upper part of the file browser.</para>	<para> By default the filebrowser follows the document focus. If you change to
 	a different document, the filebrowser will show the contents of the directory
 	where this document is located. This behaviour can be changed on the bottom of the 
 	filebrowser.</para>
@@ -689,7 +691,23 @@ If the type of a file is not properly detected, you can change the type using th
 					</mediaobject>
 				</screenshot>
 			</figure>
-			</para>
+		</para>
+<para>Here you can see the style sheet of an Apache web site, nicely highlighted after its opening via the Bluefish <menuchoice><guimenu>File</guimenu><guimenuitem>Open URL</guimenuitem></menuchoice> menu.</para>
+	<para>		
+	<figure id="figure-open-url-result">
+				<title id="figure-open-url-result-title">A style sheet opened via the Open URL menu</title>
+				<screenshot>
+					<mediaobject>
+						<imageobject>
+							<imagedata fileref="figures/open_url_result.png" format="PNG"/>
+						</imageobject>
+						<textobject>
+							<phrase>A style sheet opened via the Open URL menu</phrase>
+						</textobject>
+					</mediaobject>
+				</screenshot>
+			</figure>
+		</para>
 </sect3>
 <sect3 id="character-encoding">
 <title>Character encoding</title>
@@ -1242,22 +1260,7 @@ Bluefish can automatically generate thumbnails for images. ..... TO BE WRITTEN B
 </sect1>
 <sect1 id="bluefish-preferences">
 <title>Customising Bluefish</title>
-<sect2 id="editor-preferences">
-<title>Editor preferences</title>
-	<para>The font of the editor can be set in the preferences under <emphasis>Editor</emphasis>. </para>
-	<para>
-	A frequently asked question is how to change the background color of the editor in Bluefish.
-	Bluefish uses the default editor background color as set in your GTK theme. If you want to 
-	override the color of the theme, edit ~/.gtkrc-2.0 and add this section:
-<programlisting>
-style "EditorStyle" {
-        base[NORMAL]="#eeeeee"
-}
-class "GtkTextView" style "EditorStyle"
-</programlisting>
-	Obviously, #eeeeee should be your preferred background color.
-	</para>
-<sect3 id="changing-shortcut-keys">
+<sect2 id="changing-shortcut-keys">
 <title>Modifying shortcut keys</title>
 		<para>Many menu entries are accessible via key combination; also called a
 		shortcut. For example, pressing the Ctrl+S keys saves the current file to
@@ -1273,8 +1276,23 @@ class "GtkTextView" style "EditorStyle"
 		will store the settings in file ~/.bluefish/menudump_2. If you want to
 		restore the default combinations simply remove this file and restart
 		Bluefish.</para>
-</sect3>
 </sect2>
+<sect2 id="editor-preferences">
+<title>Editor preferences</title>
+	<para>The font of the editor can be set in the preferences under <emphasis>Editor</emphasis>. </para>
+	<para>
+	A frequently asked question is how to change the background color of the editor in Bluefish.
+	Bluefish uses the default editor background color as set in your GTK theme. If you want to 
+	override the color of the theme, edit ~/.gtkrc-2.0 and add this section:
+<programlisting>
+style "EditorStyle" {
+        base[NORMAL]="#eeeeee"
+}
+class "GtkTextView" style "EditorStyle"
+</programlisting>
+	Obviously, #eeeeee should be your preferred background color.
+	</para>
+	</sect2>
 <sect2 id="changing-filetypes">
 <title>Modifying file types</title>
 			<para>
@@ -1299,6 +1317,10 @@ class "GtkTextView" style "EditorStyle"
 			should close 
 			the tags XML style (&lt;br /&gt;), a value of 2 means HTML style.
 			</para>
+</sect2>
+<sect2 id="modifying-filefilters">
+<title>Modifying the files filters</title>
+<para>TO BE WRITTEN</para>
 </sect2>
 <sect2 id="changing-highlighting-patterns">
 <title>Modifying the highlighting patterns</title>
