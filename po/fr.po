@@ -8,8 +8,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 21-11-03_fr\n"
-"POT-Creation-Date: 2004-03-29 14:55+0200\n"
-"PO-Revision-Date: 2004-02-26 09:41+0100\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-03-29 23:25-0300\n"
+"PO-Revision-Date: 2004-03-29 07:30+0100\n"
 "Last-Translator: Roméo Viu-Berges <romda@free.fr>\n"
 "Language-Team: français <fr@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -116,7 +117,6 @@ msgstr ""
 "Merci à tous ceux qui ont contribué pour donner vie à ce logiciel.\n"
 
 #: ../src/about.c:161
-#, fuzzy
 msgid ""
 "Current translators:\n"
 "\n"
@@ -177,6 +177,9 @@ msgstr ""
 "  Allemand - Roland Steinbach\n"
 "   <roland@netzblick.de>\n"
 "\n"
+"  Bulgare - Peio Popov\n"
+"   <peio@peio.org>\n"
+"\n"
 "  Chinois - Ting Yang (Dormouse)\n"
 "   <mouselinux@163.com>\n"
 "\n"
@@ -198,6 +201,9 @@ msgstr ""
 "  Italien - Stefano Canepa\n"
 "   <sc@linux.it>\n"
 "\n"
+"  Norvégien - Christian Tellefsen\n"
+"   <chris@tellefsen.net>\n"
+"\n"
 "  Polonais - Oskar Swida\n"
 "   <swida@aragorn.pb.bialystok.pl>\n"
 "\n"
@@ -208,7 +214,7 @@ msgstr ""
 "   <anderson@maxlinux.com.br>\n"
 "\n"
 "  Russe - Eugene Rupakov\n"
-"   <rupakov@jet.msk.ru>\n"
+"   <rupakov@jet.msk.su>\n"
 "\n"
 "  Serbe - Marko Milenovic\n"
 "   <raven@sbb.co.yu>\n"
@@ -265,6 +271,9 @@ msgid ""
 "Bluefish has trouble reading the filenames. Try to set the environment "
 "variable G_BROKEN_FILENAMES=1\n"
 msgstr ""
+"Bluefish a rencontré des difficultés lors de la lecture des noms de "
+"fichiers. Essayez d'initialiser la variable d'environnement "
+"G_BROKEN_FILENAMES=1\n"
 
 #: ../src/bfspell.c:346
 msgid "Check Spelling"
@@ -432,7 +441,7 @@ msgid "This bookmark is set in a file that no longer exists."
 msgstr "Ce signet concerne un fichier qui n'existe plus."
 
 #: ../src/bookmark.c:443
-#, fuzzy, c-format
+#, c-format
 msgid "Do you really want to delete %s?"
 msgstr "Désirez-vous vraiment supprimer %s ?"
 
@@ -441,16 +450,14 @@ msgid "Delete permanent bookmark."
 msgstr "Effacer le signet permanent"
 
 #: ../src/bookmark.c:462
-#, fuzzy
 msgid "Edit bookmark"
-msgstr "Aller au signet"
+msgstr "Editer signet"
 
 #: ../src/bookmark.c:470
 msgid "Goto bookmark"
 msgstr "Aller au signet"
 
 #: ../src/bookmark.c:478
-#, fuzzy
 msgid "Edit"
 msgstr "/_Éditer"
 
@@ -459,29 +466,24 @@ msgid "Delete"
 msgstr "Supprimer"
 
 #: ../src/bookmark.c:904 ../src/bookmark.c:939 ../src/document.c:1987
-#, fuzzy
 msgid "Add bookmark"
-msgstr "Aller au signet"
+msgstr "Ajouter un signet"
 
 #: ../src/bookmark.c:905
-#, fuzzy
 msgid "Cannot add bookmarks in unnamed files."
-msgstr ""
-"Impossible d'ajouter un signet pour un fichier sans nom.\n"
-"Veuillez d'abord enregistrer le fichier sous un nom de votre choix."
+msgstr "Impossible d'ajouter un signet pour un fichier sans nom"
 
 #: ../src/bookmark.c:940
 msgid "You already have a bookmark here!"
 msgstr "Vous disposez déjà d'un signet ici !"
 
 #: ../src/bookmark.c:945
-#, fuzzy
 msgid "default"
-msgstr "Par défa_ut"
+msgstr "Par défaut"
 
 #: ../src/bookmark.c:975
 msgid "temp"
-msgstr ""
+msgstr "temp"
 
 #: ../src/bookmark.c:1043
 #, c-format
@@ -491,9 +493,8 @@ msgid ""
 msgstr "Le nombre de caractères dans le fichier %s a changé."
 
 #: ../src/bookmark.c:1045
-#, fuzzy
 msgid "Bookmarks positions could be incorrect."
-msgstr "La position des signets est peut-êetre incorrecte."
+msgstr "La position des signets est peut-être incorrecte."
 
 #: ../src/document.c:254 ../src/gui.c:936 ../src/gui.c:937
 msgid "/Document/Highlight Syntax"
@@ -1581,6 +1582,55 @@ msgstr "/Affichage/Afficher la barre d'outils principale"
 msgid "/View/View Custom Menu"
 msgstr "/Affichage/Afficher le menu personnalisé"
 
+#: ../src/html2.c:554
+msgid "Cascading StyleSheet dialog"
+msgstr "Dialogue des feuilles de style CSS"
+
+#: ../src/html2.c:574
+msgid "_Selector:"
+msgstr "_Sélecteur :"
+
+#: ../src/html2.c:593
+msgid "_Property:"
+msgstr "_Propriété :"
+
+#: ../src/html2.c:595 ../src/html_form.c:650 ../src/html_form.c:799
+#: ../src/html_form.c:894
+msgid "_Value:"
+msgstr "_Valeur :"
+
+#: ../src/html2.c:613
+msgid "Selector"
+msgstr "Sélecteur"
+
+#: ../src/html2.c:613 ../src/html2.c:616
+msgid "Property"
+msgstr "Propriété"
+
+#: ../src/html2.c:613 ../src/html2.c:616
+msgid "Value"
+msgstr "Valeur"
+
+#: ../src/html2.c:631
+msgid " _Add "
+msgstr " _Ajouter "
+
+#: ../src/html2.c:634
+msgid " _Update "
+msgstr " _Mettre à jour "
+
+#: ../src/html2.c:637
+msgid " _Delete "
+msgstr " _Supprimer "
+
+#: ../src/html2.c:893 ../src/html2.c:930
+msgid "_Style..."
+msgstr "_Style..."
+
+#: ../src/html2.c:1087
+msgid "Bluefish: Select color"
+msgstr "Bluefish: Sélection de couleurs"
+
 #: ../src/html.c:356
 msgid "Insert Time"
 msgstr "Insérer l'heure"
@@ -1975,55 +2025,6 @@ msgstr "L_angue :"
 msgid "_Custom:"
 msgstr "Personnalisé :"
 
-#: ../src/html2.c:554
-msgid "Cascading StyleSheet dialog"
-msgstr "Dialogue des feuilles de style CSS"
-
-#: ../src/html2.c:574
-msgid "_Selector:"
-msgstr "_Sélecteur :"
-
-#: ../src/html2.c:593
-msgid "_Property:"
-msgstr "_Propriété :"
-
-#: ../src/html2.c:595 ../src/html_form.c:650 ../src/html_form.c:799
-#: ../src/html_form.c:894
-msgid "_Value:"
-msgstr "_Valeur :"
-
-#: ../src/html2.c:613
-msgid "Selector"
-msgstr "Sélecteur"
-
-#: ../src/html2.c:613 ../src/html2.c:616
-msgid "Property"
-msgstr "Propriété"
-
-#: ../src/html2.c:613 ../src/html2.c:616
-msgid "Value"
-msgstr "Valeur"
-
-#: ../src/html2.c:631
-msgid " _Add "
-msgstr " _Ajouter "
-
-#: ../src/html2.c:634
-msgid " _Update "
-msgstr " _Mettre à jour "
-
-#: ../src/html2.c:637
-msgid " _Delete "
-msgstr " _Supprimer "
-
-#: ../src/html2.c:893 ../src/html2.c:930
-msgid "_Style..."
-msgstr "_Style..."
-
-#: ../src/html2.c:1087
-msgid "Bluefish: Select color"
-msgstr "Bluefish: Sélection de couleurs"
-
 #: ../src/html_form.c:141
 msgid "Form"
 msgstr "Formulaire"
@@ -2417,14 +2418,12 @@ msgid "/Edit/Replace special/_Both Types to HTML Entities"
 msgstr "/Éditer/Remplacement spécial/ASCII et ISO => entités HTML"
 
 #: ../src/menu.c:362
-#, fuzzy
 msgid "/Edit/Replace special/To _Uppercase"
-msgstr "/Éditer/Remplacement spécial/Tearoff1"
+msgstr "/Éditer/Remplacement spécial/Maj_uscules"
 
 #: ../src/menu.c:363
-#, fuzzy
 msgid "/Edit/Replace special/To _Lowercase"
-msgstr "/Éditer/Remplacement spécial/Tearoff1"
+msgstr "/Éditer/Remplacement spécial/Minuscu_les"
 
 #: ../src/menu.c:364
 msgid "/Edit/sep4"
@@ -2443,14 +2442,12 @@ msgid "/Edit/sep5"
 msgstr "/Éditer/sep5"
 
 #: ../src/menu.c:368
-#, fuzzy
 msgid "/Edit/Add _Bookmark"
-msgstr "/Signets"
+msgstr "/Éditer/Ajouter un signet"
 
 #: ../src/menu.c:369
-#, fuzzy
 msgid "/Edit/sep6"
-msgstr "/Éditer/sep1"
+msgstr "/Éditer/sep6"
 
 #: ../src/menu.c:370
 msgid "/Edit/_Save Settings"
@@ -3581,9 +3578,8 @@ msgid "/Project/Save _as..."
 msgstr "/Projet/Enregistrer Sous..."
 
 #: ../src/menu.c:686
-#, fuzzy
 msgid "/Project/Save & _close"
-msgstr "/Projet/Enregistrer Sous..."
+msgstr "/Projet/Enregistrer et Fermer"
 
 #: ../src/menu.c:687
 msgid "/Project/sep2"
@@ -4078,39 +4074,32 @@ msgid "Clear undo history on save"
 msgstr "Effacer les niveaux d'annulation lors de l'enregistrement"
 
 #: ../src/preferences.c:1896
-#, fuzzy
 msgid "Bookmark options"
-msgstr "Signets"
+msgstr "Options des signets"
 
 #: ../src/preferences.c:1901
-#, fuzzy
 msgid "Sort by line number"
-msgstr "Aucun nom de fichier"
+msgstr "Trier par numéro de ligne"
 
 #: ../src/preferences.c:1902
-#, fuzzy
 msgid "Make permanent by default"
-msgstr "Montrer le panneau de gauche par défaut"
+msgstr "Rendre permanent par défaut"
 
 #: ../src/preferences.c:1904
-#, fuzzy
 msgid "full path"
-msgstr "Chemin du menu :"
+msgstr "chemin complet"
 
 #: ../src/preferences.c:1904
-#, fuzzy
 msgid "path from basedir"
-msgstr "Répertoire de travail par défaut"
+msgstr "chemin du répertoire de travail"
 
 #: ../src/preferences.c:1904
-#, fuzzy
 msgid "filename"
-msgstr "Aucun nom de fichier"
+msgstr "nom de fichier"
 
 #: ../src/preferences.c:1905
-#, fuzzy
 msgid "Bookmarks filename display"
-msgstr "Le fichier du signet est fermé."
+msgstr "affichage du nom de fichier du signet"
 
 #: ../src/preferences.c:1909
 msgid "HTML"
@@ -4379,9 +4368,8 @@ msgid "/Project/Save as..."
 msgstr "/Projet/Enregistrer Sous..."
 
 #: ../src/project.c:170
-#, fuzzy
 msgid "/Project/Save & close"
-msgstr "/Projet/Enregistrer"
+msgstr "/Projet/Enregistrer et fermer"
 
 #: ../src/project.c:171
 msgid "/Project/Edit Project Options..."
@@ -4704,63 +4692,3 @@ msgstr "Source :"
 #: ../src/wizards.c:223
 msgid "Size:"
 msgstr "Taille :"
-
-#~ msgid "You already have a bookmark named %s!"
-#~ msgstr "Vous disposez déjà d'un signet nommé %s !"
-
-#~ msgid "Do you want to open it?"
-#~ msgstr "Désirez-vous l'ouvrir ?"
-
-#~ msgid "Rename permanent bookmark"
-#~ msgstr "Renommer le signet permanent"
-
-#~ msgid "Rename temporary bookmark"
-#~ msgstr "Renommer le signet temporaire"
-
-#~ msgid "Rename"
-#~ msgstr "Renommer"
-
-#~ msgid "Permanent"
-#~ msgstr "Permanent"
-
-#~ msgid "Add temporary bookmark"
-#~ msgstr "Ajouter un signet temporaire"
-
-#~ msgid "Delete all temporary bookmarks."
-#~ msgstr "Supprimer tous les signets temporaires"
-
-#~ msgid "Are you sure?"
-#~ msgstr "En êtes-vous certain ?"
-
-#~ msgid "Delete all permanent bookmarks."
-#~ msgstr "Supprimer tous les signets permanents."
-
-#~ msgid "Are you REALLY sure?"
-#~ msgstr "En êtes-vous vraiment certain ?"
-
-#~ msgid "Add permanent bookmark"
-#~ msgstr "Ajouter un signet permanent"
-
-#~ msgid "/Bookmarks/tearoff1"
-#~ msgstr "/Signets/tearoff1"
-
-#~ msgid "/Bookmarks/Add _Temporary"
-#~ msgstr "/Signets/Ajouter un signet _temporaire"
-
-#~ msgid "/Bookmarks/Add _Permanent"
-#~ msgstr "/Signets/Ajouter un signet _permanent"
-
-#~ msgid "/Bookmarks/sep2"
-#~ msgstr "/Signets/sep2"
-
-#~ msgid "/Bookmarks/Delete All Temporar_y"
-#~ msgstr "/Signets/Effacer tous les temporaires"
-
-#~ msgid "/Bookmarks/Delete All Per_manent"
-#~ msgstr "/Signets/Effacer tous les per_manents"
-
-#~ msgid "/Project/_Close & save"
-#~ msgstr "/Projet/Enregistrer et Femer"
-
-#~ msgid "/Project/Close & save"
-#~ msgstr "/Projet/Enregistrer et Femer"

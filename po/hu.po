@@ -1,6 +1,6 @@
 # Hungarian language file for Bluefish.
 # Copyright (C) 2000 Free Software Foundation, Inc.
-# Péter Sáska <sasek@webmail.acolyte.hu>, 2000-2003.
+# Péter Sáska <sasek@acolyte.hu>, 2000-2003.
 #
 # Ha bármi észrevételed van, kérlek, fordulj
 # közvetlenül a fordítóhoz:
@@ -9,14 +9,14 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: bluefish gtk2-port\n"
-"POT-Creation-Date: 2004-03-29 14:55+0200\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-03-30 00:08-0300\n"
 "PO-Revision-Date: 2000-12-01 21:48+0100\n"
 "Last-Translator: Sáska, Péter <sasek@webmail.acolyte.hu>\n"
 "Language-Team: madgyar <hu@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8 bit\n"
-"Report-Msgid-Bugs-To: \n"
 
 #: ../src/about.c:123
 msgid ""
@@ -117,7 +117,6 @@ msgstr ""
 "Köszönet mindenkinek, aki segített a program létrehozásában.\n"
 
 #: ../src/about.c:161
-#, fuzzy
 msgid ""
 "Current translators:\n"
 "\n"
@@ -173,7 +172,7 @@ msgid ""
 "   <barathee@yahoo.com>\n"
 "\n"
 msgstr ""
-"Current translators:\n"
+"Fordítók jelenleg:\n"
 "\n"
 "  Brazíliai portugál - Anderson Rocha\n"
 "   <anderson@maxlinux.com.br>\n"
@@ -194,7 +193,7 @@ msgstr ""
 "   <swida@aragorn.pb.bialystok.pl>\n"
 "\n"
 "  Magyar - Sáska Péter\n"
-"   <sasek@webmail.acolyte.hu>\n"
+"   <sasek@ccsystem.hu>\n"
 "\n"
 "  Német - Roland Steinbach\n"
 "   <roland@netzblick.de>\n"
@@ -203,7 +202,7 @@ msgstr ""
 "   <sc@linux.it>\n"
 "\n"
 "  Orosz - Eugene Rupakov\n"
-"   <rupakov@jet.msk.ru>\n"
+"   <rupakov@jet.msk.su>\n"
 "\n"
 "  Portugál - Lopo Pizarro\n"
 "   <lopopizarro@netcabo.pt>\n"
@@ -266,6 +265,8 @@ msgid ""
 "Bluefish has trouble reading the filenames. Try to set the environment "
 "variable G_BROKEN_FILENAMES=1\n"
 msgstr ""
+"A Bluefish-nek problémái vannak a fájlnevek olvasásával. Próbáld "
+"aG_BROKEN_FILENAMES=1 környezetiváltozó-beállítást\n"
 
 #: ../src/bfspell.c:346
 msgid "Check Spelling"
@@ -433,7 +434,7 @@ msgid "This bookmark is set in a file that no longer exists."
 msgstr "Ezt a könyvjelzőt egy már nem létező fájlban hoztad létre."
 
 #: ../src/bookmark.c:443
-#, fuzzy, c-format
+#, c-format
 msgid "Do you really want to delete %s?"
 msgstr "Valóban eltávolítod %s-t?"
 
@@ -442,47 +443,40 @@ msgid "Delete permanent bookmark."
 msgstr "Állandó könyvjelző törlése."
 
 #: ../src/bookmark.c:462
-#, fuzzy
 msgid "Edit bookmark"
-msgstr "Ugrás könyvjelzőre"
+msgstr "Könyvjelző szerkesztése"
 
 #: ../src/bookmark.c:470
 msgid "Goto bookmark"
 msgstr "Ugrás könyvjelzőre"
 
 #: ../src/bookmark.c:478
-#, fuzzy
 msgid "Edit"
-msgstr "/S_zerkesztés"
+msgstr "Szerkesztés"
 
 #: ../src/bookmark.c:482
 msgid "Delete"
 msgstr "Töröl"
 
 #: ../src/bookmark.c:904 ../src/bookmark.c:939 ../src/document.c:1987
-#, fuzzy
 msgid "Add bookmark"
-msgstr "Ugrás könyvjelzőre"
+msgstr "Könyvjelző hozzáadása"
 
 #: ../src/bookmark.c:905
-#, fuzzy
 msgid "Cannot add bookmarks in unnamed files."
-msgstr ""
-"Névtelen fájlba nem tudok könyvjelzőt tenni.\n"
-"Először menteni kell a fájlt."
+msgstr "Névtelen fájlba nem tudok könyvjelzőt tenni."
 
 #: ../src/bookmark.c:940
 msgid "You already have a bookmark here!"
 msgstr "Már van itt egy könyvjelző!"
 
 #: ../src/bookmark.c:945
-#, fuzzy
 msgid "default"
-msgstr "Alapértelme_zettként beállít"
+msgstr "alapértelmezett"
 
 #: ../src/bookmark.c:975
 msgid "temp"
-msgstr ""
+msgstr "ideiglenes"
 
 #: ../src/bookmark.c:1043
 #, c-format
@@ -494,7 +488,6 @@ msgstr ""
 " %s."
 
 #: ../src/bookmark.c:1045
-#, fuzzy
 msgid "Bookmarks positions could be incorrect."
 msgstr "A könyvjelző-pozíciók helytelenek lehetnek."
 
@@ -1580,6 +1573,55 @@ msgstr "/Megjelenítés/Fő eszköztár"
 msgid "/View/View Custom Menu"
 msgstr "/Megjelenítés/Saját menü"
 
+#: ../src/html2.c:554
+msgid "Cascading StyleSheet dialog"
+msgstr "Stíluslap párbeszédablak"
+
+#: ../src/html2.c:574
+msgid "_Selector:"
+msgstr "_Szelektor"
+
+#: ../src/html2.c:593
+msgid "_Property:"
+msgstr "_Tulajdonság"
+
+#: ../src/html2.c:595 ../src/html_form.c:650 ../src/html_form.c:799
+#: ../src/html_form.c:894
+msgid "_Value:"
+msgstr "É_rték"
+
+#: ../src/html2.c:613
+msgid "Selector"
+msgstr "Szelektor"
+
+#: ../src/html2.c:613 ../src/html2.c:616
+msgid "Property"
+msgstr "Tulajdonság"
+
+#: ../src/html2.c:613 ../src/html2.c:616
+msgid "Value"
+msgstr "Érték"
+
+#: ../src/html2.c:631
+msgid " _Add "
+msgstr " _Hozzáad "
+
+#: ../src/html2.c:634
+msgid " _Update "
+msgstr " _Frissít "
+
+#: ../src/html2.c:637
+msgid " _Delete "
+msgstr " _Töröl "
+
+#: ../src/html2.c:893 ../src/html2.c:930
+msgid "_Style..."
+msgstr "_Stílus..."
+
+#: ../src/html2.c:1087
+msgid "Bluefish: Select color"
+msgstr "Bluefish: Színválasztás"
+
 #: ../src/html.c:356
 msgid "Insert Time"
 msgstr "Idő beszúrása"
@@ -1767,7 +1809,7 @@ msgstr "Gyors kezdés"
 
 #: ../src/html.c:1073
 msgid "_Doctype:"
-msgstr "_Doctype"
+msgstr "_Dokumentumtípus"
 
 #: ../src/html.c:1079
 msgid "Header tags:"
@@ -1973,55 +2015,6 @@ msgstr "L_ang:"
 #: ../src/html.c:2075
 msgid "_Custom:"
 msgstr "_Egyéb"
-
-#: ../src/html2.c:554
-msgid "Cascading StyleSheet dialog"
-msgstr "Stíluslap párbeszédablak"
-
-#: ../src/html2.c:574
-msgid "_Selector:"
-msgstr "_Szelektor"
-
-#: ../src/html2.c:593
-msgid "_Property:"
-msgstr "_Tulajdonság"
-
-#: ../src/html2.c:595 ../src/html_form.c:650 ../src/html_form.c:799
-#: ../src/html_form.c:894
-msgid "_Value:"
-msgstr "É_rték"
-
-#: ../src/html2.c:613
-msgid "Selector"
-msgstr "Szelektor"
-
-#: ../src/html2.c:613 ../src/html2.c:616
-msgid "Property"
-msgstr "Tulajdonság"
-
-#: ../src/html2.c:613 ../src/html2.c:616
-msgid "Value"
-msgstr "Érték"
-
-#: ../src/html2.c:631
-msgid " _Add "
-msgstr " _Hozzáad "
-
-#: ../src/html2.c:634
-msgid " _Update "
-msgstr " _Frissít "
-
-#: ../src/html2.c:637
-msgid " _Delete "
-msgstr " _Töröl "
-
-#: ../src/html2.c:893 ../src/html2.c:930
-msgid "_Style..."
-msgstr "_Stílus..."
-
-#: ../src/html2.c:1087
-msgid "Bluefish: Select color"
-msgstr "Bluefish: Színválasztás"
 
 #: ../src/html_form.c:141
 msgid "Form"
@@ -2416,14 +2409,12 @@ msgid "/Edit/Replace special/_Both Types to HTML Entities"
 msgstr "/Szerkesztés/Irányított csere/_mindkét típust HTML-re"
 
 #: ../src/menu.c:362
-#, fuzzy
 msgid "/Edit/Replace special/To _Uppercase"
-msgstr "/Szerkesztés/Irányított csere/Tearoff1"
+msgstr "/Szerkesztés/Irányított csere/Nagybetűsre"
 
 #: ../src/menu.c:363
-#, fuzzy
 msgid "/Edit/Replace special/To _Lowercase"
-msgstr "/Szerkesztés/Irányított csere/Tearoff1"
+msgstr "/Szerkesztés/Irányított csere/Kisbetűsre"
 
 #: ../src/menu.c:364
 msgid "/Edit/sep4"
@@ -2442,12 +2433,10 @@ msgid "/Edit/sep5"
 msgstr "/Szerkesztés/sep5"
 
 #: ../src/menu.c:368
-#, fuzzy
 msgid "/Edit/Add _Bookmark"
-msgstr "/Kö_nyvjelzők"
+msgstr "/Kö_nyvjelző hozzáadása"
 
 #: ../src/menu.c:369
-#, fuzzy
 msgid "/Edit/sep6"
 msgstr "/Szerkesztés/sep1"
 
@@ -3532,7 +3521,7 @@ msgstr "/Dokumentum/sep1"
 
 #: ../src/menu.c:650
 msgid "/Document/Auto Close H_TML tags"
-msgstr "/Dokumentum/HTML címkék Automatikus bezárása"
+msgstr "/Dokumentum/HTML címkék automatikus bezárása"
 
 #: ../src/menu.c:651
 msgid "/Document/_Wrap"
@@ -3663,9 +3652,8 @@ msgid "/Project/Save _as..."
 msgstr "/Projekt/Mentés má_sként"
 
 #: ../src/menu.c:686
-#, fuzzy
 msgid "/Project/Save & _close"
-msgstr "/Projekt/Mentés má_sként"
+msgstr "/Projekt/Mentés és bezárás"
 
 #: ../src/menu.c:687
 msgid "/Project/sep2"
@@ -3733,7 +3721,7 @@ msgstr "/Külső/Kimenetablak/"
 
 #: ../src/menu.c:1368
 msgid "/External/Commands/"
-msgstr "/Külső/Parancsok/"
+msgstr "/Külső/Szűrők/"
 
 #: ../src/menu.c:1371
 msgid "/External/Browsers/"
@@ -3746,11 +3734,11 @@ msgstr "/_Külső"
 
 #: ../src/menu.c:1389
 msgid "/External/Browsers"
-msgstr "/Külső/Szűrők"
+msgstr "/Külső/Böngészők"
 
 #: ../src/menu.c:1424
 msgid "/External/Commands"
-msgstr "/Külső/Parancsok"
+msgstr "/Külső/Szűrők"
 
 #: ../src/menu.c:1459
 msgid "/External/Outputbox"
@@ -3902,7 +3890,7 @@ msgstr "Az alábbi fájlokat nem sikerült megnyitni:\n"
 
 #: ../src/preferences.c:227
 msgid "Select font"
-msgstr "Betűtípus"
+msgstr "Betűtípus kiválasztása"
 
 #: ../src/preferences.c:603
 msgid "Filetype"
@@ -4131,7 +4119,7 @@ msgstr "Tabulátor szélessége"
 
 #: ../src/preferences.c:1882
 msgid "Use spaces to indent, not tabs"
-msgstr "Behúzás szóközökkel, nem tabbal"
+msgstr "Behúzás szóközökkel tabulátor helyett"
 
 #: ../src/preferences.c:1883
 msgid "Word wrap default"
@@ -4147,7 +4135,7 @@ msgstr "Szintaxiskiemelés alapértelmezett"
 
 #: ../src/preferences.c:1886
 msgid "Highlight # lines"
-msgstr "# sor kiemelése"
+msgstr "Ennyi sor kiemelésének frissítése"
 
 #: ../src/preferences.c:1893
 msgid "Undo history size"
@@ -4158,39 +4146,32 @@ msgid "Clear undo history on save"
 msgstr "Mentéskor a visszavonható műveletek törlése"
 
 #: ../src/preferences.c:1896
-#, fuzzy
 msgid "Bookmark options"
-msgstr "Könyvjelzők"
+msgstr "Könyvjelzők beállításai"
 
 #: ../src/preferences.c:1901
-#, fuzzy
 msgid "Sort by line number"
-msgstr "Nem adtál meg fájlnevet"
+msgstr "Rendezés a sor száma szerint"
 
 #: ../src/preferences.c:1902
-#, fuzzy
 msgid "Make permanent by default"
-msgstr "Alapértelmezésben a baloldali panel mutatása"
+msgstr "Alapértelmezésben állandó könyvjelzőt hoz létre"
 
 #: ../src/preferences.c:1904
-#, fuzzy
 msgid "full path"
-msgstr "Menüpont elérési útvonala"
+msgstr "teljes elérési útvonal"
 
 #: ../src/preferences.c:1904
-#, fuzzy
 msgid "path from basedir"
-msgstr "Alapértelmezett alapkönyvtár"
+msgstr "elérési útvonal az alapkönyvtárhoz képest"
 
 #: ../src/preferences.c:1904
-#, fuzzy
 msgid "filename"
-msgstr "Nem adtál meg fájlnevet"
+msgstr "fájlnév"
 
 #: ../src/preferences.c:1905
-#, fuzzy
 msgid "Bookmarks filename display"
-msgstr "A könyvjelzőket tartalmazó fájlt bezártad"
+msgstr "Könyvjelzőkhöz tartozó fájlnevek megjelenítése"
 
 #: ../src/preferences.c:1909
 msgid "HTML"
@@ -4206,11 +4187,11 @@ msgstr "Kisbetűs HTML címkék"
 
 #: ../src/preferences.c:1917
 msgid "Use deprecated tags (e.g. <font> and <nobr>)"
-msgstr "Elavult címkék használata (pl. <font> és <nobr>)"
+msgstr "Elavult címkék használatának engedélyezése (pl. <font> és <nobr>)"
 
 #: ../src/preferences.c:1918
 msgid "Use XHTML style tags (<br />)"
-msgstr "XHTML szintaxis (mint <br />)"
+msgstr "XHTML szintaxis használata (mint <br />)"
 
 #: ../src/preferences.c:1919
 msgid "Automatic update author meta"
@@ -4262,7 +4243,7 @@ msgstr "Teendő sikertelen backup esetén"
 
 #: ../src/preferences.c:1951
 msgid "Remove backupfile on close"
-msgstr "Backup fájl törlése bezáráskor"
+msgstr "Backup fájl törlése kilépéskor"
 
 #: ../src/preferences.c:1955
 msgid "Misc"
@@ -4294,11 +4275,11 @@ msgstr "Alapértelmezett alapkönyvtár"
 
 #: ../src/preferences.c:1972
 msgid "Use separate file and directory view"
-msgstr "Fájlok és könyvtárak külön látszódjanak"
+msgstr "A fájlböngésző elválasztva mutassa a fájlokat és könyvtárakat"
 
 #: ../src/preferences.c:1973
 msgid "Unknown icon"
-msgstr "Ismeretlen fájl ikonja"
+msgstr "Ismeretlen típusú fájl ikonja"
 
 #: ../src/preferences.c:1974
 msgid "Directory icon"
@@ -4334,19 +4315,19 @@ msgstr "Általános"
 
 #: ../src/preferences.c:1995
 msgid "Show main toolbar by default"
-msgstr "Alapértelmezésben a fő eszköztár mutatása"
+msgstr "A fő eszköztár mutatása alapértelmezésben"
 
 #: ../src/preferences.c:1996
 msgid "Show left panel by default"
-msgstr "Alapértelmezésben a baloldali panel mutatása"
+msgstr "A baloldali panel mutatása alapértelmezésben"
 
 #: ../src/preferences.c:1997
 msgid "Show custom menu by default"
-msgstr "Alapértelmezésben a felhasználói menü mutatása"
+msgstr "A felhasználói menü mutatása alapértelmezésben"
 
 #: ../src/preferences.c:1998
 msgid "Show HTML toolbar by default"
-msgstr "Alapértelmezésben a HTML eszköztár mutatása"
+msgstr "A HTML eszköztár mutatása alapértelmezésben"
 
 #: ../src/preferences.c:1999
 msgid "Make HTML dialogs transient"
@@ -4354,15 +4335,15 @@ msgstr "Átmeneti HTML-párbeszédablakok"
 
 #: ../src/preferences.c:2001
 msgid "External browsers in submenu"
-msgstr "Böngészők az almenüben"
+msgstr "A böngészőket almenüben mutassa"
 
 #: ../src/preferences.c:2002
 msgid "External commands in submenu"
-msgstr "Külső parancsok az almenüben"
+msgstr "A külső parancsokat almenüben mutassa"
 
 #: ../src/preferences.c:2003
 msgid "External outputbox in submenu"
-msgstr "Külső kimenetablakok az almenüben"
+msgstr "A külső kimenetablakokat almenüben mutassa"
 
 #: ../src/preferences.c:2005
 msgid "Notebook tab font (leave empty for gtk default)"
@@ -4374,7 +4355,7 @@ msgstr "Dokumentumablak-fül elhelyezkedése"
 
 #: ../src/preferences.c:2008
 msgid "Left panel notebook tab position"
-msgstr "Baloldali panel fülének elhelyezkedése"
+msgstr "Baloldali panel füleinek elhelyezkedése"
 
 #: ../src/preferences.c:2011 ../src/rcfile.c:571
 msgid "Images"
@@ -4418,7 +4399,7 @@ msgstr "Böngészők"
 
 #: ../src/preferences.c:2062
 msgid "Utilities and filters"
-msgstr "Programok és szűrők"
+msgstr "Segédprogramok és szűrők"
 
 #: ../src/preferences.c:2070
 msgid "Output parsers"
@@ -4457,9 +4438,8 @@ msgid "/Project/Save as..."
 msgstr "/Projekt/Mentés másként..."
 
 #: ../src/project.c:170
-#, fuzzy
 msgid "/Project/Save & close"
-msgstr "/Projekt/Mentés"
+msgstr "/Projekt/Mentés és bezárás"
 
 #: ../src/project.c:171
 msgid "/Project/Edit Project Options..."
@@ -4484,7 +4464,7 @@ msgstr "A projekt %d fájlt tartalmaz"
 
 #: ../src/project.c:408
 msgid "Project _Name:"
-msgstr "Project _neve:"
+msgstr "Projekt _neve:"
 
 #: ../src/project.c:412
 msgid "_Basedir:"
@@ -4492,7 +4472,7 @@ msgstr "_Alapkönyvtár:"
 
 #: ../src/project.c:416
 msgid "_Preview URL:"
-msgstr "URL _előnézete:"
+msgstr "URL az _előnézethez:"
 
 #: ../src/project.c:420
 msgid "_Template:"
@@ -4782,153 +4762,3 @@ msgstr "Forrás:"
 #: ../src/wizards.c:223
 msgid "Size:"
 msgstr "Méret:"
-
-#~ msgid "You already have a bookmark named %s!"
-#~ msgstr "Már van egy %s nevű könyvjelző!"
-
-#~ msgid "Do you want to open it?"
-#~ msgstr "Szeretnéd megnyitni?"
-
-#~ msgid "Rename permanent bookmark"
-#~ msgstr "Állandó könyvjelző átnevezése"
-
-#~ msgid "Rename temporary bookmark"
-#~ msgstr "Átmeneti könyvjelző átnevezése"
-
-#~ msgid "Rename"
-#~ msgstr "/Átnevez"
-
-#~ msgid "Permanent"
-#~ msgstr "Állandó"
-
-#~ msgid "Add temporary bookmark"
-#~ msgstr "Átmeneti könyvjelző hozzáadása"
-
-#~ msgid "Delete all temporary bookmarks."
-#~ msgstr "Minden átmeneti könyvjelző törlése"
-
-#~ msgid "Are you sure?"
-#~ msgstr "Biztos vagy benne?"
-
-#~ msgid "Delete all permanent bookmarks."
-#~ msgstr "Minden állandó könyvjelző törlése."
-
-#~ msgid "Are you REALLY sure?"
-#~ msgstr "BIZTOS vagy benne?"
-
-#~ msgid "Add permanent bookmark"
-#~ msgstr "Állandó könyvjelző hozzáadása"
-
-#~ msgid "/Bookmarks/tearoff1"
-#~ msgstr "/Könyvjelzők/tearoff1"
-
-#~ msgid "/Bookmarks/Add _Temporary"
-#~ msgstr "/Könyvjelzők/_Ideiglenes könyvjelző"
-
-#~ msgid "/Bookmarks/Add _Permanent"
-#~ msgstr "/Könyvjelzők/Á_llandó könyvjelző"
-
-#~ msgid "/Bookmarks/sep2"
-#~ msgstr "/Könyvjelzők/sep2"
-
-#~ msgid "/Bookmarks/Delete All Temporar_y"
-#~ msgstr "/Könyvjelzők/Minden i_deiglenest töröl"
-
-#~ msgid "/Bookmarks/Delete All Per_manent"
-#~ msgstr "/Könyvjelzők/Minden áll_andót töröl"
-
-#~ msgid "/Project/_Close & save"
-#~ msgstr "/Projekt/Mentés és be_zárás"
-
-#~ msgid "/Project/Close & save"
-#~ msgstr "/Projekt/Mentés és bezárás"
-
-#~ msgid "Show all bookmarks"
-#~ msgstr "Minden könyvjelző mutatása"
-
-#~ msgid "Show bookmarks for opened files"
-#~ msgstr "Megnyitott fájlok könyvjelzőinek mutatása"
-
-#~ msgid "Show bookmarks for active file"
-#~ msgstr "Aktív fájl könyvjelzőinek mutatása"
-
-#~ msgid "You can overwrite next temp bookmark (number %d). Overwrite?"
-#~ msgstr "Felülírod a következő (%d. számú) könyvjelzőt?"
-
-#~ msgid "Maximum number of temp bookmarks assigned"
-#~ msgstr "Átmeneti könyvjelzők maximális száma"
-
-#~ msgid "Text..."
-#~ msgstr "Beviteli mező..."
-
-#~ msgid "_Rel:"
-#~ msgstr "_Rel:"
-
-#~ msgid "_websafe"
-#~ msgstr "_websafe"
-
-#~ msgid "Text"
-#~ msgstr "Szöveg"
-
-#~ msgid "Hidden"
-#~ msgstr "Rejtett"
-
-#~ msgid "Radio Button"
-#~ msgstr "Rádiógomb"
-
-#~ msgid "Check Box"
-#~ msgstr "Kiválasztónégyzet"
-
-#~ msgid "/File/Open r_ecent"
-#~ msgstr "/Fájl/_Utóbbi megnyitása"
-
-#~ msgid "/Dialogs/Form/_Hidden..."
-#~ msgstr "/Párbeszéd/Űrlapok/R_ejtett..."
-
-#~ msgid "/Dialogs/Form/Radio _Buttons..."
-#~ msgstr "/Párbeszéd/Űrlapok/Rádió_gombok..."
-
-#~ msgid "/Dialogs/Form/_Check Buttons..."
-#~ msgstr "/Párbeszéd/Űrlapok/_Jelölőnégyzetek..."
-
-#~ msgid "Extensions (colon separated)"
-#~ msgstr "Kiterjesztések (kettősponttal elválasztva)"
-
-#~ msgid "Highlight update characters"
-#~ msgstr "Kiemelést frissítő karakterek"
-
-#~ msgid "Content regex pattern"
-#~ msgstr "Tartalom regex mintája"
-
-#~ msgid "Rename temporary"
-#~ msgstr "Átmeneti"
-
-#~ msgid "Rename permanent"
-#~ msgstr "Állandó"
-
-#~ msgid "Add permanent bookmark "
-#~ msgstr "Állandó könyvjelző hozzáadása"
-
-#~ msgid "/Document/Document _Type"
-#~ msgstr "/Dokumentum/Dokumentum_típus"
-
-#~ msgid "_Local Directory:"
-#~ msgstr "He_lyi könyvtár:"
-
-#~ msgid "Show bookmarks for project files"
-#~ msgstr "Projektfájlok könyvjelzőinek mutatása"
-
-#~ msgid "Input _Methods"
-#~ msgstr "Beviteli _módok"
-
-#~ msgid "/Bookmarks/Delete _All"
-#~ msgstr "/Könyvjelzők/_Mindet törli"
-
-#~ msgid "posix regular expressions"
-#~ msgstr "posix reguláris kifejezések"
-
-#~ msgid "perl regular expressions"
-#~ msgstr "perl reguláris kifejezések"
-
-#~ msgid "Always highlight full document"
-#~ msgstr "Folyamatos kiemelés a teljes dokumentumban"

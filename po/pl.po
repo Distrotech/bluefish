@@ -4,14 +4,14 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: bluefish gtk2-port\n"
-"POT-Creation-Date: 2004-03-29 14:55+0200\n"
-"PO-Revision-Date: 26/02/2004   \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-03-29 23:25-0300\n"
+"PO-Revision-Date: 29/3/2004   \n"
 "Last-Translator: Oskar Świda (swida@aragorn.pb.bialystok.pl)\n"
 "Language-Team: None\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8 bit\n"
-"Report-Msgid-Bugs-To: \n"
 
 #: ../src/about.c:123
 msgid ""
@@ -26,11 +26,11 @@ msgid ""
 "This version of bluefish was compiled with the following options:\n"
 msgstr ""
 "Bluefish to edytor dla doświadczonych projektantów WWW i programistów."
-"Obsługuje wiele języków programowania, ale jego głównym przeznaczeniemjest "
-"tworzenie dynamicznych i interaktywnych stron WWW. Bluefish jest projektem "
-"Open Source, rozpowszechnianym na licencji GPL.\n"
+"Obsługuje wiele języków programowania, ale jego głównym przeznaczeniem jest "
+"tworzenie dynamicznych i interaktywnych stron WWW. Bluefish jest otwartym "
+"oprogramowaniem,rozpowszechnianym na licencji GPL.\n"
 "\n"
-"Aby uzyskać więcej informacji, objerzyj strinę WWW http://bluefish."
+"Aby uzyskać więcej informacji, objerzyj stronę WWW http://bluefish."
 "openoffice.nl/\n"
 "\n"
 "Ta wersja bluefish została skompilowana z następującymi opcjami:\n"
@@ -79,9 +79,9 @@ msgstr ""
 "\n"
 "Programiści obecnej wersji:\n"
 "  Jim Hayward <jimhayward@linuxexperience.com>\n"
-"  Eugene Morenko(More) <more@irpin.com>\n"
 "  Oskar Świda <swida@aragorn.pb.bialystok.pl>\n"
 "  Christian Tellefsen <christian@tellefsen.net>\n"
+"  Eugene Morenko(More) <more@irpin.com>\n"
 "\n"
 "Programiści poprzednich wersji:\n"
 "  Chris Mazuc\n"
@@ -113,7 +113,6 @@ msgstr ""
 "oprogramowania.\n"
 
 #: ../src/about.c:161
-#, fuzzy
 msgid ""
 "Current translators:\n"
 "\n"
@@ -171,8 +170,11 @@ msgid ""
 msgstr ""
 "Tłumacze:\n"
 "\n"
-"  Portugalski (brazylijski) - Anderson Rocha\n"
+"  Brazylijski portugalski - Anderson Rocha\n"
 "   <anderson@maxlinux.com.br>\n"
+"\n"
+"  Bułgarski - Peio Popov\n"
+"   <peio@peio.org>\n"
 "\n"
 "  Chiński - Ting Yang (Dormouse)\n"
 "   <mouselinux@163.com>\n"
@@ -186,35 +188,38 @@ msgstr ""
 "  Francuski - Roméo Viu-Berges\n"
 "   <apostledemencia@free.fr>\n"
 "\n"
+"  Hiszpański - Walter Oscar Echarri\n"
+"   <wecharri@infovia.com.ar>\n"
+"\n"
 "  Niemiecki - Roland Steinbach\n"
 "   <roland@netzblick.de>\n"
 "\n"
-"  Węgierski - Péter Sáska\n"
-"   <sasek@ccsystem.hu>\n"
+"  Norweski - Christian Tellefsen\n"
+"   <chris@tellefsen.net>\n"
 "\n"
-"  Włoski - Stefano Canepa\n"
-"   <sc@linux.it>\n"
-"\n"
-"  Polski - Oskar Swida\n"
+"  Polski - Oskar Świda\n"
 "   <swida@aragorn.pb.bialystok.pl>\n"
 "\n"
 "  Portugalski - Lopo Pizarro\n"
 "   <lopopizarro@netcabo.pt>\n"
 "\n"
 "  Rosyjski - Eugene Rupakov\n"
-"   <rupakov@jet.msk.ru>\n"
+"   <rupakov@jet.msk.su>\n"
 "\n"
 "  Serbski - Marko Milenović\n"
 "   <raven@sbb.co.yu>\n"
 "\n"
-"  Hiszpański - Walter Oscar Echarri\n"
-"   <wecharri@infovia.com.ar>\n"
-"\n"
 "  Szwedzki - David Smeringe\n"
 "   <david.smeringe@telia.com>\n"
 "\n"
-"  Tamil - Murugapandian Barathee\n"
+"  Tamilski - Murugapandian Barathee\n"
 "   <barathee@yahoo.com>\n"
+"\n"
+"  Węgierski - Péter Sáska\n"
+"   <sasek@ccsystem.hu>\n"
+"\n"
+"  Włoski - Stefano Canepa\n"
+"   <sc@linux.it>\n"
 "\n"
 
 #: ../src/about.c:198
@@ -262,6 +267,8 @@ msgid ""
 "Bluefish has trouble reading the filenames. Try to set the environment "
 "variable G_BROKEN_FILENAMES=1\n"
 msgstr ""
+"Bluefish nie mógł odczytać nazw plików. Spróbuj ustawić zmienną środowiskową "
+"G_BROKEN_FILENAMES=1\n"
 
 #: ../src/bfspell.c:346
 msgid "Check Spelling"
@@ -430,7 +437,7 @@ msgid "This bookmark is set in a file that no longer exists."
 msgstr "Ta zakładka została zdefiniowana w pliku, który już nie istnieje."
 
 #: ../src/bookmark.c:443
-#, fuzzy, c-format
+#, c-format
 msgid "Do you really want to delete %s?"
 msgstr "Na pewno usunąć %s?"
 
@@ -439,47 +446,40 @@ msgid "Delete permanent bookmark."
 msgstr "Skasuj zakładkę trwałą."
 
 #: ../src/bookmark.c:462
-#, fuzzy
 msgid "Edit bookmark"
-msgstr "Idź do"
+msgstr "Edytuj zakładkę"
 
 #: ../src/bookmark.c:470
 msgid "Goto bookmark"
-msgstr "Idź do"
+msgstr "Idź do zakładki"
 
 #: ../src/bookmark.c:478
-#, fuzzy
 msgid "Edit"
-msgstr "/_Edycja"
+msgstr "Edytuj"
 
 #: ../src/bookmark.c:482
 msgid "Delete"
 msgstr "Kasuj"
 
 #: ../src/bookmark.c:904 ../src/bookmark.c:939 ../src/document.c:1987
-#, fuzzy
 msgid "Add bookmark"
-msgstr "Idź do"
+msgstr "Dodaj zakładkę"
 
 #: ../src/bookmark.c:905
-#, fuzzy
 msgid "Cannot add bookmarks in unnamed files."
-msgstr ""
-"Nie można dodawać zakładek w plikach bez nazwy.\n"
-"Proszę najpierw zapisać plik."
+msgstr "Nie można dodawać zakładek w plikach bez nazwy."
 
 #: ../src/bookmark.c:940
 msgid "You already have a bookmark here!"
 msgstr "Już zdefiniowałeś zakładkę w tym miejscu!"
 
 #: ../src/bookmark.c:945
-#, fuzzy
 msgid "default"
-msgstr "Ustaw d_omyślnie"
+msgstr "domyślnie"
 
 #: ../src/bookmark.c:975
 msgid "temp"
-msgstr ""
+msgstr "temp"
 
 #: ../src/bookmark.c:1043
 #, c-format
@@ -491,7 +491,6 @@ msgstr ""
 " %s."
 
 #: ../src/bookmark.c:1045
-#, fuzzy
 msgid "Bookmarks positions could be incorrect."
 msgstr "Pozycje zakładek mogą być nieprawidłowe."
 
@@ -1580,6 +1579,55 @@ msgstr "/Widok/Pokaż pasek główny"
 msgid "/View/View Custom Menu"
 msgstr "/Widok/Pokaż menu podręczne"
 
+#: ../src/html2.c:554
+msgid "Cascading StyleSheet dialog"
+msgstr "Okno dialogowe CSS"
+
+#: ../src/html2.c:574
+msgid "_Selector:"
+msgstr "_Selektor"
+
+#: ../src/html2.c:593
+msgid "_Property:"
+msgstr "Wła_sność"
+
+#: ../src/html2.c:595 ../src/html_form.c:650 ../src/html_form.c:799
+#: ../src/html_form.c:894
+msgid "_Value:"
+msgstr "_Wartość"
+
+#: ../src/html2.c:613
+msgid "Selector"
+msgstr "Selektor"
+
+#: ../src/html2.c:613 ../src/html2.c:616
+msgid "Property"
+msgstr "Własność"
+
+#: ../src/html2.c:613 ../src/html2.c:616
+msgid "Value"
+msgstr "Wartość"
+
+#: ../src/html2.c:631
+msgid " _Add "
+msgstr " _Dodaj "
+
+#: ../src/html2.c:634
+msgid " _Update "
+msgstr " _Odśwież "
+
+#: ../src/html2.c:637
+msgid " _Delete "
+msgstr " _Kasuj "
+
+#: ../src/html2.c:893 ../src/html2.c:930
+msgid "_Style..."
+msgstr "_Styl..."
+
+#: ../src/html2.c:1087
+msgid "Bluefish: Select color"
+msgstr "Bluefish: Wybierz kolor"
+
 #: ../src/html.c:356
 msgid "Insert Time"
 msgstr "Wstaw czas"
@@ -1974,55 +2022,6 @@ msgstr "_Język:"
 msgid "_Custom:"
 msgstr "_Własne:"
 
-#: ../src/html2.c:554
-msgid "Cascading StyleSheet dialog"
-msgstr "Okno dialogowe CSS"
-
-#: ../src/html2.c:574
-msgid "_Selector:"
-msgstr "_Selektor"
-
-#: ../src/html2.c:593
-msgid "_Property:"
-msgstr "Wła_sność"
-
-#: ../src/html2.c:595 ../src/html_form.c:650 ../src/html_form.c:799
-#: ../src/html_form.c:894
-msgid "_Value:"
-msgstr "_Wartość"
-
-#: ../src/html2.c:613
-msgid "Selector"
-msgstr "Selektor"
-
-#: ../src/html2.c:613 ../src/html2.c:616
-msgid "Property"
-msgstr "Własność"
-
-#: ../src/html2.c:613 ../src/html2.c:616
-msgid "Value"
-msgstr "Wartość"
-
-#: ../src/html2.c:631
-msgid " _Add "
-msgstr " _Dodaj "
-
-#: ../src/html2.c:634
-msgid " _Update "
-msgstr " _Odśwież "
-
-#: ../src/html2.c:637
-msgid " _Delete "
-msgstr " _Kasuj "
-
-#: ../src/html2.c:893 ../src/html2.c:930
-msgid "_Style..."
-msgstr "_Styl..."
-
-#: ../src/html2.c:1087
-msgid "Bluefish: Select color"
-msgstr "Bluefish: Wybierz kolor"
-
 #: ../src/html_form.c:141
 msgid "Form"
 msgstr "Formularz"
@@ -2416,14 +2415,12 @@ msgid "/Edit/Replace special/_Both Types to HTML Entities"
 msgstr "/Edycja/Zamiana specjalna/Oba typy na notację HTML"
 
 #: ../src/menu.c:362
-#, fuzzy
 msgid "/Edit/Replace special/To _Uppercase"
-msgstr "/Edycja/Zamiana specjalna/tearoff1"
+msgstr "/Edycja/Zamiana specjalna/_Wielkie litery"
 
 #: ../src/menu.c:363
-#, fuzzy
 msgid "/Edit/Replace special/To _Lowercase"
-msgstr "/Edycja/Zamiana specjalna/tearoff1"
+msgstr "/Edycja/Zamiana specjalna/_Małe litery"
 
 #: ../src/menu.c:364
 msgid "/Edit/sep4"
@@ -2442,14 +2439,12 @@ msgid "/Edit/sep5"
 msgstr "/Edycja/sep5"
 
 #: ../src/menu.c:368
-#, fuzzy
 msgid "/Edit/Add _Bookmark"
-msgstr "/Zakładk_i"
+msgstr "/Edycja/Dodaj za_kładkę"
 
 #: ../src/menu.c:369
-#, fuzzy
 msgid "/Edit/sep6"
-msgstr "/Edycja/sep1"
+msgstr "/Edycja/sep6"
 
 #: ../src/menu.c:370
 msgid "/Edit/_Save Settings"
@@ -3580,9 +3575,8 @@ msgid "/Project/Save _as..."
 msgstr "/Projekt/Zapisz _jako..."
 
 #: ../src/menu.c:686
-#, fuzzy
 msgid "/Project/Save & _close"
-msgstr "/Projekt/Zapisz _jako..."
+msgstr "/Projekt/Zapisz i za_mknij"
 
 #: ../src/menu.c:687
 msgid "/Project/sep2"
@@ -4076,39 +4070,32 @@ msgid "Clear undo history on save"
 msgstr "Wyczyść historię cofania i zapisz"
 
 #: ../src/preferences.c:1896
-#, fuzzy
 msgid "Bookmark options"
-msgstr "Zakładki"
+msgstr "Opcje zakładek"
 
 #: ../src/preferences.c:1901
-#, fuzzy
 msgid "Sort by line number"
-msgstr "Brak nazwy pliku"
+msgstr "Sortuj wg numeru linii"
 
 #: ../src/preferences.c:1902
-#, fuzzy
 msgid "Make permanent by default"
-msgstr "Domyślnie pokazuj lewy panel"
+msgstr "Domyślnie zmień na zakładkę trwałą"
 
 #: ../src/preferences.c:1904
-#, fuzzy
 msgid "full path"
-msgstr "Ścieżka menu"
+msgstr "pełna ścieżka"
 
 #: ../src/preferences.c:1904
-#, fuzzy
 msgid "path from basedir"
-msgstr "Domyślny katalog bazowy"
+msgstr "ścieżka od katalogu bazowego"
 
 #: ../src/preferences.c:1904
-#, fuzzy
 msgid "filename"
-msgstr "Brak nazwy pliku"
+msgstr "nazwa pliku"
 
 #: ../src/preferences.c:1905
-#, fuzzy
 msgid "Bookmarks filename display"
-msgstr "Plik z tą zakładką został zamknięty"
+msgstr "Sposób wyświetlania nazwy pliku w panelu zakładek"
 
 #: ../src/preferences.c:1909
 msgid "HTML"
@@ -4375,9 +4362,8 @@ msgid "/Project/Save as..."
 msgstr "/Projekt/Zapisz jako..."
 
 #: ../src/project.c:170
-#, fuzzy
 msgid "/Project/Save & close"
-msgstr "/Projekt/Zapisz"
+msgstr "/Projekt/Zapisz i zamknij"
 
 #: ../src/project.c:171
 msgid "/Project/Edit Project Options..."
@@ -4700,63 +4686,3 @@ msgstr "Źródło:"
 #: ../src/wizards.c:223
 msgid "Size:"
 msgstr "Rozmiar:"
-
-#~ msgid "You already have a bookmark named %s!"
-#~ msgstr "Już zdefiniowałeś zakładkę o nazwie %s!"
-
-#~ msgid "Do you want to open it?"
-#~ msgstr "Czy chcesz otworzyć ten plik?"
-
-#~ msgid "Rename permanent bookmark"
-#~ msgstr "Zmień nazwę zakładki trwałej"
-
-#~ msgid "Rename temporary bookmark"
-#~ msgstr "Zmień nazwę zakładki tymczasowej"
-
-#~ msgid "Rename"
-#~ msgstr "Zmień nazwę"
-
-#~ msgid "Permanent"
-#~ msgstr "Trwałe"
-
-#~ msgid "Add temporary bookmark"
-#~ msgstr "Dodaj tymczasową zakładkę"
-
-#~ msgid "Delete all temporary bookmarks."
-#~ msgstr "Kasuj wszystkie zakładki tymczasowe"
-
-#~ msgid "Are you sure?"
-#~ msgstr "Na pewno?"
-
-#~ msgid "Delete all permanent bookmarks."
-#~ msgstr "Kasuj wszystkie zakładki trwałe."
-
-#~ msgid "Are you REALLY sure?"
-#~ msgstr "Na pewno?"
-
-#~ msgid "Add permanent bookmark"
-#~ msgstr "Dodaj zakładkę trwałą"
-
-#~ msgid "/Bookmarks/tearoff1"
-#~ msgstr "/Zakładki/tearoff1"
-
-#~ msgid "/Bookmarks/Add _Temporary"
-#~ msgstr "/Zakładki/Dodaj _tymczasową"
-
-#~ msgid "/Bookmarks/Add _Permanent"
-#~ msgstr "/Zakładki/Dodaj t_rwałą"
-
-#~ msgid "/Bookmarks/sep2"
-#~ msgstr "/Zakładki/sep2"
-
-#~ msgid "/Bookmarks/Delete All Temporar_y"
-#~ msgstr "/Zakładki/Kasuj wszystkie _tymczasowe"
-
-#~ msgid "/Bookmarks/Delete All Per_manent"
-#~ msgstr "/Zakładki/Kasuj wszystkie t_rwałe"
-
-#~ msgid "/Project/_Close & save"
-#~ msgstr "/Projekt/Zapisz i zam_knij"
-
-#~ msgid "/Project/Close & save"
-#~ msgstr "/Projekt/Zapisz i zamknij"
