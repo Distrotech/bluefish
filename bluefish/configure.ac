@@ -102,7 +102,7 @@ AC_ARG_ENABLE(auto-optimization,
 			elif echo $UNAMEP|grep -i -q "AMD Athlon(TM) MP"; then
 				MARCH="-march=athlon-mp -mfpmath=sse -mmmx -msse -m3dnow"
 			elif echo $UNAMEP|grep -i -q "AMD Athlon(tm) 64"; then
-				MARCH="-march=k8 -m64"
+				MARCH="-march=k8"
 			else
 				MARCH=""
 			fi
