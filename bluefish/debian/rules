@@ -28,9 +28,9 @@ config.status: configure
 	# Add here commands to configure the package.
 	CFLAGS="$(CFLAGS)" ./configure \
 		--prefix=/usr \
-		--mandir=\$${prefix}/share/man \
-		--with-freedesktop_org-menu=\$${prefix}/share/applications \
-		--with-freedesktop_org-mime=\$${prefix}/share/mime \
+		--mandir=/usr/share/man \
+		--with-freedesktop_org-menu=/usr/share/applications \
+		--with-freedesktop_org-mime=/usr/share/mime \
 		--without-gnome2_4-mime \
 		--without-gnome2_4-appreg \
 		--with-icon-path=\$${prefix}/share/pixmaps \
