@@ -24,6 +24,7 @@
 /* #define DEBUG */
 
 #include "bluefish.h"
+#include "html2.h" /* style_but_new() */
 #include "html_diag.h" /* myself */
 #include "gtk_easy.h" /* window_full() */
 #include "bf_lib.h"

@@ -39,30 +39,8 @@
 #endif
 
 gboolean string_is_color(const gchar *color) {
-	gint i;
-	if (!color) {
-		DEBUG_MSG("string_is_color, pointer NULL\n");
-		return FALSE;
-	}
-	if (strlen(color) != 7) {
-		DEBUG_MSG("string_is_color, strlen(%s) != 7\n", color);
-		return FALSE;
-	}
-	if (color[0] != '#') {
-		DEBUG_MSG("string_is_color, 0 in %s is not #\n", color);
-		return FALSE;
-	}
-	for (i = 1; i <7 ; i++) {
-		if ((color[i] > 102) 
-				|| (color[i] < 48) 
-				|| ((color[i] > 57) && (color[i] < 65))
-				|| ((color[i] > 70) && (color[i] < 97))) {
-			DEBUG_MSG("string_is_color, %d in %s is not from a color, it is %d\n", i, color, color[i]);
-			return FALSE;
-		}
-	}
-	DEBUG_MSG("string_is_color, %s is color\n", color);
-	return TRUE;
+	GdkColor gcolor;
+	return gdk_color_parse(color, &gcolor);
 }
 
 static void fill_rwx(short unsigned int bits, char *chars) {
