@@ -22,7 +22,7 @@
  */
 /* 
  * Changes by Antti-Juhani Kaijanaho <gaia@iki.fi> on 1999-10-20
- * $Id: html.c,v 1.11 2002-12-25 18:15:31 christte Exp $
+ * $Id: html.c,v 1.12 2003-02-13 08:26:22 oli4 Exp $
  */
 
 #include <gtk/gtk.h>
@@ -420,8 +420,8 @@ void insert_time_cb(GtkWidget * widget, gpointer data)
 	ok_b = bf_stock_ok_button(GTK_SIGNAL_FUNC(insert_time_callback), (gpointer) timeinsert);
 	gtk_window_set_default(GTK_WINDOW(timeinsert->dialog), ok_b);
 	cancel_b = bf_stock_cancel_button(GTK_SIGNAL_FUNC(insert_time_cancel), (gpointer) timeinsert);
-	gtk_box_pack_start(GTK_BOX(hbox), ok_b, TRUE, TRUE, 0);
 	gtk_box_pack_start(GTK_BOX(hbox), cancel_b, TRUE, TRUE, 0);
+	gtk_box_pack_start(GTK_BOX(hbox), ok_b, TRUE, TRUE, 0);
 
 	gtk_widget_show_all(timeinsert->dialog);
 }
