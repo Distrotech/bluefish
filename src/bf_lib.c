@@ -1264,11 +1264,15 @@ gchar *return_first_existing_filename(const gchar *filename, ...) {
  * Return value: gboolean, TRUE if the file has one of the extensions in the array
  **/
 gboolean filename_test_extensions(gchar **extensions, gchar *filename) {
+	gint fnlen;
 	if (!extensions) {
 		return FALSE;
 	}
+	fnlen = strlen(filename);
 	while (*extensions) {
-		if (strncmp(&filename[strlen(filename)-strlen(*extensions)], *extensions, strlen(*extensions)) == 0 ) {
+		gint extlen;
+		extlen = strlen(*extensions);
+		if (fnlen > extlen && strncmp(filename + fnlen - extlen, *extensions, extlen) == 0 ) {
 			return TRUE;
 		}
 		extensions++;
