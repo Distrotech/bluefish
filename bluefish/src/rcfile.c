@@ -448,6 +448,7 @@ static GList *props_init_main(GList * config_rc)
 	init_prop_string    (&config_rc, &main_v->props.newfile_default_encoding,"newfile_default_encoding:","UTF-8");
 	init_prop_arraylist (&config_rc, &main_v->props.encodings, "encodings:");
 	init_prop_integer   (&config_rc, &main_v->props.auto_set_encoding_meta,"auto_set_encoding_meta:",1);
+	init_prop_integer   (&config_rc, &main_v->props.auto_update_meta,"auto_update_meta:",1);
 	init_prop_arraylist (&config_rc, &main_v->props.outputbox, "outputbox:");
 	init_prop_integer   (&config_rc, &main_v->props.ext_browsers_in_submenu,"ext_browsers_in_submenu:",0);
 	init_prop_integer   (&config_rc, &main_v->props.ext_commands_in_submenu,"ext_commands_in_submenu:",1);
@@ -547,17 +548,13 @@ void rcfile_parse_main(void)
 	}
 	if (main_v->props.outputbox==NULL) {
 		main_v->props.outputbox = g_list_append(main_v->props.outputbox,array_from_arglist("make","([a-zA-Z0-9/_.-]+):([0-9]+):(.*)","1","2","3","make","1",NULL));
-		main_v->props.outputbox = g_list_append(main_v->props.outputbox,array_from_arglist("weblint errors","([a-zA-Z0-9/_.-]+)\\(([0-9]+)\\): (.*)","1","2","3","weblint %s","1",NULL));
-		main_v->props.outputbox = g_list_append(main_v->props.outputbox,array_from_arglist("tidy errors","line ([0-9]+) column [0-9]+ - (.*)","-1","1","2","tidy -qe %s","0",NULL));
+		main_v->props.outputbox = g_list_append(main_v->props.outputbox,array_from_arglist("weblint HTML checker","([a-zA-Z0-9/_.-]+)\\(([0-9]+)\\): (.*)","1","2","3","weblint %s","1",NULL));
+		main_v->props.outputbox = g_list_append(main_v->props.outputbox,array_from_arglist("tidy HTML validator","line ([0-9]+) column [0-9]+ - (.*)","-1","1","2","tidy -qe %s","0",NULL));
 		main_v->props.outputbox = g_list_append(main_v->props.outputbox,array_from_arglist("javac","([a-zA-Z0-9/_.-]+):([0-9]+):(.*)","1","2","3","javac %s","0",NULL));
 /*		main_v->props.outputbox = g_list_append(main_v->props.outputbox,array_from_arglist(,NULL)); */
 	}
 	if (main_v->props.external_commands == NULL) {
 		gchar **arr;
-		arr = array_from_arglist("Java Compiler", "xterm -e sh -c \"javac %s;read\"&",NULL);
-		main_v->props.external_commands = g_list_append(main_v->props.external_commands,arr);
-		arr = array_from_arglist("Make", "xterm -e sh -c \"make;read\"&",NULL);
-		main_v->props.external_commands = g_list_append(main_v->props.external_commands,arr);
 		arr = array_from_arglist("Dos2Unix filter", "cat %s | dos2unix > %f",NULL);
 		main_v->props.external_commands = g_list_append(main_v->props.external_commands,arr);
 		arr = array_from_arglist("Tidy cleanup filter", "cat %s | tidy -utf8 -q >%f 2>/dev/null",NULL);

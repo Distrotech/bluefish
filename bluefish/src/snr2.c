@@ -77,21 +77,6 @@ typedef enum { string, upcase, lowcase }replacetypes;
 enum Tmatchtypes { match_normal, match_regex, match_pcre };
 
 typedef struct {
-	/* span of characters */
-	gint start;
-	gint end;
-
-	/* span of byte-data in buffer */
-	gint bstart;
-	gint bend;
-	
-	/* these data are only used (and alloc'ed) if want_submatches is set in the search backend,
-	they should be freed by the calling function! */
-	regmatch_t *pmatch;
-	gint nmatch;
-} Tsearch_result;
-
-typedef struct {
 	gint start;
 	gint end;
 	Tdocument *doc;
@@ -884,6 +869,10 @@ void snr2_run_extern_replace(gchar *pattern, gint region,
 	snr2_run();
 }
 
+Tsearch_result doc_search_run_extern(gchar *pattern, gint matchtype, gint is_case_sens) {
+	return search_doc(main_v->current_document, pattern, matchtype, is_case_sens, 0);
+} 
+
 /*****************************************************/
 
 static void snr2dialog_destroy_lcb(GtkWidget *widget, GdkEvent *event, gpointer data) {
@@ -1244,3 +1233,4 @@ void update_encoding_meta_in_file(Tdocument *doc, gchar *encoding) {
 		g_free(fulltext);
 	}
 }
+

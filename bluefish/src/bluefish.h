@@ -155,6 +155,7 @@ typedef struct {
 	gchar *newfile_default_encoding; /* if you open a new file, what encoding will it use */
 	GList *encodings; /* all encodings you can choose from */
 	gint auto_set_encoding_meta; /* auto set metatag for the encoding */
+	gint auto_update_meta; /* auto update author and generator meta tags on save */
 	GList *outputbox; /* all outputbox commands */
 	gint ext_browsers_in_submenu;
 	gint ext_commands_in_submenu;
