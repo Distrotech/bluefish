@@ -22,7 +22,7 @@
  */
 /* 
  * Changes by Antti-Juhani Kaijanaho <gaia@iki.fi> on 1999-10-20
- * $Id: html.c,v 1.27 2003-07-14 19:04:34 oli4 Exp $
+ * $Id: html.c,v 1.28 2003-07-18 13:30:36 oli4 Exp $
  */
 
 #include <gtk/gtk.h>
@@ -56,9 +56,9 @@ typedef struct {
 
 /*****************************************************************************/
 
-void insert_char_cb(GtkWidget * widget, gint data) {
+void insert_char_cb(Tbfwin* bfwin,guint callback_action, GtkWidget *widget) {
 	gchar *sp_chars[] = {
-	"&Agrave;", "&Aacute;", "&Acirc;", "&Atilde;", "&AElig;",
+	NULL, "&Aacute;", "&Acirc;", "&Atilde;", "&AElig;",
 	"&Auml;", "&Aring;", "&Ccedil;", "&Egrave;", "&Eacute;",
 	"&Ecirc;", "&Euml;", "&Igrave;", "&Iacute;", "&Icirc;",
 	"&Iuml;", "&Ntilde;", "&Ograve;", "&Oacute;", "&Ocirc;",
@@ -76,197 +76,196 @@ void insert_char_cb(GtkWidget * widget, gint data) {
 	"&eth;", "&thorn;", "&szlig;", "&micro;", "&nbsp;", "&sect;",
 	"&copy;", "&laquo;", "&raquo;", "&reg;", "&iexcl;", "&iquest;",
 	"&ordf;", "&ordm;", "&para;", "&brvbar;", "&shy;", "&macr;",
-	"&middot;","&euro;", "&oelig;", "&OElig;"
+	"&middot;","&euro;", "&oelig;", "&OElig;", "&Agrave;"
 	};
-	doc_insert_two_strings(main_v->current_document, sp_chars[data], NULL);
+	doc_insert_two_strings(bfwin->current_document, sp_chars[callback_action], NULL);
 }
 
-void general_html_cb(GtkWidget * widget, gpointer data)
-{
+void general_html_menu_cb(Tbfwin* bfwin,guint callback_action, GtkWidget *widget) {
 	gchar *tmp;
-	switch (GPOINTER_TO_INT(data)) {
+	switch (callback_action) {
 	case 1:
-		doc_insert_two_strings(main_v->current_document, cap("<B>"), cap("</B>"));
+		doc_insert_two_strings(bfwin->current_document, cap("<B>"), cap("</B>"));
 		break;
 	case 2:
-		doc_insert_two_strings(main_v->current_document, cap("<I>"), cap("</I>"));
+		doc_insert_two_strings(bfwin->current_document, cap("<I>"), cap("</I>"));
 		break;
 	case 3:
-		doc_insert_two_strings(main_v->current_document, main_v->props.xhtml == 1 ? cap("<SPAN STYLE=\"text-decoration: underline;\">") :cap("<U>")
+		doc_insert_two_strings(bfwin->current_document, main_v->props.xhtml == 1 ? cap("<SPAN STYLE=\"text-decoration: underline;\">") :cap("<U>")
 			, main_v->props.xhtml == 1 ? cap("</SPAN>"):cap("</U>"));
 		break;
 	case 4:
-		doc_insert_two_strings(main_v->current_document, cap("<STRIKE>"), cap("</STRIKE>"));
+		doc_insert_two_strings(bfwin->current_document, cap("<STRIKE>"), cap("</STRIKE>"));
 		break;
 	case 5:
-		doc_insert_two_strings(main_v->current_document, cap("<P>"), main_v->props.full_p == 1 ? cap("</P>") : NULL);
+		doc_insert_two_strings(bfwin->current_document, cap("<P>"), main_v->props.full_p == 1 ? cap("</P>") : NULL);
 		break;
 	case 6:
-		doc_insert_two_strings(main_v->current_document, main_v->props.xhtml == 1 ? cap("<br />") : cap("<br>"), NULL);
+		doc_insert_two_strings(bfwin->current_document, main_v->props.xhtml == 1 ? cap("<br />") : cap("<br>"), NULL);
 		break;
 	case 7:
-		doc_insert_two_strings(main_v->current_document, "&nbsp;", NULL);
+		doc_insert_two_strings(bfwin->current_document, "&nbsp;", NULL);
 		break;
 	case 8:
-		doc_insert_two_strings(main_v->current_document, main_v->props.xhtml == 1 ? cap("<DIV STYLE=\"text-align: center\">"):cap("<DIV ALIGN=\"CENTER\">"),cap("</DIV>"));
+		doc_insert_two_strings(bfwin->current_document, main_v->props.xhtml == 1 ? cap("<DIV STYLE=\"text-align: center\">"):cap("<DIV ALIGN=\"CENTER\">"),cap("</DIV>"));
 		break;
 	case 9:
-		doc_insert_two_strings(main_v->current_document, main_v->props.xhtml == 1 ? cap("<DIV STYLE=\"text-align: right\">"):cap("<DIV ALIGN=\"RIGHT\">"), cap("</DIV>"));
+		doc_insert_two_strings(bfwin->current_document, main_v->props.xhtml == 1 ? cap("<DIV STYLE=\"text-align: right\">"):cap("<DIV ALIGN=\"RIGHT\">"), cap("</DIV>"));
 		break;
 	case 10:
-		doc_insert_two_strings(main_v->current_document, "<!-- ", " -->");
+		doc_insert_two_strings(bfwin->current_document, "<!-- ", " -->");
 		break;
 	case 11:
-		doc_insert_two_strings(main_v->current_document, main_v->props.xhtml == 1 ? cap("<SPAN STYLE=\"font-size: larger;\">"):cap("<FONT SIZE=\"+1\">")
+		doc_insert_two_strings(bfwin->current_document, main_v->props.xhtml == 1 ? cap("<SPAN STYLE=\"font-size: larger;\">"):cap("<FONT SIZE=\"+1\">")
 			, main_v->props.xhtml == 1 ? cap("</SPAN>"):cap("</FONT>"));
 		break;
 	case 12:
-		doc_insert_two_strings(main_v->current_document, main_v->props.xhtml == 1 ? cap("<SPAN STYLE=\"font-size: smaller;\">"):cap("<FONT SIZE=\"-1\">")
+		doc_insert_two_strings(bfwin->current_document, main_v->props.xhtml == 1 ? cap("<SPAN STYLE=\"font-size: smaller;\">"):cap("<FONT SIZE=\"-1\">")
 			, main_v->props.xhtml == 1 ? cap("</SPAN>"):cap("</FONT>"));
 		break;
 	case 13:
-		doc_insert_two_strings(main_v->current_document, cap("<PRE>"), cap("</PRE>"));
+		doc_insert_two_strings(bfwin->current_document, cap("<PRE>"), cap("</PRE>"));
 		break;
 	case 14:
-		doc_insert_two_strings(main_v->current_document, cap("<SUB>"), cap("</SUB>"));
+		doc_insert_two_strings(bfwin->current_document, cap("<SUB>"), cap("</SUB>"));
 		break;
 	case 15:
-		doc_insert_two_strings(main_v->current_document, cap("<SUP>"), cap("</SUP>"));
+		doc_insert_two_strings(bfwin->current_document, cap("<SUP>"), cap("</SUP>"));
 		break;
 	case 16:
-		doc_insert_two_strings(main_v->current_document, cap("<STRONG>"), cap("</STRONG>"));
+		doc_insert_two_strings(bfwin->current_document, cap("<STRONG>"), cap("</STRONG>"));
 		break;
 	case 17:
-		doc_insert_two_strings(main_v->current_document, cap("<EM>"), cap("</EM>"));
+		doc_insert_two_strings(bfwin->current_document, cap("<EM>"), cap("</EM>"));
 		break;
 	case 18:
-		doc_insert_two_strings(main_v->current_document, cap("<H1>"), cap("</H1>"));
+		doc_insert_two_strings(bfwin->current_document, cap("<H1>"), cap("</H1>"));
 		break;
 	case 19:
-		doc_insert_two_strings(main_v->current_document, cap("<H2>"), cap("</H2>"));
+		doc_insert_two_strings(bfwin->current_document, cap("<H2>"), cap("</H2>"));
 		break;
 	case 20:
-		doc_insert_two_strings(main_v->current_document, cap("<H3>"), cap("</H3>"));
+		doc_insert_two_strings(bfwin->current_document, cap("<H3>"), cap("</H3>"));
 		break;
 	case 21:
-		doc_insert_two_strings(main_v->current_document, cap("<H4>"), cap("</H4>"));
+		doc_insert_two_strings(bfwin->current_document, cap("<H4>"), cap("</H4>"));
 		break;
 	case 22:
-		doc_insert_two_strings(main_v->current_document, cap("<H5>"), cap("</H5>"));
+		doc_insert_two_strings(bfwin->current_document, cap("<H5>"), cap("</H5>"));
 		break;
 	case 23:
-		doc_insert_two_strings(main_v->current_document, cap("<H6>"), cap("</H6>"));
+		doc_insert_two_strings(bfwin->current_document, cap("<H6>"), cap("</H6>"));
 		break;
 	case 24:
-		doc_insert_two_strings(main_v->current_document, cap("<TABLE>"), cap("</TABLE>"));
+		doc_insert_two_strings(bfwin->current_document, cap("<TABLE>"), cap("</TABLE>"));
 		break;
 	case 25:
-		doc_insert_two_strings(main_v->current_document, cap("<TR>"), cap("</TR>"));
+		doc_insert_two_strings(bfwin->current_document, cap("<TR>"), cap("</TR>"));
 		break;
 	case 26:
-		doc_insert_two_strings(main_v->current_document, cap("<TH>"), cap("</TH>"));
+		doc_insert_two_strings(bfwin->current_document, cap("<TH>"), cap("</TH>"));
 		break;
 	case 27:
-		doc_insert_two_strings(main_v->current_document, cap("<TD>"), cap("</TD>"));
+		doc_insert_two_strings(bfwin->current_document, cap("<TD>"), cap("</TD>"));
 		break;
 	case 28:
-		doc_insert_two_strings(main_v->current_document, cap("<CAPTION>"), cap("</CAPTION>"));
+		doc_insert_two_strings(bfwin->current_document, cap("<CAPTION>"), cap("</CAPTION>"));
 		break;
 	case 29:
-		doc_insert_two_strings(main_v->current_document, cap("<FRAMESET>"), cap("</FRAMESET>"));
+		doc_insert_two_strings(bfwin->current_document, cap("<FRAMESET>"), cap("</FRAMESET>"));
 		break;
 	case 30:
-		doc_insert_two_strings(main_v->current_document, main_v->props.xhtml == 1 ? cap("<FRAME />") : cap("<FRAME>"), NULL);
+		doc_insert_two_strings(bfwin->current_document, main_v->props.xhtml == 1 ? cap("<FRAME />") : cap("<FRAME>"), NULL);
 		break;
 	case 31:
-		doc_insert_two_strings(main_v->current_document, cap("<NOFRAMES>"), cap("</NOFRAMES>"));
+		doc_insert_two_strings(bfwin->current_document, cap("<NOFRAMES>"), cap("</NOFRAMES>"));
 		break;
 	case 32:
-		doc_insert_two_strings(main_v->current_document, main_v->props.xhtml == 1 ? cap("<BASE TARGET=\"\" />") : cap("<BASE TARGET=\"\">"), NULL);
+		doc_insert_two_strings(bfwin->current_document, main_v->props.xhtml == 1 ? cap("<BASE TARGET=\"\" />") : cap("<BASE TARGET=\"\">"), NULL);
 		break;
 	case 33:
-		doc_insert_two_strings(main_v->current_document, cap("<UL>"), cap("</UL>"));
+		doc_insert_two_strings(bfwin->current_document, cap("<UL>"), cap("</UL>"));
 		break;
 	case 34:
-		doc_insert_two_strings(main_v->current_document, cap("<OL>"), cap("</OL>"));
+		doc_insert_two_strings(bfwin->current_document, cap("<OL>"), cap("</OL>"));
 		break;
 	case 35:
-		doc_insert_two_strings(main_v->current_document, cap("<LI>"), main_v->props.full_li == 1 ? cap("</LI>") : NULL);
+		doc_insert_two_strings(bfwin->current_document, cap("<LI>"), main_v->props.full_li == 1 ? cap("</LI>") : NULL);
 		break;
 	case 36:
-		doc_insert_two_strings(main_v->current_document, main_v->props.full_li == 1 ? cap("<DL>\n<DT></DT>\n\t<DD></DD>\n</DL>") : cap("<DL>\n<DT>\n\t<DD>\n</DL>"), "\n");
+		doc_insert_two_strings(bfwin->current_document, main_v->props.full_li == 1 ? cap("<DL>\n<DT></DT>\n\t<DD></DD>\n</DL>") : cap("<DL>\n<DT>\n\t<DD>\n</DL>"), "\n");
 		break;
 	case 37:
-		doc_insert_two_strings(main_v->current_document, cap("<DT>"), main_v->props.full_li == 1 ? cap("</DT>") : NULL);
+		doc_insert_two_strings(bfwin->current_document, cap("<DT>"), main_v->props.full_li == 1 ? cap("</DT>") : NULL);
 		break;
 	case 38:
-		doc_insert_two_strings(main_v->current_document, cap("<DD>"), main_v->props.full_li == 1 ? cap("</DD>") : NULL);
+		doc_insert_two_strings(bfwin->current_document, cap("<DD>"), main_v->props.full_li == 1 ? cap("</DD>") : NULL);
 		break;
 	case 39:
-		doc_insert_two_strings(main_v->current_document, cap("<MENU>"), cap("</MENU>"));
+		doc_insert_two_strings(bfwin->current_document, cap("<MENU>"), cap("</MENU>"));
 		break;
 	case 40:
-		doc_insert_two_strings(main_v->current_document, cap("<MAP NAME=\""), main_v->props.xhtml == 1 ?
+		doc_insert_two_strings(bfwin->current_document, cap("<MAP NAME=\""), main_v->props.xhtml == 1 ?
 			cap("\">\n\t<AREA SHAPE=\"\" COORDS=\"\" HREF=\"\" />\n</MAP>\n") :
 			cap("\">\n\t<AREA SHAPE=\"\" COORDS=\"\" HREF=\"\">\n</MAP>\n"));
 		break;
 	case 41:
-		doc_insert_two_strings(main_v->current_document, main_v->props.xhtml == 1 ? cap("<BR CLEAR=\"ALL\" />") : cap("<BR CLEAR=\"ALL\">"), NULL);
+		doc_insert_two_strings(bfwin->current_document, main_v->props.xhtml == 1 ? cap("<BR CLEAR=\"ALL\" />") : cap("<BR CLEAR=\"ALL\">"), NULL);
 		break;
 	case 42:
 		/* the text/css should be always lowercase! */
 		tmp = g_strdup_printf("<%s=\"text/css\"><!--\n", cap("STYLE TYPE"));
-		doc_insert_two_strings(main_v->current_document, tmp, cap("\n--></STYLE>"));
+		doc_insert_two_strings(bfwin->current_document, tmp, cap("\n--></STYLE>"));
 		g_free(tmp);
 		break;
 	case 43:
-		doc_insert_two_strings(main_v->current_document, cap("<NOBR>"), cap("</NOBR>"));
+		doc_insert_two_strings(bfwin->current_document, cap("<NOBR>"), cap("</NOBR>"));
 		break;
 	case 44:
 		tmp = g_strdup_printf("<%s=\"javascript\" %s=\"text/javascript\"><!--\n", cap("SCRIPT LANGUAGE"), cap("TYPE"));
-		doc_insert_two_strings(main_v->current_document, tmp, cap("\n//--></SCRIPT>"));
+		doc_insert_two_strings(bfwin->current_document, tmp, cap("\n//--></SCRIPT>"));
 		g_free(tmp);
 		break;
 /*	case 45:
 		tmp = g_strdup_printf("<%s=\"javascript\" %s>", cap("SCRIPT LANGUAGE"), cap("SRC=\"\" TYPE=\"text/javascript\""));
-		doc_insert_two_strings(main_v->current_document, tmp, cap("</SCRIPT>"));
+		doc_insert_two_strings(bfwin->current_document, tmp, cap("</SCRIPT>"));
 		g_free(tmp);
 		break; */
 /*	case 46:
 		tmp = g_strdup_printf("<%s=\"stylesheet\" %s=\"\" %s=\"text/css\">", cap("LINK REL"), cap("HREF"), cap("TYPE"));
-		doc_insert_two_strings(main_v->current_document, tmp, "");
+		doc_insert_two_strings(bfwin->current_document, tmp, "");
 		g_free(tmp);
 		break; */
 	case 47:
 		tmp = g_strconcat(cap("<META NAME=\"Generator\" CONTENT=\"")
 			, "Bluefish ",  VERSION, " http://bluefish.openoffice.nl/"
 			, main_v->props.xhtml == 1 ? "\" />\n" : "\">\n" , NULL);
-		doc_insert_two_strings(main_v->current_document, tmp, NULL);
+		doc_insert_two_strings(bfwin->current_document, tmp, NULL);
 		g_free(tmp);
 		break;
 	case 48:
-		doc_insert_two_strings(main_v->current_document, cap("<DFN>"), cap("</DFN>"));
+		doc_insert_two_strings(bfwin->current_document, cap("<DFN>"), cap("</DFN>"));
 		break;
 	case 49:
-		doc_insert_two_strings(main_v->current_document, cap("<CODE>"), cap("</CODE>"));
+		doc_insert_two_strings(bfwin->current_document, cap("<CODE>"), cap("</CODE>"));
 		break;
 	case 50:
-		doc_insert_two_strings(main_v->current_document, cap("<SAMP>"), cap("</SAMP>"));
+		doc_insert_two_strings(bfwin->current_document, cap("<SAMP>"), cap("</SAMP>"));
 		break;
 	case 51:
-		doc_insert_two_strings(main_v->current_document, cap("<KBD>"), cap("</KBD>"));
+		doc_insert_two_strings(bfwin->current_document, cap("<KBD>"), cap("</KBD>"));
 		break;
 	case 52:
-		doc_insert_two_strings(main_v->current_document, cap("<VAR>"), cap("</VAR>"));
+		doc_insert_two_strings(bfwin->current_document, cap("<VAR>"), cap("</VAR>"));
 		break;
 	case 53:
-		doc_insert_two_strings(main_v->current_document, cap("<CITE>"), cap("</CITE>"));
+		doc_insert_two_strings(bfwin->current_document, cap("<CITE>"), cap("</CITE>"));
 		break;
 	case 54:
-		doc_insert_two_strings(main_v->current_document, cap("<ABBR>"), cap("</ABBR>"));
+		doc_insert_two_strings(bfwin->current_document, cap("<ABBR>"), cap("</ABBR>"));
 		break;
 	case 55:
-		doc_insert_two_strings(main_v->current_document, cap("<ACRONYM>"), cap("</ACRONYM>"));
+		doc_insert_two_strings(bfwin->current_document, cap("<ACRONYM>"), cap("</ACRONYM>"));
 		break;
 	default:
 		break;
