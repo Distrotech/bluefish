@@ -20,7 +20,6 @@ AC_INIT
 AC_CONFIG_SRCDIR(src/bluefish.c)
 AC_CONFIG_HEADER(src/config.h)
 
-
 PACKAGE=bluefish
 VERSION=pre1.0
 AC_SUBST(PACKAGE)
@@ -54,7 +53,7 @@ AC_CANONICAL_HOST
              * ) CYGWIN=no;;
 esac
  
-if test "$CYGWIN" = "yes"; then
+if test "x$CYGWIN" = "xyes"; then
 	AC_DEFINE(WIN32)
 	CFLAGS="$CFLAGS"
 	LIBS="$LIBS -lintl.dll"
@@ -77,7 +76,6 @@ fi
 AC_ARG_ENABLE(auto-optimization, 
 		AC_HELP_STRING([--enable-auto-optimization],
 				[try to automatically determine the most optimal build options for your architecture]),
-
 		UNAMEP=`uname -p`
 		if test "x$UNAMEP" = "x"; then
 			UNAMEP="unknown"
@@ -172,33 +170,33 @@ AC_ARG_ENABLE(gcc2-optimization,
 AC_PROG_INSTALL
 
 AC_ARG_ENABLE(debugging-output,
-[  --enable-debugging-output Turns massive debugging output on, will slow down the program!],[
+	AC_HELP_STRING([--enable-debugging-output],[Turns massive debugging output on, will slow down the program!]),[
    echo "With debugging output",
 AC_DEFINE(DEBUG)],)
 
 AC_ARG_ENABLE(splash-screen,
-[  --disable-splash-screen disables the splash screen],[
+	AC_HELP_STRING([--disable-splash-screen],[disables the splash screen]),[
    echo "Without splash screen",
 	AC_DEFINE(NOSPLASH)],)
 
 AC_ARG_ENABLE(highlight-profiling,
-[  --enable-highlight-profiling Enables profiling information about highlighting patterns],[
+	AC_HELP_STRING([--enable-highlight-profiling],[Enables profiling information about highlighting patterns]),[
    echo "With highlighting profiling",
 AC_DEFINE(HL_PROFILING)],)
 
 AC_ARG_ENABLE(development,
-[  --enable-development        Enables development checks, will slow down the program!],[
+	AC_HELP_STRING[--enable-development],[Enables development checks, will slow down the program!]),[
    echo "With development checks"
 	AC_DEFINE(DEVELOPMENT)],)
 
 AC_ARG_ENABLE(gprof-profiling,
-[  --enable-gprof-profiling    Enables gprof profiling, will slow down the program!],[
+	AC_HELP_STRING([--enable-gprof-profiling],[Enables gprof profiling, will slow down the program!]),[
    echo "With gprof profiling"
 	CFLAGS="$CFLAGS -pg"
 	LDFLAGS="$LDFLAGS -pg"],)
 
 AC_ARG_ENABLE(gcov-coverage,
-[  --enable-gcov-coverage      Enables coverage, will slow down the program!],[
+	AC_HELP_STRING([--enable-gcov-coverage],[Enables coverage, will slow down the program!]),[
    echo "With gcov coverage"
 	CFLAGS="$CFLAGS -fprofile-arcs -ftest-coverage"],)
 
@@ -354,90 +352,109 @@ dnl ************************
 dnl do we have a gnome1 menu path ?
 dnl ************************
 AC_ARG_WITH(gnome1-menu, 
-	AC_HELP_STRING([--with-gnome1-menu],[enable gnome1 menu]),[
+	AC_HELP_STRING([--with-gnome1-menu],[enable gnome1 menu, use --with-gnome1-menu=/path to override the gnome1 prefix default /usr]),[
 	WITHGNOME1=$withval
 	],[
 	WITHGNOME1=no]
 )
-if test "x$WITHGNOME1" = "xyes" ; then
+if test "x$WITHGNOME1" != "xno" ; then
+	if test "x$WITHGNOME2" = "xyes" ; then
+		GNOME1PREFIX=/usr/
+	else
+		GNOME1PREFIX=$WITHGNOME1
+	fi
 	echo -n "checking for gnome1 menu directory... "
-	if test -d /usr/share/gnome/apps ; then
-		GNOME1MENU=/usr/share/gnome/apps
+	if test -d ${GNOME1PREFIX}/share/gnome/apps ; then
+		GNOME1MENU=${GNOME1PREFIX}/share/gnome/apps
+		INSTALLDATA="$INSTALLDATA install-gnome1-menu"
 		AC_SUBST(GNOME1MENU)
-		echo "/usr/share/gnome/apps"
+		echo "${GNOME1PREFIX}/share/gnome/apps"
 	else
 		echo "no"
 	fi
 fi
 
 AC_ARG_WITH(gnome2-menu, 
-	AC_HELP_STRING([--without-gnome2-menu],[disable gnome2 menu]),[
+	AC_HELP_STRING([--without-gnome2-menu],[disable gnome2 menu, use --with-gnome2-menu=/path to override the gnome2 prefix default /usr]),[
 	WITHGNOME2=$withval
 	],[
 	WITHGNOME2=yes]
 )
-if test "x$WITHGNOME2" = "xyes" ; then
+if test "x$WITHGNOME2" != "xno" ; then
+	if test "x$WITHGNOME2" = "xyes" ; then
+		GNOME2PREFIX=/usr/
+	else
+		GNOME2PREFIX=$WITHGNOME2
+	fi
 	AC_PATH_PROG(UPDATE_MIME, update-mime-database, "no")
 	AC_PATH_PROG(UPDATE_DESKTOP, update-desktop-database, "no")
 	if test "x$UPDATE_MIME" = "xno" -a "x$UPDATE_MIME" = "xno" ; then
 		echo -n "checking for gnome2 menu directory... "
-		if test -d /usr/share/applications ; then
-			echo "/usr/share/applications"
-			GNOME2MENU=/usr/share/applications
+		if test -d ${GNOME2PREFIX}/share/applications ; then
+			echo "${GNOME2PREFIX}/share/applications"
+			GNOME2MENU=${GNOME2PREFIX}/share/applications
 			AC_SUBST(GNOME2MENU)
+			INSTALLDATA="$INSTALLDATA install-gnome2.6"
 		else
 			echo "no"
 		fi
 		echo -n "checking for gnome2 mime-info directory... "
-		if test -d /usr/share/mime-info ; then
-			echo "/usr/share/mime-info"
-			GNOME2MIMEINFO=/usr/share/mime-info
+		if test -d ${GNOME2PREFIX}/share/mime-info ; then
+			echo "${GNOME2PREFIX}/share/mime-info"
+			GNOME2MIMEINFO=${GNOME2PREFIX}/share/mime-info
 			AC_SUBST(GNOME2MIMEINFO)
 		else
 			echo "no"
 		fi
 		echo -n "checking for gnome2 application-registry directory... "
-		if test -d /usr/share/application-registry ; then
-			echo "/usr/share/application-registry"
-			GNOME2APPLICATIONREGISTRY=/usr/share/application-registry
+		if test -d ${GNOME2PREFIX}/share/application-registry ; then
+			echo "${GNOME2PREFIX}/share/application-registry"
+			GNOME2APPLICATIONREGISTRY=${GNOME2PREFIX}/share/application-registry
 			AC_SUBST(GNOME2APPLICATIONREGISTRY)
 		else
 			echo "no"
 		fi
 	else
 		echo -n "checking for gnome2 menu directory... "
-		if test -d /usr/share/applications ; then
-			echo "/usr/share/applications"
-			GNOME2MENU=/usr/share/applications
+		if test -d ${GNOME2PREFIX}/share/applications ; then
+			echo "${GNOME2PREFIX}/share/applications"
+			GNOME2MENU=${GNOME2PREFIX}/share/applications
 			AC_SUBST(GNOME2MENU)
 		else
 			echo "no"
 		fi
 		echo -n "checking for gnome2 mime directory... "
-		if test -d /usr/share/mime/packages ; then
-			echo "/usr/share/mime/packages"
-			GNOME2MIME=/usr/share/mime/packages
+		if test -d ${GNOME2PREFIX}/share/mime/ ; then
+			echo "${GNOME2PREFIX}/share/mime/"
+			GNOME2MIME=${GNOME2PREFIX}/share/mime/
 			AC_SUBST(GNOME2MIME)
+			INSTALLDATA="$INSTALLDATA install-gnome2.8"
 		else
 			echo "no"
 		fi
-#		echo "UPDATE_MIME $(UPDATE_MIME)"
-		AC_SUBST(UPDATE_MIME_PATH, UPDATE_MIME)
-		AC_SUBST(UPDATE_DESKTOP_PATH, UPDATE_DESKTOP)
+		AC_SUBST(UPDATE_MIME_PATH, ${UPDATE_MIME})
+		AC_SUBST(UPDATE_DESKTOP_PATH, ${UPDATE_DESKTOP})
 	fi
 fi
 
+AC_SUBST(INSTALLDATA)
+
 AC_ARG_WITH(icon-path,
-	AC_HELP_STRING([--without-icon],[do not install icon in /usr/share/pixmaps/]),[
+	AC_HELP_STRING([--without-icon],[do not install icon in /usr/share/pixmaps/, use --with-icon=/path to override the default path]),[
 	WITHICON=$withval
 ], [
 	WITHICON=yes
 ])
-if test "x$WITHICON" = "xyes" ; then
+if test "x$WITHICON" != "xno" ; then
+	if test "x$WITHICON" = "xyes" ; then
+		ICONPREFIX=/usr/share/pixmaps
+	else
+		ICONPREFIX=$WITHICON
+	fi	
 	echo -n "checking for icon directory... "
-	if test -d /usr/share/pixmaps ; then
-		echo "/usr/share/pixmaps"
-		ICONPATH=/usr/share/pixmaps
+	if test -d ${ICONPREFIX} ; then
+		echo "${ICONPREFIX}"
+		ICONPATH=${ICONPREFIX}
 		AC_SUBST(ICONPATH)
 	else
 		echo "no"
@@ -523,4 +540,3 @@ echo "6702 CJ"
 echo "Wageningen"
 echo "The Netherlands"
 echo "-----------"
-#set
