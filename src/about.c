@@ -168,8 +168,8 @@ Thanks to all who helped making this software available.\n\
    <rto@pohldata.dk>\n\n\
   Finnish - Juho Roukala\n\
    <j.mr@luukku.com>\n\n\
-  French - Roméo Viu-Berges\n\
-   <apostledemencia@free.fr>\n\n\
+  French - Michèle Garoche\n\
+   <michele.garoche@easyconnect.fr>\n\n\
   German - Roland Steinbach\n\
    <roland@netzblick.de>\n\n\
   Hungarian - Péter Sáska\n\
