@@ -35,7 +35,7 @@
  *             search_backend
  */
 /*****************************************************/
-/* #define DEBUG */
+/*#define DEBUG*/
 
 #include <gtk/gtk.h>
 
@@ -95,7 +95,6 @@ typedef struct {
 	gint prompt_before_replace;
 	gint is_case_sens;
 	gint replace_once;
-
 	Treplace_types replacetype_option;
 	Tmatch_types matchtype_option;
 	Tplace_types placetype_option;
@@ -1051,12 +1050,21 @@ void snr2_run_extern_replace(Tdocument *doc, gchar *search_pattern, gint region,
 							gint matchtype, gint is_case_sens, gchar *replace_pattern,
 							gboolean store_as_last_snr2) {
 	Tbfwin *bfwin = BFWIN(doc->bfwin);
-	gchar *search_pattern_bck = LASTSNR2(bfwin->snr2)->search_pattern, *replace_pattern_bck = LASTSNR2(bfwin->snr2)->search_pattern;
-	Tlast_snr2 last_snr2_bck = *LASTSNR2(bfwin->snr2);
+	gchar *search_pattern_bck, *replace_pattern_bck;
+	Tlast_snr2 last_snr2_bck;
+	
+	search_pattern_bck = LASTSNR2(bfwin->snr2)->search_pattern;
+	replace_pattern_bck = LASTSNR2(bfwin->snr2)->replace_pattern;
+	last_snr2_bck = *LASTSNR2(bfwin->snr2);
+	DEBUG_MSG("last_snr2_bck.search_pattern=%p, replace_pattern=%p\n"
+		,last_snr2_bck.search_pattern, last_snr2_bck.replace_pattern);
+
 	if (!search_pattern || !replace_pattern || !strlen(search_pattern)) {
 		DEBUG_MSG("snr2_run_extern, returning, non-valid arguments\n");
 		return;
 	}
+	DEBUG_MSG("snr2..extern..: doc=%p, search_pattern=%s, region=%d, matchtype=%d, is_case_sens=%d, replace_pattern=%s, store_as_last=%d\n"
+			,doc,search_pattern,region,matchtype,is_case_sens,replace_pattern,store_as_last_snr2);
 	LASTSNR2(bfwin->snr2)->search_pattern = g_strdup(search_pattern);
 	LASTSNR2(bfwin->snr2)->placetype_option = region;
  	LASTSNR2(bfwin->snr2)->is_case_sens = is_case_sens;
@@ -1067,9 +1075,9 @@ void snr2_run_extern_replace(Tdocument *doc, gchar *search_pattern, gint region,
  	LASTSNR2(bfwin->snr2)->replace_once = 0;
 	LASTSNR2(bfwin->snr2)->matchtype_option = matchtype;
  	LASTSNR2(bfwin->snr2)->replacetype_option = string;
-
 	snr2_run(BFWIN(doc->bfwin),doc);
 	if (store_as_last_snr2) {
+		DEBUG_MSG("free-ing old patterns at %p and %p\n",search_pattern_bck,replace_pattern_bck);
 		g_free(search_pattern_bck);
 		g_free(replace_pattern_bck);
 	} else {
