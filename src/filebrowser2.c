@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-/*#define DEBUG*/
+#define DEBUG
 
 /* ******* FILEBROWSER DESIGN ********
 there is only one treestore left for all bluefish windows. This treestore has all files 
@@ -304,7 +304,7 @@ static void fb2_treestore_delete_children_refresh1(GtkTreeStore *tstore, GtkTree
  */
 static void fb2_treestore_mark_children_refresh1(GtkTreeStore *tstore, GtkTreeIter *iter) {
 	GtkTreeIter child;
-	DEBUG_MSG("fb2_treestore_mark_children_refresh1, started\n");
+	DEBUG_MSG("fb2_treestore_mark_children_refresh1, started for model=%p\n",tstore);
 	if (gtk_tree_model_iter_children(GTK_TREE_MODEL(tstore),&child,iter)) {
 		gboolean cont=TRUE;
 		while (cont) {
@@ -312,7 +312,7 @@ static void fb2_treestore_mark_children_refresh1(GtkTreeStore *tstore, GtkTreeIt
 			cont = gtk_tree_model_iter_next(GTK_TREE_MODEL(tstore), &child);
 		}
 	}
-	DEBUG_MSG("fb2_treestore_mark_children_refresh1, finished\n");
+	DEBUG_MSG("fb2_treestore_mark_children_refresh1, finished for model=%p\n",tstore);
 }
 
 /**
@@ -552,8 +552,7 @@ static void fb2_focus_dir(Tfilebrowser2 *fb2, GnomeVFSURI *uri, gboolean noselec
 	}
 	hashkey = gnome_vfs_uri_hash(uri);
 	dir = g_hash_table_lookup(FB2CONFIG(main_v->fb2config)->filesystem_itable, &hashkey);
-	DEBUG_MSG("fb2_focus_dir, found %p for hashkey %u for uri ",dir,hashkey);
-	DEBUG_URI(uri, TRUE);
+	DEBUG_MSG("fb2_focus_dir, fb2=%p\n",fb2);
 	if (!dir) {
 		dir = fb2_build_dir(uri);
 	}
@@ -563,9 +562,9 @@ static void fb2_focus_dir(Tfilebrowser2 *fb2, GnomeVFSURI *uri, gboolean noselec
 		/* set this directory as the top tree for the file widget */
 		fs_path = gtk_tree_model_get_path(GTK_TREE_MODEL(FB2CONFIG(main_v->fb2config)->filesystem_tstore),dir);
 		if (fs_path) {
-			DEBUG_MSG("fb2_focus_dir, set new root %s for file list..\n",gnome_vfs_uri_extract_short_name(uri));
+			DEBUG_MSG("fb2_focus_dir, fb2=%p, set new root %s for file list..\n",fb2, gnome_vfs_uri_extract_short_name(uri));
 			refilter_filelist(fb2, fs_path);
-			DEBUG_MSG("fb2_focus_dir, expand dir tree to this dir..\n");
+			DEBUG_MSG("fb2_focus_dir, fb2=%p, expand dir tree to this dir..\n",fb2);
 			if (!noselect) {
 				GtkTreePath *filter_path = gtk_tree_model_filter_convert_child_path_to_path(GTK_TREE_MODEL_FILTER(fb2->dir_tfilter),fs_path);
 				if (filter_path) {
@@ -651,8 +650,12 @@ static gboolean tree_model_filter_func(GtkTreeModel *model,GtkTreeIter *iter,gpo
 	GnomeVFSURI *uri;
 #ifdef DEBUG
 	if (model != GTK_TREE_MODEL(FB2CONFIG(main_v->fb2config)->filesystem_tstore)) {
-		DEBUG_MSG("file_list_filter_func, WRONG MODEL\n");
+		DEBUG_MSG("tree_model_filter_func, WRONG MODEL\n");
 	}
+	if (sizeof(*fb2) != sizeof(Tfilebrowser2)) {
+		DEBUG_MSG("tree_model_filter_func, sizeof(*fb2)=%d,sizeof(Tfilebrowser2)=%d\n",sizeof(*fb2),sizeof(Tfilebrowser2));
+	}
+	DEBUG_MSG("tree_model_filter_func, model=%p, fb2=%p, bfwin=%p\n",model, fb2, fb2->bfwin);
 #endif
 	gtk_tree_model_get(GTK_TREE_MODEL(model), iter, FILENAME_COLUMN, &name, URI_COLUMN, &uri, TYPE_COLUMN, &type, -1);
 	
@@ -781,6 +784,7 @@ static void refilter_dirlist(Tfilebrowser2 *fb2, GtkTreePath *newroot) {
  *
  */
 static void refilter_filelist(Tfilebrowser2 *fb2, GtkTreePath *newroot) {
+	DEBUG_MSG("refilter_filelist, started for fb2=%p\n",fb2);
 	if (main_v->props.filebrowser_two_pane_view) {
 		GtkTreePath *curpath;
 		g_object_get(fb2->file_lfilter, "virtual-root", &curpath, NULL);
@@ -790,6 +794,7 @@ static void refilter_filelist(Tfilebrowser2 *fb2, GtkTreePath *newroot) {
 			oldmodel2 = fb2->file_lsort;
 			
 			fb2->file_lfilter = gtk_tree_model_filter_new(GTK_TREE_MODEL(FB2CONFIG(main_v->fb2config)->filesystem_tstore),newroot);
+			DEBUG_MSG("refilter_filelist, set file list filter func, fb2=%p\n",fb2);
 			gtk_tree_model_filter_set_visible_func(GTK_TREE_MODEL_FILTER(fb2->file_lfilter),file_list_filter_func,fb2,NULL);
 			fb2->file_lsort = gtk_tree_model_sort_new_with_model(GTK_TREE_MODEL(fb2->file_lfilter));
 			gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE(fb2->file_lsort),FILENAME_COLUMN,GTK_SORT_ASCENDING);
@@ -1597,6 +1602,7 @@ GtkWidget *fb2_init(Tbfwin *bfwin) {
 	fb2 = g_new0(Tfilebrowser2,1);
 	bfwin->fb2 = fb2;
 	fb2->bfwin = bfwin;
+	DEBUG_MSG("fb2_init, started for bfwin=%p, fb2=%p\n",bfwin,fb2);
 
 	fb2_set_filter_from_session(bfwin);
 

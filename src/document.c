@@ -37,7 +37,7 @@
 #include <time.h>			/* ctime_r() */
 #include <pcre.h>
 
-/*#define DEBUG*/
+#define DEBUG
 
 #ifdef DEBUGPROFILING
 #include <sys/times.h>
@@ -1568,9 +1568,8 @@ gboolean doc_buffer_to_textbox(Tdocument * doc, gchar * buffer, gsize buflen, gb
 		error_dialog(BFWIN(doc->bfwin)->main_window,_("Cannot display file, unknown characters found."), NULL);
 		return FALSE;
 	}
-
+	DEBUG_MSG("doc_buffer_to_textbox, will set encoding to %s\n",encoding);
 	if (doc->encoding) g_free(doc->encoding);
-	DEBUG_MSG("doc_buffer_to_textbox, encoding set to %s\n",encoding);
 	doc->encoding = encoding;
 	add_encoding_to_list(encoding);
 
