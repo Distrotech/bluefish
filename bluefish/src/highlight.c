@@ -626,7 +626,7 @@ void doc_highlight_full(Tdocument * doc)
 	applylevel(doc, doc->hl->highlightlist, so, eo, NULL, NULL);
 #ifdef HL_TIMING
 	times(&tms2);
-	DEBUG_MSG("doc_highlight_full done, %d ms user-time needed for highlighting\n",
+	g_print("doc_highlight_full done, %d ms user-time needed for highlighting\n",
 			  (int) (double) ((tms2.tms_utime - tms1.tms_utime) * 1000 / sysconf(_SC_CLK_TCK)));
 #endif
 	doc->need_highlighting = FALSE;
@@ -801,8 +801,7 @@ void doc_highlight_line(Tdocument * doc)
 					if (gtk_text_iter_compare(&itsearch, &itstart) <= 0) {
 						/* both the start and endpoint are within this 
 						   tag --> pattern matching can start with this
-						   subpattern,
-							since we did run the same algorithm for itstart we can skip a bit now */
+						   subpattern,	since we did run the same algorithm for itstart we can skip a bit now */
 					} else {
 						/* this tag starts somewhere in the middle of the line, move 
 						   itend to the end of this tag */
@@ -823,7 +822,7 @@ void doc_highlight_line(Tdocument * doc)
 		}
 		
 		
-		/* we do need a function that removes some specific tags from the region */
+		/* this function removes some specific tags from the region */
 		remove_tag_by_list_in_region(doc, patternlist, &itstart, &itend);
 		so = gtk_text_iter_get_offset(&itstart);
 		eo = gtk_text_iter_get_offset(&itend);
