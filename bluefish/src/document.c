@@ -25,6 +25,7 @@
 #include <stdio.h> /* fopen() */
 #include <string.h> /* strchr() */
 #include <regex.h> 				/* regcomp() */
+#include <stdlib.h> /* system() */
 
 /* #define DEBUG */
 
@@ -41,6 +42,7 @@
 #include "char_table.h" /* convert_utf8...() */
 #include "pixmap.h"
 #include "snr2.h" /* snr2_run_extern_replace */
+#include "filebrowser.h"
 
 void add_filename_to_history(gchar *filename) {
 	gchar *dirname;
@@ -1565,10 +1567,145 @@ void doc_activate(Tdocument *doc) {
 	}
 }
 
-
 /**************************************************************************/
 /* the start of the callback functions for the menu, acting on a document */
 /**************************************************************************/
+
+typedef struct {
+	GList *filenames_to_return;
+	GtkWidget *win;
+	GtkWidget *basedir;
+	GtkWidget *find_pattern;
+	GtkWidget *recursive;
+	GtkWidget *grep_pattern;
+	GtkWidget *is_regex;
+} Tfiles_advanced;
+
+static void files_advanced_win_destroy(GtkWidget * widget, GdkEvent *event,  Tfiles_advanced *tfs) {
+	gtk_main_quit();
+	window_destroy(tfs->win);
+}
+
+static void files_advanced_win_ok_clicked(GtkWidget * widget, Tfiles_advanced *tfs) {
+	/* create list here */
+	gchar *command, *temp_file;
+	gchar *c_basedir, *c_find_pattern, *c_recursive, *c_grep_pattern, *c_is_regex;
+	temp_file = create_secure_dir_return_filename();
+	if (!temp_file) {
+		files_advanced_win_destroy(widget, NULL, tfs);
+		DEBUG_MSG("files_advanced_win_ok_clicked, can't get a secure temp filename ?????\n");
+		return;
+	}
+	DEBUG_MSG("files_advanced_win_ok_clicked, temp_file=%s\n", temp_file);
+	c_basedir = gtk_editable_get_chars(GTK_EDITABLE(tfs->basedir), 0, -1);
+	c_find_pattern = gtk_editable_get_chars(GTK_EDITABLE(GTK_COMBO(tfs->find_pattern)->entry), 0, -1);	
+	if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(tfs->recursive))) {
+		c_recursive= "-maxdepth 100 ";
+	} else {
+		c_recursive = "-maxdepth 1 ";
+	}
+
+	c_grep_pattern = gtk_editable_get_chars(GTK_EDITABLE(tfs->grep_pattern), 0, -1);
+	if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(tfs->is_regex))) {
+		c_is_regex = "-E -l ";
+	} else {
+		c_is_regex = "-l ";
+	}
+/*
+command = `find c_basedir -name c_find_pattern c_recursive`
+command = `grep -E 'c_grep_pattern' `find c_basedir -name c_find_pattern c_recursive``
+*/
+	if (strlen(c_grep_pattern) == 0) {
+		command = g_strconcat(EXTERNAL_FIND, " ", c_basedir, " -name '", c_find_pattern, "' ", c_recursive, "> ", temp_file, NULL);
+	} else {
+		command = g_strconcat(EXTERNAL_GREP, " ",c_is_regex, " '", c_grep_pattern,"' `", EXTERNAL_FIND, " ", c_basedir, " -name '", c_find_pattern, "' ", c_recursive, "`", "> ", temp_file, NULL);
+	}
+	g_free(c_basedir);
+	g_free(c_find_pattern);
+	g_free(c_grep_pattern);
+	DEBUG_MSG("files_advanced_win_ok_clicked, command=%s\n", command);
+	statusbar_message(_("searching files..."), 1000);
+	flush_queue();
+	system(command);
+	tfs->filenames_to_return = get_stringlist(temp_file, tfs->filenames_to_return);
+	g_free(command);
+	remove_secure_dir_and_filename(temp_file);
+	g_free(temp_file);
+	files_advanced_win_destroy(widget, NULL, tfs);
+}
+static void files_advanced_win_cancel_clicked(GtkWidget * widget, Tfiles_advanced *tfs) {
+	files_advanced_win_destroy(widget, NULL, tfs);
+}
+
+static void files_advanced_win(Tfiles_advanced *tfs) {
+	GtkWidget *vbox, *hbox, *frame, *vbox2, *but, *hbox2;
+	GList *list;
+	gchar *curdir=g_get_current_dir();
+	
+	tfs->win = window_full(_("Advanced file selector"), GTK_WIN_POS_MOUSE, 5, G_CALLBACK(files_advanced_win_destroy),tfs, TRUE);
+	tfs->filenames_to_return = NULL;
+	vbox = gtk_vbox_new(FALSE, 0);
+	gtk_container_add(GTK_CONTAINER(tfs->win), vbox);
+	gtk_box_pack_start(GTK_BOX(vbox), gtk_label_new(_("grep {contains} `find {basedir} -name '{pattern}'`")), FALSE, FALSE, 5);
+	
+	frame = gtk_frame_new(_("Filename"));
+	gtk_box_pack_start(GTK_BOX(vbox), frame, TRUE, TRUE, 5);
+	vbox2 = gtk_vbox_new(FALSE, 0);
+	gtk_container_add(GTK_CONTAINER(frame), vbox2);
+	/* filename part */
+	/* curdir should get a value */
+	tfs->basedir = boxed_full_entry(_("Basedir"), curdir, 255, vbox2);
+	g_free(curdir);
+	hbox2 = gtk_hbox_new(FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(vbox2), hbox2, TRUE, TRUE, 5);
+	gtk_box_pack_start(GTK_BOX(hbox2), gtk_label_new(_("Pattern")), TRUE, TRUE, 5);
+
+	list = g_list_append(NULL, "*.php");
+	list = g_list_append(list, "*.php3");
+	list = g_list_append(list, "*.html");
+	list = g_list_append(list, "*.htm");
+	list = g_list_append(list, "*.shtml");
+	list = g_list_append(list, "*.pl");
+	list = g_list_append(list, "*.cgi");
+	list = g_list_append(list, "*.xml");
+	tfs->find_pattern = combo_with_popdown_sized("", list, 1, 300);
+	gtk_box_pack_start(GTK_BOX(hbox2), tfs->find_pattern, TRUE, TRUE, 5);
+	g_list_free(list);
+	tfs->recursive = boxed_checkbut_with_value(_("recursive"), 1, vbox2);
+
+	frame = gtk_frame_new(_("Contains"));
+	gtk_box_pack_start(GTK_BOX(vbox), frame, TRUE, TRUE, 5);
+	vbox2 = gtk_vbox_new(FALSE, 0);
+	gtk_container_add(GTK_CONTAINER(frame), vbox2);
+	/* content */
+	tfs->grep_pattern = boxed_full_entry(_("Pattern"), NULL, 255, vbox2);
+	tfs->is_regex = boxed_checkbut_with_value(_("is regex"), 0, vbox2);
+	
+	/* buttons */
+	hbox = gtk_hbutton_box_new();
+	gtk_hbutton_box_set_layout_default(GTK_BUTTONBOX_END);
+	gtk_button_box_set_spacing(GTK_BUTTON_BOX(hbox), 1);
+	but = bf_stock_ok_button(G_CALLBACK(files_advanced_win_ok_clicked), tfs);
+	gtk_box_pack_start(GTK_BOX(hbox),but , FALSE, FALSE, 0);
+	gtk_window_set_default(GTK_WINDOW(tfs->win), but);
+	but = bf_stock_cancel_button(G_CALLBACK(files_advanced_win_cancel_clicked), tfs);
+	gtk_box_pack_start(GTK_BOX(hbox),but , FALSE, FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 0);
+	gtk_widget_show_all(GTK_WIDGET(tfs->win));
+	gtk_grab_add(GTK_WIDGET(tfs->win));
+	gtk_widget_realize(GTK_WIDGET(tfs->win));
+	gtk_window_set_transient_for(GTK_WINDOW(tfs->win), GTK_WINDOW(main_v->main_window));
+}
+
+GList *return_files_advanced() {
+	Tfiles_advanced tfs = {NULL, NULL, NULL, NULL, NULL, NULL, NULL};
+
+	files_advanced_win(&tfs);
+	gtk_main();
+	return tfs.filenames_to_return;
+}	
+
+	
 
 void file_save_cb(GtkWidget * widget, gpointer data) {
 	doc_save(main_v->current_document, 0, 0);
@@ -1716,143 +1853,6 @@ void file_save_all_cb(GtkWidget * widget, gpointer data)
 		tmplist = g_list_next(tmplist);
 	}
 }
-
-
-typedef struct {
-	GList *filenames_to_return;
-	GtkWidget *win;
-	GtkWidget *basedir;
-	GtkWidget *find_pattern;
-	GtkWidget *recursive;
-	GtkWidget *grep_pattern;
-	GtkWidget *is_regex;
-} Tfiles_advanced;
-
-static void files_advanced_win_destroy(GtkWidget * widget, GdkEvent *event,  Tfiles_advanced *tfs) {
-	gtk_main_quit();
-	window_destroy(tfs->win);
-}
-
-static void files_advanced_win_ok_clicked(GtkWidget * widget, Tfiles_advanced *tfs) {
-	/* create list here */
-	gchar *command, *temp_file;
-	gchar *c_basedir, *c_find_pattern, *c_recursive, *c_grep_pattern, *c_is_regex;
-	gint statusid;
-	temp_file = create_secure_dir_return_filename();
-	if (!temp_file) {
-		files_advanced_win_destroy(widget, NULL, tfs);
-		DEBUG_MSG("files_advanced_win_ok_clicked, can't get a secure temp filename ?????\n");
-		return;
-	}
-	DEBUG_MSG("files_advanced_win_ok_clicked, temp_file=%s\n", temp_file);
-	c_basedir = gtk_editable_get_chars(GTK_EDITABLE(tfs->basedir), 0, -1);
-	c_find_pattern = gtk_editable_get_chars(GTK_EDITABLE(GTK_COMBO(tfs->find_pattern)->entry), 0, -1);	
-	if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(tfs->recursive))) {
-		c_recursive= "-maxdepth 100 ";
-	} else {
-		c_recursive = "-maxdepth 1 ";
-	}
-
-	c_grep_pattern = gtk_editable_get_chars(GTK_EDITABLE(tfs->grep_pattern), 0, -1);
-	if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(tfs->is_regex))) {
-		c_is_regex = "-E -l ";
-	} else {
-		c_is_regex = "-l ";
-	}
-/*
-command = `find c_basedir -name c_find_pattern c_recursive`
-command = `grep -E 'c_grep_pattern' `find c_basedir -name c_find_pattern c_recursive``
-*/
-	if (strlen(c_grep_pattern) == 0) {
-		command = g_strconcat(EXTERNAL_FIND, " ", c_basedir, " -name '", c_find_pattern, "' ", c_recursive, "> ", temp_file, NULL);
-	} else {
-		command = g_strconcat(EXTERNAL_GREP, " ",c_is_regex, " '", c_grep_pattern,"' `", EXTERNAL_FIND, " ", c_basedir, " -name '", c_find_pattern, "' ", c_recursive, "`", "> ", temp_file, NULL);
-	}
-	g_free(c_basedir);
-	g_free(c_find_pattern);
-	g_free(c_grep_pattern);
-	DEBUG_MSG("files_advanced_win_ok_clicked, command=%s\n", command);
-	statusbar_message(_("searching files..."), 1000);
-	flush_queue();
-	system(command);
-	tfs->filenames_to_return = get_stringlist(temp_file, tfs->filenames_to_return);
-	g_free(command);
-	remove_secure_dir_and_filename(temp_file);
-	g_free(temp_file);
-	files_advanced_win_destroy(widget, NULL, tfs);
-}
-static void files_advanced_win_cancel_clicked(GtkWidget * widget, Tfiles_advanced *tfs) {
-	files_advanced_win_destroy(widget, NULL, tfs);
-}
-
-static void files_advanced_win(Tfiles_advanced *tfs) {
-	GtkWidget *vbox, *hbox, *frame, *vbox2, *but, *hbox2;
-	GList *list;
-	gchar *curdir=g_get_current_dir();
-	
-	tfs->win = window_full(_("Advanced file selector"), GTK_WIN_POS_MOUSE, 5, G_CALLBACK(files_advanced_win_destroy),tfs, TRUE);
-	tfs->filenames_to_return = NULL;
-	vbox = gtk_vbox_new(FALSE, 0);
-	gtk_container_add(GTK_CONTAINER(tfs->win), vbox);
-	gtk_box_pack_start(GTK_BOX(vbox), gtk_label_new(_("grep {contains} `find {basedir} -name '{pattern}'`")), FALSE, FALSE, 5);
-	
-	frame = gtk_frame_new(_("Filename"));
-	gtk_box_pack_start(GTK_BOX(vbox), frame, TRUE, TRUE, 5);
-	vbox2 = gtk_vbox_new(FALSE, 0);
-	gtk_container_add(GTK_CONTAINER(frame), vbox2);
-	/* filename part */
-	/* curdir should get a value */
-	tfs->basedir = boxed_full_entry(_("Basedir"), curdir, 255, vbox2);
-	g_free(curdir);
-	hbox2 = gtk_hbox_new(FALSE, 0);
-	gtk_box_pack_start(GTK_BOX(vbox2), hbox2, TRUE, TRUE, 5);
-	gtk_box_pack_start(GTK_BOX(hbox2), gtk_label_new(_("Pattern")), TRUE, TRUE, 5);
-
-	list = g_list_append(NULL, "*.php");
-	list = g_list_append(list, "*.php3");
-	list = g_list_append(list, "*.html");
-	list = g_list_append(list, "*.htm");
-	list = g_list_append(list, "*.shtml");
-	list = g_list_append(list, "*.pl");
-	list = g_list_append(list, "*.cgi");
-	list = g_list_append(list, "*.xml");
-	tfs->find_pattern = combo_with_popdown_sized("", list, 1, 300);
-	gtk_box_pack_start(GTK_BOX(hbox2), tfs->find_pattern, TRUE, TRUE, 5);
-	g_list_free(list);
-	tfs->recursive = boxed_checkbut_with_value(_("recursive"), 1, vbox2);
-
-	frame = gtk_frame_new(_("Contains"));
-	gtk_box_pack_start(GTK_BOX(vbox), frame, TRUE, TRUE, 5);
-	vbox2 = gtk_vbox_new(FALSE, 0);
-	gtk_container_add(GTK_CONTAINER(frame), vbox2);
-	/* content */
-	tfs->grep_pattern = boxed_full_entry(_("Pattern"), NULL, 255, vbox2);
-	tfs->is_regex = boxed_checkbut_with_value(_("is regex"), 0, vbox2);
-	
-	/* buttons */
-	hbox = gtk_hbutton_box_new();
-	gtk_hbutton_box_set_layout_default(GTK_BUTTONBOX_END);
-	gtk_button_box_set_spacing(GTK_BUTTON_BOX(hbox), 1);
-	but = bf_stock_ok_button(G_CALLBACK(files_advanced_win_ok_clicked), tfs);
-	gtk_box_pack_start(GTK_BOX(hbox),but , FALSE, FALSE, 0);
-	gtk_window_set_default(GTK_WINDOW(tfs->win), but);
-	but = bf_stock_cancel_button(G_CALLBACK(files_advanced_win_cancel_clicked), tfs);
-	gtk_box_pack_start(GTK_BOX(hbox),but , FALSE, FALSE, 0);
-	gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 0);
-	gtk_widget_show_all(GTK_WIDGET(tfs->win));
-	gtk_grab_add(GTK_WIDGET(tfs->win));
-	gtk_widget_realize(GTK_WIDGET(tfs->win));
-	gtk_window_set_transient_for(GTK_WINDOW(tfs->win), GTK_WINDOW(main_v->main_window));
-}
-
-GList *return_files_advanced() {
-	Tfiles_advanced tfs = {NULL, NULL, NULL, NULL, NULL, NULL, NULL};
-
-	files_advanced_win(&tfs);
-	gtk_main();
-	return tfs.filenames_to_return;
-}	
-
 
 void edit_cut_cb(GtkWidget * widget, gpointer data) {
 	gtk_text_buffer_cut_clipboard(main_v->current_document->buffer,gtk_clipboard_get(GDK_SELECTION_CLIPBOARD),TRUE);

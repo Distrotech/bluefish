@@ -1,0 +1,16 @@
+To install bluefish from source:
+
+1) get the required libraries, you need the development packages!
+	- libgtk+-2
+	- libpcre
+2) run ./configure --help
+for information about possible options
+choose the options you like most
+
+3) now compile the thing
+./configure [options-you-like-most-here]
+make
+
+3) now install everything
+make install
+

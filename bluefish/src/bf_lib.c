@@ -698,6 +698,10 @@ gint get_int_from_string(gchar *string) {
 gchar *create_secure_dir_return_filename() {
 	gchar *name, *name2;
 	DEBUG_MSG("create_secure_dir_return_filename,g_get_tmp_dir()=%s\n", g_get_tmp_dir());
+	/* it is SAFE to use tempnam() here, because we don't open a file with that name,
+	 * we create a directory with that name. mkdir() will FAIL if this name is a hardlink
+	 * or a symlink, so we DO NOT overwrite any file the link is pointing to
+	 */
 	name = tempnam(g_get_tmp_dir(), NULL);
 	DEBUG_MSG("create_secure_dir_return_filename, name=%s\n", name);
 	if (!name) {

@@ -36,7 +36,7 @@
 
 /* #define DEBUG_SORTING */
 /* #define DEBUG_FILTER */
-#define DEBUG_ADDING_TO_TREE
+/* #define DEBUG_ADDING_TO_TREE */
 
 enum {
    TYPE_DIR,
