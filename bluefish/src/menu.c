@@ -138,6 +138,9 @@ static void menu_file_operations_cb(Tbfwin *bfwin,guint callback_action, GtkWidg
 	case 26:
 		file_open_from_selection(bfwin);
 	break;
+	case 27:
+		search_from_selection(bfwin);
+	break;
 	default:
 		g_print("menu_file_operations_cb, unknown action, abort!\n");
 		exit(123);
@@ -313,6 +316,7 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/Edit/sep3"), NULL, NULL, 0, "<Separator>"},
 	{N_("/Edit/_Find..."), "<control>f", menu_file_operations_cb, 14, "<StockItem>", GTK_STOCK_FIND},
 	{N_("/Edit/Find A_gain"), "<control>g", menu_file_operations_cb, 16, "<Item>"},
+	{N_("/Edit/Find from selection"), NULL, menu_file_operations_cb, 27, "<Item>"},
 	{N_("/Edit/R_eplace..."), "<control>h", menu_file_operations_cb, 17, "<StockItem>", GTK_STOCK_FIND_AND_REPLACE},
 	{N_("/Edit/Replace Agai_n"), "<shift><control>h", menu_file_operations_cb, 19, "<Item>"},
 	{N_("/Edit/Replace _special"), NULL, NULL, 0, "<Branch>"},

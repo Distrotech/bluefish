@@ -2937,6 +2937,7 @@ void file_open_from_selection(Tbfwin *bfwin) {
 	if (string) {
 		DEBUG_MSG("file_open_from_selection, opening %s\n",string);
 		doc_new_with_file(bfwin,string,FALSE,FALSE);
+		g_free(string);
 	}
 }
 

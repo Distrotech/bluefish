@@ -1428,6 +1428,30 @@ static void snr2dialog(Tbfwin *bfwin, gint is_replace, gint is_new_search) {
 
 /*****************************************************/
 
+void search_from_selection(Tbfwin *bfwin) {
+	gchar *string;
+	GtkClipboard* cb;
+
+	cb = gtk_clipboard_get(GDK_SELECTION_PRIMARY);
+	string = gtk_clipboard_wait_for_text(cb);
+	if (string) {
+		if (LASTSNR2(bfwin->snr2)->search_pattern) {
+			g_free(LASTSNR2(bfwin->snr2)->search_pattern);
+		}
+		if (LASTSNR2(bfwin->snr2)->replace_pattern) {
+			g_free(LASTSNR2(bfwin->snr2)->replace_pattern);
+			LASTSNR2(bfwin->snr2)->replace_pattern = NULL;
+		}
+		LASTSNR2(bfwin->snr2)->search_pattern = string;
+		LASTSNR2(bfwin->snr2)->placetype_option = 0;
+ 		LASTSNR2(bfwin->snr2)->is_case_sens = 1;
+	 	LASTSNR2(bfwin->snr2)->overlapping_search = 0;
+		LASTSNR2(bfwin->snr2)->replace = 0;
+		LASTSNR2(bfwin->snr2)->matchtype_option = 0;
+		snr2_run(bfwin,bfwin->current_document);
+	}
+}
+
 /**
  * search_cb:
  * @widget: unused #GtkWidget*

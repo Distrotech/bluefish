@@ -42,7 +42,7 @@ void snr2_run_extern_replace(Tdocument *doc, gchar *search_pattern, gint region,
 							gint matchtype, gint is_case_sens, gchar *replace_pattern,
 							gboolean store_as_last_snr2);
 Tsearch_result doc_search_run_extern(Tdocument *doc, gchar *search_pattern, gint matchtype, gint is_case_sens);
-
+void search_from_selection(Tbfwin *bfwin);
 void search_cb(GtkWidget *widget, Tbfwin *bfwin);
 void replace_again_cb(GtkWidget *widget, Tbfwin *bfwin);
 void search_again_cb(GtkWidget *widget, Tbfwin *bfwin);
