@@ -18,6 +18,8 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
+/* #define DEBUG */
+
 #include <string.h>
 #include <gtk/gtk.h>
 
@@ -206,7 +208,7 @@ static void convert_unichar_to_htmlstring(gunichar unichar, gchar *deststring, g
 /* utf8string MUST BE VALIDATED UTF8 otherwise this function is broken!!
 so text from the TextBuffer is OK to use */
 gchar *convert_string_utf8_to_html(const gchar *utf8string, gboolean ascii, gboolean iso) {
-	if (!ascii && !iso) {
+	if (!utf8string || utf8string[0] == '\0' || (!ascii && !iso)) {
 		return g_strdup(utf8string);
 	} else {
 		/* optimize for speed, not for memory usage because that is very temporary */
