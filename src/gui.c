@@ -997,7 +997,7 @@ static void main_win_on_drag_data_lcb(GtkWidget * widget, GdkDragContext * conte
 
 	/* construct both filename and url from the given data */
 	if (info == TARGET_STRING) {
-		filename = g_strndup(data->data, data->length);
+		filename = g_strndup((gchar *)data->data, data->length);
 		filename = trunc_on_char(trunc_on_char(filename, '\n'), '\r');
 		url = g_strconcat("file:", filename, NULL);
 		url_is_local = 1;
@@ -1006,7 +1006,7 @@ static void main_win_on_drag_data_lcb(GtkWidget * widget, GdkDragContext * conte
 		gchar *tmp2;
 		gint len;
 
-		url = g_strndup(data->data, data->length);
+		url = g_strndup((gchar *)data->data, data->length);
 		url = trunc_on_char(trunc_on_char(url, '\n'), '\r');
 		if (strncmp(url, "file://", 7) == 0) {
 			filename = g_strdup(url+7);

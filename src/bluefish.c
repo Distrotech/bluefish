@@ -58,7 +58,7 @@ Tmain *main_v;
 /* functions used in bluefish.c */
 /********************************/
 #ifndef __GNUC__
-void g_none(...) {
+void g_none(gchar *first, ...) {
 	return;
 }
 #endif

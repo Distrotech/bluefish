@@ -41,7 +41,6 @@ typedef struct {
 	gint type;
 } Tphpvarins; /* this struct contains a src and dest widget for PHP variable generation*/
 
-
 typedef struct {
 	gchar *item;
 	gchar *value;

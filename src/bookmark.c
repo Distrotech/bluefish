@@ -611,7 +611,7 @@ gchar* aa(gconstpointer win,gconstpointer tree,gint x, gint y)
 {
   Tbfwin *bfwin = BFWIN(win);
   Tbmark_gui *gui = BMARKGUI(bfwin->bmark);  
-  TreeTips *tips = TREE_TIPS(tips);
+  TreeTips *tips; /* = TREE_TIPS(tips);*/
   Tbmark *b;
   GtkTreePath *path;
   gchar *pstr;
