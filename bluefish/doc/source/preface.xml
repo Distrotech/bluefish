@@ -18,7 +18,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 -->
 <preface id="bluefish-preface">
 <title>Preface</title>
-
+<?linebreaka4?>
 <sect1 id="bluefish-about">
 <title>About this Manual</title>
 <para>Bluefish has a large feature set, allowing the user to customize the editing experience in numerous ways. This manual targets both novice and advanced users, providing a full resource for everyone.</para>
@@ -51,11 +51,13 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 </itemizedlist>
 <para>Finally, if you find errors in this manual or wish to write new sections, join the <link linkend="bluefish-contact">mailing list</link> and let us know. Guidelines for this manual can be found in <xref linkend="bluefish-manual-guide" />.</para>
 </sect1>
+<?linebreaka4?>
 <sect1 id="bluefish-what-is-bf">
 <title>What is Bluefish?</title>
 <para>Bluefish is a powerful editor for experienced web designers and programmers based on the GTK2 GUI interface. Bluefish supports many programming and markup languages, but focuses on editing dynamic and interactive websites.</para>
 <para>Bluefish is not a WYSIWYG<footnote><para>What You See Is What You Get</para>
 </footnote> text editor. This is deliberate, allowing the programmer to stay in full control. To facilitate the editing process, a large number of features are at your disposal. For inserting markup and code, there are tool bars, dialogs, and predefined/user-customized menus. Syntax highlighting, advanced search/replace functionality, scalability and language function references make Bluefish a powerful tool for development.</para>
+<?linebreaka4?>
 <sect2 id="bluefish-history">
 <title>History of Bluefish</title>
 <para>Bluefish development started under a different name. A good and free text editor targeted towards web development was not available. Olivier Sessink started the project ProSite. Chris Mazuc also started an HTML editor. On a GTK development mailing list, Olivier Sessink and Chris Mazuc saw each others postings, and decided to team up. Olivier had a basic editor, Chris had many HTML dialogs ready. After merging the code this was for a while known as the Thtml editor.</para>
@@ -65,7 +67,6 @@ about boring logos, Neil Millar came up with a cute blue fish. Because this logo
 <para>After this initial stage, many developers, translators, testers and users joined the project.</para>
 <para>Several years have passed since the first Bluefish release. Since that time, the fish has gained a reputation as an excellent editor, with qualities like stability, usability and numerous features. Also, Bluefish is small, fast and efficient, making it usable even on slow machines.</para>
 </sect2>
-<?pagebreak?>
 <sect2 id="bluefish-main-features">
 <title>Main Features of Bluefish</title>
 <para>This list will give you an overview of the most important or outstanding features found in Bluefish:</para>
