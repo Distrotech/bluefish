@@ -312,6 +312,10 @@ static void setup_bfwin_for_nonproject(Tbfwin *bfwin) {
 	set_project_menu_widgets(bfwin, FALSE);
 }
 
+/* 
+ * returns TRUE if the project is closed, 
+ * returns FALSE if something went wrong or was cancelled
+ */
 gboolean project_save_and_close(Tbfwin *bfwin) {
 	gboolean dont_save = FALSE;
 	while (!bfwin->project->filename) {
@@ -336,7 +340,7 @@ gboolean project_save_and_close(Tbfwin *bfwin) {
 		case 1:
 			/* cancel */
 			DEBUG_MSG("project_save_and_close, not closing window any more");
-			return TRUE;
+			return FALSE;
 		break;
 		case 2:
 			DEBUG_MSG("project_save_and_close, bringing up save project dialog\n");
@@ -353,7 +357,7 @@ gboolean project_save_and_close(Tbfwin *bfwin) {
 		if (bfwin->documentlist && test_docs_modified(bfwin->documentlist)) {
 			DEBUG_MSG("project_save_and_close, we STILL have changed documents!?!\n");
 			/* if there are still documents modified we should cancel the closing */
-			return TRUE;
+			return FALSE;
 		}
 	}
 	/* files are saved and we are not saving the project, destroy window */
@@ -365,8 +369,8 @@ gboolean project_save_and_close(Tbfwin *bfwin) {
 			DEBUG_MSG("project_save_and_close, all documents are closed\n");
 			project_destroy(bfwin->project);
 			setup_bfwin_for_nonproject(bfwin);
-			DEBUG_MSG("project_save_and_close, returning FALSE\n");
-			return FALSE;
+			DEBUG_MSG("project_save_and_close, returning TRUE\n");
+			return TRUE;
 		}
 		return FALSE;
 	}
@@ -378,8 +382,8 @@ gboolean project_save_and_close(Tbfwin *bfwin) {
 			add_to_recent_list(bfwin,bfwin->project->filename, TRUE, TRUE);
 			project_destroy(bfwin->project);
 			setup_bfwin_for_nonproject(bfwin);
-			DEBUG_MSG("project_save_and_close, returning FALSE\n");
-			return FALSE;
+			DEBUG_MSG("project_save_and_close, returning TRUE\n");
+			return TRUE;
 		}
 	}
 	DEBUG_MSG("project_save_and_close, returning TRUE\n");
