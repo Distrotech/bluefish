@@ -213,3 +213,25 @@ octave:braces:1:[][(){}]::2:^(top|function)$:::2:0:
 octave:comment:1:(#|%).*?$::2:^(top|function)$:#999999::0:2:
 octave:function:1:function:endfunction:1::#770000::0:0:
 octave:keywords:0:(if|else|for|endfor|endif|global|switch|while|do-until|break|continue|unwind_protect|try)::2:^(top|function)$:::2:0:
+shell:operators:1:[\\~\\%\\^\\&\\,\\.\\\:\\|\\+\\/\\*\\!]::2::#8b2323::0:0:
+shell:equality:1:(<|>|<=|>=|!=|==)::2::#ff0000::0:0:
+shell:number:1:[0-9]::2::#ff0000::0:0:
+shell:variable-sys:1:\\$[\\$\\?\\*0-9]::2::#ff0000::2:0:
+shell:variable:1:\\$[a-z][a-z0-9_]*::2::#bb00bb::0:0:
+shell:EOF-string:0:>>EOF:EOF:1::#ee00dd::0:0:
+shell:exec-string:1:`:`:1::#ff0000:#ffff00:0:0:
+shell:string-single:1:':':1::#009900::0:0:
+shell:string:1:":":1::#009900::0:0:
+shell:exec-string-escape-function:0:\\b(action|daemon|echo_failure|echo_success|failure|gprintf|killproc|printf|success)\\b::2:^exec-string$:#e96969::0:0:
+shell:exec-string-escape-command:0:\\b(awk|cat|chgrp|chmod|chown|cp|date|echo|export|egrep|exec|fgrep|grep|halt|install|kill|killall|ls|mkdir|mount|mv|perl|pidof|reboot|rm|rmdir|sed|sh|sleep|sort|test|touch|umount)\\b::2:^exec-string$:#c06000::0:0:
+shell:string-escape-variable-sys:1:\\$[\\$\\?\\*\\#0-9]::2:^string$:#ff0000::2:0:
+shell:string-escape-variable:1:\\$[a-z][a-z0-9_]*::2:^string$:#bb00bb::0:0:
+shell:assignement:1:[a-z][a-z0-9_]*=::2::#424086::0:0:
+shell:brackets:1:[\\[\\]]::2::#0000ff::0:0:
+shell:braces2:1:[{}]::2::#0000ff::2:0:
+shell:braces:1:[()]::2::#0000ff::0:0:
+shell:modifier:0:(local|-a|-d|-f|-n |-o|-x|-eq|-ge|-gt|-le|-lt|-ne)::2::#ff0000::0:0:
+shell:function:0:\\b(action|daemon|echo_failure|echo_success|failure|gprintf|killproc|printf|success)\\b::2::#e96969::0:0:
+shell:command:0:\\b(awk|cat|chgrp|chmod|chown|cp|date|echo|export|egrep|exec|fgrep|grep|halt|install|kill|killall|ls|mkdir|mount|mv|perl|pidof|reboot|rm|rmdir|sed|sleep|sort|test|touch|umount)\\b::2::#c06000::0:0:
+shell:statement:0:\\b(alias|break|case|continue|do|done|elif|else|esac|exit|export|fi|for|if|in|return|set|shift|then|unalias|unset|while)\\b::2::#0000ff::0:0:
+shell:comment:1:#.*?$::2::#994f49::0:2:
