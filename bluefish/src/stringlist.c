@@ -426,6 +426,14 @@ void debug_array(gchar **array) {
 }
 #endif
 
+/**
+ * count_array:
+ * @array: #gchar** with the NULL terminated array to count
+ *
+ * counts the number of entries in a NULL terminated array
+ *
+ * Return value: #gint with number of entries
+ */
 gint count_array(gchar **array) {
 	gint count=0;
 	gchar **tmpchar=array;
@@ -442,7 +450,18 @@ gint count_array(gchar **array) {
 	return count;
 }
 
-
+/**
+ * array_to_string:
+ * @array: #gchar** with NULL terminated array
+ * @delimiter: #gchar with the delimiter character
+ *
+ * Converts a NULL terminated array to a string with a delimiter
+ * between the entries, and some characters backslash escaped
+ * like \t, \n, \\ and the delimiter. In Bluefish the : is the most 
+ * used delimiter
+ *
+ * Return value: #gchar* newly allocated string
+ */
 gchar *array_to_string(gchar **array, gchar delimiter) {
 	if (array) {
 		gchar **tmp, *escaped1, *finalstring;
@@ -475,6 +494,17 @@ gchar *array_to_string(gchar **array, gchar delimiter) {
 
 #define ARRAYBLOCKSIZE 6
 #define BUFBLOCKSIZE 60
+/**
+ * string_to_array:
+ * @string: #gchar* with the string to convert
+ * @delimiter: #gchar with the delimiter character
+ *
+ * breaks the string apart into a NULL terminated array
+ * using the delimiter character. \t, \\ and \n are also unescaped
+ * to their original characters
+ *
+ * Return value: #gchar** newly allocated NULL terminated array
+ */
 gchar **string_to_array(gchar *string, gchar delimiter) {
 	gchar **array;
 	gchar *tmpchar, *tmpchar2;
