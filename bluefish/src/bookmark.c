@@ -868,6 +868,13 @@ void bmark_add_temp(Tbfwin *bfwin)
    Tbmark_gui *gui = BMARKGUI(bfwin->bmark);
 
    
+   /* check for nameless document */
+   if (!DOCUMENT(bfwin->current_document)->filename)
+   {
+      error_dialog(bfwin->main_window,_("Add temporary bookmark"),_("Cannot add bookmarks in nameless files.\nPlease, save the file first."));
+      return;
+   }
+
    /* check for existing bookmark in this place */
    im = gtk_text_buffer_get_insert(DOCUMENT(bfwin->current_document)->buffer);
    gtk_text_buffer_get_iter_at_mark(DOCUMENT(bfwin->current_document)->buffer,&it,im);   
@@ -976,6 +983,12 @@ void bmark_del_all_perm(Tbfwin *bfwin)
 
 void bmark_add_perm(Tbfwin *bfwin)
 {
+   /* check for nameless document */
+   if (!DOCUMENT(bfwin->current_document)->filename)
+   {
+      error_dialog(bfwin->main_window,_("Add permanent bookmark"),_("Cannot add bookmarks in nameless files.\nPlease, save the file first."));
+      return;
+   }
 	bmark_add_rename_dialog(bfwin, _("Add permanent bookmark"), BMARK_ADD_PERM_DIALOG);
 }
 
