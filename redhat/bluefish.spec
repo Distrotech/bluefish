@@ -1,21 +1,23 @@
 %define	desktop_vendor 	endur
 %define name  		bluefish
-%define version		0.11
-%define release 	1
-%define source		bluefish-0.11.tar.bz2
-%define prefix		/usr
+%define version		gtk2
+%define release 	20040317
+%define epoch 		1
+%define source		bluefish-2004-03-17
 	
 
-Summary:	Web development editor for experienced users.
+Summary:	A GTK2 web development application for experienced users.
 Name:		%{name}
 Version:	%{version}
 Release:	%{release}
-Source:		ftp://ftp.ratisbona.com/pub/bluefish/snapshots/%{source}
+Epoch: 		%{epoch}
+Source:		ftp://ftp.ratisbona.com/pub/bluefish/snapshots/%{source}.tar.bz2
 URL:		http://bluefish.openoffice.nl
 License:	GPL
 Group:          Development/Tools
-Requires:	gtk2 >= 2.0.6, pcre >= 3.9
-BuildRequires:  gtk2-devel >= 2.0.6, pcre-devel >= 3.9, desktop-file-utils
+Requires:	gtk2 >= 2.0.6, pcre >= 3.9, aspell >= 0.50, gnome-vfs2 => 2.4.1
+BuildRequires:  gtk2-devel >= 2.0.6, pcre-devel >= 3.9, desktop-file-utils, aspell-devel >= 0.50
+BuildRequires:  gnome-vfs2-devel >= 2.4.1
 
 BuildRoot: %{_tmppath}/%{name}-%{version}
 
@@ -54,8 +56,8 @@ rm -f %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 cat << EOF > %{name}.desktop
 [Desktop Entry]
-Name=Bluefish
-Comment=Web development editor
+Name=Bluefish web editor
+Comment=A GTK2 web development application for experienced users.
 Exec=%{name}
 Icon=%{name}-icon.png
 Terminal=0
@@ -86,17 +88,5 @@ rm -rf %{buildroot}
 
 
 %changelog
-* Mon Jul 28 2003 Matthias Haase <matthias_haase@bennewitz.com>
-- Update to version 0.11
-
-* Tue Jul 17 2003 Matthias Haase <matthias_haase@bennewitz.com>
-- Update to version 0.10
-- Some cosmetic changes
-
-* Tue Feb 18 2003 Matthias Haase <matthias_haase@bennewitz.com>
-- Rebuild for version 0.9
-- Added Makefile patch to support DESTDIR.
-- Thanks to Matthias Saou <matthias.saou@est.une.marmotte.net> for the patch
-
-* Sat Feb 08 2003 Matthias Haase <matthias_haase@bennewitz.com>
-- Automatic build - snapshot of 2003-02-07
+* Thu Mar 18 2004 Matthias Haase <matthias_haase@bennewitz.com>
+- Automatic build - snapshot of 2004-03-17
