@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: bluefish gtk2-port\n"
-"POT-Creation-Date: 2003-03-09 23:16-0300\n"
-"PO-Revision-Date: 2003-03-07 21:14+0100\n"
+"POT-Creation-Date: 2003-02-23 19:31+0100\n"
+"PO-Revision-Date: 2003-03-17 12:10+0100\n"
 "Last-Translator: Stefano Canepa <sc@linux.it>\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
 "MIME-Version: 1.0\n"
@@ -50,11 +50,11 @@ msgstr "Nella selezione"
 
 #: ../src/bfspell.c:378
 msgid "personal dictionary"
-msgstr "directory personale"
+msgstr "dizionario personale"
 
 #: ../src/bfspell.c:381
 msgid "session dictionary"
-msgstr "dizionari di sessione"
+msgstr "dizionario di sessione"
 
 #: ../src/bfspell.c:387
 msgid "Dictionary"
@@ -77,14 +77,12 @@ msgid "Filter"
 msgstr "Filtro"
 
 #: ../src/bfspell.c:405
-#, fuzzy
 msgid "no filter"
-msgstr "Filtro Dos2Unix"
+msgstr "nessun filtro"
 
 #: ../src/bfspell.c:407
-#, fuzzy
 msgid "html filter"
-msgstr "Filtro file"
+msgstr "Filtro html"
 
 #: ../src/bluefish.c:75
 #, c-format
@@ -137,7 +135,7 @@ msgstr "costruzione della GUI in corso"
 
 #: ../src/document.c:96 ../src/gui.c:585
 msgid "/Document/Highlight syntax"
-msgstr "/Documento/Evidenzia sintazzi"
+msgstr "/Documento/Evidenzia sintassi"
 
 #: ../src/document.c:283 ../src/document.c:297 ../src/document.c:319
 #: ../src/document.c:321
@@ -180,7 +178,7 @@ msgstr "Salvataggio file in corso"
 
 #: ../src/document.c:1143
 msgid "Abort save"
-msgstr "Annulla salvataggio"
+msgstr "Interrompi salvataggio"
 
 #: ../src/document.c:1143
 msgid "Continue save"
@@ -237,7 +235,7 @@ msgstr ""
 "Il file %s\n"
 "è stato modificato da un'altro processo\n"
 "ora della nuova modifica: %s\n"
-"ora delle vecchia modifica: %s\n"
+"ora della vecchia modifica: %s\n"
 "sovrascrivere?"
 
 #: ../src/document.c:1329 ../src/document.c:1735
@@ -251,7 +249,7 @@ msgstr "Salvataggio di %s in corso"
 
 #: ../src/document.c:1355
 msgid "File save aborted, could not backup file:\n"
-msgstr "Salvataggio file annullato, impossibile eseguire il backup del file:\n"
+msgstr "Salvataggio file interrotto, impossibile eseguire il backup del file:\n"
 
 #: ../src/document.c:1361
 msgid "File save error, could not write file:\n"
@@ -303,7 +301,7 @@ msgstr ""
 "Il file %s\n"
 "è stato modificato da un'altro processo\n"
 "ora della nuova modifica: %s\n"
-"ora delle vecchia modifica: %s\n"
+"ora della vecchia modifica: %s\n"
 "sovrascrivere?"
 
 #: ../src/document.c:1822
@@ -315,7 +313,6 @@ msgid "Select basedir"
 msgstr "Seleziona la directory di base"
 
 #: ../src/document.c:1851
-#, fuzzy
 msgid "Advanced open file selector"
 msgstr "Selettore file avanzato"
 
@@ -328,36 +325,30 @@ msgid "Filename"
 msgstr "Nome del file"
 
 #: ../src/document.c:1865 ../src/gtk_easy.c:731
-#, fuzzy
 msgid "_Browse..."
-msgstr "Sfoglia"
+msgstr "_Sfoglia:"
 
 #: ../src/document.c:1867
-#, fuzzy
 msgid "Base_dir:"
-msgstr "Directory di base"
+msgstr "_Directory di base"
 
 #: ../src/document.c:1877
-#, fuzzy
 msgid "_Pattern:"
-msgstr "Modello"
+msgstr "_Modello:"
 
 #: ../src/document.c:1895
-#, fuzzy
 msgid "_recursive"
-msgstr "ricorsivo"
+msgstr "_ricorsivo"
 
 #: ../src/document.c:1897
 msgid "Contains"
 msgstr "Contiene"
 
 #: ../src/document.c:1902
-#, fuzzy
 msgid "Pa_ttern:"
-msgstr "Modello"
+msgstr "Mode_llo:"
 
 #: ../src/document.c:1903
-#, fuzzy
 msgid "is rege_x"
 msgstr "è un'espressione regolare"
 
@@ -393,7 +384,7 @@ msgstr "annulla"
 
 #: ../src/document.c:2014
 msgid "Bluefish: Warning, some file(s) are modified!"
-msgstr "Alcuni file sono modificati"
+msgstr "Alcuni file sono stati modificati"
 
 #: ../src/document.c:2014
 msgid ""
@@ -404,9 +395,8 @@ msgstr ""
 "selezionare un'azione"
 
 #: ../src/document.c:2213
-#, fuzzy
 msgid "No selection to indent"
-msgstr "/Opzioni/Indenta automaticamente"
+msgstr "Nessuna selezione da indentare"
 
 #: ../src/filebrowser.c:742
 msgid "Error creating path"
@@ -521,7 +511,7 @@ msgstr "Email..."
 
 #: ../src/gui.c:250
 msgid "Font..."
-msgstr "Font..."
+msgstr "Carattere..."
 
 #: ../src/gui.c:251
 msgid "Base Font Size..."
@@ -609,7 +599,7 @@ msgstr "Riga della tabella"
 
 #: ../src/gui.c:276 ../src/html_table.c:326
 msgid "Table Header"
-msgstr "Testata della tabella"
+msgstr "Intestazione tabella"
 
 #: ../src/gui.c:277 ../src/html_table.c:324
 msgid "Table Data"
@@ -653,7 +643,7 @@ msgstr "Form..."
 
 #: ../src/gui.c:289
 msgid "Input button..."
-msgstr "Bottone di input..."
+msgstr "Pulsante di input..."
 
 #: ../src/gui.c:290
 msgid "Text..."
@@ -742,11 +732,11 @@ msgstr "Inserisci immagine..."
 
 #: ../src/gui.c:311
 msgid "Insert thumbnail..."
-msgstr "Inserisci thumbnail"
+msgstr "Inserisci provino"
 
 #: ../src/gui.c:312
 msgid "Multi thumbnail..."
-msgstr "Thumbnail multipli..."
+msgstr "Provini multipli..."
 
 #: ../src/gui.c:314
 msgid "Code"
@@ -873,9 +863,8 @@ msgid "Redo"
 msgstr "Ripeti"
 
 #: ../src/gui.c:551
-#, fuzzy
 msgid "Indent"
-msgstr "Nel documento"
+msgstr "Indenta"
 
 #: ../src/gui.c:553
 msgid "Unindent"
@@ -934,8 +923,7 @@ msgid ""
 msgstr ""
 "Non ci sono elementi nella Quickbar.\n"
 "\n"
-"Fare click con il tasto destro sulle barre dell'HTML per aggiungere un "
-"bottone alla Quickbar"
+"Fare click con il tasto destro sulle barre dell'HTML per aggiungere pulsanti alla Quickbar"
 
 #: ../src/gui.c:909
 msgid "Goto line"
@@ -1000,81 +988,72 @@ msgid " Delete "
 msgstr " Cancella "
 
 #: ../src/html2.c:916 ../src/html2.c:953
-#, fuzzy
 msgid "_Style..."
-msgstr "Stile"
+msgstr "_Stile..."
 
 #: ../src/html2.c:1136
 msgid "Bluefish: Select color"
 msgstr "Bluefish: selezionare il colore"
 
 #: ../src/html2.c:1156
-#, fuzzy
 msgid "_websafe"
-msgstr "websafe"
+msgstr "_websafe"
 
 #: ../src/html.c:353
 msgid "Insert Time"
 msgstr "Inserire l'ora"
 
 #: ../src/html.c:361
-#, fuzzy, c-format
+#, c-format
 msgid "  _Time (%i:%i:%i)"
-msgstr "  Ora (%i:%i:%i)"
+msgstr "  _Ora (%i:%i:%i)"
 
 #: ../src/html.c:366
-#, fuzzy
 msgid "  Day of the _week (Sunday)"
-msgstr "  Giorno della settimana (Domenica)"
+msgstr "  Giorno della _settimana (Domenica)"
 
 #: ../src/html.c:369
-#, fuzzy
 msgid "  Day of the _week (Monday)"
-msgstr "  Giorno della settimana (Lunedì)"
+msgstr "  Giorno della _settimana (Lunedì)"
 
 #: ../src/html.c:372
-#, fuzzy
 msgid "  Day of the _week (Tuesday)"
-msgstr "  Giorno della settimana (Martedì)"
+msgstr "  Giorno della _settimana (Martedì)"
 
 #: ../src/html.c:375
-#, fuzzy
 msgid "  Day of the _week (Wednesday)"
-msgstr "  Giorno della settimana (Mercoledì)"
+msgstr "  Giorno della _settimana (Mercoledì)"
 
 #: ../src/html.c:378
-#, fuzzy
 msgid "  Day of the _week (Thursday)"
-msgstr "  Giorno della settimana (Giovedì)"
+msgstr "  Giorno della _settimana (Giovedì)"
 
 #: ../src/html.c:381
-#, fuzzy
 msgid "  Day of the _week (Friday)"
-msgstr "  Giorno della settimana (Venerdì)"
+msgstr "  Giorno della _settimana (Venerdì)"
 
 #: ../src/html.c:384
-#, fuzzy
 msgid "  Day of the _week (Saturday)"
-msgstr "  Giorno della settimana (Sabato)"
+msgstr "  Giorno della _settimana (Sabato)"
 
 #: ../src/html.c:387
 msgid "You appear to have a non existant day!\n"
 msgstr "Sembra che tu abbia un giorno che non esiste!\n"
 
 #: ../src/html.c:395
-#, fuzzy, c-format
+#, c-format
 msgid "  _Date (%i/%i/%i)"
-msgstr "  Data (%i:%i:%i)"
+msgstr "  _Data (%i:%i:%i)"
 
 #: ../src/html.c:398
-#, fuzzy, c-format
+#, c-format
 msgid "  _Unix Time (%i)"
-msgstr "  Ora Unix (%i)"
+msgstr "  Ora _Unix (%i)"
 
 #: ../src/html.c:401
-#, fuzzy, c-format
+#, c-format
 msgid "  Unix Date _String (%s"
-msgstr "  Stringa della data Unix (%s"
+msgstr "  _Stringa della data Unix (%s"
 
 #: ../src/html.c:545
 msgid "Quick Anchor"
@@ -1085,98 +1064,80 @@ msgid "Options"
 msgstr "Opzioni"
 
 #: ../src/html.c:569
-#, fuzzy
 msgid "_HREF:"
-msgstr "HREF"
+msgstr "_HREF"
 
 #: ../src/html.c:573
-#, fuzzy
 msgid "_Target:"
-msgstr "Obiettivo"
+msgstr "_Obiettivo:"
 
 #: ../src/html.c:577 ../src/html.c:1344
-#, fuzzy
 msgid "_Name:"
-msgstr "Nome"
+msgstr "_Nome:"
 
 #: ../src/html.c:581 ../src/html.c:1199
-#, fuzzy
 msgid "_ID:"
-msgstr "ID"
+msgstr "_ID:"
 
 #: ../src/html.c:585 ../src/html.c:1195
-#, fuzzy
 msgid "Cl_ass:"
-msgstr "Classe"
+msgstr "Cl_asse:"
 
 #: ../src/html.c:589 ../src/html.c:1106 ../src/html.c:1188
-#, fuzzy
 msgid "St_yle:"
-msgstr "Stile"
+msgstr "Sti_le:"
 
 #: ../src/html.c:596 ../src/html.c:1203
-#, fuzzy
 msgid "_Language:"
-msgstr "Lingua"
+msgstr "_Lingua:"
 
 #: ../src/html.c:600 ../src/html.c:960 ../src/html.c:1368
-#, fuzzy
 msgid "Custo_m:"
-msgstr "Personalizzato"
+msgstr "Perso_nalizzato:"
 
 #: ../src/html.c:604 ../src/html.c:1211
 msgid "Events"
 msgstr "Eventi"
 
 #: ../src/html.c:611
-#, fuzzy
 msgid "OnClic_k:"
-msgstr "OnClick"
+msgstr "OnClic_k:"
 
 #: ../src/html.c:615
-#, fuzzy
 msgid "OnD_blClick:"
-msgstr "OnDblClick"
+msgstr "OnD_blClick:"
 
 #: ../src/html.c:619
-#, fuzzy
 msgid "OnMouseO_ver:"
-msgstr "OnMouseOver"
+msgstr "OnMouseO_ver:"
 
 #: ../src/html.c:623
-#, fuzzy
 msgid "OnMouse_Down:"
-msgstr "OnMouseDown"
+msgstr "OnMouse_Down:"
 
 #: ../src/html.c:627
-#, fuzzy
 msgid "OnMouse_Move:"
-msgstr "OnMouseMove"
+msgstr "OnMouse_Move:"
 
 #: ../src/html.c:631
-#, fuzzy
 msgid "OnMouseOu_t:"
-msgstr "OnMouseOut"
+msgstr "OnMouseOu_t:"
 
 #: ../src/html.c:635
-#, fuzzy
 msgid "OnMouse_Up:"
-msgstr "OnMouseUp"
+msgstr "OnMouse_Up:"
 
 #: ../src/html.c:639
-#, fuzzy
 msgid "OnKeyDo_wn:"
-msgstr "OnKeyDown"
+msgstr "OnKeyDo_wn:"
 
 #: ../src/html.c:643
-#, fuzzy
 msgid "OnKey_Press:"
-msgstr "OnKeyPress"
+msgstr "OnKey_Press:"
 
 #: ../src/html.c:647
-#, fuzzy
 msgid "OnKe_yUp:"
-msgstr "OnKeyUp"
+msgstr "OnKe_yUp:"
 
 #: ../src/html.c:764
 msgid "Div"
@@ -1222,121 +1183,100 @@ msgid "Horizontal Rule"
 msgstr "Linea orizzontale"
 
 #: ../src/html.c:934 ../src/html.c:1856
-#, fuzzy
 msgid "_Align:"
-msgstr "Alinea"
+msgstr "_Alinea:"
 
 #: ../src/html.c:941 ../src/html.c:1864
-#, fuzzy
 msgid "_Height:"
-msgstr "Altezza"
+msgstr "Altez_za:"
 
 #: ../src/html.c:947 ../src/html.c:1860
-#, fuzzy
 msgid "_Width:"
-msgstr "Larghezza"
+msgstr "La_rghezza:"
 
 #: ../src/html.c:950
-#, fuzzy
 msgid "Is _percent"
-msgstr "È percentuale?"
+msgstr "È _percentuale"
 
 #: ../src/html.c:955
-#, fuzzy
 msgid "No _shading"
-msgstr "Nessuna ombreggiatura"
+msgstr "Nessuna ombreg_giatura"
 
 #: ../src/html.c:1027
 msgid "Quick Start"
 msgstr "Avvio rapido"
 
 #: ../src/html.c:1047
-#, fuzzy
 msgid "_Doctype:"
-msgstr "Tipo del documento"
+msgstr "Tipo del _documento:"
 
 #: ../src/html.c:1056
-#, fuzzy
 msgid "Header tags:"
-msgstr "Tag delle intitolazioni"
+msgstr "Tag delle intitolazioni:"
 
 #: ../src/html.c:1089
-#, fuzzy
 msgid "_Title:"
-msgstr "Titolo"
+msgstr "_Titolo:"
 
 #: ../src/html.c:1172
 msgid "Body"
 msgstr "Corpo"
 
 #: ../src/html.c:1207
-#, fuzzy
 msgid "Custom _values:"
-msgstr "Valori personalizzati"
+msgstr "_Valori personalizzati"
 
 #: ../src/html.c:1218
-#, fuzzy
 msgid "On_Load:"
-msgstr "OnLoad"
+msgstr "On_Load:"
 
 #: ../src/html.c:1226
-#, fuzzy
 msgid "On_UnLoad:"
-msgstr "OnUnLoad"
+msgstr "On_UnLoad:"
 
 #: ../src/html.c:1235
-#, fuzzy
 msgid "Depreciated options"
 msgstr "Opzione disapprovata"
 
 #: ../src/html.c:1245
-#, fuzzy
 msgid "Background _Image:"
-msgstr "Immagine di sfondo"
+msgstr "_Immagine di sfondo:"
 
 #: ../src/html.c:1252
-#, fuzzy
 msgid "Back_ground Color:"
-msgstr "Colore di sfondo"
+msgstr "Colore di _sfondo:"
 
 #: ../src/html.c:1258
-#, fuzzy
 msgid "_Text Color:"
-msgstr "Colore del testo"
+msgstr "Colore del _testo:"
 
 #: ../src/html.c:1264
-#, fuzzy
 msgid "_Link Color:"
-msgstr "Colore dei link"
+msgstr "Colore dei _link:"
 
 #: ../src/html.c:1270
-#, fuzzy
 msgid "_Visited Link Color:"
-msgstr "Colore del collegamento visitato"
+msgstr "Colore del collegamento _visitato:"
 
 #: ../src/html.c:1276
-#, fuzzy
 msgid "_Active Link Color:"
-msgstr "Colore del collegamento attivo"
+msgstr "Colore del collegamento _attivo:"
 
 #: ../src/html.c:1330
 msgid "Meta"
 msgstr "Meta"
 
 #: ../src/html.c:1355
-#, fuzzy
 msgid "_HTTP-EQUIV:"
-msgstr "HTTP-EQUIV"
+msgstr "HTTP-EQUIV:"
 
 #: ../src/html.c:1360
-#, fuzzy
 msgid "Con_tent:"
-msgstr "Contenuto"
+msgstr "Con_tenuto:"
 
 #: ../src/html.c:1364
-#, fuzzy
 msgid "_Scheme:"
-msgstr "Schema"
+msgstr "_Schema:"
 
 #: ../src/html.c:1446 ../src/preferences.c:1636
 msgid "Font"
@@ -1361,46 +1301,39 @@ msgstr "Aspetto"
 
 #: ../src/html.c:1533
 msgid "Email"
-msgstr "E-mail"
+msgstr "Email"
 
 #: ../src/html.c:1541
-#, fuzzy
 msgid "_Email address:"
-msgstr "Indirizzo e-mail:"
+msgstr "Indirizzo _email:"
 
 #: ../src/html.c:1546
-#, fuzzy
 msgid "UrlEncoded _subject:"
-msgstr "Oggetto e-mail nell'URL"
+msgstr "_Oggetto email nell'URL"
 
 #: ../src/html.c:1550
-#, fuzzy
 msgid "UrlEncoded _body:"
-msgstr "Testo e-mail nell'URL"
+msgstr "_Testo email nell'URL:"
 
 #: ../src/html.c:1594
 msgid "Quick List"
 msgstr "Lista rapida"
 
 #: ../src/html.c:1599
-#, fuzzy
 msgid "_Rows:"
-msgstr "Righe"
+msgstr "_Righe:"
 
 #: ../src/html.c:1602
-#, fuzzy
 msgid "Or_dered"
-msgstr "Ordinato"
+msgstr "Or_dinato"
 
 #: ../src/html.c:1603
-#, fuzzy
 msgid "_Unordered"
-msgstr "Non ordinato"
+msgstr "_Non ordinato"
 
 #: ../src/html.c:1605
-#, fuzzy
 msgid "Style:"
-msgstr "Stile"
+msgstr "Stile:"
 
 #: ../src/html.c:1679 ../src/html_form.c:229
 msgid "Cols"
@@ -1443,14 +1376,12 @@ msgid "Embed"
 msgstr "Embed"
 
 #: ../src/html.c:1852
-#, fuzzy
 msgid "_Source:"
-msgstr "Sorgente"
+msgstr "_Sorgente:"
 
 #: ../src/html.c:1868
-#, fuzzy
 msgid "Bo_rder:"
-msgstr "Bordo"
+msgstr "Bo_rdo:"
 
 #: ../src/html.c:1929
 msgid "Script"
@@ -1498,7 +1429,7 @@ msgstr "Lunghezza massima"
 
 #: ../src/html_form.c:343
 msgid "Button"
-msgstr "Bottone"
+msgstr "Pulsante"
 
 #: ../src/html_form.c:406
 msgid "Hidden"
@@ -1509,7 +1440,7 @@ msgstr "Nascosto"
 # http://www.liberliber.it/biblioteca/w/world_wide_web_consortium/specifiche_html40/html/interact/forms.html#radio
 #: ../src/html_form.c:462
 msgid "Radio Button"
-msgstr "Bottoni basculanti"
+msgstr "Pulsanti basculanti"
 
 #: ../src/html_form.c:476 ../src/html_form.c:539
 msgid "Checked"
@@ -1607,7 +1538,7 @@ msgstr "Inserire un'immagine"
 
 #: ../src/image.c:207
 msgid "Insert thumbnail"
-msgstr "Inserire un «thumbnail»"
+msgstr "Inserire un provino"
 
 #: ../src/image.c:214
 msgid "Preview"
@@ -1635,7 +1566,7 @@ msgstr "Incanalamento verticale"
 
 #: ../src/image.c:340
 msgid "Select files for thumbnail creation"
-msgstr "Selezionare il file per la creazione del «thumbnail»"
+msgstr "Selezionare il file per la creazione del provino"
 
 #: ../src/image.c:450
 msgid "Scaling (%)"
@@ -1643,7 +1574,7 @@ msgstr "Ingrandimento (%)"
 
 #: ../src/image.c:473
 msgid "Multi thumbnail"
-msgstr "«thumbnail» multipli"
+msgstr "provini multipli"
 
 #: ../src/image.c:478
 msgid "By scaling"
@@ -1669,9 +1600,9 @@ msgid ""
 "%x: thumbnail width  %y: thumbnail height\n"
 "%b: original size (bytes)"
 msgstr ""
-"%r: nome originale del file  %t: nome del file thumbnail\n"
+"%r: nome originale del file  %t: nome del file dei provini\n"
 "%w: larghezza originale  %h: altezza originale\n"
-"%x: larghezza thumbnail  %y: altezza thumbnail\n"
+"%x: larghezza del provino  %y: altezza del provino\n"
 "%b: dimensione originale (byte)"
 
 #: ../src/menu.c:56
@@ -2691,7 +2622,7 @@ msgstr "/Dialoghi/Tabella/Intestazione tabella"
 
 #: ../src/menu.c:379
 msgid "/Dialogs/Table/Table_data..."
-msgstr "/Dialoghi/Tabella/Cella"
+msgstr "/Dialoghi/Tabella/Dati della cella"
 
 #: ../src/menu.c:380
 msgid "/Dialogs/_CSS"
@@ -2755,7 +2686,7 @@ msgstr "/Dialoghi/Form/F_orm..."
 
 #: ../src/menu.c:395
 msgid "/Dialogs/Form/_Input button..."
-msgstr "/Dialoghi/Form/_Bottone..."
+msgstr "/Dialoghi/Form/_Pulsante..."
 
 #: ../src/menu.c:396
 msgid "/Dialogs/Form/_Text..."
@@ -3383,11 +3314,11 @@ msgstr "Permetti più di una istanza del file"
 
 #: ../src/preferences.c:1707
 msgid "Open files in already running bluefish window"
-msgstr ""
+msgstr "Apri i file nella finestra di bluefish in esecuzione"
 
 #: ../src/preferences.c:1709
 msgid "Number of files in 'Open recent'"
-msgstr ""
+msgstr "Numero di file in 'Apri recenti'"
 
 #: ../src/preferences.c:1712
 msgid "User interface"
@@ -3467,15 +3398,15 @@ msgstr "Immagini"
 
 #: ../src/preferences.c:1751
 msgid "Thumbnails"
-msgstr "Thumbnails"
+msgstr "Provini"
 
 #: ../src/preferences.c:1755
 msgid "Thumbnail suffix"
-msgstr "Suffisso thumbnail"
+msgstr "Suffisso provino"
 
 #: ../src/preferences.c:1759
 msgid "Thumbnail filetype"
-msgstr "Tipo dei file «thumbnail»"
+msgstr "Tipo dei file dei provini"
 
 #: ../src/preferences.c:1764 ../src/preferences.c:1766
 msgid "Filetypes"
@@ -3788,7 +3719,7 @@ msgstr "/active html/form e azione"
 
 #: ../src/rcfile.c:642
 msgid "Submit button text"
-msgstr "Testo del bottone"
+msgstr "Testo del pulsante"
 
 #: ../src/rcfile.c:643
 msgid "/active html/input text"
