@@ -1073,6 +1073,7 @@ void recent_menu_init_project(Tbfwin *bfwin) {
 	num = g_list_length(bfwin->session->recent_files) - main_v->props.max_recent_files;
 	bfwin->menu_recent_files = recent_menu_from_list(bfwin, g_list_nth(bfwin->session->recent_files, (num > 0)?num:0), FALSE);
 }
+
 /* Add_to_recent_list
  * This should be called when a new file is opened, i.e. from
  * file_open_cb, it adds a new entry which also appears in the
