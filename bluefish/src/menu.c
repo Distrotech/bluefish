@@ -622,6 +622,8 @@ void filetype_menu_rebuild(GtkItemFactory *item_factory) {
 			gtk_widget_show(filetype->menuitem);
 			gtk_menu_insert(GTK_MENU(parent_menu), filetype->menuitem, 1);
 			group = gtk_radio_menu_item_get_group (GTK_RADIO_MENU_ITEM(filetype->menuitem));
+		} else {
+			filetype->menuitem = NULL;
 		}
 		tmplist = g_list_previous(tmplist);
 	}
@@ -1082,7 +1084,7 @@ void encoding_menu_rebuild() {
 }
 
 void menu_current_document_set_toggle_wo_activate(Tfiletype *hlset, gchar *encoding) {
-	if (hlset && !GTK_CHECK_MENU_ITEM(hlset->menuitem)->active) {
+	if (hlset && hlset->menuitem && !GTK_CHECK_MENU_ITEM(hlset->menuitem)->active) {
 		DEBUG_MSG("setting widget from hlset %p active\n", main_v->current_document->hl);
 		g_signal_handler_disconnect(G_OBJECT(hlset->menuitem),hlset->menuitem_activate_id);
 		gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (hlset->menuitem), TRUE);
@@ -1090,7 +1092,7 @@ void menu_current_document_set_toggle_wo_activate(Tfiletype *hlset, gchar *encod
 	}
 #ifdef DEBUG
 	 else {
-	 	DEBUG_MSG("widget from hlset %p is already active!!\n", main_v->current_document->hl);
+	 	DEBUG_MSG("widget from filetype %p is already active, or filetype does not have a widget!!\n", main_v->current_document->hl);
 	 }
 #endif
 	if (encoding) {
