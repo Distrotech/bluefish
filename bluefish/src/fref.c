@@ -15,10 +15,6 @@
 typedef struct {
 	GtkWidget *tree;
 	GtkTreeStore *store;
-/*	GtkWidget *info_window;*/
-	GCompletion *autocomplete;
-	GtkListStore *autostore;
-	GtkWidget *auto_list;
 	GtkTooltips *argtips;
 	GtkWidget *infocheck;	
 	GtkWidget *infoview;
@@ -82,7 +78,7 @@ void fref_name_loader_start_element(GMarkupParseContext * context,
 	   if (tmps!=NULL)
 	      data->description = g_strdup(tmps); 
 	}
-		
+ g_hash_table_destroy(attrs); 		
 }							   
 
 
@@ -91,24 +87,37 @@ gchar *fref_xml_get_refname(gchar *filename)
 	GMarkupParseContext *ctx;
 	gchar *config;
 	gsize len;
-	Tfref_name_data *aux;
+	Tfref_name_data *aux=NULL;
 	gchar *tmps;
 
  if (filename==NULL) return NULL; 
  
-	aux = g_new0(Tfref_name_data, 1);
+	aux = g_new0(Tfref_name_data, 1);	
 	ctx = g_markup_parse_context_new(&FRNameParser, (GMarkupParseFlags) 0,
 									 (gpointer) aux, NULL);
 	if (ctx == NULL)
+	{
+	  g_free(aux);
 		return NULL;
+	}	
 	if (!g_file_get_contents(filename, &config, &len, NULL))
-		/* I think we need to free ctx before returning NULL, don't we?*/
+	{
+		g_markup_parse_context_free(ctx);
+		g_free(aux);
 		return NULL;
+	}	
+
 	if (!g_markup_parse_context_parse(ctx, config, len, NULL))
-		/* and also here ?? free ctx first? */
+	{
+		g_markup_parse_context_free(ctx);
+		g_free(aux);
+		g_free(config);
 		return NULL;
+	}	
 	g_markup_parse_context_free(ctx);
 	tmps = aux->name;
+	g_free(aux->name);
+	g_free(aux->description);
 	g_free(aux);
 	g_free(config);
 	return tmps;
@@ -149,8 +158,6 @@ void fref_loader_start_element(GMarkupParseContext * context,
 		 if (aux->nest_level < MAX_NEST_LEVEL)
 		 {
      gtk_tree_store_append(aux->store, &iter, &aux->parent);
-     /* you set the value in the tree with g_strdup(), so you allocate new memory for it, 
-     but you can never free that memory. Do you really need to use g_strdup() here ? */
      gtk_tree_store_set(aux->store, &iter, STR_COLUMN, 
  			                   g_strdup(g_hash_table_lookup(attrs, "name")),
  			                   FILE_COLUMN,NULL,PTR_COLUMN,NULL,-1);
@@ -311,10 +318,8 @@ void fref_loader_start_element(GMarkupParseContext * context,
 		} else
 			g_warning("FREF Config Error: Unknown tag (%s)", element_name);
 		break;					/* state PARAM */
-
 	}							/* switch */
-	/* you destroy the hashtable, but you don't free the content of the hashtable, 
-	I guess we need to do that ourselves.. */
+	
 	g_hash_table_destroy(attrs);
 }
 
@@ -391,7 +396,6 @@ void fref_loader_text(GMarkupParseContext * context, const gchar * _text,
 		break;
 	case FR_LOADER_STATE_TIP:
 		aux->act_info->tip = g_strndup(text, text_len);
-		aux->autoitems = g_list_append(aux->autoitems, aux->act_info->tip);
 		break;
 	case FR_LOADER_STATE_ATTR:
 		aux->act_attr->description = g_strndup(text, text_len);
@@ -447,24 +451,45 @@ void fref_loader_load_ref_xml(gchar * filename, GtkWidget * tree,
 	aux->state = FR_LOADER_STATE_NONE;
 	aux->parent = *parent;
 	aux->nest_level = 0;
-	aux->autoitems = NULL;
 	
 	ctx = g_markup_parse_context_new(&FRParser, (GMarkupParseFlags) 0,
 									 (gpointer) aux, NULL);
 	if (ctx == NULL)
 		return;
 	if (!g_file_get_contents(filename, &config, &len, NULL))
+	{
+	  g_markup_parse_context_free(ctx);
+	  g_free(aux);
 		return;
+	}	
 	if (!g_markup_parse_context_parse(ctx, config, len, NULL))
+	{
+  	g_markup_parse_context_free(ctx);
+  	g_free(aux);
+  	g_free(config);
 		return;
+	}	
 	g_markup_parse_context_free(ctx);
-	if (aux->autoitems != NULL)
-		g_completion_add_items(fref_data.autocomplete, aux->autoitems);
-	g_free(config);
-	/* you free aux here, but during the parsing aux probably got many data attached 
-	to it that is not freed yet, shouldn't you check the data and free that if it is there? 
-	*/
+	if (aux->act_info) fref_free_info(aux->act_info);
+	if (aux->act_attr) {
+	     g_free(aux->act_attr->name);
+	     g_free(aux->act_attr->title);
+	     g_free(aux->act_attr->description);
+	     g_free(aux->act_attr->def_value);
+	     g_free(aux->act_attr->values);
+	     g_free(aux->act_attr);
+	}
+	if (aux->act_param) {
+	     g_free(aux->act_param->name);
+	     g_free(aux->act_param->title);
+	     g_free(aux->act_param->description);
+	     g_free(aux->act_param->def_value);
+	     g_free(aux->act_param->type);	     
+	     g_free(aux->act_param->values);
+	     g_free(aux->act_param);
+	}
 	g_free(aux);
+	g_free(config);
 }
 
 void fref_loader_unload_ref(GtkWidget * tree, GtkTreeStore * store,
@@ -476,21 +501,39 @@ void fref_loader_unload_ref(GtkWidget * tree, GtkTreeStore * store,
 	GtkTreePath *path;
 
  path = gtk_tree_model_get_path(GTK_TREE_MODEL(store),position);
- if (gtk_tree_path_get_depth(path)>1) return;
- 
-	while (gtk_tree_model_iter_nth_child
-		   (GTK_TREE_MODEL(store), &iter, position, 0)) {
+
+	while (gtk_tree_model_iter_nth_child(GTK_TREE_MODEL(store), &iter, position, 0)) {
 		val = g_new0(GValue, 1);
 		gtk_tree_model_get_value(GTK_TREE_MODEL(store), &iter, 1, val);
-		if (G_IS_VALUE(val) && g_value_peek_pointer(val) != NULL) {
+		if (G_IS_VALUE(val) && g_value_peek_pointer(val)!=NULL) {
 			entry = (FRInfo *) g_value_peek_pointer(val);
 			if (entry != NULL) {
 				fref_free_info(entry);
-			}
+			} 
 		}
+		else
+		if (gtk_tree_model_iter_has_child   (GTK_TREE_MODEL(store),&iter))
+		{
+		   fref_loader_unload_ref(tree,store,&iter);
+		}   
+		/* have not to free entry name, because this is a pointer to info field */
 		gtk_tree_store_remove(store, &iter);
 		g_free(val);
 	}							/* while */
+	
+	if ( gtk_tree_path_get_depth(path) > 1 )
+	 {
+		 val = g_new0(GValue, 1);	 
+    gtk_tree_model_get_iter(GTK_TREE_MODEL(store),&iter,path);		 
+		 gtk_tree_model_get_value(GTK_TREE_MODEL(store), &iter, 0, val);    
+		if (G_IS_VALUE(val) && g_value_peek_pointer(val)!=NULL) {
+		  /* have to free name column for group */
+		  g_free(g_value_peek_pointer(val)); /* freeing item name */
+		}
+	  /*gtk_tree_store_remove(store, position);*/
+	  g_free(val); 
+	 }
+	gtk_tree_path_free(path); 
 }
 
 void fref_loader_unload_all(GtkWidget * tree, GtkTreeStore * store)
@@ -506,9 +549,16 @@ void fref_loader_unload_all(GtkWidget * tree, GtkTreeStore * store)
 		if (G_IS_VALUE(val) && g_value_peek_pointer(val) != NULL) {
 			g_free(g_value_peek_pointer(val));
 		}
+		g_free(val);
+	  val = g_new0(GValue, 1);
+		gtk_tree_model_get_value(GTK_TREE_MODEL(store), &iter, 0, val);
+		if (G_IS_VALUE(val) && g_value_peek_pointer(val) != NULL) {
+			g_free(g_value_peek_pointer(val));
+		}		
 		gtk_tree_store_remove(store, &iter);
 		g_free(val);
 	}							/* while */
+	gtk_tree_store_clear(store);
 }
 
 
@@ -518,67 +568,49 @@ void fref_free_info(FRInfo * info)
 	FRAttrInfo *tmpa;
 	FRParamInfo *tmpp;
 	GList *lst;
-
-	if (info->name)
-		g_free(info->name);
-	if (info->description)
-		g_free(info->description);
-	if (info->tip)
-		g_free(info->tip);
-	if (info->return_type)
-		g_free(info->return_type);
-	if (info->return_description)
-		g_free(info->return_description);
-	if (info->info_text)
-		g_free(info->info_text);
-	if (info->info_title)
-		g_free(info->info_title);
-	if (info->dialog_text)
-		g_free(info->dialog_text);
-	if (info->dialog_title)
-		g_free(info->dialog_title);
-	if (info->insert_text)
-		g_free(info->insert_text);
+ 
+	g_free(info->name);
+	g_free(info->description);
+	g_free(info->tip);
+	g_free(info->return_type);
+	g_free(info->return_description);
+	g_free(info->info_text);
+	g_free(info->info_title);
+	g_free(info->dialog_text);
+	g_free(info->dialog_title);
+	g_free(info->insert_text);
 	if (info->attributes) {
 		lst = g_list_first(info->attributes);
 		while (lst) {
 			tmpa = (FRAttrInfo *) lst->data;
-			if (tmpa->name)
-				g_free(tmpa->name);
-			if (tmpa->title)
-				g_free(tmpa->title);
-			if (tmpa->description)
-				g_free(tmpa->description);
-			if (tmpa->def_value)
-				g_free(tmpa->def_value);
-			if (tmpa->values)
-				g_free(tmpa->values);
+			g_free(tmpa->name);
+			g_free(tmpa->title);
+			g_free(tmpa->description);
+			g_free(tmpa->def_value);
+			g_free(tmpa->values);
+			g_free(tmpa);
 			lst = g_list_next(lst);
 		}
+		g_list_free(info->attributes);
 	}							/* attributes */
 	if (info->params) {
 		lst = g_list_first(info->params);
 		while (lst) {
 			tmpp = (FRParamInfo *) lst->data;
-			if (tmpp->name)
-				g_free(tmpp->name);
-			if (tmpp->title)
-				g_free(tmpp->title);
-			if (tmpp->description)
-				g_free(tmpp->description);
-			if (tmpp->def_value)
-				g_free(tmpp->def_value);
-			if (tmpp->type)
-				g_free(tmpp->type);
-			if (tmpp->values)
-				g_free(tmpp->values);
+			g_free(tmpp->name);
+			g_free(tmpp->title);
+			g_free(tmpp->description);
+			g_free(tmpp->def_value);
+			g_free(tmpp->type);
+			g_free(tmpp->values);
+			g_free(tmpp);
 			lst = g_list_next(lst);
 		}
+		g_list_free(info->params);
 	}
-
-
 	/* params */
 	/* methods */
+	g_free(info);
 }
 
 
@@ -643,9 +675,6 @@ GtkWidget *fref_init() {
 
 	fill_toplevels(FALSE);
 
-	/* autocompletion */
-	fref_data.autocomplete = g_completion_new(NULL);
-
 	g_signal_connect(G_OBJECT(fref_data.tree), "row-collapsed",
 					 G_CALLBACK(frefcb_row_collapsed), fref_data.store);
 	g_signal_connect(G_OBJECT(fref_data.tree), "row-expanded",
@@ -697,8 +726,6 @@ void fref_cleanup() {
 	g_object_unref(G_OBJECT(fref_data.store));
 	fref_data.tree = NULL;
 	fref_data.store = NULL;
-/*	fref_data.info_window = NULL;*/
-	g_completion_free(fref_data.autocomplete);
 	fref_data.argtips = NULL;
 }
 
@@ -900,7 +927,6 @@ void fref_show_info(FRInfo * entry, gboolean modal, GtkWidget * parent)
 			, 0, G_CALLBACK(info_window_close_lcb)
 			, NULL,TRUE,FALSE);
 
-/*	info_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);*/
 	if (modal) {
 		gtk_window_set_modal(GTK_WINDOW(info_window), TRUE);
 	}
@@ -945,9 +971,6 @@ void fref_show_info(FRInfo * entry, gboolean modal, GtkWidget * parent)
 	g_signal_connect(G_OBJECT(info_window), "key-press-event",
 					 G_CALLBACK(frefcb_info_keypress),
 					 info_window);
-/*	g_signal_connect(G_OBJECT(info_window), "focus-out-event",
-					 G_CALLBACK(frefcb_info_lost_focus),
-					 info_window);*/
 	g_signal_connect(G_OBJECT(btn1), "clicked",
 					 G_CALLBACK(frefcb_info_close), info_window);
 	if (!modal) {
@@ -958,19 +981,7 @@ void fref_show_info(FRInfo * entry, gboolean modal, GtkWidget * parent)
 						 G_CALLBACK(frefcb_info_insert),
 						 info_window);
 	}
-/*	gtk_window_set_decorated(GTK_WINDOW(info_window), FALSE);*/
-/* let the window manager do it's work */
-/*	
-	if (!modal)
-		gtk_window_set_position(GTK_WINDOW(info_window),
-								GTK_WIN_POS_CENTER_ALWAYS);
-	else if (parent != NULL) {
-		gtk_window_get_position(GTK_WINDOW(parent), &x, &y);
-		gtk_window_get_size(GTK_WINDOW(parent), &w, &h);
-		gtk_window_move(GTK_WINDOW(info_window), x + w + 10, y);
-	}*/
 	gtk_widget_show_all(info_window);
-/*	gtk_widget_grab_focus(info_window);*/
 }
 
 GtkWidget *fref_prepare_dialog(FRInfo * entry)
@@ -1388,7 +1399,6 @@ void frefcb_row_collapsed(GtkTreeView * treeview, GtkTreeIter * arg1,
 	GtkTreeIter iter;
 	GValue *val;
 
-
 	val = g_new0(GValue, 1);
 	gtk_tree_model_get_value(GTK_TREE_MODEL(user_data), arg1, 2, val);
 	if (G_IS_VALUE(val) && g_value_peek_pointer(val)!=NULL) {
@@ -1655,79 +1665,7 @@ void frefcb_info_insert(GtkButton * button, gpointer user_data)
 
 }
 
-void frefcb_autocomplete(GtkWidget * widget, gpointer data)
-{
-	GtkTextIter pomit, *pomit2;
-	gchar *word;
-	GList *lst;
-	gchar *pref;
-	GtkWidget *menu;
-	GtkWidget *item;
 
-	gtk_text_buffer_get_iter_at_mark(main_v->current_document->buffer,
-									 &pomit,
-									 gtk_text_buffer_get_insert(main_v->
-																current_document->
-																buffer));
-	pomit2 = gtk_text_iter_copy(&pomit);
-	gtk_text_iter_backward_sentence_start(pomit2);
-
-	word =
-		gtk_text_buffer_get_slice(main_v->current_document->buffer, pomit2,
-								  &pomit, FALSE);
-	if (word == NULL)
-		return;
-
-	lst = g_completion_complete(fref_data.autocomplete, word, &pref);
-	if (lst == NULL)
-		return;
-	menu = gtk_menu_new();
-	lst = g_list_first(lst);
-	while (lst != NULL) {
-		item = gtk_menu_item_new_with_label(lst->data);
-		gtk_menu_shell_append(GTK_MENU_SHELL(menu), item);
-		g_signal_connect(G_OBJECT(item), "activate",
-						 G_CALLBACK(frefcb_autocomplete_activate),
-						 (lst->data) + strlen(word));
-		gtk_widget_show(item);
-		lst = g_list_next(lst);
-	}
-	gtk_menu_popup(GTK_MENU(menu), NULL, NULL, fref_ac_position, NULL, 0,
-				   gtk_get_current_event_time());
-}
-
-
-void fref_ac_position(GtkMenu * menu, gint * x, gint * y,
-					  gboolean * push_in, gpointer user_data)
-{
-	GtkTextIter pomit;
-	GdkRectangle rec;
-	gint x1, y1, x2, y2;
-
-	gtk_text_buffer_get_iter_at_mark(main_v->current_document->buffer,
-									 &pomit,
-									 gtk_text_buffer_get_insert(main_v->
-																current_document->
-																buffer));
-	gtk_text_view_get_iter_location(GTK_TEXT_VIEW
-									(main_v->current_document->view),
-									&pomit, &rec);
-	gdk_window_get_origin(gtk_text_view_get_window
-						  (GTK_TEXT_VIEW(main_v->current_document->view),
-						   GTK_TEXT_WINDOW_TEXT), &x1, &y1);
-	gtk_text_view_buffer_to_window_coords(GTK_TEXT_VIEW
-										  (main_v->current_document->view),
-										  GTK_TEXT_WINDOW_TEXT, x1, y1,
-										  &x2, &y2);
-	*x = x2 + rec.x;
-	*y = y2 + rec.y + rec.height;
-}
-
-void frefcb_autocomplete_activate(GtkMenuItem * menuitem,
-								  gpointer user_data)
-{
-	doc_insert_two_strings(main_v->current_document, (gchar *) user_data,NULL);
-}
 
 void frefcb_info_show(GtkButton * button, gpointer user_data)
 {
