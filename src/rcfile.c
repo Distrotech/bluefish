@@ -540,6 +540,10 @@ void rcfile_parse_main(void)
 		arr = array_from_arglist(_("Hide objectfiles"),"0", "objectfile", NULL);
 		main_v->props.filefilters = g_list_append(main_v->props.filefilters, arr);
 	}
+	if (main_v->props.reference_files == NULL) {
+		/* if the user does not yet have any function reference files, set them to default values */
+		main_v->props.reference_files = g_list_append(main_v->props.reference_files, array_from_arglist("HTML",PKGDATADIR"funcref_html.xml",NULL));
+	}
 }
 
 static gint rcfile_save_main(void) {
