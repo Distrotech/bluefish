@@ -465,6 +465,7 @@ void doc_save_backend(Tdocument *doc, gboolean do_save_as, gboolean do_move, gbo
 		}
 		doc->uri = newfilename;
 	}
+	session_set_savedir(doc->bfwin, doc->uri);
 	{
 		gchar *tmp;
 		Trefcpointer *buffer;
