@@ -22,7 +22,7 @@
  */
 /* 
  * Changes by Antti-Juhani Kaijanaho <gaia@iki.fi> on 1999-10-20
- * $Id: html.c,v 1.21 2003-03-25 22:02:06 oli4 Exp $
+ * $Id: html.c,v 1.22 2003-05-11 08:33:11 oli4 Exp $
  */
 
 #include <gtk/gtk.h>
@@ -565,7 +565,7 @@ void quickanchor_cb(GtkWidget * widget, gpointer data)
 	free_stringlist(rel_link_list);
 	}
 	file_but = file_but_new(GTK_WIDGET(GTK_COMBO(dg->combo[2])->entry), dg->dialog, 0);
-	gtk_table_attach(GTK_TABLE(dgtable), GTK_WIDGET(file_but), 2, 3, 0, 1, GTK_EXPAND, GTK_EXPAND, 0, 0);
+	gtk_table_attach(GTK_TABLE(dgtable), GTK_WIDGET(file_but), 2, 3, 0, 1, GTK_SHRINK, GTK_SHRINK, 0, 0);
 	bf_mnemonic_label_tad_with_alignment(_("_HREF:"), dg->combo[2], 0, 0.5, dgtable, 0, 1, 0, 1);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(GTK_COMBO(dg->combo[2])), 1, 2, 0, 1);
 
@@ -590,7 +590,7 @@ void quickanchor_cb(GtkWidget * widget, gpointer data)
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[16], 1, 2, 5, 6);
 
 	but = style_but_new(dg->entry[16], dg->dialog);
-	gtk_table_attach(GTK_TABLE(dgtable), but, 2, 3, 5, 6, GTK_EXPAND, GTK_EXPAND, 0, 0);
+	gtk_table_attach(GTK_TABLE(dgtable), but, 2, 3, 5, 6, GTK_SHRINK, GTK_SHRINK, 0, 0);
 
 	dg->entry[17] = entry_with_text(avalues[16], 256);
 	bf_mnemonic_label_tad_with_alignment(_("_Language:"), dg->entry[17], 0, 0.5, dgtable, 0, 1, 6, 7);
@@ -1044,17 +1044,13 @@ void quickstart_cb(GtkWidget * widget, gpointer data)
 
 	dg->combo[1] = combo_with_popdown("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\">", recent_attribs.dtd_cblist, 1);
 	gtk_widget_set_size_request(dg->combo[1], 425, -1);
-	label = gtk_label_new_with_mnemonic(_("_Doctype:"));
-	gtk_misc_set_alignment(GTK_MISC(label), 0, 0);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), label, 0, 1, 0, 1);
-	gtk_label_set_mnemonic_widget(GTK_LABEL(label), (GTK_COMBO(dg->combo[1])->entry));
-	gtk_entry_set_activates_default(GTK_ENTRY(GTK_COMBO(dg->combo[1])->entry), TRUE);
+	bf_mnemonic_label_tad_with_alignment(_("_Doctype:"), dg->combo[1], 0, 0.5, dgtable, 0, 1, 0, 1);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->combo[1], 1, 4, 0, 1);
 	
 	scrolwin = gtk_scrolled_window_new(NULL, NULL);
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolwin), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
 	label = gtk_label_new(_("Header tags:"));
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), label , 0, 1, 2, 3);
+	gtk_table_attach(GTK_TABLE(dgtable), label , 0, 1, 1, 2, GTK_FILL, GTK_FILL, 0, 0);
 	gtk_misc_set_alignment(GTK_MISC(label), 0, 0);
 	gtk_widget_set_size_request(scrolwin, 300, 100);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), scrolwin, 1, 4, 1, 4);
@@ -1086,10 +1082,7 @@ void quickstart_cb(GtkWidget * widget, gpointer data)
 	gtk_clist_thaw(GTK_CLIST(dg->clist[1]));
 
 	dg->entry[1] = entry_with_text(NULL, 0);
-	label = gtk_label_new_with_mnemonic(_("_Title:"));
-	gtk_misc_set_alignment(GTK_MISC(label), 0, 0);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), label, 0, 1, 4, 5);
-	gtk_label_set_mnemonic_widget(GTK_LABEL(label), dg->entry[1]);
+	bf_mnemonic_label_tad_with_alignment(_("_Title:"), dg->entry[1], 0, 0.5, dgtable, 0, 1, 4, 5);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[1], 1, 4, 4, 5);
 	{
 		GtkWidget *scroll, *stylebut;
@@ -1104,7 +1097,7 @@ void quickstart_cb(GtkWidget * widget, gpointer data)
 											(scroll), GTK_SHADOW_IN);
 		gtk_container_add(GTK_CONTAINER(scroll), dg->text[0]);
 		label = gtk_label_new_with_mnemonic(_("St_yle:"));
-		gtk_table_attach_defaults(GTK_TABLE(dgtable), label, 0, 1, 5, 6);
+		gtk_table_attach(GTK_TABLE(dgtable), label, 0, 1, 5, 6, GTK_FILL, GTK_FILL, 0, 0);
 		gtk_misc_set_alignment(GTK_MISC(label), 0, 0);
 		gtk_label_set_mnemonic_widget(GTK_LABEL(label), dg->text[0]);
 		gtk_widget_set_size_request(scroll, 300,100);
@@ -1185,26 +1178,26 @@ void body_cb(GtkWidget * widget, gpointer data)
 		
 		dg->entry[3] = entry_with_text(bodyvalues[6], 256);
 		gtk_table_attach_defaults(GTK_TABLE(dgtable[1]), dg->entry[3], 1, 2, 0, 1);
-		bf_mnemonic_label_tad_with_alignment(_("St_yle:"), dg->entry[3], 1, 0.5, dgtable[1], 0, 1, 0, 1);
+		bf_mnemonic_label_tad_with_alignment(_("St_yle:"), dg->entry[3], 0, 0.5, dgtable[1], 0, 1, 0, 1);
 
 		stylebut = style_but_new(dg->entry[3], dg->dialog);
-		gtk_table_attach(GTK_TABLE(dgtable[1]), stylebut, 2, 3, 0, 1, GTK_EXPAND, GTK_EXPAND, 0, 0);
+		gtk_table_attach(GTK_TABLE(dgtable[1]), stylebut, 2, 3, 0, 1, GTK_SHRINK, GTK_SHRINK, 0, 0);
 
 		dg->combo[6] = combo_with_popdown(bodyvalues[7], recent_attribs.classlist, 1);
 		gtk_table_attach_defaults(GTK_TABLE(dgtable[1]), dg->combo[6], 1, 2, 1, 2);
-		bf_mnemonic_label_tad_with_alignment(_("Cl_ass:"), dg->combo[6], 1, 0.5, dgtable[1], 0, 1, 1, 2);
+		bf_mnemonic_label_tad_with_alignment(_("Cl_ass:"), dg->combo[6], 0, 0.5, dgtable[1], 0, 1, 1, 2);
 
 		dg->entry[4] = entry_with_text(bodyvalues[8], 256);
 		gtk_table_attach_defaults(GTK_TABLE(dgtable[1]), dg->entry[4], 1, 2, 2, 3);
-		bf_mnemonic_label_tad_with_alignment(_("_ID:"), dg->entry[4], 1, 0.5, dgtable[1], 0, 1, 2, 3);
+		bf_mnemonic_label_tad_with_alignment(_("_ID:"), dg->entry[4], 0, 0.5, dgtable[1], 0, 1, 2, 3);
 
 		dg->entry[5] = entry_with_text(bodyvalues[9], 256);
 		gtk_table_attach_defaults(GTK_TABLE(dgtable[1]), dg->entry[5], 1, 2, 3, 4);
-		bf_mnemonic_label_tad_with_alignment(_("_Language:"), dg->entry[5], 1, 0.5, dgtable[1], 0, 1, 3, 4);
+		bf_mnemonic_label_tad_with_alignment(_("_Language:"), dg->entry[5], 0, 0.5, dgtable[1], 0, 1, 3, 4);
 
 		dg->entry[2] = entry_with_text(custom, 1024);
 		gtk_table_attach_defaults(GTK_TABLE(dgtable[1]), dg->entry[2], 1, 3, 4, 5);
-		bf_mnemonic_label_tad_with_alignment(_("Custom _values:"), dg->entry[2], 1, 0.5, dgtable[1], 0, 1, 4, 5);
+		bf_mnemonic_label_tad_with_alignment(_("Custo_m:"), dg->entry[2], 0, 0.5, dgtable[1], 0, 1, 4, 5);
 
 		/* Events Tab */
 		frame = bf_generic_frame_new(NULL, GTK_SHADOW_NONE, 12);
@@ -1856,7 +1849,7 @@ void embed_cb(GtkWidget * widget, gpointer data)
 	dgtable = html_diag_table_in_vbox(dg, 5, 4);
 	dg->entry[1] = gtk_entry_new_with_max_length(256);
 	file_but = file_but_new(dg->entry[1], dg->dialog, 0);
-	gtk_table_attach(GTK_TABLE(dgtable), file_but, 3, 4, 0, 1, GTK_EXPAND, GTK_EXPAND, 0, 0);
+	gtk_table_attach(GTK_TABLE(dgtable), file_but, 3, 4, 0, 1, GTK_SHRINK, GTK_SHRINK, 0, 0);
 	bf_mnemonic_label_tad_with_alignment(_("_Source:"), dg->entry[1], 0, 0.5, dgtable, 0, 1, 0, 1);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[1], 1, 3, 0, 1);
 

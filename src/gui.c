@@ -922,14 +922,14 @@ void go_to_line_win_cb(GtkWidget * widget, gpointer data)
 	
 	tgl = g_new(Tgotoline, 1);
 	tgl->win = window_full(_("Goto line"), GTK_WIN_POS_MOUSE
-						  ,5, G_CALLBACK(tgl_destroy_lcb), tgl, TRUE);
-	vbox = gtk_vbox_new(FALSE, 0);
+						  ,12, G_CALLBACK(tgl_destroy_lcb), tgl, TRUE);
+	vbox = gtk_vbox_new(FALSE, 12);
 	gtk_container_add(GTK_CONTAINER(tgl->win), vbox);
 
-	hbox = gtk_hbox_new(FALSE, 0);
+	hbox = gtk_hbox_new(FALSE, 12);
 	gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 0);
 
-	label = gtk_label_new_with_mnemonic(_("_Line number: "));
+	label = gtk_label_new_with_mnemonic(_("_Line number:"));
 	gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 0);
 
 	tgl->entry = boxed_entry_with_text(NULL, 20, hbox);
@@ -938,12 +938,14 @@ void go_to_line_win_cb(GtkWidget * widget, gpointer data)
 	but1 = bf_stock_button(_("From _selection"), G_CALLBACK(tgl_fromsel_clicked_lcb), tgl);
 	gtk_box_pack_start(GTK_BOX(hbox), but1, FALSE, FALSE, 0);
 
+	tgl->check = boxed_checkbut_with_value(_("Keep _dialog"), 0, vbox);
+	
+	gtk_box_pack_start(GTK_BOX(vbox), gtk_hseparator_new(), TRUE, TRUE, 0);
+	
 	hbox = gtk_hbutton_box_new();
 	gtk_hbutton_box_set_layout_default(GTK_BUTTONBOX_END);
-	gtk_button_box_set_spacing(GTK_BUTTON_BOX(hbox), 1);
-	gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 0);
-
-	tgl->check = boxed_checkbut_with_value(_("Keep _dialog"), 0, hbox);
+	gtk_button_box_set_spacing(GTK_BUTTON_BOX(hbox), 12);
+	gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 0);	
 	
 	but1 = bf_stock_cancel_button(G_CALLBACK(tgl_cancel_clicked_lcb), tgl);
 	gtk_box_pack_start(GTK_BOX(hbox), but1, FALSE, FALSE, 0);
