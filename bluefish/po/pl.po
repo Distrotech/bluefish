@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: bluefish gtk2-port\n"
-"POT-Creation-Date: 2003-06-11 15:47+0200\n"
+"POT-Creation-Date: 2003-06-23 10:36+0200\n"
 "PO-Revision-Date: 15/5/2003  \n"
 "Last-Translator: Oskar Świda (swida@aragorn.pb.bialystok.pl)\n"
 "Language-Team: None\n"
@@ -28,11 +28,11 @@ msgstr "Oryginalny"
 msgid "Replacement"
 msgstr "Zamiennik"
 
-#: ../src/bfspell.c:356 ../src/document.c:2069
+#: ../src/bfspell.c:356 ../src/document.c:2352
 msgid "Ignore"
 msgstr "Ignoruj"
 
-#: ../src/bfspell.c:357 ../src/menu.c:1900 ../src/snr2.c:994
+#: ../src/bfspell.c:357 ../src/snr2.c:1183
 msgid "Replace"
 msgstr "Zamień"
 
@@ -68,7 +68,7 @@ msgstr "Język"
 msgid "Set default"
 msgstr "Ustaw domyślnie"
 
-#: ../src/bfspell.c:399 ../src/filebrowser.c:1096
+#: ../src/bfspell.c:399 ../src/filebrowser.c:1107
 msgid "Filter"
 msgstr "Filtr plików"
 
@@ -129,112 +129,113 @@ msgstr "przygotowuję interfejs graficzny..."
 msgid "showing main gui..."
 msgstr "interfejs graficzny..."
 
-#: ../src/document.c:147 ../src/gui.c:606
-msgid "/Document/Highlight syntax"
+#: ../src/document.c:148 ../src/gui.c:635
+#, fuzzy
+msgid "/Document/Highlight Syntax"
 msgstr "/Dokument/Podświetlanie składni"
 
-#: ../src/document.c:421 ../src/document.c:422 ../src/document.c:593
+#: ../src/document.c:553 ../src/document.c:554 ../src/document.c:725
 msgid "Untitled"
 msgstr "Bez nazwy"
 
-#: ../src/document.c:705 ../src/document.c:707
+#: ../src/document.c:825 ../src/document.c:826
 #, c-format
 msgid "  %s, %s"
 msgstr ""
 
-#: ../src/document.c:912
+#: ../src/document.c:1045
 msgid "Opening file "
 msgstr "Otwieranie pliku "
 
-#: ../src/document.c:921
+#: ../src/document.c:1054
 msgid "Could not open file:\n"
 msgstr "Nie można otworzyć pliku:\n"
 
-#: ../src/document.c:1065
+#: ../src/document.c:1198
 msgid "Cannot display file, unknown characters found."
 msgstr "Nie można wyświetlić pliku, znaleziono nieznane znaki."
 
-#: ../src/document.c:1167
+#: ../src/document.c:1300
 #, fuzzy, c-format
 msgid " Line  %d"
 msgstr " linia %4d "
 
-#: ../src/document.c:1311
+#: ../src/document.c:1445
 msgid "Edit tag"
 msgstr "Edytuj znacznik"
 
-#: ../src/document.c:1322
+#: ../src/document.c:1456
 msgid "Input _Methods"
 msgstr "_Metody wejściowe"
 
-#: ../src/document.c:1405
+#: ../src/document.c:1565
 msgid "Saving file"
 msgstr "Zapisywanie pliku"
 
-#: ../src/document.c:1426
+#: ../src/document.c:1586
 msgid "Abort save"
 msgstr "Przerwij zapis"
 
-#: ../src/document.c:1426
+#: ../src/document.c:1586
 msgid "Continue save"
 msgstr "Kontynuuj zapis"
 
-#: ../src/document.c:1428
+#: ../src/document.c:1588
 #, c-format
 msgid ""
 "A backupfile for %s could not be created. If you continue, this file will be "
 "overwritten."
 msgstr ""
 
-#: ../src/document.c:1429
+#: ../src/document.c:1589
 #, fuzzy
 msgid "File backup failure"
 msgstr "Reakcja na błąd tworzenia kopii zapasowej"
 
-#: ../src/document.c:1553
+#: ../src/document.c:1727
 #, fuzzy
 msgid "Move/rename document to"
 msgstr "Zapisz dokument jako"
 
-#: ../src/document.c:1553
+#: ../src/document.c:1727
 msgid "Save document as"
 msgstr "Zapisz dokument jako"
 
-#: ../src/document.c:1563 ../src/document.c:1589 ../src/document.c:1651
+#: ../src/document.c:1737 ../src/document.c:1763 ../src/document.c:1834
 msgid "Cancel"
 msgstr "Anuluj"
 
-#: ../src/document.c:1563 ../src/document.c:1589 ../src/document.c:1651
+#: ../src/document.c:1737 ../src/document.c:1763 ../src/document.c:1834
 msgid "Overwrite"
 msgstr "Nadpisz"
 
-#: ../src/document.c:1564
+#: ../src/document.c:1738
 #, fuzzy, c-format
 msgid "File %s exists and is opened, overwrite?"
 msgstr "Plik %s jest otwarty, nadpisać?"
 
-#: ../src/document.c:1565
+#: ../src/document.c:1739
 msgid "The file you have selected is being edited in Bluefish."
 msgstr ""
 
-#: ../src/document.c:1579
+#: ../src/document.c:1753
 msgid "Previously: "
 msgstr "Poprzednio: "
 
-#: ../src/document.c:1590
+#: ../src/document.c:1764
 #, fuzzy, c-format
 msgid "File %s exists, overwrite?"
 msgstr "Plik %s jest otwarty, nadpisać?"
 
-#: ../src/document.c:1591
+#: ../src/document.c:1765
 msgid "The file you have selected exists."
 msgstr ""
 
-#: ../src/document.c:1630
+#: ../src/document.c:1812
 msgid "Save as..."
 msgstr "Zapisz jako..."
 
-#: ../src/document.c:1655
+#: ../src/document.c:1838
 #, fuzzy, c-format
 msgid ""
 "File: %s\n"
@@ -247,77 +248,82 @@ msgstr ""
 "nowy czas modyfikacji: %s\n"
 "stary czas modyfikacji: %s"
 
-#: ../src/document.c:1656
+#: ../src/document.c:1839
 #, fuzzy
 msgid "The file has been modified by another process."
 msgstr ""
 "Plik %s\n"
 "został zmodyfikowany przez inny proces"
 
-#: ../src/document.c:1669
+#: ../src/document.c:1852
 #, c-format
 msgid "Saving %s"
 msgstr "Zapisuję %s"
 
-#: ../src/document.c:1679 ../src/document.c:1685 ../src/menu.c:759
+#: ../src/document.c:1862 ../src/document.c:1868 ../src/menu.c:761
 #, fuzzy
 msgid "The filename was:\n"
 msgstr "Nieznana nazwa pliku"
 
-#: ../src/document.c:1680
+#: ../src/document.c:1863
 #, fuzzy
 msgid "File save aborted, could not backup file\n"
 msgstr "Przerwano zapis pliku, nie można utworzyć kopii zapasowej:\n"
 
-#: ../src/document.c:1686
+#: ../src/document.c:1869
 #, fuzzy
 msgid "File save error, could not write file\n"
 msgstr "Błąd zapisu pliku, nie mogę zapisać pliku:\n"
 
-#: ../src/document.c:1727
+#: ../src/document.c:1916
 #, c-format
 msgid ""
 "Do you want to save the changes done to\n"
 "%s?."
 msgstr ""
 
-#: ../src/document.c:1732
+#: ../src/document.c:1921
 #, fuzzy
 msgid "Do you want to save the changes done to this untitled file?"
 msgstr ""
 "Czy na pewno zamknąć\n"
 "ten plik bez nazwy ?"
 
-#: ../src/document.c:1736
+#: ../src/document.c:1925
 #, fuzzy
 msgid "Do_n't save"
 msgstr "Przerwij zapis"
 
-#: ../src/document.c:1737
+#: ../src/document.c:1926
 msgid "The file is not saved"
 msgstr ""
 
-#: ../src/document.c:1935
+#: ../src/document.c:2153
 msgid "No filename"
 msgstr "Brak nazwy pliku"
 
-#: ../src/document.c:2019 ../src/msg_queue.c:180
+#: ../src/document.c:2257
+#, fuzzy
+msgid "Loading files..."
+msgstr "Ładuję plik(i)..."
+
+#: ../src/document.c:2275 ../src/msg_queue.c:180
 msgid "These files were not opened:\n"
 msgstr ""
 
-#: ../src/document.c:2021 ../src/msg_queue.c:182
+#: ../src/document.c:2277 ../src/msg_queue.c:182
 msgid "Unable to open file(s)\n"
 msgstr "Nie można otworzyć pliku(ów)\n"
 
-#: ../src/document.c:2039
+#: ../src/document.c:2308
 msgid "Unable to open file"
 msgstr "Nie można otworzyć pliku"
 
-#: ../src/document.c:2069
+#: ../src/document.c:2352
 msgid "Reload"
 msgstr "Przeładuj"
 
-#: ../src/document.c:2073
+#: ../src/document.c:2356
 #, c-format
 msgid ""
 "File %s\n"
@@ -330,128 +336,133 @@ msgstr ""
 "nowy czas modyfikacji: %s\n"
 "stary czas modyfikacji: %s"
 
-#: ../src/document.c:2074
+#: ../src/document.c:2357
 msgid "Bluefish: Warning, file is modified"
 msgstr "Bluefish: Ostrzeżenie, plik został zmodyfikowany"
 
-#: ../src/document.c:2168
+#: ../src/document.c:2451
 msgid "searching files..."
 msgstr "przeszukuję pliki..."
 
-#: ../src/document.c:2187
+#: ../src/document.c:2471
 msgid "Select basedir"
 msgstr "Wybierz katalog bazowy"
 
-#: ../src/document.c:2199
+#: ../src/document.c:2485
 msgid "Advanced open file selector"
 msgstr "Zaawansowany wybór plików"
 
-#: ../src/document.c:2210
+#: ../src/document.c:2496
 msgid "grep {contains} `find {basedir} -name '{file type}'`"
 msgstr "grep {zawiera} `find {katalog bazowy} -name '{typ pliku}'`"
 
-#: ../src/document.c:2215
+#: ../src/document.c:2501
 msgid "<b>General</b>"
 msgstr "<b>Ogólne</b>"
 
-#: ../src/document.c:2217
+#: ../src/document.c:2503
 msgid "Base_dir:"
 msgstr "Katalog bazowy:"
 
-#: ../src/document.c:2219 ../src/gtk_easy.c:1057
+#: ../src/document.c:2505 ../src/gtk_easy.c:1172
 msgid "_Browse..."
 msgstr "_Przeglądaj..."
 
-#: ../src/document.c:2234
+#: ../src/document.c:2520
 msgid "_File Type:"
 msgstr "Typ _pliku"
 
-#: ../src/document.c:2240
+#: ../src/document.c:2526
 msgid "_Recursive:"
 msgstr "_Rekurencyjnie"
 
-#: ../src/document.c:2245
+#: ../src/document.c:2531
 msgid "<b>Contains</b>"
 msgstr "<b>Zawiera</b>"
 
-#: ../src/document.c:2248
+#: ../src/document.c:2534
 msgid "Pa_ttern:"
 msgstr "W_zorzec:"
 
-#: ../src/document.c:2252
+#: ../src/document.c:2538
 msgid "Is rege_x:"
 msgstr "Wyrażenie re_gularne:"
 
-#: ../src/document.c:2315
+#: ../src/document.c:2635
 #, c-format
 msgid "Loading %d file(s)..."
 msgstr "Ładuję %d plik(i)..."
 
-#: ../src/document.c:2331
+#: ../src/document.c:2669
 #, fuzzy
 msgid "Select file to insert"
 msgstr "Brak pliku do wstawienia"
 
-#: ../src/document.c:2333
+#: ../src/document.c:2671
 msgid "No file to insert"
 msgstr "Brak pliku do wstawienia"
 
-#: ../src/document.c:2368
+#: ../src/document.c:2733
 #, fuzzy
 msgid "_Save all"
 msgstr "zapisz wszystkie"
 
-#: ../src/document.c:2368
+#: ../src/document.c:2733
 #, fuzzy
 msgid "Close _all"
 msgstr "zamknij wszystkie"
 
-#: ../src/document.c:2368
+#: ../src/document.c:2733
 #, fuzzy
 msgid "Choose per _file"
 msgstr "wybierz dla pliku"
 
-#: ../src/document.c:2368
+#: ../src/document.c:2733
 #, fuzzy
 msgid "_Cancel"
 msgstr "Anuluj"
 
-#: ../src/document.c:2369
+#: ../src/document.c:2734
 #, fuzzy
 msgid "Some file(s) have been modified"
 msgstr "Ostrzeżenie, niektóre pliki zostały zmodyfikowane!"
 
-#: ../src/document.c:2611
+#: ../src/document.c:2965
+#, c-format
+msgid "Statistics: %d lines, %d words, %d characters"
+msgstr ""
+
+#: ../src/document.c:3067
 msgid "No selection to indent"
 msgstr "Brak zaznaczenia do wcięcia"
 
-#: ../src/filebrowser.c:811
+#: ../src/filebrowser.c:812
 msgid "Error creating path"
 msgstr "Błąd podczas tworzenia ścieżki"
 
-#: ../src/filebrowser.c:811
+#: ../src/filebrowser.c:812
 msgid "The specified pathname already exists."
 msgstr ""
 
-#: ../src/filebrowser.c:856
+#: ../src/filebrowser.c:857
 msgid "File name"
 msgstr "Nazwa pliku"
 
-#: ../src/filebrowser.c:858
+#: ../src/filebrowser.c:859
 msgid "Directory name"
 msgstr "Nazwa folderu"
 
-#: ../src/filebrowser.c:890
+#: ../src/filebrowser.c:891
 #, fuzzy
 msgid "Opening directory..."
 msgstr "Otwieranie pliku "
 
-#: ../src/filebrowser.c:968
+#: ../src/filebrowser.c:979
 #, fuzzy
 msgid "Could not rename\n"
 msgstr "Nie można otworzyć pliku\n"
 
-#: ../src/filebrowser.c:1014
+#: ../src/filebrowser.c:1025
 #, c-format
 msgid ""
 "Are you sure you want to\n"
@@ -460,54 +471,55 @@ msgstr ""
 "Na pewno chcesz \n"
 "skasować \"%s\" ?"
 
-#: ../src/filebrowser.c:1015
+#: ../src/filebrowser.c:1026
 msgid "The file will be permanently deleted."
 msgstr ""
 
-#: ../src/filebrowser.c:1073
+#: ../src/filebrowser.c:1084
 #, fuzzy
-msgid "/_Open file"
+msgid "/_Open"
 msgstr "Otwieranie pliku "
 
-#: ../src/filebrowser.c:1074
+#: ../src/filebrowser.c:1085
 msgid "/sep1"
 msgstr ""
 
-#: ../src/filebrowser.c:1075
-msgid "/Rena_me file"
-msgstr ""
-
-#: ../src/filebrowser.c:1076
+#: ../src/filebrowser.c:1086
 #, fuzzy
-msgid "/_Delete file"
-msgstr "Kasuj plik"
+msgid "/Rena_me"
+msgstr "nazwa użytkownika"
 
-#: ../src/filebrowser.c:1077
+#: ../src/filebrowser.c:1087
+#, fuzzy
+msgid "/_Delete"
+msgstr " _Kasuj "
+
+#: ../src/filebrowser.c:1088
 #, fuzzy
 msgid "/sep2"
 msgstr "/Plik/sep2"
 
-#: ../src/filebrowser.c:1078
+#: ../src/filebrowser.c:1089
 #, fuzzy
 msgid "/New _File"
 msgstr "Nowy plik"
 
-#: ../src/filebrowser.c:1079
+#: ../src/filebrowser.c:1090
 #, fuzzy
 msgid "/_New Directory"
 msgstr "Nowy folder"
 
-#: ../src/filebrowser.c:1080
+#: ../src/filebrowser.c:1091
 #, fuzzy
 msgid "/sep3"
 msgstr "/Edycja/sep3"
 
-#: ../src/filebrowser.c:1081
+#: ../src/filebrowser.c:1092
 #, fuzzy
 msgid "/_Refresh"
 msgstr "Odśwież"
 
-#: ../src/filebrowser.c:1201
+#: ../src/filebrowser.c:1212
 msgid "All files"
 msgstr "Wszystkie pliki"
 
@@ -524,7 +536,7 @@ msgstr "Parametry"
 msgid "Info"
 msgstr "Informacja"
 
-#: ../src/fref.c:945 ../src/gui.c:552
+#: ../src/fref.c:945 ../src/gui.c:581
 msgid "Close"
 msgstr "Zamknij"
 
@@ -560,477 +572,490 @@ msgstr "Atrybuty/Parametry"
 msgid "Notes"
 msgstr "Uwagi"
 
-#: ../src/gtk_easy.c:1127
+#: ../src/gtk_easy.c:1050
+#, c-format
+msgid "%d of %d"
+msgstr ""
+
+#: ../src/gtk_easy.c:1242
 #, fuzzy
 msgid "No file to insert."
 msgstr "Brak pliku do wstawienia"
 
-#: ../src/gtk_easy.c:1231
+#: ../src/gtk_easy.c:1346
 msgid "Select file"
 msgstr "Wybierz plik"
 
-#: ../src/gtk_easy.c:1258
+#: ../src/gtk_easy.c:1373
 msgid "Select files"
 msgstr "Wybierz pliki"
 
-#: ../src/gui.c:255
+#: ../src/gui.c:282
 msgid "QuickStart..."
 msgstr "Szybki start..."
 
-#: ../src/gui.c:256
+#: ../src/gui.c:283
 msgid "Body..."
 msgstr "Treść..."
 
-#: ../src/gui.c:257
+#: ../src/gui.c:284
 msgid "Bold"
 msgstr "Pogrubione"
 
-#: ../src/gui.c:258
+#: ../src/gui.c:285
 msgid "Italic"
 msgstr "Kursywa"
 
-#: ../src/gui.c:259 ../src/html.c:761
+#: ../src/gui.c:286 ../src/html.c:761
 msgid "Paragraph"
 msgstr "Paragraf"
 
-#: ../src/gui.c:260
+#: ../src/gui.c:287
 msgid "Break"
 msgstr "Koniec linii"
 
-#: ../src/gui.c:261
+#: ../src/gui.c:288
 msgid "Break and clear"
 msgstr "Koniec linii i wyczyść"
 
-#: ../src/gui.c:262
+#: ../src/gui.c:289
 msgid "Non-breaking space"
 msgstr "Twardy odstęp"
 
-#: ../src/gui.c:264
+#: ../src/gui.c:291
 msgid "Anchor..."
 msgstr "Kotwica..."
 
-#: ../src/gui.c:265
+#: ../src/gui.c:292
 msgid "Rule..."
 msgstr "Linia pozioma..."
 
-#: ../src/gui.c:266
+#: ../src/gui.c:293
 msgid "Center"
 msgstr "Wyśrodkowanie"
 
-#: ../src/gui.c:267
+#: ../src/gui.c:294
 msgid "Right Justify"
 msgstr "Do prawej"
 
-#: ../src/gui.c:268
+#: ../src/gui.c:295
 msgid "Comment"
 msgstr "Komentarz"
 
-#: ../src/gui.c:269
+#: ../src/gui.c:296
 msgid "E-Mail..."
 msgstr "E-Mail..."
 
-#: ../src/gui.c:270
+#: ../src/gui.c:297
 msgid "Font..."
 msgstr "Czcionka..."
 
-#: ../src/gui.c:271
+#: ../src/gui.c:298
 msgid "Base Font Size..."
 msgstr "Podstawowy rozmiar czcionki..."
 
-#: ../src/gui.c:273
+#: ../src/gui.c:300
 msgid "Font Size +1"
 msgstr "Rozmiar czcionki +1"
 
-#: ../src/gui.c:274
+#: ../src/gui.c:301
 msgid "Font Size -1"
 msgstr "Rozmiar czcionki -1"
 
-#: ../src/gui.c:275
+#: ../src/gui.c:302
 msgid "Preformatted Text"
 msgstr "Tekst preformatowany"
 
-#: ../src/gui.c:276
+#: ../src/gui.c:303
 msgid "Subscript"
 msgstr "Indeks dolny"
 
-#: ../src/gui.c:277
+#: ../src/gui.c:304
 msgid "Superscript"
 msgstr "Indeks górny"
 
-#: ../src/gui.c:278
+#: ../src/gui.c:305
 msgid "Strong"
 msgstr "Wzmocnienie"
 
-#: ../src/gui.c:279
+#: ../src/gui.c:306
 msgid "Emphasis"
 msgstr "Wyróżnienie"
 
-#: ../src/gui.c:281 ../src/html.c:770
+#: ../src/gui.c:308 ../src/html.c:770
 msgid "Heading 1"
 msgstr "Nagłówek 1"
 
-#: ../src/gui.c:282 ../src/html.c:773
+#: ../src/gui.c:309 ../src/html.c:773
 msgid "Heading 2"
 msgstr "Nagłówek 2"
 
-#: ../src/gui.c:283 ../src/html.c:776
+#: ../src/gui.c:310 ../src/html.c:776
 msgid "Heading 3"
 msgstr "Nagłówek 3"
 
-#: ../src/gui.c:284 ../src/html.c:779
+#: ../src/gui.c:311 ../src/html.c:779
 msgid "Heading 4"
 msgstr "Nagłówek 4"
 
-#: ../src/gui.c:285 ../src/html.c:782
+#: ../src/gui.c:312 ../src/html.c:782
 msgid "Heading 5"
 msgstr "Nagłówek 5"
 
-#: ../src/gui.c:286 ../src/html.c:785
+#: ../src/gui.c:313 ../src/html.c:785
 msgid "Heading 6"
 msgstr "Nagłówek 6"
 
-#: ../src/gui.c:287
+#: ../src/gui.c:314
 msgid "Table Wizard..."
 msgstr "Kreator tabeli..."
 
-#: ../src/gui.c:289
+#: ../src/gui.c:316
 msgid "Table..."
 msgstr "Tabela..."
 
-#: ../src/gui.c:290
+#: ../src/gui.c:317
 msgid "Table Row..."
 msgstr "Wiersz tabeli..."
 
-#: ../src/gui.c:291
+#: ../src/gui.c:318
 msgid "Table Header..."
 msgstr "Nagłówek tabeli..."
 
-#: ../src/gui.c:292
+#: ../src/gui.c:319
 msgid "Table Data..."
 msgstr "Dane tabeli..."
 
-#: ../src/gui.c:294 ../src/html_table.c:82
+#: ../src/gui.c:321 ../src/html_table.c:82
 msgid "Table"
 msgstr "Tabela"
 
-#: ../src/gui.c:295 ../src/html_table.c:215
+#: ../src/gui.c:322 ../src/html_table.c:215
 msgid "Table Row"
 msgstr "Wiersz"
 
-#: ../src/gui.c:296 ../src/html_table.c:326
+#: ../src/gui.c:323 ../src/html_table.c:326
 msgid "Table Header"
 msgstr "Nagłówek tabeli"
 
-#: ../src/gui.c:297 ../src/html_table.c:324
+#: ../src/gui.c:324 ../src/html_table.c:324
 msgid "Table Data"
 msgstr "Dane tabeli"
 
-#: ../src/gui.c:298
+#: ../src/gui.c:325
 msgid "Table Caption"
 msgstr "Tytuł tabeli"
 
-#: ../src/gui.c:299
+#: ../src/gui.c:326
 msgid "Frame Wizard..."
 msgstr "Kreator ramek..."
 
-#: ../src/gui.c:301
+#: ../src/gui.c:328
 msgid "Frameset..."
 msgstr "Zbiór ramek..."
 
-#: ../src/gui.c:302
+#: ../src/gui.c:329
 msgid "Frame..."
 msgstr "Ramka..."
 
-#: ../src/gui.c:304 ../src/html.c:1686
+#: ../src/gui.c:331 ../src/html.c:1686
 msgid "Frameset"
 msgstr "Zbiór ramek"
 
-#: ../src/gui.c:305 ../src/html.c:1771
+#: ../src/gui.c:332 ../src/html.c:1771
 msgid "Frame"
 msgstr "Ramka"
 
-#: ../src/gui.c:306
+#: ../src/gui.c:333
 msgid "Noframes"
 msgstr "Bez ramek"
 
-#: ../src/gui.c:307
+#: ../src/gui.c:334
 msgid "Target"
 msgstr "Cel"
 
-#: ../src/gui.c:308
+#: ../src/gui.c:335
 msgid "Form..."
 msgstr "Formularz..."
 
-#: ../src/gui.c:309
+#: ../src/gui.c:336
 msgid "Input button..."
 msgstr "Przycisk..."
 
-#: ../src/gui.c:310
+#: ../src/gui.c:337
 msgid "Text..."
 msgstr "Tekst..."
 
-#: ../src/gui.c:311
+#: ../src/gui.c:338
 msgid "Hidden..."
 msgstr "Pole ukryte..."
 
-#: ../src/gui.c:312
+#: ../src/gui.c:339
 msgid "Textarea..."
 msgstr "Obszar tekstowy..."
 
-#: ../src/gui.c:313
+#: ../src/gui.c:340
 msgid "Radio Button..."
 msgstr "Przycisk 'radio'..."
 
-#: ../src/gui.c:314
+#: ../src/gui.c:341
 msgid "Check Box..."
 msgstr "Przycisk 'zaznaczany'..."
 
-#: ../src/gui.c:315
+#: ../src/gui.c:342
 msgid "Select..."
 msgstr "Selekcja..."
 
-#: ../src/gui.c:316
+#: ../src/gui.c:343
 msgid "Option..."
 msgstr "Opcja..."
 
-#: ../src/gui.c:317
+#: ../src/gui.c:344
 msgid "Option group..."
 msgstr "Grupa opcji..."
 
-#: ../src/gui.c:318
+#: ../src/gui.c:345
 msgid "Quick List..."
 msgstr "Szybka lista..."
 
-#: ../src/gui.c:319
+#: ../src/gui.c:346
 msgid "Unordered List"
 msgstr "Lista nienumerowana"
 
-#: ../src/gui.c:320
+#: ../src/gui.c:347
 msgid "Ordered List"
 msgstr "Lista numerowana"
 
-#: ../src/gui.c:321
+#: ../src/gui.c:348
 msgid "List Item"
 msgstr "Element listy"
 
-#: ../src/gui.c:322
+#: ../src/gui.c:349
 msgid "Definition List"
 msgstr "Lista definicji"
 
-#: ../src/gui.c:323
+#: ../src/gui.c:350
 msgid "Definition Term"
 msgstr "Termin definicji"
 
-#: ../src/gui.c:324 ../src/gui.c:333
+#: ../src/gui.c:351 ../src/gui.c:360
 msgid "Definition"
 msgstr "Definicja"
 
-#: ../src/gui.c:325
+#: ../src/gui.c:352
 msgid "Create stylesheet..."
 msgstr "Utwórz arkusz stylów..."
 
-#: ../src/gui.c:326
+#: ../src/gui.c:353
 msgid "Span..."
 msgstr "Span..."
 
-#: ../src/gui.c:327
+#: ../src/gui.c:354
 msgid "Div..."
 msgstr "Div..."
 
-#: ../src/gui.c:328
+#: ../src/gui.c:355
 msgid "Style"
 msgstr "Styl"
 
-#: ../src/gui.c:329
+#: ../src/gui.c:356
 msgid "Link to stylesheet..."
 msgstr "Łącze do arkusza stylów..."
 
-#: ../src/gui.c:330
+#: ../src/gui.c:357
 msgid "Insert image..."
 msgstr "Wstaw obrazek..."
 
-#: ../src/gui.c:331
+#: ../src/gui.c:358
 msgid "Insert thumbnail..."
 msgstr "Wstaw miniaturę..."
 
-#: ../src/gui.c:332
+#: ../src/gui.c:359
 msgid "Multi thumbnail..."
 msgstr "Wielokrotna miniatura..."
 
-#: ../src/gui.c:334
+#: ../src/gui.c:361
 msgid "Code"
 msgstr "Kod"
 
-#: ../src/gui.c:335
+#: ../src/gui.c:362
 msgid "Sample"
 msgstr "Przykład"
 
-#: ../src/gui.c:336
+#: ../src/gui.c:363
 msgid "Keyboard"
 msgstr "Klawiatura"
 
-#: ../src/gui.c:337
+#: ../src/gui.c:364
 msgid "Variable"
 msgstr "Zmienna"
 
-#: ../src/gui.c:338
+#: ../src/gui.c:365
 msgid "Citation"
 msgstr "Cytat"
 
-#: ../src/gui.c:339
+#: ../src/gui.c:366
 msgid "Abbreviation"
 msgstr "Skrót"
 
-#: ../src/gui.c:340
+#: ../src/gui.c:367
 msgid "Acronym"
 msgstr "Akronim"
 
-#: ../src/gui.c:373
+#: ../src/gui.c:400
 msgid "Remove from quickbar"
 msgstr "Usuń z paska podręcznego"
 
-#: ../src/gui.c:403
+#: ../src/gui.c:430
 msgid "Add to quickbar"
 msgstr "Dodaj do paska podręcznego"
 
-#: ../src/gui.c:492
+#: ../src/gui.c:521
 msgid " Quick bar "
 msgstr " Pasek podręczny "
 
-#: ../src/gui.c:496
+#: ../src/gui.c:525
 msgid "Heading"
 msgstr "Nagłówki"
 
-#: ../src/gui.c:498
+#: ../src/gui.c:527
 msgid " Standard bar "
 msgstr " Pasek standardowy "
 
-#: ../src/gui.c:502
+#: ../src/gui.c:531
 msgid "Context formatting"
 msgstr "Formatowanie kontekstowe"
 
-#: ../src/gui.c:504
+#: ../src/gui.c:533
 msgid " Fonts "
 msgstr " Czcionki "
 
-#: ../src/gui.c:508
+#: ../src/gui.c:537
 msgid " Tables "
 msgstr " Tabele "
 
-#: ../src/gui.c:512
+#: ../src/gui.c:541
 msgid " Frames "
 msgstr " Ramki "
 
-#: ../src/gui.c:516
+#: ../src/gui.c:545
 msgid " Forms "
 msgstr " Formularze "
 
-#: ../src/gui.c:520
+#: ../src/gui.c:549
 msgid " List "
 msgstr " Lista "
 
-#: ../src/gui.c:524
+#: ../src/gui.c:553
 msgid " CSS "
 msgstr " CSS "
 
-#: ../src/gui.c:543
+#: ../src/gui.c:572
 msgid "New"
 msgstr "Nowy"
 
-#: ../src/gui.c:545
+#: ../src/gui.c:574
 msgid "Open..."
 msgstr "Otwórz..."
 
-#: ../src/gui.c:548
+#: ../src/gui.c:577
 msgid "Save"
 msgstr "Zapisz"
 
-#: ../src/gui.c:550
+#: ../src/gui.c:579
 msgid "Save As..."
 msgstr "Zapisz jako..."
 
-#: ../src/gui.c:555
+#: ../src/gui.c:584
 msgid "Copy"
 msgstr "Kopiuj"
 
-#: ../src/gui.c:557
+#: ../src/gui.c:586
 msgid "Cut"
 msgstr "Wytnij"
 
-#: ../src/gui.c:559
+#: ../src/gui.c:588
 msgid "Paste"
 msgstr "Wklej"
 
-#: ../src/gui.c:561
+#: ../src/gui.c:590
 msgid "Search..."
 msgstr "Szukaj..."
 
-#: ../src/gui.c:563
+#: ../src/gui.c:592
 msgid "Search and Replace..."
 msgstr "Szukaj i zamień..."
 
-#: ../src/gui.c:566 ../src/preferences.c:1756
+#: ../src/gui.c:595 ../src/preferences.c:1773
 msgid "Undo"
 msgstr "Cofnij"
 
-#: ../src/gui.c:568
+#: ../src/gui.c:597
 msgid "Redo"
 msgstr "Ponów"
 
-#: ../src/gui.c:571
+#: ../src/gui.c:600
 msgid "Unindent"
 msgstr "Cofnij wcięcie"
 
-#: ../src/gui.c:573
+#: ../src/gui.c:602
 msgid "Indent"
 msgstr "Wcięcie"
 
-#: ../src/gui.c:580
+#: ../src/gui.c:609
 msgid "Spellcheck..."
 msgstr "Pisownia..."
 
-#: ../src/gui.c:585
+#: ../src/gui.c:614
 msgid "View in browser"
 msgstr "Zobacz w przeglądarce"
 
-#: ../src/gui.c:588
+#: ../src/gui.c:617
 msgid "Preferences..."
 msgstr "Ustawienia..."
 
-#: ../src/gui.c:598
+#: ../src/gui.c:627
 msgid "/Edit/Undo"
 msgstr "/Edycja/Cofnij"
 
-#: ../src/gui.c:599 ../src/menu.c:98
-msgid "/Edit/Undo all"
+#: ../src/gui.c:628 ../src/menu.c:98
+#, fuzzy
+msgid "/Edit/Undo All"
 msgstr "/Edycja/Cofnij wszystko"
 
-#: ../src/gui.c:600
+#: ../src/gui.c:629
 msgid "/Edit/Redo"
 msgstr "/Edycja/Ponów"
 
-#: ../src/gui.c:601 ../src/menu.c:99
-msgid "/Edit/Redo all"
+#: ../src/gui.c:630 ../src/menu.c:99
+#, fuzzy
+msgid "/Edit/Redo All"
 msgstr "/Edycja/Ponów wszystko"
 
-#: ../src/gui.c:607
+#: ../src/gui.c:636
 msgid "/Document/Wrap"
 msgstr "/Dokument/Zawijaj"
 
-#: ../src/gui.c:608
-msgid "/Document/Line numbers"
+#: ../src/gui.c:637
+#, fuzzy
+msgid "/Document/Line Numbers"
 msgstr "/Dokument/Numery linii"
 
-#: ../src/gui.c:720
+#: ../src/gui.c:749
 #, fuzzy
 msgid "Bluefish"
 msgstr "Podpowiedź Bluefish:"
 
-#: ../src/gui.c:849
+#: ../src/gui.c:796
+#, fuzzy
+msgid "Stand by..."
+msgstr "Span..."
+
+#: ../src/gui.c:887
 msgid "Bluefish tip:"
 msgstr "Podpowiedź Bluefish:"
 
-#: ../src/gui.c:849
+#: ../src/gui.c:887
 msgid ""
 "This message is shown since you do not have any items in the Quickbar.\n"
 "\n"
@@ -1043,24 +1068,24 @@ msgstr ""
 "Jeżeli naciśniesz prawy przycisk myszy na elemencie w paskach HTML,\n"
 " możesz dodać ten element do paska podręcznego."
 
-#: ../src/gui.c:945
+#: ../src/gui.c:983
 msgid "Goto line"
 msgstr "Idź do linii"
 
-#: ../src/gui.c:953
+#: ../src/gui.c:991
 msgid "_Line number:"
 msgstr "_Numer linii:"
 
 # src/gui.c:877    1 
-#: ../src/gui.c:959
+#: ../src/gui.c:997
 msgid "From _selection"
 msgstr "Od _zaznaczenia"
 
-#: ../src/gui.c:962
+#: ../src/gui.c:1000
 msgid "Keep _dialog"
 msgstr "Nie zamykaj _okna"
 
-#: ../src/gui.c:1031
+#: ../src/gui.c:1069
 msgid "starting bluefish"
 msgstr "uruchamiam Bluefish"
 
@@ -1135,7 +1160,7 @@ msgstr "_Cel:"
 #: ../src/html.c:577 ../src/html.c:817 ../src/html.c:1349 ../src/html.c:1783
 #: ../src/html_form.c:220 ../src/html_form.c:282 ../src/html_form.c:349
 #: ../src/html_form.c:411 ../src/html_form.c:467 ../src/html_form.c:530
-#: ../src/html_form.c:589 ../src/image.c:261
+#: ../src/html_form.c:589 ../src/image.c:271
 msgid "_Name:"
 msgstr "_Nazwa:"
 
@@ -1162,7 +1187,7 @@ msgstr "_Język:"
 #: ../src/html_form.c:175 ../src/html_form.c:232 ../src/html_form.c:301
 #: ../src/html_form.c:365 ../src/html_form.c:419 ../src/html_form.c:480
 #: ../src/html_form.c:602 ../src/html_table.c:106 ../src/html_table.c:259
-#: ../src/html_table.c:367 ../src/image.c:269
+#: ../src/html_table.c:367 ../src/image.c:279
 msgid "Custo_m:"
 msgstr "Wła_sne:"
 
@@ -1227,7 +1252,7 @@ msgstr "Poł_ożenie:"
 msgid "Horizontal Rule"
 msgstr "Linia pozioma"
 
-#: ../src/html.c:934 ../src/html.c:1869 ../src/image.c:281
+#: ../src/html.c:934 ../src/html.c:1869 ../src/image.c:297
 msgid "_Align:"
 msgstr "Poł_ożenie:"
 
@@ -1236,7 +1261,7 @@ msgid "_Height:"
 msgstr "W_ysokość:"
 
 #: ../src/html.c:947 ../src/html.c:1873 ../src/html_table.c:139
-#: ../src/html_table.c:386 ../src/image.c:245
+#: ../src/html_table.c:386 ../src/image.c:255
 msgid "_Width:"
 msgstr "S_zerokość:"
 
@@ -1320,7 +1345,7 @@ msgstr "Zawa_rtość:"
 msgid "_Scheme:"
 msgstr "_Schemat:"
 
-#: ../src/html.c:1451 ../src/preferences.c:1701
+#: ../src/html.c:1451 ../src/preferences.c:1718
 msgid "Font"
 msgstr "Czcionka"
 
@@ -1606,83 +1631,83 @@ msgstr "Ilość obejmowanych _wierszy:"
 msgid "No Wra_p:"
 msgstr "Bez _zawijania:"
 
-#: ../src/image.c:208
+#: ../src/image.c:218
 msgid "Insert thumbnail"
 msgstr "Wstaw miniaturę"
 
-#: ../src/image.c:210
+#: ../src/image.c:220
 msgid "Insert image"
 msgstr "Wstaw obrazek"
 
-#: ../src/image.c:217
+#: ../src/image.c:227
 msgid "Preview"
 msgstr "Podgląd"
 
-#: ../src/image.c:237
+#: ../src/image.c:247
 msgid "_Image location:"
 msgstr "Lokalizacja _obrazka:"
 
-#: ../src/image.c:252
+#: ../src/image.c:262
 msgid "Hei_ght:"
 msgstr "W_ysokość:"
 
-#: ../src/image.c:257
+#: ../src/image.c:267
 msgid "_Usemap:"
 msgstr "_Usemap:"
 
-#: ../src/image.c:265
+#: ../src/image.c:275
 msgid "Alternate _text:"
 msgstr "Alternatywny _tekst:"
 
-#: ../src/image.c:273
+#: ../src/image.c:283
 msgid "_Hspace:"
 msgstr "Odstęp po_ziomy:"
 
-#: ../src/image.c:277
+#: ../src/image.c:287
 msgid "_Vspace:"
 msgstr "Odstęp p_ionowy:"
 
-#: ../src/image.c:285
+#: ../src/image.c:301
 msgid "Borde_r:"
 msgstr "Ob_ramowanie:"
 
-#: ../src/image.c:343
+#: ../src/image.c:362
 msgid "Select files for thumbnail creation"
 msgstr "Wybierz pliki do tworzenia miniatur"
 
-#: ../src/image.c:453
+#: ../src/image.c:472
 msgid "Scaling (%)"
 msgstr "Skalowanie (%)"
 
-#: ../src/image.c:457 ../src/image.c:465
+#: ../src/image.c:476 ../src/image.c:484
 msgid "Width"
 msgstr "Szerokość"
 
-#: ../src/image.c:461 ../src/image.c:486
+#: ../src/image.c:480 ../src/image.c:505
 msgid "Height"
 msgstr "Wyskość"
 
-#: ../src/image.c:476
+#: ../src/image.c:495
 msgid "Multi thumbnail"
 msgstr "Wiele miniatur"
 
-#: ../src/image.c:481
+#: ../src/image.c:500
 msgid "By scaling"
 msgstr "Skalowanie"
 
-#: ../src/image.c:482
+#: ../src/image.c:501
 msgid "By width, keep aspect ratio"
 msgstr "Szerokość, zachowaj stosunek długości"
 
-#: ../src/image.c:483
+#: ../src/image.c:502
 msgid "By height, keep aspect ratio"
 msgstr "Wysokość, zachowaj stosunek długości"
 
-#: ../src/image.c:484
+#: ../src/image.c:503
 msgid "By width and height, ignore aspect ratio"
 msgstr "Szerokość i wysokość, ignoruj stosunek długości"
 
-#: ../src/image.c:511
+#: ../src/image.c:530
 msgid ""
 "%r: original filename  %t: thumbnail filename\n"
 "%w: original width  %h: original height\n"
@@ -1711,7 +1736,8 @@ msgid "/File/_Open..."
 msgstr "/Plik/_Otwórz..."
 
 #: ../src/menu.c:62
-msgid "/File/Open advanced..."
+#, fuzzy
+msgid "/File/Open A_dvanced..."
 msgstr "/Plik/Zaawansowane otwieranie..."
 
 #: ../src/menu.c:63
@@ -1723,7 +1749,8 @@ msgid "/File/Open recent/tearoff1"
 msgstr "/Plik/Ostatnie pliki/tearoff1"
 
 #: ../src/menu.c:65
-msgid "/File/_Revert to saved"
+#, fuzzy
+msgid "/File/_Revert to Saved"
 msgstr "/Plik/Przywróć"
 
 #: ../src/menu.c:66
@@ -1739,7 +1766,8 @@ msgid "/File/_Save"
 msgstr "/Plik/_Zapisz"
 
 #: ../src/menu.c:69
-msgid "/File/Save _as..."
+#, fuzzy
+msgid "/File/Save _As..."
 msgstr "/Plik/Zapisz jako..."
 
 #: ../src/menu.c:70
@@ -1747,7 +1775,8 @@ msgid "/File/_Move to..."
 msgstr "/Plik/Przenieś do..."
 
 #: ../src/menu.c:71
-msgid "/File/Sa_ve all"
+#, fuzzy
+msgid "/File/Sa_ve All"
 msgstr "/Plik/Zapisz wszystko"
 
 #: ../src/menu.c:72
@@ -1759,7 +1788,8 @@ msgid "/File/_Close"
 msgstr "/Plik/Zamknij"
 
 #: ../src/menu.c:74
-msgid "/File/Close all"
+#, fuzzy
+msgid "/File/Close A_ll"
 msgstr "/Plik/Zamknij wszystko"
 
 #: ../src/menu.c:75
@@ -1791,7 +1821,8 @@ msgid "/Edit/_Paste"
 msgstr "/Edycja/Wklej"
 
 #: ../src/menu.c:82
-msgid "/Edit/Select _all"
+#, fuzzy
+msgid "/Edit/Select _All"
 msgstr "/Edycja/Zaznacz wszystko"
 
 #: ../src/menu.c:83
@@ -1803,11 +1834,13 @@ msgid "/Edit/_Find..."
 msgstr "/Edycja/Znajdź..."
 
 #: ../src/menu.c:85
-msgid "/Edit/Ne_w find..."
+#, fuzzy
+msgid "/Edit/Ne_w Find..."
 msgstr "/Edycja/Nowe wyszukiwanie..."
 
 #: ../src/menu.c:86
-msgid "/Edit/Find agai_n"
+#, fuzzy
+msgid "/Edit/Find A_gain"
 msgstr "/Edycja/Znajdź następne"
 
 #: ../src/menu.c:87
@@ -1815,11 +1848,13 @@ msgid "/Edit/R_eplace..."
 msgstr "/Edycja/Zamień..."
 
 #: ../src/menu.c:88
-msgid "/Edit/New re_place..."
+#, fuzzy
+msgid "/Edit/New Re_place..."
 msgstr "/Edycja/Nowa zamiana..."
 
 #: ../src/menu.c:89
-msgid "/Edit/Replace a_gain"
+#, fuzzy
+msgid "/Edit/Replace Agai_n"
 msgstr "/Edycja/Zamień następne"
 
 #: ../src/menu.c:90
@@ -1831,15 +1866,18 @@ msgid "/Edit/Replace special/Tearoff1"
 msgstr "/Edycja/Zamiana specjalna/tearoff1"
 
 #: ../src/menu.c:92
-msgid "/Edit/Replace special/_ascii to HTML entities"
+#, fuzzy
+msgid "/Edit/Replace special/_ASCII to HTML Entities"
 msgstr "/Edycja/Zamiana specjalna/_ASCII na notację HTML"
 
 #: ../src/menu.c:93
-msgid "/Edit/Replace special/_iso8859 to HTML entities"
+#, fuzzy
+msgid "/Edit/Replace special/_ISO8859 to HTML Entities"
 msgstr "/Edycja/Zamiana specjalna/_ISO8859 na notację HTML"
 
 #: ../src/menu.c:94
-msgid "/Edit/Replace special/_both types to HTML entities"
+#, fuzzy
+msgid "/Edit/Replace special/_Both Types to HTML Entities"
 msgstr "/Edycja/Zamiana specjalna/Oba typy na notację HTML"
 
 #: ../src/menu.c:95
@@ -1859,7 +1897,8 @@ msgid "/Edit/sep5"
 msgstr "/Edycja/sep5"
 
 #: ../src/menu.c:101
-msgid "/Edit/Block operations"
+#, fuzzy
+msgid "/Edit/_Block operations"
 msgstr "/Edycja/Operacje na blokach"
 
 #: ../src/menu.c:102
@@ -1867,11 +1906,13 @@ msgid "/Edit/Block operations/Tearoff1"
 msgstr "/Edycja/Operacje na blokach/tearoff1"
 
 #: ../src/menu.c:103
-msgid "/Edit/Block operations/Indent block"
+#, fuzzy
+msgid "/Edit/Block operations/_Indent Block"
 msgstr "/Edycja/Operacje na blokach/Wcięcie"
 
 #: ../src/menu.c:104
-msgid "/Edit/Block operations/Unindent block"
+#, fuzzy
+msgid "/Edit/Block operations/_Unindent Block"
 msgstr "/Edycja/Operacje na blokach/Cofnij wcięcie"
 
 #: ../src/menu.c:105
@@ -1879,11 +1920,13 @@ msgid "/Edit/sep6"
 msgstr "/Edycja/sep6"
 
 #: ../src/menu.c:106
-msgid "/Edit/_Goto line"
+#, fuzzy
+msgid "/Edit/Goto _Line"
 msgstr "/Edycja/Idź do linii"
 
 #: ../src/menu.c:107
-msgid "/Edit/G_oto selection"
+#, fuzzy
+msgid "/Edit/G_oto Selection"
 msgstr "/Edycja/Idź do zaznaczenia"
 
 #: ../src/menu.c:108
@@ -2563,19 +2606,23 @@ msgid "/Tags/Table/_Table"
 msgstr "/Znaczniki/Tabela/Ta_bela"
 
 #: ../src/menu.c:345
-msgid "/Tags/Table/Table_row"
+#, fuzzy
+msgid "/Tags/Table/Table _Row"
 msgstr "/Znaczniki/Tabela/_Wiersz"
 
 #: ../src/menu.c:346
-msgid "/Tags/Table/Table_header"
+#, fuzzy
+msgid "/Tags/Table/Table _Header"
 msgstr "/Znaczniki/Tabela/_Nagłówek"
 
 #: ../src/menu.c:347
-msgid "/Tags/Table/Table_data"
+#, fuzzy
+msgid "/Tags/Table/Table _Data"
 msgstr "/Znaczniki/Tabela/_Dane"
 
 #: ../src/menu.c:348
-msgid "/Tags/Table/Table_caption"
+#, fuzzy
+msgid "/Tags/Table/Table _Caption"
 msgstr "/Znaczniki/Tabela/_Tytuł"
 
 #: ../src/menu.c:349
@@ -2587,23 +2634,28 @@ msgid "/Tags/List/tearoff1"
 msgstr "/Znaczniki/Lista/tearoff1"
 
 #: ../src/menu.c:351
-msgid "/Tags/List/_Unordered list"
+#, fuzzy
+msgid "/Tags/List/_Unordered List"
 msgstr "/Znaczniki/Lista/Nienumerowana"
 
 #: ../src/menu.c:352
-msgid "/Tags/List/_Ordered list"
+#, fuzzy
+msgid "/Tags/List/_Ordered List"
 msgstr "/Znaczniki/Lista/Numerowana"
 
 #: ../src/menu.c:353
-msgid "/Tags/List/List _item"
+#, fuzzy
+msgid "/Tags/List/List _Item"
 msgstr "/Znaczniki/Lista/Element listy"
 
 #: ../src/menu.c:354
-msgid "/Tags/List/Definition _list"
+#, fuzzy
+msgid "/Tags/List/Definition _List"
 msgstr "/Znaczniki/Lista/Lista definicji"
 
 #: ../src/menu.c:355
-msgid "/Tags/List/Definition _term"
+#, fuzzy
+msgid "/Tags/List/Definition _Term"
 msgstr "/Znaczniki/Lista/_Termin"
 
 #: ../src/menu.c:356
@@ -2615,7 +2667,8 @@ msgid "/Tags/List/_Menu"
 msgstr "/Znaczniki/Lista/_Menu"
 
 #: ../src/menu.c:358
-msgid "/Tags/_Insert Generator META-Tag"
+#, fuzzy
+msgid "/Tags/Insert Generator _META-Tag"
 msgstr "/Znaczniki/_Wstaw znacznik META 'Generator'"
 
 #: ../src/menu.c:359
@@ -2680,19 +2733,22 @@ msgstr "/Okna dialogowe/Ogólne/Osadź..."
 
 #: ../src/menu.c:376
 #, fuzzy
-msgid "/Dialogs/General/Select _color..."
+msgid "/Dialogs/General/Select _Color..."
 msgstr "/Okna dialogowe/Ogólne/Wybierz kolor..."
 
 #: ../src/menu.c:377
-msgid "/Dialogs/General/Insert _time..."
+#, fuzzy
+msgid "/Dialogs/General/Insert _Time..."
 msgstr "/Okna dialogowe/Ogólne/Wstaw czas..."
 
 #: ../src/menu.c:378
-msgid "/Dialogs/General/Insert _image..."
+#, fuzzy
+msgid "/Dialogs/General/Insert _Image..."
 msgstr "/Okna dialogowe/Ogólne/Wstaw obrazek..."
 
 #: ../src/menu.c:379
-msgid "/Dialogs/General/Insert t_humbnail..."
+#, fuzzy
+msgid "/Dialogs/General/Insert T_humbnail..."
 msgstr "/Okna dialogowe/Ogólne/Wstaw miniaturę..."
 
 #: ../src/menu.c:380
@@ -2704,7 +2760,8 @@ msgid "/Dialogs/Table/tearoff1"
 msgstr "/Okna dialogowe/Tabela/tearoff1"
 
 #: ../src/menu.c:382
-msgid "/Dialogs/Table/Table _wizard..."
+#, fuzzy
+msgid "/Dialogs/Table/Table _Wizard..."
 msgstr "/Okna dialogowe/Tabela/Kreator tabeli..."
 
 #: ../src/menu.c:383
@@ -2712,15 +2769,18 @@ msgid "/Dialogs/Table/_Table..."
 msgstr "/Okna dialogowe/Tabela/Tabela..."
 
 #: ../src/menu.c:384
-msgid "/Dialogs/Table/Table_row..."
+#, fuzzy
+msgid "/Dialogs/Table/Table _Row..."
 msgstr "/Okna dialogowe/Tabela/Wiersz..."
 
 #: ../src/menu.c:385
-msgid "/Dialogs/Table/Table_head..."
+#, fuzzy
+msgid "/Dialogs/Table/Table _Head..."
 msgstr "/Okna dialogowe/Tabela/Nagłówek tabeli..."
 
 #: ../src/menu.c:386
-msgid "/Dialogs/Table/Table_data..."
+#, fuzzy
+msgid "/Dialogs/Table/Table _Data..."
 msgstr "/Okna dialogowe/Tabela/Dane tabeli..."
 
 #: ../src/menu.c:387
@@ -2732,7 +2792,8 @@ msgid "/Dialogs/CSS/tearoff1"
 msgstr "/Okna dialogowe/CSS/tearoff1"
 
 #: ../src/menu.c:389
-msgid "/Dialogs/CSS/_Create style..."
+#, fuzzy
+msgid "/Dialogs/CSS/_Create Style..."
 msgstr "/Okna dialogowe/CSS/Utwórz styl..."
 
 #: ../src/menu.c:390
@@ -2748,7 +2809,8 @@ msgid "/Dialogs/CSS/_Style..."
 msgstr "/Okna dialogowe/CSS/Styl..."
 
 #: ../src/menu.c:393
-msgid "/Dialogs/CSS/_Link to stylesheet..."
+#, fuzzy
+msgid "/Dialogs/CSS/_Link to Stylesheet..."
 msgstr "/Okna dialogowe/CSS/Łącze do arkusza stylów..."
 
 #: ../src/menu.c:394
@@ -2760,7 +2822,8 @@ msgid "/Dialogs/Frame/tearoff1"
 msgstr "/Okna dialogowe/Ramka/tearoff1"
 
 #: ../src/menu.c:396
-msgid "/Dialogs/Frame/Frame _wizard..."
+#, fuzzy
+msgid "/Dialogs/Frame/Frame _Wizard..."
 msgstr "/Okna dialogowe/Ramka/Kreator ramek..."
 
 #: ../src/menu.c:397
@@ -2784,7 +2847,8 @@ msgid "/Dialogs/Form/F_orm..."
 msgstr "/Okna dialogowe/Formularz/Formularz..."
 
 #: ../src/menu.c:402
-msgid "/Dialogs/Form/_Input button..."
+#, fuzzy
+msgid "/Dialogs/Form/_Input Button..."
 msgstr "/Okna dialogowe/Formularz/Przycisk..."
 
 #: ../src/menu.c:403
@@ -2800,11 +2864,13 @@ msgid "/Dialogs/Form/Text_area..."
 msgstr "/Okna dialogowe/Formularz/Obszar tekstowy..."
 
 #: ../src/menu.c:406
-msgid "/Dialogs/Form/Radio _buttons..."
+#, fuzzy
+msgid "/Dialogs/Form/Radio _Buttons..."
 msgstr "/Okna dialogowe/Formularz/Przyciski 'radio'..."
 
 #: ../src/menu.c:407
-msgid "/Dialogs/Form/_Check buttons..."
+#, fuzzy
+msgid "/Dialogs/Form/_Check Buttons..."
 msgstr "/Okna dialogowe/Formularz/Przyciski 'zaznaczane'..."
 
 #: ../src/menu.c:408
@@ -2816,7 +2882,8 @@ msgid "/Dialogs/Form/O_ption..."
 msgstr "/Okna dialogowe/Formularz/Opcja..."
 
 #: ../src/menu.c:410
-msgid "/Dialogs/Form/Option _group..."
+#, fuzzy
+msgid "/Dialogs/Form/Option _Group..."
 msgstr "/Okna dialogowe/Formularz/Grupa opcji..."
 
 #: ../src/menu.c:437
@@ -2852,7 +2919,8 @@ msgid "/Document/Encoding/tearoff1"
 msgstr "/Dokument/Kodowanie znaków/tearoff1"
 
 #: ../src/menu.c:450
-msgid "/Document/_Highlight syntax"
+#, fuzzy
+msgid "/Document/_Highlight Syntax"
 msgstr "/Dokument/Podświetlanie składni"
 
 #: ../src/menu.c:451
@@ -2860,7 +2928,8 @@ msgid "/Document/_Wrap"
 msgstr "/Dokument/Zawijaj"
 
 #: ../src/menu.c:452
-msgid "/Document/_Line numbers"
+#, fuzzy
+msgid "/Document/_Line Numbers"
 msgstr "/Dokument/Numery linii"
 
 #: ../src/menu.c:453 ../src/menu.c:457
@@ -2868,7 +2937,8 @@ msgid "/Document/sep1"
 msgstr "/Dokument/sep1"
 
 #: ../src/menu.c:454
-msgid "/Document/_Update highlighting"
+#, fuzzy
+msgid "/Document/_Update Highlighting"
 msgstr "/Dokument/Odśwież podświetlanie składni"
 
 #: ../src/menu.c:455
@@ -2904,19 +2974,23 @@ msgid "/Options/Display/tearoff1"
 msgstr "/Opcje/Widok/tearoff1"
 
 #: ../src/menu.c:464
-msgid "/Options/Display/View _Main toolbar"
+#, fuzzy
+msgid "/Options/Display/View _Main Toolbar"
 msgstr "/Opcje/Widok/Pokazuj pasek główny"
 
 #: ../src/menu.c:465
-msgid "/Options/Display/View _HTML toolbar"
+#, fuzzy
+msgid "/Options/Display/View _HTML Toolbar"
 msgstr "/Opcje/Widok/Pokazuj pasek HTML"
 
 #: ../src/menu.c:466
-msgid "/Options/Display/View _Custom menu"
+#, fuzzy
+msgid "/Options/Display/View _Custom Menu"
 msgstr "/Opcje/Widok/Pokazuj menu podręczne"
 
 #: ../src/menu.c:467
-msgid "/Options/Display/View _Left panel"
+#, fuzzy
+msgid "/Options/Display/View _Left Panel"
 msgstr "/Opcje/Widok/Pokazuj lewy panel"
 
 #: ../src/menu.c:469
@@ -2928,11 +3002,13 @@ msgid "/Options/Tabsize/tearoff1"
 msgstr "/Opcje/Rozmiar tabulacji/tearoff1"
 
 #: ../src/menu.c:471
-msgid "/Options/Tabsize/_Increase tabsize"
+#, fuzzy
+msgid "/Options/Tabsize/_Increase Tabsize"
 msgstr "/Opcje/Rozmiar tabulacji/Zwiększ"
 
 #: ../src/menu.c:472
-msgid "/Options/Tabsize/_Decrease tabsize"
+#, fuzzy
+msgid "/Options/Tabsize/_Decrease Tabsize"
 msgstr "/Opcje/Rozmiar tabulacji/Zmniejsz"
 
 #: ../src/menu.c:473 ../src/menu.c:475
@@ -2940,353 +3016,392 @@ msgid "/Options/sep2"
 msgstr "/Opcje/sep2"
 
 #: ../src/menu.c:474
-msgid "/Options/_Auto indent"
+#, fuzzy
+msgid "/Options/_Auto Indent"
 msgstr "/Opcje/Automatyczne wcięcie"
 
 #: ../src/menu.c:476
-msgid "/Options/_Save settings"
+#, fuzzy
+msgid "/Options/_Save Settings"
 msgstr "/Opcje/Zapisz ustawienia"
 
 #: ../src/menu.c:477
-msgid "/Options/Save shortcut _keys"
+#, fuzzy
+msgid "/Options/Save Shortcut _Keys"
 msgstr "/Opcje/Zapisz skróty klawiszy"
 
 #: ../src/menu.c:611
 msgid "/Document/Type"
 msgstr "/Dokument/Typ"
 
-#: ../src/menu.c:648
-msgid "/Options/Display/View Main toolbar"
+#: ../src/menu.c:650
+#, fuzzy
+msgid "/Options/Display/View Main Toolbar"
 msgstr "/Opcje/Widok/Pokazuj pasek główny"
 
-#: ../src/menu.c:649
-msgid "/Options/Display/View HTML toolbar"
+#: ../src/menu.c:651
+#, fuzzy
+msgid "/Options/Display/View HTML Toolbar"
 msgstr "/Opcje/Widok/Pokazuj pasek HTML"
 
-#: ../src/menu.c:650
-msgid "/Options/Display/View Custom menu"
+#: ../src/menu.c:652
+#, fuzzy
+msgid "/Options/Display/View Custom Menu"
 msgstr "/Opcje/Widok/Pokazuj menu podręczne"
 
-#: ../src/menu.c:651
-msgid "/Options/Display/View Left panel"
+#: ../src/menu.c:653
+#, fuzzy
+msgid "/Options/Display/View Left Panel"
 msgstr "/Opcje/Widok/Pokazuj lewy panel"
 
-#: ../src/menu.c:652
-msgid "/Options/Auto indent"
+#: ../src/menu.c:654
+#, fuzzy
+msgid "/Options/Auto Indent"
 msgstr "/Opcje/Automatyczne wcięcie"
 
-#: ../src/menu.c:657
+#: ../src/menu.c:659
 msgid "/External/Browsers/"
 msgstr "/Zewnętrzne/Przeglądarki/"
 
-#: ../src/menu.c:660
+#: ../src/menu.c:662
 msgid "/External/Commands/"
 msgstr "/Zewnętrzne/Polecenia/"
 
-#: ../src/menu.c:663
+#: ../src/menu.c:665
 msgid "/External/Outputbox/"
 msgstr "/Zewnętrzne/Okno wyników/"
 
-#: ../src/menu.c:699 ../src/menu.c:719 ../src/menu.c:988 ../src/menu.c:1001
-#: ../src/menu.c:1017 ../src/menu.c:1031
+#: ../src/menu.c:701 ../src/menu.c:721 ../src/menu.c:986 ../src/menu.c:999
+#: ../src/menu.c:1015 ../src/menu.c:1029
 msgid "/External"
 msgstr "/Zewnętrzne"
 
-#: ../src/menu.c:717
+#: ../src/menu.c:719
 msgid "/External/Outputbox"
 msgstr "/Zewnętrzne/Okno wyników"
 
-#: ../src/menu.c:756
+#: ../src/menu.c:758
 msgid "Loading file(s)..."
 msgstr "Ładuję plik(i)..."
 
-#: ../src/menu.c:760
+#: ../src/menu.c:762
 msgid "Could not open file\n"
 msgstr "Nie można otworzyć pliku\n"
 
-#: ../src/menu.c:781
+#: ../src/menu.c:783
 msgid "/File/Open recent"
 msgstr "/Plik/Ostatnie pliki"
 
-#: ../src/menu.c:802
+#: ../src/menu.c:804
 msgid "(none)"
 msgstr "(nic)"
 
-#: ../src/menu.c:890
+#: ../src/menu.c:892
 msgid "Could not view file in browser, the file does not yet have a name\n"
 msgstr ""
 "Nie można pokazać pliku w przeglądarce, plik nie posiada jeszcze nazwy\n"
 
-#: ../src/menu.c:999
+#: ../src/menu.c:997
 msgid "/External/Browsers"
 msgstr "/Zewnętrzne/Przeglądarki"
 
-#: ../src/menu.c:1029
+#: ../src/menu.c:1027
 msgid "/External/Commands"
 msgstr "/Zewnętrzne/Polecenia"
 
-#: ../src/menu.c:1070
+#: ../src/menu.c:1068
 msgid "/Document/Encoding"
 msgstr "/Dokument/Kodowanie znaków"
 
-#: ../src/menu.c:1317
+#: ../src/menu.c:1319
 msgid "This custom search and replace requires a selection"
 msgstr "To wyszukiwanie i zamiana wymaga zaznaczenia"
 
-#: ../src/menu.c:1391
+#: ../src/menu.c:1397
 msgid "/_Custom menu"
 msgstr "/Menu podrę_czne"
 
-#: ../src/menu.c:1392
+#: ../src/menu.c:1398
 msgid "/Custom menu/sep"
 msgstr "/Menu podręczne/sep"
 
-#: ../src/menu.c:1393
+#: ../src/menu.c:1399
 msgid "/Custom menu/Edit custom menu..."
 msgstr "/Menu podręczne/Edytuj menu podręczne..."
 
-#: ../src/menu.c:1555 ../src/menu.c:1691 ../src/menu.c:1901
+#: ../src/menu.c:1562 ../src/menu.c:1698 ../src/menu.c:1933
 msgid "in current document"
 msgstr "w aktualnym dokumencie"
 
-#: ../src/menu.c:1555 ../src/menu.c:1691 ../src/menu.c:1902
+#: ../src/menu.c:1562 ../src/menu.c:1698 ../src/menu.c:1934
 msgid "from cursor"
 msgstr "od kursora"
 
-#: ../src/menu.c:1555 ../src/menu.c:1691 ../src/menu.c:1903
+#: ../src/menu.c:1562 ../src/menu.c:1698 ../src/menu.c:1935
 msgid "in selection"
 msgstr "wewnątrz zaznaczenia"
 
-#: ../src/menu.c:1555 ../src/menu.c:1691 ../src/menu.c:1904
+#: ../src/menu.c:1562 ../src/menu.c:1698 ../src/menu.c:1936
 msgid "in all open documents"
 msgstr "we wszystkich otwartych dokumentach"
 
-#: ../src/menu.c:1556 ../src/menu.c:1692 ../src/menu.c:1912
+#: ../src/menu.c:1563 ../src/menu.c:1699 ../src/menu.c:1946
 msgid "normal"
 msgstr "normalne"
 
-#: ../src/menu.c:1556
+#: ../src/menu.c:1563
 #, fuzzy
 msgid "posix regular expressions"
 msgstr "wyrażenia regularne POSIX"
 
-#: ../src/menu.c:1556
+#: ../src/menu.c:1563
 #, fuzzy
 msgid "perl regular expressions"
 msgstr "wyrażenia regularne Perla"
 
-#: ../src/menu.c:1621
-msgid "Search pattern"
+#: ../src/menu.c:1628
+#, fuzzy
+msgid "Search Pattern"
 msgstr "Wzorzec wyszukiwany"
 
-#: ../src/menu.c:1622
-msgid "Replace string"
+#: ../src/menu.c:1629
+#, fuzzy
+msgid "Replace String"
 msgstr "Ciąg zastępujący"
 
-#: ../src/menu.c:1625
-msgid "Formatstring before"
+#: ../src/menu.c:1632
+#, fuzzy
+msgid "Formatstring Before"
 msgstr "Ciąg formatujący przed"
 
-#: ../src/menu.c:1626
-msgid "Formatstring after"
+#: ../src/menu.c:1633
+#, fuzzy
+msgid "Formatstring After"
 msgstr "Ciąg formatujący po"
 
-#: ../src/menu.c:1663
+#: ../src/menu.c:1670
 #, fuzzy
 msgid "The menupath you want to update does not exist yet"
 msgstr "ścieżka menu, którą chcesz uaktualnić nie istnieje: spróbuj 'dodaj'"
 
-#: ../src/menu.c:1663
+#: ../src/menu.c:1670
 msgid "Try 'add' instead."
 msgstr ""
 
-#: ../src/menu.c:1665
+#: ../src/menu.c:1672
 #, fuzzy
 msgid "The menupath you want to add already exists."
 msgstr "ścieżka menu, którą podałeś już istnieje"
 
-#: ../src/menu.c:1670
+#: ../src/menu.c:1677
 #, fuzzy
 msgid "The menupath should start with a / character"
 msgstr "ścieżka menu powinna zaczynać się od znaku /"
 
-#: ../src/menu.c:1692 ../src/menu.c:1913
+#: ../src/menu.c:1699 ../src/menu.c:1947
 msgid "posix regular expresions"
 msgstr "wyrażenia regularne POSIX"
 
-#: ../src/menu.c:1692 ../src/menu.c:1914
+#: ../src/menu.c:1699 ../src/menu.c:1948
 msgid "perl regular expresions"
 msgstr "wyrażenia regularne Perla"
 
-#: ../src/menu.c:1812
-msgid "Edit custom menu"
-msgstr "Edytuj menu podręczne"
+#: ../src/menu.c:1819
+#, fuzzy
+msgid "Custom Menu Editor"
+msgstr "/Menu podrę_czne"
 
-#: ../src/menu.c:1821
-msgid "Menu path"
+#: ../src/menu.c:1849
+#, fuzzy
+msgid "_Menu Path:"
 msgstr "Ścieżka menu"
 
-#: ../src/menu.c:1855
-msgid "custom dialog"
-msgstr "własne okno dialogowe"
-
-#: ../src/menu.c:1857
-msgid "custom search and replace"
-msgstr "własne wyszukiwanie i zamiana"
-
-#: ../src/menu.c:1866
-msgid "Number of variables"
+#: ../src/menu.c:1890
+#, fuzzy
+msgid "Number of _Variables:"
 msgstr "Ilość zmiennych"
 
-#: ../src/menu.c:1871
+#: ../src/menu.c:1898
 msgid "Variables"
 msgstr "Zmienne"
 
-#: ../src/menu.c:1911
-msgid "Matching"
-msgstr "Dopasowanie"
+#: ../src/menu.c:1917
+#, fuzzy
+msgid "Custom Dialo_g"
+msgstr "własne okno dialogowe"
 
 #: ../src/menu.c:1919
-msgid "case sensitive"
-msgstr "rozróżniaj wielkie i małe litery"
+#, fuzzy
+msgid "Custom _Search and Replace"
+msgstr "własne wyszukiwanie i zamiana"
+
+#: ../src/menu.c:1931
+#, fuzzy
+msgid "_Replace:"
+msgstr "Zamień"
+
+#: ../src/menu.c:1944
+#, fuzzy
+msgid "Matc_hing:"
+msgstr "Dopasowanie"
+
+#: ../src/menu.c:1954
+#, fuzzy
+msgid "Case Se_nsitive"
+msgstr "Rozróżniaj wielkie i małe _litery"
 
 #: ../src/preferences.c:202
 msgid "Select font"
 msgstr "Wybierz czcionkę"
 
-#: ../src/preferences.c:476 ../src/preferences.c:514
+#: ../src/preferences.c:489 ../src/preferences.c:527
 msgid "Filetype"
 msgstr "Typ pliku"
 
-#: ../src/preferences.c:478
+#: ../src/preferences.c:491
 msgid "Extensions"
 msgstr "Rozszerzenia"
 
-#: ../src/preferences.c:480
+#: ../src/preferences.c:493
 msgid "Update chars"
 msgstr "Odśwież znaki"
 
-#: ../src/preferences.c:482 ../src/preferences.c:524
+#: ../src/preferences.c:495 ../src/preferences.c:537
 msgid "Icon"
 msgstr "Ikona"
 
-#: ../src/preferences.c:522
+#: ../src/preferences.c:498 ../src/preferences.c:538
+#, fuzzy
+msgid "Editable"
+msgstr "Edytuj znacznik"
+
+#: ../src/preferences.c:500
+#, fuzzy
+msgid "Content regex"
+msgstr "Zawa_rtość:"
+
+#: ../src/preferences.c:535
 msgid "Extensions (colon separated)"
 msgstr "Rozszerzenia (oddzielone dwukropkiem)"
 
-#: ../src/preferences.c:523
+#: ../src/preferences.c:536
 msgid "Highlight update characters"
 msgstr "Podświetlaj zmienione znaki"
 
-#: ../src/preferences.c:638 ../src/preferences.c:672
+#: ../src/preferences.c:539
+#, fuzzy
+msgid "Content regex pattern"
+msgstr "Formatowanie kontekstowe"
+
+#: ../src/preferences.c:653 ../src/preferences.c:687
 msgid "Filefilter"
 msgstr "Filtr plików"
 
-#: ../src/preferences.c:640 ../src/preferences.c:677
+#: ../src/preferences.c:655 ../src/preferences.c:692
 msgid "Inverse filtering"
 msgstr "Odwróć filtrowanie"
 
-#: ../src/preferences.c:642
+#: ../src/preferences.c:657
 msgid "Filetypes in filter"
 msgstr "Typy plików w filtrze"
 
-#: ../src/preferences.c:678
+#: ../src/preferences.c:693
 msgid "Filetypes (colon separated)"
 msgstr "Typy plików (odzielone dwukropkiem)"
 
-#: ../src/preferences.c:958
+#: ../src/preferences.c:973
 msgid "filetype"
 msgstr "typ pliku"
 
-#: ../src/preferences.c:966
+#: ../src/preferences.c:981
 msgid "Pattern name"
 msgstr "Nazwa wzorca"
 
-#: ../src/preferences.c:984 ../src/preferences.c:1478
-#: ../src/preferences.c:1527
+#: ../src/preferences.c:999 ../src/preferences.c:1493
+#: ../src/preferences.c:1542
 msgid "Pattern"
 msgstr "Wzorzec"
 
-#: ../src/preferences.c:1007
+#: ../src/preferences.c:1022
 msgid "Start pattern and end pattern"
 msgstr "Wzorzec początkowy i końcowy"
 
-#: ../src/preferences.c:1009
+#: ../src/preferences.c:1024
 msgid "Only start pattern"
 msgstr "Tylko wzorzec początkowy"
 
-#: ../src/preferences.c:1011
+#: ../src/preferences.c:1026
 msgid "Subpattern from parent"
 msgstr "Podwzorzec"
 
-#: ../src/preferences.c:1017
+#: ../src/preferences.c:1032
 msgid "Start pattern"
 msgstr "Wzorzec początkowy"
 
-#: ../src/preferences.c:1018
+#: ../src/preferences.c:1033
 msgid "End pattern"
 msgstr "Wzorzec końcowy"
 
-#: ../src/preferences.c:1019
+#: ../src/preferences.c:1034
 msgid "Case sensitive matching"
 msgstr "Rozróżnianie wielkich i małych liter"
 
-#: ../src/preferences.c:1020
+#: ../src/preferences.c:1035
 msgid "Parentmatch"
 msgstr "Wzorzec macierzysty"
 
-#: ../src/preferences.c:1021
+#: ../src/preferences.c:1036
 msgid "Foreground color"
 msgstr "Kolor napisów"
 
-#: ../src/preferences.c:1022
+#: ../src/preferences.c:1037
 msgid "Background color"
 msgstr "Kolor tła"
 
-#: ../src/preferences.c:1030
+#: ../src/preferences.c:1045
 msgid "don't change weight"
 msgstr "nie zmieniaj grubości"
 
-#: ../src/preferences.c:1032
+#: ../src/preferences.c:1047
 msgid "force non-bold weight"
 msgstr "wymuś brak pogrubienia"
 
-#: ../src/preferences.c:1034
+#: ../src/preferences.c:1049
 msgid "force bold weight"
 msgstr "wymuś pogrubienie"
 
-#: ../src/preferences.c:1040
+#: ../src/preferences.c:1055
 msgid "don't change style"
 msgstr "nie zmieniaj stylu"
 
-#: ../src/preferences.c:1042
+#: ../src/preferences.c:1057
 msgid "force non-italic style"
 msgstr "wymuś brak kursywy"
 
-#: ../src/preferences.c:1044
+#: ../src/preferences.c:1059
 msgid "force italic style"
 msgstr "wymuś kursywę"
 
-#: ../src/preferences.c:1194 ../src/preferences.c:1232
+#: ../src/preferences.c:1209 ../src/preferences.c:1247
 msgid "Browser"
 msgstr "Przeglądarka"
 
-#: ../src/preferences.c:1196 ../src/preferences.c:1238
-#: ../src/preferences.c:1321 ../src/preferences.c:1356
-#: ../src/preferences.c:1486 ../src/preferences.c:1531
+#: ../src/preferences.c:1211 ../src/preferences.c:1253
+#: ../src/preferences.c:1336 ../src/preferences.c:1371
+#: ../src/preferences.c:1501 ../src/preferences.c:1546
 msgid "Command"
 msgstr "Polecenie"
 
-#: ../src/preferences.c:1237
+#: ../src/preferences.c:1252
 #, c-format
 msgid "%s = current filename"
 msgstr "%s = aktualna nazwa pliku"
 
-#: ../src/preferences.c:1319 ../src/preferences.c:1350
+#: ../src/preferences.c:1334 ../src/preferences.c:1365
 msgid "Label"
 msgstr "Etykieta"
 
-#: ../src/preferences.c:1355
+#: ../src/preferences.c:1370
 #, c-format
 msgid ""
 "%s = current filename\n"
@@ -3295,501 +3410,501 @@ msgstr ""
 "%s = aktualny plik\n"
 "%f = plik wyjściowy (dla filtrów)"
 
-#: ../src/preferences.c:1476 ../src/preferences.c:1523
+#: ../src/preferences.c:1491 ../src/preferences.c:1538
 msgid "Name"
 msgstr "Nazwa"
 
-#: ../src/preferences.c:1480
+#: ../src/preferences.c:1495
 msgid "File #"
 msgstr "Plik nr"
 
-#: ../src/preferences.c:1482
+#: ../src/preferences.c:1497
 msgid "Line #"
 msgstr "Linia nr"
 
-#: ../src/preferences.c:1484
+#: ../src/preferences.c:1499
 msgid "Output #"
 msgstr "Wynik nr"
 
-#: ../src/preferences.c:1488 ../src/preferences.c:1532
+#: ../src/preferences.c:1503 ../src/preferences.c:1547
 msgid "Show all output"
 msgstr "Pokaż całe wyjście"
 
-#: ../src/preferences.c:1528
+#: ../src/preferences.c:1543
 msgid "File subpattern #"
 msgstr "Podwzorzec pliku #"
 
-#: ../src/preferences.c:1529
+#: ../src/preferences.c:1544
 msgid "Line subpattern #"
 msgstr "Podwzorzec linii #"
 
-#: ../src/preferences.c:1530
+#: ../src/preferences.c:1545
 msgid "Output subpattern #"
 msgstr "Wypisz podwzorzec #"
 
-#: ../src/preferences.c:1680
+#: ../src/preferences.c:1697
 msgid "left"
 msgstr "po lewej"
 
-#: ../src/preferences.c:1680
+#: ../src/preferences.c:1697
 msgid "right"
 msgstr "po prawej"
 
-#: ../src/preferences.c:1680
+#: ../src/preferences.c:1697
 msgid "top"
 msgstr "góra"
 
-#: ../src/preferences.c:1680
+#: ../src/preferences.c:1697
 msgid "bottom"
 msgstr "dół"
 
-#: ../src/preferences.c:1683
+#: ../src/preferences.c:1700
 msgid "Edit preferences"
 msgstr "Preferencje edycji"
 
-#: ../src/preferences.c:1694
+#: ../src/preferences.c:1711
 msgid "Editor"
 msgstr "Edytor"
 
-#: ../src/preferences.c:1696
+#: ../src/preferences.c:1713
 msgid "Editor options"
 msgstr "Opcje edytora"
 
-#: ../src/preferences.c:1702
+#: ../src/preferences.c:1719
 msgid "Tab width"
 msgstr "Szerokość tabulacji"
 
-#: ../src/preferences.c:1703
+#: ../src/preferences.c:1720
 msgid "Use spaces to indent, not tabs"
 msgstr ""
 
-#: ../src/preferences.c:1704
+#: ../src/preferences.c:1721
 msgid "Word wrap default"
 msgstr "Domyślne zawijanie słów"
 
-#: ../src/preferences.c:1705
+#: ../src/preferences.c:1722
 msgid "Line numbers by default"
 msgstr "Domyślnie pokazuj numery linii w dokumencie"
 
-#: ../src/preferences.c:1706
+#: ../src/preferences.c:1723
 msgid "Highlight syntax by default"
 msgstr "Domyślnie podświetlaj składnię w dokumencie"
 
-#: ../src/preferences.c:1707
+#: ../src/preferences.c:1724
 msgid "Highlight # lines"
 msgstr "Podświetl # linii"
 
-#: ../src/preferences.c:1708
+#: ../src/preferences.c:1725
 msgid "Always highlight full document"
 msgstr "Zawsze podświetlaj cały dokument"
 
-#: ../src/preferences.c:1710
+#: ../src/preferences.c:1727
 msgid "HTML"
 msgstr "HTML"
 
-#: ../src/preferences.c:1712
+#: ../src/preferences.c:1729
 msgid "HTML options"
 msgstr "Opcje HTML"
 
-#: ../src/preferences.c:1717
+#: ../src/preferences.c:1734
 msgid "Lowercase HTML tags"
 msgstr "Zapisuj znaczniki HTML małymi literami"
 
-#: ../src/preferences.c:1718
+#: ../src/preferences.c:1735
 msgid "Use deprecated tags (e.g. <font> and <nobr>)"
 msgstr "Użyj wycofanych znaczników (np. <font> i <nobr>)"
 
-#: ../src/preferences.c:1719
+#: ../src/preferences.c:1736
 msgid "Use XHTML style tags (<br />)"
 msgstr "Użyj znaczników XHTML (<br />)"
 
-#: ../src/preferences.c:1720
+#: ../src/preferences.c:1737
 msgid "Automatic update author meta"
 msgstr "Uzupełnij automatycznie informacje o autorze"
 
-#: ../src/preferences.c:1723
+#: ../src/preferences.c:1740
 msgid "Files"
 msgstr "Pliki"
 
-#: ../src/preferences.c:1725
+#: ../src/preferences.c:1742
 msgid "Encoding"
 msgstr "Kodowanie znaków"
 
-#: ../src/preferences.c:1737
+#: ../src/preferences.c:1754
 msgid "Default character set"
 msgstr "Domyślny zbiór znaków"
 
-#: ../src/preferences.c:1740
+#: ../src/preferences.c:1757
 msgid "Auto set <meta> encoding tag on change"
 msgstr "Automatycznie ustaw znacznik kodowania <meta> po zmianie"
 
-#: ../src/preferences.c:1742
+#: ../src/preferences.c:1759
 msgid "Backup"
 msgstr "Kopie zapasowe"
 
-#: ../src/preferences.c:1746
+#: ../src/preferences.c:1763
 msgid "Create backup on save"
 msgstr "Utwórz kopię zapasową podczas zapisu"
 
-#: ../src/preferences.c:1747
+#: ../src/preferences.c:1764
 msgid "Backup file suffix"
 msgstr "Przyrostek kopii zapasowej pliku"
 
-#: ../src/preferences.c:1749
+#: ../src/preferences.c:1766
 msgid "save"
 msgstr "zapisz"
 
-#: ../src/preferences.c:1749
+#: ../src/preferences.c:1766
 msgid "abort"
 msgstr "przerwij"
 
-#: ../src/preferences.c:1749
+#: ../src/preferences.c:1766
 msgid "ask"
 msgstr "zapytaj"
 
-#: ../src/preferences.c:1750
+#: ../src/preferences.c:1767
 msgid "Action on backup failure"
 msgstr "Reakcja na błąd tworzenia kopii zapasowej"
 
-#: ../src/preferences.c:1752
+#: ../src/preferences.c:1769
 msgid "Remove backupfile on close"
 msgstr "Usuń kopię zapasową przy zamknięciu"
 
-#: ../src/preferences.c:1761
+#: ../src/preferences.c:1778
 msgid "Undo history size"
 msgstr "Rozmiar historii cofania"
 
-#: ../src/preferences.c:1762
+#: ../src/preferences.c:1779
 msgid "Clear undo history on save"
 msgstr "Wyczyść historię cofania i zapisz"
 
-#: ../src/preferences.c:1764 ../src/preferences.c:1789
+#: ../src/preferences.c:1781 ../src/preferences.c:1806
 msgid "Misc"
 msgstr "Różne"
 
-#: ../src/preferences.c:1769
+#: ../src/preferences.c:1786
 msgid "Allow multi instances of a file"
 msgstr "Pozwól na otwieranie wielu instancji tego samego pliku"
 
-#: ../src/preferences.c:1771
+#: ../src/preferences.c:1788
 msgid "Open files in already running bluefish window"
 msgstr "Otwórz pliki w aktualnym oknie aplikacji"
 
-#: ../src/preferences.c:1773
+#: ../src/preferences.c:1790
 msgid "Number of files in 'Open recent'"
 msgstr "Ilość plików w 'Ostatnie pliki'"
 
-#: ../src/preferences.c:1776
+#: ../src/preferences.c:1793
 msgid "User interface"
 msgstr "Interfejs użytkownika"
 
-#: ../src/preferences.c:1778
+#: ../src/preferences.c:1795
 msgid "Dimensions"
 msgstr "Wymiary"
 
-#: ../src/preferences.c:1782
+#: ../src/preferences.c:1799
 msgid "Restore last used dimensions"
 msgstr "Przywróć ostatnie wymiary"
 
-#: ../src/preferences.c:1783
+#: ../src/preferences.c:1800
 msgid "Initial left panel width"
 msgstr "Początkowa szerokość lewego panelu"
 
-#: ../src/preferences.c:1784
+#: ../src/preferences.c:1801
 msgid "Initial window height"
 msgstr "Początkowa wysokość okna"
 
-#: ../src/preferences.c:1785
+#: ../src/preferences.c:1802
 msgid "Initial window width"
 msgstr "Początkowa szerokość okna"
 
-#: ../src/preferences.c:1794
+#: ../src/preferences.c:1811
 msgid "External browsers in submenu"
 msgstr "Zewnętrzne przeglądarki w podmenu"
 
-#: ../src/preferences.c:1795
+#: ../src/preferences.c:1812
 msgid "External commands in submenu"
 msgstr "Polecenia zewnętrzne w submenu"
 
-#: ../src/preferences.c:1796
+#: ../src/preferences.c:1813
 msgid "External outputbox in submenu"
 msgstr "Okno wyjściowe w podmenu"
 
-#: ../src/preferences.c:1798
+#: ../src/preferences.c:1815
 msgid "Notebook tab font (leave empty for gtk default)"
 msgstr "Czcionka zakładek (zostaw pustą aby zastosować domyślną z gtk)"
 
-#: ../src/preferences.c:1800
+#: ../src/preferences.c:1817
 msgid "Document notebook tab position"
 msgstr "Pozycja zakładek edytora"
 
-#: ../src/preferences.c:1801
+#: ../src/preferences.c:1818
 msgid "Left panel notebook tab position"
 msgstr "Pozycja zakładek w lewym panelu"
 
-#: ../src/preferences.c:1803
+#: ../src/preferences.c:1820
 msgid "Make HTML dialogs transient"
 msgstr "Centruj okna dialogowe HTML"
 
-#: ../src/preferences.c:1804
+#: ../src/preferences.c:1821
 msgid "Advanced search and replace by default"
 msgstr "Zaawansowane wyszukiwanie i zamiana domyślnie"
 
-#: ../src/preferences.c:1806
+#: ../src/preferences.c:1823
 msgid "File browser"
 msgstr "Przeglądarka plików"
 
-#: ../src/preferences.c:1810
+#: ../src/preferences.c:1827
 msgid "Show hidden files"
 msgstr "Pokazuj ukryte pliki"
 
-#: ../src/preferences.c:1811
+#: ../src/preferences.c:1828
 msgid "Show other users files"
 msgstr "Pokazuj pliki innych użytkowników"
 
-#: ../src/preferences.c:1812
+#: ../src/preferences.c:1829
 msgid "Show backup files"
 msgstr "Pokazuj kopie zapasowe plików"
 
-#: ../src/preferences.c:1813
+#: ../src/preferences.c:1830
 msgid "Unknown icon"
 msgstr "Ikona 'nieznany'"
 
-#: ../src/preferences.c:1814
+#: ../src/preferences.c:1831
 msgid "Directory icon"
 msgstr "Ikona folderu"
 
-#: ../src/preferences.c:1817 ../src/rcfile.c:611
+#: ../src/preferences.c:1834 ../src/rcfile.c:620
 msgid "Images"
 msgstr "Obrazki"
 
-#: ../src/preferences.c:1819
+#: ../src/preferences.c:1836
 msgid "Thumbnails"
 msgstr "Miniatury"
 
-#: ../src/preferences.c:1823
+#: ../src/preferences.c:1840
 msgid "Thumbnail suffix"
 msgstr "Przyrostek miniatury"
 
-#: ../src/preferences.c:1827
+#: ../src/preferences.c:1844
 msgid "Thumbnail filetype"
 msgstr "Typ pliku miniatury"
 
-#: ../src/preferences.c:1832 ../src/preferences.c:1834
+#: ../src/preferences.c:1849 ../src/preferences.c:1851
 msgid "Filetypes"
 msgstr "Typy plików"
 
-#: ../src/preferences.c:1841
+#: ../src/preferences.c:1858
 msgid "Filefilters"
 msgstr "Filtry plików"
 
-#: ../src/preferences.c:1849
+#: ../src/preferences.c:1866
 msgid "Syntax highlighting"
 msgstr "Podświetlanie składni"
 
-#: ../src/preferences.c:1851
+#: ../src/preferences.c:1868
 msgid "Patterns"
 msgstr "Wzorce"
 
-#: ../src/preferences.c:1859
+#: ../src/preferences.c:1876
 msgid "External programs"
 msgstr "Programy zewnętrzne"
 
-#: ../src/preferences.c:1861
+#: ../src/preferences.c:1878
 msgid "Browsers"
 msgstr "Przeglądarki"
 
-#: ../src/preferences.c:1868
+#: ../src/preferences.c:1885
 msgid "Utilities and filters"
 msgstr "Programy użytkowe i filtry"
 
-#: ../src/preferences.c:1876
+#: ../src/preferences.c:1893
 msgid "Output parsers"
 msgstr "Parsery wyjścia"
 
-#: ../src/preferences.c:1878
+#: ../src/preferences.c:1895
 msgid "Outputbox"
 msgstr "Okno wyników"
 
-#: ../src/rcfile.c:537
+#: ../src/rcfile.c:546
 msgid "Galeon"
 msgstr "Galeon"
 
-#: ../src/rcfile.c:539
+#: ../src/rcfile.c:548
 msgid "Mozilla"
 msgstr "Mozilla"
 
-#: ../src/rcfile.c:541
+#: ../src/rcfile.c:550
 msgid "Opera"
 msgstr "Opera"
 
-#: ../src/rcfile.c:543
+#: ../src/rcfile.c:552
 msgid "Netscape"
 msgstr "Netscape"
 
-#: ../src/rcfile.c:545
+#: ../src/rcfile.c:554
 msgid "Gnome default"
 msgstr "Przegladarka domyslna"
 
-#: ../src/rcfile.c:569
+#: ../src/rcfile.c:578
 msgid "make"
 msgstr "make"
 
-#: ../src/rcfile.c:570
+#: ../src/rcfile.c:579
 msgid "weblint HTML checker"
 msgstr "Sprawdzanie HTML za pomocą 'weblint'"
 
-#: ../src/rcfile.c:571
+#: ../src/rcfile.c:580
 msgid "tidy HTML validator"
 msgstr "sprawdzanie poprawności HTML za pomocą 'tidy'"
 
-#: ../src/rcfile.c:572
+#: ../src/rcfile.c:581
 msgid "javac"
 msgstr "javac"
 
-#: ../src/rcfile.c:578
+#: ../src/rcfile.c:587
 msgid "Dos2Unix filter"
 msgstr "Filtr Dos2Unix"
 
-#: ../src/rcfile.c:580
+#: ../src/rcfile.c:589
 msgid "Tidy cleanup filter"
 msgstr "Filtr tidy"
 
-#: ../src/rcfile.c:605
+#: ../src/rcfile.c:614
 msgid "C programming"
 msgstr "Programy C"
 
-#: ../src/rcfile.c:607
+#: ../src/rcfile.c:616
 msgid "All web files"
 msgstr "Wszystkie dokumenty WWW"
 
-#: ../src/rcfile.c:609
+#: ../src/rcfile.c:618
 msgid "Java programming"
 msgstr "Programy Javy"
 
-#: ../src/rcfile.c:613
+#: ../src/rcfile.c:622
 msgid "Hide objectfiles"
 msgstr "Ukryj pliki .obj"
 
-#: ../src/snr2.c:174
+#: ../src/snr2.c:187
 msgid "Regular expression error: "
 msgstr "Błąd wyrażenia regularnego: "
 
-#: ../src/snr2.c:175 ../src/snr2.c:219
+#: ../src/snr2.c:188 ../src/snr2.c:232
 #, fuzzy
 msgid "Search failed"
 msgstr "Wzorzec wyszukiwany"
 
-#: ../src/snr2.c:218
+#: ../src/snr2.c:231
 #, c-format
 msgid "Regular expression error: %s at offset %d"
 msgstr "Błąd wyrażenia regularnego: %s na pozycji %d"
 
-#: ../src/snr2.c:668
+#: ../src/snr2.c:801
 msgid "Confirm replace"
 msgstr "Potwierdź zamianę"
 
-#: ../src/snr2.c:680
+#: ../src/snr2.c:813
 msgid "Replace selected text?"
 msgstr ""
 
-#: ../src/snr2.c:693
+#: ../src/snr2.c:826
 msgid "_Skip"
 msgstr ""
 
-#: ../src/snr2.c:694
+#: ../src/snr2.c:827
 #, fuzzy
 msgid "_Replace"
 msgstr "Zamień"
 
-#: ../src/snr2.c:695
+#: ../src/snr2.c:828
 msgid "Replace _all"
 msgstr "Zamień _wszystko"
 
-#: ../src/snr2.c:837 ../src/snr2.c:844
+#: ../src/snr2.c:1005 ../src/snr2.c:1012
 msgid "Search: no match found"
 msgstr "Szukanie: nie znaleziono wzorca"
 
-#: ../src/snr2.c:997
+#: ../src/snr2.c:1186
 msgid "Search"
 msgstr "Szukanie"
 
-#: ../src/snr2.c:1023
+#: ../src/snr2.c:1212
 msgid "Search _for: "
 msgstr "Szu_kaj: "
 
-#: ../src/snr2.c:1035
+#: ../src/snr2.c:1224
 msgid "Replace wit_h: "
 msgstr "Za_mień na: "
 
-#: ../src/snr2.c:1045
+#: ../src/snr2.c:1234
 #, fuzzy
 msgid "\\0 refers to the first subsearch_pattern, \\1 to the second etc."
 msgstr "\\0 odpowiada pierwszemu wzorcowi, \\1 drugiemu itd."
 
-#: ../src/snr2.c:1060
+#: ../src/snr2.c:1249
 #, fuzzy
 msgid "Beginning of document till end"
 msgstr "Początku _dokumentu"
 
-#: ../src/snr2.c:1060
+#: ../src/snr2.c:1249
 #, fuzzy
 msgid "Current position till end"
 msgstr "Pozycji kur_sora"
 
-#: ../src/snr2.c:1060
+#: ../src/snr2.c:1249
 #, fuzzy
 msgid "Beginning of selection till end of selection"
 msgstr "Początku _zaznaczenia"
 
-#: ../src/snr2.c:1060
+#: ../src/snr2.c:1249
 #, fuzzy
 msgid "All opened files begin till end"
 msgstr "Wszystkie dokumenty WWW"
 
-#: ../src/snr2.c:1061
+#: ../src/snr2.c:1250
 #, fuzzy
 msgid "Disabled"
 msgstr "Zmienna"
 
-#: ../src/snr2.c:1061
+#: ../src/snr2.c:1250
 #, fuzzy
 msgid "POSIX type"
 msgstr "Typ informacji"
 
-#: ../src/snr2.c:1061
+#: ../src/snr2.c:1250
 msgid "PERL type"
 msgstr ""
 
-#: ../src/snr2.c:1088
+#: ../src/snr2.c:1277
 #, fuzzy
 msgid "Normal"
 msgstr "normalne"
 
-#: ../src/snr2.c:1088
+#: ../src/snr2.c:1277
 #, fuzzy
 msgid "Uppercase"
 msgstr "Zamień _wielkie litery"
 
-#: ../src/snr2.c:1088
+#: ../src/snr2.c:1277
 #, fuzzy
 msgid "Lowercase"
 msgstr "Zamień _małe litery"
 
-#: ../src/snr2.c:1103
+#: ../src/snr2.c:1292
 msgid "Match ca_se"
 msgstr "Rozróżniaj wielkie i małe _litery"
 
-#: ../src/snr2.c:1104
+#: ../src/snr2.c:1293
 #, fuzzy
 msgid "O_verlap searches"
 msgstr "Nakładaj w_yniki"
 
-#: ../src/snr2.c:1106
+#: ../src/snr2.c:1295
 msgid "Prompt _before replace"
 msgstr "Potwierdzaj _przed zamianą"
 
-#: ../src/snr2.c:1107
+#: ../src/snr2.c:1296
 msgid "Rep_lace once"
 msgstr "Zamień tylko _raz"
 
@@ -3876,6 +3991,16 @@ msgstr "Źródło:"
 #: ../src/wizards.c:224
 msgid "Size:"
 msgstr "Rozmiar:"
+
+#, fuzzy
+#~ msgid "/_Delete file"
+#~ msgstr "Kasuj plik"
+
+#~ msgid "Edit custom menu"
+#~ msgstr "Edytuj menu podręczne"
+
+#~ msgid "case sensitive"
+#~ msgstr "rozróżniaj wielkie i małe litery"
 
 #~ msgid " line    1 "
 #~ msgstr " linia    1 "
@@ -4010,9 +4135,6 @@ msgstr "Rozmiar:"
 
 #~ msgid "Use posix _regular expression matching"
 #~ msgstr "Używaj wyrażeń _regularnych POSIX"
-
-#~ msgid "Case _sensitive"
-#~ msgstr "Rozróżniaj wielkie i małe _litery"
 
 #~ msgid "/php/ibase/ibase fetch row"
 #~ msgstr "/php/ibase/ibase fetch row"
@@ -4232,9 +4354,6 @@ msgstr "Rozmiar:"
 
 #~ msgid "odbc data source name"
 #~ msgstr "nazwa źródła danych odbc"
-
-#~ msgid "username"
-#~ msgstr "nazwa użytkownika"
 
 #~ msgid "password"
 #~ msgstr "hasło"
