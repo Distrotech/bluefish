@@ -9,8 +9,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 21-11-03_fr\n"
-"POT-Creation-Date: 2004-10-19 14:29+0200\n"
-"PO-Revision-Date: 2004-10-08 22:17+0200\n"
+"POT-Creation-Date: 2004-10-20 21:10+0200\n"
+"PO-Revision-Date: 2004-10-20 21:56+0200\n"
 "Last-Translator: Michèle Garoche <michele.garoche@easyconnect.fr>\n"
 "Language-Team: français <fr@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -434,66 +434,77 @@ msgstr "Impossible de trouver le fichier \"%s\"."
 msgid "This bookmark is set in a file that no longer exists."
 msgstr "Ce signet concerne un fichier qui n'existe plus."
 
-#: ../src/bookmark.c:585
+#: ../src/bookmark.c:610
+#, c-format
+msgid "Do you really want to delete all bookmarks for %s?"
+msgstr "Voulez-vous vraiment supprimer tous les signets relatifs à %s ?"
+
+#: ../src/bookmark.c:611
+msgid "Delete bookmarks?"
+msgstr "Voulez-vous supprimer les signets ?"
+
+#: ../src/bookmark.c:640
 #, c-format
 msgid "Do you really want to delete %s?"
 msgstr "Désirez-vous vraiment supprimer %s ?"
 
-#: ../src/bookmark.c:587
+#: ../src/bookmark.c:642
 msgid "Delete permanent bookmark."
 msgstr "Supprimer le signet permanent"
 
-#: ../src/bookmark.c:604
+#: ../src/bookmark.c:659
 msgid "Edit bookmark"
 msgstr "Éditer le signet"
 
-#: ../src/bookmark.c:618
+#: ../src/bookmark.c:673
 msgid "Goto bookmark"
 msgstr "Aller au signet"
 
-#: ../src/bookmark.c:626
+#: ../src/bookmark.c:681
 msgid "Edit"
 msgstr "Éditer"
 
-#: ../src/bookmark.c:630
+#: ../src/bookmark.c:685
 msgid "Delete"
 msgstr "Supprimer"
 
-#: ../src/bookmark.c:635
-msgid "Delete all"
-msgstr "Tout supprimer "
+#: ../src/bookmark.c:691
+msgid "Delete all in document"
+msgstr "Tout supprimer dans le document actif"
 
-#: ../src/bookmark.c:1211 ../src/bookmark.c:1228 ../src/bookmark.c:1264
+#: ../src/bookmark.c:696
+msgid "Delete all"
+msgstr "Tout supprimer"
+
+#: ../src/bookmark.c:1276 ../src/bookmark.c:1293 ../src/bookmark.c:1329
 #: ../src/document.c:2022
 msgid "Add bookmark"
 msgstr "Ajouter un signet"
 
-#: ../src/bookmark.c:1212 ../src/bookmark.c:1265
+#: ../src/bookmark.c:1277 ../src/bookmark.c:1330
 msgid "Cannot add bookmarks in unnamed files."
 msgstr "Impossible d'ajouter un signet pour un fichier sans nom"
 
-#: ../src/bookmark.c:1229
+#: ../src/bookmark.c:1294
 msgid "You already have a bookmark here!"
 msgstr "Vous disposez déjà d'un signet ici !"
 
-#: ../src/bookmark.c:1287
+#: ../src/bookmark.c:1367
 msgid "Delete all bookmarks."
 msgstr "Supprimer tous les signets"
 
-#: ../src/bookmark.c:1287
+#: ../src/bookmark.c:1367
 msgid "Are you sure?"
 msgstr "En êtes-vous sûr(e) ?"
 
-#: ../src/bookmark.c:1337
-#, c-format
-msgid ""
-"Character count changed in file\n"
-" %s."
-msgstr "Le nombre de caractères dans le fichier %s a changé."
+#: ../src/bookmark.c:1409
+msgid "File size changed in file\n"
+msgstr "Le nombre de caractères du fichier a changé\n"
 
-#: ../src/bookmark.c:1339
-msgid "Bookmarks positions could be incorrect."
-msgstr "La position des signets est peut-être incorrecte."
+#: ../src/bookmark.c:1410
+msgid "Bookmarks positions could be incorrect. Delete bookmarks?"
+msgstr "La position des signets est peut-être incorrecte. "
+"Voulez-vous supprimer les signets ?"
 
 #: ../src/document.c:260
 msgid "/Document/Highlight Syntax"
@@ -823,7 +834,7 @@ msgstr "<b>Général</b>"
 msgid "Base_dir:"
 msgstr "Répertoire _de base :"
 
-#: ../src/document.c:3381 ../src/gtk_easy.c:1298
+#: ../src/document.c:3381 ../src/gtk_easy.c:1305
 msgid "_Browse..."
 msgstr "_Parcourir..."
 
@@ -855,7 +866,7 @@ msgstr "Ouvrir une URL"
 msgid "<b>Open URL</b>"
 msgstr "<b>Ouvrir une URL/b>"
 
-#: ../src/document.c:3601 ../src/gtk_easy.c:1594
+#: ../src/document.c:3601 ../src/gtk_easy.c:1601
 msgid "Select files"
 msgstr "Sélectionner des fichiers"
 
@@ -976,7 +987,7 @@ msgstr "Afficher les fichiers de sauvegarde"
 msgid "Filter"
 msgstr "Filtre"
 
-#: ../src/filebrowser.c:1651 ../src/gtk_easy.c:1376
+#: ../src/filebrowser.c:1651 ../src/gtk_easy.c:1383
 msgid "All files"
 msgstr "Tous les fichiers"
 
@@ -1056,20 +1067,20 @@ msgstr "Afficher la fenêtre d'informations"
 msgid "Search"
 msgstr "Rechercher"
 
-#: ../src/gtk_easy.c:1154
+#: ../src/gtk_easy.c:1161
 #, c-format
 msgid "%d of %d"
 msgstr "%d sur %d"
 
-#: ../src/gtk_easy.c:1240
+#: ../src/gtk_easy.c:1247
 msgid "Select File"
 msgstr "Sélectionner un fichier"
 
-#: ../src/gtk_easy.c:1369
+#: ../src/gtk_easy.c:1376
 msgid "Show hidden"
 msgstr "Afficher les fichiers cachés"
 
-#: ../src/gtk_easy.c:1567
+#: ../src/gtk_easy.c:1574
 msgid "Select file"
 msgstr "Sélectionner un fichier"
 
@@ -1548,6 +1559,31 @@ msgstr "Laisser la boîte de _dialogue ouverte"
 #: ../src/gui.c:1466
 msgid "starting bluefish"
 msgstr "Démarrage de Bluefish"
+
+#: ../src/highlight.c:354 ../src/highlight.c:366 ../src/highlight.c:393
+#: ../src/highlight.c:403
+msgid "Syntax highlighting error for "
+msgstr "Erreur de coloration syntaxique pour "
+
+#: ../src/highlight.c:355
+#, c-format
+msgid "compiling pattern '%s': %s at offset %d"
+msgstr "compilation du modèle '%s' : %s à la position %d"
+
+#: ../src/highlight.c:367
+#, c-format
+msgid "studying pattern '%s': %s"
+msgstr "vérification du modèle '%s' : %s"
+
+#: ../src/highlight.c:394
+#, c-format
+msgid "compiling 2nd pattern '%s': %s at offset %d"
+msgstr "compilation du second modèle '%s' : %s à la position %d"
+
+#: ../src/highlight.c:404
+#, c-format
+msgid "studying 2nd pattern '%s': %s"
+msgstr "vérification du second modèle '%s' : %s"
 
 #: ../src/html.c:392
 msgid "Insert Time"
@@ -4702,5 +4738,3 @@ msgstr "Source :"
 msgid "Size:"
 msgstr "Taille :"
 
-#~ msgid "Sort by line number"
-#~ msgstr "Trier par numéro de ligne"
