@@ -78,6 +78,27 @@ GList *return_allwindows_documentlist() {
 }
 
 /**
+ * return_filenamestringlist_from_doclist:
+ * @doclist: #GList*
+ *
+ * Returns a stringlist with filenames given a 
+ * list with documents (#Tdocument*)
+ *
+ * Return value: #GList* stringlist with filenames
+ */
+GList *return_filenamestringlist_from_doclist(GList *doclist) {
+	GList *newlist=NULL, *tmplist;
+	tmplist = g_list_first(doclist);
+	while(tmplist){
+		if (DOCUMENT(tmplist->data)->filename) {
+			newlist = g_list_append(newlist, g_strdup(DOCUMENT(tmplist->data)->filename));
+		}
+		tmplist = g_list_next(tmplist);
+	}
+	return newlist;
+}
+
+/**
  * return_num_untitled_documents:
  * @doclist: #GList* with documents
  *
@@ -764,17 +785,6 @@ void doc_select_region(Tdocument *doc, gint start, gint end, gboolean do_scroll)
 	if (do_scroll) {
 		gtk_text_view_scroll_to_iter(GTK_TEXT_VIEW(doc->view),&itstart,0.25,FALSE,0.5,0.5);
 	}
-}
-
-static void doc_set_file_in_titlebar(Tdocument *doc) {
-	gchar *title;
-	if (doc->filename) {
-		title = g_strconcat("Bluefish ",VERSION," - ",doc->filename,NULL);
-	} else {
-		title = g_strconcat("Bluefish ",VERSION," -",_(" Untitled"),NULL);
-	}
-	gtk_window_set_title(GTK_WINDOW(BFWIN(doc->bfwin)->main_window),title);
-	g_free(title);
 }
 
 /**
@@ -1880,7 +1890,7 @@ gint doc_save(Tdocument * doc, gint do_save_as, gboolean do_move) {
 		doc_reset_filetype(doc, doc->filename, NULL);
 		doc_set_modified(doc, 1);
 		if (doc == BFWIN(doc->bfwin)->current_document) {
-			doc_set_file_in_titlebar(doc);
+			gui_set_title(BFWIN(doc->bfwin), doc);
 		}
 	}
 	{
@@ -2433,7 +2443,7 @@ void doc_activate(Tdocument *doc) {
 	}
 	DEBUG_MSG("doc_activate, calling gui_set_widgets\n");
 	gui_set_widgets(BFWIN(doc->bfwin),doc_has_undo_list(doc), doc_has_redo_list(doc), doc->wrapstate, doc->highlightstate, doc->hl, doc->encoding, doc->linenumberstate);
-	doc_set_file_in_titlebar(doc);
+	gui_set_title(BFWIN(doc->bfwin), doc);
 	doc_set_statusbar_insovr(doc);
 	doc_set_statusbar_editmode_encoding(doc);
 	doc_update_linenumber(doc, NULL, 0);

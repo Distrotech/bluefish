@@ -243,6 +243,27 @@ void left_panel_show_hide_toggle(Tbfwin *bfwin,gboolean first_time, gboolean sho
 	}
 }
 
+void gui_set_title(Tbfwin *bfwin, Tdocument *doc) {
+	gchar *title;
+	if (bfwin->project) {
+		if (doc->filename) {
+			title = g_strconcat("Bluefish ",VERSION," - ",bfwin->project->name," - ",doc->filename,NULL);
+		} else {
+			title = g_strconcat("Bluefish ",VERSION," - ",bfwin->project->name," -",_(" Untitled"),NULL);
+		}
+	} else {
+		if (doc->filename) {
+			title = g_strconcat("Bluefish ",VERSION," - ",doc->filename,NULL);
+		} else {
+			title = g_strconcat("Bluefish ",VERSION," -",_(" Untitled"),NULL);
+		}
+	}
+	gtk_window_set_title(GTK_WINDOW(bfwin->main_window),title);
+	g_free(title);
+
+
+}
+
 void gui_apply_settings(Tbfwin *bfwin) {
 	gtk_notebook_set_tab_pos(GTK_NOTEBOOK(bfwin->leftpanel_notebook),main_v->props.leftpanel_tabposition);
 	gtk_notebook_set_tab_pos(GTK_NOTEBOOK(bfwin->notebook),main_v->props.document_tabposition);

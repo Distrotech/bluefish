@@ -29,6 +29,7 @@ typedef struct {
 void pointer_switch_addresses(gpointer *a, gpointer *b);
 void list_switch_order(GList *first, GList *second);
 gboolean file_copy(gchar *source, gchar *dest);
+gint find_common_prefixlen_in_stringlist(GList *stringlist);
 gboolean append_string_to_file(gchar *filename, gchar *string);
 gint table_convert_char2int(Tconvert_table *table, gchar *my_char);
 gchar *table_convert_int2char(Tconvert_table *table, gint my_int);

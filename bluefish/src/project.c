@@ -46,18 +46,8 @@ Tbfwin *project_is_open(gchar *filename) {
 }
 
 static void update_project_filelist(Tbfwin *bfwin, Tproject *prj) {
-	GList *tmplist;
-	
 	free_stringlist(prj->files);
-	prj->files = NULL;
-	
-	tmplist = g_list_first(bfwin->documentlist);
-	while(tmplist){
-		if (DOCUMENT(tmplist->data)->filename) {
-			prj->files = g_list_append(prj->files, g_strdup(DOCUMENT(tmplist->data)->filename));
-		}
-		tmplist = g_list_next(tmplist);
-	}
+	prj->files = return_filenamestringlist_from_doclist(bfwin->documentlist);
 }
 
 static Tproject *create_new_project(Tbfwin *bfwin) {
@@ -65,7 +55,21 @@ static Tproject *create_new_project(Tbfwin *bfwin) {
 	prj = g_new0(Tproject,1);
 	prj->name = g_strdup(_("New project"));
 	update_project_filelist(bfwin,prj);
-	prj->basedir = g_strdup("");
+	if (prj->files) {
+		gint len;
+		gchar *somefile, *prefix;
+		len = find_common_prefixlen_in_stringlist(prj->files);
+		somefile = (gchar *)prj->files->data;
+		prefix = g_strndup(somefile, len);
+		if (prefix[strlen(prefix)-1] == '/') {
+			prj->basedir = g_strdup(prefix);
+		} else {
+			prj->basedir = g_path_get_basename(prefix);
+		}
+		g_free(prefix);
+	} else {
+		prj->basedir = g_strdup("");
+	}
 	prj->webdir = g_strdup("");
 	return prj;
 }
@@ -115,12 +119,15 @@ void project_open_from_file(Tbfwin *bfwin, gchar *fromfilename) {
 		/* we will use this Bluefish window to open the project */
 		prwin = bfwin;
 		DEBUG_MSG("project_open_from_file, calling docs_new_from_files for existing bfwin=%p\n",prwin);
+		prwin->project = prj;
 		docs_new_from_files(prwin, prj->files);
 	} else {
 		/* we will open a new Bluefish window for this project */
 		prwin = gui_new_window(prj->files);
+		prwin->project = prj;
+		gui_set_title(prwin, prwin->current_document);
 	}
-	prwin->project = prj;
+	
 }
 
 static void project_open(Tbfwin *bfwin) {
@@ -148,6 +155,7 @@ gboolean project_save_and_close(Tbfwin *bfwin) {
 			g_free(bfwin->project->webdir);
 			g_free(bfwin->project);
 			bfwin->project = NULL;
+			gui_set_title(bfwin, bfwin->current_document);
 			DEBUG_MSG("project_save_and_close, returning TRUE\n");
 			return TRUE;
 		}
@@ -217,7 +225,6 @@ void project_edit(Tbfwin *bfwin) {
 		message = g_strdup_printf(_("This project contains %d files"), g_list_length(bfwin->project->files));
 		gtk_label_set_markup(GTK_LABEL(label), message);
 	}
-
 	
 	pred->entries[name] = boxed_full_entry(_("Name"), bfwin->project->name,255, vbox);
 	pred->entries[basedir] = boxed_full_entry(_("Basedir"), bfwin->project->basedir,255, vbox);
