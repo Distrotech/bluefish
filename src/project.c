@@ -316,17 +316,12 @@ static void project_edit_cancel_clicked_lcb(GtkWidget *widget, Tprojecteditor *p
 }
 
 static void project_edit_ok_clicked_lcb(GtkWidget *widget, Tprojecteditor *pred) {
-	gchar *oldbasedir;
 	Tproject *prj = pred->project;
 	
 	pred->destroy_project_on_close = FALSE;
 	
 	gtk_widget_hide(pred->win);
-	if (pred->bfwin == NULL) {
-		pred->bfwin = gui_new_window(NULL, pred->project);
-	}
 	DEBUG_MSG("project_edit_ok_clicked_lcb, Tproject at %p, bfwin at %p\n",prj,pred->bfwin);
-	oldbasedir = g_strdup(prj->basedir);
 	string_apply(&prj->name, pred->entries[name]);
 	string_apply(&prj->basedir, pred->entries[basedir]);
 	if (prj->basedir && strlen(prj->basedir)) {
@@ -338,12 +333,14 @@ static void project_edit_ok_clicked_lcb(GtkWidget *widget, Tprojecteditor *pred)
 	string_apply(&prj->template, pred->entries[template]);
 	integer_apply(&prj->word_wrap, pred->entries[word_wrap], TRUE);
 	DEBUG_MSG("project_edit_ok_clicked_lcb, name=%s, basedir=%s, webdir=%s\n",prj->name,prj->basedir,prj->webdir);
-	if (strcmp(prj->basedir, oldbasedir)!=0 && strlen(prj->basedir) > 2) {
-		filebrowser_set_basedir(pred->bfwin, prj->basedir);
+
+	if (pred->bfwin == NULL) {
+		pred->bfwin = gui_new_window(NULL, pred->project);
+		setup_bfwin_for_project(pred->bfwin);
+	} else {
+		gui_set_title(pred->bfwin, pred->bfwin->current_document);
 	}
-	g_free(oldbasedir);
-	gui_set_title(pred->bfwin, pred->bfwin->current_document);
-	set_project_menu_widgets(pred->bfwin, TRUE);
+/* set_project_menu_widgets(pred->bfwin, TRUE);*/
 	project_save(pred->bfwin,FALSE);
 	gtk_widget_destroy(pred->win);
 }
