@@ -624,21 +624,10 @@ static void doc_update_linenumber(Tdocument *doc, GtkTextIter *iter, gint offset
 }
 
 static void doc_buffer_insert_text_lcb(GtkTextBuffer *textbuffer,GtkTextIter * iter,gchar * string,gint len, Tdocument * doc) {
-	gint i = 0;
 	doc_set_modified(doc, 1);
 	
 	DEBUG_MSG("doc_buffer_insert_text_lcb, started\n");
-	/* highlighting stuff */
-	if (string && doc->hl->update_chars) {
-		while (string[i] != '\0') {
-			if (strchr(doc->hl->update_chars, string[i])) {
-				doc_highlight_line(doc);
-				break;
-			}
-			i++;
-		}
-	}
-	
+
 	/* undo_redo stuff */
 	if (len == 1) {
 		if ((string[0] == ' ' || string[0] == '\n' || string[0] == '\t') || !doc_undo_op_compare(doc,UndoInsert)) {
@@ -658,6 +647,18 @@ static void doc_buffer_insert_text_lcb(GtkTextBuffer *textbuffer,GtkTextIter * i
 }
 
 static void doc_buffer_insert_text_after_lcb(GtkTextBuffer *textbuffer,GtkTextIter * iter,gchar * string,gint len, Tdocument * doc) {
+	/* highlighting stuff */
+	if (string && doc->hl->update_chars) {
+		gint i=0;
+		while (string[i] != '\0') {
+			if (strchr(doc->hl->update_chars, string[i])) {
+				doc_highlight_line(doc);
+				break;
+			}
+			i++;
+		}
+	}
+
 	/* this function is only attached to the signal if the auto-indenting is active!!! */
 	if (main_v->props.autoindent) {
 		/* indenting, this should be the last one because it changes the 
