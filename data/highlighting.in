@@ -91,3 +91,16 @@ R:braces:0:[{()}]::2::#0000FF::0:0:
 R:keywords2:0:\\b(FALSE|NULL|TRUE|NA)\\b::2::#00AAFF::2:0:
 R:keywords1:0:\\b(function|else|for|if|in|stop|while|which|with|next|break|by|repeat|switch)\\b::2::#000000::2:0:
 R:comments:1:#.*?$::2::#0000FF::0:2:
+perl:here-doc:1:<<EOF$":"EOF:1::#009900::0:0:
+perl:string1:0:":":1::#009900::0:0:
+perl:string2:0:':':1::#009900::0:0:
+perl:statements:0:\\b(if|until|while|elsif|else|unless|for(each)?|continue|last|goto|next|redo|do(?=\\s*\\{)|BEGIN|END)\\b::2::#000000::2:0:
+perl:modules:0:^(bless|caller|import|no|package|prototype|require|return|INIT|CHECK|BEGIN|END|use|new)::2::#990000::2:0:
+perl:pragmas:0:\\b(attrs|autouse|base|blib|constant|diagnostics|fields|integer|less|lib|locale|ops|overload|re|sigtrap|strict|subs|vars|vmsish)\\b::2::#990000::2:0:
+perl:methods:0:\\b(can|isa|VERSION)\\b::2::#900000::2:0:
+perl:filetests:0:\\b-[rwxRWXoOezsfdlSpbcugktTBMAC]\\b::2::#990000::2:0:
+perl:scalarvariables:1:\\$[a-z_][][a-z0-9>_$-]*::2::#000099::2:0:
+perl:arrayvariables:1:\\@[a-z_][][a-z0-9>_$-]*::2::#0000ff::2:0:
+perl:hashvariables:1:\\%[a-z_][][a-z0-9>_$-]*::2::#0000cc::2:0:
+
+
