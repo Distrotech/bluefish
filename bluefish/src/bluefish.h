@@ -148,7 +148,6 @@ typedef struct {
 	gint view_left_panel;  	/* view filebrowser/functionbrowser etc. */
 	gint view_line_numbers; /* view line numbers on the left side by default */
 	gint filebrowser_show_hidden_files;
-	gint filebrowser_show_others_files;
 	gint filebrowser_show_backup_files;
 	gint filebrowser_two_pane_view; /* have one or two panes in the filebrowser */
 	gchar *filebrowser_unknown_icon;
@@ -255,6 +254,10 @@ typedef struct {
 	gchar *template;
 	gpointer editor;
 	GList *recentfiles;
+	gint view_main_toolbar;
+	gint view_left_panel;
+	gint view_custom_menu;
+	gint view_html_toolbar;
 } Tproject;
 
 typedef struct {
