@@ -264,18 +264,19 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/_File"), NULL, NULL, 0, "<Branch>"},
 	{N_("/File/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
 	{N_("/File/_New"), "<control>n", menu_file_operations_cb, 1, "<StockItem>", GTK_STOCK_NEW},
+	{N_("/File/New _Window"), NULL, gui_window_menu_cb, 1, "<Item>"},	
 	{N_("/File/_Open..."), "<control>O", menu_file_operations_cb, 2, "<StockItem>", GTK_STOCK_OPEN},
 	{N_("/File/Open r_ecent"), NULL, NULL, 0, "<Branch>"},
 	{N_("/File/Open recent/tearoff1"), NULL, NULL, 0, "<Tearoff>"},	
 #ifdef EXTERNAL_GREP
 #ifdef EXTERNAL_FIND
-	{N_("/File/Open A_dvanced..."), "<shift><control>O", menu_file_operations_cb, 3, "<Item>"},
+	{N_("/File/Open Ad_vanced..."), "<shift><control>O", menu_file_operations_cb, 3, "<Item>"},
 #endif /* EXTERNAL_FIND */
 #endif /* EXTERNAL_GREP */
 #ifdef HAVE_GNOME_VFS
-	{N_("/File/Open URL..."), NULL, menu_file_operations_cb, 25, "<Item>"},
+	{N_("/File/Open _URL..."), NULL, menu_file_operations_cb, 25, "<Item>"},
 #endif /* HAVE_GNOME_VFS */
-	{N_("/File/Open from selection"), NULL, menu_file_operations_cb, 26, "<Item>"},
+	{N_("/File/Open _from selection"), NULL, menu_file_operations_cb, 26, "<Item>"},
 	{N_("/File/sep1"), NULL, NULL, 0, "<Separator>"},
 	{N_("/File/_Save"), "<control>S", menu_file_operations_cb, 5, "<StockItem>", GTK_STOCK_SAVE},
 	{N_("/File/Save _As..."), "<shift><control>S", menu_file_operations_cb, 6, "<StockItem>", GTK_STOCK_SAVE_AS},
@@ -283,10 +284,11 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/File/_Revert to Saved"), NULL, menu_file_operations_cb, 4, "<StockItem>", GTK_STOCK_REVERT_TO_SAVED},
 	{N_("/File/sep2"), NULL, NULL, 0, "<Separator>"},	
 	{N_("/File/_Insert..."), NULL, file_insert_menucb, 1, "<Item>"},	
-	{N_("/File/_Rename..."), "F2", menu_file_operations_cb, 7, "<Item>"},
+	{N_("/File/Rena_me..."), "F2", menu_file_operations_cb, 7, "<Item>"},
 	{N_("/File/sep3"), NULL, NULL, 0, "<Separator>"},
 	{N_("/File/_Close"), "<control>w", menu_file_operations_cb, 9, "<StockItem>", GTK_STOCK_CLOSE},
 	{N_("/File/Close A_ll"), "<shift><control>w", menu_file_operations_cb, 24, "<Item>"},
+	{N_("/File/Close Win_dow"), NULL, gui_window_menu_cb, 2, "<Item>"},
 	{N_("/File/sep4"), NULL, NULL, 0, "<Separator>"},
 	{N_("/File/_Quit"), "<control>Q", bluefish_exit_request, 0, "<StockItem>", GTK_STOCK_QUIT},
 	{N_("/_Edit"), NULL, NULL, 0, "<Branch>"},
@@ -299,8 +301,9 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/Edit/Cu_t"), "<control>x", menu_file_operations_cb, 10, "<StockItem>", GTK_STOCK_CUT},
 	{N_("/Edit/_Copy"), "<control>c", menu_file_operations_cb, 11, "<StockItem>", GTK_STOCK_COPY},
 	{N_("/Edit/_Paste"), "<control>v", menu_file_operations_cb, 12, "<StockItem>", GTK_STOCK_PASTE},
-	{N_("/Edit/Select _All"), "<control>a", menu_file_operations_cb, 13, "<Item>"},
 	{N_("/Edit/sep2"), NULL, NULL, 0, "<Separator>"},
+	{N_("/Edit/Select _All"), "<control>a", menu_file_operations_cb, 13, "<Item>"},
+	{N_("/Edit/sep3"), NULL, NULL, 0, "<Separator>"},
 	{N_("/Edit/_Find..."), "<control>f", menu_file_operations_cb, 14, "<StockItem>", GTK_STOCK_FIND},
 	{N_("/Edit/Find A_gain"), "<control>g", menu_file_operations_cb, 16, "<Item>"},
 	{N_("/Edit/R_eplace..."), "<control>h", menu_file_operations_cb, 17, "<StockItem>", GTK_STOCK_FIND_AND_REPLACE},
@@ -310,46 +313,19 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/Edit/Replace special/_ASCII to HTML Entities"), NULL, doc_convert_asciichars_in_selection, 1, "<Item>"},
 	{N_("/Edit/Replace special/_ISO8859 to HTML Entities"), NULL, doc_convert_asciichars_in_selection, 2, "<Item>"},
 	{N_("/Edit/Replace special/_Both Types to HTML Entities"), NULL, doc_convert_asciichars_in_selection, 3, "<Item>"},
-	{N_("/Edit/sep3"), NULL, NULL, 0, "<Separator>"},
+	{N_("/Edit/sep4"), NULL, NULL, 0, "<Separator>"},
 	{N_("/Edit/Sh_ift Right"), NULL, menu_indent_cb, 2, "<Item>"},
 	{N_("/Edit/S_hift Left"), NULL, menu_indent_cb, 1, "<Item>"},
-	{N_("/Edit/sep4"), NULL, NULL, 0, "<Separator>"},
-	{N_("/Edit/Goto _Line"), "<control>l", go_to_line_win_cb, 1, "<StockItem>", GTK_STOCK_JUMP_TO},
-	{N_("/Edit/G_oto Selection"), NULL, go_to_line_from_selection_cb, 1, "<Item>"},
 	{N_("/Edit/sep5"), NULL, NULL, 0, "<Separator>"},
+	{N_("/Edit/_Save Settings"), NULL, rcfile_save_configfile_menu_cb, 0, "<Item>"},
+	{N_("/Edit/Save Shortcut _Keys"), NULL, rcfile_save_configfile_menu_cb, 3, "<Item>"},	
 	{N_("/Edit/_Preferences"), NULL, open_preferences_menu_cb, 0, "<StockItem>", GTK_STOCK_PREFERENCES},
 	{N_("/_View"), NULL, NULL, 0, "<Branch>"},
 	{N_("/View/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
-	{N_("/View/_Toolbars"), NULL, NULL, 0, "<Branch>"},
-	{N_("/View/Toolbars/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
-	{N_("/View/Toolbars/View _Main Toolbar"), NULL, gui_toggle_hidewidget_cb, 1, "<ToggleItem>"},
-	{N_("/View/Toolbars/View _HTML Toolbar"), NULL, gui_toggle_hidewidget_cb, 2, "<ToggleItem>"},
-	{N_("/View/Toolbars/View _Custom Menu"), NULL, gui_toggle_hidewidget_cb, 3, "<ToggleItem>"},
-	{N_("/View/Toolbars/View _Left Panel"), "F9", gui_toggle_hidewidget_cb, 4, "<ToggleItem>"},
-	{N_("/View/_Current Document"), NULL, NULL, 0, "<Branch>"},
-	{N_("/View/Current Document/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
-	{N_("/View/Current Document/_Increase Tabsize"), NULL, gui_change_tabsize, 1, "<Item>"},
-	{N_("/View/Current Document/_Decrease Tabsize"), NULL, gui_change_tabsize, 0, "<Item>"},
-	{N_("/View/Current Document/sep1"), NULL, NULL, 0, "<Separator>"},
-	{N_("/View/Current Document/_Auto Indent"), NULL, gui_toggle_autoindent_cb, 0, "<ToggleItem>"},
-	{N_("/View/Current Document/_Wrap"), NULL, doc_toggle_wrap_cb, 1, "<ToggleItem>"},
-	{N_("/View/Current Document/_Line Numbers"), NULL, doc_toggle_linenumbers_cb, 1, "<ToggleItem>"},
-	{N_("/View/Current Document/sep2"), NULL, NULL, 0, "<Separator>"},
-	{N_("/View/Current Document/_Highlight Syntax"), NULL, doc_toggle_highlighting_cb, 1, "<ToggleItem>"},
-	{N_("/View/Current Document/_Update Highlighting"), "F5", doc_update_highlighting, 0, "<Item>"},
-	{N_("/View/Current Document/sep3"), NULL, NULL, 0, "<Separator>"},
-	{N_("/View/Current Document/Word _Count"), NULL, word_count_cb, 1, "<Item>"},
-	{N_("/View/Current Document/Floating window"), NULL, file_floatingview_menu_cb, 1, "<Item>"},
-	{N_("/View/Current Document _Type"), NULL, NULL, 0, "<Branch>"},
-	{N_("/View/Current Document Type/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
-	{N_("/View/Current Document _Encoding"), NULL, NULL, 0, "<Branch>"},
-	{N_("/View/Current Document Encoding/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
-	{N_("/View/sep1"), NULL, NULL, 0, "<Separator>"},
-	{N_("/View/_Previous document"), NULL, gui_notebook_switch, 1, "<Item>"},
-	{N_("/View/_Next document"), NULL, gui_notebook_switch, 2, "<Item>"},
-	{N_("/View/sep2"), NULL, NULL, 0, "<Separator>"},
-	{N_("/View/_Save Settings"), NULL, rcfile_save_configfile_menu_cb, 0, "<Item>"},
-	{N_("/View/Save Shortcut _Keys"), NULL, rcfile_save_configfile_menu_cb, 3, "<Item>"},	
+	{N_("/View/View _Main Toolbar"), NULL, gui_toggle_hidewidget_cb, 1, "<ToggleItem>"},
+	{N_("/View/View _HTML Toolbar"), NULL, gui_toggle_hidewidget_cb, 2, "<ToggleItem>"},
+	{N_("/View/View _Custom Menu"), NULL, gui_toggle_hidewidget_cb, 3, "<ToggleItem>"},
+	{N_("/View/View _Left Panel"), "F9", gui_toggle_hidewidget_cb, 4, "<ToggleItem>"},
 	{N_("/_Tags"), NULL, NULL, 0, "<Branch>"},
 	{N_("/Tags/Tearoff1"), NULL, NULL, 0, "<Tearoff>"},
 /*	{N_("/Tags/Repeat last"), "F4", repeat_last_insert_cb, 0, NULL},*/
@@ -537,7 +513,7 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/Tags/List/_Menu"), NULL, general_html_menu_cb, 39, "<Item>"},
 	{N_("/Tags/Insert Generator _META-Tag"), NULL, general_html_menu_cb, 47, "<Item>"},
 	{N_("/Tags/_Comment"), NULL, general_html_menu_cb, 10, "<Item>"},
-	{N_("/Dialo_gs"), NULL, NULL, 0, "<Branch>"},
+	{N_("/Dial_ogs"), NULL, NULL, 0, "<Branch>"},
 	{N_("/Dialogs/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
 	{N_("/Dialogs/_General"), NULL, NULL, 0, "<Branch>"},
 	{N_("/Dialogs/General/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
@@ -614,6 +590,25 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/Dialogs/WML/Noop"), NULL, general_wml_cb, 9, NULL},
 	{N_("/Dialogs/WML/sep13"), NULL, NULL, 0, "<Separator>"},
 	{N_("/Dialogs/WML/Set Variable..."), NULL, vardialog_cb, 0, NULL},*/
+	{N_("/_Document"), NULL, NULL, 0, "<Branch>"},
+	{N_("/Document/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
+	{N_("/Document/_Increase Tabsize"), NULL, gui_change_tabsize, 1, "<Item>"},
+	{N_("/Document/_Decrease Tabsize"), NULL, gui_change_tabsize, 0, "<Item>"},
+	{N_("/Document/sep1"), NULL, NULL, 0, "<Separator>"},
+	{N_("/Document/_Auto Indent"), NULL, gui_toggle_autoindent_cb, 0, "<ToggleItem>"},
+	{N_("/Document/_Wrap"), NULL, doc_toggle_wrap_cb, 1, "<ToggleItem>"},
+	{N_("/Document/_Line Numbers"), NULL, doc_toggle_linenumbers_cb, 1, "<ToggleItem>"},
+	{N_("/Document/sep2"), NULL, NULL, 0, "<Separator>"},
+	{N_("/Document/_Highlight Syntax"), NULL, doc_toggle_highlighting_cb, 1, "<ToggleItem>"},
+	{N_("/Document/_Update Highlighting"), "F5", doc_update_highlighting, 0, "<Item>"},
+	{N_("/Document/sep3"), NULL, NULL, 0, "<Separator>"},
+	{N_("/Document/Document _Type"), NULL, NULL, 0, "<Branch>"},
+	{N_("/Document/Document Type/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
+	{N_("/Document/Character _Encoding"), NULL, NULL, 0, "<Branch>"},
+	{N_("/Document/Character Encoding/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
+	{N_("/Document/sep4"), NULL, NULL, 0, "<Separator>"},	
+	{N_("/Document/Word _Count"), NULL, word_count_cb, 1, "<Item>"},
+	{N_("/Document/_Floating window"), NULL, file_floatingview_menu_cb, 1, "<Item>"},	
 	{N_("/_Project"), NULL, NULL, 0, "<Branch>"},
 	{N_("/Project/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
 	{N_("/Project/_Open Project..."), NULL, project_menu_cb, 1, "<Item>"},
@@ -621,11 +616,21 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/Project/Open recent/tearoff1"), NULL, NULL, 0, "<Tearoff>"},	
 	{N_("/Project/_New Project"), NULL, project_menu_cb, 6, "<Item>"},
 	{N_("/Project/sep1"), NULL, NULL, 0, "<Separator>"},
-	{N_("/Project/_Save"), NULL, project_menu_cb, 2, "<StockItem>", GTK_STOCK_SAVE},
-	{N_("/Project/Save _as..."), NULL, project_menu_cb, 3, "<StockItem>", GTK_STOCK_SAVE_AS},
+	{N_("/Project/_Save"), NULL, project_menu_cb, 2, "<Item>"},
+	{N_("/Project/Save _as..."), NULL, project_menu_cb, 3, "<Item>"},
 	{N_("/Project/_Close & save"), NULL, project_menu_cb, 4, "<Item>"},
 	{N_("/Project/sep2"), NULL, NULL, 0, "<Separator>"},
-	{N_("/Project/_Edit Project Options..."), NULL, project_menu_cb, 5, "<StockItem>", GTK_STOCK_PREFERENCES},	
+	{N_("/Project/E_dit Project Options..."), NULL, project_menu_cb, 5, "<StockItem>", GTK_STOCK_PREFERENCES},
+	{N_("/_Go"), NULL, NULL, 0, "<Branch>"},
+	{N_("/Go/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
+	{N_("/Go/_Previous document"), NULL, gui_notebook_switch, 1, "<StockItem>", GTK_STOCK_GO_BACK},
+	{N_("/Go/_Next document"), NULL, gui_notebook_switch, 2, "<StockItem>", GTK_STOCK_GO_FORWARD},
+	{N_("/Go/sep1"), NULL, NULL, 0, "<Separator>"},
+	{N_("/Go/_First document"), NULL, gui_notebook_switch, 3, "<StockItem>", GTK_STOCK_GOTO_FIRST},
+	{N_("/Go/_Last document"), NULL, gui_notebook_switch, 4, "<StockItem>", GTK_STOCK_GOTO_LAST},
+	{N_("/Go/sep1"), NULL, NULL, 0, "<Separator>"},	
+	{N_("/Go/Goto _Line"), "<control>l", go_to_line_win_cb, 1, "<StockItem>", GTK_STOCK_JUMP_TO},
+	{N_("/Go/Goto _Selection"), NULL, go_to_line_from_selection_cb, 1, "<Item>"},
 	{N_("/E_xternal"), NULL, NULL, 0, "<Branch>"},
 	{N_("/External/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
 /*	{N_("/External/_Commands"), NULL, NULL, 0, "<Branch>"},
@@ -633,12 +638,6 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/External/_Outputbox"), NULL, NULL, 0, "<Branch>"},
 	{N_("/External/Outputbox/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
 	{N_("/External/sep1"), NULL, NULL, 0, "<Separator>"},*/
-	{N_("/_Windows"), NULL, NULL, 0, "<Branch>"},
-	{N_("/Windows/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
-	{N_("/Windows/New Bluefish Window"), NULL, gui_window_menu_cb, 1, "<Item>"},
-	{N_("/Windows/Close"), NULL, gui_window_menu_cb, 2, "<Item>"},
-	{N_("/Windows/sep1"), NULL, NULL, 0, "<Separator>"}
-
 };
 
 #ifdef ENABLE_NLS
@@ -800,7 +799,7 @@ void filetype_menu_rebuild(Tbfwin *bfwin,GtkItemFactory *item_factory) {
 	}
 	DEBUG_MSG("filetype_menu_rebuild, adding filetypes in menu\n");
 	bfwin->menu_filetypes = NULL;
-	parent_menu = gtk_item_factory_get_widget(item_factory, N_("/View/Current Document Type"));
+	parent_menu = gtk_item_factory_get_widget(item_factory, N_("/Document/Document Type"));
 	while (tmplist) {
 		Tfiletype *filetype = (Tfiletype *)tmplist->data;
 		if (filetype->editable) {
@@ -837,15 +836,17 @@ void menu_create_main(Tbfwin *bfwin, GtkWidget *vbox) {
 	gtk_box_pack_start(GTK_BOX(vbox), bfwin->menubar, FALSE, TRUE, 0);
 	gtk_accel_map_add_entry("<bluefishmain>/Edit/Shift Right", GDK_period, GDK_CONTROL_MASK);
 	gtk_accel_map_add_entry("<bluefishmain>/Edit/Shift Left", GDK_comma, GDK_CONTROL_MASK);
-	gtk_accel_map_add_entry("<bluefishmain>/View/Previous document", GDK_Page_Up, GDK_CONTROL_MASK);
-	gtk_accel_map_add_entry("<bluefishmain>/View/Next document", GDK_Page_Down, GDK_CONTROL_MASK);
+	gtk_accel_map_add_entry("<bluefishmain>/Go/Previous document", GDK_Page_Up, GDK_CONTROL_MASK);
+	gtk_accel_map_add_entry("<bluefishmain>/Go/Next document", GDK_Page_Down, GDK_CONTROL_MASK);
+	gtk_accel_map_add_entry("<bluefishmain>/Go/First document", GDK_Page_Up, GDK_SHIFT_MASK | GDK_CONTROL_MASK);
+	gtk_accel_map_add_entry("<bluefishmain>/Go/Last document", GDK_Page_Down, GDK_SHIFT_MASK | GDK_CONTROL_MASK);	
 	gtk_widget_show(bfwin->menubar);
 
-	setup_toggle_item(item_factory, N_("/View/Toolbars/View Main Toolbar"), main_v->props.view_main_toolbar);
-	setup_toggle_item(item_factory, N_("/View/Toolbars/View HTML Toolbar"), main_v->props.view_html_toolbar);
-	setup_toggle_item(item_factory, N_("/View/Toolbars/View Custom Menu"), main_v->props.view_custom_menu);
-	setup_toggle_item(item_factory, N_("/View/Toolbars/View Left Panel"), main_v->props.view_left_panel);
-	setup_toggle_item(item_factory, N_("/View/Current Document/Auto Indent"), main_v->props.autoindent);
+	setup_toggle_item(item_factory, N_("/View/View Main Toolbar"), main_v->props.view_main_toolbar);
+	setup_toggle_item(item_factory, N_("/View/View HTML Toolbar"), main_v->props.view_html_toolbar);
+	setup_toggle_item(item_factory, N_("/View/View Custom Menu"), main_v->props.view_custom_menu);
+	setup_toggle_item(item_factory, N_("/View/View Left Panel"), main_v->props.view_left_panel);
+	setup_toggle_item(item_factory, N_("/Document/Auto Indent"), main_v->props.autoindent);
 	set_project_menu_widgets(bfwin, FALSE);
 	filetype_menu_rebuild(bfwin, item_factory);
 }
@@ -1427,7 +1428,7 @@ void encoding_menu_rebuild(Tbfwin *bfwin) {
 	bfwin->menu_encodings = NULL;
 
 	tmplist = g_list_last(main_v->props.encodings);
-	parent_menu = gtk_item_factory_get_widget(gtk_item_factory_from_widget(bfwin->menubar), N_("/View/Current Document Encoding"));
+	parent_menu = gtk_item_factory_get_widget(gtk_item_factory_from_widget(bfwin->menubar), N_("/Document/Character Encoding"));
 	while (tmplist) {
 		gchar **strarr = (gchar **)tmplist->data;
 		if (count_array(strarr)==2) {
