@@ -20,6 +20,7 @@ AC_INIT
 AC_CONFIG_SRCDIR(src/bluefish.c)
 AC_CONFIG_HEADER(src/config.h)
 
+
 PACKAGE=bluefish
 VERSION=gtk2-port
 AC_SUBST(PACKAGE)
@@ -66,7 +67,7 @@ AC_ARG_WITH(pentium,
 ])
 
 AC_ARG_WITH(pentiumpro,
-[  --with-pentiumpro       Optimizes your code for pentiumpro cpus],[
+[  --with-pentiumpro       Optimizes your code for pentium pro/II/III cpus],[
    AC_PATH_PROGS(PGCC, pgcc, $TMP)
    	if test "$PGCC" != "" ; then
 		CC = $PGCC
@@ -117,15 +118,6 @@ dnl ************************
 dnl Checks for external programs.
 dnl ************************
 
-if test "$CYGWIN" = "yes"; then
-	AC_PATH_PROG(WEBLINT, weblint, weblint)
-	AC_PATH_PROG(NETSCAPE, netscape, netscape, $PATH=$PATH)
-	AC_PATH_PROG(TIDY, tidy, tidy)
-
-	AC_DEFINE_UNQUOTED(WEBLINT_COMMAND,"$WEBLINT")
-	AC_DEFINE_UNQUOTED(WHERE_IS_NETSCAPE, "$NETSCAPE")
-	AC_DEFINE_UNQUOTED(WHERE_IS_TIDY, "$TIDY")
-fi
 
 dnl **************************
 dnl  For the spell checker
@@ -148,19 +140,13 @@ dnl ************************
 AC_PREFIX_DEFAULT("/usr/local")
 
 echo "defining bindir=$bindir"
-
-AC_ARG_ENABLE(bluefish-datadir,
-[  --disable-bluefish-datadir Don't use a bluefish specific datadir],[
-   pkgdatadir=${datadir}
-],[
-	pkgdatadir=${datadir}/${PACKAGE}
-])
+pkgdatadir=${datadir}/${PACKAGE}
 echo "defining pkgdatadir=$pkgdatadir"
-AC_SUBST(pkgdatadir)
-AC_DEFINE_UNQUOTED(PKGDATADIR, "${pkgdatadir}")
-AC_DEFINE_UNQUOTED(PREFIX, "${prefix}")
 
-AC_CONFIG_FILES(Makefile icons/Makefile src/Makefile src/config.h)
+AC_DEFINE_UNQUOTED(PKGDATADIR, ${datadir}/${PACKAGE})
+AC_DEFINE_UNQUOTED(PREFIX, "${PREFIX}")
+
+AC_CONFIG_FILES(Makefile icons/Makefile src/Makefile)
 AC_OUTPUT
 
 echo "-----------"
