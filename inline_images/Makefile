@@ -63,6 +63,7 @@ TOOLBAR = \
 	hrule hrule.png \
 	image image.png \
 	image_map image_map.png \
+	indent indent.png \
 	italic italic.png \
 	javascript_mouseover javascript_mouseover.png \
 	javascript_netscape javascript_netscape.png \
@@ -127,6 +128,7 @@ TOOLBAR = \
 	thumbnail thumbnail.png \
 	underline underline.png \
 	undo undo.png \
+	unindent unindent.png \
 	var var.png \
 	view_in_browser view_in_browser.png \
 	wml_a wml_a.png \
