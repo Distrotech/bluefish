@@ -2236,7 +2236,8 @@ gint doc_textbox_to_file(Tdocument * doc, gchar * filename) {
 void doc_destroy(Tdocument * doc, gboolean delay_activation) {
 	Tbfwin *bfwin = BFWIN(doc->bfwin);
 
-        bmark_clean_for_doc(doc);
+	DEBUG_MSG("doc_destroy, calling bmark_clean_for_doc(%p)\n",doc);
+	bmark_clean_for_doc(doc);
 /*        bmark_adjust_visible(bfwin);   */
 
 	if (doc->filename) {
