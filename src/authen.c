@@ -147,7 +147,7 @@ static void full_authen_callback(GnomeVFSModuleCallbackFullAuthenticationIn * in
 								 AuthenData * data)
 {
 
-	gchar *key;
+/*	gchar *key; */
 
 	DEBUG_MSG("full_authen_callback: uri = %s flags = 0x%x\n", in->uri, in->flags);
 
@@ -202,15 +202,15 @@ void set_authen_callbacks(void)
 										  (GnomeVFSModuleCallback) save_authen_callback, data,
 										  NULL);*/
 	gnome_vfs_module_callback_push (GNOME_VFS_MODULE_CALLBACK_FILL_AUTHENTICATION,
-					fill_authen_callback, 
+					(GnomeVFSModuleCallback) fill_authen_callback, 
 					data,
 					NULL);
 	gnome_vfs_module_callback_push (GNOME_VFS_MODULE_CALLBACK_FULL_AUTHENTICATION,
-					full_authen_callback, 
+					(GnomeVFSModuleCallback) full_authen_callback, 
 					data,
 					NULL);
 	gnome_vfs_module_callback_push (GNOME_VFS_MODULE_CALLBACK_SAVE_AUTHENTICATION,
-					save_authen_callback, 
+					(GnomeVFSModuleCallback) save_authen_callback, 
 					data,
 					NULL);
 	DEBUG_MSG("set_authen_callbacks: callbacks registered\n");
