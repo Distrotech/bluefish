@@ -104,6 +104,27 @@ quickstart_head_selection_changed(GtkTreeSelection *tselection, TQuickStart *qst
 }
 
 static void
+quickstart_stylelinktype_changed(GtkComboBox *combobox, TQuickStart *qstart)
+{
+	GtkTreeIter iter;
+	GtkTreeModel *model;
+	gchar *type;
+
+	gtk_combo_box_get_active_iter (GTK_COMBO_BOX (qstart->stylelinktype), &iter);
+	model = gtk_combo_box_get_model (GTK_COMBO_BOX (qstart->stylelinktype));
+	gtk_tree_model_get (model, &iter, 0, &type, -1);
+	
+	if (strcmp(type, "") == 0) {
+		gtk_widget_set_sensitive (qstart->stylehref, FALSE);
+		gtk_widget_set_sensitive (qstart->stylemedia, FALSE);
+	} else {
+		gtk_widget_set_sensitive (qstart->stylehref, TRUE);
+		gtk_widget_set_sensitive (qstart->stylemedia, TRUE);	
+	}
+	g_free (type);
+}
+
+static void
 quickstart_load_metatags(GtkListStore *lstore) {
 	GtkTreeIter iter;
 	unsigned int i = 0;
@@ -158,7 +179,7 @@ quickstart_meta_selection_changed(GtkTreeSelection *tselection, TQuickStart *qst
 
 static void
 quickstart_meta_add_clicked(GtkWidget *widget, TQuickStart *qstart) {
-	DEBUG_MSG("quickstart_metatags_add_clicked() started\n");
+	DEBUG_MSG("quickstart_meta_add_clicked() started\n");
 	/* FIXME: We can't add any new tags yet */
 	GtkWidget *dialog = gtk_message_dialog_new (GTK_WINDOW (qstart->bfwin->main_window),
 															  GTK_DIALOG_DESTROY_WITH_PARENT,
@@ -276,6 +297,7 @@ quickstart_response_lcb(GtkDialog *dialog, gint response, TQuickStart *qstart) {
 			g_free (stylehref);
 			g_free (stylemedia);	
 		}
+		g_free (name);
 		
 		if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (qstart->stylearea))) {
 			tmpstr2 = g_strdup ("<style>\n\n</style>\n");
@@ -320,7 +342,7 @@ quickstart_meta_page_create(TQuickStart *qstart)
 	scrolwin = gtk_scrolled_window_new (NULL, NULL);
 	gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (scrolwin), GTK_SHADOW_IN);
 	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolwin), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
-	gtk_widget_set_size_request (scrolwin, 350, 150);
+	gtk_widget_set_size_request (scrolwin, 450, 200);
 	gtk_box_pack_start (GTK_BOX (hbox), scrolwin, TRUE, TRUE, 0);
 	
 	metaStore = gtk_list_store_new (1, G_TYPE_STRING);
@@ -392,7 +414,7 @@ quickstart_style_page_create(TQuickStart *qstart)
 	for (i = 0; i < G_N_ELEMENTS (type); i++) {
 		gtk_combo_box_append_text (GTK_COMBO_BOX (qstart->stylelinktype), type[i]);
 	}
-	gtk_combo_box_set_active (GTK_COMBO_BOX (qstart->stylelinktype), 0);
+	g_signal_connect (G_OBJECT (qstart->stylelinktype), "changed", G_CALLBACK (quickstart_stylelinktype_changed), qstart);
 	label = gtk_label_new_with_mnemonic (_("_Type:"));
 	gtk_misc_set_alignment (GTK_MISC (label), 0, 0.5);
 	gtk_label_set_mnemonic_widget (GTK_LABEL (label), qstart->stylelinktype);
@@ -435,6 +457,8 @@ quickstart_style_page_create(TQuickStart *qstart)
 	qstart->stylearea = gtk_check_button_new_with_mnemonic (_("_Create empty style area"));
 	gtk_box_pack_start (GTK_BOX (hbox), qstart->stylearea, FALSE, FALSE, 0);	
 
+	gtk_combo_box_set_active (GTK_COMBO_BOX (qstart->stylelinktype), 0);
+
 	return frame;
 }
 
@@ -451,7 +475,7 @@ quickstart_script_page_create(TQuickStart *qstart)
 void 
 quickstart_dialog_new(Tbfwin *bfwin) {
 	TQuickStart *qstart;
-	GtkWidget *dialog, *table, *label, *frame, *page;
+	GtkWidget *dialog, *table, *frame, *page;
 	GtkListStore *headStore;
 	GtkCellRenderer *renderer;
 	GtkTreeViewColumn *column;
@@ -521,14 +545,11 @@ quickstart_dialog_new(Tbfwin *bfwin) {
 	gtk_table_attach_defaults (GTK_TABLE (table), qstart->notebook, 1, 3, 3, 4); 
 	
 	page = quickstart_meta_page_create(qstart);
-	label = gtk_label_new (_("Meta Tags"));
-	gtk_notebook_append_page (GTK_NOTEBOOK (qstart->notebook), page, label);
+	gtk_notebook_append_page (GTK_NOTEBOOK (qstart->notebook), page, NULL);
 	page = quickstart_style_page_create(qstart);
-	label = gtk_label_new (_("Style"));
-	gtk_notebook_append_page (GTK_NOTEBOOK (qstart->notebook), page, label);
+	gtk_notebook_append_page (GTK_NOTEBOOK (qstart->notebook), page, NULL);
 	page = quickstart_script_page_create(qstart);
-	label = gtk_label_new (_("Script"));
-	gtk_notebook_append_page (GTK_NOTEBOOK (qstart->notebook), page, label);	
+	gtk_notebook_append_page (GTK_NOTEBOOK (qstart->notebook), page, NULL);	
 	
 	gtk_widget_show_all (dialog);
 }
