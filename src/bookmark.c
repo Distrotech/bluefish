@@ -219,16 +219,18 @@ static void bmark_unstore(Tbfwin * bfwin, Tbmark * b)
 /* get bookmark from pointer column */
 static Tbmark *get_current_bmark(Tbfwin * bfwin)
 {
-	GtkTreePath *path;
-	GtkTreeViewColumn *col;
-	gtk_tree_view_get_cursor(bfwin->bmark, &path, &col);
-	if (path != NULL) {
-		Tbmark *retval = NULL;
-		GtkTreeIter iter;
-		gtk_tree_model_get_iter(gtk_tree_view_get_model(bfwin->bmark), &iter, path);
-		gtk_tree_model_get(gtk_tree_view_get_model(bfwin->bmark),&iter,1, &retval, -1);
-		gtk_tree_path_free(path);
-		return retval;
+	if (bfwin->bmark) {
+		GtkTreePath *path;
+		GtkTreeViewColumn *col;
+		gtk_tree_view_get_cursor(bfwin->bmark, &path, &col);
+		if (path != NULL) {
+			Tbmark *retval = NULL;
+			GtkTreeIter iter;
+			gtk_tree_model_get_iter(gtk_tree_view_get_model(bfwin->bmark), &iter, path);
+			gtk_tree_model_get(gtk_tree_view_get_model(bfwin->bmark),&iter,1, &retval, -1);
+			gtk_tree_path_free(path);
+			return retval;
+		}
 	}
 	return NULL;
 }
@@ -790,7 +792,7 @@ the function will return NULL if no bookmarks for this document are
 known (this is faster then looking in an empty hash table)
 */
 GHashTable *bmark_get_bookmarked_lines(Tdocument * doc, GtkTextIter *fromit, GtkTextIter *toit) {
-	if (doc->bmark_parent) {
+	if (doc->bmark_parent && BFWIN(doc->bfwin)->bmark) {
 		gboolean cont;
 		GtkTreeIter tmpiter;
 		GHashTable *ret = g_hash_table_new_full(g_int_hash, g_int_equal, g_free, g_free);
@@ -861,40 +863,44 @@ void bmark_add(Tbfwin * bfwin)
 					 _("Cannot add bookmarks in nameless files.\nPlease, save the file first."));
 		return;
 	}
-	im = gtk_text_buffer_get_insert(DOCUMENT(bfwin->current_document)->buffer);
-	gtk_text_buffer_get_iter_at_mark(DOCUMENT(bfwin->current_document)->buffer, &it, im);
-	offset = gtk_text_iter_get_offset(&it);
-
-	/* check for existing bookmark in this place */
-	if (DOCUMENT(bfwin->current_document)->bmark_parent) {
-		gboolean has_mark, cont;
-		has_mark = FALSE;
-		cont =
-			gtk_tree_model_iter_children(GTK_TREE_MODEL(bfwin->bookmarkstore), &tmpiter,
-										 DOCUMENT(bfwin->current_document)->bmark_parent);
-		while (cont) {
-			Tbmark *m = NULL;
-			gtk_tree_model_get(GTK_TREE_MODEL(bfwin->bookmarkstore), &tmpiter, PTR_COLUMN, &m, -1);
-			if (m && m->mark) {
-				GtkTextIter eit;
-				gtk_text_buffer_get_iter_at_mark(DOCUMENT(bfwin->current_document)->buffer, &eit,
-												 m->mark);
-				if (gtk_text_iter_get_offset(&eit) == offset) {
-					has_mark = TRUE;
-					break;
-				}
-			}
-			cont = gtk_tree_model_iter_next(GTK_TREE_MODEL(bfwin->bookmarkstore), &tmpiter);
-		}							/* cont */
+	/* if the left panel is disabled, we simply should add the bookmark to the list, and do nothing else */
+	if (bfwin->bmark == NULL) {
+		DEBUG_MSG("no left panel, this is not implemented yet\n");
+	} else {
+		im = gtk_text_buffer_get_insert(DOCUMENT(bfwin->current_document)->buffer);
+		gtk_text_buffer_get_iter_at_mark(DOCUMENT(bfwin->current_document)->buffer, &it, im);
+		offset = gtk_text_iter_get_offset(&it);
 	
-		if (has_mark) {
-			info_dialog(bfwin->main_window, _("Add temporary bookmark"),
-						_("You already have a bookmark here!"));
-			return;
+		/* check for existing bookmark in this place */
+		if (DOCUMENT(bfwin->current_document)->bmark_parent) {
+			gboolean has_mark, cont;
+			has_mark = FALSE;
+			cont =
+				gtk_tree_model_iter_children(GTK_TREE_MODEL(bfwin->bookmarkstore), &tmpiter,
+											 DOCUMENT(bfwin->current_document)->bmark_parent);
+			while (cont) {
+				Tbmark *m = NULL;
+				gtk_tree_model_get(GTK_TREE_MODEL(bfwin->bookmarkstore), &tmpiter, PTR_COLUMN, &m, -1);
+				if (m && m->mark) {
+					GtkTextIter eit;
+					gtk_text_buffer_get_iter_at_mark(DOCUMENT(bfwin->current_document)->buffer, &eit,
+													 m->mark);
+					if (gtk_text_iter_get_offset(&eit) == offset) {
+						has_mark = TRUE;
+						break;
+					}
+				}
+				cont = gtk_tree_model_iter_next(GTK_TREE_MODEL(bfwin->bookmarkstore), &tmpiter);
+			}							/* cont */
+			if (has_mark) {
+				info_dialog(bfwin->main_window, _("Add temporary bookmark"),
+							_("You already have a bookmark here!"));
+				return;
+			}
 		}
+	
+		bmark_add_backend(bfwin, _("default"), offset, !main_v->props.bookmarks_default_store);
 	}
-
-	bmark_add_backend(bfwin, _("default"), offset, !main_v->props.bookmarks_default_store);
 }
 
 /*void bmark_add_perm(Tbfwin * bfwin)
@@ -920,7 +926,11 @@ void bmark_add_at_bevent(Tdocument *doc)
 	if (BMARKDATA(main_v->bmarkdata)->bevent_doc == doc) {
 		gint offset = BMARKDATA(main_v->bmarkdata)->bevent_charoffset;
 		/* we have the location */
-		bmark_add_backend(doc->bfwin, _("temp"), offset, !main_v->props.bookmarks_default_store);
+		if (BFWIN(doc->bfwin)->bmark == NULL) {
+			DEBUG_MSG("adding bookmarks without left panel is not implemented yet\n");
+		} else {
+			bmark_add_backend(doc->bfwin, _("temp"), offset, !main_v->props.bookmarks_default_store);
+		}
 	}
 }
 
@@ -1006,4 +1016,5 @@ void bmark_cleanup(Tbfwin * bfwin)
 	DEBUG_MSG("bmark_cleanup, cleanup for bfwin=%p\n",bfwin);
 	if (bfwin->bmark_files) g_hash_table_destroy(bfwin->bmark_files);
 	bfwin->bmark_files = NULL;
+	bfwin->bmark = NULL;
 }
