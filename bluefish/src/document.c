@@ -201,20 +201,6 @@ gboolean doc_has_selection(Tdocument *doc) {
 	return (!gtk_text_iter_equal(&itinsert, &itselect));
 }
 
-static void doc_set_undo_redo_widget_state(Tdocument *doc) {
-	gint redo, undo;
-	redo = doc_has_redo_list(doc);
-	undo = doc_has_undo_list(doc);
-/*		if (main_v->props.v_main_tb) {
-			gtk_widget_set_sensitive(main_v->toolb.redo, redo);
-			gtk_widget_set_sensitive(main_v->toolb.undo, undo);
-		}*/
-	gtk_widget_set_sensitive(gtk_item_factory_get_widget(gtk_item_factory_from_widget(main_v->menubar), N_("/Edit/Undo")), undo);
-	gtk_widget_set_sensitive(gtk_item_factory_get_widget(gtk_item_factory_from_widget(main_v->menubar), N_("/Edit/Undo all")), undo);
-	gtk_widget_set_sensitive(gtk_item_factory_get_widget(gtk_item_factory_from_widget(main_v->menubar), N_("/Edit/Redo")), redo);
-	gtk_widget_set_sensitive(gtk_item_factory_get_widget(gtk_item_factory_from_widget(main_v->menubar), N_("/Edit/Redo all")), redo);
-}
-
 void doc_set_modified(Tdocument *doc, gint value) {
 	DEBUG_MSG("doc_set_modified, started, doc=%p, value=%d\n", doc, value);
 	if (doc->modified != value) {
@@ -263,7 +249,7 @@ void doc_set_modified(Tdocument *doc, gint value) {
 	}
 	/* only when this is the current document we have to change these */
 	if (doc == main_v->current_document) {
-		doc_set_undo_redo_widget_state(doc);
+		gui_set_widgets(doc_has_undo_list(doc), doc_has_redo_list(doc));
 	}
 }
 
@@ -947,7 +933,15 @@ Tdocument *doc_new(gboolean delay_activate) {
 	{
 		GtkWidget *hbox, *but;
 		hbox = gtk_hbox_new(FALSE,0);
-		but = gtk_button_new_with_label("x");
+		but = gtk_button_new();
+		{
+		GtkWidget *image = new_pixmap(205);
+		gtk_widget_show(image);
+		gtk_container_add(GTK_CONTAINER(but), image);
+		gtk_container_set_border_width(GTK_CONTAINER(but), 0);
+		gtk_widget_set_usize(but, 12,12);
+		}
+		
 		gtk_button_set_relief(GTK_BUTTON(but), GTK_RELIEF_NONE);
 		g_signal_connect(G_OBJECT(but), "clicked", G_CALLBACK(doc_close_but_clicked_lcb), newdoc);
 		gtk_box_pack_start(GTK_BOX(hbox), newdoc->tab_label, FALSE, FALSE, 0);
@@ -1296,9 +1290,8 @@ void doc_activate(Tdocument *doc) {
 			doc_reload(doc);
 		}
 	}
-	doc_set_undo_redo_widget_state(doc);
 
-	gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (doc->hl->menuitem), TRUE);
+	gui_set_widgets(doc_has_undo_list(doc), doc_has_redo_list(doc));
 
 	/* if highlighting is needed for this document do this now !! */
 	if (doc->need_highlighting && doc->highlightstate) {

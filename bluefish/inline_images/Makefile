@@ -145,7 +145,8 @@ TOOLBAR = \
 	wml_var wml_var.png
 
 GENERAL = \
-	yes yes.png
+	yes yes.png \
+	close_small close.png
 
 all:
 	gdk-pixbuf-csource --raw --build-list $(TOOLBAR) > toolbar_icons.c

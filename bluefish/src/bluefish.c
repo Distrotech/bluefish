@@ -91,8 +91,9 @@ int main(int argc, char *argv[])
 {
 	gboolean root_override;
 	GList *filenames = NULL;
+#ifndef NOSPLASH
 	GtkWidget *splash_window;
-	
+#endif /* #ifndef NOSPLASH */
 	gtk_init(&argc, &argv);
 	
 	main_v = g_new0(Tmain, 1);
@@ -102,23 +103,33 @@ int main(int argc, char *argv[])
 	
 	parse_commandline(argc, argv, &root_override, &filenames);
 	
+#ifndef NOSPLASH
 	/* start splash screen somewhere here */
 	splash_window = start_splash_screen();
-
 	splash_screen_set_label(_("parsing highlighting file..."));
-	rcfile_parse_highlighting();
-	splash_screen_set_label(_("compiling highlighting patterns..."));
-	hl_init();
-	splash_screen_set_label(_("creating custom menu..."));
-	rcfile_parse_custom_menu();
-	splash_screen_set_label(_("creating main gui..."));
-	gui_create_main(filenames);
+#endif /* #ifndef NOSPLASH */
 
+	rcfile_parse_highlighting();
+#ifndef NOSPLASH
+	splash_screen_set_label(_("compiling highlighting patterns..."));
+#endif /* #ifndef NOSPLASH */
+	hl_init();
+#ifndef NOSPLASH
+	splash_screen_set_label(_("creating custom menu..."));
+#endif /* #ifndef NOSPLASH */
+	rcfile_parse_custom_menu();
+#ifndef NOSPLASH
+	splash_screen_set_label(_("creating main gui..."));
+#endif /* #ifndef NOSPLASH */
+	gui_create_main(filenames);
+#ifndef NOSPLASH
 	splash_screen_set_label(_("showing main gui..."));
+#endif /* #ifndef NOSPLASH */
 	gui_show_main();
+#ifndef NOSPLASH
 	flush_queue();
 	gtk_widget_destroy(splash_window);
-	
+#endif /* #ifndef NOSPLASH */
 	gtk_main();
 	return 0;
 }

@@ -130,8 +130,11 @@ void notebook_changed(gint newpage)
 			DEBUG_MSG("notebook_changed, setting up toggle item\n");
 			setup_toggle_item(gtk_item_factory_from_widget(main_v->menubar), N_("/Options/Current document/Highlight syntax"),
 							  main_v->current_document->highlightstate);
+			DEBUG_MSG("notebook_changed, calling menu_current_document_type_set_active_wo_activate\n");
+			menu_current_document_type_set_active_wo_activate(main_v->current_document->hl);
 		}
 	}
+	DEBUG_MSG("notebook_changed, done\n");
 }
 
 gboolean switch_to_document_by_index(gint index) {
@@ -207,6 +210,7 @@ void filebrowser_show(gint first_time) {
 
 void make_main_toolbar(GtkWidget *handlebox) {
 	GtkWidget *toolbar = gtk_toolbar_new ();
+	DEBUG_MSG("make_main_toolbar, started\n");
 	gtk_toolbar_set_orientation (GTK_TOOLBAR (toolbar), GTK_ORIENTATION_HORIZONTAL);
 	gtk_container_add (GTK_CONTAINER (handlebox), toolbar);
 
@@ -248,7 +252,18 @@ void make_main_toolbar(GtkWidget *handlebox) {
 	gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), NULL,
 							_("View in Netscape"), "",
 							new_pixmap(170), G_CALLBACK(view_in_netscape_cb), NULL);*/
-	gtk_widget_show_all(handlebox);
+	gtk_widget_show_all(toolbar);
+}
+
+void gui_set_widgets(gboolean undo, gboolean redo) {
+	if (main_v->props.view_main_toolbar) {
+		gtk_widget_set_sensitive(toolbarwidgets.redo, redo);
+		gtk_widget_set_sensitive(toolbarwidgets.undo, undo);
+	}
+	gtk_widget_set_sensitive(gtk_item_factory_get_widget(gtk_item_factory_from_widget(main_v->menubar), N_("/Edit/Undo")), undo);
+	gtk_widget_set_sensitive(gtk_item_factory_get_widget(gtk_item_factory_from_widget(main_v->menubar), N_("/Edit/Undo all")), undo);
+	gtk_widget_set_sensitive(gtk_item_factory_get_widget(gtk_item_factory_from_widget(main_v->menubar), N_("/Edit/Redo")), redo);
+	gtk_widget_set_sensitive(gtk_item_factory_get_widget(gtk_item_factory_from_widget(main_v->menubar), N_("/Edit/Redo all")), redo);
 }
 
 void gui_notebook_bind_signals() {
@@ -309,8 +324,9 @@ void gui_create_main(GList *filenames) {
 	main_v->notebook = gtk_notebook_new();
 	gtk_notebook_set_tab_pos(GTK_NOTEBOOK(main_v->notebook),GTK_POS_BOTTOM);
 	gtk_notebook_set_show_tabs(GTK_NOTEBOOK(main_v->notebook), TRUE);
-	gtk_notebook_set_show_border(GTK_NOTEBOOK(main_v->notebook), TRUE);
-	gtk_notebook_set_tab_border(GTK_NOTEBOOK(main_v->notebook), 1);
+	gtk_notebook_set_show_border(GTK_NOTEBOOK(main_v->notebook), FALSE);
+	gtk_notebook_set_tab_hborder(GTK_NOTEBOOK(main_v->notebook), 0);
+	gtk_notebook_set_tab_vborder(GTK_NOTEBOOK(main_v->notebook), 0);
 	gtk_notebook_popup_enable(GTK_NOTEBOOK(main_v->notebook));
 
 	filebrowser_hide(1);
@@ -499,14 +515,11 @@ void go_to_line_from_selection_cb(GtkWidget * widget, gpointer data) {
 #ifndef NOSPLASH
 
 void splash_screen_set_label(gchar *label) {
-	static struct timespec const req = { 0, 100000000};
+	static struct timespec const req = { 0, 200000000};
 	static struct timespec rem;
 	gtk_label_set(GTK_LABEL(splashscreen.label),label);
+	flush_queue();
 	nanosleep(&req, &rem);
-/*	flush_queue();*/
-	while( g_main_context_pending(NULL)) {
-		g_main_context_iteration (NULL, TRUE);
-	}
 }
 
 GtkWidget *start_splash_screen() {
@@ -516,9 +529,10 @@ GtkWidget *start_splash_screen() {
 	GdkColor color;
 
 	splashscreen.window = window_with_title(CURRENT_VERSION_NAME, GTK_WIN_POS_CENTER_ALWAYS, 0);
-	gtk_widget_realize(splashscreen.window); /* needed to create splash_window->window */
-	gdk_window_set_decorations(splashscreen.window->window, 0);
-
+	gtk_window_set_decorated(GTK_WINDOW(splashscreen.window), FALSE);
+	gtk_window_set_wmclass(GTK_WINDOW(splashscreen.window), "Bluefish", "splash");
+	gtk_window_set_resizable(GTK_WINDOW(splashscreen.window),FALSE);
+	gtk_widget_set_usize(splashscreen.window, 340, 400);
 	color.red = 65535;
 	color.blue = 65535;
 	color.green = 65535;
@@ -527,27 +541,23 @@ GtkWidget *start_splash_screen() {
 	vbox = gtk_vbox_new(FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(splashscreen.window), vbox);
 	gtk_widget_show(vbox);
+	splashscreen.label = gtk_label_new(_("starting bluefish"));
+	gtk_box_pack_end(GTK_BOX(vbox),splashscreen.label , FALSE, FALSE, 0);
+	gtk_widget_show(splashscreen.label);
 	{
 		GdkPixbuf* pixbuf= gdk_pixbuf_new_from_file(BLUEFISH_SPLASH_FILENAME,NULL);
 		if (pixbuf) {
 			image = gtk_image_new_from_pixbuf(pixbuf);
-			gtk_box_pack_start(GTK_BOX(vbox), image, FALSE, FALSE, 0);
-			gtk_widget_realize(image);
+			gtk_box_pack_end(GTK_BOX(vbox), image, FALSE, FALSE, 0);
 			g_object_unref(pixbuf);
 			gtk_widget_show(image);
 		}
 	}
-	splashscreen.label = gtk_label_new(_("starting bluefish"));
-	gtk_box_pack_start(GTK_BOX(vbox),splashscreen.label , FALSE, FALSE, 0);
-	gtk_widget_show(splashscreen.label);
 
 	gtk_widget_show(splashscreen.window);
-	nanosleep(&req, &rem);
-//	flush_queue();
-	while( g_main_context_pending(NULL)) {
-		g_main_context_iteration (NULL, TRUE);
-	}
+	flush_queue();
 	DEBUG_MSG("start_splash_screen, should be visible\n");
+	nanosleep(&req, &rem);
 	return splashscreen.window;
 }
 #endif /* #ifndef NOSPLASH */
