@@ -629,10 +629,9 @@ static void highlightpattern_popmenu_activate(GtkMenuItem *menuitem,Tprefdialog 
 static void add_new_highlightpattern_lcb(GtkWidget *wid, Tprefdialog *pd) {
 	gchar *pattern = gtk_editable_get_chars(GTK_EDITABLE(pd->hpd.entry[0]),0,-1);
 	GtkWidget *menuitem = gtk_menu_get_active(GTK_MENU( gtk_option_menu_get_menu(GTK_OPTION_MENU(pd->hpd.popmenu)) ));
-	const gchar *type = gtk_label_get_text(GTK_LABEL(GTK_BIN(menuitem)->child));
-	if (strlen(pattern) && strlen(type)) {
+	if (strlen(pattern) && strlen(pd->hpd.selected_filetype)) {
 		gchar **strarr = g_malloc(12 * sizeof(gchar *));
-		strarr[0] = g_strdup(type);
+		strarr[0] = g_strdup(pd->hpd.selected_filetype);
 		strarr[1] = pattern;
 		strarr[2] = g_strdup("");
 		strarr[3] = g_strdup("");

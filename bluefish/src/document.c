@@ -1157,6 +1157,7 @@ gint doc_save(Tdocument * doc, gint do_save_as, gint do_move)
 			}
 		}
 		doc->filename = newfilename;
+		hl_reset_highlighting_type(doc, doc->filename);
 		doc->modified = 1;
 	}
 
@@ -1208,7 +1209,6 @@ gint doc_save(Tdocument * doc, gint do_save_as, gint do_move)
 		break;
 	}
 	if (oldfilename) {
-		hl_reset_highlighting_type(doc, doc->filename);
 /*		populate_dir_file_list();*/
 		if (do_move && (retval > 0)) {
 			if (main_v->props.link_management) {
