@@ -335,6 +335,7 @@ typedef struct {
 	gpointer outputbox;
 	gpointer bfspell;
 	gpointer filebrowser;
+	gpointer fb2;
 	gpointer snr2;
 	gpointer fref;
 	gpointer bmark;

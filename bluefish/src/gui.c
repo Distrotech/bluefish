@@ -50,6 +50,11 @@
 #include "bookmark.h"
 #include "project.h"
 
+#ifdef FILEBROWSER2
+#include "filebrowser2.h"
+#endif
+
+
 #ifdef HAVE_LIBASPELL
 #include "bfspell.h"
 #endif /* HAVE_LIBASPELL */
@@ -148,6 +153,10 @@ void notebook_changed(Tbfwin *bfwin, gint newpage) {
 
 	doc_activate(bfwin->current_document);
 /*	bmark_adjust_visible(bfwin);*/
+
+#ifdef FILEBROWSER2
+	fb2_focus_document(bfwin,bfwin->current_document);
+#endif
 }
 
 gboolean switch_to_document_by_index(Tbfwin *bfwin,gint index) {
@@ -221,6 +230,12 @@ GtkWidget *left_panel_build(Tbfwin *bfwin) {
 	gtk_notebook_append_page_menu(GTK_NOTEBOOK(left_notebook),fileb,new_pixmap(105),gtk_label_new(_("Filebrowser")));
 	gtk_notebook_append_page_menu(GTK_NOTEBOOK(left_notebook),fref,new_pixmap(106),gtk_label_new(_("Function reference")));
 	gtk_notebook_append_page_menu(GTK_NOTEBOOK(left_notebook),bmarks,new_pixmap(104),gtk_label_new(_("Bookmarks")));
+#ifdef FILEBROWSER2
+	{
+		GtkWidget *fb2g = fb2_init(bfwin);
+		gtk_notebook_append_page_menu(GTK_NOTEBOOK(left_notebook),fb2g,new_pixmap(105),gtk_label_new(_("Filebrowser")));
+	}
+#endif
 	gtk_widget_show_all(left_notebook);
 	gtk_notebook_set_current_page(GTK_NOTEBOOK(left_notebook),0);
 	return left_notebook;
