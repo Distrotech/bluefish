@@ -1829,16 +1829,16 @@ void cmenu_editor(GtkWidget *widget, gpointer data) {
 	gtk_toolbar_set_icon_size(GTK_TOOLBAR(toolbar), GTK_ICON_SIZE_SMALL_TOOLBAR);
 	gtk_box_pack_start(GTK_BOX(vbox), toolbar, FALSE, FALSE, 0);
 	
-	gtk_toolbar_insert_stock(GTK_TOOLBAR(toolbar), GTK_STOCK_ADD, "Add New Menu Entry",
+	gtk_toolbar_insert_stock(GTK_TOOLBAR(toolbar), GTK_STOCK_ADD, _("Add New Menu Entry"),
 								NULL, G_CALLBACK(cme_add_lcb), cme, -1);
-	gtk_toolbar_insert_stock(GTK_TOOLBAR(toolbar), GTK_STOCK_APPLY, "Apply Changes",
+	gtk_toolbar_insert_stock(GTK_TOOLBAR(toolbar), GTK_STOCK_APPLY, _("Apply Changes"),
 								NULL, G_CALLBACK(cme_update_lcb), cme, -1);
-	gtk_toolbar_insert_stock(GTK_TOOLBAR(toolbar), GTK_STOCK_DELETE, "Delete Menu Entry",
+	gtk_toolbar_insert_stock(GTK_TOOLBAR(toolbar), GTK_STOCK_DELETE, _("Delete Menu Entry"),
 								NULL, G_CALLBACK(cme_delete_lcb), cme, -1);
 	gtk_toolbar_append_space(GTK_TOOLBAR(toolbar));
-	gtk_toolbar_insert_stock(GTK_TOOLBAR(toolbar), GTK_STOCK_CLOSE, "Close Discards Changes",
+	gtk_toolbar_insert_stock(GTK_TOOLBAR(toolbar), GTK_STOCK_CLOSE, _("Close Discards Changes"),
 								NULL, G_CALLBACK(cme_close_lcb), cme, -1);
-	gtk_toolbar_insert_stock(GTK_TOOLBAR(toolbar), GTK_STOCK_SAVE, "Save Changes and Exit",
+	gtk_toolbar_insert_stock(GTK_TOOLBAR(toolbar), GTK_STOCK_SAVE, _("Save Changes and Exit"),
 								NULL, G_CALLBACK(cme_ok_lcb), cme, -1);
 	
 	vbox2 = gtk_vbox_new(FALSE, 12);

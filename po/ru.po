@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ru\n"
-"POT-Creation-Date: 2003-07-03 10:42+0200\n"
+"POT-Creation-Date: 2003-07-08 11:18+0200\n"
 "PO-Revision-Date: 2003-06-25 06:23+0400\n"
 "Last-Translator: Eugene Rupakov <rupakov@jet.msk.su>\n"
 "Language-Team: Russian <ru@li.org>\n"
@@ -523,7 +523,7 @@ msgstr "Закрыть"
 msgid "Insert"
 msgstr "Вставить"
 
-#: ../src/fref.c:1485 ../src/html.c:552 ../src/html.c:1190
+#: ../src/fref.c:1485 ../src/html.c:552 ../src/html.c:1257
 msgid "Options"
 msgstr "Параметры"
 
@@ -736,11 +736,11 @@ msgstr "Набор врезок..."
 msgid "Frame..."
 msgstr "Врезка..."
 
-#: ../src/gui.c:331 ../src/html.c:1686
+#: ../src/gui.c:331 ../src/html.c:1753
 msgid "Frameset"
 msgstr "Набор врезок"
 
-#: ../src/gui.c:332 ../src/html.c:1771
+#: ../src/gui.c:332 ../src/html.c:1838
 msgid "Frame"
 msgstr "Врезка"
 
@@ -1128,33 +1128,33 @@ msgstr "_HREF:"
 msgid "_Target:"
 msgstr "_Цель:"
 
-#: ../src/html.c:577 ../src/html.c:817 ../src/html.c:1349 ../src/html.c:1783
+#: ../src/html.c:577 ../src/html.c:817 ../src/html.c:1416 ../src/html.c:1850
 #: ../src/html_form.c:220 ../src/html_form.c:282 ../src/html_form.c:349
 #: ../src/html_form.c:411 ../src/html_form.c:467 ../src/html_form.c:530
 #: ../src/html_form.c:589 ../src/image.c:280
 msgid "_Name:"
 msgstr "_Имя:"
 
-#: ../src/html.c:581 ../src/html.c:821 ../src/html.c:1209
+#: ../src/html.c:581 ../src/html.c:821 ../src/html.c:1276
 msgid "_ID:"
 msgstr "_ID:"
 
-#: ../src/html.c:585 ../src/html.c:806 ../src/html.c:1205
+#: ../src/html.c:585 ../src/html.c:806 ../src/html.c:1272
 #: ../src/html_table.c:96 ../src/html_table.c:243 ../src/html_table.c:357
 msgid "Cl_ass:"
 msgstr "_Класс:"
 
-#: ../src/html.c:589 ../src/html.c:810 ../src/html.c:1116 ../src/html.c:1198
+#: ../src/html.c:589 ../src/html.c:810 ../src/html.c:1174 ../src/html.c:1265
 #: ../src/html_table.c:101 ../src/html_table.c:254 ../src/html_table.c:362
 msgid "St_yle:"
 msgstr "Ст_иль:"
 
-#: ../src/html.c:596 ../src/html.c:1213 ../src/html.c:1960
+#: ../src/html.c:596 ../src/html.c:1280 ../src/html.c:2027
 msgid "_Language:"
 msgstr "_Язык:"
 
-#: ../src/html.c:600 ../src/html.c:825 ../src/html.c:960 ../src/html.c:1217
-#: ../src/html.c:1373 ../src/html.c:1718 ../src/html.c:1820 ../src/html.c:1998
+#: ../src/html.c:600 ../src/html.c:825 ../src/html.c:960 ../src/html.c:1284
+#: ../src/html.c:1440 ../src/html.c:1785 ../src/html.c:1887 ../src/html.c:2065
 #: ../src/html_form.c:175 ../src/html_form.c:232 ../src/html_form.c:301
 #: ../src/html_form.c:365 ../src/html_form.c:419 ../src/html_form.c:480
 #: ../src/html_form.c:602 ../src/html_table.c:106 ../src/html_table.c:259
@@ -1162,7 +1162,7 @@ msgstr "_Язык:"
 msgid "Custo_m:"
 msgstr "Про_чее:"
 
-#: ../src/html.c:604 ../src/html.c:1221
+#: ../src/html.c:604 ../src/html.c:1288
 msgid "Events"
 msgstr "События"
 
@@ -1223,15 +1223,15 @@ msgstr "_Выравнивание:"
 msgid "Horizontal Rule"
 msgstr "Горизонтальный разделитель"
 
-#: ../src/html.c:934 ../src/html.c:1869 ../src/image.c:306
+#: ../src/html.c:934 ../src/html.c:1936 ../src/image.c:306
 msgid "_Align:"
 msgstr "В_ыравнивание"
 
-#: ../src/html.c:941 ../src/html.c:1877 ../src/html_table.c:393
+#: ../src/html.c:941 ../src/html.c:1944 ../src/html_table.c:393
 msgid "_Height:"
 msgstr "Вы_сота:"
 
-#: ../src/html.c:947 ../src/html.c:1873 ../src/html_table.c:139
+#: ../src/html.c:947 ../src/html.c:1940 ../src/html_table.c:139
 #: ../src/html_table.c:386 ../src/image.c:264
 msgid "_Width:"
 msgstr "_Ширина:"
@@ -1244,191 +1244,191 @@ msgstr "В _процентах"
 msgid "No _shading"
 msgstr "Без _тени"
 
-#: ../src/html.c:1027
+#: ../src/html.c:1050
 msgid "Quick Start"
 msgstr "Заготовка страницы"
 
-#: ../src/html.c:1047
+#: ../src/html.c:1099
 msgid "_Doctype:"
 msgstr "Тип документа _D"
 
-#: ../src/html.c:1052
+#: ../src/html.c:1105
 msgid "Header tags:"
 msgstr "Тэги заголовков:"
 
-#: ../src/html.c:1102 ../src/wizards.c:187
+#: ../src/html.c:1160 ../src/wizards.c:187
 msgid "_Title:"
 msgstr "Название _T"
 
-#: ../src/html.c:1182
+#: ../src/html.c:1249
 msgid "Body"
 msgstr "Тело документа"
 
-#: ../src/html.c:1228
+#: ../src/html.c:1295
 msgid "On_Load:"
 msgstr "On_Load:"
 
-#: ../src/html.c:1236
+#: ../src/html.c:1303
 msgid "On_UnLoad:"
 msgstr "On_UnLoad:"
 
-#: ../src/html.c:1245
+#: ../src/html.c:1312
 msgid "Depreciated options"
 msgstr "Устаревшие опции"
 
-#: ../src/html.c:1255
+#: ../src/html.c:1322
 msgid "Background _Image:"
 msgstr "Фоновый _рисунок:"
 
-#: ../src/html.c:1262
+#: ../src/html.c:1329
 msgid "Back_ground Color:"
 msgstr "Цвет _фона:"
 
-#: ../src/html.c:1268
+#: ../src/html.c:1335
 msgid "_Text Color:"
 msgstr "Цвет _текста:"
 
-#: ../src/html.c:1274
+#: ../src/html.c:1341
 msgid "_Link Color:"
 msgstr "Цвет _ссылки:"
 
-#: ../src/html.c:1280
+#: ../src/html.c:1347
 msgid "_Visited Link Color:"
 msgstr "Цвет _посещенной ссылки:"
 
-#: ../src/html.c:1286
+#: ../src/html.c:1353
 msgid "_Active Link Color:"
 msgstr "Цвет ссылки под _указателем:"
 
-#: ../src/html.c:1335
+#: ../src/html.c:1402
 msgid "Meta"
 msgstr "Meta"
 
-#: ../src/html.c:1360
+#: ../src/html.c:1427
 msgid "_HTTP-EQUIV:"
 msgstr "_HTTP-EQUIV"
 
-#: ../src/html.c:1365
+#: ../src/html.c:1432
 msgid "Con_tent:"
 msgstr "Содер_жимое:"
 
-#: ../src/html.c:1369
+#: ../src/html.c:1436
 msgid "_Scheme:"
 msgstr "_Схема:"
 
-#: ../src/html.c:1451 ../src/preferences.c:1720
+#: ../src/html.c:1518 ../src/preferences.c:1720
 msgid "Font"
 msgstr "Шрифт"
 
-#: ../src/html.c:1454
+#: ../src/html.c:1521
 msgid "Base Font"
 msgstr "Базовый шрифт"
 
-#: ../src/html.c:1469
+#: ../src/html.c:1536
 msgid "Size"
 msgstr "Размер"
 
-#: ../src/html.c:1477
+#: ../src/html.c:1544
 msgid "Color"
 msgstr "Цвет"
 
-#: ../src/html.c:1482
+#: ../src/html.c:1549
 msgid "Face"
 msgstr "Гарнитура шрифта"
 
-#: ../src/html.c:1486
+#: ../src/html.c:1553
 msgid "Custom"
 msgstr "Прочее"
 
-#: ../src/html.c:1546
+#: ../src/html.c:1613
 msgid "Email"
 msgstr "Email"
 
-#: ../src/html.c:1554
+#: ../src/html.c:1621
 msgid "_Email address:"
 msgstr "Адрес _email:"
 
-#: ../src/html.c:1559
+#: ../src/html.c:1626
 msgid "UrlEncoded _subject:"
 msgstr "_Тема в формате UrlEncoded:"
 
-#: ../src/html.c:1563
+#: ../src/html.c:1630
 msgid "UrlEncoded _body:"
 msgstr "Те_ло в формате UrlEncoded:"
 
-#: ../src/html.c:1607
+#: ../src/html.c:1674
 msgid "Quick List"
 msgstr "Заготовка списка"
 
-#: ../src/html.c:1612 ../src/html.c:1696 ../src/html_form.c:225
+#: ../src/html.c:1679 ../src/html.c:1763 ../src/html_form.c:225
 msgid "_Rows:"
 msgstr "Ст_рок"
 
-#: ../src/html.c:1615
+#: ../src/html.c:1682
 msgid "Or_dered"
 msgstr "_Упорядоченный"
 
-#: ../src/html.c:1616
+#: ../src/html.c:1683
 msgid "_Unordered"
 msgstr "_Неупорядоченный"
 
-#: ../src/html.c:1618
+#: ../src/html.c:1685
 msgid "Style:"
 msgstr "Стиль:"
 
-#: ../src/html.c:1692 ../src/html_form.c:229
+#: ../src/html.c:1759 ../src/html_form.c:229
 msgid "Co_ls:"
 msgstr "С_толбцов"
 
-#: ../src/html.c:1701
+#: ../src/html.c:1768
 msgid "_Add <frame> elements"
 msgstr "_Добавить элементы <frame>"
 
-#: ../src/html.c:1779 ../src/html.c:1865 ../src/html.c:1953
+#: ../src/html.c:1846 ../src/html.c:1932 ../src/html.c:2020
 msgid "_Source:"
 msgstr "_Источник:"
 
-#: ../src/html.c:1787
+#: ../src/html.c:1854
 msgid "Margin _Width:"
 msgstr "_Ширина отступа:"
 
-#: ../src/html.c:1791
+#: ../src/html.c:1858
 msgid "Margin _Height:"
 msgstr "_Высота Отступа:"
 
-#: ../src/html.c:1799
+#: ../src/html.c:1866
 msgid "Scrollin_g:"
 msgstr "Скро_ллинг:"
 
-#: ../src/html.c:1803
+#: ../src/html.c:1870
 msgid "_Frameborder:"
 msgstr "_Рамка врезки:"
 
-#: ../src/html.c:1808
+#: ../src/html.c:1875
 msgid "No _Resize:"
 msgstr "Не позволять _менять размер:"
 
-#: ../src/html.c:1859
+#: ../src/html.c:1926
 msgid "Embed"
 msgstr "В_недрить"
 
-#: ../src/html.c:1881 ../src/html_table.c:145
+#: ../src/html.c:1948 ../src/html_table.c:145
 msgid "Bo_rder:"
 msgstr "_Рамка"
 
-#: ../src/html.c:1942
+#: ../src/html.c:2009
 msgid "Script"
 msgstr "Скрипт"
 
-#: ../src/html.c:1945
+#: ../src/html.c:2012
 msgid "Link"
 msgstr "Ссылка"
 
-#: ../src/html.c:1980
+#: ../src/html.c:2047
 msgid "_Rel:"
 msgstr "_Относительная ссылка:"
 
-#: ../src/html.c:1994 ../src/html_form.c:361
+#: ../src/html.c:2061 ../src/html_form.c:361
 msgid "_Type:"
 msgstr "_Тип:"
 
@@ -1678,7 +1678,7 @@ msgstr "По высоте, сохранять пропорции"
 msgid "By width and height, ignore aspect ratio"
 msgstr "По ширине и высоте, игнорировать пропорцию"
 
-#: ../src/image.c:545
+#: ../src/image.c:542
 msgid ""
 "%r: original filename  %t: thumbnail filename\n"
 "%w: original width  %h: original height\n"
@@ -3110,6 +3110,26 @@ msgstr "регулярное выражение Perl"
 #: ../src/menu.c:1821
 msgid "Custom Menu Editor"
 msgstr "Редактор меню пользователя"
+
+#: ../src/menu.c:1832
+msgid "Add New Menu Entry"
+msgstr ""
+
+#: ../src/menu.c:1834
+msgid "Apply Changes"
+msgstr ""
+
+#: ../src/menu.c:1836
+msgid "Delete Menu Entry"
+msgstr ""
+
+#: ../src/menu.c:1839
+msgid "Close Discards Changes"
+msgstr ""
+
+#: ../src/menu.c:1841
+msgid "Save Changes and Exit"
+msgstr ""
 
 #: ../src/menu.c:1851
 msgid "_Menu Path:"
