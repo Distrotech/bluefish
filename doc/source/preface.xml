@@ -16,14 +16,10 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 -->
-<preface id="bluefish-pre-1">
+<preface id="bluefish-preface">
   <title>Preface</title>
-<!--<simplesect>    
-		<para>
-		</para> 
-	</simplesect>
--->
-  <sect1 id="bluefish-pre-1-sect-1">
+
+  <sect1 id="bluefish-about">
     <title>About this Manual</title>
     <para>
 			Bluefish has a large feature set, allowing the user to customize the
@@ -39,20 +35,17 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 			Chapter 4 explains how to debug Bluefish.
 	</para>
 	<para>
-			Chapters 5 and 6 contain a nearly complete feature reference, useful
-			for advanced users interested in customizing Bluefish. Some examples
-			of regular expressions used for find and replace are also included 
-			here.
+			Chapters 5 contains a nearly complete feature reference, useful
+			for advanced users interested in customizing Bluefish. 
+	</para>
+	<para>
+			Chapters 6 provides guidance for developers, including code formatting
+			styles and a reference for all the source files.
 	</para>
     <para>
-			As a reference to the Bluefish developers, or anyone interested in 
-			contributing code, chapter 7 contains guidelines for the 
-			Bluefish source.
-	</para>
-    <para>
-			The manual targets the <emphasis>end user</emphasis>. Thus, we 
-			have tried to use a simple, well-explained approach for the large 
-			part of the manual. Some typographic conventions are denoted below.
+			The manual targets the <emphasis>end user</emphasis>. To that end, we 
+			have tried to use a simple, well-explained approach whenever possible. 
+			Some typographic conventions are denoted below.
 	</para>
     <itemizedlist>
 		<listitem>
@@ -64,24 +57,32 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 		<listitem>
 				Shortcuts look like this: <accel>Ctrl-S</accel>
 		</listitem>
-      <listitem>
-				Menu options are displayed like this: 
-					<guimenu>
-						File
-					</guimenu> 
-				However, many of Bluefish's menus are quite complex. When 
-				referring to submenus, options are separated by the right 
-				angle-bracket (&gt;), like: 
-					<guimenuitem>File &gt; Open</guimenuitem>.
-			</listitem>
-      <listitem>
+		<listitem>
+			Menu options are displayed like this: 
+			<guimenu>
+				File
+			</guimenu> 
+			However, many of Bluefish's menus are quite complex. When 
+			referring to submenus, options are separated by an arrow, like:
+			<menuchoice>
+				<shortcut>
+					<keycombo>
+						<keycap>Ctrl</keycap>
+						<keycap>O</keycap>
+					</keycombo>
+				</shortcut>
+				<guimenu>File</guimenu>
+				<guimenuitem>Open</guimenuitem>
+			</menuchoice>. The default keyboard shortcut is shown in parenthesis.
+		</listitem>
+		<listitem>
 				When referring to user input, like issuing commands to the 
 				command prompt, a monotype font is used:
 				<screen>$ foo -bar | bang -l</screen>
 				Note: Do not write the <literal>$</literal> character - it's 
 				simply identifying	the command prompt. For commands requiring 
 				root access, the prompt is shown as a <literal>#</literal>.
-			</listitem>
+		</listitem>
     </itemizedlist>
     <para>
     	Finally, if you find errors in this manual or wish to write new sections,
@@ -89,7 +90,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
     	Guidelines for this manual can be found in <xref linkend="bluefish-manual-guide" />
     </para>
   </sect1>
-  <sect1 id="bluefish-pre-1-sect-2">
+  <sect1 id="bluefish-what-is-bf">
     <title>What is Bluefish?</title>
     <para>
 			Bluefish is a powerful editor for experienced web designers and 
@@ -253,7 +254,7 @@ the project. </para>
 				the version of choice.
 			</para>
     </sect2>
-    <sect2 id="bluefish-pre-1-sect-2.3">
+    <sect2 id="bluefish-stability">
       <title>How Stable is Bluefish?</title>
       <para>
 				Quite stable! The Bluefish developers aim to produce code that 

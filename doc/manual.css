@@ -38,8 +38,6 @@ div.itemizedlist li {
 	clear: both;
 }
 
-
-
 p {
 	display: block;
 	margin: 5px 0;
@@ -93,12 +91,12 @@ div.navfooter {
 div.navheader table th {
 	color: black;
 	font-family: serif;
-font-size: x-large;
+	font-size: x-large;
 }
 
 div.navheader table th#chaptername {
 	color: lightyellow;
-font-family: Georgia, Times, serif;
+	font-family: Georgia, Times, serif;
 	font-size: large;
 }
 
@@ -132,7 +130,7 @@ div.navfooter table td a:visited {
 	color: #efefef;
 }
 
-div.navheader hr, div.navfooter hr{
+div.navheader hr, div.navfooter hr {
 	display: none;
 }
  
@@ -160,7 +158,9 @@ div.toc {
 	width: 70%;
 }
 
-div.toc b { font-size: 140%; }
+div.toc b { 
+	font-size: 140%;
+}
 
 div.toc a {
 	margin-left: 5px;
@@ -168,7 +168,6 @@ div.toc a {
 }
 	
 /* toc definitions for different sections and chapters */
-
 div.book div.toc {
 	background-color: transparent;
 	border: 0;
@@ -205,27 +204,15 @@ div.book div.toc .chapter a {
 	min-width: 90%;
 }
 
-/* .guilabel, .guimenu, .guisubmenu, .guimenuitem {
-	background-color: #eeeee6;
-	padding: 2px 5px;
-}
-
-b.keycap, .keycap {
-	background-color: #eeeee6;
-	padding: 1px 5px;
-	border: 1px solid #999999;
-	margin: 0 2px;
-} */
-
-.guimenu, .guimenuitem .guilabel
-{
-	font-family:Courrier;
+.guimenu, .guimenuitem, .guilabel {
+	font-family: Courrier;
 	font-size: small;
+	padding: 2px;
 }
 
 .title {
 	clear: both;
-	}
+}
  
 div.caption {
 	font-weight: bold;
