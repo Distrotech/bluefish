@@ -62,7 +62,11 @@ static void image_insert_dialogok_lcb(GtkWidget * widget, Timage_diag *imdg) {
 			w = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(imdg->dg->spin[0]));
 			h = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(imdg->dg->spin[1]));
 			tmp_im = gdk_pixbuf_scale_simple(imdg->pb, w, h, GDK_INTERP_BILINEAR);
- 			gdk_pixbuf_save(tmp_im,thumbnailfilename,main_v->props.image_thumbnailtype,&error, NULL);
+			if (strcmp(main_v->props.image_thumbnailtype, "jpeg")==0) {
+	 			gdk_pixbuf_save(tmp_im,thumbnailfilename,main_v->props.image_thumbnailtype,&error, "quality", "50",NULL);
+			} else {
+				gdk_pixbuf_save(tmp_im,thumbnailfilename,main_v->props.image_thumbnailtype,&error, NULL);
+			}
 			gdk_pixbuf_unref (tmp_im);
 			if (error) {
 				g_print("ERROR while saving thumbnail: %s\n", error->message);
@@ -156,7 +160,7 @@ static void image_filename_changed(GtkWidget * widget, Timage_diag *imdg) {
 		gtk_spin_button_set_value(GTK_SPIN_BUTTON(imdg->dg->spin[1]), pd_height);
 	}
 	
-	tmp_pb = gdk_pixbuf_scale_simple(imdg->pb, (pb_width / toobig), (pd_height / toobig), GDK_INTERP_NEAREST);
+	tmp_pb = gdk_pixbuf_scale_simple(imdg->pb, (pb_width / toobig), (pd_height / toobig), main_v->props.image_thumbnail_refresh_quality ? GDK_INTERP_BILINEAR : GDK_INTERP_NEAREST);
 	imdg->im = gtk_image_new_from_pixbuf(tmp_pb);
 	gdk_pixbuf_unref(tmp_pb);
 	gtk_container_add(GTK_CONTAINER(imdg->frame), imdg->im);
@@ -180,7 +184,7 @@ static void image_adjust_changed(GtkAdjustment * adj, Timage_diag *imdg) {
 	gtk_spin_button_set_value(GTK_SPIN_BUTTON(imdg->dg->spin[0]), tn_width);
 	gtk_spin_button_set_value(GTK_SPIN_BUTTON(imdg->dg->spin[1]),tn_height);
 
-	tmp_pb = gdk_pixbuf_scale_simple(imdg->pb, tn_width, tn_height, GDK_INTERP_NEAREST);
+	tmp_pb = gdk_pixbuf_scale_simple(imdg->pb, tn_width, tn_height, main_v->props.image_thumbnail_refresh_quality ? GDK_INTERP_BILINEAR : GDK_INTERP_NEAREST);
 	imdg->im = gtk_image_new_from_pixbuf(tmp_pb);
 	gdk_pixbuf_unref(tmp_pb);
 	gtk_container_add(GTK_CONTAINER(imdg->frame), imdg->im);
@@ -372,7 +376,11 @@ static void multi_thumbnail_ok_clicked(GtkWidget *widget, Tmuthudia *mtd) {
 		DEBUG_MSG("scaling %s to %dx%d\n", filename, tw,th);
 		tmp_im2 = gdk_pixbuf_scale_simple(tmp_im1, tw, th, GDK_INTERP_BILINEAR);
 		gdk_pixbuf_unref(tmp_im1);
- 		gdk_pixbuf_save(tmp_im2,thumbfilename,main_v->props.image_thumbnailtype,&error, "quality", "50", NULL);
+		if (strcmp(main_v->props.image_thumbnailtype, "jpeg")==0) {
+	 		gdk_pixbuf_save(tmp_im2,thumbfilename,main_v->props.image_thumbnailtype,&error, "quality", "50", NULL);
+		} else {
+	 		gdk_pixbuf_save(tmp_im2,thumbfilename,main_v->props.image_thumbnailtype,&error, NULL);
+		}
  		if (error) {
  			/* do something */
  			g_error_free(error);

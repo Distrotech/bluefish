@@ -735,8 +735,10 @@ static void view_in_browser(gchar *browser) {
 
 void browser_toolbar_cb(GtkWidget *widget, gpointer data) {
 	GList *tmplist = g_list_first(main_v->props.browsers);
-	gchar **arr = tmplist->data;
-	view_in_browser(arr[1]);
+	if (tmplist && tmplist->data) {
+		gchar **arr = tmplist->data;
+		view_in_browser(arr[1]);
+	}
 }
 
 static void browser_lcb(GtkWidget *widget, gchar *name) {
@@ -747,7 +749,7 @@ static void browser_lcb(GtkWidget *widget, gchar *name) {
 		GList *tmplist = g_list_first(main_v->props.browsers);
 		while (tmplist) {
 			gchar **arr = tmplist->data;
-			if (strcmp(name, arr[0])==0) {
+			if (tmplist->data && strcmp(name, arr[0])==0) {
 				view_in_browser(arr[1]);
 				break;
 			}

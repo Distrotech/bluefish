@@ -1036,7 +1036,7 @@ void hl_reset_to_default()
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
 	arr = array_from_arglist("php", "php-string-double-escape", "0", "\\\\.", "", "2", "^php-string-double$", "#009900", "", "1", "1",NULL);
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
-	arr = array_from_arglist("php", "php-var", "1", "\\$[a-z][][a-z0-9>_$-]*", "",  "2", "^php$", "#CC0000", "", "2", "0",NULL);
+	arr = array_from_arglist("php", "php-var", "1", "\\$[a-z_][][a-z0-9>_$-]*", "",  "2", "^php$", "#CC0000", "", "2", "0",NULL);
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
 	arr = array_from_arglist("php", "php-var-specialchars", "0", "(\\[|\\]|->)", "",  "2", "^php-var$", "#0000CC", "", "0","0",NULL);
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
