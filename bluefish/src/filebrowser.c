@@ -17,8 +17,8 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-/*#define DEBUG
-#define DEBUG_ADDING_TO_TREE*/
+#define DEBUG
+/*#define DEBUG_ADDING_TO_TREE*/
 
 #include <gtk/gtk.h>
 #include <sys/types.h> /* stat() getuid */
@@ -78,6 +78,7 @@ typedef struct {
 	GtkWidget *dirmenu;
 	GList *dirmenu_entries;
 	gchar *last_opened_dir;
+	gboolean last_popup_on_dir;
 	Tbfwin *bfwin;
 	gchar *basedir;
 } Tfilebrowser;
@@ -818,7 +819,7 @@ void filebrowser_open_dir(Tbfwin *bfwin,const gchar *dirarg) {
 		GtkTreePath *path;
 		GtkTreePath *selpath; /* Path to currently selected item, if it exists. */
 		
-		/* first check if the dir already exists */
+		/* first check if the dir already exists NEEDS GNOME_VFS COUNTERPART */
 		if (!g_file_test(dirarg,G_FILE_TEST_IS_DIR)) {
 			dir = path_get_dirname_with_ending_slash(dirarg);
 		} else {
@@ -1192,7 +1193,6 @@ static void filebrowser_rpopup_delete(Tfilebrowser *filebrowser) {
 	}
 }
 
-
 static void filebrowser_rpopup_refresh(Tfilebrowser *filebrowser) {
 	GtkTreePath *path;
 	GtkTreeIter iter;
@@ -1222,7 +1222,6 @@ static void filebrowser_rpopup_refresh(Tfilebrowser *filebrowser) {
 }
 
 static void filebrowser_rpopup_action_lcb(Tfilebrowser *filebrowser,guint callback_action, GtkWidget *widget) {
-	DEBUG_MSG("filebrowser_rpopup_action_lcb, widget=%p, filebrowser->tree=%p, filebrowser->tree2=%p\n",widget,filebrowser->tree,filebrowser->tree2);
 	switch (callback_action) {
 	case 1: {
 		GtkTreePath *path;
@@ -1286,32 +1285,41 @@ static void filebrowser_rpopup_filter_toggled_lcb(GtkWidget *widget, Tfilebrowse
 	}
 }
 
-static GtkItemFactoryEntry filebrowser_menu_entries[] = {
-	{ N_("/_Open"),			NULL,	filebrowser_rpopup_action_lcb,		1,	"<Item>" },
+static GtkItemFactoryEntry filebrowser_dirmenu_entries[] = {
 #ifdef EXTERNAL_GREP
 #ifdef EXTERNAL_FIND	
 	{ N_("/Open _Advanced"),			NULL,	filebrowser_rpopup_action_lcb,		7,	"<Item>" },
 #endif
 #endif
-	{ N_("/sep1"),				NULL,	NULL,								0, "<Separator>" },
-	{ N_("/Rena_me"),		NULL,	filebrowser_rpopup_action_lcb,			2,	"<Item>" },
-	{ N_("/_Delete"),		NULL,	filebrowser_rpopup_action_lcb,			3,	"<Item>" },
-	{ N_("/sep2"),				NULL,	NULL,								0, "<Separator>" },
+	
+	{ N_("/_Refresh"),			NULL,	filebrowser_rpopup_action_lcb,		6,	"<Item>" }
+};
+
+static GtkItemFactoryEntry filebrowser_bothmenu_entries[] = {
 	{ N_("/New _File"),			NULL,	filebrowser_rpopup_action_lcb,	4,	"<Item>" },
 	{ N_("/_New Directory"),	NULL,	filebrowser_rpopup_action_lcb,		5,	"<Item>" },
-	{ N_("/sep3"),				NULL,	NULL,								0, "<Separator>" },
-	{ N_("/_Refresh"),			NULL,	filebrowser_rpopup_action_lcb,		6,	"<Item>" }};
-/*	{ N_("/Filter"),				NULL,	NULL,										0,	"<Branch>" }}*/
+};
 
-static gint filebrowser_menu_entries_count = sizeof (filebrowser_menu_entries) / sizeof (filebrowser_menu_entries[0]);
+static GtkItemFactoryEntry filebrowser_filemenu_entries[] = {
+	{ N_("/_Open"),			NULL,	filebrowser_rpopup_action_lcb,		1,	"<Item>" },
+	{ N_("/Rena_me"),		NULL,	filebrowser_rpopup_action_lcb,			2,	"<Item>" },
+	{ N_("/_Delete"),		NULL,	filebrowser_rpopup_action_lcb,			3,	"<Item>" }
+};
 
-static GtkWidget *filebrowser_rpopup_create_menu(Tfilebrowser *filebrowser) {
+static GtkWidget *filebrowser_rpopup_create_menu(Tfilebrowser *filebrowser, gboolean is_directory) {
 	GtkWidget *menu, *menu_item;
 	GtkItemFactory *menumaker;
 
+	filebrowser->last_popup_on_dir = is_directory;
+
 	/* Create menu as defined in filebrowser_menu_entries[] */
 	menumaker = gtk_item_factory_new(GTK_TYPE_MENU, "<Filebrowser>", NULL);
-	gtk_item_factory_create_items(menumaker, filebrowser_menu_entries_count, filebrowser_menu_entries, filebrowser);
+	if (is_directory) {
+		gtk_item_factory_create_items(menumaker, sizeof(filebrowser_dirmenu_entries)/sizeof(GtkItemFactoryEntry), filebrowser_dirmenu_entries, filebrowser);
+	} else {
+		gtk_item_factory_create_items(menumaker, sizeof(filebrowser_filemenu_entries)/sizeof(GtkItemFactoryEntry), filebrowser_filemenu_entries, filebrowser);
+	}
+	gtk_item_factory_create_items(menumaker, sizeof(filebrowser_bothmenu_entries)/sizeof(GtkItemFactoryEntry), filebrowser_bothmenu_entries, filebrowser);
 	menu = gtk_item_factory_get_widget(menumaker, "<Filebrowser>");
 		
 	/* Add filter submenu */
@@ -1343,21 +1351,46 @@ static GtkWidget *filebrowser_rpopup_create_menu(Tfilebrowser *filebrowser) {
 	return menu;
 }
 
-
 static gboolean filebrowser_button_press_lcb(GtkWidget *widget, GdkEventButton *event, Tfilebrowser *filebrowser) {
 	DEBUG_MSG("filebrowser_button_press_lcb, button=%d\n",event->button);
 	if (event->button == 3) {
-		GtkWidget *menu = filebrowser_rpopup_create_menu(filebrowser);
+		GtkWidget *menu = filebrowser_rpopup_create_menu(filebrowser, TRUE);
 		gtk_menu_popup(GTK_MENU(menu), NULL, NULL, NULL, NULL, event->button, event->time);
 	}
-	if (event->button==1 && event->type == GDK_2BUTTON_PRESS) {
-		GtkTreePath *path = filebrowser_get_path_from_selection(GTK_TREE_MODEL(filebrowser->store), GTK_TREE_VIEW(filebrowser->tree),NULL);
-		DEBUG_MSG("doubleclick!! open the file!!\n");
+	if (event->button==1) {
+		GtkTreeIter iter;
+		GtkTreePath *path;
+		gint cell_x, cell_y;
+		/* path = filebrowser_get_path_from_selection(GTK_TREE_MODEL(filebrowser->store), GTK_TREE_VIEW(filebrowser->tree),NULL);*/
+		gtk_tree_view_get_path_at_pos(GTK_TREE_VIEW(filebrowser->tree), event->x, event->y, &path, NULL, &cell_x, &cell_y);
+		DEBUG_MSG("filebrowser_button_press_lcb, cell_x=%d, cell_y=%d\n",cell_x, cell_y);
 		if (path) {
-			row_activated_lcb(GTK_TREE_VIEW(filebrowser->tree), path,NULL,filebrowser);
+			gtk_tree_model_get_iter(GTK_TREE_MODEL(filebrowser->store),&iter,path);
+			if (gtk_tree_model_iter_has_child(GTK_TREE_MODEL(filebrowser->store),&iter)) {
+				DEBUG_MSG("filebrowser_button_press_lcb, clicked a directory, refresh!\n");
+				if (!gtk_tree_view_row_expanded(GTK_TREE_VIEW(filebrowser->tree), path)) {
+					DEBUG_MSG("filebrowser_button_press_lcb, was not yet explanded, expand now\n");
+					gtk_tree_view_expand_row(GTK_TREE_VIEW(filebrowser->tree),path,FALSE);
+				} else {
+					gchar *tmp, *dir;
+					tmp = return_filename_from_path(filebrowser,GTK_TREE_MODEL(filebrowser->store),path);
+					dir = ending_slash(tmp);
+					DEBUG_MSG("filebrowser_button_press_lcb, ending_slash returned %s\n", dir);
+					filebrowser_refresh_dir(filebrowser,dir);
+					g_free(tmp);
+					g_free(dir);
+				}
+				gtk_tree_path_free(path);
+				return FALSE;
+			} else if (event->type == GDK_2BUTTON_PRESS) {
+				gchar *filename = return_filename_from_path(filebrowser,GTK_TREE_MODEL(filebrowser->store),path);
+				DEBUG_MSG("filebrowser_button_press_lcb, doubleclick!! open the file %s\n", filename);
+				handle_activate_on_file(filebrowser,filename);
+				g_free(filename);
+			}
+			gtk_tree_path_free(path);
+			return TRUE;
 		}
-		gtk_tree_path_free(path);
-		return TRUE;
 	}
 	return FALSE; /* pass the event on */
 }
@@ -1383,7 +1416,7 @@ static gboolean filebrowser_tree2_button_press_lcb(GtkWidget *widget, GdkEventBu
 		}
 	}
 	if (event->button == 3) {
-		GtkWidget *menu = filebrowser_rpopup_create_menu(filebrowser);
+		GtkWidget *menu = filebrowser_rpopup_create_menu(filebrowser, FALSE);
 		gtk_menu_popup(GTK_MENU(menu), NULL, NULL, NULL, NULL, event->button, event->time);
 	}
 	return FALSE; /* pass the event on */
