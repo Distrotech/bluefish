@@ -6,7 +6,7 @@
 %define prefix		/usr
 	
 
-Summary:	A GTK2 web development application for experienced users.
+Summary:	Web development editor for experienced users.
 Name:		%{name}
 Version:	%{version}
 Release:	%{release}
@@ -54,8 +54,8 @@ rm -f %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 cat << EOF > %{name}.desktop
 [Desktop Entry]
-Name=Bluefish web editor
-Comment=%{summary}
+Name=Bluefish
+Comment=Web development editor
 Exec=%{name}
 Icon=%{name}-icon.png
 Terminal=0
