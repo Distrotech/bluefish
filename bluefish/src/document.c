@@ -2376,7 +2376,7 @@ void doc_activate(Tdocument *doc) {
 		DEBUG_MSG("doc_activate, doc=%p, after doc_highlight_full, need_highlighting=%d\n",doc,doc->need_highlighting);
 	}
 
-	doc_scroll_to_cursor(doc);
+/*	doc_scroll_to_cursor(doc);*/
 	DEBUG_MSG("doc_activate, doc=%p, about to grab focus\n",doc);
 	gtk_widget_grab_focus(GTK_WIDGET(doc->view));
 	if (doc->filename) {
@@ -2854,6 +2854,8 @@ void edit_paste_cb(GtkWidget * widget, gpointer data)
 	}
 	
 	gtk_text_buffer_paste_clipboard (main_v->current_document->buffer,gtk_clipboard_get(GDK_SELECTION_CLIPBOARD),NULL,TRUE);
+	
+	doc_scroll_to_cursor (main_v->current_document);
 	
 	if (wasHighlighted)
 	{
