@@ -37,7 +37,7 @@
 #include <time.h>			/* ctime_r() */
 #include <pcre.h>
 
-#define DEBUG
+/* #define DEBUG */
 
 #ifdef DEBUGPROFILING
 #include <sys/times.h>
@@ -730,8 +730,12 @@ static void doc_set_tooltip(Tdocument *doc) {
 static void doc_set_title(Tdocument *doc) {
 	gchar *label_string, *tabmenu_string;
 	if (doc->filename) {
-		label_string = g_path_get_basename(doc->filename);
-		tabmenu_string = g_strdup(doc->filename);
+		gint b_written;
+		GError *gerror=NULL;
+		gchar *utf8name = g_filename_to_utf8(doc->filename,-1,NULL,&b_written,&gerror);
+		label_string = g_path_get_basename(utf8name);
+		tabmenu_string = g_strdup(utf8name);
+		g_free(utf8name);
 	} else {
 		label_string = g_strdup_printf(_("Untitled %d"),main_v->num_untitled_documents);
 		tabmenu_string =  g_strdup(label_string);
@@ -2278,14 +2282,17 @@ void doc_destroy(Tdocument * doc, gboolean delay_activation) {
  */
 void document_unset_filename(Tdocument *doc) {
 	if (doc->filename) {
-		gchar *tmpstr, *oldfilename =  doc->filename;
+		gint b_written;
+		GError *gerror=NULL;
+		gchar *tmpstr2, *tmpstr3;
+		gchar *tmpstr, *oldfilename = doc->filename;
 		doc->filename = NULL;
 		doc_set_title(doc);
-		{
-			gchar *tmpstr2 = g_path_get_basename(oldfilename);
-			tmpstr = g_strconcat(_("Previously: "), tmpstr2, NULL);
-			g_free(tmpstr2);
-		}
+		tmpstr2 = g_path_get_basename(oldfilename);
+		tmpstr3 = g_filename_to_utf8(tmpstr2,-1,NULL,&b_written,&gerror);
+		tmpstr = g_strconcat(_("Previously: "), tmpstr3, NULL);
+		g_free(tmpstr2);
+		g_free(tmpstr3);
 		gtk_label_set(GTK_LABEL(doc->tab_label),tmpstr);
 		g_free(tmpstr);
 		g_free(oldfilename);
