@@ -135,12 +135,71 @@ gchar *replace_string_printflike(const gchar *string, Tconvert_table *table) {
 	return dest;
 }
 
+/**************************************************/
+/* byte offset to UTF8 character offset functions */
+/**************************************************/
+
+#define UTF8_OFFSET_CACHE_SIZE 32
+
+typedef struct {
+	gchar *last_buf;
+	guint  last_byteoffset[UTF8_OFFSET_CACHE_SIZE];
+	guint  last_charoffset[UTF8_OFFSET_CACHE_SIZE];
+} Tutf8_offset_cache;
+
+static Tutf8_offset_cache utf8_offset_cache;
 #ifdef __GNUC__
 __inline__ 
 #endif
-glong utf8_byteoffset_to_charsoffset(gchar *string, glong byteoffset) {
-	return g_utf8_pointer_to_offset(string, &string[byteoffset]);
+void utf8_offset_cache_reset() {
+	/* set all to 0, and set the last_buf to NULL */
+/*	gint i;
+	for (i=0;i<UTF8_OFFSET_CACHE_SIZE;i++) {
+		utf8_offset_cache.last_byteoffset[i] = 0;
+		utf8_offset_cache.last_charoffset[i] = 0;
+	}
+	utf8_offset_cache.last_buf = NULL;*/
+	memset(&utf8_offset_cache, 0, sizeof(Tutf8_offset_cache));
 }
+
+guint utf8_byteoffset_to_charsoffset_cached(gchar *string, glong byteoffset) {
+	guint retval;
+	gint i = UTF8_OFFSET_CACHE_SIZE-1;
+
+	if (string != utf8_offset_cache.last_buf) {
+		utf8_offset_cache_reset();
+		utf8_offset_cache.last_buf = string;
+	}
+
+	while (i > 0 && utf8_offset_cache.last_byteoffset[i] > byteoffset) {
+		i--;
+	}
+	
+	if (i > 0) {
+		retval = g_utf8_pointer_to_offset(string+utf8_offset_cache.last_byteoffset[i], string+byteoffset)+utf8_offset_cache.last_charoffset[i];
+	} else {
+		retval = g_utf8_pointer_to_offset(string, string+byteoffset);
+	}
+	if (i == (UTF8_OFFSET_CACHE_SIZE-1)) {
+		/* add this new calculation to the cache */
+/*		gint j;
+		for (j=0;j<(UTF8_OFFSET_CACHE_SIZE-1);j++) {
+			utf8_offset_cache.last_byteoffset[j] = utf8_offset_cache.last_byteoffset[j+1];
+			utf8_offset_cache.last_charoffset[j] = utf8_offset_cache.last_charoffset[j+1];	
+		}*/
+		/* this is a nasty trick to move all guint entries one back in the array, so we can add the new one */
+		memmove(&utf8_offset_cache.last_byteoffset[0], &utf8_offset_cache.last_byteoffset[1], (UTF8_OFFSET_CACHE_SIZE+UTF8_OFFSET_CACHE_SIZE-1)*sizeof(guint));
+
+		utf8_offset_cache.last_byteoffset[UTF8_OFFSET_CACHE_SIZE-1] = byteoffset;
+		utf8_offset_cache.last_charoffset[UTF8_OFFSET_CACHE_SIZE-1] = retval;
+	}
+	return retval;
+}
+
+/**************************************************/
+/**************************************************/
+
+
 
 /* static guint countchars(gchar *string, gchar *chars)
  * counts the amount of times the chars in chars are present in string */

@@ -496,53 +496,6 @@ static void patmatch_rematch(gboolean is_parentmatch, Tpatmatch *patmatch, gint 
 	}
 }
 
-#define UTF8_OFFSET_CACHE_SIZE 32
-
-typedef struct {
-	guint last_byteoffset[UTF8_OFFSET_CACHE_SIZE];
-	guint last_charoffset[UTF8_OFFSET_CACHE_SIZE];
-}Tutf8_offset_cache;
-
-static Tutf8_offset_cache utf8_offset_cache;
-
-static void utf8_offset_cache_reset() {
-	gint i;
-	for (i=0;i<UTF8_OFFSET_CACHE_SIZE;i++) {
-		utf8_offset_cache.last_byteoffset[i] = 0;
-		utf8_offset_cache.last_charoffset[i] = 0;
-	}
-}
-
-static guint utf8_byteoffset_to_charsoffset_cached(gchar *string, glong byteoffset) {
-	guint retval;
-	gint i = UTF8_OFFSET_CACHE_SIZE-1;
-	while (i > 0 && utf8_offset_cache.last_byteoffset[i] > byteoffset) {
-		i--;
-	}
-	
-	if (i > 0) {
-		retval = g_utf8_pointer_to_offset(string+utf8_offset_cache.last_byteoffset[i], string+byteoffset)+utf8_offset_cache.last_charoffset[i];
-	} else {
-#ifdef HL_TIMING
-		timing_start(TIMING_UTF8_INV);
-#endif
-		retval = g_utf8_pointer_to_offset(string, string+byteoffset);
-#ifdef HL_TIMING
-		timing_stop(TIMING_UTF8_INV);
-#endif
-	}
-	if (i == (UTF8_OFFSET_CACHE_SIZE-1)) {
-		gint j;
-		for (j=0;j<(UTF8_OFFSET_CACHE_SIZE-1);j++) {
-			utf8_offset_cache.last_byteoffset[j] = utf8_offset_cache.last_byteoffset[j+1];
-			utf8_offset_cache.last_charoffset[j] = utf8_offset_cache.last_charoffset[j+1];	
-		}
-		utf8_offset_cache.last_byteoffset[i] = byteoffset;
-		utf8_offset_cache.last_charoffset[i] = retval;
-	}
-	return retval;
-}
-
 static void applystyle(Tdocument *doc, gchar *buf, guint buf_char_offset, gint so, gint eo, Tpattern *pat) {
 	GtkTextIter itstart, itend;
 	gint istart, iend;
