@@ -205,10 +205,10 @@ div.book div.toc .chapter a {
 	min-width: 90%;
 }
 
-.guimenu, .guimenuitem, .guilabel {
-	font-family: Courrier;
-	font-size: small;
-	padding: 2px;
+.guimenu, .guimenuitem, .guilabel, .guisubmenu {
+	font-family: Courier;
+	font-size: 11px;
+	padding: 0px;
 }
 
 .title {
@@ -251,4 +251,15 @@ div.caption {
 /* For variable lists, to display tip in blue */
 dt > SPAN[class="term"] > SPAN[class="emphasis"]  > em {
 	color: #3366cc;
+}
+
+/* For figure, to get a small margin */
+.figure {
+	margin-left: 5px;
+}
+
+/* For figures and procedures, to get a small font */
+.figure > .title, .procedure > .title {
+	font-size: 12px;
+	font-weight: bold;
 }
