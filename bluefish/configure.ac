@@ -421,6 +421,9 @@ if test "x$WITHGNOME2" = "xyes" ; then
 		else
 			echo "no"
 		fi
+#		echo "UPDATE_MIME $(UPDATE_MIME)"
+		AC_SUBST(UPDATE_MIME_PATH, UPDATE_MIME)
+		AC_SUBST(UPDATE_DESKTOP_PATH, UPDATE_DESKTOP)
 	fi
 fi
 
