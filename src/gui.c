@@ -250,7 +250,6 @@ void gui_apply_settings(Tbfwin *bfwin) {
 typedef struct {
 	const gchar *ident;
 	void (*func)();
-	gpointer func_data;
 	gint pixmaptype;
 	const gchar *tooltiptext;
 } Ttoolbaritem;
@@ -258,164 +257,258 @@ typedef struct {
 typedef struct {
 	Ttoolbaritem *tbitem;
 	GtkWidget *button;
+	Tbfwin *bfwin;
 }Tquickbaritem;
 
 static void bold_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
-
+	general_html_menu_cb(bfwin, 1, NULL);
 }
 static void italic_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
-
+	general_html_menu_cb(bfwin, 2, NULL);
 }
 static void paragraph_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
-
+	general_html_menu_cb(bfwin, 5, NULL);
 }
 static void break_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
-
+	general_html_menu_cb(bfwin, 6, NULL);
 }
 static void breakclear_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
-
+	general_html_menu_cb(bfwin, 41, NULL);
 }
-static void nbps_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
-
+static void nbsp_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
+	general_html_menu_cb(bfwin, 7, NULL);
 }
 static void center_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
-
+	general_html_menu_cb(bfwin, 8, NULL);
 }
 static void rightjustify_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
-
+	general_html_menu_cb(bfwin, 9, NULL);
 }
 static void comment_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
-
+	general_html_menu_cb(bfwin, 10, NULL);
 }
 static void fontsizeplus1_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
-
+	general_html_menu_cb(bfwin, 11, NULL);
 }
 static void fontsizeminus1_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
-
+	general_html_menu_cb(bfwin, 12, NULL);
 }
 static void preformatted_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
-
+	general_html_menu_cb(bfwin, 13, NULL);
 }
 static void subscript_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
-
+	general_html_menu_cb(bfwin, 14, NULL);
 }
 static void superscript_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
-
+	general_html_menu_cb(bfwin, 15, NULL);
 }
-
+static void strong_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
+	general_html_menu_cb(bfwin, 16, NULL);
+}
+static void emphasis_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
+	general_html_menu_cb(bfwin, 17, NULL);
+}
+static void heading1_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
+	general_html_menu_cb(bfwin, 18, NULL);
+}
+static void heading2_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
+	general_html_menu_cb(bfwin, 19, NULL);
+}
+static void heading3_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
+	general_html_menu_cb(bfwin, 20, NULL);
+}
+static void heading4_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
+	general_html_menu_cb(bfwin, 21, NULL);
+}
+static void heading5_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
+	general_html_menu_cb(bfwin, 22, NULL);
+}
+static void heading6_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
+	general_html_menu_cb(bfwin, 23, NULL);
+}
+static void table_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
+	general_html_menu_cb(bfwin, 24, NULL);
+}
+static void tablerow_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
+	general_html_menu_cb(bfwin, 25, NULL);
+}
+static void tableheader_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
+	general_html_menu_cb(bfwin, 26, NULL);
+}
+static void tabledata_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
+	general_html_menu_cb(bfwin, 27, NULL);
+}
+static void tablecaption_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
+	general_html_menu_cb(bfwin, 28, NULL);
+}
+static void frameset_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
+	general_html_menu_cb(bfwin, 29, NULL);
+}
+static void frame_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
+	general_html_menu_cb(bfwin, 30, NULL);
+}
+static void noframes_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
+	general_html_menu_cb(bfwin, 31, NULL);
+}
+static void target_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
+	general_html_menu_cb(bfwin, 32, NULL);
+}
+static void unorderedlist_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
+	general_html_menu_cb(bfwin, 33, NULL);
+}
+static void orderedlist_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
+	general_html_menu_cb(bfwin, 34, NULL);
+}
+static void listitem_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
+	general_html_menu_cb(bfwin, 35, NULL);
+}
+static void definitionlist_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
+	general_html_menu_cb(bfwin, 36, NULL);
+}
+static void definitionterm_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
+	general_html_menu_cb(bfwin, 37, NULL);
+}
+static void definition_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
+	general_html_menu_cb(bfwin, 38, NULL);
+}
+static void style_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
+	general_html_menu_cb(bfwin, 42, NULL);
+}
+static void dfn_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
+	general_html_menu_cb(bfwin, 48, NULL);
+}
+static void code_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
+	general_html_menu_cb(bfwin, 49, NULL);
+}
+static void samp_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
+	general_html_menu_cb(bfwin, 50, NULL);
+}
+static void kbd_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
+	general_html_menu_cb(bfwin, 51, NULL);
+}
+static void var_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
+	general_html_menu_cb(bfwin, 52, NULL);
+}
+static void cite_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
+	general_html_menu_cb(bfwin, 53, NULL);
+}
+static void abbr_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
+	general_html_menu_cb(bfwin, 54, NULL);
+}
+static void acronym_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
+	general_html_menu_cb(bfwin, 55, NULL);
+}
 static Ttoolbaritem tbi[] = {
-	{"quickstart...", quickstart_cb, NULL,13 , N_("QuickStart...")},
-	{"body...", body_cb, NULL, 14, N_("Body...")},
-	{"bold", general_html_cb, GINT_TO_POINTER(1), 15, N_("Bold")},
-	{"italic", general_html_cb, GINT_TO_POINTER(2), 16, N_("Italic")},
-	{"paragraph", general_html_cb, GINT_TO_POINTER(5), 19, N_("Paragraph")},
-	{"break", general_html_cb, GINT_TO_POINTER(6), 20, N_("Break")},
-	{"breakclear", general_html_cb, GINT_TO_POINTER(41), 21, N_("Break and clear")},
-	{"nbsp", general_html_cb, GINT_TO_POINTER(7), 22, N_("Non-breaking space")},
-	{"", NULL, NULL, 0, NULL}, /* spacing */
-	{"anchor...", quickanchor_cb, NULL,23 , N_("Anchor...")},
-	{"rule...", quickrule_cb, NULL, 24, N_("Rule...")},
-	{"center", general_html_cb, GINT_TO_POINTER(8), 28, N_("Center")},
-	{"rightjustify", general_html_cb, GINT_TO_POINTER(9), 29, N_("Right Justify")},
-	{"comment", general_html_cb, GINT_TO_POINTER(10),30 , N_("Comment")},
-	{"email...", email_cb, NULL, 31, N_("E-Mail...")},
-	{"font...",fontdialog_cb , NULL, 32, N_("Font...")},
-	{"basefont...", basefont_cb, NULL, 33, N_("Base Font Size...")},
-	{"", NULL, NULL, 0, NULL}, /* spacing */
-	{"fontsize+1", general_html_cb, GINT_TO_POINTER(11),34 , N_("Font Size +1")},
-	{"fontsize-1", general_html_cb, GINT_TO_POINTER(12), 35, N_("Font Size -1")},
-	{"preformatted", general_html_cb, GINT_TO_POINTER(13), 36, N_("Preformatted Text")},
-	{"subscript", general_html_cb, GINT_TO_POINTER(14), 37, N_("Subscript")},
-	{"superscript", general_html_cb, GINT_TO_POINTER(15), 38, N_("Superscript")},
-	{"strong", general_html_cb, GINT_TO_POINTER(16), 15, N_("Strong")},
-	{"emphasis", general_html_cb, GINT_TO_POINTER(17), 16, N_("Emphasis")},
-	{"", NULL, NULL, 0, NULL}, /* spacing */
-	{"heading1", general_html_cb, GINT_TO_POINTER(18), 39, N_("Heading 1")},
-	{"heading2", general_html_cb, GINT_TO_POINTER(19), 40, N_("Heading 2")},
-	{"heading3", general_html_cb, GINT_TO_POINTER(20), 41, N_("Heading 3")},
-	{"heading4", general_html_cb, GINT_TO_POINTER(21), 42, N_("Heading 4")},
-	{"heading5", general_html_cb, GINT_TO_POINTER(22), 43, N_("Heading 5")},
-	{"heading6", general_html_cb, GINT_TO_POINTER(23), 44, N_("Heading 6")},
-	{"tablewizard...",tablewizard , NULL, 45, N_("Table Wizard...")},
-	{"", NULL, NULL, 0, NULL}, /* spacing */
-	{"table...",tabledialog_cb, NULL, 46, N_("Table...")},
-	{"tablerow...", tablerowdialog_cb, NULL, 47, N_("Table Row...")},
-	{"tableheader...", tableheaddialog_cb, NULL, 48, N_("Table Header...")},
-	{"tabledata...", tabledatadialog_cb, NULL, 49, N_("Table Data...")},
-	{"", NULL, NULL, 0, NULL}, /* spacing */
-	{"table", general_html_cb, GINT_TO_POINTER(24), 50, N_("Table")},
-	{"tablerow", general_html_cb, GINT_TO_POINTER(25), 51, N_("Table Row")},
-	{"tableheader", general_html_cb, GINT_TO_POINTER(26), 52, N_("Table Header")},
-	{"tabledata", general_html_cb, GINT_TO_POINTER(27), 53, N_("Table Data")},
-	{"tablecaption", general_html_cb, GINT_TO_POINTER(28), 54, N_("Table Caption")},
-	{"framewizard...",framewizard , NULL, 55, N_("Frame Wizard...")},
-	{"", NULL, NULL, 0, NULL}, /* spacing */
-	{"frameset...", framesetdialog_cb, NULL,56 , N_("Frameset...")},
-	{"frame...",framedialog_cb , NULL, 57, N_("Frame...")},
-	{"", NULL, NULL, 0, NULL}, /* spacing */
-	{"frameset", general_html_cb, GINT_TO_POINTER(29),58 , N_("Frameset")},
-	{"frame", general_html_cb, GINT_TO_POINTER(30), 59, N_("Frame")},
-	{"noframes", general_html_cb, GINT_TO_POINTER(31), 60, N_("Noframes")},
-	{"target", general_html_cb, GINT_TO_POINTER(32), 61, N_("Target")},
-	{"form...",formdialog_cb , NULL, 62, N_("Form...")},
-	{"inputbutton...", buttondialog_cb, NULL, 63, N_("Input button...")},
-	{"text...",textdialog_cb , NULL, 65, N_("Text...")},
-	{"hidden...", hiddendialog_cb, NULL, 66, N_("Hidden...")},
-	{"textarea...",textareadialog_cb , NULL, 67, N_("Textarea...")},
-	{"radiobutton...", radiodialog_cb, NULL, 68, N_("Radio Button...")},
-	{"checkbox...", checkdialog_cb, NULL, 69, N_("Check Box...")},
-	{"select...", selectdialog_cb, NULL, 70, N_("Select...")},
-	{"option...",optiondialog_cb , NULL, 71, N_("Option...")},
-	{"optiongroup...", optgroupdialog_cb, NULL, 72, N_("Option group...")},
-	{"quicklist...", quicklist_cb, NULL, 73, N_("Quick List...")},
-	{"unorderedlist", general_html_cb, GINT_TO_POINTER(33), 74, N_("Unordered List")},
-	{"orderedlist", general_html_cb, GINT_TO_POINTER(34), 75, N_("Ordered List")},
-	{"listitem", general_html_cb, GINT_TO_POINTER(35), 76, N_("List Item")},
-	{"definitionlist", general_html_cb, GINT_TO_POINTER(36), 77, N_("Definition List")},
-	{"definitionterm", general_html_cb, GINT_TO_POINTER(37), 78, N_("Definition Term")},
-	{"definition", general_html_cb, GINT_TO_POINTER(38), 79, N_("Definition")},
-	{"createstylesheet...", new_css_dialog, NULL, 85, N_("Create stylesheet...")},
-	{"span...", span_dialog, NULL,86 , N_("Span...")},
-	{"div...",div_dialog , NULL,87 , N_("Div...")},
-	{"style", general_html_cb, GINT_TO_POINTER(42), 89, N_("Style")},
-	{"linkstylesheet...", link_cb, NULL,90 , N_("Link to stylesheet...")},
-	{"image...", image_insert_dialog_cb, NULL, 25, N_("Insert image...")},
-	{"thumbnail...", thumbnail_insert_dialog_cb, NULL, 26, N_("Insert thumbnail...")},
-	{"mthumbnail...", multi_thumbnail_dialog_cb, NULL, 26, N_("Multi thumbnail...")},
-	{"dfn", general_html_cb, GINT_TO_POINTER(48), 93, N_("Definition")},
-	{"code", general_html_cb, GINT_TO_POINTER(49), 94, N_("Code")},
-	{"samp", general_html_cb, GINT_TO_POINTER(50), 95, N_("Sample")},
-	{"kbd", general_html_cb, GINT_TO_POINTER(51), 96, N_("Keyboard")},
-	{"var", general_html_cb, GINT_TO_POINTER(52), 97, N_("Variable")},
-	{"cite", general_html_cb, GINT_TO_POINTER(53), 98, N_("Citation")},
-	{"abbr", general_html_cb, GINT_TO_POINTER(54), 99, N_("Abbreviation")},
-	{"acronym", general_html_cb, GINT_TO_POINTER(55), 100, N_("Acronym")},
-/*	{"", general_html_cb, GINT_TO_POINTER(), , N_("")},
-	{"", general_html_cb, GINT_TO_POINTER(), , N_("")},
-
-	{"", , NULL, , N_("")},
-	{"", , NULL, , N_("")},
-	{"", , NULL, , },
-	{"", NULL, NULL, 0, NULL},*/
-	{"", NULL, NULL, 0, NULL} /* spacing */
+	{"quickstart...", quickstart_cb,13 , N_("QuickStart...")},
+	{"body...", body_cb, 14, N_("Body...")},
+	{"bold", bold_clicked_lcb,  15, N_("Bold")},
+	{"italic", italic_clicked_lcb,  16, N_("Italic")},
+	{"paragraph", paragraph_clicked_lcb,  19, N_("Paragraph")},
+	{"break", break_clicked_lcb,  20, N_("Break")},
+	{"breakclear", breakclear_clicked_lcb,  21, N_("Break and clear")},
+	{"nbsp", nbsp_clicked_lcb,  22, N_("Non-breaking space")},
+	{"", NULL, 0, NULL}, /* spacing */
+	{"anchor...", quickanchor_cb,23 , N_("Anchor...")},
+	{"rule...", quickrule_cb, 24, N_("Rule...")},
+	{"center", center_clicked_lcb,  28, N_("Center")},
+	{"rightjustify", rightjustify_clicked_lcb,  29, N_("Right Justify")},
+	{"comment", comment_clicked_lcb, 30 , N_("Comment")},
+	{"email...", email_cb, 31, N_("E-Mail...")},
+	{"font...",fontdialog_cb , 32, N_("Font...")},
+	{"basefont...", basefont_cb, 33, N_("Base Font Size...")},
+	{"", NULL, 0, NULL}, /* spacing */
+	{"fontsize+1", fontsizeplus1_clicked_lcb, 34 , N_("Font Size +1")},
+	{"fontsize-1", fontsizeminus1_clicked_lcb,  35, N_("Font Size -1")},
+	{"preformatted", preformatted_clicked_lcb,  36, N_("Preformatted Text")},
+	{"subscript", subscript_clicked_lcb,  37, N_("Subscript")},
+	{"superscript", superscript_clicked_lcb,  38, N_("Superscript")},
+	{"strong", strong_clicked_lcb,  15, N_("Strong")},
+	{"emphasis", emphasis_clicked_lcb,  16, N_("Emphasis")},
+	{"", NULL, 0, NULL}, /* spacing */
+	{"heading1", heading1_clicked_lcb,  39, N_("Heading 1")},
+	{"heading2", heading2_clicked_lcb,  40, N_("Heading 2")},
+	{"heading3", heading3_clicked_lcb,  41, N_("Heading 3")},
+	{"heading4", heading4_clicked_lcb,  42, N_("Heading 4")},
+	{"heading5", heading5_clicked_lcb,  43, N_("Heading 5")},
+	{"heading6", heading6_clicked_lcb,  44, N_("Heading 6")},
+	{"tablewizard...",tablewizard , 45, N_("Table Wizard...")},
+	{"", NULL, 0, NULL}, /* spacing */
+	{"table...",tabledialog_cb, 46, N_("Table...")},
+	{"tablerow...", tablerowdialog_cb, 47, N_("Table Row...")},
+	{"tableheader...", tableheaddialog_cb, 48, N_("Table Header...")},
+	{"tabledata...", tabledatadialog_cb, 49, N_("Table Data...")},
+	{"", NULL, 0, NULL}, /* spacing */
+	{"table", table_clicked_lcb,  50, N_("Table")},
+	{"tablerow", tablerow_clicked_lcb,  51, N_("Table Row")},
+	{"tableheader", tableheader_clicked_lcb,  52, N_("Table Header")},
+	{"tabledata", tabledata_clicked_lcb,  53, N_("Table Data")},
+	{"tablecaption", tablecaption_clicked_lcb,  54, N_("Table Caption")},
+	{"framewizard...",framewizard , 55, N_("Frame Wizard...")},
+	{"", NULL, 0, NULL}, /* spacing */
+	{"frameset...", framesetdialog_cb,56 , N_("Frameset...")},
+	{"frame...",framedialog_cb , 57, N_("Frame...")},
+	{"", NULL, 0, NULL}, /* spacing */
+	{"frameset", frameset_clicked_lcb, 58 , N_("Frameset")},
+	{"frame", frame_clicked_lcb,  59, N_("Frame")},
+	{"noframes", noframes_clicked_lcb,  60, N_("Noframes")},
+	{"target", target_clicked_lcb,  61, N_("Target")},
+	{"form...",formdialog_cb , 62, N_("Form...")},
+	{"inputbutton...", buttondialog_cb, 63, N_("Input button...")},
+	{"text...",textdialog_cb , 65, N_("Text...")},
+	{"hidden...", hiddendialog_cb, 66, N_("Hidden...")},
+	{"textarea...",textareadialog_cb , 67, N_("Textarea...")},
+	{"radiobutton...", radiodialog_cb, 68, N_("Radio Button...")},
+	{"checkbox...", checkdialog_cb, 69, N_("Check Box...")},
+	{"select...", selectdialog_cb, 70, N_("Select...")},
+	{"option...",optiondialog_cb , 71, N_("Option...")},
+	{"optiongroup...", optgroupdialog_cb, 72, N_("Option group...")},
+	{"quicklist...", quicklist_cb, 73, N_("Quick List...")},
+	{"unorderedlist", unorderedlist_clicked_lcb,  74, N_("Unordered List")},
+	{"orderedlist", orderedlist_clicked_lcb,  75, N_("Ordered List")},
+	{"listitem", listitem_clicked_lcb,  76, N_("List Item")},
+	{"definitionlist", definitionlist_clicked_lcb,  77, N_("Definition List")},
+	{"definitionterm", definitionterm_clicked_lcb,  78, N_("Definition Term")},
+	{"definition", definition_clicked_lcb,  79, N_("Definition")},
+	{"createstylesheet...", new_css_dialog, 85, N_("Create stylesheet...")},
+	{"span...", span_dialog,86 , N_("Span...")},
+	{"div...",div_dialog ,87 , N_("Div...")},
+	{"style", style_clicked_lcb,  89, N_("Style")},
+	{"linkstylesheet...", link_cb,90 , N_("Link to stylesheet...")},
+	{"image...", image_insert_dialog_cb, 25, N_("Insert image...")},
+	{"thumbnail...", thumbnail_insert_dialog_cb, 26, N_("Insert thumbnail...")},
+	{"mthumbnail...", multi_thumbnail_dialog_cb, 26, N_("Multi thumbnail...")},
+	{"dfn", dfn_clicked_lcb,  93, N_("Definition")},
+	{"code", code_clicked_lcb,  94, N_("Code")},
+	{"samp", samp_clicked_lcb,  95, N_("Sample")},
+	{"kbd", kbd_clicked_lcb,  96, N_("Keyboard")},
+	{"var", var_clicked_lcb,  97, N_("Variable")},
+	{"cite", cite_clicked_lcb,  98, N_("Citation")},
+	{"abbr", abbr_clicked_lcb,  99, N_("Abbreviation")},
+	{"acronym", acronym_clicked_lcb,  100, N_("Acronym")},
+	{"", NULL, 0, NULL} /* spacing */
 };
 
 static void html_toolbar_remove_from_quickbar_lcb(GtkMenuItem *menuitem, Ttoolbaritem *tbitem) {
-	GList *tmplist;
-	Tquickbaritem *qbi=NULL;
+	GList *bfwlist;
 	main_v->props.quickbar_items = remove_from_stringlist(main_v->props.quickbar_items, tbitem->ident);
-	tmplist = g_list_first(bfwin->toolbar_quickbar_children);
-	while (tmplist) {
-		qbi = tmplist->data;
-		if (qbi->tbitem == tbitem) {
-			break;
+	bfwlist = g_list_first(main_v->bfwinlist);
+	while (bfwlist) {
+		Tquickbaritem *qbi=NULL;
+		Tbfwin *bfwin = BFWIN(bfwlist->data);
+		GList *tmplist  = g_list_first(bfwin->toolbar_quickbar_children);
+		while (tmplist) {
+			qbi = tmplist->data;
+			if (qbi->tbitem == tbitem) {
+				break;
+			}
+			tmplist = g_list_next(tmplist);
 		}
-		tmplist = g_list_next(tmplist);
-	}
-	if (qbi) {
-		gtk_widget_hide(qbi->button);
-		gtk_widget_destroy(qbi->button);
-		g_free(qbi);
+		if (qbi) {
+			gtk_widget_hide(qbi->button);
+			gtk_widget_destroy(qbi->button);
+			g_free(qbi);
+		}
+		bfwlist = g_list_next(bfwlist);
 	}
 }
 
@@ -434,18 +527,22 @@ static gboolean html_toolbar_quickbar_item_button_press_lcb(GtkWidget *widget,Gd
 	return FALSE;
 }
 
-
 static void html_toolbar_add_to_quickbar_lcb(GtkMenuItem *menuitem, Ttoolbaritem *tbitem) {
-	Tquickbaritem *qbi;
-	DEBUG_MSG("adding tbitem %p to quickbar\n", tbitem);
+	GList *tmplist = g_list_first(main_v->bfwinlist);
+	DEBUG_MSG("adding tbitem %p to quickbars\n", tbitem);
 	main_v->props.quickbar_items = add_to_stringlist(main_v->props.quickbar_items, tbitem->ident);
-	qbi = g_new(Tquickbaritem,1);
-	qbi->button = gtk_toolbar_append_item(GTK_TOOLBAR(toolbarwidgets.html_toolbar_quickbar), NULL, _(tbitem->tooltiptext),
-						"", new_pixmap(tbitem->pixmaptype), G_CALLBACK(tbitem->func), tbitem->func_data);
-	g_signal_connect(qbi->button, "button-press-event", G_CALLBACK(html_toolbar_quickbar_item_button_press_lcb), tbitem);
-	gtk_widget_show(qbi->button);
-	qbi->tbitem = tbitem;
-	bfwin->toolbar_quickbar_children = g_list_append(bfwin->toolbar_quickbar_children, qbi);
+	while (tmplist) {
+		Tquickbaritem *qbi;
+		Tbfwin *bfwin = BFWIN(tmplist->data);
+		qbi = g_new(Tquickbaritem,1);
+		qbi->button = gtk_toolbar_append_item(GTK_TOOLBAR(bfwin->toolbar_quickbar), NULL, _(tbitem->tooltiptext),
+							"", new_pixmap(tbitem->pixmaptype), G_CALLBACK(tbitem->func), bfwin);
+		g_signal_connect(qbi->button, "button-press-event", G_CALLBACK(html_toolbar_quickbar_item_button_press_lcb), tbitem);
+		gtk_widget_show(qbi->button);
+		qbi->tbitem = tbitem;
+		bfwin->toolbar_quickbar_children = g_list_append(bfwin->toolbar_quickbar_children, qbi);
+		tmplist = g_list_next(tmplist);
+	}
 }
 
 static gboolean html_toolbar_item_button_press_lcb(GtkWidget *widget,GdkEventButton *bevent,Ttoolbaritem *tbitem) {
@@ -464,7 +561,7 @@ static gboolean html_toolbar_item_button_press_lcb(GtkWidget *widget,GdkEventBut
 	return FALSE;
 }
 
-static void html_toolbar_add_items(GtkWidget *html_toolbar, Ttoolbaritem *tbi, gint from, gint to) {
+static void html_toolbar_add_items(Tbfwin *bfwin, GtkWidget *html_toolbar, Ttoolbaritem *tbi, gint from, gint to) {
 	gint i;
 	GtkWidget *item;
 	for (i=from;i<=to;i++) {
@@ -472,14 +569,14 @@ static void html_toolbar_add_items(GtkWidget *html_toolbar, Ttoolbaritem *tbi, g
 			gtk_toolbar_append_space(GTK_TOOLBAR(html_toolbar));
 		} else {
 			item = gtk_toolbar_append_item(GTK_TOOLBAR(html_toolbar), NULL, _(tbi[i].tooltiptext),
-						"", new_pixmap(tbi[i].pixmaptype), G_CALLBACK(tbi[i].func), tbi[i].func_data);
+						"", new_pixmap(tbi[i].pixmaptype), G_CALLBACK(tbi[i].func), bfwin);
 			g_signal_connect(item, "button-press-event", G_CALLBACK(html_toolbar_item_button_press_lcb), &tbi[i]);
 			DEBUG_MSG("adding tbitem %p to html_toolbar\n", &tbi[i]);
 		}
 	}
 }
 
-static void html_toolbar_add_items_to_submenu(GtkWidget *html_toolbar, Ttoolbaritem *tbi, gint from, gint to, gchar *menulabel, gint menupix) {
+static void html_toolbar_add_items_to_submenu(Tbfwin *bfwin, GtkWidget *html_toolbar, Ttoolbaritem *tbi, gint from, gint to, gchar *menulabel, gint menupix) {
 	GtkWidget *menu_bar, *sub_menu, *menu_item, *pixmap;
 	gint i;
 	sub_menu = gtk_menu_new();
@@ -489,7 +586,7 @@ static void html_toolbar_add_items_to_submenu(GtkWidget *html_toolbar, Ttoolbari
 		} else {
 			menu_item = gtk_menu_item_new();
 			gtk_container_add(GTK_CONTAINER(menu_item), new_pixmap(tbi[i].pixmaptype));
-			g_signal_connect(GTK_OBJECT(menu_item), "activate", G_CALLBACK(tbi[i].func), tbi[i].func_data);
+			g_signal_connect(GTK_OBJECT(menu_item), "activate", G_CALLBACK(tbi[i].func), bfwin);
 			g_signal_connect(menu_item, "button-press-event", G_CALLBACK(html_toolbar_item_button_press_lcb), &tbi[i]);
 			gtk_menu_append(GTK_MENU(sub_menu), menu_item);
 		}
@@ -520,7 +617,7 @@ void make_html_toolbar(Tbfwin *bfwin) {
 	gtk_notebook_set_page(GTK_NOTEBOOK(html_notebook), 0);
 	gtk_container_add(GTK_CONTAINER(bfwin->html_toolbar_hb), html_notebook);
 
-	toolbarwidgets.html_toolbar_quickbar = gtk_toolbar_new();
+	bfwin->toolbar_quickbar = gtk_toolbar_new();
 	DEBUG_MSG("make_html_toolbar, creating quickbar\n");
 	{
 		GList *tmplist;
@@ -532,8 +629,8 @@ void make_html_toolbar(Tbfwin *bfwin) {
 			for (i=0;i<numitems;i++) {
 				if (strcmp(tbi[i].ident, tmpstr)==0) {
 					Tquickbaritem *qbi = g_new(Tquickbaritem,1);
-					qbi->button = gtk_toolbar_append_item(GTK_TOOLBAR(toolbarwidgets.html_toolbar_quickbar), NULL, _(tbi[i].tooltiptext),
-						"", new_pixmap(tbi[i].pixmaptype), G_CALLBACK(tbi[i].func), tbi[i].func_data);
+					qbi->button = gtk_toolbar_append_item(GTK_TOOLBAR(bfwin->toolbar_quickbar), NULL, _(tbi[i].tooltiptext),
+						"", new_pixmap(tbi[i].pixmaptype), G_CALLBACK(tbi[i].func), bfwin);
 					g_signal_connect(qbi->button, "button-press-event", G_CALLBACK(html_toolbar_quickbar_item_button_press_lcb), &tbi[i]);
 					qbi->tbitem = &tbi[i];
 					bfwin->toolbar_quickbar_children = g_list_append(bfwin->toolbar_quickbar_children, qbi);
@@ -543,48 +640,54 @@ void make_html_toolbar(Tbfwin *bfwin) {
 			tmplist = g_list_next(tmplist);
 		}
 	}
-	gtk_notebook_append_page(GTK_NOTEBOOK(html_notebook), toolbarwidgets.html_toolbar_quickbar, gtk_label_new(_(" Quick bar ")));
+	gtk_notebook_append_page(GTK_NOTEBOOK(html_notebook), bfwin->toolbar_quickbar, gtk_label_new(_(" Quick bar ")));
 
 	html_toolbar = gtk_toolbar_new();
-	html_toolbar_add_items(html_toolbar, tbi, 0, 14);
-	html_toolbar_add_items_to_submenu(html_toolbar, tbi, 26, 31, _("Heading"), 91);
-	html_toolbar_add_items(html_toolbar, tbi, 75, 77);
+	html_toolbar_add_items(bfwin,html_toolbar, tbi, 0, 14);
+	html_toolbar_add_items_to_submenu(bfwin,html_toolbar, tbi, 26, 31, _("Heading"), 91);
+	html_toolbar_add_items(bfwin,html_toolbar, tbi, 75, 77);
 	gtk_notebook_append_page(GTK_NOTEBOOK(html_notebook), html_toolbar, gtk_label_new(_(" Standard bar ")));
 
 	html_toolbar = gtk_toolbar_new();
-	html_toolbar_add_items(html_toolbar, tbi, 15, 25);
-	html_toolbar_add_items_to_submenu(html_toolbar, tbi, 78, 85, _("Context formatting"), 103);
-	html_toolbar_add_items(html_toolbar, tbi, 25, 31);
+	html_toolbar_add_items(bfwin,html_toolbar, tbi, 15, 25);
+	html_toolbar_add_items_to_submenu(bfwin,html_toolbar, tbi, 78, 85, _("Context formatting"), 103);
+	html_toolbar_add_items(bfwin,html_toolbar, tbi, 25, 31);
 	gtk_notebook_append_page(GTK_NOTEBOOK(html_notebook), html_toolbar, gtk_label_new(_(" Fonts ")));
 
 	html_toolbar = gtk_toolbar_new();
-	html_toolbar_add_items(html_toolbar, tbi, 32, 43);
+	html_toolbar_add_items(bfwin,html_toolbar, tbi, 32, 43);
 	gtk_notebook_append_page(GTK_NOTEBOOK(html_notebook), html_toolbar, gtk_label_new(_(" Tables ")));
 
 	html_toolbar = gtk_toolbar_new();
-	html_toolbar_add_items(html_toolbar, tbi, 44, 52);
+	html_toolbar_add_items(bfwin,html_toolbar, tbi, 44, 52);
 	gtk_notebook_append_page(GTK_NOTEBOOK(html_notebook), html_toolbar, gtk_label_new(_(" Frames ")));
 
 	html_toolbar = gtk_toolbar_new();
-	html_toolbar_add_items(html_toolbar, tbi, 53, 62);
+	html_toolbar_add_items(bfwin,html_toolbar, tbi, 53, 62);
 	gtk_notebook_append_page(GTK_NOTEBOOK(html_notebook), html_toolbar, gtk_label_new(_(" Forms ")));
 
 	html_toolbar = gtk_toolbar_new();
-	html_toolbar_add_items(html_toolbar, tbi, 63, 69);
+	html_toolbar_add_items(bfwin,html_toolbar, tbi, 63, 69);
 	gtk_notebook_append_page(GTK_NOTEBOOK(html_notebook), html_toolbar, gtk_label_new(_(" List ")));
 
 	html_toolbar = gtk_toolbar_new();
-	html_toolbar_add_items(html_toolbar, tbi, 70, 72);
+	html_toolbar_add_items(bfwin,html_toolbar, tbi, 70, 72);
 	gtk_notebook_append_page(GTK_NOTEBOOK(html_notebook), html_toolbar, gtk_label_new(_(" CSS ")));
 
 	gtk_widget_show_all(html_notebook);
 }
 
-static void doc_indent_lcb(GtkWidget *wid,gpointer data) {
+static void doc_indent_lcb(GtkWidget *wid,Tbfwin *bfwin) {
 	if (bfwin->current_document) {
-		doc_indent_selection(bfwin->current_document, (GPOINTER_TO_INT(data) == 1));
+		doc_indent_selection(bfwin->current_document,1);
 	}
 }
+static void doc_unindent_lcb(GtkWidget *wid,Tbfwin *bfwin) {
+	if (bfwin->current_document) {
+		doc_indent_selection(bfwin->current_document,0);
+	}
+}
+	
 
 
 void make_main_toolbar(Tbfwin *bfwin) {
@@ -594,37 +697,37 @@ void make_main_toolbar(Tbfwin *bfwin) {
 	gtk_container_add (GTK_CONTAINER(bfwin->main_toolbar_hb), toolbar);
 
 	gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), NULL, _("New"), "",
-							new_pixmap(0), G_CALLBACK(file_new_cb), NULL);
+							new_pixmap(0), G_CALLBACK(file_new_cb), bfwin);
 	gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), NULL, _("Open..."), "",
-							new_pixmap(1), G_CALLBACK(file_open_cb), NULL);
+							new_pixmap(1), G_CALLBACK(file_open_cb), bfwin);
 
 	gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), NULL, _("Save"), "",
-							new_pixmap(2), G_CALLBACK(file_save_cb), NULL);
+							new_pixmap(2), G_CALLBACK(file_save_cb), bfwin);
 	gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), NULL, _("Save As..."), "",
-							new_pixmap(3), G_CALLBACK(file_save_as_cb), NULL);
+							new_pixmap(3), G_CALLBACK(file_save_as_cb), bfwin);
 	gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), NULL, _("Close"), "",
-							new_pixmap(4), G_CALLBACK(file_close_cb), NULL);
+							new_pixmap(4), G_CALLBACK(file_close_cb), bfwin);
 	gtk_toolbar_append_space(GTK_TOOLBAR(toolbar));
 	gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), NULL, _("Copy"), "",
-							new_pixmap(5), G_CALLBACK(edit_copy_cb), NULL);
+							new_pixmap(5), G_CALLBACK(edit_copy_cb), bfwin);
 	gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), NULL, _("Cut"), "",
-							new_pixmap(6), G_CALLBACK(edit_cut_cb), NULL);
+							new_pixmap(6), G_CALLBACK(edit_cut_cb), bfwin);
 	gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), NULL, _("Paste"), "",
-							new_pixmap(7), G_CALLBACK(edit_paste_cb), NULL);
+							new_pixmap(7), G_CALLBACK(edit_paste_cb), bfwin);
 	gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), NULL, _("Search..."), "",
-							new_pixmap(8), G_CALLBACK(search_cb), NULL);
+							new_pixmap(8), G_CALLBACK(search_cb), bfwin);
 	gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), NULL,_("Search and Replace..."), "", 
-							new_pixmap(9), G_CALLBACK(replace_cb), NULL);
+							new_pixmap(9), G_CALLBACK(replace_cb), bfwin);
 	gtk_toolbar_append_space(GTK_TOOLBAR(toolbar));
 	bfwin->toolbar_undo = gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), NULL, _("Undo"), "",
-							new_pixmap(10), G_CALLBACK(undo_cb), NULL);
+							new_pixmap(10), G_CALLBACK(undo_cb), bfwin);
 	bfwin->toolbar_redo = gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), NULL, _("Redo"), "",
-							new_pixmap(11), G_CALLBACK(redo_cb), NULL);
+							new_pixmap(11), G_CALLBACK(redo_cb), bfwin);
 	gtk_toolbar_append_space(GTK_TOOLBAR(toolbar));
 	gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), NULL, _("Unindent"),
-							"", new_pixmap(111), G_CALLBACK(doc_indent_lcb), GINT_TO_POINTER(1));
+							"", new_pixmap(111), G_CALLBACK(doc_unindent_lcb), bfwin);
 	gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), NULL, _("Indent"),
-							"", new_pixmap(110), G_CALLBACK(doc_indent_lcb), GINT_TO_POINTER(0));
+							"", new_pixmap(110), G_CALLBACK(doc_indent_lcb), bfwin);
 
 /*
 	gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), NULL, _("Print..."), "",
@@ -636,7 +739,7 @@ void make_main_toolbar(Tbfwin *bfwin) {
 
 	gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), NULL,
 							_("View in browser"), "",
-							new_pixmap(102), G_CALLBACK(browser_toolbar_cb), NULL);
+							new_pixmap(102), G_CALLBACK(browser_toolbar_cb), bfwin);
 	gtk_toolbar_append_space(GTK_TOOLBAR(toolbar));
 	gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), NULL, _("Preferences..."),
 							"", new_pixmap(12), G_CALLBACK(open_preferences_cb), NULL);
@@ -645,20 +748,20 @@ void make_main_toolbar(Tbfwin *bfwin) {
 
 void gui_set_undo_redo_widgets(Tbfwin *bfwin, gboolean undo, gboolean redo) {
 	if (main_v->props.view_main_toolbar) {
-		gtk_widget_set_sensitive(toolbarwidgets.redo, redo);
-		gtk_widget_set_sensitive(toolbarwidgets.undo, undo);
+		gtk_widget_set_sensitive(bfwin->toolbar_redo, redo);
+		gtk_widget_set_sensitive(bfwin->toolbar_undo, undo);
 	}
-	gtk_widget_set_sensitive(gtk_item_factory_get_widget(gtk_item_factory_from_widget(main_v->menubar), N_("/Edit/Undo")), undo);
-	gtk_widget_set_sensitive(gtk_item_factory_get_widget(gtk_item_factory_from_widget(main_v->menubar), N_("/Edit/Undo All")), undo);
-	gtk_widget_set_sensitive(gtk_item_factory_get_widget(gtk_item_factory_from_widget(main_v->menubar), N_("/Edit/Redo")), redo);
-	gtk_widget_set_sensitive(gtk_item_factory_get_widget(gtk_item_factory_from_widget(main_v->menubar), N_("/Edit/Redo All")), redo);
+	gtk_widget_set_sensitive(gtk_item_factory_get_widget(gtk_item_factory_from_widget(bfwin->menubar), N_("/Edit/Undo")), undo);
+	gtk_widget_set_sensitive(gtk_item_factory_get_widget(gtk_item_factory_from_widget(bfwin->menubar), N_("/Edit/Undo All")), undo);
+	gtk_widget_set_sensitive(gtk_item_factory_get_widget(gtk_item_factory_from_widget(bfwin->menubar), N_("/Edit/Redo")), redo);
+	gtk_widget_set_sensitive(gtk_item_factory_get_widget(gtk_item_factory_from_widget(bfwin->menubar), N_("/Edit/Redo All")), redo);
 }
 
 void gui_set_widgets(Tbfwin *bfwin, gboolean undo, gboolean redo, gboolean wrap, gboolean highlight, Tfiletype *hl, gchar *encoding, gboolean linenumbers) {
 	gui_set_undo_redo_widgets(bfwin, undo, redo);
-	setup_toggle_item(gtk_item_factory_from_widget(main_v->menubar),N_("/Document/Highlight Syntax"), highlight);
-	setup_toggle_item(gtk_item_factory_from_widget(main_v->menubar),N_("/Document/Wrap"), wrap);
-	setup_toggle_item(gtk_item_factory_from_widget(main_v->menubar),N_("/Document/Line Numbers"), linenumbers);
+	setup_toggle_item(gtk_item_factory_from_widget(bfwin->menubar),N_("/Document/Highlight Syntax"), highlight);
+	setup_toggle_item(gtk_item_factory_from_widget(bfwin->menubar),N_("/Document/Wrap"), wrap);
+	setup_toggle_item(gtk_item_factory_from_widget(bfwin->menubar),N_("/Document/Line Numbers"), linenumbers);
 	menu_current_document_set_toggle_wo_activate(hl, encoding);
 }
 
@@ -676,8 +779,8 @@ if (bfwin->notebook_switch_signal != 0) {
 static gboolean gui_main_window_configure_event_lcb(GtkWidget *widget,GdkEventConfigure *event,Tbfwin *bfwin) {
 	if (main_v->props.restore_dimensions) {
 		if (event->type == GDK_CONFIGURE) {
-			if (bfwin->props.main_window_w != event->width) main_v->props.main_window_w = event->width;
-			if (bfwin->props.main_window_h != event->height) main_v->props.main_window_h = event->height;
+			if (main_v->props.main_window_w != event->width) main_v->props.main_window_w = event->width;
+			if (main_v->props.main_window_h != event->height) main_v->props.main_window_h = event->height;
 		}
 	}
 	return FALSE;
@@ -689,7 +792,7 @@ TARGET_STRING
 } Tdnd_types;
 static void main_win_on_drag_data_lcb(GtkWidget * widget, GdkDragContext * context
 			, gint x, gint y, GtkSelectionData * data
-			, guint info, guint time, void *client) {
+			, guint info, guint time, Tbfwin *bfwin) {
 	gchar *filename, *url;
 	int mode = 0;
 	gint url_is_local;
@@ -748,7 +851,7 @@ static void main_win_on_drag_data_lcb(GtkWidget * widget, GdkDragContext * conte
 	}
 	DEBUG_MSG("on_drag_data_cb, filename='%s', url='%s'\n", filename, url);
 
-	doc_new_with_file(filename, FALSE);
+	doc_new_with_file(bfwin,filename, FALSE);
 
 	gtk_drag_finish(context, TRUE, (mode == GDK_ACTION_COPY), time);
 	g_free(filename);
@@ -793,8 +896,8 @@ void gui_create_main(Tbfwin *bfwin, GList *filenames) {
 		gtk_box_pack_start(GTK_BOX(vbox), bfwin->main_toolbar_hb, FALSE, FALSE, 0);
 		bfwin->html_toolbar_hb = gtk_handle_box_new();
 		gtk_box_pack_start(GTK_BOX(vbox), bfwin->html_toolbar_hb, FALSE, FALSE, 0);
-		hidewidgets.custom_menu_hb = gtk_handle_box_new();
-		gtk_box_pack_start(GTK_BOX(vbox), hidewidgets.custom_menu_hb, FALSE, FALSE, 0);
+		bfwin->custom_menu_hb = gtk_handle_box_new();
+		gtk_box_pack_start(GTK_BOX(vbox), bfwin->custom_menu_hb, FALSE, FALSE, 0);
 
 		if (main_v->props.view_main_toolbar) {
 			make_main_toolbar(bfwin);
@@ -805,8 +908,8 @@ void gui_create_main(Tbfwin *bfwin, GList *filenames) {
 			gtk_widget_show(bfwin->html_toolbar_hb);
 		}
 		if (main_v->props.view_custom_menu) {
-			make_cust_menubar(bfwin);
-			gtk_widget_show(hidewidgets.custom_menu_hb);
+			make_cust_menubar(bfwin,bfwin->custom_menu_hb);
+			gtk_widget_show(bfwin->custom_menu_hb);
 		}
 	}
 	
@@ -835,7 +938,7 @@ void gui_create_main(Tbfwin *bfwin, GList *filenames) {
 	/* output_box */
 	init_output_box(bfwin, vbox);
 
-	left_panel_show_hide_toggle(TRUE, main_v->props.view_left_panel);
+	left_panel_show_hide_toggle(bfwin,TRUE, main_v->props.view_left_panel);
 
 	/* finally the statusbar */
 	{
@@ -871,7 +974,7 @@ void gui_create_main(Tbfwin *bfwin, GList *filenames) {
 	file_new_cb(NULL, NULL);
 	if (filenames) {
 		DEBUG_MSG("gui_create_main, we have filenames, load them\n");
-		docs_new_from_files(filenames);
+		docs_new_from_files(bfwin,filenames);
 	}
 
 	gtk_notebook_set_page(GTK_NOTEBOOK(bfwin->notebook), 0);
@@ -890,7 +993,7 @@ void gui_create_main(Tbfwin *bfwin, GList *filenames) {
 				,drag_dest_types, 2
 				,(GDK_ACTION_DEFAULT | GDK_ACTION_COPY | GDK_ACTION_MOVE |
 				GDK_ACTION_LINK | GDK_ACTION_PRIVATE | GDK_ACTION_ASK));
-		g_signal_connect(G_OBJECT(bfwin->main_window), "drag_data_received", G_CALLBACK(main_win_on_drag_data_lcb), NULL);
+		g_signal_connect(G_OBJECT(bfwin->main_window), "drag_data_received", G_CALLBACK(main_win_on_drag_data_lcb), bfwin);
 	}
 }
 
@@ -902,26 +1005,29 @@ void gui_show_main(Tbfwin *bfwin) {
 	flush_queue();
 	doc_scroll_to_cursor(bfwin->current_document);
 	if (main_v->props.view_left_panel) {
-		filebrowser_scroll_initial();
+		filebrowser_scroll_initial(bfwin);
 	}
 }
 /***********************/
 /* statusbar functions */
 /***********************/
+typedef struct {
+	gint message_id;
+	Tbfwin *bfwin;
+} Tstatusbar_remove;
 
-static gint statusbar_remove(gpointer message_id)
-{
-	gtk_statusbar_remove(GTK_STATUSBAR(main_v->statusbar), 0, GPOINTER_TO_INT(message_id));
-	return 0;
+static guint statusbar_remove(gpointer sr) {
+	gtk_statusbar_remove(GTK_STATUSBAR(((Tstatusbar_remove *)sr)->bfwin->statusbar), 0, ((Tstatusbar_remove *)sr)->message_id);
+	g_free(sr);
+	return FALSE;
 }
 
-void statusbar_message(gchar * message, gint time)
-{
-	if (main_v->statusbar) {
-		gint count;
-
-		count = gtk_statusbar_push(GTK_STATUSBAR(main_v->statusbar), 0, message);
-		gtk_timeout_add(time, statusbar_remove, GINT_TO_POINTER(count));
+void statusbar_message(Tbfwin *bfwin,gchar *message, gint time) {
+	if (bfwin->statusbar) {
+		Tstatusbar_remove *sr = g_new(Tstatusbar_remove,1);
+		sr->bfwin = bfwin;
+		sr->message_id = gtk_statusbar_push(GTK_STATUSBAR(bfwin->statusbar), 0, message);
+		gtk_timeout_add(time, statusbar_remove, sr);
 	}
 }
 
@@ -1115,35 +1221,35 @@ void gui_toggle_autoindent_cb(gpointer callback_data,guint action,GtkWidget *wid
 	main_v->props.autoindent = 1 - main_v->props.autoindent;
 }
 
-void gui_toggle_hidewidget_cb(gpointer callback_data,guint action,GtkWidget *widget) {
+void gui_toggle_hidewidget_cb(Tbfwin *bfwin,guint action,GtkWidget *widget) {
 	GtkWidget *handlebox;
 	gint *property;
 	switch (action) {
-	case 0:
+	case 1:
 		handlebox = bfwin->main_toolbar_hb;
 		property = &main_v->props.view_main_toolbar;
 		if (g_list_length(gtk_container_children(GTK_CONTAINER(handlebox))) == 0) {
-			make_main_toolbar(bfwin->main_toolbar_hb);
-		}
-	break;
-	case 1:
-		handlebox = bfwin->html_toolbar_hb;
-		property = &main_v->props.view_html_toolbar;
-		if (g_list_length(gtk_container_children(GTK_CONTAINER(handlebox))) == 0) {
-			make_html_toolbar(bfwin->html_toolbar_hb);
+			make_main_toolbar(bfwin);
 		}
 	break;
 	case 2:
-		handlebox = hidewidgets.custom_menu_hb;
-		property = &main_v->props.view_custom_menu;
+		handlebox = bfwin->html_toolbar_hb;
+		property = &main_v->props.view_html_toolbar;
 		if (g_list_length(gtk_container_children(GTK_CONTAINER(handlebox))) == 0) {
-			make_cust_menubar(hidewidgets.custom_menu_hb);
+			make_html_toolbar(bfwin);
 		}
 	break;
 	case 3:
+		handlebox = bfwin->custom_menu_hb;
+		property = &main_v->props.view_custom_menu;
+		if (g_list_length(gtk_container_children(GTK_CONTAINER(handlebox))) == 0) {
+			make_cust_menubar(bfwin,bfwin->custom_menu_hb);
+		}
+	break;
+	case 4:
 		DEBUG_MSG("gui_toggle_hidewidget_cb, setting vlp from %d to %d\n", main_v->props.view_left_panel, 1 - main_v->props.view_left_panel);
 		main_v->props.view_left_panel = 1 - main_v->props.view_left_panel;
-		left_panel_show_hide_toggle(FALSE, main_v->props.view_left_panel);
+		left_panel_show_hide_toggle(bfwin,FALSE, main_v->props.view_left_panel);
 		return;
 	break;
 	default:
