@@ -630,7 +630,7 @@ void doc_close_multiple_backend(Tbfwin *bfwin, gboolean close_window) {
 		break;
 		case 1: /* close all */
 		   /* fake that this document was not modified */
-		   tmpdoc->modified = FALSE;
+			tmpdoc->modified = FALSE;
   			doc_close_single_backend(tmpdoc, close_window);
 		break;
 		case 2: /* choose per file */

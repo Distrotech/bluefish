@@ -861,4 +861,3 @@ void open_advanced(Tbfwin *bfwin, GnomeVFSURI *basedir, gboolean recursive, gcha
 	}
 }
 
-
