@@ -31,24 +31,23 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 			</listitem>
 			<listitem>
 				The latest GTK2-version (v1.0) is the version of choice for 
-				most users. It's the latest addition to the Bluefish tree, 
-				and is regarded as stable enough for daily use.
+				most users, and is regarded as stable enough for daily use.
 			</listitem>
 			<listitem>
 				The latest development snapshot is always one step further 
-				than the latest stable release. You'll find some new 
+				than the latest stable release. In it, you will find some new 
 				features, bug fixes, and a prettier GUI. The catch is that 
 				it may have	unfinished or buggy features. Try this if you 
-				want to see new features, or if there's a bug in the latest 
-				stable release that bothers you.
+				want to see new features or are bothered by a bug in 
+				the latest stable release.
 			</listitem>
 			<listitem>
-				CVS - the bleeding edge of Bluefish development. You want 
-				this if there's a bug that bothers you, but is unfixed even 
-				in the latest snapshot, if you want to contribute a patch, 
-				or simply want the bleeding edge feature set. The CVS may 
-				be unusable for short periods of time, but will often be 
-				stable enough for daily use.
+				CVS is the bleeding edge of Bluefish development. You may 
+				find that the CVS version has several bug fixes and enhancements, 
+				however, it may also contain new, inadvertent bugs. You will
+				also need the CVS version if you want to contribute a patch. 
+				Although the CVS version may be unusable for short periods of 
+				time, it is often stable enough for daily use.
 			</listitem>
 		</itemizedlist>
 		<para>
@@ -58,18 +57,18 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 		</para>
 		<para>
 			If you want the latest and greatest, read 
-			<xref linkend="bluefish-ch-1-sect-3"/> below. If you simply want to 
+			<xref linkend="bluefish-get-cvs"/> below. If you simply want to 
 			use Bluefish, read <xref linkend="bluefish-ch-1-sect-2"/> for how 
-			to get the latest stable package that fits your system.
+			to get the latest stable package for your system.
 		</para>
 
 		<sect2 id="bluefish-ch-1-sect-1.1">
 			<title>How and When Updates are Released</title>
 			<para>
-				Often, a long time may pass between each release. Bluefish 
-				development is not too rapid, due to the small number of 
-				volunteer developers. After all, the developers volunteer their
-				time and effort because they actually want to 
+				Due to the small number of volunteer developers, the progression of 
+				Bluefish's development often fluctuates. For this reason, a long time may 
+				pass between each release. After all, the developers 
+				volunteer their time and effort because they actually want to 
 				<emphasis>use</emphasis> Bluefish :-)
 			</para>
 			<para>
@@ -134,7 +133,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 			Debian, Red Hat/Fedora, and Mandrake.
 		</para>
 	</sect1>
-	<sect1 id="bluefish-ch-1-sect-3">
+	<sect1 id="bluefish-get-cvs">
 		<title>Latest Developmental Version</title>
 			<para>
 				To get the latest version of Bluefish you will need to 
@@ -143,14 +142,14 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 			<para>
 				CVS
 				<footnote><para>Concurrent Versions System</para></footnote>
-				, a version control system, is a much used software development 
-				tool. It keeps track of all changes to the source code, who did 
-				what and why they did it. If you want to read more about CVS, 
+				, a version control system, is a widely used software development 
+				tool. It keeps track of changes to the source code, and allows 
+				for reversion to previous states. If you want to read more about CVS, 
 				have a look at the CVS-book by Karl Fogel, available at
 				<ulink url="http://cvsbook.red-bean.com/cvsbook.html">http://cvsbook.red-bean.com/cvsbook.html</ulink>.
 			</para>
 			<para>
-				The Bluefish project's CVS is generously hosted by 
+				The Bluefish project's CVS repository is generously hosted by 
 				SourceForge.net
 				<footnote>
 					<ulink url="http://www.sourceforge.net">http://www.sourceforge.net</ulink>
@@ -159,34 +158,31 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 				homepage is 
 				<ulink url="http://sourceforge.net/projects/bluefish">http://sourceforge.net/projects/bluefish</ulink>.
 				Our CVS repository contains the current Bluefish source code, 
-				and even this manual. The repository is accessible by anyone, 
+				including this manual. The repository is accessible by anyone, 
 				and is updated almost daily by the developers.
 			</para>
 			<para>
-				To access the repository, you need a few small utilities. You 
-				may have to install them. They are likely to be available 
-				through your favourite source of software (ports, apt etc). The 
-				above mentioned CVS-book is a great source for information.
+				To access the repository, you need a few small utilities. They 
+				are likely to be available through your favorite source of 
+				software (ports, apt, etc). The above-mentioned CVS-book is a 
+				great source for information.
 			</para>
 			<para>
-				The first step is to cd to the directory you want to put the 
-				sources in, and then log in. The latter is accomplished with 
-				this command:
+				The first step is to cd to the directory in which you want to put the 
+				sources. Next, log in using the command:
 				<screen>$ cvs -d :pserver:anonymous@cvs.sourceforge.net:/cvsroot/bluefish login</screen>
 				(just hit <action>Enter</action> at the password prompt)
-				The next step is to <emphasis>check out</emphasis> the 
-				source code. You can check out single modules, and the one you 
-				want is called <literal>bluefish-gtk2</literal>. The command 
-				is:
+				The next step is to <emphasis>check out</emphasis> the CVS module 
+				containing the source code files:
 				<screen>$ cvs -z3 -d :pserver:anonymous@cvs.sourceforge.net:/cvsroot/bluefish co bluefish-gtk2</screen>
 				A lot of files will be downloaded, and listed one by one. If 
 				you're on dial-up, this might take a bit of time. Be patient ;-)
 			</para>
 			<para>
-				When the download has completed, you'll find the bluefish 
+				When the downloads have completed, you will find the bluefish 
 				sources in the subdirectory	
 				<literal>bluefish-gtk2</literal>. You can now enter that directory 
-				and install bluefish using the instructions in <xref linkend="bluefish-ch-2-sect-4.2" />
+				and install bluefish using the instructions in <xref linkend="bluefish-install-devel-source" />
 			</para>
 
 
