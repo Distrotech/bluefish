@@ -224,6 +224,7 @@ gboolean project_save_and_close(Tbfwin *bfwin) {
 			gui_set_title(bfwin, bfwin->current_document);
 			filebrowser_set_basedir(bfwin, NULL);
 			recent_menu_from_file(bfwin, "/.bluefish/recentlist", FALSE);
+			set_project_menu_widgets(bfwin, FALSE);
 			DEBUG_MSG("project_save_and_close, returning TRUE\n");
 			return TRUE;
 		}
@@ -347,6 +348,7 @@ void project_edit(Tbfwin *bfwin) {
 		gchar *message;
 		message = g_strdup_printf(_("This project contains %d files"), g_list_length(pred->project->files));
 		gtk_label_set_markup(GTK_LABEL(label), message);
+		g_free(message);
 	}
 	
 	table = gtk_table_new (5, 3, FALSE);
