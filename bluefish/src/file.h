@@ -23,6 +23,49 @@
 #include "bf_lib.h"
 
 typedef enum {
+	CHECKMODIFIED_ERROR,
+	CHECKMODIFIED_CANCELLED,
+	CHECKMODIFIED_MODIFIED,
+	CHECKMODIFIED_OK
+} Tcheckmodified_status;
+
+typedef void (* CheckmodifiedAsyncCallback) (Tcheckmodified_status status,gint error_info,GnomeVFSFileInfo *orig, GnomeVFSFileInfo *new, gpointer callback_data);
+
+typedef struct {
+	GnomeVFSAsyncHandle *handle;
+	GList *uris;
+	GnomeVFSFileInfo *orig_finfo;
+	CheckmodifiedAsyncCallback callback_func;
+	gpointer callback_data;
+} Tcheckmodified;
+
+void checkmodified_cancel(Tcheckmodified * cm);
+Tcheckmodified *file_checkmodified_uri_async(GnomeVFSURI *uri, GnomeVFSFileInfo *curinfo, CheckmodifiedAsyncCallback callback_func, gpointer callback_data);
+
+typedef enum {
+	SAVEFILE_ERROR,
+	SAVEFILE_ERROR_NOCHANNEL,
+	SAVEFILE_ERROR_NOWRITE,
+	SAVEFILE_ERROR_NOCLOSE,
+	SAVEFILE_ERROR_CANCELLED,
+	SAVEFILE_CHANNEL_OPENED,
+	SAVEFILE_WRITTEN,
+	SAVEFILE_FINISHED
+} Tsavefile_status;
+
+typedef void (* SavefileAsyncCallback) (Tsavefile_status status,gint error_info,gpointer callback_data);
+
+typedef struct {
+	GnomeVFSAsyncHandle *handle;
+	GnomeVFSFileSize buffer_size;
+	Trefcpointer *buffer;
+	SavefileAsyncCallback callback_func;
+	gpointer callback_data;
+} Tsavefile;
+
+Tsavefile *file_savefile_uri_async(GnomeVFSURI *uri, Trefcpointer *buffer, GnomeVFSFileSize buffer_size, SavefileAsyncCallback callback_func, gpointer callback_data);
+
+typedef enum {
 	CHECKANDSAVE_ERROR,
 	CHECKANDSAVE_ERROR_NOBACKUP,
 	CHECKANDSAVE_ERROR_NOCHANNEL,
@@ -41,26 +84,7 @@ typedef enum {
 	CHECKNSAVE_CONT
 } TcheckNsave_return;
 
-typedef enum {
-	CHECKMODIFIED_ERROR,
-	CHECKMODIFIED_CANCELLED,
-	CHECKMODIFIED_MODIFIED,
-	CHECKMODIFIED_OK
-} Tcheckmodified_status;
-
-typedef void (* CheckmodifiedAsyncCallback) (Tcheckmodified_status status,gint error_info,GnomeVFSFileInfo *orig, GnomeVFSFileInfo *new, gpointer callback_data);
-
-typedef struct {
-	GnomeVFSAsyncHandle *handle;
-	GList *uris;
-	GnomeVFSFileInfo *orig_finfo;
-	CheckmodifiedAsyncCallback callback_func;
-	gpointer callback_data;
-} Tcheckmodified;
-
 typedef TcheckNsave_return (* CheckNsaveAsyncCallback) (TcheckNsave_status status,gint error_info,gpointer callback_data);
-void checkmodified_cancel(Tcheckmodified * cm);
-Tcheckmodified *file_checkmodified_uri_async(GnomeVFSURI *uri, GnomeVFSFileInfo *curinfo, CheckmodifiedAsyncCallback callback_func, gpointer callback_data);
 gpointer file_checkNsave_uri_async(GnomeVFSURI *uri, GnomeVFSFileInfo *info, Trefcpointer *buffer, GnomeVFSFileSize buffer_size, gboolean check_modified, CheckNsaveAsyncCallback callback_func, gpointer callback_data);
 
 typedef enum {

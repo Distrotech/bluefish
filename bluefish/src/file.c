@@ -113,26 +113,6 @@ Tcheckmodified * file_checkmodified_uri_async(GnomeVFSURI *uri, GnomeVFSFileInfo
 	return cm;
 }
 /*************************** SAVE FILE ASYNC ******************************/
-typedef enum {
-	SAVEFILE_ERROR,
-	SAVEFILE_ERROR_NOCHANNEL,
-	SAVEFILE_ERROR_NOWRITE,
-	SAVEFILE_ERROR_NOCLOSE,
-	SAVEFILE_ERROR_CANCELLED,
-	SAVEFILE_CHANNEL_OPENED,
-	SAVEFILE_WRITTEN,
-	SAVEFILE_FINISHED
-} Tsavefile_status;
-
-typedef void (* SavefileAsyncCallback) (Tsavefile_status status,gint error_info,gpointer callback_data);
-
-typedef struct {
-	GnomeVFSAsyncHandle *handle;
-	GnomeVFSFileSize buffer_size;
-	Trefcpointer *buffer;
-	SavefileAsyncCallback callback_func;
-	gpointer callback_data;
-} Tsavefile;
 
 static void savefile_cleanup(Tsavefile *sf) {
 	DEBUG_MSG("savefile_cleanup, called for %p\n",sf);
@@ -188,7 +168,7 @@ static void savefile_asyncopenuri_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSResult
 	}
 }
 
-static Tsavefile *file_savefile_uri_async(GnomeVFSURI *uri, Trefcpointer *buffer, GnomeVFSFileSize buffer_size, SavefileAsyncCallback callback_func, gpointer callback_data) {
+Tsavefile *file_savefile_uri_async(GnomeVFSURI *uri, Trefcpointer *buffer, GnomeVFSFileSize buffer_size, SavefileAsyncCallback callback_func, gpointer callback_data) {
 	Tsavefile *sf;
 	sf = g_new(Tsavefile,1);
 	DEBUG_MSG("file_savefile_uri_async, sf=%p\n",sf);
