@@ -234,7 +234,7 @@ void image_insert_dialog_backend(gchar *filename,GtkWidget *widget, gpointer dat
 	} else {
 		imdg->dg->entry[0] = entry_with_text(tagvalues[4], 1024);
 	}
-	bf_mnemonic_label_tad_with_alignment(N_("_Image location:"), imdg->dg->entry[0], 0, 0.5, dgtable, 0, 1, 0, 1); 
+	bf_mnemonic_label_tad_with_alignment(_("_Image location:"), imdg->dg->entry[0], 0, 0.5, dgtable, 0, 1, 0, 1); 
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), imdg->dg->entry[0], 1, 7, 0, 1);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), file_but_new(imdg->dg->entry[0], imdg->dg->dialog, 0), 7, 9, 0, 1);
 	g_signal_connect(G_OBJECT(imdg->dg->entry[0]), "changed", G_CALLBACK(image_filename_changed), imdg);
@@ -242,47 +242,47 @@ void image_insert_dialog_backend(gchar *filename,GtkWidget *widget, gpointer dat
 	imdg->dg->spin[0] = spinbut_with_value(NULL, 0, 5000, 1.0, 10.0);
 	imdg->dg->check[0] = gtk_check_button_new_with_label("%");
 	parse_integer_for_dialog(tagvalues[0], imdg->dg->spin[0] , NULL, imdg->dg->check[0]);
-	bf_mnemonic_label_tad_with_alignment(N_("_Width:"), imdg->dg->spin[0], 0, 0.5, dgtable, 6, 7, 1, 2);
+	bf_mnemonic_label_tad_with_alignment(_("_Width:"), imdg->dg->spin[0], 0, 0.5, dgtable, 6, 7, 1, 2);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), imdg->dg->spin[0], 7, 8, 1, 2);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), imdg->dg->check[0], 8, 9, 1, 2);
 
 	imdg->dg->spin[1] = spinbut_with_value(NULL, 0, 5000, 1.0, 10.0);
 	imdg->dg->check[1] = gtk_check_button_new_with_label("%");
 	parse_integer_for_dialog(tagvalues[1], imdg->dg->spin[1] , NULL, imdg->dg->check[1]);
-	bf_mnemonic_label_tad_with_alignment(N_("Hei_ght:"), imdg->dg->spin[1], 0, 0.5, dgtable, 6, 7, 2, 3);
+	bf_mnemonic_label_tad_with_alignment(_("Hei_ght:"), imdg->dg->spin[1], 0, 0.5, dgtable, 6, 7, 2, 3);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), imdg->dg->spin[1], 7, 8, 2, 3);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), imdg->dg->check[1], 8, 9, 2, 3);
 
 	imdg->dg->entry[3] = entry_with_text(tagvalues[9], 1024);
-	bf_mnemonic_label_tad_with_alignment(N_("_Usemap:"), imdg->dg->entry[3], 0, 0.5, dgtable, 0, 1, 1, 2);
+	bf_mnemonic_label_tad_with_alignment(_("_Usemap:"), imdg->dg->entry[3], 0, 0.5, dgtable, 0, 1, 1, 2);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), imdg->dg->entry[3], 1, 3, 1, 2);
 
 	imdg->dg->entry[1] = entry_with_text(tagvalues[8], 1024);
-	bf_mnemonic_label_tad_with_alignment(N_("_Name:"), imdg->dg->entry[1], 0, 0.5, dgtable, 0, 1, 2, 3);
+	bf_mnemonic_label_tad_with_alignment(_("_Name:"), imdg->dg->entry[1], 0, 0.5, dgtable, 0, 1, 2, 3);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), imdg->dg->entry[1], 1, 3, 2, 3);
 
 	imdg->dg->entry[2] = entry_with_text(tagvalues[2], 1024);
-	bf_mnemonic_label_tad_with_alignment(N_("Alternate _text:"), imdg->dg->entry[2], 0, 0.5, dgtable, 0, 1, 3, 4);
+	bf_mnemonic_label_tad_with_alignment(_("Alternate _text:"), imdg->dg->entry[2], 0, 0.5, dgtable, 0, 1, 3, 4);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), imdg->dg->entry[2], 1, 6, 3, 4);
 
 	imdg->dg->entry[4] = entry_with_text(custom, 1024);
-	bf_mnemonic_label_tad_with_alignment(N_("Custo_m:"), imdg->dg->entry[4], 0, 0.5, dgtable, 0, 1, 4, 5);
+	bf_mnemonic_label_tad_with_alignment(_("Custo_m:"), imdg->dg->entry[4], 0, 0.5, dgtable, 0, 1, 4, 5);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), imdg->dg->entry[4], 1, 6, 4, 5);
 
 	imdg->dg->spin[3] = spinbut_with_value(tagvalues[5], 0, 500, 1.0, 5.0);
-	bf_mnemonic_label_tad_with_alignment(N_("_Hspace:"), imdg->dg->spin[3], 0, 0.5, dgtable, 6, 7, 3, 4);
+	bf_mnemonic_label_tad_with_alignment(_("_Hspace:"), imdg->dg->spin[3], 0, 0.5, dgtable, 6, 7, 3, 4);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), imdg->dg->spin[3], 7, 9, 3, 4);
 
 	imdg->dg->spin[4] = spinbut_with_value(tagvalues[6], 0, 500, 1.0, 5.0);
-	bf_mnemonic_label_tad_with_alignment(N_("_Vspace:"), imdg->dg->spin[4], 0, 0.5, dgtable, 6, 7, 4, 5);
+	bf_mnemonic_label_tad_with_alignment(_("_Vspace:"), imdg->dg->spin[4], 0, 0.5, dgtable, 6, 7, 4, 5);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), imdg->dg->spin[4], 7, 9, 4, 5);
 
 	imdg->dg->combo[0] = combo_with_popdown_sized(tagvalues[7], recent_attribs.positionlist, 1, 90);
-	bf_mnemonic_label_tad_with_alignment(N_("_Align:"), imdg->dg->combo[0], 0, 0.5, dgtable, 3, 4, 1, 2);
+	bf_mnemonic_label_tad_with_alignment(_("_Align:"), imdg->dg->combo[0], 0, 0.5, dgtable, 3, 4, 1, 2);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), imdg->dg->combo[0], 4, 6, 1, 2);
 
 	imdg->dg->spin[2] = spinbut_with_value(tagvalues[3], 0, 500, 1.0, 5.0);
-	bf_mnemonic_label_tad_with_alignment(N_("Borde_r:"), imdg->dg->spin[2], 0, 0.5, dgtable, 3, 4, 2, 3);
+	bf_mnemonic_label_tad_with_alignment(_("Borde_r:"), imdg->dg->spin[2], 0, 0.5, dgtable, 3, 4, 2, 3);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), imdg->dg->spin[2], 4, 6, 2, 3);
 
 	if (filename || tagvalues[4]) {

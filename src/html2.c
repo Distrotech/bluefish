@@ -603,7 +603,7 @@ static Tcs3_diag *css_diag(Tcs3_destination dest, Tcs3_style style, GtkWidget *t
 	if (diag->styletype == multistyle) {
 		tmplist = glist_with_html_tags(1);
 		diag->selector = combo_with_popdown(NULL, tmplist,1);
-		bf_mnemonic_label_tad_with_alignment(N_("_Selector:"), diag->selector, 0, 0.5, table, 0, 1, 0, 1);
+		bf_mnemonic_label_tad_with_alignment(_("_Selector:"), diag->selector, 0, 0.5, table, 0, 1, 0, 1);
 		gtk_table_attach_defaults(GTK_TABLE(table), diag->selector, 1 ,5 , 0, 1);
 		g_list_free(tmplist);
 		tmplist = NULL;
@@ -622,9 +622,9 @@ static Tcs3_diag *css_diag(Tcs3_destination dest, Tcs3_style style, GtkWidget *t
 	gtk_signal_connect(GTK_OBJECT(GTK_COMBO(diag->property)->entry), "changed", G_CALLBACK(cs3d_prop_activate_lcb), diag);
 
 	diag->value = combo_with_popdown(NULL, tmplist,1);
-	bf_mnemonic_label_tad_with_alignment(N_("_Property:"), diag->property, 0, 0.5, table, 0, 1, 1, 2);
+	bf_mnemonic_label_tad_with_alignment(_("_Property:"), diag->property, 0, 0.5, table, 0, 1, 1, 2);
 	gtk_table_attach_defaults(GTK_TABLE(table), diag->property, 1, 5, 1, 2);
-	bf_mnemonic_label_tad_with_alignment(N_("_Value:"), diag->value, 0, 0.5, table, 0, 1, 2, 3);
+	bf_mnemonic_label_tad_with_alignment(_("_Value:"), diag->value, 0, 0.5, table, 0, 1, 2, 3);
 	gtk_table_attach_defaults(GTK_TABLE(table), diag->value, 1, 5, 2, 3);
 	
 	gtk_widget_realize(diag->win);
@@ -660,13 +660,13 @@ static Tcs3_diag *css_diag(Tcs3_destination dest, Tcs3_style style, GtkWidget *t
 	vbox2 = gtk_vbox_new(FALSE, 6);
 	gtk_box_pack_start(GTK_BOX(hbox), vbox2, FALSE, FALSE, 0);
 	
-	but = bf_stock_button(N_(" _Add "), G_CALLBACK(cs3d_add_clicked_lcb), diag);
+	but = bf_stock_button(_(" _Add "), G_CALLBACK(cs3d_add_clicked_lcb), diag);
 	gtk_box_pack_start(GTK_BOX(vbox2), but, FALSE, FALSE, 0);
 
-	but = bf_stock_button(N_(" _Update "), G_CALLBACK(cs3d_update_clicked_lcb), diag);
+	but = bf_stock_button(_(" _Update "), G_CALLBACK(cs3d_update_clicked_lcb), diag);
 	gtk_box_pack_start(GTK_BOX(vbox2), but, FALSE, FALSE, 0);
 	
-	but = bf_stock_button(N_(" _Delete "), G_CALLBACK(cs3d_del_clicked_lcb), diag);
+	but = bf_stock_button(_(" _Delete "), G_CALLBACK(cs3d_del_clicked_lcb), diag);
 	gtk_box_pack_start(GTK_BOX(vbox2), but, FALSE, FALSE, 0);
 
 	/* the ok and cancel button are in a horizontal box below */
@@ -922,7 +922,7 @@ GtkWidget *style_but_new(GtkWidget * which_entry, GtkWidget * win)
 	style_but = gtk_button_new();
 	hbox = gtk_hbox_new(FALSE, 0);
 	gtk_box_pack_start(GTK_BOX(hbox), new_pixmap(92),FALSE, FALSE, 3);
-	gtk_box_pack_start(GTK_BOX(hbox), gtk_label_new_with_mnemonic(N_("_Style...")), TRUE, TRUE, 3);
+	gtk_box_pack_start(GTK_BOX(hbox), gtk_label_new_with_mnemonic(_("_Style...")), TRUE, TRUE, 3);
 	gtk_container_add(GTK_CONTAINER(style_but), hbox);
 	gtk_signal_connect(GTK_OBJECT(style_but), "clicked", G_CALLBACK(style_but_clicked_lcb), which_entry);
 	gtk_widget_show_all(style_but);
@@ -959,7 +959,7 @@ GtkWidget *style_but_new_for_wizard(GtkWidget * textview) {
 	style_but = gtk_button_new();
 	hbox = gtk_hbox_new(FALSE, 0);
 	gtk_box_pack_start(GTK_BOX(hbox), new_pixmap(92),FALSE, FALSE, 6);
-	gtk_box_pack_start(GTK_BOX(hbox), gtk_label_new_with_mnemonic(N_("_Style...")), TRUE, TRUE, 6);
+	gtk_box_pack_start(GTK_BOX(hbox), gtk_label_new_with_mnemonic(_("_Style...")), TRUE, TRUE, 6);
 	gtk_container_add(GTK_CONTAINER(style_but), hbox);
 	gtk_signal_connect(GTK_OBJECT(style_but), "clicked", G_CALLBACK(style_but_for_wizard_clicked_lcb), textview);
 	gtk_widget_show_all(style_but);
@@ -1162,7 +1162,7 @@ static Tcolsel *colsel_dialog(gchar *setcolor, gint modal, gint startpos, gint e
 	
 	csd->hexentry = boxed_entry_with_text(this_color, 7, hbox);
 	csd->hex_changed_id = gtk_signal_connect(GTK_OBJECT(csd->hexentry), "changed", G_CALLBACK(hexentry_color_changed), csd);
-	csd->websafe = boxed_checkbut_with_value(N_("_websafe"), 0, hbox);
+	csd->websafe = boxed_checkbut_with_value(_("_websafe"), 0, hbox);
 
 	hbox = gtk_hbox_new(FALSE, 0);
 	gtk_box_pack_start(GTK_BOX(hbox), gtk_hseparator_new(), TRUE, TRUE, 0);
