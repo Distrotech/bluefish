@@ -19,6 +19,30 @@
  */
 #ifndef __FILE_H_
 #define __FILE_H_
+
+#include "bf_lib.h"
+
+typedef enum {
+	CHECKANDSAVE_ERROR,
+	CHECKANDSAVE_ERROR_NOBACKUP,
+	CHECKANDSAVE_ERROR_NOCHANNEL,
+	CHECKANDSAVE_ERROR_NOWRITE,
+	CHECKANDSAVE_ERROR_MODIFIED,
+	CHECKANDSAVE_CHECKED,
+	CHECKANDSAVE_BACKUP,
+	CHECKANDSAVE_CHANNEL_OPENED,
+	CHECKANDSAVE_FINISHED
+} TcheckNsave_status;
+
+typedef enum {
+	CHECKNSAVE_STOP,
+	CHECKNSAVE_CONT
+} TcheckNsave_return;
+
+typedef TcheckNsave_return (* CheckNsaveAsyncCallback) (TcheckNsave_status,gint error_info,gpointer callback_data);
+
+void file_checkNsave_uri_async(GnomeVFSURI *uri, GnomeVFSFileInfo *info, Trefcpointer *buffer, GnomeVFSFileSize buffer_size, CheckNsaveAsyncCallback callback_func, gpointer callback_data);
+
 void file_doc_retry_uri(Tdocument *doc);
 void file_doc_from_uri(Tbfwin *bfwin, GnomeVFSURI *uri, GnomeVFSFileInfo *finfo);
 void file_docs_from_uris(Tbfwin *bfwin, GSList *urislist);

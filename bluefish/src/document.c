@@ -2482,6 +2482,12 @@ gchar *ask_new_filename(Tbfwin *bfwin,gchar *oldfilename, const gchar *gui_name,
 	return newfilename;
 }
 
+static TcheckNsave_return doc_checkNsave_lcb(TcheckNsave_status status,gint error_info,gpointer data) {
+	Tdocument *doc = data;
+
+	DEBUG_MSG("doc_checkNsave_lcb, called with status=%d and doc=%p\n",status,doc);
+	return CHECKNSAVE_CONT;
+}
 
 /**
  * doc_save:
@@ -2581,6 +2587,17 @@ gint doc_save(Tdocument * doc, gboolean do_save_as, gboolean do_move, gboolean w
 	}
 	retval = doc_textbox_to_file(doc, doc->filename, window_closing);
 
+/*********** FOR DEBUGGING ************
+	{
+	Trefcpointer *buffer;
+	GtkTextIter itstart, itend;
+	GnomeVFSURI *uri = gnome_vfs_uri_new(doc->filename);
+	gtk_text_buffer_get_bounds(doc->buffer,&itstart,&itend);
+	buffer = refcpointer_new(gtk_text_buffer_get_text(doc->buffer,&itstart,&itend,FALSE));
+	file_checkNsave_uri_async(uri, doc->fileinfo, buffer, strlen(buffer->data), doc_checkNsave_lcb, doc);
+	refcpointer_unref(buffer);
+	}
+*********** FOR DEBUGGING ************/
 	switch (retval) {
 		gchar *errmessage;
 		case -1:
