@@ -5,14 +5,14 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: bluefish gtk2-port\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-11-19 00:19-0300\n"
+"POT-Creation-Date: 2003-11-19 10:53+0100\n"
 "PO-Revision-Date: 2001-11-17 15:24+0100\n"
 "Last-Translator: Walter Echarri <wecharri@yahoo.com>\n"
 "Language-Team: espanol <es@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8 bit\n"
+"Report-Msgid-Bugs-To: \n"
 
 # src/html.c:1724 src/html.c:1768
 # src/html_form.c:325 src/html_form.c:369
@@ -42,7 +42,7 @@ msgstr "I_gnorar"
 
 # src/snr.c:209
 # src/snr2.c:560 src/snr2.c:597
-#: ../src/bfspell.c:361 ../src/snr2.c:886
+#: ../src/bfspell.c:361 ../src/snr2.c:836
 msgid "_Replace"
 msgstr "_Reemplazar"
 
@@ -393,7 +393,7 @@ msgstr "Guardar documento como"
 # src/gtk_easy.c:250 src/html.c:2136
 # src/gtk_easy.c:413
 #: ../src/document.c:2045 ../src/document.c:2059 ../src/document.c:2147
-#: ../src/document.c:3227 ../src/gui.c:1068
+#: ../src/document.c:3227 ../src/gui.c:1069
 msgid "_Cancel"
 msgstr "_Cancelar"
 
@@ -786,7 +786,7 @@ msgstr "Archivo"
 msgid "All files"
 msgstr "Todos los archivos"
 
-#: ../src/filebrowser.c:1861
+#: ../src/filebrowser.c:1860
 msgid "Show full tree"
 msgstr "Mostrar el árbol completo"
 
@@ -878,7 +878,7 @@ msgstr "Mostrar ventana info"
 
 # src/snr.c:124 src/snr.c:172 src/toolbars.c:165
 # src/snr2.c:563 src/toolbars.c:167
-#: ../src/fref.c:2059 ../src/snr2.c:1278
+#: ../src/fref.c:2059 ../src/snr2.c:1228
 msgid "Search"
 msgstr "Buscar"
 
@@ -1556,149 +1556,71 @@ msgstr "/Documento/Justificar"
 msgid "/Document/Line Numbers"
 msgstr "/Document/Números de línea:"
 
-#: ../src/gui.c:1068
+#: ../src/gui.c:1069
 msgid "Do_n't Save"
 msgstr "_No guardar"
 
-#: ../src/gui.c:1069
+#: ../src/gui.c:1070
 msgid "Failed to save the current project"
 msgstr "Fallo al guardar el proyecto actual"
 
 # src/callbacks.c:166 src/callbacks.c:244
 # src/document.c:649 src/document.c:671 src/document.c:756
-#: ../src/gui.c:1093
+#: ../src/gui.c:1094
 msgid "New Bluefish Window"
 msgstr "Nueva ventana Bluefish"
 
 # src/toolbars.c:432
 # src/toolbars.c:436
-#: ../src/gui.c:1146
+#: ../src/gui.c:1147
 msgid "Stand by..."
 msgstr "Aguarde..."
 
 # src/callbacks.c:1134
 # src/document.c:997
-#: ../src/gui.c:1330
+#: ../src/gui.c:1331
 msgid "Goto line"
 msgstr "Ir a la línea"
 
 # src/callbacks.c:1141
 # src/document.c:1003
-#: ../src/gui.c:1338
+#: ../src/gui.c:1339
 msgid "_Line number:"
 msgstr "Número de _línea:"
 
 # src/configure.c:161
 # src/configure.c:172
-#: ../src/gui.c:1344
+#: ../src/gui.c:1345
 msgid "From _selection"
 msgstr "Desde _Selección"
 
 # src/configure.c:342
 # src/configure.c:393
-#: ../src/gui.c:1347
+#: ../src/gui.c:1348
 msgid "Keep _dialog"
 msgstr "Mantener _diálogo"
 
-#: ../src/gui.c:1416
+#: ../src/gui.c:1417
 msgid "starting bluefish"
 msgstr "iniciando bluefish"
 
 # src/menu.c:140
 # src/menu.c:479
-#: ../src/gui.c:1447 ../src/menu.c:891
+#: ../src/gui.c:1448 ../src/menu.c:891
 msgid "/View/View HTML Toolbar"
 msgstr "/Ver/Barra de Herramientas HTML"
 
 # src/menu.c:139
 # src/menu.c:478
-#: ../src/gui.c:1454 ../src/menu.c:890
+#: ../src/gui.c:1455 ../src/menu.c:890
 msgid "/View/View Main Toolbar"
 msgstr "/Ver/Barra de Herramientas Principal"
 
 # src/menu.c:141
 # src/menu.c:480
-#: ../src/gui.c:1461 ../src/menu.c:892
+#: ../src/gui.c:1462 ../src/menu.c:892
 msgid "/View/View Custom Menu"
 msgstr "/Ver/Menú Personalizado"
-
-#: ../src/html2.c:587
-msgid "Cascading StyleSheet dialog"
-msgstr "Diálogo de CSS"
-
-# src/html.c:1797
-# src/html_form.c:398
-#: ../src/html2.c:607
-msgid "_Selector:"
-msgstr "_Selector:"
-
-#: ../src/html2.c:626
-msgid "_Property:"
-msgstr "_Propiedad:"
-
-# src/html.c:1525 src/html.c:1545 src/html.c:1579 src/html.c:1630
-# src/html.c:1667 src/html.c:1719 src/html.c:1763
-# src/html_form.c:126 src/html_form.c:146 src/html_form.c:180
-# src/html_form.c:231 src/html_form.c:268 src/html_form.c:320
-# src/html_form.c:364 src/wml.c:171 src/wml.c:211
-#: ../src/html2.c:628 ../src/html_form.c:283 ../src/html_form.c:350
-#: ../src/html_form.c:411 ../src/html_form.c:466 ../src/html_form.c:528
-#: ../src/html_form.c:636
-msgid "_Value:"
-msgstr "_Valor:"
-
-# src/html.c:1797
-# src/html_form.c:398
-#: ../src/html2.c:646
-msgid "Selector"
-msgstr "Selector"
-
-#: ../src/html2.c:646 ../src/html2.c:649
-msgid "Property"
-msgstr "Propiedad"
-
-# src/html.c:1525 src/html.c:1545 src/html.c:1579 src/html.c:1630
-# src/html.c:1667 src/html.c:1719 src/html.c:1763
-# src/html_form.c:126 src/html_form.c:146 src/html_form.c:180
-# src/html_form.c:231 src/html_form.c:268 src/html_form.c:320
-# src/html_form.c:364 src/wml.c:171 src/wml.c:211
-#: ../src/html2.c:646 ../src/html2.c:649
-msgid "Value"
-msgstr "Valor"
-
-# src/stringlist.c:146
-# src/stringlist.c:142
-#: ../src/html2.c:664
-msgid " _Add "
-msgstr "_Agregar "
-
-# src/stringlist.c:147
-# src/stringlist.c:143
-#: ../src/html2.c:667
-msgid " _Update "
-msgstr "_Actualizar "
-
-# src/stringlist.c:148
-# src/stringlist.c:144
-#: ../src/html2.c:670
-msgid " _Delete "
-msgstr "_Borrar "
-
-# src/html.c:1844 src/toolbars.c:440
-# src/html.c:1128 src/toolbars.c:444
-#: ../src/html2.c:926 ../src/html2.c:963
-msgid "_Style..."
-msgstr "_Estilo..."
-
-# src/callbacks.c:647
-# src/project.c:56
-#: ../src/html2.c:1157
-msgid "Bluefish: Select color"
-msgstr "Bluefish - Selector de colores"
-
-#: ../src/html2.c:1177
-msgid "_websafe"
-msgstr "_websafe"
 
 # src/toolbars.c:465
 # src/toolbars.c:510
@@ -2233,6 +2155,84 @@ msgstr "_Relacionar:"
 #: ../src/html.c:2050 ../src/html_form.c:358
 msgid "_Type:"
 msgstr "_Tipo:"
+
+#: ../src/html2.c:587
+msgid "Cascading StyleSheet dialog"
+msgstr "Diálogo de CSS"
+
+# src/html.c:1797
+# src/html_form.c:398
+#: ../src/html2.c:607
+msgid "_Selector:"
+msgstr "_Selector:"
+
+#: ../src/html2.c:626
+msgid "_Property:"
+msgstr "_Propiedad:"
+
+# src/html.c:1525 src/html.c:1545 src/html.c:1579 src/html.c:1630
+# src/html.c:1667 src/html.c:1719 src/html.c:1763
+# src/html_form.c:126 src/html_form.c:146 src/html_form.c:180
+# src/html_form.c:231 src/html_form.c:268 src/html_form.c:320
+# src/html_form.c:364 src/wml.c:171 src/wml.c:211
+#: ../src/html2.c:628 ../src/html_form.c:283 ../src/html_form.c:350
+#: ../src/html_form.c:411 ../src/html_form.c:466 ../src/html_form.c:528
+#: ../src/html_form.c:636
+msgid "_Value:"
+msgstr "_Valor:"
+
+# src/html.c:1797
+# src/html_form.c:398
+#: ../src/html2.c:646
+msgid "Selector"
+msgstr "Selector"
+
+#: ../src/html2.c:646 ../src/html2.c:649
+msgid "Property"
+msgstr "Propiedad"
+
+# src/html.c:1525 src/html.c:1545 src/html.c:1579 src/html.c:1630
+# src/html.c:1667 src/html.c:1719 src/html.c:1763
+# src/html_form.c:126 src/html_form.c:146 src/html_form.c:180
+# src/html_form.c:231 src/html_form.c:268 src/html_form.c:320
+# src/html_form.c:364 src/wml.c:171 src/wml.c:211
+#: ../src/html2.c:646 ../src/html2.c:649
+msgid "Value"
+msgstr "Valor"
+
+# src/stringlist.c:146
+# src/stringlist.c:142
+#: ../src/html2.c:664
+msgid " _Add "
+msgstr "_Agregar "
+
+# src/stringlist.c:147
+# src/stringlist.c:143
+#: ../src/html2.c:667
+msgid " _Update "
+msgstr "_Actualizar "
+
+# src/stringlist.c:148
+# src/stringlist.c:144
+#: ../src/html2.c:670
+msgid " _Delete "
+msgstr "_Borrar "
+
+# src/html.c:1844 src/toolbars.c:440
+# src/html.c:1128 src/toolbars.c:444
+#: ../src/html2.c:926 ../src/html2.c:963
+msgid "_Style..."
+msgstr "_Estilo..."
+
+# src/callbacks.c:647
+# src/project.c:56
+#: ../src/html2.c:1157
+msgid "Bluefish: Select color"
+msgstr "Bluefish - Selector de colores"
+
+#: ../src/html2.c:1177
+msgid "_websafe"
+msgstr "_websafe"
 
 # src/html.c:1478
 # src/html_form.c:79
@@ -5504,15 +5504,15 @@ msgstr "/Proyecto/Editar Opciones del Proyecto..."
 msgid "Select Bluefish project filename"
 msgstr "Selecciones nombre del proyecto Bluefish"
 
-#: ../src/project.c:319
+#: ../src/project.c:323
 msgid "Create New Project"
 msgstr "Crear proyecto nuevo"
 
-#: ../src/project.c:322
+#: ../src/project.c:326
 msgid "Edit Project"
 msgstr "Editar proyecto"
 
-#: ../src/project.c:345
+#: ../src/project.c:349
 #, c-format
 msgid "This project contains %d files"
 msgstr "Este proyecto contiene %d archivos"
@@ -5526,43 +5526,43 @@ msgstr "Este proyecto contiene %d archivos"
 # src/html_form.c:264 src/html_form.c:316 src/html_form.c:360
 # src/html_form.c:403 src/menu.c:891 src/menu.c:917 src/wml.c:167
 # src/wml.c:207 src/wml.c:323
-#: ../src/project.c:356
+#: ../src/project.c:361
 msgid "Project _Name:"
 msgstr "_Nombre del proyecto:"
 
-#: ../src/project.c:360
+#: ../src/project.c:365
 msgid "_Local Directory:"
 msgstr "Directorio _local:"
 
-#: ../src/project.c:364
+#: ../src/project.c:369
 msgid "_Remote Directory:"
 msgstr "Directorio _remoto:"
 
 # src/snr.c:209
 # src/snr2.c:560 src/snr2.c:597
-#: ../src/project.c:368
+#: ../src/project.c:373
 msgid "_Template:"
 msgstr "_Plantilla:"
 
 # src/html.c:1233 src/html.c:1314
 # src/configure.c:311
-#: ../src/project.c:372
+#: ../src/project.c:377
 msgid "_Word wrap by default"
 msgstr "_Ajuste de línea predeterminado"
 
-#: ../src/project.c:383
+#: ../src/project.c:388
 msgid "Create _Project"
 msgstr "Crear _proyecto"
 
-#: ../src/project.c:423
+#: ../src/project.c:428
 msgid "Create project"
 msgstr "Crear proyecto"
 
-#: ../src/project.c:427
+#: ../src/project.c:432
 msgid "Create project with currently opened documents"
 msgstr "Crear proyecto con los documentos abiertos actualmente"
 
-#: ../src/project.c:428
+#: ../src/project.c:433
 msgid "Create empty project"
 msgstr "Crear proyecto vacío"
 
@@ -5643,156 +5643,156 @@ msgid "Untitled Project"
 msgstr "Proyecto sin nombre"
 
 # src/snr2.c:594
-#: ../src/snr2.c:195
+#: ../src/snr2.c:145
 msgid "Regular expression error: "
 msgstr "Error expresión regular:"
 
-#: ../src/snr2.c:196 ../src/snr2.c:240
+#: ../src/snr2.c:146 ../src/snr2.c:190
 msgid "Search failed"
 msgstr "Falló búsqueda"
 
 # src/snr2.c:594
-#: ../src/snr2.c:239
+#: ../src/snr2.c:189
 #, c-format
 msgid "Regular expression error: %s at offset %d"
 msgstr "Error en expresión regular: %s en %d"
 
 # src/snr2.c:381
-#: ../src/snr2.c:860
+#: ../src/snr2.c:810
 msgid "Confirm replace"
 msgstr "Comfirmar reemplazo"
 
-#: ../src/snr2.c:872
+#: ../src/snr2.c:822
 msgid "Replace selected text?"
 msgstr "¿Reemplazar texto seleccionado?"
 
-#: ../src/snr2.c:885
+#: ../src/snr2.c:835
 msgid "_Skip"
 msgstr "_Omitir"
 
 # src/snr.c:209
 # src/snr2.c:560 src/snr2.c:597
-#: ../src/snr2.c:887
+#: ../src/snr2.c:837
 msgid "Replace _all"
 msgstr "Reemplazar _todo"
 
-#: ../src/snr2.c:1073 ../src/snr2.c:1080
+#: ../src/snr2.c:1023 ../src/snr2.c:1030
 msgid "Search: no match found"
 msgstr "Búsqueda: no hubo coincidencias"
 
 # src/snr.c:209
 # src/snr2.c:560 src/snr2.c:597
-#: ../src/snr2.c:1275
+#: ../src/snr2.c:1225
 msgid "Replace"
 msgstr "Reemplazar"
 
 # src/snr.c:124 src/snr.c:172 src/toolbars.c:165
 # src/snr2.c:563 src/toolbars.c:167
-#: ../src/snr2.c:1304
+#: ../src/snr2.c:1254
 msgid "Search _for: "
 msgstr "_Buscar: "
 
 # src/snr.c:209
 # src/snr2.c:604
-#: ../src/snr2.c:1318
+#: ../src/snr2.c:1268
 msgid "Replace wit_h: "
 msgstr "Reemplazar _con: "
 
-#: ../src/snr2.c:1329
+#: ../src/snr2.c:1279
 msgid "\\0 refers to the first subsearch_pattern, \\1 to the second etc."
 msgstr "\\0 hace referencia al primer subpatrón, \\1 al segundo, etc."
 
 # src/snr.c:204
 # src/snr2.c:588
-#: ../src/snr2.c:1344
+#: ../src/snr2.c:1294
 msgid "Beginning of document till end"
 msgstr "Comienzo del documento hasta el final"
 
 # src/snr.c:201
 # src/snr2.c:589
-#: ../src/snr2.c:1344
+#: ../src/snr2.c:1294
 msgid "Current position till end"
 msgstr "Posición actual hasta el final"
 
 # src/configure.c:161
 # src/snr2.c:590
-#: ../src/snr2.c:1344
+#: ../src/snr2.c:1294
 msgid "Beginning of selection till end of selection"
 msgstr "Comienzo hasta el final de la selección"
 
 # src/snr.c:212
 # src/snr2.c:591
-#: ../src/snr2.c:1344
+#: ../src/snr2.c:1294
 msgid "All opened files begin till end"
 msgstr "Comienzo de todos los archivos abiertos hasta el final"
 
 # src/wml.c:196
-#: ../src/snr2.c:1345
+#: ../src/snr2.c:1295
 msgid "Disabled"
 msgstr "Deshabilitado"
 
 # src/html.c:1847
 # src/html.c:1131
-#: ../src/snr2.c:1345
+#: ../src/snr2.c:1295
 msgid "POSIX type"
 msgstr "Tipo POSIX"
 
-#: ../src/snr2.c:1345
+#: ../src/snr2.c:1295
 msgid "PERL type"
 msgstr "Tipo PERL"
 
-#: ../src/snr2.c:1346
+#: ../src/snr2.c:1296
 msgid "Starts at:"
 msgstr "Empezar desde:"
 
 # src/snr2.c:594
-#: ../src/snr2.c:1358
+#: ../src/snr2.c:1308
 msgid "Regular expression:"
 msgstr "Expresión regular:"
 
-#: ../src/snr2.c:1372
+#: ../src/snr2.c:1322
 msgid "Normal"
 msgstr "Normal"
 
 # src/snr.c:209
 # src/snr2.c:616
-#: ../src/snr2.c:1372
+#: ../src/snr2.c:1322
 msgid "Uppercase"
 msgstr "Mayúsculas"
 
 # src/snr.c:209
 # src/snr2.c:617
-#: ../src/snr2.c:1372
+#: ../src/snr2.c:1322
 msgid "Lowercase"
 msgstr "Minúsculas"
 
 # src/snr.c:209
 # src/snr2.c:560 src/snr2.c:597
-#: ../src/snr2.c:1373
+#: ../src/snr2.c:1323
 msgid "Replace type:"
 msgstr "Reemplazar tipo:"
 
-#: ../src/snr2.c:1386
+#: ../src/snr2.c:1336
 msgid "Patterns contain backslash escape sequences (\\n, \\t)"
 msgstr "Los patrones contienen secuencias de escape (\\n, \\t)"
 
-#: ../src/snr2.c:1387
+#: ../src/snr2.c:1337
 msgid "Match ca_se"
 msgstr "Respetar May/Min"
 
 # src/snr2.c:595
-#: ../src/snr2.c:1388
+#: ../src/snr2.c:1338
 msgid "O_verlap searches"
 msgstr "_Búsquedas coincidentes"
 
 # src/snr2.c:621
-#: ../src/snr2.c:1390
+#: ../src/snr2.c:1340
 msgid "Prompt _before replace"
 msgstr "Preguntar _antes de reemplazar"
 
 # src/snr.c:209
 # src/snr2.c:622
-#: ../src/snr2.c:1391
+#: ../src/snr2.c:1341
 msgid "Rep_lace once"
 msgstr "Reem_plazar una vez"
 
