@@ -776,7 +776,7 @@ static void highlightpattern_popmenu_activate(GtkMenuItem *menuitem,Tprefdialog 
 
 static void add_new_highlightpattern_lcb(GtkWidget *wid, Tprefdialog *pd) {
 	gchar *pattern = gtk_editable_get_chars(GTK_EDITABLE(pd->hpd.entry[0]),0,-1);
-	if (strlen(pattern) && strlen(pd->hpd.selected_filetype)) {
+	if (pattern && pd->hpd.selected_filetype && strlen(pattern) && strlen(pd->hpd.selected_filetype)) {
 		gchar **strarr = highlightpattern_create_strarr(pd);
 		DEBUG_MSG("add_new_highlightpattern_lcb, appending strarr %p to list\n", strarr);
 		pd->lists[highlight_patterns] = g_list_append(pd->lists[highlight_patterns], strarr);
@@ -937,7 +937,7 @@ static void highlightpattern_gui_rebuild_filetype_popup(Tprefdialog *pd) {
 			menuitem = gtk_menu_item_new_with_label(arr[0]);
 			DEBUG_MSG("highlightpattern_gui_rebuild_filetype_popup, menuitem=%p for %s\n", menuitem, arr[0]);
 			g_signal_connect(GTK_OBJECT(menuitem), "activate",G_CALLBACK(highlightpattern_popmenu_activate),pd);
-			gtk_menu_append(GTK_MENU(menu), menuitem);
+			gtk_menu_shell_append(GTK_MENU_SHELL(menu), menuitem);
 			gtk_widget_show(menuitem);
 		}
 		tmplist = g_list_next(tmplist);
