@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<ref name="CSS2 tmp0.4.2" description="CSS 2.0 properties complete, tested, but comma problem for font-family, font, text-shadow and voice-family">
+<ref name="CSS2 " description="CSS 2.0 references">
   <tag name="Conventions (see Notes)">
     <description> value types and arrangements (see Notes)</description>
     <info title="Conventions">
@@ -37,9 +37,9 @@
    </tag>
  
    <tag name="property: inherit;">
-    <description>insert inherit value for selected property, using Dialog</description>
+    <description>insert inherit value for selected property, using Dialog.</description>
     <attribute name="properties" required="1" vallist="1" default="">
-<vallist>azimuth,background,background-attachment,background-color,background-image,background-position,background-repeat,border,border-bottom,border-bottom-color,border-bottom-style,border-bottom-width,border-collapse,border-color,border-left,border-left-color,border-left-style,border-left-width,border-right,border-right-color,border-right-style,border-right-width,border-spacing,border-style,border-top,border-top-color,border-top-style,border-top-width,border-width,bottom,caption-side,clear,clip,color,content,counter-increment,counter-reset,cue,cue-after,cue-before,cursor,direction,display,elevation,empty-cells,float,font,font-family,font-size,font-size-adjust,font-stretch,font-style,font-variant,font-weight,height,left,letter-spacing,line-height,list-style,list-style-image,list-style-position,list-style-type,margin,margin-bottom,margin-left,margin-right,margin-top,marker-offset,marks,max-height,max-width,min-height,min-width,orphans,outline,outline-color,outline-style,outline-width,overflow,padding,padding-bottom,padding-left,padding-right,padding-top,page-break-after,page-break-before,page-break-inside,pause,pause-after,pause-before,pitch,pitch-range,play-during,position,quotes,richness,right,size,speak,speak-header,speak-numeral,speak-punctuation,speech-rate,stress,table-layout,text-align,text-decoration,text-indent,text-shadow,text-transform,top,unicode-bidi,vertical-align,visibility,voice-family,volume,white-space,widows,width,word-spacing,z-index</vallist>insert inherit value  for selected property, using Dialog
+<vallist>azimuth,background,background-attachment,background-color,background-image,background-position,background-repeat,border,border-bottom,border-bottom-color,border-bottom-style,border-bottom-width,border-collapse,border-color,border-left,border-left-color,border-left-style,border-left-width,border-right,border-right-color,border-right-style,border-right-width,border-spacing,border-style,border-top,border-top-color,border-top-style,border-top-width,border-width,bottom,caption-side,clear,clip,color,content,counter-increment,counter-reset,cue,cue-after,cue-before,cursor,direction,display,elevation,empty-cells,float,font,font-family,font-size,font-size-adjust,font-stretch,font-style,font-variant,font-weight,height,left,letter-spacing,line-height,list-style,list-style-image,list-style-position,list-style-type,margin,margin-bottom,margin-left,margin-right,margin-top,marker-offset,marks,max-height,max-width,min-height,min-width,orphans,outline,outline-color,outline-style,outline-width,overflow,padding,padding-bottom,padding-left,padding-right,padding-top,page-break-after,page-break-before,page-break-inside,pause,pause-after,pause-before,pitch,pitch-range,play-during,position,quotes,richness,right,size,speak,speak-header,speak-numeral,speak-punctuation,speech-rate,stress,table-layout,text-align,text-decoration,text-indent,text-shadow,text-transform,top,unicode-bidi,vertical-align,visibility,voice-family,volume,white-space,widows,width,word-spacing,z-index</vallist>insert inherit value  for selected property, using Dialog.
     </attribute>
     <dialog title="properties">%0: inherit;
     </dialog> 
@@ -47,9 +47,9 @@
 
 
    <tag name="Length">
-    <description>insert length values, using Dialog</description>
+    <description>insert length values, using Dialog.</description>
     <attribute name="property" required="1" vallist="1" default="">
-     <vallist>background-position,border-spacing,bottom,font-size,height,left,letter-spacing,line-height,marker-offset,max-height,max-width,min-width,right,size,text-indent,top,vertical-align,width,word-spacing</vallist>insert length values and units 
+     <vallist>background-position,border-spacing,bottom,font-size,height,left,letter-spacing,line-height,marker-offset,max-height,max-width,min-width,right,size,text-indent,top,vertical-align,width,word-spacing</vallist>insert length values and units, using Dialog.
     </attribute>
     <attribute name="value" required="1" vallist="0" default="">
      &lt;number&gt;   
@@ -104,6 +104,8 @@ word-spacing: em | ex | px | in | cm | mm | pt | pc
 
   <group name="Visual">
     <group name="background">
+   <description>more info, see :
+http://www.w3.org/TR/REC-CSS2/colors.html</description>
       <tag name="background">
         <description>Shorthand for setting the individual background properties.</description>
         <attribute name="color" title="color:" required="0" vallist="1" default="transparent">
@@ -189,7 +191,7 @@ Values for this property are either &lt;uri&gt;, to specify the image, or 'none'
      <tag name="background-position">
         <description>Specifies the position of a background image if one is given.</description>
         <attribute name="position" title="position:" required="0" vallist="1" default="0% 0%">
-         <vallist> 0% 0%, ,top left,top,top right,left,center,right,bottom left,bottom,bottom right</vallist> [ [&lt;percentage&gt; | &lt;length&gt; ]{1,2} | [ [top | center | bottom] || [left | center | right] ] ] | inherit
+         <vallist> 0% 0%, ,top left,top,top right,left,center,right,bottom left,bottom,bottom right,inherit</vallist> [ [&lt;percentage&gt; | &lt;length&gt; ]{1,2} | [ [top | center | bottom] || [left | center | right] ] ] | inherit
 Initial:  	0% 0%
 Applies to:  	block-level and replaced elements
 Inherited:  	no
@@ -215,14 +217,10 @@ Percentages:  	N/A
         <info title="background-repeat">
 If a background image is specified, this property specifies whether the image is repeated (tiled), and how. All tiling covers the content and padding areas of a box. Values have the following meanings:
 
-repeat
-    The image is repeated both horizontally and vertically. 
-repeat-x
-    The image is repeated horizontally only. 
-repeat-y
-    The image is repeated vertically only. 
-no-repeat
-    The image is not repeated: only one copy of the image is drawn. 
+repeat: The image is repeated both horizontally and vertically. 
+repeat-x: The image is repeated horizontally only. 
+repeat-y: The image is repeated vertically only. 
+no-repeat: The image is not repeated: only one copy of the image is drawn. 
         </info>
         <insert>background-repeat: ;</insert>
       </tag>
@@ -230,6 +228,8 @@ no-repeat
  
 
    <group name="border">
+   <description>more info, see :
+http://www.w3.org/TR/REC-CSS2/box.html</description>
       <tag name="border">
         <description>Shorthand for setting the individual border properties on all four borders.</description>
         <attribute name="border-color" title="color:" required="0" vallist="1" default="">
@@ -962,8 +962,7 @@ A value of 'hide' means that no borders are drawn around empty cells. Furthermor
      <tag name="float">
         <description>Specifies if an element should float to the left or right, or not at all.</description>
         <attribute name="float" title="float:" required="1" vallist="1" default="none">
-         <vallist>left,right,none,inherit
-</vallist>left | right | none | inherit
+         <vallist>left,right,none,inherit</vallist> left | right | none | inherit
 Initial:  	none
 Applies to:  	all but positioned elements and generated content
 Inherited:  	no
@@ -995,6 +994,8 @@ Here are the precise rules that govern the behavior of floats:
  
 
    <group name="font">
+   <description>more info, see :
+http://www.w3.org/TR/REC-CSS2/fonts.html</description>
       <tag name="font">
         <description>Shorthand for setting the individual font properties.</description>
         <attribute name="font-style" title="font-style:" required="0" vallist="1" default="">
@@ -1377,6 +1378,8 @@ see please http://www.w3.org/TR/REC-CSS2/generate.html#propdef-list-style-type
  
 
    <group name="margin">
+   <description>more info, see :
+http://www.w3.org/TR/REC-CSS2/box.html</description>
       <tag name="margin">
         <description>Shorthand method for specifying the top, right, bottom, left margin widths / heights.</description>
         <attribute name="margin" title="margin:" required="1" vallist="1" default="">
@@ -1750,6 +1753,8 @@ Even if 'overflow' is set to 'visible', content may be clipped to a UA's documen
  
 
    <group name="padding">
+   <description>more info, see :
+http://www.w3.org/TR/REC-CSS2/box.html</description>
       <tag name="padding">
         <description>Specifies the width of the padding area of a box. The 'padding' shorthand property sets the padding for all four sides while the other padding properties only set their respective side. 
         If there is only one value, it applies to all sides. If there are two values, the top and bottom paddings are set to the first value and the right and left paddings are set to the second. If there are three values, the top is set to the first value, the left and right are set to the second, and the bottom is set to the third. If there are four values, they apply to the top, right, bottom, and left, respectively.</description>
@@ -1857,6 +1862,8 @@ see please padding
  
 
    <group name="page">
+   <description>more info, see :
+http://www.w3.org/TR/REC-CSS2/page.html</description>
       <tag name="page">
         <description>Specifies a particular type of page where an element should be displayed.</description>
         <attribute name="page" title="page:" required="1" vallist="1" default="auto">
@@ -2055,6 +2062,8 @@ see http://www.w3.org/TR/REC-CSS2/tables.html#propdef-table-layout
  
 
    <group name="text">
+    <description>more info, see :
+http://www.w3.org/TR/REC-CSS2/text			.html</description>
       <tag name="text-align">
         <description>Describes how inline content of a block is aligned.</description>
         <attribute name="text-align" title="text-align:" required="1" vallist="1" default="">
@@ -2380,6 +2389,8 @@ auto: The stack level of the generated box in the current stacking context is th
     </group>
   </group>
   <group name="Aural">
+   <description>more info, see :
+http://www.w3.org/TR/REC-CSS2/aural.html</description>
     <tag name="azimuth">
       <description>This property is most likely to be implemented by mixing the same signal into different channels at differing volumes.</description>
        <attribute name="azimuth" title="azimuth:" required="1" vallist="1" default="center">
@@ -2755,7 +2766,7 @@ Values have the following meanings:
        <insert>stress: ;</insert>
     </tag>
  
-   <tag name="voice-familty">
+   <tag name="voice-family">
       <description>Comma-separated, prioritized list of voice family names (compare with 'font-family').</description>
        <attribute name="specific-voice" title="specific-voice" required="0" vallist="1" default="">
         <vallist>'',comedian, trinoids, carlos, lani,romeo,juliet</vallist> &lt;specific-voice&gt;
@@ -2763,8 +2774,8 @@ Values have the following meanings:
        <attribute name="generic-voice" title="generic-voice:" required="0" vallist="1" default="">
         <vallist>male,female,child</vallist> &lt;generic-voice&gt;
        </attribute>
-       <dialog title="voice-familty">voice-familty: %0 %1;</dialog>
-       <info title="voice-familty">
+       <dialog title="voice-family">voice-family: %0 %1;</dialog>
+       <info title="voice-family">
 	[[&lt;specific-voice&gt; | &lt;generic-voice&gt; ],]* [&lt;specific-voice&gt; | &lt;generic-voice&gt; ] | inherit
 Initial:  	depends on user agent
 Applies to:  	all elements
