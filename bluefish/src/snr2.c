@@ -918,6 +918,8 @@ static void snr2dialog_cancel_lcb(GtkWidget *widget, gpointer data) {
 /*****************************************************/
 
 static void snr2dialog_ok_lcb(GtkWidget *widget, Tsnr2_win *data) {
+	GtkTextIter itstart, itend;
+	GtkTextBuffer *buf;
 	if (last_snr2.search_pattern) {
 		g_free(last_snr2.search_pattern);
 		last_snr2.search_pattern = NULL;
@@ -926,8 +928,7 @@ static void snr2dialog_ok_lcb(GtkWidget *widget, Tsnr2_win *data) {
 		g_free(last_snr2.replace_pattern);
 		last_snr2.replace_pattern = NULL;
 	}
-	GtkTextIter itstart, itend;
-	GtkTextBuffer *buf = gtk_text_view_get_buffer(GTK_TEXT_VIEW(data->search_entry));
+	buf = gtk_text_view_get_buffer(GTK_TEXT_VIEW(data->search_entry));
 	gtk_text_buffer_get_bounds(buf,&itstart,&itend);
 
 	last_snr2.search_pattern = gtk_text_buffer_get_text(buf,&itstart,&itend, FALSE);
