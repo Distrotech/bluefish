@@ -3061,7 +3061,7 @@ void docs_new_from_uris(Tbfwin *bfwin, GSList *urislist, gboolean move_to_this_w
 }
 
 
-/**
+/* *
  * doc_new_with_file:
  * @bfwin: #Tbfwin* with the window to open the document in
  * @filename: #gchar* with filename to load.
@@ -3072,8 +3072,8 @@ void docs_new_from_uris(Tbfwin *bfwin, GSList *urislist, gboolean move_to_this_w
  * Errors are not propagated to user in any other way than returning a pointer or NULL
  *
  * Return value: #Tdocument*, or NULL on error
- **/
-Tdocument * olddoc_new_with_file(Tbfwin *bfwin, gchar * filename, gboolean delay_activate, gboolean move_to_this_win) {
+ * * /
+Tdocument * doc_new_with_file(Tbfwin *bfwin, gchar * filename, gboolean delay_activate, gboolean move_to_this_win) {
 	Tdocument *doc;
 	gboolean opening_in_existing_doc = FALSE;
 	gchar *fullfilename;
@@ -3120,32 +3120,32 @@ Tdocument * olddoc_new_with_file(Tbfwin *bfwin, gchar * filename, gboolean delay
 	} else {
 		doc = doc_new(bfwin, delay_activate);
 	}
-	/* we do not need to free fullfilename anymore now */
+	/ * we do not need to free fullfilename anymore now * /
 	doc->uri = fullfilename;
 	DEBUG_MSG("doc_new_with_file, hl is resetted to filename, about to load file\n");
 	doc_file_to_textbox(doc, doc->uri, FALSE, delay_activate);
-	/* after the textbuffer is filled the filetype can be found */
+	/ * after the textbuffer is filled the filetype can be found * /
 	doc_reset_filetype(doc, doc->uri, NULL);
 
-	/* hey, this should be done by doc_activate 
-	menu_current_document_set_toggle_wo_activate(NULL, doc->encoding);*/
-	doc_set_stat_info(doc); /* also sets mtime field */
-	doc_set_title(doc); /* sets the tooltip as well, so it should be called *after* doc_set_stat_info() */
+	/ * hey, this should be done by doc_activate 
+	menu_current_document_set_toggle_wo_activate(NULL, doc->encoding);* /
+	doc_set_stat_info(doc); / * also sets mtime field * /
+	doc_set_title(doc); / * sets the tooltip as well, so it should be called *after* doc_set_stat_info() * /
 	if (!delay_activate) {
 		if (opening_in_existing_doc) {
 			doc_activate(doc);
 		} 
 		switch_to_document_by_pointer(bfwin,doc);
 		doc_activate(doc);
-		/*filebrowser_open_dir(BFWIN(doc->bfwin),fullfilename); is already called by doc_activate() */
+		/ *filebrowser_open_dir(BFWIN(doc->bfwin),fullfilename); is already called by doc_activate() * /
 	}
 	bmark_set_for_doc(doc);
 	bmark_check_length(bfwin,doc);
-/*	bmark_adjust_visible(bfwin);   */
+/ *	bmark_adjust_visible(bfwin);   * /
 	
 	return doc;
 }
-
+*/
 
 
 /**
