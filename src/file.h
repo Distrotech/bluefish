@@ -28,6 +28,7 @@ typedef enum {
 	CHECKANDSAVE_ERROR_NOCHANNEL,
 	CHECKANDSAVE_ERROR_NOWRITE,
 	CHECKANDSAVE_ERROR_MODIFIED,
+	CHECKANDSAVE_ERROR_MODIFIED_FAILED,
 	CHECKANDSAVE_ERROR_CANCELLED,
 	CHECKANDSAVE_CHECKED,
 	CHECKANDSAVE_BACKUP,
@@ -60,7 +61,7 @@ typedef struct {
 typedef TcheckNsave_return (* CheckNsaveAsyncCallback) (TcheckNsave_status status,gint error_info,gpointer callback_data);
 void checkmodified_cancel(Tcheckmodified * cm);
 Tcheckmodified *file_checkmodified_uri_async(GnomeVFSURI *uri, GnomeVFSFileInfo *curinfo, CheckmodifiedAsyncCallback callback_func, gpointer callback_data);
-void file_checkNsave_uri_async(GnomeVFSURI *uri, GnomeVFSFileInfo *info, Trefcpointer *buffer, GnomeVFSFileSize buffer_size, gboolean check_modified, CheckNsaveAsyncCallback callback_func, gpointer callback_data);
+gpointer file_checkNsave_uri_async(GnomeVFSURI *uri, GnomeVFSFileInfo *info, Trefcpointer *buffer, GnomeVFSFileSize buffer_size, gboolean check_modified, CheckNsaveAsyncCallback callback_func, gpointer callback_data);
 void file2doc_cancel(gpointer f2d);
 void file_asyncfileinfo_cancel(gpointer fi);
 void file_doc_fill_fileinfo(Tdocument *doc, GnomeVFSURI *uri);

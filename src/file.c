@@ -49,20 +49,23 @@ void checkmodified_cancel(Tcheckmodified * cm) {
 
 static gboolean checkmodified_is_modified(GnomeVFSFileInfo *orig, GnomeVFSFileInfo *new) {
 	/* modified_check_type;  0=no check, 1=by mtime and size, 2=by mtime, 3=by size, 4,5,...not implemented (md5sum?) */
-/*	DEBUG_MSG("checkmodified_is_modified, matches=%d\n",gnome_vfs_file_info_matches(orig,new));*/
+	DEBUG_MSG("checkmodified_is_modified, matches=%d, orig,new(size,mtime)=(%"GNOME_VFS_SIZE_FORMAT_STR",%ld),(%"GNOME_VFS_SIZE_FORMAT_STR",%ld)\n",gnome_vfs_file_info_matches(orig,new),
+			orig->size,orig->mtime,new->size,new->mtime);
 /*	if (gnome_vfs_file_info_matches(orig,new)) {
 		/ * this is a test of all the fields * /
 		return FALSE;
 	}*/
 	if (main_v->props.modified_check_type == 1 || main_v->props.modified_check_type == 2) {
 /*		DEBUG_MSG("checkmodified_is_modified, mtime1=%d, mtime2=%d\n",orig->mtime, new->mtime);*/
+		DEBUG_MSG("checkmodified_is_modified, time check, if %ld != %ld we return TRUE\n",orig->mtime,new->mtime);
 		if (orig->mtime != new->mtime) return TRUE;
 	}
 	if (main_v->props.modified_check_type == 1 || main_v->props.modified_check_type == 3) {
 		/* DEBUG_MSG("checkmodified_is_modified, 1validfields=%d, 2validfields=%d, size1=%d, size2=%d\n",orig->valid_fields,new->valid_fields,orig->size, new->size);*/
-		DEBUG_MSG("checkmodified_is_modified, matches=%d\n",gnome_vfs_file_info_matches(orig,new));
+		DEBUG_MSG("checkmodified_is_modified, size check, if %"GNOME_VFS_SIZE_FORMAT_STR" != %"GNOME_VFS_SIZE_FORMAT_STR" we return TRUE\n",orig->size,new->size);
 		if (orig->size != new->size) return TRUE;
 	}
+	DEBUG_MSG("checkmodified_is_modified, return FALSE, --> not modified\n");
 	return FALSE;
 }
 
@@ -70,6 +73,9 @@ static void checkmodified_asyncfileinfo_lcb(GnomeVFSAsyncHandle *handle, GList *
 	GnomeVFSGetFileInfoResult* item;
 	Tcheckmodified *cm = data;
 	DEBUG_MSG("checkmodified_asyncfileinfo_lcb, with %d results\n",g_list_length(results));
+#ifdef DEVELOPMENT
+	if (results == NULL) exit(111);
+#endif
 	item = results->data;
 	if (item->result == GNOME_VFS_OK) {
 		if (checkmodified_is_modified(cm->orig_finfo, item->file_info)) {
@@ -80,6 +86,7 @@ static void checkmodified_asyncfileinfo_lcb(GnomeVFSAsyncHandle *handle, GList *
 			cm->callback_func(CHECKMODIFIED_OK, item->result, cm->orig_finfo, item->file_info, cm->callback_data);
 		}
 	} else {
+		DEBUG_MSG("checkmodified_asyncfileinfo_lcb, there was an error retrieving the fileinfo\n");
 		cm->callback_func(CHECKMODIFIED_ERROR, item->result, NULL, NULL, cm->callback_data);
 	}	
 	checkmodified_cleanup(cm);
@@ -143,7 +150,7 @@ static void savefile_asyncclose_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSResult r
 		DEBUG_MSG("savefile_asyncclose_lcb, closed!\n");
 		sf->callback_func(SAVEFILE_FINISHED, result, sf->callback_data);
 	} else {
-		DEBUG_MSG("savefile_asyncclose_lcb, close error!\n");
+		DEBUG_MSG("savefile_asyncclose_lcb, close error %d!\n",result);
 		sf->callback_func(SAVEFILE_ERROR_NOCLOSE, result, sf->callback_data);
 	}
 	savefile_cleanup(sf);
@@ -327,7 +334,7 @@ static void checkNsave_checkmodified_lcb(Tcheckmodified_status status,gint error
 		startbackup = (cns->callback_func(CHECKANDSAVE_ERROR_MODIFIED, error_info, cns->callback_data) == CHECKNSAVE_CONT);
 	break;
 	case CHECKMODIFIED_ERROR:
-		cns->callback_func(CHECKANDSAVE_ERROR, error_info, cns->callback_data);
+		startbackup = (cns->callback_func(CHECKANDSAVE_ERROR_MODIFIED_FAILED, error_info, cns->callback_data) == CHECKNSAVE_CONT);
 	break;
 	case CHECKMODIFIED_CANCELLED:
 		cns->callback_func(CHECKANDSAVE_ERROR_CANCELLED, error_info, cns->callback_data);
@@ -379,7 +386,7 @@ static void checkNsave_checkmodified_lcb(Tcheckmodified_status status,gint error
  * checks if the target uri is modified, if not creates a backup, then writes 
  * the buffer; all done async
  */
-void file_checkNsave_uri_async(GnomeVFSURI *uri, GnomeVFSFileInfo *info, Trefcpointer *buffer, GnomeVFSFileSize buffer_size, gboolean check_modified, CheckNsaveAsyncCallback callback_func, gpointer callback_data) {
+gpointer file_checkNsave_uri_async(GnomeVFSURI *uri, GnomeVFSFileInfo *info, Trefcpointer *buffer, GnomeVFSFileSize buffer_size, gboolean check_modified, CheckNsaveAsyncCallback callback_func, gpointer callback_data) {
 	TcheckNsave *cns;
 	DEBUG_MSG("file_checkNsave_uri_async, started for (%p) %s with callback_data %p\n", uri, gnome_vfs_uri_get_path(uri),callback_data);
 	cns = g_new0(TcheckNsave,1);
@@ -400,6 +407,7 @@ void file_checkNsave_uri_async(GnomeVFSURI *uri, GnomeVFSFileInfo *info, Trefcpo
 	} else {
 		checkNsave_checkmodified_lcb(CHECKMODIFIED_OK,0,NULL, NULL, cns);
 	}
+	return cns;
 }
 
 /*************************** OPEN FILE ASYNC ******************************/

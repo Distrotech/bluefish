@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-/*#define DEBUG*/
+#define DEBUG
 
 #include <gtk/gtk.h>
 #include <string.h> /* memcpy */
@@ -282,6 +282,7 @@ static TcheckNsave_return doc_checkNsave_lcb(TcheckNsave_status status,gint erro
 			if (main_v->props.backup_abort_action == 0)  {
 				return CHECKNSAVE_CONT;
 			} else if (main_v->props.backup_abort_action == 1) {
+				doc->action.save = NULL;
 				return CHECKNSAVE_STOP;
 			} else /* if (main_v->props.backup_abort_action == 2) */{
 				/* we have to ask the user */
@@ -291,7 +292,11 @@ static TcheckNsave_return doc_checkNsave_lcb(TcheckNsave_status status,gint erro
 				retval = multi_warning_dialog(BFWIN(doc->bfwin)->main_window,_("File backup failure"), tmpstr, 1, 0, options);
 				g_free(tmpstr);
 				DEBUG_MSG("doc_checkNsave_lcb, retval=%d, returning %d\n", retval,(retval == 0) ? CHECKNSAVE_STOP : CHECKNSAVE_CONT);
-				return (retval == 0) ? CHECKNSAVE_STOP : CHECKNSAVE_CONT;
+				if (retval == 0) {
+					doc->action.save = NULL;
+					return CHECKNSAVE_STOP;
+				}
+				return CHECKNSAVE_CONT;
 			}
 		break;
 		case CHECKANDSAVE_ERROR:
@@ -303,17 +308,28 @@ static TcheckNsave_return doc_checkNsave_lcb(TcheckNsave_status status,gint erro
 				errmessage = g_strconcat(_("Could not save file:\n\""),gtk_label_get_text(GTK_LABEL(doc->tab_label)), "\"", NULL);
 				error_dialog(BFWIN(doc->bfwin)->main_window,_("File save failed!\n"), errmessage);
 				g_free(errmessage);
+				doc->action.save = NULL;
 			}
 		break;
 		case CHECKANDSAVE_ERROR_MODIFIED:
+		case CHECKANDSAVE_ERROR_MODIFIED_FAILED:
 			{
 				/* we have to ask the user what to do */
 				gchar *options[] = {_("_Abort save"), _("_Continue save"), NULL};
 				gint retval;
-				gchar *tmpstr = g_strdup_printf(_("File %s is modified on disk, overwrite?"), doc->uri);
+				gchar *tmpstr;
+				if (status == CHECKANDSAVE_ERROR_MODIFIED) {
+					tmpstr = g_strdup_printf(_("File %s is modified on disk, overwrite?"), doc->uri);
+				} else {
+					tmpstr = g_strdup_printf(_("Failed to check if %s is modified on disk"), doc->uri);
+				}
 				retval = multi_warning_dialog(BFWIN(doc->bfwin)->main_window,_("File modified on disk"), tmpstr, 1, 0, options);
 				g_free(tmpstr);
-				return (retval == 0) ? CHECKNSAVE_STOP : CHECKNSAVE_CONT;
+				if (retval == 0) {
+					doc->action.save = NULL;
+					return CHECKNSAVE_STOP;
+				}
+				return CHECKNSAVE_CONT;
 			}
 		case CHECKANDSAVE_CHECKED:
 		case CHECKANDSAVE_BACKUP:
@@ -322,6 +338,7 @@ static TcheckNsave_return doc_checkNsave_lcb(TcheckNsave_status status,gint erro
 		break;
 		case CHECKANDSAVE_FINISHED:
 			/* if the user wanted to close the doc we should do very diffferent things here !! */
+			doc->action.save = NULL;
 			if (doc->action.close_doc) {
 				Tbfwin *bfwin = doc->bfwin;
 				gboolean close_window = doc->action.close_window;
@@ -430,7 +447,11 @@ gchar *ask_new_filename(Tbfwin *bfwin,gchar *old_curi, const gchar *gui_name, gb
 void doc_save_backend(Tdocument *doc, gboolean do_save_as, gboolean do_move, gboolean close_doc, gboolean close_window) {
 	DEBUG_MSG("doc_save_backend, started for doc %p\n",doc);
 	if(doc->action.save) {
-		/* already saving... BUG: set statusbar message, or give user a message ? */
+		gchar *errmessage;
+		/* this message is not in very nice english I'm afraid */
+		errmessage = g_strconcat(_("File:\n\""),gtk_label_get_text(GTK_LABEL(doc->tab_label)), "\" save is in progress", NULL);
+		error_dialog(BFWIN(doc->bfwin)->main_window,_("Save in progress!"), errmessage);
+		g_free(errmessage);
 		return;
 	}
 	if (doc->uri == NULL) {
@@ -467,7 +488,7 @@ void doc_save_backend(Tdocument *doc, gboolean do_save_as, gboolean do_move, gbo
 		uri = gnome_vfs_uri_new(doc->uri);
 		doc->action.close_doc = close_doc;
 		doc->action.close_window = close_window;
-		file_checkNsave_uri_async(uri, doc->fileinfo, buffer, strlen(buffer->data), !do_save_as, doc_checkNsave_lcb, doc);
+		doc->action.save = file_checkNsave_uri_async(uri, doc->fileinfo, buffer, strlen(buffer->data), !do_save_as, doc_checkNsave_lcb, doc);
 
 		if (do_save_as) {
 			doc_reset_filetype(doc, doc->uri, buffer->data);
