@@ -39,6 +39,9 @@
 #define CURRENT_VERSION_NAME "bluefish-gtk2-porting"
 #define VERSION "pre-gtk2"
 
+#define DIRSTR "/"
+#define DIRCHR '/'
+
 #include <sys/types.h>
 #include <regex.h>
 
@@ -127,6 +130,7 @@ typedef struct {
 	gint view_custom_menu;			/* view custom menubar */
 	gint view_main_toolbar;				/* view main toolbar */
 	gint view_left_panel;  	/* view filebrowser/functionbrowser etc. */
+	gint left_panel_width; 	/* width of filelist */
 	gint filebrowser_show_hidden_files;
 	gint filebrowser_show_others_files;
 	gint filebrowser_show_backup_files;
@@ -135,7 +139,6 @@ typedef struct {
 	gint transient_htdialogs;  /* set html dialogs transient ro the main window */
 	gint main_window_h;			/* main window height */
 	gint main_window_w;			/* main window width */
-	gint main_filelist_size; 	/* width of filelist */
 	gint max_recent_files;	/* length of Open Recent list */
 	gint max_dir_history;	/* length of directory history */
 	gchar *filelist_filter;	/* filelist filter type */

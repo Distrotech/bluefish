@@ -65,12 +65,14 @@ typedef struct {
 	GdkPixbuf *dir_icon;
 	GtkWidget *tree;
 	GtkTreeStore *store;
+	GtkWidget *dirmenu;
+	GList *dirmenu_entries;
 } Tfilebrowser;
 
 /*******************************/
 /* global vars for this module */
 /*******************************/
-static Tfilebrowser filebrowser;
+static Tfilebrowser filebrowser = {0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL};
 
 
 #ifdef DEBUG
@@ -581,6 +583,78 @@ void filebrowser_open_dir(gchar *dir) {
 	gtk_tree_path_free(path);
 }
 
+static void dirmenu_activate_lcb(GtkWidget *widget, gchar *dir) {
+	if (dir) {
+		DEBUG_MSG("dirmenu_activate_lcb, dir=%s\n", dir);
+		filebrowser_open_dir(dir);
+	}
+}
+
+static void populate_dir_history(gboolean firsttime) {
+	GtkWidget *menu;
+	gchar *tmpchar, *tmpdir;
+	GList *tmplist;
+	GList *new_history_list=NULL;
+	DEBUG_MSG("populate_dir_history, empty\n");
+
+	if (!firsttime) {
+		gtk_option_menu_remove_menu(GTK_OPTION_MENU(filebrowser.dirmenu));
+		free_stringlist(filebrowser.dirmenu_entries);
+		filebrowser.dirmenu_entries = NULL;
+	
+		menu = gtk_menu_new();
+		gtk_option_menu_set_menu(GTK_OPTION_MENU(filebrowser.dirmenu), menu);
+		gtk_widget_show(menu);
+	} else {
+		filebrowser.dirmenu_entries = NULL;
+		menu = gtk_option_menu_get_menu(GTK_OPTION_MENU(filebrowser.dirmenu));
+		gtk_widget_show(menu);
+	}
+
+	tmpdir = g_strconcat(g_get_current_dir(), DIRSTR, NULL);
+	new_history_list = add_to_stringlist(new_history_list, tmpdir);
+	while ((tmpchar = strrchr(tmpdir, DIRCHR))) {
+		tmpchar++;
+		*tmpchar = '\0';
+		DEBUG_MSG("populate_dir_history, adding %s\n", tmpdir);
+		new_history_list = add_to_stringlist(new_history_list, tmpdir);
+		tmpchar--;
+		*tmpchar = '\0';
+	}
+	g_free(tmpdir);
+	
+	tmpdir = g_strconcat(g_get_home_dir(), DIRSTR, NULL);
+	new_history_list = add_to_stringlist(new_history_list, tmpdir);
+	g_free(tmpdir);
+
+	tmplist = g_list_last(main_v->recent_directories);
+	while (tmplist) {
+		new_history_list = add_to_stringlist(new_history_list, (gchar *)tmplist->data);
+		tmplist = g_list_previous(tmplist);
+	}
+
+	/* make the actual option menu */
+	tmplist = g_list_first(new_history_list);
+	while (tmplist) {
+		GtkWidget *menuitem;
+		/* dirname is not free-ed here, but it is added to the dirmenu_entries list
+		 so it can be freed when there is a re-populate for the dirmenu */
+		gchar *dirname = ending_slash((gchar *)tmplist->data);
+		DEBUG_MSG("populate_dir_history, adding %s to menu\n", dirname);
+		menuitem = gtk_menu_item_new_with_label(dirname);
+		g_signal_connect(G_OBJECT (menuitem), "activate",G_CALLBACK(dirmenu_activate_lcb),dirname);
+		gtk_menu_append(GTK_MENU(menu), menuitem);
+		filebrowser.dirmenu_entries = g_list_append(filebrowser.dirmenu_entries, dirname);
+		gtk_widget_show(menuitem);
+		g_free(tmplist->data);
+		tmplist = g_list_next(tmplist);
+	} 
+	g_list_free(new_history_list);
+
+	gtk_option_menu_set_history(GTK_OPTION_MENU(filebrowser.dirmenu), 0);
+}
+
+
 static void filebrowser_rpopup_filter_toggled_lcb(GtkWidget *widget, Tfilter *filter) {
 	if (GTK_CHECK_MENU_ITEM(widget)->active) {
 		DEBUG_MSG("filebrowser_rpopup_filter_toggled_lcb, setting curfilter to (%p) %s\n", filter, filter->name);
@@ -715,8 +789,8 @@ static Tfilter *new_filter(gchar *name, gchar *filetypes) {
 	return filter;
 }
 
-GtkWidget *filebrowser_init(gboolean firsttime) {
-	if (firsttime) {
+GtkWidget *filebrowser_init() {
+	if (!filebrowser.curfilter) {
 		GList *tmplist;
 		filebrowser.uid = getuid();
 		filebrowser.curfilter = new_filter("All files", NULL);
@@ -817,10 +891,20 @@ GtkWidget *filebrowser_init(gboolean firsttime) {
 	g_signal_connect(G_OBJECT(filebrowser.tree), "button_press_event",G_CALLBACK(filebrowser_button_press_lcb),filebrowser.store);
 
 	{
-		GtkWidget *scrolwin = gtk_scrolled_window_new(NULL, NULL);
+		GtkWidget *vbox, *scrolwin;
+		vbox = gtk_vbox_new(FALSE, 0);
+		
+		filebrowser.dirmenu = gtk_option_menu_new();
+		gtk_option_menu_set_menu(GTK_OPTION_MENU(filebrowser.dirmenu), gtk_menu_new());
+		populate_dir_history(TRUE);
+		gtk_box_pack_start(GTK_BOX(vbox),filebrowser.dirmenu, FALSE, FALSE, 0);
+		
+		scrolwin = gtk_scrolled_window_new(NULL, NULL);
 		gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolwin), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
+		gtk_widget_set_size_request(scrolwin, main_v->props.left_panel_width, -1);
 		gtk_container_add(GTK_CONTAINER(scrolwin), filebrowser.tree);
-		return scrolwin;
+		gtk_box_pack_start(GTK_BOX(vbox), scrolwin, TRUE, TRUE, 0);
+		return vbox;
 	}
 }
 
