@@ -110,6 +110,7 @@ gchar *fref_xml_get_refname(gchar *filename)
 	g_markup_parse_context_free(ctx);
 	tmps = aux->name;
 	g_free(aux);
+	g_free(config);
 	return tmps;
 }
 							  
@@ -459,6 +460,7 @@ void fref_loader_load_ref_xml(gchar * filename, GtkWidget * tree,
 	g_markup_parse_context_free(ctx);
 	if (aux->autoitems != NULL)
 		g_completion_add_items(fref_data.autocomplete, aux->autoitems);
+	g_free(config);
 	/* you free aux here, but during the parsing aux probably got many data attached 
 	to it that is not freed yet, shouldn't you check the data and free that if it is there? 
 	*/
