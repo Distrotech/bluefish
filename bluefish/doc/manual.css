@@ -34,7 +34,6 @@ div.itemizedlist li {
 }
 
 .term { 
-	border-bottom: 1px dotted black; 
 	clear: both;
 }
 
@@ -259,8 +258,8 @@ dt > SPAN[class="term"] > SPAN[class="emphasis"]  > em {
 	margin-left: 5px;
 }
 
-/* For figures and procedures, to get a small font */
-.figure > .title, .procedure > .title {
+/* For figures, examples and procedures, to get a small font */
+.figure > .title, .procedure > .title, .example > .title {
 	font-size: 12px;
 	font-weight: bold;
 }
