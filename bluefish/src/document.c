@@ -3119,6 +3119,7 @@ void docs_new_from_files(Tbfwin *bfwin, GList * file_list, gboolean move_to_this
 			doc_activate(bfwin->current_document);
 		}
 	}
+	gui_set_title(bfwin, bfwin->current_document);
 }
 
 /**

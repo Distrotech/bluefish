@@ -752,6 +752,7 @@ GtkWidget *bmark_gui(Tbfwin * bfwin)
 	gtk_tree_view_append_column(GTK_TREE_VIEW(bfwin->bmark), column);
 	gtk_widget_show_all(bfwin->bmark);
 	gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(bfwin->bmark), FALSE);
+	/*gtk_tree_view_set_rules_hint(GTK_TREE_VIEW(bfwin->bmark), TRUE);*/
 	scroll = gtk_scrolled_window_new(NULL, NULL);
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scroll), GTK_POLICY_AUTOMATIC,GTK_POLICY_AUTOMATIC);
 	gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(scroll), bfwin->bmark);

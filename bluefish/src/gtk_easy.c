@@ -1333,6 +1333,7 @@ GtkWidget * file_chooser_dialog(Tbfwin *bfwin, gchar *title, GtkFileChooserActio
 			GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
 			(action == GTK_FILE_CHOOSER_ACTION_SAVE) ? GTK_STOCK_SAVE : GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT,
 			NULL);
+	gtk_dialog_set_default_response (GTK_DIALOG(dialog), GTK_RESPONSE_ACCEPT);
 	if (set) {
 		if (localonly) {
 			gtk_file_chooser_set_filename(GTK_FILE_CHOOSER(dialog),set);
@@ -1354,9 +1355,9 @@ GtkWidget * file_chooser_dialog(Tbfwin *bfwin, gchar *title, GtkFileChooserActio
 #endif
 	gtk_file_chooser_set_local_only(GTK_FILE_CHOOSER(dialog),localonly);
 	gtk_file_chooser_set_select_multiple(GTK_FILE_CHOOSER(dialog), multiple);
-	if (bfwin) {
+/*	if (bfwin) {
 		GList *tmplist;
-		/*tmplist = g_list_first(bfwin->session->recent_dirs);*/
+		/ *tmplist = g_list_first(bfwin->session->recent_dirs);* /
 		tmplist = g_list_first(main_v->recent_directories);
 		DEBUG_MSG("file_chooser_dialog, session dir len=%d\n",g_list_length(bfwin->session->recent_dirs));
 		while (tmplist) {
@@ -1369,7 +1370,7 @@ GtkWidget * file_chooser_dialog(Tbfwin *bfwin, gchar *title, GtkFileChooserActio
 			}
 			tmplist = g_list_next(tmplist);
 		}
-	}
+	}*/
 	vbox = gtk_vbox_new(FALSE, 5);
 
 	hbox = gtk_hbox_new(FALSE, 5);

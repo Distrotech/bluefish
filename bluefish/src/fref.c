@@ -2256,7 +2256,7 @@ GtkWidget *fref_gui(Tbfwin * bfwin)
 
 	FREFGUI(bfwin->fref)->tree = gtk_tree_view_new_with_model(GTK_TREE_MODEL(fdata->store));
 	gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(FREFGUI(bfwin->fref)->tree), FALSE);
-	gtk_tree_view_set_rules_hint (GTK_TREE_VIEW (FREFGUI(bfwin->fref)->tree), TRUE);
+	/*gtk_tree_view_set_rules_hint (GTK_TREE_VIEW (FREFGUI(bfwin->fref)->tree), TRUE);*/
 	cell = gtk_cell_renderer_text_new();
 	column = gtk_tree_view_column_new_with_attributes("", cell, "text", STR_COLUMN, NULL);
 	gtk_tree_view_append_column(GTK_TREE_VIEW(FREFGUI(bfwin->fref)->tree), column);
