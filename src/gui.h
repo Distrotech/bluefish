@@ -33,8 +33,8 @@ void gui_set_widgets(Tbfwin *bfwin,gboolean undo, gboolean redo, gboolean wrap, 
 
 void gui_notebook_bind_signals(Tbfwin *bfwin);
 void gui_notebook_unbind_signals(Tbfwin *bfwin);
-void gui_create_main();
-void gui_show_main();
+void gui_create_main(Tbfwin *bfwin, GList *filenames);
+void gui_show_main(Tbfwin *bfwin);
 void statusbar_message(Tbfwin *bfwin,gchar *message, gint time);
 gboolean switch_to_document_by_index(Tbfwin *bfwin,gint index);
 gboolean switch_to_document_by_pointer(Tbfwin *bfwin,Tdocument *document);
@@ -43,7 +43,7 @@ void go_to_line_win_cb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget);
 void go_to_line_from_selection_cb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget);
 
 void splash_screen_set_label(gchar *label);
-GtkWidget *start_splash_screen();
+GtkWidget *start_splash_screen(void);
 
-void gui_new_window();
+void gui_new_window(void);
 #endif /* __GUI_H_ */

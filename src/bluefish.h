@@ -292,5 +292,5 @@ typedef struct {
 extern Tmain *main_v;
 
 /* public functions from bluefish.c */
-void bluefish_exit_request();
+void bluefish_exit_request(void);
 #endif /* __BLUEFISH_H_ */

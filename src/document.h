@@ -27,7 +27,7 @@ enum {
 	DOCUMENT_BACKUP_ABORT_ASK
 };
 
-GList *return_allwindows_documentlist();
+GList *return_allwindows_documentlist(void);
 gint documentlist_return_index_from_filename(GList *doclist, gchar *filename);
 Tdocument *documentlist_return_document_from_filename(GList *doclist, gchar *filename);
 Tdocument *documentlist_return_document_from_index(GList *doclist, gint index);
@@ -76,7 +76,7 @@ gboolean doc_new_with_file(Tbfwin *bfwin, gchar * filename, gboolean delay_activ
 void docs_new_from_files(Tbfwin *bfwin, GList * file_list);
 void doc_reload(Tdocument *doc);
 void doc_activate(Tdocument *doc);
-
+void doc_force_activate(Tdocument *doc);
 /* callbacks for the menu and toolbars */
 void file_save_cb(GtkWidget * widget, Tbfwin *bfwin);
 void file_save_as_cb(GtkWidget * widget, Tbfwin *bfwin);
@@ -97,7 +97,7 @@ void edit_select_all_cb(GtkWidget * widget, Tbfwin *bfwin);
 void doc_toggle_highlighting_cb(Tbfwin *bfwin,guint action,GtkWidget *widget);
 void doc_toggle_wrap_cb(Tbfwin *bfwin,guint action,GtkWidget *widget);
 void doc_toggle_linenumbers_cb(Tbfwin *bfwin,guint action,GtkWidget *widget);
-void all_documents_apply_settings();
+void all_documents_apply_settings(void);
 
 void doc_convert_asciichars_in_selection(Tbfwin *bfwin,guint callback_action,GtkWidget *widget);
 void word_count_cb (Tbfwin *bfwin,guint callback_action,GtkWidget *widget);

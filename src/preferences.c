@@ -1627,10 +1627,6 @@ static void preferences_ok_clicked_lcb(GtkWidget *wid, Tprefdialog *pd) {
 	string_apply(&main_v->props.image_thumbnailstring, pd->prefs[image_thumbnailstring]);
 	string_apply(&main_v->props.image_thumbnailtype, GTK_COMBO(pd->prefs[image_thumbnailtype])->entry);
 
-	
-	
-	
-	
 	filetype_apply_changes(pd);
 	filefilter_apply_changes(pd);
 	highlightpattern_apply_changes(pd);
@@ -1659,13 +1655,14 @@ static void preferences_ok_clicked_lcb(GtkWidget *wid, Tprefdialog *pd) {
 	/* apply the changes to highlighting patterns and filetypes to the running program */
 	filetype_highlighting_rebuild();
 	filebrowser_filters_rebuild();
-	encoding_menu_rebuild();
-	external_menu_rebuild(); /* browsers is also rebuild here! */
+	
 	all_documents_apply_settings();
 	{
 		GList *tmplist = g_list_first(main_v->bfwinlist);
 		while (tmplist) {
 			Tbfwin *bfwin = BFWIN(tmplist->data);
+			encoding_menu_rebuild(bfwin);
+			external_menu_rebuild(bfwin); /* browsers is also rebuild here! */
 			filetype_menu_rebuild(bfwin,NULL);
 			menu_outputbox_rebuild(bfwin);
 			gui_apply_settings(bfwin);
