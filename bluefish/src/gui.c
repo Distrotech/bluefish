@@ -666,6 +666,7 @@ void gui_create_main(GList *filenames) {
 	recent_menu_init();
 	external_menu_init();
 	encoding_menu_rebuild();
+	menu_outputbox_rebuild();
 
 	/* then the toolbars */
 	{

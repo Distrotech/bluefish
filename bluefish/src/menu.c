@@ -1,7 +1,4 @@
-/* Bluefish HTML Editor
- * menu.c - the home of the pulldowns
- *
- * Copyright (C) 1998-2002 Olivier Sessink, Chris Mazuc and Roland Steinbach
+/* Copyright (C) 1998-2002 Olivier Sessink, Chris Mazuc and Roland Steinbach
  * 
  *
  * This program is free software; you can redistribute it and/or modify
@@ -49,6 +46,13 @@ typedef struct {
 	gchar **strarr; /* pointer to config value 0=label, 1=value */
 } Tencoding;
 
+typedef struct {
+	GList *outputbox_menu;
+	GList *external_menu;
+	GList *recent_menu;
+	GList *encodings;
+} Tmenus;
+static Tmenus menus = {NULL,NULL,NULL};
 
 static GtkItemFactoryEntry menu_items[] = {
 	{N_("/_File"), NULL, NULL, 0, "<Branch>"},
@@ -56,6 +60,7 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/File/Makeoutput TEMPORARY FOR TESTING"), NULL, outputbox_make, 0, NULL},
 	{N_("/File/weblint output TEMPORARY FOR TESTING"), NULL, outputbox_weblint, 0, NULL},
 	{N_("/File/tidy errors TEMPORARY FOR TESTING"), NULL, outputbox_tidy, 0, NULL},
+	{N_("/File/javac TEMPORARY FOR TESTING"), NULL, outputbox_javac, 0, NULL},
 	{N_("/File/_New"), "F8", file_new_cb, 0, NULL},
 	{N_("/File/_Open..."), "<control>O", file_open_cb, 0, NULL},
 	{N_("/File/Open advanced..."), NULL, file_open_cb, 1, NULL},
@@ -575,7 +580,7 @@ static GtkWidget *remove_menuitem_in_list_by_label(gchar *labelstring, GList **m
 }
 
 /* the result of this function can be added to the menuitem-list */
-static GtkWidget *create_menuitem(gchar *menubasepath, gchar *label, GCallback callback, gint menu_insert_offset) {
+static GtkWidget *create_dynamic_menuitem(gchar *menubasepath, gchar *label, GCallback callback, gpointer data, gint menu_insert_offset) {
 	GtkWidget *tmp, *menu;
 	GtkItemFactory *factory;
 
@@ -584,15 +589,53 @@ static GtkWidget *create_menuitem(gchar *menubasepath, gchar *label, GCallback c
 	menu = gtk_item_factory_get_widget(factory, menubasepath);
 
 	tmp = gtk_menu_item_new_with_label(label);
-	g_signal_connect(G_OBJECT(tmp), "activate",
-					G_CALLBACK(callback), (gpointer) GTK_LABEL(GTK_BIN(tmp)->child)->label);
+	g_signal_connect(G_OBJECT(tmp), "activate",callback, data);
 
 	gtk_widget_show(tmp);
 	gtk_menu_insert(GTK_MENU(menu), tmp, menu_insert_offset);
 	return tmp;
 }
+/* DEPRECATED !!!!!!! use create_dynamic_menuitem !!!*/
+static GtkWidget *create_menuitem(gchar *menubasepath, gchar *label, GCallback callback, gint menu_insert_offset) {
+	return create_dynamic_menuitem(menubasepath,label,callback,label,menu_insert_offset);
+}
 
+/*************************************************************/
+/*               Output Box handling                         */
+/*************************************************************/
+static void menu_outputbox_lcb(GtkMenuItem *menuitem,gchar **arr) {
+	outputbox(arr[1], atoi(arr[2]), atoi(arr[3]), atoi(arr[4]), arr[5], (arr[6][0]=='1'));
+}
 
+void menu_outputbox_rebuild() {
+	GList *tmplist;
+	
+	tmplist = g_list_first(menus.outputbox_menu);
+	while (tmplist) {
+		gtk_widget_destroy(GTK_WIDGET(tmplist->data));
+		tmplist = g_list_next(tmplist);
+	}
+	
+	tmplist = NULL /*g_list_first(main_v->props.outputbox)*/;
+	while (tmplist) {
+		gchar **arr = tmplist->data;
+		/* outputbox(gchar *pattern, gint file_subpat, gint line_subpat, gint output_subpat, gchar *command, gboolean show_all_output)
+		 * arr[0] = name
+		 * arr[1] = pattern
+		 * arr[2] = file subpattern
+		 * arr[3] = line subpattern
+		 * arr[4] = output subpattern
+		 * arr[5] = command
+		 * arr[6] = show_all_output
+		 */
+		if (count_array(arr)==7) {
+			menus.outputbox_menu = g_list_append(menus.outputbox_menu
+					,create_dynamic_menuitem(_("<main>/External/"),arr[0]
+					,G_CALLBACK(menu_outputbox_lcb),(gpointer)arr,4));
+		}
+		tmplist = g_list_next(tmplist);
+	}
+}
 /*******************************************************************/
 /*               Open Recent menu handling                         */
 /*******************************************************************/

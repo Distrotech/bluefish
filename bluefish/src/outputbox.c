@@ -191,7 +191,7 @@ static GList *run_command() {
 	return retlist;
 }
 
-static void outputbox(gchar *pattern, gint file_subpat, gint line_subpat, gint output_subpat, gchar *command, gboolean show_all_output) {
+void outputbox(gchar *pattern, gint file_subpat, gint line_subpat, gint output_subpat, gchar *command, gboolean show_all_output) {
 	GList *olist;
 	ob.def = g_new(Toutput_def,1);
 	ob.def->pattern = pattern;
@@ -218,4 +218,8 @@ void outputbox_weblint() {
 
 void outputbox_tidy() {
 	outputbox("line ([0-9]+) column [0-9]+ - (.*)",-1,1,2,"tidy -qe %s", FALSE);
+}
+
+void outputbox_javac() {
+	outputbox("([a-zA-Z0-9/_.-]+):([0-9]+):(.*)",1,2,3,"javac %s", FALSE);
 }

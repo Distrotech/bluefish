@@ -23,6 +23,7 @@
 
 void menu_current_document_set_toggle_wo_activate(Tfiletype *hlset, gchar *encoding);
 void menu_create_main(GtkWidget *vbox);
+void menu_outputbox_rebuild();
 void add_to_recent_list(gchar *filename, gint closed_file);
 void recent_menu_init();
 void browser_toolbar_cb(GtkWidget *widget, gpointer data);
