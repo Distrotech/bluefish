@@ -1,4 +1,4 @@
-/* #define DEBUG */
+#define DEBUG
 
 #include "config.h"
 
@@ -87,7 +87,7 @@ gboolean spell_check_word(gchar * tocheck, GtkTextIter *itstart, GtkTextIter *it
 	int correct = aspell_speller_check(bfspell.spell_checker, tocheck, -1);
 	DEBUG_MSG("word '%s' has correct=%d\n",tocheck,correct);
 	if (!correct) {
-		AspellWordList *awl = aspell_speller_suggest(bfspell.spell_checker, tocheck,-1);
+		AspellWordList *awl = (AspellWordList *)aspell_speller_suggest(bfspell.spell_checker, tocheck,-1);
 		if (!bfspell.so || !bfspell.eo) {
 			bfspell.so = gtk_text_buffer_create_mark(bfspell.doc->buffer,NULL,itstart,FALSE);
 			bfspell.eo = gtk_text_buffer_create_mark(bfspell.doc->buffer,NULL,itend,TRUE);
@@ -200,7 +200,19 @@ void spell_gui_ok_clicked_cb(GtkWidget *widget, gpointer data) {
 	AspellCanHaveError *possible_err;
 	const gchar *lang;
 	bfspell.doc = main_v->current_document;
-	lang = gtk_entry_get_text(GTK_ENTRY(GTK_COMBO(bfspell.lang)->entry));
+	{
+		GtkWidget *menuitem, *menu, *label;
+		menu = gtk_option_menu_get_menu(GTK_OPTION_MENU(bfspell.lang));
+		menuitem = gtk_menu_get_active(GTK_MENU(menu));
+/*		g_list_nth_data(GTK_MENU_SHELL(menu)->children,gtk_option_menu_get_history(GTK_OPTION_MENU(bfspell.lang)));*/
+		DEBUG_MSG("menuitem=%p\n",menuitem);
+/*		list = gtk_container_get_children(GTK_CONTAINER(menuitem));
+		DEBUG_MSG("list=%p\n",list);
+		label = list->data;*/
+		label = gtk_bin_get_child(GTK_BIN(menuitem));
+		DEBUG_MSG("label=%p\n",label);
+		lang = gtk_label_get_label(GTK_LABEL( label ));
+	}
 	aspell_config_replace(bfspell.spell_config, "lang", lang);
 	DEBUG_MSG("spell_gui_ok_clicked_cb, set lang to %s\n",lang);
 
@@ -231,26 +243,30 @@ void spell_gui_ok_clicked_cb(GtkWidget *widget, gpointer data) {
 }
 
 void spell_gui_fill_dicts() {
-	GList *retlist = NULL;
+	GtkWidget *menu, *menuitem;
 	AspellDictInfoEnumeration * dels;
 	AspellDictInfoList * dlist;
 	const AspellDictInfo * entry;
+
 	dlist = get_aspell_dict_info_list(bfspell.spell_config);
 	dels = aspell_dict_info_list_elements(dlist);
+	menu = gtk_menu_new();	
+	gtk_option_menu_set_menu(GTK_OPTION_MENU(bfspell.lang), menu);
 	while ( (entry = aspell_dict_info_enumeration_next(dels)) != 0) {
-		retlist = g_list_append(retlist, g_strdup(entry->name));
+		menuitem = gtk_menu_item_new_with_label(entry->name);
+		DEBUG_MSG("adding language %s to menuitem %p\n",entry->name,menuitem);
+/*		g_signal_connect(G_OBJECT (menuitem), "activate",G_CALLBACK(),GINT_TO_POINTER(0));*/
+		gtk_menu_shell_append(GTK_MENU_SHELL(menu), menuitem);
 	}
 	delete_aspell_dict_info_enumeration(dels);
-	
-	gtk_combo_set_popdown_strings(GTK_COMBO(bfspell.lang), retlist);
-	free_stringlist(retlist);
-	gtk_entry_set_text(GTK_ENTRY(GTK_COMBO(bfspell.lang)->entry), main_v->props.spell_default_lang);
+	gtk_widget_show_all(menu);
+	gtk_option_menu_set_menu(GTK_OPTION_MENU(bfspell.lang), menu);
+	gtk_option_menu_set_history(GTK_OPTION_MENU(bfspell.lang),0);
 }
 
 void spell_gui_add_clicked(GtkWidget *widget, gpointer data) {
-	const gchar *addoption = gtk_entry_get_text(GTK_ENTRY(GTK_COMBO(bfspell.dict)->entry));
 	const gchar *original = gtk_entry_get_text(GTK_ENTRY(bfspell.incorrectword));
-	if (strcmp(addoption, _("personal dictionary"))==0) {
+	if (gtk_option_menu_get_history(GTK_OPTION_MENU(bfspell.dict))) {
 		spell_add_to_session(FALSE,original);
 	} else {
 		spell_add_to_session(TRUE,original);
@@ -286,7 +302,12 @@ void spell_gui_replace_clicked(GtkWidget *widget, gpointer data) {
 }
 
 static void defaultlang_clicked_lcb(GtkWidget *widget,gpointer user_data) {
-	const gchar *lang = gtk_entry_get_text(GTK_ENTRY(GTK_COMBO(bfspell.lang)->entry));
+	const gchar *lang;
+	GtkWidget *menuitem, *menu, *label;
+	menu = gtk_option_menu_get_menu(GTK_OPTION_MENU(bfspell.lang));
+	menuitem = gtk_menu_get_active(GTK_MENU(menu));
+	label = gtk_bin_get_child(GTK_BIN(menuitem));
+	lang = gtk_label_get_label(GTK_LABEL( label ));
 	g_free(main_v->props.spell_default_lang);
 	DEBUG_MSG("defaultlang_clicked_lcb, default lang is now %s\n",lang);
 	main_v->props.spell_default_lang = g_strdup(lang);
@@ -294,7 +315,6 @@ static void defaultlang_clicked_lcb(GtkWidget *widget,gpointer user_data) {
 
 void spell_gui() {
 	GtkWidget *vbox, *hbox, *but, *frame, *table;
-	GList *poplist=NULL;
 	bfspell.win = window_full(_("Spell checker"), GTK_WIN_POS_MOUSE, 3, G_CALLBACK(spell_gui_destroy),NULL, TRUE);
 	vbox = gtk_vbox_new(FALSE, 2);
 	gtk_container_add(GTK_CONTAINER(bfspell.win), vbox);
@@ -330,16 +350,26 @@ void spell_gui() {
 	gtk_table_attach_defaults(GTK_TABLE(table), bfspell.in_doc,0,1,0,1);
 	gtk_table_attach_defaults(GTK_TABLE(table), bfspell.in_sel,0,1,1,2);
 
-	bfspell.dict = gtk_combo_new();
-	poplist = g_list_append(poplist,_("personal dictionary"));
-	poplist = g_list_append(poplist,_("session dictionary"));
-	gtk_combo_set_popdown_strings(GTK_COMBO(bfspell.dict), poplist);
+	{
+		GtkWidget *menu, *menuitem;
+		bfspell.dict = gtk_option_menu_new();
+		menu = gtk_menu_new();
+		gtk_option_menu_set_menu(GTK_OPTION_MENU(bfspell.dict), menu);
+		menuitem = gtk_menu_item_new_with_label(_("personal dictionary"));
+/*		g_signal_connect(G_OBJECT (menuitem), "activate",G_CALLBACK(),GINT_TO_POINTER(0));*/
+		gtk_menu_shell_append(GTK_MENU_SHELL(menu), menuitem);
+		menuitem = gtk_menu_item_new_with_label(_("session dictionary"));
+/*		g_signal_connect(G_OBJECT (menuitem), "activate",G_CALLBACK(),GINT_TO_POINTER(1));*/
+		gtk_menu_shell_append(GTK_MENU_SHELL(menu), menuitem);
+		gtk_option_menu_set_history(GTK_OPTION_MENU(bfspell.dict),0);
+	}
+
 	gtk_table_attach_defaults(GTK_TABLE(table), gtk_label_new(_("Dictionary")),0,1,2,3);
 	gtk_table_attach_defaults(GTK_TABLE(table), bfspell.dict,1,2,2,3);
 	but = bf_stock_button(_("Add"), G_CALLBACK(spell_gui_add_clicked), NULL);
 	gtk_table_attach_defaults(GTK_TABLE(table), but,2,3,2,3);
 
-	bfspell.lang = gtk_combo_new();
+	bfspell.lang = gtk_option_menu_new();
 	gtk_table_attach_defaults(GTK_TABLE(table), gtk_label_new(_("Language")),0,1,3,4);
 	gtk_table_attach_defaults(GTK_TABLE(table), bfspell.lang,1,2,3,4);
 	but = bf_stock_button(_("Set default"), G_CALLBACK(defaultlang_clicked_lcb), NULL);
