@@ -364,7 +364,7 @@ static void free_dir_entries(GList *direntrylist) {
 		g_free(((Tdir_entry *)(tmplist->data))->name);
 		tmplist = g_list_next(tmplist);
 	}
-	g_list_free(tmplist);
+	g_list_free(direntrylist);
 }
 
 static GtkTreePath *return_path_from_filename(Tfilebrowser *filebrowser,gchar *this_filename) {
