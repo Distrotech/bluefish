@@ -237,29 +237,6 @@ static GtkWidget *prefs_combo(const gchar *title, const gchar *curval, GtkWidget
 	return return_widget;
 }
 
-static GtkWidget *prefs_optionmenu(const gchar  *title, gint curval, GtkWidget *box, gchar **options) {
-	GtkWidget *returnwidget;
-	GtkWidget *hbox, *menu, *menuitem;
-	gchar **str;
-
-	hbox = gtk_hbox_new(FALSE,3);
-	gtk_box_pack_start(GTK_BOX(box), hbox, FALSE, FALSE, 3);
-	gtk_box_pack_start(GTK_BOX(hbox), gtk_label_new(title), FALSE, FALSE, 3);
-	returnwidget = gtk_option_menu_new();
-	menu = gtk_menu_new();
-	str = options;
-	while (*str) {
-		DEBUG_MSG("prefs_optionmenu, adding %s to optionmenu\n",*str);
-		menuitem = gtk_menu_item_new_with_label(_(*str));
-		gtk_menu_shell_append(GTK_MENU_SHELL(menu), menuitem);
-		str++;
-	}
-	gtk_option_menu_set_menu(GTK_OPTION_MENU(returnwidget),menu);
-	gtk_option_menu_set_history(GTK_OPTION_MENU(returnwidget),curval);
-	gtk_box_pack_start(GTK_BOX(hbox), returnwidget, FALSE, FALSE, 3);
-	return returnwidget;
-}
-
 static GtkWidget *prefs_integer(const gchar *title, const gint curval, GtkWidget *box, Tprefdialog *pd, gfloat lower, gfloat upper) {
 	GtkWidget *return_widget;
 	GtkWidget *hbox;
@@ -1766,7 +1743,7 @@ static void preferences_dialog() {
 	pd->prefs[backup_filestring] = prefs_string(_("Backup file suffix"), main_v->props.backup_filestring, vbox2, pd, string_none);
 	{
 		gchar *failureactions[] = {N_("save"), N_("abort"), N_("ask"), NULL};
-		pd->prefs[backup_abort_action] = prefs_optionmenu(_("Action on backup failure"), main_v->props.backup_abort_action, vbox2, failureactions);
+		pd->prefs[backup_abort_action] = boxed_optionmenu_with_value(_("Action on backup failure"), main_v->props.backup_abort_action, vbox2, failureactions);
 	}
 	pd->prefs[backup_cleanuponclose] = boxed_checkbut_with_value(_("Remove backupfile on close"), main_v->props.backup_cleanuponclose, vbox2);
 	create_backup_toggled_lcb(GTK_TOGGLE_BUTTON(pd->prefs[backup_file]), pd);
@@ -1816,8 +1793,8 @@ static void preferences_dialog() {
 	
 	pd->prefs[tab_font_string] = prefs_string(_("Notebook tab font (leave empty for gtk default)"), main_v->props.tab_font_string, vbox2, pd, string_font);
 	
-	pd->prefs[document_tabposition] = prefs_optionmenu(_("Document notebook tab position"), main_v->props.document_tabposition, vbox2, notebooktabpositions);
-	pd->prefs[leftpanel_tabposition] = prefs_optionmenu(_("Left panel notebook tab position"), main_v->props.leftpanel_tabposition, vbox2, notebooktabpositions);
+	pd->prefs[document_tabposition] = boxed_optionmenu_with_value(_("Document notebook tab position"), main_v->props.document_tabposition, vbox2, notebooktabpositions);
+	pd->prefs[leftpanel_tabposition] = boxed_optionmenu_with_value(_("Left panel notebook tab position"), main_v->props.leftpanel_tabposition, vbox2, notebooktabpositions);
 	
 	pd->prefs[transient_htdialogs] = boxed_checkbut_with_value(_("Make HTML dialogs transient"), main_v->props.transient_htdialogs, vbox2);
 	pd->prefs[default_advanced_snr] = boxed_checkbut_with_value(_("Advanced search and replace by default"), main_v->props.default_advanced_snr, vbox2);
