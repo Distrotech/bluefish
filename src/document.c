@@ -61,7 +61,7 @@ GList *return_allwindows_documentlist() {
 	GList *newdoclist=NULL, *bflist, *tmplist=NULL;
 	bflist = g_list_first(main_v->bfwinlist);
 	while (bflist) {
-		tmplist = g_list_first(BFWIN(tmplist->data)->documentlist);
+		tmplist = g_list_first(BFWIN(bflist->data)->documentlist);
 		while (tmplist) {
 			newdoclist = g_list_append(newdoclist,tmplist->data);
 			tmplist = g_list_next(tmplist);
@@ -606,6 +606,7 @@ void doc_set_modified(Tdocument *doc, gint value) {
 	}
 #endif
 	/* only when this is the current document we have to change these */
+	DEBUG_MSG("doc=%p, doc->bfwin=%p\n",doc,doc->bfwin);
 	if (doc == BFWIN(doc->bfwin)->current_document) {
 		gui_set_undo_redo_widgets(BFWIN(doc->bfwin),doc_has_undo_list(doc), doc_has_redo_list(doc));
 	}
@@ -2072,7 +2073,7 @@ void document_set_line_numbers(Tdocument *doc, gboolean value) {
 Tdocument *doc_new(Tbfwin* bfwin, gboolean delay_activate) {
 	GtkWidget *scroll;
 	Tdocument *newdoc = g_new0(Tdocument, 1);
-	DEBUG_MSG("doc_new, main_v is at %p, newdoc at %p\n", main_v, newdoc);
+	DEBUG_MSG("doc_new, main_v is at %p, bfwin at %p, newdoc at %p\n", main_v, bfwin, newdoc);
 	newdoc->bfwin = (gpointer)bfwin;
 	newdoc->hl = (Tfiletype *)((GList *)g_list_first(main_v->filetypelist))->data;
 	newdoc->buffer = gtk_text_buffer_new(highlight_return_tagtable());

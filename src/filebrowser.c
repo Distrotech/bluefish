@@ -1096,7 +1096,7 @@ static Tfilter *find_filter_by_name(const gchar *name) {
 		if (strcmp(filter->name, name)==0) {
 			return filter;
 		}
-		tmplist = g_list_first(tmplist);
+		tmplist = g_list_next(tmplist);
 	}
 	return NULL;
 }
@@ -1226,21 +1226,6 @@ static void filter_destroy(Tfilter *filter) {
 void filebrowser_filters_rebuild() {
 	GList *tmplist;
 
-	gchar *filename;
-	filename = return_first_existing_filename(main_v->props.filebrowser_unknown_icon,
-					"icon_unknown.png","../icons/icon_unknown.png",
-					"icons/icon_unknown.png",NULL);
-		
-	FILEBROWSERCONFIG(main_v->filebrowserconfig)->unknown_icon = gdk_pixbuf_new_from_file(filename, NULL);
-	g_free(filename);
-		
-	filename = return_first_existing_filename(main_v->props.filebrowser_dir_icon,
-					"icon_dir.png","../icons/icon_dir.png",
-					"icons/icon_dir.png",NULL);
-
-	FILEBROWSERCONFIG(main_v->filebrowserconfig)->dir_icon = gdk_pixbuf_new_from_file(filename, NULL);
-	g_free(filename);
-
 	if (!FILEBROWSERCONFIG(main_v->filebrowserconfig)->dir_icon || !FILEBROWSERCONFIG(main_v->filebrowserconfig)->unknown_icon) {
 		g_print("the dir_icon and unknown_icon items in the config file are invalid\n");
 /*		return gtk_label_new("cannot load icons");*/
@@ -1283,8 +1268,13 @@ void filebrowser_filters_rebuild() {
  **/
 GtkWidget *filebrowser_init(Tbfwin *bfwin) {
 	Tfilebrowser *filebrowser;
-	filebrowser = (bfwin->filebrowser) ? (Tfilebrowser *)bfwin->filebrowser : g_new0(Tfilebrowser,1);
-	filebrowser->bfwin = bfwin;
+	if (bfwin->filebrowser) {
+		filebrowser = (Tfilebrowser *)bfwin->filebrowser;
+	} else {
+		filebrowser =  g_new0(Tfilebrowser,1);
+		bfwin->filebrowser = filebrowser;
+		filebrowser->bfwin = bfwin;
+	}
 	if (!filebrowser->curfilter) {
 		/* get the default filter */
 		filebrowser->curfilter = find_filter_by_name(main_v->props.last_filefilter);
@@ -1368,6 +1358,7 @@ GtkWidget *filebrowser_init(Tbfwin *bfwin) {
 }
 
 void filebrowser_scroll_initial(Tbfwin *bfwin) {
+	DEBUG_MSG("filebrowser_scroll_initial, bfwin=%p, filebrowser=%p\n",bfwin,bfwin->filebrowser);
 	if (FILEBROWSER(bfwin->filebrowser)->tree) {
 		gtk_tree_view_scroll_to_point(GTK_TREE_VIEW(FILEBROWSER(bfwin->filebrowser)->tree), 2000, 2000);
 	}
@@ -1376,4 +1367,24 @@ void filebrowser_scroll_initial(Tbfwin *bfwin) {
 void filebrowser_cleanup(Tbfwin *bfwin) {
 	FILEBROWSER(bfwin->filebrowser)->store = NULL;
 	FILEBROWSER(bfwin->filebrowser)->tree = NULL;
+}
+
+void filebrowserconfig_init() {
+	gchar *filename;
+	Tfilebrowserconfig *fc = g_new0(Tfilebrowserconfig,1);
+	main_v->filebrowserconfig = fc;
+
+	filename = return_first_existing_filename(main_v->props.filebrowser_unknown_icon,
+					"icon_unknown.png","../icons/icon_unknown.png",
+					"icons/icon_unknown.png",NULL);
+		
+	fc->unknown_icon = gdk_pixbuf_new_from_file(filename, NULL);
+	g_free(filename);
+		
+	filename = return_first_existing_filename(main_v->props.filebrowser_dir_icon,
+					"icon_dir.png","../icons/icon_dir.png",
+					"icons/icon_dir.png",NULL);
+
+	fc->dir_icon = gdk_pixbuf_new_from_file(filename, NULL);
+	g_free(filename);
 }

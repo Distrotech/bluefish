@@ -150,7 +150,9 @@ int main(int argc, char *argv[])
 	splash_screen_set_label(_("compiling highlighting patterns..."));
 #endif /* #ifndef NOSPLASH */
 	hl_init();
+	filebrowserconfig_init();
 	filebrowser_filters_rebuild();
+	fref_init();
 #ifndef NOSPLASH
 	splash_screen_set_label(_("parsing custom menu file..."));
 #endif /* #ifndef NOSPLASH */
