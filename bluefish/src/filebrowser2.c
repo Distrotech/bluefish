@@ -770,25 +770,28 @@ static void refilter_dirlist(Tfilebrowser2 *fb2, GtkTreePath *newroot) {
  *
  */
 static void refilter_filelist(Tfilebrowser2 *fb2, GtkTreePath *newroot) {
-	DEBUG_MSG("refilter_filelist, started for fb2=%p\n",fb2);
+	DEBUG_MSG("refilter_filelist, started for fb2=%p, file_lfilter=%p\n",fb2,fb2->file_lfilter);
 	if (main_v->props.filebrowser_two_pane_view) {
-		GtkTreePath *curpath;
-		g_object_get(fb2->file_lfilter, "virtual-root", &curpath, NULL);
-		if ((curpath == NULL && newroot != NULL) || (curpath != NULL && newroot == NULL) || (curpath != NULL && gtk_tree_path_compare(curpath, newroot) != 0)) {
-			fb2->file_lfilter = gtk_tree_model_filter_new(GTK_TREE_MODEL(FB2CONFIG(main_v->fb2config)->filesystem_tstore),newroot);
-			DEBUG_MSG("refilter_filelist, set file list filter func, fb2=%p\n",fb2);
-			gtk_tree_model_filter_set_visible_func(GTK_TREE_MODEL_FILTER(fb2->file_lfilter),file_list_filter_func,fb2,NULL);
-			fb2->file_lsort = gtk_tree_model_sort_new_with_model(GTK_TREE_MODEL(fb2->file_lfilter));
-			gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE(fb2->file_lsort),FILENAME_COLUMN,GTK_SORT_ASCENDING);
-			DEBUG_MSG("refilter_filelist, connect file_v to new sort(%p)&filter(%p) model\n", fb2->file_lsort, fb2->file_lfilter);
-			gtk_tree_view_set_model(GTK_TREE_VIEW(fb2->file_v),GTK_TREE_MODEL(fb2->file_lsort));
-			/* we remove our reference, so the only reference is kept by the treeview, if the treeview is destroyed, the models will be destroyed */
-			g_object_unref(fb2->file_lfilter);
-			g_object_unref(fb2->file_lsort);
-		}
+		if (fb2->file_lfilter) {
+			GtkTreePath *curpath;
+			g_object_get(fb2->file_lfilter, "virtual-root", &curpath, NULL);
+			if ((curpath == NULL && newroot == NULL) || (curpath != NULL && newroot != NULL && gtk_tree_path_compare(curpath, newroot) != 0)) {
 #ifdef DEBUG
-		else DEBUG_MSG("refilter_filelist, root did not change!\n");
+				DEBUG_MSG("refilter_filelist, root did not change!\n");
 #endif
+				return;
+			}
+		}
+		fb2->file_lfilter = gtk_tree_model_filter_new(GTK_TREE_MODEL(FB2CONFIG(main_v->fb2config)->filesystem_tstore),newroot);
+		DEBUG_MSG("refilter_filelist, set file list filter func, fb2=%p\n",fb2);
+		gtk_tree_model_filter_set_visible_func(GTK_TREE_MODEL_FILTER(fb2->file_lfilter),file_list_filter_func,fb2,NULL);
+		fb2->file_lsort = gtk_tree_model_sort_new_with_model(GTK_TREE_MODEL(fb2->file_lfilter));
+		gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE(fb2->file_lsort),FILENAME_COLUMN,GTK_SORT_ASCENDING);
+		DEBUG_MSG("refilter_filelist, connect file_v to new sort(%p)&filter(%p) model\n", fb2->file_lsort, fb2->file_lfilter);
+		gtk_tree_view_set_model(GTK_TREE_VIEW(fb2->file_v),GTK_TREE_MODEL(fb2->file_lsort));
+		/* we remove our reference, so the only reference is kept by the treeview, if the treeview is destroyed, the models will be destroyed */
+		g_object_unref(fb2->file_lfilter);
+		g_object_unref(fb2->file_lsort);
 	}
 }
 
@@ -1468,6 +1471,8 @@ void fb2_set_basedir(Tbfwin *bfwin, gchar *curi) {
 				/* disconnect the dir_v and file_v for higher performance */
 				gtk_tree_view_set_model(GTK_TREE_VIEW(fb2->dir_v),NULL);
 				gtk_tree_view_set_model(GTK_TREE_VIEW(fb2->file_v),NULL);
+				fb2->file_lfilter = NULL; /* this is required, because the refilter_filelist function tries to check id the virtual root did change for the file filter */
+				DEBUG_MSG("fb2_set_basedir, disconnected current filter/sort models, lfilter=%p\n",fb2->file_lfilter);
 				
 				hashkey = gnome_vfs_uri_hash(uri);
 				iter = g_hash_table_lookup(FB2CONFIG(main_v->fb2config)->filesystem_itable, &hashkey);
@@ -1713,7 +1718,7 @@ GtkWidget *fb2_init(Tbfwin *bfwin) {
 
 		fb2->file_lsort = gtk_tree_model_sort_new_with_model(GTK_TREE_MODEL(fb2->file_lfilter));
 		gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE(fb2->file_lsort),FILENAME_COLUMN,GTK_SORT_ASCENDING);
-
+		DEBUG_MSG("fb2_init, file_lfilter=%p\n",fb2->file_lfilter);
 		fb2->file_v = gtk_tree_view_new_with_model(fb2->file_lsort);
 		/* we remove our reference, so the only reference is kept by the treeview, if the treeview is destroyed, the models will be destroyed */
 		g_object_unref(G_OBJECT(fb2->file_lfilter));
