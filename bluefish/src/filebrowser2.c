@@ -190,7 +190,7 @@ static void DEBUG_CHILD_ITERS(Tfilebrowser2* fb2, GtkTreeIter *sorted_iter) {
 static Turi_in_refresh *fb2_get_uri_in_refresh(GnomeVFSURI *uri) {
 	GList *tmplist = g_list_first(FB2CONFIG(main_v->fb2config)->uri_in_refresh);
 	while (tmplist) {
-		if (tmplist->data == uri || gnome_vfs_uri_equal(((Turi_in_refresh *)tmplist->data)->uri, uri)) return tmplist->data;
+		if (((Turi_in_refresh *)tmplist->data)->uri == uri || gnome_vfs_uri_equal(((Turi_in_refresh *)tmplist->data)->uri, uri)) return tmplist->data;
 		tmplist = g_list_next(tmplist);
 	}
 	return NULL;
@@ -198,7 +198,6 @@ static Turi_in_refresh *fb2_get_uri_in_refresh(GnomeVFSURI *uri) {
 
 static void fb2_uri_in_refresh_cleanup(Turi_in_refresh *uir) {
 	gnome_vfs_uri_unref(uir->uri);
-	
 	g_free(uir);
 }
 
@@ -231,7 +230,8 @@ static GtkTreeIter *fb2_add_filesystem_entry(GtkTreeIter *parent, GnomeVFSURI *c
 		GnomeVFSURI *uri_dup;
 		gpointer pixmap;
 		newiter = g_new(GtkTreeIter,1);
-		uri_dup = gnome_vfs_uri_dup(child_uri);
+		uri_dup = child_uri;
+		gnome_vfs_uri_ref(child_uri);
 		tmp = uri_to_document_filename(child_uri);
 		tmp2 = strrchr(tmp, '/');
 		DEBUG_MSG("fb2_add_filesystem_entry, tmp2=%s for tmp=%s\n",tmp2,tmp);
@@ -633,9 +633,8 @@ static gboolean name_visible_in_filter(Tfilebrowser2 *fb2, gchar *name) {
 	}
 	tmplist = g_list_first(fb2->curfilter->filetypes);
 	while (tmplist) {
-		if (filename_test_extensions(((Tfiletype *)tmplist->data)->extensions, name)) {
+		if (filename_test_extensions(((Tfiletype *)tmplist->data)->extensions, name))
 			return fb2->curfilter->mode;
-		}
 		tmplist = g_list_next(tmplist);
 	}
 	return !fb2->curfilter->mode;
@@ -955,11 +954,13 @@ static void handle_activate_on_file(Tfilebrowser2 *fb2, GnomeVFSURI *uri) {
 
 static void fb2rpopup_refresh(Tfilebrowser2 *fb2) {
 	GnomeVFSURI *baseuri;
+	gboolean free_baseuri = FALSE;
 	if (fb2->last_popup_on_dir) {
-		baseuri = gnome_vfs_uri_dup(fb2_uri_from_dir_selection(fb2));
+		baseuri = fb2_uri_from_dir_selection(fb2);
 	} else {
 		GnomeVFSURI *childuri = fb2_uri_from_file_selection(fb2);
 		baseuri = gnome_vfs_uri_get_parent(childuri);
+		free_baseuri = TRUE;
 	}
 	if (baseuri) {
 		guint hashkey;
@@ -967,7 +968,7 @@ static void fb2rpopup_refresh(Tfilebrowser2 *fb2) {
 		hashkey = gnome_vfs_uri_hash(baseuri);
 		iter = g_hash_table_lookup(FB2CONFIG(main_v->fb2config)->filesystem_itable, &hashkey);
 		fb2_refresh_dir(NULL, iter);
-		gnome_vfs_uri_unref(baseuri);
+		if (free_baseuri) gnome_vfs_uri_unref(baseuri);
 	}
 }
 
@@ -1298,7 +1299,7 @@ static void dir_v_row_expanded_lcb(GtkTreeView *tree,GtkTreeIter *sort_iter,GtkT
 }
 
 static void dir_v_row_activated_lcb(GtkTreeView *tree, GtkTreePath *path,GtkTreeViewColumn *column, Tfilebrowser2 *fb2) {
-	DEBUG_MSG("dir_v_row_activated_lcb, called\n");
+	DEBUG_MSG("dir_v_row_activated_lcb, called, this is an empty function\n");
 }
 
 static gboolean dir_v_button_press_lcb(GtkWidget *widget, GdkEventButton *event, Tfilebrowser2 *fb2) {
