@@ -83,64 +83,59 @@ static Tsplashscreen splashscreen;
 /* start of the functions */
 /**************************/
 
-void notebook_changed(gint newpage)
-{
-	gint cur;
-	gchar *title="";
-	DEBUG_MSG("notebook_changed, the newpage argument is %d\n", newpage);
-	DEBUG_MSG("notebook_changed, documentlist len=%d\n", g_list_length(main_v->documentlist));
+void notebook_changed(gint newpage) {
+	gint cur = newpage;
+	gint doclistlen;
+	DEBUG_MSG("notebook_changed, doclistlen=%d, newpage=%d, notebook_curpage=%d, last_notebook_page=%d, curdoc=%p\n"
+			,g_list_length(main_v->documentlist)
+			,newpage
+			,gtk_notebook_get_current_page(GTK_NOTEBOOK(main_v->notebook))
+			,main_v->last_notebook_page
+			,main_v->current_document
+			);
 	if (newpage == -1) {
-		/* This one is called when you click on the notebook
-	   it _should_ be called also when you use the keys to change the page */
-		cur = (gint) gtk_notebook_get_current_page(GTK_NOTEBOOK(main_v->notebook));
-	} else {
-		cur = newpage;
+		/* this returns -1 if there is no current page */
+		cur = gtk_notebook_get_current_page(GTK_NOTEBOOK(main_v->notebook));
 	}
-	DEBUG_MSG("notebook_changed, cur now is %d\n", cur);
 	if ((main_v->last_notebook_page == cur) 
 		&& (main_v->current_document != NULL)
 		&& (main_v->current_document == g_list_nth_data(main_v->documentlist, cur))) {
-		DEBUG_MSG("notebook_changed, it didn't change to a new document (cur=%d, current_document=%p)\n", cur, main_v->current_document);
-		if (main_v->current_document->filename) {
-			title = g_strconcat("Bluefish ",VERSION," - ",main_v->current_document->filename,NULL);
-		} else {
-			title = g_strconcat("Bluefish ",VERSION," -",_("Untitled"),NULL);
-		}
-		gtk_window_set_title((GtkWindow *)main_v->main_window,title);
-
+		DEBUG_MSG("notebook_changed, NOT CHANGED cur=%d, documentlist[cur]==current_document (=%p), RETURNING\n",cur,main_v->current_document);
 		return;
-	} else {
-		if (cur >= g_list_length(main_v->documentlist)) {
-			cur = -1;
-		}
-		DEBUG_MSG("after checking documentlist len(%d) cur=%d\n",g_list_length(main_v->documentlist),cur);
-		if (cur == -1) {
-			DEBUG_MSG("notebook_changed, cur=-1, calling file_new_cb()\n");
-			file_new_cb(NULL, NULL);
-			main_v->last_notebook_page = 0;
-		} else {
-			DEBUG_MSG("notebook_changed, it did really change to a new document, cur=%d\n", cur);
-			main_v->last_notebook_page = cur;
-			main_v->current_document = g_list_nth_data(main_v->documentlist, cur);
-#ifdef DEBUG
-			DEBUG_MSG("notebook_changed, finished, main_v->current_document=%p\n", main_v->current_document);
-			g_assert(main_v->current_document);
-#endif
-			/* now we flush the queue first, so that we don't call doc_activate 
-			on _this_ document if the user has another close click in the queue */
-			flush_queue();
-
-			doc_activate(main_v->current_document);
+	}
+	doclistlen = g_list_length(main_v->documentlist);
+	if (cur == -1) {
+		if (doclistlen > 0) {
+			DEBUG_MSG("notebook_changed, WEIRD 1 cur=%d, but doclistlen=%d RETURNING\n",cur,doclistlen);
+			main_v->last_notebook_page = -2;
+			return;
 		}
 	}
-	if (main_v->current_document->filename) {
-		title = g_strconcat("Bluefish ",VERSION," - ",main_v->current_document->filename,NULL);
-	} else {
-		title = g_strconcat("Bluefish ",VERSION," -",_("Untitled"),NULL);
+	if (doclistlen == 0) {
+		DEBUG_MSG("notebook_changed, doclistlen=%d, before doc_new()!\n",doclistlen);
+		main_v->current_document = doc_new(TRUE);
+		main_v->last_notebook_page = 1;
+		DEBUG_MSG("notebook_changed, after doc_new(), returning\n");
+		return;
 	}
-	gtk_window_set_title((GtkWindow *)main_v->main_window,title);
+	/* if the documentlist has length 1, cur should not be larger then 0, if 2, cur should not be larger then 1, etc.*/
+	if (cur >= doclistlen) {
+		DEBUG_MSG("notebook_changed, DOCALREADYCLOSED, cur=%d, doclistlen=%d, RETURNING\n", cur, doclistlen);
+		main_v->last_notebook_page = -2;
+		return;
+	}
+	main_v->current_document = g_list_nth_data(main_v->documentlist, cur);
+	if (main_v->current_document == NULL) {
+		DEBUG_MSG("notebook_changed, WEIRD 2, doclist[%d] == NULL, RETURNING\n",cur);
+		return;
+	}
+	DEBUG_MSG("notebook_changed, current_document=%p\n",main_v->current_document);
+	main_v->last_notebook_page = cur;
+	/* now we flush the queue first, so that we don't call doc_activate 
+	on _this_ document if the user has another close click in the queue */
+	flush_queue();
 
-	DEBUG_MSG("notebook_changed, done\n");
+	doc_activate(main_v->current_document);
 }
 
 gboolean switch_to_document_by_index(gint index) {
