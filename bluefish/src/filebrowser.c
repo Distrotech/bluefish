@@ -361,7 +361,12 @@ static GtkTreePath *return_path_from_filename(Tfilebrowser *filebrowser,gchar *t
 	filepath = g_strdup(this_filename);
 	
 	if (filebrowser->basedir) {
-		prevlen = strlen(filebrowser->basedir);
+		int basedirlen = strlen(filebrowser->basedir);
+		if ((strlen(this_filename)>basedirlen) && (strncmp(filebrowser->basedir, this_filename, strlen(filebrowser->basedir))==0)) {
+			prevlen = strlen(filebrowser->basedir);
+		} else {
+			found = FALSE;
+		}
 	}
 	
 	totlen = strlen(filepath);
@@ -858,6 +863,7 @@ void filebrowser_open_dir(Tbfwin *bfwin,const gchar *dirarg) {
 			DEBUG_MSG("jump_to_dir, now scroll to the path\n");
 			filebrowser_expand_to_root(filebrowser,path);
 			gtk_tree_view_scroll_to_cell(GTK_TREE_VIEW(filebrowser->tree),path,0,TRUE,0.5,0.5);
+			gtk_tree_path_free(path);
 		} else {
 			DEBUG_MSG("jump_to_dir, it does NOT exist in the tree, building..\n");
 			path = build_tree_from_path(filebrowser, dir);
@@ -866,9 +872,9 @@ void filebrowser_open_dir(Tbfwin *bfwin,const gchar *dirarg) {
 			if (path) {
 				filebrowser_expand_to_root(filebrowser,path);
 				gtk_tree_view_scroll_to_cell(GTK_TREE_VIEW(filebrowser->tree),path,0,TRUE,0.5,1.0);
+				gtk_tree_path_free(path);
 			}
 		}
-		gtk_tree_path_free(path);
 		g_free(dir);
 	}
 }
