@@ -918,7 +918,7 @@ static void doc_buffer_insert_text_lcb(GtkTextBuffer *textbuffer,GtkTextIter * i
 static void doc_buffer_insert_text_after_lcb(GtkTextBuffer *textbuffer,GtkTextIter * iter,gchar * string,gint len, Tdocument * doc) {
 	/* highlighting stuff */
 	DEBUG_MSG("doc_buffer_insert_text_after_lcb, started\n");
-	if (string && doc->hl->update_chars) {
+	if (doc->highlightstate && string && doc->hl->update_chars) {
 		gint i=0;
 		while (string[i] != '\0') {
 			if (strchr(doc->hl->update_chars, string[i])) {
