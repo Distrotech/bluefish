@@ -407,6 +407,7 @@ static GList *props_init_main(GList * config_rc)
 	init_prop_integer(&config_rc, &main_v->props.view_custom_menu, "view_custom_menu:", 1);
 	init_prop_integer(&config_rc, &main_v->props.view_main_toolbar, "view_main_toolbar:", 1);
 	init_prop_string(&config_rc, &main_v->props.editor_font_string, "editor_font_string:", "courier 11");
+	init_prop_integer(&config_rc, &main_v->props.editor_tab_width, "editor_tab_width:", 3);
 	init_prop_string(&config_rc, &main_v->props.tab_font_string, "tab_font_string:", "helvetica 8");
 	init_prop_arraylist(&config_rc, &main_v->props.browsers, "browsers:");
 	init_prop_stringlist(&config_rc, &main_v->props.quickbar_items, "quickbar_items:");

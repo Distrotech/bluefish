@@ -28,6 +28,7 @@
 #include "bf_lib.h" /* create_full_path() */
 #include "highlight.h" /* hl_init() */
 #include "msg_queue.h" /* msg_queue_start()*/
+#include "stringlist.h" /* put_stringlist(), get_stringlist() */
 
 /*********************************************/
 /* this var is global for all bluefish files */
@@ -114,10 +115,10 @@ int main(int argc, char *argv[])
 	splash_screen_set_label(_("parsing highlighting file..."));
 #endif /* #ifndef NOSPLASH */
 
-	/* set GTK settings */
 	{
-		GtkSettings* gtksettings = gtk_settings_get_default();
-		g_object_set(G_OBJECT(gtksettings), "gtk-can-change-accels", TRUE, NULL); 
+		gchar *filename = g_strconcat(g_get_home_dir(), "/.bluefish/dir_history", NULL);
+		main_v->recent_directories = get_stringlist(filename, NULL);
+		g_free(filename);
 	}
 
 	rcfile_parse_highlighting();
@@ -141,6 +142,12 @@ int main(int argc, char *argv[])
 #ifndef NOSPLASH
 	splash_screen_set_label(_("showing main gui..."));
 #endif /* #ifndef NOSPLASH */
+	/* set GTK settings, must be AFTER the menu is created */
+	{
+		GtkSettings* gtksettings = gtk_settings_get_default();
+		g_object_set(G_OBJECT(gtksettings), "gtk-can-change-accels", TRUE, NULL); 
+	}
+
 	gui_show_main();
 #ifndef NOSPLASH
 	flush_queue();
@@ -155,12 +162,23 @@ int main(int argc, char *argv[])
 }
 
 void bluefish_exit_request() {
-
-	file_close_all_cb(NULL, NULL);
-
-	/* check for changed documents here */
-	if (test_only_empty_doc_left()) {
-		rcfile_save_main();
-		gtk_main_quit();
+	/* if we have modified documents we have to do something, file_close_all_cb()
+	does exactly want we want to do */
+	if (test_docs_modified(NULL)) {
+		file_close_all_cb(NULL, NULL);
+		/* if we still have modified documents we don't do a thing,
+		 if we don't have them we can quit */
+		if (test_docs_modified(NULL)) {
+			return;
+		}
 	}
+
+	gtk_widget_hide(main_v->main_window);
+	rcfile_save_main();
+	{
+		gchar *filename = g_strconcat(g_get_home_dir(), "/.bluefish/dir_history", NULL);
+		put_stringlist_limited(filename, main_v->recent_directories, main_v->props.max_dir_history);
+		g_free(filename);
+	}
+	gtk_main_quit();
 }

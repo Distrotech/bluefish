@@ -22,8 +22,6 @@
 #include <stdlib.h> /* atoi */
 #include <string.h> /* strchr() */
 
-
-
 #include "bluefish.h"
 #include "document.h"			/* file_open etc. */
 #include "highlight.h" /* doc_highlight_full */
