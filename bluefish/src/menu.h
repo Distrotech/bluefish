@@ -2,7 +2,7 @@
  * menu.h - uhh, duh.
  *
  * Copyright (C) 1998 Olivier Sessink and Chris Mazuc
- * Copyright (C) 1999-2002 Olivier Sessink
+ * Copyright (C) 1999-2004 Olivier Sessink
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
@@ -24,7 +24,7 @@
 void menu_current_document_set_toggle_wo_activate(Tbfwin *bfwin, Tfiletype *filetype, gchar *encoding);
 void menu_create_main(Tbfwin *bfwin,GtkWidget *vbox);
 void add_to_recent_list(Tbfwin *bfwin,gchar *filename, gint closed_file, gboolean is_project);
-void recent_menu_from_file(Tbfwin *bfwin, gchar *file_name, gboolean is_project);
+GList *recent_menu_from_list(Tbfwin *bfwin, GList *startat, gboolean is_project);
 void recent_menu_init(Tbfwin *bfwin);
 void recent_menu_init_project(Tbfwin *bfwin);
 void add_window_entry_to_all_windows(Tbfwin *tobfwin);

@@ -881,7 +881,7 @@ static GList *return_project_configlist(Tproject *project) {
 	init_prop_string(&configlist, &project->basedir,"basedir:","");
 	init_prop_string(&configlist, &project->webdir,"webdir:","");
 	init_prop_string(&configlist, &project->template,"template:","");
-	init_prop_stringlist(&configlist, &project->recentfiles, "recentfiles:", FALSE); /* should be changed to use the session->recent_files */
+/*	init_prop_stringlist(&configlist, &project->recentfiles, "recentfiles:", FALSE); / * should be changed to use the session->recent_files */
 	init_prop_integer (&configlist, &project->view_main_toolbar,"view_main_toolbar:",1,FALSE);
 	init_prop_integer (&configlist, &project->view_left_panel,"view_left_panel:",1,FALSE);
 	init_prop_integer (&configlist, &project->view_custom_menu,"view_custom_menu:",1,FALSE);

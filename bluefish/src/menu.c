@@ -1023,12 +1023,12 @@ GList *recent_menu_from_list(Tbfwin *bfwin, GList *startat, gboolean is_project)
 	return retlist;
 }
 
-void recent_menu_from_file(Tbfwin *bfwin, gchar *file_name, gboolean is_project) {
+/* void recent_menu_from_file(Tbfwin *bfwin, gchar *file_name, gboolean is_project) {
 	gchar *filename;
 	GList *inputlist, *recentfiles=NULL, *tmplist, **worklist;
 	gint num;
 	worklist = (is_project) ? &bfwin->menu_recent_projects : &bfwin->menu_recent_files;
-	/* empty any existing menu */
+	/ * empty any existing menu * /
 	tmplist = g_list_first(*worklist);
 	while (tmplist) {
 		gtk_widget_destroy(tmplist->data);
@@ -1037,7 +1037,7 @@ void recent_menu_from_file(Tbfwin *bfwin, gchar *file_name, gboolean is_project)
 	
 	filename = g_strconcat(g_get_home_dir(), file_name, NULL);
 	inputlist = get_stringlist(filename, NULL);
-	/* the last entry in inputlist is the most recent file */
+	/ * the last entry in inputlist is the most recent file * /
 	tmplist = g_list_first(inputlist);
 	while (tmplist) {
 		recentfiles = add_to_history_stringlist(recentfiles, (gchar *)tmplist->data, TRUE);
@@ -1049,7 +1049,7 @@ void recent_menu_from_file(Tbfwin *bfwin, gchar *file_name, gboolean is_project)
 	put_stringlist_limited(filename, recentfiles, main_v->props.max_recent_files);
 	free_stringlist(recentfiles);
 	g_free(filename);
-}
+}*/
 
 /* recent_menu_init()
  * Gets the list of documents from .bluefish/recentlist and inserts
@@ -1057,8 +1057,10 @@ void recent_menu_from_file(Tbfwin *bfwin, gchar *file_name, gboolean is_project)
  * because this is the first time Bluefish is running) then a menu
  * item telling that no recent files exist will appear */
 void recent_menu_init(Tbfwin *bfwin) {
-	recent_menu_from_file(bfwin, "/.bluefish/recentlist", FALSE);
-	recent_menu_from_file(bfwin, "/.bluefish/recentprojects", TRUE);
+/*	recent_menu_from_file(bfwin, "/.bluefish/recentlist", FALSE);
+	recent_menu_from_file(bfwin, "/.bluefish/recentprojects", TRUE);*/
+	recent_menu_from_list(bfwin, bfwin->session->recent_files, FALSE);
+	recent_menu_from_list(bfwin, main_v->globses.recent_projects, TRUE);
 }
 
 /* when a project is opened, the recent menu should show the recent files
@@ -1070,8 +1072,8 @@ void recent_menu_init_project(Tbfwin *bfwin) {
 		gtk_widget_destroy(tmplist->data);
 		tmplist = g_list_next(tmplist);
 	}
-	num = g_list_length(bfwin->project->recentfiles) - main_v->props.max_recent_files;
-	bfwin->menu_recent_files = recent_menu_from_list(bfwin, g_list_nth(bfwin->project->recentfiles, (num > 0)?num:0), FALSE);
+	num = g_list_length(bfwin->session->recent_files) - main_v->props.max_recent_files;
+	bfwin->menu_recent_files = recent_menu_from_list(bfwin, g_list_nth(bfwin->session->recent_files, (num > 0)?num:0), FALSE);
 }
 /* Add_to_recent_list
  * This should be called when a new file is opened, i.e. from
@@ -1103,31 +1105,36 @@ void add_to_recent_list(Tbfwin *bfwin,gchar *filename, gint closed_file, gboolea
 			}
 			tmplist = g_list_next(tmplist);
 		}
-		if (bfwin->project && !is_project) {
-			bfwin->project->recentfiles = add_to_history_stringlist(bfwin->project->recentfiles, filename, TRUE);
-		}
+	}
+	if (is_project) {
+		main_v->globses.recent_projects = add_to_history_stringlist(main_v->globses.recent_projects, filename, TRUE);
 	} else {
-		/* once we get rid of the other ways to store recent files this will be the only line we still need */
+		bfwin->session->recent_files = add_to_history_stringlist(bfwin->session->recent_files, filename, TRUE);
+	}
+
+
+/*	} else {
+		/ * once we get rid of the other ways to store recent files this will be the only line we still need * /
 		if (is_project) {
 			main_v->globses.recent_projects = add_to_history_stringlist(main_v->globses.recent_projects, filename, TRUE);
 		} else {
 			bfwin->session->recent_files = add_to_history_stringlist(bfwin->session->recent_files, filename, TRUE);
 		}
 		DEBUG_MSG("add_to_recent_list, added to session recent_files, length=%d\n",g_list_length(bfwin->session->recent_files));
-
 		if (bfwin->project) {
-			/* we do nothing when the file is opened, since opened files are anyway opened again in a project */
+			/ * we do nothing when the file is opened, since opened files are anyway opened again in a project * /
 		} else {
 			gchar *tmpfilename, *recentfile;
 			recentfile = g_strconcat(g_get_home_dir(), (is_project) ? "/.bluefish/recentprojects" : "/.bluefish/recentlist", NULL);
-			/* save the new list */
+			/ * save the new list * /
 			tmpfilename = g_strconcat(filename, "\n", NULL);
 			DEBUG_MSG("add_to_recent_list, trying to append to %s\n", recentfile);
 			append_string_to_file(recentfile, tmpfilename);
 			g_free(recentfile);
 			g_free(tmpfilename);
 		}
-	}
+		* /
+	} */
 }
 /*****************/
 /* Windows !!    */

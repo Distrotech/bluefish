@@ -278,7 +278,6 @@ typedef struct {
 	gchar *webdir;
 	gchar *template;
 	gpointer editor;
-	GList *recentfiles;
 	gint view_main_toolbar;
 	gint view_left_panel;
 	gint view_custom_menu;
