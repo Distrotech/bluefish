@@ -950,9 +950,13 @@ static void create_file_or_dir_ok_clicked_lcb(GtkWidget *widget, Tcfod *ws) {
 				if (ws->is_file) {
 					doc_new_with_new_file(ws->filebrowser->bfwin,newname);
 				} else {
+#ifdef HAVE_GNOME_VFS
+					gnome_vfs_make_directory(newname,0755);
+#else
 					if(mkdir(newname, 0755)== -1) {
 /*						error_dialog(_("Error creating directory"),strerror(errno));*/
 					}
+#endif
 				}
 			}
 			g_free(newname);
@@ -1101,9 +1105,15 @@ static void filebrowser_rpopup_rename(Tfilebrowser *filebrowser) {
 		/* Promt user, "File/Move To"-style. */
 		newfilename = ask_new_filename(filebrowser->bfwin,oldfilename, 1);
 		if (newfilename) {
+#ifdef HAVE_GNOME_VFS
+			if (gnome_vfs_move(oldfilename,newfilename,TRUE) != GNOME_VFS_OK) {
+				errmessage = g_strconcat(_("Could not rename\n"), oldfilename, NULL);
+			}
+#else
 			if(rename(oldfilename, newfilename) != 0) {
 				errmessage = g_strconcat(_("Could not rename\n"), oldfilename, NULL);
 			}
+#endif
 		}
 	} /* if(oldfilename is open) */
 
@@ -1154,7 +1164,11 @@ static void filebrowser_rpopup_delete(Tfilebrowser *filebrowser) {
 			if (retval == 1) {
 				gchar *tmp, *dir;
 				DEBUG_MSG("file_list_rpopup_file_delete %s\n", filename);
+#ifdef HAVE_GNOME_VFS
+				gnome_vfs_unlink(filename);
+#else
 				unlink(filename);
+#endif
 				tmp = g_path_get_dirname(filename);
 				dir = ending_slash(tmp);
 				g_free(tmp);
