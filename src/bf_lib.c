@@ -53,7 +53,9 @@
  * Return value: #gchar* newly allocated, or NULL
  */
 gchar *return_root_with_protocol(const gchar *url) {
-	gchar *q = strchr(url,':');
+	gchar *q;
+	if (!url) return NULL;
+	q = strchr(url,':');
 	if (q && *(q+1)=='/' && *(q+2)=='/' && *(q+3)!='\0') {
 		/* we have a protocol */
 		gchar *root = strchr(q+3, '/');

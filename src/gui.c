@@ -213,7 +213,8 @@ GtkWidget *left_panel_build(Tbfwin *bfwin) {
 	return left_notebook;
 }
 
-void left_panel_show_hide_toggle(Tbfwin *bfwin,gboolean first_time, gboolean show) {
+void left_panel_show_hide_toggle(Tbfwin *bfwin,gboolean first_time, gboolean show, gboolean sync_menu) {
+	if (sync_menu) setup_toggle_item(gtk_item_factory_from_widget(bfwin->menubar), N_("/Options/Display/View Left Panel"), show);
 	if (!first_time && ((show && bfwin->hpane) || (!show && bfwin->hpane == NULL))) {
 		DEBUG_MSG("left_panel_show_hide_toggle, retrurning!!, show=%d, bfwin->hpane=%p, first_time=%d\n",show,bfwin->hpane,first_time);
 		return;
@@ -1092,7 +1093,7 @@ void gui_create_main(Tbfwin *bfwin, GList *filenames) {
 	/* output_box */
 	init_output_box(bfwin, vbox);
 
-	left_panel_show_hide_toggle(bfwin,TRUE, (bfwin->project && bfwin->project->view_left_panel) || (!bfwin->project && main_v->props.view_left_panel));
+	left_panel_show_hide_toggle(bfwin,TRUE, (bfwin->project && bfwin->project->view_left_panel) || (!bfwin->project && main_v->props.view_left_panel), FALSE);
 
 	/* finally the statusbar */
 	{
@@ -1415,7 +1416,7 @@ void gui_toggle_hidewidget_cb(Tbfwin *bfwin,guint action,GtkWidget *widget) {
 	break;
 	case 4:
 		if (bfwin->project) bfwin->project->view_left_panel = active;
-		left_panel_show_hide_toggle(bfwin,FALSE, active);
+		left_panel_show_hide_toggle(bfwin,FALSE, active, FALSE);
 	break;
 	default:
 		g_print("gui_toggle_hidewidget_cb should NEVER be called with action %d\n", action);

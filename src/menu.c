@@ -139,6 +139,9 @@ static void menu_file_operations_cb(Tbfwin *bfwin,guint callback_action, GtkWidg
 		file_open_url_cb(NULL, bfwin);
 	break;
 #endif
+	case 26:
+		file_open_from_selection(bfwin);
+	break;
 	default:
 		g_print("menu_file_operations_cb, unknown action, abort!\n");
 		exit(123);
@@ -275,6 +278,7 @@ static GtkItemFactoryEntry menu_items[] = {
 #ifdef HAVE_GNOME_VFS
 	{N_("/File/Open URL..."), NULL, menu_file_operations_cb, 25, NULL},
 #endif /* HAVE_GNOME_VFS */
+	{N_("/File/Open from selection"), NULL, menu_file_operations_cb, 26, NULL},
 	{N_("/File/Open r_ecent"), NULL, NULL, 0, "<Branch>"},
 	{N_("/File/Open recent/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
 	{N_("/File/_Revert to Saved"), NULL, menu_file_operations_cb, 4, "<StockItem>", GTK_STOCK_REVERT_TO_SAVED},

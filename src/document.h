@@ -80,6 +80,7 @@ void doc_reload(Tdocument *doc);
 void doc_activate(Tdocument *doc);
 void doc_force_activate(Tdocument *doc);
 /* callbacks for the menu and toolbars */
+void file_open_from_selection(Tbfwin *bfwin);
 void file_save_cb(GtkWidget * widget, Tbfwin *bfwin);
 void file_save_as_cb(GtkWidget * widget, Tbfwin *bfwin);
 void file_move_to_cb(GtkWidget * widget, Tbfwin *bfwin);

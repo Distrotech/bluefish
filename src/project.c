@@ -166,7 +166,7 @@ void project_open_from_file(Tbfwin *bfwin, gchar *fromfilename) {
 	gui_set_html_toolbar_visible(prwin, prj->view_html_toolbar, TRUE);
 	gui_set_main_toolbar_visible(prwin, prj->view_main_toolbar, TRUE);
 	gui_set_custom_menu_visible(prwin, prj->view_custom_menu, TRUE);
-	left_panel_show_hide_toggle(prwin,FALSE,prj->view_left_panel);
+	left_panel_show_hide_toggle(prwin,FALSE,prj->view_left_panel, TRUE);
 }
 
 static void project_open(Tbfwin *bfwin) {
