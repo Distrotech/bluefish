@@ -17,6 +17,8 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
+#define DEBUG
+
 #include <gtk/gtk.h>
 #include <time.h> /* nanosleep() */
 #include "bluefish.h"
@@ -146,6 +148,13 @@ static void main_window_delete_lcb(GtkWidget *wid, gpointer data) {
 	bluefish_exit_request();
 }
 
+static void left_panel_move_handle_lcb(GtkPaned *paned,GtkScrollType arg1,gpointer user_data) {
+	DEBUG_MSG("left_panel_accept_position_lcb, started\n");
+	if (main_v->props.restore_dimensions) {
+		main_v->props.left_panel_width = gtk_paned_get_position(paned);
+	}
+}
+
 void left_panel_show_hide_toggle(gboolean first_time, gboolean show) {
 	GtkWidget *fileb;
 
@@ -160,6 +169,9 @@ void left_panel_show_hide_toggle(gboolean first_time, gboolean show) {
 	}
 	if (show) {
 		main_v->hpane = gtk_hpaned_new();
+		gtk_paned_set_position(GTK_PANED(main_v->hpane), main_v->props.left_panel_width);
+		g_signal_connect(G_OBJECT(main_v->hpane), "move-handle", G_CALLBACK(left_panel_move_handle_lcb), NULL);
+		DEBUG_MSG("left_panel_show_hide_toggle, connected signal to hpaned\n");
 		fileb = filebrowser_init();
 		gtk_widget_show_all(fileb);
 		gtk_paned_add1(GTK_PANED(main_v->hpane), fileb);
@@ -510,9 +522,11 @@ if (main_v->notebook_switch_signal != 0) {
 }
 
 static gboolean gui_main_window_configure_event_lcb(GtkWidget *widget,GdkEventConfigure *event,gpointer user_data) {
-	if (event->type == GDK_CONFIGURE) {
-		if (main_v->props.main_window_w != event->width) main_v->props.main_window_w = event->width;
-		if (main_v->props.main_window_h != event->height) main_v->props.main_window_h = event->height;
+	if (main_v->props.restore_dimensions) {
+		if (event->type == GDK_CONFIGURE) {
+			if (main_v->props.main_window_w != event->width) main_v->props.main_window_w = event->width;
+			if (main_v->props.main_window_h != event->height) main_v->props.main_window_h = event->height;
+		}
 	}
 	return FALSE;
 }
