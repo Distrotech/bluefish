@@ -1298,6 +1298,8 @@ void doc_activate(Tdocument *doc) {
 	}
 	doc_set_undo_redo_widget_state(doc);
 
+	gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (doc->hl->menuitem), TRUE);
+
 	/* if highlighting is needed for this document do this now !! */
 	if (doc->need_highlighting && doc->highlightstate) {
 		doc_highlight_full(doc);

@@ -26,7 +26,7 @@
 
 #include "bluefish.h"
 #include "document.h"			/* file_open etc. */
-#include "highlight.h" /* hl_update_current_document_cb */
+#include "highlight.h" /* doc_highlight_full */
 #include "menu.h" /* my own .h file */
 #include "undo_redo.h" /* undo_cb() redo_cb() etc. */
 #include "snr2.h" /* search_cb, replace_cb */
@@ -91,6 +91,8 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/Options/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
 	{N_("/Options/Current document"), NULL, NULL, 0, "<Branch>"},
 	{N_("/Options/Current document/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
+	{N_("/Options/Current document/Type"), NULL, NULL, 0, "<Branch>"},
+	{N_("/Options/Current document/Type/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
 	{N_("/Options/Current document/Highlight syntax"), NULL, doc_toggle_highlighting_cb, 0, "<ToggleItem>"},
 	{N_("/Options/Current document/Update highlighting"), "F5", doc_update_highlighting, 0, NULL},
 	{N_("/Options/View Main toolbar"), NULL, gui_toggle_hidewidget_cb, 0, "<ToggleItem>"},
@@ -98,6 +100,10 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/Options/View Custom menu"), NULL, gui_toggle_hidewidget_cb, 2, "<ToggleItem>"}
 };
 
+static void menu_current_document_type_change(GtkMenuItem *menuitem,Thighlightset *hlset) {
+	hl_set_highlighting_type(main_v->current_document, hlset);
+	doc_highlight_full(main_v->current_document);
+}
 
 /* 
  * menu factory crap, thanks to the gtk tutorial for this
@@ -124,7 +130,24 @@ void menu_create_main(GtkWidget *vbox)
 	setup_toggle_item(item_factory, "/Options/View Custom menu", main_v->props.view_custom_menu);
 /*	setup_toggle_item(item_factory, "/Options/View Filebrowser", main_v->props.v_filebrowser);
 	setup_toggle_item(item_factory, "/View/Highlight syntax", main_v->props.cont_highlight_update);*/
+	{
+		GList *group=NULL;
+		GtkWidget *parent_menu;
+		GList *tmplist = g_list_first(main_v->hlsetlist);
+		parent_menu = gtk_item_factory_get_widget(item_factory, _("/Options/Current document/Type"));
+		while (tmplist) {
+			Thighlightset *hlset = (Thighlightset *)tmplist->data;
+			hlset->menuitem = gtk_radio_menu_item_new_with_label(group, hlset->type);
+			g_signal_connect(G_OBJECT(hlset->menuitem), "activate",G_CALLBACK(menu_current_document_type_change), (gpointer) hlset);
+			gtk_widget_show(hlset->menuitem);
+			gtk_menu_insert(GTK_MENU(parent_menu), hlset->menuitem, 1);
+			group = gtk_radio_menu_item_get_group (GTK_RADIO_MENU_ITEM(hlset->menuitem));
+			tmplist = g_list_next(tmplist);
+		}
+	
+	}
 }
+
 /************************************************/
 /* generic functions for dynamic created menu's */
 /************************************************/
