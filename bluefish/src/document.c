@@ -3330,7 +3330,8 @@ static void files_advanced_win(Tfiles_advanced *tfs) {
 
 /*	g_free(curdir);*/
 	
-	list = g_list_append(NULL, "*.php");
+	list = g_list_append(NULL, "*");
+	list = g_list_append(list, "*.php");
 	list = g_list_append(list, "*.php3");
 	list = g_list_append(list, "*.html");
 	list = g_list_append(list, "*.htm");
@@ -3341,7 +3342,7 @@ static void files_advanced_win(Tfiles_advanced *tfs) {
 	list = g_list_append(list, "*.c");
 	list = g_list_append(list, "*.py");
 	list = g_list_append(list, "*.java");
-	tfs->find_pattern = combo_with_popdown("", list, 1);
+	tfs->find_pattern = combo_with_popdown("*", list, 1);
 	bf_mnemonic_label_tad_with_alignment(_("_File Type:"), tfs->find_pattern, 0, 0.5, table, 1, 2, 4, 5);
 	gtk_table_attach_defaults(GTK_TABLE(table), tfs->find_pattern, 2, 4, 4, 5);
 
