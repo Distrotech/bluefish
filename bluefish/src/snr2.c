@@ -1260,10 +1260,6 @@ static gboolean search_entry_key_press_event_lcb(GtkWidget *widget,GdkEventKey *
 	return FALSE;
 }*/
 
-static void combo_activate_lcb(GtkEntry *entry,Tsnr2_win *snr2win) {
-	snr2dialog_ok_lcb(NULL, snr2win);
-}
-
 static void snr2dialog(Tbfwin *bfwin, gint is_replace, gint is_new_search) {
 	Tsnr2_win *snr2win;
 	GtkWidget *vbox, *hbox, *button, *table;
@@ -1312,7 +1308,6 @@ static void snr2dialog(Tbfwin *bfwin, gint is_replace, gint is_new_search) {
 	gtk_table_attach (GTK_TABLE (table), snr2win->search_combo, 1, 2, 0, 1,
 					(GtkAttachOptions) (GTK_EXPAND | GTK_FILL), (GtkAttachOptions) (GTK_FILL), 0, 0);
 	/*g_signal_connect(G_OBJECT(snr2win->search_entry), "key_press_event", G_CALLBACK(search_entry_key_press_event_lcb), snr2win);*/
-	g_signal_connect(G_OBJECT(GTK_COMBO(snr2win->search_combo)->entry), "activate", G_CALLBACK(combo_activate_lcb), snr2win);
 
 	if (is_replace) {
 		snr2win->replace_label = gtk_label_new_with_mnemonic(_("Replace wit_h: "));
@@ -1325,7 +1320,6 @@ static void snr2dialog(Tbfwin *bfwin, gint is_replace, gint is_new_search) {
 		gtk_table_attach (GTK_TABLE (table), snr2win->replace_combo, 1, 2, 1, 2,
 						(GtkAttachOptions) (GTK_FILL), (GtkAttachOptions) (GTK_FILL), 0, 0);
 		/*g_signal_connect(G_OBJECT(snr2win->replace_entry), "key_press_event", G_CALLBACK(search_entry_key_press_event_lcb), snr2win);*/
-		g_signal_connect(G_OBJECT(GTK_COMBO(snr2win->replace_combo)->entry), "activate", G_CALLBACK(combo_activate_lcb), snr2win);
 		snr2win->subpat_help = gtk_label_new(_("\\0 refers to the first subsearch_pattern, \\1 to the second etc."));
 		gtk_box_pack_start(GTK_BOX(vbox), snr2win->subpat_help, FALSE, TRUE, 6);
 		gtk_label_set_justify (GTK_LABEL (snr2win->subpat_help), GTK_JUSTIFY_LEFT);
