@@ -261,11 +261,11 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
       linkend="bluefish-ch-2-sect-5" /></para>
     </sect2>
 
-    <sect2 id="bluefish-ch-2-sect-4.2">
+    <sect2 id="bluefish-install-devel-source">
       <title>Installing from Development Source Tree</title>
 
       <para>You can get the latest Bluefish version via CVS using the
-      instructions in <xref linkend="bluefish-ch-1-sect-3" /> Enter the
+      instructions in <xref linkend="bluefish-get-cvs" /> Enter the
       directory containing the bluefish source files: <screen>$ cd bluefish-gtk</screen>
       Next, you need to generate the configure script. That's accomplished by
       running <screen>$ autoconf</screen> Then, you run
