@@ -636,7 +636,7 @@ static void refresh_dir_by_path_and_filename(Tfilebrowser *filebrowser, GtkTreeP
 /* can return NULL if the filepath is outside the basedir !! */
 static GtkTreePath *build_tree_from_path(Tfilebrowser *filebrowser, const gchar *filepath) {
 	GtkTreeIter iter;
-	
+	DEBUG_MSG("build_tree_from_path, started for filebrowser=%p and filepath=%s\n",filebrowser,filepath);
 	if (filebrowser->basedir && strncmp(filepath, filebrowser->basedir, strlen(filebrowser->basedir))!=0) {
 		DEBUG_MSG("build_tree_from_path, filepath %s outside basedir %s, returning NULL\n",filepath, filebrowser->basedir);
 		return NULL;
@@ -645,7 +645,7 @@ static GtkTreePath *build_tree_from_path(Tfilebrowser *filebrowser, const gchar 
 	/* first build path from root to here */
 	{
 		gchar *tmpstr, *p;
-		gint totlen, curlen, prevlen=1;
+		gint totlen, curlen, prevlen=0;
 		
 		if (!gtk_tree_model_get_iter_first(GTK_TREE_MODEL(filebrowser->store), &iter)) {
 			if (filebrowser->basedir) {
@@ -659,6 +659,9 @@ static GtkTreePath *build_tree_from_path(Tfilebrowser *filebrowser, const gchar 
 		
 		totlen = strlen(filepath);
 		DEBUG_MSG("build_tree_from_path, totlen=%d\n", totlen);
+		if (filepath[0] == '/') {
+			prevlen = 1;
+		}
 		if (prevlen > totlen) {
 			prevlen = totlen;
 		}
@@ -670,7 +673,21 @@ static GtkTreePath *build_tree_from_path(Tfilebrowser *filebrowser, const gchar 
 			DEBUG_MSG("build_tree_from_path, it seems we're building only the root ?!?\n");
 			p = NULL;
 		} else {
-			p = strchr(&filepath[prevlen], '/');
+			gchar *q = strchr(&filepath[prevlen], ':');
+			if (q && *(q+1)=='/' && *(q+2)=='/') {
+				gchar *root;
+				DEBUG_MSG("we found the protocol://, lets find the root\n");
+				p = strchr(q+3, '/');
+				root = g_strndup(filepath, p - filepath+1);
+				iter = add_tree_item(NULL, filebrowser, root, TYPE_DIR, NULL);
+				g_free(root);
+				DEBUG_MSG("searching for next / after the protocol root, searching in %s\n",p);
+				prevlen = p - filepath+1;
+				p = strchr(p+1, '/');
+				DEBUG_MSG("added protocol root, prevlen=%d, p=%s\n",prevlen,p);
+			} else {
+				p = strchr(&filepath[prevlen], '/');
+			}
 		}
 		while (p) {
 			curlen = strlen(p);
