@@ -17,6 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
+/* #define DEBUG */
 
 #include <gtk/gtk.h>
 #include <unistd.h> /* chdir() */
@@ -228,12 +229,12 @@ gchar *escapestring(gchar *original, gchar delimiter)
 	guint newsize, pos=0;
 
 	/* count the size of the new string */
-	escapedchars = g_strdup_printf("\n\\%c", delimiter);
+	escapedchars = g_strdup_printf("\n\t\\%c", delimiter);
 	DEBUG_MSG("escapestring, escapedchars=%s, extra length=%d\n", escapedchars, countchars(original, escapedchars));
 	newsize = countchars(original, escapedchars) + strlen(original) + 1;
 	newstring = g_malloc0(newsize * sizeof(gchar));
 	g_free(escapedchars);
-	DEBUG_MSG("escapestring, original=%s, newsize = %d\n", original, newsize);
+	DEBUG_MSG("escapestring, original=%s, newsize=%d\n", original, newsize);
 
 	tmp = original;
 	while (*tmp != '\0') {
@@ -244,6 +245,10 @@ gchar *escapestring(gchar *original, gchar delimiter)
 		break;
 		case '\n':
 			strcat(newstring, "\\n");
+			pos +=2;
+		break;
+		case '\t':
+			strcat(newstring, "\\t");
 			pos +=2;
 		break;
 		default:
@@ -291,6 +296,9 @@ gchar *unescapestring(gchar *original)
 			break;
 			case 'n':
 				*tmp2++ = '\n';
+			break;
+			case 't':
+				*tmp2++ = '\t';
 			break;
 			default:
 				*tmp2++ = *tmp1;
