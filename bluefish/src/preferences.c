@@ -1,4 +1,4 @@
-/* #define DEBUG */
+#define DEBUG
 
 #include <gtk/gtk.h>
 #include <string.h> /* strcmp() */
@@ -122,10 +122,11 @@ typedef struct {
 	GtkListStore *lstore;
 	GtkWidget *lview;
 	GtkWidget *entry[6];
-	GtkWidget *combo;
+	GtkWidget *popmenu;
 	GtkWidget *check;
 	GtkWidget *radio[9];
 	gchar **curstrarr;
+	const gchar *selected_filetype;
 } Thighlightpatterndialog;
 
 typedef struct {
@@ -445,18 +446,23 @@ static void highlightpattern_apply_changes(Tprefdialog *pd) {
 	}
 }
 
-static void highlightpattern_combo0_activate(GtkEntry *entry,Tprefdialog *pd) {
-	const gchar *entrytext = gtk_entry_get_text(GTK_ENTRY(GTK_COMBO(pd->hpd.combo)->entry));
-	GList *tmplist = g_list_first(pd->lists[highlight_patterns]);
+static void highlightpattern_popmenu_activate(GtkMenuItem *menuitem,Tprefdialog *pd) {
+	GList *tmplist;
+
+	DEBUG_MSG("highlightpattern_popmenu_activate, pd=%p, menuitem=%p\n", pd, menuitem);
+	tmplist = g_list_first(pd->lists[highlight_patterns]);
+	if (menuitem) {
+		pd->hpd.selected_filetype = gtk_label_get_text(GTK_LABEL(GTK_BIN(menuitem)->child));
+	}
 
 	highlightpattern_apply_changes(pd);
 
 	gtk_list_store_clear(GTK_LIST_STORE(pd->hpd.lstore));
-
+	DEBUG_MSG("highlightpattern_popmenu_activate, cleared and applied changes\n");
 	/* fill list model here */
 	while (tmplist) {
 		gchar **strarr =(gchar **)tmplist->data;
-		if (strcmp(strarr[0], entrytext)==0) {
+		if (strcmp(strarr[0], pd->hpd.selected_filetype)==0) {
 			GtkTreeIter iter;
 			gtk_list_store_append(GTK_LIST_STORE(pd->hpd.lstore), &iter);
 			gtk_list_store_set(GTK_LIST_STORE(pd->hpd.lstore), &iter, 0, strarr[1], -1);
@@ -478,10 +484,11 @@ static void highlightpattern_combo0_activate(GtkEntry *entry,Tprefdialog *pd) {
 
 static void add_new_highlightpattern_lcb(GtkWidget *wid, Tprefdialog *pd) {
 	gchar *pattern = gtk_editable_get_chars(GTK_EDITABLE(pd->hpd.entry[0]),0,-1);
-	gchar *type = gtk_editable_get_chars(GTK_EDITABLE(GTK_COMBO(pd->hpd.combo)->entry),0,-1);
+	GtkWidget *menuitem = gtk_menu_get_active(GTK_MENU( gtk_option_menu_get_menu(GTK_OPTION_MENU(pd->hpd.popmenu)) ));
+	const gchar *type = gtk_label_get_text(GTK_LABEL(GTK_BIN(menuitem)->child));
 	if (strlen(pattern) && strlen(type)) {
 		gchar **strarr = g_malloc(12 * sizeof(gchar *));
-		strarr[0] = type;
+		strarr[0] = g_strdup(type);
 		strarr[1] = pattern;
 		strarr[2] = g_strdup("");
 		strarr[3] = g_strdup("");
@@ -504,7 +511,6 @@ static void add_new_highlightpattern_lcb(GtkWidget *wid, Tprefdialog *pd) {
 		gtk_entry_set_text(GTK_ENTRY(pd->hpd.entry[0]), "");
 	} else {
 		g_free(pattern);
-		g_free(type);
 	}
 }
 
@@ -512,16 +518,15 @@ static void highlightpattern_selection_changed_cb(GtkTreeSelection *selection, T
 	GtkTreeIter iter;
 	GtkTreeModel *model;
 	gchar *pattern;
-	const gchar *filetype;
 	if (gtk_tree_selection_get_selected(selection, &model, &iter)) {
 		GList *tmplist = g_list_first(pd->lists[highlight_patterns]);
+		GtkWidget *menuitem = gtk_menu_get_active(GTK_MENU( gtk_option_menu_get_menu(GTK_OPTION_MENU(pd->hpd.popmenu)) ));
+		DEBUG_MSG("highlightpattern_selection_changed_cb, pd=%p, menuitem=%p, label=%p\n", pd, menuitem, GTK_BIN(menuitem)->child);
 		gtk_tree_model_get(model, &iter, 0, &pattern, -1);
-		filetype = gtk_entry_get_text(GTK_ENTRY(GTK_COMBO(pd->hpd.combo)->entry));
 		highlightpattern_apply_changes(pd);
-
 		while (tmplist) {
 			gchar **strarr =(gchar **)tmplist->data;
-			if (strcmp(strarr[1], pattern)==0 && strcmp(strarr[0], filetype)==0) {
+			if (strcmp(strarr[1], pattern)==0 && strcmp(strarr[0], pd->hpd.selected_filetype)==0) {
 				gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(pd->hpd.check), (strarr[2][0] == '0'));
 				gtk_entry_set_text(GTK_ENTRY(pd->hpd.entry[1]), strarr[3]);
 				gtk_entry_set_text(GTK_ENTRY(pd->hpd.entry[2]), strarr[4]);
@@ -568,18 +573,17 @@ static void highlightpattern_up_clicked_lcb(GtkWidget *wid, Tprefdialog *pd) {
 	GtkTreeIter iter;
 	GtkTreeModel *model;
 	gchar *pattern;
-	const gchar *filetype;
+
 	GtkTreeSelection* selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(pd->hpd.lview));
 	if (gtk_tree_selection_get_selected(selection, &model, &iter)) {
 		GList *tmplist = g_list_first(pd->lists[highlight_patterns]);
 		gtk_tree_model_get(model, &iter, 0, &pattern, -1);
-		filetype = gtk_entry_get_text(GTK_ENTRY(GTK_COMBO(pd->hpd.combo)->entry));
 		while (tmplist) {
 			gchar **strarr =(gchar **)tmplist->data;
-			if (strcmp(strarr[1], pattern)==0 && strcmp(strarr[0], filetype)==0) {
+			if (strcmp(strarr[1], pattern)==0 && strcmp(strarr[0], pd->hpd.selected_filetype)==0) {
 				if (tmplist->prev) {
 					list_switch_order(tmplist, tmplist->prev);
-					highlightpattern_combo0_activate(NULL, pd);
+					highlightpattern_popmenu_activate(NULL, pd);
 				}
 				return;
 			}
@@ -591,18 +595,16 @@ static void highlightpattern_down_clicked_lcb(GtkWidget *wid, Tprefdialog *pd) {
 	GtkTreeIter iter;
 	GtkTreeModel *model;
 	gchar *pattern;
-	const gchar *filetype;
 	GtkTreeSelection* selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(pd->hpd.lview));
 	if (gtk_tree_selection_get_selected(selection, &model, &iter)) {
 		GList *tmplist = g_list_first(pd->lists[highlight_patterns]);
 		gtk_tree_model_get(model, &iter, 0, &pattern, -1);
-		filetype = gtk_entry_get_text(GTK_ENTRY(GTK_COMBO(pd->hpd.combo)->entry));
 		while (tmplist) {
 			gchar **strarr =(gchar **)tmplist->data;
-			if (strcmp(strarr[1], pattern)==0 && strcmp(strarr[0], filetype)==0) {
+			if (strcmp(strarr[1], pattern)==0 && strcmp(strarr[0], pd->hpd.selected_filetype)==0) {
 				if (tmplist->next) {
 					list_switch_order(tmplist, tmplist->next);
-					highlightpattern_combo0_activate(NULL, pd);
+					highlightpattern_popmenu_activate(NULL, pd);
 					return;
 				}
 			}
@@ -614,19 +616,17 @@ static void highlightpattern_delete_clicked_lcb(GtkWidget *wid, Tprefdialog *pd)
 	GtkTreeIter iter;
 	GtkTreeModel *model;
 	gchar *pattern;
-	const gchar *filetype;
 	GtkTreeSelection* selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(pd->hpd.lview));
 	if (gtk_tree_selection_get_selected(selection, &model, &iter)) {
 		GList *tmplist = g_list_first(pd->lists[highlight_patterns]);
 		gtk_tree_model_get(model, &iter, 0, &pattern, -1);
-		filetype = gtk_entry_get_text(GTK_ENTRY(GTK_COMBO(pd->hpd.combo)->entry));
 		while (tmplist) {
 			gchar **strarr =(gchar **)tmplist->data;
-			if (strcmp(strarr[1], pattern)==0 && strcmp(strarr[0], filetype)==0) {
+			if (strcmp(strarr[1], pattern)==0 && strcmp(strarr[0], pd->hpd.selected_filetype)==0) {
 				pd->hpd.curstrarr = NULL;
 				pd->lists[highlight_patterns] = g_list_remove(pd->lists[highlight_patterns], strarr);
 				g_strfreev(strarr);
-				highlightpattern_combo0_activate(NULL, pd);
+				highlightpattern_popmenu_activate(NULL, pd);
 				return;
 			}
 			tmplist = g_list_next(tmplist);
@@ -634,15 +634,38 @@ static void highlightpattern_delete_clicked_lcb(GtkWidget *wid, Tprefdialog *pd)
 	}
 }
 
+static void highlightpattern_gui_rebuild_filetype_popup(Tprefdialog *pd) {
+	GList *tmplist;
+	GtkWidget *menu, *menuitem;
+	gtk_option_menu_remove_menu(GTK_OPTION_MENU(pd->hpd.popmenu));
+	menu = gtk_menu_new();
+	gtk_option_menu_set_menu(GTK_OPTION_MENU(pd->hpd.popmenu), menu);
+	gtk_widget_show(menu);
+	tmplist = g_list_first(pd->lists[filetypes]);
+	while (tmplist) {
+		gchar **arr = (gchar **)tmplist->data;
+		if (count_array(arr)>=3) {
+			menuitem = gtk_menu_item_new_with_label(arr[0]);
+			DEBUG_MSG("highlightpattern_gui_rebuild_filetype_popup, menuitem=%p for %s\n", menuitem, arr[0]);
+			g_signal_connect(GTK_OBJECT(menuitem), "activate",G_CALLBACK(highlightpattern_popmenu_activate),pd);
+			gtk_menu_append(GTK_MENU(menu), menuitem);
+			gtk_widget_show(menuitem);
+		}
+		tmplist = g_list_next(tmplist);
+	}
+	
+}
+
 static void create_highlightpattern_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 	GtkWidget *hbox, *but, *vbox3;
-	GList *poplist;
 	pd->lists[highlight_patterns] = duplicate_arraylist(main_v->props.highlight_patterns);
+	
+	DEBUG_MSG("create_highlightpattern_gui, pd=%p, pd->lists[highlight_patterns]=%p\n", pd, pd->lists[highlight_patterns]);
 
-	poplist = general_poplist(pd->lists[filetypes], 3, 0);
-	pd->hpd.combo = prefs_combo(_("Filetype"), NULL, vbox1, pd, poplist, FALSE);
-	g_signal_connect_after(G_OBJECT(GTK_COMBO(pd->hpd.combo)->list), "selection-changed", G_CALLBACK(highlightpattern_combo0_activate), pd);
-	g_list_free(poplist);
+	pd->hpd.popmenu = gtk_option_menu_new();
+	gtk_option_menu_set_menu(GTK_OPTION_MENU(pd->hpd.popmenu), gtk_menu_new());
+	highlightpattern_gui_rebuild_filetype_popup(pd);
+	gtk_box_pack_start(GTK_BOX(vbox1),pd->hpd.popmenu,FALSE, FALSE, 0);
 
 	hbox = gtk_hbox_new(FALSE, 0);
 	gtk_box_pack_start(GTK_BOX(vbox1), hbox, TRUE, TRUE, 0);
@@ -856,7 +879,7 @@ static void create_externals_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 static void preferences_destroy_lcb(GtkWidget * widget, GdkEvent *event, Tprefdialog *pd) {
 	g_signal_handlers_destroy(G_OBJECT(GTK_COMBO(pd->ftd.combo)->list));
 	g_signal_handlers_destroy(G_OBJECT(GTK_COMBO(pd->ffd.combo)->list));
-	g_signal_handlers_destroy(G_OBJECT(GTK_COMBO(pd->hpd.combo)->list));
+	g_signal_handlers_destroy(G_OBJECT(pd->hpd.popmenu));
 	g_signal_handlers_destroy(G_OBJECT(GTK_COMBO(pd->bd.combo)->list));
 	g_signal_handlers_destroy(G_OBJECT(GTK_COMBO(pd->ed.combo)->list));
 	window_destroy(pd->win);
