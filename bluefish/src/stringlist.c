@@ -885,25 +885,31 @@ GList *limit_stringlist(GList *which_list, gint num_entries, gboolean keep_end) 
  * add_to_history_stringlist:
  * @which_list: #GList* the list to add to
  * @string: #const gchar* with the string to add
- * @move_to_end: #gboolean, if TRUE do move existing entries to the end
+ * @recent_on_top: #gboolean, TRUE if the most recent entry is the one on top
+ * @move_if_exists: #gboolean, if TRUE do move existing entries to the most recent part
  *
  * adds string to the stringlist which_list
  *
- * if string exists in this list already and move_to_end is TRUE, 
- * it will be moved to the end of the list
+ * if string exists in this list already and move_if_exists is TRUE, 
+ * it will be moved to the most recent part of the list (which is the 
+ * end or the beginning based on the value of recent_on_top
  *
  * Return value: GList* with the modified list
  */
-GList *add_to_history_stringlist(GList *which_list, const gchar *string, gboolean move_to_end) {
+GList *add_to_history_stringlist(GList *which_list, const gchar *string, gboolean recent_on_top, gboolean move_if_exists) {
 	if (string && strlen(string) ) {
 		GList *tmplist = g_list_first(which_list);
 		while (tmplist) {
 			if (strcmp((gchar *) tmplist->data, string) == 0) {
 				/* move this entry to the end */
-				if (move_to_end) {
-					DEBUG_MSG("add_to_history_stringlist, entry %s exists, moving to the end\n", string);
+				if (move_if_exists) {
+					DEBUG_MSG("add_to_history_stringlist, entry %s exists, moving!\n", string);
 					which_list = g_list_remove_link(which_list, tmplist);
-					return g_list_concat(which_list, tmplist);
+					if (recent_on_top) {
+						return g_list_concat(tmplist, which_list);
+					} else {
+						return g_list_concat(which_list, tmplist);
+					}
 				} else {
 					return which_list;
 				}
@@ -911,8 +917,12 @@ GList *add_to_history_stringlist(GList *which_list, const gchar *string, gboolea
 			tmplist = g_list_next(tmplist);
 		}
 		/* if we arrive here the string was not yet in the list */
-		DEBUG_MSG("add_to_history_stringlist, appending new entry %s\n",string);
-		which_list = g_list_append(which_list, g_strdup(string));
+		DEBUG_MSG("add_to_history_stringlist, adding new entry %s\n",string);
+		if (recent_on_top) {
+			which_list = g_list_prepend(which_list, g_strdup(string));
+		} else {
+			which_list = g_list_append(which_list, g_strdup(string));
+		}
 	}
 	return which_list;
 }
