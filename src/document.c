@@ -1267,9 +1267,11 @@ static void doc_convert_case_in_selection(Tdocument *doc, gboolean toUpper) {
 void doc_insert_two_strings(Tdocument *doc, const gchar *before_str, const gchar *after_str) {
 	GtkTextIter itinsert, itselect;
 	GtkTextMark *insert, *select;
+	gboolean have_diag_marks = FALSE;
 	insert = gtk_text_buffer_get_mark(doc->buffer,"diag_ins");
 	if (insert) {
 		select = gtk_text_buffer_get_mark(doc->buffer,"diag_sel");
+		have_diag_marks = TRUE;
 	} else {
 		insert = gtk_text_buffer_get_insert(doc->buffer);
 		select = gtk_text_buffer_get_selection_bound(doc->buffer);
@@ -1277,7 +1279,7 @@ void doc_insert_two_strings(Tdocument *doc, const gchar *before_str, const gchar
 	gtk_text_buffer_get_iter_at_mark(doc->buffer,&itinsert,insert);
 	gtk_text_buffer_get_iter_at_mark(doc->buffer,&itselect,select);
 #ifdef DEBUG
-	g_print("doc_insert_two_strings, current marks: insert=%d, selection=%d\n",gtk_text_iter_get_offset(&itinsert),gtk_text_iter_get_offset(&itselect));
+	g_print("doc_insert_two_strings, current marks: itinsert=%d, itselect=%d\n",gtk_text_iter_get_offset(&itinsert),gtk_text_iter_get_offset(&itselect));
 #endif	
 
 	if (gtk_text_iter_equal(&itinsert, &itselect)) {
@@ -1298,10 +1300,10 @@ void doc_insert_two_strings(Tdocument *doc, const gchar *before_str, const gchar
 		GtkTextIter firstiter;
 		if (gtk_text_iter_compare(&itinsert,&itselect) < 0) {
 			firstiter = itinsert;
-			marktoresetto = select;
+			marktoresetto = (have_diag_marks) ? gtk_text_buffer_get_selection_bound(doc->buffer) : select;
 		} else {
 			firstiter = itselect;
-			marktoresetto = insert;
+			marktoresetto = (have_diag_marks) ? gtk_text_buffer_get_insert(doc->buffer) : insert;
 		}
 		/* there is a selection */
 		gtk_text_buffer_insert(doc->buffer,&firstiter,before_str,-1);
