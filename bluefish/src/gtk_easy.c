@@ -960,6 +960,11 @@ static void fileselectwin(gchar *setfile, Tfileselect *fileselect, gchar *title)
 	gtk_widget_show(fileselect->fs);
 /*	gtk_grab_add(GTK_WIDGET(fileselect->fs));*/
 	gtk_widget_realize(GTK_WIDGET(fileselect->fs));
+	if (setfile) {
+		/* this only has effect after the widget is shown */
+		gtk_editable_select_region(GTK_EDITABLE(GTK_FILE_SELECTION(fileselect->fs)->selection_entry),0,-1);
+	}
+	
 	/* When you closed the the file selector dialog focus always returned to the bluefish main window
 	   changed to use gtk_widget_get_parent so focus returns to the dialog that opened the file selector
 	*/

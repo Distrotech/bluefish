@@ -1308,8 +1308,10 @@ gint doc_save(Tdocument * doc, gint do_save_as, gint do_move)
 			}
 		}
 		doc->filename = newfilename;
-		hl_reset_highlighting_type(doc, doc->filename);
-		doc->modified = 1;
+		if (newfilename) {
+			hl_reset_highlighting_type(doc, doc->filename);
+			doc->modified = 1;
+		}
 	}
 
 	if (doc->filename == NULL) {
