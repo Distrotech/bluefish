@@ -642,7 +642,7 @@ static void main_win_on_drag_data_lcb(GtkWidget * widget, GdkDragContext * conte
 }				
 void gui_create_main(GList *filenames) {
 	GtkWidget *vbox;
-	main_v->main_window = window_full(CURRENT_VERSION_NAME, GTK_WIN_POS_CENTER, 0, G_CALLBACK(main_window_delete_lcb), NULL);
+	main_v->main_window = window_full(CURRENT_VERSION_NAME, GTK_WIN_POS_CENTER, 0, G_CALLBACK(main_window_delete_lcb), NULL, FALSE);
 	gtk_window_set_role(GTK_WINDOW(main_v->main_window), "bluefish");
 	gtk_window_set_default_size(GTK_WINDOW(main_v->main_window), main_v->props.main_window_w, main_v->props.main_window_h);
 	g_signal_connect(G_OBJECT(main_v->main_window), "configure-event", G_CALLBACK(gui_main_window_configure_event_lcb), NULL);
@@ -849,7 +849,7 @@ void go_to_line_win_cb(GtkWidget * widget, gpointer data)
 	
 	tgl = g_new(Tgotoline, 1);
 	tgl->win = window_full(_("Goto line"), GTK_WIN_POS_MOUSE
-						  ,5, G_CALLBACK(tgl_destroy_lcb), tgl);
+						  ,5, G_CALLBACK(tgl_destroy_lcb), tgl, TRUE);
 	vbox = gtk_vbox_new(FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(tgl->win), vbox);
 

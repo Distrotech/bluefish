@@ -22,7 +22,7 @@
  */
 /* 
  * Changes by Antti-Juhani Kaijanaho <gaia@iki.fi> on 1999-10-20
- * $Id: html.c,v 1.8 2002-10-23 19:37:02 oli4 Exp $
+ * $Id: html.c,v 1.9 2002-11-06 19:59:30 oli4 Exp $
  */
 
 #include <gtk/gtk.h>
@@ -351,7 +351,7 @@ void insert_time_cb(GtkWidget * widget, gpointer data)
 	time_struct = localtime(&time_var);
 	DEBUG_MSG("insert_time_cb, timeinsert=%p\n", timeinsert);
 	timeinsert->dialog = window_full(_("Insert Time"), GTK_WIN_POS_MOUSE
-			, 5, G_CALLBACK(insert_time_destroy_lcb), timeinsert);
+			, 5, G_CALLBACK(insert_time_destroy_lcb), timeinsert, TRUE);
 	vbox = gtk_vbox_new(FALSE, 1);
 	gtk_container_add(GTK_CONTAINER(timeinsert->dialog), vbox);
 

@@ -265,7 +265,7 @@ void estrl_dialog(GList **which_list, gchar *title, gint what_list
 	estrl->num_columns = column_num;
 	estrl->the_list = which_list;
 	estrl->function = post_dialog_func;
-	estrl->win = window_full(title, GTK_WIN_POS_MOUSE, 5, G_CALLBACK(estrl_destroy_lcb), estrl);
+	estrl->win = window_full(title, GTK_WIN_POS_MOUSE, 5, G_CALLBACK(estrl_destroy_lcb), estrl, TRUE);
 
 	vbox = gtk_vbox_new(FALSE, 1);
 	gtk_container_add(GTK_CONTAINER(estrl->win), vbox);
