@@ -881,7 +881,7 @@ void make_main_toolbar(Tbfwin *bfwin) {
 }
 
 void gui_set_undo_redo_widgets(Tbfwin *bfwin, gboolean undo, gboolean redo) {
-	if (main_v->props.view_main_toolbar) {
+	if (GTK_WIDGET_VISIBLE(bfwin->main_toolbar_hb)) {
 		gtk_widget_set_sensitive(bfwin->toolbar_redo, redo);
 		gtk_widget_set_sensitive(bfwin->toolbar_undo, undo);
 	}
