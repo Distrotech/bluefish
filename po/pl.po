@@ -4,8 +4,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: bluefish gtk2-port\n"
-"POT-Creation-Date: 2003-07-08 11:18+0200\n"
-"PO-Revision-Date: 24/6/2003    \n"
+"POT-Creation-Date: 2003-07-09 18:47-0300\n"
+"PO-Revision-Date: 9/7/2003    \n"
 "Last-Translator: Oskar Świda (swida@aragorn.pb.bialystok.pl)\n"
 "Language-Team: None\n"
 "MIME-Version: 1.0\n"
@@ -133,9 +133,13 @@ msgstr "interfejs graficzny..."
 msgid "/Document/Highlight Syntax"
 msgstr "/Dokument/Podświetlanie składni"
 
-#: ../src/document.c:552 ../src/document.c:553 ../src/document.c:724
+#: ../src/document.c:552 ../src/document.c:553
 msgid "Untitled"
 msgstr "Bez nazwy"
+
+#: ../src/document.c:724
+msgid " Untitled"
+msgstr " Bez nazwy"
 
 #: ../src/document.c:824 ../src/document.c:825
 #, c-format
@@ -330,93 +334,93 @@ msgstr ""
 msgid "Bluefish: Warning, file is modified"
 msgstr "Bluefish: Ostrzeżenie, plik został zmodyfikowany"
 
-#: ../src/document.c:2452
+#: ../src/document.c:2453
 msgid "searching files..."
 msgstr "przeszukuję pliki..."
 
-#: ../src/document.c:2472
+#: ../src/document.c:2473
 msgid "Select basedir"
 msgstr "Wybierz katalog bazowy"
 
-#: ../src/document.c:2486
+#: ../src/document.c:2487
 msgid "Advanced open file selector"
 msgstr "Zaawansowany wybór plików"
 
-#: ../src/document.c:2497
+#: ../src/document.c:2498
 msgid "grep {contains} `find {basedir} -name '{file type}'`"
 msgstr "grep {zawiera} `find {katalog bazowy} -name '{typ pliku}'`"
 
-#: ../src/document.c:2502
+#: ../src/document.c:2503
 msgid "<b>General</b>"
 msgstr "<b>Ogólne</b>"
 
-#: ../src/document.c:2504
+#: ../src/document.c:2505
 msgid "Base_dir:"
 msgstr "Katalog bazowy:"
 
-#: ../src/document.c:2506 ../src/gtk_easy.c:1173
+#: ../src/document.c:2507 ../src/gtk_easy.c:1173
 msgid "_Browse..."
 msgstr "_Przeglądaj..."
 
-#: ../src/document.c:2521
+#: ../src/document.c:2522
 msgid "_File Type:"
 msgstr "Typ _pliku"
 
-#: ../src/document.c:2527
+#: ../src/document.c:2528
 msgid "_Recursive:"
 msgstr "_Rekurencyjnie"
 
-#: ../src/document.c:2532
+#: ../src/document.c:2533
 msgid "<b>Contains</b>"
 msgstr "<b>Zawiera</b>"
 
-#: ../src/document.c:2535
+#: ../src/document.c:2536
 msgid "Pa_ttern:"
 msgstr "W_zorzec:"
 
-#: ../src/document.c:2539
+#: ../src/document.c:2540
 msgid "Is rege_x:"
 msgstr "Wyrażenie re_gularne:"
 
-#: ../src/document.c:2636
+#: ../src/document.c:2637
 #, c-format
 msgid "Loading %d file(s)..."
 msgstr "Ładuję %d plik(i)..."
 
-#: ../src/document.c:2670
+#: ../src/document.c:2671
 msgid "Select file to insert"
 msgstr "Wybierz plik do wstawienia"
 
-#: ../src/document.c:2672
+#: ../src/document.c:2673
 msgid "No file to insert"
 msgstr "Brak pliku do wstawienia"
 
-#: ../src/document.c:2734
+#: ../src/document.c:2735
 msgid "_Save all"
 msgstr "Zapi_sz wszystkie"
 
-#: ../src/document.c:2734
+#: ../src/document.c:2735
 msgid "Close _all"
 msgstr "Z_amknij wszystkie"
 
-#: ../src/document.c:2734
+#: ../src/document.c:2735
 msgid "Choose per _file"
 msgstr "Wybierz dla _pliku"
 
-#: ../src/document.c:2734
+#: ../src/document.c:2735
 msgid "_Cancel"
 msgstr "_Anuluj"
 
-#: ../src/document.c:2735
+#: ../src/document.c:2736
 msgid "Some file(s) have been modified"
 msgstr "Niektóre pliki zostały zmodyfikowane"
 
-#: ../src/document.c:2983
+#: ../src/document.c:2984
 #, c-format
 msgid "Statistics: %d lines, %d words, %d characters"
-msgstr ""
+msgstr "Statystyka: %d linii, %d słów, %d znaków"
 
-#: ../src/document.c:3085
+#: ../src/document.c:3088
 msgid "No selection to indent"
 msgstr "Brak zaznaczenia do wcięcia"
 
@@ -549,7 +553,7 @@ msgstr "Uwagi"
 #: ../src/gtk_easy.c:1050
 #, c-format
 msgid "%d of %d"
-msgstr ""
+msgstr "%d z %d"
 
 #: ../src/gtk_easy.c:1243
 msgid "No file to insert."
@@ -1057,6 +1061,60 @@ msgstr "Nie zamykaj _okna"
 msgid "starting bluefish"
 msgstr "uruchamiam Bluefish"
 
+#: ../src/html2.c:586
+msgid "Cascading StyleSheet dialog"
+msgstr "Okno dialogowe CSS"
+
+#: ../src/html2.c:606
+msgid "_Selector:"
+msgstr "_Selektor"
+
+#: ../src/html2.c:625
+msgid "_Property:"
+msgstr "Wła_sność"
+
+#: ../src/html2.c:627 ../src/html_form.c:286 ../src/html_form.c:353
+#: ../src/html_form.c:415 ../src/html_form.c:471 ../src/html_form.c:534
+#: ../src/html_form.c:644
+msgid "_Value:"
+msgstr "_Wartość"
+
+#: ../src/html2.c:645
+msgid "Selector"
+msgstr "Selektor"
+
+#: ../src/html2.c:645 ../src/html2.c:648
+msgid "Property"
+msgstr "Własność"
+
+#: ../src/html2.c:645 ../src/html2.c:648
+msgid "Value"
+msgstr "Wartość"
+
+#: ../src/html2.c:663
+msgid " _Add "
+msgstr " _Dodaj "
+
+#: ../src/html2.c:666
+msgid " _Update "
+msgstr " _Odśwież "
+
+#: ../src/html2.c:669
+msgid " _Delete "
+msgstr " _Kasuj "
+
+#: ../src/html2.c:925 ../src/html2.c:962
+msgid "_Style..."
+msgstr "_Styl..."
+
+#: ../src/html2.c:1145
+msgid "Bluefish: Select color"
+msgstr "Bluefish: Wybierz kolor"
+
+#: ../src/html2.c:1165
+msgid "_websafe"
+msgstr "_bezpieczny sieciowo"
+
 #: ../src/html.c:353
 msgid "Insert Time"
 msgstr "Wstaw czas"
@@ -1428,60 +1486,6 @@ msgstr "_Rel:"
 #: ../src/html.c:2061 ../src/html_form.c:361
 msgid "_Type:"
 msgstr "_Typ:"
-
-#: ../src/html2.c:586
-msgid "Cascading StyleSheet dialog"
-msgstr "Okno dialogowe CSS"
-
-#: ../src/html2.c:606
-msgid "_Selector:"
-msgstr "_Selektor"
-
-#: ../src/html2.c:625
-msgid "_Property:"
-msgstr "Wła_sność"
-
-#: ../src/html2.c:627 ../src/html_form.c:286 ../src/html_form.c:353
-#: ../src/html_form.c:415 ../src/html_form.c:471 ../src/html_form.c:534
-#: ../src/html_form.c:644
-msgid "_Value:"
-msgstr "_Wartość"
-
-#: ../src/html2.c:645
-msgid "Selector"
-msgstr "Selektor"
-
-#: ../src/html2.c:645 ../src/html2.c:648
-msgid "Property"
-msgstr "Własność"
-
-#: ../src/html2.c:645 ../src/html2.c:648
-msgid "Value"
-msgstr "Wartość"
-
-#: ../src/html2.c:663
-msgid " _Add "
-msgstr " _Dodaj "
-
-#: ../src/html2.c:666
-msgid " _Update "
-msgstr " _Odśwież "
-
-#: ../src/html2.c:669
-msgid " _Delete "
-msgstr " _Kasuj "
-
-#: ../src/html2.c:925 ../src/html2.c:962
-msgid "_Style..."
-msgstr "_Styl..."
-
-#: ../src/html2.c:1145
-msgid "Bluefish: Select color"
-msgstr "Bluefish: Wybierz kolor"
-
-#: ../src/html2.c:1165
-msgid "_websafe"
-msgstr "_bezpieczny sieciowo"
 
 #: ../src/html_form.c:129
 msgid "Form"
@@ -3111,32 +3115,31 @@ msgstr "Edytor menu podręcznego"
 
 #: ../src/menu.c:1832
 msgid "Add New Menu Entry"
-msgstr ""
+msgstr "Dodaj nowy element do menu"
 
 #: ../src/menu.c:1834
 msgid "Apply Changes"
-msgstr ""
+msgstr "Zastosuj"
 
 #: ../src/menu.c:1836
 msgid "Delete Menu Entry"
-msgstr ""
+msgstr "Usuń element z menu"
 
 #: ../src/menu.c:1839
 msgid "Close Discards Changes"
-msgstr ""
+msgstr "Zamknij bez zapisywania"
 
 #: ../src/menu.c:1841
 msgid "Save Changes and Exit"
-msgstr ""
+msgstr "Zapisz zmiany i zakończ"
 
 #: ../src/menu.c:1851
 msgid "_Menu Path:"
 msgstr "Ścieżka _menu:"
 
 #: ../src/menu.c:1872
-#, fuzzy
 msgid "Menu path"
-msgstr "Ścieżka _menu:"
+msgstr "Ścieżka menu"
 
 #: ../src/menu.c:1892
 msgid "Number of _Variables:"
@@ -3781,14 +3784,12 @@ msgid "PERL type"
 msgstr "Typ PERL"
 
 #: ../src/snr2.c:1251
-#, fuzzy
 msgid "Starts at:"
-msgstr "Wyszukiwanie rozpocznij od"
+msgstr "Zaczyna się:"
 
 #: ../src/snr2.c:1263
-#, fuzzy
 msgid "Regular expression:"
-msgstr "Wyrażenie regularne"
+msgstr "Wyrażenie regularne:"
 
 #: ../src/snr2.c:1277
 msgid "Normal"
@@ -3803,9 +3804,8 @@ msgid "Lowercase"
 msgstr "Małe litery"
 
 #: ../src/snr2.c:1278
-#, fuzzy
 msgid "Replace type:"
-msgstr "Rodzaj zastąpienia"
+msgstr "Rodzaj zastąpienia:"
 
 #: ../src/snr2.c:1292
 msgid "Match ca_se"
@@ -3907,497 +3907,4 @@ msgstr "Źródło:"
 msgid "Size:"
 msgstr "Rozmiar:"
 
-#~ msgid "/_Delete file"
-#~ msgstr "/_Kasuj plik"
 
-#~ msgid "Edit custom menu"
-#~ msgstr "Edytuj menu podręczne"
-
-#~ msgid "case sensitive"
-#~ msgstr "rozróżniaj wielkie i małe litery"
-
-#~ msgid " line    1 "
-#~ msgstr " linia    1 "
-
-#~ msgid "Error"
-#~ msgstr "Błąd"
-
-#~ msgid "Backup for %s failed"
-#~ msgstr "Kopia zapasowa dla %s nieudana"
-
-#~ msgid "Bluefish warning, file backup failure"
-#~ msgstr "Ostrzeżenie, błąd przy tworzeniu kopii zapasowej"
-
-#~ msgid "Bluefish: Warning, file is open"
-#~ msgstr "Bluefish: Ostrzeżenie, plik jest otwarty"
-
-#~ msgid ""
-#~ "File %s\n"
-#~ "is modified by another process\n"
-#~ "new modification time is %s\n"
-#~ "old modification time is %s\n"
-#~ "overwrite?"
-#~ msgstr ""
-#~ "Plik %s\n"
-#~ "został zmodyfikowany przez inny proces\n"
-#~ "nowy czas modyfikacji: %s\n"
-#~ "stary czas modyfikacji: %s\n"
-#~ "nadpisać?"
-
-#~ msgid ""
-#~ "Are you sure you want to close\n"
-#~ "%s ?"
-#~ msgstr ""
-#~ "Na pewno chcesz zamknąć\n"
-#~ "%s ?"
-
-#~ msgid "Bluefish warning: file is modified!"
-#~ msgstr "Bluefish ostrzeżenie: plik został zmodyfikowany!"
-
-#~ msgid "cancel"
-#~ msgstr "anuluj"
-
-#~ msgid ""
-#~ "Some file(s) are modified\n"
-#~ "please choose your action"
-#~ msgstr ""
-#~ "Niektóre pliki zostały zmodyfikowane\n"
-#~ "proszę wybrać akcję"
-
-#~ msgid "Path exists already"
-#~ msgstr "Ścieżka już istnieje"
-
-#~ msgid "delete file?"
-#~ msgstr "skasować plik?"
-
-#~ msgid "Bluefish error"
-#~ msgstr "Błąd"
-
-#~ msgid "Bluefish error: no filename"
-#~ msgstr "Błąd: brak nazwy pliku"
-
-#~ msgid "Bluefish warning: regular expression error"
-#~ msgstr "Ostrzeżenie: błąd wyrażenia regularnego"
-
-#~ msgid "Bluefish message"
-#~ msgstr "Komunikat Bluefish"
-
-#, fuzzy
-#~ msgid "Bluefish - "
-#~ msgstr "Podpowiedź Bluefish:"
-
-#~ msgid "Backgou_nd Color:"
-#~ msgstr "Kolor _tła:"
-
-#~ msgid "Hide _advanced <<"
-#~ msgstr "Schowaj z_aawansowane <<"
-
-#~ msgid "Show _advanced >>"
-#~ msgstr "Pokaż z_aawansowane >>"
-
-#~ msgid "Beginning of all o_pened files"
-#~ msgstr "Początku wszystkich otwartych _plików"
-
-#~ msgid "_None"
-#~ msgstr "_Brak"
-
-#~ msgid "POSIX _regular expression type "
-#~ msgstr "Wyrażenie _regularne POSIX "
-
-#~ msgid "PERL compatible regular e_xpression type"
-#~ msgstr "Wyrażenie regularne _Perla"
-
-#~ msgid "_Text"
-#~ msgstr "_Tekst"
-
-#~ msgid "This text selection will be replaced. Do you want to replace it?"
-#~ msgstr ""
-#~ "Zaznaczony tekst zostanie zastąpiony. Czy na pewno chcesz go zamienić?"
-
-#~ msgid "Replace _this"
-#~ msgstr "Zamień _tekst"
-
-#~ msgid "Custom _values:"
-#~ msgstr "Własne _wartości:"
-
-#~ msgid "Are you sure you want to replace this?"
-#~ msgstr "Na pewno chcesz to zastąpić?"
-
-#~ msgid "All"
-#~ msgstr "Wszystko"
-
-#~ msgid "_Find: "
-#~ msgstr "Z_najdź: "
-
-#~ msgid "Where"
-#~ msgstr "Gdzie"
-
-#~ msgid "In s_election"
-#~ msgstr "Wewnątrz za_znaczenia"
-
-#~ msgid "_Normal matching"
-#~ msgstr "Dopasowywanie _normalne"
-
-#~ msgid "Use posix _regular expression matching"
-#~ msgstr "Używaj wyrażeń _regularnych POSIX"
-
-#~ msgid "/php/ibase/ibase fetch row"
-#~ msgstr "/php/ibase/ibase fetch row"
-
-#~ msgid "ibase result variable name"
-#~ msgstr "nazwa zmiennej wynikowej ibase"
-
-#~ msgid "row variable name"
-#~ msgstr "nazwa zmiennej wiersza"
-
-#~ msgid "/php/mysql/mysql fetch row"
-#~ msgstr "/php/mysql/mysql fetch row"
-
-#~ msgid "mysql result variable name"
-#~ msgstr "nazwa zmiennej wynikowej mysql"
-
-#~ msgid "/php/mysql/mysql connect"
-#~ msgstr "/php/mysql/mysql connect"
-
-#~ msgid "mysql host"
-#~ msgstr "mysql host"
-
-#~ msgid "mysql username"
-#~ msgstr "mysql username"
-
-#~ msgid "mysql password"
-#~ msgstr "mysql password"
-
-#~ msgid "database name"
-#~ msgstr "database name"
-
-#~ msgid "/php/ibase/ibase connect"
-#~ msgstr "/php/ibase/ibase connect"
-
-#~ msgid "ibase host"
-#~ msgstr "ibase host"
-
-#~ msgid "ibase database path"
-#~ msgstr "ibase database path"
-
-#~ msgid "ibase username"
-#~ msgstr "ibase username"
-
-#~ msgid "ibase password"
-#~ msgstr "ibase password"
-
-#~ msgid "/php/general/while each in array list"
-#~ msgstr "/php/general/while each in array list"
-
-#~ msgid "array name"
-#~ msgstr "nazwa tablicy"
-
-#~ msgid "/sql/select all from table"
-#~ msgstr "/sql/select all from table"
-
-#~ msgid "table name"
-#~ msgstr "nazwa tabeli"
-
-#~ msgid "/php/general/mail"
-#~ msgstr "/php/general/mail"
-
-#~ msgid "email adress"
-#~ msgstr "adres email"
-
-#~ msgid "subject"
-#~ msgstr "temat"
-
-#~ msgid "mail body variable name"
-#~ msgstr "nazwa zmiennej treści wiadomości"
-
-#~ msgid "/php/general/for loop"
-#~ msgstr "pętla for"
-
-#~ msgid "loop variable name"
-#~ msgstr "zmienna pętli for"
-
-#~ msgid "from value"
-#~ msgstr "od wartości"
-
-#~ msgid "to value"
-#~ msgstr "do wartości"
-
-#~ msgid "/php/ibase/query"
-#~ msgstr "/php/ibase/query"
-
-#~ msgid "result variable name"
-#~ msgstr "nazwa zmiennej wynikowej"
-
-#~ msgid "ibase connection id name"
-#~ msgstr "nazwa połączenia ibase"
-
-#~ msgid "query string (quoted) or variable (including $)"
-#~ msgstr "zapytanie (w cudzysłowach) lub zmienna (raze ze znakiem $)"
-
-#~ msgid "/php/general/include file"
-#~ msgstr "/php/general/include file"
-
-#~ msgid "filename to include"
-#~ msgstr "nazwa pliku"
-
-#~ msgid "/php/general/require file"
-#~ msgstr "/php/general/require file"
-
-#~ msgid "filename to require"
-#~ msgstr "nazwa pliku"
-
-#~ msgid "/php/general/if isset"
-#~ msgstr "/php/general/if isset"
-
-#~ msgid "variable name to test for"
-#~ msgstr "nazwa zmiennej do testowania"
-
-#~ msgid "/php/general/if not isset"
-#~ msgstr "/php/general/if not isset"
-
-#~ msgid "/php/mysql/query"
-#~ msgstr "/php/mysql/query"
-
-#~ msgid "mysql connection id name"
-#~ msgstr "nazwa połączenia mysql"
-
-#~ msgid "/html/font symbol"
-#~ msgstr "/html/font symbol"
-
-#~ msgid "/html/div with class"
-#~ msgstr "/html/div with class"
-
-#~ msgid "CSS class name"
-#~ msgstr "nazwa klasy CSS"
-
-#~ msgid "/html/span with class"
-#~ msgstr "/html/span with class"
-
-#~ msgid "/php/php block"
-#~ msgstr "/php/php block"
-
-#~ msgid "/html/made with bluefish"
-#~ msgstr "zrobione za pomocą bluefish"
-
-#~ msgid "/html/meta keywords"
-#~ msgstr "/html/meta keywords"
-
-#~ msgid "keywords, space separated"
-#~ msgstr "słowa kluczowe, oddzielone spacją"
-
-#~ msgid "/html/meta refresh (client pull)"
-#~ msgstr "/html/meta refresh (client pull)"
-
-#~ msgid "refresh time, in seconds"
-#~ msgstr "czas odświeżania, w sekundach"
-
-#~ msgid "URL to redirect to"
-#~ msgstr "URL, do którego przekierować"
-
-#~ msgid "/active html/form"
-#~ msgstr "/active html/form"
-
-#~ msgid "/active html/form and action"
-#~ msgstr "/active html/form and action"
-
-#~ msgid "Submit button text"
-#~ msgstr "Tekst przycisku 'submit'"
-
-#~ msgid "/active html/input text"
-#~ msgstr "/active html/input text"
-
-#~ msgid "variable name"
-#~ msgstr "nazwa zmiennej"
-
-#~ msgid "/active html/input checkbox"
-#~ msgstr "/active html/input checkbox"
-
-#~ msgid "value when checked"
-#~ msgstr "wartość, kiedy zaznaczony"
-
-#~ msgid "/active html/textarea"
-#~ msgstr "/active html/textarea"
-
-#~ msgid "/active html/select options/from array"
-#~ msgstr "/active html/select options/from array"
-
-#~ msgid "array name containing options"
-#~ msgstr "nazwa tablicy zawierającej opcje"
-
-#~ msgid "/active html/select options/from mysql result"
-#~ msgstr "/active html/select options/from mysql result"
-
-#~ msgid "mysql query result"
-#~ msgstr "wynik zapytania mysql"
-
-#~ msgid "index of the value"
-#~ msgstr "indeks wartości"
-
-#~ msgid "index of the label"
-#~ msgstr "indeks etykiety"
-
-#~ msgid "/active html/select options/from ibase result"
-#~ msgstr "/active html/select options/from ibase result"
-
-#~ msgid "ibase query result"
-#~ msgstr "wynik zapytania ibase"
-
-#~ msgid "/DHTML/mouseover image"
-#~ msgstr "/DHTML/mouseover image"
-
-#~ msgid "unique name"
-#~ msgstr "unikalna nazwa"
-
-#~ msgid "onMouseOut src"
-#~ msgstr "onMouseOut src"
-
-#~ msgid "onMouseOver src"
-#~ msgstr "onMouseOver src"
-
-#~ msgid "/php/odbc/odbc connect"
-#~ msgstr "/php/odbc/odbc connect"
-
-#~ msgid "odbc data source name"
-#~ msgstr "nazwa źródła danych odbc"
-
-#~ msgid "username"
-#~ msgstr "nazwa użytkownika"
-
-#~ msgid "password"
-#~ msgstr "hasło"
-
-#~ msgid "/php/odbc/odbc exec query"
-#~ msgstr "/php/odbc/odbc exec query"
-
-#~ msgid "odbc connection id name"
-#~ msgstr "nazwa połączenia odbc"
-
-#~ msgid "/php/odbc/odbc fetch row"
-#~ msgstr "/php/odbc/odbc fetch row"
-
-#~ msgid "/php/general/echo date"
-#~ msgstr "/php/general/echo date"
-
-#~ msgid "/php/filesystem/open and echo file"
-#~ msgstr "/php/filesystem/open and echo file"
-
-#~ msgid "file (quoted) or variable (including $)"
-#~ msgstr "plik (w cudzysłowie) lub zmienna (ze znakiem $)"
-
-#~ msgid "/php/general/location header"
-#~ msgstr "/php/general/location header"
-
-#~ msgid "location (URL) to redirect to (quoted) or variable (including $)"
-#~ msgstr ""
-#~ "lokalizacja (URL) do przekierowania do (tekst w cudzysłowie) lub zmiennej "
-#~ "ze znakiem $)"
-
-#~ msgid "/apache/basic password required"
-#~ msgstr "/apache/basic password required"
-
-#~ msgid "full path to password file"
-#~ msgstr "pełna ścieżka do pliku z hasłami"
-
-#~ msgid "security description"
-#~ msgstr "opis bezpieczeństwa"
-
-#~ msgid "/apache/deny access to .inc"
-#~ msgstr "/apache/deny access to .inc"
-
-#~ msgid "/replace/strip <font>"
-#~ msgstr "/zamień/usuń <font>"
-
-#~ msgid "/replace/strip <any tag> in selection"
-#~ msgstr "/zamień/usuń <dowolny znacznik> wewnątrz zaznaczenia"
-
-#~ msgid "/replace/convert <td> in <th> in selection"
-#~ msgstr "/zamień/konwertuj <td> na <th> wewnątrz zaznaczenia"
-
-#~ msgid "/replace/convert <any tag> in <any other tag> in selection"
-#~ msgstr ""
-#~ "/zamień/konwertuj <dowolny znacznik> na <inny dowolny znacznik> wewnątrz  "
-#~ "zaznaczenia"
-
-#~ msgid "Filename"
-#~ msgstr "Nazwa pliku"
-
-#~ msgid "_Pattern:"
-#~ msgstr "_Wzorzec:"
-
-#~ msgid "selector"
-#~ msgstr "selektor"
-
-#~ msgid "property"
-#~ msgstr "własność"
-
-#~ msgid "value"
-#~ msgstr "wartość"
-
-#~ msgid "Vertical Align"
-#~ msgstr "Ustawienie pionowe"
-
-#~ msgid " Width "
-#~ msgstr " Szerokość "
-
-#~ msgid "Number of Columns per row"
-#~ msgstr "Ilość kolumn w wierszu"
-
-#~ msgid "Save in progress"
-#~ msgstr "Zapis pliku"
-
-#~ msgid "ISO-8859-1 (Latin 1, West European)"
-#~ msgstr "ISO-8859-1 (Latin 1, Europa Zachodnia)"
-
-#~ msgid "ISO-8859-2 (Latin 2, East European)"
-#~ msgstr "ISO-8859-2 (Latin 2, Europa Wschodnia)"
-
-#~ msgid "ISO-8859-3 (Latin 3, South European)"
-#~ msgstr "ISO-8859-3 (Latin 3, Europa Południowa)"
-
-#~ msgid "ISO-8859-4 (Latin 4, North European)"
-#~ msgstr "ISO-8859-4 (Latin 4, Europa Północna)"
-
-#~ msgid "ISO-8859-5 (Cyrillic)"
-#~ msgstr "ISO-8859-5 (Cyrilica)"
-
-#~ msgid "ISO-8859-6 (Arabic)"
-#~ msgstr "ISO-8859-6 (Arabski)"
-
-#~ msgid "ISO-8859-7 (Greek)"
-#~ msgstr "ISO-8859-7 (Grecki)"
-
-#~ msgid "ISO-8859-8 (Hebrew)"
-#~ msgstr "ISO-8859-8 (Hebrajski)"
-
-#~ msgid "ISO-8859-9 (Turkish)"
-#~ msgstr "ISO-8859-9 (Turecki)"
-
-#~ msgid "ISO-8859-10 (Nordic)"
-#~ msgstr "ISO-8859-10 (Nordycki)"
-
-#~ msgid "ISO-8859-11 (Thai)"
-#~ msgstr "ISO-8859-11 (Tajski)"
-
-#~ msgid "ISO-8859-15 (Latin 9, West European with EURO)"
-#~ msgstr "ISO-8859-15 (Latin 9, Europa Zachodnia EURO)"
-
-#~ msgid "GB2312 (Chinese)"
-#~ msgstr "GB2312 (Chiński)"
-
-#~ msgid "BIG5 (Traditional Chinese)"
-#~ msgstr "BIG5 (Tradycyjny chiński)"
-
-#~ msgid "SJIS (Japanese)"
-#~ msgstr "SJIS (Japoński)"
-
-#~ msgid "KSC (Korean)"
-#~ msgstr "KSC (Koreański)"
-
-#~ msgid "KOI8-R (Russian)"
-#~ msgstr "KOI8-R (Rosyjski)"
-
-#~ msgid "EUCJP (Japanese)"
-#~ msgstr "EUCJP (Japoński)"
-
-#~ msgid "/Tags/Repeat last"
-#~ msgstr "/Znaczniki/Powtórz ostatni"

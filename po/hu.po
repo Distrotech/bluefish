@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: bluefish gtk2-port\n"
-"POT-Creation-Date: 2003-07-08 11:18+0200\n"
+"POT-Creation-Date: 2003-07-09 18:47-0300\n"
 "PO-Revision-Date: 2000-12-01 21:48+0100\n"
 "Last-Translator: Sáska, Péter <sasek@ccsystem.hu>\n"
 "Language-Team: madgyar <hu@li.org>\n"
@@ -138,9 +138,13 @@ msgstr "grafikus felhasználói felület megjelenítése..."
 msgid "/Document/Highlight Syntax"
 msgstr "/Dokumentum/Szintaxiskiemelés"
 
-#: ../src/document.c:552 ../src/document.c:553 ../src/document.c:724
+#: ../src/document.c:552 ../src/document.c:553
 msgid "Untitled"
 msgstr "Névtelen"
+
+#: ../src/document.c:724
+msgid " Untitled"
+msgstr " Névtelen"
 
 #: ../src/document.c:824 ../src/document.c:825
 #, c-format
@@ -333,93 +337,93 @@ msgstr ""
 msgid "Bluefish: Warning, file is modified"
 msgstr "Bluefish figyelmeztetés: a fájl megváltozott!"
 
-#: ../src/document.c:2452
+#: ../src/document.c:2453
 msgid "searching files..."
 msgstr "fájlok keresése..."
 
-#: ../src/document.c:2472
+#: ../src/document.c:2473
 msgid "Select basedir"
 msgstr "Alapkönyvtár választása"
 
-#: ../src/document.c:2486
+#: ../src/document.c:2487
 msgid "Advanced open file selector"
 msgstr "Megnyitás opciókkal"
 
-#: ../src/document.c:2497
+#: ../src/document.c:2498
 msgid "grep {contains} `find {basedir} -name '{file type}'`"
 msgstr "grep {tartalmaz} `find {alapkönyvtár} -name '{fájltípus}'`"
 
-#: ../src/document.c:2502
+#: ../src/document.c:2503
 msgid "<b>General</b>"
 msgstr "<b>Általános</b>"
 
-#: ../src/document.c:2504
+#: ../src/document.c:2505
 msgid "Base_dir:"
 msgstr "Alapkönyvtár"
 
-#: ../src/document.c:2506 ../src/gtk_easy.c:1173
+#: ../src/document.c:2507 ../src/gtk_easy.c:1173
 msgid "_Browse..."
 msgstr "_Tallóz..."
 
-#: ../src/document.c:2521
+#: ../src/document.c:2522
 msgid "_File Type:"
 msgstr "_Fájltípus:"
 
-#: ../src/document.c:2527
+#: ../src/document.c:2528
 msgid "_Recursive:"
 msgstr "_Rekurzív:"
 
-#: ../src/document.c:2532
+#: ../src/document.c:2533
 msgid "<b>Contains</b>"
 msgstr "<b>Tartalmaz</b>"
 
-#: ../src/document.c:2535
+#: ../src/document.c:2536
 msgid "Pa_ttern:"
 msgstr "_Minta:"
 
-#: ../src/document.c:2539
+#: ../src/document.c:2540
 msgid "Is rege_x:"
 msgstr "Rege_x-e:"
 
-#: ../src/document.c:2636
+#: ../src/document.c:2637
 #, c-format
 msgid "Loading %d file(s)..."
 msgstr "%d fájl betöltése..."
 
-#: ../src/document.c:2670
+#: ../src/document.c:2671
 msgid "Select file to insert"
 msgstr "Válaszd ki a beillesztendő fájlt"
 
-#: ../src/document.c:2672
+#: ../src/document.c:2673
 msgid "No file to insert"
 msgstr "Nincs beilleszthető fájl"
 
-#: ../src/document.c:2734
+#: ../src/document.c:2735
 msgid "_Save all"
 msgstr "Mindet m_enti"
 
-#: ../src/document.c:2734
+#: ../src/document.c:2735
 msgid "Close _all"
 msgstr "Mindet _bezárja"
 
-#: ../src/document.c:2734
+#: ../src/document.c:2735
 msgid "Choose per _file"
 msgstr "Választás _fájlonként"
 
-#: ../src/document.c:2734
+#: ../src/document.c:2735
 msgid "_Cancel"
 msgstr "_Mégsem"
 
-#: ../src/document.c:2735
+#: ../src/document.c:2736
 msgid "Some file(s) have been modified"
 msgstr "Fájl(ok) módosult(ak)"
 
-#: ../src/document.c:2983
+#: ../src/document.c:2984
 #, c-format
 msgid "Statistics: %d lines, %d words, %d characters"
 msgstr "Statisztika: %d sor, %d szó, %d karakter"
 
-#: ../src/document.c:3085
+#: ../src/document.c:3088
 msgid "No selection to indent"
 msgstr "Nincs kijelölt szöveg a behúzáshoz"
 
@@ -1058,6 +1062,60 @@ msgstr "_Párbeszédablak maradjon nyitva"
 msgid "starting bluefish"
 msgstr "bluefish indítása"
 
+#: ../src/html2.c:586
+msgid "Cascading StyleSheet dialog"
+msgstr "Stíluslap párbeszédablak"
+
+#: ../src/html2.c:606
+msgid "_Selector:"
+msgstr "_Szelektor"
+
+#: ../src/html2.c:625
+msgid "_Property:"
+msgstr "_Tulajdonság"
+
+#: ../src/html2.c:627 ../src/html_form.c:286 ../src/html_form.c:353
+#: ../src/html_form.c:415 ../src/html_form.c:471 ../src/html_form.c:534
+#: ../src/html_form.c:644
+msgid "_Value:"
+msgstr "É_rték"
+
+#: ../src/html2.c:645
+msgid "Selector"
+msgstr "Szelektor"
+
+#: ../src/html2.c:645 ../src/html2.c:648
+msgid "Property"
+msgstr "Tulajdonság"
+
+#: ../src/html2.c:645 ../src/html2.c:648
+msgid "Value"
+msgstr "Érték"
+
+#: ../src/html2.c:663
+msgid " _Add "
+msgstr " _Hozzáad "
+
+#: ../src/html2.c:666
+msgid " _Update "
+msgstr " _Frissít "
+
+#: ../src/html2.c:669
+msgid " _Delete "
+msgstr " _Töröl "
+
+#: ../src/html2.c:925 ../src/html2.c:962
+msgid "_Style..."
+msgstr "_Stílus..."
+
+#: ../src/html2.c:1145
+msgid "Bluefish: Select color"
+msgstr "Bluefish: Színválasztás"
+
+#: ../src/html2.c:1165
+msgid "_websafe"
+msgstr "_websafe"
+
 #: ../src/html.c:353
 msgid "Insert Time"
 msgstr "Idő beszúrása"
@@ -1429,60 +1487,6 @@ msgstr "_Rel:"
 #: ../src/html.c:2061 ../src/html_form.c:361
 msgid "_Type:"
 msgstr "_Típus:"
-
-#: ../src/html2.c:586
-msgid "Cascading StyleSheet dialog"
-msgstr "Stíluslap párbeszédablak"
-
-#: ../src/html2.c:606
-msgid "_Selector:"
-msgstr "_Szelektor"
-
-#: ../src/html2.c:625
-msgid "_Property:"
-msgstr "_Tulajdonság"
-
-#: ../src/html2.c:627 ../src/html_form.c:286 ../src/html_form.c:353
-#: ../src/html_form.c:415 ../src/html_form.c:471 ../src/html_form.c:534
-#: ../src/html_form.c:644
-msgid "_Value:"
-msgstr "É_rték"
-
-#: ../src/html2.c:645
-msgid "Selector"
-msgstr "Szelektor"
-
-#: ../src/html2.c:645 ../src/html2.c:648
-msgid "Property"
-msgstr "Tulajdonság"
-
-#: ../src/html2.c:645 ../src/html2.c:648
-msgid "Value"
-msgstr "Érték"
-
-#: ../src/html2.c:663
-msgid " _Add "
-msgstr " _Hozzáad "
-
-#: ../src/html2.c:666
-msgid " _Update "
-msgstr " _Frissít "
-
-#: ../src/html2.c:669
-msgid " _Delete "
-msgstr " _Töröl "
-
-#: ../src/html2.c:925 ../src/html2.c:962
-msgid "_Style..."
-msgstr "_Stílus..."
-
-#: ../src/html2.c:1145
-msgid "Bluefish: Select color"
-msgstr "Bluefish: Színválasztás"
-
-#: ../src/html2.c:1165
-msgid "_websafe"
-msgstr "_websafe"
 
 #: ../src/html_form.c:129
 msgid "Form"
@@ -3172,32 +3176,31 @@ msgstr "Sajátmenü-szerkesztő"
 
 #: ../src/menu.c:1832
 msgid "Add New Menu Entry"
-msgstr ""
+msgstr "Új menüpont hozzáadása"
 
 #: ../src/menu.c:1834
 msgid "Apply Changes"
-msgstr ""
+msgstr "Alkalmaz"
 
 #: ../src/menu.c:1836
 msgid "Delete Menu Entry"
-msgstr ""
+msgstr "Menüpont törlése"
 
 #: ../src/menu.c:1839
 msgid "Close Discards Changes"
-msgstr ""
+msgstr "Elvet, bezár"
 
 #: ../src/menu.c:1841
 msgid "Save Changes and Exit"
-msgstr ""
+msgstr "Ment, kilép"
 
 #: ../src/menu.c:1851
 msgid "_Menu Path:"
 msgstr "Menüpont elérési útvonala:"
 
 #: ../src/menu.c:1872
-#, fuzzy
 msgid "Menu path"
-msgstr "Menüpont elérési útvonala:"
+msgstr "Menüpont elérési útvonala"
 
 #: ../src/menu.c:1892
 msgid "Number of _Variables:"
@@ -3840,14 +3843,12 @@ msgid "PERL type"
 msgstr "PERL típusú"
 
 #: ../src/snr2.c:1251
-#, fuzzy
 msgid "Starts at:"
-msgstr "Kezdje"
+msgstr "Kezdje:"
 
 #: ../src/snr2.c:1263
-#, fuzzy
 msgid "Regular expression:"
-msgstr "Reguláris kifejezés"
+msgstr "Reguláris kifejezés:"
 
 #: ../src/snr2.c:1277
 msgid "Normal"
@@ -3862,9 +3863,8 @@ msgid "Lowercase"
 msgstr "Cserélje kisbetűsre"
 
 #: ../src/snr2.c:1278
-#, fuzzy
 msgid "Replace type:"
-msgstr "Csere típusa"
+msgstr "Csere típusa:"
 
 #: ../src/snr2.c:1292
 msgid "Match ca_se"
