@@ -2651,7 +2651,7 @@ gint doc_close(Tdocument * doc, gint warn_only)
 
 static void doc_close_but_clicked_lcb(GtkWidget *wid, gpointer data) {
 	/*doc_close(data, 0);*/
-	doc_close_single_backend(data, FALSE);
+	doc_close_single_backend(data, FALSE, FALSE);
 }
 
 /* contributed by Oskar Swida <swida@aragorn.pb.bialystok.pl>, with help from the gedit source */
@@ -3251,7 +3251,7 @@ static void doc_activate_modified_lcb(Tcheckmodified_status status,gint error_in
 }
 
 static gboolean doc_close_from_activate(gpointer data) {
-	doc_close_single_backend(DOCUMENT(data), FALSE);
+	doc_close_single_backend(DOCUMENT(data), FALSE, FALSE);
 	return FALSE;
 }
 

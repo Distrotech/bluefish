@@ -623,7 +623,7 @@ static void file2doc_lcb(Topenfile_status status,gint error_info,gchar *buffer,G
 		/* lets close the document */
 		f2d->doc->action.load = NULL;
 		DEBUG_MSG("file2doc_lcb, calling doc_close_single_backend\n");
-		doc_close_single_backend(f2d->doc, f2d->doc->action.close_window);
+		doc_close_single_backend(f2d->doc, FALSE, f2d->doc->action.close_window);
 		file2doc_cleanup(f2d);
    	break;
 		case OPENFILE_ERROR:
@@ -632,7 +632,7 @@ static void file2doc_lcb(Topenfile_status status,gint error_info,gchar *buffer,G
 			DEBUG_MSG("file2doc_lcb, ERROR status=%d, cleanup!!!!!\n",status);
 			if (f2d->doc->action.close_doc) {
 				f2d->doc->action.load = NULL;
-				doc_close_single_backend(f2d->doc, f2d->doc->action.close_window);
+				doc_close_single_backend(f2d->doc, FALSE, f2d->doc->action.close_window);
 			} else {
 				doc_set_status(f2d->doc, DOC_STATUS_ERROR);
 			}
@@ -676,7 +676,7 @@ static void file_asyncfileinfo_lcb(GnomeVFSAsyncHandle *handle, GList *results, 
 	}
 	fi->doc->action.info = NULL;
 	if (fi->doc->action.close_doc) {
-		doc_close_single_backend(fi->doc, fi->doc->action.close_window);
+		doc_close_single_backend(fi->doc, FALSE, fi->doc->action.close_window);
 	}
 	file_asyncfileinfo_cleanup(fi);
 }

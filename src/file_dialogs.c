@@ -567,7 +567,7 @@ void file_save_all_cb(GtkWidget * widget, Tbfwin *bfwin) {
 	}
 }
 
-void doc_close_single_backend(Tdocument *doc, gboolean close_window) {
+void doc_close_single_backend(Tdocument *doc, gboolean delay_activate, gboolean close_window) {
 	Tbfwin *bfwin = doc->bfwin;
 	if (doc->action.checkmodified) checkmodified_cancel(doc->action.checkmodified);
 	if (doc->action.load != NULL || doc->action.info != NULL) {
@@ -599,7 +599,7 @@ void doc_close_single_backend(Tdocument *doc, gboolean close_window) {
 		g_free(text);
 		switch (retval) {
 		case 0:
-			doc_destroy(doc, close_window);
+			doc_destroy(doc, close_window || delay_activate);
 		break;
 		case 1:
 			return;
@@ -609,7 +609,7 @@ void doc_close_single_backend(Tdocument *doc, gboolean close_window) {
 		break;
 		}
 	} else {
-		doc_destroy(doc, close_window);
+		doc_destroy(doc, close_window||delay_activate);
 	}
 	if (close_window && bfwin->documentlist == NULL) { /* the documentlist is empty */
 		gtk_widget_destroy(bfwin->main_window);
@@ -627,7 +627,7 @@ void doc_close_single_backend(Tdocument *doc, gboolean close_window) {
  * Return value: void
  **/
 void file_close_cb(GtkWidget * widget, Tbfwin *bfwin) {
-	doc_close_single_backend(bfwin->current_document, 0);
+	doc_close_single_backend(bfwin->current_document, FALSE, FALSE);
 }
 
 void doc_close_multiple_backend(Tbfwin *bfwin, gboolean close_window) {
@@ -636,7 +636,7 @@ void doc_close_multiple_backend(Tbfwin *bfwin, gboolean close_window) {
 	gint retval=1; /* the defauilt value 1 means "close all" */
 
 	if (g_list_length (bfwin->documentlist) == 1) {
-		doc_close_single_backend(bfwin->current_document, close_window);
+		doc_close_single_backend(bfwin->current_document, FALSE, close_window);
 		return;
 	}
 	/* first a warning loop */
@@ -663,10 +663,10 @@ void doc_close_multiple_backend(Tbfwin *bfwin, gboolean close_window) {
 		case 1: /* close all */
 		   /* fake that this document was not modified */
 			tmpdoc->modified = FALSE;
-  			doc_close_single_backend(tmpdoc, close_window);
+  			doc_close_single_backend(tmpdoc, TRUE, close_window);
 		break;
 		case 2: /* choose per file */
-			doc_close_single_backend(tmpdoc, close_window);
+			doc_close_single_backend(tmpdoc, TRUE, close_window);
 		break;
 		}
 		tmplist = g_list_next(tmplist);
