@@ -575,7 +575,7 @@ void fref_cleanup()
 
 gchar *fref_prepare_info(FRInfo * entry)
 {
-	gchar *ret;
+	gchar *ret, *tofree;
 	GList *lst;
 	FRAttrInfo *tmpa;
 	FRParamInfo *tmpp;
@@ -583,76 +583,71 @@ gchar *fref_prepare_info(FRInfo * entry)
 	ret = g_strdup("");
 	switch (entry->type) {
 	case FR_TYPE_TAG:
-		ret =
-			g_strconcat(ret, "<span size=\"medium\" weight=\"bold\">TAG: ",
-						entry->name, "</span>\n", NULL);
-		if (entry->description != NULL)
-			ret =
-				g_strconcat(ret, "<span size=\"small\">",
-							entry->description, "</span>\n", NULL);
-		ret =
-			g_strconcat(ret,
-						"<span size=\"medium\" weight=\"bold\">ATTRIBUTES:</span>\n",
-						NULL);
+		tofree = ret;
+		ret = g_strconcat(ret, "<span size=\"medium\" weight=\"bold\">TAG: ",entry->name, "</span>\n", NULL);
+		g_free(tofree);
+		if (entry->description != NULL) {
+			tofree = ret;
+			ret = g_strconcat(ret, "<span size=\"small\">",entry->description, "</span>\n", NULL);
+			g_free(tofree);
+		}
+		tofree = ret;
+		ret =g_strconcat(ret,"<span size=\"medium\" weight=\"bold\">ATTRIBUTES:</span>\n",NULL);
+		g_free(tofree);
 		lst = g_list_first(entry->attributes);
 		while (lst) {
 			tmpa = (FRAttrInfo *) lst->data;
-			ret =
-				g_strconcat(ret, "<span size=\"small\" style=\"italic\">",
-							tmpa->name, "</span> - <span size=\"small\">",
-							tmpa->description, "</span>\n", NULL);
+			tofree = ret;
+			ret = g_strconcat(ret, "<span size=\"small\" style=\"italic\">",tmpa->name, "</span> - <span size=\"small\">",tmpa->description, "</span>\n", NULL);
+			g_free(tofree);
 			lst = g_list_next(lst);
 		}
 		if (entry->info_text != NULL) {
-			ret =
-				g_strconcat(ret,
-							"<span size=\"medium\" weight=\"bold\">NOTES:</span> ",
-							NULL);
-			ret =
-				g_strconcat(ret, "<span size=\"small\">", entry->info_text,
-							"</span>\n", NULL);
+			tofree = ret;
+			ret = g_strconcat(ret,"<span size=\"medium\" weight=\"bold\">NOTES:</span> ",NULL);
+			g_free(tofree);
+			tofree = ret;
+			ret = g_strconcat(ret, "<span size=\"small\">", entry->info_text,"</span>\n", NULL);
+			g_free(tofree);
 		}
 		break;
 	case FR_TYPE_FUNCTION:
-		ret =
-			g_strconcat(ret,
-						"<span size=\"medium\" weight=\"bold\">FUNCTION: ",
-						entry->name, "</span>\n", NULL);
-		if (entry->description != NULL)
-			ret =
-				g_strconcat(ret, "<span size=\"small\">",
-							entry->description, "</span>\n", NULL);
-		if (entry->return_type != NULL)
-			ret =
-				g_strconcat(ret,
-							"<span size=\"medium\" weight=\"bold\">RETURNS: ",
-							entry->return_type, "</span>\n", NULL);
-		if (entry->return_description != NULL)
-			ret =
-				g_strconcat(ret, "<span size=\"small\">",
-							entry->return_description, "</span>\n", NULL);
-		ret =
-			g_strconcat(ret,
-						"<span size=\"medium\" weight=\"bold\">PARAMETERS:</span>\n",
-						NULL);
+		tofree = ret;
+		ret = g_strconcat(ret,"<span size=\"medium\" weight=\"bold\">FUNCTION: ",entry->name, "</span>\n", NULL);
+		g_free(tofree);
+		if (entry->description != NULL) {
+			tofree = ret;
+			ret =g_strconcat(ret, "<span size=\"small\">", entry->description, "</span>\n", NULL);
+			g_free(tofree);
+		}
+		if (entry->return_type != NULL) {
+			tofree = ret;
+			ret = g_strconcat(ret,"<span size=\"medium\" weight=\"bold\">RETURNS: ",entry->return_type, "</span>\n", NULL);
+			g_free(tofree);
+		}
+		if (entry->return_description != NULL) {
+			tofree = ret;
+			ret =g_strconcat(ret, "<span size=\"small\">",entry->return_description, "</span>\n", NULL);
+			g_free(tofree);
+		}
+		tofree = ret;
+		ret =g_strconcat(ret,"<span size=\"medium\" weight=\"bold\">PARAMETERS:</span>\n",NULL);
+		g_free(tofree);
 		lst = g_list_first(entry->params);
 		while (lst) {
 			tmpp = (FRParamInfo *) lst->data;
-			ret =
-				g_strconcat(ret, "<span size=\"small\" style=\"italic\">",
-							tmpp->name, "(", tmpp->type,
-							")</span> - <span size=\"small\">",
-							tmpp->description, "</span>\n", NULL);
+			tofree = ret;
+			ret =g_strconcat(ret, "<span size=\"small\" style=\"italic\">",tmpp->name, "(", tmpp->type,")</span> - <span size=\"small\">",tmpp->description, "</span>\n", NULL);
+			g_free(tofree);
 			lst = g_list_next(lst);
 		}
 		if (entry->info_text != NULL) {
-			ret =
-				g_strconcat(ret,
-							"<span size=\"medium\" weight=\"bold\">NOTES: </span>",
-							NULL);
-			ret =
-				g_strconcat(ret, "<span size=\"small\">", entry->info_text,
-							"</span>\n", NULL);
+			tofree = ret;
+			ret =g_strconcat(ret,"<span size=\"medium\" weight=\"bold\">NOTES: </span>",NULL);
+			g_free(tofree);
+			tofree = ret;
+			ret =g_strconcat(ret, "<span size=\"small\">", entry->info_text,"</span>\n", NULL);
+			g_free(tofree);
 		}
 		break;
 	}
@@ -815,27 +810,23 @@ GtkWidget *fref_prepare_dialog(FRInfo * entry)
 			while (itnum < g_list_length(list)) {
 				if (attr->title != NULL) {
 					label = gtk_label_new("");
-					if (attr->required)
-						gtk_label_set_markup(GTK_LABEL(label),
-											 g_strconcat
-											 ("<span color='#FF0000'>",
-											  attr->title, "</span>",
-											  NULL));
-					else
+					if (attr->required) {
+						gchar *tofree = g_strconcat("<span color='#FF0000'>",attr->title, "</span>",NULL);
+						gtk_label_set_markup(GTK_LABEL(label),tofree);
+						g_free(tofree);
+					} else {
 						gtk_label_set_text(GTK_LABEL(label), attr->title);
+					}
 				} else {
 					label = gtk_label_new("");
-					if (attr->required)
-						gtk_label_set_markup(GTK_LABEL(label),
-											 g_strconcat
-											 ("<span color='#FF0000'>",
-											  attr->name, "</span>",
-											  NULL));
-					else
+					if (attr->required) {
+						gchar *tofree = g_strconcat("<span color='#FF0000'>",attr->name, "</span>",NULL);
+						gtk_label_set_markup(GTK_LABEL(label),tofree);
+						g_free(tofree);
+					}else {
 						gtk_label_set_text(GTK_LABEL(label), attr->name);
+					}
 				}
-
-
 				gtk_widget_show(label);
 				gtk_table_attach(GTK_TABLE(table), label, 0, 1, itnum,
 								 itnum + 1, (GtkAttachOptions) (GTK_FILL),
@@ -892,30 +883,26 @@ GtkWidget *fref_prepare_dialog(FRInfo * entry)
 			while (itnum < g_list_length(list)) {
 				if (par->title != NULL) {
 					label = gtk_label_new("");
-					if (par->required)
-						gtk_label_set_markup(GTK_LABEL(label),
-											 g_strconcat
-											 ("<span color='#FF0000'>",
-											  par->title, " (", par->type,
-											  ") ", "</span>", NULL));
-					else
-						gtk_label_set_text(GTK_LABEL(label),
-										   g_strconcat(par->title, " (",
-													   par->type, ") ",
-													   NULL));
+					if (par->required) {
+						gchar *tofree = g_strconcat("<span color='#FF0000'>",par->title, " (", par->type,") ", "</span>", NULL);
+						gtk_label_set_markup(GTK_LABEL(label),tofree);
+						g_free(tofree);
+					} else {
+						gchar *tofree = g_strconcat(par->title, " (",par->type, ") ",NULL);
+						gtk_label_set_text(GTK_LABEL(label),tofree);
+						g_free(tofree);
+					}
 				} else {
 					label = gtk_label_new("");
-					if (par->required)
-						gtk_label_set_markup(GTK_LABEL(label),
-											 g_strconcat
-											 ("<span color='#FF0000'>",
-											  par->name, " (", par->type,
-											  ") ", "</span>", NULL));
-					else
-						gtk_label_set_text(GTK_LABEL(label),
-										   g_strconcat(par->name, " (",
-													   par->type, ") ",
-													   NULL));
+					if (par->required) {
+						gchar *tofree = g_strconcat("<span color='#FF0000'>",par->name, " (", par->type,") ", "</span>", NULL);
+						gtk_label_set_markup(GTK_LABEL(label),tofree);
+						g_free(tofree);
+					} else {
+						gchar *tofree = g_strconcat(par->name, " (",par->type, ") ",NULL);
+						gtk_label_set_text(GTK_LABEL(label),tofree);
+						g_free(tofree);
+					}
 				}
 
 
@@ -1070,9 +1057,9 @@ gchar *fref_prepare_text(FRInfo * entry, GtkWidget * dialog)
 									gtk_entry_get_text(GTK_ENTRY
 													   (tmpa->dlg_item));
 							if (strcmp(tmp2, "") != 0) {
-								tmp3 =
-									g_strconcat(tmp3, " ", tmpa->name,
-												"=\"", tmp2, "\"", NULL);
+								gchar *tofree = tmp3;
+								tmp3 =g_strconcat(tmp3, " ", tmpa->name,"=\"", tmp2, "\"", NULL);
+								g_free(tofree);
 							}
 						}
 						lst = g_list_next(lst);
@@ -1095,9 +1082,11 @@ gchar *fref_prepare_text(FRInfo * entry, GtkWidget * dialog)
 									gtk_entry_get_text(GTK_ENTRY
 													   (tmpa->dlg_item));
 							if (strcmp(tmp2, "") != 0 || tmpa->required) {
+								gchar *tofree = tmp3;
 								tmp3 =
 									g_strconcat(tmp3, " ", tmpa->name,
 												"=\"", tmp2, "\"", NULL);
+								g_free(tofree);
 							}
 						}
 						lst = g_list_next(lst);
@@ -1134,7 +1123,11 @@ gchar *fref_prepare_text(FRInfo * entry, GtkWidget * dialog)
 
 			}					/* switch */
 		}
-		dest = g_strconcat(dest, prev, converted, NULL);
+		{
+			gchar *tofree = dest;
+			dest = g_strconcat(dest, prev, converted, NULL);
+			g_free(tofree);
+		}
 		g_free(tmp);
 		g_free(tmp3);
 		prev = ++p;

@@ -126,9 +126,7 @@ void notebook_changed(gint newpage)
 			doc_activate(main_v->current_document);
 		}
 	}
-	gtk_window_set_title(GTK_WINDOW(main_v->main_window), 
-				g_strconcat("bluefish - ", gtk_label_get_text(GTK_LABEL(main_v->current_document->tab_label)), NULL));
-				
+		
 	DEBUG_MSG("notebook_changed, done\n");
 }
 
