@@ -1306,7 +1306,7 @@ static void viewlocal_toggled_lcb(GtkToggleButton *togglebutton,GtkWidget *dialo
 }
 
 GtkWidget * file_chooser_dialog(Tbfwin *bfwin, gchar *title, GtkFileChooserAction action, gchar *set, gboolean localonly, gboolean multiple) {
-	GtkWidget *vbox, *hbox, *dialog, *viewlocal;;
+	GtkWidget *vbox, *hbox, *dialog, *viewlocal;
 	dialog = gtk_file_chooser_dialog_new_with_backend(title,bfwin ? GTK_WINDOW(bfwin->main_window) : NULL,
 			action,"gnome-vfs",
 			GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
@@ -1338,11 +1338,42 @@ GtkWidget * file_chooser_dialog(Tbfwin *bfwin, gchar *title, GtkFileChooserActio
 		}
 	}
 	vbox = gtk_vbox_new(FALSE, 5);
+
 	hbox = gtk_hbox_new(FALSE, 5);
 	gtk_box_pack_start(GTK_BOX(vbox), hbox, TRUE, TRUE, 5);
 	viewlocal = boxed_checkbut_with_value(_("Show hidden"), 0, hbox);
 	g_signal_connect(G_OBJECT(viewlocal), "toggled", G_CALLBACK(viewlocal_toggled_lcb), dialog);
 	gtk_file_chooser_set_extra_widget(GTK_FILE_CHOOSER(dialog),vbox);
+	if (action == GTK_FILE_CHOOSER_ACTION_OPEN || action == GTK_FILE_CHOOSER_ACTION_SAVE){
+		GList *tmplist;
+		GtkFileFilter* ff;
+		ff = gtk_file_filter_new();
+		gtk_file_filter_set_name(ff,_("All files"));
+		gtk_file_filter_add_pattern(ff, "*");
+		gtk_file_chooser_add_filter(GTK_FILE_CHOOSER(dialog), ff);
+		gtk_file_chooser_set_filter(GTK_FILE_CHOOSER(dialog), ff);
+		tmplist = g_list_first(main_v->filetypelist);
+		while (tmplist) {
+			gchar **tmp;
+			Tfiletype *ft = (Tfiletype *)tmplist->data;
+			if (ft->extensions && *ft->extensions) {
+				ff = gtk_file_filter_new();
+				gtk_file_filter_set_name(ff,ft->type);
+				DEBUG_MSG("adding filter '%s'\n", ft->type);
+				tmp = ft->extensions;
+				while (*tmp) {
+					gchar *pattern;
+					pattern = g_strconcat("*", *tmp, NULL);
+					gtk_file_filter_add_pattern(ff, pattern);
+					DEBUG_MSG("adding pattern '%s' to '%s'\n", pattern, ft->type);
+					g_free(pattern);
+					tmp++;
+				}
+				gtk_file_chooser_add_filter(GTK_FILE_CHOOSER(dialog), ff);
+			}
+			tmplist = g_list_next(tmplist);
+		}
+	}
 	gtk_widget_show_all(vbox);
 	return dialog;
 }
