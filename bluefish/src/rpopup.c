@@ -1,6 +1,9 @@
 #include <gtk/gtk.h>
+#include <string.h> /* strcasecmp() */
 
 #include "bluefish.h"
+#include "bf_lib.h"
+#include "document.h"
 #include "html_diag.h"
 #include "html.h"
 #include "html2.h"
@@ -65,13 +68,13 @@ gboolean doc_bevent_in_html_tag(Tdocument *doc, GdkEventButton *bevent) {
 		iht.findchar = 62;/* 62 = > */
 		iht.prevchar = 10; /* \n */
 		iht.ignore_if_prevchar = 0;
-		gtfound = gtk_text_iter_backward_find_char(&gtiter,iter_char_search_lcb,
+		gtfound = gtk_text_iter_backward_find_char(&gtiter,(GtkTextCharPredicate)iter_char_search_lcb,
                                              &iht,NULL);
 		/* perhaps we should limit the search fto 50 charcters or so */
 		iht.findchar = 60;/* 60 = < */
 		iht.prevchar = 10; /* \n */
 		iht.ignore_if_prevchar = 63 /* ? */;
-		ltfound = gtk_text_iter_backward_find_char(&ltiter,iter_char_search_lcb,
+		ltfound = gtk_text_iter_backward_find_char(&ltiter,(GtkTextCharPredicate)iter_char_search_lcb,
                                              &iht,NULL);
 		if ((ltfound && gtfound && gtk_text_iter_compare(&ltiter,&gtiter) > 0)
 				|| (ltfound && !gtfound)) {
@@ -86,13 +89,13 @@ gboolean doc_bevent_in_html_tag(Tdocument *doc, GdkEventButton *bevent) {
 			iht.findchar = 62;/* 62 = > */
 			iht.prevchar = 10; /* \n */
 			iht.ignore_if_prevchar = 63 /* ? */;
-			gtfound = gtk_text_iter_forward_find_char(&gtiter,iter_char_search_lcb,
+			gtfound = gtk_text_iter_forward_find_char(&gtiter,(GtkTextCharPredicate)iter_char_search_lcb,
                                              &iht,NULL);
 			/* perhaps we should limit the search fto 50 charcters or so */
 			iht.findchar = 60;/* 60 = < */
 			iht.prevchar = 10; /* \n */
 			iht.ignore_if_prevchar = 0;
-			ltfound = gtk_text_iter_forward_find_char(&ltiter,iter_char_search_lcb,
+			ltfound = gtk_text_iter_forward_find_char(&ltiter,(GtkTextCharPredicate)iter_char_search_lcb,
                                              &iht,NULL);
 			if ((ltfound && gtfound && gtk_text_iter_compare(&ltiter,&gtiter) > 0)
 				|| (gtfound && !ltfound)) {

@@ -171,7 +171,7 @@ void tabledialog_cb(GtkWidget * widget, gpointer data)
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->combo[6], 6, 8, 3, 4);
 	g_list_free(popuplist);
 
-	html_diag_finish(dg, tabledialogok_lcb);
+	html_diag_finish(dg, G_CALLBACK(tabledialogok_lcb));
 	
 	if (custom)	g_free(custom);
 }
@@ -259,7 +259,7 @@ void tablerowdialog_cb(GtkWidget * widget, gpointer data)
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Custom")), 0, 1, 3, 4);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[1], 1, 5, 3, 4);
 
-	html_diag_finish(dg, tablerowdialogok_lcb);
+	html_diag_finish(dg, G_CALLBACK(tablerowdialogok_lcb));
 
 	if (custom)	g_free(custom);
 }
@@ -400,9 +400,9 @@ static void table_head_and_data_dialog_cb(gint type, GtkWidget * widget, gpointe
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(color_but_new(GTK_COMBO(dg->combo[3])->entry, dg->dialog)), 6, 7, 2, 3);
 
 	if (type == 1) {
-		html_diag_finish(dg, tabledatadialogok_lcb);
+		html_diag_finish(dg, G_CALLBACK(tabledatadialogok_lcb));
 	} else {
-		html_diag_finish(dg, tableheaddialogok_lcb);
+		html_diag_finish(dg, G_CALLBACK(tableheaddialogok_lcb));
 	}
 
 	if (custom)	g_free(custom);

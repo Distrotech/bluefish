@@ -34,6 +34,7 @@
 #include "html2.h"
 #include "html_form.h"
 #include "filebrowser.h"
+#include "stringlist.h"
 
 typedef struct {
 	GtkWidget *main_toolbar_hb;
@@ -59,61 +60,13 @@ typedef struct {
 /******************************/
 static Thidegui hidewidgets;
 static Ttoolbar toolbarwidgets;
+#ifndef NOSPLASH
 static Tsplashscreen splashscreen;
-
+#endif
 /**************************/
 /* start of the functions */
 /**************************/
-void gui_toggle_autoindent_cb(gpointer callback_data,guint action,GtkWidget *widget) {
-	main_v->props.autoindent = 1 - main_v->props.autoindent;
-}
 
-void gui_toggle_hidewidget_cb(gpointer callback_data,guint action,GtkWidget *widget) {
-	GtkWidget *handlebox;
-	gint *property;
-	switch (action) {
-	case 0:
-		handlebox = hidewidgets.main_toolbar_hb;
-		property = &main_v->props.view_main_toolbar;
-		if (g_list_length(gtk_container_children(GTK_CONTAINER(handlebox))) == 0) {
-			make_main_toolbar(hidewidgets.main_toolbar_hb);
-		}
-	break;
-	case 1:
-		handlebox = hidewidgets.html_toolbar_hb;
-		property = &main_v->props.view_html_toolbar;
-		if (g_list_length(gtk_container_children(GTK_CONTAINER(handlebox))) == 0) {
-			make_html_toolbar(hidewidgets.html_toolbar_hb);
-		}
-	break;
-	case 2:
-		handlebox = hidewidgets.custom_menu_hb;
-		property = &main_v->props.view_custom_menu;
-		if (g_list_length(gtk_container_children(GTK_CONTAINER(handlebox))) == 0) {
-			make_cust_menubar(hidewidgets.custom_menu_hb);
-		}
-	break;
-	case 3:
-		DEBUG_MSG("gui_toggle_hidewidget_cb, setting vlp from %d to %d\n", main_v->props.view_left_panel, 1 - main_v->props.view_left_panel);
-		main_v->props.view_left_panel = 1 - main_v->props.view_left_panel;
-		left_panel_show_hide_toggle(FALSE, main_v->props.view_left_panel);
-		return;
-	break;
-	default:
-		g_print("gui_toggle_hidewidget_cb should NEVER be called with action %d\n", action);
-		exit(1);
-	break;
-	}
-
-	if (GTK_WIDGET_VISIBLE(handlebox)) {
-		*property = 0;
-		gtk_widget_hide(handlebox);
-	} else {
-		*property = 1;
-		gtk_widget_show(handlebox);
-	}
-
-}
 void notebook_changed(gint newpage)
 {
 	gint cur;
@@ -313,7 +266,7 @@ static Ttoolbaritem tbi[] = {
 
 static void html_toolbar_remove_from_quickbar_lcb(GtkMenuItem *menuitem, Ttoolbaritem *tbitem) {
 	GList *tmplist;
-	Tquickbaritem *qbi;
+	Tquickbaritem *qbi=NULL;
 	main_v->props.quickbar_items = remove_from_stringlist(main_v->props.quickbar_items, tbitem->ident);
 	tmplist = g_list_first(toolbarwidgets.html_toolbar_quickbar_children);
 	while (tmplist) {
@@ -323,9 +276,11 @@ static void html_toolbar_remove_from_quickbar_lcb(GtkMenuItem *menuitem, Ttoolba
 		}
 		tmplist = g_list_next(tmplist);
 	}
-	gtk_widget_hide(qbi->button);
-	gtk_widget_destroy(qbi->button);
-	g_free(qbi);
+	if (qbi) {
+		gtk_widget_hide(qbi->button);
+		gtk_widget_destroy(qbi->button);
+		g_free(qbi);
+	}
 }
 
 static gboolean html_toolbar_quickbar_item_button_press_lcb(GtkWidget *widget,GdkEventButton *bevent,Ttoolbaritem *tbitem) {
@@ -352,7 +307,7 @@ static void html_toolbar_add_to_quickbar_lcb(GtkMenuItem *menuitem, Ttoolbaritem
 	qbi = g_new(Tquickbaritem,1);
 	qbi->button = gtk_toolbar_append_item(GTK_TOOLBAR(toolbarwidgets.html_toolbar_quickbar), NULL, _(tbitem->tooltiptext),
 						"", new_pixmap(tbitem->pixmaptype), G_CALLBACK(tbitem->func), tbitem->func_data);
-	g_signal_connect(qbi->button, "button-press-event", html_toolbar_quickbar_item_button_press_lcb, tbitem);
+	g_signal_connect(qbi->button, "button-press-event", G_CALLBACK(html_toolbar_quickbar_item_button_press_lcb), tbitem);
 	gtk_widget_show(qbi->button);
 	qbi->tbitem = tbitem;
 	toolbarwidgets.html_toolbar_quickbar_children = g_list_append(toolbarwidgets.html_toolbar_quickbar_children, qbi);
@@ -383,7 +338,7 @@ static void html_toolbar_add_items(GtkWidget *html_toolbar, Ttoolbaritem *tbi, g
 		} else {
 			item = gtk_toolbar_append_item(GTK_TOOLBAR(html_toolbar), NULL, _(tbi[i].tooltiptext),
 						"", new_pixmap(tbi[i].pixmaptype), G_CALLBACK(tbi[i].func), tbi[i].func_data);
-			g_signal_connect(item, "button-press-event", html_toolbar_item_button_press_lcb, &tbi[i]);
+			g_signal_connect(item, "button-press-event", G_CALLBACK(html_toolbar_item_button_press_lcb), &tbi[i]);
 			DEBUG_MSG("adding tbitem %p to html_toolbar\n", &tbi[i]);
 		}
 	}
@@ -421,7 +376,7 @@ void make_html_toolbar(GtkWidget *handlebox) {
 					Tquickbaritem *qbi = g_new(Tquickbaritem,1);
 					qbi->button = gtk_toolbar_append_item(GTK_TOOLBAR(toolbarwidgets.html_toolbar_quickbar), NULL, _(tbi[i].tooltiptext),
 						"", new_pixmap(tbi[i].pixmaptype), G_CALLBACK(tbi[i].func), tbi[i].func_data);
-					g_signal_connect(qbi->button, "button-press-event", html_toolbar_quickbar_item_button_press_lcb, &tbi[i]);
+					g_signal_connect(qbi->button, "button-press-event", G_CALLBACK(html_toolbar_quickbar_item_button_press_lcb), &tbi[i]);
 					qbi->tbitem = &tbi[i];
 					toolbarwidgets.html_toolbar_quickbar_children = g_list_append(toolbarwidgets.html_toolbar_quickbar_children, qbi);
 					break;
@@ -826,3 +781,55 @@ GtkWidget *start_splash_screen() {
 	return splashscreen.window;
 }
 #endif /* #ifndef NOSPLASH */
+
+
+void gui_toggle_autoindent_cb(gpointer callback_data,guint action,GtkWidget *widget) {
+	main_v->props.autoindent = 1 - main_v->props.autoindent;
+}
+
+void gui_toggle_hidewidget_cb(gpointer callback_data,guint action,GtkWidget *widget) {
+	GtkWidget *handlebox;
+	gint *property;
+	switch (action) {
+	case 0:
+		handlebox = hidewidgets.main_toolbar_hb;
+		property = &main_v->props.view_main_toolbar;
+		if (g_list_length(gtk_container_children(GTK_CONTAINER(handlebox))) == 0) {
+			make_main_toolbar(hidewidgets.main_toolbar_hb);
+		}
+	break;
+	case 1:
+		handlebox = hidewidgets.html_toolbar_hb;
+		property = &main_v->props.view_html_toolbar;
+		if (g_list_length(gtk_container_children(GTK_CONTAINER(handlebox))) == 0) {
+			make_html_toolbar(hidewidgets.html_toolbar_hb);
+		}
+	break;
+	case 2:
+		handlebox = hidewidgets.custom_menu_hb;
+		property = &main_v->props.view_custom_menu;
+		if (g_list_length(gtk_container_children(GTK_CONTAINER(handlebox))) == 0) {
+			make_cust_menubar(hidewidgets.custom_menu_hb);
+		}
+	break;
+	case 3:
+		DEBUG_MSG("gui_toggle_hidewidget_cb, setting vlp from %d to %d\n", main_v->props.view_left_panel, 1 - main_v->props.view_left_panel);
+		main_v->props.view_left_panel = 1 - main_v->props.view_left_panel;
+		left_panel_show_hide_toggle(FALSE, main_v->props.view_left_panel);
+		return;
+	break;
+	default:
+		g_print("gui_toggle_hidewidget_cb should NEVER be called with action %d\n", action);
+		exit(1);
+	break;
+	}
+
+	if (GTK_WIDGET_VISIBLE(handlebox)) {
+		*property = 0;
+		gtk_widget_hide(handlebox);
+	} else {
+		*property = 1;
+		gtk_widget_show(handlebox);
+	}
+
+}

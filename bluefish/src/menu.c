@@ -487,7 +487,7 @@ void menu_create_main(GtkWidget *vbox)
 	setup_toggle_item(item_factory, _("/Options/Auto indent"), main_v->props.autoindent);
 /*	setup_toggle_item(item_factory, "/Options/View Filebrowser", main_v->props.v_filebrowser);*/
 	{
-		GList *group=NULL;
+		GSList *group=NULL;
 		GtkWidget *parent_menu;
 		GList *tmplist = g_list_first(main_v->filetypelist);
 		parent_menu = gtk_item_factory_get_widget(item_factory, _("/Options/Current document/Type"));
@@ -746,8 +746,8 @@ static void external_command_lcb(GtkWidget *widget, gchar *name) {
 	 * %s - we need a filename 
 	 * %f - output filename that we need to read after the command has finished (filter)
 	 */
-	need_f = (strstr(arr[1], "%f"));
-	need_s = (strstr(arr[1], "%s"));
+	need_f = (int)strstr(arr[1], "%f");
+	need_s = (int)strstr(arr[1], "%s");
 	if (need_f || need_s) {
 		gchar *command;
 		Tconvert_table *table, *tmpt;

@@ -22,9 +22,14 @@
 void gui_toggle_autoindent_cb(gpointer callback_data,guint action,GtkWidget *widget);
 void gui_toggle_hidewidget_cb(gpointer callback_data,guint action,GtkWidget *widget);
 void notebook_changed(gint newpage);
+
+void gui_set_undo_redo_widgets(gboolean undo, gboolean redo);
+void gui_set_widgets(gboolean undo, gboolean redo, gboolean wrap, gboolean highlight, Tfiletype *hl);
+
 void gui_notebook_bind_signals();
 void gui_notebook_unbind_signals();
 void gui_create_main();
+void gui_show_main();
 void statusbar_message(gchar *message, gint time);
 gboolean switch_to_document_by_index(gint index);
 gboolean switch_to_document_by_pointer(Tdocument *document);

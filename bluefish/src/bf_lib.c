@@ -492,10 +492,10 @@ gchar *create_full_path(gchar * filename, gchar *basedir)
 
 
 
-/* gchar *ending_slash(gchar *dirname)
+/* gchar *ending_slash(const gchar *dirname)
  * returns a newly allocated string which is 
  * guaranteed to end on a slash (/) */
-gchar *ending_slash(gchar *dirname) {
+gchar *ending_slash(const gchar *dirname) {
 	/* result should be free-ed !!! */
 	if (!dirname) {
 		return g_strdup("");

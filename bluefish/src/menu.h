@@ -21,9 +21,10 @@
 #ifndef __MENU_H_
 #define __MENU_H_
 
+void menu_current_document_type_set_active_wo_activate(Tfiletype *hlset);
 void menu_create_main(GtkWidget *vbox);
 void add_to_recent_list(gchar *filename, gint closed_file);
 void recent_menu_init();
-void browsers_menu_init();
+void external_menu_init();
 void make_cust_menubar(GtkWidget *cust_handle_box);
 #endif							/* __MENU_H_ */

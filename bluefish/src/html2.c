@@ -21,16 +21,16 @@
 
 #include <gtk/gtk.h>
 #include <string.h>  	/* strlen() */
+#include <stdlib.h>	/* strtol() */
 
 #include "gtk_easy.h"
 #include "bf_lib.h"  /* strip_any_whitespace() */
 #include "bluefish.h"
 #include "stringlist.h"
 #include "document.h"
-/* #include "html.h"*/
+#include "html2.h"
 #include "cap.h"
 #include "pixmap.h" /* new_pixmap */
-/*#include "coloursel.h"*/  /* color_but_new */
 
 static GList *glist_with_html_tags(gint with_pseudo_classes) {
 	GList *tmplist;
@@ -580,7 +580,7 @@ static Tcs3_diag *css_diag(Tcs3_destination dest, Tcs3_style style, GtkWidget *t
 	
 	diag = g_malloc(sizeof(Tcs3_diag));
 	diag->win = window_full(_("Cascading StyleSheet dialog"), GTK_WIN_POS_MOUSE, 
-			5, cs3d_destroy_lcb, diag);
+			5, G_CALLBACK(cs3d_destroy_lcb), diag);
 	gtk_window_set_wmclass(GTK_WINDOW(diag->win), "Bluefish", "css");
 	diag->dest = dest;
 	diag->styletype = style;
@@ -612,8 +612,8 @@ static Tcs3_diag *css_diag(Tcs3_destination dest, Tcs3_style style, GtkWidget *t
 	diag->property = combo_with_popdown(NULL, tmplist,1);
 	g_list_free(tmplist);
 	tmplist = NULL;
-	gtk_signal_connect(GTK_OBJECT(GTK_COMBO(diag->property)->entry), "activate", cs3d_prop_activate_lcb, diag);
-	gtk_signal_connect(GTK_OBJECT(GTK_COMBO(diag->property)->entry), "changed", cs3d_prop_activate_lcb, diag);
+	gtk_signal_connect(GTK_OBJECT(GTK_COMBO(diag->property)->entry), "activate", G_CALLBACK(cs3d_prop_activate_lcb), diag);
+	gtk_signal_connect(GTK_OBJECT(GTK_COMBO(diag->property)->entry), "changed", G_CALLBACK(cs3d_prop_activate_lcb), diag);
 
 	diag->value = combo_with_popdown(NULL, tmplist,1);
 	gtk_table_attach_defaults(GTK_TABLE(table), gtk_label_new(_("property")), 0,1,1,2);
@@ -654,21 +654,21 @@ static Tcs3_diag *css_diag(Tcs3_destination dest, Tcs3_style style, GtkWidget *t
 	vbox2 = gtk_vbox_new(FALSE, 0);
 	gtk_box_pack_start(GTK_BOX(hbox), vbox2, FALSE, FALSE, 0);
 	
-	but = bf_stock_button(_(" Add "), cs3d_add_clicked_lcb, diag);
+	but = bf_stock_button(_(" Add "), G_CALLBACK(cs3d_add_clicked_lcb), diag);
 	gtk_box_pack_start(GTK_BOX(vbox2), but, FALSE, FALSE, 0);
 
-	but = bf_stock_button(_(" Update "), cs3d_update_clicked_lcb, diag);
+	but = bf_stock_button(_(" Update "), G_CALLBACK(cs3d_update_clicked_lcb), diag);
 	gtk_box_pack_start(GTK_BOX(vbox2), but, FALSE, FALSE, 0);
 	
-	but = bf_stock_button(_(" Delete "), cs3d_del_clicked_lcb, diag);
+	but = bf_stock_button(_(" Delete "), G_CALLBACK(cs3d_del_clicked_lcb), diag);
 	gtk_box_pack_start(GTK_BOX(vbox2), but, FALSE, FALSE, 0);
 
 	/* the ok and cancel button are in a horizontal box below */
 	hbox = gtk_hbox_new(TRUE, 0);
 	gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 0);
-	but = bf_stock_ok_button(cs3d_ok_clicked_lcb, diag);
+	but = bf_stock_ok_button(G_CALLBACK(cs3d_ok_clicked_lcb), diag);
 	gtk_box_pack_start(GTK_BOX(hbox), but, TRUE, TRUE, 0);
-	but = bf_stock_cancel_button(cs3d_cancel_clicked_lcb, diag);
+	but = bf_stock_cancel_button(G_CALLBACK(cs3d_cancel_clicked_lcb), diag);
 	gtk_box_pack_start(GTK_BOX(hbox), but, TRUE, TRUE, 0);
 	
 	gtk_widget_show_all(diag->win);
@@ -910,7 +910,7 @@ GtkWidget *style_but_new(GtkWidget * which_entry, GtkWidget * win)
 	gtk_box_pack_start(GTK_BOX(hbox), gtk_label_new(_("Style")),TRUE, TRUE, 3);
 	gtk_container_add(GTK_CONTAINER(style_but), hbox);
 
-	gtk_signal_connect(GTK_OBJECT(style_but), "clicked", style_but_clicked_lcb, which_entry);
+	gtk_signal_connect(GTK_OBJECT(style_but), "clicked", G_CALLBACK(style_but_clicked_lcb), which_entry);
 	gtk_widget_show_all(style_but);
 	return style_but;
 }
@@ -1057,7 +1057,7 @@ static void hexentry_color_changed(GtkWidget *widget, Tcolsel *csd) {
 		if (color) {
 			gtk_signal_disconnect(GTK_OBJECT(csd->csel), csd->csel_changed_id);
 			gtk_color_selection_set_color(GTK_COLOR_SELECTION(csd->csel), color);
-			csd->csel_changed_id = gtk_signal_connect(GTK_OBJECT(csd->csel), "color-changed", colsel_color_changed, csd);
+			csd->csel_changed_id = gtk_signal_connect(GTK_OBJECT(csd->csel), "color-changed", G_CALLBACK(colsel_color_changed), csd);
 		} else {
 			tmpstr=NULL;
 		}
@@ -1075,7 +1075,7 @@ static void colsel_color_changed(GtkWidget *widget, Tcolsel *csd) {
 
 	gtk_signal_disconnect(GTK_OBJECT(csd->hexentry), csd->hex_changed_id);
 	gtk_entry_set_text(GTK_ENTRY(csd->hexentry), tmpstr);
-	csd->hex_changed_id = gtk_signal_connect(GTK_OBJECT(csd->hexentry), "changed", hexentry_color_changed, csd);
+	csd->hex_changed_id = gtk_signal_connect(GTK_OBJECT(csd->hexentry), "changed", G_CALLBACK(hexentry_color_changed), csd);
 	g_free(tmpstr);
 }
 
@@ -1091,7 +1091,7 @@ static Tcolsel *colsel_dialog(gchar *setcolor, gint modal, gint startpos, gint e
 	csd->startpos = startpos;
 	csd->endpos = endpos;
 	DEBUG_MSG("colsel_dialog, malloced at %p\n", csd);
-	csd->win = window_full(_("Bluefish: Select color"), GTK_WIN_POS_MOUSE, 5, colsel_destroy_lcb, csd);
+	csd->win = window_full(_("Bluefish: Select color"), GTK_WIN_POS_MOUSE, 5, G_CALLBACK(colsel_destroy_lcb), csd);
 	vbox = gtk_vbox_new(FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(csd->win), vbox);
 	csd->csel = gtk_color_selection_new();
@@ -1103,14 +1103,14 @@ static Tcolsel *colsel_dialog(gchar *setcolor, gint modal, gint startpos, gint e
 			this_color=NULL;
 		}
 	}
-	csd->csel_changed_id = gtk_signal_connect(GTK_OBJECT(csd->csel), "color-changed", colsel_color_changed, csd);
+	csd->csel_changed_id = gtk_signal_connect(GTK_OBJECT(csd->csel), "color-changed", G_CALLBACK(colsel_color_changed), csd);
 	gtk_box_pack_start(GTK_BOX(vbox), csd->csel, TRUE, TRUE, 0);
 
 	hbox = gtk_hbox_new(FALSE, 0);
 	gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 0);
 	
 	csd->hexentry = boxed_entry_with_text(this_color, 7, hbox);
-	csd->hex_changed_id = gtk_signal_connect(GTK_OBJECT(csd->hexentry), "changed", hexentry_color_changed, csd);
+	csd->hex_changed_id = gtk_signal_connect(GTK_OBJECT(csd->hexentry), "changed", G_CALLBACK(hexentry_color_changed), csd);
 	csd->websafe = boxed_checkbut_with_value(_("websafe"), 0, hbox);
 
 	hbox = gtk_hbutton_box_new();
@@ -1118,10 +1118,10 @@ static Tcolsel *colsel_dialog(gchar *setcolor, gint modal, gint startpos, gint e
 	gtk_button_box_set_spacing(GTK_BUTTON_BOX(hbox), 1);
 	gtk_box_pack_start(GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
 
-	but = bf_stock_ok_button(colsel_ok_clicked_lcb, csd);
+	but = bf_stock_ok_button(G_CALLBACK(colsel_ok_clicked_lcb), csd);
 	gtk_window_set_default(GTK_WINDOW(csd->win), but);
 	gtk_box_pack_start(GTK_BOX(hbox), but, TRUE, TRUE, 0);
-	but = bf_stock_cancel_button(colsel_cancel_clicked_lcb, csd);
+	but = bf_stock_cancel_button(G_CALLBACK(colsel_cancel_clicked_lcb), csd);
 	gtk_box_pack_start(GTK_BOX(hbox), but, TRUE, TRUE, 0);
 	gtk_widget_show_all(csd->win);
 	DEBUG_MSG("colsel_dialog, finished\n");
@@ -1200,7 +1200,7 @@ GtkWidget *color_but_new(GtkWidget * which_entry, GtkWidget * win)
 	GtkWidget *color_but;
 
 	color_but = gtk_button_new_from_stock(GTK_STOCK_SELECT_COLOR);
-	gtk_signal_connect(GTK_OBJECT(color_but), "clicked", color_but_clicked, which_entry);
+	gtk_signal_connect(GTK_OBJECT(color_but), "clicked", G_CALLBACK(color_but_clicked), which_entry);
 	gtk_widget_show(color_but);
 	return color_but;
 }

@@ -49,6 +49,7 @@
 #include "gui.h" /* switch_to_document_by_pointer() */
 #include "gtk_easy.h"         /* a lot of GUI functions */
 #include "snr2.h"
+#include "highlight.h" /* doc_highlight_full() */
 
 typedef enum { string, upcase, lowcase }replacetypes;
 
@@ -514,7 +515,6 @@ Tsearch_result replace_doc_once(gchar *pattern, gint is_regex, gint is_case_sens
 void replace_doc_multiple(gchar *pattern, gint is_regex, gint is_case_sens, gint startpos, gint endpos, gchar *replace_string, Tdocument *doc, replacetypes replacetype) {
 /* endpos -1 means do till end */
 	gchar *fulltext;
-	gchar *onechar;
 	Tsearch_result result;
 	gint in_buf_offset=0;
 	gint buf_text_offset=startpos;
