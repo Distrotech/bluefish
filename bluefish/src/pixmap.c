@@ -298,6 +298,10 @@ GtkWidget *new_pixmap(gint type) {
 	case 205:
 		data = close_small;
 		break;
+	case 300:
+		data = nothing;
+		break;
+
 	default:
 		g_print("new_pixmap, unknown pixmap type %d requested\n", type);
 		exit(1);

@@ -23,7 +23,7 @@
 #include "bluefish.h"
 #include "gtk_easy.h"
 #include "bf_lib.h"
-/* #include "pixmaps.h" */
+#include "pixmap.h"
 
 #ifdef WIN32
 #define DIRSTR "\\"
@@ -175,6 +175,7 @@ GtkWidget *combo_with_popdown(gchar * setstring, GList * which_list, gint editab
 	if (editable == 0) {
 		gtk_editable_set_editable(GTK_EDITABLE(GTK_ENTRY(GTK_COMBO(returnwidget)->entry)), FALSE);
 	}
+	gtk_combo_disable_activate(GTK_COMBO(returnwidget));
 	return returnwidget;
 }
 
@@ -562,13 +563,15 @@ static void file_but_clicked_full_lcb(GtkWidget * widget, GtkWidget * which_entr
 
 GtkWidget *file_but_new(GtkWidget * which_entry, GtkWidget * win, gint full_pathname)
 {
-	GtkWidget *pixmap, *file_but;
+/*	GtkWidget *pixmap;*/
+	GtkWidget *file_but;
 
 /*	file_but = gtk_button_new();
-	pixmap = new_pixmap(177, win->window, NULL);
+	pixmap = new_pixmap(177);
 	gtk_widget_show(pixmap);
-	gtk_container_add(GTK_CONTAINER(file_but), pixmap);*/
-	file_but = gtk_button_new_with_label("file..");
+	gtk_container_add(GTK_CONTAINER(file_but), pixmap);
+	file_but = gtk_button_new_with_label("file..");*/
+	file_but = gtk_button_new_from_stock(GTK_STOCK_OPEN);
 	if (full_pathname == 1) {
 		g_signal_connect(G_OBJECT(file_but), "clicked", G_CALLBACK(file_but_clicked_full_lcb), which_entry);
 	} else {
