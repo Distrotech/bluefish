@@ -598,7 +598,9 @@ void applylevel(Tdocument * doc, GList * level_list, gint start, gint end, regma
 					}
 				}
 			} else {
-				/* so there is no match at all eh? invalidate this pattern ?? */
+				/* so there is no match at all eh? invalidate this pattern ??
+				this part is VERY PROBABLY NOT CORRECT YET
+				 */
 				patmatch[lowest_patmatch].pmatch[0].rm_so = -1;
 			}
 		}
