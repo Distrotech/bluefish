@@ -2150,3 +2150,31 @@ void word_count_cb (gpointer callback_data,guint callback_action,GtkWidget *widg
 	statusbar_message (wc_message, 5000);
 	g_free (wc_message);
 }
+
+void doc_indent_selection(Tdocument *doc, gboolean unindent) {
+	GtkTextIter itstart,itend;
+	if (gtk_text_buffer_get_selection_bounds(doc->buffer,&itstart,&itend)) {
+		GtkTextMark *end;
+		gboolean firstrun=TRUE;;
+		/* we have a selection, now we loop trough the characters, and for every newline
+		we add or remove a tab, we set the end with a mark */
+		end = gtk_text_buffer_create_mark(doc->buffer,NULL,&itend,TRUE);
+		while(gtk_text_iter_compare(&itstart,&itend) < 0) {
+			if ((firstrun && gtk_text_iter_starts_line(&itstart)) || gtk_text_iter_forward_line(&itstart)) {
+				GtkTextMark *cur;
+				firstrun = FALSE;
+				cur = gtk_text_buffer_create_mark(doc->buffer,NULL,&itstart,TRUE);
+				if (unindent) {
+					g_print("doc_indent_selection, unindent is not yet implemented\n");
+				} else { /* indent */
+					gtk_text_buffer_insert(doc->buffer,&itstart,"\t",1);
+				}
+				gtk_text_buffer_get_iter_at_mark(doc->buffer,&itstart,cur);
+				gtk_text_buffer_get_iter_at_mark(doc->buffer,&itend,end);
+				gtk_text_buffer_delete_mark(doc->buffer,cur);
+			}
+			DEBUG_MSG("doc_indent_selection, itstart at %d, itend at %d\n",gtk_text_iter_get_offset(&itstart),gtk_text_iter_get_offset(&itend));
+		}
+		gtk_text_buffer_delete_mark(doc->buffer,end);
+	}
+}
