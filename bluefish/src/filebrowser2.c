@@ -1609,10 +1609,16 @@ static void fb2_dir_v_drag_data_received(GtkWidget * widget, GdkDragContext * co
 	g_free(stringdata);
 }
 
-void fb2_set_filter_from_session(Tbfwin *bfwin) {
-	Tfilebrowser2 *fb2 = bfwin->fb2;
-	if (bfwin->session->last_filefilter) {
-		fb2->curfilter = find_filter_by_name(bfwin->session->last_filefilter);
+void fb2_update_settings_from_session(Tbfwin *bfwin) {
+	if (bfwin->fb2) {
+		Tfilebrowser2 *fb2 = bfwin->fb2;
+		if (bfwin->session->last_filefilter) {
+			fb2->curfilter = find_filter_by_name(bfwin->session->last_filefilter);
+		}
+		fb2->filebrowser_show_hidden_files = bfwin->session->filebrowser_show_hidden_files;
+		fb2->filebrowser_show_backup_files = bfwin->session->filebrowser_show_backup_files;
+		gtk_tree_model_filter_refilter(GTK_TREE_MODEL_FILTER(fb2->dir_tfilter));
+		gtk_tree_model_filter_refilter(GTK_TREE_MODEL_FILTER(fb2->file_lfilter));
 	}
 }
 
@@ -1632,11 +1638,8 @@ GtkWidget *fb2_init(Tbfwin *bfwin) {
 	bfwin->fb2 = fb2;
 	fb2->bfwin = bfwin;
 	DEBUG_MSG("fb2_init, started for bfwin=%p, fb2=%p\n",bfwin,fb2);
-	fb2->filebrowser_show_hidden_files = bfwin->session->filebrowser_show_hidden_files;
-	fb2->filebrowser_show_backup_files = bfwin->session->filebrowser_show_backup_files;
 
-	fb2_set_filter_from_session(bfwin);
-
+	fb2_update_settings_from_session(bfwin);
 	vbox = gtk_vbox_new(FALSE, 0);
 
 	fb2->dirmenu_m = GTK_TREE_MODEL(gtk_list_store_new(3,G_TYPE_STRING,G_TYPE_BOOLEAN,G_TYPE_POINTER));
