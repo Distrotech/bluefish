@@ -241,6 +241,7 @@ void project_open_from_file(Tbfwin *bfwin, gchar *fromfilename) {
 
 	prj = g_new0(Tproject,1);
 	prj->session = g_new0(Tsessionvars,1);
+	DEBUG_MSG("project_open_from_file, project=%p, session=%p\n",prj,prj->session);
 	prj->bookmarkstore = gtk_tree_store_new(2, G_TYPE_STRING, G_TYPE_POINTER); 
 	retval = rcfile_parse_project(prj, fromfilename);
 	if (!retval) {
@@ -248,6 +249,7 @@ void project_open_from_file(Tbfwin *bfwin, gchar *fromfilename) {
 		g_free(prj);
 		return;
 	}
+	DEBUG_MSG("project_open_from_file, filebrowser_show_backup_files=%d\n",prj->session->filebrowser_show_backup_files);
 	add_to_recent_list(bfwin,fromfilename, FALSE, TRUE);
 	prj->filename = g_strdup(fromfilename);
 	DEBUG_MSG("project_open_from_file, basedir=%s\n",prj->basedir);

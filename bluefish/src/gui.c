@@ -253,6 +253,7 @@ GtkWidget *left_panel_build(Tbfwin *bfwin) {
 	gtk_notebook_set_tab_hborder(GTK_NOTEBOOK(left_notebook), 0);
 	gtk_notebook_set_tab_vborder(GTK_NOTEBOOK(left_notebook), 0);
 	gtk_notebook_popup_enable(GTK_NOTEBOOK(left_notebook));
+	DEBUG_MSG("left_panel_build, building left panel for bfwin %p\n",bfwin);
 /*	fileb = filebrowser_init(bfwin);*/
 	fref = fref_gui(bfwin);
 	bmarks = bmark_gui(bfwin);
@@ -1718,7 +1719,7 @@ Tbfwin *gui_new_window(GList *filenames, Tproject *project) {
 		bfwin->project = project;
 		bfwin->session = project->session;
 		bfwin->bookmarkstore = project->bookmarkstore;
-		DEBUG_MSG("gui_new_window, bfwin=%p, bfwin->bookmarkstore=%p (from project %p)\n",bfwin,bfwin->bookmarkstore,project);
+		DEBUG_MSG("gui_new_window, bfwin=%p, bfwin->session=%p, bfwin->bookmarkstore=%p (from project %p)\n",bfwin,bfwin->session,bfwin->bookmarkstore,project);
 	} else {
 		bfwin->session = main_v->session;
 		bfwin->bookmarkstore = main_v->bookmarkstore;
