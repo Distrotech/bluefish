@@ -916,16 +916,28 @@ static void doc_buffer_insert_text_lcb(GtkTextBuffer *textbuffer,GtkTextIter * i
 }
 
 static void doc_buffer_insert_text_after_lcb(GtkTextBuffer *textbuffer,GtkTextIter * iter,gchar * string,gint len, Tdocument * doc) {
+	gboolean do_highlighting = FALSE;
 	/* highlighting stuff */
 	DEBUG_MSG("doc_buffer_insert_text_after_lcb, started\n");
-	if (doc->highlightstate && string && doc->hl->update_chars) {
-		gint i=0;
-		while (string[i] != '\0') {
-			if (strchr(doc->hl->update_chars, string[i])) {
-				doc_highlight_line(doc);
-				break;
+	if (doc->highlightstate && string && doc->hl) {
+		if (strlen(doc->hl->update_chars)==0 ) {
+			do_highlighting = TRUE;
+		} else {
+			gint i=0;
+			while (string[i] != '\0') {
+				if (strchr(doc->hl->update_chars, string[i])) {
+					do_highlighting = TRUE;
+					break;
+				}
+				i++;
 			}
-			i++;
+		}
+		if (do_highlighting) {
+			if (main_v->props.cont_highlight_full) {
+				doc_highlight_full(doc);
+			} else {
+				doc_highlight_line(doc);
+			}
 		}
 	}
 
@@ -961,17 +973,29 @@ static void doc_buffer_insert_text_after_lcb(GtkTextBuffer *textbuffer,GtkTextIt
 
 static void doc_buffer_delete_range_lcb(GtkTextBuffer *textbuffer,GtkTextIter * itstart,GtkTextIter * itend, Tdocument * doc) {
 	gchar *string;
-	gint i=0;
+	gboolean do_highlighting=FALSE;
 	string = gtk_text_buffer_get_text(doc->buffer, itstart, itend, FALSE);
 	if (string) {
 		/* highlighting stuff */
-		if (doc->hl->update_chars) {
-			while (string[i] != '\0') {
-				if (strchr(doc->hl->update_chars, string[i])) {
-					doc_highlight_line(doc);
-					break;
+		if (doc->highlightstate && string && doc->hl) {
+			if (strlen(doc->hl->update_chars)==0 ) {
+				do_highlighting = TRUE;
+			} else {
+				gint i=0;
+				while (string[i] != '\0') {
+					if (strchr(doc->hl->update_chars, string[i])) {
+						do_highlighting = TRUE;
+						break;
+					}
+					i++;
 				}
-				i++;
+			}
+			if (do_highlighting) {
+				if (main_v->props.cont_highlight_full) {
+					doc_highlight_full(doc);
+				} else {
+					doc_highlight_line(doc);
+				}
 			}
 		}
 		/* undo_redo stuff */
@@ -994,7 +1018,6 @@ static void doc_buffer_delete_range_lcb(GtkTextBuffer *textbuffer,GtkTextIter * 
 			}
 			doc_unre_add(doc, string, start, end, UndoDelete);
 		}
-
 		g_free(string);
 	}
 	doc_set_modified(doc, 1);

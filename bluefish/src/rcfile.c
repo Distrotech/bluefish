@@ -366,6 +366,7 @@ static GList *props_init_main(GList * config_rc)
 	init_prop_string(&config_rc, &main_v->props.spell_default_lang, "spell_default_lang:", "en");
 #endif /* HAVE_LIBASPELL */
 	init_prop_integer   (&config_rc, &main_v->props.default_advanced_snr,"default_advanced_snr:",0);
+	init_prop_integer(&config_rc, &main_v->props.cont_highlight_full, "cont_highlight_full:", 1);
 
 	/* not yet in use */
 	init_prop_string(&config_rc, &main_v->props.image_editor_cline, "image_editor_command:", "gimp-remote -n \"%s\"&");
@@ -390,7 +391,7 @@ static GList *props_init_main(GList * config_rc)
 	init_prop_integer(&config_rc, &main_v->props.force_def_style, "force_white_background:", 1);
 	init_prop_integer(&config_rc, &main_v->props.drop_at_drop_pos, "drop_at_drop_position:", 0);
 	init_prop_integer(&config_rc, &main_v->props.link_management, "link_management:", 1);
-	init_prop_integer(&config_rc, &main_v->props.cont_highlight_full, "cont_highlight_full:", 0);
+	
 	init_prop_integer(&config_rc, &main_v->props.cont_highlight_update, "continuous_highlight_update:", 1);
 	init_prop_string(&config_rc, &main_v->props.html_ver, "used_html_version:", "HTML 4.0 Transitional");
 	/* key conversion */
