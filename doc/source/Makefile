@@ -3,6 +3,8 @@ XSLTPROC = xsltproc
 ## You shouldn't normally need to edit anything below here.
 SHELL = /bin/sh
 
+VERSION=1.0-1
+BOOK_PREFIX=bluefish-doc
 BOOK_TOP=.
 BOOK_DIR=${BOOK_TOP}
 OUTPUT_DIR=..
@@ -11,12 +13,16 @@ OUTPUT_FIG=${OUTPUT_DIR}/figures
 SOURCE_IMG=${BOOK_DIR}/imgs
 OUTPUT_IMG=${OUTPUT_DIR}/imgs
 TOOLS_DIR=../../../bluefish-doctools
+XSL_DIR=${TOOLS_DIR}/tools/xsl
+TARBALL_DIR=${OUTPUT_DIR}/tarballs
 BOOK_HTML_TARGET=${OUTPUT_DIR}/book.html
 BOOK_FO_TARGET=${OUTPUT_DIR}/book.fo
 BOOK_XML_A4= ${TOOLS_DIR}/titlepage-a4.xml
 BOOK_XSL_A4= ${TOOLS_DIR}/titlepage-a4.xsl
 BOOK_XML_US= ${TOOLS_DIR}/titlepage-us.xml
 BOOK_XSL_US= ${TOOLS_DIR}/titlepage-us.xsl
+BOOK_HTML_XML= ${TOOLS_DIR}/titlepage-html.xml
+BOOK_HTML_XSL= ${TOOLS_DIR}/titlepage-html.xsl
 BOOK_LAYER_A4=${TOOLS_DIR}/pdf-ps-a4.xsl
 BOOK_LAYER_US=${TOOLS_DIR}/pdf-ps-us.xsl
 BOOK_TEMPLATE= ${XSL_DIR}/template/titlepage.xsl
@@ -26,9 +32,9 @@ BOOK_PS_A4_TARGET=${OUTPUT_DIR}/book-a4.ps
 BOOK_PS_US_TARGET=${OUTPUT_DIR}/book-us.ps
 BOOK_XML_SOURCE=${BOOK_DIR}/book.xml
 
-XSL_DIR=${TOOLS_DIR}/tools/xsl
 XSL_FO=${XSL_DIR}/fo/docbook.xsl
 XSL_HTML_CHUNK=${TOOLS_DIR}/db2html.xsl
+XSL_HTML=${TOOLS_DIR}/db2longhtml.xsl
 
 RUN_FOP=${TOOLS_DIR}/tools/bin/run-fop.sh
 
@@ -39,14 +45,26 @@ cp ${SOURCE_FIG}/*.png ${OUTPUT_FIG}/
 cp ${SOURCE_IMG}/*.png ${OUTPUT_IMG}/ 
 endef
 
-all: html pspdf-a4 pspdf-us
+all: html-all pspdf-a4 pspdf-us
 
-all-a4: html pspdf-a4
+all-a4: html-all pspdf-a4
 
-all-us: html pspdf-us
+all-us: html-all pspdf-us
 
 html: clean-html  validate-all
-	${XSLTPROC} -output ${OUTPUT_DIR}/ ${XSL_HTML_CHUNK} ${BOOK_XML_SOURCE}
+	${XSLTPROC} -output ${BOOK_HTML_XSL} ${BOOK_TEMPLATE} ${BOOK_HTML_XML}
+	${XSLTPROC} -output ${OUTPUT_DIR}/ ${XSL_HTML_CHUNK} ${BOOK_XML_SOURCE}	
+	${move-pictures}
+
+html-one-big: clean-html validate-all
+	${XSLTPROC} -output ${BOOK_HTML_XSL} ${BOOK_TEMPLATE} ${BOOK_HTML_XML}
+	${XSLTPROC} -output ${BOOK_HTML_TARGET} ${XSL_HTML} ${BOOK_XML_SOURCE}
+	${move-pictures}
+	
+html-all: clean-html validate-all
+	${XSLTPROC} -output ${BOOK_HTML_XSL} ${BOOK_TEMPLATE} ${BOOK_HTML_XML}
+	${XSLTPROC} -output ${OUTPUT_DIR}/ ${XSL_HTML_CHUNK} ${BOOK_XML_SOURCE}	
+	${XSLTPROC} -output ${BOOK_HTML_TARGET} ${XSL_HTML} ${BOOK_XML_SOURCE}
 	${move-pictures}
 	
 pdf-a4: clean-pdf-a4 validate-all fo-a4
@@ -86,7 +104,7 @@ fo-us:
 validate-all:
 	xmllint --noout --valid ${BOOK_XML_SOURCE}
 
-clean-html:
+clean-html: clean-xsl-html
 	rm -f ${OUTPUT_DIR}/*.html
 	rm -rf ${OUTPUT_FIG}
 	rm -rf ${OUTPUT_IMG}
@@ -99,6 +117,9 @@ clean-xsl-a4:
 		
 clean-xsl-us:
 	rm -f ${BOOK_XSL_US}
+	
+clean-xsl-html:
+	rm -f ${BOOK_HTML_XSL}
 
 clean-pdf-a4: clean-fo clean-xsl-a4
 	rm -f ${BOOK_PDF_A4_TARGET}
@@ -126,11 +147,44 @@ clean-all-us: clean-html clean-pspdf-us
 
 clean-all: clean-html clean-pspdf-a4 clean-pspdf-us
 
-## Obsolete
-## XSL_HTML=${TOOLS_DIR}/db2longhtml.xsl
-
-## RUN_XALAN=${TOOLS_DIR}/tools/bin/run-xalan.sh
-
-## html-one-big: clean-html validate-all
-##	${XSLTPROC} -output ${BOOK_HTML_TARGET} ${XSL_HTML} ${BOOK_XML_SOURCE}
-##	${move-pictures}
+tarball-all: all
+	mkdir -p ${TARBALL_DIR}/${BOOK_PREFIX}-html-chunked-${VERSION}/imgs
+	mkdir -p ${TARBALL_DIR}/${BOOK_PREFIX}-html-chunked-${VERSION}/figures
+	mkdir -p ${TARBALL_DIR}/${BOOK_PREFIX}-html-bigfile-${VERSION}/imgs
+	mkdir -p ${TARBALL_DIR}/${BOOK_PREFIX}-html-bigfile-${VERSION}/figures
+	cp ${OUTPUT_DIR}/*.p* ${TARBALL_DIR}
+	cp ${OUTPUT_DIR}/book.html ${TARBALL_DIR}/${BOOK_PREFIX}-html-bigfile-${VERSION}
+	cp ${OUTPUT_DIR}/manual.css ${TARBALL_DIR}/${BOOK_PREFIX}-html-bigfile-${VERSION}
+	cp ${OUTPUT_DIR}/imgs/*.png ${TARBALL_DIR}/${BOOK_PREFIX}-html-bigfile-${VERSION}/imgs
+	cp ${OUTPUT_DIR}/figures/*.png ${TARBALL_DIR}/${BOOK_PREFIX}-html-bigfile-${VERSION}/figures
+	cp ${OUTPUT_DIR}/*.html ${TARBALL_DIR}/${BOOK_PREFIX}-html-chunked-${VERSION}
+	cp ${OUTPUT_DIR}/manual.css ${TARBALL_DIR}/${BOOK_PREFIX}-html-chunked-${VERSION}
+	cp ${OUTPUT_DIR}/imgs/*.png ${TARBALL_DIR}/${BOOK_PREFIX}-html-chunked-${VERSION}/imgs
+	cp ${OUTPUT_DIR}/figures/*.png ${TARBALL_DIR}/${BOOK_PREFIX}-html-chunked-${VERSION}/figures
+	cd ${TARBALL_DIR}; \
+	mv book-a4.pdf ${BOOK_PREFIX}-pdf-a4-${VERSION}.pdf; \
+	tar -czvf ${BOOK_PREFIX}-pdf-a4-${VERSION}.pdf.tar ${BOOK_PREFIX}-pdf-a4-${VERSION}.pdf; \
+	bzip2 -f ${BOOK_PREFIX}-pdf-a4-${VERSION}.pdf.tar; 
+	cd ${TARBALL_DIR}; \
+	mv book-us.pdf ${BOOK_PREFIX}-pdf-us-${VERSION}.pdf; \
+	tar -czvf ${BOOK_PREFIX}-pdf-us-${VERSION}.pdf.tar ${BOOK_PREFIX}-pdf-us-${VERSION}.pdf; \
+	bzip2 -f ${BOOK_PREFIX}-pdf-us-${VERSION}.pdf.tar;
+	cd ${TARBALL_DIR}; \
+	mv book-a4.ps ${BOOK_PREFIX}-ps-a4-${VERSION}.ps; \
+	tar -czvf ${BOOK_PREFIX}-ps-a4-${VERSION}.ps.tar ${BOOK_PREFIX}-ps-a4-${VERSION}.ps; \
+	bzip2 -f ${BOOK_PREFIX}-ps-a4-${VERSION}.ps.tar; 
+	cd ${TARBALL_DIR}; \
+	mv book-us.ps ${BOOK_PREFIX}-ps-us-${VERSION}.ps; \
+	tar -czvf ${BOOK_PREFIX}-ps-us-${VERSION}.ps.tar ${BOOK_PREFIX}-ps-us-${VERSION}.ps; \
+	bzip2 -f ${BOOK_PREFIX}-ps-us-${VERSION}.ps.tar; 
+	cd ${TARBALL_DIR}; \
+	tar -czvf ${BOOK_PREFIX}-html-bigfile-${VERSION}.tar ${BOOK_PREFIX}-html-bigfile-${VERSION}/; \
+	bzip2 -f ${BOOK_PREFIX}-html-bigfile-${VERSION}.tar;
+	cd ${TARBALL_DIR}; \
+	rm -f ${BOOK_PREFIX}-html-chunked-${VERSION}/book.html; \
+	tar -czvf ${BOOK_PREFIX}-html-chunked-${VERSION}.tar ${BOOK_PREFIX}-html-chunked-${VERSION}/; \
+	bzip2 -f ${BOOK_PREFIX}-html-chunked-${VERSION}.tar;
+	rm -f ${TARBALL_DIR}/*.pdf
+	rm -f ${TARBALL_DIR}/*.ps
+	rm -Rf ${TARBALL_DIR}/${BOOK_PREFIX}-html-bigfile-${VERSION}
+	rm -Rf ${TARBALL_DIR}/${BOOK_PREFIX}-html-chunked-${VERSION}
