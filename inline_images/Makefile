@@ -91,6 +91,15 @@ TOOLBAR = \
 	paste paste.png \
 	php3 php3.png \
 	preferences preferences.png \
+	prefseditor prefs-editor.png \
+	prefsfiletypes prefs-filetypes.png \
+	prefsinterface prefs-interface.png \
+	prefsexternal prefs-external.png \
+	prefshtml prefs-html.png \
+	prefsoutputparser prefs-outputparser.png \
+	prefsfiles prefs-files.png \
+	prefsimages prefs-images.png \
+ 	prefssyntax prefs-syntax.png \
 	print print.png \
 	quick_start quick_start.png \
 	redo redo.png \

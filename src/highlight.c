@@ -1017,7 +1017,12 @@ void doc_highlight_full(Tdocument * doc) {
 		return;
 	} else {
 		gchar *buf;
-		guint charcount = gtk_text_buffer_get_char_count(doc->buffer);
+		guint charcount;
+/*		GdkCursor *cursor = gdk_cursor_new(GDK_WATCH);
+		gdk_window_set_cursor(main_v->main_window->window, cursor);
+		gdk_window_set_cursor(main_v->current_document->view->window, cursor);
+		flush_queue();*/
+		charcount = gtk_text_buffer_get_char_count(doc->buffer);
 		doc_remove_highlighting(doc);
 #ifdef HL_TIMING
 		timing_init();
@@ -1048,6 +1053,8 @@ void doc_highlight_full(Tdocument * doc) {
 		hl_profiling_print(doc);
 #endif
 		doc->need_highlighting = FALSE;
+/*		gdk_window_set_cursor(main_v->main_window->window, NULL);
+		gdk_cursor_unref(cursor);*/
 	}
 }
 

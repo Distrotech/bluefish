@@ -762,7 +762,8 @@ static void open_recent_file_cb(GtkWidget *widget, gpointer nothing) {
 	gchar *filename = GTK_LABEL(GTK_BIN(widget)->child)->label;
 	DEBUG_MSG("open_recent_file_cb, started, filename is %s\n", filename);
 
-	/* Now, let's check if that file still exists and is readable, before loading it */
+	statusbar_message(_("Loading file(s)..."),2000);
+	flush_queue();
 	if (!doc_new_with_file(filename, FALSE)) {
 		gchar *message = g_strconcat(_("Could not open file\n"), filename, NULL);
 		error_dialog("Bluefish error", message);

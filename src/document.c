@@ -1374,6 +1374,8 @@ gint doc_close(Tdocument * doc, gint warn_only)
 }
 
 static void doc_close_but_clicked_lcb(GtkWidget *wid, gpointer data) {
+	/* to avoid that the button is still visible while the document is half closed, we hide the button*/
+	gtk_widget_hide(wid);
 	doc_close(data, 0);
 }
 
@@ -1849,6 +1851,13 @@ void file_open_cb(GtkWidget * widget, gpointer data) {
 	}
 	if (!tmplist) {
 		return;
+	}
+	{
+		gint len = g_list_length(tmplist);
+		gchar *message = g_strdup_printf(_("Loading %d file(s)..."), len);
+		statusbar_message(message,2000+len*50);
+		g_free(message);
+		flush_queue();
 	}
 	docs_new_from_files(tmplist);
 	free_stringlist(tmplist);

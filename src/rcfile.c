@@ -17,6 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
+/* #define DEBUG */
 
 #include <gtk/gtk.h>
 #include <sys/stat.h>
@@ -431,7 +432,7 @@ static GList *arraylist_load_defaults(GList *thelist, const gchar *filename, con
 	}
 	if (name) {
 		deflist = get_list(filename,NULL,TRUE);
-		tmplist = g_list_last(deflist); /* to keep the same order as in the config file we have to run this list in reverse order*/
+		tmplist = g_list_first(deflist);
 		while (tmplist) {
 			gchar **tmparr = tmplist->data;
 			DEBUG_MSG("arraylist_load_defaults, testing if %s should be added (requested=%s)\n",tmparr[0],name);
@@ -439,7 +440,7 @@ static GList *arraylist_load_defaults(GList *thelist, const gchar *filename, con
 				DEBUG_MSG("adding %s to thelist\n",tmparr[0]);
 				thelist = g_list_append(thelist, duplicate_stringarray(tmparr));
 			}
-			tmplist = g_list_previous(tmplist);
+			tmplist = g_list_next(tmplist);
 		}
 		free_arraylist(deflist);
 	} else {
@@ -447,8 +448,6 @@ static GList *arraylist_load_defaults(GList *thelist, const gchar *filename, con
 	}
 	return thelist;
 }
-
-
 
 void rcfile_parse_main(void)
 {
@@ -490,7 +489,7 @@ void rcfile_parse_main(void)
 		if (filename) {
 			main_v->props.encodings = arraylist_load_defaults(main_v->props.encodings,filename,NULL);
 		} else {
-			g_print("Unable to find 'encodings.default'\n");
+			g_print("Unable to find '"PKGDATADIR"encodings.default'\n");
 		}
 	}
 	if (main_v->props.outputbox==NULL) {
@@ -517,7 +516,7 @@ void rcfile_parse_main(void)
 		if (filename) {
 			main_v->props.filetypes = arraylist_load_defaults(main_v->props.filetypes,filename,NULL);
 		} else {
-			g_print("Unable to find 'filetypes.default'\n");
+			g_print("Unable to find '"PKGDATADIR"filetypes.default'\n");
 		}
 	}
 	if (main_v->props.filefilters == NULL) {
@@ -548,7 +547,7 @@ static void load_default_highlightingpatterns(gchar *name) {
 	if (filename) {
 		main_v->props.highlight_patterns = arraylist_load_defaults(main_v->props.highlight_patterns,filename,name);
 	} else {
-		g_print("Unable to find 'highlighting.default'\n");
+		g_print("Unable to find '"PKGDATADIR"highlighting.default'\n");
 	}
 }
 
@@ -574,13 +573,7 @@ void rcfile_parse_highlighting(void) {
 	filename = g_strconcat(g_get_home_dir(), "/.bluefish/highlighting", NULL);
 	if (!parse_config_file(highlighting_configlist, filename)) {
 		/* init the highlighting in some way? */
-		gchar *types[] = {"php", "html", "c", "java", "xml","cfml","python", NULL};
-		gint i = 0;
-		while (types[i]) {
-			DEBUG_MSG("rcfile_parse_highlighting, type %s not found, reloading from default\n", types[i]);
-			load_default_highlightingpatterns(types[i]);
-			i++;
-		}
+		load_default_highlightingpatterns(NULL);
 		save_config_file(highlighting_configlist, filename);
 		DEBUG_MSG("rcfile_parse_highlighting, done saving\n");
 	} else {
