@@ -2694,10 +2694,16 @@ width="80" height="53" border="0"&gt;&lt;/a&gt;
 <itemizedlist spacing="compact">
 <listitem><para>The <guimenu>Outputbox</guimenu> submenu for text filters. Its name is derived from the output box shown at the bottom of the document window, where you can see the output of the process,  when activating it.</para></listitem>
 <listitem><para>The <guimenu>Commands</guimenu> submenu for external programs. They are launched as subprocesses, hence you need to detach them to avoid freezing bluefish until the external program quits.</para></listitem>
-<listitem><para>All other items are browsers</para></listitem>
+<listitem><para>All other items are browsers.</para></listitem>
 </itemizedlist>
-<para>Typically all programs and filters apply to the current document. Nevertheless is possible to invoke a program without applying it to the current document. On the contrary, it is not possible to apply text filters to anything but the current document.
-<figure id="figure-external-menu">
+<variablelist>
+<varlistentry>
+<term><emphasis>Note</emphasis></term>
+<listitem>
+<para>Typically all programs and filters apply to the current document. Nevertheless it is possible to invoke a program without applying it to the current document. On the contrary, it is not possible to apply text filters to anything but the current document.</para>
+</listitem>
+</varlistentry></variablelist>
+<para><figure id="figure-external-menu">
 <title id="figure-external-menu-title">Bluefish External Menu</title>
 <screenshot><mediaobject>
 <imageobject>
@@ -2708,18 +2714,136 @@ width="80" height="53" border="0"&gt;&lt;/a&gt;
 </textobject>
 </mediaobject></screenshot>
 </figure></para>
-<para>To add items to this menu, you use the <guilabel>External programs</guilabel> tab of the <guilabel>Edit Preferences</guilabel> panel:<figure id="figure-preferences-external-tab">
-<title id="figure-preferences-external-tab-title">External Programs tab in Preferences</title>
+<para>Customization of the <guimenu>External</guimenu> menu is performed in different parts of the <guilabel>Edit Preferences</guilabel> dialog:</para>
+<itemizedlist spacing="compact">
+<listitem>
+<para>Items in the <guimenu>Outputbox</guimenu> submenu in the <guilabel>Output parsers</guilabel> tab.</para>
+</listitem>
+<listitem>
+<para>Items in the <guimenu>Commands</guimenu> submenu in the <guilabel>Utilities and filters</guilabel> part at the bottom of the <guilabel>External programs</guilabel> tab.</para>
+</listitem>
+<listitem>
+<para>Top level items in the <guilabel>Browsers</guilabel> part at the top of the <guilabel>External programs</guilabel> tab.</para>
+</listitem>
+</itemizedlist>
+
+<sect3 id="external-browsers">
+<title>Customizing browsers</title>
+<para>The <guilabel>Browsers</guilabel> panel in Preferences shows the items in the same order as in the <guimenu>External</guimenu> menu:
+<figure id="figure-preferences-browsers-panel">
+<title id="figure-preferences-browsers-panel-title">The Browsers panel in Preferences</title>
 <screenshot><mediaobject>
 <imageobject>
-<imagedata fileref="figures/preferences_external_tab.png" format="PNG"/>
+<imagedata fileref="figures/preferences_browsers_panel.png" format="PNG"/>
 </imageobject>
 <textobject>
-<phrase>A screen shot of the Bluefish 1.0 External Programs tab of the Edit Preferences dialog</phrase>
+<phrase>A screen shot of the Bluefish 1.0 Browsers panel in the Edit Preferences dialog</phrase>
 </textobject>
 </mediaobject></screenshot>
 </figure></para>
-<para>The Panel is divided into two partsYou can integrate external commands such as browsers, or text filters. If you want to use for example a sed command as a filter, you can add it like this to the external commands and filters (in the preferences dialog): sed -e 'some sed command' &gt; '%f' &lt; '%s'</para>
+<variablelist><varlistentry>
+<term><emphasis>Note</emphasis></term>
+<listitem>
+<para>The first line in the panel will be the browser selected when clicking on the <guilabel>View in browser</guilabel> button in the main tool bar.</para>
+</listitem>
+</varlistentry></variablelist>
+<para>If you want to change the order of the browsers, apply the following steps:</para>
+<procedure id="external-browsers-order">
+<title>Changing the order of browsers items</title>
+<step>
+<para>Click on the <guilabel>Preferences...</guilabel> icon in the main tool bar to acceed the <guilabel>Edit preferences</guilabel> panel.</para>
+</step>
+<step>
+<para>Click on the <guilabel>External programs</guilabel> tab to display the <guilabel>Browsers</guilabel> panel.</para>
+</step>
+<step>
+<para>Click near the left border of the browser's line you want to move. The whole browser's line will be highlighted:
+<figure id="figure-order-browsers-select">
+<title id="figure-order-browsers-select-title">Selecting the browser's line to be moved</title>
+<screenshot><mediaobject>
+<imageobject>
+<imagedata fileref="figures/order_browsers_select.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>A screen shot showing how to select the browser's line to be moved</phrase>
+</textobject>
+</mediaobject></screenshot>
+</figure></para>
+</step>
+<step>
+<para>While maintaining the click, drag the selected line over another line, until you reach the place you want, so that the selected line covers entirely the latter one. The cursor will change its appearance and the dragged line will be shown as a framed line:
+<figure id="figure-order-browsers-drag">
+<title id="figure-order-browsers-drag-title">Dragging the browser's line</title>
+<screenshot><mediaobject>
+<imageobject>
+<imagedata fileref="figures/order_browsers_drag.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>A screen shot showing the line's dragging</phrase>
+</textobject>
+</mediaobject></screenshot>
+</figure></para>
+<para><variablelist><varlistentry>
+<term><emphasis>Note</emphasis></term>
+<listitem>
+<para>To drag a line to the end of the list, drag it until a thin line appears below the last item:
+<figure id="figure-order-browsers-drag-bottom">
+<title id="figure-order-browsers-drag-bottom-title">Dragging the browser's line to the bottom</title>
+<screenshot><mediaobject>
+<imageobject>
+<imagedata fileref="figures/order_browsers_drag_bottom.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>A screen shot showing how to drag the line to the bottom of the list</phrase>
+</textobject>
+</mediaobject></screenshot>
+</figure></para>
+</listitem>
+</varlistentry></variablelist></para>
+<para><variablelist><varlistentry>
+<term><emphasis>Tip</emphasis></term>
+<listitem>
+<para>If you change your mind, drag the line over its original place and release the mouse button. There will be no change.</para>
+</listitem>
+</varlistentry></variablelist></para>
+</step>
+<step>
+<para>Release the mouse button to drop the line at the desired place.</para>
+</step>
+<step>
+<para>Click on the <guibutton>Apply</guibutton> button to validate the change and click on the <guibutton>OK</guibutton> button to close the <guilabel>Edit preferences</guilabel> panel.</para></step>
+</procedure>
+<para>If you want to customize one of the browsers supplied by default, use the following procedure:</para>
+<procedure id="external-browsers-customize">
+<title>Customizing an existent browser</title>
+<step>
+<para>Click on the <guilabel>Preferences...</guilabel> icon in the main tool bar to acceed the <guilabel>Edit preferences</guilabel> panel.</para>
+</step>
+<step>
+<para>Click on the <guilabel>External programs</guilabel> tab to display the <guilabel>Browsers</guilabel> panel.</para>
+</step>
+<step>
+<para> </para>
+</step>
+</procedure>
+<para>Though nothing impedes you to put any command (not necessary a browser) in the panel, you may want to avoid to put it at the top range, since it will be somewhat strange to click on <guilabel>View in browser</guilabel> to launch <command>abs</command> for example.</para>
+</sect3>
+
+<sect3 id="external-commands">
+<title>Customizing Commands menu</title>
+<para>To add items to the <menuchoice><guimenu>External</guimenu><guisubmenu>Commands</guisubmenu></menuchoice> submenu, you use the <guilabel>External programs</guilabel> tab of the <guilabel>Edit Preferences</guilabel> panel:
+<figure id="figure-preferences-utilities-panel">
+<title id="figure-preferences-utilities-panel-title">Utilities and Filters panel in Preferences</title>
+<screenshot><mediaobject>
+<imageobject>
+<imagedata fileref="figures/preferences_utilities_panel.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>A screen shot of the Bluefish 1.0 Utilities and Filters panel in Preferences</phrase>
+</textobject>
+</mediaobject></screenshot>
+</figure></para>
+<para>You can integrate external commands such as browsers, or text filters. If you want to use for example a sed command as a filter, you can add it like this to the external commands and filters (in the preferences dialog): sed -e 'some sed command' &gt; '%f' &lt; '%s'</para>
 <para>To add items to the external menu:</para>
 <orderedlist>
 <listitem><para>Edit &gt;Preferences</para></listitem><listitem><para>Choose the "External Programs" tab.</para>
@@ -2733,6 +2857,10 @@ width="80" height="53" border="0"&gt;&lt;/a&gt;
 </listitem>
 </orderedlist>
 <para>I WILL ADD AN EXAMPLE HERE LATER</para>
+</sect3>
+
+<sect3 id="external-outputbox">
+<title>Customizing Ouputbox menu</title>
 <para>Items within External &gt; Outputbox allow for programs to give feedback by opening an output box within Bluefish's main window. To create an Outputbox menu item:</para> <orderedlist>
 <listitem>
 <para>Edit &gt; Preferences</para>
@@ -2770,6 +2898,8 @@ width="80" height="53" border="0"&gt;&lt;/a&gt;
 </listitem>
 </varlistentry>
 </variablelist>
+</sect3>
+
 </sect2>
 
 </sect1>

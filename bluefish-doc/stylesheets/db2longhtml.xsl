@@ -1,8 +1,8 @@
 <?xml version='1.0'?>
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-                version='1.0'
-                xmlns="http://www.w3.org/TR/xhtml1/transitional"
-                exclude-result-prefixes="#default">
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
+	version='1.0' 
+	xmlns="http://www.w3.org/TR/xhtml1/transitional" 
+	exclude-result-prefixes="#default">
 <xsl:import href="http://docbook.sourceforge.net/release/xsl/current/html/docbook.xsl"/>
 <!-- <xsl:import href="../xsl/html/docbook.xsl"/> -->
 <xsl:import href="titlepage-html.xsl"/>
@@ -10,6 +10,10 @@
 <xsl:param name="use.extensions" select="'1'"></xsl:param>
 <!-- For revision history -->
 <xsl:param name="tablecolumns.extension" select="'1'"></xsl:param>
+<!-- Define the output encoding as UTF-8 -->
+<xsl:output method="html"
+	encoding="UTF-8"
+	indent="no"/>
 <!-- Insert list of procedures in toc -->
 <xsl:param name="generate.toc">
 book      toc,title,figure,example,procedure

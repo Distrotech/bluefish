@@ -27,23 +27,29 @@ I. PRIMER
 II. REQUIREMENTS
 
 
-1. Fetch XSL stylesheets for Docbook and place them in xsl
+1. Get DocBook 4.3
+
+	Fetch the distribution for your system and install it.
+	
+	
+2. Get XSL stylesheets for Docbook
 
    The "Docbook Open Repository" on Sourceforge has a large collection
-   of XSL stylesheets that specifically operate on Docbook.  Download
-   and install the latest 'docbook-xsl' package from this page:
+   of XSL stylesheets that specifically operate on Docbook.  
+   
+   If the version 1.67.2 is not already installed on your system, download
+   and install it from this page:
   
       http://sourceforge.net/project/showfiles.php?group_id=21935
 
-   Download docbook-xsl-1.56.1.tar.gz (or later), unpack it, then
-   rename the unpacked directory to xsl, something like this:
+   Unpack it in bluefish-doc.
 
-   The default build process expects to the stylesheets to be in
-   xsl/.  If you already have them installed elsewhere on your
-   system, you can change the variable XSL_DIR in Makefile.
+   The build process checks if you have a docbook-xsl directory in 
+   bluefish-doc. If this is the case, it uses it. Otherwise it uses the normal 
+   mechanism.
 
 
-2. Use XSLT to transform the book.
+3. Use XSLT to transform the book.
 
    XSLT applies an .xsl stylesheet to an .xml file, and produces some
    new markup document.
@@ -60,14 +66,14 @@ II. REQUIREMENTS
      appropriate OS binary package. 
      
     
-3. Use xmllint to validate the xml files
+4. Use xmllint to validate the xml files
 
 	It should be available on all systems, presumably on SourceForge.
 	
 	Install it, it is used before all xml files are processed. 
 	
 	
-4. Use FOP to produce PS and PDF files
+5. Use FOP to produce PS and PDF files
 
 	This is optional, unless you run make all, or want to produce
 	PDF, or PS version of the book.
@@ -111,7 +117,9 @@ II. REQUIREMENTS
 III. PRODUCING OUTPUT VERSIONS OF THE DOCS
      
 You have the following options to produce the documentation 
-from the  doc/src directory:
+from the  bluefish-doc/src directory, it is installed in the 
+directory bluefish-doc/built-doc, automatically created by the 
+built process:
 	
 	make html 
 	
@@ -200,6 +208,9 @@ The following option produces tarballs:
 	
 		Produces tarballs suitable to put on the Bluefish web site or for 
 		individual use. 
+		
+		They are installed in the tarballs directory, automatically created 
+		by the built process.
 		
 
 III. HACKING ON THE DOCS

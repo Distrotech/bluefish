@@ -10,7 +10,9 @@
 <xsl:param name="use.extensions" select="'1'"></xsl:param>
 <!-- For revision history -->
 <xsl:param name="tablecolumns.extension" select="'1'"></xsl:param>
-<!-- Insert list of procedures in toc -->
+<!-- Define the output encoding as UTF-8 -->
+<xsl:param name="chunker.output.encoding" select="'UTF-8'"/>
+ <!-- Insert list of procedures in toc -->
 <xsl:param name="generate.toc">
 book      toc,title,figure,example,procedure
 </xsl:param>
