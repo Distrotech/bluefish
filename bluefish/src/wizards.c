@@ -52,6 +52,7 @@ static void table_wizard_ok_lcb(GtkWidget * widget, Thtml_diag *dg) {
 		}
 	}
 	tablerow = g_strconcat(tablerowstart, rowdata, cap("</TR>\n"), NULL);
+	g_free(rowdata);
 	tablecontent = bf_str_repeat(tablerow, rows);
 	g_free(tablerow);
 	finalstring = g_strconcat(cap("<TABLE>\n"), tablecontent, cap("</TABLE>"), NULL);
