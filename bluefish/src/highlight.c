@@ -17,6 +17,13 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
+#define HL_TIMING
+
+#ifdef HL_TIMING
+#include <sys/times.h>
+#include <unistd.h>
+#endif
+
 #include <gtk/gtk.h>
 #include <sys/types.h>
 #include <regex.h> /* regexec() */
@@ -30,13 +37,11 @@
 #define NUM_SUBMATCHES 20
 
 typedef struct {
-	gint so;
-	gint eo;
-	regmatch_t par_pmatch[NUM_SUBMATCHES];
+	regmatch_t pmatch[NUM_SUBMATCHES];
+	gint pmatch_offset;
 	gboolean is_match;
-	gboolean invalidate_match;
+	Tpattern *pat;
 } Tpatmatch;
-
 
 /*********************************/
 /* initializing the highlighting */
@@ -59,31 +64,36 @@ static void pattern_free(Tpattern * pat)
 	g_free(pat);
 }
 
-static gboolean add_pattern_to_name(GList *patternlist, gchar *parentname,Tpattern * pat)
+static gboolean add_pattern_to_name(GList * patternlist, regex_t *parentmatch,
+							 Tpattern * pat)
 {
 	Tpattern *parpat;
 	gboolean resval = FALSE;
 	GList *tmplist;
 
+#ifdef DEBUG
+	g_assert(pat);
+	g_assert(patternlist);
+#endif
 	tmplist = g_list_first(patternlist);
 	while (tmplist) {
-		if (((Tpattern *) tmplist->data)->childs) {
-			gboolean tmpresval;
-
-			tmpresval =
-				add_pattern_to_name(((Tpattern *) tmplist->data)->childs,
-									parentname, pat);
-			if (!resval && tmpresval)
+		if (tmplist->data != pat) {
+			if (((Tpattern *) tmplist->data)->childs) {
+				gboolean tmpresval;
+	
+				tmpresval =
+					add_pattern_to_name(((Tpattern *) tmplist->data)->childs,
+										parentmatch, pat);
+				if (!resval && tmpresval)
+					resval = TRUE;
+			}
+			if (regexec(parentmatch, (gchar *) ((Tpattern *) tmplist->data)->name,0, NULL,0) == 0) {
+				parpat = (Tpattern *) tmplist->data;
+				parpat->childs = g_list_append(parpat->childs, pat);
 				resval = TRUE;
-		}
-		if (strcmp
-			((gchar *) ((Tpattern *) tmplist->data)->name,
-			 parentname) == 0) {
-			parpat = (Tpattern *) tmplist->data;
-			parpat->childs = g_list_append(parpat->childs, pat);
-			resval = TRUE;
-			if (pat->mode == 3) {
-				parpat->need_subpatterns = TRUE;
+				if (pat->mode == 3) {
+					parpat->need_subpatterns = TRUE;
+				}
 			}
 		}
 		tmplist = g_list_next(tmplist);
@@ -92,7 +102,7 @@ static gboolean add_pattern_to_name(GList *patternlist, gchar *parentname,Tpatte
 }
 
 static void hl_compile_pattern(Thighlightset *hlset, gchar * name,
-						gint case_insens, gint submatch_children_only, gchar * pat1, gchar * pat2,
+						gint case_insens, gchar * pat1, gchar * pat2,
 						gchar * pat3, gint mode, gchar * parent,
 						gchar * fgcolor, gchar * bgcolor, gint weight,
 						gint style)
@@ -249,13 +259,7 @@ static void hl_compile_pattern(Thighlightset *hlset, gchar * name,
 			break;
 		}
 		pat->tag = gtk_text_tag_new(NULL);
-		if (submatch_children_only) {
-			pat->submatch_children_only = TRUE;
-			hlset->nosubmatch_tags = g_list_append(hlset->nosubmatch_tags, pat->tag);
-		} else {
-			pat->submatch_children_only = FALSE;
-		}
-
+	
 		if (strlen(fgcolor)) {
 			g_object_set(pat->tag, "foreground", fgcolor, NULL);
 		}
@@ -281,16 +285,26 @@ static void hl_compile_pattern(Thighlightset *hlset, gchar * name,
 		/*
 		 * now add the pattern to the hierarchy 
 		 */
-
-		if (parent && strlen(parent)) {
-			if (!add_pattern_to_name(hlset->highlightlist, parent, pat)) {
-				g_print("could NOT add child %s to parent %s\n", name,
-						parent);
+		{
+			regex_t parentmatch;
+			gboolean retval1=FALSE, retval2;
+			if (parent && strlen(parent)) {
+				regcomp(&parentmatch, parent, REG_EXTENDED|REG_NOSUB);
+			} else {
+				regcomp(&parentmatch, "^top$", REG_EXTENDED|REG_NOSUB);
+			}
+			if (regexec(&parentmatch, "top", 0, NULL, 0)==0) {
+				hlset->highlightlist = g_list_append(hlset->highlightlist, pat);	
+				retval1 = TRUE;
+			}
+			retval2 = add_pattern_to_name(hlset->highlightlist, &parentmatch, pat);
+			if (!retval1 && !retval2) {
+				g_print("could NOT add child %s to parent %s\n", name, parent);
 				pattern_free(pat);
 			}
-		} else {
-			hlset->highlightlist = g_list_append(hlset->highlightlist, pat);
+			regfree(&parentmatch);
 		}
+		
 	}
 }
 
@@ -326,7 +340,7 @@ void hl_init() {
 		Thighlightset *hlset;
 		strarr = (gchar **)tmplist->data;
 #ifdef DEBUG
-		if (!strarr || !strarr[0] || !strarr[1]) {
+		if (!strarr || !strarr[0] || !strarr[1] || !strarr[2]) {
 			g_print("hl_init is perhaps not yet finished??\n");
 			exit(1);
 		}
@@ -334,7 +348,7 @@ void hl_init() {
 		hlset = g_new0(Thighlightset, 1);
 		hlset->type = g_strdup(strarr[0]);
 		hlset->extensions = g_strsplit(strarr[1], ":", 20);
-		
+		hlset->update_chars = g_strdup(strarr[2]);
 		main_v->hlsetlist = g_list_append(main_v->hlsetlist, hlset);
 		tmplist = g_list_next(tmplist);
 	}
@@ -348,9 +362,9 @@ void hl_init() {
 		strarr = (gchar **)tmplist->data;
 
 		hlset = hl_get_highlightset_by_type(strarr[0]);
-		hl_compile_pattern(hlset, strarr[1], atoi(strarr[2]), atoi(strarr[3]), strarr[4]
-			, strarr[5], strarr[6], atoi(strarr[7]), strarr[8], strarr[9]
-			, strarr[10], atoi(strarr[11]), atoi(strarr[12]));
+		hl_compile_pattern(hlset, strarr[1], atoi(strarr[2]), strarr[3]
+			, strarr[4], strarr[5], atoi(strarr[6]), strarr[7], strarr[8]
+			, strarr[9], atoi(strarr[10]), atoi(strarr[11]));
 		tmplist = g_list_next(tmplist);
 	}
 
@@ -381,233 +395,188 @@ Thighlightset *hl_get_highlightset_by_filename(gchar *filename) {
 /* applying the highlighting */
 /*****************************/
 
-static void applylist(Tdocument * doc, GList * list, gint start, gint end,
-			   regmatch_t par_pmatch[])
-{
-	if (list) {
+void applylevel(Tdocument * doc, GList * level_list, gint start, gint end,
+			   regmatch_t par_pmatch[], gchar *buf) {
+#ifdef HL_DEBUG
+	g_print("applylevel, started on doc %p from %d to %d\n", doc, start, end);
+#endif
+	if (!level_list || (start == end)) {
+		g_print("applylevel, no list or start==end\n");
+		return;
+	} else {
 		gchar *string;
-		GList *tmplist;
-
-		{
+		gint offset = 0;
+		Tpatmatch *patmatch;
+		gint numpats;
+		/* first get the buffer we will work on this level */
+		if (buf) {
+			string = buf;
+		} else {
 			GtkTextIter itstart, itend;
 
-			gtk_text_buffer_get_iter_at_offset(doc->buffer, &itstart,
-											   start);
+			gtk_text_buffer_get_iter_at_offset(doc->buffer, &itstart,start);
 			gtk_text_buffer_get_iter_at_offset(doc->buffer, &itend, end);
 
-			string =
-				gtk_text_buffer_get_text(doc->buffer, &itstart, &itend,
-										 FALSE);
+			string = gtk_text_buffer_get_text(doc->buffer, &itstart, &itend,FALSE);
 #ifdef HL_DEBUG
 			g_print("len van string =%d\n", strlen(string));
 #endif
 		}
-
-		tmplist = g_list_first(list);
-		while (tmplist) {
-			Tpatmatch patmatch;
-			Tpattern *pat = (Tpattern *) tmplist->data;
-			gint offset = 0;
-
-			patmatch.is_match = TRUE;
-
-			while (patmatch.is_match) {
-				patmatch.is_match = FALSE;
-#ifdef HL_DEBUG
-				g_print
-					("applylist, pattern=%s (mode %d), start=%d, offset=%d, end=%d\n",
-					 pat->name, pat->mode, start, offset, end);
-#endif
-				switch (pat->mode) {
-				case 0:
-
-					break;
-				case 1:
-					{
-						gint res1, res2;
-
-						if (pat->need_subpatterns) {
-							regmatch_t pmatch[NUM_SUBMATCHES];
-
-							res1 =
-								regexec(&pat->rpat1, &string[offset],
-										NUM_SUBMATCHES, pmatch, 0);
-							if (0 == res1) {
-								gint i = 1;
-
-								patmatch.so =
-									pmatch[0].rm_so + start + offset;
-								while (pmatch[i].rm_so > -1
-									   && i < NUM_SUBMATCHES) {
-									patmatch.par_pmatch[i].rm_so =
-										pmatch[i].rm_so - pmatch[0].rm_so;
-									patmatch.par_pmatch[i].rm_eo =
-										pmatch[i].rm_eo - pmatch[0].rm_so;
-#ifdef HL_DEBUG
-									g_print
-										("set subpat %d, so=%d, eo=%d\n",
-										 i,
-										 patmatch.
-										 par_pmatch[i].rm_so,
-										 patmatch.par_pmatch[i].rm_eo);
-#endif
-									i++;
-								}
-#ifdef HL_DEBUG
-								g_print("set subpat %d, so=-1, eo=-1\n",
-										i);
-#endif
-								patmatch.par_pmatch[i].rm_so = -1;
-								patmatch.par_pmatch[i].rm_eo = -1;
-							}
-#ifdef HL_DEBUG
-//                      g_print("welsub, res1=%d, patmatch.so=%d\n", res1, patmatch.so);
-#endif
-						} else {
-							regmatch_t pmatch[1];
-
-							res1 =
-								regexec(&pat->rpat1, &string[offset], 1,
-										pmatch, 0);
-							if (0 == res1) {
-								patmatch.so =
-									pmatch[0].rm_so + start + offset;
-							}
-#ifdef HL_DEBUG
-//                      g_print("nosub res1=%d, pmatch[0].rm_so=%d, patmatch.so=%d\n", res1, pmatch[0].rm_so,patmatch.so);
-#endif
-						}
-						if (0 == res1) {
-							regmatch_t pmatch[1];
-
-							res2 =
-								regexec(&pat->rpat2,
-										&string[patmatch.so + 1 - start],
-										1, pmatch, 0);
-							if (0 == res2) {
-								patmatch.eo =
-									pmatch[0].rm_eo + patmatch.so + 1;
-								patmatch.is_match = TRUE;
-							}
-						}
-					}
-					break;
-				case 2:
-					{
-						gint res1;
-
-						if (pat->need_subpatterns) {
-							regmatch_t pmatch[NUM_SUBMATCHES];
-
-							res1 =
-								regexec(&pat->rpat1, &string[offset],
-										NUM_SUBMATCHES, pmatch, 0);
-							if (0 == res1) {
-								gint i = 1;
-
-								patmatch.so =
-									pmatch[0].rm_so + start + offset;
-								patmatch.eo =
-									pmatch[0].rm_eo + start + offset;
-								while (pmatch[i].rm_so > -1
-									   && i < NUM_SUBMATCHES) {
-									patmatch.par_pmatch[i].rm_so =
-										pmatch[i].rm_so - pmatch[0].rm_so;
-									patmatch.par_pmatch[i].rm_eo =
-										pmatch[i].rm_eo - pmatch[0].rm_so;
-#ifdef HL_DEBUG
-									g_print
-										("set subpat %d, so=%d, eo=%d\n",
-										 i,
-										 patmatch.
-										 par_pmatch[i].rm_so,
-										 patmatch.par_pmatch[i].rm_eo);
-#endif
-									i++;
-								}
-#ifdef HL_DEBUG
-								g_print("set subpat %d, so=-1, eo=-1\n",
-										i);
-#endif
-								patmatch.par_pmatch[i].rm_so = -1;
-								patmatch.par_pmatch[i].rm_eo = -1;
-							}
-						} else {
-							regmatch_t pmatch[1];
-
-							res1 =
-								regexec(&pat->rpat1, &string[offset], 1,
-										pmatch, 0);
-							if (0 == res1) {
-								patmatch.so =
-									pmatch[0].rm_so + start + offset;
-								patmatch.eo =
-									pmatch[0].rm_eo + start + offset;
-							}
-						}
-						patmatch.is_match = (0 == res1);
-					}
-					break;
-				case 3:
-					if (offset == 0) {
-						gint num = atoi(pat->spat1);
-
-						patmatch.so = par_pmatch[num].rm_so + start;
-						patmatch.eo = par_pmatch[num].rm_eo + start;
-						if (par_pmatch[num].rm_so > -1) {
-							patmatch.is_match = TRUE;
-						}
-					}
-					break;
-				}
-#ifdef HL_DEBUG
-				g_print("has match=%d (from %d to %d)\n",
-						patmatch.is_match, patmatch.so, patmatch.eo);
-#endif
-				if (patmatch.is_match) {
-					GtkTextIter itstart, itend;
-#ifdef HL_DEBUG
-					g_print("coloring so=%d, eo=%d to tag %d\n",
-							patmatch.so, patmatch.eo, pat->style);
-#endif
-					gtk_text_buffer_get_iter_at_offset(doc->buffer,
-													   &itstart,
-													   patmatch.so);
-					{
-					/* perhaps we need to invalidate this match because the start is within a submatch_children_only pattern */
-					
-					
-					
-					}
-					gtk_text_buffer_get_iter_at_offset(doc->buffer, &itend,
-													   patmatch.eo);
-#ifdef HL_DEBUG
-					{
-						gchar *tmp = gtk_text_buffer_get_text(doc->buffer,
-															  &itstart,
-															  &itend,
-															  FALSE);
-
-						g_print("coloring '%s'\n", tmp);
-						g_free(tmp);
-					}
-#endif
-					gtk_text_buffer_apply_tag(doc->buffer, pat->tag,
-											  &itstart, &itend);
-
-					if (pat->childs) {
-						applylist(doc, pat->childs, patmatch.so,
-								  patmatch.eo, patmatch.par_pmatch);
-					}
-				}
-				offset = patmatch.eo - start;
+		{
+			GList *tmplist;
+			gint i=0;
+			numpats = g_list_length(level_list);
+			patmatch = g_new(Tpatmatch, numpats+1);
+			tmplist = g_list_first(level_list);
+			while (tmplist) {
+				patmatch[i].pat = (Tpattern *)tmplist->data;
+				tmplist = g_list_next(tmplist);
+				i++;
 			}
-			tmplist = g_list_next(tmplist);
+		}
+		/* search for the first match on all patterns */
+		{
+		gint i;
+		for (i=0;i<numpats;i++) {
+			if (patmatch[i].pat->mode == 3) {
+				gint num = atoi(patmatch[i].pat->spat1);
+				patmatch[i].pmatch[0].rm_so = par_pmatch[num].rm_so;
+				patmatch[i].pmatch[0].rm_eo = par_pmatch[num].rm_eo;
+				patmatch[i].pmatch[1].rm_so = -1;
+			} else {
+				gint res, nummatches;
+				nummatches = (patmatch[i].pat->need_subpatterns) ? NUM_SUBMATCHES : 1;
+				res = regexec(&patmatch[i].pat->rpat1, &string[offset],nummatches, patmatch[i].pmatch, 0);
+				if (res != 0) {
+					patmatch[i].pmatch[0].rm_so = -1;
+				}
+			}
+			patmatch[i].pmatch_offset = offset;
+#ifdef HL_DEBUG
+			g_print("applylevel, pat(%d) %s initial starts at %d\n", i, patmatch[i].pat->name, patmatch[i].pmatch[0].rm_so);
+#endif
+		}
+		}
+		
+		/* loop trough the text */
+		while (TRUE) { /* the break is done automatically when lowest_match_pat == NULL */
+			gint lowest_patmatch=-1;
+			{
+				gint i, lowest = end - start + 1;
+				for (i=0;i<numpats;i++) {
+					if (patmatch[i].pmatch[0].rm_so >=0 && (patmatch[i].pmatch[0].rm_so + patmatch[i].pmatch_offset) < lowest) {
+						lowest_patmatch = i;
+						lowest = patmatch[i].pmatch[0].rm_so + patmatch[i].pmatch_offset;
+					}
+				}
+			}
+			if (lowest_patmatch == -1) {
+#ifdef HL_DEBUG
+				g_print("applylevel, no lowest match anymore on this level, return!!\n");
+#endif
+				break;
+			}
+#ifdef HL_DEBUG
+			g_print("applylevel, pat(%d) %s has the lowest start %d (so=%d+offset=%d)\n", lowest_patmatch, patmatch[lowest_patmatch].pat->name, patmatch[lowest_patmatch].pmatch[0].rm_so + patmatch[lowest_patmatch].pmatch_offset, patmatch[lowest_patmatch].pmatch[0].rm_so, patmatch[lowest_patmatch].pmatch_offset);
+#endif
+			/* apply this match, if we can't find a ending match or so, we just set
+			 * the start to -1 so we will not use it anymore, and we set the start 
+			 * back to the current start */
+			switch (patmatch[lowest_patmatch].pat->mode) {
+			case 0:
+				g_print("pattern type 0 not yet implemented\n");
+			break;
+			case 1:
+				{
+					regmatch_t pmatch[1];
+					gint res2;
+#ifdef HL_DEBUG
+					g_print("type 1 2nd match: string from %d to end\n", patmatch[lowest_patmatch].pmatch[0].rm_so + patmatch[lowest_patmatch].pmatch_offset + 1);
+#endif
+					res2 = regexec(&patmatch[lowest_patmatch].pat->rpat2,&string[patmatch[lowest_patmatch].pmatch[0].rm_so + patmatch[lowest_patmatch].pmatch_offset + 1],1, pmatch, 0);
+					if (res2 == 0) {
+						patmatch[lowest_patmatch].pmatch[0].rm_eo = pmatch[0].rm_eo + patmatch[lowest_patmatch].pmatch[0].rm_so + 1;
+#ifdef HL_DEBUG
+						g_print("found match at %d, adding offset in string minus pmatch_offset %d to that\n", pmatch[0].rm_eo, patmatch[lowest_patmatch].pmatch[0].rm_so + 1);
+#endif
+						patmatch[lowest_patmatch].is_match = TRUE;
+					} else {
+						patmatch[lowest_patmatch].is_match = FALSE;
+					}
+				}
+			break;
+			case 2:
+			case 3:
+				patmatch[lowest_patmatch].is_match = TRUE;
+			break;
+			}
+			if (patmatch[lowest_patmatch].is_match) {
+				GtkTextIter itstart, itend;
+				gint istart, iend;
+				istart = start + patmatch[lowest_patmatch].pmatch[0].rm_so + patmatch[lowest_patmatch].pmatch_offset;
+				iend = start + patmatch[lowest_patmatch].pmatch[0].rm_eo + patmatch[lowest_patmatch].pmatch_offset;
+#ifdef HL_DEBUG
+				g_print("applylevel, coloring from %d to %d\n", istart, iend);
+#endif
+				gtk_text_buffer_get_iter_at_offset(doc->buffer,
+													   &itstart,istart);
+				gtk_text_buffer_get_iter_at_offset(doc->buffer, &itend,iend);
+				gtk_text_buffer_apply_tag(doc->buffer, patmatch[lowest_patmatch].pat->tag,
+											  &itstart, &itend);
+				if (patmatch[lowest_patmatch].pat->childs) {
+					if (patmatch[lowest_patmatch].pat->need_subpatterns) {
+						gint i=1;
+						while (patmatch[lowest_patmatch].pmatch[i].rm_so > 0) {
+#ifdef HL_DEBUG
+							g_print("before: subpattern i=%d has so=%d and eo=%d\n", i,patmatch[lowest_patmatch].pmatch[i].rm_so, patmatch[lowest_patmatch].pmatch[i].rm_eo);
+#endif
+							patmatch[lowest_patmatch].pmatch[i].rm_so -= (patmatch[lowest_patmatch].pmatch[0].rm_so);
+							patmatch[lowest_patmatch].pmatch[i].rm_eo -= (patmatch[lowest_patmatch].pmatch[0].rm_so);
+#ifdef HL_DEBUG
+							g_print("after: subpattern i=%d has so=%d and eo=%d\n", i,patmatch[lowest_patmatch].pmatch[i].rm_so, patmatch[lowest_patmatch].pmatch[i].rm_eo);
+#endif
+							i++;
+						}
+					}
+					applylevel(doc, patmatch[lowest_patmatch].pat->childs, istart,iend, patmatch[lowest_patmatch].pmatch, g_strndup(&string[istart-start], iend - istart));
+				}
+#ifdef HL_DEBUG
+				g_print("applylevel, offset was %d, and will be %d\n", offset, patmatch[lowest_patmatch].pmatch_offset + patmatch[lowest_patmatch].pmatch[0].rm_eo);
+#endif
+				offset = patmatch[lowest_patmatch].pmatch_offset + patmatch[lowest_patmatch].pmatch[0].rm_eo;
+
+				/* search for the next match for all patterns that did start < offset */
+				{ gint i;
+				for (i=0;i<numpats;i++) {
+					if (patmatch[i].pmatch[0].rm_so >= 0 && patmatch[i].pmatch[0].rm_so + patmatch[i].pmatch_offset < offset) {
+						/* re-search this pattern */
+						if (patmatch[i].pat->mode == 3) {
+							/* a mode 3 pattern has only one match every level */
+							patmatch[i].pmatch[0].rm_so = -1;
+						} else {
+							gint res1;
+							gint nummatches = (patmatch[i].pat->need_subpatterns) ? NUM_SUBMATCHES : 1;
+							res1 = regexec(&patmatch[i].pat->rpat1, &string[offset],nummatches, patmatch[i].pmatch, 0);
+							if (res1 != 0) {
+								patmatch[i].pmatch[0].rm_so = -1;
+							}
+							patmatch[i].pmatch_offset = offset;
+#ifdef HL_DEBUG
+							g_print("applylevel, pat(%d) %s now starts at %d (offset=%d)\n", i, patmatch[i].pat->name, patmatch[i].pmatch[0].rm_so, patmatch[i].pmatch_offset);
+#endif
+						}
+					}
+				}
+				}
+			} else {
+				/* so there is no match at all eh? invalidate this pattern ?? */
+				patmatch[lowest_patmatch].pmatch[0].rm_so = -1;
+			}
 		}
 		g_free(string);
+		g_free(patmatch);		
 	}
 }
-
 
 static void doc_remove_highlighting(Tdocument *doc) {
 	GtkTextIter itstart, itend;
@@ -622,6 +591,9 @@ void hl_reset_highlighting_type(Tdocument *doc, gchar *newfilename) {
 }
 
 void doc_highlight_full(Tdocument *doc) {
+#ifdef HL_TIMING
+	struct tms tms1, tms2;
+#endif
 	gint so = 0, eo = gtk_text_buffer_get_char_count(doc->buffer);
 	{
 		GtkTextIter itstart, itend;
@@ -631,54 +603,265 @@ void doc_highlight_full(Tdocument *doc) {
 		gtk_text_buffer_get_end_iter(doc->buffer, &itend);
 		gtk_text_buffer_remove_all_tags(doc->buffer, &itstart, &itend);
 	}
-	applylist(doc, doc->hl->highlightlist, so, eo, NULL);
+#ifdef HL_TIMING
+	times(&tms1);
+#endif
+	applylevel(doc, doc->hl->highlightlist, so, eo, NULL, NULL);
+#ifdef HL_TIMING
+	times(&tms2);
+	g_print("doc_highlight_full done, %d ms user-time needed for highlighting\n", (int) (double) ((tms2.tms_utime - tms1.tms_utime) * 1000 / sysconf(_SC_CLK_TCK)));
+#endif
+}
+
+static void remove_tag_by_list_in_region(Tdocument * doc, GList * patlist,
+										 GtkTextIter * itstart,
+										 GtkTextIter * itend)
+{
+	GList *tmplist = g_list_first(patlist);
+	/* remove all tags that are children of patlist */
+	while (tmplist) {
+		gtk_text_buffer_remove_tag(doc->buffer,
+								   ((Tpattern *) tmplist->data)->tag,
+								   itstart, itend);
+		if (((Tpattern *) tmplist->data)->childs) {
+			remove_tag_by_list_in_region(doc,
+										 ((Tpattern *) tmplist->data)->
+										 childs, itstart, itend);
+		}
+		tmplist = g_list_next(tmplist);
+	}
+}
+
+static Tpattern *find_pattern_by_tag(GList * parentlist, GtkTextTag * tag)
+{
+	GList *tmplist;
+
+	tmplist = g_list_first(parentlist);
+	while (tmplist) {
+		if (((Tpattern *) tmplist->data)->tag == tag) {
+			return (Tpattern *) tmplist->data;
+		}
+		tmplist = g_list_next(tmplist);
+	}
+	return NULL;
 }
 
 void doc_highlight_line(Tdocument * doc) {
+#ifdef HL_TIMING
+	struct tms tms1, tms2;
+#endif
+	gint so, eo;
+	Tpattern *pat = NULL;
+	GList *patternlist = doc->hl->highlightlist;
+	{
+		GtkTextIter itstart, itend, itsearch;
+		GSList *taglist = NULL, *slist;
+		GtkTextMark *mark = gtk_text_buffer_get_insert(doc->buffer);
+		gtk_text_buffer_get_iter_at_mark(doc->buffer, &itstart, mark);
+		/* move to the beginning of the line */
+		gtk_text_iter_set_line_offset(&itstart, 0);
+#ifdef DEBUG
+		g_print("doc_highlight_line, itstart is at %d\n", gtk_text_iter_get_offset(&itstart));
+#endif
+		gtk_text_buffer_get_iter_at_mark(doc->buffer, &itend, mark);
+/*		gtk_text_iter_forward_to_line_end(&itend);
+		gtk_text_iter_set_line_offset(&itend, 0);*/
+		gtk_text_iter_forward_line(&itend);
+		gtk_text_iter_set_line_offset(&itend, 0);
+#ifdef DEBUG
+		g_print("doc_highlight_line, itend is at %d\n", gtk_text_iter_get_offset(&itend));
+#endif
 
+		/* get all the tags that itstart is in */
+		taglist = gtk_text_iter_get_tags(&itstart);
+		/* find for every tag if it ends _after_ itend or not */
+		itsearch = itstart;
+		slist = taglist;
+		while (slist && slist->data) {
+			gboolean tag_found;
+#ifdef DEBUG
+			{
+				Tpattern *testpat;
+				testpat =
+					find_pattern_by_tag(patternlist,
+										GTK_TEXT_TAG(slist->data));
+				g_print("doc_highlight_line, testpat %p (%s) has tag %p\n",
+						testpat, testpat->name, testpat->tag);
+			}
+			{
+				gchar *test =
+					gtk_text_buffer_get_text(doc->buffer, &itstart, &itend,
+											 FALSE);
+				g_print("doc_highlight_line, current string=%s\n", test);
+			}
+#endif
+			/* if the tags ends at itstart there is no need to search forward to the end */
+			if (!gtk_text_iter_ends_tag
+				(&itstart, GTK_TEXT_TAG(slist->data))) {
+				g_print
+					("doc_highlight_line, looking for tag %p from so=%d to eo=%d\n",
+					 slist->data, gtk_text_iter_get_offset(&itstart),
+					 gtk_text_iter_get_offset(&itend));
+				tag_found =
+					gtk_text_iter_forward_to_tag_toggle(&itsearch,
+														GTK_TEXT_TAG
+														(slist->data));
+				if (!tag_found) {
+					g_print
+						("doc_highlight_line, very weird situation, the tag is atrted but it doesn't end ??\n");
+					exit(1);
+				} else {
+					g_print
+						("doc_highlight_line, tag %p found at itsearch=%d\n",
+						 slist->data, gtk_text_iter_get_offset(&itsearch));
+					if (gtk_text_iter_compare(&itsearch, &itend) > 0) {
+						/* both the start and endpoint are within this 
+						   tag --> pattern matching can start with this
+						   subpattern */
+
+						pat = find_pattern_by_tag(patternlist,
+												  GTK_TEXT_TAG(slist->
+															   data));
+						g_print
+							("found pattern %p (%s) with tag %p and childs %p\n",
+							 pat, pat->name, pat->tag, pat->childs);
+						if (pat && (pat->mode == 1 || pat->mode == 0)) {
+							gchar *string;
+							regmatch_t pmatch[1];
+							/* but first we do a quick test if the parent-pattern is indeed still valid */
+							string =
+								gtk_text_buffer_get_text(doc->buffer,
+														 &itstart, &itend,
+														 FALSE);
+							if (0 ==
+								regexec(&pat->rpat2, string, 1, pmatch,
+										0)) {
+								/* the current line does not have the start of the tag or the end of the tag, but now 
+								   it does have a match on the end pattern --> so the pattern should be invalidated */
+								pat = NULL;
+								g_print
+									("doc_highlight_line, a match of the endpattern is found on this line '%s', the pattern is invalidated\n",
+									 string);
+								itend = itsearch;
+								gtk_text_iter_backward_to_tag_toggle
+									(&itstart, slist->data);
+							}
+							g_free(string);
+						}
+						if (pat) {
+							/* what happens if patternlist = NULL ?
+							   that means we are inside a match without any subpatterns, but 
+							   perhaps the subpattern should be invalidated... hmm..
+							 */
+							patternlist = pat->childs;
+							g_print
+								("doc_highlight_line, patternlist to use is %p\n",
+								 patternlist);
+						}
+					} else {
+						/* this tag stops somewhere in the middle of the line, move 
+						   itstart to the beginning of this tag */
+						if (gtk_text_iter_begins_tag
+							(&itstart, GTK_TEXT_TAG(slist->data))) {
+							g_print
+								("doc_highlight_line, itstart at %d is already at the beginning of tag %p\n",
+								 gtk_text_iter_get_offset(&itstart),
+								 slist->data);
+						} else {
+							g_print
+								("doc_highlight_line, move itstart from %d to beginning of tag %p\n",
+								 gtk_text_iter_get_offset(&itstart),
+								 slist->data);
+							gtk_text_iter_backward_to_tag_toggle(&itstart,
+																 GTK_TEXT_TAG
+																 (slist->
+																  data));
+							g_print
+								("doc_highlight_line, itstart is set back to %d\n",
+								 gtk_text_iter_get_offset(&itstart));
+						}
+					}
+				}
+			}
+			itsearch = itstart;
+			slist = g_slist_next(slist);
+		}
+		g_slist_free(taglist);
+		/* we do need a function that removes some specific tags from the region */
+		remove_tag_by_list_in_region(doc, patternlist, &itstart, &itend);
+		so = gtk_text_iter_get_offset(&itstart);
+		eo = gtk_text_iter_get_offset(&itend);
+	}
+
+	if (patternlist) {
+		g_print("doc_highlight_line from so=%d to eo=%d\n", so, eo);
+#ifdef HL_TIMING
+		times(&tms1);
+#endif
+		applylevel(doc, patternlist, so, eo, NULL, NULL);
+#ifdef HL_TIMING
+		times(&tms2);
+		g_print
+			("doc_highlight_line done, %d ms user-time needed for highlighting\n",
+			 (int) (double) ((tms2.tms_utime -
+							  tms1.tms_utime) * 1000 /
+							 sysconf(_SC_CLK_TCK)));
+#endif
+
+	} else {
+		g_print
+			("doc_highlight_line, patternlist=NULL so we don't need highlighting\n");
+	}
 }
+
+
 
 void hl_reset_to_default() {
 	gchar **arr;
 	
-	arr = array_from_arglist("php", ".php:.php4", "iconlocation", NULL);
+	/* the default file types */
+	arr = array_from_arglist("php", ".php:.php4", " <>'\"/?$\t-{}[]{}\n;", "iconlocation", NULL);
 	main_v->props.filetypes = g_list_append(main_v->props.filetypes, arr);
-	arr = array_from_arglist("html", ".html:.htm:.shtml:.shtm", "iconlocation", NULL);
+	arr = array_from_arglist("html", ".html:.htm:.shtml:.shtm", "<> \n\"", "iconlocation", NULL);
 	main_v->props.filetypes = g_list_append(main_v->props.filetypes, arr);
-	arr = array_from_arglist("javascript", ".js", "iconlocation", NULL);
+	arr = array_from_arglist("javascript", ".js", "\n'\"", "iconlocation", NULL);
 	main_v->props.filetypes = g_list_append(main_v->props.filetypes, arr);
-	arr = array_from_arglist("xml", ".xml", "iconlocation", NULL);
+	arr = array_from_arglist("xml", ".xml", "<> \n\"", "iconlocation", NULL);
 	main_v->props.filetypes = g_list_append(main_v->props.filetypes, arr);
-	
-	arr = array_from_arglist("php", "html", "1", "0", "<((/)?[a-z]+)", "[^?-]>", "", "1", "", "#000077", "", "0", "0", NULL);
+
+	/* the default php pattern */
+	arr = array_from_arglist("php", "html", "1", "<((/)?[a-z0-9]+)", "[^?-]>", "", "1", "", "#000077", "", "0", "0", NULL);
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
-	arr = array_from_arglist("php", "html-tag", "1", "0", "1", "", "", "3", "html", "#550044", "", "2", "0", NULL);
+	arr = array_from_arglist("php", "html-tag", "1", "1", "", "", "3", "^html$", "#550044", "", "2", "0", NULL);
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
-	arr = array_from_arglist("php", "html-attrib", "1", "0", "([a-z]*=)(\"[^\"]*\")", "", "", "2", "html", "", "", "0", "0", NULL);
+	arr = array_from_arglist("php", "html-tag-table", "1", "^(/)?(table|td|tr|tbody)$", "", "", "2", "^html-tag$", "#5005AA", "", "0", "0", NULL);
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
-	arr = array_from_arglist("php", "html-attrib-sub2", "1", "0", "2", "", "", "3", "html-attrib", "#009900", "", "0", "0", NULL);
+	arr = array_from_arglist("php", "html-tag-special", "1", "^(/)?(img|a)$", "", "", "2", "^html-tag$", "#BB0540", "", "0", "0", NULL);
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
-	arr = array_from_arglist("php", "specialchar", "1", "0", "&[^;]*;", "", "", "2", "", "#999999", "", "2", "0", NULL);
+	arr = array_from_arglist("php", "html-attrib", "1", "([a-z]*=)(\"[^\"]*\")", "", "", "2", "^html$", "", "", "0", "0", NULL);
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
-	arr = array_from_arglist("php", "comment", "0", "1", "<!--", "-->", "", "1", "", "#AAAAAA", "", "1", "2", NULL);
+	arr = array_from_arglist("php", "html-attrib-sub2", "1", "2", "", "", "3", "^html-attrib$", "#009900", "", "0", "0", NULL);
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
-	arr = array_from_arglist("php", "php", "1", "0", "<\\?php", "\\?>", "", "1", "", "#0000FF", "", "0", "0", NULL);
+	arr = array_from_arglist("php", "specialchar", "1", "&[^;]*;", "", "", "2", "", "#999999", "", "2", "0", NULL);
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
-	arr = array_from_arglist("php", "php-keywords", "0", "0", "[\n\t ](return|goto|if|else|case|default|switch|break|continue|while|do|for|global|var|class|function)[\n\t ]", "", "", "2", "php", "#000000", "", "2", "0", NULL);
+	arr = array_from_arglist("php", "comment", "0", "<!--", "-->", "", "1", "", "#AAAAAA", "", "1", "2", NULL);
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
-	arr = array_from_arglist("php", "php-braces", "0", "0", "[{()}]", "", "", "2", "php", "#000000", "", "2", "0", NULL);
+	arr = array_from_arglist("php", "php", "1", "<\\?php", "\\?>", "", "1", "^(top|html|html-attrib-sub2)$", "#0000FF", "", "0", "0", NULL);
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
-	arr = array_from_arglist("php", "php-string-double", "0", "1", "\"", "\"", "", "1", "php", "#009900", "", "1", "1", NULL);
+	arr = array_from_arglist("php", "php-keywords", "0", "[\n\t ](return|goto|if|else|case|default|switch|break|continue|while|do|for|global|var|class|function)[\n\t ]", "", "", "2", "^php$", "#000000", "", "2", "0", NULL);
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
-	arr = array_from_arglist("php", "php-var", "1", "0", "\\$[a-z][][a-z0-9>_$-]*", "", "", "2", "php", "#CC0000", "", "2", "0", NULL);
+	arr = array_from_arglist("php", "php-braces", "0", "[{()}]", "", "", "2", "^php$", "#000000", "", "2", "0", NULL);
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
-	arr = array_from_arglist("php", "php-var-specialchars", "0", "0", "(\\[|\\]|->)", "", "", "2", "php-var", "#0000CC", "", "0", "0", NULL);
+	arr = array_from_arglist("php", "php-string-double", "0", "\"", "\"", "", "1", "^php$", "#009900", "", "1", "1", NULL);
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
-	arr = array_from_arglist("php", "php-string-single", "0", "1", "'", "'", "", "1", "php", "#009900", "", "1", "1", NULL);
+	arr = array_from_arglist("php", "php-var", "1", "\\$[a-z][][a-z0-9>_$-]*", "", "", "2", "^php$", "#CC0000", "", "2", "0", NULL);
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
-	arr = array_from_arglist("php", "php-comment-C", "0", "1", "/\\*", "\\*/", "", "1", "php", "#7777AA", "", "1", "2", NULL);
+	arr = array_from_arglist("php", "php-var-specialchars", "0", "(\\[|\\]|->)", "", "", "2", "^php-var$", "#0000CC", "", "0", "0", NULL);
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
-	arr = array_from_arglist("php", "php-comment-C++", "0", "1", "//[^\n]*\n", "", "", "2", "php", "#7777AA", "", "1", "2", NULL);
+	arr = array_from_arglist("php", "php-string-single", "0", "'", "'", "", "1", "^php$", "#009900", "", "1", "1", NULL);
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
-	DEBUG_MSG("hl_reset_to_default, done\n");
+	arr = array_from_arglist("php", "php-comment-C", "0", "/\\*", "\\*/", "", "1", "^php$", "#7777AA", "", "1", "2", NULL);
+	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
+	arr = array_from_arglist("php", "php-comment-C++", "0", "//[^\n]*\n", "", "", "2", "^php$", "#7777AA", "", "1", "2", NULL);
+	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);	DEBUG_MSG("hl_reset_to_default, done\n");
 }

@@ -67,7 +67,6 @@ typedef struct {
 	gint style;
 	GList *childs;
 	gboolean need_subpatterns;
-	gboolean submatch_children_only;
 	GtkTextTag *tag;
 } Tpattern;
 
@@ -76,7 +75,6 @@ typedef struct {
 	gchar **extensions;
 	gchar *update_chars;
 	GList *highlightlist;
-	GList *nosubmatch_tags; /* this list contains all tags from patterns that have submatch_children_only set */
 } Thighlightset;
 
 /*******************/
@@ -91,8 +89,8 @@ typedef struct {
 	gid_t owner_gid; /* group ID of owner */
 	mode_t mode; /* mode field in stat() format so any stat macro's will work*/
 	gint is_symlink; /* file is a symbolic link */
-	unsigned del_txt_id;
-	unsigned ins_txt_id;
+	gulong del_txt_id;
+	gulong ins_txt_id;
 	unre_t unre;
 	GtkWidget *view;
 	GtkWidget *tab_label;
