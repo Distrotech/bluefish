@@ -422,9 +422,11 @@ static GtkTreePath *return_path_from_filename(Tfilebrowser *filebrowser,gchar *t
 			}
 		}
 	} else { /* there is no showfulltree */
-		if (strcmp(this_filename,filebrowser->basedir)==0) {
+		gint basedirlen = strlen(filebrowser->basedir);
+		if (strncmp(this_filename,filebrowser->basedir,basedirlen)==0) {
 			prevlen = strlen(filebrowser->basedir);
 		} else {
+			DEBUG_MSG("return_path_from_filename, file %s is not in basedir %s, return NULL\n",this_filename,filebrowser->basedir);
 			return NULL;
 		}
 	}
