@@ -814,7 +814,7 @@ static void create_file_or_dir_ok_clicked_lcb(GtkWidget *widget, Tcfod *ws) {
 			newname = g_strconcat(ws->basedir,name, NULL);
 			DEBUG_MSG("create_file_or_dir_ok_clicked_lcb, newname=%s\n", newname);
 			if (file_exists_and_readable(newname)) {
-				error_dialog(_("Error creating path"),_("The specified pathname already exists."));
+				error_dialog(ws->filebrowser->bfwin->main_window,_("Error creating path"),_("The specified pathname already exists."));
 			} else {
 				if (ws->is_file) {
 					doc_new_with_new_file(ws->filebrowser->bfwin,newname);
@@ -964,7 +964,7 @@ static void filebrowser_rpopup_rename(Tfilebrowser *filebrowser) {
 		doc_save(tmpdoc, 1, 1);
 	} else {
 		/* Promt user, "File/Move To"-style. */
-		newfilename = ask_new_filename(oldfilename, 1);
+		newfilename = ask_new_filename(filebrowser->bfwin,oldfilename, 1);
 		if (newfilename) {
 			if(rename(oldfilename, newfilename) != 0) {
 				errmessage = g_strconcat(_("Could not rename\n"), oldfilename, NULL);
@@ -973,7 +973,7 @@ static void filebrowser_rpopup_rename(Tfilebrowser *filebrowser) {
 	} /* if(oldfilename is open) */
 
 	if (errmessage) {
-		error_dialog(errmessage, NULL);
+		error_dialog(filebrowser->bfwin->main_window,errmessage, NULL);
 		g_free(errmessage);
 	} else {
 		/* Refresh the appropriate parts of the filebrowser-> */
@@ -1014,7 +1014,7 @@ static void filebrowser_rpopup_delete(Tfilebrowser *filebrowser) {
 			gchar *label;
 			gint retval;
 			label = g_strdup_printf(_("Are you sure you want to\ndelete \"%s\" ?"), filename);
-			retval = multi_query_dialog(label, _("The file will be permanently deleted."), 0, 0, buttons);
+			retval = multi_query_dialog(filebrowser->bfwin->main_window,label, _("The file will be permanently deleted."), 0, 0, buttons);
 			g_free(label);
 			if (retval == 1) {
 				gchar *tmp, *dir;
