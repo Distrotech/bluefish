@@ -332,181 +332,543 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 		<para>
 			This section describes all the configure options available for bluefish.
 		</para>
-			<sect2 id="bluefish-ch-2-sect-5.1">
-				<title>I - Standard configuration flags</title>
+		<sect2 id="bluefish-ch-2-sect-5.1">
+			<title>Standard configuration flags</title>
+			<segmentedlist>
+				<?dbhtml list-presentation="table"?>
+				<title>Configuration:</title>
+				<seglistitem>
+					<seg>-h, --help</seg>
+					<seg>display this help and exit</seg>
+				</seglistitem>
+				<seglistitem>
+					<seg>--help=short</seg>
+					<seg>display options specific to this package</seg>
+				</seglistitem>
+				<seglistitem>
+					<seg>
+						--help=recursive
+					</seg>
+					<seg>
+						display the short help of all the included packages
+					</seg>
+				</seglistitem>
+				<seglistitem>
+					<seg>
+						-V, --version
+					</seg>
+					<seg>
+						display version information and exit
+					</seg>
+				</seglistitem>
+				<seglistitem>
+					<seg>
+						-q, --quiet, --silent
+					</seg>
+					<seg>
+						do not print `checking...' messages
+					</seg>
+				</seglistitem>
+				<seglistitem>
+					<seg>
+						--cache-file=FILE
+					</seg>
+				<seg>
+					cache test results in FILE [disabled by default]
+				</seg>
+				</seglistitem>
+				<seglistitem>
+					<seg>
+						-C, --config-cache
+					</seg>
+					<seg>
+						alias for `--cache-file=config.cache'
+					</seg>
+				</seglistitem>
+				<seglistitem>
+					<seg>
+						-n, --no-create
+					</seg>
+					<seg>
+						do not create output files
+					</seg>
+				</seglistitem>
+				<seglistitem>
+					<seg>
+						--srcdir=DIR
+					</seg>
+					<seg>
+						find the sources in DIR [configure dir or `..' by default]
+					</seg>
+				</seglistitem>
+			</segmentedlist>
+				
+			<segmentedlist>
+				<?dbhtml list-presentation="table"?>
+				<title>Installation directories:</title>
+				<seglistitem>
+					<seg>
+					--prefix=PREFIX
+					</seg>
+					<seg>
+					install architecture-independent files in PREFIX [/usr/local by default]
+					</seg>
+				</seglistitem>
+				<seglistitem>
+					<seg>
+					--exec-prefix=EPREFIX
+					</seg>
+					<seg>
+					install architecture-dependent files in EPREFIX [PREFIX by default]
+					</seg>
+				</seglistitem>
+			</segmentedlist>
+				
+			<para>
+				By default, `make install' will install all the files in `/usr/local/bin', `/usr/local/lib' etc.  You can specify an installation prefix other than `/usr/local' using `--prefix', for instance `--prefix=$HOME'.
+			</para>
+
+			<para>
+				For better control, use the options below.
+			</para>
+			
+			<segmentedlist>
+				<?dbhtml list-presentation="table"?>
+				<title>Fine tuning of the installation directories:</title>
+				<seglistitem>
+					<seg>
+						--bindir=DIR
+					</seg>
+					<seg>
+						user executables [EPREFIX/bin]
+					</seg>
+				</seglistitem>
+				<seglistitem>
+					<seg>
+						--sbindir=DIR
+					</seg>
+					<seg>
+						system admin executables [EPREFIX/sbin]
+					</seg>
+				</seglistitem>
+				<seglistitem>
+					<seg>
+						--libexecdir=DIR
+					</seg>
+					<seg>
+						program executables [EPREFIX/libexec]
+					</seg>
+				</seglistitem>
+				<seglistitem>
+					<seg>
+						--datadir=DIR
+					</seg>
+					<seg>
+						read-only architecture-independent data [PREFIX/share]
+					</seg>
+				</seglistitem>
+				<seglistitem>
+					<seg>
+						--sysconfdir=DIR
+					</seg>
+					<seg>
+						read-only single-machine data [PREFIX/etc]
+					</seg>
+				</seglistitem>
+				<seglistitem>
+					<seg>
+						--sharedstatedir=DIR
+					</seg>
+					<seg>
+						modifiable architecture-independent data [PREFIX/com]
+					</seg>
+				</seglistitem>
+				<seglistitem>
+					<seg>
+						--localstatedir=DIR
+					</seg>
+					<seg>
+						modifiable single-machine data [PREFIX/var]
+					</seg>
+				</seglistitem>
+				<seglistitem>
+					<seg>
+						--libdir=DIR
+					</seg>
+					<seg>
+						object code libraries [EPREFIX/lib]
+					</seg>
+				</seglistitem>
+				<seglistitem>
+					<seg>
+						--includedir=DIR
+					</seg>
+					<seg>
+						C header files [PREFIX/include]
+					</seg>
+				</seglistitem>
+				<seglistitem>
+					<seg>
+						--oldincludedir=DIR
+					</seg>
+					<seg>
+						C header files for non-gcc [/usr/include]
+					</seg>
+				</seglistitem>
+				<seglistitem>
+					<seg>
+						--infodir=DIR
+					</seg>
+					<seg>
+						info documentation [PREFIX/info]
+					</seg>
+				</seglistitem>
+				<seglistitem>
+					<seg>
+						--mandir=DIR
+					</seg>
+					<seg>
+						man documentation [PREFIX/man]
+					</seg>
+				</seglistitem>
+			</segmentedlist>
+
+			<segmentedlist>
+				<?dbhtml list-presentation="table"?>
+				<title>Program names:</title>
+				<seglistitem>
+					<seg>
+						--program-prefix=PREFIX
+					</seg>
+					<seg>
+						prepend PREFIX to installed program names
+					</seg>
+				</seglistitem>
+				<seglistitem>
+					<seg>
+						--program-suffix=SUFFIX
+					</seg>
+					<seg>
+						append SUFFIX to installed program names
+					</seg>
+				</seglistitem>
+				<seglistitem>
+					<seg>
+						--program-transform-name=PROGRAM
+					</seg>
+					<seg>
+						run sed PROGRAM on installed program names
+					</seg>
+				</seglistitem>
+			</segmentedlist>
+			
+			<segmentedlist>
+				<?dbhtml list-presentation="table"?>
+				<title>System types:</title>
+				<seglistitem>
+					<seg>
+						--build=BUILD
+					</seg>
+					<seg>
+						configure for building on BUILD [guessed]
+					</seg>
+				</seglistitem>
+				<seglistitem>
+					<seg>
+						--host=HOST
+					</seg>
+					<seg>
+						cross-compile to build programs to run on HOST [BUILD]
+					</seg>
+				</seglistitem>
+			</segmentedlist>
+			<segmentedlist>
+				<?dbhtml list-presentation="table"?>
+				<title>Some influential environment variables:</title>
+				<seglistitem>
+					<seg>
+						CC
+					</seg>
+					<seg>
+						C compiler command
+					</seg>
+				</seglistitem>
+				<seglistitem>
+					<seg>
+						CFLAGS
+					</seg>
+					<seg>
+						C compiler flags
+					</seg>
+				</seglistitem>
+				<seglistitem>
+					<seg>
+						LDFLAGS
+					</seg>
+					<seg>
+						linker flags, e.g. -L&lt;lib dir&gt; if you have libraries in a nonstandard directory &lt;lib dir&gt;
+					</seg>
+				</seglistitem>
+				<seglistitem>
+					<seg>
+						CPPFLAGS
+					</seg>
+					<seg>
+						C/C++ preprocessor flags, e.g. -I&lt;include dir&gt; if you have headers in a nonstandard directory &lt;include dir&gt;
+					</seg>
+				</seglistitem>
+				<seglistitem>
+					<seg>
+						CPP
+					</seg>
+					<seg>
+						C preprocessor
+					</seg>
+				</seglistitem>
+			</segmentedlist>
+
+
+			<para>
+				Use these variables to override the choices made by `configure' or to help
+				it to find libraries and programs with nonstandard names/locations.
+			</para>
+		</sect2>
+
+		<sect2 id="bluefish-ch-2-sect-5.2">
+			<title>Flags personal to bluefish</title>
+			
+			<para>
+				So by default, the --enable-xxx is not unable, you should pass it if you want to get it, the --disable-xxx is not disable, you should pass it if you want to disable it.
+				
+				How: rely on the result of:
+1 - uname -p 	or 	grep "model name" /proc/cpuinfo | cut -d: -f2 to detect the architecture
+2 - the version of gcc to pass the arguments
+Tested gcc versions: 3.2.*, 3.0.*, 2.95.*
+			</para>			
+			
+			<para>
+				<segmentedlist>
+					<?dbhtml list-presentation="table"?>
+					<title>Optional Features:</title>
+					<seglistitem>
+						<seg>
+							--enable-xxx 
+						</seg>
+						<seg>
+							enables feature xxx
+						</seg>
+					</seglistitem>
+					<seglistitem>
+						<seg>
+							--disable-xxx or --enable-xxx=no
+						</seg>
+						<seg>
+							disables feature xxx
+						</seg>
+					</seglistitem>
+					<seglistitem>
+						<seg>
+							--enable-auto-optimization
+						</seg>
+						<seg>
+							optimizes the build process for a given architecture if possible
+							<segmentedlist>
+								<?dbhtml list-presentation="table"?>
+								<title>Which machines:</title>
+								<seglistitem>
+									<seg>
+									Intel(R) Pentium(R) 4CPU
+									</seg>
+								</seglistitem>
+								<seglistitem>
+									<seg>
+									Pentium III
+									</seg>
+								</seglistitem>
+								<seglistitem>
+									<seg>
+									AMD-K6 (tm) 3D
+									</seg>
+								</seglistitem>
+								<seglistitem>
+									<seg>
+									Pentium 75 - 200
+									</seg>
+								</seglistitem>
+								<seglistitem>
+									<seg>
+									Pentium II
+									</seg>
+								</seglistitem>
+								<seglistitem>
+									<seg>
+									AMD Athlon(TM) XP
+									</seg>
+								</seglistitem>
+								<seglistitem>
+									<seg>
+									Other machines are ignored
+									</seg>
+								</seglistitem>
+							</segmentedlist>
+						</seg>
+					</seglistitem>
+					<seglistitem>
+						<seg>
+						--enable-gcc3-optimization
+						</seg>
+						<seg>
+							optimizes the build process for a given architecture if possible
+						
+							<segmentedlist>
+								<?dbhtml list-presentation="table"?>
+								<title>Which machines:</title>
+								<seglistitem>
+									<seg>
+									i386, i486, pentium, pentium-mmx, pentiumpro, pentium2, pentium3, pentium4, k6, k6-2,
+									</seg>
+								</seglistitem>
+								<seglistitem>
+									<seg>
+									k6-3, athlon, athlon-tbird, athlon-4, athlon-xp, athlon-mp, winchip-c6, winchip2, c3
+									</seg>
+								</seglistitem>
+								<seglistitem>
+									<seg>
+									Other machines are ignored
+									</seg>
+								</seglistitem>
+							</segmentedlist>
+						</seg>
+					</seglistitem>
+					<seglistitem>
+						<seg>
+							--enable-gcc2-optimization
+						</seg>
+						<seg>
+							optimizes the build process for a given architecture if possible
+							<segmentedlist>
+								<?dbhtml list-presentation="table"?>
+								<title>Which machines:</title>
+								<seglistitem>
+									<seg>
+										i386, i486, pentium, pentiumpro, k6
+									</seg>
+								</seglistitem>
+								<seglistitem>
+									<seg>
+										Other machines are ignored
+									</seg>
+								</seglistitem>
+							</segmentedlist>
+						</seg>
+					</seglistitem>
+					<seglistitem>
+						<seg>
+							--enable-debugging-output
+						</seg>
+						<seg>
+							turns debugging output on (this option impacts performance)
+						</seg>
+					</seglistitem>
+					<seglistitem>
+						<seg>
+							--disable-splash-screen
+						</seg>
+						<seg>
+							suppresses the display of the splash screen at launch time (Bluefish launches faster)
+						</seg>
+					</seglistitem>
+					<seglistitem>
+						<seg>
+							--enable-highlight-profiling
+						</seg>
+						<seg>
+							Outputs statistics on where the program spends most of its time when hightlighting patterns. Useful for debugging hightlight patterns or trying to optimize the program
+						</seg>
+					</seglistitem>
+					<seglistitem>
+						<seg>
+							--enable-development
+						</seg>
+						<seg>
+							enables development checks (slow down the program)
+						</seg>
+					</seglistitem>
+					<seglistitem>
+						<seg>
+							--enable-gprof-profiling
+						</seg>
+						<seg>
+							Outputs statistics on where the program spends most of its time by generating extra code to write profile information suitable for the analysis. (slows down the program)
+						</seg>
+					</seglistitem>
+					<seglistitem>
+						<seg>
+							--enable-gcoc-coverage
+						</seg>
+						<seg>
+							Purpose: to be able to collect statistics on whow many times each branch is executed and how many times it has taken. Creates data files for the gcov code-coverage utility. (slows down the program)
+						</seg>
+					</seglistitem>
+					<seglistitem>
+						<seg>
+							--disable-nls
+						</seg>
+						<seg>
+							disables the Native Language Support
+						</seg>
+					</seglistitem>
+				</segmentedlist>
+				<segmentedlist>
+					<?dbhtml list-presentation="table"?>
+					<title>Optional Packages:</title>
+					<seglistitem>
+						<seg>
+							--with-icon-path
+						</seg>
+						<seg>
+							customized path for the icon. Usage: --with-icon-path=customizedpath Defaults to: /usr/share/pixmaps
+						</seg>
+					</seglistitem>
+					<seglistitem>
+						<seg>
+							--with-gnome1-menu
+						</seg>
+						<seg>
+							Purpose= customized path for the gnome1 menu. Usage: --with-gnome1-menu=customizedpath Defaults to: /usr/share/gnome/apps/
+						</seg>
+					</seglistitem>
+					<seglistitem>
+						<seg>
+							--with-gnome2-prefix
+						</seg>
+						<seg>
+							customized path for the gnome2 menu and mime-types. Usage: --with-gnome2-prefix=customizedpath Defaults to: /usr/share/
+						</seg>
+					</seglistitem>
+					<seglistitem>
+						<seg>
+							--with-libiconv-prefix
+						</seg>
+						<seg>
+							Purpose: customized path for libiconv top level installation. Usage: --with-libiconv-prefix=customizeddir Effect: searches for libiconv in customizeddir/include and customizeddir/lib
+						</seg>
+					</seglistitem>
+					<seglistitem>
+						<seg>
+							--with-included-gettext
+						</seg>
+						<seg>
+							Purpose: use the GNU gettext library included in the package 
+						</seg>
+					</seglistitem>
+				</segmentedlist>
 				<para>
-					<segmentedlist>
-						<?dbhtml list-presentation="table"?>
-						<title>Configuration:</title>
-							<seglistitem>
-								<seg>-h,</seg>
-								<seg>--help</seg>
-								<seg>display this help and exit</seg>
-							</seglistitem>
-							<seglistitem>
-								<seg></seg>
-								<seg>--help=short</seg>
-								<seg>display options specific to this package</seg>
-							</seglistitem>
-					</segmentedlist>
-      --help=recursive    display the short help of all the included packages
-  -V, --version           display version information and exit
-  -q, --quiet, --silent   do not print `checking...' messages
-      --cache-file=FILE   cache test results in FILE [disabled by default]
-  -C, --config-cache      alias for `--cache-file=config.cache'
-  -n, --no-create         do not create output files
-      --srcdir=DIR        find the sources in DIR [configure dir or `..' by default]
-
-Installation directories:
-  --prefix=PREFIX         install architecture-independent files in PREFIX
-                          [/usr/local by default]
-  --exec-prefix=EPREFIX   install architecture-dependent files in EPREFIX
-                          [PREFIX by default]
-
-By default, `make install' will install all the files in
-`/usr/local/bin', `/usr/local/lib' etc.  You can specify
-an installation prefix other than `/usr/local' using `--prefix',
-for instance `--prefix=$HOME'.
-
-For better control, use the options below.
-
-Fine tuning of the installation directories:
-  --bindir=DIR           user executables [EPREFIX/bin]
-  --sbindir=DIR          system admin executables [EPREFIX/sbin]
-  --libexecdir=DIR       program executables [EPREFIX/libexec]
-  --datadir=DIR          read-only architecture-independent data [PREFIX/share]
-  --sysconfdir=DIR       read-only single-machine data [PREFIX/etc]
-  --sharedstatedir=DIR   modifiable architecture-independent data [PREFIX/com]
-  --localstatedir=DIR    modifiable single-machine data [PREFIX/var]
-  --libdir=DIR           object code libraries [EPREFIX/lib]
-  --includedir=DIR       C header files [PREFIX/include]
-  --oldincludedir=DIR    C header files for non-gcc [/usr/include]
-  --infodir=DIR          info documentation [PREFIX/info]
-  --mandir=DIR           man documentation [PREFIX/man]
-
-Program names:
-  --program-prefix=PREFIX            prepend PREFIX to installed program names
-  --program-suffix=SUFFIX            append SUFFIX to installed program names
-  --program-transform-name=PROGRAM   run sed PROGRAM on installed program names
-
-System types:
-  --build=BUILD     configure for building on BUILD [guessed]
-  --host=HOST       cross-compile to build programs to run on HOST [BUILD]
-
-Some influential environment variables:
-  CC          C compiler command
-  CFLAGS      C compiler flags
-  LDFLAGS     linker flags, e.g. -L&lt;lib dir&gt; if you have libraries in a
-              nonstandard directory &lt;lib dir&gt;
-  CPPFLAGS    C/C++ preprocessor flags, e.g. -I&lt;include dir&gt; if you have
-              headers in a nonstandard directory &lt;include dir&gt;
-  CPP         C preprocessor
-
-Use these variables to override the choices made by `configure' or to help
-it to find libraries and programs with nonstandard names/locations.
-</para>
-</sect2>
-
-<sect2 id="bluefish-ch-2-sect-5.2">
-<title>II - Flags personal to bluefish</title>
-<para>
-
-Optional Features:
-
-This works as is:
---enable-xxx enables the feature, --disable-xxx or --enable-xxx=no disables the feature
-So by default, the --enable-xxx is not unable, you should pass it if you want to get it, the --disable-xxx is not disable, you should pass it if you want to disable it.
-
---enable-auto-optimization
-Purpose: optimizing the build process for a given architecture if possible
-How: rely on the result of:
- 1 - uname -p   or  grep "model name" /proc/cpuinfo | cut -d: -f2 to detect the architecture
- 2 - the version of gcc to pass the arguments
- Tested gcc versions: 3.2.*, 3.0.*, 2.95.*
-Which machines:
- Intel(R) Pentium(R) 4CPU
- Pentium III
- AMD-K6 (tm) 3D
- Pentium 75 - 200
- Pentium II
- AMD Athlon(TM) XP
- Other machines are ignored
-
---enable-gcc3-optimization
-Purpose: optimizing the build process for a given architecture if possible
-Which machines:
- i386, i486, pentium, pentium-mmx, pentiumpro, pentium2, pentium3, pentium4, k6, k6-2,
- k6-3, athlon, athlon-tbird, athlon-4, athlon-xp, athlon-mp, winchip-c6, winchip2, c3
- Other machines are ignored
-
---enable-gcc2-optimization
-Purpose: optimizing the build process for a given architecture if possible
-Which machines:
- i386, i486, pentium, pentiumpro, k6
- Other machines are ignored
-
---enable-debugging-output
-Purpose: turns debugging output on
-Usage: when debugging the program
-Side effect: slow down the program
-
---disable-splash-screen:
-Purpose: suppress the display of the splash screen at launch time
-Side effect: speeds the launch time
-
---enable-highlight-profiling
-Purpose: to be able to collect statistics on where the program spends most of its time when hightlighting patterns
-Usage: when debugging the hightlight patterns or when trying to optimize the program
-
---enable-development
-Purpose: enables development checks
-Side effect: slow down the program
-Usage:
-
---enable-gprof-profiling
-Purpose: to be able to collect statistics on where the program spends most of its time
-What it does: Generate extra code to write profile information suitable for the analysis              program gprof
-Side effect: slow down the program
-Usage: when optimizing and debugging
-
---enable-gcoc-coverage
-Purpose: to be able to collect statistics on whow many times each branch is executed and
-        how many times it is taken
-What it does: Create data files for the gcov code-coverage utility
-Side effect: slow down the program
-Usage: when optimizing and debugging
-
---disable-nls
-Purpose: disable the Native Language Support
-
-
-Optional Packages:
-This works as is: --with-xxx=foo enables the flag, --without-xxx disable it.
+					This works as is: --with-xxx=foo enables the flag, --without-xxx disable it.
 When not enabled, the default is used.
-
---with-icon-path
-Purpose: customized path for the icon
-Usage: --with-icon-path=customizedpath
-Default to: /usr/share/pixmaps
-
---with-gnome1-menu
-Purpose= customized path for the gnome1 menu
-Usage: --with-gnome1-menu=customizedpath
-Defaut to: /usr/share/gnome/apps/
-
---with-gnome2-prefix
-Purpose: customized path for the gnome2 menu and mime-types
-Usage: --with-gnome2-prefix=customizedpath
-Default to: /usr/share/
-
---with-libiconv-prefix
-Purpose: customized path for libiconv top level installation
-Usage: --with-libiconv-prefix=customizeddir
-Effect: searchs for libiconv in customizeddir/include and customizeddir/lib
-
---with-included-gettext
-Purpose: use the GNU gettext library included in the package 
-		</para>
+				</para>
+			</para>
 		</sect2>
 	</sect1>
 
