@@ -135,7 +135,7 @@ int main(int argc, char *argv[])
 	
 	parse_commandline(argc, argv, &root_override, &filenames, &open_in_new_window);
 #ifdef WITH_MSG_QUEUE	
-	if (filenames && main_v->props.open_in_running_bluefish) {
+	if ((filenames && main_v->props.open_in_running_bluefish) ||  open_in_new_window) {
 		msg_queue_start(filenames, open_in_new_window);
 	}
 #endif /* WITH_MSG_QUEUE */
