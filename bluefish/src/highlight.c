@@ -626,29 +626,6 @@ Tfiletype *hl_get_highlightset_by_type(gchar * type)
 	return NULL;
 }
 
-Tfiletype *hl_get_highlightset_by_filename(gchar * filename)
-{
-	GList *tmplist;
-	/* find set for this filetype */
-	if (filename) {
-		tmplist = g_list_first(highlight.highlight_filetypes);
-		while (tmplist) {
-			if (filename_test_extensions(((Tfiletype *) tmplist->data)->extensions, filename)) {
-				return (Tfiletype *) tmplist->data;
-			}
-			tmplist = g_list_next(tmplist);
-		}
-	}
-	/* if none found return first set (is default set) */
-	tmplist = g_list_first(highlight.highlight_filetypes);
-	if (!tmplist) {
-		DEBUG_MSG("hl_get_highlightset_by_filename, no highlightsets? return NULL\n");
-		return NULL;
-	} else {
-		return (Tfiletype *) tmplist->data;
-	}
-}
-
 /*****************************/
 /* applying the highlighting */
 /*****************************/
@@ -1012,18 +989,37 @@ void doc_remove_highlighting(Tdocument * doc)
 	gtk_text_buffer_remove_all_tags(doc->buffer, &itstart, &itend);
 }
 
-void hl_reset_highlighting_type(Tdocument * doc, gchar * newfilename)
-{
-	Tfiletype *filetype = hl_get_highlightset_by_filename(newfilename);
-	if (filetype && filetype->highlightlist) {
-		if (filetype != doc->hl) {
-			doc_remove_highlighting(doc);
-			doc->hl = filetype;
-			if (doc->highlightstate) {
-				doc->need_highlighting = TRUE;
-			}
-			menu_current_document_set_toggle_wo_activate(filetype, NULL);
+void hl_reset_highlighting_type(Tdocument * doc, gchar * newfilename) {
+	GList *tmplist;
+	Tfiletype *ft=NULL;
+	/* find set for this filetype */
+	if (!newfilename) {
+		return;
+	}
+	tmplist = g_list_first(highlight.highlight_filetypes);
+	while (tmplist) {
+		if (filename_test_extensions(((Tfiletype *) tmplist->data)->extensions, newfilename)) {
+			ft = (Tfiletype *) tmplist->data;
+			break;
 		}
+		tmplist = g_list_next(tmplist);
+	}
+	if (!ft) {
+		/* if none found return first set (is default set) */
+		tmplist = g_list_first(highlight.highlight_filetypes);
+		if (!tmplist) {
+			DEBUG_MSG("hl_get_highlightset_by_filename, no highlightsets? huh?\n");
+			return;
+		}
+		ft = (Tfiletype *)tmplist->data;
+	}
+	if (ft != doc->hl) {
+		doc_remove_highlighting(doc);
+		doc->hl = ft;
+		if (doc->highlightstate) {
+			doc->need_highlighting = TRUE;
+		}
+		menu_current_document_set_toggle_wo_activate(doc->hl, NULL);
 	}
 }
 

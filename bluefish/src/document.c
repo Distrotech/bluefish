@@ -1784,7 +1784,7 @@ Tdocument *doc_new(gboolean delay_activate) {
 	Tdocument *newdoc = g_new0(Tdocument, 1);
 	DEBUG_MSG("doc_new, main_v is at %p, newdoc at %p\n", main_v, newdoc);
 
-	newdoc->hl = hl_get_highlightset_by_filename(NULL);
+	newdoc->hl = (Tfiletype *)((GList *)g_list_first(main_v->filetypelist))->data;
 	newdoc->buffer = gtk_text_buffer_new(highlight_return_tagtable());
 	newdoc->view = gtk_text_view_new_with_buffer(newdoc->buffer);
 	scroll = gtk_scrolled_window_new(NULL, NULL);
