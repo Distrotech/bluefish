@@ -225,6 +225,7 @@ GtkWidget *combo_with_popdown(const gchar * setstring, GList * which_list, gint 
 		gtk_editable_set_editable(GTK_EDITABLE(GTK_ENTRY(GTK_COMBO(returnwidget)->entry)), FALSE);
 	}
 	gtk_combo_disable_activate(GTK_COMBO(returnwidget));
+	gtk_entry_set_activates_default (GTK_ENTRY (GTK_COMBO (returnwidget)->entry), TRUE);
 	return returnwidget;
 }
 /**
