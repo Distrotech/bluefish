@@ -906,7 +906,7 @@ GtkWidget *style_but_new(GtkWidget * which_entry, GtkWidget * win)
 
 	style_but = gtk_button_new();
 	hbox = gtk_hbox_new(FALSE, 0);
-	gtk_box_pack_start(GTK_BOX(hbox), new_pixmap(192),FALSE, FALSE, 3);
+	gtk_box_pack_start(GTK_BOX(hbox), new_pixmap(92),FALSE, FALSE, 3);
 	gtk_box_pack_start(GTK_BOX(hbox), gtk_label_new(_("Style")),TRUE, TRUE, 3);
 	gtk_container_add(GTK_CONTAINER(style_but), hbox);
 

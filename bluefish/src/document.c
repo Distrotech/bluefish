@@ -1299,7 +1299,7 @@ Tdocument *doc_new(gboolean delay_activate) {
 		hbox = gtk_hbox_new(FALSE,0);
 		but = gtk_button_new();
 		{
-		GtkWidget *image = new_pixmap(205);
+		GtkWidget *image = new_pixmap(101);
 		gtk_widget_show(image);
 		gtk_container_add(GTK_CONTAINER(but), image);
 		gtk_container_set_border_width(GTK_CONTAINER(but), 0);

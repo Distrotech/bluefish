@@ -13,7 +13,6 @@ TOOLBAR = \
 	close close.png \
 	code code.png \
 	color_select color_select.png \
-	color_select_small color_select_small.png \
 	comment comment.png \
 	copy copy.png \
 	css_file css_file.png \
@@ -46,11 +45,11 @@ TOOLBAR = \
 	form_hidden form_hidden.png \
 	form_option form_option.png \
 	form_radio form_radio.png \
-	form_reset form_reset.png \
 	form_select form_select.png \
 	form_submit form_submit.png \
 	form_text form_text.png \
 	form_textarea form_textarea.png \
+	form_optiongroup form_optiongroup.png \
 	frame frame.png \
 	frame2 frame2.png \
 	frame_base frame_base.png \
@@ -145,7 +144,6 @@ TOOLBAR = \
 	wml_var wml_var.png
 
 GENERAL = \
-	yes yes.png \
 	close_small close.png
 
 all:
