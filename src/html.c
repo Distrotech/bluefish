@@ -22,7 +22,7 @@
  */
 /* 
  * Changes by Antti-Juhani Kaijanaho <gaia@iki.fi> on 1999-10-20
- * $Id: html.c,v 1.14 2003-02-23 15:05:09 oli4 Exp $
+ * $Id: html.c,v 1.15 2003-02-25 18:45:51 oli4 Exp $
  */
 
 #include <gtk/gtk.h>
@@ -1015,7 +1015,7 @@ void quickstart_cb(GtkWidget * widget, gpointer data)
 {
 	GList *tmplist;
 	gchar *text[1];
-	GtkWidget *scrolwin, *dgtable;
+	GtkWidget *scrolwin, *dgtable, *label;
 	Thtml_diag *dg;
 	
 	dg = html_diag_new(_("Quick Start"));
@@ -1037,14 +1037,20 @@ void quickstart_cb(GtkWidget * widget, gpointer data)
 	recent_attribs.dtd_cblist = add_to_stringlist(recent_attribs.dtd_cblist,"<!DOCTYPE html PUBLIC \"-//IETF//DTD XHTML 1.1//EN\">" );
 
 	dg->combo[1] = combo_with_popdown("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\">", recent_attribs.dtd_cblist, 1);
-	gtk_widget_set_usize(dg->combo[1], 400, 0);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Doctype")), 0, 1, 0, 1);
+	gtk_widget_set_size_request(dg->combo[1], 425, -1);
+	label = gtk_label_new_with_mnemonic(N_("_Doctype:"));
+	gtk_misc_set_alignment(GTK_MISC(label), 0, 0);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), label, 0, 1, 0, 1);
+	gtk_label_set_mnemonic_widget(GTK_LABEL(label), (GTK_COMBO(dg->combo[1])->entry));
+	gtk_entry_set_activates_default(GTK_ENTRY(GTK_COMBO(dg->combo[1])->entry), TRUE);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->combo[1], 1, 4, 0, 1);
 	
 	scrolwin = gtk_scrolled_window_new(NULL, NULL);
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolwin), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Header tags")), 0, 1, 2, 3);
-	gtk_widget_set_usize(scrolwin, 300, 100);
+	label = gtk_label_new(_("Header tags:"));
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), label , 0, 1, 2, 3);
+	gtk_misc_set_alignment(GTK_MISC(label), 0, 0);
+	gtk_widget_set_size_request(scrolwin, 300, 100);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), scrolwin, 1, 4, 1, 4);
 
 	dg->clist[1] = gtk_clist_new(1);
@@ -1074,7 +1080,10 @@ void quickstart_cb(GtkWidget * widget, gpointer data)
 	gtk_clist_thaw(GTK_CLIST(dg->clist[1]));
 
 	dg->entry[1] = entry_with_text(NULL, 0);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Title")), 0, 1, 4, 5);
+	label = gtk_label_new_with_mnemonic(N_("_Title:"));
+	gtk_misc_set_alignment(GTK_MISC(label), 0, 0);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), label, 0, 1, 4, 5);
+	gtk_label_set_mnemonic_widget(GTK_LABEL(label), dg->entry[1]);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[1], 1, 4, 4, 5);
 	{
 		GtkWidget *scroll, *stylebut;
@@ -1088,11 +1097,14 @@ void quickstart_cb(GtkWidget * widget, gpointer data)
 		gtk_scrolled_window_set_shadow_type(GTK_SCROLLED_WINDOW
 											(scroll), GTK_SHADOW_IN);
 		gtk_container_add(GTK_CONTAINER(scroll), dg->text[0]);
-		gtk_table_attach(GTK_TABLE(dgtable), gtk_label_new(_("Style")), 0, 1, 5, 6,GTK_FILL, GTK_FILL, 0, 0);
-		gtk_widget_set_usize(scroll, 300, 100);
+		label = gtk_label_new_with_mnemonic(N_("St_yle:"));
+		gtk_table_attach_defaults(GTK_TABLE(dgtable), label, 0, 1, 5, 6);
+		gtk_misc_set_alignment(GTK_MISC(label), 0, 0);
+		gtk_label_set_mnemonic_widget(GTK_LABEL(label), dg->text[0]);
+		gtk_widget_set_size_request(scroll, 300,100);
 		gtk_table_attach_defaults(GTK_TABLE(dgtable), scroll, 1, 3, 5, 9);
 		stylebut = style_but_new_for_wizard(dg->text[0]);
-		gtk_table_attach(GTK_TABLE(dgtable), stylebut, 3, 4, 5, 6, GTK_FILL, GTK_FILL, 0, 0);
+		gtk_table_attach(GTK_TABLE(dgtable), stylebut, 3, 4, 5, 6, GTK_EXPAND, GTK_EXPAND, 0, 0);
 	}
 
 	html_diag_finish(dg, G_CALLBACK(quickstart_ok_lcb));
