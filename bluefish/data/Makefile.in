@@ -26,8 +26,9 @@ INSTALL_DATA = ${INSTALL} -m 644
 
 DEFAULTFILES = highlighting.default filetypes.default encodings.default custom_menu.default
 FUNCREFFILES = funcref_html.xml funcref_php.xml
+.SUFFIXES: .in .default
 
-%.default : %.in
+.in.default:
 	sed -e 's!PKGDATADIR!$(pkgdatadir)!' < $< > $@
 
 all: $(DEFAULTFILES)
