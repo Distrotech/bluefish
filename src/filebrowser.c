@@ -1445,6 +1445,12 @@ GtkWidget *filebrowser_init(Tbfwin *bfwin) {
 		filebrowser =  g_new0(Tfilebrowser,1);
 		bfwin->filebrowser = filebrowser;
 		filebrowser->bfwin = bfwin;
+		if (bfwin->project && bfwin->project->basedir && strlen(bfwin->project->basedir)>2) {
+			filebrowser->basedir = g_strdup(bfwin->project->basedir);
+			if (filebrowser->basedir[strlen(filebrowser->basedir)-1] == '/') {
+				filebrowser->basedir[strlen(filebrowser->basedir)-1] = '\0';
+			}
+		}
 	}
 	if (!filebrowser->curfilter) {
 		/* get the default filter */
@@ -1609,24 +1615,26 @@ void filebrowserconfig_init() {
 
 void filebrowser_set_basedir(Tbfwin *bfwin, const gchar *basedir) {
 	GtkTreePath *path;
-	DEBUG_MSG("filebrowser_set_basedir, basedir=%s\n",basedir);
-	if (FILEBROWSER(bfwin->filebrowser)->basedir) {
-		g_free(FILEBROWSER(bfwin->filebrowser)->basedir);
-	}
-	FILEBROWSER(bfwin->filebrowser)->basedir = g_strdup(basedir);
-	/* we do not want a slash / in the end of the basedir */
-	if (FILEBROWSER(bfwin->filebrowser)->basedir[strlen(FILEBROWSER(bfwin->filebrowser)->basedir)-1] == '/') {
-		FILEBROWSER(bfwin->filebrowser)->basedir[strlen(FILEBROWSER(bfwin->filebrowser)->basedir)-1] = '\0';
-	}
-	DEBUG_MSG("filebrowser_set_basedir, set basedir to %s\n",FILEBROWSER(bfwin->filebrowser)->basedir);
-	/* now rebuild the tree */
-	gtk_tree_store_clear(FILEBROWSER(bfwin->filebrowser)->store);
-	if (FILEBROWSER(bfwin->filebrowser)->store2) {
-		gtk_list_store_clear(FILEBROWSER(bfwin->filebrowser)->store2);
-	}
-	path = build_tree_from_path(FILEBROWSER(bfwin->filebrowser), basedir);
-	if (path) {
-		filebrowser_expand_to_root(FILEBROWSER(bfwin->filebrowser),path);
-		gtk_tree_path_free(path);
+	if (bfwin->filebrowser) {
+		DEBUG_MSG("filebrowser_set_basedir, basedir=%s\n",basedir);
+		if (FILEBROWSER(bfwin->filebrowser)->basedir) {
+			g_free(FILEBROWSER(bfwin->filebrowser)->basedir);
+		}
+		FILEBROWSER(bfwin->filebrowser)->basedir = g_strdup(basedir);
+		/* we do not want a slash / in the end of the basedir */
+		if (FILEBROWSER(bfwin->filebrowser)->basedir[strlen(FILEBROWSER(bfwin->filebrowser)->basedir)-1] == '/') {
+			FILEBROWSER(bfwin->filebrowser)->basedir[strlen(FILEBROWSER(bfwin->filebrowser)->basedir)-1] = '\0';
+		}
+		DEBUG_MSG("filebrowser_set_basedir, set basedir to %s\n",FILEBROWSER(bfwin->filebrowser)->basedir);
+		/* now rebuild the tree */
+		gtk_tree_store_clear(FILEBROWSER(bfwin->filebrowser)->store);
+		if (FILEBROWSER(bfwin->filebrowser)->store2) {
+			gtk_list_store_clear(FILEBROWSER(bfwin->filebrowser)->store2);
+		}
+		path = build_tree_from_path(FILEBROWSER(bfwin->filebrowser), basedir);
+		if (path) {
+			filebrowser_expand_to_root(FILEBROWSER(bfwin->filebrowser),path);
+			gtk_tree_path_free(path);
+		}
 	}
 }
