@@ -719,7 +719,8 @@ static GtkWidget *remove_recent_entry(gchar *filename) {
 /* open_recent_file
  * This function should be called when a menu from the Open Recent list
  * has been selected. */
-static void open_recent_file_cb(GtkWidget *widget, gchar *filename) {
+static void open_recent_file_cb(GtkWidget *widget, gpointer nothing) {
+	gchar *filename = GTK_LABEL(GTK_BIN(widget)->child)->label;
 	DEBUG_MSG("open_recent_file_cb, started, filename is %s\n", filename);
 
 	/* Now, let's check if that file still exists and is readable, before loading it */
@@ -747,7 +748,7 @@ static GtkWidget *create_recent_entry(gchar *filename) {
 		gtk_widget_destroy(tmp);
 	}
 	return  create_dynamic_menuitem(N_("<main>/File/Open recent")
-		, filename, G_CALLBACK(open_recent_file_cb), filename
+		, filename, G_CALLBACK(open_recent_file_cb), NULL
 		, 1);
 }
 
