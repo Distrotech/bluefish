@@ -1508,10 +1508,10 @@ static void menu_current_document_encoding_change(GtkMenuItem *menuitem,Tbfw_dyn
 		gchar *encoding = (gchar *)bdm->data;
 		Tbfwin *bfwin = bdm->bfwin;
 		if (encoding && (!bfwin->current_document->encoding || strcmp(encoding,bfwin->current_document->encoding)!=0)) {
-			if (bfwin->current_document->encoding) {
-				g_free(bfwin->current_document->encoding);
-			}
+			if (bfwin->current_document->encoding) g_free(bfwin->current_document->encoding);
 			bfwin->current_document->encoding = g_strdup(encoding);
+			if (bfwin->session->encoding) g_free(bfwin->session->encoding);
+			bfwin->session->encoding = g_strdup(encoding);
 			if (main_v->props.auto_set_encoding_meta) {
 				update_encoding_meta_in_file(bfwin->current_document, bfwin->current_document->encoding);
 			}

@@ -99,7 +99,7 @@ static Tproject *create_new_project(Tbfwin *bfwin) {
 		DEBUG_MSG("create_new_project, new project, no bfwin\n");
 	}
 	prj->session = g_new0(Tsessionvars,1);
-	/* we should copy bookmarks from the files to this session */
+	prj->session->encoding = g_strdup(main_v->props.newfile_default_encoding);
 	if (bfwin && prj->files) {
 		GList *tmplist;
 		tmplist = g_list_first(bfwin->documentlist);

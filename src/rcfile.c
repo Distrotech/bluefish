@@ -874,6 +874,7 @@ static GList *return_session_configlist(GList *configlist, Tsessionvars *session
 	init_prop_limitedstringlist(&configlist, &session->recent_dirs, "recent_dirs:", main_v->props.max_dir_history, FALSE);
 	init_prop_string_with_escape(&configlist, &session->opendir, "opendir:", NULL);
 	init_prop_string_with_escape(&configlist, &session->savedir, "savedir:", NULL);
+	init_prop_string_with_escape(&configlist, &session->encoding, "encoding:", NULL);
 	init_prop_integer   (&configlist, &session->adv_open_recursive, "adv_open_recursive:", 0, FALSE);
 	init_prop_string    (&configlist, &session->last_filefilter, "last_filefilter:", "");
 	init_prop_integer   (&configlist, &session->filebrowser_show_hidden_files, "fb_show_hidden_f:", 0, FALSE);
