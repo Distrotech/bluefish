@@ -1285,14 +1285,10 @@ gboolean main_window_delete_event_lcb(GtkWidget *widget,GdkEvent *event,Tbfwin *
 	if (bfwin->project) {
 		return !project_save_and_close(bfwin);
 	} else {
-		if (bfwin->documentlist && test_docs_modified(bfwin->documentlist)) {
-			DEBUG_MSG("main_window_delete_event_lcb, we have changed documents!\n");
+		if (bfwin->documentlist) {
 			doc_close_multiple_backend(bfwin, TRUE);
-			/* the last document that closes should close the window */
+			/* the last document that closes should close the window, so return TRUE */
 			return TRUE;
-		} else {
-			/* no changed documents, but there might be changed bookmarks */
-			bmark_store_all(bfwin);
 		}
 	}
 	return FALSE;

@@ -286,7 +286,7 @@ static TcheckNsave_return doc_checkNsave_lcb(TcheckNsave_status status,gint erro
 				/* we have to ask the user */
 				gchar *options[] = {_("_Abort save"), _("_Continue save"), NULL};
 				gint retval;
-				gchar *tmpstr = g_strdup_printf(_("A backupfile for %s could not be created. If you continue, this file will be overwritten."), doc->uri);
+				gchar *tmpstr = g_strdup_printf(_("A backupfile for %s could not be created. If you continue, this file will be overwritten."), gtk_label_get_text(GTK_LABEL(doc->tab_label)));
 				retval = multi_warning_dialog(BFWIN(doc->bfwin)->main_window,_("File backup failure"), tmpstr, 1, 0, options);
 				g_free(tmpstr);
 				DEBUG_MSG("doc_checkNsave_lcb, retval=%d, returning %d\n", retval,(retval == 0) ? CHECKNSAVE_STOP : CHECKNSAVE_CONT);
@@ -299,7 +299,7 @@ static TcheckNsave_return doc_checkNsave_lcb(TcheckNsave_status status,gint erro
 		case CHECKANDSAVE_ERROR_CANCELLED:
 			{
 				DEBUG_MSG("doc_checkNsave_lcb, some ERROR, give user a message\n");
-				errmessage = g_strconcat(_("Could not save file:\n\""), doc->uri, "\"", NULL);
+				errmessage = g_strconcat(_("Could not save file:\n\""),gtk_label_get_text(GTK_LABEL(doc->tab_label)), "\"", NULL);
 				error_dialog(BFWIN(doc->bfwin)->main_window,_("File save aborted.\n"), errmessage);
 				g_free(errmessage);
 			}
@@ -537,20 +537,24 @@ void file_save_all_cb(GtkWidget * widget, Tbfwin *bfwin) {
 
 void doc_close_single_backend(Tdocument *doc, gboolean close_window) {
 	Tbfwin *bfwin = doc->bfwin;
+	if (doc->action.checkmodified) checkmodified_cancel(doc->action.checkmodified);
+	if (doc->action.load != NULL || doc->action.info != NULL) {
+		/* we should cancel the action now..., and then let the callbacks close it...
+		the order is important, because the info callback will not close the document, 
+		only the load callback will call doc_close_single_backend */
+		doc->action.close_doc = TRUE;
+		doc->action.close_window = close_window;
+   	if (doc->action.info) file_asyncfileinfo_cancel(doc->action.info);
+		if (doc->action.load) file2doc_cancel(doc->action.load);
+		/* we will not cancel save operations, because it might corrupt the file, let 
+		them just timeout */
+		DEBUG_MSG("doc_close_single_backend, cancelled load/info and set close_doc to TRUE, returning now\n");
+		return;
+	}
 	if (doc_is_empty_non_modified_and_nameless(doc) && g_list_length(BFWIN(doc->bfwin)->documentlist) <=1) {
 		if (close_window) {
 			gtk_widget_destroy(BFWIN(doc->bfwin)->main_window);
 		}
-		return;
-	}
-	if (doc->action.load != NULL || doc->action.info != NULL) {
-		/* we should cancel the action now..., and then let the callbacks close it... 	*/
-		if (doc->action.load) file2doc_cancel(doc->action.load);
-		if (doc->action.info) file_asyncfileinfo_cancel(doc->action.info);
-		/* we will not cancel save operations, because it might corrupt the file, let 
-		them just timeout */
-		doc->action.close_doc = TRUE;
-		doc->action.close_window = close_window;
 		return;
 	}
 	if (doc->modified) {
@@ -625,7 +629,18 @@ void doc_close_multiple_backend(Tbfwin *bfwin, gboolean close_window) {
 			doc_save_backend(tmpdoc, FALSE, FALSE, TRUE, close_window);
 		break;
 		case 1: /* close all */
-			doc_destroy(tmpdoc, TRUE);
+      	if (tmpdoc->action.checkmodified) checkmodified_cancel(tmpdoc->action.checkmodified);
+      	if (tmpdoc->action.load != NULL || tmpdoc->action.info != NULL) {
+      		/* we should cancel the action now..., and then let the callbacks close it...
+      		the order is important, because the info callback will not close the document, 
+      		only the load callback will call doc_close_single_backend */
+      		tmpdoc->action.close_doc = TRUE;
+      		tmpdoc->action.close_window = close_window;
+         	if (tmpdoc->action.info) file_asyncfileinfo_cancel(tmpdoc->action.info);
+      		if (tmpdoc->action.load) file2doc_cancel(tmpdoc->action.load);
+      	} else {
+   			doc_destroy(tmpdoc, TRUE);
+   		}
 		break;
 		case 2: /* choose per file */
 			doc_close_single_backend(tmpdoc, close_window);
