@@ -67,7 +67,9 @@ typedef struct {
 GList *return_allwindows_documentlist() {
 	GList *newdoclist=NULL, *bflist, *tmplist=NULL;
 	bflist = g_list_first(main_v->bfwinlist);
+	DEBUG_MSG("return_allwindows_documentlist, bfwinlist length=%d\n",g_list_length(main_v->bfwinlist));
 	while (bflist) {
+		DEBUG_MSG("return_allwindows_documentlist, current bfwin doclist length=%d\n",g_list_length(BFWIN(bflist->data)->documentlist));
 		tmplist = g_list_first(BFWIN(bflist->data)->documentlist);
 		while (tmplist) {
 			newdoclist = g_list_append(newdoclist,tmplist->data);
@@ -75,6 +77,7 @@ GList *return_allwindows_documentlist() {
 		}
 		bflist = g_list_next(bflist);
 	}
+	DEBUG_MSG("return_allwindows_documentlist, returning list length %d\n",g_list_length(newdoclist));
 	return newdoclist;
 }
 
@@ -177,16 +180,20 @@ gint documentlist_return_index_from_filename(GList *doclist, gchar *filename) {
 Tdocument *documentlist_return_document_from_filename(GList *doclist, gchar *filename) {
 	GList *tmplist;
 	if (!filename) {
+		DEBUG_MSG("documentlist_return_document_from_filename, no filename! returning\n");
 		return NULL;
 	}
-	
+	DEBUG_MSG("documentlist_return_document_from_filename, filename=%s\n",filename);
 	tmplist = g_list_first(doclist);
 	while (tmplist) {
+		DEBUG_MSG("documentlist_return_document_from_filename, comparing with %s\n",filename);
 		if (DOCUMENT(tmplist->data)->filename &&(strcmp(filename, DOCUMENT(tmplist->data)->filename) ==0)) {
+			DEBUG_MSG("documentlist_return_document_from_filename, found, returning %p\n", tmplist->data);
 			return DOCUMENT(tmplist->data);
 		}
 		tmplist = g_list_next(tmplist);
 	}
+	DEBUG_MSG("documentlist_return_document_from_filename, not found, returning NULL\n");
 	return NULL;
 }
 
@@ -2479,6 +2486,7 @@ Tdocument * doc_new_with_file(Tbfwin *bfwin, gchar * filename, gboolean delay_ac
 	if (!main_v->props.allow_multi_instances) {
 		GList *alldocs = return_allwindows_documentlist();
 		Tdocument *tmpdoc = documentlist_return_document_from_filename(alldocs, fullfilename);
+		DEBUG_MSG("doc_new_with_file, fullfilename=%s, tmpdoc=%p\n",fullfilename,tmpdoc);
 		g_list_free(alldocs);
 		if (tmpdoc) {
 			DEBUG_MSG("doc_new_with_file, %s is already open %p\n",filename,tmpdoc);
