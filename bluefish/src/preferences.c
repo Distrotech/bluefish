@@ -39,6 +39,8 @@ enum {
 	allow_multi_instances, /* allow multiple instances of the same file */
 	num_undo_levels, 	/* number of undo levels per document */
 	clear_undo_on_save, 	/* clear all undo information on file save */
+	newfile_default_encoding,/* if you open a new file, what encoding will it use */
+	auto_set_encoding_meta,/* auto set metatag for the encoding */
 
 	/* not yet in use */
 	image_editor_cline, 	/* image editor commandline */
@@ -869,6 +871,8 @@ static void preferences_ok_clicked_lcb(GtkWidget *wid, Tprefdialog *pd) {
 	integer_apply(&main_v->props.allow_dep, pd->prefs[allow_dep], TRUE);
 	integer_apply(&main_v->props.xhtml, pd->prefs[xhtml], TRUE);
 	
+	string_apply(&main_v->props.newfile_default_encoding, GTK_COMBO(pd->prefs[newfile_default_encoding])->entry);
+	integer_apply(&main_v->props.auto_set_encoding_meta, pd->prefs[auto_set_encoding_meta], TRUE);
 	integer_apply(&main_v->props.backup_file, pd->prefs[backup_file], TRUE);
 	string_apply(&main_v->props.backup_filestring, pd->prefs[backup_filestring]);
 	string_apply(&main_v->props.backup_abort_style, GTK_COMBO(pd->prefs[backup_abort_style])->entry);
@@ -977,6 +981,23 @@ static void preferences_dialog() {
 
 	vbox1 = gtk_vbox_new(FALSE, 5);
 	gtk_notebook_append_page(GTK_NOTEBOOK(pd->noteb), vbox1, hbox_with_pix_and_text(_("Files"),014));
+
+	frame = gtk_frame_new(_("Encoding"));
+	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
+	vbox2 = gtk_vbox_new(FALSE, 0);
+	gtk_container_add(GTK_CONTAINER(frame), vbox2);
+	{
+		GList *tmplist, *poplist = g_list_append(NULL, "");
+		tmplist = g_list_first(main_v->props.encodings);
+		while (tmplist) {
+			gchar **strarr = (gchar **)tmplist->data;
+			poplist = g_list_append(poplist, strarr[1]);
+			tmplist = g_list_next(tmplist);
+		}
+		pd->prefs[newfile_default_encoding] = prefs_combo(_("Default character set"),main_v->props.newfile_default_encoding, vbox2, pd, poplist, TRUE);
+		g_list_free(poplist);
+	}	
+	pd->prefs[auto_set_encoding_meta] = boxed_checkbut_with_value(_("Auto set <meta> encoding tag on change"), main_v->props.auto_set_encoding_meta, vbox2);
 
 	frame = gtk_frame_new(_("Backup"));
 	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
