@@ -3392,6 +3392,7 @@ static void files_advanced_win(Tfiles_advanced *tfs) {
 	list = g_list_append(list, "*.cgi");
 	list = g_list_append(list, "*.xml");
 	list = g_list_append(list, "*.c");
+	list = g_list_append(list, "*.h");
 	list = g_list_append(list, "*.py");
 	list = g_list_append(list, "*.java");
 	tfs->find_pattern = combo_with_popdown("*", list, 1);
