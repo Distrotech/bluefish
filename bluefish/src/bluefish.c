@@ -67,7 +67,7 @@ static gint parse_commandline(int argc, char **argv
 		case 'h':
 		case '?':
 			g_print(CURRENT_VERSION_NAME);
-			g_print("\nUsage: %s [options] [filename]\n", argv[0]);
+			g_print(_("\nUsage: %s [options] [filename]\n"), argv[0]);
 			g_print(_("\nCurrently accepted options are:\n"));
 			g_print(_("-s           skip root check\n"));
 			g_print(_("-v           current version\n"));
