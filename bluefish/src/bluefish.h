@@ -102,6 +102,7 @@ typedef struct {
 	gchar *update_chars;
 	GList *highlightlist;
 	gboolean editable; /* this a type that can be edited by Bluefish */
+	gint autoclosingtag; /* 0=off, 1=xml mode, 2=html mode */
 	gchar *content_regex; /* a regex pattern to test the filetype using the content */
 } Tfiletype;
 

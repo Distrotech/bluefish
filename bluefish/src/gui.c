@@ -920,13 +920,15 @@ void gui_set_undo_redo_widgets(Tbfwin *bfwin, gboolean undo, gboolean redo) {
 	gtk_widget_set_sensitive(gtk_item_factory_get_widget(gtk_item_factory_from_widget(bfwin->menubar), N_("/Edit/Redo All")), redo);
 }
 
-void gui_set_widgets(Tbfwin *bfwin, gboolean undo, gboolean redo, gboolean wrap, gboolean highlight, Tfiletype *hl, gchar *encoding, gboolean linenumbers,gboolean autoclosingtag) {
-	gui_set_undo_redo_widgets(bfwin, undo, redo);
-	setup_toggle_item(gtk_item_factory_from_widget(bfwin->menubar),N_("/Document/Highlight Syntax"), highlight);
-	setup_toggle_item(gtk_item_factory_from_widget(bfwin->menubar),N_("/Document/Wrap"), wrap);
-	setup_toggle_item(gtk_item_factory_from_widget(bfwin->menubar),N_("/Document/Line Numbers"), linenumbers);
-	setup_toggle_item(gtk_item_factory_from_widget(bfwin->menubar),N_("/Document/Auto Close HTML tags"), autoclosingtag);
-	menu_current_document_set_toggle_wo_activate(bfwin,hl, encoding);
+void gui_set_document_widgets(Tdocument *doc) {
+	GtkItemFactory *tmp1 = gtk_item_factory_from_widget(BFWIN(doc->bfwin)->menubar);
+	setup_toggle_item(tmp1,N_("/Document/Highlight Syntax"), (doc->highlightstate && doc->hl->highlightlist != NULL));
+	gtk_widget_set_sensitive(gtk_item_factory_get_widget(tmp1,N_("/Document/Highlight Syntax")), (doc->hl->highlightlist != NULL));
+	gui_set_undo_redo_widgets(doc->bfwin, doc_has_undo_list(doc), doc_has_redo_list(doc));
+	setup_toggle_item(gtk_item_factory_from_widget(BFWIN(doc->bfwin)->menubar),N_("/Document/Wrap"), doc->wrapstate);
+	setup_toggle_item(gtk_item_factory_from_widget(BFWIN(doc->bfwin)->menubar),N_("/Document/Line Numbers"), doc->linenumberstate);
+	setup_toggle_item(gtk_item_factory_from_widget(BFWIN(doc->bfwin)->menubar),N_("/Document/Auto Close HTML tags"), doc->autoclosingtag);
+	menu_current_document_set_toggle_wo_activate(BFWIN(doc->bfwin),doc->hl, doc->encoding);
 }
 
 void gui_notebook_bind_signals(Tbfwin *bfwin) {
