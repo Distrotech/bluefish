@@ -1,5 +1,5 @@
-<!--
-this file belongs to bluefish, a web development environment
+<?xml version="1.0" encoding="UTF-8"?>
+<!--this file belongs to bluefish, a web development environment
 Copyright (C) 2002  Denny Reeh
 
 This program is free software; you can redistribute it and/or
@@ -14,287 +14,517 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
-Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
--->
+Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.-->
 <chapter id="bluefish-ch-4">
+  <title>Using Bluefish</title>
 
-  <title>using bluefish</title>
-	<simplesect>    
-		<para>
-	      more concret thing
-		</para>
-	</simplesect>
+  <sect1 id="bluefish-ch-4-sect-1">
+    <title>The Menu</title>
 
-	<sect1 id="bluefish-ch-4-sect-1">
-		<title>the menu</title>
-		<para>
-			<itemizedlist>
-			  <listitem>File</listitem>
-			  <listitem>Edit</listitem>
-			  <listitem>Tags</listitem>
-			  <listitem>Dialogs</listitem>
-			  <listitem>External</listitem>
-			  <listitem>Document</listitem>
-			  <listitem>Options</listitem>
-			</itemizedlist>
-		</para>
-		<sect2 id="bluefish-ch-4-sect-1.1">
-			<title>open a file</title>
-			<para>
-				how you can open files
-			</para>
-		</sect2>
-		<sect2 id="bluefish-ch-4-sect-1.2">
-			<title>saving files</title>
-			<para>
-				how you can save files
-			</para>
-		</sect2>
-		<sect2 id="bluefish-ch-4-sect-1.3">
-			<title>closing a file</title>
-			<para>
-				how you can close files
-			</para>
-		</sect2>
-		<sect2 id="bluefish-ch-4-sect-1.4">
-			<title>quiting bluefish</title>
-			<para>
-				how you can quit bluefish
-			</para>
-		</sect2>
-	</sect1>
-	<sect1 id="bluefish-ch-4-sect-2">
-		<title>changing shortcut keys</title>
-		<para>
-			Many menu entries are also accessible by a key combination, we call that a shortcut. For example 
-			pressing the ctrl+s keys together makes Bluefish save the current file to disk. You can see the 
-			shortcut key combination on the right of the menu entry.
-		</para>
-		<para>
-		What many people do not know is that they can be changed. Move the mouse over a meny entry, and press
-		the key combination you would like to use. Immediately this combination will show up on the right 
-		of the menu entry. An entry can also be removed, press the backspace key when you move the mouse 
-		over a menu entry to remove the shortcut.
-		</para>
-		<para>
-		To save the shortcut key combinations for later Bluefish sessions you can store them. In the 
-		Options menu choose Save shortcut keys. This will store the settings in file ~/.bluefish/menudump_2. 
-		If you want to restore the default combinations simply remove this file and restart Bluefish.
-		</para>
-		
-	</sect1>
-	<sect1 id="bluefish-ch-4-sect-3">
-		<title>the toolbar</title>
-		<para>
-			a little toolbox
-		</para>
-	</sect1>
-	<sect1 id="bluefish-ch-4-sect-4">
-		<title>the file editing area</title>
-		<para>
-			here you are the most time
-		</para>
-		<sect2 id="bluefish-ch-4-sect-4.1">
-			<title>editing text</title>
-			<para>
-				some things in editing text
-			</para>
-		</sect2>
-	</sect1>
-	<sect1 id="bluefish-ch-4-sect-5">
-		<title>statusbar</title>
-		<para>
-			infos are here
-		</para>
-	</sect1>
-	<sect1 id="bluefish-ch-4-sect-6">
-		<title>quickbar</title>
-		<para>
-			The quickbar is a user defined toolbar. All HTML toolbar buttons 
-			can be added to the quickbar by simply right-clicking them and 
-			selecting "Add to quickbar". If you want to remove items from 
-			the Quickbar, right-click them and select "Remove from Quickbar"
-		</para>
-	</sect1>
-	<sect1 id="bluefish-ch-4-sect-7">
-		<title>custom menu</title>
-		<para>
-			here you can "bookmark" things
-		</para>
-		<sect2 id="bluefish-ch-4-sect-7.1">
-			<title>what is the custom menu?</title>
-			<para>
-				The custom menu allows you to add "often used" strings or search 
-				and replace patterns to a menu. Upon install Bluefish will create
-				some default entries, these will give you an idea what can be done 
-				with the custom menu.
-			</para>
-		</sect2>
-		<sect2 id="bluefish-ch-4-sect-7.2">
-			<title>editing the custom menu</title>
-			<para>
-				changing and editing entries
-			</para>
-		</sect2>
-	</sect1>
-	<sect1 id="bluefish-ch-4-sect-8">
-		<title>syntax highlighting</title>
-		<para>
-			Syntax highlighting is the coloring of words that have a 
-			special meaning in the language you are writing. Obviously the patterns 
-			are different for every language. The "&lt;title&gt;" word for example means
-			"start of title" in HTML, the "function" word means "start of function" in PHP.
-		</para>
-		<sect2 id="bluefish-ch-4-sect-8.1">
-			<title>using syntax highlighting</title>
-			<para>
-				why using syntax highlighting?
-			</para>
-		</sect2>
-		<sect2 id="bluefish-ch-4-sect-8.2">
-			<title>modifying highlight patterns</title>
-			<para>The highlight patterns are build from perl compatible regular expressions. A pattern has 
-			options for coloring and style of the text it matches. Within a match other patterns can be used 
-			to color parts of that match. There are three
-			types of patterns:</para>
-	<itemizedlist>
-	  <listitem>1 Two patterns, match from the start to the end pattern</listitem>
-	  <listitem>2 One pattern that matches from start to end</listitem>
-	  <listitem>3 Match a subpattern from the parent pattern</listitem>
-	</itemizedlist>
-	<para>
-		One specific pattern can also be used within several other parent patterns. The parent-match
-		option is a regular expression that defines all parents for a certain pattern. If emty
-		it will default to ^top$, so basically it will be on the top level.
-	</para><para>
-	So how does it work? Lets take a look at a little example text, a piece of PHP code within some html code:
-</para>
-<programlisting>
-&lt;p align=&quot;center&quot;&gt;
-&lt;?php
-// this is a comment ?&gt;
-?&gt;
-</programlisting>
-<para>
-The first thing the highlighting engine does is finding the pattern that has the lowest match. Using the default patterns for PHP, the pattern named <literal>html</literal> has a match at position 0:
-</para>
-<programlisting>
-&lt;p align=&quot;center&quot;&gt;
-</programlisting>
-<para>
-So now the highlightiong engine searches for the lowest match in all subpatterns of <literal>html</literal>, in the region matched by the type 2 <literal>html</literal> pattern. Again, the lowest match will count. The pattern named <literal>html-tag</literal> has a match at position 1. This pattern is a type 3 pattern, so it matches a subpattern of the parent:
-</para>
-<programlisting>
-p
-</programlisting>
-<para>
-the match from subpattern <literal>html-tag</literal> ends at position 2 and it does not have any child patterns, so the highlighting engine continues at position 2 with all subpatterns from <literal>html</literal>. A type 2 pattern named <literal>html-attrib</literal> has the lowest match:
-</para>
-<programlisting>
-align=&quot;center&quot;
-</programlisting>
-<para>
-This pattern does have a child pattern, again a type 3 pattern called <literal>html-attrib-sub2</literal> matching:
-</para>
-<programlisting>
-&quot;center&quot;
-</programlisting>
-<para>
-The pattern <literal>html-attrib-sub2</literal> does not have any child patterns, and subpatterns of <literal>html-attrib</literal> do not have any more matches, and also <literal>html</literal> subpatterns do not have any more matches. So we are back on the main level, the remaining code to highlight is:
-</para>
-<programlisting>
-&lt;?php
-// this is a comment ?&gt;
-?&gt;
-</programlisting>
-<para>
-Now a pattern named <literal>php</literal> has the lowest match. This is a type 0 pattern, so the highlight engine continues with all the remaining code, but it will not only search for the lowest match of the child patterns of <literal>php</literal>, but it will also use for the end pattern of <literal>php</literal>. The lowest match in this example is a pattern named <literal>php-comment-C++</literal> As you can see the ?&gt; within the comment does not end the <literal>php</literal> pattern, because it lies within a subpattern of <literal>php</literal>:
-</para>
-<programlisting>
-// this is a comment ?&gt;
-</programlisting>
-<para>
-The pattern <literal>php-comment-C++</literal> does not have any child patterns, so the remaining code for the <literal>php</literal> subpatterns is:
-</para>
-<programlisting>
-?&gt;
-</programlisting>
-<para>
-It is very obvious now, the lowest match will be the end pattern of the <literal>php</literal> pattern, so we're back on the main level, and we have matched all of the code!
-</para>
-<para>
-The config file for highlighting is a colon separated array with the following content:
-</para>
-<programlisting>
-mode:
+    <para>The main menu for Bluefish consists of 10 options (see figure???
+    below). In order from left to right these are: File, Edit, View, Tags,
+    Dialogs, Document, Go, Bookmarks, Project, and External. <figure
+    id="main_menu"><title id="figure-desc">Bluefish Main Menu</title><screenshot><mediaobject><imageobject><imagedata
+    fileref="figures/main_menu.png" format="PNG" /></imageobject><textobject><phrase>A
+    screenshot of the Bluefish 0.13 main menu</phrase></textobject></mediaobject></screenshot></figure></para>
+
+    <sect2 id="bluefish-ch-4-sect-1.1">
+      <title>The File Menu</title>
+
+      <figure id="file_menu">
+        <title id="figure-desc">Bluefish File Menu</title>
+
+        <screenshot>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="figures/file_menu.png" format="PNG" />
+            </imageobject>
+
+            <textobject>
+              <phrase>A screenshot of the Bluefish 0.13 file menu</phrase>
+            </textobject>
+          </mediaobject>
+        </screenshot>
+      </figure>
+
+      <para>Enter info about the file menu.</para>
+
+      <sect3 id="bluefish-ch-4-sect-1.1.1">
+        <title>Opening a File</title>
+
+        <para>How you can open files. Insert screenshot of open window</para>
+      </sect3>
+
+      <sect3 id="bluefish-ch-4-sect-1.1.2">
+        <title>Saving Files</title>
+
+        <para>how you can save files. talk about file formats to which
+        bluefish can save.</para>
+      </sect3>
+
+      <sect3 id="bluefish-ch-4-sect-1.1.3">
+        <title>Closing a File</title>
+
+        <para>how you can close files. pretty self-explanatory.</para>
+      </sect3>
+
+      <sect3 id="bluefish-ch-4-sect-1.1.4">
+        <title>Quiting Bluefish</title>
+
+        <para>how you can quit bluefish. why would you want to quit Bluefish?</para>
+      </sect3>
+    </sect2>
+
+    <sect2 id="bluefish-ch-4-sect-1.2">
+      <title>The Edit Menu</title>
+
+      <figure id="file_menu">
+        <title id="figure-desc">Bluefish Edit Menu</title>
+
+        <screenshot>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="figures/edit_menu.png" format="PNG" />
+            </imageobject>
+
+            <textobject>
+              <phrase>A screenshot of the Bluefish 0.13 edit menu</phrase>
+            </textobject>
+          </mediaobject>
+        </screenshot>
+      </figure>
+
+      <para>Enter info about the edit menu.</para>
+
+      <sect3 id="bluefish-ch-4-sect-1.1.1">
+        <title>Undo/Redo Functions</title>
+
+        <para>Info about the Undo/Redo Functions. How to set levels of undo,
+        etc.</para>
+      </sect3>
+    </sect2>
+
+    <sect2 id="bluefish-ch-4-sect-1.2">
+      <title>The View Menu</title>
+
+      <figure id="file_menu">
+        <title id="figure-desc">Bluefish View Menu</title>
+
+        <screenshot>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="figures/view_menu.png" format="PNG" />
+            </imageobject>
+
+            <textobject>
+              <phrase>A screenshot of the Bluefish 0.13 view menu</phrase>
+            </textobject>
+          </mediaobject>
+        </screenshot>
+      </figure>
+
+      <para>Enter info about the view menu.</para>
+    </sect2>
+
+    <sect2 id="bluefish-ch-4-sect-1.3">
+      <title>The Tags Menu</title>
+
+      <figure id="file_menu">
+        <title id="figure-desc">Bluefish Tags Menu</title>
+
+        <screenshot>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="figures/tags_menu.png" format="PNG" />
+            </imageobject>
+
+            <textobject>
+              <phrase>A screenshot of the Bluefish 0.13 tags menu</phrase>
+            </textobject>
+          </mediaobject>
+        </screenshot>
+      </figure>
+
+      <para>Enter info about the tags menu.</para>
+    </sect2>
+
+    <sect2 id="bluefish-ch-4-sect-1.4">
+      <title>The Dialogs Menu</title>
+
+      <figure id="file_menu">
+        <title id="figure-desc">Bluefish Dialogs Menu</title>
+
+        <screenshot>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="figures/dialogs_menu.png" format="PNG" />
+            </imageobject>
+
+            <textobject>
+              <phrase>A screenshot of the Bluefish 0.13 dialogs menu</phrase>
+            </textobject>
+          </mediaobject>
+        </screenshot>
+      </figure>
+
+      <para>Enter info about the dialogs menu.</para>
+    </sect2>
+
+    <sect2 id="bluefish-ch-4-sect-1.4">
+      <title>The Document Menu</title>
+
+      <figure id="file_menu">
+        <title id="figure-desc">Bluefish Document Menu</title>
+
+        <screenshot>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="figures/document_menu.png" format="PNG" />
+            </imageobject>
+
+            <textobject>
+              <phrase>A screenshot of the Bluefish 0.13 Document menu</phrase>
+            </textobject>
+          </mediaobject>
+        </screenshot>
+      </figure>
+
+      <para>Enter info about the document menu.</para>
+    </sect2>
+
+    <sect2 id="bluefish-ch-4-sect-1.4">
+      <title>The Go Menu</title>
+
+      <figure id="file_menu">
+        <title id="figure-desc">Bluefish Go Menu</title>
+
+        <screenshot>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="figures/go_menu.png" format="PNG" />
+            </imageobject>
+
+            <textobject>
+              <phrase>A screenshot of the Bluefish 0.13 go menu</phrase>
+            </textobject>
+          </mediaobject>
+        </screenshot>
+      </figure>
+
+      <para>Enter info about the go menu.</para>
+    </sect2>
+
+    <sect2 id="bluefish-ch-4-sect-1.4">
+      <title>The Bookmarks Menu</title>
+
+      <figure id="file_menu">
+        <title id="figure-desc">Bluefish Bookmarks Menu</title>
+
+        <screenshot>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="figures/bookmarks_menu.png" format="PNG" />
+            </imageobject>
+
+            <textobject>
+              <phrase>A screenshot of the Bluefish 0.13 bookmarks menu</phrase>
+            </textobject>
+          </mediaobject>
+        </screenshot>
+      </figure>
+
+      <para>Enter info about the bookmarks menu.</para>
+    </sect2>
+
+    <sect2 id="bluefish-ch-4-sect-1.4">
+      <title>The Project Menu</title>
+
+      <figure id="file_menu">
+        <title id="figure-desc">Bluefish Project Menu</title>
+
+        <screenshot>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="figures/project_menu.png" format="PNG" />
+            </imageobject>
+
+            <textobject>
+              <phrase>A screenshot of the Bluefish 0.13 project menu</phrase>
+            </textobject>
+          </mediaobject>
+        </screenshot>
+      </figure>
+
+      <para>Enter info about the project menu.</para>
+    </sect2>
+
+    <sect2 id="bluefish-ch-4-sect-1.4">
+      <title>The External Menu</title>
+
+      <figure id="file_menu">
+        <title id="figure-desc">Bluefish External Menu</title>
+
+        <screenshot>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="figures/external_menu.png" format="PNG" />
+            </imageobject>
+
+            <textobject>
+              <phrase>A screenshot of the Bluefish 0.13 external menu</phrase>
+            </textobject>
+          </mediaobject>
+        </screenshot>
+      </figure>
+
+      <para>Enter info about the external menu.</para>
+    </sect2>
+  </sect1>
+
+  <sect1 id="bluefish-ch-4-sect-2">
+    <title>Changing Shortcut Keys</title>
+
+    <para>Many menu entries are accessible via key combination; also called a
+    shortcut. For example, pressing the Ctrl+S keys saves the current file to
+    disk. If available, shortcut key combinations are shown on the right of
+    the menu entry.</para>
+
+    <para>What many people do not know is that they can be changed. Move the
+    mouse over a menu entry, and press the key combination you would like to
+    use. Immediately this combination will show up on the right of the menu
+    entry. An entry can also be removed, press the backspace key when you move
+    the mouse over a menu entry to remove the shortcut.</para>
+
+    <para>To save the shortcut key combinations for later Bluefish sessions
+    you can store them. In the Options menu choose Save shortcut keys. This
+    will store the settings in file ~/.bluefish/menudump_2. If you want to
+    restore the default combinations simply remove this file and restart
+    Bluefish.</para>
+  </sect1>
+
+  <sect1 id="bluefish-ch-4-sect-3">
+    <title>The Toolbar</title>
+
+    <para>a little toolbox</para>
+  </sect1>
+
+  <sect1 id="bluefish-ch-4-sect-4">
+    <title>The File Editing Area</title>
+
+    <para>here you are the most time</para>
+
+    <sect2 id="bluefish-ch-4-sect-4.1">
+      <title>Editing Text</title>
+
+      <para>some things in editing text</para>
+    </sect2>
+  </sect1>
+
+  <sect1 id="bluefish-ch-4-sect-5">
+    <title>Statusbar</title>
+
+    <para>info is here</para>
+  </sect1>
+
+  <sect1 id="bluefish-ch-4-sect-6">
+    <title>Quickbar</title>
+
+    <para>The quickbar is a user defined toolbar. All HTML toolbar buttons can
+    be added to the quickbar by simply right-clicking them and selecting
+    &#34;Add to quickbar&#34;. If you want to remove items from the Quickbar,
+    right-click them and select &#34;Remove from Quickbar&#34;</para>
+  </sect1>
+
+  <sect1 id="bluefish-ch-4-sect-7">
+    <title>Custom Menu</title>
+
+    <para>here you can &#34;bookmark&#34; things</para>
+
+    <sect2 id="bluefish-ch-4-sect-7.1">
+      <title>What is the Custom Menu?</title>
+
+      <para>The custom menu allows you to add &#34;often used&#34; strings or
+      search and replace patterns to a menu. Upon install Bluefish will create
+      some default entries, these will give you an idea what can be done with
+      the custom menu.</para>
+    </sect2>
+
+    <sect2 id="bluefish-ch-4-sect-7.2">
+      <title>Editing the Custom Menu</title>
+
+      <para>changing and editing entries</para>
+    </sect2>
+  </sect1>
+
+  <sect1 id="bluefish-ch-4-sect-8">
+    <title>Syntax Highlighting</title>
+
+    <para>Syntax highlighting is the coloring of words that have a special
+    meaning in the language you are writing. Obviously the patterns are
+    different for every language. The &#34;&#60;title&#62;&#34; word for
+    example means &#34;start of title&#34; in HTML, the &#34;function&#34;
+    word means &#34;start of function&#34; in PHP.</para>
+
+    <sect2 id="bluefish-ch-4-sect-8.1">
+      <title>Using Syntax Highlighting</title>
+
+      <para>why using syntax highlighting?</para>
+    </sect2>
+
+    <sect2 id="bluefish-ch-4-sect-8.2">
+      <title>Modifying Highlight Patterns</title>
+
+      <para>The highlight patterns are build from perl compatible regular
+      expressions. A pattern has options for coloring and style of the text it
+      matches. Within a match other patterns can be used to color parts of
+      that match. There are three types of patterns:
+      <itemizedlist><listitem>1 Two patterns, match from the start to the end
+      pattern</listitem><listitem>2 One pattern that matches from start to end</listitem><listitem>3
+      Match a subpattern from the parent pattern</listitem></itemizedlist></para>
+
+      <para>One specific pattern can also be used within several other parent
+      patterns. The parent-match option is a regular expression that defines
+      all parents for a certain pattern. If empty it will default to ^top$, so
+      basically it will be on the top level.</para>
+
+      <para>So how does it work? Lets take a look at a little example text, a
+      piece of PHP code within some html code:</para>
+
+      <programlisting>&#60;p align=&#34;center&#34;&#62;
+&#60;?php
+// this is a comment ?&#62;
+?&#62;</programlisting>
+
+      <para>The first thing the highlighting engine does is finding the
+      pattern that has the lowest match. Using the default patterns for PHP,
+      the pattern named <literal>html</literal> has a match at position 0:</para>
+
+      <programlisting>&#60;p align=&#34;center&#34;&#62;</programlisting>
+
+      <para>So now the highlightiong engine searches for the lowest match in
+      all subpatterns of<literal>html</literal>, in the region matched by the
+      type 2 <literal>html</literal> pattern. Again, the lowest match will
+      count. The pattern named <literal>html-tag</literal> has a match at
+      position 1. This pattern is a type 3 pattern, so it matches a subpattern
+      of the parent:</para>
+
+      <programlisting>p</programlisting>
+
+      <para>the match from subpattern <literal>html-tag</literal> ends at
+      position 2 and it does not have any child patterns, so the highlighting
+      engine continues at position 2 with all subpatterns from
+      <literal>html</literal>. A type 2 pattern named <literal>html-attrib</literal>
+      has the lowest match:</para>
+
+      <programlisting>align=&#34;center&#34;</programlisting>
+
+      <para>This pattern does have a child pattern, again a type 3 pattern
+      called <literal>html-attrib-sub2</literal> matching:</para>
+
+      <programlisting>&#34;center&#34;</programlisting>
+
+      <para>The pattern <literal>html-attrib-sub2</literal> does not have any
+      child patterns, and subpatterns of <literal>html-attrib</literal> do not
+      have any more matches, and also <literal>html</literal> subpatterns do
+      not have any more matches. So we are back on the main level, the
+      remaining code to highlight is:</para>
+
+      <programlisting>&#60;?php
+// this is a comment ?&#62;
+?&#62;</programlisting>
+
+      <para>Now a pattern named <literal>php</literal> has the lowest match.
+      This is a type 0 pattern, so the highlight engine continues with all the
+      remaining code, but it will not only search for the lowest match of the
+      child patterns of <literal>php</literal>, but it will also use for the
+      end pattern of <literal>php</literal>. The lowest match in this example
+      is a pattern named <literal>php-comment-C++</literal> As you can see the
+      ?&#62; within the comment does not end the <literal>php</literal>
+      pattern, because it lies within a subpattern of <literal>php</literal>:</para>
+
+      <programlisting>// this is a comment ?&#62;</programlisting>
+
+      <para>The pattern <literal>php-comment-C++</literal> does not have any
+      child patterns, so the remaining code for the <literal>php</literal>
+      subpatterns is:</para>
+
+      <programlisting>?&#62;</programlisting>
+
+      <para>It is very obvious now, the lowest match will be the end pattern
+      of the <literal>php</literal> pattern, so we&#39;re back on the main
+      level, and we have matched all of the code!</para>
+
+      <para>The config file for highlighting is a colon separated array with
+      the following content:</para>
+
+      <programlisting>mode:
 patternname:
 case_sensitive(0-on/1-off):
 start reg-ex:
 end reg-ex:
-start &amp; end pattern(1), only start(2), subpattern(3):
+start &#38; end pattern(1), only start(2), subpattern(3):
 parent-match:
 foreground-color:
 background-color:
-don't change weight(0), non-bold(1), bold(2):
-don't change style(0), non-italic(1), italic(2): 
-</programlisting>
+don&#39;t change weight(0), non-bold(1), bold(2):
+don&#39;t change style(0), non-italic(1), italic(2): </programlisting>
+    </sect2>
+  </sect1>
 
-</sect2>
-	</sect1>
-	<sect1 id="bluefish-ch-4-sect-9">
-		<title>bluefish preferences</title>
-		<para>
-			see in the menu Options/Preferences
-		</para>
-		<sect2 id="bluefish-ch-4-sect-9.1">
-			<title>editor preferences</title>
-			<para>
-				editor
-			</para>
-		</sect2>
-		<sect2 id="bluefish-ch-4-sect-9.2">
-			<title>html preferences</title>
-			<para>
-				html
-			</para>
-		</sect2>
-		<sect2 id="bluefish-ch-4-sect-9.3">
-			<title>files preferences</title>
-			<para>
-				files
-			</para>
-		</sect2>
-		<sect2 id="bluefish-ch-4-sect-9.4">
-			<title>user inferface preferences</title>
-			<para>
-				user interface
-			</para>
-		</sect2>
-		<sect2 id="bluefish-ch-4-sect-9.5">
-			<title>images preferences</title>
-			<para>
-				images
-			</para>
-		</sect2>
-		<sect2 id="bluefish-ch-4-sect-9.6">
-			<title>file types preferences</title>
-			<para>
-				file types
-			</para>
-		</sect2>
-		<sect2 id="bluefish-ch-4-sect-9.7">
-			<title>syntax highlightning preferences</title>
-			<para>
-				syntax highlighting, also see above
-			</para>
-		</sect2>
-		<sect2 id="bluefish-ch-4-sect-9.8">
-			<title>external programs  preferences</title>
-			<para>integrating external commands and browsers
-If you want to use for example a sed command as a filter, you can add it like this to the external commands and filters (in the preferences dialog):
-sed -e 'some sed command' &gt; '%f' &lt; '%s'
-			</para>
-		</sect2>
-	</sect1>
+  <sect1 id="bluefish-ch-4-sect-9">
+    <title>Bluefish Preferences</title>
 
+    <para>see in the menu Options/Preferences</para>
+
+    <sect2 id="bluefish-ch-4-sect-9.1">
+      <title>Editor Preferences</title>
+
+      <para>editor</para>
+    </sect2>
+
+    <sect2 id="bluefish-ch-4-sect-9.2">
+      <title>Html Preferences</title>
+
+      <para>html</para>
+    </sect2>
+
+    <sect2 id="bluefish-ch-4-sect-9.3">
+      <title>Files Preferences</title>
+
+      <para>files</para>
+    </sect2>
+
+    <sect2 id="bluefish-ch-4-sect-9.4">
+      <title>User Inferface Preferences</title>
+
+      <para>user interface</para>
+    </sect2>
+
+    <sect2 id="bluefish-ch-4-sect-9.5">
+      <title>Images Preferences</title>
+
+      <para>images</para>
+    </sect2>
+
+    <sect2 id="bluefish-ch-4-sect-9.6">
+      <title>File Types Preferences</title>
+
+      <para>file types</para>
+    </sect2>
+
+    <sect2 id="bluefish-ch-4-sect-9.7">
+      <title>Syntax Highlightning Preferences</title>
+
+      <para>syntax highlighting, also see above</para>
+    </sect2>
+
+    <sect2 id="bluefish-ch-4-sect-9.8">
+      <title>External Programs Preferences</title>
+
+      <para>integrating external commands and browsers If you want to use for
+      example a sed command as a filter, you can add it like this to the
+      external commands and filters (in the preferences dialog): sed -e
+      &#39;some sed command&#39; &#62; &#39;%f&#39; &#60; &#39;%s&#39;</para>
+    </sect2>
+  </sect1>
 </chapter>
