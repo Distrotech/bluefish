@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<ref name="CSS2 tmp0.3" description="CSS 2.0 properties complete but not tested">
+<ref name="CSS2 tmp0.4.2" description="CSS 2.0 properties complete, tested, but comma problem for font-family, font, text-shadow and voice-family">
   <tag name="Conventions (see Notes)">
     <description> value types and arrangements (see Notes)</description>
     <info title="Conventions">
@@ -19,9 +19,9 @@
    <tag name="quick selectors">
     <description>insert selectors, using Dialog</description>
     <attribute name="selectors" required="1" vallist="1" default="">
-<vallist>,a:link,a:visited,a:active,a,abbr,acronym,address,applet,area,b,bdo,blockquote,body,br,button,caption,cite,code,col,colgroup,dd,del,dfn,div,dl,dt,em,embed,fieldset,form,h1,h2,h3,h4,h5,h6,hr,i,iframe,img,input,ins,kbd,label,legend,li,map,noframes,noscript,object,ol,optgroup,option,p,pre,q,samp,select,small,span,strong,table,tbody,td,textarea,tfoot,th,thead,tr,tt,ul,var</vallist>insert selector
+<vallist>,a:link,a:visited,a:active,a,abbr,acronym,address,applet,area,b,bdo,blockquote,body,br,button,caption,cite,code,col,colgroup,dd,del,dfn,div,dl,dt,em,embed,fieldset,form,h1,h2,h3,h4,h5,h6,hr,i,iframe,img,input,ins,kbd,label,legend,li,map,noframes,noscript,object,ol,optgroup,option,p,pre,q,samp,select,small,span,strong,table,tbody,td,textarea,tfoot,th,thead,tr,tt,ul,var</vallist>insert selector, using Dialog
     </attribute>
-    <dialog title="selector">%0{
+    <dialog title="selector">%0 {
 
     }
     </dialog> 
@@ -29,31 +29,41 @@
  
    <tag name="quick properties">
     <description>insert properties, using Dialog</description>
-    <attribute name="visual properties" required="1" vallist="1" default="">
-<vallist>background,background-attachment,background-color,background-image,background-position,background-repeat,border,border-bottom,border-bottom-color,border-bottom-style,border-bottom-width,border-color,border-left,border-left-color,border-left-style,border-left-width,border-right,border-right-color,border-right-style,border-right-width,border-style,border-top,border-top-color,border-top-style,border-top-width,border-width,bottom,caption-side,clear,clip,color,direction,display,float,font,font-family,font-size,font-size-adjust,font-stretch,font-style,font-variant,font-weight,height,left,letter-spacing,line-height,line-height,list-style,list-style-image,list-style-position,list-style-type,margin,margin-bottom,margin-left,margin-right,margin-top,max-height,max-width,min-height,min-width,overflow,padding,padding-bottom,padding-left,padding-right,padding-top,position,right,table-layout,text-align,text-decoration,text-indent,text-shadow,text-transform,top,unicode-bidi,vertical-align,visibility,white-space,width,word-spacing,z-index</vallist>insert property
+    <attribute name="properties" required="1" vallist="1" default="">
+<vallist>azimuth,background,background-attachment,background-color,background-image,background-position,background-repeat,border,border-bottom,border-bottom-color,border-bottom-style,border-bottom-width,'border-collapse',border-color,border-left,border-left-color,border-left-style,border-left-width,border-right,border-right-color,border-right-style,border-right-width,'border-spacing',border-style,border-top,border-top-color,border-top-style,border-top-width,border-width,bottom,caption-side,clear,clip,color,content,counter-increment,counter-reset,cue,cue-after,cue-before,cursor,direction,display,elevation,empty-cells,float,font,font-family,font-size,font-size-adjust,font-stretch,font-style,font-variant,font-weight,height,left,letter-spacing,line-height,list-style,list-style-image,list-style-position,list-style-type,margin,margin-bottom,margin-left,margin-right,margin-top,marker-offset,marks,max-height,max-width,min-height,min-width,orphans,outline,outline-color,outline-style,outline-width,overflow,padding,padding-bottom,padding-left,padding-right,padding-top,page,page-break-after,page-break-before,page-break-inside,pause,pause-after,pause-before,pitch,pitch-range,play-during,position,quotes,richness,right,size,speak,speak-header,speak-numeral,speak-punctuation,speech-rate,stress,table-layout,text-align,text-decoration,text-indent,text-shadow,text-transform,top,unicode-bidi,vertical-align,visibility,voice-family,volume,white-space,widows,width,word-spacing,z-index</vallist>insert property, using Dialog
     </attribute>
     <dialog title="properties">%0: ;
     </dialog> 
    </tag>
+ 
+   <tag name="property: inherit;">
+    <description>insert inherit value for selected property, using Dialog</description>
+    <attribute name="properties" required="1" vallist="1" default="">
+<vallist>azimuth,background,background-attachment,background-color,background-image,background-position,background-repeat,border,border-bottom,border-bottom-color,border-bottom-style,border-bottom-width,border-collapse,border-color,border-left,border-left-color,border-left-style,border-left-width,border-right,border-right-color,border-right-style,border-right-width,border-spacing,border-style,border-top,border-top-color,border-top-style,border-top-width,border-width,bottom,caption-side,clear,clip,color,content,counter-increment,counter-reset,cue,cue-after,cue-before,cursor,direction,display,elevation,empty-cells,float,font,font-family,font-size,font-size-adjust,font-stretch,font-style,font-variant,font-weight,height,left,letter-spacing,line-height,list-style,list-style-image,list-style-position,list-style-type,margin,margin-bottom,margin-left,margin-right,margin-top,marker-offset,marks,max-height,max-width,min-height,min-width,orphans,outline,outline-color,outline-style,outline-width,overflow,padding,padding-bottom,padding-left,padding-right,padding-top,page-break-after,page-break-before,page-break-inside,pause,pause-after,pause-before,pitch,pitch-range,play-during,position,quotes,richness,right,size,speak,speak-header,speak-numeral,speak-punctuation,speech-rate,stress,table-layout,text-align,text-decoration,text-indent,text-shadow,text-transform,top,unicode-bidi,vertical-align,visibility,voice-family,volume,white-space,widows,width,word-spacing,z-index</vallist>insert inherit value  for selected property, using Dialog
+    </attribute>
+    <dialog title="properties">%0: inherit;
+    </dialog> 
+   </tag>
+
 
    <tag name="Length">
     <description>insert length values, using Dialog</description>
     <attribute name="property" required="1" vallist="1" default="">
-     <vallist>background-position,border-spacing,bottom,font-size,height,left,letter-spacing,line-height,marker-offset,max-height,max-width'min-width,right,size,text-indent,top,vertical-align,width,word-spacing</vallist>insert length values  
+     <vallist>background-position,border-spacing,bottom,font-size,height,left,letter-spacing,line-height,marker-offset,max-height,max-width,min-width,right,size,text-indent,top,vertical-align,width,word-spacing</vallist>insert length values and units 
     </attribute>
     <attribute name="value" required="1" vallist="0" default="">
-        
+     &lt;number&gt;   
     </attribute>
-    <attribute name="units" required="0" vallist="1" default="">
-     <vallist>,%,em,ex,px,in,cm,mm,pt,pc</vallist>   
+    <attribute name="unit" required="0" vallist="1" default="">
+     <vallist>%,em,ex,px,in,cm,mm,pt,pc</vallist> % | em | ex | px | in | cm | mm | pt | pc  
     </attribute>
     <attribute name="value2" required="0" vallist="0" default="">
-        
+     &lt;number&gt;   
     </attribute>
-    <attribute name="units2" required="0" vallist="1" default="">
-     <vallist>0,%,em,ex,px,in,cm,mm,pt,pc</vallist>   
+    <attribute name="unit2" required="0" vallist="1" default="">
+     <vallist>%,em,ex,px,in,cm,mm,pt,pc</vallist> % | em | ex | px | in | cm | mm | pt | pc     
     </attribute>
-    <dialog title="length">%0:%1%2 %3%4;</dialog>   
+    <dialog title="length">%0: %1%2 %3%4;</dialog>   
     <insert></insert>
     <info title="Length">
  Relative units are:
@@ -70,6 +80,26 @@
     * mm: millimeters
     * pt: points -- the points used by CSS2 are equal to 1/72th of an inch.
     * pc: picas -- 1 pica is equal to 12 points.  </info>
+
+background-position: [ % | em | ex | px | in | cm | mm | pt | pc ]{1,2}
+border-spacing: [ em | ex | px | in | cm | mm | pt | pc ]{1,2}
+bottom: % | em | ex | px | in | cm | mm | pt | pc 
+font-size: % | em | ex | px | in | cm | mm | pt | pc 
+height: % | em | ex | px | in | cm | mm | pt | pc 
+left: % | em | ex | px | in | cm | mm | pt | pc 
+letter-spacing: em | ex | px | in | cm | mm | pt | pc 
+line-height: &lt;number&gt; | em | ex | px | in | cm | mm | pt | pc 
+marker-offset: em | ex | px | in | cm | mm | pt | pc 
+max-height: % | em | ex | px | in | cm | mm | pt | pc 
+max-width: % | em | ex | px | in | cm | mm | pt | pc
+min-width: % | em | ex | px | in | cm | mm | pt | pc 
+right: % | em | ex | px | in | cm | mm | pt | pc 
+size: [ em | ex | px | in | cm | mm | pt | pc ]{1,2}
+text-indent: % | em | ex | px | in | cm | mm | pt | pc 
+top: % | em | ex | px | in | cm | mm | pt | pc 
+vertical-align: % | em | ex | px | in | cm | mm | pt | pc 
+width: % | em | ex | px | in | cm | mm | pt | pc 
+word-spacing: em | ex | px | in | cm | mm | pt | pc 
    </tag>
 
   <group name="Visual">
@@ -90,12 +120,12 @@ Value: 	&lt;uri&gt; | none
         <vallist>scroll,fixed,inherit</vallist> scroll | fixed
        </attribute>
        <attribute name="position" title="position:" required="0" vallist="1" default="0% 0%">
-        <vallist>0% 0%, ,top left,top,top right,left,center,right,bottom left,bottom,bottom right</vallist> [ [&lt;percentage&gt; | &lt;length&gt; ]{1,2} | [ [top | center | bottom] || [left | center | right] ] ]
+        <vallist> 0% 0%, ,top left,top,top right,left,center,right,bottom left,bottom,bottom right</vallist> [ [&lt;percentage&gt; | &lt;length&gt; ]{1,2} | [ [top | center | bottom] || [left | center | right] ] ]
        </attribute>
        <attribute name="position2" title="position2:" required="0" vallist="1" default="0% 0%">
         <vallist>0% 0%, </vallist> &lt;percentage&gt; | &lt;length&gt;
        </attribute>
-       <dialog title="Background">background:%0 %1 %2 %3 %4 %5;</dialog>
+       <dialog title="Background">background: %0 %1 %2 %3 %4 %5;</dialog>
        <insert>background: ;</insert>
        <info title="background">[&lt;'background-color'&gt; || &lt;'background-image'&gt; || &lt;'background-repeat'&gt; || &lt;'background-attachment'&gt; || &lt;'background-position'&gt;] | inherit
 Initial:  	not defined for shorthand properties
@@ -104,11 +134,6 @@ Inherited:  	no
 Percentages:  	allowed on 'background-position'
 more info: http://www.w3.org/TR/REC-CSS2/colors.html#propdef-background
        </info>
-      </tag>
-      <tag name="background:inherit">
-       <description>Shorthand for setting the inherit background propertie.</description>
-       <attribute name="background inherit"> </attribute>
-       <insert>background: inherit;</insert>
       </tag>
 
       <tag name="background-attachment">
@@ -132,7 +157,7 @@ Even if the image is fixed, it is still only visible when it is in the backgroun
      <tag name="background-color">
         <description>Sets the background colour.</description>
         <attribute name="color" title="color:" required="0" vallist="1" default="transparent">
-         <vallist>transparent,#,rgb( ),aqua,black,blue,fuchsia,gray,green,lime,maroon,navy,olive,purple,red,silver,teal,white,yellow,inherit</vallist> &lt;color&gt; | transparent | inherit
+         <vallist>transparent,#,rgb( ),aqua,black,blue,fuchsia,gray,green,lime,maroon,navy,olive,purple,red,silver,teal,white,yellow,inherit,ActiveBorder,ActiveCaption,AppWorkspace,Background,ButtonFace,ButtonHighlight,ButtonShadow,ButtonText,CaptionText,GrayText,Highlight,HighlightText,InactiveBorder,InactiveCaption,InactiveCaptionText,InfoBackground,InfoText,Menu,MenuText,Scrollbar,ThreeDDarkShadow,ThreeDFace,ThreeDHighlight,ThreeDLightShadow,ThreeDShadow,Window,WindowFrame,WindowText</vallist> &lt;color&gt; | transparent | inherit
 Initial:  	transparent
 Applies to:  	all elements
 Inherited:  	no
@@ -141,7 +166,6 @@ Percentages:  	N/A
         <dialog title="background-color">background-color: %0;</dialog>
         <info title="background-color">
 This property sets the background color of an element, either a &lt;color&gt; value or the keyword 'transparent', to make the underlying colors shine through.
-Example:H1 { background-color: #F00 }
         </info>
         <insert>background-color: ;</insert>
       </tag>
@@ -149,13 +173,13 @@ Example:H1 { background-color: #F00 }
      <tag name="background-image">
         <description>Sets an image to use as the background.</description>
         <attribute name="image" title="image:" required="0" vallist="1" default="none">
-        <vallist>none,url(),inherit</vallist>&lt;uri&gt; | none | inherit
+        <vallist>none,url(),inherit</vallist> &lt;uri&gt; | none | inherit
 Initial:  	none
 Applies to:  	all elements
 Inherited:  	no
 Percentages:  	N/A
        </attribute>
-       <dialog title="Background-image">background-image:%0;</dialog>
+       <dialog title="Background-image">background-image: %0;</dialog>
        <info title="Background-image">When setting a background image, authors should also specify a background color that will be used when the image is unavailable. When the image is available, it is rendered on top of the background color. (Thus, the color is visible in the transparent parts of the image).
 
 Values for this property are either &lt;uri&gt;, to specify the image, or 'none', when no image is used. </info>
@@ -165,13 +189,13 @@ Values for this property are either &lt;uri&gt;, to specify the image, or 'none'
      <tag name="background-position">
         <description>Specifies the position of a background image if one is given.</description>
         <attribute name="position" title="position:" required="0" vallist="1" default="0% 0%">
-         <vallist> 0% 0%, ,top left,top,top right,left,center,right,bottom left,bottom,bottom right</vallist>[ [&lt;percentage&gt; | &lt;length&gt; ]{1,2} | [ [top | center | bottom] || [left | center | right] ] ] | inherit
+         <vallist> 0% 0%, ,top left,top,top right,left,center,right,bottom left,bottom,bottom right</vallist> [ [&lt;percentage&gt; | &lt;length&gt; ]{1,2} | [ [top | center | bottom] || [left | center | right] ] ] | inherit
 Initial:  	0% 0%
 Applies to:  	block-level and replaced elements
 Inherited:  	no
 Percentages:  	refer to the size of the box itself
         </attribute>
-        <dialog title="Background-position">background-position:%0;</dialog>
+        <dialog title="Background-position">background-position: %0;</dialog>
         <info title="Background-position"> If a background image has been specified, this property specifies its initial position.
  If only one percentage or length value is given, it sets the horizontal position only, the vertical position will be 50%. If two values are given, the horizontal position comes first. Combinations of length and percentage values are allowed, (e.g., '50% 2cm'). Negative positions are allowed. Keywords cannot be combined with percentage values or length values
         </info>
@@ -209,7 +233,7 @@ no-repeat
       <tag name="border">
         <description>Shorthand for setting the individual border properties on all four borders.</description>
         <attribute name="border-color" title="color:" required="0" vallist="1" default="">
-         <vallist>transparent,#,rgb( ),aqua,black,blue,fuchsia,gray,green,lime,maroon,navy,olive,purple,red,silver,teal,white,yellow</vallist>&lt;color&gt; | transparent
+         <vallist>transparent,#,rgb( ),aqua,black,blue,fuchsia,gray,green,lime,maroon,navy,olive,purple,red,silver,teal,white,yellow,ActiveBorder,ActiveCaption,AppWorkspace,Background,ButtonFace,ButtonHighlight,ButtonShadow,ButtonText,CaptionText,GrayText,Highlight,HighlightText,InactiveBorder,InactiveCaption,InactiveCaptionText,InfoBackground,InfoText,Menu,MenuText,Scrollbar,ThreeDDarkShadow,ThreeDFace,ThreeDHighlight,ThreeDLightShadow,ThreeDShadow,Window,WindowFrame,WindowText</vallist> &lt;color&gt; | transparent
         </attribute>
         <attribute name="border-style" title="style:" required="0" vallist="1" default="none">
 <vallist>none,hidden,dotted,dashed,solid,double,groove,ridge,inset,outset</vallist>none|hidden|dotted|dashed|solid|double|groove|ridge|inset|outset
@@ -219,22 +243,15 @@ no-repeat
         </attribute>
         <dialog title="border">border: %0 %1 %2;</dialog>
         <info title="border">
+[ &lt;border-width&gt; || &lt;border-style&gt; || [ &lt;color&gt; | transparent ] ] | inherit
  The 'border' property is a shorthand property for setting the same width, color, and style for all four borders of a box. Unlike the shorthand 'margin' and 'padding' properties, the 'border' property cannot set different values on the four borders. To do so, one or more of the other border properties must be used.
         </info>
         <insert>border: ;</insert>
       </tag>
 
-      <tag name="border inherit">
-        <description>border: inherit</description>
-        <info title="border-inherit">
-	[ 'border-width' || 'border-style' || &lt;color&gt; ] | inherit
-        </info>
-        <insert>border: inherit;</insert>
-      </tag>
-
      <tag name="border-collapse">
         <description>Controls how borders are handled in tables.</description>
-        <attribute name="collapse" title="collapse:" required="1" vallist="1" default="collapse">
+        <attribute name="collapse" title="collapse:" required="0" vallist="1" default="collapse">
          <vallist>collapse,separate,inherit</vallist>collapse | separate | inherit
 Initial:  	collapse
 Applies to:  	'table' and 'inline-table' elements
@@ -251,20 +268,20 @@ This property selects a table's border model. The value 'separate' selects the s
      <tag name="border-color">
         <description>Shorthand for setting the colour of all four borders.</description>
         <attribute name="color1" title="color:1" required="1" vallist="1" default="">
-         <vallist>transparent,#,rgb( ),aqua,black,blue,fuchsia,gray,green,lime,maroon,navy,olive,purple,red,silver,teal,white,yellow,inherit</vallist>[&lt;color&gt; | transparent]{1,4} | inherit
+         <vallist>transparent,#,rgb( ),aqua,black,blue,fuchsia,gray,green,lime,maroon,navy,olive,purple,red,silver,teal,white,yellow,ActiveBorder,ActiveCaption,AppWorkspace,Background,ButtonFace,ButtonHighlight,ButtonShadow,ButtonText,CaptionText,GrayText,Highlight,HighlightText,InactiveBorder,InactiveCaption,InactiveCaptionText,InfoBackground,InfoText,Menu,MenuText,Scrollbar,ThreeDDarkShadow,ThreeDFace,ThreeDHighlight,ThreeDLightShadow,ThreeDShadow,Window,WindowFrame,WindowText</vallist> [&lt;color&gt; | transparent]{1,4} | inherit
 Initial:  	depends on user agent
 Applies to:  	all elements
 Inherited:  	no
 Percentages:  	N/A
         </attribute>
         <attribute name="color2" title="color2:" required="0" vallist="1" default="">
-         <vallist>transparent,#,rgb( ),aqua,black,blue,fuchsia,gray,green,lime,maroon,navy,olive,purple,red,silver,teal,white,yellow</vallist>&lt;color&gt; | transparent
+         <vallist>transparent,#,rgb( ),aqua,black,blue,fuchsia,gray,green,lime,maroon,navy,olive,purple,red,silver,teal,white,yellow,ActiveBorder,ActiveCaption,AppWorkspace,Background,ButtonFace,ButtonHighlight,ButtonShadow,ButtonText,CaptionText,GrayText,Highlight,HighlightText,InactiveBorder,InactiveCaption,InactiveCaptionText,InfoBackground,InfoText,Menu,MenuText,Scrollbar,ThreeDDarkShadow,ThreeDFace,ThreeDHighlight,ThreeDLightShadow,ThreeDShadow,Window,WindowFrame,WindowText</vallist> &lt;color&gt; | transparent
         </attribute>
         <attribute name="color3" title="color:3" required="0" vallist="1" default="">
-         <vallist>transparent,#,rgb( ),aqua,black,blue,fuchsia,gray,green,lime,maroon,navy,olive,purple,red,silver,teal,white,yellow</vallist>&lt;color&gt; | transparent
+         <vallist>transparent,#,rgb( ),aqua,black,blue,fuchsia,gray,green,lime,maroon,navy,olive,purple,red,silver,teal,white,yellow,ActiveBorder,ActiveCaption,AppWorkspace,Background,ButtonFace,ButtonHighlight,ButtonShadow,ButtonText,CaptionText,GrayText,Highlight,HighlightText,InactiveBorder,InactiveCaption,InactiveCaptionText,InfoBackground,InfoText,Menu,MenuText,Scrollbar,ThreeDDarkShadow,ThreeDFace,ThreeDHighlight,ThreeDLightShadow,ThreeDShadow,Window,WindowFrame,WindowText</vallist> &lt;color&gt; | transparent
         </attribute>
         <attribute name="color4" title="color:4" required="0" vallist="1" default="">
-         <vallist>transparent,#,rgb( ),aqua,black,blue,fuchsia,gray,green,lime,maroon,navy,olive,purple,red,silver,teal,white,yellow</vallist>&lt;color&gt; | transparent
+         <vallist>transparent,#,rgb( ),aqua,black,blue,fuchsia,gray,green,lime,maroon,navy,olive,purple,red,silver,teal,white,yellow,ActiveBorder,ActiveCaption,AppWorkspace,Background,ButtonFace,ButtonHighlight,ButtonShadow,ButtonText,CaptionText,GrayText,Highlight,HighlightText,InactiveBorder,InactiveCaption,InactiveCaptionText,InfoBackground,InfoText,Menu,MenuText,Scrollbar,ThreeDDarkShadow,ThreeDFace,ThreeDHighlight,ThreeDLightShadow,ThreeDShadow,Window,WindowFrame,WindowText</vallist> &lt;color&gt; | transparent
         </attribute>
         <dialog title="border-color">border-color: %0 %1 %2 %3;</dialog>
         <info title="color">
@@ -282,7 +299,7 @@ If an element's border color is not specified with a border property, user agent
      <tag name="border-spacing">
         <description>Controls the spacing between cell borders in tables.</description>
         <attribute name="spacing" title="spacing:" required="1" vallist="1" default="0">
-         <vallist>0,inherit</vallist>&lt;length&gt; &lt;length&gt;? | inherit
+         <vallist>0,inherit</vallist> &lt;length&gt; &lt;length&gt;? | inherit
 Initial:  	0
 Applies to:  	'table' and 'inline-table' elements
 Inherited:  	yes
@@ -297,7 +314,11 @@ The lengths specify the distance that separates adjacent cell borders. If one le
  
      <tag name="border-style">
         <description>Shorthand for setting the style of all four borders.</description>
-        <attribute name="style" title="style:" required="1" vallist="1" default=""> <vallist>none,hidden,dotted,dashed,solid,double,groove,ridge,inset,outset</vallist>[none|hidden|dotted|dashed|solid|double|groove|ridge|inset|outset]{1,4}
+        <attribute name="style" title="style:" required="1" vallist="1" default=""> <vallist>none,hidden,dotted,dashed,solid,double,groove,ridge,inset,outset</vallist> [none|hidden|dotted|dashed|solid|double|groove|ridge|inset|outset]{1,4}
+Initial:  	see individual properties
+Applies to:  	all elements
+Inherited:  	no
+Percentages:  	N/A
         </attribute>
         <dialog title="border-style">border-style: %0;</dialog>
         <info title="border-style">
@@ -327,7 +348,7 @@ Conforming HTML user agents may interpret 'dotted', 'dashed', 'double', 'groove'
         <attribute name="style" title="style:" required="0" vallist="1" default="none"> <vallist>none,hidden,dotted,dashed,solid,double,groove,ridge,inset,outset</vallist>none|hidden|dotted|dashed|solid|double|groove|ridge|inset|outset
         </attribute>
         <attribute name="colour" title="color:" required="0" vallist="1" default="">
-         <vallist>transparent,#,rgb( ),aqua,black,blue,fuchsia,gray,green,lime,maroon,navy,olive,purple,red,silver,teal,white,yellow,inherit</vallist>&lt;color&gt; | transparent
+         <vallist>transparent,#,rgb( ),aqua,black,blue,fuchsia,gray,green,lime,maroon,navy,olive,purple,red,silver,teal,white,yellow,inherit,ActiveBorder,ActiveCaption,AppWorkspace,Background,ButtonFace,ButtonHighlight,ButtonShadow,ButtonText,CaptionText,GrayText,Highlight,HighlightText,InactiveBorder,InactiveCaption,InactiveCaptionText,InfoBackground,InfoText,Menu,MenuText,Scrollbar,ThreeDDarkShadow,ThreeDFace,ThreeDHighlight,ThreeDLightShadow,ThreeDShadow,Window,WindowFrame,WindowText</vallist> &lt;color&gt; | transparent
         </attribute>
         <attribute name="width" title="width:" required="0" vallist="1" default="">
          <vallist>thin,medium,thick,0, %</vallist>thin | medium | thick | &lt;length&gt;
@@ -348,7 +369,7 @@ Percentages:  	N/A
         <attribute name="style" title="style:" required="0" vallist="1" default="none"> <vallist>none,hidden,dotted,dashed,solid,double,groove,ridge,inset,outset</vallist>none|hidden|dotted|dashed|solid|double|groove|ridge|inset|outset
         </attribute>
         <attribute name="colour" title="color:" required="0" vallist="1" default="">
-         <vallist>transparent,#,rgb( ),aqua,black,blue,fuchsia,gray,green,lime,maroon,navy,olive,purple,red,silver,teal,white,yellow,inherit</vallist>&lt;color&gt; | transparent
+         <vallist>transparent,#,rgb( ),aqua,black,blue,fuchsia,gray,green,lime,maroon,navy,olive,purple,red,silver,teal,white,yellow,inherit,ActiveBorder,ActiveCaption,AppWorkspace,Background,ButtonFace,ButtonHighlight,ButtonShadow,ButtonText,CaptionText,GrayText,Highlight,HighlightText,InactiveBorder,InactiveCaption,InactiveCaptionText,InfoBackground,InfoText,Menu,MenuText,Scrollbar,ThreeDDarkShadow,ThreeDFace,ThreeDHighlight,ThreeDLightShadow,ThreeDShadow,Window,WindowFrame,WindowText</vallist> &lt;color&gt; | transparent
         </attribute>
         <attribute name="width" title="width:" required="0" vallist="1" default="">
          <vallist>thin,medium,thick,0, %</vallist>thin | medium | thick | &lt;length&gt;
@@ -369,7 +390,7 @@ Percentages:  	N/A
         <attribute name="style" title="style:" required="0" vallist="1" default="none"> <vallist>none,hidden,dotted,dashed,solid,double,groove,ridge,inset,outset</vallist>none|hidden|dotted|dashed|solid|double|groove|ridge|inset|outset
         </attribute>
         <attribute name="colour" title="color:" required="0" vallist="1" default="">
-         <vallist>transparent,#,rgb( ),aqua,black,blue,fuchsia,gray,green,lime,maroon,navy,olive,purple,red,silver,teal,white,yellow,inherit</vallist>&lt;color&gt; | transparent
+         <vallist>transparent,#,rgb( ),aqua,black,blue,fuchsia,gray,green,lime,maroon,navy,olive,purple,red,silver,teal,white,yellow,inherit,ActiveBorder,ActiveCaption,AppWorkspace,Background,ButtonFace,ButtonHighlight,ButtonShadow,ButtonText,CaptionText,GrayText,Highlight,HighlightText,InactiveBorder,InactiveCaption,InactiveCaptionText,InfoBackground,InfoText,Menu,MenuText,Scrollbar,ThreeDDarkShadow,ThreeDFace,ThreeDHighlight,ThreeDLightShadow,ThreeDShadow,Window,WindowFrame,WindowText</vallist> &lt;color&gt; | transparent
         </attribute>
         <attribute name="width" title="width:" required="0" vallist="1" default="">
          <vallist>thin,medium,thick,0, %</vallist>thin | medium | thick | &lt;length&gt;
@@ -390,7 +411,7 @@ Percentages:  	N/A
         <attribute name="style" title="style:" required="0" vallist="1" default="none"> <vallist>none,hidden,dotted,dashed,solid,double,groove,ridge,inset,outset</vallist>none|hidden|dotted|dashed|solid|double|groove|ridge|inset|outset
         </attribute>
         <attribute name="colour" title="color:" required="0" vallist="1" default="">
-         <vallist>transparent,#,rgb( ),aqua,black,blue,fuchsia,gray,green,lime,maroon,navy,olive,purple,red,silver,teal,white,yellow,inherit</vallist>&lt;color&gt; | transparent
+         <vallist>transparent,#,rgb( ),aqua,black,blue,fuchsia,gray,green,lime,maroon,navy,olive,purple,red,silver,teal,white,yellow,inherit,ActiveBorder,ActiveCaption,AppWorkspace,Background,ButtonFace,ButtonHighlight,ButtonShadow,ButtonText,CaptionText,GrayText,Highlight,HighlightText,InactiveBorder,InactiveCaption,InactiveCaptionText,InfoBackground,InfoText,Menu,MenuText,Scrollbar,ThreeDDarkShadow,ThreeDFace,ThreeDHighlight,ThreeDLightShadow,ThreeDShadow,Window,WindowFrame,WindowText</vallist> &lt;color&gt; | transparent
         </attribute>
         <attribute name="width" title="width:" required="0" vallist="1" default="">
          <vallist>thin,medium,thick,0, %</vallist>thin | medium | thick | &lt;length&gt;
@@ -409,15 +430,15 @@ Percentages:  	N/A
      <tag name="border-top-color">
         <description>Sets the colour of the top border.</description>
         <attribute name="top-color" title="top-color:" required="1" vallist="1" default="">
-         <vallist>#,rgb( ),aqua,black,blue,fuchsia,gray,green,lime,maroon,navy,olive,purple,red,silver,teal,white,yellow,inherit</vallist>&lt;color&gt; | inherit
-        </attribute>
-        <dialog title="top-color">border-top-color: %0;</dialog>
-        <info title="top-color">
-Value:  	&lt;color&gt; | inherit
+         <vallist>#,rgb( ),aqua,black,blue,fuchsia,gray,green,lime,maroon,navy,olive,purple,red,silver,teal,white,yellow,inherit,ActiveBorder,ActiveCaption,AppWorkspace,Background,ButtonFace,ButtonHighlight,ButtonShadow,ButtonText,CaptionText,GrayText,Highlight,HighlightText,InactiveBorder,InactiveCaption,InactiveCaptionText,InfoBackground,InfoText,Menu,MenuText,Scrollbar,ThreeDDarkShadow,ThreeDFace,ThreeDHighlight,ThreeDLightShadow,ThreeDShadow,Window,WindowFrame,WindowText</vallist> &lt;color&gt; | inherit
 Initial:  	the value of the 'color' property
 Applies to:  	all elements
 Inherited:  	no
 Percentages:  	N/A
+        </attribute>
+        <dialog title="top-color">border-top-color: %0;</dialog>
+        <info title="top-color">
+
         </info>
         <insert>border-top-color: ;</insert>
       </tag>
@@ -425,15 +446,15 @@ Percentages:  	N/A
      <tag name="border-right-color">
         <description>Sets the colour of the right hand border.</description>
         <attribute name="right-color" title="right-color:" required="1" vallist="1" default="">
-         <vallist>#,rgb( ),aqua,black,blue,fuchsia,gray,green,lime,maroon,navy,olive,purple,red,silver,teal,white,yellow,inherit</vallist>&lt;color&gt; | inherit
-        </attribute>
-        <dialog title="right-color">border-right-color: %0;</dialog>
-        <info title="right-color">
-Value:  	&lt;color&gt; | inherit
+         <vallist>#,rgb( ),aqua,black,blue,fuchsia,gray,green,lime,maroon,navy,olive,purple,red,silver,teal,white,yellow,inherit,ActiveBorder,ActiveCaption,AppWorkspace,Background,ButtonFace,ButtonHighlight,ButtonShadow,ButtonText,CaptionText,GrayText,Highlight,HighlightText,InactiveBorder,InactiveCaption,InactiveCaptionText,InfoBackground,InfoText,Menu,MenuText,Scrollbar,ThreeDDarkShadow,ThreeDFace,ThreeDHighlight,ThreeDLightShadow,ThreeDShadow,Window,WindowFrame,WindowText</vallist> &lt;color&gt; | inherit
 Initial:  	the value of the 'color' property
 Applies to:  	all elements
 Inherited:  	no
 Percentages:  	N/A
+        </attribute>
+        <dialog title="right-color">border-right-color: %0;</dialog>
+        <info title="right-color">
+
         </info>
         <insert>border-right-color: ;</insert>
       </tag>
@@ -441,15 +462,15 @@ Percentages:  	N/A
      <tag name="border-bottom-color">
         <description>Sets the colour of the bottom border.</description>
         <attribute name="bottom-color" title="bottom-color:" required="1" vallist="1" default="">
-         <vallist>#,rgb( ),aqua,black,blue,fuchsia,gray,green,lime,maroon,navy,olive,purple,red,silver,teal,white,yellow,inherit</vallist>&lt;color&gt; | inherit
-        </attribute>
-        <dialog title="bottom-color">border-bottom-color: %0;</dialog>
-        <info title="bottom-color">
-Value:  	&lt;color&gt; | inherit
+         <vallist>#,rgb( ),aqua,black,blue,fuchsia,gray,green,lime,maroon,navy,olive,purple,red,silver,teal,white,yellow,inherit,ActiveBorder,ActiveCaption,AppWorkspace,Background,ButtonFace,ButtonHighlight,ButtonShadow,ButtonText,CaptionText,GrayText,Highlight,HighlightText,InactiveBorder,InactiveCaption,InactiveCaptionText,InfoBackground,InfoText,Menu,MenuText,Scrollbar,ThreeDDarkShadow,ThreeDFace,ThreeDHighlight,ThreeDLightShadow,ThreeDShadow,Window,WindowFrame,WindowText</vallist> &lt;color&gt; | inherit
 Initial:  	the value of the 'color' property
 Applies to:  	all elements
 Inherited:  	no
 Percentages:  	N/A
+        </attribute>
+        <dialog title="bottom-color">border-bottom-color: %0;</dialog>
+        <info title="bottom-color">
+
         </info>
         <insert>border-bottom-color: ;</insert>
       </tag>
@@ -457,15 +478,15 @@ Percentages:  	N/A
      <tag name="border-left-color">
         <description>Sets the colour of the left hand border.</description>
         <attribute name="left-color" title="left-color:" required="1" vallist="1" default="">
-         <vallist>#,rgb( ),aqua,black,blue,fuchsia,gray,green,lime,maroon,navy,olive,purple,red,silver,teal,white,yellow,inherit</vallist>&lt;color&gt; | inherit
-        </attribute>
-        <dialog title="left-color">border-left-color: %0;</dialog>
-        <info title="left-color">
-Value:  	&lt;color&gt; | inherit
+         <vallist>#,rgb( ),aqua,black,blue,fuchsia,gray,green,lime,maroon,navy,olive,purple,red,silver,teal,white,yellow,inherit,ActiveBorder,ActiveCaption,AppWorkspace,Background,ButtonFace,ButtonHighlight,ButtonShadow,ButtonText,CaptionText,GrayText,Highlight,HighlightText,InactiveBorder,InactiveCaption,InactiveCaptionText,InfoBackground,InfoText,Menu,MenuText,Scrollbar,ThreeDDarkShadow,ThreeDFace,ThreeDHighlight,ThreeDLightShadow,ThreeDShadow,Window,WindowFrame,WindowText</vallist> &lt;color&gt; | inherit
 Initial:  	the value of the 'color' property
 Applies to:  	all elements
 Inherited:  	no
 Percentages:  	N/A
+        </attribute>
+        <dialog title="left-color">border-left-color: %0;</dialog>
+        <info title="left-color">
+
         </info>
         <insert>border-left-color: ;</insert>
       </tag>
@@ -536,6 +557,10 @@ see please border-style.
         <description>Sets the width of the top border.</description>
         <attribute name="top-width" title="top-width:" required="1" vallist="1" default="medium">
          <vallist>thin,medium,thick,0, %,inherit</vallist>thin | medium | thick | &lt;length&gt; | inherit
+Initial:  	medium
+Applies to:  	all elements
+Inherited:  	no
+Percentages:  	N/A
         </attribute>
         <dialog title="top-width">border-top-width: %0;</dialog>
         <info title="border-top-width">
@@ -548,6 +573,10 @@ see please border-width.
         <description>Sets the width of the right hand border.</description>
         <attribute name="right-width" title="right-width:" required="1" vallist="1" default="medium">
          <vallist>thin,medium,thick,0, %,inherit</vallist>thin | medium | thick | &lt;length&gt; | inherit
+Initial:  	medium
+Applies to:  	all elements
+Inherited:  	no
+Percentages:  	N/A
         </attribute>
         <dialog title="right-width">border-right-width: %0;</dialog>
         <info title="right-width">
@@ -560,6 +589,10 @@ see please border-width.
         <description>Sets the width of the bottom border.</description>
         <attribute name="bottom-width" title="bottom-width:" required="1" vallist="1" default="medium">
          <vallist>thin,medium,thick,0, %,inherit</vallist>thin | medium | thick | &lt;length&gt; | inherit
+Initial:  	medium
+Applies to:  	all elements
+Inherited:  	no
+Percentages:  	N/A
         </attribute>
         <dialog title="bottom-width">border-bottom-width: %0;</dialog>
         <info title="bottom-width">
@@ -572,6 +605,10 @@ see please border-width.
         <description>Sets the width of the left hand border.</description>
         <attribute name="left-width" title="left-width:" required="1" vallist="1" default="medium">
          <vallist>thin,medium,thick,0 %,inherit</vallist>thin | medium | thick | &lt;length&gt; | inherit
+Initial:  	medium
+Applies to:  	all elements
+Inherited:  	no
+Percentages:  	N/A
         </attribute>
         <dialog title="left-width">border-left-width: %0;</dialog>
         <info title="left-width">
@@ -610,15 +647,14 @@ The interpretation of the first three values depends on the user agent. The foll
       <tag name="bottom">
         <description>Specifies the offset from the bottom edge of the containing block.</description>
         <attribute name="bottom" title="bottom:" required="1" vallist="1" default="">
-         <vallist>0, %,auto,inherit</vallist>&lt;length&gt; | &lt;percentage&gt; | auto | inherit
-        </attribute>
-        <dialog title="bottom">bottom: %0;</dialog>
-        <info title="bottom">
-Value:  	&lt;length&gt; | &lt;percentage&gt; | auto | inherit
+         <vallist>0, %,auto,inherit</vallist> &lt;length&gt; | &lt;percentage&gt; | auto | inherit
 Initial:  	auto
 Applies to:  	positioned elements
 Inherited:  	no
 Percentages:  	refer to height of containing block
+        </attribute>
+        <dialog title="bottom">bottom: %0;</dialog>
+        <info title="bottom">
 &lt;length&gt;: The offset is a fixed distance from the reference edge. 
 &lt;percentage&gt;: The offset is a percentage of the containing block's width (for 'left' or 'right') or height (for 'top' and 'bottom'). For 'top' and 'bottom', if the height of the containing block is not specified explicitly (i.e., it depends on content height), the percentage value is interpreted like 'auto'. 
 auto: The effect of this value depends on which of related properties have the value 'auto' as well. See the sections on the width and height of absolutely positioned, non-replaced elements for details. 
@@ -632,9 +668,20 @@ For absolutely positioned boxes, the offsets are with respect to the box's conta
         <description>Specifies where a table caption will appear.</description>
         <attribute name="caption-side" title="caption-side:" required="1" vallist="1" default="top">
          <vallist>top,bottom,left,right,inherit</vallist>top | bottom | left | right | inherit
+Initial:  	top
+Applies to:  	'table-caption' elements
+Inherited:  	yes
+Percentages:  	N/A
         </attribute>
         <dialog title="caption-side">caption-side: %0;</dialog>
         <info title="caption-side">
+This property specifies the position of the caption box with respect to the table box. Values have the following meanings:
+
+top: Positions the caption box above the table box. 
+bottom: Positions the caption box below the table box. 
+left: Positions the caption box to the left of the table box. 
+right: Positions the caption box to the right of the table box. 
+
 Captions above or below a 'table' element are formatted very much as if they were a block element before or after the table, except that (1) they inherit inheritable properties from the table, and (2) they are not considered to be a block box for the purposes of any 'compact' or 'run-in' element that may precede the table.
 
 A caption that is above or below a table box also behaves like a block box for width calculations; the width is computed with respect to the width of the table box's containing block.
@@ -650,6 +697,10 @@ To align caption content horizontally within the caption box, use the 'text-alig
         <description>Specifies which sides of an element may not have a earlier floating element next to them.</description>
         <attribute name="clear" title="clear:" required="1" vallist="1" default="">
          <vallist>none,left,right,both,inherit</vallist>none | left | right | both | inherit
+Initial:  	none
+Applies to:  	block-level elements
+Inherited:  	no
+Percentages:  	N/A
         </attribute>
         <dialog title="clear">clear: %0;</dialog>
         <info title="clear">
@@ -670,8 +721,11 @@ When the property is set on floating elements, it results in a modification of t
      <tag name="clip">
         <description>Specifies the clipping rectangle for the element.</description>
         <attribute name="clip" title="clip:" required="1" vallist="1" default="auto">
-         <vallist>rect( ),auto,inherit</vallist>&lt;shape&gt; | auto | inherit
-
+         <vallist>rect( ),auto,inherit</vallist> &lt;shape&gt; | auto | inherit
+Initial:  	auto
+Applies to:  	block-level and replaced elements
+Inherited:  	no
+Percentages:  	N/A
         </attribute>
         <dialog title="clip">clip: %0;</dialog>
         <info title="clip">
@@ -694,15 +748,43 @@ If the clipping region exceeds the bounds of the UA's document window, content m
      <tag name="color">
         <description>Specifies the foreground colour to be used for text.</description>
         <attribute name="color" title="color:" required="1" vallist="1" default="">
-         <vallist>#,rgb( ),aqua,black,blue,fuchsia,gray,green,lime,maroon,navy,olive,purple,red,silver,teal,white,yellow,inherit</vallist>&lt;color&gt; | inherit
-        </attribute>
-        <dialog title="color">color: %0;</dialog>
-        <info title="color">
-Value:  	&lt;color&gt; | inherit
+         <vallist>#,rgb( ),aqua,black,blue,fuchsia,gray,green,lime,maroon,navy,olive,purple,red,silver,teal,white,yellow,inherit,ActiveBorder,ActiveCaption,AppWorkspace,Background,ButtonFace,ButtonHighlight,ButtonShadow,ButtonText,CaptionText,GrayText,Highlight,HighlightText,InactiveBorder,InactiveCaption,InactiveCaptionText,InfoBackground,InfoText,Menu,MenuText,Scrollbar,ThreeDDarkShadow,ThreeDFace,ThreeDHighlight,ThreeDLightShadow,ThreeDShadow,Window,WindowFrame,WindowText</vallist> &lt;color&gt; | inherit
 Initial:  	depends on user agent
 Applies to:  	all elements
 Inherited:  	yes
 Percentages:  	N/A
+        </attribute>
+        <dialog title="color">color: %0;</dialog>
+        <info title="color">
+The following lists additional values for color-related CSS attributes and their general meaning. Any color property (e.g., 'color' or 'background-color') can take one of the following names. Although these are case-insensitive, it is recommended that the mixed capitalization shown below be used, to make the names more legible.
+ActiveBorder: Active window border. 
+ActiveCaption: Active window caption. 
+AppWorkspace: Background color of multiple document interface. 
+Background: Desktop background. 
+ButtonFace: Face color for three-dimensional display elements. 
+ButtonHighlight: Dark shadow for three-dimensional display elements (for edges facing away from the light source). 
+ButtonShadow: Shadow color for three-dimensional display elements. 
+ButtonText: Text on push buttons. 
+CaptionText: Text in caption, size box, and scrollbar arrow box. 
+GrayText: Grayed (disabled) text. This color is set to #000 if the current display driver does not support a solid gray color. 
+Highlight: Item(s) selected in a control. 
+HighlightText: Text of item(s) selected in a control. 
+InactiveBorder: Inactive window border. 
+InactiveCaption: Inactive window caption. 
+InactiveCaptionText: Color of text in an inactive caption. 
+InfoBackground: Background color for tooltip controls. 
+InfoText: Text color for tooltip controls. 
+Menu: Menu background. 
+MenuText: Text in menus. 
+Scrollbar: Scroll bar gray area. 
+ThreeDDarkShadow: Dark shadow for three-dimensional display elements. 
+ThreeDFace: Face color for three-dimensional display elements. 
+ThreeDHighlight: Highlight color for three-dimensional display elements. 
+ThreeDLightShadow: Light color for three-dimensional display elements (for edges facing the light source). 
+ThreeDShadow: Dark shadow for three-dimensional display elements. 
+Window: Window background. 
+WindowFrame: Window frame. 
+WindowText: Text in windows.
         </info>
         <insert>color: ;</insert>
       </tag>
@@ -710,7 +792,7 @@ Percentages:  	N/A
      <tag name="content">
         <description>Provides a way of inserting extra content into the document.</description>
         <attribute name="content" title="content:" required="1" vallist="1" default="">
-         <vallist>"",url(),counter(),attr(),open-quote,close-quote,no-open-quote,no-close-quote,inherit</vallist>[ &lt;string&gt; | &lt;uri&gt; | &lt;counter&gt; | attr(X) | open-quote | close-quote | no-open-quote | no-close-quote ]+ | inherit
+         <vallist>"",url(),counter(),attr(),open-quote,close-quote,no-open-quote,no-close-quote,inherit</vallist> [ &lt;string&gt; | &lt;uri&gt; | &lt;counter&gt; | attr(X) | open-quote | close-quote | no-open-quote | no-close-quote ]+ | inherit
  Initial:  	empty string
  Applies to:  	:before and :after pseudo-elements
  Inherited:  	no
@@ -735,7 +817,11 @@ see: http://www.w3.org/TR/REC-CSS2/generate.html#propdef-content
      <tag name="counter-increment">
         <description>Increment a named counter.</description>
         <attribute name="counter-increment" title="counter-increment:" required="1" vallist="1" default="">
-         <vallist>,none,inherit</vallist>[ &lt;identifier&gt; &lt;integer&gt;? ]+ | none | inherit
+         <vallist>,none,inherit</vallist> [ &lt;identifier&gt; &lt;integer&gt;? ]+ | none | inherit
+Initial:  	none
+Applies to:  	all elements
+Inherited:  	no
+Percentages:  	N/A
         </attribute>
         <dialog title="counter-increment">counter-increment: %0;</dialog>
         <info title="counter-increment">
@@ -752,7 +838,11 @@ see http://www.w3.org/TR/REC-CSS2/generate.html
      <tag name="counter-reset">
         <description>Reset a named counter to 0, or a specified value.</description>
         <attribute name="counter-reset" title="counter-reset:" required="1" vallist="1" default="">
-         <vallist>,none,inherit</vallist>[ &lt;identifier&gt; &lt;integer>? ]+ | none | inherit
+         <vallist>,none,inherit</vallist> [ &lt;identifier&gt; &lt;integer>? ]+ | none | inherit
+Initial:  	none
+Applies to:  	all elements
+Inherited:  	no
+Percentages:  	N/A
         </attribute>
         <dialog title="counter-reset">counter-reset: %0;</dialog>
         <info title="counter-reset">
@@ -768,10 +858,16 @@ see http://www.w3.org/TR/REC-CSS2/generate.html
  
      <tag name="cursor">
         <description>Set the mouse pointer to the specified type.</description>
-        <attribute name="cursor" title="cursor:" required="1" vallist="1" default="">
-         <vallist>url(),auto,crosshair,default,pointer,move,e-resize,ne-resize,nw-resize,n-resize,se-resize,sw-resize,s-resize,w-resize, text,wait,help,inherit</vallist>[ [&lt;uri&gt; ,]* [ auto | crosshair | default | pointer | move | e-resize | ne-resize | nw-resize | n-resize | se-resize | sw-resize | s-resize | w-resize| text | wait | help ] ] | inherit
+        <attribute name="url" title="url:" required="0" vallist="1" default="">
+         <vallist>url(),</vallist> [ [&lt;uri&gt; ,]* [ auto | crosshair | default | pointer | move | e-resize | ne-resize | nw-resize | n-resize | se-resize | sw-resize | s-resize | w-resize| text | wait | help ] ] | inherit
         </attribute>
-        <dialog title="cursor">cursor: %0;</dialog>
+        <attribute name="url2" title="url:" required="0" vallist="1" default="">
+         <vallist>url(),</vallist> [ [&lt;uri&gt; ,]* [ auto | crosshair | default | pointer | move | e-resize | ne-resize | nw-resize | n-resize | se-resize | sw-resize | s-resize | w-resize| text | wait | help ] ] | inherit
+        </attribute>
+        <attribute name="cursor " title="cursor:" required="1" vallist="1" default="auto">
+         <vallist>auto,crosshair,default,pointer,move,e-resize,ne-resize,nw-resize,n-resize,se-resize,sw-resize,s-resize,w-resize, text,wait,help</vallist> [ [&lt;uri&gt; ,]* [ auto | crosshair | default | pointer | move | e-resize | ne-resize | nw-resize | n-resize | se-resize | sw-resize | s-resize | w-resize| text | wait | help ] ] | inherit
+        </attribute>
+        <dialog title="cursor">cursor: %0 %1;</dialog>
         <info title="cursor">
 This property specifies the type of cursor to be displayed for the pointing device. Values have the following meanings:
 
@@ -794,7 +890,7 @@ help
      <tag name="direction">
         <description>Sets the text direction, left to right, right to left, etc.</description>
         <attribute name="direction" title="direction:" required="1" vallist="1" default="ltr">
-         <vallist>ltr,rtl,inherit</vallist>Value:  	ltr | rtl | inherit
+         <vallist>ltr,rtl,inherit</vallist> ltr | rtl | inherit
 Initial:  	ltr
 Applies to:  	all elements, but see Notes
 Inherited:  	yes
@@ -846,7 +942,7 @@ Note that although the initial value of 'display' is 'inline', rules in the user
      <tag name="empty-cells">
         <description>Controls if empty cells in tables should be shown or not.</description>
         <attribute name="empty-cells" title="empty-cells:" required="1" vallist="1" default="show">
-         <vallist>show,hide,inherit</vallist>	show | hide | inherit
+         <vallist>show,hide,inherit</vallist>show | hide | inherit
 Initial:  	show
 Applies to:  	'table-cell' elements
 Inherited:  	yes
@@ -902,26 +998,63 @@ Here are the precise rules that govern the behavior of floats:
       <tag name="font">
         <description>Shorthand for setting the individual font properties.</description>
         <attribute name="font-style" title="font-style:" required="0" vallist="1" default="">
-         <vallist>,normal,italic,oblique</vallist>Value:  	normal | italic | oblique 
+         <vallist>,normal,italic,oblique</vallist> normal | italic | oblique 
         </attribute>
         <attribute name="font-variant" title="font-variant:" required="0" vallist="1" default="">
-         <vallist>,normal,small-caps</vallist>Value:  	normal | small-caps
+         <vallist>,normal,small-caps</vallist> normal | small-caps
         </attribute>
-        <attribute name="font-weight" title="font-weight:" required="0" vallist="1" default="">         <vallist>,normal,bold,bolder,lighter,100,200,300,400,500,600,700,800,900</vallist>Value:  	normal | bold | bolder | lighter | 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900
+        <attribute name="font-weight" title="font-weight:" required="0" vallist="1" default="">         <vallist>,normal,bold,bolder,lighter,100,200,300,400,500,600,700,800,900</vallist> normal | bold | bolder | lighter | 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900
         </attribute>
         <attribute name="font-size" title="font-size:" required="0" vallist="1" default="">
-         <vallist>,%,xx-small,x-small,small,medium,large,x-large,xx-large,larger,smaller</vallist>Value:  	&lt;absolute-size&gt; | &lt;relative-size&gt; | &lt;length&gt; | &lt;percentage&gt;
+         <vallist>,%,xx-small,x-small,small,medium,large,x-large,xx-large,larger,smaller</vallist> &lt;absolute-size&gt; | &lt;relative-size&gt; | &lt;length&gt; | &lt;percentage&gt;
         </attribute>
         <attribute name="line-height" title="line-height:" required="0" vallist="1" default="">
          <vallist>/</vallist> / &lt;number&gt; | &lt;length&gt; | &lt;percentage&gt; see Notes
         </attribute>
         <attribute name="font-family" title="font-family:" required="0" vallist="1" default="">
-         <vallist></vallist>[[ &lt;family-name&gt; | &lt;generic-family&gt; ],]* [&lt;family-name&gt; | &lt;generic-family&gt;]
+         <vallist></vallist> [[ &lt;family-name&gt; | &lt;generic-family&gt; ],]* [&lt;family-name&gt; | &lt;generic-family&gt;]
         </attribute>
-        <attribute name="system fonts" title="system fonts:" required="0" vallist="1" default="">
-         <vallist>,caption,icon,menu,message-box,small-caption,status-bar</vallist>caption | icon | menu | message-box | small-caption | status-bar
+        <dialog title="font">font: %0 %1 %2 %3 %4 %5;</dialog>
+        <info title="font">Value:  	[ [ &lt;'font-style'&gt; || &lt;'font-variant'&gt; || &lt;'font-weight'&gt; ]? &lt;'font-size'&gt; [ / &lt;'line-height'&gt; ]? &lt;'font-family'&gt; ] | caption | icon | menu | message-box | small-caption | status-bar | inherit
+Initial:  	see individual properties
+Applies to:  	all elements
+Inherited:  	yes
+Percentages:  	allowed on 'font-size' and 'line-height'
+
+ The 'font' property is, except as described below, a shorthand property for setting 'font-style', 'font-variant', 'font-weight', 'font-size', 'line-height', and 'font-family', at the same place in the style sheet. The syntax of this property is based on a traditional typographical shorthand notation to set multiple properties related to fonts.
+
+All font-related properties are first reset to their initial values, including those listed in the preceding paragraph plus 'font-stretch' and 'font-size-adjust'. Then, those properties that are given explicit values in the 'font' shorthand are set to those values. For a definition of allowed and initial values, see the previously defined properties. For reasons of backwards compatibility, it is not possible to set 'font-stretch' and 'font-size-adjust' to other than their initial values using the 'font' shorthand property; instead, set the individual properties. 
+
+caption: The font used for captioned controls (e.g., buttons, drop-downs, etc.). 
+icon: The font used to label icons. 
+menu: The font used in menus (e.g., dropdown menus and menu lists). 
+message-box: The font used in dialog boxes. 
+small-caption: The font used for labeling small controls. 
+status-bar: The font used in window status bars.
+        </info>
+        <insert>font: ;</insert>
+      </tag>
+
+      <tag name="font system">
+        <description>Shorthand for setting the individual font properties.</description>
+        <attribute name="font-style" title="font-style:" required="0" vallist="1" default="">
+         <vallist>,normal,italic,oblique</vallist> normal | italic | oblique 
         </attribute>
-        <dialog title="font">font: %0 %1 %2 %3 %4 %5 %6;</dialog>
+        <attribute name="font-variant" title="font-variant:" required="0" vallist="1" default="">
+         <vallist>,normal,small-caps</vallist> normal | small-caps
+        </attribute>
+        <attribute name="font-weight" title="font-weight:" required="0" vallist="1" default="">         <vallist>,normal,bold,bolder,lighter,100,200,300,400,500,600,700,800,900</vallist> normal | bold | bolder | lighter | 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900
+        </attribute>
+        <attribute name="font-size" title="font-size:" required="0" vallist="1" default="">
+         <vallist>,%,xx-small,x-small,small,medium,large,x-large,xx-large,larger,smaller</vallist> 	&lt;absolute-size&gt; | &lt;relative-size&gt; | &lt;length&gt; | &lt;percentage&gt;
+        </attribute>
+        <attribute name="line-height" title="line-height:" required="0" vallist="1" default="">
+         <vallist>/</vallist> / &lt;number&gt; | &lt;length&gt; | &lt;percentage&gt; see Notes
+        </attribute>
+        <attribute name="system fonts" title="system fonts:" required="1" vallist="1" default="">
+         <vallist>,caption,icon,menu,message-box,small-caption,status-bar</vallist> caption | icon | menu | message-box | small-caption | status-bar
+        </attribute>
+        <dialog title="font">font: %0 %1 %2 %3 %4 %5;</dialog>
         <info title="font">Value:  	[ [ &lt;'font-style'&gt; || &lt;'font-variant'&gt; || &lt;'font-weight'&gt; ]? &lt;'font-size'&gt; [ / &lt;'line-height'&gt; ]? &lt;'font-family'&gt; ] | caption | icon | menu | message-box | small-caption | status-bar | inherit
 Initial:  	see individual properties
 Applies to:  	all elements
@@ -945,10 +1078,10 @@ status-bar: The font used in window status bars.
      <tag name="font-family">
         <description>The name of the font, or font family to use.</description>
         <attribute title="family-name" name="family-name" required="0" vallist="1" default="">
-         <vallist>,arial, helvetica,verdana,Georgia,"Trebuchet MS","new century schoolbook",roman,"times new roman",times,courier, fixed,western,"Commic Sans MS",Zapf-Chancery,Baskerville,"Heisi Mincho W3",Symbol</vallist>&lt;family-name&gt; 
+         <vallist>,arial, helvetica,verdana,Georgia,"Trebuchet MS","new century schoolbook",roman,"times new roman",times,courier, fixed,western,"Commic Sans MS",Zapf-Chancery,Baskerville,"Heisi Mincho W3",Symbol</vallist> &lt;family-name&gt; 
         </attribute>
         <attribute title="generic-family" name="generic-family" required="1" vallist="1" default="">
-         <vallist>serif,sans-serif,cursive,fantasy,monospace</vallist>&lt;generic-family&gt;
+         <vallist>serif,sans-serif,cursive,fantasy,monospace</vallist> &lt;generic-family&gt;
 Value:  	[[ &lt;family-name&gt; | &lt;generic-family&gt; ],]* [&lt;family-name&gt; | &lt;generic-family&gt;] | inherit
 Initial:  	depends on user agent
 Applies to:  	all elements
@@ -975,7 +1108,7 @@ http://www.w3.org/TR/REC-CSS2/fonts.html#propdef-font-family
      <tag name="font-size">
         <description>Specifies how big the font should be.</description>
         <attribute name="font-size" title="font-size:" required="1" vallist="1" default="medium">
-         <vallist>,%,xx-small,x-small,small,medium,large,x-large,xx-large,larger,smaller,inherit</vallist>Value:  	&lt;absolute-size&gt; | &lt;relative-size&gt; | &lt;length&gt; | &lt;percentage&gt; | inherit
+         <vallist>,%,xx-small,x-small,small,medium,large,x-large,xx-large,larger,smaller,inherit</vallist> &lt;absolute-size&gt; | &lt;relative-size&gt; | &lt;length&gt; | &lt;percentage&gt; | inherit
 Initial:  	medium
 Applies to:  	all elements
 Inherited:  	yes, the computed value is inherited
@@ -991,7 +1124,7 @@ Percentages:  	refer to parent element's font size
      <tag name="font-size-adjust">
         <description>Set the aspect ratio of the font.</description>
         <attribute name="font-size-adjust" title="font-size-adjust:" required="1" vallist="1" default="none">
-         <vallist>,none,inherit</vallist>Value:  	&lt;number&gt; | none | inherit
+         <vallist>,none,inherit</vallist> &lt;number&gt; | none | inherit
 Initial:  	none
 Applies to:  	all elements
 Inherited:  	yes
@@ -1007,7 +1140,7 @@ http://www.w3.org/TR/REC-CSS2/fonts.html#propdef-font-size-adjust
      <tag name="font-stretch">
         <description>Provides a way to stretch / squash the font.</description>
         <attribute name="font-stretch" title="font-stretch:" required="1" vallist="1" default="normal">
-         <vallist>normal,wider,narrower,ultra-condensed,extra-condensed,condensed,semi-condensed,semi-expanded,expanded,extra-expanded,ultra-expanded,inherit</vallist>Value:  	normal | wider | narrower | ultra-condensed | extra-condensed | condensed | semi-condensed | semi-expanded | expanded | extra-expanded | ultra-expanded | inherit
+         <vallist>normal,wider,narrower,ultra-condensed,extra-condensed,condensed,semi-condensed,semi-expanded,expanded,extra-expanded,ultra-expanded,inherit</vallist> normal | wider | narrower | ultra-condensed | extra-condensed | condensed | semi-condensed | semi-expanded | expanded | extra-expanded | ultra-expanded | inherit
 Initial:  	normal
 Applies to:  	all elements
 Inherited:  	yes
@@ -1023,7 +1156,7 @@ The font stretch indicates the desired amount of condensing or expansion in the 
      <tag name="font-style">
         <description>Specifies if the font should be italic, oblique, etc.</description>
         <attribute name="font-style" title="font-style:" required="1" vallist="1" default="">
-         <vallist>normal,italic,oblique,inherit</vallist>Value:  	normal | italic | oblique | inherit
+         <vallist>normal,italic,oblique,inherit</vallist> normal | italic | oblique | inherit
 Initial:  	normal
 Applies to:  	all elements
 Inherited:  	yes
@@ -1039,7 +1172,7 @@ The font style specifies whether the text is to be rendered using a normal, ital
      <tag name="font-variant">
         <description>Enables a variant of the font to be used, such as small-caps.</description>
         <attribute name="font-variant" title="font-variant:" required="1" vallist="1" default="normal">
-         <vallist>normal,small-caps,inherit</vallist>Value:  	normal | small-caps | inherit
+         <vallist>normal,small-caps,inherit</vallist> normal | small-caps | inherit
 Initial:  	normal
 Applies to:  	all elements
 Inherited:  	yes
@@ -1055,7 +1188,7 @@ The font variant indicates whether the text is to be rendered using the normal g
      <tag name="font-weight">
         <description>Specifies the weight of the font.</description>
         <attribute name="font-weight" title="font-weight:" required="1" vallist="1" default="normal">
-         <vallist>normal,bold,bolder,lighter,100,200,300,400,500,600,700,800,900,inherit</vallist>Value:  	normal | bold | bolder | lighter | 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900 | inherit
+         <vallist>normal,bold,bolder,lighter,100,200,300,400,500,600,700,800,900,inherit</vallist> normal | bold | bolder | lighter | 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900 | inherit
 Initial:  	normal
 Applies to:  	all elements
 Inherited:  	yes
@@ -1074,9 +1207,9 @@ The font weight refers to the boldness or lightness of the glyphs used to render
       <tag name="height">
         <description>Provides a height for an element.</description>
         <attribute name="height" title="height:" required="1" vallist="1" default="auto">
-         <vallist>0, %,auto,inherit</vallist>&lt;length&gt; | &lt;percentage&gt; | auto | inherit
+         <vallist>0, %,auto,inherit</vallist> &lt;length&gt; | &lt;percentage&gt; | auto | inherit
 Initial:  	auto
-pplies to:  	all elements but non-replaced inline elements, table columns, and column groups
+Applies to:  	all elements but non-replaced inline elements, table columns, and column groups
 Inherited:  	no
 Percentages:  	see Notes
         </attribute>
@@ -1101,15 +1234,14 @@ see http://www.w3.org/TR/REC-CSS2/visudet.html#propdef-height
      <tag name="left">
         <description>Specifies the offset of the left hand side of a positioned element.</description>
         <attribute name="left" title="left:" required="1" vallist="1" default="auto">
-         <vallist>0, %,auto,inherit</vallist>&lt;length&gt; | &lt;percentage&gt; | auto | inherit
-        </attribute>
-        <dialog title="left">left: %0;</dialog>
-        <info title="left">
-Value:  	&lt;length&gt; | &lt;percentage&gt; | auto | inherit
+         <vallist>0, %,auto,inherit</vallist> &lt;length&gt; | &lt;percentage&gt; | auto | inherit
 Initial:  	auto
 Applies to:  	positioned elements
 Inherited:  	no
 Percentages:  	refer to width of containing block
+        </attribute>
+        <dialog title="left">left: %0;</dialog>
+        <info title="left">
 &lt;length&gt;: The offset is a fixed distance from the reference edge. 
 &lt;percentage&gt;: The offset is a percentage of the containing block's width (for 'left' or 'right') or height (for 'top' and 'bottom'). For 'top' and 'bottom', if the height of the containing block is not specified explicitly (i.e., it depends on content height), the percentage value is interpreted like 'auto'. 
 auto: The effect of this value depends on which of related properties have the value 'auto' as well. See the sections on the width and height of absolutely positioned, non-replaced elements for details. 
@@ -1171,13 +1303,13 @@ normal: Tells user agents to set the computed value to a "reasonable" value base
       <tag name="list-style">
         <description>Shorthand method of applying the list-style properties.</description>
         <attribute name="style-type" title="style-type:" required="0" vallist="1" default="">
-         <vallist>,disc,circle,square,decimal,decimal-leading-zero,lower-roman,upper-roman,lower-greek,lower-alpha,lower-latin,upper-alpha,upper-latin,hebrew,armenian,georgian,cjk-ideographic,hiragana,katakana,hiragana-iroha,katakana-iroha,none</vallist>Value:  	disc | circle | square | decimal | decimal-leading-zero | lower-roman | upper-roman | lower-greek | lower-alpha | lower-latin | upper-alpha | upper-latin | hebrew | armenian | georgian | cjk-ideographic | hiragana | katakana | hiragana-iroha | katakana-iroha | none
+         <vallist>,disc,circle,square,decimal,decimal-leading-zero,lower-roman,upper-roman,lower-greek,lower-alpha,lower-latin,upper-alpha,upper-latin,hebrew,armenian,georgian,cjk-ideographic,hiragana,katakana,hiragana-iroha,katakana-iroha,none</vallist> disc | circle | square | decimal | decimal-leading-zero | lower-roman | upper-roman | lower-greek | lower-alpha | lower-latin | upper-alpha | upper-latin | hebrew | armenian | georgian | cjk-ideographic | hiragana | katakana | hiragana-iroha | katakana-iroha | none
         </attribute>
         <attribute name="style-position" title="style-position:" required="0" vallist="1" default="">
-         <vallist>,inside,outside</vallist>Value:  	inside | outside
+         <vallist>,inside,outside</vallist> inside | outside
         </attribute>
         <attribute name="style-image" title=":" required="0" vallist="1" default="">
-         <vallist>,url(""),none,inherit</vallist>Value:  	&lt;uri&gt; | none
+         <vallist>,url(""),none,inherit</vallist> &lt;uri&gt; | none
         </attribute>
         <dialog title="list-style">list-style: %0 %1 %2;</dialog>
         <info title="list-style">
@@ -1195,7 +1327,7 @@ The 'list-style' property is a shorthand notation for setting the three properti
      <tag name="list-style-image">
         <description>Specifies an image that should be used as the marker in a list or list item.</description>
         <attribute name="style-image" title="style-image:" required="1" vallist="1" default="none">
-         <vallist>url(""),none,inherit</vallist>Value:  	&lt;uri&gt; | none | inherit
+         <vallist>url(),none,inherit</vallist> &lt;uri&gt; | none | inherit
 Initial:  	none
 Applies to:  	elements with 'display: list-item'
 Inherited:  	yes
@@ -1210,8 +1342,8 @@ Percentages:  	N/A
  
      <tag name="list-style-position">
         <description>Used to control if the list marker is rendered inside or outside the actual list item.</description>
-        <attribute name="style-position" title="style-position:" required="1" vallist="1" default="">
-         <vallist>inside,outside,inherit</vallist>Value:  	inside | outside | inherit
+        <attribute name="style-position" title="style-position:" required="1" vallist="1" default="outside">
+         <vallist>inside,outside,inherit</vallist> inside | outside | inherit
 Initial:  	outside
 Applies to:  	elements with 'display: list-item'
 Inherited:  	yes
@@ -1229,7 +1361,7 @@ inside: The marker box is the first inline box in the principal block box, after
      <tag name="list-style-type">
         <description>Specifies the type of marker to display, circle, square etc.</description>
         <attribute name="style-type" title="style-type:" required="1" vallist="1" default="disc">
-         <vallist>disc,circle,square,decimal,decimal-leading-zero,lower-roman,upper-roman,lower-greek,lower-alpha,lower-latin,upper-alpha,upper-latin,hebrew,armenian,georgian,cjk-ideographic,hiragana,katakana,hiragana-iroha,katakana-iroha,none,inherit</vallist>Value:  	disc | circle | square | decimal | decimal-leading-zero | lower-roman | upper-roman | lower-greek | lower-alpha | lower-latin | upper-alpha | upper-latin | hebrew | armenian | georgian | cjk-ideographic | hiragana | katakana | hiragana-iroha | katakana-iroha | none | inherit
+         <vallist>disc,circle,square,decimal,decimal-leading-zero,lower-roman,upper-roman,lower-greek,lower-alpha,lower-latin,upper-alpha,upper-latin,hebrew,armenian,georgian,cjk-ideographic,hiragana,katakana,hiragana-iroha,katakana-iroha,none,inherit</vallist> disc | circle | square | decimal | decimal-leading-zero | lower-roman | upper-roman | lower-greek | lower-alpha | lower-latin | upper-alpha | upper-latin | hebrew | armenian | georgian | cjk-ideographic | hiragana | katakana | hiragana-iroha | katakana-iroha | none | inherit
 Initial:  	disc
 Applies to:  	elements with 'display: list-item'
 Inherited:  	yes
@@ -1248,7 +1380,7 @@ see please http://www.w3.org/TR/REC-CSS2/generate.html#propdef-list-style-type
       <tag name="margin">
         <description>Shorthand method for specifying the top, right, bottom, left margin widths / heights.</description>
         <attribute name="margin" title="margin:" required="1" vallist="1" default="">
-         <vallist>0,auto,inherit</vallist>Value:  	&lt;margin-width&gt;{1,4} | inherit
+         <vallist>0,auto,inherit</vallist> &lt;margin-width&gt;{1,4} | inherit
 Initial:  	not defined for shorthand properties
 Applies to:  	all elements
 Inherited:  	no
@@ -1267,7 +1399,7 @@ If there is only one value, it applies to all sides. If there are two values, th
      <tag name="margin-top">
         <description>Specifies the height of the top margin on an element.</description>
         <attribute name="margin-top" title="margin-top:" required="1" vallist="1" default="0">
-         <vallist>0,auto,inherit</vallist>Value:  	&lt;margin-width&gt; | inherit
+         <vallist>0,auto,inherit</vallist> &lt;margin-width&gt; | inherit
 Initial:  	0
 Applies to:  	all elements
 Inherited:  	no
@@ -1292,7 +1424,7 @@ Negative values for margin properties are allowed, but there may be implementati
      <tag name="margin-right">
         <description>Specifies the width of the right hand margin on an element.</description>
         <attribute name="margin-right" title="margin-right:" required="1" vallist="1" default="0">
-         <vallist>0,auto,inherit</vallist>Value:  	&lt;margin-width&gt; | inherit
+         <vallist>0,auto,inherit</vallist> &lt;margin-width&gt; | inherit
 Initial:  	0
 Applies to:  	all elements
 Inherited:  	no
@@ -1308,7 +1440,7 @@ see please margin-top
      <tag name="margin-bottom">
         <description>Specifies the height of the bottom margin on an element.</description>
         <attribute name="margin-bottom" title="margin-bottom:" required="1" vallist="1" default="0">
-         <vallist>0,auto,inherit</vallist>Value:  	&lt;margin-width&gt; | inherit
+         <vallist>0,auto,inherit</vallist> &lt;margin-width&gt; | inherit
 Initial:  	0
 Applies to:  	all elements
 Inherited:  	no
@@ -1324,7 +1456,7 @@ see please margin-top
      <tag name="margin-left">
         <description>Specifies the width of the left hand margin on an element.</description>
         <attribute name="margin-left" title="margin-left:" required="1" vallist="1" default="0">
-         <vallist>0,auto,inherit</vallist>Value:  	&lt;margin-width&gt; | inherit
+         <vallist>0,auto,inherit</vallist> &lt;margin-width&gt; | inherit
 Initial:  	0
 Applies to:  	all elements
 Inherited:  	no
@@ -1344,7 +1476,7 @@ see please margin-top
         <description>Specifies the distance between the nearest border edges of a marker box and its associated principal box
 		 .</description>
         <attribute name="marker-offset" title="marker-offset:" required="1" vallist="1" default="">
-         <vallist>0,auto,inherit</vallist>&lt;length&gt; | auto | inherit
+         <vallist>0,auto,inherit</vallist> &lt;length&gt; | auto | inherit
 Initial:  	auto
 Applies to:  	elements with 'display: marker'
 Inherited:  	no
@@ -1360,13 +1492,23 @@ This property specifies the distance between the nearest border edges of a marke
      <tag name="marks">
         <description>Specifies whether cross marks or crop marks or both should be rendered just outside the page box edge
 		 .</description>
-        <attribute name="" title=":" required="1" vallist="1" default="">
-         <vallist></vallist>
-
+        <attribute name="marks" title="marks:" required="1" vallist="1" default="">
+         <vallist>crop,cross,crop cross,none,inherit</vallist> [ crop || cross ] | none | inherit
+Initial:  	none
+Applies to:  	page context
+Inherited:  	N/A
+Percentages:  	N/A
+Media:  	visual, paged
         </attribute>
-        <dialog title="">: %0;</dialog>
-        <info title="">
+        <dialog title="marks">marks: %0;</dialog>
+        <info title="marks">
+In high-quality printing, marks are often added outside the page box. This property specifies whether cross marks or crop marks or both should be rendered just outside the page box edge.
 
+Crop marks indicate where the page should be cut. Cross marks (also known as register marks or registration marks) are used to align sheets.
+
+Marks are visible only on absolute page boxes (see the 'size' property). In relative page boxes, the page box will be aligned with the target and the marks will be outside the printable area.
+
+The size, style, and position of cross marks depend on the user agent. 
         </info>
         <insert>marks: ;</insert>
       </tag>
@@ -1374,7 +1516,7 @@ This property specifies the distance between the nearest border edges of a marke
      <tag name="max-height">
         <description>Specifies a maximum height for an element, does not apply to table elements.</description>
         <attribute name="max-height" title="max-height:" required="1" vallist="1" default="">
-         <vallist>0, %,none,inherit</vallist>&lt;length&gt; | &lt;percentage&gt; | none | inherit
+         <vallist>0, %,none,inherit</vallist> &lt;length&gt; | &lt;percentage&gt; | none | inherit
 Initial:  	none
 Applies to:  	all elements except non-replaced inline elements and table elements
 Inherited:  	no
@@ -1402,7 +1544,7 @@ The following algorithm describes how the two properties influence the computed 
      <tag name="max-width">
         <description>Specifies a maximum width for an element, does not apply to table elements.</description>
         <attribute name="max-width" title="max-width:" required="1" vallist="1" default="">
-         <vallist>0, %,none,inherit</vallist>&lt;length&gt; | &lt;percentage&gt; | none | inherit
+         <vallist>0, %,none,inherit</vallist> &lt;length&gt; | &lt;percentage&gt; | none | inherit
 Initial:  	none
 Applies to:  	all elements except non-replaced inline elements and table elements
 Inherited:  	no
@@ -1431,7 +1573,7 @@ The user agent may define a non-negative minimum value for the 'min-width' prope
      <tag name="min-height">
         <description>Specifies a minimum height for an element, does not apply to table elements.</description>
         <attribute name="min-height" title="min-height:" required="1" vallist="1" default="">
-         <vallist>0, %,inherit</vallist>&lt;length&gt; | &lt;percentage&gt; | inherit
+         <vallist>0, %,inherit</vallist> &lt;length&gt; | &lt;percentage&gt; | inherit
 Initial:  	0
 Applies to:  	all elements except non-replaced inline elements and table elements
 Inherited:  	no
@@ -1459,7 +1601,7 @@ The following algorithm describes how the two properties influence the computed 
      <tag name="min-width">
         <description>Specifies a minimum width for an element, does not apply to table elements.</description>
         <attribute name="min-width" title="min-width:" required="1" vallist="1" default="">
-         <vallist>0, %,inherit</vallist>&lt;length&gt; | &lt;percentage&gt; | inherit
+         <vallist>0, %,inherit</vallist> &lt;length&gt; | &lt;percentage&gt; | inherit
 Initial:  	UA dependent
 Applies to:  	all elements except non-replaced inline elements and table elements
 Inherited:  	no
@@ -1489,7 +1631,7 @@ The user agent may define a non-negative minimum value for the 'min-width' prope
         <description>Specifies the minimum number of lines of a paragraph that must be left at the bottom of a page.
 		  </description>
         <attribute name="orphans" title="orphans:" required="1" vallist="1" default="">
-         <vallist>2,inherit</vallist>&lt;integer&gt; | inherit
+         <vallist>2,inherit</vallist> &lt;integer&gt; | inherit
 Initial:  	2
 Applies to:  	block-level elements
 Inherited:  	yes
@@ -1508,15 +1650,14 @@ For information about paragraph formatting, please consult the section on line b
      <tag name="outline">
         <description>Shorthand for setting the individual outline properties on all sides of the box.</description>
         <attribute name="outline-color" title="outline-color:" required="0" vallist="1" default="">
-         <vallist>#,rgb( ),invert,aqua,black,blue,fuchsia,gray,green,lime,maroon,navy,olive,purple,red,silver,teal,white,yellow</vallist>
+         <vallist>#,rgb( ),invert,aqua,black,blue,fuchsia,gray,green,lime,maroon,navy,olive,purple,red,silver,teal,white,yellow,ActiveBorder,ActiveCaption,AppWorkspace,Background,ButtonFace,ButtonHighlight,ButtonShadow,ButtonText,CaptionText,GrayText,Highlight,HighlightText,InactiveBorder,InactiveCaption,InactiveCaptionText,InfoBackground,InfoText,Menu,MenuText,Scrollbar,ThreeDDarkShadow,ThreeDFace,ThreeDHighlight,ThreeDLightShadow,ThreeDShadow,Window,WindowFrame,WindowText</vallist> &lt;color&gt; | invert 
         </attribute>
-        <attribute name="outline-style" title="outline-style:" required="0" vallist="1" default="">
-         <vallist>none,dotted,dashed,solid,double,groove,ridge,inset,outset</vallist>
+        <attribute name="outline-style" title="outline-style:" required="0" vallist="1" default="">         <vallist>none,dotted,dashed,solid,double,groove,ridge,inset,outset</vallist> none | dotted | dashed | solid | double | groove | ridge | inset | outset
         </attribute>
         <attribute name="outline-width" title="outline-width:" required="0" vallist="1" default="">
-         <vallist>thin,medium,thick,0</vallist>
-        </attribute>
-        <dialog title="outline">outline: %_;</dialog>
+         <vallist>thin,medium,thick,0</vallist> thin | medium | thick | &lt;lenght&gt;
+        </attribute> 
+        <dialog title="outline">outline: %0 %1 %2;</dialog>
         <info title="outline">
 At times, style sheet authors may want to create outlines around visual objects such as buttons, active form fields, image maps, etc., to make them stand out. CSS2 outlines differ from borders in the following ways:
 
@@ -1533,7 +1674,7 @@ http://www.w3.org/TR/REC-CSS2/ui.html#propdef-outline
      <tag name="outline-color">
         <description>Sets the colour of the outline on all sides of the box.</description>
         <attribute name="outline-color" title="outline-color:" required="1" vallist="1" default="">
-         <vallist>#,rgb( ),invert,aqua,black,blue,fuchsia,gray,green,lime,maroon,navy,olive,purple,red,silver,teal,white,yellow,inherit</vallist>Value:  	&lt;color&gt; | invert | inherit
+         <vallist>#,rgb( ),invert,aqua,black,blue,fuchsia,gray,green,lime,maroon,navy,olive,purple,red,silver,teal,white,yellow,ActiveBorder,ActiveCaption,AppWorkspace,Background,ButtonFace,ButtonHighlight,ButtonShadow,ButtonText,CaptionText,GrayText,Highlight,HighlightText,InactiveBorder,InactiveCaption,InactiveCaptionText,InfoBackground,InfoText,Menu,MenuText,Scrollbar,ThreeDDarkShadow,ThreeDFace,ThreeDHighlight,ThreeDLightShadow,ThreeDShadow,Window,WindowFrame,WindowText,inherit</vallist> &lt;color&gt; | invert | inherit
 Initial:  	invert
 Applies to:  	all elements
 Inherited:  	no
@@ -1550,7 +1691,7 @@ sea please outline.
  
      <tag name="outline-style">
         <description>Sets the style of the outline on all sides of the box.</description>
-        <attribute name="outline-style" title="outline-style:" required="1" vallist="1" default="none">         <vallist>none,dotted,dashed,solid,double,groove,ridge,inset,outset,inherit</vallist>Value:  	&lt;border-style&gt; | inherit
+        <attribute name="outline-style" title="outline-style:" required="1" vallist="1" default="none">         <vallist>none,dotted,dashed,solid,double,groove,ridge,inset,outset,inherit</vallist> &lt;border-style&gt; | inherit
 Initial:  	none
 Applies to:  	all elements
 Inherited:  	no
@@ -1568,7 +1709,7 @@ sea please outline.
      <tag name="outline-width">
         <description>Sets the width of the outline on all sides of the box.</description>
         <attribute name="outline-width" title="outline-width:" required="1" vallist="1" default="medium">
-         <vallist>thin,medium,thick,0</vallist>Value:  	&lt;border-width&gt; | inherit
+         <vallist>thin,medium,thick,0,inherit</vallist>  thin | medium | thick | &lt;lenght&gt; | inherit
 Initial:  	medium
 Applies to:  	all elements
 Inherited:  	no
@@ -1613,26 +1754,38 @@ Even if 'overflow' is set to 'visible', content may be clipped to a UA's documen
         <description>Specifies the width of the padding area of a box. The 'padding' shorthand property sets the padding for all four sides while the other padding properties only set their respective side. 
         If there is only one value, it applies to all sides. If there are two values, the top and bottom paddings are set to the first value and the right and left paddings are set to the second. If there are three values, the top is set to the first value, the left and right are set to the second, and the bottom is set to the third. If there are four values, they apply to the top, right, bottom, and left, respectively.</description>
         <attribute name="padding" title="padding:" required="1" vallist="1" default="0">
-         <vallist>0,inherit</vallist>Value:  	&lt;padding-width&gt;{1,4} | inherit
+         <vallist>0, %</vallist> &lt;padding-width&gt;{1,4} | inherit
 Initial:  	not defined for shorthand properties
 Applies to:  	all elements
 Inherited:  	no
 Percentages:  	refer to width of containing block
         </attribute>
-        <dialog title="padding">padding: %0;</dialog>
+        <attribute name="padding1" title="padding:" required="0" vallist="1" default="">
+         <vallist>0, %</vallist> &lt;length&gt; | &lt;percentage&gt;
+        </attribute>
+        <attribute name="padding2" title="padding:" required="0" vallist="1" default="">
+         <vallist>0, %</vallist> &lt;length&gt; | &lt;percentage&gt;
+        </attribute>
+        <attribute name="padding3" title="padding:" required="0" vallist="1" default="">
+         <vallist>0, %</vallist> &lt;length&gt; | &lt;percentage&gt;
+        </attribute>
+        <dialog title="padding">padding: %0 %1 %2 %3;</dialog>
         <info title="padding">
 The padding properties specify the width of the padding area of a box. The 'padding' shorthand property sets the padding for all four sides while the other padding properties only set their respective side.
 
 The properties defined in this section refer to the &lt;padding-width&gt; value type, which may take one of the following values:
 
-&lt;length&gt;
-    Specifies a fixed width. 
-&lt;percentage&gt;
-    The percentage is calculated with respect to the width of the generated box's containing block, even for 'padding-top' and 'padding-bottom'. 
+&lt;length&gt;: Specifies a fixed width. 
+&lt;percentage&gt;: The percentage is calculated with respect to the width of the generated box's containing block, even for 'padding-top' and 'padding-bottom'.
+ 
+ The 'padding' property is a shorthand property for setting 'padding-top', 'padding-right', 'padding-bottom', and 'padding-left' at the same place in the style sheet.
 
+If there is only one value, it applies to all sides. If there are two values, the top and bottom paddings are set to the first value and the right and left paddings are set to the second. If there are three values, the top is set to the first value, the left and right are set to the second, and the bottom is set to the third. If there are four values, they apply to the top, right, bottom, and left, respectively.
+
+The surface color or image of the padding area is specified via the 'background' property: 
 Unlike margin properties, values for padding values cannot be negative. Like margin properties, percentage values for padding properties refer to the width of the generated box's containing block.  
 
-The surface color or image of the padding area is specified via the 'background' property:
+The surface color or image of the padding area is specified via the 'background' property
         </info>
         <insert>padding: ;</insert>
       </tag>
@@ -1640,7 +1793,7 @@ The surface color or image of the padding area is specified via the 'background'
      <tag name="padding-top">
         <description>Set the top padding of a box.</description>
         <attribute name="padding-top" title="padding-top:" required="1" vallist="1" default="0">
-         <vallist>0,inherit</vallist>Value:  	&lt;padding-width&gt; | inherit
+         <vallist>0, %,inherit</vallist> &lt;padding-width&gt; | inherit
 Initial:  	0
 Applies to:  	all elements
 Inherited:  	no
@@ -1656,7 +1809,7 @@ see please padding
      <tag name="padding-right">
         <description>Set the right padding of a box.</description>
         <attribute name="padding-right" title="padding-right:" required="1" vallist="1" default="0">
-         <vallist>0,inherit</vallist>Value:  	&lt;padding-width&gt; | inherit
+         <vallist>0, %,inherit</vallist> &lt;padding-width&gt; | inherit
 Initial:  	0
 Applies to:  	all elements
 Inherited:  	no
@@ -1672,7 +1825,7 @@ see please padding
      <tag name="padding-bottom">
         <description>Set the bottom padding of a box.</description>
         <attribute name="padding-bottom" title="padding-bottom:" required="1" vallist="1" default="0">
-         <vallist>0,inherit</vallist>Value:  	&lt;padding-width&gt; | inherit
+         <vallist>0, %,inherit</vallist> &lt;padding-width&gt; | inherit
 Initial:  	0
 Applies to:  	all elements
 Inherited:  	no
@@ -1688,7 +1841,7 @@ see please padding
      <tag name="padding-left">
         <description>Set the left padding of a box.</description>
         <attribute name="padding-left" title="padding-left:" required="1" vallist="1" default="0">
-         <vallist>0,inherit</vallist>Value:  	&lt;padding-width&gt; | inherit
+         <vallist>0, %,inherit</vallist> &lt;padding-width&gt; | inherit
 Initial:  	0
 Applies to:  	all elements
 Inherited:  	no
@@ -1707,7 +1860,7 @@ see please padding
       <tag name="page">
         <description>Specifies a particular type of page where an element should be displayed.</description>
         <attribute name="page" title="page:" required="1" vallist="1" default="auto">
-         <vallist>,auto</vallist>Value:  	&lt;identifier&gt; | auto
+         <vallist>,auto</vallist> &lt;identifier&gt; | auto
 Initial:  	auto
 Applies to:  	block-level elements
 Inherited:  	yes
@@ -1732,7 +1885,7 @@ See http://www.w3.org/TR/REC-CSS2/page.html#propdef-page
      <tag name="page-break-after">
         <description>Page break after.</description>
         <attribute name="page-break-after" title="page-break-after:" required="1" vallist="1" default="auto">
-         <vallist>auto,always,avoid,left,right,inherit</vallist>Value:  	auto | always | avoid | left | right | inherit
+         <vallist>auto,always,avoid,left,right,inherit</vallist> auto | always | avoid | left | right | inherit
 Initial:  	auto
 Applies to:  	block-level elements
 Inherited:  	no
@@ -1753,7 +1906,7 @@ right: Force one or two page breaks before (after) the generated box so that the
      <tag name="page-break-before">
         <description>Page break before.</description>
         <attribute name="page-break-before" title="page-break-before:" required="1" vallist="1" default="auto">
-         <vallist>auto,always,avoid,left,right,inherit</vallist>Value:  	auto | always | avoid | left | right | inherit
+         <vallist>auto,always,avoid,left,right,inherit</vallist> auto | always | avoid | left | right | inherit
 Initial:  	auto
 Applies to:  	block-level elements
 Inherited:  	no
@@ -1770,7 +1923,7 @@ see please page-break-after
      <tag name="page-break-inside">
         <description>Page break inside.</description>
         <attribute name="page-break-inside" title="page-break-inside:" required="1" vallist="1" default="auto">
-         <vallist>avoid,auto,inherit</vallist>Value:  	avoid | auto | inherit
+         <vallist>avoid,auto,inherit</vallist> avoid | auto | inherit
 Initial:  	auto
 Applies to:  	block-level elements
 Inherited:  	yes
@@ -1815,7 +1968,7 @@ fixed: The box's position is calculated according to the 'absolute' model, but i
      <tag name="quotes">
         <description>Specifies pairs of quotation marks for each level of embedded quotation. The 'content' property gives access to those quotation marks and causes them to be inserted before and after a quotation.</description>
         <attribute name="quotes" title="quotes:" required="1" vallist="1" default="">
-         <vallist>"",none,inherit</vallist>[&lt;string&gt; &lt;string&gt;]+ | none | inherit
+         <vallist>"",none,inherit</vallist> [&lt;string&gt; &lt;string&gt;]+ | none | inherit
 Initial:  	depends on user agent
 Applies to:  	all elements
 Inherited:  	yes
@@ -1827,7 +1980,7 @@ This property specifies quotation marks for any number of embedded quotations. V
 
 none
     The 'open-quote' and 'close-quote' values of the 'content' property produce no quotations marks. 
-[&lt;string&gt;  &lt;string&gt;]+: Values for the 'open-quote' and 'close-quote' values of the 'content' property are taken from this list of pairs of quotation marks (opening and closing). The first (leftmost) pair represents the outermost level of quotation, the second pair the first level of embedding, etc. The user agent must apply the appropriate pair of quotation marks according to the level of embedding. 
+[&lt;string&gt;  &lt;string&gt;]+: Values for the 'open-quote' and 'close-quote' values of the 'content' property are taken from this list of pairs of quotation marks (opening and closing). The first (leftmost) pair represents the outermost level of quotation, the second pair the first level of embedding, etc. The user agent must apply the appropriate pair of quotation marks according to the level of embedding.
         </info>
         <insert>quotes: ;</insert>
       </tag>
@@ -1835,16 +1988,14 @@ none
      <tag name="right">
         <description>Specifies how far a box's right content edge is offset to the left of the right edge of the box's containing block.</description>
         <attribute name="right" title="right:" required="1" vallist="1" default="auto">
-         <vallist>0, %,auto,inherit</vallist>&lt;length&gt; | &lt;percentage&gt; | auto | inherit
-
-        </attribute>
-        <dialog title="right">right: %0;</dialog>
-        <info title="right">
-Value:  	&lt;length&gt; | &lt;percentage&gt; | auto | inherit
+         <vallist>0, %,auto,inherit</vallist> &lt;length&gt; | &lt;percentage&gt; | auto | inherit
 Initial:  	auto
 Applies to:  	positioned elements
 Inherited:  	no
 Percentages:  	refer to width of containing block
+        </attribute>
+        <dialog title="right">right: %0;</dialog>
+        <info title="right">
 &lt;length&gt;: The offset is a fixed distance from the reference edge. 
 &lt;percentage&gt;: The offset is a percentage of the containing block's width (for 'left' or 'right') or height (for 'top' and 'bottom'). For 'top' and 'bottom', if the height of the containing block is not specified explicitly (i.e., it depends on content height), the percentage value is interpreted like 'auto'. 
 auto: The effect of this value depends on which of related properties have the value 'auto' as well. See the sections on the width and height of absolutely positioned, non-replaced elements for details. 
@@ -1857,7 +2008,7 @@ For absolutely positioned boxes, the offsets are with respect to the box's conta
      <tag name="size">
         <description>Specifies the size and orientation of a page box.</description>
         <attribute name="size" title="size:" required="1" vallist="1" default="">
-         <vallist>0,auto,portrait,landscape,inherit</vallist>&lt;length&gt;{1,2} | auto | portrait | landscape | inherit
+         <vallist>0,auto,portrait,landscape,inherit</vallist> &lt;length&gt;{1,2} | auto | portrait | landscape | inherit
 Initial:  	auto
 Applies to:  	the page context
 Inherited:  	N/A
@@ -1883,8 +2034,8 @@ see http://www.w3.org/TR/REC-CSS2/page.html#propdef-size
      <tag name="table-layout">
         <description>Controls the algorithm used to lay out the table cells, rows, and columns.</description>
         <attribute name="table-layout" title="table-layout:" required="1" vallist="1" default="auto">
-         <vallist>auto,fixed,inherit</vallist>auto | fixed | inherit
-nitial:  	auto
+         <vallist>auto,fixed,inherit</vallist> auto | fixed | inherit
+Initial:  	auto
 Applies to:  	'table' and 'inline-table' elements
 Inherited:  	no
 Percentages:  	N/A
@@ -1927,8 +2078,8 @@ A block of text is a stack of line boxes. In the case of 'left', 'right' and 'ce
  text-decoration
      <tag name="text-decoration">
         <description>Describes decorations that are added to the text of an element.</description>
-        <attribute name="text-decoration" title="text-decoration:" required="1" vallist="1" default="">
-         <vallist>none,underline,overline,line-through,blink,inherit</vallist>none | [ underline || overline || line-through || blink ] | inherit
+        <attribute name="text-decoration" title="text-decoration:" required="0" vallist="1" default="">
+         <vallist>none,underline,overline,underline overline,line-through,blink,inherit</vallist>none | [ underline || overline || line-through || blink ] | inherit
 Initial:  	none
 Applies to:  	all elements
 Inherited:  	no (see Notes)
@@ -1956,7 +2107,7 @@ This property is not inherited, but descendant boxes of a block box should be fo
      <tag name="text-indent">
         <description>Specifies the indentation of the first line of text in a block.</description>
         <attribute name="text-indent" title="text-indent:" required="1" vallist="1" default="">
-         <vallist>0, %,inherit</vallist>&lt;length&gt; | &lt;percentage&gt; | inherit
+         <vallist>0, %,inherit</vallist> &lt;length&gt; | &lt;percentage&gt; | inherit
 Initial:  	0
 Applies to:  	block-level elements
 Inherited:  	yes
@@ -2029,16 +2180,14 @@ none: No capitalization effects.
       <tag name="top">
         <description>Specifies how far a box's top content edge is offset below the top edge of the box's containing block.</description>
         <attribute name="top" title="top:" required="1" vallist="1" default="auto">
-         <vallist>0, %,auto,inherit</vallist>&lt;length&gt; | &lt;percentage&gt; | auto | inherit
-
-        </attribute>
-        <dialog title="top">top: %0;</dialog>
-        <info title="top">
-Value:  	&lt;length&gt; | &lt;percentage&gt; | auto | inherit
+         <vallist>0, %,auto,inherit</vallist> &lt;length&gt; | &lt;percentage&gt; | auto | inherit
 Initial:  	auto
 Applies to:  	positioned elements
 Inherited:  	no
 Percentages:  	refer to heigth of containing block
+        </attribute>
+        <dialog title="top">top: %0;</dialog>
+        <info title="top">
 &lt;length&gt;: The offset is a fixed distance from the reference edge. 
 &lt;percentage&gt;: The offset is a percentage of the containing block's width (for 'left' or 'right') or height (for 'top' and 'bottom'). For 'top' and 'bottom', if the height of the containing block is not specified explicitly (i.e., it depends on content height), the percentage value is interpreted like 'auto'. 
 auto: The effect of this value depends on which of related properties have the value 'auto' as well. See the sections on the width and height of absolutely positioned, non-replaced elements for details. 
@@ -2147,7 +2296,7 @@ nowrap: This value collapses whitespace as for 'normal', but suppresses line bre
      <tag name="widows">
         <description>Specifies the minimum number of lines of a paragraph that must be left at the top of a page.</description>
         <attribute name="widows" title="widows:" required="1" vallist="1" default="2">
-         <vallist>2,inherit</vallist>&lt;integer&gt; | inherit
+         <vallist>2,inherit</vallist> &lt;integer&gt; | inherit
 Initial:  	2
 Applies to:  	block-level elements
 Inherited:  	yes
@@ -2166,21 +2315,18 @@ For information about paragraph formatting, please consult the section on line b
      <tag name="width">
         <description>Specifies the content width of boxes generated by block-level and replaced elements.</description>
         <attribute name="width" title="width:" required="1" vallist="1" default="auto">
-         <vallist></vallist>Value:  	&lt;length&gt; | &lt;percentage&gt; | auto | inherit
+         <vallist>0, %,auto,inherit</vallist> &lt;length&gt; | &lt;percentage&gt; | auto | inherit
 Initial:  	auto
 Applies to:  	all elements but non-replaced inline elements, table rows, and row groups
 Inherited:  	no
 Percentages:  	refer to width of containing block
-
         </attribute>
         <dialog title="width">width: %0;</dialog>
         <info title="width">
-&lt;length&gt;
-    Specifies a fixed width. 
-&lt;percentage&gt;
-    Specifies a percentage width. The percentage is calculated with respect to the width of the generated box's containing block. 
+&lt;length&gt;: Specifies a fixed width. 
+&lt;percentage&gt;: Specifies a percentage width. The percentage is calculated with respect to the width of the generated box's containing block. 
 auto
-    The width depends on the values of other properties. See the sections below. 
+    The width depends on the values of other properties. See http://www.w3.org/TR/REC-CSS2/visudet.html#propdef-width  
 
 Negative values for 'width' are illegal. 
         </info>
@@ -2237,7 +2383,7 @@ auto: The stack level of the generated box in the current stacking context is th
     <tag name="azimuth">
       <description>This property is most likely to be implemented by mixing the same signal into different channels at differing volumes.</description>
        <attribute name="azimuth" title="azimuth:" required="1" vallist="1" default="center">
-        <vallist>0deg,left-side,far-left,left,center-left,center,center-right,right,far-right,right-side,leftwards,rightwards,inherit</vallist>&lt;angle&gt; | [[ left-side | far-left | left | center-left | center | center-right | right | far-right | right-side ] || behind ] | leftwards | rightwards | inherit
+        <vallist> deg, rad, grad,left-side,far-left,left,center-left,center,center-right,right,far-right,right-side,left-side behind,far-left behind,left behind,center-left behind,center behind,center-right behind,right behind,far-right behind,right-side behind,leftwards,rightwards,inherit</vallist> &lt;angle&gt; | [[ left-side | far-left | left | center-left | center | center-right | right | far-right | right-side ] || behind ] | leftwards | rightwards | inherit
 Initial:  	center
 Applies to:  	all elements
 Inherited:  	yes
@@ -2245,30 +2391,18 @@ Percentages:  	N/A
        </attribute>
        <dialog title="azimuth">azimuth: %0;</dialog>
        <info title="azimuth">
-  &lt;angle&gt;
-    Position is described in terms of an angle within the range '-360deg' to '360deg'. The value '0deg' means directly ahead in the center of the sound stage. '90deg' is to the right, '180deg' behind, and '270deg' (or, equivalently and more conveniently, '-90deg') to the left. 
-left-side
-    Same as '270deg'. With 'behind', '270deg'. 
-far-left
-    Same as '300deg'. With 'behind', '240deg'. 
-left
-    Same as '320deg'. With 'behind', '220deg'. 
-center-left
-    Same as '340deg'. With 'behind', '200deg'. 
-center
-    Same as '0deg'. With 'behind', '180deg'. 
-center-right
-    Same as '20deg'. With 'behind', '160deg'. 
-right
-    Same as '40deg'. With 'behind', '140deg'. 
-far-right
-    Same as '60deg'. With 'behind', '120deg'. 
-right-side
-    Same as '90deg'. With 'behind', '90deg'. 
-leftwards
-    Moves the sound to the left, relative to the current angle. More precisely, subtracts 20 degrees. Arithmetic is carried out modulo 360 degrees. Note that 'leftwards' is more accurately described as "turned counter-clockwise," since it always subtracts 20 degrees, even if the inherited azimuth is already behind the listener (in which case the sound actually appears to move to the right). 
-rightwards
-    Moves the sound to the right, relative to the current angle. More precisely, adds 20 degrees. See 'leftwards' for arithmetic. 
+&lt;angle&gt;: Position is described in terms of an angle within the range '-360deg' to '360deg'. The value '0deg' means directly ahead in the center of the sound stage. '90deg' is to the right, '180deg' behind, and '270deg' (or, equivalently and more conveniently, '-90deg') to the left. 
+left-side: Same as '270deg'. With 'behind', '270deg'. 
+far-left: Same as '300deg'. With 'behind', '240deg'. 
+left: Same as '320deg'. With 'behind', '220deg'. 
+center-left: Same as '340deg'. With 'behind', '200deg'. 
+center: Same as '0deg'. With 'behind', '180deg'. 
+center-right: Same as '20deg'. With 'behind', '160deg'. 
+right: Same as '40deg'. With 'behind', '140deg'. 
+far-right: Same as '60deg'. With 'behind', '120deg'. 
+right-side: Same as '90deg'. With 'behind', '90deg'. 
+leftwards: Moves the sound to the left, relative to the current angle. More precisely, subtracts 20 degrees. Arithmetic is carried out modulo 360 degrees. Note that 'leftwards' is more accurately described as "turned counter-clockwise," since it always subtracts 20 degrees, even if the inherited azimuth is already behind the listener (in which case the sound actually appears to move to the right). 
+rightwards: Moves the sound to the right, relative to the current angle. More precisely, adds 20 degrees. See 'leftwards' for arithmetic. 
 
 This property is most likely to be implemented by mixing the same signal into different channels at differing volumes. It might also use phase shifting, digital delay, and other such techniques to provide the illusion of a sound stage. The precise means used to achieve this effect and the number of speakers used to do so are user agent-dependent; this property merely identifies the desired end result. 
        </info>
@@ -2278,7 +2412,7 @@ This property is most likely to be implemented by mixing the same signal into di
     <tag name="cue">
       <description>Shorthand for setting 'cue-before' and 'cue-after'. If two values are given, the first value is 'cue-before' and the second is 'cue-after'. If only one value is given, it applies to both properties.</description>
        <attribute name="cue" title="cue:" required="1" vallist="1" default="">
-        <vallist>url(),inherit</vallist>	[ &lt;'cue-before'&gt; || &lt;'cue-after'&gt; ] | inherit
+        <vallist>url(),url() url(),inherit</vallist>	[ &lt;'cue-before'&gt; || &lt;'cue-after'&gt; ] | inherit
 Initial:  	not defined for shorthand properties
 Applies to:  	all elements
 Inherited:  	no
@@ -2294,7 +2428,7 @@ Percentages:  	N/A
    <tag name="cue-after">
       <description>Sounds may be played after the element to delimit it.</description>
        <attribute name="cue-after" title="cue-after:" required="1" vallist="1" default="">
-        <vallist>url(),none,inherit</vallist>&lt;uri&gt; | none | inherit
+        <vallist>url(),none,inherit</vallist> &lt;uri&gt; | none | inherit
 Initial:  	none
 Applies to:  	all elements
 Inherited:  	no
@@ -2313,7 +2447,7 @@ none: No auditory icon is specified.
    <tag name="cue-before">
       <description>Sounds may be played before the element to delimit it.</description>
        <attribute name="cue-before" title="cue-before:" required="1" vallist="1" default="">
-        <vallist>url(),none,inherit</vallist>&lt;uri&gt; | none | inherit
+        <vallist>url(),none,inherit</vallist> &lt;uri&gt; | none | inherit
 Initial:  	none
 Applies to:  	all elements
 Inherited:  	no
@@ -2332,7 +2466,7 @@ none: No auditory icon is specified.
    <tag name="elevation">
       <description>The precise means used to achieve this effect and the number of speakers used to do so are undefined. This property merely identifies the desired end result.</description>
        <attribute name="elevation" title="elevation:" required="1" vallist="1" default="">
-        <vallist> deg,below,level,above,higher,lower,inherit</vallist>&lt;angle&gt; | below | level | above | higher | lower | inherit
+        <vallist> deg, grad, rads,below,level,above,higher,lower,inherit</vallist> &lt;angle&gt; | below | level | above | higher | lower | inherit
 Initial:  	level
 Applies to:  	all elements
 Inherited:  	yes
@@ -2348,7 +2482,7 @@ Percentages:  	N/A
    <tag name="pause">
       <description>Shorthand for setting 'pause-before' and 'pause-after'. If two values are given, the first value is 'pause-before' and the second is 'pause-after'. If only one value is given, it applies to both properties.</description>
        <attribute name="pause" title="pause:" required="1" vallist="1" default="">
-        <vallist>, %,inherit</vallist>[ [&lt;time&gt; | &lt;percentage&gt;]{1,2} ] | inherit
+        <vallist> ms, %, ms ms, % %, ms %, % ms,inherit</vallist> [ [&lt;time&gt; | &lt;percentage&gt;]{1,2} ] | inherit
 Initial:  	depends on user agent
 Applies to:  	all elements
 Inherited:  	no
@@ -2367,7 +2501,7 @@ Time values may not be negative.
    <tag name="pause-after">
       <description>Specifies a pause to be observed after speaking an element's content.</description>
        <attribute name="pause-after" title="pause-after:" required="1" vallist="1" default="">
-        <vallist>, %,inherit</vallist>&lt;time&gt; | &lt;percentage&gt; | inherit
+        <vallist> ms, %,inherit</vallist> &lt;time&gt; | &lt;percentage&gt; | inherit
 Initial:  	depends on user agent
 Applies to:  	all elements
 Inherited:  	no
@@ -2393,7 +2527,7 @@ Authors should use relative units to create more robust style sheets in the face
    <tag name="pause-before">
       <description>Specifies a pause to be observed before speaking an element's content.</description>
        <attribute name="pause-before" title="pause-before:" required="1" vallist="1" default="">
-        <vallist>, %,inherit</vallist>&lt;time&gt; | &lt;percentage&gt; | inherit
+        <vallist> ms, %,inherit</vallist> &lt;time&gt; | &lt;percentage&gt; | inherit
 Initial:  	depends on user agent
 Applies to:  	all elements
 Inherited:  	no
@@ -2419,7 +2553,7 @@ Authors should use relative units to create more robust style sheets in the face
    <tag name="pitch">
       <description>Specifies the average pitch (a frequency) of the speaking voice. The average pitch of a voice depends on the voice family. For example, the average pitch for a standard male voice is around 120Hz, but for a female voice, it's around 210Hz.</description>
        <attribute name="pitch" title="pitch:" required="1" vallist="1" default="medium">
-        <vallist> ,x-low,low,medium,high,x-high,inherit</vallist>&lt;frequency&gt; | x-low | low | medium | high | x-high | inherit
+        <vallist> Hz, kHz,x-low,low,medium,high,x-high,inherit</vallist> &lt;frequency&gt; | x-low | low | medium | high | x-high | inherit
 Initial:  	medium
 Applies to:  	all elements
 Inherited:  	yes
@@ -2440,7 +2574,7 @@ x-low, low, medium, high, x-high: These values do not map to absolute frequencie
    <tag name="pitch-range">
       <description>Specifies variation in average pitch.</description>
        <attribute name="pitch-range" title="pitch-range:" required="1" vallist="1" default="50">
-        <vallist>50,inherit</vallist>&lt;number&gt; | inherit
+        <vallist>50,inherit</vallist> &lt;number&gt; | inherit
 Initial:  	50
 Applies to:  	all elements
 Inherited:  	yes
@@ -2460,7 +2594,7 @@ Values have the following meanings:
    <tag name="play-during">
       <description>Specifies a sound to be played as a background while an element's content is spoken.</description>
        <attribute name="play-during" title="play-during:" required="1" vallist="1" default="auto">
-        <vallist>url(),url() mix,url() repeat,auto,none,inherit</vallist>&lt;uri&gt; mix? repeat? | auto | none | inherit
+        <vallist>url(),url() mix,url() repeat,url() mix repeat,auto,none,inherit</vallist> &lt;uri&gt; mix? repeat? | auto | none | inherit
 Initial:  	auto
 Applies to:  	all elements
 Inherited:  	no
@@ -2482,7 +2616,7 @@ none: This keyword means that there is silence. The sound of the parent element 
    <tag name="richness">
       <description>Specifies the richness, or brightness, of the speaking voice.</description>
        <attribute name="richness" title="richness:" required="1" vallist="1" default="50">
-        <vallist>50,inherit</vallist>&lt;number&gt; | inherit
+        <vallist>50,inherit</vallist> &lt;number&gt; | inherit
 Initial:  	50
 Applies to:  	all elements
 Inherited:  	yes
@@ -2491,8 +2625,6 @@ Percentages:  	N/A
        <dialog title="richness">richness: %0;</dialog>
        <info title="richness">
  Specifies the richness, or brightness, of the speaking voice. A rich voice will "carry" in a large room, a smooth voice will not. (The term "smooth" refers to how the wave form looks when drawn.)
-
-Values have the following meanings:
 
 &lt;number&gt;: A value between '0' and '100'. The higher the value, the more the voice will carry. A lower value will produce a soft, mellifluous voice. 
       </info>
@@ -2583,7 +2715,7 @@ none: Punctuation is not to be spoken, but instead rendered naturally as various
    <tag name="speech-rate">
       <description>Specifies the speaking rate.</description>
        <attribute name="speech-rate" title="speech-rate:" required="1" vallist="1" default="">
-        <vallist>10,x-slow,slow,medium,fast,x-fast,faster,slower,inherit</vallist>&lt;number&gt; | x-slow | slow | medium | fast | x-fast | faster | slower | inherit
+        <vallist>10,x-slow,slow,medium,fast,x-fast,faster,slower,inherit</vallist> &lt;number&gt; | x-slow | slow | medium | fast | x-fast | faster | slower | inherit
 Initial:  	medium
 Applies to:  	all elements
 Inherited:  	yes
@@ -2606,7 +2738,7 @@ slower: Subtracts 40 words per minutes from the current speech rate.
    <tag name="stress">
       <description>Specifies the richness, or brightness, of the speaking voice.</description>
        <attribute name="stress" title="stress:" required="1" vallist="1" default="">
-        <vallist>50,inherit</vallist>&lt;number&gt; | inherit
+        <vallist>50,inherit</vallist> &lt;number&gt; | inherit
 Initial:  	50
 Applies to:  	all elements
 Inherited:  	yes
@@ -2626,10 +2758,10 @@ Values have the following meanings:
    <tag name="voice-familty">
       <description>Comma-separated, prioritized list of voice family names (compare with 'font-family').</description>
        <attribute name="specific-voice" title="specific-voice" required="0" vallist="1" default="">
-        <vallist>'',comedian, trinoids, carlos, lani,romeo,juliet</vallist>&lt;specific-voice&gt;
+        <vallist>'',comedian, trinoids, carlos, lani,romeo,juliet</vallist> &lt;specific-voice&gt;
        </attribute>
        <attribute name="generic-voice" title="generic-voice:" required="0" vallist="1" default="">
-        <vallist>male,female,child</vallist>&lt;generic-voice&gt;
+        <vallist>male,female,child</vallist> &lt;generic-voice&gt;
        </attribute>
        <dialog title="voice-familty">voice-familty: %0 %1;</dialog>
        <info title="voice-familty">
@@ -2646,7 +2778,7 @@ Names of specific voices may be quoted, and indeed must be quoted if any of the 
    <tag name="volume">
       <description>Refers to the median volume of the waveform.</description>
        <attribute name="volume" title="volume:" required="1" vallist="1" default="medium">
-        <vallist>10, %,silent,x-soft,soft,medium,loud,x-loud,inherit</vallist>&lt;number&gt; | &lt;percentage&gt; | silent | x-soft | soft | medium | loud | x-loud | inherit
+        <vallist>10, %,silent,x-soft,soft,medium,loud,x-loud,inherit</vallist> &lt;number&gt; | &lt;percentage&gt; | silent | x-soft | soft | medium | loud | x-loud | inherit
 Initial:  	medium
 Applies to:  	all elements
 Inherited:  	yes
