@@ -1,0 +1,4143 @@
+# Finnish language file for Bluefish
+# Copyright (C) YEAR Free Software Foundation, Inc.
+# Juho Roukala <j.mr@luukku.com>, 2003.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: bluefish gtk2-port\n"
+"POT-Creation-Date: 2003-10-26 01:04-0300\n"
+"PO-Revision-Date: 2003-12-06 14:24+0100\n"
+"Last-Translator: Juho Roukala <j.mr@luukku.com>\n"
+"Language-Team: Not a memeber <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../src/bfspell.c:340
+msgid "Check Spelling"
+msgstr "Tarkista kieliasu"
+
+#: ../src/bfspell.c:344
+msgid "Checking"
+msgstr "Tarkistetaan"
+
+#: ../src/bfspell.c:353
+msgid "_Misspelled word:"
+msgstr "_Väärinkirjoitettu sana:"
+
+#: ../src/bfspell.c:357
+msgid "Change _to:"
+msgstr "Vaihda _tähän:"
+
+#: ../src/bfspell.c:360
+msgid "I_gnore"
+msgstr "_Ohita"
+
+#: ../src/bfspell.c:361 ../src/snr2.c:886
+msgid "_Replace"
+msgstr "_Korvaa"
+
+#: ../src/bfspell.c:374
+msgid "In _document"
+msgstr "D_okumentissa"
+
+#: ../src/bfspell.c:375
+msgid "I_n selection"
+msgstr "V_alitussa alueessa"
+
+#: ../src/bfspell.c:384
+msgid "personal dictionary"
+msgstr "henkilökohtainen sanakirja"
+
+#: ../src/bfspell.c:387
+msgid "session dictionary"
+msgstr "istunnon sanakirja"
+
+#: ../src/bfspell.c:393
+msgid "Dictionary:"
+msgstr "Sanakirja:"
+
+#: ../src/bfspell.c:395
+msgid "_Add"
+msgstr "_Lisää"
+
+#: ../src/bfspell.c:399
+msgid "Language:"
+msgstr "Kieli:"
+
+#: ../src/bfspell.c:401
+msgid "Set defa_ult"
+msgstr "_Aseta oletus"
+
+#: ../src/bfspell.c:405
+msgid "Filter:"
+msgstr "Suodin:"
+
+#: ../src/bfspell.c:411
+msgid "no filter"
+msgstr "ei suodatusta"
+
+#: ../src/bfspell.c:413
+msgid "html filter"
+msgstr "html-suodatus"
+
+#: ../src/bluefish.c:90
+#, c-format
+msgid ""
+"\n"
+"Usage: %s [options] [filenames ...]\n"
+msgstr ""
+"\n" 
+"Käyttö: %s [valinnat] [tiedostonimet ...]\n"
+
+#: ../src/bluefish.c:91
+msgid ""
+"\n"
+"Currently accepted options are:\n"
+msgstr ""
+"\n"
+"Tällä hetkellä hyväksyttyjä valintoja ovat:\n"
+
+#: ../src/bluefish.c:92
+msgid "-s           skip root check\n"
+msgstr "-s           ohita juuren tarkistus\n"
+
+#: ../src/bluefish.c:93
+msgid "-v           current version\n"
+msgstr "-v           nykyinen versio\n"
+
+#: ../src/bluefish.c:94
+msgid "-n           open new window\n"
+msgstr "-n           avaa uusi ikkuna\n"
+
+#: ../src/bluefish.c:95
+msgid "-p filename  open project\n"
+msgstr "-p tiedostonimi  avaa projekti\n"
+
+#: ../src/bluefish.c:96
+msgid "-h           this help screen\n"
+msgstr "-h           tämä apuruutu\n"
+
+#: ../src/bluefish.c:160
+msgid "parsing highlighting file..."
+msgstr "jäsennetään korostustiedostoa..."
+
+#: ../src/bluefish.c:171
+msgid "compiling highlighting patterns..."
+msgstr "käännetään korostusmalleja..."
+
+#: ../src/bluefish.c:178
+msgid "parsing custom menu file..."
+msgstr "jäsennetään muotoiltavaa valikkotiedostoa"
+
+#: ../src/bluefish.c:187
+msgid "creating main gui..."
+msgstr "luodaan graafisen käyttöliittymän pääosia"
+
+#: ../src/bluefish.c:197
+msgid "showing main gui..."
+msgstr "näytetään graafisen käyttöliittymän pääosat"
+
+#: ../src/bluefish.c:211
+msgid "Bluefish tip:"
+msgstr "Bluefish-vinkki:"
+
+#: ../src/bluefish.c:211
+msgid ""
+"This message is shown since you do not have any items in the Quickbar.\n"
+"\n"
+"If you right-click a button in the HTML toolbars you can add buttons to the "
+"Quickbar."
+msgstr ""
+"Tämä viesti näytetään, koska pikatyökalurivisi on tyhjä.\n"
+"\n"
+"Voit lisätä pikatyökaluriville painikkeita HTML-työkaluriveiltä hiiren "
+"oikealla painikkeella."
+
+#: ../src/document.c:223 ../src/gui.c:894
+msgid "/Document/Highlight Syntax"
+msgstr "/Dokumentti/Korostussyntaksi"
+
+#: ../src/document.c:653
+#, c-format
+msgid "Untitled %d"
+msgstr "Nimetön %d"
+
+#: ../src/document.c:1001
+#, c-format
+msgid " Ln %d, Col %d"
+msgstr " Rivi %d, Sarake %d"
+
+#: ../src/document.c:1034 ../src/document.c:1035
+#, c-format
+msgid "  %s, %s"
+msgstr "  %s, %s"
+
+#: ../src/document.c:1274 ../src/document.c:1293
+msgid "Could not read file:\n"
+msgstr "Tiedostoa ei voitu lukea:\n"
+
+#: ../src/document.c:1324
+msgid "Opening file "
+msgstr "Avataan tiedostoa "
+
+#: ../src/document.c:1434
+msgid "Cannot display file, unknown characters found."
+msgstr "Tiedostoa ei voida näyttää, löydettiin tuntemattomia merkkejä."
+
+#: ../src/document.c:1658
+msgid "Edit tag"
+msgstr "Muokkaa tagia"
+
+#: ../src/document.c:1669
+msgid "Input _Methods"
+msgstr "Syötteen _metodit"
+
+#: ../src/document.c:1813
+msgid "Saving file"
+msgstr "Tallennetaan tiedostoa"
+
+#: ../src/document.c:1836
+msgid "_Abort save"
+msgstr "_Keskeytä tallennus"
+
+#: ../src/document.c:1836
+msgid "_Continue save"
+msgstr "_Jatka tallennusta"
+
+#: ../src/document.c:1838
+#, c-format
+msgid ""
+"A backupfile for %s could not be created. If you continue, this file will be "
+"overwritten."
+msgstr ""
+"Tiedostolle %s ei voitu luoda varmuuskopiota. Jos jatkat, tämä tiedosto "
+"ylikirjoitetaan."
+
+#: ../src/document.c:1839
+msgid "File backup failure"
+msgstr "Tiedoston varmuuskopiointi epäonnistui."
+
+#: ../src/document.c:1982
+msgid "Move/rename document to"
+msgstr "Siirrä/uudelleennimeä dokumentti"
+
+#: ../src/document.c:1982
+msgid "Save document as"
+msgstr "Tallenna dokumentti nimellä"
+
+#: ../src/document.c:1994 ../src/document.c:2017 ../src/document.c:2104
+#: ../src/document.c:3146 ../src/gui.c:1014
+msgid "_Cancel"
+msgstr "_Peruuta"
+
+#: ../src/document.c:1994 ../src/document.c:2017 ../src/document.c:2104
+msgid "_Overwrite"
+msgstr "_Ylikirjoita"
+
+#: ../src/document.c:1995
+#, c-format
+msgid "File %s exists and is opened, overwrite?"
+msgstr "Tiedosto %s on olemassa ja avoinna, ylikirjoita?"
+
+#: ../src/document.c:1996
+msgid "The file you have selected is being edited in Bluefish."
+msgstr "Valitsemaasi tiedostoa muokataan Bluefishillä."
+
+#: ../src/document.c:2007
+msgid "Previously: "
+msgstr "Ennen:"
+
+#: ../src/document.c:2018
+#, c-format
+msgid "File %s exists, overwrite?"
+msgstr "Tiedosto %s on olemassa, ylikirjoita?"
+
+#: ../src/document.c:2019
+msgid "The file you have selected exists."
+msgstr "Valitsemasi tiedosto on jo olemassa."
+
+#: ../src/document.c:2066
+msgid "Save as..."
+msgstr "Tallenna nimellä..."
+
+#: ../src/document.c:2108
+#, c-format
+msgid ""
+"File: %s\n"
+"\n"
+"New modification time: %s\n"
+"Old modification time: %s"
+msgstr ""
+"Tiedosto: %s\n"
+"\n"
+"Uusi muokattu-aika: %s\n"
+"Vanha muokattu-aika: %s"
+
+#: ../src/document.c:2109
+msgid "The file has been modified by another process."
+msgstr "Toinen prosessi on muokannut tiedostoa."
+
+#: ../src/document.c:2122
+#, c-format
+msgid "Saving %s"
+msgstr "Tallentaa %s"
+
+#: ../src/document.c:2132 ../src/document.c:2138 ../src/menu.c:921
+msgid "The filename was:\n"
+msgstr "Tiedostonimi oli:\n"
+
+#: ../src/document.c:2133
+msgid "File save aborted, could not backup file\n"
+msgstr "Tiedoston tallennus keskeytyi, tiedostoa ei voitu varmuuskopioida\n"
+
+#: ../src/document.c:2139
+msgid "File save error, could not write file\n"
+msgstr "Tiedoston tallennusvirhe, tiedostoa ei voitu kirjoittaa\n"
+
+#: ../src/document.c:2186
+#, c-format
+msgid ""
+"Do you want to save the changes done to\n"
+"%s?."
+msgstr ""
+"Haluatko tallentaa muutokset tiedostoon\n"
+"%s?."
+
+#: ../src/document.c:2191
+msgid "Do you want to save the changes done to this untitled file?"
+msgstr "Haluatko tallentaa tähän nimettömään tiedostoon tehdyt muutokset?"
+
+#: ../src/document.c:2195
+msgid "Do_n't save"
+msgstr "_Älä tallenna"
+
+#: ../src/document.c:2196
+msgid "The file is not saved"
+msgstr "Tiedostoa ei ole tallennettu"
+
+#: ../src/document.c:2432
+msgid "No filename"
+msgstr "Ei tiedostonimeä"
+
+#: ../src/document.c:2559
+msgid "Loading files..."
+msgstr "Ladataan tiedostoja..."
+
+#: ../src/document.c:2577 ../src/msg_queue.c:203
+msgid "These files were not opened:\n"
+msgstr "Seuraavia tiedostoja ei avattu:\n"
+
+#: ../src/document.c:2579 ../src/msg_queue.c:205
+msgid "Unable to open file(s)\n"
+msgstr "Tiedosto(j)a ei voitu avata\n"
+
+#: ../src/document.c:2610
+msgid "Unable to open file"
+msgstr "Tiedostoa ei voitu avata"
+
+#: ../src/document.c:2672
+msgid "_Reload"
+msgstr "Lataa _uudelleen"
+
+#: ../src/document.c:2672
+msgid "_Ignore"
+msgstr "_Hylkää"
+
+#: ../src/document.c:2676
+#, c-format
+msgid ""
+"File %s\n"
+"is modified by another process\n"
+"new modification time is %s\n"
+"old modification time is %s"
+msgstr ""
+"Tiedostoa %s\n"
+"muokkaa toinen prosessi\n"
+"uusi muokattu-aika on %s\n"
+"vanha muokattu-aika on %s"
+
+#: ../src/document.c:2677
+msgid "Bluefish: Warning, file is modified"
+msgstr "Bluefish: Varoitus, tiedostoa on muokattu"
+
+#: ../src/document.c:2780
+msgid "searching files..."
+msgstr "etsitään tiedostoja..."
+
+#: ../src/document.c:2800
+msgid "Select basedir"
+msgstr "Valitse perushakemisto"
+
+#: ../src/document.c:2817
+msgid "Advanced open file selector"
+msgstr "Edistynyt tiedoston avaaja."
+
+#: ../src/document.c:2828
+msgid "grep {contains} `find {basedir} -name '{file type}'`"
+msgstr "grep {sisältää} `find {perushakemisto} -name '{tiedoston tyyppi}'`"
+
+#: ../src/document.c:2833
+msgid "<b>General</b>"
+msgstr "<b>Yleistä</b>"
+
+#: ../src/document.c:2835
+msgid "Base_dir:"
+msgstr "Perus_hakemisto:"
+
+#: ../src/document.c:2837 ../src/gtk_easy.c:1186
+msgid "_Browse..."
+msgstr "_Selaa..."
+
+#: ../src/document.c:2852
+msgid "_File Type:"
+msgstr "_Tiedoston tyyppi:"
+
+#: ../src/document.c:2858
+msgid "_Recursive:"
+msgstr "_Rekursiivinen:"
+
+#: ../src/document.c:2863
+msgid "<b>Contains</b>"
+msgstr "<b>Sisältää</b>"
+
+#: ../src/document.c:2866
+msgid "Pa_ttern:"
+msgstr "Ku_vio:"
+
+#: ../src/document.c:2870
+msgid "Is rege_x:"
+msgstr "O_n säänn. lauseke:"
+
+#: ../src/document.c:2992
+msgid "Open URL"
+msgstr "Avaa URL"
+
+#: ../src/document.c:3025 ../src/document.c:3043 ../src/document.c:3060
+#, c-format
+msgid "Loading %d file(s)..."
+msgstr "Ladataan %d tiedosto(a)..."
+
+#: ../src/document.c:3084
+msgid "Select file to insert"
+msgstr "Valitse lisättävä tiedosto"
+
+#: ../src/document.c:3086
+msgid "No file to insert"
+msgstr "Ei lisättävää tiedostoa"
+
+#: ../src/document.c:3146
+msgid "_Save all"
+msgstr "T_allenna kaikki"
+
+#: ../src/document.c:3146
+msgid "Close _all"
+msgstr "S_ulje kaikki"
+
+#: ../src/document.c:3146
+msgid "Choose per _file"
+msgstr "Valitse _tiedostot erikseen"
+
+#: ../src/document.c:3147
+msgid "Some file(s) have been modified"
+msgstr "Jo(i)takin tiedosto(j)a on muokattu"
+
+#: ../src/document.c:3398
+#, c-format
+msgid "Statistics: %d lines, %d words, %d characters"
+msgstr "Tilastoja: %d riviä, %d sanaa, %d merkkiä"
+
+#: ../src/filebrowser.c:1023
+msgid "Error creating path"
+msgstr "Virhe luotaessa hakemistoa"
+
+#: ../src/filebrowser.c:1023
+msgid "The specified pathname already exists."
+msgstr "Annettu hakemistopolku on jo olemassa."
+
+#: ../src/filebrowser.c:1074
+msgid "File name"
+msgstr "Tiedoston nimi"
+
+#: ../src/filebrowser.c:1076
+msgid "Directory name"
+msgstr "Hakemiston nimi"
+
+#: ../src/filebrowser.c:1108
+msgid "Opening directory..."
+msgstr "Avataan hakemistoa..."
+
+#: ../src/filebrowser.c:1194 ../src/filebrowser.c:1198
+msgid "Could not rename\n"
+msgstr "Ei voitu uudelleennimetä\n"
+
+#: ../src/filebrowser.c:1241
+#, c-format
+msgid ""
+"Are you sure you want to\n"
+"delete \"%s\" ?"
+msgstr ""
+"Oletko varma, että haluat\n"
+"poistaa \"%s\" ?"
+#: ../src/filebrowser.c:1242
+msgid "The file will be permanently deleted."
+msgstr "Tiedosto poistetaan lopullisesti."
+
+#: ../src/filebrowser.c:1250 ../src/filebrowser.c:1254
+msgid "Could not delete \n"
+msgstr "Ei voitu poistaa \n"
+
+#: ../src/filebrowser.c:1374
+msgid "/Open _Advanced"
+msgstr "/Avaa _edistyneesti"
+
+#: ../src/filebrowser.c:1378
+msgid "/_Refresh"
+msgstr "/_Päivitä"
+
+#: ../src/filebrowser.c:1379
+msgid "/_Set as basedir"
+msgstr "/_Aseta perushakemistoksi"
+
+#: ../src/filebrowser.c:1383
+msgid "/New _File"
+msgstr "/_Uusi tiedosto"
+
+#: ../src/filebrowser.c:1384
+msgid "/_New Directory"
+msgstr "/U_usi hakemisto"
+
+#: ../src/filebrowser.c:1388
+msgid "/_Open"
+msgstr "/Av_aa"
+
+#: ../src/filebrowser.c:1389
+msgid "/Rena_me"
+msgstr "/Uudelleenni_meä"
+
+#: ../src/filebrowser.c:1390
+msgid "/_Delete"
+msgstr "/Po_ista"
+
+#: ../src/filebrowser.c:1410
+msgid "Filter"
+msgstr "Suodin"
+
+#: ../src/filebrowser.c:1597
+msgid "All files"
+msgstr "Kaikki tiedostot"
+
+#: ../src/filebrowser.c:1768 ../src/filebrowser.c:1772
+msgid "Show full tree"
+msgstr "Näytä koko puu"
+
+#: ../src/fref.c:1313 ../src/fref.c:1607 ../src/fref.c:1692 ../src/fref.c:1719
+#: ../src/fref.c:2031
+msgid "Info"
+msgstr "Info"
+
+#: ../src/fref.c:1333 ../src/gui.c:839
+msgid "Close"
+msgstr "Sulje"
+
+#: ../src/fref.c:1337 ../src/fref.c:1686 ../src/fref.c:1717 ../src/fref.c:2030
+msgid "Dialog"
+msgstr "Dialogi"
+
+#: ../src/fref.c:1338 ../src/fref.c:1689 ../src/fref.c:1714
+msgid "Insert"
+msgstr "Lisää"
+
+#: ../src/fref.c:1698 ../src/html.c:554 ../src/html.c:1253
+msgid "Options"
+msgstr "Valinnat"
+
+#: ../src/fref.c:1706
+msgid "Rescan reference files"
+msgstr "Lue viitetiedostot uudelleen"
+
+#: ../src/fref.c:1709
+msgid "Left doubleclick action"
+msgstr "Vasemman kaksoisnapsautuksen toiminta"
+
+#: ../src/fref.c:1722
+msgid "Info type"
+msgstr "Infotyyppi"
+
+#: ../src/fref.c:1726
+msgid "Description"
+msgstr "Kuvaus"
+
+#: ../src/fref.c:1729
+msgid "Attributes/Parameters"
+msgstr "Attribuutit/Määritteet"
+
+#: ../src/fref.c:1731
+msgid "Notes"
+msgstr "Huomautukset"
+
+#: ../src/fref.c:1870
+msgid "Reference search"
+msgstr "Viittaushaku"
+
+#: ../src/fref.c:1870
+msgid "Reference not found"
+msgstr "Viittausta ei löytynyt"
+
+#: ../src/fref.c:1883
+msgid "Error"
+msgstr "Virhe"
+
+#: ../src/fref.c:1883
+msgid ""
+"Perhaps you didn't load a reference, or you did not select a reference to "
+"search in."
+msgstr ""
+"Et tainnut ladata viittausta tai et valinnut viittausta josta hakea."
+
+#: ../src/fref.c:2018
+msgid "Show info window"
+msgstr "Näytä info-ikkuna"
+
+#: ../src/fref.c:2032 ../src/snr2.c:1278
+msgid "Search"
+msgstr "Etsi"
+
+#: ../src/gtk_easy.c:1058
+#, c-format
+msgid "%d of %d"
+msgstr "%d %d:sta"
+
+#: ../src/gtk_easy.c:1355
+msgid "Select file"
+msgstr "Valitse tiedosto"
+
+#: ../src/gtk_easy.c:1382
+msgid "Select files"
+msgstr "Valitse tiedostoja"
+
+#: ../src/gui.c:221 ../src/menu.c:848
+msgid "/View/View Left Panel"
+msgstr "/Näytä/Näytä vasen paneeli"
+
+#: ../src/gui.c:529
+msgid "QuickStart..."
+msgstr "Pika-aloitus"
+
+#: ../src/gui.c:530
+msgid "Body..."
+msgstr "Runko..."
+
+#: ../src/gui.c:531
+msgid "Bold"
+msgstr "Lihavoitu"
+
+#: ../src/gui.c:532
+msgid "Italic"
+msgstr "Kursivoitu"
+
+#: ../src/gui.c:533 ../src/html.c:761
+msgid "Paragraph"
+msgstr "Kappale"
+
+#: ../src/gui.c:534
+msgid "Break"
+msgstr "Rivinvaihto"
+
+#: ../src/gui.c:535
+msgid "Break and clear"
+msgstr "Rivinvaihto ja tyhjennys"
+
+#: ../src/gui.c:536
+msgid "Non-breaking space"
+msgstr "Rikkumaton väli"
+
+#: ../src/gui.c:538
+msgid "Anchor..."
+msgstr "Ankkuri..."
+
+#: ../src/gui.c:539
+msgid "Rule..."
+msgstr "Väliviiva..."
+
+#: ../src/gui.c:540
+msgid "Center"
+msgstr "Keskitä"
+
+#: ../src/gui.c:541
+msgid "Right Justify"
+msgstr "Tasaus oikealle"
+
+#: ../src/gui.c:542
+msgid "Comment"
+msgstr "Kommentti"
+
+#: ../src/gui.c:543
+msgid "E-Mail..."
+msgstr "E-Mail..."
+
+#: ../src/gui.c:544
+msgid "Font..."
+msgstr "Fontti..."
+
+#: ../src/gui.c:545
+msgid "Base Font Size..."
+msgstr "Perusfonttikoko..."
+
+#: ../src/gui.c:547
+msgid "Font Size +1"
+msgstr "Fontin koko +1"
+
+#: ../src/gui.c:548
+msgid "Font Size -1"
+msgstr "Fontin koko -1"
+
+#: ../src/gui.c:549
+msgid "Preformatted Text"
+msgstr "Esimuotoiltu teksti"
+
+#: ../src/gui.c:550
+msgid "Subscript"
+msgstr "Alaviite"
+
+#: ../src/gui.c:551
+msgid "Superscript"
+msgstr "Yläviite"
+
+#: ../src/gui.c:552
+msgid "Strong"
+msgstr "Vahvennettu"
+
+#: ../src/gui.c:553
+msgid "Emphasis"
+msgstr "Vierasmerkit"
+
+#: ../src/gui.c:555 ../src/html.c:770
+msgid "Heading 1"
+msgstr "Otsikko 1"
+
+#: ../src/gui.c:556 ../src/html.c:773
+msgid "Heading 2"
+msgstr "Otsikko 2"
+
+#: ../src/gui.c:557 ../src/html.c:776
+msgid "Heading 3"
+msgstr "Otsikko 3"
+
+#: ../src/gui.c:558 ../src/html.c:779
+msgid "Heading 4"
+msgstr "Otsikko 4"
+
+#: ../src/gui.c:559 ../src/html.c:782
+msgid "Heading 5"
+msgstr "Otsikko 5"
+
+#: ../src/gui.c:560 ../src/html.c:785
+msgid "Heading 6"
+msgstr "Otsikko 6"
+
+#: ../src/gui.c:561
+msgid "Table Wizard..."
+msgstr "Taulukkovelho..."
+
+#: ../src/gui.c:563
+msgid "Table..."
+msgstr "Taulukko..."
+
+#: ../src/gui.c:564
+msgid "Table Row..."
+msgstr "Taulukon rivi..."
+
+#: ../src/gui.c:565
+msgid "Table Header..."
+msgstr "Taulukon otsake..."
+
+#: ../src/gui.c:566
+msgid "Table Data..."
+msgstr "Taulukon data..."
+
+#: ../src/gui.c:568 ../src/html_table.c:81
+msgid "Table"
+msgstr "Taulukko"
+
+#: ../src/gui.c:569 ../src/html_table.c:213
+msgid "Table Row"
+msgstr "Taulukon rivi"
+
+#: ../src/gui.c:570 ../src/html_table.c:324
+msgid "Table Header"
+msgstr "Taulukon otsake"
+
+#: ../src/gui.c:571 ../src/html_table.c:322
+msgid "Table Data"
+msgstr "Taulukon data"
+
+#: ../src/gui.c:572
+msgid "Table Caption"
+msgstr "Taulukon otsikko"
+
+#: ../src/gui.c:573
+msgid "Frame Wizard..."
+msgstr "Kehysvelho"
+
+#: ../src/gui.c:575
+msgid "Frameset..."
+msgstr "Kehykset..."
+
+#: ../src/gui.c:576
+msgid "Frame..."
+msgstr "Kehys..."
+
+#: ../src/gui.c:578 ../src/html.c:1743
+msgid "Frameset"
+msgstr "Kehykset"
+
+#: ../src/gui.c:579 ../src/html.c:1826
+msgid "Frame"
+msgstr "Kehys"
+
+#: ../src/gui.c:580
+msgid "Noframes"
+msgstr "Ei kehyksiä"
+
+#: ../src/gui.c:581
+msgid "Target"
+msgstr "Kohde"
+
+#: ../src/gui.c:582
+msgid "Form..."
+msgstr "Lomake..."
+
+#: ../src/gui.c:583
+msgid "Input button..."
+msgstr "Syötepainike"
+
+#: ../src/gui.c:584
+msgid "Text..."
+msgstr "Teksti..."
+
+#: ../src/gui.c:585
+msgid "Hidden..."
+msgstr "Piilotettu..."
+
+#: ../src/gui.c:586
+msgid "Textarea..."
+msgstr "Tekstialue..."
+
+#: ../src/gui.c:587
+msgid "Radio Button..."
+msgstr "Radiopainike..."
+
+#: ../src/gui.c:588
+msgid "Check Box..."
+msgstr "Valintaruutu..."
+
+#: ../src/gui.c:589
+msgid "Select..."
+msgstr "Valinta..."
+
+#: ../src/gui.c:590
+msgid "Option..."
+msgstr "Valinnat..."
+
+#: ../src/gui.c:591
+msgid "Option group..."
+msgstr "Valintaryhmä"
+
+#: ../src/gui.c:592
+msgid "Quick List..."
+msgstr "Pikalista"
+
+#: ../src/gui.c:593
+msgid "Unordered List"
+msgstr "Järjestämätön lista"
+
+#: ../src/gui.c:594
+msgid "Ordered List"
+msgstr "Järjestetty lista"
+
+#: ../src/gui.c:595
+msgid "List Item"
+msgstr "Listan kohta"
+
+#: ../src/gui.c:596
+msgid "Definition List"
+msgstr "Määrittelylista"
+
+#: ../src/gui.c:597
+msgid "Definition Term"
+msgstr "Määrittelytermi"
+
+#: ../src/gui.c:598 ../src/gui.c:607
+msgid "Definition"
+msgstr "Määritelmä"
+
+#: ../src/gui.c:599
+msgid "Create stylesheet..."
+msgstr "Luo tyylisivu"
+
+#: ../src/gui.c:600
+msgid "Span..."
+msgstr "Span..."
+
+#: ../src/gui.c:601
+msgid "Div..."
+msgstr "Div..."
+
+#: ../src/gui.c:602
+msgid "Style"
+msgstr "Tyyli"
+
+#: ../src/gui.c:603
+msgid "Link to stylesheet..."
+msgstr "Linkki tyylisivuun..."
+
+#: ../src/gui.c:604
+msgid "Insert image..."
+msgstr "Lisää kuva..."
+
+#: ../src/gui.c:605
+msgid "Insert thumbnail..."
+msgstr "Lisää esikatselukuva..."
+
+#: ../src/gui.c:606
+msgid "Multi thumbnail..."
+msgstr "Useita esikatselukuvia..."
+
+#: ../src/gui.c:608
+msgid "Code"
+msgstr "Koodi"
+
+#: ../src/gui.c:609
+msgid "Sample"
+msgstr "Näyte"
+
+#: ../src/gui.c:610
+msgid "Keyboard"
+msgstr "Näppäimistö"
+
+#: ../src/gui.c:611
+msgid "Variable"
+msgstr "Muuttuja"
+
+#: ../src/gui.c:612
+msgid "Citation"
+msgstr "Sitaatti"
+
+#: ../src/gui.c:613
+msgid "Abbreviation"
+msgstr "Lyhenne"
+
+#: ../src/gui.c:614
+msgid "Acronym"
+msgstr "Akronyymi"
+
+#: ../src/gui.c:645
+msgid "Remove from quickbar"
+msgstr "Poista pikatyökaluriviltä"
+
+#: ../src/gui.c:679
+msgid "Add to quickbar"
+msgstr "Lisää pikatyökaluriville"
+
+#: ../src/gui.c:774
+msgid " Quick bar "
+msgstr " Pikatyökalurivi "
+
+#: ../src/gui.c:778
+msgid "Heading"
+msgstr "Otsikko"
+
+#: ../src/gui.c:780
+msgid " Standard bar "
+msgstr " Normaalityökalurivi"
+
+#: ../src/gui.c:784
+msgid "Context formatting"
+msgstr "Asiayhteysmuotoilu"
+
+#: ../src/gui.c:786
+msgid " Fonts "
+msgstr " Fontit "
+
+#: ../src/gui.c:790
+msgid " Tables "
+msgstr " Taulukot "
+
+#: ../src/gui.c:794
+msgid " Frames "
+msgstr " Kehykset "
+
+#: ../src/gui.c:798
+msgid " Forms "
+msgstr " Lomakkeet "
+
+#: ../src/gui.c:802
+msgid " List "
+msgstr " Lista "
+
+#: ../src/gui.c:806
+msgid " CSS "
+msgstr " CSS "
+
+#: ../src/gui.c:830
+msgid "New"
+msgstr "Uusi"
+
+#: ../src/gui.c:832
+msgid "Open..."
+msgstr "Avaa..."
+
+#: ../src/gui.c:835
+msgid "Save"
+msgstr "Tallenna"
+
+#: ../src/gui.c:837
+msgid "Save As..."
+msgstr "Tallenna nimellä..."
+
+#: ../src/gui.c:842
+msgid "Cut"
+msgstr "Leikkaa"
+
+#: ../src/gui.c:844
+msgid "Copy"
+msgstr "Kopioi"
+
+#: ../src/gui.c:846
+msgid "Paste"
+msgstr "Liitä"
+
+#: ../src/gui.c:849
+msgid "Search..."
+msgstr "Etsi..."
+
+#: ../src/gui.c:851
+msgid "Search and Replace..."
+msgstr "Etsi ja korvaa..."
+
+#: ../src/gui.c:854 ../src/preferences.c:1818
+msgid "Undo"
+msgstr "Kumoa"
+
+#: ../src/gui.c:856
+msgid "Redo"
+msgstr "Tee uudelleen"
+
+#: ../src/gui.c:859
+msgid "Shift Left"
+msgstr "Siirrä vasemmalle"
+
+#: ../src/gui.c:861
+msgid "Shift Right"
+msgstr "Siirrä oikealle"
+
+#: ../src/gui.c:868
+msgid "Spellcheck..."
+msgstr "Tarkista kieliasu..."
+
+#: ../src/gui.c:873
+msgid "View in browser"
+msgstr "Esikatsele selaimessa"
+
+#: ../src/gui.c:876
+msgid "Preferences..."
+msgstr "Asetukset..."
+
+#: ../src/gui.c:886
+msgid "/Edit/Undo"
+msgstr "/Muokkaa/Kumoa"
+
+#: ../src/gui.c:887 ../src/menu.c:298
+msgid "/Edit/Undo All"
+msgstr "/Muokkaa/Kumoa kaikki"
+
+#: ../src/gui.c:888
+msgid "/Edit/Redo"
+msgstr "/Muokkaa/Tee uudelleen"
+
+#: ../src/gui.c:889 ../src/menu.c:299
+msgid "/Edit/Redo All"
+msgstr "/Muokkaa/Tee kaikki uudelleen"
+
+#: ../src/gui.c:895
+msgid "/Document/Wrap"
+msgstr "/Dokumentti/Katkaisu"
+
+#: ../src/gui.c:896
+msgid "/Document/Line Numbers"
+msgstr "/Dokumentti/Rivien numerointi"
+
+#: ../src/gui.c:1014
+msgid "Do_n't Save"
+msgstr "_Älä tallenna"
+
+#: ../src/gui.c:1015
+msgid "Failed to save the current project"
+msgstr "Projektia ei voitu tallentaa"
+
+#: ../src/gui.c:1039
+msgid "New Bluefish Window"
+msgstr "Uusi Bluefish -ikkuna"
+
+#: ../src/gui.c:1086
+msgid "Stand by..."
+msgstr "Valmiustila"
+
+#: ../src/gui.c:1267
+msgid "Goto line"
+msgstr "Siirry riville"
+
+#: ../src/gui.c:1275
+msgid "_Line number:"
+msgstr "_Rivinumero:"
+
+#: ../src/gui.c:1281
+msgid "From _selection"
+msgstr "Valinna_sta"
+
+#: ../src/gui.c:1284
+msgid "Keep _dialog"
+msgstr "Pidä _dialogi"
+
+#: ../src/gui.c:1353
+msgid "starting bluefish"
+msgstr "bluefish käynnistyy"
+
+#: ../src/gui.c:1384 ../src/menu.c:846
+msgid "/View/View HTML Toolbar"
+msgstr "/Näytä/Näytä HTML-työkalurivi"
+
+#: ../src/gui.c:1391 ../src/menu.c:845
+msgid "/View/View Main Toolbar"
+msgstr "/Näytä/Näytä päätyökalurivi"
+
+#: ../src/gui.c:1398 ../src/menu.c:847
+msgid "/View/View Custom Menu"
+msgstr "/Näytä/Näytä muotoiltava valikko"
+
+#: ../src/html.c:356
+msgid "Insert Time"
+msgstr "Lisää aika"
+
+#: ../src/html.c:364
+#, c-format
+msgid "  _Time (%i:%i:%i)"
+msgstr "  Aika (%i:%i:%i)"
+
+#: ../src/html.c:369
+msgid "  Day of the _week (Sunday)"
+msgstr "  _Viikonpäivä (sunnuntai)"
+
+#: ../src/html.c:372
+msgid "  Day of the _week (Monday)"
+msgstr "  _Viikonpäivä (maanantai)"
+
+#: ../src/html.c:375
+msgid "  Day of the _week (Tuesday)"
+msgstr "  _Viikonpäivä (tiistai)"
+
+#: ../src/html.c:378
+msgid "  Day of the _week (Wednesday)"
+msgstr "  _Viikonpäivä (keskiviikko)"
+
+#: ../src/html.c:381
+msgid "  Day of the _week (Thursday)"
+msgstr "  _Viikonpäivä (torstai)"
+
+#: ../src/html.c:384
+msgid "  Day of the _week (Friday)"
+msgstr "  _Viikonpäivä (perjantai)"
+
+#: ../src/html.c:387
+msgid "  Day of the _week (Saturday)"
+msgstr "  _Viikonpäivä (lauantai)"
+
+#: ../src/html.c:390
+msgid "You appear to have a non existant day!\n"
+msgstr "Ilmoitit päivän, jota ei ole olemassa!\n"
+
+#: ../src/html.c:398
+#, c-format
+msgid "  _Date (%i/%i/%i)"
+msgstr "  _Päivämäärä (%i/%i/%i)"
+
+#: ../src/html.c:401
+#, c-format
+msgid "  _Unix Time (%i)"
+msgstr "  _Unix-aika (%i)"
+
+#: ../src/html.c:404
+#, c-format
+msgid "  Unix Date _String (%s"
+msgstr "  Unix-ajan me_rkkijono (%s"
+
+#: ../src/html.c:547
+msgid "Quick Anchor"
+msgstr "Pika-ankkuri"
+
+#: ../src/html.c:571
+msgid "_HREF:"
+msgstr "_HREF:"
+
+#: ../src/html.c:575 ../src/html_form.c:170
+msgid "_Target:"
+msgstr "_Kohde:"
+
+#: ../src/html.c:579 ../src/html.c:817 ../src/html.c:1411 ../src/html.c:1838
+#: ../src/html_form.c:218 ../src/html_form.c:279 ../src/html_form.c:346
+#: ../src/html_form.c:407 ../src/html_form.c:462 ../src/html_form.c:524
+#: ../src/html_form.c:582 ../src/image.c:280
+msgid "_Name:"
+msgstr "_Nimi:"
+
+#: ../src/html.c:583 ../src/html.c:821 ../src/html.c:1272
+msgid "_ID:"
+msgstr "_ID:"
+
+#: ../src/html.c:587 ../src/html.c:806 ../src/html.c:1268
+#: ../src/html_table.c:95 ../src/html_table.c:241 ../src/html_table.c:355
+msgid "Cl_ass:"
+msgstr "Luokk_a:"
+
+#: ../src/html.c:591 ../src/html.c:810 ../src/html.c:1170 ../src/html.c:1261
+#: ../src/html_table.c:100 ../src/html_table.c:252 ../src/html_table.c:360
+msgid "St_yle:"
+msgstr "T_yyli:"
+
+#: ../src/html.c:598 ../src/html.c:1276 ../src/html.c:2014
+msgid "_Language:"
+msgstr "Kie_li:"
+
+#: ../src/html.c:602 ../src/html.c:825 ../src/html.c:960 ../src/html.c:1280
+#: ../src/html.c:1435 ../src/html.c:1775 ../src/html.c:1875 ../src/html.c:2052
+#: ../src/html_form.c:174 ../src/html_form.c:230 ../src/html_form.c:298
+#: ../src/html_form.c:362 ../src/html_form.c:415 ../src/html_form.c:475
+#: ../src/html_form.c:595 ../src/html_table.c:105 ../src/html_table.c:257
+#: ../src/html_table.c:365 ../src/image.c:288
+msgid "Custo_m:"
+msgstr "_Mukautettu:"
+
+#: ../src/html.c:606 ../src/html.c:1284
+msgid "Events"
+msgstr "Tapahtumat"
+
+#: ../src/html.c:613
+msgid "OnClic_k:"
+msgstr "Na_psautettaessa:"
+
+#: ../src/html.c:617
+msgid "OnD_blClick:"
+msgstr "Ka_ksoisnapsautettaessa:"
+
+#: ../src/html.c:621
+msgid "OnMouseO_ver:"
+msgstr "Hiiri_Päällä:"
+
+#: ../src/html.c:625
+msgid "OnMouse_Down:"
+msgstr "H_iirenPainikePainetaan:"
+
+#: ../src/html.c:629
+msgid "OnMouse_Move:"
+msgstr "Hiiren_Liikkuessa:"
+
+#: ../src/html.c:633
+msgid "OnMouseOu_t:"
+msgstr "HiirenPois_tuessaPäältä:"
+
+#: ../src/html.c:637
+msgid "OnMouse_Up:"
+msgstr "HiirenPainikeN_ostetaan"
+
+#: ../src/html.c:641
+msgid "OnKeyDo_wn:"
+msgstr "_NappiPainetaan"
+
+#: ../src/html.c:645
+msgid "OnKey_Press:"
+msgstr "NappiaPai_nettaessa"
+
+#: ../src/html.c:649
+msgid "OnKe_yUp:"
+msgstr "NappiNo_stetaan"
+
+#: ../src/html.c:764
+msgid "Div"
+msgstr "Div"
+
+#: ../src/html.c:767
+msgid "Span"
+msgstr "Span"
+
+#: ../src/html.c:802 ../src/html_table.c:113 ../src/html_table.c:223
+#: ../src/html_table.c:337
+msgid "Ali_gn:"
+msgstr "Tasau_s:"
+
+#: ../src/html.c:923
+msgid "Horizontal Rule"
+msgstr "Vaakasuora viiva"
+
+#: ../src/html.c:934 ../src/html.c:1923 ../src/image.c:306
+msgid "_Align:"
+msgstr "_Tasaus:"
+
+#: ../src/html.c:941 ../src/html.c:1931 ../src/html_table.c:391
+msgid "_Height:"
+msgstr "_Korkeus:"
+
+#: ../src/html.c:947 ../src/html.c:1927 ../src/html_table.c:138
+#: ../src/html_table.c:384 ../src/image.c:264
+msgid "_Width:"
+msgstr "_Leveys:"
+
+#: ../src/html.c:950
+msgid "Is _percent"
+msgstr "On _prosenttia"
+
+#: ../src/html.c:955
+msgid "No _shading"
+msgstr "Ei _varjostusta"
+
+#: ../src/html.c:1046
+msgid "Quick Start"
+msgstr "Pika-aloitus"
+
+#: ../src/html.c:1095
+msgid "_Doctype:"
+msgstr "_Dokumentin tyyppi:"
+
+#: ../src/html.c:1101
+msgid "Header tags:"
+msgstr "Otsaketagit:"
+
+#: ../src/html.c:1156 ../src/wizards.c:186
+msgid "_Title:"
+msgstr "O_tsikko:"
+
+#: ../src/html.c:1245
+msgid "Body"
+msgstr "Runko"
+
+#: ../src/html.c:1291
+msgid "On_Load:"
+msgstr "La_dattaessa:"
+
+#: ../src/html.c:1299
+msgid "On_UnLoad:"
+msgstr "P_oistuttaessa:"
+
+#: ../src/html.c:1308
+msgid "Depreciated options"
+msgstr "Alemmat valinnat"
+
+#: ../src/html.c:1318
+msgid "Background _Image:"
+msgstr "Tausta_kuva:"
+
+#: ../src/html.c:1325
+msgid "Back_ground Color:"
+msgstr "Taustav_äri:"
+
+#: ../src/html.c:1331
+msgid "_Text Color:"
+msgstr "T_ekstin väri:"
+
+#: ../src/html.c:1337
+msgid "_Link Color:"
+msgstr "L_inkin väri:"
+
+#: ../src/html.c:1343
+msgid "_Visited Link Color:"
+msgstr "Käytet_yn linkin väri:"
+
+#: ../src/html.c:1349
+msgid "_Active Link Color:"
+msgstr "_Aktiivisen linkin väri:"
+
+#: ../src/html.c:1397
+msgid "Meta"
+msgstr "Meta"
+
+#: ../src/html.c:1422
+msgid "_HTTP-EQUIV:"
+msgstr "_HTTP-EQUIV:"
+
+#: ../src/html.c:1427
+msgid "Con_tent:"
+msgstr "_Sisältö:"
+
+#: ../src/html.c:1431
+msgid "_Scheme:"
+msgstr "L_uonnos:"
+
+#: ../src/html.c:1512 ../src/preferences.c:1763
+msgid "Font"
+msgstr "Fontti"
+
+#: ../src/html.c:1515
+msgid "Base Font"
+msgstr "Perusfontti"
+
+#: ../src/html.c:1530
+msgid "Size"
+msgstr "Koko"
+
+#: ../src/html.c:1538
+msgid "Color"
+msgstr "Väri"
+
+#: ../src/html.c:1543
+msgid "Face"
+msgstr "Ulkoasu"
+
+#: ../src/html.c:1547
+msgid "Custom"
+msgstr "Mukautettu"
+
+#: ../src/html.c:1606
+msgid "Email"
+msgstr "Email"
+
+#: ../src/html.c:1614
+msgid "_Email address:"
+msgstr "Sähk_öpostiosoite:"
+
+#: ../src/html.c:1619
+msgid "UrlEncoded _subject:"
+msgstr "UrlKoodattu _aihe:"
+
+#: ../src/html.c:1623
+msgid "UrlEncoded _body:"
+msgstr "UrlKoodattu _runko:"
+
+#: ../src/html.c:1666
+msgid "Quick List"
+msgstr "Pikalista"
+
+#: ../src/html.c:1671 ../src/html.c:1753 ../src/html_form.c:223
+msgid "_Rows:"
+msgstr "_Rivit:"
+
+#: ../src/html.c:1674
+msgid "Or_dered"
+msgstr "_Järjestetty"
+
+#: ../src/html.c:1675
+msgid "_Unordered"
+msgstr "Jär_jestämätön"
+
+#: ../src/html.c:1677
+msgid "Style:"
+msgstr "Tyyli:"
+
+#: ../src/html.c:1749 ../src/html_form.c:227
+msgid "Co_ls:"
+msgstr "Sarakkeet_:"
+
+#: ../src/html.c:1758
+msgid "_Add <frame> elements"
+msgstr "_Lisää <frame> elementtejä"
+
+#: ../src/html.c:1834 ../src/html.c:1919 ../src/html.c:2007
+msgid "_Source:"
+msgstr "L_ähde:"
+
+#: ../src/html.c:1842
+msgid "Margin _Width:"
+msgstr "Reunan _leveys:"
+
+#: ../src/html.c:1846
+msgid "Margin _Height:"
+msgstr "Reunan _korkeus:"
+
+#: ../src/html.c:1854
+msgid "Scrollin_g:"
+msgstr "Vierit_ys:"
+
+#: ../src/html.c:1858
+msgid "_Frameborder:"
+msgstr "_Kehysreuna:"
+
+#: ../src/html.c:1863
+msgid "No _Resize:"
+msgstr "E_i koonmuutosta"
+
+#: ../src/html.c:1913
+msgid "Embed"
+msgstr "Upotettu"
+
+#: ../src/html.c:1935 ../src/html_table.c:144
+msgid "Bo_rder:"
+msgstr "_Reuna:"
+
+#: ../src/html.c:1996
+msgid "Script"
+msgstr "Skripti"
+
+#: ../src/html.c:1999
+msgid "Link"
+msgstr "Linkki"
+
+#: ../src/html.c:2034
+msgid "_Rel:"
+msgstr "_Suht:"
+
+#: ../src/html.c:2048 ../src/html_form.c:358
+msgid "_Type:"
+msgstr "_Tyyppi"
+
+#: ../src/html2.c:587
+msgid "Cascading StyleSheet dialog"
+msgstr "Limitetty tyylisivu -dialogi"
+
+#: ../src/html2.c:607
+msgid "_Selector:"
+msgstr "_Valitsija:"
+
+#: ../src/html2.c:626
+msgid "_Property:"
+msgstr "_Ominaisuus:"
+
+#: ../src/html2.c:628 ../src/html_form.c:283 ../src/html_form.c:350
+#: ../src/html_form.c:411 ../src/html_form.c:466 ../src/html_form.c:528
+#: ../src/html_form.c:636
+msgid "_Value:"
+msgstr "_Arvo:"
+
+#: ../src/html2.c:646
+msgid "Selector"
+msgstr "Valitsija:"
+
+#: ../src/html2.c:646 ../src/html2.c:649
+msgid "Property"
+msgstr "Ominaisuus"
+
+#: ../src/html2.c:646 ../src/html2.c:649
+msgid "Value"
+msgstr "Arvo"
+
+#: ../src/html2.c:664
+msgid " _Add "
+msgstr " _Lisää "
+
+#: ../src/html2.c:667
+msgid " _Update "
+msgstr " _Päivitä "
+
+#: ../src/html2.c:670
+msgid " _Delete "
+msgstr " P_oista "
+
+#: ../src/html2.c:926 ../src/html2.c:963
+msgid "_Style..."
+msgstr "_Tyyli..."
+
+#: ../src/html2.c:1157
+msgid "Bluefish: Select color"
+msgstr "Bluefish: Valitse väri"
+
+#: ../src/html2.c:1177
+msgid "_websafe"
+msgstr "_webturvallinen"
+
+#: ../src/html_form.c:128
+msgid "Form"
+msgstr "Lomake"
+
+#: ../src/html_form.c:146
+msgid "_Action:"
+msgstr "_Toiminto:"
+
+#: ../src/html_form.c:154
+msgid "Metho_d:"
+msgstr "Mene_telmä:"
+
+#: ../src/html_form.c:163
+msgid "_Enctype:"
+msgstr "Koo_daustapa:"
+
+#: ../src/html_form.c:212
+msgid "Text area"
+msgstr "Tekstialue"
+
+#: ../src/html_form.c:273
+msgid "Text"
+msgstr "Teksti"
+
+#: ../src/html_form.c:291 ../src/html_form.c:587
+msgid "Si_ze:"
+msgstr "Ko_ko:"
+
+#: ../src/html_form.c:295
+msgid "Max _Length:"
+msgstr "Maksimi_pituus:"
+
+#: ../src/html_form.c:340
+msgid "Button"
+msgstr "Painike"
+
+#: ../src/html_form.c:402
+msgid "Hidden"
+msgstr "Piilotettu"
+
+#: ../src/html_form.c:457
+msgid "Radio Button"
+msgstr "Radiopainike"
+
+#: ../src/html_form.c:471 ../src/html_form.c:533
+msgid "Chec_ked:"
+msgstr "Va_littu:"
+
+#: ../src/html_form.c:518
+msgid "Check Box"
+msgstr "Valintaruutu"
+
+#: ../src/html_form.c:537
+msgid "_Custo_m:"
+msgstr "_Mukautettu"
+
+#: ../src/html_form.c:576
+msgid "Select"
+msgstr "Valitse"
+
+#: ../src/html_form.c:591
+msgid "Multiple _Selections:"
+msgstr "Useita _Valintoja:"
+
+#: ../src/html_form.c:630
+msgid "Option"
+msgstr "Valinta"
+
+#: ../src/html_form.c:640 ../src/html_form.c:683
+msgid "_Label:"
+msgstr "_Etiketti:"
+
+#: ../src/html_form.c:645
+msgid "_Selected:"
+msgstr "V_alittu:"
+
+#: ../src/html_form.c:678
+msgid "Option group"
+msgstr "Valintaryhmä"
+
+#: ../src/html_table.c:87
+msgid "Cell _Padding:"
+msgstr "Solun t_äyte:"
+
+#: ../src/html_table.c:91
+msgid "C_ell Spacing:"
+msgstr "Solun väli_stys:"
+
+#: ../src/html_table.c:127 ../src/html_table.c:237 ../src/html_table.c:351
+msgid "_Valign:"
+msgstr "P_ystyryhmitys:"
+
+#: ../src/html_table.c:132 ../src/html_table.c:246 ../src/html_table.c:396
+msgid "Backgrou_nd Color:"
+msgstr "Tausta_väri:"
+
+#: ../src/html_table.c:158
+msgid "_Frame:"
+msgstr "_Kehys:"
+
+#: ../src/html_table.c:169
+msgid "R_ules:"
+msgstr "V_iivat:"
+
+#: ../src/html_table.c:369
+msgid "Co_l Span:"
+msgstr "_Sarakkeen span:"
+
+#: ../src/html_table.c:373
+msgid "_Row Span:"
+msgstr "_Rivin span:"
+
+#: ../src/html_table.c:378
+msgid "No Wra_p:"
+msgstr "Ei ka_tkaisua:"
+
+#: ../src/image.c:227
+msgid "Insert thumbnail"
+msgstr "Lisää esikatselukuva"
+
+#: ../src/image.c:229
+msgid "Insert image"
+msgstr "Lisää kuva"
+
+#: ../src/image.c:236
+msgid "Preview"
+msgstr "Esikatsele"
+
+#: ../src/image.c:256
+msgid "_Image location:"
+msgstr "K_uvan sijainti:"
+
+#: ../src/image.c:271
+msgid "Hei_ght:"
+msgstr "Ko_rkeus:"
+
+#: ../src/image.c:276
+msgid "_Usemap:"
+msgstr "Käytä k_arttaa:"
+
+#: ../src/image.c:284
+msgid "Alternate _text:"
+msgstr "V_aihtoehtoinen teksti:"
+
+#: ../src/image.c:292
+msgid "_Hspace:"
+msgstr "_Vaakavälistys:"
+
+#: ../src/image.c:296
+msgid "_Vspace:"
+msgstr "_Pystyvälistys"
+
+#: ../src/image.c:310
+msgid "Borde_r:"
+msgstr "Reu_na"
+
+#: ../src/image.c:373
+msgid "Select files for thumbnail creation"
+msgstr "Valitse tiedostot esikatselun luomista varten"
+
+#: ../src/image.c:489
+msgid "Scaling (%)"
+msgstr "Skaalaus (%)"
+
+#: ../src/image.c:493 ../src/image.c:501
+msgid "Width"
+msgstr "Leveys"
+
+#: ../src/image.c:497 ../src/image.c:524
+msgid "Height"
+msgstr "Korkeus"
+
+#: ../src/image.c:513
+msgid "Multi thumbnail"
+msgstr "Monta esikatselukuvaa"
+
+#: ../src/image.c:519
+msgid "By scaling"
+msgstr "Skaalaamalla"
+
+#: ../src/image.c:520
+msgid "By width, keep aspect ratio"
+msgstr "Leveydellä, pidä muotosuhde"
+
+#: ../src/image.c:521
+msgid "By height, keep aspect ratio"
+msgstr "Korkeudella, pidä muotosuhde"
+
+#: ../src/image.c:522
+msgid "By width and height, ignore aspect ratio"
+msgstr "Leveydellä ja korkeudella, älä huomioi muotosuhdetta"
+
+#: ../src/image.c:546
+msgid ""
+"%r: original filename  %t: thumbnail filename\n"
+"%w: original width  %h: original height\n"
+"%x: thumbnail width  %y: thumbnail height\n"
+"%b: original size (bytes)"
+msgstr ""
+"%r: alkuperäinen tiedostonimi  %t: esikatselukuvan tiedostonimi\n"
+"%w: alkuperäinen leveys  %h: alkuperäinen korkeus\n"
+"%x: esikatselukuvan leveys  %g: esikatselukuvan korkeus\n"
+"%b: alkuperäinen koko (tavua)"
+
+#: ../src/menu.c:264
+msgid "/_File"
+msgstr "/_Tiedosto"
+
+#: ../src/menu.c:265
+msgid "/File/tearoff1"
+msgstr "/Tiedosto/tearoff1"
+
+#: ../src/menu.c:266
+msgid "/File/_New"
+msgstr "/Tiedosto/_Uusi"
+
+#: ../src/menu.c:267
+msgid "/File/New _Window"
+msgstr "/Tiedosto/Uusi _ikkuna"
+
+#: ../src/menu.c:268
+msgid "/File/_Open..."
+msgstr "/Tiedosto/_Avaa..."
+
+#: ../src/menu.c:269
+msgid "/File/Open r_ecent"
+msgstr "/Tiedosto/Avaa _viimeisin"
+
+#: ../src/menu.c:270
+msgid "/File/Open recent/tearoff1"
+msgstr "/Tiedosto/Avaa viimeisin/tearoff1"
+
+#: ../src/menu.c:273
+msgid "/File/Open Ad_vanced..."
+msgstr "/Tiedosto/Avaa e_distyneesti..."
+
+#: ../src/menu.c:277
+msgid "/File/Open _URL..."
+msgstr "/Tiedosto/Avaa U_RL..."
+
+#: ../src/menu.c:279
+msgid "/File/Open _from selection"
+msgstr "/Tiedosto/Avaa v_alinnasta"
+
+#: ../src/menu.c:280
+msgid "/File/sep1"
+msgstr "/Tiedosto/sep1"
+
+#: ../src/menu.c:281
+msgid "/File/_Save"
+msgstr "/Tiedosto/Ta_llenna"
+
+#: ../src/menu.c:282
+msgid "/File/Save _As..."
+msgstr "/Tiedosto/Tallenna _nimellä..."
+
+#: ../src/menu.c:283
+msgid "/File/Sa_ve All"
+msgstr "/Tiedosto/Tallenna _kaikki"
+
+#: ../src/menu.c:284
+msgid "/File/_Revert to Saved"
+msgstr "/Tiedosto/_Palauta tallennettuun"
+
+#: ../src/menu.c:285
+msgid "/File/sep2"
+msgstr "/Tiedosto/sep2"
+
+#: ../src/menu.c:286
+msgid "/File/_Insert..."
+msgstr "/Tiedosto/_Lisää..."
+
+#: ../src/menu.c:287
+msgid "/File/Rena_me..."
+msgstr "/Tiedosto/U_udelleennimeä..."
+
+#: ../src/menu.c:288
+msgid "/File/sep3"
+msgstr "/Tiedosto/sep3"
+
+#: ../src/menu.c:289
+msgid "/File/_Close"
+msgstr "/Tiedosto/_Sulje"
+
+#: ../src/menu.c:290
+msgid "/File/Close A_ll"
+msgstr "/Tiedosto/Sul_je kaikki"
+
+#: ../src/menu.c:291
+msgid "/File/Close Win_dow"
+msgstr "/Tiedosto/Sulj_e ikkuna"
+
+#: ../src/menu.c:292
+msgid "/File/sep4"
+msgstr "/Tiedosto/sep4"
+
+#: ../src/menu.c:293
+msgid "/File/_Quit"
+msgstr "/Tiedosto/L_opeta"
+
+#: ../src/menu.c:294
+msgid "/_Edit"
+msgstr "/_Muokkaa"
+
+#: ../src/menu.c:295
+msgid "/Edit/Tearoff1"
+msgstr "/Muokkaa/Tearoff1"
+
+#: ../src/menu.c:296
+msgid "/Edit/_Undo"
+msgstr "/Muokkaa/_Kumoa"
+
+#: ../src/menu.c:297
+msgid "/Edit/_Redo"
+msgstr "/Muokkaa/_Tee uudelleen"
+
+#: ../src/menu.c:300
+msgid "/Edit/sep1"
+msgstr "/Muokkaa/sep1"
+
+#: ../src/menu.c:301
+msgid "/Edit/Cu_t"
+msgstr "/Muokkaa/_Leikkaa"
+
+#: ../src/menu.c:302
+msgid "/Edit/_Copy"
+msgstr "/Muokkaa/K_opioi"
+
+#: ../src/menu.c:303
+msgid "/Edit/_Paste"
+msgstr "/Muokkaa/L_iitä"
+
+#: ../src/menu.c:304
+msgid "/Edit/sep2"
+msgstr "/Muokkaa/sep2"
+
+#: ../src/menu.c:305
+msgid "/Edit/Select _All"
+msgstr "/Muokkaa/Valitse _kaikki"
+
+#: ../src/menu.c:306
+msgid "/Edit/sep3"
+msgstr "/Muokkaa/sep3"
+
+#: ../src/menu.c:307
+msgid "/Edit/_Find..."
+msgstr "/Muokkaa/_Etsi..."
+
+#: ../src/menu.c:308
+msgid "/Edit/Find A_gain"
+msgstr "/Muokkaa/Etsi _uudelleen"
+
+#: ../src/menu.c:309
+msgid "/Edit/R_eplace..."
+msgstr "/Muokkaa/Ko_rvaa..."
+
+#: ../src/menu.c:310
+msgid "/Edit/Replace Agai_n"
+msgstr "/Muokkaa/Korvaa uu_delleen"
+
+#: ../src/menu.c:311
+msgid "/Edit/Replace _special"
+msgstr "/Muokkaa/Korvaa erityi_sesti"
+
+#: ../src/menu.c:312
+msgid "/Edit/Replace special/Tearoff1"
+msgstr "/Muokkaa/Korvaa erityisesti/Tearoff1"
+
+#: ../src/menu.c:313
+msgid "/Edit/Replace special/_ASCII to HTML Entities"
+msgstr "/Muokkaa/Korvaa erityisesti/_ASCII:sta HTML-kokonaisuuksiin"
+
+#: ../src/menu.c:314
+msgid "/Edit/Replace special/_ISO8859 to HTML Entities"
+msgstr "/Muokkaa/Korvaa erityisesti/_ISO8859:stä HTML-kokonaisuuksiin"
+
+#: ../src/menu.c:315
+msgid "/Edit/Replace special/_Both Types to HTML Entities"
+msgstr "/Muokkaa/Korvaa erityisesti/Mo_lemmat tyypit HTML-kokonaisuuksiin"
+
+#: ../src/menu.c:316
+msgid "/Edit/sep4"
+msgstr "/Muokkaa/sep4"
+
+#: ../src/menu.c:317
+msgid "/Edit/Sh_ift Right"
+msgstr "/Muokkaa/Siirr_ä oikealle"
+
+#: ../src/menu.c:318
+msgid "/Edit/S_hift Left"
+msgstr "/Muokkaa/Siirrä _vasemmalle"
+
+#: ../src/menu.c:319
+msgid "/Edit/sep5"
+msgstr "/Muokkaa/sep5"
+
+#: ../src/menu.c:320
+msgid "/Edit/_Save Settings"
+msgstr "/Muokkaa/T_allenna asetukset"
+
+#: ../src/menu.c:321
+msgid "/Edit/Save Shortcut _Keys"
+msgstr "/Muokkaa/Tallenna _pikanäppäimet"
+
+#: ../src/menu.c:322
+msgid "/Edit/_Preferences"
+msgstr "/Muokkaa/_Ominaisuudet"
+
+#: ../src/menu.c:323
+msgid "/_View"
+msgstr "/_Näytä"
+
+#: ../src/menu.c:324
+msgid "/View/tearoff1"
+msgstr "/Näytä/tearoff1"
+
+#: ../src/menu.c:325
+msgid "/View/View _Main Toolbar"
+msgstr "/Näytä/Näytä _päätyökalurivi"
+
+#: ../src/menu.c:326
+msgid "/View/View _HTML Toolbar"
+msgstr "/Näytä/Näytä _HTML-työkalurivi"
+
+#: ../src/menu.c:327
+msgid "/View/View _Custom Menu"
+msgstr "/Näytä/Näytä _muotoiltava valikko"
+
+#: ../src/menu.c:328
+msgid "/View/View _Left Panel"
+msgstr "/Näytä/Näytä _vasen paneeli"
+
+#: ../src/menu.c:329
+msgid "/_Tags"
+msgstr "/T_agit"
+
+#: ../src/menu.c:330
+msgid "/Tags/Tearoff1"
+msgstr "/Tagit/Tearoff1"
+
+#: ../src/menu.c:332
+msgid "/Tags/_Headings"
+msgstr "/Tagit/_Otsikot"
+
+#: ../src/menu.c:333
+msgid "/Tags/Headings/Tearoff1"
+msgstr "/Tagit/Otsikot/Tearoff1"
+
+#: ../src/menu.c:334
+msgid "/Tags/Headings/H_1"
+msgstr "/Tagit/Otsikot/H_1"
+
+#: ../src/menu.c:335
+msgid "/Tags/Headings/H_2"
+msgstr "/Tagit/Otsikot/H_2"
+
+#: ../src/menu.c:336
+msgid "/Tags/Headings/H_3"
+msgstr "/Tagit/Otsikot/H_3"
+
+#: ../src/menu.c:337
+msgid "/Tags/Headings/H_4"
+msgstr "/Tagit/Otsikot/H_4"
+
+#: ../src/menu.c:338
+msgid "/Tags/Headings/H_5"
+msgstr "/Tagit/Otsikot/H_5"
+
+#: ../src/menu.c:339
+msgid "/Tags/Headings/H_6"
+msgstr "/Tagit/Otsikot/H_6"
+
+#: ../src/menu.c:340
+msgid "/Tags/_Special"
+msgstr "/Tagit/_Erikoiset"
+
+#: ../src/menu.c:341
+msgid "/Tags/Special/tearoff1"
+msgstr "/Tagit/Erikoiset/tearoff1"
+
+#: ../src/menu.c:342
+msgid "/Tags/Special/_Accent"
+msgstr "/Tagit/Erikoiset/_Vierasmerkit"
+
+#: ../src/menu.c:343
+msgid "/Tags/Special/Accent/tearoff1"
+msgstr "/Tagit/Erikoiset/Vierasmerkit/tearoff1"
+
+#: ../src/menu.c:344
+msgid "/Tags/Special/Accent/_Uppercase"
+msgstr "/Tagit/Erikoiset/Vierasmerkit/_Isot kirjaimet"
+
+#: ../src/menu.c:345
+msgid "/Tags/Special/Accent/Uppercase/_A-I"
+msgstr "Tagit/Erikoiset/Vierasmerkit/Isot kirjaimet/_A-I"
+
+#: ../src/menu.c:346
+msgid "/Tags/Special/Accent/Uppercase/A-I/tearoff1"
+msgstr "/Tagit/Erikoiset/Vierasmerkit/Isot kirjaimet/A-I/tearoff1"
+
+#: ../src/menu.c:347
+msgid "/Tags/Special/Accent/Uppercase/A-I/A grave "
+msgstr "/Tagit/Erikoiset/Vierasmerkit/Isot kirjaimet/A-I/Pilkullinen A (vasen); À "
+
+#: ../src/menu.c:348
+msgid "/Tags/Special/Accent/Uppercase/A-I/A acute "
+msgstr "/Tagit/Erikoiset/Vierasmerkit/Isot kirjaimet/A-I/Pilkullinen A (oikea); Á "
+
+#: ../src/menu.c:349
+msgid "/Tags/Special/Accent/Uppercase/A-I/A circumflex "
+msgstr "/Tagit/Erikoiset/Vierasmerkit/Isot kirjaimet/A-I/Hatullinen A; Â "
+
+#: ../src/menu.c:350
+msgid "/Tags/Special/Accent/Uppercase/A-I/A tilde "
+msgstr "/Tagit/Erikoiset/Vierasmerkit/Isot kirjaimet/A-I/Matoviivallinen A; Ã "
+
+#: ../src/menu.c:351
+msgid "/Tags/Special/Accent/Uppercase/A-I/AE ligature "
+msgstr "/Tagit/Erikoiset/Vierasmerkit/Isot kirjaimet/A-I/AE-sidos; Æ "
+
+#: ../src/menu.c:352
+msgid "/Tags/Special/Accent/Uppercase/A-I/A diaeresis "
+msgstr "/Tagit/Erikoiset/Vierasmerkit/Isot kirjaimet/A-I/Kaksoispisteellinen A; Ä "
+
+#: ../src/menu.c:353
+msgid "/Tags/Special/Accent/Uppercase/A-I/A ring "
+msgstr "/Tagit/Erikoiset/Vierasmerkit/Isot kirjaimet/A-I/Ympyrällinen A; Å "
+
+#: ../src/menu.c:354
+msgid "/Tags/Special/Accent/Uppercase/A-I/C cedilla "
+msgstr "/Tagit/Erikoiset/Vierasmerkit/Isot kirjaimet/A-I/Väkäsellinen C; Ç "
+
+#: ../src/menu.c:355
+msgid "/Tags/Special/Accent/Uppercase/A-I/E grave "
+msgstr "/Tagit/Erikoiset/Vierasmerkit/Isot kirjaimet/A-I/Pilkullinen E (vasen); È "
+
+#: ../src/menu.c:356
+msgid "/Tags/Special/Accent/Uppercase/A-I/E acute "
+msgstr "/Tagit/Erikoiset/Vierasmerkit/Isot kirjaimet/A-I/Pilkullinen E (oikea); É "
+
+#: ../src/menu.c:357
+msgid "/Tags/Special/Accent/Uppercase/A-I/E circumflex "
+msgstr "/Tagit/Erikoiset/Vierasmerkit/Isot kirjaimet/A-I/Hatullinen E; Ê "
+
+#: ../src/menu.c:358
+msgid "/Tags/Special/Accent/Uppercase/A-I/E diaeresis "
+msgstr "/Tagit/Erikoiset/Vierasmerkit/Isot kirjaimet/A-I/Kaksoispisteellinen E; Ë "
+
+#: ../src/menu.c:359
+msgid "/Tags/Special/Accent/Uppercase/A-I/I grave "
+msgstr "/Tagit/Erikoiset/Vierasmerkit/Isot kirjaimet/A-I/Pilkullinen I (vasen); Ì "
+
+#: ../src/menu.c:360
+msgid "/Tags/Special/Accent/Uppercase/A-I/I acute "
+msgstr "/Tagit/Erikoiset/Vierasmerkit/Isot kirjaimet/A-I/Pilkullinen I (oikea); Í "
+
+#: ../src/menu.c:361
+msgid "/Tags/Special/Accent/Uppercase/A-I/I circumflex "
+msgstr "/Tagit/Erikoiset/Vierasmerkit/Isot kirjaimet/A-I/Hatullinen I; Î "
+
+#: ../src/menu.c:362
+msgid "/Tags/Special/Accent/Uppercase/A-I/I diaeresis "
+msgstr "/Tagit/Erikoiset/Vierasmerkit/Isot kirjaimet/A-I/Kaksoispisteellinen I; Ï "
+
+#: ../src/menu.c:363
+msgid "/Tags/Special/Accent/Uppercase/_J-Z"
+msgstr "/Tagit/Erikoiset/Vierasmerkit/Isot kirjaimet/_J-Z"
+
+#: ../src/menu.c:364
+msgid "/Tags/Special/Accent/Uppercase/J-Z/tearoff1"
+msgstr "/Tagit/Erikoiset/Vierasmerkit/Isot kirjaimet/J-Z/tearoff1"
+
+#: ../src/menu.c:365
+msgid "/Tags/Special/Accent/Uppercase/J-Z/N tilde "
+msgstr "/Tagit/Erikoiset/Vierasmerkit/Isot kirjaimet/J-Z/Matoviivallinen N; Ñ "
+
+#: ../src/menu.c:366
+msgid "/Tags/Special/Accent/Uppercase/J-Z/O grave "
+msgstr "/Tagit/Erikoiset/Vierasmerkit/Isot kirjaimet/J-Z/Pilkullinen O (vasen); Ò "
+
+#: ../src/menu.c:367
+msgid "/Tags/Special/Accent/Uppercase/J-Z/O acute "
+msgstr "/Tagit/Erikoiset/Vierasmerkit/Isot kirjaimet/J-Z/Pilkullinen O (oikea); Ó "
+
+#: ../src/menu.c:368
+msgid "/Tags/Special/Accent/Uppercase/J-Z/O circumflex "
+msgstr "/Tagit/Erikoiset/Vierasmerkit/Isot kirjaimet/J-Z/Hatullinen O; Ô"
+
+#: ../src/menu.c:369
+msgid "/Tags/Special/Accent/Uppercase/J-Z/OE ligature"
+msgstr "/Tagit/Erikoiset/Vierasmerkit/Isot kirjaimet/J-Z/OE-sidos "
+
+#: ../src/menu.c:370
+msgid "/Tags/Special/Accent/Uppercase/J-Z/O tilde "
+msgstr "/Tagit/Erikoiset/Vierasmerkit/Isot kirjaimet/J-Z/Matoviivallinen O; Õ "
+
+#: ../src/menu.c:371
+msgid "/Tags/Special/Accent/Uppercase/J-Z/O diaeresis "
+msgstr "/Tagit/Erikoiset/Vierasmerkit/Isot kirjaimet/J-Z/Kaksoispisteellinen O; Ö "
+
+#: ../src/menu.c:372
+msgid "/Tags/Special/Accent/Uppercase/J-Z/O slash "
+msgstr "/Tagit/Erikoiset/Vierasmerkit/Isot kirjaimet/J-Z/Yliviivattu O; Ø "
+
+#: ../src/menu.c:373
+msgid "/Tags/Special/Accent/Uppercase/J-Z/U grave "
+msgstr "/Tagit/Erikoiset/Vierasmerkit/Isot kirjaimet/J-Z/Pilkullinen U (vasen); Ù "
+
+#: ../src/menu.c:374
+msgid "/Tags/Special/Accent/Uppercase/J-Z/U acute "
+msgstr "/Tagit/Erikoiset/Vierasmerkit/Isot kirjaimet/J-Z/Pilkullinen U (oikea); Ú "
+
+#: ../src/menu.c:375
+msgid "/Tags/Special/Accent/Uppercase/J-Z/U circumflex "
+msgstr "/Tagit/Erikoiset/Vierasmerkit/Isot kirjaimet/J-Z/Hatullinen U; Û "
+
+#: ../src/menu.c:376
+msgid "/Tags/Special/Accent/Uppercase/J-Z/U diaeresis "
+msgstr "/Tagit/Erikoiset/Vierasmerkit/Isot kirjaimet/J-Z/Kaksoispisteellinen U; Ü "
+
+#: ../src/menu.c:377
+msgid "/Tags/Special/Accent/Uppercase/J-Z/Y acute "
+msgstr "/Tagit/Erikoiset/Vierasmerkit/Isot kirjaimet/J-Z/Pilkullinen Y; Ý "
+
+#: ../src/menu.c:378
+msgid "/Tags/Special/Accent/_Lowercase"
+msgstr "/Tagit/Eroikoiset/Vierasmerkit/_Pienet kirjaimet"
+
+#: ../src/menu.c:379
+msgid "/Tags/Special/Accent/Lowercase/_A-I"
+msgstr "/Tagit/Erikoiset/Vierasmerkit/Pienet kirjaimet/_A-I"
+
+#: ../src/menu.c:380
+msgid "/Tags/Special/Accent/Lowercase/A-I/tearoff1"
+msgstr "/Tagit/Erikoiset/Vierasmerkit/Pienet kirjaimet/A-I/tearoff1"
+
+#: ../src/menu.c:381
+msgid "/Tags/Special/Accent/Lowercase/A-I/a grave "
+msgstr "/Tagit/Erikoiset/Vierasmerkit/Pienet kirjaimet/A-I/Pilkullinen a (vasen); à "
+
+#: ../src/menu.c:382
+msgid "/Tags/Special/Accent/Lowercase/A-I/a acute "
+msgstr "/Tagit/Erikoiset/Vierasmerkit/Pienet kirjaimet/A-I/Pilkullinen a (oikea); á "
+
+#: ../src/menu.c:383
+msgid "/Tags/Special/Accent/Lowercase/A-I/a circumflex "
+msgstr "/Tagit/Erikoiset/Vierasmerkit/Pienet kirjaimet/A-I/Hatullinen a; â "
+
+#: ../src/menu.c:384
+msgid "/Tags/Special/Accent/Lowercase/A-I/a tilde "
+msgstr "/Tagit/Erikoiset/Vierasmerkit/Pienet kirjaimet/A-I/Matoviivallinen a; ã "
+
+#: ../src/menu.c:385
+msgid "/Tags/Special/Accent/Lowercase/A-I/a ring "
+msgstr "/Tagit/Erikoiset/Vierasmerkit/Pienet kirjaimet/A-I/Ympyrällinen a; å "
+
+#: ../src/menu.c:386
+msgid "/Tags/Special/Accent/Lowercase/A-I/ae ligature "
+msgstr "/Tagit/Erikoiset/Vierasmerkit/Pienet kirjaimet/A-I/ae-sidos; æ "
+
+#: ../src/menu.c:387
+msgid "/Tags/Special/Accent/Lowercase/A-I/a diaeresis "
+msgstr "/Tagit/Erikoiset/Vierasmerkit/Pienet kirjaimet/A-I/Kaksoispisteellinen a; ä "
+
+#: ../src/menu.c:388
+msgid "/Tags/Special/Accent/Lowercase/A-I/c cedilla "
+msgstr "/Tagit/Erikoiset/Vierasmerkit/Pienet kirjaimet/A-I/Väkäsellinen c; ç "
+
+#: ../src/menu.c:389
+msgid "/Tags/Special/Accent/Lowercase/A-I/e grave "
+msgstr "/Tagit/Erikoiset/Vierasmerkit/Pienet kirjaimet/A-I/Pilkullinen e (vasen); è "
+
+#: ../src/menu.c:390
+msgid "/Tags/Special/Accent/Lowercase/A-I/e acute "
+msgstr "/Tagit/Erikoiset/Vierasmerkit/Pienet kirjaimet/A-I/Pilkullinen e (oikea); é "
+
+#: ../src/menu.c:391
+msgid "/Tags/Special/Accent/Lowercase/A-I/e circumflex "
+msgstr "/Tagit/Erikoiset/Vierasmerkit/Pienet kirjaimet/A-I/Hatullinen e; ê "
+
+#: ../src/menu.c:392
+msgid "/Tags/Special/Accent/Lowercase/A-I/e diaeresis "
+msgstr "/Tagit/Erikoiset/Vierasmerkit/Pienet kirjaimet/A-I/Kaksoispisteellinen e; ë "
+
+#: ../src/menu.c:393
+msgid "/Tags/Special/Accent/Lowercase/A-I/i grave "
+msgstr "/Tagit/Erikoiset/Vierasmerkit/Pienet kirjaimet/A-I/Kaksoispisteellinen i (vasen); ì "
+
+#: ../src/menu.c:394
+msgid "/Tags/Special/Accent/Lowercase/A-I/i acute "
+msgstr "/Tagit/Erikoiset/Vierasmerkit/Pienet kirjaimet/A-I/Kaksoispisteellinen i (oikea); í "
+
+#: ../src/menu.c:395
+msgid "/Tags/Special/Accent/Lowercase/A-I/i circumflex "
+msgstr "/Tagit/Erikoiset/Vierasmerkit/Pienet kirjaimet/A-I/Hatullinen i; î "
+
+#: ../src/menu.c:396
+msgid "/Tags/Special/Accent/Lowercase/A-I/i diaeresis "
+msgstr "/Tagit/Erikoiset/Vierasmerkit/Pienet kirjaimet/A-I/Kaksoispisteellinen i; ï "
+
+#: ../src/menu.c:397
+msgid "/Tags/Special/Accent/Lowercase/_J-Z"
+msgstr "/Tagit/Erikoiset/Vierasmerkit/Pienet kirjaimet/_J-Z"
+
+#: ../src/menu.c:398
+msgid "/Tags/Special/Accent/Lowercase/J-Z/tearoff1"
+msgstr "/Tagit/Erikoiset/Vierasmerkit/Pienet kirjaimet/J-Z/tearoff1"
+
+#: ../src/menu.c:399
+msgid "/Tags/Special/Accent/Lowercase/J-Z/n tilde "
+msgstr "/Tagit/Erikoiset/Vierasmerkit/Pienet kirjaimet/J-Z/Matoviivallinen n; ñ "
+
+#: ../src/menu.c:400
+msgid "/Tags/Special/Accent/Lowercase/J-Z/o grave "
+msgstr "/Tagit/Erikoiset/Vierasmerkit/Pienet kirjaimet/J-Z/Pilkullinen o (vasen); ò "
+
+#: ../src/menu.c:401
+msgid "/Tags/Special/Accent/Lowercase/J-Z/o acute "
+msgstr "/Tagit/Erikoiset/Vierasmerkit/Pienet kirjaimet/J-Z/Pilkullinen o (oikea); ó "
+
+#: ../src/menu.c:402
+msgid "/Tags/Special/Accent/Lowercase/J-Z/oe ligature "
+msgstr "/Tagit/Erikoiset/Vierasmerkit/Pienet kirjaimet/J-Z/oe-sidos "
+
+#: ../src/menu.c:403
+msgid "/Tags/Special/Accent/Lowercase/J-Z/o circumflex "
+msgstr "/Tagit/Erikoiset/Vierasmerkit/Pienet kirjaimet/J-Z/Hatullinen o; ô "
+
+#: ../src/menu.c:404
+msgid "/Tags/Special/Accent/Lowercase/J-Z/o tilde "
+msgstr "/Tagit/Erikoiset/Vierasmerkit/Pienet kirjaimet/J-Z/Matoviivallinen o; õ "
+
+#: ../src/menu.c:405
+msgid "/Tags/Special/Accent/Lowercase/J-Z/o diaeresis "
+msgstr "/Tagit/Erikoiset/Vierasmerkit/Pienet kirjaimet/J-Z/Kaksoispisteellinen o; ö "
+
+#: ../src/menu.c:406
+msgid "/Tags/Special/Accent/Lowercase/J-Z/o slash "
+msgstr "/Tagit/Erikoiset/Vierasmerkit/Pienet kirjaimet/J-Z/Yliviivattu o; ø "
+
+#: ../src/menu.c:407
+msgid "/Tags/Special/Accent/Lowercase/J-Z/u grave "
+msgstr "/Tagit/Erikoiset/Vierasmerkit/Pienet kirjaimet/J-Z/Pilkullinen u (vasen); ù "
+
+#: ../src/menu.c:408
+msgid "/Tags/Special/Accent/Lowercase/J-Z/u acute "
+msgstr "/Tagit/Erikoiset/Vierasmerkit/Pienet kirjaimet/J-Z/Pilkullinen u (oikea); ú "
+
+#: ../src/menu.c:409
+msgid "/Tags/Special/Accent/Lowercase/J-Z/u circumflex "
+msgstr "/Tagit/Erikoiset/Vierasmerkit/Pienet kirjaimet/J-Z/Hatullinen u; û "
+
+#: ../src/menu.c:410
+msgid "/Tags/Special/Accent/Lowercase/J-Z/u diaeresis "
+msgstr "/Tagit/Erikoiset/Vierasmerkit/Pienet kirjaimet/J-Z/Kaksoispisteellinen u; ü "
+
+#: ../src/menu.c:411
+msgid "/Tags/Special/Accent/Lowercase/J-Z/y acute "
+msgstr "/Tagit/Erikoiset/Vierasmerkit/Pienet kirjaimet/J-Z/Pilkullinen y; ý "
+
+#: ../src/menu.c:412
+msgid "/Tags/Special/Accent/Lowercase/J-Z/y diaeresis "
+msgstr "/Tagit/Erikoiset/Vierasmerkit/Pienet kirjaimet/J-Z/Kaksoispisteellinen y; ÿ"
+
+#: ../src/menu.c:413
+msgid "/Tags/Special/Accent/separator"
+msgstr "/Tagit/Erikoiset/Vierasmerkit/separator"
+
+#: ../src/menu.c:414
+msgid "/Tags/Special/Accent/U_mlaut "
+msgstr "/Tagit/Erikoiset/Vierasmerkit/U_mlaut ¨ "
+
+#: ../src/menu.c:415
+msgid "/Tags/Special/Accent/_Acute "
+msgstr "/Tagit/Erikoiset/Vierasmerkit/_Heittomerkki ´ "
+
+#: ../src/menu.c:416
+msgid "/Tags/Special/Accent/_Cedilla "
+msgstr "/Tagit/Erikoiset/Vierasmerkit/V_äkänen ¸ "
+
+#: ../src/menu.c:417
+msgid "/Tags/Special/_Currency"
+msgstr "/Tagit/Erikoiset/V_aluutta"
+
+#: ../src/menu.c:418
+msgid "/Tags/Special/Currency/tearoff1"
+msgstr "/Tagit/Erikoiset/Valuutta/tearoff1"
+
+#: ../src/menu.c:419
+msgid "/Tags/Special/Currency/_Cent sign "
+msgstr "/Tagit/Erikoiset/Valuutta/_Sentti ¢ "
+
+#: ../src/menu.c:420
+msgid "/Tags/Special/Currency/_Pound sterling "
+msgstr "/Tagit/Erikoiset/Valuutta/P_unta £ "
+
+#: ../src/menu.c:421
+msgid "/Tags/Special/Currency/C_urrency sign "
+msgstr "/Tagit/Erikoiset/Valuutta/Va_luuttamerkki ¤ "
+
+#: ../src/menu.c:422
+msgid "/Tags/Special/Currency/_Yen sign "
+msgstr "/Tagit/Erikoiset/Valuutta/_Jeni ¥ "
+
+#: ../src/menu.c:423
+msgid "/Tags/Special/Currency/_Euro "
+msgstr "/Tagit/Erikoiset/Valuutta/Eu_ro € "
+
+#: ../src/menu.c:424
+msgid "/Tags/Special/_Math-Science"
+msgstr "/Tagit/Erikoiset/_Matemaattinen-Tiede"
+
+#: ../src/menu.c:425
+msgid "/Tags/Special/Math-Science/tearoff1"
+msgstr "/Tagit/Erikoiset/Matemaattinen-Tiede/tearoff1"
+
+#: ../src/menu.c:426
+msgid "/Tags/Special/Math-Science/Logical _not sign "
+msgstr "/Tagit/Erikoiset/Matemaattinen-Tiede/Loogisesti _epätosi ¬ "
+
+#: ../src/menu.c:427
+msgid "/Tags/Special/Math-Science/_Multiplication sign "
+msgstr "/Tagit/Erikoiset/Matematiikka-Tiede/_Tulo × "
+
+#: ../src/menu.c:428
+msgid "/Tags/Special/Math-Science/_Division sign "
+msgstr "/Tagit/Erikoiset/Matematiikka-Tiede/_Osamäärä ÷ "
+
+#: ../src/menu.c:429
+msgid "/Tags/Special/Math-Science/_Plus-minus sign "
+msgstr "/Tagit/Erikoiset/Matematiikka-Tiede/_Plus-miinus ± "
+
+#: ../src/menu.c:430
+msgid "/Tags/Special/Math-Science/_Less-than sign <"
+msgstr "/Tagit/Erikoiset/Matematiikka-Tiede/_Vähemmän kuin < "
+
+#: ../src/menu.c:431
+msgid "/Tags/Special/Math-Science/_Greater-than sign >"
+msgstr "/Tagit/Erikoiset/Matematiikka-Tiede/_Enemmän kuin > "
+
+#: ../src/menu.c:432
+msgid "/Tags/Special/Math-Science/Superscript _1 "
+msgstr "/Tagit/Erikoiset/Matematiikka-Tiede/_1. Potenssi ¹ "
+
+#: ../src/menu.c:433
+msgid "/Tags/Special/Math-Science/Superscript _2 "
+msgstr "/Tagit/Erikoiset/Matematiikka-Tiede/_2. Potenssi ² "
+
+#: ../src/menu.c:434
+msgid "/Tags/Special/Math-Science/Superscript _3 "
+msgstr "/Tagit/Erikoiset/Matematiikka-Tiede/_3. Potenssi ³ "
+
+#: ../src/menu.c:435
+msgid "/Tags/Special/Math-Science/One _quarter "
+msgstr "/Tagit/Erikoiset/Matematiikka-Tiede/_Neljäsosa ¼ "
+
+#: ../src/menu.c:436
+msgid "/Tags/Special/Math-Science/One _half "
+msgstr "/Tagit/Erikoiset/Matematiikka-Tiede/P_uoli ½ "
+
+#: ../src/menu.c:437
+msgid "/Tags/Special/Math-Science/_Three quarters "
+msgstr "/Tagit/Erikoiset/Matematiikka-Tiede/_Kolme neljäsosaa ¾ "
+
+#: ../src/menu.c:438
+msgid "/Tags/Special/Math-Science/Deg_ree sign "
+msgstr "/Tagit/Erikoiset/Matematiikka-Tiede/_Astemerkki °  "
+
+#: ../src/menu.c:439
+msgid "/Tags/Special/_Non Latin"
+msgstr "/Tagit/Erikoiset/_Ei-latina"
+
+#: ../src/menu.c:440
+msgid "/Tags/Special/Non Latin/tearoff1"
+msgstr "/Tagit/Erikoiset/Ei-Latina/tearoff1"
+
+#: ../src/menu.c:441
+msgid "/Tags/Special/Non Latin/_ETH (Icelandic) "
+msgstr "/Tagit/Erikoiset/Ei-Latina/_ETH (islantilainen) Ð "
+
+#: ../src/menu.c:442
+msgid "/Tags/Special/Non Latin/_THORN (Icelandic) "
+msgstr "/Tagit/Erikoiset/Ei-Latina/_THORN (islantilainen) Þ "
+
+#: ../src/menu.c:443
+msgid "/Tags/Special/Non Latin/et_h (Icelandic) "
+msgstr "/Tagit/Erikoiset/Ei-Latina/et_h (islantilainen) ð "
+
+#: ../src/menu.c:444
+msgid "/Tags/Special/Non Latin/th_orn "
+msgstr "/Tagit/Erikoiset/Ei-Latina/th_orn ÿ "
+
+#: ../src/menu.c:445
+msgid "/Tags/Special/Non Latin/Sharp _s "
+msgstr "/Tagit/Erikoiset/Ei-Latina/Kaksois-ä_ssä ß "
+
+#: ../src/menu.c:446
+msgid "/Tags/Special/Non Latin/_Micro sign "
+msgstr "/Tagit/Erikoiset/Ei-Latina/_Mikro µ"
+
+#: ../src/menu.c:447
+msgid "/Tags/Special/_Other"
+msgstr "/Tagit/Erikoiset/M_uut"
+
+#: ../src/menu.c:448
+msgid "/Tags/Special/Other/tearoff1"
+msgstr "/Tagit/Erikoiset/Muut/tearoff1"
+
+#: ../src/menu.c:449
+msgid "/Tags/Special/Other/_Non-breaking space"
+msgstr "/Tagit/Erikoiset/Muut/_Rikkumaton väli"
+
+#: ../src/menu.c:450
+msgid "/Tags/Special/Other/_Section sign "
+msgstr "/Tagit/Erikoiset/Muut/_Pykälä § "
+
+#: ../src/menu.c:451
+msgid "/Tags/Special/Other/_Copyright sign "
+msgstr "/Tagit/Erikoiset/Muut/_Kopio-oikeudet © "
+
+#: ../src/menu.c:452
+msgid "/Tags/Special/Other/_Left angle quotes "
+msgstr "/Tagit/Erikoiset/Muut/Lainausmerkki (_vasen) « "
+
+#: ../src/menu.c:453
+msgid "/Tags/Special/Other/_Right angle quotes "
+msgstr "/Tagit/Erikoiset/Muut/Lainausmerkki (o_ikea) » "
+
+#: ../src/menu.c:454
+msgid "/Tags/Special/Other/Registered _trademark "
+msgstr "/Tagit/Erikoiset/Muut/R_ekisteröity tavaramerkki ® "
+
+#: ../src/menu.c:455
+msgid "/Tags/Special/Other/Inverted _exclamation "
+msgstr "/Tagit/Erikoiset/Muut/_Huutomerkki väärinpäin ¡ "
+
+#: ../src/menu.c:456
+msgid "/Tags/Special/Other/Inverted _question mark "
+msgstr "/Tagit/Erikoiset/Muut/K_ysymysmerkki väärinpäin ¿ "
+
+#: ../src/menu.c:457
+msgid "/Tags/Special/Other/_Feminine ordinal "
+msgstr "/Tagit/Erikoiset/Muut/_Feminiiniordinaali ª "
+
+#: ../src/menu.c:458
+msgid "/Tags/Special/Other/_Masculine ordinal "
+msgstr "/Tagit/Erikoiset/Muut/M_askuliiniordinaali º "
+
+#: ../src/menu.c:459
+msgid "/Tags/Special/Other/_Pilcrow (paragraph sign) "
+msgstr "/Tagit/Erikoiset/Muut/Ka_ppaleenvaihto ¶ "
+
+#: ../src/menu.c:460
+msgid "/Tags/Special/Other/_Broken bar "
+msgstr "/Tagit/Erikoiset/Muut/Pys_tykatkoviiva ¦ "
+
+#: ../src/menu.c:461
+msgid "/Tags/Special/Other/Soft _hypen -"
+msgstr "/Tagit/Erikoiset/Muut/Pehmeä _yhdysviiva - "
+
+#: ../src/menu.c:462
+msgid "/Tags/Special/Other/Spa_cing macron "
+msgstr "/Tagit/Erikoiset/Muut/Yl_äviiva ¯ "
+
+#: ../src/menu.c:463
+msgid "/Tags/Special/Other/Middle _dot "
+msgstr "/Tagit/Erikoiset/Muut/Kes_kipiste · "
+
+#: ../src/menu.c:464
+msgid "/Tags/_Format by layout"
+msgstr "/Tagit/_Ulkoasumuotoilu"
+
+#: ../src/menu.c:465
+msgid "/Tags/Format by layout/tearoff1"
+msgstr "/Tagit/Ulkoasumuotoilu/tearoff1"
+
+#: ../src/menu.c:466
+msgid "/Tags/Format by layout/_Bold"
+msgstr "/Tagit/Ulkoasumuotoilu/_Lihavoitu"
+
+#: ../src/menu.c:467
+msgid "/Tags/Format by layout/_Italic"
+msgstr "/Tagit/Ulkoasumuotoilu/_Kursivoitu"
+
+#: ../src/menu.c:468
+msgid "/Tags/Format by layout/_Underline"
+msgstr "/Tagit/Ulkoasumuotoilu/_Alleviivattu"
+
+#: ../src/menu.c:469
+msgid "/Tags/Format by layout/_Strikeout"
+msgstr "/Tagit/Ulkoasumuotoilu/_Yliviivattu"
+
+#: ../src/menu.c:470
+msgid "/Tags/F_ormat by context"
+msgstr "/Tagit/A_siayhteysmuotoilu"
+
+#: ../src/menu.c:471
+msgid "/Tags/Format by context/tearoff1"
+msgstr "/Tagit/Asiayhteysmuotoilu/tearoff1"
+
+#: ../src/menu.c:472
+msgid "/Tags/Format by context/_Strong"
+msgstr "/Tagit/Asiayhteysmuotoilu/_Vahvennettu"
+
+#: ../src/menu.c:473
+msgid "/Tags/Format by context/_Emphasis"
+msgstr "/Tagit/Asiayhteysmuotoilu/V_ierasmerkit"
+
+#: ../src/menu.c:474
+msgid "/Tags/Format by context/_Define"
+msgstr "/Tagit/Asiayhteysmuotoilu/_Määrittely"
+
+#: ../src/menu.c:475
+msgid "/Tags/Format by context/_Code"
+msgstr "/Tagit/Asiayhteysmuotoilu/_Koodi"
+
+#: ../src/menu.c:476
+msgid "/Tags/Format by context/Sa_mple"
+msgstr "/Tagit/Asiayhteysmuotoilu/M_alli"
+
+#: ../src/menu.c:477
+msgid "/Tags/Format by context/_Keyboard"
+msgstr "/Tagit/Asiayhteysmuotoilu/_Näppäimistö"
+
+#: ../src/menu.c:478
+msgid "/Tags/Format by context/_Variable"
+msgstr "/Tagit/Asiayhteysmuotoilu/M_uuttuja"
+
+#: ../src/menu.c:479
+msgid "/Tags/Format by context/Ci_tation"
+msgstr "/Tagit/Asiayhteysmuotoilu/_Sitaatti"
+
+#: ../src/menu.c:480
+msgid "/Tags/Format by context/_Abbreviation"
+msgstr "/Tagit/Asiayhteysmuotoilu/_Lyhenne"
+
+#: ../src/menu.c:481
+msgid "/Tags/Format by context/Ac_ronym"
+msgstr "/Tagit/Asiayhteysmuotoilu/_Akronyymi"
+
+#: ../src/menu.c:482
+msgid "/Tags/Format _general"
+msgstr "/Tagit/_Yleismuotoilu"
+
+#: ../src/menu.c:483
+msgid "/Tags/Format general/tearoff1"
+msgstr "/Tagit/Yleismuotoilu/tearoff1"
+
+#: ../src/menu.c:484
+msgid "/Tags/Format general/_Paragraph"
+msgstr "/Tagit/Yleismuotoilu/_Kappale"
+
+#: ../src/menu.c:485
+msgid "/Tags/Format general/_Break"
+msgstr "/Tagit/Yleismuotoilu/_Rivivaihto"
+
+#: ../src/menu.c:486
+msgid "/Tags/Format general/Break clear _all"
+msgstr "/Tagit/Yleismuotoilu/R_ivivaihto ja tyhjennys"
+
+#: ../src/menu.c:487
+msgid "/Tags/Format general/_Non-Breaking Space"
+msgstr "/Tagit/Yleismuotoilu/Ri_kkumaton väli"
+
+#: ../src/menu.c:488 ../src/menu.c:491 ../src/menu.c:495
+msgid "/Tags/Format general/<separator>"
+msgstr "/Tagit/Yleismuotoilu/<separator>"
+
+#: ../src/menu.c:489
+msgid "/Tags/Format general/Font Si_ze +1"
+msgstr "/Tagit/Yleismuotoilu/_Fontin koko +1"
+
+#: ../src/menu.c:490
+msgid "/Tags/Format general/Font _Size -1"
+msgstr "/Tagit/Yleismuotoilu/Fontin k_oko -1"
+
+#: ../src/menu.c:492
+msgid "/Tags/Format general/Preformatted _Text"
+msgstr "/Tagit/Yleismuotoilu/_Esimuotoiltu teksti"
+
+#: ../src/menu.c:493
+msgid "/Tags/Format general/Su_bscript"
+msgstr "/Tagit/Yleismuotoilu/Ala_viite"
+
+#: ../src/menu.c:494
+msgid "/Tags/Format general/Su_perscript"
+msgstr "/Tagit/Yleismuotoilu/Y_läviite"
+
+#: ../src/menu.c:496
+msgid "/Tags/Format general/_Center"
+msgstr "/Tagit/Yleismuotoilu/K_eskitä"
+
+#: ../src/menu.c:497
+msgid "/Tags/Format general/Align _right"
+msgstr "/Tagit/Yleismuotoilu/Tasaus oike_alle"
+
+#: ../src/menu.c:498
+msgid "/Tags/_Table"
+msgstr "/Tagit/Ta_ulukko"
+
+#: ../src/menu.c:499
+msgid "/Tags/Table/tearoff1"
+msgstr "/Tagit/Taulukko/tearoff1"
+
+#: ../src/menu.c:500
+msgid "/Tags/Table/_Table"
+msgstr "/Tagit/Taulukko/_Taulukko"
+
+#: ../src/menu.c:501
+msgid "/Tags/Table/Table _Row"
+msgstr "/Tagit/Taulukko/Taulukon _rivi"
+
+#: ../src/menu.c:502
+msgid "/Tags/Table/Table _Header"
+msgstr "/Tagit/Taulukko/Taulukon _otsake"
+
+#: ../src/menu.c:503
+msgid "/Tags/Table/Table _Data"
+msgstr "/Tagit/Taulukko/Taulukon _data"
+
+#: ../src/menu.c:504
+msgid "/Tags/Table/Table _Caption"
+msgstr "/Tagit/Taulukko/Taulukon o_tsikko"
+
+#: ../src/menu.c:505
+msgid "/Tags/_List"
+msgstr "/Tagit/_Lista"
+
+#: ../src/menu.c:506
+msgid "/Tags/List/tearoff1"
+msgstr "/Tagit/Lista/tearoff1"
+
+#: ../src/menu.c:507
+msgid "/Tags/List/_Unordered List"
+msgstr "/Tagit/Lista/_Järjestämätön lista"
+
+#: ../src/menu.c:508
+msgid "/Tags/List/_Ordered List"
+msgstr "/Tagit/Lista/J_ärjestetty lista"
+
+#: ../src/menu.c:509
+msgid "/Tags/List/List _Item"
+msgstr "/Tagit/Lista/Listan _kohta"
+
+#: ../src/menu.c:510
+msgid "/Tags/List/Definition _List"
+msgstr "/Tagit/Lista/_Määrittelylista"
+
+#: ../src/menu.c:511
+msgid "/Tags/List/Definition _Term"
+msgstr "/Tagit/Lista/Määrittely_termi"
+
+#: ../src/menu.c:512
+msgid "/Tags/List/De_finition"
+msgstr "/Tagit/Lista/Mää_ritelmä"
+
+#: ../src/menu.c:513
+msgid "/Tags/List/_Menu"
+msgstr "/Tagit/Lista/_Valikko"
+
+#: ../src/menu.c:514
+msgid "/Tags/Insert Generator _META-Tag"
+msgstr "/Tagit/Lisää Generator M_ETA-tagi"
+
+#: ../src/menu.c:515
+msgid "/Tags/_Comment"
+msgstr "/Tagit/_Kommentti"
+
+#: ../src/menu.c:516
+msgid "/Dial_ogs"
+msgstr "/D_ialogit"
+
+#: ../src/menu.c:517
+msgid "/Dialogs/tearoff1"
+msgstr "/Dialogit/tearoff1"
+
+#: ../src/menu.c:518
+msgid "/Dialogs/_General"
+msgstr "/Dialogit/_Yleiset"
+
+#: ../src/menu.c:519
+msgid "/Dialogs/General/tearoff1"
+msgstr "/Dialogit/Yleiset/tearoff1"
+
+#: ../src/menu.c:520
+msgid "/Dialogs/General/_Quickstart..."
+msgstr "/Dialogit/Yleiset/_Pika-aloitus..."
+
+#: ../src/menu.c:523
+msgid "/Dialogs/General/_Body..."
+msgstr "/Dialogit/Yleiset/_Runko..."
+
+#: ../src/menu.c:524
+msgid "/Dialogs/General/_Anchor..."
+msgstr "/Dialogit/Yleiset/_Ankkuri..."
+
+#: ../src/menu.c:525
+msgid "/Dialogs/General/_Email..."
+msgstr "/Dialogit/Yleiset/E_mail..."
+
+#: ../src/menu.c:526
+msgid "/Dialogs/General/_Rule..."
+msgstr "/Dialogit/Yleiset/V_iiva..."
+
+#: ../src/menu.c:527
+msgid "/Dialogs/General/_Font..."
+msgstr "/Dialogit/Yleiset/_Fontti..."
+
+#: ../src/menu.c:528
+msgid "/Dialogs/General/Basef_ont..."
+msgstr "/Dialogit/Yleiset/Perus_fontti..."
+
+#: ../src/menu.c:529
+msgid "/Dialogs/General/Quick_list..."
+msgstr "/Dialogit/Yleiset/Pika_lista..."
+
+#: ../src/menu.c:530
+msgid "/Dialogs/General/_Meta..."
+msgstr "/Dialogit/Yleiset/M_eta..."
+
+#: ../src/menu.c:531
+msgid "/Dialogs/General/Embe_d..."
+msgstr "/Dialogit/Yleiset/_Upotettu..."
+
+#: ../src/menu.c:532
+msgid "/Dialogs/General/Select _Color..."
+msgstr "/Dialogit/Yleiset/Valitse _väri..."
+
+#: ../src/menu.c:533
+msgid "/Dialogs/General/Insert _Time..."
+msgstr "/Dialogit/Yleiset/Lisää _aika..."
+
+#: ../src/menu.c:534
+msgid "/Dialogs/General/Insert _Image..."
+msgstr "/Dialogit/Yleiset/Lisää k_uva..."
+
+#: ../src/menu.c:535
+msgid "/Dialogs/General/Insert T_humbnail..."
+msgstr "/Dialogit/Yleiset/Lisää e_sikatselukuva..."
+
+#: ../src/menu.c:536
+msgid "/Dialogs/_Table"
+msgstr "/Dialogit/Ta_ulukko"
+
+#: ../src/menu.c:537
+msgid "/Dialogs/Table/tearoff1"
+msgstr "/Dialogit/Taulukko/tearoff1"
+
+#: ../src/menu.c:538
+msgid "/Dialogs/Table/Table _Wizard..."
+msgstr "/Dialogit/Taulukko/_Taulukkovelho..."
+
+#: ../src/menu.c:539
+msgid "/Dialogs/Table/_Table..."
+msgstr "/Dialogit/Taulukko/T_aulukko..."
+
+#: ../src/menu.c:540
+msgid "/Dialogs/Table/Table _Row..."
+msgstr "/Dialogit/Taulukko/Taulukon _rivi..."
+
+#: ../src/menu.c:541
+msgid "/Dialogs/Table/Table _Head..."
+msgstr "/Dialogit/Taulukko/Taulukon _otsake..."
+
+#: ../src/menu.c:542
+msgid "/Dialogs/Table/Table _Data..."
+msgstr "/Dialogit/Taulukko/Taulukon _data..."
+
+#: ../src/menu.c:543
+msgid "/Dialogs/_CSS"
+msgstr "/Dialogit/_CSS"
+
+#: ../src/menu.c:544
+msgid "/Dialogs/CSS/tearoff1"
+msgstr "/Dialogit/CSS/tearoff1"
+
+#: ../src/menu.c:545
+msgid "/Dialogs/CSS/_Create Style..."
+msgstr "/Dialogit/CSS/_Luo tyyli..."
+
+#: ../src/menu.c:546
+msgid "/Dialogs/CSS/S_pan..."
+msgstr "/Dialogit/CSS/_Span..."
+
+#: ../src/menu.c:547
+msgid "/Dialogs/CSS/_Div..."
+msgstr "/Dialogit/CSS/_Div..."
+
+#: ../src/menu.c:548
+msgid "/Dialogs/CSS/_Style..."
+msgstr "/Dialogit/CSS/_Tyyli..."
+
+#: ../src/menu.c:549
+msgid "/Dialogs/CSS/_Link to Stylesheet..."
+msgstr "/Dialogit/CSS/L_inkki tyylisivuun..."
+
+#: ../src/menu.c:550
+msgid "/Dialogs/_Frame"
+msgstr "/Dialogit/_Kehys"
+
+#: ../src/menu.c:551
+msgid "/Dialogs/Frame/tearoff1"
+msgstr "/Dialogit/Kehys/tearoff1"
+
+#: ../src/menu.c:552
+msgid "/Dialogs/Frame/Frame _Wizard..."
+msgstr "/Dialogit/Kehys/Kehys_velho..."
+
+#: ../src/menu.c:553
+msgid "/Dialogs/Frame/Frame_set..."
+msgstr "/Dialogit/Kehys/Kehyk_set..."
+
+#: ../src/menu.c:554
+msgid "/Dialogs/Frame/_Frame..."
+msgstr "/Dialogit/Kehys/K_ehys..."
+
+#: ../src/menu.c:555
+msgid "/Dialogs/F_orm"
+msgstr "/Dialogit/L_omake"
+
+#: ../src/menu.c:556
+msgid "/Dialogs/Form/tearoff1"
+msgstr "/Dialogit/Lomake/tearoff1"
+
+#: ../src/menu.c:557
+msgid "/Dialogs/Form/F_orm..."
+msgstr "/Dialogit/Lomake/Lo_make..."
+
+#: ../src/menu.c:558
+msgid "/Dialogs/Form/_Input Button..."
+msgstr "/Dialogit/Lomake/Sy_ötepainike..."
+
+#: ../src/menu.c:559
+msgid "/Dialogs/Form/_Text..."
+msgstr "/Dialogit/Lomake/Te_ksti..."
+
+#: ../src/menu.c:560
+msgid "/Dialogs/Form/_Hidden..."
+msgstr "/Dialogit/Lomake/_Piilotettu..."
+
+#: ../src/menu.c:561
+msgid "/Dialogs/Form/Text_area..."
+msgstr "/Dialogit/Lomake/Teksti_alue..."
+
+#: ../src/menu.c:562
+msgid "/Dialogs/Form/Radio _Buttons..."
+msgstr "/Dialogit/Lomake/Ra_diopainikkeet..."
+
+#: ../src/menu.c:563
+msgid "/Dialogs/Form/_Check Buttons..."
+msgstr "/Dialogit/Lomake/_Valintalaatikot..."
+
+#: ../src/menu.c:564
+msgid "/Dialogs/Form/_Select..."
+msgstr "/Dialogit/Lomake/Va_lintalista..."
+
+#: ../src/menu.c:565
+msgid "/Dialogs/Form/O_ption..."
+msgstr "/Dialogit/Lomake/Vali_nta..."
+
+#: ../src/menu.c:566
+msgid "/Dialogs/Form/Option _Group..."
+msgstr "/Dialogit/Lomake/Valin_taryhmä..."
+
+#: ../src/menu.c:593
+msgid "/_Document"
+msgstr "/_Dokumentti"
+
+#: ../src/menu.c:594
+msgid "/Document/tearoff1"
+msgstr "/Dokumentti/tearoff1"
+
+#: ../src/menu.c:595
+msgid "/Document/_Increase Tabsize"
+msgstr "/Dokumentti/_Suurenna sarkainkokoa"
+
+#: ../src/menu.c:596
+msgid "/Document/_Decrease Tabsize"
+msgstr "/Dokumentti/_Pienennä sarkainkokoa"
+
+#: ../src/menu.c:597
+msgid "/Document/sep1"
+msgstr "/Dokumentti/sep1"
+
+#: ../src/menu.c:598
+msgid "/Document/_Auto Indent"
+msgstr "/Dokumentti/_Automaattinen sisennys"
+
+#: ../src/menu.c:599
+msgid "/Document/_Wrap"
+msgstr "/Dokumentti/_Katkaisu"
+
+#: ../src/menu.c:600
+msgid "/Document/_Line Numbers"
+msgstr "/Dokumentti/_Rivinumerot"
+
+#: ../src/menu.c:601
+msgid "/Document/sep2"
+msgstr "/Dokumentti/sep2"
+
+#: ../src/menu.c:602
+msgid "/Document/_Highlight Syntax"
+msgstr "/Dokumentti/K_orostussyntaksi"
+
+#: ../src/menu.c:603
+msgid "/Document/_Update Highlighting"
+msgstr "/Dokumentti/P_äivitä korostus"
+
+#: ../src/menu.c:604
+msgid "/Document/sep3"
+msgstr "/Dokumentti/sep3"
+
+#: ../src/menu.c:605
+msgid "/Document/Document _Type"
+msgstr "/Dokumentti/Dokumentin _tyyppi"
+
+#: ../src/menu.c:606
+msgid "/Document/Document Type/tearoff1"
+msgstr "/Dokumentti/Dokumentin tyyppi/tearoff1"
+
+#: ../src/menu.c:607
+msgid "/Document/Character _Encoding"
+msgstr "/Dokumentti/_Merkistökoodaus"
+
+#: ../src/menu.c:608
+msgid "/Document/Character Encoding/tearoff1"
+msgstr "/Dokumentti/Merkistökoodaus/tearoff1"
+
+#: ../src/menu.c:609
+msgid "/Document/sep4"
+msgstr "/Dokumentti/sep4"
+
+#: ../src/menu.c:610
+msgid "/Document/Word _Count"
+msgstr "/Dokumentti/Sana_määrä"
+
+#: ../src/menu.c:611
+msgid "/Document/_Floating window"
+msgstr "/Dokumentti/K_elluva ikkuna"
+
+#: ../src/menu.c:612
+msgid "/_Project"
+msgstr "/_Projekti"
+
+#: ../src/menu.c:613
+msgid "/Project/tearoff1"
+msgstr "/Projekti/tearoff1"
+
+#: ../src/menu.c:614
+msgid "/Project/_Open Project..."
+msgstr "/Projekti/_Avaa projekti..."
+
+#: ../src/menu.c:615
+msgid "/Project/Open r_ecent"
+msgstr "/Profjekti/Avaa _viimeisin"
+
+#: ../src/menu.c:616
+msgid "/Project/Open recent/tearoff1"
+msgstr "/Projekti/Avaa viimeisin/tearoff1"
+
+#: ../src/menu.c:617
+msgid "/Project/_New Project"
+msgstr "/Projekti/_Uusi projekti"
+
+#: ../src/menu.c:618
+msgid "/Project/sep1"
+msgstr "/Projekti/sep1"
+
+#: ../src/menu.c:619
+msgid "/Project/_Save"
+msgstr "/Projekti/_Tallenna"
+
+#: ../src/menu.c:620
+msgid "/Project/Save _as..."
+msgstr "/Projekti/T_allenna nimellä..."
+
+#: ../src/menu.c:621
+msgid "/Project/_Close & save"
+msgstr "/Projekti/_Sulje & tallenna"
+
+#: ../src/menu.c:622
+msgid "/Project/sep2"
+msgstr "/Projekti/sep2"
+
+#: ../src/menu.c:623
+msgid "/Project/E_dit Project Options..."
+msgstr "/Projekti/_Muokkaa projektin valintoja"
+
+#: ../src/menu.c:624
+msgid "/_Go"
+msgstr "/_Siirry"
+
+#: ../src/menu.c:625
+msgid "/Go/tearoff1"
+msgstr "/Siirry/tearoff1"
+
+#: ../src/menu.c:626
+msgid "/Go/_Previous document"
+msgstr "/Siirry/E_dellinen dokumentti"
+
+#: ../src/menu.c:627
+msgid "/Go/_Next document"
+msgstr "/Siirry/S_euraava dokumentti"
+
+#: ../src/menu.c:628 ../src/menu.c:631
+msgid "/Go/sep1"
+msgstr "/Siirry/sep1"
+
+#: ../src/menu.c:629
+msgid "/Go/_First document"
+msgstr "/Siirry/_Ensimmäinen dokumentti"
+
+#: ../src/menu.c:630
+msgid "/Go/_Last document"
+msgstr "/Siirry/_Viimeinen dokumentti"
+
+#: ../src/menu.c:632
+msgid "/Go/Goto _Line"
+msgstr "/Siirry/Siirry _riville"
+
+#: ../src/menu.c:633
+msgid "/Go/Goto _Selection"
+msgstr "/Siirry/Siirry va_lintaan"
+
+#: ../src/menu.c:634
+msgid "/E_xternal"
+msgstr "/_Ulkopuolinen"
+
+#: ../src/menu.c:635
+msgid "/External/tearoff1"
+msgstr "/Ulkopuolinen/tearoff1"
+
+#: ../src/menu.c:802
+msgid "/Document/Document Type"
+msgstr "/Dokumentti/Dokumentin tyyppi"
+
+#: ../src/menu.c:849
+msgid "/Document/Auto Indent"
+msgstr "/Dokumentti/Automaattinen sisennys"
+
+#: ../src/menu.c:918
+msgid "Loading file(s)..."
+msgstr "Ladataan tiedosto(j)a..."
+
+#: ../src/menu.c:922
+msgid "Could not open file\n"
+msgstr "Ei voitu avata tiedostoa\n"
+
+#: ../src/menu.c:945
+msgid "/Project/Open recent"
+msgstr "/Projekti/Avaa viimeisin"
+
+#: ../src/menu.c:949
+msgid "/File/Open recent"
+msgstr "/Tiedosto/Avaa viimeisin"
+
+#: ../src/menu.c:1112
+msgid "/Windows"
+msgstr "/Ikkunat"
+
+#: ../src/menu.c:1178
+msgid "Could not view file in browser, the file does not yet have a name\n"
+msgstr "Ei voitu esikatsella tiedostoa selaimessa, tiedostolla ei ole vielä nimeä\n"
+
+#: ../src/menu.c:1291
+msgid "/External/Outputbox/"
+msgstr "/Ulkopuolinen/Tulostelaatikko/"
+
+#: ../src/menu.c:1294
+msgid "/External/Commands/"
+msgstr "/Ulkopuolinen/Komennot/"
+
+#: ../src/menu.c:1297
+msgid "/External/Browsers/"
+msgstr "/Ulkopuolinen/Selaimet/"
+
+#: ../src/menu.c:1302 ../src/menu.c:1317 ../src/menu.c:1336 ../src/menu.c:1352
+#: ../src/menu.c:1365 ../src/menu.c:1387
+msgid "/External"
+msgstr "/Ulkopuolinen"
+
+#: ../src/menu.c:1315
+msgid "/External/Browsers"
+msgstr "/Ulkopuolinen/Selaimet"
+
+#: ../src/menu.c:1350
+msgid "/External/Commands"
+msgstr "/Ulkopuolinen/Komennot"
+
+#: ../src/menu.c:1385
+msgid "/External/Outputbox"
+msgstr "/Ulkopuolinen/Tulostelaatikko"
+
+#: ../src/menu.c:1431
+msgid "/Document/Character Encoding"
+msgstr "/Dokumentti/Merkistökoodaus"
+
+#: ../src/menu.c:1694
+msgid "This custom search and replace requires a selection"
+msgstr "Tämä muotoiltava Etsi ja korvaa vaatii valinnan"
+
+#: ../src/menu.c:1772
+msgid "/_Custom menu"
+msgstr "/Muotoilta_va valikko"
+
+#: ../src/menu.c:1773
+msgid "/Custom menu/sep"
+msgstr "/Muotoiltava valikko/sep"
+
+#: ../src/menu.c:1774
+msgid "/Custom menu/Edit custom menu..."
+msgstr "/Muotoiltava valikko/_Editoi muotoiltavaa valikkoa"
+
+#: ../src/menu.c:1921 ../src/menu.c:2064 ../src/menu.c:2315
+msgid "in current document"
+msgstr "tämänhetkisessä dokumentissa"
+
+#: ../src/menu.c:1921 ../src/menu.c:2064 ../src/menu.c:2316
+msgid "from cursor"
+msgstr "kursorista"
+
+#: ../src/menu.c:1921 ../src/menu.c:2064 ../src/menu.c:2317
+msgid "in selection"
+msgstr "valinnasta"
+
+#: ../src/menu.c:1921 ../src/menu.c:2064 ../src/menu.c:2318
+msgid "in all open documents"
+msgstr "kaikista avoimista dokumenteista"
+
+#: ../src/menu.c:1922 ../src/menu.c:2065 ../src/menu.c:2328
+msgid "normal"
+msgstr "normaali"
+
+#: ../src/menu.c:1922
+msgid "posix regular expressions"
+msgstr "posix säännöllinen lauseke"
+
+#: ../src/menu.c:1922
+msgid "perl regular expressions"
+msgstr "perl säännöllinen lauseke"
+
+#: ../src/menu.c:1987
+msgid "Search Pattern"
+msgstr "Etsi malli"
+
+#: ../src/menu.c:1988
+msgid "Replace String"
+msgstr "Korvaa merkkijono"
+
+#: ../src/menu.c:1991
+msgid "Formatstring Before"
+msgstr "Muotoilumerkkijono ennen"
+
+#: ../src/menu.c:1992
+msgid "Formatstring After"
+msgstr "Muotoilumerkkijono jälkeen"
+
+#: ../src/menu.c:2039
+msgid "The menupath you want to update does not exist yet"
+msgstr "Valikkohakemistoa, jonka haluat päivittää, ei ole vielä olemassa"
+
+#: ../src/menu.c:2039
+msgid "Try 'add' instead."
+msgstr "Yritä sen sijaan 'lisää'."
+
+#: ../src/menu.c:2041
+msgid "The menupath you want to add already exists."
+msgstr "Valikkohakemisto, jonka haluat lisätä, on jo olemassa."
+
+#: ../src/menu.c:2046
+msgid "The menupath should start with a / character"
+msgstr "Valikkohakemiston tulisi alkaa / merkillä"
+
+#: ../src/menu.c:2065 ../src/menu.c:2329
+msgid "posix regular expresions"
+msgstr "posix säännölliset lausekkeet"
+
+#: ../src/menu.c:2065 ../src/menu.c:2330
+msgid "perl regular expresions"
+msgstr "perl säännölliset lausekkeet"
+
+#: ../src/menu.c:2201
+msgid "Custom Menu Editor"
+msgstr "Muotoiltavan valikon editori"
+
+#: ../src/menu.c:2212
+msgid "Add New Menu Entry"
+msgstr "Lisää uusi valikon kohta"
+
+#: ../src/menu.c:2214
+msgid "Apply Changes"
+msgstr "Hyväksy muutokset"
+
+#: ../src/menu.c:2216
+msgid "Delete Menu Entry"
+msgstr "Poista valikon kohta"
+
+#: ../src/menu.c:2219
+msgid "Close Discards Changes"
+msgstr "Sulkeminen hylkää muutokset"
+
+#: ../src/menu.c:2221
+msgid "Save Changes and Exit"
+msgstr "Tallenna muutokset ja lopeta"
+
+#: ../src/menu.c:2231
+msgid "_Menu Path:"
+msgstr "_Valikon hakemisto:"
+
+#: ../src/menu.c:2252
+msgid "Menu path"
+msgstr "Valikon hakemisto"
+
+#: ../src/menu.c:2272
+msgid "Number of _Variables:"
+msgstr "_Muuttujien lukumäärä:"
+
+#: ../src/menu.c:2280
+msgid "Variables"
+msgstr "Muuttujat"
+
+#: ../src/menu.c:2299
+msgid "Custom Dialo_g"
+msgstr "Muokattu dialo_gi"
+
+#: ../src/menu.c:2301
+msgid "Custom _Search and Replace"
+msgstr "M_uokattu Etsi ja korvaa"
+
+#: ../src/menu.c:2313
+msgid "_Replace:"
+msgstr "_Korvaa:"
+
+#: ../src/menu.c:2326
+msgid "Matc_hing:"
+msgstr "Va_staavat:"
+
+#: ../src/menu.c:2336
+msgid "Case Se_nsitive"
+msgstr "Ta_rkka kirjainmuoto"
+
+#: ../src/preferences.c:227
+msgid "Select font"
+msgstr "Valitse fontti"
+
+#: ../src/preferences.c:516 ../src/preferences.c:554
+msgid "Filetype"
+msgstr "Tiedostotyyppi"
+
+#: ../src/preferences.c:518
+msgid "Extensions"
+msgstr "Laajennukset"
+
+#: ../src/preferences.c:520
+msgid "Update chars"
+msgstr "Päivitä merkit"
+
+#: ../src/preferences.c:522 ../src/preferences.c:564
+msgid "Icon"
+msgstr "Ikoni"
+
+#: ../src/preferences.c:525 ../src/preferences.c:565
+msgid "Editable"
+msgstr "Muokattava"
+
+#: ../src/preferences.c:527
+msgid "Content regex"
+msgstr "Sisältö regex"
+
+#: ../src/preferences.c:562
+msgid "Extensions (colon separated)"
+msgstr "Laajennukset (erota kaksoispisteellä)"
+
+#: ../src/preferences.c:563
+msgid "Highlight update characters"
+msgstr "Korosta päivitysmerkit"
+
+#: ../src/preferences.c:566
+msgid "Content regex pattern"
+msgstr "Sisältö regex malli"
+
+#: ../src/preferences.c:680 ../src/preferences.c:714
+msgid "Filefilter"
+msgstr "Tiedostosuodin"
+
+#: ../src/preferences.c:682 ../src/preferences.c:719
+msgid "Inverse filtering"
+msgstr "Käänteinen suodatus"
+
+#: ../src/preferences.c:684
+msgid "Filetypes in filter"
+msgstr "Tiedostotyypit suotimessa"
+
+#: ../src/preferences.c:720
+msgid "Filetypes (colon separated)"
+msgstr "Tiedostotyypit (erota kaksoispisteellä)"
+
+#: ../src/preferences.c:1002
+msgid "filetype"
+msgstr "tiedostotyyppi"
+
+#: ../src/preferences.c:1010
+msgid "Pattern name"
+msgstr "Mallin nimi"
+
+#: ../src/preferences.c:1028 ../src/preferences.c:1523
+#: ../src/preferences.c:1572
+msgid "Pattern"
+msgstr "Malli"
+
+#: ../src/preferences.c:1051
+msgid "Start pattern and end pattern"
+msgstr "Aloitusmalli ja lopetusmalli"
+
+#: ../src/preferences.c:1053
+msgid "Only start pattern"
+msgstr "Vain aloitusmalli"
+
+#: ../src/preferences.c:1055
+msgid "Subpattern from parent"
+msgstr "Alamalli alkuperäisestä"
+
+#: ../src/preferences.c:1061
+msgid "Start pattern"
+msgstr "Aloitusmalli"
+
+#: ../src/preferences.c:1062
+msgid "End pattern"
+msgstr "Lopetusmalli"
+
+#: ../src/preferences.c:1063
+msgid "Case sensitive matching"
+msgstr "Tarkkaa kirjainmuotoa vastaava"
+
+#: ../src/preferences.c:1064
+msgid "Parentmatch"
+msgstr "Alkuperäisvastaavuus"
+
+#: ../src/preferences.c:1065
+msgid "Foreground color"
+msgstr "Edusväri"
+
+#: ../src/preferences.c:1066
+msgid "Background color"
+msgstr "Taustaväri"
+
+#: ../src/preferences.c:1074
+msgid "don't change weight"
+msgstr "älä muuta muotoilua"
+
+#: ../src/preferences.c:1076
+msgid "force non-bold weight"
+msgstr "pakota ei-lihavoitu muotoilu"
+
+#: ../src/preferences.c:1078
+msgid "force bold weight"
+msgstr "pakota lihavoitu muotoilu"
+
+#: ../src/preferences.c:1084
+msgid "don't change style"
+msgstr "älä muuta tyyliä"
+
+#: ../src/preferences.c:1086
+msgid "force non-italic style"
+msgstr "pakota ei-kursivoitu tyyli"
+
+#: ../src/preferences.c:1088
+msgid "force italic style"
+msgstr "pakota kursivoitu tyyli"
+
+#: ../src/preferences.c:1238 ../src/preferences.c:1276
+msgid "Browser"
+msgstr "Selain"
+
+#: ../src/preferences.c:1240 ../src/preferences.c:1282
+#: ../src/preferences.c:1366 ../src/preferences.c:1401
+#: ../src/preferences.c:1531 ../src/preferences.c:1576
+msgid "Command"
+msgstr "Komento"
+
+#: ../src/preferences.c:1281
+#, c-format
+msgid "%s = current filename"
+msgstr "%s = tämänhetkinen tiedostonimi"
+
+#: ../src/preferences.c:1364 ../src/preferences.c:1395
+msgid "Label"
+msgstr "Nimi"
+
+#: ../src/preferences.c:1400
+#, c-format
+msgid ""
+"%s = current filename\n"
+"%f = output filename (for filters)"
+msgstr ""
+"%s = tämänhetkinen tiedostonimi\n"
+"%f = tulosteen tiedostonimi (suotimille)"
+
+#: ../src/preferences.c:1521 ../src/preferences.c:1568
+msgid "Name"
+msgstr "Nimi"
+
+#: ../src/preferences.c:1525
+msgid "File #"
+msgstr "Tiedosto #"
+
+#: ../src/preferences.c:1527
+msgid "Line #"
+msgstr "Rivi #"
+
+#: ../src/preferences.c:1529
+msgid "Output #"
+msgstr "Tuloste #"
+
+#: ../src/preferences.c:1533 ../src/preferences.c:1577
+msgid "Show all output"
+msgstr "Näytä koko tuloste"
+
+#: ../src/preferences.c:1573
+msgid "File subpattern #"
+msgstr "Tiedoston alamalli #"
+
+#: ../src/preferences.c:1574
+msgid "Line subpattern #"
+msgstr "Rivin alamalli #"
+
+#: ../src/preferences.c:1575
+msgid "Output subpattern #"
+msgstr "Tulosteen alamalli #"
+
+#: ../src/preferences.c:1741
+msgid "left"
+msgstr "vasen"
+
+#: ../src/preferences.c:1741
+msgid "right"
+msgstr "oikea"
+
+#: ../src/preferences.c:1741
+msgid "top"
+msgstr "ylä"
+
+#: ../src/preferences.c:1741
+msgid "bottom"
+msgstr "ala"
+
+#: ../src/preferences.c:1742
+msgid "no check"
+msgstr "ei tarkistusta"
+
+#: ../src/preferences.c:1742
+msgid "check mtime and size"
+msgstr "tarkista m-aika ja koko"
+
+#: ../src/preferences.c:1742
+msgid "check mtime"
+msgstr "tarkista m-aika"
+
+#: ../src/preferences.c:1742
+msgid "check size"
+msgstr "tarkista koko"
+
+#: ../src/preferences.c:1745
+msgid "Edit preferences"
+msgstr "Muokkaa asetuksia"
+
+#: ../src/preferences.c:1756
+msgid "Editor"
+msgstr "Editori"
+
+#: ../src/preferences.c:1758
+msgid "Editor options"
+msgstr "Valintaeditori"
+
+#: ../src/preferences.c:1764
+msgid "Tab width"
+msgstr "Sarkaimen pituus"
+
+#: ../src/preferences.c:1765
+msgid "Use spaces to indent, not tabs"
+msgstr "Käytä välejä sisennykseen, älä sarkaimia"
+
+#: ../src/preferences.c:1766
+msgid "Word wrap default"
+msgstr "Sanakatkaisu tavanomainen"
+
+#: ../src/preferences.c:1767
+msgid "Line numbers by default"
+msgstr "Rivinumerointi tavanomaisesti"
+
+#: ../src/preferences.c:1768
+msgid "Highlight syntax by default"
+msgstr "Korostussyntaksi tavanomaisesti"
+
+#: ../src/preferences.c:1769
+msgid "Highlight # lines"
+msgstr "Korosta # riviä"
+
+#: ../src/preferences.c:1770
+msgid "Always highlight full document"
+msgstr "Korosta aina koko dokumentti"
+
+#: ../src/preferences.c:1772
+msgid "HTML"
+msgstr "HTML"
+
+#: ../src/preferences.c:1774
+msgid "HTML options"
+msgstr "HTML-valinnat"
+
+#: ../src/preferences.c:1779
+msgid "Lowercase HTML tags"
+msgstr "Pienikirjaimiset HTML-tagit"
+
+#: ../src/preferences.c:1780
+msgid "Use deprecated tags (e.g. <font> and <nobr>)"
+msgstr "Käytä ei-suositeltuja tageja (kuten <font> ja <nobr>)"
+
+#: ../src/preferences.c:1781
+msgid "Use XHTML style tags (<br />)"
+msgstr "Käytä XHTML tyylisiä tageja (<br> />"
+
+#: ../src/preferences.c:1782
+msgid "Automatic update author meta"
+msgstr "Automaattinen päivitä tekijä-meta"
+
+#: ../src/preferences.c:1785
+msgid "Files"
+msgstr "Tiedostot"
+
+#: ../src/preferences.c:1787
+msgid "Encoding"
+msgstr "Koodaus"
+
+#: ../src/preferences.c:1799
+msgid "Default character set"
+msgstr "Tavanomainen merkistö"
+
+#: ../src/preferences.c:1802
+msgid "Auto set <meta> encoding tag on change"
+msgstr "Automaattisesti aseta <meta> koodaustagi muutettaessa"
+
+#: ../src/preferences.c:1804
+msgid "Backup"
+msgstr "Varmuuskopio"
+
+#: ../src/preferences.c:1808
+msgid "Create backup on save"
+msgstr "Luo varmuuskopio tallennettaessa"
+
+#: ../src/preferences.c:1809
+msgid "Backup file suffix"
+msgstr "Varmuuskopion tiedostopääte"
+
+#: ../src/preferences.c:1811
+msgid "save"
+msgstr "tallenna"
+
+#: ../src/preferences.c:1811
+msgid "abort"
+msgstr "keskeytä"
+
+#: ../src/preferences.c:1811
+msgid "ask"
+msgstr "kysy"
+
+#: ../src/preferences.c:1812
+msgid "Action on backup failure"
+msgstr "Toiminta varmuuskopioinnin epäonnistuessa"
+
+#: ../src/preferences.c:1814
+msgid "Remove backupfile on close"
+msgstr "Poista varmuuskopio suljettaessa"
+
+#: ../src/preferences.c:1823
+msgid "Undo history size"
+msgstr "Kumoushistorian koko"
+
+#: ../src/preferences.c:1824
+msgid "Clear undo history on save"
+msgstr "Tyhjennä kumoushistoria tallennettaessa"
+
+#: ../src/preferences.c:1826
+msgid "Misc"
+msgstr "Sekalaiset"
+
+#: ../src/preferences.c:1831
+msgid "Allow multi instances of a file"
+msgstr "Hyväksy useita avoimia instansseja samasta tiedostosta"
+
+#: ../src/preferences.c:1833
+msgid "Open files in already running bluefish window"
+msgstr "Avaa tiedostot olemassaolevaan bluefish -ikkunaan"
+
+#: ../src/preferences.c:1835
+msgid "File modified on disk check "
+msgstr "Tiedostoa muutettu levytarkistuksen aikana "
+
+#: ../src/preferences.c:1836
+msgid "Number of files in 'Open recent'"
+msgstr "Tiedostojen lukumäärä kohdassa 'Viimeksi avattu'"
+
+#: ../src/preferences.c:1839
+msgid "User interface"
+msgstr "Käyttöulkoasu"
+
+#: ../src/preferences.c:1841
+msgid "Dimensions"
+msgstr "Ulottuvuudet"
+
+#: ../src/preferences.c:1845
+msgid "Restore last used dimensions"
+msgstr "Tallenna viimeksikäytetyt ulottuvuudet"
+
+#: ../src/preferences.c:1846
+msgid "Initial left panel width"
+msgstr "Sisäänrakennetun vasemman paneelin leveys"
+
+#: ../src/preferences.c:1847
+msgid "Initial window height"
+msgstr "Sisäänrakennetun ikkunan korkeus"
+
+#: ../src/preferences.c:1848
+msgid "Initial window width"
+msgstr "Sisäänrakennetun ikkunan leveys"
+
+#: ../src/preferences.c:1852
+msgid "General"
+msgstr "Yleistä"
+
+#: ../src/preferences.c:1857
+msgid "Show main toolbar by default"
+msgstr "Näytä päätyökalurivi oletuksena"
+
+#: ../src/preferences.c:1858
+msgid "Show left panel by default"
+msgstr "Näytä vasen paneeli oletuksena"
+
+#: ../src/preferences.c:1859
+msgid "Show custom menu by default"
+msgstr "Näytä muotoiltava valikko oletuksena"
+
+#: ../src/preferences.c:1860
+msgid "Show HTML toolbar by default"
+msgstr "Näytä HTML-työkalurivi oletuksena"
+
+#: ../src/preferences.c:1861
+msgid "Make HTML dialogs transient"
+msgstr "Tee HTML-dialogeista lyhytaikaisia"
+
+#: ../src/preferences.c:1863
+msgid "External browsers in submenu"
+msgstr "Ulkopuoliset selaimet alavalikossa"
+
+#: ../src/preferences.c:1864
+msgid "External commands in submenu"
+msgstr "Ulkopuoliset komennot alavalikossa"
+
+#: ../src/preferences.c:1865
+msgid "External outputbox in submenu"
+msgstr "Ulkopuolinen tulostelaatikko alavalikossa"
+
+#: ../src/preferences.c:1867
+msgid "Notebook tab font (leave empty for gtk default)"
+msgstr "Muistion tab-fontti (jätä tyhjäksi gtk-oletusta varten)"
+
+#: ../src/preferences.c:1869
+msgid "Document notebook tab position"
+msgstr "Dokumentin muistio-tabin sijainti"
+
+#: ../src/preferences.c:1870
+msgid "Left panel notebook tab position"
+msgstr "Vasemman paneelin muistio-tabin sijainti"
+
+#: ../src/preferences.c:1873
+msgid "File browser"
+msgstr "Tiedostoselain"
+
+#: ../src/preferences.c:1877
+msgid "Default basedir"
+msgstr "Oletushakemisto"
+
+#: ../src/preferences.c:1878
+msgid "Use separate file and directory view"
+msgstr "Käytä erillistä tiedosto- ja hakemistonäkymää"
+
+#: ../src/preferences.c:1879
+msgid "Show hidden files"
+msgstr "Näytä piilotiedostot"
+
+#: ../src/preferences.c:1880
+msgid "Show backup files"
+msgstr "Näytä varmuuskopiotiedostot"
+
+#: ../src/preferences.c:1881
+msgid "Unknown icon"
+msgstr "Tuntematon ikoni"
+
+#: ../src/preferences.c:1882
+msgid "Directory icon"
+msgstr "Hakemistoikoni"
+
+#: ../src/preferences.c:1885 ../src/rcfile.c:577
+msgid "Images"
+msgstr "Kuvat"
+
+#: ../src/preferences.c:1887
+msgid "Thumbnails"
+msgstr "Esikatselukuvat"
+
+#: ../src/preferences.c:1891
+msgid "Thumbnail suffix"
+msgstr "Esikatselukuvien pääte"
+
+#: ../src/preferences.c:1895
+msgid "Thumbnail filetype"
+msgstr "Esikatselukuvien tiedostotyyppi"
+
+#: ../src/preferences.c:1900 ../src/preferences.c:1902
+msgid "Filetypes"
+msgstr "Tiedostotyypit"
+
+#: ../src/preferences.c:1909
+msgid "Filefilters"
+msgstr "Tiedostosuotimet"
+
+#: ../src/preferences.c:1917
+msgid "Syntax highlighting"
+msgstr "Syntaksikorostus"
+
+#: ../src/preferences.c:1919
+msgid "Patterns"
+msgstr "Mallit"
+
+#: ../src/preferences.c:1927
+msgid "External programs"
+msgstr "Ulkopuoliset ohjelmat"
+
+#: ../src/preferences.c:1929
+msgid "Browsers"
+msgstr "Selaimet"
+
+#: ../src/preferences.c:1936
+msgid "Utilities and filters"
+msgstr "Hyödyt ja suotimet"
+
+#: ../src/preferences.c:1944
+msgid "Output parsers"
+msgstr "Tulosteen jäsentäjät"
+
+#: ../src/preferences.c:1946
+msgid "Outputbox"
+msgstr "Tulostelaatikko"
+
+#: ../src/project.c:60
+msgid "New project"
+msgstr "Uusi projekti"
+
+#: ../src/project.c:107
+msgid "Enter Bluefish project filename"
+msgstr "Syötä Bluefish-projektin tiedostonimi"
+
+#: ../src/project.c:131
+msgid "/Project/Save"
+msgstr "/Projekti/Tallenna"
+
+#: ../src/project.c:132
+msgid "/Project/Save as..."
+msgstr "/Projekti/Tallenna nimellä..."
+
+#: ../src/project.c:133
+msgid "/Project/Close & save"
+msgstr "/Projekti/Sulje & tallenna"
+
+#: ../src/project.c:134
+msgid "/Project/Edit Project Options..."
+msgstr "/Projekti/Muokkaa projektin valintoja..."
+
+#: ../src/project.c:194
+msgid "Select Bluefish project filename"
+msgstr "Valitse Bluefish-projektin tiedostonimi"
+
+#: ../src/project.c:321
+msgid "Create New Project"
+msgstr "Luo uusi projekti"
+
+#: ../src/project.c:324
+msgid "Edit Project"
+msgstr "Muokkaa projektia"
+
+#: ../src/project.c:347
+#, c-format
+msgid "This project contains %d files"
+msgstr "Tämä projekti sisältää %d tiedostoa"
+
+#: ../src/project.c:358
+msgid "Project _Name:"
+msgstr "Projektin _nimi:"
+
+#: ../src/project.c:362
+msgid "_Local Directory:"
+msgstr "_Paikallinen hakemisto:"
+
+#: ../src/project.c:366
+msgid "_Remote Directory:"
+msgstr "_Ulkoinen hakemisto:"
+
+#: ../src/project.c:370
+msgid "_Template:"
+msgstr "_Mallipohja:"
+
+#: ../src/project.c:374
+msgid "_Word wrap by default"
+msgstr "_Sanakatkaisu oletuksena"
+
+#: ../src/project.c:385
+msgid "Create _Project"
+msgstr "_Luo projekti"
+
+#: ../src/project.c:425
+msgid "Create project"
+msgstr "Luo projekti"
+
+#: ../src/project.c:429
+msgid "Create project with currently opened documents"
+msgstr "Luo projekti tällä hetkellä avatuilla dokumenteilla"
+
+#: ../src/project.c:430
+msgid "Create empty project"
+msgstr "Luo tyhjä projekti"
+
+#: ../src/rcfile.c:503
+msgid "Galeon"
+msgstr "Galeon"
+
+#: ../src/rcfile.c:505
+msgid "Mozilla"
+msgstr "Mozilla"
+
+#: ../src/rcfile.c:507
+msgid "Opera"
+msgstr "Opera"
+
+#: ../src/rcfile.c:509
+msgid "Netscape"
+msgstr "Netscape"
+
+#: ../src/rcfile.c:511
+msgid "Gnome default"
+msgstr "Gnomen oletus"
+
+#: ../src/rcfile.c:535
+msgid "make"
+msgstr "make"
+
+#: ../src/rcfile.c:536
+msgid "weblint HTML checker"
+msgstr "weblint HTML-tarkastaja"
+
+#: ../src/rcfile.c:537
+msgid "tidy HTML validator"
+msgstr "tidy HTML-vahvistaja"
+
+#: ../src/rcfile.c:538
+msgid "javac"
+msgstr "javac"
+
+#: ../src/rcfile.c:544
+msgid "Dos2Unix filter"
+msgstr "Dos2Unix suodin"
+
+#: ../src/rcfile.c:546
+msgid "Tidy cleanup filter"
+msgstr "Tidy puhdistussuodin"
+
+#: ../src/rcfile.c:571
+msgid "C programming"
+msgstr "C-ohjelmointi"
+
+#: ../src/rcfile.c:573
+msgid "All web files"
+msgstr "Kaikki web-tiedostot"
+
+#: ../src/rcfile.c:575
+msgid "Java programming"
+msgstr "Java-ohjelmointi"
+
+#: ../src/rcfile.c:579
+msgid "Hide objectfiles"
+msgstr "Piilota objektitiedostot"
+
+#: ../src/rcfile.c:842
+msgid "Untitled Project"
+msgstr "Nimetön projekti"
+
+#: ../src/snr2.c:195
+msgid "Regular expression error: "
+msgstr "Säännöllinen lauseke -virhe: "
+
+#: ../src/snr2.c:196 ../src/snr2.c:240
+msgid "Search failed"
+msgstr "Etsintä epäonnistui"
+
+#: ../src/snr2.c:239
+#, c-format
+msgid "Regular expression error: %s at offset %d"
+msgstr "Säännöllinen lauseke -virhe: %s paikassa %d"
+
+#: ../src/snr2.c:860
+msgid "Confirm replace"
+msgstr "Vahvista korvaus"
+
+#: ../src/snr2.c:872
+msgid "Replace selected text?"
+msgstr "Korvaa valittu teksti?"
+
+#: ../src/snr2.c:885
+msgid "_Skip"
+msgstr "_Ohita"
+
+#: ../src/snr2.c:887
+msgid "Replace _all"
+msgstr "Korvaa k_aikki"
+
+#: ../src/snr2.c:1073 ../src/snr2.c:1080
+msgid "Search: no match found"
+msgstr "Etsi: ei löytynyt vastaavuuksia"
+
+#: ../src/snr2.c:1275
+msgid "Replace"
+msgstr "Korvaa"
+
+#: ../src/snr2.c:1304
+msgid "Search _for: "
+msgstr "Etsi _mitä: "
+
+#: ../src/snr2.c:1318
+msgid "Replace wit_h: "
+msgstr "Korvaa m_illä: "
+
+#: ../src/snr2.c:1329
+msgid "\\0 refers to the first subsearch_pattern, \\1 to the second etc."
+msgstr "\\0 viittaa ensimmäiseen alaetsintäkuvioon, \\1 toiseen jne."
+
+#: ../src/snr2.c:1344
+msgid "Beginning of document till end"
+msgstr "Dokumentin alusta loppuun"
+
+#: ../src/snr2.c:1344
+msgid "Current position till end"
+msgstr "Nykyisestä sijainnista loppuun"
+
+#: ../src/snr2.c:1344
+msgid "Beginning of selection till end of selection"
+msgstr "Valitun alueen alusta valitun alueen loppuun"
+
+#: ../src/snr2.c:1344
+msgid "All opened files begin till end"
+msgstr "Kaikki avatut tiedostot alusta loppuun"
+
+#: ../src/snr2.c:1345
+msgid "Disabled"
+msgstr "Poista käytöstä"
+
+#: ../src/snr2.c:1345
+msgid "POSIX type"
+msgstr "POSIX-tyyppi"
+
+#: ../src/snr2.c:1345
+msgid "PERL type"
+msgstr "PERL-tyyppi"
+
+#: ../src/snr2.c:1346
+msgid "Starts at:"
+msgstr "Alkaa mistä:"
+
+#: ../src/snr2.c:1358
+msgid "Regular expression:"
+msgstr "Säännöllinen lauseke:"
+
+#: ../src/snr2.c:1372
+msgid "Normal"
+msgstr "Normaali"
+
+#: ../src/snr2.c:1372
+msgid "Uppercase"
+msgstr "Isot kirjaimet"
+
+#: ../src/snr2.c:1372
+msgid "Lowercase"
+msgstr "Pienet kirjaimet"
+
+#: ../src/snr2.c:1373
+msgid "Replace type:"
+msgstr "Korvauksen tyyppi:"
+
+#: ../src/snr2.c:1386
+msgid "Patterns contain backslash escape sequences (\\n, \\t)"
+msgstr "Mallit sisältävät kenoviivallisia pakotoimintoja (\\n, \\t)"
+
+#: ../src/snr2.c:1387
+msgid "Match ca_se"
+msgstr "Tarkka kirjainasu"
+
+#: ../src/snr2.c:1388
+msgid "O_verlap searches"
+msgstr "Limittäin olevat haut"
+
+#: ../src/snr2.c:1390
+msgid "Prompt _before replace"
+msgstr "Varmista _ennen korvausta"
+
+#: ../src/snr2.c:1391
+msgid "Rep_lace once"
+msgstr "Ko_rvaa kerran"
+
+#: ../src/stringlist.c:365
+msgid " Add "
+msgstr " Lisää "
+
+#: ../src/stringlist.c:367
+msgid " Update "
+msgstr " Päivitä "
+
+#: ../src/stringlist.c:369
+msgid " Delete "
+msgstr " Poista "
+
+#: ../src/stringlist.c:371
+msgid " Up "
+msgstr " Ylös "
+
+#: ../src/stringlist.c:373
+msgid " Down "
+msgstr " Alas "
+
+#: ../src/stringlist.c:375
+msgid " Sort "
+msgstr " Järjestä "
+
+#: ../src/wizards.c:68
+msgid "Table Wizard"
+msgstr "Taulukkovelho"
+
+#: ../src/wizards.c:76
+msgid "Number of _rows:"
+msgstr "Ri_vien lukumäärä:"
+
+#: ../src/wizards.c:80
+msgid "Number of colu_mns:"
+msgstr "Sarak_keiden lukumäärä:"
+
+#: ../src/wizards.c:84
+msgid "Table rows on one _line:"
+msgstr "Taulukon rivit _yhdellä rivillä:"
+
+#: ../src/wizards.c:88
+msgid "_Indent table code:"
+msgstr "Si_sennä taulukon koodi:"
+
+#: ../src/wizards.c:175
+msgid "Frame Wizard"
+msgstr "Kehysvelho"
+
+#: ../src/wizards.c:190
+msgid "Use _DTD:"
+msgstr "Käytä _DTD:"
+
+#: ../src/wizards.c:193
+msgid "Orientation:"
+msgstr "Suuntautuminen:"
+
+#: ../src/wizards.c:196
+msgid "_Horizontal"
+msgstr "_Vaakasuuntainen"
+
+#: ../src/wizards.c:197
+msgid "_Vertical"
+msgstr "Pys_tysuuntainen"
+
+#: ../src/wizards.c:202
+msgid "Number of _Frames:"
+msgstr "Kehysten Lukum_äärä:"
+
+#: ../src/wizards.c:205
+msgid "Frame's"
+msgstr "Kehyksen"
+
+#: ../src/wizards.c:217
+msgid "Name:"
+msgstr "Nimi:"
+
+#: ../src/wizards.c:219
+msgid "Source:"
+msgstr "Lähde:"
+
+#: ../src/wizards.c:223
+msgid "Size:"
+msgstr "Koko:"
