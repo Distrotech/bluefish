@@ -272,6 +272,7 @@ typedef struct {
 	gpointer outputbox;
 	gpointer bfspell;
 	gpointer filebrowser;
+	gpointer snr2;
 } Tbfwin;
 
 typedef struct {
