@@ -699,6 +699,7 @@ static gboolean tree_model_filter_func(GtkTreeModel *model,GtkTreeIter *iter,gpo
 				}
 				g_free(tmpname);
 			}
+			gnome_vfs_uri_unref(tmp1);
 		}
 #endif
 	}
