@@ -183,6 +183,7 @@ void left_panel_show_hide_toggle(gboolean first_time, gboolean show) {
 		} else {
 			gtk_container_remove(GTK_CONTAINER(main_v->hpane), main_v->notebook);
 			gtk_widget_destroy(main_v->hpane);
+			filebrowser_cleanup();
 		}
 	}
 	if (show) {
