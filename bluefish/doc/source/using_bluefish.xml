@@ -1898,12 +1898,82 @@ height="50" border="5" align="middle"></a>
 </sect2>
 
 <sect2 id="quickbar">
-<title>Customising the quick bar</title>
-	<para>The quick bar is a user defined tool bar. All HTML tool bar buttons can
-	be added to the quick bar by simply right-clicking them and selecting
-	"Add to quick bar". If you want to remove items from the Quick bar,
-	right-click them and select "Remove from Quick bar"</para>
-	<para>SCREENSHOT BY ????</para>
+<title>Customising the Quick bar</title>
+<para>The <guilabel>Quick bar</guilabel> is a user defined tool bar. All HTML tool bar buttons can be added to the Quick bar by simply right-clicking them and selecting <guilabel>Add to quickbar</guilabel>.
+<figure id="figure-quickbar-add">
+<title id="figure-quickbar-add-title">Adding an element to the Quick bar</title>
+<screenshot>
+<mediaobject>
+<imageobject>
+<imagedata fileref="figures/quickbar_add.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>A screen shot showing how to add an element to the Quick bar</phrase>
+</textobject>
+</mediaobject>
+</screenshot>
+</figure>
+</para>
+<para>And automagically you will see the element in the Quick bar:
+<figure id="figure-quickbar-add-result">
+<title id="figure-quickbar-add-result-title">The added element in the Quick bar</title>
+<screenshot>
+<mediaobject>
+<imageobject>
+<imagedata fileref="figures/quickbar_add_result.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>A screen shot showing the added element in the Quick bar</phrase>
+</textobject>
+</mediaobject>
+</screenshot>
+</figure>
+</para>
+<para>Note that you cannot add a pop up menu. Thus, if the item you want to add is inside a pop up menu (as is the code tag located in the <guilabel>Context formatting</guilabel> pop up menu of the <guilabel>Fonts</guilabel> tool bar), you have to first click on the pop up menu to display its contents, then to right click on the desired element to insert it in the <guilabel>Quick bar</guilabel>.
+<figure id="figure-quickbar-add-popup">
+<title id="figure-quickbar-add-popup-title">Adding a pop up menu element in the Quick bar</title>
+<screenshot>
+<mediaobject>
+<imageobject>
+<imagedata fileref="figures/quickbar_add_popup.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>A screen shot showing how to add a pop up element to the Quick bar</phrase>
+</textobject>
+</mediaobject>
+</screenshot>
+</figure>
+</para>
+<para>If you want to remove items from the <guilabel>Quick bar</guilabel>, right-click them and select <guilabel>Remove from Quick bar</guilabel>.
+<figure id="figure-quickbar-remove">
+<title id="figure-quickbar-remove-title">Removing an element from the Quick bar</title>
+<screenshot>
+<mediaobject>
+<imageobject>
+<imagedata fileref="figures/quickbar_remove.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>A screen shot showing how to remove an element from the Quick bar</phrase>
+</textobject>
+</mediaobject>
+</screenshot>
+</figure>
+</para>
+<para>You can also change the location of an element in the Quick bar. To do so, right-click the element and select <guilabel>Shift left</guilabel> or <guilabel>Shift Right</guilabel> as desired. The element will be moved to the left or to the right of its neighborough. Notice that this is not a drag and drop action; you may have to repeat the process if you want to move the element farther.
+<figure id="figure-quickbar-move">
+<title id="figure-quickbar-move-title">Moving an element within the Quick bar</title>
+<screenshot>
+<mediaobject>
+<imageobject>
+<imagedata fileref="figures/quickbar_move.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>A screen shot showing how to move an element within the Quick bar</phrase>
+</textobject>
+</mediaobject>
+</screenshot>
+</figure>
+</para>
 </sect2>
 
 <sect2 id="custom-menu">
