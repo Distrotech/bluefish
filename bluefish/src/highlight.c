@@ -77,7 +77,21 @@ typedef struct {
 	struct tms tms2;
 	glong total_ms;
 #endif
+	int *ovector;
+	gint ovector_size;
+	gboolean is_match;
 } Tpattern;
+/* 
+proposed improvement (for speedup, but also simplicity):
+	-add the int ovector[NUM_SUBMATCHES]; and gboolean is_match; fields to Tpattern
+	-use the pcre_fullinfo() function to find the minimum required ovector[] length (remind the 3X!!)
+	and if there are no child-patterns that need a subpattern we use the minimum
+	-the results from a subpattern search are now automatically stored, improving the success ratio
+	for applying/matching*100% as in the profiling information
+	-the Tpatmatch structure is not needed anymore, also the start of applylevel() where this 
+	structure is initialized is now more simple
+*/
+
 
 typedef struct {
 	gchar *filetype;
@@ -92,8 +106,8 @@ typedef struct {
 	GList *highlight_filetypes; /* contains all filetypes that have a highlight pattern */
 	GList *all_highlight_patterns; /* contains Tmetapattern, not Tpattern !! */
 #ifdef HL_PROFILING
-	struct tms tms1;
-	struct tms tms2;
+	struct tms tms1; /* start time for profiling info */
+	struct tms tms2; /* stop time for profiling info */
 #endif
 } Thighlight;
 
@@ -122,9 +136,6 @@ how it works:
 	the end value is re-evaluated once another pattern has gone beyond
 	it's value.
 	Once a match is found, the text is tagged with the right style, and
-	
-
-
 ***************************************************************/
 
 /*********************************/
@@ -310,6 +321,10 @@ static void compile_pattern(gchar *filetype, gchar *name, gint case_insens
 			if (err) {
 				g_print("error studying pattern %s\n", err);
 			}
+			if (pcre_fullinfo(pat->reg1.pcre,pat->reg1.pcre_e,PCRE_INFO_CAPTURECOUNT,&pat->ovector_size)!=0) {
+				g_print("error gettting info for pattern %s\n", pat1);
+			}
+			pat->ovector = g_malloc((pat->ovector_size+1)*3*sizeof(int));
 		}
 		if (mode == 1) {
 			const char *err=NULL;
@@ -436,6 +451,7 @@ void filetype_highlighting_rebuild() {
 			pcre_free(mpat->pat->reg1.pcre_e);
 			pcre_free(mpat->pat->reg2.pcre);
 			pcre_free(mpat->pat->reg2.pcre_e);
+			g_free(mpat->pat->ovector);
 			gtk_text_tag_table_remove(highlight.tagtable,mpat->pat->tag);
 			g_free(mpat->pat);
 			g_free(mpat->name);
