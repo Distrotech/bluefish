@@ -74,6 +74,8 @@ typedef struct {
 	GtkWidget *clist[4];
 	GtkWidget *text[1];
 	Treplacerange range;
+	GtkTextMark *mark_ins;
+	GtkTextMark *mark_sel;
 	Tphpvarins php_var_ins;
 	Tdocument *doc;
 } Thtml_diag;
