@@ -2379,6 +2379,8 @@ gchar *ask_new_filename(Tbfwin *bfwin,gchar *oldfilename, gint is_move) {
 				GTK_STOCK_SAVE, GTK_RESPONSE_ACCEPT,
 				NULL);
 		gtk_file_chooser_set_filename(GTK_FILE_CHOOSER(dialog),oldfilename);
+		gtk_file_chooser_set_local_only(GTK_FILE_CHOOSER(dialog),FALSE);
+		FILE_CHOOSER_USE_VFS(dialog);
 		gtk_file_chooser_set_select_multiple(GTK_FILE_CHOOSER(dialog), FALSE);
 		if (gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_ACCEPT) {
 			newfilename = gtk_file_chooser_get_uri(GTK_FILE_CHOOSER(dialog));
@@ -3524,7 +3526,9 @@ void file_open_cb(GtkWidget * widget, Tbfwin *bfwin) {
 				GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
 				GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT,
 				NULL);
+		gtk_file_chooser_set_local_only(GTK_FILE_CHOOSER(dialog),FALSE);
 		gtk_file_chooser_set_select_multiple(GTK_FILE_CHOOSER(dialog), TRUE);
+		FILE_CHOOSER_USE_VFS(dialog);
 		if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_ACCEPT) {
 			slist = gtk_file_chooser_get_uris(GTK_FILE_CHOOSER(dialog));
 			tmplist = glist_from_gslist(slist);
@@ -3607,6 +3611,8 @@ void file_insert_menucb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget) 
 				GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
 				GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT,
 				NULL);
+		FILE_CHOOSER_USE_VFS(dialog);
+		gtk_file_chooser_set_local_only(GTK_FILE_CHOOSER(dialog),FALSE);
 		if (gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_ACCEPT) {
 			tmpfilename = gtk_file_chooser_get_uri(GTK_FILE_CHOOSER(dialog));
 		}

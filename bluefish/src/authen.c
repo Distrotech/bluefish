@@ -2,6 +2,7 @@
  * authen.c - handle authentication requests for gnome-vfs
  *
  * Copyright (C) 2004 Salvador Fandino
+ * changes/bugfixes (C) 2004 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,10 +18,10 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-
-
+#define DEBUG
 
 #include <gtk/gtk.h>
+#include <string.h>
 #include "bluefish.h"
 
 #include "authen.h"
@@ -48,7 +49,7 @@ static void authen_value_free(AuthenValue * val)
 
 static AuthenValue *authen_value_new(gchar * user, gchar * passwd)
 {
-	AuthenValue *val = g_malloc(sizeof(*val));
+	AuthenValue *val = g_new0(AuthenValue, 1);
 	val->user = g_strdup(user);
 	val->passwd = g_strdup(passwd);
 	return val;
@@ -113,11 +114,10 @@ static gint authen_ask_user(gchar const *uri, gchar const *object, gchar const *
 
 static gchar *make_key(gchar * proto, gchar * server, int port, gchar * object)
 {
-	GString *str = g_string_sized_new(100);
-	g_string_printf(str, "proto=%s server=%s port=%d object=%s", (proto ? proto : ""),
+	gchar *str = g_strdup_printf("proto=%s server=%s port=%d object=%s", (proto ? proto : ""),
 					(server ? server : ""), port, (object ? object : ""));
-	DEBUG_MSG("authen_callback: key = %s\n", str->str);
-	return g_string_free(str, FALSE);
+	DEBUG_MSG("authen_callback: key = %s\n", str);
+	return str;
 }
 
 static void fill_authen_callback(GnomeVFSModuleCallbackFillAuthenticationIn * in, gsize in_size,
@@ -135,7 +135,7 @@ static void fill_authen_callback(GnomeVFSModuleCallbackFillAuthenticationIn * in
 		out->valid = TRUE;
 		out->username = g_strdup(val->user);
 		out->password = g_strdup(val->passwd);
-		DEBUG_MSG("full_authen_callback: user = %s passwd = %s\n", out->username, out->password);
+		DEBUG_MSG("full_authen_callback: user=%s len(passwd)=%d\n", out->username, strlen(out->password));
 	}
 	g_free(key);
 }
@@ -159,7 +159,7 @@ static void full_authen_callback(GnomeVFSModuleCallbackFullAuthenticationIn * in
 		out->abort_auth = FALSE;
 	} else
 		out->abort_auth = TRUE;
-	DEBUG_MSG("full_authen_callback: user = %s passwd = %s\n", out->username, out->password);
+	DEBUG_MSG("full_authen_callback: user = %s len(passwd)=%d\n", out->username, strlen(out->password));
 }
 
 static void save_authen_callback(GnomeVFSModuleCallbackSaveAuthenticationIn * in, gsize in_size,
@@ -185,7 +185,7 @@ static void save_authen_callback(GnomeVFSModuleCallbackSaveAuthenticationIn * in
 void set_authen_callbacks(void)
 {
 
-	AuthenData *data = g_malloc(sizeof(*data));
+	AuthenData *data = g_new0(AuthenData,1);
 	data->hash =
 		g_hash_table_new_full(g_str_hash, g_str_equal, g_free, (GDestroyNotify) authen_value_free);
 	gnome_vfs_module_callback_set_default(GNOME_VFS_MODULE_CALLBACK_FILL_AUTHENTICATION,

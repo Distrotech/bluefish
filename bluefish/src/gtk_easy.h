@@ -20,6 +20,8 @@
 #ifndef __GTK_EASY_H_
 #define __GTK_EASY_H_
 
+#define FILE_CHOOSER_USE_VFS(dialog) (g_object_set_data(G_OBJECT(dialog),"GnomeFileSelectorEnableVFS",GINT_TO_POINTER(1)))
+
 /* GtkWindowPosition can be 
 GTK_WIN_POS_NONE
 GTK_WIN_POS_CENTER
