@@ -55,5 +55,6 @@ gchar *bf_str_repeat(const gchar * str, gint number_of);
 gint get_int_from_string(gchar *string);
 gchar *create_secure_dir_return_filename();
 void remove_secure_dir_and_filename(gchar *filename);
-gchar *buf_replace_char(gchar *buf, gint len, gchar srcchar, gchar destchar);
+/*gchar *buf_replace_char(gchar *buf, gint len, gchar srcchar, gchar destchar);*/
+void wordcount(gchar *text, guint *chars, guint *lines, guint *words);
 #endif /* __BF_LIB_H_ */

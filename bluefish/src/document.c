@@ -281,7 +281,8 @@ void doc_set_font(Tdocument *doc, gchar *fontstring) {
 	}
 }
 
-/* This function is taken from gtksourceview
+/**
+ * This function is taken from gtksourceview
  * Copyright (C) 2001
  * Mikael Hermansson <tyan@linux.se>
  * Chris Phelps <chicane@reninet.com>
@@ -785,6 +786,7 @@ void doc_set_statusbar_editmode_encoding(Tdocument *doc)
 	gtk_statusbar_push(GTK_STATUSBAR(main_v->statusbar_editmode), 0, msg);
 	g_free(msg);		
 }
+
 /**
  * doc_replace_text_backend:
  * @doc: a #Tdocument
@@ -977,6 +979,19 @@ static void add_encoding_to_list(gchar *encoding) {
 
 
 #define STARTING_BUFFER_SIZE 4096
+/**
+ * doc_file_to_textbox:
+ * @doc: The #Tdocument target.
+ * @filename: Filename to read in.
+ * @enable_undo: #gboolean
+ * @delay: Whether to delay GUI-calls.
+ *
+ * Open and read in a file to the doc buffer.
+ * The data is inserted starting at the current cursor position.
+ * Charset is detected, and highlighting performed (if applicable).
+ *
+ * Return value: A #gboolean, TRUE if successful, FALSE on error.
+ **/ 
 gboolean doc_file_to_textbox(Tdocument * doc, gchar * filename, gboolean enable_undo, gboolean delay) {
 	FILE *fd;
 	gchar *errmessage, *message;
@@ -1434,6 +1449,15 @@ static void doc_view_toggle_overwrite_lcb(GtkTextView *view, Tdocument *doc)
 	doc_set_statusbar_insovr(doc);
 }
 
+/**
+ * doc_bind_signals:
+ * @doc: a #Tdocument
+ *
+ * Bind signals related to the doc's buffer:
+ * "insert-text", "delete-range" and "insert-text" for autoindent
+ *
+ * Return value: void
+ **/
 void doc_bind_signals(Tdocument *doc) {
 	doc->ins_txt_id = g_signal_connect(G_OBJECT(doc->buffer),
 					 "insert-text",
@@ -1450,6 +1474,16 @@ void doc_bind_signals(Tdocument *doc) {
 	}
 }
 
+/**
+ * doc_unbind_signals:
+ * @doc: a #Tdocument
+ *
+ * Unbind signals related to the doc's buffer:
+ * "insert-text", "delete-range" and "insert-text" for autoindent.
+ * This function checks if each individual signal has been bound before unbinding.
+ *
+ * Return value: void
+ **/
 void doc_unbind_signals(Tdocument *doc) {
 /*	g_print("doc_unbind_signals, before unbind ins=%lu, del=%lu\n", doc->ins_txt_id, doc->del_txt_id);*/
 	if (doc->ins_txt_id != 0) {
@@ -1466,15 +1500,22 @@ void doc_unbind_signals(Tdocument *doc) {
 	}
 }
 
-/*
- * gint doc_textbox_to_file(Tdocument * doc, gchar * filename)
- * returns 1 on success
- * returns 2 on success but the backup failed
- * returns -1 if the backup failed and save was aborted
- * returns -2 if the file pointer could not be opened
- * returns -3 if the backup failed and save was aborted by the user
- */
-
+/**
+ * gint doc_textbox_to_file
+ * @doc: a #Tdocument*
+ * @filename: a #gchar*
+ *
+ * If applicable, backup existing file,
+ * possibly update meta-tags (HTML),
+ * and finally write the document to the specified file.
+ *
+ * Return value: #gint set to
+ * 1: on success
+ * 2: on success but the backup failed
+ * -1: if the backup failed and save was aborted
+ * -2: if the file pointer could not be opened
+ * -3: if the backup failed and save was aborted by the user
+ **/
 gint doc_textbox_to_file(Tdocument * doc, gchar * filename) {
 	FILE *fd;
 	gint backup_retval;
@@ -1548,6 +1589,20 @@ gint doc_textbox_to_file(Tdocument * doc, gchar * filename) {
 	}
 }
 
+/**
+ * doc_destroy:
+ * @doc: a #Tdocument
+ * @delay_activation: #gboolean whether to delay gui-updates.
+ *
+ * Performs all actions neccessary to remove an open document from the fish:
+ * Adds filename to recent-list,
+ * removes the document from the documentlist and notebook,
+ * change notebook-focus (if !delay_activation),
+ * delete backupfile if required by pref,
+ * free all related memory.
+ *
+ * Return value: void
+ **/
 void doc_destroy(Tdocument * doc, gboolean delay_activation)
 {
 	if (doc->filename) {
@@ -1623,7 +1678,7 @@ void doc_destroy(Tdocument * doc, gboolean delay_activation)
  * to continue
  *
  * Return value: gchar* with newly allocated string, or NULL on failure or abort
- */
+ **/
 gchar *ask_new_filename(gchar *oldfilename, gint is_move) {
 	gint index;
 	gchar *newfilename = return_file_w_title(oldfilename,
@@ -1677,17 +1732,25 @@ gchar *ask_new_filename(gchar *oldfilename, gint is_move) {
 }
 
 
-/* gint doc_save(Tdocument * doc, gint do_save_as, gint do_move)
- * returns 1 on success
- * returns 2 on success but the backup failed
- * returns 3 on user abort
- * returns -1 if the backup failed and save was aborted
- * returns -2 if the file pointer could not be opened 
- * returns -3 if the backup failed and save was aborted by the user
- * returns -4 if there is no filename, after asking one from the user
- * returns -5 if another process modified the file, and the user chose cancel
- */
-
+/**
+ * doc_save:
+ * @doc: the #Tdocument to save
+ * @do_save_as: #gint set to 1 if "save as"
+ * @do_move: #gint set to 1 if moving the file.
+ *
+ * Performs all neccessary actions to save an open document.
+ * Warns the user of problems, and asks for a filename if neccessary.
+ * 
+ * Return value: #gint set to
+ * 1: on success
+ * 2: on success but the backup failed
+ * 3: on user abort
+ * -1: if the backup failed and save was aborted
+ * -2: if the file pointer could not be opened 
+ * -3: if the backup failed and save was aborted by the user
+ * -4: if there is no filename, after asking one from the user
+ * -5: if another process modified the file, and the user chose cancel
+ **/
 gint doc_save(Tdocument * doc, gint do_save_as, gboolean do_move) {
 	gint retval;
 #ifdef DEBUG
@@ -1778,10 +1841,16 @@ gint doc_save(Tdocument * doc, gint do_save_as, gboolean do_move) {
 	return retval;
 }
 
-/*
-returning 0 --> cancel or abort
-returning 1 --> ok, closed or saved & closed
-*/
+/**
+ * doc_close:
+ * @doc: The #Tdocument to clase.
+ * @warn_only: a #gint set to 1 if the document shouldn't actually be destroyed.
+ *
+ * Get confirmation when closing an unsaved file, save it if neccessary,
+ * and destroy the file unless aborted by user.
+ *
+ * Return value: #gint set to 0 (when cancelled/aborted) or 1 (when closed or saved&closed)
+ **/
 gint doc_close(Tdocument * doc, gint warn_only)
 {
 	gchar *text;
@@ -1897,6 +1966,15 @@ static gboolean doc_textview_expose_event_lcb(GtkWidget * widget, GdkEventExpose
 	return TRUE;
 }
 
+/**
+ * document_set_line_numbers:
+ * @doc: a #Tdocument*
+ * @value: a #gboolean
+ *
+ * Show or hide linenumbers (at the left of the main GtkTextView).
+ *
+ * Return value: void
+ **/ 
 void document_set_line_numbers(Tdocument *doc, gboolean value) {
 	if (value) {
 		gtk_text_view_set_left_margin(GTK_TEXT_VIEW(doc->view),2);
@@ -1908,6 +1986,16 @@ void document_set_line_numbers(Tdocument *doc, gboolean value) {
 	}
 }
 
+/**
+ * doc_new:
+ * @delay_activate: Whether to perform GUI-calls and flush_queue(). Set to TRUE when loading several documents at once.
+ *
+ * Create a new document, related structures and a nice little textview to display the document in.
+ * Finally, add a new tab to the notebook.
+ * The GtkTextView is not actually gtk_widget_shown() if delay_activate == TRUE. This is done by doc_activate() instead.
+ *
+ * Return value: a #Tdocument* pointer to the just created document.
+ **/
 Tdocument *doc_new(gboolean delay_activate) {
 	GtkWidget *scroll;
 	Tdocument *newdoc = g_new0(Tdocument, 1);
@@ -1964,6 +2052,7 @@ Tdocument *doc_new(gboolean delay_activate) {
 	main_v->documentlist = g_list_append(main_v->documentlist, newdoc);
 
 	gtk_widget_show(newdoc->view);
+
 	gtk_widget_show(newdoc->tab_label);
 	gtk_widget_show(scroll);
 
@@ -2007,6 +2096,14 @@ if (!delay_activate) {
 	return newdoc;
 }
 
+/**
+ * doc_new_with_new_file:
+ * @new_filename: #gchar* filename to give document.
+ *
+ * Create a new document, name it by new_filename, and create the file.
+ *
+ * Return value: void
+ **/
 void doc_new_with_new_file(gchar * new_filename) {
 	Tdocument *doc;
 	if (new_filename == NULL) {
@@ -2031,6 +2128,16 @@ void doc_new_with_new_file(gchar * new_filename) {
 	switch_to_document_by_pointer(doc);
 }
 
+/**
+ * doc_new_with_file:
+ * @filename: #gchar* with filename to load.
+ * @delay_activate: #gboolean if GUI calls are wanted.
+ *
+ * Create a new document and read in a file.
+ * Errors are not propagated to user in any other way than returning TRUE/FALSE here.
+ *
+ * Return value: #gboolean, TRUE if successful, FALSE on error.
+ **/
 gboolean doc_new_with_file(gchar * filename, gboolean delay_activate) {
 	Tdocument *doc;
 	gboolean opening_in_existing_doc = FALSE;
@@ -2079,11 +2186,22 @@ gboolean doc_new_with_file(gchar * filename, gboolean delay_activate) {
 	return TRUE;	
 }
 
+/**
+ * docs_new_from_files:
+ * @file_list: #GList with filenames to open.
+ *
+ * Open a number of new documents.
+ * Report files with problems to user.
+ * If more than 8 files are opened at once, a modal progressbar is shown while loading.
+ *
+ * Return value: void
+ **/
 void docs_new_from_files(GList * file_list) {
 
 	GList *tmplist, *errorlist=NULL;
 	gboolean delay = (g_list_length(file_list) > 1);
 	DEBUG_MSG("docs_new_from_files, lenght=%d\n", g_list_length(file_list));
+	
 	tmplist = g_list_first(file_list);
 	while (tmplist) {
 		DEBUG_MSG("docs_new_from_files, about to open %s, delay=%d\n", (gchar *) tmplist->data, delay);
@@ -2104,6 +2222,7 @@ void docs_new_from_files(GList * file_list) {
 
 	if (delay) {
 		DEBUG_MSG("since we delayed the highlighting, we set the notebook and filebrowser page now\n");
+
 		gtk_notebook_set_page(GTK_NOTEBOOK(main_v->notebook),g_list_length(main_v->documentlist) - 1);
 		notebook_changed(-1);
 		if (main_v->current_document && main_v->current_document->filename) {
@@ -2113,6 +2232,14 @@ void docs_new_from_files(GList * file_list) {
 	}
 }
 
+/**
+ * doc_reload:
+ * @doc: a #Tdocument
+ *
+ * Revert to file on disk.
+ *
+ * Return value: void
+ **/
 void doc_reload(Tdocument *doc) {
 	if ((doc->filename == NULL) || (!file_exists_and_readable(doc->filename))) {
 		statusbar_message(_("Unable to open file"), 2000);
@@ -2130,6 +2257,17 @@ void doc_reload(Tdocument *doc) {
 	doc_set_stat_info(doc); /* also sets mtime field */
 }
 
+/**
+ * doc_activate:
+ * @doc: a #Tdocument
+ *
+ * Perform actions neccessary when a document is focused. I.e. called from the notebook.
+ *
+ * Show textview, warn if the file on disk has been changed,
+ * update line-numbers etc and highlighting.
+ *
+ * Return value: void
+ **/
 void doc_activate(Tdocument *doc) {
 	time_t newtime;
 #ifdef DEBUG
@@ -2364,20 +2502,54 @@ GList *return_files_advanced() {
 #endif /* EXTERNAL_FIND */
 #endif /* EXTERNAL_GREP */
 
-
+/**
+ * file_save_cb:
+ * @widget: unused #GtkWidget
+ * @data: unused #gpointer
+ *
+ * Save the current document.
+ *
+ * Return value: void
+ **/
 void file_save_cb(GtkWidget * widget, gpointer data) {
 	doc_save(main_v->current_document, 0, 0);
 }
 
-
+/**
+ * file_save_as_cb:
+ * @widget: unused #GtkWidget
+ * @data: unused #gpointer
+ *
+ * Save current document, let user choose filename.
+ *
+ * Return value: void
+ **/
 void file_save_as_cb(GtkWidget * widget, gpointer data) {
 	doc_save(main_v->current_document, 1, 0);
 }
 
+/**
+ * file_move_to_cb:
+ * @widget: unused #GtkWidget
+ * @data: unused #gpointer
+ *
+ * Move current document, let user choose filename.
+ *
+ * Return value: void
+ **/
 void file_move_to_cb(GtkWidget * widget, gpointer data) {
 	doc_save(main_v->current_document, 1, 1);
 }
 
+/**
+ * file_open_cb:
+ * @widget: unused #GtkWidget
+ * @data: Pointer to int as #gpointer. 1 == Advanced Open
+ *
+ * Prompt user for files to open.
+ *
+ * Return value: void
+ **/
 void file_open_cb(GtkWidget * widget, gpointer data) {
 	GList *tmplist;
 	if (GPOINTER_TO_INT(data) == 1) {
@@ -2403,10 +2575,28 @@ void file_open_cb(GtkWidget * widget, gpointer data) {
 	free_stringlist(tmplist);
 }
 
+/**
+ * file_revert_to_saved_cb:
+ * @widget: unused #GtkWidget
+ * @data: unused #gpointer
+ *
+ * Revert current document to file on disk.
+ *
+ * Return value: void
+ **/
 void file_revert_to_saved_cb(GtkWidget * widget, gpointer data) {
 	doc_reload(main_v->current_document);
 }
 
+/**
+ * file_insert_cb:
+ * @widget: unused #GtkWidget
+ * @data: unused #gpointer
+ *
+ * Prompt user for a file, and insert the contents into the current document.
+ *
+ * Return value: void
+ **/
 void file_insert_cb(GtkWidget * widget, gpointer data) {
 	gchar *tmpfilename;
 
@@ -2422,6 +2612,15 @@ void file_insert_cb(GtkWidget * widget, gpointer data) {
 	}
 }
 
+/**
+ * file_new_cb:
+ * @widget: unused #GtkWidget
+ * @data: unused #gpointer
+ *
+ * Create a new, empty file.
+ *
+ * Return value: void
+ **/
 void file_new_cb(GtkWidget * widget, gpointer data) {
 	Tdocument *doc;
 
@@ -2433,10 +2632,28 @@ void file_new_cb(GtkWidget * widget, gpointer data) {
  	}*/
 }
 
+/**
+ * file_close_cb:
+ * @widget: unused #GtkWidget
+ * @data: unused #gpointer
+ *
+ * Close the current document.
+ *
+ * Return value: void
+ **/
 void file_close_cb(GtkWidget * widget, gpointer data) {
 	doc_close(main_v->current_document, 0);
 }
 
+/**
+ * file_close_all_cb:
+ * @widget: unused #GtkWidget
+ * @data: unused #gpointer
+ *
+ * Close all open files. Prompt user when neccessary.
+ *
+ * Return value: void
+ **/
 void file_close_all_cb(GtkWidget * widget, gpointer data)
 {
 	GList *tmplist;
@@ -2498,16 +2715,15 @@ void file_close_all_cb(GtkWidget * widget, gpointer data)
 }
 
 
-/*
- * Function: file_save_all_cb
- * Arguments:
- * 	widget	- callback widget
- * 	data	- data for callback function
- * Return value:
- * 	void
- * Description:
+/**
+ * file_save_all_cb:
+ * @widget: unused #GtkWidget
+ * @data: unused #gpointer
+ *
  * 	Save all editor notebooks
- */
+ *
+ * Return value: void
+ **/
 void file_save_all_cb(GtkWidget * widget, gpointer data)
 {
 
@@ -2524,12 +2740,41 @@ void file_save_all_cb(GtkWidget * widget, gpointer data)
 	}
 }
 
+/**
+ * edit_cut_cb:
+ * @widget: unused #GtkWidget
+ * @data: unused #gpointer
+ *
+ * 	Cut selection from current buffer, to clipboard.
+ *
+ * Return value: void
+ **/
 void edit_cut_cb(GtkWidget * widget, gpointer data) {
 	gtk_text_buffer_cut_clipboard(main_v->current_document->buffer,gtk_clipboard_get(GDK_SELECTION_CLIPBOARD),TRUE);
 }
+
+/**
+ * edit_copy_cb:
+ * @widget: unused #GtkWidget
+ * @data: unused #gpointer
+ *
+ * 	Copy selection from current buffer, to clipboard.
+ *
+ * Return value: void
+ **/
 void edit_copy_cb(GtkWidget * widget, gpointer data) {
 	gtk_text_buffer_copy_clipboard  (main_v->current_document->buffer,gtk_clipboard_get(GDK_SELECTION_CLIPBOARD));
 }
+
+/**
+ * edit_paste_cb:
+ * @widget: unused #GtkWidget
+ * @data: unused #gpointer
+ *
+ * 	Paste contents of clipboard. Disable highlighting while pasting, for speed.
+ *
+ * Return value: void
+ **/
 void edit_paste_cb(GtkWidget * widget, gpointer data)
 {
 	gboolean wasHighlighted = FALSE;
@@ -2548,6 +2793,16 @@ void edit_paste_cb(GtkWidget * widget, gpointer data)
 		doc_highlight_full(main_v->current_document);
 	}
 }
+
+/**
+ * edit_select_all_cb:
+ * @widget: unused #GtkWidget
+ * @data: unused #gpointer
+ *
+ * Mark entire current document as selected.
+ *
+ * Return value: void
+ **/
 void edit_select_all_cb(GtkWidget * widget, gpointer data) {
 	GtkTextIter itstart, itend;
 	gtk_text_buffer_get_bounds(main_v->current_document->buffer,&itstart,&itend);
@@ -2555,6 +2810,16 @@ void edit_select_all_cb(GtkWidget * widget, gpointer data) {
 	gtk_text_buffer_move_mark_by_name(main_v->current_document->buffer,"selection_bound",&itend);
 }
 
+/**
+ * doc_toggle_highlighting_cb:
+ * @callback_data: unused #gpointer
+ * @action: unused #guint
+ * @widget: unused #GtkWidget*
+ *
+ * Toggle highlighting on/off for current document.
+ *
+ * Return value: void
+ **/
 void doc_toggle_highlighting_cb(gpointer callback_data,guint action,GtkWidget *widget) {
 
 	main_v->current_document->highlightstate = 1 - main_v->current_document->highlightstate;
@@ -2566,11 +2831,31 @@ void doc_toggle_highlighting_cb(gpointer callback_data,guint action,GtkWidget *w
 	}
 }
 
+/**
+ * doc_toggle_wrap_cb:
+ * @callback_data: unused #gpointer
+ * @action: unused #guint
+ * @widget: unused #GtkWidget*
+ *
+ * Toggle text wrapping on/off for current document.
+ *
+ * Return value: void
+ **/
 void doc_toggle_wrap_cb(gpointer callback_data,guint action,GtkWidget *widget) {
 	main_v->current_document->wrapstate = 1 - main_v->current_document->wrapstate;
 	doc_set_wrap(main_v->current_document);
 }
 
+/**
+ * doc_toggle_linenumbers_cb:
+ * @callback_data: unused #gpointer
+ * @action: unused #guint
+ * @widget: unused #GtkWidget*
+ *
+ * Toggle line numbers on/off for current document.
+ *
+ * Return value: void
+ **/
 void doc_toggle_linenumbers_cb(gpointer callback_data,guint action,GtkWidget *widget) {
 	main_v->current_document->linenumberstate = 1 - main_v->current_document->linenumberstate;
 	document_set_line_numbers(main_v->current_document, main_v->current_document->linenumberstate);
@@ -2578,31 +2863,54 @@ void doc_toggle_linenumbers_cb(gpointer callback_data,guint action,GtkWidget *wi
 
 /* callback_action: 1 only ascii, 2 only iso, 3 both
  */
+/**
+ * doc_convert_asciichars_in_selection:
+ * @callback_data: unused #gpointer
+ * @callback_action: Chars to change. #guint set to 1 (only ascii), 2 (only iso) or 3 (both).
+ * @widget: unused #GtkWidget*
+ *
+ * Convert characters in current document to entities.
+ *
+ * Return value: void
+ **/
 void doc_convert_asciichars_in_selection(gpointer callback_data,guint callback_action,GtkWidget *widget) {
 	doc_convert_chars_to_entities_in_selection(main_v->current_document, (callback_action != 2), (callback_action != 1));
 }
 
-
+/**
+ * doc_toggle_highlighting_cb:
+ * @callback_data: unused #gpointer
+ * @action: unused #guint
+ * @widget: unused #GtkWidget*
+ *
+ * Show word-, line- and charcount for current document in the statusbar.
+ * Note: The wordcount() call returns number of actual utf8-chars, not bytes.
+ *
+ * Return value: void
+ **/
 void word_count_cb (gpointer callback_data,guint callback_action,GtkWidget *widget) {
-	int wc, alnum = 0, tag = 0;
-	const gchar delimiters[]=" .,;:?\n\t";
-	const gchar alnums[] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-	gchar *wc_message, *allchars, *tmp;
-
-	wc = 0;
+	guint chars = 0, lines = 0, words = 0;
+	gchar *allchars, *wc_message;
+	
    allchars = doc_get_chars(main_v->current_document, 0, -1);
-	tmp = allchars;
-	while (*tmp != '\0') {
-		if ((strchr (delimiters, *tmp)) && (alnum == 1) && (tag == 0)) wc++;
-		if (*tmp == '<') { tag = 1; } else if (*tmp == '>') { tag = 0; };
-		if (strchr (alnums, *allchars)) { alnum = 1;} else { alnum = 0; }
-		tmp++;
-	}
-	wc_message = g_strdup_printf("Word Count %d", wc);
+	wordcount(allchars, &chars, &lines, &words);
+	g_free(allchars);
+	
+	wc_message = g_strdup_printf(_("Statistics: %d lines, %d words, %d characters"), lines, words, chars);
 	statusbar_message (wc_message, 5000);
 	g_free (wc_message);
 }
 
+/**
+ * doc_toggle_highlighting_cb:
+ * @doc: a #Tdocument*
+ * @unindent: #gboolean
+ *
+ * Indent the selected block in current document.
+ * Set unindent to TRUE to unindent.
+ *
+ * Return value: void
+ **/
 void doc_indent_selection(Tdocument *doc, gboolean unindent) {
 	GtkTextIter itstart,itend;
 	if (gtk_text_buffer_get_selection_bounds(doc->buffer,&itstart,&itend)) {
@@ -2699,6 +3007,7 @@ void menu_indent_cb(gpointer callback_data,guint callback_action, GtkWidget  *wi
 		doc_indent_selection(main_v->current_document, (callback_action == 1));
 	}
 }
+
 /**
  * list_relative_document_filenames:
  * @curdoc: #Tdocument: the current document

@@ -928,3 +928,66 @@ void remove_secure_dir_and_filename(gchar *filename) {
 	}
 	return buf;
 }*/
+
+/**
+ * wordcount:
+ * @text: A #gchar* to examine.
+ * @chars: #guint*, will contain no. chars in text.
+ * @lines: #guint*, will contain no. lines in text.
+ * @words: #guint*, will contain no. words in text.
+ *
+ * Returns number of characters, lines and words in the supplied #gchar*.
+ * Handles UTF-8 correctly. Input must be properly encoded UTF-8.
+ * Words are defined as any characters grouped, separated with spaces.
+ * I.e., this is a word: "12a42a,.". This is two words: ". ."
+ *
+ * This function contains a switch() with inspiration from the GNU wc utility.
+ * Rewritten for glib UTF-8 handling by Christian Tellefsen, chris@tellefsen.net.
+ *
+ * Note that gchar == char, so that gives us no problems here.
+ *
+ * Return value: void
+ **/
+void wordcount(gchar *text, guint *chars, guint *lines, guint *words)
+{
+	guint in_word = 0;
+	gunichar utext;
+	
+	if(!text) return; /* politely refuse to operate on NULL .. */
+		
+	*chars = *words = *lines = 0;
+	while (*text != '\0') {
+		(*chars)++;
+		
+		switch (*text) {
+			case '\n':
+				(*lines)++;
+				/* Fall through. */
+			case '\r':
+			case '\f':
+			case '\t':
+			case ' ':
+			case '\v':
+				mb_word_separator:
+				if (in_word) {
+					in_word = 0;
+					(*words)++;
+				}
+				break;
+			default:
+				utext = g_utf8_get_char_validated(text, 2); /* This might be an utf-8 char..*/
+				if (g_unichar_isspace (utext)) /* Unicode encoded space? */
+					goto mb_word_separator;
+				if (g_unichar_isgraph (utext)) /* Is this something printable? */
+					in_word = 1;
+				break;
+		} /* switch */
+		
+		text = g_utf8_next_char(text); /* Even if the current char is 2 bytes, this will iterate correctly. */
+	}
+	
+	/* Capture last word, if there's no whitespace at the end of the file. */
+	if(in_word) (*words)++;
+	/* We start counting line numbers from 1 */
+	if(*chars > 0) (*lines)++;
+}
