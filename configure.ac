@@ -29,7 +29,7 @@ AC_DEFINE_UNQUOTED(PACKAGE, "$PACKAGE")
 AC_DEFINE_UNQUOTED(VERSION, "$VERSION")
 AC_DEFINE_UNQUOTED(CURRENT_VERSION_NAME, "$PACKAGE $VERSION HTML editor")
 
-ALL_LINGUAS="da fr es it hu pl no"
+ALL_LINGUAS="da fr es it ja hu pl no ru sv de"
 
 dnl ************************
 dnl Compiler options
@@ -266,11 +266,11 @@ dnl *******************************
 AM_GNU_GETTEXT
 AC_PATH_PROG(MSGMERGE, msgmerge, /usr/bin/msgmerge)
 
-if test "$GMSGFMT" = "no"; then
+if test ! -x "$GMSGFMT" ; then
 	echo "no gmsgfmt - NLS disabled"
 	USE_NLS=no
 fi
-if test "$MSGFMT" = "no" ; then
+if test ! -x "$MSGFMT" ; then
 	echo "no msfmt - NLS disabled"
 	USE_NLS=no
 fi
