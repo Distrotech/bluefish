@@ -133,10 +133,9 @@ static void image_diag_finish(Timage_diag *imdg, GtkSignalFunc ok_func) {
 }
 
 static void image_filename_changed(GtkWidget * widget, Timage_diag *imdg) {
-	DEBUG_MSG("image_filename_changed() started. GTK_IS_WIDGET(imdg->im) == %d\n", GTK_IS_WIDGET(imdg->im));
 	gint pb_width, pd_height, toobig;
 	GdkPixbuf *tmp_pb;
-	
+	DEBUG_MSG("image_filename_changed() started. GTK_IS_WIDGET(imdg->im) == %d\n", GTK_IS_WIDGET(imdg->im));
 	if (imdg->pb) {
 		g_object_unref(imdg->pb);
 	}
@@ -184,9 +183,9 @@ static void image_filename_changed(GtkWidget * widget, Timage_diag *imdg) {
 }
 
 static void image_adjust_changed(GtkAdjustment * adj, Timage_diag *imdg) {
-	DEBUG_MSG("image_adjust_changed started. GTK_IS_WIDGET(imdg->im) == %d\n", GTK_IS_WIDGET(imdg->im));
 	GdkPixbuf *tmp_pb;
 	gint tn_width, tn_height;
+	DEBUG_MSG("image_adjust_changed started. GTK_IS_WIDGET(imdg->im) == %d\n", GTK_IS_WIDGET(imdg->im));
 	if (!imdg->pb) {
 		image_filename_changed(NULL, imdg);
 		return;
