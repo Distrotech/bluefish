@@ -679,7 +679,6 @@ void filebrowser_open_dir(const gchar *dirarg) {
 		if(selpath) {
 			selfile = return_filename_from_path(filebrowser.store, selpath);
 			seldir = path_get_dirname_with_ending_slash(selfile);
-			printf("selfile='%s' && seldir='%s'\n", selfile, seldir);
 		}
 		/* Continue if a) no selection or b) Zoom neccessary */
 		if(!seldir || strcmp(seldir, dir) != 0) {

@@ -1825,16 +1825,16 @@ Tdocument *doc_new(gboolean delay_activate) {
 	}
 	newdoc->highlightstate = main_v->props.defaulthighlight;
 	DEBUG_MSG("doc_new, need_highlighting=%d, highlightstate=%d\n", newdoc->need_highlighting, newdoc->highlightstate);
-/*	if (!delay_activate) {
+	if (!delay_activate) {
 		DEBUG_MSG("doc_new, notebook current page=%d, newdoc is on page %d\n",gtk_notebook_get_current_page(GTK_NOTEBOOK(main_v->notebook)),gtk_notebook_page_num(GTK_NOTEBOOK(main_v->notebook),scroll));
 		DEBUG_MSG("doc_new, setting notebook page to %d\n", g_list_length(main_v->documentlist) - 1);
 		gtk_notebook_set_current_page(GTK_NOTEBOOK(main_v->notebook),g_list_length(main_v->documentlist) - 1);
 		if (main_v->current_document != newdoc) {
 			notebook_changed(-1);
-		}*/
+		}
 /*		doc_activate() will be called by notebook_changed() and it will grab the focus
 		gtk_widget_grab_focus(newdoc->view);	*/
-/*	}*/
+	}
 	return newdoc;
 }
 
