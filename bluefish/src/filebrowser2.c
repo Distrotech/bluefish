@@ -1058,8 +1058,11 @@ static void fb2rpopup_rpopup_action_lcb(Tfilebrowser2 *fb2,guint callback_action
 		break;
 		case 7:
 			{
+				gchar *curi;
 				GnomeVFSURI *uri = fb2_uri_from_dir_selection(fb2);
-				open_advanced(fb2->bfwin, uri, TRUE, ".c", "fork(", FALSE);
+				curi = gnome_vfs_uri_to_string(uri,0);
+				open_advanced_from_filebrowser(fb2->bfwin, curi);
+				g_free(curi);
 			}
 		break;
 		case 8:

@@ -60,6 +60,7 @@
 #include "cap.h"
 #include "filebrowser.h"
 #include "bookmark.h"
+#include "file.h"
 
 #ifdef FB2
 #include "filebrowser2.h"
@@ -3228,8 +3229,6 @@ void doc_force_activate(Tdocument *doc) {
 /**************************************************************************/
 /* the start of the callback functions for the menu, acting on a document */
 /**************************************************************************/
-#ifdef EXTERNAL_GREP
-#ifdef EXTERNAL_FIND
 typedef struct {
 	GList *filenames_to_return;
 	GtkWidget *win;
@@ -3249,7 +3248,28 @@ static void files_advanced_win_destroy(GtkWidget * widget, Tfiles_advanced *tfs)
 }
 
 static void files_advanced_win_ok_clicked(GtkWidget * widget, Tfiles_advanced *tfs) {
-	/* create list here */
+	GnomeVFSURI *baseuri;
+	gchar *basedir, *content_filter, *extension_filter;
+	
+	extension_filter = gtk_editable_get_chars(GTK_EDITABLE(GTK_COMBO(tfs->find_pattern)->entry), 0, -1);
+	basedir = gtk_editable_get_chars(GTK_EDITABLE(tfs->basedir), 0, -1);
+	baseuri = gnome_vfs_uri_new(basedir);
+	content_filter = gtk_editable_get_chars(GTK_EDITABLE(tfs->grep_pattern), 0, -1);
+
+	open_advanced(tfs->bfwin, baseuri, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(tfs->recursive))
+			, strlen(extension_filter) ==0 ? NULL : extension_filter
+			, strlen(content_filter) ==0 ? NULL : content_filter
+			, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(tfs->is_regex)));
+	g_free(basedir);
+	g_free(content_filter);
+	g_free(extension_filter);
+	gnome_vfs_uri_unref(baseuri);
+	files_advanced_win_destroy(widget, tfs);
+}
+
+/*
+static void files_advanced_win_ok_clicked(GtkWidget * widget, Tfiles_advanced *tfs) {
+	/ * create list here * /
 	gchar *command, *temp_file;
 	gchar *c_basedir, *c_find_pattern, *c_recursive, *c_grep_pattern, *c_is_regex;
 	temp_file = create_secure_dir_return_filename();
@@ -3273,10 +3293,10 @@ static void files_advanced_win_ok_clicked(GtkWidget * widget, Tfiles_advanced *t
 	} else {
 		c_is_regex = "-l ";
 	}
-/*
+/ *
 command = `find c_basedir -name c_find_pattern c_recursive`
 command = `grep -E 'c_grep_pattern' `find c_basedir -name c_find_pattern c_recursive``
-*/
+* /
 	if (strlen(c_grep_pattern) == 0) {
 		command = g_strconcat(EXTERNAL_FIND, " ", c_basedir, " -name '", c_find_pattern, "' ", c_recursive, "> ", temp_file, NULL);
 	} else {
@@ -3294,7 +3314,7 @@ command = `grep -E 'c_grep_pattern' `find c_basedir -name c_find_pattern c_recur
 	remove_secure_dir_and_filename(temp_file);
 	g_free(temp_file);
 	files_advanced_win_destroy(widget, tfs);
-}
+}*/
 static void files_advanced_win_cancel_clicked(GtkWidget * widget, Tfiles_advanced *tfs) {
 	files_advanced_win_destroy(widget, tfs);
 }
@@ -3367,20 +3387,20 @@ static void files_advanced_win(Tfiles_advanced *tfs) {
 
 /*	g_free(curdir);*/
 	
-	list = g_list_append(NULL, "*");
-	list = g_list_append(list, "*.php");
-	list = g_list_append(list, "*.php3");
-	list = g_list_append(list, "*.html");
-	list = g_list_append(list, "*.htm");
-	list = g_list_append(list, "*.shtml");
-	list = g_list_append(list, "*.pl");
-	list = g_list_append(list, "*.cgi");
-	list = g_list_append(list, "*.xml");
-	list = g_list_append(list, "*.c");
-	list = g_list_append(list, "*.h");
-	list = g_list_append(list, "*.py");
-	list = g_list_append(list, "*.java");
-	tfs->find_pattern = combo_with_popdown("*", list, 1);
+	list = g_list_append(NULL, "");
+	list = g_list_append(list, ".php");
+	list = g_list_append(list, ".php3");
+	list = g_list_append(list, ".html");
+	list = g_list_append(list, ".htm");
+	list = g_list_append(list, ".shtml");
+	list = g_list_append(list, ".pl");
+	list = g_list_append(list, ".cgi");
+	list = g_list_append(list, ".xml");
+	list = g_list_append(list, ".c");
+	list = g_list_append(list, ".h");
+	list = g_list_append(list, ".py");
+	list = g_list_append(list, ".java");
+	tfs->find_pattern = combo_with_popdown("", list, 1);
 	bf_mnemonic_label_tad_with_alignment(_("_File Type:"), tfs->find_pattern, 0, 0.5, table, 1, 2, 4, 5);
 	gtk_table_attach_defaults(GTK_TABLE(table), tfs->find_pattern, 2, 4, 4, 5);
 
@@ -3433,8 +3453,6 @@ GList *return_files_advanced(Tbfwin *bfwin, gchar *tmppath) {
 	gtk_main();
 	return tfs.filenames_to_return;
 }	
-#endif /* EXTERNAL_FIND */
-#endif /* EXTERNAL_GREP */
 
 void file_open_from_selection(Tbfwin *bfwin) {
 	gchar *string;
