@@ -1303,6 +1303,28 @@ Tdocument *doc_new(gboolean delay_activate) {
 	return newdoc;
 }
 
+void doc_new_with_new_file(gchar * new_filename) {
+	Tdocument *doc;
+	if (new_filename == NULL) {
+		statusbar_message(_("No filename"), 2);
+		return;
+	}
+	if (!main_v->props.allow_multi_instances) {
+		gboolean res;
+		res = switch_to_document_by_filename(new_filename);
+		if (res){
+			return;
+		}
+	} 
+	DEBUG_MSG("doc_new_with_new_file, new_filename=%s\n", new_filename);
+	add_filename_to_history(new_filename);
+	doc = doc_new(FALSE);
+	doc->filename = g_strdup(new_filename);
+	doc->modified = 1; /* force doc_set_modified() (in doc_save()) to update the tab-label */
+/*	doc_set_modified(doc, 0);*/
+	doc_save(doc, 0, 0);
+	doc_set_stat_info(doc); /* also sets mtime field */
+}
 
 gboolean doc_new_with_file(gchar * filename, gboolean delay_activate) {
 

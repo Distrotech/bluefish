@@ -52,6 +52,7 @@ void doc_insert_two_strings(Tdocument *doc, const gchar *before_str, const gchar
 void doc_bind_signals(Tdocument *doc);
 void doc_unbind_signals(Tdocument *doc);
 
+void doc_new_with_new_file(gchar * new_filename);
 gboolean doc_new_with_file(gchar * filename, gboolean delay_activate);
 void docs_new_from_files(GList * file_list);
 void doc_activate(Tdocument *doc);
