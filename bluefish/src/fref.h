@@ -200,6 +200,14 @@ void fref_loader_unload_all(GtkWidget *tree,GtkTreeStore *store);
 
 void fref_free_info(FRInfo *info);
 
+void fref_name_loader_start_element(GMarkupParseContext * context,
+							   const gchar * element_name,
+							   const gchar ** attribute_names,
+							   const gchar ** attribute_values,
+							   gpointer user_data, GError ** error);
+							   
+gchar *fref_xml_get_refname(gchar *filename);
+
 /* FR GUI */
 
 GtkWidget    *fref_init();

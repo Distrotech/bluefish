@@ -22,6 +22,10 @@ typedef struct {
 	GtkTooltips *argtips;
 } Tfref_data;
 
+typedef struct {
+  gchar *name;
+  gchar *description; 
+} Tfref_name_data;
 
 static Tfref_data fref_data = { NULL, NULL, NULL, NULL, NULL, NULL };
 
@@ -34,6 +38,77 @@ static GMarkupParser FRParser = {
 	NULL,
 	fref_loader_error
 };
+
+/* AUXILIARY FILE PARSER */
+
+static GMarkupParser FRNameParser = {
+	fref_name_loader_start_element,
+	NULL,
+	NULL,
+	NULL,
+	fref_loader_error
+};
+
+void fref_name_loader_start_element(GMarkupParseContext * context,
+							   const gchar * element_name,
+							   const gchar ** attribute_names,
+							   const gchar ** attribute_values,
+							   gpointer user_data, GError ** error)
+{
+	GHashTable *attrs;
+ int i;
+ Tfref_name_data *data;
+ gchar *tmps;
+ 
+ if (user_data==NULL) return;
+ data = (Tfref_name_data*)user_data;
+ 
+ 	attrs = g_hash_table_new_full(g_str_hash, g_str_equal, g_free, g_free);
+	i = 0;
+	while (attribute_names[i] != NULL) {
+		g_hash_table_insert(attrs, (gpointer) g_strdup(attribute_names[i]),
+							(gpointer) g_strdup(attribute_values[i]));
+		i++;
+	}
+	 	
+	if (strcmp(element_name, "ref") == 0) {
+	   tmps = g_hash_table_lookup(attrs, "name");
+	   if (tmps!=NULL)
+	      data->name = g_strdup(tmps);
+	   tmps = g_hash_table_lookup(attrs, "description");   
+	   if (tmps!=NULL)
+	      data->description = g_strdup(tmps); 
+	}
+		
+}							   
+
+
+gchar *fref_xml_get_refname(gchar *filename)
+{
+	GMarkupParseContext *ctx;
+	gchar *config;
+	gsize len;
+	Tfref_name_data *aux;
+	gchar *tmps;
+
+ if (filename==NULL) return NULL; 
+ 
+	aux = g_new0(Tfref_name_data, 1);
+	ctx = g_markup_parse_context_new(&FRNameParser, (GMarkupParseFlags) 0,
+									 (gpointer) aux, NULL);
+	if (ctx == NULL)
+		return NULL;
+	if (!g_file_get_contents(filename, &config, &len, NULL))
+		return NULL;
+	if (!g_markup_parse_context_parse(ctx, config, len, NULL))
+		return NULL;
+	g_markup_parse_context_free(ctx);
+	tmps = aux->name;
+	g_free(aux);
+	return tmps;
+}
+							  
+
 
 void fref_loader_start_element(GMarkupParseContext * context,
 							   const gchar * element_name,
@@ -1646,6 +1721,7 @@ static gboolean reference_file_known(gchar *path) {
 void fref_rescan_dir(const gchar *dir) {
 	const gchar *filename;
 	GError *error = NULL;
+	gchar *tofree;
 	GPatternSpec* ps = g_pattern_spec_new("funcref_*.xml");
 	GDir* gd = g_dir_open(dir,0,&error);
 	filename = g_dir_read_name(gd);
@@ -1654,7 +1730,9 @@ void fref_rescan_dir(const gchar *dir) {
 			gchar *path = g_strconcat(dir, filename, NULL);
 			DEBUG_MSG("filename %s has a match!\n",filename);
 			if (!reference_file_known(path)) {
-				main_v->props.reference_files = g_list_append(main_v->props.reference_files, array_from_arglist(g_strdup(filename),path,NULL));
+			 tofree = fref_xml_get_refname(path);
+				main_v->props.reference_files = g_list_append(main_v->props.reference_files, array_from_arglist(g_strdup(tofree),path,NULL));
+				g_free(tofree);
 			}
 			g_free(path);
 		}
@@ -1663,3 +1741,7 @@ void fref_rescan_dir(const gchar *dir) {
 	g_dir_close(gd);
 	g_pattern_spec_free(ps);
 }
+
+
+
+
