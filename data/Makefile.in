@@ -27,12 +27,6 @@ ICONPATH=@ICONPATH@
 INSTALLDATA=@INSTALLDATA@
 HAVE_GNOME_VFS=@HAVE_GNOME_VFS@
 
-GNOME2MIMEINFO=@GNOME2MIMEINFO@
-GNOME2APPLICATIONREGISTRY=@GNOME2APPLICATIONREGISTRY@
-GNOME2MIME=@GNOME2MIME@
-UPDATE_MIME_PATH=@UPDATE_MIME_PATH@
-
-
 INSTALL = @INSTALL@
 INSTALL_DIR = $(INSTALL) -d -m 755 
 INSTALL_DATA = ${INSTALL} -m 644
@@ -64,8 +58,10 @@ install-update-menu:
 	$(UPDATE_DESKTOP)
 
 install-fdmime:
-	$(INSTALL_DIR) $(DESTDIR)$(FDMIME)
-	$(INSTALL_DATA) bluefish.xml $(DESTDIR)$(FDMIME)
+	# it specifies application/bluefish-project so that is a sbubclass of application 
+	# and should be in that directory
+	$(INSTALL_DIR) $(DESTDIR)$(FDMIME)/application
+	$(INSTALL_DATA) bluefish.xml $(DESTDIR)$(FDMIME)/application
 
 install-update-mime:
 	$(UPDATE_MIME) $(FDMIME)
@@ -93,17 +89,17 @@ install: all $(INSTALLDATA)
 	done
 
 uninstall:
-	rm -rf $(DESTDIR)$(GNOME2MIME)/packages/bluefish.xml
-	rm -rf $(GNOME2MIMEINFO)/bluefish.mime
-	rm -rf $(GNOME2MIMEINFO)/bluefish.keys
-	rm -rf $(GNOME2APPLICATIONREGISTRY)/bluefish.applications
+	rm -rf $(FDMIME)/application/bluefish.xml
+	rm -rf $(GMIMEINFO)/bluefish.mime
+	rm -rf $(GMIMEINFO)/bluefish.keys
+	rm -rf $(GAPPREG)/bluefish.applications
 	rm -rf $(GNOME1MENU)/bluefish.desktop
-	rm -rf $(GNOME2MENU)/bluefish.desktop
+	rm -rf $(FDMENU)/bluefish.desktop
 	rm -rf $(ICONPATH)/gnome-application-bluefish-project.png
 	@for file in $(DEFAULTFILES) ; do \
 		rm -f $(pkgdatadir)/$$file ;\
 	done
-	for file in $(FUNCREFFILES) ; do \
+	@for file in $(FUNCREFFILES) ; do \
 		rm -rf $(pkgdatadir)/$$file ;\
 	done
 
