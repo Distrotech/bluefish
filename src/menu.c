@@ -685,13 +685,17 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/TEMP/Window/New"), NULL, gui_window_menu_cb, 1, NULL},
 	{N_("/TEMP/Window/Close"), NULL, gui_window_menu_cb, 2, NULL},
 	{N_("/TEMP/Window/sep1"), NULL, NULL, 0, "<Separator>"},
-	{N_("/TEMP/Open project"), NULL, project_menu_cb, 1, NULL},
-	{N_("/TEMP/Open r_ecent project"), NULL, NULL, 0, "<Branch>"},
-	{N_("/TEMP/Open recent project/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
-	{N_("/TEMP/Save project"), NULL, project_menu_cb, 2, NULL},
-	{N_("/TEMP/Save project as"), NULL, project_menu_cb, 3, NULL},
-	{N_("/TEMP/Close & save project"), NULL, project_menu_cb, 4, NULL},
-	{N_("/TEMP/Edit project"), NULL, project_menu_cb, 5, NULL}
+	{N_("/TEMP/Project"), NULL, NULL, 0, "<Branch>"},
+	{N_("/TEMP/Project/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
+	{N_("/TEMP/Project/Create new"), NULL, project_menu_cb, 6, NULL},
+	{N_("/TEMP/Project/Open"), NULL, project_menu_cb, 1, NULL},
+	{N_("/TEMP/Project/Open r_ecent"), NULL, NULL, 0, "<Branch>"},
+	{N_("/TEMP/Project/Open recent/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
+	{N_("/TEMP/Project/sep1"), NULL, NULL, 0, "<Separator>"},
+	{N_("/TEMP/Project/Save"), NULL, project_menu_cb, 2, NULL},
+	{N_("/TEMP/Project/Save as"), NULL, project_menu_cb, 3, NULL},
+	{N_("/TEMP/Project/Close & save"), NULL, project_menu_cb, 4, NULL},
+	{N_("/TEMP/Project/Edit"), NULL, project_menu_cb, 5, NULL}
 };
 
 #ifdef ENABLE_NLS
@@ -892,7 +896,7 @@ void menu_create_main(Tbfwin *bfwin, GtkWidget *vbox) {
 	setup_toggle_item(item_factory, N_("/Options/Display/View Custom Menu"), main_v->props.view_custom_menu);
 	setup_toggle_item(item_factory, N_("/Options/Display/View Left Panel"), main_v->props.view_left_panel);
 	setup_toggle_item(item_factory, N_("/Options/Auto Indent"), main_v->props.autoindent);
-
+	set_project_menu_widgets(bfwin, FALSE);
 	filetype_menu_rebuild(bfwin, item_factory);
 }
 
@@ -982,7 +986,7 @@ static GtkWidget *create_recent_entry(Tbfwin *bfwin, const gchar *filename, gboo
 		}
 	}
 	if (is_project) {
-		return  create_dynamic_menuitem(bfwin,N_("/TEMP/Open recent project")
+		return  create_dynamic_menuitem(bfwin,N_("/TEMP/Project/Open recent")
 			, filename, G_CALLBACK(open_recent_project_cb), bfwin
 			, 1);
 	} else {
