@@ -61,6 +61,8 @@ typedef struct {
 	GtkWidget *stylehref;
 	GtkWidget *stylemedia;
 	GtkWidget *stylearea;
+	GtkWidget *scriptsrc;
+	GtkWidget *scriptarea;
 	GtkWidget *removeButton;
 	Tbfwin *bfwin;
 } TQuickStart;
@@ -225,7 +227,7 @@ quickstart_response_lcb(GtkDialog *dialog, gint response, TQuickStart *qstart) {
 	if (response == GTK_RESPONSE_ACCEPT) {
 		GtkTreeModel *model;
 		GtkTreeIter iter;		
-		gchar *tmpstr, *tmpstr2, *name, *xmlstr, *titlestr, *endstr, *finalstr, *metatag;
+		gchar *tmpstr, *tmpstr2, *name, *xmlstr, *titlestr, *scriptsrc, *stylearea, *scriptarea, *endstr, *finalstr, *metatag;
 		gchar *dtdstr = NULL;
 		GString *metastr, *stylestr;
 		unsigned int i = 0;
@@ -299,12 +301,27 @@ quickstart_response_lcb(GtkDialog *dialog, gint response, TQuickStart *qstart) {
 		g_free (name);
 		
 		if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (qstart->stylearea))) {
-			tmpstr2 = g_strdup ("<style>\n\n</style>\n");
+			stylearea = g_strdup ("<style>\n\n</style>\n");
 		} else {
-			tmpstr2 = g_strdup ("");
+			stylearea = g_strdup ("");
 		}
 		
-		finalstr = g_strconcat (xmlstr, dtdstr, tmpstr, titlestr, metastr->str, stylestr->str, tmpstr2, cap("</HEAD>\n<BODY>\n"), NULL);
+		tmpstr2 = gtk_editable_get_chars (GTK_EDITABLE (GTK_BIN (qstart->scriptsrc)->child), 0, -1);
+		if (strlen(tmpstr2) > 0) {
+			scriptsrc = g_strconcat ("<script type=\"text/javascript\" src=\"", tmpstr2, "\"></script>\n", NULL);
+		} else {
+			scriptsrc = g_strdup ("");
+		}
+		g_free (tmpstr2);
+		
+		if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (qstart->scriptarea))) {
+			scriptarea = g_strdup ("<script type=\"text/javascript\">\n<!--\n\n// -->\n</script>\n");
+		} else {
+			scriptarea = g_strdup ("");
+		}
+		
+		finalstr = g_strconcat (xmlstr, dtdstr, tmpstr, titlestr, metastr->str, 
+										stylestr->str, stylearea, scriptsrc, scriptarea, cap("</HEAD>\n<BODY>\n"), NULL);
 		
 		g_free (xmlstr);
 		g_free (dtdstr);
@@ -312,7 +329,9 @@ quickstart_response_lcb(GtkDialog *dialog, gint response, TQuickStart *qstart) {
 		g_free (titlestr);
 		g_string_free (metastr, TRUE);
 		g_string_free (stylestr, TRUE);
-		g_free (tmpstr2);
+		g_free (stylearea);
+		g_free (scriptsrc);
+		g_free (scriptarea);
 
 		/* I'm wondering if it might be better just to check and see if the 
 		 * current doc is empty or whether it should be an option in the dialog
@@ -470,11 +489,57 @@ quickstart_style_page_create(TQuickStart *qstart)
 static GtkWidget *
 quickstart_script_page_create(TQuickStart *qstart)
 {
-	GtkWidget *hbox;
+	GtkWidget *frame, *vbox, *vbox2, *hbox, *label, *alignment;
+	GtkListStore *history;
 
-	hbox = gtk_hbox_new (FALSE, 6);
-	gtk_box_pack_start (GTK_BOX (hbox), gtk_label_new ("script page"), TRUE, TRUE, 0);
-	return hbox;
+	frame = gtk_frame_new (NULL);
+	gtk_frame_set_shadow_type (GTK_FRAME (frame), GTK_SHADOW_IN);
+	vbox = gtk_vbox_new (FALSE, 12);
+	gtk_container_add (GTK_CONTAINER (frame), vbox);
+	
+	label = gtk_label_new (NULL);
+	gtk_label_set_markup (GTK_LABEL (label), _("<b>Attributes</b>"));
+	gtk_misc_set_alignment (GTK_MISC (label), 0, 0);	
+	gtk_box_pack_start (GTK_BOX (vbox), label, FALSE, FALSE, 0);
+	
+	alignment = gtk_alignment_new (0, 0, 1, 1);
+	gtk_alignment_set_padding (GTK_ALIGNMENT (alignment), 0, 0, 12, 6);
+	gtk_box_pack_start (GTK_BOX (vbox), alignment, FALSE, FALSE, 0);	
+	vbox2 = gtk_vbox_new (FALSE, 12);
+	gtk_container_add (GTK_CONTAINER (alignment), vbox2);
+	
+	hbox = gtk_hbox_new (FALSE, 12);
+	gtk_box_pack_start (GTK_BOX (vbox2), hbox, FALSE, FALSE, 0);
+		
+	/* TODO: this should be session history list */	
+	history = gtk_list_store_new (1, G_TYPE_STRING);
+	
+	qstart->scriptsrc = gtk_combo_box_entry_new_with_model (GTK_TREE_MODEL (history), 0);
+	g_object_unref (history);
+	label = gtk_label_new_with_mnemonic (_("_Src:"));
+	gtk_misc_set_alignment (GTK_MISC (label), 0, 0.5);
+	gtk_label_set_mnemonic_widget (GTK_LABEL (label), qstart->scriptsrc);
+	gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (hbox), qstart->scriptsrc, FALSE, FALSE, 0);	
+
+	/* TODO: add an option to place content in the script area */
+	label = gtk_label_new (NULL);
+	gtk_label_set_markup (GTK_LABEL (label), _("<b>Script Area</b>"));
+	gtk_misc_set_alignment (GTK_MISC (label), 0, 0);	
+	gtk_box_pack_start (GTK_BOX (vbox), label, FALSE, FALSE, 0);
+	
+	alignment = gtk_alignment_new (0, 0, 1, 1);
+	gtk_alignment_set_padding (GTK_ALIGNMENT (alignment), 0, 0, 12, 6);
+	gtk_box_pack_start (GTK_BOX (vbox), alignment, FALSE, FALSE, 0);	
+	vbox2 = gtk_vbox_new (FALSE, 12);
+	gtk_container_add (GTK_CONTAINER (alignment), vbox2);
+	
+	hbox = gtk_hbox_new (FALSE, 12);
+	gtk_box_pack_start (GTK_BOX (vbox2), hbox, FALSE, FALSE, 0);
+	qstart->scriptarea = gtk_check_button_new_with_mnemonic (_("Create _empty script area"));
+	gtk_box_pack_start (GTK_BOX (hbox), qstart->scriptarea, FALSE, FALSE, 0);	
+
+	return frame;
 }
 
 void 
