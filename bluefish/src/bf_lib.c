@@ -30,10 +30,6 @@
 #include "bluefish.h"  /* for DEBUG_MSG and stuff like that */
 #include "bf_lib.h"  /* myself */
 
-#ifdef HAVE_GNOME_VFS
-#include <libgnomevfs/gnome-vfs.h>
-#endif
-
 #ifdef WIN32
 #define DIRSTR "\\"
 #define DIRCHR 92
