@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
 this file belongs to bluefish, a web development environment
 Copyright (C) 2002  Denny Reeh
@@ -17,74 +18,109 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 -->
 <chapter id="bluefish-ch-5">
-
   <title>advanced concepts in using and customizing bluefish</title>
-	<simplesect>    
-		<para>
-	      for people using bluefish intensivly
-		</para>
-	</simplesect>
 
-	<sect1 id="bluefish-ch-5-sect-1">
-		<title>special things in working with programming languages</title>
-		<para>
-			support for special programming languages
-		</para>
-		<sect2 id="bluefish-ch-5-sect-1.1">
-			<title>HTML</title>
-			<para>
-				HTML is obviously the most supported language in Bluefish. There is a special HTML toolbar with many dialogs, and several menu sections to work with tags. You can also right-click a tag and bring up the dialog from there.</para>
-<para> In the reference tree on the left panel there is also HTML reference available.</para>
-<para>There are several special search and replace actions in the menu Edit-Replace special. These can be used to convert special characters (like &lt; and &amp;), or iso characters to their HTML entities.</para>
-		</sect2>
-		<sect2 id="bluefish-ch-5-sect-1.2">
-			<title>PHP</title>
-			<para>
-				PHP
-			</para>
-		</sect2>
-		<sect2 id="bluefish-ch-5-sect-1.3">
-			<title>... and some other languages</title>
-			<para>
-				and other supported languages. maybee also in extra subsections
-			</para>
-		</sect2>
-	</sect1>
-	<sect1 id="bluefish-ch-5-sect-2">
-		<title>filebrowser (filtering, filetypes, etc.)</title>
-		<para>
-			the left panel
-		</para>
-	</sect1>
-	<sect1 id="bluefish-ch-5-sect-3">
-		<title>search and replace (regex patterns)</title>
-		<para>
-with the search and replace you can do increadible things. We'll start with a simple example. In some HTML table we have several table data tags where we actually want table header tags. Table data is &lt;td&gt;&lt;/td&gt; and we want &lt;th&gt;&lt;/th&gt;.
-		</para>
-		<para>
-		we can do two normal replaces: one where we replace &lt;td&gt; with &lt;th&gt; and then another where we replace &lt;/td&gt; with &lt;/th&gt;
-		</para>
-		<para>we can also do one replace using regular expressions: find (&lt;|&lt;/)?td&gt; and replace with \0th&gt; For more information about regular expressions you might want to read man 7 regex, or read any of the great internet sites about regular expressions. The \0 in the replace string refers to the first subpattern match in the search pattern, the \1 to the second etc.</para>
-		<para>
-		if you understand the above example, you will realize that you can do much more. Suppose you also want to match a table data tag that does have some attributes like &lt;td class=&quot;myclass&quot;&gt;, and you want to keep the option while converting to table header. The following pattern will do this: find (&lt;|&lt;/)td([^&gt;]*)&gt; and replace with \0th\1&gt;
-		</para>
-		<para>
-		if you have any search and replace patterns you use often, you can also add them to the Custom Menu. Check the Custom Menu section of this manual for more information.
-		</para>
-		
-	</sect1>
-	<sect1 id="bluefish-ch-5-sect-4">
-		<title>project management</title>
-		<para>The projects are a sort of 'saved state' of Bluefish. All files open when the project is saved, are automatically opened the next time you open the project. Also the recently used files in that project are shown in the recent menu. Furthermore, a basedir can be set, so the filebrowser in the left panel will only show the files in the basedir and its subdirectories. If Bluefish is installed with gnome-vfs support the basedir might be remote, for example sftp://someserver/somedir or smb://user:password@server/someshare/.</para>
-		<para>If the webdir is entered in the project settings, Bluefish will launch the browser to the appropriate URL. If your basedir for example is /var/www/ and your webdir http://localhost/ Bluefish will use this information to launch the browser to the correct URL. This can be very convenient for testing server side scripting languages like PHP, JSP or other.</para>
-		<para>The template field can point to a template file. If the 'new file' button is clicked, the contents of this file will be automatically loaded into the edit window.</para>
-		<para>The projects will be expanded to have more Bluefish settings, so a project can be a bit of customized Bluefish setup. Currently the state of various toolbars and menubars is saved in a project file.</para>
-		<para>The project file itself is simply a textfile in the standard Bluefish format (same format as the config file). This format is 'key: value'.</para>
-	</sect1>
+  <simplesect><para> for people using bluefish intensivly </para></simplesect>
 
-	<sect1 id="bluefish-ch-5-sect-5">
-		<title>more..</title>
-		<para>more..</para>
-	</sect1>
-	
+  <sect1 id="bluefish-ch-5-sect-1"><title>special things in working with
+  programming languages</title> <para> support for special programming
+  languages </para> <sect2 id="bluefish-ch-5-sect-1.1"> <title>HTML</title>
+  <para> HTML is obviously the most supported language in Bluefish. There is a
+  special HTML toolbar with many dialogs, and several menu sections to work
+  with tags. You can also right-click a tag and bring up the dialog from
+  there.</para> <para> In the reference tree on the left panel there is also
+  HTML reference available.</para> <para>There are several special search and
+  replace actions in the menu Edit-Replace special. These can be used to
+  convert special characters (like &lt; and &amp;), or iso characters to their
+  HTML entities.</para> </sect2> <sect2 id="bluefish-ch-5-sect-1.2">
+  <title>PHP</title> <para> PHP </para> </sect2> <sect2
+  id="bluefish-ch-5-sect-1.3"> <title>... and some other languages</title>
+  <para> and other supported languages. maybee also in extra subsections
+  </para> </sect2></sect1>
+
+  <sect1 id="bluefish-ch-5-sect-2"><title>filebrowser (filtering, filetypes,
+  etc.)</title> <para> the left panel </para></sect1>
+
+  <sect1 id="bluefish-ch-5-sect-3"><title>search and replace (regex
+  patterns)</title> <para> with the search and replace you can do increadible
+  things. We'll start with a simple example. In some HTML table we have
+  several table data tags where we actually want table header tags. Table data
+  is &lt;td&gt;&lt;/td&gt; and we want &lt;th&gt;&lt;/th&gt;. </para> <para>
+  we can do two normal replaces: one where we replace &lt;td&gt; with
+  &lt;th&gt; and then another where we replace &lt;/td&gt; with &lt;/th&gt;
+  </para> <para>we can also do one replace using regular expressions: find
+  (&lt;|&lt;/)?td&gt; and replace with \0th&gt; For more information about
+  regular expressions you might want to read man 7 regex, or read any of the
+  great internet sites about regular expressions. The \0 in the replace string
+  refers to the first subpattern match in the search pattern, the \1 to the
+  second etc.</para> <para> if you understand the above example, you will
+  realize that you can do much more. Suppose you also want to match a table
+  data tag that does have some attributes like &lt;td class="myclass"&gt;, and
+  you want to keep the option while converting to table header. The following
+  pattern will do this: find (&lt;|&lt;/)td([^&gt;]*)&gt; and replace with
+  \0th\1&gt; </para> <para> if you have any search and replace patterns you
+  use often, you can also add them to the Custom Menu. Check the Custom Menu
+  section of this manual for more information. </para></sect1>
+
+  <sect1 id="bluefish-ch-5-sect-4"><title>project management</title> <para>The
+  projects are a sort of 'saved state' of Bluefish. All files open when the
+  project is saved, are automatically opened the next time you open the
+  project. Also the recently used files in that project are shown in the
+  recent menu. Furthermore, a basedir can be set, so the filebrowser in the
+  left panel will only show the files in the basedir and its subdirectories.
+  If Bluefish is installed with gnome-vfs support the basedir might be remote,
+  for example sftp://someserver/somedir or
+  smb://user:password@server/someshare/.</para> <para>If the webdir is entered
+  in the project settings, Bluefish will launch the browser to the appropriate
+  URL. If your basedir for example is /var/www/ and your webdir
+  http://localhost/ Bluefish will use this information to launch the browser
+  to the correct URL. This can be very convenient for testing server side
+  scripting languages like PHP, JSP or other.</para> <para>The template field
+  can point to a template file. If the 'new file' button is clicked, the
+  contents of this file will be automatically loaded into the edit
+  window.</para> <para>The projects will be expanded to have more Bluefish
+  settings, so a project can be a bit of customized Bluefish setup. Currently
+  the state of various toolbars and menubars is saved in a project
+  file.</para> <para>The project file itself is simply a textfile in the
+  standard Bluefish format (same format as the config file). This format is
+  'key: value'.</para></sect1>
+
+  <sect1 id="bluefish-ch-5-sect-5"><title>Running External
+  Programs</title><para>Bluefish allows external programs or scripts to be run
+  via the "External" menu. To add items to this
+  menu:</para><para><orderedlist><listitem><para>Edit &gt;
+  Preferences</para></listitem><listitem><para>Choose the "External Programs"
+  tab.</para></listitem><listitem><para>Click "Add" to add a new
+  item</para></listitem><listitem><para>Double-click on the name field to give
+  the command a name (this name will become an option in the "External"
+  menu).</para></listitem><listitem><para>Double-click on the command field to
+  type the command to be
+  executed.</para></listitem></orderedlist></para><para>I WILL ADD AN EXAMPLE
+  HERE LATER</para><para>Items within External &gt; Outputbox allow for
+  programs to give feedback by opening an output box within Bluefish's main
+  window. To create an Outputbox menu item: <orderedlist><listitem><para>Edit
+  &gt; Preferences</para></listitem><listitem><para>Choose the "Output
+  parsers" tab.</para></listitem><listitem><para>Click "Add" to add a new
+  item</para></listitem><listitem><para>Double-click on the name field to give
+  the command a name (this name will become an option in the "External"
+  menu).</para></listitem><listitem><para>Double-click on the pattern field
+  and give a regular expression pattern with subpatterns, such as line
+  ([0-9]+) column [0-9]+ - (.*).</para></listitem><listitem><para>Double-click
+  on the "File #" field and give the number for the subpattern matching the
+  filename (-1 for none)</para></listitem><listitem><para>Double-click on the
+  "Line #" field and give the number for the subpattern matching the line
+  number</para></listitem><listitem><para>Double-click on the "Output #" field
+  and give the number for the subpattern matching the actual error
+  message</para></listitem><listitem><para>Double-click on the "Command" field
+  and the command to execute, %s is the current
+  filename</para></listitem><listitem><para>Toggle the "Show all output"
+  checkbox to show output NOT matching the regular
+  expression.</para></listitem></orderedlist></para><remark>Note: Of course,
+  it is also possible to add these items by editing the file named "rcfile_v2"
+  found in the user's home directory (~/.bluefish/rcfile_v2). The fields are
+  delimited by colons and correspond to those found in the
+  GUI.</remark></sect1>
+
+  <sect1 id="bluefish-ch-5-sect-6"><title>more..</title>
+  <para>more..</para></sect1>
 </chapter>
