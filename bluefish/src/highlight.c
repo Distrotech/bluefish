@@ -1087,8 +1087,7 @@ static gboolean pattern_has_mode3_child(Tpattern *pat) {
 	return FALSE;
 }
 
-void doc_highlight_line(Tdocument * doc)
-{
+void doc_highlight_region(Tdocument * doc, guint startof, guint endof) {
 	gint so, eo;
 	Tpattern *pat = NULL;
 	GList *patternlist = doc->hl->highlightlist;
@@ -1096,35 +1095,11 @@ void doc_highlight_line(Tdocument * doc)
 	timing_init();
 	timing_start(TIMING_LINE_HIGHLIGHTING);
 #endif
-	{
+	if (startof < endof) {
 		GtkTextIter itstart, itend, itsearch;
 		GSList *taglist = NULL, *slist;
-		GtkTextMark *mark = gtk_text_buffer_get_insert(doc->buffer);
-		gtk_text_buffer_get_iter_at_mark(doc->buffer, &itstart, mark);
-		/* move to the beginning of the line */
-		gtk_text_iter_set_line_offset(&itstart, 0);
-		if (main_v->props.highlight_num_lines_count) {
-			gtk_text_iter_backward_lines(&itstart, main_v->props.highlight_num_lines_count);
-		}
-#ifdef DEBUG
-		DEBUG_MSG("doc_highlight_line, itstart is at %d\n", gtk_text_iter_get_offset(&itstart));
-#endif
-		gtk_text_buffer_get_iter_at_mark(doc->buffer, &itend, mark);
-/*		gtk_text_iter_forward_to_line_end(&itend);
-		gtk_text_iter_set_line_offset(&itend, 0);*/
-		if (main_v->props.highlight_num_lines_count) {
-			gtk_text_iter_forward_lines(&itend, main_v->props.highlight_num_lines_count);
-		}
-		if (gtk_text_iter_forward_to_line_end(&itend)) {
-			gtk_text_iter_forward_char(&itend);
-		}
-#ifdef DEBUG
-		DEBUG_MSG("doc_highlight_line, itend is at %d\n", gtk_text_iter_get_offset(&itend));
-#endif
-		if (gtk_text_iter_get_offset(&itstart) == gtk_text_iter_get_offset(&itend)) {
-			DEBUG_MSG("doc_highlight_line start end end are the same, cannot highlight!!\n");
-			return;
-		}
+		gtk_text_buffer_get_iter_at_offset(doc->buffer,&itstart,startof);
+		gtk_text_buffer_get_iter_at_offset(doc->buffer,&itend,endof);
 
 		/* get all the tags that itstart is in */
 		taglist = gtk_text_iter_get_tags(&itstart);
@@ -1331,6 +1306,30 @@ void doc_highlight_line(Tdocument * doc)
 	}
 	doc->need_highlighting = FALSE;
 }
+
+void doc_highlight_line(Tdocument * doc) {
+	GtkTextIter itstart, itend;
+	GtkTextMark *mark = gtk_text_buffer_get_insert(doc->buffer);
+	gtk_text_buffer_get_iter_at_mark(doc->buffer, &itstart, mark);
+	/* move to the beginning of the line */
+	gtk_text_iter_set_line_offset(&itstart, 0);
+	if (main_v->props.highlight_num_lines_count) {
+		gtk_text_iter_backward_lines(&itstart, main_v->props.highlight_num_lines_count);
+	}
+	gtk_text_buffer_get_iter_at_mark(doc->buffer, &itend, mark);
+/*		gtk_text_iter_forward_to_line_end(&itend);
+	gtk_text_iter_set_line_offset(&itend, 0);*/
+	if (main_v->props.highlight_num_lines_count) {
+		gtk_text_iter_forward_lines(&itend, main_v->props.highlight_num_lines_count);
+	}
+	if (gtk_text_iter_forward_to_line_end(&itend)) {
+		gtk_text_iter_forward_char(&itend);
+	}
+	doc_highlight_region(doc, gtk_text_iter_get_offset(&itstart), gtk_text_iter_get_offset(&itend));
+}
+
+
+
 #ifdef HIGHLIGHTING_DEFAULTS_NOW_EXTERNAL
 void hl_reset_to_default()
 {
