@@ -58,22 +58,35 @@ static void image_insert_dialogok_lcb(GtkWidget * widget, Timage_diag *imdg) {
 		filename = gtk_editable_get_chars(GTK_EDITABLE(imdg->dg->entry[0]), 0, -1);
 		thumbnailfilename = create_thumbnail_filename(filename);
 		{
+			gchar *fullthumbfilename, *basedir = NULL;
 			gint w,h;
 			GError *error=NULL;
 			GdkPixbuf *tmp_im;
+			
+			/* the filename and thumbnailfilename can be relative paths to the current document */
+			if (filename[0] != '/' && imdg->dg->doc->filename && strlen(imdg->dg->doc->filename)) {
+				basedir = path_get_dirname_with_ending_slash(imdg->dg->doc->filename);
+			} else if (filename[0] == '/') {
+				basedir = path_get_dirname_with_ending_slash(filename);
+			}
+			/* we should use the full path to create the thumbnail filename */
+			fullthumbfilename = create_full_path(thumbnailfilename, basedir);
+			g_free(basedir);
+			DEBUG_MSG("image_insert_dialogok_lcb, thumbnail will be stored at %s\n", fullthumbfilename);
 			w = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(imdg->dg->spin[0]));
 			h = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(imdg->dg->spin[1]));
 			tmp_im = gdk_pixbuf_scale_simple(imdg->pb, w, h, GDK_INTERP_BILINEAR);
 			if (strcmp(main_v->props.image_thumbnailtype, "jpeg")==0) {
-	 			gdk_pixbuf_save(tmp_im,thumbnailfilename,main_v->props.image_thumbnailtype,&error, "quality", "50",NULL);
+	 			gdk_pixbuf_save(tmp_im,fullthumbfilename,main_v->props.image_thumbnailtype,&error, "quality", "50",NULL);
 			} else {
-				gdk_pixbuf_save(tmp_im,thumbnailfilename,main_v->props.image_thumbnailtype,&error, NULL);
+				gdk_pixbuf_save(tmp_im,fullthumbfilename,main_v->props.image_thumbnailtype,&error, NULL);
 			}
 			g_object_unref (tmp_im);
 			if (error) {
 				g_print("ERROR while saving thumbnail: %s\n", error->message);
 				g_error_free(error);
 			}
+			g_free(fullthumbfilename);
 		}
 		thestring = g_strconcat(cap("<A HREF=\""),filename, cap("\"><IMG SRC=\""), thumbnailfilename, "\"", NULL);
 		g_free(filename);
