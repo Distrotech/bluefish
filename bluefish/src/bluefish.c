@@ -151,8 +151,12 @@ int main(int argc, char *argv[])
 #endif /* #ifndef NOSPLASH */
 	/* set GTK settings, must be AFTER the menu is created */
 	{
+		gchar *shortcutfilename;
 		GtkSettings* gtksettings = gtk_settings_get_default();
 		g_object_set(G_OBJECT(gtksettings), "gtk-can-change-accels", TRUE, NULL); 
+		shortcutfilename = g_strconcat(g_get_home_dir(), "/.bluefish/menudump_2", NULL);
+		gtk_accel_map_load(shortcutfilename);
+		g_free(shortcutfilename);
 	}
 
 	gui_show_main();
