@@ -291,7 +291,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 		<sect2 id="bluefish-ch-4-sect-4.1">
 			<title>Navigation trough text and documents</title>
 			<para>The editing area is a standard gtk editing area. This means there are 
-		many keyboard shortcuts available to navigate trought the text.</para>
+		many keyboard shortcuts available to navigate trough the text.</para>
 			<itemizedlist>
 				<listitem>
 					<para>control+right-arrow will jump to the next word boundary</para>
@@ -406,7 +406,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 			pattern that has the lowest match. Using the default patterns for PHP,
 			the pattern named <literal>html</literal> has a match at position 0:</para>
 			<programlisting>&lt;p align="center"&gt;</programlisting>
-			<para>So now the highlightiong engine searches for the lowest match in
+			<para>So now the highlighting engine searches for the lowest match in
 			all subpatterns of<literal>html</literal>, in the region matched by the
 			type 2 <literal>html</literal> pattern. Again, the lowest match will
 			count. The pattern named <literal>html-tag</literal> has a match at
@@ -514,26 +514,26 @@ Obviously, #eeeeee should be your preferred background color.
 		<sect2 id="bluefish-ch-4-sect-9.6">
 			<title>File Types Preferences</title>
 			<para>
-			Here you can define all filestypes that should be reckognised by Bluefish. 
+			Here you can define all filetypes that should be recognised by Bluefish. 
 			The defaults for these filetypes are retrieved from a file called filetypes.default 
 			in ${prefix}/share/bluefish/.
 			</para>
 			<para>
 			The filetypes consist first of a name (this name is also used in the file filters, and in 
 			the highlighting patterns). Second is a list of extensions, separated by a colon (:). Third 
-			are the highlighting update characters. Upon a keypress of one of these characters, the highlighting 
+			are the highlighting update characters. Upon a key press of one of these characters, the highlighting 
 			engine will refresh the highlighting around the cursor. If this field is empty, any character 
 			will force the highlighting engine to refresh. Special characters like the tab and the newline 
 			can be entered as \t and \n, the backslash itself is entered as \\. Fifth is the icon location
 			for this filetype. Sixth is whether this filetype is editable by Bluefish (whether or not Bluefish
-			should try to open it after a doubleclick). Seventh is a regular expression that can be used to
+			should try to open it after a double click). Seventh is a regular expression that can be used to
 			detect the filetype if a file without extension is loaded. Eight is the auto-tag-closing mode. A 
 			value of 0 means that Bluefish should not close XML/HTML tags, a value of 1 means it should close 
 			the tags XML style (&lt;br /&gt;), a value of 2 means HTML style.
 			</para>
 		</sect2>
 		<sect2 id="bluefish-ch-4-sect-9.7">
-			<title>Syntax Highlightning Preferences</title>
+			<title>Syntax Highlighting Preferences</title>
 			<para>syntax highlighting, also see above</para>
 		</sect2>
 		<sect2 id="bluefish-ch-4-sect-9.8">
