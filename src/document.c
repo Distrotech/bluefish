@@ -3479,6 +3479,7 @@ void file_open_url_cb(GtkWidget * widget, Tbfwin *bfwin) {
  **/
 void file_open_cb(GtkWidget * widget, Tbfwin *bfwin) {
 	GList *tmplist;
+	DEBUG_MSG("file_open_cb, started, calling return_files()\n");
 	tmplist = return_files(NULL);
 	if (!tmplist) {
 		return;
@@ -3490,6 +3491,7 @@ void file_open_cb(GtkWidget * widget, Tbfwin *bfwin) {
 		g_free(message);
 		flush_queue();
 	}
+	DEBUG_MSG("file_open_cb, calling docs_new_from_files()\n");
 	docs_new_from_files(bfwin,tmplist, FALSE);
 	free_stringlist(tmplist);
 }
