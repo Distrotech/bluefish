@@ -17,10 +17,13 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-/* #define DEBUG*/
+#define DEBUG
 
 #include <gtk/gtk.h>
 #include <time.h> /* nanosleep() */
+#include <string.h> /* strchr() */
+
+
 #include "bluefish.h"
 #include "gui.h"
 #include "document.h" /* file_new_cb() */
@@ -564,6 +567,78 @@ static gboolean gui_main_window_configure_event_lcb(GtkWidget *widget,GdkEventCo
 	return FALSE;
 }
 
+enum {
+TARGET_URI_LIST,
+TARGET_STRING
+} Tdnd_types;
+static void main_win_on_drag_data_lcb(GtkWidget * widget, GdkDragContext * context
+			, gint x, gint y, GtkSelectionData * data
+			, guint info, guint time, void *client) {
+	gchar *filename, *url;
+	int mode = 0;
+	gint url_is_local;
+
+	if ((data->length == 0) || (data->format != 8) || ((info != TARGET_STRING) && (info != TARGET_URI_LIST))) {
+		DEBUG_MSG("on_drag_data_cb, currently unknown DnD object, need to do string comparision\n");
+		gtk_drag_finish(context, FALSE, TRUE, time);
+		return;
+	}
+
+	/* netscape sends URL's labelled as string */
+	if (info == TARGET_STRING) {
+		gchar *stringdata = g_strndup(data->data, data->length);
+		if (strchr(stringdata, ':')) {
+			DEBUG_MSG("on_drag_data_cb, TARGET_STRING contains :, so it's probably an URL\n");
+			info = TARGET_URI_LIST;
+		}
+		g_free(stringdata);
+	}
+
+	/* construct both filename and url from the given data */
+	if (info == TARGET_STRING) {
+		DEBUG_MSG("on_drag_data_cb, TARGET_STRING\n");
+		filename = g_strndup(data->data, data->length);
+		filename = trunc_on_char(trunc_on_char(filename, '\n'), '\r');
+		url = g_strconcat("file:", filename, NULL);
+		url_is_local = 1;
+	} else { /* TARGET_UTI_LIST*/
+		gchar *tmp2;
+		gint len;
+
+		DEBUG_MSG("on_drag_data_cb, TARGET_URI_LIST\n");
+		url = g_strndup(data->data, data->length);
+		url = trunc_on_char(trunc_on_char(url, '\n'), '\r');
+		if (strncmp(url, "file:", 5) == 0) {
+			gchar *tmp1;
+
+			tmp1 = strchr(url, ':');
+			tmp1++;
+			len = strlen(tmp1);
+			tmp2 = strrchr(url, '#');
+			if (tmp2) {
+				len -= strlen(tmp2);
+			}
+			filename = g_strndup(tmp1, len);
+			url_is_local = 1;
+		} else {
+			len = strlen(url);
+			tmp2 = strrchr(url, '#');
+			if (tmp2) {
+				len -= strlen(tmp2);
+			}
+			filename = g_strndup(url, len);
+			url_is_local = 0;
+		}
+	}
+	DEBUG_MSG("on_drag_data_cb, filename='%s', url='%s'\n", filename, url);
+
+	doc_new_with_file(filename, FALSE);
+
+	gtk_drag_finish(context, TRUE, (mode == GDK_ACTION_COPY), time);
+	g_free(filename);
+	g_free(url);
+
+}				
 void gui_create_main(GList *filenames) {
 	GtkWidget *vbox;
 	main_v->main_window = window_full(CURRENT_VERSION_NAME, GTK_WIN_POS_CENTER, 0, G_CALLBACK(main_window_delete_lcb), NULL);
@@ -646,8 +721,23 @@ void gui_create_main(GList *filenames) {
 
 	gtk_notebook_set_page(GTK_NOTEBOOK(main_v->notebook), 0);
 	gtk_notebook_set_scrollable(GTK_NOTEBOOK(main_v->notebook), TRUE);
-	gtk_widget_show(main_v->notebook);
 	/* don't use show_all since some widgets are and should be hidden */
+	gtk_widget_show(main_v->notebook);
+
+	{
+		/* drag n drop support */
+		const GtkTargetEntry drag_dest_types[] = {
+			{"text/uri-list", 0, TARGET_URI_LIST },
+			{"STRING", 0, TARGET_STRING},
+		};
+		gtk_drag_dest_set(main_v->main_window, (GTK_DEST_DEFAULT_ALL)
+				,drag_dest_types, 2
+				,(GDK_ACTION_DEFAULT | GDK_ACTION_COPY | GDK_ACTION_MOVE |
+				GDK_ACTION_LINK | GDK_ACTION_PRIVATE | GDK_ACTION_ASK));
+		g_signal_connect(G_OBJECT(main_v->main_window), "drag_data_received", G_CALLBACK(main_win_on_drag_data_lcb), NULL);
+	}
+	
+	
 }
 
 void gui_show_main() {
