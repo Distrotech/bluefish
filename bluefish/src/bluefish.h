@@ -287,6 +287,7 @@ typedef struct {
 	gint view_html_toolbar;
 	gint word_wrap;
 	Tsessionvars *session;
+	GtkTreeStore *bookmarkstore; /* project bookmarks */
 } Tproject;
 
 typedef struct {
@@ -337,6 +338,8 @@ typedef struct {
 	gpointer snr2;
 	gpointer fref;
 	gpointer bmark;
+	GtkTreeStore *bookmarkstore; /* this is a link to project->bookmarkstore OR main_v->bookmarkstore
+											  and it is only here for convenience !!!! */
 } Tbfwin;
 
 typedef struct {
@@ -348,6 +351,7 @@ typedef struct {
 	gpointer filebrowserconfig;
 	gpointer frefdata;
 	gpointer bmarkdata;
+	GtkTreeStore *bookmarkstore; /* the global bookmarks from the global session */
 	gint num_untitled_documents;
 	GtkTooltips *tooltips;
 	guint16 lastkp_hardware_keycode; /* for the autoclosing, we need to know the last pressed key, in the key release callback, */

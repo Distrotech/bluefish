@@ -171,6 +171,7 @@ void project_open_from_file(Tbfwin *bfwin, gchar *fromfilename) {
 
 	prj = g_new0(Tproject,1);
 	prj->session = g_new0(Tsessionvars,1);
+	prj->bookmarkstore = gtk_tree_store_new(2, G_TYPE_STRING, G_TYPE_POINTER); 
 	retval = rcfile_parse_project(prj, fromfilename);
 	if (!retval) {
 		DEBUG_MSG("project_open_from_file, failed parsing the project at file %s\n",fromfilename);
@@ -202,9 +203,11 @@ void project_open_from_file(Tbfwin *bfwin, gchar *fromfilename) {
 		DEBUG_MSG("project_open_from_file, new window with files ready\n");
 		gui_set_title(prwin, prwin->current_document);
 	}
+	prwin->bookmarkstore = prj->bookmarkstore;
 	set_project_menu_widgets(prwin, TRUE);
 	recent_menu_init_project(prwin);
    bmark_reload(bfwin);
+   bmark_set_model(bfwin);
 }
 
 static void project_open(Tbfwin *bfwin) {
@@ -220,6 +223,7 @@ static void project_open(Tbfwin *bfwin) {
 }
 
 static void project_destroy(Tproject *project) {
+	g_object_unref(G_OBJECT(project->bookmarkstore));
 	free_stringlist(project->files);
 	free_session(project->session);
 	g_free(project->filename);
@@ -240,7 +244,9 @@ gboolean project_save_and_close(Tbfwin *bfwin) {
 			project_destroy(bfwin->project);
 			/* the window gets the global session again */
 			bfwin->session = main_v->session;
+			bfwin->bookmarkstore = main_v->bookmarkstore;
 			bfwin->project = NULL;
+			bmark_set_store(bfwin);
 			gui_set_title(bfwin, bfwin->current_document);
 			filebrowser_set_basedir(bfwin, NULL);
 			recent_menu_from_file(bfwin, "/.bluefish/recentlist", FALSE);
