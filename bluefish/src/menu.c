@@ -136,17 +136,20 @@ static void menu_file_operations_cb(Tbfwin *bfwin,guint callback_action, GtkWidg
 	case 24:
 		file_close_all_cb(NULL,bfwin);
 	break;
-#ifdef HAVE_GNOME_VFS
 	case 25:
 		file_open_url_cb(NULL, bfwin);
 	break;
-#endif
 	case 26:
 		file_open_from_selection(bfwin);
 	break;
 	case 27:
 		search_from_selection(bfwin);
 	break;
+#ifdef HAVE_PYTHON
+	case 99:
+		pythonRun(bfwin, "/home/olivier/cvsbluefish/testpython.py");
+	break;
+#endif
 	default:
 		g_print("menu_file_operations_cb, unknown action, abort!\n");
 		exit(123);
@@ -308,6 +311,9 @@ static void toggle_doc_property(Tbfwin *bfwin,guint callback_action, GtkWidget *
 static GtkItemFactoryEntry menu_items[] = {
 	{N_("/_File"), NULL, NULL, 0, "<Branch>"},
 	{N_("/File/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
+#ifdef HAVE_PYTHON
+	{N_("/File/TestPython"), NULL, menu_file_operations_cb, 99, "<Item>"},
+#endif
 	{N_("/File/_New"), "<control>n", menu_file_operations_cb, 1, "<StockItem>", GTK_STOCK_NEW},
 	{N_("/File/New _Window"), "<shift><control>n", gui_window_menu_cb, 1, "<Item>"},	
 	{N_("/File/_Open..."), "<control>O", menu_file_operations_cb, 2, "<StockItem>", GTK_STOCK_OPEN},
