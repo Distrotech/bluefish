@@ -60,7 +60,8 @@ clean:
 	-test -r /usr/share/misc/config.guess && \
 		cp -f /usr/share/misc/config.guess config.guess
 	
-	aclocal-1.7 && autoconf
+	#aclocal-1.7
+	autoconf
 	dh_clean
 
 install: build
