@@ -605,8 +605,8 @@ gint file_exists_and_readable(const gchar * filename)
 	g_assert(filename);
 #endif
 
-	if (strlen(filename) < 2) {
-		DEBUG_MSG("file_exists_and_readable, strlen(filename) < 2!!!!\n");
+	if (!filename || strlen(filename) < 2) {
+		DEBUG_MSG("file_exists_and_readable, strlen(filename) < 2 or no filename!!!!\n");
 		return 0;
 	}
 	DEBUG_MSG("file_exists_and_readable, filename(%p)=\"%s\", strlen(filename)=%d\n", filename, filename, strlen(filename));
@@ -622,6 +622,22 @@ gint file_exists_and_readable(const gchar * filename)
 #else
 	return (1);
 #endif
+}
+
+gchar *return_first_existing_filename(const gchar *filename, ...) {
+	va_list args;
+	gchar *retval=NULL;
+
+	va_start(args, filename);
+	while (filename) {
+		if (file_exists_and_readable(filename)) {
+			retval = filename;
+			break;
+		}
+		filename = va_arg(args, gchar*);
+	}
+	va_end(args);
+	return retval;
 }
 
 /*  gboolean filename_test_extensions(gchar **extensions, gchar *filename)

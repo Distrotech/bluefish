@@ -1061,41 +1061,21 @@ void filebrowser_filters_rebuild() {
 GtkWidget *filebrowser_init() {
 	if (!filebrowser.curfilter) {
 		GList *tmplist;
+		gchar *filename;
 		filebrowser.uid = getuid();
+
+		filename = return_first_existing_filename(main_v->props.filebrowser_unknown_icon,
+						"icon_unknown.png","../icons/icon_unknown.png",
+						"icons/icon_unknown.png",NULL);
+	
+		filebrowser.unknown_icon = gdk_pixbuf_new_from_file(filename, NULL);
 		
-		filebrowser.unknown_icon = gdk_pixbuf_new_from_file(main_v->props.filebrowser_unknown_icon, NULL);
-		filebrowser.dir_icon = gdk_pixbuf_new_from_file(main_v->props.filebrowser_dir_icon, NULL);
-		/* try the current directory */
-		if (!filebrowser.unknown_icon) {
-			filebrowser.unknown_icon = gdk_pixbuf_new_from_file("icon_unknown.png", NULL);
-			if (!filebrowser.unknown_icon) {
-				filebrowser.unknown_icon = gdk_pixbuf_new_from_file("../icons/icon_unknown.png", NULL);
-				if (!filebrowser.unknown_icon) {
-					filebrowser.unknown_icon = gdk_pixbuf_new_from_file("icons/icon_unknown.png", NULL);
-					if (!filebrowser.unknown_icon) {
-						gchar *tmpstr;
-						tmpstr = g_strconcat(g_get_home_dir(), ".bluefish/icons/icon_unknown.png", NULL);
-						filebrowser.unknown_icon = gdk_pixbuf_new_from_file(tmpstr, NULL);
-						g_free(tmpstr);
-					}
-				}
-			}
-		}
-		if (!filebrowser.dir_icon) {
-			filebrowser.dir_icon = gdk_pixbuf_new_from_file("icon_dir.png", NULL);
-			if (!filebrowser.dir_icon) {
-				filebrowser.dir_icon = gdk_pixbuf_new_from_file("../icons/icon_dir.png", NULL);
-				if (!filebrowser.dir_icon) {
-					filebrowser.dir_icon = gdk_pixbuf_new_from_file("icons/icon_dir.png", NULL);
-					if (!filebrowser.dir_icon) {
-						gchar *tmpstr;
-						tmpstr = g_strconcat(g_get_home_dir(), ".bluefish/icons/icon_dir.png", NULL);
-						filebrowser.dir_icon = gdk_pixbuf_new_from_file(tmpstr, NULL);
-						g_free(tmpstr);
-					}
-				}
-			}
-		}
+		filename = return_first_existing_filename(main_v->props.filebrowser_dir_icon,
+						"icon_dir.png","../icons/icon_dir.png",
+						"icons/icon_dir.png",NULL);
+
+		filebrowser.dir_icon = gdk_pixbuf_new_from_file(filename, NULL);
+
 		if (!filebrowser.dir_icon || !filebrowser.unknown_icon) {
 			g_print("the dir_icon and unknown_icon items in the config file are invalid\n");
 			return gtk_label_new("cannot load icons");
