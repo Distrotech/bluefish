@@ -549,13 +549,7 @@ gboolean test_only_empty_doc_left(GList *doclist) {
  * Return value: gboolean
  **/
 gboolean doc_has_selection(Tdocument *doc) {
-	GtkTextMark* tmp;
-	GtkTextIter itinsert, itselect;
-	tmp = gtk_text_buffer_get_insert(doc->buffer);
-	gtk_text_buffer_get_iter_at_mark(doc->buffer,&itinsert,tmp);
-	tmp = gtk_text_buffer_get_selection_bound(doc->buffer);
-	gtk_text_buffer_get_iter_at_mark(doc->buffer,&itselect,tmp);
-	return (!gtk_text_iter_equal(&itinsert, &itselect));
+	return gtk_text_buffer_get_selection_bounds(doc->buffer,NULL,NULL);
 }
 /**
  * doc_set_modified:

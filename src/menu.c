@@ -21,7 +21,7 @@
 #include <stdlib.h> /* atoi */
 #include <string.h> /* strchr() */
 
-/* #define DEBUG */
+/* #define DEBUG*/
 
 #include "bluefish.h"
 #include "document.h"			/* file_open etc. */
