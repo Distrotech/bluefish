@@ -213,6 +213,9 @@ void outputbox_make() {
 }
 
 void outputbox_weblint() {
-	outputbox("([a-zA-Z0-9/_.-]+)\\(([0-9]+)\\): (.*)",1,2,3,"weblint", TRUE);
+	outputbox("([a-zA-Z0-9/_.-]+)\\(([0-9]+)\\): (.*)",1,2,3,"weblint %s", TRUE);
 }
 
+void outputbox_tidy() {
+	outputbox("line ([0-9]+) column [0-9]+ - (.*)",-1,1,2,"tidy -qe %s", FALSE);
+}
