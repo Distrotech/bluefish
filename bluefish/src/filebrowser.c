@@ -17,8 +17,8 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-/*#define DEBUG
-#define DEBUG_ADDING_TO_TREE*/
+/* #define DEBUG */
+/*#define DEBUG_ADDING_TO_TREE*/
 
 #include <gtk/gtk.h>
 #include <sys/types.h> /* stat() getuid */
@@ -971,14 +971,17 @@ static void filebrowser_rpopup_rename_lcb(GtkWidget *widget, gpointer data) {
 	} else {
 		/* Refresh the appropriate parts of the filebrowser. */
 		char *tmp;
-				
-		tmp = g_path_get_dirname(oldfilename);
-		filebrowser_refresh_dir(ending_slash(tmp));
-		g_free(tmp);
 
-		tmp = g_path_get_dirname(newfilename);
+		tmp = g_path_get_dirname(oldfilename);
+		DEBUG_MSG("Got olddirname %s\n", tmp);
 		filebrowser_refresh_dir(ending_slash(tmp));
 		g_free(tmp);
+		
+		if ((tmp = g_path_get_dirname(newfilename))) { /* Don't refresh the NULL-directory.. */
+			DEBUG_MSG("Got newdirname %s\n", tmp);
+			filebrowser_refresh_dir(ending_slash(tmp));
+			g_free(tmp);
+		}
 	} /* if(error) */
 	
 	g_free(oldfilename);
