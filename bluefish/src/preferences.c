@@ -1,6 +1,7 @@
 /* #define DEBUG */
 
 #include <gtk/gtk.h>
+#include <string.h> /* strcmp() */
 
 #include "bluefish.h"
 #include "stringlist.h" /* duplicate_arraylist*/
@@ -321,7 +322,7 @@ static void create_filetype_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 static void add_new_filefilter_lcb(GtkWidget *wid, Tprefdialog *pd) {
 	GList *poplist;
 	gchar *newtype = gtk_editable_get_chars(GTK_EDITABLE(pd->ffd.entry[0]),0,-1);
-	gchar **strarr = g_new(gpointer, 4);
+	gchar **strarr = (gchar **)g_new(gpointer, 4);
 	strarr[0] = newtype;
 	strarr[1] = g_strdup("1");
 	strarr[2] = g_strdup("");
@@ -997,7 +998,7 @@ static void preferences_dialog() {
 	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
 	vbox2 = gtk_vbox_new(FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(frame), vbox2);
-	pd->prefs[tab_font_string] = prefs_string(_("Notebook tab font"), main_v->props.tab_font_string, vbox2, pd, font);
+	pd->prefs[tab_font_string] = prefs_string(_("Notebook tab font"), main_v->props.tab_font_string, vbox2, pd, string_font);
 	pd->prefs[transient_htdialogs] = boxed_checkbut_with_value(_("Make HTML dialogs transient"), main_v->props.transient_htdialogs, vbox2);
 
 	frame = gtk_frame_new(_("File browser"));

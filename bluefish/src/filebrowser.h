@@ -23,5 +23,5 @@
 void filebrowser_refresh_dir(gchar *dir);
 void filebrowser_open_dir(gchar *dir);
 GtkWidget *filebrowser_init();
-
+void filebrowser_scroll_initial();
 #endif /* __FILEBROWSER_H_ */

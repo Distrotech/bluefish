@@ -71,26 +71,26 @@ static int is_duplicated(gchar **new_values, Testrl *estrl) {
     retval = gtk_clist_get_text(GTK_CLIST(estrl->clist), row, 0, &tmpstring);
     while (retval == 1 && !duplicated) {
       tmparray = g_malloc(((estrl->num_columns ? estrl->num_columns : 1)+2)*sizeof(char *));
-      for (i = 0; i < (estrl->num_columns ? estrl->num_columns  : 1); i++) {
-	gtk_clist_get_text(GTK_CLIST(estrl->clist), row, i, &tmpstring);
-	tmparray[i] = g_strdup(tmpstring);
-      }
+		for (i = 0; i < (estrl->num_columns ? estrl->num_columns  : 1); i++) {
+			gtk_clist_get_text(GTK_CLIST(estrl->clist), row, i, &tmpstring);
+			tmparray[i] = g_strdup(tmpstring);
+		}
       tmparray[i] = NULL;
 
       duplicated = 1;
-      if (estrl->num_columns == 0) {
-	if (strcmp((gchar *) tmparray[0], new_values[0]) != 0) {
-	  duplicated = 0;
-	}
-      } else {
-	for (i = 0; i < estrl->num_columns; i++) {
-	  DEBUG_MSG("old_values[%d]='%s'\n", i, tmparray[i]);
-	  DEBUG_MSG("new_values[%d]='%s'\n", i, new_values[i]);
-	  if (strcmp(tmparray[i], new_values[i]) != 0) {
-	    duplicated = 0;
-	  }
-        }
-      }
+		if (estrl->num_columns == 0) {
+			if (strcmp((gchar *) tmparray[0], new_values[0]) != 0) {
+				duplicated = 0;
+			}
+		} else {
+			for (i = 0; i < estrl->num_columns; i++) {
+				DEBUG_MSG("old_values[%d]='%s'\n", i, tmparray[i]);
+				DEBUG_MSG("new_values[%d]='%s'\n", i, new_values[i]);
+				if (strcmp(tmparray[i], new_values[i]) != 0) {
+					duplicated = 0;
+				}
+			}
+		}
       row++;
       retval = gtk_clist_get_text(GTK_CLIST(estrl->clist), row, 0, &tmpstring);
     }
@@ -196,7 +196,7 @@ static void estrl_add_clicked_lcb(GtkWidget * widget, Testrl *estrl) {
 
     tmplistentry = g_malloc(((estrl->num_columns ? estrl->num_columns : 1)+2)*sizeof(char *));
     for (len = i = 0; i < (estrl->num_columns ? estrl->num_columns  : 1); i++) {
-		tmplistentry[i] = gtk_entry_get_text(GTK_ENTRY(estrl->ins_upd_entry[i]));
+		tmplistentry[i] = gtk_editable_get_chars(GTK_EDITABLE(estrl->ins_upd_entry[i]),0,-1);
 		len += strlen(tmplistentry[i]);
 		DEBUG_MSG("tmplistentry[%d]='%s'\n", i, tmplistentry[i]);
     }
@@ -204,6 +204,10 @@ static void estrl_add_clicked_lcb(GtkWidget * widget, Testrl *estrl) {
     if(len) {
 		if(!is_duplicated(tmplistentry, estrl)) {
 			gtk_clist_append(GTK_CLIST(estrl->clist), tmplistentry);
+			/* does this introduce a memory leak?
+			I'm not going to look at it since we need to get rid of the clist anyway 
+			(gtk deprecated)
+			*/
 		} else {
 			g_free(tmplistentry);
 		}
