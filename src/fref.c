@@ -148,14 +148,18 @@ typedef struct {
   gchar *description; 
 } Tfref_name_data;
 
+#ifdef DEBUG
+static void free_with_print(gpointer ptr) {
+	DEBUG_MSG("free_wp: free'ing %p\n",ptr);
+	g_free(ptr);
+}
+#endif
 void fref_free_info(FRInfo * info) {
 	FRAttrInfo *tmpa;
 	FRParamInfo *tmpp;
 	GList *lst;
 	DEBUG_MSG("fref_free_info, freeing info->name=%s\n",info->name);
-	/* I HACE CREATED A MEMORY LEAK HERE, BUT IT CRASHES ON UNLOADING A REFERENCE
-	IF I DO NOT CREATE THE LEAK.... */
-/*	g_free(info->name);*/
+	g_free(info->name);
 	g_free(info->description);
 	g_free(info->tip);
 	g_free(info->return_type);
@@ -286,7 +290,7 @@ void fref_loader_start_element(GMarkupParseContext * context,
 			aux->act_info = info;
 			rref = gtk_tree_row_reference_new(GTK_TREE_MODEL(aux->store),
 			           gtk_tree_model_get_path(GTK_TREE_MODEL(aux->store),&iter));
-			g_hash_table_insert(aux->dict,info->name,rref);           
+			g_hash_table_insert(aux->dict,g_strdup(info->name),rref);           
 		} else if (strcmp(element_name, "function") == 0) {
 			aux->state = FR_LOADER_STATE_FUNC;
 			aux->pstate = FR_LOADER_STATE_NONE;
@@ -299,7 +303,7 @@ void fref_loader_start_element(GMarkupParseContext * context,
 			aux->act_info = info;
 			rref = gtk_tree_row_reference_new(GTK_TREE_MODEL(aux->store),
 			           gtk_tree_model_get_path(GTK_TREE_MODEL(aux->store),&iter));
-			g_hash_table_insert(aux->dict,info->name,rref);           			
+			g_hash_table_insert(aux->dict,g_strdup(info->name),rref);           			
 		} else if (strcmp(element_name, "class") == 0) {
 			aux->state = FR_LOADER_STATE_CLASS;
 			aux->pstate = FR_LOADER_STATE_NONE;
@@ -312,7 +316,7 @@ void fref_loader_start_element(GMarkupParseContext * context,
 			aux->act_info = info;
 			rref = gtk_tree_row_reference_new(GTK_TREE_MODEL(aux->store),
 			           gtk_tree_model_get_path(GTK_TREE_MODEL(aux->store),&iter));
-			g_hash_table_insert(aux->dict,info->name,rref);           			
+			g_hash_table_insert(aux->dict,g_strdup(info->name),rref);           			
 		} else if (strcmp(element_name, "ref") == 0) {
 		} else
 			g_warning("FREF Config Error: Unknown element");
