@@ -50,24 +50,24 @@ static void php_var_insert_cb(GtkWidget *widget, Thtml_diag *dg) {
 		gchar *tmp3=NULL;
 		switch (dg->php_var_ins.type) {
 		case PHPFORM_TYPE_TEXT:
-			tmp2 = g_strdup_printf("<?php if (isset($%s)) { echo $%s; } ?>",tmp,tmp);
+			tmp2 = g_strdup_printf("<?php if (isset($_POST['%s'])) { echo $%s; } ?>",tmp,tmp);
 		break;
 		case PHPFORM_TYPE_RADIO:
 			tmp3 = gtk_editable_get_chars(GTK_EDITABLE(dg->php_var_ins.src2), 0, -1);
 			if (strlen(tmp3)) {
 				if (main_v->props.xhtml == 1) {
-					tmp2 = g_strdup_printf("<?php if ($%s==\"%s\") { echo 'checked=\\\"checked\\\"'; } ?>",tmp,tmp3);
+					tmp2 = g_strdup_printf("<?php if ($_POST['%s']==\"%s\") { echo 'checked=\\\"checked\\\"'; } ?>",tmp,tmp3);
 				} else {
-					tmp2 = g_strdup_printf("<?php if ($%s==\"%s\") { echo 'checked'; } ?>",tmp,tmp3);
+					tmp2 = g_strdup_printf("<?php if ($_POST['%s']==\"%s\") { echo 'checked'; } ?>",tmp,tmp3);
 				}
 				g_free(tmp3);
 			}
 		break;
 		case PHPFORM_TYPE_CHECK:
 			if (main_v->props.xhtml == 1) {
-				tmp2 = g_strdup_printf("<?php if (isset($%s)) { echo 'checked=\\\"checked\\\"'; } ?>",tmp);
+				tmp2 = g_strdup_printf("<?php if (isset($_POST['%s'])) { echo 'checked=\\\"checked\\\"'; } ?>",tmp);
 			} else {
-				tmp2 = g_strdup_printf("<?php if (isset($%s)) { echo 'checked'; } ?>",tmp);
+				tmp2 = g_strdup_printf("<?php if (isset($_POST['%s'])) { echo 'checked'; } ?>",tmp);
 			}
 		break;
 		}
@@ -327,7 +327,7 @@ static void buttondialogok_lcb(GtkWidget * widget, Thtml_diag *dg)
 	thestring = g_strdup(cap("<INPUT"));
 	thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(dg->entry[1])), cap("NAME"), thestring, NULL);
 	thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(dg->entry[2])), cap("VALUE"), thestring, NULL);	
-	thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(GTK_COMBO(dg->combo[1])->entry)), cap("TYPE"), thestring, NULL);	
+	thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(GTK_COMBO(dg->combo[1])->entry)), cap("TYPE"), thestring, NULL);
 	thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(dg->entry[3])), NULL, thestring, NULL);
 
 	if (main_v->props.xhtml == 1) {
@@ -370,7 +370,7 @@ void buttondialog_dialog(Tbfwin *bfwin, Ttagpopup *data) {
 	tmplist = g_list_append(tmplist, "submit");
 	tmplist = g_list_append(tmplist, "reset");
 	tmplist = g_list_append(tmplist, "button");
-	dg->combo[1] = combo_with_popdown(tagvalues[2], tmplist, 0);
+	dg->combo[1] = combo_with_popdown((tagvalues[2] == NULL || tagvalues[2][0] == '\0') ? "submit" : tagvalues[2], tmplist, 0);
 	g_list_free(tmplist);
 	bf_mnemonic_label_tad_with_alignment(_("_Type:"), dg->combo[1], 0, 0.5, dgtable, 0, 1, 2, 3);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(dg->combo[1]), 1, 9, 2, 3);
