@@ -65,13 +65,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
       <listitem>
          grep &amp; find 
 
-        <emphasis>- used by the <xref linkend="open-advanced">advanced open dialog</xref></emphasis>
-
-        . 
-
-        <remark>Remember to add link to the advanced open description</remark>
-
-         
+        <emphasis>- used by the <xref linkend="open-advanced">advanced open dialog</xref></emphasis>.         
       </listitem>
     </itemizedlist>
 
@@ -118,9 +112,9 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
     <title>Quick Standard Installation</title>
 
     <para>There are two main methods for installing Bluefish: Compile from
-    source or install a binary package. Binary installation is the easiest to
-    do, so we'll cover that first. There are a few different approaches,
-    caused by the differences between systems. We'll start off by summarizing
+    source or install a binary package. Binary installation is easiest, so we 
+    will cover that first. There are a few different approaches,
+    caused by the differences between systems. We will start off by summarizing
     a few really quick and simple approaches before dealing with this problem
     more extensively.</para>
 
@@ -200,8 +194,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
     <para>By installing Bluefish from source, you may be able to get a newer
     version (from CVS) than those distributed as binaries. You may also need
-    to compile from source if there is no available binary for your
-    system.</para>
+    to compile from source if no binary is available for your system.</para>
 
     <sect2 id="installing-bluefish-quick-overview">
       <title>Quick Installation Overview</title>
@@ -253,10 +246,10 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
       find the appropriate settings for your system. Because of differences
       between systems, this compile-time configuration is necessary, and
       configure solves this challenge easily -- with an added bonus of telling
-      whether you have everything you need to compile.</para>
+      whether you have everything needed to compile.</para>
 
       <para>The configure-script can be, um, configured. This is something you
-      most likely won't need to do, but it's easy to do if necessary. For a
+      most likely will not need to do, but it is easy to do if necessary. For a
       complete list of configure options, see <xref
       linkend="installing-bluefish-configure" /></para>
     </sect2>
@@ -266,9 +259,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
       <para>You can get the latest Bluefish version via CVS using the
       instructions in <xref linkend="getting-bluefish-cvs" /> Enter the
-      directory containing the bluefish source files: <screen>$ cd bluefish-gtk</screen>
-      Next, you need to generate the configure script. That's accomplished by
-      running <screen>$ autoconf</screen> Then, you run
+      directory containing the bluefish source files: <screen>$ cd bluefish-gtk2</screen>
+      Next, generate the configure script by running <screen>$ autoconf</screen> Then, you run
       <literal>configure</literal> with whatever options you might want. This
       example will cause <literal>make install</literal> to install Bluefish
       with the specified directory as prefix (i.e. the binary is installed in
@@ -276,7 +268,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
       not what you want -- just run configure without parameters instead.
       <screen>$ ./configure --prefix=/usr/local/bf-cvs</screen></para>
 
-      <para>If configure fails, it'll probably give a hint telling you what's
+      <para>If configure fails, it will probably give a hint telling you what is
       missing or wrong. Assuming it completed successfully, your next step is
       to compile Bluefish. To do this, run <screen>$ make</screen> When
       <literal>make</literal> has completed, you can install Bluefish:
@@ -291,10 +283,10 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
     <sect2 id="installing-bluefish-problems">
       <title>Problems Compiling?</title>
 
-      <para>Can't compile? Well, your first step is to make sure you have the
+      <para>If compilation fails, first make sure you have the
       necessary utilities and libraries. See <xref
       linkend="installing-bluefish-requirements" />. Next, see if your system is mentioned
-      in <xref linkend="installing-bluefish-specific-issues" />. Below is list of well known
+      in <xref linkend="installing-bluefish-specific-issues" />. Below is a list of well known
       problems that have been mentioned on the bluefish-dev list. If you're
       unable to find a solution (or if you think you have a solution others
       might want), feel free to contact us on the
@@ -904,30 +896,30 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
   <sect1 id="installing-bluefish-binary">
     <title>Installing a Binary Distribution</title>
 
-    <para>Different packages -- different installation. We'll cover only a few
+    <para>Different packages -- different installation. We will cover only a few
     approaches here <footnote>
         <para>If you want to contribute a description on how to install
         Bluefish on your system, just drop us a note. :-)</para>
       </footnote> , since the installation is very system-specific ;-). Lets
     have a look at some different systems:</para>
 
-    <para>For Debian users this is very simple. To download, install and
-    configure bluefish in One Swift Move, run <screen>$ su - &amp;&amp; apt-get update &amp;&amp; apt-get install bluefish</screen>
+    <para>For Debian users this is very simple. To download, install, and
+    configure bluefish in <quote>One Swift Move</quote>, run <screen>$ su - &amp;&amp; apt-get update &amp;&amp; apt-get install bluefish</screen>
     You can check if the version available through apt is the latest -- see
     the Bluefish homepage, and compare the version there with what
-    <userinput>apt-cache show bluefish</userinput> tells you. If there's a
+    <userinput>apt-cache show bluefish</userinput> tells you. If there is a
     newer version on the Bluefish site, download it and install the package
     like this: <userinput>dpkg -i bluefish-ver.deb</userinput></para>
 
     <para>For rpm based distributions, first check if your distribution has a
     recent Bluefish version. If it does not, download the rpm for your
-    distribution from any of the Bluefish mirrors. Next, installing a
+    distribution from any of the Bluefish mirrors. Installing a
     downloaded rpm is as simple as pointing and clicking in your favourite GUI
     package manager, or issuing the following command from the command line:
     (as root) <screen># rpm -Uvh bluefish-ver.rpm</screen></para>
 
-    <para>If you're using FreeBSD, NetBSD or OpenBSD, we probably won't need
-    to tell <emphasis>you</emphasis> how to use your favourite package system.
+    <para>If you're using FreeBSD, NetBSD or OpenBSD, we probably do not need
+    to tell <emphasis>you</emphasis> how to use your favorite package system.
     ;-)</para>
   </sect1>
 
@@ -935,14 +927,14 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
     <title>Post-installation Setup</title>
 
     <para>The first time you run Bluefish it will create a directory
-    <literal>~/.bluefish</literal> where all configuration is stored. This
-    includes all preferences, customized menus, highlighting-patterns, file
-    history etc.</para>
+    <literal>~/.bluefish</literal> where all Bluefish's configuration options 
+    are stored. This includes all preferences, customized menus, 
+    highlighting-patterns, file history etc.</para>
 
     <para>Bluefish will work right out of the box, but you can and should take
-    advantage of the many customizations you are able to do. Change the font
-    in the main text view if you don't like it, remove unused tool bars, add
-    shortcuts to the customizable menu and edit the list of browsers and
+    advantage of the many customizations available. Change the font
+    in the main text view if you do not like it, remove unused tool bars, add
+    shortcuts to the customizable menu, and edit the list of browsers and
     external programs.</para>
 
     <para>If you are upgrading from a previous version, perhaps CVS, you
@@ -952,12 +944,12 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
     <literal>~/.bluefish</literal> directory. Next time Bluefish is started,
     the new defaults will be loaded. Note that this will also annihilate all
     your changes to the highlighting. A more gentle approach may be to move
-    your current highlighting-file to highlighting.old, start Bluefish to get
+    your current highlighting file to highlighting.old, start Bluefish to get
     the new patterns, exit bluefish, and then run <userinput>diff -c
     highlighting.old highlighting</userinput> to find the differences..</para>
 
-    <para>If your settings should happen to be corrupted, for some reason
-    unusable, or you simply want to revert to the defaults, you may safely
-    delete the <literal>~/.bluefish</literal> directory.</para>
+    <para>If your settings become corrupted, unusable, or you simply want to 
+    revert to the defaults, you may safely delete the <literal>~/.bluefish</literal> 
+    directory.</para>
   </sect1>
 </chapter>
