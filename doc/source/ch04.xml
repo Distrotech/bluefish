@@ -509,7 +509,23 @@ don&#39;t change style(0), non-italic(1), italic(2): </programlisting>
     <sect2 id="bluefish-ch-4-sect-9.6">
       <title>File Types Preferences</title>
 
-      <para>file types</para>
+      <para>Here you can define all filestypes that should be reckognised by Bluefish. 
+      The defaults for these filetypes are retrieved from a file called filetypes.default 
+      in ${prefix}/share/bluefish/.</para>
+      
+      <para>
+      The filestypes consist first of a name (this name is also used in the file filters, and in 
+      the highlighting patterns). Second is a list of extensions, separated by a colon (:). Third 
+      are the highlighting update characters. Upon a keypress of one of these characters, the highlighting 
+      engine will refresh the highlighting around the cursor. If this field is empty, any character 
+      will force the highlighting engine to refresh. Special characters like the tab and the newline 
+      can be entered as \t and \n, the backslash itself is entered as \\. Fifth is the icon location
+      for this filetype. Sixth is whether this filetype is editable by Bluefish (whether or not Bluefish
+      should try to open it after a doubleclick). Seventh is a regular expression that can be used to
+      detect the filetype if a file without extension is loaded. Eight is the auto-tag-closing mode. A 
+      value of 0 means that Bluefish should not close XML/HTML tags, a value of 1 means it should close 
+      the tags XML style (&lt;br /&gt;), a value of 2 means HTML style.
+      </para>
     </sect2>
 
     <sect2 id="bluefish-ch-4-sect-9.7">
