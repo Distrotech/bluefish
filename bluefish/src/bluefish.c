@@ -27,6 +27,10 @@
 
 #include "bluefish.h"
 
+#ifdef HAVE_GNOME_VFS
+#include <libgnomevfs/gnome-vfs.h>
+#endif
+
 #ifdef ENABLE_NLS
 #include <locale.h>
 #endif
@@ -126,7 +130,9 @@ int main(int argc, char *argv[])
 	textdomain(PACKAGE);                                                    
 #endif    
 	gtk_init(&argc, &argv);
-	
+#ifdef HAVE_GNOME_VFS
+	gnome_vfs_init();
+#endif
 	main_v = g_new0(Tmain, 1);
 	DEBUG_MSG("main, main_v is at %p\n", main_v);
 	

@@ -29,13 +29,18 @@
 #include <time.h>			/* ctime_r() */
 #include <pcre.h>
 
-/*#define DEBUG*/
+/* #define DEBUG */
 
 #ifdef DEBUGPROFILING
 #include <sys/times.h>
 #endif
 
 #include "bluefish.h"
+
+#ifdef HAVE_GNOME_VFS
+#include <libgnomevfs/gnome-vfs.h>
+#endif
+
 #include "document.h"
 #include "highlight.h" /* all highlight functions */
 #include "gui.h" /* statusbar_message() */
@@ -1082,7 +1087,58 @@ static void add_encoding_to_list(gchar *encoding) {
 	}
 }
 
-#define STARTING_BUFFER_SIZE 4096
+#ifdef HAVE_GNOME_VFS
+#define STARTING_BUFFER_SIZE 8192
+static gchar *get_buffer_from_filename(Tbfwin *bfwin, gchar *filename, unsigned long long *returnsize) {
+	GnomeVFSHandle *handle;
+	GnomeVFSResult result;
+	GnomeVFSFileSize bytes_read;
+	gchar chunk[STARTING_BUFFER_SIZE];
+	unsigned long long buffer_size = STARTING_BUFFER_SIZE;
+	gchar *buffer;
+
+	DEBUG_MSG("get_buffer_from_filename, started for %s\n",filename);
+	result = gnome_vfs_open (&handle, filename, GNOME_VFS_OPEN_READ);
+	if (result != GNOME_VFS_OK) {
+		/* error to the user */
+		DEBUG_MSG("get_buffer_from_filename, ERROR (result=%d), returning NULL\n",result);
+		return NULL;
+	}
+	buffer = g_malloc(1+(buffer_size * sizeof(gchar)));
+	while (result == GNOME_VFS_OK) {
+		result = gnome_vfs_read(handle, chunk, STARTING_BUFFER_SIZE, &bytes_read);
+		memcpy(&buffer[buffer_size-STARTING_BUFFER_SIZE], chunk, STARTING_BUFFER_SIZE);
+		DEBUG_MSG("get_buffer_from_filename, copy %lld bytes to position %lld, size=%lld\n",(long long)STARTING_BUFFER_SIZE, (long long)buffer_size-STARTING_BUFFER_SIZE, (long long)bytes_read);
+		if (bytes_read == STARTING_BUFFER_SIZE) {
+			buffer_size += STARTING_BUFFER_SIZE;
+			buffer = g_realloc(buffer, 1+(buffer_size * sizeof(gchar)));
+		} else {
+			DEBUG_MSG("get_buffer_from_filename, size=%lld, terminating buffer at %lld\n",bytes_read,buffer_size-STARTING_BUFFER_SIZE+bytes_read);
+			buffer[buffer_size-STARTING_BUFFER_SIZE+bytes_read] = '\0';
+			*returnsize= buffer_size-STARTING_BUFFER_SIZE+bytes_read;
+			break;
+		}
+	}	
+	return buffer;
+}
+#else /* no gnome-vfs */
+static gchar *get_buffer_from_filename(Tbfwin *bfwin, gchar *filename, unsigned long long *returnsize) {
+	gboolean result;
+	gchar *buffer;
+	GError *error=NULL;
+	gsize length;
+	result = g_file_get_contents(filename,&buffer,&length,&error);
+	if (result == FALSE) {
+		gchar *errmessage = g_strconcat(_("Could not read file:\n"), filename, NULL);
+		warning_dialog(bfwin->main_window,errmessage, NULL);
+		g_free(errmessage);
+		return NULL;
+	}
+	*returnsize = length;
+	return buffer;
+}
+#endif
+
 /**
  * doc_file_to_textbox:
  * @doc: The #Tdocument target.
@@ -1097,9 +1153,9 @@ static void add_encoding_to_list(gchar *encoding) {
  * Return value: A #gboolean, TRUE if successful, FALSE on error.
  **/ 
 gboolean doc_file_to_textbox(Tdocument * doc, gchar * filename, gboolean enable_undo, gboolean delay) {
-	FILE *fd;
-	gchar *errmessage, *message;
-	gint cursor_offset, document_size=0;
+	gchar *message;
+	gint cursor_offset;
+	unsigned long long document_size=0;
 
 	if (!enable_undo) {
 		doc_unbind_signals(doc);
@@ -1107,20 +1163,7 @@ gboolean doc_file_to_textbox(Tdocument * doc, gchar * filename, gboolean enable_
 	message = g_strconcat(_("Opening file "), filename, NULL);
 	statusbar_message(BFWIN(doc->bfwin),message, 1000);
 	g_free(message);
-	/* This opens the contents of a file to a textbox */
-	change_dir(filename);
-	fd = fopen(filename, "r");
-	if (fd == NULL) {
-		DEBUG_MSG("file_to_textbox, cannot open file %s\n", filename);
-		errmessage =
-			g_strconcat(_("Could not open file:\n"), filename, NULL);
-		warning_dialog(BFWIN(doc->bfwin)->main_window,errmessage, NULL);	/* 7 */
-		g_free(errmessage);
-		if (!enable_undo) {
-			doc_bind_signals(doc);
-		}
-		return FALSE;
-	}
+
 	/* now get the current cursor position */
 	{
 		GtkTextMark* insert;
@@ -1129,45 +1172,15 @@ gboolean doc_file_to_textbox(Tdocument * doc, gchar * filename, gboolean enable_
 		gtk_text_buffer_get_iter_at_mark(doc->buffer, &iter, insert);
 		cursor_offset = gtk_text_iter_get_offset(&iter);
 	}
+
+	/* This opens the contents of a file to a textbox */
+	change_dir(filename);
 	{
-/*		gchar chunk[STARTING_BUFFER_SIZE+1];
-		gint buffer_size = STARTING_BUFFER_SIZE + 1;
-		gchar *buffer = g_malloc(buffer_size * sizeof(gchar));
-		buffer[0] = '\0';
-		while (fgets(chunk, STARTING_BUFFER_SIZE, fd) != NULL) {
-			strcat(buffer, chunk);
-			buffer_size += STARTING_BUFFER_SIZE;
-			buffer = g_realloc(buffer, buffer_size);
-			DEBUG_MSG("doc_file_to_textbox, buffer_size=%d, strlen(buffer)=%d\n",buffer_size, strlen(buffer));
+		gchar *buffer = get_buffer_from_filename(BFWIN(doc->bfwin), filename, &document_size);
+		if (!buffer) {
+			DEBUG_MSG("doc_file_to_textbox, buffer==NULL, returning\n");
+			return FALSE;
 		}
-		DEBUG_MSG("doc_file_to_textbox, final buffer_size=%d, strlen(buffer)=%d\n", buffer_size, strlen(buffer));*/
-		gchar chunk[STARTING_BUFFER_SIZE];
-		gint buffer_size = STARTING_BUFFER_SIZE;
-		size_t size = STARTING_BUFFER_SIZE;
-		gchar *buffer = g_malloc(1+(buffer_size * sizeof(gchar)));
-#ifdef DEBUGPROFILING
-		times(&locals.tms1);
-#endif
-		while (TRUE) {
-			size = fread(chunk,sizeof(gchar),STARTING_BUFFER_SIZE,fd);
-			memcpy(&buffer[buffer_size-STARTING_BUFFER_SIZE], chunk, STARTING_BUFFER_SIZE);
-			DEBUG_MSG("doc_file_to_textbox, copy %d bytes to position %d, size=%d\n",STARTING_BUFFER_SIZE, buffer_size-STARTING_BUFFER_SIZE, size);
-			if (size == STARTING_BUFFER_SIZE) {
-				buffer_size += STARTING_BUFFER_SIZE;
-				buffer = g_realloc(buffer, 1+(buffer_size * sizeof(gchar)));
-			} else {
-				DEBUG_MSG("size=%d, terminating buffer at %d\n",size,buffer_size-STARTING_BUFFER_SIZE+size);
-				buffer[buffer_size-STARTING_BUFFER_SIZE+size] = '\0';
-				document_size= buffer_size-STARTING_BUFFER_SIZE+size;
-				break;
-			}
-		}
-		DEBUG_MSG("doc_file_to_textbox, final buffer_size=%d, strlen(buffer)=%d\n", buffer_size, strlen(buffer));
-		fclose(fd);
-#ifdef DEBUGPROFILING
-		times(&locals.tms2);
-		print_time_diff("file loading", &locals.tms1, &locals.tms2);
-#endif
 		/* the first try is if the encoding is set in the file */
 		{
 			regex_t preg;
