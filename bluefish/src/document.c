@@ -1661,7 +1661,8 @@ void doc_activate(Tdocument *doc) {
 /**************************************************************************/
 /* the start of the callback functions for the menu, acting on a document */
 /**************************************************************************/
-
+#ifdef EXTERNAL_GREP
+#ifdef EXTERNAL_FIND
 typedef struct {
 	GList *filenames_to_return;
 	GtkWidget *win;
@@ -1811,8 +1812,9 @@ GList *return_files_advanced() {
 	gtk_main();
 	return tfs.filenames_to_return;
 }	
+#endif /* EXTERNAL_FIND */
+#endif /* EXTERNAL_GREP */
 
-	
 
 void file_save_cb(GtkWidget * widget, gpointer data) {
 	doc_save(main_v->current_document, 0, 0);
@@ -1830,7 +1832,11 @@ void file_move_to_cb(GtkWidget * widget, gpointer data) {
 void file_open_cb(GtkWidget * widget, gpointer data) {
 	GList *tmplist;
 	if (GPOINTER_TO_INT(data) == 1) {
+#ifdef EXTERNAL_GREP
+#ifdef EXTERNAL_FIND
 		tmplist = return_files_advanced();
+#endif
+#endif
 	} else {
 		tmplist = return_files(NULL);
 	}
