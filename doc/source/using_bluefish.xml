@@ -1797,20 +1797,19 @@ The function reference browser can show an info window on the bottom. Check the 
 
 <sect3 id="thumbnails">
 <title>Thumbnail generation</title>
-<para>Bluefish can automatically generate thumbnails for images. A thumbnail is a small image, with a link to the larger image. Bluefish will create the small image based on your settings, and insert a &lt;img&gt; tag in the file, and a &lt;a&gt; tag linking the original.
-</para>
+<para>Bluefish can automatically generate thumbnails for images. A thumbnail is a small image, with a link to the larger image. Bluefish will create the small image based on your settings, and insert a &lt;img&gt; tag in the file, and a &lt;a&gt; tag linking the original. The thumbnails are created in the same directory as the original sources.</para>
 <para>The formats used for thumbnails may be png or jpg format. By default, the format used for thumbnails is png. You can change it in the <guilabel>Images</guilabel> panel of Preferences. For jpg images, the thumbnail extension is jpeg.</para>
-<para>There are actually two thumbnail dialogs in Bluefish, a single thumbnail dialog, and a multi thumbnail dialog. The first one is accessible from the <menuchoice><shortcut><keycombo><keycap>Shift</keycap><keycap>Alt</keycap><keycap>N</keycap></keycombo></shortcut><guimenu>Dialogs</guimenu><guisubmenu>General</guisubmenu><guimenuitem>Insert Thumbnail...</guimenuitem></menuchoice> or from the <guilabel>Standard bar</guilabel> of the HTML toolbar. The second one is only accessible from the <guilabel>Standard bar</guilabel> of the HTML toolbar.</para>
-<para>The single thumbnail dialog is very straightforward. You select the image, choose the scaling (moving the cursor under the image, the result appears immediately in the preview frame), and some attributes, and press OK. Bluefish will create the thumbnail with extension _thumbnail.png or _thumbnail.jpeg (depending of the settings for images in the preferences).
-<figure id="figure-thumbnail_simple_dialog">
-<title id="figure-thumbnail_simple_dialog-title">The Simple thumbnail dialog</title>
+<para>There are actually two thumbnail dialogs in Bluefish, an Insert thumbnail dialog, and a Multi thumbnail dialog. The first one is accessible from the <menuchoice><shortcut><keycombo><keycap>Shift</keycap><keycap>Alt</keycap><keycap>N</keycap></keycombo></shortcut><guimenu>Dialogs</guimenu><guisubmenu>General</guisubmenu><guimenuitem>Insert Thumbnail...</guimenuitem></menuchoice> or from the <guilabel>Standard bar</guilabel> of the HTML toolbar. The second one is only accessible from the <guilabel>Standard bar</guilabel> of the HTML toolbar.</para>
+<para>The Insert thumbnail dialog is very straightforward. You select the image, choose the scaling (moving the cursor under the image, the result appears immediately in the preview frame), and some attributes, and press OK. Bluefish will create the thumbnail with extension _thumbnail.png or _thumbnail.jpeg (depending of the settings for images in the preferences).
+<figure id="figure-thumbnail-simple-dialog">
+<title id="figure-thumbnail-simple-dialog-title">The Insert thumbnail dialog</title>
 <screenshot>
 <mediaobject>
 <imageobject>
 <imagedata fileref="figures/thumbnail_simple_dialog.png" format="PNG"/>
 </imageobject>
 <textobject>
-<phrase>A screen shot of the thumbnail simple dialog</phrase>
+<phrase>A screen shot of the insert thumbnail dialog</phrase>
 </textobject>
 </mediaobject>
 </screenshot>
@@ -1837,21 +1836,63 @@ align="middle"></a>
 <img src="tot/343-4351_IMG_2_thumbnail.jpeg" width="212" height="320" 
 border="0" alt=""></a>
 ]]></programlisting></para>
-<para>In the multi thumbnail dialog, you first setup some constraint, and 
-the HTML code to be inserted for each image.</para>
+<para>In the multi thumbnail dialog, you first choose the scaling method, then you set the corresponding width and/or height parameters, finally you may want to adjust the HTML code to be inserted for each image.</para>
 <para>Scaling can be based on a fixed ratio, based on a fixed width, based 
 on a fixed height, or based on a fixed width and fixed height (this last 
 option does not keep the original aspect ratio!).</para>
-<para>In the HTML code for each image, you can use several placeholders, such as
-%r for the original filename, %t for the thumbnail filename, %w for the original 
-width, %h for the original height, %x for the thumbnail width, %y for the thumbnail 
-height, and finally %b for the original file size (in bytes). The default string is
-&lt;a href=&quot;%r&quot;&gt;&lt;img src=&quot;%t&quot; width=&quot;%x&quot; height=&quot;%y&quot; border=&quot;0&quot;&gt;&lt;/a&gt;
+<para>In the HTML code for each image, you can use several placeholders, such as:</para>
+<itemizedlist spacing="compact">
+<listitem>
+<para>%r for the original filename</para>
+</listitem>
+<listitem>
+<para>%t for the thumbnail filename</para>
+</listitem>
+<listitem>
+<para>%w for the original width</para>
+</listitem>
+<listitem>
+<para>%h for the original height</para>
+</listitem>
+<listitem>
+<para>%x for the thumbnail width</para>
+</listitem>
+<listitem>
+<para>%y for the thumbnail height</para>
+</listitem>
+<listitem>
+<para>%b for the original file size (in bytes)</para>
+</listitem>
+</itemizedlist>
+<para>The default string is:
+<programlisting><![CDATA[
+<a href="%r"><img src="%t" width="%x" height="%y" border="0"></a>
+]]></programlisting></para>
+<para>After you have set up the scaling method and parameters, as well as the HTML code, you can select multiple images, and Bluefish will create the thumbnails and insert the code.</para>
+<para>Here is an example of two thumbnails created with a non nul border width and middle-aligned, with a fixed height and width, disregarding the aspect ration.</para>
+<para>The <guilabel>Multi thumbnail</guilabel> window is the following:<figure id="figure-thumbnail_multi_dialog">
+<title id="figure-thumbnail-multi-dialog-title">The Multi thumbnail dialog</title>
+<screenshot>
+<mediaobject>
+<imageobject>
+<imagedata fileref="figures/thumbnail_multi_dialog.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>A screen shot of the multi thumbnail dialog</phrase>
+</textobject>
+</mediaobject>
+</screenshot>
+</figure>
 </para>
-<para>
-After you have set up the scaling and the HTML code, you can select multiple images, and 
-Bluefish will create the thumbnails and insert the code.
-</para>
+<para>And the generated code is:
+<programlisting><![CDATA[
+<a href="/Users/michga/Desktop/tot/343-4351_IMG_2.png">
+<img src="tot/343-4351_IMG_2_thumbnail.png" width="50" 
+height="50" border="5" align="middle"></a>
+<a href="/Users/michga/Desktop/tot/343-4352_IMG_2.png">
+<img src="tot/343-4352_IMG_2_thumbnail.png" width="50"
+height="50" border="5" align="middle"></a>
+]]></programlisting></para>
 </sect3>
 
 </sect2>
