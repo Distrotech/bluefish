@@ -32,6 +32,7 @@
 #include "rcfile.h"
 #include "bf_lib.h"
 #include "filebrowser.h"
+#include "menu.h"
 
 Tbfwin *project_is_open(gchar *filename) {
 	GList *tmplist;
@@ -96,6 +97,7 @@ gboolean project_save(Tbfwin *bfwin, gboolean save_as) {
 	
 	DEBUG_MSG("project_save, saving project %p to file %s\n",bfwin->project,bfwin->project->filename);
 	retval = rcfile_save_project(bfwin->project, bfwin->project->filename);
+	add_to_recent_list(bfwin->project->filename, FALSE, TRUE);
 	return retval;
 }
 
@@ -250,7 +252,7 @@ void project_edit(Tbfwin *bfwin) {
 	pred->bfwin = bfwin;
 	bfwin->project->editor = pred;
 	
-	pred->win = window_full2(_("Project edit"), GTK_WIN_POS_NONE, 5
+	pred->win = window_full2(_("Edit project"), GTK_WIN_POS_NONE, 5
 			, G_CALLBACK(project_edit_destroy_lcb), pred, TRUE, NULL);
 	vbox = gtk_vbox_new(FALSE,0);
 	gtk_container_add(GTK_CONTAINER(pred->win),vbox);
