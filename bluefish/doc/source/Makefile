@@ -163,20 +163,20 @@ tarball-all: all
 	cp ${OUTPUT_DIR}/figures/*.png ${TARBALL_DIR}/${BOOK_PREFIX}-html-chunked-${VERSION}/figures
 	cd ${TARBALL_DIR}; \
 	mv book-a4.pdf ${BOOK_PREFIX}-pdf-a4-${VERSION}.pdf; \
-	tar -czvf ${BOOK_PREFIX}-pdf-a4-${VERSION}.pdf.tar ${BOOK_PREFIX}-pdf-a4-${VERSION}.pdf; \
-	bzip2 -f ${BOOK_PREFIX}-pdf-a4-${VERSION}.pdf.tar; 
+	tar -czvf ${BOOK_PREFIX}-pdf-a4-${VERSION}.tar ${BOOK_PREFIX}-pdf-a4-${VERSION}.pdf; \
+	bzip2 -f ${BOOK_PREFIX}-pdf-a4-${VERSION}.tar; 
 	cd ${TARBALL_DIR}; \
 	mv book-us.pdf ${BOOK_PREFIX}-pdf-us-${VERSION}.pdf; \
-	tar -czvf ${BOOK_PREFIX}-pdf-us-${VERSION}.pdf.tar ${BOOK_PREFIX}-pdf-us-${VERSION}.pdf; \
-	bzip2 -f ${BOOK_PREFIX}-pdf-us-${VERSION}.pdf.tar;
+	tar -czvf ${BOOK_PREFIX}-pdf-us-${VERSION}.tar ${BOOK_PREFIX}-pdf-us-${VERSION}.pdf; \
+	bzip2 -f ${BOOK_PREFIX}-pdf-us-${VERSION}.tar;
 	cd ${TARBALL_DIR}; \
 	mv book-a4.ps ${BOOK_PREFIX}-ps-a4-${VERSION}.ps; \
-	tar -czvf ${BOOK_PREFIX}-ps-a4-${VERSION}.ps.tar ${BOOK_PREFIX}-ps-a4-${VERSION}.ps; \
-	bzip2 -f ${BOOK_PREFIX}-ps-a4-${VERSION}.ps.tar; 
+	tar -czvf ${BOOK_PREFIX}-ps-a4-${VERSION}.tar ${BOOK_PREFIX}-ps-a4-${VERSION}.ps; \
+	bzip2 -f ${BOOK_PREFIX}-ps-a4-${VERSION}.tar; 
 	cd ${TARBALL_DIR}; \
 	mv book-us.ps ${BOOK_PREFIX}-ps-us-${VERSION}.ps; \
-	tar -czvf ${BOOK_PREFIX}-ps-us-${VERSION}.ps.tar ${BOOK_PREFIX}-ps-us-${VERSION}.ps; \
-	bzip2 -f ${BOOK_PREFIX}-ps-us-${VERSION}.ps.tar; 
+	tar -czvf ${BOOK_PREFIX}-ps-us-${VERSION}.tar ${BOOK_PREFIX}-ps-us-${VERSION}.ps; \
+	bzip2 -f ${BOOK_PREFIX}-ps-us-${VERSION}.tar; 
 	cd ${TARBALL_DIR}; \
 	tar -czvf ${BOOK_PREFIX}-html-bigfile-${VERSION}.tar ${BOOK_PREFIX}-html-bigfile-${VERSION}/; \
 	bzip2 -f ${BOOK_PREFIX}-html-bigfile-${VERSION}.tar;
