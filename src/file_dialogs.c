@@ -354,19 +354,27 @@ static TcheckNsave_return doc_checkNsave_lcb(TcheckNsave_status status,gint erro
 		break;
 		case CHECKANDSAVE_FINISHED:
 			/* if the user wanted to close the doc we should do very diffferent things here !! */
-			{
-			GnomeVFSURI *uri;
-			/* YES! we're done! update the fileinfo !*/
-			DEBUG_MSG("doc_checkNsave_lcb, re-set async doc->fileinfo (current=%p)\n",doc->fileinfo);
-			if (doc->fileinfo) gnome_vfs_file_info_unref(doc->fileinfo);
-			doc->fileinfo = NULL;
-			uri = gnome_vfs_uri_new(doc->uri);
-			file_doc_fill_fileinfo(doc, uri);
-			gnome_vfs_uri_unref(uri);
-			if (main_v->props.clear_undo_on_save) {
-				doc_unre_clear_all(doc);
-			}
-			doc_set_modified(doc, 0);
+			if (doc->action.close_doc) {
+				Tbfwin *bfwin = doc->bfwin;
+				gboolean close_window = doc->action.close_window;
+				doc_destroy(doc, doc->action.close_window);
+				if (close_window && test_only_empty_doc_left(bfwin->documentlist)) {
+					gtk_widget_destroy(bfwin->main_window);
+				}
+				return CHECKNSAVE_STOP; /* it actually doesn't matter what we return, this was the last callback anyway */
+			} else {
+				GnomeVFSURI *uri;
+				/* YES! we're done! update the fileinfo !*/
+				DEBUG_MSG("doc_checkNsave_lcb, re-set async doc->fileinfo (current=%p)\n",doc->fileinfo);
+				if (doc->fileinfo) gnome_vfs_file_info_unref(doc->fileinfo);
+				doc->fileinfo = NULL;
+				uri = gnome_vfs_uri_new(doc->uri);
+				file_doc_fill_fileinfo(doc, uri);
+				gnome_vfs_uri_unref(uri);
+				if (main_v->props.clear_undo_on_save) {
+					doc_unre_clear_all(doc);
+				}
+				doc_set_modified(doc, 0);
 			}
 		break;
 	}
@@ -406,6 +414,8 @@ static void doc_save_backend(Tdocument *doc, gboolean do_save_as, gboolean do_mo
 
 		buffer = refcpointer_new(tmp);
 		uri = gnome_vfs_uri_new(doc->uri);
+		doc->action.close_doc = close_doc;
+		doc->action.close_window = close_window;
 		file_checkNsave_uri_async(uri, doc->fileinfo, buffer, strlen(buffer->data), !do_save_as, doc_checkNsave_lcb, doc);
 
 		if (do_save_as) {

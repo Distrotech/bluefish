@@ -437,7 +437,7 @@ static void file2doc_lcb(Topenfile_status status,gint error_info,gchar *buffer,G
 			bmark_set_for_doc(f2d->doc);
 			bmark_check_length(f2d->bfwin,f2d->doc);
 			DEBUG_MSG("file2doc_lcb, focus_next_new_doc=%d\n",f2d->bfwin->focus_next_new_doc);
-			if (f2d->bfwin->focus_next_new_doc) {
+			if (f2d->bfwin->focus_next_new_doc || f2d->doc->action.go_to_line > 0) {
 				f2d->bfwin->focus_next_new_doc = FALSE;
 				if (f2d->bfwin->current_document == f2d->doc) {
 					doc_force_activate(f2d->doc);
@@ -445,6 +445,11 @@ static void file2doc_lcb(Topenfile_status status,gint error_info,gchar *buffer,G
 					switch_to_document_by_pointer(f2d->bfwin,f2d->doc);
 				}
 			}
+			if (f2d->doc->action.go_to_line > 0) {
+				doc_select_line(f2d->doc, f2d->doc->action.go_to_line, TRUE);
+				f2d->doc->action.go_to_line = 0;
+			}
+			f2d->doc->action.load = NULL;
 			file2doc_cleanup(data);
 		break;
 		case OPENFILE_CHANNEL_OPENED:
@@ -514,6 +519,7 @@ void file_doc_from_uri(Tbfwin *bfwin, GnomeVFSURI *uri, GnomeVFSFileInfo *finfo)
 	f2d->uri = gnome_vfs_uri_ref(uri);
 	curi = gnome_vfs_uri_to_string(uri,0);
 	f2d->doc = doc_new_loading_in_background(bfwin, curi, finfo);
+	f2d->doc->action.load = f2d;
 	DEBUG_MSG("file_doc_from_uri, got doc %p\n",f2d->doc);
 	if (finfo == NULL) {
 		/* get the fileinfo also async */
