@@ -1295,7 +1295,7 @@ static void fs_ok_clicked_lcb(GtkWidget * widget, Tfileselect *fileselect)
 {
 	gchar *dirname, *selected_file;
 
-	selected_file = g_strdup(gtk_file_selection_get_filename(GTK_FILE_SELECTION(fileselect->fs)));
+	selected_file = get_utf8filename_from_on_disk_encoding(gtk_file_selection_get_filename(GTK_FILE_SELECTION(fileselect->fs)));
 
 	if (g_file_test(selected_file, G_FILE_TEST_IS_DIR)) {
 		DEBUG_MSG("fs_ok_clicked_lcb,file_is_dir said %s is a dir!!!!\n", selected_file);
