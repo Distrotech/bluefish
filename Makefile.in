@@ -68,7 +68,9 @@ install: src/bluefish
 	$(INSTALL_DIR) $(pkgdatadir)
 	$(INSTALL_DATA) images/bluefish_splash.png $(pkgdatadir)
 	@cd icons/ && $(MAKE) install
-	$(INSTALL_DATA) images/bluefish_splash.png $(pkgdatadir)
+	if [ -d /usr/share/pixmaps ]; then \
+		$(INSTALL_DATA) inline_images/bluefish_icon1.png /usr/share/pixmaps/bluefish-icon.png ;\
+	fi
 	@cd src/ && $(MAKE) install
 	@cd po/ && $(MAKE) install
 	@cd data/ && $(MAKE) install
