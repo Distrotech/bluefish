@@ -77,6 +77,9 @@ enum {
 	ext_browsers_in_submenu,
 	ext_commands_in_submenu,
 	ext_outputbox_in_submenu,
+	bookmarks_sort,
+	bookmarks_default_store,
+	bookmarks_filename_mode,
 	document_tabposition,
 	leftpanel_tabposition,
 	default_basedir,
@@ -1708,6 +1711,10 @@ static void preferences_ok_clicked_lcb(GtkWidget *wid, Tprefdialog *pd) {
 	integer_apply(&main_v->props.defaulthighlight, pd->prefs[defaulthighlight], TRUE);
 	integer_apply(&main_v->props.highlight_num_lines_count, pd->prefs[highlight_num_lines_count], FALSE);
 
+	integer_apply(&main_v->props.bookmarks_sort, pd->prefs[bookmarks_sort], TRUE);
+	integer_apply(&main_v->props.bookmarks_default_store, pd->prefs[bookmarks_default_store], TRUE);
+	main_v->props.bookmarks_filename_mode = gtk_option_menu_get_history(GTK_OPTION_MENU(pd->prefs[bookmarks_filename_mode]));
+
 	integer_apply(&main_v->props.xhtml, pd->prefs[xhtml], TRUE);
 	if (main_v->props.xhtml) {
 		main_v->props.lowercase_tags = 1;
@@ -1873,6 +1880,19 @@ static void preferences_dialog() {
 	pd->prefs[view_line_numbers] = boxed_checkbut_with_value(_("Line numbers by default"), main_v->props.view_line_numbers, vbox2);
 	pd->prefs[defaulthighlight] = boxed_checkbut_with_value(_("Highlight syntax by default"), main_v->props.defaulthighlight, vbox2);
 	pd->prefs[highlight_num_lines_count] = prefs_integer(_("Highlight # lines"), main_v->props.highlight_num_lines_count, vbox2, pd, 1, 8);
+	
+	frame = gtk_frame_new(_("Bookmark options"));
+	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
+	vbox2 = gtk_vbox_new(FALSE, 0);
+	gtk_container_add(GTK_CONTAINER(frame), vbox2);
+	
+	pd->prefs[bookmarks_sort] = boxed_checkbut_with_value(_("Sort bookmarks"), main_v->props.bookmarks_sort, vbox2);
+	pd->prefs[bookmarks_default_store] = boxed_checkbut_with_value(_("Default store bookmarks"), main_v->props.bookmarks_default_store, vbox2);
+	{
+		gchar *actions[] = {N_("full path"), N_("path from basedir"), N_("filename"), NULL};
+		pd->prefs[bookmarks_filename_mode] = boxed_optionmenu_with_value(_("Bookmarks filename display"), main_v->props.bookmarks_filename_mode, vbox2, actions);
+	}
+
 	vbox1 = gtk_vbox_new(FALSE, 5);
 	gtk_notebook_append_page(GTK_NOTEBOOK(pd->noteb), vbox1, hbox_with_pix_and_text(_("HTML"),154,TRUE));
 
