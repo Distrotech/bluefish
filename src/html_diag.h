@@ -80,7 +80,7 @@ typedef struct {
 	Tdocument *doc;
 } Thtml_diag;
 
-void html_diag_destroy_cb(GtkWidget * widget, GdkEvent *event,  Thtml_diag *dg);
+void html_diag_destroy_cb(GtkWidget * widget, Thtml_diag *dg);
 
 void html_diag_cancel_clicked_cb(GtkWidget *widget, gpointer data);
 

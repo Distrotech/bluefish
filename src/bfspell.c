@@ -1,3 +1,5 @@
+/* #define DEBUG */
+
 #include "config.h"
 
 #ifdef HAVE_LIBASPELL
@@ -165,7 +167,8 @@ void spell_start()
 	 */
 }
 
-static void spell_gui_destroy(GtkWidget * widget, GdkEvent *event, gpointer data) {
+static void spell_gui_destroy(GtkWidget * widget, gpointer data) {
+	DEBUG_MSG("spell_gui_destroy started\n");
 	window_destroy(bfspell.win);
 	if (bfspell.spell_checker) {
 		aspell_speller_save_all_word_lists(bfspell.spell_checker);
@@ -179,10 +182,11 @@ static void spell_gui_destroy(GtkWidget * widget, GdkEvent *event, gpointer data
 		gtk_text_buffer_delete_mark(bfspell.doc->buffer, bfspell.eo);
 	}
 	memset(&bfspell,0,sizeof(bfspell));
+	DEBUG_MSG("spell_gui_destroy, bfspell.win now is %p\n", bfspell.win);
 }
 
 void spell_gui_cancel_clicked_cb(GtkWidget *widget, gpointer data) {
-	spell_gui_destroy(NULL, NULL, data);
+	spell_gui_destroy(NULL, data);
 }
 
 static void spell_gui_set_button_status(gboolean is_running) {

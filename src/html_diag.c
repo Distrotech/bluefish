@@ -35,8 +35,8 @@ Trecent_attribs recent_attribs;
 /********** DIALOG FUNCTIONS *************/
 /*****************************************/
 
-void html_diag_destroy_cb(GtkWidget * widget, GdkEvent *event,  Thtml_diag *dg) {
-	DEBUG_MSG("html_diag_destroy_cb, widget=%p, dg->dialog=%p\n",widget,dg->dialog);
+void html_diag_destroy_cb(GtkWidget * widget, Thtml_diag *dg) {
+	DEBUG_MSG("html_diag_destroy_cb, widget=%p, dg=%p, dg->dialog=%p\n",widget,dg,dg->dialog);
 	if (dg->mark_ins) {
 		gtk_text_buffer_delete_mark(dg->doc->buffer,dg->mark_ins);
 		gtk_text_buffer_delete_mark(dg->doc->buffer,dg->mark_sel);
@@ -47,7 +47,7 @@ void html_diag_destroy_cb(GtkWidget * widget, GdkEvent *event,  Thtml_diag *dg) 
 }
 
 void html_diag_cancel_clicked_cb(GtkWidget *widget, gpointer data) {
-	html_diag_destroy_cb(NULL, NULL, data);
+	html_diag_destroy_cb(NULL, data);
 }
 
 Thtml_diag *html_diag_new(gchar *title) {
@@ -91,7 +91,7 @@ Thtml_diag *html_diag_new(gchar *title) {
 	dg->range.end = -1;
 	if (main_v->props.transient_htdialogs) {
 		/* must be set before realizing */
-		DEBUG_MSG("html_diag_finish, setting transient!\n");
+		DEBUG_MSG("html_diag_finish, setting dg->dialog=%p transient!\n", dg->dialog);
 		gtk_window_set_transient_for(GTK_WINDOW(dg->dialog), GTK_WINDOW(main_v->main_window));
 	}
 

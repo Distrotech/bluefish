@@ -22,7 +22,7 @@
  */
 /* 
  * Changes by Antti-Juhani Kaijanaho <gaia@iki.fi> on 1999-10-20
- * $Id: html.c,v 1.13 2003-02-19 11:00:44 oli4 Exp $
+ * $Id: html.c,v 1.14 2003-02-23 15:05:09 oli4 Exp $
  */
 
 #include <gtk/gtk.h>
@@ -526,7 +526,7 @@ static void quickanchorok_lcb(GtkWidget * widget, Thtml_diag * dg)
 		doc_replace_text(dg->doc, finalstring, dg->range.pos, dg->range.end);
 	}
 	g_free(finalstring);
-	html_diag_destroy_cb(NULL, NULL, dg);
+	html_diag_destroy_cb(NULL, dg);
 }
 
 void quickanchor_cb(GtkWidget * widget, gpointer data)
@@ -706,7 +706,7 @@ static void block_tag_editok_lcb(gint type, Thtml_diag * dg) {
 	}
 	g_free(endstring);
 	g_free(finalstring);
-	html_diag_destroy_cb(NULL, NULL, dg);
+	html_diag_destroy_cb(NULL, dg);
 }
 
 static void p_editok_lcb(GtkWidget *widget, gpointer data) {
@@ -899,7 +899,7 @@ static void quickruleok_lcb(GtkWidget * widget, Thtml_diag * dg)
 	}
 
 	g_free(finalstring);
-	html_diag_destroy_cb(NULL, NULL, dg);
+	html_diag_destroy_cb(NULL, dg);
 }
 
 void quickrule_cb(GtkWidget * widget, gpointer data)
@@ -1008,7 +1008,7 @@ static void quickstart_ok_lcb(GtkWidget * widget, Thtml_diag * dg) {
 
 	g_free(finalstring);
 	g_object_unref(G_OBJECT(gtk_text_view_get_buffer(GTK_TEXT_VIEW(dg->text[0]))));
-	html_diag_destroy_cb(NULL, NULL, dg);
+	html_diag_destroy_cb(NULL, dg);
 }
 
 void quickstart_cb(GtkWidget * widget, gpointer data)
@@ -1138,7 +1138,7 @@ static void bodyok_lcb(GtkWidget * widget, Thtml_diag *dg)
 	}
 
 	g_free(finalstring);
-	html_diag_destroy_cb(NULL, NULL, dg);
+	html_diag_destroy_cb(NULL, dg);
 }
 
 void body_cb(GtkWidget * widget, gpointer data)
@@ -1275,7 +1275,7 @@ static void metaok_lcb(GtkWidget * widget, Thtml_diag *dg)
 		doc_replace_text(dg->doc, finalstring, dg->range.pos, dg->range.end);
 	}
 	g_free(finalstring);
-	html_diag_destroy_cb(NULL, NULL, dg);
+	html_diag_destroy_cb(NULL, dg);
 }
 
 
@@ -1382,7 +1382,7 @@ static void generalfontdialog_lcb(gint type, GtkWidget * widget, Thtml_diag *dg)
 		doc_replace_text(dg->doc, finalstring, dg->range.pos, dg->range.end);
 	}
 	g_free(finalstring);
-	html_diag_destroy_cb(NULL, NULL, dg);
+	html_diag_destroy_cb(NULL, dg);
 }
 
 static void fontok_lcb(GtkWidget * widget, Thtml_diag *dg) {
@@ -1484,7 +1484,7 @@ static void emailok_lcb(GtkWidget * widget, Thtml_diag *dg)
 	g_free(body);
 	doc_insert_two_strings(dg->doc, finalstring, cap("</A>"));
 	g_free(finalstring);
-	html_diag_destroy_cb(NULL, NULL, dg);
+	html_diag_destroy_cb(NULL, dg);
 }
 
 void email_cb(GtkWidget * widget, gpointer data)
@@ -1542,7 +1542,7 @@ static void quicklistok_lcb(GtkWidget * widget, Thtml_diag *dg)
 			doc_insert_two_strings(dg->doc, finalstring, cap("</UL>"));
 		}
 	}
-	html_diag_destroy_cb(NULL, NULL, dg);
+	html_diag_destroy_cb(NULL, dg);
 }
 
 void quicklist_cb(GtkWidget * widget, gpointer data)
@@ -1618,7 +1618,7 @@ static void framesetdialogok_lcb(GtkWidget * widget, Thtml_diag *dg) {
 		doc_replace_text(dg->doc, finalstring, dg->range.pos, dg->range.end);
 	}
 	g_free(finalstring);
-	html_diag_destroy_cb(NULL, NULL, dg);
+	html_diag_destroy_cb(NULL, dg);
 }
 
 
@@ -1700,7 +1700,7 @@ static void framedialogok_lcb(GtkWidget * widget, Thtml_diag *dg) {
 		doc_replace_text(dg->doc, finalstring, dg->range.pos, dg->range.end);
 	}
 	g_free(finalstring);
-	html_diag_destroy_cb(NULL, NULL, dg);
+	html_diag_destroy_cb(NULL, dg);
 }
 
 
@@ -1795,7 +1795,7 @@ static void embedok_lcb(GtkWidget * widget,Thtml_diag *dg )
 
 	doc_insert_two_strings(dg->doc, finalstring, NULL);
 	g_free(finalstring);
-	html_diag_destroy_cb(NULL, NULL, dg);
+	html_diag_destroy_cb(NULL, dg);
 }
 
 void embed_cb(GtkWidget * widget, gpointer data)
@@ -1865,7 +1865,7 @@ static void script_linkok_lcb(gint type, GtkWidget * widget,Thtml_diag *dg ) {
 		doc_replace_text(dg->doc, finalstring, dg->range.pos, dg->range.end);
 	}
 	g_free(finalstring);
-	html_diag_destroy_cb(NULL, NULL, dg);
+	html_diag_destroy_cb(NULL, dg);
 }
 
 static void linkok_lcb(GtkWidget * widget,Thtml_diag *dg ) {

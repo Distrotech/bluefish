@@ -63,7 +63,7 @@ static void tabledialogok_lcb(GtkWidget * widget, Thtml_diag * dg)
 	}
 
 	g_free(finalstring);
-	html_diag_destroy_cb(NULL, NULL, dg);
+	html_diag_destroy_cb(NULL, dg);
 }
 
 
@@ -197,7 +197,7 @@ static void tablerowdialogok_lcb(GtkWidget * widget, Thtml_diag *dg)
 		doc_replace_text(dg->doc, finalstring, dg->range.pos, dg->range.end);
 	}
 	g_free(finalstring);
-	html_diag_destroy_cb(NULL, NULL, dg);
+	html_diag_destroy_cb(NULL, dg);
 }
 
 
@@ -297,7 +297,7 @@ static void table_head_and_data_dialogok_lcb(gint type, GtkWidget * widget, Thtm
 		doc_replace_text(dg->doc, finalstring, dg->range.pos, dg->range.end);
 	}
 	g_free(finalstring);
-	html_diag_destroy_cb(NULL, NULL, dg);
+	html_diag_destroy_cb(NULL, dg);
 }
 
 static void tabledatadialogok_lcb(GtkWidget * widget, Thtml_diag *dg) {
