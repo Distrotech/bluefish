@@ -113,7 +113,8 @@ static Tpixmap tp[] = {
 	{100, acronym},
 	{101, close_small},
 	{102, view_in_browser},
-	{103, nothing}
+	{103, context}, /* context dropdown image */
+	{104, nothing}
 };
 
 GtkWidget *new_pixmap(gint type) {

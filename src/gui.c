@@ -453,7 +453,7 @@ void make_html_toolbar(GtkWidget *handlebox) {
 
 	html_toolbar = gtk_toolbar_new();
 	html_toolbar_add_items(html_toolbar, tbi, 15, 25);
-	html_toolbar_add_items_to_submenu(html_toolbar, tbi, 78, 85, _("Context formatting"), 300);
+	html_toolbar_add_items_to_submenu(html_toolbar, tbi, 78, 85, _("Context formatting"), 103);
 	html_toolbar_add_items(html_toolbar, tbi, 25, 31);
 	gtk_notebook_append_page(GTK_NOTEBOOK(html_notebook), html_toolbar, gtk_label_new(_(" Fonts ")));
 

@@ -14,6 +14,7 @@ TOOLBAR = \
 	code code.png \
 	color_select color_select.png \
 	comment comment.png \
+	context context.png \
 	copy copy.png \
 	css_small css_small.png \
 	cssclass cssclass.png \
