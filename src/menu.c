@@ -15,7 +15,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-/*#define DEBUG*/
+/* #define DEBUG */
 #include <gtk/gtk.h>
 #include <stdlib.h> /* atoi */
 #include <string.h> /* strchr() */
@@ -477,8 +477,10 @@ gchar *menu_translate(const gchar * path, gpointer data) {
 	menupath = g_strdup(path);
 /*	if ((strstr(path, "/tearoff1") != NULL) 
 			|| (strstr(path, "/---") != NULL) 
-			|| (strstr(path, "/MRU") != NULL))
-				return menupath;*/
+			|| (strstr(path, "/sep1") != NULL)) {
+		DEBUG_MSG("menu_translate, nogettext returning %s for %s\n", menupath, path);
+		return menupath;
+	}*/
 	retval = gettext(menupath);
 	DEBUG_MSG("menu_translate, returning %s for %s\n", retval, path);
 	return retval;
@@ -529,7 +531,7 @@ static GtkWidget *create_dynamic_menuitem(gchar *menubasepath, gchar *label, GCa
 	/* add it to main_v->menubar */
 	factory = gtk_item_factory_from_widget(main_v->menubar);
 	menu = gtk_item_factory_get_widget(factory, menubasepath);
-	DEBUG_MSG("create_dynamic_menuitem, menubar=%p, menu=%p basepath=%s\n", main_v->menubar, menu, menubasepath);
+	DEBUG_MSG("create_dynamic_menuitem, menubar=%p, menu=%p basepath=%s, label=%s\n", main_v->menubar, menu, menubasepath,label);
 	if (menu != NULL) {
 		tmp = gtk_menu_item_new_with_label(label);
 		g_signal_connect(G_OBJECT(tmp), "activate",callback, data);
@@ -542,7 +544,7 @@ static GtkWidget *create_dynamic_menuitem(gchar *menubasepath, gchar *label, GCa
 		}
 		return tmp;
 	} else {
-		DEBUG_MSG("create_dynamic_menuitem, no menu for basepath %s\n", menubasepath);
+		DEBUG_MSG("create_dynamic_menuitem, NO MENU FOR BASEPATH %s\n", menubasepath);
 		return NULL;
 	}
 }
@@ -684,7 +686,7 @@ void menu_outputbox_rebuild() {
 		menus.outputbox_menu = NULL;
 	}
 	if (!main_v->props.ext_outputbox_in_submenu) {
-		dynamic_menu_append_spacing(_("/External"));
+		dynamic_menu_append_spacing(N_("/External"));
 	}
 	
 	tmplist = g_list_first(main_v->props.outputbox);

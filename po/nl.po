@@ -2833,41 +2833,36 @@ msgid "/Document/Encoding/tearoff1"
 msgstr "/Document/Codering/tearoff1"
 
 #: ../src/menu.c:442
-#, fuzzy
 msgid "/Document/_Highlight syntax"
-msgstr "/Beeld/Oplichten van Syntaxis"
+msgstr "/Document/Benadruk syntax"
 
 #: ../src/menu.c:443
 msgid "/Document/_Wrap"
-msgstr ""
+msgstr "/Document/_Omloop"
 
 #: ../src/menu.c:444
-#, fuzzy
 msgid "/Document/_Line numbers"
-msgstr "Doctype"
+msgstr "/Document/_Regelnummering"
 
 #: ../src/menu.c:445 ../src/menu.c:449
-#, fuzzy
 msgid "/Document/sep1"
-msgstr "documenten"
+msgstr "/Document/sep1"
 
 #: ../src/menu.c:446
-#, fuzzy
 msgid "/Document/_Update highlighting"
-msgstr "/Beeld/Oplichten verversen"
+msgstr "/Document/Ververs syntax benadrukking"
 
 #: ../src/menu.c:447
 msgid "/Document/_Next"
-msgstr ""
+msgstr "/Document/Vo_lgende"
 
 #: ../src/menu.c:448
 msgid "/Document/_Previous"
-msgstr ""
+msgstr "/Document/Vo_rige"
 
 #: ../src/menu.c:450
-#, fuzzy
 msgid "/Document/_Word Count"
-msgstr "/Bewerken/Woorden tellen"
+msgstr "/Document/Woorden tellen"
 
 #: ../src/menu.c:451
 msgid "/_Options"
@@ -2878,38 +2873,32 @@ msgid "/Options/tearoff1"
 msgstr "/Opties/tearoff1"
 
 #: ../src/menu.c:453
-#, fuzzy
 msgid "/Options/_Preferences"
-msgstr "/Opties/Instellingen"
+msgstr "/Opties/_Instellingen"
 
 #: ../src/menu.c:454
-#, fuzzy
 msgid "/Options/_Display"
-msgstr "/Opties/_Lijst"
+msgstr "/Opties/_Beeld"
 
 #: ../src/menu.c:455
-#, fuzzy
 msgid "/Options/Display/tearoff1"
-msgstr "/Opties/Lijst/tearoff1"
+msgstr "/Opties/Beeld/tearoff1"
 
 #: ../src/menu.c:456
-#, fuzzy
 msgid "/Options/Display/View _Main toolbar"
-msgstr "/Opties/Hoofd werkbalk"
+msgstr "/Opties/Beeld/Toon Hoofd-_werkbalk"
 
 #: ../src/menu.c:457
-#, fuzzy
 msgid "/Options/Display/View _HTML toolbar"
-msgstr "/Opties/HTML-werkbalk"
+msgstr "/Opties/Beeld/Toon _HTML-werkbalk"
 
 #: ../src/menu.c:458
-#, fuzzy
 msgid "/Options/Display/View _Custom menu"
-msgstr "/Opties/Aangepaste werkbalk"
+msgstr "/Opties/Beeld/Toon _Gebruikers werkbalk"
 
 #: ../src/menu.c:459
 msgid "/Options/Display/View _Left panel"
-msgstr ""
+msgstr "/Opties/Beeld/Toon _Linker paneel"
 
 #: ../src/menu.c:461
 #, fuzzy
@@ -2934,43 +2923,36 @@ msgid "/Options/sep2"
 msgstr "/Opties/sep2"
 
 #: ../src/menu.c:466
-#, fuzzy
 msgid "/Options/_Auto indent"
-msgstr "/Opties/_Lijst"
+msgstr "/Opties/_Automatisch inspringen"
 
 #: ../src/menu.c:468
-#, fuzzy
 msgid "/Options/_Save settings"
-msgstr "/Opties/sneltoets instellingen bewaren"
+msgstr "/Opties/_Instellingen opslaan"
 
 #: ../src/menu.c:469
-#, fuzzy
 msgid "/Options/Save shortcut _keys"
-msgstr "/Opties/sneltoets instellingen bewaren"
+msgstr "/Opties/_Sneltoets instellingen opslaan"
 
 #: ../src/menu.c:624
-#, fuzzy
 msgid "/Options/Display/View Main toolbar"
-msgstr "/Opties/Hoofd werkbalk"
+msgstr "/Opties/Beeld/Toon Hoofd-werkbalk"
 
 #: ../src/menu.c:625
-#, fuzzy
 msgid "/Options/Display/View HTML toolbar"
-msgstr "/Opties/HTML-werkbalk"
+msgstr "/Opties/Beeld/Toon HTML-werkbalk"
 
 #: ../src/menu.c:626
-#, fuzzy
 msgid "/Options/Display/View Custom menu"
-msgstr "/Opties/Aangepaste werkbalk"
+msgstr "/Opties/Beeld/Toon Gebruikers werkbalk"
 
 #: ../src/menu.c:627
 msgid "/Options/Display/View Left panel"
-msgstr ""
+msgstr "/Opties/Beeld/Toon Linker paneel"
 
 #: ../src/menu.c:628
-#, fuzzy
 msgid "/Options/Auto indent"
-msgstr "/Opties/_Lijst"
+msgstr "/Opties/Automatisch inspringen"
 
 #: ../src/menu.c:633
 msgid "/Document/Type"
@@ -2986,7 +2968,7 @@ msgstr "/Extern/Commando's/"
 
 #: ../src/menu.c:653
 msgid "/External/Outputbox/"
-msgstr "/Extern/Uitvoer vlak"
+msgstr "/Extern/Uitvoer vlak/"
 
 #: ../src/menu.c:688 ../src/menu.c:708 ../src/menu.c:963 ../src/menu.c:975
 #: ../src/menu.c:984 ../src/menu.c:998
@@ -3003,7 +2985,6 @@ msgid "Could not open file\n"
 msgstr "Dit bestand kon niet geopend worden:\n"
 
 #: ../src/menu.c:769
-#, fuzzy
 msgid "/File/Open recent"
 msgstr "/Bestand/Recent Geopend"
 
@@ -3012,9 +2993,8 @@ msgid "(none)"
 msgstr "(geen)"
 
 #: ../src/menu.c:878
-#, fuzzy
 msgid "Bluefish error: no filename"
-msgstr "Bluefish foutmelding"
+msgstr "Bluefish foutmelding: geen bestandsnaam"
 
 #: ../src/menu.c:878
 msgid "Could not view file in browser, the file does not yet have a name\n"
@@ -3025,14 +3005,12 @@ msgid "/External/Browsers"
 msgstr "/Extern/Browsers/"
 
 #: ../src/menu.c:996
-#, fuzzy
 msgid "/External/Commands"
-msgstr "/Extern/Commando's/"
+msgstr "/Extern/Commando's"
 
 #: ../src/menu.c:1036
-#, fuzzy
 msgid "/Document/Encoding"
-msgstr "Invoer codering"
+msgstr "/Document/Codering"
 
 #: ../src/menu.c:1254
 msgid "This custom search and replace requires a selection"
@@ -3051,37 +3029,32 @@ msgid "/Custom menu/Edit custom menu..."
 msgstr "/Aangepast menu/Aangepast menu wijzigen"
 
 #: ../src/menu.c:1492 ../src/menu.c:1620 ../src/menu.c:1830
-#, fuzzy
 msgid "in current document"
-msgstr "/Project/Huidig document toevoegen"
+msgstr "in huidig document"
 
 #: ../src/menu.c:1492 ../src/menu.c:1620 ../src/menu.c:1831
 msgid "from cursor"
 msgstr ""
 
 #: ../src/menu.c:1492 ../src/menu.c:1620 ../src/menu.c:1832
-#, fuzzy
 msgid "in selection"
-msgstr "In de selectie"
+msgstr "in de selectie"
 
 #: ../src/menu.c:1492 ../src/menu.c:1620 ../src/menu.c:1833
-#, fuzzy
 msgid "in all open documents"
-msgstr "/Project/Alle geopende documenten toevoegen"
+msgstr "in alle geopende documenten"
 
 #: ../src/menu.c:1493 ../src/menu.c:1621 ../src/menu.c:1841
 msgid "normal"
-msgstr ""
+msgstr "normaal"
 
 #: ../src/menu.c:1493 ../src/menu.c:1621 ../src/menu.c:1842
-#, fuzzy
 msgid "posix regular expresions"
-msgstr "reguliere expressie"
+msgstr "posix regular expresion"
 
 #: ../src/menu.c:1493 ../src/menu.c:1621 ../src/menu.c:1843
-#, fuzzy
 msgid "perl regular expresions"
-msgstr "reguliere expressie"
+msgstr "perl regular expresions"
 
 #: ../src/menu.c:1558
 msgid "Search pattern"
