@@ -598,12 +598,12 @@ void rcfile_parse_highlighting(void) {
 	g_free(filename);
 }
 static gint rcfile_save_highlighting(void) {
+	gint retval;
 	gchar *filename = g_strconcat(g_get_home_dir(), "/.bluefish/highlighting", NULL);
-	return save_config_file(highlighting_configlist, filename);
+	retval = save_config_file(highlighting_configlist, filename);
+	g_free(filename);
+	return retval;
 }
-
-
-
 void rcfile_parse_custom_menu(void) {
 	gchar *filename;
 
@@ -622,6 +622,13 @@ void rcfile_parse_custom_menu(void) {
 	}
 	g_free(filename);
 }
+static gint rcfile_save_custom_menu(void) {
+	gint retval;
+	gchar *filename = g_strconcat(g_get_home_dir(), "/.bluefish/custom_menu", NULL);
+	retval = save_config_file(custom_menu_configlist, filename);
+	g_free(filename);
+	return retval;
+}
 
 #define DIR_MODE (S_IRWXU | S_IRGRP | S_IXGRP | S_IROTH | S_IXOTH)	/* same as 0755 */
 void rcfile_check_directory(void) {
@@ -636,6 +643,12 @@ void rcfile_save_configfile_menu_cb(gpointer callback_data,guint action,GtkWidge
 	switch (action) {
 	case 0:
 		rcfile_save_main();
+	break;
+	case 1:
+		rcfile_save_highlighting();
+	break;
+	case 2:
+		rcfile_save_custom_menu();
 	break;
 	case 3:
 		{
@@ -657,4 +670,5 @@ void rcfile_save_configfile_menu_cb(gpointer callback_data,guint action,GtkWidge
 void rcfile_save_all(void) {
 	rcfile_save_main();
 	rcfile_save_highlighting();
+	rcfile_save_custom_menu();
 }

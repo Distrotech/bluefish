@@ -467,7 +467,8 @@ static void multi_thumbnail_radio_toggled_lcb(GtkToggleButton *togglebutton,Tmut
 
 void multi_thumbnail_dialog_cb(GtkWidget * widget, gpointer data) {
 	Tmuthudia *mtd;
-	GtkWidget *vbox, *hbox, *but, *table, *label, *scrolwin;
+	GtkWidget *vbox, *hbox, *but, *table, *label, *scrolwin, *textview;
+	
 	
 	mtd = g_new(Tmuthudia, 1);
 	mtd->win = window_full(_("Multi thumbnail"), GTK_WIN_POS_MOUSE, 5, G_CALLBACK(multi_thumbnail_dialog_destroy), mtd);
@@ -508,7 +509,8 @@ void multi_thumbnail_dialog_cb(GtkWidget * widget, gpointer data) {
 	label = gtk_label_new("%r: original filename  %t: thumbnail filename\n%w: original width  %h: original height\n%x: thumbnail width  %y: thumbnail height\n%b: original size (bytes)");
 	gtk_box_pack_start(GTK_BOX(vbox),label,FALSE,FALSE,0);
 
-	scrolwin = textview_buffer_in_scrolwin(&mtd->tbuf, -1, -1, main_v->props.image_thumnailformatstring, GTK_WRAP_CHAR);
+	scrolwin = textview_buffer_in_scrolwin(&textview, -1, -1, main_v->props.image_thumnailformatstring, GTK_WRAP_CHAR);
+	mtd->tbuf = gtk_text_view_get_buffer(GTK_TEXT_VIEW(textview));
 	gtk_box_pack_start(GTK_BOX(vbox),scrolwin,TRUE,TRUE,0);
 	
 	hbox = gtk_hbutton_box_new();
