@@ -780,45 +780,45 @@ static void replace_prompt_dialog_ok_lcb(GtkWidget *widget, Tbfwin *bfwin) {
 	window_close_by_widget_cb(widget, NULL);
 	
 	doc_get_selection(bfwin->current_document, &sel_start_pos, &sel_end_pos);
-		if ((sel_start_pos == LASTSNR2(bfwin->snr2)->result.start) &&
-					(sel_end_pos == LASTSNR2(bfwin->snr2)->result.end)) {
+	if ((sel_start_pos == LASTSNR2(bfwin->snr2)->result.start) &&
+				(sel_end_pos == LASTSNR2(bfwin->snr2)->result.end)) {
 
-			if (LASTSNR2(bfwin->snr2)->replacetype_option==string) {
-				tmpstr = g_strdup(LASTSNR2(bfwin->snr2)->replace_pattern);
-				/* if it was a regex replace we need to do the sub-search_pattern matching */
-				tmpstr = reg_replace(tmpstr, 0, LASTSNR2(bfwin->snr2)->result, bfwin->current_document, LASTSNR2(bfwin->snr2)->unescape);
-				
-			} else if (LASTSNR2(bfwin->snr2)->replacetype_option==uppercase) {
-				tmpstr = doc_get_chars(bfwin->current_document, LASTSNR2(bfwin->snr2)->result.start ,LASTSNR2(bfwin->snr2)->result.end);
-				g_strup(tmpstr);
-			} else {
-				tmpstr = doc_get_chars(bfwin->current_document, LASTSNR2(bfwin->snr2)->result.start ,LASTSNR2(bfwin->snr2)->result.end);
-				g_strdown(tmpstr);
-			}
-			/* avoid new highlighting at this stage, so call the backend directly instead of the frontend function
-			this because the highlighting interferes with the selection
-			the better solution is to have the highlighting handle the selection better, 
-			the problem starts in document.c in get_positions() because the selection is not saved there
-			I don't know why the selection is gray, but that's basically the reason why it doesn't save the selection
-			 */
-			doc_unre_new_group(bfwin->current_document);
-			doc_replace_text_backend(bfwin->current_document, tmpstr, LASTSNR2(bfwin->snr2)->result.start,LASTSNR2(bfwin->snr2)->result.end);
-			doc_unre_new_group(bfwin->current_document);
-			doc_set_modified(bfwin->current_document, 1);
+		if (LASTSNR2(bfwin->snr2)->replacetype_option==string) {
+			tmpstr = g_strdup(LASTSNR2(bfwin->snr2)->replace_pattern);
+			/* if it was a regex replace we need to do the sub-search_pattern matching */
+			tmpstr = reg_replace(tmpstr, 0, LASTSNR2(bfwin->snr2)->result, bfwin->current_document, LASTSNR2(bfwin->snr2)->unescape);
 			
-			g_free(tmpstr);
-			if (LASTSNR2(bfwin->snr2)->result.pmatch) {
-				g_free(LASTSNR2(bfwin->snr2)->result.pmatch);
-				LASTSNR2(bfwin->snr2)->result.pmatch = NULL;
-			}
-			if (!LASTSNR2(bfwin->snr2)->replace_once) {
-				snr2_run(bfwin,NULL);
-			}
+		} else if (LASTSNR2(bfwin->snr2)->replacetype_option==uppercase) {
+			tmpstr = doc_get_chars(bfwin->current_document, LASTSNR2(bfwin->snr2)->result.start ,LASTSNR2(bfwin->snr2)->result.end);
+			g_strup(tmpstr);
+		} else {
+			tmpstr = doc_get_chars(bfwin->current_document, LASTSNR2(bfwin->snr2)->result.start ,LASTSNR2(bfwin->snr2)->result.end);
+			g_strdown(tmpstr);
 		}
+		/* avoid new highlighting at this stage, so call the backend directly instead of the frontend function
+		this because the highlighting interferes with the selection
+		the better solution is to have the highlighting handle the selection better, 
+		the problem starts in document.c in get_positions() because the selection is not saved there
+		I don't know why the selection is gray, but that's basically the reason why it doesn't save the selection
+		 */
+		doc_unre_new_group(bfwin->current_document);
+		doc_replace_text_backend(bfwin->current_document, tmpstr, LASTSNR2(bfwin->snr2)->result.start,LASTSNR2(bfwin->snr2)->result.end);
+		doc_unre_new_group(bfwin->current_document);
+		doc_set_modified(bfwin->current_document, 1);
+		
+		g_free(tmpstr);
+		if (LASTSNR2(bfwin->snr2)->result.pmatch) {
+			g_free(LASTSNR2(bfwin->snr2)->result.pmatch);
+			LASTSNR2(bfwin->snr2)->result.pmatch = NULL;
+		}
+		if (!LASTSNR2(bfwin->snr2)->replace_once) {
+			snr2_run(bfwin,NULL);
+		}
+	}
 #ifdef DEBUG
-		 else {
-			g_print("replace_prompt_dialog_ok_lcb, selection != result, not replacing!!\n");
-		}
+	 else {
+		g_print("replace_prompt_dialog_ok_lcb, selection != result, not replacing!!\n");
+	}
 #endif /* DEBUG */
 }
 
@@ -921,6 +921,7 @@ gint replace_prompt_doc(Tbfwin *bfwin, gchar *search_pattern, Tmatch_types match
 	gchar *fulltext, *realpat;
 	Tsearch_result result;
 
+	DEBUG_MSG("replace_prompt_doc, doc=%p, startpos=%d, endpos=%d\n",doc,startpos,endpos);
 	if (LASTSNR2(bfwin->snr2)->result.pmatch) {
 		g_free(LASTSNR2(bfwin->snr2)->result.pmatch);
 		LASTSNR2(bfwin->snr2)->result.pmatch = NULL;
@@ -937,7 +938,7 @@ gint replace_prompt_doc(Tbfwin *bfwin, gchar *search_pattern, Tmatch_types match
 	}
 	LASTSNR2(bfwin->snr2)->doc = doc;
 	g_free(fulltext);
-	DEBUG_MSG("replace_prompt_doc, result.end=%d\n", result.end);
+	DEBUG_MSG("replace_prompt_doc, doc=%p, result.end=%d\n", doc, result.end);
 	if (result.end > 0) {
 		gint i;
 		LASTSNR2(bfwin->snr2)->result.start = result.start + startpos;
@@ -980,11 +981,13 @@ void replace_prompt_all(Tbfwin *bfwin,gchar *search_pattern, Tmatch_types matcht
 		tmplist = g_list_first(bfwin->documentlist);
 		tmpdoc = (Tdocument *)tmplist->data;
 	}
-	retvalue = replace_prompt_doc(bfwin,search_pattern, matchtype, is_case_sens, 0, -1, replace_pattern, tmpdoc, unescape);
+	DEBUG_MSG("replace_prompt_all, starting with tmpdoc=%p at position %d\n",tmpdoc,LASTSNR2(bfwin->snr2)->result.end);
+	retvalue = replace_prompt_doc(bfwin,search_pattern, matchtype, is_case_sens, (LASTSNR2(bfwin->snr2)->result.end < 0)?0:LASTSNR2(bfwin->snr2)->result.end, -1, replace_pattern, tmpdoc, unescape);
 	while (retvalue == 0) {
 		tmplist = g_list_find(bfwin->documentlist, LASTSNR2(bfwin->snr2)->doc);
 		tmplist = g_list_next(tmplist);
 		if (tmplist) {
+			DEBUG_MSG("replace_prompt_all, next document is %p\n",tmplist->data);
 			retvalue = replace_prompt_doc(bfwin,search_pattern, matchtype, is_case_sens, 0, -1, replace_pattern, (Tdocument *)tmplist->data, unescape);
 		} else {
 			retvalue = 1;
