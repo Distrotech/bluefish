@@ -810,13 +810,13 @@ void make_html_toolbar(Tbfwin *bfwin) {
 	gtk_toolbar_set_style(GTK_TOOLBAR(html_toolbar), GTK_TOOLBAR_ICONS);
 	html_toolbar_add_items(bfwin,html_toolbar, tbi, 0, 14);
 	html_toolbar_add_items_to_submenu(bfwin,html_toolbar, tbi, 26, 31, _("Heading"), 91);
-	html_toolbar_add_items(bfwin,html_toolbar, tbi, 75, 77);
+	html_toolbar_add_items(bfwin,html_toolbar, tbi, 76, 78);
 	gtk_notebook_append_page(GTK_NOTEBOOK(html_notebook), html_toolbar, gtk_label_new(_(" Standard bar ")));
 
 	html_toolbar = gtk_toolbar_new();
 	gtk_toolbar_set_style(GTK_TOOLBAR(html_toolbar), GTK_TOOLBAR_ICONS);
 	html_toolbar_add_items(bfwin,html_toolbar, tbi, 15, 25);
-	html_toolbar_add_items_to_submenu(bfwin,html_toolbar, tbi, 78, 85, _("Context formatting"), 103);
+	html_toolbar_add_items_to_submenu(bfwin,html_toolbar, tbi, 79, 86, _("Context formatting"), 103);
 	html_toolbar_add_items(bfwin,html_toolbar, tbi, 25, 31);
 	gtk_notebook_append_page(GTK_NOTEBOOK(html_notebook), html_toolbar, gtk_label_new(_(" Fonts ")));
 
