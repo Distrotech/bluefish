@@ -957,7 +957,7 @@ void go_to_line_from_selection_cb(GtkWidget * widget, gpointer data) {
 #ifndef NOSPLASH
 
 void splash_screen_set_label(gchar *label) {
-	static struct timespec const req = { 0, 20000000};
+	static struct timespec const req = { 0, 10000000};
 	static struct timespec rem;
 #ifdef DEBUG
 	g_print("Setting slpash label to %s\n", label);
@@ -968,7 +968,7 @@ void splash_screen_set_label(gchar *label) {
 }
 
 GtkWidget *start_splash_screen() {
-	static struct timespec const req = { 0, 200000000};
+	static struct timespec const req = { 0, 100000000};
 	static struct timespec rem;
 	GtkWidget *image, *vbox;
 	GdkColor color;
