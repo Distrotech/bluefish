@@ -445,7 +445,7 @@ static gchar *reg_replace(gchar *replace_pattern, gint offset, Tsearch_result re
 	Tconvert_table * tct;
 	gchar *retval;
 	gint i, size;
-	size = (result.nmatch <= 10) ? result.nmatch -1 : 10;
+	size = (result.nmatch <= 10) ? (result.nmatch == 0 ) ? 0 : result.nmatch -1 : 10;
 	tct = new_convert_table(size, standardescape);
 	for (i=0;i<size;i++) {
 		tct[i].my_int = i+48;
