@@ -85,7 +85,9 @@ static void image_insert_dialogok_lcb(GtkWidget * widget, Timage_diag *imdg) {
 
 	thestring = insert_integer_if_spin(imdg->dg->spin[0], cap("WIDTH"), thestring, GTK_TOGGLE_BUTTON(imdg->dg->check[0])->active,0);
 	thestring = insert_integer_if_spin(imdg->dg->spin[1], cap("HEIGHT"), thestring, GTK_TOGGLE_BUTTON(imdg->dg->check[1])->active,0);
-	thestring = insert_integer_if_spin(imdg->dg->spin[2], cap("BORDER"), thestring, FALSE, 1);
+	if (!main_v->props.xhtml) {
+		thestring = insert_integer_if_spin(imdg->dg->spin[2], cap("BORDER"), thestring, FALSE, 1);
+	}
 	thestring = insert_integer_if_spin(imdg->dg->spin[3], cap("HSPACE"), thestring, FALSE,0);
 	thestring = insert_integer_if_spin(imdg->dg->spin[4], cap("VSPACE"), thestring, FALSE,0);
 	thestring = insert_string_if_entry(imdg->dg->entry[1], cap("NAME"), thestring, NULL);
@@ -94,7 +96,7 @@ static void image_insert_dialogok_lcb(GtkWidget * widget, Timage_diag *imdg) {
 	thestring = insert_string_if_entry(GTK_WIDGET(GTK_COMBO(imdg->dg->combo[0])->entry), cap("ALIGN"), thestring, NULL);
 	thestring = insert_string_if_entry(imdg->dg->entry[4], NULL, thestring, NULL);
 
-	finalstring = g_strdup_printf(main_v->props.xhtml == 1 ? "%s />" : "%s>", thestring);
+	finalstring = g_strconcat(thestring, (main_v->props.xhtml == 1) ? " />" : ">", NULL);
 	g_free(thestring);
 
 	if (imdg->dg->range.end == -1) {
@@ -232,7 +234,6 @@ void image_insert_dialog_backend(gchar *filename,Tbfwin *bfwin, Ttagpopup *data,
 		static gchar *tagitems[] = { "width", "height", "alt", "border", "src", "hspace", "vspace", "align", "name", "usemap", NULL };
 		fill_dialogvalues(tagitems, tagvalues, &custom, (Ttagpopup *) data, imdg->dg);
 	}
-
 	imdg->frame = gtk_frame_new(_("Preview"));
 /*	gtk_widget_set_usize(imdg->frame, -1, 50);*/
 	gtk_box_pack_start(GTK_BOX(imdg->dg->vbox), imdg->frame, TRUE, TRUE, 0);
@@ -305,11 +306,11 @@ void image_insert_dialog_backend(gchar *filename,Tbfwin *bfwin, Ttagpopup *data,
 	g_list_free(popuplist);
 	bf_mnemonic_label_tad_with_alignment(_("_Align:"), imdg->dg->combo[0], 0, 0.5, dgtable, 3, 4, 1, 2);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), imdg->dg->combo[0], 4, 6, 1, 2);
-
-	imdg->dg->spin[2] = spinbut_with_value(tagvalues[3], 0, 500, 1.0, 5.0);
-	bf_mnemonic_label_tad_with_alignment(_("Borde_r:"), imdg->dg->spin[2], 0, 0.5, dgtable, 3, 4, 2, 3);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), imdg->dg->spin[2], 4, 6, 2, 3);
-
+	if (!main_v->props.xhtml) {
+		imdg->dg->spin[2] = spinbut_with_value(tagvalues[3], 0, 500, 1.0, 5.0);
+		bf_mnemonic_label_tad_with_alignment(_("Borde_r:"), imdg->dg->spin[2], 0, 0.5, dgtable, 3, 4, 2, 3);
+		gtk_table_attach_defaults(GTK_TABLE(dgtable), imdg->dg->spin[2], 4, 6, 2, 3);
+	}
 	if (filename || tagvalues[4]) {
 		g_signal_emit_by_name(G_OBJECT(imdg->dg->entry[0]), "changed");
 	}
