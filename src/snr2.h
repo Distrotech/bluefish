@@ -36,22 +36,17 @@ typedef struct {
 	gint nmatch;
 } Tsearch_result;
 
-void copy_cb(GtkWidget * w, gpointer data);
-void paste_cb(GtkWidget * w, gpointer data);
-void cut_cb(GtkWidget * w, gpointer data);
-void sel_all_cb(GtkWidget * w, gpointer data);
-
 void snr2_run_extern_replace(Tdocument *doc, gchar *search_pattern, gint region,
 							gint matchtype, gint is_case_sens, gchar *replace_pattern,
 							gboolean store_as_last_snr2);
 Tsearch_result doc_search_run_extern(Tdocument *doc, gchar *search_pattern, gint matchtype, gint is_case_sens);
 
-void search_cb(GtkWidget *widget, gpointer data);
-void new_search_cb(GtkWidget *widget, gpointer data);
-void replace_again_cb(GtkWidget *widget, gpointer data);
-void search_again_cb(GtkWidget *widget, gpointer data);
-void replace_cb(GtkWidget *widget, gpointer data);
-void new_replace_cb(GtkWidget *widget, gpointer data);
+void search_cb(GtkWidget *widget, Tbfwin *bfwin);
+void new_search_cb(GtkWidget *widget, Tbfwin *bfwin);
+void replace_again_cb(GtkWidget *widget, Tbfwin *bfwin);
+void search_again_cb(GtkWidget *widget, Tbfwin *bfwin);
+void replace_cb(GtkWidget *widget, Tbfwin *bfwin);
+void new_replace_cb(GtkWidget *widget, Tbfwin *bfwin);
 void update_filenames_in_file(Tdocument *doc, gchar *oldfilename, gchar *newfilename, gint doc_has_newfilename);
 void update_encoding_meta_in_file(Tdocument *doc, gchar *encoding);
 

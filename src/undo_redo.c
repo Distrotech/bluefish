@@ -352,72 +352,72 @@ gint doc_undo_op_compare(Tdocument *doc, undo_op_t testfor) {
 /**
  * undo_cb:
  * @widget: a #GtkWidget *, ignored
- * @data: a #gpointer, ignored
+ * @bfwin: a #Tbfwin* with the window
  * 
  * activates the last undo group on the current document
  * 
  * Return value: void
  **/
-void undo_cb(GtkWidget * widget, gpointer data) {
+void undo_cb(GtkWidget * widget, Tbfwin *bfwin) {
 	DEBUG_MSG("undo_cb, started\n");
-	if (main_v->current_document) {
-		doc_unre_start(main_v->current_document);
-		doc_undo(main_v->current_document);
-		doc_unre_finish(main_v->current_document);
+	if (bfwin->current_document) {
+		doc_unre_start(bfwin->current_document);
+		doc_undo(bfwin->current_document);
+		doc_unre_finish(bfwin->current_document);
 	}
 }
 /**
  * redo_cb:
  * @widget: a #GtkWidget *, ignored
- * @data: a #gpointer, ignored
+ * @bfwin: a #Tbfwin* with the window
  * 
  * activates the last redo group on the current document
  * 
  * Return value: void
  **/
-void redo_cb(GtkWidget * widget, gpointer data) {
-	if (main_v->current_document) {
-		doc_unre_start(main_v->current_document);
-		doc_redo(main_v->current_document);
-		doc_unre_finish(main_v->current_document);
+void redo_cb(GtkWidget * widget, Tbfwin *bfwin) {
+	if (bfwin->current_document) {
+		doc_unre_start(bfwin->current_document);
+		doc_redo(bfwin->current_document);
+		doc_unre_finish(bfwin->current_document);
 	}
 }
 /**
  * undo_all_cb:
  * @widget: a #GtkWidget *, ignored
- * @data: a #gpointer, ignored
+ * @bfwin: a #Tbfwin* with the window
  * 
  * activates all undo groups on the current document
  * 
  * Return value: void
  **/
-void undo_all_cb(GtkWidget * widget, gpointer data) {
+void undo_all_cb(GtkWidget * widget, Tbfwin *bfwin) {
 	/* TODO */
-	if (main_v->current_document) {
-		doc_unre_start(main_v->current_document);
-		while (main_v->current_document->unre.first) {
-			doc_undo(main_v->current_document);
+	if (bfwin->current_document) {
+		doc_unre_start(bfwin->current_document);
+		while (bfwin->current_document->unre.first) {
+			doc_undo(bfwin->current_document);
 		}
-		doc_unre_finish(main_v->current_document);
+		doc_unre_finish(bfwin->current_document);
 	}
 }
 /**
  * redo_all_cb:
  * @widget: a #GtkWidget *, ignored
- * @data: a #gpointer, ignored
+ * @bfwin: a #Tbfwin* with the window
  * 
  * activates all redo groups on the current document
  * 
  * Return value: void
  **/
-void redo_all_cb(GtkWidget * widget, gpointer data) {
+void redo_all_cb(GtkWidget * widget, Tbfwin *bfwin) {
 	/* TODO */
-	if (main_v->current_document) {
-		doc_unre_start(main_v->current_document);
-		while (main_v->current_document->unre.redofirst) {
-			doc_redo(main_v->current_document);
+	if (bfwin->current_document) {
+		doc_unre_start(bfwin->current_document);
+		while (bfwin->current_document->unre.redofirst) {
+			doc_redo(bfwin->current_document);
 		}
-		doc_unre_finish(main_v->current_document);
+		doc_unre_finish(bfwin->current_document);
 	}
 }
 /**

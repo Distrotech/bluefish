@@ -102,6 +102,7 @@ typedef struct {
 
 typedef struct {
 	gint replace;
+	Tbfwin *bfwin;
 	GtkWidget *window;
 	GtkWidget *search_entry;
 	GtkWidget *search_label;
@@ -1172,12 +1173,13 @@ static gboolean search_entry_key_press_event_lcb(GtkWidget *widget,GdkEventKey *
 	return FALSE;
 }
 
-static void snr2dialog(gint is_replace, gint is_new_search) {
+static void snr2dialog(Tbfwin *bfwin, gint is_replace, gint is_new_search) {
 	Tsnr2_win *snr2win;
 	GtkWidget *vbox, *hbox, *button, *table;
 	gchar *tmptext;
 
 	snr2win = g_malloc(sizeof(Tsnr2_win));
+	snr2win->bfwin = bfwin;
 	snr2win->is_advanced = main_v->props.default_advanced_snr;
 	if (is_replace) {
 		tmptext = _("Replace");
@@ -1342,8 +1344,8 @@ static void snr2dialog(gint is_replace, gint is_new_search) {
  * 
  * Return value: void
  **/
-void search_cb(GtkWidget *widget, gpointer data) {
-	snr2dialog(0, 0);
+void search_cb(GtkWidget *widget, Tbfwin *bfwin) {
+	snr2dialog(bfwin, 0, 0);
 }
 
 /**
@@ -1355,8 +1357,8 @@ void search_cb(GtkWidget *widget, gpointer data) {
  * 
  * Return value: void
  **/
-void new_search_cb(GtkWidget *widget, gpointer data) {
-	snr2dialog(0, 1);
+void new_search_cb(GtkWidget *widget, Tbfwin *bfwin) {
+	snr2dialog(bfwin, 0, 1);
 }
 
 /**
@@ -1368,7 +1370,7 @@ void new_search_cb(GtkWidget *widget, gpointer data) {
  * 
  * Return value: void
  **/ 
-void search_again_cb(GtkWidget *widget, gpointer data) {
+void search_again_cb(GtkWidget *widget, Tbfwin *bfwin) {
 	snr2_run(NULL);	
 }
 
@@ -1381,7 +1383,7 @@ void search_again_cb(GtkWidget *widget, gpointer data) {
  * 
  * Return value: void
  **/ 
-void replace_again_cb(GtkWidget *widget, gpointer data) {
+void replace_again_cb(GtkWidget *widget, Tbfwin *bfwin) {
 	snr2_run(NULL);
 }
 
@@ -1394,8 +1396,8 @@ void replace_again_cb(GtkWidget *widget, gpointer data) {
  * 
  * Return value: void
  **/ 
-void replace_cb(GtkWidget *widget, gpointer data) {
-	snr2dialog(1, 0);
+void replace_cb(GtkWidget *widget, Tbfwin *bfwin) {
+	snr2dialog(bfwin, 1, 0);
 }
 
 /**
@@ -1407,8 +1409,8 @@ void replace_cb(GtkWidget *widget, gpointer data) {
  * 
  * Return value: void
  **/ 
-void new_replace_cb(GtkWidget *widget, gpointer data) {
-	snr2dialog(1, 1);
+void new_replace_cb(GtkWidget *widget, Tbfwin *bfwin) {
+	snr2dialog(bfwin, 1, 1);
 }
 
 /*****************************************************/
