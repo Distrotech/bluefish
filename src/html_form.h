@@ -1,8 +1,7 @@
 /* Bluefish HTML Editor
- * html2.c - menu/toolbar callbacks, inserting functions, and other cool stuff 
- * otherwise html.c is getting so long ;-)
+ * html_form.h - menu/toolbar callback prototypes
  *
- * Copyright (C) 1999 Olivier Sessink
+ * Copyright (C) 2000 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,13 +17,18 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-#ifndef __HTML2_H_
-#define __HTML2_H_
-void insert_class(GtkWidget * widget, gpointer data);
 
-/* void insert_in_stylesheet(GtkWidget * widget, gpointer data); */
+#ifndef __HTML_FORM_H_
+#define __HTML_FORM_H_
 
-GtkWidget *style_but_new(GtkWidget * which_entry, GtkWidget * win);
-void new_css_dialog(GtkWidget *widget, gpointer data);
-
-#endif /* __HTML2_H_ */
+void formdialog_cb(GtkWidget * widget, gpointer data);
+void textareadialog_cb(GtkWidget * widget, gpointer data);
+void textdialog_cb(GtkWidget * widget, gpointer data);
+void buttondialog_cb(GtkWidget * widget, gpointer data);
+void hiddendialog_cb(GtkWidget * widget, gpointer data);
+void radiodialog_cb(GtkWidget * widget, gpointer data);
+void checkdialog_cb(GtkWidget * widget, gpointer data);
+void selectdialog_cb(GtkWidget * widget, gpointer data);
+void optiondialog_cb(GtkWidget * widget, gpointer data);
+void optgroupdialog_cb(GtkWidget * widget, gpointer data);
+#endif /* __HTML_FORM_H_ */

@@ -167,9 +167,131 @@ GtkWidget *new_pixmap(gint type) {
 	case 142:
 		data = table_capt;
 		break;
+	case 143:
+		data = framewhiz;
+		break;
+	case 144:
+		data = frameset;
+		break;
+	case 145:
+		data = frame;
+		break;
+	case 146:
+		data = frameset2;
+		break;
+	case 147:
+		data = frame2;
+		break;
+	case 148:
+		data = frame_no;
+		break;
+	case 149:
+		data = frame_base;
+		break;
+	case 150:
+		data = form;
+		break;
+	case 151:
+		data = form_submit;
+		break;
+	case 152:
+		data = form_reset;
+		break;
+	case 153:
+		data = form_text;
+		break;
+	case 154:
+		data = form_hidden;
+		break;
+	case 155:
+		data = form_textarea;
+		break;
+	case 156:
+		data = form_radio;
+		break;
+	case 157:
+		data = form_check;
+		break;
+	case 158:
+		data = form_select;
+		break;
+
+	case 417:
+		data = form_option;
+		break;
+	case 159:
+		data = list;
+		break;
+	case 160:
+		data = list_ul;
+		break;
+	case 161:
+		data = list_ol;
+		break;
+	case 162:
+		data = list_li;
+		break;
+	case 163:
+		data = list_dl;
+		break;
+	case 164:
+		data = list_dt;
+		break;
+	case 165:
+		data = list_dd;
+		break;
+	case 166:
+		data = list_menu;
+		break;
+	case 167:
+		data = image_map;
+		break;
+	case 168:
+		data = meta;
+		break;
+	case 169:
+		data = embed;
+		break;
+	case 170:
+		data = netscape;
+		break;
+	case 171:
+		data = color_select;
+		break;
+	case 172:
+		data = time;
+		break;
+	case 173:
+		data = php3;
+		break;
+	case 174:
+		data = ssi;
+		break;
+	case 175:
+		data = rxml;
+		break;
+
 /*	case 176: replaced by stock button
 		data = color_select_small;
 		break;*/
+	case 180:
+		data = cssnewstyle;
+		break;
+	case 181:
+		data = cssspan;
+		break;
+	case 182:
+		data = cssdiv;
+		break;
+	case 183:
+		data = cssclass;
+		break;
+	case 184:
+		data = cssstyle;
+		break;
+	case 189:
+		data = linkstylesheet;
+		break;
 	case 192:
 		data = css_small;
 		break;
