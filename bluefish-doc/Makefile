@@ -174,27 +174,21 @@ tarball-all: all
 	cp ${OUTPUT_DIR}/figures/*.png ${TARBALL_DIR}/${BOOK_PREFIX}-html-chunked-${VERSION}/figures
 	cd ${TARBALL_DIR}; \
 	mv book-a4.pdf ${BOOK_PREFIX}-pdf-a4-${VERSION}.pdf; \
-	tar -czvf ${BOOK_PREFIX}-pdf-a4-${VERSION}.tar ${BOOK_PREFIX}-pdf-a4-${VERSION}.pdf; \
-	bzip2 -f ${BOOK_PREFIX}-pdf-a4-${VERSION}.tar; 
+	tar -jvcf ${BOOK_PREFIX}-pdf-a4-${VERSION}.tar.bz2 ${BOOK_PREFIX}-pdf-a4-${VERSION}.pdf; 
 	cd ${TARBALL_DIR}; \
 	mv book-us.pdf ${BOOK_PREFIX}-pdf-us-${VERSION}.pdf; \
-	tar -czvf ${BOOK_PREFIX}-pdf-us-${VERSION}.tar ${BOOK_PREFIX}-pdf-us-${VERSION}.pdf; \
-	bzip2 -f ${BOOK_PREFIX}-pdf-us-${VERSION}.tar;
+	tar -jvcf ${BOOK_PREFIX}-pdf-us-${VERSION}.tar.bz2 ${BOOK_PREFIX}-pdf-us-${VERSION}.pdf;
 	cd ${TARBALL_DIR}; \
 	mv book-a4.ps ${BOOK_PREFIX}-ps-a4-${VERSION}.ps; \
-	tar -czvf ${BOOK_PREFIX}-ps-a4-${VERSION}.tar ${BOOK_PREFIX}-ps-a4-${VERSION}.ps; \
-	bzip2 -f ${BOOK_PREFIX}-ps-a4-${VERSION}.tar; 
+	tar -jvcf ${BOOK_PREFIX}-ps-a4-${VERSION}.tar.bz2 ${BOOK_PREFIX}-ps-a4-${VERSION}.ps;
 	cd ${TARBALL_DIR}; \
 	mv book-us.ps ${BOOK_PREFIX}-ps-us-${VERSION}.ps; \
-	tar -czvf ${BOOK_PREFIX}-ps-us-${VERSION}.tar ${BOOK_PREFIX}-ps-us-${VERSION}.ps; \
-	bzip2 -f ${BOOK_PREFIX}-ps-us-${VERSION}.tar; 
+	tar -jvcf ${BOOK_PREFIX}-ps-us-${VERSION}.tar.bz2 ${BOOK_PREFIX}-ps-us-${VERSION}.ps;
 	cd ${TARBALL_DIR}; \
-	tar -czvf ${BOOK_PREFIX}-html-bigfile-${VERSION}.tar ${BOOK_PREFIX}-html-bigfile-${VERSION}/; \
-	bzip2 -f ${BOOK_PREFIX}-html-bigfile-${VERSION}.tar;
+	tar -jvcf ${BOOK_PREFIX}-html-bigfile-${VERSION}.tar.bz2 ${BOOK_PREFIX}-html-bigfile-${VERSION}/; 
 	cd ${TARBALL_DIR}; \
 	rm -f ${BOOK_PREFIX}-html-chunked-${VERSION}/book.html; \
-	tar -czvf ${BOOK_PREFIX}-html-chunked-${VERSION}.tar ${BOOK_PREFIX}-html-chunked-${VERSION}/; \
-	bzip2 -f ${BOOK_PREFIX}-html-chunked-${VERSION}.tar;
+	tar -jvcf ${BOOK_PREFIX}-html-chunked-${VERSION}.tar.bz2 ${BOOK_PREFIX}-html-chunked-${VERSION}/;
 	rm -f ${TARBALL_DIR}/*.pdf
 	rm -f ${TARBALL_DIR}/*.ps
 	rm -Rf ${TARBALL_DIR}/${BOOK_PREFIX}-html-bigfile-${VERSION}
