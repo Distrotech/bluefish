@@ -1651,3 +1651,24 @@ void doc_toggle_wrap_cb(gpointer callback_data,guint action,GtkWidget *widget) {
 void doc_convert_asciichars_in_selection(gpointer callback_data,guint callback_action,GtkWidget *widget) {
 	doc_convert_chars_to_entities_in_selection(main_v->current_document, (callback_action != 2), (callback_action != 1));
 }
+
+
+void word_count_cb (gpointer callback_data,guint callback_action,GtkWidget *widget) {
+	int wc, alnum = 0, tag = 0;
+	const gchar delimiters[]=" .,;:?\n\t";
+	const gchar alnums[] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+	gchar *wc_message, *allchars, *tmp;
+
+	wc = 0;
+   allchars = doc_get_chars(main_v->current_document, 0, -1);
+	tmp = allchars;
+	while (*tmp != '\0') {
+		if ((strchr (delimiters, *tmp)) && (alnum == 1) && (tag == 0)) wc++;
+		if (*tmp == '<') { tag = 1; } else if (*tmp == '>') { tag = 0; };
+		if (strchr (alnums, *allchars)) { alnum = 1;} else { alnum = 0; }
+		tmp++;
+	}
+	wc_message = g_strdup_printf("Word Count %d", wc);
+	statusbar_message (wc_message, 5000);
+	g_free (wc_message);
+}
