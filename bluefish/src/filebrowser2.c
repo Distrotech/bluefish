@@ -995,7 +995,7 @@ static void fb2rpopup_new(Tfilebrowser2 *fb2, gboolean newisdir) {
 			GnomeVFSHandle *handle;
 			newuri = gnome_vfs_uri_append_file_name(baseuri, _("New file"));
 			res = gnome_vfs_create_uri(&handle,newuri,GNOME_VFS_OPEN_WRITE,FALSE,0644);
-			if (res) {
+			if (res == GNOME_VFS_OK) {
 				res = gnome_vfs_close(handle);
 			}
 		}
