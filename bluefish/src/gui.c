@@ -256,6 +256,7 @@ static Ttoolbaritem tbi[] = {
 	{"style", general_html_cb, GINT_TO_POINTER(42), 184, N_("Style")},
 	{"linkstylesheet...", link_cb, NULL,189 , N_("Link to stylesheet...")},
 	{"image...", image_insert_dialog_cb, NULL, 113, N_("Insert image...")},
+	{"thumbnail...", thumbnail_insert_dialog_cb, NULL, 125, N_("Insert thumbnail...")},
 /*	{"", general_html_cb, GINT_TO_POINTER(), , N_("")},
 	{"", general_html_cb, GINT_TO_POINTER(), , N_("")},
 
@@ -391,7 +392,7 @@ void make_html_toolbar(GtkWidget *handlebox) {
 
 	html_toolbar = gtk_toolbar_new();
 	html_toolbar_add_items(html_toolbar, tbi, 0, 14);
-	html_toolbar_add_items(html_toolbar, tbi, 73, 74);
+	html_toolbar_add_items(html_toolbar, tbi, 73, 75);
 	gtk_notebook_append_page(GTK_NOTEBOOK(html_notebook), html_toolbar, gtk_label_new(_(" Standard bar ")));
 
 	html_toolbar = gtk_toolbar_new();

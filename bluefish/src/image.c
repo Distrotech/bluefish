@@ -11,6 +11,12 @@ typedef struct {
 	GtkWidget *frame;
 	GdkPixbuf *pb;
 	GtkWidget *im;
+
+	/* and some options for the thumbnails */
+	GtkWidget *set_default;
+	GtkWidget *set_by[3];
+	GtkWidget *value_of[3];
+	GtkAdjustment *adjustment;
 } Timage_diag;
 
 
@@ -103,8 +109,12 @@ static void image_filename_changed(GtkWidget * widget, Timage_diag *imdg) {
 	gtk_widget_show(imdg->im);
 }
 
-void image_insert_dialog_backend(gchar *filename,GtkWidget *widget, gpointer data) {
-	static gchar *tagitems[] = { "width", "height", "alt", "border", "src", "hspace", "vspace", "align", "name", "usemap", NULL };
+static void thumbnail_changed(Timage_diag *imdg, gboolean reload) {
+	GdkPixbuf *tmp_pb;
+
+}
+
+void image_insert_dialog_backend(gchar *filename,GtkWidget *widget, gpointer data, gboolean is_thumbnail) {
 	gchar *tagvalues[11];
 	gchar *custom = NULL;
 	Timage_diag *imdg;
@@ -114,12 +124,55 @@ void image_insert_dialog_backend(gchar *filename,GtkWidget *widget, gpointer dat
 	imdg = g_new(Timage_diag, 1);
 	imdg->pb = NULL;
 	imdg->im = NULL;
-	imdg->dg = html_diag_new(_("Insert image"));
-	fill_dialogvalues(tagitems, tagvalues, &custom, (Ttagpopup *) data, widget, imdg->dg);
+	if (is_thumbnail) {
+		imdg->dg = html_diag_new(_("Insert image"));
+	} else {
+		imdg->dg = html_diag_new(_("Insert thumbnail"));
+	}
+	{
+		static gchar *tagitems[] = { "width", "height", "alt", "border", "src", "hspace", "vspace", "align", "name", "usemap", NULL };
+		fill_dialogvalues(tagitems, tagvalues, &custom, (Ttagpopup *) data, widget, imdg->dg);
+	}
 
 	imdg->frame = gtk_frame_new(_("Preview"));
 	gtk_widget_set_usize(imdg->frame, -1, 50);
 	gtk_box_pack_start(GTK_BOX(imdg->dg->vbox), imdg->frame, FALSE, FALSE, 0);
+	if (is_thumbnail) {
+		GtkWidget *scale, *frame2;
+
+		frame2 = gtk_frame_new(_("Thumbnail settings"));
+		gtk_box_pack_start(GTK_BOX(imdg->dg->vbox), frame2, FALSE, FALSE, 0);
+
+		dgtable = gtk_table_new(3, 3, FALSE);
+		gtk_table_set_row_spacings(GTK_TABLE(dgtable), 4);
+		gtk_table_set_col_spacings(GTK_TABLE(dgtable), 4);
+		gtk_container_add(GTK_CONTAINER(frame2), dgtable);
+		
+		imdg->set_by[0] = radiobut_with_value(_("Set by width"), (main_v->props.image_thumbnailsizing_type == 0)?1:0 , NULL);
+		gtk_table_attach(GTK_TABLE(dgtable), imdg->set_by[0], 0, 1, 0, 1, GTK_FILL, GTK_FILL, 0, 0);
+		imdg->set_by[1] = radiobut_with_value(_("Set by height"), (main_v->props.image_thumbnailsizing_type == 1)?1:0, imdg->set_by[0]);
+		gtk_table_attach(GTK_TABLE(dgtable), imdg->set_by[1], 0, 1, 1, 2, GTK_FILL, GTK_FILL, 0, 0);
+		imdg->set_by[2] = radiobut_with_value(_("Set by ratio"), (main_v->props.image_thumbnailsizing_type == 2)?1:0, imdg->set_by[1]);
+		gtk_table_attach(GTK_TABLE(dgtable), imdg->set_by[2], 0, 1, 2, 3, GTK_FILL, GTK_FILL, 0, 0);
+		
+		imdg->value_of[0] = spinbut_with_value("", 1, 10000, 1, 10);
+		gtk_table_attach(GTK_TABLE(dgtable), imdg->value_of[0], 1, 2, 0, 1, GTK_FILL, GTK_FILL, 0, 0);
+		imdg->value_of[1] = spinbut_with_value("", 1, 10000, 1, 10);
+		gtk_table_attach(GTK_TABLE(dgtable), imdg->value_of[1], 1, 2, 1, 2, GTK_FILL, GTK_FILL, 0, 0);
+		imdg->value_of[2] = spinbut_with_value("", 0.0001, 1.1, 0.01, 0.1);
+		gtk_table_attach(GTK_TABLE(dgtable), imdg->value_of[2], 1, 2, 2, 3, GTK_FILL, GTK_FILL, 0, 0);
+		
+		imdg->set_default = checkbut_with_value(_("Set as default"), 0);
+		gtk_table_attach(GTK_TABLE(dgtable), imdg->set_default, 2, 3, 0, 1, GTK_FILL, GTK_FILL, 0, 0);
+		
+		imdg->adjustment = GTK_ADJUSTMENT(gtk_adjustment_new(0.5, 0.0001, 1.1, 0.001, 0.1, 0.1));
+		scale = gtk_hscale_new(imdg->adjustment);
+/*		gtk_signal_connect(GTK_OBJECT(imdg->adjustment), "value_changed", G_CALLBACK(image_adjust_changed), imdg);*/
+		gtk_scale_set_digits(GTK_SCALE(scale), 3);
+		gtk_range_set_update_policy(GTK_RANGE(scale), GTK_UPDATE_DISCONTINUOUS);
+		gtk_table_attach_defaults(GTK_TABLE(dgtable), scale, 2, 3, 1, 3);
+		
+	}
 
 	dgtable = html_diag_table_in_vbox(imdg->dg, 5, 9);
 	if (filename){
@@ -188,5 +241,8 @@ void image_insert_dialog_backend(gchar *filename,GtkWidget *widget, gpointer dat
 }
 
 void image_insert_dialog_cb(GtkWidget * widget, gpointer data) {
-	image_insert_dialog_backend(NULL, widget, data);
+	image_insert_dialog_backend(NULL, widget, data, FALSE);
+}
+void thumbnail_insert_dialog_cb(GtkWidget * widget, gpointer data) {
+	image_insert_dialog_backend(NULL, NULL, NULL, TRUE);
 }

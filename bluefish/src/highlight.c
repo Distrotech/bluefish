@@ -362,6 +362,8 @@ void hl_init()
 					g_error_free(error);
 					filetype->icon = NULL;
 				}
+			} else {
+				filetype->icon = NULL;
 			}
 			filetype->highlightlist = NULL;
 			main_v->filetypelist = g_list_append(main_v->filetypelist, filetype);
