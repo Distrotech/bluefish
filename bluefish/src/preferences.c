@@ -3,10 +3,11 @@
 #include <gtk/gtk.h>
 
 #include "bluefish.h"
+#include "stringlist.h" /* duplicate_arraylist*/
 #include "gtk_easy.h"
 #include "pixmap.h"
 
-typedef enum {
+enum {
 	filebrowser_show_hidden_files,
 	filebrowser_show_others_files,
 	filebrowser_show_backup_files,
@@ -89,12 +90,37 @@ typedef enum {
 	open_in_running_bluefish, /* open commandline documents in already running session*/
 #endif /* WITH_MSG_QUEUE */
 	property_num_max
-} Tproperty;
+};
+
+enum {
+	browsers,
+	external_commands,
+	filetypes,
+	filefilters,
+	highlight_patterns,
+	lists_num_max
+};
+
+typedef struct {
+	GtkWidget *entry[2];
+	GtkWidget *combo;
+	GtkWidget *check;
+	gchar **curstrarr;
+} Tfilefilterdialog;
+
+typedef struct {
+	GtkWidget *entry[5];
+	GtkWidget *combo;
+	gchar **curstrarr;
+} Tfiletypedialog;
 
 typedef struct {
 	GtkWidget *prefs[property_num_max];
+	GList *lists[lists_num_max];
 	GtkWidget *win;
 	GtkWidget *noteb;
+	Tfiletypedialog ftd;
+	Tfilefilterdialog ffd;
 } Tprefdialog;
 
 typedef enum {
@@ -178,6 +204,191 @@ static GtkWidget *prefs_integer(const gchar *title, const gint curval, GtkWidget
 	return return_widget;
 }
 
+
+/**********************************************************/
+/* FILETYPE, FILTERS AND HIGHLIGHT PATTERNS FUNCTIONS     */
+/**********************************************************/
+
+static GList *filetype_poplist(Tprefdialog *pd) {
+	GList *tmplist, *poplist=NULL;	
+	
+	tmplist = g_list_first(pd->lists[filetypes]);
+	while (tmplist){
+		gchar **strarr =(gchar **)tmplist->data;
+		if (count_array(strarr) >= 4) {
+			poplist = g_list_append(poplist, strarr[0]);
+		}
+		tmplist = g_list_next(tmplist);
+	}
+	return poplist;
+}
+
+static void add_new_filetype_lcb(GtkWidget *wid, Tprefdialog *pd) {
+	GList *poplist;
+	gchar *newtype = gtk_editable_get_chars(GTK_EDITABLE(pd->ftd.entry[0]),0,-1);
+	gchar **strarr = g_new(gpointer, 5);
+	strarr[0] = newtype;
+	strarr[1] = g_strdup("");
+	strarr[2] = g_strdup("");
+	strarr[3] = g_strdup("");
+	strarr[4] = NULL;
+	pd->lists[filetypes] = g_list_append(pd->lists[filetypes], strarr);
+	poplist = filetype_poplist(pd);
+	gtk_combo_set_popdown_strings(GTK_COMBO(pd->ftd.combo), poplist);
+	g_list_free(poplist);
+}
+
+static void filetype_combo_activate(GtkEntry *entry,Tprefdialog *pd) {
+	const gchar *entrytext = gtk_entry_get_text(GTK_ENTRY(GTK_COMBO(pd->ftd.combo)->entry));
+	GList *tmplist = g_list_first(pd->lists[filetypes]);
+
+	if (pd->ftd.curstrarr) {
+		DEBUG_MSG("filetype_combo_activate, previous was %s, new is %s\n", pd->ftd.curstrarr[0], entrytext);
+		g_free(pd->ftd.curstrarr[1]);
+		pd->ftd.curstrarr[1] = gtk_editable_get_chars(GTK_EDITABLE(pd->ftd.entry[1]),0,-1);
+		g_free(pd->ftd.curstrarr[2]);
+		pd->ftd.curstrarr[2] = gtk_editable_get_chars(GTK_EDITABLE(pd->ftd.entry[2]),0,-1);
+		g_free(pd->ftd.curstrarr[3]);
+		pd->ftd.curstrarr[3] = gtk_editable_get_chars(GTK_EDITABLE(pd->ftd.entry[3]),0,-1);
+	} else {
+		DEBUG_MSG("filetype_combo_activate, no previous, new is %s\n", entrytext);
+	}
+
+	while (tmplist) {
+		gchar **strarr =(gchar **)tmplist->data;
+		if (strcmp(strarr[0], entrytext)==0) {
+			gtk_entry_set_text(GTK_ENTRY(pd->ftd.entry[1]), strarr[1]);
+			gtk_entry_set_text(GTK_ENTRY(pd->ftd.entry[2]), strarr[2]);
+			gtk_entry_set_text(GTK_ENTRY(pd->ftd.entry[3]), strarr[3]);
+			pd->ftd.curstrarr = strarr;
+			return;
+		}
+		tmplist = g_list_next(tmplist);
+	}
+
+	DEBUG_MSG("filetype_combo_activate\n");
+}
+
+static void create_filetype_gui(Tprefdialog *pd, GtkWidget *vbox1) {
+	GtkWidget *hbox, *but;
+	GList *poplist;	
+	pd->lists[filetypes] = duplicate_arraylist(main_v->props.filetypes);
+
+	hbox = gtk_hbox_new(FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(vbox1), hbox, TRUE, TRUE, 0);
+	pd->ftd.entry[0] = boxed_entry_with_text(NULL, 1023, hbox);
+	but = gtk_button_new_with_label(_("Add new type"));
+	g_signal_connect(G_OBJECT(but), "clicked", G_CALLBACK(add_new_filetype_lcb), pd);
+	gtk_box_pack_start(GTK_BOX(hbox), but, TRUE, TRUE, 3);
+
+	gtk_box_pack_start(GTK_BOX(vbox1), gtk_hseparator_new(), FALSE, FALSE, 3);
+
+	poplist = filetype_poplist(pd);
+	pd->ftd.combo = prefs_combo(_("Filetype"), NULL, vbox1, pd, poplist, FALSE);
+	g_signal_connect_after(G_OBJECT(GTK_COMBO(pd->ftd.combo)->list), "selection-changed", G_CALLBACK(filetype_combo_activate), pd);
+	g_list_free(poplist);
+
+	pd->ftd.entry[1] = boxed_full_entry(_("Extensions (colon separated)"), NULL, 500, vbox1);
+	pd->ftd.entry[2] = boxed_full_entry(_("Highlighting update chars"), NULL, 50, vbox1);
+	pd->ftd.entry[3] = prefs_string(_("Icon"), NULL, vbox1, pd, string_file);
+}
+
+static GList *filefilter_poplist(Tprefdialog *pd) {
+	GList *tmplist, *poplist=NULL;	
+	
+	tmplist = g_list_first(pd->lists[filefilters]);
+	while (tmplist){
+		gchar **strarr =(gchar **)tmplist->data;
+		if (count_array(strarr) >= 3) {
+			poplist = g_list_append(poplist, strarr[0]);
+		}
+		tmplist = g_list_next(tmplist);
+	}
+	return poplist;
+}
+
+static void add_new_filefilter_lcb(GtkWidget *wid, Tprefdialog *pd) {
+	GList *poplist;
+	gchar *newtype = gtk_editable_get_chars(GTK_EDITABLE(pd->ffd.entry[0]),0,-1);
+	gchar **strarr = g_new(gpointer, 4);
+	strarr[0] = newtype;
+	strarr[1] = g_strdup("1");
+	strarr[2] = g_strdup("");
+	strarr[3] = NULL;
+	pd->lists[filefilters] = g_list_append(pd->lists[filefilters], strarr);
+	poplist = filefilter_poplist(pd);
+	gtk_combo_set_popdown_strings(GTK_COMBO(pd->ffd.combo), poplist);
+	g_list_free(poplist);
+}
+
+static void filefilter_combo_activate(GtkEntry *entry,Tprefdialog *pd) {
+	const gchar *entrytext = gtk_entry_get_text(GTK_ENTRY(GTK_COMBO(pd->ffd.combo)->entry));
+	GList *tmplist = g_list_first(pd->lists[filefilters]);
+
+	if (pd->ffd.curstrarr) {
+		DEBUG_MSG("filefilter_combo_activate, previous was %s, new is %s\n", pd->ffd.curstrarr[0], entrytext);
+		g_free(pd->ffd.curstrarr[1]);
+		if (GTK_TOGGLE_BUTTON(pd->ffd.check)->active){
+			pd->ffd.curstrarr[1] = g_strdup("0");
+		} else {
+			pd->ffd.curstrarr[1] = g_strdup("1");
+		}
+		g_free(pd->ffd.curstrarr[2]);
+		pd->ffd.curstrarr[2] = gtk_editable_get_chars(GTK_EDITABLE(pd->ffd.entry[1]),0,-1);
+		
+	} else {
+		DEBUG_MSG("filefilter_combo_activate, no previous, new is %s\n", entrytext);
+	}
+
+	while (tmplist) {
+		gchar **strarr =(gchar **)tmplist->data;
+		if (strcmp(strarr[0], entrytext)==0) {
+			gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(pd->ffd.check), (strarr[1][0] == '0'));
+			gtk_entry_set_text(GTK_ENTRY(pd->ffd.entry[1]), strarr[2]);
+			pd->ffd.curstrarr = strarr;
+			return;
+		}
+		tmplist = g_list_next(tmplist);
+	}
+
+	DEBUG_MSG("filefilter_combo_activate\n");
+}
+
+
+static void create_filefilter_gui(Tprefdialog *pd, GtkWidget *vbox1) {
+	GtkWidget *hbox, *but;
+	GList *poplist;	
+	pd->lists[filefilters] = duplicate_arraylist(main_v->props.filefilters);
+	hbox = gtk_hbox_new(FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(vbox1), hbox, TRUE, TRUE, 0);
+	pd->ffd.entry[0] = boxed_entry_with_text(NULL, 1023, hbox);
+	but = gtk_button_new_with_label(_("Add new filter"));
+	g_signal_connect(G_OBJECT(but), "clicked", G_CALLBACK(add_new_filefilter_lcb), pd);
+	gtk_box_pack_start(GTK_BOX(hbox), but, TRUE, TRUE, 3);
+
+	gtk_box_pack_start(GTK_BOX(vbox1), gtk_hseparator_new(), FALSE, FALSE, 3);
+
+	poplist = filefilter_poplist(pd);
+	pd->ffd.combo = prefs_combo(_("Filter"), NULL, vbox1, pd, poplist, FALSE);
+	g_signal_connect_after(G_OBJECT(GTK_COMBO(pd->ffd.combo)->list), "selection-changed", G_CALLBACK(filefilter_combo_activate), pd);
+	g_list_free(poplist);
+
+	pd->ffd.check = boxed_checkbut_with_value(_("Inverse filtering"), FALSE, vbox1);
+	pd->ffd.entry[1] = boxed_full_entry(_("Filetypes (colon separated)"), NULL, 500, vbox1);
+	
+}
+
+
+
+
+
+
+
+
+/**************************************/
+/* MAIN DIALOG FUNCTIONS              */
+/**************************************/
+
 static void preferences_destroy_lcb(GtkWidget * widget, GdkEvent *event, Tprefdialog *pd) {
 	window_destroy(pd->win);
 	g_free(pd);
@@ -228,7 +439,7 @@ static void preferences_dialog() {
 	Tprefdialog *pd;
 	GtkWidget *dvbox, *frame, *vbox1, *vbox2;
 
-	pd = g_new(Tprefdialog,1);
+	pd = g_new0(Tprefdialog,1);
 	pd->win = window_full(_("Edit preferences"), GTK_WIN_POS_NONE, 0, G_CALLBACK(preferences_destroy_lcb), pd);
 	
 	dvbox = gtk_vbox_new(FALSE, 5);
@@ -328,6 +539,22 @@ static void preferences_dialog() {
 		g_list_free(poplist);
 	}
 
+	vbox1 = gtk_vbox_new(FALSE, 5);
+	gtk_notebook_append_page(GTK_NOTEBOOK(pd->noteb), vbox1, hbox_with_pix_and_text(_("Filetypes"), 014));
+
+	frame = gtk_frame_new(_("Filetypes"));
+	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
+	vbox2 = gtk_vbox_new(FALSE, 0);
+	gtk_container_add(GTK_CONTAINER(frame), vbox2);
+
+	create_filetype_gui(pd, vbox2);
+	
+	frame = gtk_frame_new(_("Filefilters"));
+	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
+	vbox2 = gtk_vbox_new(FALSE, 0);
+	gtk_container_add(GTK_CONTAINER(frame), vbox2);
+	
+	create_filefilter_gui(pd, vbox2);
 	
 	{
 		GtkWidget *ahbox, *but;
