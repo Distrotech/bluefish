@@ -1521,7 +1521,7 @@ static GtkWidget *fref_popup_menu(FRInfo *entry) {
 		
 		}
 	gtk_widget_show_all(menu);
-	g_signal_connect_after(G_OBJECT(menu), "hide", G_CALLBACK(destroy_disposable_menu_hide_cb), menu);
+	g_signal_connect_after(G_OBJECT(menu), "destroy", G_CALLBACK(destroy_disposable_menu_cb), menu);
 	return menu;
 }
 
