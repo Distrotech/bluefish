@@ -565,14 +565,13 @@ static void open_recent_file_cb(GtkWidget *widget, gchar *filename) {
 	DEBUG_MSG("open_recent_file_cb, started, filename is %s\n", filename);
 
 	/* Now, let's check if that file still exists and is readable, before loading it */
-	if (!file_exists_and_readable(filename)) {
+	if (!doc_new_with_file(filename, FALSE)) {
+		gchar *message = g_strconcat(_("Could not open file\n"), filename, NULL);
+		error_dialog("Bluefish error", message);
+		g_free(message);
 		return;
 	}
-
-	/* Open the file that was asked */
-	doc_new_with_file(filename, FALSE);
 	DEBUG_MSG("open_recent_file_cb, document %s opened\n", filename);
-
 	add_to_recent_list(filename, 0);
 	return;
 }

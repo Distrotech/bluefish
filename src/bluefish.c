@@ -117,7 +117,7 @@ int main(int argc, char *argv[])
 	/* set GTK settings */
 	{
 		GtkSettings* gtksettings = gtk_settings_get_default();
-		g_object_set(gtksettings, "gtk-can-change-accels", TRUE, NULL); 
+		g_object_set(G_OBJECT(gtksettings), "gtk-can-change-accels", TRUE, NULL); 
 	}
 
 	rcfile_parse_highlighting();
