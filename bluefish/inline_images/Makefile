@@ -58,7 +58,8 @@ TOOLBAR = \
 	frameset frameset.png \
 	frameset2 frameset2.png \
 	framewhiz framewhiz.png \
-	fref fref.png \
+	frdialog frdialog.png \
+	frinfo frinfo.png \
 	headings headings.png \
 	help help.png \
 	hrule hrule.png \
@@ -82,6 +83,7 @@ TOOLBAR = \
 	list_ol list_ol.png \
 	list_ul list_ul.png \
 	meta meta.png \
+	multithumbs multithumbs.png \
 	nbsp nbsp.png \
 	netscape netscape.png \
 	new new.png \
