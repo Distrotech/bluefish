@@ -25,18 +25,20 @@ XGETTEXT = @XGETTEXT@
 MSGMERGE = @MSGMERGE@
 
 #en.gmo should not be installed anymore!!
-CATALOGS = de.gmo da.gmo fr.gmo ro.gmo cs.gmo es.gmo el.gmo ja.gmo it.gmo sv.gmo pt_BR.gmo hu.gmo pl.gmo nl.gmo no.gmo
+FINISHED_CATALOGS = da.gmo fr.gmo es.gmo it.gmo hu.gmo pl.gmo no.gmo
+NONFINISHED_CATALOGS = de.gmo ro.gmo cs.gmo el.gmo ja.gmo sv.gmo pt_BR.gmo nl.gmo
+CATALOGS = ${FINISHED_CATALOGS} ${NONFINISHED_CATALOGS}
 
 %.gmo : %.po
 	$(MSGFMT) $< -o $@
 
 all: all-@USE_NLS@
 
-all-yes: $(CATALOGS)
+all-yes: $(FINISHED_CATALOGS)
 all-no:
 
 install:
-	@for file in $(CATALOGS) ; do \
+	@for file in $(FINISHED_CATALOGS) ; do \
 		lang=`echo $${file} | sed -e 's/\.gmo$$//'`;\
 		$(INSTALL_DIR) $(localedir)/$${lang}/ ;\
 		$(INSTALL_DIR) $(localedir)/$${lang}/LC_MESSAGES/ ;\
@@ -44,7 +46,7 @@ install:
 	done
 
 uninstall:
-	@for file in $(CATALOGS) ; do \
+	@for file in $(FINISHED_CATALOGS) ; do \
 		lang=`echo $${file} | sed -e 's/\.gmo$$//'`;\
 		rm -f $(localedir)/$${lang}/LC_MESSAGES/${PACKAGE}.mo;\
 	done
