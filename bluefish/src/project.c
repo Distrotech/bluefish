@@ -71,6 +71,15 @@ static void update_project_filelist(Tbfwin *bfwin, Tproject *prj) {
 	prj->files = return_filenamestringlist_from_doclist(bfwin->documentlist);
 }
 
+static void setup_bfwin_for_project(Tbfwin *bfwin) {
+	bfwin->session = bfwin->project->session;
+	bfwin->bookmarkstore = bfwin->project->bookmarkstore;
+	bmark_set_store(bfwin);
+	filebrowser_set_basedir(bfwin, bfwin->project->basedir);
+	recent_menu_from_list(bfwin, bfwin->project->session->recent_files, FALSE);
+	set_project_menu_widgets(bfwin, TRUE);
+}
+
 /* bfwin is allowed to be NULL for an empty project */
 static Tproject *create_new_project(Tbfwin *bfwin) {
 	Tproject *prj;
@@ -81,11 +90,11 @@ static Tproject *create_new_project(Tbfwin *bfwin) {
 	if (bfwin) {
 		DEBUG_MSG("create_new_project, new project for bfwin %p\n",bfwin);
 		update_project_filelist(bfwin,prj);
-		prj->session = bfwin->session;
+		bfwin->project = prj;
 	} else {
 		DEBUG_MSG("create_new_project, new project, no bfwin\n");
-		prj->session = g_new0(Tsessionvars,1);
 	}
+	prj->session = g_new0(Tsessionvars,1);
 	if (prj->files) {
 		gint len;
 		gchar *somefile, *prefix;
@@ -108,6 +117,9 @@ static Tproject *create_new_project(Tbfwin *bfwin) {
 	prj->view_custom_menu = main_v->props.view_custom_menu;
 	prj->view_html_toolbar = main_v->props.view_html_toolbar;
 	prj->word_wrap = main_v->props.word_wrap;
+	if (bfwin) {
+		setup_bfwin_for_project(bfwin);
+	}
 	return prj;
 }
 
@@ -239,6 +251,17 @@ static void project_destroy(Tproject *project) {
 	g_free(project);
 }
 
+static void setup_bfwin_for_nonproject(Tbfwin *bfwin) {
+	bfwin->session = main_v->session;
+	bfwin->bookmarkstore = main_v->bookmarkstore;
+	bfwin->project = NULL;
+	bmark_set_store(bfwin);
+	gui_set_title(bfwin, bfwin->current_document);
+	filebrowser_set_basedir(bfwin, NULL);
+	recent_menu_from_list(bfwin, main_v->session->recent_files, FALSE);
+	set_project_menu_widgets(bfwin, FALSE);
+}
+
 gboolean project_save_and_close(Tbfwin *bfwin) {
 	if (project_save(bfwin, FALSE)) {
 		DEBUG_MSG("project_save_and_close, save returned TRUE\n");
@@ -247,15 +270,7 @@ gboolean project_save_and_close(Tbfwin *bfwin) {
 			DEBUG_MSG("project_save_and_close, all documents are closed\n");
 			add_to_recent_list(bfwin,bfwin->project->filename, TRUE, TRUE);
 			project_destroy(bfwin->project);
-			/* the window gets the global session again */
-			bfwin->session = main_v->session;
-			bfwin->bookmarkstore = main_v->bookmarkstore;
-			bfwin->project = NULL;
-			bmark_set_store(bfwin);
-			gui_set_title(bfwin, bfwin->current_document);
-			filebrowser_set_basedir(bfwin, NULL);
-			recent_menu_from_list(bfwin, main_v->session->recent_files, FALSE);
-			set_project_menu_widgets(bfwin, FALSE);
+			setup_bfwin_for_nonproject(bfwin);
 			DEBUG_MSG("project_save_and_close, returning TRUE\n");
 			return TRUE;
 		}
@@ -278,12 +293,18 @@ typedef struct {
 	Tbfwin *bfwin;
 	Tproject *project;
 	GtkWidget *entries[projecteditor_entries_num];
-	gboolean project_created_by_editor;
+	gboolean destroy_project_on_close;
 } Tprojecteditor;
 
 static void project_edit_destroy_lcb(GtkWidget *widget, Tprojecteditor *pred) {
 	DEBUG_MSG("project_edit_destroy_lcb, called for pred=%p\n",pred);
 /*	gtk_widget_destroy(pred->win);*/
+	if (pred->destroy_project_on_close) {
+		project_destroy(pred->project);
+		if (pred->bfwin) {
+			setup_bfwin_for_nonproject(pred->bfwin);
+		}
+	}
 	if (pred->project) {
 		pred->project->editor = NULL;
 	}
@@ -291,20 +312,15 @@ static void project_edit_destroy_lcb(GtkWidget *widget, Tprojecteditor *pred) {
 }
 
 static void project_edit_cancel_clicked_lcb(GtkWidget *widget, Tprojecteditor *pred) {
-	if (pred->project_created_by_editor) {
-		DEBUG_MSG("project_edit_cancel_clicked_lcb, destroy project\n");
-		project_destroy(pred->project);
-		if (pred->bfwin) {
-			pred->bfwin->project = NULL;
-			pred->bfwin->session = g_new0(Tsessionvars,1);
-		}
-	}
 	gtk_widget_destroy(pred->win);
 }
 
 static void project_edit_ok_clicked_lcb(GtkWidget *widget, Tprojecteditor *pred) {
 	gchar *oldbasedir;
 	Tproject *prj = pred->project;
+	
+	pred->destroy_project_on_close = FALSE;
+	
 	gtk_widget_hide(pred->win);
 	if (pred->bfwin == NULL) {
 		pred->bfwin = gui_new_window(NULL, pred->project);
@@ -352,10 +368,11 @@ void project_edit(Tbfwin *bfwin) {
 		if (bfwin) {
 			bfwin->project = pred->project;
 		}
-		pred->project_created_by_editor = TRUE;
+		/* id the user does not press OK, we destroy the project */
+		pred->destroy_project_on_close = TRUE;
 		wintitle = g_strdup(_("Create New Project"));
 	} else {
-		pred->project_created_by_editor = FALSE;
+		pred->destroy_project_on_close = FALSE;
 		wintitle = g_strdup(_("Edit Project"));
 		if (bfwin) {
 			pred->project = bfwin->project;
@@ -419,7 +436,7 @@ void project_edit(Tbfwin *bfwin) {
 	gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 0);
 	but = bf_stock_cancel_button(G_CALLBACK(project_edit_cancel_clicked_lcb), pred);
 	gtk_box_pack_start(GTK_BOX(hbox), but, FALSE, FALSE, 0);
-	if (pred->project_created_by_editor == TRUE) {
+	if (pred->destroy_project_on_close == TRUE) {
 		but = bf_allbuttons_backend(_("Create _Project"), 1, 0, G_CALLBACK(project_edit_ok_clicked_lcb), pred);
 	} else {
 		but = bf_stock_ok_button(G_CALLBACK(project_edit_ok_clicked_lcb), pred);
