@@ -1100,7 +1100,15 @@ static void fileselectwin(gchar *setfile, Tfileselect *fileselect, gchar *title)
 		gtk_window_set_transient_for(GTK_WINDOW(fileselect->fs), GTK_WINDOW(parent));
 	}
 }
-
+/**
+ * return_file_w_title:
+ * @setfile: #gchar* the file to intitially set the dialog with
+ * @title: #gchar* with the dialog title
+ *
+ * makes a modal dialog with title that will return a file
+ *
+ * Return value: #gchar* with the selected filename
+ */
 gchar *return_file_w_title(gchar * setfile, gchar *title) {
 	Tfileselect fileselect={FALSE, 0, NULL, NULL, NULL};
 
@@ -1108,11 +1116,26 @@ gchar *return_file_w_title(gchar * setfile, gchar *title) {
 	gtk_main();
 	return fileselect.filename_to_return;
 }
-
+/**
+ * return_file:
+ * @setfile: #gchar* the file to intitially set the dialog with
+ *
+ * makes a modal dialog that will return a file
+ *
+ * Return value: #gchar* with the selected filename
+ */
 gchar *return_file(gchar * setfile) {
 	return return_file_w_title(setfile, _("Select file"));
 }
-
+/**
+ * return_files_w_title:
+ * @setfile: #gchar* the file to intitially set the dialog with
+ * @title: #gchar* with the dialog title
+ *
+ * makes a modal dialog that will return multiple files
+ *
+ * Return value: #GList* containing a stringlist with all selected files
+ */
 GList *return_files_w_title(gchar * setfile, gchar *title) {
 	Tfileselect fileselect={FALSE, 1, NULL, NULL, NULL};
 	
@@ -1120,11 +1143,26 @@ GList *return_files_w_title(gchar * setfile, gchar *title) {
 	gtk_main();
 	return fileselect.filenames_to_return;
 }
-
+/**
+ * return_files:
+ * @setfile: #gchar* the file to intitially set the dialog with
+ *
+ * makes a modal dialog that will return multiple files
+ *
+ * Return value: #GList* containing a stringlist with all selected files
+ */
 GList *return_files(gchar * setfile) {
 	return return_files_w_title(setfile, _("Select files"));
 }
-
+/**
+ * return_dir:
+ * @setdir: #gchar* the dir to intitially set the dialog with
+ * @title: #gchar* with the dialog title
+ *
+ * makes a modal dialog that will return a directory
+ *
+ * Return value: #gchar* with the selected directory
+ */
 gchar *return_dir(gchar *setdir, gchar *title) {
 	Tfileselect fileselect={TRUE, 0, NULL, NULL, NULL};
 
@@ -1155,7 +1193,16 @@ static gboolean destroy_disposable_menu_idle(GtkWidget *menu) {
 	return FALSE;
 }
 
-/* connect this to the hide event of a disposable menu to get rid of it */
+/**
+ * destroy_disposable_menu_hide_cb:
+ * @widget: ignored
+ * @menu: #GtkWidget* with the menu to destroy
+ *
+ * connect this to the hide event of a disposable menu (right-click popup menu) 
+ * to clean the menu automatically after it is used
+ *
+ * Return value: void
+ */
 void destroy_disposable_menu_hide_cb(GtkWidget *widget, GtkWidget *menu) {
 	gtk_idle_add((GtkFunction)destroy_disposable_menu_idle, menu);
 }
