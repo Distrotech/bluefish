@@ -48,7 +48,7 @@
 
 
 /************************************************************************/
-
+#ifdef USE_ESTRL_DIALOG
 typedef struct {
 	GtkWidget *win;
 	GtkWidget *ins_upd_entry[MAX_ARRAY_LENGTH];
@@ -404,7 +404,7 @@ void estrl_dialog(GList **which_list, gchar *title, gint what_list
 	}
 	gtk_widget_show_all(estrl->win);
 }
-
+#endif /* USE_ESTRL_DIALOG */
 
 
 /************************************************************************/
@@ -441,6 +441,121 @@ gint count_array(gchar **array) {
 	}
 	return count;
 }
+
+
+gchar *array_to_string(gchar **array, gchar delimiter) {
+	if (array) {
+		gchar **tmp, *escaped1, *finalstring;
+		gint newsize=1;
+		DEBUG_MSG("array_to_string, started\n");
+		finalstring = g_malloc0(newsize);
+		tmp = array;
+		while(*tmp) {
+			DEBUG_MSG("array_to_string, *tmp = %s\n", *tmp);
+			escaped1 = escapestring(*tmp, delimiter);
+			newsize += strlen(escaped1)+1;
+			finalstring = g_realloc(finalstring, newsize);
+			strcat(finalstring, escaped1);
+			finalstring[newsize-2] = delimiter;
+			finalstring[newsize-1] = '\0';
+			g_free(escaped1);
+			tmp++;
+		}	
+		DEBUG_MSG("array_to_string, finalstring = %s\n", finalstring);
+		return finalstring;
+	} else {
+#ifdef DEBUG
+		g_print("array_to_string, array=NULL !!!\n");
+		exit(135);
+#else
+		return g_strdup("");
+#endif
+	}
+}
+
+#define ARRAYBLOCKSIZE 6
+#define BUFBLOCKSIZE 60
+gchar **string_to_array(gchar *string, gchar delimiter) {
+	gchar **array;
+	gchar *tmpchar, *tmpchar2;
+	gchar *newstring;
+	gint count=0;
+	gint newstringsize;
+	gint arraycount=0, arraysize;
+
+	newstringsize = BUFBLOCKSIZE;
+	newstring = g_malloc(newstringsize * sizeof(char));
+	
+	arraysize = ARRAYBLOCKSIZE;
+	array = g_malloc(arraysize * sizeof(char *));
+	DEBUG_MSG("string_to_array, started, array=%p\n", array);	
+	
+	tmpchar = string;
+	while (*tmpchar != '\0') {
+		DEBUG_MSG("string_to_array, count=%d, newstring(%p)\n", count, newstring);
+		if (*tmpchar == '\\') {
+			tmpchar2 = tmpchar;
+			tmpchar2++;
+			switch (*tmpchar2) {
+			case '\0':
+				newstring[count] = '\\';
+			break;
+			case '\\':
+				newstring[count] = '\\';
+				tmpchar++;
+			break;
+			case 'n':
+				newstring[count] = '\n';
+				tmpchar++;
+			break;
+			default:
+				if (*tmpchar2 == delimiter) {
+					newstring[count] = delimiter;
+					tmpchar++;
+				} else {
+					DEBUG_MSG("string_to_array, weird, an unescaped backslash ?\n");
+					newstring[count] = '\\';
+				}
+			break;
+			}
+		} else if (*tmpchar == delimiter) {
+			newstring[count] = '\0';  /* end of the current newstring */
+			DEBUG_MSG("string_to_array, newstring(%p)=%s\n", newstring, newstring);
+			array[arraycount] = g_strdup(newstring);
+			DEBUG_MSG("string_to_array, found delimiter, arraycount=%d, result(%p)=%s\n",arraycount, array[arraycount], array[arraycount]);
+			arraycount++;
+			if (arraycount == arraysize-2) { /* we need 1 spare entry in the array */
+				arraysize += ARRAYBLOCKSIZE;  /* and arraysize starts at 1, arraycount at 0 */
+				DEBUG_MSG("string_to_array, arraycount=%d, about to increase arraysize to %d, sizeof(array(%p))=%d\n", arraycount, arraysize, array, sizeof(&array));
+				array = g_realloc(array, arraysize * sizeof(char *));
+				DEBUG_MSG("string_to_array, arraysize=%d, array(%p), sizeof(array)=%d\n", arraysize, array, sizeof(&array));
+			}
+			count = -1;
+		} else {
+			newstring[count] = *tmpchar;
+		}
+		tmpchar++;
+		count++;
+		if (count == newstringsize-2) {
+			newstringsize += BUFBLOCKSIZE;
+			DEBUG_MSG("string_to_array, about to increase newstring(%p) to %d bytes\n", newstring, newstringsize);
+			newstring = g_realloc(newstring, newstringsize * sizeof(char));
+			DEBUG_MSG("string_to_array, newstringsize=%d, sizeof(newstring(%p))=%d\n", newstringsize, newstring, sizeof(newstring));
+		}
+	}
+	
+	if (count > 0) {
+		newstring[count] = '\0';
+		array[arraycount] = g_strdup(newstring);
+		DEBUG_MSG("string_to_array, last array entry, arraycount=%d, result(%p)=%s\n",arraycount, array[arraycount],array[arraycount]);
+	} else {
+		array[arraycount] = NULL;
+	}
+	array[arraycount+1] = NULL; /* since we have 1 spare entry in the array this is safe to do*/
+	DEBUG_MSG("string_to_array, returning %p\n", array);
+	g_free(newstring);
+	return array;
+}		
 
 GList *duplicate_stringlist(GList *list, gint dup_data) {
 	GList *retlist=NULL;
@@ -541,8 +656,7 @@ GList *duplicate_arraylist(GList *arraylist) {
 /*****************************************************************************
  * gets a stringlist from a file
  */
-GList *get_stringlist(gchar * filename, GList * which_list)
-{
+GList *get_list(const gchar * filename, GList * which_list, gboolean is_arraylist) {
 	char *tempstr, *tmpbuf;
 	FILE *fd;
 
@@ -560,13 +674,25 @@ GList *get_stringlist(gchar * filename, GList * which_list)
 		while (fgets(tmpbuf, STRING_MAX_SIZE, fd) != NULL) {
 			tmpbuf = trunc_on_char(tmpbuf, '\n');
 			tempstr = g_strdup(tmpbuf);
-			DEBUG_MSG("get_stringlist, adding string \"%s\" to the list=%p\n", tempstr, which_list);
-			which_list = g_list_append(which_list, tempstr);
+			if (is_arraylist) {
+				gchar **temparr = string_to_array(tempstr, ':');
+				which_list = g_list_append(which_list, temparr);
+				g_free(tempstr);
+			} else {
+				DEBUG_MSG("get_list, adding string \"%s\" to the stringlist=%p\n", tempstr, which_list);
+				which_list = g_list_append(which_list, tempstr);
+			}
 		}
 		fclose(fd);
 	}
 	g_free(tmpbuf);
 	return which_list;
+}
+#ifdef __GNUC__
+__inline__ 
+#endif
+GList *get_stringlist(const gchar * filename, GList * which_list) {
+	return get_list(filename,which_list,FALSE);
 }
 
 /*****************************************************************************

@@ -146,7 +146,6 @@ typedef struct {
 	GList *filefilters; /* filebrowser.c filtering */
 	gchar *last_filefilter;	/* last filelist filter type */
 	GList *highlight_patterns; /* the highlight patterns */
-	GList *highlight_styles; /* the highlight styles */
 	gint transient_htdialogs;  /* set html dialogs transient ro the main window */
 	gint restore_dimensions; /* use the dimensions as used the previous run */
 	gint left_panel_width; 	/* width of filelist */

@@ -23,14 +23,21 @@
 
 #include <glib.h>
 
-void estrl_dialog(GList **which_list, gchar *title, gint what_list
-				, gint column_num, gchar **column_titles, void (*post_dialog_func)());
+/*void estrl_dialog(GList **which_list, gchar *title, gint what_list
+				, gint column_num, gchar **column_titles, void (*post_dialog_func)());*/
+
+gint count_array(gchar **array);
+gchar *array_to_string(gchar **array, gchar delimiter);
+gchar **string_to_array(gchar *string, gchar delimiter);
+
+
 GList *duplicate_stringlist(GList *list, gint dup_data);
 gint free_stringlist(GList * which_list);
-GList *get_stringlist(gchar * filename, GList * which_list);
+GList *get_list(const gchar * filename, GList * which_list, gboolean is_arraylist);
+GList *get_stringlist(const gchar * filename, GList * which_list);
 gboolean put_stringlist_limited(gchar * filename, GList * which_list, gint maxentries);
 gboolean put_stringlist(gchar * filename, GList * which_list);
-gint count_array(gchar **array);
+
 gint free_arraylist(GList * which_list);
 gchar **duplicate_stringarray(gchar **array);
 GList *duplicate_arraylist(GList *arraylist);

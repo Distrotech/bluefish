@@ -193,7 +193,7 @@ fi
 
 
 
-AC_CONFIG_FILES(Makefile icons/Makefile src/Makefile po/Makefile)
+AC_CONFIG_FILES(Makefile icons/Makefile src/Makefile po/Makefile data/Makefile)
 AC_OUTPUT
 
 echo "-----------"

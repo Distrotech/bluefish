@@ -595,7 +595,7 @@ gint file_is_dir(gchar * filename) {
 /* gint file_exists_and_readable(gchar * filename)
  * returns 1 if the file pointed to by filename does exist
  * and is readable for the current process */
-gint file_exists_and_readable(gchar * filename)
+gint file_exists_and_readable(const gchar * filename)
 {
 	struct stat naamstat;
 

@@ -1,0 +1,45 @@
+# Makefile for data files
+# Copyright (C) 2002 Olivier Sessink <olivier@bluefish.openoffice.nl>
+
+PACKAGE = @PACKAGE@
+VERSION = @VERSION@
+
+SHELL = /bin/sh
+
+top_srcdir = @top_srcdir@
+top_builddir = @top_srcdir@
+srcdir = @srcdir@
+prefix = @prefix@
+exec_prefix = @exec_prefix@
+bindir = @bindir@
+pkgdatadir = @pkgdatadir@
+datadir = @datadir@
+localedir = $(datadir)/locale
+
+INSTALL = @INSTALL@
+INSTALL_DIR = $(INSTALL) -d -m 755 
+INSTALL_DATA = ${INSTALL} -m 644
+
+DEFAULTFILES = highlighting.default filetypes.default encodings.default
+
+%.default : %.in
+	sed -e 's!PKGDATADIR!$(pkgdatadir)!' < $< > $@
+
+all: $(DEFAULTFILES)
+
+install: all
+	$(INSTALL_DIR) $(pkgdatadir)
+	@for file in $(DEFAULTFILES) ; do \
+		$(INSTALL_PROGRAM) $$file $(pkgdatadir)/$$file ;\
+	done
+
+uninstall:
+	@for file in $(DEFAULTFILES) ; do \
+		rm -r $(pkgdatadir)/$$file ;\
+	done
+
+clean:
+	rm -f *.default
+
+distclean: clean
+	rm -f Makefile *.rej *.orig
