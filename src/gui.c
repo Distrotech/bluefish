@@ -153,10 +153,6 @@ void notebook_changed(Tbfwin *bfwin, gint newpage) {
 
 	doc_activate(bfwin->current_document);
 /*	bmark_adjust_visible(bfwin);*/
-
-#ifdef FB2
-	fb2_focus_document(bfwin,bfwin->current_document);
-#endif
 }
 
 gboolean switch_to_document_by_index(Tbfwin *bfwin,gint index) {

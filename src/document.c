@@ -61,6 +61,10 @@
 #include "filebrowser.h"
 #include "bookmark.h"
 
+#ifdef FB2
+#include "filebrowser2.h"
+#endif
+
 typedef struct {
 	GtkWidget *textview;
 	GtkWidget *window;
@@ -3232,6 +3236,9 @@ void doc_activate(Tdocument *doc) {
 		if (main_v->props.filebrowser_focus_follow) {
 			DEBUG_MSG("doc_activate, call filebrowser_open_dir() for %s\n",dir2);
 			filebrowser_open_dir(BFWIN(doc->bfwin),dir2);
+#ifdef FB2
+			fb2_focus_document(BFWIN(doc->bfwin), doc);
+#endif
 		}
 		g_free(dir1);
 		g_free(dir2);
