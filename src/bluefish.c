@@ -180,6 +180,7 @@ int main(int argc, char *argv[])
 	splash_screen_set_label(_("parsing custom menu file..."));
 #endif /* #ifndef NOSPLASH */
 	rcfile_parse_custom_menu();
+	main_v->tooltips = gtk_tooltips_new();
 	fref_init();
 	bmark_init();
 #ifdef WITH_MSG_QUEUE
