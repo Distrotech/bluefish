@@ -24,6 +24,7 @@
 void filetype_highlighting_rebuild(void);
 void hl_init(void);
 void doc_highlight_full(Tdocument *doc);
+void doc_highlight_region(Tdocument * doc, guint startof, guint endof);
 void doc_highlight_line(Tdocument *doc);
 void doc_remove_highlighting(Tdocument *doc);
 
