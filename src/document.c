@@ -2577,15 +2577,16 @@ gint doc_close(Tdocument * doc, gint warn_only)
 
 	if (doc->modified) {
 		if (doc->tab_label) {
-			text = g_strdup_printf(_("Do you want to save the changes made to\n\"%s\"?."),
+			text = g_strdup_printf(_("Save changes to \"%s\" before closing?."),
 									gtk_label_get_text (GTK_LABEL (doc->tab_label)));
 		} else {
-			text = g_strdup(_("Do you want to save the changes made to this untitled file?"));
+			text = g_strdup(_("Save changes to this untitled file before closing?"));
 		}
 	
 		{
 			gchar *buttons[] = {_("Do_n't save"), GTK_STOCK_CANCEL, GTK_STOCK_SAVE, NULL};
-			retval = multi_query_dialog(BFWIN(doc->bfwin)->main_window,_("This file has not been saved."),text, 2, 1, buttons);
+			retval = multi_query_dialog(BFWIN(doc->bfwin)->main_window, text, 
+						_("If you don't save your changes they will be lost."), 2, 1, buttons);
 		}
 		g_free(text);
 
@@ -3605,7 +3606,7 @@ void file_close_all_cb(GtkWidget * widget, Tbfwin *bfwin) {
 		if (g_list_length (bfwin->documentlist) > 1) {
 			gchar *options[] = {_("_Save All"), _("Close _All"), _("Choose per _File"), _("_Cancel"), NULL};
 			retval = multi_query_dialog(bfwin->main_window,_("Multiple open files have been changed."), 
-										_("Your changes will be lost if you don't save them."), 3, 3, options);
+										_("If you don't save your changes they will be lost."), 3, 3, options);
 			if (retval == 3) {
 			DEBUG_MSG("file_close_all_cb, cancel clicked, returning 0\n");
 			return;
