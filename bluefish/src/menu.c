@@ -373,7 +373,7 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/View/View _Main Toolbar"), NULL, gui_toggle_hidewidget_cb, 1, "<ToggleItem>"},
 	{N_("/View/View _HTML Toolbar"), NULL, gui_toggle_hidewidget_cb, 2, "<ToggleItem>"},
 	{N_("/View/View _Custom Menu"), NULL, gui_toggle_hidewidget_cb, 3, "<ToggleItem>"},
-	{N_("/View/View _Left Panel"), "F9", gui_toggle_hidewidget_cb, 4, "<ToggleItem>"},
+	{N_("/View/View _Sidebar"), "F9", gui_toggle_hidewidget_cb, 4, "<ToggleItem>"},
 	{N_("/_Tags"), NULL, NULL, 0, "<Branch>"},
 	{N_("/Tags/Tearoff1"), NULL, NULL, 0, "<Tearoff>"},
 /*	{N_("/Tags/Repeat last"), "F4", repeat_last_insert_cb, 0, NULL},*/
@@ -900,7 +900,7 @@ void menu_create_main(Tbfwin *bfwin, GtkWidget *vbox) {
 	setup_toggle_item(item_factory, _("/View/View Main Toolbar"), main_v->props.view_main_toolbar);
 	setup_toggle_item(item_factory, _("/View/View HTML Toolbar"), main_v->props.view_html_toolbar);
 	setup_toggle_item(item_factory, _("/View/View Custom Menu"), main_v->props.view_custom_menu);
-	setup_toggle_item(item_factory, _("/View/View Left Panel"), main_v->props.view_left_panel);
+	setup_toggle_item(item_factory, _("/View/View Sidebar"), main_v->props.view_left_panel);
 	setup_toggle_item(item_factory, _("/Document/Auto Indent"), main_v->props.autoindent);
 	set_project_menu_widgets(bfwin, FALSE);
 	filetype_menu_rebuild(bfwin, item_factory);
