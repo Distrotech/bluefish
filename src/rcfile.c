@@ -919,6 +919,7 @@ gboolean rcfile_save_global_session(void) {
 	GList *configlist = return_session_configlist(NULL, main_v->session);
 	retval = save_config_file(configlist, filename);
 	free_configlist(configlist);
+	g_free(filename);
 	return TRUE;
 }
 /* should be called AFTER the normal properties are loaded, becauses return_session_configlist() uses
@@ -929,5 +930,6 @@ gboolean rcfile_parse_global_session(void) {
 	GList *configlist = return_session_configlist(NULL, main_v->session);
 	retval = parse_config_file(configlist, filename);
 	free_configlist(configlist);
+	g_free(filename);
 	return retval;
 }
