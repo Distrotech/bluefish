@@ -482,7 +482,7 @@ gchar *escapestring(gchar *original, gchar delimiter)
 }
 
 /**
- * escapestring:
+ * unescapestring:
  * @original: a gchar * to unescape
  *
  * this function will backslash unescape \n, \t, and \\ sequences to 

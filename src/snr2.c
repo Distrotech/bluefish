@@ -91,6 +91,7 @@ typedef struct {
 	gint replace;
 	gchar *search_pattern;
 	gchar *replace_pattern;
+	gint unescape;
 	gint overlapping_search;
 	gint prompt_before_replace;
 	gint is_case_sens;
@@ -115,7 +116,7 @@ typedef struct {
 	GtkWidget *prompt_before_replace;
 	GtkWidget *is_case_sens;
 	GtkWidget *replace_once;
-
+	GtkWidget *unescape;
 	GtkWidget *replacetype_option;
 	GtkWidget *matchtype_option;
 	GtkWidget *placetype_option;
@@ -1139,6 +1140,7 @@ static void snr2dialog_ok_lcb(GtkWidget *widget, Tsnr2_win *data) {
 	gtk_text_buffer_get_bounds(buf,&itstart,&itend);
 
 	LASTSNR2(bfwin->snr2)->search_pattern = gtk_text_buffer_get_text(buf,&itstart,&itend, FALSE);
+	LASTSNR2(bfwin->snr2)->unescape = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(data->unescape));
  	LASTSNR2(bfwin->snr2)->is_case_sens = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(data->is_case_sens));
  	LASTSNR2(bfwin->snr2)->overlapping_search = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(data->overlapping_search));
 	if (data->replace) {
@@ -1306,7 +1308,7 @@ static void snr2dialog(Tbfwin *bfwin, gint is_replace, gint is_new_search) {
 			g_signal_connect(G_OBJECT((GtkWidget *) snr2win->replacetype_option), "changed", G_CALLBACK(replacetype_changed_lcb), snr2win);
 		}
 	}
-
+	snr2win->unescape = boxed_checkbut_with_value(_("Patterns contain backslash escape sequences (\\n, \\t)"), LASTSNR2(bfwin->snr2)->unescape, vbox);
 	snr2win->is_case_sens = boxed_checkbut_with_value(_("Match ca_se"), LASTSNR2(bfwin->snr2)->is_case_sens, vbox);
 	snr2win->overlapping_search = boxed_checkbut_with_value(_("O_verlap searches"), LASTSNR2(bfwin->snr2)->overlapping_search, vbox);
 	if (is_replace) {
