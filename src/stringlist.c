@@ -40,7 +40,7 @@
 #include "stringlist.h"
 #include "gtk_easy.h"
 
-#define STRING_MAX_SIZE 1024
+#define STRING_MAX_SIZE 4096
 #define MAX_ARRAY_LENGTH 20
 
 
