@@ -102,5 +102,4 @@ perl:filetests:0:\\b-[rwxRWXoOezsfdlSpbcugktTBMAC]\\b::2::#990000::2:0:
 perl:scalarvariables:1:\\$[a-z_][][a-z0-9>_$-]*::2::#000099::2:0:
 perl:arrayvariables:1:\\@[a-z_][][a-z0-9>_$-]*::2::#0000ff::2:0:
 perl:hashvariables:1:\\%[a-z_][][a-z0-9>_$-]*::2::#0000cc::2:0:
-
-
+perl:filefunctions:1:\\b(bind|binmode|close(?:dir)?|connect|eof|fcntl|fileno|flock|getc|getpeername|getsockname|getsockopt|ioctl|listen|open(?:dir)?|recv|read(?:dir)?|rewinddir|seek(?:dir)?|send|setsockopt|shutdown|socket|sysopen|sysread|sysseek|syswrite|tell(?:dir)?|write|accept|pipe|socketpair|print|printf|select)\\b::2::#900000::2:0:
