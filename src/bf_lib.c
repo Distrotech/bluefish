@@ -173,7 +173,7 @@ gboolean file_copy(gchar *source, gchar *dest) {
 	GnomeVFSFileSize bytes_read, bytes_written;
 	guint buffer[BYTES_TO_PROCESS];
 	GnomeVFSResult result;
-	GError *gerror;
+	GError *gerror=NULL;
 	gint b_written;
 	gchar *OnDiEn_source, *OnDiEn_dest;
 	OnDiEn_source = g_filename_from_utf8(source, -1, NULL,&b_written,&gerror);
@@ -211,7 +211,7 @@ gboolean file_copy(gchar *source, gchar *dest) {
 #endif
 	int c;
 	FILE *in, *out;
-	GError *gerror;
+	GError *gerror=NULL;
 	gint b_written;
 	gchar *OnDiEn_source, *OnDiEn_dest;
 	OnDiEn_source = g_filename_from_utf8(source, -1, NULL,&b_written,&gerror);
@@ -289,7 +289,7 @@ gint find_common_prefixlen_in_stringlist(GList *stringlist) {
  **/
 gboolean append_string_to_file(gchar *filename, gchar *string) {
 	FILE *out;
-	GError *gerror;
+	GError *gerror=NULL;
 	gint b_written;
 	gchar *ondiskencoding = g_filename_from_utf8(filename, -1, NULL,&b_written,&gerror);
 	out = fopen(ondiskencoding, "a");

@@ -37,7 +37,7 @@
 #include <time.h>			/* ctime_r() */
 #include <pcre.h>
 
-/* #define DEBUG */
+#define DEBUG
 
 #ifdef DEBUGPROFILING
 #include <sys/times.h>
@@ -818,7 +818,7 @@ static gboolean doc_check_modified_on_disk(Tdocument *doc, GnomeVFSFileInfo **ne
 	} else if (main_v->props.modified_check_type < 4) {
 		GnomeVFSFileInfo *fileinfo;
 		gboolean unref_fileinfo = FALSE;
-		GError *gerror;
+		GError *gerror=NULL;
 		gint b_written;
 		gchar *ondiskencoding = g_filename_from_utf8(doc->filename,-1,NULL,&b_written,&gerror);
 		if (*newfileinfo == NULL) {
@@ -863,7 +863,7 @@ static gboolean doc_check_modified_on_disk(Tdocument *doc, struct stat *newstatb
 		return FALSE;
 	} else if (main_v->props.modified_check_type < 4) {
 		struct stat statbuf;
-		GError *gerror;
+		GError *gerror=NULL;
 		gint b_written;
 		gchar *ondiskencoding = g_filename_from_utf8(doc->filename,-1,NULL,&b_written,&gerror);
 		if (stat(ondiskencoding, &statbuf) == 0) {
@@ -891,7 +891,7 @@ static gboolean doc_check_modified_on_disk(Tdocument *doc, struct stat *newstatb
 to call doc_update_mtime() as well */
 static void doc_set_stat_info(Tdocument *doc) {
 	if (doc->filename) {
-		GError *gerror;
+		GError *gerror=NULL;
 		gint b_written;
 		gchar *ondiskencoding = g_filename_from_utf8(doc->filename,-1,NULL,&b_written,&gerror);
 #ifdef HAVE_GNOME_VFS
@@ -1394,7 +1394,7 @@ static gchar *get_buffer_from_filename(Tbfwin *bfwin, gchar *filename, int *retu
 		}
 	}
 	if (GNOME_VFS_OK != result) {
-		GError *gerror;
+		GError *gerror=NULL;
 		gint b_written;
 		gchar *ondiskencoding = g_filename_from_utf8(filename, -1, NULL,&b_written,&gerror);
 		result = gnome_vfs_read_entire_file(ondiskencoding,returnsize,&buffer);
@@ -1418,7 +1418,7 @@ static gchar *get_buffer_from_filename(Tbfwin *bfwin, gchar *filename, int *retu
 	gchar *buffer;
 	GError *error=NULL;
 	gsize length;
-	GError *gerror;
+	GError *gerror=NULL;
 	gint b_written;
 	gchar *ondiskencoding = g_filename_from_utf8(filename, -1, NULL,&b_written,&gerror);
 	result = g_file_get_contents(ondiskencoding,&buffer,&length,&error);
@@ -1631,7 +1631,7 @@ static gint doc_check_backup(Tdocument *doc) {
 	if (main_v->props.backup_file && doc->filename && file_exists_and_readable(doc->filename)) {
 		gchar *backupfilename;
 		backupfilename = g_strconcat(doc->filename, main_v->props.backup_filestring, NULL);
-		GError *gerror;
+		GError *gerror=NULL;
 		gint b_written;
 		gchar *ondiskencoding = g_filename_from_utf8(backupfilename, -1, NULL,&b_written,&gerror);
 		res = file_copy(doc->filename, backupfilename);
@@ -2057,7 +2057,7 @@ gboolean buffer_to_file(Tbfwin *bfwin, gchar *buffer, gchar *filename) {
 	GnomeVFSHandle *handle;
 	GnomeVFSFileSize bytes_written;
 	GnomeVFSResult result;
-	GError *gerror;
+	GError *gerror=NULL;
 	gint b_written;
 	gchar *ondiskencoding = g_filename_from_utf8(filename, -1, NULL,&b_written,&gerror);
 	/* we use create instead of open, because open will not create the file if it does
@@ -2086,7 +2086,7 @@ gboolean buffer_to_file(Tbfwin *bfwin, gchar *buffer, gchar *filename) {
 #else /* HAVE_GNOME_VFS */
 gboolean buffer_to_file(Tbfwin *bfwin, gchar *buffer, gchar *filename) {
 	FILE *fd;
-	GError *gerror;
+	GError *gerror=NULL;
 	gint b_written;
 	gchar *ondiskencoding = g_filename_from_utf8(filename, -1, NULL,&b_written,&gerror);
 	fd = fopen(ondiskencoding, "w");
@@ -2373,7 +2373,7 @@ gchar *ask_new_filename(Tbfwin *bfwin,gchar *oldfilename, gint is_move) {
 			document_unset_filename(exdoc);
 		}
 	} else {
-		GError *gerror;
+		GError *gerror=NULL;
 		gint b_written;
 		gchar *ondiskencoding = g_filename_from_utf8(newfilename, -1, NULL,&b_written,&gerror);
 		if (g_file_test(ondiskencoding, G_FILE_TEST_EXISTS)) {
@@ -2438,7 +2438,7 @@ gint doc_save(Tdocument * doc, gint do_save_as, gboolean do_move) {
 		}
 		if (doc->filename) {
 			if (do_move) {
-				GError *gerror;
+				GError *gerror=NULL;
 				gint b_written;
 				gchar *ondiskencoding = g_filename_from_utf8(doc->filename, -1, NULL,&b_written,&gerror);
 #ifdef HAVE_GNOME_VFS

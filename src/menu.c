@@ -968,8 +968,6 @@ static GtkWidget *remove_recent_entry(Tbfwin *bfwin, const gchar *filename, gboo
 }
 
 static void open_recent_project_cb(GtkWidget *widget, Tbfwin *bfwin) {
-	gint b_written;
-	GError *gerror=NULL;
 	gchar *filename = GTK_LABEL(GTK_BIN(widget)->child)->label;
 	DEBUG_MSG("open_recent_project_cb, started, filename is %s\n", filename);
 	project_open_from_file(bfwin, filename);
@@ -980,9 +978,7 @@ static void open_recent_project_cb(GtkWidget *widget, Tbfwin *bfwin) {
  * This function should be called when a menu from the Open Recent list
  * has been selected. */
 static void open_recent_file_cb(GtkWidget *widget, Tbfwin *bfwin) {
-	gint b_written;
 	gboolean success;
-	GError *gerror=NULL;
 	gchar *filename = GTK_LABEL(GTK_BIN(widget)->child)->label;
 	DEBUG_MSG("open_recent_file_cb, started, filename is %s\n", filename);
 
@@ -1626,7 +1622,10 @@ static void cust_con_struc_dialog_ok_lcb(GtkWidget *widget, Tcust_con_struc *ccs
 		gchar *before=NULL, *after=NULL;
 		num_vars = atoi(ccs->array[3]);
 		DEBUG_MSG("cust_con_struc_dialog_ok_lcb, num_vars=%d, ccs->array[3]=%s\n", num_vars, ccs->array[3]);
-		table = tmpt = g_new(Tconvert_table, num_vars+1);
+		table = tmpt = g_new(Tconvert_table, num_vars+2);
+		tmpt->my_int = '%';
+		tmpt->my_char = g_strdup("%");
+		tmpt++;
 		for (i=0; i<num_vars; i++) {
 			DEBUG_MSG("cust_con_struc_dialog_ok_lcb, tmpt=%p, i=%d\n", tmpt, i);
 			tmpt->my_int = 48 + i;
