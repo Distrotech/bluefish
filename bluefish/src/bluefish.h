@@ -184,6 +184,10 @@ typedef struct {
 #endif /* HAVE_LIBASPELL */
 	gint default_advanced_snr;
 	gint cont_highlight_full; 	/* if you want to highlight the full text or just the line */
+	gint lasttime_cust_menu; /* the last time the defaultfile was checked for new entries */
+	gint lasttime_highlighting; /* see above */
+	gint lasttime_filetypes; /* see above */
+	gint lasttime_encodings; /* see above */
 	/* not yet in use */
 	gchar *image_editor_cline; 	/* image editor commandline */
 	gint full_p;				/* use </p> */
