@@ -64,13 +64,15 @@ SRCS = 	bf_lib.c \
 			rpopup.c \
 			snr2.c \
 			stringlist.c \
-			undo_redo.c
+			undo_redo.c \
+			wizards.c
 
 OBJS = $(SRCS:.c=.o)
 
 all: bluefish
 bluefish: $(SRCS) $(OBJS)
 	$(CC) $(DEFS) -o bluefish $(OBJS) $(LDFLAGS) $(LIBS)
+	echo "The bluefish binary is succesfully created"
 
 .c.o: $(SRCS)
 	$(CC) $(DEFS) $(CFLAGS) -c -o $@ $<
