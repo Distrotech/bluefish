@@ -204,6 +204,13 @@ static void init_prop_string_with_escape(GList ** config_list, void *pointer_to_
 	DEBUG_MSG("init_prop_string, name_of_var=%s, default_value=%s\n", name_of_var, default_value);
 }
 
+static void init_prop_stringlist(GList ** config_list, void *pointer_to_var, gchar * name_of_var)
+{
+	*config_list = make_config_list_item(*config_list, pointer_to_var, 'l', name_of_var);
+	pointer_to_var = NULL;
+}
+
+
 static void init_prop_arraylist(GList ** config_list, void *pointer_to_var, gchar * name_of_var)
 {
 	*config_list = make_config_list_item(*config_list, pointer_to_var, 'a', name_of_var);
@@ -404,7 +411,7 @@ static GList *props_init_main(GList * config_rc)
 	init_prop_string(&config_rc, &main_v->props.editor_font_string, "editor_font_string:", "courier 11");
 	init_prop_string(&config_rc, &main_v->props.tab_font_string, "tab_font_string:", "helvetica 8");
 	init_prop_arraylist(&config_rc, &main_v->props.browsers, "browsers:");
-	init_prop_arraylist(&config_rc, &main_v->props.quickbar_items, "quickbar_items:");
+	init_prop_stringlist(&config_rc, &main_v->props.quickbar_items, "quickbar_items:");
 	init_prop_integer(&config_rc, &main_v->props.highlight_num_lines_count, "highlight_num_lines_count:", 1);
 
 /* not yet in use */

@@ -220,9 +220,27 @@ typedef struct {
 	gchar *tooltiptext;
 } Ttoolbaritem;
 
+static Ttoolbaritem tbi[] = {
+	{"", NULL, NULL, 0, NULL},
+	{"table...",tabledialog_cb, NULL, 134, N_("Table...")},
+	{"tablerow...", tablerowdialog_cb, NULL, 135, N_("Table Row...")},
+	{"tableheader...", tableheaddialog_cb, NULL, 136, N_("Table Header...")},
+	{"tabledata...", tabledatadialog_cb, NULL, 137, N_("Table Data...")},
+	{"", NULL, NULL, 0, NULL} /* spacing */
+};
 
-static void html_toolbar_add_to_quickbar(GtkMenuItem *menuitem, Ttoolbaritem *tbitem) {
+static void html_toolbar_remove_from_quickbar_lcb(GtkMenuItem *menuitem, Ttoolbaritem *tbitem) {
+	main_v->props.quickbar_items = remove_from_stringlist(main_v->props.quickbar_items, tbitem->ident);
+	/* how do we locate the widget ??? */
+}
+
+static void html_toolbar_add_to_quickbar_lcb(GtkMenuItem *menuitem, Ttoolbaritem *tbitem) {
+	GtkWidget *item;
+	DEBUG_MSG("adding tbitem %p to quickbar\n", tbitem);
 	main_v->props.quickbar_items = add_to_stringlist(main_v->props.quickbar_items, tbitem->ident);
+	item = gtk_toolbar_append_item(GTK_TOOLBAR(toolbarwidgets.html_toolbar_quickbar), NULL, _(tbitem->tooltiptext),
+						"", new_pixmap(tbitem->pixmaptype), G_CALLBACK(tbitem->func), tbitem->func_data);
+	gtk_widget_show(item);
 }
 
 static gboolean html_toolbar_item_button_press_lcb(GtkWidget *widget,GdkEventButton *bevent,Ttoolbaritem *tbitem) {
@@ -230,7 +248,8 @@ static gboolean html_toolbar_item_button_press_lcb(GtkWidget *widget,GdkEventBut
 	if (bevent->button == 3) {
 		GtkWidget *menu = gtk_menu_new ();
 		GtkWidget *menuitem = gtk_menu_item_new_with_label(_("Add to quickbar"));
-		g_signal_connect(G_OBJECT(menuitem), "activate", G_CALLBACK(html_toolbar_add_to_quickbar), tbitem);
+		DEBUG_MSG("popup for tbitem %p\n", tbitem);
+		g_signal_connect(G_OBJECT(menuitem), "activate", G_CALLBACK(html_toolbar_add_to_quickbar_lcb), tbitem);
 		gtk_menu_append(GTK_MENU(menu), menuitem);
 		gtk_widget_show_all (menu);
 		gtk_menu_popup (GTK_MENU (menu), NULL, NULL,
@@ -250,6 +269,7 @@ static void html_toolbar_add_items(GtkWidget *html_toolbar, Ttoolbaritem *tbi, g
 			item = gtk_toolbar_append_item(GTK_TOOLBAR(html_toolbar), NULL, _(tbi[i].tooltiptext),
 						"", new_pixmap(tbi[i].pixmaptype), G_CALLBACK(tbi[i].func), tbi[i].func_data);
 			g_signal_connect(item, "button-press-event", html_toolbar_item_button_press_lcb, &tbi[i]);
+			DEBUG_MSG("adding tbitem %p to html_toolbar\n", &tbi[i]);
 		}
 	}
 }
@@ -263,15 +283,6 @@ void make_html_toolbar(GtkWidget *handlebox) {
 	GtkWidget *html_toolbar, *html_notebook;
 	GtkWidget *menu_bar;	/* for construction of a dropdown menu */
 	GtkWidget *menu_item, *sub_menu;
-	gint i=0;
-	Ttoolbaritem tbi[] = {
-		{"", NULL, NULL, 0, NULL},
-		{"table...",tabledialog_cb, NULL, 134, N_("Table...")},
-		{"tablerow...", tablerowdialog_cb, NULL, 135, N_("Table Row...")},
-		{"tableheader...", tableheaddialog_cb, NULL, 136, N_("Table Header...")},
-		{"tabledata...", tabledatadialog_cb, NULL, 137, N_("Table Data...")},
-		{"", NULL, NULL, 0, NULL} /* spacing */
-	};
 
 	DEBUG_MSG("make_html_toolbar, started\n");
 	html_notebook = gtk_notebook_new();
@@ -288,10 +299,10 @@ void make_html_toolbar(GtkWidget *handlebox) {
 		gint i, numitems=(sizeof(tbi)/sizeof(Ttoolbaritem));
 		tmplist = g_list_first(main_v->props.quickbar_items);
 		while (tmplist) {
-			gchar **tmpstr = tmplist->data;
-			DEBUG_MSG("make_html_toolbar, searching for %s\n", tmpstr[0]);
+			gchar *tmpstr = tmplist->data;
+			DEBUG_MSG("make_html_toolbar, searching for %s\n", tmpstr);
 			for (i=0;i<numitems;i++) {
-				if (strcmp(tbi[i].ident, tmpstr[0])==0) {
+				if (strcmp(tbi[i].ident, tmpstr)==0) {
 					gtk_toolbar_append_item(GTK_TOOLBAR(toolbarwidgets.html_toolbar_quickbar), NULL, _(tbi[i].tooltiptext),
 						"", new_pixmap(tbi[i].pixmaptype), G_CALLBACK(tbi[i].func), tbi[i].func_data);
 					break;
@@ -300,8 +311,11 @@ void make_html_toolbar(GtkWidget *handlebox) {
 			tmplist = g_list_next(tmplist);
 		}
 	}
-/*	gtk_toolbar_append_item(GTK_TOOLBAR(html_toolbar), NULL, _("QuickStart..."), "", new_pixmap(100), GTK_SIGNAL_FUNC(quickstart_cb), NULL);*/
 	gtk_notebook_append_page(GTK_NOTEBOOK(html_notebook), toolbarwidgets.html_toolbar_quickbar, gtk_label_new(_(" Quick bar ")));
+
+	html_toolbar = gtk_toolbar_new();
+/*	gtk_toolbar_append_item(GTK_TOOLBAR(html_toolbar), NULL, _("QuickStart..."), "", new_pixmap(100), GTK_SIGNAL_FUNC(quickstart_cb), NULL);*/
+	gtk_notebook_append_page(GTK_NOTEBOOK(html_notebook), toolbarwidgets.html_toolbar_quickbar, gtk_label_new(_(" Standard bar ")));
 
 	html_toolbar = gtk_toolbar_new();
 	html_toolbar_add_items(html_toolbar, tbi, 0, 6);

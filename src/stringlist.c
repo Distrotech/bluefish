@@ -581,22 +581,34 @@ gint put_stringlist(gchar * filename, GList * which_list)
 	DEBUG_MSG("put_stringlist, finished, filedescriptor closed\n");
 	return 1;
 }
-
+GList *remove_from_stringlist(GList *which_list, gchar * string) {
+	if (string && strlen(string) ) {
+		GList *tmplist = g_list_first(which_list);
+		while (tmplist) {
+			if (strcmp((gchar *) tmplist->data, string) == 0) {
+				break;
+			}
+			tmplist = g_list_next(tmplist);
+		}
+		return g_list_remove(which_list, tmplist->data);
+	}
+}
 
 /* designed for adding strings to colorlist, urllist, fontlist and targetlist */
 GList *add_to_stringlist(GList * which_list, gchar * string) {
 	if (string && strlen(string) ) {
 		gchar *tempstr2;
-		gint add;
 		GList *tmplist;
+		gboolean add = TRUE;
 
 		tempstr2 = g_strdup(string);
+#ifdef DEBUG
 		g_assert(tempstr2);
-		add = 1;
+#endif
 		tmplist = g_list_first(which_list);
 		while (tmplist && add) {
 			if (strcmp((gchar *) tmplist->data, tempstr2) == 0) {
-				add = 0;
+				add = FALSE;
 				DEBUG_MSG("add_to_stringlist, strings are the same, don't add!!\n");
 			}
 			tmplist = g_list_next(tmplist);
