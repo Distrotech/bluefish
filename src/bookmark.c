@@ -22,6 +22,7 @@ typedef struct {
    Tdocument *doc; 
    GtkTreeIter iter;  /* for tree view */
    gchar *description;
+   gchar *text;
 } Tbmark;
 
 #define BMARK(var) ((Tbmark *)(var))
@@ -60,8 +61,27 @@ void bmark_free(gpointer ptr)
 	   m->doc = NULL;
 	}   
 	g_free(m->filepath);
+	g_free(m->text);
 	g_free(m);
 }
+
+void bmark_clean_tree(Tbfwin *bfwin)
+{
+   gint i;
+   Tbmark_data *data = BMARKDATA(main_v->bmarkdata);
+
+   /* temporary */
+   for(i=0;i<10;i++)
+   {
+     if (data->temporary[i])
+     {
+      gtk_tree_store_remove(data->store,&(data->temporary[i]->iter));   
+     } 
+   }
+   gtk_tree_store_remove(data->store,&(BMARKGUI(bfwin->bmark)->temp_branch));
+   gtk_tree_store_remove(data->store,&(BMARKGUI(bfwin->bmark)->perm_branch));
+}
+
 
 
 void bmark_init(void)
@@ -78,6 +98,7 @@ void bmark_init(void)
 
 void bmark_cleanup(Tbfwin *bfwin)
 {
+   bmark_clean_tree(bfwin);   
 	BMARKGUI(bfwin->bmark)->tree = NULL;
 	BMARKGUI(bfwin->bmark)->viewmenu = NULL;
 	BMARKGUI(bfwin->bmark)->buttons = NULL;
@@ -217,6 +238,7 @@ GtkWidget *bmark_gui(Tbfwin *bfwin)
    GtkWidget *vbox,*mi,*menu;
 	GtkCellRenderer *cell;
 	GtkTreeViewColumn *column;
+	gint i;
    Tbmark_data *bd = BMARKDATA(main_v->bmarkdata);
    
    
@@ -254,6 +276,18 @@ GtkWidget *bmark_gui(Tbfwin *bfwin)
  	g_signal_connect(G_OBJECT(BMARKGUI(bfwin->bmark)->tree), "button-press-event",
 					 G_CALLBACK(bmark_event_mouseclick), bfwin);
 
+   /* restore bookmarks if it was after left panel hide */
+   for (i=0;i<10;i++)
+   {
+     if (bd->temporary[i])
+     {
+		 gtk_tree_store_insert(bd->store, &(bd->temporary[i]->iter), &(BMARKGUI(bfwin->bmark)->temp_branch),i+1);
+		 gtk_tree_store_set(bd->store, &(bd->temporary[i]->iter), NAME_COLUMN,g_strdup_printf("[%d] --> %s",i+1,
+							   bd->temporary[i]->text),PTR_COLUMN, bd->temporary[i], -1);      
+	  }	
+   }
+   gtk_tree_view_expand_all(GTK_TREE_VIEW(BMARKGUI(bfwin->bmark)->tree));
+   
    return vbox;
 }
 
@@ -378,12 +412,14 @@ void bmark_add_temp(Tbfwin *bfwin)
       gtk_text_iter_forward_chars(&sit,10);
       if (!gtk_text_iter_in_range(&sit,&it,&eit)) 
          sit = eit;
+      m->text = g_strdup(gtk_text_iter_get_slice(&it,&sit));   
 		gtk_tree_store_insert(data->store, &m->iter, &(gui->temp_branch),ffree);
-		gtk_tree_store_set(data->store, &m->iter, NAME_COLUMN,g_strdup_printf("[%d] --> %s",ffree+1,
-							   gtk_text_iter_get_slice(&it,&sit)),PTR_COLUMN, m, -1);      
+		gtk_tree_store_set(data->store, &m->iter, NAME_COLUMN,g_strdup_printf("[%d] --> %s",ffree+1,m->text),PTR_COLUMN, m, -1);      						   
 		gtk_tree_view_expand_all(GTK_TREE_VIEW(gui->tree));
       gtk_widget_grab_focus(bfwin->current_document->view);		
 }
+
+
 
 void bmark_del_all_temp(Tbfwin *bfwin)
 {
