@@ -29,6 +29,7 @@
 #include "bluefish.h"
 #include "bfspell.h"
 #include "bookmark.h"
+#include "pixmap.h"
 #include "document.h"			/* file_open etc. */
 #include "highlight.h" /* doc_highlight_full */
 #include "menu.h" /* my own .h file */
@@ -312,6 +313,8 @@ static void toggle_doc_property(Tbfwin *bfwin,guint callback_action, GtkWidget *
 		break;
 	}
 }
+
+extern const guint8 edit_tag[];
 
 static GtkItemFactoryEntry menu_items[] = {
 	{N_("/_File"), NULL, NULL, 0, "<Branch>"},
@@ -645,7 +648,7 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/Dialogs/WML/sep13"), NULL, NULL, 0, "<Separator>"},
 	{N_("/Dialogs/WML/Set Variable..."), NULL, vardialog_cb, 0, NULL},*/
 	{N_("/Dialogs/sep1"), NULL, NULL, 0, "<Separator>"},
-	{N_("/Dialogs/_Edit tag under cursor..."), "<shift>F10", menu_html_dialogs_lcb, 38, "<Item>"},
+	{N_("/Dialogs/_Edit tag under cursor..."), "<shift>F10", menu_html_dialogs_lcb, 38, "<ImageItem>", edit_tag},
 	{N_("/_Document"), NULL, NULL, 0, "<Branch>"},
 	{N_("/Document/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
 	{N_("/Document/_Increase Tabsize"), NULL, gui_change_tabsize, 1, "<Item>"},

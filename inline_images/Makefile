@@ -166,11 +166,12 @@ TOOLBAR = \
 #	wml_var wml_var.png
 
 GENERAL = \
-	close_small close_small.png
+	close_small close_small.png \
+	edit_tag edit_tag.png
 
 all:
-	gdk-pixbuf-csource --raw --build-list $(TOOLBAR) > toolbar_icons.c
-	gdk-pixbuf-csource --raw --build-list $(GENERAL) > general_icons.c
+	gdk-pixbuf-csource --raw --static --build-list $(TOOLBAR) > toolbar_icons.c
+	gdk-pixbuf-csource --raw --extern --build-list $(GENERAL) > general_icons.c
 
 
 
