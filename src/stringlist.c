@@ -856,3 +856,81 @@ gchar *stringlist_to_string(GList *stringlist, gchar *delimiter) {
 	}
 	return string;
 }
+/**
+ * arraylist_value_exists:
+ * @arraylist: #GList*
+ * @value: #gchar**
+ * @testlevel: #gint
+ *
+ * tests for the occurence of an array with identical content as value
+ * in arraylist. It will only test the first testlevel strings in the array
+ * so if you want the test to check for a 100% identical array that number 
+ * should be high (9999 or so)
+ *
+ * Return value: #gboolean 
+ */
+gboolean arraylist_value_exists(GList *arraylist, gchar **value, gint testlevel) {
+	GList *tmplist = g_list_first(arraylist);
+	while (tmplist) {
+		gchar **tmparr = tmplist->data;
+		gint i=0;
+		gboolean equal = TRUE;
+		while (i<testlevel && equal) {
+			if (strcmp(tmparr[i],value[i])!=0) {
+				equal = FALSE;
+			}
+			i++;
+		}
+		if (equal) return TRUE;
+		tmplist = g_list_next(tmplist);
+	}
+	return FALSE;
+}
+/**
+ * arraylist_load_new_identifiers_from_list:
+ * @mylist: #GList*
+ * @fromlist: #GList*
+ * @uniquelevel: #gint
+ *
+ * compares every entry in fromlist 
+ * with all entries in list mylist. Comparision is done uniquelevel deep
+ * by function arraylist_value_exists()
+ * those arrays that do _not_ match are appended to mylist which is returned
+ * at the end of the function
+ *
+ * Return value: #GList*
+ */
+GList *arraylist_load_new_identifiers_from_list(GList *mylist, GList *deflist, gint uniquelevel) {
+	GList *tmplist = g_list_first(deflist);
+	while (tmplist) {
+		gchar **tmparr = tmplist->data;
+		if (count_array(tmparr) >= uniquelevel) {
+			if (!arraylist_value_exists(mylist, tmparr, uniquelevel)) {
+				DEBUG_MSG("arraylist_load_new_identifiers, adding %s to thelist\n",tmparr[0]);
+				mylist = g_list_append(mylist, duplicate_stringarray(tmparr));
+			}
+		}
+		tmplist = g_list_next(tmplist);
+	}
+	return mylist;
+}
+/**
+ * arraylist_load_new_identifiers_from_file:
+ * @mylist: #GList*
+ * @fromfilename: #gchar*
+ * @uniquelevel: #gint
+ *
+ * loads an arraylist from fromfilename and compares every entry 
+ * with all entries in list mylist. Comparision is done uniquelevel deep
+ * by function arraylist_value_exists()
+ * those arrays that do _not_ match are appended to mylist which is returned
+ * at the end of the function
+ *
+ * Return value: #GList*
+ */
+GList *arraylist_load_new_identifiers_from_file(GList *mylist, const gchar *fromfilename, gint uniquelevel) {
+	GList *deflist = get_list(fromfilename,NULL,TRUE);
+	mylist = arraylist_load_new_identifiers_from_list(mylist, deflist, uniquelevel);
+	free_arraylist(deflist);
+	return mylist;	
+}
