@@ -18,7 +18,7 @@
              xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
 <!-- ********************************************************************
-     $Id: titlepage-us.xml,v 1.1 2005-01-21 08:25:45 michga Exp $
+     $Id: titlepage-us.xml,v 1.2 2005-01-29 10:54:43 michga Exp $
      ********************************************************************
 
      This file is part of the DocBook XSL Stylesheet distribution.
@@ -69,11 +69,6 @@
 	      space-after="0in"
 	      font-weight="normal"
 	      keep-with-next="always"/>
-      <pagenums font-size="10pt"
-	      space-before="0in"
-	      space-after="0in"
-	      font-weight="normal"
-	      keep-with-next="always"/>
     </t:titlepage-content>
 
   <t:titlepage-content t:side="verso">
@@ -89,7 +84,6 @@
       text-align="center"/>
       <author font-style="italic"/>
       <othercredit text-align="center"/>
-      <pubdate/>
       <revision font-size="11pt"
 	      space-before="0in"
 	      space-after="0in"
@@ -99,12 +93,15 @@
 	      space-after="1in"
 	      keep-with-next="always"/>
       <copyright 
-      space-before="5.8in"
+      space-before="5.7in"
       space-after="0in"
       text-align="center"/>
       <abstract/>
       <legalnotice/>
       <pagenums
+      space-before="0in"
+      text-align="center"/>
+      <pubdate
       space-before="0in"
       text-align="center"/>
   </t:titlepage-content>
