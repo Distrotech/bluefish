@@ -25,6 +25,7 @@ gint documentlist_return_index_from_filename(gchar *filename);
 void document_set_wrap(Tdocument *doc, gint wraptype);
 
 gboolean test_only_empty_doc_left();
+gboolean doc_has_selection(Tdocument *doc);
 void doc_set_modified(Tdocument *doc, gint value);
 gchar *doc_get_chars(Tdocument *doc, gint start, gint len);
 void doc_select_region(Tdocument *doc, gint start, gint end, gboolean do_scroll);
@@ -35,6 +36,8 @@ gint doc_get_cursor_position(Tdocument *doc);
 /* the prototype for these functions is changed!! */
 void doc_replace_text_backend(Tdocument *doc, const gchar * newstring, gint start, gint end);
 void doc_replace_text(Tdocument *doc, const gchar * newstring, gint start, gint end);
+
+void doc_insert_two_strings(Tdocument *doc, const gchar *before_str, const gchar *after_str);
 
 void doc_bind_signals(Tdocument *doc);
 void doc_unbind_signals(Tdocument *doc);
@@ -54,5 +57,11 @@ void file_new_cb(GtkWidget * widget, gpointer data);
 void file_close_cb(GtkWidget * widget, gpointer data);
 void file_close_all_cb(GtkWidget * widget, gpointer data);
 void file_save_all_cb(GtkWidget * widget, gpointer data);
+
+void edit_cut_cb(GtkWidget * widget, gpointer data);
+void edit_copy_cb(GtkWidget * widget, gpointer data);
+void edit_paste_cb(GtkWidget * widget, gpointer data);
+void edit_select_all_cb(GtkWidget * widget, gpointer data);
+
 
 #endif /* __DOCUMENT_H_ */

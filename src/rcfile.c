@@ -28,6 +28,7 @@ typedef struct {
 
 static GList *main_configlist=NULL;
 static GList *highlighting_configlist=NULL;
+static GList *custom_menu_configlist=NULL;
 
 gchar **array_from_arglist(const gchar *string1, ...) {
 	gint numargs=1;
@@ -440,7 +441,6 @@ static GList *props_init_main(GList * config_rc)
 	init_prop_string(&config_rc, &main_v->props.html_ver, "used_html_version:", "HTML 4.0 Transitional");
 	init_prop_arraylist(&config_rc, &main_v->props.external_filters, "external_filters:");
 	init_prop_arraylist(&config_rc, &main_v->props.external_commands, "external_commands:");
-	init_prop_arraylist(&config_rc, &main_v->props.cust_menu, "custom_menu_ccs:");
 	init_prop_string  (&config_rc, &main_v->props.backup_filestring,"backup_filestring:","~");
 	init_prop_integer (&config_rc, &main_v->props.backup_file,"backup_file:",1);
 	init_prop_integer (&config_rc, &main_v->props.backup_by_copy,"backup_by_copy:",0);
@@ -458,6 +458,8 @@ static GList *props_init_main(GList * config_rc)
 #ifdef WITH_MSG_QUEUE
 	init_prop_integer (&config_rc, &main_v->props.open_in_running_bluefish,"open_in_running_bluefish:",1);
 #endif
+	init_prop_arraylist(&config_rc, &main_v->props.browsers, "browsers:");
+
 	return config_rc;
 }
 
@@ -480,18 +482,15 @@ void rcfile_parse_main(void)
 	g_free(filename);
 }
 
-static GList *props_init_highlighting(GList * config_rc) {
-	init_prop_arraylist(&config_rc, &main_v->props.highlight_patterns, "highlight_patterns:");
-	init_prop_arraylist(&config_rc, &main_v->props.filetypes, "filetypes:");
-	return config_rc;
-}
-
 void rcfile_parse_highlighting(void) {
 	gchar *filename;
 
 	DEBUG_MSG("rcfile_parse_highlighting, started\n");
 
-	highlighting_configlist = props_init_highlighting(NULL);
+	highlighting_configlist = NULL;
+	init_prop_arraylist(&highlighting_configlist, &main_v->props.highlight_patterns, "highlight_patterns:");
+	init_prop_arraylist(&highlighting_configlist, &main_v->props.filetypes, "filetypes:");
+	
 	filename = g_strconcat(g_get_home_dir(), "/.bluefish/highlighting", NULL);
 	if (!parse_config_file(highlighting_configlist, filename)) {
 		/* init the highlighting in some way? */
@@ -503,6 +502,24 @@ void rcfile_parse_highlighting(void) {
 	g_free(filename);
 }
 
+void rcfile_parse_custom_menu(void) {
+	gchar *filename;
+
+	DEBUG_MSG("rcfile_parse_custom_menu, started\n");
+
+	custom_menu_configlist = NULL;
+	init_prop_arraylist(&custom_menu_configlist, &main_v->props.cust_menu, "custom_menu:");
+
+	filename = g_strconcat(g_get_home_dir(), "/.bluefish/custom_menu", NULL);
+	if (!parse_config_file(custom_menu_configlist, filename)) {
+		/* init the custom_menu in some way? */
+/*		custom_menu_reset_to_default();
+		DEBUG_MSG("rcfile_parse_custom_menu, about to save highlighting configlist\n");
+		save_config_file(custom_menu_configlist, filename);
+		DEBUG_MSG("rcfile_parse_custom_menu, done saving\n");*/
+	}
+	g_free(filename);
+}
 
 
 

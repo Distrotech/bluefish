@@ -99,9 +99,15 @@ int main(int argc, char *argv[])
 	rcfile_parse_main();
 	
 	parse_commandline(argc, argv, &root_override, &filenames);
+	
+	/* start splash screen somewhere here */
+	
 	rcfile_parse_highlighting();
 	hl_init();
+	rcfile_parse_custom_menu();
 	gui_create_main(filenames);
+	
+	/* stop splash screen somewhere here */
 
 	gtk_main();
 	return 0;

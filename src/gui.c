@@ -164,8 +164,14 @@ void gui_create_main(GList *filenames) {
 	/* first a menubar */
 	menu_create_main(vbox);
 	recent_menu_init();
+	browsers_menu_init();
 
 	/* then the toolbars */
+	{
+		GtkWidget *cmenu_handle_box = gtk_handle_box_new();
+		gtk_box_pack_start(GTK_BOX(vbox), cmenu_handle_box, FALSE, FALSE, 0);
+		make_cust_menubar(cmenu_handle_box);
+	}
 	
 	/* then the work area */
 	main_v->middlebox = gtk_hbox_new(TRUE, 0);
@@ -213,6 +219,8 @@ void gui_create_main(GList *filenames) {
 	/* show all */
 	DEBUG_MSG("gui_create_main, before show_all\n");
 	gtk_widget_show_all(main_v->main_window);
+	flush_queue();
+	doc_scroll_to_cursor(main_v->current_document);
 }
 /***********************/
 /* statusbar functions */
