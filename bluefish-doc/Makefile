@@ -158,6 +158,10 @@ clean-all-us: clean-html clean-pspdf-us
 
 clean-all: clean-html clean-pspdf-a4 clean-pspdf-us  builtdoc-remove tarballs-remove
 
+clean: clean-all
+
+distclean: clean
+
 tarball-all: all
 	mkdir -p ${TARBALL_DIR}/${BOOK_PREFIX}-html-chunked-${VERSION}/imgs
 	mkdir -p ${TARBALL_DIR}/${BOOK_PREFIX}-html-chunked-${VERSION}/figures
