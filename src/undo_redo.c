@@ -124,7 +124,6 @@ static unreentry_t *unreentry_new(const char *text, int start, int end, undo_op_
 }
 
 static void unre_list_cleanup(GList **list) {
-	
 	if (list && *list) {
 		GList *tmplist;
 		tmplist = g_list_first(*list);
@@ -141,10 +140,13 @@ static gint doc_undo(Tdocument *doc) {
 	unregroup_t *curgroup = NULL;
 	if (g_list_length(doc->unre.current->entries) > 0) {
 		/* if the current group has entries we have to undo that one */
-		DEBUG_MSG("doc_undo, undo the entries of the current group\n");
+		DEBUG_MSG("doc_undo, undo the entries of the current group, and create a new group\n");
 		curgroup = doc->unre.current;
+		/* hmm, when this group is created, the doc->modified is not yet in the 'undo' state
+		because activate is not yet called, so this group will have the wrong 'changed' value*/
 		doc->unre.current = unregroup_new(doc);
-	} else if (doc->unre.first){
+		doc->unre.current->changed = curgroup->changed;
+	} else if (doc->unre.first) {
 		/* we have to undo the first one in the list */
 		DEBUG_MSG("doc_undo, current group is empty--> undo the entries of the previous group\n");
 		curgroup = doc->unre.first->data;
