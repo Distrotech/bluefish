@@ -122,11 +122,11 @@ cmenu_insert: /DHTML/Image Rollover:<img src="%1" id="%0" onmouseover="this.src=
 cmenu_insert: /DHTML/Auto-submit Select Box:<form action="%0" method="%1" name="%2">\n\t<select name="%3" onchange="document.%1.submit();">\n\t:</select>\n\t<noscript>\n\t\t<input type="submit" value="Go" />\n\t</noscript>\n</form>:4:Form Action:Form Method ("get" or "post"):Form Name:Select Name:
 cmenu_insert: /Apache/Deny Access to .inc:<FilesMatch "\\.inc$">\n\tOrder allow,deny\n\tDeny from all\n</FilesMatch>::0:
 cmenu_insert: /Apache/Basic Authentication:AuthName "%1"\nAuthType Basic\nrequire valid-user\nAuthUserFile %0\n::2:Full Path to Password File:Security Description:
-cmenu_insert: / C /ifdef:\n#ifdef %0\n:\n#endif /* %0 */\n:1:#define Name:
+cmenu_insert: / C /ifdef:\n#ifdef %0\n:\n#endif /* %0 */\n:1:#ifdef Name:
 cmenu_insert: / C /define:#define %0\n:\n:1:#define Name:
 cmenu_insert: / C /Walk GList:GList *tmplist;\ntmplist = g_list_first(%0);\nwhile(tmplist){\n\t:\n\ttmplist = g_list_next(tmplist);\n}:1:GList Name:
 cmenu_insert: / C /Comment:/*:*/:0:
-cmenu_replace: /Replace/Strip/End of line Whitespace:(?<=\\S)\\s*(?=\\n)::2:2:0:0:
+cmenu_replace: /Replace/Strip/End of line Whitespace:(?<=\\S)\\s*(?=(\\n|\\r))::2:2:0:0:
 cmenu_replace: /Replace/Strip/Font tags:(<font[^>]*>|</font>)::0:1:0:0:
 cmenu_replace: /Replace/Strip/Any tag in Selection:(<%0[^>]*>|</%0>)::2:1:0:1:Tag Name:
 cmenu_replace: /Replace/Convert In Selection/Tabs to Spaces (8):(\t):        :2:1:0:0:
