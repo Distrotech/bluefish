@@ -43,11 +43,12 @@ all-no:
 
 install:
 	$(INSTALL_DIR) $(DESTDIR)$(localedir)
-	@for lang in $(ALL_LINGUAS) ; do \
-		if test -f ${lang}.po; then \
+	for lang in $(ALL_LINGUAS) ; do \
+		if test -f $${lang}.po; then \
 			$(INSTALL_DIR) $(DESTDIR)$(localedir)/$${lang}/ ;\
 			$(INSTALL_DIR) $(DESTDIR)$(localedir)/$${lang}/LC_MESSAGES/ ;\
 			$(INSTALL_DATA) $${lang}.gmo $(DESTDIR)$(localedir)/$${lang}/LC_MESSAGES/${PACKAGE}.mo;\
+			echo "installing $${lang}" ;\
 		fi ;\
 	done
 
