@@ -1,9 +1,8 @@
 %define	desktop_vendor 	endur
 %define name  		bluefish
 %define version		gtk2
-%define release 	20030129
-%define source		bluefish-gtk2port-2003-01-29
-%define prefix		/usr
+%define release 	20030223
+%define source		bluefish-gtk2port-2003-02-23
 	
 
 Summary:	A GTK2 web development application for experienced users.
@@ -30,39 +29,47 @@ support.
 %setup -q -n %{name}-%{version}
 
 %build
-CFLAGS="$RPM_OPT_FLAGS"
-%configure --prefix=%{prefix}
+%configure
 make %{?_smp_mflags}
 
 %install
 rm -rf %{buildroot}
-
-%makeinstall pkgdatadir=%{buildroot}%{_datadir}/%{name}
-
-# Remove useless translations
-rm -f %{buildroot}%{_datadir}/%{name}/po/en.*
+mkdir -p %{buildroot}%{_datadir}/pixmaps
+mkdir -p %{buildroot}%{_datadir}/applications
+make install                                            \
+    bindir=%{buildroot}%{_bindir}                       \
+    pkgdatadir=%{buildroot}%{_datadir}/%{name}          \
+    datadir=%{buildroot}%{_datadir}                     \
+    gnome2menupath=%{buildroot}%{_datadir}/applications \
+    gnome1menupath=/_none                               \
+    iconpath=%{buildroot}%{_datadir}/pixmaps            \
+    localedir=%{buildroot}%{_datadir}/locale
 
 %find_lang %{name}
 install -D -m644 inline_images/bluefish_icon1.png \
-	%{buildroot}%{_datadir}/pixmaps/%{name}.png
+    %{buildroot}%{_datadir}/pixmaps/%{name}-icon.png
 
-cat > bluefish.desktop << EOF
+rm -f %{buildroot}%{_datadir}/applications/%{name}.desktop
+
+cat << EOF > %{name}.desktop
 [Desktop Entry]
-Name=Bluefish HTML editor
+Name=Bluefish web editor
 Comment=%{summary}
 Exec=%{name}
-Icon=%{name}.png
+Icon=%{name}-icon.png
 Terminal=0
 Type=Application
 EOF
 
-mkdir -p %{buildroot}%{_datadir}/applications
+install -D -m644 %{name}.desktop \
+    %{buildroot}%{_datadir}/applications/%{name}.desktop
+
 desktop-file-install --vendor %{desktop_vendor} --delete-original \
   --dir %{buildroot}%{_datadir}/applications                      \
   --add-category X-Red-Hat-Base                                   \
   --add-category Application                                      \
   --add-category Development                                      \
-  %{name}.desktop
+  %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 %clean
 rm -rf %{buildroot}
@@ -74,9 +81,9 @@ rm -rf %{buildroot}
 %dir %{_datadir}/%{name}
 %{_datadir}/bluefish/*
 %{_datadir}/applications/%{desktop_vendor}-%{name}.desktop
-%{_datadir}/pixmaps/%{name}.png
+%{_datadir}/pixmaps/%{name}-icon.png
 
 
 %changelog
-* Wed Jan 29 2003 Matthias Haase <matthias_haase@bennewitz.com>
-- Automatic build - snapshot of 2003-01-29
+* Mon Feb 24 2003 Matthias Haase <matthias_haase@bennewitz.com>
+- Automatic build - snapshot of 2003-02-23
