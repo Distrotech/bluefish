@@ -461,6 +461,11 @@ gboolean doc_get_selection(Tdocument *doc, gint *start, gint *end) {
 	if (*start == *end) {
 		return FALSE;
 	}
+	if (*start > *end) {
+		gint tmp = *start;
+		*start = *end;
+		*end = tmp;
+	}
 	return TRUE;
 }
 
