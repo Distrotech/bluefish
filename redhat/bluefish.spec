@@ -68,7 +68,7 @@ rm -rf %{buildroot}
 
 %files -f %{name}.lang
 %defattr(-,root, root)
-%doc PORTING
+%doc COPYING INSTALL PORTING
 %{_bindir}/*
 %dir %{_datadir}/%{name}
 %{_datadir}/bluefish/*
@@ -79,4 +79,3 @@ rm -rf %{buildroot}
 %changelog
 * Fri Dec 20 2002 Matthias Haase <matthias_haase@bennewitz.com>
 - Automatic build - snapshot of 2002-12-19
-
