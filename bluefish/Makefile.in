@@ -76,7 +76,7 @@ install: src/bluefish
 	$(INSTALL_DATA) images/bluefish_splash.png $(DESTDIR)$(pkgdatadir)
 	@cd icons/ && $(MAKE) install
 	if [ -d $(iconpath) ]; then \
-		$(INSTALL_DATA) inline_images/bluefish_icon1.png $(iconpath)/bluefish-icon.png ;\
+		$(INSTALL_DATA) inline_images/bluefish_icon1.png $(DESTDIR)$(iconpath)/bluefish-icon.png ;\
 	fi
 	@cd src/ && $(MAKE) install
 	if [ "${USE_NLS}" = "yes" ]; then \
