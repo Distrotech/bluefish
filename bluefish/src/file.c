@@ -167,7 +167,12 @@ typedef enum {
 	CHECKANDSAVE_FINISHED
 } TcheckNsave_status;
 
-typedef void (* CheckNsaveAsyncCallback) (TcheckNsave_status,gint error_info,gpointer callback_data);
+typedef enum {
+	CHECKNSAVE_STOP,
+	CHECKNSAVE_CONT
+} TcheckNsave_return;
+
+typedef gint (* CheckNsaveAsyncCallback) (TcheckNsave_status,gint error_info,gpointer callback_data);
 
 typedef struct {
 	GnomeVFSFileSize buffer_size;
@@ -212,7 +217,10 @@ gint checkNsave_progress_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSXferProgressInf
 	if (info->status == GNOME_VFS_XFER_PROGRESS_STATUS_OVERWRITE) {
 		return GNOME_VFS_XFER_OVERWRITE_ACTION_REPLACE;
 	} else if (info->status == GNOME_VFS_XFER_PROGRESS_STATUS_VFSERROR) {
-	/*	cns->callback_func(); */
+		DEBUG_MSG("checkNsave_progress_lcb, abort!!\n");
+		/* BUG: perhaps the user still wants to continue */
+		cns->callback_func(CHECKANDSAVE_ERROR_NOBACKUP, 0, cns->callback_data);
+		checkNsave_cleanup(cns);
 		return GNOME_VFS_XFER_ERROR_ACTION_ABORT;
 	} else if (info->status == GNOME_VFS_XFER_PROGRESS_STATUS_OK) {
 		if (info->phase == GNOME_VFS_XFER_PHASE_COMPLETED) {
@@ -229,7 +237,10 @@ gint checkNsave_sync_lcb(GnomeVFSXferProgressInfo *info,gpointer data) {
 	if (info->status == GNOME_VFS_XFER_PROGRESS_STATUS_OVERWRITE) {
 		return GNOME_VFS_XFER_OVERWRITE_ACTION_REPLACE;
 	} else if (info->status == GNOME_VFS_XFER_PROGRESS_STATUS_VFSERROR) {
-	/*	cns->callback_func(); */
+		DEBUG_MSG("checkNsave_sync_lcb, abort!!\n");
+		/* BUG: perhaps the user still wants to continue */
+		cns->callback_func(CHECKANDSAVE_ERROR_NOBACKUP, 0, cns->callback_data);
+		checkNsave_cleanup(cns);
 		return GNOME_VFS_XFER_ERROR_ACTION_ABORT;
 	} else if (info->status == GNOME_VFS_XFER_PROGRESS_STATUS_OK) {
 		if (info->phase == GNOME_VFS_XFER_PHASE_COMPLETED) {
@@ -242,16 +253,25 @@ gint checkNsave_sync_lcb(GnomeVFSXferProgressInfo *info,gpointer data) {
 }
 static void checkNsave_checkmodified_lcb(Tcheckmodified_status status,gint error_info,gpointer data) {
 	TcheckNsave *cns = data;
+	gboolean startbackup = FALSE;
 	switch (status) {
 	case CHECKMODIFIED_OK:
-		/* the file is not modified on disk, now first create the backup, then start save */
-		{
+		startbackup = TRUE;
+	break;
+	case CHECKMODIFIED_MODIFIED:
+		startbackup = (cns->callback_func(CHECKANDSAVE_ERROR_MODIFIED, error_info, cns) == CHECKNSAVE_CONT);
+	break;
+	case CHECKMODIFIED_ERROR:
+		cns->callback_func(CHECKANDSAVE_ERROR, error_info, cns);
+	break;
+	}
+	if (startbackup) {
 		GnomeVFSAsyncHandle *handle;
 		GList *sourcelist;
 		GList *destlist;
 		gchar *sourceuri;
 		gchar *desturi;
-		
+		/* now first create the backup, then start save */
 		sourceuri = gnome_vfs_uri_to_string(cns->uri,0);
 		desturi = g_strconcat(sourceuri, main_v->props.backup_filestring, NULL);
 		sourcelist = g_list_append(NULL, sourceuri);
@@ -261,17 +281,9 @@ static void checkNsave_checkmodified_lcb(Tcheckmodified_status status,gint error
 					,GNOME_VFS_XFER_OVERWRITE_MODE_REPLACE,GNOME_VFS_PRIORITY_DEFAULT
 					,checkNsave_progress_lcb, cns
 					,checkNsave_sync_lcb, cns);
-		}
-	break;
-	case CHECKMODIFIED_MODIFIED:
-		cns->callback_func(CHECKANDSAVE_ERROR_MODIFIED, error_info, cns);
-		/* hmm, do we do a cleanup here? or call a gui 'sync'? */
-	break;
-	case CHECKMODIFIED_ERROR:
-		cns->callback_func(CHECKANDSAVE_ERROR, error_info, cns);
-	break;
+	} else {
+		checkNsave_cleanup(cns);
 	}
-	/* if there was some error, we should do a cleanup */
 }
 
 /* 
