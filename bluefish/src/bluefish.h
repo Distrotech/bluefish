@@ -154,9 +154,11 @@ typedef struct {
 	gchar *backup_filestring;  /* the string to append to the backup file */
 	gchar *backup_abort_style; /* if the backup fails, continue 'save', 'abort' save, or 'ask' user */
 	gchar *image_thumbnailstring;	/* string to append to thumbnail filenames */
-	gchar *image_thumbnailtype;	/* fileformat to use for thumbnails */
-	gint image_thumbnailsizing_type;	/* fixed width=0, height=1, ratio=2 */
-	gint image_thumbnailsizing_val;	/* the width, height or ratio, depending on the value above */
+	gchar *image_thumbnailtype;	/* fileformat to use for thumbnails, "jpeg" or "png" can be handled by gdkpixbuf*/
+	gint image_thumbnailsizing_type;	/* fixed width=0, height=1, scaling ratio=2, width+height (discard aspect ratio)=3 */
+	gint image_thumbnailsizing_val1;	/* the width, height or ratio, depending on the value above */
+	gint image_thumbnailsizing_val2; /* height if the type=3 */
+	gchar *image_thumnailformatstring; /* like <a href="%r"><img src="%t"></a> or more advanced */
 	gint allow_multi_instances; /* allow multiple instances of the same file */
 	gint num_undo_levels; 	/* number of undo levels per document */
 	gint clear_undo_on_save; 	/* clear all undo information on file save */
