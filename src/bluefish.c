@@ -23,12 +23,16 @@
 #include "bluefish.h"
 #include "document.h"
 #include "gui.h"
+#include "rcfile.h"
+
 /*********************************************/
 /* this var is global for all bluefish files */
 /*********************************************/
 Tmain *main_v;
 
-
+/*********************/
+/* the main function */
+/*********************/
 
 int main(int argc, char *argv[])
 {
@@ -36,6 +40,10 @@ int main(int argc, char *argv[])
 	
 	main_v = g_new0(Tmain, 1);
 	DEBUG_MSG("main, main_v is at %p\n", main_v);
+	
+	rcfile_parse_main();
+	rcfile_parse_highlighting();
+	hl_init();
 	{
 		GList *filenames=NULL;
 		
