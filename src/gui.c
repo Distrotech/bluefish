@@ -590,7 +590,7 @@ void make_main_toolbar(Tbfwin *bfwin) {
 							new_pixmap(015), G_CALLBACK(file_print_cb), NULL);*/
 #ifdef HAVE_LIBASPELL
 	gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), NULL, _("Spellcheck..."),
-							"", new_pixmap(104), G_CALLBACK(spell_check_cb), NULL);
+							"", new_pixmap(104), G_CALLBACK(spell_check_cb), bfwin);
 #endif /* HAVE_LIBASPELL */
 
 	gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), NULL,
@@ -602,7 +602,7 @@ void make_main_toolbar(Tbfwin *bfwin) {
 	gtk_widget_show_all(toolbar);
 }
 
-void gui_set_undo_redo_widgets(gboolean undo, gboolean redo) {
+void gui_set_undo_redo_widgets(Tbfwin *bfwin, gboolean undo, gboolean redo) {
 	if (main_v->props.view_main_toolbar) {
 		gtk_widget_set_sensitive(toolbarwidgets.redo, redo);
 		gtk_widget_set_sensitive(toolbarwidgets.undo, undo);
@@ -613,8 +613,8 @@ void gui_set_undo_redo_widgets(gboolean undo, gboolean redo) {
 	gtk_widget_set_sensitive(gtk_item_factory_get_widget(gtk_item_factory_from_widget(main_v->menubar), N_("/Edit/Redo All")), redo);
 }
 
-void gui_set_widgets(gboolean undo, gboolean redo, gboolean wrap, gboolean highlight, Tfiletype *hl, gchar *encoding, gboolean linenumbers) {
-	gui_set_undo_redo_widgets(undo, redo);
+void gui_set_widgets(Tbfwin *bfwin, gboolean undo, gboolean redo, gboolean wrap, gboolean highlight, Tfiletype *hl, gchar *encoding, gboolean linenumbers) {
+	gui_set_undo_redo_widgets(bfwin, undo, redo);
 	setup_toggle_item(gtk_item_factory_from_widget(main_v->menubar),N_("/Document/Highlight Syntax"), highlight);
 	setup_toggle_item(gtk_item_factory_from_widget(main_v->menubar),N_("/Document/Wrap"), wrap);
 	setup_toggle_item(gtk_item_factory_from_widget(main_v->menubar),N_("/Document/Line Numbers"), linenumbers);
@@ -625,18 +625,18 @@ void gui_notebook_bind_signals(Tbfwin *bfwin) {
 	bfwin->notebook_switch_signal = g_signal_connect_after(G_OBJECT(bfwin->notebook),"switch-page",G_CALLBACK(notebook_switch_page_lcb), bfwin);
 }
 
-void gui_notebook_unbind_signals() {
+void gui_notebook_unbind_signals(Tbfwin *bfwin) {
 if (main_v->notebook_switch_signal != 0) {
-		g_signal_handler_disconnect(G_OBJECT(main_v->notebook),main_v->notebook_switch_signal);
-		main_v->notebook_switch_signal = 0;
+		g_signal_handler_disconnect(G_OBJECT(bfwin->notebook),main_v->notebook_switch_signal);
+		bfwin->notebook_switch_signal = 0;
 	}
 }
 
-static gboolean gui_main_window_configure_event_lcb(GtkWidget *widget,GdkEventConfigure *event,gpointer user_data) {
+static gboolean gui_main_window_configure_event_lcb(GtkWidget *widget,GdkEventConfigure *event,Tbfwin *bfwin) {
 	if (main_v->props.restore_dimensions) {
 		if (event->type == GDK_CONFIGURE) {
-			if (main_v->props.main_window_w != event->width) main_v->props.main_window_w = event->width;
-			if (main_v->props.main_window_h != event->height) main_v->props.main_window_h = event->height;
+			if (bfwin->props.main_window_w != event->width) main_v->props.main_window_w = event->width;
+			if (bfwin->props.main_window_h != event->height) main_v->props.main_window_h = event->height;
 		}
 	}
 	return FALSE;
@@ -733,7 +733,7 @@ void gui_create_main(Tbfwin *bfwin, GList *filenames) {
 	gtk_window_set_role(GTK_WINDOW(bfwin->main_window), "bluefish");
 	gtk_window_set_default_size(GTK_WINDOW(bfwin->main_window), main_v->props.main_window_w, main_v->props.main_window_h);
 	g_signal_connect(G_OBJECT(bfwin->main_window), "delete_event", G_CALLBACK(main_window_delete_lcb), NULL);
-	g_signal_connect(G_OBJECT(bfwin->main_window), "configure-event", G_CALLBACK(gui_main_window_configure_event_lcb), NULL);
+	g_signal_connect(G_OBJECT(bfwin->main_window), "configure-event", G_CALLBACK(gui_main_window_configure_event_lcb), bfwin);
 
 	vbox = gtk_vbox_new(FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(bfwin->main_window), vbox);
