@@ -51,7 +51,7 @@ static void php_var_insert_cb(GtkWidget *widget, Thtml_diag *dg) {
 			tmp2 = g_strdup_printf("<?php if (isset($%s)) { echo $%s; } ?>",tmp,tmp);
 		break;
 		case PHPFORM_TYPE_RADIO:
-			tmp2 = g_strdup_printf("<?php if (isset($%s)) { echo 'selected'; } ?>",tmp);
+			tmp2 = g_strdup_printf("<?php if (isset($%s)) { echo 'checked'; } ?>",tmp);
 		break;
 		case PHPFORM_TYPE_CHECK:
 			tmp2 = g_strdup_printf("<?php if (isset($%s)) { echo 'checked'; } ?>",tmp);
