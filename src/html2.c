@@ -606,7 +606,7 @@ static Tcs3_diag *css_diag(Tcs3_destination dest, Tcs3_style style, GtkWidget *t
 
 	scrolwin = gtk_scrolled_window_new(NULL, NULL);
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolwin), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
-	gtk_widget_set_usize(scrolwin, 400, 300);
+	gtk_widget_set_size_request(scrolwin, 400, 300);
 	gtk_box_pack_start(GTK_BOX(hbox), scrolwin, FALSE, FALSE, 0);
 	
 	if (diag->styletype == multistyle) {

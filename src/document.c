@@ -3435,7 +3435,7 @@ void file_open_url_cb(GtkWidget * widget, Tbfwin *bfwin) {
 	ou->bfwin = bfwin;
 	ou->win = window_full2(_("Open URL"), GTK_WIN_POS_NONE, 12
 			, G_CALLBACK(open_url_destroy_lcb), ou, TRUE, NULL);
-	gtk_widget_set_usize(ou->win,400,0);
+	gtk_widget_set_size_request(ou->win,400,0);
 	vbox = gtk_vbox_new(FALSE,3);
 	gtk_container_add(GTK_CONTAINER(ou->win),vbox);
 	if (bfwin->project) {

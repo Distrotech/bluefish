@@ -105,7 +105,7 @@ void init_output_box(Tbfwin *bfwin, GtkWidget *vbox) {
 		scrolwin = gtk_scrolled_window_new(NULL, NULL);
 		gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolwin),GTK_POLICY_AUTOMATIC,GTK_POLICY_AUTOMATIC);
 		gtk_container_add(GTK_CONTAINER(scrolwin), ob->lview);
-		gtk_widget_set_usize(scrolwin, 150, 150);
+		gtk_widget_set_size_request(scrolwin, 150, 150);
 		gtk_box_pack_start(GTK_BOX(ob->hbox), scrolwin, TRUE, TRUE, 0);
 		g_signal_connect(G_OBJECT(ob->lview), "row-activated",G_CALLBACK(ob_lview_row_activated_lcb),ob);
 	}
@@ -116,7 +116,7 @@ void init_output_box(Tbfwin *bfwin, GtkWidget *vbox) {
 		gtk_widget_show(image);
 		gtk_container_add(GTK_CONTAINER(but), image);
 		gtk_container_set_border_width(GTK_CONTAINER(but), 0);
-		gtk_widget_set_usize(but, 16,16);
+		gtk_widget_set_size_request(but, 16,16);
 		g_signal_connect(G_OBJECT(but), "clicked", G_CALLBACK(output_box_close_clicked_lcb), ob);
 		gtk_box_pack_start(GTK_BOX(ob->hbox), vbox2, FALSE, FALSE, 0);
 		gtk_box_pack_start(GTK_BOX(vbox2), but, FALSE, FALSE, 0);

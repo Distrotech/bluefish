@@ -611,7 +611,7 @@ static void create_filetype_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 	scrolwin = gtk_scrolled_window_new(NULL, NULL);
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolwin),GTK_POLICY_AUTOMATIC,GTK_POLICY_AUTOMATIC);
 	gtk_container_add(GTK_CONTAINER(scrolwin), pd->ftd.lview);
-	gtk_widget_set_usize(scrolwin, 150, 190);
+	gtk_widget_set_size_request(scrolwin, 150, 190);
 	gtk_box_pack_start(GTK_BOX(vbox1), scrolwin, TRUE, TRUE, 2);
 /*	gtk_tree_view_set_reorderable(GTK_TREE_VIEW(pd->ftd.lview), TRUE);
 	g_signal_connect(G_OBJECT(pd->ftd.lstore), "rows-reordered", G_CALLBACK(filetype_reordered_lcb), pd);*/
@@ -759,7 +759,7 @@ static void create_filefilter_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 		scrolwin = gtk_scrolled_window_new(NULL, NULL);
 		gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolwin),GTK_POLICY_AUTOMATIC,GTK_POLICY_AUTOMATIC);
 		gtk_container_add(GTK_CONTAINER(scrolwin), pd->ffd.lview);
-		gtk_widget_set_usize(scrolwin, 150, 150);
+		gtk_widget_set_size_request(scrolwin, 150, 150);
 		gtk_box_pack_start(GTK_BOX(vbox1), scrolwin, TRUE, TRUE, 2);
 		
 		select = gtk_tree_view_get_selection(GTK_TREE_VIEW(pd->ffd.lview));
@@ -1312,7 +1312,7 @@ static void create_browsers_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 		scrolwin = gtk_scrolled_window_new(NULL, NULL);
 		gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolwin),GTK_POLICY_AUTOMATIC,GTK_POLICY_AUTOMATIC);
 		gtk_container_add(GTK_CONTAINER(scrolwin), pd->bd.lview);
-		gtk_widget_set_usize(scrolwin, 120, 120);
+		gtk_widget_set_size_request(scrolwin, 120, 120);
 		gtk_box_pack_start(GTK_BOX(vbox1), scrolwin, TRUE, TRUE, 2);
 		
 		select = gtk_tree_view_get_selection(GTK_TREE_VIEW(pd->bd.lview));
@@ -1464,7 +1464,7 @@ static void create_externals_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 		scrolwin = gtk_scrolled_window_new(NULL, NULL);
 		gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolwin),GTK_POLICY_AUTOMATIC,GTK_POLICY_AUTOMATIC);
 		gtk_container_add(GTK_CONTAINER(scrolwin), pd->ed.lview);
-		gtk_widget_set_usize(scrolwin, 120, 120);
+		gtk_widget_set_size_request(scrolwin, 120, 120);
 		gtk_box_pack_start(GTK_BOX(vbox1), scrolwin, TRUE, TRUE, 2);
 		
 		select = gtk_tree_view_get_selection(GTK_TREE_VIEW(pd->ed.lview));
@@ -1635,7 +1635,7 @@ static void create_outputbox_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 		scrolwin = gtk_scrolled_window_new(NULL, NULL);
 		gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolwin),GTK_POLICY_AUTOMATIC,GTK_POLICY_AUTOMATIC);
 		gtk_container_add(GTK_CONTAINER(scrolwin), pd->od.lview);
-		gtk_widget_set_usize(scrolwin, 150, 150);
+		gtk_widget_set_size_request(scrolwin, 150, 150);
 		gtk_box_pack_start(GTK_BOX(vbox1), scrolwin, TRUE, TRUE, 2);
 		
 		select = gtk_tree_view_get_selection(GTK_TREE_VIEW(pd->od.lview));

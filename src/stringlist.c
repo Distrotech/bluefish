@@ -397,7 +397,7 @@ void estrl_dialog(GList **which_list, gchar *title, gint what_list
 	  wx += optx + gtk_clist_optimal_column_width(GTK_CLIST(estrl->clist), 1);
 	  if( wx < gdk_screen_width() ) {
 	    gtk_clist_set_column_width(GTK_CLIST(estrl->clist), 0, optx );
-	    gtk_widget_set_usize(GTK_WIDGET(estrl->win), wx, 400);
+	    gtk_widget_set_size_request(GTK_WIDGET(estrl->win), wx, 400);
 	    gtk_widget_set_uposition(estrl->win, 
 				     (gdk_screen_width()-wx)/2,
 				     (gdk_screen_height() - 400)/2);
