@@ -1057,32 +1057,45 @@ static void create_file_or_dir_ok_clicked_lcb(GtkWidget *widget, Tcfod *ws) {
 }
 
 static void create_file_or_dir_win(Tfilebrowser *filebrowser, gint is_file) {
-	GtkTreePath *path;
+	/* if we have a one pane view, we need to find the selection; where to add the directory, 
+	if we have a two pane view, we need to find out IF we have a selection, if not we add it 
+	in the current directory*/
+	GtkTreePath *selection;
 	GtkTreeIter iter;
-	path = filebrowser_get_path_from_selection(GTK_TREE_MODEL(filebrowser->store),GTK_TREE_VIEW(filebrowser->tree),&iter);
-	if (path) {
-		Tcfod *ws;
-		gchar *title, *tmp;
-		GtkWidget *vbox, *but, *hbox;
+	gchar *basedir = NULL;
+	selection = filebrowser_get_path_from_selection(GTK_TREE_MODEL(filebrowser->store),GTK_TREE_VIEW(filebrowser->tree),&iter);
+	if (main_v->props.filebrowser_two_pane_view && !selection) {
+		/* there is no selection, we'll use the current last used dir */
+		if (filebrowser->last_opened_dir) {
+			basedir = ending_slash(filebrowser->last_opened_dir);
+		}
+	} else {
 		GtkTreePath *path;
-
-		ws = g_malloc(sizeof(Tcfod));
-		ws->filebrowser = filebrowser;
-		if (gtk_tree_model_iter_has_child(GTK_TREE_MODEL(filebrowser->store), &iter)) {
-			DEBUG_MSG("create_file_or_dir_win, a dir is selected\n");
+		gchar *tmp;
+		if (main_v->props.filebrowser_two_pane_view || gtk_tree_model_iter_has_child(GTK_TREE_MODEL(filebrowser->store), &iter)) {
+			/* the selection does point to a directory, not a file */
 		} else {
+			/* the selection points to a file, get the parent */
 			GtkTreeIter parent;
 			DEBUG_MSG("create_file_or_dir_win, a file is selected\n");
 			gtk_tree_model_iter_parent(GTK_TREE_MODEL(filebrowser->store), &parent, &iter);
 			iter = parent;
 		}
-		/* hmm, I have the feeling that we should free path here first, before we use it again */
 		path = gtk_tree_model_get_path(GTK_TREE_MODEL(filebrowser->store),&iter);
 		tmp = return_filename_from_path(filebrowser,GTK_TREE_MODEL(filebrowser->store),path);
-		ws->basedir = ending_slash(tmp);
-		g_free(tmp);
+		basedir = ending_slash(tmp);
 		gtk_tree_path_free(path);
-		
+	}
+	DEBUG_MSG("create_file_or_dir_win, basedir=%s, selection=%p\n",basedir,selection);
+	if (selection) gtk_tree_path_free(selection);
+	if (basedir) {
+		Tcfod *ws;
+		gchar *title;
+		GtkWidget *vbox, *but, *hbox;
+
+		ws = g_malloc(sizeof(Tcfod));
+		ws->filebrowser = filebrowser;
+		ws->basedir = basedir;
 		if (is_file) {
 			title = _("File name");
 		} else {
@@ -1111,7 +1124,6 @@ static void create_file_or_dir_win(Tfilebrowser *filebrowser, gint is_file) {
 		gtk_widget_grab_default(but);
 		gtk_widget_show_all(GTK_WIDGET(ws->win));
 	}
-	gtk_tree_path_free(path);
 }
 
 
@@ -1142,15 +1154,15 @@ static void handle_activate_on_file(Tfilebrowser *filebrowser, gchar *filename) 
 
 /* Called both by the filebrowser "activate"-signal and filebrowser_rpopup_open_lcb */
 static void row_activated_lcb(GtkTreeView *tree, GtkTreePath *path,GtkTreeViewColumn *column, Tfilebrowser *filebrowser) {
-	GtkTreeIter iter;
-	gchar *filename = return_filename_from_path(filebrowser,GTK_TREE_MODEL(filebrowser->store),path);
-	DEBUG_MSG("row_activated_lcb, filename=%s\n", filename);
 	if (main_v->props.filebrowser_two_pane_view) {
 		/* it is a dir, expand it */
 		if (!gtk_tree_view_row_expanded(tree, path)) {
 			gtk_tree_view_expand_row(tree,path,FALSE);
 		}
 	} else {
+		GtkTreeIter iter;
+		gchar *filename = return_filename_from_path(filebrowser,GTK_TREE_MODEL(filebrowser->store),path);
+		DEBUG_MSG("row_activated_lcb, filename=%s\n", filename);
 		/* test if this is a dir */
 		gtk_tree_model_get_iter(GTK_TREE_MODEL(filebrowser->store),&iter,path);
 		if (gtk_tree_model_iter_has_child(GTK_TREE_MODEL(filebrowser->store),&iter)) {
@@ -1177,75 +1189,70 @@ static void row_activated_lcb(GtkTreeView *tree, GtkTreePath *path,GtkTreeViewCo
  * widget and data are not used.
  */
 static void filebrowser_rpopup_rename(Tfilebrowser *filebrowser) {
-	Tdocument *tmpdoc;
-	GList *alldocs;
-	GtkTreePath *path;
-	gchar *newfilename=NULL, *oldfilename, *errmessage = NULL, *dirname;
-
+	gchar *oldfilename;
 	/* this function should, together with doc_save() use a common backend.. */
+	oldfilename = get_selected_filename(filebrowser, FALSE);
+	if (oldfilename) {
+		Tdocument *tmpdoc;
+		GList *alldocs;
+		gchar *newfilename=NULL, *errmessage = NULL, *dirname;
+		/* Use doc_save(doc, 1, 1) if the file is open. */
+		alldocs = return_allwindows_documentlist();
+		tmpdoc = documentlist_return_document_from_filename(alldocs,oldfilename);
+		g_list_free(alldocs);
+		if (tmpdoc != NULL) {
+			DEBUG_MSG("File is open. Calling doc_save().\n");
 	
-	path = filebrowser_get_path_from_selection(GTK_TREE_MODEL(filebrowser->store),GTK_TREE_VIEW(filebrowser->tree),NULL);
-	oldfilename = return_filename_from_path(filebrowser,GTK_TREE_MODEL(filebrowser->store), path);	
-
-	/* Use doc_save(doc, 1, 1) if the file is open. */
-	alldocs = return_allwindows_documentlist();
-	tmpdoc = documentlist_return_document_from_filename(alldocs,oldfilename);
-	g_list_free(alldocs);
-	if (tmpdoc != NULL) {
-		DEBUG_MSG("File is open. Calling doc_save().\n");
-
-		/* If an error occurs, doc_save takes care of notifying the user.
-		 * Currently, nothing is done here.
-		 */	
-		doc_save(tmpdoc, 1, 1);
-	} else {
-		/* Promt user, "File/Move To"-style. */
-		newfilename = ask_new_filename(filebrowser->bfwin,oldfilename, 1);
-		if (newfilename) {
-#ifdef HAVE_GNOME_VFS
-			if (gnome_vfs_move(oldfilename,newfilename,TRUE) != GNOME_VFS_OK) {
-				errmessage = g_strconcat(_("Could not rename\n"), oldfilename, NULL);
+			/* If an error occurs, doc_save takes care of notifying the user.
+			 * Currently, nothing is done here.
+			 */	
+			doc_save(tmpdoc, 1, 1);
+		} else {
+			/* Promt user, "File/Move To"-style. */
+			newfilename = ask_new_filename(filebrowser->bfwin,oldfilename, 1);
+			if (newfilename) {
+	#ifdef HAVE_GNOME_VFS
+				if (gnome_vfs_move(oldfilename,newfilename,TRUE) != GNOME_VFS_OK) {
+					errmessage = g_strconcat(_("Could not rename\n"), oldfilename, NULL);
+				}
+	#else
+				if(rename(oldfilename, newfilename) != 0) {
+					errmessage = g_strconcat(_("Could not rename\n"), oldfilename, NULL);
+				}
+	#endif
 			}
-#else
-			if(rename(oldfilename, newfilename) != 0) {
-				errmessage = g_strconcat(_("Could not rename\n"), oldfilename, NULL);
-			}
-#endif
-		}
-	} /* if(oldfilename is open) */
-
-	if (errmessage) {
-		error_dialog(filebrowser->bfwin->main_window,errmessage, NULL);
-		g_free(errmessage);
-	} else {
-		/* Refresh the appropriate parts of the filebrowser-> */
-		char *tmp;
-
-		tmp = g_path_get_dirname(oldfilename);
-		DEBUG_MSG("Got olddirname %s\n", tmp);
-		dirname = ending_slash(tmp);
-		filebrowser_refresh_dir(filebrowser,dirname);
-		g_free(dirname);
-		g_free(tmp);
-		
-		if (newfilename && (tmp = path_get_dirname_with_ending_slash(newfilename))) { /* Don't refresh the NULL-directory.. */
-			DEBUG_MSG("Got newdirname %s\n", tmp);
+		} /* if(oldfilename is open) */
+	
+		if (errmessage) {
+			error_dialog(filebrowser->bfwin->main_window,errmessage, NULL);
+			g_free(errmessage);
+		} else {
+			/* Refresh the appropriate parts of the filebrowser-> */
+			char *tmp;
+	
+			tmp = g_path_get_dirname(oldfilename);
+			DEBUG_MSG("Got olddirname %s\n", tmp);
 			dirname = ending_slash(tmp);
 			filebrowser_refresh_dir(filebrowser,dirname);
 			g_free(dirname);
 			g_free(tmp);
+			
+			if (newfilename && (tmp = path_get_dirname_with_ending_slash(newfilename))) { /* Don't refresh the NULL-directory.. */
+				DEBUG_MSG("Got newdirname %s\n", tmp);
+				dirname = ending_slash(tmp);
+				filebrowser_refresh_dir(filebrowser,dirname);
+				g_free(dirname);
+				g_free(tmp);
+			}
+		} /* if(error) */
+		if (newfilename) {
+			g_free(newfilename);
 		}
-	} /* if(error) */
-	if (newfilename) {
-		g_free(newfilename);
+		g_free(oldfilename);
 	}
-	gtk_tree_path_free(path);
-	g_free(oldfilename);
-
 }
 
 static void filebrowser_rpopup_delete(Tfilebrowser *filebrowser) {
-	gchar *errmessage = NULL;
 	gchar *filename = get_selected_filename(filebrowser, FALSE);
 	if (filename) {
 		gchar *buttons[] = {GTK_STOCK_CANCEL, GTK_STOCK_DELETE, NULL};
@@ -1255,6 +1262,7 @@ static void filebrowser_rpopup_delete(Tfilebrowser *filebrowser) {
 		retval = multi_query_dialog(filebrowser->bfwin->main_window,label, _("The file will be permanently deleted."), 0, 0, buttons);
 		g_free(label);
 		if (retval == 1) {
+			gchar *errmessage = NULL;
 			gchar *tmp, *dir;
 			DEBUG_MSG("file_list_rpopup_file_delete %s\n", filename);
 
@@ -1704,10 +1712,10 @@ GtkWidget *filebrowser_init(Tbfwin *bfwin) {
 		filebrowser->bfwin = bfwin;
 		if (bfwin->project && bfwin->project->basedir && strlen(bfwin->project->basedir)>2) {
 			filebrowser->basedir = ending_slash(bfwin->project->basedir);
-			DEBUG_MSG("filebrowser_init, the basedir is set to %s\n",filebrowser->basedir);
 		} else {
 			filebrowser->basedir = ending_slash(main_v->props.default_basedir);
 		}
+		DEBUG_MSG("filebrowser_init, the basedir is set to %s\n",filebrowser->basedir);
 	}
 	if (!filebrowser->curfilter) {
 		/* get the default filter */
@@ -1800,9 +1808,10 @@ GtkWidget *filebrowser_init(Tbfwin *bfwin) {
 			}
 		}
 		path = build_tree_from_path(filebrowser, buildfrom);
+		filebrowser->last_opened_dir = ending_slash(buildfrom);
 		if (path) {
-					filebrowser_expand_to_root(filebrowser,path);
-					gtk_tree_path_free(path);
+			filebrowser_expand_to_root(filebrowser,path);
+			gtk_tree_path_free(path);
 		}
 	}
 	g_signal_connect(G_OBJECT(filebrowser->tree), "row-expanded", G_CALLBACK(row_expanded_lcb), filebrowser);
