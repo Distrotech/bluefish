@@ -59,6 +59,7 @@ extern const guint8 pixmap_frameset2[];
 extern const guint8 pixmap_framewhiz[];
 extern const guint8 pixmap_fref[];
 extern const guint8 pixmap_frdialog[];
+extern const guint8 pixmap_frdialog2[];
 extern const guint8 pixmap_frhide[];
 extern const guint8 pixmap_frinfo[];
 extern const guint8 pixmap_frsearch[];
