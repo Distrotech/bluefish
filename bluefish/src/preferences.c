@@ -936,6 +936,23 @@ static void create_highlightpattern_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 	gtk_box_pack_start(GTK_BOX(vbox3),pd->hpd.radio[8], TRUE, TRUE, 0);
 }
 
+static gchar **browser_create_strarr(Tprefdialog *pd) {
+	gchar **strarr;
+	gchar *escaped, *tmp;
+	tmp = gtk_editable_get_chars(GTK_EDITABLE(pd->bd.entry[0]),0,-1);
+	if (strlen(tmp)) {
+		strarr = g_malloc(3*sizeof(gchar *));
+		strarr[0] = tmp;
+		strarr[1] = gtk_editable_get_chars(GTK_EDITABLE(pd->bd.entry[1]),0,-1);
+		strarr[2] = NULL;
+		DEBUG_MSG("browser_create_strarr, created at %p\n", strarr);
+		return strarr;
+	} else {
+		g_free(tmp);
+		return NULL;
+	}
+}
+
 static void browsers_apply_changes(Tprefdialog *pd) {
 	DEBUG_MSG("browsers_apply_changes, started\n");
 	if (pd->bd.curstrarr) {
@@ -964,26 +981,23 @@ static void browsers_apply_changes(Tprefdialog *pd) {
 }
 
 static void add_new_browser_lcb(GtkWidget *wid, Tprefdialog *pd) {
-	add_new_general_lcb(pd, pd->bd.entry[0],2,browsers,GTK_LIST_STORE(pd->bd.lstore));
-/*	gchar *newtype = gtk_editable_get_chars(GTK_EDITABLE(pd->bd.entry[0]),0,-1);
-	DEBUG_MSG("add_new_browser_lcb, newtype=%s\n", newtype);
-	if (strlen(newtype)) {
-		gchar **strarr = g_malloc(3*sizeof(gchar *));
-		strarr[0] = newtype;
-		strarr[1] = g_strdup("");
-		strarr[2] = NULL;
+	gchar **strarr;
+	strarr = browser_create_strarr(pd);
+	if (strarr) {
 		pd->lists[browsers] = g_list_append(pd->lists[browsers], strarr);
 		{
 			GtkTreeIter iter;
+			gchar *escaped = escapestring(strarr[2],'\0');
 			gtk_list_store_append(GTK_LIST_STORE(pd->bd.lstore), &iter);
 			gtk_list_store_set(GTK_LIST_STORE(pd->bd.lstore), &iter
 				,0,strarr[0]
 				,1,strarr[1]
+				,2,escaped
+				,3,strarr[3]
 				,-1);
+			g_free(escaped);
 		}
-	} else {
-		g_free(newtype);
-	}*/
+	}
 }
 
 static void browser_selection_changed_cb(GtkTreeSelection *selection, Tprefdialog *pd) {
