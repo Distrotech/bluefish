@@ -21,6 +21,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 <?linebreaka4?>
 <para>In this chapter, most of the functionalities of Bluefish are described. What you can do, how you do it, and how you can customize the default behavior.</para>
 <?linebreaka4?>
+
 <sect1 id="starting-bluefish">
 <title>Starting Bluefish</title>
 <para>In GNOME, Bluefish can be started from the Applications/Programming menu. From a terminal, simply launch bluefish using the command <application>bluefish</application>.</para>
@@ -47,7 +48,9 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 </sect2>
 
 </sect1>
+
 <?linebreaka4?>
+
 <sect1 id="user-interface">
 <title>The user interface</title>
 <para>The biggest part of the user interface is the editor area. Because Bluefish has a so-called "Multiple Document Interface", there are actually many editor areas in Bluefish, accessible via the tabs. By default the tabs are on the bottom.
@@ -286,14 +289,10 @@ If you want to disable any of these items by default, you can set these options 
 </sect1>
 
 <sect1 id="working-with-files">
-<title>Working with files</title>
-<?linebreak?>
-<?linebreaka4?>
+<title>Working with files and folders</title>
 <para>Most of the file operations are accessible from the <guimenu>File</guimenu> menu. Using this menu, a new file can be created, existing files opened, and opened files saved or renamed.</para>
-<?linebreak?>
-<?linebreaka4?>
-<para>It is also possible to insert a file into another one, and to revert a modified file to its previously saved state.	
-<?linebreak?>
+<para>You may also insert a file into another one, and revert a modified file to its previously saved state.	
+<?linebreakus?>
 <figure id="figure-file-menu">
 <title id="figure-file-menu-title">Bluefish File Menu</title>
 <screenshot><mediaobject>
@@ -305,28 +304,48 @@ If you want to disable any of these items by default, you can set these options 
 </textobject>
 </mediaobject></screenshot>
 </figure></para>
-<?linebreaka4?>
+<para>You may also add directories, delete files, and refresh the file browser in the side panel using its contextual menu.
+<?linebreakus?>
+<figure id="file-browser-cm">
+<title id="file-browser-cm-title">The file browser contextual menu</title>
+<screenshot><mediaobject>
+<imageobject>
+<imagedata fileref="figures/file_browser_cm.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>A screen shot showing the file browser contextual menu</phrase>
+</textobject>
+</mediaobject></screenshot>
+</figure></para>
+
 <sect2 id="creating-files">
 <title>Creating files</title>
-<?linebreak?>
 <para>Apart from using <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>N</keycap></keycombo></shortcut><guimenu>File</guimenu><guimenuitem>New</guimenuitem></menuchoice> or the <guilabel>New</guilabel> icon to create a new file, you may also use <menuchoice><shortcut><keycombo><keycap>Shift</keycap><keycap>Ctrl</keycap><keycap>N</keycap></keycombo></shortcut><guimenu>File</guimenu><guimenuitem>New Window</guimenuitem></menuchoice>.</para>
-<?linebreak?>
-<para>Both methods create an untitled file of type <literal>text</literal> with the default character encoding defined in the <guilabel>Files</guilabel> tab in the <menuchoice><guimenu>Edit</guimenu><guimenuitem>Preferences</guimenuitem></menuchoice> menu option.</para>
+<para>Those methods create an untitled file of type <literal>text</literal> with default permissions and the default character encoding defined in the <guilabel>Files</guilabel> tab in the <menuchoice><guimenu>Edit</guimenu><guimenuitem>Preferences</guimenuitem></menuchoice> menu option. You will further have to <link linkend="saving-files">save</link> it under the desired name.</para>
+<para>To spare yourself the bother of saving, right click on the desired directory in the directory list of the file browser in the side panel and select <guilabel>New File</guilabel>. You will be presented with a <guilabel>File name</guilabel> dialog, where you will enter the desired name:
+<figure id="file-name-dialog">
+<title id="file-name-dialog-title">The File name dialog</title>
+<screenshot><mediaobject>
+<imageobject>
+<imagedata fileref="figures/file_name_dialog.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>A screen shot showing the File name dialog</phrase>
+</textobject>
+</mediaobject></screenshot>
+</figure></para>
+</sect2>
+
+<sect2 id="managing-directories">
+<title>Managing directories</title>
+<para>To create a new directory, right click on the desired parent directory in the directory list of the file browser in the side panel and select <guilabel>New Directory</guilabel>.</para>
+<para>Then enter the desired name in the <guilabel>Directory name</guilabel> dialog. Bluefish will create the named directory with the default permissions.</para>
+<para>Note that you cannot delete directories within Bluefish, but you can refresh the view with the <guilabel>Refresh</guilabel> contextual menu item of the file browser. This is especially useful when you add files and directories or delete files.</para>
 </sect2>
 	
 <sect2 id="opening-files">
 <title>Opening files</title>
-<?linebreak?>
-<?linebreaka4?>
 <para>Through <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>O</keycap></keycombo></shortcut><guimenu>File</guimenu><guimenuitem>Open...</guimenuitem></menuchoice>, one or more files can be opened. When creating new files, you may want to open the files in a new window. In this case, use <menuchoice><guimenu>File</guimenu><guimenuitem>New Window</guimenuitem></menuchoice> to first open the new window and then open the desired files as usual.
-<?linebreak?>
-<?linebreak?>
-<?linebreak?>
-<?linebreak?>
-<?linebreak?>
-<?linebreak?>
-<?linebreaka4?>
-<?linebreaka4?>
 <figure id="figure-open-file">
 <title id="figure-open-file-title">Bluefish Open File Dialog</title>
 <screenshot><mediaobject>
@@ -338,30 +357,17 @@ If you want to disable any of these items by default, you can set these options 
 </textobject>
 </mediaobject></screenshot>
 </figure></para>
-<?linebreak?>
-<?linebreak?>
-<?linebreak?>
-<?linebreak?>
-<?linebreak?>
-<?linebreaka4?>
-<?linebreaka4?>
 <variablelist>
 <varlistentry>
 <term><emphasis>Note</emphasis></term>
 <listitem>
-<para>The most recently opened directories appear in the upper part of the left side panel, while the lower part contains user-defined locations. To add a new directory to the list, click on <guilabel>Add</guilabel>. You can also filter the file list by file type using the pop menu located on the right side. The list of file types in the filter menu is provided through the <guilabel>Filetypes</guilabel> tab found in Bluefish's <menuchoice><guimenu>Edit</guimenu><guimenuitem>Preferences</guimenuitem></menuchoice> menu option.</para>
+<para>The most recently opened directories appear in the upper part of the side panel, while the lower part contains user-defined locations. To add a new directory to the list, click on <guilabel>Add</guilabel>. You can also filter the file list by file type using the pop menu located on the right side. The list of file types in the filter menu is provided through the <guilabel>Filetypes</guilabel> tab found in Bluefish's <menuchoice><guimenu>Edit</guimenu><guimenuitem>Preferences</guimenuitem></menuchoice> menu option.</para>
 </listitem>
 </varlistentry>
 </variablelist>
-<?linebreaka4?>
-<?linebreaka4?>
-<?linebreak?>
-<?linebreak?>
-<?linebreak?>
-<?linebreak?>
-<?linebreak?>
+<?linebreakus?>
 <para>Recently opened files can be opened by selecting them from the list within <menuchoice><guimenu>File</guimenu><guimenuitem>Open recent</guimenuitem></menuchoice>. The number of files in this menu can be set in the preferences under <guilabel>Files</guilabel>.</para>
-<?pagebreak?>
+<?linebreakus?>
 <para>The file browser in the side panel can also be used to open files. It supports filtering files, by right clicking the contextual menu in the file browser.
 <?linebreak?>
 <figure id="figure-file-browser-filtering">
@@ -375,9 +381,13 @@ If you want to disable any of these items by default, you can set these options 
 </textobject>
 </mediaobject></screenshot>
 </figure></para>
+<?linebreakus?>
 <para>The available filters may be modified in Preferences. For more information, see <xref linkend="modifying-filefilters" />.</para>
+<?linebreakus?>
 <para>If you right click a directory, you can make this directory the base directory for the file browser using the <guimenuitem>Set as basedir</guimenuitem> option. Then you can access it directly from the pop up menu in the upper part of the file browser.</para>
-<para> By default the file browser follows the document focus. If you change to a different document, the file browser will show the contents of the directory where this document is located. This behaviour can be changed on the bottom of the file browser.</para>
+<?linebreakus?>
+<para>By default the file browser follows the document focus. If you change to a different document, the file browser will show the contents of the directory where this document is located. This behaviour can be changed on the bottom of the file browser.</para>
+<?linebreakus?>
 <para>Information about currently opened files can be seen if you move the mouse over the document tab (by default on the bottom of the screen). A so called tool tip will be shown with information about the full path, size, permissions, file type and encoding of the file.
 <?linebreak?>
 <figure id="figure-open-file-info">
@@ -391,10 +401,13 @@ If you want to disable any of these items by default, you can set these options 
 </textobject>
 </mediaobject></screenshot>
 </figure></para>
+<?linebreakus?>
 <para>An interesting feature of Bluefish is the ability to open files by selecting the text of a currently opened file. For example, if a filename is shown in say a terminal application, you can select the filename, and use <menuchoice><guimenu>File</guimenu><guimenuitem>Open from Selection</guimenuitem></menuchoice> to open that file. The file, if it exists, will be opened in another tab within Bluefish.</para>
+<?linebreakus?>
 <para>Finally, files can be opened via the command line by feeding filenames to Bluefish as arguments. This can even be done while Bluefish is running and the resulting file will then show up in its own tab.</para>
-<?linebreaka4?>
+<?linebreak?>
 <para>Files can also be opened by clicking on the <guilabel>Open...</guilabel> icon in the main tool bar.</para>
+<?linebreak?>
 <variablelist>
 <varlistentry>
 <term><emphasis>Note</emphasis></term>
@@ -403,14 +416,17 @@ If you want to disable any of these items by default, you can set these options 
 </listitem>
 </varlistentry>
 </variablelist>
-<?linebreaka4?>
+<?linebreak?>
 <para>Be aware that if the file is huge it may take a very long time to get the rendering if syntax highlighting is enabled. The GTK editing widget used in Bluefish, furthermore, is not very good at handling files with very long lines, and that could also slow down Bluefish considerably.</para>
 </sect2>
-<?linebreaka4?>
+
+<?linebreakus?>
+<?linebreakus?>
 <sect2 id="saving-files">
 <title>Saving files</title>
+<?linebreak?>
 <para>If a document is modified, the filename is shown in red in the document tabs, and also if you right click on the tabs, the full path is shown in red in the list that will pop up.
-<?linebreaka4?>
+<?linebreak?>
 <figure id="figure-modified-file-tooltip">
 <title id="figure-modified-file-tooltip-title">Tool Tip for Modified File</title>
 <screenshot><mediaobject>
@@ -422,12 +438,21 @@ If you want to disable any of these items by default, you can set these options 
 </textobject>
 </mediaobject></screenshot>
 </figure></para>
-<?linebreaka4?>
+<?linebreakus?>
 <para>To save a document, you can use the <guimenu>File</guimenu> menu, the <guilabel>Save</guilabel> icon in the tool bar, or press the shortcut key combination <keycombo><keycap>Ctrl</keycap><keycap>S</keycap></keycombo>. By default a backup is made during save. The original file is copied to the same filename with a tilde <keycap>~</keycap> appended. This suffix and the backup behaviour can be changed in the preferences under <guilabel>Files</guilabel>.</para>
-<para>Before saving the file, Bluefish will check if the original file was changed on disk, using the last modified time and the file size. On some filesystems the last modified time is sometimes not very precise (most notably on samba mounts). This makes Bluefish think the file is modified when it is not. This check can be changed in the preferences under <guilabel>Files</guilabel>.</para>
-<?linebreaka4?>
+<?linebreak?>
+<para>Before saving the file, Bluefish will check if the original file was changed on disk, using the last modified time and the file size. On some file systems the last modified time is sometimes not very precise (most notably on samba mounts). This makes Bluefish think the file is modified when it is not. This check can be changed in the preferences under <guilabel>Files</guilabel>.</para>
+<?linebreak?>
 <para>You can also save a document under a different name, using the <menuchoice><shortcut><keycombo><keycap>Shift</keycap><keycap>Ctrl</keycap><keycap>S</keycap></keycombo></shortcut><guimenuitem>Save As...</guimenuitem></menuchoice> menu entry, or the <guilabel>Save As...</guilabel> icon in the main tool bar. The original file will still exist.
 <?linebreaka4?>
+<?linebreakus?>
+<?linebreakus?>
+<?linebreakus?>
+<?linebreakus?>
+<?linebreakus?>
+<?linebreakus?>
+<?linebreakus?>
+<?linebreakus?>
 <figure id="figure-renaming-file">
 <title id="figure-renaming-file-title">Saving a File under a new Name</title>
 <screenshot><mediaobject>
@@ -439,15 +464,28 @@ If you want to disable any of these items by default, you can set these options 
 </textobject>
 </mediaobject></screenshot>
 </figure></para>
+<?linebreakus?>
+<?linebreakus?>
+<?linebreakus?>
+<?linebreakus?>
+<?linebreakus?>
 <para>To save all modified files, you can use the <menuchoice><guimenu>File</guimenu><guimenuitem>Save All</guimenuitem></menuchoice> menu entry. This will save all documents that have been modified and present you with a save dialog if some files are new files.</para>
 </sect2>
 
+<?linebreakus?>
+<?linebreakus?>
+<?linebreakus?>
+<?linebreakus?>
+<?linebreakus?>
+<?linebreakus?>
+<?linebreakus?>
+<?linebreakus?>
+<?linebreakus?>
+<?linebreakus?>
 <sect2 id="renaming">
 <title>Renaming files</title>
-<?linebreak?>
+<?linebreakus?>
 <para>It is also possible to move or rename a document, using the <menuchoice><shortcut><keycap>F2</keycap></shortcut><guimenu>File</guimenu><guimenuitem>Rename...</guimenuitem></menuchoice> menu item, or right-clicking the file name in the side panel and choosing the <guimenuitem>Rename</guimenuitem> item.
-<?linebreak?>
-<?linebreaka4?>
 <?linebreaka4?>
 <figure id="figure-moving-file">
 <title id="figure-moving-file-title">Moving a file to another location</title>
@@ -461,14 +499,21 @@ If you want to disable any of these items by default, you can set these options 
 </mediaobject></screenshot>
 </figure></para>
 </sect2>
-<?linebreaka4?>
-<?linebreak?>
+
+<sect2 id="deleting-files">
+<title>Deleting files</title>
+<para>To delete a file, right click on it in the file browser within the side panel. You will be asked either to confirm the deletion or to cancel the process, if you have the right permissions for it.</para>
+<variablelist><varlistentry>
+<term><emphasis>Warning</emphasis></term>
+<listitem>
+<para>Be cautious with this feature, there is no easy way to recover the deleted file.</para>
+</listitem>
+</varlistentry></variablelist>
+</sect2>
+
 <sect2 id="closing">
 <title>Closing files</title>
-<?linebreak?>
 <para>When you want to close a file quickly, click on the <guilabel>close</guilabel> icon in the document tab. You may also use the <guilabel>Close</guilabel> icon in the main tool bar, or the <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>W</keycap></keycombo></shortcut><guimenu>File</guimenu><guimenuitem>Close</guimenuitem></menuchoice> menu item.		
-<?linebreak?>
-<?linebreaka4?>
 <?linebreaka4?>
 <figure id="figure-document-tab-icon">
 <title id="figure-document-tab-icon-title">Closing a file with the document tab icon</title>
@@ -482,6 +527,7 @@ If you want to disable any of these items by default, you can set these options 
 </mediaobject></screenshot>
 </figure></para>
 <?pagebreaka4?>
+<?linebreaka4?>
 <para>If the file is unchanged, it is merely closed. If the file has been modified, you will be presented with a save dialog.
 <figure id="figure-closing-a-file">
 <title id="figure-closing-a-file-title">Closing a modified file</title>
@@ -651,6 +697,7 @@ If you want to disable any of these items by default, you can set these options 
 <sect2 id="basic-find-replace">
 <title>Basic Find and Replace</title>
 <para>Bluefish offers a wide range of find and replace methods in the <guimenu>Edit</guimenu> menu, also available through the contextual menu within a document. Here we will explore the most basic ones. For advanced find and replace methods, see <xref linkend="find-replace" />.</para>
+
 <sect3 id="basic-find">
 <title>Searching for a word within a whole document</title>
 <?linebreaka4?>
@@ -702,7 +749,9 @@ If you want to disable any of these items by default, you can set these options 
 </figure></para>
 <para>To find a subsequent occurrence of the string, use the <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>G</keycap></keycombo></shortcut><guimenu>Edit</guimenu><guimenuitem>Find again</guimenuitem></menuchoice> menu item. If no further occurrence is found, a dialog will be displayed notifying you that no match was found.</para>
 </sect3>
+
 <?linebreaka4?>
+
 <sect3 id="basic-find-selection">
 <title>Setting limits to the search scope</title>
 <?linebreaka4?>
@@ -762,7 +811,9 @@ If you want to disable any of these items by default, you can set these options 
 <para>Notice that the search does not take into account the occurrence of the same string at line 50, since it is outside the search scope.</para>
 <para>You can also limit the search scope to a selection range. In that case, highlight the selection before the search, and choose <guilabel>Beginning of selection till end of selection</guilabel> from the <guilabel>Starts at:</guilabel> pop up menu in the <guilabel>Find</guilabel> dialog.</para>
 </sect3>
+
 <?linebreakus?>
+
 <sect3 id="find-matching-case">
 <title>Case sensitive search</title>
 <?linebreaka4?>
@@ -870,6 +921,7 @@ If you want to disable any of these items by default, you can set these options 
 <?linebreak?>
 <?linebreaka4?>
 <?linebreaka4?>
+
 <sect3 id="more-on-find">
 <title>More on find</title>
 <?linebreak?>
@@ -910,7 +962,9 @@ If you want to disable any of these items by default, you can set these options 
 <?linebreak?>
 <para>As for the <guilabel>Search for</guilabel> field's pop up menu, the <guilabel>Replace with</guilabel> field's pop up menu allows you to retrieve previous strings used for replace, the most recent ones being at the top of the list.</para>
 </sect3>
+
 <?pagebreaka4?>
+
 <sect3 id="replace-type">
 <title>Changing letter case when replacing</title>
 <para>If you want to change letter case when replacing, use the <guilabel>Replace type</guilabel> pop up menu.</para>
@@ -967,6 +1021,7 @@ If you want to disable any of these items by default, you can set these options 
 </sect2>
 
 <?linebreakus?>
+
 <sect2 id="file-types">
 <title>File types</title>
 <?linebreakus?>
@@ -982,6 +1037,7 @@ If you want to disable any of these items by default, you can set these options 
 </sect2>
 
 <?linebreakus?>
+
 <sect2 id="more-files">
 <title>More on files</title>
 
@@ -1004,8 +1060,8 @@ If you want to disable any of these items by default, you can set these options 
 <para>Here you can see the style sheet of an Apache web site, nicely highlighted after its opening via the Bluefish <menuchoice><guimenu>File</guimenu><guimenuitem>Open URL</guimenuitem></menuchoice> menu.
 <figure id="figure-open-url-result">
 <title id="figure-open-url-result-title">A style sheet opened via the Open URL menu</title>
-<screenshot>
-<mediaobject><imageobject>
+<screenshot><mediaobject>
+<imageobject>
 <imagedata fileref="figures/open_url_result.png" format="PNG"/>
 </imageobject>
 <textobject>
@@ -1014,7 +1070,9 @@ If you want to disable any of these items by default, you can set these options 
 </mediaobject></screenshot>
 </figure></para>
 </sect3>
+
 <?linebreakus?>
+
 <sect3 id="character-encoding">
 <title>Character encoding</title>
 <?linebreaka4?>
@@ -1037,8 +1095,8 @@ config file. </para>
 <?linebreaka4?>
 <figure id="figure-open-advanced">
 <title id="figure-open-advanced-title">Using the Open Advanced dialog</title>
-<screenshot>
-<mediaobject><imageobject>
+<screenshot><mediaobject>
+<imageobject>
 <imagedata fileref="figures/open_advanced.png" format="PNG"/>
 </imageobject>
 <textobject>
@@ -1262,7 +1320,9 @@ view_html_toolbar: 1
 word_wrap: 1
 </programlisting></para>
 </sect2>
+
 <?linebreaka4?>
+
 <sect2 id="bookmarks">
 <title>Bookmarks</title>
 <?linebreaka4?>
@@ -1294,8 +1354,8 @@ word_wrap: 1
 </imageobject>
 <textobject>
 <phrase>A screen shot showing bookmarks in the side panel</phrase>
-</textobject></mediaobject>
-</screenshot>
+</textobject>
+</mediaobject></screenshot>
 </figure></para>
 <?linebreaka4?>
 <para>If you right click a bookmark in the bookmark tab of the side panel, you get a pop up menu with several options.
@@ -1325,8 +1385,8 @@ word_wrap: 1
 </imageobject>
 <textobject>
 <phrase>A screen shot showing the edition of a bookmark</phrase>
-</textobject></mediaobject>
-</screenshot>
+</textobject>
+</mediaobject></screenshot>
 </figure></para>
 <?linebreaka4?>
 <?linebreaka4?>
@@ -1440,11 +1500,13 @@ word_wrap: 1
 </sect2>
 
 <?linebreaka4?>
+
 <sect2 id="find-replace">
 <title>Find and Replace</title>
 <para>The <guimenu>Edit</guimenu> menu features several options for Find and Replace. The <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>F</keycap></keycombo></shortcut><guimenu>Edit</guimenu><guimenuitem>Find</guimenuitem></menuchoice> and <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>H</keycap></keycombo></shortcut><guimenu>Edit</guimenu><guimenuitem>Replace...</guimenuitem></menuchoice> menu items will simply start their corresponding dialogs described in <xref linkend="basic-find-replace" />.</para>
 
 <?linebreaka4?>
+
 <sect3 id="find-again">
 <title>Find Again</title>
 <para>The <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>G</keycap></keycombo></shortcut><guimenu>Edit</guimenu><guimenuitem>Find again</guimenuitem></menuchoice> menu item will repeat the last used search. It will continue the search after the position where the previous search was stopped. If the end of file is reached, it will signaled it if the search operates on a unique file, nevertheless you can continue the search from the top of file with <keycombo><keycap>Ctrl</keycap><keycap>G</keycap></keycombo> after dismissing the <guilabel>Search: no match found</guilabel> dialog. If the search operates on multiple files, it will continue with the next file.</para>
@@ -1753,8 +1815,19 @@ choose <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>.</keycap></
 <?linebreak?>
 <?linebreaka4?>
 <?linebreaka4?>
-<figure id="figure-indenting_right"><title id="figure-indenting_right-title">Indenting part of a text</title><screenshot><mediaobject><imageobject><imagedata fileref="figures/indenting_right.png" format="PNG"/></imageobject><textobject><phrase>A screen shot of a text indented with the shift right button</phrase></textobject></mediaobject></screenshot></figure></para>
+<figure id="figure-indenting_right">
+<title id="figure-indenting_right-title">Indenting part of a text</title>
+<screenshot><mediaobject>
+<imageobject>
+<imagedata fileref="figures/indenting_right.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>A screen shot of a text indented with the shift right button</phrase>
+</textobject>
+</mediaobject></screenshot>
+</figure></para>
 </sect2>
+
 <?linebreak?>
 <?linebreak?>
 <?linebreak?>
@@ -1768,7 +1841,9 @@ choose <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>.</keycap></
 <para>Bluefish has two modes for tag closing, an XML mode and an HTML mode. In XML mode, Bluefish will add a closing tag to any tag that is not closed itself with /&gt;. In HTML mode, Bluefish excludes all known tags that do not need a closing tag, such as &lt;br&gt; and &lt;img&gt;.</para>
 <para>Bluefish will choose the mode based on the file type of the document. In the filetype preferences panel, the default mode for each file type can be set. See <xref linkend="changing-filetypes"/> for more info.</para>
 </sect2>
+
 <?pagebreak?>
+
 <sect2 id="spell-checker">
 <title>Spell checker</title>
 <figure id="figure-spell-checker">
@@ -1883,8 +1958,10 @@ choose <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>.</keycap></
 </listitem>
 </itemizedlist>
 </sect2>
+
 <?linebreaka4?>
 <?linebreaka4?>
+
 <sect2 id="HTML">
 <title>HTML</title>
 <para>HTML is obviously the most supported language in Bluefish. There is a special HTML tool bar with many dialogs, and two menus to work with tags:</para>
@@ -1962,8 +2039,9 @@ choose <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>.</keycap></
 <para>An existing tag can be edited by right-clicking the tag, and select <guilabel>Edit tag</guilabel> in the context menu. You can also place the cursor in the tag and use <menuchoice><shortcut><keycap>F3</keycap></shortcut><guimenu>Dialogs</guimenu><guimenuitem>Edit tag under cursor...</guimenuitem></menuchoice>. Not all tags, however, have a dialog, so this is not always possible. Colors in the style #RRGGBB can also be edited from the right-click context menu.</para>
 <para>In the reference browser on the left panel there is an HTML reference available. All possible attributes and valid values can be found in this reference. See <xref linkend="function-reference"/> for more info.</para> 
 <?pagebreak?>
+
 <sect3 id="find-replace-special">
-<title>Special find an replace features</title>
+<title>Special find and replace features</title>
 <?linebreak?>
 <para>There are several special search and replace actions in the menu <menuchoice><guimenu>Edit</guimenu><guisubmenu>Replace special</guisubmenu></menuchoice>. These can be used to convert special characters (like &lt; and &amp;), or ISO characters to their HTML entities, as well as to change the letters case.
 <?linebreak?>
@@ -1981,6 +2059,7 @@ choose <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>.</keycap></
 <?linebreak?>
 <para>In all cases, when you want to replace some part of the text, you should first select the part to replace, then use the appropriated menu item.</para>
 </sect3>
+
 <?linebreak?>
 <?linebreaka4?>
 <?linebreaka4?>
@@ -2258,6 +2337,7 @@ width="80" height="53" border="0"&gt;&lt;/a&gt;
 </mediaobject></screenshot>
 </figure></para>
 </sect2>
+
 <?linebreakus?>
 <?linebreakus?>
 <?linebreakus?>
@@ -2429,8 +2509,8 @@ width="80" height="53" border="0"&gt;&lt;/a&gt;
 <para>Notice that upon adding the new entry, it is listed at the bottom of the <guilabel>Menu path</guilabel> list:
 <figure id="figure-custom-menu-add-basic">
 <title id="figure-custom-menu-add-basic-title">A new custom entry in the Menu path list</title>
-<screenshot>
-<mediaobject><imageobject>
+<screenshot><mediaobject>
+<imageobject>
 <imagedata fileref="figures/custom_menu_add_basic.png" format="PNG"/>
 </imageobject>
 <textobject>
@@ -2443,8 +2523,8 @@ width="80" height="53" border="0"&gt;&lt;/a&gt;
 <para>Click on the <guilabel>Save</guilabel> button. This will add the menu to the Custom menu tool bar:
 <figure id="figure-custom-menu-basic-result">
 <title id="figure-custom-menu-basic-result-title">A new menu in the custom menu tool bar</title>
-<screenshot>
-<mediaobject><imageobject>
+<screenshot><mediaobject>
+<imageobject>
 <imagedata fileref="figures/custom_menu_basic_result.png" format="PNG"/>
 </imageobject>
 <textobject>
@@ -2555,7 +2635,9 @@ width="80" height="53" border="0"&gt;&lt;/a&gt;
 </varlistentry>
 </variablelist>
 </sect3>
+
 <?linebreak?>
+
 <sect3 id="custom-menu-replace">
 <title>Adding a custom replace dialog</title>
 <para>Find and replace items are no different. The dialog has some more options, each of these options corresponds to the regular <guilabel>Replace</guilabel> dialog. Again you can use variables like %0, %1 etc. to make a certain menu item more flexible.</para>
@@ -2685,6 +2767,7 @@ width="80" height="53" border="0"&gt;&lt;/a&gt;
 </figure></para>
 <para>Click OK to proceed.</para>
 </sect3>
+
 <?linebreaka4?>
 </sect2>
 
@@ -2900,7 +2983,7 @@ width="80" height="53" border="0"&gt;&lt;/a&gt;
 <para><userinput>cat '%s' | tidy 'someoptions' &gt; '%f'</userinput></para>
 </listitem>
 <listitem>
-<para>If the command operates on file's contents, as <command>sed</command>, you should use input, i.e. <literal>%s</literal> and output, i.e. <literal>%f</literal> redirection to feed the command with the right pameters, as in:</para>
+<para>If the command operates on file's contents, as <command>sed</command>, you should use input, i.e. <literal>%s</literal> and output, i.e. <literal>%f</literal> redirection to feed the command with the right parameters, as in:</para>
 <para><userinput>sed -e 'somesedcommand' &lt; '%s' &gt; '%f'</userinput></para>
 </listitem>
 </itemizedlist>
@@ -2942,7 +3025,9 @@ width="80" height="53" border="0"&gt;&lt;/a&gt;
 <sect3 id="external-outputbox">
 <title>Customizing Ouputbox menu</title>
 <para>Items within the <menuchoice><guimenu>External</guimenu><guisubmenu>Outputbox</guisubmenu></menuchoice> submenu allow for programs to give feedback by opening an output box at the bottom of Bluefish's main window.</para>
+<?linebreaka4?>
 <para>Here is an example showing the output box after using the <menuchoice><guimenu>External</guimenu><guisubmenu>Outputbox</guisubmenu><guimenuitem>tidy HTML validator</guimenuitem></menuchoice> item on an html file with an on purpose error:
+<?linebreaka4?>
 <figure id="figure-external-outputbox-example">
 <title id="figure-external-outputbox-example-title">The tidy output box in Bluefish 1.0</title>
 <screenshot><mediaobject>
@@ -2955,6 +3040,7 @@ width="80" height="53" border="0"&gt;&lt;/a&gt;
 </mediaobject></screenshot>
 </figure></para>
 <para>The contents of the resulting output box are based upon scanning the output of the supplied command, as it appears in an xterm, with a given regular expression and  filling in the various fields of the output box with the desired parts of that regular expression. The <guilabel>Output parsers</guilabel> tab of the <guilabel>Edit preferences</guilabel> panel provides you with a model to do that:
+<?linebreaka4?>
 <figure id="figure-external-outputbox-preferences">
 <title id="figure-external-outputbox-preferences-title">The Output parsers tab in Preferences panel</title>
 <screenshot><mediaobject>
@@ -2980,7 +3066,7 @@ width="80" height="53" border="0"&gt;&lt;/a&gt;
 foo.rb:1: undefined method `put' for main:Object (NoMethodError)]]></programlisting></para>
 <para>The second line can be parsed with the following Perl regular expression:
 <programlisting><![CDATA[([a-zA-Z0-9/_.-]+):([0-9]+):(.*)]]></programlisting>
-The first part embedded into parentheses will match the script name, i.e. foo.rb; the second part will match the line, i.e. 1: the third part will match the remaining. See <xref linkend="find-replace-regex" /> for some explaination on using regular expressions within bluefish.</para>
+The first part embedded into parentheses will match the script name, i.e. foo.rb; the second part will match the line, i.e. 1: the third part will match the remaining. See <xref linkend="find-replace-regex" /> for some explanation on using regular expressions within bluefish.</para>
 </listitem>
 <listitem>
 <para>The <guilabel>File #</guilabel> field, a part number matching the filename in the Perl regular expression given in the <guilabel>Pattern</guilabel> field. Note that the first part is numbered 1, the second 2, etc. If you do not want that the part be shown, put -1 in it.</para>
@@ -2995,18 +3081,19 @@ The first part embedded into parentheses will match the script name, i.e. foo.rb
 <para>The <guilabel>Command</guilabel> field, the command to execute on the current document, internally named %s. Here it will be: <userinput>ruby -d '%s'</userinput>. Notice that you should embed the reference to the current document, if any, within parentheses to avoid interpretation at run time.</para>
 </listitem>
 <listitem>
-<para>The <guilabel>Show all output</guilabel> checkbox, which can be checked to show all output not matching the Perl regular expression. Here it is not needed, since the regular expression matches all output.</para>
+<para>The <guilabel>Show all output</guilabel> check box, which can be checked to show all output not matching the Perl regular expression. Here it is not needed, since the regular expression matches all output.</para>
 </listitem>
 </itemizedlist>
-<para>You add, modify, delete, move outputboxes the same way as described in <xref linkend="external-browsers"/>.</para>
-<?linebreakus?>
+<?linebreaka4?>
+<para>You add, modify, delete, move output boxes the same way as described in <xref linkend="external-browsers"/>.</para>
+<?linebreak?>
 <procedure id="outputbox-add">
 <title>Adding an Outputbox menu item</title>
 <step>
 <para>Execute the desired command in an xterm with some error either in the command or in the file which it is applied on, in order to know how the errors are outputting.</para>
 </step>
 <step>
-<para>Build a Perl regular expression based on the ouput, so that the filename, the line number and the error message be retrieved.</para>
+<para>Build a Perl regular expression based on the output, so that the filename, the line number and the error message be retrieved.</para>
 </step>
 <step>
 <para>Click on the <guilabel>Preferences...</guilabel> icon in the main tool bar to access the <guilabel>Edit preferences</guilabel> panel.</para>
@@ -3044,8 +3131,8 @@ The first part embedded into parentheses will match the script name, i.e. foo.rb
 </procedure>
 <variablelist>
 <varlistentry>
- <term><emphasis>Note</emphasis></term>
- <listitem>
+<term><emphasis>Note</emphasis></term>
+<listitem>
 <para>Of course, it is also possible to add these items by editing the file named <filename>~/.bluefish/rcfile_v2</filename> found in the user's home directory. The fields are delimited by colons and correspond to those found in the GUI.</para>
 </listitem>
 </varlistentry>
@@ -3058,13 +3145,71 @@ The first part embedded into parentheses will match the script name, i.e. foo.rb
 
 <sect1 id="bluefish-preferences">
 <title>Customising Bluefish</title>
-<para>Most of customization can be made through the <guilabel>Edit preferences</guilabel> panel, which is divided into several tabs.</para>
+<para>We have already seen how to customize the <link linkend="quickbar">quick bar</link>, the <link linkend="custom-menu">Custom menu</link>, and the <link linkend="external-programs-filters">External menu</link>. Here are some other possibilities, most of them being made through the <guilabel>Edit preferences</guilabel> panel, accessible from the <guilabel>Preferences...</guilabel> icon in the main tool bar or from the <menuchoice><guimenu>Edit</guimenu><guimenuitem>Preferences</guimenuitem></menuchoice> menu item.</para>
+
 <sect2 id="changing-shortcut-keys">
 <title>Modifying shortcut keys</title>
-<para>Many menu entries are accessible via key combination; also called a shortcut. For example, pressing the <keycombo><keycap>Ctrl</keycap><keycap>S</keycap></keycombo> keys saves the current file to disk. If available, shortcut key combinations are shown on the right of the menu entry.</para>
+<para>Many menu entries are accessible via key combination, also called a shortcut. For example, pressing the <keycombo><keycap>Ctrl</keycap><keycap>S</keycap></keycombo> keys saves the current file to disk. If available, shortcut key combinations are shown on the right of the menu entry.</para>
+<para>To add or change a shortcut, move the mouse over the desired menu entry, and press the key combination you would like to use. Immediately this combination will show up on the right of the menu entry.</para>
+<para>Here's a shortcut added to the <menuchoice><guimenu>File</guimenu><guimenuitem>Open URL...</guimenuitem></menuchoice> menu item:
 <?linebreakus?>
-<para>What many people do not know is that they can be changed. Move the mouse over a menu entry, and press the key combination you would like to use. Immediately this combination will show up on the right of the menu entry. An entry can also be remo<?linebreakus?>ved, press the backspace key when you move the mouse over a menu entry to remove the shortcut.</para>
-<para>To save the shortcut key combinations for later Bluefish sessions, use <menuchoice><guimenu>Edit</guimenu><guimenuitem>Save Shortcut Keys</guimenuitem></menuchoice>. This will store the settings in the <filename>~/.bluefish/menudump_2</filename>. If you want to restore the default combinations simply remove this file and restart Bluefish.</para>
+<figure id="figure-prefs-add-shortcut">
+<title id="figure-prefs-add-shortcut-title">Adding a shortcut to a menu item</title>
+<screenshot><mediaobject>
+<imageobject>
+<imagedata fileref="figures/prefs_add_shortcut.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>A screen shot showing how to add a shortcut to a menu item</phrase>
+</textobject>
+</mediaobject></screenshot>
+</figure></para>
+<para>To remove a shortcut, press the backspace key when you move the mouse over a menu entry to remove the shortcut.</para>
+<para>To save the shortcut key combinations for later Bluefish sessions, use <menuchoice><guimenu>Edit</guimenu><guimenuitem>Save Shortcut Keys</guimenuitem></menuchoice>. This will store the settings in the <filename>~/.bluefish/menudump_2</filename>.</para>
+<variablelist><varlistentry>
+<term><emphasis>Note</emphasis></term>
+<listitem>
+<para>If you want to restore the default combinations simply remove this file and restart Bluefish.</para>
+</listitem>
+</varlistentry></variablelist>
+<variablelist><varlistentry>
+<term><emphasis>Warning</emphasis></term>
+<listitem>
+<para>Be aware that if you give a menu entry the same shortcut as another one, the shortcut of the latter will be lost.</para>
+</listitem>
+</varlistentry></variablelist>
+</sect2>
+
+<sect2 id="show-hidden-files">
+<title>Showing hidden files and folders</title>
+<para>By default, invisible files and folders are not shown in the file browser tab of the side panel.</para>
+<para>If you want to see them at a given level of the files system hierarchy, right click on the desired folder name in the file browser within the side panel and toggle <guilabel>Show hidden files</guilabel> in the contextual menu.</para>
+<para>Here is how to view all visible files and folders in the whole system:
+<?linebreak?>
+<figure id="figure-prefs-show-visible">
+<title id="figure-prefs-show-visible-title">Turning files and folders visibility on</title>
+<screenshot><mediaobject>
+<imageobject>
+<imagedata fileref="figures/prefs_show_invisible.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>A screen shot showing how to turn files and folders' visibility on the whole system</phrase>
+</textobject>
+</mediaobject></screenshot>
+</figure></para>
+<?linebreaka4?>
+<variablelist><varlistentry>
+<term><emphasis>Tip</emphasis></term>
+<listitem>
+<para>This feature is very convenient for Mac users when used with caution, since combined with the <guilabel>Delete</guilabel> contextual menu in the file browser, it allows you, for example, to get rid of files generated by cvs on conflicts within bluefish.</para>
+</listitem>
+</varlistentry></variablelist>
+</sect2>
+
+<sect2 id="show-backup-files">
+<title>Showing backup files</title>
+<para>By default, backup files are not shown in the file browser tab of the side panel.</para>
+<para>You may turn on their visibilty at a given level of the file system by right clicking on the desired folder name in the file browser within the side panel and toggle <guilabel>Show backup files</guilabel> in the contextual menu.</para>
 </sect2>
 
 <sect2 id="editor-preferences">
@@ -3079,7 +3224,30 @@ class "GtkTextView" style "EditorStyle"</programlisting></para>
 <sect2 id="changing-filetypes">
 <title>Modifying file types</title>
 <para>Here you can define all file types that should be recognised by Bluefish. The defaults for these file types are retrieved from a file called file types.default in ${prefix}/share/bluefish/.</para>
-<para>The file types consist first of a name (this name is also used in the file filters, and in the highlighting patterns). Second is a list of extensions, separated by a colon (:). Third are the highlighting update characters. Upon a key press of one of these characters, the highlighting engine will refresh the highlighting around the cursor. If this field is empty, any character will force the highlighting engine to refresh. Special characters like the tab and the newline can be entered as \t and \n, the backslash itself is entered as \\. Fifth is the icon location for this file type. Sixth is whether this file type is editable by Bluefish (whether or not Bluefish should try to open it after a double click). Seventh is a regular expression that can be used to detect the file type if a file without extension is loaded. Eight is the auto-tag-closing mode. A value of 0 means that Bluefish should not close XML/HTML tags, a value of 1 means it should close the tags XML style (&lt;br /&gt;), a value of 2 means HTML style.</para>
+<para>The file types consist:</para>
+<orderedlist>
+<listitem>
+<para>a name (this name is also used in the file filters, and in the highlighting patterns).</para>
+</listitem>
+<listitem>
+<para>a list of extensions, separated by a colon (:).</para>
+</listitem>
+<listitem>
+<para>the highlighting update characters. Upon a key press of one of these characters, the highlighting engine will refresh the highlighting around the cursor. If this field is empty, any character will force the highlighting engine to refresh. Special characters like the tab and the newline can be entered as \t and \n, the backslash itself is entered as \\.</para>
+</listitem>
+<listitem>
+<para>the icon location for this file type.</para>
+</listitem>
+<listitem>
+<para>whether this file type is editable by Bluefish (whether or not Bluefish should try to open it after a double click).</para>
+</listitem>
+<listitem>
+<para>a regular expression that can be used to detect the file type if a file without extension is loaded.</para>
+</listitem>
+<listitem>
+<para>the auto-tag-closing mode. A value of 0 means that Bluefish should not close XML/HTML tags, a value of 1 means it should close the tags XML style (&lt;br /&gt;), a value of 2 means HTML style.</para>
+</listitem>
+</orderedlist>
 </sect2>
 
 <sect2 id="modifying-filefilters">
