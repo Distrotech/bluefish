@@ -2,18 +2,17 @@ text:.txt:::1::
 php:.php\:.php4\:.inc\:.php3: <>'"/?$\\t-{}[]{}\n;:PKGDATADIRicon_php.png:1:^#!/[a-z/]+php:
 html:.html\:.htm\:.shtml\:.shtm:<> \n":PKGDATADIRicon_html.png:1:<html>:
 python:.py::PKGDATADIRicon_python.png:1:^#!/[a-z/]+python:
-c:.c\:.h:(){}'[]\n" :PKGDATADIRicon_c.png:1::
-java:.java:(){}'[]\n" :PKGDATADIRicon_java.png:1::
+c:.c\:.h:(){}'[]\n/#" :PKGDATADIRicon_c.png:1::
+java:.java:(){}'[]\n/" :PKGDATADIRicon_java.png:1::
 perl:.pl\:.PL\:.cgi:::1:^#!/[a-z/]+perl:
 objectfile:.o\:.class:::0::
 stylesheet:.css:::1::
-javascript:.js:::1::
 webimage:.jpg\:.png\:.gif\:.jpeg::PKGDATADIRicon_image.png:1::
 image:.jpg\:.png\:.gif\:.jpeg\:.tif\:.tiff\:.xpm\:.xcf::PKGDATADIRicon_image.png:1::
 sql:.sql:(){}'[]\n" ::1::
-jsp:.jsp:(){}'[]\n" :PKGDATADIRicon_java.png:1:^#!/[a-z/]+jsp:
+jsp:.jsp:(){}'[]\n/#" :PKGDATADIRicon_java.png:1:^#!/[a-z/]+jsp:
 xml:.xml:<> \n":PKGDATADIRicon_xml.png:1::
-javascript:.js:\n'" ::1::
+javascript:.js:(){}'[]\n/" ::1::
 cfml:.cfm: <>'"/?$\\t-{}[]{}\n;:PKGDATADIRicon_cfml.png:1::
 pascal:.pas: (){}'[]\n;":PKGDATADIRicon_pascal.png:1::
 R:.r\:.rd\:.R\:.Rd\:.RD: <>=+-*/'"{}[]()\t\n.,\:$&|#:PKGDATADIRicon_r.png:1::
