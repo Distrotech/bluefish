@@ -1182,10 +1182,7 @@ void doc_insert_two_strings(Tdocument *doc, const gchar *before_str, const gchar
 			/* the buffer has changed, but gtk_text_buffer_insert makes sure */
 			/* that itinsert points to the end of the inserted text. */
 			/* thus, no need to get a new one. */
-			
-			/* now set it between the two strings, this is definately not multibyte-char 
-			safe, since strlen() returns bytes, and the functions wants chars */
-			gtk_text_iter_backward_chars(&itinsert, strlen(after_str));
+			gtk_text_iter_backward_chars(&itinsert, g_utf8_strlen(after_str, -1));
 			gtk_text_buffer_place_cursor(doc->buffer, &itinsert);
 		}
 	} else { /* there is a selection */
@@ -1204,7 +1201,13 @@ void doc_insert_two_strings(Tdocument *doc, const gchar *before_str, const gchar
 			/* the buffer is changed, reset the select iterator */
 			gtk_text_buffer_get_iter_at_mark(doc->buffer,&itselect,marktoresetto);
 			gtk_text_buffer_insert(doc->buffer,&itselect,after_str,-1);
+			/* now the only thing left is to move the selection and insert mark back to their correct places
+			to preserve the users selection */
+			gtk_text_buffer_get_iter_at_mark(doc->buffer,&itselect,marktoresetto);
+			gtk_text_iter_backward_chars(&itselect, g_utf8_strlen(after_str, -1));
+			gtk_text_buffer_move_mark(doc->buffer,marktoresetto,&itselect);
 		}
+		
 	}
 	doc_unre_new_group(doc);
 	DEBUG_MSG("doc_insert_two_strings, finished\n");
