@@ -1320,9 +1320,9 @@ static void snr2dialog(gint is_replace, gint is_new_search) {
 	gtk_widget_show(snr2win->window);
 	{
 		GtkTextIter itstart, itend;
-		gtk_text_buffer_get_bounds(gtk_text_view_get_buffer(snr2win->search_entry),&itstart,&itend);
-		gtk_text_buffer_move_mark_by_name(gtk_text_view_get_buffer(snr2win->search_entry),"insert",&itstart);
-		gtk_text_buffer_move_mark_by_name(gtk_text_view_get_buffer(snr2win->search_entry),"selection_bound",&itend);
+		gtk_text_buffer_get_bounds(gtk_text_view_get_buffer(GTK_TEXT_VIEW(snr2win->search_entry)),&itstart,&itend);
+		gtk_text_buffer_move_mark_by_name(gtk_text_view_get_buffer(GTK_TEXT_VIEW(snr2win->search_entry)),"insert",&itstart);
+		gtk_text_buffer_move_mark_by_name(gtk_text_view_get_buffer(GTK_TEXT_VIEW(snr2win->search_entry)),"selection_bound",&itend);
 	}
 	
 	if (is_replace) {
