@@ -30,7 +30,6 @@
 #include "gtk_easy.h"
 #include "gui.h"
 #include "document.h"
-#include "treetips.h"
 #include "bookmark.h"
 
 enum {
@@ -67,36 +66,36 @@ typedef struct {
 
 typedef struct {
 	GtkWidget *tree;
-	GtkWidget *viewmenu;
+/*	GtkWidget *viewmenu;*/
 	GtkWidget *buttons;
 	GtkTreeIter temp_branch,perm_branch; /* for easier access */
 	Tbfwin *bfwin;
-	TreeTips *tips;
 } Tbmark_gui;
 
 #define BMARKGUI(var) ((Tbmark_gui *)(var))
 
 typedef struct {
 	GtkTreeStore *store;
-	GHashTable *temporary;  /* changed to GHashTable - will be faster ? */
+	GHashTable *temporary;  
 	GHashTable *permanent;
 	gint lasttemp;
-	guchar visible_bmarks;
+/*	guchar visible_bmarks;*/
+   guchar filename_mode;
+	GHashTable *file_iters_temp,*file_iters_perm;
 } Tbmark_data;
 
 #define BMARKDATA(var) ((Tbmark_data *)(var))
 
-#define BM_VIS_ALL		1
-#define BM_VIS_FILES		2
-#define BM_VIS_ACTUAL	3
-
-/* Hmm, I have to use this structure for data exchange in foreach function */
 typedef struct {
 	Tdocument *doc;
 	gchar *string;
 	gpointer ptr;
 	gint integer;
 } Tforeach_data;
+
+#define BM_FMODE_FULL     1
+#define BM_FMODE_HOME     2
+#define BM_FMODE_FILE     3
 
 static void bmark_free(gpointer ptr) {
 	Tbmark *m;
@@ -127,6 +126,14 @@ static void clean_proc(gpointer key,gpointer value,gpointer user_data) {
 	 }	
 }
 
+static void clean_fi_proc(gpointer key,gpointer value,gpointer user_data) {
+  GtkTreeIter *it = (GtkTreeIter*)value;
+  Tbmark_data *data = BMARKDATA(main_v->bmarkdata);   	
+  gtk_tree_store_remove(data->store,it);
+  g_free(it);		 	
+}
+
+
 static gboolean delmark_proc(gpointer key,gpointer value,gpointer user_data) {
   Tbmark_data *data = BMARKDATA(main_v->bmarkdata);
   Tbmark *b = BMARK(value);
@@ -144,6 +151,10 @@ static void bmark_clean_tree(Tbfwin *bfwin) {
 	g_hash_table_foreach(data->temporary,clean_proc,NULL);
 	/* permanent */
 	g_hash_table_foreach(data->permanent,clean_proc,NULL);
+	/* file iters */
+	g_hash_table_foreach(data->file_iters_temp,clean_fi_proc,NULL);	
+	g_hash_table_foreach(data->file_iters_perm,clean_fi_proc,NULL);	
+   /* branches */	
 	gtk_tree_store_remove(data->store,&(BMARKGUI(bfwin->bmark)->temp_branch));
 	gtk_tree_store_remove(data->store,&(BMARKGUI(bfwin->bmark)->perm_branch));
 }
@@ -196,6 +207,7 @@ static void save_bmark_proc(gpointer key,gpointer value,gpointer user_data) {
 	/* setting length */
 	/* can we not use the filesize as stored in the Tdocument, it is also used if the 
 	document is modified on disk and stuff like that - Olivier */
+	/* we can, but where is filesize in Tdocument ? - Oskar */
 	if (b->doc)	b->len = gtk_text_buffer_get_char_count(b->doc->buffer);
 	
 	pstr = g_strdup_printf("%s:%s:%s:%d:%s:%d\n",b->name,b->description,b->filepath,b->offset,b->text,b->len);
@@ -251,8 +263,11 @@ void bmark_init(void) {
 	data->store = gtk_tree_store_new(N_COLUMNS,G_TYPE_STRING,G_TYPE_POINTER);
 	data->permanent = g_hash_table_new_full(g_str_hash,g_str_equal,g_free,NULL);
 	data->temporary = g_hash_table_new_full(g_int_hash,g_int_equal,g_free,NULL);
+	data->file_iters_temp = g_hash_table_new_full(g_str_hash,g_str_equal,g_free,NULL);
+   data->file_iters_perm = g_hash_table_new_full(g_str_hash,g_str_equal,g_free,NULL);	
 	data->lasttemp = 0;
-	data->visible_bmarks = BM_VIS_ALL;
+	data->filename_mode = BM_FMODE_FILE;
+/*	data->visible_bmarks = BM_VIS_ALL;*/
 	main_v->bmarkdata = data;	
 	load_bmarks_from_file(fname,&data->permanent);
 	g_free(fname);
@@ -260,9 +275,8 @@ void bmark_init(void) {
 
 void bmark_cleanup(Tbfwin *bfwin) {
 	bmark_clean_tree(bfwin);	
-	tree_tips_destroy(BMARKGUI(bfwin->bmark)->tips);
 	BMARKGUI(bfwin->bmark)->tree = NULL;
-	BMARKGUI(bfwin->bmark)->viewmenu = NULL;
+/*	BMARKGUI(bfwin->bmark)->viewmenu = NULL;*/
 	BMARKGUI(bfwin->bmark)->buttons = NULL;
 }
 
@@ -316,7 +330,46 @@ void bmark_name_entry_changed(GtkEntry * entry, GtkDialog* dialog)
 		gtk_dialog_set_response_sensitive (GTK_DIALOG (dialog), GTK_RESPONSE_OK, TRUE);
 }
 
-static void bmark_get_iter_at_position(GtkTreeStore *store, Tbmark *m, GtkTreeIter *parent) {
+
+/* Determine bookmark location */
+
+static void bmark_get_iter_at_position(GtkTreeStore *store, Tbmark *m,GtkTreeIter *branch) {
+   GtkTreeIter *parent;
+   Tbmark_data *data = BMARKDATA(main_v->bmarkdata); 	   
+   gpointer ptr;
+   GtkTreeIter *it;
+   
+	DEBUG_MSG("bmark_get_iter_at_position, determining parent %p %s\n",data->bmark_file_iters,m->filepath);
+	if (m->is_temp)
+	   ptr = g_hash_table_lookup(data->file_iters_temp,m->filepath);
+	else
+	   ptr = g_hash_table_lookup(data->file_iters_perm,m->filepath);   
+   if ( ptr != NULL )
+   {
+      parent = (GtkTreeIter*)ptr;
+   }
+   else
+   {
+     it = g_new0(GtkTreeIter,1);
+     gtk_tree_store_append(store,it,branch);
+     switch (data->filename_mode)
+     {
+       case BM_FMODE_FULL:
+            gtk_tree_store_set(store, it, NAME_COLUMN, g_strdup(m->filepath),PTR_COLUMN, NULL, -1);
+            break;
+       case BM_FMODE_HOME:
+            gtk_tree_store_set(store, it, NAME_COLUMN, g_strdup(m->filepath),PTR_COLUMN, NULL, -1);
+            break;
+       case BM_FMODE_FILE:
+            gtk_tree_store_set(store, it, NAME_COLUMN, g_strdup(g_path_get_basename(m->filepath)),PTR_COLUMN, NULL, -1);
+            break;                   
+     }  
+     if (m->is_temp)
+        g_hash_table_insert(data->file_iters_temp, g_strdup(m->filepath),it);
+     else
+        g_hash_table_insert(data->file_iters_perm, g_strdup(m->filepath),it);   
+     parent = it;
+   }
 	DEBUG_MSG("bmark_get_iter_at_position, sorting=%d\n",main_v->props.bookmarks_sort);
 	if (main_v->props.bookmarks_sort) {
 		GtkTreeIter tmpiter;
@@ -328,14 +381,16 @@ static void bmark_get_iter_at_position(GtkTreeStore *store, Tbmark *m, GtkTreeIt
 			Tbmark *tmpm=NULL;
 			gtk_tree_model_get(GTK_TREE_MODEL(store), &tmpiter, PTR_COLUMN, &tmpm, -1);
 			if (tmpm) {
-				gint val = strcmp(m->doc->filename, tmpm->doc->filename);
+			   /* not docs, because documents can be closed, filepaths rather ... Oskar */
+				gint val = strcmp(m->filepath, tmpm->filepath);
 				if (val == 0) {
 					GtkTextIter textit1, textit2;
 					/* same file, now check the offset */
-					gtk_text_buffer_get_iter_at_mark(m->doc->buffer,&textit1,m->mark);
-					gtk_text_buffer_get_iter_at_mark(tmpm->doc->buffer,&textit2,tmpm->mark);
+					/*  the same problem - lets check offset  ... Oskar*/
+				  /*	gtk_text_buffer_get_iter_at_mark(m->doc->buffer,&textit1,m->mark);
+					gtk_text_buffer_get_iter_at_mark(tmpm->doc->buffer,&textit2,tmpm->mark);*/
 					DEBUG_MSG("bmark_get_iter_at_position, comparing two iters\n");
-					if (gtk_text_iter_compare(&textit1,&textit2)) {
+					if (/*gtk_text_iter_compare(&textit1,&textit2)*/m->offset > tmpm->offset) {
 						/* insert !!!!! */
 						gtk_tree_store_insert_before(store,&m->iter,parent,&tmpiter);
 						return;
@@ -552,15 +607,15 @@ static void bmark_popup_menu_rename_lcb(GtkWidget *widget, Tbfwin *bfwin)
 	}
 }
 
-static void popup_menu_out(GtkWidget *widget,gpointer user_data) {
+/* static void popup_menu_out(GtkWidget *widget,gpointer user_data) {
   Tbmark_gui *gui = BMARKGUI(BFWIN(user_data)->bmark);		
   tree_tips_set_enabled(gui->tips,TRUE);		  
-}
+} */
 
 static GtkWidget *bmark_popup_menu(Tbfwin *bfwin, gpointer data) {
 	GtkWidget *menu, *menu_item;
 	
-	tree_tips_set_enabled(BMARKGUI(bfwin->bmark)->tips,FALSE);
+/*	tree_tips_set_enabled(BMARKGUI(bfwin->bmark)->tips,FALSE);*/
 	menu = gtk_menu_new();
 	menu_item = gtk_menu_item_new_with_label(_("Goto bookmark"));
 	g_signal_connect(GTK_OBJECT(menu_item), "activate", G_CALLBACK(bmark_popup_menu_goto_lcb), bfwin);		
@@ -575,13 +630,13 @@ static GtkWidget *bmark_popup_menu(Tbfwin *bfwin, gpointer data) {
 	menu_item = gtk_menu_item_new_with_label(_("Delete"));
 	g_signal_connect(GTK_OBJECT(menu_item), "activate", G_CALLBACK(bmark_popup_menu_del_lcb), bfwin);
 	gtk_menu_append(GTK_MENU(menu), menu_item);
-	menu_item = gtk_menu_item_new_with_label(_("Move"));
-	/*g_signal_connect(GTK_OBJECT(menu_item), "activate", G_CALLBACK(bmark_popup_menu_del_lcb), bfwin);*/
-	gtk_menu_append(GTK_MENU(menu), menu_item);
+	/*menu_item = gtk_menu_item_new_with_label(_("Move"));
+	g_signal_connect(GTK_OBJECT(menu_item), "activate", G_CALLBACK(bmark_popup_menu_del_lcb), bfwin);
+	gtk_menu_append(GTK_MENU(menu), menu_item);*/
 	
 	gtk_widget_show_all(menu);
 	g_signal_connect_after(G_OBJECT(menu), "destroy", G_CALLBACK(destroy_disposable_menu_cb), menu);
-	g_signal_connect(G_OBJECT(menu), "hide", G_CALLBACK(popup_menu_out), bfwin);
+/*	g_signal_connect(G_OBJECT(menu), "hide", G_CALLBACK(popup_menu_out), bfwin);*/
 
 	return menu;
 }
@@ -607,11 +662,11 @@ void restore_proc(gpointer key,gpointer value,gpointer data){
 }
 
 
+/*
 gchar* aa(gconstpointer win,gconstpointer tree,gint x, gint y)
 {
   Tbfwin *bfwin = BFWIN(win);
   Tbmark_gui *gui = BMARKGUI(bfwin->bmark);  
-  TreeTips *tips; /* = TREE_TIPS(tips);*/
   Tbmark *b;
   GtkTreePath *path;
   gchar *pstr;
@@ -652,9 +707,10 @@ gchar* aa(gconstpointer win,gconstpointer tree,gint x, gint y)
 		 pstr = g_strdup_printf("<span style='italic' color='#62CB7F'>Permanent</span>\nNumber: %d\nFile: %s\n<span weight='bold'>File closed</span>",b->number,b->filepath);						
   } 
   return pstr;
-}
+} */
 
 
+/*
 void adjust_proc(gpointer key,gpointer value,gpointer user_data)
 {
 	Tbmark *b = BMARK(value);
@@ -711,7 +767,7 @@ static void bmark_visible_3_lcb(GtkWidget *widget,gpointer user_data) {
 	Tbmark_data *data = BMARKDATA(main_v->bmarkdata);
 	data->visible_bmarks = BM_VIS_ACTUAL;
 	bmark_adjust_visible(user_data);  
-}
+} */
 
 GtkWidget *bmark_gui(Tbfwin *bfwin) {
 	GtkWidget *vbox,*mi,*menu;
@@ -721,7 +777,8 @@ GtkWidget *bmark_gui(Tbfwin *bfwin) {
 	
 	bfwin->bmark = g_new(Tbmark_gui,1);
 	vbox = gtk_vbox_new(FALSE,1);
-	BMARKGUI(bfwin->bmark)->viewmenu = gtk_option_menu_new();
+	
+/*	BMARKGUI(bfwin->bmark)->viewmenu = gtk_option_menu_new();
 	menu = gtk_menu_new();
 	mi = gtk_menu_item_new_with_label(_("Show all bookmarks"));
 	g_signal_connect(GTK_OBJECT(mi), "activate", G_CALLBACK(bmark_visible_1_lcb), bfwin);			
@@ -733,7 +790,7 @@ GtkWidget *bmark_gui(Tbfwin *bfwin) {
 	g_signal_connect(GTK_OBJECT(mi), "activate", G_CALLBACK(bmark_visible_3_lcb), bfwin);
 	gtk_menu_append(GTK_MENU(menu), mi);	
 	gtk_option_menu_set_menu(GTK_OPTION_MENU(BMARKGUI(bfwin->bmark)->viewmenu),menu);
-	
+*/	
 	BMARKGUI(bfwin->bmark)->tree = gtk_tree_view_new_with_model(GTK_TREE_MODEL(bd->store));
 	gtk_tree_store_append(bd->store, &(BMARKGUI(bfwin->bmark)->temp_branch), NULL);
 	gtk_tree_store_set(bd->store, &(BMARKGUI(bfwin->bmark)->temp_branch), NAME_COLUMN,_("Temporary"), PTR_COLUMN,NULL, -1);
@@ -747,7 +804,7 @@ GtkWidget *bmark_gui(Tbfwin *bfwin) {
 	gtk_widget_show_all(BMARKGUI(bfwin->bmark)->tree);  
 	gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(BMARKGUI(bfwin->bmark)->tree), FALSE);
 	BMARKGUI(bfwin->bmark)->buttons = gtk_hbutton_box_new();
-	gtk_box_pack_start(GTK_BOX(vbox),BMARKGUI(bfwin->bmark)->viewmenu,FALSE,TRUE,0);
+/*	gtk_box_pack_start(GTK_BOX(vbox),BMARKGUI(bfwin->bmark)->viewmenu,FALSE,TRUE,0);*/
 	gtk_box_pack_start(GTK_BOX(vbox),BMARKGUI(bfwin->bmark)->tree,TRUE,TRUE,0);
 	gtk_box_pack_start(GTK_BOX(vbox),BMARKGUI(bfwin->bmark)->buttons,FALSE,TRUE,0);	
 	
@@ -758,9 +815,9 @@ GtkWidget *bmark_gui(Tbfwin *bfwin) {
 	g_hash_table_foreach(bd->permanent,restore_proc,bfwin);
 	
 	gtk_tree_view_expand_all(GTK_TREE_VIEW(BMARKGUI(bfwin->bmark)->tree));  
-	BMARKGUI(bfwin->bmark)->tips = tree_tips_new_full(bfwin,GTK_TREE_VIEW(BMARKGUI(bfwin->bmark)->tree),aa);
+/*	BMARKGUI(bfwin->bmark)->tips = tree_tips_new_full(bfwin,GTK_TREE_VIEW(BMARKGUI(bfwin->bmark)->tree),aa);
 	tree_tips_set_show_interval(BMARKGUI(bfwin->bmark)->tips,1000);
-	tree_tips_set_hide_interval(BMARKGUI(bfwin->bmark)->tips,2000);
+	tree_tips_set_hide_interval(BMARKGUI(bfwin->bmark)->tips,2000);*/
 	
 	return vbox;
 }
@@ -904,6 +961,7 @@ void bmark_add_temp(Tbfwin *bfwin) {
 	}
 
 	/* find free number - why only 10 bookmarks ??? */
+	/*
 	ffree = -1;
 	for(i=0;i<10;i++)	{
 	  if (!g_hash_table_lookup(data->temporary,&i)) {
@@ -920,7 +978,9 @@ void bmark_add_temp(Tbfwin *bfwin) {
 		 ffree = data->lasttemp;
 		 data->lasttemp++;		 
 		 if (data->lasttemp == 10) data->lasttemp = 0;			 
-	}
+	} */
+	ffree = data->lasttemp;
+	data->lasttemp++;
 	
 	ptr = g_hash_table_lookup(data->temporary,&ffree);
 	if ( ptr ) {

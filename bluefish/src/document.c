@@ -2194,7 +2194,7 @@ void doc_destroy(Tdocument * doc, gboolean delay_activation) {
 	Tbfwin *bfwin = BFWIN(doc->bfwin);
 
         bmark_clean_for_doc(doc);
-        bmark_adjust_visible(bfwin);   
+/*        bmark_adjust_visible(bfwin);   */
 
 	if (doc->filename) {
 		add_to_recent_list(doc->bfwin,doc->filename, 1, FALSE);
@@ -2898,7 +2898,7 @@ Tdocument * doc_new_with_file(Tbfwin *bfwin, gchar * filename, gboolean delay_ac
 	}
 	bmark_set_for_doc(doc);
 	bmark_check_length(bfwin,doc);
-	bmark_adjust_visible(bfwin);   
+/*	bmark_adjust_visible(bfwin);   */
 	
 	return doc;
 }
