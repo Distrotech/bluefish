@@ -1633,7 +1633,7 @@ void doc_set_fileinfo(Tdocument *doc, GnomeVFSFileInfo *finfo) {
  * if no backup is required, or no filename known, 1 is returned
  *
  * Return value: #gint 1 on success or 0 on failure
- */
+ * /
 static gint doc_check_backup(Tdocument *doc) {
 	gint res = 1;
 
@@ -1647,7 +1647,7 @@ static gint doc_check_backup(Tdocument *doc) {
 		g_free(backupfilename);
 	}
 	return res;
-}
+}*/
 
 static void doc_buffer_insert_text_lcb(GtkTextBuffer *textbuffer,GtkTextIter * iter,gchar * string,gint len, Tdocument * doc) {
 	gint pos = gtk_text_iter_get_offset(iter);
@@ -2203,7 +2203,7 @@ gchar *doc_get_buffer_in_encoding(Tdocument *doc) {
  * -2: if the file could not be opened or written
  * -3: if the backup failed and save was aborted by the user
  * -4: if the charset encoding conversion failed and the save was aborted by the user
- **/
+ **
 gint doc_textbox_to_file(Tdocument * doc, gchar * filename, gboolean window_closing) {
 	gint backup_retval;
 	gint write_retval;
@@ -2225,7 +2225,7 @@ gint doc_textbox_to_file(Tdocument * doc, gchar * filename, gboolean window_clos
 		}
 	}
 
-	/* This writes the contents of a textbox to a file */
+	/ * This writes the contents of a textbox to a file * /
 	backup_retval = doc_check_backup(doc);
 
 	if (!backup_retval) {
@@ -2275,7 +2275,7 @@ gint doc_textbox_to_file(Tdocument * doc, gchar * filename, gboolean window_clos
 				DEBUG_MSG("doc_textbox_to_file, character set conversion failed, user aborted!\n");
 				return -4;
 			} else {
-				/* continue in UTF-8 */
+				/ * continue in UTF-8 * /
 				update_encoding_meta_in_file(doc, "UTF-8");
 				g_free(buffer);
 				gtk_text_buffer_get_bounds(doc->buffer,&itstart,&itend);
@@ -2301,8 +2301,8 @@ gint doc_textbox_to_file(Tdocument * doc, gchar * filename, gboolean window_clos
 	} else {
 		return 1;
 	}
-
 }
+*/
 
 /**
  * doc_destroy:
@@ -3316,53 +3316,26 @@ void file_open_from_selection(Tbfwin *bfwin) {
  **/
 void file_insert_menucb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget) {
 	gchar *tmpfilename=NULL;
-#ifdef HAVE_ATLEAST_GTK_2_4
 	{
 		GtkWidget *dialog;
-		/*dialog = gtk_file_chooser_dialog_new_with_backend(_("Select file to insert"),GTK_WINDOW(bfwin->main_window),
-				GTK_FILE_CHOOSER_ACTION_OPEN,"gnome-vfs",
-				GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
-				GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT,
-				NULL);
-		FILE_CHOOSER_USE_VFS(dialog);
-		gtk_file_chooser_set_local_only(GTK_FILE_CHOOSER(dialog),FALSE);*/
 		dialog = file_chooser_dialog(bfwin, _("Select file to insert"), GTK_FILE_CHOOSER_ACTION_OPEN, NULL, FALSE, FALSE, NULL);
 		if (gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_ACCEPT) {
 			tmpfilename = gtk_file_chooser_get_uri(GTK_FILE_CHOOSER(dialog));
 		}
 		gtk_widget_destroy(dialog);
 	}
-#else 
-	tmpfilename = return_file_w_title(NULL, _("Select file to insert"));
-#endif
 	if (tmpfilename == NULL) {
 		statusbar_message(bfwin,_("No file to insert"), 2000);
 		return;
 	} else {
-		/* do we need to set the insert point in some way ?? */
-		doc_file_to_textbox(bfwin->current_document, tmpfilename, TRUE, FALSE);
+		GnomeVFSURI *uri;
+		uri = gnome_vfs_uri_new(tmpfilename);
+		file_into_doc(bfwin->current_document, uri);
+		gnome_vfs_uri_unref(uri);
 		g_free(tmpfilename);
-		doc_set_modified(bfwin->current_document, 1);
+		/* doc_file_to_textbox(bfwin->current_document, tmpfilename, TRUE, FALSE);
+		doc_set_modified(bfwin->current_document, 1);*/
 	}
-}
-
-/**
- * file_new_cb:
- * @windget: #GtkWidget* ignored
- * @bfwin: Tbfwin* where to open the new document
- *
- * Create a new, empty file in window bfwin
- *
- * Return value: void
- **/
-void file_new_cb(GtkWidget *widget, Tbfwin *bfwin) {
-	Tdocument *doc;
-	doc = doc_new(bfwin, FALSE);
-	switch_to_document_by_pointer(bfwin,doc);
- 	if (bfwin->project && bfwin->project->template && strlen(bfwin->project->template) > 2) {
-		doc_file_to_textbox(doc, bfwin->project->template, FALSE, FALSE);
-		doc_activate(doc);
- 	}
 }
 
 /**
