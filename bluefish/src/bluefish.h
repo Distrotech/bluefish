@@ -201,6 +201,7 @@ typedef struct {
 	GList *filetypes;
 	GList *highlight_patterns;
 	GList *browsers;
+	GList *quickbar_items;
 } Tproperties;
 
 typedef struct {

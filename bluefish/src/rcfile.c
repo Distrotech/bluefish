@@ -404,6 +404,7 @@ static GList *props_init_main(GList * config_rc)
 	init_prop_string(&config_rc, &main_v->props.editor_font_string, "editor_font_string:", "courier 11");
 	init_prop_string(&config_rc, &main_v->props.tab_font_string, "tab_font_string:", "helvetica 8");
 	init_prop_arraylist(&config_rc, &main_v->props.browsers, "browsers:");
+	init_prop_arraylist(&config_rc, &main_v->props.quickbar_items, "quickbar_items:");
 	init_prop_integer(&config_rc, &main_v->props.highlight_num_lines_count, "highlight_num_lines_count:", 1);
 
 /* not yet in use */
