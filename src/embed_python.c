@@ -9,12 +9,91 @@
 #include "bluefish.h"
 #include "document.h"
 
+static PyObject *GetObjectFromBluefishModule(char *name) {
+	PyObject* BluefishMod, *PyDict;
+	BluefishMod = PyImport_AddModule("bluefish");
+	PyDict = PyModule_GetDict(BluefishMod);
+	return PyDict_GetItemString(PyDict, name);
+}
+
 /* Bluefish - Python bluefish.document type */
 typedef struct {
 	PyObject_HEAD
 	/* Type-specific fields go here. */
 	Tdocument *doc;
 } bluefish_DocumentObject;
+
+/*static PyObject *Document_new(PyTypeObject *type, PyObject *args, PyObject *kwds) {
+	bluefish_DocumentObject *self;
+	self = (bluefish_DocumentObject *)type->tp_alloc(type, 0);
+	if (self != NULL) {
+		/ * parse arguments ?? * /
+		if (!self->doc) {
+			Py_DECREF(self);
+			return NULL;
+		}
+		return (PyObject *)self;
+	}
+	return NULL;
+}*/
+static int Document_init(bluefish_DocumentObject *self, PyObject *args, PyObject *kwds) {
+	char *uri=NULL;
+	static char *kwlist[] = {"uri", NULL};
+	if (!PyArg_ParseTupleAndKeywords(args, kwds, "|s", kwlist, &uri))
+		return -1;
+	if (uri) {
+		Tdocument *tmpdoc;
+		GList *tmplist;
+		tmplist = return_allwindows_documentlist();
+		tmpdoc = documentlist_return_document_from_filename(tmplist, uri);
+		if (!tmpdoc) return -1;
+		g_print("found %p for %s\n",tmpdoc,uri);
+		self->doc = tmpdoc;
+		g_list_free(tmplist);
+	} else {
+		PyObject *PyBfwin;
+		Tbfwin *bfwin;
+		PyBfwin = GetObjectFromBluefishModule("bfwin");
+		bfwin = PyCObject_AsVoidPtr(PyBfwin);
+		self->doc = bfwin->current_document;
+	}
+	return 0;
+}
+
+static PyObject *Document_getchars(bluefish_DocumentObject *self, PyObject *args) {
+	int ok;
+	long start,end;
+	
+	ok = PyArg_ParseTuple(args, "ll", &start, &end);
+	if (ok) {
+		PyObject *pName;
+		gchar *buf;
+		buf = doc_get_chars(self->doc, start, end);
+		pName = PyString_FromString(buf);
+		g_free(buf);
+		return pName;
+	}
+	return PyString_FromString("");
+}
+
+static PyObject * Document_replace(bluefish_DocumentObject *self, PyObject *args) {
+	int ok;
+	long start,end;
+	const char *string;
+	ok = PyArg_ParseTuple(args, "lls", &start, &end, &string);
+	if (ok) {
+		doc_replace_text(self->doc,string,start,end);
+	}
+	return PyString_FromString("");
+}
+
+
+
+static PyMethodDef Document_methods[] = {
+	{"getchars", (PyCFunction)Document_getchars, METH_VARARGS,"return characters"},
+	{"replace", (PyCFunction)Document_replace, METH_VARARGS,"return characters"},
+	{NULL}  /* Sentinel */
+};
 
 static PyTypeObject bluefish_DocumentType = {
 	PyObject_HEAD_INIT(NULL)
@@ -39,16 +118,36 @@ static PyTypeObject bluefish_DocumentType = {
 	0,                         /*tp_as_buffer*/
 	Py_TPFLAGS_DEFAULT,        /*tp_flags*/
 	"Document object",           /* tp_doc */
+	0,		               /* tp_traverse */
+	0,		               /* tp_clear */
+	0,		               /* tp_richcompare */
+	0,		               /* tp_weaklistoffset */
+	0,		               /* tp_iter */
+	0,		               /* tp_iternext */
+	Document_methods,             /* tp_methods */
+	NULL,             /* tp_members */
+	0,                         /* tp_getset */
+	0,                         /* tp_base */
+	0,                         /* tp_dict */
+	0,                         /* tp_descr_get */
+	0,                         /* tp_descr_set */
+	0,                         /* tp_dictoffset */
+	(initproc)Document_init,      /* tp_init */
+	0,                         /* tp_alloc */
+	NULL,                 /* tp_new */
 };
 
 /* Bluefish - python API */
 
-static PyObject *GetObjectFromBluefishModule(char *name) {
-	PyObject* BluefishMod, *PyDict;
-	BluefishMod = PyImport_AddModule("bluefish");
-	PyDict = PyModule_GetDict(BluefishMod);
-	return PyDict_GetItemString(PyDict, name);
-}
+/*static PyObject * bluefish_get_curdoc(PyObject *self, PyObject *args) {
+	PyObject *PyBfwin;
+	Tbfwin *bfwin;
+	PyBfwin = GetObjectFromBluefishModule("bfwin");
+	if (!PyBfwin) return NULL;
+	bfwin = PyCObject_AsVoidPtr(PyBfwin);
+	if (!bfwin) return NULL;
+	
+}*/
 
 static PyObject * bluefish_curdoc_getchars(PyObject *self, PyObject *args) {
 	int ok;
