@@ -263,7 +263,7 @@ a project file.
 	<para>
 	Through <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>O</keycap></keycombo></shortcut><guimenu>File</guimenu><guimenuitem>Open...</guimenuitem></menuchoice> one or more files can be opened. As for creating files, you may want to open the files in a new window. In this case, use <menuchoice><guimenu>File</guimenu><guimenuitem>New Window</guimenuitem></menuchoice> to first open the new window and then open the desired files as usual.
 				<figure id="figure-open-file">
-				<title id="figure-open-file">Bluefish Open File Dialog</title>
+				<title id="figure-open-file-title">Bluefish Open File Dialog</title>
 				<screenshot>
 					<mediaobject>
 						<imageobject>
@@ -292,7 +292,7 @@ The latest opened directories appear in the upper part of the left side panel, w
 	<para>
 	The file browser in the side panel can also be used to open files. It supports filtering files, by right clicking the contextual menu in the filebrowser. If you right click a directory, you can make this directory the base directory for the filebrowser using the <guimenuitem>Set as basedir</guimenuitem> option. Then you can access it directly from the popup menu in the upper part of the file browser.
 				<figure id="figure-file-browser-filtering">
-				<title id="figure-file-browser-filtering">Filtering Files with the Bluefish File Browser</title>
+				<title id="figure-file-browser-filtering-title">Filtering Files with the Bluefish File Browser</title>
 				<screenshot>
 					<mediaobject>
 						<imageobject>
@@ -315,7 +315,7 @@ The latest opened directories appear in the upper part of the left side panel, w
 	be shown with information about the full path, size, permissions, filetype and 
 	encoding of the file.
 					<figure id="figure-open-file-info">
-				<title id="figure-open-file-info">Info on open file with the Bluefish File Browser</title>
+				<title id="figure-open-file-info-title">Info on open file with the Bluefish File Browser</title>
 				<screenshot>
 					<mediaobject>
 						<imageobject>
@@ -358,7 +358,7 @@ The latest opened directories appear in the upper part of the left side panel, w
 	if you right click on the tabs, the full path is shown in red in the list that will pop 
 	up.
 		<figure id="figure-modified-file-tooltip">
-				<title id="figure-modified-file-tooltip">Tool Tip for Modified File</title>
+				<title id="figure-modified-file-tooltip-title">Tool Tip for Modified File</title>
 				<screenshot>
 					<mediaobject>
 						<imageobject>
@@ -387,7 +387,7 @@ The latest opened directories appear in the upper part of the left side panel, w
 	<para>
 	You can also save a document under a different name, using the <menuchoice><shortcut><keycombo><keycap>Shift</keycap><keycap>Ctrl</keycap><keycap>S</keycap></keycombo></shortcut><guimenuitem>Save As...</guimenuitem></menuchoice> menu entry, or the <guilabel>Save As...</guilabel> icon in the main toolbar. The original file will still exist.
 		<figure id="figure-renaming-file">
-				<title id="figure-renaming-file">Saving a File under a new Name</title>
+				<title id="figure-renaming-file-title">Saving a File under a new Name</title>
 				<screenshot>
 					<mediaobject>
 						<imageobject>
@@ -410,7 +410,7 @@ The latest opened directories appear in the upper part of the left side panel, w
 It is also possible to move or rename a document, using the 
 <menuchoice><shortcut><keycap>F2</keycap></shortcut><guimenu>File</guimenu><guimenuitem>Rename...</guimenuitem></menuchoice> menu item.
 		<figure id="figure-moving-file">
-				<title id="figure-moving-file">Moving a file to another location</title>
+				<title id="figure-moving-file-title">Moving a file to another location</title>
 				<screenshot>
 					<mediaobject>
 						<imageobject>
