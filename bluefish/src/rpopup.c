@@ -114,7 +114,7 @@ gboolean doc_bevent_in_html_tag(Tdocument *doc, GdkEventButton *bevent) {
 	return FALSE;
 }
 
-static void input_tag_splitter(gpointer nothing, gpointer data)
+static void input_tag_splitter(Tbfwin *bfwin, gpointer data)
 {
 	Ttagpopup *tag_popup;
 	GList *tmplist;
@@ -122,7 +122,7 @@ static void input_tag_splitter(gpointer nothing, gpointer data)
 	gchar *itemvalue = NULL;
 
 	tag_popup = (Ttagpopup *) data;
-	DEBUG_MSG("input_tag_splitter, started\n");
+	DEBUG_MSG("input_tag_splitter, started for tag_popup=%p\n",tag_popup);
 
 	tmplist = g_list_first(tag_popup->taglist);
 	while (tmplist) {
@@ -142,19 +142,19 @@ static void input_tag_splitter(gpointer nothing, gpointer data)
 		g_strdown(itemvalue);
 		DEBUG_MSG("input_tag_splitter, itemvalue=%s, counter=%d\n", itemvalue, counter);
 		if (strcmp(itemvalue, "submit") == 0) {
-			buttondialog_dialog(NULL, data);
+			buttondialog_dialog(bfwin, data);
 		} else if (strcmp(itemvalue, "reset") == 0) {
-			buttondialog_dialog(NULL, data);
+			buttondialog_dialog(bfwin, data);
 		} else if (strcmp(itemvalue, "button") == 0) {
-			buttondialog_dialog(NULL, data);
+			buttondialog_dialog(bfwin, data);
 		} else if (strcmp(itemvalue, "text") == 0) {
-			textdialog_dialog(NULL, data);
+			textdialog_dialog(bfwin, data);
 		} else if (strcmp(itemvalue, "hidden") == 0) {
-			hiddendialog_dialog(NULL, data);
+			hiddendialog_dialog(bfwin, data);
 		} else if (strcmp(itemvalue, "radio") == 0) {
-			radiodialog_dialog(NULL, data);
+			radiodialog_dialog(bfwin, data);
 		} else if (strcmp(itemvalue, "checkbox") == 0) {
-			checkdialog_dialog(NULL, data);
+			checkdialog_dialog(bfwin, data);
 		}
 		g_free(itemvalue);
 	} else {
@@ -337,7 +337,7 @@ static void parse_tagstring(Tbfwin *bfwin, gchar * tagstring, gint pos, gint end
 	} else*/
 	if (strcmp(tmpstring, "input") == 0) {
 		DEBUG_MSG("parse_tagstring, identified as INPUT tag, splitting tag!\n");
-		input_tag_splitter(NULL, tag_popup);
+		input_tag_splitter(bfwin, tag_popup);
 	}
 	tmplist = g_list_first(tmplist);
 	while (tmplist) {
