@@ -918,7 +918,7 @@ void tgl_enter_lcb (GtkWidget *widget, gpointer ud) {
 void go_to_line_win_cb(GtkWidget * widget, gpointer data)
 {
 	Tgotoline *tgl;
-	GtkWidget *but1, *vbox, *hbox;
+	GtkWidget *but1, *vbox, *hbox, *label;
 	
 	tgl = g_new(Tgotoline, 1);
 	tgl->win = window_full(_("Goto line"), GTK_WIN_POS_MOUSE
@@ -929,10 +929,13 @@ void go_to_line_win_cb(GtkWidget * widget, gpointer data)
 	hbox = gtk_hbox_new(FALSE, 0);
 	gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 0);
 
-	gtk_box_pack_start(GTK_BOX(hbox), gtk_label_new(_("Line number: ")), FALSE, FALSE, 0);
-	tgl->entry = boxed_entry_with_text(NULL, 20, hbox);
+	label = gtk_label_new_with_mnemonic(_("_Line number: "));
+	gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 0);
 
-	but1 = bf_stock_button(_("From selection"), G_CALLBACK(tgl_fromsel_clicked_lcb), tgl);
+	tgl->entry = boxed_entry_with_text(NULL, 20, hbox);
+	gtk_label_set_mnemonic_widget(GTK_LABEL(label), tgl->entry); /* mnemonic for label */
+
+	but1 = bf_stock_button(_("From _selection"), G_CALLBACK(tgl_fromsel_clicked_lcb), tgl);
 	gtk_box_pack_start(GTK_BOX(hbox), but1, FALSE, FALSE, 0);
 
 	hbox = gtk_hbutton_box_new();
@@ -940,17 +943,19 @@ void go_to_line_win_cb(GtkWidget * widget, gpointer data)
 	gtk_button_box_set_spacing(GTK_BUTTON_BOX(hbox), 1);
 	gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 0);
 
-	tgl->check = boxed_checkbut_with_value(_("Keep dialog"), 0, hbox);
+	tgl->check = boxed_checkbut_with_value(_("Keep _dialog"), 0, hbox);
 	
+	but1 = bf_stock_cancel_button(G_CALLBACK(tgl_cancel_clicked_lcb), tgl);
+	gtk_box_pack_start(GTK_BOX(hbox), but1, FALSE, FALSE, 0);
+	gtk_widget_grab_focus (tgl->entry);
+
 	but1 = bf_stock_ok_button(G_CALLBACK(tgl_ok_clicked_lcb), tgl);
 	gtk_box_pack_start(GTK_BOX(hbox), but1, FALSE, FALSE, 0);
 	gtk_window_set_default(GTK_WINDOW(tgl->win), but1);
 
-	but1 = bf_stock_cancel_button(G_CALLBACK(tgl_cancel_clicked_lcb), tgl);
-	gtk_box_pack_start(GTK_BOX(hbox), but1, FALSE, FALSE, 0);
-	gtk_widget_grab_focus (tgl->entry);
-        g_signal_connect (G_OBJECT (tgl->entry), "activate", G_CALLBACK(tgl_enter_lcb),
+	g_signal_connect (G_OBJECT (tgl->entry), "activate", G_CALLBACK(tgl_enter_lcb),
                             (gpointer *) tgl);
+
 	gtk_widget_show_all(tgl->win);
 }
 
@@ -975,7 +980,7 @@ void splash_screen_set_label(gchar *label) {
 	static struct timespec const req = { 0, 10000000};
 	static struct timespec rem;
 #ifdef DEBUG
-	g_print("Setting slpash label to %s\n", label);
+	g_print("Setting splash label to %s\n", label);
 #endif
 	gtk_label_set(GTK_LABEL(splashscreen.label),label);
 	flush_queue();
