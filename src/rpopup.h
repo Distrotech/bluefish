@@ -18,7 +18,7 @@
 #ifndef __RPOPUP_H_
 #define __RPOPUP_H_
 
-gboolean doc_bevent_in_html_code(Tdocument *doc, GdkEventButton *bevent);
+gboolean rpopup_bevent_in_html_code(Tdocument *doc, GtkTextIter *iter);
 gboolean rpopup_doc_located_tag(Tdocument *doc);
 gboolean rpopup_doc_located_color(Tdocument *doc);
 void rpopup_edit_tag_cb(GtkMenuItem *menuitem,Tdocument *doc);

@@ -1913,13 +1913,40 @@ static gboolean doc_view_button_release_lcb(GtkWidget *widget,GdkEventButton *be
 	return FALSE;
 }
 
+static void doc_get_iter_at_bevent(Tdocument *doc, GdkEventButton *bevent, GtkTextIter *iter) {
+	gint xpos, ypos;
+	GtkTextWindowType wintype;
+
+	wintype = gtk_text_view_get_window_type(GTK_TEXT_VIEW(doc->view), doc->view->window);
+	gtk_text_view_window_to_buffer_coords(GTK_TEXT_VIEW(doc->view), wintype,bevent->x, bevent->y,
+					  &xpos, &ypos);
+	xpos += gtk_text_view_get_border_window_size(GTK_TEXT_VIEW(doc->view),GTK_TEXT_WINDOW_LEFT);
+	gtk_text_view_get_iter_at_location(GTK_TEXT_VIEW(doc->view), iter, xpos, ypos);
+}
+
+/* block should be moved to bookmark.c */
+typedef struct {
+	Tdocument *doc;
+	gint charoffset;
+} Tbmark_beventloc;
+#define BMARK_BEVENTLOC(p) ((Tbmark_beventloc)(p))
+
+void bmark_store_bevent_location(Tdocument *doc, gint charoffset) {
+/*	BMARK_BEVENTLOC(main_v->bmarkdata->beventloc).doc = doc;
+	BMARK_BEVENTLOC(main_v->bmarkdata->beventloc).charoffset = charoffset;*/
+}
+/* end of block to move */
+
 static gboolean doc_view_button_press_lcb(GtkWidget *widget,GdkEventButton *bevent, Tdocument *doc) {
 	DEBUG_MSG("doc_view_button_press_lcb, button %d\n", bevent->button);
 	if (bevent->button==2) {
 		doc->in_paste_operation = TRUE;
 	}
 	if (bevent->button == 3) {
-		doc_bevent_in_html_code(doc, bevent);
+		GtkTextIter iter;
+		doc_get_iter_at_bevent(doc, bevent, &iter);
+		rpopup_bevent_in_html_code(doc, &iter);
+		bmark_store_bevent_location(doc, gtk_text_iter_get_offset(&iter));
 	}
 	return FALSE;
 }

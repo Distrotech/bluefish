@@ -154,19 +154,9 @@ static gboolean locate_current_tag(Tdocument *doc, const GtkTextIter *iter) {
 }
 
 /* TODO: a </tag> should not count as editable tag!!! */
-void doc_bevent_in_html_code(Tdocument *doc, GdkEventButton *bevent) {
-	gint xpos, ypos;
-	GtkTextWindowType wintype;
-	GtkTextIter iter;
-
-	wintype = gtk_text_view_get_window_type(GTK_TEXT_VIEW(doc->view), doc->view->window);
-	gtk_text_view_window_to_buffer_coords(GTK_TEXT_VIEW(doc->view), wintype,bevent->x, bevent->y,
-					  &xpos, &ypos);
-	xpos += gtk_text_view_get_border_window_size(GTK_TEXT_VIEW(doc->view),GTK_TEXT_WINDOW_LEFT);
-	gtk_text_view_get_iter_at_location(GTK_TEXT_VIEW(doc->view), &iter, xpos, ypos);
-	DEBUG_MSG("doc_bevent_in_html_code, buffer coord's x=%d,y=%d, offset=%d\n", xpos, ypos,gtk_text_iter_get_offset(&iter));
-	locate_current_tag(doc, &iter);
-	locate_color(doc, &iter);
+void rpopup_bevent_in_html_code(Tdocument *doc, GtkTextIter *iter) {
+	locate_current_tag(doc, iter);
+	locate_color(doc, iter);
 }
 /*
 static void input_tag_splitter(Tbfwin *bfwin, gpointer data)
