@@ -1666,6 +1666,7 @@ static void preferences_ok_clicked_lcb(GtkWidget *wid, Tprefdialog *pd) {
 	external_menu_rebuild(); /* browsers is also rebuild here! */
 	gui_apply_settings();
 	all_documents_apply_settings();
+	doc_force_activate(main_v->current_document);
 	preferences_destroy_lcb(NULL, pd);
 }
 static void preferences_cancel_clicked_lcb(GtkWidget *wid, Tprefdialog *pd) {

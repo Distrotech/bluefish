@@ -2340,7 +2340,7 @@ void doc_activate(Tdocument *doc) {
 		exit(44);
 	}
 #endif
-	if (doc == locals.last_activated_doc) {
+	if (doc == NULL || doc == locals.last_activated_doc) {
 		return;
 	}
 	locals.last_activated_doc = doc;
@@ -2388,6 +2388,11 @@ void doc_activate(Tdocument *doc) {
 		g_free(dir2);
 	}
 	DEBUG_MSG("doc_activate, doc=%p, finished\n",doc);
+}
+
+void doc_force_activate(Tdocument *doc) {
+	locals.last_activated_doc = NULL;
+	doc_activate(doc);
 }
 
 /**************************************************************************/
