@@ -6,9 +6,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bluefish gtk2-port\n"
 "POT-Creation-Date: 2003-01-05 13:21+0100\n"
-"PO-Revision-Date: 2003-01-05 05:07+0100\n"
+"PO-Revision-Date: 2003-01-05 17:30+0100\n"
 "Last-Translator: Rasmus Toftdahl Olesen <rto@pohldata.dk>\n"
-"Language-Team: Not a member <LL@li.org>\n"
+"Language-Team: None\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=iso-8859-1\n"
 "Content-Transfer-Encoding: 8 bit\n"
@@ -18,15 +18,13 @@ msgstr ""
 msgid ""
 "\n"
 "Usage: %s [options] [filename]\n"
-msgstr ""
+msgstr "\nBrug: %s [tilvalg] [filnavn]\n"
 
 #: ../src/bluefish.c:76
 msgid ""
 "\n"
 "Currently accepted options are:\n"
-msgstr ""
-"\n"
-"Nuværende accepterede indstillinger er:\n"
+msgstr "\nNuværende accepterede tilvalg er:\n"
 
 #: ../src/bluefish.c:77
 msgid "-s           skip root check\n"
@@ -734,7 +732,7 @@ msgstr "Ny"
 
 #: ../src/gui.c:490
 msgid "Open..."
-msgstr "Åben..."
+msgstr "ÃÂben..."
 
 #: ../src/gui.c:493
 msgid "Save"
@@ -823,6 +821,9 @@ msgid ""
 "If you right-click a button in the HTML toolbars you can add buttons to the "
 "Quickbar."
 msgstr ""
+"Denne meddelelse bliver vist fordi du endnu ikke har nogen knapper i din quickbar.\n"
+"\n"
+"Hvis du højre-klikker på en kanp i HTML værktøjslinjerne kan du tilføje knapper til din quickbar."
 
 #: ../src/gui.c:867
 msgid "Goto line"
@@ -1689,7 +1690,7 @@ msgstr "/Tags/Specielle/Accenter/Store/A-I/A tilde"
 
 #: ../src/menu.c:122
 msgid "/Tags/Special/Accent/Uppercase/A-I/AE ligature"
-msgstr "/Tags/Specielle/Accenter/Store/A-I/Æ"
+msgstr "/Tags/Specielle/Accenter/Store/A-I/ÃÂ"
 
 #: ../src/menu.c:123
 msgid "/Tags/Special/Accent/Uppercase/A-I/A diaeresis"
@@ -1697,7 +1698,7 @@ msgstr "/Tags/Specielle/Accenter/Store/A-I/A diaresis"
 
 #: ../src/menu.c:124
 msgid "/Tags/Special/Accent/Uppercase/A-I/A ring"
-msgstr "/Tags/Specielle/Accenter/Store/A-I/Å"
+msgstr "/Tags/Specielle/Accenter/Store/A-I/ÃÂ"
 
 #: ../src/menu.c:125
 msgid "/Tags/Special/Accent/Uppercase/A-I/C cedilla"
@@ -1761,7 +1762,7 @@ msgstr "/Tags/Specielle/Accenter/Store/J-Z/O circumflex"
 
 #: ../src/menu.c:140
 msgid "/Tags/Special/Accent/Uppercase/J-Z/OE ligature"
-msgstr "/Tags/Specielle/Accenter/Store/A-I/Æ"
+msgstr "/Tags/Specielle/Accenter/Store/A-I/ÃÂ"
 
 #: ../src/menu.c:141
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O tilde"
@@ -1773,7 +1774,7 @@ msgstr "/Tags/Specielle/Accenter/Store/J-Z/O diaresis"
 
 #: ../src/menu.c:143
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O slash"
-msgstr "/Tags/Specielle/Accenter/Store/J-Z/Ø"
+msgstr "/Tags/Specielle/Accenter/Store/J-Z/ÃÂ"
 
 #: ../src/menu.c:144
 msgid "/Tags/Special/Accent/Uppercase/J-Z/U grave"
@@ -3672,11 +3673,11 @@ msgstr "Søg: intet fundet"
 
 #: ../src/snr2.c:987
 msgid "Hide advanced <<"
-msgstr ""
+msgstr "Gem avanceret <<"
 
 #: ../src/snr2.c:1004 ../src/snr2.c:1143
 msgid "Show advanced >>"
-msgstr ""
+msgstr "Vis avanceret >>"
 
 #: ../src/snr2.c:1050
 msgid "Search"
@@ -3817,7 +3818,7 @@ msgstr "Frame's"
 #~ msgstr "ISO-8859-1 (Latin 1, Vest Europæisk)"
 
 #~ msgid "ISO-8859-2 (Latin 2, East European)"
-#~ msgstr "ISO-8859-2 (Latin 2, Øst Europæisk)"
+#~ msgstr "ISO-8859-2 (Latin 2, ÃÂst Europæisk)"
 
 #~ msgid "ISO-8859-3 (Latin 3, South European)"
 #~ msgstr "ISO-8859-3 (Latin 3, Syd Europæisk)"
@@ -4005,7 +4006,7 @@ msgstr "Frame's"
 #~ msgstr "Auto-formater kode"
 
 #~ msgid "Update syntax highlighting continuous"
-#~ msgstr "Opdatèr syntax highlighting fortsat"
+#~ msgstr "OpdatÃÂ¨r syntax highlighting fortsat"
 
 #~ msgid "Update full widget instead of the current line (slower)"
 #~ msgstr ""
@@ -4107,7 +4108,7 @@ msgstr "Frame's"
 #~ msgstr "Notesblok position"
 
 #~ msgid "Items in Open Recent menu"
-#~ msgstr "Elementer i Åben Seneste menu"
+#~ msgstr "Elementer i ÃÂben Seneste menu"
 
 #~ msgid "Items in Directory history"
 #~ msgstr "Elementer i Biblioteks historie"
@@ -4153,7 +4154,7 @@ msgstr "Frame's"
 #~ msgstr "Backup fejl handling"
 
 #~ msgid "Open commandline files in already running bluefish"
-#~ msgstr "Åbn kommandolinje filer i den allerede kørende bluefish"
+#~ msgstr "ÃÂbn kommandolinje filer i den allerede kørende bluefish"
 
 #~ msgid "PHP filter"
 #~ msgstr "PHP filter"
