@@ -39,8 +39,6 @@ enum {
 	view_main_toolbar,
 	view_left_panel,
 	view_line_numbers,
-	filebrowser_show_hidden_files,
-	filebrowser_show_backup_files,
 	filebrowser_two_pane_view,
 	filebrowser_unknown_icon,
 	filebrowser_dir_icon,
@@ -1774,8 +1772,6 @@ static void preferences_apply(Tprefdialog *pd) {
 
 	string_apply(&main_v->props.default_basedir, pd->prefs[default_basedir]);
 	integer_apply(&main_v->props.filebrowser_two_pane_view, pd->prefs[filebrowser_two_pane_view], TRUE);
-	integer_apply(&main_v->props.filebrowser_show_hidden_files, pd->prefs[filebrowser_show_hidden_files], TRUE);
-	integer_apply(&main_v->props.filebrowser_show_backup_files, pd->prefs[filebrowser_show_backup_files], TRUE);
 	string_apply(&main_v->props.filebrowser_unknown_icon, pd->prefs[filebrowser_unknown_icon]);
 	string_apply(&main_v->props.filebrowser_dir_icon, pd->prefs[filebrowser_dir_icon]);
 	
@@ -1973,8 +1969,6 @@ static void preferences_dialog() {
 	gtk_container_add(GTK_CONTAINER(frame), vbox2);
 	pd->prefs[default_basedir] = prefs_string(_("Default basedir"), main_v->props.default_basedir, vbox2, pd, string_none);
 	pd->prefs[filebrowser_two_pane_view] = boxed_checkbut_with_value(_("Use separate file and directory view"), main_v->props.filebrowser_two_pane_view, vbox2);
-	pd->prefs[filebrowser_show_hidden_files] = boxed_checkbut_with_value(_("Show hidden files"), main_v->props.filebrowser_show_hidden_files, vbox2);
-	pd->prefs[filebrowser_show_backup_files] = boxed_checkbut_with_value(_("Show backup files"), main_v->props.filebrowser_show_backup_files, vbox2);
 	pd->prefs[filebrowser_unknown_icon] = prefs_string(_("Unknown icon"), main_v->props.filebrowser_unknown_icon, vbox2, pd, string_file);
 	pd->prefs[filebrowser_dir_icon] = prefs_string(_("Directory icon"), main_v->props.filebrowser_dir_icon, vbox2, pd, string_file);
 

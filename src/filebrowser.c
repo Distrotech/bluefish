@@ -847,7 +847,7 @@ if the GtkTreePath is already known, one should call refresh_dir_by_path_and_fil
 instead of this function
 */
 void filebrowser_refresh_dir(Tfilebrowser *filebrowser, gchar *dir) {
-	if (filebrowser->tree) {
+	if (filebrowser->tree && dir) {
 		/* get the path for this dir */
 		GtkTreePath *path = return_path_from_filename(filebrowser, dir);
 		DEBUG_DUMP_TREE_PATH(path);
@@ -1283,12 +1283,12 @@ static void filebrowser_rpopup_delete(Tfilebrowser *filebrowser) {
 }
 
 static void filebrowser_rpopup_refresh(Tfilebrowser *filebrowser) {
-	GtkTreePath *path;
+	GtkTreePath *path1;
 	GtkTreeIter iter;
-	path = filebrowser_get_path_from_selection(GTK_TREE_MODEL(filebrowser->store),GTK_TREE_VIEW(filebrowser->tree),&iter);
-	if (path) {
+	path1 = filebrowser_get_path_from_selection(GTK_TREE_MODEL(filebrowser->store),GTK_TREE_VIEW(filebrowser->tree),&iter);
+	if (path1) {
 		gchar *tmp, *dir;
-		GtkTreePath *path;
+		GtkTreePath *path2;
 		if (filebrowser->store2 || gtk_tree_model_iter_has_child(GTK_TREE_MODEL(filebrowser->store), &iter)) {
 			DEBUG_MSG("create_file_or_dir_win, a dir is selected\n");
 		} else {
@@ -1297,18 +1297,17 @@ static void filebrowser_rpopup_refresh(Tfilebrowser *filebrowser) {
 			gtk_tree_model_iter_parent(GTK_TREE_MODEL(filebrowser->store), &parent, &iter);
 			iter = parent;
 		}
-		path = gtk_tree_model_get_path(GTK_TREE_MODEL(filebrowser->store),&iter);
-		tmp = return_filename_from_path(filebrowser,GTK_TREE_MODEL(filebrowser->store),path);
-		DEBUG_MSG("filebrowser_rpopup_refresh_lcb, return_filename_from_path returned %s\n", tmp);
+		path2 = gtk_tree_model_get_path(GTK_TREE_MODEL(filebrowser->store),&iter);
+		tmp = return_filename_from_path(filebrowser,GTK_TREE_MODEL(filebrowser->store),path2);
+		DEBUG_MSG("filebrowser_rpopup_refresh_lcb, return_filename_from_path returned %s for path %p\n", tmp, path2);
 		dir = ending_slash(tmp);
 		DEBUG_MSG("filebrowser_rpopup_refresh_lcb, ending_slash returned %s\n", dir);
-		refresh_dir_by_path_and_filename(filebrowser, path, dir);
-		/* filebrowser_refresh_dir(filebrowser,dir); */
+		refresh_dir_by_path_and_filename(filebrowser, path2, dir);
 		g_free(tmp);
 		g_free(dir);
-		gtk_tree_path_free(path);
+		gtk_tree_path_free(path2);
+		gtk_tree_path_free(path1);
 	}
-	gtk_tree_path_free(path);
 }
 
 static void filebrowser_rpopup_action_lcb(Tfilebrowser *filebrowser,guint callback_action, GtkWidget *widget) {
@@ -1385,6 +1384,16 @@ static void filebrowser_rpopup_filter_toggled_lcb(GtkWidget *widget, Tfilebrowse
 	}
 }
 
+static void filebrowser_rpopup_shf_toggled_lcb(GtkWidget *widget, Tfilebrowser *filebrowser) {
+	main_v->props.filebrowser_show_hidden_files = GTK_CHECK_MENU_ITEM(widget)->active;
+	filebrowser_rpopup_refresh(filebrowser);
+}
+
+static void filebrowser_rpopup_sbf_toggled_lcb(GtkWidget *widget, Tfilebrowser *filebrowser) {
+	main_v->props.filebrowser_show_backup_files = GTK_CHECK_MENU_ITEM(widget)->active;
+	filebrowser_rpopup_refresh(filebrowser);
+}
+
 static GtkItemFactoryEntry filebrowser_dirmenu_entries[] = {
 #ifdef EXTERNAL_GREP
 #ifdef EXTERNAL_FIND	
@@ -1399,6 +1408,7 @@ static GtkItemFactoryEntry filebrowser_dirmenu_entries[] = {
 static GtkItemFactoryEntry filebrowser_bothmenu_entries[] = {
 	{ N_("/New _File"),			NULL,	filebrowser_rpopup_action_lcb,	4,	"<Item>" },
 	{ N_("/_New Directory"),	NULL,	filebrowser_rpopup_action_lcb,		5,	"<Item>" },
+	{ "/sep",	NULL,	NULL,		0,	"<Separator>" }
 };
 
 static GtkItemFactoryEntry filebrowser_filemenu_entries[] = {
@@ -1425,7 +1435,17 @@ static GtkWidget *filebrowser_rpopup_create_menu(Tfilebrowser *filebrowser, gboo
 	}
 	gtk_item_factory_create_items(menumaker, sizeof(filebrowser_bothmenu_entries)/sizeof(GtkItemFactoryEntry), filebrowser_bothmenu_entries, filebrowser);
 	menu = gtk_item_factory_get_widget(menumaker, "<Filebrowser>");
-		
+	/* set toggle options */
+	menu_item = gtk_check_menu_item_new_with_label(_("Show hidden files"));
+	gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(menu_item), main_v->props.filebrowser_show_hidden_files);
+	g_signal_connect(GTK_OBJECT(menu_item), "toggled", G_CALLBACK(filebrowser_rpopup_shf_toggled_lcb), filebrowser);
+	gtk_menu_shell_append(GTK_MENU_SHELL(menu), menu_item);
+	
+	menu_item = gtk_check_menu_item_new_with_label(_("Show backup files"));
+	gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(menu_item), main_v->props.filebrowser_show_backup_files);
+	g_signal_connect(GTK_OBJECT(menu_item), "toggled", G_CALLBACK(filebrowser_rpopup_sbf_toggled_lcb), filebrowser);
+	gtk_menu_shell_append(GTK_MENU_SHELL(menu), menu_item);
+	
 	/* Add filter submenu */
 	menu_item = gtk_menu_item_new_with_label(_("Filter"));
 	gtk_menu_shell_append(GTK_MENU_SHELL(menu), menu_item);
