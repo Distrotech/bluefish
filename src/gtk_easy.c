@@ -490,7 +490,6 @@ GtkWidget *hbox_with_pix_and_text(const gchar *label, gint pixmap_type) {
 }
 
 
-
 /*
  * Function: bf_generic_button_with_image
  * Arguments:
@@ -582,6 +581,64 @@ GtkWidget *bf_stock_cancel_button(GCallback func, gpointer func_data)
 }
 
 /*
+ * Function: bf_generic_frame_new
+ * Arguments:
+ * 	label - label string. Set to NULL for no label
+ * 	shadowtype  - border type
+ *      borderwidth - outside border width
+ * Return value:
+ * 	pointer to created frame
+ * Description:
+ * 	create a generic frame
+ */
+GtkWidget *bf_generic_frame_new(const gchar *label, GtkShadowType shadowtype, gint borderwidth)
+{
+  GtkWidget *frame;
+
+  frame = gtk_frame_new(label);
+  gtk_frame_set_shadow_type(GTK_FRAME(frame), shadowtype);
+  gtk_container_set_border_width(GTK_CONTAINER(frame), borderwidth);
+  
+  return frame;
+}
+
+/*
+ * Function: bf_mnemonic_label_tad_with_alignment
+ * Arguments:
+ * 	labeltext - label string
+ *      m_widget - widget accessed by the label mnemonic
+ *      xalign - label horizontal alignment
+ *      yalign - label vertical alignment
+ *      table - table label is packed into
+ *      left_attach - column number to attach the left side of the label to
+ *      right_atach - column number to attach the right side of a label to
+ *      top_attach - row number to attach the top of a label to
+ *      bottom_attach - row number to attach the bottom of a label to 	
+ * Return value:
+ * 	void
+ * Description:
+ * 	create a label with a mnemonic, alignment it, and attach it to a table
+ *      using the table defaults
+ */
+void bf_mnemonic_label_tad_with_alignment(const gchar *labeltext, GtkWidget *m_widget, gfloat xalign, gfloat yalign, 
+						GtkWidget *table, guint left_attach, guint right_attach, guint top_attach, guint bottom_attach)
+{
+  GtkWidget *label;
+
+  label = gtk_label_new_with_mnemonic(labeltext);
+  gtk_misc_set_alignment(GTK_MISC(label), xalign, yalign);
+  gtk_table_attach_defaults(GTK_TABLE(table), label, left_attach, right_attach, top_attach, bottom_attach);  
+  
+  if (GTK_IS_COMBO(m_widget))
+  {
+      gtk_label_set_mnemonic_widget(GTK_LABEL(label), (GTK_COMBO(m_widget)->entry));
+      gtk_entry_set_activates_default(GTK_ENTRY(GTK_COMBO(m_widget)->entry), TRUE);
+  }
+  else
+    gtk_label_set_mnemonic_widget(GTK_LABEL(label), m_widget);
+}
+
+/*
  * Function: error_dialog
  * Arguments:
  * 	windiw_title - the title of the error window
@@ -591,7 +648,6 @@ GtkWidget *bf_stock_cancel_button(GCallback func, gpointer func_data)
  * Description:
  * 	displays an error dialog
  */
-
 void error_dialog(gchar * window_title, gchar * error_string)
 {
 	GtkWidget *dialog, *okbutton;
