@@ -395,7 +395,15 @@ if test "${FDMENU}" != "no" ; then
 			if test -d ${prefix}/share/applications ; then
 				FDMENU=${prefix}/share/applications
 			else
-				FDMENU=no
+				if test -d /usr/X11R6/share/gnome/applications ; then
+					FDMENU=/usr/X11R6/share/gnome/applications
+				else
+					if test -d ${prefix}/share/gnome/applications ; then
+						FDMENU=${prefix}/share/gnome/applications
+					else
+						FDMENU=no
+					fi
+				fi
 			fi
 		fi
 		echo $FDMENU
@@ -426,7 +434,15 @@ if test "${FDMIME}" != "no" ; then
 			if test -d ${prefix}/share/mime ; then
 				FDMIME=${prefix}/share/mime
 			else
-				FDMIME=no
+				if test -d /usr/X11R6/share/gnome/mime ; then
+					FDMIME=/usr/X11R6/share/gnome/mime
+				else
+					if test -d ${prefix}/share/gnome/mime ; then
+						FDMIME=${prefix}/share/gnome/mime
+					else
+						FDMIME=no
+					fi
+				fi
 			fi
 		fi
 		echo ${FDMIME}
