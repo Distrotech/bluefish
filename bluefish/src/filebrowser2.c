@@ -192,6 +192,8 @@ static void fb2_treestore_delete_children_refresh1(GtkTreeStore *tstore, GtkTree
 				guint hashkey;
 				/* delete 'this' ! */
 				gtk_tree_model_get(GTK_TREE_MODEL(tstore), &this, FILENAME_COLUMN, &d_name, URI_COLUMN, &d_uri, -1);
+				DEBUG_MSG("fb2_treestore_delete_children_refresh1, delete %s ",d_name);
+				DEBUG_URI(d_uri, TRUE);
 				gtk_tree_store_remove(tstore,&this);
 				
 				hashkey = gnome_vfs_uri_hash(d_uri);
@@ -763,6 +765,59 @@ static void handle_activate_on_file(Tfilebrowser2 *fb2, GnomeVFSURI *uri) {
 	DEBUG_MSG("handle_activate_on_file, finished\n");
 }
 
+static void fb2rpopup_delete(Tfilebrowser2 *fb2) {
+	GnomeVFSURI *uri;
+	
+	if (fb2->last_popup_on_dir) {
+		uri = fb2_uri_from_dir_selection(fb2);
+	} else {
+		uri = fb2_uri_from_file_selection(fb2);
+	}
+	if (uri) {
+		gchar *buttons[] = {GTK_STOCK_CANCEL, GTK_STOCK_DELETE, NULL};
+		gchar *label;
+		gint retval;
+		gchar *filename;
+		if (gnome_vfs_uri_is_local(uri)) {
+			filename = gnome_vfs_uri_to_string(uri, GNOME_VFS_URI_HIDE_TOPLEVEL_METHOD);
+		} else {
+			filename = gnome_vfs_uri_to_string(uri, GNOME_VFS_URI_HIDE_PASSWORD);
+		}
+		label = g_strdup_printf(_("Are you sure you want to delete \"%s\" ?"), filename);
+		retval = multi_query_dialog(fb2->bfwin->main_window,label, _("If you delete this file, it will be permanently lost."), 0, 0, buttons);
+		g_free(label);
+		if (retval == 1) {
+			GnomeVFSResult res;
+			gchar *errmessage = NULL;
+			GnomeVFSURI *parent_uri;
+			GtkTreeIter *iter;
+			guint hashkey;
+			if (fb2->last_popup_on_dir) {
+				res = gnome_vfs_remove_directory_from_uri(uri);
+			} else {
+				res = gnome_vfs_unlink_from_uri(uri);
+			}
+			if (res != GNOME_VFS_OK) {
+				errmessage = g_strconcat(_("Could not delete \n"), filename, NULL);
+				error_dialog(fb2->bfwin->main_window,errmessage, NULL);
+				g_free(errmessage);
+			} else {
+				GList *alldocs = return_allwindows_documentlist();
+				Tdocument *exdoc = documentlist_return_document_from_filename(alldocs, filename);
+				if (exdoc) document_unset_filename(exdoc);
+				g_list_free(alldocs);
+			}
+			parent_uri = gnome_vfs_uri_get_parent(uri);
+			hashkey = gnome_vfs_uri_hash(parent_uri);
+			iter = g_hash_table_lookup(FILEBROWSER2CONFIG(main_v->fb2config)->filesystem_itable, &hashkey);
+			fb2_refresh_dir(NULL, iter);
+			gnome_vfs_uri_unref(parent_uri);
+		}
+		g_free(filename);
+	}
+}
+
+
 static void fb2rpopup_rpopup_action_lcb(Tfilebrowser2 *fb2,guint callback_action, GtkWidget *widget) {
 	DEBUG_MSG("fb2rpopup_rpopup_action_lcb, called\n");
 	switch (callback_action) {
@@ -775,6 +830,7 @@ static void fb2rpopup_rpopup_action_lcb(Tfilebrowser2 *fb2,guint callback_action
 		case 2:
 		break;
 		case 3:
+			fb2rpopup_delete(fb2);
 		break;
 		case 4:
 		break;
@@ -833,15 +889,15 @@ static GtkItemFactoryEntry fb2rpopup_dirmenu_entries[] = {
 };
 
 static GtkItemFactoryEntry fb2rpopup_bothmenu_entries[] = {
+	{ N_("/Rena_me"),		NULL,	fb2rpopup_rpopup_action_lcb,		2,	"<Item>" },
+	{ N_("/_Delete"),		NULL,	fb2rpopup_rpopup_action_lcb,		3,	"<Item>" },
 	{ N_("/New _File"),			NULL,	fb2rpopup_rpopup_action_lcb,	4,	"<Item>" },
 	{ N_("/_New Directory"),	NULL,	fb2rpopup_rpopup_action_lcb,	5,	"<Item>" },
 	{ "/sep",						NULL,	NULL,										0,	"<Separator>" }
 };
 
 static GtkItemFactoryEntry fb2rpopup_filemenu_entries[] = {
-	{ N_("/_Open"),		NULL,	fb2rpopup_rpopup_action_lcb,		1,	"<Item>" },
-	{ N_("/Rena_me"),		NULL,	fb2rpopup_rpopup_action_lcb,		2,	"<Item>" },
-	{ N_("/_Delete"),		NULL,	fb2rpopup_rpopup_action_lcb,		3,	"<Item>" }
+	{ N_("/_Open"),		NULL,	fb2rpopup_rpopup_action_lcb,		1,	"<Item>" }
 };
 static GtkWidget *fb2_rpopup_create_menu(Tfilebrowser2 *fb2, gboolean is_directory) {
 	GtkWidget *menu, *menu_item;
@@ -998,11 +1054,14 @@ GtkWidget *fb2_init(Tbfwin *bfwin) {
 		GtkTreeSelection* dirselection;
 		GtkWidget *vpaned;
 		vpaned = gtk_vpaned_new();
+		gtk_widget_set_size_request(vpaned, main_v->props.left_panel_width, -1);
+		gtk_paned_set_position(GTK_PANED(vpaned), main_v->globses.two_pane_filebrowser_height);
 		
 		fb2->dir_tfilter = gtk_tree_model_filter_new(GTK_TREE_MODEL(FILEBROWSER2CONFIG(main_v->fb2config)->filesystem_tstore),NULL);
 		gtk_tree_model_filter_set_visible_func(GTK_TREE_MODEL_FILTER(fb2->dir_tfilter),tree_model_filter_func,fb2,NULL);
 		fb2->dir_tsort = gtk_tree_model_sort_new_with_model(GTK_TREE_MODEL(fb2->dir_tfilter));
 		fb2->dir_v = gtk_tree_view_new_with_model(fb2->dir_tsort);
+		gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(fb2->dir_v), FALSE);
 		dirselection = gtk_tree_view_get_selection(GTK_TREE_VIEW(fb2->dir_v));
 		g_signal_connect(G_OBJECT(dirselection), "changed", G_CALLBACK(dir_v_selection_changed_lcb), fb2);
 		
@@ -1059,26 +1118,28 @@ GtkWidget *fb2_init(Tbfwin *bfwin) {
 
 	gtk_widget_show_all(vbox);	
 	{
-		GnomeVFSURI *uri;
+		GnomeVFSURI *uri = NULL;
 		if (bfwin->project && bfwin->project->basedir && strlen(bfwin->project->basedir)>2) {
 			uri = gnome_vfs_uri_new(strip_trailing_slash(bfwin->project->basedir));
 			fb2_build_dir(fb2->basedir);
 		} else if (main_v->props.default_basedir && strlen(main_v->props.default_basedir)>2) {
 			uri = gnome_vfs_uri_new(strip_trailing_slash(main_v->props.default_basedir));
 		}
-		DEBUG_MSG("fb2_init, first build, and then set the basedir to ");
-		DEBUG_URI(uri, TRUE);
-		fb2_build_dir(uri);
-		{
-			GtkTreePath *basedir = fb2_fspath_from_uri(fb2, uri);
-			DEBUG_MSG("fb2_init, will set the basedir to path(%p) ",basedir);
-			DEBUG_TPATH(basedir, TRUE);
-			refilter_dirlist(fb2, basedir);
-			gtk_tree_path_free(basedir);
+		if (uri) {
+			DEBUG_MSG("fb2_init, first build, and then set the basedir to ");
+			DEBUG_URI(uri, TRUE);
+			fb2_build_dir(uri);
+			{
+				GtkTreePath *basedir = fb2_fspath_from_uri(fb2, uri);
+				DEBUG_MSG("fb2_init, will set the basedir to path(%p) ",basedir);
+				DEBUG_TPATH(basedir, TRUE);
+				refilter_dirlist(fb2, basedir);
+				gtk_tree_path_free(basedir);
+			}
+			DEBUG_MSG("fb2_init, focus fb2->basedir ");
+			DEBUG_URI(fb2->basedir, TRUE);
+			fb2_focus_dir(fb2, fb2->basedir, FALSE);
 		}
-		DEBUG_MSG("fb2_init, focus fb2->basedir ");
-		DEBUG_URI(fb2->basedir, TRUE);
-		fb2_focus_dir(fb2, fb2->basedir, FALSE);
 	}
 	return vbox;
 }
@@ -1120,7 +1181,7 @@ void fb2config_init() {
 	fb2config->dir_icon = gdk_pixbuf_new_from_file(filename, NULL);
 	g_free(filename);
 
-	{
+	if (main_v->props.default_basedir && strlen(main_v->props.default_basedir) > 2) {
 		GtkTreeIter *iter;
 		GnomeVFSURI *uri;
 		uri = gnome_vfs_uri_new(strip_trailing_slash(main_v->props.default_basedir));
