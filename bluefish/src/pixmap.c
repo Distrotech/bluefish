@@ -112,7 +112,8 @@ static Tpixmap tp[] = {
 	{99, abbr},
 	{100, acronym},
 	{101, close_small},
-	{102, nothing}
+	{102, view_in_browser},
+	{103, nothing}
 };
 
 GtkWidget *new_pixmap(gint type) {

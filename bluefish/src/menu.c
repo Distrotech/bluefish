@@ -18,6 +18,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
+/* #define DEBUG */
 #include <gtk/gtk.h>
 #include <stdlib.h> /* atoi */
 #include <string.h> /* strchr() */
@@ -66,7 +67,7 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/Edit/Cut"), "<control>x", edit_cut_cb, 0, NULL},
 	{N_("/Edit/Copy"), "<control>c", edit_copy_cb, 0, NULL},
 	{N_("/Edit/Paste"), "<control>v", edit_paste_cb, 0, NULL},
-	{N_("/Edit/Select all"), NULL, edit_select_all_cb, 0, NULL},
+	{N_("/Edit/Select all"), "<control>a", edit_select_all_cb, 0, NULL},
 	{N_("/Edit/sep3"), NULL, NULL, 0, "<Separator>"},
 	{N_("/Edit/Find..."), "F6", search_cb, 0, NULL},
 	{N_("/Edit/New find..."), NULL, new_search_cb, 0, NULL},
@@ -712,6 +713,31 @@ void add_to_recent_list(gchar *filename, gint closed_file) {
 /* Browsers!!    */
 /*****************/
 
+static void view_in_browser(gchar *browser) {
+	if (main_v->current_document->filename) {
+		Tconvert_table *table, *tmpt;
+		gchar *command;
+		table = tmpt = g_new(Tconvert_table, 2);
+		tmpt->my_int = 's';
+		tmpt->my_char = main_v->current_document->filename;
+		tmpt++;
+		tmpt->my_char = NULL;
+		command = replace_string_printflike(browser, table);
+		g_free(table);
+		DEBUG_MSG("view_in_browser, should start %s now\n", command);
+		system(command);
+		g_free(command);
+	} else {
+		error_dialog(_("Bluefish error: no filename"), _("Could not view file in browser, the file does not yet have a name\n"));
+	}
+}
+
+void browser_toolbar_cb(GtkWidget *widget, gpointer data) {
+	GList *tmplist = g_list_first(main_v->props.browsers);
+	gchar **arr = tmplist->data;
+	view_in_browser(arr[1]);
+}
+
 static void browser_lcb(GtkWidget *widget, gchar *name) {
 	if (!main_v->current_document->filename) {
 		file_save_cb(NULL, NULL);
@@ -721,18 +747,7 @@ static void browser_lcb(GtkWidget *widget, gchar *name) {
 		while (tmplist) {
 			gchar **arr = tmplist->data;
 			if (strcmp(name, arr[0])==0) {
-				Tconvert_table *table, *tmpt;
-				gchar *command;
-				table = tmpt = g_new(Tconvert_table, 2);
-				tmpt->my_int = 's';
-				tmpt->my_char = main_v->current_document->filename;
-				tmpt++;
-				tmpt->my_char = NULL;
-				command = replace_string_printflike(arr[1], table);
-				g_free(table);
-				DEBUG_MSG("browser_lcb, should start %s now\n", command);
-				system(command);
-				g_free(command);
+				view_in_browser(arr[1]);
 				break;
 			}
 			tmplist = g_list_next(tmplist);

@@ -521,11 +521,11 @@ void make_main_toolbar(GtkWidget *handlebox) {
 	gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), NULL, _("Print..."), "",
 							new_pixmap(015), G_CALLBACK(file_print_cb), NULL);
 	gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), NULL, _("Spellcheck..."),
-							"", new_pixmap(016), G_CALLBACK(spell_check_cb), NULL);
+							"", new_pixmap(016), G_CALLBACK(spell_check_cb), NULL);*/
 	gtk_toolbar_append_space(GTK_TOOLBAR(toolbar));
 	gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), NULL,
-							_("View in Netscape"), "",
-							new_pixmap(170), G_CALLBACK(view_in_netscape_cb), NULL);*/
+							_("View in browser"), "",
+							new_pixmap(102), G_CALLBACK(browser_toolbar_cb), NULL);
 	gtk_widget_show_all(toolbar);
 }
 
