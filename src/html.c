@@ -22,7 +22,7 @@
  */
 /* 
  * Changes by Antti-Juhani Kaijanaho <gaia@iki.fi> on 1999-10-20
- * $Id: html.c,v 1.31 2003-07-27 18:49:26 oli4 Exp $
+ * $Id: html.c,v 1.32 2003-09-11 14:53:47 oli4 Exp $
  */
 /*#define DEBUG*/
 
@@ -566,7 +566,7 @@ void quickanchor_dialog(Tbfwin *bfwin, Ttagpopup *data) {
 	
 		free_stringlist(rel_link_list);
 	}
-	file_but = file_but_new(GTK_WIDGET(GTK_COMBO(dg->combo[2])->entry), dg->dialog, 0);
+	file_but = file_but_new(GTK_WIDGET(GTK_COMBO(dg->combo[2])->entry), 0, bfwin);
 	gtk_table_attach(GTK_TABLE(dgtable), GTK_WIDGET(file_but), 2, 3, 0, 1, GTK_SHRINK, GTK_SHRINK, 0, 0);
 	bf_mnemonic_label_tad_with_alignment(_("_HREF:"), dg->combo[2], 0, 0.5, dgtable, 0, 1, 0, 1);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(GTK_COMBO(dg->combo[2])), 1, 2, 0, 1);
@@ -1312,7 +1312,7 @@ void body_dialog(Tbfwin *bfwin, Ttagpopup *data) {
 		gtk_container_add(GTK_CONTAINER(frame), dgtable[0]);
 
 		dg->entry[1] = entry_with_text(bodyvalues[0], 256);
-		file_but = file_but_new(dg->entry[1], dg->dialog, 0);
+		file_but = file_but_new(dg->entry[1], 0, bfwin);
 
 		gtk_table_attach(GTK_TABLE(dgtable[0]), GTK_WIDGET(file_but), 2, 3, 0, 1, GTK_FILL, GTK_FILL, 0, 0);
 		bf_mnemonic_label_tad_with_alignment(_("Background _Image:"), dg->entry[1], 0, 0.5, dgtable[0], 0, 1, 0, 1);
@@ -1829,7 +1829,7 @@ void frame_dialog(Tbfwin *bfwin, Ttagpopup *data) {
 	dgtable = html_diag_table_in_vbox(dg, 5, 10);
 
 	dg->combo[1] = combo_with_popdown(tagvalues[0], recent_attribs.urllist, 1);
-	file_but = file_but_new(GTK_WIDGET(GTK_COMBO(dg->combo[1])->entry), dg->dialog, 0);
+	file_but = file_but_new(GTK_WIDGET(GTK_COMBO(dg->combo[1])->entry), 0, bfwin);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(file_but), 9, 10, 0, 1);
 	bf_mnemonic_label_tad_with_alignment(_("_Source:"), dg->combo[1], 0, 0.5, dgtable, 0, 1, 0, 1);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(GTK_COMBO(dg->combo[1])), 1, 9, 0, 1);
@@ -1914,7 +1914,7 @@ void embed_dialog(Tbfwin *bfwin, Ttagpopup *data) {
 
 	dgtable = html_diag_table_in_vbox(dg, 5, 4);
 	dg->entry[1] = gtk_entry_new_with_max_length(256);
-	file_but = file_but_new(dg->entry[1], dg->dialog, 0);
+	file_but = file_but_new(dg->entry[1], 0, bfwin);
 	gtk_table_attach(GTK_TABLE(dgtable), file_but, 3, 4, 0, 1, GTK_SHRINK, GTK_SHRINK, 0, 0);
 	bf_mnemonic_label_tad_with_alignment(_("_Source:"), dg->entry[1], 0, 0.5, dgtable, 0, 1, 0, 1);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[1], 1, 3, 0, 1);
@@ -2002,7 +2002,7 @@ static void script_link_cb(gint type, Tbfwin *bfwin, Ttagpopup *data) {
 
 	dgtable = html_diag_table_in_vbox(dg, 4, 12);
 	dg->entry[0] = entry_with_text(tagvalues[0], 1024);
-	file_but = file_but_new(dg->entry[0], dg->dialog, 0);
+	file_but = file_but_new(dg->entry[0], 0, bfwin);
 	gtk_table_attach(GTK_TABLE(dgtable), file_but, 10, 12, 0, 1, GTK_EXPAND, GTK_EXPAND, 0, 0);
 	bf_mnemonic_label_tad_with_alignment(_("_Source:"), dg->entry[0], 0, 0.5, dgtable, 0, 2, 0, 1);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[0], 2, 10, 0, 1);
