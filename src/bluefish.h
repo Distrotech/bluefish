@@ -66,6 +66,11 @@ extern void g_none(...);
 #include <sys/stat.h>
 #include <unistd.h>
 
+#ifdef HAVE_GNOME_VFS
+#include <libgnomevfs/gnome-vfs.h>
+#endif
+
+
 /*********************/
 /* undo/redo structs */
 /*********************/
@@ -111,7 +116,11 @@ typedef struct {
 	gchar *encoding;
 	gint modified;
 /*	time_t mtime; */ /* from stat() */
+#ifdef HAVE_GNOME_VFS
+	GnomeVFSFileInfo *fileinfo;
+#else /* HAVE_GNOME_VFS */
 	struct stat statbuf;
+#endif /* HAVE_GNOME_VFS */
 	gint is_symlink; /* file is a symbolic link */
 	gulong del_txt_id; /* text delete signal */
 	gulong ins_txt_id; /* text insert signal */

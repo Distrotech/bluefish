@@ -37,10 +37,6 @@
 
 #include "bluefish.h"
 
-#ifdef HAVE_GNOME_VFS
-#include <libgnomevfs/gnome-vfs.h>
-#endif
-
 #include "document.h"
 #include "highlight.h" /* all highlight functions */
 #include "gui.h" /* statusbar_message() */
@@ -667,6 +663,47 @@ void doc_set_modified(Tdocument *doc, gint value) {
 #endif
 }
 
+#ifdef HAVE_GNOME_VFS
+/* returns 1 if the file is modified on disk, returns 0 
+if the file is modified by another process, returns
+0 if there was no previous mtime information available 
+if newstatbuf is not NULL, it will be filled with the new statbuf from the file IF IT WAS CHANGED!!!
+leave NULL if you do not need this information, if the file is not changed, this field will not be set!!
+*/
+static gboolean doc_check_modified_on_disk(Tdocument *doc, GnomeVFSFileInfo **newfileinfo) {
+	if (main_v->props.modified_check_type == 0 || !doc->filename || doc->fileinfo == NULL) {
+		return FALSE;
+	} else if (main_v->props.modified_check_type < 4) {
+		GnomeVFSFileInfo *fileinfo;
+		gboolean unref_fileinfo = FALSE;
+		if (*newfileinfo == NULL) {
+			fileinfo = gnome_vfs_file_info_new(void);
+			unref_fileinfo = TRUE;
+		} else {
+			fileinfo = *newfileinfo;
+		}
+		if (gnome_vfs_get_file_info(doc->filename, fileinfo
+				, GNOME_VFS_FILE_INFO_DEFAULT|GNOME_VFS_FILE_INFO_FOLLOW_LINKS) == GNOME_VFS_OK) {
+			if (main_v->props.modified_check_type == 1 || main_v->props.modified_check_type == 2) {
+				if (doc->fileinfo->mtime < filinfo->mtime) {
+					if (unref_fileinfo) gnome_vfs_file_info_unref(fileinfo);
+					return TRUE;
+				}
+			}
+			if (main_v->props.modified_check_type == 1 || main_v->props.modified_check_type == 3) {
+				if (doc->fileinfo->size != fileinfo->size) {
+					if (unref_fileinfo) gnome_vfs_file_info_unref(fileinfo);
+					return TRUE;
+				}
+			}
+		}
+		if (unref_fileinfo) gnome_vfs_file_info_unref(fileinfo);
+	} else {
+		DEBUG_MSG("doc_check_mtime, type %d checking not yet implemented\n", main_v->props.modified_check_type);
+	}
+	return FALSE;
+}
+#else /* HAVE_GNOME_VFS */
 /* returns 1 if the file is modified on disk, returns 0 
 if the file is modified by another process, returns
 0 if there was no previous mtime information available 
@@ -696,11 +733,20 @@ static gboolean doc_check_modified_on_disk(Tdocument *doc, struct stat *newstatb
 	}
 	return FALSE;
 }
+#endif /* HAVE_GNOME_VFS */
 
 /* doc_set_stat_info() includes setting the mtime field, so there is no need
 to call doc_update_mtime() as well */
 static void doc_set_stat_info(Tdocument *doc) {
 	if (doc->filename) {
+#ifdef HAVE_GNOME_VFS
+		if (doc->fileinfo == NULL) {
+			doc->fileinfo = gnome_vfs_file_info_new();
+		}
+		gnome_vfs_get_file_info(doc->filename, doc->fileinfo
+				,GNOME_VFS_FILE_INFO_DEFAULT|GNOME_VFS_FILE_INFO_FOLLOW_LINKS);
+		doc->is_symlink = GNOME_VFS_FILE_INFO_SYMLINK(doc->fileinfo);
+#else
 		struct stat statbuf;
 		if (lstat(doc->filename, &statbuf) == 0) {
 			if (S_ISLNK(statbuf.st_mode)) {
@@ -711,6 +757,7 @@ static void doc_set_stat_info(Tdocument *doc) {
 			}
 			doc->statbuf = statbuf;
 		}
+#endif
 	}
 }
 
@@ -1346,9 +1393,15 @@ gboolean doc_file_to_textbox(Tdocument * doc, gchar * filename, gboolean enable_
 	return TRUE;
 }
 
-/* static gint doc_check_backup(Tdocument *doc)
+/**
+ * doc_check_backup:
+ * @doc: #Tdocument*
+ *
+ * creates a backup, depending on the configuration
  * returns 1 on success, 0 on failure
  * if no backup is required, or no filename known, 1 is returned
+ *
+ * Return value: #gint 1 on success or 0 on failure
  */
 static gint doc_check_backup(Tdocument *doc) {
 	gint res = 1;
@@ -1357,10 +1410,16 @@ static gint doc_check_backup(Tdocument *doc) {
 		gchar *backupfilename;
 		backupfilename = g_strconcat(doc->filename, main_v->props.backup_filestring, NULL);
 		res = file_copy(doc->filename, backupfilename);
+#ifdef HAVE_GNOME_VFS
+		if (doc->fileinfo) {
+			gnome_vfs_set_file_info(backupfilename, doc->fileinfo, GNOME_VFS_SET_FILE_INFO_PERMISSIONS|GNOME_VFS_SET_FILE_INFO_OWNER);
+		}
+#else
 		if (doc->statbuf.st_uid != -1 && !doc->is_symlink) {
 			chmod(backupfilename, doc->statbuf.st_mode);
 			chown(backupfilename, doc->statbuf.st_uid, doc->statbuf.st_gid);
 		}
+#endif
 		g_free(backupfilename);
 	}
 	return res;
@@ -1952,21 +2011,35 @@ gint doc_save(Tdocument * doc, gint do_save_as, gboolean do_move) {
 		}
 	}
 	{
-	struct stat statbuf;
-	if (doc_check_modified_on_disk(doc,&statbuf)) {
-		gchar *tmpstr, oldtimestr[128], newtimestr[128];/* according to 'man ctime_r' this should be at least 26, so 128 should do ;-)*/
-		gint retval;
-		gchar *options[] = {N_("Cancel"), N_("Overwrite"), NULL};
-
-		ctime_r(&statbuf.st_mtime,newtimestr);
-		ctime_r(&doc->statbuf.st_mtime,oldtimestr);
-		tmpstr = g_strdup_printf(_("File: %s\n\nNew modification time: %s\nOld modification time: %s"), doc->filename, newtimestr, oldtimestr);
-		retval = multi_warning_dialog(BFWIN(doc->bfwin)->main_window,_("The file has been modified by another process."), tmpstr, 1, 0, options);
-		g_free(tmpstr);
-		if (retval == 0) {
-			return -5;
+		gboolean modified;
+		time_t oldmtime, newmtime;
+#ifdef HAVE_GNOME_VFS
+		GnomeVFSFileInfo *fileinfo;
+		fileinfo = gnome_vfs_file_info_new(void);
+		modified = doc_check_modified_on_disk(doc,&fileinfo);
+		newmtime = fileinfo->mtime;
+		oldmtime = doc->fileinfo->mtime;
+		gnome_vfs_file_info_unref(fileinfo);
+#else
+		struct stat statbuf;
+		modified = doc_check_modified_on_disk(doc,&statbuf);
+		newmtime = statbuf.st_mtime;
+		oldmtime = doc->statbuf.st_mtime;
+#endif
+		if (modified) {
+			gchar *tmpstr, oldtimestr[128], newtimestr[128];/* according to 'man ctime_r' this should be at least 26, so 128 should do ;-)*/
+			gint retval;
+			gchar *options[] = {N_("Cancel"), N_("Overwrite"), NULL};
+	
+			ctime_r(&newmtime,newtimestr);
+			ctime_r(&oldmtime,oldtimestr);
+			tmpstr = g_strdup_printf(_("File: %s\n\nNew modification time: %s\nOld modification time: %s"), doc->filename, newtimestr, oldtimestr);
+			retval = multi_warning_dialog(BFWIN(doc->bfwin)->main_window,_("The file has been modified by another process."), tmpstr, 1, 0, options);
+			g_free(tmpstr);
+			if (retval == 0) {
+				return -5;
+			}
 		}
-	}
 	}
 	
 	DEBUG_MSG("doc_save, returned file %s\n", doc->filename);
@@ -2198,12 +2271,16 @@ Tdocument *doc_new(Tbfwin* bfwin, gboolean delay_activate) {
 /* this will force function doc_set_modified to update the tab label*/
 	newdoc->modified = 1;
 	doc_set_modified(newdoc, 0);
-	newdoc->filename = NULL;
+	/*newdoc->filename = NULL;*/
 	newdoc->need_highlighting = 0;
+#ifdef HAVE_GNOME_VFS
+	/*newdoc->fileinfo = NULL;*/
+#else
 	newdoc->statbuf.st_mtime = 0;
 	newdoc->statbuf.st_size = 0;
 	newdoc->statbuf.st_uid = -1;
 	newdoc->statbuf.st_gid = -1;
+#endif
 	newdoc->is_symlink = 0;
 	newdoc->encoding = g_strdup(main_v->props.newfile_default_encoding);
 	newdoc->overwrite_mode = FALSE;
@@ -2469,7 +2546,8 @@ void doc_reload(Tdocument *doc) {
  * Return value: void
  **/
 void doc_activate(Tdocument *doc) {
-	struct stat statbuf;
+	gboolean modified;
+	time_t oldmtime, newmtime;
 #ifdef DEBUG
 	if (!doc) {
 		DEBUG_MSG("doc_activate, doc=NULL!!! ABORTING!!\n");
@@ -2482,14 +2560,30 @@ void doc_activate(Tdocument *doc) {
 	BFWIN(doc->bfwin)->last_activated_doc = doc;
 
 	gtk_widget_show(doc->view); /* This might be the first time this document is activated. */
-	
-	if (doc_check_modified_on_disk(doc,&statbuf)) {
+#ifdef HAVE_GNOME_VFS
+	{
+		GnomeVFSFileInfo *fileinfo;
+		fileinfo = gnome_vfs_file_info_new(void);
+		modified = doc_check_modified_on_disk(doc,&fileinfo);
+		newmtime = fileinfo->mtime;
+		oldmtime = doc->fileinfo->mtime;
+		gnome_vfs_file_info_unref(fileinfo);
+	}
+#else
+	{
+		struct stat statbuf;
+		modified = doc_check_modified_on_disk(doc,&statbuf);
+		newmtime = statbuf.st_mtime;
+		oldmtime = doc->statbuf.st_mtime;
+	}
+#endif
+	if (modified) {
 		gchar *tmpstr, oldtimestr[128], newtimestr[128];/* according to 'man ctime_r' this should be at least 26, so 128 should do ;-)*/
 		gint retval;
 		gchar *options[] = {N_("Reload"), N_("Ignore"), NULL};
 
-		ctime_r(&statbuf.st_mtime,newtimestr);
-		ctime_r(&doc->statbuf.st_mtime,oldtimestr);
+		ctime_r(&newmtime,newtimestr);
+		ctime_r(&oldmtime,oldtimestr);
 		tmpstr = g_strdup_printf(_("File %s\nis modified by another process\nnew modification time is %s\nold modification time is %s"), doc->filename, newtimestr, oldtimestr);
 		retval = multi_warning_dialog(BFWIN(doc->bfwin)->main_window,_("Bluefish: Warning, file is modified"), tmpstr, 0, 1, options);
 		g_free(tmpstr);

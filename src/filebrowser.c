@@ -30,10 +30,6 @@
 
 #include "bluefish.h"
 
-#ifdef HAVE_GNOME_VFS
-#include <libgnomevfs/gnome-vfs.h>
-#endif
-
 #include "document.h"
 #include "gtk_easy.h" /* *_dialog(), flush_queue() */
 #include "bf_lib.h"
