@@ -22,7 +22,7 @@
  */
 /* 
  * Changes by Antti-Juhani Kaijanaho <gaia@iki.fi> on 1999-10-20
- * $Id: html.c,v 1.10 2002-11-30 16:50:39 oli4 Exp $
+ * $Id: html.c,v 1.11 2002-12-25 18:15:31 christte Exp $
  */
 
 #include <gtk/gtk.h>
@@ -70,7 +70,7 @@ void insert_char_cb(GtkWidget * widget, gint data) {
 	"&ograve;", "&oacute;", "&ocirc;", "&otilde;", "&ouml;",
 	"&oslash;", "&ugrave;", "&uacute;", "&ucirc;", "&uuml;",
 	"&yacute;", "&yuml;", "&uml;", "&acute;", "&cedil;", "&cent;",
-	"&pound;", "&curren;", "&yen;", "&not;", "&mult;", "&divide;",
+	"&pound;", "&curren;", "&yen;", "&not;", "&times;", "&divide;",
 	"&plusmn;", "&lt;", "&gt;", "&sup1;", "&sup2;", "&sup3;",
 	"&frac14;", "&frac12;", "&frac34;", "&deg;", "&ETH;", "&THORN;",
 	"&eth;", "&thorn;", "&szlig;", "&micro;", "&nbsp;", "&sect;",
