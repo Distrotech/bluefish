@@ -36,15 +36,14 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 		</para>
 		<itemizedlist>
 			<listitem>gtk v2.0</listitem>
-			<listitem>glib v2.0</listitem>
-			<listitem>pango 1.0</listitem>
+			<listitem>libpcre</listitem>
 		</itemizedlist>
 		<para>
 			Optional requirements:
 		</para>
 		<itemizedlist>
-			<listitem>libpcre3
-				<emphasis> - for Perl Regular Expression support
+			<listitem>gnome_vfs
+				<emphasis> - for remote file support
 				</emphasis>
 			</listitem>
 			<listitem>
@@ -147,15 +146,13 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 		<para>Debian:</para>
 		<itemizedlist>
 			<listitem>
-				If you are running <emphasis>unstable</emphasis>, you may 
-				experience instability (ha ha) with Bluefish. Make sure 
-				it's not just caused by a buggy version of GTK2. If the bug 
-				is very obscure and strange, GTK may be the villain.
+			Debian Woody (the current Stable) has an old gtk-2 version, that contains several known bugs, but they are not serious. 
 			</listitem>
 			<listitem>
-				<remark>
-					... more nags with Debian? Of course not...? -- Christian
-				</remark>
+			Debian Sarge (currently in Testing) has Bluefish 0.13, and a very recent gtk version.
+			</listitem>
+			<listitem>
+			Debian Sid (Unstable) will always have the latest Bluefish version.
 			</listitem>
 		</itemizedlist>
 	</sect1>

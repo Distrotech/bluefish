@@ -481,6 +481,19 @@ don't change style(0), non-italic(1), italic(2): </programlisting>
 		<sect2 id="bluefish-ch-4-sect-9.1">
 			<title>Editor Preferences</title>
 			<para>editor</para>
+			
+			<para>
+			A frequently asked question is how to change the background color of the editor in Bluefish.
+			Bluefish uses the default editor background color as set in your gtk theme. If you want to 
+			override the color of the theme, edit ~/.gtkrc-2.0 and add this section:
+<programlisting>
+style "EditorStyle" {
+        base[NORMAL]="#eeeeee"
+}
+class "GtkTextView" style "EditorStyle"
+</programlisting>
+Obviously, #eeeeee should be your preferred background color.
+			</para>
 		</sect2>
 		<sect2 id="bluefish-ch-4-sect-9.2">
 			<title>Html Preferences</title>
