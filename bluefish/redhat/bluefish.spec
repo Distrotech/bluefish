@@ -1,23 +1,21 @@
 %define	desktop_vendor 	endur
 %define name  		bluefish
 %define version		gtk2
-%define release 	1
-%define source		bluefish-gtk2port-2002-12-19
+%define release 	20030129
+%define source		bluefish-gtk2port-2003-01-29
 %define prefix		/usr
 	
 
-Summary:	A WYSIWYG GPLized HTML editor
+Summary:	A GTK2 web development application for experienced users.
 Name:		%{name}
 Version:	%{version}
 Release:	%{release}
 Source:		ftp://ftp.ratisbona.com/pub/bluefish/snapshots/%{source}.tgz
 URL:		http://bluefish.openoffice.nl
 License:	GPL
-Distribution: 	RedHat 8.*
-Packager: 	Matthias Haase <matthias_haase@bennewitz.com>
 Group:          Development/Tools
 Requires:	gtk2 >= 2.0.6, pcre >= 3.9
-BuildRequires:  gtk2-devel >= 2.0.6, pcre-devel >= 3.9
+BuildRequires:  gtk2-devel >= 2.0.6, pcre-devel >= 3.9, desktop-file-utils
 
 BuildRoot: %{_tmppath}/%{name}-%{version}
 
@@ -29,7 +27,7 @@ dynamic and interactive websites, there is for example a lot of PHP
 support.
 
 %prep
-%setup -n %{name}-%{version}
+%setup -q -n %{name}-%{version}
 
 %build
 CFLAGS="$RPM_OPT_FLAGS"
@@ -40,6 +38,9 @@ make %{?_smp_mflags}
 rm -rf %{buildroot}
 
 %makeinstall pkgdatadir=%{buildroot}%{_datadir}/%{name}
+
+# Remove useless translations
+rm -f %{buildroot}%{_datadir}/%{name}/po/en.*
 
 %find_lang %{name}
 install -D -m644 inline_images/bluefish_icon1.png \
@@ -77,5 +78,5 @@ rm -rf %{buildroot}
 
 
 %changelog
-* Fri Dec 20 2002 Matthias Haase <matthias_haase@bennewitz.com>
-- Automatic build - snapshot of 2002-12-19
+* Wed Jan 29 2003 Matthias Haase <matthias_haase@bennewitz.com>
+- Automatic build - snapshot of 2003-01-29
