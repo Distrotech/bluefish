@@ -27,7 +27,7 @@ typedef struct {
 } Tconvert_table;
 
 gboolean file_copy(gchar *source, gchar *dest);
-gboolean append_to_file(gchar *filename, gchar *string);
+gboolean append_string_to_file(gchar *filename, gchar *string);
 gint table_convert_char2int(Tconvert_table *table, gchar *my_char);
 gchar *table_convert_int2char(Tconvert_table *table, gint my_int);
 gchar *escapestring(gchar *original, gchar delimiter);

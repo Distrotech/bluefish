@@ -30,10 +30,22 @@
 #include "highlight.h" /* all highlight functions */
 #include "gui.h" /* statusbar_message() */
 #include "bf_lib.h"
+#include "menu.h" /* add_to_recent_list */
 #include "stringlist.h" /* free_stringlist() */
 #include "gtk_easy.h" /* error_dialog() */
 #include "undo_redo.h" /* doc_unre_init() */
 #include "rpopup.h" /* doc_bevent_in_html_tag(), rpopup_edit_tag_cb() */
+
+
+void add_filename_to_history(gchar *filename) {
+	gchar *dirname;
+
+	add_to_recent_list(filename, 0); /* the recent menu */
+/*	dirname = g_dirname(filename);
+	add_to_dir_history(dirname);
+	g_free(dirname);*/
+}
+
 
 /* gint documentlist_return_index_from_filename(gchar *filename)
  * returns -1 if the file is not open, else returns the index where
@@ -172,6 +184,7 @@ static void doc_set_undo_redo_widget_state(Tdocument *doc) {
 }
 
 void doc_set_modified(Tdocument *doc, gint value) {
+	DEBUG_MSG("doc_set_modified, started, doc=%p, value=%d\n", doc, value);
 	if (doc->modified != value) {
 		gchar *label_string;
 		doc->modified = value;
@@ -400,6 +413,7 @@ gboolean doc_file_to_textbox(Tdocument * doc, gchar * filename, gboolean enable_
 {
 	FILE *fd;
 	gchar *errmessage, line[STARTING_BUFFER_SIZE], *message;
+	gint cursor_offset;
 
 	if (!enable_undo) {
 		doc_unbind_signals(doc);
@@ -421,6 +435,14 @@ gboolean doc_file_to_textbox(Tdocument * doc, gchar * filename, gboolean enable_
 		}
 		return FALSE;
 	}
+	/* now get the current cursor position */
+	{
+		GtkTextMark* insert;
+		GtkTextIter iter;
+		insert = gtk_text_buffer_get_insert(doc->buffer);
+		gtk_text_buffer_get_iter_at_mark(doc->buffer, &iter, insert);
+		cursor_offset = gtk_text_iter_get_offset(&iter);
+	}
 
 	while (fgets(line, STARTING_BUFFER_SIZE, fd) != NULL) {
 		gtk_text_buffer_insert_at_cursor(doc->buffer,line,-1);
@@ -440,6 +462,17 @@ gboolean doc_file_to_textbox(Tdocument * doc, gchar * filename, gboolean enable_
 	}
 	if (!enable_undo) {
 		doc_bind_signals(doc);
+	}
+	
+	/* set the cursor position back */
+	{
+		GtkTextMark* insert;
+		GtkTextIter iter;
+		gtk_text_buffer_get_iter_at_offset(doc->buffer,&iter,cursor_offset);
+		gtk_text_buffer_place_cursor(doc->buffer,&iter);
+		if (!delay_highlighting) {
+			gtk_text_view_place_cursor_onscreen(doc->view);
+		}
 	}
 	return TRUE;
 }
@@ -817,7 +850,7 @@ gint doc_textbox_to_file(Tdocument * doc, gchar * filename) {
 void doc_destroy(Tdocument * doc, gboolean delay_activation)
 {
 	if (doc->filename) {
-/*		add_to_recent_list(doc->filename, 1);*/
+		add_to_recent_list(doc->filename, 1);
 	}
 
 	if (delay_activation) {
@@ -1060,7 +1093,7 @@ gint doc_close(Tdocument * doc, gint warn_only)
 }
 
 
-static void doc_new_with_file(gchar * filename, gboolean delay_activate) {
+void doc_new_with_file(gchar * filename, gboolean delay_activate) {
 
 	Tdocument *doc;
 	
@@ -1077,7 +1110,8 @@ static void doc_new_with_file(gchar * filename, gboolean delay_activate) {
 		}
 	}
 	DEBUG_MSG("doc_new_with_file, filename=%s exists\n", filename);
-/*	file_and_dir_history_add(filename);*/
+	add_filename_to_history(filename);
+
 	doc = doc_new(delay_activate);
 	doc->filename = g_strdup(filename);
 	hl_reset_highlighting_type(doc, doc->filename);	
@@ -1145,6 +1179,7 @@ void doc_activate(Tdocument *doc) {
 		DEBUG_MSG("doc_activate, after doc_highlight_full, need_highlighting=%d\n",doc->need_highlighting);
 	}
 
+	gtk_text_view_place_cursor_onscreen(doc->view);
 	gtk_widget_grab_focus(GTK_WIDGET(doc->view));
 }
 
