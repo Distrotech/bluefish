@@ -413,7 +413,6 @@ static GList *props_init_main(GList * config_rc)
 	init_prop_integer(&config_rc, &main_v->props.filebrowser_show_backup_files, "fb_show_backup_f:", 0);
 	init_prop_string(&config_rc, &main_v->props.filebrowser_unknown_icon, "fb_unknown_icon:", "/usr/share/bluefish/icons/icon_unknown.png");
 	init_prop_string(&config_rc, &main_v->props.filebrowser_dir_icon, "fb_dir_icon:", "/usr/share/bluefish/icons/icon_dir.png");
-	
 	init_prop_string(&config_rc, &main_v->props.editor_font_string, "editor_font_string:", "courier 11");
 	init_prop_integer(&config_rc, &main_v->props.editor_tab_width, "editor_tab_width:", 3);
 	init_prop_string(&config_rc, &main_v->props.tab_font_string, "tab_font_string:", "helvetica 8");
@@ -423,20 +422,28 @@ static GList *props_init_main(GList * config_rc)
 	init_prop_integer(&config_rc, &main_v->props.highlight_num_lines_count, "highlight_num_lines_count:", 1);
 	init_prop_arraylist(&config_rc, &main_v->props.filetypes, "filetypes:");
 	init_prop_arraylist(&config_rc, &main_v->props.filefilters, "filefilters:");
-	
-/* not yet in use */
-
+	init_prop_string(&config_rc, &main_v->props.last_filefilter, "last_filefilter:", "");
 	init_prop_integer(&config_rc, &main_v->props.transient_htdialogs, "transient_htdialogs:", 1);
+	init_prop_integer(&config_rc, &main_v->props.main_window_h, "main_window_height:", 400);
+	init_prop_integer(&config_rc, &main_v->props.main_window_w, "main_window_width:", 600);
+	init_prop_integer(&config_rc, &main_v->props.max_recent_files, "max_recent_files:", 15);
+	init_prop_integer(&config_rc, &main_v->props.max_dir_history, "max_dir_history:", 10);
+	init_prop_integer (&config_rc, &main_v->props.backup_file,"backup_file:",1);
+	init_prop_string  (&config_rc, &main_v->props.backup_filestring,"backup_filestring:","~");
+	init_prop_string (&config_rc, &main_v->props.backup_abort_style,"backup_abort_style:","ask");
+	init_prop_string(&config_rc, &main_v->props.image_thumbnailstring, "image_thumbnailstring:", "_thumbnail");
+	init_prop_string(&config_rc, &main_v->props.image_thumbnailtype, "image_thumbnailtype:", "jpg");
+	init_prop_integer (&config_rc, &main_v->props.image_thumbnailsizing_type,"image_thumbnailsizing_type:",0);
+	init_prop_integer (&config_rc, &main_v->props.image_thumbnailsizing_val,"image_thumbnailsizing_val:",100);
+	init_prop_integer (&config_rc, &main_v->props.allow_multi_instances,"allow_multi_instances:",0);
+	init_prop_integer (&config_rc, &main_v->props.num_undo_levels,"num_undo_levels:",100);
+	init_prop_integer (&config_rc, &main_v->props.clear_undo_on_save,"clear_undo_on_save:",0);
+
+	/* not yet in use */
+
 	init_prop_string(&config_rc, &main_v->props.image_editor_cline, "image_editor_command:", "gimp-remote -n \"%s\"&");
 	init_prop_string(&config_rc, &main_v->props.cfg_tab_pos, "notebook_tab_position:", "bottom");
 /*	init_prop_string(&config_rc, &main_v->props.cfg_weblint_cline, "weblint_command:", WEBLINT_COMMAND);*/
-	init_prop_integer(&config_rc, &main_v->props.main_window_h, "main_window_height:", 400);
-	init_prop_integer(&config_rc, &main_v->props.main_window_w, "main_window_width:", 600);
-	init_prop_integer(&config_rc, &main_v->props.max_recent_files, "max_recent_files:", 10);
-	init_prop_integer(&config_rc, &main_v->props.max_dir_history, "max_dir_history:", 5);
-	init_prop_string(&config_rc, &main_v->props.filelist_filter, "filelist_filter:", _("all web files"));
-	init_prop_string(&config_rc, &main_v->props.cfg_thumbnailstring, "thumbnail_string:", "_thumbnail");
-	init_prop_string(&config_rc, &main_v->props.cfg_thumbnailtype, "thumbnail_type:", "jpg");
 	init_prop_integer(&config_rc, &main_v->props.full_p, "closing_paragraph_tag:", 1);
 	init_prop_integer(&config_rc, &main_v->props.full_li, "closing_list_item_tag:", 1);
 	init_prop_integer(&config_rc, &main_v->props.allow_css, "allow_the_use_of_css:", 1);
@@ -460,14 +467,6 @@ static GList *props_init_main(GList * config_rc)
 	init_prop_integer(&config_rc, &main_v->props.cont_highlight_full, "cont_highlight_full:", 0);
 	init_prop_integer(&config_rc, &main_v->props.cont_highlight_update, "continuous_highlight_update:", 1);
 	init_prop_string(&config_rc, &main_v->props.html_ver, "used_html_version:", "HTML 4.0 Transitional");
-	init_prop_string  (&config_rc, &main_v->props.backup_filestring,"backup_filestring:","~");
-	init_prop_integer (&config_rc, &main_v->props.backup_file,"backup_file:",1);
-	init_prop_integer (&config_rc, &main_v->props.backup_by_copy,"backup_by_copy:",0);
-	init_prop_string (&config_rc, &main_v->props.backup_abort_style,"backup_abort_style:","ask");
-	init_prop_integer (&config_rc, &main_v->props.allow_multi_instances,"allow_multi_instances:",0);
-	init_prop_integer (&config_rc, &main_v->props.num_undo_levels,"num_undo_levels:",100);
-	init_prop_integer (&config_rc, &main_v->props.clear_undo_on_save,"clear_undo_on_save:",0);
-
 	/* key conversion */
 	init_prop_integer (&config_rc, &main_v->props.conv_ctrl_enter,"conv_ctrl_enter:",0);
 	init_prop_integer (&config_rc, &main_v->props.conv_shift_enter,"conv_shift_enter:",0);
