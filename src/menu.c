@@ -288,7 +288,23 @@ static void menu_bmark_operations_cb(Tbfwin *bfwin,guint callback_action, GtkWid
 	default:
 			g_print("Bmark action no. %d\n",callback_action);
 	}
-}	
+}
+
+static void toggle_doc_property(Tbfwin *bfwin,guint callback_action, GtkWidget *widget) {
+	switch(callback_action) {
+	case 1:
+		bfwin->current_document->wrapstate = 1 - bfwin->current_document->wrapstate;
+		doc_set_wrap(bfwin->current_document);
+		break;
+	case 2:
+		bfwin->current_document->linenumberstate = 1 - bfwin->current_document->linenumberstate;
+		document_set_line_numbers(bfwin->current_document, bfwin->current_document->linenumberstate);
+		break;
+	case 3:
+		bfwin->current_document->autoclosingtag = GTK_CHECK_MENU_ITEM(widget)->active;
+		break;
+	}
+}
 
 static GtkItemFactoryEntry menu_items[] = {
 	{N_("/_File"), NULL, NULL, 0, "<Branch>"},
@@ -627,8 +643,9 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/Document/_Decrease Tabsize"), NULL, gui_change_tabsize, 0, "<Item>"},
 	{N_("/Document/sep1"), NULL, NULL, 0, "<Separator>"},
 	{N_("/Document/_Auto Indent"), NULL, gui_toggle_autoindent_cb, 0, "<ToggleItem>"},
-	{N_("/Document/_Wrap"), NULL, doc_toggle_wrap_cb, 1, "<ToggleItem>"},
-	{N_("/Document/_Line Numbers"), NULL, doc_toggle_linenumbers_cb, 1, "<ToggleItem>"},
+	{N_("/Document/Auto Close HTML tags"), NULL, toggle_doc_property, 3, "<ToggleItem>"},
+	{N_("/Document/_Wrap"), NULL, toggle_doc_property, 1, "<ToggleItem>"},
+	{N_("/Document/_Line Numbers"), NULL, toggle_doc_property, 2, "<ToggleItem>"},
 	{N_("/Document/sep2"), NULL, NULL, 0, "<Separator>"},
 	{N_("/Document/_Highlight Syntax"), NULL, doc_toggle_highlighting_cb, 1, "<ToggleItem>"},
 	{N_("/Document/_Update Highlighting"), "F5", doc_update_highlighting, 0, "<Item>"},
