@@ -2,11 +2,12 @@
 #
 #for file in inline_images/*.png; do
 #	BASE=`echo $file | sed -e 's/.png//' -e 's?inline_images/??'`
-#	if ! grep -q $BASE src/pixmap.c ; then
-#		echo $BASE
+#	if ! egrep -q "[\\t ]*\{[0-9]+, ${BASE}\}" src/pixmap.c ; then
+#		if grep -q "^[^#]*${BASE} ${BASE}.png" inline_images/Makefile; then
+#			echo $BASE
+#		fi
 #	fi
 #done
-#
 
 TOOLBAR = \
 	abbr abbr.png \
@@ -17,7 +18,6 @@ TOOLBAR = \
 	bold bold.png \
 	brbreak brbreak.png \
 	breakall breakall.png \
-	cancel cancel.png \
 	center center.png \
 	cite cite.png \
 	close close.png \
@@ -86,7 +86,6 @@ TOOLBAR = \
 	multithumbs multithumbs.png \
 	nbsp nbsp.png \
 	new new.png \
-	no no.png \
 	nothing nothing.png \
 	open_small open_small.png \
 	paragraph paragraph.png \
@@ -100,7 +99,6 @@ TOOLBAR = \
 	prefsfiles prefs-files.png \
 	prefsimages prefs-images.png \
  	prefssyntax prefs-syntax.png \
-	print print.png \
 	quick_start quick_start.png \
 	right right.png \
 	samp samp.png \
@@ -121,6 +119,7 @@ TOOLBAR = \
 	unindent unindent.png \
 	var var.png \
 	view_in_browser view_in_browser.png
+#	cancel cancel.png \
 #	copy copy.png \
 #	cssclass cssclass.png \
 #	cut cut.png \
@@ -134,10 +133,12 @@ TOOLBAR = \
 #	linkjscript linkjscript.png \
 #	list_menu list_menu.png \
 #	netscape netscape.png \
+#	no no.png \
 #	ok ok.png \
 #	open open.png \
 #	paste paste.png \
 #	preferences preferences.png \
+#	print print.png \
 #	redo redo.png \
 #	rxml rxml.png \
 #	ssi ssi.png \
