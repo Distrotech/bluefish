@@ -173,10 +173,17 @@ gboolean file_copy(gchar *source, gchar *dest) {
 	GnomeVFSFileSize bytes_read, bytes_written;
 	guint buffer[BYTES_TO_PROCESS];
 	GnomeVFSResult result;
+	GError *gerror;
+	gint b_written;
+	gchar *OnDiEn_source, *OnDiEn_dest;
+	OnDiEn_source = g_filename_from_utf8(source, -1, NULL,&b_written,&gerror);
+	OnDiEn_dest = g_filename_from_utf8(dest, -1, NULL,&b_written,&gerror);
 	
-	result = gnome_vfs_open(&read_handle, source, GNOME_VFS_OPEN_READ);
+	result = gnome_vfs_open(&read_handle, OnDiEn_source, GNOME_VFS_OPEN_READ);
+	g_free(OnDiEn_source);
 	if (result != GNOME_VFS_OK) return FALSE;
-	result = gnome_vfs_create(&write_handle, dest, GNOME_VFS_OPEN_WRITE, FALSE, 0644);
+	result = gnome_vfs_create(&write_handle, OnDiEn_dest, GNOME_VFS_OPEN_WRITE, FALSE, 0644);
+	g_free(OnDiEn_dest);
 	if (result != GNOME_VFS_OK) {
 		gnome_vfs_close(read_handle);
 		return FALSE;
@@ -204,12 +211,19 @@ gboolean file_copy(gchar *source, gchar *dest) {
 #endif
 	int c;
 	FILE *in, *out;
-	
-	in = fopen(source, "r");
+	GError *gerror;
+	gint b_written;
+	gchar *OnDiEn_source, *OnDiEn_dest;
+	OnDiEn_source = g_filename_from_utf8(source, -1, NULL,&b_written,&gerror);
+	OnDiEn_dest = g_filename_from_utf8(dest, -1, NULL,&b_written,&gerror);
+
+	in = fopen(OnDiEn_source, "r");
+	g_free(OnDiEn_source);
 	if (!in) {
 		return FALSE;
 	}
-	out = fopen(dest, "w");
+	out = fopen(OnDiEn_dest, "w");
+	g_free(OnDiEn_dest);
 	if (!out) {
 		fclose(in);
 		return FALSE;
@@ -275,8 +289,11 @@ gint find_common_prefixlen_in_stringlist(GList *stringlist) {
  **/
 gboolean append_string_to_file(gchar *filename, gchar *string) {
 	FILE *out;
-
-	out = fopen(filename, "a");
+	GError *gerror;
+	gint b_written;
+	gchar *ondiskencoding = g_filename_from_utf8(filename, -1, NULL,&b_written,&gerror);
+	out = fopen(ondiskencoding, "a");
+	g_free(ondiskencoding);
 	if (!out) {
 		DEBUG_MSG("append_to_file, could not open file %s for append\n", filename);
 		return FALSE;
@@ -1064,6 +1081,10 @@ gchar *path_get_dirname_with_ending_slash(const gchar *filename) {
  * Return value: gboolean, TRUE if readable, else FALSE
  **/
 gboolean file_exists_and_readable(const gchar * filename) {
+	GError *gerror;
+	gint b_written;
+	gchar *ondiskencoding;
+	gboolean retval=TRUE;
 #ifdef DEVELOPMENT
 	g_assert(filename);
 #endif
@@ -1072,8 +1093,8 @@ gboolean file_exists_and_readable(const gchar * filename) {
 		return FALSE;
 	}
 	DEBUG_MSG("file_exists_and_readable, filename(%p)=\"%s\", strlen(filename)=%d\n", filename, filename, strlen(filename));
+	ondiskencoding = g_filename_from_utf8(filename, -1, NULL,&b_written,&gerror);
 #ifndef WIN32
-
 #ifdef HAVE_GNOME_VFS
 	{
 		gboolean result;
@@ -1081,21 +1102,17 @@ gboolean file_exists_and_readable(const gchar * filename) {
 		result = gnome_vfs_uri_exists(uri);
 		gnome_vfs_uri_unref(uri);
 		DEBUG_MSG("file_exists_and_readable, return %d for %s\n",result,filename);
-		return result;
+		retval = (result == GNOME_VFS_OK);
 	}
 #else /* HAVE_GNOME_VFS */
 	{
 		struct stat naamstat;
-		if ((stat(filename, &naamstat) == -1) && (errno == ENOENT)) {
-			return FALSE;
-		} else {
-			return TRUE;
-		}
+		retval = (stat(filename, &naamstat) == -1) && (errno == ENOENT));
 	}
 #endif /* HAVE_GNOME_VFS */
-#else /* WIN32 */
-	return TRUE;
+	g_free(ondiskencoding);
 #endif /* WIN32 */
+	return retval;
 }
 /**
  * return_first_existing_filename:
