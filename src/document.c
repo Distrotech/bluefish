@@ -1953,6 +1953,10 @@ void doc_destroy(Tdocument * doc, gboolean delay_activation) {
 	
 	if (doc->encoding)
 		g_free(doc->encoding);
+
+#ifdef HAVE_GNOME_VFS
+	gnome_vfs_file_info_unref (doc->fileinfo);
+#endif	
 	
 	g_object_unref(doc->buffer);
 	doc_unre_destroy(doc);
