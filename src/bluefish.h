@@ -258,6 +258,7 @@ typedef struct {
 	gint view_left_panel;
 	gint view_custom_menu;
 	gint view_html_toolbar;
+	gint word_wrap;
 } Tproject;
 
 typedef struct {

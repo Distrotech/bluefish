@@ -82,6 +82,7 @@ static Tproject *create_new_project(Tbfwin *bfwin) {
 	prj->view_left_panel = main_v->props.view_left_panel;
 	prj->view_custom_menu = main_v->props.view_custom_menu;
 	prj->view_html_toolbar = main_v->props.view_html_toolbar;
+	prj->word_wrap = main_v->props.word_wrap;
 	return prj;
 }
 
@@ -215,6 +216,7 @@ typedef enum {
 	basedir,
 	webdir,
 	template,
+	word_wrap,
 	projecteditor_entries_num
 } Tprojecteditor_entries;
 
@@ -257,6 +259,7 @@ static void project_edit_ok_clicked_lcb(GtkWidget *widget, Tprojecteditor *pred)
 	string_apply(&prj->basedir, pred->entries[basedir]);
 	string_apply(&prj->webdir, pred->entries[webdir]);
 	string_apply(&prj->template, pred->entries[template]);
+	integer_apply(&prj->word_wrap, pred->entries[word_wrap], TRUE);
 	DEBUG_MSG("project_edit_ok_clicked_lcb, name=%s, basedir=%s, webdir=%s\n",prj->name,prj->basedir,prj->webdir);
 	if (strcmp(prj->basedir, oldbasedir)!=0 && strlen(prj->basedir) > 2) {
 		filebrowser_set_basedir(pred->bfwin, prj->basedir);
@@ -315,6 +318,7 @@ void project_edit(Tbfwin *bfwin) {
 	pred->entries[basedir] = boxed_full_entry(_("Basedir"), pred->project->basedir,255, vbox);
 	pred->entries[webdir] = boxed_full_entry(_("Webdir"), pred->project->webdir,255, vbox);
 	pred->entries[template] = boxed_full_entry(_("Template"), pred->project->template,255, vbox);
+	pred->entries[word_wrap] = boxed_checkbut_with_value(_("Word wrap by default"), pred->project->word_wrap, vbox);
 
 	hbox = gtk_hbutton_box_new();
 	gtk_hbutton_box_set_layout_default(GTK_BUTTONBOX_END);
