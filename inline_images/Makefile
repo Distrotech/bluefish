@@ -58,6 +58,7 @@ TOOLBAR = \
 	frameset frameset.png \
 	frameset2 frameset2.png \
 	framewhiz framewhiz.png \
+	fref fref.png \
 	headings headings.png \
 	help help.png \
 	hrule hrule.png \
@@ -130,27 +131,27 @@ TOOLBAR = \
 	undo undo.png \
 	unindent unindent.png \
 	var var.png \
-	view_in_browser view_in_browser.png \
-	wml_a wml_a.png \
-	wml_access wml_access.png \
-	wml_bold wml_bold.png \
-	wml_break wml_break.png \
-	wml_card wml_card.png \
-	wml_do wml_do.png \
-	wml_go wml_go.png \
-	wml_italic wml_italic.png \
-	wml_nbsp wml_nbsp.png \
-	wml_noop wml_noop.png \
-	wml_paragraph wml_paragraph.png \
-	wml_postfield wml_postfield.png \
-	wml_prev wml_prev.png \
-	wml_refresh wml_refresh.png \
-	wml_standard_document wml_standard_document.png \
-	wml_timer wml_timer.png \
-	wml_var wml_var.png
+	view_in_browser view_in_browser.png
+#	wml_a wml_a.png \
+#	wml_access wml_access.png \
+#	wml_bold wml_bold.png \
+#	wml_break wml_break.png \
+#	wml_card wml_card.png \
+#	wml_do wml_do.png \
+#	wml_go wml_go.png \
+#	wml_italic wml_italic.png \
+#	wml_nbsp wml_nbsp.png \
+#	wml_noop wml_noop.png \
+#	wml_paragraph wml_paragraph.png \
+#	wml_postfield wml_postfield.png \
+#	wml_prev wml_prev.png \
+#	wml_refresh wml_refresh.png \
+#	wml_standard_document wml_standard_document.png \
+#	wml_timer wml_timer.png \
+#	wml_var wml_var.png
 
 GENERAL = \
-	close_small close.png
+	close_small close_small.png
 
 all:
 	gdk-pixbuf-csource --raw --build-list $(TOOLBAR) > toolbar_icons.c
