@@ -720,26 +720,38 @@ static GtkTreePath *build_tree_from_path(Tfilebrowser *filebrowser, const gchar 
 }
 
 /* I guess the dir must have a trailing slash in this function .. not sure */
-void filebrowser_refresh_dir(Tfilebrowser *filebrowser, gchar *dir) {
+GtkTreePath * filebrowser_refresh_dir(Tfilebrowser *filebrowser, gchar *dir) {
 	if (filebrowser->tree) {
 		/* get the path for this dir */
 		GtkTreePath *path = return_path_from_filename(filebrowser, dir);
 		DEBUG_DUMP_TREE_PATH(path);
-		if (!path) return;
-		/* check if the dir is expanded, return if not */	
-		if (gtk_tree_view_row_expanded(GTK_TREE_VIEW(filebrowser->tree), path)) {
-			DEBUG_MSG("refresh_dir, it IS expanded\n");
+		if (!path) return NULL;
+		/* check if the dir is expanded, or if we have a two paned view, return if not */	
+		if (main_v->props.filebrowser_two_pane_view || gtk_tree_view_row_expanded(GTK_TREE_VIEW(filebrowser->tree), path)) {
+			DEBUG_MSG("refresh_dir, it IS expanded, or we have a two paned view\n");
 			/* refresh it */
 			refresh_dir_by_path_and_filename(filebrowser, path, dir);
 		} else {
-			DEBUG_MSG("refresh_dir, it is NOT expanded\n");
+			DEBUG_MSG("refresh_dir, it is NOT expanded in a single paned view, returning\n");
 		}
-		gtk_tree_path_free(path);
+		return path;
 	}
+	return NULL;
 }
 
 void bfwin_filebrowser_refresh_dir(Tbfwin *bfwin, gchar *dir) {
-	filebrowser_refresh_dir(FILEBROWSER(bfwin->filebrowser), dir);
+	Tfilebrowser *filebrowser = FILEBROWSER(bfwin->filebrowser);
+	GtkTreePath *path = filebrowser_refresh_dir(FILEBROWSER(bfwin->filebrowser), dir);
+	if (path) {
+		if (main_v->props.filebrowser_two_pane_view) {
+			DEBUG_MSG("bfwin_filebrowser_refresh_dir, hmm we should select the proper directory now..\n");
+		} else {
+			if (!gtk_tree_view_row_expanded(GTK_TREE_VIEW(filebrowser->tree), path)) {
+				gtk_tree_view_expand_row(GTK_TREE_VIEW(filebrowser->tree),path,TRUE);
+			}
+		}
+		gtk_tree_path_free(path);
+	}
 }
 
 static GtkTreePath *filebrowser_path_up_multi(GtkTreePath *path, gint num) {
@@ -792,13 +804,28 @@ static GtkTreePath *filebrowser_get_path_from_selection(GtkTreeModel *model, Gtk
 	return NULL;
 }
 
-static gchar *get_selected_filename(Tfilebrowser *filebrowser) {
+/* is_directory is only meaningful if you have a two paned view and you want the directory name */
+static gchar *get_selected_filename(Tfilebrowser *filebrowser, gboolean is_directory) {
 	GtkTreePath *path;
-	path = filebrowser_get_path_from_selection(GTK_TREE_MODEL(filebrowser->store),GTK_TREE_VIEW(filebrowser->tree),NULL);
-	if (path) {
-		gchar *filename = return_filename_from_path(filebrowser,GTK_TREE_MODEL(filebrowser->store), path);
-		gtk_tree_path_free(path);
-		return filename;
+	if (main_v->props.filebrowser_two_pane_view && !is_directory) {
+		path = filebrowser_get_path_from_selection(GTK_TREE_MODEL(filebrowser->store2),GTK_TREE_VIEW(filebrowser->tree2),NULL);
+		if (path) {
+			gchar *tmp2, *name;
+			GtkTreeIter iter;
+			gtk_tree_model_get_iter(GTK_TREE_MODEL(filebrowser->store2),&iter,path);
+			gtk_tree_model_get(GTK_TREE_MODEL(filebrowser->store2), &iter, FILENAME_COLUMN, &name, -1);
+			tmp2 = g_strconcat(filebrowser->last_opened_dir, name, NULL);
+			gtk_tree_path_free(path);
+			g_free(name);
+			return tmp2;
+		}
+	} else {
+		path = filebrowser_get_path_from_selection(GTK_TREE_MODEL(filebrowser->store),GTK_TREE_VIEW(filebrowser->tree),NULL);
+		if (path) {
+			gchar *filename = return_filename_from_path(filebrowser,GTK_TREE_MODEL(filebrowser->store), path);
+			gtk_tree_path_free(path);
+			return filename;
+		}
 	}
 	return NULL;
 }
@@ -819,7 +846,7 @@ void filebrowser_open_dir(Tbfwin *bfwin,const gchar *dirarg) {
 		GtkTreePath *path;
 		GtkTreePath *selpath; /* Path to currently selected item, if it exists. */
 		
-		/* first check if the dir already exists NEEDS GNOME_VFS COUNTERPART */
+		/* first check if dirarg is a file or a directory NEEDS GNOME_VFS COUNTERPART */
 		if (!g_file_test(dirarg,G_FILE_TEST_IS_DIR)) {
 			dir = path_get_dirname_with_ending_slash(dirarg);
 		} else {
@@ -1166,7 +1193,7 @@ static void filebrowser_rpopup_rename(Tfilebrowser *filebrowser) {
 }
 
 static void filebrowser_rpopup_delete(Tfilebrowser *filebrowser) {
-	gchar *filename = get_selected_filename(filebrowser);
+	gchar *filename = get_selected_filename(filebrowser, FALSE);
 	if (filename) {
 		gchar *buttons[] = {GTK_STOCK_CANCEL, GTK_STOCK_DELETE, NULL};
 		gchar *label;
@@ -1224,11 +1251,9 @@ static void filebrowser_rpopup_refresh(Tfilebrowser *filebrowser) {
 static void filebrowser_rpopup_action_lcb(Tfilebrowser *filebrowser,guint callback_action, GtkWidget *widget) {
 	switch (callback_action) {
 	case 1: {
-		GtkTreePath *path;
-		path = filebrowser_get_path_from_selection(GTK_TREE_MODEL(filebrowser->store),GTK_TREE_VIEW(filebrowser->tree),NULL);
-		if(path) {
-			row_activated_lcb(GTK_TREE_VIEW(filebrowser->tree), path, NULL, filebrowser);
-			gtk_tree_path_free(path);
+		gchar *filename = get_selected_filename(filebrowser, FALSE);
+		if (filename) {
+			handle_activate_on_file(filebrowser, filename);
 		}
 	} break;
 	case 2:
@@ -1249,7 +1274,7 @@ static void filebrowser_rpopup_action_lcb(Tfilebrowser *filebrowser,guint callba
 #ifdef EXTERNAL_GREP
 #ifdef EXTERNAL_FIND
 	case 7: {
-		gchar *path = get_selected_filename(filebrowser);
+		gchar *path = get_selected_filename(filebrowser, TRUE);
 		if (path) {
 			open_advanced_from_filebrowser(filebrowser->bfwin, path);
 			g_free(path);
@@ -1354,23 +1379,35 @@ static GtkWidget *filebrowser_rpopup_create_menu(Tfilebrowser *filebrowser, gboo
 static gboolean filebrowser_button_press_lcb(GtkWidget *widget, GdkEventButton *event, Tfilebrowser *filebrowser) {
 	DEBUG_MSG("filebrowser_button_press_lcb, button=%d\n",event->button);
 	if (event->button == 3) {
-		GtkWidget *menu = filebrowser_rpopup_create_menu(filebrowser, TRUE);
-		gtk_menu_popup(GTK_MENU(menu), NULL, NULL, NULL, NULL, event->button, event->time);
+		GtkWidget *menu = NULL;;
+		if (main_v->props.filebrowser_two_pane_view) {
+			menu = filebrowser_rpopup_create_menu(filebrowser, TRUE);
+		} else {
+			GtkTreePath *path;
+			GtkTreeIter iter;
+			gtk_tree_view_get_path_at_pos(GTK_TREE_VIEW(filebrowser->tree), event->x, event->y, &path, NULL, NULL, NULL);
+			if (path) {
+				gtk_tree_model_get_iter(GTK_TREE_MODEL(filebrowser->store),&iter,path);
+				if (gtk_tree_model_iter_has_child(GTK_TREE_MODEL(filebrowser->store),&iter)) {
+					menu = filebrowser_rpopup_create_menu(filebrowser, TRUE);
+				} else {
+					menu = filebrowser_rpopup_create_menu(filebrowser, FALSE);
+				}
+			}
+		}
+		if (menu) gtk_menu_popup(GTK_MENU(menu), NULL, NULL, NULL, NULL, event->button, event->time);
 	}
 	if (event->button==1) {
 		GtkTreeIter iter;
 		GtkTreePath *path;
-		gint cell_x, cell_y;
 		/* path = filebrowser_get_path_from_selection(GTK_TREE_MODEL(filebrowser->store), GTK_TREE_VIEW(filebrowser->tree),NULL);*/
-		gtk_tree_view_get_path_at_pos(GTK_TREE_VIEW(filebrowser->tree), event->x, event->y, &path, NULL, &cell_x, &cell_y);
-		DEBUG_MSG("filebrowser_button_press_lcb, cell_x=%d, cell_y=%d\n",cell_x, cell_y);
+		gtk_tree_view_get_path_at_pos(GTK_TREE_VIEW(filebrowser->tree), event->x, event->y, &path, NULL, NULL, NULL);
 		if (path) {
 			gtk_tree_model_get_iter(GTK_TREE_MODEL(filebrowser->store),&iter,path);
 			if (gtk_tree_model_iter_has_child(GTK_TREE_MODEL(filebrowser->store),&iter)) {
 				DEBUG_MSG("filebrowser_button_press_lcb, clicked a directory, refresh!\n");
-				if (!gtk_tree_view_row_expanded(GTK_TREE_VIEW(filebrowser->tree), path)) {
-					DEBUG_MSG("filebrowser_button_press_lcb, was not yet explanded, expand now\n");
-					gtk_tree_view_expand_row(GTK_TREE_VIEW(filebrowser->tree),path,FALSE);
+				if (!main_v->props.filebrowser_two_pane_view && !gtk_tree_view_row_expanded(GTK_TREE_VIEW(filebrowser->tree), path)) {
+					DEBUG_MSG("filebrowser_button_press_lcb, was not yet explanded, in single paned view, refresh makes no sense\n");
 				} else {
 					gchar *tmp, *dir;
 					tmp = return_filename_from_path(filebrowser,GTK_TREE_MODEL(filebrowser->store),path);
