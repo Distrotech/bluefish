@@ -379,8 +379,10 @@ void rpopup_edit_tag_cb(GtkMenuItem *menuitem,Tdocument *doc) {
 		/* we do not need the < and > chars so we cut those */
 		text = doc_get_chars(doc, rec_tag.tag_so+1, rec_tag.tag_eo - 1);
 		DEBUG_MSG("rpopup_edit_tag_cb, about to parse %s\n", text);
-		parse_tagstring(doc->bfwin, text, rec_tag.tag_so, rec_tag.tag_eo);
-		g_free(text);
+		if (text) {
+			parse_tagstring(doc->bfwin, text, rec_tag.tag_so, rec_tag.tag_eo);
+			g_free(text);
+		}
 	} else {
 		DEBUG_MSG("rpopup_edit_tag_cb, no tag search known!!\n");
 	}

@@ -2574,7 +2574,7 @@ Tdocument *doc_new(Tbfwin* bfwin, gboolean delay_activate) {
 		apply_font_style(newdoc->tab_label, main_v->props.tab_font_string);
 	}
 	newdoc->tab_menu = gtk_label_new(NULL);
-
+	gtk_misc_set_alignment(GTK_MISC(newdoc->tab_menu), 0,0);
 	newdoc->autoclosingtag = main_v->props.default_autoclosingtag;
 
 	doc_unre_init(newdoc);
