@@ -2345,7 +2345,7 @@ void cmenu_editor(Tbfwin *bfwin,guint callback_action,GtkWidget *widget) {
 
 		DEBUG_MSG("cmenu_editor, created lstore and lview\n");
 		gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(scrolwin), cme->lview);
-		gtk_widget_set_usize(scrolwin, 180, 250);
+		gtk_widget_set_size_request(scrolwin, 180, 250);
 		gtk_box_pack_start(GTK_BOX(vbox3), scrolwin, TRUE, TRUE, 0);
 		
 		select = gtk_tree_view_get_selection(GTK_TREE_VIEW(cme->lview));
