@@ -850,9 +850,16 @@ static GList *return_project_configlist(Tproject *project) {
 	init_prop_integer (&configlist, &project->view_custom_menu,"view_custom_menu:",1,FALSE);
 	init_prop_integer (&configlist, &project->view_html_toolbar,"view_html_toolbar:",1,FALSE);
 	init_prop_integer (&configlist, &project->word_wrap,"word_wrap:",1,FALSE);
-	
+
 	init_prop_stringlist(&configlist, &project->session->searchlist, "searchlist:", FALSE);
 	init_prop_stringlist(&configlist, &project->session->replacelist, "replacelist:", FALSE);
+	init_prop_stringlist(&configlist, &project->session->classlist, "classlist:", FALSE);
+	init_prop_stringlist(&configlist, &project->session->colorlist, "colorlist:", FALSE);
+	init_prop_stringlist(&configlist, &project->session->targetlist, "targetlist:", FALSE);
+	init_prop_stringlist(&configlist, &project->session->urllist, "urllist:", FALSE);
+	init_prop_stringlist(&configlist, &project->session->fontlist, "fontlist:", FALSE);
+	init_prop_stringlist(&configlist, &project->session->dtd_cblist, "dtd_cblist:", FALSE);
+
 	return configlist;
 }
 

@@ -1029,10 +1029,10 @@ gboolean main_window_delete_event_lcb(GtkWidget *widget,GdkEvent *event,Tbfwin *
 			gchar *options[] = {_("Do_n't Save"), _("_Cancel"), NULL};
 			retval = multi_warning_dialog(bfwin->main_window,_("Failed to save the current project"), NULL, 0, 1, options);
 			if (retval == 1) {
-				DEBUG_MSG("main_window_delete_event_lcb, cancel clicked, returning FALSE\n");
+				DEBUG_MSG("main_window_delete_event_lcb, cancel clicked, returning TRUE\n");
 				return TRUE;
 			}
-			DEBUG_MSG("main_window_delete_event_lcb, continue clicked, returning TRUE\n");
+			DEBUG_MSG("main_window_delete_event_lcb, continue clicked, returning FALSE\n");
 			return FALSE;
 		}
 	} else {	

@@ -23,11 +23,11 @@
 
 /* these will slowly be replaced by vars in bfwin->session */
 typedef struct {
-        GList *classlist;
+/*        GList *classlist;
         GList *colorlist;
         GList *targetlist;
         GList *urllist;
-        GList *fontlist;
+        GList *fontlist;*/
         GList *dtd_cblist;
         GList *headerlist;
         GList *positionlist;

@@ -90,8 +90,8 @@ GtkWidget *php_var_but(GtkWidget *src, GtkWidget *dest, Thtml_diag *dg, gint typ
 /************************************************************************/
 /************************************************************************/
 
-static void formok_lcb(GtkWidget * widget, Thtml_diag *dg)
-{
+static void formok_lcb(GtkWidget * widget, Thtml_diag *dg) {
+	Tbfwin *bfwin = dg->bfwin;
 	gchar *thestring, *finalstring;
 
 	thestring = g_strdup(cap("<FORM"));
@@ -103,7 +103,7 @@ static void formok_lcb(GtkWidget * widget, Thtml_diag *dg)
 	finalstring = g_strconcat(thestring, ">", NULL);
 	g_free(thestring);
 
-	recent_attribs.targetlist = add_entry_to_stringlist(recent_attribs.targetlist, GTK_WIDGET(GTK_COMBO(dg->combo[3])->entry));
+	bfwin->session->targetlist = add_entry_to_stringlist(bfwin->session->targetlist, GTK_WIDGET(GTK_COMBO(dg->combo[3])->entry));
 	if (dg->range.end == -1) {
 		doc_insert_two_strings(dg->doc, finalstring, cap("</FORM>"));
 	} else {
@@ -130,12 +130,12 @@ void formdialog_dialog(Tbfwin *bfwin, Ttagpopup *data) {
 
 	dgtable = html_diag_table_in_vbox(dg, 4, 10);
 
-	recent_attribs.urllist = add_to_stringlist(recent_attribs.urllist, "<?php echo $SCRIPT_NAME ?>");
-	recent_attribs.urllist = add_to_stringlist(recent_attribs.urllist, "'.$SCRIPT_NAME.'");
+	bfwin->session->urllist = add_to_stringlist(bfwin->session->urllist, "<?php echo $SCRIPT_NAME ?>");
+	bfwin->session->urllist = add_to_stringlist(bfwin->session->urllist, "'.$SCRIPT_NAME.'");
 	{
 	GList *rel_link_list, *tmplist;
 	rel_link_list = NULL /*generate_relative_doc_list()*/;
-	tmplist = duplicate_stringlist(recent_attribs.urllist, 1);
+	tmplist = duplicate_stringlist(bfwin->session->urllist, 1);
 	rel_link_list = g_list_concat(tmplist, rel_link_list);
 
 	dg->combo[4] = combo_with_popdown(tagvalues[0], rel_link_list, 1);
@@ -163,10 +163,10 @@ void formdialog_dialog(Tbfwin *bfwin, Ttagpopup *data) {
 	bf_mnemonic_label_tad_with_alignment(_("_Enctype:"), dg->combo[2], 0, 0.5, dgtable, 3, 4, 1, 2);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(dg->combo[2]), 4, 10, 1, 2);
 
-	recent_attribs.targetlist = add_to_stringlist(recent_attribs.targetlist, "_top");
-	recent_attribs.targetlist = add_to_stringlist(recent_attribs.targetlist, "_blank");
-	recent_attribs.targetlist = add_to_stringlist(recent_attribs.targetlist, "_parent");
-	dg->combo[3] = combo_with_popdown(tagvalues[3], recent_attribs.targetlist, 1);
+	bfwin->session->targetlist = add_to_stringlist(bfwin->session->targetlist, "_top");
+	bfwin->session->targetlist = add_to_stringlist(bfwin->session->targetlist, "_blank");
+	bfwin->session->targetlist = add_to_stringlist(bfwin->session->targetlist, "_parent");
+	dg->combo[3] = combo_with_popdown(tagvalues[3], bfwin->session->targetlist, 1);
 	bf_mnemonic_label_tad_with_alignment(_("_Target:"), dg->combo[3], 0, 0.5, dgtable, 0, 1, 2, 3);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(GTK_COMBO(dg->combo[3])), 1, 10, 2, 3);
 
