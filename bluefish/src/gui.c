@@ -52,7 +52,6 @@
 #include "wizards.h"
 #include "filebrowser2.h"
 
-
 #ifdef HAVE_LIBASPELL
 #include "bfspell.h"
 #endif /* HAVE_LIBASPELL */
