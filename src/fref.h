@@ -78,6 +78,11 @@ enum {
 	FREF_ACTION_INFO
 };
 
+enum {	
+	FREF_IT_DESC,
+	FREF_IT_ATTRS,
+	FREF_IT_NOTES
+};
 
 enum {
  STR_COLUMN,
@@ -86,15 +91,13 @@ enum {
  N_COLUMNS
 };
 
-
-#define FR_TYPE_TAG							1
+#define FR_TYPE_TAG				1
 #define FR_TYPE_FUNCTION			2
-#define FR_TYPE_CLASS					3
+#define FR_TYPE_CLASS				3
 
-#define MAX_NEST_LEVEL		20
+#define MAX_NEST_LEVEL			20
 
-typedef struct
-{
+typedef struct {
   gchar *name;
   gchar *title;
   gchar *description;
@@ -181,9 +184,7 @@ typedef struct
 
 /* CONFIG PARSER FUNCTIONS */
 
-void fref_loader_start_element(GMarkupParseContext *context,const gchar *element_name,
-                               const gchar **attribute_names,const gchar **attribute_values,
-                               gpointer user_data,GError **error);
+void fref_loader_start_element(GMarkupParseContext *context,const gchar *element_name,const gchar **attribute_names,const gchar **attribute_values,gpointer user_data,GError **error);
                               
 void fref_loader_end_element(GMarkupParseContext *context,const gchar *element_name,
                              gpointer user_data,GError **error);        
@@ -213,7 +214,7 @@ gchar *fref_xml_get_refname(gchar *filename);
 GtkWidget    *fref_init();
 void         fref_cleanup();
 
-gchar        *fref_prepare_info(FRInfo *entry, gint infotype);
+gchar        *fref_prepare_info(FRInfo *entry, gint infotype, gboolean use_colors);
 void         fref_show_info(FRInfo *entry, gboolean modal,GtkWidget *parent);
 GList        *fref_string_to_list(gchar *string,gchar *delimiter);
 gchar        *fref_prepare_text(FRInfo *entry,GtkWidget *dialog);
@@ -231,10 +232,15 @@ gboolean    frefcb_info_keypress(GtkWidget *widget,GdkEventKey *event,gpointer u
 void        frefcb_info_close(GtkButton *button,gpointer user_data);
 void        frefcb_info_dialog(GtkButton *button,gpointer user_data);
 void        frefcb_info_insert(GtkButton *button,gpointer user_data);
+void        frefcb_full_info(GtkButton *button,gpointer user_data);
 void			frefcb_autocomplete(GtkWidget *widget,gpointer data);
 void        frefcb_autocomplete_activate(GtkMenuItem *menuitem,gpointer user_data);
 void 	      frefcb_info_show(GtkButton *button,gpointer user_data); 
 void 			fref_rescan_dir(const gchar *dir);
+void     frefcb_cursor_changed(GtkTreeView *treeview, gpointer user_data);
+void     frefcb_infocheck_toggled(GtkToggleButton *togglebutton, gpointer user_data);
+
+
 #endif /* __FREF_H__ */
 
 
