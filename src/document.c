@@ -1,8 +1,9 @@
 /* Bluefish HTML Editor
  * document.c - the document
  *
- * Copyright (C) 1998 Olivier Sessink and Chris Mazuc
- * Copyright (C) 1999-2004 Olivier Sessink
+ * Copyright (C) 1998-2004 Olivier Sessink
+ * Copyright (C) 1998 Chris Mazuc
+ * Copyright (C) 2004 Eugene Morenko(More)
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -1765,7 +1766,7 @@ static gboolean doc_view_button_release_lcb(GtkWidget *widget,GdkEventButton *be
 		/* end of paste */
 		doc->in_paste_operation = FALSE;
 	}
-	if (bevent->button == 3) {
+/*	if (bevent->button == 3) {
 		GtkWidget *menuitem;
 		GtkWidget *submenu;
 		GtkWidget *menu = gtk_menu_new ();
@@ -1792,7 +1793,7 @@ static gboolean doc_view_button_release_lcb(GtkWidget *widget,GdkEventButton *be
 		gtk_widget_show_all (menu);
 		gtk_menu_popup (GTK_MENU (menu), NULL, NULL,
 			  NULL, doc->view, 0, gtk_get_current_event_time ());
-	}
+	} */
 	return FALSE;
 }
 
@@ -1802,11 +1803,54 @@ static gboolean doc_view_button_press_lcb(GtkWidget *widget,GdkEventButton *beve
 		doc->in_paste_operation = TRUE;
 	}
 	if (bevent->button == 3) {
-		return TRUE;
+		doc_bevent_in_html_tag(doc, bevent);
 	}
 	return FALSE;
 }
 
+static void rpopup_permanent_bookmark_lcb(GtkWidget *widget, Tbfwin *bfwin) {
+	bmark_add_perm(bfwin);
+}
+static void rpopup_temporary_bookmark_lcb(GtkWidget *widget, Tbfwin *bfwin) {
+	bmark_add_temp(bfwin);
+}
+
+static void doc_view_populate_popup_lcb(GtkTextView *textview,GtkMenu *menu,Tdocument *doc) {
+	GtkWidget *menuitem;
+	/* I found no way to connect an item-factory to this menu widget, so we have to do it in the manual way... */
+	gtk_menu_shell_prepend(GTK_MENU_SHELL(menu), GTK_WIDGET(gtk_menu_item_new()));
+
+	menuitem = gtk_image_menu_item_new_with_label(_("Replace"));
+	g_signal_connect(menuitem, "activate", G_CALLBACK(replace_cb), doc->bfwin);
+	gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(menuitem),gtk_image_new_from_stock(GTK_STOCK_FIND_AND_REPLACE, GTK_ICON_SIZE_MENU));
+	gtk_menu_shell_prepend(GTK_MENU_SHELL(menu), GTK_WIDGET(menuitem));
+
+	menuitem = gtk_image_menu_item_new_with_label(_("Find"));
+	g_signal_connect(menuitem, "activate", G_CALLBACK(search_cb), doc->bfwin);
+	gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(menuitem),gtk_image_new_from_stock(GTK_STOCK_FIND, GTK_ICON_SIZE_MENU));
+	gtk_menu_shell_prepend(GTK_MENU_SHELL(menu), GTK_WIDGET(menuitem));
+
+	gtk_menu_shell_prepend(GTK_MENU_SHELL(menu), GTK_WIDGET(gtk_menu_item_new()));
+
+	menuitem = gtk_menu_item_new_with_label(_("Add permanent bookmark"));
+	g_signal_connect(menuitem, "activate", G_CALLBACK(rpopup_permanent_bookmark_lcb), doc->bfwin);
+	gtk_menu_shell_prepend(GTK_MENU_SHELL(menu), GTK_WIDGET(menuitem));
+	
+	menuitem = gtk_menu_item_new_with_label(_("Add temporary bookmark"));
+	g_signal_connect(menuitem, "activate", G_CALLBACK(rpopup_temporary_bookmark_lcb), doc->bfwin);
+	gtk_menu_shell_prepend(GTK_MENU_SHELL(menu), GTK_WIDGET(menuitem));
+
+	gtk_menu_shell_prepend(GTK_MENU_SHELL(menu), GTK_WIDGET(gtk_menu_item_new()));
+
+	menuitem = gtk_menu_item_new_with_label(_("Edit tag"));
+	gtk_menu_shell_prepend(GTK_MENU_SHELL(menu), GTK_WIDGET(menuitem));
+	if (rpopup_doc_located_tag(doc)) {
+		g_signal_connect(G_OBJECT(menuitem), "activate", G_CALLBACK(rpopup_edit_tag_cb), doc);
+	} else {
+		gtk_widget_set_sensitive(menuitem, FALSE);
+	}
+	gtk_widget_show_all(GTK_WIDGET(menu));
+}
 
 static void doc_buffer_mark_set_lcb(GtkTextBuffer *buffer,GtkTextIter *iter,GtkTextMark *set_mark,Tdocument *doc) {
 	doc_set_statusbar_lncol(doc);
@@ -2573,6 +2617,8 @@ Tdocument *doc_new(Tbfwin* bfwin, gboolean delay_activate) {
 		G_CALLBACK(doc_view_drag_begin_lcb), newdoc);
 	g_signal_connect_after(G_OBJECT(newdoc->view), "key-release-event", 
 		G_CALLBACK(doc_view_key_release_lcb), newdoc);
+	g_signal_connect_after(G_OBJECT(newdoc->view), "populate-popup", 
+		G_CALLBACK(doc_view_populate_popup_lcb), newdoc);
 
 	bfwin->documentlist = g_list_append(bfwin->documentlist, newdoc);
 

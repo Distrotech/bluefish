@@ -368,6 +368,9 @@ static void parse_tagstring(Tbfwin *bfwin, gchar * tagstring, gint pos, gint end
 	g_free(tmpstring);
 }
 
+gboolean rpopup_doc_located_tag(Tdocument *doc) {
+	return (rec_tag.doc == doc && rec_tag.found_tag);
+}
 
 void rpopup_edit_tag_cb(GtkMenuItem *menuitem,Tdocument *doc) {
 	if (rec_tag.doc == doc && rec_tag.found_tag) {
