@@ -75,6 +75,7 @@ static void setup_bfwin_for_project(Tbfwin *bfwin) {
 	bfwin->session = bfwin->project->session;
 	bfwin->bookmarkstore = bfwin->project->bookmarkstore;
 	bmark_set_store(bfwin);
+	bmark_reload(bfwin);
 	filebrowser_set_basedir(bfwin, bfwin->project->basedir);
 	recent_menu_from_list(bfwin, bfwin->project->session->recent_files, FALSE);
 	set_project_menu_widgets(bfwin, TRUE);
@@ -95,6 +96,34 @@ static Tproject *create_new_project(Tbfwin *bfwin) {
 		DEBUG_MSG("create_new_project, new project, no bfwin\n");
 	}
 	prj->session = g_new0(Tsessionvars,1);
+	/* we should copy bookmarks from the files to this session */
+	if (bfwin && prj->files) {
+		GList *tmplist;
+		tmplist = g_list_first(bfwin->documentlist);
+		while (tmplist) {
+			bmark_clean_for_doc(DOCUMENT(tmplist->data));
+			tmplist = g_list_next(tmplist);
+		}
+	
+		tmplist = g_list_first(bfwin->session->bmarks);
+		while (tmplist) {
+			gchar **entry = (gchar**)tmplist->data;
+			if (count_array(entry) > 2) {
+				GList *tmplist2 = g_list_first(prj->files);
+				while (tmplist2) {
+					if (strcmp(tmplist2->data, entry[2])==0) {
+						/* move it out of the default session into this session */
+						bfwin->session->bmarks = g_list_remove_link(bfwin->session->bmarks,tmplist);
+						prj->session->bmarks = g_list_concat(prj->session->bmarks, tmplist);
+						/* no further filenames to check */
+						tmplist2 = g_list_last(tmplist2);
+					}
+					tmplist2 = g_list_next(tmplist2);
+				}
+			}
+			tmplist = g_list_next(tmplist);
+		}
+	}
 	if (prj->files) {
 		gint len;
 		gchar *somefile, *prefix;
