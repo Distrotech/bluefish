@@ -1229,7 +1229,7 @@ static gboolean dir_v_button_press_lcb(GtkWidget *widget, GdkEventButton *event,
 static gboolean file_v_button_press_lcb(GtkWidget *widget, GdkEventButton *event, Tfilebrowser2 *fb2) {
 	DEBUG_MSG("file_v_button_press_lcb, called\n");
 	if (event->button == 3) {
-		GtkWidget *menu = NULL;;
+		GtkWidget *menu = NULL;
 		GtkTreePath *path;
 		gtk_tree_view_get_path_at_pos(GTK_TREE_VIEW(fb2->file_v), event->x, event->y, &path, NULL, NULL, NULL);
 		if (path) {
