@@ -1,0 +1,65 @@
+# Bluefish HTML Editor
+# Makefile.in - the Makefile template
+# Copyright (C) 2002 Olivier Sessink
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+
+SHELL = /bin/sh
+VPATH = @srcdir@
+
+PACKAGE = @PACKAGE@
+VERSION = @VERSION@
+
+srcdir = src
+
+prefix = @prefix@
+exec_prefix = @exec_prefix@
+bindir = @bindir@
+datadir = @datadir@
+pkgdatadir = @pkgdatadir@
+pixmapsdir = @prefix@/share/pixmaps
+
+INSTALL = @INSTALL@
+
+#make -C is a GNU extension, BSD make doesn't have it
+#use cd dir ; make all instead
+
+bluefish:all
+all:
+	@cd src/ && $(MAKE) all
+
+clean:
+	rm -f core *~
+	@cd src/ && $(MAKE) clean
+
+patchclean: clean
+	rm -f *.orig *.rej
+	@cd src/ && $(MAKE) patchclean  
+
+distclean:
+	@cd src/ && $(MAKE) distclean
+	rm -f Makefile src/Makefile icons/Makefile config.status config.cache config.log
+	rm -rf autom4te.cache/
+	rm -f *.orig *.rej
+
+install:
+	@cd icons/ && $(MAKE) install
+	@cd src/ && $(MAKE) install
+
+uninstall:
+	@cd icons/ && $(MAKE) uninstall
+	@cd src/ && $(MAKE) uninstall
+	/bin/rmdir $(pkgdatadir)

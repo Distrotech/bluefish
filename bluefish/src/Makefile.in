@@ -1,0 +1,93 @@
+# Bluefish HTML Editor
+# Makefile.in - the Makefile template
+# Copyright (C) 2002 Olivier Sessink
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+top_srcdir = @top_srcdir@
+top_builddir = @top_srcdir@
+srcdir = @srcdir@
+prefix = @prefix@
+exec_prefix = @exec_prefix@
+bindir = @bindir@
+pkgdatadir = @pkgdatadir@
+
+infodir = $(prefix)/info
+libdir = $(prefix)/lib/gnudl
+mandir = $(prefix)/man/man1
+localedir = @localedir@
+gnulocaledir = $(prefix)/share/locale
+aliaspath = $(localedir):.
+
+CC = @CC@
+CFLAGS = @CFLAGS@
+LDFLAGS = @LDFLAGS@
+LIBS = @LIBS@
+INSTALL = @INSTALL@
+INSTALL_DIR = $(INSTALL) -d -m 755 
+INSTALL_PROGRAM = $(INSTALL) -s -m 755
+DEFS = -DLOCALEDIR=\"$(localedir)\" -DGNULOCALEDIR=\"$(gnulocaledir)\" \
+-DLOCALE_ALIAS_PATH=\"$(aliaspath)\" -DPKGDATADIR=\"$(pkgdatadir)\" @DEFS@
+
+SRCS = 	bf_lib.c \
+			bluefish.c \
+			cap.c \
+			char_table.c \
+			document.c \
+			filebrowser.c \
+			gtk_easy.c \
+			gui.c \
+			highlight.c \
+			html.c \
+			html2.c \
+			html_diag.c \
+			html_form.c \
+			html_table.c \
+			menu.c \
+			msg_queue.c \
+			pixmap.c \
+			rcfile.c \
+			rpopup.c \
+			snr2.c \
+			stringlist.c \
+			undo_redo.c
+
+OBJS = $(SRCS:.c=.o)
+
+all: bluefish
+bluefish: $(SRCS) $(OBJS)
+	$(CC) $(DEFS) -o bluefish $(OBJS) $(LDFLAGS) $(LIBS)
+
+.c.o: $(SRCS)
+	$(CC) $(DEFS) $(CFLAGS) -c -o $@ $<
+
+clean:
+	rm -f $(OBJS) bluefish core *~ *.bak
+
+patchclean: clean
+	rm -f *.orig *.rej  
+
+distclean: patchclean
+	rm -f config.h
+
+install: all
+	$(INSTALL_DIR) $(bindir)
+	$(INSTALL_PROGRAM) ./bluefish $(bindir)/bluefish
+
+uninstall:
+	/bin/rm -f $(bindir)/bluefish
+
+
+
