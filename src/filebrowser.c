@@ -1091,7 +1091,7 @@ static GtkWidget *filebrowser_rpopup_create_menu() {
 	menumaker = gtk_item_factory_new(GTK_TYPE_MENU, "<Filebrowser>", NULL);
 	gtk_item_factory_create_items(menumaker, filebrowser_menu_entries_count, filebrowser_menu_entries, NULL);	
 	menu = gtk_item_factory_get_widget(menumaker, "<Filebrowser>");
-	
+		
 	/* Add filter submenu */
 	menu_item = gtk_menu_item_new_with_label(_("Filter"));
 	gtk_menu_shell_append(GTK_MENU_SHELL(menu), menu_item);
@@ -1117,7 +1117,7 @@ static GtkWidget *filebrowser_rpopup_create_menu() {
 		}
 	}
 	gtk_widget_show_all(menu);
-	g_signal_connect_after(G_OBJECT(menu), "destroy", G_CALLBACK(destroy_disposable_menu_hide_cb), menu);
+	g_signal_connect_after(G_OBJECT(menu), "destroy", G_CALLBACK(destroy_disposable_menu_cb), menu);
 	return menu;
 }
 

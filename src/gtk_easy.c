@@ -1290,22 +1290,9 @@ static void ungroupradoiitems(GtkWidget *menu) {
 		tmplist = g_list_next(tmplist);
 	}
 }
-static gboolean destroy_disposable_menu_idle(GtkWidget *menu) {
+
+void destroy_disposable_menu_cb(GtkWidget *widget, GtkWidget *menu) {
 	ungroupradoiitems(menu);
 	gtk_widget_destroy(GTK_WIDGET(menu));
-	return FALSE;
 }
 
-/**
- * destroy_disposable_menu_hide_cb:
- * @widget: ignored
- * @menu: #GtkWidget* with the menu to destroy
- *
- * connect this to the hide event of a disposable menu (right-click popup menu) 
- * to clean the menu automatically after it is used
- *
- * Return value: void
- */
-void destroy_disposable_menu_hide_cb(GtkWidget *widget, GtkWidget *menu) {
-	gtk_idle_add((GtkFunction)destroy_disposable_menu_idle, menu);
-}
