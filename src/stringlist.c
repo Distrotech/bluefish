@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-/* #define DEBUG */
+/*#define DEBUG*/
 
 /*
  * This module deals with the GUI dialog used in bluefish to manage
@@ -968,6 +968,113 @@ gchar *stringlist_to_string(GList *stringlist, gchar *delimiter) {
 	return string;
 }
 /**
+ * array_n_strings_identical:
+ * @array1: #gchar**
+ * @array2: #gchar**
+ * @case_sensitive: #gboolean 
+ * @testlevel: #gint
+ *
+ * tests the first testlevel strings in the arrays if they are identical
+ * returns the first strcmp() value that is not 0, or 0 if all
+ * strings up to testlevel are identical.
+ *
+ * if BOTH array end before testlevel is reached, 0 is returned
+ * if ONE array ends before the other, -1 or 1 is returned
+ *
+ * Return value: #gint
+ */
+gint array_n_strings_identical(gchar **array1, gchar **array2, gboolean case_sensitive, gint testlevel) {
+	gint i=0, res=0;
+	while (i<testlevel && res==0) {
+		/*  array1[i]==array2[i] will only happen when they are both NULL	*/
+		if (array1[i] == NULL || array2[i] == NULL) {
+			/* NULL - NULL = 0
+			 * NULL - ptr = negative
+			 * ptr - NULL = positive */
+			return (gint)(array1[i] - array2[i]);
+		} else if (case_sensitive) {
+			res = strcmp(array1[i],array2[i]);
+		} else /*if (!case_sensitive)*/ {
+			res = strcasecmp(array1[i],array2[i]);
+		}
+		if (res !=0) return res;
+		i++;
+	}
+	return res;
+}
+/**
+ * arraylist_delete_identical:
+ * @thelist: #GList*
+ * @compare: #gchar**
+ * @testlevel: #gint
+ * @case_sensitive: #gboolean
+ *
+ * Deletes all arrays from 'arraylist' that are, up to testlevel, identical to array 'compare'
+ *
+ * Return value: the new list
+ */
+GList *arraylist_delete_identical(GList *thelist, gchar **compare, gint testlevel, gboolean case_sensitive) {
+	GList *tmplist = g_list_first(thelist);
+	while (tmplist) {
+		GList *nextlist = g_list_next(tmplist);
+		gchar **tmparr = tmplist->data;
+		if (array_n_strings_identical(compare, tmparr, case_sensitive, testlevel)==0) {
+			DEBUG_MSG("arraylist_delete_identical, %s and %s are identical, will delete %p from list\n",tmparr[0],compare[0], tmplist);
+			thelist = g_list_delete_link(thelist, tmplist);
+			DEBUG_MSG("arraylist_delete_identical, free array %p (%s)\n",tmparr,tmparr[0]);
+			g_strfreev(tmparr);
+		}
+		tmplist = nextlist;
+	}
+	return thelist;
+}
+
+/**
+ * arraylist_append_identical_from_list:
+ * @thelist: #GList*
+ * @source: #GList*
+ * @compare: #gchar**
+ * @testlevel: #gint
+ * @case_sensitive: #gboolean
+ *
+ * compares every array in 'source' with 'compare', and if it is identical up to 'testlevel', it will
+ * add the array to 'thelist'
+ *
+ * Return value: the new arraylist
+ */
+GList *arraylist_append_identical_from_list(GList *thelist, GList *source, gchar **compare, gint testlevel, gboolean case_sensitive) {
+	GList *tmplist = g_list_first(source);
+	while (tmplist) {
+		gchar **tmparr = tmplist->data;
+		if (array_n_strings_identical(compare, tmparr, case_sensitive, testlevel)==0) {
+			thelist = g_list_append(thelist, duplicate_stringarray(tmparr));
+		}
+		tmplist = g_list_next(tmplist);
+	}
+	return thelist;
+}
+
+/**
+ * arraylist_append_identical_from_file:
+ * @thelist: #GList*
+ * @sourcefilename: #const gchar*
+ * @compare: #gchar**
+ * @testlevel: #gint
+ * @case_sensitive: #gboolean
+ *
+ * compares every array read from 'sourcefilename' with 'compare', and if it is identical up to 'testlevel', it will
+ * add the array to 'thelist'
+ *
+ * Return value: the new arraylist
+ */
+GList *arraylist_append_identical_from_file(GList *thelist, const gchar *sourcefilename, gchar **compare, gint testlevel, gboolean case_sensitive) {
+	GList *sourcelist = get_list(sourcefilename,NULL,TRUE);
+	thelist = arraylist_append_identical_from_list(thelist, sourcelist, compare, testlevel, case_sensitive);
+	free_arraylist(sourcelist);
+	return thelist;
+}
+
+/**
  * arraylist_value_exists:
  * @arraylist: #GList*
  * @value: #gchar**
@@ -985,20 +1092,9 @@ gboolean arraylist_value_exists(GList *arraylist, gchar **value, gint testlevel,
 	GList *tmplist = g_list_first(arraylist);
 	while (tmplist) {
 		gchar **tmparr = tmplist->data;
-		gint i=0;
-		gboolean equal = TRUE;
-		while (i<testlevel && equal) {
-			/*  tmparr[i]==value[i] will only happen when they are both NULL	*/
-			if (tmparr[i] == NULL && value[i] == NULL) {
-				break;
-			} else if (tmparr[i]==NULL || value[i] == NULL 
-					|| (case_sensitive && strcmp(tmparr[i],value[i])!=0) 
-					|| (!case_sensitive && strcasecmp(tmparr[i],value[i])!=0)) {
-				equal = FALSE;
-			}
-			i++;
+		if (array_n_strings_identical(value, tmparr, case_sensitive, testlevel)==0) {
+			return TRUE;
 		}
-		if (equal) return TRUE;
 		tmplist = g_list_next(tmplist);
 	}
 	return FALSE;

@@ -646,8 +646,9 @@ void rcfile_parse_highlighting(void) {
 		DEBUG_MSG("rcfile_parse_highlighting, done saving\n");
 	} else {
 		if (config_file_is_newer(main_v->globses.lasttime_highlighting,defaultfile)) {
-			main_v->props.highlight_patterns = arraylist_load_new_identifiers_from_file(main_v->props.highlight_patterns,defaultfile,2);
-			main_v->globses.lasttime_highlighting = TIME_T_TO_GINT(time(NULL));
+			/* HERE WE SHOULD SEND A POPUP TO THE USER, SAYING THERE ARE NEW HIGHLIGHTING PATTERNS AVAILABLE, IF THEY WANT TO HAVE THEM */
+/*			main_v->props.highlight_patterns = arraylist_load_new_identifiers_from_file(main_v->props.highlight_patterns,defaultfile,2);
+			main_v->globses.lasttime_highlighting = TIME_T_TO_GINT(time(NULL));*/
 		}
 	}
 	g_free(filename);
