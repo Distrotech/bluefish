@@ -96,7 +96,6 @@ typedef struct
   gboolean has_list;
   gchar *values; 
   GtkWidget *dlg_item;
-  gboolean is_combo;  
 } FRAttrInfo;
 
 typedef struct
@@ -110,7 +109,6 @@ typedef struct
   gboolean has_list;
   gchar *values;
   GtkWidget *dlg_item;
-  gboolean is_combo;  
 } FRParamInfo;
 
 

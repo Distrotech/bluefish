@@ -637,7 +637,13 @@ gchar *fref_prepare_info(FRInfo * entry)
 		while (lst) {
 			tmpp = (FRParamInfo *) lst->data;
 			tofree = ret;
-			ret =g_strconcat(ret, "<span size=\"small\" style=\"italic\">",tmpp->name, "(", tmpp->type,")</span> - <span size=\"small\">",tmpp->description, "</span>\n", NULL);
+			if (tmpp->description!=NULL && tmpp->type!=NULL)
+			   ret =g_strconcat(ret, "<span size=\"small\" style=\"italic\">",tmpp->name, "(", tmpp->type,")</span> - <span size=\"small\">",tmpp->description, "</span>\n", NULL);
+			else
+			   if (tmpp->type!=NULL)
+			      ret =g_strconcat(ret, "<span size=\"small\" style=\"italic\">",tmpp->name, "(", tmpp->type,")</span>\n", NULL);   
+			   else
+			      ret =g_strconcat(ret, "<span size=\"small\" style=\"italic\">",tmpp->name, "</span>\n", NULL);        
 			g_free(tofree);
 			lst = g_list_next(lst);
 		}
@@ -851,7 +857,6 @@ GtkWidget *fref_prepare_dialog(FRInfo * entry)
 										   (GTK_COMBO(combo)->entry),
 										   attr->def_value);
 					attr->dlg_item = combo;
-					attr->is_combo = TRUE;
 					gtk_tooltips_set_tip(fref_data.argtips,GTK_COMBO(combo)->entry,
 					                     attr->description,"");
 				} else {
@@ -866,7 +871,6 @@ GtkWidget *fref_prepare_dialog(FRInfo * entry)
 														 GTK_FILL),
 									 (GtkAttachOptions) (0), 5, 5);
 					attr->dlg_item = input;
-					attr->is_combo = FALSE;
 					gtk_tooltips_set_tip(fref_data.argtips,input,
 					                     attr->description,"");					
 				}
@@ -884,24 +888,40 @@ GtkWidget *fref_prepare_dialog(FRInfo * entry)
 				if (par->title != NULL) {
 					label = gtk_label_new("");
 					if (par->required) {
-						gchar *tofree = g_strconcat("<span color='#FF0000'>",par->title, " (", par->type,") ", "</span>", NULL);
+						gchar *tofree = NULL;
+						if (par->type!=NULL)
+						   tofree = g_strconcat("<span color='#FF0000'>",par->title, " (", par->type,") ", "</span>", NULL);
+						else
+						   tofree = g_strconcat("<span color='#FF0000'>",par->title, " </span>", NULL);   
 						gtk_label_set_markup(GTK_LABEL(label),tofree);
-						g_free(tofree);
+						g_free(tofree); 
 					} else {
-						gchar *tofree = g_strconcat(par->title, " (",par->type, ") ",NULL);
+						gchar *tofree = NULL;
+						if (par->type!=NULL)
+						   tofree = g_strconcat(par->title, " (",par->type, ") ",NULL);
+						else
+						   tofree = g_strconcat(par->title, " ",NULL);   
 						gtk_label_set_text(GTK_LABEL(label),tofree);
-						g_free(tofree);
+						g_free(tofree); 
 					}
 				} else {
 					label = gtk_label_new("");
 					if (par->required) {
-						gchar *tofree = g_strconcat("<span color='#FF0000'>",par->name, " (", par->type,") ", "</span>", NULL);
+						gchar *tofree = NULL;
+						if (par->type!=NULL)
+						   tofree = g_strconcat("<span color='#FF0000'>",par->name, " (", par->type,") ", "</span>", NULL);
+						else
+						   tofree = g_strconcat("<span color='#FF0000'>",par->name, " </span>", NULL);   
 						gtk_label_set_markup(GTK_LABEL(label),tofree);
-						g_free(tofree);
+						g_free(tofree); 
 					} else {
-						gchar *tofree = g_strconcat(par->name, " (",par->type, ") ",NULL);
+						gchar *tofree = NULL;
+						if (par->type!=NULL)
+						   tofree = g_strconcat(par->name, " (",par->type, ") ",NULL);
+						else
+						   tofree = g_strconcat(par->name, " ",NULL);   
 						gtk_label_set_text(GTK_LABEL(label),tofree);
-						g_free(tofree);
+						g_free(tofree); 
 					}
 				}
 
@@ -917,38 +937,29 @@ GtkWidget *fref_prepare_dialog(FRInfo * entry)
 					gtk_widget_show(combo);
 					gtk_table_attach(GTK_TABLE(table), combo, 1, 2, itnum,
 									 itnum + 1,
-									 (GtkAttachOptions) (GTK_EXPAND |
-														 GTK_FILL),
+									 (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
 									 (GtkAttachOptions) (0), 5, 5);
-					gtk_combo_set_value_in_list(GTK_COMBO(combo), TRUE,
-												TRUE);
+					gtk_combo_set_value_in_list(GTK_COMBO(combo), TRUE,TRUE);
 					gtk_combo_set_popdown_strings(GTK_COMBO(combo),
-												  fref_string_to_list(par->
-																	  values,
-																	  ","));
+												  fref_string_to_list(par->values,","));
 					if (par->def_value != NULL)
 						gtk_entry_set_text(GTK_ENTRY
-										   (GTK_COMBO(combo)->entry),
-										   par->def_value);
+										   (GTK_COMBO(combo)->entry),par->def_value);
 					par->dlg_item = combo;
-					par->is_combo = TRUE;
 					gtk_tooltips_set_tip(fref_data.argtips,GTK_COMBO(combo)->entry,
 					                     par->description,"");					
 				} else {
 					input = gtk_entry_new();
 					if (par->def_value != NULL)
-						gtk_entry_set_text(GTK_ENTRY(input),
-										   par->def_value);
+						gtk_entry_set_text(GTK_ENTRY(input),par->def_value);
 					gtk_widget_show(input);
 					gtk_table_attach(GTK_TABLE(table), input, 1, 2, itnum,
 									 itnum + 1,
-									 (GtkAttachOptions) (GTK_EXPAND |
-														 GTK_FILL),
+									 (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
 									 (GtkAttachOptions) (0), 5, 5);
 					par->dlg_item = input;
-					par->is_combo = FALSE;
-					gtk_tooltips_set_tip(fref_data.argtips,input,
-					                     par->description,"");					
+					if (par->description!=NULL)
+					   gtk_tooltips_set_tip(fref_data.argtips,input,par->description,"");					
 				}
 				itnum++;
 				par = (FRParamInfo *) g_list_nth_data(list, itnum);
@@ -984,10 +995,9 @@ GtkWidget *fref_prepare_dialog(FRInfo * entry)
    
   gtk_widget_show(table); 
   gtk_window_get_size(GTK_WINDOW(dialog),&w,&h); 
-  gtk_window_get_size(GTK_WINDOW(dialog),&w,&h);   
   gtk_widget_size_request(table,&req);
   gtk_widget_size_request(dialog_action_area,&req2);  
-  gtk_window_resize(GTK_WINDOW(dialog),w,MIN(400,req.height+req2.height+20));
+  gtk_window_resize(GTK_WINDOW(dialog),req.width+10,MIN(400,req.height+req2.height+20));
 	return dialog;
 }
 
@@ -995,7 +1005,7 @@ GtkWidget *fref_prepare_dialog(FRInfo * entry)
 gchar *fref_prepare_text(FRInfo * entry, GtkWidget * dialog)
 {
 	/* Here attribute/param names have to be replaced by values from dialog */
-	gchar *p, *prev, *stringdup;
+	gchar *p, *prev, *stringdup, *tofree;
 	gchar *tmp, *dest, *tmp3 = NULL;
 	GList *lst;
 	gint d1, d2;
@@ -1026,16 +1036,10 @@ gchar *fref_prepare_text(FRInfo * entry, GtkWidget * dialog)
 					if (lst != NULL) {
 						tmpa = (FRAttrInfo *) lst->data;
 						if (tmpa->dlg_item) {
-							if (tmpa->is_combo)
-								converted =
-									gtk_entry_get_text(GTK_ENTRY
-													   (GTK_COMBO
-														(tmpa->dlg_item)->
-														entry));
+							if (GTK_IS_COMBO(tmpa->dlg_item))
+								converted = gtk_entry_get_text(GTK_ENTRY(GTK_COMBO(tmpa->dlg_item)->entry));
 							else
-								converted =
-									gtk_entry_get_text(GTK_ENTRY
-													   (tmpa->dlg_item));
+								converted = gtk_entry_get_text(GTK_ENTRY(tmpa->dlg_item));
 						} else
 							converted = "";
 					} else
@@ -1046,19 +1050,13 @@ gchar *fref_prepare_text(FRInfo * entry, GtkWidget * dialog)
 					while (lst != NULL) {
 						tmpa = (FRAttrInfo *) lst->data;
 						if (tmpa->dlg_item) {
-							if (tmpa->is_combo)
-								tmp2 =
-									gtk_entry_get_text(GTK_ENTRY
-													   (GTK_COMBO
-														(tmpa->dlg_item)->
-														entry));
+							if (GTK_IS_COMBO(tmpa->dlg_item))
+								tmp2 = gtk_entry_get_text(GTK_ENTRY(GTK_COMBO(tmpa->dlg_item)->entry));
 							else
-								tmp2 =
-									gtk_entry_get_text(GTK_ENTRY
-													   (tmpa->dlg_item));
+								tmp2 = gtk_entry_get_text(GTK_ENTRY(tmpa->dlg_item));
 							if (strcmp(tmp2, "") != 0) {
-								gchar *tofree = tmp3;
-								tmp3 =g_strconcat(tmp3, " ", tmpa->name,"=\"", tmp2, "\"", NULL);
+							  tofree = tmp3; 
+								tmp3 =	g_strconcat(tmp3, " ", tmpa->name,	"=\"", tmp2, "\"", NULL);
 								g_free(tofree);
 							}
 						}
@@ -1071,22 +1069,14 @@ gchar *fref_prepare_text(FRInfo * entry, GtkWidget * dialog)
 					while (lst != NULL) {
 						tmpa = (FRAttrInfo *) lst->data;
 						if (tmpa->dlg_item) {
-							if (tmpa->is_combo)
-								tmp2 =
-									gtk_entry_get_text(GTK_ENTRY
-													   (GTK_COMBO
-														(tmpa->dlg_item)->
-														entry));
+							if (GTK_IS_COMBO(tmpa->dlg_item))
+								tmp2 = gtk_entry_get_text(GTK_ENTRY(GTK_COMBO(tmpa->dlg_item)->entry));
 							else
-								tmp2 =
-									gtk_entry_get_text(GTK_ENTRY
-													   (tmpa->dlg_item));
+								tmp2 = gtk_entry_get_text(GTK_ENTRY(tmpa->dlg_item));
 							if (strcmp(tmp2, "") != 0 || tmpa->required) {
-								gchar *tofree = tmp3;
-								tmp3 =
-									g_strconcat(tmp3, " ", tmpa->name,
-												"=\"", tmp2, "\"", NULL);
-								g_free(tofree);
+							  tofree = tmp3;
+								tmp3 = g_strconcat(tmp3, " ", tmpa->name,	"=\"", tmp2, "\"", NULL);
+								g_free(tofree); 
 							}
 						}
 						lst = g_list_next(lst);
@@ -1104,16 +1094,10 @@ gchar *fref_prepare_text(FRInfo * entry, GtkWidget * dialog)
 					if (lst != NULL) {
 						tmpp = (FRParamInfo *) lst->data;
 						if (tmpp->dlg_item) {
-							if (tmpp->is_combo)
-								converted =
-									gtk_entry_get_text(GTK_ENTRY
-													   (GTK_COMBO
-														(tmpp->dlg_item)->
-														entry));
+							if (GTK_IS_COMBO(tmpp->dlg_item))
+								converted =	gtk_entry_get_text(GTK_ENTRY(GTK_COMBO(tmpp->dlg_item)->entry));
 							else
-								converted =
-									gtk_entry_get_text(GTK_ENTRY
-													   (tmpp->dlg_item));
+								converted =	gtk_entry_get_text(GTK_ENTRY(tmpp->dlg_item));
 						} else
 							converted = "";
 					} else
@@ -1123,12 +1107,8 @@ gchar *fref_prepare_text(FRInfo * entry, GtkWidget * dialog)
 
 			}					/* switch */
 		}
-		{
-			gchar *tofree = dest;
-			dest = g_strconcat(dest, prev, converted, NULL);
-			g_free(tofree);
-		}
-		g_free(tmp);
+		dest = g_strconcat(dest, prev, converted, NULL);
+		g_free(tmp); /* here I free the dest (tmp=dest) */
 		g_free(tmp3);
 		prev = ++p;
 		p = strchr(p, '%');
@@ -1139,7 +1119,6 @@ gchar *fref_prepare_text(FRInfo * entry, GtkWidget * dialog)
 	g_free(stringdup);
 	return dest;
 }
-
 
 GList *fref_string_to_list(gchar * string, gchar * delimiter)
 {
