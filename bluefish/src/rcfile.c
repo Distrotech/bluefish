@@ -406,6 +406,7 @@ static GList *props_init_main(GList * config_rc)
 	init_prop_integer(&config_rc, &main_v->props.view_html_toolbar, "view_html_toolbar:", 1);
 	init_prop_integer(&config_rc, &main_v->props.view_custom_menu, "view_custom_menu:", 1);
 	init_prop_integer(&config_rc, &main_v->props.view_main_toolbar, "view_main_toolbar:", 1);
+	init_prop_integer(&config_rc, &main_v->props.view_left_panel, "view_left_panel:", 1);
 	init_prop_string(&config_rc, &main_v->props.editor_font_string, "editor_font_string:", "courier 11");
 	init_prop_integer(&config_rc, &main_v->props.editor_tab_width, "editor_tab_width:", 3);
 	init_prop_string(&config_rc, &main_v->props.tab_font_string, "tab_font_string:", "helvetica 8");
@@ -413,10 +414,13 @@ static GList *props_init_main(GList * config_rc)
 	init_prop_arraylist(&config_rc, &main_v->props.external_commands, "external_commands:");
 	init_prop_stringlist(&config_rc, &main_v->props.quickbar_items, "quickbar_items:");
 	init_prop_integer(&config_rc, &main_v->props.highlight_num_lines_count, "highlight_num_lines_count:", 1);
-
+	init_prop_arraylist(&config_rc, &main_v->props.filetypes, "filetypes:");
+	init_prop_arraylist(&config_rc, &main_v->props.filefilters, "filefilters:");
+	init_prop_integer(&config_rc, &main_v->props.filebrowser_show_hidden_files, "fb_show_hidden_f:", 0);
+	init_prop_integer(&config_rc, &main_v->props.filebrowser_show_others_files, "fb_show_others_f:", 0);
+	init_prop_integer(&config_rc, &main_v->props.filebrowser_show_backup_files, "fb_show_backup_f:", 0);
 /* not yet in use */
 
-	init_prop_integer(&config_rc, &main_v->props.v_filebrowser, "view_filebrowser:", 1);
 	init_prop_integer(&config_rc, &main_v->props.transient_htdialogs, "transient_htdialogs:", 1);
 	init_prop_string(&config_rc, &main_v->props.image_editor_cline, "image_editor_command:", "gimp-remote -n \"%s\"&");
 
@@ -514,6 +518,41 @@ void rcfile_parse_main(void)
 		arr = array_from_arglist("Dos2Unix", "cat %s | dos2unix > %f",NULL);
 		main_v->props.external_commands = g_list_append(main_v->props.external_commands,arr);
 	}
+	if (main_v->props.filetypes == NULL) {
+		gchar **arr;
+		/* the default file types */
+		arr = array_from_arglist("php", ".php:.php4:.inc:.php3", " <>'\"/?$\t-{}[]{}\n;", "/home/olivier/.bluefish/icons/icon_php.png", NULL);
+		main_v->props.filetypes = g_list_append(main_v->props.filetypes, arr);
+		arr = array_from_arglist("html", ".html:.htm:.shtml:.shtm", "<> \n\"", "/home/olivier/.bluefish/icons/icon_html.png", NULL);
+		main_v->props.filetypes = g_list_append(main_v->props.filetypes, arr);
+		arr = array_from_arglist("javascript", ".js", "\n'\" ", "/home/olivier/.bluefish/icons/icon_unknown.png", NULL);
+		main_v->props.filetypes = g_list_append(main_v->props.filetypes, arr);
+		arr = array_from_arglist("xml", ".xml", "<> \n\"", "/home/olivier/.bluefish/icons/icon_xml.png", NULL);
+		main_v->props.filetypes = g_list_append(main_v->props.filetypes, arr);
+		arr = array_from_arglist("java", ".java:.jar:.class", "(){}'[]\n\" ", "/home/olivier/.bluefish/icons/icon_java.png", NULL);
+		main_v->props.filetypes = g_list_append(main_v->props.filetypes, arr);
+		arr = array_from_arglist("sql", ".sql", "(){}'[]\n\" ", "/home/olivier/.bluefish/icons/icon_unknown.png", NULL);
+		main_v->props.filetypes = g_list_append(main_v->props.filetypes, arr);
+		arr = array_from_arglist("c", ".c:.h", "(){}'[]\n\" ", "/home/olivier/.bluefish/icons/icon_c.png", NULL);
+		main_v->props.filetypes = g_list_append(main_v->props.filetypes, arr);
+		arr = array_from_arglist("webimage", ".jpg:.png:.gif:.jpeg", "", "/home/olivier/.bluefish/icons/icon_image.png", NULL);
+		main_v->props.filetypes = g_list_append(main_v->props.filetypes, arr);
+		arr = array_from_arglist("image", ".jpg:.png:.gif:.jpeg:.tif:.tiff:.xpm:.xcf", "", "/home/olivier/.bluefish/icons/icon_image.png", NULL);
+		main_v->props.filetypes = g_list_append(main_v->props.filetypes, arr);
+		arr = array_from_arglist("stylesheet", ".css", "", "/home/olivier/.bluefish/icons/icon_unknown.png", NULL);
+		main_v->props.filetypes = g_list_append(main_v->props.filetypes, arr);
+	}
+	if (main_v->props.filefilters == NULL) {
+		gchar **arr;
+		arr = array_from_arglist("C programming", "c:image", NULL);
+		main_v->props.filefilters = g_list_append(main_v->props.filefilters, arr);
+		arr = array_from_arglist("All web files", "html:php:webimage:xml:javascript:stylesheet", NULL);
+		main_v->props.filefilters = g_list_append(main_v->props.filefilters, arr);
+		arr = array_from_arglist("Java programming", "java:image", NULL);
+		main_v->props.filefilters = g_list_append(main_v->props.filefilters, arr);
+		arr = array_from_arglist("Images", "image", NULL);
+		main_v->props.filefilters = g_list_append(main_v->props.filefilters, arr);
+	}
 }
 
 gint rcfile_save_main(void) {
@@ -528,7 +567,6 @@ void rcfile_parse_highlighting(void) {
 
 	highlighting_configlist = NULL;
 	init_prop_arraylist(&highlighting_configlist, &main_v->props.highlight_patterns, "highlight_patterns:");
-	init_prop_arraylist(&highlighting_configlist, &main_v->props.filetypes, "filetypes:");
 	
 	filename = g_strconcat(g_get_home_dir(), "/.bluefish/highlighting", NULL);
 	if (!parse_config_file(highlighting_configlist, filename)) {

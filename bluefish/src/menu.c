@@ -433,16 +433,19 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/Options/View Custom menu"), NULL, gui_toggle_hidewidget_cb, 2, "<ToggleItem>"}
 };
 
-static void menu_current_document_type_change(GtkMenuItem *menuitem,Thighlightset *hlset) {
+static void menu_current_document_type_change(GtkMenuItem *menuitem,Tfiletype *hlset) {
 	DEBUG_MSG("menu_current_document_type_change, started for hlset %p\n", hlset);
 	if (GTK_CHECK_MENU_ITEM(menuitem)->active) {
-		hl_set_highlighting_type(main_v->current_document, hlset);
-		doc_highlight_full(main_v->current_document);
+		if (hl_set_highlighting_type(main_v->current_document, hlset)) {
+			doc_highlight_full(main_v->current_document);
+		} else {
+			menu_current_document_type_set_active_wo_activate(main_v->current_document->hl);
+		}
 	}
 	DEBUG_MSG("menu_current_document_type_change, finished\n");
 }
 
-void menu_current_document_type_set_active_wo_activate(Thighlightset *hlset) {
+void menu_current_document_type_set_active_wo_activate(Tfiletype *hlset) {
 	if (!GTK_CHECK_MENU_ITEM(hlset->menuitem)->active) {
 		DEBUG_MSG("setting widget from hlset %p active\n", main_v->current_document->hl);
 		g_signal_handler_disconnect(G_OBJECT(hlset->menuitem),hlset->menuitem_activate_id);
@@ -484,15 +487,17 @@ void menu_create_main(GtkWidget *vbox)
 	{
 		GList *group=NULL;
 		GtkWidget *parent_menu;
-		GList *tmplist = g_list_first(main_v->hlsetlist);
+		GList *tmplist = g_list_first(main_v->filetypelist);
 		parent_menu = gtk_item_factory_get_widget(item_factory, _("/Options/Current document/Type"));
 		while (tmplist) {
-			Thighlightset *hlset = (Thighlightset *)tmplist->data;
-			hlset->menuitem = gtk_radio_menu_item_new_with_label(group, hlset->type);
-			hlset->menuitem_activate_id = g_signal_connect(G_OBJECT(hlset->menuitem), "activate",G_CALLBACK(menu_current_document_type_change), (gpointer) hlset);
-			gtk_widget_show(hlset->menuitem);
-			gtk_menu_insert(GTK_MENU(parent_menu), hlset->menuitem, 1);
-			group = gtk_radio_menu_item_get_group (GTK_RADIO_MENU_ITEM(hlset->menuitem));
+			Tfiletype *filetype = (Tfiletype *)tmplist->data;
+			if (filetype->highlightlist) {
+				filetype->menuitem = gtk_radio_menu_item_new_with_label(group, filetype->type);
+				filetype->menuitem_activate_id = g_signal_connect(G_OBJECT(filetype->menuitem), "activate",G_CALLBACK(menu_current_document_type_change), (gpointer) filetype);
+				gtk_widget_show(filetype->menuitem);
+				gtk_menu_insert(GTK_MENU(parent_menu), filetype->menuitem, 1);
+				group = gtk_radio_menu_item_get_group (GTK_RADIO_MENU_ITEM(filetype->menuitem));
+			}
 			tmplist = g_list_next(tmplist);
 		}
 	

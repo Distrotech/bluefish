@@ -87,11 +87,12 @@ typedef struct {
 typedef struct {
 	gchar *type;
 	gchar **extensions;
+	GdkPixbuf *icon;
 	gchar *update_chars;
 	GList *highlightlist;
 	GtkWidget *menuitem;
 	gulong menuitem_activate_id;
-} Thighlightset;
+} Tfiletype;
 
 /*******************/
 /* document struct */
@@ -115,7 +116,7 @@ typedef struct {
 	GtkWidget *tab_menu;
 	GtkTextBuffer *buffer;
 	gint last_rbutton_event; /* index of last 3rd button click */
-	Thighlightset *hl; /* highlighting set to use for this document */
+	Tfiletype *hl; /* highlighting set to use for this document */
 	gint need_highlighting; /* if you open 10+ documents you don't need immediate highlighting, just set this var, and notebook_switch() will trigger the actual highlighting when needed */
 	gboolean highlightstate;
 	gboolean wrapstate;
@@ -125,7 +126,10 @@ typedef struct {
 	gint view_html_toolbar;				/* view html toolbar */
 	gint view_custom_menu;			/* view custom menubar */
 	gint view_main_toolbar;				/* view main toolbar */
-	gint v_filebrowser;  	/* view filebrowser */
+	gint view_left_panel;  	/* view filebrowser/functionbrowser etc. */
+	gint filebrowser_show_hidden_files;
+	gint filebrowser_show_others_files;
+	gint filebrowser_show_backup_files;
 	gint transient_htdialogs;  /* set html dialogs transient ro the main window */
 	gint main_window_h;			/* main window height */
 	gint main_window_w;			/* main window width */
@@ -206,6 +210,7 @@ typedef struct {
 	gint highlight_num_lines_count; /* number of lines to highlight in continous highlighting */
 	GList *filetypes;
 	GList *highlight_patterns;
+	GList *filefilters; /* filebrowser.c filtering */
 	GList *browsers; /* browsers array */
 	GList *external_commands;	/* external commands array */
 	GList *quickbar_items;
@@ -215,7 +220,7 @@ typedef struct {
 	Tdocument *current_document; /* one object out of the documentlist, the current visible document */
 	Tproperties props;
 	GList *documentlist; /* document.c and others: all Tdocument objects */
-	GList *hlsetlist; /* highlighting.c: a list of all highlighting sets */
+	GList *filetypelist; /* highlighting.c: a list of all filetypes with their highlighting sets */
 	GtkWidget *main_window;
 	GtkWidget *menubar;
 	gint last_notebook_page; /* a check to see if the notebook changed to a new page */
@@ -223,7 +228,7 @@ typedef struct {
 	GtkWidget *notebook;
 	GtkWidget *middlebox; /* we need this to show/hide the filebrowser */
 	GtkWidget *hpane; /* we need this to show/hide the filebrowser */
-	GtkTextTagTable *tagtable; /* this one should ultimately move to Thighlightset, so every set would have it's own tagtable, but there is currently no way to switch a document to a new tagtable */
+	GtkTextTagTable *tagtable; /* this one should ultimately move to Tfiletype, so every set would have it's own tagtable, but there is currently no way to switch a document to a new tagtable */
 	GtkWidget *statusbar;
 	GtkWidget *statuslabel; /* where we have the line number */
 	GList *recent_directories; /* a stringlist with the most recently used directories */
