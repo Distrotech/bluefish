@@ -1150,7 +1150,7 @@ static void filebrowser_rpopup_action_lcb(Tfilebrowser *filebrowser,guint callba
 		tmppath = filebrowser_get_path_from_selection(GTK_TREE_MODEL(filebrowser->store),GTK_TREE_VIEW(filebrowser->tree),NULL);
 		path = return_filename_from_path(GTK_TREE_MODEL(filebrowser->store), tmppath);
 		open_advanced_from_filebrowser(filebrowser->bfwin, path);
-		g_free(tmppath);
+		gtk_tree_path_free(tmppath);
 		g_free(path);
 	} break;	
 #endif
