@@ -145,10 +145,6 @@ static Tproject *create_new_project(Tbfwin *bfwin) {
 	}
 	prj->webdir = g_strdup("");
 	prj->template = g_strdup("");
-	prj->view_main_toolbar = main_v->props.view_main_toolbar;
-	prj->view_left_panel = main_v->props.view_left_panel;
-	prj->view_custom_menu = main_v->props.view_custom_menu;
-	prj->view_html_toolbar = main_v->props.view_html_toolbar;
 	prj->word_wrap = main_v->props.word_wrap;
 	if (bfwin) {
 		setup_bfwin_for_project(bfwin);
@@ -267,11 +263,11 @@ void project_open_from_file(Tbfwin *bfwin, gchar *fromfilename) {
 		prwin->project = prj;
 		prwin->bookmarkstore = prj->bookmarkstore;
 		
-		gui_set_html_toolbar_visible(prwin, prj->view_html_toolbar, TRUE);
-		gui_set_main_toolbar_visible(prwin, prj->view_main_toolbar, TRUE);
-		gui_set_custom_menu_visible(prwin, prj->view_custom_menu, TRUE);
+		gui_set_html_toolbar_visible(prwin, prj->session->view_html_toolbar, TRUE);
+		gui_set_main_toolbar_visible(prwin, prj->session->view_main_toolbar, TRUE);
+		gui_set_custom_menu_visible(prwin, prj->session->view_custom_menu, TRUE);
 		DEBUG_MSG("project_open_from_file, calling left_panel_show_hide_toggle bfwin=%p\n",prwin);
-		left_panel_show_hide_toggle(prwin,FALSE,prj->view_left_panel, TRUE);
+		left_panel_show_hide_toggle(prwin,FALSE,prj->session->view_left_panel, TRUE);
 		/*filebrowser_set_basedir(prwin, prj->basedir);*/
 		fb2_update_settings_from_session(prwin);
 		fb2_set_basedir(prwin, prj->basedir);
