@@ -981,6 +981,7 @@ void gui_create_main(Tbfwin *bfwin, GList *filenames) {
 	external_menu_rebuild(bfwin);
 	encoding_menu_rebuild(bfwin);
 	menu_outputbox_rebuild(bfwin);
+	snr2_init(bfwin);
 
 	/* then the toolbars */
 	{
