@@ -1420,11 +1420,14 @@ void gui_create_main(Tbfwin *bfwin, GList *filenames) {
 	/* start to open an empty doc */
 	file_new_cb(NULL, bfwin);
 	if (filenames) {
+		GSList *slist;
 		DEBUG_MSG("gui_create_main, we have filenames, load them\n");
-		docs_new_from_files(bfwin,filenames,(bfwin->project != NULL));
+		slist = gslist_from_glist(filenames);
+		docs_new_from_uris(bfwin, slist, (bfwin->project != NULL));
+		g_slist_free(slist);
 	}
 
-	gtk_notebook_set_page(GTK_NOTEBOOK(bfwin->notebook), 0);
+/*	gtk_notebook_set_page(GTK_NOTEBOOK(bfwin->notebook), 0);*/
 	gtk_notebook_set_scrollable(GTK_NOTEBOOK(bfwin->notebook), TRUE);
 	/* don't use show_all since some widgets are and should be hidden */
 	gtk_widget_show(bfwin->notebook);
