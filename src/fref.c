@@ -1472,8 +1472,8 @@ GtkWidget *fref_prepare_dialog(Tbfwin *bfwin, FRInfo * entry) {
 									 (GtkAttachOptions) (GTK_EXPAND |
 														 GTK_FILL),
 									 (GtkAttachOptions) (0), 5, 5);
-					gtk_combo_set_value_in_list(GTK_COMBO(combo), TRUE,
-												TRUE);
+				/*	gtk_combo_set_value_in_list(GTK_COMBO(combo), TRUE,
+												TRUE);*/
 					gtk_combo_set_popdown_strings(GTK_COMBO(combo),
 												  fref_string_to_list
 												  (attr->values, ","));
@@ -1564,7 +1564,7 @@ GtkWidget *fref_prepare_dialog(Tbfwin *bfwin, FRInfo * entry) {
 									 itnum + 1,
 									 (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
 									 (GtkAttachOptions) (0), 5, 5);
-					gtk_combo_set_value_in_list(GTK_COMBO(combo), TRUE,TRUE);
+					/*gtk_combo_set_value_in_list(GTK_COMBO(combo), TRUE,TRUE);*/
 					gtk_combo_set_popdown_strings(GTK_COMBO(combo),
 												  fref_string_to_list(par->values,","));
 					if (par->def_value != NULL)
