@@ -1749,6 +1749,7 @@ void filebrowser_set_basedir(Tbfwin *bfwin, const gchar *basedir) {
 				DEBUG_MSG("filebrowser_set_basedir, calling gtk_toggle_button_set_active()\n");
 				gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(FILEBROWSER(bfwin->filebrowser)->showfulltree), FALSE);
 			}
+			g_free (newbasedir);
 		}
 	}
 }
@@ -1875,6 +1876,7 @@ GtkWidget *filebrowser_init(Tbfwin *bfwin) {
 			}
 		}
 		path = build_tree_from_path(filebrowser, buildfrom);
+		if (filebrowser->last_opened_dir) g_free(filebrowser->last_opened_dir);
 		filebrowser->last_opened_dir = ending_slash(buildfrom);
 		if (path) {
 			filebrowser_expand_to_root(filebrowser,path);
