@@ -548,10 +548,11 @@ void make_main_toolbar(GtkWidget *handlebox) {
 	toolbarwidgets.redo = gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), NULL, _("Redo"), "",
 							new_pixmap(11), G_CALLBACK(redo_cb), NULL);
 	gtk_toolbar_append_space(GTK_TOOLBAR(toolbar));
-	gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), NULL, _("Indent"),
-							"", new_pixmap(110), G_CALLBACK(doc_indent_lcb), GINT_TO_POINTER(0));
 	gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), NULL, _("Unindent"),
 							"", new_pixmap(111), G_CALLBACK(doc_indent_lcb), GINT_TO_POINTER(1));
+	gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), NULL, _("Indent"),
+							"", new_pixmap(110), G_CALLBACK(doc_indent_lcb), GINT_TO_POINTER(0));
+
 /*
 	gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), NULL, _("Print..."), "",
 							new_pixmap(015), G_CALLBACK(file_print_cb), NULL);*/

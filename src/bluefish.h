@@ -174,6 +174,7 @@ typedef struct {
 	gint ext_browsers_in_submenu;
 	gint ext_commands_in_submenu;
 	gint ext_outputbox_in_submenu;
+	GList *reference_files; /* all reference files */
 #ifdef HAVE_LIBASPELL
 	gchar *spell_default_lang;
 #endif /* HAVE_LIBASPELL */

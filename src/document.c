@@ -2233,3 +2233,9 @@ void doc_indent_selection(Tdocument *doc, gboolean unindent) {
 		statusbar_message(_("No selection to indent"), 2000);
 	}
 }
+
+void menu_indent_cb(gpointer callback_data,guint callback_action, GtkWidget  *widget) {
+	if (main_v->current_document) {
+		doc_indent_selection(main_v->current_document, (callback_action == 1));
+	}
+}

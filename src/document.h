@@ -81,4 +81,5 @@ void doc_toggle_linenumbers_cb(gpointer callback_data,guint action,GtkWidget *wi
 void doc_convert_asciichars_in_selection(gpointer callback_data,guint callback_action,GtkWidget *widget);
 void word_count_cb (gpointer callback_data,guint callback_action,GtkWidget *widget);
 void doc_indent_selection(Tdocument *doc, gboolean unindent);
+void menu_indent_cb(gpointer callback_data,guint callback_action, GtkWidget  *widget);
 #endif /* __DOCUMENT_H_ */
