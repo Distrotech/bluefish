@@ -666,7 +666,7 @@ static gint rcfile_save_highlighting(void) {
 }
 
 void rcfile_parse_custom_menu(void) {
-	gchar *filename, *defaultfile, *langdefaultfile1, *langdefaultfile2, *tmp;
+	gchar *filename, *defaultfile, *langdefaultfile1=NULL, *langdefaultfile2=NULL, *tmp;
 	DEBUG_MSG("rcfile_parse_custom_menu, started\n");
 
 	custom_menu_configlist = NULL;
@@ -676,16 +676,24 @@ void rcfile_parse_custom_menu(void) {
 
 	filename = g_strconcat(g_get_home_dir(), "/.bluefish/custom_menu", NULL);
 	tmp = g_strdup(g_getenv("LANG"));
-	tmp = trunc_on_char(tmp, '.');
-	tmp = trunc_on_char(tmp, '@');
-	langdefaultfile1 = g_strconcat(PKGDATADIR"custom_menu.default.", tmp, NULL);
-	tmp = trunc_on_char(tmp, '_');
-	langdefaultfile2 = g_strconcat(PKGDATADIR"custom_menu.default.", tmp, NULL);
-	g_free(tmp);
-	defaultfile = return_first_existing_filename(langdefaultfile1, langdefaultfile2,
+	if (tmp) {
+		tmp = trunc_on_char(tmp, '.');
+		tmp = trunc_on_char(tmp, '@');
+		langdefaultfile1 = g_strconcat(PKGDATADIR"custom_menu.default.", tmp, NULL);
+		tmp = trunc_on_char(tmp, '_');
+		langdefaultfile2 = g_strconcat(PKGDATADIR"custom_menu.default.", tmp, NULL);
+		g_free(tmp);
+	}
+	if (langdefaultfile1) {
+		defaultfile = return_first_existing_filename(langdefaultfile1, langdefaultfile2,
 									PKGDATADIR"custom_menu.default",
 									"data/custom_menu.default",
 									"../data/custom_menu.default",NULL);
+	} else {
+		defaultfile = return_first_existing_filename(PKGDATADIR"custom_menu.default",
+									"data/custom_menu.default",
+									"../data/custom_menu.default",NULL);
+	}
 	if (!parse_config_file(custom_menu_configlist, filename) || (main_v->props.cust_menu==NULL && main_v->props.cmenu_insert==NULL && main_v->props.cmenu_replace==NULL )) {
 		DEBUG_MSG("error parsing the custom menu file\n");
 		/* init the custom_menu in some way? */
