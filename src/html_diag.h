@@ -35,7 +35,8 @@ typedef struct {
 extern Trecent_attribs recent_attribs;
 
 typedef struct {
-	GtkWidget *src;
+	GtkWidget *src1;
+	GtkWidget *src2;
 	GtkWidget *dest;
 	gint type;
 } Tphpvarins; /* this struct contains a src and dest widget for PHP variable generation*/

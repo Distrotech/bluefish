@@ -43,14 +43,26 @@
 
 static void php_var_insert_cb(GtkWidget *widget, Thtml_diag *dg) {
 	gchar *tmp;
-	tmp = gtk_editable_get_chars(GTK_EDITABLE(dg->php_var_ins.src), 0, -1);
+	tmp = gtk_editable_get_chars(GTK_EDITABLE(dg->php_var_ins.src1), 0, -1);
+
 	if (strlen(tmp)) {
 		gchar *tmp2=NULL;
+		gchar *tmp3=NULL;
 		switch (dg->php_var_ins.type) {
 		case PHPFORM_TYPE_TEXT:
 			tmp2 = g_strdup_printf("<?php if (isset($%s)) { echo $%s; } ?>",tmp,tmp);
 		break;
 		case PHPFORM_TYPE_RADIO:
+			tmp3 = gtk_editable_get_chars(GTK_EDITABLE(dg->php_var_ins.src2), 0, -1);
+			if (strlen(tmp3)) {
+				if (main_v->props.xhtml == 1) {
+					tmp2 = g_strdup_printf("<?php if ($%s==\"%s\") { echo 'checked=\\\"checked\\\"'; } ?>",tmp,tmp3);
+				} else {
+					tmp2 = g_strdup_printf("<?php if ($%s==\"%s\") { echo 'checked'; } ?>",tmp,tmp3);
+				}
+				g_free(tmp3);
+			}
+		break;
 		case PHPFORM_TYPE_CHECK:
 			if (main_v->props.xhtml == 1) {
 				tmp2 = g_strdup_printf("<?php if (isset($%s)) { echo 'checked=\\\"checked\\\"'; } ?>",tmp);
@@ -67,10 +79,11 @@ static void php_var_insert_cb(GtkWidget *widget, Thtml_diag *dg) {
 	g_free(tmp);
 }
 
-GtkWidget *php_var_but(GtkWidget *src, GtkWidget *dest, Thtml_diag *dg, gint type) {
+GtkWidget *php_var_but(GtkWidget *src1, GtkWidget *src2, GtkWidget *dest, Thtml_diag *dg, gint type) {
 	GtkWidget *pixmap,*returnwid;
 
-	dg->php_var_ins.src = src;
+	dg->php_var_ins.src1 = src1;
+	dg->php_var_ins.src2 = src2;
 	dg->php_var_ins.dest = dest;
 	dg->php_var_ins.type = type;
 	returnwid = gtk_button_new();
@@ -287,7 +300,7 @@ void textdialog_dialog(Tbfwin *bfwin, Ttagpopup *data) {
 	bf_mnemonic_label_tad_with_alignment(_("_Value:"), dg->entry[2], 0, 0.5, dgtable, 0, 1, 1, 2);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[2], 1, 9, 1, 2);
 
-	varbut = php_var_but(dg->entry[1], dg->entry[2], dg, PHPFORM_TYPE_TEXT);
+	varbut = php_var_but(dg->entry[1],NULL, dg->entry[2], dg, PHPFORM_TYPE_TEXT);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), varbut, 9, 10, 1, 2);
 
 	dg->spin[1] = spinbut_with_value(tagvalues[2], 0, 500, 1.0, 5.0);
@@ -479,7 +492,7 @@ void radiodialog_dialog(Tbfwin *bfwin, Ttagpopup *data) {
 	bf_mnemonic_label_tad_with_alignment(_("Custo_m:"), dg->entry[3], 0, 0.5, dgtable, 0, 1, 3, 4);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[3], 1, 9, 3, 4);
 
-	varbut = php_var_but(dg->entry[1], dg->entry[3], dg, PHPFORM_TYPE_RADIO);
+	varbut = php_var_but(dg->entry[1], dg->entry[2], dg->entry[3], dg, PHPFORM_TYPE_RADIO);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), varbut, 9, 10, 3, 4);
 
 	html_diag_finish(dg, G_CALLBACK(radiodialogok_lcb));
@@ -541,7 +554,7 @@ void checkdialog_dialog(Tbfwin *bfwin, Ttagpopup *data) {
 	bf_mnemonic_label_tad_with_alignment(_("_Custo_m:"), dg->entry[3], 0, 0.5, dgtable, 0, 1, 3, 4);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[3], 1, 9, 3, 4);
 
-	varbut = php_var_but(dg->entry[1], dg->entry[3], dg, PHPFORM_TYPE_CHECK);
+	varbut = php_var_but(dg->entry[1],NULL, dg->entry[3], dg, PHPFORM_TYPE_CHECK);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), varbut, 9, 10, 3, 4);
 
 	html_diag_finish(dg, G_CALLBACK(checkdialogok_lcb));
