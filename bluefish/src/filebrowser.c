@@ -116,6 +116,7 @@ typedef struct {
 
 /* some functions need to be referenced before they are declared*/
 static void row_expanded_lcb(GtkTreeView *tree,GtkTreeIter *iter,GtkTreePath *path,Tfilebrowser *filebrowser);
+static void populate_dir_history(Tfilebrowser *filebrowser,gboolean firsttime, gchar *activedir);
 
 #ifdef DEBUG
 void DEBUG_DUMP_TREE_PATH(GtkTreePath *path) {
@@ -131,7 +132,6 @@ void DEBUG_DUMP_TREE_PATH(GtkTreePath *path) {
 #define DEBUG_DUMP_TREE_PATH(path)
  /**/
 #endif /* DEBUG */
-
 
 /*
  returns TRUE if there is no basedir, or if the file is indeed in the basedir, else returns FALSE
@@ -634,6 +634,7 @@ static void refresh_dir_by_path_and_filename(Tfilebrowser *filebrowser, GtkTreeP
 #endif
 	if (filebrowser->last_opened_dir) g_free(filebrowser->last_opened_dir);
 	filebrowser->last_opened_dir = ending_slash(filename);
+	populate_dir_history(filebrowser,FALSE, filebrowser->last_opened_dir);
 	direntrylist = return_dir_entries(filebrowser,filename);
 	{
 		GtkTreePath *path = gtk_tree_path_copy(thispath);		
@@ -799,6 +800,7 @@ static GtkTreePath *build_tree_from_path(Tfilebrowser *filebrowser, const gchar 
 		if (filebrowser->last_opened_dir) g_free(filebrowser->last_opened_dir);
 		DEBUG_MSG("build_tree_from_path, freed last_opened_dir\n");
 		filebrowser->last_opened_dir = ending_slash(dirname);
+		populate_dir_history(filebrowser,FALSE, filebrowser->last_opened_dir);
 		DEBUG_MSG("build_tree_from_path, after ending slash\n");
 		
 		direntrylist = return_dir_entries(filebrowser,dirname);
@@ -949,14 +951,15 @@ void filebrowser_open_dir(Tbfwin *bfwin,const gchar *dirarg) {
 		DEBUG_MSG("filebrowser_open_dir, called for '%s', dir is '%s'\n", dirarg, dir);
 		DEBUG_DUMP_TREE_PATH(path);
 		if (path) {
-			DEBUG_MSG("jump_to_dir, it exists in tree, refreshing\n");
+			DEBUG_MSG("filebrowser_open_dir, it exists in tree, refreshing\n");
 			refresh_dir_by_path_and_filename(filebrowser, path, dir);
-			DEBUG_MSG("jump_to_dir, now scroll to the path\n");
+			DEBUG_MSG("filebrowser_open_dir, now scroll to the path\n");
 			filebrowser_expand_to_root(filebrowser,path);
 			gtk_tree_view_scroll_to_cell(GTK_TREE_VIEW(filebrowser->tree),path,0,TRUE,0.5,0.5);
+			gtk_tree_selection_select_path(gtk_tree_view_get_selection(GTK_TREE_VIEW(filebrowser->tree)),path);
 			gtk_tree_path_free(path);
 		} else {
-			DEBUG_MSG("jump_to_dir, it does NOT exist in the tree, building..\n");
+			DEBUG_MSG("filebrowser_open_dir, it does NOT exist in the tree, building..\n");
 			path = build_tree_from_path(filebrowser, dir);
 /*			path = return_path_from_filename(GTK_TREE_STORE(filebrowser->store), dir);*/
 /*			gtk_tree_view_expand_row(GTK_TREE_VIEW(filebrowser->tree),path,FALSE);*/
@@ -968,79 +971,6 @@ void filebrowser_open_dir(Tbfwin *bfwin,const gchar *dirarg) {
 		}
 		g_free(dir);
 	}
-}
-
-static void dirmenu_activate_lcb(GtkMenuItem *widget, Tfilebrowser *filebrowser) {
-	const gchar *dir = gtk_label_get_text(GTK_LABEL(GTK_BIN(widget)->child));
-	if (dir) {
-		DEBUG_MSG("dirmenu_activate_lcb, dir=%s\n", dir);
-		filebrowser_open_dir(filebrowser->bfwin,dir);
-	}
-}
-
-static void populate_dir_history(Tfilebrowser *filebrowser,gboolean firsttime) {
-	GtkWidget *menu;
-	gchar *tmpchar, *tmpdir, *tmp;
-	GList *tmplist;
-	GList *new_history_list=NULL;
-	DEBUG_MSG("populate_dir_history, empty\n");
-
-	if (!firsttime) {
-		gtk_option_menu_remove_menu(GTK_OPTION_MENU(filebrowser->dirmenu));
-		free_stringlist(filebrowser->dirmenu_entries);
-		filebrowser->dirmenu_entries = NULL;
-	
-		menu = gtk_menu_new();
-		gtk_option_menu_set_menu(GTK_OPTION_MENU(filebrowser->dirmenu), menu);
-		gtk_widget_show(menu);
-	} else {
-		filebrowser->dirmenu_entries = NULL;
-		menu = gtk_option_menu_get_menu(GTK_OPTION_MENU(filebrowser->dirmenu));
-		gtk_widget_show(menu);
-	}
-
-	tmp = g_get_current_dir();
-	tmpdir = g_strconcat(tmp, DIRSTR, NULL);
-	g_free(tmp);
-	
-	new_history_list = add_to_stringlist(new_history_list, tmpdir);
-	while ((tmpchar = strrchr(tmpdir, DIRCHR))) {
-		tmpchar++;
-		*tmpchar = '\0';
-		DEBUG_MSG("populate_dir_history, adding %s\n", tmpdir);
-		new_history_list = add_to_stringlist(new_history_list, tmpdir);
-		tmpchar--;
-		*tmpchar = '\0';
-	}
-	g_free(tmpdir);
-	
-	tmpdir = g_strconcat(g_get_home_dir(), DIRSTR, NULL);
-	new_history_list = add_to_stringlist(new_history_list, tmpdir);
-	g_free(tmpdir);
-
-	tmplist = g_list_last(main_v->recent_directories);
-	while (tmplist) {
-		new_history_list = add_to_stringlist(new_history_list, (gchar *)tmplist->data);
-		tmplist = g_list_previous(tmplist);
-	}
-
-	/* make the actual option menu */
-	tmplist = g_list_first(new_history_list);
-	while (tmplist) {
-		GtkWidget *menuitem;
-		gchar *dirname = ending_slash((gchar *)tmplist->data);
-		DEBUG_MSG("populate_dir_history, adding %s to menu\n", dirname);
-		menuitem = gtk_menu_item_new_with_label(dirname);
-		g_signal_connect(G_OBJECT(menuitem),"activate",G_CALLBACK(dirmenu_activate_lcb),filebrowser);
-		g_free(dirname);
-		gtk_menu_append(GTK_MENU(menu), menuitem);
-		gtk_widget_show(menuitem);
-		g_free(tmplist->data);
-		tmplist = g_list_next(tmplist);
-	} 
-	g_list_free(new_history_list);
-
-	gtk_option_menu_set_history(GTK_OPTION_MENU(filebrowser->dirmenu), 0);
 }
 
 typedef struct {
@@ -1567,7 +1497,7 @@ static gboolean filebrowser_button_press_lcb(GtkWidget *widget, GdkEventButton *
 	/*				gtk_tree_path_free(path);
 					return FALSE;*/
 				} else if (event->type == GDK_2BUTTON_PRESS) {
-				        GdkRectangle r;
+					GdkRectangle r;
 					gchar *filename = return_filename_from_path(filebrowser,GTK_TREE_MODEL(filebrowser->store),path);
 					DEBUG_MSG("filebrowser_button_press_lcb, doubleclick!! open the file %s\n", filename);
 					gtk_tree_view_get_visible_rect(GTK_TREE_VIEW(filebrowser->tree),&r);
@@ -1767,6 +1697,79 @@ static void filebrowser_two_pane_notify_position_lcb(GObject *object,GParamSpec 
 	}
 }
 
+static void dirmenu_activate_lcb(GtkMenuItem *widget, Tfilebrowser *filebrowser) {
+	const gchar *dir = gtk_label_get_text(GTK_LABEL(GTK_BIN(widget)->child));
+	if (dir) {
+		DEBUG_MSG("dirmenu_activate_lcb, dir=%s\n", dir);
+		filebrowser_open_dir(filebrowser->bfwin,dir);
+	}
+}
+
+static void populate_dir_history(Tfilebrowser *filebrowser,gboolean firsttime, gchar *activedir) {
+	GtkWidget *menu;
+	gchar *tmpchar, *tmpdir;
+	GList *tmplist;
+	GList *new_history_list=NULL;
+/*	if (!firsttime) { */
+		DEBUG_MSG("populate_dir_history,remove menu, free stringlist etc.\n ");
+		gtk_option_menu_remove_menu(GTK_OPTION_MENU(filebrowser->dirmenu));
+		free_stringlist(filebrowser->dirmenu_entries);
+		filebrowser->dirmenu_entries = NULL;
+	
+		menu = gtk_menu_new();
+		gtk_option_menu_set_menu(GTK_OPTION_MENU(filebrowser->dirmenu), menu);
+		gtk_widget_show(menu);
+/*	} else {
+		DEBUG_MSG("populate_dir_history, first time, get the menu\n");
+		filebrowser->dirmenu_entries = NULL;
+		menu = gtk_option_menu_get_menu(GTK_OPTION_MENU(filebrowser->dirmenu));
+		gtk_widget_show(menu);
+	}*/
+
+	if (activedir) {
+		DEBUG_MSG("populate_dir_history, activedir=%s\n",activedir);
+		tmpdir = ending_slash(activedir);
+		
+		new_history_list = add_to_stringlist(new_history_list, tmpdir);
+		while ((tmpchar = strrchr(tmpdir, DIRCHR))) {
+			tmpchar++;
+			*tmpchar = '\0';
+			DEBUG_MSG("populate_dir_history, adding %s\n", tmpdir);
+			new_history_list = add_to_stringlist(new_history_list, tmpdir);
+			tmpchar--;
+			*tmpchar = '\0';
+		}
+		g_free(tmpdir);
+	}
+	tmpdir = g_strconcat(g_get_home_dir(), DIRSTR, NULL);
+	new_history_list = add_to_stringlist(new_history_list, tmpdir);
+	g_free(tmpdir);
+
+	tmplist = g_list_last(main_v->recent_directories);
+	while (tmplist) {
+		new_history_list = add_to_stringlist(new_history_list, (gchar *)tmplist->data);
+		tmplist = g_list_previous(tmplist);
+	}
+
+	/* make the actual option menu */
+	tmplist = g_list_first(new_history_list);
+	while (tmplist) {
+		GtkWidget *menuitem;
+		gchar *dirname = ending_slash((gchar *)tmplist->data);
+		DEBUG_MSG("populate_dir_history, adding %s to menu\n", dirname);
+		menuitem = gtk_menu_item_new_with_label(dirname);
+		g_signal_connect(G_OBJECT(menuitem),"activate",G_CALLBACK(dirmenu_activate_lcb),filebrowser);
+		g_free(dirname);
+		gtk_menu_append(GTK_MENU(menu), menuitem);
+		gtk_widget_show(menuitem);
+		g_free(tmplist->data);
+		tmplist = g_list_next(tmplist);
+	} 
+	g_list_free(new_history_list);
+
+	gtk_option_menu_set_history(GTK_OPTION_MENU(filebrowser->dirmenu), 0);
+}
+
 /**
  * filebrowsel_init:
  * @bfwin: #Tbfwin*
@@ -1796,6 +1799,10 @@ GtkWidget *filebrowser_init(Tbfwin *bfwin) {
 		/* get the default filter */
 		filebrowser->curfilter = find_filter_by_name(main_v->props.last_filefilter);
 	}
+	
+	filebrowser->dirmenu = gtk_option_menu_new();
+	gtk_option_menu_set_menu(GTK_OPTION_MENU(filebrowser->dirmenu), gtk_menu_new());
+/*	populate_dir_history(filebrowser,TRUE, NULL);*/
 	
 	filebrowser->store = gtk_tree_store_new (N_COLUMNS,GDK_TYPE_PIXBUF,G_TYPE_STRING);
 	filebrowser->tree = gtk_tree_view_new_with_model (GTK_TREE_MODEL(filebrowser->store));
@@ -1883,6 +1890,7 @@ GtkWidget *filebrowser_init(Tbfwin *bfwin) {
 		path = build_tree_from_path(filebrowser, buildfrom);
 		if (filebrowser->last_opened_dir) g_free(filebrowser->last_opened_dir);
 		filebrowser->last_opened_dir = ending_slash(buildfrom);
+		populate_dir_history(filebrowser,FALSE, filebrowser->last_opened_dir);
 		if (path) {
 			filebrowser_expand_to_root(filebrowser,path);
 			gtk_tree_path_free(path);
@@ -1899,10 +1907,7 @@ GtkWidget *filebrowser_init(Tbfwin *bfwin) {
 		GtkWidget *vbox, *scrolwin;
 	/*	GtkAdjustment* adj;*/
 		vbox = gtk_vbox_new(FALSE, 0);
-		
-		filebrowser->dirmenu = gtk_option_menu_new();
-		gtk_option_menu_set_menu(GTK_OPTION_MENU(filebrowser->dirmenu), gtk_menu_new());
-		populate_dir_history(filebrowser,TRUE);
+
 		gtk_box_pack_start(GTK_BOX(vbox),filebrowser->dirmenu, FALSE, FALSE, 0);
 		
 		scrolwin = gtk_scrolled_window_new(NULL, NULL);
