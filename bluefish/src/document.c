@@ -312,13 +312,17 @@ gboolean test_docs_modified(GList *doclist) {
 	}
 	return FALSE;
 }
-/* gint test_only_empty_doc_left()
+/**
+ * test_only_empty_doc_left:
+ *
  * returns TRUE if there is only 1 document open, and that document
  * is not modified and 0 bytes long and without filename
  * returns FALSE if there are multiple documents open, or 
  * a modified document is open, or a > 0 bytes document is open
  * or a document with filename is open
- */
+ *
+ * Return value: void
+ **/
 gboolean test_only_empty_doc_left() {
 	if (g_list_length(main_v->documentlist) > 1) {
 		return FALSE;
@@ -337,7 +341,15 @@ gboolean test_only_empty_doc_left() {
 	}
 	return TRUE;
 }
-
+/**
+ * doc_has_selection:
+ * @doc: a #Tdocument
+ *
+ * returns TRUE if the document has a selection
+ * returns FALSE if it does not
+ *
+ * Return value: gboolean
+ **/
 gboolean doc_has_selection(Tdocument *doc) {
 	GtkTextMark* tmp;
 	GtkTextIter itinsert, itselect;
@@ -347,7 +359,23 @@ gboolean doc_has_selection(Tdocument *doc) {
 	gtk_text_buffer_get_iter_at_mark(doc->buffer,&itselect,tmp);
 	return (!gtk_text_iter_equal(&itinsert, &itselect));
 }
-
+/**
+ * doc_set_modified:
+ * @doc: a #Tdocument
+ * @value: a gint TRUE or FALSE
+ *
+ * sets the doc->modified to value
+ * if it already has this value, do nothing
+ * if it does not have this value, it will do some action
+ *
+ * if the document pointed to by doc == the current document
+ * it will update the toolbar and menu undo/redo items
+ *
+ * if value is TRUE, it will make the notebook and notebook-menu
+ * label red, if value is FALSE it will set them to black
+ *
+ * Return value: void
+ **/
 void doc_set_modified(Tdocument *doc, gint value) {
 	DEBUG_MSG("doc_set_modified, started, doc=%p, value=%d\n", doc, value);
 	if (doc->modified != value) {
@@ -449,27 +477,31 @@ static void doc_set_stat_info(Tdocument *doc) {
 	}
 }
 
-/*static void doc_scroll_to_line(Tdocument *doc, gint linenum, gboolean select_line) {
-	GtkTextIter itstart;
-
-	gtk_text_buffer_get_iter_at_line(doc->buffer,&itstart,linenum);
-	gtk_text_view_scroll_to_iter(GTK_TEXT_VIEW(doc->view),&itstart,0.25,FALSE,0.5,0.5);
-	if (select_line) {
-		GtkTextIter itend = itstart;
-		gtk_text_iter_forward_to_line_end(&itend);
-		gtk_text_buffer_place_cursor (doc->buffer, &itstart);
-		gtk_text_buffer_move_mark_by_name(doc->buffer,"selection_bound",&itend);
-	}
-}*/
-
+/**
+ * doc_scroll_to_cursor:
+ * @doc: a #Tdocument
+ * 
+ * scolls the document pointer to by doc to its cursor position, 
+ * making the cursor visible
+ * 
+ * Return value: void
+ **/
 void doc_scroll_to_cursor(Tdocument *doc) {
 	GtkTextMark *mark = gtk_text_buffer_get_insert(doc->buffer);
 	gtk_text_view_scroll_to_mark(GTK_TEXT_VIEW(doc->view),mark,0.25,FALSE,0.5,0.5);
 }
 
-/* gchar *doc_get_chars(Tdocument *doc, gint start, gint end)
- * if end == -1 it will return everrything to the end
- */
+/**
+ * doc_get_chars:
+ * @doc: a #Tdocument
+ * @start: a #gint, the start position
+ * @end: a #gint, the end position
+ * 
+ * returns all characters (NOT BYTES!!) from start to end from the document 
+ * pointer to by doc. end may be -1 to point to the end of the document
+ * 
+ * Return value: gchar * with the requested characters
+ **/
 gchar *doc_get_chars(Tdocument *doc, gint start, gint end) {
 	GtkTextIter itstart, itend;
 	gchar *string;
@@ -488,17 +520,31 @@ gchar *doc_get_chars(Tdocument *doc, gint start, gint end) {
 	DEBUG_MSG("doc_get_chars, retrieved string (%p)\n", string);
 	return string;
 }
-
+/**
+ * doc_get_max_offset:
+ * @doc: a #Tdocument
+ * 
+ * returns the number of characters (NOT BYTES!!) in this document
+ * 
+ * Return value: gint with the number of characters
+ **/
 gint doc_get_max_offset(Tdocument *doc) {
 	return gtk_text_buffer_get_char_count(doc->buffer);
 }
 
-/*  void doc_select_region(Tdocument *doc, gint start, gint end, gboolean do_scroll)
- *  selects from start to end in the doc, and if do_scroll is set it will make
- *  sure the selection is visible to the user
- */
+/**
+ * doc_select_region:
+ * @doc: a #Tdocument
+ * @start: a #gint with the start of selection
+ * @end: a #gint with the end of the selection
+ * @do_scroll: a #gboolean, if we should scroll to the selection
+ * 
+ * selects from start to end in the doc, and if do_scroll is set it will make
+ * sure the selection is visible to the user
+ *
+ * Return value: void
+ **/
 void doc_select_region(Tdocument *doc, gint start, gint end, gboolean do_scroll) {
-	/* how do we select a region in gtk2?? */
 	GtkTextIter itstart, itend;
 	gtk_text_buffer_get_iter_at_offset(doc->buffer, &itstart,start);
 	gtk_text_buffer_get_iter_at_offset(doc->buffer, &itend,end);
@@ -509,10 +555,18 @@ void doc_select_region(Tdocument *doc, gint start, gint end, gboolean do_scroll)
 	}
 }
 
-/*void doc_select_line(Tdocument *doc, gint line, gboolean do_scroll)
- * the line starts at 1, not at 0 !!
- */
-
+/**
+ * doc_select_line:
+ * @doc: a #Tdocument
+ * @line: a #gint with the line number to select
+ * @do_scroll: a #gboolean, if we should scroll to the selection
+ * 
+ * selects the line in doc, and if do_scroll is set it will make
+ * sure the selection is visible to the user
+ * the line number starts at line 1, not at line 0!!
+ *
+ * Return value: void
+ **/
 void doc_select_line(Tdocument *doc, gint line, gboolean do_scroll) {
 	GtkTextIter itstart, itend;
 	gtk_text_buffer_get_iter_at_line(doc->buffer,&itstart,line-1);
@@ -525,11 +579,18 @@ void doc_select_line(Tdocument *doc, gint line, gboolean do_scroll) {
 	}
 }
 
-/*  gboolean doc_get_selection(Tdocument *, gint *start, gint *end)
+/**
+ * doc_get_selection:
+ * @doc: a #Tdocument
+ * @start: a #gint * to store the start
+ * @end: a #gint * to store the end
+ * 
  *  returns FALSE if there is no selection
  *  returns TRUE if there is a selection, and start and end will be set
  *  to the current selection
- */
+ *
+ * Return value: gboolean if there is a selection
+ **/
 gboolean doc_get_selection(Tdocument *doc, gint *start, gint *end) {
 	GtkTextIter itstart, itend;
 	GtkTextMark *mark = gtk_text_buffer_get_insert(doc->buffer);
@@ -549,14 +610,40 @@ gboolean doc_get_selection(Tdocument *doc, gint *start, gint *end) {
 	}
 	return TRUE;
 }
-
+/**
+ * doc_get_cursor_position:
+ * @doc: a #Tdocument
+ * 
+ * returns the cursor position in doc as character offset
+ *
+ * Return value: gint with the character offset of the cursor
+ **/
 gint doc_get_cursor_position(Tdocument *doc) {
 	GtkTextIter iter;
 	GtkTextMark *mark = gtk_text_buffer_get_insert(doc->buffer);
 	gtk_text_buffer_get_iter_at_mark(doc->buffer, &iter, mark);
 	return gtk_text_iter_get_offset(&iter);
 }
-
+/**
+ * doc_replace_text_backend:
+ * @doc: a #Tdocument
+ * @newstring: a #const char * with the new string
+ * @start: a gint with the start character position
+ * @end: a gint with the end character position
+ * 
+ * unbinds all signals so there will be no call to a highlighting 
+ * update or anything else
+ * deletes the text in the region between start and end
+ * registers that text to the undo/redo functionality
+ * inserts newstring at that same position
+ * registers this to the undo/redo functionality
+ * marks the document as modified and marks it as needing highlighting
+ * binds the signals again to their callbacks
+ *
+ * multiple calls to doc_replace_text_backend will all be in the same undo/redo group
+ *
+ * Return value: void
+ **/
 void doc_replace_text_backend(Tdocument *doc, const gchar * newstring, gint start, gint end) {
 	doc_unbind_signals(doc);
 	/* delete region, and add that to undo/redo list */
@@ -587,15 +674,22 @@ void doc_replace_text_backend(Tdocument *doc, const gchar * newstring, gint star
 	doc_set_modified(doc, 1);
 	doc->need_highlighting=TRUE;
 }					  
-
+/**
+ * doc_replace_text:
+ * @doc: a #Tdocument
+ * @newstring: a #const char * with the new string
+ * @start: a gint with the start character position
+ * @end: a gint with the end character position
+ * 
+ * identical to doc_replace_text_backend, with one difference, multiple calls to
+ * doc_replace_text will be all be in a different undo/redo group
+ *
+ * Return value: void
+ **/
 void doc_replace_text(Tdocument * doc, const gchar * newstring, gint start, gint end) {
 	doc_unre_new_group(doc);
-
 	doc_replace_text_backend(doc, newstring, start, end);
-	
-	doc_set_modified(doc, 1);
 	doc_unre_new_group(doc);
-/*	doc_need_highlighting(doc);*/
 }
 
 static void doc_convert_chars_to_entities(Tdocument *doc, gint start, gint end, gboolean ascii, gboolean iso) {
@@ -630,11 +724,25 @@ static void doc_convert_chars_to_entities_in_selection(Tdocument *doc, gboolean 
 	}
 }
 
-/* inserts the first string at pos1 and the second at pos2 in doc
+/**
+ * doc_insert_two_strings:
+ * @doc: a #Tdocument
+ * @before_str: a #const char * with the first string
+ * @after_str: a #const char * with the second string
+ * 
  * if the marks 'diag_ins' and 'diag_sel' exist, they will be used
- * if not, insert and selection_bound will be used
- */
-
+ * as pos1 and pos2
+ * if a selection exists, the selection start and end will be pos1 and pos2
+ * if both not exist the cursor position will be both pos1 and pos2
+ *
+ * inserts the first string at pos1 and the second at pos2 in doc
+ * it does not unbind any signal, so the insert callback will have to do 
+ * do the undo/redo, modified and highlighting stuff
+ *
+ * multiple calls to this function will be in separate undo/redo groups
+ *
+ * Return value: void
+ **/
 void doc_insert_two_strings(Tdocument *doc, const gchar *before_str, const gchar *after_str) {
 	GtkTextIter itinsert, itselect;
 	GtkTextMark *insert, *select;
