@@ -28,7 +28,7 @@
 /*#include "coloursel.h"*/ /* colorbut_new() */
 #include "html_diag.h"
 #include "html_table.h"
-/*#include "html2.h"*/ /* style_but_new */
+#include "html2.h" /* style_but_new */
 /*#include "init.h"*/ 	/* positionlist */
 #include "gtk_easy.h"
 #include "document.h"
@@ -92,7 +92,7 @@ void tabledialog_cb(GtkWidget * widget, gpointer data)
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Cell Spacing")), 0, 1, 1, 2);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->spin[3], 1, 2, 1, 2);
 
-	dg->combo[4] = combo_with_popdown_sized(tagvalues[7], main_v->current_project.classlist, 1, 80);
+	dg->combo[4] = combo_with_popdown_sized(tagvalues[7], recent_attribs.classlist, 1, 80);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Class")), 0, 1, 2, 3);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->combo[4], 1, 2, 2, 3);
 
@@ -128,7 +128,7 @@ void tabledialog_cb(GtkWidget * widget, gpointer data)
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Vertical Align")), 2, 3, 1, 2);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->combo[2], 3, 5, 1, 2);
 
-	dg->combo[3] = combo_with_popdown_sized(tagvalues[5], main_v->current_project.colorlist, 1, 80);
+	dg->combo[3] = combo_with_popdown_sized(tagvalues[5], recent_attribs.colorlist, 1, 80);
 	var_but = color_but_new(GTK_COMBO(dg->combo[3])->entry, dg->dialog);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Background Color")), 2, 3, 2, 3);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->combo[3], 3, 4, 2, 3);
@@ -239,11 +239,11 @@ void tablerowdialog_cb(GtkWidget * widget, gpointer data)
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("VAlign")), 0, 1, 1, 2);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(GTK_COMBO(dg->combo[2])), 1, 2, 1, 2);
 
-	dg->combo[4] = combo_with_popdown_sized(tagvalues[3], main_v->current_project.classlist, 1, 90);
+	dg->combo[4] = combo_with_popdown_sized(tagvalues[3], recent_attribs.classlist, 1, 90);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Class")), 2, 3, 0, 1);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->combo[4], 3, 5, 0, 1);
 
-	dg->combo[3] = combo_with_popdown_sized(tagvalues[2], main_v->current_project.colorlist, 1, 90);
+	dg->combo[3] = combo_with_popdown_sized(tagvalues[2], recent_attribs.colorlist, 1, 90);
 	color_but = color_but_new(GTK_COMBO(dg->combo[3])->entry, dg->dialog);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Background Color")), 2, 3, 1, 2);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(GTK_COMBO(dg->combo[3])), 3, 4, 1, 2);
@@ -353,7 +353,7 @@ static void table_head_and_data_dialog_cb(gint type, GtkWidget * widget, gpointe
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("VAlign")), 0, 1, 1, 2);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(GTK_COMBO(dg->combo[2])), 1, 2, 1, 2);
 
-	dg->combo[4] = combo_with_popdown_sized(tagvalues[8], main_v->current_project.classlist, 1, 80);
+	dg->combo[4] = combo_with_popdown_sized(tagvalues[8], recent_attribs.classlist, 1, 80);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Class")), 0, 1, 2, 3);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(GTK_COMBO(dg->combo[4])), 1, 2, 2, 3);
 
@@ -394,7 +394,7 @@ static void table_head_and_data_dialog_cb(gint type, GtkWidget * widget, gpointe
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->spin[3], 5, 6, 1, 2);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->check[3], 6, 7, 1, 2);
 
-	dg->combo[3] = combo_with_popdown_sized(tagvalues[6], main_v->current_project.colorlist, 1, 80);
+	dg->combo[3] = combo_with_popdown_sized(tagvalues[6], recent_attribs.colorlist, 1, 80);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Background Color")), 4, 5, 2, 3);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(GTK_COMBO(dg->combo[3])), 5, 6, 2, 3);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(color_but_new(GTK_COMBO(dg->combo[3])->entry, dg->dialog)), 6, 7, 2, 3);
