@@ -197,13 +197,15 @@ static GtkTreeIter *fb2_add_filesystem_entry(GtkTreeIter *parent, GnomeVFSURI *c
 		}
 		g_free(hashkey);
 	} else {
-		gchar *tmp, *display_name;
+		gchar *tmp, *tmp2, *display_name;
 		GnomeVFSURI *uri_dup;
 		gpointer pixmap;
 		newiter = g_new(GtkTreeIter,1);
 		uri_dup = gnome_vfs_uri_dup(child_uri);
 		tmp = uri_to_document_filename(child_uri);
-		display_name = g_strdup(strrchr(tmp, '/')+1);
+		tmp2 = strrchr(tmp, '/');
+		DEBUG_MSG("fb2_add_filesystem_entry, tmp2=%s for tmp=%s\n",tmp2,tmp);
+		display_name = tmp2 && strlen(tmp2)>2 ? g_strdup(tmp2+1) : gnome_vfs_uri_to_string(child_uri,GNOME_VFS_URI_HIDE_PASSWORD);
 		pixmap = FILEBROWSER2CONFIG(main_v->fb2config)->dir_icon;
 		if (type != TYPE_DIR) {
 			Tfiletype *ft = get_filetype_by_filename_and_content(display_name, NULL);
