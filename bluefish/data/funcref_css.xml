@@ -1,528 +1,2207 @@
-<ref name="CSS 2.0" description="CSS 2.0 properties">
-	<group name="Visual" description="Properties for visual media">
-		<tag name="background">
-			<description>background is shorthand for setting the individual background properties</description>
-			<insert>background:</insert>
-		</tag>
-		<tag name="background-attachment">
-			<description>Specifies if the background is fixed to the viewport of if it scrolls, which is the default.</description>
-			<insert>background-attachment:</insert>
-		</tag>
-		<tag name="background-color">
-			<description>Sets the background colour</description>
-			<insert>background-color:</insert>
-		</tag>
-		<tag name="background-image">
-			<description>Sets an image to use as the background</description>
-			<insert>background-image:</insert>
-		</tag>
-		<tag name="background-position">
-			<description>Specifies the position of a background image if one is given</description>
-			<insert>background-position:</insert>
-		</tag>
-		<tag name="background-repeat">
-			<description>Controls tiling of background images</description>
-			<insert>background-repeat:</insert>
-		</tag>
-		<tag name="border">
-			<description>border is shorthand for setting the individual border properties on all four borders</description>
-			<insert>border:</insert>
-		</tag>	
-		<tag name="border-collapse">
-			<description>border-collapse controls how borders are handled in tables</description>
-			<insert>border-collapse:</insert>
-		</tag>
-		<tag name="border-color">
-			<description>border-color is shorthand for setting the colour of all four borders</description>
-			<insert>border-color:</insert>
-		</tag>
-		<tag name="border-spacing">
-			<description>border-spacing controls the spacing between cell borders in tables</description>
-			<insert>border-spacing:</insert>
-		</tag>
-		<tag name="border-style">
-			<description>border-style is shorthand for setting the style of all four borders</description>
-			<insert>border-style:</insert>
-		</tag>
-		<tag name="border-top">
-			<description>border-top is shorthand for setting the style, colour and width of the top border</description>
-			<insert>border-top:</insert>
-		</tag>
-		<tag name="border-right">	
-			<description>border-right is shorthand for setting the style, colour and width of the right hand border</description>
-			<insert>border-right:</insert>
-		</tag>
-		<tag name="border-bottom">
-			<description>border-bottom is shorthand for setting the style, colour and width of the bottom border</description>
-			<insert>border-bottom:</insert>
-		</tag>
-		<tag name="border-left">
-			<description>border-left is shorthand for setting the style, colour and width of the left hand border</description>
-			<insert>border-left:</insert>
-		</tag>
-		<tag name="border-top-color">
-			<description>border-top-color sets the colour of the top border</description>
-			<insert>border-top-color:</insert>
-		</tag>
-		<tag name="border-right-color">	
-			<description>border-right-color sets the colour of the right hand border</description>
-			<insert>border-right-color:</insert>
-		</tag>
-		<tag name="border-bottom-color">
-			<description>border-bottom-color sets the colour of the bottom border</description>
-			<insert>border-bottom-color:</insert>
-		</tag>
-		<tag name="border-left-color">
-			<description>border-left-color sets the colour of the left hand border</description>
-			<insert>border-left-color:</insert>
-		</tag>
-		<tag name="border-top-style">
-			<description>border-top-style sets the style of the top border</description>
-			<insert>border-top-style:</insert>
-		</tag>
-		<tag name="border-right-style">	
-			<description>border-right-style sets the style of the right hand border</description>
-			<insert>border-right-style:</insert>
-		</tag>
-		<tag name="border-bottom-style">
-			<description>border-bottom-style sets the style of the bottom border</description>
-			<insert>border-bottom-style:</insert>
-		</tag>
-		<tag name="border-left-style">
-			<description>border-left-style sets the style of the left hand border</description>
-			<insert>border-left-style:</insert>
-		</tag>
-		<tag name="border-top-width">
-			<description>border-top-width sets the width of the top border</description>
-			<insert>border-top-width:</insert>
-		</tag>
-		<tag name="border-right-width">	
-			<description>border-right-width sets the width of the right hand border</description>
-			<insert>border-right-width:</insert>
-		</tag>
-		<tag name="border-bottom-width">
-			<description>border-bottom-width sets the width of the bottom border</description>
-			<insert>border-bottom-width:</insert>
-		</tag>
-		<tag name="border-left-width">
-			<description>border-left-width sets the width of the left hand border</description>
-			<insert>border-left-width:</insert>
-		</tag>
-		<tag name="border-width">
-			<description>border-width is shorthand for setting the width of all four borders</description>
-			<insert>border-width:</insert>
-		</tag>
-		<tag name="bottom">
-			<description>bottom specifies the offset from the bottom edge of the containing block</description>
-			<insert>bottom:</insert>
-		</tag>
-		<tag name="caption-side">
-			<description>caption-side specifies where a table caption will appear</description>
-			<insert>caption-side:</insert>
-		</tag>
-		<tag name="clear">
-			<description>clear specifies which sides of an element may not have a earlier floating element next to them</description>
-			<insert>clear:</insert>
-		</tag>	
-		<tag name="clip">
-			<description>clip specifies the clipping rectangle for the element</description>
-			<insert>clip:</insert>
-		</tag>	
-		<tag name="color">
-			<description>color specifies the foreground colour to be used for text</description>
-			<insert>color:</insert>
-		</tag>	
-		<tag name="content">
-			<description>content provides a way of inserting extra content into the document</description>
-			<insert>content:</insert>
-		</tag>	
-		<tag name="counter-increment">
-			<description>Increment a named counter</description>
-			<insert>counter-increment:</insert>
-		</tag>	
-		<tag name="counter-reset">
-			<description>Reset a named counter to 0, or a specified value</description>
-			<insert>counter-reset:</insert>
-		</tag>
-		<tag name="cursor">
-			<description>Set the mouse pointer to the specified type</description>
-			<insert>cursor:</insert>
-		</tag>
-		<tag name="direction">
-			<description>Sets the text direction, left to right, right to left, etc.</description>
-			<insert>direction:</insert>
-		</tag>
-		<tag name="display">
-			<description>Controls how an element is rendered, if at all</description>
-			<insert>display:</insert>
-		</tag>
-		<tag name="empty-cells">
-			<description>Controls if empty cells in tables should be shown or not</description>
-			<insert>empty-cells:</insert>
-		</tag>	
-		<tag name="float">
-			<description>Specifies if an element should float to the left or right, or not at all.</description>
-			<insert>float:</insert>
-		</tag>
-		<tag name="font">
-			<description>Shorthand for setting the individual font properties</description>
-			<insert>font:</insert>
-		</tag>
-		<tag name="font-family">
-			<description>The name of the font, or font family to use</description>
-			<insert>font-family:</insert>
-		</tag>
-		<tag name="font-size">
-			<description>Specifies how big the font should be</description>
-			<insert>font-size:</insert>
-		</tag>	
-		<tag name="font-size-adjust">
-			<description>Set the aspect ratio of the font</description>
-			<insert>font-size-adjust:</insert>
-		</tag>
-		<tag name="font-stretch">
-			<description>Provides a way to stretch / squash the font</description>
-			<insert>font-stretch:</insert>
-		</tag>
-		<tag name="font-style">
-			<description>Specifies if the font should be italic, oblique, etc.</description>
-			<insert>font-style:</insert>
-		</tag>
-		<tag name="font-variant">
-			<description>Enables a variant of the font to be used, such as small-caps</description>
-			<insert>font-variant:</insert>
-		</tag>
-		<tag name="font-weight">
-			<description>Specifies the weight of the font</description>
-			<insert>font-weight:</insert>
-		</tag>
-		<tag name="height">
-			<description>Provides a height for an element</description>
-			<insert>height:</insert>
-		</tag>	
-		<tag name="left">
-			<description>Specifies the offset of the left hand side of a positioned element</description>
-			<insert>left:</insert>
-		</tag>
-		<tag name="letter-spacing">
-			<description>Specifies the spacing between letters</description>
-			<insert>letter-spacing:</insert>
-		</tag>	
-		<tag name="line-height">
-			<insert>line-height:</insert>
-		</tag>	
-		<tag name="list-style">
-			<description>A shorthand method of applying the list-style properties</description>
-			<insert>list-style:</insert>
-		</tag>	
-		<tag name="list-style-image">
-			<description>Specifies an image that should be used as the marker in a list or list item</description>
-			<insert>list-style-image:</insert>
-		</tag>
-		<tag name="list-style-position">
-			<description>Used to control if the list marker is rendered inside or outside the actual list item</description>
-			<insert>list-style-position:</insert>
-		</tag>	
-		<tag name="list-style-type">
-			<description>Specifies the type of marker to display, circle, square etc.</description>
-			<insert>list-style-type:</insert>
-		</tag>
-		<tag name="margin">
-			<description>A shorthand method for specifying the top, right, bottom, left margin widths / heights</description>
-			<insert>margin:</insert>
-		</tag>
-		<tag name="margin-top">
-			<description>Specifies the height of the top margin on an element</description>
-			<insert>margin-top:</insert>
-		</tag>
-		<tag name="margin-right">
-			<description>Specifies the width of the right hand margin on an element</description>
-			<insert>margin-right:</insert>
-		</tag>
-		<tag name="margin-bottom">
-			<description>Specifies the height of the bottom margin on an element</description>
-			<insert>margin-bottom:</insert>
-		</tag>
-		<tag name="margin-left">
-			<description>Specifies the width of the left hand margin on an element</description>
-			<insert>margin-left:</insert>
-		</tag>
-		<tag name="marker-offset">
-			<insert>marker-offset:</insert>
-		</tag>	
-		<tag name="marks">
-			<insert>marks:</insert>
-		</tag>
-		<tag name="max-height">
-			<description>Specidies a maximum height for an element, does not apply to table elements</description>
-			<insert>max-height:</insert>
-		</tag>
-		<tag name="max-width">
-			<description>Specidies a maximum width for an element, does not apply to table elements</description>
-			<insert>max-width:</insert>
-		</tag>
-		<tag name="min-height">
-			<description>Specidies a minimum height for an element, does not apply to table elements</description>
-			<insert>min-height:</insert>
-		</tag>
-		<tag name="min-width">
-			<description>Specidies a minimum width for an element, does not apply to table elements</description>
-			<insert>min-width:</insert>
-		</tag>
-		<tag name="orphans">
-			<insert>orphans:</insert>
-		</tag>
-		<tag name="outline">
-			<insert>outline:</insert>
-			<description>outline is shorthand for setting the individual outline properties on all sides of the box</description>
-		</tag>	
-		<tag name="outline-color">
-			<insert>outline-color:</insert>
-			<description>outline-color sets the colour of the outline on all sides of the box</description>
-		</tag>
-		<tag name="outline-style">
-			<insert>outline-style:</insert>
-			<description>outline-style sets the style of the outline on all sides of the box</description>
-		</tag>
-		<tag name="outline-width">
-			<insert>outline-width:</insert>
-			<description>outline-width sets the width of the outline on all sides of the box</description>
-		</tag>
-		<tag name="overflow">
-			<description>controls how content that does not fit inside its element should be handled</description>
-			<insert>overflow:</insert>
-		</tag>	
-		<tag name="padding">
-			<insert>padding:</insert>
-		</tag>
-		<tag name="padding-top">
-			<insert>padding-top:</insert>
-		</tag>
-		<tag name="padding-right">
-			<insert>padding-right:</insert>
-		</tag>
-		<tag name="padding-bottom">
-			<insert>padding-bottom:</insert>
-		</tag>
-		<tag name="padding-left">
-			<insert>padding-left:</insert>
-		</tag>
-		<tag name="page">
-			<insert>page:</insert>
-		</tag>
-		<tag name="page-break-after">
-			<insert>page-break-after:</insert>
-		</tag>
-		<tag name="page-break-before">
-			<insert>page-break-before:</insert>
-		</tag>
-		<tag name="page-break-inside">
-			<insert>page-break-inside:</insert>
-		</tag>
-		<tag name="position">
-			<insert>position:</insert>
-		</tag>	
-		<tag name="quotes">
-			<insert>quotes:</insert>
-		</tag>	
-		<tag name="right">
-			<insert>right:</insert>
-		</tag>	
-		<tag name="size">
-			<insert>size:</insert>
-		</tag>	
-		<tag name="table-layout">
-			<insert>table-layout:</insert>
-		</tag>	
-		<tag name="text-align">
-			<insert>text-align:</insert>
-		</tag>	
-		<tag name="text-decoration">
-			<insert>text-decoration:</insert>
-		</tag>	
-		<tag name="text-indent">
-			<insert>text-indent:</insert>
-		</tag>	
-		<tag name="text-shadow">
-			<insert>text-shadow:</insert>
-		</tag>	
-		<tag name="text-transform">
-			<insert>text-transform:</insert>
-		</tag>	
-		<tag name="top">
-			<insert>top:</insert>
-		</tag>	
-		<tag name="unicode-bidi">
-			<insert>unicode-bidi:</insert>
-		</tag>	
-		<tag name="vertical-align">
-			<insert>vertical-align:</insert>
-		</tag>	
-		<tag name="visibility">
-			<insert>visibility:</insert>
-		</tag>	
-		<tag name="white-space">
-			<insert>white-space:</insert>
-		</tag>	
-		<tag name="widows">
-			<insert>widows:</insert>
-		</tag>
-		<tag name="width">
-			<insert>width:</insert>
-		</tag>	
-		<tag name="word-spacing">
-			<insert>word-spacing:</insert>
-		</tag>	
-		<tag name="z-index">
-			<insert>z-index:</insert>
-		</tag>	
-	</group>	
-	<group name="Aural" description="Properties for aural media">
-		<tag name="azimuth">
-			<insert>azimuth:</insert>
-		</tag>	
-		<tag name="content">
-			<description>content provides a way of inserting extra content into the document</description>
-			<insert>content:</insert>
-		</tag>	
-		<tag name="counter-increment">
-			<insert>counter-increment:</insert>
-		</tag>	
-		<tag name="counter-reset">
-			<insert>counter-reset:</insert>
-		</tag>
-		<tag name="cue">
-			<insert>cue:</insert>
-		</tag>	
-		<tag name="cue-after">
-			<insert>cue-after:</insert>
-		</tag>	
-		<tag name="cue-before">
-			<insert>cue-before:</insert>
-		</tag>
-		<tag name="display">
-			<insert>display:</insert>
-		</tag>
-		<tag name="elevation">
-			<insert>elevation:</insert>
-		</tag>	
-		<tag name="pause">
-			<insert>pause:</insert>
-		</tag>
-		<tag name="pause-after">
-			<insert>pause-after:</insert>
-		</tag>
-		<tag name="pause-before">
-			<insert>pause-before:</insert>
-		</tag>
-		<tag name="pitch">
-			<insert>pitch:</insert>
-		</tag>
-		<tag name="pitch-range">
-			<insert>pitch-range:</insert>
-		</tag>
-		<tag name="play-during">
-			<insert>play-during:</insert>
-		</tag>
-		<tag name="richness">
-			<insert>richness:</insert>
-		</tag>
-		<tag name="speak">
-			<insert>speak:</insert>
-		</tag>
-		<tag name="speak-header">
-			<insert>speak-header:</insert>
-		</tag>
-		<tag name="speak-numeral">
-			<insert>speak-numeral:</insert>
-		</tag>
-		<tag name="speak-punctuation">
-			<insert>speak-punctuation:</insert>
-		</tag>
-		<tag name="speech-rate">
-			<insert>speech-rate:</insert>
-		</tag>	
-		<tag name="stress">
-			<insert>stress:</insert>
-		</tag>	
-		<tag name="voice-familty">
-			<insert>voice-family:</insert>
-		</tag>	
-		<tag name="volume">
-			<insert>volume:</insert>
-		</tag>	
-	</group>	
-	<group name="Paged" description="Properties for paged media">
-		<tag name="content">
-			<description>content provides a way of inserting extra content into the document</description>	<insert>content:</insert>
-		</tag>	
-		<tag name="counter-increment">
-			<insert>counter-increment:</insert>
-		</tag>	
-		<tag name="counter-reset">
-			<insert>counter-reset:</insert>
-		</tag>
-		<tag name="display">
-			<insert>display:</insert>
-		</tag>
-		<tag name="marks">
-			<insert>marks:</insert>
-		</tag>
-		<tag name="orphans">
-			<insert>orphans:</insert>
-		</tag>
-		<tag name="page">
-			<insert>page:</insert>
-		</tag>
-		<tag name="page-break-after">
-			<insert>page-break-after:</insert>
-		</tag>
-		<tag name="page-break-before">
-			<insert>page-break-before:</insert>
-		</tag>
-		<tag name="page-break-inside">
-			<insert>page-break-inside:</insert>
-		</tag>
-		<tag name="size">
-			<insert>size:</insert>
-		</tag>
-		<tag name="widows">
-			<insert>widows:</insert>
-		</tag>
+<ref name="CSS2" description="CSS 2.0 properties">
+	<group name="Aural" description="Properties for audio/aural media">
+		<property name="azimuth" valType="string" default="center" inherits="1" appliesTo="all">
+			<value name="angle" description="An angle value (0-360)." />
+			<value name="left" description="?" />
+			<value name="left-side" description="?" />
+			<value name="far-left" description="?" />
+			<value name="center" description="?" />
+			<value name="center-left" description="?" />
+			<value name="center-right" description="?" />
+			<value name="right" description="?" />
+			<value name="right-sde" description="?" />
+			<value name="far-right" description="?" />
+			<value name="behind" description="?" />
+			<value name="leftwards" description="?" />
+			<value name="rightwards" description="?" />
+			<description>
+				Specifies the apparent horizontal origin of the voice used by speech synthesizers.
+			</description>
+			<tip>
+			</tip>
+			<dialog title="insert property">
+				azimuth: %_;
+			</dialog>
+			<insert>
+				azimuth
+			</insert>
+			<info title="Info window">
+			</info>
+		</property>
+		<property name="cue" valType="string" default="none" inherits="0" appliesTo="all">
+			<value ref="cue-after" />
+			<value ref="cue-before" />
+			<description>
+				???
+			</description>
+			<tip>
+			</tip>
+			<dialog title="insert property">
+				cue: %_;
+			</dialog>
+			<insert>
+				cue: 
+			</insert>
+			<info title="Info window">
+			</info>
+		</property>
+		<property name="cue-after" valType="string" default="none" inherits="0" appliesTo="all">
+			<value name="URI" description="A Universal Resouce Identifier.  Usually an URL." />
+			<value name="none" description="No cue after." />
+			<description>
+				???
+			</description>
+			<tip>
+			</tip>
+			<dialog title="insert property">
+				cue-after: %_;
+			</dialog>
+			<insert>
+				cue-after:
+			</insert>
+			<info title="Info window">
+			</info>
+		</property>
+		<property name="cue-before" valType="string" default="none" inherits="0" appliesTo="all">
+			<value name="URI" description="A Universal Resouce Identifier.  Usually an URL." />
+			<value name="none" description="No cue before." />
+			<description>
+				???
+			</description>
+			<tip>
+			</tip>
+			<dialog title="insert property">
+				cue-before: %_;
+			</dialog>
+			<insert>
+				cue-before:
+			</insert>
+			<info title="Info window">
+			</info>
+		</property>
+		<property name="elevation" valType="string" default="level" inherits="1" appliesTo="all">
+			<value name="angle" description="An angle value (0-360)." />
+			<value name="below" description="?" />
+			<value name="level" description="?" />
+			<value name="above" description="?" />
+			<value name="higher" description="?" />
+			<value name="lower" description="?" />
+			<description>
+				Specifies the apparent vertical elevation of the voice used by speech synthesizers.
+			</description>
+			<tip>
+			</tip>
+			<dialog title="insert property">
+				elevation: %_;
+			</dialog>
+			<insert>
+				elevation: 
+			</insert>
+			<info title="Info window">
+			</info>
+		</property>
+		<property name="pause" valType="string" default="UA" inherits="0" appliesTo="all">
+			<value name="time" description="Time to pause before continuing." />
+			<description>
+				Specifies time to pause before continuting to process the document.
+			</description>
+			<tip>
+			</tip>
+			<dialog title="insert property">
+				pause: %_;
+			</dialog>
+			<insert>
+				pause: 
+			</insert>
+			<info title="Info window">
+			</info>
+		</property>
+		<property name="pause-after" valType="string" default="UA" inherits="0" appliesTo="all">
+			<value name="time" description="Time to pause before continuing after the current element." />
+			<description>
+				Specifies time to pause after processing the given element, before continuting to process the document.
+			</description>
+			<tip>
+			</tip>
+			<dialog title="insert property">
+				pause-after: %_;
+			</dialog>
+			<insert>
+				pause-after: 
+			</insert>
+			<info title="Info window">
+			</info>
+		</property>
+		<property name="pause-before" valType="string" default="UA" inherits="0" appliesTo="all">
+			<value name="time" description="Time to pause before continuing with the current element." />
+			<description>
+				Specifies time to pause before continuting to process the given element.
+			</description>
+			<tip>
+			</tip>
+			<dialog title="insert property">
+				pause-before: %_;
+			</dialog>
+			<insert>
+				pause-before: 
+			</insert>
+			<info title="Info window">
+			</info>
+		</property>
+		<property name="pitch" valType="string" default="medium" inherits="1" appliesTo="all">
+			<value name="frequency" description="A frequency value in MHz." />
+			<value name="high" description="A relatively high pitch." />
+			<value name="low" description="A relatively low pitch." />
+			<value name="medium" description="A mid range pitch; relative." />
+			<value name="x-high" description="A very high relative pitch." />
+			<value name="x-low" descrition="A very low relative pitch." />
+			<description>
+				Specifies pitch to be used by the speech synthesizer.
+			</description>
+			<tip>
+			</tip>
+			<dialog title="insert property">
+				pitch: %_;
+			</dialog>
+			<insert>
+				pitch: 
+			</insert>
+			<info title="Info window">
+			</info>
+		</property>
+		<property name="pitch-range" valType="number" default="50" inherits="0" appliesTo="all">
+			<value name="integer" description="A valid integer." />
+			<description>
+				Specifies a pitch range to be used by the speech synthesizer.
+			</description>
+			<tip>
+			</tip>
+			<dialog title="insert property">
+				pitch-range: %_;
+			</dialog>
+			<insert>
+				pitch-range: 
+			</insert>
+			<info title="Info window">
+			</info>
+		</property>
+		<!--property name="play-during" valType="string" default="auto" inherits="0" appliesTo="all">
+			<value name="URI" description="{VALUE_DESCRIPTION}" />
+			<description>
+				{DESCRIPTION}
+			</description>
+			<tip>
+				{TOOLTIP}
+			</tip>
+			<dialog title="insert property">
+				{DIALOG_INSERT_STRING}
+			</dialog>
+			<insert>
+				{RAW_INSERT_STRING}
+			</insert>
+			<info title="Info window">
+				{ELEMENT_INFO}
+			</info>
+		</property-->
+		<property name="richness" valType="number" default="50" inherits="1" appliesTo="all">
+			<value name="integer" description="A valid integer" />
+			<description>
+				Specifies richness of the voice to be used by speech synthesizers.
+			</description>
+			<tip>
+			</tip>
+			<dialog title="insert property">
+				richness: %_;
+			</dialog>
+			<insert>
+				richness: 
+			</insert>
+			<info title="Info window">
+			</info>
+		</property>
+		<property name="speak" valType="string" default="normal" inherits="1" appliesTo="all">
+			<value name="none" description="Do not synthesize." />
+			<value name="normal" description="Synthesize normally." />
+			<value name="spell-out" description="Spell instead of say." />
+			<description>
+				Specifies spoken treatment of an element by speech synthesizers.
+			</description>
+			<tip>
+			</tip>
+			<dialog title="insert property">
+				speak: %_;
+			</dialog>
+			<insert>
+				speak: 
+			</insert>
+			<info title="Info window">
+			</info>
+		</property>
+		<property name="speak-header" valType="string" default="once" inherits="1" appliesTo="all">
+			<value name="always" description="Always speak the header." />
+			<value name="once" description="Speak the header only once." />
+			<description>
+				Specifies spoken treatment of table header by speech synthesizers.
+			</description>
+			<tip>
+			</tip>
+			<dialog title="insert property">
+				speak-header: %_;
+			</dialog>
+			<insert>
+				speak-header: 
+			</insert>
+			<info title="Info window">
+			</info>
+		</property>
+		<property name="speak-numeral" valType="string" default="continuous" inherits="1" appliesTo="all">
+			<value name="continuous" description="Synthesize numbers normally." />
+			<value name="digits" description="Synthesize numbers individually." />
+			<description>
+				Specifies spoken treatment of numbers by speech synthesizers.
+			</description>
+			<tip>
+			</tip>
+			<dialog title="insert property">
+				speak-numeral: %_;
+			</dialog>
+			<insert>
+				speak-numeral: 
+			</insert>
+			<info title="Info window">
+			</info>
+		</property>
+		<property name="speak-punctuation" valType="string" default="none" inherits="1" appliesTo="all">
+			<value name="code" description="Synthesize punctuation as a code." />
+			<value name="none" description="Do not synthesize punctuation." />
+			<description>
+				Specifies spoken treatment of punctuation by speech synthesizers.
+			</description>
+			<tip>
+			</tip>
+			<dialog title="insert property">
+				speak-punctuation: %_;
+			</dialog>
+			<insert>
+				speak-punctuation: 
+			</insert>
+			<info title="Info window">
+			</info>
+		</property>
+		<property name="speech-rate" valType="string" default="medium" inherits="1" appliesTo="all">
+			<value name="number" description="A numeric rate." />
+			<value name="fast" description="A relatively fast rate." />
+			<value name="faster" description="A faster relative rate." />
+			<value name="slow" description="A relatively slow rate." />
+			<value name="slower" description="A slower relative rate." />
+			<value name="x-fast" description="A very fast relatively rate." />
+			<value name="x-slow" description="A very slow relatively rate." />
+			<description>
+				Specifies the rate of speech synthesization.
+			</description>
+			<tip>
+			</tip>
+			<dialog title="insert property">
+				speech-rate: %_;
+			</dialog>
+			<insert>
+				speech-rate: 
+			</insert>
+			<info title="Info window">
+			</info>
+		</property>
+		<property name="stress" valType="number" default="50" inherits="0" appliesTo="all">
+			<value name="number" description="Any number." />
+			<description>
+				Specifies weight of spoken stress to be emulated by speech synthesizers.
+			</description>
+			<tip>
+			</tip>
+			<dialog title="insert property">
+				stress: %_;
+			</dialog>
+			<insert>
+				stress: 
+			</insert>
+			<info title="Info window">
+			</info>
+		</property>
+		<property name="voice-family" valType="list" default="UA" inherits="1" appliesTo="all">
+			<value name="voice name" description="A specific voice name" />
+			<value name="voice group" description="A generic group of voices." />
+			<description>
+				Specifies voice family to be used by speech synthesizers.
+			</description>
+			<tip>
+			</tip>
+			<dialog title="insert property">
+				voice-family: %_;
+			</dialog>
+			<insert>
+				voice-family: 
+			</insert>
+			<info title="Info window">
+			</info>
+		</property>
+		<property name="volume" valType="string" default="medium" inherits="1" appliesTo="all">
+			<value name="number" description="Valid number or percentage." />
+			<value name="loud" description="Relatively loud volume." />
+			<value name="medium" description="Medium relative volume." />
+			<value name="silent" description="No volume." />
+			<value name="soft" description="Relatively low volume." />
+			<value name="x-loud" description="Very loud relative volume." />
+			<value name="x-soft" description="Very low relative volume." />
+			<description>
+				Specifies volume for speech synthesis.
+			</description>
+			<tip>
+			</tip>
+			<dialog title="insert property">
+				volume: %_;
+			</dialog>
+			<insert>
+				volume: 
+			</insert>
+			<info title="Info window">
+			</info>
+		</property>
 	</group>
+	
 	<group name="Interactive" description="Properties for interactive media">
-		<tag name="content">
-			<description>content provides a way of inserting extra content into the document</description>
-			<insert>content:</insert>
-		</tag>	
-		<tag name="counter-increment">
-			<insert>counter-increment:</insert>
-		</tag>	
-		<tag name="counter-reset">
-			<insert>counter-reset:</insert>
-		</tag>
-		<tag name="cursor">
-			<insert>cursor:</insert>
-		</tag>	
-		<tag name="display">
-			<insert>display:</insert>
-		</tag>
-		<tag name="outline">
-			<insert>outline:</insert>
-			<description>outline is shorthand for setting the individual outline properties on all sides of the box</description>
-		</tag>
-		<tag name="outline-color">
-			<insert>outline-color:</insert>
-			<description>outline-color sets the colour of the outline on all sides of the box</description>
-		</tag>
-		<tag name="outline-style">
-			<insert>outline-style:</insert>
-			<description>outline-style sets the style of the outline on all sides of the box</description>
-		</tag>
-		<tag name="outline-width">
-			<insert>outline-width:</insert>
-			<description>outline-width sets the width of the outline on all sides of the box</description>
-		</tag>
-	</group>	
-</ref>
+		<property name="outline" valType="list" default="invert none medium" inherits="0" appliesTo="all">
+			<value ref="outline-color" />
+			<value ref="outline-style" />
+			<value ref="outline-width" />
+			<description>
+<!--???-->
+				Shorthand specification of ...
+			</description>
+			<tip>
+			</tip>
+			<dialog title="insert property">
+				outline: %0 %1 %2;
+			</dialog>
+			<insert>
+				outline: 
+			</insert>
+			<info title="Info window">
+			</info>
+		</property>
+		<property name="outline-color" valType="color" default="invert" inherits="0" appliesTo="all">
+			<value name="color" description="Valid color syntax." />
+			<description>
+<!--???-->				
+			</description>
+			<tip>
+			</tip>
+			<dialog title="insert property">
+				outline-color: %_;
+			</dialog>
+			<insert>
+				outline-color: 
+			</insert>
+			<info title="Info window">
+			</info>
+		</property>
+		<property name="outline-style" valType="string" default="none" inherits="0" appliesTo="all">
+			<value name="style" description="Outline style" /><!-- same as border-style ??? -->
+			<description>
+<!--???-->
+			</description>
+			<tip>
+			</tip>
+			<dialog title="insert property">
+				outline-style: %_;
+			</dialog>
+			<insert>
+				outline-style: 
+			</insert>
+			<info title="Info window">
+			</info>
+		</property>
+		<property name="outline-width" valType="string" default="medium" inherits="0" appliesTo="all">
+			<value name="width" description="Valid length." /><!-- same as border-width ??? -->
+			<description>
+<!--???-->				Shorthand specification of ...
+			</description>
+			<tip>
+			</tip>
+			<dialog title="insert property">
+				outline-width: %_;
+			</dialog>
+			<insert>
+				outline-width: 
+			</insert>
+			<info title="Info window">
+			</info>
+		</property>
+	</group>
 
+	<group name="Paged" description="Properties for paged media">
+		<property name="marks" valType="string" default="none" inherits="0" appliesTo="page">
+			<value name="crop" description=" ??? " />
+			<value name="cross" description=" ??? " />
+			<description>
+				???
+			</description>
+			<tip>
+			</tip>
+			<dialog title="insert property">
+				marks: %_;
+			</dialog>
+			<insert>
+				marks: 
+			</insert>
+			<info title="Info window">
+			</info>
+		</property>
+		<property name="orphans" valType="number" default="2" inherits="1" appliesTo="block">
+			<value name="integer" description="Any positive integer." />
+			<description>
+				???
+			</description>
+			<tip>
+			</tip>
+			<dialog title="insert property">
+				orphans: %_;
+			</dialog>
+			<insert>
+				orphans: 
+			</insert>
+			<info title="Info window">
+			</info>
+		</property>
+		<property name="page" valType="string" default="auto" inherits="1" appliesTo="block">
+			<value name="identifier" description="???" />
+			<description>
+???
+			</description>
+			<tip>
+			</tip>
+			<dialog title="insert property">
+				page: %_;
+			</dialog>
+			<insert>
+				page: 
+			</insert>
+			<info title="Info window">
+			</info>
+		</property>
+		<property name="page-break-after" valType="string" default="auto" inherits="0" appliesTo="block">
+			<value name="auto" description="Let the user agent manage page breaks." />
+			<value name="always" description="Always insert a page break after this element." />
+			<value name="avoid" description="Avoid inserting a page break after this element if it is possible." />
+			<value name="left" description="???" />
+			<value name="right" description="???" />
+			<description>
+				Specifies page break behavior after the given element.
+			</description>
+			<tip>
+			</tip>
+			<dialog title="insert property">
+				page-break-after: %_;
+			</dialog>
+			<insert>
+				page-break-after: 
+			</insert>
+			<info title="Info window">
+			</info>
+		</property>
+		<property name="page-break-before" valType="string" default="auto" inherits="0" appliesTo="block">
+			<value name="auto" description="Let the user agent manage page breaks." />
+			<value name="always" description="Always insert a page break before this element." />
+			<value name="avoid" description="Avoid inserting a page break before this element if it is possible." />
+			<value name="left" description="???" />
+			<value name="right" description="???" />
+			<description>
+				Specifies page break behavior before the given element.
+			</description>
+			<tip>
+			</tip>
+			<dialog title="insert property">
+				page-break-before: %_;
+			</dialog>
+			<insert>
+				page-break-before: 
+			</insert>
+			<info title="Info window">
+			</info>
+		</property>
+		<property name="page-break-inside" valType="string" default="auto" inherits="0" appliesTo="block">
+			<value name="auto" description="Let the user agent manage page breaks." />
+			<value name="avoid" description="Avoid inserting a page break inside this element if it is possible." />
+			<description>
+				Specifies page break behavior inside the given element.
+			</description>
+			<tip>
+			</tip>
+			<dialog title="insert property">
+				page-break-inside: %_;
+			</dialog>
+			<insert>
+				page-break-inside: 
+			</insert>
+			<info title="Info window">
+			</info>
+		</property>
+		<property name="size" valType="string" default="auto" inherits="0" appliesTo="page">
+?			<value name="height" description="A valid length." />
+?			<value name="width" description="A valid lenght." />
+			<description>
+				Specifies the size of ???.
+			</description>
+			<tip>
+			</tip>
+			<dialog title="insert property">
+				size: %0 %1;
+			</dialog>
+			<insert>
+				size: 
+			</insert>
+			<info title="Info window">
+			</info>
+		</property>
+		<property name="widows" valType="number" default="2" inherits="0" appliesTo="block">
+			<value name="integer" description="Number of widows." />
+			<description>
+???
+			</description>
+			<tip>
+			</tip>
+			<dialog title="insert property">
+				widows: %_;
+			</dialog>
+			<insert>
+				widows: 
+			</insert>
+			<info title="Info window">
+			</info>
+		</property>
+	</group>
+
+	<group name="Pseudo-Elements, and Other" description="Pseudo-elements, and miscellaneous CSS features">
+	</group>
+
+	<group name="Visual" description="Properties for visual media">
+		<!-- background properties -->
+		<property name="background" valType="list" default="none" inherits="0" appliesTo="all">
+			<value ref="background-color" />
+			<value ref="background-image" />
+			<value ref="background-repeat" />
+			<value ref="background-attachment" />
+			<value ref="background-position" />
+			<description>
+				Specifies background properties.  Shorthand for individual background properties.
+			</description>
+			<tip>
+			</tip>
+			<dialog title="Insert background property">
+				background: %0 %1 %2 %3 %4;
+			</dialog>
+			<insert>
+				background:
+			</insert>
+			<info title="Info window">
+				This property is more widely supported than the individual background properties.  Besides, it's easier to read and to type!
+			</info>
+		</property>
+		<property name="background-attachment" valType="string" default="scroll" inherits="0" appliesTo="all">
+			<value name="fixed" description="Fixes the background to the viewport." />
+			<value name="scroll" description="Background will scroll with the rest of the page." />
+			<description>
+				Specifies background scrolling behaviour.
+			</description>
+			<tip>
+			</tip>
+			<dialog title="Insert background-attachment property">
+				background-attachment: %_;
+			</dialog>
+			<insert>
+				background-attachment:;
+			</insert>
+			<info title="Info window">
+				This property is most widely supported for BODY elements.
+			</info>
+		</property>
+		<property name="background-color" valType="color" default="transparent" inherits="0" appliesTo="all">
+			<value name="color" description="Specifies a background color in valid color syntax." />
+			<description>
+				Specifies background color.
+			</description>
+			<tip>
+			</tip>
+			<dialog title="insert background-color property">
+				background-color: %_;
+			</dialog>
+			<insert>
+				background-color:;
+			</insert>
+			<info title="Info window">
+			</info>
+		</property>
+		<property name="background-image" valType="string" default="none" inherits="0" appliesTo="all">
+			<value name="image" description="Specifies a background image." />
+			<description>
+				Specifies the location of a background image.
+			</description>
+			<tip>
+			</tip>
+			<dialog title="insert property">
+				background-image: url("%_");
+			</dialog>
+			<insert>
+				background-image: url(" ");
+			</insert>
+			<info title="Info window">
+			</info>
+		</property>
+		<property name="background-postion" valType="list" default="0% 0%" inherits="0" appliesTo="block,replaced">
+			<value name="vertical" description="Specifies vertical positioning.  May be 'top', 'center', 'bottom', or a valid length." />
+			<value name="horizontal" description="Specifies horizontal positioning.  May be 'left', 'center', 'right', or a valid length." />
+			<description>
+				Specifies location of background relative to the upper left corner.
+			</description>
+			<tip>
+			</tip>
+			<dialog title="insert property">
+				background-position: %0 %1;
+			</dialog>
+			<insert>
+				background-position: 0% 0%;
+			</insert>
+			<info title="Info window">
+			</info>
+		</property>
+		<property name="background-repeat" valType="list" default="repeat" inherits="0" appliesTo="all">
+			<value name="repeat" description="Indicates that the background image should repeat on both the x and y axes." />
+			<value name="repeat-x" description="Indicates that the background image should repeat only on the x axis (horizontally)." />
+			<value name="repeat-y" description="Indicates that the background image should repeat only on the y axis (vertically)." />
+			<value name="no-repeat" description="Indicates that the background image should not repeat on any axis." />
+			<description>
+				Specifies background image tiling.
+			</description>
+			<tip>
+			</tip>
+			<dialog title="insert property">
+				background-repeat: %_;
+			</dialog>
+			<insert>
+				backdround-repeat:
+			</insert>
+			<info title="Info window">
+			</info>
+		</property>
+		<!-- border properties -->	
+		<property name="border" valType="list" default="none" inherits="0" appliesTo="all">
+			<value ref="border-width" />
+			<value ref="border-style" />
+			<value ref="border-color" />
+			<description>
+				Shorthand specification of border width, style and color.
+			</description>
+			<tip>
+			</tip>
+			<dialog title="insert property">
+				border: %0 %1 %2;
+			</dialog>
+			<insert>
+				border:
+			</insert>
+			<info title="Info window">
+			</info>
+		</property>
+		<property name="border-bottom" valType="list" default="none" inherits="0" appliesTo="all">
+			<value ref="border-bottom-width" />
+			<value ref="border-bottom-style" />
+			<value name="color" description="Specifies bottom border color." />
+			<description>
+				Specifies width, style, and color of bottom border.
+			</description>
+			<tip>
+			</tip>
+			<dialog title="insert property">
+				border-bottom: %0 %1 %2;
+			</dialog>
+			<insert>
+				border-bottom:
+			</insert>
+			<info title="Info window">
+			</info>
+		</property>
+		<property name="border-bottom-color" valType="color" default="none" inherits="0" appliesTo="all">
+			<value name="color" description="Specifies bottom border color in valid color syntax." />
+			<description>
+				Specifies bottom border color.
+			</description>
+			<tip>
+			</tip>
+			<dialog title="insert property">
+				border-bottom-color: %0 %1 %2 %3;
+			</dialog>
+			<insert>
+				border-bottom-color:
+			</insert>
+			<info title="Info window">
+			</info>
+		</property>
+		<property name="border-bottom-style" valType="string" default="none" inherits="0" appliesTo="all">
+			<value name="style" description="Specifies bottom border style." />
+			<description>
+				Specifies bottom border style.  May be 'dashed', 'dotted', 'double', 'groove', 'inset', 'outset', 'ridge', 'solid', or 'none'.
+			</description>
+			<tip>
+			</tip>
+			<dialog title="insert property">
+				border-bottom-style: %0 %1 %2 %3;
+			</dialog>
+			<insert>
+				border-bottom-style:
+			</insert>
+			<info title="Info window">
+			</info>
+		</property>
+		<property name="border-bottom-width" valType="string" default="medium" inherits="0" appliesTo="all">
+			<value name="width" description="Specifies bottom border width." />
+			<description>
+				Specifies bottom border width.  May be 'thin', 'medium', 'thick', or a valid length.
+			</description>
+			<tip>
+			</tip>
+			<dialog title="insert property">
+				border-bottom-width: %0 %1 %2 %3;
+			</dialog>
+			<insert>
+				border-bottom-width:
+			</insert>
+			<info title="Info window">
+			</info>
+		</property>
+		<property name="border-collapse" valType="list" default="collapse" inherits="1" appliesTo="inline-table,table">
+			<value name="collapse" description="Indicates that table cell borders should be collapsed." />
+			<value name="separate" description="Indicates that table cell borders should be separate." />
+			<description>
+				Specifies whether or not 'padding' or a 'margin' should be displayed around table cells.
+			</description>
+			<tip>
+			</tip>
+			<dialog title="insert property">
+				border-collapse: %_;
+			</dialog>
+			<insert>
+				border-collapse: separate;
+			</insert>
+			<info title="Info window">
+			</info>
+		</property>
+		<property name="border-color" valType="list" default="none" inherits="0" appliesTo="all">
+			<value ref="border-top-color" />
+			<value ref="border-right-color" />
+			<value ref="border-bottom-color" />
+			<value ref="border-left-color" />
+			<description>
+				Specifies border colors.
+			</description>
+			<tip>
+			</tip>
+			<dialog title="insert property">
+				border-color: %0 %1 %2 %3;
+			</dialog>
+			<insert>
+				border-color:
+			</insert>
+			<info title="Info window">
+			</info>
+		</property>
+		<property name="border-left" valType="list" default="none" inherits="0" appliesTo="all">
+			<value ref="border-left-width" />
+			<value ref="border-left-style" />
+			<value name="color" description="Valid color syntax." />
+			<description>
+				Specifies width, style, and color of left border.
+			</description>
+			<tip>
+			</tip>
+			<dialog title="insert property">
+				border-left: %0 %1 %2;
+			</dialog>
+			<insert>
+				border-left:
+			</insert>
+			<info title="Info window">
+			</info>
+		</property>
+		<property name="border-left-color" valType="color" default="none" inherits="0" appliesTo="all">
+			<value name="color" description="Valid color syntax." />
+			<description>
+				Specifies left border color.
+			</description>
+			<tip>
+			</tip>
+			<dialog title="insert property">
+				border-left-color: %0 %1 %2 %3;
+			</dialog>
+			<insert>
+				border-left-color:
+			</insert>
+			<info title="Info window">
+			</info>
+		</property>
+		<property name="border-left-style" valType="string" default="none" inherits="0" appliesTo="all">
+			<value name="style" description="Border style." />
+			<description>
+				Specifies left border style.  May be 'dashed', 'dotted', 'double', 'groove', 'inset', 'outset', 'ridge', 'solid', or 'none'.
+			</description>
+			<tip>
+			</tip>
+			<dialog title="insert property">
+				border-left-style: %0 %1 %2 %3;
+			</dialog>
+			<insert>
+				border-left-style:
+			</insert>
+			<info title="Info window">
+			</info>
+		</property>
+		<property name="border-left-width" valType="string" default="medium" inherits="0" appliesTo="all">
+			<value name="width" description="Valid length." />
+			<description>
+				Specifies left border width.  May be 'thin', 'medium', 'thick', or a valid length.
+			</description>
+			<tip>
+			</tip>
+			<dialog title="insert property">
+				border-left-width: %0 %1 %2 %3;
+			</dialog>
+			<insert>
+				border-left-width:
+			</insert>
+			<info title="Info window">
+			</info>
+		</property>
+		<property name="border-right" valType="list" default="none" inherits="0" appliesTo="all">
+			<value ref="border-right-width" />
+			<value ref="border-right-style" />
+			<value name="color" description="Valid color syntax." />
+			<description>
+				Specifies right border width, style, and color.
+			</description>
+			<tip>
+			</tip>
+			<dialog title="insert property">
+				border-right: %0 %1 %2;
+			</dialog>
+			<insert>
+				border-right:
+			</insert>
+			<info title="Info window">
+			</info>
+		</property>
+		<property name="border-right-color" valType="color" default="none" inherits="0" appliesTo="all">
+			<value name="color" description="Valid color syntax." />
+			<description>
+				Specifies top border color.
+			</description>
+			<tip>
+			</tip>
+			<dialog title="insert property">
+				border-right-color: %0 %1 %2 %3;
+			</dialog>
+			<insert>
+				border-right-color:
+			</insert>
+			<info title="Info window">
+			</info>
+		</property>
+		<property name="border-right-style" valType="string" default="none" inherits="0" appliesTo="all">
+			<value name="style" description="Border style." />
+			<description>
+				Specifies right border style.  May be 'dashed', 'dotted', 'double', 'groove', 'inset', 'outset', 'ridge', 'solid', or 'none'.
+			</description>
+			<tip>
+			</tip>
+			<dialog title="insert property">
+				border-right-style: %0 %1 %2 %3;
+			</dialog>
+			<insert>
+				border-right-style:
+			</insert>
+			<info title="Info window">
+			</info>
+		</property>
+		<property name="border-right-width" valType="string" default="medium" inherits="0" appliesTo="all">
+			<value name="width" description="Valid length" />
+			<description>
+				Specifies right border width.  May be 'thin', 'medium', 'thick', or a valid length.
+			</description>
+			<tip>
+			</tip>
+			<dialog title="insert property">
+				border-right-width: %0 %1 %2 %3;
+			</dialog>
+			<insert>
+				border-right-width:
+			</insert>
+			<info title="Info window">
+			</info>
+		</property>
+		<property name="border-spacing" valType="number" default="0" inherits="1" appliesTo="inline-table,table">
+			<value name="spacing" description="Valid length." />
+			<description>
+				Specifies distance between table cell borders.
+			</description>
+			<tip>
+			</tip>
+			<dialog title="insert property">
+				border-spacing: %_;
+			</dialog>
+			<insert>
+				border-spacing:
+			</insert>
+			<info title="Info window">
+			</info>
+		</property>
+		<property name="border-style" valType="list" default="none" inherits="0" appliesTo="all">
+			<value ref="border-top-style" />
+			<value ref="border-right-style" />
+			<value ref="border-bottom-style" />
+			<value ref="border-left-style" />
+			<description>
+				Specifies border styles.
+			</description>
+			<tip>
+			</tip>
+			<dialog title="insert property">
+				border-style: %0 %1 %2 %3;
+			</dialog>
+			<insert>
+				border-style:
+			</insert>
+			<info title="Info window">
+			</info>
+		</property>
+		<property name="border-top" valType="list" default="none" inherits="0" appliesTo="all">
+			<value ref="border-top-width" />
+			<value ref="border-top-style" />
+			<value name="color" description="Valid color syntax." />
+			<description>
+				Specifies width, style, and color of top border.
+			</description>
+			<tip>
+			</tip>
+			<dialog title="insert property">
+				border-top: %0 %1 %2;
+			</dialog>
+			<insert>
+				border-top:
+			</insert>
+			<info title="Info window">
+			</info>
+		</property>
+		<property name="border-top-color" valType="color" default="none" inherits="0" appliesTo="all">
+			<value name="color" description="Valid color syntax." />
+			<description>
+				Specifies top border color.
+			</description>
+			<tip>
+			</tip>
+			<dialog title="insert property">
+				border-top-color: %0 %1 %2 %3;
+			</dialog>
+			<insert>
+				border-top-color:
+			</insert>
+			<info title="Info window">
+			</info>
+		</property>
+		<property name="border-top-style" valType="string" default="none" inherits="0" appliesTo="all">
+			<value name="style" description="Specifies top border style." />
+			<description>
+				Specifies top border style.  May be 'dashed', 'dotted', 'double', 'groove', 'inset', 'outset', 'ridge', 'solid', or 'none'.
+			</description>
+			<tip>
+			</tip>
+			<dialog title="insert property">
+				border-top-style: %0 %1 %2 %3;
+			</dialog>
+			<insert>
+				border-top-style:
+			</insert>
+			<info title="Info window">
+			</info>
+		</property>
+		<property name="border-top-width" valType="string" default="medium" inherits="0" appliesTo="all">
+			<value name="width" description="Valid length." />
+			<description>
+				Specifies top border width.  May be 'thin', 'medium', 'thick', or a valid length.
+			</description>
+			<tip>
+			</tip>
+			<dialog title="insert property">
+				border-top-width: %0 %1 %2 %3;
+			</dialog>
+			<insert>
+				border-top-width:
+			</insert>
+			<info title="Info window">
+			</info>
+		</property>
+		<property name="border-width" valType="list" default="none" inherits="0" appliesTo="all">
+			<value ref="border-top-width" />
+			<value ref="border-right-width" />
+			<value ref="border-bottom-width" />
+			<value ref="border-left-width" />
+			<description>
+				Specifies border widths.
+			</description>
+			<tip>
+			</tip>
+			<dialog title="insert property">
+				border-width: %0 %1 %2 %3;
+			</dialog>
+			<insert>
+				border-width:
+			</insert>
+			<info title="Info window">
+			</info>
+		</property>
+		<property name="bottom" valType="string" default="auto" inherits="0" appliesTo="positioned">
+			<value name="position" description="Valid length or 'auto'." />
+			<description>
+				Specifies the distance from the bottom of the viewport the element should be placed.
+			</description>
+			<tip>
+			</tip>
+			<dialog title="insert property">
+				bottom: %_;
+			</dialog>
+			<insert>
+				bottom:
+			</insert>
+			<info title="Info window">
+			</info>
+		</property>
+		<property name="caption-side" valType="string" default="top" inherits="1" appliesTo="table-caption">
+			<value name="top" description="Place caption at the top of the table." />
+			<value name="left" description="Place caption at the left of the table." />
+			<value name="right" description="Place caption at the right of the table." />
+			<value name="bottom" description="Place caption at the bottom of the table." />
+			<description>
+				Specifies the side on which table captions should be placed.
+			</description>
+			<tip>
+			</tip>
+			<dialog title="insert property">
+				caption-side: %_;
+			</dialog>
+			<insert>
+				caption-side:
+			</insert>
+			<info title="Info window">
+			</info>
+		</property>
+		<property name="clear" valType="string" default="none" inherits="0" appliesTo="block">
+			<value name="left" description="Keep left side clear." />
+			<value name="right" description="Keep right side clear." />
+			<value name="none" description="Keep no sides clear." />
+			<description>
+				Specifies on which sides other HTML elements may appear.
+			</description>
+			<tip>
+			</tip>
+			<dialog title="insert property">
+				clear: %_;
+			</dialog>
+			<insert>
+				clear:
+			</insert>
+			<info title="Info window">
+				This property is generally used in conjunction with the float property.
+			</info>
+		</property>
+		<property name="clip" valType="string" default="auto" inherits="0" appliesTo="absolute">
+			<value name="shape" description="Clipping shape." />
+			<description>
+				Specifies the clipping shape and size for an absolutely positioned element.
+			</description>
+			<tip>
+			</tip>
+			<dialog title="insert property">
+				clip: rect(%_);A Universal Resouce Identifier.  Usually an URL.
+			</dialog>
+			<insert>
+				clip: rect(#, #, #, #);
+			</insert>
+			<info title="Info window">
+				CSS 2, and 2.1 only support rectangle clipping shapes.
+			</info>
+		</property>
+		<property name="color" valType="color" default="UA" inherits="1" appliesTo="all">
+			<value name="color code" description="Valid color syntax." />
+			<description>
+				Specifies the color in hexadecimal or RGB formats.
+			</description>
+			<tip>
+			</tip>
+			<dialog title="insert property">
+				color: %_;
+			</dialog>
+			<insert>
+				color:
+			</insert>
+			<info title="Info window">
+				Hexadecimal values can be written shorthand: #f30, which is the same as #ff3300.
+				RGB values can be in values 0-255, or percentages.
+			</info>
+		</property>
+		<property name="cursor" valType="string" default="auto" inherits="1" appliesTo="all">
+			<value name="URI" description="A Universal Resouce Identifier.  Usually an URL." />
+			<value name="auto" description="Let the User Agent decide." />
+			<value name="crosshair" description="Use system crosshair cursor" />
+			<vaue name="default" description="Default cursor for associated element." />
+			<value name="move" description="Use system move cursor" />
+			<value name="n-resize" description="Use system resize cursor for top side." />
+			<value name="ne-resize" description="Use system resize cursor for upper right corner." />
+			<value name="e-resize" description="Use system resize cursor for right side." />
+			<value name="se-resize" description="Use system resize cursor for lower right corner." />
+			<value name="s-resize" description="Use system resize cursor for bottom side." />
+			<value name="sw-resize" description="Use system resize cursor for lower left corner." />
+			<value name="w-resize" description="Use system resize cursor for left side." />
+			<value name="nw-resize" description="Use system resize cursor for upper left corner." />
+			<value name="text" description="Use system text cursor" />
+			<value name="wait" description="Use system wait cursor" />
+			<value name="help" description="Use system help cursor." />
+			<description>
+				Specifies cursor type.
+			</description>
+			<tip>
+			</tip>
+			<dialog title="insert property">
+				cursor: %_;
+			</dialog>
+			<insert>
+				cursor: 
+			</insert>
+			<info title="Info window">
+			</info>
+		</property>
+		<property name="direction" valType="string" default="ltr" inherits="1" appliesTo="all">
+			<value name="ltr" description="Text runs left to right." />
+			<value name="rtl" description="Text runs right to left." />
+			<description>
+				Specifies text direction.
+			</description>
+			<tip>
+			</tip>
+			<dialog title="insert property">
+				direction: %_;
+			</dialog>
+			<insert>
+				direction: 
+			</insert>
+			<info title="Info window">
+			</info>
+		</property>
+		<property name="empty-cells" valType="string" default="show" inherits="1" appliesTo="table-cell">
+			<value name="show" description="Show empty table cells." />
+			<value name="hide" description="Hide empty table cells." />
+			<description>
+				Specifies if empty table cells should be rendered or hidden.
+			</description>
+			<tip>
+			</tip>
+			<dialog title="insert property">
+				empty-cells: %_;
+			</dialog>
+			<insert>
+				empty-cells: 
+			</insert>
+			<info title="Info window">
+			</info>
+		</property>
+		<property name="float" valType="string" default="none" inherits="0" appliesTo="all">
+			<value name="left" description="Float to left side of parent box." />
+			<value name="right" description="Float to right side of parent box." />
+			<value name="none" description="No float." />
+			<description>
+				Specifies positioning of an element within its enclosing parent box.
+			</description>
+			<tip>
+			</tip>
+			<dialog title="insert property">
+				float: %_;
+			</dialog>
+			<insert>
+				float: 
+			</insert>
+			<info title="Info window">
+				This property does not apply to positioned or generated elements.
+			</info>
+		</property>
+		<!--property name="font" valType="list" default="none" inherits="1" appliesTo="all">
+			<value ref="font-style" />
+			<value ref="font-variant" />
+			<value ref="font-weight" />
+			<value ref="font-size" />
+			<value ref="line-height" />
+			<value ref="font-family" />
+			<value name="caption" description="?" />
+			<value name="icon" description="?" />
+			<value name="menu" description="?" />
+			<value name="message-box" description="?" />
+			<value name="small-caption" description="?" />
+			<value name="status-bar" description="?" />
+			<description>
+				Specifies font attributes for associated element.
+			</description>
+			<tip>
+			</tip>
+			<dialog title="insert property">
+				font: 
+			</dialog>
+			<insert>
+				font: 
+			</insert>
+			<info title="Info window">
+			</info>
+		</property-->
+		<property name="font-family" valType="list" default="UA" inherits="1" appliesTo="all">
+			<value name="font name" description="Font name.  Multiple names separated by commas." />
+			<value name="font-type" description="Generic font type (eg. 'serif', 'sans-serif', 'monospace', 'fantasy')." />
+			<description>
+				Specifies specific font(s), and/or font families to be used.
+			</description>
+			<tip>
+			</tip>
+			<dialog title="insert font-family property">
+				font-family: %_;
+			</dialog>
+			<insert>
+				font-family: 
+			</insert>
+			<info title="Info window">
+				Font alternatives, and a generic font-type are strongly suggested to help user agents correctly render the document.
+			</info>
+		</property>
+		<property name="font-size" valType="string" default="medium" inherits="1" appliesTo="all">
+			<value name="number" description="Absolute value: any valid length, or percentage." />
+			<value name="xx-small" description="Relative value: extra-extra small" />
+			<value name="x-small" description="Relative value: extra-small" />
+			<value name="small" description="Relative value: small." />
+			<value name="medium" description="Relative value: medium." />
+			<value name="large" description="Relative value: large." />
+			<value name="x-large" description="Relative value: extra-large." />
+			<value name="xx-large" description="Relative value: extra-extra-large." />
+			<value name="larger" description="Relative value: larger." />
+			<value name="smaller" description="Relative value: smaller." />
+			<description>
+				Specifies font size.
+			</description>
+			<tip>
+			</tip>
+			<dialog title="insert property">
+				font-size: %_;
+			</dialog>
+			<insert>
+				font-size: 
+			</insert>
+			<info title="Info window">
+			</info>
+		</property>
+		<property name="font-size-adjust" valType="string" default="none" inherits="1" appliesTo="all">
+			<value name="number" description="Absolute value: any valid length, or percentage." />
+			<value name="none" description="No font size adjustment." />
+			<description>
+				???
+			</description>
+			<tip>
+			</tip>
+			<dialog title="insert property">
+				font-size-adjust: %_;
+			</dialog>
+			<insert>
+				font-size-adjust: 
+			</insert>
+			<info title="Info window">
+			</info>
+		</property>
+		<property name="font-stretch" valType="string" default="normal" inherits="1" appliesTo="all">
+			<value name="normal" description="Normal letter spacing." />
+			<value name="narrower" description="Narrow relative letter spacing." />
+			<value name="wider" description="Wide relative letter spacing." />
+			<value name="condensed" description="Condensed letter spacing" />
+			<value name="semi-condensed" description="Semi-condensed letter spacing" />
+			<value name="extra-condensed" description="Extra-condensed letter spacing" />
+			<value name="ultra-condensed" description="Ultra-condensed letter spacing" />
+			<value name="expanded" description="Expanded letter spacing." />
+			<value name="semi-expanded" description="Semi-expanded letter spacing" />
+			<value name="extra-expanded" description="Extra-expanded letter spacing" />
+			<value name="ultra-expanded" description="Ultra-expanded letter spacing" />
+			<description>
+				Specifies kerning, or spacing of letters.
+			</description>
+			<tip>
+			</tip>
+			<dialog title="insert property">
+				font-stretch: %_;
+			</dialog>
+			<insert>
+				font-stretch: 
+			</insert>
+			<info title="Info window">
+			</info>
+		</property>
+		<property name="font-style" valType="string" default="normal" inherits="1" appliesTo="all">
+			<value name="normal" description="No font style." />
+			<value name="italic" description="Italic font styling." />
+			<value name="oblique" description="Oblique (left-leaning) font styling." />
+			<description>
+				Specifies font styling to be applied.
+			</description>
+			<tip>
+			</tip>
+			<dialog title="insert property">
+				font-style: %_;
+			</dialog>
+			<insert>
+				font-style: 
+			</insert>
+			<info title="Info window">
+			</info>
+		</property>
+		<property name="font-variant" valType="string" default="normal" inherits="1" appliesTo="all">
+			<value name="normal" description="Use the default." />
+			<value name="small-caps" description="Caps for all letters - smaller for non-capitals." />
+			<description>
+				Specifies font variant to be used.
+			</description>
+			<tip>
+			</tip>
+			<dialog title="insert property">
+				font-variant: %_;
+			</dialog>
+			<insert>
+				font-variant: 
+			</insert>
+			<info title="Info window">
+			</info>
+		</property>
+		<property name="font-weight" valType="string" default="normal" inherits="1" appliesTo="all">
+			<value name="normal" description="Use the default font weight." />
+			<value name="bold" desctription="Use a relatively bold font face." />
+			<value name="bolder" description="Use a relatively bolder font face." />
+			<value name="lighter" description="Use a relatively lighter font face." />
+			<value name="100" description="Use the lightest font weight; absolute." />
+			<value name="200" description="Use the second lightest font weight; absolute." />
+			<value name="300" description="Use the third lightest font weight; absolute." />
+			<value name="400" description="Use the medium-light font weight; absolute." />
+			<value name="500" description="Use the medium font weight; absolute." />
+			<value name="600" description="Use the medium-heavylightest font weight; absolute." />
+			<value name="700" description="Use the third heaviest font weight; absolute." />
+			<value name="800" description="Use the second heaviest font weight; absolute." />
+			<value name="900" description="Use the third heaviest font weight; absolute." />
+			<description>
+				Specifies wieght of font face.
+			</description>
+			<tip>
+			</tip>
+			<dialog title="insert property">
+				font-weight: %_;
+			</dialog>
+			<insert>
+				font-weight:
+			</insert>
+			<info title="Info window">
+			</info>
+		</property>
+		<property name="height" valType="number" default="auto" inherits="0" appliesTo="absolute,block,list-item.marker,positioned,replaced,table,table-caption,table-cell">
+			<value name="number" description="Any valid length, or percentage." />
+			<description>
+				Specifies an element's height.
+			</description>
+			<tip>
+			</tip>
+			<dialog title="insert property">
+				height: %_;
+			</dialog>
+			<insert>
+				height: 
+			</insert>
+			<info title="Info window">
+			</info>
+		</property>
+		<property name="left" valType="number" default="auto" inherits="1" appliesTo="positioned">
+			<value name="number" description="Any valid length, or percentage." />
+			<description>
+				Specifies distance from the left edge of the viewport or original position a positioned item should be placed.
+			</description>
+			<tip>
+			</tip>
+			<dialog title="insert property">
+				left: %_;
+			</dialog>
+			<insert>
+				left: 
+			</insert>
+			<info title="Info window">
+			</info>
+		</property>
+		<property name="letter-spacing" valType="number" default="normal" inherits="0" appliesTo="all">
+			<value name="number" description="Any valid length, or percentage." />
+			<description>
+				Specifies a uniform kerning value (ie., or spacing between letters).
+			</description>
+			<tip>
+			</tip>
+			<dialog title="insert property">
+				letter-spacing: %_;
+			</dialog>
+			<insert>
+				letter-spacing: 
+			</insert>
+			<info title="Info window">
+			</info>
+		</property>
+		<property name="line-height" valType="number" default="normal" inherits="1" appliesTo="all">
+			<value name="number" description="Any valid length, or percentage." />
+			<description>
+				Specifies the hight of text lines (ie., line spacing.  Similar to leading).
+			</description>
+			<tip>
+			</tip>
+			<dialog title="insert property">
+				line-height: %_;
+			</dialog>
+			<insert>
+				line-height: 
+			</insert>
+			<info title="Info window">
+			</info>
+		</property>
+		<property name="list-style" valType="string" default="none" inherits="1" appliesTo="list-item">
+			<value ref="list-style-type" />
+			<value ref="list-style-position" />
+			<value ref="list-style-image" />
+			<description>
+				Shorthand specification of list styles.
+			</description>
+			<tip>
+			</tip>
+			<dialog title="insert property">
+				list-style: %0 %1 %2;
+			</dialog>
+			<insert>
+				list-style: 
+			</insert>
+			<info title="Info window">
+			</info>
+		</property>
+		<property name="list-style-image" valType="string" default="none" inherits="1" appliesTo="list-item">
+			<value name="URI" description="A Universal Resouce Identifier.  Usually an URL." />
+			<description>
+				Specifies an image in place of the list bullet.
+			</description>
+			<tip>
+			</tip>
+			<dialog title="insert property">
+				list-style-image: url("%_");
+			</dialog>
+			<insert>
+				list-style-image: 
+			</insert>
+			<info title="Info window">
+			</info>
+		</property>
+		<property name="list-style-position" valType="string" default="outside" inherits="1" appliesTo="list-item">
+			<value name="inside" description="" />
+			<value name="outside" description="" />
+			<description>
+				???
+			</description>
+			<tip>
+			</tip>
+			<dialog title="insert property">
+				list-style-postion: %_;
+			</dialog>
+			<insert>
+				list-style-postion: 
+			</insert>
+			<info title="Info window">
+			</info>
+		</property>
+		<property name="list-style-type" valType="string" default="disc" inherits="1" appliesTo="list-item">
+<!-- double check these values (especially armenian, georgian, hebrew, and latin) at the W3C -->
+			<value name="armenian" description="Lettered bullets; Armenian (Ա,Բ,Գ)" />
+			<value name="circle" description="Hollow round bullets." />
+			<value name="cjk-ideographic" description="Lettered bullets; Chinese/Korean/Japanese ideographs ()." />
+			<value name="decimal" description="Numbered bullets; standard digits (1,2,3)." />
+			<value name="decimal-leading-zero" description="Numbered bullets; standard digits with a leading 0 (01, 02, 03)." />
+			<value name="disc" description="Solid round bullets." />
+			<value name="georgian" description="Lettered bullets; Georgian (Ⴀ, Ⴁ, Ⴂ)" />
+			<value name="hebrew" description="Lettered/Numbered bullets; Hebrew (א, ב, ג)" />
+			<value name="hiragana" description="Lettered bullets; Japanese Hiragana (あ, い, う)" />
+			<value name="hiragana-iroha" description="Lettered bullets; Japanese Hiragana traditional ordering (い, ろ, は)" />
+			<value name="katakana" description="Lettered bullets; Japanese Katakana (ア, イ, ウ)" />
+			<value name="katakana-iroha" description="Lettered bullets; Japanese Katakana traditional ordering (イ, ロ, ハ)" />
+			<value name="lower-alpha" description="Lettered bullets; lower case alphabet (a, b, c)." />
+			<value name="lower-greek" description="Lettered bullets; lower case Greek (α, β, γ)." />
+			<value name="lower-latin" description="Lettered bullets; lower case Latin (a, b, c)." />
+			<value name="lower-roman" description="Numbered bullets; lower case Roman numerals (i, ii, iii)." />
+			<value name="square" description="Solid square bullets." />
+			<value name="upper-alpha" description="Lettered bullets; upper case alphabet (A, B, C)." />
+			<value name="upper-greek" description="Lettered bullets; upper case Greek  (Α, Β, Γ)." />
+			<value name="upper-latin" description="Lettered bullets; upper case Latin (A, B, C)." />
+			<value name="upper-roman" description="Numbered bullets; upper case Roman numerals (I,II,III)." />
+			<description>
+				Specifies bullet style on list items.
+			</description>
+			<tip>
+			</tip>
+			<dialog title="insert property">
+				list-style-type: %_;
+			</dialog>
+			<insert>
+				list-style-type:
+			</insert>
+			<info title="Info window">
+				If suitable fonts are not installed on the user's system, some types may display properly - in particular, the Armenian, Georgian, Hebrew, CJK Ideographs, and the Japanese Kana types.
+			</info>
+		</property>
+		<property name="margin" valType="number" default="0 0" inherits="0" appliesTo="all">
+			<value ref="margin-top" />
+			<value ref="margin-right" />
+			<value ref="margin-bottom" />
+			<value ref="margin-left" />
+			<description>
+				Shorthand specification of margins.
+			</description>
+			<tip>
+			</tip>
+			<dialog title="insert property">
+				margin: %0 %1 %2 %3
+			</dialog>
+			<insert>
+				margin: 
+			</insert>
+			<info title="Info window">
+			</info>
+		</property>
+		<property name="margin-bottom" valType="number" default="0" inherits="0" appliesTo="all">
+			<value name="length" description="Any valid length, or percentage." />
+			<description>
+				Specifies size of bottom margin.
+			</description>
+			<tip>
+			</tip>
+			<dialog title="insert property">
+				margin-bottom: %_;
+			</dialog>
+			<insert>
+				margin-bottom: 
+			</insert>
+			<info title="Info window">
+			</info>
+		</property>
+		
+		<property name="margin-left" valType="number" default="0" inherits="0" appliesTo="all">
+			<value name="length" description="Any valid length, or percentage." />
+			<description>
+				Specifies size of left margin.
+			</description>
+			<tip>
+			</tip>
+			<dialog title="insert property">
+				margin-left: %_;
+			</dialog>
+			<insert>
+				margin-left: 
+			</insert>
+			<info title="Info window">
+			</info>
+		</property>
+		<property name="margin-right" valType="number" default="0" inherits="0" appliesTo="all">
+			<value name="length" description="Any valid length, or percentage." />
+			<description>
+				Specifies size of right margin.
+			</description>
+			<tip>
+			</tip>
+			<dialog title="insert property">
+				margin-right: %_;
+			</dialog>
+			<insert>
+				margin-right: 
+			</insert>
+			<info title="Info window">
+			</info>
+		</property>
+		<property name="margin-top" valType="number" default="0" inherits="0" appliesTo="all">
+			<value name="length" description="Any valid length, or percentage." />
+			<description>
+				Specifies size of top margin.
+			</description>
+			<tip>
+			</tip>
+			<dialog title="insert property">
+				margin-top: %_;
+			</dialog>
+			<insert>
+				margin-top: 
+			</insert>
+			<info title="Info window">
+			</info>
+		</property>
+		<property name="marker-offset" valType="number" default="0" inherits="0" appliesTo="marker">
+			<value name="length" description="Any valid length, or percentage." />
+			<description>
+				???
+			</description>
+			<tip>
+			</tip>
+			<dialog title="insert property">
+				marker-offset: %_;
+			</dialog>
+			<insert>
+				marker-offset: 
+			</insert>
+			<info title="Info window">
+			</info>
+		</property>
+		<property name="max-height" valType="number" default="none" inherits="0" appliesTo="absolute,block,list-item,marker,positioned,replaced">
+			<value name="length" description="Any valid length, or percentage." />
+			<description>
+				Specifies maximum allowed height of an element.
+			</description>
+			<tip>
+			</tip>
+			<dialog title="insert property">
+				max-height: %_;
+			</dialog>
+			<insert>
+				max-height: 
+			</insert>
+			<info title="Info window">
+				This property is not properly supported on any version of Internet Explorer.
+			</info>
+		</property>
+		<property name="max-width" valType="number" default="none" inherits="0" appliesTo="absolute,block,list-item,marker,positioned,replaced">
+			<value name="length" description="Any valid length, or percentage." />
+			<description>
+				Specifies maximum allowed width of an element.
+			</description>
+			<tip>
+			</tip>
+			<dialog title="insert property">
+				max-width: %_;
+			</dialog>
+			<insert>
+				max-width: 
+			</insert>
+			<info title="Info window">
+				This property is not properly supported on any version of Internet Explorer.
+			</info>
+		</property>
+		<property name="min-height" valType="number" default="0" inherits="0" appliesTo="absolute,block,list-item,marker,positioned,replaced">
+			<value name="length" description="Any valid length, or percentage." />
+			<description>
+				Specifies minimum allowed height of an element.
+			</description>
+			<tip>
+			</tip>
+			<dialog title="insert property">
+				min-height: %_;
+			</dialog>
+			<insert>
+				min-height: 
+			</insert>
+			<info title="Info window">
+				This property is not properly supported on any version of Internet Explorer.
+			</info>
+		</property>
+		<property name="min-width" valType="number" default="none" inherits="0" appliesTo="absolute,block,list-item,marker,positioned,replaced">
+			<value name="length" description="Any valid length, or percentage." />
+			<description>
+				Specifies minimum allowed width of an element.
+			</description>
+			<tip>
+			</tip>
+			<dialog title="insert property">
+				min-width: %_;
+			</dialog>
+			<insert>
+				min-width: 
+			</insert>
+			<info title="Info window">
+				This property is not properly supported on any version of Internet Explorer.
+			</info>
+		</property>
+		<property name="overflow" valType="string" default="visible" inherits="0" appliesTo="block,replaced">
+			<value name="visible" description="Completely show all overflowing child elements." />
+			<value name="hidden" description="Hide overflowing parts of child elements." />
+			<value name="scroll" discription="Add scrollbars to the item, activating as appropriate when a child element overflows the element." />
+			<value name="auto" description="Let the user agent manage overflowing child elements." />
+			<description>
+				Specifies the management of child elements which extend beyond the boundaries of the given element.
+			</description>
+			<tip>
+			</tip>
+			<dialog title="insert property">
+				overflow: %_;
+			</dialog>
+			<insert>
+				overflow: 
+			</insert>
+			<info title="Info window">
+			</info>
+		</property>
+		<property name="padding" valType="list" default="0% 0%" inherits="0" appliesTo="all">
+			<value ref="padding-top" />
+			<value ref="padding-right" />
+			<value ref="padding-bottom" />
+			<value ref="padding-left" />
+			<description>
+				Shorthand specification of box padding; ie., the space between the contents of a box, and the box's edges.
+			</description>
+			<tip>
+			</tip>
+			<dialog title="insert property">
+				padding: %0 %1 %2 %3;
+			</dialog>
+			<insert>
+				padding: 
+			</insert>
+			<info title="Info window">
+			</info>
+		</property>
+		<property name="padding-top" valType="list" default="0% 0%" inherits="0" appliesTo="all">
+			<description>
+				Specifies the space between the contents of a box, and the box's top edge.
+			</description>
+			<tip>
+			</tip>
+			<dialog title="insert property">
+				padding-top: %0;
+			</dialog>
+			<insert>
+				padding-top: 
+			</insert>
+			<info title="Info window">
+			</info>
+		</property>
+		<property name="padding-right" valType="list" default="0% 0%" inherits="0" appliesTo="all">
+			<description>
+				Specifies the space between the contents of a box, and the box's right edge.
+			</description>
+			<tip>
+			</tip>
+			<dialog title="insert property">
+				padding-right: %0;
+			</dialog>
+			<insert>
+				padding-right: 
+			</insert>
+			<info title="Info window">
+			</info>
+		</property>
+		<property name="padding-bottom" valType="list" default="0% 0%" inherits="0" appliesTo="all">
+			<description>
+				Specifies the space between the contents of a box, and the box's bottom edge.
+			</description>
+			<tip>
+			</tip>
+			<dialog title="insert property">
+				padding-bottom: %0;
+			</dialog>
+			<insert>
+				padding-bottom: 
+			</insert>
+			<info title="Info window">
+			</info>
+		</property>
+		<property name="padding-left" valType="list" default="0% 0%" inherits="0" appliesTo="all">
+			<description>
+				Specifies the space between the contents of a box, and the box's left edge.
+			</description>
+			<tip>
+			</tip>
+			<dialog title="insert property">
+				padding-left: %0;
+			</dialog>
+			<insert>
+				padding-left: 
+			</insert>
+			<info title="Info window">
+			</info>
+		</property>
+		<property name="position" valType="string" default="none" inherits="0" appliesTo="all">
+			<value name="absolute" description="Remove element from document flow, and set origination point to 0 0 (upper left corner of theviewport)." />
+			<value name="fixed" description="Fix the position of the element to it's original placing in the viewport." />
+			<value name="relative" description="Remove the element from the document flow, leaving the origination point where it was originally." />
+			<value name="static" description="Fix the position of the element to it's original placing in the document." />
+			<description>
+				Specifies how an element should be positioned in the document or viewport.
+			</description>
+			<tip>
+			</tip>
+			<dialog title="insert property">
+				position: %_;
+			</dialog>
+			<insert>
+				position: 
+			</insert>
+			<info title="Info window">
+			</info>
+		</property>
+		<property name="quotes" valType="string" default="UA" inherits="1" appliesTo="all">
+			<value name="quote string" description="???" />
+			<description>
+				???
+			</description>
+			<tip>
+			</tip>
+			<dialog title="insert property">
+				quotes: %_;
+			</dialog>
+			<insert>
+				quotes: 
+			</insert>
+			<info title="Info window">
+			</info>
+		</property>
+		<property name="right" valType="number" default="auto" inherits="0" appliesTo="positioned">
+			<value name="length" description="A valid length." />
+			<description>
+				Specifies distance from the right edge of the viewport, document, or original positioning to place an element.
+			</description>
+			<tip>
+			</tip>
+			<dialog title="insert property">
+				right: %_;
+			</dialog>
+			<insert>
+				right: 
+			</insert>
+			<info title="Info window">
+			</info>
+		</property>
+		<property name="table-layout" valType="string" default="auto" inherits="0" appliesTo="inline-table,table">
+			<value name="auto" description="User agent manages table layout." />
+			<value name="fixed" description="Table layout is fixed." />
+			<description>
+???				Specifies method of rendering table layouts.
+			</description>
+			<tip>
+			</tip>
+			<dialog title="insert property">
+				table-layout: %_;
+			</dialog>
+			<insert>
+				table-layout: 
+			</insert>
+			<info title="Info window">
+			</info>
+		</property>
+		<property name="text-decoration" valType="string" default="none" inherits="0" appliesTo="all">
+			<value name="blink" description="Blinking text." />
+			<value name="line-through" description="Text with a line through it." />
+			<value name="none" description="Plain text." />
+			<value name="overline" description="Text with a line above it." />
+			<value name="underline" description="Text with a line below it." />
+			<description>
+				Specifies  decorations to be used on the text contained in an element.
+			</description>
+			<tip>
+			</tip>
+			<dialog title="insert property">
+				text-decoration: %_;
+			</dialog>
+			<insert>
+				text-decoration: 
+			</insert>
+			<info title="Info window">
+			</info>
+		</property>
+		<property name="text-indent" valType="number" default="0" inherits="1" appliesTo="block">
+			<value name="length" description="Valid length syntax." />
+			<description>
+				Specifies amount by which text should be indented.
+			</description>
+			<tip>
+			</tip>
+			<dialog title="insert property">
+				text-indent: %_;
+			</dialog>
+			<insert>
+				text-indent: 
+			</insert>
+			<info title="Info window">
+			</info>
+		</property>
+		<property name="text-shadow" valType="list" default="none" inherits="0" appliesTo="all">
+			<value name="color" description="Shadow color." />
+			<value name="length" description="???" />
+			<value name="length" description="???" />
+			<value name="length" description="???" />
+			<description>
+				Specifies color and dimension of a text shadow.
+			</description>
+			<tip>
+			</tip>
+			<dialog title="insert property">
+				text-shadow: %0 %1 %2 %3;
+			</dialog>
+			<insert>
+				text-shadow: 
+			</insert>
+			<info title="Info window">
+			</info>
+		</property>
+		<property name="text-transform" valType="string" default="none" inherits="1" appliesTo="all">
+			<value name="capitalize" description="Capitalizes the string." />
+			<value name="lowercase" description="Transforms the string to all lowercase." />
+			<value name="uppercase" description="Transforms the string to all uppercase." />
+			<description>
+				Specifies transformations to be applied to the text with an element.
+			</description>
+			<tip>
+			</tip>
+			<dialog title="insert property">
+				text-transform: %_;
+			</dialog>
+			<insert>
+				text-transform: s
+			</insert>
+			<info title="Info window">
+			</info>
+		</property>
+		<property name="top" valType="number" default="auto" inherits="0" appliesTo="positioned">
+			<value name="length" description="A valid length." />
+			<description>
+				Specifies distance from the top edge of the viewport, document, or original positioning, to place an element.
+			</description>
+			<tip>
+			</tip>
+			<dialog title="insert property">
+				top: %_;
+			</dialog>
+			<insert>
+				top: 
+			</insert>
+			<info title="Info window">
+			</info>
+		</property>
+		<property name="unicode-bidi" valType="string" default="normal" inherits="0" appliesTo="all">
+			<value name="bidi-override" description="???" />
+			<value name="embed" description="???" />
+			<description>
+				???
+			</description>
+			<tip>
+			</tip>
+			<dialog title="insert property">
+				unicode-bidi: %_;
+			</dialog>
+			<insert>
+				unicode-bidi: 
+			</insert>
+			<info title="Info window">
+			</info>
+		</property>
+		<property name="vertical-align" valType="string" default="baseline" inherits="0" appliesTo="inline,table-cell">
+			<value name="baseline" description="Baseline alignement." />
+			<value name="middle" description="Middle alignment" />
+			<value name="sub" description="Subscript alignment." />
+			<value name="super" description="Superscript alignment." />
+			<value name="text-bottom" description="???" />
+			<value name="text-top" description="???" />
+			<value name="top"  description="Top alignment." />
+			<value name="length" description="A valid length or percentage." />
+			<description>
+				Specifies veritcal alignement of inline elements to each other, or text within a table cell.
+			</description>
+			<tip>
+			</tip>
+			<dialog title="insert property">
+				vertical-align: %_;
+			</dialog>
+			<insert>
+				vertical-align: 
+			</insert>
+			<info title="Info window">
+			</info>
+		</property>
+		<property name="visibility" valType="string" default="inherit" inherits="0" appliesTo="all">
+			<value name="collapse" description="Hides and removes from document flow." />
+			<value name="hidden" description="Element is hidden, but not removed from document flow." />
+			<value name="visible" description="Element is visible" />
+			<description>
+				Specifies visibility of an element.
+			</description>
+			<tip>
+			</tip>
+			<dialog title="insert property">
+				visibility: %_;
+			</dialog>
+			<insert>
+				visibility: 
+			</insert>
+			<info title="Info window">
+			</info>
+		</property>
+		<property name="white-space" valType="string" default="normal" inherits="y" appliesTo="block">
+			<value name="normal" description="Use default HTML white space rendering." />
+			<value name="nowrap" description="Do not wrap text." />
+			<value name="pre" description="Render whitespace literally." />
+			<description>
+				Specifies treatment of white space within an element.
+			</description>
+			<tip>
+			</tip>
+			<dialog title="insert property">
+				white-space:%_;
+			</dialog>
+			<insert>
+				white-space: 
+			</insert>
+			<info title="Info window">
+			</info>
+		</property>
+		<property name="width" valType="number" default="auto" inherits="0" appliesTo="all">
+			<value name="integer" description="A valid integer." />
+			<description>
+				Specifies widht of an item.
+			</description>
+			<tip>
+			</tip>
+			<dialog title="insert property">
+				width: %_;
+			</dialog>
+			<insert>
+				width: 
+			</insert>
+			<info title="Info window">
+			</info>
+		</property>
+		<property name="word-spacing" valType="string" default="auto" inherits="0" appliesTo="all">
+			<value name="length" description="A valid length." />
+			<value name="normal" description="Normal word spacing." />
+			<description>
+				Specifies space between words.
+			</description>
+			<tip>
+			</tip>
+			<dialog title="insert property">
+				word-spacing: %_;
+			</dialog>
+			<insert>
+				word-spacing: 
+			</insert>
+			<info title="Info window">
+			</info>
+		</property>
+		<property name="z-index" valType="number" default="auto" inherits="0" appliesTo="positioned">
+			<value name="integer" description="A valid" />
+			<description>
+				Specifies position of the layers of positioned element.
+			</description>
+			<tip>
+			</tip>
+			<dialog title="insert property">
+				z-index: %_;
+			</dialog>
+			<insert>
+				z-index: 
+			</insert>
+			<info title="Info window">
+			</info>
+		</property>
+		
+	</group>
+<!-- ungrouped properties - ie., they apply to all types of media -->
+	<property name="content" valType="string" default="{empty string}" inherits="0" appliesTo="before, after">
+		<value name="string" description="A literal string." />
+		<value name="URI" description="A Universal Resouce Identifier.  Usually an URL." />
+		<value name="attr(X)" description="?" />
+		<value name="open-quote" description="?" />
+		<value name="close-quote" description="?" />
+		<value name="no-open-quote" description="?" />
+		<value name="noc-close-quote" description="?" />
+		<description>
+			???
+		</description>
+		<tip>
+		</tip>
+		<dialog title="insert property">
+			content: %_;
+		</dialog>
+		<insert>
+			content:
+		</insert>
+		<info title="Info window">
+		</info>
+	</property>
+	<property name="counter-increment" valType="string" default="none" inherits="0" appliesTo="all">
+		<value name="identifier" description="?" />
+		<value name="integer" description="?" />
+		<description>
+			???
+		</description>
+		<tip>
+		</tip>
+		<dialog title="insert property">
+			counter-increment: %_;
+		</dialog>
+		<insert>
+			counter-increment:
+		</insert>
+		<info title="Info window">
+		</info>
+	</property>
+	<property name="counter-reset" valType="string" default="none" inherits="0" appliesTo="all">
+		<value name="identifier" description="?" />
+		<value name="integer" description="?" />
+		<description>
+			???
+		</description>
+		<tip>
+		</tip>
+		<dialog title="insert property">
+			counter-reset: %_;
+		</dialog>
+		<insert>
+		counter-reset: 
+		</insert>
+		<info title="Info window">
+		</info>
+	</property>
+	<property name="display" valType="string" default="inline" inherits="1" appliesTo="all">
+		<value name="inline" description="Inline display; element box contained within parent element." />
+		<value name="block" description="Block display; element box contained within grandparent element, not parent." />
+		<value name="list-item" description="List Item display; element box contained within parent, element is bulleted and indented as appropriate." />
+		<value name="none" description="Element box is not rendered." />
+		<value name="run-in" description="?" />
+		<value name="compact" description="?" />
+		<value name="marker" description="?" />
+		<value name="table" description="Table display: element box contained within grandparent." />
+		<value name="table-row" description="?" />
+		<value name="table-row-group" description="?" />
+		<value name="table-header-group" description="?" />
+		<value name="table-footer-group" description="?" />
+		<value name="table-column" description="?" />
+		<value name="table-column-group" description="?" />
+		<value name="table-cell" description="?" />
+		<value name="table-caption" description="?" />
+		<description>
+			Specifies display and rendering rules for associated element.
+		</description>
+		<tip>
+		</tip>
+		<dialog title="insert property">
+			display: %_;
+		</dialog>
+		<insert>
+			display: 
+		</insert>
+		<info title="Info window">
+		</info>
+	</property>
+</ref>

@@ -8,8 +8,10 @@ cmenu_insert: /PHP+HTML/Text Input:<input type="text" name="%0" value="<?php if 
 cmenu_insert: /PHP+HTML/Checkbox:<input type="checkbox" name="%0" value="%1" <?php if (isset($%0)) { echo 'checked'; } ?>>::2:<input> Name:Checked Value:
 cmenu_insert: /PHP+HTML/Form + Action:<?php if (isset($submitted)) {\n//form submit code here\n} else { ?>\n<form method="POST" action="<?php echo $SCRIPT_NAME ?>">\n\n<input type="submit" name="submitted" value="%0"></form>\n<?php } // end of form ?>::1:Submit Button Text:
 cmenu_insert: /PHP+HTML/Form:<form method="POST" action="<?php echo $SCRIPT_NAME ?>">\n\n:</form>:0:
+cmenu_insert: /PHP+HTML/General/Calendar Table:<?php\n\t$now = getdate(time());\n\t$time = mktime(0,0,0, $now['mon'], 1, $now['year']);\n\t$date = getdate($time);\n\t$dayTotal = cal_days_in_month(0, $date['mon'], $date['year']);\n\t//Print the calendar header with the month name.\n\tprint '<table><tr><td colspan="7"><strong>' . $date['month'] . '</strong></td></tr>';\n\tfor ($i = 0; $i < 6; $i++) {\n\t\tprint '<tr>';\n\t\tfor ($j = 1; $j <= 7; $j++) {\n\t\t\t$dayNum = $j + $i*7 - $date['wday'];\n\t\t\t//Print a cell with the day number in it.  If it is today, highlight it.\n\t\t\tprint '<td';\n\t\t\tif ($dayNum > 0 && $dayNum <= $dayTotal) {\n\t\t\t\tprint ($dayNum == $now['mday']) ? ' style="background: #ccc;">' \: '>';\n\t\t\t\tprint $dayNum;\n\t\t\t}\n\t\t\telse {\n\t\t\t\t//Print a blank cell if no date falls on that day, but the row is unfinished.\n\t\t\t\tprint '>';\n\t\t\t}\n\t\t\tprint '</td>';\n\t\t}\n\t\tprint '</tr>';\n\t\tif ($dayNum >= $dayTotal && $i != 6)\n\t\t\tbreak;\n\t}\n\tprint '</table>';\n?>::0:
 cmenu_insert: /PHP/Test/Is NOT Set:if (!isset($%0)) {\n\t:\n}:1:Test Variable:
 cmenu_insert: /PHP/Test/Is Set:if (isset($%0)) {\n\t:\n}:1:Test Variable:
+cmenu_insert: /PHP/Test/Is Defined:if (defined($%0)) {\n\t:\n}:1:Test Constant:
 cmenu_insert: /PHP/Test/In Array:if (in_array($%0, $%1)) {\n\t:\n}:2:Test Variable:Array Name:
 cmenu_insert: /PHP/ODBC/Fetch Row:while($success = odbc_fetch_row($%0)) {\n\t\n}::1:Result Variable Name:
 cmenu_insert: /PHP/ODBC/Execute Query:$%0 = odbc_exec(%1, %2);\n::3:Result Variable Name:ODBC Connection ID Name:Query String (quoted or variable with $):
@@ -28,7 +30,13 @@ cmenu_insert: /PHP/General/Pretty Print Array:print_r($%0);::1:Array Name:
 cmenu_insert: /PHP/General/Loop (for):for ($%0 = %1; $%0 <= %2; $%0++) {\n :\n}\n:3:Iterator Variable Name:Start Value:End Value:
 cmenu_insert: /PHP/General/Location header:header('Location\: '.%0);::1:Destination URL (quoted or variable with $):
 cmenu_insert: /PHP/General/Iterate over Array:foreach ($%0 as $key => $value) {\n\t:\n}\n:1:Array Name:
-cmenu_insert: /PHP/General/Date:print date("l dS of F Y h\:i\:s A");::0:
+cmenu_insert: /PHP/General/Define Constant:define('%0', %1);::2:Constant Name (unquoted string):Value (quoted or variable with $):
+cmenu_insert: /PHP/General/Date/Month Dth, YYYY:print date('F S, Y');::0:
+cmenu_insert: /PHP/General/Date/D Month YYYY:print date('j F Y');::0:
+cmenu_insert: /PHP/General/Date/HH:MM:SS (AM\/PM):print date('h:i:s A');::0:
+cmenu_insert: /PHP/General/Date/HH:MM:SS:print date('H:i:s');::0:
+cmenu_insert: /PHP/General/Date/MM\/DD\/YY:print date('m/d/y');::0:
+cmenu_insert: /PHP/General/Date/DD\/MM\/YY:print date('d/m/y');::0:
 cmenu_insert: /PHP/File/Require:require_once(%0);\n::1:Filename (quote or variable with $):
 cmenu_insert: /PHP/File/Open and Print:$fd = fopen(%0, 'r');\nwhile (!feof($fd)) {\n\t$buffer = fgets($fd, 4096);\n\techo $buffer;\n}\nfclose($fd);::1:Filename (quoted or variable with $):
 cmenu_insert: /PHP/File/Include:include_once(%0);\n::1:Filename (quoted or variable with $):
@@ -42,56 +50,42 @@ cmenu_insert: /HTML/DOCTYPEs/HTML Transitional:<!DOCTYPE HTML PUBLIC "-//W3C//DT
 cmenu_insert: /HTML/DOCTYPEs/HTML Strict:<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">::0:
 cmenu_insert: /HTML/DOCTYPEs/HTML Frameset:<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN" "http://www.w3.org/TR/html4/frameset.dtd">::0:
 cmenu_insert: /HTML/Forms/<select>:<select name="%0">:</select>:1:Name::
+cmenu_insert: /HTML/Forms/<label>:<label for="%0">:</label>:1:For:
 cmenu_insert: /HTML/Forms/<input> Text:<input type="text" name="%0" value="%1" />::2:Name:Default Value:
 cmenu_insert: /HTML/Forms/<input> Submit:<input type="submit" name="%0" value="%1" />::2:Name:Button Text:
 cmenu_insert: /HTML/Forms/<input> Radio:<input type="radio" name="%0" value="%1" />::2:Name:Checked Value:
 cmenu_insert: /HTML/Forms/<input> Password:<input type="password" name="%0" value="%1" />::1:Name:
+cmenu_insert: /HTML/Forms/<input> File:<input type="file" name="%0" />::1:Name:
 cmenu_insert: /HTML/Forms/<input> Checkbox:<input type="checkbox" name="%0" value="%1" />::2:Name:Checked Value:
-cmenu_insert: /HTML/Forms/<form>:<form action="%0" method="%1">:</form>:2:Action:Method:cmenu_insert: /HTML/<any tag> with 'style':<%0 class="%1">:</%0>:2:Tag Name:Styles:
+cmenu_insert: /HTML/Forms/<form>:<form action="%0" method="%1">:</form>:2:Action:Method:
+cmenu_insert: /HTML/<any tag> with 'style':<%0 style="%1">:</%0>:2:Tag Name:Class:
 cmenu_insert: /HTML/<any tag> with 'id':<%0 id="%1">:</%0>:2:Tag Name:Unique ID:
 cmenu_insert: /HTML/<any tag> with 'class':<%0 class="%1">:</%0>:2:Tag Name:Class:
+cmenu_insert: /HTML/<any tag> single':<%0 />::1:Tag Name:
+cmenu_insert: /HTML/<any tag> pair':<%0>:</%0>:1:Tag Name:
 cmenu_insert: /HTML/"Made with Bluefish" Link:<a href="http\://bluefish.openoffice.nl/">Made with Bluefish HTML editor.</a>::0:
 cmenu_insert: /HTML/Link:<a href="0" title="%1">%2:</a>:3:Link Destination:Title:Linked Text:
+cmenu_insert: /HTML/Script:<script type="application/x-javascript">\n\t<!--\n\n\t-->\n</script>::0:
 cmenu_insert: /HTML/Image:<img src="%0" height="%1" width="%2" alt="%3" />::4:Image src:Height:Width:alt Text:
 cmenu_insert: /HTML/External Stylesheet:<link rel="stylesheet" type="text/css" href="%0" />::0:Stylesheet:
 cmenu_insert: /HTML/Comment:<!-- %0: -->:1:Comment Text:
+cmenu_insert: /DocBook/Title:<title>:</tile>:0:
+cmenu_insert: /DocBook/Program Listing:<programlisting>:</programlisting>:0:
+cmenu_insert: /DocBook/Paragraph:<para>:</para>:0:
+cmenu_insert: /DocBook/Itemized List:<itemizedlist>\n\t  <listitem><para>:</para></listitem>\n</itemizedlist>:0:
+cmenu_insert: /DocBook/Define Entity:<!ENTITY %0 '%0'>::1:Entity Name:
 cmenu_insert: /DHTML/Image Rollover:<img src="%1" id="%0" onmouseover="this.src='%2';" onmouseout="this.src='%1';" />::3:<img> ID:onmouseout src:onmouseover src:
+cmenu_insert: /DHTML/Auto-submit <select>:<select name="%0" onchange="document.%1.submit();">:</select>:1:<select> name:<form> name:
 cmenu_insert: / C /define:#define %0\n:\n:1:#define Name:
 cmenu_insert: / C /ifdef:\n#ifdef %0\n:\n#endif /* %0 */\n:1:#define Name:
 cmenu_insert: / C /Walk GList:GList *tmplist;\ntmplist = g_list_first(%0);\nwhile(tmplist){\n\t:\n\ttmplist = g_list_next(tmplist);\n}:1:GList Name:
 cmenu_insert: / C /Comment:/*:*/:0:
 cmenu_insert: /Apache/Deny Access to .inc:<FilesMatch "\\.inc$">\n\tOrder allow,deny\n\tDeny from all\n</FilesMatch>::0:
 cmenu_insert: /Apache/Basic Authentication:AuthName "%1"\nAuthType Basic\nrequire valid-user\nAuthUserFile %0\n::2:Full Path to Password File:Security Description:
-cmenu_insert: /docbook/filename:<filename>\n:</filename>:0:
-cmenu_insert: /docbook/code:<code>\n:</code>:0:
-cmenu_insert: /docbook/xref:<xref linkend="%0">\n::1:reference:
-cmenu_insert: /docbook/ulink:<ulink url="%0">%1\n:</ulink>:2:url:text:
-cmenu_insert: /docbook/title:<title>:</tile>:0:
-cmenu_insert: /docbook/thead:<thead>\n<row>:</row>\n</thead>\n:0:
-cmenu_insert: /docbook/tbody:<tbody>\n:</tbody>\n:0:
-cmenu_insert: /docbook/quote:&quot;:&quot;:0:
-cmenu_insert: /docbook/programlisting:<programlisting><![CDATA[:]]></programlisting>:0:
-cmenu_insert: /docbook/paragraph:<para>:</para>:0:
-cmenu_insert: /docbook/orderedlist:<orderedlist>\n\t<listitem>\n\t\t<para>:\t\t</para>\n\t</listitem>\n</orderedlist>:0:
-cmenu_insert: /docbook/literal:<literal>\n:</literal>:0:
-cmenu_insert: /docbook/listitem:<listitem>\n\t<para>:\t</para>\n</listitem>:0:
-cmenu_insert: /docbook/legalnotice:<legalnotice>\n:</legalnotice>:0:
-cmenu_insert: /docbook/keycap:<keycap>\n:</keycap>:0:
-cmenu_insert: /docbook/itemizedlist:<itemizedlist>\n\t<listitem>\n\t\t<para>:\t\t</para>\n\t</listitem>\n</itemizedlist>:0:
-cmenu_insert: /docbook/informaltable:<informaltable><tgroup cols="%0" colsep="%1" rowsep="%2">:</tgroup>\n</informaltable>:3:cols:colsep:rowsep:
-cmenu_insert: /docbook/image:<para>\n<mediaobject>\n<imagedate fileref="%0">\n</imageobject>\n<textobject>\n<phrase>%1</phrase>:</textobject>\n</mediaobject>\n</para>:2:fileref:phrase:
-cmenu_insert: /docbook/holder:<holder>%0\n:</holder>:1:holder:
-cmenu_insert: /docbook/figure:<para>\n<figure float="%0>\n<title>%1</title>\n<screenshot>\n<mediaobject>\n<imagedate fileref="%2">\n</imageobject>\n<textobject>\n<phrase>%3</phrase>:</textobject>\n</mediaobject>\n<screenshot>\n</figure>\n</para>:4:float:title:fileref:phrase:
-cmenu_insert: /docbook/entry:<entry align="%0" valign="%1"><para>\n:</para></entry>\n:2:align:valign:
-cmenu_insert: /docbook/emphasis:<emphasis>\n:</emphasis>:0:
-cmenu_insert: /docbook/define entity:<!ENTITY %0 '%0'>::1:entity name:
-cmenu_insert: /docbook/date:<date>%0\n:</date>:1:date:
-cmenu_insert: /docbook/copyright:<copyright>\n\t<year>%0</year>\n\t<holder>%1</holder>\n:</copyright>:2:year:holder:
-cmenu_insert: /docbook/computeroutput:<computeroutput>\n:</computeroutput>:0:
-cmenu_insert: /docbook/colspec:<colspec colname="%0" align="%1">::2:colname:align:
-cmenu_insert: /docbook/author:<author>\n\t<firstname>%0</firstname>\n\t<surname>%1</surname>:</author>:2:firstname:surname:
-cmenu_insert: /docbook/articleinfo:<articleinfo>\n\t<authorgroup>:\t</authorgroup>\n</articleinfo>:0:
-cmenu_insert: /docbook/anchor:<anchor id="%0">\n::1:id:
 cmenu_replace: /Replace/Strip/<font>:(<font[^>]*>|</font>)::0:1:0:0:
 cmenu_replace: /Replace/Strip/<any tag> in Selection:(<%0[^>]*>|</%0>)::2:1:0:1:Tag Name:
-cmenu_replace: /Replace/Convert <td> to <th> in Selection:(<|</)(td)([^>]*)(>):\\0th\\2>:2:1:0:0:
+cmenu_replace: /Replace/Convert In Selection/<td> to <th>:(<|</)(td)([^>]*)(>):\\0th\\2>:2:1:0:0:
+cmenu_replace: /Replace/Convert In Selection/Tabs to Spaces (8):(\t):        :2:1:0:0:
+cmenu_replace: /Replace/Convert In Selection/Tabs to Spaces (4):(\t):    :2:1:0:0:
+cmenu_replace: /Replace/Convert In Selection/Spaces (8) to Single Tabs:(        ):\t:2:1:0:0:
+cmenu_replace: /Replace/Convert In Selection/Spaces (4) to Single Tabs:(    ):\t:2:1:0:0:
