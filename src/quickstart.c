@@ -39,6 +39,7 @@
 
 #include "bluefish.h"
 #include "cap.h"
+#include "dialog_utils.h"
 #include "document.h"
 #include "gtk_easy.h"
 #include "gui.h"
@@ -380,7 +381,7 @@ quickstart_meta_page_create(TQuickStart *qstart)
 	gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (scrolwin), GTK_SHADOW_IN);
 	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolwin), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
 	gtk_widget_set_size_request (scrolwin, 450, 200);
-	gtk_box_pack_start (GTK_BOX (hbox), scrolwin, TRUE, TRUE, 0);
+	gtk_box_pack_start_defaults (GTK_BOX (hbox), scrolwin);
 	
 	metaStore = gtk_list_store_new (1, G_TYPE_STRING);
 	quickstart_load_metatags(metaStore);
@@ -414,11 +415,10 @@ quickstart_meta_page_create(TQuickStart *qstart)
 	return hbox;
 }
 
-/* TODO: create functions to reduce the duplicate code */
 static GtkWidget *
 quickstart_style_page_create(TQuickStart *qstart)
 {
-	GtkWidget *frame, *vbox, *vbox2, *hbox, *table, *label, *alignment;
+	GtkWidget *frame, *vbox, *vbox2, *hbox, *table, *label;
 	GtkListStore *history;
 	unsigned int i = 0;
 
@@ -432,17 +432,8 @@ quickstart_style_page_create(TQuickStart *qstart)
 	gtk_frame_set_shadow_type (GTK_FRAME (frame), GTK_SHADOW_IN);
 	vbox = gtk_vbox_new (FALSE, 12);
 	gtk_container_add (GTK_CONTAINER (frame), vbox);
-	
-	label = gtk_label_new (NULL);
-	gtk_label_set_markup (GTK_LABEL (label), _("<b>External Style Sheet</b>"));
-	gtk_misc_set_alignment (GTK_MISC (label), 0, 0);	
-	gtk_box_pack_start (GTK_BOX (vbox), label, FALSE, FALSE, 0);
-	
-	alignment = gtk_alignment_new (0, 0, 1, 1);
-	gtk_alignment_set_padding (GTK_ALIGNMENT (alignment), 0, 0, 12, 6);
-	gtk_box_pack_start (GTK_BOX (vbox), alignment, FALSE, FALSE, 0);	
-	vbox2 = gtk_vbox_new (FALSE, 12);
-	gtk_container_add (GTK_CONTAINER (alignment), vbox2);
+
+	vbox2 = dialog_label_with_alignment(_("<b>External Style Sheet</b>"), vbox);	
 	
 	hbox = gtk_hbox_new (FALSE, 12);
 	gtk_box_pack_start (GTK_BOX (vbox2), hbox, FALSE, FALSE, 0);
@@ -458,10 +449,7 @@ quickstart_style_page_create(TQuickStart *qstart)
 	gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, FALSE, 0);
 	gtk_box_pack_start (GTK_BOX (hbox), qstart->stylelinktype, FALSE, FALSE, 0);
 
-	table = gtk_table_new (2, 2, FALSE);
-	gtk_table_set_row_spacings (GTK_TABLE (table), 12);
-	gtk_table_set_col_spacings (GTK_TABLE (table), 12);
-	gtk_box_pack_start (GTK_BOX (vbox2), table, FALSE, FALSE, 0);
+	table = dialog_table_in_vbox(2, 2, 0, vbox2, FALSE, FALSE, 0);
 	
 	/* TODO: this should be session history list */	
 	history = gtk_list_store_new (1, G_TYPE_STRING);
@@ -478,16 +466,7 @@ quickstart_style_page_create(TQuickStart *qstart)
 	/* TODO: add an option to place content in the style area
 	 * Possibly from a code snippet library
 	 */
-	label = gtk_label_new (NULL);
-	gtk_label_set_markup (GTK_LABEL (label), _("<b>Style Area</b>"));
-	gtk_misc_set_alignment (GTK_MISC (label), 0, 0);	
-	gtk_box_pack_start (GTK_BOX (vbox), label, FALSE, FALSE, 0);
-	
-	alignment = gtk_alignment_new (0, 0, 1, 1);
-	gtk_alignment_set_padding (GTK_ALIGNMENT (alignment), 0, 0, 12, 6);
-	gtk_box_pack_start (GTK_BOX (vbox), alignment, FALSE, FALSE, 0);	
-	vbox2 = gtk_vbox_new (FALSE, 12);
-	gtk_container_add (GTK_CONTAINER (alignment), vbox2);
+	vbox2 = dialog_label_with_alignment(_("<b>Style Area</b>"), vbox);
 	
 	hbox = gtk_hbox_new (FALSE, 12);
 	gtk_box_pack_start (GTK_BOX (vbox2), hbox, FALSE, FALSE, 0);
@@ -502,24 +481,15 @@ quickstart_style_page_create(TQuickStart *qstart)
 static GtkWidget *
 quickstart_script_page_create(TQuickStart *qstart)
 {
-	GtkWidget *frame, *vbox, *vbox2, *hbox, *label, *alignment;
+	GtkWidget *frame, *vbox, *vbox2, *hbox, *label;
 	GtkListStore *history;
 
 	frame = gtk_frame_new (NULL);
 	gtk_frame_set_shadow_type (GTK_FRAME (frame), GTK_SHADOW_IN);
 	vbox = gtk_vbox_new (FALSE, 12);
 	gtk_container_add (GTK_CONTAINER (frame), vbox);
-	
-	label = gtk_label_new (NULL);
-	gtk_label_set_markup (GTK_LABEL (label), _("<b>Attributes</b>"));
-	gtk_misc_set_alignment (GTK_MISC (label), 0, 0);	
-	gtk_box_pack_start (GTK_BOX (vbox), label, FALSE, FALSE, 0);
-	
-	alignment = gtk_alignment_new (0, 0, 1, 1);
-	gtk_alignment_set_padding (GTK_ALIGNMENT (alignment), 0, 0, 12, 6);
-	gtk_box_pack_start (GTK_BOX (vbox), alignment, FALSE, FALSE, 0);	
-	vbox2 = gtk_vbox_new (FALSE, 12);
-	gtk_container_add (GTK_CONTAINER (alignment), vbox2);
+
+	vbox2 = dialog_label_with_alignment(_("<b>Attributes</b>"), vbox);
 	
 	hbox = gtk_hbox_new (FALSE, 12);
 	gtk_box_pack_start (GTK_BOX (vbox2), hbox, FALSE, FALSE, 0);
@@ -536,16 +506,7 @@ quickstart_script_page_create(TQuickStart *qstart)
 	gtk_box_pack_start (GTK_BOX (hbox), qstart->scriptsrc, FALSE, FALSE, 0);	
 
 	/* TODO: add an option to place content in the script area */
-	label = gtk_label_new (NULL);
-	gtk_label_set_markup (GTK_LABEL (label), _("<b>Script Area</b>"));
-	gtk_misc_set_alignment (GTK_MISC (label), 0, 0);	
-	gtk_box_pack_start (GTK_BOX (vbox), label, FALSE, FALSE, 0);
-	
-	alignment = gtk_alignment_new (0, 0, 1, 1);
-	gtk_alignment_set_padding (GTK_ALIGNMENT (alignment), 0, 0, 12, 6);
-	gtk_box_pack_start (GTK_BOX (vbox), alignment, FALSE, FALSE, 0);	
-	vbox2 = gtk_vbox_new (FALSE, 12);
-	gtk_container_add (GTK_CONTAINER (alignment), vbox2);
+	vbox2 = dialog_label_with_alignment(_("<b>Script Area</b>"), vbox);
 	
 	hbox = gtk_hbox_new (FALSE, 12);
 	gtk_box_pack_start (GTK_BOX (vbox2), hbox, FALSE, FALSE, 0);
@@ -582,11 +543,7 @@ quickstart_dialog_new(Tbfwin *bfwin) {
 													  NULL);	  
 	g_signal_connect (G_OBJECT (dialog), "response", G_CALLBACK (quickstart_response_lcb), qstart);
 
-	table = gtk_table_new (5, 3, FALSE);
-	gtk_container_set_border_width (GTK_CONTAINER (table), 6);
-	gtk_table_set_row_spacings (GTK_TABLE (table), 12);
-	gtk_table_set_col_spacings (GTK_TABLE (table), 12);
-	gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog)->vbox), table, TRUE, TRUE, 0);
+	table = dialog_table_in_vbox_defaults(5, 3, 6, GTK_DIALOG (dialog)->vbox);
 	
 	qstart->dtd = gtk_combo_box_new_text ();
 	for (i = 0; i < G_N_ELEMENTS (dtds); i++) {
