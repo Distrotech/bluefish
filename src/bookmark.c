@@ -233,7 +233,7 @@ static void save_bmark_proc(gpointer key,gpointer value,gpointer user_data) {
 #ifdef HAVE_GNOME_VFS	
    if (b->doc)	b->len = b->doc->fileinfo->size;
 #else
-   if (b->doc)	b->len = doc->statbuf.st_size;
+   if (b->doc)	b->len = b->doc->statbuf.st_size;
 #endif
 
 /*	if (b->doc)	b->len = gtk_text_buffer_get_char_count(b->doc->buffer);*/

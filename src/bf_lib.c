@@ -231,8 +231,6 @@ gboolean file_copy(gchar *source, gchar *dest) {
 #endif
 	int c;
 	FILE *in, *out;
-	GError *gerror=NULL;
-	gint b_written;
 	gchar *OnDiEn_source, *OnDiEn_dest;
 	OnDiEn_source = get_filename_on_disk_encoding(source);
 	OnDiEn_dest = get_filename_on_disk_encoding(dest);
@@ -309,8 +307,6 @@ gint find_common_prefixlen_in_stringlist(GList *stringlist) {
  **/
 gboolean append_string_to_file(gchar *filename, gchar *string) {
 	FILE *out;
-	GError *gerror=NULL;
-	gint b_written;
 	gchar *ondiskencoding = get_filename_on_disk_encoding(filename);
 	out = fopen(ondiskencoding, "a");
 	g_free(ondiskencoding);
@@ -1101,8 +1097,6 @@ gchar *path_get_dirname_with_ending_slash(const gchar *filename) {
  * Return value: gboolean, TRUE if readable, else FALSE
  **/
 gboolean file_exists_and_readable(const gchar * filename) {
-	GError *gerror=NULL;
-	gint b_written;
 	gchar *ondiskencoding;
 	gboolean retval=TRUE;
 #ifdef DEVELOPMENT
@@ -1126,7 +1120,7 @@ gboolean file_exists_and_readable(const gchar * filename) {
 #else /* HAVE_GNOME_VFS */
 	{
 		struct stat naamstat;
-		retval = (stat(ondiskencoding, &naamstat) == -1) && (errno == ENOENT));
+		retval = ((stat(ondiskencoding, &naamstat) == -1) && (errno == ENOENT));
 	}
 #endif /* HAVE_GNOME_VFS */
 	g_free(ondiskencoding);
