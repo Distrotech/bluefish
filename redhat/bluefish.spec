@@ -1,15 +1,16 @@
 %define	desktop_vendor 	endur
 %define name  		bluefish
-%define version		gtk2
-%define release 	20030223
-%define source		bluefish-gtk2port-2003-02-23
+%define version		0.11
+%define release 	1
+%define source		bluefish-0.11.tar.bz2
+%define prefix		/usr
 	
 
 Summary:	A GTK2 web development application for experienced users.
 Name:		%{name}
 Version:	%{version}
 Release:	%{release}
-Source:		ftp://ftp.ratisbona.com/pub/bluefish/snapshots/%{source}.tgz
+Source:		ftp://ftp.ratisbona.com/pub/bluefish/snapshots/%{source}
 URL:		http://bluefish.openoffice.nl
 License:	GPL
 Group:          Development/Tools
@@ -76,7 +77,7 @@ rm -rf %{buildroot}
 
 %files -f %{name}.lang
 %defattr(-,root, root)
-%doc COPYING INSTALL PORTING
+%doc COPYING INSTALL
 %{_bindir}/*
 %dir %{_datadir}/%{name}
 %{_datadir}/bluefish/*
@@ -85,5 +86,17 @@ rm -rf %{buildroot}
 
 
 %changelog
-* Mon Feb 24 2003 Matthias Haase <matthias_haase@bennewitz.com>
-- Automatic build - snapshot of 2003-02-23
+* Mon Jul 28 2003 Matthias Haase <matthias_haase@bennewitz.com>
+- Update to version 0.11
+
+* Tue Jul 17 2003 Matthias Haase <matthias_haase@bennewitz.com>
+- Update to version 0.10
+- Some cosmetic changes
+
+* Tue Feb 18 2003 Matthias Haase <matthias_haase@bennewitz.com>
+- Rebuild for version 0.9
+- Added Makefile patch to support DESTDIR.
+- Thanks to Matthias Saou <matthias.saou@est.une.marmotte.net> for the patch
+
+* Sat Feb 08 2003 Matthias Haase <matthias_haase@bennewitz.com>
+- Automatic build - snapshot of 2003-02-07
