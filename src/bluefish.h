@@ -187,7 +187,7 @@ typedef struct {
 	gint max_dir_history;	/* length of directory history */
 	gint backup_file; 			/* wheather to use a backup file */
 	gchar *backup_filestring;  /* the string to append to the backup file */
-	gint backup_abort_action; /* if the backup fails, continue save, abort save, or ask the user */
+	gint backup_abort_action; /* if the backup fails, 0=continue save  , 1=abort save, 2=ask the user */
 	gint backup_cleanuponclose; /* remove the backupfile after close ? */
 	gchar *image_thumbnailstring;	/* string to append to thumbnail filenames */
 	gchar *image_thumbnailtype;	/* fileformat to use for thumbnails, "jpeg" or "png" can be handled by gdkpixbuf*/

@@ -223,8 +223,8 @@ static void checkNsave_savefile_lcb(Tsavefile_status status,gint error_info,gpoi
 gint checkNsave_progress_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSXferProgressInfo *info,gpointer data) {
 	DEBUG_MSG("checkNsave_progress_lcb, started with status %d and phase %d for source %s and target %s, index=%d, total=%d\n"
 			,info->status,info->phase,info->source_name,info->target_name,info->file_index,info->files_total);
-/*	TcheckNsave *cns = data;
-	if (info->status == GNOME_VFS_XFER_PROGRESS_STATUS_OVERWRITE) {
+	TcheckNsave *cns = data;
+/*	if (info->status == GNOME_VFS_XFER_PROGRESS_STATUS_OVERWRITE) {
 		return GNOME_VFS_XFER_OVERWRITE_ACTION_REPLACE;
 	} else if (info->status == GNOME_VFS_XFER_PROGRESS_STATUS_VFSERROR) {
 		DEBUG_MSG("checkNsave_progress_lcb, abort!!\n");
@@ -239,7 +239,8 @@ gint checkNsave_progress_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSXferProgressInf
 			file_savefile_uri_async(cns->uri, cns->buffer, cns->buffer_size, checkNsave_savefile_lcb, cns);
 		}
 	}*/
-	return 0;
+	/* Christian Kellner found we should NEVER return 0, it aborts!! */
+	return 1;
 }
 
 gint checkNsave_sync_lcb(GnomeVFSXferProgressInfo *info,gpointer data) {
@@ -262,8 +263,9 @@ gint checkNsave_sync_lcb(GnomeVFSXferProgressInfo *info,gpointer data) {
 			DEBUG_MSG("checkNsave_sync_lcb, phase=COMPLETED, starting the actual save\n");
 			file_savefile_uri_async(cns->uri, cns->buffer, cns->buffer_size, checkNsave_savefile_lcb, cns);
 		}
-	}
-	return 0;
+	} 
+	/* Christian Kellner found we should NEVER return 0, it aborts!! */
+	return 1;
 }
 static void checkNsave_checkmodified_lcb(Tcheckmodified_status status,gint error_info,gpointer data) {
 	TcheckNsave *cns = data;
@@ -274,10 +276,10 @@ static void checkNsave_checkmodified_lcb(Tcheckmodified_status status,gint error
 		startbackup = TRUE;
 	break;
 	case CHECKMODIFIED_MODIFIED:
-		startbackup = (cns->callback_func(CHECKANDSAVE_ERROR_MODIFIED, error_info, cns) == CHECKNSAVE_CONT);
+		startbackup = (cns->callback_func(CHECKANDSAVE_ERROR_MODIFIED, error_info, cns->callback_data) == CHECKNSAVE_CONT);
 	break;
 	case CHECKMODIFIED_ERROR:
-		cns->callback_func(CHECKANDSAVE_ERROR, error_info, cns);
+		cns->callback_func(CHECKANDSAVE_ERROR, error_info, cns->callback_data);
 	break;
 	}
 	if (startbackup) {
@@ -298,9 +300,9 @@ static void checkNsave_checkmodified_lcb(Tcheckmodified_status status,gint error
 		destlist = g_list_append(NULL, dest);
 		DEBUG_MSG("checkNsave_checkmodified_lcb, start backup, source=%s, dest=%s (len=%d,%d)\n",gnome_vfs_uri_get_path(cns->uri),gnome_vfs_uri_get_path(dest)
 				,g_list_length(sourcelist),g_list_length(destlist));
-	ret = gnome_vfs_async_xfer(&handle,sourcelist,destlist
+		ret = gnome_vfs_async_xfer(&handle,sourcelist,destlist
 					,GNOME_VFS_XFER_FOLLOW_LINKS,GNOME_VFS_XFER_ERROR_MODE_QUERY
-					,GNOME_VFS_XFER_OVERWRITE_MODE_QUERY,GNOME_VFS_PRIORITY_DEFAULT
+					,GNOME_VFS_XFER_OVERWRITE_MODE_REPLACE,GNOME_VFS_PRIORITY_DEFAULT
 					,checkNsave_progress_lcb, cns
 					,checkNsave_sync_lcb, cns);
 		DEBUG_MSG("checkNsave_checkmodified_lcb, ret ok=%d\n",(ret == GNOME_VFS_OK));
