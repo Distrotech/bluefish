@@ -272,59 +272,41 @@ gboolean doc_has_selection(Tdocument *doc) {
 void doc_set_modified(Tdocument *doc, gint value) {
 	DEBUG_MSG("doc_set_modified, started, doc=%p, value=%d\n", doc, value);
 	if (doc->modified != value) {
-		gchar *label_string;
+		gchar *label_string, *tabmenu_string;
+		GdkColor colorred = {0, 65535, 0, 0};
+		GdkColor colorblack = {0, 0, 0, 0};
+
 		doc->modified = value;
-		if (doc->modified) {
-			if (doc->filename) {
-				gchar *tmpstr = g_path_get_basename(doc->filename);
-				label_string = g_strdup(tmpstr);
-				g_free(tmpstr);
-			} else {
-				label_string = g_strdup(_("Untitled"));
-			}
-			{
-				GdkColor color = {0, 65535, 0, 0};
-				gtk_widget_modify_fg(doc->tab_menu, GTK_STATE_NORMAL, &color);
-				gtk_widget_modify_fg(doc->tab_menu, GTK_STATE_PRELIGHT, &color);
-				gtk_widget_modify_fg(doc->tab_label, GTK_STATE_NORMAL, &color);
-			}
-		} else {
-			if (doc->filename) {
-				gchar *tmpstr = g_path_get_basename(doc->filename);
-				label_string = g_strdup(tmpstr);
-				g_free(tmpstr);
-			} else {
-				label_string = g_strdup(_("Untitled"));
-			}
-			{
-				GdkColor color = {0, 0, 0, 0};
-				gtk_widget_modify_fg(doc->tab_menu, GTK_STATE_NORMAL, &color);
-				gtk_widget_modify_fg(doc->tab_menu, GTK_STATE_PRELIGHT, &color);
-				gtk_widget_modify_fg(doc->tab_label, GTK_STATE_NORMAL, &color);
-			}
-		}
 		if (doc->filename) {
-			if (doc->modified) {
-				gchar *tmpstr = g_path_get_basename(doc->filename);
-				label_string = g_strdup(tmpstr);
-				g_free(tmpstr);
-			} else {
-				gchar *tmpstr = g_path_get_basename(doc->filename);
-				label_string = g_strdup(tmpstr);
-				g_free(tmpstr);
-			}
-			gtk_label_set(GTK_LABEL(doc->tab_menu),doc->filename);
+			label_string = g_path_get_basename(doc->filename);
+			tabmenu_string = g_strdup(doc->filename);
 		} else {
-			if (doc->modified) {
-				label_string = g_strdup(_("Untitled"));
-			} else {
-				label_string = g_strdup(_("Untitled"));
-			}
-			gtk_label_set(GTK_LABEL(doc->tab_menu),label_string);
+			label_string = g_strdup(_("Untitled"));
+			tabmenu_string = g_strdup(_("Untitled"));
 		}
+		if (doc->modified) {
+			gtk_widget_modify_fg(doc->tab_menu, GTK_STATE_NORMAL, &colorred);
+			gtk_widget_modify_fg(doc->tab_menu, GTK_STATE_PRELIGHT, &colorred);
+			gtk_widget_modify_fg(doc->tab_label, GTK_STATE_NORMAL, &colorred);
+			gtk_widget_modify_fg(doc->tab_label, GTK_STATE_PRELIGHT, &colorred);
+			gtk_widget_modify_fg(doc->tab_label, GTK_STATE_ACTIVE, &colorred);
+		} else {
+			gtk_widget_modify_fg(doc->tab_menu, GTK_STATE_NORMAL, &colorblack);
+			gtk_widget_modify_fg(doc->tab_menu, GTK_STATE_PRELIGHT, &colorblack);
+			gtk_widget_modify_fg(doc->tab_label, GTK_STATE_NORMAL, &colorblack);
+			gtk_widget_modify_fg(doc->tab_label, GTK_STATE_PRELIGHT, &colorblack);
+			gtk_widget_modify_fg(doc->tab_label, GTK_STATE_ACTIVE, &colorblack);
+		}
+		gtk_label_set(GTK_LABEL(doc->tab_menu),tabmenu_string);
 		gtk_label_set(GTK_LABEL(doc->tab_label),label_string);
 		g_free(label_string);
+		g_free(tabmenu_string);
 	}
+#ifdef DEBUG
+	else {
+		DEBUG_MSG("doc_set_modified, doc %p did have value %d already\n", doc, value);
+	}
+#endif
 	/* only when this is the current document we have to change these */
 	if (doc == main_v->current_document) {
 		gui_set_undo_redo_widgets(doc_has_undo_list(doc), doc_has_redo_list(doc));
@@ -1123,12 +1105,12 @@ gint doc_textbox_to_file(Tdocument * doc, gchar * filename) {
 	if (main_v->props.auto_update_meta) {
 		const gchar *realname = g_get_real_name();
 		gchar *tmp;
-		Tsearch_result res = doc_search_run_extern("<meta[ \t\n]name[ \t\n]*=[ \t\n]*\"generator\"[ \t\n]+content[ \t\n]*=[ \t\n]*\"[^\"]*bluefish[^\"]*\"[ \t\n]*>",1,0);
+		Tsearch_result res = doc_search_run_extern(doc,"<meta[ \t\n]name[ \t\n]*=[ \t\n]*\"generator\"[ \t\n]+content[ \t\n]*=[ \t\n]*\"[^\"]*bluefish[^\"]*\"[ \t\n]*>",1,0);
 		if (res.end > 0) {
-			snr2_run_extern_replace("<meta[ \t\n]name[ \t\n]*=[ \t\n]*\"generator\"[ \t\n]+content[ \t\n]*=[ \t\n]*\"[^\"]*\"[ \t\n]*>",0,1,0,"<meta name=\"generator\" content=\"Bluefish, see http://bluefish.openoffice.nl/\">", FALSE);
+			snr2_run_extern_replace(doc,"<meta[ \t\n]name[ \t\n]*=[ \t\n]*\"generator\"[ \t\n]+content[ \t\n]*=[ \t\n]*\"[^\"]*\"[ \t\n]*>",0,1,0,"<meta name=\"generator\" content=\"Bluefish, see http://bluefish.openoffice.nl/\">", FALSE);
 		}
 		tmp = g_strconcat("<meta name=\"author\" content=\"",realname,"\">",NULL);
-		snr2_run_extern_replace("<meta[ \t\n]name[ \t\n]*=[ \t\n]*\"author\"[ \t\n]+content[ \t\n]*=[ \t\n]*\"[^\"]*\"[ \t\n]*>",0,1,0,tmp,FALSE);
+		snr2_run_extern_replace(doc,"<meta[ \t\n]name[ \t\n]*=[ \t\n]*\"author\"[ \t\n]+content[ \t\n]*=[ \t\n]*\"[^\"]*\"[ \t\n]*>",0,1,0,tmp,FALSE);
 		g_free(tmp);
 	}
 
