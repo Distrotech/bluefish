@@ -1940,15 +1940,15 @@ GtkWidget *fref_gui(Tbfwin *bfwin) {
 		Tcallbackdata *cd = g_new(Tcallbackdata,1);
 		cd->data = NULL;
 		cd->bfwin = bfwin;
-		btn1 = bf_generic_button_with_image(NULL, 107, G_CALLBACK(frefcb_info_dialog), cd);
+		btn1 = bf_generic_button_with_image(NULL, 108, G_CALLBACK(frefcb_info_dialog), cd);
 	}
-	btn2 = bf_generic_button_with_image(NULL, 108, G_CALLBACK(frefcb_full_info), bfwin);
+	btn2 = bf_generic_button_with_image(NULL, 107, G_CALLBACK(frefcb_full_info), bfwin);
 	gtk_tooltips_set_tip(FREFGUI(bfwin->fref)->argtips,btn1,_("Dialog"),"");
 	gtk_tooltips_set_tip(FREFGUI(bfwin->fref)->argtips,btn2,_("Info"),"");
 	
 	gtk_box_pack_start(GTK_BOX(box2),FREFGUI(bfwin->fref)->infocheck,TRUE,TRUE,0);	 				 
-	gtk_box_pack_start(GTK_BOX(box2),btn1,FALSE,TRUE,0);	 				 	
 	gtk_box_pack_start(GTK_BOX(box2),btn2,FALSE,TRUE,0);	 				
+	gtk_box_pack_start(GTK_BOX(box2),btn1,FALSE,TRUE,0);	 				 	
 
 	gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(FREFGUI(bfwin->fref)->infoscroll), FREFGUI(bfwin->fref)->infoview);
 	gtk_box_pack_start(GTK_BOX(box),scroll,TRUE,TRUE,0);
