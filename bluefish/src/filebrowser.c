@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-/* #define DEBUG */
+#define DEBUG
 
 #include <gtk/gtk.h>
 #include <sys/types.h> /* stat() getuid */
@@ -291,7 +291,7 @@ static GList *return_dir_entries(Tfilebrowser *filebrowser,const gchar *dirname)
 	GnomeVFSResult result;
 	GnomeVFSDirectoryHandle *handle=NULL;
 	GnomeVFSFileInfo *gvfi=NULL;
-	DEBUG_MSG("return_dir_entries, started for %s\n",dirname);
+	DEBUG_MSG("return_dir_entries, started for dirname %s\n",dirname);
 	gint bytes_w;
 	GError *gerror=NULL;
 	gchar *ondiskname = g_filename_from_utf8(dirname, -1, NULL, &bytes_w, &gerror);
@@ -307,7 +307,15 @@ static GList *return_dir_entries(Tfilebrowser *filebrowser,const gchar *dirname)
 		if (strcmp(gvfi->name,".")!=0 && strcmp(gvfi->name,"..")!=0) {
 			entry = g_new(Tdir_entry,1);
 			entry->icon = NULL;
+			DEBUG_MSG("return_dir_entries, found file '%s'\n",gvfi->name);
 			entry->name = g_filename_to_utf8(gvfi->name, -1, NULL, &bytes_w, &gerror);
+			if (gerror) {
+				DEBUG_MSG("could not convert the filename into UTF8 --> %s\n", gerror->message);
+				g_error_free(gerror);
+				gerror = NULL;
+				entry->name = g_strdup(gvfi->name);
+			}
+			DEBUG_MSG("return_dir_entries, entry->name='%s'\n",entry->name);
 			if (gvfi->type == GNOME_VFS_FILE_TYPE_DIRECTORY) {
 				entry->type = TYPE_DIR;
 			} else {
@@ -346,7 +354,12 @@ static GList *return_dir_entries(Tfilebrowser *filebrowser,gchar *dirname) {
 		entry = g_new(Tdir_entry,1);
 		entry->icon = NULL;
 		entry->name = g_filename_to_utf8(gvfi->name, -1, NULL, &bytes_w, &gerror);
-		
+		if (gerror) {
+			DEBUG_MSG("could not convert the filename into UTF8 --> %s\n", gerror->message);
+			g_error_free(gerror);
+			gerror = NULL;
+			entry->name = g_strdup(gvfi->name);
+		}
 		fullpath = g_strconcat(dirname, "/", name, NULL);
 		stat(fullpath, &entry->stat);
 		g_free(fullpath);
@@ -1019,7 +1032,7 @@ static void create_file_or_dir_ok_clicked_lcb(GtkWidget *widget, Tcfod *ws) {
 					doc_new_with_new_file(ws->filebrowser->bfwin,newname);
 				} else {
 					gchar *ondiskencoding;
-					GError *gerror;
+					GError *gerror=NULL;
 					gint b_written;
 					ondiskencoding = g_filename_from_utf8(newname,-1,NULL,&b_written,&gerror);
 #ifdef HAVE_GNOME_VFS
@@ -1202,7 +1215,7 @@ static void filebrowser_rpopup_rename(Tfilebrowser *filebrowser) {
 			newfilename = ask_new_filename(filebrowser->bfwin,oldfilename, 1);
 			if (newfilename) {
 				gchar *old_OnDiEn, *new_OnDiEn; /* OnDiskEncoding */
-				GError *gerror;
+				GError *gerror=NULL;
 				gint b_written;
 				old_OnDiEn = g_filename_from_utf8(oldfilename,-1,NULL,&b_written,&gerror);
 				new_OnDiEn = g_filename_from_utf8(newfilename,-1,NULL,&b_written,&gerror);
@@ -1262,7 +1275,7 @@ static void filebrowser_rpopup_delete(Tfilebrowser *filebrowser) {
 			gchar *errmessage = NULL;
 			gchar *tmp, *dir, *ondiskenc;
 			gint b_written;
-			GError *gerror;
+			GError *gerror=NULL;
 			DEBUG_MSG("file_list_rpopup_file_delete %s\n", filename);
 			ondiskenc = g_filename_from_utf8(filename,-1,NULL,&b_written,&gerror);
 #ifdef HAVE_GNOME_VFS
