@@ -1328,10 +1328,10 @@ GtkWidget * file_chooser_dialog(Tbfwin *bfwin, gchar *title, GtkFileChooserActio
 		g_print("session dir len=%d\n",g_list_length(bfwin->session->recent_dirs));
 		while (tmplist) {
 			GError *error=NULL;
-			gtk_file_chooser_add_shortcut_folder(GTK_FILE_CHOOSER(dialog),(gchar*)tmplist->data,&error);
+			gtk_file_chooser_add_shortcut_folder_uri(GTK_FILE_CHOOSER(dialog),(gchar*)tmplist->data,&error);
 			DEBUG_MSG("adding folder %s\n",(gchar*)tmplist->data);
 			if (error) {
-				g_print("ERROR adding dir %s: %s\n", (gchar*)tmplist->data, error->message);
+				DEBUG_MSG("ERROR adding dir %s: %s\n", (gchar*)tmplist->data, error->message);
 				g_error_free(error);
 			}
 			tmplist = g_list_next(tmplist);
