@@ -1856,7 +1856,16 @@ gint doc_textbox_to_file(Tdocument * doc, gchar * filename) {
 			g_free(buffer);
 			buffer = newbuf;
 		} else {
+			gchar *options[] = {_("_Abort save"), _("_Continue save"), NULL};
+			gint retval;
+			gchar *tmpstr = g_strdup_printf(_("Failed to convert %s to character encoding %s.\nContinue saving in UTF-8 encoding?"), filename, doc->encoding);
 			DEBUG_MSG("doc_textbox_to_file, *** CONVERSION FAILED *** newbuf was NULL\n");
+			retval = multi_warning_dialog(BFWIN(doc->bfwin)->main_window,_("File encoding conversion failure"), tmpstr, 1, 0, options);
+			g_free(tmpstr);
+			if (retval == 0) {
+				DEBUG_MSG("doc_textbox_to_file, character set conversion failed, user aborted!\n");
+				return -3;
+			}
 		}
 	}
 	
