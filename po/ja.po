@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish gtk2-port\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-01-15 10:59+0100\n"
+"POT-Creation-Date: 2005-01-15 14:46+0900\n"
 "PO-Revision-Date: 2004-11-27 22:43-0300\n"
 "Last-Translator: Takeshi HAMASAKI <hma@syd.odn.ne.jp>\n"
 "MIME-Version: 1.0\n"
@@ -309,71 +309,71 @@ msgstr ""
 "Bluefishはファイル名を読み取れません。次の環境変数を設定してみてください。"
 "G_BROKEN_FILENAMES=1\n"
 
-#: ../src/bfspell.c:379
+#: ../src/bfspell.c:377
 msgid "Check Spelling"
 msgstr "スペルをチェック中"
 
-#: ../src/bfspell.c:383
+#: ../src/bfspell.c:381
 msgid "Checking"
 msgstr "チェック中"
 
-#: ../src/bfspell.c:392
+#: ../src/bfspell.c:390
 msgid "_Misspelled word:"
 msgstr "スペルの違う語(_M):"
 
-#: ../src/bfspell.c:396
+#: ../src/bfspell.c:394
 msgid "Change _to:"
 msgstr "修正した語(_T):"
 
-#: ../src/bfspell.c:399
+#: ../src/bfspell.c:397
 msgid "I_gnore"
 msgstr "無視(_G)"
 
-#: ../src/bfspell.c:400 ../src/snr2.c:884
+#: ../src/bfspell.c:398 ../src/snr2.c:884
 msgid "_Replace"
 msgstr "置換(_R)"
 
-#: ../src/bfspell.c:413
+#: ../src/bfspell.c:411
 msgid "In _document"
 msgstr "文書内(_D)"
 
-#: ../src/bfspell.c:414
+#: ../src/bfspell.c:412
 msgid "I_n selection"
 msgstr "選択範囲内(_N)"
 
-#: ../src/bfspell.c:423
+#: ../src/bfspell.c:421
 msgid "personal dictionary"
 msgstr "個人辞書"
 
-#: ../src/bfspell.c:426
+#: ../src/bfspell.c:424
 msgid "session dictionary"
 msgstr "セッション辞書"
 
-#: ../src/bfspell.c:432
+#: ../src/bfspell.c:430
 msgid "Dictionary:"
 msgstr "辞書:"
 
-#: ../src/bfspell.c:436
+#: ../src/bfspell.c:434
 msgid "_Add"
 msgstr "追加(_A)"
 
-#: ../src/bfspell.c:440
+#: ../src/bfspell.c:438
 msgid "Language:"
 msgstr "言語:"
 
-#: ../src/bfspell.c:444
+#: ../src/bfspell.c:442
 msgid "Set defa_ult"
 msgstr "デフォルトを使う(_U)"
 
-#: ../src/bfspell.c:448
+#: ../src/bfspell.c:446
 msgid "Filter:"
 msgstr "フィルタ:"
 
-#: ../src/bfspell.c:456
+#: ../src/bfspell.c:454
 msgid "no filter"
 msgstr "フィルタなし"
 
-#: ../src/bfspell.c:458
+#: ../src/bfspell.c:456
 msgid "html filter"
 msgstr " HTMLフィルタ"
 
@@ -4630,7 +4630,7 @@ msgstr "現在位置から最後まで"
 
 #: ../src/snr2.c:1399
 msgid "Beginning of selection till end of selection"
-msgstr "セクションの最初からセクションの最後まで"
+msgstr "選択範囲"
 
 #: ../src/snr2.c:1399
 msgid "All opened files begin till end"
@@ -4695,11 +4695,6 @@ msgstr "一回に置換(_L)"
 #: ../src/snr2.c:1448
 msgid "Bookmark results"
 msgstr "検索結果をブックマークする"
-
-#: ../src/specialchar.c:18
-#, fuzzy
-msgid "Insert special character"
-msgstr "正しくないHTML実体参照です! %s\n"
 
 #: ../src/stringlist.c:366
 msgid " Add "
@@ -5030,6 +5025,10 @@ msgstr "サイズ:"
 
 #~ msgid "Always highlight full document"
 #~ msgstr "いつも文章全体を色分けする"
+
+#, fuzzy
+#~ msgid "Insert special character"
+#~ msgstr "正しくないHTML実体参照です! %s\n"
 
 #~ msgid "Spell checker"
 #~ msgstr "スペルチェッカー"
