@@ -36,8 +36,59 @@ typedef struct {
 	gint nmatch;
 } Tsearch_result;
 
-void snr2_init(Tbfwin *bfwin);
+typedef struct {
+	gint start;
+	gint end;
+	Tdocument *doc;
+} Tsearch_all_result;
 
+typedef enum { string, uppercase, lowercase } Treplace_types;
+typedef enum { match_normal, match_posix, match_perl } Tmatch_types;
+typedef enum { beginning, cursor, selection, opened_files } Tplace_types;
+
+typedef struct {
+	Tbfwin *bfwin;
+	Tdocument *doc;
+	Tsearch_result result;
+	gint replace;
+	gchar *search_pattern;
+	gchar *replace_pattern;
+	gint unescape;
+	gint overlapping_search;
+	gint prompt_before_replace;
+	gint is_case_sens;
+	gint replace_once;
+	Treplace_types replacetype_option;
+	Tmatch_types matchtype_option;
+	Tplace_types placetype_option;
+} Tlast_snr2;
+
+typedef struct {
+	gint replace;
+	Tbfwin *bfwin;
+	GtkWidget *window;
+	GtkWidget *search_combo;
+	/*GtkWidget *search_entry;*/
+	GtkWidget *search_label;
+	/*GtkWidget *search_scrollbox;*/
+	GtkWidget *replace_combo;
+	/*GtkWidget *replace_entry;*/
+	GtkWidget *replace_label;
+	/*GtkWidget *replace_scrollbox;*/
+	GtkWidget *subpat_help;
+	GtkWidget *overlapping_search;
+	GtkWidget *prompt_before_replace;
+	GtkWidget *is_case_sens;
+	GtkWidget *replace_once;
+	GtkWidget *unescape;
+	GtkWidget *replacetype_option;
+	GtkWidget *matchtype_option;
+	GtkWidget *placetype_option;
+} Tsnr2_win;
+
+#define LASTSNR2(var) ((Tlast_snr2 *)(var))
+
+void snr2_init(Tbfwin *bfwin);
 void snr2_run_extern_replace(Tdocument *doc, gchar *search_pattern, gint region,
 							gint matchtype, gint is_case_sens, gchar *replace_pattern,
 							gboolean store_as_last_snr2);
