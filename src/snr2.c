@@ -1406,10 +1406,10 @@ void new_replace_cb(GtkWidget *widget, gpointer data) {
 
 /*****************************************************/
 
-/* UNUSED! Was used by update_filenames_in_file() previously.
+#ifdef NOTPORTEDYET
 
 static gint do_filename_curfile_replace(gchar *fulltext, Tsearch_result result, gint offset, gchar *olddirname, gchar *newfilename, gint changelen, Tdocument *doc) {
-/* returns the change in the lenght of the buffer compared to the actual document text 
+/* returns the change in the lenght of the buffer compared to the actual document text */
 	gchar *possible_filename;
 	gchar *olddirfile;
 	gint len;
@@ -1421,22 +1421,22 @@ static gint do_filename_curfile_replace(gchar *fulltext, Tsearch_result result, 
 	len = strlen(possible_filename) + strlen(olddirname) + 2;
 	olddirfile = strncat(strncat(strncpy(g_malloc(len), olddirname, len), "/", len), possible_filename, len);
 
-	/* code to check if this is a file 
+	/* code to check if this is a file */
 	if (file_exists_and_readable(olddirfile)) {
 		DEBUG_MSG("do_filename_change_replace, olddirfile=%s does exist!!\n", olddirfile);
-		/* code to create replace_pattern 
+		/* code to create replace_pattern */
 		olddirfile = most_efficient_filename(olddirfile);
 		DEBUG_MSG("do_filename_change_replace, updated olddirfile=%s \n", olddirfile);
 		replacestring = create_relative_link_to(newfilename, olddirfile);
 		DEBUG_MSG("do_filename_change_replace, replacestring=%s, newfilename=%s\n", replacestring, newfilename);
-		/* code to actual replace it 
+		/* code to actual replace it */
 		doc_replace_text(doc, replacestring, result.start + offset + 1 + changelen, result.end + offset + changelen -1);	
 		change_lenght = strlen(replacestring) - strlen(possible_filename) + changelen;
 		DEBUG_MSG("do_filename_change_replace, replacestring=%s, possible_filename=%s\n", replacestring, possible_filename);
 		DEBUG_MSG("do_filename_change_replace, change_lenght=%d\n",change_lenght );		
 		g_free(replacestring); 
 	} else {
-/*		DEBUG_MSG("do_filename_change_replace, olddirfile=%s does NOT exist\n", olddirfile);  
+		DEBUG_MSG("do_filename_change_replace, olddirfile=%s does NOT exist\n", olddirfile);  
 	}
 	g_free(possible_filename);
 	g_free(olddirfile);
@@ -1463,9 +1463,9 @@ static gint do_filename_otherfile_replace(gchar *fulltext, Tsearch_result result
 	}
 	g_free(possible_filename);
 	return change_length;
-}*/
+}
 
-/** UPDATE: UNUSED!
+/**
  * update_filenames_in_file:
  * @doc: a #Tdocument
  * @oldfilename: Filename to change from.
@@ -1475,7 +1475,7 @@ static gint do_filename_otherfile_replace(gchar *fulltext, Tsearch_result result
  * 
  *
  * Return value: void
- **
+ **/
 void update_filenames_in_file(Tdocument *doc, gchar *oldfilename, gchar *newfilename, gint doc_has_newfilename) {
 	gchar *fulltext;
 	Tsearch_result result;
@@ -1512,7 +1512,8 @@ void update_filenames_in_file(Tdocument *doc, gchar *oldfilename, gchar *newfile
 	if (doc_has_newfilename) {
 		g_free(olddirname);
 	}
-}*/
+}
+#endif /* NOTPORTEDYET */
 
 /**
  * update_encoding_meta_in_file:

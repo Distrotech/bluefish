@@ -1040,15 +1040,14 @@ void progress_destroy(gpointer gp)
 	}
 }
 
-static gboolean progress_update(gpointer data)
-{
-	DEBUG_MSG("Entering: progress_update()\n");
-
+static gboolean progress_update(gpointer data) {
+	gchar *msg;
 	Tprogress *p = (Tprogress *) data;
 	gdouble frac = (gdouble) p->value / (gdouble) p->maxvalue;
+	DEBUG_MSG("Entering: progress_update()\n");
 
 	gtk_progress_bar_set_fraction (GTK_PROGRESS_BAR (p->bar), frac);
-	gchar *msg = g_strdup_printf (_("%d of %d"), p->value, p->maxvalue);
+	msg = g_strdup_printf (_("%d of %d"), p->value, p->maxvalue);
 	gtk_progress_bar_set_text (GTK_PROGRESS_BAR (p->bar), msg);
 	g_free (msg);
 	
