@@ -650,7 +650,7 @@ If you want to disable any of these items by default, you can set these options 
 
 <sect2 id="basic-find-replace">
 <title>Basic Find and Replace</title>
-<para>Bluefish offers a wide range of find and replace methods in the <guimenu>Edit</guimenu> menu. Here we will explore the most basic ones. For advanced find and replace methods, see <xref linkend="find-replace" />.</para>
+<para>Bluefish offers a wide range of find and replace methods in the <guimenu>Edit</guimenu> menu, also available through the contextual menu within a document. Here we will explore the most basic ones. For advanced find and replace methods, see <xref linkend="find-replace" />.</para>
 <sect3 id="basic-find">
 <title>Searching for a word within a whole document</title>
 <?linebreaka4?>
@@ -800,9 +800,12 @@ If you want to disable any of these items by default, you can set these options 
 
 <sect3 id="find-overlap">
 <title>Overlapping searches</title>
+<?linebreaka4?>
 <para>It may occur that the document contains some kind of palindrome you want to search for. The "normal" find process does not retrieve all occurrences of that kind of string.</para>
+<?linebreaka4?>
 <para>In this case, you have to check the <guilabel>Overlap searches</guilabel> box in the <guilabel>Find</guilabel> dialog to retrieve all occurences of the string.
 <?linebreak?>
+<?linebreaka4?>
 <figure id="figure-find-basic-overlap">
 <title id="figure-find-basic-overlap-title">Finding overlapping strings</title>
 <screenshot><mediaobject>
@@ -814,8 +817,10 @@ If you want to disable any of these items by default, you can set these options 
 </textobject>
 </mediaobject></screenshot>
 </figure></para>
+<?linebreaka4?>
 <para>Applied to a shell script, the second search (with <keycombo><keycap>Ctrl</keycap><keycap>F</keycap></keycombo>, then <keycombo><keycap>Ctrl</keycap><keycap>G</keycap></keycombo>) will give the following result:
 <?linebreak?>
+<?linebreaka4?>
 <figure id="figure-find-basic-overlap-result">
 <title id="figure-find-basic-overlap-result-title">An overlapping string retrieved with the Find dialog</title>
 <screenshot><mediaobject>
@@ -831,7 +836,18 @@ If you want to disable any of these items by default, you can set these options 
 
 <sect3 id="find-old-search">
 <title>Retrieving previous search strings</title>
+<?linebreak?>
 <para>Notice that the pop up menu to the right of the <guilabel>Search for</guilabel> field in the <guilabel>Find</guilabel> dialog allows you to retrieve previous search strings. They are listed in reverse order by search history, providing quicker access to the most recent searches.
+<?linebreak?>
+<?linebreak?>
+<?linebreak?>
+<?linebreak?>
+<?linebreak?>
+<?linebreak?>
+<?linebreak?>
+<?linebreak?>
+<?linebreaka4?>
+<?linebreaka4?>
 <figure id="figure-find-recent">
 <title id="figure-find-recent-title">Retrieving recent searches</title>
 <screenshot><mediaobject>
@@ -845,165 +861,190 @@ If you want to disable any of these items by default, you can set these options 
 </figure></para>
 </sect3>
 
+<?linebreak?>
+<?linebreak?>
+<?linebreak?>
+<?linebreak?>
+<?linebreak?>
+<?linebreak?>
+<?linebreak?>
+<?linebreaka4?>
+<?linebreaka4?>
 <sect3 id="more-on-find">
 <title>More on find</title>
+<?linebreak?>
 <para>For an explanation of the <guilabel>Bookmark results</guilabel> box of the <guilabel>Find</guilabel> dialog, see <xref linkend="generate-bookmark"/>.</para>
 <para>You will find details on <guilabel>Find Again</guilabel> and <guilabel>Find from Selection</guilabel> in <xref linkend="find-replace"/>.</para>
 <para>For a quick way of switching from HTML entities to other types of encoding and changing letter cases, see <xref linkend="find-replace-special"/>.</para>
 </sect3>
 
-</sect2>
+<sect3 id="basic-replace">
+<title>Replacing features</title>
+<?linebreak?>
+<para>The <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>H</keycap></keycombo></shortcut><guimenu>Edit</guimenu><guimenuitem>Replace...</guimenuitem></menuchoice> menu item works the same way and has all the features, the <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>F</keycap></keycombo></shortcut><guimenu>Edit</guimenu><guimenuitem>Find...</guimenuitem></menuchoice> menu item offers.</para>
+<para>The <guilabel>Replace</guilabel> dialog is also accessible through the contextual menu within a document.</para>
+<para>For the features common to the <guilabel>Find</guilabel> dialog, see <xref linkend="basic-find"/>.</para>
+<para>Here we will explain the features unique to the <guilabel>Replace</guilabel> dialog.
+<?linebreak?>
+<?linebreak?>
+<?linebreak?>
+<?linebreaka4?>
+<figure id="figure-replace-dialog">
+<title id="figure-replace-dialog-title">The Replace dialog</title>
+<screenshot><mediaobject>
+<imageobject>
+<imagedata fileref="figures/replace_dialog.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>A screen shot showing the replace dialog</phrase>
+</textobject>
+</mediaobject></screenshot>
+</figure></para>
+<?linebreak?>
+<?linebreaka4?>
+<?linebreaka4?>
+</sect3>
 
-<sect2 id="file-types">
-<title>File types</title>
-<para>
-Different file types can change the behaviour of Bluefish. File types are recognized 
-by their extension, or by the beginning of the file's contents. The current
-document type is shown in the far right of the status bar. How these extensions
-can be changed is
-described in <xref linkend="bluefish-preferences" />.
-</para>
-<para>
-If the type of a file is not properly detected, you can change the type using the 
-<menuchoice><guimenu>Document</guimenu><guisubmenu>Document Type</guisubmenu></menuchoice> menu.
-</para>
+<sect3 id="replace-old-search">
+<title>Retrieving previous replace strings</title>
+<?linebreak?>
+<para>As for the <guilabel>Search for</guilabel> field's pop up menu, the <guilabel>Replace with</guilabel> field's pop up menu allows you to retrieve previous strings used for replace, the most recent ones being at the top of the list.</para>
+</sect3>
+<?pagebreaka4?>
+<sect3 id="replace-type">
+<title>Changing letter case when replacing</title>
+<para>If you want to change letter case when replacing, use the <guilabel>Replace type</guilabel> pop up menu.</para>
+<para>The default choice is <guilabel>Normal</guilabel>, that is the case is not changed.</para>
+<para>With the <guilabel>Uppercase</guilabel> replace type, the search string will be replaced with its uppercase translation.</para>
+<para>Likewise, with the <guilabel>Lowercase</guilabel> replace type, the search string will be replaced with its lowercase translation.
+<?linebreak?>
+<?linebreak?>
+<?linebreak?>
+<?linebreak?>
+<figure id="figure-replace-type-dialog">
+<title id="figure-replace-type-dialog-title">Changing letter case when replacing</title>
+<screenshot><mediaobject>
+<imageobject>
+<imagedata fileref="figures/replace_type_dialog.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>A screen shot showing how to change letter case when replacing</phrase>
+</textobject>
+</mediaobject></screenshot>
+</figure></para>
+<?linebreak?>
+<?linebreak?>
+<?linebreak?>
+<?linebreakus?>
+<para>Notice that in this case, the <guilabel>Replace with</guilabel> field is deactivated, thus not taken into account even if you have entered some string in it.</para>
+</sect3>
 
-<sect3 id="syntax-highlighting">
-<title>Syntax highlighting</title>
-	<para>Syntax highlighting is the coloring of words that have special
-	meaning within a given programming (or markup) language. Obviously, the patterns can vary
-	among different languages. The "&lt;title&gt;" word for
-	example means "start of title" in HTML, the "function"
-	word means "start of function" in PHP.</para>
-	<para>
-	While editing, Bluefish will only update the highlighting patterns in the
-	block of text around the cursor. The number of lines (the size) of this block can be
-	adjusted in the preferences under <guilabel>Editor</guilabel>.
-	</para>
-	<para>The syntax highlighting for the total document can be refreshed
-	using the <menuchoice><shortcut><keycap>F5</keycap></shortcut><guimenu>Document</guimenu><guimenuitem>Update Highlighting</guimenuitem></menuchoice> menu. 
-	The syntax highlighting can be disabled in the preferences under 
-	<guilabel>Editor</guilabel>.	
-	</para>
-	<para>For more information about adding or modifying syntax highlighting for existent or new languages, see <xref linkend="changing-highlighting-patterns" />.
-</para>
+<sect3 id="replace-prompt">
+<title>Choosing strings to replace</title>
+<?linebreakus?>
+<para>It may occur that you do not want to replace all search strings retrieved by the search process, but only some of them. In this case, check the <guilabel>Prompt before replace</guilabel> box. A <guilabel>Confirm replace</guilabel> dialog will appear for each retrieved string where you can choose to <guilabel>Skip</guilabel> this string, i.e. leave it as it is, <guilabel>Replace</guilabel> it, <guilabel>Replace all</guilabel> strings within the search scope, or <guilabel>Close</guilabel> the dialog, i.e. cancel the process.
+<?linebreakus?>
+<figure id="figure-replace-confirm-dialog">
+<title id="figure-replace-confirm-dialog-title">The Replace confirm dialog</title>
+<screenshot><mediaobject>
+<imageobject>
+<imagedata fileref="figures/replace_confirm_dialog.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>A screen shot showing the replace confirm dialog</phrase>
+</textobject>
+</mediaobject></screenshot>
+</figure></para>
+<para>If you want to replace only the first occurrence of a search string, check the <guilabel>Replace once</guilabel> box instead.</para>
+</sect3>
+
+<sect3 id="more-on-replace">
+<title>More on replace</title>
+<?linebreakus?>
+<para>For further explanation on replace features within Bluefish, see <xref linkend="find-replace"/>.</para>
 </sect3>
 
 </sect2>
 
+<?linebreakus?>
+<sect2 id="file-types">
+<title>File types</title>
+<?linebreakus?>
+<para>Different file types can change the behaviour of Bluefish. File types are recognized by their extension, or by the beginning of the file's contents. The current document type is shown in the far right of the status bar. If the type of a file is not properly detected, you can change the type using the <menuchoice><guimenu>Document</guimenu><guisubmenu>Document Type</guisubmenu></menuchoice> menu. See <xref linkend="bluefish-preferences" /> to change these extensions.</para>
+
+<sect3 id="syntax-highlighting">
+<title>Syntax highlighting</title>
+<?linebreakus?>
+<para>Syntax highlighting is the coloring of words that have special meaning for a language. The patterns can vary: for example, "&lt;title&gt;"  means "start of title" in HTML, "function" means "start of function" in PHP.</para>
+<para>While editing, Bluefish will only update the highlighting patterns in the block of text around the cursor. The number of lines (the size) of this block can be adjusted in the preferences under <guilabel>Editor</guilabel>. The syntax highlighting for the total document can be refreshed using the <menuchoice><shortcut><keycap>F5</keycap></shortcut><guimenu>Document</guimenu><guimenuitem>Update Highlighting</guimenuitem></menuchoice> menu. It can be disabled in the preferences under <guilabel>Editor</guilabel>. For more information about adding or modifying syntax highlighting for existent or new languages, see <link linkend="changing-highlighting-patterns">here</link>.</para>
+</sect3>
+
+</sect2>
+
+<?linebreakus?>
 <sect2 id="more-files">
 <title>More on files</title>
 
 <sect3 id="remote-files">
 <title>Remote files</title>
-	<para>
-		Assuming a working Internet connection, files can also be opened from the web using 
-	<menuchoice><guimenu>File</guimenu><guimenuitem>Open URL</guimenuitem></menuchoice>. This feature depends on your gnome_vfs setup. If it is installed and working, http://, sftp://, smb:// and possibly more types of remote services should be supported by Bluefish. Depending on your gnome_vfs 
-	version, some of these protocols are not yet fully stable, which can crash Bluefish!
-	</para>
-	<figure id="figure-open-url">
-				<title id="figure-open-url-title">Opening an URL from the web</title>
-				<screenshot>
-					<mediaobject>
-						<imageobject>
-							<imagedata fileref="figures/open_url.png" format="PNG"/>
-						</imageobject>
-						<textobject>
-							<phrase>A screen shot showing how to open an URL from the web</phrase>
-						</textobject>
-					</mediaobject>
-				</screenshot>
-			</figure>
-		<para>Here you can see the style sheet of an Apache web site, nicely highlighted after its opening via the Bluefish <menuchoice><guimenu>File</guimenu><guimenuitem>Open URL</guimenuitem></menuchoice> menu.</para>
-	<figure id="figure-open-url-result">
-				<title id="figure-open-url-result-title">A style sheet opened via the Open URL menu</title>
-				<screenshot>
-					<mediaobject>
-						<imageobject>
-							<imagedata fileref="figures/open_url_result.png" format="PNG"/>
-						</imageobject>
-						<textobject>
-							<phrase>A screen shot of a style sheet opened via the Open URL menu</phrase>
-						</textobject>
-					</mediaobject>
-				</screenshot>
-			</figure>
+<?linebreakus?>
+<para>Assuming a working Internet connection, files can also be opened from the web using <menuchoice><guimenu>File</guimenu><guimenuitem>Open URL</guimenuitem></menuchoice>. This feature depends on your gnome_vfs setup. If it is installed and working, http://, sftp://, smb:// and possibly more types of remote services should be supported by Bluefish. Depending on your gnome_vfs version, some of these protocols are not yet fully stable, which can crash Bluefish!
+<?linebreaka4?>
+<figure id="figure-open-url">
+<title id="figure-open-url-title">Opening an URL from the web</title>
+<screenshot><mediaobject>
+<imageobject>
+<imagedata fileref="figures/open_url.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>A screen shot showing how to open an URL from the web</phrase>
+</textobject>
+</mediaobject></screenshot>
+</figure></para>
+<para>Here you can see the style sheet of an Apache web site, nicely highlighted after its opening via the Bluefish <menuchoice><guimenu>File</guimenu><guimenuitem>Open URL</guimenuitem></menuchoice> menu.
+<figure id="figure-open-url-result">
+<title id="figure-open-url-result-title">A style sheet opened via the Open URL menu</title>
+<screenshot>
+<mediaobject><imageobject>
+<imagedata fileref="figures/open_url_result.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>A screen shot of a style sheet opened via the Open URL menu</phrase>
+</textobject>
+</mediaobject></screenshot>
+</figure></para>
 </sect3>
-
+<?linebreakus?>
 <sect3 id="character-encoding">
 <title>Character encoding</title>
-<para>
-There are many different standards for character encoding of text files. Most well known is the ASCII
-standard, which describes only 127 characters, and is supported by every text editor in the world. 
-The most common standard nowadays is UTF-8, which 
-describes thousands of characters, and is backwards compatible with ASCII. 
-</para>
-<para>Internally, Bluefish will always work with UTF-8. When opening
-a file, Bluefish has to detect the correct encoding for the file. For HTML files, the encoding should
-be present in a &lt;meta name=&quot;encoding&quot;&gt; tag. Bluefish will always use this tag if it is 
-available in the file. If this tag has an encoding that is not present in the Bluefish config file, 
-this encoding is automatically added to the Bluefish config file.
-</para>
-<para>
-The locale also defines a default encoding. If you are using a locale (a local setting, defining 
-language, time format, currency format, number formatting etc.), Bluefish will try to load the 
-file using the encoding defined in the locale.
-</para>
-<para>
-Bluefish itself also has a setting for a default encoding. This is the next encoding 
-Bluefish will try. This is also the encoding Bluefish will use for files created by Bluefish 
-(UTF-8 by default).
-</para>
-<para>
-If these steps fail, Bluefish will simply try every encoding defined in the Bluefish 
-config file. 
-</para>
-<para>
-Filenames on disk can also contain non ASCII characters. All GNOME and GTK programs 
-(including Bluefish) assume that filenames are in UTF-8 encoding. If you have filenames
-in the encoding of your locale on your disk, you have to set <userinput>G_BROKEN_FILENAMES=1</userinput> in the 
-environment to make GNOME and GTK programs detect this encoding.
-</para>
-<para>For information about writing documents in 16-bits encoded languages, such as Japanese, see <xref linkend="input-methods" />.
-</para>
+<?linebreaka4?>
+<para>There are many different standards for character encoding of text files. Most well known is the ASCII standard, which describes only 127 characters, and is supported by every text editor in the world. The most common standard nowadays is UTF-8, which describes thousands of characters, and is backwards compatible with ASCII.</para>
+<para>Internally, Bluefish will always work with UTF-8. When opening a file, Bluefish has to detect the correct encoding for the file. For HTML files, the encoding should be present in a &lt;meta name=&quot;encoding&quot;&gt; tag. Bluefish will always use this tag if it is available in the file. If this tag has an encoding that is not present in the Bluefish config file, this encoding is automatically added to the Bluefish config file.</para>
+<para>The locale also defines a default encoding. If you are using a locale (a local setting, defining language, time format, currency format, number formatting etc.), Bluefish will try to load the file using the encoding defined in the locale.</para>
+<para>Bluefish itself also has a setting for a default encoding. This is the next encoding Bluefish will try. This is also the encoding Bluefish will use for files created by Bluefish (UTF-8 by default).</para>
+<para>If these steps fail, Bluefish will simply try every encoding defined in the Bluefish 
+config file. </para>
+<para>Filenames on disk can also contain non ASCII characters. All GNOME and GTK programs (including Bluefish) assume that filenames are in UTF-8 encoding. If you have filenames in the encoding of your locale on your disk, you have to set <userinput>G_BROKEN_FILENAMES=1</userinput> in the environment to make GNOME and GTK programs detect this encoding.</para>
+<para>For information about writing documents in 16-bits encoded languages, such as Japanese, see <xref linkend="input-methods" />.</para>
 </sect3>
 
 <sect3 id="open-advanced">
 <title>Open advanced</title>
-	<para>
-		In the <guilabel>Open Advanced</guilabel> dialog, accessible from the <menuchoice><shortcut><keycombo><keycap>Shift</keycap><keycap>Ctrl</keycap><keycap>O</keycap></keycombo></shortcut><guimenu>File</guimenu><guimenuitem>Open Advanced...</guimenuitem></menuchoice> menu item, multiple files 
-	can be opened from a directory based on their extension or their contents. The
-	same functionality is available from the file browser in the side panel. If you right
-	click a directory, you can also there select <guimenuitem>Open advanced...</guimenuitem>.
-	</para>
-	<para>
-	To open all files by extension, enter the extension in the dialog, and leave the search 
-	pattern empty. Check the <guilabel>recursive</guilabel> option if you want to include
-	all subdirectories in the search.
-	</para>
-	<para>
-	To open files by content, leave the extension at *, and enter a search pattern in the dialog. You can 
-	use regular expression patterns if you check the <guilabel>Is regex</guilabel> option.
-	</para>
-	<para>
-	The open advanced functionality runs the find and grep utilities to get a list of filenames. If these 
-	utilities are not available on your system the functionality is not available.
-	</para>
-	<para>You may also combine both methods. Here we open recursively all Chinese XML files in a given tree, whose contents contain the word packaging.
-		<figure id="figure-open-advanced">
-				<title id="figure-open-advanced-title">Using the Open Advanced dialog</title>
-				<screenshot>
-					<mediaobject>
-						<imageobject>
-							<imagedata fileref="figures/open_advanced.png" format="PNG"/>
-						</imageobject>
-						<textobject>
-							<phrase>A screen shot showing the usage of the Open Advanced dialog</phrase>
-						</textobject>
-					</mediaobject>
-				</screenshot>
-			</figure>
-</para>
+<?linebreaka4?>
+<para>You can open multiple files at once with the <menuchoice><shortcut><keycombo><keycap>Shift</keycap><keycap>Ctrl</keycap><keycap>O</keycap></keycombo></shortcut><guimenu>File</guimenu><guimenuitem>Open Advanced...</guimenuitem></menuchoice> menu item from a directory based on their extension or their contents. The same functionality is available from the file browser in the side panel by right-clicking a directory. This feature is available only when the find and grep utilities are installed on your system.</para>
+<para>To open all files by extension, enter the extension in the dialog, and leave the search pattern empty. Check the <guilabel>recursive</guilabel> option if you want to include all subdirectories in the search. To open files by content, leave the extension at *, and enter a search pattern in the dialog. You can use regular expression patterns if you check the <guilabel>Is regex</guilabel> option.</para>
+<para>You may also combine both methods. Here we open recursively all Chinese XML files in a given tree, whose contents contain the word packaging.
+<figure id="figure-open-advanced">
+<title id="figure-open-advanced-title">Using the Open Advanced dialog</title>
+<screenshot>
+<mediaobject><imageobject>
+<imagedata fileref="figures/open_advanced.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>A screen shot showing the usage of the Open Advanced dialog</phrase>
+</textobject>
+</mediaobject></screenshot>
+</figure></para>
 </sect3>
 
 </sect2>
