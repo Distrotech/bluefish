@@ -279,3 +279,19 @@ h3.author {
 .copyright {
 	font-size:11px;
 }
+
+/* For revision history */
+div.revhistory > table {
+	border: 0px hidden;
+	padding-bottom: 10px;
+}
+div.revhistory > table  > tr > th {
+	border: 0px hidden;
+	font-size: 11px;
+	padding: 0px;
+}
+div.revhistory > table > tr > td {
+	border: 0px hidden;
+	font-size: 11px;
+	padding-left: 5px;
+}
