@@ -74,6 +74,7 @@ gchar *get_utf8filename_from_on_disk_encoding(const gchar *encodedname) {
 			g_print(_("Bluefish has trouble reading the filenames. Try to set the environment variable G_BROKEN_FILENAMES=1\n"));
 			ondiskencoding = g_strdup(encodedname);
 		}
+		DEBUG_MSG("get_utf8filename_from_on_disk_encoding, utf8filename=%s\n",ondiskencoding);
 		return ondiskencoding;
 	}
 	return NULL;
