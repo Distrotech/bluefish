@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-/* #define DEBUG */
+#define DEBUG
 
 #include <gtk/gtk.h>
 #include <sys/types.h>
@@ -116,6 +116,14 @@ static void bmark_free(gpointer ptr)
 	g_free(m);
 }
 
+static void bmark_update_offset_from_textmark(Tbmark *b) {
+	if (b->doc && b->mark) {
+		GtkTextIter it;
+		gtk_text_buffer_get_iter_at_mark(b->doc->buffer, &it, b->mark);
+		b->offset = gtk_text_iter_get_offset(&it);
+	}
+}
+
 /* this function re-uses the b->strarr if possible, otherwise it will create a new one and
 append it to the list */
 static void bmark_store(Tbfwin * bfwin, Tbmark * b)
@@ -161,6 +169,40 @@ static void bmark_store(Tbfwin * bfwin, Tbmark * b)
 				  g_list_length(bfwin->session->bmarks));
 		b->strarr = strarr;
 	}
+}
+
+/* when a users want to save the project, it's good to have updated bookmarks
+so this function will update all arrays (strarr**)
+ */
+void bmark_store_all(Tbfwin *bfwin) {
+	/* we loop over all filename iters, and only for the ones that are opened
+	 we loop over the children (the ones that are not open cannot be changed) */
+	GtkTreeIter fileit;
+	gboolean cont;
+
+	cont = gtk_tree_model_iter_children(GTK_TREE_MODEL(BFWIN(bfwin)->bookmarkstore), &fileit,NULL);
+	while (cont) {
+		Tdocument *doc = NULL;
+		gtk_tree_model_get(GTK_TREE_MODEL(BFWIN(bfwin)->bookmarkstore), &fileit, PTR_COLUMN,&doc, -1);
+		if (doc) {
+			/* the document is open, so the offsets could be changed, store all permanent */
+			GtkTreeIter bmit;
+			gboolean cont2 = gtk_tree_model_iter_children(GTK_TREE_MODEL(BFWIN(bfwin)->bookmarkstore), &bmit,&fileit);
+			DEBUG_MSG("bmark_store_all, storing bookmarks for %s\n",doc->filename);
+			while (cont2) {
+				Tbmark *bmark;
+				gtk_tree_model_get(GTK_TREE_MODEL(BFWIN(bfwin)->bookmarkstore), &bmit, PTR_COLUMN,&bmark, -1);
+				if (!bmark->is_temp) {
+					bmark_update_offset_from_textmark(bmark);
+					bmark_store(bfwin, bmark);
+				}
+				cont2 = gtk_tree_model_iter_next(GTK_TREE_MODEL(BFWIN(bfwin)->bookmarkstore), &bmit);
+			}
+		} else {
+			DEBUG_MSG("doc not set, so not open...\n");
+		}
+		cont = gtk_tree_model_iter_next(GTK_TREE_MODEL(BFWIN(bfwin)->bookmarkstore), &fileit);
+	} /* cont */
 }
 
 /* removes the bookmark from the session, removed the b->strarr pointer and frees it */
@@ -471,29 +513,26 @@ static void bmark_get_iter_at_position(Tbfwin * bfwin, Tbmark * m)
 	DEBUG_MSG("bmark_get_iter_at_position, started for filepath=%s\n",m->filepath);
 	ptr = g_hash_table_lookup(bfwin->bmark_files, m->filepath);
 	if (ptr == NULL) {			/* closed document or bookmarks never set */
+		gchar *title = NULL;
 		parent = g_new0(GtkTreeIter, 1);
 		gtk_tree_store_append(bfwin->bookmarkstore, parent, NULL);
 		switch (main_v->props.bookmarks_filename_mode) {
 		case BM_FMODE_FULL:
-			gtk_tree_store_set(bfwin->bookmarkstore, parent, NAME_COLUMN, m->filepath, PTR_COLUMN,
-							   NULL, -1);
+			g_strdup(m->filepath);
 			break;
 		case BM_FMODE_HOME:	/* todo */
 			if (bfwin->project != NULL) {
-				gchar *pstr = m->filepath;
-				pstr += strlen(bfwin->project->basedir);
-				gtk_tree_store_set(bfwin->bookmarkstore, parent, NAME_COLUMN, pstr, PTR_COLUMN,
-								   NULL, -1);
+				title = g_strdup(m->filepath + strlen(bfwin->project->basedir));
 			} else {
-				gtk_tree_store_set(bfwin->bookmarkstore, parent, NAME_COLUMN,
-								   g_path_get_basename(m->filepath), PTR_COLUMN, NULL, -1);
+			   title = g_path_get_basename(m->filepath);
 			}
 			break;
 		case BM_FMODE_FILE:
-			gtk_tree_store_set(bfwin->bookmarkstore, parent, NAME_COLUMN,
-							   g_path_get_basename(m->filepath), PTR_COLUMN, NULL, -1);
+			title = g_path_get_basename(m->filepath);
 			break;
 		}
+		gtk_tree_store_set(bfwin->bookmarkstore, parent, NAME_COLUMN, title
+							   , PTR_COLUMN, m->doc, -1);
 		if (m->doc != NULL)
 			m->doc->bmark_parent = parent;
 		DEBUG_MSG("bmark_get_iter_at_position, appending parent %p in hashtable for filepath=%s\n",parent, m->filepath);
@@ -644,9 +683,7 @@ void bmark_clean_for_doc(Tdocument * doc)
 		gtk_tree_model_get(GTK_TREE_MODEL(BFWIN(doc->bfwin)->bookmarkstore), &tmpiter, PTR_COLUMN,
 						   &b, -1);
 		if (b) {
-			GtkTextIter it;
-			gtk_text_buffer_get_iter_at_mark(doc->buffer, &it, b->mark);
-			b->offset = gtk_text_iter_get_offset(&it);
+			bmark_update_offset_from_textmark(b);
 			DEBUG_MSG("bmark_clean_for_doc, bookmark=%p, new offset=%d\n",b,b->offset);
 			gtk_text_buffer_delete_mark(doc->buffer, b->mark);
 			b->mark = NULL;
@@ -657,6 +694,8 @@ void bmark_clean_for_doc(Tdocument * doc)
 		}
 		cont = gtk_tree_model_iter_next(GTK_TREE_MODEL(BFWIN(doc->bfwin)->bookmarkstore), &tmpiter);
 	}							/* cont */
+	/* now unset the Tdocument* in the second column */
+	gtk_tree_store_set(GTK_TREE_STORE(BFWIN(doc->bfwin)->bookmarkstore), doc->bmark_parent, PTR_COLUMN, NULL, -1);
 	g_free(doc->bmark_parent);
 	doc->bmark_parent = NULL;
 }
@@ -694,6 +733,9 @@ void bmark_set_for_doc(Tdocument * doc)
 				if (strcmp(mark->filepath, doc->filename) == 0) {	/* this is it */
 					gboolean cont2;
 					DEBUG_MSG("bmark_set_for_doc, we found a bookmark for document %s at offset=%d!\n",doc->filename,mark->offset);
+					/* we will now first set the Tdocument * into the second column of the parent */
+					gtk_tree_store_set(GTK_TREE_STORE(BFWIN(doc->bfwin)->bookmarkstore), &tmpiter, PTR_COLUMN, doc, -1);
+					
 					mark->doc = doc;
 					gtk_text_buffer_get_iter_at_offset(doc->buffer, &it, mark->offset);
 					mark->mark = gtk_text_buffer_create_mark(doc->buffer, NULL, &it, TRUE);

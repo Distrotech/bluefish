@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-#define DEBUG
+/* #define DEBUG */
 
 #include <gtk/gtk.h>
 #include <string.h>
@@ -126,6 +126,7 @@ gboolean project_save(Tbfwin *bfwin, gboolean save_as) {
 	
 	bfwin->project->session->searchlist = limit_stringlist(bfwin->project->session->searchlist, 10, TRUE);
 	bfwin->project->session->replacelist = limit_stringlist(bfwin->project->session->replacelist, 10, TRUE);
+	bmark_store_all(bfwin);
 
 	if (save_as || bfwin->project->filename == NULL) {
 		gchar *filename = return_file_w_title(NULL, _("Enter Bluefish project filename"));
