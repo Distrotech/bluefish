@@ -319,7 +319,7 @@ stylesheet:Background:1:\\b(background(\\-color|\\-image|\\-repeat|\\-attachment
 stylesheet:Margin:1:\\b(margin(\\-top|\\-bottom|\\-left|\\-right|\\-width|\\-color|\\-style)*)\\b\\s*\\\:::2:^Braces$:#000099::2:0:
 stylesheet:Padding:1:\\b(padding(\\-top|\\-bottom|\\-left|\\-right|\\-width|\\-color|\\-style)*)\\b\\s*\\\:::2:^Braces$:#000099::2:0:
 stylesheet:Font:1:\\b(font(\\-color|\\-family|\\-weight|\\-size|\\-variant|\\-style)*)\\b::2:^Braces$:#000099::2:0:
-stylesheet:List:1:\\b(list\\-style(\\-position|\\-image|\\-type)?)\\b\\s*\:::2:^Braces$:#000099::2:0:
+stylesheet:List:1:\\b(list(\\-style|\\-position|\\-image|\\-type)?)\\b\\s*\:::2:^Braces$:#000099::2:0:
 stylesheet:Symbols:1:[;,]::2:^top|Braces$:#000000::2:0:
 stylesheet:Plaintext:1:[a-z]+::2:^Braces$:#000000::1:1:
 stylesheet:String (double quoted):1:":":1:^top|Braces$:#006699::0:2:
