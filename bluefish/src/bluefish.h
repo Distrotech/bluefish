@@ -285,6 +285,7 @@ typedef struct {
 	GtkWidget *leftpanel_notebook;
 	/* following are lists with dynamic menu entries */
 	GList *menu_recent_files;
+	GList *menu_recent_projects;
 	GList *menu_external;
 	GList *menu_encodings;
 	GList *menu_outputbox;

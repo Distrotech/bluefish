@@ -129,9 +129,9 @@ gint return_num_untitled_documents(GList *doclist) {
 void add_filename_to_history(gchar *filename) {
 	gchar *dirname;
 
-	add_to_recent_list(filename, 0); /* the recent menu */
+	add_to_recent_list(filename, 0, FALSE); /* the recent menu */
 	dirname = g_path_get_dirname(filename);
-	main_v->recent_directories = add_to_history_stringlist(main_v->recent_directories,dirname);
+	main_v->recent_directories = add_to_history_stringlist(main_v->recent_directories,dirname,TRUE);
 	g_free(dirname);
 }
 
@@ -1829,7 +1829,7 @@ gint doc_textbox_to_file(Tdocument * doc, gchar * filename) {
 void doc_destroy(Tdocument * doc, gboolean delay_activation) {
 	Tbfwin *bfwin = BFWIN(doc->bfwin);
 	if (doc->filename) {
-		add_to_recent_list(doc->filename, 1);
+		add_to_recent_list(doc->filename, 1, FALSE);
 	}
 	gui_notebook_unbind_signals(BFWIN(doc->bfwin));
 	/* to make this go really quick, we first only destroy the notebook page and run flush_queue(), 
