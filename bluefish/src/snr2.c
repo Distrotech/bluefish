@@ -464,7 +464,7 @@ actions, so the first char in buf is actually number offset in the text widget *
 		break;
 		}
 		DEBUG_MSG("replace_backend, len=%d, offset=%d, start=%d, end=%d, document=%p\n", result.end - result.start, offset, result.start + offset, result.end + offset, doc);
-		doc_replace_text_backend(tmpstr, result.start + offset, result.end + offset, doc);
+		doc_replace_text_backend(doc, tmpstr, result.start + offset, result.end + offset);
 		if (*replacelen == -1) {
 /*			if (GTK_TEXT(doc->textbox)->use_wchar) {*/
 				*replacelen = strlen(tmpstr);
@@ -616,7 +616,7 @@ static void replace_prompt_dialog_ok_lcb(GtkWidget *widget, gpointer data) {
 			I don't know why the selection is gray, but that's basically the reason why it doesn't save the selection
 			 */
 			doc_unre_new_group(main_v->current_document);
-			doc_replace_text_backend(tmpstr, last_snr2.result.start,last_snr2.result.end , main_v->current_document);
+			doc_replace_text_backend(main_v->current_document, tmpstr, last_snr2.result.start,last_snr2.result.end);
 			doc_unre_new_group(main_v->current_document);
 			doc_set_modified(main_v->current_document, 1);
 			
@@ -1041,7 +1041,7 @@ static gint do_filename_curfile_replace(gchar *fulltext, Tsearch_result result, 
 		replacestring = create_relative_link_to(newfilename, olddirfile);
 		DEBUG_MSG("do_filename_change_replace, replacestring=%s, newfilename=%s\n", replacestring, newfilename);
 		/* code to actual replace it */
-		doc_replace_text(replacestring, result.start + offset + 1 + changelen, result.end + offset + changelen -1, doc);	
+		doc_replace_text(doc, replacestring, result.start + offset + 1 + changelen, result.end + offset + changelen -1);	
 		change_lenght = strlen(replacestring) - strlen(possible_filename) + changelen;
 		DEBUG_MSG("do_filename_change_replace, replacestring=%s, possible_filename=%s\n", replacestring, possible_filename);
 		DEBUG_MSG("do_filename_change_replace, change_lenght=%d\n",change_lenght );		
@@ -1067,7 +1067,7 @@ static gint do_filename_otherfile_replace(gchar *fulltext, Tsearch_result result
 	if (strcmp(possible_filename, oldfilename) == 0) {
 		eff_my_filename = most_efficient_filename(g_strdup(doc->filename));
 		replacestring = create_relative_link_to(eff_my_filename, newfilename);
-		doc_replace_text(replacestring, result.start + offset + 1 + changelen, result.end + offset + changelen -1, doc);
+		doc_replace_text(doc, replacestring, result.start + offset + 1 + changelen, result.end + offset + changelen -1);
 		change_length = strlen(replacestring) - strlen(possible_filename) + changelen;		
 		g_free(eff_my_filename);
 		g_free(replacestring);
