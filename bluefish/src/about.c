@@ -28,22 +28,7 @@
 #include "bluefish.h"
 #include "gtk_easy.h"
 
-#define BORDER 0
-
-static const gchar *INFO = "\n\
-Bluefish is an editor for experienced web designers and programmers.\n\
-Bluefish supports many programming and markup languages, \n\
-but it focuses on editing dynamic and interactive websites.\n\n\
-Bluefish is an open source development project, released under the GPL license.\n\
-\n\
-Bluefish runs on all POSIX compatible operating systems including Linux,\n\
-FreeBSD, MacOS-X, OpenBSD, Solaris and Tru64.\n\n\
-Bluefish Website\n\
-http://bluefish.openoffice.nl\n\
-";
-
-static const gchar *AUTHORS = "\n\
-Project leader:\n\
+static const gchar *AUTHORS = "Project leader:\n\
   Olivier Sessink <olivier@bluefish.openoffice.nl>\n\
 \n\
 Developers for this release:\n\
@@ -187,8 +172,8 @@ void about_dialog_create(gpointer * data, guint * callback_action, GtkWidget * w
 	GtkWidget *vbox, *vbox2;
 	GtkWidget *notebook;
 	GtkWidget *info_ok_button;
-	char *text;
 	GdkColor color;
+	const gchar *INFO = _("Bluefish is an editor for experienced web designers and programmers. It supports many programming and markup languages, but focuses on editing dynamic and interactive websites. Bluefish is an open source development project, released under the GPL license.\n\nFor more information, visit the Bluefish Website at http://bluefish.openoffice.nl/\n\nThis version of bluefish was compiled with the following options:\n"CONFIGURE_OPTIONS"\n");
 
 	info = window_full2(_("About Bluefish"), GTK_WIN_POS_CENTER, 6
 			,G_CALLBACK(about_dialog_close_lcb),NULL, TRUE, NULL);
@@ -214,19 +199,7 @@ void about_dialog_create(gpointer * data, guint * callback_action, GtkWidget * w
 		}
 	}
 
-	/* header with logo */
-	text =
-		g_strdup_printf
-		("%s\n<span size=\"smaller\" style=\"italic\" color=\"#6872fe\">%s %s\n%s</span>",
-		 "Bluefish Web Development Studio", "Version", VERSION,
-		 "Copyright (c) 1998-2004 The Bluefish Team");
-/*	header = create_header(logo_pb, text);
-	gtk_box_pack_start(GTK_BOX(vbox2), header, FALSE, FALSE, 0);*/
-	g_free(text);
-/*	g_object_unref(logo_pb);*/
-
-	vbox = gtk_vbox_new(FALSE, BORDER);
-	gtk_container_set_border_width(GTK_CONTAINER(vbox), BORDER);
+	vbox = gtk_vbox_new(FALSE, 0);
 	gtk_box_pack_start(GTK_BOX(vbox2), vbox, TRUE, TRUE, 0);
 
 	/* the notebook */
