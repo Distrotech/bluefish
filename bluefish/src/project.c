@@ -105,10 +105,18 @@ gboolean project_save(Tbfwin *bfwin, gboolean save_as) {
 
 	if (save_as || bfwin->project->filename == NULL) {
 		gchar *filename = return_file_w_title(NULL, _("Enter Bluefish project filename"));
+		gint suflen,filen;
 		if (!filename) {
 			return FALSE;
 		}
-		bfwin->project->filename = filename;
+		suflen = strlen(main_v->props.project_suffix);
+		filen = strlen(filename);
+		if (filen > suflen && strcmp(&filename[filen - suflen], main_v->props.project_suffix)==0) {
+			bfwin->project->filename = filename;
+		} else {
+			bfwin->project->filename = g_strconcat(filename, main_v->props.project_suffix,NULL);
+			g_free(filename);
+		}
 	}
 	
 	DEBUG_MSG("project_save, saving project %p to file %s\n",bfwin->project,bfwin->project->filename);
@@ -286,6 +294,7 @@ static void project_edit_ok_clicked_lcb(GtkWidget *widget, Tprojecteditor *pred)
 	gui_set_title(pred->bfwin, pred->bfwin->current_document);
 	set_project_menu_widgets(pred->bfwin, TRUE);
 	gtk_widget_destroy(pred->win);
+	project_save(pred->bfwin,FALSE);
 }
 
 /*
