@@ -41,6 +41,7 @@
 #include "cap.h"
 #include "document.h"
 #include "gtk_easy.h"
+#include "gui.h"
 #include "quickstart.h"
 
 
@@ -312,11 +313,17 @@ quickstart_response_lcb(GtkDialog *dialog, gint response, TQuickStart *qstart) {
 		g_string_free (metastr, TRUE);
 		g_string_free (stylestr, TRUE);
 		g_free (tmpstr2);
-		
-		/* FIXME: the old quick start dialog added the code to the current document.
-		 * I think it would be better to open a new document and add the code to it 
-		 * or possibly add an option "open is new document" or something similar
-		 */
+
+		/* I'm wondering if it might be better just to check and see if the 
+		 * current doc is empty or whether it should be an option in the dialog
+		 * to create in a new document.
+		 */		
+		if (!doc_is_empty_non_modified_and_nameless(qstart->bfwin->current_document)) {
+			Tdocument *doc;
+			doc = doc_new(qstart->bfwin, FALSE);
+			switch_to_document_by_pointer(qstart->bfwin, doc);
+		}
+
 		doc_insert_two_strings(qstart->bfwin->current_document, finalstr, cap("\n</BODY>\n</HTML>"));	
 		g_free (finalstr);
 	}
