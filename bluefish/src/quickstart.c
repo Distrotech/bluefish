@@ -44,6 +44,7 @@
 #include "gtk_easy.h"
 #include "gui.h"
 #include "highlight.h"
+#include "stringlist.h"
 #include "quickstart.h"
 
 
@@ -294,6 +295,7 @@ quickstart_response_lcb(GtkDialog *dialog, gint response, TQuickStart *qstart)
 			gchar *stylehref, *stylemedia;
 			
 			stylehref = gtk_editable_get_chars (GTK_EDITABLE (GTK_BIN (qstart->stylehref)->child), 0, -1);
+			qstart->bfwin->session->urllist = add_to_stringlist(qstart->bfwin->session->urllist, stylehref);
 			stylemedia = gtk_editable_get_chars (GTK_EDITABLE (qstart->stylemedia), 0, -1);
 			
 			if (strcmp(name, "Linked") == 0) {
@@ -304,12 +306,12 @@ quickstart_response_lcb(GtkDialog *dialog, gint response, TQuickStart *qstart)
 					tmpstr2 = g_strdup_printf ("href=\"%s\">\n", stylehref);
 				}
 			} else {
-				stylestr = g_string_append (stylestr, "@import url(");
+				stylestr = g_string_append (stylestr, "<style type=\"text/css\">\n   @import url(");
 				if (strlen(stylemedia) > 0) {
-					tmpstr2 = g_strdup_printf ("%s) %s;\n", stylehref, stylemedia);
+					tmpstr2 = g_strdup_printf ("%s) %s;\n</style>\n", stylehref, stylemedia);
 				} else {
-					tmpstr2 = g_strdup_printf ("%s);\n", stylehref);
-				}	
+					tmpstr2 = g_strdup_printf ("%s);\n</style>\n", stylehref);
+				}
 			}
 			stylestr = g_string_append (stylestr, tmpstr2);
 
@@ -328,6 +330,7 @@ quickstart_response_lcb(GtkDialog *dialog, gint response, TQuickStart *qstart)
 		tmpstr2 = gtk_editable_get_chars (GTK_EDITABLE (GTK_BIN (qstart->scriptsrc)->child), 0, -1);
 		if (strlen(tmpstr2) > 0) {
 			scriptsrc = g_strconcat ("<script type=\"text/javascript\" src=\"", tmpstr2, "\"></script>\n", NULL);
+			qstart->bfwin->session->urllist = add_to_stringlist(qstart->bfwin->session->urllist, tmpstr2);
 		} else {
 			scriptsrc = g_strdup ("");
 		}
@@ -431,6 +434,8 @@ quickstart_style_page_create(TQuickStart *qstart)
 {
 	GtkWidget *frame, *vbox, *vbox2, *hbox, *table, *label;
 	GtkListStore *history;
+	GList *urllist;
+	GtkTreeIter iter;
 	unsigned int i = 0;
 
 	const gchar *type[] = {
@@ -463,8 +468,13 @@ quickstart_style_page_create(TQuickStart *qstart)
 
 	table = dialog_table_in_vbox(2, 2, 0, vbox2, FALSE, FALSE, 0);
 	
-	/* TODO: this should be session history list */	
 	history = gtk_list_store_new (1, G_TYPE_STRING);
+	urllist = g_list_first (qstart->bfwin->session->urllist);
+	while (urllist) {
+		gtk_list_store_append (history, &iter);
+		gtk_list_store_set (history, &iter, 0, urllist->data, -1);
+		urllist = g_list_next (urllist);
+	}
 	
 	qstart->stylehref = gtk_combo_box_entry_new_with_model (GTK_TREE_MODEL (history), 0);
 	g_object_unref (history);
@@ -495,6 +505,8 @@ quickstart_script_page_create(TQuickStart *qstart)
 {
 	GtkWidget *frame, *vbox, *vbox2, *hbox, *label;
 	GtkListStore *history;
+	GList *urllist;
+	GtkTreeIter iter;
 
 	frame = gtk_frame_new (NULL);
 	gtk_frame_set_shadow_type (GTK_FRAME (frame), GTK_SHADOW_IN);
@@ -506,9 +518,14 @@ quickstart_script_page_create(TQuickStart *qstart)
 	
 	hbox = gtk_hbox_new (FALSE, 12);
 	gtk_box_pack_start (GTK_BOX (vbox2), hbox, FALSE, FALSE, 0);
-		
-	/* TODO: this should be session history list */	
+
 	history = gtk_list_store_new (1, G_TYPE_STRING);
+	urllist = g_list_first (qstart->bfwin->session->urllist);
+	while (urllist) {
+		gtk_list_store_append (history, &iter);
+		gtk_list_store_set (history, &iter, 0, urllist->data, -1);
+		urllist = g_list_next (urllist);
+	}
 	
 	qstart->scriptsrc = gtk_combo_box_entry_new_with_model (GTK_TREE_MODEL (history), 0);
 	g_object_unref (history);
