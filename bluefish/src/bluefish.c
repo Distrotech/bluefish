@@ -91,6 +91,7 @@ int main(int argc, char *argv[])
 {
 	gboolean root_override;
 	GList *filenames = NULL;
+	GtkWidget *splash_window;
 	
 	gtk_init(&argc, &argv);
 	
@@ -102,14 +103,22 @@ int main(int argc, char *argv[])
 	parse_commandline(argc, argv, &root_override, &filenames);
 	
 	/* start splash screen somewhere here */
-	
-	rcfile_parse_highlighting();
-	hl_init();
-	rcfile_parse_custom_menu();
-	gui_create_main(filenames);
-	
-	/* stop splash screen somewhere here */
+	splash_window = start_splash_screen();
 
+	splash_screen_set_label(_("parsing highlighting file..."));
+	rcfile_parse_highlighting();
+	splash_screen_set_label(_("compiling highlighting patterns..."));
+	hl_init();
+	splash_screen_set_label(_("creating custom menu..."));
+	rcfile_parse_custom_menu();
+	splash_screen_set_label(_("creating main gui..."));
+	gui_create_main(filenames);
+
+	splash_screen_set_label(_("showing main gui..."));
+	gui_show_main();
+	flush_queue();
+	gtk_widget_destroy(splash_window);
+	
 	gtk_main();
 	return 0;
 }

@@ -341,6 +341,11 @@ GtkWidget *window_with_title(gchar * title, GtkWindowPosition position, gint bor
 	if (position) {
 		gtk_window_set_position(GTK_WINDOW(returnwidget), position);
 	}
+#ifdef DEBUG
+	 else {
+		g_print("window_with_title, **NOT** setting position!!\n");
+	}
+#endif
 	return returnwidget;
 }
 /* GtkWindowPosition can be 

@@ -18,7 +18,7 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 #include <gtk/gtk.h>
-
+#include <time.h> /* nanosleep() */
 
 #include "bluefish.h"
 #include "gui.h"
@@ -37,12 +37,22 @@ typedef struct {
 	GtkWidget *filebrowse_box;
 } Thidegui;
 
+typedef struct {
+	GtkWidget *undo;
+	GtkWidget *redo;
+} Ttoolbar;
+
+typedef struct {
+	GtkWidget *window;
+	GtkWidget *label;
+} Tsplashscreen;
+
 /******************************/
-/* global var for this module */
+/* global vars for this module */
 /******************************/
 static Thidegui hidewidgets;
-
-
+static Ttoolbar toolbarwidgets;
+static Tsplashscreen splashscreen;
 
 /**************************/
 /* start of the functions */
@@ -54,7 +64,9 @@ void gui_toggle_hidewidget_cb(gpointer callback_data,guint action,GtkWidget *wid
 	case 0:
 		handlebox = hidewidgets.main_toolbar_hb;
 		property = &main_v->props.view_main_toolbar;
-		/* TODO */
+		if (g_list_length(gtk_container_children(GTK_CONTAINER(handlebox))) == 0) {
+			make_main_toolbar(hidewidgets.main_toolbar_hb);
+		}
 	break;
 	case 1:
 		handlebox = hidewidgets.html_toolbar_hb;
@@ -218,15 +230,15 @@ void make_main_toolbar(GtkWidget *handlebox) {
 							new_pixmap(007), G_CALLBACK(edit_paste_cb), NULL);
 	gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), NULL, _("Search..."), "",
 							new_pixmap(010), G_CALLBACK(search_cb), NULL);
-	gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), NULL,
-							_("Search and Replace..."), "", new_pixmap(011), G_CALLBACK(replace_cb), NULL);
+	gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), NULL,_("Search and Replace..."), "", 
+							new_pixmap(011), G_CALLBACK(replace_cb), NULL);
 	gtk_toolbar_append_space(GTK_TOOLBAR(toolbar));
-/*	main_v->toolb.undo = gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), NULL, _("Undo"), "",
+	toolbarwidgets.undo = gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), NULL, _("Undo"), "",
 							new_pixmap(012), G_CALLBACK(undo_cb), NULL);
-	main_v->toolb.redo = gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), NULL, _("Redo"), "",
+	toolbarwidgets.redo = gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), NULL, _("Redo"), "",
 							new_pixmap(013), G_CALLBACK(redo_cb), NULL);
 	gtk_toolbar_append_space(GTK_TOOLBAR(toolbar));
-	gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), NULL, _("Configure..."),
+/*	gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), NULL, _("Configure..."),
 							"", new_pixmap(014), G_CALLBACK(configure_cb), NULL);
 	gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), NULL, _("Print..."), "",
 							new_pixmap(015), G_CALLBACK(file_print_cb), NULL);
@@ -331,9 +343,12 @@ void gui_create_main(GList *filenames) {
 	gtk_notebook_set_page(GTK_NOTEBOOK(main_v->notebook), 0);
 	gtk_notebook_set_scrollable(GTK_NOTEBOOK(main_v->notebook), TRUE);
 	gtk_widget_show(main_v->notebook);
-	
+	/* don't use show_all since some widgets are and should be hidden */
+}
+
+void gui_show_main() {
 	/* show all */
-	DEBUG_MSG("gui_create_main, before show\n");
+	DEBUG_MSG("gui_show_main, before show\n");
 	/* don't use show_all since some widgets are and should be hidden */
 	gtk_widget_show(main_v->main_window);
 	flush_queue();
@@ -479,3 +494,60 @@ void go_to_line_from_selection_cb(GtkWidget * widget, gpointer data) {
 		}
 	}
 }
+
+#define BLUEFISH_SPLASH_FILENAME "/home/olivier/bluefish/cvs/bluefish-gtk2/images/bluefish_splash.png"
+#ifndef NOSPLASH
+
+void splash_screen_set_label(gchar *label) {
+	static struct timespec const req = { 0, 100000000};
+	static struct timespec rem;
+	gtk_label_set(GTK_LABEL(splashscreen.label),label);
+	nanosleep(&req, &rem);
+/*	flush_queue();*/
+	while( g_main_context_pending(NULL)) {
+		g_main_context_iteration (NULL, TRUE);
+	}
+}
+
+GtkWidget *start_splash_screen() {
+	static struct timespec const req = { 0, 300000000};
+	static struct timespec rem;
+	GtkWidget *image, *vbox;
+	GdkColor color;
+
+	splashscreen.window = window_with_title(CURRENT_VERSION_NAME, GTK_WIN_POS_CENTER_ALWAYS, 0);
+	gtk_widget_realize(splashscreen.window); /* needed to create splash_window->window */
+	gdk_window_set_decorations(splashscreen.window->window, 0);
+
+	color.red = 65535;
+	color.blue = 65535;
+	color.green = 65535;
+	gtk_widget_modify_bg(splashscreen.window, GTK_STATE_NORMAL,&color);
+
+	vbox = gtk_vbox_new(FALSE, 0);
+	gtk_container_add(GTK_CONTAINER(splashscreen.window), vbox);
+	gtk_widget_show(vbox);
+	{
+		GdkPixbuf* pixbuf= gdk_pixbuf_new_from_file(BLUEFISH_SPLASH_FILENAME,NULL);
+		if (pixbuf) {
+			image = gtk_image_new_from_pixbuf(pixbuf);
+			gtk_box_pack_start(GTK_BOX(vbox), image, FALSE, FALSE, 0);
+			gtk_widget_realize(image);
+			g_object_unref(pixbuf);
+			gtk_widget_show(image);
+		}
+	}
+	splashscreen.label = gtk_label_new(_("starting bluefish"));
+	gtk_box_pack_start(GTK_BOX(vbox),splashscreen.label , FALSE, FALSE, 0);
+	gtk_widget_show(splashscreen.label);
+
+	gtk_widget_show(splashscreen.window);
+	nanosleep(&req, &rem);
+//	flush_queue();
+	while( g_main_context_pending(NULL)) {
+		g_main_context_iteration (NULL, TRUE);
+	}
+	DEBUG_MSG("start_splash_screen, should be visible\n");
+	return splashscreen.window;
+}
+#endif /* #ifndef NOSPLASH */
