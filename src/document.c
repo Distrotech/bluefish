@@ -291,7 +291,7 @@ gboolean doc_set_filetype(Tdocument *doc, Tfiletype *ft) {
 		doc_remove_highlighting(doc);
 		doc->hl = ft;
 		doc->need_highlighting = TRUE;
-		doc->autoclosingtag = ft->autoclosingtag;
+		doc->autoclosingtag = (ft->autoclosingtag > 0);
 		gui_set_document_widgets(doc);
 		return TRUE;
 	}
@@ -2667,6 +2667,7 @@ Tdocument *doc_new(Tbfwin* bfwin, gboolean delay_activate) {
 	DEBUG_MSG("doc_new, main_v is at %p, bfwin at %p, newdoc at %p\n", main_v, bfwin, newdoc);
 	newdoc->bfwin = (gpointer)bfwin;
 	newdoc->hl = (Tfiletype *)((GList *)g_list_first(main_v->filetypelist))->data;
+	newdoc->autoclosingtag = (newdoc->hl->autoclosingtag > 0);
 	newdoc->buffer = gtk_text_buffer_new(highlight_return_tagtable());
 	newdoc->view = gtk_text_view_new_with_buffer(newdoc->buffer);
 	scroll = gtk_scrolled_window_new(NULL, NULL);
@@ -2688,7 +2689,6 @@ Tdocument *doc_new(Tbfwin* bfwin, gboolean delay_activate) {
 	newdoc->tab_menu = gtk_label_new(NULL);
 	newdoc->tab_eventbox = gtk_event_box_new();
 	gtk_misc_set_alignment(GTK_MISC(newdoc->tab_menu), 0,0);
-	newdoc->autoclosingtag = main_v->props.default_autoclosingtag;
 
 	doc_unre_init(newdoc);
 	doc_set_font(newdoc, NULL);
