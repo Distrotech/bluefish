@@ -2373,8 +2373,8 @@ gchar *ask_new_filename(Tbfwin *bfwin,gchar *oldfilename, gint is_move) {
 #ifdef HAVE_ATLEAST_GTK_2_4
 	{
 		GtkWidget *dialog;
-		dialog = gtk_file_chooser_dialog_new ((is_move) ? _("Move/rename document to") : _("Save document as"),GTK_WINDOW(bfwin->main_window),
-				GTK_FILE_CHOOSER_ACTION_SAVE,
+		dialog = gtk_file_chooser_dialog_new_with_backend ((is_move) ? _("Move/rename document to") : _("Save document as"),GTK_WINDOW(bfwin->main_window),
+				GTK_FILE_CHOOSER_ACTION_SAVE,"gnome-vfs",
 				GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
 				GTK_STOCK_SAVE, GTK_RESPONSE_ACCEPT,
 				NULL);
@@ -3519,8 +3519,8 @@ void file_open_cb(GtkWidget * widget, Tbfwin *bfwin) {
 	{
 		GtkWidget *dialog;
 		GSList *slist;
-		dialog = gtk_file_chooser_dialog_new (_("Select files"),GTK_WINDOW(bfwin->main_window),
-				GTK_FILE_CHOOSER_ACTION_OPEN,
+		dialog = gtk_file_chooser_dialog_new_with_backend(_("Select files"),GTK_WINDOW(bfwin->main_window),
+				GTK_FILE_CHOOSER_ACTION_OPEN,"gnome-vfs",
 				GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
 				GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT,
 				NULL);
@@ -3602,8 +3602,8 @@ void file_insert_menucb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget) 
 #ifdef HAVE_ATLEAST_GTK_2_4
 	{
 		GtkWidget *dialog;
-		dialog = gtk_file_chooser_dialog_new (_("Select file to insert"),GTK_WINDOW(bfwin->main_window),
-				GTK_FILE_CHOOSER_ACTION_OPEN,
+		dialog = gtk_file_chooser_dialog_new_with_backend(_("Select file to insert"),GTK_WINDOW(bfwin->main_window),
+				GTK_FILE_CHOOSER_ACTION_OPEN,"gnome-vfs",
 				GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
 				GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT,
 				NULL);
