@@ -274,7 +274,7 @@ gint checkNsave_progress_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSXferProgressInf
    		}
 		}
 	}
-	return 0; 	/* Nautilus returns 0 by default for this callback */
+	return 1; 	/* Nautilus returns 1 by default for this callback */
 }
 
 /*
@@ -893,7 +893,7 @@ static gint copyfile_progress_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSXferProgre
 			copyfile_cleanup(cf);
 		}
 	}
-	return 0; 	/* Nautilus returns 0 by default for this callback */
+	return 1; 	/* Nautilus returns 1 by default for this callback, and 0 for unknown status */
 }
 
 static gint copyfile_sync_lcb(GnomeVFSXferProgressInfo *info,gpointer data) {
@@ -912,7 +912,7 @@ void copy_file_async(Tbfwin *bfwin, GnomeVFSURI *srcuri, GnomeVFSURI *desturi) {
 	gnome_vfs_uri_ref(desturi);
 	ret = gnome_vfs_async_xfer(&cf->handle,cf->sourcelist,cf->destlist
 			,GNOME_VFS_XFER_FOLLOW_LINKS,GNOME_VFS_XFER_ERROR_MODE_QUERY
-			,GNOME_VFS_XFER_OVERWRITE_MODE_SKIP,GNOME_VFS_PRIORITY_DEFAULT
+			,GNOME_VFS_XFER_OVERWRITE_MODE_QUERY,GNOME_VFS_PRIORITY_DEFAULT
 			,copyfile_progress_lcb, cf ,copyfile_sync_lcb, cf);
 	DEBUG_MSG("copy_file_async, start backup, source=%s, dest=%s (len=%d,%d) in thread %p, ret=%d\n"
 			,gnome_vfs_uri_get_path(srcuri),gnome_vfs_uri_get_path(desturi)

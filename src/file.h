@@ -70,5 +70,5 @@ void file_doc_from_uri(Tbfwin *bfwin, GnomeVFSURI *uri, GnomeVFSFileInfo *finfo,
 void file_docs_from_uris(Tbfwin *bfwin, GSList *urislist);
 void file_into_doc(Tdocument *doc, GnomeVFSURI *uri);
 void open_advanced(Tbfwin *bfwin, GnomeVFSURI *basedir, gboolean recursive, gchar *extension_filter, gchar *content_filter, gboolean use_regex);
-
+void copy_file_async(Tbfwin *bfwin, GnomeVFSURI *srcuri, GnomeVFSURI *desturi);
 #endif /* __FILE_H_ */
