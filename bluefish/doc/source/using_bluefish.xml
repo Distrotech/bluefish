@@ -548,9 +548,90 @@ dragged within one document it is moved. Dragging to other applications
 is not possible to every application, but most Gnome and GTK programs
 are supported.
 </para>
+</sect3>
 
+<sect3 id="input-methods">
+<title>Input methods</title>
+<para>Bluefish is able to deal with a number of input methods, available from the contextual menu within a given document.
+	<figure id="figure-input-methods-cm">
+				<title id="figure-input-methods-cm-title">The Input Methods Contextual menu</title>
+				<screenshot>
+					<mediaobject>
+						<imageobject>
+							<imagedata fileref="figures/input_methods_cm.png" format="PNG"/>
+						</imageobject>
+						<textobject>
+							<phrase>The Input Methods Contextual menu</phrase>
+						</textobject>
+					</mediaobject>
+				</screenshot>
+			</figure>
+	</para>
+<itemizedlist>
+<listitem>
+<para>The default mode switches all input methods off.</para>
+</listitem>
+<listitem>
+<para>The Amharic mode is used for the most popular Ethiopian language.</para>
+</listitem>
+<listitem>
+<para>The Cedilla mode is used for languages such as French, which uses the cedilla.</para>
+</listitem>
+<listitem>
+<para>The Cyrillic mode is used to enter Russian with Roman letters. The transliteration occurs immediately.</para>
+</listitem>
+<listitem>
+<para>The Inukitut mode works the same as Cyrillic mode.</para>
+</listitem>
+<listitem>
+<para>The IPA mode is used for International phonetic alphabet.</para>
+</listitem>
+<listitem>
+<para>Other modes are used for Erythrean, Ethiopian, Thai and Vietnamense languages.</para>
+</listitem>
+</itemizedlist>
+<para>The X Input method relies on a client-server input system, and an input server.</para>
+<para>For Japanese, Chinese, and Corean documents, you may have to install and launch the right input system, such as canna, and the right input server, such as kinput2.</para>
+<para>Here is how to write a Japanese document on a non-Japanese system.</para>
+<procedure><title>Writing in Japanese with Bluefish on a non-Japanese system</title>
+	<step>
+	<para>Launch the canna server if it is not running already</para>
+</step>
+<step>
+<para>Set the encoding to Japanese, for example: <userinput>export LANG=ja_JP.UTF-8</userinput></para>
+</step>
+<step>
+<para>Set the Xinput method with <userinput>export XMODIFIERS="@im=kinput2"</userinput></para>
+</step>
+<step>
+<para>Launch kinput2 as a background process with <userinput>kinput2 &amp;</userinput></para>
+</step>
+<step>
+<para>Launch bluefish as a background process with <userinput>bluefish &amp;</userinput></para>
+</step>
+<step>
+<para>To activate the Xinput method within bluefish, use <keycombo><keycap>Shift</keycap><keycap>Space</keycap></keycombo>. A small window with a Japanese glyph will appear at one of the corner of the Bluefish window. Once the desired glyph has been composed, press <keycap>Space</keycap>, and hit <keycap>enter</keycap> to validate it.</para>
+</step>
+</procedure>
+	<para>Here, you can see the small Xinput method window, at the bottom left corner of the window and the first Japanese word not already validated in the Bluefish window launched on a French system.	
+	<figure id="figure-japanese-with-bluefish">
+				<title id="figure-japanese-with-bluefish-title">Writing in Japanese with Bluefish</title>
+				<screenshot>
+					<mediaobject>
+						<imageobject>
+							<imagedata fileref="figures/japanese_with_bluefish.png" format="PNG"/>
+						</imageobject>
+						<textobject>
+							<phrase>Writing in Japanese with Bluefish</phrase>
+						</textobject>
+					</mediaobject>
+				</screenshot>
+			</figure>
+	</para>
+	<para>For an in-depth discussion on that subject, see <ulink url="http://www.jw-stumpel.nl/stestu.html#T6">Inputting from the keyboard</ulink>.</para>
 </sect3>
 </sect2>
+
 <sect2 id="file-types">
 <title>File types</title>
 <para>
@@ -645,43 +726,8 @@ Filenames on disk can also contain non ASCII characters. All Gnome and GTK progr
 in the encoding of your locale on your disk, you have to set <userinput>G_BROKEN_FILENAMES=1</userinput> in the 
 environment to make Gnome and GTK programs detect this encoding.
 </para>
-<para>For Japanese, Chinese, and Corean documents, you may have to install and launch the right server, such as canna, and the right method, such as kinput2.</para>
-<para>Here is how to write a Japanese document on a non-Japanese system.</para>
-<procedure><title>Writing in Japanese with Bluefish on a non-Japanese system</title>
-	<step>
-	<para>Launch the canna server if it is not running already</para>
-</step>
-<step>
-<para>Set the encoding to Japanese, for example: <userinput>export LANG=ja_JP.UTF-8</userinput></para>
-</step>
-<step>
-<para>Set the Xinput method with <userinput>export XMODIFIERS="@im=kinput2"</userinput></para>
-</step>
-<step>
-<para>Launch kinput2 as a background process with <userinput>kinput2 &amp;</userinput></para>
-</step>
-<step>
-<para>Launch bluefish as a background process with <userinput>bluefish &amp;</userinput></para>
-</step>
-<step>
-<para>To activate the Xinput method within bluefish, use <keycombo><keycap>Shift</keycap><keycap>Space</keycap></keycombo>. A small window with a Japanese glyph will appear at one of the corner of the Bluefish window. Once the desired glyph has been composed, press <keycap>Space</keycap>, and hit <keycap>enter</keycap> to validate it.</para>
-</step>
-</procedure>
-	<para>Here, you can see the small Xinput method window, at the bottom left corner of the window and the first Japanese word not already validated in the Bluefish window launched on a French system.	
-	<figure id="figure-japanese-with-bluefish">
-				<title id="figure-japanese-with-bluefish-title">Writing in Japanese with Bluefish</title>
-				<screenshot>
-					<mediaobject>
-						<imageobject>
-							<imagedata fileref="figures/japanese_with_bluefish.png" format="PNG"/>
-						</imageobject>
-						<textobject>
-							<phrase>Writing in Japanese with Bluefish</phrase>
-						</textobject>
-					</mediaobject>
-				</screenshot>
-			</figure>
-	</para>
+<para>For information about writing documents in 16-bits encoded languages, such as Japanese, see <xref linkend="input-methods" />.
+</para>
 
 </sect3>
 <sect3 id="open-advanced">
@@ -799,6 +845,7 @@ environment to make Gnome and GTK programs detect this encoding.
 		<listitem>
 			<para><keycombo><keycap>Ctrl</keycap><keycap>Page-Down</keycap></keycombo> will change to the next document</para>
 		</listitem>
+		<listitem>
 			<para><keycombo><keycap>Shift</keycap><keycap>Ctrl</keycap><keycap>Page-Up</keycap></keycombo> will change to the first document</para>
 		</listitem>
 		<listitem>
