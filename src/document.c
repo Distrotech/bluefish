@@ -679,8 +679,10 @@ static gboolean doc_check_modified_on_disk(Tdocument *doc, GnomeVFSFileInfo **ne
 		if (*newfileinfo == NULL) {
 			fileinfo = gnome_vfs_file_info_new();
 			unref_fileinfo = TRUE;
+			DEBUG_MSG("doc_check_modified_on_disk, allocating new fileinfo at %p\n", fileinfo);
 		} else {
 			fileinfo = *newfileinfo;
+			DEBUG_MSG("doc_check_modified_on_disk, using existing fileinfo at %p\n", fileinfo);
 		}
 		if (gnome_vfs_get_file_info(doc->filename, fileinfo
 				, GNOME_VFS_FILE_INFO_DEFAULT|GNOME_VFS_FILE_INFO_FOLLOW_LINKS) == GNOME_VFS_OK) {
@@ -2566,7 +2568,9 @@ void doc_activate(Tdocument *doc) {
 		fileinfo = gnome_vfs_file_info_new();
 		modified = doc_check_modified_on_disk(doc,&fileinfo);
 		newmtime = fileinfo->mtime;
-		oldmtime = doc->fileinfo->mtime;
+		if (doc->fileinfo) {
+			oldmtime = doc->fileinfo->mtime;
+		}
 		gnome_vfs_file_info_unref(fileinfo);
 	}
 #else
