@@ -15,6 +15,7 @@ typedef struct {
 	GCompletion *autocomplete;
 	GtkListStore *autostore;
 	GtkWidget *auto_list;
+	GtkTooltips *argtips;
 } Tfref_data;
 
 
@@ -255,13 +256,20 @@ void fref_loader_end_element(GMarkupParseContext * context,
 		aux->state = aux->vstate;
 }
 
-void fref_loader_text(GMarkupParseContext * context, const gchar * text,
-					  gsize text_len, gpointer user_data, GError ** error)
+void fref_loader_text(GMarkupParseContext * context, const gchar * _text,
+					  gsize _text_len, gpointer user_data, GError ** error)
 {
 	FRParseAux *aux;
+	gchar *text;
+	gint text_len;
 
 	if (user_data == NULL)
 		return;
+	/* remove white spaces from the begining and the end */
+	text = g_strdup(_text);
+	text = g_strstrip(text);
+	text_len = strlen(text);
+	
 	aux = (FRParseAux *) user_data;
 	switch (aux->state) {
 	case FR_LOADER_STATE_DESCR:
@@ -298,6 +306,7 @@ void fref_loader_text(GMarkupParseContext * context, const gchar * text,
 		aux->act_info->insert_text = g_strndup(text, text_len);
 		break;
 	}							/* switch */
+	g_free(text);
 }
 
 void fref_loader_error(GMarkupParseContext * context, GError * error,
@@ -509,6 +518,8 @@ GtkWidget *fref_init()
 
 	gtk_widget_show(fref_data.tree);
 	gtk_widget_show(scroll);
+	
+	fref_data.argtips = gtk_tooltips_new();
 
 	return scroll;
 }
@@ -521,6 +532,7 @@ void fref_cleanup()
 	fref_data.store = NULL;
 	fref_data.info_window = NULL;
 	g_completion_free(fref_data.autocomplete);
+	fref_data.argtips = NULL;
 }
 
 
@@ -803,6 +815,7 @@ GtkWidget *fref_prepare_dialog(FRInfo * entry)
 										   attr->def_value);
 					attr->dlg_item = combo;
 					attr->is_combo = TRUE;
+					gtk_tooltips_set_tip(fref_data.argtips,combo,attr->description,"");
 				} else {
 					input = gtk_entry_new();
 					if (attr->def_value != NULL)
@@ -816,6 +829,7 @@ GtkWidget *fref_prepare_dialog(FRInfo * entry)
 									 (GtkAttachOptions) (0), 5, 5);
 					attr->dlg_item = input;
 					attr->is_combo = FALSE;
+					gtk_tooltips_set_tip(fref_data.argtips,input,attr->description,"");					
 				}
 				itnum++;
 				attr = (FRAttrInfo *) g_list_nth_data(list, itnum);
@@ -883,6 +897,7 @@ GtkWidget *fref_prepare_dialog(FRInfo * entry)
 										   par->def_value);
 					par->dlg_item = combo;
 					par->is_combo = TRUE;
+					gtk_tooltips_set_tip(fref_data.argtips,combo,par->description,"");					
 				} else {
 					input = gtk_entry_new();
 					if (par->def_value != NULL)
@@ -896,6 +911,7 @@ GtkWidget *fref_prepare_dialog(FRInfo * entry)
 									 (GtkAttachOptions) (0), 5, 5);
 					par->dlg_item = input;
 					par->is_combo = FALSE;
+					gtk_tooltips_set_tip(fref_data.argtips,input,par->description,"");					
 				}
 				itnum++;
 				par = (FRParamInfo *) g_list_nth_data(list, itnum);
@@ -927,7 +943,7 @@ GtkWidget *fref_prepare_dialog(FRInfo * entry)
 	gtk_widget_show(okbutton);
 	gtk_dialog_add_action_widget(GTK_DIALOG(dialog), okbutton,
 								 GTK_RESPONSE_OK);
-
+   gtk_tooltips_enable(fref_data.argtips);
 	return dialog;
 }
 
