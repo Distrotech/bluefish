@@ -1,5 +1,9 @@
 #include <gtk/gtk.h>
 
+#include "bluefish.h"
+
+#ifdef WITH_MSG_QUEUE
+
 #include <sys/types.h>
 #include <sys/ipc.h>			/* msgsnd() */
 #include <sys/msg.h>			/* msgsnd() */
@@ -9,13 +13,11 @@
 #include <string.h> /* strncpy */
 #include <stdlib.h> /* exit() */
 
-#include "bluefish.h"
 #include "stringlist.h"
 #include "gtk_easy.h" /* error_dialog */
 #include "gui.h" /* notebook_changed() */
 #include "document.h"
 
-#ifdef WITH_MSG_QUEUE
 
 #define BLUEFISH_MSG_QUEUE 9723475
 #define MSQ_QUEUE_SIZE 1024
