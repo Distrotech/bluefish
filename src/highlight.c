@@ -705,17 +705,17 @@ void doc_highlight_line(Tdocument * doc) {
 #ifdef DEBUG
 			{
 				Tpattern *testpat;
-				testpat =
-					find_pattern_by_tag(patternlist,
-										GTK_TEXT_TAG(slist->data));
-				DEBUG_MSG("doc_highlight_line, testpat %p (%s) has tag %p\n",
-						testpat, testpat->name, testpat->tag);
+				testpat = find_pattern_by_tag(patternlist,GTK_TEXT_TAG(slist->data));
+				if (testpat) {
+					DEBUG_MSG("doc_highlight_line, testpat %p (%s) has tag %p\n",testpat, testpat->name, testpat->tag);
+				}
 			}
 			{
 				gchar *test =
 					gtk_text_buffer_get_text(doc->buffer, &itstart, &itend,
 											 FALSE);
 				DEBUG_MSG("doc_highlight_line, current string=%s\n", test);
+				g_free(test);
 			}
 #endif
 			/* if the tags ends at itstart there is no need to search forward to the end */
