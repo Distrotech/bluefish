@@ -1103,9 +1103,9 @@ void doc_highlight_line(Tdocument * doc)
 					DEBUG_MSG("doc_highlight_line, tag %p goes with ", testpat->tag);
 					print_meta_for_pattern(testpat);
 				} else {
-					DEBUG_MSG("doc_highlight_line, tag doesn't have parent?? ");
+					DEBUG_MSG("doc_highlight_line, tag %p doesn't have pattern??\n",slist->data);
 					print_meta_for_tag(GTK_TEXT_TAG(slist->data));
-					exit(9);
+					/*exit(9);*/
 				}
 				test = gtk_text_buffer_get_text(doc->buffer, &itstart, &itend,FALSE);
 				DEBUG_MSG("doc_highlight_line, current string='%s'\n", test);
