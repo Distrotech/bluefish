@@ -900,11 +900,11 @@ gboolean doc_file_to_textbox(Tdocument * doc, gchar * filename, gboolean enable_
 			}
 #endif
 			/* we do a nasty trick to make regexec search only in the first 300 bytes */
-			if (document_size > 300) {
-				gchar tmp = buffer[300];
-				buffer[300] = '\0';
+			if (document_size > 500) {
+				gchar tmp = buffer[500];
+				buffer[500] = '\0';
 				retval = regexec(&preg,buffer,10,pmatch,0);
-				buffer[300] = tmp;
+				buffer[500] = tmp;
 			} else {
 				retval = regexec(&preg,buffer,10,pmatch,0);
 			}

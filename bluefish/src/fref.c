@@ -102,8 +102,10 @@ gchar *fref_xml_get_refname(gchar *filename)
 	if (ctx == NULL)
 		return NULL;
 	if (!g_file_get_contents(filename, &config, &len, NULL))
+		/* I think we need to free ctx before returning NULL, don't we?*/
 		return NULL;
 	if (!g_markup_parse_context_parse(ctx, config, len, NULL))
+		/* and also here ?? free ctx first? */
 		return NULL;
 	g_markup_parse_context_free(ctx);
 	tmps = aux->name;
@@ -146,6 +148,8 @@ void fref_loader_start_element(GMarkupParseContext * context,
 		 if (aux->nest_level < MAX_NEST_LEVEL)
 		 {
      gtk_tree_store_append(aux->store, &iter, &aux->parent);
+     /* you set the value in the tree with g_strdup(), so you allocate new memory for it, 
+     but you can never free that memory. Do you really need to use g_strdup() here ? */
      gtk_tree_store_set(aux->store, &iter, STR_COLUMN, 
  			                   g_strdup(g_hash_table_lookup(attrs, "name")),
  			                   FILE_COLUMN,NULL,PTR_COLUMN,NULL,-1);
@@ -308,6 +312,8 @@ void fref_loader_start_element(GMarkupParseContext * context,
 		break;					/* state PARAM */
 
 	}							/* switch */
+	/* you destroy the hashtable, but you don't free the content of the hashtable, 
+	I guess we need to do that ourselves.. */
 	g_hash_table_destroy(attrs);
 }
 
@@ -453,7 +459,9 @@ void fref_loader_load_ref_xml(gchar * filename, GtkWidget * tree,
 	g_markup_parse_context_free(ctx);
 	if (aux->autoitems != NULL)
 		g_completion_add_items(fref_data.autocomplete, aux->autoitems);
-
+	/* you free aux here, but during the parsing aux probably got many data attached 
+	to it that is not freed yet, shouldn't you check the data and free that if it is there? 
+	*/
 	g_free(aux);
 }
 
