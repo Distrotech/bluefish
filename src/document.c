@@ -2375,6 +2375,9 @@ void doc_new_with_new_file(Tbfwin *bfwin, gchar * new_filename) {
 	add_filename_to_history(new_filename);
 	doc = doc_new(bfwin, FALSE);
 	doc->filename = g_strdup(new_filename);
+	if (bfwin->project && bfwin->project->template && strlen(bfwin->project->template) > 2) {
+		doc_file_to_textbox(doc, bfwin->project->template, FALSE, FALSE);
+ 	}
 	ft = get_filetype_by_filename_and_content(doc->filename, NULL);
 	if (ft) doc->hl = ft;
 	doc->modified = 1; /* force doc_set_modified() (in doc_save()) to update the tab-label */
@@ -2959,10 +2962,9 @@ void file_new_cb(GtkWidget *widget, Tbfwin *bfwin) {
 	Tdocument *doc;
 	doc = doc_new(bfwin, FALSE);
 	switch_to_document_by_pointer(bfwin,doc);
-/*	project management needs a rewite so this is not included yet */
-/* 	if ((main_v->current_project.template) && (file_exists_and_readable(main_v->current_project.template) == 1)) {
-             doc_file_to_textbox(doc, main_v->current_project.template);
- 	}*/
+ 	if (bfwin->project && bfwin->project->template && strlen(bfwin->project->template) > 2) {
+		doc_file_to_textbox(doc, bfwin->project->template, FALSE, FALSE);
+ 	}
 }
 
 /**

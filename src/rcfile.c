@@ -841,6 +841,7 @@ static GList *return_project_configlist(Tproject *project) {
 	init_prop_stringlist(&configlist, &project->files, "files:", FALSE);
 	init_prop_string(&configlist, &project->basedir,"basedir:","");
 	init_prop_string(&configlist, &project->webdir,"webdir:","");
+	init_prop_string(&configlist, &project->template,"template:","");
 	return configlist;
 }
 
