@@ -133,21 +133,38 @@ typedef struct {
 	gint filebrowser_show_others_files;
 	gint filebrowser_show_backup_files;
 	gchar *filebrowser_unknown_icon;
-	gchar *filebrowser_dir_icon;	
+	gchar *filebrowser_dir_icon;
+	gchar *editor_font_string;		/* editor font */
+	gint editor_tab_width;	/* editor tabwidth */
+	gchar *tab_font_string;		/* notebook tabs font */
+	GList *browsers; /* browsers array */
+	GList *external_commands;	/* external commands array */
+	GList *quickbar_items; /* items in the quickbar toolbar */
+	gint highlight_num_lines_count; /* number of lines to highlight in continous highlighting */	
+	GList *filetypes; /* filetypes for highlighting and filtering */
+	GList *filefilters; /* filebrowser.c filtering */
+	gchar *last_filefilter;	/* last filelist filter type */
+	GList *highlight_patterns; /* the highlight patterns */
 	gint transient_htdialogs;  /* set html dialogs transient ro the main window */
 	gint main_window_h;			/* main window height */
 	gint main_window_w;			/* main window width */
 	gint max_recent_files;	/* length of Open Recent list */
 	gint max_dir_history;	/* length of directory history */
-	gchar *filelist_filter;	/* filelist filter type */
+	gint backup_file; 			/* wheather to use a backup file */
+	gchar *backup_filestring;  /* the string to append to the backup file */
+	gchar *backup_abort_style; /* if the backup fails, continue 'save', 'abort' save, or 'ask' user */
+	gchar *image_thumbnailstring;	/* string to append to thumbnail filenames */
+	gchar *image_thumbnailtype;	/* fileformat to use for thumbnails */
+	gint image_thumbnailsizing_type;	/* fixed width=0, height=1, ratio=2 */
+	gint image_thumbnailsizing_val;	/* the width, height or ratio, depending on the value above */
+	gint allow_multi_instances; /* allow multiple instances of the same file */
+	gint num_undo_levels; 	/* number of undo levels per document */
+	gint clear_undo_on_save; 	/* clear all undo information on file save */
+
+	/* not yet in use */
 	gchar *image_editor_cline; 	/* image editor commandline */
 	gchar *cfg_weblint_cline;	/* weblint command line */
-	gchar *editor_font_string;		/* editor font */
-	gint editor_tab_width;	/* editor tabwidth */
 	gchar *cfg_tab_pos;			/* notebook tabs positioning */
-	gchar *tab_font_string;		/* notebook tabs font */
-	gchar *cfg_thumbnailstring;	/* string to append to thumbnail filenames */
-	gchar *cfg_thumbnailtype;	/* fileformat to use for thumbnails */
 	gint full_p;				/* use </p> */
 	gint full_li;				/* use </li> */
 	gint allow_css;				/* CSS allowed */
@@ -186,13 +203,6 @@ typedef struct {
    gchar* spc_input_encoding     ;  /* wich one ? */
    gint   spc_output_html_chars  ; /* output html chars ? (like &aacute;)*/
 #endif
-	gchar *backup_filestring;  /* the string to append to the backup file */
-	gint backup_file; 			/* wheather to use a backup file */
-	gint backup_by_copy; 	/* make a copy instead of renaming the file */
-	gchar *backup_abort_style; /* if the backup fails, continue 'save', 'abort' save, or 'ask' user */
-	gint allow_multi_instances; /* allow multiple instances of the same file */
-	gint num_undo_levels; 	/* number of undo levels per document */
-	gint clear_undo_on_save; 	/* clear all undo information on file save */
 	/* key conversion */
 	gint conv_ctrl_enter;		/* convert control-enter key press */
 	gchar *ctrl_enter_text;		/* inserted text */
@@ -209,14 +219,6 @@ typedef struct {
 #ifdef PARSEDTD
 	GList *doctypes;	 /* The list of doctypes recognized by bluefish */
 #endif
-	/* new since gtk-2 port */
-	gint highlight_num_lines_count; /* number of lines to highlight in continous highlighting */
-	GList *filetypes;
-	GList *highlight_patterns;
-	GList *filefilters; /* filebrowser.c filtering */
-	GList *browsers; /* browsers array */
-	GList *external_commands;	/* external commands array */
-	GList *quickbar_items;
 } Tproperties;
 
 typedef struct {
