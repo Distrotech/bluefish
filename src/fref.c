@@ -750,6 +750,9 @@ void fref_loader_unload_all(GtkWidget * tree, GtkTreeStore * store)
 			gtk_tree_model_get(GTK_TREE_MODEL(store), &iter, STR_COLUMN, &cat, -1);
 			DEBUG_MSG("fref_loader_unload_all, cat=%s\n", cat);
 			aux = g_hash_table_lookup(FREFDATA(main_v->frefdata)->refcount, cat);
+			if (cat) 
+				g_free (cat);
+				
 			if (aux != NULL) {
 				cnt = (gint *) aux;
 				*cnt = (*cnt) - 1;
@@ -759,7 +762,7 @@ void fref_loader_unload_all(GtkWidget * tree, GtkTreeStore * store)
 					do_unload = FALSE;
 				DEBUG_MSG("fref_loader_unload_all, cnt=%d, do_unload=%d\n", *cnt, do_unload);
 			} else
-				do_unload = FALSE;
+				do_unload = FALSE;				
 		} else
 			do_unload = FALSE;
 		if (do_unload) {
