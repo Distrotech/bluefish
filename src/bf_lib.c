@@ -1013,6 +1013,9 @@ gchar *create_relative_link_to(gchar * current_filepath, gchar * link_to_filepat
  * else it will use basedir if available, else the current dir
  * to add to the filename to form the full path
  *
+ * for URL's it will simply return a strdup(), except for file:// URL's, 
+ * there the file:// bit is stripped
+ *
  * it does use most_efficient_filename() to remote unwanted dir/../ entries
  *
  * Return value: a newly allocated gchar * with the full path
@@ -1025,6 +1028,9 @@ gchar *create_full_path(gchar * filename, gchar *basedir) {
 #ifdef HAVE_GNOME_VFS
 	if (strchr(filename, ':') != NULL) {
 		DEBUG_MSG("create_full_path, %s is an URI\n",filename);
+		if (strlen(filename)>7 && strncmp(filename, "file://", 7)==0) {
+			return g_strdup(filename+7);
+		}
 		return g_strdup(filename);
 	}
 #endif /* HAVE_GNOME_VFS */
