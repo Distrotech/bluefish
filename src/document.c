@@ -730,10 +730,8 @@ static void doc_set_tooltip(Tdocument *doc) {
 static void doc_set_title(Tdocument *doc) {
 	gchar *label_string, *tabmenu_string;
 	if (doc->filename) {
-		gchar *utf8name = get_filename_on_disk_encoding(doc->filename);
-		label_string = g_path_get_basename(utf8name);
-		tabmenu_string = g_strdup(utf8name);
-		g_free(utf8name);
+		label_string = g_path_get_basename(doc->filename);
+		tabmenu_string = g_strdup(doc->filename);
 	} else {
 		label_string = g_strdup_printf(_("Untitled %d"),main_v->num_untitled_documents);
 		tabmenu_string =  g_strdup(label_string);
@@ -887,8 +885,6 @@ static gboolean doc_check_modified_on_disk(Tdocument *doc, struct stat *newstatb
 to call doc_update_mtime() as well */
 static void doc_set_stat_info(Tdocument *doc) {
 	if (doc->filename) {
-		GError *gerror=NULL;
-		gint b_written;
 		gchar *ondiskencoding = get_filename_on_disk_encoding(doc->filename);
 #ifdef HAVE_GNOME_VFS
 		if (doc->fileinfo == NULL) {
@@ -2343,8 +2339,10 @@ void document_unset_filename(Tdocument *doc) {
 gchar *ask_new_filename(Tbfwin *bfwin,gchar *oldfilename, gint is_move) {
 	Tdocument *exdoc;
 	GList *alldocs;
-	gchar *newfilename = return_file_w_title(oldfilename,
+	gchar *ondisk = get_filename_on_disk_encoding(oldfilename);
+	gchar *newfilename = return_file_w_title(ondisk,
 												(is_move) ? _("Move/rename document to") : _("Save document as"));
+	g_free(ondisk);
 	if (!newfilename || (oldfilename && strcmp(oldfilename,newfilename)==0)) {
 		if (newfilename) g_free(newfilename);
 		return NULL;
@@ -2367,8 +2365,6 @@ gchar *ask_new_filename(Tbfwin *bfwin,gchar *oldfilename, gint is_move) {
 			document_unset_filename(exdoc);
 		}
 	} else {
-		GError *gerror=NULL;
-		gint b_written;
 		gchar *ondiskencoding = get_filename_on_disk_encoding(newfilename);
 		if (g_file_test(ondiskencoding, G_FILE_TEST_EXISTS)) {
 			gchar *tmpstr;
@@ -2432,8 +2428,6 @@ gint doc_save(Tdocument * doc, gint do_save_as, gboolean do_move) {
 		}
 		if (doc->filename) {
 			if (do_move) {
-				GError *gerror=NULL;
-				gint b_written;
 				gchar *ondiskencoding = get_filename_on_disk_encoding(doc->filename);
 #ifdef HAVE_GNOME_VFS
 				gnome_vfs_unlink(ondiskencoding);

@@ -1018,8 +1018,6 @@ static void create_file_or_dir_ok_clicked_lcb(GtkWidget *widget, Tcfod *ws) {
 					doc_new_with_new_file(ws->filebrowser->bfwin,newname);
 				} else {
 					gchar *ondiskencoding;
-					GError *gerror=NULL;
-					gint b_written;
 					ondiskencoding = get_filename_on_disk_encoding(newname);
 #ifdef HAVE_GNOME_VFS
 					gnome_vfs_make_directory(ondiskencoding,0755);
@@ -1254,8 +1252,6 @@ static void filebrowser_rpopup_delete(Tfilebrowser *filebrowser) {
 		if (retval == 1) {
 			gchar *errmessage = NULL;
 			gchar *tmp, *dir, *ondiskenc;
-			gint b_written;
-			GError *gerror=NULL;
 			DEBUG_MSG("file_list_rpopup_file_delete %s\n", filename);
 			ondiskenc = get_filename_on_disk_encoding(filename);
 #ifdef HAVE_GNOME_VFS
