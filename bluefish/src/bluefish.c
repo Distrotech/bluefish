@@ -47,6 +47,7 @@
 #include "gtk_easy.h" /* flush_queue() */
 #include "filebrowser.h" /* filters_rebuild() */
 #include "project.h"
+#include "authen.h" /* set_authen_callbacks() */
 
 /*********************************************/
 /* this var is global for all bluefish files */
@@ -143,6 +144,9 @@ int main(int argc, char *argv[])
 #ifdef HAVE_GNOME_VFS
 	DEBUG_MSG("main, we have gnome_vfs, so we init it\n");
 	gnome_vfs_init();
+#ifdef HAVE_ATLEAST_GNOMEVFS_2_5
+	set_authen_callbacks();
+#endif
 #endif
 	main_v = g_new0(Tmain, 1);
 	DEBUG_MSG("main, main_v is at %p\n", main_v);

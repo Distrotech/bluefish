@@ -125,6 +125,9 @@ enum {
 #ifdef WITH_MSG_QUEUE
 	open_in_running_bluefish, /* open commandline documents in already running session*/
 #endif /* WITH_MSG_QUEUE */
+#ifdef HAVE_GNOME_VFS
+	server_zope_compat,
+#endif /* HAVE_GNOME_VFS */
 	property_num_max
 };
 
@@ -1682,6 +1685,10 @@ static void preferences_ok_clicked_lcb(GtkWidget *wid, Tprefdialog *pd) {
 	string_apply(&main_v->props.image_thumbnailstring, pd->prefs[image_thumbnailstring]);
 	string_apply(&main_v->props.image_thumbnailtype, GTK_COMBO(pd->prefs[image_thumbnailtype])->entry);
 
+#ifdef HAVE_GNOME_VFS
+	integer_apply(&main_v->props.server_zope_compat, pd->prefs[server_zope_compat], TRUE);
+#endif
+
 	filetype_apply_changes(pd);
 	filefilter_apply_changes(pd);
 	highlightpattern_apply_changes(pd);
@@ -1970,7 +1977,18 @@ static void preferences_dialog() {
 	gtk_container_add(GTK_CONTAINER(frame), vbox2);
 	
 	create_outputbox_gui(pd, vbox2);
+
+#ifdef HAVE_GNOME_VFS
+	vbox1 = gtk_vbox_new(FALSE, 5);
+	gtk_notebook_append_page(GTK_NOTEBOOK(pd->noteb), vbox1, hbox_with_pix_and_text(_("Servers"), 0,TRUE));
 	
+	frame = gtk_frame_new(_("Remote servers"));
+	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
+	vbox2 = gtk_vbox_new(FALSE, 0);
+	gtk_container_add(GTK_CONTAINER(frame), vbox2);
+	
+	pd->prefs[server_zope_compat] = boxed_checkbut_with_value(_("Zope compatibility mode"), main_v->props.server_zope_compat, vbox2);
+#endif
 
 	/* end, create buttons for dialog now */
 	{

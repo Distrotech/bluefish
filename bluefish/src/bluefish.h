@@ -249,6 +249,9 @@ typedef struct {
 	gchar *shift_enter_text;	/* inserted text */
 	gint conv_special_char;		/* convert ctrl-'<','>','&' */
 	gint open_in_running_bluefish; /* open commandline documents in already running session*/
+#ifdef HAVE_GNOME_VFS
+        gint server_zope_compat;        /* add 'document_src' to uri when reading remote files */
+#endif
 } Tproperties;
 
 typedef struct {
