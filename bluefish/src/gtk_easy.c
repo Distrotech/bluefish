@@ -879,22 +879,19 @@ static void mubudi_but_clicked_lcb(GtkWidget * widget, Tmubudi *mbd)
 	mubudi_destroy_lcb(NULL, NULL, mbd);
 }
 
-/*
- * Function: multi_button_dialog
- * Arguments:
- * 	title - title string
- * 	defval = default value (when window is closed)
- * 	label - label string
- * 	button - NULL terminated array of strings, containing the button labels
- * Return value:
- * 	the index num of the button label which was clicked
- * 	so 0 for the first label, 1 for the 2nd label, etc.
- * Description:
- * 	create dialog with several buttons which returns a value
+/**
+ * multi_button_dialog_backend:
+ * @use_gtk_stock_buttons: #gboolean, the buttons array contains GTK_STOCKBUTTON identifiers
+ * @title: #gchar* title string
+ * @defval: #gint default value (when no button is clicked)
+ * @label: #gchar* label string
+ * @buttons: #gchar** NULL terminated array of strings, containing the button labels
+ *
+ * create a modal dialog with several buttons, returning the index of the clicked button
+ *
+ * Return value: #gint the index num of the button label which was clicked	so 0 for the first, 1 for the 2nd etc.
  */
-
 gint multi_button_dialog_backend(gboolean use_gtk_stock_buttons, gchar *title, gint defval, gchar *label, gchar **buttons) {
-
 	Tmubudi *mbd;
 
 	GtkWidget *vbox, *hbox;
@@ -935,11 +932,31 @@ gint multi_button_dialog_backend(gboolean use_gtk_stock_buttons, gchar *title, g
 	free(mbd);
 	return retval;
 }
-
+/**
+ * multi_stockbutton_dialog:
+ * @title: #gchar* title string
+ * @defval: #gint default value (when no button is clicked)
+ * @label: #gchar* label string
+ * @buttons: #gchar** NULL terminated array of gtk stock identifiers
+ *
+ * create a modal dialog with several buttons, returning the index of the clicked button
+ *
+ * Return value: #gint the index num of the button label which was clicked	so 0 for the first, 1 for the 2nd etc.
+ */
 gint multi_stockbutton_dialog(gchar *title, gint defval, gchar *label, gchar **buttons) {
 	return multi_button_dialog_backend(TRUE, title, defval, label, buttons);
 }
-
+/**
+ * multi_button_dialog:
+ * @title: #gchar* title string
+ * @defval: #gint default value (when no button is clicked)
+ * @label: #gchar* label string
+ * @buttons: #gchar** NULL terminated array of strings with button labels
+ *
+ * create a modal dialog with several buttons, returning the index of the clicked button
+ *
+ * Return value: #gint the index num of the button label which was clicked	so 0 for the first, 1 for the 2nd etc.
+ */
 gint multi_button_dialog(gchar *title, gint defval, gchar *label, gchar **buttons) {
 	return multi_button_dialog_backend(FALSE, title, defval, label, buttons);
 }
