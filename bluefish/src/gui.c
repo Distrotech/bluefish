@@ -893,7 +893,7 @@ void make_main_toolbar(Tbfwin *bfwin) {
 
 	gtk_toolbar_insert_stock (GTK_TOOLBAR (toolbar), GTK_STOCK_NEW, _("New"),
 								"", G_CALLBACK(file_new_cb), bfwin, -1);
-	gtk_toolbar_insert_stock (GTK_TOOLBAR (toolbar), GTK_STOCK_OPEN, _("Open.."),
+	gtk_toolbar_insert_stock (GTK_TOOLBAR (toolbar), GTK_STOCK_OPEN, _("Open..."),
 								"", G_CALLBACK(file_open_cb), bfwin, -1);
 	gtk_toolbar_insert_stock (GTK_TOOLBAR (toolbar), GTK_STOCK_SAVE, _("Save"),
 								"", G_CALLBACK(file_save_cb), bfwin, -1);
