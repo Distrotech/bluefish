@@ -1383,11 +1383,7 @@ void bmark_check_length(Tbfwin * bfwin, Tdocument * doc) {
 						   &mark, -1);
 		if (mark) {
 			glong size;
-#ifdef HAVE_GNOME_VFS
 			size = doc->fileinfo->size;
-#else
-			size = doc->statbuf.st_size;
-#endif
 			DEBUG_MSG("bmark_check_length, bmark has %d, file has %ld\n",mark->len, size);
 			if (mark->len != size) {
 				gint retval;
@@ -1401,6 +1397,8 @@ void bmark_check_length(Tbfwin * bfwin, Tdocument * doc) {
 															 str);
 				if (retval==1) {
 					bmark_del_for_document(bfwin, doc);
+				} else {
+					mark->len = size;
 				}
 				return;
 			}

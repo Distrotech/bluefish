@@ -34,6 +34,44 @@
 #include "gui.h"
 #include "stringlist.h"
 
+/*************************** FILE DELETE ASYNC ******************************/
+
+typedef struct {
+	GnomeVFSAsyncHandle *handle;
+	
+} Tfiledelete;
+
+static gint deletefile_progress_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSXferProgressInfo *info,gpointer data) {
+	Tfiledelete *fd = data;
+	if (info->status == GNOME_VFS_XFER_PROGRESS_STATUS_VFSERROR) {
+		DEBUG_MSG("deletefile_progress_lcb, status=VFSERROR, abort?\n");
+		return GNOME_VFS_XFER_ERROR_ACTION_SKIP;
+	} else if (info->status == GNOME_VFS_XFER_PROGRESS_STATUS_OK) {
+		if (info->phase == GNOME_VFS_XFER_PHASE_COMPLETED) {
+			/* call the user callback */
+		}
+	}
+	return 1; 	/* Nautilus returns 1 by default for this callback */
+}
+static gint deletefile_sync_lcb(GnomeVFSXferProgressInfo *info,gpointer data) {
+	return 1;
+}
+
+void file_delete_file_async(GnomeVFSURI *uri) {
+	GnomeVFSResult ret;
+	GList *sourcelist;
+	Tfiledelete *fd;
+	
+	fd = g_new0(Tfiledelete,1);
+	sourcelist = g_list_append(NULL, uri);
+	gnome_vfs_uri_ref(uri);
+	ret = gnome_vfs_async_xfer(&fd->handle,sourcelist,NULL
+						,GNOME_VFS_XFER_DELETE_ITEMS,GNOME_VFS_XFER_ERROR_MODE_QUERY
+						,GNOME_VFS_XFER_OVERWRITE_MODE_SKIP,GNOME_VFS_PRIORITY_DEFAULT
+						,deletefile_progress_lcb, fd
+						,deletefile_sync_lcb, fd);
+}
+
 /*************************** FILE INFO ASYNC ******************************/
 
 static void checkmodified_cleanup(Tcheckmodified *cm) {
