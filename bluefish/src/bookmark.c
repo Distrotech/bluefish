@@ -3,6 +3,7 @@
 #include "bluefish.h"
 #include "gtk_easy.h"
 #include "gui.h"
+#include "document.h"
 #include "bookmark.h"
 
 #ifdef BOOKMARKS
@@ -16,7 +17,9 @@ enum {
 
 typedef struct {
    GtkTextMark *mark;
-   Tdocument *doc; /* filepath is in document */
+   gchar *filepath;
+   gint offset;   
+   Tdocument *doc; 
    GtkTreeIter iter;  /* for tree view */
 } Tbmark;
 
@@ -55,6 +58,7 @@ void bmark_free(gpointer ptr)
 	   gtk_text_buffer_delete_mark(m->doc->buffer,m->mark);
 	   m->doc = NULL;
 	}   
+	g_free(m->filepath);
 	g_free(m);
 }
 
@@ -105,10 +109,23 @@ static void bmark_popup_menu_goto_lcb(GtkWidget *widget,gpointer user_data)
 {
 	Tbmark *b;
 	GtkTextIter it;
+	gint ret;
+   gchar *btns[]={GTK_STOCK_YES,GTK_STOCK_NO,NULL};
+   
+
 	
 	if (!user_data) return;
    b = get_current_bmark(BFWIN(user_data));
    if (!b) return;
+   if (b->filepath && !b->doc)
+   {
+      ret = multi_query_dialog(BFWIN(user_data)->main_window,_("Bookmark file is closed"), _("Do you want to open it?"), 0, 0, btns);   
+      if (ret==1) return;
+      b->doc = doc_new_with_file(BFWIN(user_data),b->filepath,TRUE,TRUE);
+      gtk_text_buffer_get_iter_at_offset(b->doc->buffer,&it,b->offset);
+      b->mark = gtk_text_buffer_create_mark(b->doc->buffer,"",&it,TRUE); 
+   } 
+   
    if (b->doc)
    {
       gtk_text_buffer_get_iter_at_mark(b->doc->buffer,&it,b->mark);
@@ -116,7 +133,8 @@ static void bmark_popup_menu_goto_lcb(GtkWidget *widget,gpointer user_data)
       gtk_text_view_scroll_mark_onscreen(GTK_TEXT_VIEW(b->doc->view),b->mark);		
       if (b->doc != BFWIN(user_data)->current_document) switch_to_document_by_pointer(BFWIN(user_data),b->doc);    
       gtk_widget_grab_focus(b->doc->view);
-   }   
+   }  
+
 }
 
 
@@ -253,6 +271,7 @@ void bmark_clean_for_doc(Tdocument *doc)
 {
    gint i;
    Tbmark *b;
+   GtkTextIter it;
    Tbmark_data *data = BMARKDATA(main_v->bmarkdata);
    
    /* clean temporary */
@@ -260,7 +279,13 @@ void bmark_clean_for_doc(Tdocument *doc)
    {
      b = data->temporary[i];
      if ( b && b->doc == doc )
+     {
+        gtk_text_buffer_get_iter_at_mark(b->doc->buffer,&it,b->mark);
+        b->offset =  gtk_text_iter_get_offset(&it);      
+        gtk_text_buffer_delete_mark(b->doc->buffer,b->mark);     
+        b->mark = NULL;
         b->doc = NULL;
+     }   
    }
 }
 
@@ -305,6 +330,7 @@ void bmark_add_temp(Tbfwin *bfwin)
       im = gtk_text_buffer_get_insert(m->doc->buffer);
       gtk_text_buffer_get_iter_at_mark(m->doc->buffer,&it,im);
       m->mark = gtk_text_buffer_create_mark(m->doc->buffer,g_strdup_printf("%d",ffree),&it,TRUE);
+      m->filepath = g_strdup(m->doc->filename);
       data->temporary[ffree] = m;
       /* add to the tree */
       sit=eit=it;
@@ -317,6 +343,27 @@ void bmark_add_temp(Tbfwin *bfwin)
 							   gtk_text_iter_get_slice(&it,&sit)),PTR_COLUMN, m, -1);      
 		gtk_tree_view_expand_all(GTK_TREE_VIEW(gui->tree));
 }
+
+void bmark_del_all_temp(Tbfwin *bfwin)
+{
+   gint ret,i;
+   Tbmark_data *data = BMARKDATA(main_v->bmarkdata);
+   gchar *btns[]={GTK_STOCK_NO,GTK_STOCK_YES,NULL};   
+   
+   ret = multi_query_dialog(bfwin->main_window,_("Delete all temporary bookmarks."), _("Are you sure?"), 0, 0, btns);
+   if (ret==0) return;
+   for(i=0;i<10;i++)
+   {
+     if (data->temporary[i])
+     {
+      gtk_tree_store_remove(data->store,&(data->temporary[i]->iter));   
+      bmark_free(data->temporary[i]);
+      data->temporary[i] = NULL;   
+     } 
+      data->lasttemp=0;
+   }
+}
+
 
 #endif /* BOOKMARKS */
 

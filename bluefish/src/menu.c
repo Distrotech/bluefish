@@ -279,6 +279,9 @@ static void menu_bmark_operations_cb(Tbfwin *bfwin,guint callback_action, GtkWid
 	case 1:
 	   bmark_add_temp(bfwin);
 	break;
+	case 4:
+	   bmark_del_all_temp(bfwin);
+	break;
 	default:
 			g_print("Bmark action no. %d\n",callback_action);
 	}
