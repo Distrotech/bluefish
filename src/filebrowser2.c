@@ -1432,20 +1432,31 @@ static void dir_v_selection_changed_lcb(GtkTreeSelection *treeselection,Tfilebro
 		}*/
 	}
 }
-
+/**
+ * fb2_set_basedir:
+ * bfwin: Tbfwin *
+ * curi: gchar * or NULL
+ *
+ *
+ *
+ */
 void fb2_set_basedir(Tbfwin *bfwin, gchar *curi) {
 	if (bfwin->fb2) {
 		Tfilebrowser2 *fb2 = bfwin->fb2;
-		GnomeVFSURI *uri;
-		DEBUG_MSG("fb2_set_basedir, set uri=%s\n",curi);
-		uri = gnome_vfs_uri_new(strip_trailing_slash(curi));
-		fb2_build_dir(uri);
-		{
-			GtkTreePath *basedir = fb2_fspath_from_uri(fb2, uri);
-			refilter_dirlist(fb2, basedir);
-			gtk_tree_path_free(basedir);
+		if (curi) {
+			GnomeVFSURI *uri;
+			DEBUG_MSG("fb2_set_basedir, set uri=%s\n",curi);
+			uri = gnome_vfs_uri_new(strip_trailing_slash(curi));
+			fb2_build_dir(uri);
+			{
+				GtkTreePath *basedir = fb2_fspath_from_uri(fb2, uri);
+				refilter_dirlist(fb2, basedir);
+				gtk_tree_path_free(basedir);
+			}
+			fb2_focus_dir(fb2, fb2->basedir, FALSE);
+		} else {
+			refilter_dirlist(fb2, NULL);
 		}
-		fb2_focus_dir(fb2, fb2->basedir, FALSE);		
 	}
 }
 

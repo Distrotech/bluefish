@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-/* #define DEBUG */
+#define DEBUG
 
 #include <gtk/gtk.h>
 #include <string.h>
@@ -259,6 +259,13 @@ void project_open_from_file(Tbfwin *bfwin, gchar *fromfilename) {
 		g_free(prj);
 		return;
 	}
+	if (strlen(prj->basedir)>2) {
+		gchar *tmp;
+		tmp = prj->basedir;
+		prj->basedir = gnome_vfs_make_uri_from_input(tmp);
+		g_free(tmp);
+	}
+	
 	add_to_recent_list(bfwin,fromfilename, FALSE, TRUE);
 	prj->filename = g_strdup(fromfilename);
 	DEBUG_MSG("project_open_from_file, basedir=%s\n",prj->basedir);
@@ -305,23 +312,12 @@ void project_open_from_file(Tbfwin *bfwin, gchar *fromfilename) {
 static void project_open(Tbfwin *bfwin) {
 	/* first we ask for a filename */
 	gchar *filename = NULL;
-#ifdef HAVE_ATLEAST_GTK_2_4
-	{
-		GtkWidget *dialog;
-		/*dialog = gtk_file_chooser_dialog_new(_("Select Bluefish project filename"),NULL,
-				GTK_FILE_CHOOSER_ACTION_OPEN,
-				GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
-				GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT,
-				NULL);*/
-		dialog = file_chooser_dialog(bfwin, _("Select Bluefish project filename"), GTK_FILE_CHOOSER_ACTION_OPEN, NULL, TRUE, FALSE, "bfproject");
-		if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_ACCEPT) {
-			filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog));
-		}
-		gtk_widget_destroy(dialog);
+	GtkWidget *dialog;
+	dialog = file_chooser_dialog(bfwin, _("Select Bluefish project filename"), GTK_FILE_CHOOSER_ACTION_OPEN, NULL, TRUE, FALSE, "bfproject");
+	if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_ACCEPT) {
+		filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog));
 	}
-#else
-	filename = return_file_w_title(NULL, _("Select Bluefish project filename"));
-#endif
+	gtk_widget_destroy(dialog);
 	if (filename) {
 		DEBUG_MSG("project_open, for filename %s\n",filename);
 		project_open_from_file(bfwin,filename);
