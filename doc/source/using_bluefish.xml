@@ -1440,25 +1440,80 @@ The projects are a sort of <emphasis>saved state</emphasis> of Bluefish. Thus, t
 	find from selection Bluefish will start a new search for this selected string.
 	</para>
 
-<sect3 id="search-replace-regex">
+<sect3 id="find-replace-regex">
 <title>Find and Replace Using Regular Expressions</title>
   <para>With find and replace you can do incredibly powerful searches.
   We will start with a simple example. In some HTML tables, we have
   several table data tags where we actually want table header tags. Table data
-  is &lt;td&gt;&lt;/td&gt; and we want &lt;th&gt;&lt;/th&gt;. </para> 
-  <para>SCREENSHOT BY ????</para>
+  is &lt;td&gt;&lt;/td&gt; and we want &lt;th&gt;&lt;/th&gt;. In our example, the 
+  final results of the 2004 Tour de France will be the data for the table, and the 
+  first row of the table contains the label for each column. We want to change just  
+  the first row, so select that text with your cursor (as seen below).
+  </para> 
+  <para>
+  <figure id="figure-find-replace-regex-before">
+	<title id="figure-find-replace-example-before-title">Find and Replace Example Before Replace</title>
+		<screenshot>
+			<mediaobject>
+				<imageobject>
+					<imagedata fileref="figures/find_replace_regex_before.png" format="PNG"/>
+				</imageobject>
+				<textobject>
+					<phrase>A screen shot showing &lt;td&gt; tags before replacement with &lt;th&gt; tags</phrase>
+				</textobject>
+			</mediaobject>
+		</screenshot>
+  </figure>
+  </para>
   <para>
   We <emphasis>could</emphasis> replace all &lt;td&gt; tags with &lt;th&gt; and then replace all &lt;/td&gt; tags with &lt;/th&gt;. But, this uses two separate searches.
   </para> 
   <para>However, we could perform the same task using just one search by taking advantage of regular expressions: find
-  (&lt;|&lt;/)?td&gt; and replace with \0th&gt;</para>
-  <para> For more information about
+  (&lt;|&lt;/)td&gt; and replace with \0th&gt;</para>
+  <para>
+  <figure id="figure-find-replace-regex-dialog">
+	<title id="figure-find-replace-regex-dialog-title">Find and Replace Dialog</title>
+		<screenshot>
+			<mediaobject>
+				<imageobject>
+					<imagedata fileref="figures/find_replace_regex_dialog.png" format="PNG"/>
+				</imageobject>
+				<textobject>
+					<phrase>A screen shot showing the Find &amp; Replace dialog using regular expressions</phrase>
+				</textobject>
+			</mediaobject>
+		</screenshot>
+  </figure>
+  </para>
+  <para>Breaking down the find expression, we first have a subpattern defined within the parenthesis. The vertical line 
+  character, &verbar;, is treated as a logical or. So, the (&lt;&verbar;&lt;/) means to match either "&lt;" or "&lt;/". For each match that 
+  is found, this choice is stored and is accessible in the replace field by the reference "\0". The "\0" refers to 
+  the first subpattern match. If we had two parentheses, "\1" would refer to a second subpattern. 
+  </para>
+  <para>
+  Notice in the replace dialog we have chosen <literal>Beginning of selection till end of selection</literal>. The results are 
+  shown below.
+  </para>
+  <para>
+  <figure id="figure-find-replace-regex-after">
+	<title id="figure-find-replace-regex-after-title">Find and Replace Example After Replace</title>
+		<screenshot>
+			<mediaobject>
+				<imageobject>
+					<imagedata fileref="figures/find_replace_regex_after.png" format="PNG"/>
+				</imageobject>
+				<textobject>
+					<phrase>A screen shot showing highlighted tags after replacement</phrase>
+				</textobject>
+			</mediaobject>
+		</screenshot>
+  </figure>
+  </para>
+  <para>For more information about
   regular expressions you might want to read man 7 regex, or read any of the
-  great Internet sites about regular expressions. The \0 in the replace string
-  refers to the first subpattern match in the search pattern, the \1 to the
-  second etc.</para>
-  <para> if you understand the above example, you will
-  realize that you can do much more.</para>
+  great Internet sites about regular expressions. As you become more familiar with regular expressions, you will
+  realize that they make Bluefish a very powerful editor.
+  </para>
   <para>Suppose you also want to match a table
   data tag that does have some attributes like &lt;td class="myclass"&gt;, and
   you want to keep the option while converting to table header. The following
