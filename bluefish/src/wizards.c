@@ -145,7 +145,7 @@ static void frame_wizard_ok_lcb(GtkWidget * widget, Thtml_diag *dg) {
 		frameset = g_strconcat(cap("<FRAMESET ROWS=\""), sizes, "\">\n", NULL);
 	}
 
-	finalstring = g_strconcat(thestring, frameset, frames, cap("<NOFRAMES>\n\n</NOFRAMES\n</FRAMESET>\n</HTML>"), NULL);
+	finalstring = g_strconcat(thestring, frameset, frames, cap("<NOFRAMES>\n\n</NOFRAMES>\n</FRAMESET>\n</HTML>"), NULL);
 	g_free(sizes);
 	g_free(frameset);
 	g_free(frames);
