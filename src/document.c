@@ -578,7 +578,7 @@ void doc_insert_two_strings(Tdocument *doc, const gchar *before_str, const gchar
 			gtk_text_iter_backward_chars(&itinsert, strlen(after_str));
 			gtk_text_buffer_place_cursor(doc->buffer, &itinsert);
 		}
-	} else {
+	} else { /* there is a selection */
 		GtkTextMark *marktoresetto;
 		GtkTextIter firstiter;
 		if (gtk_text_iter_compare(&itinsert,&itselect) < 0) {

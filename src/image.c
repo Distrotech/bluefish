@@ -42,8 +42,7 @@ typedef struct {
 } Timage_diag;
 
 void image_diag_destroy_cb(GtkWidget * widget, GdkEvent *event,  Timage_diag *imdg) {
-	window_destroy(imdg->dg->dialog);
-	g_free(imdg->dg);
+	html_diag_destroy_cb(widget,event,imdg->dg);
 	g_free(imdg);
 }
 
