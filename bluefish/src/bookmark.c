@@ -588,95 +588,85 @@ void adjust_proc(gpointer key,gpointer value,gpointer user_data)
    }   
 }
 
-
-void bmark_adjust_visible(Tbfwin *win)
-{
-   Tbmark_data *data = BMARKDATA(main_v->bmarkdata);
-   
-   
-   g_hash_table_foreach(data->temporary,clean_proc,win);
-   g_hash_table_foreach(data->permanent,clean_proc,win);
-   g_hash_table_foreach(data->temporary,adjust_proc,win);   
-   g_hash_table_foreach(data->permanent,adjust_proc,win);   
-   gtk_tree_view_expand_all(GTK_TREE_VIEW(BMARKGUI(win->bmark)->tree));
+void bmark_adjust_visible(Tbfwin *bfwin) {
+	if (bfwin->bmark) {
+		Tbmark_data *data = BMARKDATA(main_v->bmarkdata);
+		g_hash_table_foreach(data->temporary,clean_proc,bfwin);
+		g_hash_table_foreach(data->permanent,clean_proc,bfwin);
+		g_hash_table_foreach(data->temporary,adjust_proc,bfwin);   
+		g_hash_table_foreach(data->permanent,adjust_proc,bfwin);   
+		gtk_tree_view_expand_all(GTK_TREE_VIEW(BMARKGUI(bfwin->bmark)->tree));
+	}
 }
 
-
-
-void bmark_visible_1(GtkWidget *widget,gpointer user_data)
-{
-   Tbmark_data *data = BMARKDATA(main_v->bmarkdata);
-   data->visible_bmarks = BM_VIS_ALL;
-   bmark_adjust_visible(user_data);  
+static void bmark_visible_1_lcb(GtkWidget *widget,gpointer user_data) {
+	Tbmark_data *data = BMARKDATA(main_v->bmarkdata);
+	data->visible_bmarks = BM_VIS_ALL;
+	bmark_adjust_visible(user_data);  
 }
 
-void bmark_visible_2(GtkWidget *widget,gpointer user_data)
-{
-   Tbmark_data *data = BMARKDATA(main_v->bmarkdata);
-   data->visible_bmarks = BM_VIS_FILES;
-   bmark_adjust_visible(user_data);  
+static void bmark_visible_2_lcb(GtkWidget *widget,gpointer user_data) {
+	Tbmark_data *data = BMARKDATA(main_v->bmarkdata);
+	data->visible_bmarks = BM_VIS_FILES;
+	bmark_adjust_visible(user_data);  
 }
 
-void bmark_visible_3(GtkWidget *widget,gpointer user_data)
-{
-   Tbmark_data *data = BMARKDATA(main_v->bmarkdata);
-   data->visible_bmarks = BM_VIS_ACTUAL;
-   bmark_adjust_visible(user_data);  
+static void bmark_visible_3_lcb(GtkWidget *widget,gpointer user_data) {
+	Tbmark_data *data = BMARKDATA(main_v->bmarkdata);
+	data->visible_bmarks = BM_VIS_ACTUAL;
+	bmark_adjust_visible(user_data);  
 }
 
-
-GtkWidget *bmark_gui(Tbfwin *bfwin)
-{
-   GtkWidget *vbox,*mi,*menu;
+GtkWidget *bmark_gui(Tbfwin *bfwin) {
+	GtkWidget *vbox,*mi,*menu;
 	GtkCellRenderer *cell;
 	GtkTreeViewColumn *column;
-   Tbmark_data *bd = BMARKDATA(main_v->bmarkdata);
-   
-   
-   bfwin->bmark = g_new(Tbmark_gui,1);
-   vbox = gtk_vbox_new(FALSE,1);
-   BMARKGUI(bfwin->bmark)->viewmenu = gtk_option_menu_new();
-   menu = gtk_menu_new();
-   mi = gtk_menu_item_new_with_label(_("Show all bookmarks"));
-   g_signal_connect(GTK_OBJECT(mi), "activate", G_CALLBACK(bmark_visible_1), bfwin);		   
-   gtk_menu_append(GTK_MENU(menu), mi);   
-   mi = gtk_menu_item_new_with_label(_("Show bookmarks for opened files"));
-   g_signal_connect(GTK_OBJECT(mi), "activate", G_CALLBACK(bmark_visible_2), bfwin);
-   gtk_menu_append(GTK_MENU(menu), mi);   
-   mi = gtk_menu_item_new_with_label(_("Show bookmarks for active file"));
-   g_signal_connect(GTK_OBJECT(mi), "activate", G_CALLBACK(bmark_visible_3), bfwin);
-   gtk_menu_append(GTK_MENU(menu), mi);   
-   gtk_option_menu_set_menu(GTK_OPTION_MENU(BMARKGUI(bfwin->bmark)->viewmenu),menu);
-
-   BMARKGUI(bfwin->bmark)->tree = gtk_tree_view_new_with_model(GTK_TREE_MODEL(bd->store));
-   gtk_tree_store_append(bd->store, &(BMARKGUI(bfwin->bmark)->temp_branch), NULL);
+	Tbmark_data *bd = BMARKDATA(main_v->bmarkdata);
+	
+	bfwin->bmark = g_new(Tbmark_gui,1);
+	vbox = gtk_vbox_new(FALSE,1);
+	BMARKGUI(bfwin->bmark)->viewmenu = gtk_option_menu_new();
+	menu = gtk_menu_new();
+	mi = gtk_menu_item_new_with_label(_("Show all bookmarks"));
+	g_signal_connect(GTK_OBJECT(mi), "activate", G_CALLBACK(bmark_visible_1_lcb), bfwin);		   
+	gtk_menu_append(GTK_MENU(menu), mi);   
+	mi = gtk_menu_item_new_with_label(_("Show bookmarks for opened files"));
+	g_signal_connect(GTK_OBJECT(mi), "activate", G_CALLBACK(bmark_visible_2_lcb), bfwin);
+	gtk_menu_append(GTK_MENU(menu), mi);   
+	mi = gtk_menu_item_new_with_label(_("Show bookmarks for active file"));
+	g_signal_connect(GTK_OBJECT(mi), "activate", G_CALLBACK(bmark_visible_3_lcb), bfwin);
+	gtk_menu_append(GTK_MENU(menu), mi);   
+	gtk_option_menu_set_menu(GTK_OPTION_MENU(BMARKGUI(bfwin->bmark)->viewmenu),menu);
+	
+	BMARKGUI(bfwin->bmark)->tree = gtk_tree_view_new_with_model(GTK_TREE_MODEL(bd->store));
+	gtk_tree_store_append(bd->store, &(BMARKGUI(bfwin->bmark)->temp_branch), NULL);
 	gtk_tree_store_set(bd->store, &(BMARKGUI(bfwin->bmark)->temp_branch), NAME_COLUMN,_("Temporary"), PTR_COLUMN,NULL, -1);
-   gtk_tree_store_append(bd->store, &(BMARKGUI(bfwin->bmark)->perm_branch), NULL);
+	gtk_tree_store_append(bd->store, &(BMARKGUI(bfwin->bmark)->perm_branch), NULL);
 	gtk_tree_store_set(bd->store, &(BMARKGUI(bfwin->bmark)->perm_branch), NAME_COLUMN,_("Permanent"), PTR_COLUMN,NULL, -1);
 	cell = gtk_cell_renderer_text_new();
 	column =	gtk_tree_view_column_new_with_attributes("", cell, "text",
 												 NAME_COLUMN, NULL);  
-   gtk_tree_view_column_set_sizing (column,GTK_TREE_VIEW_COLUMN_AUTOSIZE);
+	gtk_tree_view_column_set_sizing (column,GTK_TREE_VIEW_COLUMN_AUTOSIZE);
 	gtk_tree_view_append_column(GTK_TREE_VIEW(BMARKGUI(bfwin->bmark)->tree), column);
 	gtk_widget_show_all(BMARKGUI(bfwin->bmark)->tree);  
-   gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(BMARKGUI(bfwin->bmark)->tree), FALSE);
-   BMARKGUI(bfwin->bmark)->buttons = gtk_hbutton_box_new();
+	gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(BMARKGUI(bfwin->bmark)->tree), FALSE);
+	BMARKGUI(bfwin->bmark)->buttons = gtk_hbutton_box_new();
 	gtk_box_pack_start(GTK_BOX(vbox),BMARKGUI(bfwin->bmark)->viewmenu,FALSE,TRUE,0);
 	gtk_box_pack_start(GTK_BOX(vbox),BMARKGUI(bfwin->bmark)->tree,TRUE,TRUE,0);
-   gtk_box_pack_start(GTK_BOX(vbox),BMARKGUI(bfwin->bmark)->buttons,FALSE,TRUE,0);	
-   
- 	g_signal_connect(G_OBJECT(BMARKGUI(bfwin->bmark)->tree), "button-press-event",G_CALLBACK(bmark_event_mouseclick), bfwin);
-
-   /* restore bookmarks if it was after left panel hide */
-   g_hash_table_foreach(bd->temporary,restore_proc,bfwin);
-   g_hash_table_foreach(bd->permanent,restore_proc,bfwin);
-   
-   gtk_tree_view_expand_all(GTK_TREE_VIEW(BMARKGUI(bfwin->bmark)->tree));  
-   BMARKGUI(bfwin->bmark)->tips = tree_tips_new_full(bfwin,GTK_TREE_VIEW(BMARKGUI(bfwin->bmark)->tree),aa);
-   tree_tips_set_show_interval(BMARKGUI(bfwin->bmark)->tips,1000);
-   tree_tips_set_hide_interval(BMARKGUI(bfwin->bmark)->tips,2000);
-
-   return vbox;
+	gtk_box_pack_start(GTK_BOX(vbox),BMARKGUI(bfwin->bmark)->buttons,FALSE,TRUE,0);	
+	
+	g_signal_connect(G_OBJECT(BMARKGUI(bfwin->bmark)->tree), "button-press-event",G_CALLBACK(bmark_event_mouseclick), bfwin);
+	
+	/* restore bookmarks if it was after left panel hide */
+	g_hash_table_foreach(bd->temporary,restore_proc,bfwin);
+	g_hash_table_foreach(bd->permanent,restore_proc,bfwin);
+	
+	gtk_tree_view_expand_all(GTK_TREE_VIEW(BMARKGUI(bfwin->bmark)->tree));  
+	BMARKGUI(bfwin->bmark)->tips = tree_tips_new_full(bfwin,GTK_TREE_VIEW(BMARKGUI(bfwin->bmark)->tree),aa);
+	tree_tips_set_show_interval(BMARKGUI(bfwin->bmark)->tips,1000);
+	tree_tips_set_hide_interval(BMARKGUI(bfwin->bmark)->tips,2000);
+	
+	return vbox;
 }
 
 
