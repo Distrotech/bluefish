@@ -40,9 +40,13 @@ gint find_common_prefixlen_in_stringlist(GList *stringlist);
 gboolean append_string_to_file(gchar *filename, gchar *string);
 gint table_convert_char2int(Tconvert_table *table, gchar *my_char, Ttcc2i_mode mode);
 gchar *table_convert_int2char(Tconvert_table *table, gint my_int);
+gchar *expand_string(const gchar *string, const char specialchar, Tconvert_table *table);
+gchar *unexpand_string(const gchar *original, const char specialchar, Tconvert_table *table);
 gchar *replace_string_printflike(const gchar *string, Tconvert_table *table);
 gchar *unescape_string(const gchar *original, gboolean escape_colon);
 gchar *escape_string(const gchar *original, gboolean escape_colon);
+Tconvert_table *new_convert_table(gint size, gboolean fill_standardescape);
+void free_convert_table(Tconvert_table *tct);
 
 #define utf8_byteoffset_to_charsoffset(string,byteoffset) g_utf8_pointer_to_offset(string, string+byteoffset)
 /*glong utf8_byteoffset_to_charsoffset(gchar *string, glong byteoffset);*/
