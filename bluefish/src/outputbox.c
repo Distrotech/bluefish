@@ -51,34 +51,37 @@ typedef struct {
 	GtkWidget *lview;
 	GtkWidget *hbox;
 	Toutput_def *def;
-} Toutput_box;
+	Tbfwin *bfwin;
+} Toutputbox;
+#define OUTPUTBOX(var) ((Toutputbox *)(var))
 
-static void ob_lview_row_activated_lcb(GtkTreeView *tree, GtkTreePath *path,GtkTreeViewColumn *column, gpointer data) {
+static void ob_lview_row_activated_lcb(GtkTreeView *tree, GtkTreePath *path,GtkTreeViewColumn *column, Toutputbox *ob) {
 	GtkTreeIter iter;
 	gchar *file, *line;
 	gint lineval;
-	gtk_tree_model_get_iter(GTK_TREE_MODEL(ob.lstore),&iter,path);
-	gtk_tree_model_get(GTK_TREE_MODEL(ob.lstore), &iter, 0,&file,1,&line, -1);
+	gtk_tree_model_get_iter(GTK_TREE_MODEL(ob->lstore),&iter,path);
+	gtk_tree_model_get(GTK_TREE_MODEL(ob->lstore), &iter, 0,&file,1,&line, -1);
 	DEBUG_MSG("ob_lview_row_activated_lcb, file=%s, line=%s\n",file,line);
 	if (file && strlen(file)) {
-		doc_new_with_file(file,FALSE);
+		doc_new_with_file(ob->bfwin,file,FALSE);
 	}
 	if (line && strlen(line)) {
 		lineval = atoi(line);
 		flush_queue();
-		doc_select_line(main_v->current_document, lineval, TRUE);
+		doc_select_line(ob->bfwin->current_document, lineval, TRUE);
 	}
 	g_free(line);
 	g_free(file);
 }
 
-static void output_box_close_clicked_lcb(GtkWidget *widget, gpointer data) {
-	gtk_widget_hide(ob.hbox);
+static void output_box_close_clicked_lcb(GtkWidget *widget, Toutputbox *ob) {
+	gtk_widget_hide(ob->hbox);
 }
 
 void init_output_box(Tbfwin *bfwin, GtkWidget *vbox) {
-	Toutput_box ob = g_new0(Toutput_box,1);
-	bfwin.outputbox = ob;
+	Toutputbox *ob = g_new0(Toutputbox,1);
+	bfwin->outputbox = ob;
+	ob->bfwin = bfwin;
 
 	ob->def = NULL;	
 	ob->lstore = gtk_list_store_new (3,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING);
@@ -91,7 +94,7 @@ void init_output_box(Tbfwin *bfwin, GtkWidget *vbox) {
 		ob->hbox = gtk_hbox_new(FALSE,0);
 		gtk_box_pack_start(GTK_BOX(vbox), ob->hbox, FALSE, FALSE, 2);
 		
-	   renderer = gtk_cell_renderer_text_new ();
+		renderer = gtk_cell_renderer_text_new ();
 		column = gtk_tree_view_column_new_with_attributes ("Filename", renderer,"text",0,NULL);
 		gtk_tree_view_append_column (GTK_TREE_VIEW(ob->lview), column);
 		column = gtk_tree_view_column_new_with_attributes ("Line", renderer,"text",1,NULL);
@@ -104,7 +107,7 @@ void init_output_box(Tbfwin *bfwin, GtkWidget *vbox) {
 		gtk_container_add(GTK_CONTAINER(scrolwin), ob->lview);
 		gtk_widget_set_usize(scrolwin, 150, 150);
 		gtk_box_pack_start(GTK_BOX(ob->hbox), scrolwin, TRUE, TRUE, 0);
-		g_signal_connect(G_OBJECT(ob->lview), "row-activated",G_CALLBACK(ob_lview_row_activated_lcb),NULL);
+		g_signal_connect(G_OBJECT(ob->lview), "row-activated",G_CALLBACK(ob_lview_row_activated_lcb),ob);
 	}
 	{
 		GtkWidget *vbox2 = gtk_vbox_new(FALSE,0);
@@ -114,82 +117,82 @@ void init_output_box(Tbfwin *bfwin, GtkWidget *vbox) {
 		gtk_container_add(GTK_CONTAINER(but), image);
 		gtk_container_set_border_width(GTK_CONTAINER(but), 0);
 		gtk_widget_set_usize(but, 16,16);
-		g_signal_connect(G_OBJECT(but), "clicked", G_CALLBACK(output_box_close_clicked_lcb), NULL);
+		g_signal_connect(G_OBJECT(but), "clicked", G_CALLBACK(output_box_close_clicked_lcb), ob);
 		gtk_box_pack_start(GTK_BOX(ob->hbox), vbox2, FALSE, FALSE, 0);
 		gtk_box_pack_start(GTK_BOX(vbox2), but, FALSE, FALSE, 0);
 	}
 }
 
-static void fill_output_box(GList *source) {
+static void fill_output_box(Toutputbox *ob, GList *source) {
 	GList *tmplist;
 	
-	gtk_list_store_clear(GTK_LIST_STORE(ob.lstore));
+	gtk_list_store_clear(GTK_LIST_STORE(ob->lstore));
 	
 	tmplist = g_list_first(source);
 	while (tmplist) {
 		gchar *string = (gchar *)tmplist->data;
 		GtkTreeIter iter;
-		if (regexec(&ob.def->preg,string,NUM_MATCH,ob.def->pmatch,0)==0) {
+		if (regexec(&ob->def->preg,string,NUM_MATCH,ob->def->pmatch,0)==0) {
 			/* we have a valid line */
 			gchar *filename,*line,*output;
 			filename=line=output=NULL;
-			gtk_list_store_append(GTK_LIST_STORE(ob.lstore), &iter);
-			if (ob.def->file_subpat >= 0 && ob.def->pmatch[ob.def->file_subpat].rm_so >=0) {
-				DEBUG_MSG("fill_output_box, filename from %d to %d\n", ob.def->pmatch[ob.def->file_subpat].rm_so ,ob.def->pmatch[ob.def->file_subpat].rm_eo);
-				filename=g_strndup(&string[ob.def->pmatch[ob.def->file_subpat].rm_so], ob.def->pmatch[ob.def->file_subpat].rm_eo - ob.def->pmatch[ob.def->file_subpat].rm_so);
+			gtk_list_store_append(GTK_LIST_STORE(ob->lstore), &iter);
+			if (ob->def->file_subpat >= 0 && ob->def->pmatch[ob->def->file_subpat].rm_so >=0) {
+				DEBUG_MSG("fill_output_box, filename from %d to %d\n", ob->def->pmatch[ob->def->file_subpat].rm_so ,ob->def->pmatch[ob->def->file_subpat].rm_eo);
+				filename=g_strndup(&string[ob->def->pmatch[ob->def->file_subpat].rm_so], ob->def->pmatch[ob->def->file_subpat].rm_eo - ob->def->pmatch[ob->def->file_subpat].rm_so);
 			}
-			if (ob.def->line_subpat >= 0&& ob.def->pmatch[ob.def->line_subpat].rm_so >=0) {
-				DEBUG_MSG("fill_output_box, line from %d to %d\n", ob.def->pmatch[ob.def->line_subpat].rm_so ,ob.def->pmatch[ob.def->line_subpat].rm_eo);
-				line=g_strndup(&string[ob.def->pmatch[ob.def->line_subpat].rm_so], ob.def->pmatch[ob.def->line_subpat].rm_eo - ob.def->pmatch[ob.def->line_subpat].rm_so);
+			if (ob->def->line_subpat >= 0&& ob->def->pmatch[ob->def->line_subpat].rm_so >=0) {
+				DEBUG_MSG("fill_output_box, line from %d to %d\n", ob->def->pmatch[ob->def->line_subpat].rm_so ,ob->def->pmatch[ob->def->line_subpat].rm_eo);
+				line=g_strndup(&string[ob->def->pmatch[ob->def->line_subpat].rm_so], ob->def->pmatch[ob->def->line_subpat].rm_eo - ob->def->pmatch[ob->def->line_subpat].rm_so);
 			}
-			if (ob.def->output_subpat >= 0&& ob.def->pmatch[ob.def->output_subpat].rm_so >=0) {
-				DEBUG_MSG("fill_output_box, output from %d to %d\n", ob.def->pmatch[ob.def->output_subpat].rm_so ,ob.def->pmatch[ob.def->output_subpat].rm_eo);
-				output=g_strndup(&string[ob.def->pmatch[ob.def->output_subpat].rm_so], ob.def->pmatch[ob.def->output_subpat].rm_eo - ob.def->pmatch[ob.def->output_subpat].rm_so);
+			if (ob->def->output_subpat >= 0&& ob->def->pmatch[ob->def->output_subpat].rm_so >=0) {
+				DEBUG_MSG("fill_output_box, output from %d to %d\n", ob->def->pmatch[ob->def->output_subpat].rm_so ,ob->def->pmatch[ob->def->output_subpat].rm_eo);
+				output=g_strndup(&string[ob->def->pmatch[ob->def->output_subpat].rm_so], ob->def->pmatch[ob->def->output_subpat].rm_eo - ob->def->pmatch[ob->def->output_subpat].rm_so);
 			}
 			if (filename) {
 				gchar *fullpath;
 				/* create_full_path uses the current directory of no basedir is set */
 				fullpath = create_full_path(filename, NULL);
-				gtk_list_store_set(GTK_LIST_STORE(ob.lstore), &iter,0,fullpath,-1);
+				gtk_list_store_set(GTK_LIST_STORE(ob->lstore), &iter,0,fullpath,-1);
 				g_free(filename);
 				g_free(fullpath);
 			}
 			if (line) {
-				gtk_list_store_set(GTK_LIST_STORE(ob.lstore), &iter,1,line, -1);
+				gtk_list_store_set(GTK_LIST_STORE(ob->lstore), &iter,1,line, -1);
 				g_free(line);
 			}
 			if (output) {
-				gtk_list_store_set(GTK_LIST_STORE(ob.lstore), &iter,2,output, -1);
+				gtk_list_store_set(GTK_LIST_STORE(ob->lstore), &iter,2,output, -1);
 				g_free(output);
 			}
-		} else if (ob.def->show_all_output) {
-			gtk_list_store_append(GTK_LIST_STORE(ob.lstore), &iter);
-			gtk_list_store_set(GTK_LIST_STORE(ob.lstore), &iter,2,string, -1);
+		} else if (ob->def->show_all_output) {
+			gtk_list_store_append(GTK_LIST_STORE(ob->lstore), &iter);
+			gtk_list_store_set(GTK_LIST_STORE(ob->lstore), &iter,2,string, -1);
 		}
 		tmplist = g_list_next(tmplist);
 	}
 }
 
-static GList *run_command() {
+static GList *run_command(Toutputbox *ob) {
 	GList *retlist;
 	Tconvert_table *table, *tmpt;
 	gchar *command1, *command2, *tmpfile;
 	file_save_cb(NULL, NULL);
-	if (!main_v->current_document->filename) {
+	if (!ob->bfwin->current_document->filename) {
 		/* if the usder clicked cancel at file_save -> return */
 		return NULL;
 	}
 	table = tmpt = g_new(Tconvert_table, 2);
 	tmpt->my_int = 's';
-	tmpt->my_char = main_v->current_document->filename;
+	tmpt->my_char = ob->bfwin->current_document->filename;
 	tmpt++;
 	tmpt->my_char = NULL;
-	command1 = replace_string_printflike(ob.def->command, table);
+	command1 = replace_string_printflike(ob->def->command, table);
 	g_free(table);
 	tmpfile = create_secure_dir_return_filename();
 	command2 = g_strconcat(command1, " > ", tmpfile, " 2>&1", NULL);
 	DEBUG_MSG("run_command, should run %s now\n", command2);
-	change_dir(main_v->current_document->filename);
+	change_dir(ob->bfwin->current_document->filename);
 	system(command2);
 	retlist = get_stringlist(tmpfile, NULL);
 	remove_secure_dir_and_filename(tmpfile);
@@ -199,19 +202,20 @@ static GList *run_command() {
 	return retlist;
 }
 
-void outputbox(gchar *pattern, gint file_subpat, gint line_subpat, gint output_subpat, gchar *command, gboolean show_all_output) {
+void outputbox(Tbfwin *bfwin,gchar *pattern, gint file_subpat, gint line_subpat, gint output_subpat, gchar *command, gboolean show_all_output) {
 	GList *olist;
-	ob.def = g_new(Toutput_def,1);
-	ob.def->pattern = pattern;
-	ob.def->file_subpat = file_subpat;
-	ob.def->line_subpat = line_subpat;
-	ob.def->output_subpat = output_subpat;
-	regcomp(&ob.def->preg,ob.def->pattern, REG_EXTENDED);
-	ob.def->command = command;
-	olist = run_command();
-	fill_output_box(olist);
-	gtk_widget_show_all(ob.hbox);
+	Toutputbox *ob = OUTPUTBOX(bfwin->outputbox);
+	ob->def = g_new(Toutput_def,1);
+	ob->def->pattern = pattern;
+	ob->def->file_subpat = file_subpat;
+	ob->def->line_subpat = line_subpat;
+	ob->def->output_subpat = output_subpat;
+	regcomp(&ob->def->preg,ob->def->pattern, REG_EXTENDED);
+	ob->def->command = command;
+	olist = run_command(ob);
+	fill_output_box(ob,olist);
+	gtk_widget_show_all(ob->hbox);
 	free_stringlist(olist);
-	g_free(ob.def);
-	ob.def = NULL;
+	g_free(ob->def);
+	ob->def = NULL;
 }
