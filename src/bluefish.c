@@ -37,21 +37,23 @@
 #include <locale.h>
 #endif
 
-#include "document.h" /*  */
-#include "gui.h" /* gui_create_main() */
-#include "fref.h" /* fref_init() */
-#include "bookmark.h"  /* bmark_init() */
-#include "rcfile.h" /* rcfile_parse_main() */
-#include "bf_lib.h" /* create_full_path() */
-#include "highlight.h" /* hl_init() */
-#include "msg_queue.h" /* msg_queue_start()*/
-#include "stringlist.h" /* put_stringlist(), get_stringlist() */
-#include "gtk_easy.h" /* flush_queue() */
+#include "authen.h"			/* set_authen_callbacks() */
+#include "bf_lib.h"			/* create_full_path() */
+#include "bookmark.h"		/* bmark_init() */
+#include "dialog_utils.h"	/* message_dialog_new() */
+#include "document.h"
 /*#include "filebrowser.h"*/ /* filters_rebuild() */
-#include "project.h"
-#include "authen.h" /* set_authen_callbacks() */
 #include "filebrowser2.h"
 #include "file_dialogs.h"
+#include "fref.h"				/* fref_init() */
+#include "gtk_easy.h"		/* flush_queue() */
+#include "gui.h"				/* gui_create_main() */
+#include "highlight.h"		/* hl_init() */
+#include "msg_queue.h"		/* msg_queue_start()*/
+#include "project.h"
+#include "rcfile.h"			/* rcfile_parse_main() */
+#include "stringlist.h"		/* put_stringlist(), get_stringlist() */
+
 
 /*********************************************/
 /* this var is global for all bluefish files */
@@ -230,8 +232,12 @@ int main(int argc, char *argv[])
 	}
 
 	gui_show_main(firstbfwin);
-	if (main_v->props.view_html_toolbar && main_v->globses.quickbar_items == NULL) {
-		info_dialog(firstbfwin->main_window, _("Bluefish tip:"), _("This message is shown since you do not have any items in the Quickbar.\n\nIf you right-click a button in the HTML toolbars you can add buttons to the Quickbar."));
+	if (main_v->props.view_html_toolbar && main_v->globses.quickbar_items == NULL) {		
+		message_dialog_new(firstbfwin->main_window, 
+								 GTK_MESSAGE_INFO, 
+								 GTK_BUTTONS_OK, 
+								 _("Bluefish tip:"), 
+								 _("This message is shown since you do not have any items in the Quickbar.\n\nIf you right-click a button in the HTML toolbars you can add buttons to the Quickbar."));
 	}
 	if (projectfiles) {
 		GList *tmplist = g_list_first(projectfiles);

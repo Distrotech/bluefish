@@ -37,16 +37,19 @@ the trailing slash. So it is convenient to use directories without trailing slas
 
 #include <gtk/gtk.h>
 #include <string.h>
+
 #include "bluefish.h"
-#include "file.h"
 #include "bf_lib.h"
-#include "stringlist.h" /* count_array() */
-#include "project.h"
+#include "dialog_utils.h"
 #include "document.h"
+#include "file.h"
 #include "file_dialogs.h"
+#include "gtk_easy.h"		/* destroy_disposable_menu_cb() */
 #include "image.h"
-#include "menu.h" /* menu_translate() */
-#include "gtk_easy.h" /* destroy_disposable_menu_cb() */
+#include "menu.h"				/* menu_translate() */
+#include "project.h"
+#include "stringlist.h"		/* count_array() */
+
 
 typedef struct {
 	gchar *name;
@@ -1033,7 +1036,11 @@ static void fb2rpopup_rename(Tfilebrowser2 *fb2) {
 				res = gnome_vfs_move_uri(olduri,newuri,TRUE);
 				if (res != GNOME_VFS_OK) {
 					gchar *errmessage = g_strconcat(_("Could not rename\n"), oldfilename, NULL);
-					error_dialog(fb2->bfwin->main_window,errmessage, NULL);
+					message_dialog_new(fb2->bfwin->main_window, 
+											 GTK_MESSAGE_ERROR, 
+								 			 GTK_BUTTONS_CLOSE, 
+								 			 errmessage,
+								 			 NULL);
 					g_free(errmessage);
 				}
 				g_free(newfilename);
@@ -1076,7 +1083,11 @@ static void fb2rpopup_delete(Tfilebrowser2 *fb2) {
 			}
 			if (res != GNOME_VFS_OK) {
 				errmessage = g_strconcat(_("Could not delete \n"), filename, NULL);
-				error_dialog(fb2->bfwin->main_window,errmessage, NULL);
+				message_dialog_new(fb2->bfwin->main_window, 
+										 GTK_MESSAGE_ERROR, 
+								 		 GTK_BUTTONS_CLOSE, 
+								 		 errmessage,
+								 		 NULL);
 				g_free(errmessage);
 			} else {
 				GList *alldocs = return_allwindows_documentlist();

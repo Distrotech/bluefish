@@ -22,10 +22,11 @@
 #include <gtk/gtk.h>
 #include <string.h> /* memcpy */
 #include "bluefish.h"
-#include "gtk_easy.h"
-#include "gui.h"
+#include "dialog_utils.h"
 #include "document.h"
 #include "file.h"
+#include "gtk_easy.h"
+#include "gui.h"
 #include "stringlist.h"
 #include "undo_redo.h"
 
@@ -308,7 +309,11 @@ static TcheckNsave_return doc_checkNsave_lcb(TcheckNsave_status status,gint erro
 			{
 				DEBUG_MSG("doc_checkNsave_lcb, some ERROR, give user a message\n");
 				errmessage = g_strconcat(_("Could not save file:\n\""),gtk_label_get_text(GTK_LABEL(doc->tab_label)), "\"", NULL);
-				error_dialog(BFWIN(doc->bfwin)->main_window,_("File save failed!\n"), errmessage);
+				message_dialog_new(BFWIN(doc->bfwin)->main_window, 
+								 		 GTK_MESSAGE_ERROR, 
+								 		 GTK_BUTTONS_CLOSE, 
+								 		 _("File save failed!\n"), 
+								 		 errmessage);
 				g_free(errmessage);
 				doc->action.save = NULL;
 				gtk_text_view_set_editable(GTK_TEXT_VIEW(doc->view),TRUE);
@@ -455,7 +460,11 @@ void doc_save_backend(Tdocument *doc, gboolean do_save_as, gboolean do_move, gbo
 		gchar *errmessage;
 		/* this message is not in very nice english I'm afraid */
 		errmessage = g_strconcat(_("File:\n\""),gtk_label_get_text(GTK_LABEL(doc->tab_label)), "\" save is in progress", NULL);
-		error_dialog(BFWIN(doc->bfwin)->main_window,_("Save in progress!"), errmessage);
+		message_dialog_new(BFWIN(doc->bfwin)->main_window, 
+								 GTK_MESSAGE_ERROR, 
+								 GTK_BUTTONS_CLOSE, 
+								 _("Save in progress!"), 
+								 errmessage);
 		g_free(errmessage);
 		return;
 	}

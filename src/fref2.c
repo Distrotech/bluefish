@@ -28,14 +28,15 @@
 #include <libxml/xmlwriter.h>
 
 #include "bluefish.h"
-#include "fref.h"
-#include "rcfile.h"				/* array_from_arglist() */
-#include "stringlist.h"
-#include "document.h"
 #include "bf_lib.h"
-#include "gtk_easy.h"
 #include "char_table.h"
+#include "dialog_utils.h"
+#include "document.h"
+#include "fref.h"
+#include "gtk_easy.h"
 #include "pixmap.h"
+#include "rcfile.h"			/* array_from_arglist() */
+#include "stringlist.h"
 
 enum {
 	PIXMAP_COLUMN,
@@ -861,8 +862,12 @@ void fref_load_from_file(gchar * filename, GtkWidget * tree, GtkTreeStore * stor
 
 	tmps = xmlGetProp(cur,fref_names[FID_VERSION]);
 	if (xmlStrcmp(tmps, (const xmlChar *) "2") != 0 ) {
-		warning_dialog(bfwin->main_window,_("Bad reference"),
-									 _("This is probably old reference file. \nPlease update it to the new format."));
+		message_dialog_new(bfwin->main_window, 
+							 	 GTK_MESSAGE_WARNING, 
+							 	 GTK_BUTTONS_OK, 
+								 _("Bad reference"),
+								 _("This is probably old reference file. \nPlease update it to the new format."));
+								 
 		g_hash_table_destroy(info->dictionary);
 		g_hash_table_destroy(info->commons);		
 		g_hash_table_destroy(info->elements);
@@ -2767,8 +2772,11 @@ static void fref_search(Tbfwin * bfwin,const gchar *phrase)
 		if (G_IS_VALUE(val) && g_value_fits_pointer(val) && g_value_peek_pointer(val)) 
 			el = FREFRECORD(g_value_peek_pointer(val));		
 	}	else {
-			error_dialog(bfwin->main_window, _("Error"),
-			                 _("Perhaps you didn't load a library, or you did not select a library to search in."));
+			message_dialog_new(bfwin->main_window, 
+								 	 GTK_MESSAGE_ERROR, 
+								 	 GTK_BUTTONS_CLOSE, 
+								 	 _("Error"),
+									 _("Perhaps you didn't load a library, or you did not select a library to search in."));
 			return;			                 		
 	}	
 	
@@ -2777,7 +2785,11 @@ static void fref_search(Tbfwin * bfwin,const gchar *phrase)
 	ret = g_hash_table_lookup(FREFINFO(el->data)->dictionary, phrase);
 	if (!ret) {
 						stf = g_strdup_printf(_("Element %s not found"),phrase);
-						error_dialog(bfwin->main_window, _("Element search"),stf	 );
+						message_dialog_new(bfwin->main_window, 
+								 	 			 GTK_MESSAGE_ERROR, 
+								 	 			 GTK_BUTTONS_CLOSE, 
+								 	 			 _("Element search"), 
+								 	 			 stf);
 						g_free(stf);
 					}	
 	if (ret != NULL) {
@@ -2835,8 +2847,13 @@ static void frefcb_new_library(GtkWidget * widget, Tbfwin *bfwin)
 										g_free(pomstr);
 										g_free(userdir);
 										fill_toplevels(FREFDATA(main_v->frefdata), TRUE);										
-									}	
-									else error_dialog(bfwin->main_window,_("Error"),_("Library has to have a name."));
+									} else {
+										message_dialog_new(bfwin->main_window, 
+																 GTK_MESSAGE_ERROR, 
+								 	 			 				 GTK_BUTTONS_CLOSE, 
+								 	 			 				 _("Error"), 
+								 	 			 				 _("Library has to have a name."));
+									}
 									gtk_widget_destroy(dialog);
 							} else
 								gtk_widget_destroy(dialog);
@@ -2874,7 +2891,11 @@ static void frefcb_delete_library(GtkWidget * widget, Tbfwin *bfwin)
 		g_free(val);
 	} else
 	{
-		error_dialog(bfwin->main_window,_("Error"),_("You have to select a reference."));
+		message_dialog_new(bfwin->main_window, 
+								 GTK_MESSAGE_ERROR, 
+								 GTK_BUTTONS_CLOSE, 
+								 _("Error"), 
+								 _("You have to select a reference."));
 		return;
 	}	
 }
@@ -2897,7 +2918,11 @@ static void frefcb_new_td(GtkWidget * widget, Tbfwin *bfwin, gint type, gboolean
 	entry = get_current_entry(bfwin);
 	if ( !entry )
 		{
-			error_dialog(bfwin->main_window,_("Error"),_("Reference not loaded."));
+			message_dialog_new(bfwin->main_window, 
+									 GTK_MESSAGE_ERROR, 
+								 	 GTK_BUTTONS_CLOSE, 
+								 	 _("Error"), 
+								 	 _("Reference not loaded."));
 			return;
 		}
 	switch (type)
@@ -2909,7 +2934,11 @@ static void frefcb_new_td(GtkWidget * widget, Tbfwin *bfwin, gint type, gboolean
 			entry->etype!=FREF_EL_CLASS && entry->etype!=FREF_EL_CSSPROP && 
 			entry->etype!=FREF_EL_CSSSELECT )
 		{
-			error_dialog(bfwin->main_window,_("Bad element"),_("You can define notes for: library, group or element."));
+			message_dialog_new(bfwin->main_window, 
+									 GTK_MESSAGE_ERROR, 
+								 	 GTK_BUTTONS_CLOSE, 
+								 	 _("Bad element"), 
+								 	 _("You can define notes for: library, group or element."));
 			return;
 		}
 		dialog = fref_editor_td(_("New note"),_("Title"),_("Text"),bfwin,&e1,&e2);
@@ -2919,7 +2948,11 @@ static void frefcb_new_td(GtkWidget * widget, Tbfwin *bfwin, gint type, gboolean
 	{
  	   if  ( entry->etype!=FREF_EL_REF && entry->etype!=FREF_EL_GROUP )
 		{
-			error_dialog(bfwin->main_window,_("Bad element"),_("You can define group for: library or group ."));
+			message_dialog_new(bfwin->main_window, 
+									 GTK_MESSAGE_ERROR, 
+								 	 GTK_BUTTONS_CLOSE, 
+								 	 _("Bad element"), 
+								 	 _("You can define group for: library or group ."));
 			return;
 		}
 		dialog = fref_editor_td(_("New group"),_("Name"),_("Description"),bfwin,&e1,&e2);

@@ -26,12 +26,14 @@
 #include <fcntl.h>
 #include <stdlib.h>
 #include <string.h>
+
 #include "bluefish.h"
+#include "bookmark.h"
+#include "dialog_utils.h"
+#include "document.h"
 #include "gtk_easy.h"
 #include "gui.h"
-#include "document.h"
 #include "stringlist.h"
-#include "bookmark.h"
 
 /*
 bookmarks will be loaded and saved to an arraylist (see stringlist.c). This 
@@ -1239,9 +1241,12 @@ void bmark_add(Tbfwin * bfwin) {
 	gint offset;
 	/* check for unnamed document */
 	if (!DOCUMENT(bfwin->current_document)->uri) {
-		error_dialog(bfwin->main_window, _("Add bookmark"),
-					 _("Cannot add bookmarks in unnamed files."));
-					 /*\nPlease save the file first. A Save button in this dialog would be cool -- Alastair*/
+		message_dialog_new(bfwin->main_window, 
+								 GTK_MESSAGE_ERROR, 
+								 GTK_BUTTONS_CLOSE, 
+								 _("Error adding bookmark"), 
+								 _("Cannot add bookmarks to unsaved files."));
+		/*Please save the file first. A Save button in this dialog would be cool -- Alastair*/
 		return;
 	}
 	/* if the left panel is disabled, we simply should add the bookmark to the list, and do nothing else */
@@ -1256,8 +1261,11 @@ void bmark_add(Tbfwin * bfwin) {
 		/* check for existing bookmark in this place */
 		has_mark = (bmark_get_bmark_at_line(DOCUMENT(bfwin->current_document), offset) != NULL);
 		if (has_mark) {
-			info_dialog(bfwin->main_window, _("Add bookmark"),
-						_("You already have a bookmark here!"));
+			message_dialog_new(bfwin->main_window, 
+								 	 GTK_MESSAGE_ERROR, 
+								 	 GTK_BUTTONS_CLOSE, 
+								 	 _("Can't add bookmark"), 
+									 _("You already have a bookmark here!"));
 			return;
 		}
 		bmark_add_current_doc_backend(bfwin, "", offset, !main_v->props.bookmarks_default_store);
@@ -1292,8 +1300,11 @@ void bmark_del_at_bevent(Tdocument *doc) {
 void bmark_add_at_bevent(Tdocument *doc) {
 		/* check for unnamed document */
 	if (!doc->uri) {
-		error_dialog(BFWIN(doc->bfwin)->main_window, _("Add bookmark"),
-					 _("Cannot add bookmarks in unnamed files."));
+		message_dialog_new(BFWIN(doc->bfwin)->main_window, 
+								 GTK_MESSAGE_ERROR, 
+								 GTK_BUTTONS_CLOSE, 
+								 _("Error adding bookmark"), 
+								 _("Cannot add bookmarks to unsaved files."));
 		return;
 	}
 	if (BMARKDATA(main_v->bmarkdata)->bevent_doc == doc) {
