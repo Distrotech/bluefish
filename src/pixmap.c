@@ -10,25 +10,24 @@ typedef struct {
 } Tpixmap;
 
 static Tpixmap tp[] = {
-	{0, new},
-	{1, open},
-	{2, save},
-	{3, save_as},
-	{4, close},
-	{5, copy},
-	{6, cut},
-	{7, paste},
-	{8, search},
-	{9, search_replace},
-	{10, undo},
-	{11, redo},
-	{12, preferences},
+/* 	{0, new}, */
+/* 	{1, open}, */
+/* 	{2, save}, */
+/* 	{3, save_as}, */
+ 	{4, close}, 
+/* 	{5, copy}, */
+/* 	{6, cut}, */
+/* 	{7, paste}, */
+/* 	{8, search}, */
+/* 	{9, search_replace}, */
+/* 	{10, undo}, */
+/* 	{11, redo}, */
+/* 	{12, preferences}, */
 	{13, quick_start},
 	{14, body},
 	{15, bold},
 	{16, italic},
 	{17, underline},
-/*	{18, strikeout},*/
 	{19, paragraph},
 	{20, brbreak},
 	{21, breakall},
@@ -114,11 +113,12 @@ static Tpixmap tp[] = {
 	{101, close_small},
 	{102, view_in_browser},
 	{103, context}, /* context dropdown image */
-	{104, spellcheck},
+/* 	{104, spellcheck}, */
 	{105, filetree},
 	{106, fref},
 	{107, frinfo},
 	{108, frdialog},
+	{109, frsearch},
 	{110, indent},
 	{111, unindent},
 	{112, open_small},

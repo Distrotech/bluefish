@@ -2051,7 +2051,7 @@ GtkWidget *fref_gui(Tbfwin *bfwin) {
 		btn1 = bf_generic_button_with_image(NULL, 108, G_CALLBACK(frefcb_info_dialog), cd);
 	}
 	btn2 = bf_generic_button_with_image(NULL, 107, G_CALLBACK(frefcb_full_info), bfwin);
-	btn3 = bf_generic_button_with_image(NULL, 199, G_CALLBACK(frefcb_search), bfwin);
+	btn3 = bf_generic_button_with_image(NULL, 109, G_CALLBACK(frefcb_search), bfwin);
 	gtk_tooltips_set_tip(FREFGUI(bfwin->fref)->argtips,btn1,_("Dialog"),"");
 	gtk_tooltips_set_tip(FREFGUI(bfwin->fref)->argtips,btn2,_("Info"),"");
 	gtk_tooltips_set_tip(FREFGUI(bfwin->fref)->argtips,btn3,_("Search"),"");
