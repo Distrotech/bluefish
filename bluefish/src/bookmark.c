@@ -678,7 +678,7 @@ void bmark_reload(Tbfwin * bfwin)
 void bmark_set_store(Tbfwin * bfwin)
 {
 	DEBUG_MSG("bmark_set_store set store %p for bfwin %p\n",bfwin->bookmarkstore,bfwin);
-	if (bfwin->bookmarkstore) {
+	if (bfwin->bookmarkstore && bfwin->bmark) {
 		gtk_tree_view_set_model(bfwin->bmark, GTK_TREE_MODEL(bfwin->bookmarkstore));
 	}
 }
@@ -730,6 +730,10 @@ void bmark_set_for_doc(Tdocument * doc)
 	DEBUG_MSG("bmark_set_for_doc, doc=%p\n",doc);
 	if (!doc->filename) {
 		DEBUG_MSG("bmark_set_for_doc, a nameless document cannot have bookmarks, returning\n");
+		return;
+	}
+	if (!BFWIN(doc->bfwin)->bmark) {
+		DEBUG_MSG("bmark_set_for_doc, no leftpanel, not implemented yet!!\n");
 		return;
 	}
 	if (doc->bmark_parent) {
