@@ -28,7 +28,7 @@
 #include <stdlib.h> /* system() */
 #include <time.h> /* ctime_r() */
 
-/*#define DEBUG*/
+#define DEBUG
 
 #include "bluefish.h"
 #include "document.h"
@@ -44,6 +44,15 @@
 #include "pixmap.h"
 #include "snr2.h" /* snr2_run_extern_replace */
 #include "filebrowser.h"
+
+typedef struct {
+	gboolean active_closing;
+} Tlocal;
+
+/******************************/
+/* global vars for this module */
+/******************************/
+static Tlocal local = {FALSE};
 
 void add_filename_to_history(gchar *filename) {
 	gchar *dirname;
@@ -1154,34 +1163,51 @@ gint doc_textbox_to_file(Tdocument * doc, gchar * filename) {
 
 void doc_destroy(Tdocument * doc, gboolean delay_activation)
 {
+	if (local.active_closing) {
+		DEBUG_MSG("doc_destroy is running already, returning\n");
+		return;
+	}
+	local.active_closing = TRUE;
 	if (doc->filename) {
 		add_to_recent_list(doc->filename, 1);
 	}
-
-	if (delay_activation) {
+/*	if (delay_activation) {*/
 		gui_notebook_unbind_signals();
-	}
-
+/*	}*/
 	/* to make this go really quick, we first only destroy the notebook page and run flush_queue(), 
 	after the document is gone from the GUI we complete the destroy, to destroy only the notebook
 	page we ref+ the scrolthingie, remove the page, and unref it again */
 	g_object_ref(doc->view->parent);
-	gtk_notebook_remove_page(GTK_NOTEBOOK(main_v->notebook),
-							 gtk_notebook_page_num(GTK_NOTEBOOK(main_v->notebook),doc->view->parent));
-	flush_queue();
-	g_object_unref(doc->view->parent);
-
+	/* now we remove the document from the document list */
 	if (g_list_length(main_v->documentlist) > 1) {
 		main_v->documentlist = g_list_remove(main_v->documentlist, doc);
+		DEBUG_MSG("removed %p from documentlist, list length=%d\n",doc, g_list_length(main_v->documentlist));
 	} else {
 		main_v->documentlist = g_list_remove(main_v->documentlist, doc);
-		DEBUG_MSG("doc_destroy, last document removed from documentlist\n");
+		DEBUG_MSG("doc_destroy, last document removed from documentlist, documentlist=%p\n", main_v->documentlist);
 		g_list_free(main_v->documentlist);
 		DEBUG_MSG("doc_destroy, freed documentlist\n");
 		main_v->documentlist = NULL;
 		DEBUG_MSG("doc_destroy, documentlist = NULL\n");
 	}
 	DEBUG_MSG("doc_destroy, g_list_length(documentlist)=%d\n",g_list_length(main_v->documentlist));
+	/* then we remove the page from the notebook */
+	gtk_notebook_remove_page(GTK_NOTEBOOK(main_v->notebook),
+							 gtk_notebook_page_num(GTK_NOTEBOOK(main_v->notebook),doc->view->parent));
+/*	flush_queue();*/
+#ifdef KJHKJGKJG
+	if (!delay_activation) {
+		/* probably it is not needed to call this function, gtk_notebook_remove_page()
+		will have called it probably */
+		notebook_changed(-1);
+	} /*	else {*/
+#endif
+		gui_notebook_bind_signals();
+/*	}*/
+
+	/* now we really start to destroy the document */
+	g_object_unref(doc->view->parent);
+
 	if (doc->filename) {
 		g_free(doc->filename);
 	}
@@ -1191,11 +1217,18 @@ void doc_destroy(Tdocument * doc, gboolean delay_activation)
 	
 	doc_unre_destroy(doc);
 	g_free(doc);
+
 	if (!delay_activation) {
 		notebook_changed(-1);
-	} else {
-		gui_notebook_bind_signals();
 	}
+#ifdef DEBUG
+	if (main_v->current_document == doc) {
+		DEBUG_MSG("doc_destroy, main_v->current_document == doc!! ABORTING!!\n");
+		exit(24);
+	}
+#endif
+	local.active_closing = FALSE;
+	DEBUG_MSG("doc_destroy, finished for %p\n", doc);
 }
 
 /* gint doc_save(Tdocument * doc, gint do_save_as, gint do_move)
@@ -1400,18 +1433,18 @@ gint doc_close(Tdocument * doc, gint warn_only)
 			break;
 		}
 	} else {
-		DEBUG_MSG("doc_close, closing doc=%p\n", doc);
 		if (!warn_only) {
+			DEBUG_MSG("doc_close, starting doc_destroy for doc=%p\n", doc);
 			doc_destroy(doc, FALSE);
 		}
 	}
-
+	DEBUG_MSG("doc_close, finished\n");
 /*	notebook_changed();*/
 	return 1;
 }
 
 static void doc_close_but_clicked_lcb(GtkWidget *wid, gpointer data) {
-	doc_close(data, 0);
+	if (!local.active_closing) doc_close(data, 0);
 }
 
 /* contributed by Oskar Swida <swida@aragorn.pb.bialystok.pl>, with help from the gedit source */

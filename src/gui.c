@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-/* #define DEBUG */
+#define DEBUG
 
 #include <gtk/gtk.h>
 #include <time.h> /* nanosleep() */
@@ -85,6 +85,8 @@ static Tsplashscreen splashscreen;
 void notebook_changed(gint newpage)
 {
 	gint cur;
+	DEBUG_MSG("notebook_changed, the newpage argument is %d\n", newpage);
+	DEBUG_MSG("notebook_changed, documentlist len=%d\n", g_list_length(main_v->documentlist));
 
 	if (newpage == -1) {
 		/* This one is called when you click on the notebook
@@ -93,14 +95,17 @@ void notebook_changed(gint newpage)
 	} else {
 		cur = newpage;
 	}
-	DEBUG_MSG("notebook_changed, main_v is at %p\n", main_v);
-
+	DEBUG_MSG("notebook_changed, cur now is %d\n", cur);
 	if ((main_v->last_notebook_page == cur) 
 		&& (main_v->current_document != NULL)
 		&& (main_v->current_document == g_list_nth_data(main_v->documentlist, cur))) {
 		DEBUG_MSG("notebook_changed, it didn't change to a new document (cur=%d, current_document=%p)\n", cur, main_v->current_document);
 		return;
 	} else {
+		if (cur >= g_list_length(main_v->documentlist)) {
+			cur = -1;
+		}
+		DEBUG_MSG("after checking documentlist len(%d) cur=%d\n",g_list_length(main_v->documentlist),cur);
 		if (cur == -1) {
 			DEBUG_MSG("notebook_changed, cur=-1, calling file_new_cb()\n");
 			file_new_cb(NULL, NULL);
