@@ -343,7 +343,16 @@ void hl_init()
 			filetype->type = g_strdup(strarr[0]);
 			filetype->extensions = g_strsplit(strarr[1], ":", 127);
 			filetype->update_chars = g_strdup(strarr[2]);
-			filetype->icon = gdk_pixbuf_new_from_file(strarr[3], NULL);
+			{
+				GError *error=NULL;
+				filetype->icon = gdk_pixbuf_new_from_file(strarr[3], &error);
+				if (error != NULL) {
+					/* Report error to user, and free error */
+					g_print("ERROR while loading pixbuf: %s\n", error->message);
+					g_error_free(error);
+					filetype->icon = NULL;
+				}
+			}
 			filetype->highlightlist = NULL;
 			main_v->filetypelist = g_list_append(main_v->filetypelist, filetype);
 		}

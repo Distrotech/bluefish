@@ -25,8 +25,15 @@
 #include <stdio.h> /* rename() */	
 
 #include "bluefish.h"
+#include "document.h"
 #include "bf_lib.h"
+#include "stringlist.h" /* count_array() */
 #include "filebrowser.h"
+
+/* #define DEBUG_SORTING */
+/* #define DEBUG_FILTER */
+#define DEBUG_ADDING_TO_TREE
+
 enum {
    TYPE_DIR,
    TYPE_FILE
@@ -402,7 +409,6 @@ static GtkTreeIter add_tree_item(GtkTreeIter *parent, GtkTreeStore *store, const
 				PIXMAP_COLUMN, pixbuf,
 				FILENAME_COLUMN, text,
 				-1);
-	g_object_unref(G_OBJECT(pixbuf));
 	return iter1;
 }
 
@@ -650,8 +656,10 @@ static void renderer_edited_lcb(GtkCellRendererText *cell,const gchar *path_stri
 
 static void row_expanded_lcb(GtkTreeView *tree,GtkTreeIter *iter,GtkTreePath *path,GtkTreeStore *store) {
 	gchar *filename = return_filename_from_path(store,path);
+	DEBUG_MSG("row_expanded_lcb, started on filename=%s\n", filename);
 	refresh_dir_by_path_and_filename(store, path, filename);
 	g_free(filename);
+	DEBUG_MSG("row_expanded_lcb, finished\n");
 }
 
 static void row_activated_lcb(GtkTreeView *tree, GtkTreePath *path,GtkTreeViewColumn *column, GtkTreeStore *store) {
@@ -667,9 +675,10 @@ static void row_activated_lcb(GtkTreeView *tree, GtkTreePath *path,GtkTreeViewCo
 			gtk_tree_view_expand_row(tree,path,FALSE);
 		}
 	} else {
-		DEBUG_MSG("probably a regular file, do whatever action on the file\n");
+		doc_new_with_file(filename, FALSE);
 	}
 	g_free(filename);
+	DEBUG_MSG("row_activated_lcb, finished\n");
 }
 
 static gboolean filebrowser_button_press_lcb(GtkWidget *widget, GdkEventButton *event, gpointer data) {
@@ -718,16 +727,37 @@ GtkWidget *filebrowser_init(gboolean firsttime) {
 		if (!filebrowser.unknown_icon) {
 			filebrowser.unknown_icon = gdk_pixbuf_new_from_file("icon_unknown.png", NULL);
 			if (!filebrowser.unknown_icon) {
-				gchar *tmpstr;
-				tmpstr = g_get_home_dir();
-				
-			
+				filebrowser.unknown_icon = gdk_pixbuf_new_from_file("../icons/icon_unknown.png", NULL);
+				if (!filebrowser.unknown_icon) {
+					filebrowser.unknown_icon = gdk_pixbuf_new_from_file("icons/icon_unknown.png", NULL);
+					if (!filebrowser.unknown_icon) {
+						gchar *tmpstr;
+						tmpstr = g_strconcat(g_get_home_dir(), ".bluefish/icons/icon_unknown.png", NULL);
+						filebrowser.unknown_icon = gdk_pixbuf_new_from_file(tmpstr, NULL);
+						g_free(tmpstr);
+					}
+				}
 			}
 		}
 		if (!filebrowser.dir_icon) {
 			filebrowser.dir_icon = gdk_pixbuf_new_from_file("icon_dir.png", NULL);
+			if (!filebrowser.dir_icon) {
+				filebrowser.dir_icon = gdk_pixbuf_new_from_file("../icons/icon_dir.png", NULL);
+				if (!filebrowser.dir_icon) {
+					filebrowser.dir_icon = gdk_pixbuf_new_from_file("icons/icon_dir.png", NULL);
+					if (!filebrowser.dir_icon) {
+						gchar *tmpstr;
+						tmpstr = g_strconcat(g_get_home_dir(), ".bluefish/icons/icon_dir.png", NULL);
+						filebrowser.dir_icon = gdk_pixbuf_new_from_file(tmpstr, NULL);
+						g_free(tmpstr);
+					}
+				}
+			}
 		}
-
+		if (!filebrowser.dir_icon || !filebrowser.unknown_icon) {
+			g_print("the dir_icon and unknown_icon items in the config file are invalid\n");
+			return gtk_label_new("cannot load icons");
+		}
 		tmplist = g_list_first(main_v->props.filefilters);
 		while (tmplist) {
 			gchar **strarr = (gchar **) tmplist->data;
