@@ -47,5 +47,5 @@ void splash_screen_set_label(gchar *label);
 GtkWidget *start_splash_screen(void);
 
 Tbfwin *gui_new_window(GList *filenames);
-void gui_new_window_menu_cb(gpointer callback_data,guint callback_action, GtkWidget *widget);
+void gui_window_menu_cb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget);
 #endif /* __GUI_H_ */

@@ -1439,6 +1439,15 @@ Tbfwin *gui_new_window(GList *filenames) {
 	return bfwin;
 }
 
-void gui_new_window_menu_cb(gpointer callback_data,guint callback_action, GtkWidget *widget) {
-	gui_new_window(NULL);
+void gui_window_menu_cb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget) {
+	switch (callback_action) {
+		case 1:
+			gui_new_window(NULL);
+		break;
+		case 2: /* close the window */
+			if (main_window_delete_event_lcb(NULL, NULL, bfwin) == FALSE) {
+				gtk_widget_destroy(bfwin->main_window);
+			}
+		break;
+	}
 }
