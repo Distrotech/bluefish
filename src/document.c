@@ -3255,7 +3255,7 @@ void doc_activate(Tdocument *doc) {
 		exit(44);
 	}
 #endif
-	if (doc == NULL || doc == BFWIN(doc->bfwin)->last_activated_doc) {
+	if (doc == NULL || doc == BFWIN(doc->bfwin)->last_activated_doc || doc->action.close_doc) {
 		return;
 	}
 	if (doc->status == DOC_STATUS_ERROR) {
