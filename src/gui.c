@@ -700,43 +700,87 @@ static void html_toolbar_remove_from_quickbar_lcb(GtkMenuItem *menuitem, Ttoolba
 gint get_quickbar_item_position(Ttoolbaritem *tbitem) {
 	GList *tmplist, *winlist = g_list_first(main_v->bfwinlist);
 	gint pos = 0;
-	Tquickbaritem *qbi;
-	Tbfwin *bfwin = BFWIN(winlist->data);
-	qbi = g_new(Tquickbaritem,1);	
-	tmplist  = g_list_first(bfwin->toolbar_quickbar_children);
+	tmplist  = g_list_first(BFWIN(winlist->data)->toolbar_quickbar_children);
 
 	while (tmplist) {
+		Tquickbaritem *qbi;
 		qbi = tmplist->data;
 		if (qbi->tbitem == tbitem) {
-			break;
+			DEBUG_MSG("get_quickbar_item_position, quickbar item is at %d\n", pos);
+			return pos;
 		}
 		pos += 1;
 		tmplist = g_list_next(tmplist);
 	}
-	g_list_free(tmplist);
-	DEBUG_MSG("quickbar item is at %d\n", pos);
-	g_list_free(winlist);
-	return pos;
+	DEBUG_MSG("get_quickbar_item_position, not found, return -1!\n");
+	return -1;
 }
 
 static gboolean html_toolbar_quickbar_item_button_press_lcb(GtkWidget *widget,GdkEventButton *bevent,Ttoolbaritem *tbitem);
 
+static void html_toolbar_quickbar_switch(Ttoolbaritem *tbitem, gboolean moveright) {
+	gint pos;
+
+	/* first we look for the current location of this item */	
+	pos = get_quickbar_item_position(tbitem);
+	DEBUG_MSG("html_toolbar_quickbar_switch, found item at pos=%d, config list length=%d\n",pos,g_list_length(main_v->globses.quickbar_items));
+	if (pos >= 0) {
+		GList *tmp1, *tmp2, *tmplist;
+		/* then we move this item to the new place in the config list */
+		tmp1 = g_list_nth(main_v->globses.quickbar_items, pos);
+		if (!tmp1) {
+			DEBUG_MSG("html_toolbar_quickbar_switch, nothing found in config list at pos=%d, RETURN\n",pos);
+			return;
+		}
+		tmp2 = (moveright) ? g_list_next(tmp1) : g_list_previous(tmp1);
+		if (!tmp2) {
+			DEBUG_MSG("html_toolbar_quickbar_switch, no tmp2 found, moveright=%d, list length=%d RETURN\n",moveright,g_list_length(main_v->globses.quickbar_items));
+			return;
+		}
+		list_switch_order(tmp1, tmp2);
+		DEBUG_MSG("html_toolbar_quickbar_switch, after list_switch_order, list length=%d\n",g_list_length(main_v->globses.quickbar_items));
+		
+		/* now switch the widgets in every window that has a quickbar */
+		tmplist = g_list_first(main_v->bfwinlist);
+		while (tmplist) {
+			Tbfwin *bfwin = BFWIN(tmplist->data);
+			DEBUG_MSG("html_toolbar_quickbar_switch, checking bfwin=%p\n",bfwin);
+			if (bfwin->toolbar_quickbar && bfwin->toolbar_quickbar_children) {
+				Tquickbaritem *qbi1;
+				tmp1 = g_list_nth(bfwin->toolbar_quickbar_children, pos);
+				qbi1 = (Tquickbaritem *)tmp1->data;
+				g_object_ref(G_OBJECT(qbi1->button));
+				DEBUG_MSG("html_toolbar_quickbar_switch, detaching widget!\n");
+				gtk_container_remove(GTK_CONTAINER(bfwin->toolbar_quickbar),qbi1->button);
+				DEBUG_MSG("html_toolbar_quickbar_switch, attaching widget at pos %d\n",(moveright)?pos+1:pos-1);
+				gtk_toolbar_insert_widget(GTK_TOOLBAR(bfwin->toolbar_quickbar),qbi1->button,
+							_(qbi1->tbitem->tooltiptext),"",(moveright)?pos+1:pos-1);
+				g_object_unref(G_OBJECT(qbi1->button));
+				gtk_widget_show_all(qbi1->button);
+				gtk_widget_show_all(bfwin->toolbar_quickbar);
+			}
+			tmplist = g_list_next(tmplist);
+		}
+		
+	}
+}
+
 static void html_toolbar_quickbar_move_left_lcb(GtkMenuItem *menuitem, Ttoolbaritem *tbitem) {
-	GList *winlist = g_list_first(main_v->bfwinlist); 
+	html_toolbar_quickbar_switch(tbitem, FALSE);
+/*	GList *winlist = g_list_first(main_v->bfwinlist); 
 	DEBUG_MSG("moving tbitem %p left on quickbars\n", tbitem);
 	while (winlist) {
 		GList *tmplist;
 		gint pos;
 		Tbfwin *bfwin = BFWIN(winlist->data);
 		Tquickbaritem *qbi;
-		qbi = g_new(Tquickbaritem,1);
+
 		pos = get_quickbar_item_position(tbitem);
 		tmplist = g_list_nth(bfwin->toolbar_quickbar_children, pos);
 		qbi = tmplist->data;
 
 		if (qbi) {
-			if (pos) { /* pos > 0 */
-				gtk_widget_hide(qbi->button);
+			if (pos) { / * pos > 0 * /
 				gtk_widget_destroy(qbi->button);
 			}
 			g_free(qbi);
@@ -762,18 +806,19 @@ static void html_toolbar_quickbar_move_left_lcb(GtkMenuItem *menuitem, Ttoolbari
 		}
 		winlist = g_list_next(winlist);
 	}
-	g_list_free(winlist);
+	 we don't create this list here so we don't need to free it!!
+	g_list_free(winlist);*/
 }
 
 static void html_toolbar_quickbar_move_right_lcb(GtkMenuItem *menuitem, Ttoolbaritem *tbitem) {
-	GList *winlist = g_list_first(main_v->bfwinlist); 
+	html_toolbar_quickbar_switch(tbitem, TRUE);
+/*	GList *winlist = g_list_first(main_v->bfwinlist); 
 	DEBUG_MSG("moving tbitem %p right on quickbars\n", tbitem);
 	while (winlist) {
 		gint pos;
 		GList *tmplist, *other;
 		Tbfwin *bfwin = BFWIN(winlist->data);
 		Tquickbaritem *qbi;
-		qbi = g_new(Tquickbaritem,1);
 		pos = get_quickbar_item_position(tbitem);
 		tmplist = g_list_nth(bfwin->toolbar_quickbar_children, pos);
 		qbi = tmplist->data;
@@ -802,7 +847,7 @@ static void html_toolbar_quickbar_move_right_lcb(GtkMenuItem *menuitem, Ttoolbar
 		
 		winlist = g_list_next(winlist);
 	}
-	g_list_free(winlist);
+	/ * g_list_free(winlist); */
 }
 
 static gboolean html_toolbar_quickbar_item_button_press_lcb(GtkWidget *widget,GdkEventButton *bevent,Ttoolbaritem *tbitem) {
