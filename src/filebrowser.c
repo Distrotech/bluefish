@@ -1905,7 +1905,7 @@ GtkWidget *filebrowser_init(Tbfwin *bfwin) {
 	filebrowser->store = gtk_tree_store_new (N_COLUMNS,GDK_TYPE_PIXBUF,G_TYPE_STRING);
 	filebrowser->tree = gtk_tree_view_new_with_model (GTK_TREE_MODEL(filebrowser->store));
 	gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(filebrowser->tree), FALSE);	
-
+	/*gtk_tree_view_set_rules_hint(GTK_TREE_VIEW(filebrowser->tree), TRUE);*/
 	{
 		GtkCellRenderer *renderer;
 		GtkTreeViewColumn *column;
@@ -1945,7 +1945,7 @@ GtkWidget *filebrowser_init(Tbfwin *bfwin) {
 		filebrowser->store2 = gtk_list_store_new (N_COLUMNS,GDK_TYPE_PIXBUF,G_TYPE_STRING);
 		filebrowser->tree2 = gtk_tree_view_new_with_model(GTK_TREE_MODEL(filebrowser->store2));
 		gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(filebrowser->tree2), FALSE);
-
+		/*gtk_tree_view_set_rules_hint(GTK_TREE_VIEW(filebrowser->tree2), TRUE);*/
 		renderer = gtk_cell_renderer_pixbuf_new();
 		column = gtk_tree_view_column_new ();
 		gtk_tree_view_column_pack_start (column, renderer, FALSE);
