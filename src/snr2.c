@@ -35,7 +35,7 @@
  *             search_backend
  */
 /*****************************************************/
-#define DEBUG
+/* #define DEBUG */
 
 #include <gtk/gtk.h>
 
