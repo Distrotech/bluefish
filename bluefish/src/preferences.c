@@ -41,6 +41,9 @@ enum {
 	clear_undo_on_save, 	/* clear all undo information on file save */
 	newfile_default_encoding,/* if you open a new file, what encoding will it use */
 	auto_set_encoding_meta,/* auto set metatag for the encoding */
+	ext_browsers_in_submenu,
+	ext_commands_in_submenu,
+	ext_outputbox_in_submenu,
 
 	/* not yet in use */
 	image_editor_cline, 	/* image editor commandline */
@@ -1329,7 +1332,12 @@ static void preferences_ok_clicked_lcb(GtkWidget *wid, Tprefdialog *pd) {
 		integer_apply(&main_v->props.main_window_w, pd->prefs[main_window_w], FALSE);
 	}
 	string_apply(&main_v->props.tab_font_string, pd->prefs[tab_font_string]);
+	integer_apply(&main_v->props.ext_browsers_in_submenu, pd->prefs[ext_browsers_in_submenu], TRUE);
+	integer_apply(&main_v->props.ext_commands_in_submenu, pd->prefs[ext_commands_in_submenu], TRUE);
+	integer_apply(&main_v->props.ext_outputbox_in_submenu, pd->prefs[ext_outputbox_in_submenu], TRUE);
 	integer_apply(&main_v->props.transient_htdialogs, pd->prefs[transient_htdialogs], TRUE);
+	
+	
 	integer_apply(&main_v->props.filebrowser_show_hidden_files, pd->prefs[filebrowser_show_hidden_files], TRUE);
 	integer_apply(&main_v->props.filebrowser_show_others_files, pd->prefs[filebrowser_show_others_files], TRUE);
 	integer_apply(&main_v->props.filebrowser_show_backup_files, pd->prefs[filebrowser_show_backup_files], TRUE);
@@ -1491,6 +1499,11 @@ static void preferences_dialog() {
 	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
 	vbox2 = gtk_vbox_new(FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(frame), vbox2);
+
+	pd->prefs[ext_browsers_in_submenu] = boxed_checkbut_with_value(_("External browsers in submenu"), main_v->props.ext_browsers_in_submenu, vbox2);
+	pd->prefs[ext_commands_in_submenu] = boxed_checkbut_with_value(_("External commands in submenu"), main_v->props.ext_commands_in_submenu, vbox2);
+	pd->prefs[ext_outputbox_in_submenu] = boxed_checkbut_with_value(_("External outputbox in submenu"), main_v->props.ext_outputbox_in_submenu, vbox2);
+	
 	pd->prefs[tab_font_string] = prefs_string(_("Notebook tab font (leave empty for gtk default)"), main_v->props.tab_font_string, vbox2, pd, string_font);
 	pd->prefs[transient_htdialogs] = boxed_checkbut_with_value(_("Make HTML dialogs transient"), main_v->props.transient_htdialogs, vbox2);
 
