@@ -1,4 +1,4 @@
-#define DEBUG
+/* #define DEBUG */
 
 #include <gtk/gtk.h>
 
@@ -126,6 +126,18 @@ typedef struct {
 } Thighlightpatterndialog;
 
 typedef struct {
+	GtkWidget *combo;
+	GtkWidget *entry[2];
+	gchar **curstrarr;
+} Tbrowsersdialog;
+
+typedef struct {
+	GtkWidget *combo;
+	GtkWidget *entry[2];
+	gchar **curstrarr;
+} Texternaldialog;
+
+typedef struct {
 	GtkWidget *prefs[property_num_max];
 	GList *lists[lists_num_max];
 	GtkWidget *win;
@@ -133,6 +145,8 @@ typedef struct {
 	Tfiletypedialog ftd;
 	Tfilefilterdialog ffd;
 	Thighlightpatterndialog hpd;
+	Tbrowsersdialog bd;
+	Texternaldialog ed;
 } Tprefdialog;
 
 typedef enum {
@@ -221,20 +235,18 @@ static GtkWidget *prefs_integer(const gchar *title, const gint curval, GtkWidget
 /**********************************************************/
 /* FILETYPE, FILTERS AND HIGHLIGHT PATTERNS FUNCTIONS     */
 /**********************************************************/
-
-static GList *filetype_poplist(Tprefdialog *pd) {
-	GList *tmplist, *poplist=NULL;	
+static GList *general_poplist(GList *arraylist, gint required_items, gint poplist_label_index) {
+	GList *tmplist, *poplist=NULL;
 	
-	tmplist = g_list_first(pd->lists[filetypes]);
-	while (tmplist){
+	tmplist = g_list_first(arraylist);
+	while(tmplist){
 		gchar **strarr =(gchar **)tmplist->data;
-		if (count_array(strarr) >= 4) {
-			poplist = g_list_append(poplist, strarr[0]);
-		}
+		if (count_array(strarr) >= required_items) poplist = g_list_append(poplist, strarr[poplist_label_index]);
 		tmplist = g_list_next(tmplist);
 	}
 	return poplist;
 }
+
 
 static void add_new_filetype_lcb(GtkWidget *wid, Tprefdialog *pd) {
 	GList *poplist;
@@ -246,7 +258,7 @@ static void add_new_filetype_lcb(GtkWidget *wid, Tprefdialog *pd) {
 	strarr[3] = g_strdup("");
 	strarr[4] = NULL;
 	pd->lists[filetypes] = g_list_append(pd->lists[filetypes], strarr);
-	poplist = filetype_poplist(pd);
+	poplist = general_poplist(pd->lists[filetypes], 4, 0);
 	gtk_combo_set_popdown_strings(GTK_COMBO(pd->ftd.combo), poplist);
 	g_list_free(poplist);
 }
@@ -296,7 +308,7 @@ static void create_filetype_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 
 	gtk_box_pack_start(GTK_BOX(vbox1), gtk_hseparator_new(), FALSE, FALSE, 3);
 
-	poplist = filetype_poplist(pd);
+	poplist = general_poplist(pd->lists[filetypes], 4, 0);
 	pd->ftd.combo = prefs_combo(_("Filetype"), NULL, vbox1, pd, poplist, FALSE);
 	g_signal_connect_after(G_OBJECT(GTK_COMBO(pd->ftd.combo)->list), "selection-changed", G_CALLBACK(filetype_combo_activate), pd);
 	g_list_free(poplist);
@@ -304,20 +316,6 @@ static void create_filetype_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 	pd->ftd.entry[1] = boxed_full_entry(_("Extensions (colon separated)"), NULL, 500, vbox1);
 	pd->ftd.entry[2] = boxed_full_entry(_("Highlighting update chars"), NULL, 50, vbox1);
 	pd->ftd.entry[3] = prefs_string(_("Icon"), NULL, vbox1, pd, string_file);
-}
-
-static GList *filefilter_poplist(Tprefdialog *pd) {
-	GList *tmplist, *poplist=NULL;	
-	
-	tmplist = g_list_first(pd->lists[filefilters]);
-	while (tmplist){
-		gchar **strarr =(gchar **)tmplist->data;
-		if (count_array(strarr) >= 3) {
-			poplist = g_list_append(poplist, strarr[0]);
-		}
-		tmplist = g_list_next(tmplist);
-	}
-	return poplist;
 }
 
 static void add_new_filefilter_lcb(GtkWidget *wid, Tprefdialog *pd) {
@@ -329,7 +327,7 @@ static void add_new_filefilter_lcb(GtkWidget *wid, Tprefdialog *pd) {
 	strarr[2] = g_strdup("");
 	strarr[3] = NULL;
 	pd->lists[filefilters] = g_list_append(pd->lists[filefilters], strarr);
-	poplist = filefilter_poplist(pd);
+	poplist = general_poplist(pd->lists[filefilters], 3, 0);
 	gtk_combo_set_popdown_strings(GTK_COMBO(pd->ffd.combo), poplist);
 	g_list_free(poplist);
 }
@@ -380,7 +378,7 @@ static void create_filefilter_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 
 	gtk_box_pack_start(GTK_BOX(vbox1), gtk_hseparator_new(), FALSE, FALSE, 3);
 
-	poplist = filefilter_poplist(pd);
+	poplist = general_poplist(pd->lists[filefilters], 3, 0);
 	pd->ffd.combo = prefs_combo(_("Filter"), NULL, vbox1, pd, poplist, FALSE);
 	g_signal_connect_after(G_OBJECT(GTK_COMBO(pd->ffd.combo)->list), "selection-changed", G_CALLBACK(filefilter_combo_activate), pd);
 	g_list_free(poplist);
@@ -390,17 +388,7 @@ static void create_filefilter_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 	
 }
 
-static GList *highlightpattern_poplist(Tprefdialog *pd) {
-	GList *tmplist, *poplist=NULL;
-	
-	tmplist = g_list_first(pd->lists[filetypes]);
-	while(tmplist){
-		gchar **strarr =(gchar **)tmplist->data;
-		if (count_array(strarr) >= 3) poplist = g_list_append(poplist, strarr[0]);
-		tmplist = g_list_next(tmplist);
-	}
-	return poplist;
-}
+
 static void highlightpattern_apply_changes(Tprefdialog *pd) {
 	if (pd->hpd.curstrarr) {
 		g_free(pd->hpd.curstrarr[2]);
@@ -640,7 +628,7 @@ static void create_highlightpattern_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 	GList *poplist;
 	pd->lists[highlight_patterns] = duplicate_arraylist(main_v->props.highlight_patterns);
 
-	poplist = highlightpattern_poplist(pd);
+	poplist = general_poplist(pd->lists[filetypes], 3, 0);
 	pd->hpd.combo = prefs_combo(_("Filetype"), NULL, vbox1, pd, poplist, FALSE);
 	g_signal_connect_after(G_OBJECT(GTK_COMBO(pd->hpd.combo)->list), "selection-changed", G_CALLBACK(highlightpattern_combo0_activate), pd);
 	g_list_free(poplist);
@@ -730,11 +718,125 @@ static void create_highlightpattern_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 	gtk_box_pack_start(GTK_BOX(vbox3),pd->hpd.radio[7], TRUE, TRUE, 0);
 	pd->hpd.radio[8] = gtk_radio_button_new_with_label_from_widget(GTK_RADIO_BUTTON(pd->hpd.radio[6]), _("force italic style"));
 	gtk_box_pack_start(GTK_BOX(vbox3),pd->hpd.radio[8], TRUE, TRUE, 0);
-
-	
 }
 
+static void browsers_apply_changes(Tprefdialog *pd) {
+	if (pd->bd.curstrarr) {
+		g_free(pd->bd.curstrarr[1]);
+		pd->bd.curstrarr[1] = gtk_editable_get_chars(GTK_EDITABLE(pd->bd.entry[1]), 0, -1);
+	}
+}
 
+static void browsers_combo_activate(GtkEntry *entry,Tprefdialog *pd) {
+	const gchar *entrytext = gtk_entry_get_text(GTK_ENTRY(GTK_COMBO(pd->bd.combo)->entry));
+	GList *tmplist = g_list_first(pd->lists[browsers]);
+
+	browsers_apply_changes(pd);
+
+	while (tmplist) {
+		gchar **strarr =(gchar **)tmplist->data;
+		if (strcmp(strarr[0], entrytext)==0) {
+			gtk_entry_set_text(GTK_ENTRY(pd->bd.entry[1]), strarr[1]);
+			pd->bd.curstrarr = strarr;
+			return;
+		}
+		tmplist = g_list_next(tmplist);
+	}
+
+	DEBUG_MSG("browsers_combo_activate\n");
+}
+static void add_new_browser_lcb(GtkWidget *wid, Tprefdialog *pd) {
+	GList *poplist;
+	gchar *newtype = gtk_editable_get_chars(GTK_EDITABLE(pd->bd.entry[0]),0,-1);
+	gchar **strarr = g_malloc(3*sizeof(gchar *));
+	strarr[0] = newtype;
+	strarr[1] = g_strdup("");
+	strarr[2] = NULL;
+	pd->lists[browsers] = g_list_append(pd->lists[browsers], strarr);
+	poplist = general_poplist(pd->lists[browsers], 2, 0);
+	gtk_combo_set_popdown_strings(GTK_COMBO(pd->bd.combo), poplist);
+	g_list_free(poplist);
+}
+
+static void create_browsers_gui(Tprefdialog *pd, GtkWidget *vbox1) {
+	GtkWidget *hbox, *but;
+	GList *poplist;
+	pd->lists[browsers] = duplicate_arraylist(main_v->props.browsers);
+	
+	hbox = gtk_hbox_new(FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(vbox1), hbox, TRUE, TRUE, 0);
+	pd->bd.entry[0] = boxed_entry_with_text(NULL, 1023, hbox);
+	but = but = bf_gtkstock_button(GTK_STOCK_ADD, G_CALLBACK(add_new_browser_lcb), pd);
+	gtk_box_pack_start(GTK_BOX(hbox), but, FALSE, TRUE, 3);
+
+	gtk_box_pack_start(GTK_BOX(vbox1), gtk_hseparator_new(), FALSE, FALSE, 3);
+	
+	poplist = general_poplist(pd->lists[browsers], 2, 0);
+	pd->bd.combo = prefs_combo(_("Browsers"), NULL, vbox1, pd, poplist, FALSE);
+	g_signal_connect_after(G_OBJECT(GTK_COMBO(pd->bd.combo)->list), "selection-changed", G_CALLBACK(browsers_combo_activate), pd);
+	g_list_free(poplist);
+	gtk_box_pack_start(GTK_BOX(vbox1), gtk_label_new(_("%s = current filename")), TRUE, TRUE, 0);
+	pd->bd.entry[1] = boxed_full_entry(_("Browser start command"), NULL, 500, vbox1);
+}
+
+static void externals_apply_changes(Tprefdialog *pd) {
+	if (pd->ed.curstrarr) {
+		g_free(pd->ed.curstrarr[1]);
+		pd->ed.curstrarr[1] = gtk_editable_get_chars(GTK_EDITABLE(pd->ed.entry[1]), 0, -1);
+	}
+}
+
+static void externals_combo_activate(GtkEntry *entry,Tprefdialog *pd) {
+	const gchar *entrytext = gtk_entry_get_text(GTK_ENTRY(GTK_COMBO(pd->ed.combo)->entry));
+	GList *tmplist = g_list_first(pd->lists[external_commands]);
+
+	externals_apply_changes(pd);
+
+	while (tmplist) {
+		gchar **strarr =(gchar **)tmplist->data;
+		if (strcmp(strarr[0], entrytext)==0) {
+			gtk_entry_set_text(GTK_ENTRY(pd->ed.entry[1]), strarr[1]);
+			pd->ed.curstrarr = strarr;
+			return;
+		}
+		tmplist = g_list_next(tmplist);
+	}
+
+	DEBUG_MSG("externals_combo_activate\n");
+}
+static void add_new_external_lcb(GtkWidget *wid, Tprefdialog *pd) {
+	GList *poplist;
+	gchar *newtype = gtk_editable_get_chars(GTK_EDITABLE(pd->ed.entry[0]),0,-1);
+	gchar **strarr = g_malloc(3*sizeof(gchar *));
+	strarr[0] = newtype;
+	strarr[1] = g_strdup("");
+	strarr[2] = NULL;
+	pd->lists[external_commands] = g_list_append(pd->lists[external_commands], strarr);
+	poplist = general_poplist(pd->lists[external_commands], 2, 0);
+	gtk_combo_set_popdown_strings(GTK_COMBO(pd->ed.combo), poplist);
+	g_list_free(poplist);
+}
+
+static void create_externals_gui(Tprefdialog *pd, GtkWidget *vbox1) {
+	GtkWidget *hbox, *but;
+	GList *poplist;
+	pd->lists[external_commands] = duplicate_arraylist(main_v->props.external_commands);
+	
+	hbox = gtk_hbox_new(FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(vbox1), hbox, TRUE, TRUE, 0);
+	pd->ed.entry[0] = boxed_entry_with_text(NULL, 1023, hbox);
+	but = but = bf_gtkstock_button(GTK_STOCK_ADD, G_CALLBACK(add_new_external_lcb), pd);
+	gtk_box_pack_start(GTK_BOX(hbox), but, FALSE, TRUE, 3);
+
+	gtk_box_pack_start(GTK_BOX(vbox1), gtk_hseparator_new(), FALSE, FALSE, 3);
+	
+	poplist = general_poplist(pd->lists[external_commands], 2, 0);
+	pd->ed.combo = prefs_combo(_("external programs"), NULL, vbox1, pd, poplist, FALSE);
+	g_signal_connect_after(G_OBJECT(GTK_COMBO(pd->ed.combo)->list), "selection-changed", G_CALLBACK(externals_combo_activate), pd);
+	g_list_free(poplist);
+	gtk_box_pack_start(GTK_BOX(vbox1), gtk_label_new(_("%s = current filename\n%f = output filename (for filter)")), TRUE, TRUE, 0);
+	pd->ed.entry[1] = boxed_full_entry(_("external start command"), NULL, 500, vbox1);
+}
 
 /**************************************/
 /* MAIN DIALOG FUNCTIONS              */
@@ -770,6 +872,8 @@ static void preferences_ok_clicked_lcb(GtkWidget *wid, Tprefdialog *pd) {
 	filetype_apply_changes(pd);
 	filefilter_apply_changes(pd);
 	highlightpattern_apply_changes(pd);
+	browsers_apply_changes(pd);
+	externals_apply_changes(pd);
 
 	free_arraylist(main_v->props.filetypes);
 	main_v->props.filetypes = pd->lists[filetypes];
@@ -779,6 +883,12 @@ static void preferences_ok_clicked_lcb(GtkWidget *wid, Tprefdialog *pd) {
 
 	free_arraylist(main_v->props.highlight_patterns);
 	main_v->props.highlight_patterns = pd->lists[highlight_patterns];
+	
+	free_arraylist(main_v->props.browsers);
+	main_v->props.browsers = pd->lists[browsers];
+	
+	free_arraylist(main_v->props.external_commands);
+	main_v->props.external_commands = pd->lists[external_commands];
 	
 	preferences_destroy_lcb(NULL, NULL, pd);
 }
@@ -927,7 +1037,25 @@ static void preferences_dialog() {
 
 
 	create_highlightpattern_gui(pd, vbox2);
-	
+
+	vbox1 = gtk_vbox_new(FALSE, 5);
+	gtk_notebook_append_page(GTK_NOTEBOOK(pd->noteb), vbox1, hbox_with_pix_and_text(_("External programs"), 014));
+
+	frame = gtk_frame_new(_("Browsers"));
+	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
+	vbox2 = gtk_vbox_new(FALSE, 0);
+	gtk_container_add(GTK_CONTAINER(frame), vbox2);
+
+	create_browsers_gui(pd, vbox2);
+
+	frame = gtk_frame_new(_("Utilities and filters"));
+	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
+	vbox2 = gtk_vbox_new(FALSE, 0);
+	gtk_container_add(GTK_CONTAINER(frame), vbox2);
+
+	create_externals_gui(pd, vbox2);
+
+	/* end, create buttons for dialog now */
 	{
 		GtkWidget *ahbox, *but;
 		ahbox = gtk_hbutton_box_new();
@@ -946,5 +1074,9 @@ static void preferences_dialog() {
 }
 
 void open_preferences_cb(GtkWidget *wid, gpointer data) {
+	preferences_dialog();
+}
+
+void open_preferences_menu_cb(gpointer callback_data,guint action,GtkWidget *widget) {
 	preferences_dialog();
 }
