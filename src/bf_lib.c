@@ -37,7 +37,12 @@
 #define DIRSTR "/"
 #define DIRCHR '/'
 #endif
-
+/**
+ * get_filename_on_disk_encoding
+ *
+ * if gnome_vfs is defined, this function will also escape local paths
+ * to make sure we can open files with a # in their name
+ */
 gchar *get_filename_on_disk_encoding(const gchar *utf8filename) {
 	if (utf8filename) {
 		GError *gerror=NULL;
@@ -47,6 +52,14 @@ gchar *get_filename_on_disk_encoding(const gchar *utf8filename) {
 			g_print(_("Bluefish has trouble reading the filenames. Try to set the environment variable G_BROKEN_FILENAMES=1\n"));
 			ondiskencoding = g_strdup(utf8filename);
 		}
+#ifdef HAVE_GNOME_VFS
+		/* convert local path's */
+		if (ondiskencoding[0] == '/') {
+			gchar *tmp = gnome_vfs_escape_path_string(ondiskencoding);
+			g_free(ondiskencoding);
+			ondiskencoding = tmp;
+		}
+#endif /* HAVE_GNOME_VFS */
 		return ondiskencoding;
 	}
 	return NULL;
@@ -1096,6 +1109,7 @@ gchar *path_get_dirname_with_ending_slash(const gchar *filename) {
 		return NULL;
 	}
 }
+
 /**
  * file_exists_and_readable:
  * @filename: a #const gchar * with a file path
@@ -1124,8 +1138,10 @@ gboolean file_exists_and_readable(const gchar * filename) {
 #ifndef WIN32
 #ifdef HAVE_GNOME_VFS
 	{
-		GnomeVFSURI* uri = gnome_vfs_uri_new(ondiskencoding);
+		GnomeVFSURI* uri;
+		uri = gnome_vfs_uri_new(ondiskencoding);
 		retval = gnome_vfs_uri_exists(uri);
+		DEBUG_MSG("gnome_vfs_uri has path %s\n",gnome_vfs_uri_get_path(uri));
 		gnome_vfs_uri_unref(uri);
 		DEBUG_MSG("file_exists_and_readable, return %d for %s\n",retval,filename);
 	}
