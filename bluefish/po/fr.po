@@ -9,8 +9,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 21-11-03_fr\n"
-"POT-Creation-Date: 2004-11-02 11:35+0100\n"
-"PO-Revision-Date: 2004-11-02 11:36+0100\n"
+"POT-Creation-Date: 2004-11-14 20:38+0100\n"
+"PO-Revision-Date: 2004-11-14 20:57+0100\n"
 "Last-Translator: Michèle Garoche <michele.garoche@easyconnect.fr>\n"
 "Language-Team: français <fr@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -591,7 +591,7 @@ msgstr ""
 msgid "Replace"
 msgstr "Remplacer"
 
-#: ../src/document.c:2010
+#: ../src/document.c:2010 ../src/snr2.c:1335
 msgid "Find"
 msgstr "Rechercher"
 
@@ -657,47 +657,49 @@ msgstr "Échec de la conversion d'encodage du fichier"
 msgid "Previously: "
 msgstr "Précédemment : "
 
-#: ../src/document.c:2421 ../src/document.c:2429
-msgid "Move/rename document to"
-msgstr "Déplacer/renommer le document sous"
+#: ../src/document.c:2412
+#, c-format
+msgid "Move/rename %s to"
+msgstr "Déplacer (vers)/renommer (en) %s"
 
-#: ../src/document.c:2421 ../src/document.c:2429
-msgid "Save document as"
-msgstr "Enregistrer le document sous"
+#: ../src/document.c:2412
+#, c-format
+msgid "Save %s as"
+msgstr "Enregistrer %s sous"
 
-#: ../src/document.c:2451 ../src/document.c:2466 ../src/document.c:2564
-#: ../src/document.c:3754 ../src/project.c:171
+#: ../src/document.c:2456 ../src/document.c:2471 ../src/document.c:2569
+#: ../src/document.c:3759 ../src/project.c:171
 msgid "_Cancel"
 msgstr "An_nuler"
 
-#: ../src/document.c:2451 ../src/document.c:2466 ../src/document.c:2564
+#: ../src/document.c:2456 ../src/document.c:2471 ../src/document.c:2569
 #: ../src/project.c:171
 msgid "_Overwrite"
 msgstr "_Écraser"
 
-#: ../src/document.c:2452
+#: ../src/document.c:2457
 #, c-format
 msgid "File %s exists and is opened, overwrite?"
 msgstr "Le fichier %s est déjà ouvert, voulez-vous vraiment l'écraser ?"
 
-#: ../src/document.c:2453
+#: ../src/document.c:2458
 msgid "The file you have selected is being edited in Bluefish."
 msgstr "Le fichier sélectionné est en cours d'édition dans Bluefish."
 
-#: ../src/document.c:2467 ../src/project.c:172
+#: ../src/document.c:2472 ../src/project.c:172
 #, c-format
 msgid "A file named \"%s\" already exists."
 msgstr "Un fichier nommé \"%s\" existe déjà."
 
-#: ../src/document.c:2469 ../src/project.c:174
+#: ../src/document.c:2474 ../src/project.c:174
 msgid "Do you want to replace the existing file?"
 msgstr "Désirez-vous remplacer le fichier existant ?"
 
-#: ../src/document.c:2519
+#: ../src/document.c:2524
 msgid "Save as..."
 msgstr "Enregistrer sous..."
 
-#: ../src/document.c:2568
+#: ../src/document.c:2573
 #, c-format
 msgid ""
 "File: %s\n"
@@ -710,16 +712,16 @@ msgstr ""
 "Heure de la nouvelle modification : %s\n"
 "Heure de l'ancienne modification : %s"
 
-#: ../src/document.c:2569
+#: ../src/document.c:2574
 msgid "File has been modified by another process."
 msgstr "Le fichier a été modifié par un autre processus."
 
-#: ../src/document.c:2582
+#: ../src/document.c:2587
 #, c-format
 msgid "Saving %s"
 msgstr "Enregistrement de %s"
 
-#: ../src/document.c:2596
+#: ../src/document.c:2601
 msgid ""
 "Could not backup file:\n"
 "\""
@@ -727,11 +729,11 @@ msgstr ""
 "Impossible de sauvegarder le fichier :\n"
 "\""
 
-#: ../src/document.c:2597
+#: ../src/document.c:2602
 msgid "File save aborted.\n"
 msgstr "Sauvegarde du fichier annulée.\n"
 
-#: ../src/document.c:2602
+#: ../src/document.c:2607
 msgid ""
 "Could not write file:\n"
 "\""
@@ -739,39 +741,34 @@ msgstr ""
 "Impossible d'écrire le fichier sur le disque :\n"
 "\""
 
-#: ../src/document.c:2603
+#: ../src/document.c:2608
 msgid "File save error"
 msgstr "Erreur d'enregistrement de fichier"
 
-#: ../src/document.c:2653
+#: ../src/document.c:2658
 #, c-format
 msgid "Save changes to \"%s\" before closing?."
 msgstr ""
 "Voulez-vous enregistrer les modifications apportées à \"%s\" avant de le "
 "fermer ?"
 
-#: ../src/document.c:2656
-msgid "Save changes to this untitled file before closing?"
-msgstr ""
-"Désirez-vous enregistrer les changements effectués dans ce fichier sans nom ?"
-
-#: ../src/document.c:2660 ../src/project.c:324
+#: ../src/document.c:2665 ../src/project.c:324
 msgid "Do_n't save"
 msgstr "Ne pas enre_gistrer"
 
-#: ../src/document.c:2662 ../src/document.c:3756 ../src/project.c:333
+#: ../src/document.c:2667 ../src/document.c:3761 ../src/project.c:333
 msgid "If you don't save your changes they will be lost."
 msgstr "Si vous n'enregistrez pas les modifications, elles seront perdues."
 
-#: ../src/document.c:2942
+#: ../src/document.c:2947
 msgid "No filename"
 msgstr "Aucun nom de fichier"
 
-#: ../src/document.c:3079
+#: ../src/document.c:3084
 msgid "Loading files..."
 msgstr "Chargement des fichiers..."
 
-#: ../src/document.c:3097
+#: ../src/document.c:3102
 msgid ""
 "These files could not opened:\n"
 "\n"
@@ -779,23 +776,23 @@ msgstr ""
 "Ces fichiers n'ont pas pu être ouverts :\n"
 "\n"
 
-#: ../src/document.c:3099 ../src/msg_queue.c:235
+#: ../src/document.c:3104 ../src/msg_queue.c:235
 msgid "Unable to open file(s)\n"
 msgstr "Impossible d'ouvrir le(s) fichier(s)\n"
 
-#: ../src/document.c:3130
+#: ../src/document.c:3135
 msgid "Unable to open file"
 msgstr "Impossible d'ouvrir le fichier"
 
-#: ../src/document.c:3192
+#: ../src/document.c:3197
 msgid "_Reload"
 msgstr "_Recharger"
 
-#: ../src/document.c:3192
+#: ../src/document.c:3197
 msgid "_Ignore"
 msgstr "_Ignorer"
 
-#: ../src/document.c:3196
+#: ../src/document.c:3201
 #, c-format
 msgid ""
 "Filename: %s\n"
@@ -808,104 +805,104 @@ msgstr ""
 "Heure de la nouvelle modification : %s\n"
 "Heure de l'ancienne modification : %s"
 
-#: ../src/document.c:3197
+#: ../src/document.c:3202
 msgid "File has been modified by another process\n"
 msgstr "Le fichier a été modifié par un autre processus.\n"
 
-#: ../src/document.c:3304
+#: ../src/document.c:3309
 msgid "searching files..."
 msgstr "Recherche des fichiers..."
 
-#: ../src/document.c:3335 ../src/document.c:3342
+#: ../src/document.c:3340 ../src/document.c:3347
 msgid "Select basedir"
 msgstr "Sélectionner le répertoire de travail"
 
-#: ../src/document.c:3361
+#: ../src/document.c:3366
 msgid "Advanced open file selector"
 msgstr "Paramétrer la sélection des fichiers"
 
-#: ../src/document.c:3372
+#: ../src/document.c:3377
 msgid "grep {contains} `find {basedir} -name '{file type}'`"
 msgstr "grep {contenu} `find {répertoire} -name '{type de fichier}'`"
 
-#: ../src/document.c:3377
+#: ../src/document.c:3382
 msgid "<b>General</b>"
 msgstr "<b>Général</b>"
 
-#: ../src/document.c:3379
+#: ../src/document.c:3384
 msgid "Base_dir:"
 msgstr "Répertoire _de base :"
 
-#: ../src/document.c:3381 ../src/gtk_easy.c:1305
+#: ../src/document.c:3386 ../src/gtk_easy.c:1305
 msgid "_Browse..."
 msgstr "_Parcourir..."
 
-#: ../src/document.c:3399
+#: ../src/document.c:3404
 msgid "_File Type:"
 msgstr "Type de _fichier :"
 
-#: ../src/document.c:3405
+#: ../src/document.c:3410
 msgid "_Recursive:"
 msgstr "_Récursif :"
 
-#: ../src/document.c:3410
+#: ../src/document.c:3415
 msgid "<b>Contains</b>"
 msgstr "<b>Contient</b>"
 
-#: ../src/document.c:3413
+#: ../src/document.c:3418
 msgid "Pa_ttern:"
 msgstr "_Modèle :"
 
-#: ../src/document.c:3417
+#: ../src/document.c:3422
 msgid "Is rege_x:"
 msgstr "Est une e_xpression régulière :"
 
-#: ../src/document.c:3552
+#: ../src/document.c:3557
 msgid "Open URL"
 msgstr "Ouvrir une URL"
 
-#: ../src/document.c:3556
+#: ../src/document.c:3561
 msgid "<b>Open URL</b>"
 msgstr "<b>Ouvrir une URL/b>"
 
-#: ../src/document.c:3602 ../src/gtk_easy.c:1601
+#: ../src/document.c:3607 ../src/gtk_easy.c:1601
 msgid "Select files"
 msgstr "Sélectionner des fichiers"
 
-#: ../src/document.c:3622 ../src/document.c:3642 ../src/document.c:3659
+#: ../src/document.c:3627 ../src/document.c:3647 ../src/document.c:3664
 #, c-format
 msgid "Loading %d file(s)..."
 msgstr "Chargement de %d fichier(s)..."
 
-#: ../src/document.c:3637
+#: ../src/document.c:3642
 msgid "No matching files found"
 msgstr "Aucun fichier ne correspond à la demande"
 
-#: ../src/document.c:3692 ../src/document.c:3699
+#: ../src/document.c:3697 ../src/document.c:3704
 msgid "Select file to insert"
 msgstr "Sélectionner le fichier à insérer"
 
-#: ../src/document.c:3702
+#: ../src/document.c:3707
 msgid "No file to insert"
 msgstr "Aucun fichier à insérer"
 
-#: ../src/document.c:3754
+#: ../src/document.c:3759
 msgid "_Save All"
 msgstr "Tout enregi_strer"
 
-#: ../src/document.c:3754
+#: ../src/document.c:3759
 msgid "Close _All"
 msgstr "Tout fermer"
 
-#: ../src/document.c:3754
+#: ../src/document.c:3759
 msgid "Choose per _File"
 msgstr "Choisir par _fichier"
 
-#: ../src/document.c:3755
+#: ../src/document.c:3760
 msgid "Multiple open files have been changed."
 msgstr "Certains fichiers ont été modifiés."
 
-#: ../src/document.c:4003
+#: ../src/document.c:4008
 #, c-format
 msgid "Statistics: %d lines, %d words, %d characters"
 msgstr "Statistiques : %d lignes, %d mots, %d caractères"
@@ -1069,7 +1066,7 @@ msgstr ""
 msgid "Show info window"
 msgstr "Afficher la fenêtre d'informations"
 
-#: ../src/fref.c:2311 ../src/snr2.c:1335
+#: ../src/fref.c:2311
 msgid "Search"
 msgstr "Rechercher"
 
@@ -1503,12 +1500,12 @@ msgid "Paste"
 msgstr "Coller"
 
 #: ../src/gui.c:1090
-msgid "Search..."
+msgid "Find..."
 msgstr "Rechercher..."
 
 #: ../src/gui.c:1092
-msgid "Search and Replace..."
-msgstr "Rechercher et remplacer..."
+msgid "Replace..."
+msgstr "Remplacer..."
 
 #: ../src/gui.c:1095 ../src/preferences.c:1992
 msgid "Undo"
