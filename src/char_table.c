@@ -205,7 +205,7 @@ static void convert_unichar_to_htmlstring(gunichar unichar, gchar *deststring, g
 
 /* utf8string MUST BE VALIDATED UTF8 otherwise this function is broken!!
 so text from the TextBuffer is OK to use */
-gchar *convert_string_utf8_to_html(gchar *utf8string, gboolean ascii, gboolean iso) {
+gchar *convert_string_utf8_to_html(const gchar *utf8string, gboolean ascii, gboolean iso) {
 	if (!ascii && !iso) {
 		return g_strdup(utf8string);
 	} else {
