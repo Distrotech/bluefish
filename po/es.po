@@ -6,14 +6,14 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: bluefish gtk2-port\n"
-"POT-Creation-Date: 2004-03-24 19:10+0100\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-03-24 23:26-0300\n"
 "PO-Revision-Date: 2001-11-17 15:24+0100\n"
 "Last-Translator: Walter Echarri <wecharri@yahoo.com>\n"
 "Language-Team: español <es@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8 bit\n"
-"Report-Msgid-Bugs-To: \n"
 
 #: ../src/about.c:123
 msgid ""
@@ -482,7 +482,7 @@ msgstr "Se asignó este marcador a un archivo que ya no existe."
 # src/snr.c:559
 # src/document.c:813 src/document.c:884
 #: ../src/bookmark.c:442
-#, fuzzy, c-format
+#, c-format
 msgid "Do you really want to delete %s?"
 msgstr "¿Desea en realidad eliminar %s?"
 
@@ -515,11 +515,8 @@ msgid "Add bookmark"
 msgstr "Añadir marcador"
 
 #: ../src/bookmark.c:904
-#, fuzzy
 msgid "Cannot add bookmarks in unnamed files."
-msgstr ""
-"No se pueden añadir marcadores en archivos sin nombre.\n"
-"Por favor, primero guarde el archivo"
+msgstr "No se pueden añadir marcadores en archivos sin nombre."
 
 #: ../src/bookmark.c:939
 msgid "You already have a bookmark here!"
@@ -528,9 +525,8 @@ msgstr "¡Aquí ya tiene un marcador!"
 # src/callbacks.c:1141
 # src/document.c:1003
 #: ../src/bookmark.c:944
-#, fuzzy
 msgid "default"
-msgstr "Elegir _predeterminado"
+msgstr "predeterminado"
 
 #: ../src/bookmark.c:974
 msgid "temp"
@@ -546,7 +542,6 @@ msgstr ""
 " %s."
 
 #: ../src/bookmark.c:1044
-#, fuzzy
 msgid "Bookmarks positions could be incorrect."
 msgstr "Las posiciones de los marcadores pueden ser incorrectas."
 
@@ -727,7 +722,7 @@ msgstr "Anteriormente: "
 # src/toolbars.c:256
 #: ../src/document.c:2370
 msgid "Move/rename document to"
-msgstr "Mover/renombrar documento como"
+msgstr "Mover/Modificar nombre del documento"
 
 # src/toolbars.c:252
 # src/toolbars.c:256
@@ -1215,7 +1210,7 @@ msgid ""
 "Perhaps you didn't load a reference, or you did not select a reference to "
 "search in."
 msgstr ""
-"Quizás no haya cargado una referencia, o no seleccionó una referencia para \n"
+"Quizás no haya cargado una referencia, o no seleccionó una referencia para "
 "buscar."
 
 #: ../src/fref.c:2282
@@ -1994,6 +1989,79 @@ msgstr "/Ver/Barra de Herramientas Principal"
 msgid "/View/View Custom Menu"
 msgstr "/Ver/Menú Personalizado"
 
+#: ../src/html2.c:554
+msgid "Cascading StyleSheet dialog"
+msgstr "Diálogo de CSS"
+
+# src/html.c:1797
+# src/html_form.c:398
+#: ../src/html2.c:574
+msgid "_Selector:"
+msgstr "_Selector:"
+
+#: ../src/html2.c:593
+msgid "_Property:"
+msgstr "_Propiedad:"
+
+# src/html.c:1525 src/html.c:1545 src/html.c:1579 src/html.c:1630
+# src/html.c:1667 src/html.c:1719 src/html.c:1763
+# src/html_form.c:126 src/html_form.c:146 src/html_form.c:180
+# src/html_form.c:231 src/html_form.c:268 src/html_form.c:320
+# src/html_form.c:364 src/wml.c:171 src/wml.c:211
+#: ../src/html2.c:595 ../src/html_form.c:650 ../src/html_form.c:799
+#: ../src/html_form.c:894
+msgid "_Value:"
+msgstr "_Valor:"
+
+# src/html.c:1797
+# src/html_form.c:398
+#: ../src/html2.c:613
+msgid "Selector"
+msgstr "Selector"
+
+#: ../src/html2.c:613 ../src/html2.c:616
+msgid "Property"
+msgstr "Propiedad"
+
+# src/html.c:1525 src/html.c:1545 src/html.c:1579 src/html.c:1630
+# src/html.c:1667 src/html.c:1719 src/html.c:1763
+# src/html_form.c:126 src/html_form.c:146 src/html_form.c:180
+# src/html_form.c:231 src/html_form.c:268 src/html_form.c:320
+# src/html_form.c:364 src/wml.c:171 src/wml.c:211
+#: ../src/html2.c:613 ../src/html2.c:616
+msgid "Value"
+msgstr "Valor"
+
+# src/stringlist.c:146
+# src/stringlist.c:142
+#: ../src/html2.c:631
+msgid " _Add "
+msgstr "_Agregar "
+
+# src/stringlist.c:147
+# src/stringlist.c:143
+#: ../src/html2.c:634
+msgid " _Update "
+msgstr "_Actualizar "
+
+# src/stringlist.c:148
+# src/stringlist.c:144
+#: ../src/html2.c:637
+msgid " _Delete "
+msgstr "_Borrar "
+
+# src/html.c:1844 src/toolbars.c:440
+# src/html.c:1128 src/toolbars.c:444
+#: ../src/html2.c:893 ../src/html2.c:930
+msgid "_Style..."
+msgstr "_Estilo..."
+
+# src/callbacks.c:647
+# src/project.c:56
+#: ../src/html2.c:1087
+msgid "Bluefish: Select color"
+msgstr "Bluefish - Selector de colores"
+
 # src/toolbars.c:465
 # src/toolbars.c:510
 #: ../src/html.c:356
@@ -2570,79 +2638,6 @@ msgstr "_Idioma:"
 msgid "_Custom:"
 msgstr "_Personalizar:"
 
-#: ../src/html2.c:554
-msgid "Cascading StyleSheet dialog"
-msgstr "Diálogo de CSS"
-
-# src/html.c:1797
-# src/html_form.c:398
-#: ../src/html2.c:574
-msgid "_Selector:"
-msgstr "_Selector:"
-
-#: ../src/html2.c:593
-msgid "_Property:"
-msgstr "_Propiedad:"
-
-# src/html.c:1525 src/html.c:1545 src/html.c:1579 src/html.c:1630
-# src/html.c:1667 src/html.c:1719 src/html.c:1763
-# src/html_form.c:126 src/html_form.c:146 src/html_form.c:180
-# src/html_form.c:231 src/html_form.c:268 src/html_form.c:320
-# src/html_form.c:364 src/wml.c:171 src/wml.c:211
-#: ../src/html2.c:595 ../src/html_form.c:650 ../src/html_form.c:799
-#: ../src/html_form.c:894
-msgid "_Value:"
-msgstr "_Valor:"
-
-# src/html.c:1797
-# src/html_form.c:398
-#: ../src/html2.c:613
-msgid "Selector"
-msgstr "Selector"
-
-#: ../src/html2.c:613 ../src/html2.c:616
-msgid "Property"
-msgstr "Propiedad"
-
-# src/html.c:1525 src/html.c:1545 src/html.c:1579 src/html.c:1630
-# src/html.c:1667 src/html.c:1719 src/html.c:1763
-# src/html_form.c:126 src/html_form.c:146 src/html_form.c:180
-# src/html_form.c:231 src/html_form.c:268 src/html_form.c:320
-# src/html_form.c:364 src/wml.c:171 src/wml.c:211
-#: ../src/html2.c:613 ../src/html2.c:616
-msgid "Value"
-msgstr "Valor"
-
-# src/stringlist.c:146
-# src/stringlist.c:142
-#: ../src/html2.c:631
-msgid " _Add "
-msgstr "_Agregar "
-
-# src/stringlist.c:147
-# src/stringlist.c:143
-#: ../src/html2.c:634
-msgid " _Update "
-msgstr "_Actualizar "
-
-# src/stringlist.c:148
-# src/stringlist.c:144
-#: ../src/html2.c:637
-msgid " _Delete "
-msgstr "_Borrar "
-
-# src/html.c:1844 src/toolbars.c:440
-# src/html.c:1128 src/toolbars.c:444
-#: ../src/html2.c:893 ../src/html2.c:930
-msgid "_Style..."
-msgstr "_Estilo..."
-
-# src/callbacks.c:647
-# src/project.c:56
-#: ../src/html2.c:1087
-msgid "Bluefish: Select color"
-msgstr "Bluefish - Selector de colores"
-
 # src/html.c:1478
 # src/html_form.c:79
 #: ../src/html_form.c:141
@@ -3056,7 +3051,7 @@ msgstr "/Archivo/_Insertar..."
 # src/menu.c:103
 #: ../src/menu.c:332
 msgid "/File/Rena_me..."
-msgstr "/Archivo/_Renombrar..."
+msgstr "/Archivo/_Modificar nombre..."
 
 # src/menu.c:111
 # src/menu.c:111
@@ -3218,16 +3213,14 @@ msgstr "/Edición/Reemplazar especial/Ambos tipos a _entidades HTML"
 # src/menu.c:127
 # src/menu.c:130
 #: ../src/menu.c:362
-#, fuzzy
 msgid "/Edit/Replace special/To _Uppercase"
-msgstr "/Edición/Reemplazar especial/Tearoff1"
+msgstr "/Edición/Reemplazar especial/Convertir a Mayúsculas"
 
 # src/menu.c:127
 # src/menu.c:130
 #: ../src/menu.c:363
-#, fuzzy
 msgid "/Edit/Replace special/To _Lowercase"
-msgstr "/Edición/Reemplazar especial/Tearoff1"
+msgstr "/Edición/Reemplazar especial/Convertir a M_inúsculas"
 
 # src/menu.c:121
 # src/menu.c:121
@@ -3252,16 +3245,14 @@ msgid "/Edit/sep5"
 msgstr "/Edición/sep5"
 
 #: ../src/menu.c:368
-#, fuzzy
 msgid "/Edit/Add _Bookmark"
-msgstr "Editar marcador"
+msgstr "/Edición/Añadir _Marcador"
 
 # src/menu.c:124 src/menu.c:128 src/menu.c:133
 # src/menu.c:124 src/menu.c:131
 #: ../src/menu.c:369
-#, fuzzy
 msgid "/Edit/sep6"
-msgstr "/Edición/sep1"
+msgstr "/Edición/sep6"
 
 # src/menu.c:489
 #: ../src/menu.c:370
@@ -4707,7 +4698,7 @@ msgstr "/Diálogos/sep1"
 
 #: ../src/menu.c:643
 msgid "/Dialogs/_Edit tag under cursor..."
-msgstr "/Diálogos/_Editar etiqueta bajo el cursor..."
+msgstr "/Diálogos/_Editar etiqueta bajo el cursor"
 
 # src/toolbars.c:252
 # src/toolbars.c:256
@@ -4926,9 +4917,8 @@ msgstr "/Proyecto/Guardar _como..."
 # src/menu.c:104
 # src/menu.c:103
 #: ../src/menu.c:686
-#, fuzzy
 msgid "/Project/Save & _close"
-msgstr "/Proyecto/Guardar _como..."
+msgstr "/Proyecto/Guardar y _cerrar"
 
 # src/menu.c:104
 # src/menu.c:103
@@ -5488,7 +5478,7 @@ msgstr "izquierda"
 # src/html.c:1223 src/html_table.c:227 src/html_table.c:308 src/images.c:219
 #: ../src/preferences.c:1858
 msgid "right"
-msgstr "dercha"
+msgstr "derecha"
 
 #: ../src/preferences.c:1858
 msgid "top"
@@ -5540,7 +5530,7 @@ msgstr "Ancho de Tabulación"
 
 #: ../src/preferences.c:1882
 msgid "Use spaces to indent, not tabs"
-msgstr "Use espacios y no tabulaciones para sangrar"
+msgstr "Usar espacios y no tabulaciones para sangrar"
 
 # src/html.c:1233 src/html.c:1314
 # src/configure.c:311
@@ -5580,16 +5570,14 @@ msgstr "Opciones para marcadores"
 # src/callbacks.c:166 src/callbacks.c:244
 # src/document.c:649 src/document.c:671 src/document.c:756
 #: ../src/preferences.c:1901
-#, fuzzy
 msgid "Sort by filename"
-msgstr "Sin nombre de archivo"
+msgstr "Ordenar por nombre"
 
 # src/callbacks.c:1141
 # src/document.c:1003
 #: ../src/preferences.c:1902
-#, fuzzy
 msgid "Make permanent by default"
-msgstr "Mostrar en forma predeterminada Panel Izquierdo"
+msgstr "Hacer permanente en forma predeterminada"
 
 # src/menu.c:803 src/toolbars.c:421
 # src/menu.c:884 src/toolbars.c:425
@@ -5610,9 +5598,8 @@ msgid "filename"
 msgstr "nombre del archivo"
 
 #: ../src/preferences.c:1905
-#, fuzzy
 msgid "Bookmarks filename display"
-msgstr "El archivo en marcadores se encuentra cerrado"
+msgstr "Mostrar los nombres de los marcadores"
 
 # src/configure.c:349
 #: ../src/preferences.c:1909
@@ -5938,9 +5925,8 @@ msgstr "/Proyecto/Guardar como..."
 # src/menu.c:104
 # src/menu.c:103
 #: ../src/project.c:170
-#, fuzzy
 msgid "/Project/Save & close"
-msgstr "/Proyecto/Guardar"
+msgstr "/Proyecto/Guardar y cerrar"
 
 #: ../src/project.c:171
 msgid "/Project/Edit Project Options..."
@@ -6314,8 +6300,6 @@ msgstr "Asistente para marcos"
 msgid "Use _DTD:"
 msgstr "Usar _DTD:"
 
-# src/html.c:1901
-# src/html.c:1185
 #: ../src/wizards.c:193
 msgid "Orientation:"
 msgstr "Orientación:"
@@ -6370,34 +6354,3 @@ msgstr "Fuente:"
 #: ../src/wizards.c:223
 msgid "Size:"
 msgstr "Tamaño:"
-
-#~ msgid "Add temporary bookmark"
-#~ msgstr "Añadir marcador temporal"
-
-#~ msgid "/_Bookmarks"
-#~ msgstr "/_Marcadores"
-
-# src/menu.c:102
-# src/menu.c:101
-#~ msgid "/Bookmarks/tearoff1"
-#~ msgstr "/Marcadores/tearoff1"
-
-#~ msgid "/Bookmarks/_Add"
-#~ msgstr "/Marcadores/_Añadir"
-
-# src/menu.c:104
-# src/menu.c:103
-#~ msgid "/Project/_Close & save"
-#~ msgstr "/Proyecto/_Cerrar y guardar"
-
-#~ msgid "Sort bookmarks"
-#~ msgstr "Ordenar marcadores"
-
-#, fuzzy
-#~ msgid "Default store bookmarks"
-#~ msgstr "Eliminar todos los marcadores temporales."
-
-# src/menu.c:104
-# src/menu.c:103
-#~ msgid "/Project/Close & save"
-#~ msgstr "/Proyecto/Cerrar y guardar"
