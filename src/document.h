@@ -35,6 +35,7 @@ Tdocument *documentlist_return_document_from_index(GList *doclist, gint index);
 
 void doc_update_highlighting(Tbfwin *bfwin,guint callback_action, GtkWidget *widget);
 void doc_set_wrap(Tdocument *doc);
+void doc_set_tooltip(Tdocument *doc);
 gboolean doc_set_filetype(Tdocument *doc, Tfiletype *ft);
 void doc_set_title(Tdocument *doc);
 Tfiletype *get_filetype_by_name(gchar * name);
