@@ -30,7 +30,7 @@ enum {
 gint documentlist_return_index_from_filename(GList *doclist, gchar *filename);
 Tdocument *documentlist_return_document_from_index(GList *doclist, gint index);
 
-void doc_update_highlighting(GtkWidget *wid, gpointer data);
+void doc_update_highlighting(Tbfwin *bfwin,guint callback_action, GtkWidget *widget);
 void document_set_wrap(Tdocument *doc, gint wraptype);
 gboolean doc_set_filetype(Tdocument *doc, Tfiletype *ft);
 Tfiletype *get_filetype_by_name(gchar * name);
@@ -38,7 +38,7 @@ Tfiletype *get_filetype_by_filename_and_content(gchar *filename, gchar *buf);
 void doc_reset_filetype(Tdocument * doc, gchar * newfilename, gchar *buf);
 void doc_set_font(Tdocument *doc, gchar *fontstring);
 void doc_set_tabsize(Tdocument *doc, gint tabsize);
-void gui_change_tabsize(gpointer callback_data,guint action,GtkWidget *widget);
+void gui_change_tabsize(Tbfwin *bfwin,guint action,GtkWidget *widget);
 
 gboolean doc_is_empty_non_modified_and_nameless(Tdocument *doc);
 gboolean test_docs_modified(GList *doclist);

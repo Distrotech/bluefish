@@ -141,16 +141,16 @@ Tdocument *documentlist_return_document_from_index(GList *doclist, gint index) {
  *
  * Return value: void
  **/
-void doc_update_highlighting(GtkWidget *wid, gpointer data) {
-	if (!main_v->current_document) return;
-	DEBUG_MSG("doc_update_highlighting, curdoc=%p, highlightstate=%d\n", main_v->current_document, main_v->current_document->highlightstate);
-	if (main_v->current_document->highlightstate == 0) {
-		setup_toggle_item(gtk_item_factory_from_widget(main_v->menubar),
+void doc_update_highlighting(Tbfwin *bfwin,guint callback_action, GtkWidget *widget) {
+	if (!bfwin->current_document) return;
+	DEBUG_MSG("doc_update_highlighting, curdoc=%p, highlightstate=%d\n", bfwin->current_document, bfwin->current_document->highlightstate);
+	if (bfwin->current_document->highlightstate == 0) {
+		setup_toggle_item(gtk_item_factory_from_widget(bfwin->menubar),
 			  N_("/Document/Highlight Syntax"), TRUE);
 		DEBUG_MSG("doc_update_highlighting, calling doc_toggle_highlighting_cb\n");
-		doc_toggle_highlighting_cb(NULL, 0, NULL);
+		doc_toggle_highlighting_cb(bfwin, 0, NULL);
 	} else {
-		doc_highlight_full(main_v->current_document);
+		doc_highlight_full(bfwin->current_document);
 	}
 }
 
@@ -385,15 +385,15 @@ void doc_set_tabsize(Tdocument *doc, gint tabsize) {
  *
  * this function is the callback for the menu, based on action
  * it will increase or decrease the tabsize by one 
- * for ALL DOCUMENTS
+ * for ALL DOCUMENTS (BUG: currently only all documents in the same window)
  *
  * Return value: void
  **/
-void gui_change_tabsize(gpointer callback_data,guint action,GtkWidget *widget) {
+void gui_change_tabsize(Tbfwin *bfwin,guint action,GtkWidget *widget) {
 	GList *tmplist;
 	PangoTabArray *tab_array;
 	gint pixels;
-	if (action) {
+	if (action == 1) {
 		main_v->props.editor_tab_width++;
 	} else {
 		main_v->props.editor_tab_width--;
@@ -403,7 +403,8 @@ void gui_change_tabsize(gpointer callback_data,guint action,GtkWidget *widget) {
 		statusbar_message(message, 2000);
 		g_free(message);
 	}
-	tmplist = g_list_first(main_v->documentlist);
+	/* this should eventually be the total documentlist, not only for this window */
+	tmplist = g_list_first(bfwin->documentlist);
 	pixels = textview_calculate_real_tab_width(GTK_WIDGET(((Tdocument *)tmplist->data)->view), main_v->props.editor_tab_width);
 	tab_array = pango_tab_array_new (1, TRUE);
 	pango_tab_array_set_tab (tab_array, 0, PANGO_TAB_LEFT, pixels);
@@ -459,7 +460,8 @@ gboolean test_docs_modified(GList *doclist) {
 	if (doclist) {
 		tmplist = g_list_first(doclist);
 	} else {
-		tmplist = g_list_first(main_v->documentlist);
+		g_print("test_docs_modified, calling without a doclist is deprecated, aborting\n");
+		exit(144);
 	}
 	
 	while (tmplist) {
@@ -485,12 +487,12 @@ gboolean test_docs_modified(GList *doclist) {
  *
  * Return value: void
  **/
-gboolean test_only_empty_doc_left() {
-	if (g_list_length(main_v->documentlist) > 1) {
+gboolean test_only_empty_doc_left(GList *doclist) {
+	if (g_list_length(doclist) > 1) {
 		return FALSE;
 	} else {
 		Tdocument *tmpdoc;
-		GList *tmplist = g_list_first(main_v->documentlist);
+		GList *tmplist = g_list_first(doclist);
 		if (tmplist) {
 #ifdef DEBUG
 			g_assert(tmplist->data);
@@ -577,7 +579,7 @@ void doc_set_modified(Tdocument *doc, gint value) {
 	}
 #endif
 	/* only when this is the current document we have to change these */
-	if (doc == main_v->current_document) {
+	if (doc == BFWIN(doc->bfwin)->current_document) {
 		gui_set_undo_redo_widgets(doc_has_undo_list(doc), doc_has_redo_list(doc));
 	}
 #ifdef DEBUG
@@ -724,7 +726,7 @@ static void doc_set_file_in_titlebar(Tdocument *doc) {
 	} else {
 		title = g_strconcat("Bluefish ",VERSION," -",_(" Untitled"),NULL);
 	}
-	gtk_window_set_title(GTK_WINDOW(main_v->main_window),title);
+	gtk_window_set_title(GTK_WINDOW(BFWIN(doc->bfwin)->main_window),title);
 	g_free(title);
 }
 
@@ -807,8 +809,8 @@ gint doc_get_cursor_position(Tdocument *doc) {
  **/
 void doc_set_statusbar_insovr(Tdocument *doc)
 {
-	gtk_statusbar_pop(GTK_STATUSBAR(main_v->statusbar_insovr), 0);
-	gtk_statusbar_push(GTK_STATUSBAR(main_v->statusbar_insovr), 0, (doc->overwrite_mode ? " OVR" : " INS"));
+	gtk_statusbar_pop(GTK_STATUSBAR(BFWIN(doc->bfwin)->statusbar_insovr), 0);
+	gtk_statusbar_push(GTK_STATUSBAR(BFWIN(doc->bfwin)->statusbar_insovr), 0, (doc->overwrite_mode ? " OVR" : " INS"));
 }
 /**
  * doc_set_statusbar_editmode_encoding:
@@ -824,8 +826,8 @@ void doc_set_statusbar_editmode_encoding(Tdocument *doc)
 	gchar *msg;
 	if (doc->hl == NULL) msg = g_strdup_printf(_("  %s, %s"), "unknown", doc->encoding);
 	else msg = g_strdup_printf(_("  %s, %s"), doc->hl->type, doc->encoding);
-	gtk_statusbar_pop(GTK_STATUSBAR(main_v->statusbar_editmode), 0);
-	gtk_statusbar_push(GTK_STATUSBAR(main_v->statusbar_editmode), 0, msg);
+	gtk_statusbar_pop(GTK_STATUSBAR(BFWIN(doc->bfwin)->statusbar_editmode), 0);
+	gtk_statusbar_push(GTK_STATUSBAR(BFWIN(doc->bfwin)->statusbar_editmode), 0, msg);
 	g_free(msg);		
 }
 
@@ -1298,8 +1300,8 @@ static void doc_update_linenumber(Tdocument *doc, GtkTextIter *iter, gint offset
 	line = gtk_text_iter_get_line(&itinsert) + 1;
 		
 	string = g_strdup_printf(_(" Line  %d"), line + offset);
-	gtk_statusbar_pop(GTK_STATUSBAR(main_v->statusbar_lncol), 0);
-	gtk_statusbar_push(GTK_STATUSBAR(main_v->statusbar_lncol), 0, string);
+	gtk_statusbar_pop(GTK_STATUSBAR(BFWIN(doc->bfwin)->statusbar_lncol), 0);
+	gtk_statusbar_push(GTK_STATUSBAR(BFWIN(doc->bfwin)->statusbar_lncol), 0, string);
 	g_free(string);
 	DEBUG_MSG("doc_update_linenumber, line=%d\n", line);
 }
@@ -1645,8 +1647,8 @@ gint doc_textbox_to_file(Tdocument * doc, gchar * filename) {
  *
  * Return value: void
  **/
-void doc_destroy(Tdocument * doc, gboolean delay_activation)
-{
+void doc_destroy(Tdocument * doc, gboolean delay_activation) {
+	Tbfwin *bfwin = doc->bfwin;
 	if (doc->filename) {
 		add_to_recent_list(doc->filename, 1);
 	}
@@ -1667,17 +1669,17 @@ void doc_destroy(Tdocument * doc, gboolean delay_activation)
 		main_v->documentlist = NULL;
 		DEBUG_MSG("doc_destroy, documentlist = NULL\n");
 	}*/
-	main_v->documentlist = g_list_remove(main_v->documentlist, doc);
+	bfwin->documentlist = g_list_remove(bfwin->documentlist, doc);
 	DEBUG_MSG("removed %p from documentlist, list %p length=%d\n",doc
-			, main_v->documentlist
-			, g_list_length(main_v->documentlist));
-	if (main_v->current_document == doc) {
-		main_v->current_document = NULL;
+			, bfwin->documentlist
+			, g_list_length(bfwin->documentlist));
+	if (bfwin->current_document == doc) {
+		bfwin->current_document = NULL;
 	}
 	/* then we remove the page from the notebook */
-	DEBUG_MSG("about to remove widget from notebook (doc=%p, current_document=%p)\n",doc,main_v->current_document);
-	gtk_notebook_remove_page(GTK_NOTEBOOK(main_v->notebook),
-							 gtk_notebook_page_num(GTK_NOTEBOOK(main_v->notebook),doc->view->parent));
+	DEBUG_MSG("about to remove widget from notebook (doc=%p, current_document=%p)\n",doc,bfwin->current_document);
+	gtk_notebook_remove_page(GTK_NOTEBOOK(bfwin->notebook),
+							 gtk_notebook_page_num(GTK_NOTEBOOK(bfwin->notebook),doc->view->parent));
 	DEBUG_MSG("doc_destroy, removed widget from notebook (doc=%p), delay_activation=%d\n",doc,delay_activation);
 	DEBUG_MSG("doc_destroy, (doc=%p) about to bind notebook signals...\n",doc);
 	gui_notebook_bind_signals();
@@ -2895,14 +2897,14 @@ void edit_select_all_cb(GtkWidget * widget, Tbfwin *bfwin) {
  *
  * Return value: void
  **/
-void doc_toggle_highlighting_cb(gpointer callback_data,guint action,GtkWidget *widget) {
+void doc_toggle_highlighting_cb(Tbfwin *bfwin,guint action,GtkWidget *widget) {
 
-	main_v->current_document->highlightstate = 1 - main_v->current_document->highlightstate;
-	DEBUG_MSG("doc_toggle_highlighting_cb, started, highlightstate now is %d\n", main_v->current_document->highlightstate);
+	bfwin->current_document->highlightstate = 1 - bfwin->current_document->highlightstate;
+	DEBUG_MSG("doc_toggle_highlighting_cb, started, highlightstate now is %d\n", bfwin->current_document->highlightstate);
 	if (main_v->current_document->highlightstate == 0) {
-		doc_remove_highlighting(main_v->current_document);
+		doc_remove_highlighting(bfwin->current_document);
 	} else {
-		doc_highlight_full(main_v->current_document);
+		doc_highlight_full(bfwin->current_document);
 	}
 }
 
