@@ -3634,6 +3634,7 @@ void file_open_advanced_cb(GtkWidget * widget, Tbfwin *bfwin) {
 	GList *tmplist;
 	tmplist = return_files_advanced(bfwin, NULL);
 	if (!tmplist) {
+		info_dialog(bfwin->main_window, _("No matching files found"), NULL);
 		return;
 	}
 	{
