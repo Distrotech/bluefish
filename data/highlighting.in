@@ -29,7 +29,7 @@ php:html-attrib-sub2:1:2::3:^html-attrib$:#009900::0:0:
 php:specialchar:1:&[^; ]*;::2::#999999::2:0:
 php:comment:0:<!--:-->:1::#AAAAAA::1:2:
 php:php:1:<\\?php:\\?>:1:^(top|html|html-attrib-sub2)$:#0000FF::0:0:
-php:php-keywords:0:\\b(foreach|return|goto|if|else|case|default|switch|break|continue|while|do|for|global|var|class|function|new)\\b::2:^php$:#000000::2:0:
+php:php-keywords:0:\\b(foreach|return|goto|if|else|elseif|case|default|switch|break|continue|while|do|for|global|var|class|function|new)\\b::2:^php$:#000000::2:0:
 php:php-braces:0:[{()}]::2:^php$:#000000::2:0:
 php:php-string-double:0:":":1:^php$:#009900::1:1:
 php:php-string-double-escape:0:\\\\.::2:^php-string-double$:#009900::1:1:
