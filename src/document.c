@@ -1237,14 +1237,12 @@ gint doc_save(Tdocument * doc, gint do_save_as, gint do_move)
 }
 
 
-void doc_new_with_file(gchar * filename, gboolean delay_activate) {
+gboolean doc_new_with_file(gchar * filename, gboolean delay_activate) {
 
 	Tdocument *doc;
 	
 	if ((filename == NULL) || (!file_exists_and_readable(filename))) {
-		error_dialog(_("Error"),filename);
-		statusbar_message(_("Unable to open file"), 2000);
-		return;
+		return FALSE;
 	}
 	if (!main_v->props.allow_multi_instances) {
 		gint index = documentlist_return_index_from_filename(filename);
@@ -1252,7 +1250,7 @@ void doc_new_with_file(gchar * filename, gboolean delay_activate) {
 			if (!delay_activate) {
 				switch_to_document_by_index(index);
 			}
-			return;
+			return TRUE;
 		}
 	}
 	DEBUG_MSG("doc_new_with_file, filename=%s exists\n", filename);
@@ -1270,18 +1268,29 @@ void doc_new_with_file(gchar * filename, gboolean delay_activate) {
 	doc->modified = 1; /* force doc_set_modified() to update the tab-label */
 	doc_set_modified(doc, 0);
 	doc_set_stat_info(doc); /* also sets mtime field */
-/*	notebook_changed();*/
+	return TRUE;	
 }
 
 void docs_new_from_files(GList * file_list) {
 
-	GList *tmplist;
+	GList *tmplist, *errorlist=NULL;
 	gboolean delay = (g_list_length(file_list) > 1);
 	tmplist = g_list_first(file_list);
 	while (tmplist) {
-		doc_new_with_file((gchar *) tmplist->data, delay);
+		if (!doc_new_with_file((gchar *) tmplist->data, delay)) {
+			errorlist = g_list_append(errorlist, g_strdup((gchar *) tmplist->data));
+		}
 		tmplist = g_list_next(tmplist);
 	}
+	if (errorlist){
+		gchar *message, *tmp;
+		tmp = stringlist_to_string(errorlist, "\n");
+		message = g_strconcat(_("Unable to open file(s)\n"), tmp, NULL);
+		g_free(tmp);
+		error_dialog("Bluefish error", message);
+		g_free(message);
+	}
+	free_stringlist(errorlist);
 
 	if (delay) {
 		/* since we delayed the highlighting, we do that now */

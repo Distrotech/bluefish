@@ -641,3 +641,17 @@ GList *add_to_stringlist(GList * which_list, gchar * string) {
 	return which_list;
 }
 
+gchar *stringlist_to_string(GList *stringlist, gchar *delimiter) {
+	gchar *string, *tmp;
+	GList *tmplist;
+	string = g_strdup("");
+	tmp = string;
+	tmplist = g_list_first(stringlist);
+	while (tmplist) {
+		string = g_strconcat(tmp, (gchar *) tmplist->data, delimiter, NULL);
+		g_free(tmp);
+		tmp = string;
+		tmplist = g_list_next(tmplist);
+	}
+	return string;
+}
