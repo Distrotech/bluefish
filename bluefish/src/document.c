@@ -25,7 +25,7 @@
 #include <stdio.h> /* fopen() */
 #include <string.h> /* strchr() */
 
-#define DEBUG
+/* #define DEBUG */
 
 #include "bluefish.h"
 #include "document.h"
@@ -663,7 +663,7 @@ gboolean doc_file_to_textbox(Tdocument * doc, gchar * filename, gboolean enable_
 				g_print("doc_file_to_textbox, try encoding %s\n", encoding);
 				newbuf = g_convert(buffer,-1,"UTF-8",encoding,NULL, &wsize, &error);
 				if (!newbuf || error) {
-					g_print("doc_file_to_textbox, cound not convert to UTF-8: \n");
+					DEBUG_MSG("doc_file_to_textbox, cound not convert to UTF-8: \n");
 				} else {
 					if (doc->encoding) {
 						g_free(doc->encoding);
