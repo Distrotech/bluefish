@@ -28,7 +28,15 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 	<sect1 id="bluefish-ch-4-sect-1">
 		<title>the menu</title>
 		<para>
-			in the top, there is the menu
+			<itemizedlist>
+			  <listitem>File</listitem>
+			  <listitem>Edit</listitem>
+			  <listitem>Tags</listitem>
+			  <listitem>Dialogs</listitem>
+			  <listitem>External</listitem>
+			  <listitem>Document</listitem>
+			  <listitem>Options</listitem>
+			</itemizedlist>
 		</para>
 		<sect2 id="bluefish-ch-4-sect-1.1">
 			<title>open a file</title>
@@ -150,9 +158,9 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 			to color parts of that match. There are three
 			types of patterns:</para>
 	<itemizedlist>
-	  <listitem><para>1 Two patterns, match from the start to the end pattern</para></listitem>
-	  <listitem><para>2 One pattern that matches from start to end</para></listitem>
-	  <listitem><para>3 Match a subpattern from the parent pattern</para></listitem>
+	  <listitem>1 Two patterns, match from the start to the end pattern</listitem>
+	  <listitem>2 One pattern that matches from start to end</listitem>
+	  <listitem>3 Match a subpattern from the parent pattern</listitem>
 	</itemizedlist>
 	<para>
 		One specific pattern can also be used within several other parent patterns. The parent-match

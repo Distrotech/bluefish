@@ -21,14 +21,14 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
   <title>bluefish installation</title>
 	<simplesect>    
 		<para>
-	      about different methodes to have bluefish installed (distribution or own installation)
+	      about different methods to have bluefish installed (distribution or own installation)
 		</para>
 	</simplesect>
 
 	<sect1 id="bluefish-ch-2-sect-1">
 		<title>requirements</title>
 		<para>
-			Bluefish aim to be portable, hopefully wherever GTK is ported. A comparatively small
+			Bluefish aims to be portable, hopefully wherever GTK is ported. A comparatively small
 			set of external libraries are neccessary for it to work. Any recent GNU/Linux distribution
 			or other *NIX with GTK2 installed, will be sufficient. In addition to the list of requirements
 			below, you may also want to look at <xref linkend="bluefish-ch-2-sect-3.5"/>. Note: These
@@ -38,17 +38,17 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 			The main requirements:
 		</para>
 		<itemizedlist>
-			<listitem><para>gtk v2.0</para></listitem>
-			<listitem><para>glib v2.0</para></listitem>
-			<listitem><para>pango 1.0</para></listitem>
+			<listitem>gtk v2.0</listitem>
+			<listitem>glib v2.0</listitem>
+			<listitem>pango 1.0</listitem>
 		</itemizedlist>
 		<para>
 			Optional requirements:
 		</para>
 		<itemizedlist>
-			<listitem><para>libpcre3<emphasis> - for Perl Regular Expression support</emphasis></para></listitem>
-			<listitem><para>libaspell<emphasis> - spell checker</emphasis></para></listitem>
-			<listitem><para>grep &amp; find<emphasis> - used by the advanced open dialog</emphasis>.</para>
+			<listitem>libpcre3<emphasis> - for Perl Regular Expression support</emphasis></listitem>
+			<listitem>libaspell<emphasis> - spell checker</emphasis></listitem>
+			<listitem>grep &amp; find<emphasis> - used by the advanced open dialog</emphasis>.
 						<remark>Remember to add link to the advanced open description</remark></listitem>
 		</itemizedlist>
 		<para>
@@ -58,12 +58,12 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 			are as follows:
 		</para>
 		<itemizedlist>
-			<listitem><para>Development files (header files etc) for the packages above.<emphasis>
+			<listitem>Development files (header files etc) for the packages above.<emphasis>
 				These are often distributed as separate packages. There is also a high probability
-				you have these installed already.</emphasis></para></listitem>
-			<listitem><para>gcc<emphasis> - Bluefish has been tested to compile on the 2.95 and 3.x branches.</emphasis></para></listitem>
-			<listitem><para>gmake or BSD make</para></listitem>
-			<listitem><para>autoconf<emphasis> - only if you are going to compile from CVS</emphasis></para></listitem>
+				you have these installed already.</emphasis></listitem>
+			<listitem>gcc<emphasis> - Bluefish has been tested to compile on the 2.95 and 3.x branches.</emphasis></listitem>
+			<listitem>gmake or BSD make</listitem>
+			<listitem>autoconf<emphasis> - only if you are going to compile from CVS</emphasis></listitem>
 		</itemizedlist>
 	</sect1>
 
@@ -76,23 +76,23 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 			a few really quick and simple approaches before dealing with this problem more extensively.
 		</para>
 		<itemizedlist>
-			<listitem><para>
+			<listitem>
 				Debian: <userinput>su - &amp;&amp; apt-get update &amp;&amp; apt-get install bluefish</userinput>
-			</para></listitem>
+			</listitem>
 			
-			<listitem><para>
+			<listitem>
 				Red Hat, Mandrake (and other Linux distributions that supports rpm):
 				Download the latest .rpm from the bluefish website,
 				<systemitem class="url">http://bluefish.openoffice.nl/</systemitem>
-			</para></listitem>
+			</listitem>
 			
-			<listitem><para>
+			<listitem>
 				FreeBSD, NetBSD and OpenBSD distribute Bluefish through their packaging systems.
-			</para></listitem>
+			</listitem>
 			
-			<listitem><para>
+			<listitem>
 				To compile, or install on another platform, see <xref linkend="bluefish-ch-2-sect-4" />.
-			</para></listitem>
+			</listitem>
 		</itemizedlist>
 	</sect1>
 
@@ -132,10 +132,10 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 				mainly support these platforms:
 			</para>
 			<itemizedlist>
-				<listitem><para>Mandrake Linux</para></listitem>
-				<listitem><para>Red Hat Linux</para></listitem>
-				<listitem><para>Debian Linux</para></listitem>
-				<listitem><para>FreeBSD</para></listitem>
+				<listitem>Mandrake Linux</listitem>
+				<listitem>Red Hat Linux</listitem>
+				<listitem>Debian Linux</listitem>
+				<listitem>FreeBSD</listitem>
 			</itemizedlist>
 			<para>
 				Actually, any GNU/Linux distribution with GTK2 is fine -- many distributions also include
@@ -143,15 +143,15 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 				where GTK2 is available. Bluefish has been reported to work on
 			</para>
 			<itemizedlist>
-				<listitem><para>NetBSD - distributed in pkgsrc</para></listitem>
-				<listitem><para>OpenBSD - available through their ports system</para></listitem>
-				<listitem><para>SGI IRIX - see <systemitem class="url">http://freeware.sgi.com/</systemitem></para></listitem>
-				<listitem><para>Mac OS X</para></listitem>
-				<listitem><para>Sun Solaris</para></listitem>
-				<listitem><para>Tru64</para></listitem>
-				<listitem><para>AIX</para></listitem>
-				<listitem><para>HP-UX</para></listitem>
-				<listitem><para>Win32-cygwin - with a few nags.</para></listitem>
+				<listitem>NetBSD - distributed in pkgsrc</listitem>
+				<listitem>OpenBSD - available through their ports system</listitem>
+				<listitem>SGI IRIX - see <systemitem class="url">http://freeware.sgi.com/</systemitem></listitem>
+				<listitem>Mac OS X</listitem>
+				<listitem>Sun Solaris</listitem>
+				<listitem>Tru64</listitem>
+				<listitem>AIX</listitem>
+				<listitem>HP-UX</listitem>
+				<listitem>Win32-cygwin - with a few nags.</listitem>
 			</itemizedlist>			
 		</sect2>
 		<sect2 id="bluefish-ch-2-sect-3.3">
@@ -160,26 +160,26 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 				Currently, four versions of bluefish are available:
 			</para>
 			<itemizedlist>
-				<listitem><para>
+				<listitem>
 					The GTK1-version (v0.7) is deprecated and no longer updated, but is the choice for those
 					of you still running GTK1.
-				</para></listitem>
-				<listitem><para>
+				</listitem>
+				<listitem>
 					The latest GTK2-version (v0.10) is the version of choice for most users. It's the latest
 					addition to the Bluefish tree, and is regarded as stable enough for daily use.
-				</para></listitem>
-				<listitem><para>
+				</listitem>
+				<listitem>
 					The latest development snapshot is always one step further than the latest stable release.
 					You'll find some new features, bugs fixed and a prettier gui. The catch is that it may have
 					unfinished, perhaps buggy, features. Try this if you want to see new features, or if there's
 					a bug in the latest stable release that bothers you.
-				</para></listitem>
-				<listitem><para>
+				</listitem>
+				<listitem>
 					CVS - the bleeding edge of Bluefish development. You want this if there's a bug that bothers
 					you, but is unfixed even in the latest snapshot, if you want to contribute a patch, or simply
 					want the bleeding edge feature set. The CVS may be unusable for short periods of time, but
 					will often be stable enough for daily use.
-				</para></listitem>
+				</listitem>
 			</itemizedlist>
 			<para>
 				As commented in <xref linkend="bluefish-ch-2-sect-3.4"/>, the long time between stable releases
@@ -207,20 +207,20 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 			
 			<para>Mandrake:</para>
 			<itemizedlist>
-				<listitem><para>
+				<listitem>
 					libpcre: Breaks pcre into 3 different pieces, make sure pcre-devel is installed if
 					compiling from source. Try this command: <screen>$ rpm -ql pcre-devel</screen>
-				</para></listitem>
+				</listitem>
 				<listitem><remark>... more nags with Mandrake?</remark></listitem>
 			</itemizedlist>
 
 			<para>Debian:</para>
 			<itemizedlist>
-				<listitem><para>
+				<listitem>
 					If you are running <emphasis>unstable</emphasis>, you may experience unstability (ha ha)
 					with Bluefish. Make sure it's not just caused by a buggy version of GTK2. If the bug is
 					very obscure and strange, GTK may be the villain.
-				</para></listitem>
+				</listitem>
 				<listitem><remark>... more nags with Debian? Of course not...? -- Christian</remark></listitem>
 			</itemizedlist>
 						
@@ -245,12 +245,12 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 				you complete the installation with the following steps:
 			</para>
 			<orderedlist>
-				<listitem><para><userinput>tar -zxvf bluefish-ver.tar.gz</userinput></para></listitem>
-				<listitem><para><userinput>cd bluefish-ver</userinput></para></listitem>
-				<listitem><para><userinput>./configure</userinput></para></listitem>
-				<listitem><para><userinput>make</userinput></para></listitem>
-				<listitem><para><userinput>su -c 'make install'</userinput></para></listitem>
-				<listitem><para>Now, type <userinput>bluefish</userinput> to run. You may delete the <literal>bluefish-ver</literal> dir.</para></listitem>
+				<listitem><userinput>tar -zxvf bluefish-ver.tar.gz</userinput></listitem>
+				<listitem><userinput>cd bluefish-ver</userinput></listitem>
+				<listitem><userinput>./configure</userinput></listitem>
+				<listitem><userinput>make</userinput></listitem>
+				<listitem><userinput>su -c 'make install'</userinput></listitem>
+				<listitem>Now, type <userinput>bluefish</userinput> to run. You may delete the <literal>bluefish-ver</literal> dir.</listitem>
 			</orderedlist>
 		</sect2>
 		<sect2 id="bluefish-ch-2-sect-4.2">
@@ -270,13 +270,13 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 				The Bluefish-specific configure options are
 			</para>
 			<itemizedlist>
-				<listitem><para><literal>--disable-splash-screen</literal> - simply disables the splash-screen.</para></listitem>
-				<listitem><para>...</para></listitem>
+				<listitem><literal>--disable-splash-screen</literal> - simply disables the splash-screen.</listitem>
+				<listitem>...</listitem>
 			</itemizedlist>
 			<para>You might also need these:</para>
 			<itemizedlist>
-				<listitem><para><literal>--prefix=/usr</literal> - If you want to install in <literal>/usr</literal>. Usually, <literal>/usr/local</literal> is preferred.</para></listitem>
-				<listitem><para><literal>...</literal></para></listitem>
+				<listitem><literal>--prefix=/usr</literal> - If you want to install in <literal>/usr</literal>. Usually, <literal>/usr/local</literal> is preferred.</listitem>
+				<listitem><literal>...</literal></listitem>
 			</itemizedlist>			
 		</sect2>
 		<sect2 id="bluefish-ch-2-sect-4.3">
@@ -352,12 +352,12 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 				(See <xref linkend="bluefish-ch-1-sect-2.4"/>).
 			</para>
 			<itemizedlist>
-				<listitem><para>
+				<listitem>
 					<screen>make: *** No targets specified and no makefile found.  Stop.</screen>
 					This will happen if <emphasis>configure</emphasis> fail and you try to run <literal>make</literal>.
 					It also happens if you're running <literal>make</literal> from the wrong directory.
-				</para></listitem>
-				<listitem><para>... more trouble to come ;-)</para></listitem>
+				</listitem>
+				<listitem>... more trouble to come ;-)</listitem>
 			</itemizedlist>
 		</sect2>
 	</sect1>
@@ -385,7 +385,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 			distribution from any of the Bluefish mirrors. Next, installing a downloaded rpm
 			is as simple as pointing and clicking in your favourite gui package manager, or
 			issuing the following command from the command line: (as root)
-			<screen># rpm -i bluefish-ver.rpm</screen>
+			<screen># rpm -Uvh bluefish-ver.rpm</screen>
 		</para>
 		<para>
 			If you're using FreeBSD, NetBSD or OpenBSD, we probably won't need to tell <emphasis>you</emphasis>

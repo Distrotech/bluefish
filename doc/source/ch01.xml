@@ -57,23 +57,23 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 				typographic conventions are denoted below.
 			</para>
 			<itemizedlist>
-       		<listitem><para>
+       		<listitem>
 					Any urls are denoted like this: <systemitem class="url">http://bluefish.openoffice.nl</systemitem>
-				</para></listitem>
-				<listitem><para>
+				</listitem>
+				<listitem>
 					Shortcuts you can use, look like this: <accel>Ctrl-S</accel>
-				</para></listitem>
-				<listitem><para>
+				</listitem>
+				<listitem>
 					The menus in Bluefish are comprehensive, and when discussing them, you may see the <guimenu>File</guimenu>
 					mentioned, and perhaps a member of it, <guimenuitem>Open Advanced</guimenuitem>.
-				</para></listitem>
-				<listitem><para>
+				</listitem>
+				<listitem>
 					When you can type in something, it might be an example of the input, like this:
 					<screen>$ foo -bar | bang -l</screen>
 					You are not supposed to write the <literal>$</literal> character - it's simply identifying
 					your command prompt. If you need to be <emphasis>root</emphasis> to execute a command,
 					the prompt is shown as a <literal>#</literal>.
-				</para></listitem>
+				</listitem>
 			</itemizedlist>
 		</sect2>
 	</sect1>
@@ -118,46 +118,45 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 				the most important or outstanding features.
 			</para>
 			<itemizedlist>
-				<listitem><para>A What You See Is What You Need interface</para></listitem>
-				<listitem><para>Multiple document interface, will easily open 500+ documents (tested 3500 with documents simultaneously).</para></listitem>
+				<listitem>A What You See Is What You Need interface</listitem>
+				<listitem>Multiple document interface, will easily open 500+ documents (tested 3500 with documents simultaneously).</listitem>
 				<listitem>
-					<para>
 						Customizable syntax highlighting based on Perl compatible regular expressions,
-						with subpattern support. Default patterns are included for</para>
+						with subpattern support. Default patterns are included for
 					<itemizedlist>
-						<listitem><para>C</para></listitem>
-						<listitem><para>cfml</para></listitem>
-						<listitem><para>ColdFusion</para></listitem>
-						<listitem><para>Gettext po</para></listitem>
-						<listitem><para>HTML</para></listitem>
-						<listitem><para>Java</para></listitem>
-						<listitem><para>Pascal</para></listitem>
-						<listitem><para>Perl</para></listitem>
-						<listitem><para>PHP</para></listitem>
-						<listitem><para>Python</para></listitem>
-						<listitem><para>R</para></listitem>
-						<listitem><para>XML</para></listitem>
+						<listitem>C</listitem>
+						<listitem>cfml</listitem>
+						<listitem>ColdFusion</listitem>
+						<listitem>Gettext po</listitem>
+						<listitem>HTML</listitem>
+						<listitem>Java</listitem>
+						<listitem>Pascal</listitem>
+						<listitem>Perl</listitem>
+						<listitem>PHP</listitem>
+						<listitem>Python</listitem>
+						<listitem>R</listitem>
+						<listitem>XML</listitem>
 					</itemizedlist>
 				</listitem>
-				<listitem><para>Anti-aliased text window</para></listitem>
-				<listitem><para>Multiple encodings support, can convert between different character sets, supports multibyte characters, unicode, UTF8 etc.</para></listitem>
-				<listitem><para>Nice wizards for startup, tables, frames, and others</para></listitem>
-				<listitem><para>Dialogs for many HTML tags, with all their attributes</para></listitem>
-				<listitem><para>HTML toolbar and tearable menus</para></listitem>
-				<listitem><para>User-customizable toolbar for quick access to often used functions</para></listitem>
-				<listitem><para>Open files based on filename patterns and/or content</para></listitem>
-				<listitem><para>Fully featured image insert dialog</para></listitem>
-				<listitem><para>Thumbnail creation and automatically linking of the thumbnail with the original image</para></listitem>
-				<listitem><para>Multi thumbnail generation for easy creation of photo albums or screenshot pages</para></listitem>
-				<listitem><para>Line numbers along the document</para></listitem>
-				<listitem><para>A custom menu, specify your own tags or sets of code, and define your own dialogs</para></listitem>
-				<listitem><para>Custom search and replace pattern support for the Custom menu</para></listitem>
-				<listitem><para>Very powerful search and replace, allowing POSIX and Perl Compatible regular expressions and sub-pattern replacing</para></listitem>
-				<listitem><para>Excellent undo/redo functionality</para></listitem>
-				<listitem><para>Configurable recent documents and recent directories functionality</para></listitem>
-				<listitem><para>Translations in <emphasis>da fr es it hu pl no ru sv</emphasis></para></listitem>
-				<listitem><para>User customizable integration with many programs, including weblint, tidy, make, javac etc.</para></listitem>
-				<listitem><para>XML based function reference. Currently, references are included for HTML and PHP. A GTK reference is available, and support for Perl and Python will be added. You may also create your own function reference. The XML format is described later in the manual.</para></listitem>
+				<listitem>Anti-aliased text window</listitem>
+				<listitem>Multiple encodings support, can convert between different character sets, supports multibyte characters, unicode, UTF8 etc.</listitem>
+				<listitem>Nice wizards for startup, tables, frames, and others</listitem>
+				<listitem>Dialogs for many HTML tags, with all their attributes</listitem>
+				<listitem>HTML toolbar and tearable menus</listitem>
+				<listitem>User-customizable toolbar for quick access to often used functions</listitem>
+				<listitem>Open files based on filename patterns and/or content</listitem>
+				<listitem>Fully featured image insert dialog</listitem>
+				<listitem>Thumbnail creation and automatically linking of the thumbnail with the original image</listitem>
+				<listitem>Multi thumbnail generation for easy creation of photo albums or screenshot pages</listitem>
+				<listitem>Line numbers along the document</listitem>
+				<listitem>A custom menu, specify your own tags or sets of code, and define your own dialogs</listitem>
+				<listitem>Custom search and replace pattern support for the Custom menu</listitem>
+				<listitem>Very powerful search and replace, allowing POSIX and Perl Compatible regular expressions and sub-pattern replacing</listitem>
+				<listitem>Excellent undo/redo functionality</listitem>
+				<listitem>Configurable recent documents and recent directories functionality</listitem>
+				<listitem>Translations in <emphasis>da fr es it hu pl no ru sv</emphasis></listitem>
+				<listitem>User customizable integration with many programs, including weblint, tidy, make, javac etc.</listitem>
+				<listitem>XML based function reference. Currently, references are included for HTML and PHP. A GTK reference is available, and support for Perl and Python will be added. You may also create your own function reference. The XML format is described later in the manual.</listitem>
 			</itemizedlist>
 			<para>
 				As Bluefish is a part of a larger desktop enviroment, we've focused on making the GUI
@@ -200,27 +199,27 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 				to contribute by translating Bluefish or its manual? Here's your options:
 			</para>
 			<itemizedlist>
-				<listitem><para>
+				<listitem>
 					<systemitem class="url">http://bluefish.openoffice.nl/</systemitem> - The main website. Here
 					you'll find news, updates and more information.
-				</para></listitem>
-				<listitem><para>
+				</listitem>
+				<listitem>
 					<systemitem class="url">http://bfwiki.tellefsen.net/</systemitem> - The Bluefish WiKi. Here's
 					the notebook for the developers, containing a lot of information, including, but not limited to,
 					updated project roadmaps, status of translations, feature requests and open bugs.
-				</para></listitem>
-				<listitem><para>
+				</listitem>
+				<listitem>
 					You can subscribe to the Bluefish mailinglist by sending an email containing
 					<quote>subscribe bluefish-dev</quote> to <email>bluefish-dev-request@lists.ems.ru</email>.
-				</para></listitem>
-				<listitem><para>
+				</listitem>
+				<listitem>
 					Do you want to help translate Bluefish? Please do tell us. Drop an email to
 					Walter Echarri <email>wecharri(at)infovia.com.ar</email>, our friendly translation maintainer.
-				</para></listitem>
-				<listitem><para>
+				</listitem>
+				<listitem>
 					If you've got a generic question, you can also drop an email to
 					<email>bluefish(at)bluefish.openoffice.nl</email>.
-				</para></listitem>
+				</listitem>
 			</itemizedlist>
 		</sect2>
 	</sect1>
