@@ -52,6 +52,7 @@
 #include <gdk/gdkkeysyms.h> /* GDK_Return */
 
 #include "bluefish.h"
+#include "bookmark.h" /* bmark_add_extern() */
 #include "bf_lib.h"
 #include "undo_redo.h" /* doc_unre_new_group */
 #include "document.h"			/* doc_replace_text() */
@@ -97,6 +98,7 @@ typedef struct {
 	gint prompt_before_replace;
 	gint is_case_sens;
 	gint replace_once;
+	gint bookmark_results;
 	Treplace_types replacetype_option;
 	Tmatch_types matchtype_option;
 	Tplace_types placetype_option;
@@ -123,6 +125,7 @@ typedef struct {
 	GtkWidget *replacetype_option;
 	GtkWidget *matchtype_option;
 	GtkWidget *placetype_option;
+	GtkWidget *bookmark_results;
 } Tsnr2_win;
 #define LASTSNR2(var) ((Tlast_snr2 *)(var))
 /***********************************************************/
@@ -1003,6 +1006,40 @@ void replace_prompt_all(Tbfwin *bfwin,gchar *search_pattern, Tmatch_types matcht
 	}
 }
 
+static void search_bookmark(Tbfwin *bfwin, gint startat) {
+	gint startpos = startat;
+	if (LASTSNR2(bfwin->snr2)->placetype_option==opened_files) {
+		Tsearch_all_result result_all;
+		result_all = search_all(bfwin,LASTSNR2(bfwin->snr2)->search_pattern, LASTSNR2(bfwin->snr2)->matchtype_option, LASTSNR2(bfwin->snr2)->is_case_sens, LASTSNR2(bfwin->snr2)->unescape);
+		while (result_all.end > 0) {
+			gchar *text = doc_get_chars(result_all.doc, result_all.start, result_all.end);
+			bmark_add_extern(result_all.doc, result_all.start, NULL, text, !main_v->props.bookmarks_default_store);
+			g_free(text);
+			if (LASTSNR2(bfwin->snr2)->overlapping_search) {
+				startpos = result_all.start + 1;
+			} else {
+				startpos = result_all.end;
+			}
+			result_all = search_all(bfwin,LASTSNR2(bfwin->snr2)->search_pattern, LASTSNR2(bfwin->snr2)->matchtype_option, LASTSNR2(bfwin->snr2)->is_case_sens, LASTSNR2(bfwin->snr2)->unescape);
+		}
+	} else {
+		Tsearch_result result;
+		Tdocument *doc = bfwin->current_document;
+		result = search_doc(bfwin,doc, LASTSNR2(bfwin->snr2)->search_pattern, LASTSNR2(bfwin->snr2)->matchtype_option, LASTSNR2(bfwin->snr2)->is_case_sens, startpos, LASTSNR2(bfwin->snr2)->unescape);
+		while (result.end > 0) {
+			gchar *text = doc_get_chars(doc, result.start, result.end);
+			bmark_add_extern(doc, result.start, NULL, text, !main_v->props.bookmarks_default_store);
+			g_free(text);
+			if (LASTSNR2(bfwin->snr2)->overlapping_search) {
+				startpos = result.start + 1;
+			} else {
+				startpos = result.end;
+			}
+			result = search_doc(bfwin,doc, LASTSNR2(bfwin->snr2)->search_pattern, LASTSNR2(bfwin->snr2)->matchtype_option, LASTSNR2(bfwin->snr2)->is_case_sens, startpos, LASTSNR2(bfwin->snr2)->unescape);
+		}
+	}
+}
+
 /*****************************************************/
 
 /**
@@ -1079,21 +1116,25 @@ void snr2_run(Tbfwin *bfwin, Tdocument *doc) {
 			}		
 		}
 	} else { /* find, not replace */
-		if (LASTSNR2(bfwin->snr2)->placetype_option==opened_files) {
-			DEBUG_MSG("snr2dialog_ok_lcb, search = all\n");
-			result_all = search_all(bfwin,LASTSNR2(bfwin->snr2)->search_pattern, LASTSNR2(bfwin->snr2)->matchtype_option, LASTSNR2(bfwin->snr2)->is_case_sens, LASTSNR2(bfwin->snr2)->unescape);
-			DEBUG_MSG("snr2dialog_ok_lcb, result_all.doc=%p\n",result_all.doc);
-			if (result_all.end > 0) {
-				doc_show_result(result_all.doc, result_all.start, result_all.end);
-			} else {
-				info_dialog(bfwin->main_window,_("Search: no match found"), NULL);
-			}
+		if (LASTSNR2(bfwin->snr2)->bookmark_results) {
+			search_bookmark(bfwin, startpos);
 		} else {
-			result = search_doc(bfwin,doc, LASTSNR2(bfwin->snr2)->search_pattern, LASTSNR2(bfwin->snr2)->matchtype_option, LASTSNR2(bfwin->snr2)->is_case_sens, startpos, LASTSNR2(bfwin->snr2)->unescape);
-			if (result.end > 0) {
-				doc_show_result(doc, result.start, result.end);	
+			if (LASTSNR2(bfwin->snr2)->placetype_option==opened_files) {
+				DEBUG_MSG("snr2dialog_ok_lcb, search = all\n");
+				result_all = search_all(bfwin,LASTSNR2(bfwin->snr2)->search_pattern, LASTSNR2(bfwin->snr2)->matchtype_option, LASTSNR2(bfwin->snr2)->is_case_sens, LASTSNR2(bfwin->snr2)->unescape);
+				DEBUG_MSG("snr2dialog_ok_lcb, result_all.doc=%p\n",result_all.doc);
+				if (result_all.end > 0) {
+					doc_show_result(result_all.doc, result_all.start, result_all.end);
+				} else {
+					info_dialog(bfwin->main_window,_("Search: no match found"), NULL);
+				}
 			} else {
-				info_dialog(bfwin->main_window,_("Search: no match found"), NULL);
+				result = search_doc(bfwin,doc, LASTSNR2(bfwin->snr2)->search_pattern, LASTSNR2(bfwin->snr2)->matchtype_option, LASTSNR2(bfwin->snr2)->is_case_sens, startpos, LASTSNR2(bfwin->snr2)->unescape);
+				if (result.end > 0) {
+					doc_show_result(doc, result.start, result.end);
+				} else {
+					info_dialog(bfwin->main_window,_("Search: no match found"), NULL);
+				}
 			}
 		}
 	}
@@ -1237,6 +1278,7 @@ static void snr2dialog_ok_lcb(GtkWidget *widget, Tsnr2_win *data) {
 	 	LASTSNR2(bfwin->snr2)->replace_once = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(data->replace_once));
 	} else {
 		LASTSNR2(bfwin->snr2)->replace = 0;
+		LASTSNR2(bfwin->snr2)->bookmark_results = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(data->bookmark_results));
 	}
 	window_destroy(data->window);
 	g_free(data);
@@ -1400,6 +1442,8 @@ static void snr2dialog(Tbfwin *bfwin, gint is_replace, gint is_new_search) {
 	if (is_replace) {
 		snr2win->prompt_before_replace = boxed_checkbut_with_value(_("Prompt _before replace"), LASTSNR2(bfwin->snr2)->prompt_before_replace, vbox);
 		snr2win->replace_once = boxed_checkbut_with_value(_("Replace o_nce"), LASTSNR2(bfwin->snr2)->replace_once, vbox);
+	} else {
+		snr2win->bookmark_results = boxed_checkbut_with_value(_("Bookmark results"), LASTSNR2(bfwin->snr2)->bookmark_results, vbox);
 	}
 
 	hbox = gtk_hseparator_new ();
