@@ -155,6 +155,17 @@ void string_apply(gchar ** config_var, GtkWidget * entry)
 #endif
 }
 
+void integer_apply(gint *config_var, GtkWidget * widget, gboolean is_checkbox)
+{
+	if (is_checkbox) {
+		*config_var = (GTK_TOGGLE_BUTTON(widget)->active);
+	} else {
+		*config_var = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(widget));
+	}
+	DEBUG_MSG("integer_apply, config_var(%p)=%i\n", config_var, *config_var);
+}
+
+
 /*
  * Function: combo_with_popdown
  * Arguments:
@@ -166,7 +177,7 @@ void string_apply(gchar ** config_var, GtkWidget * entry)
  * Description:
  * 	Create new combo and preset some values
  */
-GtkWidget *combo_with_popdown(gchar * setstring, GList * which_list, gint editable)
+GtkWidget *combo_with_popdown(const gchar * setstring, GList * which_list, gint editable)
 {
 
 	GtkWidget *returnwidget;
@@ -187,7 +198,7 @@ GtkWidget *combo_with_popdown(gchar * setstring, GList * which_list, gint editab
 	return returnwidget;
 }
 
-GtkWidget *boxed_combo_with_popdown(gchar * setstring, GList * which_list, gint editable, GtkWidget *box) {
+GtkWidget *boxed_combo_with_popdown(const gchar * setstring, GList * which_list, gint editable, GtkWidget *box) {
 
 	GtkWidget *returnwidget;
 	
@@ -196,7 +207,7 @@ GtkWidget *boxed_combo_with_popdown(gchar * setstring, GList * which_list, gint 
 	return returnwidget;
 }
 
-GtkWidget *combo_with_popdown_sized(gchar * setstring, GList * which_list, gint editable, gint width) {
+GtkWidget *combo_with_popdown_sized(const gchar * setstring, GList * which_list, gint editable, gint width) {
 	GtkWidget *returnwidget;
 	
 	returnwidget = combo_with_popdown(setstring, which_list, editable);
@@ -215,7 +226,7 @@ GtkWidget *combo_with_popdown_sized(gchar * setstring, GList * which_list, gint 
  * 	Create new entry with some preset values
  */
 
-GtkWidget *entry_with_text(gchar * setstring, gint max_lenght)
+GtkWidget *entry_with_text(const gchar * setstring, gint max_lenght)
 {
 
 	GtkWidget *returnwidget;
@@ -232,7 +243,7 @@ GtkWidget *entry_with_text(gchar * setstring, gint max_lenght)
 
 }
 
-GtkWidget *boxed_entry_with_text(gchar * setstring, gint max_lenght, GtkWidget *box) {
+GtkWidget *boxed_entry_with_text(const gchar * setstring, gint max_lenght, GtkWidget *box) {
 	GtkWidget *returnwidget;
 	
 	returnwidget = entry_with_text(setstring, max_lenght);
@@ -241,7 +252,7 @@ GtkWidget *boxed_entry_with_text(gchar * setstring, gint max_lenght, GtkWidget *
 
 }
 
-GtkWidget *boxed_full_entry(gchar * labeltext, gchar * setstring,gint max_lenght, GtkWidget * box) {
+GtkWidget *boxed_full_entry(const gchar * labeltext, gchar * setstring,gint max_lenght, GtkWidget * box) {
 	GtkWidget *hbox, *return_widget;
 
 	hbox = gtk_hbox_new(FALSE,3);
@@ -415,6 +426,14 @@ GtkWidget *apply_font_style(GtkWidget * this_widget, gchar * fontstring)
 		pango_font_description_free(font_desc);
 	}
 	return this_widget;
+}
+
+GtkWidget *hbox_with_pix_and_text(const gchar *label, gint pixmap_type) {
+	GtkWidget *hbox = gtk_hbox_new(FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(hbox), new_pixmap(pixmap_type), FALSE, FALSE, 1);
+	gtk_box_pack_start(GTK_BOX(hbox), gtk_label_new(label), TRUE, TRUE, 1);
+	gtk_widget_show_all(hbox);
+	return hbox;
 }
 
 /*

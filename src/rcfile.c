@@ -407,7 +407,6 @@ static GList *props_init_main(GList * config_rc)
 	init_prop_integer   (&config_rc, &main_v->props.view_custom_menu, "view_custom_menu:", 1);
 	init_prop_integer   (&config_rc, &main_v->props.view_main_toolbar, "view_main_toolbar:", 1);
 	init_prop_integer   (&config_rc, &main_v->props.view_left_panel, "view_left_panel:", 1);
-	init_prop_integer   (&config_rc, &main_v->props.left_panel_width, "left_panel_width:", 150);	
 	init_prop_integer   (&config_rc, &main_v->props.filebrowser_show_hidden_files, "fb_show_hidden_f:", 0);
 	init_prop_integer   (&config_rc, &main_v->props.filebrowser_show_others_files, "fb_show_others_f:", 0);
 	init_prop_integer   (&config_rc, &main_v->props.filebrowser_show_backup_files, "fb_show_backup_f:", 0);
@@ -424,6 +423,8 @@ static GList *props_init_main(GList * config_rc)
 	init_prop_arraylist (&config_rc, &main_v->props.filefilters, "filefilters:");
 	init_prop_string    (&config_rc, &main_v->props.last_filefilter, "last_filefilter:", "");
 	init_prop_integer   (&config_rc, &main_v->props.transient_htdialogs, "transient_htdialogs:", 1);
+	init_prop_integer   (&config_rc, &main_v->props.restore_dimensions, "restore_dimensions:", 1);	
+	init_prop_integer   (&config_rc, &main_v->props.left_panel_width, "left_panel_width:", 150);	
 	init_prop_integer   (&config_rc, &main_v->props.main_window_h, "main_window_height:", 400);
 	init_prop_integer   (&config_rc, &main_v->props.main_window_w, "main_window_width:", 600);
 	init_prop_integer   (&config_rc, &main_v->props.max_recent_files, "max_recent_files:", 15);

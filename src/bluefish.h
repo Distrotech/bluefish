@@ -109,7 +109,6 @@ typedef struct {
 	gint view_custom_menu;			/* view custom menubar */
 	gint view_main_toolbar;				/* view main toolbar */
 	gint view_left_panel;  	/* view filebrowser/functionbrowser etc. */
-	gint left_panel_width; 	/* width of filelist */
 	gint filebrowser_show_hidden_files;
 	gint filebrowser_show_others_files;
 	gint filebrowser_show_backup_files;
@@ -128,6 +127,8 @@ typedef struct {
 	GList *highlight_patterns; /* the highlight patterns */
 	GList *highlight_styles; /* the highlight styles */
 	gint transient_htdialogs;  /* set html dialogs transient ro the main window */
+	gint restore_dimensions; /* use the dimensions as used the previous run */
+	gint left_panel_width; 	/* width of filelist */
 	gint main_window_h;			/* main window height */
 	gint main_window_w;			/* main window width */
 	gint max_recent_files;	/* length of Open Recent list */
