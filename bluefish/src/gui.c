@@ -31,7 +31,7 @@
 #include "bf_lib.h"			/* get_int_from_string() */
 #include "bookmark.h"
 #include "document.h"		/* file_new_cb() */
-#include "filebrowser.h"
+/* #include "filebrowser.h" */
 #include "file_dialogs.h"
 #include "fref.h"
 #include "gtk_easy.h"
@@ -207,26 +207,27 @@ static void left_panel_notify_position_lcb(GObject *object,GParamSpec *pspec,gpo
 }
 
 GtkWidget *left_panel_build(Tbfwin *bfwin) {
-	GtkWidget *fileb;
+/*	GtkWidget *fileb;*/
 	GtkWidget *left_notebook = gtk_notebook_new();
 	GtkWidget *fref;
 	GtkWidget *bmarks;
+	GtkWidget *fb2g;
 	gtk_notebook_set_tab_pos(GTK_NOTEBOOK(left_notebook),main_v->props.leftpanel_tabposition);
 	gtk_notebook_set_show_tabs(GTK_NOTEBOOK(left_notebook), TRUE);
 	gtk_notebook_set_show_border(GTK_NOTEBOOK(left_notebook), FALSE);
 	gtk_notebook_set_tab_hborder(GTK_NOTEBOOK(left_notebook), 0);
 	gtk_notebook_set_tab_vborder(GTK_NOTEBOOK(left_notebook), 0);
 	gtk_notebook_popup_enable(GTK_NOTEBOOK(left_notebook));
-	fileb = filebrowser_init(bfwin);
+/*	fileb = filebrowser_init(bfwin);*/
 	fref = fref_gui(bfwin);
 	bmarks = bmark_gui(bfwin);
-	gtk_notebook_append_page_menu(GTK_NOTEBOOK(left_notebook),fileb,new_pixmap(105),gtk_label_new(_("Filebrowser")));
+	fb2g = fb2_init(bfwin);
+	gtk_notebook_append_page_menu(GTK_NOTEBOOK(left_notebook),fb2g,new_pixmap(105),gtk_label_new(_("Filebrowser")));
+/*	gtk_notebook_append_page_menu(GTK_NOTEBOOK(left_notebook),fileb,new_pixmap(105),gtk_label_new(_("Filebrowser")));*/
 	gtk_notebook_append_page_menu(GTK_NOTEBOOK(left_notebook),fref,new_pixmap(106),gtk_label_new(_("Function reference")));
 	gtk_notebook_append_page_menu(GTK_NOTEBOOK(left_notebook),bmarks,new_pixmap(104),gtk_label_new(_("Bookmarks")));
-	{
-		GtkWidget *fb2g = fb2_init(bfwin);
-		gtk_notebook_append_page_menu(GTK_NOTEBOOK(left_notebook),fb2g,new_pixmap(105),gtk_label_new(_("Filebrowser")));
-	}
+
+
 	gtk_widget_show_all(left_notebook);
 	gtk_notebook_set_current_page(GTK_NOTEBOOK(left_notebook),0);
 	return left_notebook;
@@ -240,7 +241,7 @@ void left_panel_rebuild(Tbfwin *bfwin) {
 		DEBUG_MSG("left_panel_rebuild, destroying widgets\n");
 		gtk_widget_destroy(bfwin->leftpanel_notebook);
 		DEBUG_MSG("left_panel_rebuild, cleanup\n");
-		filebrowser_cleanup(bfwin);
+/*		filebrowser_cleanup(bfwin);*/
 		fref_cleanup(bfwin);
 		bmark_cleanup(bfwin);
 		fb2_cleanup(bfwin);
@@ -272,7 +273,8 @@ void left_panel_show_hide_toggle(Tbfwin *bfwin,gboolean first_time, gboolean sho
 		} else {
 			gtk_container_remove(GTK_CONTAINER(bfwin->hpane), bfwin->notebook_box);
 			gtk_widget_destroy(bfwin->hpane);
-			filebrowser_cleanup(bfwin);
+			/*filebrowser_cleanup(bfwin);*/
+			fb2_cleanup(bfwin);
 			fref_cleanup(bfwin);
 			bmark_cleanup(bfwin); 
 		}
@@ -1405,15 +1407,14 @@ void gui_create_main(Tbfwin *bfwin, GList *filenames) {
 }
 
 void gui_show_main(Tbfwin *bfwin) {
-	/* show all */
 	DEBUG_MSG("gui_show_main, before show\n");
 	/* don't use show_all since some widgets are and should be hidden */
 	gtk_widget_show(bfwin->main_window);
 	flush_queue();
 	doc_scroll_to_cursor(bfwin->current_document);
-	if ((bfwin->project && bfwin->project->view_left_panel) || (!bfwin->project && main_v->props.view_left_panel)) {
+/*	if ((bfwin->project && bfwin->project->view_left_panel) || (!bfwin->project && main_v->props.view_left_panel)) {
 		filebrowser_scroll_initial(bfwin);
-	}
+	}*/
 }
 /***********************/
 /* statusbar functions */

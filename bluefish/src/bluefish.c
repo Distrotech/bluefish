@@ -48,7 +48,7 @@
 #include "msg_queue.h" /* msg_queue_start()*/
 #include "stringlist.h" /* put_stringlist(), get_stringlist() */
 #include "gtk_easy.h" /* flush_queue() */
-#include "filebrowser.h" /* filters_rebuild() */
+/*#include "filebrowser.h"*/ /* filters_rebuild() */
 #include "project.h"
 #include "authen.h" /* set_authen_callbacks() */
 #include "filebrowser2.h"
@@ -193,8 +193,8 @@ int main(int argc, char *argv[])
 #endif /* #ifndef NOSPLASH */
 	hl_init();
 	fb2config_init(); /* filebrowser2config */
-	filebrowserconfig_init();
-	filebrowser_filters_rebuild();
+	/*filebrowserconfig_init();*/
+	/*filebrowser_filters_rebuild();*/
 	autoclosing_init();
 #ifndef NOSPLASH
 	splash_screen_set_label(_("parsing custom menu file..."));

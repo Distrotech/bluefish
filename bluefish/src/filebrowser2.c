@@ -79,6 +79,7 @@ enum {
 
 typedef struct {
 	GtkWidget *dirmenu_v;
+	gulong dirmenu_changed_signal;
 	GtkTreeModel *dirmenu_m;
 	GnomeVFSURI *currentdir;
 	
@@ -1293,6 +1294,7 @@ static void dirmenu_set_curdir(Tfilebrowser2 *fb2, GnomeVFSURI *newcurdir) {
 	gboolean cont, havesetiter=FALSE;
 	if (fb2->currentdir) {
 		if (gnome_vfs_uri_equal(fb2->currentdir, newcurdir)) return;
+		DEBUG_MSG("dirmenu_set_curdir, old_curdir=%s, new_curdir=%s\n",gnome_vfs_uri_extract_short_name(fb2->currentdir),gnome_vfs_uri_extract_short_name(newcurdir));
 		gnome_vfs_uri_unref(fb2->currentdir);
 	}
 	fb2->currentdir = newcurdir;
@@ -1338,7 +1340,7 @@ static void dirmenu_set_curdir(Tfilebrowser2 *fb2, GnomeVFSURI *newcurdir) {
 			tmp = gnome_vfs_uri_get_parent(tmp);
 		}
 	}
-	gtk_combo_box_set_active_iter(fb2->dirmenu_v,&setiter);
+	gtk_combo_box_set_active_iter(GTK_COMBO_BOX(fb2->dirmenu_v),&setiter);
 }
 
 static void dir_v_selection_changed_lcb(GtkTreeSelection *treeselection,Tfilebrowser2 *fb2) {
@@ -1387,10 +1389,13 @@ void fb2_set_basedir(Tbfwin *bfwin, gchar *curi) {
 static void dirmenu_changed_lcb(GtkComboBox *widget,gpointer data) {
 	Tfilebrowser2 *fb2 = data;
 	GtkTreeIter iter;
+	DEBUG_MSG("dirmenu_changed_lcb, started\n");
 	if (gtk_combo_box_get_active_iter(widget,&iter)) {
 		GnomeVFSURI *uri;
 		gtk_tree_model_get(GTK_TREE_MODEL(fb2->dirmenu_m), &iter, DIR_URI_COLUMN, &uri, -1);
+		g_signal_handler_block(fb2->dirmenu_v, fb2->dirmenu_changed_signal);
 		fb2_focus_dir(FILEBROWSER2(fb2), uri, FALSE);
+		g_signal_handler_unblock(fb2->dirmenu_v, fb2->dirmenu_changed_signal);
 	}
 }
 
@@ -1424,7 +1429,7 @@ GtkWidget *fb2_init(Tbfwin *bfwin) {
 			uri = gnome_vfs_uri_new(tmplist->data);
 			name = uri_to_document_filename(uri);
 			gtk_list_store_append(GTK_LIST_STORE(fb2->dirmenu_m),&iter);
-			DEBUG_MSG("fb2_init, adding %s to dir menu\n",tmplist->data);
+			DEBUG_MSG("fb2_init, adding %s to dir menu\n",(gchar *)tmplist->data);
 			gtk_list_store_set(GTK_LIST_STORE(fb2->dirmenu_m),&iter
 					,DIR_NAME_COLUMN,name
 					,DIR_IN_HISTORY_COLUMN,TRUE
@@ -1433,7 +1438,7 @@ GtkWidget *fb2_init(Tbfwin *bfwin) {
 			tmplist = g_list_next(tmplist);
 		}
 	}
-	g_signal_connect(fb2->dirmenu_v, "changed", dirmenu_changed_lcb, fb2);
+	fb2->dirmenu_changed_signal = g_signal_connect(fb2->dirmenu_v, "changed", G_CALLBACK(dirmenu_changed_lcb), fb2);
 
 	{
 		GtkWidget *scrolwin;
@@ -1545,6 +1550,10 @@ void fb2_cleanup(Tbfwin *bfwin) {
 	g_object_unref(G_OBJECT(fb2->file_lsort));
 	g_free(fb2);
 	bfwin->fb2 = NULL;
+}
+
+void fb2_filters_rebuild() {
+
 }
 
 void fb2config_init() {

@@ -1913,7 +1913,8 @@ static void preferences_apply(Tprefdialog *pd) {
 
 	/* apply the changes to highlighting patterns and filetypes to the running program */
 	filetype_highlighting_rebuild(TRUE);
-	filebrowser_filters_rebuild();
+	/*filebrowser_filters_rebuild();*/
+	fb2_filters_rebuild();
 	
 	all_documents_apply_settings();
 	{
