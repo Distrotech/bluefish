@@ -21,6 +21,21 @@
 #ifndef __SNR2_H_
 #define __SNR2_H_
 
+typedef struct {
+	/* span of characters */
+	gint start;
+	gint end;
+
+	/* span of byte-data in buffer */
+	gint bstart;
+	gint bend;
+	
+	/* these data are only used (and alloc'ed) if want_submatches is set in the search backend,
+	they should be freed by the calling function! */
+	regmatch_t *pmatch;
+	gint nmatch;
+} Tsearch_result;
+
 void copy_cb(GtkWidget * w, gpointer data);
 void paste_cb(GtkWidget * w, gpointer data);
 void cut_cb(GtkWidget * w, gpointer data);
@@ -28,6 +43,8 @@ void sel_all_cb(GtkWidget * w, gpointer data);
 
 void snr2_run_extern_replace(gchar *pattern, gint region,
 							gint is_regex, gint is_case_sens, gchar *replace_string);
+Tsearch_result doc_search_run_extern(gchar *pattern, gint matchtype, gint is_case_sens);
+
 void search_cb(GtkWidget *widget, gpointer data);
 void new_search_cb(GtkWidget *widget, gpointer data);
 void replace_again_cb(GtkWidget *widget, gpointer data);

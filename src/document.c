@@ -40,6 +40,7 @@
 #include "rpopup.h" /* doc_bevent_in_html_tag(), rpopup_edit_tag_cb() */
 #include "char_table.h" /* convert_utf8...() */
 #include "pixmap.h"
+#include "snr2.h" /* snr2_run_extern_replace */
 
 void add_filename_to_history(gchar *filename) {
 	gchar *dirname;
@@ -1013,6 +1014,17 @@ gint doc_textbox_to_file(Tdocument * doc, gchar * filename) {
 	gint backup_retval;
 
 	statusbar_message(_("Saving file"), 1000);
+	if (main_v->props.auto_update_meta) {
+		const gchar *realname = g_get_real_name();
+		gchar *tmp;
+		Tsearch_result res = doc_search_run_extern("<meta[ \t\n]name[ \t\n]*=[ \t\n]*\"generator\"[ \t\n]+content[ \t\n]*=[ \t\n]*\"[^\"]*bluefish[^\"]*\"[ \t\n]*>",1,0);
+		if (res.end > 0) {
+			snr2_run_extern_replace("<meta[ \t\n]name[ \t\n]*=[ \t\n]*\"generator\"[ \t\n]+content[ \t\n]*=[ \t\n]*\"[^\"]*\"[ \t\n]*>",0,1,0,"<meta name=\"generator\" content=\"Bluefish, see http://bluefish.openoffice.nl/\">");
+		}
+		tmp = g_strconcat("<meta name=\"author\" content=\"",realname,"\">",NULL);
+		snr2_run_extern_replace("<meta[ \t\n]name[ \t\n]*=[ \t\n]*\"author\"[ \t\n]+content[ \t\n]*=[ \t\n]*\"[^\"]*\"[ \t\n]*>",0,1,0,tmp);
+		g_free(tmp);
+	}
 
 	/* This writes the contents of a textbox to a file */
 	backup_retval = doc_check_backup(doc);

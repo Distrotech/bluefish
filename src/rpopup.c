@@ -1,6 +1,8 @@
 #include <gtk/gtk.h>
 #include <string.h> /* strcasecmp() */
 
+/* #define DEBUG*/
+
 #include "bluefish.h"
 #include "bf_lib.h"
 #include "document.h"
@@ -211,7 +213,23 @@ static void parse_tagstring(gchar * tagstring, gint pos, gint end)
 	item_value_delimiter = prevtag = count = 0;
 	has_quotes = in_quote = FALSE;
 	while (tmpstring[count] != '\0') {
-
+		/* extra spacing like between the name = value can be ignored */
+		if (g_ascii_isspace((gchar)tmpstring[count])) {
+			gint count2 = count+1;
+			/* search for the next character, is that a = or a " then we will ignore this space */
+			while (tmpstring[count2] != '\0') {
+				if (g_ascii_isspace((gchar)tmpstring[count2]) || tmpstring[count2]=='\n') {
+					count2++;
+				} else {
+					if (tmpstring[count2] == '=' || tmpstring[count2] == '"') {
+						DEBUG_MSG("found ignorable spaces, increasing count from %d to %d\n", count, count2);
+						count = count2;
+					}
+					break;
+				}
+			}
+		}
+		DEBUG_MSG("tmpstring[%d]=%c\n",count,tmpstring[count]);
 		/* spaces (delimiters) are allowed within quotes, so we have to keep track of quotes */
 		if (tmpstring[count] == '"') {
 			has_quotes = TRUE;
@@ -237,9 +255,15 @@ static void parse_tagstring(gchar * tagstring, gint pos, gint end)
 				DEBUG_MSG("parse_tagstring, making split, count=%d, prevtag=%d\n", count, prevtag);
 				if (item_value_delimiter > prevtag) {
 					item = g_strndup(&tmpstring[prevtag + 1], item_value_delimiter - prevtag - 1);
+					DEBUG_MSG("item from %d to %d=%s\n", prevtag+1, item_value_delimiter - prevtag - 1, item);
 					if (has_quotes == TRUE) {
-						value = g_strndup(&tmpstring[item_value_delimiter + 2], count - item_value_delimiter - 2);
+						gchar *tmp;
+						tmp = g_strndup(&tmpstring[item_value_delimiter + 1], count - item_value_delimiter - 1);
+						g_strstrip(tmp);
+						value = g_strndup(&tmp[1], strlen(tmp)-1);
+						g_free(tmp);
 						value = trunc_on_char(value, '"');
+						DEBUG_MSG("value from %d to %d=%s", item_value_delimiter + 2, count - item_value_delimiter - 2, value);
 					} else {
 						value = g_strndup(&tmpstring[item_value_delimiter + 1], count - item_value_delimiter);
 						g_strstrip(value);
