@@ -1187,9 +1187,9 @@ The projects are a sort of <emphasis>saved state</emphasis> of Bluefish. Thus, t
 		</screenshot>
 </figure>
 </para>
-  <para>A basedir can be set, so the file browser in the
-  left panel will only show the files in the basedir and its subdirectories.
-  If Bluefish is installed with gnome-vfs support the basedir might be remote,
+  <para>Using a base directory, or basedir, the file browser in the
+  side panel shows only the files within the basedir and its subdirectories.
+  If Bluefish is installed with gnome-vfs support the basedir can be remote,
   for example sftp://someserver/somedir or
   smb://user:password@server/someshare/.</para>
  <para>If the webdir is entered
@@ -1197,14 +1197,14 @@ The projects are a sort of <emphasis>saved state</emphasis> of Bluefish. Thus, t
   URL. If your basedir for example is /var/www/ and your webdir
   http://localhost/ Bluefish will use this information to launch the browser
   to the correct URL. This can be very convenient for testing server side
-  scripting languages like PHP, JSP or other.</para> 
+  scripting languages like PHP, JSP, etc.</para> 
   <para>The template field
-  can point to a template file. If the <guilabel>New</guilabel> button is clicked in the main tool bar, the
-  contents of this file will be automatically loaded into the edit
-  window.</para> 
+  allows a project to have to a user-defined template file. Normally, Bluefish displays an empty editing view for a new file request. 
+  However, if a template is defined, Bluefish will use the template file's contents for new files. New files can be requested via the <guilabel>New</guilabel> button on the main tool bar or 
+  <menuchoice><shortcut><keycap>Ctrl</keycap><keycap>N</keycap></shortcut><guimenu>File</guimenu><guimenuitem>New</guimenuitem></menuchoice>.</para> 
  </step>
  <step>
- <para>Once the project is created, you need to tell Bluefish where you want to save it. An <guilabel>Enter Bluefish project filename</guilabel> dialog will be presented to you. Notice that you can save the project in a location different from the files the project points to.</para>
+ <para>Once the project is created, you need to tell Bluefish where you want to save it. An <guilabel>Enter Bluefish project filename</guilabel> dialog will be displayed. Notice that you can save the project in a location different from the files to which the project points.</para>
  <para><figure id="figure-project-save-dialog">
 	<title id="figure-project-save-dialog-title">Entering Bluefish Project Filename</title>
 		<screenshot>
@@ -1236,9 +1236,9 @@ The projects are a sort of <emphasis>saved state</emphasis> of Bluefish. Thus, t
 		</screenshot>
 </figure>
 </para>
-<para>Likewise, you can save the project with <menuchoice><guimenu>Project</guimenu><guimenuitem>Save</guimenuitem></menuchoice>, <menuchoice><guimenu>Project</guimenu><guimenuitem>Save as...</guimenuitem></menuchoice> to save it under a new name, or <menuchoice><guimenu>Project</guimenu><guimenuitem>Save &amp; close</guimenuitem></menuchoice> to save and close it.</para>
-<para>If any file in the project has been modified, you will be presented with a dialog allowing you to save the modified file, to discard the changes, or to cancel the whole process.</para>
-<para>All files open when the project is saved, are automatically opened the next time you open the project.</para>
+<para>Likewise, you can save the project with <menuchoice><guimenu>Project</guimenu><guimenuitem>Save</guimenuitem></menuchoice> to save the project file with its current name and location, <menuchoice><guimenu>Project</guimenu><guimenuitem>Save as...</guimenuitem></menuchoice> to save it under a new name/location, or <menuchoice><guimenu>Project</guimenu><guimenuitem>Save &amp; close</guimenuitem></menuchoice> to save and close it.</para>
+<para>If any file in the project has been modified, you will be presented with a dialog allowing you to save the modified file, discard the changes, or cancel the whole process.</para>
+<para>All files open when the project is saved are automatically opened the next time you open the project.</para>
  <para><figure id="figure-project-open">
 	<title id="figure-project-open-title">Opening a Bluefish Project</title>
 		<screenshot>
@@ -1254,11 +1254,10 @@ The projects are a sort of <emphasis>saved state</emphasis> of Bluefish. Thus, t
 </figure>
 </para>
 <para>Notice that the side panel only shows the tree related to the project.</para>
-  <para>Also the recently used files in that project are shown in the
+  <para>Also, the recently used files in that project are shown in the
   <menuchoice><guimenu>File</guimenu><guimenuitem>Open recent</guimenuitem></menuchoice> menu item.</para>
-  <para>The projects will be expanded to have more Bluefish
-  settings, so a project can be a bit of customized Bluefish setup. Currently
-  the state of various tool bars and menu bars is saved in a project
+  <para>A project also saves some basic Bluefish settings, giving the project its own customized Bluefish setup. Currently,
+  the word wrap preference and the state of various tool and menu bars are saved in a project
   file.</para> 
   <para>The project file itself is simply a text file in the
   standard Bluefish format (same format as the config file). This format is
@@ -1281,7 +1280,7 @@ The projects are a sort of <emphasis>saved state</emphasis> of Bluefish. Thus, t
 <para>In Bluefish you can add bookmarks to a line in the text, and you can later use the bookmark to quickly jump to this location, or even to open the document referred to by the bookmark at that line.</para>
 <para>Bookmarks can be added to the current cursor location by using the <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>D</keycap></keycombo></shortcut><guimenu>Edit</guimenu><guimenuitem>Add Bookmark</guimenuitem></menuchoice> menu item; or by right-clicking in the text, and selecting <guilabel>Add bookmark</guilabel>.</para>
 <para>You can delete a bookmark using the <guilabel>Delete bookmark</guilabel> item in the document contextual menu.</para>
-<para>Each bookmark in a given document is marked by a blue background on the line number.</para>
+<para>Each bookmark in a given document is marked by a blue background in the line number margin.</para>
  <para><figure id="figure-bookmark-marked">
 	<title id="figure-bookmark-marked-title">How bookmarks are marked</title>
 		<screenshot>
@@ -1360,7 +1359,7 @@ The projects are a sort of <emphasis>saved state</emphasis> of Bluefish. Thus, t
 		</screenshot>
 </figure>
 </para>
-<para>You may also delete a bookmark via this contextual menu, delete all bookmarks in the active document, or delete all bookmarks stored in the bookmark tab of the side panel. The latter ones are also available when you right click the name of a document in this tab.</para>
+<para>Via this contextual menu, you may also delete a bookmark, delete all bookmarks in the active document, or delete all bookmarks stored in the bookmark tab of the side panel. The latter ones are also available when you right click the name of a document in this tab.</para>
 <para>
 <figure id="figure-bookmark-document-cm">
 	<title id="figure-bookmark-document-cm-title">The contextual menu on a document in the bookmark tab</title>
@@ -1376,8 +1375,8 @@ The projects are a sort of <emphasis>saved state</emphasis> of Bluefish. Thus, t
 		</screenshot>
 </figure>
 </para>
-<para id="generate-bookmark">A way to add many bookmarks at the same time is using the <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>F</keycap></keycombo></shortcut><guimenu>Edit</guimenu><guimenuitem>Find</guimenuitem></menuchoice> dialog. Check the <guilabel>Bookmark result</guilabel> option, and all search results will be added to your bookmarks. For example this manual has sections, and each section is identified by a header like '&lt;sect1 id="bluefish-ch-4-sect-6"&gt;'. A way to automatically get a bookmark to every section is to search for the following regular expression pattern: '&lt;sect[0-9]+ id="[^"]+"&gt;' and bookmark all results.</para>
-<para>Here is an example to bookmark all functions in an Objective-C file with this method:</para>
+<para id="generate-bookmark">To add many bookmarks at once, use the <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>F</keycap></keycombo></shortcut><guimenu>Edit</guimenu><guimenuitem>Find</guimenuitem></menuchoice> dialog. Check the <guilabel>Bookmark result</guilabel> option, and all search results will be added to your bookmarks. For example, the XML for this manual has sections, each identified by a header like '&lt;sect1 id="bluefish-ch-4-sect-6"&gt;'. A way to automatically get a bookmark to every section is to search for the following regular expression pattern: '&lt;sect[0-9]+ id="[^"]+"&gt;' and bookmark all results.</para>
+<para>Here is an example which bookmarks all functions in an Objective-C file:</para>
 <para>
 <figure id="figure-bookmark-find-cm">
 	<title id="figure-bookmark-find-title">Bookmarking via the Find menu</title>
@@ -1398,7 +1397,7 @@ The projects are a sort of <emphasis>saved state</emphasis> of Bluefish. Thus, t
 <sect2 id="find-replace">
 <title>Find and Replace</title>
 	<para>
-	The <guimenu>Edit</guimenu> menu features several options for Find and Replace. The <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>F</keycap></keycombo></shortcut><guimenu>Edit</guimenu><guimenuitem>Find</guimenuitem></menuchoice> and <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>H</keycap></keycombo></shortcut><guimenu>Edit</guimenu><guimenuitem>Replace...</guimenuitem></menuchoice> menu items will simply start the dialogs described elsewhere in this manual.</para>
+	The <guimenu>Edit</guimenu> menu features several options for Find and Replace. The <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>F</keycap></keycombo></shortcut><guimenu>Edit</guimenu><guimenuitem>Find</guimenuitem></menuchoice> and <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>H</keycap></keycombo></shortcut><guimenu>Edit</guimenu><guimenuitem>Replace...</guimenuitem></menuchoice> menu items will simply start their corresponding dialogs described in <xref linkend="basic-find-replace" />.</para>
 	<para>
 	The <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>G</keycap></keycombo></shortcut><guimenu>Edit</guimenu><guimenuitem>Find again</guimenuitem></menuchoice> menu item will repeat the last used search. It will 
 	continue the search after the position where the previous search was stopped. If the 
@@ -1413,17 +1412,16 @@ The projects are a sort of <emphasis>saved state</emphasis> of Bluefish. Thus, t
 	</para>
 
 <sect3 id="search-replace-regex">
-<title>Find or replace with regular expressions</title>
-  <para> With the find and replace you can do incredible
-  things. We'll start with a simple example. In some HTML table we have
+<title>Find and Replace Using Regular Expressions</title>
+  <para>With find and replace you can do incredibly powerful searches.
+  We will start with a simple example. In some HTML tables, we have
   several table data tags where we actually want table header tags. Table data
   is &lt;td&gt;&lt;/td&gt; and we want &lt;th&gt;&lt;/th&gt;. </para> 
   <para>SCREENSHOT BY ????</para>
   <para>
-  We can do two normal replaces: one where we replace &lt;td&gt; with
-  &lt;th&gt; and then another where we replace &lt;/td&gt; with &lt;/th&gt;
+  We <emphasis>could</emphasis> replace all &lt;td&gt; tags with &lt;th&gt; and then replace all &lt;/td&gt; tags with &lt;/th&gt;. But, this uses two separate searches.
   </para> 
-  <para>we can also do one replace using regular expressions: find
+  <para>However, we could perform the same task using just one search by taking advantage of regular expressions: find
   (&lt;|&lt;/)?td&gt; and replace with \0th&gt;</para>
   <para> For more information about
   regular expressions you might want to read man 7 regex, or read any of the
