@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: bluefish gtk2-port\n"
-"POT-Creation-Date: 2004-09-30 10:57+0200\n"
+"POT-Creation-Date: 2004-10-08 14:56+0200\n"
 "PO-Revision-Date: 2003-12-06 14:24+0100\n"
 "Last-Translator: Juho Roukala <j.mr@luukku.com>\n"
 "Language-Team: Not a memeber <LL@li.org>\n"
@@ -434,67 +434,67 @@ msgstr "Tiedostoa \"%s\" ei löytynyt."
 msgid "This bookmark is set in a file that no longer exists."
 msgstr "Tämä kirjanmerkki on asetettu tiedostoon jota ei ole enää olemassa."
 
-#: ../src/bookmark.c:445
+#: ../src/bookmark.c:443
 #, c-format
 msgid "Do you really want to delete %s?"
 msgstr "Haluatko varmasti poistaa %s?"
 
-#: ../src/bookmark.c:447
+#: ../src/bookmark.c:445
 msgid "Delete permanent bookmark."
 msgstr "Poista pysyvä kirjanmerkki."
 
-#: ../src/bookmark.c:464
+#: ../src/bookmark.c:462
 msgid "Edit bookmark"
 msgstr "Muokkaa kirjanmerkkiä"
 
-#: ../src/bookmark.c:478
+#: ../src/bookmark.c:476
 msgid "Goto bookmark"
 msgstr "Siirry kirjanmerkkiin"
 
-#: ../src/bookmark.c:486
+#: ../src/bookmark.c:484
 msgid "Edit"
 msgstr "Muokkaa"
 
-#: ../src/bookmark.c:490
+#: ../src/bookmark.c:488
 msgid "Delete"
 msgstr "Poista"
 
-#: ../src/bookmark.c:494
+#: ../src/bookmark.c:492
 #, fuzzy
 msgid "Delete all"
 msgstr " Poista "
 
-#: ../src/bookmark.c:917 ../src/bookmark.c:952 ../src/bookmark.c:974
-#: ../src/document.c:1988
+#: ../src/bookmark.c:918 ../src/bookmark.c:953 ../src/bookmark.c:975
+#: ../src/document.c:2007
 msgid "Add bookmark"
 msgstr "Lisää kirjanmerkki"
 
-#: ../src/bookmark.c:918 ../src/bookmark.c:975
+#: ../src/bookmark.c:919 ../src/bookmark.c:976
 msgid "Cannot add bookmarks in unnamed files."
 msgstr "Nimettömiin tiedostoihin ei voi lisätä kirjanmerkkejä."
 
-#: ../src/bookmark.c:953
+#: ../src/bookmark.c:954
 msgid "You already have a bookmark here!"
 msgstr "Sinulla on jo tässä kirjanmerkki!"
 
-#: ../src/bookmark.c:958
+#: ../src/bookmark.c:959
 msgid "default"
 msgstr "oletus"
 
-#: ../src/bookmark.c:984
+#: ../src/bookmark.c:985
 msgid "temp"
 msgstr "väliaikainen"
 
-#: ../src/bookmark.c:1003
+#: ../src/bookmark.c:1004
 #, fuzzy
 msgid "Delete all bookmarks."
 msgstr "Poista kaikki väliaikaiset kirjanmerkit."
 
-#: ../src/bookmark.c:1003
+#: ../src/bookmark.c:1004
 msgid "Are you sure?"
 msgstr "Oletko varma?"
 
-#: ../src/bookmark.c:1049
+#: ../src/bookmark.c:1050
 #, c-format
 msgid ""
 "Character count changed in file\n"
@@ -503,19 +503,19 @@ msgstr ""
 "Merkkien lukumäärä muuttui tiedostossa\n"
 " %s."
 
-#: ../src/bookmark.c:1051
+#: ../src/bookmark.c:1052
 msgid "Bookmarks positions could be incorrect."
 msgstr "Kirjanmerkkien sijainnit saattavat olla vääriä."
 
-#: ../src/document.c:254 ../src/gui.c:958 ../src/gui.c:959
+#: ../src/document.c:260 ../src/gui.c:958 ../src/gui.c:959
 msgid "/Document/Highlight Syntax"
 msgstr "/Dokumentti/Korostussyntaksi"
 
-#: ../src/document.c:694
+#: ../src/document.c:700
 msgid "Name: "
 msgstr "Nimi: "
 
-#: ../src/document.c:695
+#: ../src/document.c:701
 msgid ""
 "\n"
 "Type: "
@@ -523,7 +523,7 @@ msgstr ""
 "\n"
 "Tyyppi: "
 
-#: ../src/document.c:696
+#: ../src/document.c:702
 msgid ""
 "\n"
 "Encoding: "
@@ -531,7 +531,7 @@ msgstr ""
 "\n"
 "Koodaus: "
 
-#: ../src/document.c:699
+#: ../src/document.c:705
 msgid ""
 "\n"
 "Size (on disk): "
@@ -539,11 +539,11 @@ msgstr ""
 "\n"
 "Koko (levyllä): "
 
-#: ../src/document.c:699
+#: ../src/document.c:705
 msgid " bytes"
 msgstr " tavua"
 
-#: ../src/document.c:705
+#: ../src/document.c:711
 msgid ""
 "\n"
 "Permissions: "
@@ -551,7 +551,7 @@ msgstr ""
 "\n"
 "Oikeudet: "
 
-#: ../src/document.c:712
+#: ../src/document.c:718
 msgid ""
 "\n"
 "Last modified: "
@@ -559,62 +559,62 @@ msgstr ""
 "\n"
 "Viimeksi muutettu: "
 
-#: ../src/document.c:737
+#: ../src/document.c:743
 #, c-format
 msgid "Untitled %d"
 msgstr "Nimetön %d"
 
-#: ../src/document.c:1086
+#: ../src/document.c:1092
 #, c-format
 msgid " Ln %d, Col %d"
 msgstr " Rivi %d, Sarake %d"
 
-#: ../src/document.c:1119 ../src/document.c:1120
+#: ../src/document.c:1125 ../src/document.c:1126
 #, c-format
 msgid "  %s, %s"
 msgstr "  %s, %s"
 
-#: ../src/document.c:1411 ../src/document.c:1432
+#: ../src/document.c:1417 ../src/document.c:1438
 msgid "Could not read file:\n"
 msgstr "Tiedostoa ei voitu lukea:\n"
 
-#: ../src/document.c:1463
+#: ../src/document.c:1469
 msgid "Opening file "
 msgstr "Avataan tiedostoa "
 
-#: ../src/document.c:1578
+#: ../src/document.c:1584
 msgid "Cannot display file, unknown characters found."
 msgstr "Tiedostoa ei voida näyttää, löydettiin tuntemattomia merkkejä."
 
-#: ../src/document.c:1976 ../src/snr2.c:1288
+#: ../src/document.c:1995 ../src/snr2.c:1288
 msgid "Replace"
 msgstr "Korvaa"
 
-#: ../src/document.c:1981
+#: ../src/document.c:2000
 msgid "Find"
 msgstr "Etsi"
 
-#: ../src/document.c:2003
+#: ../src/document.c:2022
 msgid "Edit color"
 msgstr "Muokkaa väriä"
 
-#: ../src/document.c:2011
+#: ../src/document.c:2030
 msgid "Edit tag"
 msgstr "Muokkaa tagia"
 
-#: ../src/document.c:2153
+#: ../src/document.c:2172
 msgid "Saving file"
 msgstr "Tallennetaan tiedostoa"
 
-#: ../src/document.c:2176 ../src/document.c:2200
+#: ../src/document.c:2195 ../src/document.c:2219
 msgid "_Abort save"
 msgstr "_Keskeytä tallennus"
 
-#: ../src/document.c:2176
+#: ../src/document.c:2195
 msgid "_Continue save"
 msgstr "_Jatka tallennusta"
 
-#: ../src/document.c:2178
+#: ../src/document.c:2197
 #, c-format
 msgid ""
 "A backupfile for %s could not be created. If you continue, this file will be "
@@ -623,15 +623,15 @@ msgstr ""
 "Tiedostolle %s ei voitu luoda varmuuskopiota. Jos jatkat, tämä tiedosto "
 "ylikirjoitetaan."
 
-#: ../src/document.c:2179
+#: ../src/document.c:2198
 msgid "File backup failure"
 msgstr "Tiedoston varmuuskopiointi epäonnistui."
 
-#: ../src/document.c:2200
+#: ../src/document.c:2219
 msgid "_Continue save in UTF-8"
 msgstr "_Jatka tallennusta UTF-8 -muodossa"
 
-#: ../src/document.c:2211
+#: ../src/document.c:2230
 #, c-format
 msgid ""
 "Failed to convert %s to character encoding %s. Encoding failed on character "
@@ -644,54 +644,54 @@ msgstr ""
 "\n"
 "Jatka tallentamalla UTF-8 -koodaukselle?"
 
-#: ../src/document.c:2212
+#: ../src/document.c:2231
 msgid "File encoding conversion failure"
 msgstr "Virhe tiedoston koodauksen muutoksessa"
 
-#: ../src/document.c:2344
+#: ../src/document.c:2363
 msgid "Previously: "
 msgstr "Ennen:"
 
-#: ../src/document.c:2385 ../src/document.c:2393
+#: ../src/document.c:2404 ../src/document.c:2412
 msgid "Move/rename document to"
 msgstr "Siirrä/uudelleennimeä dokumentti"
 
-#: ../src/document.c:2385 ../src/document.c:2393
+#: ../src/document.c:2404 ../src/document.c:2412
 msgid "Save document as"
 msgstr "Tallenna dokumentti nimellä"
 
-#: ../src/document.c:2415 ../src/document.c:2430 ../src/document.c:2527
-#: ../src/document.c:3709 ../src/gui.c:1109
+#: ../src/document.c:2434 ../src/document.c:2449 ../src/document.c:2546
+#: ../src/document.c:3742 ../src/gui.c:1109
 msgid "_Cancel"
 msgstr "_Peruuta"
 
-#: ../src/document.c:2415 ../src/document.c:2430 ../src/document.c:2527
+#: ../src/document.c:2434 ../src/document.c:2449 ../src/document.c:2546
 msgid "_Overwrite"
 msgstr "_Ylikirjoita"
 
-#: ../src/document.c:2416
+#: ../src/document.c:2435
 #, c-format
 msgid "File %s exists and is opened, overwrite?"
 msgstr "Tiedosto %s on olemassa ja avoinna, ylikirjoita?"
 
-#: ../src/document.c:2417
+#: ../src/document.c:2436
 msgid "The file you have selected is being edited in Bluefish."
 msgstr "Valitsemaasi tiedostoa muokataan Bluefishillä."
 
-#: ../src/document.c:2431
+#: ../src/document.c:2450
 #, c-format
 msgid "A file named \"%s\" already exists."
 msgstr "Tiedosto nimeltä \"%s\" on jo olemassa."
 
-#: ../src/document.c:2433
+#: ../src/document.c:2452
 msgid "Do you want to replace the existing file?"
 msgstr "Haluatko korvata olemassaolevan tiedoston?"
 
-#: ../src/document.c:2482
+#: ../src/document.c:2501
 msgid "Save as..."
 msgstr "Tallenna nimellä..."
 
-#: ../src/document.c:2531
+#: ../src/document.c:2550
 #, c-format
 msgid ""
 "File: %s\n"
@@ -704,16 +704,16 @@ msgstr ""
 "Uusi muokattu-aika: %s\n"
 "Vanha muokattu-aika: %s"
 
-#: ../src/document.c:2532
+#: ../src/document.c:2551
 msgid "File has been modified by another process."
 msgstr "Toinen prosessi on muokannut tiedostoa."
 
-#: ../src/document.c:2545
+#: ../src/document.c:2564
 #, c-format
 msgid "Saving %s"
 msgstr "Tallentaa %s"
 
-#: ../src/document.c:2559
+#: ../src/document.c:2578
 msgid ""
 "Could not backup file:\n"
 "\""
@@ -721,11 +721,11 @@ msgstr ""
 "Ei voitu varmuuskopioida tiedostoa:\n"
 "\""
 
-#: ../src/document.c:2560
+#: ../src/document.c:2579
 msgid "File save aborted.\n"
 msgstr "Tiedoston tallennus keskeytyi.\n"
 
-#: ../src/document.c:2565
+#: ../src/document.c:2584
 msgid ""
 "Could not write file:\n"
 "\""
@@ -733,37 +733,37 @@ msgstr ""
 "Ei voitu kirjoittaa tiedostoa:\n"
 "\""
 
-#: ../src/document.c:2566
+#: ../src/document.c:2585
 msgid "File save error"
 msgstr "Tiedoston tallennusvirhe"
 
-#: ../src/document.c:2616
+#: ../src/document.c:2635
 #, c-format
 msgid "Save changes to \"%s\" before closing?."
 msgstr ""
 
-#: ../src/document.c:2619
+#: ../src/document.c:2638
 #, fuzzy
 msgid "Save changes to this untitled file before closing?"
 msgstr "Haluatko tallentaa tähän nimettömään tiedostoon tehdyt muutokset?"
 
-#: ../src/document.c:2623
+#: ../src/document.c:2642
 msgid "Do_n't save"
 msgstr "_Älä tallenna"
 
-#: ../src/document.c:2625 ../src/document.c:3711
+#: ../src/document.c:2644 ../src/document.c:3744
 msgid "If you don't save your changes they will be lost."
 msgstr ""
 
-#: ../src/document.c:2895
+#: ../src/document.c:2924
 msgid "No filename"
 msgstr "Ei tiedostonimeä"
 
-#: ../src/document.c:3032
+#: ../src/document.c:3061
 msgid "Loading files..."
 msgstr "Ladataan tiedostoja..."
 
-#: ../src/document.c:3050
+#: ../src/document.c:3079
 msgid ""
 "These files could not opened:\n"
 "\n"
@@ -771,23 +771,23 @@ msgstr ""
 "Seuraavia tiedostoja ei voitu avata:\n"
 "\n"
 
-#: ../src/document.c:3052 ../src/msg_queue.c:235
+#: ../src/document.c:3081 ../src/msg_queue.c:235
 msgid "Unable to open file(s)\n"
 msgstr "Tiedosto(j)a ei voitu avata\n"
 
-#: ../src/document.c:3083
+#: ../src/document.c:3112
 msgid "Unable to open file"
 msgstr "Tiedostoa ei voitu avata"
 
-#: ../src/document.c:3145
+#: ../src/document.c:3174
 msgid "_Reload"
 msgstr "Lataa _uudelleen"
 
-#: ../src/document.c:3145
+#: ../src/document.c:3174
 msgid "_Ignore"
 msgstr "_Hylkää"
 
-#: ../src/document.c:3149
+#: ../src/document.c:3178
 #, c-format
 msgid ""
 "Filename: %s\n"
@@ -800,196 +800,200 @@ msgstr ""
 "Uusi muokattu-aika on: %s\n"
 "Vanha muokattu-aika on: %s"
 
-#: ../src/document.c:3150
+#: ../src/document.c:3179
 msgid "File has been modified by another process\n"
 msgstr "Toinen prosessi on muokannut tiedostoa\n"
 
-#: ../src/document.c:3253
+#: ../src/document.c:3286
 msgid "searching files..."
 msgstr "etsitään tiedostoja..."
 
-#: ../src/document.c:3284 ../src/document.c:3291
+#: ../src/document.c:3317 ../src/document.c:3324
 msgid "Select basedir"
 msgstr "Valitse perushakemisto"
 
-#: ../src/document.c:3309
+#: ../src/document.c:3342
 msgid "Advanced open file selector"
 msgstr "Edistynyt tiedoston avaaja."
 
-#: ../src/document.c:3320
+#: ../src/document.c:3353
 msgid "grep {contains} `find {basedir} -name '{file type}'`"
 msgstr "grep {sisältää} `find {perushakemisto} -name '{tiedoston tyyppi}'`"
 
-#: ../src/document.c:3325
+#: ../src/document.c:3358
 msgid "<b>General</b>"
 msgstr "<b>Yleistä</b>"
 
-#: ../src/document.c:3327
+#: ../src/document.c:3360
 msgid "Base_dir:"
 msgstr "Perus_hakemisto:"
 
-#: ../src/document.c:3329 ../src/gtk_easy.c:1299
+#: ../src/document.c:3362 ../src/gtk_easy.c:1299
 msgid "_Browse..."
 msgstr "_Selaa..."
 
-#: ../src/document.c:3346
+#: ../src/document.c:3379
 msgid "_File Type:"
 msgstr "_Tiedoston tyyppi:"
 
-#: ../src/document.c:3352
+#: ../src/document.c:3385
 msgid "_Recursive:"
 msgstr "_Rekursiivinen:"
 
-#: ../src/document.c:3357
+#: ../src/document.c:3390
 msgid "<b>Contains</b>"
 msgstr "<b>Sisältää</b>"
 
-#: ../src/document.c:3360
+#: ../src/document.c:3393
 msgid "Pa_ttern:"
 msgstr "Ku_vio:"
 
-#: ../src/document.c:3364
+#: ../src/document.c:3397
 msgid "Is rege_x:"
 msgstr "O_n säänn. lauseke:"
 
-#: ../src/document.c:3499
+#: ../src/document.c:3532
 msgid "Open URL"
 msgstr "Avaa URL"
 
-#: ../src/document.c:3503
+#: ../src/document.c:3536
 #, fuzzy
 msgid "<b>Open URL</b>"
 msgstr "Avaa URL"
 
-#: ../src/document.c:3549 ../src/gtk_easy.c:1595
+#: ../src/document.c:3582 ../src/gtk_easy.c:1595
 msgid "Select files"
 msgstr "Valitse tiedostoja"
 
-#: ../src/document.c:3569 ../src/document.c:3588 ../src/document.c:3605
+#: ../src/document.c:3602 ../src/document.c:3621 ../src/document.c:3638
 #, c-format
 msgid "Loading %d file(s)..."
 msgstr "Ladataan %d tiedosto(a)..."
 
-#: ../src/document.c:3638 ../src/document.c:3645
+#: ../src/document.c:3671 ../src/document.c:3678
 msgid "Select file to insert"
 msgstr "Valitse lisättävä tiedosto"
 
-#: ../src/document.c:3648
+#: ../src/document.c:3681
 msgid "No file to insert"
 msgstr "Ei lisättävää tiedostoa"
 
-#: ../src/document.c:3709
+#: ../src/document.c:3742
 msgid "_Save All"
 msgstr "T_allenna kaikki"
 
-#: ../src/document.c:3709
+#: ../src/document.c:3742
 msgid "Close _All"
 msgstr "S_ulje kaikki"
 
-#: ../src/document.c:3709
+#: ../src/document.c:3742
 msgid "Choose per _File"
 msgstr "Valitse _tiedostot erikseen"
 
-#: ../src/document.c:3710
+#: ../src/document.c:3743
 msgid "Multiple open files have been changed."
 msgstr "Useita avoimia tiedostoja on muokattu."
 
-#: ../src/document.c:3935
+#: ../src/document.c:3977
 #, c-format
 msgid "Statistics: %d lines, %d words, %d characters"
 msgstr "Tilastoja: %d riviä, %d sanaa, %d merkkiä"
 
-#: ../src/filebrowser.c:1013
+#: ../src/filebrowser.c:1014
 msgid "Error creating path"
 msgstr "Virhe luotaessa hakemistoa"
 
-#: ../src/filebrowser.c:1013
+#: ../src/filebrowser.c:1014
 msgid "The specified pathname already exists."
 msgstr "Annettu hakemistopolku on jo olemassa."
 
-#: ../src/filebrowser.c:1080
+#: ../src/filebrowser.c:1081
 msgid "File name"
 msgstr "Tiedoston nimi"
 
-#: ../src/filebrowser.c:1082
+#: ../src/filebrowser.c:1083
 msgid "Directory name"
 msgstr "Hakemiston nimi"
 
-#: ../src/filebrowser.c:1113
+#: ../src/filebrowser.c:1114
 msgid "Opening directory..."
 msgstr "Avataan hakemistoa..."
 
-#: ../src/filebrowser.c:1200 ../src/filebrowser.c:1204
+#: ../src/filebrowser.c:1201 ../src/filebrowser.c:1205
 msgid "Could not rename\n"
 msgstr "Ei voitu uudelleennimetä\n"
 
-#: ../src/filebrowser.c:1247
+#: ../src/filebrowser.c:1248
 #, fuzzy, c-format
 msgid "Are you sure you want to delete \"%s\" ?"
 msgstr ""
 "Oletko varma, että haluat\n"
 "poistaa \"%s\" ?"
 
-#: ../src/filebrowser.c:1248
+#: ../src/filebrowser.c:1249
 #, fuzzy
 msgid "If you delete this file, it will be permanently lost."
 msgstr "Tiedosto poistetaan lopullisesti."
 
-#: ../src/filebrowser.c:1257 ../src/filebrowser.c:1261
+#: ../src/filebrowser.c:1258 ../src/filebrowser.c:1262
 msgid "Could not delete \n"
 msgstr "Ei voitu poistaa \n"
 
-#: ../src/filebrowser.c:1400
+#: ../src/filebrowser.c:1401
 msgid "/Open _Advanced"
 msgstr "/Avaa _edistyneesti"
 
-#: ../src/filebrowser.c:1404
+#: ../src/filebrowser.c:1405
 msgid "/_Refresh"
 msgstr "/_Päivitä"
 
-#: ../src/filebrowser.c:1405
+#: ../src/filebrowser.c:1406
 msgid "/_Set as basedir"
 msgstr "/_Aseta perushakemistoksi"
 
-#: ../src/filebrowser.c:1409
+#: ../src/filebrowser.c:1410
 msgid "/New _File"
 msgstr "/_Uusi tiedosto"
 
-#: ../src/filebrowser.c:1410
+#: ../src/filebrowser.c:1411
 msgid "/_New Directory"
 msgstr "/U_usi hakemisto"
 
-#: ../src/filebrowser.c:1415
+#: ../src/filebrowser.c:1416
 msgid "/_Open"
 msgstr "/Av_aa"
 
-#: ../src/filebrowser.c:1416
+#: ../src/filebrowser.c:1417
 msgid "/Rena_me"
 msgstr "/Uudelleenni_meä"
 
-#: ../src/filebrowser.c:1417
+#: ../src/filebrowser.c:1418
 msgid "/_Delete"
 msgstr "/Po_ista"
 
-#: ../src/filebrowser.c:1439
+#: ../src/filebrowser.c:1440
 msgid "Show hidden files"
 msgstr "Näytä piilotiedostot"
 
-#: ../src/filebrowser.c:1444
+#: ../src/filebrowser.c:1445
 msgid "Show backup files"
 msgstr "Näytä varmuuskopiotiedostot"
 
-#: ../src/filebrowser.c:1450
+#: ../src/filebrowser.c:1451
 msgid "Filter"
 msgstr "Suodin"
 
-#: ../src/filebrowser.c:1650 ../src/gtk_easy.c:1377
+#: ../src/filebrowser.c:1651 ../src/gtk_easy.c:1377
 msgid "All files"
 msgstr "Kaikki tiedostot"
 
-#: ../src/filebrowser.c:1918
+#: ../src/filebrowser.c:1923
 msgid "Show full tree"
 msgstr "Näytä koko puu"
+
+#: ../src/filebrowser.c:1924
+msgid "Follow focus"
+msgstr ""
 
 #: ../src/fref.c:1444 ../src/gui.c:902
 msgid "Close"
@@ -1462,7 +1466,8 @@ msgid "New"
 msgstr "Uusi"
 
 #: ../src/gui.c:896
-msgid "Open.."
+#, fuzzy
+msgid "Open..."
 msgstr "Avaa..."
 
 #: ../src/gui.c:898
@@ -1493,7 +1498,7 @@ msgstr "Etsi..."
 msgid "Search and Replace..."
 msgstr "Etsi ja korvaa..."
 
-#: ../src/gui.c:917 ../src/preferences.c:1992
+#: ../src/gui.c:917 ../src/preferences.c:1993
 msgid "Undo"
 msgstr "Kumoa"
 
@@ -1850,7 +1855,7 @@ msgstr "_Sisältö:"
 msgid "_Scheme:"
 msgstr "L_uonnos:"
 
-#: ../src/html.c:1526 ../src/preferences.c:1984
+#: ../src/html.c:1526 ../src/preferences.c:1985
 msgid "Font"
 msgstr "Fontti"
 
@@ -3940,11 +3945,13 @@ msgid "normal"
 msgstr "normaali"
 
 #: ../src/menu.c:2455
-msgid "posix regular expresions"
+#, fuzzy
+msgid "posix regular expressions"
 msgstr "posix säännölliset lausekkeet"
 
 #: ../src/menu.c:2455
-msgid "perl regular expresions"
+#, fuzzy
+msgid "perl regular expressions"
 msgstr "perl säännölliset lausekkeet"
 
 #: ../src/menu.c:2461
@@ -3964,8 +3971,8 @@ msgstr "Nimetön %d"
 msgid "Select font"
 msgstr "Valitse fontti"
 
-#: ../src/preferences.c:626 ../src/preferences.c:810 ../src/preferences.c:1395
-#: ../src/preferences.c:1553
+#: ../src/preferences.c:626 ../src/preferences.c:810 ../src/preferences.c:1396
+#: ../src/preferences.c:1554
 msgid "Label"
 msgstr "Nimi"
 
@@ -4002,89 +4009,89 @@ msgstr "Käänteinen suodatus"
 msgid "Filetypes in filter"
 msgstr "Tiedostotyypit suotimessa"
 
-#: ../src/preferences.c:1163
+#: ../src/preferences.c:1164
 msgid "filetype"
 msgstr "tiedostotyyppi"
 
-#: ../src/preferences.c:1168
+#: ../src/preferences.c:1169
 #, fuzzy
 msgid "Reset"
 msgstr "Kehykset"
 
-#: ../src/preferences.c:1174
+#: ../src/preferences.c:1175
 msgid "Pattern name"
 msgstr "Mallin nimi"
 
-#: ../src/preferences.c:1192 ../src/preferences.c:1741
+#: ../src/preferences.c:1193 ../src/preferences.c:1742
 msgid "Pattern"
 msgstr "Malli"
 
-#: ../src/preferences.c:1215
+#: ../src/preferences.c:1216
 msgid "Start pattern and end pattern"
 msgstr "Aloitusmalli ja lopetusmalli"
 
-#: ../src/preferences.c:1217
+#: ../src/preferences.c:1218
 msgid "Only start pattern"
 msgstr "Vain aloitusmalli"
 
-#: ../src/preferences.c:1219
+#: ../src/preferences.c:1220
 msgid "Subpattern from parent"
 msgstr "Alamalli alkuperäisestä"
 
-#: ../src/preferences.c:1225
+#: ../src/preferences.c:1226
 msgid "Start pattern"
 msgstr "Aloitusmalli"
 
-#: ../src/preferences.c:1226
+#: ../src/preferences.c:1227
 msgid "End pattern"
 msgstr "Lopetusmalli"
 
-#: ../src/preferences.c:1227
+#: ../src/preferences.c:1228
 msgid "Case sensitive matching"
 msgstr "Tarkkaa kirjainmuotoa vastaava"
 
-#: ../src/preferences.c:1228
+#: ../src/preferences.c:1229
 msgid "Parentmatch"
 msgstr "Alkuperäisvastaavuus"
 
-#: ../src/preferences.c:1229
+#: ../src/preferences.c:1230
 msgid "Foreground color"
 msgstr "Edusväri"
 
-#: ../src/preferences.c:1230
+#: ../src/preferences.c:1231
 msgid "Background color"
 msgstr "Taustaväri"
 
-#: ../src/preferences.c:1238
+#: ../src/preferences.c:1239
 msgid "don't change weight"
 msgstr "älä muuta muotoilua"
 
-#: ../src/preferences.c:1240
+#: ../src/preferences.c:1241
 msgid "force non-bold weight"
 msgstr "pakota ei-lihavoitu muotoilu"
 
-#: ../src/preferences.c:1242
+#: ../src/preferences.c:1243
 msgid "force bold weight"
 msgstr "pakota lihavoitu muotoilu"
 
-#: ../src/preferences.c:1248
+#: ../src/preferences.c:1249
 msgid "don't change style"
 msgstr "älä muuta tyyliä"
 
-#: ../src/preferences.c:1250
+#: ../src/preferences.c:1251
 msgid "force non-italic style"
 msgstr "pakota ei-kursivoitu tyyli"
 
-#: ../src/preferences.c:1252
+#: ../src/preferences.c:1253
 msgid "force italic style"
 msgstr "pakota kursivoitu tyyli"
 
-#: ../src/preferences.c:1396 ../src/preferences.c:1554
-#: ../src/preferences.c:1745
+#: ../src/preferences.c:1397 ../src/preferences.c:1555
+#: ../src/preferences.c:1746
 msgid "Command"
 msgstr "Komento"
 
-#: ../src/preferences.c:1575
+#: ../src/preferences.c:1576
 #, fuzzy, c-format
 msgid ""
 "%s for current filename (any command)\n"
@@ -4093,383 +4100,383 @@ msgstr ""
 "%s = tämänhetkinen tiedostonimi\n"
 "%f = tulosteen tiedostonimi (suotimille)"
 
-#: ../src/preferences.c:1740
+#: ../src/preferences.c:1741
 msgid "Name"
 msgstr "Nimi"
 
-#: ../src/preferences.c:1742
+#: ../src/preferences.c:1743
 msgid "File #"
 msgstr "Tiedosto #"
 
-#: ../src/preferences.c:1743
+#: ../src/preferences.c:1744
 msgid "Line #"
 msgstr "Rivi #"
 
-#: ../src/preferences.c:1744
+#: ../src/preferences.c:1745
 msgid "Output #"
 msgstr "Tuloste #"
 
-#: ../src/preferences.c:1746
+#: ../src/preferences.c:1747
 msgid "Show all output"
 msgstr "Näytä koko tuloste"
 
-#: ../src/preferences.c:1961 ../src/preferences.c:1962
+#: ../src/preferences.c:1962 ../src/preferences.c:1963
 msgid "left"
 msgstr "vasen"
 
-#: ../src/preferences.c:1961 ../src/preferences.c:1962
+#: ../src/preferences.c:1962 ../src/preferences.c:1963
 msgid "right"
 msgstr "oikea"
 
-#: ../src/preferences.c:1961
+#: ../src/preferences.c:1962
 msgid "top"
 msgstr "ylä"
 
-#: ../src/preferences.c:1961
+#: ../src/preferences.c:1962
 msgid "bottom"
 msgstr "ala"
 
-#: ../src/preferences.c:1963
+#: ../src/preferences.c:1964
 msgid "no check"
 msgstr "ei tarkistusta"
 
-#: ../src/preferences.c:1963
+#: ../src/preferences.c:1964
 msgid "check mtime and size"
 msgstr "tarkista m-aika ja koko"
 
-#: ../src/preferences.c:1963
+#: ../src/preferences.c:1964
 msgid "check mtime"
 msgstr "tarkista m-aika"
 
-#: ../src/preferences.c:1963
+#: ../src/preferences.c:1964
 msgid "check size"
 msgstr "tarkista koko"
 
-#: ../src/preferences.c:1966
+#: ../src/preferences.c:1967
 msgid "Edit preferences"
 msgstr "Muokkaa asetuksia"
 
-#: ../src/preferences.c:1977
+#: ../src/preferences.c:1978
 msgid "Editor"
 msgstr "Editori"
 
-#: ../src/preferences.c:1979
+#: ../src/preferences.c:1980
 msgid "Editor options"
 msgstr "Valintaeditori"
 
-#: ../src/preferences.c:1985
+#: ../src/preferences.c:1986
 msgid "Tab width"
 msgstr "Sarkaimen pituus"
 
-#: ../src/preferences.c:1986
+#: ../src/preferences.c:1987
 msgid "Use spaces to indent, not tabs"
 msgstr "Käytä välejä sisennykseen, älä sarkaimia"
 
-#: ../src/preferences.c:1987
+#: ../src/preferences.c:1988
 msgid "Word wrap default"
 msgstr "Sanakatkaisu tavanomainen"
 
-#: ../src/preferences.c:1988
+#: ../src/preferences.c:1989
 msgid "Line numbers by default"
 msgstr "Rivinumerointi tavanomaisesti"
 
-#: ../src/preferences.c:1989
+#: ../src/preferences.c:1990
 msgid "Highlight syntax by default"
 msgstr "Korostussyntaksi tavanomaisesti"
 
-#: ../src/preferences.c:1990
+#: ../src/preferences.c:1991
 msgid "Highlight # lines"
 msgstr "Korosta # riviä"
 
-#: ../src/preferences.c:1997
+#: ../src/preferences.c:1998
 msgid "Undo history size"
 msgstr "Kumoushistorian koko"
 
-#: ../src/preferences.c:1998
+#: ../src/preferences.c:1999
 msgid "Clear undo history on save"
 msgstr "Tyhjennä kumoushistoria tallennettaessa"
 
-#: ../src/preferences.c:2000
+#: ../src/preferences.c:2001
 msgid "Bookmark options"
 msgstr "Kirjanmerkkien valinnat"
 
-#: ../src/preferences.c:2005
+#: ../src/preferences.c:2006
 msgid "Sort by line number"
 msgstr "Järjestä rivinumeron mukaan"
 
-#: ../src/preferences.c:2006
+#: ../src/preferences.c:2007
 msgid "Make permanent by default"
 msgstr "Tee pysyvä oletuksena"
 
-#: ../src/preferences.c:2008
+#: ../src/preferences.c:2009
 msgid "full path"
 msgstr "koko polku"
 
-#: ../src/preferences.c:2008
+#: ../src/preferences.c:2009
 msgid "path from basedir"
 msgstr "polku perushakemistosta"
 
-#: ../src/preferences.c:2008
+#: ../src/preferences.c:2009
 msgid "filename"
 msgstr "tiedostonimi"
 
-#: ../src/preferences.c:2009
+#: ../src/preferences.c:2010
 msgid "Bookmarks filename display"
 msgstr "Kirjanmerkkien tiedostonimen näyttö"
 
-#: ../src/preferences.c:2013
+#: ../src/preferences.c:2014
 msgid "HTML"
 msgstr "HTML"
 
-#: ../src/preferences.c:2015
+#: ../src/preferences.c:2016
 msgid "HTML options"
 msgstr "HTML-valinnat"
 
-#: ../src/preferences.c:2020
+#: ../src/preferences.c:2021
 msgid "Lowercase HTML tags"
 msgstr "Pienikirjaimiset HTML-tagit"
 
-#: ../src/preferences.c:2021
+#: ../src/preferences.c:2022
 msgid "Use deprecated tags (e.g. <font> and <nobr>)"
 msgstr "Käytä ei-suositeltuja tageja (kuten <font> ja <nobr>)"
 
-#: ../src/preferences.c:2022
+#: ../src/preferences.c:2023
 msgid "Use XHTML style tags (<br />)"
 msgstr "Käytä XHTML tyylisiä tageja (<br> />"
 
-#: ../src/preferences.c:2023
+#: ../src/preferences.c:2024
 msgid "Automatic update author meta"
 msgstr "Automaattinen päivitä tekijä-meta"
 
-#: ../src/preferences.c:2026
+#: ../src/preferences.c:2027
 msgid "Files"
 msgstr "Tiedostot"
 
-#: ../src/preferences.c:2028
+#: ../src/preferences.c:2029
 msgid "Encoding"
 msgstr "Koodaus"
 
-#: ../src/preferences.c:2040
+#: ../src/preferences.c:2041
 msgid "Default character set"
 msgstr "Tavanomainen merkistö"
 
-#: ../src/preferences.c:2043
+#: ../src/preferences.c:2044
 msgid "Auto set <meta> encoding tag on change"
 msgstr "Automaattisesti aseta <meta> koodaustagi muutettaessa"
 
-#: ../src/preferences.c:2045
+#: ../src/preferences.c:2046
 msgid "Backup"
 msgstr "Varmuuskopio"
 
-#: ../src/preferences.c:2049
+#: ../src/preferences.c:2050
 msgid "Create backup on save"
 msgstr "Luo varmuuskopio tallennettaessa"
 
-#: ../src/preferences.c:2050
+#: ../src/preferences.c:2051
 msgid "Backup file suffix"
 msgstr "Varmuuskopion tiedostopääte"
 
-#: ../src/preferences.c:2052
+#: ../src/preferences.c:2053
 msgid "save"
 msgstr "tallenna"
 
-#: ../src/preferences.c:2052
+#: ../src/preferences.c:2053
 msgid "abort"
 msgstr "keskeytä"
 
-#: ../src/preferences.c:2052
+#: ../src/preferences.c:2053
 msgid "ask"
 msgstr "kysy"
 
-#: ../src/preferences.c:2053
+#: ../src/preferences.c:2054
 msgid "Action on backup failure"
 msgstr "Toiminta varmuuskopioinnin epäonnistuessa"
 
-#: ../src/preferences.c:2055
+#: ../src/preferences.c:2056
 msgid "Remove backupfile on close"
 msgstr "Poista varmuuskopio suljettaessa"
 
-#: ../src/preferences.c:2059
+#: ../src/preferences.c:2060
 msgid "Misc"
 msgstr "Sekalaiset"
 
-#: ../src/preferences.c:2064
+#: ../src/preferences.c:2065
 msgid "Allow multi instances of a file"
 msgstr "Hyväksy useita avoimia instansseja samasta tiedostosta"
 
-#: ../src/preferences.c:2066
+#: ../src/preferences.c:2067
 msgid "Open files in already running bluefish window"
 msgstr "Avaa tiedostot olemassaolevaan bluefish -ikkunaan"
 
-#: ../src/preferences.c:2068
+#: ../src/preferences.c:2069
 msgid "File modified on disk check "
 msgstr "Tiedostoa muutettu levytarkistuksen aikana "
 
-#: ../src/preferences.c:2069
+#: ../src/preferences.c:2070
 msgid "Number of files in 'Open recent'"
 msgstr "Tiedostojen lukumäärä kohdassa 'Viimeksi avattu'"
 
-#: ../src/preferences.c:2071
+#: ../src/preferences.c:2072
 msgid "File browser"
 msgstr "Tiedostoselain"
 
-#: ../src/preferences.c:2075
+#: ../src/preferences.c:2076
 msgid "Default basedir"
 msgstr "Oletushakemisto"
 
-#: ../src/preferences.c:2076
+#: ../src/preferences.c:2077
 msgid "Use separate file and directory view"
 msgstr "Käytä erillistä tiedosto- ja hakemistonäkymää"
 
-#: ../src/preferences.c:2077
+#: ../src/preferences.c:2078
 msgid "Unknown icon"
 msgstr "Tuntematon ikoni"
 
-#: ../src/preferences.c:2078
+#: ../src/preferences.c:2079
 msgid "Directory icon"
 msgstr "Hakemistoikoni"
 
-#: ../src/preferences.c:2081
+#: ../src/preferences.c:2082
 msgid "User interface"
 msgstr "Käyttöulkoasu"
 
-#: ../src/preferences.c:2083
+#: ../src/preferences.c:2084
 msgid "Dimensions"
 msgstr "Ulottuvuudet"
 
-#: ../src/preferences.c:2087
+#: ../src/preferences.c:2088
 msgid "Restore last used dimensions"
 msgstr "Tallenna viimeksikäytetyt ulottuvuudet"
 
-#: ../src/preferences.c:2088
+#: ../src/preferences.c:2089
 #, fuzzy
 msgid "Initial sidebar width"
 msgstr "Sisäänrakennetun ikkunan leveys"
 
-#: ../src/preferences.c:2089
+#: ../src/preferences.c:2090
 msgid "Initial window height"
 msgstr "Sisäänrakennetun ikkunan korkeus"
 
-#: ../src/preferences.c:2090
+#: ../src/preferences.c:2091
 msgid "Initial window width"
 msgstr "Sisäänrakennetun ikkunan leveys"
 
-#: ../src/preferences.c:2094
+#: ../src/preferences.c:2095
 msgid "General"
 msgstr "Yleistä"
 
-#: ../src/preferences.c:2099
+#: ../src/preferences.c:2100
 msgid "Show main toolbar by default"
 msgstr "Näytä päätyökalurivi oletuksena"
 
-#: ../src/preferences.c:2100
+#: ../src/preferences.c:2101
 #, fuzzy
 msgid "Show sidebar by default"
 msgstr "Näytä päätyökalurivi oletuksena"
 
-#: ../src/preferences.c:2101
+#: ../src/preferences.c:2102
 msgid "Show custom menu by default"
 msgstr "Näytä muotoiltava valikko oletuksena"
 
-#: ../src/preferences.c:2102
+#: ../src/preferences.c:2103
 msgid "Show HTML toolbar by default"
 msgstr "Näytä HTML-työkalurivi oletuksena"
 
-#: ../src/preferences.c:2103
+#: ../src/preferences.c:2104
 msgid "Make HTML dialogs transient"
 msgstr "Tee HTML-dialogeista lyhytaikaisia"
 
-#: ../src/preferences.c:2105
+#: ../src/preferences.c:2106
 msgid "External browsers in submenu"
 msgstr "Ulkopuoliset selaimet alavalikossa"
 
-#: ../src/preferences.c:2106
+#: ../src/preferences.c:2107
 msgid "External commands in submenu"
 msgstr "Ulkopuoliset komennot alavalikossa"
 
-#: ../src/preferences.c:2107
+#: ../src/preferences.c:2108
 msgid "External outputbox in submenu"
 msgstr "Ulkopuolinen tulostelaatikko alavalikossa"
 
-#: ../src/preferences.c:2109
+#: ../src/preferences.c:2110
 msgid "Notebook tab font (leave empty for gtk default)"
 msgstr "Muistion tab-fontti (jätä tyhjäksi gtk-oletusta varten)"
 
-#: ../src/preferences.c:2111
+#: ../src/preferences.c:2112
 msgid "Document notebook tab position"
 msgstr "Dokumentin muistio-tabin sijainti"
 
-#: ../src/preferences.c:2112
+#: ../src/preferences.c:2113
 #, fuzzy
 msgid "Sidebar notebook tab position"
 msgstr "Vasemman paneelin muistio-tabin sijainti"
 
-#: ../src/preferences.c:2113
+#: ../src/preferences.c:2114
 #, fuzzy
 msgid "Sidebar location"
 msgstr "K_uvan sijainti:"
 
-#: ../src/preferences.c:2116 ../src/rcfile.c:571
+#: ../src/preferences.c:2117 ../src/rcfile.c:572
 msgid "Images"
 msgstr "Kuvat"
 
-#: ../src/preferences.c:2118
+#: ../src/preferences.c:2119
 msgid "Thumbnails"
 msgstr "Esikatselukuvat"
 
-#: ../src/preferences.c:2122
+#: ../src/preferences.c:2123
 msgid "Thumbnail suffix"
 msgstr "Esikatselukuvien pääte"
 
-#: ../src/preferences.c:2126
+#: ../src/preferences.c:2127
 msgid "Thumbnail filetype"
 msgstr "Esikatselukuvien tiedostotyyppi"
 
-#: ../src/preferences.c:2131 ../src/preferences.c:2133
+#: ../src/preferences.c:2132 ../src/preferences.c:2134
 msgid "Filetypes"
 msgstr "Tiedostotyypit"
 
-#: ../src/preferences.c:2140
+#: ../src/preferences.c:2141
 msgid "Filefilters"
 msgstr "Tiedostosuotimet"
 
-#: ../src/preferences.c:2148
+#: ../src/preferences.c:2149
 msgid "Syntax highlighting"
 msgstr "Syntaksikorostus"
 
-#: ../src/preferences.c:2150
+#: ../src/preferences.c:2151
 msgid "Patterns"
 msgstr "Mallit"
 
-#: ../src/preferences.c:2158
+#: ../src/preferences.c:2159
 msgid "External programs"
 msgstr "Ulkopuoliset ohjelmat"
 
-#: ../src/preferences.c:2160
+#: ../src/preferences.c:2161
 msgid "Browsers"
 msgstr "Selaimet"
 
-#: ../src/preferences.c:2167
+#: ../src/preferences.c:2168
 msgid "Utilities and filters"
 msgstr "Hyödyt ja suotimet"
 
-#: ../src/preferences.c:2175
+#: ../src/preferences.c:2176
 msgid "Output parsers"
 msgstr "Tulosteen jäsentäjät"
 
-#: ../src/preferences.c:2177
+#: ../src/preferences.c:2178
 msgid "Outputbox"
 msgstr "Tulostelaatikko"
 
-#: ../src/preferences.c:2186
+#: ../src/preferences.c:2187
 msgid "Servers"
 msgstr "Serverit"
 
-#: ../src/preferences.c:2188
+#: ../src/preferences.c:2189
 msgid "Remote servers"
 msgstr "Etäpalvelimet"
 
-#: ../src/preferences.c:2193
+#: ../src/preferences.c:2194
 msgid "Zope compatibility mode"
 msgstr "Zope-yhteensopivuustila"
 
@@ -4550,72 +4557,72 @@ msgstr "Luo projekti tällä hetkellä avatuilla dokumenteilla"
 msgid "Create empty project"
 msgstr "Luo tyhjä projekti"
 
-#: ../src/rcfile.c:496
+#: ../src/rcfile.c:497
 msgid "Galeon"
 msgstr "Galeon"
 
-#: ../src/rcfile.c:498
+#: ../src/rcfile.c:499
 msgid "Mozilla"
 msgstr "Mozilla"
 
-#: ../src/rcfile.c:500
+#: ../src/rcfile.c:501
 msgid "Opera"
 msgstr "Opera"
 
-#: ../src/rcfile.c:502
+#: ../src/rcfile.c:503
 msgid "Netscape"
 msgstr "Netscape"
 
-#: ../src/rcfile.c:504
+#: ../src/rcfile.c:505
 msgid "Gnome default"
 msgstr "Gnomen oletus"
 
-#: ../src/rcfile.c:528
+#: ../src/rcfile.c:529
 msgid "make"
 msgstr "make"
 
-#: ../src/rcfile.c:529
+#: ../src/rcfile.c:530
 msgid "weblint HTML checker"
 msgstr "weblint HTML-tarkastaja"
 
-#: ../src/rcfile.c:530
+#: ../src/rcfile.c:531
 msgid "tidy HTML validator"
 msgstr "tidy HTML-vahvistaja"
 
-#: ../src/rcfile.c:531
+#: ../src/rcfile.c:532
 msgid "javac"
 msgstr "javac"
 
-#: ../src/rcfile.c:532
+#: ../src/rcfile.c:533
 #, fuzzy
 msgid "xmllint XML checker"
 msgstr "weblint HTML-tarkastaja"
 
-#: ../src/rcfile.c:538
+#: ../src/rcfile.c:539
 msgid "Dos2Unix filter"
 msgstr "Dos2Unix suodin"
 
-#: ../src/rcfile.c:540
+#: ../src/rcfile.c:541
 msgid "Tidy cleanup filter"
 msgstr "Tidy puhdistussuodin"
 
-#: ../src/rcfile.c:565
+#: ../src/rcfile.c:566
 msgid "C programming"
 msgstr "C-ohjelmointi"
 
-#: ../src/rcfile.c:567
+#: ../src/rcfile.c:568
 msgid "All web files"
 msgstr "Kaikki web-tiedostot"
 
-#: ../src/rcfile.c:569
+#: ../src/rcfile.c:570
 msgid "Java programming"
 msgstr "Java-ohjelmointi"
 
-#: ../src/rcfile.c:573
+#: ../src/rcfile.c:574
 msgid "Hide objectfiles"
 msgstr "Piilota objektitiedostot"
 
-#: ../src/rcfile.c:882
+#: ../src/rcfile.c:900
 msgid "Untitled Project"
 msgstr "Nimetön projekti"
 
