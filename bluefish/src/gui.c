@@ -86,9 +86,9 @@ static Tsplashscreen splashscreen;
 void notebook_changed(gint newpage)
 {
 	gint cur;
+	gchar *title="";
 	DEBUG_MSG("notebook_changed, the newpage argument is %d\n", newpage);
 	DEBUG_MSG("notebook_changed, documentlist len=%d\n", g_list_length(main_v->documentlist));
-
 	if (newpage == -1) {
 		/* This one is called when you click on the notebook
 	   it _should_ be called also when you use the keys to change the page */
@@ -101,6 +101,13 @@ void notebook_changed(gint newpage)
 		&& (main_v->current_document != NULL)
 		&& (main_v->current_document == g_list_nth_data(main_v->documentlist, cur))) {
 		DEBUG_MSG("notebook_changed, it didn't change to a new document (cur=%d, current_document=%p)\n", cur, main_v->current_document);
+		if (main_v->current_document->filename) {
+			title = g_strconcat("Bluefish ",VERSION," - ",main_v->current_document->filename,NULL);
+		} else {
+			title = g_strconcat("Bluefish ",VERSION," -",_("Untitled"),NULL);
+		}
+		gtk_window_set_title((GtkWindow *)main_v->main_window,title);
+
 		return;
 	} else {
 		if (cur >= g_list_length(main_v->documentlist)) {
@@ -126,7 +133,13 @@ void notebook_changed(gint newpage)
 			doc_activate(main_v->current_document);
 		}
 	}
-		
+	if (main_v->current_document->filename) {
+		title = g_strconcat("Bluefish ",VERSION," - ",main_v->current_document->filename,NULL);
+	} else {
+		title = g_strconcat("Bluefish ",VERSION," -",_("Untitled"),NULL);
+	}
+	gtk_window_set_title((GtkWindow *)main_v->main_window,title);
+
 	DEBUG_MSG("notebook_changed, done\n");
 }
 
@@ -709,7 +722,7 @@ gboolean main_window_destroy_lcb(GtkWidget *widget,gpointer user_data) {
 
 void gui_create_main(GList *filenames) {
 	GtkWidget *vbox;
-	main_v->main_window = window_full2(CURRENT_VERSION_NAME, GTK_WIN_POS_CENTER, 0, G_CALLBACK(main_window_destroy_lcb), NULL, FALSE, NULL);
+	main_v->main_window = window_full2(_("Bluefish"), GTK_WIN_POS_CENTER, 0, G_CALLBACK(main_window_destroy_lcb), NULL, FALSE, NULL);
 	gtk_window_set_role(GTK_WINDOW(main_v->main_window), "bluefish");
 	gtk_window_set_default_size(GTK_WINDOW(main_v->main_window), main_v->props.main_window_w, main_v->props.main_window_h);
 	g_signal_connect(G_OBJECT(main_v->main_window), "delete_event", G_CALLBACK(main_window_delete_lcb), NULL);
