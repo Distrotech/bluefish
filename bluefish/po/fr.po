@@ -11,8 +11,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 13-06-03_fr\n"
-"POT-Creation-Date: 2003-07-08 11:18+0200\n"
-"PO-Revision-Date: 2003-06-24 14:18+0100\n"
+"POT-Creation-Date: 2003-07-09 18:47-0300\n"
+"PO-Revision-Date: 2003-07-09 09:39+0100\n"
 "Last-Translator: Roméo Viu-Berges <apostledemencia@free.fr>\n"
 "Language-Team: fr_FR <fr@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -140,9 +140,13 @@ msgstr "Affichage de l'interface principale..."
 msgid "/Document/Highlight Syntax"
 msgstr "/Document/Syntaxe de la coloration"
 
-#: ../src/document.c:552 ../src/document.c:553 ../src/document.c:724
+#: ../src/document.c:552 ../src/document.c:553
 msgid "Untitled"
 msgstr "Sans titre"
+
+#: ../src/document.c:724
+msgid " Untitled"
+msgstr " Sans titre"
 
 #: ../src/document.c:824 ../src/document.c:825
 #, c-format
@@ -339,93 +343,93 @@ msgstr ""
 msgid "Bluefish: Warning, file is modified"
 msgstr "Avertissement de Bluefish : le fichier a été modifié !"
 
-#: ../src/document.c:2452
+#: ../src/document.c:2453
 msgid "searching files..."
 msgstr "Recherche des fichiers..."
 
-#: ../src/document.c:2472
+#: ../src/document.c:2473
 msgid "Select basedir"
 msgstr "Sélectionnez le répertoire de travail"
 
-#: ../src/document.c:2486
+#: ../src/document.c:2487
 msgid "Advanced open file selector"
 msgstr "Paramétrer la sélection des fichiers"
 
-#: ../src/document.c:2497
+#: ../src/document.c:2498
 msgid "grep {contains} `find {basedir} -name '{file type}'`"
 msgstr "grep {contenu} `find {répertoire} -name '{type de fichier}'`"
 
-#: ../src/document.c:2502
+#: ../src/document.c:2503
 msgid "<b>General</b>"
 msgstr "<b>Général</b>"
 
-#: ../src/document.c:2504
+#: ../src/document.c:2505
 msgid "Base_dir:"
 msgstr "Répertoire _de base :"
 
-#: ../src/document.c:2506 ../src/gtk_easy.c:1173
+#: ../src/document.c:2507 ../src/gtk_easy.c:1173
 msgid "_Browse..."
 msgstr "_Parcourir..."
 
-#: ../src/document.c:2521
+#: ../src/document.c:2522
 msgid "_File Type:"
 msgstr "Type de _fichier :"
 
-#: ../src/document.c:2527
+#: ../src/document.c:2528
 msgid "_Recursive:"
 msgstr "_Récursif :"
 
-#: ../src/document.c:2532
+#: ../src/document.c:2533
 msgid "<b>Contains</b>"
 msgstr "<b>Contient</b>"
 
-#: ../src/document.c:2535
+#: ../src/document.c:2536
 msgid "Pa_ttern:"
 msgstr "Modèle :"
 
-#: ../src/document.c:2539
+#: ../src/document.c:2540
 msgid "Is rege_x:"
 msgstr "Est une e_xpression régulière :"
 
-#: ../src/document.c:2636
+#: ../src/document.c:2637
 #, c-format
 msgid "Loading %d file(s)..."
 msgstr "Chargement de %d fichier(s)..."
 
-#: ../src/document.c:2670
+#: ../src/document.c:2671
 msgid "Select file to insert"
 msgstr "Sélectionner le fichier à insérer"
 
-#: ../src/document.c:2672
+#: ../src/document.c:2673
 msgid "No file to insert"
 msgstr "Aucun fichier à insérer"
 
-#: ../src/document.c:2734
+#: ../src/document.c:2735
 msgid "_Save all"
 msgstr "Tout enregi_strer"
 
-#: ../src/document.c:2734
+#: ../src/document.c:2735
 msgid "Close _all"
 msgstr "Tout fermer"
 
-#: ../src/document.c:2734
+#: ../src/document.c:2735
 msgid "Choose per _file"
 msgstr "Choisir par _fichier"
 
-#: ../src/document.c:2734
+#: ../src/document.c:2735
 msgid "_Cancel"
 msgstr "Annuler"
 
-#: ../src/document.c:2735
+#: ../src/document.c:2736
 msgid "Some file(s) have been modified"
 msgstr "Certains fichiers ont été modifiés"
 
-#: ../src/document.c:2983
+#: ../src/document.c:2984
 #, c-format
 msgid "Statistics: %d lines, %d words, %d characters"
 msgstr "Statistiques : %d lignes, %d mots, %d caractères"
 
-#: ../src/document.c:3085
+#: ../src/document.c:3088
 msgid "No selection to indent"
 msgstr "Aucune sélection à indenter"
 
@@ -1064,6 +1068,60 @@ msgstr "Garder la boîte de _dialogue"
 msgid "starting bluefish"
 msgstr "Démarrage de Bluefish"
 
+#: ../src/html2.c:586
+msgid "Cascading StyleSheet dialog"
+msgstr "Dialogue des feuilles de style CSS"
+
+#: ../src/html2.c:606
+msgid "_Selector:"
+msgstr "_Sélecteur :"
+
+#: ../src/html2.c:625
+msgid "_Property:"
+msgstr "_Propriété :"
+
+#: ../src/html2.c:627 ../src/html_form.c:286 ../src/html_form.c:353
+#: ../src/html_form.c:415 ../src/html_form.c:471 ../src/html_form.c:534
+#: ../src/html_form.c:644
+msgid "_Value:"
+msgstr "_Valeur :"
+
+#: ../src/html2.c:645
+msgid "Selector"
+msgstr "Sélecteur"
+
+#: ../src/html2.c:645 ../src/html2.c:648
+msgid "Property"
+msgstr "Propriété"
+
+#: ../src/html2.c:645 ../src/html2.c:648
+msgid "Value"
+msgstr "Valeur"
+
+#: ../src/html2.c:663
+msgid " _Add "
+msgstr " _Ajouter "
+
+#: ../src/html2.c:666
+msgid " _Update "
+msgstr " _Mettre à jour "
+
+#: ../src/html2.c:669
+msgid " _Delete "
+msgstr " _Supprimer "
+
+#: ../src/html2.c:925 ../src/html2.c:962
+msgid "_Style..."
+msgstr "_Style..."
+
+#: ../src/html2.c:1145
+msgid "Bluefish: Select color"
+msgstr "Bluefish: Sélection de couleurs"
+
+#: ../src/html2.c:1165
+msgid "_websafe"
+msgstr "_Web"
+
 #: ../src/html.c:353
 msgid "Insert Time"
 msgstr "Insérer l'heure"
@@ -1435,60 +1493,6 @@ msgstr "_Relatif :"
 #: ../src/html.c:2061 ../src/html_form.c:361
 msgid "_Type:"
 msgstr "_Type :"
-
-#: ../src/html2.c:586
-msgid "Cascading StyleSheet dialog"
-msgstr "Dialogue des feuilles de style CSS"
-
-#: ../src/html2.c:606
-msgid "_Selector:"
-msgstr "_Sélecteur :"
-
-#: ../src/html2.c:625
-msgid "_Property:"
-msgstr "_Propriété :"
-
-#: ../src/html2.c:627 ../src/html_form.c:286 ../src/html_form.c:353
-#: ../src/html_form.c:415 ../src/html_form.c:471 ../src/html_form.c:534
-#: ../src/html_form.c:644
-msgid "_Value:"
-msgstr "_Valeur :"
-
-#: ../src/html2.c:645
-msgid "Selector"
-msgstr "Sélecteur"
-
-#: ../src/html2.c:645 ../src/html2.c:648
-msgid "Property"
-msgstr "Propriété"
-
-#: ../src/html2.c:645 ../src/html2.c:648
-msgid "Value"
-msgstr "Valeur"
-
-#: ../src/html2.c:663
-msgid " _Add "
-msgstr " _Ajouter "
-
-#: ../src/html2.c:666
-msgid " _Update "
-msgstr " _Mettre à jour "
-
-#: ../src/html2.c:669
-msgid " _Delete "
-msgstr " _Supprimer "
-
-#: ../src/html2.c:925 ../src/html2.c:962
-msgid "_Style..."
-msgstr "_Style..."
-
-#: ../src/html2.c:1145
-msgid "Bluefish: Select color"
-msgstr "Bluefish: Sélection de couleurs"
-
-#: ../src/html2.c:1165
-msgid "_websafe"
-msgstr "_Web"
 
 #: ../src/html_form.c:129
 msgid "Form"
@@ -3119,32 +3123,31 @@ msgstr "/Menu personnalisé"
 
 #: ../src/menu.c:1832
 msgid "Add New Menu Entry"
-msgstr ""
+msgstr "Ajouter une nouvelle entrée au Menu"
 
 #: ../src/menu.c:1834
 msgid "Apply Changes"
-msgstr ""
+msgstr "Appliquer les changements"
 
 #: ../src/menu.c:1836
 msgid "Delete Menu Entry"
-msgstr ""
+msgstr "Supprimer l'entrée du Menu"
 
 #: ../src/menu.c:1839
 msgid "Close Discards Changes"
-msgstr ""
+msgstr "Abandonner et Fermer"
 
 #: ../src/menu.c:1841
 msgid "Save Changes and Exit"
-msgstr ""
+msgstr "Enregistrer les changements et quitter"
 
 #: ../src/menu.c:1851
 msgid "_Menu Path:"
 msgstr "Chemin du _menu :"
 
 #: ../src/menu.c:1872
-#, fuzzy
 msgid "Menu path"
-msgstr "Chemin du _menu :"
+msgstr "Chemin du menu :"
 
 #: ../src/menu.c:1892
 msgid "Number of _Variables:"
@@ -3791,14 +3794,12 @@ msgid "PERL type"
 msgstr "De type PERL"
 
 #: ../src/snr2.c:1251
-#, fuzzy
 msgid "Starts at:"
-msgstr "Début du modèle"
+msgstr "Débuter à : "
 
 #: ../src/snr2.c:1263
-#, fuzzy
 msgid "Regular expression:"
-msgstr "Erreur d'expression régulière : "
+msgstr "Expression régulière : "
 
 #: ../src/snr2.c:1277
 msgid "Normal"
@@ -3813,9 +3814,8 @@ msgid "Lowercase"
 msgstr "Mettre en minuscules"
 
 #: ../src/snr2.c:1278
-#, fuzzy
 msgid "Replace type:"
-msgstr "_Remplacer :"
+msgstr "Remplacer :"
 
 #: ../src/snr2.c:1292
 msgid "Match ca_se"

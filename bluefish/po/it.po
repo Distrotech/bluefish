@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: bluefish gtk2-port\n"
-"POT-Creation-Date: 2003-07-08 11:18+0200\n"
-"PO-Revision-Date: 2003-06-24 18:41+0200\n"
+"POT-Creation-Date: 2003-07-09 18:47-0300\n"
+"PO-Revision-Date: 2003-07-09 22:50+0200\n"
 "Last-Translator: Stefano Canepa <sc@linux.it>\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
 "MIME-Version: 1.0\n"
@@ -136,9 +136,13 @@ msgstr "costruzione della GUI in corso"
 msgid "/Document/Highlight Syntax"
 msgstr "/Documento/Evidenzia sintassi"
 
-#: ../src/document.c:552 ../src/document.c:553 ../src/document.c:724
+#: ../src/document.c:552 ../src/document.c:553
 msgid "Untitled"
 msgstr "Senza nome"
+
+#: ../src/document.c:724
+msgid " Untitled"
+msgstr " Senza nome"
 
 #: ../src/document.c:824 ../src/document.c:825
 #, c-format
@@ -334,93 +338,93 @@ msgstr ""
 msgid "Bluefish: Warning, file is modified"
 msgstr "Il è stato modificato"
 
-#: ../src/document.c:2452
+#: ../src/document.c:2453
 msgid "searching files..."
 msgstr "Ricerca file in corso"
 
-#: ../src/document.c:2472
+#: ../src/document.c:2473
 msgid "Select basedir"
 msgstr "Seleziona la directory di base"
 
-#: ../src/document.c:2486
+#: ../src/document.c:2487
 msgid "Advanced open file selector"
 msgstr "Selettore file avanzato"
 
-#: ../src/document.c:2497
+#: ../src/document.c:2498
 msgid "grep {contains} `find {basedir} -name '{file type}'`"
 msgstr "grep {contenuto} `find {dir_base} -name '{modello}'`"
 
-#: ../src/document.c:2502
+#: ../src/document.c:2503
 msgid "<b>General</b>"
 msgstr "<b>Generale<b>"
 
-#: ../src/document.c:2504
+#: ../src/document.c:2505
 msgid "Base_dir:"
 msgstr "_Directory di base"
 
-#: ../src/document.c:2506 ../src/gtk_easy.c:1173
+#: ../src/document.c:2507 ../src/gtk_easy.c:1173
 msgid "_Browse..."
 msgstr "_Sfoglia:"
 
-#: ../src/document.c:2521
+#: ../src/document.c:2522
 msgid "_File Type:"
 msgstr "Tipo del file:"
 
-#: ../src/document.c:2527
+#: ../src/document.c:2528
 msgid "_Recursive:"
 msgstr "_Ricorsivo:"
 
-#: ../src/document.c:2532
+#: ../src/document.c:2533
 msgid "<b>Contains</b>"
 msgstr "<b>Contiene<b>"
 
-#: ../src/document.c:2535
+#: ../src/document.c:2536
 msgid "Pa_ttern:"
 msgstr "Mode_llo:"
 
-#: ../src/document.c:2539
+#: ../src/document.c:2540
 msgid "Is rege_x:"
 msgstr "è un'e_spressione regolare"
 
-#: ../src/document.c:2636
+#: ../src/document.c:2637
 #, c-format
 msgid "Loading %d file(s)..."
 msgstr "Caricamento di %d file in corso"
 
-#: ../src/document.c:2670
+#: ../src/document.c:2671
 msgid "Select file to insert"
 msgstr "Selezionare il file da inserire"
 
-#: ../src/document.c:2672
+#: ../src/document.c:2673
 msgid "No file to insert"
 msgstr "Nessun file da inserire"
 
-#: ../src/document.c:2734
+#: ../src/document.c:2735
 msgid "_Save all"
 msgstr "_Salva tutto"
 
-#: ../src/document.c:2734
+#: ../src/document.c:2735
 msgid "Close _all"
 msgstr "Ch_iudi tutto"
 
-#: ../src/document.c:2734
+#: ../src/document.c:2735
 msgid "Choose per _file"
 msgstr "Scegli per ogni file"
 
-#: ../src/document.c:2734
+#: ../src/document.c:2735
 msgid "_Cancel"
 msgstr "_Annulla"
 
-#: ../src/document.c:2735
+#: ../src/document.c:2736
 msgid "Some file(s) have been modified"
 msgstr "Alcuni file sono stati modificati"
 
-#: ../src/document.c:2983
+#: ../src/document.c:2984
 #, c-format
 msgid "Statistics: %d lines, %d words, %d characters"
 msgstr "Statistiche: %d righe, %d parole, %d caratteri"
 
-#: ../src/document.c:3085
+#: ../src/document.c:3088
 msgid "No selection to indent"
 msgstr "Nessuna selezione da indentare"
 
@@ -1057,6 +1061,60 @@ msgstr "Mantieni la _finestra aperta"
 msgid "starting bluefish"
 msgstr "Bluefish sta avviandosi"
 
+#: ../src/html2.c:586
+msgid "Cascading StyleSheet dialog"
+msgstr "Fogli di stile a cascata"
+
+#: ../src/html2.c:606
+msgid "_Selector:"
+msgstr "_Selettore:"
+
+#: ../src/html2.c:625
+msgid "_Property:"
+msgstr "_Proprietà:"
+
+#: ../src/html2.c:627 ../src/html_form.c:286 ../src/html_form.c:353
+#: ../src/html_form.c:415 ../src/html_form.c:471 ../src/html_form.c:534
+#: ../src/html_form.c:644
+msgid "_Value:"
+msgstr "_Valore:"
+
+#: ../src/html2.c:645
+msgid "Selector"
+msgstr "Selettore"
+
+#: ../src/html2.c:645 ../src/html2.c:648
+msgid "Property"
+msgstr "Proprietà"
+
+#: ../src/html2.c:645 ../src/html2.c:648
+msgid "Value"
+msgstr "Valore"
+
+#: ../src/html2.c:663
+msgid " _Add "
+msgstr " _Aggiungi "
+
+#: ../src/html2.c:666
+msgid " _Update "
+msgstr " _Aggiorna "
+
+#: ../src/html2.c:669
+msgid " _Delete "
+msgstr " _Cancella "
+
+#: ../src/html2.c:925 ../src/html2.c:962
+msgid "_Style..."
+msgstr "_Stile..."
+
+#: ../src/html2.c:1145
+msgid "Bluefish: Select color"
+msgstr "Bluefish: selezionare il colore"
+
+#: ../src/html2.c:1165
+msgid "_websafe"
+msgstr "_websafe"
+
 #: ../src/html.c:353
 msgid "Insert Time"
 msgstr "Inserire l'ora"
@@ -1428,60 +1486,6 @@ msgstr "_Rel:"
 #: ../src/html.c:2061 ../src/html_form.c:361
 msgid "_Type:"
 msgstr "_Tipo:"
-
-#: ../src/html2.c:586
-msgid "Cascading StyleSheet dialog"
-msgstr "Fogli di stile a cascata"
-
-#: ../src/html2.c:606
-msgid "_Selector:"
-msgstr "_Selettore:"
-
-#: ../src/html2.c:625
-msgid "_Property:"
-msgstr "_Proprietà:"
-
-#: ../src/html2.c:627 ../src/html_form.c:286 ../src/html_form.c:353
-#: ../src/html_form.c:415 ../src/html_form.c:471 ../src/html_form.c:534
-#: ../src/html_form.c:644
-msgid "_Value:"
-msgstr "_Valore:"
-
-#: ../src/html2.c:645
-msgid "Selector"
-msgstr "Selettore"
-
-#: ../src/html2.c:645 ../src/html2.c:648
-msgid "Property"
-msgstr "Proprietà"
-
-#: ../src/html2.c:645 ../src/html2.c:648
-msgid "Value"
-msgstr "Valore"
-
-#: ../src/html2.c:663
-msgid " _Add "
-msgstr " _Aggiungi "
-
-#: ../src/html2.c:666
-msgid " _Update "
-msgstr " _Aggiorna "
-
-#: ../src/html2.c:669
-msgid " _Delete "
-msgstr " _Cancella "
-
-#: ../src/html2.c:925 ../src/html2.c:962
-msgid "_Style..."
-msgstr "_Stile..."
-
-#: ../src/html2.c:1145
-msgid "Bluefish: Select color"
-msgstr "Bluefish: selezionare il colore"
-
-#: ../src/html2.c:1165
-msgid "_websafe"
-msgstr "_websafe"
 
 #: ../src/html_form.c:129
 msgid "Form"
@@ -3130,32 +3134,31 @@ msgstr "Menù _personalizzato"
 
 #: ../src/menu.c:1832
 msgid "Add New Menu Entry"
-msgstr ""
+msgstr "Aggiungi una voce al menù"
 
 #: ../src/menu.c:1834
 msgid "Apply Changes"
-msgstr ""
+msgstr "Applica le modifiche"
 
 #: ../src/menu.c:1836
 msgid "Delete Menu Entry"
-msgstr ""
+msgstr "Cancella una voce al menù"
 
 #: ../src/menu.c:1839
 msgid "Close Discards Changes"
-msgstr ""
+msgstr "Chiudi non salva le modifiche"
 
 #: ../src/menu.c:1841
 msgid "Save Changes and Exit"
-msgstr ""
+msgstr "Salva le modifiche ed esce"
 
 #: ../src/menu.c:1851
 msgid "_Menu Path:"
 msgstr "Percorso del _menù"
 
 #: ../src/menu.c:1872
-#, fuzzy
 msgid "Menu path"
-msgstr "Percorso del _menù"
+msgstr "Percorso del menù"
 
 #: ../src/menu.c:1892
 msgid "Number of _Variables:"
@@ -3800,14 +3803,12 @@ msgid "PERL type"
 msgstr "Tipo PERL"
 
 #: ../src/snr2.c:1251
-#, fuzzy
 msgid "Starts at:"
-msgstr "Inizia a"
+msgstr "Inizia da:"
 
 #: ../src/snr2.c:1263
-#, fuzzy
 msgid "Regular expression:"
-msgstr "Espressione regolare"
+msgstr "Espressione regolare:"
 
 #: ../src/snr2.c:1277
 msgid "Normal"
@@ -3822,9 +3823,8 @@ msgid "Lowercase"
 msgstr "Minuscole"
 
 #: ../src/snr2.c:1278
-#, fuzzy
 msgid "Replace type:"
-msgstr "Tipo sostituzione"
+msgstr "Tipo di sostituzione:"
 
 #: ../src/snr2.c:1292
 msgid "Match ca_se"
@@ -3926,106 +3926,4 @@ msgstr "Sorgente:"
 msgid "Size:"
 msgstr "Dimensione:"
 
-#~ msgid "/_Delete file"
-#~ msgstr "/_Elimina il file"
 
-#~ msgid "Edit custom menu"
-#~ msgstr "Modifica il menu personalizzato"
-
-#~ msgid " line    1 "
-#~ msgstr " riga    1"
-
-#~ msgid "Error"
-#~ msgstr "Errore"
-
-#~ msgid "Backup for %s failed"
-#~ msgstr "Impossibile eseguire il backup di %s"
-
-# Warning dialog title
-#~ msgid "Bluefish warning, file backup failure"
-#~ msgstr "Fallimento nel backup"
-
-#~ msgid "Bluefish: Warning, file is open"
-#~ msgstr "Il file è aperto"
-
-#~ msgid ""
-#~ "File %s\n"
-#~ "is modified by another process\n"
-#~ "new modification time is %s\n"
-#~ "old modification time is %s\n"
-#~ "overwrite?"
-#~ msgstr ""
-#~ "Il file %s\n"
-#~ "è stato modificato da un'altro processo\n"
-#~ "ora della nuova modifica: %s\n"
-#~ "ora della vecchia modifica: %s\n"
-#~ "sovrascrivere?"
-
-#~ msgid ""
-#~ "Are you sure you want to close\n"
-#~ "%s ?"
-#~ msgstr "Sicuro di voler chiudere %s?"
-
-#~ msgid "Bluefish warning: file is modified!"
-#~ msgstr "Il file è stato modificato!"
-
-#~ msgid "cancel"
-#~ msgstr "annulla"
-
-#~ msgid ""
-#~ "Some file(s) are modified\n"
-#~ "please choose your action"
-#~ msgstr ""
-#~ "Alcuni file sono stati modificati\n"
-#~ "selezionare un'azione"
-
-#~ msgid "Path exists already"
-#~ msgstr "Il percorso esiste già"
-
-#~ msgid "delete file?"
-#~ msgstr "cancellare il file?"
-
-#~ msgid "Bluefish error"
-#~ msgstr "Errore di Bluefish"
-
-#~ msgid "Bluefish error: no filename"
-#~ msgstr "Errore di Bluefish: nessun nome file"
-
-#~ msgid "Bluefish warning: regular expression error"
-#~ msgstr "Errore nell'espressione regolare"
-
-#~ msgid "Bluefish message"
-#~ msgstr "Messaggio di Bluefish"
-
-#~ msgid "Bluefish - "
-#~ msgstr "Suggerimento di Bluefish:"
-
-#~ msgid "Backgou_nd Color:"
-#~ msgstr "Colore di _sfondo:"
-
-#~ msgid "Hide _advanced <<"
-#~ msgstr "_Semplice <<"
-
-#~ msgid "Show _advanced >>"
-#~ msgstr "_Avanzata >>"
-
-#~ msgid "Beginning of all o_pened files"
-#~ msgstr "All'inizio di tutti i file i file a_perti"
-
-#~ msgid "_None"
-#~ msgstr "_Niente"
-
-#~ msgid "POSIX _regular expression type "
-#~ msgstr "Espressione regolare tipo POSIX"
-
-#~ msgid "PERL compatible regular e_xpression type"
-#~ msgstr "E_spressione regolare compatibile PERL"
-
-#~ msgid "_Text"
-#~ msgstr "_Testo"
-
-#~ msgid "This text selection will be replaced. Do you want to replace it?"
-#~ msgstr "Questo testo selezionato sarà sostituito. Sostituirlo?"
-
-#~ msgid "Replace _this"
-#~ msgstr "Sostituisci _questo"

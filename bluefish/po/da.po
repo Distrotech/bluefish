@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: bluefish gtk2-port\n"
-"POT-Creation-Date: 2003-07-08 11:18+0200\n"
-"PO-Revision-Date: 2003-07-01 04:26+0200\n"
+"POT-Creation-Date: 2003-07-09 18:47-0300\n"
+"PO-Revision-Date: 2003-07-09 10:48+0200\n"
 "Last-Translator: Rasmus Toftdahl Olesen <rto@pohldata.dk>\n"
 "Language-Team: None\n"
 "MIME-Version: 1.0\n"
@@ -134,9 +134,13 @@ msgstr "viser hoved grafisk brugerflade..."
 msgid "/Document/Highlight Syntax"
 msgstr "/Dokument/Farvelæg Syntaks"
 
-#: ../src/document.c:552 ../src/document.c:553 ../src/document.c:724
+#: ../src/document.c:552 ../src/document.c:553
 msgid "Untitled"
 msgstr "Unavngivet"
+
+#: ../src/document.c:724
+msgid " Untitled"
+msgstr " Unavngivet"
 
 #: ../src/document.c:824 ../src/document.c:825
 #, c-format
@@ -331,93 +335,93 @@ msgstr ""
 msgid "Bluefish: Warning, file is modified"
 msgstr "Bluefish: Advarsel: filen er ændret"
 
-#: ../src/document.c:2452
+#: ../src/document.c:2453
 msgid "searching files..."
 msgstr "gennemsøger filer..."
 
-#: ../src/document.c:2472
+#: ../src/document.c:2473
 msgid "Select basedir"
 msgstr "vælg basis bibliotek"
 
-#: ../src/document.c:2486
+#: ../src/document.c:2487
 msgid "Advanced open file selector"
 msgstr "Advanceret åbn fil-vælger"
 
-#: ../src/document.c:2497
+#: ../src/document.c:2498
 msgid "grep {contains} `find {basedir} -name '{file type}'`"
 msgstr "grep {indeholder} `find {basisdir} -name '{mønster}'`"
 
-#: ../src/document.c:2502
+#: ../src/document.c:2503
 msgid "<b>General</b>"
 msgstr "<b>Generél</b>"
 
-#: ../src/document.c:2504
+#: ../src/document.c:2505
 msgid "Base_dir:"
 msgstr "Grun_dbibliotek:"
 
-#: ../src/document.c:2506 ../src/gtk_easy.c:1173
+#: ../src/document.c:2507 ../src/gtk_easy.c:1173
 msgid "_Browse..."
 msgstr "_Søg..."
 
-#: ../src/document.c:2521
+#: ../src/document.c:2522
 msgid "_File Type:"
 msgstr "_Fil Type:"
 
-#: ../src/document.c:2527
+#: ../src/document.c:2528
 msgid "_Recursive:"
 msgstr "_Rekursiv:"
 
-#: ../src/document.c:2532
+#: ../src/document.c:2533
 msgid "<b>Contains</b>"
 msgstr "<b>Indeholder</b>"
 
-#: ../src/document.c:2535
+#: ../src/document.c:2536
 msgid "Pa_ttern:"
 msgstr "Møns_ter:"
 
-#: ../src/document.c:2539
+#: ../src/document.c:2540
 msgid "Is rege_x:"
 msgstr "_Er et regulært udtryk:"
 
-#: ../src/document.c:2636
+#: ../src/document.c:2637
 #, c-format
 msgid "Loading %d file(s)..."
 msgstr "Henter %d fil(er)..."
 
-#: ../src/document.c:2670
+#: ../src/document.c:2671
 msgid "Select file to insert"
 msgstr "Vælg filer der skal indsættes"
 
-#: ../src/document.c:2672
+#: ../src/document.c:2673
 msgid "No file to insert"
 msgstr "Ingen fil valgt til indsættelse"
 
-#: ../src/document.c:2734
+#: ../src/document.c:2735
 msgid "_Save all"
 msgstr "_Gem alle"
 
-#: ../src/document.c:2734
+#: ../src/document.c:2735
 msgid "Close _all"
 msgstr "Luk _alle"
 
-#: ../src/document.c:2734
+#: ../src/document.c:2735
 msgid "Choose per _file"
 msgstr "vælg per _fil"
 
-#: ../src/document.c:2734
+#: ../src/document.c:2735
 msgid "_Cancel"
 msgstr "A_nnullér"
 
-#: ../src/document.c:2735
+#: ../src/document.c:2736
 msgid "Some file(s) have been modified"
 msgstr "Nogle fil(er) er ændret"
 
-#: ../src/document.c:2983
+#: ../src/document.c:2984
 #, c-format
 msgid "Statistics: %d lines, %d words, %d characters"
 msgstr "Statistik: %d linjer, %d ord, %d karakterer"
 
-#: ../src/document.c:3085
+#: ../src/document.c:3088
 msgid "No selection to indent"
 msgstr "Intet valgt til indrykning"
 
@@ -1057,6 +1061,60 @@ msgstr "Behold _dialog"
 msgid "starting bluefish"
 msgstr "starter bluefish"
 
+#: ../src/html2.c:586
+msgid "Cascading StyleSheet dialog"
+msgstr "Cascading StyleSheet dialog"
+
+#: ../src/html2.c:606
+msgid "_Selector:"
+msgstr "_Vælger:"
+
+#: ../src/html2.c:625
+msgid "_Property:"
+msgstr "_Egenskab:"
+
+#: ../src/html2.c:627 ../src/html_form.c:286 ../src/html_form.c:353
+#: ../src/html_form.c:415 ../src/html_form.c:471 ../src/html_form.c:534
+#: ../src/html_form.c:644
+msgid "_Value:"
+msgstr "_Værdi:"
+
+#: ../src/html2.c:645
+msgid "Selector"
+msgstr "Vælger"
+
+#: ../src/html2.c:645 ../src/html2.c:648
+msgid "Property"
+msgstr "Egenskab"
+
+#: ../src/html2.c:645 ../src/html2.c:648
+msgid "Value"
+msgstr "Værdi"
+
+#: ../src/html2.c:663
+msgid " _Add "
+msgstr " _Tilføj "
+
+#: ../src/html2.c:666
+msgid " _Update "
+msgstr " _Opdatér "
+
+#: ../src/html2.c:669
+msgid " _Delete "
+msgstr " _Slet "
+
+#: ../src/html2.c:925 ../src/html2.c:962
+msgid "_Style..."
+msgstr "_Stil"
+
+#: ../src/html2.c:1145
+msgid "Bluefish: Select color"
+msgstr "Bluefish: Vælg farve"
+
+#: ../src/html2.c:1165
+msgid "_websafe"
+msgstr "_web-sikker"
+
 #: ../src/html.c:353
 msgid "Insert Time"
 msgstr "Indsæt tid"
@@ -1428,60 +1486,6 @@ msgstr "_Rel:"
 #: ../src/html.c:2061 ../src/html_form.c:361
 msgid "_Type:"
 msgstr "_Type:"
-
-#: ../src/html2.c:586
-msgid "Cascading StyleSheet dialog"
-msgstr "Cascading StyleSheet dialog"
-
-#: ../src/html2.c:606
-msgid "_Selector:"
-msgstr "_Vælger:"
-
-#: ../src/html2.c:625
-msgid "_Property:"
-msgstr "_Egenskab:"
-
-#: ../src/html2.c:627 ../src/html_form.c:286 ../src/html_form.c:353
-#: ../src/html_form.c:415 ../src/html_form.c:471 ../src/html_form.c:534
-#: ../src/html_form.c:644
-msgid "_Value:"
-msgstr "_Værdi:"
-
-#: ../src/html2.c:645
-msgid "Selector"
-msgstr "Vælger"
-
-#: ../src/html2.c:645 ../src/html2.c:648
-msgid "Property"
-msgstr "Egenskab"
-
-#: ../src/html2.c:645 ../src/html2.c:648
-msgid "Value"
-msgstr "Værdi"
-
-#: ../src/html2.c:663
-msgid " _Add "
-msgstr " _Tilføj "
-
-#: ../src/html2.c:666
-msgid " _Update "
-msgstr " _Opdatér "
-
-#: ../src/html2.c:669
-msgid " _Delete "
-msgstr " _Slet "
-
-#: ../src/html2.c:925 ../src/html2.c:962
-msgid "_Style..."
-msgstr "_Stil"
-
-#: ../src/html2.c:1145
-msgid "Bluefish: Select color"
-msgstr "Bluefish: Vælg farve"
-
-#: ../src/html2.c:1165
-msgid "_websafe"
-msgstr "_web-sikker"
 
 #: ../src/html_form.c:129
 msgid "Form"
@@ -3110,32 +3114,31 @@ msgstr "Bruger Menu Redigéring"
 
 #: ../src/menu.c:1832
 msgid "Add New Menu Entry"
-msgstr ""
+msgstr "Tilføj Nyt Menu Punkt"
 
 #: ../src/menu.c:1834
 msgid "Apply Changes"
-msgstr ""
+msgstr "Anvend Ændringer"
 
 #: ../src/menu.c:1836
 msgid "Delete Menu Entry"
-msgstr ""
+msgstr "Slet Menu Punkt"
 
 #: ../src/menu.c:1839
 msgid "Close Discards Changes"
-msgstr ""
+msgstr "Luk Forkaster Ændringer"
 
 #: ../src/menu.c:1841
 msgid "Save Changes and Exit"
-msgstr ""
+msgstr "Gem Ændrenger og Afslut"
 
 #: ../src/menu.c:1851
 msgid "_Menu Path:"
 msgstr "_Menu Sti:"
 
 #: ../src/menu.c:1872
-#, fuzzy
 msgid "Menu path"
-msgstr "_Menu Sti:"
+msgstr "Menu sti"
 
 #: ../src/menu.c:1892
 msgid "Number of _Variables:"
@@ -3780,14 +3783,12 @@ msgid "PERL type"
 msgstr "PERL type"
 
 #: ../src/snr2.c:1251
-#, fuzzy
 msgid "Starts at:"
-msgstr "Start mønster"
+msgstr "Start ved:"
 
 #: ../src/snr2.c:1263
-#, fuzzy
 msgid "Regular expression:"
-msgstr "Fejl ved regulært udtryk: "
+msgstr "Regulært udtryk:"
 
 #: ../src/snr2.c:1277
 msgid "Normal"
@@ -3802,9 +3803,8 @@ msgid "Lowercase"
 msgstr "S_må Bogstaver"
 
 #: ../src/snr2.c:1278
-#, fuzzy
 msgid "Replace type:"
-msgstr "_Erstat:"
+msgstr "Erstat type:"
 
 #: ../src/snr2.c:1292
 msgid "Match ca_se"

@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: bluefish gtk2-port\n"
-"POT-Creation-Date: 2003-07-08 11:18+0200\n"
-"PO-Revision-Date: 2003-07-02 22:45+0200\n"
+"POT-Creation-Date: 2003-07-09 18:47-0300\n"
+"PO-Revision-Date: 2003-07-09 22:18+0200\n"
 "Last-Translator: David Smeringe <david.smeringe@telia.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -135,9 +135,13 @@ msgstr "visar det grafiska huvudgränssnittet..."
 msgid "/Document/Highlight Syntax"
 msgstr "/Dokument/Färgkodningssyntax"
 
-#: ../src/document.c:552 ../src/document.c:553 ../src/document.c:724
+#: ../src/document.c:552 ../src/document.c:553
 msgid "Untitled"
 msgstr "Namnlös"
+
+#: ../src/document.c:724
+msgid " Untitled"
+msgstr " Namnlös"
 
 #: ../src/document.c:824 ../src/document.c:825
 #, c-format
@@ -330,93 +334,93 @@ msgstr ""
 msgid "Bluefish: Warning, file is modified"
 msgstr "Bluefish: Varning, filen är ändrad"
 
-#: ../src/document.c:2452
+#: ../src/document.c:2453
 msgid "searching files..."
 msgstr "söker filer..."
 
-#: ../src/document.c:2472
+#: ../src/document.c:2473
 msgid "Select basedir"
 msgstr "Välj startkatalog"
 
-#: ../src/document.c:2486
+#: ../src/document.c:2487
 msgid "Advanced open file selector"
 msgstr "Avancerad filöppningsväljare"
 
-#: ../src/document.c:2497
+#: ../src/document.c:2498
 msgid "grep {contains} `find {basedir} -name '{file type}'`"
 msgstr "grep {innehåller} `find {startkatalog} -name '{filtyp}'`"
 
-#: ../src/document.c:2502
+#: ../src/document.c:2503
 msgid "<b>General</b>"
 msgstr "<b>Vanlig</b>"
 
-#: ../src/document.c:2504
+#: ../src/document.c:2505
 msgid "Base_dir:"
 msgstr "Start_katalog:"
 
-#: ../src/document.c:2506 ../src/gtk_easy.c:1173
+#: ../src/document.c:2507 ../src/gtk_easy.c:1173
 msgid "_Browse..."
 msgstr "_Bläddra..."
 
-#: ../src/document.c:2521
+#: ../src/document.c:2522
 msgid "_File Type:"
 msgstr "_Filtyp:"
 
-#: ../src/document.c:2527
+#: ../src/document.c:2528
 msgid "_Recursive:"
 msgstr "_Rekursivt:"
 
-#: ../src/document.c:2532
+#: ../src/document.c:2533
 msgid "<b>Contains</b>"
 msgstr "<b>Innehåller</b>"
 
-#: ../src/document.c:2535
+#: ../src/document.c:2536
 msgid "Pa_ttern:"
 msgstr "Möns_ter:"
 
-#: ../src/document.c:2539
+#: ../src/document.c:2540
 msgid "Is rege_x:"
 msgstr "Är regulj_ärt uttryck:"
 
-#: ../src/document.c:2636
+#: ../src/document.c:2637
 #, c-format
 msgid "Loading %d file(s)..."
 msgstr "Läser in %d fil(er)..."
 
-#: ../src/document.c:2670
+#: ../src/document.c:2671
 msgid "Select file to insert"
 msgstr "Välj fil att sätta in"
 
-#: ../src/document.c:2672
+#: ../src/document.c:2673
 msgid "No file to insert"
 msgstr "Ingen fil att sätta in"
 
-#: ../src/document.c:2734
+#: ../src/document.c:2735
 msgid "_Save all"
 msgstr "_Spara alla"
 
-#: ../src/document.c:2734
+#: ../src/document.c:2735
 msgid "Close _all"
 msgstr "Stäng _alla"
 
-#: ../src/document.c:2734
+#: ../src/document.c:2735
 msgid "Choose per _file"
 msgstr "Välj per _fil"
 
-#: ../src/document.c:2734
+#: ../src/document.c:2735
 msgid "_Cancel"
 msgstr "A_vbryt"
 
-#: ../src/document.c:2735
+#: ../src/document.c:2736
 msgid "Some file(s) have been modified"
 msgstr "En eller flera filerhar ändrats!"
 
-#: ../src/document.c:2983
+#: ../src/document.c:2984
 #, c-format
 msgid "Statistics: %d lines, %d words, %d characters"
 msgstr "Statistik: %d rader, %d ord, %d tecken"
 
-#: ../src/document.c:3085
+#: ../src/document.c:3088
 msgid "No selection to indent"
 msgstr "Ingen markering att indentera"
 
@@ -1055,6 +1059,60 @@ msgstr "Behåll _dialogrutan"
 msgid "starting bluefish"
 msgstr "startar bluefish"
 
+#: ../src/html2.c:586
+msgid "Cascading StyleSheet dialog"
+msgstr "Stilmallsdialog"
+
+#: ../src/html2.c:606
+msgid "_Selector:"
+msgstr "V_äljare:"
+
+#: ../src/html2.c:625
+msgid "_Property:"
+msgstr "Egenskaper:"
+
+#: ../src/html2.c:627 ../src/html_form.c:286 ../src/html_form.c:353
+#: ../src/html_form.c:415 ../src/html_form.c:471 ../src/html_form.c:534
+#: ../src/html_form.c:644
+msgid "_Value:"
+msgstr "_Värde:"
+
+#: ../src/html2.c:645
+msgid "Selector"
+msgstr "Välj"
+
+#: ../src/html2.c:645 ../src/html2.c:648
+msgid "Property"
+msgstr "Egenskaper"
+
+#: ../src/html2.c:645 ../src/html2.c:648
+msgid "Value"
+msgstr "Värde"
+
+#: ../src/html2.c:663
+msgid " _Add "
+msgstr " L_ägg till "
+
+#: ../src/html2.c:666
+msgid " _Update "
+msgstr " _Uppdatera "
+
+#: ../src/html2.c:669
+msgid " _Delete "
+msgstr " _Ta bort "
+
+#: ../src/html2.c:925 ../src/html2.c:962
+msgid "_Style..."
+msgstr "_Stil..."
+
+#: ../src/html2.c:1145
+msgid "Bluefish: Select color"
+msgstr "Bluefish: Välj färg"
+
+#: ../src/html2.c:1165
+msgid "_websafe"
+msgstr "_webbsäker"
+
 #: ../src/html.c:353
 msgid "Insert Time"
 msgstr "Sätt in tid"
@@ -1426,60 +1484,6 @@ msgstr "_Rel:"
 #: ../src/html.c:2061 ../src/html_form.c:361
 msgid "_Type:"
 msgstr "_Typ:"
-
-#: ../src/html2.c:586
-msgid "Cascading StyleSheet dialog"
-msgstr "Stilmallsdialog"
-
-#: ../src/html2.c:606
-msgid "_Selector:"
-msgstr "V_äljare:"
-
-#: ../src/html2.c:625
-msgid "_Property:"
-msgstr "Egenskaper:"
-
-#: ../src/html2.c:627 ../src/html_form.c:286 ../src/html_form.c:353
-#: ../src/html_form.c:415 ../src/html_form.c:471 ../src/html_form.c:534
-#: ../src/html_form.c:644
-msgid "_Value:"
-msgstr "_Värde:"
-
-#: ../src/html2.c:645
-msgid "Selector"
-msgstr "Välj"
-
-#: ../src/html2.c:645 ../src/html2.c:648
-msgid "Property"
-msgstr "Egenskaper"
-
-#: ../src/html2.c:645 ../src/html2.c:648
-msgid "Value"
-msgstr "Värde"
-
-#: ../src/html2.c:663
-msgid " _Add "
-msgstr " L_ägg till "
-
-#: ../src/html2.c:666
-msgid " _Update "
-msgstr " _Uppdatera "
-
-#: ../src/html2.c:669
-msgid " _Delete "
-msgstr " _Ta bort "
-
-#: ../src/html2.c:925 ../src/html2.c:962
-msgid "_Style..."
-msgstr "_Stil..."
-
-#: ../src/html2.c:1145
-msgid "Bluefish: Select color"
-msgstr "Bluefish: Välj färg"
-
-#: ../src/html2.c:1165
-msgid "_websafe"
-msgstr "_webbsäker"
 
 #: ../src/html_form.c:129
 msgid "Form"
@@ -3108,32 +3112,31 @@ msgstr "Redigerare för Egen meny"
 
 #: ../src/menu.c:1832
 msgid "Add New Menu Entry"
-msgstr ""
+msgstr "Lägg till Nytt Menyval"
 
 #: ../src/menu.c:1834
 msgid "Apply Changes"
-msgstr ""
+msgstr "Verkställ Ändringarna"
 
 #: ../src/menu.c:1836
 msgid "Delete Menu Entry"
-msgstr ""
+msgstr "Ta bort menyval"
 
 #: ../src/menu.c:1839
 msgid "Close Discards Changes"
-msgstr ""
+msgstr "Stäng och Ignorera Ändringarna"
 
 #: ../src/menu.c:1841
 msgid "Save Changes and Exit"
-msgstr ""
+msgstr "Spara Ändringarna och Avsluta"
 
 #: ../src/menu.c:1851
 msgid "_Menu Path:"
 msgstr "Menysökväg:"
 
 #: ../src/menu.c:1872
-#, fuzzy
 msgid "Menu path"
-msgstr "Menysökväg:"
+msgstr "Menysökväg"
 
 #: ../src/menu.c:1892
 msgid "Number of _Variables:"
@@ -3778,14 +3781,12 @@ msgid "PERL type"
 msgstr "PERL-typ"
 
 #: ../src/snr2.c:1251
-#, fuzzy
 msgid "Starts at:"
-msgstr "Börjar vid"
+msgstr "Börjar vid:"
 
 #: ../src/snr2.c:1263
-#, fuzzy
 msgid "Regular expression:"
-msgstr "Reguljärt uttryck"
+msgstr "Reguljärt uttryck:"
 
 #: ../src/snr2.c:1277
 msgid "Normal"
@@ -3800,9 +3801,8 @@ msgid "Lowercase"
 msgstr "Gemener"
 
 #: ../src/snr2.c:1278
-#, fuzzy
 msgid "Replace type:"
-msgstr "Ersättningstyp"
+msgstr "Ersättningstyp:"
 
 #: ../src/snr2.c:1292
 msgid "Match ca_se"
@@ -3904,135 +3904,4 @@ msgstr "Källkod:"
 msgid "Size:"
 msgstr "Storlek:"
 
-#~ msgid "/_Delete file"
-#~ msgstr "/_Ta bort fil"
 
-#~ msgid "Edit custom menu"
-#~ msgstr "Redigera egen meny"
-
-#~ msgid "case sensitive"
-#~ msgstr "gör skillnad på versaler och gemener"
-
-#~ msgid " line    1 "
-#~ msgstr " rad    1 "
-
-#~ msgid "Error"
-#~ msgstr "Fel"
-
-#~ msgid "Backup for %s failed"
-#~ msgstr "Säkerhetskopieringen för %s misslyckades"
-
-#~ msgid "Bluefish warning, file backup failure"
-#~ msgstr "Bluefish-varning, säkerhetskopiering misslyckades"
-
-#~ msgid "Bluefish: Warning, file is open"
-#~ msgstr "Bluefish: Varning, filen är öppen"
-
-#~ msgid ""
-#~ "File %s\n"
-#~ "is modified by another process\n"
-#~ "new modification time is %s\n"
-#~ "old modification time is %s\n"
-#~ "overwrite?"
-#~ msgstr ""
-#~ "Filen %s\n"
-#~ "är ändrad av en annan process\n"
-#~ "ny ändringstid är %s\n"
-#~ "den gamla ändringstiden är %s\n"
-#~ "Vill du skriva över filen?"
-
-#~ msgid ""
-#~ "Are you sure you want to close\n"
-#~ "%s ?"
-#~ msgstr ""
-#~ "Är du säker på att du vill stänga\n"
-#~ "%s?"
-
-#~ msgid "Bluefish warning: file is modified!"
-#~ msgstr "Bluefish-varning: Filen är ändrad!"
-
-#~ msgid "cancel"
-#~ msgstr "avbryt"
-
-#~ msgid ""
-#~ "Some file(s) are modified\n"
-#~ "please choose your action"
-#~ msgstr ""
-#~ "En eller flera filer är ändrade\n"
-#~ "Välj vad du vill göra"
-
-#~ msgid "Path exists already"
-#~ msgstr "Sökvägen finns redan"
-
-#~ msgid "delete file?"
-#~ msgstr "ta bort filen?"
-
-#~ msgid "Bluefish error"
-#~ msgstr "Bluefish-felmeddelande"
-
-#~ msgid "Bluefish error: no filename"
-#~ msgstr "Bluefish-fel: inget filnamn"
-
-#~ msgid "Bluefish warning: regular expression error"
-#~ msgstr "Bluefish-varning: fel i reguljärt uttryck"
-
-#~ msgid "Bluefish message"
-#~ msgstr "Bluefish-meddelande"
-
-#, fuzzy
-#~ msgid "Bluefish - "
-#~ msgstr "Bluefish - "
-
-#~ msgid "Backgou_nd Color:"
-#~ msgstr "Bakgru_ndsfärg:"
-
-#~ msgid "Hide _advanced <<"
-#~ msgstr "Dölj _avancerat <<"
-
-#~ msgid "Show _advanced >>"
-#~ msgstr "Visa _avancerat >>"
-
-#~ msgid "Beginning of all o_pened files"
-#~ msgstr "I början av alla ö_ppna filer"
-
-#~ msgid "_None"
-#~ msgstr "_Ingen"
-
-#~ msgid "POSIX _regular expression type "
-#~ msgstr "POSIX _reguljärt uttryckstyp"
-
-#~ msgid "PERL compatible regular e_xpression type"
-#~ msgstr "PERL-kompatibelt re_guljärt uttryckstyp"
-
-#~ msgid "_Text"
-#~ msgstr "_Text"
-
-#~ msgid "This text selection will be replaced. Do you want to replace it?"
-#~ msgstr "Den här textmarkeringen kommer att ersättas. Vill du ersätta den?"
-
-#~ msgid "Replace _this"
-#~ msgstr "Ersätt _detta"
-
-#~ msgid "Custom _values:"
-#~ msgstr "Egna _värden:"
-
-#~ msgid "Are you sure you want to replace this?"
-#~ msgstr "Är du säker på att du vill ersätta detta?"
-
-#~ msgid "All"
-#~ msgstr "Alla"
-
-#~ msgid "_Find: "
-#~ msgstr "_Hitta: "
-
-#~ msgid "Where"
-#~ msgstr "Där"
-
-#~ msgid "In s_election"
-#~ msgstr "I det mark_erade området"
-
-#~ msgid "_Normal matching"
-#~ msgstr "_Normal matchning"
-
-#~ msgid "Use posix _regular expression matching"
-#~ msgstr "Använd _reguljärt posix-uttryck för matchning"
