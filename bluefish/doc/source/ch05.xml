@@ -33,8 +33,9 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 		<sect2 id="bluefish-ch-5-sect-1.1">
 			<title>HTML</title>
 			<para>
-				HTML
-			</para>
+				HTML is obviously the most supported language in Bluefish. There is a special HTML toolbar with many dialogs, and several menu sections to work with tags. You can also right-click a tag and bring up the dialog from there.</para>
+<para> In the reference tree on the left panel there is also HTML reference available.</para>
+<para>There are several special search and replace actions in the menu Edit-Replace special. These can be used to convert special characters (like &lt; and &amp;), or iso characters to their HTML entities.</para>
 		</sect2>
 		<sect2 id="bluefish-ch-5-sect-1.2">
 			<title>PHP</title>
@@ -63,11 +64,13 @@ with the search and replace you can do increadible things. We'll start with a si
 		<para>
 		we can do two normal replaces: one where we replace &lt;td&gt; with &lt;th&gt; and then another where we replace &lt;/td&gt; with &lt;/th&gt;
 		</para>
-		<para>we can also do one replace using regular expressions: find (&lt;|&lt;/)?td&gt; and replace with \0th&gt; For more information about regular expressions you might want to read man 7 regex, or read any of the great internet sites about regular expressions.</para>
+		<para>we can also do one replace using regular expressions: find (&lt;|&lt;/)?td&gt; and replace with \0th&gt; For more information about regular expressions you might want to read man 7 regex, or read any of the great internet sites about regular expressions. The \0 in the replace string refers to the first subpattern match in the search pattern, the \1 to the second etc.</para>
 		<para>
 		if you understand the above example, you will realize that you can do much more. Suppose you also want to match a table data tag that does have some attributes like &lt;td class=&quot;myclass&quot;&gt;, and you want to keep the option while converting to table header. The following pattern will do this: find (&lt;|&lt;/)td([^&gt;]*)&gt; and replace with \0th\1&gt;
 		</para>
-		
+		<para>
+		if you have any search and replace patterns you use often, you can also add them to the Custom Menu. Check the Custom Menu section of this manual for more information.
+		</para>
 		
 	</sect1>
 	<sect1 id="bluefish-ch-5-sect-4">
