@@ -51,20 +51,6 @@
 #ifdef HAVE_LIBASPELL
 #include "bfspell.h"
 #endif /* HAVE_LIBASPELL */
-typedef struct {
-	GtkWidget *main_toolbar_hb;
-	GtkWidget *html_toolbar_hb;
-	GtkWidget *custom_menu_hb; /* handle box for custom menu */
-	GtkWidget *output_box;
-	GtkWidget *leftpanel_notebook;
-} Thidegui;
-
-typedef struct {
-	GtkWidget *undo;
-	GtkWidget *redo;
-	GtkWidget *html_toolbar_quickbar; /* the quickbar widget */
-	GList *html_toolbar_quickbar_children; /* this list is needed to remove widgets from the quickbar */
-} Ttoolbar;
 
 typedef struct {
 	GtkWidget *window;
@@ -74,8 +60,6 @@ typedef struct {
 /******************************/
 /* global vars for this module */
 /******************************/
-static Thidegui hidewidgets;
-static Ttoolbar toolbarwidgets;
 #ifndef NOSPLASH
 static Tsplashscreen splashscreen;
 #endif
@@ -479,7 +463,7 @@ static void html_toolbar_add_items_to_submenu(GtkWidget *html_toolbar, Ttoolbari
 	gtk_object_sink(GTK_OBJECT(pixmap));
 }
 
-void make_html_toolbar(GtkWidget *handlebox) {
+void make_html_toolbar(Tbfwin *bfwin) {
 /*
  * every item with a ... in the tooltip brings up a dialog, every item
  * without the ... in the tooltip will directly insert html code
@@ -493,7 +477,7 @@ void make_html_toolbar(GtkWidget *handlebox) {
 	gtk_notebook_set_show_tabs(GTK_NOTEBOOK(html_notebook), TRUE);
 	gtk_notebook_set_show_border(GTK_NOTEBOOK(html_notebook), TRUE);
 	gtk_notebook_set_page(GTK_NOTEBOOK(html_notebook), 0);
-	gtk_container_add(GTK_CONTAINER(handlebox), html_notebook);
+	gtk_container_add(GTK_CONTAINER(bfwin->html_toolbar_hb), html_notebook);
 
 	toolbarwidgets.html_toolbar_quickbar = gtk_toolbar_new();
 	DEBUG_MSG("make_html_toolbar, creating quickbar\n");
@@ -552,7 +536,6 @@ void make_html_toolbar(GtkWidget *handlebox) {
 	html_toolbar_add_items(html_toolbar, tbi, 70, 72);
 	gtk_notebook_append_page(GTK_NOTEBOOK(html_notebook), html_toolbar, gtk_label_new(_(" CSS ")));
 
-
 	gtk_widget_show_all(html_notebook);
 }
 
@@ -563,11 +546,11 @@ static void doc_indent_lcb(GtkWidget *wid,gpointer data) {
 }
 
 
-void make_main_toolbar(GtkWidget *handlebox) {
+void make_main_toolbar(Tbfwin *bfwin) {
 	GtkWidget *toolbar = gtk_toolbar_new ();
 	DEBUG_MSG("make_main_toolbar, started\n");
 	gtk_toolbar_set_orientation (GTK_TOOLBAR (toolbar), GTK_ORIENTATION_HORIZONTAL);
-	gtk_container_add (GTK_CONTAINER (handlebox), toolbar);
+	gtk_container_add (GTK_CONTAINER(bfwin->.main_toolbar_hb), toolbar);
 
 	gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), NULL, _("New"), "",
 							new_pixmap(0), G_CALLBACK(file_new_cb), NULL);
@@ -592,9 +575,9 @@ void make_main_toolbar(GtkWidget *handlebox) {
 	gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), NULL,_("Search and Replace..."), "", 
 							new_pixmap(9), G_CALLBACK(replace_cb), NULL);
 	gtk_toolbar_append_space(GTK_TOOLBAR(toolbar));
-	toolbarwidgets.undo = gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), NULL, _("Undo"), "",
+	bfwin->toolbar_undo = gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), NULL, _("Undo"), "",
 							new_pixmap(10), G_CALLBACK(undo_cb), NULL);
-	toolbarwidgets.redo = gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), NULL, _("Redo"), "",
+	bfwin->toolbar_redo = gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), NULL, _("Redo"), "",
 							new_pixmap(11), G_CALLBACK(redo_cb), NULL);
 	gtk_toolbar_append_space(GTK_TOOLBAR(toolbar));
 	gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), NULL, _("Unindent"),
@@ -638,8 +621,8 @@ void gui_set_widgets(gboolean undo, gboolean redo, gboolean wrap, gboolean highl
 	menu_current_document_set_toggle_wo_activate(hl, encoding);
 }
 
-void gui_notebook_bind_signals() {
-	main_v->notebook_switch_signal = g_signal_connect_after(G_OBJECT(main_v->notebook),"switch-page",G_CALLBACK(notebook_switch_page_lcb), NULL);
+void gui_notebook_bind_signals(Tbfwin *bfwin) {
+	bfwin->notebook_switch_signal = g_signal_connect_after(G_OBJECT(bfwin->notebook),"switch-page",G_CALLBACK(notebook_switch_page_lcb), bfwin);
 }
 
 void gui_notebook_unbind_signals() {
@@ -744,73 +727,72 @@ gboolean main_window_destroy_lcb(GtkWidget *widget,gpointer user_data) {
 	return TRUE;
 }
 
-void gui_create_main(GList *filenames) {
+void gui_create_main(Tbfwin *bfwin, GList *filenames) {
 	GtkWidget *vbox;
-	main_v->main_window = window_full2(_("Bluefish"), GTK_WIN_POS_CENTER, 0, G_CALLBACK(main_window_destroy_lcb), NULL, FALSE, NULL);
-	gtk_window_set_role(GTK_WINDOW(main_v->main_window), "bluefish");
-	gtk_window_set_default_size(GTK_WINDOW(main_v->main_window), main_v->props.main_window_w, main_v->props.main_window_h);
-	g_signal_connect(G_OBJECT(main_v->main_window), "delete_event", G_CALLBACK(main_window_delete_lcb), NULL);
-	g_signal_connect(G_OBJECT(main_v->main_window), "configure-event", G_CALLBACK(gui_main_window_configure_event_lcb), NULL);
-
+	bfwin->main_window = window_full2(_("Bluefish"), GTK_WIN_POS_CENTER, 0, G_CALLBACK(main_window_destroy_lcb), NULL, FALSE, NULL);
+	gtk_window_set_role(GTK_WINDOW(bfwin->main_window), "bluefish");
+	gtk_window_set_default_size(GTK_WINDOW(bfwin->main_window), main_v->props.main_window_w, main_v->props.main_window_h);
+	g_signal_connect(G_OBJECT(bfwin->main_window), "delete_event", G_CALLBACK(main_window_delete_lcb), NULL);
+	g_signal_connect(G_OBJECT(bfwin->main_window), "configure-event", G_CALLBACK(gui_main_window_configure_event_lcb), NULL);
 
 	vbox = gtk_vbox_new(FALSE, 0);
-	gtk_container_add(GTK_CONTAINER(main_v->main_window), vbox);
+	gtk_container_add(GTK_CONTAINER(bfwin->main_window), vbox);
 	gtk_widget_show(vbox);
 
 	/* first a menubar */
-	menu_create_main(vbox);
-	recent_menu_init();
-	external_menu_rebuild();
-	encoding_menu_rebuild();
-	menu_outputbox_rebuild();
+	menu_create_main(bfwin, vbox);
+	recent_menu_init(bfwin);
+	external_menu_rebuild(bfwin);
+	encoding_menu_rebuild(bfwin);
+	menu_outputbox_rebuild(bfwin);
 
 	/* then the toolbars */
 	{
-		hidewidgets.main_toolbar_hb = gtk_handle_box_new();
-		gtk_box_pack_start(GTK_BOX(vbox), hidewidgets.main_toolbar_hb, FALSE, FALSE, 0);
-		hidewidgets.html_toolbar_hb = gtk_handle_box_new();
-		gtk_box_pack_start(GTK_BOX(vbox), hidewidgets.html_toolbar_hb, FALSE, FALSE, 0);
+		bfwin->main_toolbar_hb = gtk_handle_box_new();
+		gtk_box_pack_start(GTK_BOX(vbox), bfwin->.main_toolbar_hb, FALSE, FALSE, 0);
+		bfwin->html_toolbar_hb = gtk_handle_box_new();
+		gtk_box_pack_start(GTK_BOX(vbox), bfwin->html_toolbar_hb, FALSE, FALSE, 0);
 		hidewidgets.custom_menu_hb = gtk_handle_box_new();
 		gtk_box_pack_start(GTK_BOX(vbox), hidewidgets.custom_menu_hb, FALSE, FALSE, 0);
 
 		if (main_v->props.view_main_toolbar) {
-			make_main_toolbar(hidewidgets.main_toolbar_hb);
-			gtk_widget_show(hidewidgets.main_toolbar_hb);
+			make_main_toolbar(bfwin);
+			gtk_widget_show(bfwin->.main_toolbar_hb);
 		}
 		if (main_v->props.view_html_toolbar) {
-			make_html_toolbar(hidewidgets.html_toolbar_hb);
-			gtk_widget_show(hidewidgets.html_toolbar_hb);
+			make_html_toolbar(bfwin);
+			gtk_widget_show(bfwin->html_toolbar_hb);
 		}
 		if (main_v->props.view_custom_menu) {
-			make_cust_menubar(hidewidgets.custom_menu_hb);
+			make_cust_menubar(bfwin);
 			gtk_widget_show(hidewidgets.custom_menu_hb);
 		}
 	}
 	
 	/* then the work area */
-	main_v->middlebox = gtk_hbox_new(TRUE, 0);
-	gtk_box_pack_start(GTK_BOX(vbox), main_v->middlebox, TRUE, TRUE, 0);
-	gtk_widget_show(main_v->middlebox);
+	bfwin->middlebox = gtk_hbox_new(TRUE, 0);
+	gtk_box_pack_start(GTK_BOX(vbox), bfwin->middlebox, TRUE, TRUE, 0);
+	gtk_widget_show(bfwin->middlebox);
 
 	/* Fake-label (for notebook_hide() and _show() ;) */
-	main_v->notebook_fake = gtk_label_new(_("Stand by..."));
+	bfwin->notebook_fake = gtk_label_new(_("Stand by..."));
 	
 	/* notebook with the text widget in there */
-	main_v->notebook = gtk_notebook_new();
-	gtk_notebook_set_tab_pos(GTK_NOTEBOOK(main_v->notebook),main_v->props.document_tabposition);
-	gtk_notebook_set_show_tabs(GTK_NOTEBOOK(main_v->notebook), TRUE);
-	gtk_notebook_set_show_border(GTK_NOTEBOOK(main_v->notebook), FALSE);
-	gtk_notebook_set_tab_hborder(GTK_NOTEBOOK(main_v->notebook), 0);
-	gtk_notebook_set_tab_vborder(GTK_NOTEBOOK(main_v->notebook), 0);
-	gtk_notebook_popup_enable(GTK_NOTEBOOK(main_v->notebook));
+	bfwin->notebook = gtk_notebook_new();
+	gtk_notebook_set_tab_pos(GTK_NOTEBOOK(bfwin->notebook),main_v->props.document_tabposition);
+	gtk_notebook_set_show_tabs(GTK_NOTEBOOK(bfwin->notebook), TRUE);
+	gtk_notebook_set_show_border(GTK_NOTEBOOK(bfwin->notebook), FALSE);
+	gtk_notebook_set_tab_hborder(GTK_NOTEBOOK(bfwin->notebook), 0);
+	gtk_notebook_set_tab_vborder(GTK_NOTEBOOK(bfwin->notebook), 0);
+	gtk_notebook_popup_enable(GTK_NOTEBOOK(bfwin->notebook));
 
 	/* Add notebook and its fake friend to their common hbox. */
-	main_v->notebook_box = gtk_hbox_new (TRUE, 0);
-	gtk_box_pack_start (GTK_BOX (main_v->notebook_box), main_v->notebook, TRUE, TRUE, 0);
-	gtk_box_pack_start (GTK_BOX (main_v->notebook_box), main_v->notebook_fake, TRUE, TRUE, 0);
+	bfwin->notebook_box = gtk_hbox_new (TRUE, 0);
+	gtk_box_pack_start(GTK_BOX(bfwin->notebook_box), bfwin->notebook, TRUE, TRUE, 0);
+	gtk_box_pack_start(GTK_BOX(bfwin->notebook_box), bfwin->notebook_fake, TRUE, TRUE, 0);
 
 	/* output_box */
-	init_output_box(vbox);
+	init_output_box(bfwin, vbox);
 
 	left_panel_show_hide_toggle(TRUE, main_v->props.view_left_panel);
 
@@ -820,28 +802,28 @@ void gui_create_main(GList *filenames) {
 		hbox = gtk_hbox_new(FALSE,0);
 		gtk_widget_show(hbox);
 		gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 0);
-		main_v->statusbar = gtk_statusbar_new();
-		gtk_statusbar_set_has_resize_grip(GTK_STATUSBAR(main_v->statusbar), FALSE);
-		gtk_box_pack_start(GTK_BOX(hbox), main_v->statusbar, TRUE, TRUE, 0);
-		gtk_widget_show(main_v->statusbar);
-		main_v->statusbar_lncol = gtk_statusbar_new();
-		gtk_statusbar_set_has_resize_grip(GTK_STATUSBAR(main_v->statusbar_lncol), FALSE);
-		gtk_box_pack_start(GTK_BOX(hbox), main_v->statusbar_lncol, FALSE, FALSE, 0);
-		gtk_widget_set_size_request(GTK_WIDGET(main_v->statusbar_lncol), 100, -1);
-		gtk_widget_show(main_v->statusbar_lncol);
-		gtk_statusbar_push(GTK_STATUSBAR(main_v->statusbar_lncol), 0, " Line  1");
-		main_v->statusbar_insovr = gtk_statusbar_new();
-		gtk_statusbar_set_has_resize_grip(GTK_STATUSBAR(main_v->statusbar_insovr), FALSE);
-		gtk_box_pack_start(GTK_BOX(hbox), main_v->statusbar_insovr, FALSE, FALSE, 0);
-		gtk_widget_set_size_request(GTK_WIDGET(main_v->statusbar_insovr), 50, -1);
-		gtk_widget_show(main_v->statusbar_insovr);
-		main_v->statusbar_editmode = gtk_statusbar_new();
-		gtk_box_pack_start(GTK_BOX(hbox), main_v->statusbar_editmode, FALSE, FALSE, 0);
-		gtk_widget_set_size_request(GTK_WIDGET(main_v->statusbar_editmode), 200, -1);
-		gtk_widget_show(main_v->statusbar_editmode);
+		bfwin->statusbar = gtk_statusbar_new();
+		gtk_statusbar_set_has_resize_grip(GTK_STATUSBAR(bfwin->statusbar), FALSE);
+		gtk_box_pack_start(GTK_BOX(hbox), bfwin->statusbar, TRUE, TRUE, 0);
+		gtk_widget_show(bfwin->statusbar);
+		bfwin->statusbar_lncol = gtk_statusbar_new();
+		gtk_statusbar_set_has_resize_grip(GTK_STATUSBAR(bfwin->statusbar_lncol), FALSE);
+		gtk_box_pack_start(GTK_BOX(hbox), bfwin->statusbar_lncol, FALSE, FALSE, 0);
+		gtk_widget_set_size_request(GTK_WIDGET(bfwin->statusbar_lncol), 100, -1);
+		gtk_widget_show(bfwin->statusbar_lncol);
+		gtk_statusbar_push(GTK_STATUSBAR(bfwin->statusbar_lncol), 0, " Line  1");
+		bfwin->statusbar_insovr = gtk_statusbar_new();
+		gtk_statusbar_set_has_resize_grip(GTK_STATUSBAR(bfwin->statusbar_insovr), FALSE);
+		gtk_box_pack_start(GTK_BOX(hbox), bfwin->statusbar_insovr, FALSE, FALSE, 0);
+		gtk_widget_set_size_request(GTK_WIDGET(bfwin->statusbar_insovr), 50, -1);
+		gtk_widget_show(bfwin->statusbar_insovr);
+		bfwin->statusbar_editmode = gtk_statusbar_new();
+		gtk_box_pack_start(GTK_BOX(hbox), bfwin->statusbar_editmode, FALSE, FALSE, 0);
+		gtk_widget_set_size_request(GTK_WIDGET(bfwin->statusbar_editmode), 200, -1);
+		gtk_widget_show(bfwin->statusbar_editmode);
 	}
 	/* We have to know when the notebook changes */
-	gui_notebook_bind_signals();
+	gui_notebook_bind_signals(bfwin);
 	
 	/* everything is ready - we can start loading documents */
 	/* start to open an empty doc */
@@ -851,11 +833,11 @@ void gui_create_main(GList *filenames) {
 		docs_new_from_files(filenames);
 	}
 
-	gtk_notebook_set_page(GTK_NOTEBOOK(main_v->notebook), 0);
-	gtk_notebook_set_scrollable(GTK_NOTEBOOK(main_v->notebook), TRUE);
+	gtk_notebook_set_page(GTK_NOTEBOOK(bfwin->notebook), 0);
+	gtk_notebook_set_scrollable(GTK_NOTEBOOK(bfwin->notebook), TRUE);
 	/* don't use show_all since some widgets are and should be hidden */
-	gtk_widget_show(main_v->notebook);
-	gtk_widget_show (main_v->notebook_box);
+	gtk_widget_show(bfwin->notebook);
+	gtk_widget_show (bfwin->notebook_box);
 
 	{
 		/* drag n drop support */
@@ -863,28 +845,23 @@ void gui_create_main(GList *filenames) {
 			{"text/uri-list", 0, TARGET_URI_LIST },
 			{"STRING", 0, TARGET_STRING},
 		};
-		gtk_drag_dest_set(main_v->main_window, (GTK_DEST_DEFAULT_ALL)
+		gtk_drag_dest_set(bfwin->main_window, (GTK_DEST_DEFAULT_ALL)
 				,drag_dest_types, 2
 				,(GDK_ACTION_DEFAULT | GDK_ACTION_COPY | GDK_ACTION_MOVE |
 				GDK_ACTION_LINK | GDK_ACTION_PRIVATE | GDK_ACTION_ASK));
-		g_signal_connect(G_OBJECT(main_v->main_window), "drag_data_received", G_CALLBACK(main_win_on_drag_data_lcb), NULL);
+		g_signal_connect(G_OBJECT(bfwin->main_window), "drag_data_received", G_CALLBACK(main_win_on_drag_data_lcb), NULL);
 	}
-	
-	
 }
 
-void gui_show_main() {
+void gui_show_main(Tbfwin *bfwin) {
 	/* show all */
 	DEBUG_MSG("gui_show_main, before show\n");
 	/* don't use show_all since some widgets are and should be hidden */
-	gtk_widget_show(main_v->main_window);
+	gtk_widget_show(bfwin->main_window);
 	flush_queue();
-	doc_scroll_to_cursor(main_v->current_document);
+	doc_scroll_to_cursor(bfwin->current_document);
 	if (main_v->props.view_left_panel) {
 		filebrowser_scroll_initial();
-	}
-	if (main_v->props.view_html_toolbar && main_v->props.quickbar_items == NULL) {
-		info_dialog(_("Bluefish tip:"), _("This message is shown since you do not have any items in the Quickbar.\n\nIf you right-click a button in the HTML toolbars you can add buttons to the Quickbar."));
 	}
 }
 /***********************/
@@ -1101,17 +1078,17 @@ void gui_toggle_hidewidget_cb(gpointer callback_data,guint action,GtkWidget *wid
 	gint *property;
 	switch (action) {
 	case 0:
-		handlebox = hidewidgets.main_toolbar_hb;
+		handlebox = bfwin->.main_toolbar_hb;
 		property = &main_v->props.view_main_toolbar;
 		if (g_list_length(gtk_container_children(GTK_CONTAINER(handlebox))) == 0) {
-			make_main_toolbar(hidewidgets.main_toolbar_hb);
+			make_main_toolbar(bfwin->.main_toolbar_hb);
 		}
 	break;
 	case 1:
-		handlebox = hidewidgets.html_toolbar_hb;
+		handlebox = bfwin->html_toolbar_hb;
 		property = &main_v->props.view_html_toolbar;
 		if (g_list_length(gtk_container_children(GTK_CONTAINER(handlebox))) == 0) {
-			make_html_toolbar(hidewidgets.html_toolbar_hb);
+			make_html_toolbar(bfwin->html_toolbar_hb);
 		}
 	break;
 	case 2:

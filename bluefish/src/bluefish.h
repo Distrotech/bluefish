@@ -232,9 +232,7 @@ typedef struct {
 
 typedef struct {
 	Tdocument *current_document; /* one object out of the documentlist, the current visible document */
-	Tproperties props;
 	GList *documentlist; /* document.c and others: all Tdocument objects */
-	GList *filetypelist; /* highlighting.c: a list of all filetypes with their icons and highlighting sets */
 	GtkWidget *main_window;
 	GtkWidget *menubar;
 	gint last_notebook_page; /* a check to see if the notebook changed to a new page */
@@ -248,6 +246,34 @@ typedef struct {
 	GtkWidget *statusbar_lncol; /* where we have the line number */
 	GtkWidget *statusbar_insovr; /* insert/overwrite indicator */
 	GtkWidget *statusbar_editmode; /* editor mode and doc encoding */
+	/* the following list contains toolbar widgets we like to reference later on */
+	GtkWidget *toolbar_undo;
+	GtkWidget *toolbar_redo;
+	GtkWidget *toolbar_quickbar; /* the quickbar widget */
+	GList *toolbar_quickbar_children; /* this list is needed to remove widgets from the quickbar */
+	/* following widgets are used to show/hide stuff */
+	GtkWidget *main_toolbar_hb;
+	GtkWidget *html_toolbar_hb;
+	GtkWidget *custom_menu_hb; /* handle box for custom menu */
+	GtkWidget *output_box;
+	GtkWidget *leftpanel_notebook;
+	/* following are lists with dynamic menu entries */
+	GList *menu_recent_files;
+	GList *menu_external;
+	GList *menu_encodings;
+	GList *menu_outputbox;
+	GtkWidget *menu_cmenu;
+	GList *menu_cmenu_entries;
+	/* following is a new approach, that we have only a gpointer here, whioh is typecasted 
+	in the file where it is needed */
+	gpointer outputbox;
+} Tbfwin;
+
+typedef struct {
+	Tproperties props;
+	Tbfwin *current_bfwin;
+	GList *filetypelist; /* highlighting.c: a list of all filetypes with their icons and highlighting sets */
+	GList *bfwinlist;
 	GList *recent_directories; /* a stringlist with the most recently used directories */
 } Tmain;
 

@@ -89,6 +89,7 @@ void add_filename_to_history(gchar *filename) {
 
 /**
  * documentlist_return_index_from_filename:
+ * @doclist: #GList* with the documents to search in
  * @filename: a #gchar
  * 
  * if the file is open, it returns the index in the documentlist
@@ -97,7 +98,7 @@ void add_filename_to_history(gchar *filename) {
  *
  * Return value: the index number on success, -1 if the file is not open
  **/
-gint documentlist_return_index_from_filename(gchar *filename) {
+gint documentlist_return_index_from_filename(GList *doclist, gchar *filename) {
 	GList *tmplist;
 	gint count=0;
 
@@ -105,7 +106,7 @@ gint documentlist_return_index_from_filename(gchar *filename) {
 		return -1;
 	}
 	
-	tmplist = g_list_first(main_v->documentlist);
+	tmplist = g_list_first(doclist);
 	while (tmplist) {
 		if (((Tdocument *)tmplist->data)->filename &&(strcmp(filename, ((Tdocument *)tmplist->data)->filename) ==0)) {
 			return count;
@@ -118,15 +119,15 @@ gint documentlist_return_index_from_filename(gchar *filename) {
 
 /**
  * documentlist_return_document_from_index:
- * index: a #gint, index in the documentlist.
+ * @doclist: #GList* with the documents to search in
+ * @index: a #gint, index in the documentlist.
  *
  * If the index is valid, it returns the appropriate Tdocument.
  *
  * Return value: Pointer to Tdocument on success, NULL on invalid index.
  **/
-Tdocument *documentlist_return_document_from_index(gint index)
-{
-	return (Tdocument *) g_list_nth_data(main_v->documentlist, index);
+Tdocument *documentlist_return_document_from_index(GList *doclist, gint index) {
+	return (Tdocument *) g_list_nth_data(doclist, index);
 }
 
 /**

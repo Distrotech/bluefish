@@ -53,8 +53,6 @@ typedef struct {
 	Toutput_def *def;
 } Toutput_box;
 
-static Toutput_box ob;
-
 static void ob_lview_row_activated_lcb(GtkTreeView *tree, GtkTreePath *path,GtkTreeViewColumn *column, gpointer data) {
 	GtkTreeIter iter;
 	gchar *file, *line;
@@ -78,32 +76,35 @@ static void output_box_close_clicked_lcb(GtkWidget *widget, gpointer data) {
 	gtk_widget_hide(ob.hbox);
 }
 
-void init_output_box(GtkWidget *vbox) {
-	ob.def = NULL;	
-	ob.lstore = gtk_list_store_new (3,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING);
-	ob.lview = gtk_tree_view_new_with_model(GTK_TREE_MODEL(ob.lstore));
+void init_output_box(Tbfwin *bfwin, GtkWidget *vbox) {
+	Toutput_box ob = g_new0(Toutput_box,1);
+	bfwin.outputbox = ob;
+
+	ob->def = NULL;	
+	ob->lstore = gtk_list_store_new (3,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING);
+	ob->lview = gtk_tree_view_new_with_model(GTK_TREE_MODEL(ob->lstore));
 	{
 		GtkTreeViewColumn *column;
 		GtkWidget *scrolwin;
 		GtkCellRenderer *renderer;
 		
-		ob.hbox = gtk_hbox_new(FALSE,0);
-		gtk_box_pack_start(GTK_BOX(vbox), ob.hbox, FALSE, FALSE, 2);
+		ob->hbox = gtk_hbox_new(FALSE,0);
+		gtk_box_pack_start(GTK_BOX(vbox), ob->hbox, FALSE, FALSE, 2);
 		
 	   renderer = gtk_cell_renderer_text_new ();
 		column = gtk_tree_view_column_new_with_attributes ("Filename", renderer,"text",0,NULL);
-		gtk_tree_view_append_column (GTK_TREE_VIEW(ob.lview), column);
+		gtk_tree_view_append_column (GTK_TREE_VIEW(ob->lview), column);
 		column = gtk_tree_view_column_new_with_attributes ("Line", renderer,"text",1,NULL);
-		gtk_tree_view_append_column (GTK_TREE_VIEW(ob.lview), column);
+		gtk_tree_view_append_column (GTK_TREE_VIEW(ob->lview), column);
 		column = gtk_tree_view_column_new_with_attributes ("Output", renderer,"text",2,NULL);
-		gtk_tree_view_append_column (GTK_TREE_VIEW(ob.lview), column);
+		gtk_tree_view_append_column (GTK_TREE_VIEW(ob->lview), column);
 
 		scrolwin = gtk_scrolled_window_new(NULL, NULL);
 		gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolwin),GTK_POLICY_AUTOMATIC,GTK_POLICY_AUTOMATIC);
-		gtk_container_add(GTK_CONTAINER(scrolwin), ob.lview);
+		gtk_container_add(GTK_CONTAINER(scrolwin), ob->lview);
 		gtk_widget_set_usize(scrolwin, 150, 150);
-		gtk_box_pack_start(GTK_BOX(ob.hbox), scrolwin, TRUE, TRUE, 0);
-		g_signal_connect(G_OBJECT(ob.lview), "row-activated",G_CALLBACK(ob_lview_row_activated_lcb),NULL);
+		gtk_box_pack_start(GTK_BOX(ob->hbox), scrolwin, TRUE, TRUE, 0);
+		g_signal_connect(G_OBJECT(ob->lview), "row-activated",G_CALLBACK(ob_lview_row_activated_lcb),NULL);
 	}
 	{
 		GtkWidget *vbox2 = gtk_vbox_new(FALSE,0);
@@ -114,7 +115,7 @@ void init_output_box(GtkWidget *vbox) {
 		gtk_container_set_border_width(GTK_CONTAINER(but), 0);
 		gtk_widget_set_usize(but, 16,16);
 		g_signal_connect(G_OBJECT(but), "clicked", G_CALLBACK(output_box_close_clicked_lcb), NULL);
-		gtk_box_pack_start(GTK_BOX(ob.hbox), vbox2, FALSE, FALSE, 0);
+		gtk_box_pack_start(GTK_BOX(ob->hbox), vbox2, FALSE, FALSE, 0);
 		gtk_box_pack_start(GTK_BOX(vbox2), but, FALSE, FALSE, 0);
 	}
 }

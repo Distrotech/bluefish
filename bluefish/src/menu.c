@@ -44,16 +44,6 @@
 
 #include "outputbox.h" /* temporary */
 
-typedef struct {
-	GList *outputbox_menu;
-	GList *external_menu;
-	GList *recent_files;
-	GList *encodings;
-	GtkWidget *cmenu;
-	GList *cmenu_entries;
-} Tmenus;
-static Tmenus menus = {NULL,NULL,NULL,NULL,NULL,NULL};
-
 static GtkItemFactoryEntry menu_items[] = {
 	{N_("/_File"), NULL, NULL, 0, "<Branch>"},
 	{N_("/File/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
@@ -633,7 +623,7 @@ void filetype_menu_rebuild(GtkItemFactory *item_factory) {
  * menu factory crap, thanks to the gtk tutorial for this
  * both the 1.0 and the 1.2 code is directly from the tutorial
  */
-void menu_create_main(GtkWidget *vbox)
+void menu_create_main(Tbfwin *bfwin, GtkWidget *vbox)
 {
 	GtkItemFactory *item_factory;
 	GtkAccelGroup *accel_group;
@@ -644,10 +634,10 @@ void menu_create_main(GtkWidget *vbox)
 	gtk_item_factory_set_translate_func(item_factory, menu_translate, "<bluefishmain>", NULL);
 #endif
 	gtk_item_factory_create_items(item_factory, nmenu_items, menu_items, NULL);
-	gtk_window_add_accel_group(GTK_WINDOW(main_v->main_window), accel_group);
-	main_v->menubar = gtk_item_factory_get_widget(item_factory, "<bluefishmain>");
-	gtk_box_pack_start(GTK_BOX(vbox), main_v->menubar, FALSE, TRUE, 0);
-	gtk_widget_show(main_v->menubar);
+	gtk_window_add_accel_group(GTK_WINDOW(bfwin->main_window), accel_group);
+	bfwin->menubar = gtk_item_factory_get_widget(item_factory, "<bluefishmain>");
+	gtk_box_pack_start(GTK_BOX(vbox), bfwin->menubar, FALSE, TRUE, 0);
+	gtk_widget_show(bfwin->menubar);
 
 	setup_toggle_item(item_factory, N_("/Options/Display/View Main Toolbar"), main_v->props.view_main_toolbar);
 	setup_toggle_item(item_factory, N_("/Options/Display/View HTML Toolbar"), main_v->props.view_html_toolbar);
@@ -687,20 +677,20 @@ static GtkWidget *dynamic_menu_append_spacing(gchar *basepath) {
 	return menuitem;
 }
 
-void menu_outputbox_rebuild() {
+void menu_outputbox_rebuild(Tbfwin *bfwin) {
 	GList *tmplist;
 	
-	if (menus.outputbox_menu) {
-		tmplist = g_list_first(menus.outputbox_menu);
+	if (bfwin->menu_outputbox) {
+		tmplist = g_list_first(bfwin->menu_outputbox);
 		while (tmplist) {
 			gtk_widget_destroy(GTK_WIDGET(tmplist->data));
 			tmplist = g_list_next(tmplist);
 		}
-		g_list_free(menus.outputbox_menu);
-		menus.outputbox_menu = NULL;
+		g_list_free(bfwin->menu_outputbox);
+		bfwin->menu_outputbox = NULL;
 	}
 	if (!main_v->props.ext_outputbox_in_submenu) {
-		menus.outputbox_menu = g_list_append(menus.outputbox_menu, dynamic_menu_append_spacing(N_("/External")));
+		bfwin->menu_outputbox = g_list_append(bfwin->menu_outputbox, dynamic_menu_append_spacing(N_("/External")));
 	}
 	
 	tmplist = g_list_first(main_v->props.outputbox);
@@ -722,7 +712,7 @@ void menu_outputbox_rebuild() {
 			} else {
 				tmp1 = N_("/External");
 			}
-			menus.outputbox_menu = g_list_append(menus.outputbox_menu
+			bfwin->menu_outputbox = g_list_append(bfwin->menu_outputbox
 					,create_dynamic_menuitem(tmp1,arr[0],G_CALLBACK(menu_outputbox_lcb),(gpointer)arr,-1));
 		}
 		tmplist = g_list_next(tmplist);
@@ -794,7 +784,7 @@ static GtkWidget *create_recent_entry(gchar *filename) {
  * because this is the first time Bluefish is running) then a menu
  * item telling that no recent files exist will appear */
 
-void recent_menu_init() {
+void recent_menu_init(Tbfwin *bfwin) {
 	gchar *recentfile;
 	GList *filenames=NULL, *tmp, *tmp2, *newlist=NULL;
 	gint recent_file_count=0;
@@ -803,7 +793,7 @@ void recent_menu_init() {
 	recentfile = g_strconcat(g_get_home_dir(), "/.bluefish/recentlist", NULL);
 	filenames = get_stringlist(recentfile, filenames);
 	if (!filenames) {
-		filenames = add_to_stringlist(menus.recent_files, _("(none)"));
+		filenames = add_to_stringlist(NULL, _("(none)"));
 	}
 
 	tmp = g_list_last(filenames);
@@ -827,7 +817,7 @@ void recent_menu_init() {
 
 	tmp2 = g_list_first(newlist);
 	while (tmp2) {
-		menus.recent_files  = g_list_append(menus.recent_files, create_recent_entry(tmp2->data));
+		bfwin->menu_recent_files  = g_list_append(bfwin->menu_recent_files, create_recent_entry(tmp2->data));
 		tmp2 = g_list_next(tmp2);
 	}
 
@@ -970,21 +960,21 @@ static void external_command_lcb(GtkWidget *widget, gchar **arr) {
 		system(arr[1]);
 	}
 }
-void external_menu_rebuild() {
+void external_menu_rebuild(Tbfwin *bfwin) {
 	GList *tmplist;
-	if (menus.external_menu) {
-		tmplist = g_list_first(menus.external_menu);
+	if (bfwin->menu_external) {
+		tmplist = g_list_first(bfwin->menu_external);
 		while (tmplist) {
 			gtk_widget_destroy(tmplist->data);
 			tmplist = g_list_next(tmplist);
 		}
-		g_list_free(menus.external_menu);
-		menus.external_menu = NULL;
+		g_list_free(bfwin->menu_external);
+		bfwin->menu_external = NULL;
 	}
 
 
 	if (!main_v->props.ext_browsers_in_submenu) {
-		menus.external_menu = g_list_append(menus.external_menu
+		bfwin->menu_external = g_list_append(bfwin->menu_external
 					,dynamic_menu_append_spacing(N_("/External")));
 	}
 	tmplist = g_list_first(main_v->props.browsers);
@@ -1001,7 +991,7 @@ void external_menu_rebuild() {
 				tmp1 = N_("/External");
 			}
 			DEBUG_MSG("Adding browser %s with command %s to the menu\n", arr[0], arr[1]);
-			menus.external_menu = g_list_append(menus.external_menu
+			bfwin->menu_external = g_list_append(bfwin->menu_external
 					, create_dynamic_menuitem(tmp1,arr[0],G_CALLBACK(browser_lcb),arr,-1));
 		}
 #ifdef DEBUG
@@ -1013,7 +1003,7 @@ void external_menu_rebuild() {
 	}
 	
 	if (!main_v->props.ext_commands_in_submenu) {
-		menus.external_menu = g_list_append(menus.external_menu
+		bfwin->menu_external = g_list_append(bfwin->menu_external
 					,dynamic_menu_append_spacing(N_("/External")));
 	}
 	
@@ -1030,7 +1020,7 @@ void external_menu_rebuild() {
 			} else {
 				tmp1 = N_("/External");
 			}		
-			menus.external_menu = g_list_append(menus.external_menu
+			bfwin->menu_external = g_list_append(bfwin->menu_external
 					, create_dynamic_menuitem(tmp1,arr[0],G_CALLBACK(external_command_lcb),arr,-1));
 		}
 		tmplist = g_list_next(tmplist);
@@ -1053,21 +1043,21 @@ static void menu_current_document_encoding_change(GtkMenuItem *menuitem,gchar *e
 	}
 }
 
-void encoding_menu_rebuild() {
+void encoding_menu_rebuild(Tbfwin *bfwin) {
 	GSList *group=NULL;
 	GtkWidget *parent_menu;
 	GList *tmplist;
-	if (menus.encodings) {
-		tmplist = g_list_first(menus.encodings);
+	if (bfwin->menu_encodings) {
+		tmplist = g_list_first(bfwin->menu_encodings);
 		while (tmplist) {
 			gtk_widget_destroy(GTK_WIDGET(tmplist->data));
 			tmplist = g_list_next(tmplist);
 		}
-		g_list_free(menus.encodings);
-		menus.encodings = NULL;
+		g_list_free(bfwin->menu_encodings);
+		bfwin->menu_encodings = NULL;
 	}
 	tmplist = g_list_last(main_v->props.encodings);
-	parent_menu = gtk_item_factory_get_widget(gtk_item_factory_from_widget(main_v->menubar), N_("/Document/Encoding"));
+	parent_menu = gtk_item_factory_get_widget(gtk_item_factory_from_widget(bfwin->menubar), N_("/Document/Encoding"));
 	while (tmplist) {
 		gchar **strarr = (gchar **)tmplist->data;
 		if (count_array(strarr)==2) {
@@ -1076,7 +1066,7 @@ void encoding_menu_rebuild() {
 			gtk_widget_show(menuitem);
 			gtk_menu_insert(GTK_MENU(parent_menu), menuitem, 1);
 			group = gtk_radio_menu_item_get_group(GTK_RADIO_MENU_ITEM(menuitem));
-			menus.encodings = g_list_append(menus.encodings, menuitem);
+			bfwin->menu_encodings = g_list_append(bfwin->menu_encodings, menuitem);
 		}
 		tmplist = g_list_previous(tmplist);
 	}
@@ -1096,7 +1086,7 @@ void menu_current_document_set_toggle_wo_activate(Tfiletype *hlset, gchar *encod
 	 }
 #endif
 	if (encoding) {
-		GtkWidget *menuitem = find_menuitem_in_list_by_label(menus.encodings, encoding);
+		GtkWidget *menuitem = find_menuitem_in_list_by_label(bfwin->menu_encodings, encoding);
 		DEBUG_MSG("menu_current_doc..., menuitem=%p for encoding=%s\n",menuitem,encoding);
 		if (menuitem) {
 			g_signal_handlers_block_matched(G_OBJECT(menuitem), G_SIGNAL_MATCH_FUNC,
@@ -1344,16 +1334,16 @@ static Tcmenu_entry *create_cmentry(const gchar *menupath, gint count, gchar **a
 	return cmentry;
 }
 
-static void fill_cust_menubar() {
+static void fill_cust_menubar(Tbfwin *bfwin) {
 	GtkItemFactory *ifactory;
 	gint count;
 	gchar **splittedstring;
 	GList *tmplist;
 	Tcmenu_entry *cmentry;
 
-	ifactory = gtk_item_factory_from_widget(menus.cmenu);
+	ifactory = gtk_item_factory_from_widget(bfwin->menu_cmenu);
 
-	tmplist = g_list_first(menus.cmenu_entries);
+	tmplist = g_list_first(bfwin->menu_cmenu_entries);
 	while (tmplist) {
 		cmentry = (Tcmenu_entry *) tmplist->data;
 		gtk_item_factory_delete_entry(ifactory, &cmentry->entry);
@@ -1362,8 +1352,8 @@ static void fill_cust_menubar() {
 		g_free(cmentry);
 		tmplist = g_list_next(tmplist);
 	}
-	g_list_free(menus.cmenu_entries);
-	menus.cmenu_entries = NULL;
+	g_list_free(bfwin->menu_cmenu_entries);
+	bfwin->menu_cmenu_entries = NULL;
 
 	count = 0;
 	tmplist = g_list_first(main_v->props.cmenu_insert);
@@ -1373,7 +1363,7 @@ static void fill_cust_menubar() {
 		count2 = count_array(splittedstring);
 		if (count2 >= 4) {
 			cmentry = create_cmentry(splittedstring[0], count, splittedstring, ifactory, 0);
-			menus.cmenu_entries = g_list_append(menus.cmenu_entries, cmentry);
+			bfwin->menu_cmenu_entries = g_list_append(bfwin->menu_cmenu_entries, cmentry);
 		}
 		count++;
 		tmplist = g_list_next(tmplist);
@@ -1385,7 +1375,7 @@ static void fill_cust_menubar() {
 		count2 = count_array(splittedstring);
 		if (count2 >= 4) {
 			cmentry = create_cmentry(splittedstring[0], count, splittedstring, ifactory, 1);
-			menus.cmenu_entries = g_list_append(menus.cmenu_entries, cmentry);
+			bfwin->menu_cmenu_entries = g_list_append(bfwin->menu_cmenu_entries, cmentry);
 		}
 		count++;
 		tmplist = g_list_next(tmplist);
@@ -1394,8 +1384,7 @@ static void fill_cust_menubar() {
 /* function declaration needed here */
 void cmenu_editor(GtkWidget *widget, gpointer data);
 
-void make_cust_menubar(GtkWidget *cust_handle_box)
-{
+void make_cust_menubar(Tbfwin *bfwin) {
 	static GtkItemFactoryEntry cust_menu[] = {
 		{N_("/_Custom menu"), NULL, NULL, 0, "<Branch>"},
 		{N_("/Custom menu/sep"), NULL, NULL, 0, "<Tearoff>"},
@@ -1417,11 +1406,11 @@ void make_cust_menubar(GtkWidget *cust_handle_box)
 	gtk_item_factory_create_items(item_factory, nmenu_items, cust_menu, NULL);
 	gtk_window_add_accel_group(GTK_WINDOW(main_v->main_window), accel_group);
 
-	menus.cmenu = gtk_item_factory_get_widget(item_factory, "<bluefishcustom>");
-	gtk_container_add(GTK_CONTAINER(cust_handle_box), menus.cmenu);
-	gtk_widget_show(menus.cmenu);
+	bfwin->menu_cmenu = gtk_item_factory_get_widget(item_factory, "<bluefishcustom>");
+	gtk_container_add(GTK_CONTAINER(bfwin->custom_menu_hb), menus.cmenu);
+	gtk_widget_show(bfwin->menu_cmenu);
 
-	fill_cust_menubar();
+	fill_cust_menubar(bfwin);
 
 	DEBUG_MSG("make_cust_menubar, finished\n");
 }
@@ -1472,7 +1461,7 @@ static void cme_ok_lcb(GtkWidget *widget, Tcmenu_editor *cme) {
 	DEBUG_MSG("cme_ok_lcb, after cmenu_insert=%p, worklist_insert=%p\n",main_v->props.cmenu_insert, cme->worklist_insert);
 	pointer_switch_addresses((gpointer)&main_v->props.cmenu_replace, (gpointer)&cme->worklist_replace);
 	cme_destroy_lcb(NULL, cme);
-	fill_cust_menubar();
+	fill_cust_menubar(bfwin);
 }
 
 static void cme_create_entries(Tcmenu_editor *cme, gint num) {
