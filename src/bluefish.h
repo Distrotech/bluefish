@@ -70,6 +70,8 @@ typedef struct {
 	gchar *spat3;
 	gchar *name;
 	gchar *parentname;
+	gchar *start_boundary;
+	gchar *end_boundary;
 	regex_t rpat1;
 	regex_t rpat2;
 	regex_t rpat3;
