@@ -3480,12 +3480,11 @@ void file_open_url_cb(GtkWidget * widget, Tbfwin *bfwin) {
 	ou->bfwin = bfwin;
 	ou->win = window_full2(_("Open URL"), GTK_WIN_POS_CENTER_ON_PARENT, 12
 			, G_CALLBACK(open_url_destroy_lcb), ou, TRUE, bfwin->main_window);
-	gtk_widget_set_size_request(ou->win, 400, -1);
-	vbox = gtk_vbox_new(FALSE,3);
+	gtk_widget_set_size_request(ou->win, 450, 140);
+	vbox = gtk_vbox_new(FALSE,5);
+	gtk_box_pack_start(GTK_BOX(vbox), bf_label_with_markup(_("<b>Open URL</b>")), FALSE, FALSE, 5);
 	gtk_container_add(GTK_CONTAINER(ou->win),vbox);
-	if (bfwin->project) {
-		tmplist = g_list_first(bfwin->session->recent_files);
-	}
+	tmplist = g_list_first(bfwin->session->recent_files);
 	while (tmplist) {
 		if (NULL != strchr(tmplist->data, ':')) {
 			urlhistory = g_list_append(urlhistory, g_strdup(tmplist->data));
@@ -3495,9 +3494,7 @@ void file_open_url_cb(GtkWidget * widget, Tbfwin *bfwin) {
 	ou->entry = boxed_combo_with_popdown("", urlhistory, TRUE, vbox);
 	free_stringlist(urlhistory);
 /*	ou->entry = boxed_entry_with_text("", 255, vbox); */
-	hbox = gtk_hbox_new(FALSE, 0);
-	gtk_box_pack_start(GTK_BOX(hbox), gtk_hseparator_new(), TRUE, TRUE, 0);
-	gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 12);
+	gtk_box_pack_start(GTK_BOX(vbox), gtk_hseparator_new(), FALSE, FALSE, 5);
 	hbox = gtk_hbutton_box_new();
 	gtk_hbutton_box_set_layout_default(GTK_BUTTONBOX_END);
 	gtk_button_box_set_spacing(GTK_BUTTON_BOX(hbox), 6);
@@ -3506,6 +3503,7 @@ void file_open_url_cb(GtkWidget * widget, Tbfwin *bfwin) {
 	gtk_box_pack_start(GTK_BOX(hbox), but, FALSE, TRUE, 0);
 	but = bf_stock_ok_button(G_CALLBACK(open_url_ok_lcb), ou);
 	gtk_box_pack_start(GTK_BOX(hbox), but, FALSE, TRUE, 0);
+	gtk_window_set_default(GTK_WINDOW(ou->win), but);
 	gtk_widget_show_all(ou->win);
 }
 #endif /* HAVE_GNOME_VFS */
