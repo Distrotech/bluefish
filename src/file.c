@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-/*#define DEBUG*/
+#define DEBUG
 
 #include <gtk/gtk.h>
 #include <string.h> /* memcpy */
@@ -106,8 +106,10 @@ typedef enum {
 	SAVEFILE_ERROR,
 	SAVEFILE_ERROR_NOCHANNEL,
 	SAVEFILE_ERROR_NOWRITE,
+	SAVEFILE_ERROR_NOCLOSE,
 	SAVEFILE_ERROR_CANCELLED,
 	SAVEFILE_CHANNEL_OPENED,
+	SAVEFILE_WRITTEN,
 	SAVEFILE_FINISHED
 } Tsavefile_status;
 
@@ -133,21 +135,33 @@ static void savefile_cancel(Tsavefile *sf) {
 	savefile_cleanup(sf);
 }
 
+static void savefile_asyncclose_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSResult result,gpointer data) {
+	Tsavefile *sf = data;
+	if (result == GNOME_VFS_OK) {
+		DEBUG_MSG("savefile_asyncclose_lcb, closed!\n");
+		sf->callback_func(SAVEFILE_FINISHED, result, sf->callback_data);
+	} else {
+		DEBUG_MSG("savefile_asyncclose_lcb, close error!\n");
+		sf->callback_func(SAVEFILE_ERROR_NOCLOSE, result, sf->callback_data);
+	}
+	savefile_cleanup(sf);
+}
+
 static void savefile_asyncwrite_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSResult result,gconstpointer buffer,GnomeVFSFileSize bytes_requested,GnomeVFSFileSize bytes_written,gpointer data) {
 	Tsavefile *sf = data;
-	DEBUG_MSG("savefile_asyncwrite_lcb, called with result=%d\n",result);
+	DEBUG_MSG("savefile_asyncwrite_lcb, called with result=%d, %"GNOME_VFS_SIZE_FORMAT_STR" bytes written\n",result,bytes_written);
 	if (result == GNOME_VFS_OK) {
 #ifdef DEBUG
 		if (sf->buffer_size != bytes_written || bytes_written != bytes_requested) {
 			DEBUG_MSG("savefile_asyncwrite_lcb, WARNING, LESS BYTES WRITTEN THEN THE BUFFER HAS\n");
 		}
 #endif
-		sf->callback_func(SAVEFILE_FINISHED, result, sf->callback_data);
+		gnome_vfs_async_close(handle, savefile_asyncclose_lcb, sf);
 	} else {
 		DEBUG_MSG("savefile_asyncwrite_lcb, error while writing (%d), calling SAVEFILE_ERROR_NOWRITE and cleaning up\n", result);
 		sf->callback_func(SAVEFILE_ERROR_NOWRITE, result, sf->callback_data);
+		savefile_cleanup(sf);
 	}
-	savefile_cleanup(sf);
 }
 
 static void savefile_asyncopenuri_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSResult result,gpointer data) {
@@ -223,10 +237,14 @@ static void checkNsave_savefile_lcb(Tsavefile_status status,gint error_info,gpoi
 		cns->callback_func(CHECKANDSAVE_FINISHED, error_info, cns->callback_data);
 		checkNsave_cleanup(cns);
 	break;
+	case SAVEFILE_WRITTEN:
+		/* do nothing */
+	break;
 	case SAVEFILE_CHANNEL_OPENED:
 		cns->callback_func(CHECKANDSAVE_CHANNEL_OPENED, error_info, cns->callback_data);
 	break;
 	case SAVEFILE_ERROR_NOWRITE:
+	case SAVEFILE_ERROR_NOCLOSE:
 		cns->callback_func(CHECKANDSAVE_ERROR_NOWRITE, error_info, cns->callback_data);
 		checkNsave_cleanup(cns);
 	break;
@@ -262,7 +280,7 @@ static gint checkNsave_progress_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSXferProg
 			return GNOME_VFS_XFER_ERROR_ACTION_ABORT;
 		}
 	} else if (info->status == GNOME_VFS_XFER_PROGRESS_STATUS_OK) {
-		DEBUG_MSG("checkNsave_progress_lcb, status=OK\n");
+		DEBUG_MSG("checkNsave_progress_lcb, status=OK, phase=%d\n",info->phase);
 		if (info->phase == GNOME_VFS_XFER_PHASE_COMPLETED) {
 			/* backup == ok, we start the actual file save */
 			if (cns->abort) {
