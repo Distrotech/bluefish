@@ -1857,7 +1857,7 @@ gint doc_save(Tdocument * doc, gint do_save_as, gboolean do_move) {
 	}
 	{
 	struct stat statbuf;
-	if (doc_check_modified_on_disk(doc,&statbuf) == 0) {
+	if (doc_check_modified_on_disk(doc,&statbuf)) {
 		gchar *tmpstr, oldtimestr[128], newtimestr[128];/* according to 'man ctime_r' this should be at least 26, so 128 should do ;-)*/
 		gint retval;
 		gchar *options[] = {N_("Cancel"), N_("Overwrite"), NULL};
@@ -2381,7 +2381,7 @@ void doc_activate(Tdocument *doc) {
 
 	gtk_widget_show(doc->view); /* This might be the first time this document is activated. */
 	
-	if (doc_check_modified_on_disk(doc,&statbuf) == 0) {
+	if (doc_check_modified_on_disk(doc,&statbuf)) {
 		gchar *tmpstr, oldtimestr[128], newtimestr[128];/* according to 'man ctime_r' this should be at least 26, so 128 should do ;-)*/
 		gint retval;
 		gchar *options[] = {N_("Reload"), N_("Ignore"), NULL};

@@ -45,6 +45,7 @@ enum {
 	image_thumbnailsizing_val2, /* height if the type=3 */
 	image_thumnailformatstring, /* like <a href="%r"><img src="%t"></a> or more advanced */
 	allow_multi_instances, /* allow multiple instances of the same file */
+	modified_check_type, /* 0=no check, 1=by mtime and size, 2=by mtime, 3=by size, 4,5,...not implemented (md5sum?) */
 	num_undo_levels, 	/* number of undo levels per document */
 	clear_undo_on_save, 	/* clear all undo information on file save */
 	newfile_default_encoding,/* if you open a new file, what encoding will it use */
@@ -1599,6 +1600,7 @@ static void preferences_ok_clicked_lcb(GtkWidget *wid, Tprefdialog *pd) {
 #ifdef WITH_MSG_QUEUE
 	integer_apply(&main_v->props.open_in_running_bluefish, pd->prefs[open_in_running_bluefish], TRUE);
 #endif
+	main_v->props.modified_check_type = gtk_option_menu_get_history(GTK_OPTION_MENU(pd->prefs[modified_check_type]));
 	integer_apply(&main_v->props.max_recent_files, pd->prefs[max_recent_files], FALSE);
 	
 	integer_apply(&main_v->props.restore_dimensions, pd->prefs[restore_dimensions], TRUE);
@@ -1699,6 +1701,7 @@ static void preferences_dialog() {
 	Tprefdialog *pd;
 	GtkWidget *dvbox, *frame, *vbox1, *vbox2;
 	gchar *notebooktabpositions[] = {N_("left"), N_("right"), N_("top"), N_("bottom"), NULL};
+	gchar *modified_check_types[] = {N_("no check"), N_("check mtime and size"), N_("check mtime"), N_("check size"), NULL};
 
 	pd = g_new0(Tprefdialog,1);
 	pd->win = window_full(_("Edit preferences"), GTK_WIN_POS_NONE, 0, G_CALLBACK(preferences_destroy_lcb), pd, TRUE);
@@ -1791,6 +1794,7 @@ static void preferences_dialog() {
 #ifdef WITH_MSG_QUEUE
 	pd->prefs[open_in_running_bluefish] = boxed_checkbut_with_value(_("Open files in already running bluefish window"),main_v->props.open_in_running_bluefish, vbox2);
 #endif /* WITH_MSG_QUEUE */		
+	pd->prefs[modified_check_type] = boxed_optionmenu_with_value(_("File modified on disk check "), main_v->props.modified_check_type, vbox2, modified_check_types);
 	pd->prefs[max_recent_files] = prefs_integer(_("Number of files in 'Open recent'"), main_v->props.max_recent_files, vbox2, pd, 3, 100);
 
 	vbox1 = gtk_vbox_new(FALSE, 5);
