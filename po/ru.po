@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ru\n"
-"POT-Creation-Date: 2004-10-22 18:18+0200\n"
+"POT-Creation-Date: 2004-11-25 10:39+0100\n"
 "PO-Revision-Date: 2004-03-26 20:22+0300\n"
 "Last-Translator: Eugene Rupakov <taurus_1@mail.ru>\n"
 "Language-Team: Русский <ru@li.org>\n"
@@ -46,9 +46,16 @@ msgid ""
 "  Olivier Sessink <olivier@bluefish.openoffice.nl>\n"
 "\n"
 "Developers for this release:\n"
-"  Jim Hayward <jimhayward@linuxexperience.com>\n"
-"  Oskar Świda <swida@aragorn.pb.bialystok.pl>\n"
-"  Eugene Morenko(More) <more@irpin.com>\n"
+"  Olivier Sessink\n"
+"   <olivier@bluefish.openoffice.nl>\n"
+"  Jim Hayward\n"
+"   <jimhayward@linuxexperience.net>\n"
+"  Oskar Świda\n"
+"   <swida@aragorn.pb.bialystok.pl>\n"
+"  Eugene Morenko(More)\n"
+"   <more@irpin.com>\n"
+"  Alastair Porter\n"
+"   <alastair@linuxexperience.com>\n"
 "\n"
 "Developers for previous releases:\n"
 "  Chris Mazuc\n"
@@ -58,20 +65,38 @@ msgid ""
 "  David Arno\n"
 "  Pablo De Napoli\n"
 "  Santiago Capel Torres\n"
-"  Rasmus Toftdahl Olesen <rto@pohldata.dk>\n"
-"  Roland Steinbach <roland@netzblick.de>\n"
-"  Christian Tellefsen <chris@tellefsen.net>\n"
+"  Rasmus Toftdahl Olesen\n"
+"   <rto@pohldata.dk>\n"
+"  Roland Steinbach\n"
+"   <roland@netzblick.de>\n"
+"  Christian Tellefsen\n"
+"   <chris@tellefsen.net>\n"
 "  Antti-Juhani Kaijanaho\n"
 "\n"
 "Documentation:\n"
-"  Alastair Porter <alastair@linuxexperience.com>\n"
-"  Daniel Blair <joecamel@realcoders.org>\n"
+"  Scott White\n"
+"   <wwsw3@earthlink.net>\n"
+"  Michèle Garoche\n"
+"   <michele.garoche@easyconnect.fr>\n"
+"  Anita Lewis\n"
+"   <ajreiki@highstream.net>\n"
+"  Alastair Porter\n"
+"   <alastair@linuxexperience.com>\n"
+"  Daniel Blair\n"
+"   <joecamel@realcoders.org>\n"
+"  Olivier Sessink\n"
+"   <olivier@bluefish.openoffice.nl>\n"
 "  Denny Reeh\n"
 "\n"
 "Package Maintainers:\n"
-"  Debian:   Davide Puricelli <evo@debian.org>\n"
-"  Redhat:   Matthias Haase <matthias_haase@bennewitz.com>\n"
-"  Mandrake: Todd Lyons <todd@mrball.net>\n"
+"  Debian:   Davide Puricelli\n"
+"   <evo@debian.org>\n"
+"  Redhat:   Matthias Haase\n"
+"   <matthias_haase@bennewitz.com>\n"
+"  Mandrake: Todd Lyons\n"
+"   <todd@mrball.net>\n"
+"  Fink: Michèle Garoche\n"
+"   <michele.garoche@easyconnect.fr>\n"
 "\n"
 "If you know of anyone missing from this list, please let us know\n"
 "<bluefish@bluefish.openoffice.nl>\n"
@@ -111,7 +136,7 @@ msgstr ""
 "\n"
 "Благодарим всех, кто помог сделать этот проект доступным.\n"
 
-#: ../src/about.c:160
+#: ../src/about.c:185
 #, fuzzy
 msgid ""
 "Current translators:\n"
@@ -216,20 +241,20 @@ msgstr ""
 "   <barathee@yahoo.com>\n"
 "\n"
 
-#: ../src/about.c:197
+#: ../src/about.c:222
 msgid "About Bluefish"
 msgstr "О программе Bluefish"
 
-#: ../src/about.c:229 ../src/fref.c:1427 ../src/fref.c:1711 ../src/fref.c:1798
+#: ../src/about.c:254 ../src/fref.c:1427 ../src/fref.c:1711 ../src/fref.c:1798
 #: ../src/fref.c:1833 ../src/fref.c:2310
 msgid "Info"
 msgstr "Информация"
 
-#: ../src/about.c:231
+#: ../src/about.c:256
 msgid "Authors"
 msgstr "Авторы"
 
-#: ../src/about.c:232
+#: ../src/about.c:257
 msgid "Translators"
 msgstr "Переводчики"
 
@@ -261,71 +286,71 @@ msgstr ""
 "Bluefish не смог прочитать имена файлов. Попробуйте установить переменную "
 "окружения G_BROKEN_FILENAMES=1\n"
 
-#: ../src/bfspell.c:346
+#: ../src/bfspell.c:377
 msgid "Check Spelling"
 msgstr "Проверка правописания"
 
-#: ../src/bfspell.c:350
+#: ../src/bfspell.c:381
 msgid "Checking"
 msgstr "Проверка"
 
-#: ../src/bfspell.c:359
+#: ../src/bfspell.c:390
 msgid "_Misspelled word:"
 msgstr "_Неверное слово:"
 
-#: ../src/bfspell.c:363
+#: ../src/bfspell.c:394
 msgid "Change _to:"
 msgstr "_Изменить на:"
 
-#: ../src/bfspell.c:366
+#: ../src/bfspell.c:397
 msgid "I_gnore"
 msgstr "И_гнорировать"
 
-#: ../src/bfspell.c:367 ../src/snr2.c:883
+#: ../src/bfspell.c:398 ../src/snr2.c:884
 msgid "_Replace"
 msgstr "_Заменить"
 
-#: ../src/bfspell.c:380
+#: ../src/bfspell.c:411
 msgid "In _document"
 msgstr "В _документе"
 
-#: ../src/bfspell.c:381
+#: ../src/bfspell.c:412
 msgid "I_n selection"
 msgstr "В в_ыбранном"
 
-#: ../src/bfspell.c:390
+#: ../src/bfspell.c:421
 msgid "personal dictionary"
 msgstr "личный словарь"
 
-#: ../src/bfspell.c:393
+#: ../src/bfspell.c:424
 msgid "session dictionary"
 msgstr "словарь сессии"
 
-#: ../src/bfspell.c:399
+#: ../src/bfspell.c:430
 msgid "Dictionary:"
 msgstr "Словарь:"
 
-#: ../src/bfspell.c:403
+#: ../src/bfspell.c:434
 msgid "_Add"
 msgstr "_Добавить "
 
-#: ../src/bfspell.c:407
+#: ../src/bfspell.c:438
 msgid "Language:"
 msgstr "Язык:"
 
-#: ../src/bfspell.c:411
+#: ../src/bfspell.c:442
 msgid "Set defa_ult"
 msgstr "Установить по _умолчанию"
 
-#: ../src/bfspell.c:415
+#: ../src/bfspell.c:446
 msgid "Filter:"
 msgstr "Фильтр:"
 
-#: ../src/bfspell.c:423
+#: ../src/bfspell.c:454
 msgid "no filter"
 msgstr "без фильтра"
 
-#: ../src/bfspell.c:425
+#: ../src/bfspell.c:456
 msgid "html filter"
 msgstr "фильтр HTML"
 
@@ -436,71 +461,71 @@ msgstr "Вы действительно хотите удвлить %s?"
 msgid "Delete bookmarks?"
 msgstr "Удалить постоянную закладку."
 
-#: ../src/bookmark.c:640
+#: ../src/bookmark.c:641
 #, c-format
 msgid "Do you really want to delete %s?"
 msgstr "Вы действительно хотите удвлить %s?"
 
-#: ../src/bookmark.c:642
+#: ../src/bookmark.c:643
 msgid "Delete permanent bookmark."
 msgstr "Удалить постоянную закладку."
 
-#: ../src/bookmark.c:659
+#: ../src/bookmark.c:660
 msgid "Edit bookmark"
 msgstr "Редактировать закладку"
 
-#: ../src/bookmark.c:673
+#: ../src/bookmark.c:674
 msgid "Goto bookmark"
 msgstr "Перейти к закладке"
 
-#: ../src/bookmark.c:681
+#: ../src/bookmark.c:682
 msgid "Edit"
 msgstr "Редактирование"
 
-#: ../src/bookmark.c:685
+#: ../src/bookmark.c:686
 msgid "Delete"
 msgstr "Удалить"
 
-#: ../src/bookmark.c:691
+#: ../src/bookmark.c:692
 #, fuzzy
 msgid "Delete all in document"
 msgstr "во всех открытых документах"
 
-#: ../src/bookmark.c:696
+#: ../src/bookmark.c:697
 #, fuzzy
 msgid "Delete all"
 msgstr " Удалить "
 
-#: ../src/bookmark.c:1276 ../src/bookmark.c:1293 ../src/bookmark.c:1329
+#: ../src/bookmark.c:1277 ../src/bookmark.c:1294 ../src/bookmark.c:1330
 #: ../src/document.c:2022
 msgid "Add bookmark"
 msgstr "Добавить закладку"
 
-#: ../src/bookmark.c:1277 ../src/bookmark.c:1330
+#: ../src/bookmark.c:1278 ../src/bookmark.c:1331
 msgid "Cannot add bookmarks in unnamed files."
 msgstr "Невозможно установить закладки в безымянных файлах."
 
-#: ../src/bookmark.c:1294
+#: ../src/bookmark.c:1295
 msgid "You already have a bookmark here!"
 msgstr "У Вас здесь уже есть закладка!"
 
-#: ../src/bookmark.c:1367
+#: ../src/bookmark.c:1368
 #, fuzzy
 msgid "Delete all bookmarks."
 msgstr "Удалить постоянную закладку."
 
-#: ../src/bookmark.c:1367
+#: ../src/bookmark.c:1368
 msgid "Are you sure?"
 msgstr ""
 
-#: ../src/bookmark.c:1409
+#: ../src/bookmark.c:1411
 #, fuzzy
 msgid "File size changed in file\n"
 msgstr ""
 "Изменилось количество символов в файле\n"
 " %s."
 
-#: ../src/bookmark.c:1410
+#: ../src/bookmark.c:1412
 #, fuzzy
 msgid "Bookmarks positions could be incorrect. Delete bookmarks?"
 msgstr "Расположение закладок может быть ошибочным."
@@ -584,11 +609,11 @@ msgstr "Открытие файла"
 msgid "Cannot display file, unknown characters found."
 msgstr "Невозможно отобразить файл - найдены неизвестные символы."
 
-#: ../src/document.c:2005 ../src/snr2.c:1331
+#: ../src/document.c:2005 ../src/snr2.c:1332
 msgid "Replace"
 msgstr "Заменить"
 
-#: ../src/document.c:2010
+#: ../src/document.c:2010 ../src/snr2.c:1335
 msgid "Find"
 msgstr "Найти"
 
@@ -655,46 +680,49 @@ msgstr "Ошибка перекодировки файла."
 msgid "Previously: "
 msgstr "Предварительно:"
 
-#: ../src/document.c:2421 ../src/document.c:2429
-msgid "Move/rename document to"
+#: ../src/document.c:2412
+#, fuzzy, c-format
+msgid "Move/rename %s to"
 msgstr "Переместить/переименовать документ"
 
-#: ../src/document.c:2421 ../src/document.c:2429
-msgid "Save document as"
-msgstr "Сохранить документ как"
+#: ../src/document.c:2412
+#, fuzzy, c-format
+msgid "Save %s as"
+msgstr "Сохранить как..."
 
-#: ../src/document.c:2451 ../src/document.c:2466 ../src/document.c:2564
-#: ../src/document.c:3752 ../src/gui.c:1113
+#: ../src/document.c:2456 ../src/document.c:2471 ../src/document.c:2569
+#: ../src/document.c:3759 ../src/project.c:171
 msgid "_Cancel"
 msgstr "От_менить"
 
-#: ../src/document.c:2451 ../src/document.c:2466 ../src/document.c:2564
+#: ../src/document.c:2456 ../src/document.c:2471 ../src/document.c:2569
+#: ../src/project.c:171
 msgid "_Overwrite"
 msgstr "Пере_записать"
 
-#: ../src/document.c:2452
+#: ../src/document.c:2457
 #, c-format
 msgid "File %s exists and is opened, overwrite?"
 msgstr "Файл %s существует и уже открыт, перезаписать его?"
 
-#: ../src/document.c:2453
+#: ../src/document.c:2458
 msgid "The file you have selected is being edited in Bluefish."
 msgstr "Выбранный Вами файл уже редактируется в Bluefish."
 
-#: ../src/document.c:2467
+#: ../src/document.c:2472 ../src/project.c:172
 #, c-format
 msgid "A file named \"%s\" already exists."
 msgstr "Файл \"%s\" уже существует."
 
-#: ../src/document.c:2469
+#: ../src/document.c:2474 ../src/project.c:174
 msgid "Do you want to replace the existing file?"
 msgstr "Вы уверены, что хотите перезаписать существующий файл?"
 
-#: ../src/document.c:2519
+#: ../src/document.c:2524
 msgid "Save as..."
 msgstr "Сохранить как..."
 
-#: ../src/document.c:2568
+#: ../src/document.c:2573
 #, c-format
 msgid ""
 "File: %s\n"
@@ -707,16 +735,16 @@ msgstr ""
 "Новое время модификации %s\n"
 "Старое время модификацйи %s"
 
-#: ../src/document.c:2569
+#: ../src/document.c:2574
 msgid "File has been modified by another process."
 msgstr "Файл был изменен другим процессом."
 
-#: ../src/document.c:2582
+#: ../src/document.c:2587
 #, c-format
 msgid "Saving %s"
 msgstr "Сохранение %s"
 
-#: ../src/document.c:2596
+#: ../src/document.c:2601
 msgid ""
 "Could not backup file:\n"
 "\""
@@ -724,11 +752,11 @@ msgstr ""
 "Не удается сохранить резервную копию файла:\n"
 "\""
 
-#: ../src/document.c:2597
+#: ../src/document.c:2602
 msgid "File save aborted.\n"
 msgstr "Сохранение файла прекращено.\n"
 
-#: ../src/document.c:2602
+#: ../src/document.c:2607
 msgid ""
 "Could not write file:\n"
 "\""
@@ -736,38 +764,32 @@ msgstr ""
 "Не удается записать файл:\n"
 "\""
 
-#: ../src/document.c:2603
+#: ../src/document.c:2608
 msgid "File save error"
 msgstr "Ошибка сохранения файла"
 
-#: ../src/document.c:2653
+#: ../src/document.c:2658
 #, c-format
 msgid "Save changes to \"%s\" before closing?."
 msgstr ""
 
-#: ../src/document.c:2656
-#, fuzzy
-msgid "Save changes to this untitled file before closing?"
-msgstr ""
-"Вы уверены, что хотите сохранить изменения, внесенные в этот безымянный файл?"
-
-#: ../src/document.c:2660
+#: ../src/document.c:2665 ../src/project.c:324
 msgid "Do_n't save"
 msgstr "_Не сохранять"
 
-#: ../src/document.c:2662 ../src/document.c:3754
+#: ../src/document.c:2667 ../src/document.c:3761 ../src/project.c:333
 msgid "If you don't save your changes they will be lost."
 msgstr ""
 
-#: ../src/document.c:2942
+#: ../src/document.c:2947
 msgid "No filename"
 msgstr "Нет имени файла"
 
-#: ../src/document.c:3079
+#: ../src/document.c:3084
 msgid "Loading files..."
 msgstr "Загрузка файлов..."
 
-#: ../src/document.c:3097
+#: ../src/document.c:3102
 msgid ""
 "These files could not opened:\n"
 "\n"
@@ -775,23 +797,23 @@ msgstr ""
 "Эти файлы не могут быть открыты:\n"
 "\n"
 
-#: ../src/document.c:3099 ../src/msg_queue.c:235
+#: ../src/document.c:3104 ../src/msg_queue.c:235
 msgid "Unable to open file(s)\n"
 msgstr "Невозможно открыть файл(ы)\n"
 
-#: ../src/document.c:3130
+#: ../src/document.c:3135
 msgid "Unable to open file"
 msgstr "Невозможно открыть файл"
 
-#: ../src/document.c:3192
+#: ../src/document.c:3197
 msgid "_Reload"
 msgstr "Переза_грузить"
 
-#: ../src/document.c:3192
+#: ../src/document.c:3197
 msgid "_Ignore"
 msgstr "_Игнорировать"
 
-#: ../src/document.c:3196
+#: ../src/document.c:3201
 #, c-format
 msgid ""
 "Filename: %s\n"
@@ -804,203 +826,207 @@ msgstr ""
 "Новое время модификации %s\n"
 "Старое время модификации %s"
 
-#: ../src/document.c:3197
+#: ../src/document.c:3202
 msgid "File has been modified by another process\n"
 msgstr "Файл был изменен другим процессом\n"
 
-#: ../src/document.c:3304
+#: ../src/document.c:3309
 msgid "searching files..."
 msgstr "поиск файлов..."
 
-#: ../src/document.c:3335 ../src/document.c:3342
+#: ../src/document.c:3340 ../src/document.c:3347
 msgid "Select basedir"
 msgstr "Выберите базовый каталог"
 
-#: ../src/document.c:3361
+#: ../src/document.c:3366
 msgid "Advanced open file selector"
 msgstr "Улучшенный диалог выбора файлов"
 
-#: ../src/document.c:3372
+#: ../src/document.c:3377
 msgid "grep {contains} `find {basedir} -name '{file type}'`"
 msgstr "grep {содержимое} `find {стартовая директория} -name '{тип файла}'`"
 
-#: ../src/document.c:3377
+#: ../src/document.c:3382
 msgid "<b>General</b>"
 msgstr "<b>Общие</b>"
 
-#: ../src/document.c:3379
+#: ../src/document.c:3384
 msgid "Base_dir:"
 msgstr "Базовая _директория:"
 
-#: ../src/document.c:3381 ../src/gtk_easy.c:1305
+#: ../src/document.c:3386 ../src/gtk_easy.c:1305
 msgid "_Browse..."
 msgstr "П_росмотр..."
 
-#: ../src/document.c:3398
+#: ../src/document.c:3404
 msgid "_File Type:"
 msgstr "_Тип файла:"
 
-#: ../src/document.c:3404
+#: ../src/document.c:3410
 msgid "_Recursive:"
 msgstr "П_росматривать поддиректории:"
 
-#: ../src/document.c:3409
+#: ../src/document.c:3415
 msgid "<b>Contains</b>"
 msgstr "<b>Содержит</b>"
 
-#: ../src/document.c:3412
+#: ../src/document.c:3418
 msgid "Pa_ttern:"
 msgstr "_Шаблон:"
 
-#: ../src/document.c:3416
+#: ../src/document.c:3422
 msgid "Is rege_x:"
 msgstr "ре_гулярное выражение:"
 
-#: ../src/document.c:3551
+#: ../src/document.c:3557
 msgid "Open URL"
 msgstr "Открыть URL"
 
-#: ../src/document.c:3555
+#: ../src/document.c:3561
 #, fuzzy
 msgid "<b>Open URL</b>"
 msgstr "Открыть URL"
 
-#: ../src/document.c:3601 ../src/gtk_easy.c:1601
+#: ../src/document.c:3607 ../src/gtk_easy.c:1601
 msgid "Select files"
 msgstr "Выберите файлы"
 
-#: ../src/document.c:3621 ../src/document.c:3640 ../src/document.c:3657
+#: ../src/document.c:3627 ../src/document.c:3647 ../src/document.c:3664
 #, c-format
 msgid "Loading %d file(s)..."
 msgstr "Загрузка %d файл(а,ов)..."
 
-#: ../src/document.c:3690 ../src/document.c:3697
+#: ../src/document.c:3642
+msgid "No matching files found"
+msgstr ""
+
+#: ../src/document.c:3697 ../src/document.c:3704
 msgid "Select file to insert"
 msgstr "Выберите файл для вставки"
 
-#: ../src/document.c:3700
+#: ../src/document.c:3707
 msgid "No file to insert"
 msgstr "Файл для вставки не найден"
 
-#: ../src/document.c:3752
+#: ../src/document.c:3759
 msgid "_Save All"
 msgstr "_Сохранить все"
 
-#: ../src/document.c:3752
+#: ../src/document.c:3759
 msgid "Close _All"
 msgstr "Закрыть _все"
 
-#: ../src/document.c:3752
+#: ../src/document.c:3759
 msgid "Choose per _File"
 msgstr "_Выбрать для каждого файла"
 
-#: ../src/document.c:3753
+#: ../src/document.c:3760
 msgid "Multiple open files have been changed."
 msgstr "Несколько открытых файлов были изменены."
 
-#: ../src/document.c:4001
+#: ../src/document.c:4008
 #, c-format
 msgid "Statistics: %d lines, %d words, %d characters"
 msgstr "Статистика: %d строк, %d слов, %d символов"
 
-#: ../src/filebrowser.c:1014
+#: ../src/filebrowser.c:1057
 msgid "Error creating path"
 msgstr "Ошибка при создании пути"
 
-#: ../src/filebrowser.c:1014
+#: ../src/filebrowser.c:1057
 msgid "The specified pathname already exists."
 msgstr "Указанный путь уже существует."
 
-#: ../src/filebrowser.c:1081
+#: ../src/filebrowser.c:1127
 msgid "File name"
 msgstr "Имя файла"
 
-#: ../src/filebrowser.c:1083
+#: ../src/filebrowser.c:1129
 msgid "Directory name"
 msgstr "Имя директории"
 
-#: ../src/filebrowser.c:1114
+#: ../src/filebrowser.c:1160
 msgid "Opening directory..."
 msgstr "Открытие директории..."
 
-#: ../src/filebrowser.c:1201 ../src/filebrowser.c:1205
+#: ../src/filebrowser.c:1249 ../src/filebrowser.c:1253
 msgid "Could not rename\n"
 msgstr "Не удается переименовать файл\n"
 
-#: ../src/filebrowser.c:1248
+#: ../src/filebrowser.c:1296
 #, fuzzy, c-format
 msgid "Are you sure you want to delete \"%s\" ?"
 msgstr ""
 "Вы уверены, что хотите\n"
 "удалить \"%s\"?"
 
-#: ../src/filebrowser.c:1249
+#: ../src/filebrowser.c:1297
 #, fuzzy
 msgid "If you delete this file, it will be permanently lost."
 msgstr "Файл был удален насовсем."
 
-#: ../src/filebrowser.c:1258 ../src/filebrowser.c:1262
+#: ../src/filebrowser.c:1306 ../src/filebrowser.c:1310
 msgid "Could not delete \n"
 msgstr "Не удается удалить \n"
 
-#: ../src/filebrowser.c:1401
+#: ../src/filebrowser.c:1449
 #, fuzzy
 msgid "/Open _Advanced..."
 msgstr "/Открыть рас_ширенный диалог"
 
-#: ../src/filebrowser.c:1405
+#: ../src/filebrowser.c:1453
 msgid "/_Refresh"
 msgstr "/О_бновить"
 
-#: ../src/filebrowser.c:1406
+#: ../src/filebrowser.c:1454
 msgid "/_Set as basedir"
 msgstr "/Установить как _базовый каталог"
 
-#: ../src/filebrowser.c:1410
+#: ../src/filebrowser.c:1458
 msgid "/New _File"
 msgstr "/_Новый файл"
 
-#: ../src/filebrowser.c:1411
+#: ../src/filebrowser.c:1459
 msgid "/_New Directory"
 msgstr "/Новая _директория"
 
-#: ../src/filebrowser.c:1416
+#: ../src/filebrowser.c:1464
 msgid "/_Open"
 msgstr "/_Открыть"
 
-#: ../src/filebrowser.c:1417
+#: ../src/filebrowser.c:1465
 msgid "/Rena_me"
 msgstr "/Переи_меновать"
 
-#: ../src/filebrowser.c:1418
+#: ../src/filebrowser.c:1466
 msgid "/_Delete"
 msgstr "/_Удалить"
 
-#: ../src/filebrowser.c:1440
+#: ../src/filebrowser.c:1488
 msgid "Show hidden files"
 msgstr "Показывать скрытые файлы"
 
-#: ../src/filebrowser.c:1445
+#: ../src/filebrowser.c:1493
 msgid "Show backup files"
 msgstr "Показывать файлы резервного копирования"
 
-#: ../src/filebrowser.c:1451
+#: ../src/filebrowser.c:1499
 msgid "Filter"
 msgstr "Фильтр"
 
-#: ../src/filebrowser.c:1651 ../src/gtk_easy.c:1383
+#: ../src/filebrowser.c:1699 ../src/gtk_easy.c:1383
 msgid "All files"
 msgstr "Все файлы"
 
-#: ../src/filebrowser.c:1923
+#: ../src/filebrowser.c:1971
 msgid "Show full tree"
 msgstr "Показывать всё дерево"
 
-#: ../src/filebrowser.c:1924
+#: ../src/filebrowser.c:1972
 msgid "Follow focus"
 msgstr ""
 
-#: ../src/fref.c:1446 ../src/gui.c:905
+#: ../src/fref.c:1446 ../src/gui.c:1080
 msgid "Close"
 msgstr "Закрыть"
 
@@ -1063,7 +1089,7 @@ msgstr ""
 msgid "Show info window"
 msgstr "Показать окно информации"
 
-#: ../src/fref.c:2311 ../src/snr2.c:1334
+#: ../src/fref.c:2311
 msgid "Search"
 msgstr "_Поиск"
 
@@ -1414,177 +1440,180 @@ msgstr "Аббревиатура"
 msgid "Acronym"
 msgstr "Акроним"
 
-#: ../src/gui.c:702
+#: ../src/gui.c:868
 msgid "Remove from quickbar"
 msgstr "Убрать с панели быстрого доступа"
 
-#: ../src/gui.c:736
+#: ../src/gui.c:869
+msgid "Move Left"
+msgstr ""
+
+#: ../src/gui.c:870
+#, fuzzy
+msgid "Move Right"
+msgstr "Высота"
+
+#: ../src/gui.c:910
 msgid "Add to quickbar"
 msgstr "Добавить на панель быстрого доступа"
 
-#: ../src/gui.c:832
+#: ../src/gui.c:1007
 msgid " Quick bar "
 msgstr " Панель быстрого доступа "
 
-#: ../src/gui.c:837
+#: ../src/gui.c:1012
 msgid "Heading"
 msgstr "Заголовок"
 
-#: ../src/gui.c:839
+#: ../src/gui.c:1014
 msgid " Standard bar "
 msgstr " Стандартная панель "
 
-#: ../src/gui.c:844
+#: ../src/gui.c:1019
 msgid "Context formatting"
 msgstr "Контекстное форматирование"
 
-#: ../src/gui.c:846
+#: ../src/gui.c:1021
 msgid " Fonts "
 msgstr " Шрифты "
 
-#: ../src/gui.c:851
+#: ../src/gui.c:1026
 msgid " Tables "
 msgstr " Таблицы  "
 
-#: ../src/gui.c:856
+#: ../src/gui.c:1031
 msgid " Frames "
 msgstr " Врезки "
 
-#: ../src/gui.c:861
+#: ../src/gui.c:1036
 msgid " Forms "
 msgstr " Формы "
 
-#: ../src/gui.c:866
+#: ../src/gui.c:1041
 msgid " List "
 msgstr " Список "
 
-#: ../src/gui.c:871
+#: ../src/gui.c:1046
 msgid " CSS "
 msgstr " CSS "
 
-#: ../src/gui.c:897
+#: ../src/gui.c:1072
 msgid "New"
 msgstr "Новый"
 
-#: ../src/gui.c:899
+#: ../src/gui.c:1074
 #, fuzzy
 msgid "Open..."
 msgstr "Открыть.."
 
-#: ../src/gui.c:901
+#: ../src/gui.c:1076
 msgid "Save"
 msgstr "Сохранить"
 
-#: ../src/gui.c:903
+#: ../src/gui.c:1078
 msgid "Save As..."
 msgstr "Сохранить как..."
 
-#: ../src/gui.c:908
+#: ../src/gui.c:1083
 msgid "Cut"
 msgstr "Вырезать"
 
-#: ../src/gui.c:910
+#: ../src/gui.c:1085
 msgid "Copy"
 msgstr "Копировать"
 
-#: ../src/gui.c:912
+#: ../src/gui.c:1087
 msgid "Paste"
 msgstr "Вставить"
 
-#: ../src/gui.c:915
-msgid "Search..."
-msgstr "Поиск..."
+#: ../src/gui.c:1090
+#, fuzzy
+msgid "Find..."
+msgstr "Найти"
 
-#: ../src/gui.c:917
-msgid "Search and Replace..."
-msgstr "Поиск и замена..."
+#: ../src/gui.c:1092
+#, fuzzy
+msgid "Replace..."
+msgstr "Заменить"
 
-#: ../src/gui.c:920 ../src/preferences.c:1992
+#: ../src/gui.c:1095 ../src/preferences.c:1992
 msgid "Undo"
 msgstr "Отменить действие"
 
-#: ../src/gui.c:922
+#: ../src/gui.c:1097
 msgid "Redo"
 msgstr "Повторить действие"
 
-#: ../src/gui.c:925
+#: ../src/gui.c:1100
 msgid "Shift Left"
 msgstr "Сдвинуть влево"
 
-#: ../src/gui.c:927
+#: ../src/gui.c:1102
 msgid "Shift Right"
 msgstr "Сдвинуть вправо"
 
-#: ../src/gui.c:934
+#: ../src/gui.c:1109
 msgid "Spellcheck..."
 msgstr "Проверка синтаксиса..."
 
-#: ../src/gui.c:939
+#: ../src/gui.c:1114
 msgid "View in browser"
 msgstr "Просмотр в браузере"
 
-#: ../src/gui.c:942
+#: ../src/gui.c:1117
 msgid "Preferences..."
 msgstr "Настройки..."
 
-#: ../src/gui.c:1113
-msgid "Do_n't Save"
-msgstr "_Не сохранять"
-
-#: ../src/gui.c:1114
-msgid "Failed to save the current project"
-msgstr "Не удалось записать текущий проект"
-
-#: ../src/gui.c:1142
+#: ../src/gui.c:1307
 msgid "New Bluefish Window"
 msgstr "Новое окно Bluefish"
 
-#: ../src/gui.c:1199
+#: ../src/gui.c:1364
 msgid "Stand by..."
 msgstr "Почти готово..."
 
-#: ../src/gui.c:1383
+#: ../src/gui.c:1548
 msgid "Goto line"
 msgstr "Перейти к строке"
 
-#: ../src/gui.c:1391
+#: ../src/gui.c:1556
 msgid "_Line number:"
 msgstr "Номер _строки:"
 
-#: ../src/gui.c:1397
+#: ../src/gui.c:1562
 msgid "From _selection"
 msgstr "От _выделения"
 
-#: ../src/gui.c:1400
+#: ../src/gui.c:1565
 msgid "Keep _dialog"
 msgstr "Оставить _диалог открытым"
 
-#: ../src/gui.c:1466
+#: ../src/gui.c:1631
 msgid "starting bluefish"
 msgstr "запуск Bluefish"
 
-#: ../src/highlight.c:354 ../src/highlight.c:366 ../src/highlight.c:393
-#: ../src/highlight.c:403
+#: ../src/highlight.c:361 ../src/highlight.c:373 ../src/highlight.c:400
+#: ../src/highlight.c:414
 #, fuzzy
 msgid "Syntax highlighting error for "
 msgstr "Подсветка синтаксиса"
 
-#: ../src/highlight.c:355
+#: ../src/highlight.c:362
 #, c-format
 msgid "compiling pattern '%s': %s at offset %d"
 msgstr ""
 
-#: ../src/highlight.c:367
+#: ../src/highlight.c:374
 #, c-format
 msgid "studying pattern '%s': %s"
 msgstr ""
 
-#: ../src/highlight.c:394
+#: ../src/highlight.c:401
 #, c-format
 msgid "compiling 2nd pattern '%s': %s at offset %d"
 msgstr ""
 
-#: ../src/highlight.c:404
+#: ../src/highlight.c:415
 #, c-format
 msgid "studying 2nd pattern '%s': %s"
 msgstr ""
@@ -3877,7 +3906,8 @@ msgid "Custom Dialo_g"
 msgstr "Диало_г пользователя"
 
 #: ../src/menu.c:2449
-msgid "Custom _Search and Replace"
+#, fuzzy
+msgid "Custom Replace"
 msgstr "Пользовательские _поиск и замена"
 
 #: ../src/menu.c:2461
@@ -4378,7 +4408,7 @@ msgstr "Позиция табуляции в левой панели блокн�
 msgid "Sidebar location"
 msgstr "Ссылка на _изображение:"
 
-#: ../src/preferences.c:2115 ../src/rcfile.c:571
+#: ../src/preferences.c:2115 ../src/rcfile.c:572
 msgid "Images"
 msgstr "Изображения"
 
@@ -4450,56 +4480,63 @@ msgstr "Новый проект"
 msgid "Enter Bluefish project filename"
 msgstr "Введите имя проекта Bluefish"
 
-#: ../src/project.c:256 ../src/project.c:263
+#: ../src/project.c:274 ../src/project.c:281
 msgid "Select Bluefish project filename"
 msgstr "Выберите имя файла проекта Bluefish"
 
-#: ../src/project.c:402
+#: ../src/project.c:331
+#, fuzzy
+msgid "Do you want to save the project?"
+msgstr ""
+"Вы хотите сохранить изменения, внесенные в\n"
+"\"%s\"?"
+
+#: ../src/project.c:460
 msgid "Create New Project"
 msgstr "Создать новый проект"
 
-#: ../src/project.c:405
+#: ../src/project.c:463
 msgid "Edit Project"
 msgstr "Редактировать проект"
 
-#: ../src/project.c:428
+#: ../src/project.c:486
 #, c-format
 msgid "This project contains %d files"
 msgstr "В этом проекте %d файлов"
 
-#: ../src/project.c:440
+#: ../src/project.c:498
 msgid "Project _Name:"
 msgstr "_Имя проекта:"
 
-#: ../src/project.c:444
+#: ../src/project.c:502
 msgid "_Basedir:"
 msgstr "Базовая _директория:"
 
-#: ../src/project.c:448
+#: ../src/project.c:506
 msgid "_Preview URL:"
 msgstr "_Предпросмотр URL:"
 
-#: ../src/project.c:452
+#: ../src/project.c:510
 msgid "_Template:"
 msgstr "_Шаблон:"
 
-#: ../src/project.c:458
+#: ../src/project.c:516
 msgid "_Word wrap by default"
 msgstr "П_еренос строк по умолчанию"
 
-#: ../src/project.c:469
+#: ../src/project.c:527
 msgid "Create _Project"
 msgstr "Создать _проект"
 
-#: ../src/project.c:509
+#: ../src/project.c:567
 msgid "Create project"
 msgstr "Создать проект"
 
-#: ../src/project.c:513
+#: ../src/project.c:571
 msgid "Create project with currently opened documents"
 msgstr "Создать проект из текущих открытых документов"
 
-#: ../src/project.c:514
+#: ../src/project.c:572
 msgid "Create empty project"
 msgstr "Создать пустой проект"
 
@@ -4544,31 +4581,35 @@ msgstr "javac"
 msgid "xmllint XML checker"
 msgstr "программа проверки HTML WebLint"
 
-#: ../src/rcfile.c:538
+#: ../src/rcfile.c:533
+msgid "php"
+msgstr ""
+
+#: ../src/rcfile.c:539
 msgid "Dos2Unix filter"
 msgstr "Фильтр DOS2UNIX"
 
-#: ../src/rcfile.c:540
+#: ../src/rcfile.c:541
 msgid "Tidy cleanup filter"
 msgstr "Фильтр HTML Tidy"
 
-#: ../src/rcfile.c:565
+#: ../src/rcfile.c:566
 msgid "C programming"
 msgstr "Программирование C"
 
-#: ../src/rcfile.c:567
+#: ../src/rcfile.c:568
 msgid "All web files"
 msgstr "Все Web-файлы"
 
-#: ../src/rcfile.c:569
+#: ../src/rcfile.c:570
 msgid "Java programming"
 msgstr "Программирование Java"
 
-#: ../src/rcfile.c:573
+#: ../src/rcfile.c:574
 msgid "Hide objectfiles"
 msgstr "Спрятать объектные файлы"
 
-#: ../src/rcfile.c:881
+#: ../src/rcfile.c:882
 msgid "Untitled Project"
 msgstr "Безымянный Проект"
 
@@ -4576,127 +4617,127 @@ msgstr "Безымянный Проект"
 msgid "Regular expression error: "
 msgstr "Ошибка регулярного выражения:"
 
-#: ../src/snr2.c:188 ../src/snr2.c:232
+#: ../src/snr2.c:188 ../src/snr2.c:233
 msgid "Search failed"
 msgstr "Поиск не удался"
 
-#: ../src/snr2.c:231
+#: ../src/snr2.c:232
 #, c-format
 msgid "Regular expression error: %s at offset %d"
 msgstr "Ошибка в регулярном выражении: %s по смещению %d"
 
-#: ../src/snr2.c:857
+#: ../src/snr2.c:858
 msgid "Confirm replace"
 msgstr "Подтвердите замену"
 
-#: ../src/snr2.c:869
+#: ../src/snr2.c:870
 msgid "Replace selected text?"
 msgstr "Заменить выделенный текст?"
 
-#: ../src/snr2.c:882
+#: ../src/snr2.c:883
 msgid "_Skip"
 msgstr "_Пропустить"
 
-#: ../src/snr2.c:884
+#: ../src/snr2.c:885
 msgid "Replace _all"
 msgstr "Заменить вс_е"
 
-#: ../src/snr2.c:1129 ../src/snr2.c:1136
+#: ../src/snr2.c:1130 ../src/snr2.c:1137
 msgid "Search: no match found"
 msgstr "Поиск: вхождений не найдено"
 
-#: ../src/snr2.c:1360
+#: ../src/snr2.c:1361
 #, fuzzy
 msgid "_Search for: "
 msgstr "_Искать: "
 
-#: ../src/snr2.c:1373
+#: ../src/snr2.c:1374
 #, fuzzy
 msgid "_Replace with: "
 msgstr "Заменить _на: "
 
-#: ../src/snr2.c:1383
+#: ../src/snr2.c:1384
 msgid "\\0 refers to the first subsearch_pattern, \\1 to the second etc."
 msgstr ""
 "\\0 указывает на первый шаблон вложенного поиска, \\1 на второй, и т.д."
 
-#: ../src/snr2.c:1398
+#: ../src/snr2.c:1399
 msgid "Beginning of document till end"
 msgstr "От начала до конца документа"
 
-#: ../src/snr2.c:1398
+#: ../src/snr2.c:1399
 msgid "Current position till end"
 msgstr "С текущей позиции курсора до конца"
 
-#: ../src/snr2.c:1398
+#: ../src/snr2.c:1399
 msgid "Beginning of selection till end of selection"
 msgstr "От начала до конца выделения"
 
-#: ../src/snr2.c:1398
+#: ../src/snr2.c:1399
 msgid "All opened files begin till end"
 msgstr "Все открытые-файлы с начала до конца"
 
-#: ../src/snr2.c:1399
+#: ../src/snr2.c:1400
 msgid "Disabled"
 msgstr "Отключен"
 
-#: ../src/snr2.c:1399
+#: ../src/snr2.c:1400
 msgid "POSIX type"
 msgstr "Тип POSIX"
 
-#: ../src/snr2.c:1399
+#: ../src/snr2.c:1400
 msgid "PERL type"
 msgstr "тип PERL"
 
-#: ../src/snr2.c:1400
+#: ../src/snr2.c:1401
 msgid "Starts at:"
 msgstr "Начинать с:"
 
-#: ../src/snr2.c:1412
+#: ../src/snr2.c:1413
 msgid "Regular expression:"
 msgstr "Регулярное выражение:"
 
-#: ../src/snr2.c:1426
+#: ../src/snr2.c:1427
 msgid "Normal"
 msgstr "Обычный"
 
-#: ../src/snr2.c:1426
+#: ../src/snr2.c:1427
 msgid "Uppercase"
 msgstr "Прописные буквы"
 
-#: ../src/snr2.c:1426
+#: ../src/snr2.c:1427
 msgid "Lowercase"
 msgstr "Строчные буквы"
 
-#: ../src/snr2.c:1427
+#: ../src/snr2.c:1428
 msgid "Replace type:"
 msgstr "Тип замены:"
 
-#: ../src/snr2.c:1440
+#: ../src/snr2.c:1441
 #, fuzzy
 msgid "_Patterns contain backslash escape sequences (\\n, \\t)"
 msgstr ""
 "Шаблоны содержат escape-последовательности с обратной дробью (\\n, \\t)"
 
-#: ../src/snr2.c:1441
+#: ../src/snr2.c:1442
 #, fuzzy
 msgid "_Match case"
 msgstr "Размер _букв должен совпадать"
 
-#: ../src/snr2.c:1442
+#: ../src/snr2.c:1443
 msgid "O_verlap searches"
 msgstr "Пере_секающийся поиск"
 
-#: ../src/snr2.c:1444
+#: ../src/snr2.c:1445
 msgid "Prompt _before replace"
 msgstr "Спросить подтверждение _перед заменой"
 
-#: ../src/snr2.c:1445
+#: ../src/snr2.c:1446
 #, fuzzy
 msgid "Replace o_nce"
 msgstr "За_менить единожды"
 
-#: ../src/snr2.c:1447
+#: ../src/snr2.c:1448
 #, fuzzy
 msgid "Bookmark results"
 msgstr "Закладки"
@@ -4785,6 +4826,27 @@ msgstr "Источник:"
 msgid "Size:"
 msgstr "Размер:"
 
+#~ msgid "Save document as"
+#~ msgstr "Сохранить документ как"
+
+#, fuzzy
+#~ msgid "Save changes to this untitled file before closing?"
+#~ msgstr ""
+#~ "Вы уверены, что хотите сохранить изменения, внесенные в этот безымянный "
+#~ "файл?"
+
+#~ msgid "Search..."
+#~ msgstr "Поиск..."
+
+#~ msgid "Search and Replace..."
+#~ msgstr "Поиск и замена..."
+
+#~ msgid "Do_n't Save"
+#~ msgstr "_Не сохранять"
+
+#~ msgid "Failed to save the current project"
+#~ msgstr "Не удалось записать текущий проект"
+
 #~ msgid "default"
 #~ msgstr "по умолчанию"
 
@@ -4854,13 +4916,6 @@ msgstr "Размер:"
 
 #~ msgid "/Project/Open r_ecent"
 #~ msgstr "/Проект/Открыть не_давние"
-
-#~ msgid ""
-#~ "Do you want to save the changes made to\n"
-#~ "\"%s\"?."
-#~ msgstr ""
-#~ "Вы хотите сохранить изменения, внесенные в\n"
-#~ "\"%s\"?"
 
 #~ msgid "This file has not been saved."
 #~ msgstr "Файл не был сохранен."
