@@ -2,7 +2,7 @@
  * document.c - the document
  *
  * Copyright (C) 1998 Olivier Sessink and Chris Mazuc
- * Copyright (C) 1999-2003 Olivier Sessink
+ * Copyright (C) 1999-2004 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -1217,6 +1217,7 @@ void doc_insert_two_strings(Tdocument *doc, const gchar *before_str, const gchar
 	DEBUG_MSG("doc_insert_two_strings, finished\n");
 }
 
+/* this function should be changed to become case insensitive!! */
 static void add_encoding_to_list(gchar *encoding) {
 	gchar **enc = g_new0(gchar *,3);
 	enc[0] = g_strdup(encoding);
@@ -1394,12 +1395,12 @@ gboolean doc_file_to_textbox(Tdocument * doc, gchar * filename, gboolean enable_
 			newbuf = g_convert(buffer,-1,"UTF-8",encoding,NULL, &wsize, &error);
 			if (!newbuf || error) {
 				DEBUG_MSG("doc_file_to_textbox, cound not convert %s to UTF-8: \n", encoding);
-			} else {
-				encoding = encoding;
+				g_free(encoding);
+				encoding=NULL;
 			}
 		}
 		if (!newbuf) {
-			DEBUG_MSG("doc_file_to_textbox, file is not in UTF-8, trying newfile default encoding %s\n", main_v->props.newfile_default_encoding);
+			DEBUG_MSG("doc_file_to_textbox, file does not have <meta> encoding, or could not convert, trying newfile default encoding %s\n", main_v->props.newfile_default_encoding);
 			newbuf = g_convert(buffer,-1,"UTF-8",main_v->props.newfile_default_encoding,NULL, &wsize, NULL);
 			if (newbuf) {
 				DEBUG_MSG("doc_file_to_textbox, file is in default encoding: %s\n", main_v->props.newfile_default_encoding);
@@ -1931,16 +1932,25 @@ gint doc_textbox_to_file(Tdocument * doc, gchar * filename) {
 	
 	if (doc->encoding) {
 		gchar *newbuf;
-		gsize wsize;
+		gsize bytes_written=0, bytes_read=0;
 		DEBUG_MSG("doc_textbox_to_file, converting from UTF-8 to %s\n", doc->encoding);
-		newbuf = g_convert(buffer,-1,doc->encoding,"UTF-8",NULL,&wsize,NULL);
+		newbuf = g_convert(buffer,-1,doc->encoding,"UTF-8",&bytes_read,&bytes_written,NULL); 
 		if (newbuf) {
 			g_free(buffer);
 			buffer = newbuf;
 		} else {
-			gchar *options[] = {_("_Abort save"), _("_Continue save"), NULL};
-			gint retval;
-			gchar *tmpstr = g_strdup_printf(_("Failed to convert %s to character encoding %s.\nContinue saving in UTF-8 encoding?"), filename, doc->encoding);
+			gchar *options[] = {_("_Abort save"), _("_Continue save in UTF-8"), NULL};
+			gint retval, line, column;
+			glong position;
+			gchar *tmpstr, failed[6];
+			GtkTextIter iter;
+			position = g_utf8_pointer_to_offset(buffer,buffer+bytes_read);
+			gtk_text_buffer_get_iter_at_offset(doc->buffer,&iter,position);
+			line = gtk_text_iter_get_line(&iter);
+			column = gtk_text_iter_get_line_offset(&iter);
+			failed[0]='\0';
+			g_utf8_strncpy(failed,buffer+bytes_read,1);
+			tmpstr = g_strdup_printf(_("Failed to convert %s to character encoding %s. Encoding failed on character '%s' at line %d column %d\n\nContinue saving in UTF-8 encoding?"), filename, doc->encoding, failed, line+1, column+1);
 			retval = multi_warning_dialog(BFWIN(doc->bfwin)->main_window,_("File encoding conversion failure"), tmpstr, 1, 0, options);
 			g_free(tmpstr);
 			if (retval == 0) {
