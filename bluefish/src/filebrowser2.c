@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-/* #define DEBUG */
+#define DEBUG
 
 /* ******* FILEBROWSER DESIGN ********
 there is only one treestore left for all bluefish windows. This treestore has all files 
@@ -65,6 +65,12 @@ enum {
 	TYPE_COLUMN,
 	N_COLUMNS
 };
+
+enum {
+	DIR_NAME_COLUMN,
+	DIR_IN_HISTORY_COLUMN,
+	DIR_URI
+};
 #define TYPE_HIDDEN -1
 #define TYPE_HIDDEN_DIR -2
 #define TYPE_DIR -3
@@ -72,8 +78,8 @@ enum {
 #define TYPE_FILE -5
 
 typedef struct {
-/*	GtkWidget *dirmenu_v;
-	GtkTreeModel *dirmenu_filter;*/
+	GtkWidget *dirmenu_v;
+	GtkTreeModel *dirmenu_m;
 	
 	GtkWidget *dir_v; /* treeview widget */
 	GtkWidget *file_v; /* listview widget */
@@ -1324,35 +1330,45 @@ void fb2_set_basedir(Tbfwin *bfwin, gchar *curi) {
 GtkWidget *fb2_init(Tbfwin *bfwin) {
 	Tfilebrowser2 *fb2;
 	GtkWidget *vbox;
-	
+	GtkCellRenderer *renderer;	
+
 	fb2 = g_new0(Tfilebrowser2,1);
 	bfwin->fb2 = fb2;
 	fb2->bfwin = bfwin;
 
 	vbox = gtk_vbox_new(FALSE, 0);
+
+	fb2->dirmenu_m = GTK_TREE_MODEL(gtk_list_store_new(3,G_TYPE_STRING,G_TYPE_BOOLEAN,G_TYPE_POINTER));
+	fb2->dirmenu_v = gtk_combo_box_new_with_model(fb2->dirmenu_m);
+	/*gtk_combo_box_set_wrap_width(GTK_COMBO_BOX(fb2->dirmenu_v),3);*/
+	renderer = gtk_cell_renderer_text_new();
+	gtk_cell_layout_pack_start(GTK_CELL_LAYOUT(fb2->dirmenu_v),renderer, TRUE);
+	gtk_cell_layout_set_attributes(GTK_CELL_LAYOUT(fb2->dirmenu_v), renderer
+			, "text", DIR_NAME_COLUMN
+			, NULL);
+	gtk_box_pack_start(GTK_BOX(vbox),fb2->dirmenu_v, FALSE, FALSE, 0);
 	{
-/*		GtkCellRenderer *renderer;
-		fb2->dirmenu_v = gtk_combo_box_new_with_model(fb2->dirmenu_filter);
-		gtk_combo_box_set_wrap_width(GTK_COMBO_BOX(fb2->dirmenu_v),3);
-		renderer = gtk_cell_renderer_pixbuf_new();
-		gtk_cell_layout_pack_start(GTK_CELL_LAYOUT(fb2->dirmenu_v),renderer,FALSE);
-		gtk_cell_layout_set_attributes(GTK_CELL_LAYOUT(fb2->dirmenu_v), renderer
-				, "pixbuf", PIXMAP_COLUMN
-				, "pixbuf_expander_closed", PIXMAP_COLUMN
-				, "pixbuf_expander_open", PIXMAP_COLUMN
-				, NULL);
-		renderer = gtk_cell_renderer_text_new();
-		gtk_cell_layout_pack_start(GTK_CELL_LAYOUT(fb2->dirmenu_v),renderer, TRUE);
-		gtk_cell_layout_set_attributes(GTK_CELL_LAYOUT(fb2->dirmenu_v), renderer
-				, "text", FILENAME_COLUMN
-				, NULL);
-		gtk_box_pack_start(GTK_BOX(vbox),fb2->dirmenu_v, FALSE, FALSE, 0);
-		*/
+		GList *tmplist;
+		tmplist = g_list_first(bfwin->session->recent_dirs);
+		while (tmplist) {
+			GtkTreeIter iter;
+			GnomeVFSURI *uri;
+			gchar *name;
+			uri = gnome_vfs_uri_new(tmplist->data);
+			name = uri_to_document_filename(uri);
+			gtk_list_store_append(GTK_LIST_STORE(fb2->dirmenu_m),&iter);
+			DEBUG_MSG("fb2_init, adding %s to dir menu\n",tmplist->data);
+			gtk_list_store_set(GTK_LIST_STORE(fb2->dirmenu_m),&iter
+					,DIR_NAME_COLUMN,name
+					,DIR_IN_HISTORY_COLUMN,TRUE
+					,DIR_URI,uri
+					,-1);
+			tmplist = g_list_next(tmplist);
+		}
 	}
 
 	{
 		GtkWidget *scrolwin;
-		GtkCellRenderer *renderer;
 		GtkTreeViewColumn *column;
 		GtkTreeSelection* dirselection;
 		GtkWidget *vpaned;
