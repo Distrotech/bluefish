@@ -1,3 +1,22 @@
+/* Bluefish HTML Editor
+ * msg_queue.c - message queue handling
+ *
+ * Copyright (C) 2003 Olivier Sessink
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ */
 #include <gtk/gtk.h>
 
 #include "bluefish.h"
@@ -143,8 +162,7 @@ static gboolean msg_queue_check(gint started_by_gtk_timeout)
 		char mtext[MSQ_QUEUE_SIZE];
 	} msgp;
 	gint retval;
-
-	if (g_list_length(main_v->documentlist) <= 0) {
+	if (main_v->bfwinlist == NULL || BFWIN(main_v->bfwinlist->data)->documentlist == NULL) {
 		DEBUG_MSG("msg_queue_check, no documentlist yet, so we do not continue\n");
 		return TRUE;
 	}
@@ -167,7 +185,7 @@ static gboolean msg_queue_check(gint started_by_gtk_timeout)
 				   IPC_NOWAIT);
 		} else if (msgp.mtype == MSG_QUEUE_OPENFILE) {
 			DEBUG_MSG("msg_queue_check, a filename %s is received\n", msgp.mtext);
-			if (!doc_new_with_file(msgp.mtext, TRUE)) {
+			if (!doc_new_with_file(BFWIN(main_v->bfwinlist->data),msgp.mtext, TRUE)) {
 				msg_queue.file_error_list = g_list_append(msg_queue.file_error_list, g_strdup(msgp.mtext));
 			}
 			msg_queue_check(0);	/* call myself again, there may have been multiple files */
@@ -179,11 +197,11 @@ static gboolean msg_queue_check(gint started_by_gtk_timeout)
 					msg_queue.file_error_list = NULL;
 					message = g_strconcat(_("These files were not opened:\n"), tmp, NULL);
 					g_free(tmp);
-					warning_dialog(_("Unable to open file(s)\n"), message);
+					warning_dialog(BFWIN(main_v->bfwinlist->data),_("Unable to open file(s)\n"), message);
 					g_free(message);
 				}
-				gtk_notebook_set_page(GTK_NOTEBOOK(main_v->notebook),g_list_length(main_v->documentlist) - 1);
-				notebook_changed(-1);
+/*				gtk_notebook_set_page(GTK_NOTEBOOK(main_v->notebook),g_list_length(main_v->documentlist) - 1);
+				notebook_changed(-1);*/
 			}
 		}
 #ifdef DEBUG

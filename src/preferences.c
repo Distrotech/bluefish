@@ -1658,15 +1658,21 @@ static void preferences_ok_clicked_lcb(GtkWidget *wid, Tprefdialog *pd) {
 	
 	/* apply the changes to highlighting patterns and filetypes to the running program */
 	filetype_highlighting_rebuild();
-	filetype_menu_rebuild(NULL);
 	filebrowser_filters_rebuild();
-	
-	menu_outputbox_rebuild();
 	encoding_menu_rebuild();
 	external_menu_rebuild(); /* browsers is also rebuild here! */
-	gui_apply_settings();
 	all_documents_apply_settings();
-	doc_force_activate(main_v->current_document);
+	{
+		GList *tmplist = g_list_first(main_v->bfwinlist);
+		while (tmplist) {
+			Tbfwin *bfwin = BFWIN(tmplist->data);
+			filetype_menu_rebuild(bfwin,NULL);
+			menu_outputbox_rebuild(bfwin);
+			gui_apply_settings(bfwin);
+			doc_force_activate(bfwin->current_document);
+			tmplist = g_list_next(tmplist);
+		}
+	}
 	preferences_destroy_lcb(NULL, pd);
 }
 static void preferences_cancel_clicked_lcb(GtkWidget *wid, Tprefdialog *pd) {
