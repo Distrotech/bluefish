@@ -576,6 +576,7 @@ static void create_parent_and_tearoff(gchar *menupath, GtkItemFactory *ifactory)
 		gtk_item_factory_create_item(ifactory, &entry, NULL, 2);
 		g_free(entry.path);
 	}
+	g_free(basepath);
 }	
 
 static void menu_current_document_type_change(GtkMenuItem *menuitem,Tfiletype *hlset) {
