@@ -10,7 +10,7 @@ typedef struct {
 } Tpixmap;
 
 static Tpixmap tp[] = {
-/* 	{0, new}, */
+ 	{0, new}, 
 /* 	{1, open}, */
 /* 	{2, save}, */
 /* 	{3, save_as}, */

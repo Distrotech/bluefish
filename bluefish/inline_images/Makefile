@@ -84,6 +84,7 @@ TOOLBAR = \
 	multithumbs multithumbs.png \
 	nbsp nbsp.png \
 	netscape netscape.png \
+	new new.png \
 	no no.png \
 	nothing nothing.png \
 	ok ok.png \
@@ -124,7 +125,6 @@ TOOLBAR = \
 #	cssclass cssclass.png \
 #	cut cut.png \
 #	list_menu list_menu.png \
-#	new new.png \
 #	open open.png \
 #	paste paste.png \
 #	preferences preferences.png \
