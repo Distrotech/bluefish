@@ -862,7 +862,7 @@ static void css_parse(Tcs3_diag *diag, gchar *data) {
 	DEBUG_MSG("css_parse, finished\n");
 }
 
-void new_css_dialog(GtkWidget *widget, gpointer data) {
+void new_css_dialog(GtkWidget *widget, Tbfwin *bfwin) {
 	Tcs3_destination dest;
 	Tcs3_diag *diag;
 	gint sel_start, sel_end;
@@ -870,7 +870,7 @@ void new_css_dialog(GtkWidget *widget, gpointer data) {
 
 	dest.dest_type = textbox;
 	dest.entry = NULL;
-	dest.doc = main_v->current_document;
+	dest.doc = bfwin->current_document;
 	if (!doc_get_selection(dest.doc, &sel_start, &sel_end)) {
 		dest.doc_start = -1;
 		dest.doc_end = -1;
@@ -980,6 +980,7 @@ typedef struct {
 	gint endpos;
 	gint hex_changed_id;
 	gint csel_changed_id;
+	Tbfwin *bfwin;
 } Tcolsel;
 
 static gint string_is_color(gchar *color) {
@@ -1076,9 +1077,9 @@ static void colsel_destroy_lcb(GtkWidget *widget, Tcolsel *csd) {
 		tmpstr = gtk_editable_get_chars(GTK_EDITABLE(csd->hexentry), 0, -1);
 		if (strlen(tmpstr) == 7) {
 			if (csd->startpos || csd->endpos) {
-				doc_replace_text(main_v->current_document, tmpstr, csd->startpos, csd->endpos);
+				doc_replace_text(csd->bfwin->current_document, tmpstr, csd->startpos, csd->endpos);
 			} else {
-				doc_insert_two_strings(main_v->current_document,tmpstr, NULL);
+				doc_insert_two_strings(csd->bfwin->current_document,tmpstr, NULL);
 			}
 		}
 		g_free(tmpstr);
@@ -1130,14 +1131,15 @@ static void colsel_color_changed(GtkWidget *widget, Tcolsel *csd) {
 	g_free(tmpstr);
 }
 
-static Tcolsel *colsel_dialog(gchar *setcolor, gint modal, gint startpos, gint endpos) {
-
+static Tcolsel *colsel_dialog(Tbfwin *bfwin,gchar *setcolor, gint modal, gint startpos, gint endpos) {
 	Tcolsel *csd;
 	GtkWidget *vbox, *hbox, *but;
 	gdouble *color;
 	gchar *this_color=setcolor;
 
 	csd = g_malloc(sizeof(Tcolsel));
+	/* warning: bfwin might be NULL if this dialog is started by return_color() */
+	csd->bfwin = bfwin;
 	csd->is_modal = modal;
 	csd->startpos = startpos;
 	csd->endpos = endpos;
@@ -1183,14 +1185,14 @@ static Tcolsel *colsel_dialog(gchar *setcolor, gint modal, gint startpos, gint e
 	return csd;
 }
 
-void sel_colour_cb(GtkWidget *widget, gpointer data) {
+void sel_colour_cb(GtkWidget *widget, Tbfwin *bfwin) {
 	Tcolsel *csd;
 	gchar *tmpstr=NULL;
 	gint startpos=0;
 	gint endpos=0;
 
 	
-	if (doc_get_selection(main_v->current_document,&startpos , &endpos)) {
+	if (doc_get_selection(bfwin->current_document,&startpos , &endpos)) {
 		DEBUG_MSG("sel_colour_cb, selection found\n");
 		if (startpos > endpos) {
 			gint tmpint;
@@ -1199,7 +1201,7 @@ void sel_colour_cb(GtkWidget *widget, gpointer data) {
 			endpos = tmpint;
 		}
 		if ((endpos - startpos) == 7) {
-			tmpstr = doc_get_chars(main_v->current_document,startpos,endpos);
+			tmpstr = doc_get_chars(bfwin->current_document,startpos,endpos);
 			if (!string_is_color(tmpstr)) {
 				startpos = endpos = 0;
 			}
@@ -1212,18 +1214,17 @@ void sel_colour_cb(GtkWidget *widget, gpointer data) {
 		DEBUG_MSG("sel_colour_cb, NO selection found\n");
 	}
 
-	csd = colsel_dialog(tmpstr, 0, startpos, endpos);
+	csd = colsel_dialog(bfwin, tmpstr, 0, startpos, endpos);
 	if (tmpstr) {
 		g_free(tmpstr);
 	}
 }
  
 gchar *return_color(gchar *start_value) {
-
 	Tcolsel *csd;
 	gchar *return_text;
 
-	csd = colsel_dialog(start_value, 1, 0, 0);
+	csd = colsel_dialog(NULL,start_value, 1, 0, 0);
 	DEBUG_MSG("return color, started\n");
 	gtk_grab_add(csd->win);
 	gtk_main();

@@ -65,7 +65,7 @@ Thtml_diag *html_diag_new(Tbfwin *bfwin, gchar *title) {
 	gtk_container_add(GTK_CONTAINER(dg->dialog), dg->vbox);
 #ifdef DEBUG
 	{
-		Tdocument *doc = main_v->current_document;
+		Tdocument *doc = bfwin->current_document;
 		GtkTextIter iter1, iter2;
 		GtkTextMark* mark;
 		mark = gtk_text_buffer_get_mark(doc->buffer,"insert");
@@ -76,14 +76,14 @@ Thtml_diag *html_diag_new(Tbfwin *bfwin, gchar *title) {
 	}
 #endif
 	{
-		if (!gtk_text_buffer_get_mark(main_v->current_document->buffer,"diag_ins")) {
+		if (!gtk_text_buffer_get_mark(bfwin->current_document->buffer,"diag_ins")) {
 			GtkTextIter iter;
-			GtkTextMark* mark = gtk_text_buffer_get_mark(main_v->current_document->buffer,"insert");
-			gtk_text_buffer_get_iter_at_mark(main_v->current_document->buffer,&iter,mark);
-			dg->mark_ins = gtk_text_buffer_create_mark(main_v->current_document->buffer,"diag_ins",&iter,TRUE);
-			mark = gtk_text_buffer_get_mark(main_v->current_document->buffer,"selection_bound");
-			gtk_text_buffer_get_iter_at_mark(main_v->current_document->buffer,&iter,mark);
-			dg->mark_sel = gtk_text_buffer_create_mark(main_v->current_document->buffer,"diag_sel",&iter,TRUE);
+			GtkTextMark* mark = gtk_text_buffer_get_mark(bfwin->current_document->buffer,"insert");
+			gtk_text_buffer_get_iter_at_mark(bfwin->current_document->buffer,&iter,mark);
+			dg->mark_ins = gtk_text_buffer_create_mark(bfwin->current_document->buffer,"diag_ins",&iter,TRUE);
+			mark = gtk_text_buffer_get_mark(bfwin->current_document->buffer,"selection_bound");
+			gtk_text_buffer_get_iter_at_mark(bfwin->current_document->buffer,&iter,mark);
+			dg->mark_sel = gtk_text_buffer_create_mark(bfwin->current_document->buffer,"diag_sel",&iter,TRUE);
 		} else {
 			dg->mark_ins = dg->mark_sel = NULL;
 		}
@@ -93,7 +93,7 @@ Thtml_diag *html_diag_new(Tbfwin *bfwin, gchar *title) {
 	if (main_v->props.transient_htdialogs) {
 		/* must be set before realizing */
 		DEBUG_MSG("html_diag_finish, setting dg->dialog=%p transient!\n", dg->dialog);
-		gtk_window_set_transient_for(GTK_WINDOW(dg->dialog), GTK_WINDOW(main_v->main_window));
+		gtk_window_set_transient_for(GTK_WINDOW(dg->dialog), GTK_WINDOW(bfwin->main_window));
 	}
 
 	gtk_widget_realize(dg->dialog);
@@ -170,8 +170,7 @@ void parse_html_for_dialogvalues(gchar *dialogitems[], gchar *dialogvalues[]
 }
 
 void fill_dialogvalues(gchar *dialogitems[], gchar *dialogvalues[]
-		, gchar **custom, Ttagpopup *data, GtkWidget *sending_widget
-		, Thtml_diag *diag) {
+		, gchar **custom, Ttagpopup *data, Thtml_diag *diag) {
 
 	gint count=0;
 	
@@ -184,7 +183,7 @@ void fill_dialogvalues(gchar *dialogitems[], gchar *dialogvalues[]
 	 * is called by the right-click-opup, so data will contain info about
 	 * the position of the tag */
 
-	if (data && !sending_widget) {
+	if (data) {
 		parse_html_for_dialogvalues(dialogitems, dialogvalues, custom, data);
 		diag->range.pos = data->pos;
 		diag->range.end = data->end;
