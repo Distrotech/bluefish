@@ -1842,7 +1842,8 @@ static void doc_view_populate_popup_lcb(GtkTextView *textview,GtkMenu *menu,Tdoc
 
 	gtk_menu_shell_prepend(GTK_MENU_SHELL(menu), GTK_WIDGET(gtk_menu_item_new()));
 
-	menuitem = gtk_menu_item_new_with_label(_("Edit tag"));
+	menuitem = gtk_image_menu_item_new_with_label(_("Edit tag"));
+	gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(menuitem),new_pixmap(113));
 	gtk_menu_shell_prepend(GTK_MENU_SHELL(menu), GTK_WIDGET(menuitem));
 	if (rpopup_doc_located_tag(doc)) {
 		g_signal_connect(G_OBJECT(menuitem), "activate", G_CALLBACK(rpopup_edit_tag_cb), doc);
