@@ -124,14 +124,19 @@ static GtkTreeIter *fb2_add_dir_entry(Tfilebrowser2 *fb2, GtkTreeIter *parent, G
 }
 
 static void fb2_add_file_entry(Tfilebrowser2 *fb2, GnomeVFSURI *child_uri) {
-	GtkTreeIter iter1;
-	gtk_list_store_append(GTK_LIST_STORE(fb2->file_lstore),&iter1);
-	gtk_list_store_set(GTK_LIST_STORE(fb2->file_lstore),&iter1,
+	GtkTreeIter *newiter;
+	guint *hashkey;
+	newiter = g_new(GtkTreeIter,1);
+	gtk_list_store_append(GTK_LIST_STORE(fb2->file_lstore),newiter);
+	gtk_list_store_set(GTK_LIST_STORE(fb2->file_lstore),newiter,
 				PIXMAP_COLUMN, FILEBROWSERCONFIG(main_v->filebrowserconfig)->unknown_icon,
 				FILENAME_COLUMN, gnome_vfs_uri_extract_short_name(child_uri),
 				URI_COLUMN, child_uri,
 				REFRESH_COLUMN, 0,
 				-1);
+	hashkey = g_new(guint,1);
+	*hashkey = gnome_vfs_uri_hash(child_uri);
+	g_hash_table_replace(fb2->file_itable,hashkey,newiter);
 }
 
 typedef struct {
