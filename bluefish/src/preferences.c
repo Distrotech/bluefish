@@ -386,6 +386,7 @@ static void add_new_filetype_lcb(GtkWidget *wid, Tprefdialog *pd) {
 				,3,strarr[3]
 				,-1);
 			g_free(escaped);
+			gtk_tree_selection_select_iter(gtk_tree_view_get_selection(GTK_TREE_VIEW(pd->ftd.lview)),&iter);
 		}
 	}
 }
@@ -431,8 +432,8 @@ static void filetype_apply_changes(Tprefdialog *pd) {
 }
 
 static void filetype_selection_changed_cb(GtkTreeSelection *selection, Tprefdialog *pd) {
-	generic_selection_changed_cb(selection,pd->ftd.entry,filetype_apply_changes,pd,filetypes,4,&pd->ftd.curstrarr);
-/*	GtkTreeIter iter;
+/*	generic_selection_changed_cb(selection,pd->ftd.entry,filetype_apply_changes,pd,filetypes,4,&pd->ftd.curstrarr);*/
+	GtkTreeIter iter;
 	GtkTreeModel *model;
 	DEBUG_MSG("filetype_selection_changed_cb, started\n");
 	if (gtk_tree_selection_get_selected(selection, &model, &iter)) {
@@ -456,7 +457,7 @@ static void filetype_selection_changed_cb(GtkTreeSelection *selection, Tprefdial
 		}
 	} else {
 		DEBUG_MSG("filetype_selection_changed_cb, no selection ?!?!\n");
-	}*/
+	}
 }
 
 static void create_filetype_gui(Tprefdialog *pd, GtkWidget *vbox1) {
