@@ -265,9 +265,9 @@ else
 	echo "no"
 fi
 
-echo -n "checking for gnome-vfs >= 2.5... "
-if pkg-config gnome-vfs-2.0 --atleast-version=2.5 ; then
-	AC_DEFINE(HAVE_ATLEAST_GNOMEVFS_2_5)
+echo -n "checking for gnome-vfs >= 2.6... "
+if pkg-config gnome-vfs-2.0 --atleast-version=2.6 ; then
+	AC_DEFINE(HAVE_ATLEAST_GNOMEVFS_2_6)
 	echo "yes"
 else
 	echo "no"
