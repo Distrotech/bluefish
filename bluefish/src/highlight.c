@@ -584,7 +584,7 @@ void filetype_highlighting_rebuild() {
 		while (tmplist) {
 			if (((Tdocument *)tmplist->data)->hl) {
 				gchar *tmpstr = (gchar *)((Tdocument *)tmplist->data)->hl;
-				((Tdocument *)tmplist->data)->hl = hl_get_highlightset_by_type(tmpstr);
+				((Tdocument *)tmplist->data)->hl = get_filetype_by_name(tmpstr);
 				DEBUG_MSG("reconnecting document %p to filetype %s\n", tmplist->data, tmpstr);
 				g_free(tmpstr);
 				((Tdocument *)tmplist->data)->need_highlighting = TRUE;
@@ -606,25 +606,6 @@ void hl_init() {
 /**************************************/
 /* end of initialisation code         */
 /**************************************/
-
-Tfiletype *hl_get_highlightset_by_type(gchar * type)
-{
-	GList *tmplist;
-	tmplist = g_list_first(main_v->filetypelist);
-	while (tmplist) {
-#ifdef DEBUG
-		if (!tmplist || !tmplist->data || !((Tfiletype *) tmplist->data)->type) {
-			DEBUG_MSG("hl_get_highlightset_by_type is perhaps not yet finished??\n");
-			exit(1);
-		}
-#endif							/* DEBUG */
-		if (strcmp(((Tfiletype *) tmplist->data)->type, type) == 0) {
-			return (Tfiletype *) tmplist->data;
-		}
-		tmplist = g_list_next(tmplist);
-	}
-	return NULL;
-}
 
 /*****************************/
 /* applying the highlighting */
@@ -987,54 +968,6 @@ void doc_remove_highlighting(Tdocument * doc)
 	GtkTextIter itstart, itend;
 	gtk_text_buffer_get_bounds(doc->buffer, &itstart, &itend);
 	gtk_text_buffer_remove_all_tags(doc->buffer, &itstart, &itend);
-}
-
-void hl_reset_highlighting_type(Tdocument * doc, gchar * newfilename) {
-	GList *tmplist;
-	Tfiletype *ft=NULL;
-	/* find set for this filetype */
-	if (!newfilename) {
-		return;
-	}
-	tmplist = g_list_first(highlight.highlight_filetypes);
-	while (tmplist) {
-		if (filename_test_extensions(((Tfiletype *) tmplist->data)->extensions, newfilename)) {
-			ft = (Tfiletype *) tmplist->data;
-			break;
-		}
-		tmplist = g_list_next(tmplist);
-	}
-	if (!ft) {
-		/* if none found return first set (is default set) */
-		tmplist = g_list_first(highlight.highlight_filetypes);
-		if (!tmplist) {
-			DEBUG_MSG("hl_get_highlightset_by_filename, no highlightsets? huh?\n");
-			return;
-		}
-		ft = (Tfiletype *)tmplist->data;
-	}
-	if (ft != doc->hl) {
-		doc_remove_highlighting(doc);
-		doc->hl = ft;
-		if (doc->highlightstate) {
-			doc->need_highlighting = TRUE;
-		}
-		menu_current_document_set_toggle_wo_activate(doc->hl, NULL);
-	}
-}
-
-gboolean hl_set_highlighting_type(Tdocument * doc, Tfiletype *filetype) {
-	if (filetype) {
-		doc_remove_highlighting(doc);
-		doc->hl = filetype;
-		if (filetype != doc->hl) {
-			doc->need_highlighting = TRUE;
-			menu_current_document_set_toggle_wo_activate(filetype, NULL);
-		}
-		return TRUE;
-	} else {
-		return FALSE;
-	}
 }
 
 void doc_highlight_full(Tdocument * doc) {

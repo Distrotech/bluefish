@@ -582,7 +582,7 @@ static void create_parent_and_tearoff(gchar *menupath, GtkItemFactory *ifactory)
 static void menu_current_document_type_change(GtkMenuItem *menuitem,Tfiletype *hlset) {
 	DEBUG_MSG("menu_current_document_type_change, started for hlset %p\n", hlset);
 	if (GTK_CHECK_MENU_ITEM(menuitem)->active) {
-		if (hl_set_highlighting_type(main_v->current_document, hlset)) {
+		if (doc_set_filetype(main_v->current_document, hlset)) {
 			doc_highlight_full(main_v->current_document);
 		} else {
 			menu_current_document_set_toggle_wo_activate(main_v->current_document->hl, NULL);
