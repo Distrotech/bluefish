@@ -317,7 +317,7 @@ If you want to disable any of these items by default, you can set these options 
 <sect2 id="opening-files">
 <title>Opening files</title>
 <?linebreak?>
-<?linebreak?>
+<?linebreaka4?>
 <para>Through <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>O</keycap></keycombo></shortcut><guimenu>File</guimenu><guimenuitem>Open...</guimenuitem></menuchoice>, one or more files can be opened. When creating new files, you may want to open the files in a new window. In this case, use <menuchoice><guimenu>File</guimenu><guimenuitem>New Window</guimenuitem></menuchoice> to first open the new window and then open the desired files as usual.
 <?linebreak?>
 <?linebreak?>
@@ -1439,114 +1439,298 @@ word_wrap: 1
 
 </sect2>
 
+<?linebreaka4?>
 <sect2 id="find-replace">
 <title>Find and Replace</title>
-	<para>
-	The <guimenu>Edit</guimenu> menu features several options for Find and Replace. The <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>F</keycap></keycombo></shortcut><guimenu>Edit</guimenu><guimenuitem>Find</guimenuitem></menuchoice> and <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>H</keycap></keycombo></shortcut><guimenu>Edit</guimenu><guimenuitem>Replace...</guimenuitem></menuchoice> menu items will simply start their corresponding dialogs described in <xref linkend="basic-find-replace" />.</para>
-	<para>
-	The <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>G</keycap></keycombo></shortcut><guimenu>Edit</guimenu><guimenuitem>Find again</guimenuitem></menuchoice> menu item will repeat the last used search. It will 
-	continue the search after the position where the previous search was stopped. If the 
-	end of file is reached, it will restart at the beginning or continue with the next file, 
-	depending on the search options used.
-	</para>
-	<para>SCREENSHOT BY ????</para>
-	<para>
-	The <menuchoice><guimenu>Edit</guimenu><guimenuitem>Find from selection</guimenuitem></menuchoice> menu item will search for the currently selected text. If you select
-	for example the name of a function, in bluefish, or in any other program, and you choose
-	find from selection Bluefish will start a new search for this selected string.
-	</para>
+<para>The <guimenu>Edit</guimenu> menu features several options for Find and Replace. The <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>F</keycap></keycombo></shortcut><guimenu>Edit</guimenu><guimenuitem>Find</guimenuitem></menuchoice> and <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>H</keycap></keycombo></shortcut><guimenu>Edit</guimenu><guimenuitem>Replace...</guimenuitem></menuchoice> menu items will simply start their corresponding dialogs described in <xref linkend="basic-find-replace" />.</para>
+
+<?linebreaka4?>
+<sect3 id="find-again">
+<title>Find Again</title>
+<para>The <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>G</keycap></keycombo></shortcut><guimenu>Edit</guimenu><guimenuitem>Find again</guimenuitem></menuchoice> menu item will repeat the last used search. It will continue the search after the position where the previous search was stopped. If the end of file is reached, it will signaled it if the search operates on a unique file, nevertheless you can continue the search from the top of file with <keycombo><keycap>Ctrl</keycap><keycap>G</keycap></keycombo> after dismissing the <guilabel>Search: no match found</guilabel> dialog. If the search operates on multiple files, it will continue with the next file.</para>
+<para>Here you can see how the <guilabel>Find again</guilabel> process operates on two successive searches for the word "url" in an xml file:
+<?linebreaka4?>
+<figure id="figure-find-again-first">
+<title id="figure-find-again-first-title">Nth occurrence with Find Again</title>
+<screenshot><mediaobject>
+<imageobject>
+<imagedata fileref="figures/find_again_first.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>A screen shot showing the nth occurrence of a search with Find again</phrase>
+</textobject>
+</mediaobject></screenshot>
+</figure></para>
+<para><figure id="figure-find-again-second">
+<title id="figure-find-again-second-title">Nth+1 occurrence with Find Again</title>
+<screenshot><mediaobject>
+<imageobject>
+<imagedata fileref="figures/find_again_second.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>A screen shot showing the nth + 1 occurrence of a search with Find again</phrase>
+</textobject>
+</mediaobject></screenshot>
+</figure></para>
+</sect3>
+
+<sect3 id="find-from-selection">
+<title>Find from Selection</title>
+<?linebreaka4?>
+<para>The <menuchoice><guimenu>Edit</guimenu><guimenuitem>Find from selection</guimenuitem></menuchoice> menu item will search for the currently selected text. If you select for example the name of a function, in bluefish, or in any other program, and you choose find from selection Bluefish will start a new search for this selected string.</para>
+<?linebreaka4?>
+<para>Here we have selected a function in a C file:
+<?linebreaka4?>
+<figure id="figure-find-selection-select">
+<title id="figure-find-selection-select-title">Selecting a string for subsequent search</title>
+<screenshot><mediaobject>
+<imageobject>
+<imagedata fileref="figures/find_selection_select.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>A screen shot showing the selection of a string for subsequent search</phrase>
+</textobject>
+</mediaobject></screenshot>
+</figure></para>
+<?linebreaka4?>
+<para>Clicking on <menuchoice><guimenu>Edit</guimenu><guimenuitem>Find from selection</guimenuitem></menuchoice> gives the following result:
+<?linebreaka4?>
+<figure id="figure-find-selection-search">
+<title id="figure-find-selection-search-title">Finding a string from selection</title>
+<screenshot><mediaobject>
+<imageobject>
+<imagedata fileref="figures/find_selection_search.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>A screen shot showing the result of a find from selection search</phrase>
+</textobject>
+</mediaobject></screenshot>
+</figure></para>
+<para>Next occurrences of the string can be found with <keycombo><keycap>Ctrl</keycap><keycap>G</keycap></keycombo> as usual.</para>
+</sect3>
 
 <sect3 id="find-replace-regex">
 <title>Find and Replace Using Regular Expressions</title>
-  <para>With find and replace you can do incredibly powerful searches.
-  We will start with a simple example. In some HTML tables, we have
-  several table data tags where we actually want table header tags. Table data
-  is &lt;td&gt;&lt;/td&gt; and we want &lt;th&gt;&lt;/th&gt;. In our example, the 
-  final results of the 2004 Tour de France will be the data for the table, and the 
-  first row of the table contains the label for each column. We want to change just  
-  the first row, so select that text with your cursor (as seen below).
-  </para> 
-  <para>
-  <figure id="figure-find-replace-regex-before">
-	<title id="figure-find-replace-example-before-title">Find and Replace Example Before Replace</title>
-		<screenshot>
-			<mediaobject>
-				<imageobject>
-					<imagedata fileref="figures/find_replace_regex_before.png" format="PNG"/>
-				</imageobject>
-				<textobject>
-					<phrase>A screen shot showing &lt;td&gt; tags before replacement with &lt;th&gt; tags</phrase>
-				</textobject>
-			</mediaobject>
-		</screenshot>
-  </figure>
-  </para>
-  <para>
-  We <emphasis>could</emphasis> replace all &lt;td&gt; tags with &lt;th&gt; and then replace all &lt;/td&gt; tags with &lt;/th&gt;. But, this uses two separate searches.
-  </para> 
-  <para>However, we could perform the same task using just one search by taking advantage of regular expressions: find
-  (&lt;|&lt;/)td&gt; and replace with \0th&gt;</para>
-  <para>
-  <figure id="figure-find-replace-regex-dialog">
-	<title id="figure-find-replace-regex-dialog-title">Find and Replace Dialog</title>
-		<screenshot>
-			<mediaobject>
-				<imageobject>
-					<imagedata fileref="figures/find_replace_regex_dialog.png" format="PNG"/>
-				</imageobject>
-				<textobject>
-					<phrase>A screen shot showing the Find &amp; Replace dialog using regular expressions</phrase>
-				</textobject>
-			</mediaobject>
-		</screenshot>
-  </figure>
-  </para>
-  <para>Breaking down the find expression, we first have a subpattern defined within the parenthesis. The vertical line 
-  character, &verbar;, is treated as a logical or. So, the (&lt;&verbar;&lt;/) means to match either "&lt;" or "&lt;/". For each match that 
-  is found, this choice is stored and is accessible in the replace field by the reference "\0". The "\0" refers to 
-  the first subpattern match. If we had two parentheses, "\1" would refer to a second subpattern. 
-  </para>
-  <para>
-  Notice in the replace dialog, we have chosen <guilabel>Beginning of selection till end of selection</guilabel>. The results are 
-  shown below.
-  </para>
-  <para>
-  <figure id="figure-find-replace-regex-after">
-	<title id="figure-find-replace-regex-after-title">Find and Replace Example After Replace</title>
-		<screenshot>
-			<mediaobject>
-				<imageobject>
-					<imagedata fileref="figures/find_replace_regex_after.png" format="PNG"/>
-				</imageobject>
-				<textobject>
-					<phrase>A screen shot showing highlighted tags after replacement</phrase>
-				</textobject>
-			</mediaobject>
-		</screenshot>
-  </figure>
-  </para>
-  <para>For more information about
-  regular expressions you might want to read man 7 regex, or read any of the
-  great Internet sites about regular expressions. As you become more familiar with regular expressions, you will
-  realize that they make Bluefish a very powerful editor.
-  </para>
-  <para>Suppose you also want to match a table
-  data tag that does have some attributes like &lt;td class="myclass"&gt;, and
-  you want to keep the option while converting to table header. The following
-  pattern will do this: find (&lt;|&lt;/)td([^&gt;]*)&gt; and replace with
-  \0th\1&gt; </para> 
-<para>If you have any search and replace patterns you
-  use often, you can also add them to the Custom Menu. Check <xref linkend="custom-menu" /> 
-  for more information. </para>
-  <para>
-  In the <guilabel>find</guilabel> and the <guilabel>replace</guilabel> dialog it is not possible to insert the keys <keycap>Enter</keycap> or <keycap>Tab</keycap>. We use escaped characters to represent these characters. A new line character, produced by pressing the <keycap>Enter</keycap> key, is represented as <literal>\n</literal>. Use <literal>\t</literal> for a tab. To get an actual backslash, just escape the backslash, <literal>\\</literal>. There are many other escape characters used in regular expressions
-  <note><para>To enable the escaped characters in your searches check the
-  <guilabel>Patterns contain backslash sequences (\n, \t)</guilabel> option.</para>
-  </note>
-  </para>
-  </sect3>
-
-
+<para>With find and replace you can do incredibly powerful searches. We have already seen some of them in <xref linkend="generate-bookmark"/>, which deserve some explanation here.</para>
+<example id="retrieve-sections"><title>Retrieving all sections in an xml book</title>
+<para>The regular POSIX expression <literal>&lt;sect[0-9]+ id="[^"]+"&gt;</literal> can be split into:</para>
+<itemizedlist>
+<listitem>
+<para><literal>&lt;sect</literal>: a string beginning by <literal>&lt;sect</literal></para>
+</listitem>
+<listitem>
+<para><literal>[0-9]+ </literal>: followed by one or more (the <literal>+</literal> part) characters in the range of 0 to 9 (the <literal>[0-9]</literal> part), i.e. digits, followed by a space</para>
+</listitem>
+<listitem>
+<para><literal>id="</literal>: followed by the string <literal>id</literal>, followed by an equal sign, followed by a double-quote</para>
+</listitem>
+<listitem>
+<para><literal>[^"]+</literal>: followed by one or more (the <literal>+</literal> part) not double-quote characters (the <literal>[^"]</literal> part - <literal>^</literal> is a not )</para>
+</listitem>
+<listitem>
+<para><literal>"&gt;</literal>: followed by a double-quote, and ending with a &gt; sign</para>
+</listitem>
+</itemizedlist>
+<para>Therefore, it matches any string of type <literal>&lt;sectn id="nameofthesection"&gt;</literal>, where n is a positive integer.</para>
+</example>
+<?linebreak?>
+<?linebreak?>
+<?linebreak?>
+<?linebreak?>
+<?linebreak?>
+<?linebreaka4?>
+<example id="retrieve-functions-objc"><title>Retrieving all functions in an Objective C file</title>
+<para>In a simplified example, an objective C function may have two forms:</para>
+<orderedlist>
+<listitem>
+<para><literal>- (IBAction)nameofthefunction:(id)parameter</literal></para>
+</listitem>
+<listitem>
+<para><literal>- (void) nameofthefunction</literal></para>
+</listitem>
+</orderedlist>
+<para>We will try to make a pattern from those forms:</para>
+<itemizedlist>
+<listitem>
+<para>Hyphens and parentheses have special meanings in regular expressions, hence we need to escape them, i.e. to put before each of them a backslash, so that they will be interpreted as normal characters.</para>
+<para>Thus, <literal>- (</literal> is matched by: <literal>\- \(</literal></para>
+</listitem>
+<listitem>
+<para><literal>IBAction</literal> or <literal>void</literal> are a non empty sequence of alphabetical characters. We have already seen something similar in the previous example.</para>
+<para>They are matched by: <literal>[a-z]+</literal>, that is one or more characters in the range of a to z.</para>
+</listitem>
+<listitem>
+<para>Another parenthesis matched by: <literal>\)</literal>.</para>
+</listitem>
+<listitem>
+<para>A space or no space at all, it is matched by: <literal> *</literal>, that is a space followed by an asterisk, which means 0 or more times the preceding character.</para>
+</listitem>
+<listitem>
+<para>A non empty sequence of characters, matched by <literal>[a-z]+</literal> as already seen.</para>
+</listitem>
+<listitem>
+<para>A colon or no colon at all, which is matched by: <literal>[:]*</literal>.</para>
+</listitem>
+</itemizedlist>
+<para>Thus the whole POSIX regular expression is: <literal>\- \([a-z]+\) *[a-z]+[:]*</literal>. In the example, we have grouped the parts with parentheses, you may prefer this simplified form, though it is not recommended.</para>
+</example>
+<?linebreak?>
+<?linebreak?>
+<?linebreak?>
+<?linebreak?>
+<?linebreak?>
+<?linebreaka4?>
+<example id="retrieve-functions-php"><title>Retrieving all functions in a PHP file</title>
+<para>A php function has the form <literal>function nameofthefunction(listofparameters)</literal>, where the list of parameters can be empty. To match it with a PERL regular expression, you have to know that <literal>\s matches any white space</literal> and <literal>\w</literal> matches any alphanumerical character as well as white spaces.</para>
+<para>Thus, the matching regular expression is: <literal>function\s+\w+</literal>.</para>
+<para>Now, if you want to capture also the function's parameters, you have to add:</para>
+<itemizedlist>
+<listitem>
+<para>An opening parenthesis: <literal>\(</literal>. Remember parentheses should be escaped with a backslash.</para>
+</listitem>
+<listitem>
+<para>Zero or more characters, none of them being a closing parenthesis: <literal>[^\)]*</literal></para>
+</listitem>
+<listitem>
+<para>A closing parenthesis: \)</para>
+</listitem>
+</itemizedlist>
+<para>The PERL regular expression becomes: <literal>function\s+\w+\([^\)]*\)</literal>.</para>
+</example>
+<?pagebreaka4?>
+<para>Here is a new example which transforms a table into a definition list inside an html file.</para>
+<?linebreaka4?>
+<example id="transform-table-deflist"><title>Transforming a table into a definition list</title>
+<para>Say you have the following table:
+<figure id="figure-find-regex-before">
+<title id="figure-find-regex-before-title">The table before transformation</title>
+<screenshot><mediaobject>
+<imageobject>
+<imagedata fileref="figures/find_regex_before.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>A screen shot of the table before transformation</phrase>
+</textobject>
+</mediaobject></screenshot>
+</figure></para>
+<?linebreaka4?>
+<?linebreaka4?>
+<para>You want to transform it in the following definition list:
+<figure id="figure-find-regex-after">
+<title id="figure-find-regex-after-title">The table after transformation</title>
+<screenshot><mediaobject>
+<imageobject>
+<imagedata fileref="figures/find_regex_after.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>A screen shot of the table after transformation</phrase>
+</textobject>
+</mediaobject></screenshot>
+</figure></para>
+<?linebreaka4?>
+<?linebreaka4?>
+<para>For the rendering, you will use the following css style sheet:
+<programlisting><![CDATA[
+.st2 {    font-weight: 900;    color: #e38922;    margin-left: 30px;}dl {    font-weight: 900;    margin-left: 55px;}dt {    margin-top: 6px;}.dd1 {    font-style: normal;    font-weight: 400;}]]></programlisting></para>
+<?pagebreaka4?>
+<para>The table's source code is the following:
+<programlisting><![CDATA[<table border="1">
+<tr>
+<th>Software</th>
+<th>Use</th>
+<th>Requirements</th>
+<th>Author</th>
+<th>Date</th>
+<th>Download</th>
+</tr>
+<tr>
+<td>BackupSeek 1.8</td>
+<td>To catalog your backup from all media. Prints labels too.</td>
+<td>PPC</td>
+<td>Ken Ng</td>
+<td>17 November 1999</td>
+<td>English version (452 Ko)</td>
+</tr>
+<tr>
+<td>Biblioteca v. 1.0</td>
+...
+</tr>
+</table>]]></programlisting></para>
+<?linebreaka4?>
+<para>The definition list's source code will be the following:
+<programlisting><![CDATA[<p class="st2">BackupSeek 1.8</p>
+<dl>
+<dt>Use:</dt><dd><span class="dd1">To catalog your backup from all media. \
+Prints labels too.</span></dd>
+<dt>System requirements:</dt><dd><span class="dd1">PPC</span></dd>
+<dt>Author:</dt><dd><span class="dd1">Ken Ng</span></dd>
+<dt>Date:</dt><dd><span class="dd1">17 November 1999</span></dd>
+<dt>Download:</dt><dd><span class="dd1">English version (452 Ko)</span></dd>
+</dl>
+<p class="st2">Biblioteca v. 1.0</p>
+...
+</dl>]]></programlisting></para>
+<?linebreaka4?>
+<para>Comparing both chunks of code, we see that the variable sequence of characters to capture is the one between one <literal>&lt;td&gt;</literal> tag and its closing <literal>&lt;/td&gt;</literal> tag. That sequence can be interpreted as one or more characters which are not a <literal>&lt;</literal>. We have already seen that. This is expressed as: <literal>[^&lt;]+</literal></para>
+<para>To be able to retrieve it later, we need to embed it into parentheses. Thus, the string becomes: <literal>([^&lt;]+)</literal></para>
+<para>Next, this sequence is embedded into <literal>&lt;td&gt;</literal> and <literal>&lt;/td&gt;</literal>, which is expressed simply concatenating the strings: <literal>&lt;td&gt;([^&lt;]+)&lt;/td&gt;</literal></para>
+<para>We should also add the end of line character, which is expressed as: <literal>\n</literal>. The regular expression now describes a whole line: <literal>&lt;td&gt;([^&lt;]+)&lt;/td&gt;\n</literal></para>
+<para>As we cannot use variables to retrieve the headers of the table, we will merely repeat that string five times, so that the regular expression matches exactly the six lines of importance to us.</para>
+<variablelist>
+<varlistentry>
+<term><emphasis>Note</emphasis></term>
+<listitem>
+<para>Do not type it six times in the search field. Select the string, use the shortcuts <keycombo><keycap>Ctrl</keycap><keycap>C</keycap></keycombo> to copy it, move to the end of the string with the <keysym>right arrow</keysym>, and use <keycombo><keycap>Ctrl</keycap><keycap>V</keycap></keycombo> five times to paste it at the end of the string.</para>
+</listitem>
+</varlistentry>
+</variablelist>
+<?linebreaka4?>
+<?linebreaka4?>
+<para>The regular expression becomes (backslashes are inserted at end of line just for the purpose of not to have too long lines):
+<programlisting><![CDATA[<td>([^<]+)</td>\n \
+<td>([^<]+)</td>\n \
+<td>([^<]+)</td>\n \
+<td>([^<]+)</td>\n \
+<td>([^<]+)</td>\n \
+<td>([^<]+)</td>\n]]></programlisting></para>
+<?pagebreaka4?>
+<para>Those lines are at their turn embedded into <literal>&lt;tr&gt;</literal> and <literal>&lt;/tr&gt;</literal> tags each of them on their own line, which can be expressed as: <literal>&lt;tr&gt;\n</literal> for the first one, and <literal>&lt;/tr&gt;\n</literal> for the second one. We add those strings respectively at the beginning and at the end of our regular expression, which becomes:
+<programlisting><![CDATA[<tr>\n \
+<td>([^<]+)</td>\n \
+<td>([^<]+)</td>\n \
+<td>([^<]+)</td>\n \
+<td>([^<]+)</td>\n \
+<td>([^<]+)</td>\n \
+<td>([^<]+)</td>\n \
+</tr>\n]]></programlisting></para>
+<para>Now that we have described the search pattern, we will build the replace pattern. Each expression embedded into parentheses in the search string can be retrieved with <literal>\x</literal>, where x is an integer starting at 0 for the first expression, 1 for the second, etc. All others parts in the final string are fixed strings which we will express as they are.</para>
+<para>The first line becomes (note the \n at the end to match the end of line character): 
+<programlisting><![CDATA[<p class="st2">\0</p>\n]]></programlisting></para>
+<para>The second line (again, note the \n to match the end of line characters):
+<programlisting><![CDATA[<dl>\n<dt>Use:</dt><dd><span class="dd1">\1</dd>\n]]></programlisting></para>
+<para>And finally the whole replace pattern is:
+<programlisting><![CDATA[<p class="st2">\0</p>\n \
+<dl>\n<dt>Use:</dt><dd><span class="dd1">\1</dd>\n \
+<dt>System requirements:</dt><dd><span class="dd1">\2</span></dd>\n \
+<dt>Author:</dt><dd><span class="dd1">\3</span></dd>\n \
+<dt>Date:</dt><dd><span class="dd1">\4</dd>\n \
+<dt>Download:</dt><dd><span class="dd1">\5</span></dd>\n</dl>\n]]></programlisting></para>
+<para>After entering both patterns, choose <guilabel>PERL type</guilabel> in the <guilabel>Regular expression</guilabel> drop down list, check the <guilabel>Patterns contain backslash escape sequences (\n, \t)</guilabel> and click OK.</para>
+<para>After replacement occurred, you have to remove the table headers and the last <literal>&lt;/table&gt;</literal> tag and to insert the link to the style sheet.</para>
+<para>Note that if some lines contain a <literal>&lt;</literal> sign, the table row will not be translated, but others will.</para>
+</example>
+<para>In the <guilabel>Find</guilabel> and <guilabel>Replace</guilabel> dialogs it is not possible to insert the keys <keycap>Enter</keycap> or <keycap>Tab</keycap>. A simple way to do it is to copy two lines in a row from the current document into the <guilabel>Find</guilabel> or <guilabel>Replace</guilabel> dialog, this way you retrieve the end of line character. The same applies for <keycap>Tab</keycap>. A more elaborated way to do it is to use escaped characters to represent these characters. A new line character, produced by pressing the <keycap>Enter</keycap> key, is represented as <literal>\n</literal>. Use <literal>\t</literal> for a tab. To get an actual backslash, just escape the backslash, <literal>\\</literal>. There are many other escape characters used in regular expressions.</para>
+<variablelist>
+<varlistentry>
+<term><emphasis>Note</emphasis></term>
+<listitem>
+<para>To enable the escaped characters in your searches check the <guilabel>Patterns contain backslash sequences (\n, \t)</guilabel> option.</para>
+</listitem>
+</varlistentry>
+</variablelist>
+<para>If you have any search and replace patterns you use often, you can also add them to the Custom Menu. Check <xref linkend="custom-menu" /> for more information. </para>
+<para>For more information about regular expressions you might want to read man 1 perlre,  man 3 pcrepattern, man 3 regex or man 7 regex, or read any of the great Internet sites about regular expressions. As you become more familiar with regular expressions, you will realize that they make <application>Bluefish</application> a very powerful editor.</para>
+</sect3>
 
 </sect2>
 
@@ -1558,10 +1742,25 @@ word_wrap: 1
 <sect2 id="indenting">
 <title>Indenting</title>
 <para>To indent large sections of text, simply highlight the section and 
-choose <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>+</keycap></keycombo></shortcut><guimenu>Edit</guimenu><guimenuitem>Shift Right</guimenuitem></menuchoice>. To remove an indentation, choose <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>,</keycap></keycombo></shortcut><guimenu>Edit</guimenu><guimenuitem>Shift Right</guimenuitem>
-</menuchoice> <guimenuitem>Shift Left</guimenuitem>. Of course, there are corresponding buttons in the tool bar for these menu options (see below). By default, Bluefish will use tabs for indenting, but can be configured to use spaces if you have <guilabel>Use spaces to indent, not tabs</guilabel> selected in the Editor preferences panel. The number of spaces used is the same as the <guilabel>Tab width</guilabel> option in the same preferences panel.</para>
-<para>Here's an extract of Dante's work indented with the <guilabel>Shift Right</guilabel> button in the main tool bar:<figure id="figure-indenting_right"><title id="figure-indenting_right-title">Indenting part of a text</title><screenshot><mediaobject><imageobject><imagedata fileref="figures/indenting_right.png" format="PNG"/></imageobject><textobject><phrase>A screen shot of a text indented with the shift right button</phrase></textobject></mediaobject></screenshot></figure></para>
+choose <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>.</keycap></keycombo></shortcut><guimenu>Edit</guimenu><guimenuitem>Shift Right</guimenuitem></menuchoice>. To remove an indentation, choose <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>,</keycap></keycombo></shortcut><guimenu>Edit</guimenu><guimenuitem>Shift Left</guimenuitem></menuchoice>.  There are corresponding buttons in the tool bar for these menu options (see later in this text).</para>
+<para>By default, Bluefish will use tabs for indenting, but can be configured to use spaces if you have <guilabel>Use spaces to indent, not tabs</guilabel> selected in the Editor preferences panel. The number of spaces used is the same as the <guilabel>Tab width</guilabel> option in the same preferences panel.</para>
+<?pagebreaka4?>
+<para>Here's an extract of Dante's work indented with the <guilabel>Shift Right</guilabel> button in the main tool bar:
+<?linebreak?>
+<?linebreak?>
+<?linebreak?>
+<?linebreak?>
+<?linebreak?>
+<?linebreaka4?>
+<?linebreaka4?>
+<figure id="figure-indenting_right"><title id="figure-indenting_right-title">Indenting part of a text</title><screenshot><mediaobject><imageobject><imagedata fileref="figures/indenting_right.png" format="PNG"/></imageobject><textobject><phrase>A screen shot of a text indented with the shift right button</phrase></textobject></mediaobject></screenshot></figure></para>
 </sect2>
+<?linebreak?>
+<?linebreak?>
+<?linebreak?>
+<?linebreak?>
+<?linebreaka4?>
+<?linebreaka4?>
 
 <sect2 id="auto-tag-closing">
 <title>Auto tag closing</title>
@@ -1569,62 +1768,63 @@ choose <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>+</keycap></
 <para>Bluefish has two modes for tag closing, an XML mode and an HTML mode. In XML mode, Bluefish will add a closing tag to any tag that is not closed itself with /&gt;. In HTML mode, Bluefish excludes all known tags that do not need a closing tag, such as &lt;br&gt; and &lt;img&gt;.</para>
 <para>Bluefish will choose the mode based on the file type of the document. In the filetype preferences panel, the default mode for each file type can be set. See <xref linkend="changing-filetypes"/> for more info.</para>
 </sect2>
-
+<?pagebreak?>
 <sect2 id="spell-checker">
 <title>Spell checker</title>
 <figure id="figure-spell-checker">
-				<title id="figure-spell-checker-title">Bluefish Spell Checker</title>
-				<screenshot>
-					<mediaobject>
-						<imageobject>
-							<imagedata fileref="figures/spell_checker.png" format="PNG"/>
-						</imageobject>
-						<textobject>
-							<phrase>A screen shot of the Bluefish 1.0 spell checker</phrase>
-						</textobject>
-					</mediaobject>
-				</screenshot>
-			</figure>
-	<para>Bluefish uses <ulink url="http://aspell.sourceforge.net/">aspell</ulink> for spell checking. If the aspell libraries are not installed on your system, then the spell checking feature will not be available. At the aspell web site you can also download dictionaries for many different languages.</para>
-<para>To launch the spell checker, select <menuchoice><guimenu>Document</guimenu><guimenuitem>Check Spelling...</guimenuitem></menuchoice>. The spell checker will launch in a separate window, which you can keep open as you edit files.</para>
+<title id="figure-spell-checker-title">Bluefish Spell Checker</title>
+<screenshot><mediaobject>
+<imageobject>
+<imagedata fileref="figures/spell_checker.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>A screen shot of the Bluefish 1.0 spell checker</phrase>
+</textobject>
+</mediaobject></screenshot>
+</figure>
+<para>Bluefish uses <ulink url="http://aspell.sourceforge.net/">aspell</ulink> for spell checking. If the aspell libraries are not installed on your system, then the spell checking feature will not be available. At the aspell web site you can also download dictionaries for many different languages.</para>
+<para>To launch the spell checker, select <menuchoice><guimenu>Document</guimenu><guimenuitem>Check Spelling...</guimenuitem></menuchoice> or click on the <guilabel>ABC</guilabel> button on the main tool bar. The spell checker will launch in a separate window, which you can keep open as you edit files.</para>
 <para>You have the option to check a whole document or just a selection, to use a personal or a session dictionary, and to choose the language depending on the installed dictionaries.</para>
-<para> Click on <guilabel>Spell Check</guilabel> to start spell checking the current document. As you run across misspelled words you want included in the dictionary, click on the <guilabel>Add</guilabel> button in the spell checker window. This will add words to a personal dictionary.</para>
-<para>You may want to set a default dictionary by first choosing the language in the <guilabel>Language</guilabel> popup menu, then clicking on <guilabel>Set default</guilabel>.</para>
+<para> Click on <guilabel>Spell Check</guilabel> to start spell checking the current document.</para>
+<para>You may want to set a default dictionary by first choosing the language in the <guilabel>Language</guilabel> pop up menu, then clicking on <guilabel>Set default</guilabel>.</para>
 <para>Key words for different languages can be ignored using filters. Currently, the only filter is for HTML. If you want to help write more filters, join the <link linkend="bluefish-contact">mailing list</link>.</para>
 </sect2>
 
 <sect2 id="function-reference">
 <title>Function reference</title>
 <para>The function reference browser contains reference information for   different programming and markup languages. Currently, Bluefish comes with a PHP reference, a CSS 2.0 reference, an HTML reference, and a Python reference. The functions are grouped, depending on the language, by type, module, object, etc.</para>
-<para>The function reference browser will display an info window on the bottom by checking the <guilabel>Show info window</guilabel> check box. In this window, information about the currently selected item is shown. The type of information shown can be configured in the right-click context menu (see Info Type below).</para>
+<para>The function reference browser will display an info window on the bottom by checking the <guilabel>Show info window</guilabel> check box. In this window, information about the currently selected item is shown. The type of information shown can be configured in the right-click context menu (see Info Type later in this text).</para>
 <para>In the reference browser's contextual menu, you can simply insert the text for the selected item by choosing <guilabel>Insert</guilabel>. Or, you can get a little help using <guilabel>Dialog</guilabel>, which launches a dialog window containing fields for the currently selected item's attributes or parameters. For a summary of an item's usage, choose <guilabel>Info</guilabel>. The contextual menu is also accessible on a group of functions and at the top level of a reference.
 <figure id="figure-browser-reference-right-click">
 <title id="figure-browser-reference-right-click-title">The reference browser contextual menu</title>
-<screenshot>
-<mediaobject>
+<screenshot><mediaobject>
 <imageobject>
-	<imagedata fileref="figures/browser_reference_right_click.png" format="PNG"/>
+<imagedata fileref="figures/browser_reference_right_click.png" format="PNG"/>
 </imageobject>
 <textobject>
-	<phrase>A screen shot of the reference browser contextual menu</phrase>
+<phrase>A screen shot of the reference browser contextual menu</phrase>
 </textobject>
-</mediaobject>
-</screenshot>
+</mediaobject></screenshot>
 </figure></para>
+<?linebreaka4?>
+<?linebreaka4?>
+<?linebreaka4?>
+<?linebreaka4?>
 <para>The <guilabel>Options</guilabel> menu accessible via the contextual menu offers three actions:
+<?linebreaka4?>
+<?linebreaka4?>
 <figure id="figure-browser-reference-options">
 <title id="figure-browser-reference-options-title">The reference browser options menu</title>
-<screenshot>
-<mediaobject>
+<screenshot><mediaobject>
 <imageobject>
-	<imagedata fileref="figures/browser_reference_options.png" format="PNG"/>
+<imagedata fileref="figures/browser_reference_options.png" format="PNG"/>
 </imageobject>
 <textobject>
-	<phrase>A screen shot of the reference browser options menu</phrase>
+<phrase>A screen shot of the reference browser options menu</phrase>
 </textobject>
-</mediaobject>
-</screenshot>
+</mediaobject></screenshot>
 </figure></para>
+<?linebreaka4?>
 <itemizedlist>
 <listitem>
 <para><guilabel>Rescan reference files</guilabel> in case you have customized one of them, so that the new items be available.</para>
@@ -1636,41 +1836,39 @@ choose <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>+</keycap></
 <para><guilabel>Insert</guilabel> to insert the function in the document for latter parametrizing if needed</para>
 </listitem>
 <listitem>
-<para><guilabel>Dialog</guilabel> to insert the function in the document while filling in the parameters in a dialog window
+<para><guilabel>Dialog</guilabel> to insert the function in the document while filling in the parameters in a dialog window:
+<?linebreaka4?>
 <figure id="figure-browser-reference-dialog">
 <title id="figure-browser-reference-dialog-title">A function reference dialog window</title>
-<screenshot>
-<mediaobject>
+<screenshot><mediaobject>
 <imageobject>
 <imagedata fileref="figures/browser_reference_dialog.png" format="PNG"/>
 </imageobject>
 <textobject>
 <phrase>A screen shot of a function reference dialog window</phrase>
 </textobject>
-</mediaobject>
-</screenshot>
+</mediaobject></screenshot>
 </figure></para>
+<?linebreaka4?>
 </listitem>
 <listitem>
 <para><guilabel>Info</guilabel> to display a window with all available info about the function:
 <figure id="figure-browser-reference-info-window">
 <title id="figure-browser-reference-info-window-title">Info available for a function</title>
-<screenshot>
-<mediaobject>
+<screenshot><mediaobject>
 <imageobject>
 <imagedata fileref="figures/browser_reference_info_window.png" format="PNG"/>
 </imageobject>
 <textobject>
 <phrase>A screen shot of all info available for a function</phrase>
 </textobject>
-</mediaobject>
-</screenshot>
+</mediaobject></screenshot>
 </figure></para>
 </listitem>
 </itemizedlist> 
 </listitem>
 <listitem>
-<para><guilabel>Info Type</guilabel>; this is where you can customize what appears in the info window. It can be:</para>
+<para><guilabel>Info Type</guilabel>: this is where you can customize what appears in the info window. It can be:</para>
 <itemizedlist>
 <listitem>
 <para>the function <guilabel>Description</guilabel> (this is the default)</para>
@@ -1685,7 +1883,8 @@ choose <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>+</keycap></
 </listitem>
 </itemizedlist>
 </sect2>
-
+<?linebreaka4?>
+<?linebreaka4?>
 <sect2 id="HTML">
 <title>HTML</title>
 <para>HTML is obviously the most supported language in Bluefish. There is a special HTML tool bar with many dialogs, and two menus to work with tags:</para>
@@ -1709,6 +1908,7 @@ choose <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>+</keycap></
 </listitem>
 <listitem>
 <para>the <guilabel>Dialogs</guilabel> menu:
+<?linebreak?>
 <figure id="figure-html-dialogs-menu">
 <title id="figure-html-dialogs-menu-title">The HTML Dialogs menu</title>
 <screenshot>
@@ -1725,11 +1925,16 @@ choose <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>+</keycap></
 </para>
 </listitem>
 </itemizedlist>
+<?linebreak?>
+<?linebreak?>
+<?linebreak?>
 <para>The preferences have several settings on HTML style under <guilabel>HTML</guilabel>.</para> 
+<?linebreak?>
 <para>The HTML tool bar has two types of buttons. You can recognise each type by the tool tip if you move the mouse over the button:</para>
 <itemizedlist>
 <listitem>
-<para>First there are buttons that will open a dialog for some HTML tag. These buttons have a tool tip that ends with three dots. For example the anchor &lt;a&gt; dialog has the tool tip <guilabel>Anchor...</guilabel>
+<para>First there are buttons that will open a dialog for some HTML tag. These buttons have a tool tip that ends with three dots.
+<?linebreak?>
 <figure id="figure-html-tooltip-dots">
 <title id="figure-html-tooltip-dot-title">An HTML button with a three-dotted tool tip</title>
 <screenshot>
@@ -1747,6 +1952,7 @@ choose <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>+</keycap></
 </listitem>
 <listitem>
 <para>Second, there are buttons that will directly insert text, these buttons do not have the dots in the tool tip.
+<?linebreak?>
 <figure id="figure-html-tooltip-simple">
 <title id="figure-html-tooltip-simple-title">A simple HTML tool tip button</title>
 <screenshot>
@@ -1763,13 +1969,16 @@ choose <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>+</keycap></
 </para>
 </listitem>
 </itemizedlist>  
-<para>If you want to add the HTML tag around some block of text, you can select the block of text, and then use the HTML tool bar or the Tags or Dialogs menu to insert some tags. The tag open code will be inserted before the selected block, the tag close will be inserted after the selected block.</para>
+<?linebreak?>
+<para>If you want to add an HTML tag around some block of text, select the block of text, use the HTML tool bar or the Tags or Dialogs menu to insert the tag. The opening tag will be inserted before the selected block, the closing tag after the selected block.</para>
 <para>An existing tag can be edited by right-clicking the tag, and select <guilabel>Edit tag</guilabel> in the context menu. You can also place the cursor in the tag and use <menuchoice><shortcut><keycap>F3</keycap></shortcut><guimenu>Dialogs</guimenu><guimenuitem>Edit tag under cursor...</guimenuitem></menuchoice>. Not all tags, however, have a dialog, so this is not always possible. Colors in the style #RRGGBB can also be edited from the right-click context menu.</para>
 <para>In the reference browser on the left panel there is an HTML reference available. All possible attributes and valid values can be found in this reference. See <xref linkend="function-reference"/> for more info.</para> 
-
+<?pagebreak?>
 <sect3 id="find-replace-special">
 <title>Special find an replace features</title>
+<?linebreak?>
 <para>There are several special search and replace actions in the menu <menuchoice><guimenu>Edit</guimenu><guisubmenu>Replace special</guisubmenu></menuchoice>. These can be used to convert special characters (like &lt; and &amp;), or ISO characters to their HTML entities, as well as to change the letters case.
+<?linebreak?>
 <figure id="figure-replace-special-menu">
 <title id="figure-replace-special-menu-title">The Replace special menu</title>
 <screenshot>
@@ -1784,17 +1993,26 @@ choose <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>+</keycap></
 </screenshot>
 </figure>
 </para>
+<?linebreak?>
 <para>In all cases, when you want to replace some part of the text, you should first select the part to replace, then use the appropriated menu item.</para>
 </sect3>
+<?linebreak?>
+<?linebreaka4?>
+<?linebreaka4?>
+<?linebreaka4?>
 
 <sect3 id="thumbnails">
 <title>Thumbnail generation</title>
+<?linebreak?>
 <para>Bluefish can automatically generate thumbnails for images. A thumbnail is a small image, with a link to the larger image. Bluefish will create the small image based on your settings, and insert a &lt;img&gt; tag in the file, and a &lt;a&gt; tag linking the original. The thumbnails are created in the same directory as the original sources.</para>
+<?linebreak?>
 <para>The formats used for thumbnails may be png or jpg format. By default, the format used for thumbnails is png. You can change it in the <guilabel>Images</guilabel> panel of Preferences. For jpg images, the thumbnail extension is jpeg.</para>
+<?linebreak?>
 <para>There are actually two thumbnail dialogs in Bluefish:</para>
 <itemizedlist>
 <listitem>
 <para>an Insert thumbnail dialog,accessible from the <menuchoice><shortcut><keycombo><keycap>Shift</keycap><keycap>Alt</keycap><keycap>N</keycap></keycombo></shortcut><guimenu>Dialogs</guimenu><guisubmenu>General</guisubmenu><guimenuitem>Insert Thumbnail...</guimenuitem></menuchoice> or from the <guilabel>Standard bar</guilabel> of the HTML toolbar.
+<?linebreak?>
 <figure id="figure-thumbnail-simple-icon">
 <title id="figure-thumbnail-simple-icon-title">The Insert thumbnail icon</title>
 <screenshot>
@@ -1811,7 +2029,9 @@ choose <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>+</keycap></
 </para>
 </listitem>
 <listitem>
-<para>a Multi thumbnail dialog, only accessible from the <guilabel>Standard bar</guilabel> of the HTML toolbar.<figure id="figure-thumbnail-multi-icon">
+<para>a Multi thumbnail dialog, only accessible from the <guilabel>Standard bar</guilabel> of the HTML toolbar.
+<?linebreak?>
+<figure id="figure-thumbnail-multi-icon">
 <title id="figure-thumbnail-multi-icon-title">The Multi thumbnail icon</title>
 <screenshot>
 <mediaobject>
@@ -1827,6 +2047,7 @@ choose <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>+</keycap></
 </para>
 </listitem>
 </itemizedlist>
+<?linebreak?>
 <para>The Insert thumbnail dialog is very straightforward. You select the image file, provide some &lt;img&gt; tag attributes, choose the scaling, and press OK. The scaling factor is chosen by moving the slider directly under the image. The resulting image is previewed in the preview frame. Bluefish will create the thumbnail with extension _thumbnail.png or _thumbnail.jpeg (depending of the settings for images in the preferences).
 <figure id="figure-thumbnail-simple-dialog">
 <title id="figure-thumbnail-simple-dialog-title">The Insert thumbnail dialog</title>
@@ -1853,19 +2074,15 @@ choose <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>+</keycap></
 </varlistentry>
 </variablelist>
 <para>The code generated for a png image and a png thumbnail looks like this:
-<programlisting><![CDATA[
-<a href="/Users/michga/Desktop/343-4351_IMG_2.png">
+<programlisting><![CDATA[<a href="/Users/michga/Desktop/343-4351_IMG_2.png">
 <img src="/Users/michga/Desktop/343-4351_IMG_2_thumbnail.png" 
 width="89" height="134" border="0" name="Gamboling" 
-alt="Gamboling in the meadow" align="middle"></a>
-]]></programlisting></para>
+alt="Gamboling in the meadow" align="middle"></a>]]></programlisting></para>
 <para>and for a jpg image and jpg thumbnail:
-<programlisting><![CDATA[
-<a href="/Users/michga/Desktop/343-4351_IMG_2.JPG">
+<programlisting><![CDATA[<a href="/Users/michga/Desktop/343-4351_IMG_2.JPG">
 <img src="/Users/michga/Desktop/343-4351_IMG_2_thumbnail.jpeg" 
 width="89" height="134" border="0" name="Gamboling" 
-alt="Gamboling in the meadow" align="middle"></a>
-]]></programlisting></para>
+alt="Gamboling in the meadow" align="middle"></a>]]></programlisting></para>
 <variablelist>
 <varlistentry>
 <term><emphasis>Note</emphasis></term>
@@ -1949,19 +2166,15 @@ height="50" border="5" align="middle"></a>
 <para>Enter the scaling percentage in the <guilabel>Scaling (%)</guilabel> field</para>
 </step>
 <step>
-<para>Change the html code as follows: <programlisting>
-&lt;tr&gt;&lt;td&gt;&lt;a href="%r"&gt;
+<para>Change the html code as follows: <programlisting>&lt;tr&gt;&lt;td&gt;&lt;a href="%r"&gt;
 &lt;img src="%t" 
 width="%x" height="%y" border="0"&gt;&lt;/a&gt;
 &lt;/td&gt;
 &lt;/tr&gt;
-&lt;tr&gt;&lt;td&gt;Original: %w x %h&lt;/td&gt;&lt;/tr&gt;
-</programlisting> and click <guilabel>OK</guilabel>.</para>
+&lt;tr&gt;&lt;td&gt;Original: %w x %h&lt;/td&gt;&lt;/tr&gt;</programlisting> and click <guilabel>OK</guilabel>.</para>
 </step>
 <step>
-<para>Choose the folder containing the images from the <guilabel>Select files for thumbnail creation</guilabel> window, click <keycombo><keycap>Ctrl</keycap><keycap>A</keycap></keycombo> to select all files, then click <guilabel>OK</guilabel>. The code generated by Bluefish will look like the following:</para>
-<programlisting>
-&lt;tr&gt;&lt;td&gt;&lt;a href="/Users/michga/Desktop/photos/343-4344_IMG.JPG"&gt;
+<para>Choose the folder containing the images from the <guilabel>Select files for thumbnail creation</guilabel> window, click <keycombo><keycap>Ctrl</keycap><keycap>A</keycap></keycombo> to select all files, then click <guilabel>OK</guilabel>. The code generated by Bluefish will look like the following: <programlisting>&lt;tr&gt;&lt;td&gt;&lt;a href="/Users/michga/Desktop/photos/343-4344_IMG.JPG"&gt;
 &lt;img src="/Users/michga/Desktop/photos/343-4344_IMG_thumbnail.png" 
 width="80" height="53" border="0"&gt;&lt;/a&gt;
 &lt;/td&gt;
@@ -1972,8 +2185,7 @@ width="80" height="53" border="0"&gt;&lt;/a&gt;
 width="80" height="53" border="0"&gt;&lt;/a&gt;
 &lt;/td&gt;
 &lt;/tr&gt;
-&lt;tr&gt;&lt;td&gt;Original: 1600 x 1065&lt;/td&gt;&lt;/tr&gt;
-</programlisting>
+&lt;tr&gt;&lt;td&gt;Original: 1600 x 1065&lt;/td&gt;&lt;/tr&gt;</programlisting></para>
 </step>
 <step>
 <para>Use <keycombo><keycap>Ctrl</keycap><keycap>A</keycap></keycombo> to select the file's contents and click on the <guilabel>Table</guilabel> icon located in the <guilabel>Tables</guilabel> tab of the HTML tool bar to embed the code into table tags. 
@@ -1996,14 +2208,11 @@ width="80" height="53" border="0"&gt;&lt;/a&gt;
 </step>
 </procedure>
 <para>If you want to add the file name and the file size in bytes, use this code: 
-<programlisting>
-&lt;tr&gt;&lt;td&gt;&lt;a href="%r"&gt;
-&lt;img src="%t" 
-width="%x" height="%y" border="0"&gt;&lt;/a&gt;
+<programlisting>&lt;tr&gt;&lt;td&gt;&lt;a href="%r"&gt;
+&lt;img src="%t" width="%x" height="%y" border="0"&gt;&lt;/a&gt;
 &lt;/td&gt;
 &lt;/tr&gt;
-&lt;tr&gt;&lt;td&gt;%r:  %w x %h (%b bytes)&lt;/td&gt;&lt;/tr&gt;
-</programlisting></para>
+&lt;tr&gt;&lt;td&gt;%r:  %w x %h (%b bytes)&lt;/td&gt;&lt;/tr&gt;</programlisting></para>
 </sect3>
 
 </sect2>
@@ -2040,6 +2249,7 @@ width="%x" height="%y" border="0"&gt;&lt;/a&gt;
 </screenshot>
 </figure>
 </para>
+<?linebreaka4?>
 <para>Note that you cannot add a pop up menu. Thus, if the item you want to add is inside a pop up menu (as is the code tag located in the <guilabel>Context formatting</guilabel> pop up menu of the <guilabel>Fonts</guilabel> tool bar), you have to first click on the pop up menu to display its contents, then to right click on the desired element to insert it in the <guilabel>Quick bar</guilabel>.
 <figure id="figure-quickbar-add-popup">
 <title id="figure-quickbar-add-popup-title">Adding a pop up menu element to the Quick bar</title>
@@ -2055,6 +2265,7 @@ width="%x" height="%y" border="0"&gt;&lt;/a&gt;
 </screenshot>
 </figure>
 </para>
+<?linebreaka4?>
 <para>If you want to remove items from the <guilabel>Quick bar</guilabel>, right-click them and select <guilabel>Remove from Quick bar</guilabel>.
 <figure id="figure-quickbar-remove">
 <title id="figure-quickbar-remove-title">Removing an element from the Quick bar</title>
@@ -2070,7 +2281,12 @@ width="%x" height="%y" border="0"&gt;&lt;/a&gt;
 </screenshot>
 </figure>
 </para>
+<?linebreaka4?>
 <para>You can also change the location of an element in the Quick bar. To do so, right-click the element and select <guilabel>Shift left</guilabel> or <guilabel>Shift Right</guilabel> as desired. The element will be moved to the left or to the right of its neighborough. Notice that this is not a drag and drop action; you may have to repeat the process if you want to move the element farther.
+<?linebreakus?>
+<?linebreakus?>
+<?linebreakus?>
+<?linebreakus?>
 <figure id="figure-quickbar-move">
 <title id="figure-quickbar-move-title">Moving an element within the Quick bar</title>
 <screenshot>
@@ -2086,10 +2302,20 @@ width="%x" height="%y" border="0"&gt;&lt;/a&gt;
 </figure>
 </para>
 </sect2>
+<?linebreakus?>
+<?linebreakus?>
+<?linebreakus?>
+<?linebreakus?>
+<?linebreakus?>
 
 <sect2 id="custom-menu">
 <title>Custom menu</title>
+<?linebreakus?>
 <para>To customize items in the <guilabel>Custom menu</guilabel> tool bar, you will use the <guilabel>Custom menu</guilabel> element:
+<?linebreakus?>
+<?linebreakus?>
+<?linebreakus?>
+<?linebreakus?>
 <figure id="figure-custom-menu-access">
 <title id="figure-custom-menu-access-title">Accessing the custom menu</title>
 <screenshot>
@@ -2104,8 +2330,11 @@ width="%x" height="%y" border="0"&gt;&lt;/a&gt;
 </screenshot>
 </figure>
 </para>
+<?linebreakus?>
 <para>The <menuchoice><guimenu>Custom menu</guimenu><guimenuitem>Edit custom menu...</guimenuitem></menuchoice> leads to the <guilabel>Custom Menu Editor</guilabel>. The <guilabel>Load new</guilabel> item allows you to load a new menu in case you have directly changed the <filename>custom_menu</filename> file located in the <filename>.bluefish</filename> directory within your HOME directory, while <guilabel>Reset</guilabel> item allows you to return to the default custom menu under the same circumstances.</para>
+<?linebreakus?>
 <para>The <filename>custom_menu</filename> file is created upon install Bluefish and corresponds to some default entries, the ones you can see in the <guilabel>Custom menu</guilabel> tool bar. These will give you an idea what can be done with the custom menu.</para>
+<?linebreakus?>
 <para>The custom menu operates <emphasis>only</emphasis> on elements of the <guilabel>Custom menu</guilabel> tool bar, and allows you to:</para>
 <itemizedlist>
 <listitem>
@@ -2117,6 +2346,7 @@ width="%x" height="%y" border="0"&gt;&lt;/a&gt;
 <listitem>
 <para>create new menus</para>
 </listitem></itemizedlist>
+<?linebreakus?>
 <para>The <guilabel>Custom Menu Editor</guilabel> is the place where you make all changes to the custom menu. The location for entries in the custom menu is defined by their menu path in the <guilabel>Custom Menu Editor</guilabel>:
 <figure id="figure-custom-menu-editor">
 <title id="figure-custom-menu-editor-title">The Custom Menu Editor</title>
@@ -2132,6 +2362,12 @@ width="%x" height="%y" border="0"&gt;&lt;/a&gt;
 </screenshot>
 </figure>
 </para>
+<?linebreakus?>
+<?linebreakus?>
+<?linebreakus?>
+<?linebreakus?>
+<?linebreakus?>
+<?linebreakus?>
 <para>It has four parts:</para>
 <itemizedlist>
 <listitem>
@@ -2159,6 +2395,16 @@ width="%x" height="%y" border="0"&gt;&lt;/a&gt;
 </listitem>
 <listitem>
 <para>The <guilabel>Menu path</guilabel> list on the left side, which lists existing menu paths. A menu path looks like <emphasis>/Main menu/submenu/item</emphasis> or <emphasis>/Main menu/item</emphasis>. Here's an extract of the default custom menu paths:
+<?linebreak?>
+<?linebreak?>
+<?linebreak?>
+<?linebreak?>
+<?linebreak?>
+<?linebreak?>
+<?linebreak?>
+<?linebreak?>
+<?linebreak?>
+<?linebreak?>
 <figure id="figure-custom-menu-default-path">
 <title id="figure-custom-menu-default-path-title">Extract of the default custom menu path</title>
 <screenshot>
@@ -2172,6 +2418,16 @@ width="%x" height="%y" border="0"&gt;&lt;/a&gt;
 </mediaobject>
 </screenshot>
 </figure>
+<?linebreak?>
+<?linebreak?>
+<?linebreak?>
+<?linebreak?>
+<?linebreak?>
+<?linebreak?>
+<?linebreak?>
+<?linebreak?>
+<?linebreak?>
+<?linebreak?>
 </para>
 </listitem>
 <listitem>
@@ -2200,7 +2456,17 @@ width="%x" height="%y" border="0"&gt;&lt;/a&gt;
 </itemizedlist>
 </listitem>
 </itemizedlist>
+<?linebreak?>
+<?linebreak?>
+<?linebreak?>
+<?linebreak?>
+<?linebreaka4?>
+<?linebreaka4?>
+<?linebreaka4?>
+<?linebreaka4?>
 <para>The most simple custom dialog item has a menupath, for example <emphasis>/MySite/author</emphasis>, and a Formatstring before, for example <emphasis>written by Olivier</emphasis>. If you add this item, you can add this string by selecting the menu item.</para>
+<?linebreak?>
+<?linebreak?>
 <procedure id="custom-menu-dialog">
 <title>Adding a custom menu based on custom dialog</title>
 <step>
