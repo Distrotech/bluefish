@@ -34,6 +34,20 @@
 #include "filebrowser.h"
 #include "menu.h"
 
+static void free_session(Tsessionvars *session) {
+	free_stringlist(session->classlist);
+	free_stringlist(session->colorlist);
+	free_stringlist(session->targetlist);
+	free_stringlist(session->urllist);
+	free_stringlist(session->fontlist);
+	free_stringlist(session->dtd_cblist);
+	free_stringlist(session->headerlist);
+	free_stringlist(session->positionlist);
+	free_stringlist(session->searchlist);
+	free_stringlist(session->replacelist);
+	g_free(session);
+}
+
 Tbfwin *project_is_open(gchar *filename) {
 	GList *tmplist;
 	tmplist = g_list_first(main_v->bfwinlist);
@@ -167,7 +181,7 @@ void project_open_from_file(Tbfwin *bfwin, gchar *fromfilename) {
 		/* we will use this Bluefish window to open the project */
 		prwin = bfwin;
 		/* now we need to clean the session, and reset it to the session from the project */
-		free_session(bfwin->session);
+		/* free_session(bfwin->session); there is no session specific to a window anymore, only a global one*/
 		bfwin->session = prj->session;
 		DEBUG_MSG("project_open_from_file, calling docs_new_from_files for existing bfwin=%p\n",prwin);
 		prwin->project = prj;
@@ -220,8 +234,8 @@ gboolean project_save_and_close(Tbfwin *bfwin) {
 			DEBUG_MSG("project_save_and_close, all documents are closed\n");
 			add_to_recent_list(bfwin,bfwin->project->filename, TRUE, TRUE);
 			project_destroy(bfwin->project);
-			/* the window gets a new fresh session */
-			bfwin->session = g_new0(Tsessionvars,1);
+			/* the window gets the global session again */
+			bfwin->session = main_v->session;
 			bfwin->project = NULL;
 			gui_set_title(bfwin, bfwin->current_document);
 			filebrowser_set_basedir(bfwin, NULL);

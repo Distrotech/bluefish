@@ -40,9 +40,10 @@
 
 typedef struct {
 	void *pointer; /* where should the value be stored ?*/
-	unsigned char type; /* a=arraylist, l=stringlist, s=string, e=string with escape, i=integer */
+	unsigned char type; /* a=arraylist, l=stringlist, s=string, e=string with escape, i=integer, m=limiTed stringlist */
 	gchar *identifier; /* the string that should be in the config file for this entry */
-	gint len; /* only used for arrays, the length the array should have */
+	gint len; /* used for arrays and limitedstringlists, the length the list should have (only during save)
+						, or the number of items the array should have (during load) */
 } Tconfig_list_item;
 
 static GList *main_configlist=NULL;
@@ -105,10 +106,17 @@ static void init_prop_stringlist(GList ** config_list, void *pointer_to_var, gch
 	}
 }
 
-
 static void init_prop_arraylist(GList ** config_list, void *pointer_to_var, gchar * name_of_var, gint len, gboolean setNULL)
 {
 	*config_list = make_config_list_item(*config_list, pointer_to_var, 'a', name_of_var, len);
+	if (setNULL) {
+	 	pointer_to_var = NULL;
+	}
+}
+
+static void init_prop_limitedstringlist(GList ** config_list, void *pointer_to_var, gchar * name_of_var, gint len, gboolean setNULL)
+{
+	*config_list = make_config_list_item(*config_list, pointer_to_var, 'm', name_of_var, len);
 	if (setNULL) {
 	 	pointer_to_var = NULL;
 	}
@@ -166,15 +174,19 @@ static gint save_config_file(GList * config_list, gchar * filename)
 			}
 			break;
 		case 'l':
+		case 'm':
 			DEBUG_MSG("save_config_file, tmpitem(%p), &tmpitem=%p\n", tmpitem, &tmpitem);
-			tmplist2 = g_list_last((GList *) * (void **) tmpitem->pointer);
+			if (tmpitem->type == 'm') {
+				tmplist2 = g_list_nth((GList *) * (void **) tmpitem->pointer,tmpitem->len);
+			} else {
+				tmplist2 = g_list_last((GList *) * (void **) tmpitem->pointer);
+			}
 			DEBUG_MSG("save_config_file, the tmplist2(%p)\n", tmplist2);
 			while (tmplist2 != NULL) {
 				tmpstring2 = (char *) tmplist2->data;
 				DEBUG_MSG("save_config_file, tmpstring2(%p)=%s\n", tmpstring2, tmpstring2);
 				tmpstring = g_strdup_printf("%s %s", tmpitem->identifier, tmpstring2);
 				DEBUG_MSG("save_config_file, tmpstring(%p)=%s\n", tmpstring, tmpstring);
-
 				rclist = g_list_append(rclist, tmpstring);
 				tmplist2 = g_list_previous(tmplist2);
 			}
@@ -278,6 +290,7 @@ static gboolean parse_config_file(GList * config_list, gchar * filename)
 						g_free(tmpstring2);
 						break;
 					case 'l':
+					case 'm':
 						tmpstring2 = g_strdup(tmpstring);
 						* (void **) tmpitem->pointer = g_list_prepend((GList *) * (void **) tmpitem->pointer, tmpstring2);
 						DEBUG_MSG("parse_config_file, *(void **)tmpitem->pointer=%p\n", *(void **) tmpitem->pointer);
@@ -839,13 +852,29 @@ void rcfile_save_configfile_menu_cb(gpointer callback_data,guint action,GtkWidge
 #endif
 	break;
 	}
-
 }
 
 void rcfile_save_all(void) {
 	rcfile_save_main();
 	rcfile_save_highlighting();
 	rcfile_save_custom_menu();
+	rcfile_save_global_session();
+}
+
+static GList *return_session_configlist(GList *configlist, Tsessionvars *session) {
+	init_prop_stringlist(&configlist, &session->searchlist, "searchlist:", FALSE);
+	init_prop_stringlist(&configlist, &session->replacelist, "replacelist:", FALSE);
+	init_prop_stringlist(&configlist, &session->classlist, "classlist:", FALSE);
+	init_prop_stringlist(&configlist, &session->colorlist, "colorlist:", FALSE);
+	init_prop_stringlist(&configlist, &session->targetlist, "targetlist:", FALSE);
+	init_prop_stringlist(&configlist, &session->urllist, "urllist:", FALSE);
+	init_prop_stringlist(&configlist, &session->fontlist, "fontlist:", FALSE);
+	init_prop_stringlist(&configlist, &session->dtd_cblist, "dtd_cblist:", FALSE);
+	init_prop_arraylist (&configlist, &session->bmarks_temp, "bmarks_temp:", 0, FALSE); /* what is the lenght for a bookmark array? */
+	init_prop_arraylist (&configlist, &session->bmarks_perm, "bmarks_perm:", 0, FALSE);
+	init_prop_limitedstringlist(&configlist, &session->bmarks_perm, "recent_files:", main_v->props.max_recent_files, FALSE);
+	init_prop_limitedstringlist(&configlist, &session->bmarks_perm, "recent_dirs:", main_v->props.max_dir_history, FALSE);
+	return configlist;
 }
 
 static GList *return_project_configlist(Tproject *project) {
@@ -855,22 +884,13 @@ static GList *return_project_configlist(Tproject *project) {
 	init_prop_string(&configlist, &project->basedir,"basedir:","");
 	init_prop_string(&configlist, &project->webdir,"webdir:","");
 	init_prop_string(&configlist, &project->template,"template:","");
-	init_prop_stringlist(&configlist, &project->recentfiles, "recentfiles:", FALSE);
+	init_prop_stringlist(&configlist, &project->recentfiles, "recentfiles:", FALSE); /* should be changed to use the session->recent_files */
 	init_prop_integer (&configlist, &project->view_main_toolbar,"view_main_toolbar:",1,FALSE);
 	init_prop_integer (&configlist, &project->view_left_panel,"view_left_panel:",1,FALSE);
 	init_prop_integer (&configlist, &project->view_custom_menu,"view_custom_menu:",1,FALSE);
 	init_prop_integer (&configlist, &project->view_html_toolbar,"view_html_toolbar:",1,FALSE);
 	init_prop_integer (&configlist, &project->word_wrap,"word_wrap:",1,FALSE);
-
-	init_prop_stringlist(&configlist, &project->session->searchlist, "searchlist:", FALSE);
-	init_prop_stringlist(&configlist, &project->session->replacelist, "replacelist:", FALSE);
-	init_prop_stringlist(&configlist, &project->session->classlist, "classlist:", FALSE);
-	init_prop_stringlist(&configlist, &project->session->colorlist, "colorlist:", FALSE);
-	init_prop_stringlist(&configlist, &project->session->targetlist, "targetlist:", FALSE);
-	init_prop_stringlist(&configlist, &project->session->urllist, "urllist:", FALSE);
-	init_prop_stringlist(&configlist, &project->session->fontlist, "fontlist:", FALSE);
-	init_prop_stringlist(&configlist, &project->session->dtd_cblist, "dtd_cblist:", FALSE);
-
+	configlist = return_session_configlist(configlist, project->session);
 	return configlist;
 }
 
@@ -887,6 +907,25 @@ gboolean rcfile_save_project(Tproject *project, gchar *filename) {
 	GList *configlist = return_project_configlist(project);
 	DEBUG_MSG("rcfile_save_project, project %p, name='%s', basedir='%s', webdir='%s'\n",project, project->name, project->basedir, project->webdir);
 	retval = save_config_file(configlist, filename);
+	free_configlist(configlist);
+	return retval;
+}
+
+gboolean rcfile_save_global_session(void) {
+	gboolean retval;
+	gchar *filename = g_strconcat(g_get_home_dir(), "/.bluefish/session", NULL);
+	GList *configlist = return_session_configlist(NULL, main_v->session);
+	retval = save_config_file(configlist, filename);
+	free_configlist(configlist);
+	return TRUE;
+}
+/* should be called AFTER the normal properties are loaded, becauses return_session_configlist() uses
+ settings from main_v->props */
+gboolean rcfile_parse_global_session(void) {
+	gboolean retval;
+	gchar *filename = g_strconcat(g_get_home_dir(), "/.bluefish/session", NULL);
+	GList *configlist = return_session_configlist(NULL, main_v->session);
+	retval = parse_config_file(configlist, filename);
 	free_configlist(configlist);
 	return retval;
 }

@@ -43,17 +43,17 @@ extern void g_none(gchar *first, ...);
 #endif /* __GNUC__ */
 #endif /* DEBUG */
 
-#ifdef ENABLE_NLS                                                               
-                                                                                
-#include <libintl.h>                                                            
-#define _(String) gettext (String)                                              
-#define N_(String) (String)                                                     
-                                                                                
+#ifdef ENABLE_NLS
+
+#include <libintl.h>
+#define _(String) gettext (String)
+#define N_(String) (String)
+
 #else                                                                           
-                                                                                
-#define _(String)(String)                                                       
-#define N_(String)(String)                                                      
-                                                                                
+
+#define _(String)(String)
+#define N_(String)(String)
+
 #endif    
 
 
@@ -265,6 +265,10 @@ typedef struct {
 	GList *positionlist; /* is this used ?? */
 	GList *searchlist; /* used in snr2 */
 	GList *replacelist; /* used in snr2 */
+	GList *bmarks_temp;
+	GList *bmarks_perm;
+	GList *recent_files;
+	GList *recent_dirs;
 } Tsessionvars;
 
 typedef struct {
@@ -285,7 +289,7 @@ typedef struct {
 } Tproject;
 
 typedef struct {
-	Tsessionvars *session;
+	Tsessionvars *session; /* points to the global session, or to the project session */
 	Tdocument *current_document; /* one object out of the documentlist, the current visible document */
 	GList *documentlist; /* document.c and others: all Tdocument objects */
 	Tdocument *last_activated_doc;
@@ -339,6 +343,7 @@ typedef struct {
 	GList *filetypelist; /* highlighting.c: a list of all filetypes with their icons and highlighting sets */
 	GList *bfwinlist;
 	GList *recent_directories; /* a stringlist with the most recently used directories */
+	Tsessionvars *session; /* holds all session variables for non-project windows */
 	gpointer filebrowserconfig;
 	gpointer frefdata;
 	gpointer bmarkdata;
@@ -353,5 +358,4 @@ extern Tmain *main_v;
 
 /* public functions from bluefish.c */
 void bluefish_exit_request(void);
-void free_session(Tsessionvars *session);
 #endif /* __BLUEFISH_H_ */
