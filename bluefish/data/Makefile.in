@@ -32,6 +32,12 @@ install: all
 	@for file in $(DEFAULTFILES) ; do \
 		$(INSTALL_DATA) $$file $(pkgdatadir)/$$file ;\
 	done
+	if [ -d /usr/share/applications ] ; then \
+		$(INSTALL_DATA) bluefish.desktop /usr/share/applications/ ;\
+	fi
+	if [ -d /usr/share/gnome/apps/Applications ] ; then \
+		$(INSTALL_DATA) bluefish.desktop /usr/share/gnome/apps/Applications ;\
+	fi
 
 uninstall:
 	@for file in $(DEFAULTFILES) ; do \
