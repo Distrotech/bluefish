@@ -92,7 +92,7 @@ static void image_insert_dialogok_lcb(GtkWidget * widget, Timage_diag *imdg) {
 	g_free(thestring);
 
 	if (imdg->dg->range.end == -1) {
-		doc_insert_two_strings(imdg->dg->doc, finalstring, NULL);
+		doc_insert_two_strings(imdg->dg->doc, finalstring, imdg->is_thumbnail == 1 ? cap("</a>") : NULL);
 	} else {
 		doc_replace_text(imdg->dg->doc, finalstring, imdg->dg->range.pos, imdg->dg->range.end);
 	}

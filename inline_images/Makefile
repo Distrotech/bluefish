@@ -124,6 +124,7 @@ TOOLBAR = \
 	undo undo.png \
 	unknown_file unknown_file.png \
 	var var.png \
+	view_in_browser view_in_browser.png \
 	wml_a wml_a.png \
 	wml_access wml_access.png \
 	wml_bold wml_bold.png \
