@@ -1464,7 +1464,7 @@ static GtkWidget *filebrowser_rpopup_create_menu(Tfilebrowser *filebrowser, gboo
 }
 
 static gboolean filebrowser_button_press_lcb(GtkWidget *widget, GdkEventButton *event, Tfilebrowser *filebrowser) {
-	DEBUG_MSG("filebrowser_button_press_lcb, button=%d\n",event->button);
+	DEBUG_MSG("filebrowser_button_press_lcb, button=%d, store2=%p\n",event->button, filebrowser->store2);
 	if (event->button == 3) {
 		GtkWidget *menu = NULL;;
 		if (filebrowser->store2) {
@@ -1541,7 +1541,8 @@ static gboolean filebrowser_button_press_lcb(GtkWidget *widget, GdkEventButton *
 static gboolean filebrowser_tree2_button_press_lcb(GtkWidget *widget, GdkEventButton *event, Tfilebrowser *filebrowser) {
 	GtkTreePath *path2;
 	DEBUG_MSG("filebrowser_tree2_button_press_lcb, button=%d\n",event->button);
-	path2 = filebrowser_get_path_from_selection(GTK_TREE_MODEL(filebrowser->store2), GTK_TREE_VIEW(filebrowser->tree2),NULL);
+	gtk_tree_view_get_path_at_pos(GTK_TREE_VIEW(filebrowser->tree), event->x, event->y, &path2, NULL, NULL, NULL);
+	/* path2 = filebrowser_get_path_from_selection(GTK_TREE_MODEL(filebrowser->store2), GTK_TREE_VIEW(filebrowser->tree2),NULL); */
 	if (event->button==1 && event->type == GDK_2BUTTON_PRESS && path2) {
 		gchar *tmp1, *tmp3;
 		GtkTreeIter iter;
@@ -1556,6 +1557,8 @@ static gboolean filebrowser_tree2_button_press_lcb(GtkWidget *widget, GdkEventBu
 		return TRUE;
 	} else if (event->button == 3) {
 		GtkWidget *menu;
+		/* hmm, just after the very first click, there is no selection yet, because this handler 
+		is called *before* the gtk handler crates the selection... */
 		if (path2) {
 			menu = filebrowser_rpopup_create_menu(filebrowser, FALSE);
 		} else {
