@@ -187,7 +187,7 @@ Thanks to all who helped making this software available.\n\
   Serbian - Marko Milenović\n\
    <raven@sbb.co.yu>\n\n\
   Spanish - Walter Oscar Echarri\n\
-   <wecharri@infovia.com.ar>\n\n\
+   <wecharri@arnet.com.ar>\n\n\
   Swedish - David Smeringe\n\
    <david.smeringe@telia.com>\n\n\
   Tamil - Murugapandian Barathee\n\
