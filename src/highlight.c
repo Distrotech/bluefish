@@ -22,6 +22,7 @@
  * indent --line-length 100 --k-and-r-style --tab-size 4 -bbo --ignore-newlines highlight.c
  */
 #define HL_TIMING
+#define HL_DEBUG
 
 #ifdef HL_TIMING
 #include <sys/times.h>
@@ -396,6 +397,13 @@ void applylevel(Tdocument * doc, GList * level_list, gint start, gint end, regma
 {
 #ifdef HL_DEBUG
 	DEBUG_MSG("applylevel, started on doc %p from %d to %d\n", doc, start, end);
+	if (buf) {
+		if (strlen(buf) < 50) {
+			DEBUG_MSG("applylevel, buf='%s'\n", buf);
+		} else {
+			DEBUG_MSG("applylevel, strlen(buf)='%d'\n", strlen(buf));
+		}
+	}
 #endif
 	if (!level_list || (start == end)) {
 		DEBUG_MSG("applylevel, no list or start==end\n");
@@ -521,9 +529,17 @@ void applylevel(Tdocument * doc, GList * level_list, gint start, gint end, regma
 			if (patmatch[lowest_patmatch].is_match) {
 				GtkTextIter itstart, itend;
 				gint istart, iend;
-				istart = start + patmatch[lowest_patmatch].pmatch[0].rm_so + patmatch[lowest_patmatch].pmatch_offset;
-				iend = start + patmatch[lowest_patmatch].pmatch[0].rm_eo + patmatch[lowest_patmatch].pmatch_offset;
+				glong char_start, char_end, byte_char_diff_start;
+				char_start = utf8_byteoffset_to_charsoffset(string, patmatch[lowest_patmatch].pmatch[0].rm_so + patmatch[lowest_patmatch].pmatch_offset);
+				char_end = utf8_byteoffset_to_charsoffset(string, patmatch[lowest_patmatch].pmatch[0].rm_eo + patmatch[lowest_patmatch].pmatch_offset);
+				byte_char_diff_start = (patmatch[lowest_patmatch].pmatch[0].rm_so + patmatch[lowest_patmatch].pmatch_offset)-char_start;
+				
+/*				istart = start + patmatch[lowest_patmatch].pmatch[0].rm_so + patmatch[lowest_patmatch].pmatch_offset;
+				iend = start + patmatch[lowest_patmatch].pmatch[0].rm_eo + patmatch[lowest_patmatch].pmatch_offset;*/
+				istart = start + char_start;
+				iend = start + char_end;
 #ifdef HL_DEBUG
+				DEBUG_MSG("applylevel, byte_char_diff=%d\n", byte_char_diff_start);
 				DEBUG_MSG("applylevel, coloring from %d to %d\n", istart, iend);
 #endif
 				gtk_text_buffer_get_iter_at_offset(doc->buffer, &itstart, istart);
@@ -547,7 +563,7 @@ void applylevel(Tdocument * doc, GList * level_list, gint start, gint end, regma
 						}
 					}
 					applylevel(doc, patmatch[lowest_patmatch].pat->childs, istart, iend, patmatch[lowest_patmatch].pmatch,
-							   g_strndup(&string[istart - start], iend - istart));
+							   g_strndup(&string[istart - start + byte_char_diff_start], iend - istart));
 				}
 #ifdef HL_DEBUG
 				DEBUG_MSG("applylevel, offset was %d, and will be %d\n", offset,

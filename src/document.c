@@ -617,8 +617,8 @@ gint doc_close(Tdocument * doc, gint warn_only)
 		}
 	
 		{
-			gchar *buttons[] = {N_("Save"), N_("Close"), N_("Cancel"), NULL};
-			retval = multi_button_dialog(_("Bluefish warning: file is modified!"), 2, text, buttons);
+			gchar *buttons[] = {GTK_STOCK_SAVE, GTK_STOCK_CLOSE, GTK_STOCK_CANCEL, NULL};
+			retval = multi_stockbutton_dialog(_("Bluefish warning: file is modified!"), 2, text, buttons);
 		}
 		g_free(text);
 

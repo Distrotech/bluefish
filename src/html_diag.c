@@ -82,9 +82,9 @@ void html_diag_finish(Thtml_diag *dg, GtkSignalFunc ok_func) {
 	dg->obut = bf_stock_ok_button(ok_func, dg);
 	dg->cbut = bf_stock_cancel_button(G_CALLBACK(html_diag_cancel_clicked_cb), dg);
 
+	gtk_box_pack_start(GTK_BOX(hbox),dg->cbut , FALSE, FALSE, 0);
 	gtk_box_pack_start(GTK_BOX(hbox),dg->obut , FALSE, FALSE, 0);
 	gtk_window_set_default(GTK_WINDOW(dg->dialog), dg->obut);
-	gtk_box_pack_start(GTK_BOX(hbox),dg->cbut , FALSE, FALSE, 0);
 
 	gtk_box_pack_start(GTK_BOX(dg->vbox), hbox, FALSE, FALSE, 0);
 	gtk_widget_show_all(GTK_WIDGET(dg->dialog));

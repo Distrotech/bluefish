@@ -99,6 +99,10 @@ gchar *table_convert_int2char(Tconvert_table *table, gint my_int) {
 	return NULL;
 }
 
+glong utf8_byteoffset_to_charsoffset(gchar *string, glong byteoffset) {
+	return g_utf8_pointer_to_offset(string, &string[byteoffset]);
+}
+
 /* static guint countchars(gchar *string, gchar *chars)
  * counts the amount of times the chars in chars are present in string */
 static guint countchars(gchar *string, gchar *chars) {
