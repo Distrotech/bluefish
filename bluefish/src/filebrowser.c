@@ -1689,7 +1689,7 @@ GtkWidget *filebrowser_init(Tbfwin *bfwin) {
 			filebrowser->basedir = ending_slash(bfwin->project->basedir);
 			DEBUG_MSG("filebrowser_init, the basedir is set to %s\n",filebrowser->basedir);
 		} else {
-			DEBUG_MSG("filebrowser_init, NO BASEDIR\n");
+			filebrowser->basedir = ending_slash(main_v->props.default_basedir);
 		}
 	}
 	if (!filebrowser->curfilter) {

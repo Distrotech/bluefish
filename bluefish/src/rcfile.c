@@ -81,7 +81,7 @@ static void init_prop_integer(GList ** config_list, void *pointer_to_var, gchar 
 	if (set_default) *(gint *)pointer_to_var = default_value;
 }
 
-static void init_prop_string(GList ** config_list, void *pointer_to_var, gchar * name_of_var, gchar * default_value)
+static void init_prop_string(GList ** config_list, void *pointer_to_var, gchar * name_of_var, const gchar * default_value)
 {
 	*config_list = make_config_list_item(*config_list, pointer_to_var, 's', name_of_var, 0);
 	if (*(gchar **) pointer_to_var == NULL) {
@@ -370,6 +370,8 @@ static GList *props_init_main(GList * config_rc)
 	init_prop_integer   (&config_rc, &main_v->props.fref_info_type,"fref_info_type:",0, TRUE);	
 	init_prop_integer   (&config_rc, &main_v->props.document_tabposition,"document_tabposition:",(gint)GTK_POS_BOTTOM, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.leftpanel_tabposition,"leftpanel_tabposition:",(gint)GTK_POS_BOTTOM, TRUE);
+	init_prop_string    (&config_rc, &main_v->props.default_basedir,"default_basedir:",g_get_home_dir());
+	init_prop_string    (&config_rc, &main_v->props.project_suffix,"project_suffix:",".bfproject");
 #ifdef HAVE_LIBASPELL
 	init_prop_string(&config_rc, &main_v->props.spell_default_lang, "spell_default_lang:", "en");
 #endif /* HAVE_LIBASPELL */
