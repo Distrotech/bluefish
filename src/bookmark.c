@@ -439,7 +439,7 @@ static void bmark_popup_menu_del_lcb(GtkWidget * widget, gpointer user_data)
 		/* bmark_unstore(BFWIN(user_data), b); */
 		bmark_free(b);
 	} else {
-		pstr = g_strdup_printf(_("Do you really want to remove %s?"), b->name);
+		pstr = g_strdup_printf(_("Do you really want to delete %s?"), b->name);
 		ret =
 			multi_query_dialog(BFWIN(user_data)->main_window, _("Delete permanent bookmark."), pstr,
 							   0, 0, btns);
@@ -765,7 +765,7 @@ void bmark_set_for_doc(Tdocument * doc)
 	gboolean cont;
 	DEBUG_MSG("bmark_set_for_doc, doc=%p\n",doc);
 	if (!doc->filename) {
-		DEBUG_MSG("bmark_set_for_doc, a nameless document cannot have bookmarks, returning\n");
+		DEBUG_MSG("bmark_set_for_doc, an unnamed document cannot have bookmarks, returning\n");
 		return;
 	}
 	if (!BFWIN(doc->bfwin)->bmark) {
@@ -898,10 +898,11 @@ void bmark_add(Tbfwin * bfwin)
 	GtkTextMark *im;
 	GtkTextIter it;
 	gint offset;
-	/* check for nameless document */
+	/* check for unnamed document */
 	if (!DOCUMENT(bfwin->current_document)->filename) {
-		error_dialog(bfwin->main_window, _("Add temporary bookmark"),
-					 _("Cannot add bookmarks in nameless files.\nPlease, save the file first."));
+		error_dialog(bfwin->main_window, _("Add= bookmark"),
+					 _("Cannot add bookmarks in unnamed files."));
+					 /*\nPlease save the file first. A Save button in this dialog would be cool -- Alastair*/
 		return;
 	}
 	/* if the left panel is disabled, we simply should add the bookmark to the list, and do nothing else */
@@ -934,7 +935,7 @@ void bmark_add(Tbfwin * bfwin)
 				cont = gtk_tree_model_iter_next(GTK_TREE_MODEL(bfwin->bookmarkstore), &tmpiter);
 			}							/* cont */
 			if (has_mark) {
-				info_dialog(bfwin->main_window, _("Add temporary bookmark"),
+				info_dialog(bfwin->main_window, _("Add bookmark"),
 							_("You already have a bookmark here!"));
 				return;
 			}
@@ -1040,7 +1041,7 @@ void bmark_check_length(Tbfwin * bfwin, Tdocument * doc)
 			if (mark->len != size) {
 				pstr = g_strdup_printf(_("Character count changed in file\n %s."), doc->filename);
 				warning_dialog(bfwin->main_window, pstr,
-							   _("Bookmarks positions can be incorrect."));
+							   _("Bookmarks positions could be incorrect."));
 				g_free(pstr);
 				return;
 			}
