@@ -30,13 +30,13 @@
 #include "bookmark.h"
 
 /*************************** FILE INFO ASYNC ******************************/
-enum {
+typedef enum {
 	CHECKMODIFIED_ERROR,
 	CHECKMODIFIED_MODIFIED,
 	CHECKMODIFIED_OK
-};
+} Tcheckmodified_status;
 
-typedef void (* CheckmodifiedAsyncCallback) (gint status,gint error_info,gpointer callback_data);
+typedef void (* CheckmodifiedAsyncCallback) (Tcheckmodified_status ,gint error_info,gpointer callback_data);
 
 typedef struct {
 	GList *uris;
@@ -92,15 +92,15 @@ void file_checkmodified_uri_async(GnomeVFSURI *uri, GnomeVFSFileInfo *curinfo, C
 			,GNOME_VFS_PRIORITY_DEFAULT,checkmodified_asyncfileinfo_lcb,cm);
 }
 /*************************** SAVE FILE ASYNC ******************************/
-enum {
+typedef enum {
 	SAVEFILE_ERROR,
 	SAVEFILE_ERROR_NOCHANNEL,
 	SAVEFILE_ERROR_NOWRITE,
 	SAVEFILE_CHANNEL_OPENED,
 	SAVEFILE_FINISHED
-};
+} Tsavefile_status;
 
-typedef void (* SavefileAsyncCallback) (gint status,gint error_info,gpointer callback_data);
+typedef void (* SavefileAsyncCallback) (Tsavefile_status status,gint error_info,gpointer callback_data);
 
 typedef struct {
 	GnomeVFSFileSize buffer_size;
@@ -155,7 +155,7 @@ void file_savefile_uri_async(GnomeVFSURI *uri, Trefcpointer *buffer, GnomeVFSFil
 }
 
 /*************************** CHECK MODIFIED AND SAVE ASYNC ******************************/
-enum {
+typedef enum {
 	CHECKANDSAVE_ERROR,
 	CHECKANDSAVE_ERROR_NOBACKUP,
 	CHECKANDSAVE_ERROR_NOCHANNEL,
@@ -165,9 +165,9 @@ enum {
 	CHECKANDSAVE_BACKUP,
 	CHECKANDSAVE_CHANNEL_OPENED,
 	CHECKANDSAVE_FINISHED
-} ;
+} TcheckNsave_status;
 
-typedef void (* CheckNsaveAsyncCallback) (gint status,gint error_info,gpointer callback_data);
+typedef void (* CheckNsaveAsyncCallback) (TcheckNsave_status,gint error_info,gpointer callback_data);
 
 typedef struct {
 	GnomeVFSFileSize buffer_size;
@@ -181,26 +181,27 @@ typedef struct {
 static void checkNsave_cleanup(TcheckNsave *cns) {
 	refcpointer_unref(cns->buffer);
 	gnome_vfs_uri_unref(cns->uri);
+	gnome_vfs_file_info_unref(cns->finfo);
 	g_free(cns);
 }
 
-static void checkNsave_savefile_lcb(gint status,gint error_info,gpointer data) {
+static void checkNsave_savefile_lcb(Tsavefile_status status,gint error_info,gpointer data) {
 	TcheckNsave *cns = data;
 	switch (status) {
 	case SAVEFILE_FINISHED:
-
+		cns->callback_func(CHECKANDSAVE_FINISHED, error_info, cns);
 	break;
 	case SAVEFILE_CHANNEL_OPENED:
-	
+		cns->callback_func(CHECKANDSAVE_CHANNEL_OPENED, error_info, cns);
 	break;
 	case SAVEFILE_ERROR_NOWRITE:
-	
+		cns->callback_func(CHECKANDSAVE_ERROR_NOWRITE, error_info, cns);
 	break;
 	case SAVEFILE_ERROR_NOCHANNEL:
-	
+		cns->callback_func(CHECKANDSAVE_ERROR_NOCHANNEL, error_info, cns);
 	break;
 	case SAVEFILE_ERROR:
-	
+		cns->callback_func(CHECKANDSAVE_ERROR, error_info, cns);
 	break;
 	}
 	checkNsave_cleanup(cns);
@@ -239,7 +240,7 @@ gint checkNsave_sync_lcb(GnomeVFSXferProgressInfo *info,gpointer data) {
 	}
 	return 0;
 }
-static void checkNsave_checkmodified_lcb(gint status,gint error_info,gpointer data) {
+static void checkNsave_checkmodified_lcb(Tcheckmodified_status status,gint error_info,gpointer data) {
 	TcheckNsave *cns = data;
 	switch (status) {
 	case CHECKMODIFIED_OK:
@@ -263,12 +264,14 @@ static void checkNsave_checkmodified_lcb(gint status,gint error_info,gpointer da
 		}
 	break;
 	case CHECKMODIFIED_MODIFIED:
-	
+		cns->callback_func(CHECKANDSAVE_ERROR_MODIFIED, error_info, cns);
+		/* hmm, do we do a cleanup here? or call a gui 'sync'? */
 	break;
 	case CHECKMODIFIED_ERROR:
-
+		cns->callback_func(CHECKANDSAVE_ERROR, error_info, cns);
 	break;
 	}
+	/* if there was some error, we should do a cleanup */
 }
 
 /* 
@@ -292,18 +295,17 @@ void file_checkNsave_uri_async(GnomeVFSURI *uri, GnomeVFSFileInfo *info, Trefcpo
 	file_checkmodified_uri_async(uri, info, checkNsave_checkmodified_lcb, cns);
 }
 
-
 /*************************** OPEN FILE ASYNC ******************************/
 
-enum {
+typedef enum {
 	OPENFILE_ERROR,
 	OPENFILE_ERROR_NOCHANNEL,
 	OPENFILE_ERROR_NOREAD,
 	OPENFILE_CHANNEL_OPENED,
 	OPENFILE_FINISHED
-};
+} Topenfile_status;
 
-typedef void (* OpenfileAsyncCallback) (gint status,gint error_info, gchar *buffer,GnomeVFSFileSize buflen,gpointer callback_data);
+typedef void (* OpenfileAsyncCallback) (Topenfile_status status,gint error_info, gchar *buffer,GnomeVFSFileSize buflen,gpointer callback_data);
 
 typedef struct {
 	gchar *buffer;
@@ -386,7 +388,7 @@ static void file2doc_cleanup(Tfile2doc *f2d) {
 	g_free(f2d);
 }
 
-static void file2doc_lcb(gint status,gint error_info,gchar *buffer,GnomeVFSFileSize buflen ,gpointer data) {
+static void file2doc_lcb(Topenfile_status status,gint error_info,gchar *buffer,GnomeVFSFileSize buflen ,gpointer data) {
 	Tfile2doc *f2d = data;
 	DEBUG_MSG("file2doc_lcb, status=%d, f2d=%p\n",status,f2d);
 	switch (status) {
@@ -407,6 +409,9 @@ static void file2doc_lcb(gint status,gint error_info,gchar *buffer,GnomeVFSFileS
 				}
 			}
 			file2doc_cleanup(data);
+		break;
+		case OPENFILE_CHANNEL_OPENED:
+			/* do nothing */
 		break;
 		case OPENFILE_ERROR:
 		case OPENFILE_ERROR_NOCHANNEL:
@@ -525,7 +530,7 @@ static gboolean open_adv_content_matches_filter(gchar *buffer,GnomeVFSFileSize b
 	return FALSE;
 }
 
-static void open_adv_content_filter_lcb(gint status,gint error_info, gchar *buffer,GnomeVFSFileSize buflen,gpointer data) {
+static void open_adv_content_filter_lcb(Topenfile_status status,gint error_info, gchar *buffer,GnomeVFSFileSize buflen,gpointer data) {
 	Topenadv_uri *oau = data;
 	switch (status) {
 		case OPENFILE_FINISHED:
@@ -542,6 +547,9 @@ static void open_adv_content_filter_lcb(gint status,gint error_info, gchar *buff
 				file2doc_lcb(status,error_info,buffer,buflen,f2d);
 			}
 			open_adv_open_uri_cleanup(data);
+		break;
+		case OPENFILE_CHANNEL_OPENED:
+			/* do nothing */
 		break;
 		case OPENFILE_ERROR:
 		case OPENFILE_ERROR_NOCHANNEL:
@@ -631,8 +639,5 @@ void open_advanced(Tbfwin *bfwin, GnomeVFSURI *basedir, gboolean recursive, gcha
 										10,GNOME_VFS_PRIORITY_DEFAULT,open_adv_load_directory_lcb,oa);
 	}
 }
-
-
-
 
 
