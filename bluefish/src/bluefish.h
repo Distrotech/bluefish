@@ -207,7 +207,6 @@ typedef struct {
 	gint ext_commands_in_submenu;
 	gint ext_outputbox_in_submenu;
 	GList *reference_files; /* all reference files */
-	gint bookmarks_sort; /* 0=no sort, 1=sort */
 	gint bookmarks_default_store; /* 0= temporary by default, 1= permanent by default */
 	gint bookmarks_filename_mode; /* 0=FULLPATH, 1=DIR FROM BASE 2=BASENAME */
 	gint document_tabposition;
