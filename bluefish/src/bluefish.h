@@ -173,6 +173,7 @@ typedef struct {
 	gint transient_htdialogs;  /* set html dialogs transient ro the main window */
 	gint restore_dimensions; /* use the dimensions as used the previous run */
 	gint left_panel_width; 	/* width of filelist */
+	gint two_pane_filebrowser_height; /* position of the pane separater on the two paned file browser */
 	gint main_window_h;			/* main window height */
 	gint main_window_w;			/* main window width */
 	gint max_recent_files;	/* length of Open Recent list */

@@ -1541,6 +1541,15 @@ void filebrowser_set_basedir(Tbfwin *bfwin, const gchar *basedir) {
 	}
 }
 
+static filebrowser_two_pane_notify_position_lcb(GObject *object,GParamSpec *pspec,gpointer data){
+	gint position;
+	g_object_get(object, pspec->name, &position, NULL);
+	if (main_v->props.restore_dimensions) {
+		main_v->props.two_pane_filebrowser_height = position;
+	}
+}
+	
+
 /**
  * filebrowsel_init:
  * @bfwin: #Tbfwin*
@@ -1677,6 +1686,8 @@ GtkWidget *filebrowser_init(Tbfwin *bfwin) {
 			gtk_paned_add2(GTK_PANED(vpaned), scrolwin2);
 			gtk_widget_set_size_request(vpaned, main_v->props.left_panel_width, -1);
 			gtk_box_pack_start(GTK_BOX(vbox), vpaned, TRUE, TRUE, 0);
+			gtk_paned_set_position(GTK_PANED(vpaned), main_v->props.two_pane_filebrowser_height);
+			g_signal_connect(G_OBJECT(vpaned),"notify::position",G_CALLBACK(filebrowser_two_pane_notify_position_lcb), NULL);
 		} else {
 			gtk_widget_set_size_request(scrolwin, main_v->props.left_panel_width, -1);
 			gtk_box_pack_start(GTK_BOX(vbox), scrolwin, TRUE, TRUE, 0);
