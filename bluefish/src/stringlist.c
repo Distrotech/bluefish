@@ -776,7 +776,16 @@ GList *add_to_history_stringlist(GList *which_list, const gchar *string) {
 	return which_list;
 }
 
-/* designed for adding strings to colorlist, urllist, fontlist and targetlist */
+/**
+ * add_to_stringlist:
+ * @which_list: a #GList * to add to
+ * @string: a #const gchar * item you want to add to the list
+ * 
+ * this function will check if a string with same content exists already
+ * and if not it will add it to the list, it returns the new list pointer
+ * 
+ * Return value: the new GList *
+ **/
 GList *add_to_stringlist(GList * which_list, const gchar * string) {
 	if (string && strlen(string) ) {
 		GList *tmplist = g_list_first(which_list);
@@ -792,7 +801,17 @@ GList *add_to_stringlist(GList * which_list, const gchar * string) {
 	}
 	return which_list;
 }
-
+/**
+ * stringlist_to_string:
+ * @stringlist: a #GList * to convert
+ * @delimiter: a #const gchar * item with the delimiter
+ * 
+ * this function will convert a stringlist (GList that contains 
+ * only \0 terminated gchar* elements) to a string, putting the 
+ * delimiter inbetween all elements;
+ * 
+ * Return value: the gchar *
+ **/
 gchar *stringlist_to_string(GList *stringlist, gchar *delimiter) {
 	gchar *string, *tmp;
 	GList *tmplist;

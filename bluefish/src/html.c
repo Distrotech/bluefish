@@ -22,7 +22,7 @@
  */
 /* 
  * Changes by Antti-Juhani Kaijanaho <gaia@iki.fi> on 1999-10-20
- * $Id: html.c,v 1.22 2003-05-11 08:33:11 oli4 Exp $
+ * $Id: html.c,v 1.23 2003-05-19 18:05:04 oli4 Exp $
  */
 
 #include <gtk/gtk.h>
@@ -1059,20 +1059,37 @@ void quickstart_cb(GtkWidget * widget, gpointer data)
 	gtk_clist_set_selection_mode(GTK_CLIST(dg->clist[1]), GTK_SELECTION_MULTIPLE);
 	gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(scrolwin), dg->clist[1]);
 	gtk_clist_freeze(GTK_CLIST(dg->clist[1]));
-
-	recent_attribs.headerlist = add_to_stringlist(recent_attribs.headerlist, "<meta name=\"generator\" content=\"Bluefish\">");
-	recent_attribs.headerlist = add_to_stringlist(recent_attribs.headerlist, "<meta name=\"author\" content=\"\">");
-	recent_attribs.headerlist = add_to_stringlist(recent_attribs.headerlist, "<meta name=\"copyright\" content=\"\">");
-	recent_attribs.headerlist = add_to_stringlist(recent_attribs.headerlist, "<meta name=\"keywords\" content=\"\">");
-	recent_attribs.headerlist = add_to_stringlist(recent_attribs.headerlist, "<meta name=\"description\" content=\"\">");
 	{
-		gchar *tmpstr = g_strconcat("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=",main_v->props.newfile_default_encoding,"\">",NULL);
+		gchar *tmpstr;
+		const gchar *endstr = main_v->props.xhtml == 1 ? " />" : ">";
+		tmpstr = g_strconcat("<meta name=\"generator\" content=\"Bluefish\"",endstr,NULL);
 		recent_attribs.headerlist = add_to_stringlist(recent_attribs.headerlist, tmpstr);
+		g_free(tmpstr);
+		tmpstr = g_strconcat("<meta name=\"author\" content=\"\"",endstr,NULL);
+		recent_attribs.headerlist = add_to_stringlist(recent_attribs.headerlist, tmpstr);
+		g_free(tmpstr);
+		tmpstr = g_strconcat("<meta name=\"copyright\" content=\"\"",endstr,NULL);
+		recent_attribs.headerlist = add_to_stringlist(recent_attribs.headerlist, tmpstr);
+		g_free(tmpstr);
+		tmpstr = g_strconcat("<meta name=\"keywords\" content=\"\"",endstr,NULL);
+		recent_attribs.headerlist = add_to_stringlist(recent_attribs.headerlist, tmpstr);
+		g_free(tmpstr);
+		tmpstr = g_strconcat("<meta name=\"description\" content=\"\"",endstr,NULL);
+		recent_attribs.headerlist = add_to_stringlist(recent_attribs.headerlist, tmpstr);
+		g_free(tmpstr);
+		tmpstr = g_strconcat("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=",main_v->props.newfile_default_encoding,"\"",endstr,NULL);
+		recent_attribs.headerlist = add_to_stringlist(recent_attribs.headerlist, tmpstr);
+		g_free(tmpstr);
+		tmpstr = g_strconcat("<meta http-equiv=\"Expires\" content=\"Tue, 20 Aug 2004 14:25:27 GMT\"", endstr, NULL);
+		recent_attribs.headerlist = add_to_stringlist(recent_attribs.headerlist, tmpstr);
+		g_free(tmpstr);
+		tmpstr = g_strconcat("<meta http-equiv=\"refresh\" content=\"5; URL=http://\"", endstr, NULL);
+		recent_attribs.headerlist = add_to_stringlist(recent_attribs.headerlist, tmpstr);
+		g_free(tmpstr);
+		tmpstr = g_strconcat("<meta name=\"ROBOTS\" content=\"NOINDEX, NOFOLLOW\"", endstr, NULL);
+		recent_attribs.headerlist = add_to_stringlist(recent_attribs.headerlist, tmpstr);
+		g_free(tmpstr);
 	}
-	recent_attribs.headerlist = add_to_stringlist(recent_attribs.headerlist, "<meta http-equiv=\"Expires\" content=\"Tue, 20 Aug 1996 14:25:27 GMT\">");
-	recent_attribs.headerlist = add_to_stringlist(recent_attribs.headerlist, "<meta http-equiv=\"refresh\" content=\"5; URL=http://\">");
-	recent_attribs.headerlist = add_to_stringlist(recent_attribs.headerlist, "<meta name=\"ROBOTS\" content=\"NOINDEX, NOFOLLOW\">");
-
 	tmplist = g_list_first(recent_attribs.headerlist);
 	while (tmplist) {
 		text[0] = tmplist->data;
@@ -1292,12 +1309,7 @@ static void metaok_lcb(GtkWidget * widget, Thtml_diag *dg)
 	thestring = insert_string_if_entry(dg->entry[1], cap("CONTENT"), thestring, NULL);
 	thestring = insert_string_if_entry(dg->entry[2], cap("SCHEME"), thestring, NULL);
 	thestring = insert_string_if_entry(dg->entry[3], NULL, thestring, NULL);
-
-	if (main_v->props.xhtml == 1) {
-		finalstring = g_strconcat(thestring," />", NULL);
-	} else {
-		finalstring = g_strconcat(thestring,">", NULL);
-	}
+	finalstring = g_strconcat(thestring,main_v->props.xhtml == 1 ? " />" : ">", NULL);
 	g_free(thestring);
 
 	if (dg->range.end == -1) {
