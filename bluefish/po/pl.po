@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: bluefish gtk2-port\n"
-"POT-Creation-Date: 2002-12-19 14:27+0100\n"
+"POT-Creation-Date: 2002-12-19 23:16+0100\n"
 "PO-Revision-Date: 2002-12-14 20:30+0200\n"
 "Last-Translator: Oskar Świda (swida@aragorn.pb.bialystok.pl)\n"
 "Language-Team: None\n"
@@ -13,7 +13,14 @@ msgstr ""
 "Content-Type: text/plain; charset=iso-8859-2\n"
 "Content-Transfer-Encoding: 8 bit\n"
 
-#: ../src/bluefish.c:71
+#: ../src/bluefish.c:75
+#, c-format
+msgid ""
+"\n"
+"Usage: %s [options] [filename]\n"
+msgstr ""
+
+#: ../src/bluefish.c:76
 msgid ""
 "\n"
 "Currently accepted options are:\n"
@@ -21,35 +28,35 @@ msgstr ""
 "\n"
 "Aktualnie akceptowane opcje:\n"
 
-#: ../src/bluefish.c:72
+#: ../src/bluefish.c:77
 msgid "-s           skip root check\n"
 msgstr "-s           pomiń sprawdzanie użytkownika\n"
 
-#: ../src/bluefish.c:73
+#: ../src/bluefish.c:78
 msgid "-v           current version\n"
 msgstr "-v           aktualna wersja\n"
 
-#: ../src/bluefish.c:74
+#: ../src/bluefish.c:79
 msgid "-h           this help screen\n"
 msgstr "-h           strona, którą czytasz\n"
 
-#: ../src/bluefish.c:122
+#: ../src/bluefish.c:134
 msgid "parsing highlighting file..."
 msgstr "analizuję plik podświetlania składni..."
 
-#: ../src/bluefish.c:133
+#: ../src/bluefish.c:145
 msgid "compiling highlighting patterns..."
 msgstr "kompiluję wzorce podświetlania składni..."
 
-#: ../src/bluefish.c:137
+#: ../src/bluefish.c:149
 msgid "parsing custom menu file..."
 msgstr "analizuję plik menu podręcznego..."
 
-#: ../src/bluefish.c:146
+#: ../src/bluefish.c:158
 msgid "creating main gui..."
 msgstr "przygotowuję interfejs graficzny..."
 
-#: ../src/bluefish.c:151
+#: ../src/bluefish.c:163
 msgid "showing main gui..."
 msgstr "interfejs graficzny..."
 
@@ -261,8 +268,8 @@ msgstr "Zawiera"
 msgid "is regex"
 msgstr "wyrażenie regularne"
 
-#: ../src/document.c:1853 ../src/gtk_easy.c:794 ../src/menu.c:1236
-#: ../src/menu.c:1573 ../src/menu.c:1581
+#: ../src/document.c:1853 ../src/gtk_easy.c:794 ../src/menu.c:1254
+#: ../src/menu.c:1591 ../src/menu.c:1599
 msgid "Bluefish error"
 msgstr "Błąd Bluefish"
 
@@ -326,6 +333,30 @@ msgstr ""
 #: ../src/filebrowser.c:824
 msgid "delete file?"
 msgstr "skasować plik?"
+
+#: ../src/filebrowser.c:885
+msgid "New file"
+msgstr "Nowy plik"
+
+#: ../src/filebrowser.c:888
+msgid "New directory"
+msgstr "Nowy folder"
+
+#: ../src/filebrowser.c:891
+msgid "Delete file"
+msgstr "Kasuj plik"
+
+#: ../src/filebrowser.c:894
+msgid "Refresh"
+msgstr "Odśwież"
+
+#: ../src/filebrowser.c:897
+msgid "Filter"
+msgstr "Filtr plików"
+
+#: ../src/filebrowser.c:1022
+msgid "All files"
+msgstr "Wszystkie pliki"
 
 #: ../src/gtk_easy.c:866
 msgid "Select file"
@@ -1656,82 +1687,82 @@ msgstr "/Znaczniki/Specjalne/Akcent/Duże/A-I/tearoff1"
 
 #: ../src/menu.c:118
 #, fuzzy
-msgid "/Tags/Special/Accent/Uppercase/A-I/_A grave"
+msgid "/Tags/Special/Accent/Uppercase/A-I/A grave"
 msgstr "/Znaczniki/Specjalne/Akcent/Duże/A-I/A z kreską w dół"
 
 #: ../src/menu.c:119
 #, fuzzy
-msgid "/Tags/Special/Accent/Uppercase/A-I/_A ac_ute"
+msgid "/Tags/Special/Accent/Uppercase/A-I/A acute"
 msgstr "/Znaczniki/Specjalne/Akcent/Duże/A-I/A kreską w górę"
 
 #: ../src/menu.c:120
 #, fuzzy
-msgid "/Tags/Special/Accent/Uppercase/A-I/_A circumflex"
+msgid "/Tags/Special/Accent/Uppercase/A-I/A circumflex"
 msgstr "/Znaczniki/Specjalne/Akcent/Duże/A-I/A z daszkiem"
 
 #: ../src/menu.c:121
 #, fuzzy
-msgid "/Tags/Special/Accent/Uppercase/A-I/_A tilde"
+msgid "/Tags/Special/Accent/Uppercase/A-I/A tilde"
 msgstr "/Znaczniki/Specjalne/Akcent/Duże/A-I/A z tyldą"
 
 #: ../src/menu.c:122
 #, fuzzy
-msgid "/Tags/Special/Accent/Uppercase/A-I/_AE ligature"
+msgid "/Tags/Special/Accent/Uppercase/A-I/AE ligature"
 msgstr "/Znaczniki/Specjalne/Akcent/Duże/A-I/AE połączone"
 
 #: ../src/menu.c:123
 #, fuzzy
-msgid "/Tags/Special/Accent/Uppercase/A-I/_A diaeresis"
+msgid "/Tags/Special/Accent/Uppercase/A-I/A diaeresis"
 msgstr "/Znaczniki/Specjalne/Akcent/Duże/A-I/A z umlaut"
 
 #: ../src/menu.c:124
 #, fuzzy
-msgid "/Tags/Special/Accent/Uppercase/A-I/_A ring"
+msgid "/Tags/Special/Accent/Uppercase/A-I/A ring"
 msgstr "/Znaczniki/Specjalne/Akcent/Duże/A-I/A z kółkiem"
 
 #: ../src/menu.c:125
 #, fuzzy
-msgid "/Tags/Special/Accent/Uppercase/A-I/_C cedilla"
+msgid "/Tags/Special/Accent/Uppercase/A-I/C cedilla"
 msgstr "/Znaczniki/Specjalne/Akcent/Duże/A-I/C z ogonkiem"
 
 #: ../src/menu.c:126
 #, fuzzy
-msgid "/Tags/Special/Accent/Uppercase/A-I/_E grave"
+msgid "/Tags/Special/Accent/Uppercase/A-I/E grave"
 msgstr "/Znaczniki/Specjalne/Akcent/Duże/A-I/E z kreską w dół"
 
 #: ../src/menu.c:127
 #, fuzzy
-msgid "/Tags/Special/Accent/Uppercase/A-I/_E acute"
+msgid "/Tags/Special/Accent/Uppercase/A-I/E acute"
 msgstr "/Znaczniki/Specjalne/Akcent/Duże/A-I/E z kreską w górę"
 
 #: ../src/menu.c:128
 #, fuzzy
-msgid "/Tags/Special/Accent/Uppercase/A-I/_E circumflex"
+msgid "/Tags/Special/Accent/Uppercase/A-I/E circumflex"
 msgstr "/Znaczniki/Specjalne/Akcent/Duże/A-I/E z daszkiem"
 
 #: ../src/menu.c:129
 #, fuzzy
-msgid "/Tags/Special/Accent/Uppercase/A-I/_E diaeresis"
+msgid "/Tags/Special/Accent/Uppercase/A-I/E diaeresis"
 msgstr "/Znaczniki/Specjalne/Akcent/Duże/A-I/E z umlaut"
 
 #: ../src/menu.c:130
 #, fuzzy
-msgid "/Tags/Special/Accent/Uppercase/A-I/_I grave"
+msgid "/Tags/Special/Accent/Uppercase/A-I/I grave"
 msgstr "/Znaczniki/Specjalne/Akcent/Duże/A-I/I z kreską w dół"
 
 #: ../src/menu.c:131
 #, fuzzy
-msgid "/Tags/Special/Accent/Uppercase/A-I/_I acute"
+msgid "/Tags/Special/Accent/Uppercase/A-I/I acute"
 msgstr "/Znaczniki/Specjalne/Akcent/Duże/A-I/I z kreską w górę"
 
 #: ../src/menu.c:132
 #, fuzzy
-msgid "/Tags/Special/Accent/Uppercase/A-I/_I circumflex"
+msgid "/Tags/Special/Accent/Uppercase/A-I/I circumflex"
 msgstr "/Znaczniki/Specjalne/Akcent/Duże/A-I/I z daszkiem"
 
 #: ../src/menu.c:133
 #, fuzzy
-msgid "/Tags/Special/Accent/Uppercase/A-I/_I diaeresis"
+msgid "/Tags/Special/Accent/Uppercase/A-I/I diaeresis"
 msgstr "/Znaczniki/Specjalne/Akcent/Duże/A-I/I z umlaut"
 
 #: ../src/menu.c:134
@@ -1744,67 +1775,67 @@ msgstr "/Znaczniki/Specjalne/Akcent/Duże/J-Z/tearoff1"
 
 #: ../src/menu.c:136
 #, fuzzy
-msgid "/Tags/Special/Accent/Uppercase/J-Z/_N tilde"
+msgid "/Tags/Special/Accent/Uppercase/J-Z/N tilde"
 msgstr "/Znaczniki/Specjalne/Akcent/Duże/J-Z/N z tyldą"
 
 #: ../src/menu.c:137
 #, fuzzy
-msgid "/Tags/Special/Accent/Uppercase/J-Z/_O grave"
+msgid "/Tags/Special/Accent/Uppercase/J-Z/O grave"
 msgstr "/Znaczniki/Specjalne/Akcent/Duże/J-Z/O z kreską w dół"
 
 #: ../src/menu.c:138
 #, fuzzy
-msgid "/Tags/Special/Accent/Uppercase/J-Z/_O acute"
+msgid "/Tags/Special/Accent/Uppercase/J-Z/O acute"
 msgstr "/Znaczniki/Specjalne/Akcent/Duże/J-Z/O z kreską w górę"
 
 #: ../src/menu.c:139
 #, fuzzy
-msgid "/Tags/Special/Accent/Uppercase/J-Z/_O circumflex"
+msgid "/Tags/Special/Accent/Uppercase/J-Z/O circumflex"
 msgstr "/Znaczniki/Specjalne/Akcent/Duże/J-Z/O z daszkiem"
 
 #: ../src/menu.c:140
 #, fuzzy
-msgid "/Tags/Special/Accent/Uppercase/J-Z/_OE ligature"
+msgid "/Tags/Special/Accent/Uppercase/J-Z/OE ligature"
 msgstr "/Znaczniki/Specjalne/Akcent/Duże/J-Z/OE połączone"
 
 #: ../src/menu.c:141
 #, fuzzy
-msgid "/Tags/Special/Accent/Uppercase/J-Z/_O tilde"
+msgid "/Tags/Special/Accent/Uppercase/J-Z/O tilde"
 msgstr "/Znaczniki/Specjalne/Akcent/Duże/J-Z/O z tyldą"
 
 #: ../src/menu.c:142
 #, fuzzy
-msgid "/Tags/Special/Accent/Uppercase/J-Z/_O diaeresis"
+msgid "/Tags/Special/Accent/Uppercase/J-Z/O diaeresis"
 msgstr "/Znaczniki/Specjalne/Akcent/Duże/J-Z/O z umlaut"
 
 #: ../src/menu.c:143
 #, fuzzy
-msgid "/Tags/Special/Accent/Uppercase/J-Z/_O slash"
+msgid "/Tags/Special/Accent/Uppercase/J-Z/O slash"
 msgstr "/Znaczniki/Specjalne/Akcent/Duże/J-Z/O z kreską"
 
 #: ../src/menu.c:144
 #, fuzzy
-msgid "/Tags/Special/Accent/Uppercase/J-Z/_U grave"
+msgid "/Tags/Special/Accent/Uppercase/J-Z/U grave"
 msgstr "/Znaczniki/Specjalne/Akcent/Duże/J-Z/U z kreską w dół"
 
 #: ../src/menu.c:145
 #, fuzzy
-msgid "/Tags/Special/Accent/Uppercase/J-Z/_U acute"
+msgid "/Tags/Special/Accent/Uppercase/J-Z/U acute"
 msgstr "/Znaczniki/Specjalne/Akcent/Duże/J-Z/U z kreską w górę"
 
 #: ../src/menu.c:146
 #, fuzzy
-msgid "/Tags/Special/Accent/Uppercase/J-Z/_U circumflex"
+msgid "/Tags/Special/Accent/Uppercase/J-Z/U circumflex"
 msgstr "/Znaczniki/Specjalne/Akcent/Duże/J-Z/U z daszkiem"
 
 #: ../src/menu.c:147
 #, fuzzy
-msgid "/Tags/Special/Accent/Uppercase/J-Z/_U diaeresis"
+msgid "/Tags/Special/Accent/Uppercase/J-Z/U diaeresis"
 msgstr "/Znaczniki/Specjalne/Akcent/Duże/J-Z/U z umlaut"
 
 #: ../src/menu.c:149
 #, fuzzy
-msgid "/Tags/Special/Accent/Uppercase/J-Z/_Y acute"
+msgid "/Tags/Special/Accent/Uppercase/J-Z/Y acute"
 msgstr "/Znaczniki/Specjalne/Akcent/Duże/J-Z/Y z kreską w górę"
 
 #: ../src/menu.c:151
@@ -1821,82 +1852,82 @@ msgstr "/Znaczniki/Specjalne/Akcent/Małe/A-I/tearoff1"
 
 #: ../src/menu.c:155
 #, fuzzy
-msgid "/Tags/Special/Accent/Lowercase/A-I/_a grave"
+msgid "/Tags/Special/Accent/Lowercase/A-I/a grave"
 msgstr "/Znaczniki/Specjalne/Akcent/Małe/A-I/a z kreską w dół"
 
 #: ../src/menu.c:157
 #, fuzzy
-msgid "/Tags/Special/Accent/Lowercase/A-I/_a acute"
+msgid "/Tags/Special/Accent/Lowercase/A-I/a acute"
 msgstr "/Znaczniki/Specjalne/Akcent/Małe/A-I/a z kreską w górę"
 
 #: ../src/menu.c:159
 #, fuzzy
-msgid "/Tags/Special/Accent/Lowercase/A-I/_a circumflex"
+msgid "/Tags/Special/Accent/Lowercase/A-I/a circumflex"
 msgstr "/Znaczniki/Specjalne/Akcent/Małe/A-I/a z daszkiem"
 
 #: ../src/menu.c:161
 #, fuzzy
-msgid "/Tags/Special/Accent/Lowercase/A-I/_a tilde"
+msgid "/Tags/Special/Accent/Lowercase/A-I/a tilde"
 msgstr "/Znaczniki/Specjalne/Akcent/Małe/A-I/a z tyldą"
 
 #: ../src/menu.c:163
 #, fuzzy
-msgid "/Tags/Special/Accent/Lowercase/A-I/_a ring"
+msgid "/Tags/Special/Accent/Lowercase/A-I/a ring"
 msgstr "/Znaczniki/Specjalne/Akcent/Małe/A-I/a z kółkiem"
 
 #: ../src/menu.c:165
 #, fuzzy
-msgid "/Tags/Special/Accent/Lowercase/A-I/_ae ligature"
+msgid "/Tags/Special/Accent/Lowercase/A-I/ae ligature"
 msgstr "/Znaczniki/Specjalne/Akcent/Małe/A-I/ae połączone"
 
 #: ../src/menu.c:167
 #, fuzzy
-msgid "/Tags/Special/Accent/Lowercase/A-I/_a diaeresis"
+msgid "/Tags/Special/Accent/Lowercase/A-I/a diaeresis"
 msgstr "/Znaczniki/Specjalne/Akcent/Małe/A-I/a z umlaut"
 
 #: ../src/menu.c:169
 #, fuzzy
-msgid "/Tags/Special/Accent/Lowercase/A-I/_c cedilla"
+msgid "/Tags/Special/Accent/Lowercase/A-I/c cedilla"
 msgstr "/Znaczniki/Specjalne/Akcent/Małe/A-I/c z ogonkiem"
 
 #: ../src/menu.c:171
 #, fuzzy
-msgid "/Tags/Special/Accent/Lowercase/A-I/_e grave"
+msgid "/Tags/Special/Accent/Lowercase/A-I/e grave"
 msgstr "/Znaczniki/Specjalne/Akcent/Małe/A-I/e z kreską w dół"
 
 #: ../src/menu.c:173
 #, fuzzy
-msgid "/Tags/Special/Accent/Lowercase/A-I/_e acute"
+msgid "/Tags/Special/Accent/Lowercase/A-I/e acute"
 msgstr "/Znaczniki/Specjalne/Akcent/Małe/A-I/e z kreską w górę"
 
 #: ../src/menu.c:175
 #, fuzzy
-msgid "/Tags/Special/Accent/Lowercase/A-I/_e circumflex"
+msgid "/Tags/Special/Accent/Lowercase/A-I/e circumflex"
 msgstr "/Znaczniki/Specjalne/Akcent/Małe/A-I/e z daszkiem"
 
 #: ../src/menu.c:177
 #, fuzzy
-msgid "/Tags/Special/Accent/Lowercase/A-I/_e diaeresis"
+msgid "/Tags/Special/Accent/Lowercase/A-I/e diaeresis"
 msgstr "/Znaczniki/Specjalne/Akcent/Małe/A-I/e z umlaut"
 
 #: ../src/menu.c:179
 #, fuzzy
-msgid "/Tags/Special/Accent/Lowercase/A-I/_i grave"
+msgid "/Tags/Special/Accent/Lowercase/A-I/i grave"
 msgstr "/Znaczniki/Specjalne/Akcent/Małe/A-I/i z kreską w dół"
 
 #: ../src/menu.c:181
 #, fuzzy
-msgid "/Tags/Special/Accent/Lowercase/A-I/_i acute"
+msgid "/Tags/Special/Accent/Lowercase/A-I/i acute"
 msgstr "/Znaczniki/Specjalne/Akcent/Małe/A-I/i z kreską w górę"
 
 #: ../src/menu.c:183
 #, fuzzy
-msgid "/Tags/Special/Accent/Lowercase/A-I/_i circumflex"
+msgid "/Tags/Special/Accent/Lowercase/A-I/i circumflex"
 msgstr "/Znaczniki/Specjalne/Akcent/Małe/A-I/i z daszkiem"
 
 #: ../src/menu.c:185
 #, fuzzy
-msgid "/Tags/Special/Accent/Lowercase/A-I/_i diaeresis"
+msgid "/Tags/Special/Accent/Lowercase/A-I/i diaeresis"
 msgstr "/Znaczniki/Specjalne/Akcent/Małe/A-I/i z umlaut"
 
 #: ../src/menu.c:187
@@ -1909,72 +1940,72 @@ msgstr "/Znaczniki/Specjalne/Akcent/Małe/J-Z/tearoff1"
 
 #: ../src/menu.c:190
 #, fuzzy
-msgid "/Tags/Special/Accent/Lowercase/J-Z/_n tilde"
+msgid "/Tags/Special/Accent/Lowercase/J-Z/n tilde"
 msgstr "/Znaczniki/Specjalne/Akcent/Małe/J-Z/n z tyldą"
 
 #: ../src/menu.c:192
 #, fuzzy
-msgid "/Tags/Special/Accent/Lowercase/J-Z/_o grave"
+msgid "/Tags/Special/Accent/Lowercase/J-Z/o grave"
 msgstr "/Znaczniki/Specjalne/Akcent/Małe/J-Z/o z kreską w dół"
 
 #: ../src/menu.c:194
 #, fuzzy
-msgid "/Tags/Special/Accent/Lowercase/J-Z/_o acute"
+msgid "/Tags/Special/Accent/Lowercase/J-Z/o acute"
 msgstr "/Znaczniki/Specjalne/Akcent/Małe/J-Z/o z kreską w górę"
 
 #: ../src/menu.c:195
 #, fuzzy
-msgid "/Tags/Special/Accent/Lowercase/J-Z/_oe ligature"
+msgid "/Tags/Special/Accent/Lowercase/J-Z/oe ligature"
 msgstr "/Znaczniki/Specjalne/Akcent/Małe/J-Z/oe połączone"
 
 #: ../src/menu.c:196
 #, fuzzy
-msgid "/Tags/Special/Accent/Lowercase/J-Z/_o circumflex"
+msgid "/Tags/Special/Accent/Lowercase/J-Z/o circumflex"
 msgstr "/Znaczniki/Specjalne/Akcent/Małe/J-Z/o z daszkiem"
 
 #: ../src/menu.c:198
 #, fuzzy
-msgid "/Tags/Special/Accent/Lowercase/J-Z/_o tilde"
+msgid "/Tags/Special/Accent/Lowercase/J-Z/o tilde"
 msgstr "/Znaczniki/Specjalne/Akcent/Małe/J-Z/o z tyldą"
 
 #: ../src/menu.c:200
 #, fuzzy
-msgid "/Tags/Special/Accent/Lowercase/J-Z/_o diaeresis"
+msgid "/Tags/Special/Accent/Lowercase/J-Z/o diaeresis"
 msgstr "/Znaczniki/Specjalne/Akcent/Małe/J-Z/o z umlaut"
 
 #: ../src/menu.c:202
 #, fuzzy
-msgid "/Tags/Special/Accent/Lowercase/J-Z/_o slash"
+msgid "/Tags/Special/Accent/Lowercase/J-Z/o slash"
 msgstr "/Znaczniki/Specjalne/Akcent/Małe/J-Z/o z kreską"
 
 #: ../src/menu.c:204
 #, fuzzy
-msgid "/Tags/Special/Accent/Lowercase/J-Z/_u grave"
+msgid "/Tags/Special/Accent/Lowercase/J-Z/u grave"
 msgstr "/Znaczniki/Specjalne/Akcent/Małe/J-Z/u z kreską w dół"
 
 #: ../src/menu.c:206
 #, fuzzy
-msgid "/Tags/Special/Accent/Lowercase/J-Z/_u acute"
+msgid "/Tags/Special/Accent/Lowercase/J-Z/u acute"
 msgstr "/Znaczniki/Specjalne/Akcent/Małe/J-Z/u z kreską w górę"
 
 #: ../src/menu.c:208
 #, fuzzy
-msgid "/Tags/Special/Accent/Lowercase/J-Z/_u circumflex"
+msgid "/Tags/Special/Accent/Lowercase/J-Z/u circumflex"
 msgstr "/Znaczniki/Specjalne/Akcent/Małe/J-Z/u z daszkiem"
 
 #: ../src/menu.c:210
 #, fuzzy
-msgid "/Tags/Special/Accent/Lowercase/J-Z/_u diaeresis"
+msgid "/Tags/Special/Accent/Lowercase/J-Z/u diaeresis"
 msgstr "/Znaczniki/Specjalne/Akcent/Małe/J-Z/u z umlaut"
 
 #: ../src/menu.c:212
 #, fuzzy
-msgid "/Tags/Special/Accent/Lowercase/J-Z/_y acute"
+msgid "/Tags/Special/Accent/Lowercase/J-Z/y acute"
 msgstr "/Znaczniki/Specjalne/Akcent/Małe/J-Z/y z kreską w górę"
 
 #: ../src/menu.c:214
 #, fuzzy
-msgid "/Tags/Special/Accent/Lowercase/J-Z/_y diaeresis"
+msgid "/Tags/Special/Accent/Lowercase/J-Z/y diaeresis"
 msgstr "/Znaczniki/Specjalne/Akcent/Małe/J-Z/y z umlaut"
 
 #: ../src/menu.c:216
@@ -2711,184 +2742,184 @@ msgstr "/Opcje/Zapisz ustawienia"
 msgid "/Options/Save shortcut _keys"
 msgstr "/Opcje/Zapisz skróty klawiszy"
 
-#: ../src/menu.c:606
+#: ../src/menu.c:624
 msgid "/Options/Display/View Main toolbar"
 msgstr "/Opcje/Widok/Pokazuj pasek główny"
 
-#: ../src/menu.c:607
+#: ../src/menu.c:625
 msgid "/Options/Display/View HTML toolbar"
 msgstr "/Opcje/Widok/Pokazuj pasek HTML"
 
-#: ../src/menu.c:608
+#: ../src/menu.c:626
 msgid "/Options/Display/View Custom menu"
 msgstr "/Opcje/Widok/Pokazuj menu podręczne"
 
-#: ../src/menu.c:609
+#: ../src/menu.c:627
 msgid "/Options/Display/View Left panel"
 msgstr "/Opcje/Widok/Pokazuj lewy panel"
 
-#: ../src/menu.c:610
+#: ../src/menu.c:628
 msgid "/Options/Auto indent"
 msgstr "/Opcje/Automatyczne wcięcie"
 
-#: ../src/menu.c:615
+#: ../src/menu.c:633
 msgid "/Document/Type"
 msgstr "/Dokument/Typ"
 
-#: ../src/menu.c:629
+#: ../src/menu.c:647
 msgid "/External/Browsers/"
 msgstr "/Zewnętrzne/Przeglądarki/"
 
-#: ../src/menu.c:632
+#: ../src/menu.c:650
 msgid "/External/Commands/"
 msgstr "/Zewnętrzne/Polecenia/"
 
-#: ../src/menu.c:635
+#: ../src/menu.c:653
 msgid "/External/Outputbox/"
 msgstr "/Zewnętrzne/Okno wyników/"
 
-#: ../src/menu.c:670 ../src/menu.c:690 ../src/menu.c:945 ../src/menu.c:957
-#: ../src/menu.c:966 ../src/menu.c:980
+#: ../src/menu.c:688 ../src/menu.c:708 ../src/menu.c:963 ../src/menu.c:975
+#: ../src/menu.c:984 ../src/menu.c:998
 msgid "/External"
 msgstr "/Zewnętrzne"
 
-#: ../src/menu.c:688
+#: ../src/menu.c:706
 msgid "/External/Outputbox"
 msgstr "/Zewnętrzne/Okno wyników"
 
-#: ../src/menu.c:729
+#: ../src/menu.c:747
 msgid "Could not open file\n"
 msgstr "Nie można otworzyć pliku\n"
 
-#: ../src/menu.c:751
+#: ../src/menu.c:769
 msgid "/File/Open recent"
 msgstr "/Plik/Ostatnie pliki"
 
-#: ../src/menu.c:772
+#: ../src/menu.c:790
 msgid "(none)"
 msgstr "(nic)"
 
-#: ../src/menu.c:860
+#: ../src/menu.c:878
 msgid "Bluefish error: no filename"
 msgstr "Błąd Bluefish: brak nazwy pliku"
 
-#: ../src/menu.c:860
+#: ../src/menu.c:878
 msgid "Could not view file in browser, the file does not yet have a name\n"
 msgstr "Nie można pokazać pliku w przeglądarce, plik nie posiada jeszcze nazwy\n"
 
-#: ../src/menu.c:955
+#: ../src/menu.c:973
 msgid "/External/Browsers"
 msgstr "/Zewnętrzne/Przeglądarki"
 
-#: ../src/menu.c:978
+#: ../src/menu.c:996
 msgid "/External/Commands"
 msgstr "/Zewnętrzne/Polecenia"
 
-#: ../src/menu.c:1018
+#: ../src/menu.c:1036
 msgid "/Document/Encoding"
 msgstr "/Dokument/Kodowanie znaków"
 
-#: ../src/menu.c:1236
+#: ../src/menu.c:1254
 msgid "This custom search and replace requires a selection"
 msgstr "To wyszukiwanie i zamiana wymaga zaznaczenia"
 
-#: ../src/menu.c:1310
+#: ../src/menu.c:1328
 msgid "/_Custom menu"
 msgstr "/Menu podrę_czne"
 
-#: ../src/menu.c:1311
+#: ../src/menu.c:1329
 msgid "/Custom menu/sep"
 msgstr "/Menu podręczne/sep"
 
-#: ../src/menu.c:1312
+#: ../src/menu.c:1330
 msgid "/Custom menu/Edit custom menu..."
 msgstr "/Menu podręczne/Edytuj menu podręczne..."
 
-#: ../src/menu.c:1474 ../src/menu.c:1602 ../src/menu.c:1812
+#: ../src/menu.c:1492 ../src/menu.c:1620 ../src/menu.c:1830
 msgid "in current document"
 msgstr "w aktualnym dokumencie"
 
-#: ../src/menu.c:1474 ../src/menu.c:1602 ../src/menu.c:1813
+#: ../src/menu.c:1492 ../src/menu.c:1620 ../src/menu.c:1831
 msgid "from cursor"
 msgstr "od kursora"
 
-#: ../src/menu.c:1474 ../src/menu.c:1602 ../src/menu.c:1814
+#: ../src/menu.c:1492 ../src/menu.c:1620 ../src/menu.c:1832
 msgid "in selection"
 msgstr "wewnątrz zaznaczenia"
 
-#: ../src/menu.c:1474 ../src/menu.c:1602 ../src/menu.c:1815
+#: ../src/menu.c:1492 ../src/menu.c:1620 ../src/menu.c:1833
 msgid "in all open documents"
 msgstr "we wszystkich otwartych dokumentach"
 
-#: ../src/menu.c:1475 ../src/menu.c:1603 ../src/menu.c:1823
+#: ../src/menu.c:1493 ../src/menu.c:1621 ../src/menu.c:1841
 msgid "normal"
 msgstr "normalne"
 
-#: ../src/menu.c:1475 ../src/menu.c:1603 ../src/menu.c:1824
+#: ../src/menu.c:1493 ../src/menu.c:1621 ../src/menu.c:1842
 msgid "posix regular expresions"
 msgstr "wyrażenia regularne POSIX"
 
-#: ../src/menu.c:1475 ../src/menu.c:1603 ../src/menu.c:1825
+#: ../src/menu.c:1493 ../src/menu.c:1621 ../src/menu.c:1843
 msgid "perl regular expresions"
 msgstr "wyrażenia regularne Perla"
 
-#: ../src/menu.c:1540
+#: ../src/menu.c:1558
 msgid "Search pattern"
 msgstr "Wzorzec wyszukiwany"
 
-#: ../src/menu.c:1541
+#: ../src/menu.c:1559
 msgid "Replace string"
 msgstr "Ciąg zastępujący"
 
-#: ../src/menu.c:1544
+#: ../src/menu.c:1562
 msgid "Formatstring before"
 msgstr "Ciąg formatujący przed"
 
-#: ../src/menu.c:1545
+#: ../src/menu.c:1563
 msgid "Formatstring after"
 msgstr "Ciąg formatujący po"
 
-#: ../src/menu.c:1573
+#: ../src/menu.c:1591
 msgid "the menupath you want to add exists already"
 msgstr "ścieżka menu, którą podałeś już istnieje"
 
-#: ../src/menu.c:1581
+#: ../src/menu.c:1599
 msgid "the menupath should start with a / character"
 msgstr "ścieżka menu powinna zaczynać się od znaku /"
 
-#: ../src/menu.c:1723
+#: ../src/menu.c:1741
 msgid "Edit custom menu"
 msgstr "Edytuj menu podręczne"
 
-#: ../src/menu.c:1732
+#: ../src/menu.c:1750
 msgid "Menu path"
 msgstr "Ścieżka menu"
 
-#: ../src/menu.c:1766
+#: ../src/menu.c:1784
 msgid "custom dialog"
 msgstr "własne okno dialogowe"
 
-#: ../src/menu.c:1768
+#: ../src/menu.c:1786
 msgid "custom search and replace"
 msgstr "własne wyszukiwanie i zamiana"
 
-#: ../src/menu.c:1777
+#: ../src/menu.c:1795
 msgid "Number of variables"
 msgstr "Ilość zmiennych"
 
-#: ../src/menu.c:1782
+#: ../src/menu.c:1800
 msgid "Variables"
 msgstr "Zmienne"
 
-#: ../src/menu.c:1811 ../src/snr2.c:971 ../src/snr2.c:1023
+#: ../src/menu.c:1829 ../src/snr2.c:971 ../src/snr2.c:1023
 msgid "Replace"
 msgstr "Zamień"
 
-#: ../src/menu.c:1822 ../src/snr2.c:1007
+#: ../src/menu.c:1840 ../src/snr2.c:1007
 msgid "Matching"
 msgstr "Dopasowanie"
 
-#: ../src/menu.c:1830
+#: ../src/menu.c:1848
 msgid "case sensitive"
 msgstr "rozróżniaj wielkie i małe litery"
 
@@ -3199,7 +3230,7 @@ msgstr "Ikona 'nieznany'"
 msgid "Directory icon"
 msgstr "Ikona folderu"
 
-#: ../src/preferences.c:1719
+#: ../src/preferences.c:1719 ../src/rcfile.c:611
 msgid "Images"
 msgstr "Obrazki"
 
@@ -3250,6 +3281,27 @@ msgstr "Parsery wyjścia"
 #: ../src/preferences.c:1780
 msgid "Outputbox"
 msgstr "Okno wyników"
+
+#: ../src/rcfile.c:518
+msgid "Galeon"
+msgstr ""
+
+#: ../src/rcfile.c:520
+msgid "Mozilla"
+msgstr ""
+
+#: ../src/rcfile.c:522
+msgid "Opera"
+msgstr ""
+
+#: ../src/rcfile.c:524
+msgid "Netscape"
+msgstr ""
+
+#: ../src/rcfile.c:526
+#, fuzzy
+msgid "Gnome default"
+msgstr "Numer linii:"
 
 #: ../src/rcfile.c:531
 msgid "UTF-8"
@@ -3334,6 +3386,48 @@ msgstr ""
 #: ../src/rcfile.c:551
 msgid "EUCJP (Japanese)"
 msgstr ""
+
+#: ../src/rcfile.c:555
+#, fuzzy
+msgid "make"
+msgstr "Obrazki"
+
+#: ../src/rcfile.c:556
+msgid "weblint HTML checker"
+msgstr ""
+
+#: ../src/rcfile.c:557
+msgid "tidy HTML validator"
+msgstr ""
+
+#: ../src/rcfile.c:558
+msgid "javac"
+msgstr ""
+
+#: ../src/rcfile.c:564
+msgid "Dos2Unix filter"
+msgstr ""
+
+#: ../src/rcfile.c:566
+#, fuzzy
+msgid "Tidy cleanup filter"
+msgstr "Filtr plików"
+
+#: ../src/rcfile.c:605
+msgid "C programming"
+msgstr "Programy C"
+
+#: ../src/rcfile.c:607
+msgid "All web files"
+msgstr "Wszystkie dokumenty WWW"
+
+#: ../src/rcfile.c:609
+msgid "Java programming"
+msgstr "Programy Javy"
+
+#: ../src/rcfile.c:613
+msgid "Hide objectfiles"
+msgstr "Ukryj pliki .obj"
 
 #: ../src/rcfile.c:660
 msgid "/php/ibase/ibase fetch row"
@@ -3867,36 +3961,6 @@ msgstr "Ilość ramek"
 #: ../src/wizards.c:196
 msgid "Frame's"
 msgstr "Ramki"
-
-#~ msgid "New file"
-#~ msgstr "Nowy plik"
-
-#~ msgid "New directory"
-#~ msgstr "Nowy folder"
-
-#~ msgid "Delete file"
-#~ msgstr "Kasuj plik"
-
-#~ msgid "Refresh"
-#~ msgstr "Odśwież"
-
-#~ msgid "Filter"
-#~ msgstr "Filtr plików"
-
-#~ msgid "All files"
-#~ msgstr "Wszystkie pliki"
-
-#~ msgid "C programming"
-#~ msgstr "Programy C"
-
-#~ msgid "All web files"
-#~ msgstr "Wszystkie dokumenty WWW"
-
-#~ msgid "Java programming"
-#~ msgstr "Programy Javy"
-
-#~ msgid "Hide objectfiles"
-#~ msgstr "Ukryj pliki .obj"
 
 #~ msgid "/Tags/Repeat last"
 #~ msgstr "/Znaczniki/Powtórz ostatni"

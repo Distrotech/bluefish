@@ -882,19 +882,19 @@ static GtkWidget *filebrowser_rpopup_create_menu() {
 	GtkWidget *menu, *menu_item;
 
 	menu = gtk_menu_new();
-	menu_item = gtk_menu_item_new_with_label("New file");
+	menu_item = gtk_menu_item_new_with_label(_("New file"));
 	g_signal_connect(GTK_OBJECT(menu_item), "activate", G_CALLBACK(filebrowser_rpopup_new_file_lcb), NULL);
 	gtk_menu_append(GTK_MENU(menu), menu_item);
-	menu_item = gtk_menu_item_new_with_label("New directory");
+	menu_item = gtk_menu_item_new_with_label(_("New directory"));
 	g_signal_connect(GTK_OBJECT(menu_item), "activate", G_CALLBACK(filebrowser_rpopup_new_dir_lcb), NULL);
 	gtk_menu_append(GTK_MENU(menu), menu_item);
-	menu_item = gtk_menu_item_new_with_label("Delete file");
+	menu_item = gtk_menu_item_new_with_label(_("Delete file"));
 	g_signal_connect(GTK_OBJECT(menu_item), "activate", G_CALLBACK(filebrowser_rpopup_delete_lcb), NULL);
 	gtk_menu_append(GTK_MENU(menu), menu_item);
-	menu_item = gtk_menu_item_new_with_label("Refresh");
+	menu_item = gtk_menu_item_new_with_label(_("Refresh"));
 	g_signal_connect(GTK_OBJECT(menu_item), "activate", G_CALLBACK(filebrowser_rpopup_refresh_lcb), NULL);
 	gtk_menu_append(GTK_MENU(menu), menu_item);
-	menu_item = gtk_menu_item_new_with_label("Filter");
+	menu_item = gtk_menu_item_new_with_label(_("Filter"));
 	gtk_menu_append(GTK_MENU(menu), menu_item);
 	{
 		GtkWidget *fmenu;
@@ -1019,7 +1019,7 @@ GtkWidget *filebrowser_init() {
 	if (!filebrowser.curfilter) {
 		GList *tmplist;
 		filebrowser.uid = getuid();
-		filebrowser.curfilter = new_filter("All files", "0", NULL);
+		filebrowser.curfilter = new_filter(_("All files"), "0", NULL);
 		filebrowser.filters = g_list_append(NULL, filebrowser.curfilter);
 		filebrowser.unknown_icon = gdk_pixbuf_new_from_file(main_v->props.filebrowser_unknown_icon, NULL);
 		filebrowser.dir_icon = gdk_pixbuf_new_from_file(main_v->props.filebrowser_dir_icon, NULL);
