@@ -136,7 +136,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
       chapters if you are in doubt.</para>
       <para>Bluefish is installed using the standard 'configure, make, make
       install' steps. Assuming you have downloaded a bluefish source package,
-      for instance <literal>bluefish-ver.tar.gz</literal> (naturally, change
+      for instance <filename>bluefish-ver.tar.gz</filename> (naturally, change
       the filename to what's appropriate), you complete the installation with
       the following steps:</para>
       <orderedlist>
@@ -156,10 +156,10 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
           <para><userinput>su -c 'make install'</userinput></para>
         </listitem>
         <listitem>
-           <para>Now, type <userinput>bluefish</userinput> to run. You may delete the <literal>bluefish-ver</literal> directory.</para>
+           <para>Now, type <userinput>bluefish</userinput> to run. You may delete the <filename>bluefish-ver</filename> directory.</para>
         </listitem>
       </orderedlist>
-      <para>The <literal>configure</literal> script is used to automatically
+      <para>The <command>configure</command> script is used to automatically
       find the appropriate settings for your system. Because of differences
       between systems, this compile-time configuration is necessary, and
       configure solves this challenge easily -- with an added bonus of telling
@@ -170,42 +170,44 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
       linkend="installing-bluefish-configure" /></para>
     </sect2>
 
-    <sect2 id="installing-bluefish-devel-source">
-      <title>Installing from Development Source Tree</title>
-      <para>You can get the latest Bluefish version via CVS using the
-      instructions in <xref linkend="getting-bluefish-cvs" /> Enter the
-      directory containing the bluefish source files: <screen>$ cd bluefish-gtk2</screen>
-      Next, generate the configure script by running <screen>$ autoconf</screen> Then, you run
-      <literal>configure</literal> with whatever options you might want. This
-      example will cause <literal>make install</literal> to install Bluefish
-      with the specified directory as prefix (i.e. the binary is installed in
-      <literal>/usr/local/bf-cvs/bin/bluefish</literal>). This is most likely
-      not what you want -- just run configure without parameters instead.
-      <screen>$ ./configure --prefix=/usr/local/bf-cvs</screen></para>
-      <para>If configure fails, it will probably give a hint telling you what is
-      missing or wrong. Assuming it completed successfully, your next step is
-      to compile Bluefish. To do this, run <screen>$ make</screen> When
-      <literal>make</literal> has completed, you can install Bluefish:
-      (<literal>su</literal> to root first, unless you specified a user
-      writable prefix to configure) <screen># make install</screen></para>
-      <para>To update the sources at a later time, you run the command
-      <userinput>cvs -z3 -q update</userinput> from within the
-      <literal>bluefish-gtk2</literal> directory.</para>
-    </sect2>
-
+ <sect2 id="installing-bluefish-devel-source">
+<title>Installing from Development Source Tree</title>
+<para>You can get the latest Bluefish version via CVS using the
+instructions in <xref linkend="getting-bluefish-cvs" />. Next, install it with the following steps:</para>
+<orderedlist>
+<listitem>
+<para>Enter the directory containing the bluefish source files: <userinput>cd bluefish-gtk2</userinput></para>
+</listitem>
+<listitem>
+<para>Next, generate the configure script by running <userinput>autoconf</userinput></para>
+</listitem>
+<listitem>
+<para>Then, you run <command>configure</command> with whatever options you might want. </para>
+<para>This example will cause <command>make install</command> to install Bluefish with the specified directory as prefix (i.e. the binary is installed in <filename>/usr/local/bf-cvs/bin/bluefish</filename>). This is most likely not what you want -- just run configure without parameters instead.</para>
+<screen>$ ./configure --prefix=/usr/local/bf-cvs</screen>
+<para>If configure fails, it will probably give a hint telling you what is missing or wrong.</para>
+</listitem>
+<listitem><para>Assuming it completed successfully, your next step is to compile Bluefish. To do this, run <userinput>make</userinput>.</para>
+</listitem>
+<listitem><para>When <command>make</command> has completed, you can install Bluefish: (<command>su</command> to root first, unless you specified a user writable prefix to configure), then issue: <userinput># make install</userinput>.</para>
+</listitem>
+</orderedlist>
+<para>To update the sources at a later time, you run the command <userinput>cvs -z3 -q update</userinput> from within the
+<filename>bluefish-gtk2</filename> directory.</para>
+</sect2>
     <sect2 id="installing-bluefish-problems">
       <title>Problems Compiling?</title>
       <para>If compilation fails, first make sure you have the necessary utilities and libraries. See <xref linkend="installing-bluefish-requirements" />.</para>
       <para>Next, see if your system is mentioned
       in <xref linkend="installing-bluefish-specific-issues" />.</para>
-      <?pagebreak?>
-      <para> Below is a list of well known
+<?pagebreak?>
+       <para> Below is a list of well known
       problems that have been mentioned on the bluefish-dev list:</para>
       <itemizedlist>
         <listitem>
             <para><screen>make: *** No targets specified and no makefile found.
           Stop.</screen>
-           This will happen if <emphasis>configure</emphasis> fails and you try to run <literal>make</literal>. It also happens if you're running <literal>make</literal> from the wrong directory.</para>
+           This will happen if <emphasis>configure</emphasis> fails and you try to run <command>make</command>. It also happens if you're running <command>make</command> from the wrong directory.</para>
         </listitem>
         <listitem>
         <para>... more trouble to come ;-)</para>
@@ -677,29 +679,38 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
     ;-)</para>
   </sect1>
 
-  <sect1 id="installing-bluefish-post-setup">
-    <title>Post-installation Setup</title>
-    <para>The first time you run Bluefish it will create a directory
-    <literal>~/.bluefish</literal> where all Bluefish's configuration options 
-    are stored. This includes all preferences, customized menus, 
-    highlighting-patterns, file history etc.</para>
-    <para>Bluefish will work right out of the box, but you can and should take
-    advantage of the many customizations available. Change the font
-    in the main text view if you do not like it, remove unused tool bars, add
-    shortcuts to the customizable menu, and edit the list of browsers and
-    external programs.</para>
-    <para>If you are upgrading from a previous version, perhaps CVS, you
-    should note that the syntax highlighting may have changed. To make sure
-    you have the latest highlighting patterns, exit Bluefish and delete the
-    <literal>highlighting</literal> file in your
-    <literal>~/.bluefish</literal> directory. Next time Bluefish is started,
-    the new defaults will be loaded. Note that this will also annihilate all
-    your changes to the highlighting. A more gentle approach may be to move
-    your current highlighting file to highlighting.old, start Bluefish to get
-    the new patterns, exit bluefish, and then run <userinput>diff -c
-    highlighting.old highlighting</userinput> to find the differences..</para>
-    <para>If your settings become corrupted, unusable, or you simply want to 
-    revert to the defaults, you may safely delete the <literal>~/.bluefish</literal> 
-    directory.</para>
+<sect1 id="installing-bluefish-post-setup">
+<title>Post-installation Setup</title>
+<para>The first time you run Bluefish it will create a directory <filename>~/.bluefish</filename> where all Bluefish's configuration options are stored. This includes all preferences, customized menus, highlighting-patterns, file history etc.</para>
+<para>Bluefish will work right out of the box, but you can and should take advantage of the many customizations available. Change the font in the main text view if you do not like it, remove unused tool bars, add shortcuts to the customizable menu, and edit the list of browsers and external programs.</para>
+<para>If you are upgrading from a previous version, perhaps CVS, you should note that the syntax highlighting may have changed. To make sure you have the latest highlighting patterns, follow the following procedure:</para>
+ <procedure><title>Getting the new defaults after upgrading - First method</title>
+<step>
+<para>Exit Bluefish</para>
+</step>
+<step>
+<para>Delete the <filename>highlighting</filename> file in your <filename>~/.bluefish</filename> directory.</para>
+<para>Next time Bluefish is started, the new defaults will be loaded.</para>
+</step>
+</procedure>
+<para>Note that this will also annihilate all your changes to the highlighting. Here's a more gentle approach:</para>
+ <procedure><title>Getting the new defaults after upgrading - Second method</title>
+<step>
+<para>Exit Bluefish</para>
+</step>
+<step>
+<para>Move your current highlighting file to highlighting.old</para>
+</step>
+<step>
+<para>Start Bluefish to get the new patterns</para>
+</step>
+<step>
+<para>Exit Bluefish</para>
+</step>
+<step>
+<para>Run <userinput>diff -c highlighting.old highlighting</userinput> to find the differences.</para>
+</step>
+</procedure>
+  <para>If your settings become corrupted, unusable, or you simply want to revert to the defaults, you may safely delete the <filename>~/.bluefish</filename> directory.</para>
   </sect1>
 </chapter>

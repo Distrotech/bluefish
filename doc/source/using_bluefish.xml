@@ -29,14 +29,21 @@ terminal, simply launch bluefish using the command <emphasis>bluefish</emphasis>
 <sect2 id="commandline-options">
 <title>Command line options</title>
 <para>There are several useful command line options:</para>
-<itemizedlist>
-	<listitem><para>-s           skip root check</para></listitem>
-	<listitem><para>-v           current version</para></listitem>
-	<listitem><para>-n           open new window</para></listitem>
-	<listitem><para>-p filename  open project</para></listitem>
-	<listitem><para>-h           this help screen</para></listitem>
-	<listitem><para>--display</para></listitem>
-</itemizedlist>
+<variablelist><varlistentry><term>-s</term>
+<listitem><para>skip root check</para></listitem>
+</varlistentry>
+<varlistentry><term>-v</term>
+<listitem><para>display the current version</para></listitem>
+</varlistentry>
+<varlistentry><term>-n</term>
+<listitem><para>open a new window</para></listitem>
+</varlistentry>
+<varlistentry><term>-p filename</term>
+<listitem><para>open a project</para></listitem>
+</varlistentry>
+<varlistentry><term>-h</term>
+<listitem><para>display this help screen</para></listitem>
+</varlistentry></variablelist>
 <para>Many programs like browsers, email clients and file managers can be configured to 
 open files in Bluefish. For example, <emphasis>bluefish '%s'</emphasis> will open
 a file in the current window, <emphasis>bluefish -n '%s'</emphasis> will open a
@@ -66,8 +73,8 @@ a project file.
 				</screenshot>
 			</figure>
 	</para>
-	<?pagebreakus?>
-	<para>The top of the Bluefish interface consists of a menu, a main tool bar, an 
+<?pagebreaka4?>
+<para>The top of the Bluefish interface consists of a menu, a main tool bar, an 
 	HTML tool bar, and a Custom menu.
 			<figure id="main_menu">
 				<title id="bf-figure-main-menu">Bluefish Main Menu</title>
