@@ -38,6 +38,7 @@ all-no:
 	$(MSGFMT) $< -o $@
 
 install:
+	$(INSTALL_DIR) $(DESTDIR)$(localedir)
 	@for file in $(SRCS) ; do \
 		lang=`echo $${file} | sed -e 's/\.po$$//'`;\
 		$(INSTALL_DIR) $(DESTDIR)$(localedir)/$${lang}/ ;\
