@@ -147,8 +147,7 @@ void notebook_changed(Tbfwin *bfwin, gint newpage) {
 	flush_queue();
 
 	doc_activate(bfwin->current_document);
-        bmark_adjust_visible(bfwin);
-	
+	bmark_adjust_visible(bfwin);
 }
 
 gboolean switch_to_document_by_index(Tbfwin *bfwin,gint index) {
@@ -205,7 +204,7 @@ GtkWidget *left_panel_build(Tbfwin *bfwin) {
 	GtkWidget *fileb;
 	GtkWidget *left_notebook = gtk_notebook_new();
 	GtkWidget *fref;
-        GtkWidget *bmarks;
+	GtkWidget *bmarks;
 	gtk_notebook_set_tab_pos(GTK_NOTEBOOK(left_notebook),main_v->props.leftpanel_tabposition);
 	gtk_notebook_set_show_tabs(GTK_NOTEBOOK(left_notebook), TRUE);
 	gtk_notebook_set_show_border(GTK_NOTEBOOK(left_notebook), FALSE);
@@ -1431,11 +1430,6 @@ GtkWidget *start_splash_screen() {
 	return splashscreen.window;
 }
 #endif /* #ifndef NOSPLASH */
-
-
-void gui_toggle_autoindent_cb(gpointer callback_data,guint action,GtkWidget *widget) {
-	main_v->props.autoindent = 1 - main_v->props.autoindent;
-}
 
 void gui_set_html_toolbar_visible(Tbfwin *bfwin, gboolean visible, gboolean sync_menu) {
 	if (sync_menu) setup_toggle_item(gtk_item_factory_from_widget(bfwin->menubar), N_("/View/View HTML Toolbar"), visible);
