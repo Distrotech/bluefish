@@ -1,4 +1,4 @@
-/* #define DEBUG */
+#define DEBUG
 
 #include "config.h"
 
@@ -140,6 +140,7 @@ gboolean spell_check_word(Tbfspell *bfspell, gchar * tocheck, GtkTextIter *itsta
 gboolean spell_run(Tbfspell *bfspell) {
 	GtkTextIter itstart,itend;
 	gchar *word = doc_get_next_word(bfspell, &itstart,&itend);
+	DEBUG_MSG("spell_run, started, bfspell=%p, word=%s\n",bfspell,word);
 	if (!word) {
 		GList *poplist = NULL;
 		DEBUG_MSG("spell_run: finished\n");
@@ -215,16 +216,19 @@ static void spell_gui_set_button_status(Tbfspell *bfspell, gboolean is_running) 
 void spell_gui_ok_clicked_cb(GtkWidget *widget, Tbfspell *bfspell) {
 	AspellCanHaveError *possible_err;
 	const gchar *lang;
+	DEBUG_MSG("spell_gui_ok_clicked_cb, bfspell=%p, bfwin=%p\n",bfspell, bfspell->bfwin);
 	bfspell->doc = bfspell->bfwin->current_document;
 	{
 		gint indx;
 		indx = gtk_option_menu_get_history(GTK_OPTION_MENU(bfspell->lang));
 		lang = g_list_nth_data(bfspell->langs, indx);
+		DEBUG_MSG("spell_gui_ok_clicked_cb, indx=%d has language %s\n",indx,lang);
 	}
 	aspell_config_replace(bfspell->spell_config, "lang", lang);
-	DEBUG_MSG("spell_gui_ok_clicked_cb, set lang to %s\n",lang);
+	DEBUG_MSG("spell_gui_ok_clicked_cb, set lang to %s, about to create speller\n",lang);
 
 	possible_err = new_aspell_speller(bfspell->spell_config);
+	DEBUG_MSG("possible_err=%d\n",possible_err);
 	bfspell->spell_checker = 0;
 	if (aspell_error_number(possible_err) != 0) {
 		DEBUG_MSG(aspell_error_message(possible_err));
@@ -242,7 +246,7 @@ void spell_gui_ok_clicked_cb(GtkWidget *widget, Tbfspell *bfspell) {
 		bfspell->offset = gtk_text_iter_get_offset(&start);
 		bfspell->stop_position = gtk_text_iter_get_offset(&end);
 	}
-
+	DEBUG_MSG("about to start spell_run()\n");
 	if (spell_run(bfspell)) {
 		spell_gui_set_button_status(bfspell,TRUE);
 	} else {
