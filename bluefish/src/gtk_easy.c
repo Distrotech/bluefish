@@ -35,33 +35,28 @@
 #define DIRCHR '/'
 #endif
 
-/* void flush_queue(void)
+/**
+ * flush_queue:
+ * 
  * handles the gtk and gdk queue
- */
-void flush_queue(void)
-{
+ * 
+ * Return value: void
+ **/
+void flush_queue(void) {
 	while(g_main_context_pending(NULL)) {
 		g_main_context_iteration (NULL, TRUE);
 	}
-/*	while (gtk_events_pending()) {
-		DEBUG_MSG("gtk_events_pending\n");
-		gtk_main_iteration();
-	}
-	while (gdk_events_pending()) {
-		DEBUG_MSG("gdk_events_pending\n");
-		gdk_flush();
-	}*/
 }
 
-/*
- * Function: window_destroy
- * Arguments:
- * 	windowname - a pointer to the window widget to destroy
- * Description:
- * 	Remove grab and signals and then destroy window
- */
-void window_destroy(GtkWidget * windowname)
-{
+/**
+ * window_destroy:
+ * @windowname: a #GtkWidget pointer to the window
+ * 
+ * Remove grab and signals and then destroy window
+ * 
+ * Return value: void
+ **/
+void window_destroy(GtkWidget * windowname) {
 	DEBUG_MSG("window_destroy, windowname=%p, first the signal handlers\n", windowname);
 	g_signal_handlers_destroy(G_OBJECT(windowname));
 	DEBUG_MSG("window_destroy, then remove the grab\n");
@@ -71,48 +66,45 @@ void window_destroy(GtkWidget * windowname)
 	DEBUG_MSG("window_destroy, done\n");
 }
 
-/*
- * Function: window_close_by_widget_cb
- * Arguments:
- * 	widget - the parent window of this widget will be destroyed
- * 	data - ignored
- * Description:
+/**
+ * window_close_by_widget_cb:
+ * 	@widget: #GtkWidget the parent window of this widget will be destroyed
+ * 	@data: gpointer, ignored
+ *
  * 	destroy the toplevel window for widget
+ *
+ * Return value: void
  */
-void window_close_by_widget_cb(GtkWidget * widget, gpointer data)
-{
+void window_close_by_widget_cb(GtkWidget * widget, gpointer data) {
 	DEBUG_MSG("window_close_by_data_cb, widget=%p\n", widget);
 	window_destroy(gtk_widget_get_toplevel(widget));
 }
 
-/*
- * Function: window_close_by_data_cb
- * Arguments:
- * 	widget - ignored
- * 	data - a pointer to a gtk-window which will be detroyed
- * Description:
+/**
+ * window_close_by_data_cb:
+ * 	@widget: #GtkWidget, ignored
+ * 	@data: #gpointer to a gtk-window which will be detroyed
+ *
  * 	destroy a window using the gpointer data
+ *
+ * Return value: void
  */
-void window_close_by_data_cb(GtkWidget * widget, gpointer data)
-{
+void window_close_by_data_cb(GtkWidget * widget, gpointer data) {
 	DEBUG_MSG("window_close_by_data_cb, data=%p\n", data);
 	window_destroy(GTK_WIDGET(data));
 }
 
-/*
- * Function: setup_toggle_item
- * Arguments:
- * 	ifactory - the itemfactory where the toggle item is in defined
- * 	path - the path in the itemfactory to find the toggle item
- * 	state - the state to put it in (0 or 1)
- * Return value:
- * 	void
- * Description:
- * 	change the setting of a toggle item in a menu
+/**
+ * setup_toggle_item:
+ * 	@ifactory: #GtkItemFactory * the itemfactory where the toggle item is in defined
+ * 	@path: #gchar * the path in the itemfactory to find the toggle item
+ * 	@state: #gint the state to put it in (0 or 1)
+ * 
+ * 	change the setting of a toggle item in a menu to state
+ *
+ * Return value: void
  */
-void setup_toggle_item(GtkItemFactory * ifactory, gchar * path, gint state)
-{
-
+void setup_toggle_item(GtkItemFactory * ifactory, gchar * path, gint state) {
 	GtkWidget *toggle;
 
 	toggle = gtk_item_factory_get_widget(ifactory, path);
@@ -131,15 +123,14 @@ void setup_toggle_item(GtkItemFactory * ifactory, gchar * path, gint state)
 	}
 }
 
-/*
- * Function: string_apply
- * Arguments:
- * 	config_var - a pointer to a gchar pointer with where it should be placed
- * 	entry - the entry to read
- * Return value:
- * 	void
- * Description:
- * 	free the old string, and replace it with the new string
+/**
+ * string_apply:
+ * @config_var: # gchar **, a pointer to a gchar pointer with where the content should be placed
+ * 	@entry: the entry #GtkWidget * to read
+ *
+ * 	free the old string in **config_var, and replaces it with the new string from entry
+ *
+ * Return value:	void
  */
 void string_apply(gchar ** config_var, GtkWidget * entry)
 {
@@ -160,9 +151,17 @@ void string_apply(gchar ** config_var, GtkWidget * entry)
 	}
 #endif
 }
-
-void integer_apply(gint *config_var, GtkWidget * widget, gboolean is_checkbox)
-{
+/**
+ * string_apply:
+ * @config_var: #gint*, a pointer to a gint with where the content should be placed
+ * 	@entry: the spinbutton or checkbox #GtkWidget * to read
+ * @is_checkbox: a gboolean, TRUE if entry is a checkbox
+ *
+ * 	sets the content from the widget to the variable pointer to by the config_var pointer
+ *
+ * Return value: void
+ */
+void integer_apply(gint *config_var, GtkWidget * widget, gboolean is_checkbox) {
 	if (is_checkbox) {
 		*config_var = (GTK_TOGGLE_BUTTON(widget)->active);
 	} else {
@@ -170,22 +169,17 @@ void integer_apply(gint *config_var, GtkWidget * widget, gboolean is_checkbox)
 	}
 	DEBUG_MSG("integer_apply, config_var(%p)=%i\n", config_var, *config_var);
 }
-
-
-/*
- * Function: combo_with_popdown
- * Arguments:
- * 	setstring - string to setb in textbox, if NULL set ""
- * 	which_list - GList to set in popdown widget
- * 	editable - if editable (1 or 0)
- * Return value:
- * 	Pointer to create combo
- * Description:
+/**
+ * combo_with_popdown:
+ * 	@setstring: #gchar* to set in textbox, if NULL it will be set ""
+ * 	@which_list: #GList* to set in popdown widget
+ * 	@editable: #gint if the combo should be editable (1 or 0)
+ *
  * 	Create new combo and preset some values
+ *
+ * Return value: #GtkWidget* pointer to created combo
  */
-GtkWidget *combo_with_popdown(const gchar * setstring, GList * which_list, gint editable)
-{
-
+GtkWidget *combo_with_popdown(const gchar * setstring, GList * which_list, gint editable) {
 	GtkWidget *returnwidget;
 
 	returnwidget = gtk_combo_new();
@@ -203,16 +197,36 @@ GtkWidget *combo_with_popdown(const gchar * setstring, GList * which_list, gint 
 	gtk_combo_disable_activate(GTK_COMBO(returnwidget));
 	return returnwidget;
 }
-
+/**
+ * boxed_combo_with_popdown:
+ * 	@setstring: #gchar* to set in textbox, if NULL it will be set ""
+ * 	@which_list: #GList* to set in popdown widget
+ * 	@editable: #gint if the combo should be editable (1 or 0)
+ * @box: the #GtkWidget* box widget to add the combo to
+ *
+ * 	create a new combo with presets like in combo_with_popdown()
+ * and add it to the box
+ *
+ * Return value: #GtkWidget* pointer to created combo
+ */
 GtkWidget *boxed_combo_with_popdown(const gchar * setstring, GList * which_list, gint editable, GtkWidget *box) {
-
 	GtkWidget *returnwidget;
 	
 	returnwidget = combo_with_popdown(setstring, which_list, editable);
 	gtk_box_pack_start(GTK_BOX(box), returnwidget, TRUE, TRUE, 3);
 	return returnwidget;
 }
-
+/**
+ * combo_with_popdown_sized:
+ * 	@setstring: #gchar* to set in textbox, if NULL it will be set ""
+ * 	@which_list: #GList* to set in popdown widget
+ * 	@editable: #gint if the combo should be editable (1 or 0)
+ * @width: #gint with the width in pixels the widget should be
+ *
+ * 	Create new combo and preset some values, with a horizontal size
+ *
+ * Return value: #GtkWidget* pointer to created combo
+ */
 GtkWidget *combo_with_popdown_sized(const gchar * setstring, GList * which_list, gint editable, gint width) {
 	GtkWidget *returnwidget;
 	
@@ -221,20 +235,16 @@ GtkWidget *combo_with_popdown_sized(const gchar * setstring, GList * which_list,
 	return returnwidget;
 }
 
-/*
- * Function: entry_with_text
- * Arguments:
- * 	setstring - if !NULL set this text
- * 	max_lenght - max. characters in the entry
- * Return value:
- * 	Pointer to the new entry widget
- * Description:
+/**
+ * entry_with_text:
+ * 	@setstring: #const gchar* if not NULL set this text
+ * 	@max_lenght: #gint max. characters in the entry
+ *
  * 	Create new entry with some preset values
+ *
+ * Return value: #GtkWidget* pointer to the new entry widget
  */
-
-GtkWidget *entry_with_text(const gchar * setstring, gint max_lenght)
-{
-
+GtkWidget *entry_with_text(const gchar * setstring, gint max_lenght) {
 	GtkWidget *returnwidget;
 
 	if (max_lenght) {
@@ -247,9 +257,17 @@ GtkWidget *entry_with_text(const gchar * setstring, gint max_lenght)
 	}
 	gtk_entry_set_activates_default(GTK_ENTRY(returnwidget), TRUE);
 	return returnwidget;
-
 }
-
+/**
+ * boxed_entry_with_text:
+ * 	@setstring: #const gchar* if not NULL set this text
+ * 	@max_lenght: #gint max. characters in the entry
+ * @box: the #GtkWidget* box widget to add the entry to
+ *
+ * 	Create new entry with some preset values, and add it to a box
+ *
+ * Return value: #GtkWidget* pointer to the new entry widget
+ */
 GtkWidget *boxed_entry_with_text(const gchar * setstring, gint max_lenght, GtkWidget *box) {
 	GtkWidget *returnwidget;
 	
