@@ -751,35 +751,36 @@ GList *duplicate_arraylist(GList *arraylist) {
  * gets a stringlist from a file
  */
 GList *get_list(const gchar * filename, GList * which_list, gboolean is_arraylist) {
+	FILE *fd;
+	gchar *tmpbuf, *tmpfilename;
+
 	DEBUG_MSG("get_stringlist, started with filename=%s\n", filename);
 	if (filename == NULL) {
 		return NULL;
 	}
-	if (file_exists_and_readable(filename)) {
-		FILE *fd;
-		gchar *tmpbuf;
-		DEBUG_MSG("get_stringlist, opening %s\n", filename);
-		fd = fopen(filename, "r");
-		if (fd == NULL) {
-			return NULL;
-		}
-		tmpbuf = g_malloc(STRING_MAX_SIZE);
-		while (fgets(tmpbuf, STRING_MAX_SIZE, fd) != NULL) {
-			gchar *tempstr;
-			tmpbuf = trunc_on_char(tmpbuf, '\n');
-			tempstr = g_strdup(tmpbuf);
-			if (is_arraylist) {
-				gchar **temparr = string_to_array(tempstr);
-				which_list = g_list_append(which_list, temparr);
-				g_free(tempstr);
-			} else {
-				DEBUG_MSG("get_list, adding string \"%s\" to the stringlist=%p\n", tempstr, which_list);
-				which_list = g_list_append(which_list, tempstr);
-			}
-		}
-		fclose(fd);
-		g_free(tmpbuf);
+	tmpfilename = g_strdup(filename+((strncmp(filename, "file://",7)==0)?7:0));
+	DEBUG_MSG("get_stringlist, opening %s\n", tmpfilename);
+	fd = fopen(tmpfilename, "r");
+	g_free(tmpfilename);
+	if (fd == NULL) {
+		return NULL;
 	}
+	tmpbuf = g_malloc(STRING_MAX_SIZE);
+	while (fgets(tmpbuf, STRING_MAX_SIZE, fd) != NULL) {
+		gchar *tempstr;
+		tmpbuf = trunc_on_char(tmpbuf, '\n');
+		tempstr = g_strdup(tmpbuf);
+		if (is_arraylist) {
+			gchar **temparr = string_to_array(tempstr);
+			which_list = g_list_append(which_list, temparr);
+			g_free(tempstr);
+		} else {
+			DEBUG_MSG("get_list, adding string \"%s\" to the stringlist=%p\n", tempstr, which_list);
+			which_list = g_list_append(which_list, tempstr);
+		}
+	}
+	fclose(fd);
+	g_free(tmpbuf);
 	return which_list;
 }
 #ifdef __GNUC__
