@@ -43,6 +43,9 @@ typedef struct {
 
 void image_diag_destroy_cb(GtkWidget * widget, Timage_diag *imdg) {
 	html_diag_destroy_cb(widget,imdg->dg);
+	if (imdg->pb) {
+		g_object_unref(imdg->pb);
+	}
 	g_free(imdg);
 }
 
@@ -66,7 +69,7 @@ static void image_insert_dialogok_lcb(GtkWidget * widget, Timage_diag *imdg) {
 			} else {
 				gdk_pixbuf_save(tmp_im,thumbnailfilename,main_v->props.image_thumbnailtype,&error, NULL);
 			}
-			gdk_pixbuf_unref (tmp_im);
+			g_object_unref (tmp_im);
 			if (error) {
 				g_print("ERROR while saving thumbnail: %s\n", error->message);
 				g_error_free(error);
@@ -86,7 +89,7 @@ static void image_insert_dialogok_lcb(GtkWidget * widget, Timage_diag *imdg) {
 	thestring = insert_integer_if_spin(imdg->dg->spin[3], cap("HSPACE"), thestring, NULL);
 	thestring = insert_integer_if_spin(imdg->dg->spin[4], cap("VSPACE"), thestring, NULL);
 	thestring = insert_string_if_entry(imdg->dg->entry[1], cap("NAME"), thestring, NULL);
-	thestring = insert_string_if_entry(imdg->dg->entry[2], cap("ALT"), thestring, NULL);
+	thestring = insert_string_if_entry(imdg->dg->entry[2], cap("ALT"), thestring, "");
 	thestring = insert_string_if_entry(imdg->dg->entry[3], cap("USEMAP"), thestring, NULL);
 	thestring = insert_string_if_entry(GTK_WIDGET(GTK_COMBO(imdg->dg->combo[0])->entry), cap("ALIGN"), thestring, NULL);
 	thestring = insert_string_if_entry(imdg->dg->entry[4], NULL, thestring, NULL);
@@ -132,13 +135,16 @@ static void image_diag_finish(Timage_diag *imdg, GtkSignalFunc ok_func) {
 static void image_filename_changed(GtkWidget * widget, Timage_diag *imdg) {
 	gint pb_width, pd_height, toobig;
 	GdkPixbuf *tmp_pb;
+	
 	if (imdg->pb) {
-		gdk_pixbuf_unref(imdg->pb);
+		g_object_unref(imdg->pb);
 	}
 	if (imdg->im) {
 		gtk_widget_destroy(imdg->im);
 	}
+	
 	imdg->pb = gdk_pixbuf_new_from_file(gtk_entry_get_text(GTK_ENTRY(imdg->dg->entry[0])), NULL);
+	
 	if (!imdg->pb) {
 		return;
 	}
@@ -164,7 +170,8 @@ static void image_filename_changed(GtkWidget * widget, Timage_diag *imdg) {
 	
 	tmp_pb = gdk_pixbuf_scale_simple(imdg->pb, (pb_width / toobig), (pd_height / toobig), main_v->props.image_thumbnail_refresh_quality ? GDK_INTERP_BILINEAR : GDK_INTERP_NEAREST);
 	imdg->im = gtk_image_new_from_pixbuf(tmp_pb);
-	gdk_pixbuf_unref(tmp_pb);
+
+	g_object_unref(tmp_pb);
 	gtk_container_add(GTK_CONTAINER(imdg->frame), imdg->im);
 	gtk_widget_show(imdg->im);
 }
@@ -188,7 +195,7 @@ static void image_adjust_changed(GtkAdjustment * adj, Timage_diag *imdg) {
 
 	tmp_pb = gdk_pixbuf_scale_simple(imdg->pb, tn_width, tn_height, main_v->props.image_thumbnail_refresh_quality ? GDK_INTERP_BILINEAR : GDK_INTERP_NEAREST);
 	imdg->im = gtk_image_new_from_pixbuf(tmp_pb);
-	gdk_pixbuf_unref(tmp_pb);
+	g_object_unref(tmp_pb);
 	gtk_container_add(GTK_CONTAINER(imdg->frame), imdg->im);
 	gtk_widget_show(imdg->im);
 }
@@ -197,7 +204,7 @@ void image_insert_dialog_backend(gchar *filename,GtkWidget *widget, gpointer dat
 	gchar *tagvalues[11];
 	gchar *custom = NULL;
 	Timage_diag *imdg;
-	
+	GList *popuplist = NULL;
 	GtkWidget *dgtable;
 
 	imdg = g_new(Timage_diag, 1);
@@ -277,7 +284,13 @@ void image_insert_dialog_backend(gchar *filename,GtkWidget *widget, gpointer dat
 	bf_mnemonic_label_tad_with_alignment(_("_Vspace:"), imdg->dg->spin[4], 0, 0.5, dgtable, 6, 7, 4, 5);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), imdg->dg->spin[4], 7, 9, 4, 5);
 
-	imdg->dg->combo[0] = combo_with_popdown_sized(tagvalues[7], recent_attribs.positionlist, 1, 90);
+	popuplist = g_list_append(NULL, "bottom");
+	popuplist = g_list_append(popuplist, "middle");
+	popuplist = g_list_append(popuplist, "top");
+	popuplist = g_list_append(popuplist, "left");
+	popuplist = g_list_append(popuplist, "right");
+	imdg->dg->combo[0] = combo_with_popdown_sized(tagvalues[7], popuplist, 1, 90);
+	g_list_free(popuplist);
 	bf_mnemonic_label_tad_with_alignment(_("_Align:"), imdg->dg->combo[0], 0, 0.5, dgtable, 3, 4, 1, 2);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), imdg->dg->combo[0], 4, 6, 1, 2);
 
