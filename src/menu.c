@@ -1123,9 +1123,9 @@ void add_to_recent_list(Tbfwin *bfwin,gchar *filename, gint closed_file, gboolea
 		}
 	}
 	if (is_project) {
-		main_v->globses.recent_projects = add_to_history_stringlist(main_v->globses.recent_projects, filename, TRUE);
+		main_v->globses.recent_projects = add_to_history_stringlist(main_v->globses.recent_projects, filename, FALSE,TRUE);
 	} else {
-		bfwin->session->recent_files = add_to_history_stringlist(bfwin->session->recent_files, filename, TRUE);
+		bfwin->session->recent_files = add_to_history_stringlist(bfwin->session->recent_files, filename, FALSE,TRUE);
 	}
 
 
