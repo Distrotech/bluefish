@@ -74,8 +74,9 @@ typedef struct {
 enum {
 	PIXMAP_COLUMN,
 	FILENAME_COLUMN,
-   URI_COLUMN,
-   N_COLUMNS
+	URI_COLUMN,
+	REFRESH_COLUMN,
+	N_COLUMNS
 };
 
 typedef struct {
@@ -89,8 +90,8 @@ typedef struct {
 	GtkTreeModel *dir_tsort;
 	GtkListStore *file_lstore; /* the file list */
 	GtkTreeModel *file_lsort;
-	GHashTable *dir_itable; /* iter to known directories, the hash should
-								be based on the path including the trailing slash! */
+	GHashTable *dir_itable; /* iter to known directories */
+	GHashTable *file_itable; /* iter to known files */
 
 	Tbfwin *bfwin;
 } Tfilebrowser2;
@@ -107,6 +108,7 @@ static GtkTreeIter *fb2_add_dir_entry(Tfilebrowser2 *fb2, GtkTreeIter *parent, G
 				PIXMAP_COLUMN, FILEBROWSERCONFIG(main_v->filebrowserconfig)->dir_icon,
 				FILENAME_COLUMN, gnome_vfs_uri_extract_short_name(child_uri),
 				URI_COLUMN, child_uri,
+				REFRESH_COLUMN, 0,
 				-1);
 	hashkey = g_new(guint,1);
 	*hashkey = gnome_vfs_uri_hash(child_uri);
@@ -128,6 +130,7 @@ static void fb2_add_file_entry(Tfilebrowser2 *fb2, GnomeVFSURI *child_uri) {
 				PIXMAP_COLUMN, FILEBROWSERCONFIG(main_v->filebrowserconfig)->unknown_icon,
 				FILENAME_COLUMN, gnome_vfs_uri_extract_short_name(child_uri),
 				URI_COLUMN, child_uri,
+				REFRESH_COLUMN, 0,
 				-1);
 }
 
@@ -225,8 +228,13 @@ static void fb2_build_dir(Tfilebrowser2 *fb2, GnomeVFSURI *uri) {
 	fb2_fill_dir_async(fb2, parent, uri);
 }
 
+static void fb2_refresh_dir(Tfilebrowser2 *fb2, GnomeVFSURI *uri) {
+	
+}
+
 static void fb2_focus_dir(Tfilebrowser2 *fb2, GnomeVFSURI *path) {
 	if (gnome_vfs_uri_equal(fb2->basedir, path)) {
+		
 		return;
 	} else {
 		guint hashkey;
@@ -267,8 +275,9 @@ GtkWidget *fb2_init(Tbfwin *bfwin) {
 	bfwin->fb2 = fb2;
 	fb2->bfwin = bfwin;
 	fb2->dir_itable = g_hash_table_new(g_int_hash,g_int_equal);
-	fb2->dir_tstore = gtk_tree_store_new(N_COLUMNS,GDK_TYPE_PIXBUF,G_TYPE_STRING,G_TYPE_POINTER);
-	fb2->file_lstore = gtk_list_store_new(N_COLUMNS,GDK_TYPE_PIXBUF,G_TYPE_STRING,G_TYPE_POINTER);
+	fb2->file_itable = g_hash_table_new(g_int_hash,g_int_equal);
+	fb2->dir_tstore = gtk_tree_store_new(N_COLUMNS,GDK_TYPE_PIXBUF,G_TYPE_STRING,G_TYPE_POINTER,G_TYPE_BOOLEAN);
+	fb2->file_lstore = gtk_list_store_new(N_COLUMNS,GDK_TYPE_PIXBUF,G_TYPE_STRING,G_TYPE_POINTER,G_TYPE_BOOLEAN);
 
 	vbox = gtk_vbox_new(FALSE, 0);
 	fb2->dirmenu = gtk_option_menu_new();
@@ -278,6 +287,8 @@ GtkWidget *fb2_init(Tbfwin *bfwin) {
 		GtkWidget *scrolwin;
 		GtkCellRenderer *renderer;
 		GtkTreeViewColumn *column;
+		GtkWidget *vpaned;
+		vpaned = gtk_vpaned_new();
 		
 		fb2->dir_tsort = gtk_tree_model_sort_new_with_model(GTK_TREE_MODEL(fb2->dir_tstore));
 		fb2->dir_v = gtk_tree_view_new_with_model(fb2->dir_tsort);
@@ -299,7 +310,7 @@ GtkWidget *fb2_init(Tbfwin *bfwin) {
 		scrolwin = gtk_scrolled_window_new(NULL, NULL);
 		gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolwin), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
 		gtk_container_add(GTK_CONTAINER(scrolwin), fb2->dir_v);
-		gtk_box_pack_start(GTK_BOX(vbox), scrolwin, TRUE, TRUE, 0);
+		gtk_paned_add1(GTK_PANED(vpaned), scrolwin);
 
 		fb2->file_lsort = gtk_tree_model_sort_new_with_model(GTK_TREE_MODEL(fb2->file_lstore));
 		fb2->dir_v = gtk_tree_view_new_with_model(fb2->file_lsort);
@@ -322,7 +333,9 @@ GtkWidget *fb2_init(Tbfwin *bfwin) {
 		scrolwin = gtk_scrolled_window_new(NULL, NULL);
 		gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolwin), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
 		gtk_container_add(GTK_CONTAINER(scrolwin), fb2->file_v);
-		gtk_box_pack_start(GTK_BOX(vbox), scrolwin, TRUE, TRUE, 0);
+		gtk_paned_add2(GTK_PANED(vpaned), scrolwin);
+
+		gtk_box_pack_start(GTK_BOX(vbox), vpaned, TRUE, TRUE, 0);
 	}
 	
 	if (bfwin->project && bfwin->project->basedir && strlen(bfwin->project->basedir)>2) {
