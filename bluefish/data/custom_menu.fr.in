@@ -105,8 +105,8 @@ cmenu_insert: /DocBook/En-têtes/Historique/Révision:<revision>\n\t<revnumber>%
 cmenu_insert: /DocBook/En-têtes/Entité/Entité système:<!ENTITY %0 SYSTEM "%0">::1:Nom de l'entité:
 cmenu_insert: /DocBook/En-têtes/Entité/Entité simple:<!ENTITY %0 "%0">::1:Nom de l'entité:
 cmenu_insert: /DocBook/En-têtes/Entité/Entité complexe:<!ENTITY %0 "%1">::2:Nom de l'entité:Définition de l'entité:
-cmenu_insert: /DocBook/En-têtes/DocTypes/Livre:<!Doctype BOOK PUBLIC "-//OASIS//DTD DocBook V%0//EN" [\n:]>:1:Version:
-cmenu_insert: /DocBook/En-têtes/DocTypes/Article:<!Doctype ARTICLE PUBLIC "-//OASIS//DTD DocBook V%0//EN" [\n:]>:1:Version:
+cmenu_insert: /DocBook/En-têtes/DocTypes/Livre:<!DOCTYPE BOOK PUBLIC "-//OASIS//DTD DocBook V%0//EN" [\n:]>:1:Version:
+cmenu_insert: /DocBook/En-têtes/DocTypes/Article:<!DOCTYPE ARTICLE PUBLIC "-//OASIS//DTD DocBook V%0//EN" [\n:]>:1:Version:
 cmenu_insert: /DocBook/En-têtes/Copyright:<copyright>\n\t<year>%0</year>\n\t<holder>%1</holder>\n</copyright>::2:Année:Détenteur:
 cmenu_insert: /DocBook/En-têtes/Auteurs/Groupe d'auteurs:<authorgroup>\n:\n</authorgroup>:0:
 cmenu_insert: /DocBook/En-têtes/Auteurs/Auteur:<author>\n\t<firstname>%0</firstname>\n\t<surname>%1</surname>\n</author>::2:Prénom:Nom:
