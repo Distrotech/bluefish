@@ -49,6 +49,7 @@ typedef struct {
 	GtkWidget *html_toolbar_hb;
 	GtkWidget *custom_menu_hb; /* handle box for custom menu */
 	GtkWidget *filebrowse_box;
+	GtkWidget *output_box;
 } Thidegui;
 
 typedef struct {
@@ -702,6 +703,9 @@ void gui_create_main(GList *filenames) {
 	gtk_notebook_set_tab_hborder(GTK_NOTEBOOK(main_v->notebook), 0);
 	gtk_notebook_set_tab_vborder(GTK_NOTEBOOK(main_v->notebook), 0);
 	gtk_notebook_popup_enable(GTK_NOTEBOOK(main_v->notebook));
+	
+	/* output_box */
+	init_output_box(vbox);
 
 	left_panel_show_hide_toggle(TRUE, main_v->props.view_left_panel);
 
