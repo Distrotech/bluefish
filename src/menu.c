@@ -1269,14 +1269,16 @@ static void browser_lcb(GtkWidget *widget, Tbfw_dynmenu *bdm) {
 	view_in_browser(bdm->bfwin,arr[1]);
 }
 static void external_command_lcb(GtkWidget *widget, Tbfw_dynmenu *bdm) {
-	gchar *secure_tempname = NULL;
-	gboolean need_s=FALSE, need_f=FALSE;
+	gchar *secure_tempname = NULL, *secure_tempname2 = NULL;
+	gboolean need_s=FALSE, need_f=FALSE, need_i=FALSE;
 	gchar **arr = (gchar **)bdm->data;
 	/* now check if
-	 * %s - we need a filename 
+	 * %s - current document filename
 	 * %f - output filename that we need to read after the command has finished (filter)
+	 * %i - input filename for the filter
 	 */
 	need_f = (strstr(arr[1], "%f") != NULL);
+	need_i = (strstr(arr[1], "%i") != NULL);
 	need_s = (strstr(arr[1], "%s") != NULL);
 
 	if (need_s) {
@@ -1284,16 +1286,17 @@ static void external_command_lcb(GtkWidget *widget, Tbfw_dynmenu *bdm) {
 		if (!bdm->bfwin->current_document->filename) {
 			return;
 		}
-		{
+		if (bdm->bfwin->current_document->filename[0] == '/'){
+			/* for local files we chdir() to their directory */
 			gchar *tmpstring = g_path_get_dirname(bdm->bfwin->current_document->filename);
 			chdir(tmpstring);
 			g_free(tmpstring);
 		}
 	}
-	if (need_f || need_s) {
+	if (need_f || need_s || need_i) {
 		gchar *command;
 		Tconvert_table *table, *tmpt;
-		table = tmpt = g_new(Tconvert_table, 3);
+		table = tmpt = g_new(Tconvert_table, 4);
 		if (need_s) {
 			DEBUG_MSG("adding 's' to table\n");
 			tmpt->my_int = 's';
@@ -1306,6 +1309,20 @@ static void external_command_lcb(GtkWidget *widget, Tbfw_dynmenu *bdm) {
 			tmpt->my_int = 'f';
 			tmpt->my_char = secure_tempname;
 			tmpt++;
+		}
+		if (need_i) {
+			gchar *buffer;
+			GtkTextIter itstart, itend;
+			gtk_text_buffer_get_bounds(bdm->bfwin->current_document->buffer,&itstart,&itend);
+			secure_tempname2 = create_secure_dir_return_filename();
+			DEBUG_MSG("adding 'i' to table\n");
+			tmpt->my_int = 'i';
+			tmpt->my_char = secure_tempname2;
+			tmpt++;
+			/* now we also save the current filename (or in the future the selection) to this file */
+			buffer = gtk_text_buffer_get_text(bdm->bfwin->current_document->buffer,&itstart,&itend,FALSE);
+			buffer_to_file(BFWIN(bdm->bfwin), buffer, secure_tempname2);
+			g_free(buffer);
 		}
 		tmpt->my_char = NULL;
 		command = replace_string_printflike(arr[1], table);
@@ -1325,8 +1342,9 @@ static void external_command_lcb(GtkWidget *widget, Tbfw_dynmenu *bdm) {
 				}
 				g_free(buf);
 			}
-			remove_secure_dir_and_filename(secure_tempname);
 		}
+		if (secure_tempname) remove_secure_dir_and_filename(secure_tempname);
+		if (secure_tempname2) remove_secure_dir_and_filename(secure_tempname2);
 	} else {
 		DEBUG_MSG("external_command_lcb, about to start %s\n", arr[1]);
 		system(arr[1]);

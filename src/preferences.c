@@ -1514,7 +1514,7 @@ static void create_externals_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 	scrolwin = gtk_scrolled_window_new(NULL, NULL);
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolwin),GTK_POLICY_AUTOMATIC,GTK_POLICY_AUTOMATIC);
 	gtk_container_add(GTK_CONTAINER(scrolwin), pd->ed.lview);
-	gtk_widget_set_size_request(scrolwin, 150, 190);
+	gtk_widget_set_size_request(scrolwin, 120, 190);
 	gtk_box_pack_start(GTK_BOX(vbox1), scrolwin, TRUE, TRUE, 2);
 	{
 		GList *tmplist = g_list_first(pd->lists[external_commands]);
@@ -1531,7 +1531,7 @@ static void create_externals_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 	pd->ed.insertloc = -1;
 	g_signal_connect(G_OBJECT(pd->ed.lstore), "row-inserted", G_CALLBACK(listpref_row_inserted), &pd->ed);
 	g_signal_connect(G_OBJECT(pd->ed.lstore), "row-deleted", G_CALLBACK(listpref_row_deleted), &pd->ed);
-
+	gtk_box_pack_start(GTK_BOX(vbox1),gtk_label_new("%s for current filename (any command)\n%i for input and %f for output filename (filters)"), TRUE, TRUE, 2);
 	hbox = gtk_hbox_new(FALSE, 0);
 	gtk_box_pack_start(GTK_BOX(vbox1),hbox, TRUE, TRUE, 2);
 	but = bf_gtkstock_button(GTK_STOCK_ADD, G_CALLBACK(add_new_external_commands_lcb), pd);
