@@ -105,6 +105,7 @@ enum {
 	filetypes,
 	filefilters,
 	highlight_patterns,
+	outputbox,
 	lists_num_max
 };
 
@@ -150,6 +151,14 @@ typedef struct {
 } Texternaldialog;
 
 typedef struct {
+	GtkListStore *lstore;
+	GtkWidget *lview;
+	GtkWidget *entry[6];
+	GtkWidget *check;
+	gchar **curstrarr;
+} Toutputboxdialog;
+
+typedef struct {
 	GtkWidget *prefs[property_num_max];
 	GList *lists[lists_num_max];
 	GtkWidget *win;
@@ -159,6 +168,7 @@ typedef struct {
 	Thighlightpatterndialog hpd;
 	Tbrowsersdialog bd;
 	Texternaldialog ed;
+	Toutputboxdialog od;
 } Tprefdialog;
 
 typedef enum {
@@ -1282,6 +1292,182 @@ static void create_externals_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 	gtk_box_pack_start(GTK_BOX(vbox1), gtk_label_new(_("%s = current filename\n%f = output filename (for filters)")), TRUE, TRUE, 0);
 	pd->ed.entry[1] = boxed_full_entry(_("Command"), NULL, 500, vbox1);
 }
+static gchar **outputbox_create_strarr(Tprefdialog *pd) {
+	gchar **strarr = g_malloc(8*sizeof(gchar *));
+	strarr[0] = gtk_editable_get_chars(GTK_EDITABLE(pd->od.entry[0]), 0, -1);
+	strarr[1] = gtk_editable_get_chars(GTK_EDITABLE(pd->od.entry[1]), 0, -1);
+	strarr[2] = gtk_editable_get_chars(GTK_EDITABLE(pd->od.entry[2]), 0, -1);
+	strarr[3] = gtk_editable_get_chars(GTK_EDITABLE(pd->od.entry[3]), 0, -1);
+	strarr[4] = gtk_editable_get_chars(GTK_EDITABLE(pd->od.entry[4]), 0, -1);
+	strarr[5] = gtk_editable_get_chars(GTK_EDITABLE(pd->od.entry[5]), 0, -1);
+	strarr[6] = g_strdup((GTK_TOGGLE_BUTTON(pd->od.check)->active) ? "1" : "0");
+	strarr[7] = NULL;
+	return strarr;
+}
+
+static void outputbox_apply_changes(Tprefdialog *pd) {
+	if (pd->od.curstrarr) {
+		gchar **strarr;
+		strarr = outputbox_create_strarr(pd);
+		if (strarr) {
+			GList *tmplist;
+			GtkTreeIter iter;
+			gboolean retval = TRUE;
+
+			gtk_tree_model_get_iter_first(GTK_TREE_MODEL(pd->od.lstore),&iter);
+			while (retval) {
+				gchar *curval;
+				gtk_tree_model_get(GTK_TREE_MODEL(pd->od.lstore),&iter,0,&curval,-1);
+				if (strcmp(curval,pd->od.curstrarr[0])==0) {
+					gtk_list_store_set(GTK_LIST_STORE(pd->od.lstore), &iter
+						,0,strarr[0]
+						,1,strarr[1]
+						,2,strarr[2]
+						,3,strarr[3]
+						,4,strarr[4]
+						,5,strarr[5]
+						,6,strarr[6]
+						,-1);
+					break;
+				}
+				retval = gtk_tree_model_iter_next(GTK_TREE_MODEL(pd->od.lstore),&iter);
+			}
+
+			tmplist = g_list_first(pd->lists[outputbox]);
+			while (tmplist) {
+				if (tmplist->data == pd->od.curstrarr) {
+					g_strfreev(pd->od.curstrarr);
+					tmplist->data = strarr;
+					pd->od.curstrarr = strarr;
+					break;
+				}
+				tmplist = g_list_next(tmplist);
+			}
+		} else {
+			DEBUG_MSG("outputbox_apply_changes, NO strarr!!\n");
+		}
+	} else {
+		DEBUG_MSG("outputbox_apply_changes, NO curstrarr!!\n");
+	}
+}	
+static void add_new_outputbox_lcb(GtkWidget *wid, Tprefdialog *pd) {
+	gchar **strarr;
+	strarr = outputbox_create_strarr(pd);
+	if (strarr) {
+		GtkTreeIter iter;
+		pd->lists[outputbox] = g_list_append(pd->lists[outputbox], strarr);
+		gtk_list_store_append(GTK_LIST_STORE(pd->od.lstore), &iter);
+		gtk_list_store_set(GTK_LIST_STORE(pd->od.lstore), &iter
+						,0,strarr[0]
+						,1,strarr[1]
+						,2,strarr[2]
+						,3,strarr[3]
+						,4,strarr[4]
+						,5,strarr[5]
+						,6,strarr[6]
+						,-1);
+	}
+}
+
+static void outputbox_selection_changed_cb(GtkTreeSelection *selection, Tprefdialog *pd) {
+	GtkTreeIter iter;
+	GtkTreeModel *model;
+	if (gtk_tree_selection_get_selected(selection, &model, &iter)) {
+		gchar *name;
+		GList *tmplist = g_list_first(pd->lists[outputbox]);
+		gtk_tree_model_get(model, &iter, 0, &name, -1);
+		filefilter_apply_changes(pd);
+		while (tmplist) {
+			gchar **strarr =(gchar **)tmplist->data;
+			if (strcmp(strarr[0],name)==0) {
+				gtk_entry_set_text(GTK_ENTRY(pd->od.entry[0]), strarr[0]);
+				gtk_entry_set_text(GTK_ENTRY(pd->od.entry[1]), strarr[1]);
+				gtk_entry_set_text(GTK_ENTRY(pd->od.entry[2]), strarr[2]);
+				gtk_entry_set_text(GTK_ENTRY(pd->od.entry[3]), strarr[3]);
+				gtk_entry_set_text(GTK_ENTRY(pd->od.entry[4]), strarr[4]);
+				gtk_entry_set_text(GTK_ENTRY(pd->od.entry[5]), strarr[5]);
+				gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(pd->od.check), (strarr[6][0] == '1'));
+				pd->od.curstrarr = strarr;
+				return;
+			}
+			tmplist = g_list_next(tmplist);
+		}
+	} else {
+		DEBUG_MSG("outputbox_selection_changed_cb, no selection ?!?!\n");
+	}
+}
+	
+
+static void create_outputbox_gui(Tprefdialog *pd, GtkWidget *vbox1) {
+	GtkWidget *hbox, *but;
+	pd->lists[outputbox] = duplicate_arraylist(main_v->props.outputbox);
+
+	pd->od.lstore = gtk_list_store_new (7,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING);
+	pd->od.lview = gtk_tree_view_new_with_model(GTK_TREE_MODEL(pd->od.lstore));
+	{
+		GtkTreeViewColumn *column;
+		GtkWidget *scrolwin;
+		GtkTreeSelection *select;
+	   GtkCellRenderer *renderer = gtk_cell_renderer_text_new ();
+
+		column = gtk_tree_view_column_new_with_attributes ("Name", renderer,"text",0,NULL);
+		gtk_tree_view_append_column (GTK_TREE_VIEW(pd->od.lview), column);
+		column = gtk_tree_view_column_new_with_attributes ("Pattern", renderer,"text",1,NULL);
+		gtk_tree_view_append_column (GTK_TREE_VIEW(pd->od.lview), column);
+		column = gtk_tree_view_column_new_with_attributes ("File #", renderer,"text",2,NULL);
+		gtk_tree_view_append_column (GTK_TREE_VIEW(pd->od.lview), column);
+		column = gtk_tree_view_column_new_with_attributes ("Line #", renderer,"text",3,NULL);
+		gtk_tree_view_append_column (GTK_TREE_VIEW(pd->od.lview), column);
+		column = gtk_tree_view_column_new_with_attributes ("Output #", renderer,"text",4,NULL);
+		gtk_tree_view_append_column (GTK_TREE_VIEW(pd->od.lview), column);
+		column = gtk_tree_view_column_new_with_attributes ("Command", renderer,"text",5,NULL);
+		gtk_tree_view_append_column (GTK_TREE_VIEW(pd->od.lview), column);
+		column = gtk_tree_view_column_new_with_attributes ("Show all output", renderer,"text",6,NULL);
+		gtk_tree_view_append_column (GTK_TREE_VIEW(pd->od.lview), column);
+
+		scrolwin = gtk_scrolled_window_new(NULL, NULL);
+		gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolwin),GTK_POLICY_AUTOMATIC,GTK_POLICY_AUTOMATIC);
+		gtk_container_add(GTK_CONTAINER(scrolwin), pd->od.lview);
+		gtk_widget_set_usize(scrolwin, 150, 150);
+		gtk_box_pack_start(GTK_BOX(vbox1), scrolwin, TRUE, TRUE, 2);
+		
+		select = gtk_tree_view_get_selection(GTK_TREE_VIEW(pd->od.lview));
+		g_signal_connect(G_OBJECT(select), "changed",G_CALLBACK(outputbox_selection_changed_cb),pd);
+	}
+	{
+		GList *tmplist = g_list_first(pd->lists[outputbox]);
+		while (tmplist) {
+			gchar **strarr = (gchar **)tmplist->data;
+			if (count_array(strarr)==7) {
+				GtkTreeIter iter;
+				gtk_list_store_append(GTK_LIST_STORE(pd->od.lstore), &iter);
+				gtk_list_store_set(GTK_LIST_STORE(pd->od.lstore), &iter
+					,0,strarr[0]
+					,1,strarr[1]
+					,2,strarr[2]
+					,3,strarr[3]
+					,4,strarr[4]
+					,5,strarr[5]
+					,6,strarr[6]
+					,-1);
+			}
+			tmplist = g_list_next(tmplist);
+		}
+	}
+	
+	hbox = gtk_hbox_new(FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(vbox1), hbox, TRUE, TRUE, 0);
+	gtk_box_pack_start(GTK_BOX(hbox), gtk_label_new(_("Name")), FALSE, TRUE, 3);
+	pd->od.entry[0] = boxed_entry_with_text(NULL, 1023, hbox);
+	but = bf_gtkstock_button(GTK_STOCK_ADD, G_CALLBACK(add_new_outputbox_lcb), pd);
+	gtk_box_pack_start(GTK_BOX(hbox), but, FALSE, TRUE, 3);
+	pd->od.entry[1] = boxed_full_entry(_("Pattern"), NULL, 500, vbox1);
+	pd->od.entry[2] = boxed_full_entry(_("File subpattern #"), NULL, 500, vbox1);
+	pd->od.entry[3] = boxed_full_entry(_("Line subpattern #"), NULL, 500, vbox1);
+	pd->od.entry[4] = boxed_full_entry(_("Output subpattern #"), NULL, 500, vbox1);
+	pd->od.entry[5] = boxed_full_entry(_("Command"), NULL, 500, vbox1);
+	pd->od.check = boxed_checkbut_with_value(_("Show all output"), FALSE, vbox1);
+}
 
 /**************************************/
 /* MAIN DIALOG FUNCTIONS              */
@@ -1557,7 +1743,6 @@ static void preferences_dialog() {
 	vbox2 = gtk_vbox_new(FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(frame), vbox2);
 
-
 	create_highlightpattern_gui(pd, vbox2);
 
 	vbox1 = gtk_vbox_new(FALSE, 5);
@@ -1576,6 +1761,17 @@ static void preferences_dialog() {
 	gtk_container_add(GTK_CONTAINER(frame), vbox2);
 
 	create_externals_gui(pd, vbox2);
+
+	vbox1 = gtk_vbox_new(FALSE, 5);
+	gtk_notebook_append_page(GTK_NOTEBOOK(pd->noteb), vbox1, hbox_with_pix_and_text(_("Output parsers"), 014));
+	
+	frame = gtk_frame_new(_("Outputbox"));
+	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
+	vbox2 = gtk_vbox_new(FALSE, 0);
+	gtk_container_add(GTK_CONTAINER(frame), vbox2);
+	
+	create_outputbox_gui(pd, vbox2);
+	
 
 	/* end, create buttons for dialog now */
 	{
