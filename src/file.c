@@ -244,7 +244,7 @@ gint checkNsave_sync_lcb(GnomeVFSXferProgressInfo *info,gpointer data) {
 			DEBUG_MSG("checkNsave_sync_lcb, phase=COMPLETED, starting the actual save\n");
 			file_savefile_uri_async(cns->uri, cns->buffer, cns->buffer_size, checkNsave_savefile_lcb, cns);
 		}
-	} 
+	}
 	/* Christian Kellner (gicmo on #nautilus on irc.gimp.ca) found 
 		we should NEVER return 0 for default calls, it aborts!! */
 	return 1;
