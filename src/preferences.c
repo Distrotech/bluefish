@@ -1520,6 +1520,9 @@ static void preferences_ok_clicked_lcb(GtkWidget *wid, Tprefdialog *pd) {
 	integer_apply(&main_v->props.num_undo_levels, pd->prefs[num_undo_levels], FALSE);
 	integer_apply(&main_v->props.clear_undo_on_save, pd->prefs[clear_undo_on_save], TRUE);
 	integer_apply(&main_v->props.allow_multi_instances, pd->prefs[allow_multi_instances], TRUE);
+	integer_apply(&main_v->props.open_in_running_bluefish, pd->prefs[open_in_running_bluefish], TRUE);
+	integer_apply(&main_v->props.max_recent_files, pd->prefs[max_recent_files], FALSE);
+	
 	integer_apply(&main_v->props.restore_dimensions, pd->prefs[restore_dimensions], TRUE);
 	if (!main_v->props.restore_dimensions) {
 		integer_apply(&main_v->props.left_panel_width, pd->prefs[left_panel_width], FALSE);
@@ -1700,6 +1703,10 @@ static void preferences_dialog() {
 	gtk_container_add(GTK_CONTAINER(frame), vbox2);
 
 	pd->prefs[allow_multi_instances] = boxed_checkbut_with_value(_("Allow multi instances of a file"), main_v->props.allow_multi_instances, vbox2);
+#ifdef WITH_MSG_QUEUE
+	pd->prefs[open_in_running_bluefish] = boxed_checkbut_with_value(_("Open files in already running bluefish window"),main_v->props.open_in_running_bluefish, vbox2);
+#endif /* WITH_MSG_QUEUE */		
+	pd->prefs[max_recent_files] = prefs_integer(_("Number of files in 'Open recent'"), main_v->props.max_recent_files, vbox2, pd, 3, 100);
 
 	vbox1 = gtk_vbox_new(FALSE, 5);
 	gtk_notebook_append_page(GTK_NOTEBOOK(pd->noteb), vbox1, hbox_with_pix_and_text(_("User interface"), 156));
