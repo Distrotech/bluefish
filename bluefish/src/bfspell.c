@@ -195,8 +195,7 @@ static void spell_gui_destroy(GtkWidget * widget, Tbfspell *bfspell) {
 	if (bfspell->eo) {
 		gtk_text_buffer_delete_mark(bfspell->doc->buffer, bfspell->eo);
 	}
-	memset(&bfspell,0,sizeof(bfspell));
-	DEBUG_MSG("spell_gui_destroy, bfspell->win now is %p\n", bfspell->win);
+	g_free(bfspell);
 }
 
 void spell_gui_cancel_clicked_cb(GtkWidget *widget, Tbfspell *bfspell) {
@@ -269,7 +268,11 @@ void spell_gui_fill_dicts(Tbfspell *bfspell) {
 		gtk_container_add(GTK_CONTAINER(menuitem), label);
 		DEBUG_MSG("adding language %s to menuitem %p using label %p\n",entry->name,menuitem,label);
 /*		g_signal_connect(G_OBJECT (menuitem), "activate",G_CALLBACK(),GINT_TO_POINTER(0));*/
-		gtk_menu_shell_append(GTK_MENU_SHELL(menu), menuitem);
+		if (strcmp(entry->name, main_v->props.spell_default_lang) == 0) {
+			gtk_menu_shell_insert(GTK_MENU_SHELL(menu), menuitem, 0);
+		} else {
+			gtk_menu_shell_append(GTK_MENU_SHELL(menu), menuitem);
+		}
 	}
 	delete_aspell_dict_info_enumeration(dels);
 	gtk_widget_show_all(menu);
@@ -331,38 +334,42 @@ void filter_changed_lcb(GtkOptionMenu *optionmenu,Tbfspell *bfspell) {
 
 void spell_gui(Tbfspell *bfspell) {
 	GtkWidget *vbox, *hbox, *but, *frame, *table;
-	bfspell->win = window_full(_("Spell checker"), GTK_WIN_POS_MOUSE, 3, G_CALLBACK(spell_gui_destroy),NULL, TRUE);
+	bfspell->win = window_full(_("Check Spelling"), GTK_WIN_POS_NONE, 3, G_CALLBACK(spell_gui_destroy),bfspell, TRUE);
 	vbox = gtk_vbox_new(FALSE, 2);
 	gtk_container_add(GTK_CONTAINER(bfspell->win), vbox);
 	
 	frame = gtk_frame_new(_("Checking"));
 	gtk_box_pack_start(GTK_BOX(vbox), frame, TRUE, TRUE, 0);
-	table = gtk_table_new(2,3,FALSE);
+	table = gtk_table_new(3,5,FALSE);
+	gtk_table_set_col_spacings(GTK_TABLE(table), 6);
+	gtk_table_set_row_spacings(GTK_TABLE(table), 6);
 	gtk_container_add(GTK_CONTAINER(frame), table);
 	
 	bfspell->incorrectword = gtk_entry_new();
 	gtk_entry_set_editable(GTK_ENTRY(bfspell->incorrectword),FALSE);
-	gtk_table_attach_defaults(GTK_TABLE(table), gtk_label_new(_("Original")),0,1,0,1);
-	gtk_table_attach_defaults(GTK_TABLE(table), bfspell->incorrectword,1,2,0,1);
+	bf_mnemonic_label_tad_with_alignment(_("_Misspelled word:"), bfspell->incorrectword, 1, 0.5, table, 1, 2, 0, 1);
+	gtk_table_attach_defaults(GTK_TABLE(table), bfspell->incorrectword,2,3,0,1);
 	
 	bfspell->suggestions = gtk_combo_new();
-	gtk_table_attach_defaults(GTK_TABLE(table), gtk_label_new(_("Replacement")),0,1,1,2);
-	gtk_table_attach_defaults(GTK_TABLE(table), bfspell->suggestions,1,2,1,2);
+	bf_mnemonic_label_tad_with_alignment(_("Change _to:"), bfspell->suggestions, 1, 0.5, table, 1, 2, 1, 2);
+	gtk_table_attach_defaults(GTK_TABLE(table), bfspell->suggestions,2,3,1,2);
 
-	bfspell->ignbut = bf_stock_button(_("Ignore"), G_CALLBACK(spell_gui_ignore_clicked), bfspell);
-	bfspell->repbut = bf_stock_button(_("Replace"), G_CALLBACK(spell_gui_replace_clicked), bfspell);
-	gtk_table_attach_defaults(GTK_TABLE(table), bfspell->ignbut,2,3,0,1);
-	gtk_table_attach_defaults(GTK_TABLE(table), bfspell->repbut,2,3,1,2);
+	bfspell->ignbut = bf_stock_button(_("I_gnore"), G_CALLBACK(spell_gui_ignore_clicked), bfspell);
+	bfspell->repbut = bf_stock_button(_("_Replace"), G_CALLBACK(spell_gui_replace_clicked), bfspell);
+	gtk_table_attach_defaults(GTK_TABLE(table), bfspell->ignbut,3,4,0,1);
+	gtk_table_attach_defaults(GTK_TABLE(table), bfspell->repbut,3,4,1,2);
 	
 	gtk_widget_set_sensitive(bfspell->repbut,FALSE);
 	gtk_widget_set_sensitive(bfspell->ignbut,FALSE);
 	
 	/* lower GUI part */
 	table = gtk_table_new(5,3,FALSE);
+	gtk_table_set_col_spacings(GTK_TABLE(table), 6);
+	gtk_table_set_row_spacings(GTK_TABLE(table), 6);	
 	gtk_box_pack_start(GTK_BOX(vbox), table, TRUE, TRUE, 0);
 
-	bfspell->in_doc = gtk_radio_button_new_with_label(NULL, _("In document"));
-	bfspell->in_sel = gtk_radio_button_new_with_label(gtk_radio_button_get_group(GTK_RADIO_BUTTON(bfspell->in_doc)), _("In selection"));
+	bfspell->in_doc = gtk_radio_button_new_with_mnemonic(NULL, _("In _document"));
+	bfspell->in_sel = gtk_radio_button_new_with_mnemonic(gtk_radio_button_get_group(GTK_RADIO_BUTTON(bfspell->in_doc)), _("I_n selection"));
 	gtk_table_attach_defaults(GTK_TABLE(table), bfspell->in_doc,0,1,0,1);
 	gtk_table_attach_defaults(GTK_TABLE(table), bfspell->in_sel,0,1,1,2);
 
@@ -380,31 +387,31 @@ void spell_gui(Tbfspell *bfspell) {
 		gtk_option_menu_set_history(GTK_OPTION_MENU(bfspell->dict),0);
 	}
 
-	gtk_table_attach_defaults(GTK_TABLE(table), gtk_label_new(_("Dictionary")),0,1,2,3);
+	gtk_table_attach_defaults(GTK_TABLE(table), gtk_label_new(_("Dictionary:")),0,1,2,3);
 	gtk_table_attach_defaults(GTK_TABLE(table), bfspell->dict,1,2,2,3);
-	but = bf_stock_button(_("Add"), G_CALLBACK(spell_gui_add_clicked), bfspell);
+	but = bf_stock_button(_("_Add"), G_CALLBACK(spell_gui_add_clicked), bfspell);
 	gtk_table_attach_defaults(GTK_TABLE(table), but,2,3,2,3);
 
 	bfspell->lang = gtk_option_menu_new();
-	gtk_table_attach_defaults(GTK_TABLE(table), gtk_label_new(_("Language")),0,1,3,4);
+	gtk_table_attach_defaults(GTK_TABLE(table), gtk_label_new(_("Language:")),0,1,3,4);
 	gtk_table_attach_defaults(GTK_TABLE(table), bfspell->lang,1,2,3,4);
-	but = bf_stock_button(_("Set default"), G_CALLBACK(defaultlang_clicked_lcb), bfspell);
+	but = bf_stock_button(_("Set defa_ult"), G_CALLBACK(defaultlang_clicked_lcb), bfspell);
 	gtk_table_attach_defaults(GTK_TABLE(table), but,2,3,3,4);
 
 	bfspell->filter = gtk_option_menu_new();
-	gtk_table_attach_defaults(GTK_TABLE(table), gtk_label_new(_("Filter")),0,1,4,5);
+	gtk_table_attach_defaults(GTK_TABLE(table), gtk_label_new(_("Filter:")),0,1,4,5);
 	gtk_table_attach_defaults(GTK_TABLE(table), bfspell->filter,1,2,4,5);
 	{
 		GtkWidget *menu, *menuitem;
 		menu = gtk_menu_new();
-		gtk_option_menu_set_menu(GTK_OPTION_MENU(bfspell->filter), menu);
+		gtk_option_menu_set_menu(GTK_OPTION_MENU(bfspell->filter), menu);		
 		menuitem = gtk_menu_item_new_with_label(_("no filter"));
 		gtk_menu_shell_append(GTK_MENU_SHELL(menu), menuitem);
 		menuitem = gtk_menu_item_new_with_label(_("html filter"));
 		gtk_menu_shell_append(GTK_MENU_SHELL(menu), menuitem);
 	}
 	g_signal_connect(G_OBJECT(bfspell->filter),"changed",G_CALLBACK(filter_changed_lcb),bfspell);
-	gtk_option_menu_set_history(GTK_OPTION_MENU(bfspell->filter),0);
+	gtk_option_menu_set_history(GTK_OPTION_MENU(bfspell->filter),1);
 
 	gtk_box_pack_start(GTK_BOX(vbox), gtk_hseparator_new(), FALSE, FALSE, 12);
 
@@ -412,7 +419,7 @@ void spell_gui(Tbfspell *bfspell) {
 	gtk_hbutton_box_set_layout_default(GTK_BUTTONBOX_END);
 	gtk_button_box_set_spacing(GTK_BUTTON_BOX(hbox), 12);
 	
-	but = bf_stock_cancel_button(G_CALLBACK(spell_gui_cancel_clicked_cb), bfspell);
+	but = bf_gtkstock_button(GTK_STOCK_CLOSE, G_CALLBACK(spell_gui_cancel_clicked_cb), bfspell);
 	gtk_box_pack_start(GTK_BOX(hbox),but,FALSE, FALSE, 6);
 	bfspell->runbut = bf_gtkstock_button(GTK_STOCK_SPELL_CHECK,G_CALLBACK(spell_gui_ok_clicked_cb),bfspell);
 	gtk_box_pack_start(GTK_BOX(hbox),bfspell->runbut,FALSE, FALSE, 6);
@@ -424,20 +431,15 @@ void spell_gui(Tbfspell *bfspell) {
 }
 
 void spell_check_cb(GtkWidget *widget, Tbfwin *bfwin) {
-	Tbfspell *bfspell;
-	if (!bfwin->bfspell) {
-		bfspell = g_new0(Tbfspell,1);
-		bfwin->bfspell = bfspell;
-	} else {
-		bfspell = (Tbfspell *)bfwin->bfspell;
-	}
-	if (!bfspell->win) {
-		memset(bfspell,0,sizeof(bfspell));
-		bfspell->bfwin = bfwin;
-		spell_gui(bfspell);
-		flush_queue();
-		spell_start(bfspell);
-		spell_gui_fill_dicts(bfspell);
-	}
+	Tbfspell *bfspell = NULL;
+
+	bfspell = g_new0(Tbfspell,1);
+	bfwin->bfspell = bfspell;
+	bfspell->bfwin = bfwin;
+
+	spell_gui(bfspell);
+	flush_queue();
+	spell_start(bfspell);
+	spell_gui_fill_dicts(bfspell);
 }
 #endif /* HAVE_LIBASPELL */
