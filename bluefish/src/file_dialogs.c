@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-/*#define DEBUG*/
+#define DEBUG
 
 #include <gtk/gtk.h>
 #include <string.h> /* memcpy */
@@ -673,7 +673,7 @@ void doc_close_multiple_backend(Tbfwin *bfwin, gboolean close_window) {
 	}
 	g_list_free(duplist);
 	DEBUG_MSG("doc_close_multiple_backend, after the loop, len(documentlist)=%d\n",g_list_length(bfwin->documentlist));
-	if (retval == 1) {
+/*	if (retval == 1) {
 		if (close_window
 			&& (bfwin->documentlist == NULL 
 				|| (doc_is_empty_non_modified_and_nameless(bfwin->current_document) 
@@ -682,7 +682,7 @@ void doc_close_multiple_backend(Tbfwin *bfwin, gboolean close_window) {
 		} else {
 			notebook_changed(bfwin,-1);
 		}
-	}
+	}*/
 	DEBUG_MSG("doc_close_multiple_backend, finished\n");
 }
 
