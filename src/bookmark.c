@@ -138,19 +138,20 @@ static void bmark_store(Tbfwin * bfwin, Tbmark * b)
 	if (b->strarr == NULL) {
 		DEBUG_MSG("bmark_store, creating new strarr for bookmark %p\n",b);
 		strarr = g_malloc0(sizeof(gchar *) * 7);
-		strarr[0] = g_strdup(b->name);
 		DEBUG_MSG("name=%s, description=%s, filepath=%s, text=%s\n", b->name, b->description, b->filepath, b->text);
-		strarr[1] = g_strdup(b->description);
 		strarr[2] = g_strdup(b->filepath);
 		strarr[4] = g_strdup(b->text);
 	} else {
 		DEBUG_MSG("bmark_store, bookmark %p has strarr at %p\n",b,b->strarr);
 		strarr = b->strarr;
 		/* free the ones we are going to update */
+		g_free(strarr[0]);
+		g_free(strarr[1]);
 		g_free(strarr[3]);
 		g_free(strarr[5]);
 	}
-
+	strarr[0] = g_strdup(b->name);
+	strarr[1] = g_strdup(b->description);
 #ifdef HAVE_GNOME_VFS
 	if (b->doc)
 		b->len = b->doc->fileinfo->size;
@@ -158,7 +159,6 @@ static void bmark_store(Tbfwin * bfwin, Tbmark * b)
 	if (b->doc)
 		b->len = b->doc->statbuf.st_size;
 #endif
-
 	strarr[3] = g_strdup_printf("%d", b->offset);
 	DEBUG_MSG("bmark_store, offset string=%s, offset int=%d\n",strarr[3],b->offset);
 	strarr[5] = g_strdup_printf("%d", b->len);
@@ -882,7 +882,7 @@ void bmark_add(Tbfwin * bfwin)
 		}
 	}
 
-	bmark_add_backend(bfwin, _("temp"), offset, !main_v->props.bookmarks_default_store);
+	bmark_add_backend(bfwin, _("default"), offset, !main_v->props.bookmarks_default_store);
 }
 
 /*void bmark_add_perm(Tbfwin * bfwin)
