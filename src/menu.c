@@ -892,7 +892,7 @@ void browser_toolbar_cb(GtkWidget *widget, gpointer data) {
 }
 
 static void browser_lcb(GtkWidget *widget, gchar **arr) {
-	if (!main_v->current_document->filename) {
+	if (!main_v->current_document->filename || main_v->current_document->modified) {
 		file_save_cb(NULL, NULL);
 	}
 	view_in_browser(arr[1]);
