@@ -581,7 +581,7 @@ static Tcs3_diag *css_diag(Tcs3_destination dest, Tcs3_style style, GtkWidget *t
 	diag = g_malloc(sizeof(Tcs3_diag));
 	diag->win = window_full(_("Cascading StyleSheet dialog"), GTK_WIN_POS_MOUSE, 
 			5, G_CALLBACK(cs3d_destroy_lcb), diag);
-	gtk_window_set_wmclass(GTK_WINDOW(diag->win), "Bluefish", "css");
+	gtk_window_set_role(GTK_WINDOW(diag->win), "css");
 	diag->dest = dest;
 	diag->styletype = style;
 	diag->grab = grab;

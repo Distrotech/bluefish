@@ -52,7 +52,7 @@ Thtml_diag *html_diag_new(gchar *title) {
 		, 5,G_CALLBACK(html_diag_destroy_cb), dg);
 	gtk_window_set_type_hint (GTK_WINDOW(dg->dialog), GDK_WINDOW_DIALOG);
 
-	gtk_window_set_wmclass(GTK_WINDOW(dg->dialog), "Bluefish", "html_dialog");
+	gtk_window_set_role(GTK_WINDOW(dg->dialog), "html_dialog");
 	dg->vbox = gtk_vbox_new(FALSE, 1);
 	gtk_container_add(GTK_CONTAINER(dg->dialog), dg->vbox);
 

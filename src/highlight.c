@@ -42,7 +42,6 @@
 #include "menu.h" 			/* menu_current_document_type_set_active_wo_activate */
 #include "highlight.h"
 
-
 #define NUM_SUBMATCHES 20
 
 typedef struct {
@@ -52,10 +51,19 @@ typedef struct {
 	Tpattern *pat;
 } Tpatmatch;
 
+typedef struct {
+	GtkTextTagTable *tagtable; /* this one should ultimately move to Tfiletype, so every set would have it's own tagtable, but there is currently no way to switch a document to a new tagtable */
+	GList *highlight_filetypes;
+} Thighlight;
+
+/*********************************/
+/* global vars for this module   */
+/*********************************/
+static Thighlight highlight;
+
 /*********************************/
 /* initializing the highlighting */
 /*********************************/
-
 
 static void pattern_free(Tpattern * pat)
 {
@@ -278,7 +286,7 @@ static void hl_compile_pattern(Tfiletype * hlset, gchar * name, gint case_insens
 				g_object_set(pat->tag, "style", PANGO_STYLE_ITALIC, NULL);
 			}
 		}
-		gtk_text_tag_table_add(main_v->tagtable, pat->tag);
+		gtk_text_tag_table_add(highlight.tagtable, pat->tag);
 		/*
 		 * now add the pattern to the hierarchy 
 		 */
@@ -331,7 +339,8 @@ void hl_init()
 	GList *tmplist;
 	/* init main_v->filetypelist, the first set is the defaultset */
 
-	main_v->tagtable = gtk_text_tag_table_new();
+	highlight.highlight_filetypes = NULL;
+	highlight.tagtable = gtk_text_tag_table_new();
 
 	/* start by initializing the types, they should come from the configfile */
 	tmplist = g_list_first(main_v->props.filetypes);
@@ -344,12 +353,12 @@ void hl_init()
 			filetype->type = g_strdup(strarr[0]);
 			filetype->extensions = g_strsplit(strarr[1], ":", 127);
 			filetype->update_chars = g_strdup(strarr[2]);
-			{
+			if (strlen(strarr[3])){
 				GError *error=NULL;
 				filetype->icon = gdk_pixbuf_new_from_file(strarr[3], &error);
 				if (error != NULL) {
 					/* Report error to user, and free error */
-					g_print("ERROR while loading pixbuf: %s\n", error->message);
+					g_print("ERROR while loading icon: %s\n", error->message);
 					g_error_free(error);
 					filetype->icon = NULL;
 				}
@@ -386,7 +395,15 @@ void hl_init()
 #endif
 		tmplist = g_list_next(tmplist);
 	}
-
+	
+	/* now link the types with highlight patterns from a new list*/
+	tmplist = g_list_first(main_v->filetypelist);
+	while (tmplist) {
+		if (((Tfiletype *)tmplist->data)->highlightlist) {
+			highlight.highlight_filetypes = g_list_append(highlight.highlight_filetypes, tmplist->data);
+		}
+		tmplist = g_list_next(tmplist);
+	}
 }
 
 Tfiletype *hl_get_highlightset_by_filename(gchar * filename)
@@ -394,7 +411,7 @@ Tfiletype *hl_get_highlightset_by_filename(gchar * filename)
 	GList *tmplist;
 	/* find set for this filetype */
 	if (filename) {
-		tmplist = g_list_first(main_v->filetypelist);
+		tmplist = g_list_first(highlight.highlight_filetypes);
 		while (tmplist) {
 			if (filename_test_extensions(((Tfiletype *) tmplist->data)->extensions, filename)) {
 				return (Tfiletype *) tmplist->data;
@@ -403,7 +420,7 @@ Tfiletype *hl_get_highlightset_by_filename(gchar * filename)
 		}
 	}
 	/* if none found return first set (is default set) */
-	tmplist = g_list_first(main_v->filetypelist);
+	tmplist = g_list_first(highlight.highlight_filetypes);
 	if (!tmplist) {
 		DEBUG_MSG("hl_get_highlightset_by_filename, no highlightsets?\n");
 		return NULL;
@@ -1123,4 +1140,8 @@ void hl_reset_to_default()
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
 	arr = array_from_arglist("sql", "storage", "1", "(integer|varchar|char|blob|double|timestamp)", "", "", "2", "", "#880088", "", "2","0", " \t\n", " \t\n", NULL);
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
+}
+
+GtkTextTagTable *highlight_return_tagtable() {
+	return highlight.tagtable;
 }

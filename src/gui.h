@@ -36,4 +36,7 @@ gboolean switch_to_document_by_pointer(Tdocument *document);
 gboolean switch_to_document_by_filename(gchar *filename);
 void go_to_line_win_cb(GtkWidget * widget, gpointer data);
 void go_to_line_from_selection_cb(GtkWidget * widget, gpointer data);
+
+void splash_screen_set_label(gchar *label);
+GtkWidget *start_splash_screen();
 #endif /* __GUI_H_ */

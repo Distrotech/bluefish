@@ -29,6 +29,7 @@
 #include "highlight.h" /* hl_init() */
 #include "msg_queue.h" /* msg_queue_start()*/
 #include "stringlist.h" /* put_stringlist(), get_stringlist() */
+#include "gtk_easy.h" /* flush_queue() */
 
 /*********************************************/
 /* this var is global for all bluefish files */

@@ -933,7 +933,7 @@ static void snr2dialog(gint is_replace, gint is_new_search) {
 		last_snr2.doc = NULL;
 	}
 	snr2win->window = window_full(tmptext, GTK_WIN_POS_MOUSE, 5, G_CALLBACK(snr2dialog_destroy_lcb), snr2win);
-	gtk_window_set_wmclass(GTK_WINDOW(snr2win->window), "Bluefish", "snr");
+	gtk_window_set_role(GTK_WINDOW(snr2win->window), "snr");
 	vbox = gtk_vbox_new(FALSE, 1);
 	gtk_container_add(GTK_CONTAINER(snr2win->window), vbox);
 	
