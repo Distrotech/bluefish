@@ -914,7 +914,7 @@ static void highlightpattern_fill_from_selected_filetype(Tprefdialog *pd) {
 		/* fill list model here */
 		while (tmplist) {
 			gchar **strarr =(gchar **)tmplist->data;
-			if (strarr[0]) {
+			if (count_array(strarr) ==11 && strarr[0]) {
 				DEBUG_MSG("found entry with filetype %s\n",strarr[0]);
 				if (strcmp(strarr[0], pd->hpd.selected_filetype)==0) {
 					GtkTreeIter iter;
@@ -1014,6 +1014,7 @@ static void highlightpattern_selection_changed_cb(GtkTreeSelection *selection, T
 				} else {
 					gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(pd->hpd.radio[3]),TRUE);
 				}
+				DEBUG_MSG("strarr[10]=%s, \n",strarr[10]);
 				if (strarr[10][0] == '2') {
 					gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(pd->hpd.radio[8]),TRUE);
 				} else if (strarr[10][0] == '1') {

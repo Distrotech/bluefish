@@ -149,7 +149,7 @@ php:HTML Attributes:1:([a-z]*=)[ \\n\\t]*("[^"]*")::2:^HTML$:::0:0:
 php:HTML Attribute Contents:1:2::3:^HTML Attributes$:#009900::0:0:
 php:HTML Entities:1:&[^; ]*;::2::#999999::2:0:
 php:Comment:0:<!--:-->:1::#AAAAAA::1:2:
-php:PHP Block:<\?php:\\?>:1:^(top|HTML|HTML Attribute Contents)$:#0000FF::0:0:
+php:PHP Block:1:<\\?php:\\?>:1:^(top|HTML|HTML Attribute Contents)$:#0000FF::0:0:
 php:Keywords:0:\\b(return|goto|global|var|class|function|new)\\b::2:^PHP Block$:#000000::2:0:
 php:Braces:0:[{()}]::2:^PHP Block$:#000000::2:1:
 php:Brackets:1:[\\[\\]]::2:^PHP Block$:#0000cc::2:0:
