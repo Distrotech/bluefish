@@ -49,6 +49,7 @@
 #include <sys/types.h>  /* _before_ regex.h for freeBSD */
 #include <regex.h> 				/* regcomp() */
 #include <pcre.h> 	/* pcre_compile */
+#include <gdk/gdkkeysyms.h> /* GDK_Return */
 
 #include "bluefish.h"
 #include "bf_lib.h"
@@ -959,6 +960,14 @@ static void snr2dialog_replacetype_toggled(GtkWidget *widget, Tsnr2_win *snr2win
 	gtk_widget_set_sensitive(snr2win->replacev, GTK_TOGGLE_BUTTON(snr2win->replacetype_string)->active);
 }
 
+static gboolean patternv_key_press_event_lcb(GtkWidget *widget,GdkEventKey *event,Tsnr2_win *snr2win) {
+	if ((event->state & GDK_CONTROL_MASK) && (event->keyval == GDK_Return)) {
+		snr2dialog_ok_lcb(NULL, snr2win);
+		return TRUE;
+	}
+	return FALSE;
+}
+
 static void snr2dialog(gint is_replace, gint is_new_search) {
 
 	Tsnr2_win *snr2win;
@@ -991,6 +1000,7 @@ static void snr2dialog(gint is_replace, gint is_new_search) {
 	{
 		GtkWidget *scrolwin = textview_buffer_in_scrolwin(&snr2win->patternv, 300, 50, last_snr2.pattern, GTK_WRAP_NONE);
 		gtk_box_pack_start(GTK_BOX(hbox), scrolwin, TRUE, TRUE, 0);
+		g_signal_connect(G_OBJECT(snr2win->patternv), "key_press_event", patternv_key_press_event_lcb, snr2win);
 	}
 
 	frame = gtk_frame_new(_("Where"));
