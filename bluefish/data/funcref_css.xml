@@ -1,0 +1,528 @@
+<ref name="CSS 2.0" description="CSS 2.0 properties">
+	<group name="Visual" description="Properties for visual media">
+		<tag name="background">
+			<description>background is shorthand for setting the individual background properties</description>
+			<insert>background:</insert>
+		</tag>
+		<tag name="background-attachment">
+			<description>Specifies if the background is fixed to the viewport of if it scrolls, which is the default.</description>
+			<insert>background-attachment:</insert>
+		</tag>
+		<tag name="background-color">
+			<description>Sets the background colour</description>
+			<insert>background-color:</insert>
+		</tag>
+		<tag name="background-image">
+			<description>Sets an image to use as the background</description>
+			<insert>background-image:</insert>
+		</tag>
+		<tag name="background-position">
+			<description>Specifies the position of a background image if one is given</description>
+			<insert>background-position:</insert>
+		</tag>
+		<tag name="background-repeat">
+			<description>Controls tiling of background images</description>
+			<insert>background-repeat:</insert>
+		</tag>
+		<tag name="border">
+			<description>border is shorthand for setting the individual border properties on all four borders</description>
+			<insert>border:</insert>
+		</tag>	
+		<tag name="border-collapse">
+			<description>border-collapse controls how borders are handled in tables</description>
+			<insert>border-collapse:</insert>
+		</tag>
+		<tag name="border-color">
+			<description>border-color is shorthand for setting the colour of all four borders</description>
+			<insert>border-color:</insert>
+		</tag>
+		<tag name="border-spacing">
+			<description>border-spacing controls the spacing between cell borders in tables</description>
+			<insert>border-spacing:</insert>
+		</tag>
+		<tag name="border-style">
+			<description>border-style is shorthand for setting the style of all four borders</description>
+			<insert>border-style:</insert>
+		</tag>
+		<tag name="border-top">
+			<description>border-top is shorthand for setting the style, colour and width of the top border</description>
+			<insert>border-top:</insert>
+		</tag>
+		<tag name="border-right">	
+			<description>border-right is shorthand for setting the style, colour and width of the right hand border</description>
+			<insert>border-right:</insert>
+		</tag>
+		<tag name="border-bottom">
+			<description>border-bottom is shorthand for setting the style, colour and width of the bottom border</description>
+			<insert>border-bottom:</insert>
+		</tag>
+		<tag name="border-left">
+			<description>border-left is shorthand for setting the style, colour and width of the left hand border</description>
+			<insert>border-left:</insert>
+		</tag>
+		<tag name="border-top-color">
+			<description>border-top-color sets the colour of the top border</description>
+			<insert>border-top-color:</insert>
+		</tag>
+		<tag name="border-right-color">	
+			<description>border-right-color sets the colour of the right hand border</description>
+			<insert>border-right-color:</insert>
+		</tag>
+		<tag name="border-bottom-color">
+			<description>border-bottom-color sets the colour of the bottom border</description>
+			<insert>border-bottom-color:</insert>
+		</tag>
+		<tag name="border-left-color">
+			<description>border-left-color sets the colour of the left hand border</description>
+			<insert>border-left-color:</insert>
+		</tag>
+		<tag name="border-top-style">
+			<description>border-top-style sets the style of the top border</description>
+			<insert>border-top-style:</insert>
+		</tag>
+		<tag name="border-right-style">	
+			<description>border-right-style sets the style of the right hand border</description>
+			<insert>border-right-style:</insert>
+		</tag>
+		<tag name="border-bottom-style">
+			<description>border-bottom-style sets the style of the bottom border</description>
+			<insert>border-bottom-style:</insert>
+		</tag>
+		<tag name="border-left-style">
+			<description>border-left-style sets the style of the left hand border</description>
+			<insert>border-left-style:</insert>
+		</tag>
+		<tag name="border-top-width">
+			<description>border-top-width sets the width of the top border</description>
+			<insert>border-top-width:</insert>
+		</tag>
+		<tag name="border-right-width">	
+			<description>border-right-width sets the width of the right hand border</description>
+			<insert>border-right-width:</insert>
+		</tag>
+		<tag name="border-bottom-width">
+			<description>border-bottom-width sets the width of the bottom border</description>
+			<insert>border-bottom-width:</insert>
+		</tag>
+		<tag name="border-left-width">
+			<description>border-left-width sets the width of the left hand border</description>
+			<insert>border-left-width:</insert>
+		</tag>
+		<tag name="border-width">
+			<description>border-width is shorthand for setting the width of all four borders</description>
+			<insert>border-width:</insert>
+		</tag>
+		<tag name="bottom">
+			<description>bottom specifies the offset from the bottom edge of the containing block</description>
+			<insert>bottom:</insert>
+		</tag>
+		<tag name="caption-side">
+			<description>caption-side specifies where a table caption will appear</description>
+			<insert>caption-side:</insert>
+		</tag>
+		<tag name="clear">
+			<description>clear specifies which sides of an element may not have a earlier floating element next to them</description>
+			<insert>clear:</insert>
+		</tag>	
+		<tag name="clip">
+			<description>clip specifies the clipping rectangle for the element</description>
+			<insert>clip:</insert>
+		</tag>	
+		<tag name="color">
+			<description>color specifies the foreground colour to be used for text</description>
+			<insert>color:</insert>
+		</tag>	
+		<tag name="content">
+			<description>content provides a way of inserting extra content into the document</description>
+			<insert>content:</insert>
+		</tag>	
+		<tag name="counter-increment">
+			<description>Increment a named counter</description>
+			<insert>counter-increment:</insert>
+		</tag>	
+		<tag name="counter-reset">
+			<description>Reset a named counter to 0, or a specified value</description>
+			<insert>counter-reset:</insert>
+		</tag>
+		<tag name="cursor">
+			<description>Set the mouse pointer to the specified type</description>
+			<insert>cursor:</insert>
+		</tag>
+		<tag name="direction">
+			<description>Sets the text direction, left to right, right to left, etc.</description>
+			<insert>direction:</insert>
+		</tag>
+		<tag name="display">
+			<description>Controls how an element is rendered, if at all</description>
+			<insert>display:</insert>
+		</tag>
+		<tag name="empty-cells">
+			<description>Controls if empty cells in tables should be shown or not</description>
+			<insert>empty-cells:</insert>
+		</tag>	
+		<tag name="float">
+			<description>Specifies if an element should float to the left or right, or not at all.</description>
+			<insert>float:</insert>
+		</tag>
+		<tag name="font">
+			<description>Shorthand for setting the individual font properties</description>
+			<insert>font:</insert>
+		</tag>
+		<tag name="font-family">
+			<description>The name of the font, or font family to use</description>
+			<insert>font-family:</insert>
+		</tag>
+		<tag name="font-size">
+			<description>Specifies how big the font should be</description>
+			<insert>font-size:</insert>
+		</tag>	
+		<tag name="font-size-adjust">
+			<description>Set the aspect ratio of the font</description>
+			<insert>font-size-adjust:</insert>
+		</tag>
+		<tag name="font-stretch">
+			<description>Provides a way to stretch / squash the font</description>
+			<insert>font-stretch:</insert>
+		</tag>
+		<tag name="font-style">
+			<description>Specifies if the font should be italic, oblique, etc.</description>
+			<insert>font-style:</insert>
+		</tag>
+		<tag name="font-variant">
+			<description>Enables a variant of the font to be used, such as small-caps</description>
+			<insert>font-variant:</insert>
+		</tag>
+		<tag name="font-weight">
+			<description>Specifies the weight of the font</description>
+			<insert>font-weight:</insert>
+		</tag>
+		<tag name="height">
+			<description>Provides a height for an element</description>
+			<insert>height:</insert>
+		</tag>	
+		<tag name="left">
+			<description>Specifies the offset of the left hand side of a positioned element</description>
+			<insert>left:</insert>
+		</tag>
+		<tag name="letter-spacing">
+			<description>Specifies the spacing between letters</description>
+			<insert>letter-spacing:</insert>
+		</tag>	
+		<tag name="line-height">
+			<insert>line-height:</insert>
+		</tag>	
+		<tag name="list-style">
+			<description>A shorthand method of applying the list-style properties</description>
+			<insert>list-style:</insert>
+		</tag>	
+		<tag name="list-style-image">
+			<description>Specifies an image that should be used as the marker in a list or list item</description>
+			<insert>list-style-image:</insert>
+		</tag>
+		<tag name="list-style-position">
+			<description>Used to control if the list marker is rendered inside or outside the actual list item</description>
+			<insert>list-style-position:</insert>
+		</tag>	
+		<tag name="list-style-type">
+			<description>Specifies the type of marker to display, circle, square etc.</description>
+			<insert>list-style-type:</insert>
+		</tag>
+		<tag name="margin">
+			<description>A shorthand method for specifying the top, right, bottom, left margin widths / heights</description>
+			<insert>margin:</insert>
+		</tag>
+		<tag name="margin-top">
+			<description>Specifies the height of the top margin on an element</description>
+			<insert>margin-top:</insert>
+		</tag>
+		<tag name="margin-right">
+			<description>Specifies the width of the right hand margin on an element</description>
+			<insert>margin-right:</insert>
+		</tag>
+		<tag name="margin-bottom">
+			<description>Specifies the height of the bottom margin on an element</description>
+			<insert>margin-bottom:</insert>
+		</tag>
+		<tag name="margin-left">
+			<description>Specifies the width of the left hand margin on an element</description>
+			<insert>margin-left:</insert>
+		</tag>
+		<tag name="marker-offset">
+			<insert>marker-offset:</insert>
+		</tag>	
+		<tag name="marks">
+			<insert>marks:</insert>
+		</tag>
+		<tag name="max-height">
+			<description>Specidies a maximum height for an element, does not apply to table elements</description>
+			<insert>max-height:</insert>
+		</tag>
+		<tag name="max-width">
+			<description>Specidies a maximum width for an element, does not apply to table elements</description>
+			<insert>max-width:</insert>
+		</tag>
+		<tag name="min-height">
+			<description>Specidies a minimum height for an element, does not apply to table elements</description>
+			<insert>min-height:</insert>
+		</tag>
+		<tag name="min-width">
+			<description>Specidies a minimum width for an element, does not apply to table elements</description>
+			<insert>min-width:</insert>
+		</tag>
+		<tag name="orphans">
+			<insert>orphans:</insert>
+		</tag>
+		<tag name="outline">
+			<insert>outline:</insert>
+			<description>outline is shorthand for setting the individual outline properties on all sides of the box</description>
+		</tag>	
+		<tag name="outline-color">
+			<insert>outline-color:</insert>
+			<description>outline-color sets the colour of the outline on all sides of the box</description>
+		</tag>
+		<tag name="outline-style">
+			<insert>outline-style:</insert>
+			<description>outline-style sets the style of the outline on all sides of the box</description>
+		</tag>
+		<tag name="outline-width">
+			<insert>outline-width:</insert>
+			<description>outline-width sets the width of the outline on all sides of the box</description>
+		</tag>
+		<tag name="overflow">
+			<description>controls how content that does not fit inside its element should be handled</description>
+			<insert>overflow:</insert>
+		</tag>	
+		<tag name="padding">
+			<insert>padding:</insert>
+		</tag>
+		<tag name="padding-top">
+			<insert>padding-top:</insert>
+		</tag>
+		<tag name="padding-right">
+			<insert>padding-right:</insert>
+		</tag>
+		<tag name="padding-bottom">
+			<insert>padding-bottom:</insert>
+		</tag>
+		<tag name="padding-left">
+			<insert>padding-left:</insert>
+		</tag>
+		<tag name="page">
+			<insert>page:</insert>
+		</tag>
+		<tag name="page-break-after">
+			<insert>page-break-after:</insert>
+		</tag>
+		<tag name="page-break-before">
+			<insert>page-break-before:</insert>
+		</tag>
+		<tag name="page-break-inside">
+			<insert>page-break-inside:</insert>
+		</tag>
+		<tag name="position">
+			<insert>position:</insert>
+		</tag>	
+		<tag name="quotes">
+			<insert>quotes:</insert>
+		</tag>	
+		<tag name="right">
+			<insert>right:</insert>
+		</tag>	
+		<tag name="size">
+			<insert>size:</insert>
+		</tag>	
+		<tag name="table-layout">
+			<insert>table-layout:</insert>
+		</tag>	
+		<tag name="text-align">
+			<insert>text-align:</insert>
+		</tag>	
+		<tag name="text-decoration">
+			<insert>text-decoration:</insert>
+		</tag>	
+		<tag name="text-indent">
+			<insert>text-indent:</insert>
+		</tag>	
+		<tag name="text-shadow">
+			<insert>text-shadow:</insert>
+		</tag>	
+		<tag name="text-transform">
+			<insert>text-transform:</insert>
+		</tag>	
+		<tag name="top">
+			<insert>top:</insert>
+		</tag>	
+		<tag name="unicode-bidi">
+			<insert>unicode-bidi:</insert>
+		</tag>	
+		<tag name="vertical-align">
+			<insert>vertical-align:</insert>
+		</tag>	
+		<tag name="visibility">
+			<insert>visibility:</insert>
+		</tag>	
+		<tag name="white-space">
+			<insert>white-space:</insert>
+		</tag>	
+		<tag name="widows">
+			<insert>widows:</insert>
+		</tag>
+		<tag name="width">
+			<insert>width:</insert>
+		</tag>	
+		<tag name="word-spacing">
+			<insert>word-spacing:</insert>
+		</tag>	
+		<tag name="z-index">
+			<insert>z-index:</insert>
+		</tag>	
+	</group>	
+	<group name="Aural" description="Properties for aural media">
+		<tag name="azimuth">
+			<insert>azimuth:</insert>
+		</tag>	
+		<tag name="content">
+			<description>content provides a way of inserting extra content into the document</description>
+			<insert>content:</insert>
+		</tag>	
+		<tag name="counter-increment">
+			<insert>counter-increment:</insert>
+		</tag>	
+		<tag name="counter-reset">
+			<insert>counter-reset:</insert>
+		</tag>
+		<tag name="cue">
+			<insert>cue:</insert>
+		</tag>	
+		<tag name="cue-after">
+			<insert>cue-after:</insert>
+		</tag>	
+		<tag name="cue-before">
+			<insert>cue-before:</insert>
+		</tag>
+		<tag name="display">
+			<insert>display:</insert>
+		</tag>
+		<tag name="elevation">
+			<insert>elevation:</insert>
+		</tag>	
+		<tag name="pause">
+			<insert>pause:</insert>
+		</tag>
+		<tag name="pause-after">
+			<insert>pause-after:</insert>
+		</tag>
+		<tag name="pause-before">
+			<insert>pause-before:</insert>
+		</tag>
+		<tag name="pitch">
+			<insert>pitch:</insert>
+		</tag>
+		<tag name="pitch-range">
+			<insert>pitch-range:</insert>
+		</tag>
+		<tag name="play-during">
+			<insert>play-during:</insert>
+		</tag>
+		<tag name="richness">
+			<insert>richness:</insert>
+		</tag>
+		<tag name="speak">
+			<insert>speak:</insert>
+		</tag>
+		<tag name="speak-header">
+			<insert>speak-header:</insert>
+		</tag>
+		<tag name="speak-numeral">
+			<insert>speak-numeral:</insert>
+		</tag>
+		<tag name="speak-punctuation">
+			<insert>speak-punctuation:</insert>
+		</tag>
+		<tag name="speech-rate">
+			<insert>speech-rate:</insert>
+		</tag>	
+		<tag name="stress">
+			<insert>stress:</insert>
+		</tag>	
+		<tag name="voice-familty">
+			<insert>voice-family:</insert>
+		</tag>	
+		<tag name="volume">
+			<insert>volume:</insert>
+		</tag>	
+	</group>	
+	<group name="Paged" description="Properties for paged media">
+		<tag name="content">
+			<description>content provides a way of inserting extra content into the document</description>	<insert>content:</insert>
+		</tag>	
+		<tag name="counter-increment">
+			<insert>counter-increment:</insert>
+		</tag>	
+		<tag name="counter-reset">
+			<insert>counter-reset:</insert>
+		</tag>
+		<tag name="display">
+			<insert>display:</insert>
+		</tag>
+		<tag name="marks">
+			<insert>marks:</insert>
+		</tag>
+		<tag name="orphans">
+			<insert>orphans:</insert>
+		</tag>
+		<tag name="page">
+			<insert>page:</insert>
+		</tag>
+		<tag name="page-break-after">
+			<insert>page-break-after:</insert>
+		</tag>
+		<tag name="page-break-before">
+			<insert>page-break-before:</insert>
+		</tag>
+		<tag name="page-break-inside">
+			<insert>page-break-inside:</insert>
+		</tag>
+		<tag name="size">
+			<insert>size:</insert>
+		</tag>
+		<tag name="widows">
+			<insert>widows:</insert>
+		</tag>
+	</group>
+	<group name="Interactive" description="Properties for interactive media">
+		<tag name="content">
+			<description>content provides a way of inserting extra content into the document</description>
+			<insert>content:</insert>
+		</tag>	
+		<tag name="counter-increment">
+			<insert>counter-increment:</insert>
+		</tag>	
+		<tag name="counter-reset">
+			<insert>counter-reset:</insert>
+		</tag>
+		<tag name="cursor">
+			<insert>cursor:</insert>
+		</tag>	
+		<tag name="display">
+			<insert>display:</insert>
+		</tag>
+		<tag name="outline">
+			<insert>outline:</insert>
+			<description>outline is shorthand for setting the individual outline properties on all sides of the box</description>
+		</tag>
+		<tag name="outline-color">
+			<insert>outline-color:</insert>
+			<description>outline-color sets the colour of the outline on all sides of the box</description>
+		</tag>
+		<tag name="outline-style">
+			<insert>outline-style:</insert>
+			<description>outline-style sets the style of the outline on all sides of the box</description>
+		</tag>
+		<tag name="outline-width">
+			<insert>outline-width:</insert>
+			<description>outline-width sets the width of the outline on all sides of the box</description>
+		</tag>
+	</group>	
+</ref>
+
