@@ -30,6 +30,7 @@ gboolean file_copy(gchar *source, gchar *dest);
 gboolean append_string_to_file(gchar *filename, gchar *string);
 gint table_convert_char2int(Tconvert_table *table, gchar *my_char);
 gchar *table_convert_int2char(Tconvert_table *table, gint my_int);
+glong utf8_byteoffset_to_charsoffset(gchar *string, glong byteoffset);
 gchar *escapestring(gchar *original, gchar delimiter);
 gchar *unescapestring(gchar *original);
 gboolean change_dir(gchar * filename);

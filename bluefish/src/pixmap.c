@@ -34,23 +34,56 @@ GtkWidget *new_pixmap(gint type) {
 	break;
 	case 010:
 		data = search;
-	break;
+		break;
 	case 011:
 		data = search_replace;
-	break;
+		break;
 	case 012:
 		data = undo;
-	break;
+		break;
 	case 013:
 		data = redo;
-	break;
+		break;
+	case 134:
+		data = table;
+		break;
+	case 135:
+		data= table_tr;
+		break;
+	case 136:
+		data = table_th;
+		break;
+	case 137:
+		data = table_td;
+		break;
+	case 138:
+		data = table2;
+		break;
+	case 139:
+		data = table_tr2;
+		break;
+	case 140:
+		data = table_th2;
+		break;
+	case 141:
+		data = table_td2;
+		break;
+	case 142:
+		data = table_capt;
+		break;
+/*	case 176: replaced by stock button
+		data = color_select_small;
+		break;*/
+	case 192:
+		data = css_small;
+		break;
 	case 205:
 		data = close_small;
-	break;
+		break;
 	default:
-		g_print("new_pixmap, unknown pixmap type requested\n");
+		g_print("new_pixmap, unknown pixmap type %d requested\n", type);
 		exit(1);
-	break;
+		break;
 	}
 	{
 		GdkPixbuf *pixbuf;

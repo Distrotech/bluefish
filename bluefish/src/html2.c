@@ -902,16 +902,16 @@ static void style_but_clicked_lcb(GtkWidget * widget, GtkWidget * which_entry)
 
 GtkWidget *style_but_new(GtkWidget * which_entry, GtkWidget * win)
 {
-	GtkWidget *pixmap, *style_but;
+	GtkWidget *style_but, *hbox;
 
-/* style_but = gtk_button_new_with_label("Edit style"); */
 	style_but = gtk_button_new();
-	pixmap = new_pixmap(192);
-	gtk_widget_show(pixmap);
-	gtk_container_add(GTK_CONTAINER(style_but), pixmap);
+	hbox = gtk_hbox_new(FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(hbox), new_pixmap(192),FALSE, FALSE, 3);
+	gtk_box_pack_start(GTK_BOX(hbox), gtk_label_new(_("Style")),TRUE, TRUE, 3);
+	gtk_container_add(GTK_CONTAINER(style_but), hbox);
 
 	gtk_signal_connect(GTK_OBJECT(style_but), "clicked", style_but_clicked_lcb, which_entry);
-	gtk_widget_show(style_but);
+	gtk_widget_show_all(style_but);
 	return style_but;
 }
 
@@ -1197,13 +1197,9 @@ static void color_but_clicked(GtkWidget * widget, GtkWidget * entry)
 
 GtkWidget *color_but_new(GtkWidget * which_entry, GtkWidget * win)
 {
+	GtkWidget *color_but;
 
-	GtkWidget *pixmap, *color_but;
-
-	color_but = gtk_button_new();
-	pixmap = new_pixmap(176);
-	gtk_widget_show(pixmap);
-	gtk_container_add(GTK_CONTAINER(color_but), pixmap);
+	color_but = gtk_button_new_from_stock(GTK_STOCK_SELECT_COLOR);
 	gtk_signal_connect(GTK_OBJECT(color_but), "clicked", color_but_clicked, which_entry);
 	gtk_widget_show(color_but);
 	return color_but;

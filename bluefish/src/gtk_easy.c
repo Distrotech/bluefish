@@ -303,9 +303,10 @@ GtkWidget *spinbut_with_value(gchar *value, gfloat lower, gfloat upper, gfloat s
 	adj = (GtkAdjustment *) gtk_adjustment_new((gfloat)fvalue, (gfloat)lower, (gfloat)upper, step_increment, page_increment, 0.0);
 	digits = (is_int(lower) ? 0 : 2);
 	returnwidget = gtk_spin_button_new(adj, step_increment, digits);
+/*	g_object_set(G_OBJECT(returnwidget), "numeric", TRUE, NULL);*/
 	gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(returnwidget), FALSE);
 	gtk_spin_button_set_snap_to_ticks(GTK_SPIN_BUTTON(returnwidget), FALSE);
-	gtk_spin_button_set_update_policy(GTK_SPIN_BUTTON(returnwidget), GTK_UPDATE_IF_VALID);
+/*	gtk_spin_button_set_update_policy(GTK_SPIN_BUTTON(returnwidget), GTK_UPDATE_IF_VALID);*/
 	if (!value) {
 		gtk_entry_set_text(GTK_ENTRY(GTK_SPIN_BUTTON(returnwidget)), "");
 	}
@@ -473,6 +474,18 @@ GtkWidget *bf_stock_button(const gchar * Text, GCallback func, gpointer func_dat
 	return button;
 };
 
+GtkWidget *bf_gtkstock_button(const gchar * stock_id, GCallback func, gpointer func_data)
+{
+	GtkWidget *button;
+
+	button = gtk_button_new_from_stock(stock_id);
+	g_return_val_if_fail(button, NULL);
+	GTK_WIDGET_SET_FLAGS(button, GTK_CAN_DEFAULT);
+	g_signal_connect(G_OBJECT(button), "clicked", func, func_data);
+	return button;
+};
+
+
 /*
  * Function: bf_stock_ok_button
  * Arguments:
@@ -483,9 +496,8 @@ GtkWidget *bf_stock_button(const gchar * Text, GCallback func, gpointer func_dat
  * Description:
  * 	Create new "Ok" button
  */
-GtkWidget *bf_stock_ok_button(GCallback func, gpointer func_data)
-{
-	return bf_stock_button(_(" Ok "), func, func_data);
+GtkWidget *bf_stock_ok_button(GtkSignalFunc func, gpointer func_data) {
+	return bf_gtkstock_button(GTK_STOCK_OK, func, func_data);
 };
 
 /*
@@ -500,7 +512,7 @@ GtkWidget *bf_stock_ok_button(GCallback func, gpointer func_data)
  */
 GtkWidget *bf_stock_cancel_button(GCallback func, gpointer func_data)
 {
-	return bf_stock_button(_(" Cancel "), func, func_data);
+	return bf_gtkstock_button(GTK_STOCK_CANCEL, func, func_data);
 };
 
 
@@ -610,7 +622,7 @@ static void mubudi_but_clicked_lcb(GtkWidget * widget, Tmubudi *mbd)
  * 	create dialog with several buttons which returns a value
  */
 
-gint multi_button_dialog(gchar *title, gint defval, gchar *label, gchar **buttons) {
+gint multi_button_dialog_backend(gboolean use_gtk_stock_buttons, gchar *title, gint defval, gchar *label, gchar **buttons) {
 
 	Tmubudi *mbd;
 
@@ -624,7 +636,7 @@ gint multi_button_dialog(gchar *title, gint defval, gchar *label, gchar **button
 			G_CALLBACK(mubudi_destroy_lcb), mbd);
 	gtk_grab_add(mbd->win);
 
-	vbox = gtk_vbox_new(FALSE, 0);
+	vbox = gtk_vbox_new(FALSE, 5);
 	gtk_container_add(GTK_CONTAINER(mbd->win), vbox);
 	gtk_box_pack_start(GTK_BOX(vbox), gtk_label_new(label), FALSE, FALSE, 0);
 	hbox = gtk_hbox_new(TRUE, 5);
@@ -632,7 +644,11 @@ gint multi_button_dialog(gchar *title, gint defval, gchar *label, gchar **button
 
 	count = 0;
 	while (buttons[count]) {
-		mbd->buts[count] = bf_stock_button(_(buttons[count]), G_CALLBACK(mubudi_but_clicked_lcb), mbd);
+		if (use_gtk_stock_buttons) {
+			mbd->buts[count] = bf_gtkstock_button(buttons[count], G_CALLBACK(mubudi_but_clicked_lcb), mbd);
+		} else {
+			mbd->buts[count] = bf_stock_button(buttons[count], G_CALLBACK(mubudi_but_clicked_lcb), mbd);
+		}
 		if (count == defval) {
 			gtk_window_set_default(GTK_WINDOW(mbd->win), mbd->buts[count]);
 		}
@@ -647,8 +663,16 @@ gint multi_button_dialog(gchar *title, gint defval, gchar *label, gchar **button
 	retval = mbd->retval;
 	free(mbd);
 	return retval;
-
 }
+
+gint multi_stockbutton_dialog(gchar *title, gint defval, gchar *label, gchar **buttons) {
+	return multi_button_dialog_backend(TRUE, title, defval, label, buttons);
+}
+
+gint multi_button_dialog(gchar *title, gint defval, gchar *label, gchar **buttons) {
+	return multi_button_dialog_backend(FALSE, title, defval, label, buttons);
+}
+
 /************************************************************************/
 /************    FILE SELECTION FUNCTIONS  ******************************/
 /************************************************************************/
