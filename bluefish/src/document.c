@@ -721,7 +721,7 @@ static void doc_set_file_in_titlebar(Tdocument *doc) {
 	if (doc->filename) {
 		title = g_strconcat("Bluefish ",VERSION," - ",doc->filename,NULL);
 	} else {
-		title = g_strconcat("Bluefish ",VERSION," -",_("Untitled"),NULL);
+		title = g_strconcat("Bluefish ",VERSION," -",_(" Untitled"),NULL);
 	}
 	gtk_window_set_title(GTK_WINDOW(main_v->main_window),title);
 	g_free(title);
@@ -2368,6 +2368,7 @@ void doc_activate(Tdocument *doc) {
 	doc_set_file_in_titlebar(doc);
 	doc_set_statusbar_insovr(doc);
 	doc_set_statusbar_editmode_encoding(doc);
+	doc_update_linenumber(doc, NULL, 0);
 
 	/* if highlighting is needed for this document do this now !! */
 	if (doc->need_highlighting && doc->highlightstate) {
@@ -3006,7 +3007,9 @@ void doc_indent_selection(Tdocument *doc, gboolean unindent) {
 		/* we have a selection, now we loop trough the characters, and for every newline
 		we add or remove a tab, we set the end with a mark */
 		end = gtk_text_buffer_create_mark(doc->buffer,NULL,&itend,TRUE);
-
+		if (gtk_text_iter_get_line_offset(&itstart)>0) {
+			gtk_text_iter_set_line_index(&itstart,0);
+		}	
 		while(gtk_text_iter_compare(&itstart,&itend) < 0) {
 			GtkTextMark *cur;
 /*			if (firstrun && !gtk_text_iter_starts_line(&itstart)) {
@@ -3045,7 +3048,7 @@ void doc_indent_selection(Tdocument *doc, gboolean unindent) {
 					cont = FALSE;
 				}
 				if (cont) {
-					gint offsetstart, offsetend;
+					gint offsetstart, offsetend;				
 					offsetstart = gtk_text_iter_get_offset(&itstart);
 					offsetend = gtk_text_iter_get_offset(&itend);
 					gtk_text_buffer_delete(doc->buffer,&itstart,&itend);
