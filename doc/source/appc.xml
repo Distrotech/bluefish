@@ -27,7 +27,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 <sect1 id="bluefish-manual-guide-requirements">
 <title>Building the Manual</title>
 <para>To generate HTML, PDF or PostScript files out of the source XML, you will need the following:</para>
-<itemizedlist>
+<itemizedlist spacing="compact">
 	<listitem>
 	<para>the Bluefish manual source files via CVS</para>
 	</listitem>
@@ -47,6 +47,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 	<para><command>xmllint</command> for validating all files</para>
 	</listitem>
 </itemizedlist>
+<?linebreakus?>
 <para>Here are the procedures to install the required files:</para>
 <procedure id="getting-manual">
 	<title>Getting the Bluefish manual source files</title>
@@ -99,16 +100,18 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 <screen>$ make validate-all</screen>
 <para>in the <filename>bluefish-gtk2/doc/source</filename> directory.</para>
 <para>However, there are some rules we like to follow to make editing the manual more efficient and organized.</para>
-
+<?linebreakus?>
 <sect2 id="bluefish-manual-guide-id-names">
 <title>The <literal>id</literal> Attribute</title>
 <para>We use <literal>id</literal> on chapter, appendix, section, figure, and procedure. This provides a convenient way to reference them in the text as well and to get them listed in the table of contents.</para>
+<para>If you need to reference some chunk of text embedded in a tag different from those already mentionned, you can also use an id on this tag, since DocBook allows id on all tags.</para>
 <para>All <literal>id</literal> names should begin with the name of the book. In our case the main book file is <emphasis>bluefish.xml</emphasis>, so every <literal>id</literal> should begin with <emphasis>bluefish</emphasis>.</para>
 <para>Separate words in the <literal>id</literal> with hyphens.</para>
 <para>Finally, include a word or two describing the content in the section. For example, a chapter entitled <literal>Using Bluefish</literal> would have the id <emphasis>bluefish-using</emphasis>. And, a section within that chapter called <literal>Keyboard Shortcuts</literal> could have the name <emphasis>bluefish-using-shortcuts</emphasis>.</para>
-<para>The main thing is that all id's must be unique or processing will fail. Also, be careful when renaming id's, since the name could be used in links within other parts of the manual. It's best to do a global search for an id in all the manual's files before changing an id.</para>
+<para>The main thing is that all id's must be unique or processing will fail. To ensure that all id's are unique, just run <command>make validate-all</command> before committing the changes.</para>
+<para>Also, be careful when renaming id's, since the name could be used in links within other parts of the manual. It's best to do a global search for an id in all the manual's files before changing an id.</para>
 </sect2>
-
+<?linebreakus?>
 <sect2 id="bluefish-manual-guide-screenshots">
 <title>Using Screen shots</title>
 <para>All screen shots are png files. They should be placed in the <filename>bluefish-gtk2/doc/source/figures</filename> directory. They are inserted in the xml files with the following tags:
@@ -151,7 +154,14 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 	<listitem><para>
 	<programlisting><![CDATA[<menuchoice>]]>
 <![CDATA[<guimenu>File</guimenu>]]>
-<![CDATA[<guimenuitem>Open</guimenuitem>]]>
+<![CDATA[<guimenuitem>Open...</guimenuitem>]]>
+<![CDATA[</menuchoice>]]></programlisting></para></listitem>
+	</varlistentry>
+	<varlistentry><term>Menu with submenu</term>
+	<listitem><para>
+	<programlisting><![CDATA[<menuchoice>]]>
+<![CDATA[<guimenu>Edit</guimenu>]]>
+<![CDATA[<guisubmenu>Replace special</guisubmenu>]]>
 <![CDATA[</menuchoice>]]></programlisting></para></listitem>
 	</varlistentry>
 	<varlistentry><term>Menu with submenuitem and shortcut</term>
@@ -163,7 +173,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 <![CDATA[<keycap>O</keycap>]]>
 <![CDATA[</keycombo></shortcut>]]>
 <![CDATA[<guimenu>File</guimenu>]]>
-<![CDATA[<guimenuitem>Open</guimenuitem>]]>
+<![CDATA[<guimenuitem>Open...</guimenuitem>]]>
 <![CDATA[</menuchoice>]]></programlisting></para></listitem>
 	</varlistentry>
 	<varlistentry><term>Label</term>
@@ -176,7 +186,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 
 <sect2 id="bluefish-manual-guide-procedure">
 <title>Using procedures</title>
-<para>When you want to explain some process, use procedures; this way, the user benefits of a clear step by step guidance. Here's how to do it:
+<?linebreaka4?>
+<para>When you want to explain some process, use procedures; this way, the user benefits of a clear step by step guidance:
 <programlisting><![CDATA[
 <procedure id="installing-docbook-xsl">
 <title>Installing docbook-xsl</title>
@@ -190,9 +201,10 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 ]]></programlisting></para>
 <para>If the explanation consists mainly in orders, you may want to use ordered list instead.</para>
 </sect2>
-
+<?linebreaka4?>
 <sect2 id="bluefish-manual-guide-notes">
 <title>Using notes, tips, warnings</title>
+<?linebreaka4?>
 <para>As we need them in places where there are not supposed to be, we use the following workaround:
 <programlisting><![CDATA[
 <variablelist>
@@ -205,8 +217,25 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 </variablelist>]]></programlisting></para>
 </sect2>
 
+<sect2 id="bluefish-manual-guide-links">
+<title>Using links</title>
+<?linebreaka4?>
+<para>To reference an external link, we use:
+<programlisting><![CDATA[
+<ulink url="http://www.sourceforge.net">http://www.sourceforge.net</ulink>]]></programlisting></para>
+<para>Or:
+<programlisting><![CDATA[<ulink url="http://xmlsoft.org/XSLT/">libxslt</ulink>]]></programlisting></para>
+<para>To reference an internal link (i.e. internal to the book), we use:
+<programlisting><![CDATA[<xref linkend="getting-bluefish-updates"/>]]></programlisting></para>
+<para>This generates a linked text similar to "the section called ...". This is the preferred form, but it may not be always suitable; in this case, you can use:
+<programlisting><![CDATA[<link linkend="getting-bluefish-updates">here</link>]]></programlisting></para>
+<para>To reference a chapter by number, we use:
+<programlisting><![CDATA[Chapter <xref linkend="getting-bluefish" role="template:%n" />]]></programlisting></para>
+</sect2>
+
 <sect2 id="bluefish-manual-guide-others">
 <title>Others tags</title>
+<?linebreaka4?>
 <para>To highlight command line tools or small applications, we use:
 <programlisting><![CDATA[<command>make</command>]]></programlisting></para>
 <para>To emphasize file or directory names, we use:
@@ -215,13 +244,23 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 <programlisting><![CDATA[<screen>$ make install</screen>]]></programlisting>
 or:
 <programlisting><![CDATA[Run the command <userinput>make</userinput>]]></programlisting>
-Be aware that the former is shown alone on its proper line, while the latter is embedded within the line flow. If you use the <literal>screen</literal> tag, you should prepend either a <literal>$</literal> or a <literal>#</literal> followed by a space before the instruction.</para>
-<para>As a workaround a bug in <command>fop</command>, we use a special processing instruction to for page breaks. If the break is the same for A4 and USLetter format, the instruction is:
+Be aware that the former is shown alone on its proper line, while the latter is embedded within the line flow. If you use the <literal>screen</literal> tag, you should prepend either a <literal>$</literal> or a <literal>#</literal> followed by a space before the instruction, depending on how the command should be run, as non root for the former, as root for the latter. Moreover, with the <literal>screen</literal> command, we should check that the line is not too long, split it if needed, and add a backslash to indicate the splitting.</para>
+<para>To embed chunk of code, we use:
+<programlisting>&lt;programlisting>
+&lt;![CDATA[
+Run the command &lt;userinput>make&lt;/userinput>]]&#62;
+&lt;/programlisting>
+</programlisting></para>
+<para>As a workaround a bug in <command>fop</command>, we use a special processing instruction to insert page breaks for PDF production. If the break is the same for A4 and USLetter format, the instruction is:
 <programlisting><![CDATA[<?pagebreak?>]]></programlisting></para>
 <para>If it is only for A4 format, the instruction is:
 <programlisting><![CDATA[<?pagebreaka4?>]]></programlisting></para>
 <para>Likewise for USLetter format only, it is:
 <programlisting><![CDATA[<?pagebreakus?>]]></programlisting></para>
+<para>Similar processing instructions are used to insert line breaks for PDF production:
+<programlisting><![CDATA[<?linebreak?>
+<?linebreaka4?>
+<?linebreakus?>]]></programlisting></para>
 </sect2>
 
 <sect2 id="bluefish-manual-guide-avoid">
@@ -233,9 +272,9 @@ Be aware that the former is shown alone on its proper line, while the latter is 
 <programlisting><![CDATA[<itemizedlist spacing="compact">]]></programlisting></para>
 <para>The same applies to ordered lists.</para>
 <para>Avoid contractions. Use <emphasis>you will</emphasis> instead of <emphasis>you'll</emphasis>.</para>
-<para>Use the spellchecker to correct any misspelling.</para>
+<para>Use the spell checker to correct any misspelling.</para>
 </sect2>
-
+<?linebreaka4?>
 <sect2 id="bluefish-manual-guide-production">
 <title>Producing the final files</title>
 <para>You have the following options to make and remove the various files, which will be stored in the <filename>bluefish-gtk2/doc</filename> directory:</para>
