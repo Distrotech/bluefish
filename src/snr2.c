@@ -35,7 +35,7 @@
  *             search_backend
  */
 /*****************************************************/
-/*#define DEBUG*/
+/* #define DEBUG */
 
 #include <gtk/gtk.h>
 
@@ -333,14 +333,22 @@ Tsearch_result search_backend(Tbfwin *bfwin, gchar *search_pattern, Tmatch_types
  *
  * Return value: #Tsearch_result
  **/
-Tsearch_result search_doc(Tbfwin *bfwin,Tdocument *document, gchar *search_pattern, Tmatch_types matchtype, gint is_case_sens, gint startpos) {
-	gchar *fulltext;
+Tsearch_result search_doc(Tbfwin *bfwin,Tdocument *document, gchar *search_pattern, Tmatch_types matchtype, gint is_case_sens, gint startpos, gboolean unescape) {
+	gchar *fulltext, *realpat;
 	Tsearch_result result;
 	
 	DEBUG_MSG("search_doc, started on document %p, startpos=%d\n", document, startpos);
 	fulltext = doc_get_chars(document, startpos, -1);
 	DEBUG_MSG("search_doc, fulltext=%p, search_pattern=%p\n", fulltext, search_pattern);
-	result = search_backend(bfwin,search_pattern, matchtype, is_case_sens, fulltext, FALSE);
+	if (unescape) {
+		realpat = unescape_string(search_pattern, FALSE);
+	} else {
+		realpat = search_pattern;
+	}
+	result = search_backend(bfwin,realpat, matchtype, is_case_sens, fulltext, FALSE);
+	if (unescape) {
+		g_free(realpat);
+	}
 	g_free(fulltext);
 	if (result.end > 0) {
 		DEBUG_MSG("search_doc, received a result (start=%d), adding startpos (%d) to it\n", result.start, startpos);
@@ -394,7 +402,7 @@ void doc_show_result(Tdocument *document, gint start, gint end) {
  *
  * Return value: #Tsearch_all_result
  **/
-Tsearch_all_result search_all(Tbfwin *bfwin,gchar *search_pattern, Tmatch_types matchtype, gint is_case_sens) {
+Tsearch_all_result search_all(Tbfwin *bfwin,gchar *search_pattern, Tmatch_types matchtype, gint is_case_sens, gboolean unescape) {
 	GList *tmplist;
 	Tsearch_all_result result_all;
 	Tsearch_result result;
@@ -411,7 +419,7 @@ Tsearch_all_result search_all(Tbfwin *bfwin,gchar *search_pattern, Tmatch_types 
 		tmplist = g_list_first(bfwin->documentlist);
 	}
 	while (tmplist) {
-		result = search_doc(bfwin,(Tdocument *)tmplist->data, search_pattern, matchtype, is_case_sens, LASTSNR2(bfwin->snr2)->result.end);
+		result = search_doc(bfwin,(Tdocument *)tmplist->data, search_pattern, matchtype, is_case_sens, LASTSNR2(bfwin->snr2)->result.end, unescape);
 		if (result.end > 0) {
 			result_all.start = result.start;
 			result_all.end = result.end;
@@ -430,11 +438,27 @@ Tsearch_all_result search_all(Tbfwin *bfwin,gchar *search_pattern, Tmatch_types 
 
 /*****************************************************/
 
+static gchar *reg_replace(gchar *replace_pattern, gint offset, Tsearch_result result, Tdocument *doc, gboolean standardescape) {
+	Tconvert_table * tct;
+	gchar *retval;
+	gint i, size;
+	size = (result.nmatch <= 10) ? result.nmatch -1 : 10;
+	tct = new_convert_table(size, standardescape);
+	for (i=0;i<size;i++) {
+		tct[i].my_int = i+48;
+		tct[i].my_char = doc_get_chars(doc, offset+result.pmatch[i+1].rm_so, offset+result.pmatch[i+1].rm_eo);
+		DEBUG_MSG("new_reg_replace, i=%d, my_int=%c, my_char=%s\n",i,tct[i].my_int,tct[i].my_char);
+	}
+	retval = expand_string(replace_pattern, '\\', tct);
+	free_convert_table(tct);
+	return retval;
+}
+
 /*
  * this function will parse the replace string and substitute the \0, \1 etc. with 
  * the subsearch_pattern matches from regexec()
  */
-static gchar *reg_replace(gchar *replace_pattern, gint offset, Tsearch_result result, Tdocument *doc) {
+/*static gchar *oldreg_replace(gchar *replace_pattern, gint offset, Tsearch_result result, Tdocument *doc) {
 	gchar *tmp1, *newstring;
 	gchar *tmpstr1, *tmpstr2, *tmpstr3;
 	gboolean escaped=0;
@@ -493,7 +517,7 @@ static gchar *reg_replace(gchar *replace_pattern, gint offset, Tsearch_result re
 	g_free(tmpstr2);
 	DEBUG_MSG("reg_replace, end, newstring='%s'\n", newstring);
 	return newstring;
-}
+}*/
 
 /**
  * replace_backend:
@@ -514,22 +538,34 @@ static gchar *reg_replace(gchar *replace_pattern, gint offset, Tsearch_result re
  **/
 Tsearch_result replace_backend(Tbfwin *bfwin,gchar *search_pattern, Tmatch_types matchtype, gint is_case_sens
 			, gchar *buf, gchar *replace_pattern, Tdocument *doc, gint offset, Treplace_types replacetype
-			, gint *replacelen) {
+			, gint *replacelen, gboolean unescape) {
 /* the offset in this function is the difference between the buffer and the text widget because of previous replace 
 actions, so the first char in buf is actually number offset in the text widget */
 /* replacelen -1 means there is no replacelen known yet, so we have to calculate it */
 	Tsearch_result result;
-	gchar *tmpstr=NULL;
+	gchar *tmpstr=NULL, *realpat;
 	
-	result = search_backend(bfwin,search_pattern, matchtype, is_case_sens, buf, (matchtype != match_normal));
+	if (unescape) {
+		realpat = unescape_string(search_pattern,FALSE);
+	} else {
+		realpat = search_pattern;
+	}
+	result = search_backend(bfwin,realpat, matchtype, is_case_sens, buf, (matchtype != match_normal));
+	if (unescape) {
+		g_free(realpat);
+	}
 	DEBUG_MSG("replace_backend, offset=%d, result.start=%d, result.end=%d\n", offset, result.start, result.end);
 	if (result.end > 0) {
 		switch (replacetype) {
 		case string:
 			if (matchtype == match_normal) {
-				tmpstr = g_strdup(replace_pattern);
+				if (unescape) {
+					tmpstr = unescape_string(replace_pattern, FALSE);
+				} else {
+					tmpstr = g_strdup(replace_pattern);
+				}
 			} else {
-				tmpstr = reg_replace(replace_pattern, offset, result, doc);
+				tmpstr = reg_replace(replace_pattern, offset, result, doc, unescape);
 			}
 			DEBUG_MSG("replace_backend, tmpstr='%s'\n", tmpstr);
 		break;
@@ -575,7 +611,7 @@ actions, so the first char in buf is actually number offset in the text widget *
  * 
  * Return value: #Tsearch_result
  **/
-Tsearch_result replace_doc_once(Tbfwin *bfwin,gchar *search_pattern, Tmatch_types matchtype, gint is_case_sens, gint startpos, gint endpos, gchar *replace_pattern, Tdocument *doc, Treplace_types replacetype) {
+Tsearch_result replace_doc_once(Tbfwin *bfwin,gchar *search_pattern, Tmatch_types matchtype, gint is_case_sens, gint startpos, gint endpos, gchar *replace_pattern, Tdocument *doc, Treplace_types replacetype, gboolean unescape) {
 /* endpos -1 means do till end */
 	gchar *fulltext;
 	gint replacelen = 0; /* replacelen -1 means there is no replacelen known yet
@@ -584,7 +620,7 @@ Tsearch_result replace_doc_once(Tbfwin *bfwin,gchar *search_pattern, Tmatch_type
 
 	doc_unre_new_group(doc);
 	fulltext = doc_get_chars(doc, startpos, endpos);
-	result = replace_backend(bfwin,search_pattern, matchtype, is_case_sens, fulltext, replace_pattern, doc, startpos, replacetype, &replacelen);
+	result = replace_backend(bfwin,search_pattern, matchtype, is_case_sens, fulltext, replace_pattern, doc, startpos, replacetype, &replacelen, unescape);
 	if ( result.end > 0) {
 		LASTSNR2(bfwin->snr2)->result.start = result.start + startpos;
 		LASTSNR2(bfwin->snr2)->result.end = result.end + startpos;
@@ -620,28 +656,37 @@ Tsearch_result replace_doc_once(Tbfwin *bfwin,gchar *search_pattern, Tmatch_type
  * 
  * Return value: void
  **/
-void replace_doc_multiple(Tbfwin *bfwin,gchar *search_pattern, Tmatch_types matchtype, gint is_case_sens, gint startpos, gint endpos, gchar *replace_pattern, Tdocument *doc, Treplace_types replacetype) {
+void replace_doc_multiple(Tbfwin *bfwin,gchar *search_pattern, Tmatch_types matchtype, gint is_case_sens, gint startpos, gint endpos, gchar *replace_pattern, Tdocument *doc, Treplace_types replacetype, gboolean unescape) {
 /* endpos -1 means do till end */
-	gchar *fulltext;
+	gchar *fulltext, *realpats, *realpatr;
+	gboolean realunesc;
 	Tsearch_result result;
 	gint in_buf_offset=0;
 	gint buf_text_offset=startpos;
-	gint replacelen=-1; /* replacelen -1 means there is no replacelen known yet */
-
-
+	gint replacelen; /* replacelen -1 means there is no replacelen known yet */
 	doc_unre_new_group(doc);
 
 	DEBUG_MSG("replace_doc_multiple, startpos=%d, endpos=%d\n", startpos, endpos);
 	if (matchtype == match_normal || replacetype != string) {
-		/* the replace string has a fixed length if it is not regex, or it is not type string */
-/*		if (GTK_TEXT(doc->textbox)->use_wchar) {
-			replacelen = wchar_len(replace_pattern, -1);
-		} else {*/
-			replacelen = g_utf8_strlen(replace_pattern,-1);
-/*		}*/
+		/* the replace string has a fixed length if it is not regex, or it is not type string
+		 in this case we can also do the unescaping in this function */
+		if (unescape) {
+			realpats = unescape_string(search_pattern, FALSE);
+			realpatr = unescape_string(replace_pattern, FALSE);
+		} else {
+			realpats = search_pattern;
+			realpatr = replace_pattern;
+		}
+		replacelen = g_utf8_strlen(realpatr,-1);
+		realunesc = FALSE;
+	} else {
+		replacelen=-1;
+		realpats = search_pattern;
+		realpatr = replace_pattern;
+		realunesc = unescape;
 	}
 	fulltext = doc_get_chars(doc, startpos, endpos);
-	result = replace_backend(bfwin,search_pattern, matchtype, is_case_sens, fulltext, replace_pattern, doc, buf_text_offset, replacetype, &replacelen);
+	result = replace_backend(bfwin,realpats, matchtype, is_case_sens, fulltext, realpatr, doc, buf_text_offset, replacetype, &replacelen, realunesc);
 	while (result.end > 0) {
 		if (replacetype == string) {
 			buf_text_offset += replacelen - (result.end - result.start);
@@ -668,9 +713,13 @@ void replace_doc_multiple(Tbfwin *bfwin,gchar *search_pattern, Tmatch_types matc
 			/* all regex replaces can have different replace lengths, so they have to be re-calculated */
 			replacelen = -1;
 		}
-		result = replace_backend(bfwin,search_pattern, matchtype, is_case_sens, &fulltext[in_buf_offset], replace_pattern, doc, buf_text_offset, replacetype, &replacelen);
+		result = replace_backend(bfwin,realpats, matchtype, is_case_sens, &fulltext[in_buf_offset], realpatr, doc, buf_text_offset, replacetype, &replacelen, realunesc);
 
 		DEBUG_MSG("replace_doc_multiple, 1- buf_text_offset=%d, in_buf_offset=%d, result.start=%d, result.end=%d\n", buf_text_offset, in_buf_offset, result.start, result.end);
+	}
+	if (unescape && (matchtype == match_normal || replacetype != string)) {
+		g_free(realpats);
+		g_free(realpatr);
 	}
 
 	doc_unre_new_group(doc);
@@ -696,12 +745,12 @@ void replace_doc_multiple(Tbfwin *bfwin,gchar *search_pattern, Tmatch_types matc
  * 
  * Return value: void
  **/
-void replace_all(Tbfwin *bfwin,gchar *search_pattern, Tmatch_types matchtype, gint is_case_sens, gchar *replace_pattern, Treplace_types replacetype) {
+void replace_all(Tbfwin *bfwin,gchar *search_pattern, Tmatch_types matchtype, gint is_case_sens, gchar *replace_pattern, Treplace_types replacetype, gboolean unescape) {
 	GList *tmplist;
 
 	tmplist = g_list_first(bfwin->documentlist);
 	while (tmplist) {
-		replace_doc_multiple(bfwin,search_pattern, matchtype, is_case_sens, 0, -1, replace_pattern, (Tdocument *)tmplist->data, replacetype);
+		replace_doc_multiple(bfwin,search_pattern, matchtype, is_case_sens, 0, -1, replace_pattern, (Tdocument *)tmplist->data, replacetype, unescape);
 		tmplist = g_list_next(tmplist);
 	}
 }
@@ -729,7 +778,7 @@ static void replace_prompt_dialog_ok_lcb(GtkWidget *widget, Tbfwin *bfwin) {
 			if (LASTSNR2(bfwin->snr2)->replacetype_option==string) {
 				tmpstr = g_strdup(LASTSNR2(bfwin->snr2)->replace_pattern);
 				/* if it was a regex replace we need to do the sub-search_pattern matching */
-				tmpstr = reg_replace(tmpstr, 0, LASTSNR2(bfwin->snr2)->result, bfwin->current_document);
+				tmpstr = reg_replace(tmpstr, 0, LASTSNR2(bfwin->snr2)->result, bfwin->current_document, LASTSNR2(bfwin->snr2)->unescape);
 				
 			} else if (LASTSNR2(bfwin->snr2)->replacetype_option==uppercase) {
 				tmpstr = doc_get_chars(bfwin->current_document, LASTSNR2(bfwin->snr2)->result.start ,LASTSNR2(bfwin->snr2)->result.end);
@@ -859,9 +908,9 @@ void replace_prompt_dialog(Tbfwin *bfwin) {
  * 
  * Return value: #gint, 1 if a new occurence of the search_pattern was found and a dialog is shown. 0 else.
  **/
-gint replace_prompt_doc(Tbfwin *bfwin, gchar *search_pattern, Tmatch_types matchtype, gint is_case_sens, gint startpos, gint endpos, gchar *replace_pattern, Tdocument *doc) {
+gint replace_prompt_doc(Tbfwin *bfwin, gchar *search_pattern, Tmatch_types matchtype, gint is_case_sens, gint startpos, gint endpos, gchar *replace_pattern, Tdocument *doc, gboolean unescape) {
 /* endpos -1 means do till end , returns if the document still had a match*/
-	gchar *fulltext;
+	gchar *fulltext, *realpat;
 	Tsearch_result result;
 
 	if (LASTSNR2(bfwin->snr2)->result.pmatch) {
@@ -869,7 +918,15 @@ gint replace_prompt_doc(Tbfwin *bfwin, gchar *search_pattern, Tmatch_types match
 		LASTSNR2(bfwin->snr2)->result.pmatch = NULL;
 	}
 	fulltext = doc_get_chars(doc, startpos, endpos);
-	result = search_backend(bfwin,search_pattern, matchtype, is_case_sens, fulltext, 1);
+	if (unescape) {
+		realpat = unescape_string(search_pattern, FALSE);
+	} else {
+		realpat = search_pattern;
+	}
+	result = search_backend(bfwin,realpat, matchtype, is_case_sens, fulltext, 1);
+	if (unescape) {
+		g_free(realpat);
+	}
 	LASTSNR2(bfwin->snr2)->doc = doc;
 	g_free(fulltext);
 	DEBUG_MSG("replace_prompt_doc, result.end=%d\n", result.end);
@@ -904,7 +961,7 @@ gint replace_prompt_doc(Tbfwin *bfwin, gchar *search_pattern, Tmatch_types match
  * 
  * Return value: void
  **/
-void replace_prompt_all(Tbfwin *bfwin,gchar *search_pattern, Tmatch_types matchtype, gint is_case_sens, gchar *replace_pattern) {
+void replace_prompt_all(Tbfwin *bfwin,gchar *search_pattern, Tmatch_types matchtype, gint is_case_sens, gchar *replace_pattern, gboolean unescape) {
 	GList *tmplist;
 	gint retvalue;
 	Tdocument *tmpdoc;
@@ -915,12 +972,12 @@ void replace_prompt_all(Tbfwin *bfwin,gchar *search_pattern, Tmatch_types matcht
 		tmplist = g_list_first(bfwin->documentlist);
 		tmpdoc = (Tdocument *)tmplist->data;
 	}
-	retvalue = replace_prompt_doc(bfwin,search_pattern, matchtype, is_case_sens, 0, -1, replace_pattern, tmpdoc);
+	retvalue = replace_prompt_doc(bfwin,search_pattern, matchtype, is_case_sens, 0, -1, replace_pattern, tmpdoc, unescape);
 	while (retvalue == 0) {
 		tmplist = g_list_find(bfwin->documentlist, LASTSNR2(bfwin->snr2)->doc);
 		tmplist = g_list_next(tmplist);
 		if (tmplist) {
-			retvalue = replace_prompt_doc(bfwin,search_pattern, matchtype, is_case_sens, 0, -1, replace_pattern, (Tdocument *)tmplist->data);
+			retvalue = replace_prompt_doc(bfwin,search_pattern, matchtype, is_case_sens, 0, -1, replace_pattern, (Tdocument *)tmplist->data, unescape);
 		} else {
 			retvalue = 1;
 		}
@@ -989,23 +1046,23 @@ void snr2_run(Tbfwin *bfwin, Tdocument *doc) {
 	
 		if (LASTSNR2(bfwin->snr2)->prompt_before_replace) {
 			if (LASTSNR2(bfwin->snr2)->placetype_option==opened_files) {
-				replace_prompt_all(bfwin,LASTSNR2(bfwin->snr2)->search_pattern,LASTSNR2(bfwin->snr2)->matchtype_option, LASTSNR2(bfwin->snr2)->is_case_sens, LASTSNR2(bfwin->snr2)->replace_pattern);
+				replace_prompt_all(bfwin,LASTSNR2(bfwin->snr2)->search_pattern,LASTSNR2(bfwin->snr2)->matchtype_option, LASTSNR2(bfwin->snr2)->is_case_sens, LASTSNR2(bfwin->snr2)->replace_pattern, LASTSNR2(bfwin->snr2)->unescape);
 			} else {
-				replace_prompt_doc(bfwin,LASTSNR2(bfwin->snr2)->search_pattern, LASTSNR2(bfwin->snr2)->matchtype_option, LASTSNR2(bfwin->snr2)->is_case_sens, startpos, endpos, LASTSNR2(bfwin->snr2)->replace_pattern, doc);
+				replace_prompt_doc(bfwin,LASTSNR2(bfwin->snr2)->search_pattern, LASTSNR2(bfwin->snr2)->matchtype_option, LASTSNR2(bfwin->snr2)->is_case_sens, startpos, endpos, LASTSNR2(bfwin->snr2)->replace_pattern, doc, LASTSNR2(bfwin->snr2)->unescape);
 			}
 		} else {
 			if (LASTSNR2(bfwin->snr2)->placetype_option==opened_files) {
-				replace_all(bfwin,LASTSNR2(bfwin->snr2)->search_pattern, LASTSNR2(bfwin->snr2)->matchtype_option, LASTSNR2(bfwin->snr2)->is_case_sens, LASTSNR2(bfwin->snr2)->replace_pattern, replacetype);
+				replace_all(bfwin,LASTSNR2(bfwin->snr2)->search_pattern, LASTSNR2(bfwin->snr2)->matchtype_option, LASTSNR2(bfwin->snr2)->is_case_sens, LASTSNR2(bfwin->snr2)->replace_pattern, replacetype, LASTSNR2(bfwin->snr2)->unescape);
 			} else if (LASTSNR2(bfwin->snr2)->replace_once) {
-				replace_doc_once(bfwin,LASTSNR2(bfwin->snr2)->search_pattern, LASTSNR2(bfwin->snr2)->matchtype_option, LASTSNR2(bfwin->snr2)->is_case_sens, startpos, endpos, LASTSNR2(bfwin->snr2)->replace_pattern, doc, replacetype);
+				replace_doc_once(bfwin,LASTSNR2(bfwin->snr2)->search_pattern, LASTSNR2(bfwin->snr2)->matchtype_option, LASTSNR2(bfwin->snr2)->is_case_sens, startpos, endpos, LASTSNR2(bfwin->snr2)->replace_pattern, doc, replacetype, LASTSNR2(bfwin->snr2)->unescape);
 			} else {
-				replace_doc_multiple(bfwin,LASTSNR2(bfwin->snr2)->search_pattern, LASTSNR2(bfwin->snr2)->matchtype_option, LASTSNR2(bfwin->snr2)->is_case_sens, startpos, endpos, LASTSNR2(bfwin->snr2)->replace_pattern, doc, replacetype);
+				replace_doc_multiple(bfwin,LASTSNR2(bfwin->snr2)->search_pattern, LASTSNR2(bfwin->snr2)->matchtype_option, LASTSNR2(bfwin->snr2)->is_case_sens, startpos, endpos, LASTSNR2(bfwin->snr2)->replace_pattern, doc, replacetype, LASTSNR2(bfwin->snr2)->unescape);
 			}		
 		}
 	} else { /* find, not replace */
 		if (LASTSNR2(bfwin->snr2)->placetype_option==opened_files) {
 			DEBUG_MSG("snr2dialog_ok_lcb, search = all\n");
-			result_all = search_all(bfwin,LASTSNR2(bfwin->snr2)->search_pattern, LASTSNR2(bfwin->snr2)->matchtype_option, LASTSNR2(bfwin->snr2)->is_case_sens);
+			result_all = search_all(bfwin,LASTSNR2(bfwin->snr2)->search_pattern, LASTSNR2(bfwin->snr2)->matchtype_option, LASTSNR2(bfwin->snr2)->is_case_sens, LASTSNR2(bfwin->snr2)->unescape);
 			DEBUG_MSG("snr2dialog_ok_lcb, result_all.doc=%p\n",result_all.doc);
 			if (result_all.end > 0) {
 				doc_show_result(result_all.doc, result_all.start, result_all.end);
@@ -1013,7 +1070,7 @@ void snr2_run(Tbfwin *bfwin, Tdocument *doc) {
 				info_dialog(bfwin->main_window,_("Search: no match found"), NULL);
 			}
 		} else {
-			result = search_doc(bfwin,doc, LASTSNR2(bfwin->snr2)->search_pattern, LASTSNR2(bfwin->snr2)->matchtype_option, LASTSNR2(bfwin->snr2)->is_case_sens, startpos);
+			result = search_doc(bfwin,doc, LASTSNR2(bfwin->snr2)->search_pattern, LASTSNR2(bfwin->snr2)->matchtype_option, LASTSNR2(bfwin->snr2)->is_case_sens, startpos, LASTSNR2(bfwin->snr2)->unescape);
 			if (result.end > 0) {
 				doc_show_result(doc, result.start, result.end);	
 			} else {
@@ -1100,7 +1157,7 @@ void snr2_run_extern_replace(Tdocument *doc, gchar *search_pattern, gint region,
  * Return value: #Tsearch_result_doc
  **/
 Tsearch_result doc_search_run_extern(Tdocument *doc, gchar *search_pattern, gint matchtype, gint is_case_sens) {
-	return search_doc(BFWIN(doc->bfwin),doc, search_pattern, matchtype, is_case_sens, 0);
+	return search_doc(BFWIN(doc->bfwin),doc, search_pattern, matchtype, is_case_sens, 0, FALSE);
 } 
 
 /******************************************************/

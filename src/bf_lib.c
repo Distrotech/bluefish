@@ -401,7 +401,6 @@ gchar *unexpand_string(const gchar *original, const char specialchar, Tconvert_t
 		DEBUG_MSG("unexpand_string, copy %d bytes and advancing dest\n",len);
 		memcpy(dest, prev, len);
 		dest += len;
-/*		dest++;*/
 		*dest = specialchar;
 		dest++;
 		*dest = mychar;
@@ -417,39 +416,70 @@ gchar *unexpand_string(const gchar *original, const char specialchar, Tconvert_t
 	g_free(tosearchfor);
 	return retval;
 }
-/* if you change this table, please change escape_string and unescape_string in the same way */
-static Tconvert_table standardescape [] = {
+/* if you change this table, please change escape_string() and unescape_string() and new_convert_table() in the same way */
+static Tconvert_table standardescapetable [] = {
 	{'n', "\n"},
 	{'t', "\t"},
 	{'\\', "\\"},
+	{'f', "\f"},
+	{'r', "\r"},
+	{'a', "\a"},
+	{'b', "\b"},
+	{'v', "\v"},
+	{'n', "\n"},
 	{':', ":"}, /* this double entry is there to make unescape_string and escape_string work efficient */
 	{0, NULL}
 };
 gchar *unescape_string(const gchar *original, gboolean escape_colon) {
 	gchar *string, *tmp=NULL;
 	if (!escape_colon) {
-		tmp = standardescape[3].my_char;
-		standardescape[3].my_char = NULL;
+		tmp = standardescapetable[9].my_char;
+		standardescapetable[9].my_char = NULL;
 	}
-	string = expand_string(original,'\\',standardescape);
+	string = expand_string(original,'\\',standardescapetable);
 	if (!escape_colon) {
-		standardescape[3].my_char = tmp;
+		standardescapetable[9].my_char = tmp;
 	}
 	return string;
 }
 gchar *escape_string(const gchar *original, gboolean escape_colon) {
 	gchar *string, *tmp=NULL;
 	if (!escape_colon) {
-		tmp = standardescape[3].my_char;
-		standardescape[3].my_char = NULL;
+		tmp = standardescapetable[9].my_char;
+		standardescapetable[9].my_char = NULL;
 	}
-	string = unexpand_string(original,'\\',standardescape);
+	string = unexpand_string(original,'\\',standardescapetable);
 	if (!escape_colon) {
-		standardescape[3].my_char = tmp;
+		standardescapetable[9].my_char = tmp;
 	}
 	return string;
 }
-
+Tconvert_table *new_convert_table(gint size, gboolean fill_standardescape) {
+	gint realsize = (fill_standardescape) ? size + 10 : size +1;
+	Tconvert_table * tct = g_new(Tconvert_table, realsize);
+	DEBUG_MSG("new_convert_table, size=%d, realsize=%d\n",size,realsize);
+	if (fill_standardescape) {
+		gint i;
+		for (i=size;i<realsize;i++) {
+			tct[i].my_int = standardescapetable[i-size].my_int;
+			tct[i].my_char = g_strdup(standardescapetable[i-size].my_char);
+		}
+		tct[i].my_char = NULL;
+	} else {
+		tct[size].my_char = NULL;
+	}
+	return tct;
+}
+void free_convert_table(Tconvert_table *tct) {
+	Tconvert_table *tmp = tct;
+	while (tmp->my_char) {
+		DEBUG_MSG("free_convert_table, my_char=%s\n",tmp->my_char);
+		g_free(tmp->my_char);
+		tmp++;
+	}
+	DEBUG_MSG("free_convert_table, free table %p\n",tct);
+	g_free(tct);
+}
 /**************************************************/
 /* byte offset to UTF8 character offset functions */
 /**************************************************/
@@ -539,12 +569,12 @@ guint utf8_byteoffset_to_charsoffset_cached(gchar *string, glong byteoffset) {
  * 
  * Return value: a newly allocated gchar * that is escaped
  **/
-gchar *old_escapestring(gchar *original, gchar delimiter)
+/*gchar *old_escapestring(gchar *original, gchar delimiter)
 {
 	gchar *tmp, *newstring, *escapedchars;
 	guint newsize, pos=0;
 
-	/* count the size of the new string */
+	* count the size of the new string *
 	escapedchars = g_strdup_printf("\n\t\\%c", delimiter);
 	DEBUG_MSG("escapestring, escapedchars=%s, extra length=%d\n", escapedchars, countchars(original, escapedchars));
 	newsize = countchars(original, escapedchars) + strlen(original) + 1;
@@ -583,7 +613,7 @@ gchar *old_escapestring(gchar *original, gchar delimiter)
 	}
 	DEBUG_MSG("escapestring, newstring = %s\n", newstring);
 	return newstring;
-}
+}*/
 
 /**
  * unescapestring:
@@ -595,15 +625,11 @@ gchar *old_escapestring(gchar *original, gchar delimiter)
  * 
  * Return value: a newly allocated gchar * that is unescaped
  **/
-gchar *old_unescapestring(gchar *original)
+/*gchar *old_unescapestring(gchar *original)
 {
 	gchar *tmp1, *tmp2, *newstring;
 	guint newsize;
 	gint escaped;
-
-	/* note: to split string into an array,
-	 * use string_to_array().
-	 */
 
 	newsize = strlen(original) + 1;
 	newstring = g_malloc0(newsize * sizeof(gchar));
@@ -640,7 +666,7 @@ gchar *old_unescapestring(gchar *original)
 	}
 	DEBUG_MSG("unescapestring, newstring = %s\n", newstring);
 	return newstring;
-}
+}*/
 
 /**
  * change_dir:
