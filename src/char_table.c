@@ -211,7 +211,7 @@ gchar *convert_string_utf8_to_html(const gchar *utf8string, gboolean ascii, gboo
 	} else {
 		/* optimize for speed, not for memory usage because that is very temporary */
 		gchar *converted_string = g_malloc0(8 * strlen(utf8string)*sizeof(gchar));
-		gchar *srcp = utf8string;
+		const gchar *srcp = utf8string;
 		gunichar unichar = g_utf8_get_char(srcp);
 		DEBUG_MSG("convert_string_utf8_to_html, utf8string='%s'\n", utf8string);
 		while (unichar) {
