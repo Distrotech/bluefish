@@ -1673,7 +1673,7 @@ static void showfulltree_toggled_lcb(GtkToggleButton *togglebutton, Tbfwin *bfwi
  * @basedir: #const gchar* 
  *
  * will set this dir as the basedir for the filebrowser
- * a call with NULL is basically the same as setting it to "/"
+ * a call with NULL is basically the same as setting it to the default value
  *
  * it there is no slash / appended, this function will add a slash to the end dir
  *
@@ -1681,26 +1681,31 @@ static void showfulltree_toggled_lcb(GtkToggleButton *togglebutton, Tbfwin *bfwi
  **/
 void filebrowser_set_basedir(Tbfwin *bfwin, const gchar *basedir) {
 	if (bfwin->filebrowser) {
-		DEBUG_MSG("filebrowser_set_basedir, basedir=%s\n",basedir);
-		if (FILEBROWSER(bfwin->filebrowser)->basedir) {
-			g_free(FILEBROWSER(bfwin->filebrowser)->basedir);
+		gchar *newbasedir = NULL;
+		if (basedir && strlen(basedir)>2) {
+			newbasedir = ending_slash(basedir);
+		} else if (main_v->props.default_basedir && strlen(main_v->props.default_basedir)>2) {
+			newbasedir = ending_slash(main_v->props.default_basedir);
 		}
-		if (basedir) {
-			FILEBROWSER(bfwin->filebrowser)->basedir = ending_slash(basedir);
-		} else {
-			FILEBROWSER(bfwin->filebrowser)->basedir = NULL;
-		}
-		DEBUG_MSG("filebrowser_set_basedir, set basedir to %s\n",FILEBROWSER(bfwin->filebrowser)->basedir);
-		
-		gtk_widget_set_sensitive(GTK_WIDGET(FILEBROWSER(bfwin->filebrowser)->showfulltree), (FILEBROWSER(bfwin->filebrowser)->basedir != NULL));
 
-		if (!GTK_TOGGLE_BUTTON(FILEBROWSER(bfwin->filebrowser)->showfulltree)->active) {
-			/* it is already inactive, call the callback directly */
-			DEBUG_MSG("filebrowser_set_basedir, calling showfulltree_toggled_lcb()\n");
-			showfulltree_toggled_lcb(GTK_TOGGLE_BUTTON(FILEBROWSER(bfwin->filebrowser)->showfulltree), bfwin);
-		} else {
-			DEBUG_MSG("filebrowser_set_basedir, calling gtk_toggle_button_set_active()\n");
-			gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(FILEBROWSER(bfwin->filebrowser)->showfulltree), FALSE);
+		if (newbasedir && FILEBROWSER(bfwin->filebrowser)->basedir && strcmp(newbasedir, FILEBROWSER(bfwin->filebrowser)->basedir)==0) {
+			/* if the old and new basedir are the same: return; */
+			g_free(newbasedir);
+			return;
+		}
+		if (FILEBROWSER(bfwin->filebrowser)->basedir) g_free(FILEBROWSER(bfwin->filebrowser)->basedir);
+		FILEBROWSER(bfwin->filebrowser)->basedir = newbasedir;
+		gtk_widget_set_sensitive(GTK_WIDGET(FILEBROWSER(bfwin->filebrowser)->showfulltree), (newbasedir != NULL));
+		if (newbasedir) {
+			DEBUG_MSG("filebrowser_set_basedir, set basedir to %s\n",FILEBROWSER(bfwin->filebrowser)->basedir);
+			if (!GTK_TOGGLE_BUTTON(FILEBROWSER(bfwin->filebrowser)->showfulltree)->active) {
+				/* it is already inactive, call the callback directly */
+				DEBUG_MSG("filebrowser_set_basedir, calling showfulltree_toggled_lcb()\n");
+				showfulltree_toggled_lcb(GTK_TOGGLE_BUTTON(FILEBROWSER(bfwin->filebrowser)->showfulltree), bfwin);
+			} else {
+				DEBUG_MSG("filebrowser_set_basedir, calling gtk_toggle_button_set_active()\n");
+				gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(FILEBROWSER(bfwin->filebrowser)->showfulltree), FALSE);
+			}
 		}
 	}
 }
