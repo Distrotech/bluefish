@@ -1,301 +1,256 @@
-/* This file is part of gimp-help-2. It is copyrighted under the GNU
-   Free Documentation License Version 1.1 which you can get from
-   http://www.gnu.org */
+/* This file is copyrighted under the GNU Free Documentation 
+   License Version 1.1 which you can get from http://www.gnu.org */
 
+body {
+	font-size: 12px;
+	font-family: Verdana, sans-serif;
+	margin: 0;
+	padding: 0;
+	background: #fdfdfd;
+}
 
-  body {
-    font-size: small;
-    font-family: Verdana, sans-serif;
-    margin: 0;
-    padding: 0;
-    background: #eeeeee;
-  }
+h1, h2 {
+	font-size: x-large;
+	font-family: Georgia, Times, serif;
+}
 
-  h1, h2 {
-    font-size: x-large;
-    font-family: Georgia, Times, serif;
-    clear: both;
-  }
+h3, h4, h5, p.title {
+	font-size: medium;
+	font-weight: bold;
+	width: 70%;
+	border-bottom: 1px solid black;
+	letter-spacing: 2px;
+	margin-top: 30px;
+}
 
-  h3, h4, h5, p.title {
-    font-size: medium;
-    font-weight: bold;
-    width: 70%;
-    border-bottom: 1px solid black;
-    letter-spacing: 2px;
-    margin-top: 30px;
-    clear: both;
-  }
-  
-  h3, h4 {
-    text-decoration: underline;
-    border: 0;
-    letter-spacing: normal;
-  }
+h3, h4 {
+	text-decoration: underline;
+	border: 0;
+	letter-spacing: normal;
+}
 
-  dt {
-    clear: both;
-  }
-  
-  li {
-    clear: both;
-  }
+div.itemizedlist li {
+	clear: none;
+}
 
-  div.itemizedlist li {
-    clear: none;
-  }
-  
-  .term { 
-    border-bottom: 1px dotted black; 
-    clear: both;
-  }
-
-
-
-  p {
-    display: block;
-    margin: 5px 0;
-    margin-bottom: 15px;
-    width: 70%;
-    min-width: 40em;
-  }
-  
-  .filename {
-    font-size: medium;
-    font-family: Courier, monospace;
-  }
-
-  /* don't display anchor tags with only an id attribute */
-  p a[id] {
-    margin: 0;
-    padding: 0;
-    display: inline;
-    background-image: none;
-  }
-  
-  p a, p a:hover, .mousebutton {
-    margin-left: 5px;
-    padding-left: 10px;
-    background-image: url("../images/link.png");
-    background-repeat: no-repeat;
-    background-position: center left;
-  }
-
-  p .guiicon {
-    position: relative;
-    top: 12px;
-  }
-  
-  dd {
-    margin: 5px 40px;
-    margin-right: 0;
-  }
-
-  hr {
-    border: 0px;
-    border-top: 1px solid black;
-    width: 70%;
-    margin-top: 20px;
-    padding-bottom: 10px;
-  }
-
-  a {
-    color: blue;
-    text-decoration: none;
-  }
-
-a:hover {
-  background: lightblue;
-  text-decoration: underline;
-  color: black;
+.term { 
+	border-bottom: 1px dotted black; 
+	clear: both;
 }
 
 
-  div.navheader {
-    background: #d6ba00;
-    color: black;
-    clear: both;
-  }
 
-  div.navfooter {
-    background: #d6ba00;
-    color: black;
-    clear: both;
-  }
+p {
+	display: block;
+	margin: 5px 0;
+	margin-bottom: 15px;
+	width: 70%;
+	min-width: 40em;
+}
 
-  div.navheader table th {
-    font-family: Georgia, Times, serif;
-    font-size: x-large;
-  }
+.filename {
+	font-size: medium;
+	font-family: Courier, monospace;
+}
 
-  div.navheader table th#chaptername {
-    font-family: Georgia, Times, serif;
-    font-size: large;
-  }
+/* don't display anchor tags with only an id attribute */
+p a[id] {
+	margin: 0;
+	padding: 0;
+	display: inline;
+	background-image: none;
+}
 
-  div.navheader table, 
-  div.navfooter table {
-    border: 1px solid black;
-    border-left: 0;
-    border-right: 0;
-  }
+p a, p a:hover, .mousebutton {
+	margin-left: 5px;
+	padding-left: 10px;
+}
 
-  div.navheader table td a,
-  div.navfooter table td a {
-    color: #fff5b0;
-    text-decoration: none;
-  }
+p .guiicon {
+	position: relative;
+	top: 12px;
+}
 
-  /* normal text in the footer */
-  div.navfooter table td {
-    color: black;
-  }
-    
-  /* links in header and footer */
-  div.navheader table td a:hover,
-  div.navfooter table td a:hover {
-    text-decoration: underline;
-    background-color: transparent;
-  }
+dd {
+	margin: 5px 40px;
+	margin-right: 0;
+}
 
-  div.navheader table td a:visited,
-  div.navfooter table td a:visited {
-    color: #686868;
-  }
+hr {
+	border: 0px;
+	border-top: 1px solid black;
+	width: 70%;
+	margin-top: 20px;
+	padding-bottom: 10px;
+}
 
-  div.navheader hr, div.navfooter hr{
-    display: none;
-  }
+a {
+	color: blue;
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+	font-weight: bold;
+}
+
+
+div.navheader, 
+div.navfooter {
+	background: #3366cc url(imgs/nav-bg.png) bottom repeat-x;
+}
+
+div.navheader table th {
+	color: black;
+	font-family: serif;
+font-size: x-large;
+}
+
+div.navheader table th#chaptername {
+	color: lightyellow;
+font-family: Georgia, Times, serif;
+	font-size: large;
+}
+
+div.navheader table, 
+div.navfooter table {
+	border: 1px solid black;
+	border-left: 0;
+	border-right: 0;
+}
+
+div.navheader table td a,
+div.navfooter table td a {
+	color: #efefef;
+	text-decoration: underline;
+}
+
+/* normal text in the footer */
+div.navfooter td {
+	color: #E4CA95;
+}
+	
+/* links in header and footer */
+div.navheader table td a:hover,
+div.navfooter table td a:hover {
+	text-decoration: underline;
+	background-color: transparent;
+}
+
+div.navheader table td a:visited,
+div.navfooter table td a:visited {
+	color: #efefef;
+}
+
+div.navheader hr, div.navfooter hr{
+	display: none;
+}
  
-  div.book,
-  div.preface,
-  div.part,
-  div.chapter,
-  div.sect1, 
-  div.sect2,
-  div.sect3,
-  div.appendix, 
-  div.section, 
-  div.glossary,
-  div.bibliography {
-    margin: 3em;
-  }
+div.book,
+div.preface,
+div.part,
+div.chapter,
+div.sect1, 
+div.sect2,
+div.sect3,
+div.appendix, 
+div.section, 
+div.glossary,
+div.bibliography {
+	margin: 3em;
+}
 
-  /* table of contents */
-  div.toc {
-    border: 1px solid black;
-    padding: 0px 10px;
-    background-color: #fff9cd;
-    color: black;
-    margin-bottom: 1cm;
-    width: 70%;
-  }
+/* table of contents */
+div.toc {
+	border: 1px solid #3366cc;
+	padding: 0px 10px;
+	background-color: #e5ecf9;
+	color: black;
+	margin-bottom: 1cm;
+	width: 70%;
+}
 
-  div.toc b { font-size: 140%; }
+div.toc b { font-size: 140%; }
 
-  div.toc a {
-    margin-left: 5px;
-    margin-bottom: 5px;
-  }
+div.toc a {
+	margin-left: 5px;
+	margin-bottom: 5px;
+}
+	
+/* toc definitions for different sections and chapters */
 
-  /* toc definitions for different sections and chapters */
+div.book div.toc {
+	background-color: transparent;
+	border: 0;
+	padding: 0;
+	font-size: medium;
+}
 
-  div.book div.toc {
-    background-color: transparent;
-    border: 0;
-    padding: 0;
-    font-size: medium;
-  }
+div.book div.toc .chapter a {
+	display: block;
+	border-bottom: 1px dotted black;
+}
 
-  div.book div.toc .chapter a {
-    display: block;
-    border-bottom: 1px dotted black;
-  }
+.procedure {
+	width: 90%;
+}
 
-  .procedure {
-    width: 90%;
-  }
+.warning, .caution, .tip, .note {
+	min-width: 60%;
+	max-width: 70%;
+	padding: 0 0 0 10px;
+	margin: 10px 0;
+	clear: right;
+}
 
-  .warning, .caution, .tip, .note {
-    min-width: 60%;
-    max-width: 70%;
-    padding: 0 0 0 10px;
-    margin: 10px 0;
-    clear: right;
-  }
-  
-  .warning {
-    border: 1px solid darkred;
-    background-color: #ff9999;
-  }
+.warning p {
+	min-width: 90%;
+}
 
-  .caution {
-    border: 1px solid #827206;
-    background-color: #ffdd00;
-  }
+.caution p {
+	min-width: 90%;
+}
 
-  .tip {
-    border: 1px solid darkblue;
-    background-color: #c3d4de;
-  }
-  
-  .note {
-    border: 1px solid darkgreen;
-    background-color: #b0e1a9;
-  }
+.note p {
+	min-width: 90%;
+}
 
-  .warning p {
-    min-width: 90%;
-  }
+.guilabel, .guimenu, .guisubmenu, .guimenuitem {
+	background-color: #eeeee6;
+	padding: 2px 5px;
+}
 
-  .caution p {
-    min-width: 90%;
-  }
+b.keycap, .keycap {
+	background-color: #eeeee6;
+	padding: 1px 5px;
+	border: 1px solid #999999;
+	margin: 0 2px;
+}
 
-  .tip p {
-    min-width: 90%;
-  }
+.acronym { text-transform: uppercase; }
 
-  .note p {
-    min-width: 90%;
-  }
+.informaltable { 
+	width: 70%;
+	min-width: 50%;
+	margin: 5em 0;
+	}
 
-  .guilabel, .guimenu, .guisubmenu, .guimenuitem {
-    background-color: #eeeee6;
-    padding: 2px 5px;
-  }
-
-  b.keycap, .keycap {
-    background-color: #eeeee6;
-    padding: 1px 5px;
-    border: 1px solid #999999;
-    margin: 0 2px;
-  }
-
-  .acronym { text-transform: uppercase; }
-
-  .informaltable { 
-    width: 70%;
-    min-width: 50%;
-    margin: 5em 0;
-    }
-
-  .mousebutton {
-    background-image: url("../images/mousebutton.png");
-  }
-
+.title {
+	clear: both;
+	}
  
-  .title {
-    clear: both;
-    }
- 
-  div.caption {
-    font-weight: bold;
-  }
+div.caption {
+	font-weight: bold;
+}
 
-td.seg {
-	padding-right: 15px;
-	vertical-align: top;
+/* For command line commands given through the screen tag*/
+.screen {
+	font-size: medium;
+	padding: 5px;
+	margin: 5px;
+	border: 1px solid #bbb;
+	background-color: #eee;
+	width: auto;
 }
 
 .segmentedlist {
@@ -303,14 +258,9 @@ td.seg {
 	padding: 10px;
 }
 
-.screen {
-	font-size: medium;
-	background: #dddddd;
-	color: #000000;
-	padding: 5px;
-	margin: 5px;
-	border: 2px dashed #999999;
-	width: 70%;
+td.seg {
+	padding-right: 15px;
+	vertical-align: top;
 }
 
 /* For variable lists, indentation of the term element */
@@ -318,7 +268,21 @@ td.seg {
 	margin-left: 10px;
 }
 
+.tip {
+	width: 40%;
+	border: 1px dotted #bbb;
+	background: #efefef;
+}
+.tip > .title {
+	margin-top: 10px;
+	font-size: small;
+	font-style: italic;
+	font-weight: normal;
+	text-decoration: none;
+	color: #3366cc;
+}
+
 /* For variable lists, to display tip in blue */
 dt > SPAN[class="term"] > SPAN[class="emphasis"]  > em {
-	color: #6e8ae6;
+	color: #3366cc;
 }
