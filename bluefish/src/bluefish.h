@@ -178,6 +178,7 @@ typedef struct {
 	gint transient_htdialogs;  /* set html dialogs transient ro the main window */
 	gint restore_dimensions; /* use the dimensions as used the previous run */
 	gint left_panel_width; 	/* width of filelist */
+	gint left_panel_left; /* 1 = left, 0 = right */
 	gint max_recent_files;	/* length of Open Recent list */
 	gint max_dir_history;	/* length of directory history */
 	gint backup_file; 			/* wheather to use a backup file */
