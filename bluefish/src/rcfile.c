@@ -758,10 +758,10 @@ void rcfile_parse_custom_menu(gboolean full_reset, gboolean load_new) {
 	if (tmp) {
 		tmp = trunc_on_char(tmp, '.');
 		tmp = trunc_on_char(tmp, '@');
-		langdefaultfile1 = g_strconcat(PKGDATADIR"custom_menu.",tmp,".default.", NULL);
+		langdefaultfile1 = g_strconcat(PKGDATADIR"custom_menu.",tmp,".default", NULL);
 		DEBUG_MSG("rcfile_parse_custom_menu, langdefaultfile1 is: %s", langdefaultfile1);
 		tmp = trunc_on_char(tmp, '_');
-		langdefaultfile2 = g_strconcat(PKGDATADIR"custom_menu.",tmp,"default.", NULL);
+		langdefaultfile2 = g_strconcat(PKGDATADIR"custom_menu.",tmp,".default", NULL);
 		DEBUG_MSG("rcfile_parse_custom_menu, langdefaultfile2 is: %s", langdefaultfile2);
 		g_free(tmp);
 	}
