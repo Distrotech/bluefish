@@ -90,6 +90,37 @@ void list_switch_order(GList *first, GList *second) {
  * 
  * Return value: gboolean, TRUE if the function succeeds
  **/
+#ifdef HAVE_GNOME_VFS
+#define BYTES_TO_PROCESS 8196
+gboolean file_copy(gchar *source, gchar *dest) {
+	GnomeVFSHandle *read_handle, *write_handle;
+	GnomeVFSFileSize bytes_read, bytes_written;
+	guint buffer[BYTES_TO_PROCESS];
+	GnomeVFSResult result;
+	
+	result = gnome_vfs_open(&read_handle, source, GNOME_VFS_OPEN_READ);
+	if (result != GNOME_VFS_OK) return FALSE;
+	result = gnome_vfs_create(&write_handle, dest, GNOME_VFS_OPEN_WRITE, FALSE, 0x644);
+	if (result != GNOME_VFS_OK) {
+		gnome_vfs_close(read_handle);
+		return FALSE;
+	}
+	result = gnome_vfs_read (read_handle, buffer, BYTES_TO_PROCESS, &bytes_read);
+	while (result == GNOME_VFS_OK) {
+		result = gnome_vfs_write (write_handle, buffer, bytes_read, &bytes_written);
+		if (result != GNOME_VFS_OK || bytes_written != bytes_read) {
+			DEBUG_MSG("file_copy, return FALSE, write result=%d, written=%d, read=%d\n",result,bytes_written,bytes_read);
+			gnome_vfs_close(write_handle);
+			gnome_vfs_close(read_handle);
+			return FALSE;
+		}
+		result = gnome_vfs_read(read_handle, buffer, BYTES_TO_PROCESS, &bytes_read);
+	}
+	gnome_vfs_close(write_handle);
+	gnome_vfs_close(read_handle);
+	return TRUE;
+}
+#else  /* HAVE_GNOME_VFS */
 gboolean file_copy(gchar *source, gchar *dest) {
 #ifdef DEVELOPMENT
 	g_assert(source);
@@ -114,6 +145,7 @@ gboolean file_copy(gchar *source, gchar *dest) {
 	fclose(out);
 	return TRUE;
 }
+#endif /* HAVE_GNOME_VFS */
 
 static gint length_common_prefix(gchar *first, gchar *second) {
 	gint i=0;

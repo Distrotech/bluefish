@@ -1089,16 +1089,16 @@ static void add_encoding_to_list(gchar *encoding) {
 
 #ifdef HAVE_GNOME_VFS
 #define STARTING_BUFFER_SIZE 8192
-static gchar *get_buffer_from_filename(Tbfwin *bfwin, gchar *filename, unsigned long long *returnsize) {
-	GnomeVFSHandle *handle;
+static gchar *get_buffer_from_filename(Tbfwin *bfwin, gchar *filename, int *returnsize) {
 	GnomeVFSResult result;
+/*	GnomeVFSHandle *handle;
 	GnomeVFSFileSize bytes_read;
 	gchar chunk[STARTING_BUFFER_SIZE];
-	unsigned long long buffer_size = STARTING_BUFFER_SIZE;
+	unsigned long long buffer_size = STARTING_BUFFER_SIZE;*/
 	gchar *buffer;
 
 	DEBUG_MSG("get_buffer_from_filename, started for %s\n",filename);
-	result = gnome_vfs_open (&handle, filename, GNOME_VFS_OPEN_READ);
+/*	result = gnome_vfs_open (&handle, filename, GNOME_VFS_OPEN_READ);
 	if (result != GNOME_VFS_OK) {
 		gchar *errmessage = g_strconcat(_("Could not read file:\n"), filename, NULL);
 		warning_dialog(bfwin->main_window,errmessage, NULL);
@@ -1121,11 +1121,19 @@ static gchar *get_buffer_from_filename(Tbfwin *bfwin, gchar *filename, unsigned 
 			break;
 		}
 	}	
-	gnome_vfs_close(handle);
+	gnome_vfs_close(handle);*/
+	result = gnome_vfs_read_entire_file(filename,returnsize,&buffer);
+	if (GNOME_VFS_OK != result) {
+		gchar *errmessage = g_strconcat(_("Could not read file:\n"), filename, NULL);
+		warning_dialog(bfwin->main_window,errmessage, NULL);
+		g_free(errmessage);
+		DEBUG_MSG("get_buffer_from_filename, ERROR (result=%d), returning NULL\n",result);
+		return NULL;
+	}
 	return buffer;
 }
 #else /* no gnome-vfs */
-static gchar *get_buffer_from_filename(Tbfwin *bfwin, gchar *filename, unsigned long long *returnsize) {
+static gchar *get_buffer_from_filename(Tbfwin *bfwin, gchar *filename, int *returnsize) {
 	gboolean result;
 	gchar *buffer;
 	GError *error=NULL;
@@ -1158,7 +1166,7 @@ static gchar *get_buffer_from_filename(Tbfwin *bfwin, gchar *filename, unsigned 
 gboolean doc_file_to_textbox(Tdocument * doc, gchar * filename, gboolean enable_undo, gboolean delay) {
 	gchar *message;
 	gint cursor_offset;
-	unsigned long long document_size=0;
+	int document_size=0;
 
 	if (!enable_undo) {
 		doc_unbind_signals(doc);
