@@ -1332,7 +1332,7 @@ static void snr2dialog(Tbfwin *bfwin, gint is_replace, gint is_new_search) {
 		tmptext = _("Replace");
 		snr2win->replace = 1;
 	} else {
-		tmptext = _("Search");
+		tmptext = _("Find");
 		snr2win->replace = 0;
 	}
 	if (is_new_search) {
