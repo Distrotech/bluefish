@@ -28,14 +28,15 @@
 #include <libxml/xmlwriter.h>
 
 #include "bluefish.h"
+#include "bf_lib.h"
+#include "char_table.h"
+#include "dialog_utils.h"
+#include "document.h"
 #include "fref.h"
+#include "gtk_easy.h"
+#include "pixmap.h"
 #include "rcfile.h"				/* array_from_arglist() */
 #include "stringlist.h"
-#include "document.h"
-#include "bf_lib.h"
-#include "gtk_easy.h"
-#include "char_table.h"
-#include "pixmap.h"
 
 enum {
 	VISIBLE_COLUMN,
@@ -829,7 +830,11 @@ void fref_load_from_file(gchar * filename, GtkWidget * tree, GtkTreeStore * stor
 	xmlLineNumbersDefault(1);
 	doc = xmlParseFile(filename);
 	if (doc==NULL) {
-		error_dialog(bfwin->main_window,_("Load error"),_("Cannot load reference file, perhaps it is not well-formed."));
+		message_dialog_new(bfwin->main_window, 
+						 		 GTK_MESSAGE_ERROR, 
+						 		 GTK_BUTTONS_CLOSE, 
+						 		 _("Load error"), 
+						 		 _("Cannot load reference file, perhaps it is not well-formed."));		
 		g_hash_table_destroy(info->dictionary);
 		g_hash_table_destroy(info->commons);
 		g_hash_table_destroy(info->elements);
@@ -838,7 +843,12 @@ void fref_load_from_file(gchar * filename, GtkWidget * tree, GtkTreeStore * stor
 	}	
 	cur = xmlDocGetRootElement(doc);	
 	if ( xmlStrcmp(cur->name, "ref") != 0 &&  xmlStrcmp(cur->name,"r") != 0 ) {
-		error_dialog(bfwin->main_window,_("Bad root element in reference file"),_(" %s\nShould be <ref> or <r> "));
+		/* Oskar there is a %s in the second string here that isn't doing anything. Something missing? */
+		message_dialog_new(bfwin->main_window, 
+						 		 GTK_MESSAGE_ERROR, 
+						 		 GTK_BUTTONS_CLOSE, 
+						 		 _("Bad root element in reference file"), 
+						 		 _(" %s\nShould be <ref> or <r> "));
 		g_hash_table_destroy(info->dictionary);
 		g_hash_table_destroy(info->commons);		
 		g_hash_table_destroy(info->elements);
@@ -3306,8 +3316,11 @@ static void fref_search(Tbfwin * bfwin,const gchar *phrase)
 		if (G_IS_VALUE(val) && g_value_fits_pointer(val) && g_value_peek_pointer(val)) 
 			el = FREFRECORD(g_value_peek_pointer(val));		
 	}	else {
-			error_dialog(bfwin->main_window, _("Error"),
-			                 _("Perhaps you didn't load a library, or you did not select a library to search in."));
+			message_dialog_new(bfwin->main_window, 
+							 		 GTK_MESSAGE_ERROR, 
+							 		 GTK_BUTTONS_CLOSE, 
+							 		 _("Error"), 
+							 		 _("Perhaps you didn't load a library, or you did not select a library to search in."));
 			return;			                 		
 	}	
 	
@@ -3316,7 +3329,11 @@ static void fref_search(Tbfwin * bfwin,const gchar *phrase)
 	ret = g_hash_table_lookup(FREFINFO(el->data)->dictionary, phrase);
 	if (!ret) {
 						stf = g_strdup_printf(_("Element %s not found"),phrase);
-						error_dialog(bfwin->main_window, _("Element search"),stf	 );
+						message_dialog_new(bfwin->main_window, 
+										 		 GTK_MESSAGE_ERROR, 
+										 		 GTK_BUTTONS_CLOSE, 
+										 		 _("Element search"), 
+										 		 stf);						
 						g_free(stf);
 					}	
 	if (ret != NULL) {
@@ -3374,8 +3391,13 @@ static void frefcb_new_library(GtkWidget * widget, Tbfwin *bfwin)
 										g_free(pomstr);
 										g_free(userdir);
 										fill_toplevels(FREFDATA(main_v->frefdata), TRUE);										
-									}	
-									else error_dialog(bfwin->main_window,_("Error"),_("Library has to have a name."));
+									} else {
+										message_dialog_new(bfwin->main_window, 
+								 								 GTK_MESSAGE_ERROR, 
+								 								 GTK_BUTTONS_CLOSE, 
+																 _("Error"), 
+																 _("Library has to have a name."));
+									}
 									gtk_widget_destroy(dialog);
 							} else
 								gtk_widget_destroy(dialog);
@@ -3383,8 +3405,8 @@ static void frefcb_new_library(GtkWidget * widget, Tbfwin *bfwin)
 
 static void frefcb_delete_library(GtkWidget * widget, Tbfwin *bfwin) 
 {
-	gchar *btns[] = { GTK_STOCK_NO, GTK_STOCK_YES, NULL };
-	gint ret;	
+	const gchar *buttons[] = { GTK_STOCK_NO, GTK_STOCK_YES, NULL };
+	gint retval;	
 	GtkTreePath *path;
 	GtkTreeViewColumn *col;
 
@@ -3401,9 +3423,12 @@ static void frefcb_delete_library(GtkWidget * widget, Tbfwin *bfwin)
 								 &iter, FILE_COLUMN, val);
 		if (G_IS_VALUE(val) && g_value_fits_pointer(val) && g_value_peek_pointer(val)) {
 					gchar *userdir = g_strconcat(g_get_home_dir(), "/.bluefish/", NULL);		
-					ret =	multi_query_dialog(bfwin->main_window, _("Delete library?"), 
-											g_value_peek_pointer(val), 0, 0, btns);
-					if (ret == 0)	return;
+					retval = message_dialog_new_multi(bfwin->main_window,
+																 GTK_MESSAGE_QUESTION,
+																 buttons,
+																 _("Delete library?"),
+																 g_value_peek_pointer(val));
+					if (retval == 0)	return;
 					unlink(g_value_peek_pointer(val));
 					fref_rescan_dir(userdir);	
 					g_free(userdir);
@@ -3411,9 +3436,12 @@ static void frefcb_delete_library(GtkWidget * widget, Tbfwin *bfwin)
 		}
 		g_value_unset(val);
 		g_free(val);
-	} else
-	{
-		error_dialog(bfwin->main_window,_("Error"),_("You have to select a reference."));
+	} else {
+		message_dialog_new(bfwin->main_window, 
+ 								 GTK_MESSAGE_ERROR, 
+ 								 GTK_BUTTONS_CLOSE, 
+								 _("Error"), 
+								 _("You have to select a reference."));
 		return;
 	}	
 }
@@ -3433,11 +3461,14 @@ static void frefcb_new_td(GtkWidget * widget, Tbfwin *bfwin, gint type, gboolean
 	gtk_tree_view_get_cursor(GTK_TREE_VIEW(FREFGUI(bfwin->fref)->tree), &path, &col);
 	if (path == NULL) return;
 	entry = get_current_entry(bfwin);
-	if ( !entry )
-		{
-			error_dialog(bfwin->main_window,_("Error"),_("Reference not loaded."));
-			return;
-		}
+	if (!entry) {
+		message_dialog_new(bfwin->main_window, 
+ 								 GTK_MESSAGE_ERROR, 
+ 								 GTK_BUTTONS_CLOSE, 
+								 _("Error"), 
+								_("Reference not loaded."));
+		return;
+	}
 	switch (type)
 	{
 	case FREF_EL_NOTE:	
@@ -3447,7 +3478,11 @@ static void frefcb_new_td(GtkWidget * widget, Tbfwin *bfwin, gint type, gboolean
 			entry->etype!=FREF_EL_VAR && entry->etype!=FREF_EL_CSSPROP && 
 			entry->etype!=FREF_EL_CSSSELECT )
 		{
-			error_dialog(bfwin->main_window,_("Bad element"),_("You can define notes for: library, group or element."));
+			message_dialog_new(bfwin->main_window, 
+ 									 GTK_MESSAGE_ERROR, 
+ 									 GTK_BUTTONS_CLOSE, 
+									 _("Bad element"), 
+									 _("You can define notes for: library, group or element."));
 			return;
 		}
 		dialog = fref_editor_td(_("New note"),_("Title"),_("Text"),bfwin,&e1,&e2);
@@ -3457,7 +3492,11 @@ static void frefcb_new_td(GtkWidget * widget, Tbfwin *bfwin, gint type, gboolean
 	{
  	   if  ( entry->etype!=FREF_EL_REF && entry->etype!=FREF_EL_GROUP )
 		{
-			error_dialog(bfwin->main_window,_("Bad element"),_("You can define group for: library or group ."));
+			message_dialog_new(bfwin->main_window, 
+ 									 GTK_MESSAGE_ERROR, 
+ 									 GTK_BUTTONS_CLOSE, 
+									 _("Bad element"), 
+									 _("You can define group for: library or group."));
 			return;
 		}
 		dialog = fref_editor_td(_("New group"),_("Name"),_("Description"),bfwin,&e1,&e2);
@@ -3655,8 +3694,13 @@ static void frefcb_new_re_prop(GtkWidget * widget, Tbfwin *bfwin) {
 			rec = fref_insert_into_commons(inf,prop->id,prop->ptype,prop,TRUE);		
 			fref_save_ref(bfwin);		
 		 	frefcb_cursor_changed(GTK_TREE_VIEW(FREFGUI(bfwin->fref)->tree), bfwin);
+		} else {
+			message_dialog_new(bfwin->main_window, 
+ 									 GTK_MESSAGE_ERROR, 
+ 									 GTK_BUTTONS_CLOSE, 
+									 _("Missing value"), 
+									 _("Property has to have a name."));
 		}
-		else error_dialog(bfwin->main_window,_("Missing value"),_("Property has to have a name."));
 	}
 	gtk_widget_destroy(dlg);	
 }
@@ -3880,8 +3924,13 @@ static void frefcb_new_prop(GtkWidget * widget, Tfref_adddef_data *dt) {
 				gtk_list_store_append(dt->store,&it);
 				gtk_list_store_set(dt->store,&it,0,rec,1,prop->name,2,0,-1);	
 				
+		} else {
+			message_dialog_new(dt->bfwin->main_window, 
+ 									 GTK_MESSAGE_ERROR, 
+ 									 GTK_BUTTONS_CLOSE, 
+									 _("Missing value"), 
+									 _("Property has to have a name."));
 		}
-		else error_dialog(dt->bfwin->main_window,_("Missing value"),_("Property has to have a name."));
 	}
 	gtk_widget_destroy(dlg);	
 }
@@ -3943,7 +3992,11 @@ static void frefcb_new_element(GtkWidget * widget, Tbfwin *bfwin)
 	 if ( !rec ) return;
 	 if (rec->etype != FREF_EL_REF && rec->etype != FREF_EL_GROUP )
 	 {
-	 	error_dialog(bfwin->main_window,_("Bad element"),_("Please select library or group."));
+		message_dialog_new(bfwin->main_window, 
+ 								 GTK_MESSAGE_ERROR, 
+ 								 GTK_BUTTONS_CLOSE, 
+								 _("Bad element"), 
+								 _("Please select library or group."));
 	 	return;
 	 }
 	 dlg = fref_editor_elemdialog(_("New element"),data,bfwin);
@@ -4036,7 +4089,11 @@ static void frefcb_new_element(GtkWidget * widget, Tbfwin *bfwin)
 				frefcb_cursor_changed(GTK_TREE_VIEW(FREFGUI(bfwin->fref)->tree), bfwin);
 			} else 
 			{
-				error_dialog(bfwin->main_window,_("No name"),_("Element has to have a name."));
+				message_dialog_new(bfwin->main_window, 
+ 										 GTK_MESSAGE_ERROR, 
+ 										 GTK_BUTTONS_CLOSE, 
+										 _("No name"), 
+										 _("Element has to have a name."));
 				xmlFree(name);
 			}	
 	 	}
@@ -4086,18 +4143,21 @@ static void frefcb_del_reusable(GtkWidget * widget, Tbfwin *bfwin)
 			gtk_tree_model_get(GTK_TREE_MODEL(store),&it2,1, &nm,-1);
 			if (rec)
 			{
-					gchar *btns[] = { GTK_STOCK_NO, GTK_STOCK_YES, NULL };					
-					gchar *pstr = g_strdup_printf(_("Do you really want to delete %s?"), nm);
-					gint ret =	multi_query_dialog(bfwin->main_window, _("Delete definition?"), pstr,
-							   0, 0, btns);
-					g_free(pstr);
-					if (ret != 0)
-					{
-						g_hash_table_foreach_remove(inf->commons,remove_me,rec);
-						fref_free_record(NULL,rec,bfwin);
-						fref_save_ref(bfwin);
-						frefcb_cursor_changed(GTK_TREE_VIEW(FREFGUI(bfwin->fref)->tree), bfwin);
-					}
+				const gchar *buttons[] = { GTK_STOCK_NO, GTK_STOCK_YES, NULL };					
+				gchar *pstr = g_strdup_printf(_("Do you really want to delete %s?"), nm);
+				gint retval = message_dialog_new_multi(bfwin->main_window,
+																	GTK_MESSAGE_QUESTION,
+																 	buttons,
+																 	_("Delete definition?"),
+																 	pstr);
+				g_free(pstr);
+				if (retval != 0)
+				{
+					g_hash_table_foreach_remove(inf->commons,remove_me,rec);
+					fref_free_record(NULL,rec,bfwin);
+					fref_save_ref(bfwin);
+					frefcb_cursor_changed(GTK_TREE_VIEW(FREFGUI(bfwin->fref)->tree), bfwin);
+				}
 			}
 		}	
 	}
@@ -4107,8 +4167,8 @@ static void frefcb_del_reusable(GtkWidget * widget, Tbfwin *bfwin)
 static void frefcb_del_entity(GtkWidget * widget, Tbfwin *bfwin) 
 {
 	Tfref_record *rec = get_current_entry(bfwin);
-	gchar *btns[] = { GTK_STOCK_NO, GTK_STOCK_YES, NULL };	
-	gint ret;
+	const gchar *buttons[] = { GTK_STOCK_NO, GTK_STOCK_YES, NULL };	
+	gint retval;
 	GtkTreePath *path;
 	GtkTreeIter it;
 	
@@ -4116,10 +4176,18 @@ static void frefcb_del_entity(GtkWidget * widget, Tbfwin *bfwin)
 	switch (rec->etype)
 	{
 		case FREF_EL_REF:
-			error_dialog(bfwin->main_window,_("Bad element"),_("Please use delete library instead."));
+			message_dialog_new(bfwin->main_window, 
+ 									 GTK_MESSAGE_ERROR, 
+ 									 GTK_BUTTONS_CLOSE, 
+									 _("Bad element"), 
+									 _("Please use delete library instead."));
 		break;
 		case FREF_EL_GROUP:
-			info_dialog(bfwin->main_window,"Delete group","Not implemented yet");
+			message_dialog_new(bfwin->main_window, 
+ 									 GTK_MESSAGE_INFO, 
+ 									 GTK_BUTTONS_OK, 
+									 _("Delete group"), 
+									 _("Not implemented yet"));
 		/*	pstr = g_strdup_printf(_("Do you really want to delete group %s and all its elements?"), FREFNOTE(rec->data)->title);
 			ret =	multi_query_dialog(bfwin->main_window, _("Delete group"), pstr,0, 0, btns);
 			g_free(pstr);
@@ -4130,8 +4198,12 @@ static void frefcb_del_entity(GtkWidget * widget, Tbfwin *bfwin)
 		break;		
 		default:
 			gtk_tree_view_get_cursor(GTK_TREE_VIEW(FREFGUI(bfwin->fref)->tree), &path, NULL);
-			ret =	multi_query_dialog(bfwin->main_window, _("Delete group"), _("Do you really want to delete current entity?"),0, 0, btns);
-			if (path!=NULL && ret !=0)
+			retval = message_dialog_new_multi(bfwin->main_window,
+														 GTK_MESSAGE_QUESTION,
+														 buttons,
+														 _("Delete group?"),
+														 _("Do you really want to delete current entity?"));
+			if (path!=NULL && retval !=0)
 			{
 				gtk_tree_model_get_iter(GTK_TREE_MODEL(FREFDATA(main_v->frefdata)->store),&it,path);	
 				while (gtk_tree_path_get_depth(path) > 1 && gtk_tree_path_up(path));
