@@ -123,7 +123,7 @@ GList *return_allwindows_documentlist() {
 		DEBUG_MSG("return_allwindows_documentlist, current bfwin doclist length=%d\n",g_list_length(BFWIN(bflist->data)->documentlist));
 		tmplist = g_list_first(BFWIN(bflist->data)->documentlist);
 		while (tmplist) {
-			newdoclist = g_list_append(newdoclist,tmplist->data);
+			newdoclist = g_list_prepend(newdoclist,tmplist->data);
 			tmplist = g_list_next(tmplist);
 		}
 		bflist = g_list_next(bflist);
@@ -148,7 +148,7 @@ GList *return_filenamestringlist_from_doclist(GList *doclist) {
 	while(tmplist){
 		if (DOCUMENT(tmplist->data)->uri) {
 			DEBUG_MSG("return_filenamestringlist_from_doclist, adding filename %s\n",DOCUMENT(tmplist->data)->uri);
-			newlist = g_list_append(newlist, g_strdup(DOCUMENT(tmplist->data)->uri));
+			newlist = g_list_prepend(newlist, g_strdup(DOCUMENT(tmplist->data)->uri));
 		}
 		tmplist = g_list_next(tmplist);
 	}
@@ -3675,7 +3675,7 @@ GList *list_relative_document_filenames(Tdocument *curdoc) {
 	while (tmplist) {
 		Tdocument *tmpdoc = tmplist->data;
 		if (tmpdoc != curdoc && tmpdoc->uri != NULL) {
-			retlist = g_list_append(retlist,create_relative_link_to(curdoc->uri, tmpdoc->uri));
+			retlist = g_list_prepend(retlist,create_relative_link_to(curdoc->uri, tmpdoc->uri));
 		}
 		tmplist = g_list_next(tmplist);
 	}

@@ -298,10 +298,19 @@ static void checkNsave_checkmodified_lcb(Tcheckmodified_status status,gint error
 	}
 }
 
-/* 
-checks if the target uri is modified, if not creates a backup, then writes the buffer
-all done async
-*/
+/**
+ * file_checkNsave_uri_async:
+ * @uri: #GnomeVFSURI*
+ * @info: #GnomeVFSFileInfo* or NULL if the info on-disk is unknown (new file??)
+ * @buffer: #Trefcpointer* with the contents of to be saved to uri
+ * @buffer_size: #GnomeVFSFileSize 
+ * @check_modified: #gboolean (ignored if 'info' is NULL)
+ * @callback_func: #CheckNsaveAsyncCallback
+ * @callback_data: #gpointer
+ *
+ * checks if the target uri is modified, if not creates a backup, then writes 
+ * the buffer; all done async
+ */
 void file_checkNsave_uri_async(GnomeVFSURI *uri, GnomeVFSFileInfo *info, Trefcpointer *buffer, GnomeVFSFileSize buffer_size, gboolean check_modified, CheckNsaveAsyncCallback callback_func, gpointer callback_data) {
 	TcheckNsave *cns;
 	DEBUG_MSG("file_checkNsave_uri_async, started for (%p) %s with callback_data %p\n", uri, gnome_vfs_uri_get_path(uri),callback_data);
@@ -315,8 +324,8 @@ void file_checkNsave_uri_async(GnomeVFSURI *uri, GnomeVFSFileInfo *info, Trefcpo
 	gnome_vfs_uri_ref(uri);
 	cns->finfo = info;
 	cns->check_modified = check_modified;
-	gnome_vfs_file_info_ref(info);
-	if (check_modified) {
+	if (info) gnome_vfs_file_info_ref(info);
+	if (!info || check_modified) {
 		/* first check if the file is modified on disk */
 		file_checkmodified_uri_async(uri, info, checkNsave_checkmodified_lcb, cns);
 	} else {
