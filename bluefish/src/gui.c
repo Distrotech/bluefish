@@ -336,3 +336,17 @@ void go_to_line_win_cb(GtkWidget * widget, gpointer data)
 	gtk_widget_show_all(tgl->win);
 }
 
+void go_to_line_from_selection_cb(GtkWidget * widget, gpointer data) {
+	gchar *string;
+	GtkClipboard* cb;
+	gint linenum;
+
+	cb = gtk_clipboard_get(GDK_SELECTION_PRIMARY);
+	string = gtk_clipboard_wait_for_text(cb);
+	if (string) {
+		linenum = get_int_from_string(string);
+		if (linenum > 0) {
+			doc_select_line(main_v->current_document, linenum, TRUE);
+		}
+	}
+}
