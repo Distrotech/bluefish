@@ -1,15 +1,16 @@
 %define	desktop_vendor 	endur
 %define name  		bluefish
 %define version		gtk2
-%define release 	20050203
+%define release 	20050306
 %define epoch 		1
-%define source		bluefish-2005-02-03
+%define source		bluefish-2005-03-06
 
 
 Summary:	  A GTK2 web development application for experienced users.
 Name:		  %{name}
 Version:	  %{version}
 Release:	  %{release}
+Epoch:		  %{epoch}
 Source:		  ftp://ftp.ratisbona.com/pub/bluefish/snapshots/%{source}.tar.bz2
 URL:		  http://bluefish.openoffice.nl
 License:	  GPL
@@ -73,5 +74,5 @@ update-desktop-database {_datadir}/applications > /dev/null 2>&1 || :
 
 
 %changelog
-* Thu Feb 03 2005 Matthias Haase <matthias_haase@bennewitz.com>
-- Automatic build - snapshot of 2005-02-03
+* Fri Mar 11 2005 Matthias Haase <matthias_haase@bennewitz.com>
+- Automatic build - snapshot of 2005-03-06
