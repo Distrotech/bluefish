@@ -1454,16 +1454,20 @@ void fb2_set_basedir(Tbfwin *bfwin, gchar *curi) {
 		Tfilebrowser2 *fb2 = bfwin->fb2;
 		if (curi) {
 			GnomeVFSURI *uri;
-			DEBUG_MSG("fb2_set_basedir, set uri=%s\n",curi);
+			DEBUG_MSG("fb2_set_basedir, set curi=%s\n",curi);
 			uri = gnome_vfs_uri_new(strip_trailing_slash(curi));
-			fb2_build_dir(uri);
-			{
-				GtkTreePath *basedir = fb2_fspath_from_uri(fb2, uri);
+			if (uri) {
+				GtkTreePath *basedir;
+				fb2_build_dir(uri);
+				basedir = fb2_fspath_from_uri(fb2, uri);
 				refilter_dirlist(fb2, basedir);
 				gtk_tree_path_free(basedir);
+				fb2_focus_dir(fb2, fb2->basedir, FALSE);
+			} else {
+				DEBUG_MSG("fb2_set_basedir, failed to convert to GnomeVFSURI!!!!!!!\n");
 			}
-			fb2_focus_dir(fb2, fb2->basedir, FALSE);
 		} else {
+			DEBUG_MSG("fb2_set_basedir, curi=NULL\n");
 			refilter_dirlist(fb2, NULL);
 		}
 	}

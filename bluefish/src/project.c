@@ -79,9 +79,7 @@ static void setup_bfwin_for_project(Tbfwin *bfwin) {
 	bmark_set_store(bfwin);
 	bmark_reload(bfwin);
 	/*filebrowser_set_basedir(bfwin, bfwin->project->basedir);*/
-	if (bfwin->project->basedir != NULL) {
-		fb2_set_basedir(bfwin, bfwin->project->basedir);
-	}
+	fb2_set_basedir(bfwin, bfwin->project->basedir);
 	recent_menu_from_list(bfwin, bfwin->project->session->recent_files, FALSE);
 	set_project_menu_widgets(bfwin, TRUE);
 }
@@ -280,9 +278,7 @@ void project_open_from_file(Tbfwin *bfwin, gchar *fromfilename) {
 		DEBUG_MSG("project_open_from_file, calling left_panel_show_hide_toggle bfwin=%p\n",prwin);
 		left_panel_show_hide_toggle(prwin,FALSE,prj->view_left_panel, TRUE);
 		/*filebrowser_set_basedir(prwin, prj->basedir);*/
-		if (prj->basedir != NULL) {
-			fb2_set_basedir(prwin, prj->basedir);
-		}
+		fb2_set_basedir(prwin, prj->basedir);
 		/* we should set these before we actually open any files, so every file can update 
 		their bookmarks after the loading of the data is finished */
 		bmark_reload(bfwin);
