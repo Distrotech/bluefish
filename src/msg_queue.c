@@ -19,6 +19,8 @@
  */
 #include <gtk/gtk.h>
 
+/* #define DEBUG */
+
 #include "bluefish.h"
 
 #ifdef WITH_MSG_QUEUE
@@ -36,7 +38,7 @@
 #include "gtk_easy.h" /* *_dialog */
 #include "gui.h" /* notebook_changed() */
 #include "document.h"
-
+#include "project.h"
 
 #define BLUEFISH_MSG_QUEUE 9723475
 #define MSQ_QUEUE_SIZE 1024
@@ -46,6 +48,7 @@
 #define MSG_QUEUE_OPENFILE 46063
 #define MSG_QUEUE_ASK_ALIVE 46062
 #define MSG_QUEUE_OPENNEWWIN 46061
+#define MSG_QUEUE_OPENPROJECT 46060
 #define MSG_QUEUE_PER_DOCUMENT_TIMEOUT 20000000	/* nanoseconds */
 
 /* 
@@ -205,6 +208,11 @@ static gboolean msg_queue_check(gint started_by_gtk_timeout)
 /*				gtk_notebook_set_page(GTK_NOTEBOOK(main_v->notebook),g_list_length(main_v->documentlist) - 1);
 				notebook_changed(-1);*/
 			}
+		} else if (msgp.mtype == MSG_QUEUE_OPENPROJECT) {
+			GList *lastlist = g_list_last(main_v->bfwinlist);
+			DEBUG_MSG("msg_queue_check, a project %s is received\n", msgp.mtext);
+			project_open_from_file(BFWIN(lastlist->data), msgp.mtext);
+			msg_queue_check(0);	/* call myself again, there may have been multiple projects */
 		} else if (msgp.mtype == MSG_QUEUE_OPENNEWWIN) {
 			/* now check if this is indeed send by another process
 			if the message queue was dead during the startup of this process,
@@ -240,24 +248,22 @@ static gboolean msg_queue_check(gint started_by_gtk_timeout)
 	return TRUE;
 }
 
-/* static gboolean msg_queue_send_files(GList *filenames)
+/* static gboolean msg_queue_send_names(gint send_with_id, GList *names, gboolean received_keepalive)
  * returns FALSE if we never received a keepalive, so the server process seems to be non-responsive
  * does not return (it calls exit()) after all files are sent to the server
  */
-
-static gboolean msg_queue_send_files(GList * filenames)
+static gboolean msg_queue_send_names(gint send_with_id, GList * names, gboolean received_keepalive)
 {
 	struct msgbuf {
 		long mtype;
 		char mtext[MSQ_QUEUE_SIZE];
 	} msgp;
 	gint success = 1, check_keepalive_cnt = 0, send_failure_cnt = 0;
-	gboolean received_keepalive=FALSE;
 	GList *tmplist;
 
 	/* we have a message queue now, opened by another bluefish process */
-	msgp.mtype = MSG_QUEUE_OPENFILE;
-	tmplist = g_list_first(filenames);
+	msgp.mtype = send_with_id;
+	tmplist = g_list_first(names);
 	while (tmplist && success) {
 		gint retval;
 		gint len = strlen((gchar *) tmplist->data);
@@ -335,6 +341,15 @@ static gboolean msg_queue_send_files(GList * filenames)
 	return FALSE;
 }
 
+static gboolean msg_queue_send_files(GList * filenames, gboolean received_keepalive) {
+	return msg_queue_send_names(MSG_QUEUE_OPENFILE, filenames, received_keepalive);
+}
+
+static gboolean msg_queue_send_projects(GList * filenames, gboolean received_keepalive) {
+	return msg_queue_send_names(MSG_QUEUE_OPENPROJECT, filenames, received_keepalive);
+}
+
+
 static void msg_queue_request_alive(void)
 {
 	gboolean ask_alive;
@@ -392,8 +407,7 @@ static void msg_queue_send_new_window(void) {
 	static struct timespec rem;
 	nanosleep(&req, &rem);
 */
-
-void msg_queue_start(GList * filenames, gboolean open_new_window) {
+void msg_queue_start(GList * filenames, GList *projectfiles, gboolean open_new_window) {
 	gboolean received_keepalive = FALSE;
 	gboolean queue_already_open;
 
@@ -405,8 +419,14 @@ void msg_queue_start(GList * filenames, gboolean open_new_window) {
 			msg_queue_send_new_window();
 		}
 		/* if we have filenames to open, we start sending them now, else we just check if we have to be master or not */
-		if (filenames) {
-			received_keepalive = msg_queue_send_files(filenames);
+		if (filenames || projectfiles) {
+			if (filenames) {
+				received_keepalive = msg_queue_send_files(filenames, received_keepalive);
+			}
+			if (projectfiles) {
+				received_keepalive = msg_queue_send_projects(projectfiles, received_keepalive);
+			}
+			DEBUG_MSG("msg_queue_start, after sending files and projects, keepalive=%d\n",received_keepalive);
 		} else {
 			gint check_keepalive_cnt = 0;
 			/* if the message queue is still open and the process listening is killed

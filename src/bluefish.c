@@ -63,13 +63,14 @@ void g_none(...) {
 static gint parse_commandline(int argc, char **argv
 		, gboolean *root_override
 		, GList **load_filenames
+		, GList **load_projects
 		, gboolean *open_in_new_win) {
 	int c;
 	gchar *tmpname;
 
 	opterr = 0;
 	DEBUG_MSG("parse_commandline, started\n");
-	while ((c = getopt(argc, argv, "hsvn?")) != -1) {
+	while ((c = getopt(argc, argv, "hsvnp:?")) != -1) {
 		switch (c) {
 		case 's':
 			*root_override = 1;
@@ -79,6 +80,10 @@ static gint parse_commandline(int argc, char **argv
 			g_print("\n");
 			exit(1);
 			break;
+		case 'p':
+			tmpname = create_full_path(optarg, NULL);
+			*load_projects = g_list_append(*load_projects, tmpname);
+			break;
 		case 'h':
 		case '?':
 			g_print(CURRENT_VERSION_NAME);
@@ -87,6 +92,7 @@ static gint parse_commandline(int argc, char **argv
 			g_print(_("-s           skip root check\n"));
 			g_print(_("-v           current version\n"));
 			g_print(_("-n           open new window\n"));
+			g_print(_("-p filename  open project\n"));
 			g_print(_("-h           this help screen\n"));
 			exit(1);
 			break;
@@ -105,7 +111,8 @@ static gint parse_commandline(int argc, char **argv
 		*load_filenames = g_list_append(*load_filenames, tmpname);
 		optind++;
 	}
-	DEBUG_MSG("parse_commandline, finished\n");
+	DEBUG_MSG("parse_commandline, finished, num files=%d, num projects=%d\n"
+		, g_list_length(*load_filenames), g_list_length(*load_projects));
 	return 0;
 }
 
@@ -117,7 +124,7 @@ static gint parse_commandline(int argc, char **argv
 int main(int argc, char *argv[])
 {
 	gboolean root_override=FALSE, open_in_new_window=FALSE;
-	GList *filenames = NULL;
+	GList *filenames = NULL, *projectfiles=NULL;
 #ifndef NOSPLASH
 	GtkWidget *splash_window;
 #endif /* #ifndef NOSPLASH */
@@ -140,10 +147,10 @@ int main(int argc, char *argv[])
 	rcfile_check_directory();
 	rcfile_parse_main();
 	
-	parse_commandline(argc, argv, &root_override, &filenames, &open_in_new_window);
+	parse_commandline(argc, argv, &root_override, &filenames, &projectfiles, &open_in_new_window);
 #ifdef WITH_MSG_QUEUE	
-	if ((filenames && main_v->props.open_in_running_bluefish) ||  open_in_new_window) {
-		msg_queue_start(filenames, open_in_new_window);
+	if (((filenames || projectfiles) && main_v->props.open_in_running_bluefish) ||  open_in_new_window) {
+		msg_queue_start(filenames, projectfiles, open_in_new_window);
 	}
 #endif /* WITH_MSG_QUEUE */
 #ifndef NOSPLASH
@@ -171,8 +178,8 @@ int main(int argc, char *argv[])
 #endif /* #ifndef NOSPLASH */
 	rcfile_parse_custom_menu();
 #ifdef WITH_MSG_QUEUE
-	if (!filenames && main_v->props.open_in_running_bluefish) {
-		msg_queue_start(NULL, open_in_new_window);
+	if (!filenames && !projectfiles && main_v->props.open_in_running_bluefish) {
+		msg_queue_start(NULL, NULL, open_in_new_window);
 	}
 #endif /* WITH_MSG_QUEUE */
 #ifndef NOSPLASH
