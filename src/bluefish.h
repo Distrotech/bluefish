@@ -195,6 +195,7 @@ typedef struct {
 	GList *doctypes;	 /* The list of doctypes recognized by bluefish */
 #endif
 	/* new since gtk-2 port */
+	gint highlight_num_lines_count; /* number of lines to highlight in continous highlighting */
 	GList *filetypes;
 	GList *highlight_patterns;
 	GList *browsers;
