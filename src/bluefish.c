@@ -163,6 +163,7 @@ int main(int argc, char *argv[])
 #endif /* HAVE_ATLEAST_GNOME_2_6 */
 	main_v = g_new0(Tmain, 1);
 	main_v->session = g_new0(Tsessionvars,1);
+	main_v->session->view_html_toolbar = main_v->session->view_main_toolbar = main_v->session->view_custom_menu = main_v->session->view_left_panel = 1;
 	DEBUG_MSG("main, main_v is at %p\n", main_v);
 
 	rcfile_check_directory();
@@ -232,7 +233,7 @@ int main(int argc, char *argv[])
 	}
 
 	gui_show_main(firstbfwin);
-	if (main_v->props.view_html_toolbar && main_v->globses.quickbar_items == NULL) {		
+	if (firstbfwin->session->view_html_toolbar && main_v->globses.quickbar_items == NULL) {		
 		message_dialog_new(firstbfwin->main_window, 
 								 GTK_MESSAGE_INFO, 
 								 GTK_BUTTONS_OK, 
