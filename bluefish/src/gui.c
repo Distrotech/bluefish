@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-/* #define DEBUG */
+/*#define DEBUG*/
 
 #include <gtk/gtk.h>
 #include <time.h> /* nanosleep() */
@@ -1379,48 +1379,52 @@ void gui_toggle_autoindent_cb(gpointer callback_data,guint action,GtkWidget *wid
 	main_v->props.autoindent = 1 - main_v->props.autoindent;
 }
 
+void gui_set_html_toolbar_visible(Tbfwin *bfwin, gboolean visible, gboolean sync_menu) {
+	if (sync_menu) setup_toggle_item(gtk_item_factory_from_widget(bfwin->menubar), N_("/Options/Display/View HTML Toolbar"), visible);
+	if (gtk_container_children(GTK_CONTAINER(bfwin->html_toolbar_hb)) == NULL) {
+		make_html_toolbar(bfwin);
+	}
+	widget_set_visible(bfwin->html_toolbar_hb,visible);
+}
+void gui_set_main_toolbar_visible(Tbfwin *bfwin, gboolean visible, gboolean sync_menu) {
+	if (sync_menu) setup_toggle_item(gtk_item_factory_from_widget(bfwin->menubar), N_("/Options/Display/View Main Toolbar"), visible);
+	if (gtk_container_children(GTK_CONTAINER(bfwin->main_toolbar_hb)) == NULL) {
+		make_main_toolbar(bfwin);
+	}
+	widget_set_visible(bfwin->main_toolbar_hb,visible);
+}
+void gui_set_custom_menu_visible(Tbfwin *bfwin, gboolean visible, gboolean sync_menu) {
+	if (sync_menu) setup_toggle_item(gtk_item_factory_from_widget(bfwin->menubar), N_("/Options/Display/View Custom Menu"), visible);
+	if (gtk_container_children(GTK_CONTAINER(bfwin->custom_menu_hb)) == NULL) {
+		make_cust_menubar(bfwin,bfwin->custom_menu_hb);
+	}
+	widget_set_visible(bfwin->custom_menu_hb,visible);
+}
+
 void gui_toggle_hidewidget_cb(Tbfwin *bfwin,guint action,GtkWidget *widget) {
-	GtkWidget *handlebox=NULL;
-	gint *property=NULL;
+	gboolean active = GTK_CHECK_MENU_ITEM(widget)->active;
+	DEBUG_MSG("gui_toggle_hidewidget_cb, action=%d, active=%d\n",action,active);
 	switch (action) {
 	case 1:
-		handlebox = bfwin->main_toolbar_hb;
-		if (bfwin->project) property = &bfwin->project->view_main_toolbar;
-		if (g_list_length(gtk_container_children(GTK_CONTAINER(handlebox))) == 0) {
-			make_main_toolbar(bfwin);
-		}
+		if (bfwin->project) bfwin->project->view_main_toolbar = active;;
+		gui_set_main_toolbar_visible(bfwin, active, FALSE);
 	break;
 	case 2:
-		handlebox = bfwin->html_toolbar_hb;
-		if (bfwin->project) property = &bfwin->project->view_html_toolbar;
-		if (g_list_length(gtk_container_children(GTK_CONTAINER(handlebox))) == 0) {
-			make_html_toolbar(bfwin);
-		}
+		if (bfwin->project) bfwin->project->view_html_toolbar = active;
+		gui_set_html_toolbar_visible(bfwin, active, FALSE);
 	break;
 	case 3:
-		handlebox = bfwin->custom_menu_hb;
-		if (bfwin->project) property = &bfwin->project->view_custom_menu;
-		if (g_list_length(gtk_container_children(GTK_CONTAINER(handlebox))) == 0) {
-			make_cust_menubar(bfwin,bfwin->custom_menu_hb);
-		}
+		if (bfwin->project) bfwin->project->view_custom_menu = active;
+		gui_set_custom_menu_visible(bfwin, active, FALSE);
 	break;
 	case 4:
-		bfwin->project->view_left_panel = (GTK_CHECK_MENU_ITEM(widget)->active);
-		left_panel_show_hide_toggle(bfwin,FALSE, GTK_CHECK_MENU_ITEM(widget)->active);
-		return;
+		if (bfwin->project) bfwin->project->view_left_panel = active;
+		left_panel_show_hide_toggle(bfwin,FALSE, active);
 	break;
 	default:
 		g_print("gui_toggle_hidewidget_cb should NEVER be called with action %d\n", action);
 		exit(1);
 	break;
-	}
-
-	if (GTK_WIDGET_VISIBLE(handlebox)) {
-		if (property) *property = 0;
-		gtk_widget_hide(handlebox);
-	} else {
-		if (property) *property = 1;
-		gtk_widget_show(handlebox);
 	}
 }
 

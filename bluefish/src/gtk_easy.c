@@ -49,6 +49,14 @@ void flush_queue(void) {
 	}
 }
 
+void widget_set_visible(GtkWidget *widget, gboolean visible) {
+	if (visible) {
+		gtk_widget_show(widget);
+	} else {
+		gtk_widget_hide(widget);	
+	}
+}
+
 /**
  * window_destroy:
  * @windowname: a #GtkWidget pointer to the window
