@@ -592,13 +592,13 @@ void menu_create_main(GtkWidget *vbox)
 	GtkAccelGroup *accel_group;
 	gint nmenu_items = sizeof(menu_items) / sizeof(menu_items[0]);
 	accel_group = gtk_accel_group_new();
-	item_factory = gtk_item_factory_new(GTK_TYPE_MENU_BAR, "<main>", accel_group);
+	item_factory = gtk_item_factory_new(GTK_TYPE_MENU_BAR, "<bluefishmain>", accel_group);
 #ifdef ENABLE_NLS
-	gtk_item_factory_set_translate_func(item_factory, menu_translate, "<main>", NULL);
+	gtk_item_factory_set_translate_func(item_factory, menu_translate, "<bluefishmain>", NULL);
 #endif
 	gtk_item_factory_create_items(item_factory, nmenu_items, menu_items, NULL);
 	gtk_window_add_accel_group(GTK_WINDOW(main_v->main_window), accel_group);
-	main_v->menubar = gtk_item_factory_get_widget(item_factory, "<main>");
+	main_v->menubar = gtk_item_factory_get_widget(item_factory, "<bluefishmain>");
 	gtk_box_pack_start(GTK_BOX(vbox), main_v->menubar, FALSE, TRUE, 0);
 	gtk_widget_show(main_v->menubar);
 
@@ -666,7 +666,7 @@ void menu_outputbox_rebuild() {
 		menus.outputbox_menu = NULL;
 	}
 	if (!main_v->props.ext_outputbox_in_submenu) {
-		dynamic_menu_append_spacing(_("<main>/External"));
+		dynamic_menu_append_spacing(_("/External"));
 	}
 	
 	tmplist = g_list_first(main_v->props.outputbox);
@@ -684,9 +684,9 @@ void menu_outputbox_rebuild() {
 		if (count_array(arr)==7) {
 			gchar *tmp1;
 			if (main_v->props.ext_outputbox_in_submenu) {
-				tmp1 = _("<main>/External/Outputbox");
+				tmp1 = _("/External/Outputbox");
 			} else {
-				tmp1 = _("<main>/External");
+				tmp1 = _("/External");
 			}
 			menus.outputbox_menu = g_list_append(menus.outputbox_menu
 					,create_dynamic_menuitem(tmp1,arr[0],G_CALLBACK(menu_outputbox_lcb),(gpointer)arr,-1));
@@ -747,7 +747,7 @@ static GtkWidget *create_recent_entry(gchar *filename) {
 		gtk_widget_hide(tmp);
 		gtk_widget_destroy(tmp);
 	}
-	return  create_dynamic_menuitem(N_("<main>/File/Open recent")
+	return  create_dynamic_menuitem(N_("/File/Open recent")
 		, filename, G_CALLBACK(open_recent_file_cb), NULL
 		, 1);
 }
@@ -941,7 +941,7 @@ static void external_command_lcb(GtkWidget *widget, gchar **arr) {
 void external_menu_init() {
 	GList *tmplist = g_list_first(main_v->props.browsers);
 	if (!main_v->props.ext_browsers_in_submenu) {
-		dynamic_menu_append_spacing(_("<main>/External"));
+		dynamic_menu_append_spacing(_("/External"));
 	}
 	while (tmplist) {
 		gchar **arr = tmplist->data;
@@ -951,9 +951,9 @@ void external_menu_init() {
 		if (count_array(arr)==2) {
 			gchar *tmp1;
 			if (main_v->props.ext_browsers_in_submenu) {
-				tmp1 = _("<main>/External/Browsers");
+				tmp1 = _("/External/Browsers");
 			} else {
-				tmp1 = _("<main>/External");
+				tmp1 = _("/External");
 			}
 			menus.external_menu = g_list_append(menus.external_menu
 					, create_dynamic_menuitem(tmp1,arr[0],G_CALLBACK(browser_lcb),arr,-1));
@@ -962,7 +962,7 @@ void external_menu_init() {
 	}
 	
 	if (!main_v->props.ext_commands_in_submenu) {
-		dynamic_menu_append_spacing(_("<main>/External"));
+		dynamic_menu_append_spacing(_("/External"));
 	}
 	
 	tmplist = g_list_first(main_v->props.external_commands);
@@ -974,9 +974,9 @@ void external_menu_init() {
 		if (count_array(arr)==2) {
 			gchar *tmp1;
 			if (main_v->props.ext_commands_in_submenu) {
-				tmp1 = _("<main>/External/Commands");
+				tmp1 = _("/External/Commands");
 			} else {
-				tmp1 = _("<main>/External");
+				tmp1 = _("/External");
 			}		
 			menus.external_menu = g_list_append(menus.external_menu
 					, create_dynamic_menuitem(tmp1,arr[0],G_CALLBACK(external_command_lcb),arr,-1));
@@ -1319,14 +1319,14 @@ void make_cust_menubar(GtkWidget *cust_handle_box)
 
 	/* this should only happen once !!!!!!!!!! */
 	accel_group = gtk_accel_group_new();
-	item_factory = gtk_item_factory_new(GTK_TYPE_MENU_BAR, "<main>", accel_group);
+	item_factory = gtk_item_factory_new(GTK_TYPE_MENU_BAR, "<bluefishcustom>", accel_group);
 #ifdef ENABLE_NLS
-	gtk_item_factory_set_translate_func(item_factory, menu_translate, "<main>", NULL);
+	gtk_item_factory_set_translate_func(item_factory, menu_translate, "<bluefishcustom>", NULL);
 #endif
 	gtk_item_factory_create_items(item_factory, nmenu_items, cust_menu, NULL);
 	gtk_window_add_accel_group(GTK_WINDOW(main_v->main_window), accel_group);
 
-	menus.cmenu = gtk_item_factory_get_widget(item_factory, "<main>");
+	menus.cmenu = gtk_item_factory_get_widget(item_factory, "<bluefishcustom>");
 	gtk_container_add(GTK_CONTAINER(cust_handle_box), menus.cmenu);
 	gtk_widget_show(menus.cmenu);
 

@@ -1,0 +1,5469 @@
+# Dutch translation of Bluefish
+# Copyright (C) 2001 Free Software Foundation, Inc.
+# Olav Sliekers <idunno@mysun.com>, 2001.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: bluefish gtk2-port\n"
+"POT-Creation-Date: 2002-12-17 00:53+0100\n"
+"PO-Revision-Date: 2001-11-17 15:24+0100\n"
+"Last-Translator: Olav Sliekers idunno@mysun.com\n"
+"Language-Team: none\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=latin-1\n"
+"Content-Transfer-Encoding: 8 bit\n"
+
+#: src/gtk_easy.c:794 src/menu.c:1240 src/menu.c:1577 src/menu.c:1585
+#: src/document.c:1796
+msgid "Bluefish error"
+msgstr "Bluefish foutmelding"
+
+#: src/gtk_easy.c:794 src/document.c:1796
+msgid "No filename known"
+msgstr "Geen bestandsnaam opgegeven"
+
+#: src/gtk_easy.c:866
+msgid "Select file"
+msgstr "Kies bestand"
+
+#: src/gtk_easy.c:878
+msgid "Select files"
+msgstr "Kies bestanden"
+
+#: src/html2.c:586
+msgid "Cascading StyleSheet dialog"
+msgstr "Cascading StyleSheet dialoog"
+
+#: src/html2.c:604
+msgid "selector"
+msgstr "keuze"
+
+#: src/html2.c:623
+msgid "property"
+msgstr "eigenschap"
+
+#: src/html2.c:625
+msgid "value"
+msgstr "waarde"
+
+#: src/html2.c:643
+msgid "Selector"
+msgstr "Keuze"
+
+#: src/html2.c:643 src/html2.c:646
+msgid "Property"
+msgstr "Eigenschap"
+
+#: src/html2.c:643 src/html2.c:646 src/html_form.c:286 src/html_form.c:353
+#: src/html_form.c:415 src/html_form.c:471 src/html_form.c:534
+#: src/html_form.c:644
+msgid "Value"
+msgstr "Waarde"
+
+#: src/html2.c:661 src/stringlist.c:365
+msgid " Add "
+msgstr " Toevoegen "
+
+#: src/html2.c:664 src/stringlist.c:367
+msgid " Update "
+msgstr " Vernieuwen"
+
+#: src/html2.c:667 src/stringlist.c:369
+msgid " Delete "
+msgstr "Verwijderen"
+
+#: src/html2.c:916 src/html2.c:954 src/gui.c:280 src/html.c:584 src/html.c:803
+#: src/html.c:1091 src/html.c:1165 src/html.c:1566 src/html_table.c:101
+#: src/html_table.c:254 src/html_table.c:362
+msgid "Style"
+msgstr "Stijl"
+
+#: src/html2.c:1138
+msgid "Bluefish: Select color"
+msgstr "Bluefish: Selecteer kleur"
+
+#: src/html2.c:1158
+msgid "websafe"
+msgstr "websafe"
+
+#: src/html_form.c:129
+msgid "Form"
+msgstr "Formulier"
+
+#: src/html_form.c:147
+msgid "Action"
+msgstr "Actie"
+
+#: src/html_form.c:155
+msgid "Method"
+msgstr "Methode"
+
+#: src/html_form.c:164
+msgid "Enctype"
+msgstr ""
+
+#: src/html_form.c:171 src/gui.c:259 src/html.c:568
+msgid "Target"
+msgstr "Doel"
+
+#: src/html_form.c:175 src/html_form.c:232 src/html_form.c:301
+#: src/html_form.c:365 src/html_form.c:419 src/html_form.c:480
+#: src/html_form.c:543 src/html_form.c:602 src/html.c:595 src/html.c:818
+#: src/html.c:954 src/html.c:1330 src/html.c:1443 src/html.c:1666
+#: src/html.c:1768 src/html.c:1943 src/html_table.c:106 src/html_table.c:259
+#: src/html_table.c:367 src/image.c:267
+msgid "Custom"
+msgstr "Aangepast"
+
+#: src/html_form.c:214
+msgid "Text area"
+msgstr "Tekstinvoerblok"
+
+#: src/html_form.c:220 src/html_form.c:282 src/html_form.c:349
+#: src/html_form.c:411 src/html_form.c:467 src/html_form.c:530
+#: src/html_form.c:589 src/html.c:572 src/html.c:810 src/html.c:1306
+#: src/html.c:1731 src/preferences.c:1459 src/wizards.c:206 src/image.c:259
+msgid "Name"
+msgstr "Naam"
+
+#: src/html_form.c:225 src/html.c:1559 src/html.c:1644
+msgid "Rows"
+msgstr "Rijen"
+
+#: src/html_form.c:229 src/html.c:1640
+msgid "Cols"
+msgstr "Kolommen"
+
+#: src/html_form.c:276
+msgid "Text"
+msgstr "Tekst"
+
+#: src/html_form.c:294 src/html_form.c:594 src/html.c:933 src/html.c:1426
+#: src/wizards.c:212
+msgid "Size"
+msgstr "Grootte"
+
+#: src/html_form.c:298
+msgid "Max Length"
+msgstr "Max Lengte"
+
+#: src/html_form.c:343
+msgid "Button"
+msgstr "Knop"
+
+#: src/html_form.c:361 src/html.c:1939
+msgid "Type"
+msgstr "Type"
+
+#: src/html_form.c:406
+msgid "Hidden"
+msgstr "Verborgen inhoud"
+
+#: src/html_form.c:462
+msgid "Radio Button"
+msgstr "Aanklikrondje"
+
+#: src/html_form.c:476 src/html_form.c:539
+msgid "Checked"
+msgstr "Aangeklikt"
+
+#: src/html_form.c:524
+msgid "Check Box"
+msgstr "Aankruisvakje"
+
+#: src/html_form.c:583
+msgid "Select"
+msgstr "Keuzelijst"
+
+#: src/html_form.c:598
+msgid "Multiple selections"
+msgstr "Meerdere keuzes"
+
+#: src/html_form.c:638
+msgid "Option"
+msgstr "Optie"
+
+#: src/html_form.c:648 src/html_form.c:692 src/preferences.c:1286
+msgid "Label"
+msgstr "Label"
+
+#: src/html_form.c:653
+msgid "Selected"
+msgstr "Geselecteerd"
+
+#: src/html_form.c:687
+msgid "Option group"
+msgstr "Optie groep"
+
+#: src/menu.c:60
+msgid "/_File"
+msgstr "/_Bestand"
+
+#: src/menu.c:61
+msgid "/File/tearoff1"
+msgstr "/_Bestand/afscheuren"
+
+#: src/menu.c:62
+msgid "/File/_New"
+msgstr "/Bestand/_Nieuw"
+
+#: src/menu.c:63
+msgid "/File/_Open..."
+msgstr "/Bestand/_Openen..."
+
+#: src/menu.c:64
+msgid "/File/Open advanced..."
+msgstr "/Bestand/Geavanceerd Openen..."
+
+#: src/menu.c:65
+#, fuzzy
+msgid "/File/Open r_ecent"
+msgstr "/Bestand/Recent Geopend"
+
+#: src/menu.c:66
+msgid "/File/Open recent/tearoff1"
+msgstr "/Bestand/Recent Geopend/tearoff1"
+
+#: src/menu.c:67
+#, fuzzy
+msgid "/File/_Revert to saved"
+msgstr "/Bestand/Opnieuw openen"
+
+#: src/menu.c:68
+#, fuzzy
+msgid "/File/_Insert..."
+msgstr "/Bestand/Invoegen..."
+
+#: src/menu.c:69
+msgid "/File/sep2"
+msgstr "/Bestand/sep2"
+
+#: src/menu.c:70
+msgid "/File/_Save"
+msgstr "/Bestand/Op_slaan"
+
+#: src/menu.c:71
+msgid "/File/Save _as..."
+msgstr "/Bestand/Opslaan _als"
+
+#: src/menu.c:72
+#, fuzzy
+msgid "/File/_Move to..."
+msgstr "/Bestand/Verplaatsen..."
+
+#: src/menu.c:73
+#, fuzzy
+msgid "/File/Sa_ve all"
+msgstr "/Bestand/Alles opslaan"
+
+#: src/menu.c:74
+msgid "/File/sep3"
+msgstr "/Bestand/sep3"
+
+#: src/menu.c:75
+#, fuzzy
+msgid "/File/_Close"
+msgstr "/Bestand/Sluiten"
+
+#: src/menu.c:76
+msgid "/File/Close all"
+msgstr "/Bestand/Alles sluiten"
+
+#: src/menu.c:77
+msgid "/File/sep5"
+msgstr "/Bestand/sep5"
+
+#: src/menu.c:78
+#, fuzzy
+msgid "/File/_Quit"
+msgstr "/Bestand/Afsluiten"
+
+#: src/menu.c:79
+msgid "/_Edit"
+msgstr "/_Bewerken"
+
+#: src/menu.c:80
+#, fuzzy
+msgid "/Edit/Tearoff1"
+msgstr "/_Bewerken/Tearoff1"
+
+#: src/menu.c:81
+#, fuzzy
+msgid "/Edit/Cu_t"
+msgstr "/Bewerken/Knippen"
+
+#: src/menu.c:82
+#, fuzzy
+msgid "/Edit/_Copy"
+msgstr "/Bewerken/Kopieren"
+
+#: src/menu.c:83
+#, fuzzy
+msgid "/Edit/_Paste"
+msgstr "/Bewerken/Plakken"
+
+#: src/menu.c:84
+#, fuzzy
+msgid "/Edit/Select _all"
+msgstr "/Bewerken/Alles selecteren"
+
+#: src/menu.c:85
+msgid "/Edit/sep3"
+msgstr "/Bewerken/sep3"
+
+#: src/menu.c:86
+#, fuzzy
+msgid "/Edit/_Find..."
+msgstr "/Bewerken/Zoeken"
+
+#: src/menu.c:87
+#, fuzzy
+msgid "/Edit/Ne_w find..."
+msgstr "/Bewerken/Opnieuw zoeken"
+
+#: src/menu.c:88
+#, fuzzy
+msgid "/Edit/Find agai_n"
+msgstr "/Bewerken/Herhaal zoeken"
+
+#: src/menu.c:89
+#, fuzzy
+msgid "/Edit/R_eplace..."
+msgstr "/Bewerken/Vervangen..."
+
+#: src/menu.c:90
+#, fuzzy
+msgid "/Edit/New re_place..."
+msgstr "/Bewerken/Opnieuw vervangen"
+
+#: src/menu.c:91
+#, fuzzy
+msgid "/Edit/Replace a_gain"
+msgstr "/Bewerken/Herhaal vervangen"
+
+#: src/menu.c:92
+#, fuzzy
+msgid "/Edit/Replace _special"
+msgstr "/_Bewerken/Vervangen speciaal"
+
+#: src/menu.c:93
+#, fuzzy
+msgid "/Edit/Replace special/Tearoff1"
+msgstr "/Bewerken/Vervangen speciaal/Tearoff1"
+
+#: src/menu.c:94
+#, fuzzy
+msgid "/Edit/Replace special/_ascii to HTML entities"
+msgstr "/Bewerken/Vervangen speciaal/Vervang:  \"  met:  \\\""
+
+#: src/menu.c:95
+#, fuzzy
+msgid "/Edit/Replace special/_iso8859 to HTML entities"
+msgstr "/Bewerken/Vervangen speciaal/Vervang iso 8859-1 karakters"
+
+#: src/menu.c:96
+#, fuzzy
+msgid "/Edit/Replace special/_both types to HTML entities"
+msgstr "/Bewerken/Vervangen speciaal/Vervang:  \"  met:  \\\""
+
+#: src/menu.c:97
+msgid "/Edit/sep4"
+msgstr "/Bewerken/sep4"
+
+#: src/menu.c:98
+#, fuzzy
+msgid "/Edit/_Undo"
+msgstr "/Bewerken/Herstel"
+
+#: src/menu.c:99
+#, fuzzy
+msgid "/Edit/_Redo"
+msgstr "/Bewerken/Herhaal"
+
+#: src/menu.c:100 src/gui.c:536
+msgid "/Edit/Undo all"
+msgstr "/Bewerken/Alles herstellen"
+
+#: src/menu.c:101 src/gui.c:538
+msgid "/Edit/Redo all"
+msgstr "/Bewerken/Alles herhalen"
+
+#: src/menu.c:102
+msgid "/Edit/sep5"
+msgstr "/Bewerken/sep5"
+
+#: src/menu.c:103
+#, fuzzy
+msgid "/Edit/_Goto line"
+msgstr "/Bewerken/Regelnummer..."
+
+#: src/menu.c:104
+#, fuzzy
+msgid "/Edit/G_oto selection"
+msgstr "/Bewerken/Regelnummer..."
+
+#: src/menu.c:105
+msgid "/_Tags"
+msgstr "/_Elementen"
+
+#: src/menu.c:106
+msgid "/Tags/Tearoff1"
+msgstr "/Elementen/Tearoff1"
+
+#: src/menu.c:108
+#, fuzzy
+msgid "/Tags/_Headings"
+msgstr "/Elementen/_Koppen"
+
+#: src/menu.c:109
+msgid "/Tags/Headings/Tearoff1"
+msgstr "/Elementen/Koppen/Tearoff1"
+
+#: src/menu.c:110
+#, fuzzy
+msgid "/Tags/Headings/H_1"
+msgstr "/Elementen/Koppen/H1"
+
+#: src/menu.c:111
+#, fuzzy
+msgid "/Tags/Headings/H_2"
+msgstr "/Elementen/Koppen/H2"
+
+#: src/menu.c:112
+#, fuzzy
+msgid "/Tags/Headings/H_3"
+msgstr "/Elementen/Koppen/H3"
+
+#: src/menu.c:113
+#, fuzzy
+msgid "/Tags/Headings/H_4"
+msgstr "/Elementen/Koppen/H4"
+
+#: src/menu.c:114
+#, fuzzy
+msgid "/Tags/Headings/H_5"
+msgstr "/Elementen/Koppen/H5"
+
+#: src/menu.c:115
+#, fuzzy
+msgid "/Tags/Headings/H_6"
+msgstr "/Elementen/Koppen/H6"
+
+#: src/menu.c:116
+#, fuzzy
+msgid "/Tags/_Special"
+msgstr "/Elementen/Speciaal"
+
+#: src/menu.c:117
+msgid "/Tags/Special/tearoff1"
+msgstr "/Elementen/Speciaal/tearoff1"
+
+#: src/menu.c:118
+#, fuzzy
+msgid "/Tags/Special/_Accent"
+msgstr "/Elementen/Speciaal/Accent"
+
+#: src/menu.c:119
+msgid "/Tags/Special/Accent/tearoff1"
+msgstr "/Elementen/Speciaal/Accent/tearoff1"
+
+#: src/menu.c:120
+#, fuzzy
+msgid "/Tags/Special/Accent/_Uppercase"
+msgstr "/Elementen/Speciaal/Accent/Hoofdletters"
+
+#: src/menu.c:121
+#, fuzzy
+msgid "/Tags/Special/Accent/Uppercase/_A-I"
+msgstr "/Elementen/Speciaal/Accent/Hoofdletters/A-I"
+
+#: src/menu.c:122
+msgid "/Tags/Special/Accent/Uppercase/A-I/tearoff1"
+msgstr "/Elementen/Speciaal/Accent/Hoofdletters/A-I/tearoff1"
+
+#: src/menu.c:123
+#, fuzzy
+msgid "/Tags/Special/Accent/Uppercase/A-I/A grave"
+msgstr "/Elementen/Speciaal/Accent/Hoofdletters/A-I/À"
+
+#: src/menu.c:124
+#, fuzzy
+msgid "/Tags/Special/Accent/Uppercase/A-I/A acute"
+msgstr "/Elementen/Speciaal/Accent/Hoofdletters/A-I/Á"
+
+#: src/menu.c:125
+#, fuzzy
+msgid "/Tags/Special/Accent/Uppercase/A-I/A circumflex"
+msgstr "/Elementen/Speciaal/Accent/Hoofdletters/A-I/Â"
+
+#: src/menu.c:126
+#, fuzzy
+msgid "/Tags/Special/Accent/Uppercase/A-I/A tilde"
+msgstr "/Elementen/Speciaal/Accent/Hoofdletters/A-I/Ã"
+
+#: src/menu.c:127
+#, fuzzy
+msgid "/Tags/Special/Accent/Uppercase/A-I/AE ligature"
+msgstr "/Elementen/Speciaal/Accent/Hoofdletters/A-I/Æ"
+
+#: src/menu.c:128
+#, fuzzy
+msgid "/Tags/Special/Accent/Uppercase/A-I/A diaeresis"
+msgstr "/Elementen/Speciaal/Accent/Hoofdletters/A-I/Ä"
+
+#: src/menu.c:129
+#, fuzzy
+msgid "/Tags/Special/Accent/Uppercase/A-I/A ring"
+msgstr "/Elementen/Speciaal/Accent/Hoofdletters/A-I/Å"
+
+#: src/menu.c:130
+#, fuzzy
+msgid "/Tags/Special/Accent/Uppercase/A-I/C cedilla"
+msgstr "/Elementen/Speciaal/Accent/Hoofdletters/A-I/Ç"
+
+#: src/menu.c:131
+#, fuzzy
+msgid "/Tags/Special/Accent/Uppercase/A-I/E grave"
+msgstr "/Elementen/Speciaal/Accent/Hoofdletters/A-I/È"
+
+#: src/menu.c:132
+#, fuzzy
+msgid "/Tags/Special/Accent/Uppercase/A-I/E acute"
+msgstr "/Elementen/Speciaal/Accent/Hoofdletters/A-I/É"
+
+#: src/menu.c:133
+#, fuzzy
+msgid "/Tags/Special/Accent/Uppercase/A-I/E circumflex"
+msgstr "/Elementen/Speciaal/Accent/Hoofdletters/A-I/Ê"
+
+#: src/menu.c:134
+#, fuzzy
+msgid "/Tags/Special/Accent/Uppercase/A-I/E diaeresis"
+msgstr "/Elementen/Speciaal/Accent/Hoofdletters/A-I/Ë"
+
+#: src/menu.c:135
+#, fuzzy
+msgid "/Tags/Special/Accent/Uppercase/A-I/I grave"
+msgstr "/Elementen/Speciaal/Accent/Hoofdletters/A-I/Ì"
+
+#: src/menu.c:136
+#, fuzzy
+msgid "/Tags/Special/Accent/Uppercase/A-I/I acute"
+msgstr "/Elementen/Speciaal/Accent/Hoofdletters/A-I/Í"
+
+#: src/menu.c:137
+#, fuzzy
+msgid "/Tags/Special/Accent/Uppercase/A-I/I circumflex"
+msgstr "/Elementen/Speciaal/Accent/Hoofdletters/A-I/Î"
+
+#: src/menu.c:138
+#, fuzzy
+msgid "/Tags/Special/Accent/Uppercase/A-I/I diaeresis"
+msgstr "/Elementen/Speciaal/Accent/Hoofdletters/A-I/Ï"
+
+#: src/menu.c:139
+#, fuzzy
+msgid "/Tags/Special/Accent/Uppercase/_J-Z"
+msgstr "/Elementen/Speciaal/Accent/Hoofdletters/J-Z"
+
+#: src/menu.c:140
+msgid "/Tags/Special/Accent/Uppercase/J-Z/tearoff1"
+msgstr "/Elementen/Speciaal/Accent/Hoofdletters/J-Z/tearoff1"
+
+#: src/menu.c:141
+#, fuzzy
+msgid "/Tags/Special/Accent/Uppercase/J-Z/N tilde"
+msgstr "/Elementen/Speciaal/Accent/Hoofdletters/J-Z/Ñ"
+
+#: src/menu.c:142
+#, fuzzy
+msgid "/Tags/Special/Accent/Uppercase/J-Z/O grave"
+msgstr "/Elementen/Speciaal/Accent/Hoofdletters/J-Z/Ò"
+
+#: src/menu.c:143
+#, fuzzy
+msgid "/Tags/Special/Accent/Uppercase/J-Z/O acute"
+msgstr "/Elementen/Speciaal/Accent/Hoofdletters/J-Z/Ó"
+
+#: src/menu.c:144
+#, fuzzy
+msgid "/Tags/Special/Accent/Uppercase/J-Z/O circumflex"
+msgstr "/Elementen/Speciaal/Accent/Hoofdletters/J-Z/Ô"
+
+#: src/menu.c:145
+#, fuzzy
+msgid "/Tags/Special/Accent/Uppercase/J-Z/OE ligature"
+msgstr "/Elementen/Speciaal/Accent/Hoofdletters/A-I/Æ"
+
+#: src/menu.c:146
+#, fuzzy
+msgid "/Tags/Special/Accent/Uppercase/J-Z/O tilde"
+msgstr "/Elementen/Speciaal/Accent/Hoofdletters/J-Z/Õ"
+
+#: src/menu.c:147
+#, fuzzy
+msgid "/Tags/Special/Accent/Uppercase/J-Z/O diaeresis"
+msgstr "/Elementen/Speciaal/Accent/Hoofdletters/J-Z/Ö"
+
+#: src/menu.c:148
+#, fuzzy
+msgid "/Tags/Special/Accent/Uppercase/J-Z/O slash"
+msgstr "/Elementen/Speciaal/Accent/Hoofdletters/J-Z/Ø"
+
+#: src/menu.c:149
+#, fuzzy
+msgid "/Tags/Special/Accent/Uppercase/J-Z/U grave"
+msgstr "/Elementen/Speciaal/Accent/Hoofdletters/J-Z/Ù"
+
+#: src/menu.c:150
+#, fuzzy
+msgid "/Tags/Special/Accent/Uppercase/J-Z/U acute"
+msgstr "/Elementen/Speciaal/Accent/Hoofdletters/J-Z/Ú"
+
+#: src/menu.c:151
+#, fuzzy
+msgid "/Tags/Special/Accent/Uppercase/J-Z/U circumflex"
+msgstr "/Elementen/Speciaal/Accent/Hoofdletters/J-Z/Û"
+
+#: src/menu.c:152
+#, fuzzy
+msgid "/Tags/Special/Accent/Uppercase/J-Z/U diaeresis"
+msgstr "/Elementen/Speciaal/Accent/Hoofdletters/J-Z/Ü"
+
+#: src/menu.c:154
+#, fuzzy
+msgid "/Tags/Special/Accent/Uppercase/J-Z/Y acute"
+msgstr "/Elementen/Speciaal/Accent/Hoofdletters/J-Z/Ý"
+
+#: src/menu.c:156
+#, fuzzy
+msgid "/Tags/Special/Accent/_Lowercase"
+msgstr "/Elementen/Speciaal/Accent/kleine letters"
+
+#: src/menu.c:157
+#, fuzzy
+msgid "/Tags/Special/Accent/Lowercase/_A-I"
+msgstr "/Elementen/Speciaal/Accent/kleine letters/a-i"
+
+#: src/menu.c:158
+msgid "/Tags/Special/Accent/Lowercase/A-I/tearoff1"
+msgstr "/Elementen/Speciaal/Accent/kleine letters/a-i/tearoff1"
+
+#: src/menu.c:160
+#, fuzzy
+msgid "/Tags/Special/Accent/Lowercase/A-I/a grave"
+msgstr "/Elementen/Speciaal/Accent/kleine letters/a-i/à"
+
+#: src/menu.c:162
+#, fuzzy
+msgid "/Tags/Special/Accent/Lowercase/A-I/a acute"
+msgstr "/Elementen/Speciaal/Accent/kleine letters/a-i/á"
+
+#: src/menu.c:164
+#, fuzzy
+msgid "/Tags/Special/Accent/Lowercase/A-I/a circumflex"
+msgstr "/Elementen/Speciaal/Accent/kleine letters/a-i/â"
+
+#: src/menu.c:166
+#, fuzzy
+msgid "/Tags/Special/Accent/Lowercase/A-I/a tilde"
+msgstr "/Elementen/Speciaal/Accent/kleine letters/a-i/ã"
+
+#: src/menu.c:168
+#, fuzzy
+msgid "/Tags/Special/Accent/Lowercase/A-I/a ring"
+msgstr "/Elementen/Speciaal/Accent/kleine letters/a-i/å"
+
+#: src/menu.c:170
+#, fuzzy
+msgid "/Tags/Special/Accent/Lowercase/A-I/ae ligature"
+msgstr "/Elementen/Speciaal/Accent/kleine letters/a-i/æ"
+
+#: src/menu.c:172
+#, fuzzy
+msgid "/Tags/Special/Accent/Lowercase/A-I/a diaeresis"
+msgstr "/Elementen/Speciaal/Accent/kleine letters/A-I/ä"
+
+#: src/menu.c:174
+#, fuzzy
+msgid "/Tags/Special/Accent/Lowercase/A-I/c cedilla"
+msgstr "/Elementen/Speciaal/Accent/kleine letters/A-I/ç"
+
+#: src/menu.c:176
+#, fuzzy
+msgid "/Tags/Special/Accent/Lowercase/A-I/e grave"
+msgstr "/Elementen/Speciaal/Accent/kleine letters/a-i/è"
+
+#: src/menu.c:178
+#, fuzzy
+msgid "/Tags/Special/Accent/Lowercase/A-I/e acute"
+msgstr "/Elementen/Speciaal/Accent/kleine letters/a-i/é"
+
+#: src/menu.c:180
+#, fuzzy
+msgid "/Tags/Special/Accent/Lowercase/A-I/e circumflex"
+msgstr "/Elementen/Speciaal/Accent/kleine letters/a-i/ê"
+
+#: src/menu.c:182
+#, fuzzy
+msgid "/Tags/Special/Accent/Lowercase/A-I/e diaeresis"
+msgstr "/Elementen/Speciaal/Accent/kleine letters/a-i/ë"
+
+#: src/menu.c:184
+#, fuzzy
+msgid "/Tags/Special/Accent/Lowercase/A-I/i grave"
+msgstr "/Elementen/Speciaal/Accent/kleine letters/a-i/ì"
+
+#: src/menu.c:186
+#, fuzzy
+msgid "/Tags/Special/Accent/Lowercase/A-I/i acute"
+msgstr "/Elementen/Speciaal/Accent/kleine letters/a-i/í"
+
+#: src/menu.c:188
+#, fuzzy
+msgid "/Tags/Special/Accent/Lowercase/A-I/i circumflex"
+msgstr "/Elementen/Speciaal/Accent/kleine letters/a-i/î"
+
+#: src/menu.c:190
+#, fuzzy
+msgid "/Tags/Special/Accent/Lowercase/A-I/i diaeresis"
+msgstr "/Elementen/Speciaal/Accent/kleine letters/a-i/ï"
+
+#: src/menu.c:192
+#, fuzzy
+msgid "/Tags/Special/Accent/Lowercase/_J-Z"
+msgstr "/Elementen/Speciaal/Accent/kleine letters/j-z"
+
+#: src/menu.c:193
+msgid "/Tags/Special/Accent/Lowercase/J-Z/tearoff1"
+msgstr "/Elementen/Speciaal/Accent/kleine letters/j-z/tearoff1"
+
+#: src/menu.c:195
+#, fuzzy
+msgid "/Tags/Special/Accent/Lowercase/J-Z/n tilde"
+msgstr "/Elementen/Speciaal/Accent/kleine letters/j-z/ñ"
+
+#: src/menu.c:197
+#, fuzzy
+msgid "/Tags/Special/Accent/Lowercase/J-Z/o grave"
+msgstr "/Elementen/Speciaal/Accent/kleine letters/j-z/ò"
+
+#: src/menu.c:199
+#, fuzzy
+msgid "/Tags/Special/Accent/Lowercase/J-Z/o acute"
+msgstr "/Elementen/Speciaal/Accent/kleine letters/j-z/ó"
+
+#: src/menu.c:200
+#, fuzzy
+msgid "/Tags/Special/Accent/Lowercase/J-Z/oe ligature"
+msgstr "/Elementen/Speciaal/Accent/kleine letters/a-i/æ"
+
+#: src/menu.c:201
+#, fuzzy
+msgid "/Tags/Special/Accent/Lowercase/J-Z/o circumflex"
+msgstr "/Elementen/Speciaal/Accent/kleine letters/j-z/ô"
+
+#: src/menu.c:203
+#, fuzzy
+msgid "/Tags/Special/Accent/Lowercase/J-Z/o tilde"
+msgstr "/Elementen/Speciaal/Accent/kleine letters/j-z/õ"
+
+#: src/menu.c:205
+#, fuzzy
+msgid "/Tags/Special/Accent/Lowercase/J-Z/o diaeresis"
+msgstr "/Elementen/Speciaal/Accent/kleine letters/j-z/ö"
+
+#: src/menu.c:207
+#, fuzzy
+msgid "/Tags/Special/Accent/Lowercase/J-Z/o slash"
+msgstr "/Elementen/Speciaal/Accent/kleine letters/j-z/ø"
+
+#: src/menu.c:209
+#, fuzzy
+msgid "/Tags/Special/Accent/Lowercase/J-Z/u grave"
+msgstr "/Elementen/Speciaal/Accent/kleine letters/j-z/ù"
+
+#: src/menu.c:211
+#, fuzzy
+msgid "/Tags/Special/Accent/Lowercase/J-Z/u acute"
+msgstr "/Elementen/Speciaal/Accent/kleine letters/j-z/ú"
+
+#: src/menu.c:213
+#, fuzzy
+msgid "/Tags/Special/Accent/Lowercase/J-Z/u circumflex"
+msgstr "/Elementen/Speciaal/Accent/kleine letters/j-z/û"
+
+#: src/menu.c:215
+#, fuzzy
+msgid "/Tags/Special/Accent/Lowercase/J-Z/u diaeresis"
+msgstr "/Elementen/Speciaal/Accent/kleine letters/j-z/ü"
+
+#: src/menu.c:217
+#, fuzzy
+msgid "/Tags/Special/Accent/Lowercase/J-Z/y acute"
+msgstr "/Elementen/Speciaal/Accent/kleine letters/j-z/ý"
+
+#: src/menu.c:219
+#, fuzzy
+msgid "/Tags/Special/Accent/Lowercase/J-Z/y diaeresis"
+msgstr "/Elementen/Speciaal/Accent/kleine letters/j-z/ÿ"
+
+#: src/menu.c:221
+msgid "/Tags/Special/Accent/separator"
+msgstr "/Elementen/Speciaal/Accent/separator"
+
+#: src/menu.c:222
+#, fuzzy
+msgid "/Tags/Special/Accent/U_mlaut"
+msgstr "/Elementen/Speciaal/Accent/¨"
+
+#: src/menu.c:223
+#, fuzzy
+msgid "/Tags/Special/Accent/_Acute"
+msgstr "/Elementen/Speciaal/Accent/`"
+
+#: src/menu.c:224
+#, fuzzy
+msgid "/Tags/Special/Accent/_Cedilla"
+msgstr "/Elementen/Speciaal/Accent/¸"
+
+#: src/menu.c:225
+#, fuzzy
+msgid "/Tags/Special/_Currency"
+msgstr "/Elementen/Speciaal/Munteenheid"
+
+#: src/menu.c:226
+msgid "/Tags/Special/Currency/tearoff1"
+msgstr "/Elementen/Speciaal/Munteenheid/tearoff1"
+
+#: src/menu.c:227
+#, fuzzy
+msgid "/Tags/Special/Currency/_Cent sign"
+msgstr "/Elementen/Speciaal/Munteenheid/¢"
+
+#: src/menu.c:229
+#, fuzzy
+msgid "/Tags/Special/Currency/_Pound sterling"
+msgstr "/Elementen/Speciaal/Munteenheid/£"
+
+#: src/menu.c:231
+#, fuzzy
+msgid "/Tags/Special/Currency/C_urrency sign"
+msgstr "/Elementen/Speciaal/Munteenheid/¤"
+
+#: src/menu.c:233
+#, fuzzy
+msgid "/Tags/Special/Currency/_Yen sign"
+msgstr "/Elementen/Speciaal/Munteenheid/¥"
+
+#: src/menu.c:234
+#, fuzzy
+msgid "/Tags/Special/Currency/_Euro"
+msgstr "/Elementen/Speciaal/Munteenheid"
+
+#: src/menu.c:235
+#, fuzzy
+msgid "/Tags/Special/_Math-Science"
+msgstr "/Tags speciaal/Wiskunde"
+
+#: src/menu.c:236
+msgid "/Tags/Special/Math-Science/tearoff1"
+msgstr "/Tags speciaal/Wiskunde/tearoff1"
+
+#: src/menu.c:237
+#, fuzzy
+msgid "/Tags/Special/Math-Science/Logical _not sign"
+msgstr "/Tags speciaal/Wiskunde/!"
+
+#: src/menu.c:239
+#, fuzzy
+msgid "/Tags/Special/Math-Science/_Multiplication sign"
+msgstr "/Tags speciaal/Wiskunde/×"
+
+#: src/menu.c:241
+#, fuzzy
+msgid "/Tags/Special/Math-Science/_Division sign"
+msgstr "/Tags speciaal/Wiskunde/÷"
+
+#: src/menu.c:243
+#, fuzzy
+msgid "/Tags/Special/Math-Science/_Plus-minus sign"
+msgstr "/Tags speciaal/Wiskunde/±"
+
+#: src/menu.c:245
+#, fuzzy
+msgid "/Tags/Special/Math-Science/_Less-than sign"
+msgstr "/Tags speciaal/Wiskunde/<"
+
+#: src/menu.c:247
+#, fuzzy
+msgid "/Tags/Special/Math-Science/_Greater-than sign"
+msgstr "/Tags speciaal/Wiskunde/>"
+
+#: src/menu.c:249
+#, fuzzy
+msgid "/Tags/Special/Math-Science/Superscript _1"
+msgstr "/Tags speciaal/Wiskunde/¹"
+
+#: src/menu.c:251
+#, fuzzy
+msgid "/Tags/Special/Math-Science/Superscript _2"
+msgstr "/Tags speciaal/Wiskunde/²"
+
+#: src/menu.c:253
+#, fuzzy
+msgid "/Tags/Special/Math-Science/Superscript _3"
+msgstr "/Tags speciaal/Wiskunde/³"
+
+#: src/menu.c:255
+#, fuzzy
+msgid "/Tags/Special/Math-Science/One _quarter"
+msgstr "/Tags speciaal/Wiskunde/¼"
+
+#: src/menu.c:257
+#, fuzzy
+msgid "/Tags/Special/Math-Science/One _half"
+msgstr "/Tags speciaal/Wiskunde/½"
+
+#: src/menu.c:259
+#, fuzzy
+msgid "/Tags/Special/Math-Science/_Three quarters"
+msgstr "/Tags speciaal/Wiskunde/¾"
+
+#: src/menu.c:261
+#, fuzzy
+msgid "/Tags/Special/Math-Science/Deg_ree sign"
+msgstr "/Tags speciaal/Wiskunde/°"
+
+#: src/menu.c:263
+#, fuzzy
+msgid "/Tags/Special/_Non Latin"
+msgstr "/Elementen/Speciaal/Non Latin"
+
+#: src/menu.c:264
+msgid "/Tags/Special/Non Latin/tearoff1"
+msgstr "/Elementen/Speciaal/Non Latin/tearoff1"
+
+#: src/menu.c:265
+#, fuzzy
+msgid "/Tags/Special/Non Latin/_ETH (Icelandic)"
+msgstr "/Elementen/Speciaal/Non Latin/Ð"
+
+#: src/menu.c:267
+#, fuzzy
+msgid "/Tags/Special/Non Latin/_THORN (Icelandic)"
+msgstr "/Elementen/Speciaal/Non Latin/Þ"
+
+#: src/menu.c:269
+#, fuzzy
+msgid "/Tags/Special/Non Latin/et_h (Icelandic)"
+msgstr "/Elementen/Speciaal/Non Latin/ð"
+
+#: src/menu.c:271
+#, fuzzy
+msgid "/Tags/Special/Non Latin/th_orn"
+msgstr "/Elementen/Speciaal/Non Latin/þ"
+
+#: src/menu.c:272
+#, fuzzy
+msgid "/Tags/Special/Non Latin/Sharp _s"
+msgstr "/Elementen/Speciaal/Non Latin/ß"
+
+#: src/menu.c:273
+#, fuzzy
+msgid "/Tags/Special/Non Latin/_Micro sign"
+msgstr "/Elementen/Speciaal/Non Latin/µ"
+
+#: src/menu.c:275
+#, fuzzy
+msgid "/Tags/Special/_Other"
+msgstr "/Elementen/Speciaal/Overige"
+
+#: src/menu.c:276
+msgid "/Tags/Special/Other/tearoff1"
+msgstr "/Elementen/Speciaal/Overige/tearoff1"
+
+#: src/menu.c:277
+#, fuzzy
+msgid "/Tags/Special/Other/_Non-breaking space"
+msgstr "/Elementen/Speciaal/Overige/spatie"
+
+#: src/menu.c:279
+#, fuzzy
+msgid "/Tags/Special/Other/_Section sign"
+msgstr "/Elementen/Speciaal/Overige/§"
+
+#: src/menu.c:281
+#, fuzzy
+msgid "/Tags/Special/Other/_Copyright sign"
+msgstr "/Elementen/Speciaal/Overige/©"
+
+#: src/menu.c:283
+#, fuzzy
+msgid "/Tags/Special/Other/_Left angle quotes"
+msgstr "/Elementen/Speciaal/Overige/«"
+
+#: src/menu.c:285
+#, fuzzy
+msgid "/Tags/Special/Other/_Right angle quotes"
+msgstr "/Elementen/Speciaal/Overige/»"
+
+#: src/menu.c:287
+#, fuzzy
+msgid "/Tags/Special/Other/Registered _trademark"
+msgstr "/Elementen/Speciaal/Overige/®"
+
+#: src/menu.c:289
+#, fuzzy
+msgid "/Tags/Special/Other/Inverted _exclamation"
+msgstr "/Elementen/Speciaal/Overige/¡"
+
+#: src/menu.c:291
+#, fuzzy
+msgid "/Tags/Special/Other/Inverted _question mark"
+msgstr "/Elementen/Speciaal/Overige/¿"
+
+#: src/menu.c:293
+#, fuzzy
+msgid "/Tags/Special/Other/_Feminine ordinal"
+msgstr "/Elementen/Speciaal/Overige/º"
+
+#: src/menu.c:295
+#, fuzzy
+msgid "/Tags/Special/Other/_Masculine ordinal"
+msgstr "/Elementen/Speciaal/Overige/ª"
+
+#: src/menu.c:297
+#, fuzzy
+msgid "/Tags/Special/Other/_Pilcrow (paragraph sign)"
+msgstr "/Elementen/Speciaal/Overige/¶"
+
+#: src/menu.c:299
+#, fuzzy
+msgid "/Tags/Special/Other/_Broken bar"
+msgstr "/Elementen/Speciaal/Overige/¦"
+
+#: src/menu.c:300
+#, fuzzy
+msgid "/Tags/Special/Other/Soft _hypen"
+msgstr "/Elementen/Speciaal/Overige/­"
+
+#: src/menu.c:301
+#, fuzzy
+msgid "/Tags/Special/Other/Spa_cing macron"
+msgstr "/Elementen/Speciaal/Overige/__"
+
+#: src/menu.c:303
+#, fuzzy
+msgid "/Tags/Special/Other/Middle _dot"
+msgstr "/Elementen/Speciaal/Overige/·"
+
+#: src/menu.c:305
+#, fuzzy
+msgid "/Tags/_Format by layout"
+msgstr "/Elementen/Opmaak"
+
+#: src/menu.c:306
+msgid "/Tags/Format by layout/tearoff1"
+msgstr "/Elementen/Opmaak/tearoff1"
+
+#: src/menu.c:307
+#, fuzzy
+msgid "/Tags/Format by layout/_Bold"
+msgstr "/Elementen/Opmaak/Vet"
+
+#: src/menu.c:308
+#, fuzzy
+msgid "/Tags/Format by layout/_Italic"
+msgstr "/Elementen/Opmaak/Cursief"
+
+#: src/menu.c:309
+#, fuzzy
+msgid "/Tags/Format by layout/_Underline"
+msgstr "/Elementen/Opmaak/Ondertrepen"
+
+#: src/menu.c:310
+#, fuzzy
+msgid "/Tags/Format by layout/_Strikeout"
+msgstr "/Elementen/Opmaak/Doorhalen"
+
+#: src/menu.c:311
+#, fuzzy
+msgid "/Tags/F_ormat by context"
+msgstr "/Elementen/Logische tekst-opmaak"
+
+#: src/menu.c:312
+msgid "/Tags/Format by context/tearoff1"
+msgstr "/Elementen/Logische tekst-opmaak/tearoff1"
+
+#: src/menu.c:313
+#, fuzzy
+msgid "/Tags/Format by context/_Strong"
+msgstr "/Elementen/Logische tekst-opmaak/Extra nadruk"
+
+#: src/menu.c:314
+#, fuzzy
+msgid "/Tags/Format by context/_Emphasis"
+msgstr "/Elementen/Logische tekst-opmaak/Nadruk"
+
+#: src/menu.c:315
+#, fuzzy
+msgid "/Tags/Format by context/_Define"
+msgstr "/Elementen/Logische tekst-opmaak/Definitie"
+
+#: src/menu.c:316
+#, fuzzy
+msgid "/Tags/Format by context/_Code"
+msgstr "/Elementen/Logische tekst-opmaak/Code"
+
+#: src/menu.c:317
+#, fuzzy
+msgid "/Tags/Format by context/Sa_mple"
+msgstr "/Elementen/Logische tekst-opmaak/Voorbeeld"
+
+#: src/menu.c:318
+#, fuzzy
+msgid "/Tags/Format by context/_Keyboard"
+msgstr "/Elementen/Logische tekst-opmaak/Toetsenbord"
+
+#: src/menu.c:319
+#, fuzzy
+msgid "/Tags/Format by context/_Variable"
+msgstr "/Elementen/Logische tekst-opmaak/Variabele"
+
+#: src/menu.c:320
+#, fuzzy
+msgid "/Tags/Format by context/Ci_tation"
+msgstr "/Elementen/Logische tekst-opmaak/Citaat"
+
+#: src/menu.c:321
+#, fuzzy
+msgid "/Tags/Format by context/_Abbreviation"
+msgstr "/Elementen/Logische tekst-opmaak/Afkorting"
+
+#: src/menu.c:322
+#, fuzzy
+msgid "/Tags/Format by context/Ac_ronym"
+msgstr "/Elementen/Opmaak met context/Acroniem"
+
+#: src/menu.c:323
+#, fuzzy
+msgid "/Tags/Format _general"
+msgstr "/Elementen/Opmaak algemeen"
+
+#: src/menu.c:324
+msgid "/Tags/Format general/tearoff1"
+msgstr "/Elementen/Opmaak algemeen/tearoff1"
+
+#: src/menu.c:325
+#, fuzzy
+msgid "/Tags/Format general/_Paragraph"
+msgstr "/Elementen/Opmaak algemeen/Alinea"
+
+#: src/menu.c:326
+#, fuzzy
+msgid "/Tags/Format general/_Break"
+msgstr "/Elementen/Opmaak algemeen/Return"
+
+#: src/menu.c:327
+#, fuzzy
+msgid "/Tags/Format general/Break clear _all"
+msgstr "/Elementen/Opmaak algemeen/Harde return"
+
+#: src/menu.c:328
+#, fuzzy
+msgid "/Tags/Format general/_Non-Breaking Space"
+msgstr "/Elementen/Opmaak algemeen/spatie"
+
+#: src/menu.c:329 src/menu.c:332 src/menu.c:336
+msgid "/Tags/Format general/<separator>"
+msgstr "/Elementen/Opmaak algemeen/<separator>"
+
+#: src/menu.c:330
+#, fuzzy
+msgid "/Tags/Format general/Font Si_ze +1"
+msgstr "/Elementen/Opmaak algemeen/Lettergroote +1"
+
+#: src/menu.c:331
+#, fuzzy
+msgid "/Tags/Format general/Font _Size -1"
+msgstr "/Elementen/Opmaak algemeen/Lettergrootte -1"
+
+#: src/menu.c:333
+#, fuzzy
+msgid "/Tags/Format general/Preformatted _Text"
+msgstr "/Elementen/Opmaak algemeen/Vaste Opmaak tekst"
+
+#: src/menu.c:334
+#, fuzzy
+msgid "/Tags/Format general/Su_bscript"
+msgstr "/Elementen/Opmaak algemeen/Subscript"
+
+#: src/menu.c:335
+#, fuzzy
+msgid "/Tags/Format general/Su_perscript"
+msgstr "/Elementen/Opmaak algemeen/Superscript"
+
+#: src/menu.c:337
+#, fuzzy
+msgid "/Tags/Format general/_Center"
+msgstr "/Elementen/Opmaak algemeen/Centreren"
+
+#: src/menu.c:338
+#, fuzzy
+msgid "/Tags/Format general/Align _right"
+msgstr "/Elementen/Opmaak algemeen/Rechts uitlijnen"
+
+#: src/menu.c:339
+#, fuzzy
+msgid "/Tags/_Table"
+msgstr "/Elementen/Tabel"
+
+#: src/menu.c:340
+msgid "/Tags/Table/tearoff1"
+msgstr "/Elementen/Tabel/tearoff1"
+
+#: src/menu.c:341
+#, fuzzy
+msgid "/Tags/Table/_Table"
+msgstr "/Elementen/Tabel/Tabel"
+
+#: src/menu.c:342
+#, fuzzy
+msgid "/Tags/Table/Table_row"
+msgstr "/Elementen/Tabel/Tabelrij"
+
+#: src/menu.c:343
+#, fuzzy
+msgid "/Tags/Table/Table_header"
+msgstr "/Elementen/Tabel/Tabelkop"
+
+#: src/menu.c:344
+#, fuzzy
+msgid "/Tags/Table/Table_data"
+msgstr "/Elementen/Tabel/Tabelgegevens"
+
+#: src/menu.c:345
+#, fuzzy
+msgid "/Tags/Table/Table_caption"
+msgstr "/Elementen/Tabel/Tabel bijschrift"
+
+#: src/menu.c:346
+#, fuzzy
+msgid "/Tags/_List"
+msgstr "/Elementen/_Lijst"
+
+#: src/menu.c:347
+msgid "/Tags/List/tearoff1"
+msgstr "/Elementen/Lijst/tearoff1"
+
+#: src/menu.c:348
+#, fuzzy
+msgid "/Tags/List/_Unordered list"
+msgstr "/Elementen/Lijst/Ongeordende lijst"
+
+#: src/menu.c:349
+#, fuzzy
+msgid "/Tags/List/_Ordered list"
+msgstr "/Elementen/Lijst/Geordende lijst"
+
+#: src/menu.c:350
+#, fuzzy
+msgid "/Tags/List/List _item"
+msgstr "/Elementen/Lijst/Lijst item"
+
+#: src/menu.c:351
+#, fuzzy
+msgid "/Tags/List/Definition _list"
+msgstr "/Elementen/Lijst/Lijst met definities"
+
+#: src/menu.c:352
+#, fuzzy
+msgid "/Tags/List/Definition _term"
+msgstr "/Elementen/Lijst/Gedefinieerde term"
+
+#: src/menu.c:353
+#, fuzzy
+msgid "/Tags/List/_Definition"
+msgstr "/Elementen/Lijst/Definitie"
+
+#: src/menu.c:354
+#, fuzzy
+msgid "/Tags/List/_Menu"
+msgstr "/Elementen/Lijst/menu lijst"
+
+#: src/menu.c:355
+#, fuzzy
+msgid "/Tags/_Insert Generator META-Tag"
+msgstr "/Elementen/Generator META-Tag invoegen"
+
+#: src/menu.c:356
+#, fuzzy
+msgid "/Tags/_Comment"
+msgstr "/Elementen/Commentaar"
+
+#: src/menu.c:357
+#, fuzzy
+msgid "/Dialo_gs"
+msgstr "/_Dialogen"
+
+#: src/menu.c:358
+msgid "/Dialogs/tearoff1"
+msgstr "/Dialogen/tearoff1"
+
+#: src/menu.c:359
+#, fuzzy
+msgid "/Dialogs/_General"
+msgstr "/Dialogen/Algemeen"
+
+#: src/menu.c:360
+msgid "/Dialogs/General/tearoff1"
+msgstr "/Dialogen/Algemeen/tearoff1"
+
+#: src/menu.c:361
+#, fuzzy
+msgid "/Dialogs/General/_Quickstart..."
+msgstr "/Dialogen/Algemeen/Snelstart"
+
+#: src/menu.c:364
+#, fuzzy
+msgid "/Dialogs/General/_Body..."
+msgstr "/Dialogen/Algemeen/Body"
+
+#: src/menu.c:365
+#, fuzzy
+msgid "/Dialogs/General/_Anchor..."
+msgstr "/Dialogen/Algemeen/Anker..."
+
+#: src/menu.c:366
+#, fuzzy
+msgid "/Dialogs/General/_Email..."
+msgstr "/Dialogen/Algemeen/Email..."
+
+#: src/menu.c:367
+#, fuzzy
+msgid "/Dialogs/General/_Rule..."
+msgstr "/Dialogen/Algemeen/Horizontale lijn..."
+
+#: src/menu.c:368
+#, fuzzy
+msgid "/Dialogs/General/_Font..."
+msgstr "/Dialogen/Algemeen/Lettertype..."
+
+#: src/menu.c:369
+#, fuzzy
+msgid "/Dialogs/General/Basef_ont..."
+msgstr "/Dialogen/Algemeen/Basislettertype..."
+
+#: src/menu.c:370
+#, fuzzy
+msgid "/Dialogs/General/Quick_list..."
+msgstr "/Dialogen/Algemeen/Snellijst..."
+
+#: src/menu.c:371
+#, fuzzy
+msgid "/Dialogs/General/_Meta..."
+msgstr "/Dialogen/Algemeen/Meta..."
+
+#: src/menu.c:372
+#, fuzzy
+msgid "/Dialogs/General/Embe_d..."
+msgstr "/Dialogen/Algemeen/Multimedia (Embed)..."
+
+#: src/menu.c:373
+#, fuzzy
+msgid "/Dialogs/General/Select _colour..."
+msgstr "/Dialogen/Algemeen/Kleur..."
+
+#: src/menu.c:374
+#, fuzzy
+msgid "/Dialogs/General/Insert _time..."
+msgstr "/Dialogen/Algemeen/Tijd invoegen..."
+
+#: src/menu.c:375
+#, fuzzy
+msgid "/Dialogs/General/Insert _image..."
+msgstr "/Dialogen/Algemeen/Afbeelding invoegen..."
+
+#: src/menu.c:376
+#, fuzzy
+msgid "/Dialogs/General/Insert t_humbnail..."
+msgstr "/Dialogen/Algemeen/Voorbeeldafbeelding invoegen..."
+
+#: src/menu.c:377
+#, fuzzy
+msgid "/Dialogs/_Table"
+msgstr "/Dialogen/Tabel"
+
+#: src/menu.c:378
+msgid "/Dialogs/Table/tearoff1"
+msgstr "/Dialogen/Tabel/tearoff1"
+
+#: src/menu.c:379
+#, fuzzy
+msgid "/Dialogs/Table/Table _wizard..."
+msgstr "/Dialogen/Tabel/Tabelhoofd..."
+
+#: src/menu.c:380
+#, fuzzy
+msgid "/Dialogs/Table/_Table..."
+msgstr "/Dialogen/Tabel/Tabel..."
+
+#: src/menu.c:381
+#, fuzzy
+msgid "/Dialogs/Table/Table_row..."
+msgstr "/Dialogen/Tabel/Tabelrij..."
+
+#: src/menu.c:382
+#, fuzzy
+msgid "/Dialogs/Table/Table_head..."
+msgstr "/Dialogen/Tabel/Tabelhoofd..."
+
+#: src/menu.c:383
+#, fuzzy
+msgid "/Dialogs/Table/Table_data..."
+msgstr "/Dialogen/Tabel/Tabeldata..."
+
+#: src/menu.c:384
+#, fuzzy
+msgid "/Dialogs/_CSS"
+msgstr "/Dialogen/CSS"
+
+#: src/menu.c:385
+msgid "/Dialogs/CSS/tearoff1"
+msgstr "/Dialogen/CSS/tearoff1"
+
+#: src/menu.c:386
+#, fuzzy
+msgid "/Dialogs/CSS/_Create style..."
+msgstr "/Dialogen/CSS/Stijl maken..."
+
+#: src/menu.c:387
+#, fuzzy
+msgid "/Dialogs/CSS/S_pan..."
+msgstr "/Dialogen/CSS/Span..."
+
+#: src/menu.c:388
+#, fuzzy
+msgid "/Dialogs/CSS/_Div..."
+msgstr "/Dialogen/CSS/Div..."
+
+#: src/menu.c:389
+#, fuzzy
+msgid "/Dialogs/CSS/_Style..."
+msgstr "/Dialogen/CSS/Stijl..."
+
+#: src/menu.c:390
+#, fuzzy
+msgid "/Dialogs/CSS/_Link to stylesheet..."
+msgstr "/Dialogen/CSS/Link naar stijlsheet..."
+
+#: src/menu.c:391
+#, fuzzy
+msgid "/Dialogs/_Frame"
+msgstr "/Dialogen/Frame"
+
+#: src/menu.c:392
+msgid "/Dialogs/Frame/tearoff1"
+msgstr "/Dialogen/Frame/tearoff1"
+
+#: src/menu.c:393
+#, fuzzy
+msgid "/Dialogs/Frame/Frame _wizard..."
+msgstr "/Dialogen/Frame/Frame..."
+
+#: src/menu.c:394
+#, fuzzy
+msgid "/Dialogs/Frame/Frame_set..."
+msgstr "/Dialogen/Frame/Frameset..."
+
+#: src/menu.c:395
+#, fuzzy
+msgid "/Dialogs/Frame/_Frame..."
+msgstr "/Dialogen/Frame/Frame..."
+
+#: src/menu.c:396
+#, fuzzy
+msgid "/Dialogs/F_orm"
+msgstr "/Dialogen/Formulier"
+
+#: src/menu.c:397
+msgid "/Dialogs/Form/tearoff1"
+msgstr "/Dialogen/Formulier/tearoff1"
+
+#: src/menu.c:398
+#, fuzzy
+msgid "/Dialogs/Form/F_orm..."
+msgstr "/Dialogen/Formulier/Formulier..."
+
+#: src/menu.c:399
+#, fuzzy
+msgid "/Dialogs/Form/_Input button..."
+msgstr "/Dialogen/Formulier/Invoerknop..."
+
+#: src/menu.c:400
+#, fuzzy
+msgid "/Dialogs/Form/_Text..."
+msgstr "/Dialogen/Formulier/Tekstinvoerregel..."
+
+#: src/menu.c:401
+#, fuzzy
+msgid "/Dialogs/Form/_Hidden..."
+msgstr "/Dialogen/Formulier/Verborgen inhoud..."
+
+#: src/menu.c:402
+#, fuzzy
+msgid "/Dialogs/Form/Text_area..."
+msgstr "/Dialogen/Formulier/Tekstinvoerblok..."
+
+#: src/menu.c:403
+#, fuzzy
+msgid "/Dialogs/Form/Radio _buttons..."
+msgstr "/Dialogen/Formulier/Aanklikrondje..."
+
+#: src/menu.c:404
+#, fuzzy
+msgid "/Dialogs/Form/_Check buttons..."
+msgstr "/Dialogen/Formulier/Aankruisvakje..."
+
+#: src/menu.c:405
+#, fuzzy
+msgid "/Dialogs/Form/_Select..."
+msgstr "/Dialogen/Formulier/Keuzelijst..."
+
+#: src/menu.c:406
+#, fuzzy
+msgid "/Dialogs/Form/O_ption..."
+msgstr "/Dialogen/Formulier/Optie"
+
+#: src/menu.c:407
+#, fuzzy
+msgid "/Dialogs/Form/Option _group..."
+msgstr "/Dialogen/Formulier/Optie groep..."
+
+#: src/menu.c:441
+#, fuzzy
+msgid "/_Document"
+msgstr "documenten"
+
+#: src/menu.c:442
+#, fuzzy
+msgid "/Document/tearoff1"
+msgstr "/Project/tearoff1"
+
+#: src/menu.c:443
+#, fuzzy
+msgid "/Document/_Type"
+msgstr "Doctype"
+
+#: src/menu.c:444
+#, fuzzy
+msgid "/Document/Type/tearoff1"
+msgstr "/Project/Bestanden/tearoff1"
+
+#: src/menu.c:445
+#, fuzzy
+msgid "/Document/_Encoding"
+msgstr "Invoer codering"
+
+#: src/menu.c:446
+msgid "/Document/Encoding/tearoff1"
+msgstr ""
+
+#: src/menu.c:447
+#, fuzzy
+msgid "/Document/_Highlight syntax"
+msgstr "/Beeld/Oplichten van Syntaxis"
+
+#: src/menu.c:448
+msgid "/Document/_Wrap"
+msgstr ""
+
+#: src/menu.c:449 src/menu.c:453
+#, fuzzy
+msgid "/Document/sep1"
+msgstr "documenten"
+
+#: src/menu.c:450
+#, fuzzy
+msgid "/Document/_Update highlighting"
+msgstr "/Beeld/Oplichten verversen"
+
+#: src/menu.c:451
+msgid "/Document/_Next"
+msgstr ""
+
+#: src/menu.c:452
+msgid "/Document/_Previous"
+msgstr ""
+
+#: src/menu.c:454
+#, fuzzy
+msgid "/Document/_Word Count"
+msgstr "/Bewerken/Woorden tellen"
+
+#: src/menu.c:455
+msgid "/_Options"
+msgstr "/_Opties"
+
+#: src/menu.c:456
+msgid "/Options/tearoff1"
+msgstr "/Opties/tearoff1"
+
+#: src/menu.c:457
+#, fuzzy
+msgid "/Options/_Preferences"
+msgstr "/Opties/Instellingen"
+
+#: src/menu.c:458
+#, fuzzy
+msgid "/Options/_Display"
+msgstr "/Opties/_Lijst"
+
+#: src/menu.c:459
+#, fuzzy
+msgid "/Options/Display/tearoff1"
+msgstr "/Opties/Lijst/tearoff1"
+
+#: src/menu.c:460
+#, fuzzy
+msgid "/Options/Display/View _Main toolbar"
+msgstr "/Opties/Hoofd werkbalk"
+
+#: src/menu.c:461
+#, fuzzy
+msgid "/Options/Display/View _HTML toolbar"
+msgstr "/Opties/HTML-werkbalk"
+
+#: src/menu.c:462
+#, fuzzy
+msgid "/Options/Display/View _Custom menu"
+msgstr "/Opties/Aangepaste werkbalk"
+
+#: src/menu.c:463
+msgid "/Options/Display/View _Left panel"
+msgstr ""
+
+#: src/menu.c:465
+#, fuzzy
+msgid "/Options/_Tabsize"
+msgstr "/Opties/sep2"
+
+#: src/menu.c:466
+#, fuzzy
+msgid "/Options/Tabsize/tearoff1"
+msgstr "/Opties/tearoff1"
+
+#: src/menu.c:467
+msgid "/Options/Tabsize/_Increase tabsize"
+msgstr ""
+
+#: src/menu.c:468
+msgid "/Options/Tabsize/_Decrease tabsize"
+msgstr ""
+
+#: src/menu.c:469 src/menu.c:471
+msgid "/Options/sep2"
+msgstr "/Opties/sep2"
+
+#: src/menu.c:470
+#, fuzzy
+msgid "/Options/_Auto indent"
+msgstr "/Opties/_Lijst"
+
+#: src/menu.c:472
+#, fuzzy
+msgid "/Options/_Save settings"
+msgstr "/Opties/sneltoets instellingen bewaren"
+
+#: src/menu.c:473
+#, fuzzy
+msgid "/Options/Save shortcut _keys"
+msgstr "/Opties/sneltoets instellingen bewaren"
+
+#: src/menu.c:610
+#, fuzzy
+msgid "/Options/Display/View Main toolbar"
+msgstr "/Opties/Hoofd werkbalk"
+
+#: src/menu.c:611
+#, fuzzy
+msgid "/Options/Display/View HTML toolbar"
+msgstr "/Opties/HTML-werkbalk"
+
+#: src/menu.c:612
+#, fuzzy
+msgid "/Options/Display/View Custom menu"
+msgstr "/Opties/Aangepaste werkbalk"
+
+#: src/menu.c:613
+msgid "/Options/Display/View Left panel"
+msgstr ""
+
+#: src/menu.c:614
+#, fuzzy
+msgid "/Options/Auto indent"
+msgstr "/Opties/_Lijst"
+
+#: src/menu.c:619
+#, fuzzy
+msgid "/Document/Type"
+msgstr "Doctype"
+
+#: src/menu.c:633
+#, fuzzy
+msgid "/External/Browsers/"
+msgstr "/Extern/Filters/"
+
+#: src/menu.c:636
+msgid "/External/Commands/"
+msgstr "/Extern/Commando's/"
+
+#: src/menu.c:639
+#, fuzzy
+msgid "/External/Outputbox/"
+msgstr "/Extern/sep1"
+
+#: src/menu.c:674 src/menu.c:694 src/menu.c:949 src/menu.c:961 src/menu.c:970
+#: src/menu.c:984
+#, fuzzy
+msgid "/External"
+msgstr "/E_xtern"
+
+#: src/menu.c:692
+#, fuzzy
+msgid "/External/Outputbox"
+msgstr "/Extern/sep1"
+
+#: src/menu.c:733
+#, fuzzy
+msgid "Could not open file\n"
+msgstr "Dit bestand kon niet geopend worden:\n"
+
+#: src/menu.c:755
+#, fuzzy
+msgid "/File/Open recent"
+msgstr "/Bestand/Recent Geopend"
+
+#: src/menu.c:776
+msgid "(none)"
+msgstr "(geen)"
+
+#: src/menu.c:864
+#, fuzzy
+msgid "Bluefish error: no filename"
+msgstr "Bluefish foutmelding"
+
+#: src/menu.c:864
+msgid "Could not view file in browser, the file does not yet have a name\n"
+msgstr ""
+
+#: src/menu.c:959
+#, fuzzy
+msgid "/External/Browsers"
+msgstr "/Extern/Filters/"
+
+#: src/menu.c:982
+#, fuzzy
+msgid "/External/Commands"
+msgstr "/Extern/Commando's/"
+
+#: src/menu.c:1022
+#, fuzzy
+msgid "/Document/Encoding"
+msgstr "Invoer codering"
+
+#: src/menu.c:1240
+msgid "This custom search and replace requires a selection"
+msgstr "Deze aanpasbare zoek en vervang vereist een selectie"
+
+#: src/menu.c:1314
+msgid "/_Custom menu"
+msgstr "/_Aangepast menu"
+
+#: src/menu.c:1315
+msgid "/Custom menu/sep"
+msgstr "/Aangepast menu/sep"
+
+#: src/menu.c:1316
+msgid "/Custom menu/Edit custom menu..."
+msgstr "/Aangepast menu/Aangepast menu wijzigen"
+
+#: src/menu.c:1478 src/menu.c:1606 src/menu.c:1816
+#, fuzzy
+msgid "in current document"
+msgstr "/Project/Huidig document toevoegen"
+
+#: src/menu.c:1478 src/menu.c:1606 src/menu.c:1817
+msgid "from cursor"
+msgstr ""
+
+#: src/menu.c:1478 src/menu.c:1606 src/menu.c:1818
+#, fuzzy
+msgid "in selection"
+msgstr "In de selectie"
+
+#: src/menu.c:1478 src/menu.c:1606 src/menu.c:1819
+#, fuzzy
+msgid "in all open documents"
+msgstr "/Project/Alle geopende documenten toevoegen"
+
+#: src/menu.c:1479 src/menu.c:1607 src/menu.c:1827
+msgid "normal"
+msgstr ""
+
+#: src/menu.c:1479 src/menu.c:1607 src/menu.c:1828
+#, fuzzy
+msgid "posix regular expresions"
+msgstr "reguliere expressie"
+
+#: src/menu.c:1479 src/menu.c:1607 src/menu.c:1829
+#, fuzzy
+msgid "perl regular expresions"
+msgstr "reguliere expressie"
+
+#: src/menu.c:1544
+msgid "Search pattern"
+msgstr "Zoek patroon"
+
+#: src/menu.c:1545
+msgid "Replace string"
+msgstr "Vervang tekst"
+
+#: src/menu.c:1548
+msgid "Formatstring before"
+msgstr ""
+
+#: src/menu.c:1549
+msgid "Formatstring after"
+msgstr ""
+
+#: src/menu.c:1577
+msgid "the menupath you want to add exists already"
+msgstr ""
+
+#: src/menu.c:1585
+msgid "the menupath should start with a / character"
+msgstr ""
+
+#: src/menu.c:1727
+#, fuzzy
+msgid "Edit custom menu"
+msgstr "/_Aangepast menu"
+
+#: src/menu.c:1736
+msgid "Menu path"
+msgstr "Menu pad"
+
+#: src/menu.c:1770
+msgid "custom dialog"
+msgstr "aanpasbare dialoog"
+
+#: src/menu.c:1772
+msgid "custom search and replace"
+msgstr "aanpasbare zoek en vervang..."
+
+#: src/menu.c:1781
+msgid "Number of variables"
+msgstr "Aantal variabelen"
+
+#: src/menu.c:1786
+msgid "Variables"
+msgstr "Variabelen"
+
+#: src/menu.c:1815 src/snr2.c:971 src/snr2.c:1023
+msgid "Replace"
+msgstr "Vervangen"
+
+#: src/menu.c:1826 src/snr2.c:1007
+msgid "Matching"
+msgstr ""
+
+#: src/menu.c:1834
+msgid "case sensitive"
+msgstr "Hoofdletter gevoelig"
+
+#: src/bluefish.c:71
+msgid ""
+"\n"
+"Currently accepted options are:\n"
+msgstr ""
+"\n"
+"Huidig geaccepteerde opties zijn:\n"
+
+#: src/bluefish.c:72
+msgid "-s           skip root check\n"
+msgstr "-s\t     root controle overslaan\n"
+
+#: src/bluefish.c:73
+msgid "-v           current version\n"
+msgstr "-v           huidige versie\n"
+
+#: src/bluefish.c:74
+msgid "-h           this help screen\n"
+msgstr "-h           dit help-scherm\n"
+
+#: src/bluefish.c:128
+#, fuzzy
+msgid "parsing highlighting file..."
+msgstr "/Opties/Lijst/Oplichten van syntaxis..."
+
+#: src/bluefish.c:139
+#, fuzzy
+msgid "compiling highlighting patterns..."
+msgstr "geen goede patroon voor oplichten"
+
+#: src/bluefish.c:143
+msgid "parsing custom menu file..."
+msgstr ""
+
+#: src/bluefish.c:152
+msgid "creating main gui..."
+msgstr ""
+
+#: src/bluefish.c:157
+msgid "showing main gui..."
+msgstr ""
+
+#: src/document.c:83 src/gui.c:543
+#, fuzzy
+msgid "/Document/Highlight syntax"
+msgstr "/Beeld/Oplichten van Syntaxis"
+
+#: src/document.c:269 src/document.c:283 src/document.c:305 src/document.c:307
+msgid "Untitled"
+msgstr "Naamloos"
+
+#: src/document.c:632
+msgid "Opening file "
+msgstr "Bezig met bestand te openen"
+
+#: src/document.c:641
+msgid "Could not open file:\n"
+msgstr "Dit bestand kon niet geopend worden:\n"
+
+#: src/document.c:642 src/document.c:744 src/document.c:1267
+#: src/document.c:1273
+msgid "Error"
+msgstr "Foutmelding"
+
+#: src/document.c:744
+msgid "Cannot display file, unknown characters found."
+msgstr ""
+
+#: src/document.c:843
+#, c-format
+msgid " line %4d "
+msgstr ""
+
+#: src/document.c:964
+#, fuzzy
+msgid "Edit tag"
+msgstr "tag bewerken"
+
+#: src/document.c:975
+msgid "Input _Methods"
+msgstr ""
+
+#: src/document.c:1052
+msgid "Saving file"
+msgstr "Bezig met opslaan van bestand"
+
+#: src/document.c:1073
+msgid "Abort save"
+msgstr "Opslaan onderbreken"
+
+#: src/document.c:1073
+msgid "Continue save"
+msgstr "Opslaan hervatten"
+
+#: src/document.c:1075
+#, fuzzy, c-format
+msgid "Backup for %s failed"
+msgstr "Backup %s mislukt"
+
+#: src/document.c:1076
+msgid "Bluefish warning, file backup failure"
+msgstr "Bluefish waarschuwing, backup van bestand mislukt"
+
+#: src/document.c:1191
+msgid "Save as..."
+msgstr "Opslaan als..."
+
+#: src/document.c:1194
+msgid "Save document as"
+msgstr "Document opslaan als"
+
+#: src/document.c:1201 src/document.c:1242
+msgid "Overwrite"
+msgstr "Overschrijven"
+
+#: src/document.c:1201 src/document.c:1242
+msgid "Cancel"
+msgstr "Annuleren"
+
+#: src/document.c:1202
+#, c-format
+msgid "File %s is open, overwrite?"
+msgstr "Bestand %s is geopend, overschrijven?"
+
+#: src/document.c:1203
+msgid "Bluefish: Warning, file is open"
+msgstr "Bluefish waarschuwing, bestand is open"
+
+#: src/document.c:1222
+msgid "Previously: "
+msgstr "Voorheen: "
+
+#: src/document.c:1244
+#, c-format
+msgid ""
+"File %s\n"
+"is modified by another process, overwrite?"
+msgstr ""
+"Bestand %s\n"
+"is gewijzigd door een ander proces, overschrijven?"
+
+#: src/document.c:1245 src/document.c:1574
+msgid "Bluefish: Warning, file is modified"
+msgstr "Bluefish: Waarschuwing, bestand is gewijzigd"
+
+#: src/document.c:1259
+msgid "Save in progress"
+msgstr "Bezig met opslaan"
+
+#: src/document.c:1266
+msgid "File save aborted, could not backup file:\n"
+msgstr "Opslaan van bestand afgebroken, kon geen backup maken van:\n"
+
+#: src/document.c:1272
+msgid "File save error, could not write file:\n"
+msgstr "Fout bij opslaan van bestand:\n"
+
+#: src/document.c:1320
+#, c-format
+msgid ""
+"Are you sure you want to close\n"
+"%s ?"
+msgstr ""
+"Weet u zeker dat u %s\n"
+"wilt sluiten?"
+
+#: src/document.c:1325
+msgid ""
+"Are you sure you want to close\n"
+"this untitled file ?"
+msgstr ""
+"    Weet u zeker dat u dit naamloos bestand wilt sluiten?    \n"
+" "
+
+#: src/document.c:1330
+msgid "Bluefish warning: file is modified!"
+msgstr "Bluefish waarschuwing: bestand is aangepast!"
+
+#: src/document.c:1465
+msgid "No filename"
+msgstr "Geen bestandsnaam"
+
+#: src/document.c:1536 src/msg_queue.c:180
+#, fuzzy
+msgid "Unable to open file(s)\n"
+msgstr "Kan bestand niet openen"
+
+#: src/document.c:1552
+msgid "Unable to open file"
+msgstr "Kan bestand niet openen"
+
+#: src/document.c:1571
+msgid "Reload"
+msgstr "Herladen"
+
+#: src/document.c:1571
+msgid "Ignore"
+msgstr "Negeren"
+
+#: src/document.c:1573
+#, c-format
+msgid ""
+"File %s\n"
+"is modified by another process"
+msgstr ""
+"Bestand %s\n"
+"is gewijzigd door een ander proces"
+
+#: src/document.c:1661
+#, fuzzy
+msgid "searching files..."
+msgstr "Bezig met opslaan van bestand"
+
+#: src/document.c:1676
+#, fuzzy
+msgid "Select basedir"
+msgstr "Geselecteerd"
+
+#: src/document.c:1686
+msgid "Advanced file selector"
+msgstr "Geavanceerde bestands selectie"
+
+#: src/document.c:1690
+msgid "grep {contains} `find {basedir} -name '{pattern}'`"
+msgstr ""
+
+#: src/document.c:1692
+msgid "Filename"
+msgstr "Bestandsnaam"
+
+#: src/document.c:1699
+msgid "Browse"
+msgstr ""
+
+#: src/document.c:1701
+msgid "Basedir"
+msgstr "Standaard-map"
+
+#: src/document.c:1709 src/document.c:1731 src/preferences.c:1463
+msgid "Pattern"
+msgstr "Patroon"
+
+#: src/document.c:1724
+msgid "recursive"
+msgstr "recursief"
+
+#: src/document.c:1726
+msgid "Contains"
+msgstr "Bevat"
+
+#: src/document.c:1732
+msgid "is regex"
+msgstr "is regex"
+
+#: src/document.c:1830
+msgid "save all"
+msgstr "alles opslaan"
+
+#: src/document.c:1830
+msgid "close all"
+msgstr "alles sluiten"
+
+#: src/document.c:1830
+msgid "choose per file"
+msgstr "per bestand kiezen"
+
+#: src/document.c:1830
+msgid "cancel"
+msgstr "annuleren"
+
+#: src/document.c:1831
+msgid "Bluefish: Warning, some file(s) are modified!"
+msgstr "Bluefish: Waarschuwing bestand(en) gewijzigd!"
+
+#: src/document.c:1831
+msgid ""
+"Some file(s) are modified\n"
+"please choose your action"
+msgstr ""
+"Er zijn bestanden gewijzigd!\n"
+"Wat wilt u?"
+
+#: src/gui.c:207
+msgid "QuickStart..."
+msgstr "Snelle start..."
+
+#: src/gui.c:208
+msgid "Body..."
+msgstr "Body..."
+
+#: src/gui.c:209
+msgid "Bold"
+msgstr "Vet"
+
+#: src/gui.c:210
+msgid "Italic"
+msgstr "Cursief"
+
+#: src/gui.c:211 src/html.c:754
+msgid "Paragraph"
+msgstr "Alinea"
+
+#: src/gui.c:212
+msgid "Break"
+msgstr "Nieuwe regel"
+
+#: src/gui.c:213
+msgid "Break and clear"
+msgstr "Nieuwe regel geheel links "
+
+#: src/gui.c:214
+msgid "Non-breaking space"
+msgstr "Spatie"
+
+#: src/gui.c:216
+msgid "Anchor..."
+msgstr "Anker..."
+
+#: src/gui.c:217
+msgid "Rule..."
+msgstr "Lijn..."
+
+#: src/gui.c:218
+msgid "Center"
+msgstr "Centreren"
+
+#: src/gui.c:219
+msgid "Right Justify"
+msgstr "Rechts Uitlijnen"
+
+#: src/gui.c:220
+msgid "Comment"
+msgstr "Commentaar"
+
+#: src/gui.c:221
+msgid "E-Mail..."
+msgstr "E-Mail..."
+
+#: src/gui.c:222
+msgid "Font..."
+msgstr "Lettertype..."
+
+#: src/gui.c:223
+msgid "Base Font Size..."
+msgstr "Standaard lettergrootte..."
+
+#: src/gui.c:225
+msgid "Font Size +1"
+msgstr "Lettergrootte +1"
+
+#: src/gui.c:226
+msgid "Font Size -1"
+msgstr "Lettergrootte -1"
+
+#: src/gui.c:227
+msgid "Preformatted Text"
+msgstr "Vaste opmaak van tekst"
+
+#: src/gui.c:228
+msgid "Subscript"
+msgstr "Subscript"
+
+#: src/gui.c:229
+msgid "Superscript"
+msgstr "Superscript"
+
+#: src/gui.c:230
+msgid "Strong"
+msgstr "Extra Nadruk"
+
+#: src/gui.c:231
+msgid "Emphasis"
+msgstr "Nadruk"
+
+#: src/gui.c:233 src/html.c:763
+msgid "Heading 1"
+msgstr "Kop 1"
+
+#: src/gui.c:234 src/html.c:766
+msgid "Heading 2"
+msgstr "Kop 2"
+
+#: src/gui.c:235 src/html.c:769
+msgid "Heading 3"
+msgstr "Kop 3"
+
+#: src/gui.c:236 src/html.c:772
+msgid "Heading 4"
+msgstr "Kop 4"
+
+#: src/gui.c:237 src/html.c:775
+msgid "Heading 5"
+msgstr "Kop 5"
+
+#: src/gui.c:238 src/html.c:778
+msgid "Heading 6"
+msgstr "Kop 6"
+
+#: src/gui.c:239
+msgid "Table Wizard..."
+msgstr "Tabel Wizard..."
+
+#: src/gui.c:241
+msgid "Table..."
+msgstr "Tabel..."
+
+#: src/gui.c:242
+msgid "Table Row..."
+msgstr "Tabel Rij..."
+
+#: src/gui.c:243
+msgid "Table Header..."
+msgstr "Tabel Hoofd..."
+
+#: src/gui.c:244
+msgid "Table Data..."
+msgstr "Tabelgegevens..."
+
+#: src/gui.c:246 src/html_table.c:82
+msgid "Table"
+msgstr "Tabel"
+
+#: src/gui.c:247 src/html_table.c:215
+msgid "Table Row"
+msgstr "Tabel Rij"
+
+#: src/gui.c:248 src/html_table.c:326
+msgid "Table Header"
+msgstr "Tabel Hoofd"
+
+#: src/gui.c:249 src/html_table.c:324
+msgid "Table Data"
+msgstr "Tabel Gegevens"
+
+#: src/gui.c:250
+msgid "Table Caption"
+msgstr "Tabel Bijschrift"
+
+#: src/gui.c:251
+msgid "Frame Wizard..."
+msgstr "Frame Wizard..."
+
+#: src/gui.c:253
+msgid "Frameset..."
+msgstr "Frameset..."
+
+#: src/gui.c:254
+msgid "Frame..."
+msgstr "Frame..."
+
+#: src/gui.c:256 src/html.c:1634
+msgid "Frameset"
+msgstr "Frameset"
+
+#: src/gui.c:257 src/html.c:1719 src/html_table.c:159
+msgid "Frame"
+msgstr "Frame"
+
+#: src/gui.c:258
+msgid "Noframes"
+msgstr "Noframes"
+
+#: src/gui.c:260
+msgid "Form..."
+msgstr "Formulier..."
+
+#: src/gui.c:261
+msgid "Input button..."
+msgstr "Knop"
+
+#: src/gui.c:262
+msgid "Text..."
+msgstr "Tekstinvoerregel..."
+
+#: src/gui.c:263
+msgid "Hidden..."
+msgstr "Verborgen Inhoud..."
+
+#: src/gui.c:264
+msgid "Textarea..."
+msgstr "Tekstinvoerblok..."
+
+#: src/gui.c:265
+msgid "Radio Button..."
+msgstr "Aanklikrondje..."
+
+#: src/gui.c:266
+msgid "Check Box..."
+msgstr "Aankruisvakje..."
+
+#: src/gui.c:267
+msgid "Select..."
+msgstr "Keuzelijst..."
+
+#: src/gui.c:268
+msgid "Option..."
+msgstr "Optie..."
+
+#: src/gui.c:269
+msgid "Option group..."
+msgstr "Groep van opties..."
+
+#: src/gui.c:270
+msgid "Quick List..."
+msgstr "Snel lijst aanmaken..."
+
+#: src/gui.c:271
+msgid "Unordered List"
+msgstr "Ongeordende Lijst"
+
+#: src/gui.c:272
+msgid "Ordered List"
+msgstr "Geordende lijst"
+
+#: src/gui.c:273
+msgid "List Item"
+msgstr "Lijst item"
+
+#: src/gui.c:274
+msgid "Definition List"
+msgstr "Lijst met definities"
+
+#: src/gui.c:275
+msgid "Definition Term"
+msgstr "Gedefinieerde term"
+
+#: src/gui.c:276 src/gui.c:285
+msgid "Definition"
+msgstr "Definitie"
+
+#: src/gui.c:277
+msgid "Create stylesheet..."
+msgstr "Stylesheet maken..."
+
+#: src/gui.c:278
+msgid "Span..."
+msgstr "Span..."
+
+#: src/gui.c:279
+msgid "Div..."
+msgstr "Div..."
+
+#: src/gui.c:281
+msgid "Link to stylesheet..."
+msgstr "Link naar stylesheet"
+
+#: src/gui.c:282
+#, fuzzy
+msgid "Insert image..."
+msgstr "Tijd invoegen..."
+
+#: src/gui.c:283
+#, fuzzy
+msgid "Insert thumbnail..."
+msgstr "Afbeelding als voorbeeldafbeelding invoegen"
+
+#: src/gui.c:284
+#, fuzzy
+msgid "Multi thumbnail..."
+msgstr "Voorbeeldafbeelding..."
+
+#: src/gui.c:286
+#, fuzzy
+msgid "Code"
+msgstr "Sluiten"
+
+#: src/gui.c:287
+msgid "Sample"
+msgstr ""
+
+#: src/gui.c:288
+#, fuzzy
+msgid "Keyboard"
+msgstr "trefwoord"
+
+#: src/gui.c:289
+#, fuzzy
+msgid "Variable"
+msgstr "Variabelen"
+
+#: src/gui.c:290
+#, fuzzy
+msgid "Citation"
+msgstr "Bevat"
+
+#: src/gui.c:291
+msgid "Abbreviation"
+msgstr ""
+
+#: src/gui.c:292
+#, fuzzy
+msgid "Acronym"
+msgstr "Actie"
+
+#: src/gui.c:325
+msgid "Remove from quickbar"
+msgstr ""
+
+#: src/gui.c:355
+#, fuzzy
+msgid "Add to quickbar"
+msgstr " Snel balk "
+
+#: src/gui.c:444
+msgid " Quick bar "
+msgstr " Snel balk "
+
+#: src/gui.c:448
+#, fuzzy
+msgid "Heading"
+msgstr "Kop"
+
+#: src/gui.c:450
+msgid " Standard bar "
+msgstr ""
+
+#: src/gui.c:454
+msgid "Context formatting"
+msgstr "Logische opmaak"
+
+#: src/gui.c:456
+msgid " Fonts "
+msgstr " Lettertype "
+
+#: src/gui.c:460
+msgid " Tables "
+msgstr " Tabellen "
+
+#: src/gui.c:464
+msgid " Frames "
+msgstr " Frames "
+
+#: src/gui.c:468
+msgid " Forms "
+msgstr " Formulieren "
+
+#: src/gui.c:472
+#, fuzzy
+msgid " List "
+msgstr "Lijsten"
+
+#: src/gui.c:476
+msgid " CSS "
+msgstr " CSS "
+
+#: src/gui.c:488
+msgid "New"
+msgstr "Nieuw"
+
+#: src/gui.c:490
+msgid "Open..."
+msgstr "Openen..."
+
+#: src/gui.c:493
+msgid "Save"
+msgstr "Opslaan"
+
+#: src/gui.c:495
+msgid "Save As..."
+msgstr "Opslaan Als..."
+
+#: src/gui.c:497
+msgid "Close"
+msgstr "Sluiten"
+
+#: src/gui.c:500
+msgid "Copy"
+msgstr "Kopieeren"
+
+#: src/gui.c:502
+msgid "Cut"
+msgstr "Knippen"
+
+#: src/gui.c:504
+msgid "Paste"
+msgstr "Plakken"
+
+#: src/gui.c:506
+msgid "Search..."
+msgstr "Zoek...."
+
+#: src/gui.c:508
+msgid "Search and Replace..."
+msgstr "Zoek en vervang..."
+
+#: src/gui.c:511 src/preferences.c:1662
+msgid "Undo"
+msgstr "Herstel"
+
+#: src/gui.c:513
+msgid "Redo"
+msgstr "Herhaal"
+
+#: src/gui.c:516
+#, fuzzy
+msgid "Preferences..."
+msgstr "PHP naslagwerk..."
+
+#: src/gui.c:525
+#, fuzzy
+msgid "View in browser"
+msgstr "Filter van betandsbrowser"
+
+#: src/gui.c:535
+msgid "/Edit/Undo"
+msgstr "/Bewerken/Herstel"
+
+#: src/gui.c:537
+msgid "/Edit/Redo"
+msgstr "/Bewerken/Herhaal"
+
+#: src/gui.c:544
+#, fuzzy
+msgid "/Document/Wrap"
+msgstr "documenten"
+
+#: src/gui.c:720
+msgid " line    1 "
+msgstr ""
+
+# src/callbacks.c:425
+#: src/gui.c:770
+#, fuzzy
+msgid "Bluefish tip:"
+msgstr "Bluefish Preview"
+
+#: src/gui.c:770
+msgid ""
+"This message is shown since you do not have any items in the Quickbar.\n"
+"\n"
+"If you right-click a button in the HTML toolbars you can add buttons to the "
+"Quickbar."
+msgstr ""
+
+#: src/gui.c:866
+msgid "Goto line"
+msgstr "Ga naar regel"
+
+#: src/gui.c:874
+msgid "Line number: "
+msgstr "Regel nummer: "
+
+#: src/gui.c:877
+msgid "From selection"
+msgstr "Van selectie"
+
+#: src/gui.c:885
+msgid "Keep dialog"
+msgstr "Venster actief houden"
+
+#: src/gui.c:947
+msgid "starting bluefish"
+msgstr ""
+
+#: src/html.c:353
+msgid "Insert Time"
+msgstr "Voeg tijd in"
+
+#: src/html.c:361
+#, c-format
+msgid "  Time (%i:%i:%i)"
+msgstr "  Tijd (%i:%i:%i)"
+
+#: src/html.c:366
+msgid "  Day of the week (Sunday)"
+msgstr " Dag van de week (Zondag)"
+
+#: src/html.c:369
+msgid "  Day of the week (Monday)"
+msgstr "  Dag van de week (maandag)"
+
+#: src/html.c:372
+msgid "  Day of the week (Tuesday)"
+msgstr "Dag van de week (dinsdag)"
+
+#: src/html.c:375
+msgid "  Day of the week (Wednesday)"
+msgstr "  Dag van de week (woensdag)"
+
+#: src/html.c:378
+msgid "  Day of the week (Thursday)"
+msgstr "  Dag van de week (donderdag)"
+
+#: src/html.c:381
+msgid "  Day of the week (Friday)"
+msgstr "  Dag van de week (vrijdag)"
+
+#: src/html.c:384
+msgid "  Day of the week (Saturday)"
+msgstr "  Dag van de week (zaterdag)"
+
+#: src/html.c:387
+msgid "You appear to have a non existant day!\n"
+msgstr "Niet bestaande dag!\n"
+
+#: src/html.c:395
+#, c-format
+msgid "  Date (%i/%i/%i)"
+msgstr "  Datum (%i/%i/%i)"
+
+#: src/html.c:398
+#, c-format
+msgid "  Unix Time (%i)"
+msgstr "  Unix tijd (%i)"
+
+#: src/html.c:401
+#, c-format
+msgid "  Unix Date String (%s"
+msgstr " Unix datum stempel(%s"
+
+#: src/html.c:541
+msgid "Quick Anchor"
+msgstr "Snel anker"
+
+#: src/html.c:548 src/html.c:1161
+msgid "Options"
+msgstr "Opties"
+
+#: src/html.c:564
+msgid "HREF"
+msgstr "HREF"
+
+#: src/html.c:576
+msgid "ID"
+msgstr "ID"
+
+#: src/html.c:580 src/html.c:799 src/html.c:1172 src/html_table.c:96
+#: src/html_table.c:243 src/html_table.c:357
+msgid "Class"
+msgstr "Klasse"
+
+#: src/html.c:591 src/html.c:1180 src/html.c:1908
+msgid "Language"
+msgstr "Taal"
+
+#: src/html.c:599 src/html.c:1183
+msgid "Events"
+msgstr "Gebeurtenissen"
+
+#: src/html.c:604
+msgid "OnClick"
+msgstr "OnClick"
+
+#: src/html.c:608
+msgid "OnDblClick"
+msgstr "OnDblClick"
+
+#: src/html.c:612
+msgid "OnMouseOver"
+msgstr "OnMouseOver"
+
+#: src/html.c:616
+msgid "OnMouseDown"
+msgstr "OnMouseDown"
+
+#: src/html.c:620
+msgid "OnMouseMove"
+msgstr "OnMouseMove"
+
+#: src/html.c:624
+msgid "OnMouseOut"
+msgstr "OnMouseOut"
+
+#: src/html.c:628
+msgid "OnMouseUp"
+msgstr "OnMouseUp"
+
+#: src/html.c:632
+msgid "OnKeyDown"
+msgstr "OnKeyDown"
+
+#: src/html.c:636
+msgid "OnKeyPress"
+msgstr "OnKeyPress"
+
+#: src/html.c:640
+msgid "OnKeyUp"
+msgstr "OnKeyUp"
+
+#: src/html.c:757
+msgid "Div"
+msgstr "Div"
+
+#: src/html.c:760
+msgid "Span"
+msgstr "Span"
+
+#: src/html.c:795 src/html.c:926 src/html.c:1829 src/html_table.c:114
+#: src/html_table.c:225 src/html_table.c:339 src/image.c:279
+msgid "Align"
+msgstr "Uitlijnen"
+
+#: src/html.c:814 src/html.c:1176
+msgid "Id"
+msgstr "Id"
+
+#: src/html.c:916
+msgid "Horizontal Rule"
+msgstr "horizontale lijn"
+
+#: src/html.c:940 src/html.c:1817 src/html_table.c:386 src/image.c:243
+#: src/image.c:455 src/image.c:463
+msgid "Width"
+msgstr "Breedte"
+
+#: src/html.c:944
+msgid "Is percent?"
+msgstr "Percentage?"
+
+#: src/html.c:950
+msgid "No shading"
+msgstr "Geen schaduw"
+
+#: src/html.c:1021
+msgid "Quick Start"
+msgstr "Snelle Start"
+
+#: src/html.c:1041
+msgid "Doctype"
+msgstr "Doctype"
+
+#: src/html.c:1046
+msgid "Header tags"
+msgstr ""
+
+#: src/html.c:1077 src/wizards.c:180
+msgid "Title"
+msgstr "Titel"
+
+#: src/html.c:1154
+msgid "Body"
+msgstr "Body"
+
+#: src/html.c:1186
+msgid "OnLoad"
+msgstr ""
+
+#: src/html.c:1190
+msgid "OnUnLoad"
+msgstr ""
+
+#: src/html.c:1195
+msgid "Deprecated options"
+msgstr "Verouderde opties"
+
+#: src/html.c:1201
+msgid "Background Image"
+msgstr "Achtergrond Afbeelding"
+
+#: src/html.c:1208 src/html_table.c:133 src/html_table.c:248
+#: src/html_table.c:398
+msgid "Background Color"
+msgstr "Achtergrond-kleur"
+
+#: src/html.c:1214
+msgid "Text Color"
+msgstr "Kleur van tekst"
+
+#: src/html.c:1220
+msgid "Link Color"
+msgstr "Kleur van Link"
+
+#: src/html.c:1226
+msgid "Visited Link Color"
+msgstr "Kleur van bezochte link"
+
+#: src/html.c:1232
+msgid "Active Link Color"
+msgstr "Kleur van active link"
+
+#: src/html.c:1246
+msgid "Custom values"
+msgstr "Aangepaste waardes"
+
+#: src/html.c:1292
+msgid "Meta"
+msgstr "Meta"
+
+#: src/html.c:1317
+msgid "HTTP-EQUIV"
+msgstr "HTTP-EQUIV"
+
+#: src/html.c:1322
+msgid "Content"
+msgstr "Inhoud"
+
+#: src/html.c:1326
+msgid "Scheme"
+msgstr "Schema"
+
+#: src/html.c:1408 src/preferences.c:1609
+msgid "Font"
+msgstr "Lettertype"
+
+#: src/html.c:1411
+msgid "Base Font"
+msgstr "Basis lettergrootte"
+
+#: src/html.c:1434
+msgid "Color"
+msgstr "Kleur"
+
+#: src/html.c:1439
+msgid "Face"
+msgstr "Face"
+
+#: src/html.c:1495
+msgid "Email"
+msgstr "Email"
+
+#: src/html.c:1501
+msgid "Email address:"
+msgstr "Email adres:"
+
+#: src/html.c:1505
+msgid "UrlEncoded subject:"
+msgstr ""
+
+#: src/html.c:1509
+msgid "UrlEncoded body:"
+msgstr ""
+
+#: src/html.c:1554
+msgid "Quick List"
+msgstr "Snel lijst"
+
+#: src/html.c:1562
+msgid "Ordered"
+msgstr "Geordend"
+
+#: src/html.c:1564
+msgid "Unordered"
+msgstr "Ongeordend"
+
+#: src/html.c:1649
+msgid "Add <frame> elements"
+msgstr "<frame> elementen toevoegen"
+
+#: src/html.c:1727 src/html.c:1813 src/html.c:1901 src/wizards.c:208
+msgid "Source"
+msgstr "Bron"
+
+#: src/html.c:1735
+msgid " Margin Width "
+msgstr "Marge breedte"
+
+#: src/html.c:1739
+msgid " Margin Height "
+msgstr "Marge boven & onder"
+
+#: src/html.c:1747
+msgid "Scrolling "
+msgstr "Schuifbalk"
+
+#: src/html.c:1751
+msgid "Frameborder"
+msgstr "Framerand"
+
+#: src/html.c:1756
+msgid "No Resize"
+msgstr "Frames fixeren"
+
+#: src/html.c:1807
+msgid "Embed"
+msgstr "Multimedia (embed)"
+
+#: src/html.c:1821 src/html_table.c:393 src/image.c:250 src/image.c:459
+#: src/image.c:484
+msgid "Height"
+msgstr "Hoogte"
+
+#: src/html.c:1825 src/html_table.c:145 src/image.c:283
+msgid "Border"
+msgstr "Rand"
+
+#: src/html.c:1890
+msgid "Script"
+msgstr "Script"
+
+#: src/html.c:1893
+msgid "Link"
+msgstr "Link"
+
+#: src/html.c:1928
+msgid "Rel"
+msgstr "Rel"
+
+#: src/html_table.c:88
+msgid "Cell Padding"
+msgstr "Ruimte celrand-inhoud"
+
+#: src/html_table.c:92
+msgid "Cell Spacing"
+msgstr "Ruimte cel-cel"
+
+#: src/html_table.c:128
+msgid "Vertical Align"
+msgstr "Verticaal Uitlijnen"
+
+#: src/html_table.c:139
+msgid " Width "
+msgstr " Breedte "
+
+#: src/html_table.c:170
+msgid "Rules"
+msgstr "Randen"
+
+#: src/html_table.c:239 src/html_table.c:353
+msgid "VAlign"
+msgstr "Verticale uitlijning"
+
+#: src/html_table.c:371
+msgid "Col Span"
+msgstr "Aantal samen te voegen kolommen"
+
+#: src/html_table.c:375
+msgid "Row Span"
+msgstr "Aantal samen te voegen rijen"
+
+#: src/html_table.c:380
+msgid "No Wrap"
+msgstr "Niet passend maken"
+
+#: src/preferences.c:195
+#, fuzzy
+msgid "Select font"
+msgstr "Keuze"
+
+#: src/preferences.c:503
+#, fuzzy
+msgid "Filetype"
+msgstr "Bestand openen"
+
+#: src/preferences.c:511
+msgid "Extensions (colon separated)"
+msgstr ""
+
+#: src/preferences.c:512
+msgid "Highlight update characters"
+msgstr ""
+
+#: src/preferences.c:513
+msgid "Icon"
+msgstr ""
+
+#: src/preferences.c:661
+#, fuzzy
+msgid "Filefilter"
+msgstr "Bestandsfilters"
+
+#: src/preferences.c:666
+#, fuzzy
+msgid "Inverse filtering"
+msgstr "Afbeelding filter"
+
+#: src/preferences.c:667
+msgid "Filetypes (colon separated)"
+msgstr ""
+
+#: src/preferences.c:947
+msgid "filetype"
+msgstr ""
+
+#: src/preferences.c:955
+#, fuzzy
+msgid "Pattern name"
+msgstr "Patroon"
+
+#: src/preferences.c:996
+msgid "Start pattern and end pattern"
+msgstr ""
+
+#: src/preferences.c:998
+#, fuzzy
+msgid "Only start pattern"
+msgstr "Zoek patroon"
+
+#: src/preferences.c:1000
+msgid "Subpattern from parent"
+msgstr ""
+
+#: src/preferences.c:1006
+#, fuzzy
+msgid "Start pattern"
+msgstr "Zoek patroon"
+
+#: src/preferences.c:1007
+#, fuzzy
+msgid "End pattern"
+msgstr "Patroon"
+
+#: src/preferences.c:1008
+#, fuzzy
+msgid "Case sensitive matching"
+msgstr "Hoofdletter gevoelig"
+
+#: src/preferences.c:1009
+msgid "Parentmatch"
+msgstr ""
+
+#: src/preferences.c:1010
+#, fuzzy
+msgid "Foreground color"
+msgstr "Achtergrond-kleur"
+
+#: src/preferences.c:1011
+#, fuzzy
+msgid "Background color"
+msgstr "Achtergrond-kleur"
+
+#: src/preferences.c:1019
+msgid "don't change weight"
+msgstr ""
+
+#: src/preferences.c:1021
+#, fuzzy
+msgid "force non-bold weight"
+msgstr "letterdikte"
+
+#: src/preferences.c:1023
+msgid "force bold weight"
+msgstr ""
+
+#: src/preferences.c:1029
+#, fuzzy
+msgid "don't change style"
+msgstr "Nieuwe stijl invoegen"
+
+#: src/preferences.c:1031
+msgid "force non-italic style"
+msgstr ""
+
+#: src/preferences.c:1033
+msgid "force italic style"
+msgstr ""
+
+#: src/preferences.c:1168
+#, fuzzy
+msgid "Browser"
+msgstr "Browser commando"
+
+#: src/preferences.c:1173
+#, fuzzy, c-format
+msgid "%s = current filename"
+msgstr "Bestandsnaam exporten"
+
+#: src/preferences.c:1174 src/preferences.c:1292 src/preferences.c:1467
+#, fuzzy
+msgid "Command"
+msgstr "commando"
+
+#: src/preferences.c:1291
+#, c-format
+msgid ""
+"%s = current filename\n"
+"%f = output filename (for filters)"
+msgstr ""
+
+#: src/preferences.c:1464
+#, fuzzy
+msgid "File subpattern #"
+msgstr "Bestand bewaren als"
+
+#: src/preferences.c:1465
+#, fuzzy
+msgid "Line subpattern #"
+msgstr "Regel nummer: "
+
+#: src/preferences.c:1466
+msgid "Output subpattern #"
+msgstr ""
+
+#: src/preferences.c:1468
+msgid "Show all output"
+msgstr ""
+
+#: src/preferences.c:1592
+msgid "Edit preferences"
+msgstr "Instellingen aanpassen"
+
+#: src/preferences.c:1603
+msgid "Editor"
+msgstr "Editor"
+
+#: src/preferences.c:1605
+msgid "Editor options"
+msgstr "Editor opties"
+
+#: src/preferences.c:1610
+msgid "Tab width"
+msgstr "Tab breedte"
+
+#: src/preferences.c:1611
+#, fuzzy
+msgid "Word wrap default"
+msgstr "Woorden passend maken"
+
+#: src/preferences.c:1612
+#, fuzzy
+msgid "Highlight # lines"
+msgstr "Oplichten als standaard"
+
+#: src/preferences.c:1615
+msgid "HTML"
+msgstr "HTML"
+
+#: src/preferences.c:1617
+msgid "HTML options"
+msgstr "HTML opties"
+
+#: src/preferences.c:1622
+msgid "Lowercase HTML tags"
+msgstr ""
+
+#: src/preferences.c:1623
+msgid "Use deprecated tags (e.g. <font> and <nobr>)"
+msgstr ""
+
+#: src/preferences.c:1624
+#, fuzzy
+msgid "Use XHTML style tags (<br />)"
+msgstr "Gebruik XHTML syntaxis (zoals <br />)"
+
+#: src/preferences.c:1627
+msgid "Files"
+msgstr "Bestanden"
+
+#: src/preferences.c:1629
+#, fuzzy
+msgid "Encoding"
+msgstr "Invoer codering"
+
+#: src/preferences.c:1641
+#, fuzzy
+msgid "Default character set"
+msgstr "Kan geen verbinding maken"
+
+#: src/preferences.c:1644
+msgid "Auto set <meta> encoding tag on change"
+msgstr ""
+
+#: src/preferences.c:1646
+msgid "Backup"
+msgstr ""
+
+#: src/preferences.c:1650
+msgid "Create backup on save"
+msgstr ""
+
+#: src/preferences.c:1651
+msgid "Backup file suffix"
+msgstr "Backup bestands-suffix"
+
+#: src/preferences.c:1656
+#, fuzzy
+msgid "Action on backup failure"
+msgstr "Host name kan niet gevonden worden"
+
+#: src/preferences.c:1667
+msgid "Undo history size"
+msgstr ""
+
+#: src/preferences.c:1668
+#, fuzzy
+msgid "Clear undo history on save"
+msgstr "Herstel mogelijkheden wissen indien document wordt opgeslagen"
+
+#: src/preferences.c:1670 src/preferences.c:1691
+msgid "Misc"
+msgstr ""
+
+#: src/preferences.c:1675
+#, fuzzy
+msgid "Allow multi instances of a file"
+msgstr "Meerdere exemplaren van hetzelfde bestand toestaan"
+
+#: src/preferences.c:1678
+msgid "User interface"
+msgstr ""
+
+#: src/preferences.c:1680
+msgid "Dimensions"
+msgstr ""
+
+#: src/preferences.c:1684
+msgid "Restore last used dimensions"
+msgstr ""
+
+#: src/preferences.c:1685
+#, fuzzy
+msgid "Initial left panel width"
+msgstr "breedte van programma"
+
+#: src/preferences.c:1686
+#, fuzzy
+msgid "Initial window height"
+msgstr "hoogte van programma"
+
+#: src/preferences.c:1687
+#, fuzzy
+msgid "Initial window width"
+msgstr "breedte van programma"
+
+#: src/preferences.c:1696
+#, fuzzy
+msgid "External browsers in submenu"
+msgstr "Externe programma opties"
+
+#: src/preferences.c:1697
+#, fuzzy
+msgid "External commands in submenu"
+msgstr "/Extern/Commando's"
+
+#: src/preferences.c:1698
+msgid "External outputbox in submenu"
+msgstr ""
+
+#: src/preferences.c:1700
+msgid "Notebook tab font (leave empty for gtk default)"
+msgstr ""
+
+#: src/preferences.c:1701
+#, fuzzy
+msgid "Make HTML dialogs transient"
+msgstr "HTML dialogen altijd vooraan"
+
+#: src/preferences.c:1703
+#, fuzzy
+msgid "File browser"
+msgstr "Filter van betandsbrowser"
+
+#: src/preferences.c:1707
+msgid "Show hidden files"
+msgstr ""
+
+#: src/preferences.c:1708
+#, fuzzy
+msgid "Show other users files"
+msgstr "per bestand kiezen"
+
+#: src/preferences.c:1709
+#, fuzzy
+msgid "Show backup files"
+msgstr "Backup bestands-suffix"
+
+#: src/preferences.c:1710
+#, fuzzy
+msgid "Unknown icon"
+msgstr "Onbekende fout"
+
+#: src/preferences.c:1711
+#, fuzzy
+msgid "Directory icon"
+msgstr "Map naam"
+
+#: src/preferences.c:1714 src/rcfile.c:604
+#, fuzzy
+msgid "Images"
+msgstr "afbeeldingen"
+
+#: src/preferences.c:1716
+#, fuzzy
+msgid "Thumbnails"
+msgstr "Voorbeeldafbeelding..."
+
+#: src/preferences.c:1720
+#, fuzzy
+msgid "Thumbnail suffix"
+msgstr "Voorbeeldafbeelding (thumbnail) type"
+
+#: src/preferences.c:1724
+#, fuzzy
+msgid "Thumbnail filetype"
+msgstr "Voorbeeldafbeelding (thumbnail) type"
+
+#: src/preferences.c:1729 src/preferences.c:1731
+#, fuzzy
+msgid "Filetypes"
+msgstr "Bestanden"
+
+#: src/preferences.c:1738
+#, fuzzy
+msgid "Filefilters"
+msgstr "Bestandsfilters"
+
+#: src/preferences.c:1746
+#, fuzzy
+msgid "Syntax highlighting"
+msgstr "/Opties/Lijst/Oplichten van syntaxis..."
+
+#: src/preferences.c:1748
+#, fuzzy
+msgid "Patterns"
+msgstr "Patroon"
+
+#: src/preferences.c:1756
+#, fuzzy
+msgid "External programs"
+msgstr "Externe programma opties"
+
+#: src/preferences.c:1758
+#, fuzzy
+msgid "Browsers"
+msgstr "Browser commando"
+
+#: src/preferences.c:1765
+#, fuzzy
+msgid "Utilities and filters"
+msgstr "Bestandsfilters"
+
+#: src/preferences.c:1773
+#, fuzzy
+msgid "Output parsers"
+msgstr "Uitvoer html karakters"
+
+#: src/preferences.c:1775
+msgid "Outputbox"
+msgstr ""
+
+#: src/snr2.c:180
+msgid "Regular expression error: "
+msgstr "Reguliere expressie error: "
+
+#: src/snr2.c:181 src/snr2.c:225
+msgid "Bluefish warning: regular expression error"
+msgstr "Bluefish waarschuwing: reguliere expressie error"
+
+#: src/snr2.c:224
+#, fuzzy, c-format
+msgid "Regular expression error: %s at offset %d"
+msgstr "Reguliere expressie error: "
+
+#: src/snr2.c:662
+msgid "Confirm replace"
+msgstr "Bevestig vervangen"
+
+#: src/snr2.c:665
+msgid "Are you sure you want to replace this?"
+msgstr "Weet u zeker dat u dit wilt vervangen?"
+
+#: src/snr2.c:670
+msgid "All"
+msgstr "Alles"
+
+# src/callbacks.c:425
+#: src/snr2.c:804 src/snr2.c:811
+#, fuzzy
+msgid "Bluefish message"
+msgstr "Bluefish Preview"
+
+#: src/snr2.c:804 src/snr2.c:811
+msgid "Search: no match found"
+msgstr ""
+
+#: src/snr2.c:974
+msgid "Search"
+msgstr "Zoeken"
+
+#: src/snr2.c:991
+msgid "Find: "
+msgstr "Zoek: "
+
+#: src/snr2.c:998
+msgid "Where"
+msgstr "Waar"
+
+#: src/snr2.c:1002
+msgid "Start at beginning of document"
+msgstr "Start aan het begin van het document"
+
+#: src/snr2.c:1003
+msgid "Start at cursor position"
+msgstr "Start op de cursor positie"
+
+#: src/snr2.c:1004
+msgid "In selection"
+msgstr "In de selectie"
+
+#: src/snr2.c:1005
+msgid "In all open files"
+msgstr "In alle geopende bestanden"
+
+#: src/snr2.c:1012
+msgid "Normal matching"
+msgstr ""
+
+#: src/snr2.c:1013
+#, fuzzy
+msgid "Use posix regular expression matching"
+msgstr "Gebruik reguliere expressie"
+
+#: src/snr2.c:1014
+#, fuzzy
+msgid "Use perl compatible regular expression matching"
+msgstr "Gebruik reguliere expressie"
+
+#: src/snr2.c:1019
+msgid "Case sensitive"
+msgstr "Hoofdletter gevoelig"
+
+#: src/snr2.c:1020
+msgid "Overlapping searches"
+msgstr "Overlappend zoeken"
+
+#: src/snr2.c:1027
+msgid "\\0 refers to the first subpattern, \\1 to the second etc."
+msgstr ""
+
+#: src/snr2.c:1031
+msgid "Replace with: "
+msgstr "Vervang met: "
+
+#: src/snr2.c:1047
+msgid "Replace text"
+msgstr "Vervang tekst"
+
+#: src/snr2.c:1048
+msgid "Replace uppercase"
+msgstr "Vervang hoofdletters"
+
+#: src/snr2.c:1049
+msgid "Replace lowercase"
+msgstr "Vervang kleine letters"
+
+#: src/snr2.c:1053
+msgid "Prompt before replacing"
+msgstr "Waarschuwen voor het vervangen"
+
+#: src/snr2.c:1054
+msgid "Replace once"
+msgstr "Eenmalig vervangen"
+
+#: src/wizards.c:68
+msgid "Table Wizard"
+msgstr "Tabel Wizard"
+
+#: src/wizards.c:74
+msgid "Number of rows"
+msgstr "Aantal rijen"
+
+#: src/wizards.c:78
+msgid "Number of Columns per row"
+msgstr "Aantal kolommen per rij"
+
+#: src/wizards.c:82
+msgid "Tablerows on one line"
+msgstr "Tabelrijen op 1 regel"
+
+#: src/wizards.c:86
+msgid "Indent table code"
+msgstr "Inspringen tabel-code"
+
+#: src/wizards.c:174
+msgid "Frame Wizard"
+msgstr "Frame Wizard"
+
+#: src/wizards.c:184
+msgid "Use DTD"
+msgstr "Gebruik DTD"
+
+#: src/wizards.c:187
+msgid "Horizontal"
+msgstr "Horizontaal"
+
+#: src/wizards.c:188
+msgid "Vertical"
+msgstr "Verticaal"
+
+#: src/wizards.c:193
+msgid "Number of Frames"
+msgstr "Aantal Frames"
+
+#: src/wizards.c:196
+msgid "Frame's"
+msgstr "Frames"
+
+#: src/filebrowser.c:729
+msgid "Error creating path"
+msgstr ""
+
+#: src/filebrowser.c:729
+msgid "Path exists already"
+msgstr ""
+
+#: src/filebrowser.c:774
+msgid "File name"
+msgstr "Bestandnaam"
+
+#: src/filebrowser.c:776
+msgid "Directory name"
+msgstr "Map naam"
+
+#: src/filebrowser.c:823
+#, fuzzy, c-format
+msgid ""
+"Are you sure you want to\n"
+"delete \"%s\" ?"
+msgstr ""
+"Weet u zeker dat u\n"
+"%s wilt verwijderen?"
+
+#: src/filebrowser.c:824
+msgid "delete file?"
+msgstr "Verwijder bestand?"
+
+#: src/filebrowser.c:885
+#, fuzzy
+msgid "New file"
+msgstr "Nieuwe stijl"
+
+#: src/filebrowser.c:888
+#, fuzzy
+msgid "New directory"
+msgstr "Map aanmaken"
+
+#: src/filebrowser.c:891
+#, fuzzy
+msgid "Delete file"
+msgstr "Verwijder bestand?"
+
+#: src/filebrowser.c:894
+#, fuzzy
+msgid "Refresh"
+msgstr "Document verversen"
+
+#: src/filebrowser.c:897
+#, fuzzy
+msgid "Filter"
+msgstr "Bestand"
+
+#: src/filebrowser.c:1022
+#, fuzzy
+msgid "All files"
+msgstr "alle bestanden"
+
+#: src/image.c:206
+msgid "Insert image"
+msgstr "Afbeelding invoegen"
+
+#: src/image.c:208
+#, fuzzy
+msgid "Insert thumbnail"
+msgstr "Afbeelding als voorbeeldafbeelding invoegen"
+
+#: src/image.c:215
+msgid "Preview"
+msgstr "Preview"
+
+#: src/image.c:235
+msgid "Image location"
+msgstr "Locatie van afbeelding"
+
+#: src/image.c:255
+msgid "Usemap"
+msgstr "Aanklikbare afbeelding"
+
+#: src/image.c:263
+msgid "Alternate text"
+msgstr "tekst-alternatief"
+
+#: src/image.c:271
+msgid "Hspace"
+msgstr "Ruimte links/rechts"
+
+#: src/image.c:275
+msgid "Vspace"
+msgstr "Ruimte onder/boven"
+
+#: src/image.c:341
+msgid "Select files for thumbnail creation"
+msgstr ""
+
+#: src/image.c:451
+#, fuzzy
+msgid "Scaling (%)"
+msgstr "Schuifbalk"
+
+#: src/image.c:474
+msgid "Multi thumbnail"
+msgstr ""
+
+#: src/image.c:479
+msgid "By scaling"
+msgstr ""
+
+#: src/image.c:480
+msgid "By width, keep aspect ratio"
+msgstr ""
+
+#: src/image.c:481
+msgid "By height, keep aspect ratio"
+msgstr ""
+
+#: src/image.c:482
+msgid "By width and height, ignore aspect ratio"
+msgstr ""
+
+#: src/rcfile.c:528
+msgid "UTF-8"
+msgstr ""
+
+#: src/rcfile.c:529
+msgid "ISO-8859-1 (Latin 1, West European)"
+msgstr ""
+
+#: src/rcfile.c:530
+msgid "ISO-8859-2 (Latin 2, East European)"
+msgstr ""
+
+#: src/rcfile.c:531
+msgid "ISO-8859-3 (Latin 3, South European)"
+msgstr ""
+
+#: src/rcfile.c:532
+msgid "ISO-8859-4 (Latin 4, North European)"
+msgstr ""
+
+#: src/rcfile.c:533
+msgid "ISO-8859-5 (Cyrillic)"
+msgstr ""
+
+#: src/rcfile.c:534
+msgid "ISO-8859-6 (Arabic)"
+msgstr ""
+
+#: src/rcfile.c:535
+msgid "ISO-8859-7 (Greek)"
+msgstr ""
+
+#: src/rcfile.c:536
+msgid "ISO-8859-8 (Hebrew)"
+msgstr ""
+
+#: src/rcfile.c:537
+msgid "ISO-8859-9 (Turkish)"
+msgstr ""
+
+#: src/rcfile.c:538
+msgid "ISO-8859-10 (Nordic)"
+msgstr ""
+
+#: src/rcfile.c:539
+msgid "ISO-8859-11 (Thai)"
+msgstr ""
+
+#: src/rcfile.c:540
+msgid "ISO-8859-13 (Latin 7)"
+msgstr ""
+
+#: src/rcfile.c:541
+msgid "ISO-8859-14 (Latin 8)"
+msgstr ""
+
+#: src/rcfile.c:542
+msgid "ISO-8859-15 (Latin 9, West European with EURO)"
+msgstr ""
+
+#: src/rcfile.c:543
+msgid "GB2312 (Chinese)"
+msgstr ""
+
+#: src/rcfile.c:544
+msgid "BIG5 (Traditional Chinese)"
+msgstr ""
+
+#: src/rcfile.c:545
+msgid "SJIS (Japanese)"
+msgstr ""
+
+#: src/rcfile.c:546
+msgid "KSC (Korean)"
+msgstr ""
+
+#: src/rcfile.c:547
+msgid "KOI8-R (Russian)"
+msgstr ""
+
+#: src/rcfile.c:548
+msgid "EUCJP (Japanese)"
+msgstr ""
+
+#: src/rcfile.c:598
+msgid "C programming"
+msgstr ""
+
+#: src/rcfile.c:600
+#, fuzzy
+msgid "All web files"
+msgstr "alle web bestanden"
+
+#: src/rcfile.c:602
+msgid "Java programming"
+msgstr ""
+
+#: src/rcfile.c:606
+#, fuzzy
+msgid "Hide objectfiles"
+msgstr "Kies bestanden"
+
+#: src/rcfile.c:653
+msgid "/php/ibase/ibase fetch row"
+msgstr "/php/ibase/ibase fetch row"
+
+#: src/rcfile.c:653
+msgid "ibase result variable name"
+msgstr "ibase resultaat variabele naam"
+
+#: src/rcfile.c:653 src/rcfile.c:654
+msgid "row variable name"
+msgstr "rij variabele naam"
+
+#: src/rcfile.c:654
+msgid "/php/mysql/mysql fetch row"
+msgstr "/php/mysql/mysql fetch row"
+
+#: src/rcfile.c:654
+msgid "mysql result variable name"
+msgstr "mysql resultaat variabele naam"
+
+#: src/rcfile.c:655
+msgid "/php/mysql/mysql connect"
+msgstr "/php/mysql/mysql connect"
+
+#: src/rcfile.c:655
+msgid "mysql host"
+msgstr "mysql host"
+
+#: src/rcfile.c:655
+msgid "mysql username"
+msgstr "mysql username"
+
+#: src/rcfile.c:655
+msgid "mysql password"
+msgstr "mysql password"
+
+#: src/rcfile.c:655
+msgid "database name"
+msgstr "database naam"
+
+#: src/rcfile.c:656
+msgid "/php/ibase/ibase connect"
+msgstr "/php/ibase/ibase connect"
+
+#: src/rcfile.c:656
+msgid "ibase host"
+msgstr "ibase host"
+
+#: src/rcfile.c:656
+msgid "ibase database path"
+msgstr "ibase database path"
+
+#: src/rcfile.c:656
+msgid "ibase username"
+msgstr "ibase username"
+
+#: src/rcfile.c:656
+msgid "ibase password"
+msgstr "ibase password"
+
+#: src/rcfile.c:657
+msgid "/php/general/while each in array list"
+msgstr "/php/general/while each in array list"
+
+#: src/rcfile.c:657
+msgid "array name"
+msgstr "array naam"
+
+#: src/rcfile.c:658
+msgid "/sql/select all from table"
+msgstr "/sql/select all from table"
+
+#: src/rcfile.c:658
+msgid "table name"
+msgstr "tabel naam"
+
+#: src/rcfile.c:659
+msgid "/php/general/mail"
+msgstr "/php/general/mail"
+
+#: src/rcfile.c:659
+msgid "email adress"
+msgstr "email adres"
+
+#: src/rcfile.c:659
+msgid "subject"
+msgstr "onderwerp"
+
+#: src/rcfile.c:659
+msgid "mail body variable name"
+msgstr "mail inhoud variabele naam"
+
+#: src/rcfile.c:660
+msgid "/php/general/for loop"
+msgstr "/php/general/for loop"
+
+#: src/rcfile.c:660
+msgid "loop variable name"
+msgstr "loop variable naam"
+
+#: src/rcfile.c:660
+msgid "from value"
+msgstr "van waarde"
+
+#: src/rcfile.c:660
+msgid "to value"
+msgstr "tot waarde"
+
+#: src/rcfile.c:661
+msgid "/php/ibase/query"
+msgstr "/php/ibase/query"
+
+#: src/rcfile.c:661 src/rcfile.c:666 src/rcfile.c:684 src/rcfile.c:685
+msgid "result variable name"
+msgstr "resultaat variabele naam"
+
+#: src/rcfile.c:661
+msgid "ibase connection id name"
+msgstr "ibase connection id naam"
+
+#: src/rcfile.c:661 src/rcfile.c:666 src/rcfile.c:684
+msgid "query string (quoted) or variable (including $)"
+msgstr "query string (quoted) or variable (including $)"
+
+#: src/rcfile.c:662
+msgid "/php/general/include file"
+msgstr "/php/general/include file"
+
+#: src/rcfile.c:662
+msgid "filename to include"
+msgstr "bestandsnaam om in te voegen"
+
+#: src/rcfile.c:663
+msgid "/php/general/require file"
+msgstr "/php/general/require file"
+
+#: src/rcfile.c:663
+msgid "filename to require"
+msgstr "bestandsnaam om te vereisen"
+
+#: src/rcfile.c:664
+msgid "/php/general/if isset"
+msgstr "/php/general/if isset"
+
+#: src/rcfile.c:664 src/rcfile.c:665
+msgid "variable name to test for"
+msgstr ""
+
+#: src/rcfile.c:665
+msgid "/php/general/if not isset"
+msgstr "/php/general/if not isset"
+
+#: src/rcfile.c:666
+msgid "/php/mysql/query"
+msgstr "/php/mysql/query"
+
+#: src/rcfile.c:666
+msgid "mysql connection id name"
+msgstr "mysql connection id name"
+
+#: src/rcfile.c:667
+msgid "/html/font symbol"
+msgstr "/html/font symbol"
+
+#: src/rcfile.c:668
+msgid "/html/div with class"
+msgstr "/html/div with class"
+
+#: src/rcfile.c:668 src/rcfile.c:669
+msgid "CSS class name"
+msgstr "CSS class name"
+
+#: src/rcfile.c:669
+msgid "/html/span with class"
+msgstr "/html/span with class"
+
+#: src/rcfile.c:670
+msgid "/php/php block"
+msgstr ""
+
+#: src/rcfile.c:671
+msgid "/html/made with bluefish"
+msgstr "/html/Gemaakt met bluefish"
+
+#: src/rcfile.c:672
+msgid "/html/meta keywords"
+msgstr "/html/meta trefwoorden"
+
+#: src/rcfile.c:672
+msgid "keywords, space separated"
+msgstr "trefwoorden, gescheiden door spatie"
+
+#: src/rcfile.c:673
+msgid "/html/meta refresh (client pull)"
+msgstr "/html/meta verversen (client pull)"
+
+#: src/rcfile.c:673
+msgid "refresh time, in seconds"
+msgstr "verversing tijd, in seconden"
+
+#: src/rcfile.c:673
+msgid "URL to redirect to"
+msgstr ""
+
+#: src/rcfile.c:674
+msgid "/active html/form"
+msgstr ""
+
+#: src/rcfile.c:675
+msgid "/active html/form and action"
+msgstr ""
+
+#: src/rcfile.c:675
+msgid "Submit button text"
+msgstr ""
+
+#: src/rcfile.c:676
+msgid "/active html/input text"
+msgstr ""
+
+#: src/rcfile.c:676 src/rcfile.c:677 src/rcfile.c:678 src/rcfile.c:679
+#: src/rcfile.c:680 src/rcfile.c:681
+msgid "variable name"
+msgstr ""
+
+#: src/rcfile.c:677
+msgid "/active html/input checkbox"
+msgstr ""
+
+#: src/rcfile.c:677
+msgid "value when checked"
+msgstr ""
+
+#: src/rcfile.c:678
+msgid "/active html/textarea"
+msgstr ""
+
+#: src/rcfile.c:679
+msgid "/active html/select options/from array"
+msgstr ""
+
+#: src/rcfile.c:679
+msgid "array name containing options"
+msgstr ""
+
+#: src/rcfile.c:680
+msgid "/active html/select options/from mysql result"
+msgstr ""
+
+#: src/rcfile.c:680
+msgid "mysql query result"
+msgstr ""
+
+#: src/rcfile.c:680 src/rcfile.c:681
+msgid "index of the value"
+msgstr ""
+
+#: src/rcfile.c:680 src/rcfile.c:681
+msgid "index of the label"
+msgstr ""
+
+#: src/rcfile.c:681
+msgid "/active html/select options/from ibase result"
+msgstr ""
+
+#: src/rcfile.c:681
+msgid "ibase query result"
+msgstr ""
+
+#: src/rcfile.c:682
+msgid "/DHTML/mouseover image"
+msgstr ""
+
+#: src/rcfile.c:682
+msgid "unique name"
+msgstr ""
+
+#: src/rcfile.c:682
+msgid "onMouseOut src"
+msgstr ""
+
+#: src/rcfile.c:682
+msgid "onMouseOver src"
+msgstr ""
+
+#: src/rcfile.c:683
+msgid "/php/odbc/odbc connect"
+msgstr ""
+
+#: src/rcfile.c:683
+msgid "odbc data source name"
+msgstr ""
+
+#: src/rcfile.c:683
+msgid "username"
+msgstr "gebruikersnaam"
+
+#: src/rcfile.c:683
+msgid "password"
+msgstr "paswoord"
+
+#: src/rcfile.c:684
+msgid "/php/odbc/odbc exec query"
+msgstr ""
+
+#: src/rcfile.c:684
+msgid "odbc connection id name"
+msgstr ""
+
+#: src/rcfile.c:685
+msgid "/php/odbc/odbc fetch row"
+msgstr ""
+
+#: src/rcfile.c:686
+msgid "/php/general/echo date"
+msgstr ""
+
+#: src/rcfile.c:687
+msgid "/php/filesystem/open and echo file"
+msgstr ""
+
+#: src/rcfile.c:687
+msgid "file (quoted) or variable (including $)"
+msgstr ""
+
+#: src/rcfile.c:688
+msgid "/php/general/location header"
+msgstr ""
+
+#: src/rcfile.c:688
+msgid "location (URL) to redirect to (quoted) or variable (including $)"
+msgstr ""
+
+#: src/rcfile.c:689
+msgid "/apache/basic password required"
+msgstr ""
+
+#: src/rcfile.c:689
+msgid "full path to password file"
+msgstr "volledig pad naar bestand met paswoorden"
+
+#: src/rcfile.c:689
+msgid "security description"
+msgstr ""
+
+#: src/rcfile.c:690
+msgid "/apache/deny access to .inc"
+msgstr ""
+
+#: src/rcfile.c:691
+msgid "/replace/strip <font>"
+msgstr "/vervangen/<font> verwijderen"
+
+#: src/rcfile.c:692
+msgid "/replace/strip <any tag> in selection"
+msgstr "/vervangen/<tag naar keuze> verwijderen in selectie"
+
+#: src/rcfile.c:693
+msgid "/replace/convert <td> in <th> in selection"
+msgstr "/vervangen/vervang <td> met <th> in selectie"
+
+#: src/rcfile.c:694
+msgid "/replace/convert <any tag> in <any other tag> in selection"
+msgstr "/vervangen/ vervang <tag naar keuze> met <andere tag> in selectie"
+
+#: src/stringlist.c:371
+msgid " Up "
+msgstr " Op "
+
+#: src/stringlist.c:373
+msgid " Down "
+msgstr " Neer "
+
+#: src/stringlist.c:375
+msgid " Sort "
+msgstr " Sorteren "
+
+#~ msgid "/E_xternal"
+#~ msgstr "/E_xtern"
+
+#~ msgid "/External/tearoff1"
+#~ msgstr "/Extern/tearoff1"
+
+#, fuzzy
+#~ msgid "<main>/External"
+#~ msgstr "/E_xtern"
+
+#~ msgid "<main>/File/Open recent"
+#~ msgstr "<main>/Bestand/Recent geopend"
+
+#, fuzzy
+#~ msgid "<main>/External/Browsers"
+#~ msgstr "/Extern/Filters"
+
+#, fuzzy
+#~ msgid "<main>/External/Commands"
+#~ msgstr "/Extern/Commando's"
+
+#~ msgid "Error: cannot run as root (for security reasons)\n"
+#~ msgstr ""
+#~ "Waarschuwing: kan niet als root gestart worden(wegens "
+#~ "veiligheidsoverwegingen)\n"
+
+#~ msgid "use -s to override\n"
+#~ msgstr "Gebruik -s om door te gaan\n"
+
+#~ msgid "Bluefish is SUID root, this is a security risk!\n"
+#~ msgstr "Bluefish is SUID root, dat is een veiligeheidsrisico!\n"
+
+#~ msgid "Browser is not running, starting browser"
+#~ msgstr "Browser niet actief, bezig met starten browser"
+
+#~ msgid ""
+#~ "That looks like a secure server,\n"
+#~ "Bluefish doesn't support them"
+#~ msgstr ""
+#~ "Lijkt op een beveiligde server,\n"
+#~ "Bluefish ondersteund dat niet"
+
+#~ msgid "Invalid address"
+#~ msgstr "Ongeldig adres"
+
+#~ msgid "The network is unreachable"
+#~ msgstr "Het netwerk is niet te bereiken"
+
+#~ msgid "Can't send data"
+#~ msgstr "Kan geen gegevens verzenden"
+
+#~ msgid "Didn't send all the data"
+#~ msgstr "Niet alle gegevens zijn vezonden"
+
+#~ msgid "Can't open file"
+#~ msgstr "Kan bestand niet openen"
+
+#~ msgid "Open from Web"
+#~ msgstr "Openen van het web"
+
+#~ msgid "URL:"
+#~ msgstr "URL:"
+
+#~ msgid "Abort"
+#~ msgstr "Afbreken"
+
+#~ msgid "File "
+#~ msgstr "Bestand "
+
+#~ msgid ""
+#~ "\n"
+#~ "is modified"
+#~ msgstr ""
+#~ "\n"
+#~ "is aangepast"
+
+#~ msgid "File has not been saved yet"
+#~ msgstr "Bestand is nog niet opgeslagen"
+
+#~ msgid "Bluefish: Weblint warning"
+#~ msgstr "Bluefish: Weblint waarschuwing"
+
+#~ msgid "Running Weblint"
+#~ msgstr "Weblint loopt"
+
+#~ msgid "Weblint output"
+#~ msgstr "Weblint resultaat"
+
+#~ msgid "Recheck"
+#~ msgstr "Herhalen"
+
+#~ msgid "Weblint"
+#~ msgstr "Weblint"
+
+#~ msgid ""
+#~ "You don't appear to have weblint installed \n"
+#~ "To use this option you will need to download weblint from:\n"
+#~ "http://www.cre.canon.co.uk/~neilb/weblint/"
+#~ msgstr ""
+#~ "Weblint is niet geinstalleerd \n"
+#~ "Om gebruik te maken van deze optie, dient weblint gedownload te worden "
+#~ "van:\n"
+#~ "http://www.cre.canon.co.uk/~neilb/weblint/"
+
+#~ msgid "Error stat file"
+#~ msgstr "Error stat file"
+
+#~ msgid "Error delete stdout temporary file"
+#~ msgstr "Error delete stdout temporary file"
+
+#~ msgid "Bluefish Preview: Untitled"
+#~ msgstr "Bluefish Preview: Naamloos"
+
+#~ msgid "Font Selection"
+#~ msgstr "Lettertype Selectie"
+
+#~ msgid "Configuration saved and applied succesfully"
+#~ msgstr "Configuratie opgeslagen en succesvol toegepast"
+
+#~ msgid "Saving and applying configuration"
+#~ msgstr "Bezig met opslaan en toepassen van de configuratie"
+
+#~ msgid "Bluefish: Preferences"
+#~ msgstr "Bluefish: instellingen"
+
+#~ msgid "Default font"
+#~ msgstr "Standaard lettertype"
+
+#~ msgid "Force white editor background"
+#~ msgstr "Achtergrond van editor altijd wit"
+
+#~ msgid "Line wrap"
+#~ msgstr "Regels passend maken"
+
+#~ msgid "Autoindent Code"
+#~ msgstr "Automatisch inspringen van Code"
+
+#~ msgid "Update syntax highlighting continuous"
+#~ msgstr "Oplichten van syntaxis steeds verversen"
+
+#~ msgid "Update full widget instead of the current line (slower)"
+#~ msgstr "Het gehele scherm verversen i.p.v. actieve regel (langzamer)"
+
+#~ msgid "Automatic link management"
+#~ msgstr "Automatische link managment"
+
+#~ msgid "Number of undo levels"
+#~ msgstr "Aantal herstel mogelijkheden"
+
+#~ msgid ""
+#~ "Insert drag and drop at drop position\n"
+#~ "instead of cursor position (experimental)"
+#~ msgstr ""
+#~ "Drag and Drop op Drop-plaats invoegen\n"
+#~ "i.p.v. op cursor-positie (experimenteel)"
+
+#~ msgid "Insert text with Shift-Enter"
+#~ msgstr "Tekst invoegen met Shift-Enter"
+
+#~ msgid "Insert text with Ctrl-Enter"
+#~ msgstr "Tekst invoegen in met Ctrl-Enter"
+
+#~ msgid ""
+#~ "Insert HTML entity with Ctrl-(special char)\n"
+#~ "(&lt; &gt; &amp; &quot;)"
+#~ msgstr ""
+#~ "Voeg HTML-element in met Ctrl-(speciaal karakter)\n"
+#~ "(&lt; &gt; &amp; &quot;)"
+
+#~ msgid "allow everything"
+#~ msgstr "alles toestaan"
+
+#~ msgid "Read from File"
+#~ msgstr "Lezen uit bestand"
+
+#~ msgid "used HTML-Version"
+#~ msgstr "Gebruikte HTML-Versie"
+
+#~ msgid "Insert closing lists </LI>, </DT>, </DD>"
+#~ msgstr "Voeg eind-tags van lijsten in </LI>, </DT>, </DD>"
+
+#~ msgid "Insert closing paragraph tag </P>"
+#~ msgstr "Voeg paragraaf eind-tag in </P>"
+
+#~ msgid "Insert lowercase HTML tags (Needed for WML!)"
+#~ msgstr "HTML tags met kleine letters invoegen (noodzakelijk bij WML!)"
+
+#~ msgid "Allow the use of CSS"
+#~ msgstr "Gebruik van CSS toestaan"
+
+#~ msgid "Allow deprecated tags (like <FONT>)"
+#~ msgstr "Verouderde tags toestaan (zoals <FONT>)"
+
+#~ msgid "Format by context (e.g. <strong> instead of <b>)"
+#~ msgstr "Logische tekst-opmaak (b.v. <strong> i.p.v. <b>)"
+
+#~ msgid "Use an XML-Starting-Line"
+#~ msgstr "Gebruik een XML-start-regel"
+
+#~ msgid "Allow the Ruby-Tags included in XHTML 1.0"
+#~ msgstr "Ruby-tags van XHTML 1.0 toestaan"
+
+#~ msgid "Allow new tags of HTML 4.0"
+#~ msgstr "Gebruik van nieuwe HTML 4.0 tags toestaan"
+
+#~ msgid "Allow the use of frames"
+#~ msgstr "Gebruik van frames toestaan"
+
+#~ msgid "Require an DOCTYPE on first line of document"
+#~ msgstr "DOCTYPE declaratie op de eerste regel van het document"
+
+#~ msgid "Set the DTD-URL in the DOCTYPE line"
+#~ msgstr "Plaats de DTD-URL in de DOCTYPE declaratie"
+
+#~ msgid "Main GUI options"
+#~ msgstr "Hoofdscherm opties"
+
+#~ msgid "Notebook tab fontset"
+#~ msgstr "Lettertype van de tabbladen"
+
+#~ msgid "Font is a fontset"
+#~ msgstr "Font is een fontset"
+
+#~ msgid "top"
+#~ msgstr "boven"
+
+#~ msgid "bottom"
+#~ msgstr "onder"
+
+#~ msgid "left"
+#~ msgstr "links"
+
+#~ msgid "right"
+#~ msgstr "rechts"
+
+#~ msgid "Notebook position"
+#~ msgstr "Positie van tabbladen"
+
+#~ msgid "Items in Open Recent menu"
+#~ msgstr "Aantal items in Recent geopend"
+
+#~ msgid "Items in Directory history"
+#~ msgstr "Aantal items in de Map-geschiedenis"
+
+#~ msgid "File browser mininum size"
+#~ msgstr "Minimale grootte van de bestandsbrowser"
+
+#~ msgid "File browser default filter"
+#~ msgstr "Standaard filter van de bestandsbrowser "
+
+#~ msgid "Show autocompletion window for HTML tags while editing"
+#~ msgstr "Toon scherm voor auto-aanvullen van HTML-tags tijdens werken"
+
+#~ msgid "Delay to show the autocompletion window"
+#~ msgstr "scherm auto-aanvullen vertraagd tonen"
+
+#~ msgid "GUI"
+#~ msgstr "GUI"
+
+#~ msgid "Files and images"
+#~ msgstr "Bestand & afbeelding"
+
+#~ msgid "Thumbnail extension string"
+#~ msgstr "Voorbeeldafbeelding achtervoegsel"
+
+#~ msgid "Backup file before saving"
+#~ msgstr "Backup maken alvorens een bestand opslaan"
+
+#~ msgid "Backup file by copy instead of rename"
+#~ msgstr "Bestand backup middels kopie i.p.v. nieuwe naam"
+
+#~ msgid "save"
+#~ msgstr "opslaan"
+
+#~ msgid "abort"
+#~ msgstr "afbreken"
+
+#~ msgid "ask"
+#~ msgstr "vragen"
+
+#~ msgid "Backup failure action"
+#~ msgstr "Actie indien backup niet lukt"
+
+#~ msgid "Open commandline files in already running bluefish"
+#~ msgstr "Bestanden geopend op de commando-prompt, openen in lopende Bluefish"
+
+#~ msgid "PHP filter"
+#~ msgstr "PHP filter"
+
+#~ msgid "HTML filter"
+#~ msgstr "HTML filter"
+
+#~ msgid "JavaScript filter"
+#~ msgstr "Javascript filter"
+
+#~ msgid "Cascading stylesheet filter"
+#~ msgstr "Cascading stylesheet filter"
+
+#~ msgid "Other webfiles filter"
+#~ msgstr "Filter van andere webbestanden"
+
+#~ msgid "Weblint command"
+#~ msgstr "Weblint commando"
+
+#~ msgid "Image editor command"
+#~ msgstr "Commando voor afbeeldingen-editor"
+
+#~ msgid "Spell checker options"
+#~ msgstr "Opties voor spellingscontrole"
+
+#~ msgid "Ispell command"
+#~ msgstr "Ispell commando"
+
+#~ msgid "Default language"
+#~ msgstr "Standaard taal"
+
+#~ msgid "Accept compound words"
+#~ msgstr "Samengestelde woorden accepteren"
+
+#~ msgid "Specify additional characters that might form a word"
+#~ msgstr "Extra karakters aangeven die een woord kunnen vormen"
+
+#~ msgid "Use personal dictionary"
+#~ msgstr "Gebruik persoonlijk woordenboek"
+
+#~ msgid "Personal dictionary"
+#~ msgstr "Persoonlijk woordenboek"
+
+#~ msgid "Use input encoding"
+#~ msgstr "Gebruik invoer codering (bijv. latin1)"
+
+#~ msgid "External"
+#~ msgstr "Extern"
+
+#~ msgid " Save & close "
+#~ msgstr " Opslaan en sluiten "
+
+#~ msgid "Untitled *"
+#~ msgstr "Naamloos *"
+
+#~ msgid "Updating Links in all Documents"
+#~ msgstr "Bezig met vernieuwen van links in alle bestanden"
+
+#~ msgid "Charset conversion running..."
+#~ msgstr "Bezig met omzetten van karakterset ..."
+
+#~ msgid "No commandline set!"
+#~ msgstr "Geen commando bekend!"
+
+#~ msgid " doesn't exist or isn't a directory."
+#~ msgstr " Bestaat niet of het is geen map."
+
+#~ msgid "Error in creating temporary print file."
+#~ msgstr "Fout tijdens het maken van tijdelijk print-bestand"
+
+#~ msgid "System error in printing file. File not printed."
+#~ msgstr "Systeem-fout bij het printen van bestand. Bestand is niet geprint"
+
+#~ msgid "Unable to erase temporary file."
+#~ msgstr "Kan tijdelijk bestand niet verwijderen."
+
+#~ msgid "Print Dialog"
+#~ msgstr "Print Scherm"
+
+#~ msgid ""
+#~ "Enter print command-line below.\n"
+#~ " Remember that you must place %s where\n"
+#~ " the filename is supposed to be placed. \n"
+#~ "\n"
+#~ "Print command:"
+#~ msgstr ""
+#~ "Geef het print commando.\n"
+#~ "Vergeet niet %s te plaatsen daar waar\n"
+#~ "de bestandsnaam hoort te staan.\n"
+#~ "\n"
+#~ "Print commando:"
+
+#~ msgid "Temporary directory:"
+#~ msgstr "Tijdelijke map:"
+
+#~ msgid " Print "
+#~ msgstr " Printen "
+
+#~ msgid "Out of memory.\n"
+#~ msgstr "Tekort aan geheugen.\n"
+
+#~ msgid "filter.c (%s): System call failed: %s.\n"
+#~ msgstr "filter.c (%s): System call failed: %s.\n"
+
+#~ msgid "Subprocess standard error: %s"
+#~ msgstr " Subprocess standard error: %s"
+
+#~ msgid "subprocess unable to dup2 stdin: %s\n"
+#~ msgstr "subprocess unable to dup2 stdin: %s\n"
+
+#~ msgid "subprocess unable to dup2 stdout: %s\n"
+#~ msgstr "subprocess unable to dup2 stdout: %s\n"
+
+#~ msgid "subprocess unable to dup2 stderr: %s\n"
+#~ msgstr "subprocess unable to dup2 stderr: %s\n"
+
+#~ msgid "subprocess unable to exec filter: %s\n"
+#~ msgstr "subproces niet in staat filter: %s uit te voeren\n"
+
+#~ msgid "subprocess terminated abnormally with exit code %d\n"
+#~ msgstr "subproces abnormaal afgesloten met de exit-code %d\n"
+
+#~ msgid "bluefish: subprocess was killed by signal %d\n"
+#~ msgstr "bluefish: subproces is afgesloten met signaal %d\n"
+
+#~ msgid "OK"
+#~ msgstr "OK"
+
+#~ msgid " Ok "
+#~ msgstr "Ok"
+
+#~ msgid " Cancel "
+#~ msgstr " Annuleren "
+
+#~ msgid "Insert class"
+#~ msgstr "Klasse invoegen"
+
+#~ msgid "CLASS="
+#~ msgstr "Klasse="
+
+#~ msgid "tag"
+#~ msgstr "tag"
+
+#~ msgid "class"
+#~ msgstr "klasse"
+
+#~ msgid "pseudo class"
+#~ msgstr "pseudo classe"
+
+#~ msgid "font-family"
+#~ msgstr "lettertype-familie"
+
+#~ msgid "font-style"
+#~ msgstr "lettertype-stijl"
+
+#~ msgid "font-variant"
+#~ msgstr "lettertype-variant"
+
+#~ msgid "font-size"
+#~ msgstr "lettergrootte"
+
+#~ msgid "line-height"
+#~ msgstr "regelhoogte"
+
+#~ msgid "Insert as one line"
+#~ msgstr "Invoegen als 1 regel"
+
+#~ msgid "absolute size"
+#~ msgstr "absolute grootte"
+
+#~ msgid "relative size"
+#~ msgstr "relatieve grootte"
+
+#~ msgid "length/percentage"
+#~ msgstr "lengte/percentage"
+
+#~ msgid "margin"
+#~ msgstr "marge"
+
+#~ msgid "padding"
+#~ msgstr "ruimte tussen rand en inhoud"
+
+#~ msgid "Insert margin as one line"
+#~ msgstr "Marge als 1 regel invoegen"
+
+#~ msgid "Insert padding as one line"
+#~ msgstr "Ruimte tussen rand en inhoud als 1 regel invoegen"
+
+#~ msgid "Margin & padding"
+#~ msgstr "Marge & ruimte"
+
+#~ msgid "width"
+#~ msgstr "breedte"
+
+#~ msgid "color"
+#~ msgstr "kleur"
+
+#~ msgid "style"
+#~ msgstr "stijl"
+
+#~ msgid "Insert values per property"
+#~ msgstr "Waarden per eigenschap invoeren"
+
+#~ msgid "Insert values per border side"
+#~ msgstr "Per zijde waarden invoeren"
+
+#~ msgid "Insert top-values as general value for all sides"
+#~ msgstr "Boven-waarden als waarde voor alle zijden invoeren"
+
+#~ msgid "height"
+#~ msgstr "hoogte"
+
+#~ msgid "float"
+#~ msgstr "zwevend"
+
+#~ msgid "clear"
+#~ msgstr "niet zwevend"
+
+#~ msgid "Size & placement"
+#~ msgstr "Grootte en plaatsing"
+
+#~ msgid "background-color"
+#~ msgstr "achtergrond-kleur"
+
+#~ msgid "background-image"
+#~ msgstr "achtergrond-afbeelding"
+
+#~ msgid "background-repeat"
+#~ msgstr "achtergrond-herhalen"
+
+#~ msgid "background-attachment"
+#~ msgstr "achtergrond-plaatsing"
+
+#~ msgid "background-position"
+#~ msgstr "Positie van achtergrond"
+
+#~ msgid "accross"
+#~ msgstr "accross"
+
+#~ msgid "down"
+#~ msgstr "down"
+
+#~ msgid "Insert background as one line"
+#~ msgstr "Achtergrond als 1 regel invoegen"
+
+#~ msgid "size unit"
+#~ msgstr "eenheid"
+
+#~ msgid "percentage"
+#~ msgstr "percentage"
+
+#~ msgid "Color & background"
+#~ msgstr "Kleur & achtergrond"
+
+#~ msgid "word-spacing"
+#~ msgstr "ruimte tussen woorden"
+
+#~ msgid "letter-spacing"
+#~ msgstr "ruimte tussen letters"
+
+#~ msgid "vertical-align"
+#~ msgstr "verticale uitlijning"
+
+#~ msgid "text-align"
+#~ msgstr "tekst-uitlijning"
+
+#~ msgid "text-decoration"
+#~ msgstr "tekstversiering"
+
+#~ msgid "text-transform"
+#~ msgstr "tekst-transformatie"
+
+#~ msgid "text-indent"
+#~ msgstr "inspringen"
+
+#~ msgid "white-space"
+#~ msgstr "witruimte"
+
+#~ msgid "Insert list-item as one line"
+#~ msgstr "Lijst-item als 1 regel invoegen"
+
+#~ msgid ""
+#~ "Bluefish was compiled without\n"
+#~ "Imlib support. This function is\n"
+#~ "therefore not available"
+#~ msgstr ""
+#~ "Bluefish is gecompileerd zonder\n"
+#~ "Imlib support. Daarom is\n"
+#~ "deze functie niet beschikbaar"
+
+#~ msgid "Image preview"
+#~ msgstr "Afbeelding bekijken"
+
+#~ msgid "Imagemap editor"
+#~ msgstr "Afbeeldingsmap editor"
+
+#~ msgid "-p filename  load project on startup\n"
+#~ msgstr "-p bestandsnaam   opstarten met project\n"
+
+#~ msgid "Error creating directory"
+#~ msgstr "Fout bij aanmaken van map"
+
+#~ msgid "Delete"
+#~ msgstr "Verwijderen"
+
+#~ msgid ""
+#~ "Size: %lu\n"
+#~ "Last Modification: %sLast access: %sUser: %s\n"
+#~ "Group: %s\n"
+#~ "Mode: %s\n"
+#~ msgstr ""
+#~ "Grootte: %lu\n"
+#~ "Laatste verandering: %sLaatst geopend: %sGebruiker: %s\n"
+#~ "Groep: %s\n"
+#~ "Modus: %s\n"
+
+#~ msgid "Properties of %s"
+#~ msgstr "eigenschappen van %s"
+
+#~ msgid ""
+#~ "Size: %lu\n"
+#~ "Last Modification: %sLast access: %sUser: %s\n"
+#~ "Mode: %s\n"
+#~ msgstr ""
+#~ "Grootte: %lu\n"
+#~ "Laatste verandering: %sLaatst geopend: %sGebruiker: %s\n"
+#~ "Groep: %s\n"
+#~ "Modus: %s\n"
+
+#~ msgid "Error!"
+#~ msgstr "Fout!"
+
+#~ msgid "Could not stat(2) file."
+#~ msgstr "Onmogelijk om stat(2) vanbestand op te vragen"
+
+#~ msgid "Move file to"
+#~ msgstr "Verplaats bestand naar"
+
+#~ msgid "Copy file to"
+#~ msgstr "Kopieeren"
+
+#~ msgid "Move file succeeded"
+#~ msgstr "Bestand verplaatst"
+
+#~ msgid "Move file failed"
+#~ msgstr "Verplaatsen van bestand mislukt"
+
+#~ msgid "Copying file succeeded"
+#~ msgstr "Bestand gekopieerd"
+
+#~ msgid "Copying file failed"
+#~ msgstr "Kopieren van bestand mislukt"
+
+#~ msgid "File new"
+#~ msgstr "Nieuw bestand"
+
+#~ msgid "File move to"
+#~ msgstr "Bestand verplaatsen naar"
+
+#~ msgid "File delete"
+#~ msgstr "Bestand verwijderen"
+
+#~ msgid "Properties"
+#~ msgstr "Eigenschappen"
+
+#~ msgid "Preview image"
+#~ msgstr "Afbeelding bekijken"
+
+#~ msgid "Edit image"
+#~ msgstr "Afbeelding bewerken"
+
+#~ msgid "Refresh file browser"
+#~ msgstr "Bestandsbrowser verversen"
+
+#~ msgid "Directories"
+#~ msgstr "Mappen"
+
+#~ msgid "Project"
+#~ msgstr "Project"
+
+#~ msgid "Attrs."
+#~ msgstr "Atributen"
+
+#~ msgid "About Bluefish"
+#~ msgstr "Over Bluefish"
+
+#~ msgid ""
+#~ "(C) Olivier Sessink\n"
+#~ "\n"
+#~ "developed by the bluefish development team\n"
+#~ "see AUTHORS for more information\n"
+#~ "http://bluefish.openoffice.nl/"
+#~ msgstr ""
+#~ "(C) Olivier Sessink\n"
+#~ "\n"
+#~ "ontwikkeld door het Bluefish-team\n"
+#~ "voor meer informatie: zie AUTHORS\n"
+#~ "http://bluefish.openoffice.nl/"
+
+#~ msgid "Dismiss"
+#~ msgstr "Sluiten"
+
+#~ msgid "/File/Open from the web..."
+#~ msgstr "/Bestand/Openen vanaf het web..."
+
+#~ msgid "/File/sep4"
+#~ msgstr "/Bestand/sep4"
+
+#~ msgid "/File/Print..."
+#~ msgstr "/Bestand/Printen..."
+
+#~ msgid "/Edit/sep2"
+#~ msgstr "/Bewerken/sep2"
+
+#~ msgid "/Edit/Replace special/Replace ascii chars"
+#~ msgstr "/Bewerken/Vervangen speciaal/Vervang ascii karakters"
+
+#~ msgid "/Edit/Selection to uppercase"
+#~ msgstr "/Bewerken/Selectie naar Hoofdletters"
+
+#~ msgid "/Edit/Selection to lowercase"
+#~ msgstr "/Bewerken/Selectie naar kleine letters"
+
+#~ msgid "/Edit/sep6"
+#~ msgstr "/Bewerken/sep6"
+
+#~ msgid "/Edit/Indent region"
+#~ msgstr "/Bewerken/Inspringen"
+
+#~ msgid "/Edit/Unindent region"
+#~ msgstr "/Bewerken/Niet Inspringen"
+
+#~ msgid "/Edit/sep7"
+#~ msgstr "/Bewerken/sep7"
+
+#~ msgid "/_View"
+#~ msgstr "/Beel_d"
+
+#~ msgid "/_View/Tearoff1"
+#~ msgstr "/Beel_d/Tearoff1"
+
+#~ msgid "/View/View in _Netscape"
+#~ msgstr "/Beeld/Bekijk in _Netscape"
+
+#~ msgid "/View/_Drag 'n Drop Window"
+#~ msgstr "/Beeld/_Sleepvenster"
+
+#~ msgid "/View/_Preview image under cursor"
+#~ msgstr "/Beeld/Bekijk plaatje onder cursor"
+
+#~ msgid "/View/_Preview "
+#~ msgstr "/Beeld/Bekijk voorbeeld"
+
+#~ msgid "/View/sep1"
+#~ msgstr "/Beeld/sep1"
+
+#~ msgid "/View/Next document"
+#~ msgstr "/Beeld/Volgend document"
+
+#~ msgid "/View/Previous document"
+#~ msgstr "/Beeld/Vorig document"
+
+#~ msgid "/View/sep3"
+#~ msgstr "/Beeld/sep3"
+
+#~ msgid "/View/sep2"
+#~ msgstr "/Beeld/sep2"
+
+#~ msgid "/View/Document status"
+#~ msgstr "/Beeld/Document status"
+
+#~ msgid "/_Project"
+#~ msgstr "/_Project"
+
+#~ msgid "/Project/Open..."
+#~ msgstr "/Project/Openen"
+
+#~ msgid "/Project/Close"
+#~ msgstr "/Project/Sluiten"
+
+#~ msgid "/Project/Save"
+#~ msgstr "/Project/Bewaren"
+
+#~ msgid "/Project/Save as..."
+#~ msgstr "/Project/Bewaren als"
+
+#~ msgid "/Project/sep1"
+#~ msgstr "/Project/sep1"
+
+#~ msgid "/Project/Edit..."
+#~ msgstr "/Project/Bewerken..."
+
+#~ msgid "/Project/sep2"
+#~ msgstr "/Project/sep2"
+
+#~ msgid "/_Project/Files"
+#~ msgstr "/_Project/Bestanden"
+
+#~ msgid "/Tags/Repeat last"
+#~ msgstr "/Elementen/Laatste herhalen"
+
+#~ msgid "/Dialogs/CSS/Add class..."
+#~ msgstr "/Dialogen/CSS/Klasse toevoegen..."
+
+#~ msgid "/Dialogs/Javascript"
+#~ msgstr "/Dialogen/Javascript"
+
+#~ msgid "/Dialogs/Javascript/tearoff1"
+#~ msgstr "/Dialogen/Javascript/tearoff1"
+
+#~ msgid "/Dialogs/Javascript/Mouseover Script"
+#~ msgstr "/Dialogen/Javascript/Script voor muisbeweging"
+
+#~ msgid "/Dialogs/Javascript/Netscape 4 Resize Bugfix Script"
+#~ msgstr "/Dialogs/Javascript/Netscape 4 Resize Bugfix Script"
+
+#~ msgid "/Dialogs/_WML"
+#~ msgstr "/Dialogen/_WML"
+
+#~ msgid "/Dialogs/WML/tearoff1"
+#~ msgstr "/Dialogen/WML/tearoff1"
+
+#~ msgid "/Dialogs/WML/Standard Document"
+#~ msgstr "/Dialogen/WML/Standaard document"
+
+#~ msgid "/Dialogs/WML/Card..."
+#~ msgstr "/Dialogen/WML/Kaart..."
+
+#~ msgid "/Dialogs/WML/Postfield..."
+#~ msgstr "/Dialogen/WML/Veldnaam..."
+
+#~ msgid "/Dialogs/WML/Go..."
+#~ msgstr "/Dialogen/WML/Ga naar..."
+
+#~ msgid "/Dialogs/WML/Do..."
+#~ msgstr "/Dialogen/WML/Actie..."
+
+#~ msgid "/Dialogs/WML/Anchor..."
+#~ msgstr "/Dialogen/WML/Anker..."
+
+#~ msgid "/Dialogs/WML/Access..."
+#~ msgstr "/Dialogen/WML/Toegang..."
+
+#~ msgid "/Dialogs/WML/sep11"
+#~ msgstr "/Dialogen/WML/sep11"
+
+#~ msgid "/Dialogs/WML/Paragraph"
+#~ msgstr "/Dialogen/WML/Alinea"
+
+#~ msgid "/Dialogs/WML/Line Break"
+#~ msgstr "/Dialogen/WML/Nieuwe regel"
+
+#~ msgid "/Dialogs/WML/Italic"
+#~ msgstr "/Dialogen/WML/Cursief"
+
+#~ msgid "/Dialogs/WML/Non-Breaking Space"
+#~ msgstr "/Dialogen/WML/Spatie"
+
+#~ msgid "/Dialogs/WML/Bold"
+#~ msgstr "/Dialogen/WML/Vet"
+
+#~ msgid "/Dialogs/WML/sep12"
+#~ msgstr "/Dialogen/WML/sep12"
+
+#~ msgid "/Dialogs/WML/Prev"
+#~ msgstr "/Dialogen/WML/Vorige"
+
+#~ msgid "/Dialogs/WML/Refresh"
+#~ msgstr "/Dialogen/WML/Verversen"
+
+#~ msgid "/Dialogs/WML/Noop"
+#~ msgstr "/Dialogen/WML/Geen handeling (noop-tag)"
+
+#~ msgid "/Dialogs/WML/sep13"
+#~ msgstr "/Dialogen/WML/sep13"
+
+#~ msgid "/Dialogs/WML/Set Variable..."
+#~ msgstr "/Dialogen/WML/Variabele..."
+
+#~ msgid "/Dialogs/imagemap development..."
+#~ msgstr "/Dialogen/Aanklikbare afbeelding maken..."
+
+#~ msgid "/External/Weblint..."
+#~ msgstr "/Extern/Weblint"
+
+#~ msgid "/External/Filters/tearoff1"
+#~ msgstr "/Extern/Filters/tearoff1"
+
+#~ msgid "/External/Commands/tearoff1"
+#~ msgstr "/Extern/Commando's/tearoff1"
+
+#~ msgid "/_Perl"
+#~ msgstr "/_Perl"
+
+#~ msgid "/Perl/tearoff1"
+#~ msgstr "/Perl/tearoff1"
+
+#~ msgid "/Perl/Status..."
+#~ msgstr "/Perl/Status..."
+
+#~ msgid "/Perl/Strip CR Codes"
+#~ msgstr "/Perl/CR Codes wissen"
+
+#~ msgid "/Options/View Filebrowser"
+#~ msgstr "/Opties/Bestandsbrowser"
+
+#~ msgid "/Options/Lists/External filters..."
+#~ msgstr "/Opties/Lijst/Externe filters..."
+
+#~ msgid "/Options/Lists/External programs..."
+#~ msgstr "/Opties/Lijst/Externe programma's..."
+
+#~ msgid "/Options/Lists/Reset syntax highlighting"
+#~ msgstr "/Opties/Lijst/Oplichten van syntaxis resetten"
+
+#~ msgid "/Options/sep1"
+#~ msgstr "/Opties/sep1"
+
+#~ msgid "/Options/Save config"
+#~ msgstr "/Opties/Instellingen bewaren"
+
+#~ msgid "/_Help"
+#~ msgstr "/_Help"
+
+#~ msgid "/Help/_About..."
+#~ msgstr "/Help/_Over Bluefish"
+
+#~ msgid "name"
+#~ msgstr "naam"
+
+#~ msgid "Bluefish configuration - external filters"
+#~ msgstr "Bluefish instellingen - externe filters"
+
+#~ msgid "Bluefish configuration - external commands"
+#~ msgstr "Bluefish instellingen - externe commando's"
+
+#~ msgid "regex pattern"
+#~ msgstr "gangbare uitdrukking"
+
+#~ msgid "Bluefish configuration - syntax highlighting"
+#~ msgstr "Bluefish configuratie - oplichtende syntaxis "
+
+#~ msgid "Bluefish config - custom menu"
+#~ msgstr "Bluefish configuratie - aangepast menu"
+
+#~ msgid "Replace where"
+#~ msgstr "Vervang waar"
+
+#~ msgid "Add"
+#~ msgstr "Toevoegen"
+
+#~ msgid "Update"
+#~ msgstr "Vernieuwen"
+
+#~ msgid "/Custom menu/Reset custom menu"
+#~ msgstr "/Aangepast menu/Aangepast menu opnieuw aanmaken"
+
+#~ msgid "Resolving address"
+#~ msgstr "Resolving address"
+
+#~ msgid "Retrieving file, press ESC to cancel download"
+#~ msgstr "Bezig met binnenhalen van bestand, ESC = annuleren"
+
+#~ msgid "User aborted download"
+#~ msgstr "Download afgebroken door gebruiker"
+
+#~ msgid "Retrieving file, %d bytes received, press ESC to cancel"
+#~ msgstr "Binnenhalen van Bestand, %d bytes ontvangen, ESC = annuleren "
+
+#~ msgid "Retrieving file, %d bytes of %d bytes received, press ESC to cancel"
+#~ msgstr ""
+#~ "Binnenhalen van bestand, %d bytes van %d bytes ontvangen, ESC =annuleren"
+
+#~ msgid "Bluefish project - files"
+#~ msgstr "Bluefish project - bestanden"
+
+#~ msgid "Bluefish project - colorlist"
+#~ msgstr "Bluefish project - lijst met kleuren"
+
+#~ msgid "Bluefish project - fontlist"
+#~ msgstr "Bluefish project - lijst met lettertypen"
+
+#~ msgid "Bluefish project - urllist"
+#~ msgstr "Bluefish project - lijst met url's"
+
+#~ msgid "Bluefish project - targetlist"
+#~ msgstr "Bluefish project - lijst met doelen"
+
+#~ msgid "Bluefish project - dtd_cblist"
+#~ msgstr "Bluefish project -dtd lijst"
+
+#~ msgid "Bluefish project - classlist"
+#~ msgstr "Bluefish project - klasselijst"
+
+#~ msgid "Bluefish project - headers"
+#~ msgstr "Bluefish project - koppen"
+
+#~ msgid "/_Files"
+#~ msgstr "/_Bestanden"
+
+#~ msgid "/Files/Files"
+#~ msgstr "/Bestanden/Bestanden"
+
+#~ msgid "/_Lists"
+#~ msgstr "/_Lijsten"
+
+#~ msgid "/Lists/Colors"
+#~ msgstr "/Lijsten/Kleuren"
+
+#~ msgid "/Lists/Fonts"
+#~ msgstr "/Lijsten/Lettertypen"
+
+#~ msgid "/Lists/Url's"
+#~ msgstr "/Lijstes/Url's"
+
+#~ msgid "/Lists/Targets"
+#~ msgstr "/Lijsten/Doel"
+
+#~ msgid "/Lists/Document type definitions"
+#~ msgstr "/Lijsten/Document type definities"
+
+#~ msgid "/Lists/CSS classes"
+#~ msgstr "/Lijsten/CSS klassen"
+
+#~ msgid "/Lists/headers"
+#~ msgstr "/Lijsten/kop"
+
+#~ msgid "Bluefish warning: some file(s) are modified!"
+#~ msgstr "Bluefish waarschuwing: er zijn bestanden gewijzigd!"
+
+#~ msgid ""
+#~ "Some file(s) in your project are modified\n"
+#~ "please choose your action"
+#~ msgstr ""
+#~ "Er zijn bestanden in uw project aangepast\n"
+#~ "Wilt u?:"
+
+#~ msgid "PHP Reference"
+#~ msgstr "PHP Naslagwerk"
+
+#~ msgid "SSI Reference"
+#~ msgstr "SSI Naslagwerk"
+
+#~ msgid "RXML Reference"
+#~ msgstr "RXML Naslagwerk"
+
+#~ msgid "PHP4 Reference"
+#~ msgstr "PHP4 Naslagwerk"
+
+#~ msgid "Group"
+#~ msgstr "Groep"
+
+#~ msgid "Function"
+#~ msgstr "Functie"
+
+#~ msgid "Insert"
+#~ msgstr "Invoegen"
+
+#~ msgid "Insert & close"
+#~ msgstr "Invoegen & sluiten"
+
+#~ msgid "Save as"
+#~ msgstr "Bewaren als"
+
+#~ msgid "Move to"
+#~ msgstr "Verplaats naar"
+
+#~ msgid "cut"
+#~ msgstr "knippen"
+
+#~ msgid "copy"
+#~ msgstr "kopieeren"
+
+#~ msgid "paste"
+#~ msgstr "plakken"
+
+#~ msgid "undo"
+#~ msgstr "herstel"
+
+#~ msgid "redo"
+#~ msgstr "herhaal"
+
+#~ msgid "Configure..."
+#~ msgstr "Instellen"
+
+#~ msgid "Print..."
+#~ msgstr "Afdrukken"
+
+#~ msgid "Spellcheck..."
+#~ msgstr "Spelling"
+
+#~ msgid "View in Netscape"
+#~ msgstr "Bekijken met Netscape"
+
+#~ msgid "Underline"
+#~ msgstr "Onderstrepen"
+
+#~ msgid "Strikeout"
+#~ msgstr "Doorhalen"
+
+#~ msgid "Image..."
+#~ msgstr "Figuur..."
+
+#~ msgid "Base Target"
+#~ msgstr "Basis Doel"
+
+#~ msgid "Menu"
+#~ msgstr "Menu"
+
+#~ msgid "Add class to tag..."
+#~ msgstr "Klasse toevoegen aan tag..."
+
+#~ msgid "Javascript for Mouseover Effects"
+#~ msgstr "Javascript voor Muisbeweging effecten"
+
+#~ msgid "Javascript to work around Resize Bug in Netscape 4"
+#~ msgstr ""
+#~ "Javascript voor omzeilen van Netscape 4 bug t.a.v. Grootte veranderen"
+
+#~ msgid "Empty javascript block"
+#~ msgstr "Leeg JavaScript blok"
+
+#~ msgid "Link to javascript..."
+#~ msgstr "Link naar javascript"
+
+#~ msgid " Javascript "
+#~ msgstr " JavaScript "
+
+#~ msgid "Standard WML Document"
+#~ msgstr "Standaard WML document"
+
+#~ msgid "Card Element..."
+#~ msgstr "Kaart element"
+
+#~ msgid "Postfield Element..."
+#~ msgstr "Veldnaam Element"
+
+#~ msgid "Go Element..."
+#~ msgstr "Ga naar-element (Go)"
+
+#~ msgid "Do Element..."
+#~ msgstr "Actie element (Do)"
+
+#~ msgid "Anchor Element..."
+#~ msgstr "Anker Element"
+
+#~ msgid "Access Element..."
+#~ msgstr "Toegang Element"
+
+#~ msgid "Insert a Paragraph"
+#~ msgstr "Alinea invoegen"
+
+#~ msgid "Line Break"
+#~ msgstr "Regel afbreken"
+
+#~ msgid "Non-breaking Space"
+#~ msgstr "Spatie"
+
+#~ msgid "Previous Document in History"
+#~ msgstr "Vorig Document in Geschiedenis"
+
+#~ msgid "No Operation"
+#~ msgstr "Geen handeling (noop-tag)"
+
+#~ msgid "Set variable.."
+#~ msgstr "Variabele"
+
+#~ msgid " WML "
+#~ msgstr " WML "
+
+#~ msgid "Imagemap"
+#~ msgstr "Map van aanklikbare afbeelding"
+
+#~ msgid "Meta..."
+#~ msgstr "Meta..."
+
+#~ msgid "Embed..."
+#~ msgstr "Multimedia (embed)..."
+
+#~ msgid "Select Colour..."
+#~ msgstr "Kleur Kiezen..."
+
+#~ msgid "SSI reference..."
+#~ msgstr "SSI naslagwerk..."
+
+#~ msgid "RXML reference..."
+#~ msgstr "RXML naslagwerk..."
+
+#~ msgid "PHP4 reference..."
+#~ msgstr "PHP4 naslagwerk..."
+
+#~ msgid "Insert Generator META-Tag"
+#~ msgstr "Generator META-Tag invoegen"
+
+#~ msgid " Other "
+#~ msgstr " Overige "
+
+#~ msgid "WML Card"
+#~ msgstr "WML Kaart"
+
+#~ msgid "OnTimer"
+#~ msgstr "Tijdklok"
+
+#~ msgid "WML Postfield"
+#~ msgstr "WML veldnaam"
+
+#~ msgid "WML Variable"
+#~ msgstr "WML variabele"
+
+#~ msgid "Go Dialog"
+#~ msgstr "Ga naar dialoog"
+
+#~ msgid "Sendreferer"
+#~ msgstr "Stuur refereerder"
+
+#~ msgid "Do Dialog"
+#~ msgstr "Actie dialoog"
+
+#~ msgid "Is Optional"
+#~ msgstr "Is optioneel"
+
+#~ msgid "Anchor Dialog"
+#~ msgstr "Anker dialoog"
+
+#~ msgid "WML Access Dialog"
+#~ msgstr "WML Toegang dialoog"
+
+#~ msgid "Domain"
+#~ msgstr "Domein"
+
+#~ msgid "Path"
+#~ msgstr "Pad"
+
+#~ msgid "Invalid especial character! %s\n"
+#~ msgstr "Ongeldig spciaal karakter %s\n"
+
+#~ msgid "Bluefish: Can't create pipe for spellchecker!"
+#~ msgstr "Bluefish: kan geen 'pipe' starten voor ispell"
+
+#~ msgid "Bluefish: Can't create stream for pipe for spellchecker!"
+#~ msgstr "Bluefish: kan geen 'pipe' starten voor ispell"
+
+#~ msgid "Bluefish: Can't create child process for spellchecker!"
+#~ msgstr "Bluefish: Kan geen child-proces voor spellingscontrole aanmaken!"
+
+#~ msgid "Bluefish: Failed to start ispell!\n"
+#~ msgstr "Bluefish: Kan ispell niet starten!\n"
+
+#~ msgid "Select on ispell returned error, what now?\n"
+#~ msgstr "ispell heeft een onbekende fout terug gestuurd\n"
+
+#~ msgid "Bluefish Spell Checker Error"
+#~ msgstr "Bluefish Spellings-controle fout"
+
+#~ msgid ""
+#~ "\n"
+#~ "\n"
+#~ "The ispell-process has died for some reason. *One* possible reason\n"
+#~ "could be that you do not have a dictionary file\n"
+#~ "for the language of this document installed.\n"
+#~ "Check /usr/lib/ispell or set another\n"
+#~ "dictionary in the Spellchecker Options menu."
+#~ msgstr ""
+#~ "\n"
+#~ "\n"
+#~ "Het spellingscontrole-proces (ispell) is afgebroken. Een mogelijke reden\n"
+#~ "KAN zijn dat er geen woordenboek-bestand aanwezig is\n"
+#~ "voor de taal van dit document.\n"
+#~ "Kijk in /usr/lib/ispell of kies een ander\n"
+#~ "woordenboek in de Spellingscontrole Opties menu."
+
+#~ msgid "Spell Checker"
+#~ msgstr "Spellingscontrole"
+
+#~ msgid "Start"
+#~ msgstr "Start"
+
+#~ msgid "Word"
+#~ msgstr "Woord"
+
+#~ msgid "Progress"
+#~ msgstr "Voortgang"
+
+#~ msgid ""
+#~ "Accept word\n"
+#~ "in this section"
+#~ msgstr ""
+#~ "Woord accepteren\n"
+#~ "in dit deel"
+
+#~ msgid ""
+#~ "Insert in Personal\n"
+#~ "Dictionary"
+#~ msgstr ""
+#~ "Voeg toe aan Persoonlijk\n"
+#~ "Woordenboek"
+
+#~ msgid ""
+#~ "Ignore\n"
+#~ "Word"
+#~ msgstr ""
+#~ "Negeer\n"
+#~ "Woord"
+
+#~ msgid ""
+#~ "Replace\n"
+#~ "Word"
+#~ msgstr ""
+#~ "Vervang\n"
+#~ "Woord"
+
+#~ msgid "checking spelling"
+#~ msgstr "Bezig met spellingscontrole"
+
+#~ msgid "Perl Version"
+#~ msgstr "Versie van Perl"
+
+#~ msgid "Call Perlscript"
+#~ msgstr "Roep perl script aan"
+
+#~ msgid "Scriptname"
+#~ msgstr "Scriptnaam"
