@@ -900,7 +900,7 @@ void bmark_add(Tbfwin * bfwin)
 	gint offset;
 	/* check for unnamed document */
 	if (!DOCUMENT(bfwin->current_document)->filename) {
-		error_dialog(bfwin->main_window, _("Add= bookmark"),
+		error_dialog(bfwin->main_window, _("Add bookmark"),
 					 _("Cannot add bookmarks in unnamed files."));
 					 /*\nPlease save the file first. A Save button in this dialog would be cool -- Alastair*/
 		return;
