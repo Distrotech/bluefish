@@ -21,7 +21,8 @@
  */
 
 /* this is needed for Solaris to comply with the latest POSIX standard 
- * regarding the ctime_r() function */
+ * regarding the ctime_r() function
+ * the problem is that it generates a compiler warning on Linux, lstat() undefined.. */
 #define _POSIX_C_SOURCE 200312L
 
 #include <gtk/gtk.h>
@@ -36,7 +37,7 @@
 #include <time.h>			/* ctime_r() */
 #include <pcre.h>
 
-/* #define DEBUG */
+#define DEBUG
 
 #ifdef DEBUGPROFILING
 #include <sys/times.h>
@@ -684,7 +685,7 @@ static void doc_set_tooltip(Tdocument *doc) {
 		}
 	}
 #else
-	if (doc->statbuf.st_uid > -1) {
+	if (doc->statbuf.st_mode != 0 || doc->statbuf.st_size != 0) {
 		modestr = filemode_to_string(doc->statbuf.st_mode);
 		ctime_r(&doc->statbuf.st_mtime,mtimestr);
 		sizestr = g_strdup_printf("%ld", doc->statbuf.st_size);
