@@ -111,11 +111,11 @@ int main(int argc, char *argv[])
 	rcfile_parse_main();
 	
 	parse_commandline(argc, argv, &root_override, &filenames);
-	
+#ifdef WITH_MSG_QUEUE	
 	if (filenames && main_v->props.open_in_running_bluefish) {
 		msg_queue_start(filenames);
 	}
-	
+#endif /* WITH_MSG_QUEUE */
 #ifndef NOSPLASH
 	/* start splash screen somewhere here */
 	splash_window = start_splash_screen();
@@ -137,11 +137,11 @@ int main(int argc, char *argv[])
 	splash_screen_set_label(_("parsing custom menu file..."));
 #endif /* #ifndef NOSPLASH */
 	rcfile_parse_custom_menu();
-
+#ifdef WITH_MSG_QUEUE
 	if (!filenames && main_v->props.open_in_running_bluefish) {
 		msg_queue_start(NULL);
 	}
-
+#endif /* WITH_MSG_QUEUE */
 #ifndef NOSPLASH
 	splash_screen_set_label(_("creating main gui..."));
 #endif /* #ifndef NOSPLASH */
@@ -167,9 +167,10 @@ int main(int argc, char *argv[])
 #endif /* #ifndef NOSPLASH */
 
 	gtk_main();
-	
+#ifdef WITH_MSG_QUEUE	
 	/* do the cleanup */
 	msg_queue_cleanup();
+#endif /* WITH_MSG_QUEUE */
 	return 0;
 }
 

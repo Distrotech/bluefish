@@ -24,7 +24,7 @@
 #include "config.h"
 #define BLUEFISH_SPLASH_FILENAME PKGDATADIR"bluefish_splash.png"
 
-#define WITH_MSG_QUEUE
+/* #define WITH_MSG_QUEUE */
 
 
 #ifdef DEBUG
@@ -209,9 +209,7 @@ typedef struct {
 	gint conv_shift_enter;		/* convert shift-enter key press */
 	gchar *shift_enter_text;	/* inserted text */
 	gint conv_special_char;		/* convert ctrl-'<','>','&' */
-#ifdef WITH_MSG_QUEUE
 	gint open_in_running_bluefish; /* open commandline documents in already running session*/
-#endif /* WITH_MSG_QUEUE */
 #ifdef AUTOCOMPLET
 	gint autocomplet_html;   /* Shows autocompletion window when editing HTML */
 	gint autocomplet_delay;  /* Delay to show the autocompletion window */
