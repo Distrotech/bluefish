@@ -169,6 +169,17 @@ else
 	AC_MSG_ERROR(libgtk2.0-dev missing, please install libgtk2.0-dev)
 fi
 
+echo -n "checking for gnome-vfs-2.0... "
+if pkg-config --exists gnome-vfs-2.0 ; then
+	LIBS="$LIBS `pkg-config --libs gnome-vfs-2.0`"
+	CFLAGS="$CFLAGS `pkg-config --cflags gnome-vfs-2.0`"
+	echo "yes"
+	AC_DEFINE(HAVE_GNOME_VFS)
+else
+	echo "no"
+	echo "gnome-vfs-2.0 not found, opening remote files will be disabled"
+fi
+
 AC_PATH_PROG(PCRE_CONFIG, pcre-config, no)
 if test "x$PCRE_CONFIG" = "xno" ; then
 	AC_MSG_ERROR(pcre-config not found please install libpcre3-dev or similar)
