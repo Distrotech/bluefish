@@ -1,9 +1,9 @@
 %define	desktop_vendor 	endur
 %define name  		bluefish
 %define version		gtk2
-%define release 	20040415
+%define release 	20040721
 %define epoch 		1
-%define source		bluefish-2004-04-15
+%define source		bluefish-2004-07-21
 	
 
 Summary:	A GTK2 web development application for experienced users.
@@ -53,7 +53,7 @@ Name=Bluefish web editor
 Comment=A GTK2 web development application for experienced users.
 Exec=%{name} -n
 Icon=%{name}-icon.png
-Terminal=0
+Terminal=false
 Type=Application
 EOF
 desktop-file-install --vendor %{desktop_vendor} --delete-original \
@@ -78,5 +78,5 @@ desktop-file-install --vendor %{desktop_vendor} --delete-original \
 
 
 %changelog
-* Sat Apr 17 2004 Matthias Haase <matthias_haase@bennewitz.com>
-- Automatic build - snapshot of 2004-04-15
+* Thu Jul 22 2004 Matthias Haase <matthias_haase@bennewitz.com>
+- Automatic build - snapshot of 2004-07-21
