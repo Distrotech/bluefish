@@ -449,11 +449,13 @@ gboolean doc_set_filetype(Tdocument *doc, Tfiletype *ft) {
  * Return value: void
  */
 void doc_set_title(Tdocument *doc) {
-	gchar *label_string, *tabmenu_string, *utf8uri;
-	utf8uri = gnome_vfs_format_uri_for_display(doc->uri);
+	gchar *label_string, *tabmenu_string;
 	if (doc->uri) {
+		gchar *utf8uri;
+		utf8uri = gnome_vfs_format_uri_for_display(doc->uri);
 		label_string = g_path_get_basename(utf8uri);
 		tabmenu_string = g_strdup(utf8uri);
+		g_free(utf8uri);
 	} else {
 		label_string = g_strdup_printf(_("Untitled %d"),main_v->num_untitled_documents);
 		tabmenu_string =  g_strdup(label_string);
@@ -464,7 +466,6 @@ void doc_set_title(Tdocument *doc) {
 	doc_set_tooltip(doc);
 	g_free(label_string);
 	g_free(tabmenu_string);
-	g_free(utf8uri);
 	if (doc->bfwin == BFWIN(doc->bfwin)->current_document) {
 		gui_set_title(doc->bfwin, doc);
 	}
