@@ -844,7 +844,7 @@ static void highlightpattern_apply_changes(Tprefdialog *pd) {
 				DEBUG_MSG("highlightpattern_apply_changes, curstrarr==tmplist->data==%p\n", tmplist->data);
 				g_strfreev(tmplist->data);
 				tmplist->data = highlightpattern_create_strarr(pd);
-				pd->hpd.curstrarr = NULL;
+				pd->hpd.curstrarr = tmplist->data;
 				return;
 			}
 			tmplist = g_list_next(tmplist);
@@ -860,6 +860,7 @@ static void highlightpattern_popmenu_activate(GtkMenuItem *menuitem,Tprefdialog 
 	DEBUG_MSG("highlightpattern_popmenu_activate, pd=%p, menuitem=%p\n", pd, menuitem);
 	tmplist = g_list_first(pd->lists[highlight_patterns]);
 	highlightpattern_apply_changes(pd);
+	pd->hpd.curstrarr = NULL;
 	if (menuitem) {
 		pd->hpd.selected_filetype = gtk_label_get_text(GTK_LABEL(GTK_BIN(menuitem)->child));
 	}
@@ -913,13 +914,14 @@ static void add_new_highlightpattern_lcb(GtkWidget *wid, Tprefdialog *pd) {
 static void highlightpattern_selection_changed_cb(GtkTreeSelection *selection, Tprefdialog *pd) {
 	GtkTreeIter iter;
 	GtkTreeModel *model;
-	gchar *pattern;
 	DEBUG_MSG("highlightpattern_selection_changed_cb, started\n");
 	if (gtk_tree_selection_get_selected(selection, &model, &iter)) {
+		gchar *pattern;
 		GList *tmplist = g_list_first(pd->lists[highlight_patterns]);
 /*		GtkWidget *menuitem = gtk_menu_get_active(GTK_MENU( gtk_option_menu_get_menu(GTK_OPTION_MENU(pd->hpd.popmenu)) ));*/
 		gtk_tree_model_get(model, &iter, 0, &pattern, -1);
 		highlightpattern_apply_changes(pd);
+		pd->hpd.curstrarr = NULL;
 		DEBUG_MSG("changed applied, searching for the data of the new selection\n");
 		while (tmplist) {
 			gchar **strarr =(gchar **)tmplist->data;
