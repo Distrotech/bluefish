@@ -1174,7 +1174,7 @@ typedef struct {
 	Tbfwin *bfwin;
 } Tstatusbar_remove;
 
-static guint statusbar_remove(gpointer sr) {
+static gint statusbar_remove(gpointer sr) {
 	gtk_statusbar_remove(GTK_STATUSBAR(((Tstatusbar_remove *)sr)->bfwin->statusbar), 0, ((Tstatusbar_remove *)sr)->message_id);
 	g_free(sr);
 	return FALSE;
