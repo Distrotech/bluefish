@@ -116,7 +116,6 @@ gchar *fref_xml_get_refname(gchar *filename)
 	}	
 	g_markup_parse_context_free(ctx);
 	tmps = aux->name;
-	g_free(aux->name);
 	g_free(aux->description);
 	g_free(aux);
 	g_free(config);
