@@ -264,7 +264,7 @@ void gui_set_title(Tbfwin *bfwin, Tdocument *doc) {
 	}
 	title = g_strconcat(prfilepart, " - Bluefish "VERSION,NULL);
 	gtk_window_set_title(GTK_WINDOW(bfwin->main_window),title);
-	rename_window_entry_in_all_windows(bfwin, title);
+	/*rename_window_entry_in_all_windows(bfwin, title);*/
 	g_free(title);
 	g_free(prfilepart);
 }
@@ -983,7 +983,7 @@ static void main_win_on_drag_data_lcb(GtkWidget * widget, GdkDragContext * conte
 
 void gui_bfwin_cleanup(Tbfwin *bfwin) {
 	/* call all cleanup functions here */
-	remove_window_entry_from_all_windows(bfwin);
+	/*remove_window_entry_from_all_windows(bfwin);*/
 }
 
 void main_window_destroy_lcb(GtkWidget *widget,Tbfwin *bfwin) {
@@ -1052,8 +1052,8 @@ void gui_create_main(Tbfwin *bfwin, GList *filenames) {
 	external_menu_rebuild(bfwin);
 	encoding_menu_rebuild(bfwin);
 	snr2_init(bfwin);
-	add_window_entry_to_all_windows(bfwin);
-	add_allwindows_entries_to_window(bfwin);
+/*	add_window_entry_to_all_windows(bfwin);
+	add_allwindows_entries_to_window(bfwin);*/
 	/* then the toolbars */
 	{
 		bfwin->main_toolbar_hb = gtk_handle_box_new();
@@ -1438,7 +1438,7 @@ Tbfwin *gui_new_window(GList *filenames, Tproject *project) {
 		bfwin->session = g_new0(Tsessionvars,1);
 	}
 	gui_create_main(bfwin,filenames);
-	main_v->bfwinlist = g_list_append(main_v->bfwinlist, bfwin);
+/*	main_v->bfwinlist = g_list_append(main_v->bfwinlist, bfwin);*/
 	gui_show_main(bfwin);
 	return bfwin;
 }
