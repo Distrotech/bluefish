@@ -39,7 +39,16 @@ typedef enum {
 	CHECKNSAVE_CONT
 } TcheckNsave_return;
 
-typedef TcheckNsave_return (* CheckNsaveAsyncCallback) (TcheckNsave_status,gint error_info,gpointer callback_data);
+typedef enum {
+	CHECKMODIFIED_ERROR,
+	CHECKMODIFIED_MODIFIED,
+	CHECKMODIFIED_OK
+} Tcheckmodified_status;
+
+typedef void (* CheckmodifiedAsyncCallback) (Tcheckmodified_status status,gint error_info,GnomeVFSFileInfo *orig, GnomeVFSFileInfo *new, gpointer callback_data);
+typedef TcheckNsave_return (* CheckNsaveAsyncCallback) (TcheckNsave_status status,gint error_info,gpointer callback_data);
+
+void file_checkmodified_uri_async(GnomeVFSURI *uri, GnomeVFSFileInfo *curinfo, CheckmodifiedAsyncCallback callback_func, gpointer callback_data);
 void file_checkNsave_uri_async(GnomeVFSURI *uri, GnomeVFSFileInfo *info, Trefcpointer *buffer, GnomeVFSFileSize buffer_size, gboolean check_modified, CheckNsaveAsyncCallback callback_func, gpointer callback_data);
 void file_doc_fill_fileinfo(Tdocument *doc, GnomeVFSURI *uri);
 void file_doc_retry_uri(Tdocument *doc);
