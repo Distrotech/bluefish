@@ -470,26 +470,35 @@ fi
 AC_SUBST(INSTALLDATA)
 
 AC_ARG_WITH(icon-path,
-	AC_HELP_STRING([--without-icon],[do not install icon in /usr/share/pixmaps/, use --with-icon=/path to override the default path]),[
+	AC_HELP_STRING([--without-icon-path],[do not install icon in /usr/share/pixmaps/, use --with-icon-path=/path to override the default path]),[
 	WITHICON=$withval
 ], [
 	WITHICON=yes
 ])
+
 if test "x$WITHICON" != "xno" ; then
+	echo -n "checking icon path... "
 	if test "x$WITHICON" = "xyes" ; then
+		# the default answer is yes, so this is for users that did not use theicon-path option at all
 		ICONPREFIX=/usr/share/pixmaps
+		if test -d ${ICONPREFIX} ; then
+			echo "${ICONPREFIX}"
+			ICONPATH=${ICONPREFIX}
+			AC_SUBST(ICONPATH)
+			INSTALLMAIN="${INSTALLMAIN} install-icon"
+		else
+			# the user did not specify an icon-path, and the default path seems to be wrong for this system
+			# we will not install an icon
+			echo "no"
+		fi
 	else
+		# the user did specify an icon-path, we will install the icon there
 		ICONPREFIX=$WITHICON
-	fi	
-	echo -n "checking for icon directory... "
-	if test -d ${ICONPREFIX} ; then
 		echo "${ICONPREFIX}"
 		ICONPATH=${ICONPREFIX}
 		AC_SUBST(ICONPATH)
 		INSTALLMAIN="${INSTALLMAIN} install-icon"
-	else
-		echo "no"
-	fi
+	fi	
 fi
 
 if test "${prefix}" == "NONE"; then
