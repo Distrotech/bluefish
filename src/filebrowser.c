@@ -19,6 +19,35 @@
  */
 /* #define DEBUG */
 
+/* ******* NEW FILEBROWSER DESIGN ********
+I'm thinking about a new design for the filebrowser, the 
+code is too complicated right now. For now I'll just write some thoughts, so 
+after we have the next stable releae we can implement it.
+
+we'll drop the one-pane-view, we'll only have the files and directories separate
+
+the public API:
+--------------
+GtkWidget *fb2_init(Tbfwin *bfwin);
+void fb2_cleanup(Tbfwin *bfwin);
+void fb2_set_basedir(Tbfwin *bfwin, gchar *basedir);
+void fb2_focus_document(Tbfwin *bfwin, Tdocument *doc);
+--------------
+
+in the treemodel for the directories, we'll have two columns. A visible column (with the name), 
+and a column with the full path,  so if a click on an item is done, it is very easy to see which 
+full path corresponds to that item.
+
+to make 'focus document' very easy, each document can have a GtkTreeIter 
+pointing to the directory where the file located. If it does not have the treeiter, the 
+document has not been focused before (so it is not required to have a treeiter for 
+every document).
+
+the most difficult thing to code now is when we for example open a new file, we'll have to 
+find which directory item corresponds to that filename, and if it is not yet there, we'll 
+have to find where we should add it. Same for a document that has not been focused before.
+So we need to think of something smart to do that....
+*/
 #include <gtk/gtk.h>
 #include <sys/types.h>	/* stat() getuid */
 #include <sys/stat.h>	/* stat() */
