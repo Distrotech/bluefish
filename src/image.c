@@ -34,6 +34,7 @@ typedef struct {
 	Thtml_diag *dg;
 	GtkWidget *frame;
 	GdkPixbuf *pb;
+	GnomeVFSURI *full_uri;
 	GtkWidget *im;
 
 	GdkPixbufLoader* pbloader;
@@ -50,7 +51,14 @@ void image_diag_destroy_cb(GtkWidget * widget, Timage_diag *imdg) {
 	if (imdg->pb) {
 		g_object_unref(imdg->pb);
 	}
+	if (imdg->full_uri) {
+		gnome_vfs_uri_unref(imdg->full_uri);
+	}
 	g_free(imdg);
+}
+
+static void async_thumbsave_lcb(Tsavefile_status status,gint error_info,gpointer callback_data) {
+	DEBUG_MSG("async_thumbsave_lcb, status=%d\n",status);
 }
 
 static void image_insert_dialogok_lcb(GtkWidget * widget, Timage_diag *imdg) {
@@ -58,40 +66,47 @@ static void image_insert_dialogok_lcb(GtkWidget * widget, Timage_diag *imdg) {
 
 	if (imdg->is_thumbnail) {
 		gchar *thumbnailfilename, *filename;
+		GnomeVFSURI *fullthumbfilename;
+		gchar *tmp1, *tmp2;
+		gchar *buffer;
+		gsize buflen;
+		gint w,h;
+		GError *error=NULL;
+		GdkPixbuf *tmp_im;
 
+		
 		filename = gtk_editable_get_chars(GTK_EDITABLE(imdg->dg->entry[0]), 0, -1);
 		thumbnailfilename = create_thumbnail_filename(filename);
-		{
-			gchar *fullthumbfilename, *basedir = NULL;
-			gint w,h;
-			GError *error=NULL;
-			GdkPixbuf *tmp_im;
-			
-			/* the filename and thumbnailfilename can be relative paths to the current document */
-			if (filename[0] != '/' && imdg->dg->doc->uri && strlen(imdg->dg->doc->uri)) {
-				basedir = path_get_dirname_with_ending_slash(imdg->dg->doc->uri);
-			} else if (filename[0] == '/') {
-				basedir = path_get_dirname_with_ending_slash(filename);
-			}
-			/* we should use the full path to create the thumbnail filename */
-			fullthumbfilename = create_full_path(thumbnailfilename, basedir);
-			g_free(basedir);
-			DEBUG_MSG("image_insert_dialogok_lcb, thumbnail will be stored at %s\n", fullthumbfilename);
-			w = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(imdg->dg->spin[0]));
-			h = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(imdg->dg->spin[1]));
-			tmp_im = gdk_pixbuf_scale_simple(imdg->pb, w, h, GDK_INTERP_BILINEAR);
-			if (strcmp(main_v->props.image_thumbnailtype, "jpeg")==0) {
-	 			gdk_pixbuf_save(tmp_im,fullthumbfilename,main_v->props.image_thumbnailtype,&error, "quality", "50",NULL);
-			} else {
-				gdk_pixbuf_save(tmp_im,fullthumbfilename,main_v->props.image_thumbnailtype,&error, NULL);
-			}
-			g_object_unref (tmp_im);
-			if (error) {
-				g_print("ERROR while saving thumbnail: %s\n", error->message);
-				g_error_free(error);
-			}
-			g_free(fullthumbfilename);
+		/* we should use the full path to create the thumbnail filename */
+		tmp1 = gnome_vfs_uri_to_string(imdg->full_uri,GNOME_VFS_URI_HIDE_PASSWORD);
+		tmp2 = create_thumbnail_filename(tmp1);
+		fullthumbfilename = gnome_vfs_uri_new(tmp2);
+		g_free(tmp1);
+		g_free(tmp2);
+		
+		DEBUG_MSG("image_insert_dialogok_lcb, thumbnail will be stored at %s\n", gnome_vfs_uri_get_path(fullthumbfilename));
+		w = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(imdg->dg->spin[0]));
+		h = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(imdg->dg->spin[1]));
+		tmp_im = gdk_pixbuf_scale_simple(imdg->pb, w, h, GDK_INTERP_BILINEAR);
+		if (strcmp(main_v->props.image_thumbnailtype, "jpeg")==0) {
+			gdk_pixbuf_save_to_buffer(tmp_im, &buffer, &buflen,main_v->props.image_thumbnailtype,&error, "quality", "50",NULL);
+ 			/* gdk_pixbuf_save(tmp_im,fullthumbfilename,main_v->props.image_thumbnailtype,&error, "quality", "50",NULL);*/
+		} else {
+			gdk_pixbuf_save_to_buffer(tmp_im, &buffer, &buflen,main_v->props.image_thumbnailtype,&error,NULL);
+			/*gdk_pixbuf_save(tmp_im,fullthumbfilename,main_v->props.image_thumbnailtype,&error, NULL);*/
 		}
+		g_object_unref (tmp_im);
+		if (error) {
+			g_print("ERROR while saving thumbnail to buffer: %s\n", error->message);
+			g_error_free(error);
+		} else {
+			Tsavefile *sf;
+			Trefcpointer *refbuf = refcpointer_new(buffer);
+			DEBUG_MSG("image_insert_dialogok_lcb, starting async save to %s\n",gnome_vfs_uri_get_path(fullthumbfilename));
+			sf = file_savefile_uri_async(fullthumbfilename, refbuf, buflen, async_thumbsave_lcb, NULL);
+			refcpointer_unref(refbuf);
+		}
+		gnome_vfs_uri_unref(fullthumbfilename);
 		thestring = g_strconcat(cap("<A HREF=\""),filename, cap("\"><IMG SRC=\""), thumbnailfilename, "\"", NULL);
 		g_free(filename);
 		g_free(thumbnailfilename);
@@ -230,8 +245,8 @@ static void image_loaded_lcb(Topenfile_status status,gint error_info, gchar *buf
 
 static void image_filename_changed(GtkWidget * widget, Timage_diag *imdg) {
 	const gchar *filename;
-	gchar *fullfilename = NULL, *tmp;
-	GnomeVFSURI *uri;
+	gchar *tmp;
+	GnomeVFSURI *fullfilename=NULL;
 
 	DEBUG_MSG("image_filename_changed() started. GTK_IS_WIDGET(imdg->im) == %d\n", GTK_IS_WIDGET(imdg->im));
 	if (imdg->pb) {
@@ -247,41 +262,39 @@ static void image_filename_changed(GtkWidget * widget, Timage_diag *imdg) {
 	filename = gtk_entry_get_text(GTK_ENTRY(imdg->dg->entry[0]));
 	/* we should use the full path to create the thumbnail filename */
 	tmp = strstr(filename, "://");
-	if (tmp == NULL && imdg->dg->doc->uri && strlen(imdg->dg->doc->uri)) {
+	if ((tmp == NULL && filename[0] != '/') && imdg->dg->doc->uri && strlen(imdg->dg->doc->uri)) {
+		GnomeVFSURI *parent;
 		gchar *basedir = path_get_dirname_with_ending_slash(imdg->dg->doc->uri);
-		fullfilename = create_full_path(filename, basedir);
+		parent = gnome_vfs_uri_new(basedir);
+		fullfilename = gnome_vfs_uri_resolve_relative (parent,filename);
 		g_free(basedir);
-	} else if (tmp != NULL) {
-		fullfilename = g_strdup(filename);
-	} else if (filename[0]=='/'){
-		fullfilename = g_strconcat("file://",filename,NULL);
+		gnome_vfs_uri_unref(parent);
+	} else if (tmp != NULL || filename[0]=='/') {
+		fullfilename = gnome_vfs_uri_new(filename);
 	} else {
 		return;
 	}
-	DEBUG_MSG("image_filename_changed: fullfilename=%s, loading!\n",fullfilename);
-	uri = gnome_vfs_uri_new(fullfilename);
-	if (uri) {
+	DEBUG_MSG("image_filename_changed: fullfilename=%s, loading!\n",gnome_vfs_uri_get_path(fullfilename));
+	if (fullfilename) {
 		GError *error=NULL;
-		gchar *ext = strrchr(fullfilename, '.');
+		gchar *ext = strrchr(filename, '.');
 		if (ext) {
-			gchar *tmp2 = g_strdown(ext+1);
+			gchar *tmp2 = g_utf8_strdown(ext+1,-1);
 			if (strcmp(tmp2, "jpg")==0) {
 				imdg->pbloader = gdk_pixbuf_loader_new_with_type("jpeg", &error);
 			} else {
 				imdg->pbloader = gdk_pixbuf_loader_new_with_type(tmp2, &error);
 			}
+			if (error) {
+				imdg->pbloader = gdk_pixbuf_loader_new(); /* try to guess from the data */
+			}
 			g_free(tmp2);
 		} else {
 			imdg->pbloader = gdk_pixbuf_loader_new();
 		}
-		if (error) {
-			DEBUG_MSG("failed to open loader for ext=%s because %s\n", ext, error->message);
-		} else {
-			imdg->of = file_openfile_uri_async(uri, image_loaded_lcb, imdg);
-		}
-		gnome_vfs_uri_unref(uri);
+		imdg->of = file_openfile_uri_async(fullfilename, image_loaded_lcb, imdg);
+		imdg->full_uri = fullfilename;
 	}
-	g_free(fullfilename);
 }
 
 static void image_adjust_changed(GtkAdjustment * adj, Timage_diag *imdg) {
@@ -469,7 +482,6 @@ static void multi_thumbnail_ok_clicked(GtkWidget *widget, Tmuthudia *mtd) {
 			main_v->props.image_thumnailformatstring = tmp;
 		}
 	}
-#ifdef HAVE_ATLEAST_GTK_2_4
 	{
 		GtkWidget *dialog;
 		/*dialog = gtk_file_chooser_dialog_new (_("Select files for thumbnail creation"),NULL,
@@ -486,9 +498,6 @@ static void multi_thumbnail_ok_clicked(GtkWidget *widget, Tmuthudia *mtd) {
 		}
 		gtk_widget_destroy (dialog);
 	}
-#else
-	files = return_files_w_title(NULL, _("Select files for thumbnail creation"));
-#endif
 	tmplist = g_list_first(files);
 	while (tmplist) {
 		GdkPixbuf *tmp_im1, *tmp_im2;
