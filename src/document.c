@@ -1252,12 +1252,13 @@ gint doc_save(Tdocument * doc, gint do_save_as, gint do_move)
 	{
 	time_t newtime;
 	if (doc_check_mtime(doc,&newtime) == 0) {
-		gchar *tmpstr,datestring[128]; /* according to 'man ctime_r' this should be at least 26, so 128 should do ;-)*/
+		gchar *tmpstr, oldtimestr[128], newtimestr[128];/* according to 'man ctime_r' this should be at least 26, so 128 should do ;-)*/
 		gint retval;
 		gchar *options[] = {N_("Overwrite"), N_("Cancel"), NULL};
 
-		ctime_r(&newtime,datestring);
-		tmpstr = g_strdup_printf(_("File %s\nis modified by another process\nModification time is %s\noverwrite?"), doc->filename, datestring);
+		ctime_r(&newtime,newtimestr);
+		ctime_r(&doc->mtime,oldtimestr);
+		tmpstr = g_strdup_printf(_("File %s\nis modified by another process\nnew modification time is %s\nold modification time is %s\noverwrite?"), doc->filename,newtimestr,oldtimestr);
 		retval = multi_button_dialog(_("Bluefish: Warning, file is modified"), 0, tmpstr, options);
 		g_free(tmpstr);
 		if (retval == 1) {
@@ -1643,12 +1644,13 @@ void doc_reload(Tdocument *doc) {
 void doc_activate(Tdocument *doc) {
 	time_t newtime;
 	if (doc_check_mtime(doc,&newtime) == 0) {
-		gchar *tmpstr, datestring[128]; /* according to 'man ctime_r' this should be at least 26, so 128 should do ;-)*/
+		gchar *tmpstr, oldtimestr[128], newtimestr[128];/* according to 'man ctime_r' this should be at least 26, so 128 should do ;-)*/
 		gint retval;
 		gchar *options[] = {N_("Reload"), N_("Ignore"), NULL};
 
-		ctime_r(&newtime,datestring);
-		tmpstr = g_strdup_printf(_("File %s\nis modified by another process\nmodification time is %s"), doc->filename,datestring);
+		ctime_r(&newtime,newtimestr);
+		ctime_r(&doc->mtime,oldtimestr);
+		tmpstr = g_strdup_printf(_("File %s\nis modified by another process\nnew modification time is %s\nold modification time is %s"), doc->filename,newtimestr,oldtimestr);
 		retval = multi_button_dialog(_("Bluefish: Warning, file is modified"), 0, tmpstr, options);
 		g_free(tmpstr);
 		if (retval == 1) {
