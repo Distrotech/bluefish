@@ -277,7 +277,8 @@ gboolean doc_set_filetype(Tdocument *doc, Tfiletype *ft) {
 		doc_remove_highlighting(doc);
 		doc->hl = ft;
 		doc->need_highlighting = TRUE;
-		menu_current_document_set_toggle_wo_activate(BFWIN(doc->bfwin),ft, NULL);
+		doc->autoclosingtag = ft->autoclosingtag;
+		gui_set_document_widgets(doc);
 		return TRUE;
 	}
 	return FALSE;
@@ -1545,7 +1546,7 @@ static gchar *closingtagtoinsert(Tdocument *doc, const gchar *tagname, GtkTextIt
 	/* only for XML all start tags have to end on < /> so we check for that, all other tags 
 	 * will be treated like HTML tags */
 	if (tagname[0] != '/') {
-		if (strcmp(doc->hl->type,"xml")==0) {
+		if (doc->hl && doc->hl->autoclosingtag == 1 /* xml mode */) {
 			gchar *tmp;
 			GtkTextIter itstart = *iter, itend=*iter;
 			gtk_text_iter_backward_chars(&itstart,2);
@@ -1557,7 +1558,7 @@ static gchar *closingtagtoinsert(Tdocument *doc, const gchar *tagname, GtkTextIt
 			}
 			g_free(tmp);
 			return g_strconcat("</",tagname,">", NULL);
-		} else {
+		} else /* should be doc->hl == 2, which is html mode */{
 			/* HTML, test if this tag needs closing */
 			gchar **tmp=noclosingtag;
 			DEBUG_MSG("closingtagtoinsert, test if %s needs closing in HTML\n",tagname);
@@ -1609,46 +1610,44 @@ static void doc_buffer_insert_text_after_lcb(GtkTextBuffer *textbuffer,GtkTextIt
 			 * This code will simply look back in the buffer once a '>' character is pressed, and look if that was
 			 * the end of a tag. If so it will insert the closing tag for that same tag. Works for XML and HTML. For
 			 * HTML we need an exception, since <br> and such don't need a closing tag */
-			if (doc->hl && (strcmp(doc->hl->type, "html")==0 || strcmp(doc->hl->type, "xml")==0 || strcmp(doc->hl->type, "php")==0)) {
-				gboolean doreturn = FALSE;
-				GtkTextIter itstart = *iter, maxsearch = *iter;
-				DEBUG_MSG("doc_buffer_insert_text_after_lcb, autoclosing, started at %d\n",gtk_text_iter_get_offset(&itstart));
-				gtk_text_iter_backward_chars(&maxsearch,250);
-				if (gtk_text_iter_backward_find_char(&itstart,(GtkTextCharPredicate)find_char,GINT_TO_POINTER("<"),&maxsearch)) {
-					/* we use a regular expression to check if the tag is valid, AND to parse the tagname from the string */
-					pcre *creg;
-					const char *errmsg = NULL;
-					int erroffs=0;
-					gchar *buf;
-					int ovector[30], ret;
-					maxsearch = *iter; /* re-use maxsearch */
-					buf = gtk_text_buffer_get_text(doc->buffer,&itstart,&maxsearch,FALSE);
-					creg = pcre_compile("^<([a-z][a-z0-9]*)([\n\t ][^<>]*)?>$", PCRE_CASELESS, &errmsg, &erroffs,NULL);
-					ret = pcre_exec(creg, NULL, buf, strlen(buf), 0,PCRE_ANCHORED, ovector, 30);
-					if (ret > 0) {
-						gchar *tagname, *toinsert;
-						DEBUG_MSG("doc_buffer_insert_text_after_lcb, autoclosing, we have a tag, ret=%d, starts at ovector[2]=%d, ovector[3]=%d\n",ret, ovector[2], ovector[3]);
-						tagname = g_strndup(&buf[ovector[2]], ovector[3]-ovector[2]);
-						DEBUG_MSG("doc_buffer_insert_text_after_lcb, autoclosing, tagname='%s'\n",tagname);
-						toinsert = closingtagtoinsert(doc, tagname, iter);
-						if (toinsert) {
-							/* we re-use the maxsearch iter now */
-							gtk_text_buffer_insert(doc->buffer,&maxsearch,toinsert,-1);
-							doreturn = TRUE;
-							/* now we set the cursor back to its previous location, re-using itstart */
-							gtk_text_buffer_get_iter_at_mark(doc->buffer,&itstart,gtk_text_buffer_get_insert(doc->buffer));
-							gtk_text_iter_backward_chars(&itstart,strlen(toinsert));
-							gtk_text_buffer_place_cursor(doc->buffer,&itstart);
-							g_free(toinsert);
-						}
-						g_free(tagname);
+			gboolean doreturn = FALSE;
+			GtkTextIter itstart = *iter, maxsearch = *iter;
+			DEBUG_MSG("doc_buffer_insert_text_after_lcb, autoclosing, started at %d\n",gtk_text_iter_get_offset(&itstart));
+			gtk_text_iter_backward_chars(&maxsearch,250);
+			if (gtk_text_iter_backward_find_char(&itstart,(GtkTextCharPredicate)find_char,GINT_TO_POINTER("<"),&maxsearch)) {
+				/* we use a regular expression to check if the tag is valid, AND to parse the tagname from the string */
+				pcre *creg;
+				const char *errmsg = NULL;
+				int erroffs=0;
+				gchar *buf;
+				int ovector[30], ret;
+				maxsearch = *iter; /* re-use maxsearch */
+				buf = gtk_text_buffer_get_text(doc->buffer,&itstart,&maxsearch,FALSE);
+				creg = pcre_compile("^<([a-z][a-z0-9]*)([\n\t ][^<>]*)?>$", PCRE_CASELESS, &errmsg, &erroffs,NULL);
+				ret = pcre_exec(creg, NULL, buf, strlen(buf), 0,PCRE_ANCHORED, ovector, 30);
+				if (ret > 0) {
+					gchar *tagname, *toinsert;
+					DEBUG_MSG("doc_buffer_insert_text_after_lcb, autoclosing, we have a tag, ret=%d, starts at ovector[2]=%d, ovector[3]=%d\n",ret, ovector[2], ovector[3]);
+					tagname = g_strndup(&buf[ovector[2]], ovector[3]-ovector[2]);
+					DEBUG_MSG("doc_buffer_insert_text_after_lcb, autoclosing, tagname='%s'\n",tagname);
+					toinsert = closingtagtoinsert(doc, tagname, iter);
+					if (toinsert) {
+						/* we re-use the maxsearch iter now */
+						gtk_text_buffer_insert(doc->buffer,&maxsearch,toinsert,-1);
+						doreturn = TRUE;
+						/* now we set the cursor back to its previous location, re-using itstart */
+						gtk_text_buffer_get_iter_at_mark(doc->buffer,&itstart,gtk_text_buffer_get_insert(doc->buffer));
+						gtk_text_iter_backward_chars(&itstart,strlen(toinsert));
+						gtk_text_buffer_place_cursor(doc->buffer,&itstart);
+						g_free(toinsert);
 					}
-					/* cleanup and return */
-					pcre_free(creg);
-					g_free(buf);
+					g_free(tagname);
 				}
-				if (doreturn) return;
+				/* cleanup and return */
+				pcre_free(creg);
+				g_free(buf);
 			}
+			if (doreturn) return;
 		}
 	
 		/* highlighting stuff */
@@ -2836,8 +2835,8 @@ void doc_activate(Tdocument *doc) {
 			doc_reload(doc);
 		}
 	}
-	DEBUG_MSG("doc_activate, calling gui_set_widgets\n");
-	gui_set_widgets(BFWIN(doc->bfwin),doc_has_undo_list(doc), doc_has_redo_list(doc), doc->wrapstate, doc->highlightstate, doc->hl, doc->encoding, doc->linenumberstate, doc->autoclosingtag);
+	DEBUG_MSG("doc_activate, calling gui_set_document_widgets()\n");
+	gui_set_document_widgets(doc);
 	gui_set_title(BFWIN(doc->bfwin), doc);
 	doc_set_statusbar_lncol(doc);
 	doc_set_statusbar_insovr(doc);
