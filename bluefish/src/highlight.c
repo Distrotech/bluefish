@@ -21,9 +21,9 @@
  * indenting is done with
  * indent --line-length 100 --k-and-r-style --tab-size 4 -bbo --ignore-newlines highlight.c
  */
-/*#define HL_TIMING
+/* #define HL_TIMING
 #define HL_DEBUG 
-#define DEBUG*/
+#define DEBUG */
 
 #ifdef HL_TIMING /* some overall profiling information, not per pattern, but per type of code , interesting to bluefish programmers*/
 #include <sys/times.h>
@@ -1158,6 +1158,10 @@ void doc_highlight_line(Tdocument * doc)
 						  gtk_text_iter_get_offset(&itstart), gtk_text_iter_get_offset(&itend));
 				tag_found = gtk_text_iter_forward_to_tag_toggle(&itsearch, GTK_TEXT_TAG(slist->data));
 				if (!tag_found) {
+					/* this happens with several gtk versions, 
+						up to 2.2.4 is buggy
+						inbetween is unknown,
+						2.4.4 is fixed */
 					DEBUG_MSG("doc_highlight_line (1), very weird situation, the tag %p is started but it doesn't end ??, itsearch now is at %d\n", slist->data, gtk_text_iter_get_offset(&itsearch));
 					/* itsearch is now at the end of the buffer so we do a backward search to find the first start */
 					tag_found = gtk_text_iter_backward_to_tag_toggle(&itsearch, GTK_TEXT_TAG(slist->data));
@@ -1165,6 +1169,12 @@ void doc_highlight_line(Tdocument * doc)
 					if (!tag_found) {
 						g_print("doc_highlight_line, (1) a tag that is started is nowhere to be found ??? BUG!\n");
 						exit(123);
+					}
+					if (gtk_text_iter_compare(&itsearch, &itend) < 0) {
+						/* there is no tag toggle found between itend and the end of the buffer, we
+						 probably have hit the gtk bug here, so we just set itsearch here to itend+1 */
+						 itsearch = itend;
+						 gtk_text_iter_forward_char(&itsearch);
 					}
 				}
 				DEBUG_MSG("doc_highlight_line, (1) tag %p (%s) ends at itsearch=%d\n", slist->data, get_metaname_from_tag(slist->data),gtk_text_iter_get_offset(&itsearch));
@@ -1250,8 +1260,11 @@ void doc_highlight_line(Tdocument * doc)
 #endif
 				/* this next function does crash sometimes, and I wonder why..... */
 				tag_found = gtk_text_iter_backward_to_tag_toggle(&itsearch, GTK_TEXT_TAG(slist->data));
-/*				tag_found = gtk_text_iter_backward_to_tag_toggle(&itsearch, GTK_TEXT_TAG(slist->data));*/
 				if (!tag_found) {
+					/* this happens with several gtk versions, 
+						up to 2.2.4 is buggy
+						inbetween is unknown,
+						2.4.4 is fixed */
 					DEBUG_MSG("doc_highlight_line (2), very weird situation, the tag is ended but it doesn't start ??, itsearch now is at %d\n", gtk_text_iter_get_offset(&itsearch));
 					/* itsearch is now at offset 0, so we do a forward search to find the first start */
 					tag_found = gtk_text_iter_forward_to_tag_toggle(&itsearch, GTK_TEXT_TAG(slist->data));
@@ -1259,6 +1272,11 @@ void doc_highlight_line(Tdocument * doc)
 					if (!tag_found) {
 						g_print("doc_highlight_line, (2) a tag that is started is nowhere to be found ??? BUG!\n");
 						exit(123);
+					}
+					if (gtk_text_iter_compare(&itsearch, &itend) > 0) {
+						/* we probably have hit the bug in gtk, but this tag is probably started before itstart */
+						itsearch = itstart;
+						gtk_text_iter_backward_char(&itsearch);
 					}
 				}
 				DEBUG_MSG("doc_highlight_line, (2) tag %p (%s) starts at itsearch=%d\n", slist->data,get_metaname_from_tag(slist->data),gtk_text_iter_get_offset(&itsearch));
