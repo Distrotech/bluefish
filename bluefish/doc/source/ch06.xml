@@ -16,14 +16,178 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 -->
-<chapter id="bluefish-ch-6">
+<chapter id="bluefish-ch-7">
 
-  <title>reference</title>
+  <title>development guidelines</title>
 	<simplesect>    
 		<para>
-	      ...	list all options in the preferences and their config file and config-name
+	      Work hard but have fun!
 		</para>
 	</simplesect>
+
+	<sect1 id="bluefish-ch-7-sect-1">
+		<title>Debugging bluefish</title>
+
+	 <itemizedlist>
+	  <listitem><para>get the latest cvs release (info on the development page)</para></listitem>
+   <listitem><para>use ./configure --with-debugging-output</para></listitem>
+    <listitem><para>make clean</para></listitem>
+    <listitem><para>make</para></listitem>
+    <listitem><para>do not run make install since it strips the debugging symbols from the executable</para></listitem>
+    <listitem><para>use 'gdb src/bluefish' to run bluefish in the debugger, do not run gdb bluefish or gdb /usr/local/bin/bluefish since these binaries do not have any debugging symbols anymore</para></listitem>
+    <listitem><para>type 'r' to start</para></listitem>
+    <listitem><para>reproduce the crash</para></listitem>
+    <listitem><para>copy &amp; paste the last 50 lines of output to an email</para></listitem>
+    <listitem><para>type 'bt' to get the backstrace info, and copy it also to the mail (if it is over 50 lines, the first lines are the most interesting)</para></listitem>
+    <listitem><para>send the mail to the general address, the mailinglist or a specific developer</para></listitem>
+	</itemizedlist>
+
+
+
+	</sect1>
+	<sect1 id="bluefish-ch-7-sect-2">
+		<title>Indenting and formating style</title>
+		<para>Indenting can be done with the indent utility. Bluefish 
+		uses tabs - not spaces, and I'll explain why. Some programmers
+		prefer a lot of indenting, 8 characters, some prefer less, 3 
+		characters. If Bluefish code was indented with spaces, these
+		programmers had a problem, they would have to change the files
+		to view it in their favourite layout. But because we use tabs, 
+		these programmers can simply set the tab width to a different 
+		value, and without changing the files it looks good for both 
+		programmers!
+		</para>
+		<para>
+			indent --line-length 100 --k-and-r-style --tab-size 4 -bbo --ignore-newlines bluefishcode.c
+		</para>
+	<para>
+	comment all public functions like it is done in bf_lib.c and gtk_easy.c (javadoc style, with some small differences), this can be used to create a function reference
+	</para>
+	</sect1>
+	<sect1 id="bluefish-ch-7-sect-3">
+		<title>naming</title>
+		<para>
+			for non-local functions, the name should prefferably include a prefix that shows 
+			the part of bluefish it is used for. There are, furthermore, many often used 
+			abbreviations in the bluefish code, such as:
+		</para>
+		
+		<itemizedlist>
+		<listitem><para>doc - a function handling on a specific document</para></listitem>
+		<listitem><para>bfwin - a function handing on a specific Bluefish window</para></listitem>
+		<listitem><para>cb - callback, a function called after a button click or some other event</para></listitem>
+		<listitem><para>lcb - local callback, a function called after an event, only used in this .c file</para></listitem>
+		</itemizedlist>
+		<para>
+		Example function names that show where they are from, what they handle, and/or what they do:
+		</para>
+		<itemizedlist>
+		<listitem><para>bmark_set_for_doc - bookmark code, sets bookmarks for a document</para></listitem>
+		<listitem><para>spell_check_cb - spell check code, this is a callback function (for a button)</para></listitem>
+		<listitem><para>project_open_from_file - project code, opens a new project from a given file name</para></listitem>
+		</itemizedlist>
+		
+	</sect1>
+	<sect1 id="bluefish-ch-7-sect-4">
+		<title>Declaring procedures</title>
+		<para>
+			All local functions should be static! Callback functions (called for events 
+			such as button clicks) should have prefix _cb, or _lcb for local callbacks.
+		</para>
+
+		<para>
+				for gtk callback functions, use the name of the signal in the name
+		</para>
+		
+	</sect1>
+	<sect1 id="bluefish-ch-7-sect-5">
+		<title>header files</title>
+		<para>
+			Only functions that are used from outside the file itself 
+			should be in the header file, in the order in which they
+			are found in the .c file itself. Basically these are all
+			non-static functions in the .c file.
+		</para>
+	</sect1>
+	<sect1 id="bluefish-ch-7-sect-6">
+		<title>new files</title>
+		<para>
+			about new files
+		</para>
+	</sect1>
+	<sect1 id="bluefish-ch-7-sect-7">
+		<title>file reference</title>
+		<para>
+			references
+		</para>
+	</sect1>
+	<sect1 id="bluefish-ch-7-sect-8">
+		<title>patches</title>
+		
+<para>Before starting to code:</para>
+<itemizedlist>
+	  <listitem><para>update your CVS tree, or alternatively download the latest snapshot</para></listitem>
+	  <listitem><para>copy this original tree, so you can make a patch against this tree</para></listitem>
+</itemizedlist>
+
+<para>Before creating the patch:</para>
+<itemizedlist>
+<listitem><para>run make distclean &amp;&amp; ./configure &amp;&amp; make and test if it runs successfull</para></listitem>
+<listitem><para>if you have the possibility do this both with gcc-2.95 and gcc-3. as compiler</para></listitem>
+</itemizedlist>
+<para>Now create the patch. Suppose you have two directories, original-tree and my-tree</para>
+<itemizedlist>
+<listitem><para>run make distclean in both trees</para></listitem>
+<listitem><para>cd to the parent dir of the two trees</para></listitem>
+<listitem><para>run diff -Naur original-tree my-tree | bzip2 -9c > patchbla.diff.bz2</para></listitem>
+</itemizedlist>
+		
+		
+		
+
+	</sect1>
+	<sect1 id="bluefish-ch-7-sect-9">
+		<title>cvs</title>
+		<para>
+			what cvs is
+		</para>
+		<sect2 id="bluefish-ch-7-sect-9.1">
+			<title>usage</title>
+			<para>
+				use it
+			</para>
+		</sect2>
+		<sect2 id="bluefish-ch-7-sect-9.2">
+			<title> guidelines</title>
+			<para>
+				what to do
+			</para>
+		</sect2>
+	</sect1>
+	<sect1 id="bluefish-ch-7-sect-10">
+		<title>translations</title>
+		<para>
+			users all over the world will use bluefish
+		</para>
+	</sect1>
+	<sect1 id="bluefish-ch-7-sect-11">
+		<title>some tips</title>
+		<para>
+			development tipps
+		</para>
+	</sect1>
+	<sect1 id="bluefish-ch-7-sect-12">
+		<title>making releases</title>
+		<para>
+			what is to do
+		</para>
+	</sect1>
+	<sect1 id="bluefish-ch-7-sect-13">
+		<title>useful stuff</title>
+		<para>
+			links and so
+		</para>
+	</sect1>
 
 </chapter>
 
