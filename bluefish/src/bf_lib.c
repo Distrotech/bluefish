@@ -548,16 +548,18 @@ gchar *create_full_path(gchar * filename, gchar *basedir)
 	gchar *absolute_filename;
 	gchar *tmpcdir;
 
-	DEBUG_MSG("create_full_path, filename=%s, basedir=%p\n", filename, basedir);
+	DEBUG_MSG("create_full_path, filename=%s, basedir=%s\n", filename, basedir);
 	if (g_path_is_absolute(filename)) {
 		absolute_filename = g_strdup(filename);
 	} else {
 		if (basedir) {
-			tmpcdir = g_dirname(basedir);
+			tmpcdir = ending_slash(basedir);
 		} else {
-			tmpcdir = g_get_current_dir();
+			gchar *curdir = g_get_current_dir();
+			tmpcdir = ending_slash(curdir);
+			g_free(curdir);
 		}
-		absolute_filename = g_strconcat(tmpcdir, DIRSTR, filename, NULL);
+		absolute_filename = g_strconcat(tmpcdir, filename, NULL);
 		g_free(tmpcdir);
 	}
 	absolute_filename = most_efficient_filename(absolute_filename);

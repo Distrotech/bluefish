@@ -1057,10 +1057,10 @@ gint doc_textbox_to_file(Tdocument * doc, gchar * filename) {
 		gchar *tmp;
 		Tsearch_result res = doc_search_run_extern("<meta[ \t\n]name[ \t\n]*=[ \t\n]*\"generator\"[ \t\n]+content[ \t\n]*=[ \t\n]*\"[^\"]*bluefish[^\"]*\"[ \t\n]*>",1,0);
 		if (res.end > 0) {
-			snr2_run_extern_replace("<meta[ \t\n]name[ \t\n]*=[ \t\n]*\"generator\"[ \t\n]+content[ \t\n]*=[ \t\n]*\"[^\"]*\"[ \t\n]*>",0,1,0,"<meta name=\"generator\" content=\"Bluefish, see http://bluefish.openoffice.nl/\">");
+			snr2_run_extern_replace("<meta[ \t\n]name[ \t\n]*=[ \t\n]*\"generator\"[ \t\n]+content[ \t\n]*=[ \t\n]*\"[^\"]*\"[ \t\n]*>",0,1,0,"<meta name=\"generator\" content=\"Bluefish, see http://bluefish.openoffice.nl/\">", FALSE);
 		}
 		tmp = g_strconcat("<meta name=\"author\" content=\"",realname,"\">",NULL);
-		snr2_run_extern_replace("<meta[ \t\n]name[ \t\n]*=[ \t\n]*\"author\"[ \t\n]+content[ \t\n]*=[ \t\n]*\"[^\"]*\"[ \t\n]*>",0,1,0,tmp);
+		snr2_run_extern_replace("<meta[ \t\n]name[ \t\n]*=[ \t\n]*\"author\"[ \t\n]+content[ \t\n]*=[ \t\n]*\"[^\"]*\"[ \t\n]*>",0,1,0,tmp,FALSE);
 		g_free(tmp);
 	}
 
@@ -1544,11 +1544,13 @@ gboolean doc_new_with_file(gchar * filename, gboolean delay_activate) {
 	Tdocument *doc;
 	
 	if ((filename == NULL) || (!file_exists_and_readable(filename))) {
+		DEBUG_MSG("doc_new_with_file, file %s !file_exists or readable\n", filename);
 		return FALSE;
 	}
 	if (!main_v->props.allow_multi_instances) {
 		gint index = documentlist_return_index_from_filename(filename);
 		if (index != -1) {
+			DEBUG_MSG("doc_new_with_file, %s is already open at index=%d\n",filename,index);
 			if (!delay_activate) {
 				switch_to_document_by_index(index);
 			}
