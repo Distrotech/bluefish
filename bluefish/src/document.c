@@ -2471,18 +2471,21 @@ void doc_new_with_new_file(Tbfwin *bfwin, gchar * new_filename) {
 gboolean doc_new_with_file(Tbfwin *bfwin, gchar * filename, gboolean delay_activate, gboolean move_to_this_win) {
 	Tdocument *doc;
 	gboolean opening_in_existing_doc = FALSE;
+	gchar *fullfilename;
 	
 	if ((filename == NULL) || (!file_exists_and_readable(filename))) {
 		DEBUG_MSG("doc_new_with_file, file %s !file_exists or readable\n", filename);
 		return FALSE;
 	}
+	fullfilename = create_full_path(filename, NULL);
+	
 	if (!main_v->props.allow_multi_instances) {
 		GList *alldocs = return_allwindows_documentlist();
-		Tdocument *tmpdoc = documentlist_return_document_from_filename(alldocs, filename);
+		Tdocument *tmpdoc = documentlist_return_document_from_filename(alldocs, fullfilename);
 		g_list_free(alldocs);
 		if (tmpdoc) {
 			DEBUG_MSG("doc_new_with_file, %s is already open %p\n",filename,tmpdoc);
-			if (move_to_this_win && documentlist_return_document_from_filename(bfwin->documentlist, filename) == NULL) {
+			if (move_to_this_win && documentlist_return_document_from_filename(bfwin->documentlist, fullfilename) == NULL) {
 				doc_move_to_window(tmpdoc, bfwin);
 			} else {
 				if (!delay_activate) {
@@ -2492,11 +2495,12 @@ gboolean doc_new_with_file(Tbfwin *bfwin, gchar * filename, gboolean delay_activ
 					}
 				}
 			}
+			g_free(fullfilename);
 			return TRUE;
 		}
 	}
-	DEBUG_MSG("doc_new_with_file, filename=%s exists\n", filename);
-	add_filename_to_history(bfwin,filename);
+	DEBUG_MSG("doc_new_with_file, filename=%s exists\n", fullfilename);
+	add_filename_to_history(bfwin,fullfilename);
 
 	if (g_list_length(bfwin->documentlist)==1 && doc_is_empty_non_modified_and_nameless(bfwin->current_document)) {
 		doc = bfwin->current_document;
@@ -2505,7 +2509,8 @@ gboolean doc_new_with_file(Tbfwin *bfwin, gchar * filename, gboolean delay_activ
 	} else {
 		doc = doc_new(bfwin, delay_activate);
 	}
-	doc->filename = g_strdup(filename);
+	/* we do not need to free fullfilename anymore now */
+	doc->filename = fullfilename;
 	DEBUG_MSG("doc_new_with_file, hl is resetted to filename, about to load file\n");
 	doc_file_to_textbox(doc, doc->filename, FALSE, delay_activate);
 	/* after the textbuffer is filled the filetype can be found */
@@ -2521,7 +2526,7 @@ gboolean doc_new_with_file(Tbfwin *bfwin, gchar * filename, gboolean delay_activ
 		} 
 		switch_to_document_by_pointer(bfwin,doc);
 		doc_activate(doc);
-		filebrowser_open_dir(BFWIN(doc->bfwin),filename);
+		filebrowser_open_dir(BFWIN(doc->bfwin),fullfilename);
 	}
 	return TRUE;	
 }
@@ -2897,6 +2902,18 @@ GList *return_files_advanced(Tbfwin *bfwin, gchar *tmppath) {
 }	
 #endif /* EXTERNAL_FIND */
 #endif /* EXTERNAL_GREP */
+
+void file_open_from_selection(Tbfwin *bfwin) {
+	gchar *string;
+	GtkClipboard* cb;
+
+	cb = gtk_clipboard_get(GDK_SELECTION_PRIMARY);
+	string = gtk_clipboard_wait_for_text(cb);
+	if (string) {
+		DEBUG_MSG("file_open_from_selection, opening %s\n",string);
+		doc_new_with_file(bfwin,string,FALSE,FALSE);
+	}
+}
 
 /**
  * file_save_cb:
