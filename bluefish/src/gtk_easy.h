@@ -95,7 +95,8 @@ void bf_label_tad_with_markup(const gchar *labeltext, gfloat xalign, gfloat yali
 								GtkWidget *table, guint left_attach, guint right_attach, guint top_attach, guint bottom_attach);						
 GtkWidget *file_but_new(GtkWidget * which_entry, gint full_pathname, Tbfwin *bfwin);
 #ifdef HAVE_ATLEAST_GTK_2_4
-GtkWidget * file_chooser_dialog(Tbfwin *bfwin, gchar *title, GtkFileChooserAction action, gchar *set, gboolean localonly, gboolean multiple);
+GtkWidget * file_chooser_dialog(Tbfwin *bfwin, gchar *title, GtkFileChooserAction action, 
+											gchar *set, gboolean localonly, gboolean multiple, const gchar *filter);
 #else
 void close_modal_window_lcb(GtkWidget * widget, gpointer window);
 gchar *return_file_w_title(gchar * setfile, gchar *title);

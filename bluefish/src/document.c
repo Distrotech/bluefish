@@ -2422,8 +2422,7 @@ gchar *ask_new_filename(Tbfwin *bfwin,gchar *oldfilename, const gchar *gui_name,
 		gtk_file_chooser_set_local_only(GTK_FILE_CHOOSER(dialog),FALSE);
 		FILE_CHOOSER_USE_VFS(dialog);
 		gtk_file_chooser_set_select_multiple(GTK_FILE_CHOOSER(dialog), FALSE);*/
-		dialog = file_chooser_dialog(bfwin, dialogtext,
-				 GTK_FILE_CHOOSER_ACTION_SAVE, oldfilename, FALSE, FALSE);
+		dialog = file_chooser_dialog(bfwin, dialogtext, GTK_FILE_CHOOSER_ACTION_SAVE, oldfilename, FALSE, FALSE, NULL);
 		if (gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_ACCEPT) {
 			newfilename = gtk_file_chooser_get_uri(GTK_FILE_CHOOSER(dialog));
 		}
@@ -3337,7 +3336,7 @@ static void files_advanced_win_select_basedir_lcb(GtkWidget * widget, Tfiles_adv
 				NULL);
 		gtk_file_chooser_set_local_only(GTK_FILE_CHOOSER(dialog),TRUE);
 		gtk_file_chooser_set_filename(GTK_FILE_CHOOSER(dialog),tmpdir);*/
-		dialog = file_chooser_dialog(tfs->bfwin, _("Select basedir"), GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER, NULL, TRUE, FALSE);
+		dialog = file_chooser_dialog(tfs->bfwin, _("Select basedir"), GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER, NULL, TRUE, FALSE, NULL);
 		if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_ACCEPT) {
 			newdir = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog));
 		}
@@ -3604,7 +3603,7 @@ void file_open_cb(GtkWidget * widget, Tbfwin *bfwin) {
 #else
 	gboolean localonly = TRUE;
 #endif /* HAVE_GNOME_VFS */
-		dialog = file_chooser_dialog(bfwin, _("Select files"), GTK_FILE_CHOOSER_ACTION_OPEN, NULL, localonly, TRUE);
+		dialog = file_chooser_dialog(bfwin, _("Select files"), GTK_FILE_CHOOSER_ACTION_OPEN, NULL, localonly, TRUE, NULL);
 		if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_ACCEPT) {
 #ifdef HAVE_GNOME_VFS
 			slist = gtk_file_chooser_get_uris(GTK_FILE_CHOOSER(dialog));
@@ -3694,7 +3693,7 @@ void file_insert_menucb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget) 
 				NULL);
 		FILE_CHOOSER_USE_VFS(dialog);
 		gtk_file_chooser_set_local_only(GTK_FILE_CHOOSER(dialog),FALSE);*/
-		dialog = file_chooser_dialog(bfwin, _("Select file to insert"), GTK_FILE_CHOOSER_ACTION_OPEN, NULL, FALSE, FALSE);
+		dialog = file_chooser_dialog(bfwin, _("Select file to insert"), GTK_FILE_CHOOSER_ACTION_OPEN, NULL, FALSE, FALSE, NULL);
 		if (gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_ACCEPT) {
 			tmpfilename = gtk_file_chooser_get_uri(GTK_FILE_CHOOSER(dialog));
 		}
