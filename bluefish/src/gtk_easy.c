@@ -1077,7 +1077,10 @@ static void ungroupradoiitems(GtkWidget *menu) {
 	while (tmplist) {
 		GtkWidget *sub;
 		DEBUG_MSG("ungroupradiomenuitems, another item\n");
-		if (GTK_IS_RADIO_MENU_ITEM(tmplist->data)) gtk_radio_menu_item_set_group(tmplist->data,NULL);
+		if (GTK_IS_RADIO_MENU_ITEM(tmplist->data)) {
+			DEBUG_MSG("%p is a radiomenu item, ungrouped!\n",tmplist->data);
+			gtk_radio_menu_item_set_group(tmplist->data,NULL);
+		}
 		sub = gtk_menu_item_get_submenu(tmplist->data);
 		if (sub) ungroupradoiitems(sub);
 		tmplist = g_list_next(tmplist);

@@ -177,6 +177,7 @@ typedef struct {
 	gint ext_outputbox_in_submenu;
 	GList *reference_files; /* all reference files */
 	gint fref_ldoubleclick_action; /* left doubleclick in the function reference */
+	gint fref_info_type; /* type of info shown in a small function reference window */
 	gint document_tabposition;
 	gint leftpanel_tabposition;
 #ifdef HAVE_LIBASPELL
