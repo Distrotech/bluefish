@@ -336,7 +336,7 @@ void filter_changed_lcb(GtkOptionMenu *optionmenu,Tbfspell *bfspell) {
 }
 
 void spell_gui(Tbfspell *bfspell) {
-	GtkWidget *vbox, *hbox, *but, *frame, *table;
+	GtkWidget *vbox, *hbox, *but, *frame, *table, *label;
 	bfspell->win = window_full(_("Check Spelling"), GTK_WIN_POS_NONE, 3, G_CALLBACK(spell_gui_destroy),bfspell, TRUE);
 	vbox = gtk_vbox_new(FALSE, 2);
 	gtk_container_add(GTK_CONTAINER(bfspell->win), vbox);
@@ -374,7 +374,7 @@ void spell_gui(Tbfspell *bfspell) {
 	bfspell->in_doc = gtk_radio_button_new_with_mnemonic(NULL, _("In _document"));
 	bfspell->in_sel = gtk_radio_button_new_with_mnemonic(gtk_radio_button_get_group(GTK_RADIO_BUTTON(bfspell->in_doc)), _("I_n selection"));
 	gtk_table_attach_defaults(GTK_TABLE(table), bfspell->in_doc,0,1,0,1);
-	gtk_table_attach_defaults(GTK_TABLE(table), bfspell->in_sel,0,1,1,2);
+	gtk_table_attach_defaults(GTK_TABLE(table), bfspell->in_sel,1,2,0,1);
 
 	{
 		GtkWidget *menu, *menuitem;
@@ -390,19 +390,25 @@ void spell_gui(Tbfspell *bfspell) {
 		gtk_option_menu_set_history(GTK_OPTION_MENU(bfspell->dict),0);
 	}
 
-	gtk_table_attach_defaults(GTK_TABLE(table), gtk_label_new(_("Dictionary:")),0,1,2,3);
+	label = gtk_label_new(_("Dictionary:"));
+	gtk_table_attach_defaults(GTK_TABLE(table), label,0,1,2,3);
+	gtk_misc_set_alignment(GTK_MISC(label), 1, 0.5);
 	gtk_table_attach_defaults(GTK_TABLE(table), bfspell->dict,1,2,2,3);
 	but = bf_stock_button(_("_Add"), G_CALLBACK(spell_gui_add_clicked), bfspell);
 	gtk_table_attach_defaults(GTK_TABLE(table), but,2,3,2,3);
 
 	bfspell->lang = gtk_option_menu_new();
-	gtk_table_attach_defaults(GTK_TABLE(table), gtk_label_new(_("Language:")),0,1,3,4);
+	label = gtk_label_new(_("Language:"));
+	gtk_table_attach_defaults(GTK_TABLE(table), label,0,1,3,4);
+	gtk_misc_set_alignment(GTK_MISC(label), 1, 0.5);
 	gtk_table_attach_defaults(GTK_TABLE(table), bfspell->lang,1,2,3,4);
 	but = bf_stock_button(_("Set defa_ult"), G_CALLBACK(defaultlang_clicked_lcb), bfspell);
 	gtk_table_attach_defaults(GTK_TABLE(table), but,2,3,3,4);
 
 	bfspell->filter = gtk_option_menu_new();
-	gtk_table_attach_defaults(GTK_TABLE(table), gtk_label_new(_("Filter:")),0,1,4,5);
+	label = gtk_label_new(_("Filter:"));
+	gtk_table_attach_defaults(GTK_TABLE(table), label,0,1,4,5);
+	gtk_misc_set_alignment(GTK_MISC(label), 1, 0.5);
 	gtk_table_attach_defaults(GTK_TABLE(table), bfspell->filter,1,2,4,5);
 	{
 		GtkWidget *menu, *menuitem;
