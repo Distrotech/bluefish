@@ -1873,8 +1873,13 @@ GtkWidget *fref_gui(Tbfwin *bfwin) {
 	btn1 = gtk_button_new_with_label("D");					 
 	btn2 = gtk_button_new_with_label("I");					 
 	gtk_tooltips_set_tip(FREFGUI(bfwin->fref)->argtips,btn1,_("Dialog"),"");					 
-	gtk_tooltips_set_tip(FREFGUI(bfwin->fref)->argtips,btn2,_("Info"),"");					  
-	g_signal_connect(G_OBJECT(btn1), "clicked",G_CALLBACK(frefcb_info_dialog),NULL);
+	gtk_tooltips_set_tip(FREFGUI(bfwin->fref)->argtips,btn2,_("Info"),"");
+	{
+		Tcallbackdata *cd = g_new(Tcallbackdata,1);
+		cd->data = NULL;
+		cd->bfwin = bfwin;
+		g_signal_connect(G_OBJECT(btn1), "clicked",G_CALLBACK(frefcb_info_dialog),cd);
+	}
 	g_signal_connect(G_OBJECT(btn2), "clicked",G_CALLBACK(frefcb_full_info),bfwin);
 	
 	gtk_box_pack_start(GTK_BOX(box2),FREFGUI(bfwin->fref)->infocheck,TRUE,TRUE,0);	 				 

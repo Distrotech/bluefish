@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-#define DEBUG
+/*#define DEBUG*/
 /*#define DEBUG_ADDING_TO_TREE*/
 
 #include <gtk/gtk.h>
@@ -577,8 +577,7 @@ static void refresh_dir_by_path_and_filename(Tfilebrowser *filebrowser, GtkTreeP
 	}
 	/* we should also check the entries in the listtore, if they have to be refreshed as well */
 	if (main_v->props.filebrowser_two_pane_view) {
-		valid = TRUE;
-		gtk_tree_model_get_iter_first(GTK_TREE_MODEL(filebrowser->store2),&myiter);
+		valid = gtk_tree_model_get_iter_first(GTK_TREE_MODEL(filebrowser->store2),&myiter);
 		while (valid) {
 			gchar *name;
 			gtk_tree_model_get(GTK_TREE_MODEL(filebrowser->store2), &myiter, 1, &name, -1);
@@ -720,12 +719,12 @@ static GtkTreePath *build_tree_from_path(Tfilebrowser *filebrowser, const gchar 
 }
 
 /* I guess the dir must have a trailing slash in this function .. not sure */
-GtkTreePath * filebrowser_refresh_dir(Tfilebrowser *filebrowser, gchar *dir) {
+void filebrowser_refresh_dir(Tfilebrowser *filebrowser, gchar *dir) {
 	if (filebrowser->tree) {
 		/* get the path for this dir */
 		GtkTreePath *path = return_path_from_filename(filebrowser, dir);
 		DEBUG_DUMP_TREE_PATH(path);
-		if (!path) return NULL;
+		if (!path) return;
 		/* check if the dir is expanded, or if we have a two paned view, return if not */	
 		if (main_v->props.filebrowser_two_pane_view || gtk_tree_view_row_expanded(GTK_TREE_VIEW(filebrowser->tree), path)) {
 			DEBUG_MSG("refresh_dir, it IS expanded, or we have a two paned view\n");
@@ -734,24 +733,12 @@ GtkTreePath * filebrowser_refresh_dir(Tfilebrowser *filebrowser, gchar *dir) {
 		} else {
 			DEBUG_MSG("refresh_dir, it is NOT expanded in a single paned view, returning\n");
 		}
-		return path;
+		gtk_tree_path_free(path);
 	}
-	return NULL;
 }
 
 void bfwin_filebrowser_refresh_dir(Tbfwin *bfwin, gchar *dir) {
-	Tfilebrowser *filebrowser = FILEBROWSER(bfwin->filebrowser);
-	GtkTreePath *path = filebrowser_refresh_dir(FILEBROWSER(bfwin->filebrowser), dir);
-	if (path) {
-		if (main_v->props.filebrowser_two_pane_view) {
-			DEBUG_MSG("bfwin_filebrowser_refresh_dir, hmm we should select the proper directory now..\n");
-		} else {
-			if (!gtk_tree_view_row_expanded(GTK_TREE_VIEW(filebrowser->tree), path)) {
-				gtk_tree_view_expand_row(GTK_TREE_VIEW(filebrowser->tree),path,TRUE);
-			}
-		}
-		gtk_tree_path_free(path);
-	}
+	filebrowser_refresh_dir(FILEBROWSER(bfwin->filebrowser), dir);
 }
 
 static GtkTreePath *filebrowser_path_up_multi(GtkTreePath *path, gint num) {
@@ -833,59 +820,40 @@ static gchar *get_selected_filename(Tfilebrowser *filebrowser, gboolean is_direc
 /**
  * filebrowser_open_dir:
  * bfwin: #Tbfwin* with filebrowser window
- * @dirarg const #char * dirname or filename to focus on.
+ * @dirarg const #char * dirname or filename to focus on
  *
  * This function makes the filebrowser zoom to a designated directory,
- * unless the selected item is this directory (or contained in it).
+ * if the dirname is a directory, it should end on a slash /
+ *
  **/
 void filebrowser_open_dir(Tbfwin *bfwin,const gchar *dirarg) {
 	Tfilebrowser *filebrowser = FILEBROWSER(bfwin->filebrowser);
 	if (filebrowser->tree) {
 		gchar *dir;
-		gchar *seldir = NULL, *selfile = NULL; /* Filebrowser-selected file/dir. Temp storage. */
 		GtkTreePath *path;
-		GtkTreePath *selpath; /* Path to currently selected item, if it exists. */
 		
-		/* first check if dirarg is a file or a directory NEEDS GNOME_VFS COUNTERPART */
-		if (!g_file_test(dirarg,G_FILE_TEST_IS_DIR)) {
-			dir = path_get_dirname_with_ending_slash(dirarg);
-		} else {
-			dir = g_strdup(dirarg);
-		}
+		dir = path_get_dirname_with_ending_slash(dirarg);
 		path = return_path_from_filename(filebrowser, dir);
-		DEBUG_MSG("filebrowser_open_dir, called for %s, dir=%s\n", dirarg, dir);
+		DEBUG_MSG("filebrowser_open_dir, called for '%s', dir is '%s'\n", dirarg, dir);
 		DEBUG_DUMP_TREE_PATH(path);
-
-		/* Get currently selected item. */
-		selpath = filebrowser_get_path_from_selection(GTK_TREE_MODEL(filebrowser->store), GTK_TREE_VIEW(filebrowser->tree),NULL);
-		if(selpath) {
-			selfile = return_filename_from_path(filebrowser,GTK_TREE_MODEL(filebrowser->store), selpath);
-			seldir = path_get_dirname_with_ending_slash(selfile);
-			gtk_tree_path_free(selpath);
-		}
-		/* Continue if a) no selection or b) Zoom neccessary */
-		if(!seldir || strcmp(seldir, dir) != 0) {
+		if (path) {
+			DEBUG_MSG("jump_to_dir, it exists in tree, refreshing\n");
+			refresh_dir_by_path_and_filename(filebrowser, path, dir);
+			DEBUG_MSG("jump_to_dir, now scroll to the path\n");
+			filebrowser_expand_to_root(filebrowser,path);
+			gtk_tree_view_scroll_to_cell(GTK_TREE_VIEW(filebrowser->tree),path,0,TRUE,0.5,0.5);
+		} else {
+			DEBUG_MSG("jump_to_dir, it does NOT exist in the tree, building..\n");
+			path = build_tree_from_path(filebrowser, dir);
+/*			path = return_path_from_filename(GTK_TREE_STORE(filebrowser->store), dir);*/
+/*			gtk_tree_view_expand_row(GTK_TREE_VIEW(filebrowser->tree),path,FALSE);*/
 			if (path) {
-				DEBUG_MSG("jump_to_dir, it exists in tree, refreshing\n");
-				refresh_dir_by_path_and_filename(filebrowser, path, dir);
-				DEBUG_MSG("jump_to_dir, now scroll to the path\n");
 				filebrowser_expand_to_root(filebrowser,path);
-				gtk_tree_view_scroll_to_cell(GTK_TREE_VIEW(filebrowser->tree),path,0,TRUE,0.5,0.5);
-			} else {
-				DEBUG_MSG("jump_to_dir, it does NOT exist in the tree, building..\n");
-				path = build_tree_from_path(filebrowser, dir);
-/*				path = return_path_from_filename(GTK_TREE_STORE(filebrowser->store), dir);*/
-/*				gtk_tree_view_expand_row(GTK_TREE_VIEW(filebrowser->tree),path,FALSE);*/
-				if (path) {
-					filebrowser_expand_to_root(filebrowser,path);
-					gtk_tree_view_scroll_to_cell(GTK_TREE_VIEW(filebrowser->tree),path,0,TRUE,0.5,1.0);
-				}
+				gtk_tree_view_scroll_to_cell(GTK_TREE_VIEW(filebrowser->tree),path,0,TRUE,0.5,1.0);
 			}
 		}
 		gtk_tree_path_free(path);
 		g_free(dir);
-		g_free(seldir);
-		g_free(selfile);
 	}
 }
 
