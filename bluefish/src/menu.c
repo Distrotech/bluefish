@@ -1213,7 +1213,7 @@ typedef struct {
 	GtkWidget *descriptions[MAX_TEXT_ENTRY];
 	GtkWidget *csnr_box;
 	GtkWidget *region;
-	GtkWidget *is_regex;
+	GtkWidget *matching;
 	GtkWidget *is_case_sens;
 	GList *worklist;
 } Tcmenu_editor;
@@ -1326,22 +1326,31 @@ static void cme_lview_selection_changed(GtkTreeSelection *selection, Tcmenu_edit
 		}
 		if (type == 1) {
 			static Tconvert_table table1[] = {{0, "0"}, {1, "1"}, {0, NULL}};
-			static Tconvert_table table2[] = {{0, "current document"}, {1, "from cursor"}, {2, "in selection"}, {3, "in all open documents"}, {0, NULL}};
-			gint regioni;
-			gchar *regionc;
+			static Tconvert_table table2[] = {{0, N_("in current document")}, {1, N_("from cursor")}, {2, N_("in selection")}, {3, N_("in all open documents")}, {0,NULL}};
+			static Tconvert_table table3[] = {{0, N_("normal")}, {1, N_("posix regular expresions")}, {2, N_("perl regular expresions")}, {0, NULL}};
+			gint converti;
+			gchar *convertc;
 			DEBUG_MSG("cme_clist_select_lcb, type=1, custom search and replace\n");
 			gtk_widget_show(cme->csnr_box);
 			DEBUG_MSG("cme_clist_select_lcb, cme->lastarray[5]=%s\n", cme->lastarray[5]);
-			gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(cme->is_regex), table_convert_char2int(table1, cme->lastarray[5]));
+			
+			gtk_editable_delete_text(GTK_EDITABLE(GTK_COMBO(cme->matching)->entry), 0, -1);
+			converti = atoi(cme->lastarray[5]);
+			convertc = table_convert_int2char(table3, converti);
+			if (convertc) {
+				gint pos=0;
+				gtk_editable_insert_text(GTK_EDITABLE(GTK_COMBO(cme->matching)->entry), convertc, strlen(convertc), &pos);
+			}
+
 			DEBUG_MSG("cme_clist_select_lcb, cme->lastarray[6]=%s\n", cme->lastarray[6]);
 			gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(cme->is_case_sens), table_convert_char2int(table1, cme->lastarray[6]));
 			
 			gtk_editable_delete_text(GTK_EDITABLE(GTK_COMBO(cme->region)->entry), 0, -1);
-			regioni = atoi(cme->lastarray[4]);
-			regionc = table_convert_int2char(table2, regioni);
-			if (regionc) {
+			converti = atoi(cme->lastarray[4]);
+			convertc = table_convert_int2char(table2, converti);
+			if (convertc) {
 				gint pos=0;
-				gtk_editable_insert_text(GTK_EDITABLE(GTK_COMBO(cme->region)->entry), regionc, strlen(regionc), &pos);
+				gtk_editable_insert_text(GTK_EDITABLE(GTK_COMBO(cme->region)->entry), convertc, strlen(convertc), &pos);
 			}
 
 			num = atoi(cme->lastarray[7]);
@@ -1429,15 +1438,21 @@ static gchar **cme_create_array(Tcmenu_editor *cme) {
 		DEBUG_MSG("cme_create_array, setting newarray[%d] to NULL\n",i+5);
 		newarray[5+i] = NULL;
 	} else {
-		static Tconvert_table table2[] = {{0, "current document"}, {1, "from cursor"}, {2, "in selection"}, {3, "in all open documents"}, {0,NULL}};
-		gint regioni;
-		gchar *regionc;
+		static Tconvert_table table2[] = {{0, N_("in current document")}, {1, N_("from cursor")}, {2, N_("in selection")}, {3, N_("in all open documents")}, {0,NULL}};
+		static Tconvert_table table3[] = {{0, N_("normal")}, {1, N_("posix regular expresions")}, {2, N_("perl regular expresions")}, {0, NULL}};
+		gint converti;
+		gchar *convertc;
 		newarray[1] = g_strdup("1");
-		regionc = gtk_editable_get_chars(GTK_EDITABLE(GTK_COMBO(cme->region)->entry), 0, -1);
-		regioni = table_convert_char2int(table2, regionc);
-		g_free(regionc);
-		newarray[4] = g_strdup_printf("%d", regioni);
-		newarray[5] = g_strdup_printf("%d", GTK_TOGGLE_BUTTON(cme->is_regex)->active);
+		convertc = gtk_editable_get_chars(GTK_EDITABLE(GTK_COMBO(cme->region)->entry), 0, -1);
+		converti = table_convert_char2int(table2, convertc);
+		g_free(convertc);
+		newarray[4] = g_strdup_printf("%d", converti);
+
+		convertc = gtk_editable_get_chars(GTK_EDITABLE(GTK_COMBO(cme->matching)->entry), 0, -1);
+		converti = table_convert_char2int(table3, convertc);
+		g_free(convertc);
+		newarray[5] = g_strdup_printf("%d", converti);
+		
 		newarray[6] = g_strdup_printf("%d", GTK_TOGGLE_BUTTON(cme->is_case_sens)->active);
 	
 		newarray[7] = gtk_editable_get_chars(GTK_EDITABLE(cme->num), 0, -1);
@@ -1632,41 +1647,54 @@ void cmenu_editor(GtkWidget *widget, gpointer data) {
 	hbox2 = gtk_hbox_new(FALSE, 0);
 	gtk_box_pack_start(GTK_BOX(cme->csnr_box), hbox2, FALSE, TRUE, 0);
 	
-	gtk_box_pack_start(GTK_BOX(hbox2),gtk_label_new(_("Replace where")), FALSE, FALSE, 0);
-	popuplist = g_list_append(NULL, "current document");
-	popuplist = g_list_append(popuplist, "from cursor");
-	popuplist = g_list_append(popuplist, "in selection");
-	popuplist = g_list_append(popuplist, "in all open documents");
+	gtk_box_pack_start(GTK_BOX(hbox2),gtk_label_new(_("Replace")), FALSE, FALSE, 0);
+	popuplist = g_list_append(NULL, _("in current document"));
+	popuplist = g_list_append(popuplist, _("from cursor"));
+	popuplist = g_list_append(popuplist, _("in selection"));
+	popuplist = g_list_append(popuplist, _("in all open documents"));
 	cme->region = combo_with_popdown(NULL, popuplist, 0);
 	g_list_free(popuplist);
-	gtk_box_pack_start(GTK_BOX(hbox2),cme->region , TRUE, TRUE, 0);
+	gtk_box_pack_start(GTK_BOX(hbox2),cme->region , TRUE, TRUE, 3);
 
 	hbox2 = gtk_hbox_new(FALSE, 0);
 	gtk_box_pack_start(GTK_BOX(cme->csnr_box), hbox2, TRUE, TRUE, 0);
-	cme->is_case_sens = boxed_checkbut_with_value(_("case sensitive"), 0, hbox2);
-	cme->is_regex = boxed_checkbut_with_value(_("regular expression"), 0, hbox2);
+	gtk_box_pack_start(GTK_BOX(hbox2),gtk_label_new(_("Matching")), FALSE, FALSE, 0);
+	popuplist = g_list_append(NULL, _("normal"));
+	popuplist = g_list_append(popuplist, _("posix regular expresions"));
+	popuplist = g_list_append(popuplist, _("perl regular expresions"));
+	cme->matching = combo_with_popdown(NULL, popuplist, 0);
+	g_list_free(popuplist);
+	gtk_box_pack_start(GTK_BOX(hbox2),cme->matching , TRUE, TRUE, 3);
+	
+	cme->is_case_sens = boxed_checkbut_with_value(_("case sensitive"), 0, cme->csnr_box);
+
 	{
-		GtkWidget *scrolwin;
+		GtkWidget *scrolwin, *textview;
 		cme->label1 = gtk_label_new("");
 		gtk_box_pack_start(GTK_BOX(vbox2), cme->label1, FALSE, FALSE, 0);
 
-		scrolwin = textview_buffer_in_scrolwin(&cme->befb, 280, 50, NULL, GTK_WRAP_NONE);
+		scrolwin = textview_buffer_in_scrolwin(&textview, 280, 50, NULL, GTK_WRAP_NONE);
+		cme->befb = gtk_text_view_get_buffer(GTK_TEXT_VIEW(textview));
 		gtk_box_pack_start(GTK_BOX(vbox2), scrolwin, TRUE, TRUE, 0);
 
 		cme->label2 = gtk_label_new("");
 		gtk_box_pack_start(GTK_BOX(vbox2), cme->label2, FALSE, FALSE, 0);
 		
-		scrolwin = textview_buffer_in_scrolwin(&cme->aftb, 280, 50, NULL, GTK_WRAP_NONE);
+		scrolwin = textview_buffer_in_scrolwin(&textview, 280, 50, NULL, GTK_WRAP_NONE);
+		cme->aftb = gtk_text_view_get_buffer(GTK_TEXT_VIEW(textview));
 		gtk_box_pack_start(GTK_BOX(vbox2), scrolwin, TRUE, TRUE, 0);
 	}
 	/* button area */
 	vbox2 = gtk_vbox_new(FALSE, 0);	
 	gtk_box_pack_start(GTK_BOX(hbox), vbox2, FALSE, TRUE, 5);
-	but = bf_stock_button(_("Add"), G_CALLBACK(cme_add_lcb), cme);
+	but = bf_gtkstock_button(GTK_STOCK_ADD, G_CALLBACK(cme_add_lcb), cme);
+/*	but = bf_stock_button(_("Add"), G_CALLBACK(cme_add_lcb), cme);*/
 	gtk_box_pack_start(GTK_BOX(vbox2), but, FALSE, FALSE, 5);
-	but = bf_stock_button(_("Update"), G_CALLBACK(cme_update_lcb), cme);
+	but = bf_gtkstock_button(GTK_STOCK_APPLY, G_CALLBACK(cme_update_lcb), cme);
+/*	but = bf_stock_button(_("Update"), G_CALLBACK(cme_update_lcb), cme);*/
 	gtk_box_pack_start(GTK_BOX(vbox2), but, FALSE, FALSE, 5);
-	but = bf_stock_button(_("Delete"), G_CALLBACK(cme_delete_lcb), cme);
+	but = bf_gtkstock_button(GTK_STOCK_DELETE, G_CALLBACK(cme_delete_lcb), cme);
+/*	but = bf_stock_button(_("Delete"), G_CALLBACK(cme_delete_lcb), cme);*/
 	gtk_box_pack_start(GTK_BOX(vbox2), but, FALSE, FALSE, 5);
 
 	/* frame for cancel/ok buttons */
@@ -1703,15 +1731,3 @@ void cmenu_editor(GtkWidget *widget, gpointer data) {
 }
 
 /*************************************************************************/
-
-
-
-
-
-
-
-
-
-
-
-

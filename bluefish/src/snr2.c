@@ -118,7 +118,8 @@ typedef struct {
 
 typedef struct {
 	GtkWidget *window;
-	GtkWidget *pattern;
+/*	GtkWidget *pattern;*/
+	GtkWidget *patternv;
 	GtkWidget *region_from_beginning;
 	GtkWidget *region_from_cursor;
 	GtkWidget *region_selection;
@@ -130,7 +131,8 @@ typedef struct {
 	GtkWidget *overlapping_search;
 	gint replace;
 	GtkWidget *subpat_help;
-	GtkWidget *replace_string;
+/*	GtkWidget *replace_string;*/
+	GtkWidget *replacev;
 	GtkWidget *prompt_before_replacing;
 	GtkWidget *replace_once;
 	GtkWidget *replacetype_string;
@@ -824,59 +826,6 @@ void snr2_run(void) {
 	}
 }
 
-/*****************************************************/
-
-static void snr2dialog_destroy_lcb(GtkWidget *widget, GdkEvent *event, gpointer data) {
-	window_destroy(((Tsnr2_win *)data)->window);
-	g_free(data);
-}
-
-static void snr2dialog_cancel_lcb(GtkWidget *widget, gpointer data) {
-	snr2dialog_destroy_lcb(NULL, NULL, data);
-}
-
-/*****************************************************/
-
-static void snr2dialog_ok_lcb(GtkWidget *widget, Tsnr2_win *data) {
-	if (last_snr2.pattern) {
-		g_free(last_snr2.pattern);
-		last_snr2.pattern = NULL;
-	}
-	if (last_snr2.replace_string) {
-		g_free(last_snr2.replace_string);
-		last_snr2.replace_string = NULL;
-	}
-	last_snr2.pattern = gtk_editable_get_chars(GTK_EDITABLE(data->pattern), 0, -1);
-	last_snr2.region_from_beginning = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(data->region_from_beginning));
-	last_snr2.region_from_cursor = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(data->region_from_cursor));
-	last_snr2.region_selection = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(data->region_selection));
-	last_snr2.region_all_open_files = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(data->region_all_open_files));
-	if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(data->is_regex))) {
-		last_snr2.matchtype = match_regex;
-	} else if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(data->is_pcre))){
-		last_snr2.matchtype = match_pcre;
-	} else {
-		last_snr2.matchtype = match_normal;
-	}
- 	last_snr2.is_case_sens = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(data->is_case_sens));
- 	last_snr2.overlapping_search = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(data->overlapping_search));
-	if (data->replace) {
-		last_snr2.replace = 1;
-		last_snr2.replace_string = gtk_editable_get_chars(GTK_EDITABLE(data->replace_string), 0, -1);
-	 	last_snr2.prompt_before_replacing = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(data->prompt_before_replacing));
-	 	last_snr2.replace_once = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(data->replace_once));
-		last_snr2.replacetype_string = (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(data->replacetype_string)));
-		last_snr2.replacetype_upcase = (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(data->replacetype_upcase)));
-		last_snr2.replacetype_lowcase = (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(data->replacetype_lowcase)));
-	} else {
-		last_snr2.replace = 0;
-	}
-	window_destroy(data->window);
-	g_free(data);
-
-	snr2_run();
-}
-
 /* void snr2_run_extern_replace
 arguments are translated to last_snr2 like this:
 pattern = patten
@@ -884,7 +833,7 @@ region,  0 = region_from_beginning,
 			1 = region_from_cursor, 
 			2 = region_selection,
 			3 = region_all_open_files
-matchtype = matchtype
+matchtype = matchtype, 0=normal, 1=posix, 2=pcre
 is_case_sens = is_case_sens
 overlapping_search is off
 replace = 1
@@ -928,6 +877,69 @@ void snr2_run_extern_replace(gchar *pattern, gint region,
 	snr2_run();
 }
 
+/*****************************************************/
+
+static void snr2dialog_destroy_lcb(GtkWidget *widget, GdkEvent *event, gpointer data) {
+	window_destroy(((Tsnr2_win *)data)->window);
+	g_free(data);
+}
+
+static void snr2dialog_cancel_lcb(GtkWidget *widget, gpointer data) {
+	snr2dialog_destroy_lcb(NULL, NULL, data);
+}
+
+/*****************************************************/
+
+static void snr2dialog_ok_lcb(GtkWidget *widget, Tsnr2_win *data) {
+	if (last_snr2.pattern) {
+		g_free(last_snr2.pattern);
+		last_snr2.pattern = NULL;
+	}
+	if (last_snr2.replace_string) {
+		g_free(last_snr2.replace_string);
+		last_snr2.replace_string = NULL;
+	}
+	{
+		GtkTextIter itstart, itend;
+		GtkTextBuffer *buf = gtk_text_view_get_buffer(GTK_TEXT_VIEW(data->patternv));
+		gtk_text_buffer_get_bounds(buf,&itstart,&itend);
+		last_snr2.pattern = gtk_text_buffer_get_text(buf,&itstart,&itend, FALSE);
+	}
+	last_snr2.region_from_beginning = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(data->region_from_beginning));
+	last_snr2.region_from_cursor = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(data->region_from_cursor));
+	last_snr2.region_selection = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(data->region_selection));
+	last_snr2.region_all_open_files = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(data->region_all_open_files));
+	if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(data->is_regex))) {
+		last_snr2.matchtype = match_regex;
+	} else if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(data->is_pcre))){
+		last_snr2.matchtype = match_pcre;
+	} else {
+		last_snr2.matchtype = match_normal;
+	}
+ 	last_snr2.is_case_sens = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(data->is_case_sens));
+ 	last_snr2.overlapping_search = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(data->overlapping_search));
+	if (data->replace) {
+		last_snr2.replace = 1;
+		{
+			GtkTextIter itstart, itend;
+			GtkTextBuffer *buf = gtk_text_view_get_buffer(GTK_TEXT_VIEW(data->replacev));
+			gtk_text_buffer_get_bounds(buf,&itstart,&itend);
+			last_snr2.replace_string = gtk_text_buffer_get_text(buf,&itstart,&itend, FALSE);
+		}
+	 	last_snr2.prompt_before_replacing = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(data->prompt_before_replacing));
+	 	last_snr2.replace_once = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(data->replace_once));
+		last_snr2.replacetype_string = (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(data->replacetype_string)));
+		last_snr2.replacetype_upcase = (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(data->replacetype_upcase)));
+		last_snr2.replacetype_lowcase = (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(data->replacetype_lowcase)));
+	} else {
+		last_snr2.replace = 0;
+	}
+	window_destroy(data->window);
+	g_free(data);
+
+	snr2_run();
+}
+
 static void matchingtype_toggled_lcb(GtkToggleButton *togglebutton,Tsnr2_win *snr2win){
 	DEBUG_MSG("matchingtype_toggled_lcb, started\n");
 	if (GTK_TOGGLE_BUTTON(snr2win->is_normal)->active) {
@@ -937,7 +949,8 @@ static void matchingtype_toggled_lcb(GtkToggleButton *togglebutton,Tsnr2_win *sn
 	}
 }
 static void snr2dialog_replacetype_toggled(GtkWidget *widget, Tsnr2_win *snr2win) {
-	gtk_widget_set_sensitive(snr2win->replace_string, GTK_TOGGLE_BUTTON(snr2win->replacetype_string)->active);
+/*	gtk_text_view_set_editable(GTK_TEXT_VIEW(snr2win->replacev), GTK_TOGGLE_BUTTON(snr2win->replacetype_string)->active);*/
+	gtk_widget_set_sensitive(snr2win->replacev, GTK_TOGGLE_BUTTON(snr2win->replacetype_string)->active);
 }
 
 static void snr2dialog(gint is_replace, gint is_new_search) {
@@ -967,10 +980,12 @@ static void snr2dialog(gint is_replace, gint is_new_search) {
 	gtk_container_add(GTK_CONTAINER(snr2win->window), vbox);
 	
 	hbox = gtk_hbox_new(FALSE,0);
-	gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
 	gtk_box_pack_start(GTK_BOX(hbox), gtk_label_new(_("Find: ")), FALSE, FALSE, 0);
-	snr2win->pattern = boxed_entry_with_text(last_snr2.pattern, 0, hbox);
-	gtk_widget_set_usize(snr2win->pattern, 300, -1);
+	{
+		GtkWidget *scrolwin = textview_buffer_in_scrolwin(&snr2win->patternv, 300, 50, last_snr2.pattern, GTK_WRAP_NONE);
+		gtk_box_pack_start(GTK_BOX(hbox), scrolwin, TRUE, TRUE, 0);
+	}
 
 	frame = gtk_frame_new(_("Where"));
 	gtk_box_pack_start(GTK_BOX(vbox), frame, FALSE, FALSE, 0);
@@ -998,30 +1013,34 @@ static void snr2dialog(gint is_replace, gint is_new_search) {
 	
 	if (is_replace) {
 		frame = gtk_frame_new(_("Replace"));
-		gtk_box_pack_start(GTK_BOX(vbox), frame, FALSE, FALSE, 0);
+		gtk_box_pack_start(GTK_BOX(vbox), frame, TRUE, TRUE, 0);
 		vbox2 = gtk_vbox_new(FALSE, 3);
 		gtk_container_add(GTK_CONTAINER(frame), vbox2);
 		snr2win->subpat_help = gtk_label_new(_("\\0 refers to the first subpattern, \\1 to the second etc."));
 		gtk_box_pack_start(GTK_BOX(vbox2), snr2win->subpat_help, TRUE, TRUE, 0);
 		hbox = gtk_hbox_new(FALSE,0);
-		gtk_box_pack_start(GTK_BOX(vbox2), hbox, FALSE, FALSE, 0);
+		gtk_box_pack_start(GTK_BOX(vbox2), hbox, TRUE, TRUE, 0);
 		gtk_box_pack_start(GTK_BOX(hbox), gtk_label_new(_("Replace with: ")), FALSE, FALSE, 0);
-		snr2win->replace_string = boxed_entry_with_text(last_snr2.replace_string, 0, hbox);
+		{
+			GtkWidget *scrolwin = textview_buffer_in_scrolwin(&snr2win->replacev, 300, 50, last_snr2.replace_string, GTK_WRAP_NONE);
+			gtk_box_pack_start(GTK_BOX(hbox), scrolwin, TRUE, TRUE, 0);
+		}
 		if (last_snr2.replacetype_upcase || last_snr2.replacetype_lowcase) {
-			gtk_entry_set_editable(GTK_ENTRY(snr2win->replace_string), 0);
+/*			gtk_text_view_set_editable(GTK_TEXT_VIEW(snr2win->replacev), FALSE);*/
+			gtk_widget_set_sensitive(snr2win->replacev, FALSE);
 		}
 		hbox = gtk_hbox_new(TRUE,3);
-		gtk_box_pack_start(GTK_BOX(vbox2), hbox, TRUE, TRUE, 3);
+		gtk_box_pack_start(GTK_BOX(vbox2), hbox, FALSE, TRUE, 3);
 
 		vbox3 = gtk_vbox_new(TRUE,3);
-		gtk_box_pack_start(GTK_BOX(hbox), vbox3, TRUE, TRUE, 3);	
+		gtk_box_pack_start(GTK_BOX(hbox), vbox3, FALSE, TRUE, 3);	
 		
 		snr2win->replacetype_string = boxed_radiobut_with_value(_("Replace text"), last_snr2.replacetype_string, NULL, vbox3);
 		snr2win->replacetype_upcase = boxed_radiobut_with_value(_("Replace uppercase"), last_snr2.replacetype_upcase, GTK_RADIO_BUTTON(snr2win->replacetype_string), vbox3);
 		snr2win->replacetype_lowcase = boxed_radiobut_with_value(_("Replace lowercase"), last_snr2.replacetype_lowcase, GTK_RADIO_BUTTON(snr2win->replacetype_string), vbox3);
 
 		vbox3 = gtk_vbox_new(TRUE,3);
-		gtk_box_pack_start(GTK_BOX(hbox), vbox3, TRUE, TRUE, 3);	
+		gtk_box_pack_start(GTK_BOX(hbox), vbox3, FALSE, TRUE, 3);	
 		snr2win->prompt_before_replacing = boxed_checkbut_with_value(_("Prompt before replacing"), last_snr2.prompt_before_replacing, vbox3);
 		snr2win->replace_once = boxed_checkbut_with_value(_("Replace once"), last_snr2.replace_once, vbox3);
 		g_signal_connect(G_OBJECT(snr2win->replacetype_string), "toggled", 
@@ -1030,14 +1049,14 @@ static void snr2dialog(gint is_replace, gint is_new_search) {
 	hbox = gtk_hbutton_box_new();
 	gtk_hbutton_box_set_layout_default(GTK_BUTTONBOX_END);
 	gtk_button_box_set_spacing(GTK_BUTTON_BOX(hbox), 1);
-	gtk_box_pack_start(GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
+	gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, TRUE, 0);
 
 	but = bf_stock_ok_button(G_CALLBACK(snr2dialog_ok_lcb), snr2win);
-	gtk_box_pack_start(GTK_BOX(hbox), but, TRUE, TRUE, 0);
+	gtk_box_pack_start(GTK_BOX(hbox), but, FALSE, TRUE, 0);
 	gtk_window_set_default(GTK_WINDOW(snr2win->window), but);
-	gtk_box_pack_start(GTK_BOX(hbox), bf_stock_cancel_button(G_CALLBACK(snr2dialog_cancel_lcb), snr2win), TRUE, TRUE, 0);
+	gtk_box_pack_start(GTK_BOX(hbox), bf_stock_cancel_button(G_CALLBACK(snr2dialog_cancel_lcb), snr2win), FALSE, TRUE, 0);
 	
-	gtk_widget_grab_focus(snr2win->pattern);
+	gtk_widget_grab_focus(snr2win->patternv);
 	gtk_widget_show_all(snr2win->window);
 	if (is_replace) {
 		matchingtype_toggled_lcb(NULL, snr2win);
