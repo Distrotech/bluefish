@@ -24,8 +24,9 @@
 #include "config.h"
 #define BLUEFISH_SPLASH_FILENAME PKGDATADIR"bluefish_splash.png"
 
-/* #define WITH_MSG_QUEUE */
-
+#ifdef HAVE_SYS_IPC_H
+#define WITH_MSG_QUEUE
+#endif
 
 #ifdef DEBUG
 #define DEBUG_MSG g_print
