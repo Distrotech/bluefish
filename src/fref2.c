@@ -97,6 +97,7 @@ typedef struct {
 typedef struct {
 	GHashTable *dictionary;
 	GHashTable *commons;
+	GHashTable *proplists;
 	guchar *description;
 } Tfref_info;
 #define FREFINFO(var) ((Tfref_info *)(var))
@@ -123,6 +124,7 @@ enum {
 	FREF_EL_LINK,
 	FREF_EL_DEPEND,
 	FREF_EL_PARENTS,
+	FREF_EL_PROPLIST,
 	FREF_EL_NUMCOLS
 };
 
@@ -131,14 +133,14 @@ FID_DEPENDENCY,FID_DEFAULT,FID_DEF,FID_DEFTYPE,FID_ELEMENT,FID_EXAMPLE,
 FID_FUNCTION,FID_GROUP,FID_INSERT,FID_ID,FID_KIND,FID_LINK,FID_NAME,FID_NOTE,
 FID_PROPERTIES,FID_PROPERTY,FID_PARAMETER,FID_PARENTS,FID_REF,FID_RETURN,
 FID_REQUIRED,FID_SNIPPET,FID_TITLE,FID_TAG,FID_TYPE,FID_INPUT,FID_VALUES,FID_VERSION,
-FID_COMPACT,FID_CSSSELECT};
+FID_COMPACT,FID_CSSSELECT,FID_PROPLIST};
 
 static char *fref_compact[] = {"a","c","c1","c2","d","d1","d2","d3","d4","e","e1","f","g","i","i1","k","l",
-													 "n","n1","p","p1","p2","p3","r","r1","r2",	"s","t","t1","t2","i2","v1","v2","x","c3"};
+													 "n","n1","p","p1","p2","p3","r","r1","r2",	"s","t","t1","t2","i2","v1","v2","x","c3","p4"};
 static char *fref_full[] = {"attribute","class","css_property","children","description","dependency", 
 "default","def","deftype","element","example","function","group","insert","id","kind","link","name","note","properties",
 "property","parameter","parents","ref","return","required","snippet","title","tag","type","input","values","version",
-"compact","css_selector"};
+"compact","css_selector","proplist"};
 
 char **fref_names=fref_full;
 gint fref_node_count=0,fref_node_current=0;
@@ -460,7 +462,26 @@ Tfref_element *fref_parse_element(xmlNodePtr node,xmlDocPtr doc,Tfref_info *info
 							if ( apv && rec )
 								p->properties = g_list_append(p->properties,apv);			
 				 }		/* is property */
-					nptr = nptr->next;
+				 else
+ 				 if (xmlStrcmp(nptr->name,fref_names[FID_PROPLIST])==0)  /* property list */
+				 {
+				 	auxs = xmlGetProp(nptr,fref_names[FID_REF]);
+				 	if ( auxs != NULL )
+				 	{
+				 		gpointer props = g_hash_table_lookup(info->proplists,auxs);
+				 		if ( props )
+				 		{
+				 			GList *ll = g_list_first(props);
+				 			while (ll)
+				 			{
+				 				p->properties = g_list_append(p->properties,ll->data);	
+				 				ll = g_list_next(ll);
+				 			}
+				 		} else g_warning("Property list %s required but not found. ",auxs);	
+				 	} else g_warning("Property list should have 'ref' attribute. ");	
+				 	xmlFree(auxs);
+				 } /* is property list */
+				 nptr = nptr->next;
 				}
 		} /* properties */
 		else if ( xmlStrcmp(auxn->name,fref_names[FID_CHILDREN]) == 0) { /* children */
@@ -566,7 +587,7 @@ static void fref_parse_node(xmlNodePtr node,GtkWidget * tree, GtkTreeStore * sto
 	} /* group */   	              						  
 	else 	if ( xmlStrcmp(node->name,fref_names[FID_NOTE]) == 0 ) { /* global note */
 		path = gtk_tree_model_get_path(GTK_TREE_MODEL(store),parent);
-		if (gtk_tree_path_get_depth(path) == 1) { 
+		/*if (gtk_tree_path_get_depth(path) == 1) { */
 			Tfref_note *n = g_new0(Tfref_note,1);
 			Tfref_record *el;
 			n->title = xmlGetProp(node,fref_names[FID_TITLE]);
@@ -583,7 +604,7 @@ static void fref_parse_node(xmlNodePtr node,GtkWidget * tree, GtkTreeStore * sto
 				xmlFree(n->text);
 				g_free(n);
 			}	
-		}
+		/*}*/
 	} /* global note */
 	else 	if ( xmlStrcmp(node->name,fref_names[FID_DEF]) == 0 ) { /* definition */
 		auxs = xmlGetProp(node,fref_names[FID_ID]);
@@ -596,7 +617,7 @@ static void fref_parse_node(xmlNodePtr node,GtkWidget * tree, GtkTreeStore * sto
 			g_warning("Definition type not defined");
 			return;
 		}
-		if ( xmlStrcmp(auxs2,fref_names[FID_PROPERTY]) == 0 ) {			
+		if ( xmlStrcmp(auxs2,fref_names[FID_PROPERTY]) == 0 ) {			/* property definition */
 			Tfref_property *pp = fref_parse_property(node,doc,info,TRUE);
 			if ( pp ) {
 				if ( fref_insert_into_commons(info,g_strdup(auxs),pp->ptype,pp) == NULL) {
@@ -605,14 +626,36 @@ static void fref_parse_node(xmlNodePtr node,GtkWidget * tree, GtkTreeStore * sto
 				xmlFree(auxs);
 			}	
 		}
-		else if ( xmlStrcmp(auxs2,fref_names[FID_DESCRIPTION]) == 0 ) {		
+		else if ( xmlStrcmp(auxs2,fref_names[FID_DESCRIPTION]) == 0 ) {		/* descr definition */
 			fref_insert_into_commons(info,g_strdup(auxs),FREF_EL_DESCR,xmlNodeListGetString(doc,node->xmlChildrenNode,1));	
 			xmlFree(auxs);
 		} 
-		else if ( xmlStrcmp(auxs2,fref_names[FID_VALUES]) == 0 ) {		
+		else if ( xmlStrcmp(auxs2,fref_names[FID_VALUES]) == 0 ) {		/* values definition */
 			fref_insert_into_commons(info,g_strdup(auxs),FREF_EL_VALUES,g_strstrip(xmlNodeListGetString(doc,node->xmlChildrenNode,1)));	
 			xmlFree(auxs);
 		} 		
+		else if ( xmlStrcmp(auxs2,fref_names[FID_PROPLIST]) == 0 ) {		/* property list definition */
+			GList *plst=NULL;
+			Tfref_record *rec;
+			auxn = node->xmlChildrenNode;
+			while ( auxn )
+			{
+				if ( xmlStrcmp(auxn->name,fref_names[FID_PROPERTY]) == 0 )
+				{
+					Tfref_property *pp = fref_parse_property(auxn,doc,info,FALSE);
+					if ( pp )
+					{
+						rec = fref_insert_into_commons(info,fref_unique_name(xmlGetLineNo(auxn)),pp->ptype,pp);
+						if ( rec )
+						{
+							plst = g_list_append(plst,pp);
+						}
+					}
+				}
+				auxn = auxn->next;
+			}/* while */
+			g_hash_table_replace(info->proplists,auxs,plst);
+		} 				
 		else {
 			g_warning("Uknown definition type");
 			xmlFree(auxs2);
@@ -747,6 +790,7 @@ void fref_load_from_file(gchar * filename, GtkWidget * tree, GtkTreeStore * stor
 	info->dictionary =g_hash_table_new_full(g_str_hash, g_str_equal, NULL,
 								      (GDestroyNotify) gtk_tree_row_reference_free);
 	info->commons = g_hash_table_new(g_str_hash, g_str_equal);
+	info->proplists = g_hash_table_new(g_str_hash, g_str_equal);
 	xmlLineNumbersDefault(1);
 	doc = xmlParseFile(filename);
 	if (doc==NULL) {
@@ -2368,6 +2412,7 @@ static void frefcb_row_collapsed(GtkTreeView * treeview, GtkTreeIter * arg1, Gtk
 			do_unload = FALSE;
 	} else
 		do_unload = FALSE;	
+	gtk_tree_view_columns_autosize  (treeview)	;
 }
 
 static gboolean frefcb_event_mouseclick(GtkWidget * widget, GdkEventButton * event, Tbfwin * bfwin)
@@ -2870,14 +2915,15 @@ GtkWidget *fref_gui(Tbfwin * bfwin)
 	gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(FREFGUI(bfwin->fref)->tree), FALSE);
 
 	cell = gtk_cell_renderer_pixbuf_new();
-	gtk_cell_renderer_set_fixed_size(cell,16,16);
+	gtk_cell_renderer_set_fixed_size(cell,12,12);
 	column = gtk_tree_view_column_new_with_attributes("", cell, "pixbuf", PIXMAP_COLUMN, NULL);
-	gtk_tree_view_column_set_fixed_width(column,16);
+	gtk_tree_view_column_set_fixed_width(column,12);
 	gtk_tree_view_append_column(GTK_TREE_VIEW(FREFGUI(bfwin->fref)->tree), column);
 	
 	cell = gtk_cell_renderer_text_new();
 	column = gtk_tree_view_column_new_with_attributes("", cell, "text", STR_COLUMN, NULL);
 	gtk_tree_view_append_column(GTK_TREE_VIEW(FREFGUI(bfwin->fref)->tree), column);
+/*	gtk_tree_view_set_expander_column(GTK_TREE_VIEW(FREFGUI(bfwin->fref)->tree), column);*/
 	
 	gtk_container_add(GTK_CONTAINER(scroll), FREFGUI(bfwin->fref)->tree);
 	gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(FREFGUI(bfwin->fref)->tree), FALSE);
