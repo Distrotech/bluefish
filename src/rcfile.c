@@ -456,6 +456,24 @@ static GList *arraylist_load_defaults(GList *thelist, const gchar *filename, con
 	return thelist;
 }
 
+static void read_fir_for_reference_files(const gchar *dir) {
+	const gchar *filename;
+	GError *error = NULL;
+	GPatternSpec* ps = g_pattern_spec_new("funcref_*.xml");
+	GDir* gd = g_dir_open(dir,0,&error);
+	filename = g_dir_read_name(gd);
+	while (filename) {
+		gchar *path = g_strconcat(dir, "/", filename, NULL);
+		if (g_pattern_match(ps, strlen(path), path, NULL)) {
+			main_v->props.reference_files = g_list_append(main_v->props.reference_files, array_from_arglist("new reference",path,NULL));
+		}
+		g_free(path);
+		filename = g_dir_read_name(gd);
+	}
+	g_dir_close(gd);
+	g_pattern_spec_free(ps);
+}
+
 void rcfile_parse_main(void)
 {
 	gchar *filename;
@@ -541,9 +559,13 @@ void rcfile_parse_main(void)
 		main_v->props.filefilters = g_list_append(main_v->props.filefilters, arr);
 	}
 	if (main_v->props.reference_files == NULL) {
+		gchar *userdir = g_strconcat(g_get_home_dir(), "/.bluefish/", NULL);
 		/* if the user does not yet have any function reference files, set them to default values */
 		main_v->props.reference_files = g_list_append(main_v->props.reference_files, array_from_arglist("HTML",PKGDATADIR"funcref_html.xml",NULL));
 		main_v->props.reference_files = g_list_append(main_v->props.reference_files, array_from_arglist("PHP",PKGDATADIR"funcref_php.xml",NULL));
+		read_fir_for_reference_files(PKGDATADIR);
+		read_fir_for_reference_files(userdir);
+		g_free(userdir);
 	}
 }
 
