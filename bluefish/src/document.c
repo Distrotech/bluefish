@@ -164,8 +164,9 @@ Tdocument *documentlist_return_document_from_index(GList *doclist, gint index) {
 
 /**
  * doc_update_highlighting:
- * @wid: a #GtkWidget, ignored
- * @data: a #gpointer, ignored
+ * @bfwin: #Tbfwin* with the window
+ * @callback_action: #guint ignored
+ * @widget: a #GtkWidget* ignored
  *
  * this function works on the current document
  * if highlighting is disabled, this enables the highlighting
@@ -411,7 +412,7 @@ void doc_set_tabsize(Tdocument *doc, gint tabsize) {
 
 /**
  * gui_change_tabsize:
- * @callback_data: a #gpointer, ignored
+ * @bfwin: #Tbfwin* with the window
  * @action: a #guint, if 1 increase the tabsize, if 0 decrease
  * @widget: a #GtkWidget, ignored
  *
@@ -2183,6 +2184,7 @@ if (!delay_activate) {
 
 /**
  * doc_new_with_new_file:
+ * @bfwin: #Tbfwin*
  * @new_filename: #gchar* filename to give document.
  *
  * Create a new document, name it by new_filename, and create the file.
@@ -2218,6 +2220,7 @@ void doc_new_with_new_file(Tbfwin *bfwin, gchar * new_filename) {
 
 /**
  * doc_new_with_file:
+ * @bfwin: #Tbfwin* with the window to open the document in
  * @filename: #gchar* with filename to load.
  * @delay_activate: #gboolean if GUI calls are wanted.
  *
@@ -2241,7 +2244,10 @@ gboolean doc_new_with_file(Tbfwin *bfwin, gchar * filename, gboolean delay_activ
 		if (tmpdoc) {
 			DEBUG_MSG("doc_new_with_file, %s is already open %p\n",filename,tmpdoc);
 			if (!delay_activate) {
-				switch_to_document_by_pointer(bfwin,tmpdoc);
+				switch_to_document_by_pointer(BFWIN(tmpdoc->bfwin),tmpdoc);
+				if (bfwin != tmpdoc->bfwin) {
+					gtk_window_present(GTK_WINDOW(BFWIN(tmpdoc->bfwin)->main_window));
+				}
 			}
 			return TRUE;
 		}
@@ -2279,6 +2285,7 @@ gboolean doc_new_with_file(Tbfwin *bfwin, gchar * filename, gboolean delay_activ
 
 /**
  * docs_new_from_files:
+ * @bfwin: #Tbfwin* with the window to open the document in
  * @file_list: #GList with filenames to open.
  *
  * Open a number of new documents.
