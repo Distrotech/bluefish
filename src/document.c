@@ -1721,6 +1721,10 @@ static void doc_buffer_delete_range_lcb(GtkTextBuffer *textbuffer,GtkTextIter * 
 
 static gboolean doc_view_button_release_lcb(GtkWidget *widget,GdkEventButton *bevent, Tdocument *doc) {
 	DEBUG_MSG("doc_view_button_release_lcb, button %d\n", bevent->button);
+	if (bevent->button ==2) {
+		/* end of paste */
+		doc->in_paste_operation = FALSE;
+	}
 	if (bevent->button == 3) {
 		GtkWidget *menuitem;
 		GtkWidget *submenu;
@@ -1754,6 +1758,9 @@ static gboolean doc_view_button_release_lcb(GtkWidget *widget,GdkEventButton *be
 
 static gboolean doc_view_button_press_lcb(GtkWidget *widget,GdkEventButton *bevent, Tdocument *doc) {
 	DEBUG_MSG("doc_view_button_press_lcb, button %d\n", bevent->button);
+	if (bevent->button == 2) {
+		doc->in_paste_operation = TRUE;
+	}
 	if (bevent->button == 3) {
 		return TRUE;
 	}
