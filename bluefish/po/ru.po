@@ -1,4 +1,5 @@
-# translation of ru.po to 
+# translation of ru.po to Русский
+# translation of ru.po to
 # translation of ru.po to
 # translation of ru.po to
 # translation of ru.po to
@@ -13,9 +14,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ru\n"
 "POT-Creation-Date: 2003-11-19 10:53+0100\n"
-"PO-Revision-Date: 2003-11-03 21:02+0300\n"
+"PO-Revision-Date: 2003-11-19 22:53+0300\n"
 "Last-Translator: Eugene Rupakov <taurus@croco.net>\n"
-"Language-Team:  <ru@li.org>\n"
+"Language-Team: Русский <ru@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -165,82 +166,76 @@ msgstr ""
 
 #: ../src/bookmark.c:148
 msgid "Bookmarked file is closed"
-msgstr ""
+msgstr "Файл, на который ссылаются закладки, закрыт"
 
 #: ../src/bookmark.c:148
-#, fuzzy
 msgid "Do you want to open it?"
-msgstr "Вы уверены, что хотите перезаписать существующий файл?"
+msgstr "Вы уверены, что хотите открыть его?"
 
 #: ../src/bookmark.c:206
 msgid "Goto bookmark"
-msgstr ""
+msgstr "Перейти к закладке"
 
 #: ../src/bookmark.c:212
-#, fuzzy
 msgid "Rename"
-msgstr "/Переи_меновать"
+msgstr "Переименовать"
 
 #: ../src/bookmark.c:214
-#, fuzzy
 msgid "Delete"
-msgstr " Удалить "
+msgstr "Удалить"
 
 #: ../src/bookmark.c:249
-#, fuzzy
 msgid "Show all bookmarks"
-msgstr "Показывать весь вывод"
+msgstr "Показать все закладки"
 
 #: ../src/bookmark.c:251
-#, fuzzy
 msgid "Show bookmarks for project files"
-msgstr "Показывать файлы резервного копирования"
+msgstr "Показать закладки для файлов проекта"
 
 #: ../src/bookmark.c:253
-#, fuzzy
 msgid "Show bookmarks for opened files"
-msgstr "Показывать файлы резервного копирования"
+msgstr "Показать закладки для открытых файлов"
 
 #: ../src/bookmark.c:255
 msgid "Show bookmarks for active file"
-msgstr ""
+msgstr "Показать закладки для текущего файла"
 
 #: ../src/bookmark.c:261
 msgid "Temporary"
-msgstr ""
+msgstr "Временные"
 
 #: ../src/bookmark.c:263
 msgid "Permanent"
-msgstr ""
+msgstr "Постоянные"
 
 #: ../src/bookmark.c:373
 msgid "Add temporary bookmark"
-msgstr ""
+msgstr "Добавить временную закладку"
 
 #: ../src/bookmark.c:373
 msgid "You already have a bookmark here!"
-msgstr ""
+msgstr "У Вас здесь уже есть закладка!"
 
 #: ../src/bookmark.c:387
 #, c-format
 msgid "You can overwrite next temp bookmark (number %d). Overwrite?"
-msgstr ""
+msgstr "Вы можете перезаписать следующую временную закладку (номер %d). Перезаписать?"
 
 #: ../src/bookmark.c:388
 msgid "Maximum number of temp bookmarks assigned"
-msgstr ""
+msgstr "Максимальное число временных закладок"
 
 #: ../src/bookmark.c:430
 msgid "Delete all temporary bookmarks."
-msgstr ""
+msgstr "Удалить все временные закладки"
 
 #: ../src/bookmark.c:430
 msgid "Are you sure?"
-msgstr ""
+msgstr "Вы уверены?"
 
 #: ../src/bookmark.c:449
 msgid "Add permanent bookmark "
-msgstr ""
+msgstr "Добавить постоянную закладку"
 
 #: ../src/bookmark.c:466 ../src/html.c:580 ../src/html.c:818
 #: ../src/html.c:1412 ../src/html.c:1840 ../src/html_form.c:218
@@ -251,9 +246,8 @@ msgid "_Name:"
 msgstr "_Имя:"
 
 #: ../src/bookmark.c:470
-#, fuzzy
 msgid "_Description:"
-msgstr "Описание"
+msgstr "_Описание"
 
 #: ../src/document.c:235 ../src/gui.c:935
 msgid "/Document/Highlight Syntax"
@@ -419,8 +413,7 @@ msgstr ""
 
 #: ../src/document.c:2231
 msgid "Do you want to save the changes made to this untitled file?"
-msgstr ""
-"Вы уверены, что хотите сохранить изменения, внесенные в этот безымянный файл?"
+msgstr "Вы уверены, что хотите сохранить изменения, внесенные в этот безымянный файл?"
 
 #: ../src/document.c:2235
 msgid "Do_n't save"
@@ -715,8 +708,7 @@ msgstr "Ошибка"
 msgid ""
 "Perhaps you didn't load a reference, or you did not select a reference to "
 "search in."
-msgstr ""
-"Возможно, вы не загрузили справочник, или не выбрали справочник для поиска"
+msgstr "Возможно, вы не загрузили справочник, или не выбрали справочник для поиска"
 
 #: ../src/fref.c:2045
 msgid "Show info window"
@@ -3144,38 +3136,35 @@ msgstr "/Переход/Перейти к выбра_нному"
 
 #: ../src/menu.c:658
 msgid "/_Bookmarks"
-msgstr ""
+msgstr "/_Закладки"
 
 #: ../src/menu.c:659
-#, fuzzy
 msgid "/Bookmarks/tearoff1"
-msgstr "/Переход/tearoff1"
+msgstr "/Закладки/tearoff1"
 
 #: ../src/menu.c:660
-#, fuzzy
 msgid "/Bookmarks/Add _Temporary"
-msgstr "/Переход/tearoff1"
+msgstr "/Закладки/Добавить _временную"
 
 #: ../src/menu.c:661
 msgid "/Bookmarks/Add _Permanent"
-msgstr ""
+msgstr "/Закладки/Добавить _постоянную"
 
 #: ../src/menu.c:662
 msgid "/Bookmarks/sep2"
-msgstr ""
+msgstr "/Закладки/sep2"
 
 #: ../src/menu.c:663
-#, fuzzy
 msgid "/Bookmarks/Delete _All"
-msgstr "/Переход/tearoff1"
+msgstr "/Закладки/У_далить все"
 
 #: ../src/menu.c:664
 msgid "/Bookmarks/Delete All Temporar_y"
-msgstr ""
+msgstr "/Закладки/Удалить все в_ременные"
 
 #: ../src/menu.c:665
 msgid "/Bookmarks/Delete All Per_manent"
-msgstr ""
+msgstr "/Закладки/Удалить все п_остоянные"
 
 #: ../src/menu.c:667
 msgid "/_Project"
@@ -4153,8 +4142,7 @@ msgstr "Заменить _на: "
 
 #: ../src/snr2.c:1279
 msgid "\\0 refers to the first subsearch_pattern, \\1 to the second etc."
-msgstr ""
-"\\0 указывает на первый шаблон вложенного поиска, \\1 на второй, и т.д."
+msgstr "\\0 указывает на первый шаблон вложенного поиска, \\1 на второй, и т.д."
 
 #: ../src/snr2.c:1294
 msgid "Beginning of document till end"
@@ -4210,8 +4198,7 @@ msgstr "Тип замены:"
 
 #: ../src/snr2.c:1336
 msgid "Patterns contain backslash escape sequences (\\n, \\t)"
-msgstr ""
-"Шаблоны содержат escape-последовательности с обратной дробью (\\n, \\t)"
+msgstr "Шаблоны содержат escape-последовательности с обратной дробью (\\n, \\t)"
 
 #: ../src/snr2.c:1337
 msgid "Match ca_se"
@@ -4312,3 +4299,4 @@ msgstr "Источник:"
 #: ../src/wizards.c:223
 msgid "Size:"
 msgstr "Размер:"
+
