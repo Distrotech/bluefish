@@ -401,7 +401,8 @@ static void bmark_check_remove(Tbfwin *bfwin,Tbmark *b)
    gpointer ptr=NULL;
    gboolean re = FALSE;
 
-   gtk_tree_store_remove(bfwin->bookmarkstore, &(b->iter));  	     
+	if ( gtk_tree_store_iter_is_valid(bfwin->bookmarkstore, &(b->iter)) )
+   	gtk_tree_store_remove(bfwin->bookmarkstore, &(b->iter));  	     
    if (bfwin->bmark_files) 
    {
       ptr = g_hash_table_lookup(bfwin->bmark_files,b->filepath);
@@ -411,9 +412,10 @@ static void bmark_check_remove(Tbfwin *bfwin,Tbmark *b)
             re = TRUE;
        }   
    }
-   if (re)    
+   if (re)       	
    {
-  	   gtk_tree_store_remove(bfwin->bookmarkstore,(GtkTreeIter*)ptr );   
+   	if (gtk_tree_store_iter_is_valid(bfwin->bookmarkstore,(GtkTreeIter*)ptr))
+  	   	gtk_tree_store_remove(bfwin->bookmarkstore,(GtkTreeIter*)ptr );   
   	   g_hash_table_remove(bfwin->bmark_files,b->filepath);
   	   g_free(ptr);  	   
   	   if (b->doc)
@@ -462,6 +464,12 @@ static void bmark_popup_menu_rename_lcb(GtkWidget * widget, Tbfwin * bfwin)
 	bmark_add_rename_dialog(bfwin, _("Edit bookmark"));
 }
 
+static void bmark_popup_menu_delall_lcb(GtkWidget * widget, Tbfwin * bfwin)
+{
+	bmark_del_all(bfwin,TRUE);
+}
+
+
 static GtkWidget *bmark_popup_menu(Tbfwin * bfwin, gpointer data)
 {
 	GtkWidget *menu, *menu_item;
@@ -483,6 +491,11 @@ static GtkWidget *bmark_popup_menu(Tbfwin * bfwin, gpointer data)
 	g_signal_connect(GTK_OBJECT(menu_item), "activate", G_CALLBACK(bmark_popup_menu_del_lcb),
 					 bfwin);
 	gtk_menu_append(GTK_MENU(menu), menu_item);
+	menu_item = gtk_menu_item_new_with_label(_("Delete all"));
+	g_signal_connect(GTK_OBJECT(menu_item), "activate", G_CALLBACK(bmark_popup_menu_delall_lcb),
+					 bfwin);
+	gtk_menu_append(GTK_MENU(menu), menu_item);
+	
 
 	gtk_widget_show_all(menu);
 	g_signal_connect_after(G_OBJECT(menu), "destroy", G_CALLBACK(destroy_disposable_menu_cb), menu);
@@ -946,16 +959,6 @@ void bmark_add(Tbfwin * bfwin)
 	}
 }
 
-/*void bmark_add_perm(Tbfwin * bfwin)
-{
-	/ * check for nameless document * /
-	if (!DOCUMENT(bfwin->current_document)->filename) {
-		error_dialog(bfwin->main_window, _("Add permanent bookmark"),
-					 _("Cannot add bookmarks in nameless files.\nPlease, save the file first."));
-		return;
-	}
-	bmark_add_rename_dialog(bfwin, _("Add permanent bookmark"), BMARK_ADD_PERM_DIALOG);
-}*/
 
 void bmark_store_bevent_location(Tdocument * doc, gint charoffset)
 {
@@ -983,41 +986,38 @@ void bmark_add_at_bevent(Tdocument *doc)
 	}
 }
 
-/*
+
+
+
+void bmark_del_all(Tbfwin *bfwin,gboolean ask)
 {
+
+	Tbmark *mark;
 	gint ret;
-   gchar *btns[]={GTK_STOCK_NO,GTK_STOCK_YES,NULL};	
-   GtkTreeIter tmpiter;
-   gboolean cont;
-   Tdocument *doc = bfwin->current_document
-	
-	
+	gchar *btns[]={GTK_STOCK_NO,GTK_STOCK_YES,NULL};
+	GtkTreeIter tmpiter,child;
+
+	if (bfwin==NULL) return;
+			
 	if (ask)	{
-	  ret = multi_query_dialog(bfwin->main_window,_("Delete all permanent bookmarks."), _("Are you REALLY sure?"), 0, 0, btns);
+	  ret = multi_query_dialog(bfwin->main_window,_("Delete all bookmarks."), _("Are you sure?"), 0, 0, btns);
 	  if (ret==0) return;
 	}  
-
-  if (doc->bmark_parent == NULL) return;
-  ret = g_hash_table_new_full(g_int_hash,g_int_equal,g_free,g_free);
-  cont = gtk_tree_model_iter_children(GTK_TREE_MODEL(doc->bfwin->bookmarkstore),&tmpiter,doc->bmark_parent);
-  while (cont) {
-			Tbmark *mark=NULL;
-			gtk_tree_model_get(GTK_TREE_MODEL(doc->bfwin->bookmarkstore), &tmpiter, PTR_COLUMN, &mark, -1);
-			if (mark && mark->mark && mark->doc==doc && mark->is_temp == temp) {
-		     iaux = g_new0(gint,1);
-		     gtk_text_buffer_get_iter_at_mark(b->doc->buffer,&it,b->mark);
-		     *iaux = gtk_text_iter_get_line(&it);
-		     g_hash_table_insert(ret,iaux,g_strdup("+"));			 
-			}
-			cont = gtk_tree_model_iter_next(GTK_TREE_MODEL(doc->bfwin->bookmarkstore),&tmpiter);
-  } 
 	
-	
-			gtk_tree_store_remove(BFWIN(user_data)->bookmarkstore,&(b->iter));	
-  		   bmark_remove(BFWIN(user_data),b);			
-			bmark_free(b);
-	
-} */
+	while ( gtk_tree_model_iter_children(GTK_TREE_MODEL(bfwin->bookmarkstore), &tmpiter, NULL) )
+	{
+		while (gtk_tree_model_iter_children(GTK_TREE_MODEL(bfwin->bookmarkstore), &child, &tmpiter)) {
+			mark = NULL;
+			gtk_tree_model_get(GTK_TREE_MODEL(bfwin->bookmarkstore), &child, PTR_COLUMN,&mark, -1);
+			if (mark) {
+				bmark_check_remove(bfwin,mark);
+				if (!mark->is_temp)
+					bmark_unstore(bfwin, mark);
+				bmark_free(mark);
+			}	
+		}	
+	}
+}	
 
 
 
