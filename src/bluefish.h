@@ -26,11 +26,19 @@
 
 #define WITH_MSG_QUEUE
 
+
 #ifdef DEBUG
 #define DEBUG_MSG g_print
-#else
+#else /* not DEBUG */
+#ifdef __GNUC__
 #define DEBUG_MSG(format, args...)
  /**/
+#else/* notdef __GNUC__ */
+void g_none(...) {
+	return;
+}
+#define DEBUG_MSG g_none
+#endif /* __GNUC__ */
 #endif /* DEBUG */
 
 #define _(String) (String)

@@ -20,6 +20,7 @@
  */
 #include <gtk/gtk.h>
 #include <unistd.h> /* getopt() */
+#include <stdlib.h> /* getopt() exit() and abort() on Solaris */
 
 #include "bluefish.h"
 #include "document.h" /*  */

@@ -17,6 +17,8 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
+/* #define DEBUG*/
+
 #include <gtk/gtk.h>
 #include <sys/types.h> /* stat() getuid */
 #include <sys/stat.h> /* stat() */
@@ -344,14 +346,17 @@ static gboolean get_iter_at_correct_position(GtkTreeStore *store, GtkTreeIter *p
 	gint num_children, jumpsize, child, possible_positions;
 	gchar *name;
 
+	DEBUG_MSG("get_iter_at_correct_position, started\n");
+	if (!parent || !gtk_tree_model_iter_has_child(GTK_TREE_MODEL(store), parent)) {
+		DEBUG_MSG("get_iter_at_correct_position, this parent does NOT have children, returning FALSE\n");
+		return FALSE;
+	}
+	DEBUG_MSG("get_iter_at_correct_position, this parent DOES have children\n");
 	num_children = gtk_tree_model_iter_n_children(GTK_TREE_MODEL(store), parent);
 	possible_positions = num_children+1;
 	jumpsize = (possible_positions+1)/2;
 	child = possible_positions - jumpsize;
 
-	if (!gtk_tree_model_iter_has_child(GTK_TREE_MODEL(store), parent)) {
-		return FALSE;
-	}
 #ifdef DEBUG_SORTING
 	DEBUG_MSG("get_iter_at_correct_position, num_children=%d, jumpsize=%d\n", num_children, jumpsize);
 #endif
@@ -1141,5 +1146,7 @@ GtkWidget *filebrowser_init() {
 }
 
 void filebrowser_scroll_initial() {
-	gtk_tree_view_scroll_to_point(GTK_TREE_VIEW(filebrowser.tree), 2000, 2000);
+	if (filebrowser.tree) {
+		gtk_tree_view_scroll_to_point(GTK_TREE_VIEW(filebrowser.tree), 2000, 2000);
+	}
 }

@@ -747,7 +747,9 @@ void gui_show_main() {
 	gtk_widget_show(main_v->main_window);
 	flush_queue();
 	doc_scroll_to_cursor(main_v->current_document);
-	filebrowser_scroll_initial();
+	if (main_v->props.view_left_panel) {
+		filebrowser_scroll_initial();
+	}
 }
 /***********************/
 /* statusbar functions */
