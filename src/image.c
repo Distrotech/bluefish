@@ -136,11 +136,13 @@ static void image_filename_changed(GtkWidget * widget, Timage_diag *imdg) {
 	gint pb_width, pd_height, toobig;
 	GdkPixbuf *tmp_pb;
 	
+	if (imdg->im) {
+		gtk_container_remove(GTK_CONTAINER(imdg->frame), imdg->im);
+		imdg->im = NULL;
+		/*gtk_widget_destroy(imdg->im);*/
+	}
 	if (imdg->pb) {
 		g_object_unref(imdg->pb);
-	}
-	if (imdg->im) {
-		gtk_widget_destroy(imdg->im);
 	}
 	
 	imdg->pb = gdk_pixbuf_new_from_file(gtk_entry_get_text(GTK_ENTRY(imdg->dg->entry[0])), NULL);
@@ -185,7 +187,8 @@ static void image_adjust_changed(GtkAdjustment * adj, Timage_diag *imdg) {
 		return;
 	}
 	if (imdg->im) {
-		gtk_widget_destroy(imdg->im);
+		/* gtk_widget_destroy(imdg->im); */
+		gtk_container_remove(GTK_CONTAINER(imdg->frame), imdg->im);
 	}
 	tn_width = imdg->adjustment->value * gdk_pixbuf_get_width(imdg->pb);
 	tn_height = imdg->adjustment->value * gdk_pixbuf_get_height(imdg->pb);
