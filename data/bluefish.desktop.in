@@ -1,10 +1,10 @@
 [Desktop Entry]
-Name=Bluefish
+Name=Bluefish editor
 Comment=Web development editor
-Exec=bluefish
+Exec=bluefish -n
 Icon=ICONDIR/bluefish-icon.png
 Terminal=false
 Type=Application
 Categories=Application;Development;
 Encoding=UTF-8
-
+StartupNotify=true
