@@ -176,6 +176,11 @@ int main(int argc, char *argv[])
 	gui_show_main();
 #ifndef NOSPLASH
 	flush_queue();
+	{
+		static struct timespec const req = { 0, 10000000};
+		static struct timespec rem;
+		nanosleep(&req, &rem);
+	}
 	gtk_widget_destroy(splash_window);
 #endif /* #ifndef NOSPLASH */
 
