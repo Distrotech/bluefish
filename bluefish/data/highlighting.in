@@ -103,3 +103,12 @@ perl:scalarvariables:1:\\$[a-z_][][a-z0-9>_$-]*::2::#000099::2:0:
 perl:arrayvariables:1:\\@[a-z_][][a-z0-9>_$-]*::2::#0000ff::2:0:
 perl:hashvariables:1:\\%[a-z_][][a-z0-9>_$-]*::2::#0000cc::2:0:
 perl:filefunctions:1:\\b(bind|binmode|close(?:dir)?|connect|eof|fcntl|fileno|flock|getc|getpeername|getsockname|getsockopt|ioctl|listen|open(?:dir)?|recv|read(?:dir)?|rewinddir|seek(?:dir)?|send|setsockopt|shutdown|socket|sysopen|sysread|sysseek|syswrite|tell(?:dir)?|write|accept|pipe|socketpair|print|printf|select)\\b::2::#900000::2:0:
+gettext po:untranslated:1:msgstr ""\\n\\n::2::#990000:#ffffff:0:0:
+gettext po:text:1:":":1::#009900:#ffffff:0:2:
+gettext po:todo:1:^#,.*?$::2::#ffffff:#990000:2:0:
+gettext po:sourceref:1:^#\:.*?$::2::#990000:#ffffff:0:0:
+gettext po:comment:1:^#.*?$::2::#999999:#ffffff:0:2:
+gettext po:comment-escape:0:\\\\.::2:^text$:#009900::1:1:
+gettext po:msgid:1:^msgid ::2::#000099:#ffffff:2:0:
+gettext po:msgstr:1:^msgstr ::2::#000099:#ffffff:2:0:
+gettext po:domain:1:^domain::2::#000099:#ffffff:2:0:
