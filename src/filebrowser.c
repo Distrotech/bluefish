@@ -1398,7 +1398,7 @@ static void filebrowser_rpopup_sbf_toggled_lcb(GtkWidget *widget, Tfilebrowser *
 static GtkItemFactoryEntry filebrowser_dirmenu_entries[] = {
 #ifdef EXTERNAL_GREP
 #ifdef EXTERNAL_FIND	
-	{ N_("/Open _Advanced"),			NULL,	filebrowser_rpopup_action_lcb,		7,	"<Item>" },
+	{ N_("/Open _Advanced..."),			NULL,	filebrowser_rpopup_action_lcb,		7,	"<Item>" },
 #endif
 #endif
 	
