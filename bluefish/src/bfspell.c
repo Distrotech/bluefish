@@ -7,6 +7,7 @@
 
 #include "bluefish.h"
 #include "gtk_easy.h"
+#include "bfspell.h"
 /*
  * indent -ts4 -kr
  */
@@ -124,7 +125,7 @@ gboolean spell_run() {
 
 void spell_start()
 {
-	memset(&bfspell,0,sizeof(bfspell));
+	
 	bfspell.spell_config = new_aspell_config();
 	/*
 	 * default language should come from config file, runtime from GUI,
@@ -285,6 +286,7 @@ void spell_gui() {
 
 void spell_check_cb(GtkWidget *widget, gpointer data) {
 	if (!bfspell.win) {
+		memset(&bfspell,0,sizeof(bfspell));
 		spell_gui();
 		flush_queue();
 		spell_start();
