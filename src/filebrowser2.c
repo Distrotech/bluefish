@@ -72,8 +72,8 @@ enum {
 #define TYPE_FILE -5
 
 typedef struct {
-	GtkWidget *dirmenu_v;
-	GtkTreeModel *dirmenu_filter;
+/*	GtkWidget *dirmenu_v;
+	GtkTreeModel *dirmenu_filter;*/
 	
 	GtkWidget *dir_v; /* treeview widget */
 	GtkWidget *file_v; /* listview widget */
@@ -323,7 +323,7 @@ static void fb2_fill_dir_async(GtkTreeIter *parent, GnomeVFSURI *uri) {
 		FILEBROWSER2CONFIG(main_v->fb2config)->uri_in_refresh = g_list_append(FILEBROWSER2CONFIG(main_v->fb2config)->uri_in_refresh, uri);
 		DEBUG_MSG("fb2_fill_dir_async, opening ");
 		DEBUG_URI(cdata->p_uri, TRUE);
-		gnome_vfs_async_load_directory_uri(&handle,uri,GNOME_VFS_FILE_INFO_DEFAULT,
+		gnome_vfs_async_load_directory_uri(&handle,uri,GNOME_VFS_FILE_INFO_DEFAULT|GNOME_VFS_FILE_INFO_FOLLOW_LINKS,
 									10,GNOME_VFS_PRIORITY_DEFAULT,fb2_load_directory_lcb,cdata);
 	}
 #ifdef DEBUG	
@@ -1304,17 +1304,6 @@ void fb2_set_basedir(Tbfwin *bfwin, gchar *curi) {
 	}
 }
 
-static gboolean dirmenu_filter_func(GtkTreeModel *model,GtkTreeIter *iter,gpointer data) {
-/*	Tfilebrowser2 *fb2 = data;*/
-	gchar *name;
-	gint type;
-	GnomeVFSURI *uri;
-	gtk_tree_model_get(GTK_TREE_MODEL(model), iter, FILENAME_COLUMN, &name, URI_COLUMN, &uri, TYPE_COLUMN, &type, -1);
-	if (type != TYPE_DIR) return FALSE;
-	if (!name) return FALSE;
-	return TRUE;
-}
-
 GtkWidget *fb2_init(Tbfwin *bfwin) {
 	Tfilebrowser2 *fb2;
 	GtkWidget *vbox;
@@ -1325,11 +1314,9 @@ GtkWidget *fb2_init(Tbfwin *bfwin) {
 
 	vbox = gtk_vbox_new(FALSE, 0);
 	{
-		GtkCellRenderer *renderer;
-		fb2->dirmenu_filter = gtk_tree_model_filter_new(GTK_TREE_MODEL(FILEBROWSER2CONFIG(main_v->fb2config)->filesystem_tstore),NULL);
-		gtk_tree_model_filter_set_visible_func(GTK_TREE_MODEL_FILTER(fb2->dirmenu_filter), dirmenu_filter_func, fb2, NULL);
+/*		GtkCellRenderer *renderer;
 		fb2->dirmenu_v = gtk_combo_box_new_with_model(fb2->dirmenu_filter);
-/*		fb2->dirmenu_v = gtk_combo_box_new_with_model(GTK_TREE_MODEL(FILEBROWSER2CONFIG(main_v->fb2config)->filesystem_tstore));*/
+		gtk_combo_box_set_wrap_width(GTK_COMBO_BOX(fb2->dirmenu_v),3);
 		renderer = gtk_cell_renderer_pixbuf_new();
 		gtk_cell_layout_pack_start(GTK_CELL_LAYOUT(fb2->dirmenu_v),renderer,FALSE);
 		gtk_cell_layout_set_attributes(GTK_CELL_LAYOUT(fb2->dirmenu_v), renderer
@@ -1342,9 +1329,10 @@ GtkWidget *fb2_init(Tbfwin *bfwin) {
 		gtk_cell_layout_set_attributes(GTK_CELL_LAYOUT(fb2->dirmenu_v), renderer
 				, "text", FILENAME_COLUMN
 				, NULL);
-		
+		gtk_box_pack_start(GTK_BOX(vbox),fb2->dirmenu_v, FALSE, FALSE, 0);
+		*/
 	}
-	gtk_box_pack_start(GTK_BOX(vbox),fb2->dirmenu_v, FALSE, FALSE, 0);
+
 	{
 		GtkWidget *scrolwin;
 		GtkCellRenderer *renderer;
