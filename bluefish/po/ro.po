@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: bluefish gtk2-port\n"
-"POT-Creation-Date: 2003-04-16 15:09+0200\n"
+"POT-Creation-Date: 2003-04-22 15:59+0200\n"
 "PO-Revision-Date: 2001-11-17 15:24+0100\n"
 "Last-Translator: Unknown <unk@unk.org>\n"
 "Language-Team: no team <LL@li.org>\n"
@@ -189,6 +189,15 @@ msgstr ""
 msgid "Saving file"
 msgstr "Salvez fisierul"
 
+#: ../src/document.c:1139 ../src/preferences.c:1763
+#, fuzzy
+msgid "abort"
+msgstr "Cauta"
+
+#: ../src/document.c:1142 ../src/preferences.c:1764
+msgid "ask"
+msgstr ""
+
 #: ../src/document.c:1143
 msgid "Abort save"
 msgstr ""
@@ -343,7 +352,7 @@ msgstr ""
 msgid "Base_dir:"
 msgstr "Directorul de baza"
 
-#: ../src/document.c:1885 ../src/gtk_easy.c:771
+#: ../src/document.c:1885 ../src/gtk_easy.c:772
 #, fuzzy
 msgid "_Browse..."
 msgstr "Comanda browser"
@@ -469,53 +478,53 @@ msgstr ""
 msgid "All files"
 msgstr "Fisierul nu poate fi deschis"
 
-#: ../src/fref.c:840 ../src/gui.c:544
-msgid "Close"
-msgstr "Inchide"
-
-#: ../src/fref.c:845 ../src/fref.c:1385 ../src/fref.c:1415
-#, fuzzy
-msgid "Dialog"
-msgstr "Javascript"
-
-#: ../src/fref.c:847 ../src/fref.c:1388 ../src/fref.c:1412
-msgid "Insert"
-msgstr "Introdu"
-
-#: ../src/fref.c:1131 ../src/fref.c:1391 ../src/fref.c:1417
+#: ../src/fref.c:816 ../src/fref.c:1115 ../src/fref.c:1375 ../src/fref.c:1401
 #, fuzzy
 msgid "Info"
 msgstr "Neordonat"
 
-#: ../src/fref.c:1397 ../src/html.c:552 ../src/html.c:1180
+#: ../src/fref.c:837 ../src/gui.c:544
+msgid "Close"
+msgstr "Inchide"
+
+#: ../src/fref.c:841 ../src/fref.c:1369 ../src/fref.c:1399
+#, fuzzy
+msgid "Dialog"
+msgstr "Javascript"
+
+#: ../src/fref.c:842 ../src/fref.c:1372 ../src/fref.c:1396
+msgid "Insert"
+msgstr "Introdu"
+
+#: ../src/fref.c:1381 ../src/html.c:552 ../src/html.c:1180
 #, fuzzy
 msgid "Options"
 msgstr "Actiune"
 
-#: ../src/fref.c:1404
+#: ../src/fref.c:1388
 #, fuzzy
 msgid "Rescan reference files"
 msgstr "Eroare Bluefish"
 
-#: ../src/fref.c:1407
+#: ../src/fref.c:1391
 msgid "Left doubleclick action"
 msgstr ""
 
-#: ../src/gtk_easy.c:936 ../src/menu.c:1314 ../src/menu.c:1660
+#: ../src/gtk_easy.c:937 ../src/menu.c:1314 ../src/menu.c:1660
 #: ../src/menu.c:1662 ../src/menu.c:1667
 msgid "Bluefish error"
 msgstr "Eroare Bluefish"
 
-#: ../src/gtk_easy.c:936
+#: ../src/gtk_easy.c:937
 msgid "No filename known"
 msgstr "Numele fisierului este necunoscut"
 
-#: ../src/gtk_easy.c:1025
+#: ../src/gtk_easy.c:1026
 #, fuzzy
 msgid "Select file"
 msgstr "Selecteaza fisierul"
 
-#: ../src/gtk_easy.c:1037
+#: ../src/gtk_easy.c:1038
 #, fuzzy
 msgid "Select files"
 msgstr "Selecteaza fisierul"
@@ -936,7 +945,7 @@ msgstr "Cauta"
 msgid "Search and Replace..."
 msgstr "Cauta si inlocuieste"
 
-#: ../src/gui.c:558 ../src/preferences.c:1721
+#: ../src/gui.c:558 ../src/preferences.c:1772
 msgid "Undo"
 msgstr "Refa"
 
@@ -1330,7 +1339,7 @@ msgstr "Continut"
 msgid "_Scheme:"
 msgstr ""
 
-#: ../src/html.c:1446 ../src/preferences.c:1664
+#: ../src/html.c:1446 ../src/preferences.c:1715
 msgid "Font"
 msgstr "Font"
 
@@ -3515,8 +3524,8 @@ msgstr "/_Fisier"
 msgid "Pattern name"
 msgstr "Paste"
 
-#: ../src/preferences.c:1001 ../src/preferences.c:1442
-#: ../src/preferences.c:1491
+#: ../src/preferences.c:1001 ../src/preferences.c:1493
+#: ../src/preferences.c:1542
 #, fuzzy
 msgid "Pattern"
 msgstr "Paste"
@@ -3589,815 +3598,437 @@ msgstr ""
 msgid "force italic style"
 msgstr ""
 
-#: ../src/preferences.c:1165 ../src/preferences.c:1196
+#: ../src/preferences.c:1209 ../src/preferences.c:1247
 #, fuzzy
 msgid "Browser"
 msgstr "Comanda browser"
 
-#: ../src/preferences.c:1167 ../src/preferences.c:1202
-#: ../src/preferences.c:1285 ../src/preferences.c:1320
-#: ../src/preferences.c:1450 ../src/preferences.c:1495
+#: ../src/preferences.c:1211 ../src/preferences.c:1253
+#: ../src/preferences.c:1336 ../src/preferences.c:1371
+#: ../src/preferences.c:1501 ../src/preferences.c:1546
 #, fuzzy
 msgid "Command"
 msgstr "Comanda browser"
 
-#: ../src/preferences.c:1201
+#: ../src/preferences.c:1252
 #, fuzzy, c-format
 msgid "%s = current filename"
 msgstr "Numele fisierului este necunoscut"
 
-#: ../src/preferences.c:1283 ../src/preferences.c:1314
+#: ../src/preferences.c:1334 ../src/preferences.c:1365
 #, fuzzy
 msgid "Label"
 msgstr "Tabel"
 
-#: ../src/preferences.c:1319
+#: ../src/preferences.c:1370
 #, c-format
 msgid ""
 "%s = current filename\n"
 "%f = output filename (for filters)"
 msgstr ""
 
-#: ../src/preferences.c:1440 ../src/preferences.c:1487
+#: ../src/preferences.c:1491 ../src/preferences.c:1538
 msgid "Name"
 msgstr "Nume"
 
-#: ../src/preferences.c:1444
+#: ../src/preferences.c:1495
 #, fuzzy
 msgid "File #"
 msgstr "/_Fisier"
 
-#: ../src/preferences.c:1446
+#: ../src/preferences.c:1497
 #, fuzzy
 msgid "Line #"
 msgstr "Numar linie"
 
-#: ../src/preferences.c:1448
+#: ../src/preferences.c:1499
 msgid "Output #"
 msgstr ""
 
-#: ../src/preferences.c:1452 ../src/preferences.c:1496
+#: ../src/preferences.c:1503 ../src/preferences.c:1547
 msgid "Show all output"
 msgstr ""
 
-#: ../src/preferences.c:1492
+#: ../src/preferences.c:1543
 #, fuzzy
 msgid "File subpattern #"
 msgstr "/Fisier/Salveaza _ca"
 
-#: ../src/preferences.c:1493
+#: ../src/preferences.c:1544
 #, fuzzy
 msgid "Line subpattern #"
 msgstr "Numarul liniei:"
 
-#: ../src/preferences.c:1494
+#: ../src/preferences.c:1545
 msgid "Output subpattern #"
 msgstr ""
 
-#: ../src/preferences.c:1643
+#: ../src/preferences.c:1694
 msgid "left"
 msgstr "stanga"
 
-#: ../src/preferences.c:1643
+#: ../src/preferences.c:1694
 msgid "right"
 msgstr "dreapta"
 
-#: ../src/preferences.c:1643
+#: ../src/preferences.c:1694
 msgid "top"
 msgstr "inceput"
 
-#: ../src/preferences.c:1643
+#: ../src/preferences.c:1694
 msgid "bottom"
 msgstr "sfarsit"
 
-#: ../src/preferences.c:1646
+#: ../src/preferences.c:1697
 #, fuzzy
 msgid "Edit preferences"
 msgstr "Referinta PHP3 ..."
 
-#: ../src/preferences.c:1657
+#: ../src/preferences.c:1708
 msgid "Editor"
 msgstr "Editor"
 
-#: ../src/preferences.c:1659
+#: ../src/preferences.c:1710
 msgid "Editor options"
 msgstr "Optiuni editor"
 
-#: ../src/preferences.c:1665
+#: ../src/preferences.c:1716
 msgid "Tab width"
 msgstr "Lungime tab"
 
-#: ../src/preferences.c:1666
+#: ../src/preferences.c:1717
 #, fuzzy
 msgid "Word wrap default"
 msgstr "Fara wrap"
 
-#: ../src/preferences.c:1667
+#: ../src/preferences.c:1718
 #, fuzzy
 msgid "Line numbers by default"
 msgstr "Numarul liniei:"
 
-#: ../src/preferences.c:1668
+#: ../src/preferences.c:1719
 msgid "Highlight syntax by default"
 msgstr ""
 
-#: ../src/preferences.c:1669
+#: ../src/preferences.c:1720
 msgid "Highlight # lines"
 msgstr ""
 
-#: ../src/preferences.c:1670
+#: ../src/preferences.c:1721
 msgid "Always highlight full document"
 msgstr ""
 
-#: ../src/preferences.c:1672
+#: ../src/preferences.c:1723
 msgid "HTML"
 msgstr ""
 
-#: ../src/preferences.c:1674
+#: ../src/preferences.c:1725
 #, fuzzy
 msgid "HTML options"
 msgstr "Principalele optiuni ale interfetei grafice"
 
-#: ../src/preferences.c:1679
+#: ../src/preferences.c:1730
 msgid "Lowercase HTML tags"
 msgstr ""
 
-#: ../src/preferences.c:1680
+#: ../src/preferences.c:1731
 msgid "Use deprecated tags (e.g. <font> and <nobr>)"
 msgstr ""
 
-#: ../src/preferences.c:1681
+#: ../src/preferences.c:1732
 msgid "Use XHTML style tags (<br />)"
 msgstr ""
 
-#: ../src/preferences.c:1682
+#: ../src/preferences.c:1733
 msgid "Automatic update author meta"
 msgstr ""
 
-#: ../src/preferences.c:1685
+#: ../src/preferences.c:1736
 #, fuzzy
 msgid "Files"
 msgstr "/_Fisier"
 
-#: ../src/preferences.c:1687
+#: ../src/preferences.c:1738
 msgid "Encoding"
 msgstr ""
 
-#: ../src/preferences.c:1699
+#: ../src/preferences.c:1750
 #, fuzzy
 msgid "Default character set"
 msgstr "Fontul standard"
 
-#: ../src/preferences.c:1702
+#: ../src/preferences.c:1753
 msgid "Auto set <meta> encoding tag on change"
 msgstr ""
 
-#: ../src/preferences.c:1704
+#: ../src/preferences.c:1755
 msgid "Backup"
 msgstr ""
 
-#: ../src/preferences.c:1708
+#: ../src/preferences.c:1759
 msgid "Create backup on save"
 msgstr ""
 
-#: ../src/preferences.c:1709
+#: ../src/preferences.c:1760
 msgid "Backup file suffix"
 msgstr ""
 
-#: ../src/preferences.c:1714
+#: ../src/preferences.c:1762
+#, fuzzy
+msgid "save"
+msgstr "Salveaza"
+
+#: ../src/preferences.c:1765
 #, fuzzy
 msgid "Action on backup failure"
 msgstr "Numele serverului nu a fost gasit"
 
-#: ../src/preferences.c:1717
+#: ../src/preferences.c:1768
 msgid "Remove backupfile on close"
 msgstr ""
 
-#: ../src/preferences.c:1726
+#: ../src/preferences.c:1777
 msgid "Undo history size"
 msgstr ""
 
-#: ../src/preferences.c:1727
+#: ../src/preferences.c:1778
 msgid "Clear undo history on save"
 msgstr ""
 
-#: ../src/preferences.c:1729 ../src/preferences.c:1754
+#: ../src/preferences.c:1780 ../src/preferences.c:1805
 msgid "Misc"
 msgstr ""
 
-#: ../src/preferences.c:1734
+#: ../src/preferences.c:1785
 msgid "Allow multi instances of a file"
 msgstr ""
 
-#: ../src/preferences.c:1736
+#: ../src/preferences.c:1787
 msgid "Open files in already running bluefish window"
 msgstr ""
 
-#: ../src/preferences.c:1738
+#: ../src/preferences.c:1789
 msgid "Number of files in 'Open recent'"
 msgstr ""
 
-#: ../src/preferences.c:1741
+#: ../src/preferences.c:1792
 msgid "User interface"
 msgstr ""
 
-#: ../src/preferences.c:1743
+#: ../src/preferences.c:1794
 msgid "Dimensions"
 msgstr ""
 
-#: ../src/preferences.c:1747
+#: ../src/preferences.c:1798
 msgid "Restore last used dimensions"
 msgstr ""
 
-#: ../src/preferences.c:1748
+#: ../src/preferences.c:1799
 #, fuzzy
 msgid "Initial left panel width"
 msgstr "Lungimea initiala"
 
-#: ../src/preferences.c:1749
+#: ../src/preferences.c:1800
 #, fuzzy
 msgid "Initial window height"
 msgstr "Inaltimea initiala"
 
-#: ../src/preferences.c:1750
+#: ../src/preferences.c:1801
 #, fuzzy
 msgid "Initial window width"
 msgstr "Lungimea initiala"
 
-#: ../src/preferences.c:1759
+#: ../src/preferences.c:1810
 #, fuzzy
 msgid "External browsers in submenu"
 msgstr "Optiuni program extern"
 
-#: ../src/preferences.c:1760
+#: ../src/preferences.c:1811
 #, fuzzy
 msgid "External commands in submenu"
 msgstr "Extern"
 
-#: ../src/preferences.c:1761
+#: ../src/preferences.c:1812
 msgid "External outputbox in submenu"
 msgstr ""
 
-#: ../src/preferences.c:1763
-msgid "Notebook tab font (leave empty for gtk default)"
-msgstr ""
-
-#: ../src/preferences.c:1765
-#, fuzzy
-msgid "Document notebook tab position"
-msgstr "Notebook position"
-
-#: ../src/preferences.c:1766
-#, fuzzy
-msgid "Left panel notebook tab position"
-msgstr "Notebook position"
-
-#: ../src/preferences.c:1768
-#, fuzzy
-msgid "Make HTML dialogs transient"
-msgstr "Dialog imagine"
-
-#: ../src/preferences.c:1769
-#, fuzzy
-msgid "Advanced search and replace by default"
-msgstr "Cauta si inlocuieste"
-
-#: ../src/preferences.c:1771
-#, fuzzy
-msgid "File browser"
-msgstr "/Fisier/_Deschide"
-
-#: ../src/preferences.c:1775
-msgid "Show hidden files"
-msgstr ""
-
-#: ../src/preferences.c:1776
-msgid "Show other users files"
-msgstr ""
-
-#: ../src/preferences.c:1777
-msgid "Show backup files"
-msgstr ""
-
-#: ../src/preferences.c:1778
-#, fuzzy
-msgid "Unknown icon"
-msgstr "Eroare necunoscuta"
-
-#: ../src/preferences.c:1779
-msgid "Directory icon"
-msgstr ""
-
-#: ../src/preferences.c:1782 ../src/rcfile.c:541
-#, fuzzy
-msgid "Images"
-msgstr "Imagine..."
-
-#: ../src/preferences.c:1784
-#, fuzzy
-msgid "Thumbnails"
-msgstr "Tip thumbnail"
-
-#: ../src/preferences.c:1788
-#, fuzzy
-msgid "Thumbnail suffix"
-msgstr "Tip thumbnail"
-
-#: ../src/preferences.c:1792
-#, fuzzy
-msgid "Thumbnail filetype"
-msgstr "Tip thumbnail"
-
-#: ../src/preferences.c:1797 ../src/preferences.c:1799
-#, fuzzy
-msgid "Filetypes"
-msgstr "/_Fisier"
-
-#: ../src/preferences.c:1806
-#, fuzzy
-msgid "Filefilters"
-msgstr " Sterge "
-
 #: ../src/preferences.c:1814
-msgid "Syntax highlighting"
+msgid "Notebook tab font (leave empty for gtk default)"
 msgstr ""
 
 #: ../src/preferences.c:1816
 #, fuzzy
+msgid "Document notebook tab position"
+msgstr "Notebook position"
+
+#: ../src/preferences.c:1817
+#, fuzzy
+msgid "Left panel notebook tab position"
+msgstr "Notebook position"
+
+#: ../src/preferences.c:1819
+#, fuzzy
+msgid "Make HTML dialogs transient"
+msgstr "Dialog imagine"
+
+#: ../src/preferences.c:1820
+#, fuzzy
+msgid "Advanced search and replace by default"
+msgstr "Cauta si inlocuieste"
+
+#: ../src/preferences.c:1822
+#, fuzzy
+msgid "File browser"
+msgstr "/Fisier/_Deschide"
+
+#: ../src/preferences.c:1826
+msgid "Show hidden files"
+msgstr ""
+
+#: ../src/preferences.c:1827
+msgid "Show other users files"
+msgstr ""
+
+#: ../src/preferences.c:1828
+msgid "Show backup files"
+msgstr ""
+
+#: ../src/preferences.c:1829
+#, fuzzy
+msgid "Unknown icon"
+msgstr "Eroare necunoscuta"
+
+#: ../src/preferences.c:1830
+msgid "Directory icon"
+msgstr ""
+
+#: ../src/preferences.c:1833 ../src/rcfile.c:607
+#, fuzzy
+msgid "Images"
+msgstr "Imagine..."
+
+#: ../src/preferences.c:1835
+#, fuzzy
+msgid "Thumbnails"
+msgstr "Tip thumbnail"
+
+#: ../src/preferences.c:1839
+#, fuzzy
+msgid "Thumbnail suffix"
+msgstr "Tip thumbnail"
+
+#: ../src/preferences.c:1843
+#, fuzzy
+msgid "Thumbnail filetype"
+msgstr "Tip thumbnail"
+
+#: ../src/preferences.c:1848 ../src/preferences.c:1850
+#, fuzzy
+msgid "Filetypes"
+msgstr "/_Fisier"
+
+#: ../src/preferences.c:1857
+#, fuzzy
+msgid "Filefilters"
+msgstr " Sterge "
+
+#: ../src/preferences.c:1865
+msgid "Syntax highlighting"
+msgstr ""
+
+#: ../src/preferences.c:1867
+#, fuzzy
 msgid "Patterns"
 msgstr "Paste"
 
-#: ../src/preferences.c:1824
+#: ../src/preferences.c:1875
 #, fuzzy
 msgid "External programs"
 msgstr "Optiuni program extern"
 
-#: ../src/preferences.c:1826
+#: ../src/preferences.c:1877
 #, fuzzy
 msgid "Browsers"
 msgstr "Comanda browser"
 
-#: ../src/preferences.c:1833
+#: ../src/preferences.c:1884
 #, fuzzy
 msgid "Utilities and filters"
 msgstr " Sterge "
 
-#: ../src/preferences.c:1841
+#: ../src/preferences.c:1892
 msgid "Output parsers"
 msgstr ""
 
-#: ../src/preferences.c:1843
+#: ../src/preferences.c:1894
 msgid "Outputbox"
 msgstr ""
 
-#: ../src/rcfile.c:483
+#: ../src/rcfile.c:535
 msgid "Galeon"
 msgstr ""
 
-#: ../src/rcfile.c:485
+#: ../src/rcfile.c:537
 msgid "Mozilla"
 msgstr ""
 
-#: ../src/rcfile.c:487
+#: ../src/rcfile.c:539
 #, fuzzy
 msgid "Opera"
 msgstr "Deschide"
 
-#: ../src/rcfile.c:489
+#: ../src/rcfile.c:541
 msgid "Netscape"
-msgstr ""
-
-#: ../src/rcfile.c:491
-#, fuzzy
-msgid "Gnome default"
-msgstr "Numarul liniei:"
-
-#: ../src/rcfile.c:507
-#, fuzzy
-msgid "make"
-msgstr "Imagine..."
-
-#: ../src/rcfile.c:508
-msgid "weblint HTML checker"
-msgstr ""
-
-#: ../src/rcfile.c:509
-msgid "tidy HTML validator"
-msgstr ""
-
-#: ../src/rcfile.c:510
-msgid "javac"
-msgstr ""
-
-#: ../src/rcfile.c:516
-msgid "Dos2Unix filter"
-msgstr ""
-
-#: ../src/rcfile.c:518
-#, fuzzy
-msgid "Tidy cleanup filter"
-msgstr " Sterge "
-
-#: ../src/rcfile.c:535
-msgid "C programming"
-msgstr ""
-
-#: ../src/rcfile.c:537
-#, fuzzy
-msgid "All web files"
-msgstr "Fisierul nu poate fi deschis"
-
-#: ../src/rcfile.c:539
-msgid "Java programming"
 msgstr ""
 
 #: ../src/rcfile.c:543
 #, fuzzy
+msgid "Gnome default"
+msgstr "Numarul liniei:"
+
+#: ../src/rcfile.c:566
+#, fuzzy
+msgid "make"
+msgstr "Imagine..."
+
+#: ../src/rcfile.c:567
+msgid "weblint HTML checker"
+msgstr ""
+
+#: ../src/rcfile.c:568
+msgid "tidy HTML validator"
+msgstr ""
+
+#: ../src/rcfile.c:569
+msgid "javac"
+msgstr ""
+
+#: ../src/rcfile.c:575
+msgid "Dos2Unix filter"
+msgstr ""
+
+#: ../src/rcfile.c:577
+#, fuzzy
+msgid "Tidy cleanup filter"
+msgstr " Sterge "
+
+#: ../src/rcfile.c:601
+msgid "C programming"
+msgstr ""
+
+#: ../src/rcfile.c:603
+#, fuzzy
+msgid "All web files"
+msgstr "Fisierul nu poate fi deschis"
+
+#: ../src/rcfile.c:605
+msgid "Java programming"
+msgstr ""
+
+#: ../src/rcfile.c:609
+#, fuzzy
 msgid "Hide objectfiles"
 msgstr "Selecteaza fisierul"
-
-#: ../src/rcfile.c:633
-msgid "/php/ibase/ibase fetch row"
-msgstr ""
-
-#: ../src/rcfile.c:633
-msgid "ibase result variable name"
-msgstr ""
-
-#: ../src/rcfile.c:633 ../src/rcfile.c:634
-#, fuzzy
-msgid "row variable name"
-msgstr "Numele fisierului este necunoscut"
-
-#: ../src/rcfile.c:634
-msgid "/php/mysql/mysql fetch row"
-msgstr ""
-
-#: ../src/rcfile.c:634
-msgid "mysql result variable name"
-msgstr ""
-
-#: ../src/rcfile.c:635
-msgid "/php/mysql/mysql connect"
-msgstr ""
-
-#: ../src/rcfile.c:635
-msgid "mysql host"
-msgstr ""
-
-#: ../src/rcfile.c:635
-msgid "mysql username"
-msgstr ""
-
-#: ../src/rcfile.c:635
-msgid "mysql password"
-msgstr ""
-
-#: ../src/rcfile.c:635
-msgid "database name"
-msgstr ""
-
-#: ../src/rcfile.c:636
-msgid "/php/ibase/ibase connect"
-msgstr ""
-
-#: ../src/rcfile.c:636
-#, fuzzy
-msgid "ibase host"
-msgstr "Fontul de baza"
-
-#: ../src/rcfile.c:636
-msgid "ibase database path"
-msgstr ""
-
-#: ../src/rcfile.c:636
-#, fuzzy
-msgid "ibase username"
-msgstr "/Fisier/_Nou"
-
-#: ../src/rcfile.c:636
-msgid "ibase password"
-msgstr ""
-
-#: ../src/rcfile.c:637
-msgid "/php/general/while each in array list"
-msgstr ""
-
-#: ../src/rcfile.c:637
-msgid "array name"
-msgstr ""
-
-#: ../src/rcfile.c:638
-msgid "/sql/select all from table"
-msgstr ""
-
-#: ../src/rcfile.c:638
-#, fuzzy
-msgid "table name"
-msgstr "/Fisier/_Nou"
-
-#: ../src/rcfile.c:639
-msgid "/php/general/mail"
-msgstr ""
-
-#: ../src/rcfile.c:639
-#, fuzzy
-msgid "email adress"
-msgstr "Adresa email:"
-
-#: ../src/rcfile.c:639
-msgid "subject"
-msgstr ""
-
-#: ../src/rcfile.c:639
-#, fuzzy
-msgid "mail body variable name"
-msgstr "Numele fisierului este necunoscut"
-
-#: ../src/rcfile.c:640
-msgid "/php/general/for loop"
-msgstr ""
-
-#: ../src/rcfile.c:640
-#, fuzzy
-msgid "loop variable name"
-msgstr "Numele fisierului este necunoscut"
-
-#: ../src/rcfile.c:640
-#, fuzzy
-msgid "from value"
-msgstr "Valoare"
-
-#: ../src/rcfile.c:640
-#, fuzzy
-msgid "to value"
-msgstr "Valoare"
-
-#: ../src/rcfile.c:641
-msgid "/php/ibase/query"
-msgstr ""
-
-#: ../src/rcfile.c:641 ../src/rcfile.c:646 ../src/rcfile.c:664
-#: ../src/rcfile.c:665
-#, fuzzy
-msgid "result variable name"
-msgstr "Numele fisierului este necunoscut"
-
-#: ../src/rcfile.c:641
-msgid "ibase connection id name"
-msgstr ""
-
-#: ../src/rcfile.c:641 ../src/rcfile.c:646 ../src/rcfile.c:664
-msgid "query string (quoted) or variable (including $)"
-msgstr ""
-
-#: ../src/rcfile.c:642
-msgid "/php/general/include file"
-msgstr ""
-
-#: ../src/rcfile.c:642
-#, fuzzy
-msgid "filename to include"
-msgstr "Numele fisierului este necunoscut"
-
-#: ../src/rcfile.c:643
-msgid "/php/general/require file"
-msgstr ""
-
-#: ../src/rcfile.c:643
-msgid "filename to require"
-msgstr ""
-
-#: ../src/rcfile.c:644
-msgid "/php/general/if isset"
-msgstr ""
-
-#: ../src/rcfile.c:644 ../src/rcfile.c:645
-#, fuzzy
-msgid "variable name to test for"
-msgstr "Numele fisierului este necunoscut"
-
-#: ../src/rcfile.c:645
-msgid "/php/general/if not isset"
-msgstr ""
-
-#: ../src/rcfile.c:646
-msgid "/php/mysql/query"
-msgstr ""
-
-#: ../src/rcfile.c:646
-msgid "mysql connection id name"
-msgstr ""
-
-#: ../src/rcfile.c:647
-msgid "/html/font symbol"
-msgstr ""
-
-#: ../src/rcfile.c:648
-msgid "/html/div with class"
-msgstr ""
-
-#: ../src/rcfile.c:648 ../src/rcfile.c:649
-#, fuzzy
-msgid "CSS class name"
-msgstr "Editeaza clasele CSS"
-
-#: ../src/rcfile.c:649
-msgid "/html/span with class"
-msgstr ""
-
-#: ../src/rcfile.c:650
-msgid "/php/php block"
-msgstr ""
-
-#: ../src/rcfile.c:651
-msgid "/html/made with bluefish"
-msgstr ""
-
-#: ../src/rcfile.c:652
-msgid "/html/meta keywords"
-msgstr ""
-
-#: ../src/rcfile.c:652
-msgid "keywords, space separated"
-msgstr ""
-
-#: ../src/rcfile.c:653
-msgid "/html/meta refresh (client pull)"
-msgstr ""
-
-#: ../src/rcfile.c:653
-msgid "refresh time, in seconds"
-msgstr ""
-
-#: ../src/rcfile.c:653
-msgid "URL to redirect to"
-msgstr ""
-
-#: ../src/rcfile.c:654
-msgid "/active html/form"
-msgstr ""
-
-#: ../src/rcfile.c:655
-msgid "/active html/form and action"
-msgstr ""
-
-#: ../src/rcfile.c:655
-msgid "Submit button text"
-msgstr ""
-
-#: ../src/rcfile.c:656
-msgid "/active html/input text"
-msgstr ""
-
-#: ../src/rcfile.c:656 ../src/rcfile.c:657 ../src/rcfile.c:658
-#: ../src/rcfile.c:659 ../src/rcfile.c:660 ../src/rcfile.c:661
-#, fuzzy
-msgid "variable name"
-msgstr "Numele fisierului este necunoscut"
-
-#: ../src/rcfile.c:657
-msgid "/active html/input checkbox"
-msgstr ""
-
-#: ../src/rcfile.c:657
-msgid "value when checked"
-msgstr ""
-
-#: ../src/rcfile.c:658
-msgid "/active html/textarea"
-msgstr ""
-
-#: ../src/rcfile.c:659
-msgid "/active html/select options/from array"
-msgstr ""
-
-#: ../src/rcfile.c:659
-msgid "array name containing options"
-msgstr ""
-
-#: ../src/rcfile.c:660
-msgid "/active html/select options/from mysql result"
-msgstr ""
-
-#: ../src/rcfile.c:660
-msgid "mysql query result"
-msgstr ""
-
-#: ../src/rcfile.c:660 ../src/rcfile.c:661
-msgid "index of the value"
-msgstr ""
-
-#: ../src/rcfile.c:660 ../src/rcfile.c:661
-msgid "index of the label"
-msgstr ""
-
-#: ../src/rcfile.c:661
-msgid "/active html/select options/from ibase result"
-msgstr ""
-
-#: ../src/rcfile.c:661
-#, fuzzy
-msgid "ibase query result"
-msgstr "/Fisier/_Nou"
-
-#: ../src/rcfile.c:662
-msgid "/DHTML/mouseover image"
-msgstr ""
-
-#: ../src/rcfile.c:662
-#, fuzzy
-msgid "unique name"
-msgstr "/Fisier/_Nou"
-
-#: ../src/rcfile.c:662
-msgid "onMouseOut src"
-msgstr ""
-
-#: ../src/rcfile.c:662
-msgid "onMouseOver src"
-msgstr ""
-
-#: ../src/rcfile.c:663
-msgid "/php/odbc/odbc connect"
-msgstr ""
-
-#: ../src/rcfile.c:663
-msgid "odbc data source name"
-msgstr ""
-
-#: ../src/rcfile.c:663
-#, fuzzy
-msgid "username"
-msgstr "/Fisier/_Nou"
-
-#: ../src/rcfile.c:663
-msgid "password"
-msgstr ""
-
-#: ../src/rcfile.c:664
-msgid "/php/odbc/odbc exec query"
-msgstr ""
-
-#: ../src/rcfile.c:664
-msgid "odbc connection id name"
-msgstr ""
-
-#: ../src/rcfile.c:665
-msgid "/php/odbc/odbc fetch row"
-msgstr ""
-
-#: ../src/rcfile.c:666
-msgid "/php/general/echo date"
-msgstr ""
-
-#: ../src/rcfile.c:667
-msgid "/php/filesystem/open and echo file"
-msgstr ""
-
-#: ../src/rcfile.c:667
-msgid "file (quoted) or variable (including $)"
-msgstr ""
-
-#: ../src/rcfile.c:668
-msgid "/php/general/location header"
-msgstr ""
-
-#: ../src/rcfile.c:668
-msgid "location (URL) to redirect to (quoted) or variable (including $)"
-msgstr ""
-
-#: ../src/rcfile.c:669
-msgid "/apache/basic password required"
-msgstr ""
-
-#: ../src/rcfile.c:669
-msgid "full path to password file"
-msgstr ""
-
-#: ../src/rcfile.c:669
-msgid "security description"
-msgstr ""
-
-#: ../src/rcfile.c:670
-msgid "/apache/deny access to .inc"
-msgstr ""
-
-#: ../src/rcfile.c:671
-msgid "/replace/strip <font>"
-msgstr ""
-
-#: ../src/rcfile.c:672
-msgid "/replace/strip <any tag> in selection"
-msgstr ""
-
-#: ../src/rcfile.c:673
-msgid "/replace/convert <td> in <th> in selection"
-msgstr ""
-
-#: ../src/rcfile.c:674
-msgid "/replace/convert <any tag> in <any other tag> in selection"
-msgstr ""
 
 #: ../src/snr2.c:190
 msgid "Regular expression error: "
@@ -4623,855 +4254,3 @@ msgstr "Sursa"
 #, fuzzy
 msgid "Size:"
 msgstr "Marime"
-
-#, fuzzy
-#~ msgid "Filename"
-#~ msgstr "/Fisier/_Nou"
-
-#, fuzzy
-#~ msgid "selector"
-#~ msgstr "Selectie"
-
-#, fuzzy
-#~ msgid "value"
-#~ msgstr "Valoare"
-
-#, fuzzy
-#~ msgid "Vertical Align"
-#~ msgstr "aliniere verticala"
-
-#~ msgid " Width "
-#~ msgstr " Latime "
-
-#~ msgid "Number of Columns per row"
-#~ msgstr "Numar coloane per linie"
-
-#, fuzzy
-#~ msgid "<main>/External"
-#~ msgstr "Extern"
-
-#, fuzzy
-#~ msgid "<main>/File/Open recent"
-#~ msgstr "/Fisier/Deschide de pe web"
-
-#, fuzzy
-#~ msgid "<main>/External/Browsers"
-#~ msgstr "Extern"
-
-#~ msgid "Error: cannot run as root (for security reasons)\n"
-#~ msgstr "Eroare: nu poate fi folosit ca root (pentru motive de securitate)\n"
-
-#~ msgid "use -s to override\n"
-#~ msgstr "folositi -s pentru fortare\n"
-
-#~ msgid "Bluefish is SUID root, this is a security risk!\n"
-#~ msgstr "Bluefish este SUID root, acesta este un risc de securitate !\n"
-
-#~ msgid "Browser is not running, starting browser"
-#~ msgstr "Browserul nu ruleaza, il pornesc acum"
-
-#~ msgid ""
-#~ "That looks like a secure server,\n"
-#~ "Bluefish doesn't support them"
-#~ msgstr ""
-#~ "Acesta este un server securizat,\n"
-#~ "Bluefish nu le suporta"
-
-#~ msgid "Invalid address"
-#~ msgstr "Adresa invalida"
-
-#~ msgid "Couldn't create socket"
-#~ msgstr "Socketul nu a putut fi creat"
-
-#~ msgid "The network is unreachable"
-#~ msgstr "Reteaua este de neatins"
-
-#~ msgid "Can't send data"
-#~ msgstr "Nu se pot trimite date"
-
-#~ msgid "Didn't send all the data"
-#~ msgstr "Nu s-au transmis toate datele"
-
-#~ msgid "Can't open file"
-#~ msgstr "Fisierul nu poate fi deschis"
-
-#~ msgid "Open from Web"
-#~ msgstr "Deschide de pe Web"
-
-#~ msgid "URL:"
-#~ msgstr "URL:"
-
-#~ msgid "Running Weblint"
-#~ msgstr "Rulez Weblint"
-
-#~ msgid "Weblint output"
-#~ msgstr "Mesaje Weblint"
-
-#~ msgid "Recheck"
-#~ msgstr "Reverifica"
-
-#~ msgid "Weblint"
-#~ msgstr "Weblint"
-
-#~ msgid ""
-#~ "You don't appear to have weblint installed \n"
-#~ "To use this option you will need to download weblint from:\n"
-#~ "http://www.cre.canon.co.uk/~neilb/weblint/"
-#~ msgstr ""
-#~ "Se pare ca nu aveti Weblint instalat \n"
-#~ "Pentru a folosi aceasta optiune luati Weblint de la :\n"
-#~ "http://www.cre.canon.co.uk/~neilb/weblint/"
-
-#~ msgid "Error stat file"
-#~ msgstr "Fisierul cu erori"
-
-#~ msgid "Error delete stdout temporary file"
-#~ msgstr "Eroare la stergerea fisierului temporar stdout"
-
-#~ msgid "Font Selection"
-#~ msgstr "Selectarea fontului"
-
-#~ msgid "Configuration saved and applied succesfully"
-#~ msgstr "Configuratia salvata si aplicata cu succes"
-
-#~ msgid "Saving and applying configuration"
-#~ msgstr "Salvez si aplic configuratia"
-
-#, fuzzy
-#~ msgid "Default font"
-#~ msgstr "Fontul standard"
-
-#, fuzzy
-#~ msgid "Number of undo levels"
-#~ msgstr "Numar linii"
-
-#, fuzzy
-#~ msgid "Insert text with Ctrl-Enter"
-#~ msgstr "Introduceti stil nou"
-
-#, fuzzy
-#~ msgid "Insert closing lists </LI>, </DT>, </DD>"
-#~ msgstr "Introdu tagul de inchidere a listei </LI>"
-
-#~ msgid "Insert closing paragraph tag </P>"
-#~ msgstr "Introdu tagul de inchidere a paragrafului </P>"
-
-#, fuzzy
-#~ msgid "Insert lowercase HTML tags (Needed for WML!)"
-#~ msgstr "Introdu taguri HTML cu litere mici"
-
-#~ msgid "Main GUI options"
-#~ msgstr "Principalele optiuni ale interfetei grafice"
-
-#~ msgid "Notebook tab fontset"
-#~ msgstr "Notebook tab fontset"
-
-#, fuzzy
-#~ msgid "Font is a fontset"
-#~ msgstr "Notebook tab fontset"
-
-#~ msgid "GUI"
-#~ msgstr "GUI"
-
-#, fuzzy
-#~ msgid "Files and images"
-#~ msgstr "/Fisier/Salveaza _ca"
-
-#~ msgid "Thumbnail extension string"
-#~ msgstr "String extins thumbnail"
-
-#, fuzzy
-#~ msgid "save"
-#~ msgstr "Salveaza"
-
-#, fuzzy
-#~ msgid "JavaScript filter"
-#~ msgstr "Javascript"
-
-#~ msgid "Weblint command"
-#~ msgstr "Comanda weblint"
-
-#, fuzzy
-#~ msgid "Image editor command"
-#~ msgstr "Imagine-harta"
-
-#, fuzzy
-#~ msgid "Spell checker options"
-#~ msgstr "Verifica scrierea cuvintelor"
-
-#, fuzzy
-#~ msgid "Ispell command"
-#~ msgstr "Comanda browser"
-
-#, fuzzy
-#~ msgid "Default language"
-#~ msgstr "Fontul standard"
-
-#~ msgid "External"
-#~ msgstr "Extern"
-
-#~ msgid " Save & close "
-#~ msgstr " Salveaza & inchide "
-
-#, fuzzy
-#~ msgid "Untitled *"
-#~ msgstr "Fara titlu"
-
-#, fuzzy
-#~ msgid "Error in creating temporary print file."
-#~ msgstr "Eroare la stergerea fisierului salvat temporar"
-
-#, fuzzy
-#~ msgid "Unable to erase temporary file."
-#~ msgstr "Eroare la stergerea fisierului temporar stdout"
-
-#, fuzzy
-#~ msgid " Print "
-#~ msgstr "Listeaza"
-
-#~ msgid "OK"
-#~ msgstr "OK"
-
-#~ msgid " Ok "
-#~ msgstr " OK "
-
-#~ msgid " Cancel "
-#~ msgstr " Renunta "
-
-#~ msgid "Insert class"
-#~ msgstr "Introduceti clasa"
-
-#~ msgid "tag"
-#~ msgstr "tag"
-
-#~ msgid "class"
-#~ msgstr "Clasa"
-
-#~ msgid "pseudo class"
-#~ msgstr "Pseudo Clasa"
-
-#, fuzzy
-#~ msgid "font-family"
-#~ msgstr "familie font"
-
-#~ msgid "font-style"
-#~ msgstr "stil font"
-
-#~ msgid "font-variant"
-#~ msgstr "varianta font"
-
-#~ msgid "font-size"
-#~ msgstr "marime font"
-
-#~ msgid "line-height"
-#~ msgstr "inaltime linie"
-
-#~ msgid "Insert as one line"
-#~ msgstr "Introdu ca o linie"
-
-#~ msgid "absolute size"
-#~ msgstr "Marime absoluta"
-
-#~ msgid "relative size"
-#~ msgstr "Marime relativa"
-
-#~ msgid "length/percentage"
-#~ msgstr "lungime/procentaj"
-
-#~ msgid "margin"
-#~ msgstr "margine"
-
-#~ msgid "padding"
-#~ msgstr "spatiere interioara"
-
-#~ msgid "Insert margin as one line"
-#~ msgstr "Introdu marginea ca o linie"
-
-#~ msgid "Insert padding as one line"
-#~ msgstr "Introdu spatierea interioara ca o linie"
-
-#, fuzzy
-#~ msgid "Margin & padding"
-#~ msgstr "spatiere interioara"
-
-#~ msgid "width"
-#~ msgstr "latime"
-
-#~ msgid "color"
-#~ msgstr "Culoare"
-
-#, fuzzy
-#~ msgid "style"
-#~ msgstr "Stil"
-
-#~ msgid "Insert values per property"
-#~ msgstr "Introdu valorile per proprietate"
-
-#~ msgid "Insert values per border side"
-#~ msgstr "Introdu valorile per parte chenar"
-
-#~ msgid "Insert top-values as general value for all sides"
-#~ msgstr "Introdu valorile de inceput ca valori generale pentru toate partile"
-
-#~ msgid "height"
-#~ msgstr "inaltime"
-
-#~ msgid "float"
-#~ msgstr "float"
-
-#~ msgid "clear"
-#~ msgstr "Sterge"
-
-#~ msgid "background-color"
-#~ msgstr "culoare background"
-
-#~ msgid "background-image"
-#~ msgstr "imagine background"
-
-#~ msgid "background-repeat"
-#~ msgstr "repeta background"
-
-#~ msgid "background-attachment"
-#~ msgstr "atasament background"
-
-#~ msgid "background-position"
-#~ msgstr "pozitie background"
-
-#~ msgid "accross"
-#~ msgstr "peste"
-
-#~ msgid "down"
-#~ msgstr "jos"
-
-#~ msgid "Insert background as one line"
-#~ msgstr "Introdu backgroundul ca o linie"
-
-#, fuzzy
-#~ msgid "percentage"
-#~ msgstr "lungime/procentaj"
-
-#~ msgid "word-spacing"
-#~ msgstr "spatiere cuvinte"
-
-#~ msgid "letter-spacing"
-#~ msgstr "spatiere litere"
-
-#~ msgid "vertical-align"
-#~ msgstr "aliniere verticala"
-
-#~ msgid "text-align"
-#~ msgstr "aliniere text"
-
-#~ msgid "text-decoration"
-#~ msgstr "decorare text"
-
-#~ msgid "text-transform"
-#~ msgstr "transformare text"
-
-#~ msgid "display"
-#~ msgstr "display"
-
-#~ msgid "white-space"
-#~ msgstr "spatiu alb"
-
-#~ msgid "list-style-type"
-#~ msgstr "list-style-type"
-
-#~ msgid "list-style-image"
-#~ msgstr "list-style-image"
-
-#~ msgid "list-style-position"
-#~ msgstr "list-style-position"
-
-#~ msgid "Insert list-item as one line"
-#~ msgstr "Introdu element lista ca o linie"
-
-#, fuzzy
-#~ msgid "Image preview"
-#~ msgstr "Dialog imagine"
-
-#, fuzzy
-#~ msgid "Imagemap editor"
-#~ msgstr "Imagine-harta"
-
-#, fuzzy
-#~ msgid "Error creating directory"
-#~ msgstr "Eroare la stergerea fisierului salvat temporar"
-
-#~ msgid "Delete"
-#~ msgstr "Sterge"
-
-#, fuzzy
-#~ msgid "Error!"
-#~ msgstr "Eroare"
-
-#, fuzzy
-#~ msgid "Could not stat(2) file."
-#~ msgstr "Fisierul nu a putut fi scris :\n"
-
-#, fuzzy
-#~ msgid "Move file to"
-#~ msgstr "/Fisier/_Salveaza"
-
-#, fuzzy
-#~ msgid "File new"
-#~ msgstr "/Fisier/_Nou"
-
-#, fuzzy
-#~ msgid "File move to"
-#~ msgstr "/Fisier/_Salveaza"
-
-#, fuzzy
-#~ msgid "File delete"
-#~ msgstr " Sterge "
-
-#, fuzzy
-#~ msgid "Edit image"
-#~ msgstr "Editeaza tintele"
-
-#, fuzzy
-#~ msgid "Project"
-#~ msgstr "/_Proiect"
-
-#, fuzzy
-#~ msgid "/File/Open from the web..."
-#~ msgstr "/Fisier/Deschide de pe web"
-
-#, fuzzy
-#~ msgid "/File/Print..."
-#~ msgstr "/Fisier/Iesire"
-
-#, fuzzy
-#~ msgid "/Edit/sep7"
-#~ msgstr "/Fisier/Inchide"
-
-#, fuzzy
-#~ msgid "/View/sep2"
-#~ msgstr "/Fisier/Inchide"
-
-#~ msgid "/_Project"
-#~ msgstr "/_Proiect"
-
-#, fuzzy
-#~ msgid "/Project/Open..."
-#~ msgstr "/_Proiect"
-
-#, fuzzy
-#~ msgid "/Project/Save as..."
-#~ msgstr "Salveaza ca"
-
-#, fuzzy
-#~ msgid "/Project/Edit..."
-#~ msgstr "/_Proiect"
-
-#, fuzzy
-#~ msgid "/Dialogs/CSS/Add class..."
-#~ msgstr "Editeaza clasele CSS"
-
-#, fuzzy
-#~ msgid "/Dialogs/Javascript"
-#~ msgstr "Javascript"
-
-#, fuzzy
-#~ msgid "/Dialogs/Javascript/Mouseover Script"
-#~ msgstr "Javascript"
-
-#, fuzzy
-#~ msgid "/Dialogs/Javascript/Netscape 4 Resize Bugfix Script"
-#~ msgstr "Javascript"
-
-#, fuzzy
-#~ msgid "/Dialogs/Javascript/Image Preload Script"
-#~ msgstr "Javascript"
-
-#, fuzzy
-#~ msgid "/Dialogs/WML/Standard Document"
-#~ msgstr "Spatiu"
-
-#, fuzzy
-#~ msgid "/Dialogs/WML/Non-Breaking Space"
-#~ msgstr "Spatiu"
-
-#, fuzzy
-#~ msgid "/Dialogs/WML/Set Variable..."
-#~ msgstr "Spatiu"
-
-#, fuzzy
-#~ msgid "/External/Weblint..."
-#~ msgstr "Extern"
-
-#, fuzzy
-#~ msgid "/_Perl"
-#~ msgstr "Extern"
-
-#, fuzzy
-#~ msgid "/Options/Lists/External filters..."
-#~ msgstr "Optiuni program extern"
-
-#, fuzzy
-#~ msgid "/Options/Lists/External programs..."
-#~ msgstr "Optiuni program extern"
-
-#, fuzzy
-#~ msgid "name"
-#~ msgstr "Nume"
-
-#, fuzzy
-#~ msgid "Bluefish configuration - external filters"
-#~ msgstr "Configuratia Bluefish"
-
-#, fuzzy
-#~ msgid "Bluefish configuration - external commands"
-#~ msgstr "Configuratia Bluefish"
-
-#, fuzzy
-#~ msgid "Bluefish configuration - syntax highlighting"
-#~ msgstr "Configuratia Bluefish"
-
-#, fuzzy
-#~ msgid "Bluefish config - custom menu"
-#~ msgstr "Configuratia Bluefish"
-
-#~ msgid "Update"
-#~ msgstr "Actualizare"
-
-#~ msgid "Resolving address"
-#~ msgstr "Rezolv adresa"
-
-#~ msgid "Retrieving file, press ESC to cancel download"
-#~ msgstr "Primesc fisier, apasati ESC pentru a renunta la download"
-
-#~ msgid "User aborted download"
-#~ msgstr "Download intrerupt de utilizator"
-
-#~ msgid "Retrieving file, %d bytes received, press ESC to cancel"
-#~ msgstr "Primesc fisier, %d octeti primiti, apasati ESC pentru a renunta"
-
-#~ msgid "Retrieving file, %d bytes of %d bytes received, press ESC to cancel"
-#~ msgstr ""
-#~ "Primesc fisier, %d octeti primiti din %d, apasati ESC pentru a renunta"
-
-#, fuzzy
-#~ msgid "Bluefish project - urllist"
-#~ msgstr "Eroare Bluefish"
-
-#, fuzzy
-#~ msgid "Bluefish project - headers"
-#~ msgstr "Eroare Bluefish"
-
-#, fuzzy
-#~ msgid "/_Files"
-#~ msgstr "/_Fisier"
-
-#, fuzzy
-#~ msgid "/Files/Files"
-#~ msgstr "/Fisier/Inchide"
-
-#, fuzzy
-#~ msgid "/Lists/Colors"
-#~ msgstr "Culoare link"
-
-#, fuzzy
-#~ msgid "/Lists/Targets"
-#~ msgstr "Editeaza tintele"
-
-#, fuzzy
-#~ msgid "/Lists/Document type definitions"
-#~ msgstr "Editeaza DTDurile (Document Type Definitions) in acest proiect"
-
-#, fuzzy
-#~ msgid "/Lists/CSS classes"
-#~ msgstr "Editeaza clasele CSS"
-
-#, fuzzy
-#~ msgid "/Lists/headers"
-#~ msgstr "Editeaza tintele"
-
-#~ msgid "Webdir"
-#~ msgstr "Director web"
-
-#, fuzzy
-#~ msgid "Template"
-#~ msgstr "Inlocuieste:"
-
-#, fuzzy
-#~ msgid "PHP Reference"
-#~ msgstr "Referinta PHP3"
-
-#~ msgid "SSI Reference"
-#~ msgstr "Referinta SSI"
-
-#~ msgid "RXML Reference"
-#~ msgstr "Referinta RXML"
-
-#, fuzzy
-#~ msgid "PHP4 Reference"
-#~ msgstr "Referinta PHP3"
-
-#, fuzzy
-#~ msgid "Function"
-#~ msgstr "Actiune"
-
-#~ msgid "Insert & close"
-#~ msgstr "Introdu & inchide"
-
-#, fuzzy
-#~ msgid "Save as"
-#~ msgstr "Salveaza ca"
-
-#, fuzzy
-#~ msgid "Move to"
-#~ msgstr "/Fisier/_Salveaza"
-
-#, fuzzy
-#~ msgid "cut"
-#~ msgstr "Taie"
-
-#, fuzzy
-#~ msgid "copy"
-#~ msgstr "Copiaza"
-
-#, fuzzy
-#~ msgid "paste"
-#~ msgstr "Paste"
-
-#, fuzzy
-#~ msgid "undo"
-#~ msgstr "Refa"
-
-#, fuzzy
-#~ msgid "redo"
-#~ msgstr "Elimina refacerea"
-
-#, fuzzy
-#~ msgid "Configure..."
-#~ msgstr "Configureaza"
-
-#, fuzzy
-#~ msgid "Print..."
-#~ msgstr "Listeaza"
-
-#~ msgid "Underline"
-#~ msgstr "Subliniat"
-
-#~ msgid "Strikeout"
-#~ msgstr "Taiat"
-
-#~ msgid "Base Target"
-#~ msgstr "Tinta de baza"
-
-#~ msgid "Menu"
-#~ msgstr "Meniu"
-
-#~ msgid "Add class to tag..."
-#~ msgstr "Adauga clasa la tag..."
-
-#, fuzzy
-#~ msgid "Empty javascript block"
-#~ msgstr "Javascript"
-
-#, fuzzy
-#~ msgid "Link to javascript..."
-#~ msgstr "Link la Javascript"
-
-#, fuzzy
-#~ msgid " Javascript "
-#~ msgstr "Javascript"
-
-#, fuzzy
-#~ msgid "Go Element..."
-#~ msgstr "Font..."
-
-#, fuzzy
-#~ msgid "Do Element..."
-#~ msgstr "Font..."
-
-#, fuzzy
-#~ msgid "Anchor Element..."
-#~ msgstr "Ancora..."
-
-#, fuzzy
-#~ msgid "Insert a Paragraph"
-#~ msgstr "Paragraf"
-
-#, fuzzy
-#~ msgid "Line Break"
-#~ msgstr "Pauza"
-
-#, fuzzy
-#~ msgid "Non-breaking Space"
-#~ msgstr "Spatiu"
-
-#, fuzzy
-#~ msgid "Set variable.."
-#~ msgstr "Numele fisierului este necunoscut"
-
-#~ msgid "Imagemap"
-#~ msgstr "Imagine-harta"
-
-#~ msgid "Meta..."
-#~ msgstr "META..."
-
-#~ msgid "Embed..."
-#~ msgstr "Embed..."
-
-#~ msgid "Select Colour..."
-#~ msgstr "Selecteaza culoare..."
-
-#~ msgid "SSI reference..."
-#~ msgstr "Referinta SSI..."
-
-#~ msgid "RXML reference..."
-#~ msgstr "Referinta RXML..."
-
-#, fuzzy
-#~ msgid "PHP4 reference..."
-#~ msgstr "Referinta PHP3 ..."
-
-#~ msgid " Other "
-#~ msgstr " Altele "
-
-#, fuzzy
-#~ msgid "Domain"
-#~ msgstr "margine"
-
-#, fuzzy
-#~ msgid "Path"
-#~ msgstr "Paste"
-
-#, fuzzy
-#~ msgid "Bluefish Spell Checker Error"
-#~ msgstr "Eroare Bluefish"
-
-#, fuzzy
-#~ msgid "Start"
-#~ msgstr "Cauta"
-
-#, fuzzy
-#~ msgid "Word"
-#~ msgstr "Fara wrap"
-
-#, fuzzy
-#~ msgid ""
-#~ "Ignore\n"
-#~ "Word"
-#~ msgstr "Neordonat"
-
-#, fuzzy
-#~ msgid ""
-#~ "Replace\n"
-#~ "Word"
-#~ msgstr "Inlocuieste:"
-
-#, fuzzy
-#~ msgid "Could not eval() strip_cr."
-#~ msgstr "Fisierul nu a putut fi scris :\n"
-
-#, fuzzy
-#~ msgid "Call Perlscript"
-#~ msgstr "Superscript"
-
-#, fuzzy
-#~ msgid "Scriptname"
-#~ msgstr "Indice"
-
-#~ msgid "Save As"
-#~ msgstr "Salveaza ca"
-
-#, fuzzy
-#~ msgid "Setvar"
-#~ msgstr "Cauta"
-
-#, fuzzy
-#~ msgid "Configuration Window"
-#~ msgstr "Confirmare"
-
-#, fuzzy
-#~ msgid "Bluefish: configure"
-#~ msgstr "Configuratia Bluefish"
-
-#~ msgid "Error delete temporary saved file"
-#~ msgstr "Eroare la stergerea fisierului salvat temporar"
-
-#, fuzzy
-#~ msgid "Word Count "
-#~ msgstr "Optiuni editor"
-
-#, fuzzy
-#~ msgid "Word Count %d"
-#~ msgstr "Optiuni editor"
-
-#~ msgid "DTD..."
-#~ msgstr "DTD..."
-
-#~ msgid "Head..."
-#~ msgstr "Head..."
-
-#, fuzzy
-#~ msgid "Edit"
-#~ msgstr "Editor"
-
-#~ msgid "hmmmmmm...."
-#~ msgstr "hmmmmmm...."
-
-#~ msgid ""
-#~ "This version of Bluefish was not\n"
-#~ "compiled with imlib support. sorry."
-#~ msgstr ""
-#~ "Aceasta versiune Bluefish nu a fost\n"
-#~ "compilata cu suport pentru imlib. sorry."
-
-#~ msgid "URL"
-#~ msgstr "URL"
-
-#~ msgid "DIV"
-#~ msgstr "DIV"
-
-#, fuzzy
-#~ msgid "class "
-#~ msgstr "Clasa"
-
-#~ msgid "SPAN"
-#~ msgstr "SPAN"
-
-#~ msgid "Javascript"
-#~ msgstr "Javascript"
-
-#~ msgid "Submit..."
-#~ msgstr "Trimite..."
-
-#~ msgid "Reset..."
-#~ msgstr "Reseteaza..."
-
-#~ msgid "Submit"
-#~ msgstr "Trimite"
-
-#~ msgid "Reset"
-#~ msgstr "Reseteaza"
-
-#~ msgid "Image dialog options"
-#~ msgstr "Optiuni dialog imagine"
-
-#, fuzzy
-#~ msgid "Quick Start - Document Type Definition Selection"
-#~ msgstr "Editeaza DTDurile (Document Type Definitions) in acest proiect"
-
-#, fuzzy
-#~ msgid "Basic"
-#~ msgstr "Directorul de baza"
-
-#, fuzzy
-#~ msgid "Strict"
-#~ msgstr "Taiat"
-
-#, fuzzy
-#~ msgid "Head"
-#~ msgstr "Head..."
-
-#, fuzzy
-#~ msgid "/Lists/META tags"
-#~ msgstr "Editeaza tagurile META"
-
-#, fuzzy
-#~ msgid "close"
-#~ msgstr "Inchide"

@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish gtk2-port\n"
-"POT-Creation-Date: 2003-04-16 15:09+0200\n"
+"POT-Creation-Date: 2003-04-22 15:59+0200\n"
 "PO-Revision-Date: 2001-10-10 19:34+0900\n"
 "Last-Translator: Iwasa Kazmi <kzmi@ca2.so-net.ne.jp>\n"
 "Language-Team: Japanese <ja@li.org>\n"
@@ -187,6 +187,14 @@ msgstr ""
 msgid "Saving file"
 msgstr "ファイルを保存しています"
 
+#: ../src/document.c:1139 ../src/preferences.c:1763
+msgid "abort"
+msgstr "中止"
+
+#: ../src/document.c:1142 ../src/preferences.c:1764
+msgid "ask"
+msgstr "ユーザ確認"
+
 #: ../src/document.c:1143
 msgid "Abort save"
 msgstr "保存中止"
@@ -339,7 +347,7 @@ msgstr ""
 msgid "Base_dir:"
 msgstr "ベースディレクトリ"
 
-#: ../src/document.c:1885 ../src/gtk_easy.c:771
+#: ../src/document.c:1885 ../src/gtk_easy.c:772
 #, fuzzy
 msgid "_Browse..."
 msgstr "ブラウザコマンド"
@@ -466,51 +474,51 @@ msgstr "文書の再表示"
 msgid "All files"
 msgstr "すべてのファイル"
 
-#: ../src/fref.c:840 ../src/gui.c:544
-msgid "Close"
-msgstr "閉じる"
-
-#: ../src/fref.c:845 ../src/fref.c:1385 ../src/fref.c:1415
-#, fuzzy
-msgid "Dialog"
-msgstr "/ダイアログ(_D)"
-
-#: ../src/fref.c:847 ../src/fref.c:1388 ../src/fref.c:1412
-msgid "Insert"
-msgstr "挿入"
-
-#: ../src/fref.c:1131 ../src/fref.c:1391 ../src/fref.c:1417
+#: ../src/fref.c:816 ../src/fref.c:1115 ../src/fref.c:1375 ../src/fref.c:1401
 #, fuzzy
 msgid "Info"
 msgstr "無視"
 
-#: ../src/fref.c:1397 ../src/html.c:552 ../src/html.c:1180
+#: ../src/fref.c:837 ../src/gui.c:544
+msgid "Close"
+msgstr "閉じる"
+
+#: ../src/fref.c:841 ../src/fref.c:1369 ../src/fref.c:1399
+#, fuzzy
+msgid "Dialog"
+msgstr "/ダイアログ(_D)"
+
+#: ../src/fref.c:842 ../src/fref.c:1372 ../src/fref.c:1396
+msgid "Insert"
+msgstr "挿入"
+
+#: ../src/fref.c:1381 ../src/html.c:552 ../src/html.c:1180
 msgid "Options"
 msgstr "オプション"
 
-#: ../src/fref.c:1404
+#: ../src/fref.c:1388
 #, fuzzy
 msgid "Rescan reference files"
 msgstr "Bluefish: 環境設定"
 
-#: ../src/fref.c:1407
+#: ../src/fref.c:1391
 msgid "Left doubleclick action"
 msgstr ""
 
-#: ../src/gtk_easy.c:936 ../src/menu.c:1314 ../src/menu.c:1660
+#: ../src/gtk_easy.c:937 ../src/menu.c:1314 ../src/menu.c:1660
 #: ../src/menu.c:1662 ../src/menu.c:1667
 msgid "Bluefish error"
 msgstr "Bluefish エラー"
 
-#: ../src/gtk_easy.c:936
+#: ../src/gtk_easy.c:937
 msgid "No filename known"
 msgstr "ファイル名不明"
 
-#: ../src/gtk_easy.c:1025
+#: ../src/gtk_easy.c:1026
 msgid "Select file"
 msgstr "ファイル選択"
 
-#: ../src/gtk_easy.c:1037
+#: ../src/gtk_easy.c:1038
 msgid "Select files"
 msgstr "ファイル選択"
 
@@ -921,7 +929,7 @@ msgstr "検索..."
 msgid "Search and Replace..."
 msgstr "検索して置換..."
 
-#: ../src/gui.c:558 ../src/preferences.c:1721
+#: ../src/gui.c:558 ../src/preferences.c:1772
 msgid "Undo"
 msgstr ""
 
@@ -1303,7 +1311,7 @@ msgstr "コメント"
 msgid "_Scheme:"
 msgstr ""
 
-#: ../src/html.c:1446 ../src/preferences.c:1664
+#: ../src/html.c:1446 ../src/preferences.c:1715
 msgid "Font"
 msgstr "フォント"
 
@@ -3487,8 +3495,8 @@ msgstr ""
 msgid "Pattern name"
 msgstr "パターン"
 
-#: ../src/preferences.c:1001 ../src/preferences.c:1442
-#: ../src/preferences.c:1491
+#: ../src/preferences.c:1001 ../src/preferences.c:1493
+#: ../src/preferences.c:1542
 msgid "Pattern"
 msgstr "パターン"
 
@@ -3559,809 +3567,447 @@ msgstr ""
 msgid "force italic style"
 msgstr ""
 
-#: ../src/preferences.c:1165 ../src/preferences.c:1196
+#: ../src/preferences.c:1209 ../src/preferences.c:1247
 #, fuzzy
 msgid "Browser"
 msgstr "ブラウザコマンド"
 
-#: ../src/preferences.c:1167 ../src/preferences.c:1202
-#: ../src/preferences.c:1285 ../src/preferences.c:1320
-#: ../src/preferences.c:1450 ../src/preferences.c:1495
+#: ../src/preferences.c:1211 ../src/preferences.c:1253
+#: ../src/preferences.c:1336 ../src/preferences.c:1371
+#: ../src/preferences.c:1501 ../src/preferences.c:1546
 #, fuzzy
 msgid "Command"
 msgstr "コマンド"
 
-#: ../src/preferences.c:1201
+#: ../src/preferences.c:1252
 #, fuzzy, c-format
 msgid "%s = current filename"
 msgstr "外部ファイル名"
 
-#: ../src/preferences.c:1283 ../src/preferences.c:1314
+#: ../src/preferences.c:1334 ../src/preferences.c:1365
 msgid "Label"
 msgstr ""
 
-#: ../src/preferences.c:1319
+#: ../src/preferences.c:1370
 #, c-format
 msgid ""
 "%s = current filename\n"
 "%f = output filename (for filters)"
 msgstr ""
 
-#: ../src/preferences.c:1440 ../src/preferences.c:1487
+#: ../src/preferences.c:1491 ../src/preferences.c:1538
 msgid "Name"
 msgstr ""
 
-#: ../src/preferences.c:1444
+#: ../src/preferences.c:1495
 #, fuzzy
 msgid "File #"
 msgstr "ファイル "
 
-#: ../src/preferences.c:1446
+#: ../src/preferences.c:1497
 #, fuzzy
 msgid "Line #"
 msgstr "行ラップ"
 
-#: ../src/preferences.c:1448
+#: ../src/preferences.c:1499
 #, fuzzy
 msgid "Output #"
 msgstr "html形式で文字を出力"
 
-#: ../src/preferences.c:1452 ../src/preferences.c:1496
+#: ../src/preferences.c:1503 ../src/preferences.c:1547
 msgid "Show all output"
 msgstr ""
 
-#: ../src/preferences.c:1492
+#: ../src/preferences.c:1543
 #, fuzzy
 msgid "File subpattern #"
 msgstr "別名で保存する"
 
-#: ../src/preferences.c:1493
+#: ../src/preferences.c:1544
 #, fuzzy
 msgid "Line subpattern #"
 msgstr "行番号: "
 
-#: ../src/preferences.c:1494
+#: ../src/preferences.c:1545
 msgid "Output subpattern #"
 msgstr ""
 
-#: ../src/preferences.c:1643
+#: ../src/preferences.c:1694
 #, fuzzy
 msgid "left"
 msgstr "削除"
 
-#: ../src/preferences.c:1643
+#: ../src/preferences.c:1694
 msgid "right"
 msgstr ""
 
-#: ../src/preferences.c:1643
+#: ../src/preferences.c:1694
 msgid "top"
 msgstr ""
 
-#: ../src/preferences.c:1643
+#: ../src/preferences.c:1694
 msgid "bottom"
 msgstr ""
 
-#: ../src/preferences.c:1646
+#: ../src/preferences.c:1697
 msgid "Edit preferences"
 msgstr "環境設定の編集"
 
-#: ../src/preferences.c:1657
+#: ../src/preferences.c:1708
 msgid "Editor"
 msgstr "エディタ"
 
-#: ../src/preferences.c:1659
+#: ../src/preferences.c:1710
 msgid "Editor options"
 msgstr "エディタの設定"
 
-#: ../src/preferences.c:1665
+#: ../src/preferences.c:1716
 msgid "Tab width"
 msgstr "タブ幅"
 
-#: ../src/preferences.c:1666
+#: ../src/preferences.c:1717
 #, fuzzy
 msgid "Word wrap default"
 msgstr "ワードラップ"
 
-#: ../src/preferences.c:1667
+#: ../src/preferences.c:1718
 #, fuzzy
 msgid "Line numbers by default"
 msgstr "行番号: "
 
-#: ../src/preferences.c:1668
+#: ../src/preferences.c:1719
 #, fuzzy
 msgid "Highlight syntax by default"
 msgstr "/表示/色分け"
 
-#: ../src/preferences.c:1669
+#: ../src/preferences.c:1720
 #, fuzzy
 msgid "Highlight # lines"
 msgstr "デフォルトで色分け"
 
-#: ../src/preferences.c:1670
+#: ../src/preferences.c:1721
 msgid "Always highlight full document"
 msgstr ""
 
-#: ../src/preferences.c:1672
+#: ../src/preferences.c:1723
 msgid "HTML"
 msgstr ""
 
-#: ../src/preferences.c:1674
+#: ../src/preferences.c:1725
 msgid "HTML options"
 msgstr "HTMLの設定"
 
-#: ../src/preferences.c:1679
+#: ../src/preferences.c:1730
 msgid "Lowercase HTML tags"
 msgstr ""
 
-#: ../src/preferences.c:1680
+#: ../src/preferences.c:1731
 msgid "Use deprecated tags (e.g. <font> and <nobr>)"
 msgstr ""
 
-#: ../src/preferences.c:1681
+#: ../src/preferences.c:1732
 #, fuzzy
 msgid "Use XHTML style tags (<br />)"
 msgstr "XHTMLの書き方を使う (<br />など)"
 
-#: ../src/preferences.c:1682
+#: ../src/preferences.c:1733
 msgid "Automatic update author meta"
 msgstr ""
 
-#: ../src/preferences.c:1685
+#: ../src/preferences.c:1736
 msgid "Files"
 msgstr "ファイル"
 
-#: ../src/preferences.c:1687
+#: ../src/preferences.c:1738
 #, fuzzy
 msgid "Encoding"
 msgstr "入力タイプ"
 
-#: ../src/preferences.c:1699
+#: ../src/preferences.c:1750
 #, fuzzy
 msgid "Default character set"
 msgstr "socketを作成できませんでした"
 
-#: ../src/preferences.c:1702
+#: ../src/preferences.c:1753
 msgid "Auto set <meta> encoding tag on change"
 msgstr ""
 
-#: ../src/preferences.c:1704
+#: ../src/preferences.c:1755
 msgid "Backup"
 msgstr ""
 
-#: ../src/preferences.c:1708
+#: ../src/preferences.c:1759
 msgid "Create backup on save"
 msgstr ""
 
-#: ../src/preferences.c:1709
+#: ../src/preferences.c:1760
 msgid "Backup file suffix"
 msgstr "バックアップ・ファイルの末尾"
 
-#: ../src/preferences.c:1714
+#: ../src/preferences.c:1762
+msgid "save"
+msgstr "保存"
+
+#: ../src/preferences.c:1765
 #, fuzzy
 msgid "Action on backup failure"
 msgstr "ホスト名参照に失敗"
 
-#: ../src/preferences.c:1717
+#: ../src/preferences.c:1768
 #, fuzzy
 msgid "Remove backupfile on close"
 msgstr "バックアップ・ファイルの末尾"
 
-#: ../src/preferences.c:1726
+#: ../src/preferences.c:1777
 msgid "Undo history size"
 msgstr ""
 
-#: ../src/preferences.c:1727
+#: ../src/preferences.c:1778
 #, fuzzy
 msgid "Clear undo history on save"
 msgstr "保存時にUndoレベルをクリア"
 
-#: ../src/preferences.c:1729 ../src/preferences.c:1754
+#: ../src/preferences.c:1780 ../src/preferences.c:1805
 msgid "Misc"
 msgstr ""
 
-#: ../src/preferences.c:1734
+#: ../src/preferences.c:1785
 #, fuzzy
 msgid "Allow multi instances of a file"
 msgstr "ひとつのファイルを複数開くことができるようにする"
 
-#: ../src/preferences.c:1736
+#: ../src/preferences.c:1787
 #, fuzzy
 msgid "Open files in already running bluefish window"
 msgstr "コマンドラインで指定したファイルを起動しているbluefishで開く"
 
-#: ../src/preferences.c:1738
+#: ../src/preferences.c:1789
 msgid "Number of files in 'Open recent'"
 msgstr ""
 
-#: ../src/preferences.c:1741
+#: ../src/preferences.c:1792
 msgid "User interface"
 msgstr ""
 
-#: ../src/preferences.c:1743
+#: ../src/preferences.c:1794
 msgid "Dimensions"
 msgstr ""
 
-#: ../src/preferences.c:1747
+#: ../src/preferences.c:1798
 msgid "Restore last used dimensions"
 msgstr ""
 
-#: ../src/preferences.c:1748
+#: ../src/preferences.c:1799
 #, fuzzy
 msgid "Initial left panel width"
 msgstr "起動時の幅"
 
-#: ../src/preferences.c:1749
+#: ../src/preferences.c:1800
 #, fuzzy
 msgid "Initial window height"
 msgstr "起動時の高さ"
 
-#: ../src/preferences.c:1750
+#: ../src/preferences.c:1801
 #, fuzzy
 msgid "Initial window width"
 msgstr "起動時の幅"
 
-#: ../src/preferences.c:1759
+#: ../src/preferences.c:1810
 #, fuzzy
 msgid "External browsers in submenu"
 msgstr "起動プログラムの設定"
 
-#: ../src/preferences.c:1760
+#: ../src/preferences.c:1811
 #, fuzzy
 msgid "External commands in submenu"
 msgstr "/起動/コマンド"
 
-#: ../src/preferences.c:1761
+#: ../src/preferences.c:1812
 msgid "External outputbox in submenu"
 msgstr ""
 
-#: ../src/preferences.c:1763
+#: ../src/preferences.c:1814
 msgid "Notebook tab font (leave empty for gtk default)"
 msgstr ""
 
-#: ../src/preferences.c:1765
+#: ../src/preferences.c:1816
 #, fuzzy
 msgid "Document notebook tab position"
 msgstr "ノートブック位置"
 
-#: ../src/preferences.c:1766
+#: ../src/preferences.c:1817
 #, fuzzy
 msgid "Left panel notebook tab position"
 msgstr "ノートブック位置"
 
-#: ../src/preferences.c:1768
+#: ../src/preferences.c:1819
 #, fuzzy
 msgid "Make HTML dialogs transient"
 msgstr "HTMLダイアログを常に上に表示"
 
-#: ../src/preferences.c:1769
+#: ../src/preferences.c:1820
 #, fuzzy
 msgid "Advanced search and replace by default"
 msgstr "カスタム検索/置換"
 
-#: ../src/preferences.c:1771
+#: ../src/preferences.c:1822
 #, fuzzy
 msgid "File browser"
 msgstr "ファイル一覧のフィルタ"
 
-#: ../src/preferences.c:1775
+#: ../src/preferences.c:1826
 msgid "Show hidden files"
 msgstr ""
 
-#: ../src/preferences.c:1776
+#: ../src/preferences.c:1827
 #, fuzzy
 msgid "Show other users files"
 msgstr "ファイル毎に指定"
 
-#: ../src/preferences.c:1777
+#: ../src/preferences.c:1828
 #, fuzzy
 msgid "Show backup files"
 msgstr "バックアップ・ファイルの末尾"
 
-#: ../src/preferences.c:1778
+#: ../src/preferences.c:1829
 #, fuzzy
 msgid "Unknown icon"
 msgstr "その他のエラー"
 
-#: ../src/preferences.c:1779
+#: ../src/preferences.c:1830
 #, fuzzy
 msgid "Directory icon"
 msgstr "ディレクトリ名"
 
-#: ../src/preferences.c:1782 ../src/rcfile.c:541
+#: ../src/preferences.c:1833 ../src/rcfile.c:607
 #, fuzzy
 msgid "Images"
 msgstr "画像ファイル"
 
-#: ../src/preferences.c:1784
+#: ../src/preferences.c:1835
 #, fuzzy
 msgid "Thumbnails"
 msgstr "サムネイル..."
 
-#: ../src/preferences.c:1788
+#: ../src/preferences.c:1839
 #, fuzzy
 msgid "Thumbnail suffix"
 msgstr "サムネイルのタイプ"
 
-#: ../src/preferences.c:1792
+#: ../src/preferences.c:1843
 #, fuzzy
 msgid "Thumbnail filetype"
 msgstr "サムネイルのタイプ"
 
-#: ../src/preferences.c:1797 ../src/preferences.c:1799
+#: ../src/preferences.c:1848 ../src/preferences.c:1850
 #, fuzzy
 msgid "Filetypes"
 msgstr "ファイル"
 
-#: ../src/preferences.c:1806
+#: ../src/preferences.c:1857
 #, fuzzy
 msgid "Filefilters"
 msgstr "ファイル・フィルタ"
 
-#: ../src/preferences.c:1814
+#: ../src/preferences.c:1865
 #, fuzzy
 msgid "Syntax highlighting"
 msgstr "/設定/リスト/色分け..."
 
-#: ../src/preferences.c:1816
+#: ../src/preferences.c:1867
 #, fuzzy
 msgid "Patterns"
 msgstr "パターン"
 
-#: ../src/preferences.c:1824
+#: ../src/preferences.c:1875
 #, fuzzy
 msgid "External programs"
 msgstr "起動プログラムの設定"
 
-#: ../src/preferences.c:1826
+#: ../src/preferences.c:1877
 #, fuzzy
 msgid "Browsers"
 msgstr "ブラウザコマンド"
 
-#: ../src/preferences.c:1833
+#: ../src/preferences.c:1884
 #, fuzzy
 msgid "Utilities and filters"
 msgstr "ファイル・フィルタ"
 
-#: ../src/preferences.c:1841
+#: ../src/preferences.c:1892
 #, fuzzy
 msgid "Output parsers"
 msgstr "html形式で文字を出力"
 
-#: ../src/preferences.c:1843
+#: ../src/preferences.c:1894
 msgid "Outputbox"
 msgstr ""
 
-#: ../src/rcfile.c:483
+#: ../src/rcfile.c:535
 msgid "Galeon"
 msgstr ""
 
-#: ../src/rcfile.c:485
+#: ../src/rcfile.c:537
 msgid "Mozilla"
 msgstr ""
 
-#: ../src/rcfile.c:487
+#: ../src/rcfile.c:539
 msgid "Opera"
 msgstr ""
 
-#: ../src/rcfile.c:489
+#: ../src/rcfile.c:541
 #, fuzzy
 msgid "Netscape"
 msgstr "Netscapeで確認"
 
-#: ../src/rcfile.c:491
+#: ../src/rcfile.c:543
 #, fuzzy
 msgid "Gnome default"
 msgstr "行番号: "
 
-#: ../src/rcfile.c:507
+#: ../src/rcfile.c:566
 #, fuzzy
 msgid "make"
 msgstr "画像ファイル"
 
-#: ../src/rcfile.c:508
+#: ../src/rcfile.c:567
 msgid "weblint HTML checker"
 msgstr ""
 
-#: ../src/rcfile.c:509
+#: ../src/rcfile.c:568
 msgid "tidy HTML validator"
 msgstr ""
 
-#: ../src/rcfile.c:510
+#: ../src/rcfile.c:569
 msgid "javac"
 msgstr ""
 
-#: ../src/rcfile.c:516
+#: ../src/rcfile.c:575
 msgid "Dos2Unix filter"
 msgstr ""
 
-#: ../src/rcfile.c:518
+#: ../src/rcfile.c:577
 #, fuzzy
 msgid "Tidy cleanup filter"
 msgstr "ファイル・フィルタ"
 
-#: ../src/rcfile.c:535
+#: ../src/rcfile.c:601
 msgid "C programming"
 msgstr ""
 
-#: ../src/rcfile.c:537
+#: ../src/rcfile.c:603
 #, fuzzy
 msgid "All web files"
 msgstr "すべてのWebファイル"
 
-#: ../src/rcfile.c:539
+#: ../src/rcfile.c:605
 msgid "Java programming"
 msgstr ""
 
-#: ../src/rcfile.c:543
+#: ../src/rcfile.c:609
 #, fuzzy
 msgid "Hide objectfiles"
 msgstr "ファイル選択"
-
-#: ../src/rcfile.c:633
-msgid "/php/ibase/ibase fetch row"
-msgstr ""
-
-#: ../src/rcfile.c:633
-msgid "ibase result variable name"
-msgstr ""
-
-#: ../src/rcfile.c:633 ../src/rcfile.c:634
-msgid "row variable name"
-msgstr ""
-
-#: ../src/rcfile.c:634
-msgid "/php/mysql/mysql fetch row"
-msgstr ""
-
-#: ../src/rcfile.c:634
-msgid "mysql result variable name"
-msgstr ""
-
-#: ../src/rcfile.c:635
-msgid "/php/mysql/mysql connect"
-msgstr ""
-
-#: ../src/rcfile.c:635
-msgid "mysql host"
-msgstr ""
-
-#: ../src/rcfile.c:635
-msgid "mysql username"
-msgstr ""
-
-#: ../src/rcfile.c:635
-msgid "mysql password"
-msgstr ""
-
-#: ../src/rcfile.c:635
-msgid "database name"
-msgstr ""
-
-#: ../src/rcfile.c:636
-msgid "/php/ibase/ibase connect"
-msgstr ""
-
-#: ../src/rcfile.c:636
-msgid "ibase host"
-msgstr ""
-
-#: ../src/rcfile.c:636
-msgid "ibase database path"
-msgstr ""
-
-#: ../src/rcfile.c:636
-msgid "ibase username"
-msgstr ""
-
-#: ../src/rcfile.c:636
-msgid "ibase password"
-msgstr ""
-
-#: ../src/rcfile.c:637
-msgid "/php/general/while each in array list"
-msgstr ""
-
-#: ../src/rcfile.c:637
-msgid "array name"
-msgstr ""
-
-#: ../src/rcfile.c:638
-msgid "/sql/select all from table"
-msgstr ""
-
-#: ../src/rcfile.c:638
-msgid "table name"
-msgstr ""
-
-#: ../src/rcfile.c:639
-msgid "/php/general/mail"
-msgstr ""
-
-#: ../src/rcfile.c:639
-msgid "email adress"
-msgstr ""
-
-#: ../src/rcfile.c:639
-msgid "subject"
-msgstr ""
-
-#: ../src/rcfile.c:639
-msgid "mail body variable name"
-msgstr ""
-
-#: ../src/rcfile.c:640
-msgid "/php/general/for loop"
-msgstr ""
-
-#: ../src/rcfile.c:640
-msgid "loop variable name"
-msgstr ""
-
-#: ../src/rcfile.c:640
-msgid "from value"
-msgstr ""
-
-#: ../src/rcfile.c:640
-msgid "to value"
-msgstr ""
-
-#: ../src/rcfile.c:641
-msgid "/php/ibase/query"
-msgstr ""
-
-#: ../src/rcfile.c:641 ../src/rcfile.c:646 ../src/rcfile.c:664
-#: ../src/rcfile.c:665
-msgid "result variable name"
-msgstr ""
-
-#: ../src/rcfile.c:641
-msgid "ibase connection id name"
-msgstr ""
-
-#: ../src/rcfile.c:641 ../src/rcfile.c:646 ../src/rcfile.c:664
-msgid "query string (quoted) or variable (including $)"
-msgstr ""
-
-#: ../src/rcfile.c:642
-msgid "/php/general/include file"
-msgstr ""
-
-#: ../src/rcfile.c:642
-msgid "filename to include"
-msgstr ""
-
-#: ../src/rcfile.c:643
-msgid "/php/general/require file"
-msgstr ""
-
-#: ../src/rcfile.c:643
-msgid "filename to require"
-msgstr ""
-
-#: ../src/rcfile.c:644
-msgid "/php/general/if isset"
-msgstr ""
-
-#: ../src/rcfile.c:644 ../src/rcfile.c:645
-msgid "variable name to test for"
-msgstr ""
-
-#: ../src/rcfile.c:645
-msgid "/php/general/if not isset"
-msgstr ""
-
-#: ../src/rcfile.c:646
-msgid "/php/mysql/query"
-msgstr ""
-
-#: ../src/rcfile.c:646
-msgid "mysql connection id name"
-msgstr ""
-
-#: ../src/rcfile.c:647
-msgid "/html/font symbol"
-msgstr ""
-
-#: ../src/rcfile.c:648
-msgid "/html/div with class"
-msgstr ""
-
-#: ../src/rcfile.c:648 ../src/rcfile.c:649
-msgid "CSS class name"
-msgstr ""
-
-#: ../src/rcfile.c:649
-msgid "/html/span with class"
-msgstr ""
-
-#: ../src/rcfile.c:650
-msgid "/php/php block"
-msgstr ""
-
-#: ../src/rcfile.c:651
-msgid "/html/made with bluefish"
-msgstr ""
-
-#: ../src/rcfile.c:652
-msgid "/html/meta keywords"
-msgstr ""
-
-#: ../src/rcfile.c:652
-msgid "keywords, space separated"
-msgstr ""
-
-#: ../src/rcfile.c:653
-msgid "/html/meta refresh (client pull)"
-msgstr ""
-
-#: ../src/rcfile.c:653
-msgid "refresh time, in seconds"
-msgstr ""
-
-#: ../src/rcfile.c:653
-msgid "URL to redirect to"
-msgstr ""
-
-#: ../src/rcfile.c:654
-msgid "/active html/form"
-msgstr ""
-
-#: ../src/rcfile.c:655
-msgid "/active html/form and action"
-msgstr ""
-
-#: ../src/rcfile.c:655
-msgid "Submit button text"
-msgstr ""
-
-#: ../src/rcfile.c:656
-msgid "/active html/input text"
-msgstr ""
-
-#: ../src/rcfile.c:656 ../src/rcfile.c:657 ../src/rcfile.c:658
-#: ../src/rcfile.c:659 ../src/rcfile.c:660 ../src/rcfile.c:661
-msgid "variable name"
-msgstr ""
-
-#: ../src/rcfile.c:657
-msgid "/active html/input checkbox"
-msgstr ""
-
-#: ../src/rcfile.c:657
-msgid "value when checked"
-msgstr ""
-
-#: ../src/rcfile.c:658
-msgid "/active html/textarea"
-msgstr ""
-
-#: ../src/rcfile.c:659
-msgid "/active html/select options/from array"
-msgstr ""
-
-#: ../src/rcfile.c:659
-msgid "array name containing options"
-msgstr ""
-
-#: ../src/rcfile.c:660
-msgid "/active html/select options/from mysql result"
-msgstr ""
-
-#: ../src/rcfile.c:660
-msgid "mysql query result"
-msgstr ""
-
-#: ../src/rcfile.c:660 ../src/rcfile.c:661
-msgid "index of the value"
-msgstr ""
-
-#: ../src/rcfile.c:660 ../src/rcfile.c:661
-msgid "index of the label"
-msgstr ""
-
-#: ../src/rcfile.c:661
-msgid "/active html/select options/from ibase result"
-msgstr ""
-
-#: ../src/rcfile.c:661
-msgid "ibase query result"
-msgstr ""
-
-#: ../src/rcfile.c:662
-msgid "/DHTML/mouseover image"
-msgstr ""
-
-#: ../src/rcfile.c:662
-msgid "unique name"
-msgstr ""
-
-#: ../src/rcfile.c:662
-msgid "onMouseOut src"
-msgstr ""
-
-#: ../src/rcfile.c:662
-msgid "onMouseOver src"
-msgstr ""
-
-#: ../src/rcfile.c:663
-msgid "/php/odbc/odbc connect"
-msgstr ""
-
-#: ../src/rcfile.c:663
-msgid "odbc data source name"
-msgstr ""
-
-#: ../src/rcfile.c:663
-msgid "username"
-msgstr ""
-
-#: ../src/rcfile.c:663
-msgid "password"
-msgstr ""
-
-#: ../src/rcfile.c:664
-msgid "/php/odbc/odbc exec query"
-msgstr ""
-
-#: ../src/rcfile.c:664
-msgid "odbc connection id name"
-msgstr ""
-
-#: ../src/rcfile.c:665
-msgid "/php/odbc/odbc fetch row"
-msgstr ""
-
-#: ../src/rcfile.c:666
-msgid "/php/general/echo date"
-msgstr ""
-
-#: ../src/rcfile.c:667
-msgid "/php/filesystem/open and echo file"
-msgstr ""
-
-#: ../src/rcfile.c:667
-msgid "file (quoted) or variable (including $)"
-msgstr ""
-
-#: ../src/rcfile.c:668
-msgid "/php/general/location header"
-msgstr ""
-
-#: ../src/rcfile.c:668
-msgid "location (URL) to redirect to (quoted) or variable (including $)"
-msgstr ""
-
-#: ../src/rcfile.c:669
-msgid "/apache/basic password required"
-msgstr ""
-
-#: ../src/rcfile.c:669
-msgid "full path to password file"
-msgstr ""
-
-#: ../src/rcfile.c:669
-msgid "security description"
-msgstr ""
-
-#: ../src/rcfile.c:670
-msgid "/apache/deny access to .inc"
-msgstr ""
-
-#: ../src/rcfile.c:671
-msgid "/replace/strip <font>"
-msgstr ""
-
-#: ../src/rcfile.c:672
-msgid "/replace/strip <any tag> in selection"
-msgstr ""
-
-#: ../src/rcfile.c:673
-msgid "/replace/convert <td> in <th> in selection"
-msgstr ""
-
-#: ../src/rcfile.c:674
-msgid "/replace/convert <any tag> in <any other tag> in selection"
-msgstr ""
 
 #: ../src/snr2.c:190
 msgid "Regular expression error: "
@@ -4589,1098 +4235,3 @@ msgstr ""
 #: ../src/wizards.c:224
 msgid "Size:"
 msgstr ""
-
-#~ msgid "Filename"
-#~ msgstr "ファイル名"
-
-#~ msgid "selector"
-#~ msgstr "セレクタ"
-
-#~ msgid "property"
-#~ msgstr "プロパティ"
-
-#~ msgid "value"
-#~ msgstr "値"
-
-#~ msgid "Number of Columns per row"
-#~ msgstr "1行の列数"
-
-#~ msgid "Save in progress"
-#~ msgstr "保存中です"
-
-#~ msgid ""
-#~ "File %s\n"
-#~ "is modified by another process"
-#~ msgstr ""
-#~ "ファイル %s\n"
-#~ "は他のプロセスによって変更されています"
-
-#, fuzzy
-#~ msgid "<main>/External"
-#~ msgstr "/起動(_X)"
-
-#~ msgid "<main>/File/Open recent"
-#~ msgstr "<main>/ファイル/最近使ったファイル"
-
-#, fuzzy
-#~ msgid "<main>/External/Browsers"
-#~ msgstr "/起動/フィルタ"
-
-#, fuzzy
-#~ msgid "<main>/External/Commands"
-#~ msgstr "/起動/コマンド"
-
-#~ msgid "Error: cannot run as root (for security reasons)\n"
-#~ msgstr "エラー: rootでは実行できません (セキュリティ上の理由により)\n"
-
-#~ msgid "use -s to override\n"
-#~ msgstr "これを無視するには、-s を使ってください\n"
-
-#~ msgid "Bluefish is SUID root, this is a security risk!\n"
-#~ msgstr "BluefishはrootにSUIDされています。これはセキュリティ上危険です!\n"
-
-#~ msgid "Browser is not running, starting browser"
-#~ msgstr "ブラウザは実行されていません。ブラウザを起動します"
-
-#~ msgid ""
-#~ "That looks like a secure server,\n"
-#~ "Bluefish doesn't support them"
-#~ msgstr ""
-#~ "これはセキュアサーバのようです。\n"
-#~ "Bluefishはこれをサポートしていません。"
-
-#~ msgid "Invalid address"
-#~ msgstr "間違ったアドレスです"
-
-#~ msgid "The network is unreachable"
-#~ msgstr "このネットワークには到達できません"
-
-#~ msgid "Can't send data"
-#~ msgstr "データを送信できません"
-
-#~ msgid "Didn't send all the data"
-#~ msgstr "すべてのデータを送信しませんでした"
-
-#~ msgid "Can't open file"
-#~ msgstr "ファイルを開くことができません"
-
-#~ msgid "Open from Web"
-#~ msgstr "Webから開く"
-
-#~ msgid "Abort"
-#~ msgstr "中止"
-
-#~ msgid ""
-#~ "\n"
-#~ "is modified"
-#~ msgstr ""
-#~ "\n"
-#~ "は変更されています"
-
-#~ msgid "File has not been saved yet"
-#~ msgstr "ファイルはまだ保存されていません"
-
-#~ msgid "Bluefish: Weblint warning"
-#~ msgstr "Bluefish: Weblint 警告"
-
-#~ msgid "Running Weblint"
-#~ msgstr "Weblintを実行中"
-
-#~ msgid "Weblint output"
-#~ msgstr "Weblint出力"
-
-#~ msgid "Recheck"
-#~ msgstr "再チェック"
-
-#~ msgid ""
-#~ "You don't appear to have weblint installed \n"
-#~ "To use this option you will need to download weblint from:\n"
-#~ "http://www.cre.canon.co.uk/~neilb/weblint/"
-#~ msgstr ""
-#~ "Weblintをインストールしてないようですね。\n"
-#~ "この機能を使うには、次の場所からweblintをダウンロードする必要があります:\n"
-#~ "http://www.cre.canon.co.uk/~neilb/weblint/"
-
-#~ msgid "Error stat file"
-#~ msgstr "ファイル情報取得エラー"
-
-#~ msgid "Error delete stdout temporary file"
-#~ msgstr "出力用一時ファイルの削除エラー"
-
-#~ msgid "Bluefish Preview: Untitled"
-#~ msgstr "Bluefish プレビュー: 無題"
-
-#~ msgid "Font Selection"
-#~ msgstr "フォント選択"
-
-#~ msgid "Configuration saved and applied succesfully"
-#~ msgstr "設定は問題なく保存／反映されました"
-
-#~ msgid "Saving and applying configuration"
-#~ msgstr "設定を保存し、反映させています"
-
-#~ msgid "Default font"
-#~ msgstr "デフォルトのフォント"
-
-#~ msgid "Force white editor background"
-#~ msgstr "エディタの背景を白にする"
-
-#~ msgid "Autoindent Code"
-#~ msgstr "自動インデント"
-
-#~ msgid "Update syntax highlighting continuous"
-#~ msgstr "色分けを常に更新する"
-
-#~ msgid "Update full widget instead of the current line (slower)"
-#~ msgstr "編集行のかわりにウィジェット全体を更新する (低速)"
-
-#~ msgid "Automatic link management"
-#~ msgstr "自動リンク管理"
-
-#~ msgid "Number of undo levels"
-#~ msgstr "Undoレベル"
-
-#~ msgid ""
-#~ "Insert drag and drop at drop position\n"
-#~ "instead of cursor position (experimental)"
-#~ msgstr ""
-#~ "ドラッグ＆ドロップでカーソル位置ではなく\n"
-#~ "ドロップした場所に挿入 (experimental)"
-
-#~ msgid "Insert text with Shift-Enter"
-#~ msgstr "Shift-Enterでテキスト挿入"
-
-#~ msgid "Insert text with Ctrl-Enter"
-#~ msgstr "Ctrl-Enterでテキスト挿入"
-
-#~ msgid ""
-#~ "Insert HTML entity with Ctrl-(special char)\n"
-#~ "(&lt; &gt; &amp; &quot;)"
-#~ msgstr ""
-#~ "Ctrl-(文字)でHTML実体を挿入\n"
-#~ "(&lt; &gt; &amp; &quot;)"
-
-#~ msgid "allow everything"
-#~ msgstr "すべて許可"
-
-#~ msgid "Read from File"
-#~ msgstr "ファイルから読み込み"
-
-#~ msgid "used HTML-Version"
-#~ msgstr "HTMLのバージョン"
-
-#~ msgid "Insert closing lists </LI>, </DT>, </DD>"
-#~ msgstr "リスト項目を閉じるタグ</LI>,</DT>,</DD>を挿入する"
-
-#~ msgid "Insert closing paragraph tag </P>"
-#~ msgstr "パラグラフを閉じるタグ</P>を挿入する"
-
-#~ msgid "Insert lowercase HTML tags (Needed for WML!)"
-#~ msgstr "小文字のHTMLタグを挿入する (WMLに必要!)"
-
-#~ msgid "Allow the use of CSS"
-#~ msgstr "CSSを使えるようにする"
-
-#~ msgid "Allow deprecated tags (like <FONT>)"
-#~ msgstr "好ましくないタグを使えるようにする (<FONT>など)"
-
-#~ msgid "Format by context (e.g. <strong> instead of <b>)"
-#~ msgstr "構成要素で書式設定 (例えば<b>ではなく<strong>にする)"
-
-#~ msgid "Use an XML-Starting-Line"
-#~ msgstr "XML-Starting-Lineを使う"
-
-#~ msgid "Allow the Ruby-Tags included in XHTML 1.0"
-#~ msgstr "XHTML 1.0のルビ(ruby)タグを使えるようにする"
-
-#~ msgid "Allow new tags of HTML 4.0"
-#~ msgstr "HTML 4.0の新しいタグを使えるようにする"
-
-#~ msgid "Allow the use of frames"
-#~ msgstr "フレームを使えるようにする"
-
-#~ msgid "Require an DOCTYPE on first line of document"
-#~ msgstr "文書の先頭にDOCTYPEが必要"
-
-#~ msgid "Set the DTD-URL in the DOCTYPE line"
-#~ msgstr "DOCTYPE行にDTDのURLを含める"
-
-#~ msgid "Main GUI options"
-#~ msgstr "メインGUIの設定"
-
-#~ msgid "Notebook tab fontset"
-#~ msgstr "ノートブックのタブのフォントセット"
-
-#~ msgid "Font is a fontset"
-#~ msgstr "フォントセットでフォント指定"
-
-#~ msgid "Items in Open Recent menu"
-#~ msgstr "「最近使ったファイル」の項目数"
-
-#~ msgid "Items in Directory history"
-#~ msgstr "ディレクトリ履歴の項目数"
-
-#~ msgid "File browser mininum size"
-#~ msgstr "ファイル一覧の最小サイズ"
-
-#~ msgid "File browser default filter"
-#~ msgstr "ファイル一覧でのデフォルトのフィルタ"
-
-#~ msgid "Show autocompletion window for HTML tags while editing"
-#~ msgstr "編集中にHTMLタグのオートコンプリートウィンドウを表示"
-
-#~ msgid "Delay to show the autocompletion window"
-#~ msgstr "オートコンプリートウィンドウを表示するまでの時間"
-
-#~ msgid "Files and images"
-#~ msgstr "ファイルと画像"
-
-#~ msgid "Thumbnail extension string"
-#~ msgstr "サムネイルの拡張子"
-
-#~ msgid "Backup file before saving"
-#~ msgstr "保存前にファイルをバックアップする"
-
-#~ msgid "Backup file by copy instead of rename"
-#~ msgstr "リネームではなくコピーでファイルをバックアップする"
-
-#~ msgid "save"
-#~ msgstr "保存"
-
-#~ msgid "abort"
-#~ msgstr "中止"
-
-#~ msgid "ask"
-#~ msgstr "ユーザ確認"
-
-#~ msgid "Backup failure action"
-#~ msgstr "バックアップに失敗したときの動作"
-
-#~ msgid "HTML filter"
-#~ msgstr "HTMLフィルタ"
-
-#~ msgid "JavaScript filter"
-#~ msgstr "JavaScriptフィルタ"
-
-#~ msgid "Cascading stylesheet filter"
-#~ msgstr "Cascading stylesheetフィルタ"
-
-#~ msgid "Other webfiles filter"
-#~ msgstr "その他のWebファイルのフィルタ"
-
-#~ msgid "Weblint command"
-#~ msgstr "Weblintコマンド"
-
-#~ msgid "Image editor command"
-#~ msgstr "画像編集コマンド"
-
-#~ msgid "Spell checker options"
-#~ msgstr "スペルチェッカのオプション"
-
-#~ msgid "Ispell command"
-#~ msgstr "Ispellコマンド"
-
-#~ msgid "Default language"
-#~ msgstr "デフォルト言語"
-
-#~ msgid "Accept compound words"
-#~ msgstr "合成語を許可する"
-
-#~ msgid "Specify additional characters that might form a word"
-#~ msgstr "単語の一部とみなす文字を指定"
-
-#~ msgid "Use personal dictionary"
-#~ msgstr "個人辞書の使用"
-
-#~ msgid "Use input encoding"
-#~ msgstr "入力ファイルのタイプを指定"
-
-#~ msgid "External"
-#~ msgstr "起動"
-
-#~ msgid " Save & close "
-#~ msgstr " 保存して閉じる "
-
-#~ msgid "Untitled *"
-#~ msgstr "無題 *"
-
-#~ msgid "Updating Links in all Documents"
-#~ msgstr "すべての文書でリンクを更新しています"
-
-#~ msgid "Charset conversion running..."
-#~ msgstr "文字セット変換実行中..."
-
-#~ msgid "No commandline set!"
-#~ msgstr "コマンドが指定されていません!"
-
-#~ msgid " doesn't exist or isn't a directory."
-#~ msgstr " は存在しないか、ディレクトリではありません"
-
-#~ msgid "Error in creating temporary print file."
-#~ msgstr "一時印刷ファイルの作成エラー"
-
-#~ msgid "System error in printing file. File not printed."
-#~ msgstr ""
-#~ "ファイルの印刷でコマンド実行エラー。ファイルは印刷されませんでした。"
-
-#~ msgid "Unable to erase temporary file."
-#~ msgstr "一時ファイルを削除できません"
-
-#~ msgid "Print Dialog"
-#~ msgstr "印刷 ダイアログ"
-
-#~ msgid ""
-#~ "Enter print command-line below.\n"
-#~ " Remember that you must place %s where\n"
-#~ " the filename is supposed to be placed. \n"
-#~ "\n"
-#~ "Print command:"
-#~ msgstr ""
-#~ "印刷のコマンドラインを下に入力してください。\n"
-#~ " ファイル名に置き換えられる「%s」を\n"
-#~ " 入れなければならないことに注意。\n"
-#~ "\n"
-#~ "印刷コマンド:"
-
-#~ msgid "Temporary directory:"
-#~ msgstr "一時ディレクトリ"
-
-#~ msgid " Print "
-#~ msgstr " 印刷 "
-
-#~ msgid "Out of memory.\n"
-#~ msgstr "メモリ足りない\n"
-
-#~ msgid "filter.c (%s): System call failed: %s.\n"
-#~ msgstr "filter.c (%s): コマンド実行失敗: %s.\n"
-
-#~ msgid "Subprocess standard error: %s"
-#~ msgstr "子プロセスの標準エラー出力: %s"
-
-#~ msgid "subprocess unable to dup2 stdin: %s\n"
-#~ msgstr "子プロセスが標準入力をdup2できません: %s\n"
-
-#~ msgid "subprocess unable to dup2 stdout: %s\n"
-#~ msgstr "子プロセスが標準出力をdup2できません: %s\n"
-
-#~ msgid "subprocess unable to dup2 stderr: %s\n"
-#~ msgstr "子プロセスが標準エラー出力をdup2できません: %s\n"
-
-#~ msgid "subprocess unable to exec filter: %s\n"
-#~ msgstr "子プロセスがフィルタをexecできません: %s\n"
-
-#~ msgid "subprocess terminated abnormally with exit code %d\n"
-#~ msgstr "子プロセスは終了コード %d で異常終了しました\n"
-
-#~ msgid "bluefish: subprocess was killed by signal %d\n"
-#~ msgstr "bluefish: 子プロセスはシグナル %d でkillされました\n"
-
-#~ msgid " Cancel "
-#~ msgstr " キャンセル "
-
-#~ msgid "could not parse highlighting color: "
-#~ msgstr "色分けの色指定が解釈できません"
-
-#~ msgid "Insert class"
-#~ msgstr "Classの挿入"
-
-#~ msgid "tag"
-#~ msgstr "タグ"
-
-#~ msgid "pseudo class"
-#~ msgstr "疑似 class"
-
-#~ msgid "Insert as one line"
-#~ msgstr "行を挿入する"
-
-#~ msgid "absolute size"
-#~ msgstr "絶対サイズ"
-
-#~ msgid "relative size"
-#~ msgstr "相対サイズ"
-
-#~ msgid "length/percentage"
-#~ msgstr "長さ/比率"
-
-#~ msgid "Insert margin as one line"
-#~ msgstr "margin行を挿入する"
-
-#~ msgid "Insert padding as one line"
-#~ msgstr "padding行を挿入する"
-
-#~ msgid "Margin & padding"
-#~ msgstr "マージンとパディング"
-
-#~ msgid "color"
-#~ msgstr "前景色"
-
-#~ msgid "Insert values per property"
-#~ msgstr "プロパティごとに挿入する"
-
-#~ msgid "Insert values per border side"
-#~ msgstr "辺ごとに挿入する"
-
-#~ msgid "Insert top-values as general value for all sides"
-#~ msgstr "topの値を全辺の設定として挿入する"
-
-#~ msgid "Size & placement"
-#~ msgstr "サイズと配置"
-
-#~ msgid "background-color"
-#~ msgstr "背景色"
-
-#~ msgid "background-image"
-#~ msgstr "背景イメージ"
-
-#~ msgid "background-repeat"
-#~ msgstr "背景イメージの繰り返し"
-
-#~ msgid "background-attachment"
-#~ msgstr "背景イメージの貼り付け"
-
-#~ msgid "background-position"
-#~ msgstr "背景イメージ配置位置"
-
-#~ msgid "Insert background as one line"
-#~ msgstr "background行を挿入する"
-
-#~ msgid "size unit"
-#~ msgstr "サイズの単位"
-
-#~ msgid "percentage"
-#~ msgstr "比率"
-
-#~ msgid "Color & background"
-#~ msgstr "色と背景"
-
-#~ msgid "word-spacing"
-#~ msgstr "単語の間隔"
-
-#~ msgid "letter-spacing"
-#~ msgstr "文字の間隔"
-
-#~ msgid "vertical-align"
-#~ msgstr "垂直方向の配置"
-
-#~ msgid "text-align"
-#~ msgstr "テキスト配置"
-
-#~ msgid "text-decoration"
-#~ msgstr "テキストの装飾"
-
-#~ msgid "text-transform"
-#~ msgstr "テキスト変換"
-
-#~ msgid "white-space"
-#~ msgstr "white-space"
-
-#~ msgid "Insert list-item as one line"
-#~ msgstr "list-item行を挿入する"
-
-#~ msgid ""
-#~ "Bluefish was compiled without\n"
-#~ "Imlib support. This function is\n"
-#~ "therefore not available"
-#~ msgstr ""
-#~ "BluefishがImlibサポートなしで\n"
-#~ "コンパイルされているため、\n"
-#~ "この機能は利用できません。"
-
-#~ msgid "Image preview"
-#~ msgstr "イメージ・プレビュー"
-
-#~ msgid "Imagemap editor"
-#~ msgstr "イメージマップ・エディタ"
-
-#~ msgid "-p filename  load project on startup\n"
-#~ msgstr "-p ファイル名  起動時にプロジェクトを読み込む\n"
-
-#~ msgid "Error creating directory"
-#~ msgstr "ディレクトリ作成エラー"
-
-#~ msgid ""
-#~ "Size: %lu\n"
-#~ "Last Modification: %sLast access: %sUser: %s\n"
-#~ "Group: %s\n"
-#~ "Mode: %s\n"
-#~ msgstr ""
-#~ "サイズ: %lu\n"
-#~ "最終更新: %s最終アクセス: %sユーザ: %s\n"
-#~ "グループ: %s\n"
-#~ "モード: %s\n"
-
-#~ msgid "Properties of %s"
-#~ msgstr "%s のプロパティ"
-
-#~ msgid ""
-#~ "Size: %lu\n"
-#~ "Last Modification: %sLast access: %sUser: %s\n"
-#~ "Mode: %s\n"
-#~ msgstr ""
-#~ "サイズ: %lu\n"
-#~ "最終更新: %s最終アクセス: %sユーザ: %s\n"
-#~ "モード: %s\n"
-
-#~ msgid "Error!"
-#~ msgstr "エラー!"
-
-#~ msgid "Could not stat(2) file."
-#~ msgstr "stat(2)できなかった"
-
-#~ msgid "Move file to"
-#~ msgstr "ファイルの移動"
-
-#~ msgid "Copy file to"
-#~ msgstr "ファイルのコピー"
-
-#~ msgid "Move file succeeded"
-#~ msgstr "ファイルを移動しました"
-
-#~ msgid "Move file failed"
-#~ msgstr "ファイルの移動は失敗しました"
-
-#~ msgid "Copying file succeeded"
-#~ msgstr "ファイルをコピーしました"
-
-#~ msgid "Copying file failed"
-#~ msgstr "ファイルのコピーは失敗しました"
-
-#~ msgid "File new"
-#~ msgstr "新規ファイル"
-
-#~ msgid "File move to"
-#~ msgstr "移動する"
-
-#~ msgid "File delete"
-#~ msgstr "削除する"
-
-#~ msgid "Properties"
-#~ msgstr "プロパティ"
-
-#~ msgid "Preview image"
-#~ msgstr "画像のプレビュー"
-
-#~ msgid "Edit image"
-#~ msgstr "画像の編集"
-
-#~ msgid "Refresh file browser"
-#~ msgstr "ファイル一覧の更新"
-
-#~ msgid "Directories"
-#~ msgstr "ディレクトリ"
-
-#~ msgid "Project"
-#~ msgstr "プロジェクト"
-
-#~ msgid "About Bluefish"
-#~ msgstr "Bluefishについて"
-
-#~ msgid ""
-#~ "(C) Olivier Sessink\n"
-#~ "\n"
-#~ "developed by the bluefish development team\n"
-#~ "see AUTHORS for more information\n"
-#~ "http://bluefish.openoffice.nl/"
-#~ msgstr ""
-#~ "(C) Olivier Sessink\n"
-#~ "\n"
-#~ "developed by the bluefish development team\n"
-#~ "詳しくはAUTHORSを見てください\n"
-#~ "http://bluefish.openoffice.nl/"
-
-#~ msgid "Dismiss"
-#~ msgstr "もどる"
-
-#~ msgid "/File/Open from the web..."
-#~ msgstr "/ファイル/Webから開く..."
-
-#~ msgid "/File/sep4"
-#~ msgstr "/ファイル/sep4"
-
-#~ msgid "/File/Print..."
-#~ msgstr "/ファイル/印刷..."
-
-#~ msgid "/Edit/sep2"
-#~ msgstr "/編集/sep2"
-
-#~ msgid "/Edit/Replace special/Replace ascii chars"
-#~ msgstr "/編集/特殊文字の置換/ASCII文字を置換"
-
-#~ msgid "/Edit/Selection to uppercase"
-#~ msgstr "/編集/選択範囲を大文字にする"
-
-#~ msgid "/Edit/Selection to lowercase"
-#~ msgstr "/編集/選択範囲を小文字にする"
-
-#~ msgid "/Edit/Indent region"
-#~ msgstr "/編集/選択範囲をインデント"
-
-#~ msgid "/Edit/Unindent region"
-#~ msgstr "/編集/選択範囲を逆インデント"
-
-#~ msgid "/Edit/sep7"
-#~ msgstr "/編集/sep7"
-
-#~ msgid "/_View"
-#~ msgstr "/表示(_V)"
-
-#~ msgid "/_View/Tearoff1"
-#~ msgstr "/表示/Tearoff1"
-
-#~ msgid "/View/View in _Netscape"
-#~ msgstr "/表示/Netscapeで確認(_N)"
-
-#~ msgid "/View/_Drag 'n Drop Window"
-#~ msgstr "/表示/ドラッグ＆ドロップ・ウィンドウ(_D)"
-
-#~ msgid "/View/_Preview image under cursor"
-#~ msgstr "/表示/カーソル位置の画像をプレビュー(_P)"
-
-#~ msgid "/View/_Preview "
-#~ msgstr "/表示/プレビュー(_P)"
-
-#~ msgid "/View/sep1"
-#~ msgstr "/表示/sep1"
-
-#~ msgid "/View/Next document"
-#~ msgstr "/表示/次の文書"
-
-#~ msgid "/View/Previous document"
-#~ msgstr "/表示/前の文書"
-
-#~ msgid "/View/sep3"
-#~ msgstr "/表示/sep3"
-
-#~ msgid "/View/sep2"
-#~ msgstr "/表示/sep2"
-
-#~ msgid "/View/Document status"
-#~ msgstr "/表示/文書情報"
-
-#~ msgid "/_Project"
-#~ msgstr "/プロジェクト(_P)"
-
-#~ msgid "/Project/Open..."
-#~ msgstr "/プロジェクト/開く..."
-
-#~ msgid "/Project/Close"
-#~ msgstr "/プロジェクト/閉じる"
-
-#~ msgid "/Project/Save"
-#~ msgstr "/プロジェクト/保存"
-
-#~ msgid "/Project/Save as..."
-#~ msgstr "/プロジェクト/別名で保存..."
-
-#~ msgid "/Project/sep1"
-#~ msgstr "/プロジェクト/sep1"
-
-#~ msgid "/Project/Edit..."
-#~ msgstr "/プロジェクト/編集..."
-
-#~ msgid "/Project/sep2"
-#~ msgstr "/プロジェクト/sep2"
-
-#~ msgid "/_Project/Files"
-#~ msgstr "/プロジェクト/ファイルリスト"
-
-#~ msgid "/Tags/Repeat last"
-#~ msgstr "/タグ/前回の繰り返し"
-
-#~ msgid "/Dialogs/CSS/Add class..."
-#~ msgstr "/ダイアログ/CSS/クラス追加..."
-
-#~ msgid "/Dialogs/Javascript"
-#~ msgstr "/ダイアログ/Javascript"
-
-#~ msgid "/Dialogs/Javascript/tearoff1"
-#~ msgstr "/ダイアログ/Javascript/tearoff1"
-
-#~ msgid "/Dialogs/Javascript/Mouseover Script"
-#~ msgstr "/ダイアログ/Javascript/Mouseover スクリプト"
-
-#~ msgid "/Dialogs/Javascript/Netscape 4 Resize Bugfix Script"
-#~ msgstr "/ダイアログ/Javascript/Netscape 4 リサイズ・バグ修正スクリプト"
-
-#~ msgid "/Dialogs/Javascript/Image Preload Script"
-#~ msgstr "/ダイアログ/Javascript/画像先行読み込みスクリプト"
-
-#~ msgid "/Dialogs/_WML"
-#~ msgstr "/ダイアログ/WML(_W)"
-
-#~ msgid "/Dialogs/imagemap development..."
-#~ msgstr "/ダイアログ/イメージマップ作成..."
-
-#~ msgid "/External/Weblint..."
-#~ msgstr "/起動/Weblint..."
-
-#~ msgid "/External/Filters/tearoff1"
-#~ msgstr "/起動/フィルタ/tearoff1"
-
-#~ msgid "/External/Commands/tearoff1"
-#~ msgstr "/起動/コマンド/tearoff1"
-
-#~ msgid "/_Perl"
-#~ msgstr "/Perl(_P)"
-
-#~ msgid "/Perl/tearoff1"
-#~ msgstr "/Perl/tearoff1"
-
-#~ msgid "/Perl/Status..."
-#~ msgstr "/Perl/ステータス..."
-
-#~ msgid "/Perl/Strip CR Codes"
-#~ msgstr "CRコードの削除"
-
-#~ msgid "/Options/View Filebrowser"
-#~ msgstr "/設定/ファイル・ブラウザを表示"
-
-#~ msgid "/Options/Lists/External filters..."
-#~ msgstr "/設定/リスト/起動フィルタ..."
-
-#~ msgid "/Options/Lists/External programs..."
-#~ msgstr "/設定/リスト/起動プログラム..."
-
-#~ msgid "/Options/Lists/Reset syntax highlighting"
-#~ msgstr "/設定/リスト/色分けのリセット"
-
-#~ msgid "/Options/sep1"
-#~ msgstr "/設定/sep1"
-
-#~ msgid "/Options/Save config"
-#~ msgstr "/設定/設定の保存"
-
-#~ msgid "/_Help"
-#~ msgstr "/ヘルプ(_H)"
-
-#~ msgid "/Help/_About..."
-#~ msgstr "/ヘルプ/Bluefishについて(_A)..."
-
-#~ msgid "Bluefish configuration - external filters"
-#~ msgstr "Bluefish 設定 - 起動フィルタ"
-
-#~ msgid "Bluefish configuration - external commands"
-#~ msgstr "Bluefish 設定 - 起動コマンド"
-
-#~ msgid "regex pattern"
-#~ msgstr "正規表現パターン"
-
-#~ msgid "Bluefish configuration - syntax highlighting"
-#~ msgstr "Bluefish 設定 - 色分け"
-
-#~ msgid "Bluefish config - custom menu"
-#~ msgstr "Bluefish 設定 - カスタム・メニュー"
-
-#~ msgid "Replace where"
-#~ msgstr "検索対象"
-
-#~ msgid "Update"
-#~ msgstr "更新"
-
-#~ msgid "/Custom menu/Reset custom menu"
-#~ msgstr "/カスタム・メニュー/メニューのリセット"
-
-#~ msgid "Resolving address"
-#~ msgstr "アドレスを調べています"
-
-#~ msgid "Retrieving file, press ESC to cancel download"
-#~ msgstr "ファイルを受信中。ESCでダウンロードをキャンセルします"
-
-#~ msgid "User aborted download"
-#~ msgstr "ユーザがダウンロードを中止しました"
-
-#~ msgid "Retrieving file, %d bytes received, press ESC to cancel"
-#~ msgstr "ファイルを受信中。%dバイト受信しました。ESCでキャンセルします"
-
-#~ msgid "Retrieving file, %d bytes of %d bytes received, press ESC to cancel"
-#~ msgstr ""
-#~ "ファイルを受信中。%dバイト/%dバイト受信しました。ESCでキャンセルします"
-
-#~ msgid "Bluefish project - files"
-#~ msgstr "Bluefishプロジェクト - ファイル・リスト"
-
-#~ msgid "Bluefish project - colorlist"
-#~ msgstr "Bluefishプロジェクト - カラー・リスト"
-
-#~ msgid "Bluefish project - fontlist"
-#~ msgstr "Bluefishプロジェクト - フォント・リスト"
-
-#~ msgid "Bluefish project - urllist"
-#~ msgstr "Bluefishプロジェクト - URLリスト"
-
-#~ msgid "Bluefish project - targetlist"
-#~ msgstr "Bluefishプロジェクト - Targetリスト"
-
-#~ msgid "Bluefish project - dtd_cblist"
-#~ msgstr "Bluefishプロジェクト - DTDリスト"
-
-#~ msgid "Bluefish project - classlist"
-#~ msgstr "Bluefishプロジェクト - Classリスト"
-
-#~ msgid "Bluefish project - headers"
-#~ msgstr "Bluefishプロジェクト - ヘッダ"
-
-#~ msgid "/_Files"
-#~ msgstr "/ファイル(_F)"
-
-#~ msgid "/Files/Files"
-#~ msgstr "/ファイル/ファイル"
-
-#~ msgid "/_Lists"
-#~ msgstr "/リスト(_L)"
-
-#~ msgid "/Lists/Colors"
-#~ msgstr "/リスト/色"
-
-#~ msgid "/Lists/Fonts"
-#~ msgstr "/リスト/フォント"
-
-#~ msgid "/Lists/Url's"
-#~ msgstr "/リスト/URL"
-
-#~ msgid "/Lists/Targets"
-#~ msgstr "/リスト/Target"
-
-#~ msgid "/Lists/Document type definitions"
-#~ msgstr "/リスト/文書型定義"
-
-#~ msgid "/Lists/CSS classes"
-#~ msgstr "/リスト/CSS class"
-
-#~ msgid "/Lists/headers"
-#~ msgstr "/リスト/ヘッダ"
-
-#~ msgid "Webdir"
-#~ msgstr "Webディレクトリ"
-
-#~ msgid "Template"
-#~ msgstr "テンプレート"
-
-#~ msgid "Bluefish warning: some file(s) are modified!"
-#~ msgstr "Bluefish警告: いくつかのファイルは変更されています!"
-
-#~ msgid ""
-#~ "Some file(s) in your project are modified\n"
-#~ "please choose your action"
-#~ msgstr ""
-#~ "あなたのプロジェクトに含まれているファイルが変更されています\n"
-#~ "どのようにしますか"
-
-#~ msgid "PHP Reference"
-#~ msgstr "PHPリファレンス"
-
-#~ msgid "SSI Reference"
-#~ msgstr "SSIリファレンス"
-
-#~ msgid "RXML Reference"
-#~ msgstr "RXMLリファレンス"
-
-#~ msgid "PHP4 Reference"
-#~ msgstr "PHP4リファレンス"
-
-#~ msgid "Insert & close"
-#~ msgstr "挿入して閉じる"
-
-#~ msgid "Save as"
-#~ msgstr "別名で保存"
-
-#~ msgid "Move to"
-#~ msgstr "移動"
-
-#~ msgid "cut"
-#~ msgstr "カット"
-
-#~ msgid "copy"
-#~ msgstr "コピー"
-
-#~ msgid "paste"
-#~ msgstr "ペースト"
-
-#~ msgid "Configure..."
-#~ msgstr "詳細設定..."
-
-#~ msgid "Print..."
-#~ msgstr "印刷..."
-
-#~ msgid "Underline"
-#~ msgstr "下線"
-
-#~ msgid "Strikeout"
-#~ msgstr "取り消し線"
-
-#~ msgid "Image..."
-#~ msgstr "イメージ..."
-
-#~ msgid "Menu"
-#~ msgstr "メニュー"
-
-#~ msgid "Add class to tag..."
-#~ msgstr "タグにクラスを付加"
-
-#~ msgid "Javascript for Mouseover Effects"
-#~ msgstr "Mouseover効果スクリプト"
-
-#~ msgid "Javascript to work around Resize Bug in Netscape 4"
-#~ msgstr "Netscape4リサイズバグ対応スクリプト"
-
-#~ msgid "Javascript preload images"
-#~ msgstr "Javascript 画像の先行読み込み"
-
-#~ msgid "Empty javascript block"
-#~ msgstr "空のJavascriptブロック"
-
-#~ msgid "Link to javascript..."
-#~ msgstr "Javascriptへのリンク"
-
-#~ msgid " Javascript "
-#~ msgstr " Javascript "
-
-#~ msgid "Standard WML Document"
-#~ msgstr "標準WML文書"
-
-#~ msgid "Card Element..."
-#~ msgstr "Card要素..."
-
-#~ msgid "Postfield Element..."
-#~ msgstr "Postfield要素..."
-
-#~ msgid "Go Element..."
-#~ msgstr "Go要素..."
-
-#~ msgid "Do Element..."
-#~ msgstr "Do要素..."
-
-#~ msgid "Anchor Element..."
-#~ msgstr "Anchor要素..."
-
-#~ msgid "Access Element..."
-#~ msgstr "Access要素..."
-
-#~ msgid "Insert a Paragraph"
-#~ msgstr "パラグラフの挿入"
-
-#~ msgid "Line Break"
-#~ msgstr "強制改行"
-
-#~ msgid "Non-breaking Space"
-#~ msgstr "改行なし空白"
-
-#~ msgid "Previous Document in History"
-#~ msgstr "直前の文書"
-
-#~ msgid "Imagemap"
-#~ msgstr "イメージマップ"
-
-#~ msgid "Select Colour..."
-#~ msgstr "色の選択..."
-
-#~ msgid "SSI reference..."
-#~ msgstr "SSIリファレンス..."
-
-#~ msgid "RXML reference..."
-#~ msgstr "RXMLリファレンス..."
-
-#~ msgid "PHP4 reference..."
-#~ msgstr "PHP4リファレンス..."
-
-#~ msgid "Insert Generator META-Tag"
-#~ msgstr "「Generator」Metaタグの挿入"
-
-#~ msgid " Other "
-#~ msgstr " その他 "
-
-#~ msgid "Anchor Dialog"
-#~ msgstr "アンカー ダイアログ"
-
-#~ msgid "WML Access Dialog"
-#~ msgstr "WMLアクセスダイアログ"
-
-#~ msgid "Invalid especial character! %s\n"
-#~ msgstr "正しくないHTML実体参照です! %s\n"
-
-#~ msgid "Bluefish: Can't create pipe for spellchecker!"
-#~ msgstr "Bluefish: スペルチェッカ用にパイプを作成できません!"
-
-#~ msgid "Bluefish: Can't create stream for pipe for spellchecker!"
-#~ msgstr "Bluefish: スペルチェッカ用パイプにストリームを作成できません!"
-
-#~ msgid "Bluefish: Can't create child process for spellchecker!"
-#~ msgstr "Bliefish: スペルチェッカのための子プロセスを作成できません!"
-
-#~ msgid "Bluefish: Failed to start ispell!\n"
-#~ msgstr "Bluefish: ispell 開始に失敗した!\n"
-
-#~ msgid "Select on ispell returned error, what now?\n"
-#~ msgstr "ispellへのselectがエラーを返した。どうする?\n"
-
-#~ msgid "Bluefish Spell Checker Error"
-#~ msgstr "Bluefish スペルチェッカ エラー"
-
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "The ispell-process has died for some reason. *One* possible reason\n"
-#~ "could be that you do not have a dictionary file\n"
-#~ "for the language of this document installed.\n"
-#~ "Check /usr/lib/ispell or set another\n"
-#~ "dictionary in the Spellchecker Options menu."
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "ispellプロセスは何らかの理由で死んでしまいました。 *ひとつ*の\n"
-#~ "可能性としては、この文書の言語のための辞書ファイルがインストール\n"
-#~ "されていない、といった理由が考えられます。\n"
-#~ "/usr/lib/ispell を確認するか、スペルチェッカのオプションメニュー\n"
-#~ "で他の辞書を指定してください。"
-
-#~ msgid "Start"
-#~ msgstr "開始"
-
-#~ msgid "Word"
-#~ msgstr "単語"
-
-#~ msgid "Progress"
-#~ msgstr "実行状況"
-
-#~ msgid ""
-#~ "Accept word\n"
-#~ "in this section"
-#~ msgstr ""
-#~ "この単語はすべて\n"
-#~ "そのままにする"
-
-#~ msgid ""
-#~ "Insert in Personal\n"
-#~ "Dictionary"
-#~ msgstr ""
-#~ "個人辞書に\n"
-#~ "挿入"
-
-#~ msgid ""
-#~ "Ignore\n"
-#~ "Word"
-#~ msgstr ""
-#~ "変更しない\n"
-#~ " "
-
-#~ msgid ""
-#~ "Replace\n"
-#~ "Word"
-#~ msgstr ""
-#~ "単語を\n"
-#~ "置換"
-
-#~ msgid "checking spelling"
-#~ msgstr "スペルをチェック中"
-
-#~ msgid "Perl Version"
-#~ msgstr "Perlのバージョン"
-
-#~ msgid "Could not eval() strip_cr."
-#~ msgstr "strip_crをeval()できなかった"
-
-#~ msgid "Call Perlscript"
-#~ msgstr "Perlスクリプトの実行"
-
-#~ msgid "Scriptname"
-#~ msgstr "スクリプト名"

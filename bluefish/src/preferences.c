@@ -1759,9 +1759,9 @@ static void preferences_dialog() {
 	pd->prefs[backup_file] = boxed_checkbut_with_value(_("Create backup on save"), main_v->props.backup_file, vbox2);
 	pd->prefs[backup_filestring] = prefs_string(_("Backup file suffix"), main_v->props.backup_filestring, vbox2, pd, string_none);
 	{
-		GList *poplist = g_list_append(NULL, "save");
-		poplist = g_list_append(poplist, "abort");
-		poplist = g_list_append(poplist, "ask");
+		GList *poplist = g_list_append(NULL, _("save"));
+		poplist = g_list_append(poplist, _("abort"));
+		poplist = g_list_append(poplist, _("ask"));
 		pd->prefs[backup_abort_style] = prefs_combo(_("Action on backup failure"),main_v->props.backup_abort_style, vbox2, pd, poplist, FALSE);
 		g_list_free(poplist);
 	}

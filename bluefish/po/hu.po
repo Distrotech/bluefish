@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: bluefish gtk2-port\n"
-"POT-Creation-Date: 2003-04-16 15:09+0200\n"
+"POT-Creation-Date: 2003-04-22 15:59+0200\n"
 "PO-Revision-Date: 2000-12-01 21:48+0100\n"
 "Last-Translator: Sáska, Péter <sasek@ccsystem.hu>\n"
 "Language-Team: madgyar <hu@li.org>\n"
@@ -178,6 +178,14 @@ msgstr "Beviteli _módok"
 msgid "Saving file"
 msgstr "Fájl mentése"
 
+#: ../src/document.c:1139 ../src/preferences.c:1763
+msgid "abort"
+msgstr ""
+
+#: ../src/document.c:1142 ../src/preferences.c:1764
+msgid "ask"
+msgstr ""
+
 #: ../src/document.c:1143
 msgid "Abort save"
 msgstr "Mentés megszakítása"
@@ -330,7 +338,7 @@ msgstr "<b>Általános</b>"
 msgid "Base_dir:"
 msgstr "Alapkönyvtár"
 
-#: ../src/document.c:1885 ../src/gtk_easy.c:771
+#: ../src/document.c:1885 ../src/gtk_easy.c:772
 msgid "_Browse..."
 msgstr "_Tallóz..."
 
@@ -444,48 +452,48 @@ msgstr "Frissítés"
 msgid "All files"
 msgstr "Minden fájl"
 
-#: ../src/fref.c:840 ../src/gui.c:544
-msgid "Close"
-msgstr "Bezárás"
-
-#: ../src/fref.c:845 ../src/fref.c:1385 ../src/fref.c:1415
-msgid "Dialog"
-msgstr "Párbeszéd"
-
-#: ../src/fref.c:847 ../src/fref.c:1388 ../src/fref.c:1412
-msgid "Insert"
-msgstr "Beszúrás"
-
-#: ../src/fref.c:1131 ../src/fref.c:1391 ../src/fref.c:1417
+#: ../src/fref.c:816 ../src/fref.c:1115 ../src/fref.c:1375 ../src/fref.c:1401
 msgid "Info"
 msgstr "Info"
 
-#: ../src/fref.c:1397 ../src/html.c:552 ../src/html.c:1180
+#: ../src/fref.c:837 ../src/gui.c:544
+msgid "Close"
+msgstr "Bezárás"
+
+#: ../src/fref.c:841 ../src/fref.c:1369 ../src/fref.c:1399
+msgid "Dialog"
+msgstr "Párbeszéd"
+
+#: ../src/fref.c:842 ../src/fref.c:1372 ../src/fref.c:1396
+msgid "Insert"
+msgstr "Beszúrás"
+
+#: ../src/fref.c:1381 ../src/html.c:552 ../src/html.c:1180
 msgid "Options"
 msgstr "Lehetőségek"
 
-#: ../src/fref.c:1404
+#: ../src/fref.c:1388
 msgid "Rescan reference files"
 msgstr "Referencia-fájlok újraolvasása"
 
-#: ../src/fref.c:1407
+#: ../src/fref.c:1391
 msgid "Left doubleclick action"
 msgstr "Dupla kattintásra"
 
-#: ../src/gtk_easy.c:936 ../src/menu.c:1314 ../src/menu.c:1660
+#: ../src/gtk_easy.c:937 ../src/menu.c:1314 ../src/menu.c:1660
 #: ../src/menu.c:1662 ../src/menu.c:1667
 msgid "Bluefish error"
 msgstr "Bluefish hiba"
 
-#: ../src/gtk_easy.c:936
+#: ../src/gtk_easy.c:937
 msgid "No filename known"
 msgstr "Nem adtál meg fájlnevet"
 
-#: ../src/gtk_easy.c:1025
+#: ../src/gtk_easy.c:1026
 msgid "Select file"
 msgstr "Válassz fájlt"
 
-#: ../src/gtk_easy.c:1037
+#: ../src/gtk_easy.c:1038
 msgid "Select files"
 msgstr "Válaszd ki a fájlokat"
 
@@ -885,7 +893,7 @@ msgstr "Keres..."
 msgid "Search and Replace..."
 msgstr "Keresés és csere..."
 
-#: ../src/gui.c:558 ../src/preferences.c:1721
+#: ../src/gui.c:558 ../src/preferences.c:1772
 msgid "Undo"
 msgstr "Visszavon"
 
@@ -1237,7 +1245,7 @@ msgstr "Tar_talom"
 msgid "_Scheme:"
 msgstr "_Séma"
 
-#: ../src/html.c:1446 ../src/preferences.c:1664
+#: ../src/html.c:1446 ../src/preferences.c:1715
 msgid "Font"
 msgstr "Betű"
 
@@ -3169,8 +3177,8 @@ msgstr "fájltípus"
 msgid "Pattern name"
 msgstr "Minta neve"
 
-#: ../src/preferences.c:1001 ../src/preferences.c:1442
-#: ../src/preferences.c:1491
+#: ../src/preferences.c:1001 ../src/preferences.c:1493
+#: ../src/preferences.c:1542
 msgid "Pattern"
 msgstr "Minta"
 
@@ -3234,758 +3242,397 @@ msgstr "kötelezően nem dőlt"
 msgid "force italic style"
 msgstr "kötelezően dőlt"
 
-#: ../src/preferences.c:1165 ../src/preferences.c:1196
+#: ../src/preferences.c:1209 ../src/preferences.c:1247
 msgid "Browser"
 msgstr "Böngésző"
 
-#: ../src/preferences.c:1167 ../src/preferences.c:1202
-#: ../src/preferences.c:1285 ../src/preferences.c:1320
-#: ../src/preferences.c:1450 ../src/preferences.c:1495
+#: ../src/preferences.c:1211 ../src/preferences.c:1253
+#: ../src/preferences.c:1336 ../src/preferences.c:1371
+#: ../src/preferences.c:1501 ../src/preferences.c:1546
 msgid "Command"
 msgstr "parancs"
 
-#: ../src/preferences.c:1201
+#: ../src/preferences.c:1252
 #, c-format
 msgid "%s = current filename"
 msgstr "%s = aktuális fájl neve"
 
-#: ../src/preferences.c:1283 ../src/preferences.c:1314
+#: ../src/preferences.c:1334 ../src/preferences.c:1365
 msgid "Label"
 msgstr "Címke"
 
-#: ../src/preferences.c:1319
+#: ../src/preferences.c:1370
 #, c-format
 msgid ""
 "%s = current filename\n"
 "%f = output filename (for filters)"
 msgstr "%s = aktuális fájl neve%f = kimeneti fájl neve (filtereknél)"
 
-#: ../src/preferences.c:1440 ../src/preferences.c:1487
+#: ../src/preferences.c:1491 ../src/preferences.c:1538
 msgid "Name"
 msgstr "Név"
 
-#: ../src/preferences.c:1444
+#: ../src/preferences.c:1495
 msgid "File #"
 msgstr "Fájl #"
 
-#: ../src/preferences.c:1446
+#: ../src/preferences.c:1497
 msgid "Line #"
 msgstr "Sor #"
 
-#: ../src/preferences.c:1448
+#: ../src/preferences.c:1499
 msgid "Output #"
 msgstr "Kimenet #"
 
-#: ../src/preferences.c:1452 ../src/preferences.c:1496
+#: ../src/preferences.c:1503 ../src/preferences.c:1547
 msgid "Show all output"
 msgstr "Minden kimenet mutatása"
 
-#: ../src/preferences.c:1492
+#: ../src/preferences.c:1543
 msgid "File subpattern #"
 msgstr "Fájl alminta #"
 
-#: ../src/preferences.c:1493
+#: ../src/preferences.c:1544
 msgid "Line subpattern #"
 msgstr "Sor alminta #"
 
-#: ../src/preferences.c:1494
+#: ../src/preferences.c:1545
 msgid "Output subpattern #"
 msgstr "Kimenet alminta #"
 
-#: ../src/preferences.c:1643
+#: ../src/preferences.c:1694
 msgid "left"
 msgstr "balra"
 
-#: ../src/preferences.c:1643
+#: ../src/preferences.c:1694
 msgid "right"
 msgstr "jobbra"
 
-#: ../src/preferences.c:1643
+#: ../src/preferences.c:1694
 msgid "top"
 msgstr "felül"
 
-#: ../src/preferences.c:1643
+#: ../src/preferences.c:1694
 msgid "bottom"
 msgstr "alul"
 
-#: ../src/preferences.c:1646
+#: ../src/preferences.c:1697
 msgid "Edit preferences"
 msgstr "Tulajdonságok szerkesztése"
 
-#: ../src/preferences.c:1657
+#: ../src/preferences.c:1708
 msgid "Editor"
 msgstr "Editor"
 
-#: ../src/preferences.c:1659
+#: ../src/preferences.c:1710
 msgid "Editor options"
 msgstr "Editor beállításai"
 
-#: ../src/preferences.c:1665
+#: ../src/preferences.c:1716
 msgid "Tab width"
 msgstr "Tabulátor szélessége"
 
-#: ../src/preferences.c:1666
+#: ../src/preferences.c:1717
 msgid "Word wrap default"
 msgstr "Sortörés csak szóvégen"
 
-#: ../src/preferences.c:1667
+#: ../src/preferences.c:1718
 msgid "Line numbers by default"
 msgstr "Sorszámozás alapértelmezett"
 
-#: ../src/preferences.c:1668
+#: ../src/preferences.c:1719
 msgid "Highlight syntax by default"
 msgstr "Szintaxiskiemelés alapértelmezett"
 
-#: ../src/preferences.c:1669
+#: ../src/preferences.c:1720
 msgid "Highlight # lines"
 msgstr "# sor kiemelése"
 
-#: ../src/preferences.c:1670
+#: ../src/preferences.c:1721
 msgid "Always highlight full document"
 msgstr "Folyamatos kiemelés a teljes dokumentumban"
 
-#: ../src/preferences.c:1672
+#: ../src/preferences.c:1723
 msgid "HTML"
 msgstr "HTML"
 
-#: ../src/preferences.c:1674
+#: ../src/preferences.c:1725
 msgid "HTML options"
 msgstr "HTML beállítások"
 
-#: ../src/preferences.c:1679
+#: ../src/preferences.c:1730
 msgid "Lowercase HTML tags"
 msgstr "Kisbetűs HTML címkék"
 
-#: ../src/preferences.c:1680
+#: ../src/preferences.c:1731
 msgid "Use deprecated tags (e.g. <font> and <nobr>)"
 msgstr "Elavult címkék használata (pl. <font> és <nobr>)"
 
-#: ../src/preferences.c:1681
+#: ../src/preferences.c:1732
 msgid "Use XHTML style tags (<br />)"
 msgstr "XHTML szintaxis (mint <br />)"
 
-#: ../src/preferences.c:1682
+#: ../src/preferences.c:1733
 msgid "Automatic update author meta"
 msgstr "Author meta automatikus frissítése"
 
-#: ../src/preferences.c:1685
+#: ../src/preferences.c:1736
 msgid "Files"
 msgstr "Fájlok"
 
-#: ../src/preferences.c:1687
+#: ../src/preferences.c:1738
 msgid "Encoding"
 msgstr "Kódolás"
 
-#: ../src/preferences.c:1699
+#: ../src/preferences.c:1750
 msgid "Default character set"
 msgstr "Alapértelmezett karakterkészlet"
 
-#: ../src/preferences.c:1702
+#: ../src/preferences.c:1753
 msgid "Auto set <meta> encoding tag on change"
 msgstr "<meta> kódolás címke automatikus beállítása változáskor"
 
-#: ../src/preferences.c:1704
+#: ../src/preferences.c:1755
 msgid "Backup"
 msgstr "Backup"
 
-#: ../src/preferences.c:1708
+#: ../src/preferences.c:1759
 msgid "Create backup on save"
 msgstr "Backup készítése mentéskor"
 
-#: ../src/preferences.c:1709
+#: ../src/preferences.c:1760
 msgid "Backup file suffix"
 msgstr "Backup fájl nevének utótagja"
 
-#: ../src/preferences.c:1714
+#: ../src/preferences.c:1762
+#, fuzzy
+msgid "save"
+msgstr "Mentés"
+
+#: ../src/preferences.c:1765
 msgid "Action on backup failure"
 msgstr "Teendő sikertelen backup esetén"
 
-#: ../src/preferences.c:1717
+#: ../src/preferences.c:1768
 #, fuzzy
 msgid "Remove backupfile on close"
 msgstr "Backup készítése mentéskor"
 
-#: ../src/preferences.c:1726
+#: ../src/preferences.c:1777
 msgid "Undo history size"
 msgstr "Visszavonások száma"
 
-#: ../src/preferences.c:1727
+#: ../src/preferences.c:1778
 msgid "Clear undo history on save"
 msgstr "Mentéskor a visszavonható műveletek törlése"
 
-#: ../src/preferences.c:1729 ../src/preferences.c:1754
+#: ../src/preferences.c:1780 ../src/preferences.c:1805
 msgid "Misc"
 msgstr "Egyéb"
 
-#: ../src/preferences.c:1734
+#: ../src/preferences.c:1785
 msgid "Allow multi instances of a file"
 msgstr "Ugyanaz a fájl több példányban is megnyitható"
 
-#: ../src/preferences.c:1736
+#: ../src/preferences.c:1787
 msgid "Open files in already running bluefish window"
 msgstr "Fájlok megnyitása a már futó bluefish ablakában"
 
-#: ../src/preferences.c:1738
+#: ../src/preferences.c:1789
 msgid "Number of files in 'Open recent'"
 msgstr "Fájlok száma az 'Utóbbi megnyitása' menüben"
 
-#: ../src/preferences.c:1741
+#: ../src/preferences.c:1792
 msgid "User interface"
 msgstr "Felület"
 
-#: ../src/preferences.c:1743
+#: ../src/preferences.c:1794
 msgid "Dimensions"
 msgstr "Méretek"
 
-#: ../src/preferences.c:1747
+#: ../src/preferences.c:1798
 msgid "Restore last used dimensions"
 msgstr "Utolsó méret visszaállítása"
 
-#: ../src/preferences.c:1748
+#: ../src/preferences.c:1799
 msgid "Initial left panel width"
 msgstr "Bal panel kezdő szélessége"
 
-#: ../src/preferences.c:1749
+#: ../src/preferences.c:1800
 msgid "Initial window height"
 msgstr "Kezdő ablakmagasság"
 
-#: ../src/preferences.c:1750
+#: ../src/preferences.c:1801
 msgid "Initial window width"
 msgstr "Kezdő ablakszélesség"
 
-#: ../src/preferences.c:1759
+#: ../src/preferences.c:1810
 msgid "External browsers in submenu"
 msgstr "Böngészők az almenüben"
 
-#: ../src/preferences.c:1760
+#: ../src/preferences.c:1811
 msgid "External commands in submenu"
 msgstr "Külső parancsok az almenüben"
 
-#: ../src/preferences.c:1761
+#: ../src/preferences.c:1812
 msgid "External outputbox in submenu"
 msgstr "Külső kimenetablakok az almenüben"
 
-#: ../src/preferences.c:1763
+#: ../src/preferences.c:1814
 msgid "Notebook tab font (leave empty for gtk default)"
 msgstr "Fájlablak-fül betűtípusa (üres: gtk alapértelmezett)"
 
-#: ../src/preferences.c:1765
+#: ../src/preferences.c:1816
 msgid "Document notebook tab position"
 msgstr "Dokumentumablak-fül elhelyezkedése"
 
-#: ../src/preferences.c:1766
+#: ../src/preferences.c:1817
 msgid "Left panel notebook tab position"
 msgstr "Baloldali panel fülének elhelyezkedése"
 
-#: ../src/preferences.c:1768
+#: ../src/preferences.c:1819
 msgid "Make HTML dialogs transient"
 msgstr "Átmeneti HTML-párbeszédablakok"
 
-#: ../src/preferences.c:1769
+#: ../src/preferences.c:1820
 msgid "Advanced search and replace by default"
 msgstr "Bővített keresés és csere panel alapértelmezett"
 
-#: ../src/preferences.c:1771
+#: ../src/preferences.c:1822
 msgid "File browser"
 msgstr "Fájlböngésző"
 
-#: ../src/preferences.c:1775
+#: ../src/preferences.c:1826
 msgid "Show hidden files"
 msgstr "Rejtett fájlok mutatása"
 
-#: ../src/preferences.c:1776
+#: ../src/preferences.c:1827
 msgid "Show other users files"
 msgstr "Más felhasználók fájljainak mutatása"
 
-#: ../src/preferences.c:1777
+#: ../src/preferences.c:1828
 msgid "Show backup files"
 msgstr "Backup fájlok mutatása"
 
-#: ../src/preferences.c:1778
+#: ../src/preferences.c:1829
 msgid "Unknown icon"
 msgstr "Ismeretlen fájl ikonja"
 
-#: ../src/preferences.c:1779
+#: ../src/preferences.c:1830
 msgid "Directory icon"
 msgstr "Könyvtár ikonja"
 
-#: ../src/preferences.c:1782 ../src/rcfile.c:541
+#: ../src/preferences.c:1833 ../src/rcfile.c:607
 msgid "Images"
 msgstr "Képek"
 
-#: ../src/preferences.c:1784
+#: ../src/preferences.c:1835
 msgid "Thumbnails"
 msgstr "Thumbnail képek"
 
-#: ../src/preferences.c:1788
+#: ../src/preferences.c:1839
 msgid "Thumbnail suffix"
 msgstr "Thumbnail kép nevének utótagja"
 
-#: ../src/preferences.c:1792
+#: ../src/preferences.c:1843
 msgid "Thumbnail filetype"
 msgstr "Thumbnail kép típusa"
 
-#: ../src/preferences.c:1797 ../src/preferences.c:1799
+#: ../src/preferences.c:1848 ../src/preferences.c:1850
 msgid "Filetypes"
 msgstr "Fájltípusok"
 
-#: ../src/preferences.c:1806
+#: ../src/preferences.c:1857
 msgid "Filefilters"
 msgstr "Fájlszűrők"
 
-#: ../src/preferences.c:1814
+#: ../src/preferences.c:1865
 msgid "Syntax highlighting"
 msgstr "Szintaxiskiemelés"
 
-#: ../src/preferences.c:1816
+#: ../src/preferences.c:1867
 msgid "Patterns"
 msgstr "Minták"
 
-#: ../src/preferences.c:1824
+#: ../src/preferences.c:1875
 msgid "External programs"
 msgstr "Külső programok"
 
-#: ../src/preferences.c:1826
+#: ../src/preferences.c:1877
 msgid "Browsers"
 msgstr "Böngészők"
 
-#: ../src/preferences.c:1833
+#: ../src/preferences.c:1884
 msgid "Utilities and filters"
 msgstr "Programok és szűrők"
 
-#: ../src/preferences.c:1841
+#: ../src/preferences.c:1892
 msgid "Output parsers"
 msgstr "Értelmezők"
 
-#: ../src/preferences.c:1843
+#: ../src/preferences.c:1894
 msgid "Outputbox"
 msgstr "Kimenetablak"
 
-#: ../src/rcfile.c:483
+#: ../src/rcfile.c:535
 msgid "Galeon"
 msgstr "Galeon"
 
-#: ../src/rcfile.c:485
+#: ../src/rcfile.c:537
 msgid "Mozilla"
 msgstr "Mozilla"
 
-#: ../src/rcfile.c:487
+#: ../src/rcfile.c:539
 msgid "Opera"
 msgstr "Opera"
 
-#: ../src/rcfile.c:489
+#: ../src/rcfile.c:541
 msgid "Netscape"
 msgstr "Netscape"
 
-#: ../src/rcfile.c:491
+#: ../src/rcfile.c:543
 msgid "Gnome default"
 msgstr "Gnome alapértelmezés"
 
-#: ../src/rcfile.c:507
+#: ../src/rcfile.c:566
 msgid "make"
 msgstr "make"
 
-#: ../src/rcfile.c:508
+#: ../src/rcfile.c:567
 msgid "weblint HTML checker"
 msgstr "weblint HTML ellenőrző"
 
-#: ../src/rcfile.c:509
+#: ../src/rcfile.c:568
 msgid "tidy HTML validator"
 msgstr "tidy HTML ellenőrző"
 
-#: ../src/rcfile.c:510
+#: ../src/rcfile.c:569
 msgid "javac"
 msgstr "javac"
 
-#: ../src/rcfile.c:516
+#: ../src/rcfile.c:575
 msgid "Dos2Unix filter"
 msgstr "Dos2Unix szűrő"
 
-#: ../src/rcfile.c:518
+#: ../src/rcfile.c:577
 msgid "Tidy cleanup filter"
 msgstr "Tidy szűrő"
 
-#: ../src/rcfile.c:535
+#: ../src/rcfile.c:601
 msgid "C programming"
 msgstr "C programozás"
 
-#: ../src/rcfile.c:537
+#: ../src/rcfile.c:603
 msgid "All web files"
 msgstr "Minden webfájl"
 
-#: ../src/rcfile.c:539
+#: ../src/rcfile.c:605
 msgid "Java programming"
 msgstr "Java programozás"
 
-#: ../src/rcfile.c:543
+#: ../src/rcfile.c:609
 msgid "Hide objectfiles"
 msgstr "Objektumfájlok elrejtése"
-
-#: ../src/rcfile.c:633
-msgid "/php/ibase/ibase fetch row"
-msgstr "/php/ibase/ibase fetch row"
-
-#: ../src/rcfile.c:633
-msgid "ibase result variable name"
-msgstr "ibase eredményváltozó neve"
-
-#: ../src/rcfile.c:633 ../src/rcfile.c:634
-msgid "row variable name"
-msgstr "sorváltozó neve"
-
-#: ../src/rcfile.c:634
-msgid "/php/mysql/mysql fetch row"
-msgstr "/php/mysql/mysql fetch row"
-
-#: ../src/rcfile.c:634
-msgid "mysql result variable name"
-msgstr "mysql eredményváltozó neve"
-
-#: ../src/rcfile.c:635
-msgid "/php/mysql/mysql connect"
-msgstr "/php/mysql/mysql kapcsolódás"
-
-#: ../src/rcfile.c:635
-msgid "mysql host"
-msgstr "mysql host"
-
-#: ../src/rcfile.c:635
-msgid "mysql username"
-msgstr "mysql felhasználó"
-
-#: ../src/rcfile.c:635
-msgid "mysql password"
-msgstr "mysql jelszó"
-
-#: ../src/rcfile.c:635
-msgid "database name"
-msgstr "adatbázis neve"
-
-#: ../src/rcfile.c:636
-msgid "/php/ibase/ibase connect"
-msgstr "/php/ibase/ibase kapcsolódás"
-
-#: ../src/rcfile.c:636
-msgid "ibase host"
-msgstr "ibase host"
-
-#: ../src/rcfile.c:636
-msgid "ibase database path"
-msgstr "ibase adatbázis útvonal"
-
-#: ../src/rcfile.c:636
-msgid "ibase username"
-msgstr "ibase felhasználó"
-
-#: ../src/rcfile.c:636
-msgid "ibase password"
-msgstr "ibase jelszó"
-
-#: ../src/rcfile.c:637
-msgid "/php/general/while each in array list"
-msgstr "/php/általános/while each in array lista"
-
-#: ../src/rcfile.c:637
-msgid "array name"
-msgstr "tömbnév"
-
-#: ../src/rcfile.c:638
-msgid "/sql/select all from table"
-msgstr "/sql/select all from table"
-
-#: ../src/rcfile.c:638
-msgid "table name"
-msgstr "Tábla neve"
-
-#: ../src/rcfile.c:639
-msgid "/php/general/mail"
-msgstr "/php/általános/levél"
-
-#: ../src/rcfile.c:639
-msgid "email adress"
-msgstr "Email-cím"
-
-#: ../src/rcfile.c:639
-msgid "subject"
-msgstr "Tárgy"
-
-#: ../src/rcfile.c:639
-msgid "mail body variable name"
-msgstr "Levéltörzs-változó neve"
-
-#: ../src/rcfile.c:640
-msgid "/php/general/for loop"
-msgstr "/php/általános/for ciklus"
-
-#: ../src/rcfile.c:640
-msgid "loop variable name"
-msgstr "Ciklusváltozó"
-
-#: ../src/rcfile.c:640
-msgid "from value"
-msgstr "Kezdőérték"
-
-#: ../src/rcfile.c:640
-msgid "to value"
-msgstr "Végérték"
-
-#: ../src/rcfile.c:641
-msgid "/php/ibase/query"
-msgstr "/php/ibase/lekérdezés"
-
-#: ../src/rcfile.c:641 ../src/rcfile.c:646 ../src/rcfile.c:664
-#: ../src/rcfile.c:665
-msgid "result variable name"
-msgstr "Eredményváltozó neve"
-
-#: ../src/rcfile.c:641
-msgid "ibase connection id name"
-msgstr "ibase kapcsolatváltozó neve"
-
-#: ../src/rcfile.c:641 ../src/rcfile.c:646 ../src/rcfile.c:664
-msgid "query string (quoted) or variable (including $)"
-msgstr "lekérdezés (idézőjelben) vagy változónév ($-ral)"
-
-#: ../src/rcfile.c:642
-msgid "/php/general/include file"
-msgstr "/php/általános/fájl beágyazása (include)"
-
-#: ../src/rcfile.c:642
-msgid "filename to include"
-msgstr "Fájlnév"
-
-#: ../src/rcfile.c:643
-msgid "/php/general/require file"
-msgstr "/php/általános/fájl beágyazása (require)"
-
-#: ../src/rcfile.c:643
-msgid "filename to require"
-msgstr "Fájlnév"
-
-#: ../src/rcfile.c:644
-msgid "/php/general/if isset"
-msgstr "/php/általános/Változóteszt (isset)"
-
-#: ../src/rcfile.c:644 ../src/rcfile.c:645
-msgid "variable name to test for"
-msgstr "Változónév"
-
-#: ../src/rcfile.c:645
-msgid "/php/general/if not isset"
-msgstr "/php/általános/Változóteszt (not isset)"
-
-#: ../src/rcfile.c:646
-msgid "/php/mysql/query"
-msgstr "/php/mysql/lekérdezés"
-
-#: ../src/rcfile.c:646
-msgid "mysql connection id name"
-msgstr "mysql kapcsolatváltozó neve"
-
-#: ../src/rcfile.c:647
-msgid "/html/font symbol"
-msgstr "/html/Symbol font"
-
-#: ../src/rcfile.c:648
-msgid "/html/div with class"
-msgstr "/html/szakasz osztállyal"
-
-#: ../src/rcfile.c:648 ../src/rcfile.c:649
-msgid "CSS class name"
-msgstr "CSS-osztály neve"
-
-#: ../src/rcfile.c:649
-msgid "/html/span with class"
-msgstr "/html/arasz osztállyal"
-
-#: ../src/rcfile.c:650
-msgid "/php/php block"
-msgstr "/php/php-blokk"
-
-#: ../src/rcfile.c:651
-msgid "/html/made with bluefish"
-msgstr "/html/made with bluefish"
-
-#: ../src/rcfile.c:652
-msgid "/html/meta keywords"
-msgstr "/html/meta kulcsszavak"
-
-#: ../src/rcfile.c:652
-msgid "keywords, space separated"
-msgstr "Kulcsszavak, szóközzel elválasztva"
-
-#: ../src/rcfile.c:653
-msgid "/html/meta refresh (client pull)"
-msgstr "/html/meta frissítés (kliensoldali)"
-
-#: ../src/rcfile.c:653
-msgid "refresh time, in seconds"
-msgstr "Frissítési gyakoriság mp-ben"
-
-#: ../src/rcfile.c:653
-msgid "URL to redirect to"
-msgstr "Átirányítási cím"
-
-#: ../src/rcfile.c:654
-msgid "/active html/form"
-msgstr "/aktív html/űrlap"
-
-#: ../src/rcfile.c:655
-msgid "/active html/form and action"
-msgstr "/aktív html/űrlap és akció"
-
-#: ../src/rcfile.c:655
-msgid "Submit button text"
-msgstr "Submit gomb felirata"
-
-#: ../src/rcfile.c:656
-msgid "/active html/input text"
-msgstr "/aktív html/szövegbevitel"
-
-#: ../src/rcfile.c:656 ../src/rcfile.c:657 ../src/rcfile.c:658
-#: ../src/rcfile.c:659 ../src/rcfile.c:660 ../src/rcfile.c:661
-msgid "variable name"
-msgstr "Változónév"
-
-#: ../src/rcfile.c:657
-msgid "/active html/input checkbox"
-msgstr "/aktív html/kijelölőnégyzet"
-
-#: ../src/rcfile.c:657
-msgid "value when checked"
-msgstr "Érték, ha bejelölt"
-
-#: ../src/rcfile.c:658
-msgid "/active html/textarea"
-msgstr "/aktív html/szövegmező"
-
-#: ../src/rcfile.c:659
-msgid "/active html/select options/from array"
-msgstr "/aktív html/választómező/tömbből"
-
-#: ../src/rcfile.c:659
-msgid "array name containing options"
-msgstr "A választéktömb neve"
-
-#: ../src/rcfile.c:660
-msgid "/active html/select options/from mysql result"
-msgstr "/aktív html/választómező/mysql lekérdezésből"
-
-#: ../src/rcfile.c:660
-msgid "mysql query result"
-msgstr "mysql eredményváltozó"
-
-#: ../src/rcfile.c:660 ../src/rcfile.c:661
-msgid "index of the value"
-msgstr "érték indexe"
-
-#: ../src/rcfile.c:660 ../src/rcfile.c:661
-msgid "index of the label"
-msgstr "címke indexe"
-
-#: ../src/rcfile.c:661
-msgid "/active html/select options/from ibase result"
-msgstr "/aktív html/választómező/ibase lekérdezésből"
-
-#: ../src/rcfile.c:661
-msgid "ibase query result"
-msgstr "ibase eredményváltozó"
-
-#: ../src/rcfile.c:662
-msgid "/DHTML/mouseover image"
-msgstr "/DHTML/mouseover kép"
-
-#: ../src/rcfile.c:662
-msgid "unique name"
-msgstr "kép egyedi neve"
-
-#: ../src/rcfile.c:662
-msgid "onMouseOut src"
-msgstr "onMouseOut fájlnév"
-
-#: ../src/rcfile.c:662
-msgid "onMouseOver src"
-msgstr "onMouseOver fájlnév"
-
-#: ../src/rcfile.c:663
-msgid "/php/odbc/odbc connect"
-msgstr "/php/odbc/odbc kapcsolódás"
-
-#: ../src/rcfile.c:663
-msgid "odbc data source name"
-msgstr "odbc adatforrás neve"
-
-#: ../src/rcfile.c:663
-msgid "username"
-msgstr "Felhasználó"
-
-#: ../src/rcfile.c:663
-msgid "password"
-msgstr "Jelszó"
-
-#: ../src/rcfile.c:664
-msgid "/php/odbc/odbc exec query"
-msgstr "/php/odbc/odbc lekérdezés"
-
-#: ../src/rcfile.c:664
-msgid "odbc connection id name"
-msgstr "odbc kapcsolatváltozó neve"
-
-#: ../src/rcfile.c:665
-msgid "/php/odbc/odbc fetch row"
-msgstr "/php/odbc/odbc fetch row"
-
-#: ../src/rcfile.c:666
-msgid "/php/general/echo date"
-msgstr "/php/általános/dátum kiírása"
-
-#: ../src/rcfile.c:667
-msgid "/php/filesystem/open and echo file"
-msgstr "/php/fájlrendszer/fájl megnyitása és kiírása"
-
-#: ../src/rcfile.c:667
-msgid "file (quoted) or variable (including $)"
-msgstr "fájlnév (idézőjelben) vagy változónév ($-ral)"
-
-#: ../src/rcfile.c:668
-msgid "/php/general/location header"
-msgstr "/php/általános/Location fejléc"
-
-#: ../src/rcfile.c:668
-msgid "location (URL) to redirect to (quoted) or variable (including $)"
-msgstr "Átirányítás címe (idézőjelben) vagy változónév ($-ral)"
-
-#: ../src/rcfile.c:669
-msgid "/apache/basic password required"
-msgstr "/apache/basic password required"
-
-#: ../src/rcfile.c:669
-msgid "full path to password file"
-msgstr "Jelszófájl teljes elérési útja"
-
-#: ../src/rcfile.c:669
-msgid "security description"
-msgstr "security description"
-
-#: ../src/rcfile.c:670
-msgid "/apache/deny access to .inc"
-msgstr "/apache/.inc-hez hozzáférés megtagadása"
-
-#: ../src/rcfile.c:671
-msgid "/replace/strip <font>"
-msgstr "/csere/strip <font>"
-
-#: ../src/rcfile.c:672
-msgid "/replace/strip <any tag> in selection"
-msgstr "/csere/strip <any tag> in selection"
-
-#: ../src/rcfile.c:673
-msgid "/replace/convert <td> in <th> in selection"
-msgstr "/csere/<td> cseréje <th>-ra a kijelölésben"
-
-#: ../src/rcfile.c:674
-msgid "/replace/convert <any tag> in <any other tag> in selection"
-msgstr "/csere/<bármi> cseréje <bármi más>-ra a kijelölésben"
 
 #: ../src/snr2.c:190
 msgid "Regular expression error: "
@@ -4187,30 +3834,3 @@ msgstr "Forrás:"
 #: ../src/wizards.c:224
 msgid "Size:"
 msgstr "Méret:"
-
-#~ msgid "Filename"
-#~ msgstr "Fájlnév"
-
-#~ msgid "Id"
-#~ msgstr "Id"
-
-#~ msgid "selector"
-#~ msgstr "szelektor"
-
-#~ msgid "property"
-#~ msgstr "tulajdonság"
-
-#~ msgid "value"
-#~ msgstr "érték"
-
-#~ msgid "Vertical Align"
-#~ msgstr "Függőleges igazítás"
-
-#~ msgid " Width "
-#~ msgstr " Szélesség "
-
-#~ msgid "Number of Columns per row"
-#~ msgstr "Oszlopok száma"
-
-#~ msgid "Save in progress"
-#~ msgstr "Mentés folyamatban"
