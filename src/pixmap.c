@@ -18,8 +18,8 @@ static Tpixmap tp[] = {
 /* 	{5, copy}, */
 /* 	{6, cut}, */
 /* 	{7, paste}, */
-/* 	{8, search}, */
-/* 	{9, search_replace}, */
+	 	{8, search}, 
+ 		{9, search_replace}, /* these are used in the 'prompt before replace' dialog*/
 /* 	{10, undo}, */
 /* 	{11, redo}, */
 /* 	{12, preferences}, */
