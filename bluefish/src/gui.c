@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-#define DEBUG
+/*#define DEBUG*/
 
 #include <gtk/gtk.h>
 #include <time.h>		/* nanosleep() */
@@ -1103,8 +1103,6 @@ static void doc_unindent_lcb(GtkWidget *wid,Tbfwin *bfwin) {
 		doc_indent_selection(bfwin->current_document,1);
 	}
 }
-	
-
 
 void make_main_toolbar(Tbfwin *bfwin) {
 	GtkWidget *toolbar = gtk_toolbar_new ();
@@ -1258,7 +1256,7 @@ void gui_bfwin_cleanup(Tbfwin *bfwin) {
 		left */
 		tmplist = g_list_first(bfwin->documentlist);
 	}
-	
+	fb2_cleanup(bfwin);
 	bmark_cleanup(bfwin);
 }
 
