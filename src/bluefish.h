@@ -230,7 +230,6 @@ typedef struct {
 	gchar *shift_enter_text;	/* inserted text */
 	gint conv_special_char;		/* convert ctrl-'<','>','&' */
 	gint open_in_running_bluefish; /* open commandline documents in already running session*/
-
 } Tproperties;
 
 typedef struct {
@@ -272,6 +271,7 @@ typedef struct {
 	/* following is a new approach, that we have only a gpointer here, whioh is typecasted 
 	in the file where it is needed */
 	gpointer outputbox;
+	gpointer bfspell;
 } Tbfwin;
 
 typedef struct {
