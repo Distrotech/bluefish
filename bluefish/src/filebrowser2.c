@@ -441,67 +441,96 @@ static void refilter_filelist(Tfilebrowser2 *fb2, GtkTreePath *newroot) {
 	g_object_unref(oldmodel2);
 }
 
-static GnomeVFSURI *fb2_uri_from_dir_sort_path(Tfilebrowser2 *fb2, GtkTreePath *sort_path) {
+static GtkTreePath *fb2_fspath_from_dir_sortpath(Tfilebrowser2 *fb2, GtkTreePath *sort_path) {
 	if (sort_path) {
 		GtkTreePath *filter_path;
 		filter_path = gtk_tree_model_sort_convert_path_to_child_path(GTK_TREE_MODEL_SORT(fb2->dir_tsort),sort_path);
 		if (filter_path) {
 			GtkTreePath *fs_path;
 			fs_path = gtk_tree_model_filter_convert_path_to_child_path(GTK_TREE_MODEL_FILTER(fb2->dir_tfilter), filter_path);
-			if (fs_path) {
-				GtkTreeIter fsiter;
-				gtk_tree_model_get_iter(GTK_TREE_MODEL(FILEBROWSER2CONFIG(main_v->fb2config)->filesystem_tstore),&fsiter,fs_path);
-				gtk_tree_path_free(fs_path);
-				return fb2_uri_from_iter(&fsiter);
-			}
 			gtk_tree_path_free(filter_path);
+			return fs_path;
 		}
 	}
 	return NULL;
 }
-static GnomeVFSURI *fb2_uri_from_file_sort_path(Tfilebrowser2 *fb2, GtkTreePath *sort_path) {
+static GtkTreePath *fb2_fspath_from_file_sortpath(Tfilebrowser2 *fb2, GtkTreePath *sort_path) {
 	if (sort_path) {
 		GtkTreePath *filter_path;
 		filter_path = gtk_tree_model_sort_convert_path_to_child_path(GTK_TREE_MODEL_SORT(fb2->file_lsort),sort_path);
 		if (filter_path) {
 			GtkTreePath *fs_path;
 			fs_path = gtk_tree_model_filter_convert_path_to_child_path(GTK_TREE_MODEL_FILTER(fb2->file_lfilter), filter_path);
-			if (fs_path) {
-				GtkTreeIter fsiter;
-				gtk_tree_model_get_iter(GTK_TREE_MODEL(FILEBROWSER2CONFIG(main_v->fb2config)->filesystem_tstore),&fsiter,fs_path);
-				gtk_tree_path_free(fs_path);
-				return fb2_uri_from_iter(&fsiter);
-			}
 			gtk_tree_path_free(filter_path);
+			return fs_path;
 		}
 	}
 	return NULL;
 }
-static gboolean fb2_isdir_from_file_sort_path(Tfilebrowser2 *fb2, GtkTreePath *sort_path) {
-	if (sort_path) {
-		GtkTreePath *filter_path;
-		filter_path = gtk_tree_model_sort_convert_path_to_child_path(GTK_TREE_MODEL_SORT(fb2->dir_tsort),sort_path);
-		if (filter_path) {
-			GtkTreePath *fs_path;
-			fs_path = gtk_tree_model_filter_convert_path_to_child_path(GTK_TREE_MODEL_FILTER(fb2->dir_tfilter), filter_path);
-			if (fs_path) {
-				GtkTreeIter fsiter;
-				gint type;
-				gtk_tree_model_get_iter(GTK_TREE_MODEL(FILEBROWSER2CONFIG(main_v->fb2config)->filesystem_tstore),&fsiter,fs_path);
-				gtk_tree_path_free(fs_path);
-				gtk_tree_model_get(GTK_TREE_MODEL(FILEBROWSER2CONFIG(main_v->fb2config)->filesystem_tstore), &fsiter, TYPE_COLUMN, &type, -1);
-				DEBUG_MSG("fb2_isdir_from_file_sort_path, type=%d\n",type);
-				return (type == TYPE_DIR || type == TYPE_HIDDEN_DIR);
-			}
-			gtk_tree_path_free(filter_path);
-			DEBUG_MSG("fb2_isdir_from_file_sort_path, no fs_path, returning FALSE\n");
-			return FALSE;
-		}
-		DEBUG_MSG("fb2_isdir_from_file_sort_path, no filter_path, returning FALSE\n");
-		return FALSE;
+static GnomeVFSURI *fb2_uri_from_file_sort_path(Tfilebrowser2 *fb2, GtkTreePath *sort_path) {
+	GtkTreePath *fs_path = fb2_fspath_from_file_sortpath(fb2, sort_path);
+	if (fs_path) {
+		GtkTreeIter fsiter;
+		gtk_tree_model_get_iter(GTK_TREE_MODEL(FILEBROWSER2CONFIG(main_v->fb2config)->filesystem_tstore),&fsiter,fs_path);
+		gtk_tree_path_free(fs_path);
+		return fb2_uri_from_iter(&fsiter);
 	}
-	DEBUG_MSG("fb2_isdir_from_file_sort_path, no sort_path, returning FALSE\n");
+	return NULL;
+}
+static GnomeVFSURI *fb2_uri_from_dir_sort_path(Tfilebrowser2 *fb2, GtkTreePath *sort_path) {
+	GtkTreePath *fs_path = fb2_fspath_from_dir_sortpath(fb2, sort_path);
+	if (fs_path) {
+		GtkTreeIter fsiter;
+		gtk_tree_model_get_iter(GTK_TREE_MODEL(FILEBROWSER2CONFIG(main_v->fb2config)->filesystem_tstore),&fsiter,fs_path);
+		gtk_tree_path_free(fs_path);
+		return fb2_uri_from_iter(&fsiter);
+	}
+	return NULL;
+}
+static gboolean fb2_isdir_from_dir_sort_path(Tfilebrowser2 *fb2, GtkTreePath *sort_path) {
+	GtkTreePath *fs_path = fb2_fspath_from_dir_sortpath(fb2, sort_path);
+	if (fs_path) {
+		GtkTreeIter fsiter;
+		gint type;
+		gtk_tree_model_get_iter(GTK_TREE_MODEL(FILEBROWSER2CONFIG(main_v->fb2config)->filesystem_tstore),&fsiter,fs_path);
+		gtk_tree_path_free(fs_path);
+		gtk_tree_model_get(GTK_TREE_MODEL(FILEBROWSER2CONFIG(main_v->fb2config)->filesystem_tstore), &fsiter, TYPE_COLUMN, &type, -1);
+		DEBUG_MSG("fb2_isdir_from_file_sort_path, type=%d\n",type);
+		return (type == TYPE_DIR || type == TYPE_HIDDEN_DIR);
+	}
 	return FALSE;
+}
+static GnomeVFSURI *fb2_uri_from_file_selection(Tfilebrowser2 *fb2) {
+	GtkTreeModel *sort_model;
+	GtkTreeIter sort_iter;
+	GtkTreeSelection *selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(fb2->file_v));
+	if (gtk_tree_selection_get_selected(selection,&sort_model,&sort_iter)) {
+		GtkTreePath *sort_path;
+		sort_path = gtk_tree_model_get_path(sort_model,&sort_iter);
+		if (sort_path) {
+			GnomeVFSURI *uri;
+			uri = fb2_uri_from_file_sort_path(fb2,sort_path);
+			gtk_tree_path_free(sort_path);
+			return uri;
+		}
+	}
+	return NULL;
+}
+static GnomeVFSURI *fb2_uri_from_dir_selection(Tfilebrowser2 *fb2) {
+	GtkTreeModel *sort_model;
+	GtkTreeIter sort_iter;
+	GtkTreeSelection *selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(fb2->dir_v));
+	if (gtk_tree_selection_get_selected(selection,&sort_model,&sort_iter)) {
+		GtkTreePath *sort_path;
+		sort_path = gtk_tree_model_get_path(sort_model,&sort_iter);
+		if (sort_path) {
+			GnomeVFSURI *uri;
+			uri = fb2_uri_from_dir_sort_path(fb2,sort_path);
+			gtk_tree_path_free(sort_path);
+			return uri;
+		}
+	}
+	return NULL;
 }
 
 static void handle_activate_on_file(Tfilebrowser2 *fb2, GnomeVFSURI *uri) {
@@ -527,6 +556,22 @@ static void handle_activate_on_file(Tfilebrowser2 *fb2, GnomeVFSURI *uri) {
 
 static void fb2rpopup_rpopup_action_lcb(Tfilebrowser2 *fb2,guint callback_action, GtkWidget *widget) {
 	DEBUG_MSG("fb2rpopup_rpopup_action_lcb, called\n");
+	switch (callback_action) {
+		case 1:
+			{
+				GnomeVFSURI *uri = fb2_uri_from_file_selection(fb2);
+				handle_activate_on_file(fb2, uri);
+			}
+		break;
+		case 2:
+		
+		break;
+		case 3:
+		
+		break;
+	
+	
+	}
 }
 static void fb2rpopup_fad_toggled_lcb(GtkWidget *widget, Tfilebrowser2 *fb2) {
 	DEBUG_MSG("fb2rpopup_fad_toggled_lcb, called\n");
@@ -637,7 +682,7 @@ static gboolean dir_v_button_press_lcb(GtkWidget *widget, GdkEventButton *event,
 		GtkTreePath *path;
 		gtk_tree_view_get_path_at_pos(GTK_TREE_VIEW(fb2->dir_v), event->x, event->y, &path, NULL, NULL, NULL);
 		if (path) {
-			menu = fb2_rpopup_create_menu(fb2, fb2_isdir_from_file_sort_path(fb2, path));
+			menu = fb2_rpopup_create_menu(fb2, fb2_isdir_from_dir_sort_path(fb2, path));
 			gtk_menu_popup(GTK_MENU(menu), NULL, NULL, NULL, NULL, event->button, event->time);
 		}
 	}
