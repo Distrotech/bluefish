@@ -1261,7 +1261,9 @@ Tdocument *doc_new(gboolean delay_activate) {
 
 	newdoc->tab_label = gtk_label_new(NULL);
 	GTK_WIDGET_UNSET_FLAGS(newdoc->tab_label, GTK_CAN_FOCUS);
-	apply_font_style(newdoc->tab_label, main_v->props.tab_font_string);
+	if (strlen(main_v->props.tab_font_string)) {
+		apply_font_style(newdoc->tab_label, main_v->props.tab_font_string);
+	}
 	newdoc->tab_menu = gtk_label_new(NULL);
 
 	doc_unre_init(newdoc);

@@ -417,7 +417,7 @@ static GList *props_init_main(GList * config_rc)
 	init_prop_string    (&config_rc, &main_v->props.filebrowser_dir_icon, "fb_dir_icon:", PKGDATADIR"icon_dir.png");
 	init_prop_string    (&config_rc, &main_v->props.editor_font_string, "editor_font_string:", "courier 11");
 	init_prop_integer   (&config_rc, &main_v->props.editor_tab_width, "editor_tab_width:", 3);
-	init_prop_string    (&config_rc, &main_v->props.tab_font_string, "tab_font_string:", "helvetica 8");
+	init_prop_string    (&config_rc, &main_v->props.tab_font_string, "tab_font_string:", "");
 	init_prop_arraylist (&config_rc, &main_v->props.browsers, "browsers:");
 	init_prop_arraylist (&config_rc, &main_v->props.external_commands, "external_commands:");
 	init_prop_stringlist(&config_rc, &main_v->props.quickbar_items, "quickbar_items:");
@@ -638,7 +638,11 @@ void rcfile_save_configfile_menu_cb(gpointer callback_data,guint action,GtkWidge
 		rcfile_save_main();
 	break;
 	case 3:
-		g_print("saving of  shortcut keys not yet implemented\n");
+		{
+			gchar *shortcutfilename = g_strconcat(g_get_home_dir(), "/.bluefish/menudump_2", NULL);
+			gtk_accel_map_save(shortcutfilename);
+			g_free(shortcutfilename);
+		}
 	break;
 	default:
 		g_print("rcfile_save_configfile_menu_cb, unknown action %d\n", action);
