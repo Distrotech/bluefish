@@ -45,6 +45,8 @@ GtkWidget *spinbut_with_value(gchar *value, gfloat lower, gfloat upper, gfloat s
 GtkWidget *window_with_title(gchar * title, GtkWindowPosition position, gint borderwidth);
 GtkWidget *window_full(gchar * title, GtkWindowPosition position, gint borderwidth, GCallback close_func,
 					   gpointer close_data);
+
+GtkWidget *textview_buffer_in_scrolwin(GtkTextBuffer **textbuf, gint width, gint height, gchar *contents, GtkWrapMode wrapmode);
 void window_destroy(GtkWidget * windowname);
 void window_close_by_widget_cb(GtkWidget * widget, gpointer data);
 void window_close_by_data_cb(GtkWidget * widget, gpointer data);

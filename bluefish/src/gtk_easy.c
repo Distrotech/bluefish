@@ -406,6 +406,23 @@ GtkWidget *window_full(gchar * title, GtkWindowPosition position
 	return returnwidget;
 }
 
+GtkWidget *textview_buffer_in_scrolwin(GtkTextBuffer **textbuf, gint width, gint height, gchar *contents, GtkWrapMode wrapmode) {
+	GtkWidget *textview, *scrolwin;
+	
+	*textbuf = gtk_text_buffer_new(NULL);
+	textview = gtk_text_view_new_with_buffer(*textbuf);
+	gtk_text_view_set_wrap_mode(GTK_TEXT_VIEW(textview), wrapmode);
+	scrolwin = gtk_scrolled_window_new(NULL, NULL);
+	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolwin), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
+	gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(scrolwin), textview);
+	gtk_widget_set_usize(scrolwin, width, height);
+	if (contents) {
+		gtk_text_buffer_set_text(*textbuf, contents, -1);
+	}
+	return scrolwin;
+}
+
+
 /*
  * Function: apply_font_style
  * Arguments:
