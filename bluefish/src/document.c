@@ -73,6 +73,7 @@ GList *return_allwindows_documentlist() {
 
 /**
  * add_filename_to_history:
+ * @bfwin: #Tbfwin* 
  * @filename: a #gchar
  * 
  * adds a filename to the recently opened files list
@@ -212,7 +213,7 @@ gboolean doc_set_filetype(Tdocument *doc, Tfiletype *ft) {
 		doc_remove_highlighting(doc);
 		doc->hl = ft;
 		doc->need_highlighting = TRUE;
-		menu_current_document_set_toggle_wo_activate(ft, NULL);
+		menu_current_document_set_toggle_wo_activate(BFWIN(doc->bfwin),ft, NULL);
 		return TRUE;
 	}
 	return FALSE;

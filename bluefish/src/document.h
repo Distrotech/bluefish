@@ -82,6 +82,7 @@ void file_save_cb(GtkWidget * widget, Tbfwin *bfwin);
 void file_save_as_cb(GtkWidget * widget, Tbfwin *bfwin);
 void file_move_to_cb(GtkWidget * widget, Tbfwin *bfwin);
 void file_open_cb(GtkWidget * widget, Tbfwin *bfwin);
+void file_open_advanced_cb(GtkWidget * widget, Tbfwin *bfwin);
 void file_insert_menucb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget);
 void file_new_cb(GtkWidget * widget, Tbfwin *bfwin);
 void file_close_cb(GtkWidget * widget, Tbfwin *bfwin);

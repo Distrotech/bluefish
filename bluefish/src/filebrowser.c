@@ -921,7 +921,7 @@ static void row_activated_lcb(GtkTreeView *tree, GtkTreePath *path,GtkTreeViewCo
 			doc_new_with_file(filebrowser->bfwin,filename, FALSE);
 		} else if (strcmp(ft->type, "webimage")==0 || strcmp(ft->type, "image")==0) {
 			gchar *relfilename = create_relative_link_to(filebrowser->bfwin->current_document->filename, filename);
-			image_insert_from_filename(relfilename);
+			image_insert_from_filename(filebrowser->bfwin,relfilename);
 			g_free(relfilename);
 		} else {
 			DEBUG_MSG("row_activated_lcb, file %s is not-editable, do something special now?\n",filename);
