@@ -1881,6 +1881,25 @@ static void fill_cust_menubar(Tbfwin *bfwin) {
 		tmplist = g_list_next(tmplist);
 	}
 }
+
+static void cmenu_reset_lcb(Tbfwin *bfwin,guint callback_action,GtkWidget *widget) {
+	GList *tmplist;
+	rcfile_parse_custom_menu(TRUE, FALSE);
+	tmplist = g_list_first(main_v->bfwinlist);
+	while (tmplist) {
+		fill_cust_menubar(BFWIN(tmplist->data));
+		tmplist = g_list_next(tmplist);
+	}
+}
+static void cmenu_load_new_lcb(Tbfwin *bfwin,guint callback_action,GtkWidget *widget) {
+	GList *tmplist;
+	rcfile_parse_custom_menu(FALSE, TRUE);
+	tmplist = g_list_first(main_v->bfwinlist);
+	while (tmplist) {
+		fill_cust_menubar(BFWIN(tmplist->data));
+		tmplist = g_list_next(tmplist);
+	}
+}
 /* function declaration needed here */
 void cmenu_editor(Tbfwin *bfwin,guint callback_action,GtkWidget *widget);
 
@@ -1888,8 +1907,9 @@ void make_cust_menubar(Tbfwin *bfwin, GtkWidget *cust_handle_box) {
 	static GtkItemFactoryEntry cust_menu[] = {
 		{N_("/_Custom menu"), NULL, NULL, 0, "<Branch>"},
 		{N_("/Custom menu/sep"), NULL, NULL, 0, "<Tearoff>"},
-		{N_("/Custom menu/Edit custom menu..."), NULL, cmenu_editor, 0, NULL}/*,
-		{N_("/Custom menu/Reset custom menu"), NULL, reset_cust_menu_list_cb, 0, NULL}*/
+		{N_("/Custom menu/Edit custom menu..."), NULL, cmenu_editor, 0, NULL},
+		{N_("/Custom menu/Reset"), NULL, cmenu_reset_lcb, 0, NULL},
+		{N_("/Custom menu/Load new"), NULL, cmenu_load_new_lcb, 0, NULL}
 	};
 	GtkItemFactory *item_factory;
 	GtkAccelGroup *accel_group;

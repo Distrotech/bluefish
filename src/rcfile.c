@@ -665,66 +665,41 @@ static gint rcfile_save_highlighting(void) {
 	return retval;
 }
 
-void rcfile_parse_custom_menu(void) {
-	gchar *filename, *defaultfile, *langdefaultfile1=NULL, *langdefaultfile2=NULL, *tmp;
-	DEBUG_MSG("rcfile_parse_custom_menu, started\n");
+static void rcfile_custom_menu_load_new(gchar *defaultfile) {
+	GList *default_insert=NULL, *default_replace=NULL, *tmp_configlist=NULL;
+	DEBUG_MSG("rcfile_custom_menu_load_new, started!\n");
+	init_prop_arraylist(&tmp_configlist, &default_insert, "cmenu_insert:", 0, TRUE);
+	init_prop_arraylist(&tmp_configlist, &default_replace, "cmenu_replace:", 0, TRUE);
+	parse_config_file(tmp_configlist, defaultfile);
+	main_v->props.cmenu_insert = arraylist_load_new_identifiers_from_list(main_v->props.cmenu_insert, default_insert, 1);
+	main_v->props.cmenu_replace = arraylist_load_new_identifiers_from_list(main_v->props.cmenu_replace, default_replace, 1);
+	main_v->globses.lasttime_cust_menu = TIME_T_TO_GINT(time(NULL));
+	free_arraylist(default_replace);
+	free_arraylist(default_insert);
+	free_configlist(tmp_configlist);
+}
 
+static void rcfile_custom_menu_load_all(gboolean full_reset, gchar *defaultfile) {
+	gchar *filename;
 	custom_menu_configlist = NULL;
+
 	init_prop_arraylist(&custom_menu_configlist, &main_v->props.cust_menu, "custom_menu:", 0, TRUE);
 	init_prop_arraylist(&custom_menu_configlist, &main_v->props.cmenu_insert, "cmenu_insert:", 0, TRUE);
 	init_prop_arraylist(&custom_menu_configlist, &main_v->props.cmenu_replace, "cmenu_replace:", 0, TRUE);
 
 	filename = g_strconcat(g_get_home_dir(), "/.bluefish/custom_menu", NULL);
-	tmp = g_strdup(g_getenv("LANG"));
-	if (!tmp) {
-		/* on macosx it seems to be LANGUAGE */
-		tmp = g_strdup(g_getenv("LANGUAGE"));
-	}
-	DEBUG_MSG("rcfile_parse_custom_menu, Language is: %s", tmp);
-	if (tmp) {
-		tmp = trunc_on_char(tmp, '.');
-		tmp = trunc_on_char(tmp, '@');
-		langdefaultfile1 = g_strconcat(PKGDATADIR"custom_menu.",tmp,".default.", NULL);
-		DEBUG_MSG("rcfile_parse_custom_menu, langdefaultfile1 is: %s", langdefaultfile1);
-		tmp = trunc_on_char(tmp, '_');
-		langdefaultfile2 = g_strconcat(PKGDATADIR"custom_menu.",tmp,"default.", NULL);
-		DEBUG_MSG("rcfile_parse_custom_menu, langdefaultfile2 is: %s", langdefaultfile2);
-		g_free(tmp);
-	}
-	if (langdefaultfile1) {
-		defaultfile = return_first_existing_filename(langdefaultfile1, langdefaultfile2,
-									PKGDATADIR"custom_menu.default",
-									"data/custom_menu.default",
-									"../data/custom_menu.default",NULL);
-	} else {
-		defaultfile = return_first_existing_filename(PKGDATADIR"custom_menu.default",
-									"data/custom_menu.default",
-									"../data/custom_menu.default",NULL);
-	}
-	DEBUG_MSG("rcfile_parse_custom_menu, defaultfile is: %s", defaultfile);
-	if (!parse_config_file(custom_menu_configlist, filename) || (main_v->props.cust_menu==NULL && main_v->props.cmenu_insert==NULL && main_v->props.cmenu_replace==NULL )) {
-		DEBUG_MSG("error parsing the custom menu file\n");
+
+	if (full_reset || !parse_config_file(custom_menu_configlist, filename) || (main_v->props.cust_menu==NULL && main_v->props.cmenu_insert==NULL && main_v->props.cmenu_replace==NULL )) {
+		DEBUG_MSG("error parsing the custom menu file, or full_reset is set\n");
 		/* init the custom_menu in some way? */
 		if (defaultfile) {
 			parse_config_file(custom_menu_configlist, defaultfile);
 		} else {
 			g_print("Unable to find '"PKGDATADIR"custom_menu.default'\n");
 		}
-	} else {
-		if (config_file_is_newer(main_v->globses.lasttime_cust_menu,defaultfile)) {
-			GList *default_insert=NULL, *default_replace=NULL, *tmp_configlist=NULL;
-			DEBUG_MSG("config_file_is_newer!\n");
-			init_prop_arraylist(&tmp_configlist, &default_insert, "cmenu_insert:", 0, TRUE);
-			init_prop_arraylist(&tmp_configlist, &default_replace, "cmenu_replace:", 0, TRUE);
-			parse_config_file(tmp_configlist, defaultfile);
-			main_v->props.cmenu_insert = arraylist_load_new_identifiers_from_list(main_v->props.cmenu_insert, default_insert, 1);
-			main_v->props.cmenu_replace = arraylist_load_new_identifiers_from_list(main_v->props.cmenu_replace, default_replace, 1);
-			main_v->globses.lasttime_cust_menu = TIME_T_TO_GINT(time(NULL));
-			free_arraylist(default_replace);
-			free_arraylist(default_insert);
-			free_configlist(tmp_configlist);
-		}
 	}
+	g_free(filename);
+
 	/* for backwards compatibility with older (before Bluefish 0.10) custom menu files we can convert those.. 
 	we will not need the 'type' anymore, since we will put them in separate lists, hence the memmove() call
 	*/
@@ -768,53 +743,52 @@ void rcfile_parse_custom_menu(void) {
 		g_list_free(main_v->props.cust_menu);
 		main_v->props.cust_menu=NULL;
 	}
-	
-/*		main_v->props.cust_menu = g_list_append(main_v->props.cust_menu, array_from_arglist(N_("/php/ibase/ibase fetch row"), "0", "while ($%1 = ibase_fetch_row($%0)) {\n	echo $%1[0];\n", "\n}\nibase_free_result($%0);\n", "2", _("ibase result variable name"), _("row variable name"), NULL));
-		main_v->props.cust_menu = g_list_append(main_v->props.cust_menu, array_from_arglist(N_("/php/mysql/mysql fetch row"), "0", "while ($%1 = mysql_fetch_row($%0)) {\n	echo $%1[0];\n", "\n}\nmysql_free_result($%0);\n", "2", _("mysql result variable name"), _("row variable name"), NULL));
-		main_v->props.cust_menu = g_list_append(main_v->props.cust_menu, array_from_arglist(N_("/php/mysql/mysql connect"), "0", "$mysql_id = mysql_connect('%0', '%1', '%2');\nmysql_select_db('%3', $mysql_id);\n", "", "4", _("mysql host"), _("mysql username"), _("mysql password"), _("database name"), NULL));
-		main_v->props.cust_menu = g_list_append(main_v->props.cust_menu, array_from_arglist(N_("/php/ibase/ibase connect"), "0", "$ibase_id = ibase_connect('%0:%1', '%2', '%3');\n", "", "4", _("ibase host"), _("ibase database path"), _("ibase username"), _("ibase password"), NULL));
-		main_v->props.cust_menu = g_list_append(main_v->props.cust_menu, array_from_arglist(N_("/php/general/while each in array list"), "0", "while (list($key, $val) = each($%0)) {\n	", "\n}\n", "1", _("array name"), NULL));
-		main_v->props.cust_menu = g_list_append(main_v->props.cust_menu, array_from_arglist(N_("/sql/select all from table"), "0", "SELECT * FROM %0", "", "1", _("table name"), NULL));
-		main_v->props.cust_menu = g_list_append(main_v->props.cust_menu, array_from_arglist(N_("/php/general/mail"), "0", "mail(\"%0\", \"%1\", $%2);\n", "", "3", _("email adress"), _("subject"), _("mail body variable name"),  NULL));
-		main_v->props.cust_menu = g_list_append(main_v->props.cust_menu, array_from_arglist(N_("/php/general/for loop"), "0", "for ($%0 = %1; $%0 <= %2; $%0++) {\n ", "\n}\n", "3", _("loop variable name"), _("from value"), _("to value"),  NULL));
-		main_v->props.cust_menu = g_list_append(main_v->props.cust_menu, array_from_arglist(N_("/php/ibase/query"), "0", "$%0 = ibase_query(%1, %2);\nif (ibase_errmsg() != 0){\n	echo 'Error: '.%2.' returned '.ibase_errmsg().\"<br>\\n\";\n}\n", "", "3", _("result variable name"), _("ibase connection id name"), _("query string (quoted) or variable (including $)"),  NULL));
-		main_v->props.cust_menu = g_list_append(main_v->props.cust_menu, array_from_arglist(N_("/php/general/include file"), "0", "include('%0');\n", "", "1", _("filename to include"), NULL));
-		main_v->props.cust_menu = g_list_append(main_v->props.cust_menu, array_from_arglist(N_("/php/general/require file"), "0", "require('%0');\n", "", "1", _("filename to require"), NULL));
-		main_v->props.cust_menu = g_list_append(main_v->props.cust_menu, array_from_arglist(N_("/php/general/if isset"), "0", "if (isset($%0)) {\n	", "\n}", "1", _("variable name to test for"), NULL));
-		main_v->props.cust_menu = g_list_append(main_v->props.cust_menu, array_from_arglist(N_("/php/general/if not isset"), "0", "if (!isset($%0)) {\n	", "\n}", "1", _("variable name to test for"), NULL));
-		main_v->props.cust_menu = g_list_append(main_v->props.cust_menu, array_from_arglist(N_("/php/mysql/query"), "0", "$%0 = mysql_query(%2, %1);\n", "", "3", _("result variable name"), _("mysql connection id name"), _("query string (quoted) or variable (including $)"),  NULL));
-		main_v->props.cust_menu = g_list_append(main_v->props.cust_menu, array_from_arglist(N_("/html/font symbol"), "0", "<font face=\"Symbol\">", "</font>", NULL));
-		main_v->props.cust_menu = g_list_append(main_v->props.cust_menu, array_from_arglist(N_("/html/div with class"), "0", "<div class=\"%0\">", "</div>", "1", _("CSS class name"), NULL));
-		main_v->props.cust_menu = g_list_append(main_v->props.cust_menu, array_from_arglist(N_("/html/span with class"), "0", "<span class=\"%0\">", "</span>", "1", _("CSS class name"), NULL));
-		main_v->props.cust_menu = g_list_append(main_v->props.cust_menu, array_from_arglist(N_("/php/php block"), "0", "\n<?php\n", "\n?>\n", NULL));
-		main_v->props.cust_menu = g_list_append(main_v->props.cust_menu, array_from_arglist(N_("/html/made with bluefish"), "0", "<a href=\"http://bluefish.openoffice.nl/\">Made with the Bluefish HTML editor</a>", "", NULL));
-		main_v->props.cust_menu = g_list_append(main_v->props.cust_menu, array_from_arglist(N_("/html/meta keywords"), "0", "<meta name=\"keywords\" value=\"%0\">", "", "1", _("keywords, space separated"), NULL));
-		main_v->props.cust_menu = g_list_append(main_v->props.cust_menu, array_from_arglist(N_("/html/meta refresh (client pull)"), "0", "<meta http-equiv=\"refresh\" content=\"%0; URL=%1\">", "", "2", _("refresh time, in seconds"), _("URL to redirect to"), NULL));
-		main_v->props.cust_menu = g_list_append(main_v->props.cust_menu, array_from_arglist(N_("/active html/form"), "0", "<form method=\"POST\" action=\"<?php echo $SCRIPT_NAME ?>\">\n\n", "</form>", NULL));
-		main_v->props.cust_menu = g_list_append(main_v->props.cust_menu, array_from_arglist(N_("/active html/form and action"), "0", "<?php if (isset($submitted)) {\n//form submit code here\n} else { ?>\n<form method=\"POST\" action=\"<?php echo $SCRIPT_NAME ?>\">\n\n<input type=\"submit\" name=\"submitted\" value=\"%0\"></form>\n<?php } // end of form ?>", "", "1", _("Submit button text"), NULL));
-		main_v->props.cust_menu = g_list_append(main_v->props.cust_menu, array_from_arglist(N_("/active html/input text"), "0", "<input type=\"text\" name=\"%0\" value=\"<?php if (isset($%0)) { echo $%0; } ?>\">", "", "1", _("variable name"), NULL));
-		main_v->props.cust_menu = g_list_append(main_v->props.cust_menu, array_from_arglist(N_("/active html/input checkbox"), "0", "<input type=\"checkbox\" name=\"%0\" value=\"%1\" <?php if (isset($%0)) { echo 'checked'; } ?>>", "", "2", _("variable name"), _("value when checked"), NULL));
-		main_v->props.cust_menu = g_list_append(main_v->props.cust_menu, array_from_arglist(N_("/active html/textarea"), "0", "<textarea name=\"%0\" rows=\"20\" cols=\"40\"><?php if (isset($%0)) { echo $%0; } ?></textarea>", "", "1", _("variable name"), NULL));
-		main_v->props.cust_menu = g_list_append(main_v->props.cust_menu, array_from_arglist(N_("/active html/select options/from array"), "0", "<select name=\"%0\">\n<?php\nwhile(list($key, $val)=each($%1)) {\n\tif (isset($%0) && ($%0 == $val)) {\n\t\techo '<option value=\"'.$key.'\" selected>'.$val.'</option>';\n\t} else {\n\t\techo '<option value=\"'.$key.'\">'.$val.'</option>';\n\t}\n}\n?></select>", "", "2", _("variable name"), _("array name containing options"), NULL));
-		main_v->props.cust_menu = g_list_append(main_v->props.cust_menu, array_from_arglist(N_("/active html/select options/from mysql result"), "0", "<select name=\"%0\">\n<?php\nwhile($row = mysql_fetch_row($%1)) {\n\tif (isset($%0) && ($%0 == $row[%2])) {\n\t\techo '<option value=\"'.$row[%2].'\" selected>'.$row[%3].'</option>';\n\t} else {\n\t\techo '<option value=\"'.$row[%2].'\">'.$row[%3].'</option>';\n\t}\n}\n?></select>", "", "4", _("variable name"), _("mysql query result"), _("index of the value"), _("index of the label"), NULL));
-		main_v->props.cust_menu = g_list_append(main_v->props.cust_menu, array_from_arglist(N_("/active html/select options/from ibase result"), "0", "<select name=\"%0\">\n<?php\nwhile($row = ibase_fetch_row($%1)) {\n\tif (isset($%0) && ($%0 == $row[%2])) {\n\t\techo '<option value=\"'.$row[%2].'\" selected>'.$row[%3].'</option>';\n\t} else {\n\t\techo '<option value=\"'.$row[%2].'\">'.$row[%3].'</option>';\n\t}\n}\n?></select>", "", "4", _("variable name"), _("ibase query result"), _("index of the value"), _("index of the label"), NULL));
-		main_v->props.cust_menu = g_list_append(main_v->props.cust_menu, array_from_arglist(N_("/DHTML/mouseover image"), "0", "<a href=\"\" onMouseOver=\"bfmovepic('%0', '%2')\" onMouseOut=\"bfmovepic('%0', '%1')\"><img src=\"%1\" name=\"%0\"></a>", "", "3", _("unique name"), _("onMouseOut src"), _("onMouseOver src"), NULL));
-		main_v->props.cust_menu = g_list_append(main_v->props.cust_menu, array_from_arglist(N_("/php/odbc/odbc connect"), "0", "$odbc_id = odbc_connect('%0', '%1', '%2');\n", "", "3", _("odbc data source name"), _("username"), _("password"), NULL));
-		main_v->props.cust_menu = g_list_append(main_v->props.cust_menu, array_from_arglist(N_("/php/odbc/odbc exec query"), "0", "$%0 = odbc_exec(%1, %2);\n", "", "3", _("result variable name"), _("odbc connection id name"), _("query string (quoted) or variable (including $)"), NULL));
-		main_v->props.cust_menu = g_list_append(main_v->props.cust_menu, array_from_arglist(N_("/php/odbc/odbc fetch row"), "0", "while($success = odbc_fetch_row($%0)) {\n\t\n}", "", "1", _("result variable name"), NULL));
-		main_v->props.cust_menu = g_list_append(main_v->props.cust_menu, array_from_arglist(N_("/php/general/echo date"), "0", "echo date(\"l dS of F Y h:i:s A\");", "", NULL));
-		main_v->props.cust_menu = g_list_append(main_v->props.cust_menu, array_from_arglist(N_("/php/filesystem/open and echo file"), "0", "$fd = fopen(%0, 'r');\nwhile (!feof($fd)) {\n\t$buffer = fgets($fd, 4096);\n\techo $buffer;\n}\nfclose($fd);", "", "1", _("file (quoted) or variable (including $)"), NULL));
-		main_v->props.cust_menu = g_list_append(main_v->props.cust_menu, array_from_arglist(N_("/php/general/location header"), "0", "header('Location: '.%0);", "", "1", _("location (URL) to redirect to (quoted) or variable (including $)"), NULL));
-		main_v->props.cust_menu = g_list_append(main_v->props.cust_menu, array_from_arglist(N_("/apache/basic password required"), "0", "AuthName \"%1\"\nAuthType Basic\nrequire valid-user\nAuthUserFile %0\n", "", "2", _("full path to password file"), _("security description"), NULL));
-		main_v->props.cust_menu = g_list_append(main_v->props.cust_menu, array_from_arglist(N_("/apache/deny access to .inc"), "0", "<FilesMatch \"\\.inc$\">\n	Order allow,deny\n	Deny from all\n</FilesMatch>", "", "0", NULL));	
-		main_v->props.cust_menu = g_list_append(main_v->props.cust_menu, array_from_arglist(N_("/replace/strip <font>"), "1", "(<font[^>]*>|</font>)", "", "0", "1", "0", "0", NULL));
-		main_v->props.cust_menu = g_list_append(main_v->props.cust_menu, array_from_arglist(N_("/replace/strip <any tag> in selection"), "1", "(<%0[^>]*>|</%0>)", "", "2", "1", "0", "1", "tag name, like td, font or a", NULL));
-		main_v->props.cust_menu = g_list_append(main_v->props.cust_menu, array_from_arglist(N_("/replace/convert <td> in <th> in selection"), "1", "(<|</)(td)([^>]*)(>)", "\\0th\\2>", "2", "1", "0", "0", NULL));
-		main_v->props.cust_menu = g_list_append(main_v->props.cust_menu, array_from_arglist(N_("/replace/convert <any tag> in <any other tag> in selection"), "1", "(<|</)(%0)([^>]*)(>)", "\\0%1\\2>", "2", "1", "0", "2", "any tag name", "any other tag name", NULL));
-	}
-	*/
+}
 
-	g_free(filename);
+void rcfile_parse_custom_menu(gboolean full_reset, gboolean load_new) {
+	gchar *defaultfile, *langdefaultfile1=NULL, *langdefaultfile2=NULL, *tmp;
+	DEBUG_MSG("rcfile_parse_custom_menu, started\n");
+
+	tmp = g_strdup(g_getenv("LANG"));
+	if (!tmp) {
+		/* on macosx it seems to be LANGUAGE */
+		tmp = g_strdup(g_getenv("LANGUAGE"));
+	}
+	DEBUG_MSG("rcfile_parse_custom_menu, Language is: %s", tmp);
+	if (tmp) {
+		tmp = trunc_on_char(tmp, '.');
+		tmp = trunc_on_char(tmp, '@');
+		langdefaultfile1 = g_strconcat(PKGDATADIR"custom_menu.",tmp,".default.", NULL);
+		DEBUG_MSG("rcfile_parse_custom_menu, langdefaultfile1 is: %s", langdefaultfile1);
+		tmp = trunc_on_char(tmp, '_');
+		langdefaultfile2 = g_strconcat(PKGDATADIR"custom_menu.",tmp,"default.", NULL);
+		DEBUG_MSG("rcfile_parse_custom_menu, langdefaultfile2 is: %s", langdefaultfile2);
+		g_free(tmp);
+	}
+	if (langdefaultfile1) {
+		defaultfile = return_first_existing_filename(langdefaultfile1, langdefaultfile2,
+									PKGDATADIR"custom_menu.default",
+									"data/custom_menu.default",
+									"../data/custom_menu.default",NULL);
+	} else {
+		defaultfile = return_first_existing_filename(PKGDATADIR"custom_menu.default",
+									"data/custom_menu.default",
+									"../data/custom_menu.default",NULL);
+	}
+	DEBUG_MSG("rcfile_parse_custom_menu, defaultfile is: %s", defaultfile);
+	
+	if (full_reset) {
+		free_arraylist(main_v->props.cmenu_insert);
+		free_arraylist(main_v->props.cmenu_replace);
+		main_v->props.cmenu_insert = NULL;
+		main_v->props.cmenu_replace = NULL;
+	}
+
+	if (load_new && !full_reset) {
+		rcfile_custom_menu_load_new(defaultfile);
+	} else {
+		rcfile_custom_menu_load_all(full_reset, defaultfile);
+	}
 	g_free(defaultfile);
 	g_free(langdefaultfile1);
 	g_free(langdefaultfile2);
