@@ -184,7 +184,7 @@ Thanks to all who helped making this software available.\n\
   Portuguese - Lopo Pizarro\n\
    <lopopizarro@netcabo.pt>\n\n\
   Russian - Eugene Rupakov\n\
-   <rupakov@jet.msk.ru>\n\n\
+   <rupakov@jet.msk.su>\n\n\
   Serbian - Marko Milenović\n\
    <raven@sbb.co.yu>\n\n\
   Spanish - Walter Oscar Echarri\n\
