@@ -15,7 +15,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-/*#define DEBUG*/
+#define DEBUG1
 #include <gtk/gtk.h>
 #include <stdlib.h> /* atoi */
 #include <string.h> /* strchr() */
@@ -483,6 +483,24 @@ gchar *menu_translate(const gchar * path, gpointer data) {
 	}*/
 	retval = gettext(path);
 	DEBUG_MSG("menu_translate, returning %s for %s\n", retval, path);
+#ifdef DEBUG1
+	{
+		gchar *tillhere;
+		if (!g_utf8_validate(retval,-1,&tillhere)) {
+			gsize read,writ;
+			gchar *num2;
+			GError *err=NULL;
+			printf("the string %s seems to be not UTF-8\n",retval);
+			num2 = g_locale_to_utf8(retval,-1,&read,&writ,&err);
+			if(err){
+				g_print("is the string in the locale? NO: %s\n",err->message);
+			} else {
+				g_print("the string is in the locale!\n");
+				retval = num2;
+			}
+		}
+	}
+#endif	
 	return retval;
 }
 #endif       

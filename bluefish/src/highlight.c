@@ -379,6 +379,7 @@ void filetype_highlighting_rebuild() {
 			filetype = g_new(Tfiletype, 1);
 			filetype->menuitem = NULL;
 			filetype->type = g_strdup(strarr[0]);
+			DEBUG_MSG("extensions loaded from %s\n", strarr[1]);
 			filetype->extensions = g_strsplit(strarr[1], ":", 127);
 			filetype->update_chars = g_strdup(strarr[2]);
 			if (strlen(strarr[3])){

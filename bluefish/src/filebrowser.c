@@ -1015,12 +1015,54 @@ static Tfilter *new_filter(gchar *name, gchar *mode, gchar *filetypes) {
 	return filter;
 }
 
+static void filter_destroy(Tfilter *filter) {
+	g_free(filter->name);
+	g_list_free(filter->filetypes);
+	g_free(filter);
+}
+
+void filebrowser_filters_rebuild() {
+	GList *tmplist;
+
+	tmplist = g_list_first(filebrowser.filters);
+	while (tmplist) {
+		filter_destroy(tmplist->data);
+		tmplist = g_list_next(tmplist);
+	}
+	g_list_free(filebrowser.filters);
+	filebrowser.filters = NULL;
+
+	filebrowser.filetypes_with_icon = NULL;
+	tmplist = g_list_first(main_v->filetypelist);
+	while (tmplist) {
+		if (((Tfiletype *)tmplist->data)->icon) {
+			filebrowser.filetypes_with_icon = g_list_append(filebrowser.filetypes_with_icon, tmplist->data);
+		}
+		tmplist = g_list_next(tmplist);
+	}
+	
+	filebrowser.curfilter = new_filter(_("All files"), "0", NULL);
+	filebrowser.filters = g_list_append(NULL, filebrowser.curfilter);
+	
+	tmplist = g_list_first(main_v->props.filefilters);
+	while (tmplist) {
+		gchar **strarr = (gchar **) tmplist->data;
+		if (count_array(strarr) == 3) {
+			Tfilter *filter = new_filter(strarr[0], strarr[1], strarr[2]);
+			filebrowser.filters = g_list_append(filebrowser.filters, filter);
+			if (strcmp(filter->name, main_v->props.last_filefilter)==0) {
+				filebrowser.curfilter = filter;
+			}
+		}
+		tmplist = g_list_next(tmplist);
+	}
+}
+
 GtkWidget *filebrowser_init() {
 	if (!filebrowser.curfilter) {
 		GList *tmplist;
 		filebrowser.uid = getuid();
-		filebrowser.curfilter = new_filter(_("All files"), "0", NULL);
-		filebrowser.filters = g_list_append(NULL, filebrowser.curfilter);
+		
 		filebrowser.unknown_icon = gdk_pixbuf_new_from_file(main_v->props.filebrowser_unknown_icon, NULL);
 		filebrowser.dir_icon = gdk_pixbuf_new_from_file(main_v->props.filebrowser_dir_icon, NULL);
 		/* try the current directory */
@@ -1058,27 +1100,9 @@ GtkWidget *filebrowser_init() {
 			g_print("the dir_icon and unknown_icon items in the config file are invalid\n");
 			return gtk_label_new("cannot load icons");
 		}
-		filebrowser.filetypes_with_icon = NULL;
-		tmplist = g_list_first(main_v->filetypelist);
-		while (tmplist) {
-			if (((Tfiletype *)tmplist->data)->icon) {
-				filebrowser.filetypes_with_icon = g_list_append(filebrowser.filetypes_with_icon, tmplist->data);
-			}
-			tmplist = g_list_next(tmplist);
-		}
-		
-		tmplist = g_list_first(main_v->props.filefilters);
-		while (tmplist) {
-			gchar **strarr = (gchar **) tmplist->data;
-			if (count_array(strarr) == 3) {
-				Tfilter *filter = new_filter(strarr[0], strarr[1], strarr[2]);
-				filebrowser.filters = g_list_append(filebrowser.filters, filter);
-				if (strcmp(filter->name, main_v->props.last_filefilter)==0) {
-					filebrowser.curfilter = filter;
-				}
-			}
-			tmplist = g_list_next(tmplist);
-		}
+
+		filebrowser_filters_rebuild();
+
 	}
 	
 	filebrowser.store = gtk_tree_store_new (N_COLUMNS,GDK_TYPE_PIXBUF,G_TYPE_STRING);
