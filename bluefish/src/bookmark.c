@@ -464,7 +464,9 @@ static void bmark_popup_menu_goto_lcb(GtkWidget *widget,gpointer user_data)
    {
       if (!g_file_test(b->filepath,G_FILE_TEST_EXISTS))
         {
- 	        error_dialog(BFWIN(user_data)->main_window,_("File does not exist"),_("This bookmark was set in the file, which has been deleted or renamed.\nPlease check your filesystem :)."));
+        	gchar *string = g_strdup_printf (_("Could not find the file \"%s\"."), b->filepath);
+ 	        error_dialog(BFWIN(user_data)->main_window, string, _("This bookmark is set in a file that no longer exists."));
+ 	        g_free (string);
  	        return;
 	     }   
       ret = multi_query_dialog(BFWIN(user_data)->main_window,_("Bookmarked file is closed"), _("Do you want to open it?"), 1, 0, btns);   
