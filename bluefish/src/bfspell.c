@@ -253,9 +253,12 @@ void spell_gui_fill_dicts() {
 	menu = gtk_menu_new();	
 	gtk_option_menu_set_menu(GTK_OPTION_MENU(bfspell.lang), menu);
 	while ( (entry = aspell_dict_info_enumeration_next(dels)) != 0) {
+		GtkWidget *label;
 		menuitem = gtk_menu_item_new();
-		gtk_container_add(GTK_CONTAINER(menuitem), gtk_label_new(entry->name));
-		DEBUG_MSG("adding language %s to menuitem %p\n",entry->name,menuitem);
+		label = gtk_label_new(entry->name);
+		gtk_misc_set_alignment(GTK_MISC(label),0,0.5);
+		gtk_container_add(GTK_CONTAINER(menuitem), label);
+		DEBUG_MSG("adding language %s to menuitem %p using label %p\n",entry->name,menuitem,label);
 /*		g_signal_connect(G_OBJECT (menuitem), "activate",G_CALLBACK(),GINT_TO_POINTER(0));*/
 		gtk_menu_shell_append(GTK_MENU_SHELL(menu), menuitem);
 	}
