@@ -152,14 +152,13 @@ void project_open_from_file(Tbfwin *bfwin, gchar *fromfilename) {
 		if (prj->basedir && strlen(prj->basedir) > 2) {
 			filebrowser_set_basedir(prwin, prj->basedir);
 		}
-		docs_new_from_files(prwin, prj->files);
+		docs_new_from_files(prwin, prj->files, TRUE);
 	} else {
 		/* we will open a new Bluefish window for this project */
-		prwin = gui_new_window(prj->files);
+		prwin = gui_new_window(prj->files, prj);
 		if (prj->basedir && strlen(prj->basedir) > 2) {
 			filebrowser_set_basedir(prwin, prj->basedir);
 		}
-		prwin->project = prj;
 		gui_set_title(prwin, prwin->current_document);
 	}
 	set_project_menu_widgets(prwin, TRUE);
@@ -250,8 +249,7 @@ static void project_edit_ok_clicked_lcb(GtkWidget *widget, Tprojecteditor *pred)
 	gchar *oldbasedir;
 	Tproject *prj = pred->project;
 	if (pred->bfwin == NULL) {
-		pred->bfwin = gui_new_window(NULL);
-		pred->bfwin->project = pred->project;
+		pred->bfwin = gui_new_window(NULL, pred->project);
 	}
 	DEBUG_MSG("project_edit_ok_clicked_lcb, Tproject at %p\n",prj);
 	oldbasedir = g_strdup(prj->basedir);

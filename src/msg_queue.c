@@ -190,7 +190,7 @@ static gboolean msg_queue_check(gint started_by_gtk_timeout)
 		} else if (msgp.mtype == MSG_QUEUE_OPENFILE) {
 			GList *lastlist = g_list_last(main_v->bfwinlist);
 			DEBUG_MSG("msg_queue_check, a filename %s is received\n", msgp.mtext);
-			if (!doc_new_with_file(BFWIN(lastlist->data),msgp.mtext, TRUE)) {
+			if (!doc_new_with_file(BFWIN(lastlist->data),msgp.mtext, TRUE, FALSE)) {
 				msg_queue.file_error_list = g_list_append(msg_queue.file_error_list, g_strdup(msgp.mtext));
 			}
 			msg_queue_check(0);	/* call myself again, there may have been multiple files */
@@ -219,7 +219,7 @@ static gboolean msg_queue_check(gint started_by_gtk_timeout)
 			it might be started by this very process */
 			int otherpid = atoi(msgp.mtext);
 			if (otherpid != (int) getpid()) {
-				gui_new_window(NULL);
+				gui_new_window(NULL, NULL);
 			}
 		}
 #ifdef DEBUG

@@ -581,6 +581,47 @@ gboolean test_only_empty_doc_left(GList *doclist) {
 	return TRUE;
 }
 /**
+ * doc_move_to_window:
+ * @doc: #Tdocument*
+ * @newwin: #Tbfwin*
+ *
+ * detaches the document from it's old window (doc->bfwin) and attaches
+ * it to the window newwin
+ *
+ * Return value: void, ignored
+ */
+void doc_move_to_window(Tdocument *doc, Tbfwin *newwin) {
+	Tbfwin *oldwin = BFWIN(doc->bfwin);
+	GtkWidget *tab_widget, *scroll;
+	DEBUG_MSG("doc_move_to_window, oldwin=%p, newwin=%p, doc=%p\n",oldwin,newwin,doc);
+	tab_widget = doc->tab_label->parent;
+	scroll = doc->view->parent;
+	gtk_widget_ref(scroll);
+	gtk_widget_ref(tab_widget);
+	gtk_widget_ref(doc->tab_menu);
+	DEBUG_MSG("doc_move_to_window, tab_label=%p, tab_widget=%p\n",doc->tab_label, tab_widget);
+/*	gtk_container_remove(GTK_CONTAINER(oldwin->notebook), doc->view);*/
+	gtk_notebook_remove_page(GTK_NOTEBOOK(oldwin->notebook), g_list_index(oldwin->documentlist, doc));
+	oldwin->documentlist = g_list_remove(oldwin->documentlist, doc);
+	DEBUG_MSG("doc_move_to_window, removed doc=%p from oldwin %p\n",doc,oldwin);
+	doc->bfwin = newwin;
+	newwin->documentlist = g_list_append(newwin->documentlist, doc);
+	gtk_notebook_append_page_menu(GTK_NOTEBOOK(newwin->notebook), scroll, tab_widget, doc->tab_menu);
+	DEBUG_MSG("doc_move_to_window, appended doc=%p to newwin %p\n",doc,newwin);
+
+	gtk_widget_unref(scroll);
+	gtk_widget_unref(tab_widget);
+	gtk_widget_unref(doc->tab_menu);
+
+	gtk_widget_show_all(scroll);
+	gtk_widget_show_all(tab_widget);
+	gtk_widget_show(doc->tab_menu);
+	
+	if (NULL == oldwin->documentlist) {
+		file_new_cb(NULL, oldwin);
+	}
+}
+/**
  * doc_has_selection:
  * @doc: a #Tdocument
  *
@@ -2418,13 +2459,14 @@ void doc_new_with_new_file(Tbfwin *bfwin, gchar * new_filename) {
  * @bfwin: #Tbfwin* with the window to open the document in
  * @filename: #gchar* with filename to load.
  * @delay_activate: #gboolean if GUI calls are wanted.
+ * @move_to_this_win: #gboolean if the file should be moved to this window if already open
  *
  * Create a new document and read in a file.
  * Errors are not propagated to user in any other way than returning TRUE/FALSE here.
  *
  * Return value: #gboolean, TRUE if successful, FALSE on error.
  **/
-gboolean doc_new_with_file(Tbfwin *bfwin, gchar * filename, gboolean delay_activate) {
+gboolean doc_new_with_file(Tbfwin *bfwin, gchar * filename, gboolean delay_activate, gboolean move_to_this_win) {
 	Tdocument *doc;
 	gboolean opening_in_existing_doc = FALSE;
 	
@@ -2438,10 +2480,14 @@ gboolean doc_new_with_file(Tbfwin *bfwin, gchar * filename, gboolean delay_activ
 		g_list_free(alldocs);
 		if (tmpdoc) {
 			DEBUG_MSG("doc_new_with_file, %s is already open %p\n",filename,tmpdoc);
-			if (!delay_activate) {
-				switch_to_document_by_pointer(BFWIN(tmpdoc->bfwin),tmpdoc);
-				if (bfwin != tmpdoc->bfwin) {
-					gtk_window_present(GTK_WINDOW(BFWIN(tmpdoc->bfwin)->main_window));
+			if (move_to_this_win && documentlist_return_document_from_filename(bfwin->documentlist, filename) == NULL) {
+				doc_move_to_window(tmpdoc, bfwin);
+			} else {
+				if (!delay_activate) {
+					switch_to_document_by_pointer(BFWIN(tmpdoc->bfwin),tmpdoc);
+					if (bfwin != tmpdoc->bfwin) {
+						gtk_window_present(GTK_WINDOW(BFWIN(tmpdoc->bfwin)->main_window));
+					}
 				}
 			}
 			return TRUE;
@@ -2482,15 +2528,17 @@ gboolean doc_new_with_file(Tbfwin *bfwin, gchar * filename, gboolean delay_activ
  * docs_new_from_files:
  * @bfwin: #Tbfwin* with the window to open the document in
  * @file_list: #GList with filenames to open.
+ * @move_to_this_win: #gboolean if the file needs to be moved to this window if it is open already
  *
- * Open a number of new documents.
+ * Open a number of new documents from files in stringlist file_list.
+ * If a file is open already in another window, it might be moved to this window, else
+ * nothing is done for this file
  * Report files with problems to user.
  * If more than 8 files are opened at once, a modal progressbar is shown while loading.
  *
  * Return value: void
  **/
-void docs_new_from_files(Tbfwin *bfwin, GList * file_list) {
-
+void docs_new_from_files(Tbfwin *bfwin, GList * file_list, gboolean move_to_this_win) {
 	GList *tmplist, *errorlist=NULL;
 	gboolean delay = (g_list_length(file_list) > 1);
 	gpointer pbar = NULL;
@@ -2507,7 +2555,7 @@ void docs_new_from_files(Tbfwin *bfwin, GList * file_list) {
 	tmplist = g_list_first(file_list);
 	while (tmplist) {
 		DEBUG_MSG("docs_new_from_files, about to open %s, delay=%d\n", (gchar *) tmplist->data, delay);
-		if (!doc_new_with_file(bfwin,(gchar *) tmplist->data, delay)) {
+		if (!doc_new_with_file(bfwin,(gchar *) tmplist->data, delay, move_to_this_win)) {
 			errorlist = g_list_append(errorlist, g_strdup((gchar *) tmplist->data));
 		}
 		if(pbar) {
@@ -2959,7 +3007,7 @@ void file_open_cb(GtkWidget * widget, Tbfwin *bfwin) {
 		g_free(message);
 		flush_queue();
 	}
-	docs_new_from_files(bfwin,tmplist);
+	docs_new_from_files(bfwin,tmplist, FALSE);
 	free_stringlist(tmplist);
 }
 #ifdef EXTERNAL_GREP
@@ -2977,7 +3025,7 @@ void file_open_advanced_cb(GtkWidget * widget, Tbfwin *bfwin) {
 		g_free(message);
 		flush_queue();
 	}
-	docs_new_from_files(bfwin,tmplist);
+	docs_new_from_files(bfwin,tmplist, FALSE);
 	free_stringlist(tmplist);
 }
 
@@ -2994,7 +3042,7 @@ void open_advanced_from_filebrowser(Tbfwin *bfwin, gchar *path) {
 		g_free(message);
 		flush_queue();
 	}
-	docs_new_from_files(bfwin,tmplist);
+	docs_new_from_files(bfwin,tmplist,FALSE);
 	free_stringlist(tmplist);
 }
 #endif

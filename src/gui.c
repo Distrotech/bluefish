@@ -968,7 +968,7 @@ static void main_win_on_drag_data_lcb(GtkWidget * widget, GdkDragContext * conte
 	}
 	DEBUG_MSG("on_drag_data_cb, filename='%s', url='%s'\n", filename, url);
 
-	doc_new_with_file(bfwin,filename, FALSE);
+	doc_new_with_file(bfwin,filename, FALSE, FALSE);
 
 	gtk_drag_finish(context, TRUE, (mode == GDK_ACTION_COPY), time);
 	g_free(filename);
@@ -1057,15 +1057,15 @@ void gui_create_main(Tbfwin *bfwin, GList *filenames) {
 		bfwin->custom_menu_hb = gtk_handle_box_new();
 		gtk_box_pack_start(GTK_BOX(vbox), bfwin->custom_menu_hb, FALSE, FALSE, 0);
 
-		if (main_v->props.view_main_toolbar) {
+		if ((bfwin->project && bfwin->project->view_main_toolbar) || (!bfwin->project && main_v->props.view_main_toolbar)) {
 			make_main_toolbar(bfwin);
 			gtk_widget_show(bfwin->main_toolbar_hb);
 		}
-		if (main_v->props.view_html_toolbar) {
+		if ((bfwin->project && bfwin->project->view_html_toolbar) || (!bfwin->project && main_v->props.view_html_toolbar)) {
 			make_html_toolbar(bfwin);
 			gtk_widget_show(bfwin->html_toolbar_hb);
 		}
-		if (main_v->props.view_custom_menu) {
+		if ((bfwin->project && bfwin->project->view_custom_menu) || (!bfwin->project && main_v->props.view_custom_menu)) {
 			make_cust_menubar(bfwin,bfwin->custom_menu_hb);
 			gtk_widget_show(bfwin->custom_menu_hb);
 		}
@@ -1096,7 +1096,7 @@ void gui_create_main(Tbfwin *bfwin, GList *filenames) {
 	/* output_box */
 	init_output_box(bfwin, vbox);
 
-	left_panel_show_hide_toggle(bfwin,TRUE, main_v->props.view_left_panel);
+	left_panel_show_hide_toggle(bfwin,TRUE, (bfwin->project && bfwin->project->view_left_panel) || (!bfwin->project && main_v->props.view_left_panel));
 
 	/* finally the statusbar */
 	{
@@ -1132,7 +1132,7 @@ void gui_create_main(Tbfwin *bfwin, GList *filenames) {
 	file_new_cb(NULL, bfwin);
 	if (filenames) {
 		DEBUG_MSG("gui_create_main, we have filenames, load them\n");
-		docs_new_from_files(bfwin,filenames);
+		docs_new_from_files(bfwin,filenames,(bfwin->project != NULL));
 	}
 
 	gtk_notebook_set_page(GTK_NOTEBOOK(bfwin->notebook), 0);
@@ -1428,8 +1428,9 @@ void gui_toggle_hidewidget_cb(Tbfwin *bfwin,guint action,GtkWidget *widget) {
 	}
 }
 
-Tbfwin *gui_new_window(GList *filenames) {
+Tbfwin *gui_new_window(GList *filenames, Tproject *project) {
 	Tbfwin *bfwin = g_new0(Tbfwin,1);
+	bfwin->project = project;
 	gui_create_main(bfwin,filenames);
 	main_v->bfwinlist = g_list_append(main_v->bfwinlist, bfwin);
 	gui_show_main(bfwin);
@@ -1439,7 +1440,7 @@ Tbfwin *gui_new_window(GList *filenames) {
 void gui_window_menu_cb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget) {
 	switch (callback_action) {
 		case 1:
-			gui_new_window(NULL);
+			gui_new_window(NULL, NULL);
 		break;
 		case 2: /* close the window */
 			if (main_window_delete_event_lcb(NULL, NULL, bfwin) == FALSE) {
