@@ -23,5 +23,8 @@
 void notebook_changed(void);
 void gui_create_main();
 void statusbar_message(gchar *message, gint time);
+gboolean switch_to_document_by_index(gint index);
+gboolean switch_to_document_by_pointer(Tdocument *document);
+gboolean switch_to_document_by_filename(gchar *filename);
 
 #endif /* __GUI_H_ */
