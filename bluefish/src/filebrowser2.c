@@ -92,12 +92,12 @@ static void refilter_filelist(Tfilebrowser2 *fb2, GtkTreePath *newroot);
 static void fb2_fill_dir_async(GtkTreeIter *parent, GnomeVFSURI *uri);
 static GnomeVFSURI *fb2_uri_from_fspath(Tfilebrowser2 *fb2, GtkTreePath *fs_path);
 /**************/
-static void DEBUG_DIRITER(Tfilebrowser2 *fb2, GtkTreeIter *diriter) {
+static void DEBUG_DIRITER(Tfilebrowser2 *fb2, const GtkTreeIter *diriter) {
 	gchar *name;
 	gtk_tree_model_get(GTK_TREE_MODEL(FILEBROWSER2CONFIG(main_v->fb2config)->filesystem_tstore), diriter, FILENAME_COLUMN, &name, -1);
 	g_print("DEBUG_DIRITER, iter(%p) has filename %s\n",diriter,name);
 }
-static void DEBUG_URI(GnomeVFSURI *uri, gboolean newline) {
+static void DEBUG_URI(const GnomeVFSURI *uri, gboolean newline) {
 	guint hash;
 	gchar *name = gnome_vfs_uri_to_string(uri, GNOME_VFS_URI_HIDE_PASSWORD);
 	hash = gnome_vfs_uri_hash(uri);
@@ -107,7 +107,7 @@ static void DEBUG_URI(GnomeVFSURI *uri, gboolean newline) {
 	}
 	g_free(name);
 }
-static void DEBUG_TPATH(GtkTreePath *path, gboolean newline) {
+static void DEBUG_TPATH(const GtkTreePath *path, gboolean newline) {
 	gchar *name = gtk_tree_path_to_string(path);
 	DEBUG_MSG(name);
 	if (newline) {
@@ -132,7 +132,7 @@ static GtkTreeIter *fb2_add_filesystem_entry(GtkTreeIter *parent, GnomeVFSURI *c
 	*hashkey = gnome_vfs_uri_hash(child_uri);
 	newiter = g_hash_table_lookup(FILEBROWSER2CONFIG(main_v->fb2config)->filesystem_itable, hashkey);
 	if (newiter != NULL) {
-		DEBUG_MSG("fb2_add_filesystem_entry, set refresh to 0, uri exists ");
+		DEBUG_MSG("fb2_add_filesystem_entry, set refresh to 0 for iter %p, uri exists ",newiter);
 		DEBUG_URI(child_uri, TRUE);
 		/* the child exists already, update the REFRESH column */
 		gtk_tree_store_set(GTK_TREE_STORE(FILEBROWSER2CONFIG(main_v->fb2config)->filesystem_tstore),newiter,REFRESH_COLUMN, 0,-1);
@@ -369,7 +369,7 @@ static GtkTreeIter *fb2_build_dir(GnomeVFSURI *uri) {
 				gnome_vfs_uri_unref(tmp2);
 				tmp2 = tmp3;
 			} /* after this loop both 'parent_uri'='tmp' and 'tmp2' are newly allocated */
-			parent = fb2_add_filesystem_entry(parent, tmp2, TYPE_DIR, FALSE);
+			parent = fb2_add_filesystem_entry(parent, tmp2, TYPE_DIR, gnome_vfs_uri_equal(tmp2,uri));
 			gnome_vfs_uri_unref(parent_uri);
 			parent_uri = tmp2; /* here 'parent_uri'='tmp2' is newly allocated */
 			DEBUG_MSG("new parent_uri=");
@@ -1056,28 +1056,30 @@ GtkWidget *fb2_init(Tbfwin *bfwin) {
 	g_signal_connect(G_OBJECT(fb2->dir_v), "row-activated",G_CALLBACK(dir_v_row_activated_lcb),fb2);
 	g_signal_connect(G_OBJECT(fb2->dir_v), "button_press_event",G_CALLBACK(dir_v_button_press_lcb),fb2);
 	g_signal_connect(G_OBJECT(fb2->file_v), "button_press_event",G_CALLBACK(file_v_button_press_lcb),fb2);
-	
-	if (bfwin->project && bfwin->project->basedir && strlen(bfwin->project->basedir)>2) {
-		fb2->basedir = gnome_vfs_uri_new(strip_trailing_slash(bfwin->project->basedir));
-		fb2_build_dir(fb2->basedir);
-	} else if (main_v->props.default_basedir && strlen(main_v->props.default_basedir)>2) {
-		fb2->basedir = gnome_vfs_uri_new(strip_trailing_slash(main_v->props.default_basedir));
-	}
-	gtk_widget_show_all(vbox);
-	
-	DEBUG_MSG("fb2_init, first build, and then set the basedir ");
-	DEBUG_URI(fb2->basedir, TRUE);
-	fb2_build_dir(fb2->basedir);
+
+	gtk_widget_show_all(vbox);	
 	{
-		GtkTreePath *basedir = fb2_fspath_from_uri(fb2, fb2->basedir);
-		DEBUG_MSG("fb2_init, will set the basedir to path(%p) ",basedir);
-		DEBUG_TPATH(basedir, TRUE);
-		refilter_dirlist(fb2, basedir);
-		gtk_tree_path_free(basedir);
+		GnomeVFSURI *uri;
+		if (bfwin->project && bfwin->project->basedir && strlen(bfwin->project->basedir)>2) {
+			uri = gnome_vfs_uri_new(strip_trailing_slash(bfwin->project->basedir));
+			fb2_build_dir(fb2->basedir);
+		} else if (main_v->props.default_basedir && strlen(main_v->props.default_basedir)>2) {
+			uri = gnome_vfs_uri_new(strip_trailing_slash(main_v->props.default_basedir));
+		}
+		DEBUG_MSG("fb2_init, first build, and then set the basedir to ");
+		DEBUG_URI(uri, TRUE);
+		fb2_build_dir(uri);
+		{
+			GtkTreePath *basedir = fb2_fspath_from_uri(fb2, uri);
+			DEBUG_MSG("fb2_init, will set the basedir to path(%p) ",basedir);
+			DEBUG_TPATH(basedir, TRUE);
+			refilter_dirlist(fb2, basedir);
+			gtk_tree_path_free(basedir);
+		}
+		DEBUG_MSG("fb2_init, focus fb2->basedir ");
+		DEBUG_URI(fb2->basedir, TRUE);
+		fb2_focus_dir(fb2, fb2->basedir, FALSE);
 	}
-	DEBUG_MSG("fb2_init, focus the basedir ");
-	DEBUG_URI(fb2->basedir, TRUE);
-	fb2_focus_dir(fb2, fb2->basedir, FALSE);
 	return vbox;
 }
 
