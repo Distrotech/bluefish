@@ -2267,7 +2267,7 @@ void file_new_cb(GtkWidget * widget, gpointer data) {
 	Tdocument *doc;
 
 	doc = doc_new(FALSE);
-	notebook_changed(-1);
+	switch_to_document_by_pointer(doc);
 /*	project management needs a rewite so this is not included yet */
 /* 	if ((main_v->current_project.template) && (file_exists_and_readable(main_v->current_project.template) == 1)) {
              doc_file_to_textbox(doc, main_v->current_project.template);
