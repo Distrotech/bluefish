@@ -196,12 +196,12 @@ static gboolean view_filter(Tfilebrowser *filebrowser, Tdir_entry *entry) {
 	{
 		gboolean default_retval;
 		GList *tmplist;
-		if (filebrowser->curfilter->filetypes && filebrowser->curfilter->mode == 1) {
+		if (filebrowser->curfilter && filebrowser->curfilter->filetypes && filebrowser->curfilter->mode == 1) {
 		/* there is some filter active, set the default to FALSE except if we find the extension */
 			tmplist = g_list_first(filebrowser->curfilter->filetypes);
 			default_retval = FALSE;
 		} else {
-			if (filebrowser->curfilter->filetypes) { /* mode == 0, hide certain files */
+			if (filebrowser->curfilter && filebrowser->curfilter->filetypes) { /* mode == 0, hide certain files */
 				tmplist = g_list_first(filebrowser->curfilter->filetypes);
 				while (tmplist) {
 					Tfiletype *filetype = (Tfiletype *)tmplist->data;
