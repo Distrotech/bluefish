@@ -15,7 +15,6 @@ TOOLBAR = \
 	color_select color_select.png \
 	comment comment.png \
 	copy copy.png \
-	css_file css_file.png \
 	css_small css_small.png \
 	cssclass cssclass.png \
 	cssdiv cssdiv.png \
@@ -57,20 +56,16 @@ TOOLBAR = \
 	frameset frameset.png \
 	frameset2 frameset2.png \
 	framewhiz framewhiz.png \
-	head head.png \
 	headings headings.png \
 	help help.png \
 	hrule hrule.png \
-	html_file html_file.png \
 	image image.png \
-	image_file image_file.png \
 	image_map image_map.png \
 	italic italic.png \
 	javascript_mouseover javascript_mouseover.png \
 	javascript_netscape javascript_netscape.png \
 	javascript_preload javascript_preload.png \
 	jscript jscript.png \
-	jscript_file jscript_file.png \
 	kbd kbd.png \
 	linkjscript linkjscript.png \
 	linkstylesheet linkstylesheet.png \
@@ -94,7 +89,6 @@ TOOLBAR = \
 	paragraph paragraph.png \
 	paste paste.png \
 	php3 php3.png \
-	php_file php_file.png \
 	preferences preferences.png \
 	print print.png \
 	quick_start quick_start.png \
@@ -122,7 +116,6 @@ TOOLBAR = \
 	thumbnail thumbnail.png \
 	underline underline.png \
 	undo undo.png \
-	unknown_file unknown_file.png \
 	var var.png \
 	view_in_browser view_in_browser.png \
 	wml_a wml_a.png \
