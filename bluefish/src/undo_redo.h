@@ -28,6 +28,7 @@ void doc_unre_init(Tdocument *doc);
 void doc_unre_destroy(Tdocument *doc);
 void doc_unre_clear_all(Tdocument *doc);
 gint doc_undo_op_compare(Tdocument *doc, undo_op_t testfor, gint position);
+gboolean doc_unre_test_last_entry(Tdocument *doc, undo_op_t testfor, gint start, gint end);
 void redo_cb(GtkWidget * widget, Tbfwin *bfwin);
 void undo_cb(GtkWidget * widget, Tbfwin *bfwin);
 void redo_all_cb(GtkWidget * widget, Tbfwin *bfwin);

@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-/*#define DEBUG*/
+/* #define DEBUG */
 
 #include <gtk/gtk.h>
 #include <string.h>
@@ -217,24 +217,37 @@ void doc_unre_add(Tdocument *doc, const char *text, gint start, gint end, undo_o
 	if (doc->unre.current->entries) {
 		entry = (unreentry_t *)(doc->unre.current->entries->data);
 		DEBUG_MSG("doc_unre_add, currentgroup=%p, entry=%p\n", doc->unre.current,entry );
-		DEBUG_MSG("doc_unre_add, entry=%p\n", entry);
-		/* do efficient, add the current one to the previous one */
-		DEBUG_MSG("doc_unre_add, entry->end=%d, start=%d\n", entry->end, start);
+		DEBUG_MSG("doc_unre_add, entry=%p entry->end=%d, entry->start=%d\n", entry, entry->end, entry->start);
 		DEBUG_MSG("doc_unre_add, entry->op=%d, op=%d, UndoInsert=%d\n", entry->op, op, UndoInsert);
+		/* do efficient, add the current one to the previous one */
 		if ((entry->end == start && entry->op == UndoInsert && op == UndoInsert) 
-			|| (entry->start == end && entry->op == UndoDelete && op == UndoDelete)) {
+			|| ((entry->start == end || start == entry->start)&& entry->op == UndoDelete && op == UndoDelete)) {
 			gchar *newstr;
 			if (op == UndoInsert) {
+				/* multiple inserts can be grouped together, just add them together, and set the end
+				 * to the end of the new one */
 				newstr = g_strconcat(entry->text, text, NULL);
 				entry->end = end;
-			} else {
+				DEBUG_MSG("doc_unre_add, INSERT, text=%s\n", newstr);
+			} else if (entry->start == end) {
+				/* multiple backspaces can be grouped together, just add the new one before the
+				 * old one, and set the start to the start of the new one */
 				newstr = g_strconcat(text, entry->text, NULL);
 				entry->start = start;
+				DEBUG_MSG("doc_unre_add, BACKSPACE, text=%s\n", newstr);
+			} else {
+				/* multiple delete's at the same position have the same start, but the second delete
+				 * can be added to the right side of the previous delete, so only the end should 
+				 * be increased */
+				newstr = g_strconcat(entry->text,text,NULL);
+				entry->end += (end - start);
+				DEBUG_MSG("doc_unre_add, DELETE, text=%s\n", newstr);
 			}
 			g_free(entry->text);
 			entry->text = newstr;
-			DEBUG_MSG("doc_unre_add, added to previous entry, text=%s\n", entry->text);
 			handled = TRUE;
+		} else {
+			DEBUG_MSG("doc_unre_add, NOT grouped with previous entry\n");
 		}
 	}
 	if (!handled) {
@@ -352,7 +365,7 @@ void doc_unre_clear_all(Tdocument *doc) {
  * 
  * Return value: gboolean, TRUE if everything matches or if there was no previous operation, FALSE if not
  **/
-gint doc_undo_op_compare(Tdocument *doc, undo_op_t testfor, gint position) {
+/* gint doc_undo_op_compare(Tdocument *doc, undo_op_t testfor, gint position) {
 	DEBUG_MSG("doc_undo_op_compare, testfor=%d, position=%d\n", testfor, position);
 	if (doc->unre.current->entries && doc->unre.current->entries->data) {
 		unreentry_t *entry = doc->unre.current->entries->data;
@@ -366,7 +379,34 @@ gint doc_undo_op_compare(Tdocument *doc, undo_op_t testfor, gint position) {
 		return 0;
 	}
 	return 1;
+} */
+
+/**
+ * doc_unre_test_last_entry:
+ * @doc: a #Tdocument
+ * @testfor: a #undo_op_t, test for the last operation
+ * @start: a #gint, test if this was the start position, -1 if not to be tested
+ * @end: a #gint, test if this was the end position, -1 if not to be tested
+ * 
+ * tests the last undo/redo operation, if it was (insert or delete) AND if the start AND end
+ * are equal, use -1 for start or end if they do not need testing
+ * 
+ * Return value: gboolean, TRUE if everything matches or if there was no previous operation, FALSE if not
+ **/
+gboolean doc_unre_test_last_entry(Tdocument *doc, undo_op_t testfor, gint start, gint end) {
+	if (doc->unre.current->entries && doc->unre.current->entries->data) {
+		gboolean retval;
+		unreentry_t *entry = doc->unre.current->entries->data;
+		DEBUG_MSG("doc_unre_test_last_entry, start=%d, entry->start=%d, end=%d, entry->end=%d\n",start, entry->start, end, entry->end);
+		retval = ((entry->op == testfor) 
+				&& (start == -1 || start == entry->start) 
+				&& (end == -1 || end == entry->end));
+		DEBUG_MSG("doc_unre_test_last_entry, return %d\n",retval);
+		return retval;
+	}
+	return TRUE;
 }
+
 /**
  * undo_cb:
  * @widget: a #GtkWidget *, ignored

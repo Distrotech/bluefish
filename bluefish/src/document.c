@@ -1670,7 +1670,11 @@ static void doc_buffer_insert_text_lcb(GtkTextBuffer *textbuffer,GtkTextIter * i
 		if (pos < PASTEOPERATION(doc->paste_operation)->so || PASTEOPERATION(doc->paste_operation)->so == -1) PASTEOPERATION(doc->paste_operation)->so = pos;
 	} else if (len == 1) {
 		/* undo_redo stuff */
-		if ((string[0] == ' ' || string[0] == '\n' || string[0] == '\t') || !doc_undo_op_compare(doc,UndoInsert,pos)) {
+		if (	!doc_unre_test_last_entry(doc, UndoInsert, -1, pos)
+				|| string[0] == ' ' 
+				|| string[0] == '\n' 
+				|| string[0] == '\t'
+				|| string[0] == '\r') {
 			DEBUG_MSG("doc_buffer_insert_text_lcb, need a new undogroup\n");
 			doc_unre_new_group(doc);
 		}
@@ -1894,7 +1898,12 @@ static void doc_buffer_delete_range_lcb(GtkTextBuffer *textbuffer,GtkTextIter * 
 			len = end - start;
 			DEBUG_MSG("doc_buffer_delete_range_lcb, start=%d, end=%d, len=%d, string='%s'\n", start, end, len, string);
 			if (len == 1) {
-				if ((string[0] == ' ' || string[0] == '\n' || string[0] == '\t') || !doc_undo_op_compare(doc,UndoDelete,start)) {
+				if (		(!doc_unre_test_last_entry(doc, UndoDelete, start, -1) /* delete */
+							&& !doc_unre_test_last_entry(doc, UndoDelete, end, -1)) /* backspace */
+						|| string[0] == ' ' 
+						|| string[0] == '\n' 
+						|| string[0] == '\t'
+						|| string[0] == '\r') {
 					DEBUG_MSG("doc_buffer_delete_range_lcb, need a new undogroup\n");
 					doc_unre_new_group(doc);
 				}			
