@@ -264,3 +264,19 @@ dt > SPAN[class="term"] > SPAN[class="emphasis"]  > em {
 	font-size: 12px;
 	font-weight: bold;
 }
+
+/* For book subtitle */
+h2.subtitle {
+	font-size:11px;
+	font-style:italic;	
+}
+
+/* For authors' names */
+h3.author {
+	font-size:small ;
+}
+
+/* For copyright */
+.copyright {
+	font-size:11px;
+}
