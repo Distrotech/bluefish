@@ -100,3 +100,19 @@ Thighlightset *hl_get_highlightset_by_filename(gchar *filename) {
 /*****************************/
 /* applying the highlighting */
 /*****************************/
+
+static void doc_remove_highlighting(Tdocument *doc) {
+	GtkTextIter itstart, itend;
+	gtk_text_buffer_get_bounds(doc->buffer,&itstart,&itend);
+	gtk_text_buffer_remove_all_tags(doc->buffer, &itstart, &itend);
+	doc->hlset = NULL;
+}
+
+void hl_reset_highlighting_type(Tdocument *doc, gchar *newfilename) {
+
+
+}
+
+void doc_highlight_full(Tdocument *doc) {
+
+}
