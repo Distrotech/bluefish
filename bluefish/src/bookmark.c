@@ -124,11 +124,12 @@ static void clean_proc(gpointer key,gpointer value,gpointer user_data) {
 	 }	
 }
 
-static void clean_fi_proc(gpointer key,gpointer value,gpointer user_data) {
+static gboolean clean_fi_proc(gpointer key,gpointer value,gpointer user_data) {
   GtkTreeIter *it = (GtkTreeIter*)value;
   Tbmark_data *data = BMARKDATA(main_v->bmarkdata);   	
   gtk_tree_store_remove(data->store,it);
-  g_free(it);		 	
+  g_free(it);	
+  return TRUE;	 	
 }
 
 
@@ -158,8 +159,8 @@ static void bmark_clean_tree(Tbfwin *bfwin) {
 	/* bookmarks */
 	g_hash_table_foreach(data->bmark_table,clean_proc,NULL);
 	/* file iters */
-	g_hash_table_foreach(data->file_iters,clean_fi_proc,NULL);	
-   /* branches */	
+	g_hash_table_foreach_remove(data->file_iters,clean_fi_proc,NULL);	
+	
 }
 
 /* this is the new loading function ! */
@@ -304,7 +305,7 @@ void bmark_name_entry_changed(GtkEntry * entry, GtkDialog* dialog)
 
 /* Determine bookmark location */
 
-static void bmark_get_iter_at_position(GtkTreeStore *store, Tbmark *m,GtkTreeIter *branch) {
+static void bmark_get_iter_at_position(GtkTreeStore *store, Tbmark *m,GtkTreeIter *branch,Tbfwin *bfwin) {
    GtkTreeIter *parent;
    Tbmark_data *data = BMARKDATA(main_v->bmarkdata); 	   
    gpointer ptr;
@@ -322,13 +323,20 @@ static void bmark_get_iter_at_position(GtkTreeStore *store, Tbmark *m,GtkTreeIte
      switch (data->filename_mode)
      {
        case BM_FMODE_FULL:
-            gtk_tree_store_set(store, it, NAME_COLUMN, g_strdup(m->filepath),PTR_COLUMN, NULL, -1);
+            gtk_tree_store_set(store, it, NAME_COLUMN, m->filepath,PTR_COLUMN, NULL, -1);
             break;
        case BM_FMODE_HOME: /* todo */
-            gtk_tree_store_set(store, it, NAME_COLUMN, g_strdup(m->filepath),PTR_COLUMN, NULL, -1);
+             if (bfwin->project != NULL)
+              {
+               gchar *pstr = m->filepath;
+               pstr += strlen(bfwin->project->basedir);
+               gtk_tree_store_set(store, it, NAME_COLUMN, pstr,PTR_COLUMN, NULL, -1);
+              }
+             else
+               gtk_tree_store_set(store, it, NAME_COLUMN, g_path_get_basename(m->filepath),PTR_COLUMN, NULL, -1);  
             break;
        case BM_FMODE_FILE:
-            gtk_tree_store_set(store, it, NAME_COLUMN, g_strdup(g_path_get_basename(m->filepath)),PTR_COLUMN, NULL, -1);
+            gtk_tree_store_set(store, it, NAME_COLUMN, g_path_get_basename(m->filepath),PTR_COLUMN, NULL, -1);
             break;                   
      }  
      g_hash_table_insert(data->file_iters, g_strdup(m->filepath),it);   
@@ -450,7 +458,7 @@ void bmark_add_rename_dialog(Tbfwin *bfwin, gchar *dialogtitle, gint dialogtype)
 			m->text = g_strdup(gtk_text_iter_get_slice(&it, &sit));	
 			g_hash_table_insert(data->bmark_table, g_strdup(gtk_entry_get_text(GTK_ENTRY(name))), m);
 
-			bmark_get_iter_at_position(data->store,m,NULL);
+			bmark_get_iter_at_position(data->store,m,NULL,bfwin);
 
 			gtk_tree_store_set(data->store, &m->iter, NAME_COLUMN, g_strdup_printf("[%s] --> %s", gtk_entry_get_text(GTK_ENTRY(name)), m->text),PTR_COLUMN, m, -1);
 			gtk_tree_view_expand_all(GTK_TREE_VIEW(gui->tree));
@@ -468,7 +476,7 @@ void bmark_add_rename_dialog(Tbfwin *bfwin, gchar *dialogtitle, gint dialogtype)
 				gtk_tree_store_remove(data->store, &m->iter);
 				g_hash_table_insert(data->bmark_table, g_strdup(m->name), m);
 				
-				bmark_get_iter_at_position(data->store, m, NULL);
+				bmark_get_iter_at_position(data->store, m, NULL,bfwin);
 	 			gtk_tree_store_set(data->store, &m->iter, NAME_COLUMN, g_strdup_printf("[%s] --> %s",m->name,m->text),PTR_COLUMN, m, -1);		 
 			}
 			gtk_tree_store_set(data->store, &m->iter, NAME_COLUMN, g_strdup_printf("[%s] --> %s",m->name,m->text),-1);
@@ -606,9 +614,9 @@ static gboolean bmark_event_mouseclick(GtkWidget *widget,GdkEventButton *event,T
 
 void restore_proc(gpointer key,gpointer value,gpointer data){
 	Tbmark *b = BMARK(value);
-/* 	Tbfwin *bfwin = BFWIN(data); */
+ 	Tbfwin *bfwin = BFWIN(data); 
 	Tbmark_data *bd = BMARKDATA(main_v->bmarkdata);
-	bmark_get_iter_at_position(bd->store, b, NULL);
+	bmark_get_iter_at_position(bd->store, b, NULL,bfwin);
 	gtk_tree_store_set(bd->store, &(b->iter), NAME_COLUMN,g_strdup_printf("[%s] --> %s",b->name,
 								b->text),PTR_COLUMN, b, -1);		
 }
@@ -799,7 +807,7 @@ void bmark_add_temp(Tbfwin *bfwin) {
 	if (!gtk_text_iter_in_range(&sit,&it,&eit)) 
 		sit = eit;
 	m->text = g_strdup(gtk_text_iter_get_slice(&it,&sit));
-	bmark_get_iter_at_position(data->store, m, NULL);
+	bmark_get_iter_at_position(data->store, m, NULL,bfwin);
 	gtk_tree_store_set(data->store, &m->iter, NAME_COLUMN,g_strdup_printf("[%d] --> %s",ffree+1,m->text),PTR_COLUMN, m, -1);
 	gtk_tree_view_expand_all(GTK_TREE_VIEW(gui->tree));
 	gtk_widget_grab_focus(bfwin->current_document->view);		
@@ -910,7 +918,6 @@ void bmark_reload(Tbfwin *bfwin)
   Tbmark_data *data = BMARKDATA(main_v->bmarkdata);
   bmark_del_all(bfwin); 
   bmark_clean_tree(bfwin);
-  g_print("reload: session->bmarks %p",bfwin->session->bmarks);
   load_bmarks_from_list(bfwin->session->bmarks,&(data->bmark_table));  
   g_hash_table_foreach(data->bmark_table,restore_proc,bfwin);  
   gtk_tree_view_expand_all(GTK_TREE_VIEW(BMARKGUI(bfwin->bmark)->tree));    
