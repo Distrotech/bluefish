@@ -29,6 +29,11 @@
 #include <stdlib.h> /* atoi() */
 
 #include "bluefish.h"
+
+#ifdef HAVE_GNOME_VFS
+#include <libgnomevfs/gnome-vfs.h>
+#endif
+
 #include "document.h"
 #include "gtk_easy.h" /* *_dialog(), flush_queue() */
 #include "bf_lib.h"
@@ -186,6 +191,9 @@ static gboolean view_filter(Tfilebrowser *filebrowser, Tdir_entry *entry) {
 			return FALSE;
 		}
 	}
+#ifdef HAVE_GNOME_VFS
+	DEBUG_MSG("view_filter, I don't know my uid() for a possibly remote file..\n");
+#else  /* HAVE_GNOME_VFS */
 	if (!main_v->props.filebrowser_show_others_files) {
 		if (!S_ISDIR(entry->stat.st_mode)
 		&& (entry->stat.st_uid != getuid())) {
@@ -195,6 +203,7 @@ static gboolean view_filter(Tfilebrowser *filebrowser, Tdir_entry *entry) {
 			return FALSE;
 		}
 	}
+#endif /* HAVE_GNOME_VFS */
 	
 	{
 		gboolean default_retval;
@@ -245,7 +254,41 @@ static gboolean find_name_in_dir_entries(GList *list, gchar *name) {
 	}
 	return FALSE;
 }
-
+#ifdef HAVE_GNOME_VFS
+static GList *return_dir_entries(Tfilebrowser *filebrowser,gchar *dirname) {
+	GList *tmplist=NULL;
+	Tdir_entry *entry;
+	GnomeVFSResult result;
+	GnomeVFSDirectoryHandle *handle;
+	GnomeVFSFileInfo *gvfi;
+	result = gnome_vfs_directory_open(&handle,dirname,GNOME_VFS_FILE_INFO_DEFAULT|GNOME_VFS_FILE_INFO_FOLLOW_LINKS);
+	if (result != GNOME_VFS_OK) {
+		return NULL;
+	}
+	gvfi = gnome_vfs_file_info_new();
+	while (GNOME_VFS_OK == gnome_vfs_directory_read_next(handle, gvfi)) {
+		entry = g_new(Tdir_entry,1);
+		entry->icon = NULL;
+		entry->name = g_strdup(gvfi->name);
+		if (gvfi->type == GNOME_VFS_FILE_TYPE_DIRECTORY) {
+			entry->type = TYPE_DIR;
+		} else {
+			entry->type = TYPE_FILE;
+		}
+		if (!view_filter(filebrowser,entry)) {
+			/* free entry */
+			g_free(entry->name);
+			g_free(entry);
+		} else {
+			entry->has_widget = FALSE;
+			tmplist = g_list_append(tmplist, entry);
+		}
+	}
+	gnome_vfs_file_info_unref(gvfi);
+	gnome_vfs_directory_close(handle);
+	return tmplist;
+}
+#else /* HAVE_GNOME_VFS */
 static GList *return_dir_entries(Tfilebrowser *filebrowser,gchar *dirname) {
 	GDir *dir;
 	GList *tmplist=NULL;
@@ -281,6 +324,7 @@ static GList *return_dir_entries(Tfilebrowser *filebrowser,gchar *dirname) {
 	g_dir_close(dir);
 	return tmplist;
 }
+#endif /* HAVE_GNOME_VFS */
 
 static void free_dir_entries(GList *direntrylist) {
 	GList *tmplist = g_list_first(direntrylist);
