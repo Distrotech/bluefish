@@ -859,14 +859,13 @@ static void highlightpattern_popmenu_activate(GtkMenuItem *menuitem,Tprefdialog 
 
 	DEBUG_MSG("highlightpattern_popmenu_activate, pd=%p, menuitem=%p\n", pd, menuitem);
 	tmplist = g_list_first(pd->lists[highlight_patterns]);
+	highlightpattern_apply_changes(pd);
 	if (menuitem) {
 		pd->hpd.selected_filetype = gtk_label_get_text(GTK_LABEL(GTK_BIN(menuitem)->child));
 	}
-
-	highlightpattern_apply_changes(pd);
-
+	DEBUG_MSG("highlightpattern_popmenu_activate, applied changes, about to clear liststore\n");
 	gtk_list_store_clear(GTK_LIST_STORE(pd->hpd.lstore));
-	DEBUG_MSG("highlightpattern_popmenu_activate, cleared and applied changes\n");
+	DEBUG_MSG("highlightpattern_popmenu_activate, about to fill for filetype %s (tmplist=%p)\n",pd->hpd.selected_filetype,tmplist);
 	/* fill list model here */
 	while (tmplist) {
 		gchar **strarr =(gchar **)tmplist->data;
@@ -966,6 +965,8 @@ static void highlightpattern_selection_changed_cb(GtkTreeSelection *selection, T
 			tmplist = g_list_next(tmplist);
 		}
 		g_free(pattern);
+	} else {
+		DEBUG_MSG("no selection, returning..\n");
 	}
 }
 static void highlightpattern_type_toggled(GtkToggleButton *togglebutton,Tprefdialog *pd){
