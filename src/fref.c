@@ -2,7 +2,7 @@
 #include <string.h>
 #include <gdk/gdkkeysyms.h>
 
-/*#define DEBUG*/
+/* #define DEBUG */
 #include "bluefish.h"
 #include "fref.h"
 #include "rcfile.h" /* array_from_arglist() */
@@ -148,12 +148,11 @@ typedef struct {
   gchar *description; 
 } Tfref_name_data;
 
-void fref_free_info(FRInfo * info)
-{
+void fref_free_info(FRInfo * info) {
 	FRAttrInfo *tmpa;
 	FRParamInfo *tmpp;
 	GList *lst;
- 
+	DEBUG_MSG("fref_free_info, freeing info->name=%s\n",info->name);
 	g_free(info->name);
 	g_free(info->description);
 	g_free(info->tip);
@@ -197,8 +196,6 @@ void fref_free_info(FRInfo * info)
 	/* methods */
 	g_free(info);
 }
-
-
 
 void fref_name_loader_start_element(GMarkupParseContext * context,
 							   const gchar * element_name,
@@ -674,58 +671,57 @@ void fref_loader_load_ref_xml(gchar * filename, GtkWidget * tree,
 }
 
 void fref_loader_unload_ref(GtkWidget * tree, GtkTreeStore * store,
-							GtkTreeIter * position)
-{
+							GtkTreeIter * position) {
 	GValue *val;
 	FRInfo *entry;
 	GtkTreeIter iter;
 	GtkTreePath *path;
+	gboolean cont = TRUE;
 
- path = gtk_tree_model_get_path(GTK_TREE_MODEL(store),position);
-
-	while (gtk_tree_model_iter_nth_child(GTK_TREE_MODEL(store), &iter, position, 0)) {
+	path = gtk_tree_model_get_path(GTK_TREE_MODEL(store),position);
+	DEBUG_MSG("fref_loader_unload_ref, called for path %s\n", gtk_tree_path_to_string(path));
+	gtk_tree_model_iter_children(GTK_TREE_MODEL(store),&iter,position);
+	while (cont) {
 		val = g_new0(GValue, 1);
 		gtk_tree_model_get_value(GTK_TREE_MODEL(store), &iter, 1, val);
 		if (G_IS_VALUE(val) && g_value_peek_pointer(val)!=NULL) {
 			entry = (FRInfo *) g_value_peek_pointer(val);
 			if (entry != NULL) {
 				fref_free_info(entry);
-			} 
-		}
-		else
-		if (gtk_tree_model_iter_has_child   (GTK_TREE_MODEL(store),&iter))
-		{
+			}
+		} else if (gtk_tree_model_iter_has_child(GTK_TREE_MODEL(store),&iter)) {
 		   fref_loader_unload_ref(tree,store,&iter);
-		}   
-		/* have not to free entry name, because this is a pointer to info field */
-		gtk_tree_store_remove(store, &iter);
-		g_free(val);
-	}							/* while */
-	
-	if ( gtk_tree_path_get_depth(path) > 1 )
-	 {
-		 val = g_new0(GValue, 1);	 
-       gtk_tree_model_get_iter(GTK_TREE_MODEL(store),&iter,path);		 
-		 gtk_tree_model_get_value(GTK_TREE_MODEL(store), &iter, 0, val);    
-		if (G_IS_VALUE(val) && g_value_peek_pointer(val)!=NULL) {
-		  /* have to free name column for group */
-		  g_free(g_value_peek_pointer(val)); /* freeing item name */
 		}
-	  /*gtk_tree_store_remove(store, position);*/
-	  g_free(val); 
-	 }
-	 else /* freeing search dictionary */
-	 {
-        gtk_tree_model_get_iter(GTK_TREE_MODEL(store),&iter,path);  
-	     val = g_new0(GValue, 1);
-		  gtk_tree_model_get_value(GTK_TREE_MODEL(store), &iter, 1, val);
-		  if (G_IS_VALUE(val) && g_value_peek_pointer(val) != NULL) {
-				 g_hash_table_destroy(	g_value_peek_pointer(val));
-		  }
-		  g_free(val);		 
-	 }
-	gtk_tree_path_free(path); 
-
+		/* have not to free entry name, because this is a pointer to info field */
+		cont = gtk_tree_store_remove(store, &iter);
+		g_free(val);
+	} /* while */
+	
+	if (gtk_tree_path_get_depth(path) > 1 ) {
+		DEBUG_MSG("fref_loader_unload_ref, path depth > 0\n");
+		val = g_new0(GValue, 1);	 
+      gtk_tree_model_get_iter(GTK_TREE_MODEL(store),&iter,path);
+		gtk_tree_model_get_value(GTK_TREE_MODEL(store), &iter, 0, val);
+		if (G_IS_VALUE(val) && g_value_peek_pointer(val)!=NULL) {
+			/* have to free name column for group */
+			DEBUG_MSG("fref_loader_unload_ref, free'ing %s\n",(gchar *)g_value_peek_pointer(val));
+			g_free(g_value_peek_pointer(val)); /* freeing item name */
+		}
+		/*gtk_tree_store_remove(store, position);*/
+		g_free(val); 
+	} else { /* freeing search dictionary */
+		DEBUG_MSG("fref_loader_unload_ref, path depth == 0, this is the top node\n");
+		gtk_tree_model_get_iter(GTK_TREE_MODEL(store),&iter,path);  
+		val = g_new0(GValue, 1);
+		gtk_tree_model_get_value(GTK_TREE_MODEL(store), &iter, 1, val);
+		if (G_IS_VALUE(val) && g_value_peek_pointer(val) != NULL) {
+			DEBUG_MSG("fref_loader_unload_ref, destroying search hashtable %p\n",g_value_peek_pointer(val));
+			g_hash_table_destroy(g_value_peek_pointer(val));
+		}
+		g_free(val);
+	}
+	gtk_tree_path_free(path);
+	DEBUG_MSG("fref_loader_unload, done\n");
 }
 
 void fref_loader_unload_all(GtkWidget * tree, GtkTreeStore * store)
@@ -754,6 +750,7 @@ void fref_loader_unload_all(GtkWidget * tree, GtkTreeStore * store)
 			g_free(val);
 		} else do_unload=FALSE;
 		if (do_unload) {
+			DEBUG_MSG("fref_loader_unload_all, calling fref_loader_unload_ref\n");
 			fref_loader_unload_ref(tree, store, &iter);
 			val = g_new0(GValue, 1);
 			gtk_tree_model_get_value(GTK_TREE_MODEL(store), &iter, 2, val);
@@ -1198,7 +1195,8 @@ static void frefcb_row_expanded(GtkTreeView * treeview, GtkTreeIter * arg1,
 	{
    	val = g_new0(GValue, 1);
    	gtk_tree_model_get_value(GTK_TREE_MODEL(user_data), arg1, 2, val);
- 	   dict=g_hash_table_new_full(g_str_hash,g_str_equal,g_free,(GDestroyNotify)gtk_tree_row_reference_free);   	
+ 	   dict=g_hash_table_new_full(g_str_hash,g_str_equal,g_free,(GDestroyNotify)gtk_tree_row_reference_free);
+		DEBUG_MSG("frefcb_row_expanded, search hash_table at %p\n",dict);
       gtk_tree_store_set(GTK_TREE_STORE(user_data), arg1, PTR_COLUMN, dict,-1); 	   
    	if (G_IS_VALUE(val) && g_value_peek_pointer(val)!=NULL) {
    		fref_loader_load_ref_xml((gchar *) g_value_peek_pointer(val),
@@ -1795,31 +1793,33 @@ static void frefcb_row_collapsed(GtkTreeView * treeview, GtkTreeIter * arg1,
 	gpointer *aux;
 	gboolean do_unload = FALSE;
 
- if (	 gtk_tree_path_get_depth(arg2) == 1 )
- {
-	val = g_new0(GValue, 1);
-	gtk_tree_model_get_value(GTK_TREE_MODEL(user_data), arg1, 0, val);
-	cat = (gchar*)(g_value_peek_pointer(val));
-	 aux = g_hash_table_lookup(FREFDATA(main_v->frefdata)->refcount,cat);
-	 if (aux!=NULL)
-	 {
-	  cnt = (gint*)aux;
-	  *cnt = (*cnt)-1;
-	  if (*cnt==0) do_unload = TRUE; else do_unload = FALSE;
-	 } else do_unload = FALSE;
-	g_free(val);
- } else do_unload = FALSE;
- if (do_unload)
- {
-	val = g_new0(GValue, 1);
-	gtk_tree_model_get_value(GTK_TREE_MODEL(user_data), arg1, 2, val);
-	if (G_IS_VALUE(val) && g_value_peek_pointer(val)!=NULL) {
-	  	fref_loader_unload_ref(GTK_WIDGET(treeview), GTK_TREE_STORE(user_data),arg1);
-	 	 /* dummy node for expander display */
- 	   gtk_tree_store_append(GTK_TREE_STORE(user_data), &iter, arg1);
- 	}   
- 	g_free(val);
- }	
+	if (gtk_tree_path_get_depth(arg2) == 1) {
+		val = g_new0(GValue, 1);
+		gtk_tree_model_get_value(GTK_TREE_MODEL(user_data), arg1, 0, val);
+		cat = (gchar*)(g_value_peek_pointer(val));
+		DEBUG_MSG("frefcb_row_collapsed, lookup for the refcount of %s\n",cat);
+		aux = g_hash_table_lookup(FREFDATA(main_v->frefdata)->refcount,cat);
+		if (aux!=NULL) {
+			cnt = (gint*)aux;
+			DEBUG_MSG("frefcb_row_collapsed, refcount=%d, about to decrease\n",*cnt);
+			*cnt = (*cnt)-1;
+			if (*cnt==0) do_unload = TRUE; else do_unload = FALSE;
+		} else do_unload = FALSE;
+		g_free(val);
+	} else do_unload = FALSE;
+	if (do_unload) {
+		DEBUG_MSG("frefcb_row_collapsed, do_unload=%d, unloading!\n",do_unload);
+		val = g_new0(GValue, 1);
+		gtk_tree_model_get_value(GTK_TREE_MODEL(user_data), arg1, 2, val);
+		if (G_IS_VALUE(val) && g_value_peek_pointer(val)!=NULL) {
+			DEBUG_MSG("frefcb_row_collapsed, calling fref_loader_unload_ref\n");
+			fref_loader_unload_ref(GTK_WIDGET(treeview), GTK_TREE_STORE(user_data),arg1);
+			/* dummy node for expander display */
+			DEBUG_MSG("frefcb_row_collapsed, appending dummy node\n");
+			gtk_tree_store_append(GTK_TREE_STORE(user_data), &iter, arg1);
+		}
+		g_free(val);
+	}	
 }
 						  
 
