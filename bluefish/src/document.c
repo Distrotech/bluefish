@@ -2081,7 +2081,7 @@ void doc_unbind_signals(Tdocument *doc) {
 #ifdef HAVE_GNOME_VFS
 gboolean buffer_to_file(Tbfwin *bfwin, gchar *buffer, gchar *filename) {
 	GnomeVFSHandle *handle;
-	GnomeVFSFileSize bytes_written;
+	GnomeVFSFileSize bytes_written=0;
 	GnomeVFSResult result;
 	gchar *ondiskencoding = get_filename_on_disk_encoding(filename);
 	/* we use create instead of open, because open will not create the file if it does
@@ -2100,6 +2100,9 @@ gboolean buffer_to_file(Tbfwin *bfwin, gchar *buffer, gchar *filename) {
 		DEBUG_MSG("buffer_to_file, truncating: result=%d, error=%s\n", result, gnome_vfs_result_to_string(result));
 	}*/
 	result = gnome_vfs_write(handle, buffer, strlen(buffer), &bytes_written);
+	if (bytes_written) {
+		gnome_vfs_truncate_handle(handle, bytes_written);
+	}
 	gnome_vfs_close(handle);
 	if (result != GNOME_VFS_OK) {
 		DEBUG_MSG("buffer_to_file, writing: result=%d, error=%s\n", result, gnome_vfs_result_to_string(result));
