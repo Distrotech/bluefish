@@ -1342,7 +1342,7 @@ GtkWidget * file_chooser_dialog(Tbfwin *bfwin, gchar *title, GtkFileChooserActio
 		}
 	}
 #ifdef DEBUG
-	DEBUG_MSG("current_folder_uri=%s\n", gtk_file_chooser_get_current_folder_uri(GTK_FILE_CHOOSER(dialog)));
+	DEBUG_MSG("file_chooser_dialog, current_folder_uri=%s\n", gtk_file_chooser_get_current_folder_uri(GTK_FILE_CHOOSER(dialog)));
 #endif
 	gtk_file_chooser_set_local_only(GTK_FILE_CHOOSER(dialog),localonly);
 	gtk_file_chooser_set_select_multiple(GTK_FILE_CHOOSER(dialog), multiple);
@@ -1350,13 +1350,13 @@ GtkWidget * file_chooser_dialog(Tbfwin *bfwin, gchar *title, GtkFileChooserActio
 		GList *tmplist;
 		/*tmplist = g_list_first(bfwin->session->recent_dirs);*/
 		tmplist = g_list_first(main_v->recent_directories);
-		g_print("session dir len=%d\n",g_list_length(bfwin->session->recent_dirs));
+		DEBUG_MSG("file_chooser_dialog, session dir len=%d\n",g_list_length(bfwin->session->recent_dirs));
 		while (tmplist) {
 			GError *error=NULL;
 			gtk_file_chooser_add_shortcut_folder_uri(GTK_FILE_CHOOSER(dialog),(gchar*)tmplist->data,&error);
-			DEBUG_MSG("adding folder %s\n",(gchar*)tmplist->data);
+			DEBUG_MSG("file_chooser_dialog, adding folder %s\n",(gchar*)tmplist->data);
 			if (error) {
-				DEBUG_MSG("ERROR adding dir %s: %s\n", (gchar*)tmplist->data, error->message);
+				DEBUG_MSG("file_chooser_dialog, ERROR adding dir %s: %s\n", (gchar*)tmplist->data, error->message);
 				g_error_free(error);
 			}
 			tmplist = g_list_next(tmplist);
@@ -1384,13 +1384,13 @@ GtkWidget * file_chooser_dialog(Tbfwin *bfwin, gchar *title, GtkFileChooserActio
 			if (ft->extensions && *ft->extensions) {
 				ff = gtk_file_filter_new();
 				gtk_file_filter_set_name(ff,ft->type);
-				DEBUG_MSG("adding filter '%s'\n", ft->type);
+				DEBUG_MSG("file_chooser_dialog, adding filter '%s'\n", ft->type);
 				tmp = ft->extensions;
 				while (*tmp) {
 					gchar *pattern;
 					pattern = g_strconcat("*", *tmp, NULL);
 					gtk_file_filter_add_pattern(ff, pattern);
-					DEBUG_MSG("adding pattern '%s' to '%s'\n", pattern, ft->type);
+					DEBUG_MSG("file_chooser_dialog, adding pattern '%s' to '%s'\n", pattern, ft->type);
 					g_free(pattern);
 					tmp++;
 				}
