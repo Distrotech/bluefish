@@ -60,7 +60,7 @@ fi
 AC_ARG_ENABLE(gcc3-optimization, 
 		AC_HELP_STRING([--enable-gcc3-optimization=type],
 				[gcc3 can optimize for: i386, i486, pentium, pentium-mmx, pentiumpro, pentium2, pentium3, pentium4, k6, k6-2, k6-3, athlon, athlon-tbird, athlon-4, athlon-xp, athlon-mp, winchip-c6, winchip2, c3]),
-		if gcc -dumpversion|egrep -q "^3\..*"; then
+		if $CC -dumpversion|egrep -q "^3\..*"; then
 			CFLAGS="-O3 -march=$enableval -fomit-frame-pointer -fno-exceptions -fno-rtti -pipe -s -ffast-math -fexpensive-optimizations -falign-functions -falign-loops"
 			echo "using $CC $CFLAGS"
 		else
@@ -71,7 +71,7 @@ AC_ARG_ENABLE(gcc3-optimization,
 AC_ARG_ENABLE(gcc2-optimization, 
 		AC_HELP_STRING([--enable-gcc2-optimization=type],
 				[gcc2 can optimize for: i386, i486, pentium, pentiumpro, k6]),
-		if gcc -dumpversion | egrep -q "^2\..*" ; then
+		if $CC -dumpversion | egrep -q "^2\..*" ; then
 			CFLAGS="-O3 -march=$enableval -fomit-frame-pointer -fno-exceptions -fno-rtti -pipe -s -ffast-math -fexpensive-optimizations"
 			echo "using $CC $CFLAGS"
 		else 
