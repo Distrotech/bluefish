@@ -506,7 +506,7 @@ static void mt_fill_string(Timage2thumb *i2t) {
 	th = gdk_pixbuf_get_height(i2t->thumb);
 	{
 		Tconvert_table *table, *tmpt;
-		gchar *str;
+	
 		table = tmpt = g_new(Tconvert_table, 8);
 		tmpt->my_int = 'r';
 		tmpt->my_char = g_strdup(relimage);
@@ -531,7 +531,7 @@ static void mt_fill_string(Timage2thumb *i2t) {
 		tmpt++;
 		tmpt->my_char = NULL;
 		i2t->string = replace_string_printflike(main_v->props.image_thumnailformatstring, table);
-		DEBUG_MSG("string to insert: %s\n", str);
+		DEBUG_MSG("string to insert: %s\n", i2t->string);
 		tmpt = table;
 		while (tmpt->my_char) {
 			g_free(tmpt->my_char);
@@ -574,10 +574,23 @@ static gboolean mt_print_string(Timage2thumb *i2t) {
 		i2t->created = TRUE;
 		/* now check if the next string is also already ready for printing */
 		tmp = mt_next(i2t);
-		mt_print_string(tmp);
+		if (tmp) mt_print_string(tmp);
 		return TRUE;
 	} else {
 		return FALSE;
+	}
+}
+
+static void mt_start_load(Timage2thumb *i2t);
+
+static void mt_start_next_load(Timage2thumb *i2t) {
+	GList *tmplist;
+	for (tmplist = g_list_first(i2t->mtd->images); tmplist ; tmplist = g_list_next(tmplist)) {
+		Timage2thumb *tmp = tmplist->data;
+		if (tmp->of == NULL && tmp->string == NULL && tmp->created == FALSE) {
+			mt_start_load(tmp);
+			break;
+		}
 	}
 }
 
@@ -590,7 +603,9 @@ static void mt_openfile_lcb(Topenfile_status status,gint error_info, gchar *buff
 		case OPENFILE_ERROR_NOREAD:
 		case OPENFILE_ERROR_CANCELLED:
 			/* should we warn the user ?? */
+			DEBUG_MSG("mt_openfile_lcb, some error! status=%d for image %s\n",status,gnome_vfs_uri_get_path(i2t->imagename));
 			gdk_pixbuf_loader_close(i2t->pbloader,NULL);
+			g_object_unref(i2t->pbloader);
 		break;
 		case OPENFILE_CHANNEL_OPENED:
 			/* do nothing */
@@ -598,9 +613,12 @@ static void mt_openfile_lcb(Topenfile_status status,gint error_info, gchar *buff
 		break;
 		case OPENFILE_FINISHED: {
 			GError *error=NULL;
+			DEBUG_MSG("mt_openfile_lcb, finished loading image %s\n",gnome_vfs_uri_get_path(i2t->imagename));
+			mt_start_next_load(i2t); /* fire up the next image load */
 			if (gdk_pixbuf_loader_write(i2t->pbloader,buffer,buflen,&error) 
 						&& gdk_pixbuf_loader_close(i2t->pbloader,&error)) {
 				gint tw,th,ow,oh;
+				gsize buflen;
 				i2t->image = gdk_pixbuf_loader_get_pixbuf(i2t->pbloader);
 		
 				ow = gdk_pixbuf_get_width(i2t->image);
@@ -627,7 +645,8 @@ static void mt_openfile_lcb(Topenfile_status status,gint error_info, gchar *buff
 				i2t->thumb = gdk_pixbuf_scale_simple(i2t->image, tw, th, GDK_INTERP_BILINEAR);
 				mt_fill_string(i2t); /* create the string */
 				mt_print_string(i2t); /* print the string and all previous string (if possible) */
-				gdk_pixbuf_unref(i2t->image);
+				g_object_unref(i2t->pbloader);
+				/*gdk_pixbuf_unref(i2t->image); will be unreffed with the loader! */
 				/* save the thumbnail */
 				if (strcmp(main_v->props.image_thumbnailtype, "jpeg")==0) {
 					gdk_pixbuf_save_to_buffer(i2t->thumb, &buffer, &buflen,main_v->props.image_thumbnailtype,&error, "quality", "50",NULL);
@@ -639,23 +658,20 @@ static void mt_openfile_lcb(Topenfile_status status,gint error_info, gchar *buff
 					g_print("ERROR while saving thumbnail to buffer: %s\n", error->message);
 					g_error_free(error);
 				} else {
-					Tsavefile *sf;
 					Trefcpointer *refbuf = refcpointer_new(buffer);
-					sf = file_savefile_uri_async(i2t->thumbname, refbuf, buflen, async_thumbsave_lcb, NULL);
+					DEBUG_MSG("mt_openfile_lcb, starting thumbnail save to %s\n",gnome_vfs_uri_get_path(i2t->thumbname));
+					i2t->sf = file_savefile_uri_async(i2t->thumbname, refbuf, buflen, async_thumbsave_lcb, NULL);
 					refcpointer_unref(refbuf);
 				}
 			}
 		} break;
 	}
-	if (cleanup) {
-		g_object_unref(i2t->pbloader);
-	}
+	/* BUG: the last image that reaches this function should free 'mtd' after it is finished */
 }
 
 static void mt_start_load(Timage2thumb *i2t) {
-	gchar *filename;
 	GError *error=NULL;
-	gchar *ext = strrchr(filename, '.');
+	gchar *ext = strrchr(gnome_vfs_uri_get_path(i2t->imagename), '.');
 	if (ext) {
 		gchar *tmp2 = g_utf8_strdown(ext+1,-1);
 		if (strcmp(tmp2, "jpg")==0) {
@@ -670,13 +686,31 @@ static void mt_start_load(Timage2thumb *i2t) {
 	} else {
 		i2t->pbloader = gdk_pixbuf_loader_new();
 	}
+	DEBUG_MSG("mt_start_load, starting load for %s\n",gnome_vfs_uri_get_path(i2t->imagename));
 	i2t->of = file_openfile_uri_async(i2t->imagename, mt_openfile_lcb, i2t);
+}
+
+static Timage2thumb *mt_image2thumbnail(Tmuthudia *mtd, gchar *curi) {
+	Timage2thumb *i2t;
+	GnomeVFSURI *uri;
+	gchar *tmp;
+	DEBUG_MSG("mt_image2thumbnail, called for %s\n",curi);
+	if (!curi) return NULL;
+	uri = gnome_vfs_uri_new(curi);
+	if (!uri) return NULL;
+	i2t = g_new0(Timage2thumb,1);
+	i2t->mtd = mtd;
+	i2t->imagename = uri;
+	tmp = create_thumbnail_filename(curi);
+	i2t->thumbname = gnome_vfs_uri_new(tmp);
+	g_free(tmp);
+	return i2t;
 }
 
 static void multi_thumbnail_ok_clicked(GtkWidget *widget, Tmuthudia *mtd) {
 	GSList *files=NULL, *tmplist;
-	gchar *string2insert=g_strdup("");
 	GtkWidget *dialog;
+	gint i;
 
 	gtk_widget_hide(mtd->win);
 
@@ -702,24 +736,27 @@ static void multi_thumbnail_ok_clicked(GtkWidget *widget, Tmuthudia *mtd) {
 		
 	dialog = file_chooser_dialog(mtd->bfwin, _("Select files for thumbnail creation"), GTK_FILE_CHOOSER_ACTION_OPEN, NULL, FALSE, TRUE, "webimage");
 	if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_ACCEPT) {
-		files = gtk_file_chooser_get_filenames(GTK_FILE_CHOOSER(dialog));
+		files = gtk_file_chooser_get_uris(GTK_FILE_CHOOSER(dialog));
 	}
 	gtk_widget_destroy (dialog);
 	
 	main_v->props.image_thumbnailsizing_val1 = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(mtd->spins[0]));
 	main_v->props.image_thumbnailsizing_val2 = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(mtd->spins[1]));
 
-	
-	
+	i=3;
 	tmplist = files;
 	while (tmplist) {
-		gchar *filename=(gchar *)tmplist->data;
-		
-		
-		
+		Timage2thumb *i2t;
+		i2t = mt_image2thumbnail(mtd, (gchar *)tmplist->data);
+		mtd->images = g_list_prepend(mtd->images, i2t);
+		if (i > 0) {
+			mt_start_load(i2t);
+			i--;
+		}
 		tmplist = g_slist_next(tmplist);
 	}
-	mt_dialog_destroy(NULL, mtd);
+	mtd->images = g_list_reverse(mtd->images);
+	/* BUG: should we free the list of files now ?? */
 }
 
 static void multi_thumbnail_cancel_clicked(GtkWidget *widget, Tmuthudia *mtd) {
@@ -754,8 +791,13 @@ void multi_thumbnail_dialog(Tbfwin *bfwin) {
 	GtkWidget *vbox, *hbox, *but, *table, *label, *scrolwin, *textview;
 	gint tb;
 	
-	mtd = g_new(Tmuthudia, 1);
+	if (!bfwin->current_document) {
+		return;
+	}
+	
+	mtd = g_new0(Tmuthudia, 1);
 	mtd->bfwin = bfwin;
+	mtd->document = bfwin->current_document;
 	mtd->win = window_full2(_("Multi thumbnail"), GTK_WIN_POS_MOUSE, 5
 		, G_CALLBACK(mt_dialog_destroy), mtd, TRUE, NULL);
 	vbox = gtk_vbox_new(FALSE,5);
