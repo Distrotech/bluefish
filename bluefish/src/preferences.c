@@ -1,4 +1,4 @@
-#define DEBUG
+/*#define DEBUG*/
 
 #include <gtk/gtk.h>
 #include <string.h> /* strcmp() */

@@ -1511,6 +1511,7 @@ void doc_reload(Tdocument *doc) {
 	}
 	
 	doc_file_to_textbox(doc, doc->filename, FALSE, FALSE);
+	doc_unre_clear_all(doc);
 	doc_set_modified(doc, 0);
 	doc_set_stat_info(doc); /* also sets mtime field */
 }
