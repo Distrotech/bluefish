@@ -173,9 +173,24 @@ static void left_panel_notify_position_lcb(GObject *object,GParamSpec *pspec,gpo
 		main_v->props.left_panel_width = position;
 	}
 }
-void left_panel_show_hide_toggle(gboolean first_time, gboolean show) {
-	GtkWidget *fileb;
 
+GtkWidget *left_panel_build() {
+	GtkWidget *fileb;
+	GtkWidget *left_notebook = gtk_notebook_new();
+	gtk_notebook_set_tab_pos(GTK_NOTEBOOK(left_notebook),GTK_POS_BOTTOM);
+	gtk_notebook_set_show_tabs(GTK_NOTEBOOK(left_notebook), TRUE);
+	gtk_notebook_set_show_border(GTK_NOTEBOOK(left_notebook), FALSE);
+	gtk_notebook_set_tab_hborder(GTK_NOTEBOOK(left_notebook), 0);
+	gtk_notebook_set_tab_vborder(GTK_NOTEBOOK(left_notebook), 0);
+	gtk_notebook_popup_enable(GTK_NOTEBOOK(left_notebook));
+	fileb = filebrowser_init();
+	gtk_notebook_append_page(GTK_NOTEBOOK(left_notebook),fileb,new_pixmap(105) );
+/*	gtk_notebook_append_page(GTK_NOTEBOOK(left_notebook),fref,gtk_label_new(_(" Reference ")));*/
+	gtk_widget_show_all(left_notebook);	
+	return left_notebook;
+}
+
+void left_panel_show_hide_toggle(gboolean first_time, gboolean show) {
 	if (!first_time) {
 		gtk_widget_ref(main_v->notebook);
 		if (show) {
@@ -190,9 +205,7 @@ void left_panel_show_hide_toggle(gboolean first_time, gboolean show) {
 		main_v->hpane = gtk_hpaned_new();
 		gtk_paned_set_position(GTK_PANED(main_v->hpane), main_v->props.left_panel_width);
 		g_signal_connect(G_OBJECT(main_v->hpane),"notify::position",G_CALLBACK(left_panel_notify_position_lcb), NULL);
-		fileb = filebrowser_init();
-		gtk_widget_show_all(fileb);
-		gtk_paned_add1(GTK_PANED(main_v->hpane), fileb);
+		gtk_paned_add1(GTK_PANED(main_v->hpane), left_panel_build());
 		gtk_paned_add2(GTK_PANED(main_v->hpane), main_v->notebook);
 		gtk_box_pack_start(GTK_BOX(main_v->middlebox), main_v->hpane, TRUE, TRUE, 0);
 		gtk_widget_show(main_v->hpane);
