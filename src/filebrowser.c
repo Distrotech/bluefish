@@ -142,7 +142,7 @@ static gchar *return_filename_from_path(Tfilebrowser *filebrowser, GtkTreeModel 
 		gtk_tree_model_get_iter(GTK_TREE_MODEL(store),&iter,path);
 		gtk_tree_model_get (GTK_TREE_MODEL(store), &iter, FILENAME_COLUMN, &name, -1);
 		tmpstr = gtk_tree_path_to_string(path);
-		DEBUG_MSG("path='%s' contains '%s'\n", tmpstr, name);
+		DEBUG_MSG("return_filename_from_path, path='%s' contains '%s'\n", tmpstr, name);
 		g_free(tmpstr);
 		if (filebrowser->basedir && strcmp(name, filebrowser->basedir) == 0) {
 			tmp = retval;
@@ -150,8 +150,8 @@ static gchar *return_filename_from_path(Tfilebrowser *filebrowser, GtkTreeModel 
 			g_free(tmp);
 			DEBUG_MSG("return_filename_from_path, found the root (%s ?), retval=%s\n", name,retval);
 			valid = FALSE;
-		} else if (filebrowser->basedir == NULL && strcmp(name, "/") ==0) {
-			/* found the root */
+		} else if (filebrowser->basedir == NULL && name[strlen(name)-1]=='/') {
+			/* found the root or protocol/server */
 			tmp = retval;
 			retval = g_strconcat(name, retval,NULL);
 			g_free(tmp);
@@ -353,6 +353,23 @@ static GtkTreePath *return_path_from_filename(Tfilebrowser *filebrowser,gchar *t
 
 	gtk_tree_model_get_iter_first(GTK_TREE_MODEL(store), &iter);
 	parent = iter;
+	{
+		gchar *root = return_root_with_protocol(this_filename);
+		if (root && root[0] != '/') {
+			gboolean found = FALSE;
+			while (!found && gtk_tree_model_iter_next(GTK_TREE_MODEL(store), &iter)) {
+				gchar *found_root;
+				gtk_tree_model_get(GTK_TREE_MODEL(store), &iter, FILENAME_COLUMN, &found_root, -1);
+				if (strcmp(found_root, root)==0) {
+					/* we found the root for this protocol/server */
+					parent = iter;
+					prevlen = strlen(root);
+				}
+				g_free(found_root);
+			}
+		}
+		g_free(root);
+	}
 
 	filepath = g_strdup(this_filename);
 	
@@ -645,7 +662,7 @@ static GtkTreePath *build_tree_from_path(Tfilebrowser *filebrowser, const gchar 
 	/* first build path from root to here */
 	{
 		gchar *tmpstr, *p;
-		gint totlen, curlen, prevlen=0;
+		gint totlen, curlen, prevlen=1;
 		
 		if (!gtk_tree_model_get_iter_first(GTK_TREE_MODEL(filebrowser->store), &iter)) {
 			if (filebrowser->basedir) {
@@ -659,9 +676,6 @@ static GtkTreePath *build_tree_from_path(Tfilebrowser *filebrowser, const gchar 
 		
 		totlen = strlen(filepath);
 		DEBUG_MSG("build_tree_from_path, totlen=%d\n", totlen);
-		if (filepath[0] == '/') {
-			prevlen = 1;
-		}
 		if (prevlen > totlen) {
 			prevlen = totlen;
 		}
@@ -673,21 +687,13 @@ static GtkTreePath *build_tree_from_path(Tfilebrowser *filebrowser, const gchar 
 			DEBUG_MSG("build_tree_from_path, it seems we're building only the root ?!?\n");
 			p = NULL;
 		} else {
-			gchar *q = strchr(&filepath[prevlen], ':');
-			if (q && *(q+1)=='/' && *(q+2)=='/') {
-				gchar *root;
-				DEBUG_MSG("we found the protocol://, lets find the root\n");
-				p = strchr(q+3, '/');
-				root = g_strndup(filepath, p - filepath+1);
+			gchar *root = return_root_with_protocol(filepath);
+			if (root && root[0] != '/') {
 				iter = add_tree_item(NULL, filebrowser, root, TYPE_DIR, NULL);
-				g_free(root);
-				DEBUG_MSG("searching for next / after the protocol root, searching in %s\n",p);
-				prevlen = p - filepath+1;
-				p = strchr(p+1, '/');
-				DEBUG_MSG("added protocol root, prevlen=%d, p=%s\n",prevlen,p);
-			} else {
-				p = strchr(&filepath[prevlen], '/');
+				prevlen = strlen(root);
 			}
+			g_free(root);
+			p = strchr(&filepath[prevlen], '/');
 		}
 		while (p) {
 			curlen = strlen(p);

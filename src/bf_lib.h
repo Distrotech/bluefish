@@ -25,7 +25,7 @@ typedef struct {
 	gint my_int;
 	gchar *my_char;
 } Tconvert_table;
-
+gchar *return_root_with_protocol(const gchar *url);
 void pointer_switch_addresses(gpointer *a, gpointer *b);
 void list_switch_order(GList *first, GList *second);
 gboolean file_copy(gchar *source, gchar *dest);

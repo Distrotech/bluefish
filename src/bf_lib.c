@@ -37,6 +37,32 @@
 #define DIRSTR "/"
 #define DIRCHR '/'
 #endif
+/**
+ * return_root_with_protocol:
+ * @url: #const gchar* with the url 
+ *
+ * returns the root of the url, including its trailing slash
+ * this might be in the form
+ * - "protocol://server:port/"
+ * - "/"
+ * - NULL, if the url contains no url, nor does it start with a / character
+ *
+ * Return value: #gchar* newly allocated, or NULL
+ */
+gchar *return_root_with_protocol(const gchar *url) {
+	gchar *q = strchr(url,':');
+	if (q && *(q+1)=='/' && *(q+2)=='/') {
+		/* we have a protocol */
+		gchar *root = strchr(q+3, '/');
+		return g_strndup(url, root - url + 1);
+	} else if (url[0] == '/') {
+		/* no protocol, return / */
+		return g_strdup("/");
+	} else {
+		/* no root known */
+		return NULL;
+	}
+}
 
 /**
  * pointer_switch_addresses:
