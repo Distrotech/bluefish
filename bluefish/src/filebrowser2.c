@@ -207,6 +207,24 @@ static void fb2_treestore_delete_children_refresh1(GtkTreeStore *tstore, GtkTree
 		}
 	}
 }
+/**
+ * fb2_treestore_mark_children_refresh1:
+ *
+ * sets value 1 in REFRESH_COLUMN for all children of 'iter' 
+ */
+static void fb2_treestore_mark_children_refresh1(GtkTreeStore *tstore, GtkTreeIter *iter) {
+	GtkTreeIter child;
+	DEBUG_MSG("fb2_treestore_mark_children_refresh1, started\n");
+	if (gtk_tree_model_iter_children(GTK_TREE_MODEL(tstore),&child,iter)) {
+		gboolean cont=TRUE;
+		while (cont) {
+			gtk_tree_store_set(GTK_TREE_STORE(tstore),&child,REFRESH_COLUMN, 1,-1);
+			cont = gtk_tree_model_iter_next(GTK_TREE_MODEL(tstore), &child);
+		}
+	}
+	DEBUG_MSG("fb2_treestore_mark_children_refresh1, finished\n");
+}
+
 
 /**
  * fb2_load_directory_lcb
@@ -261,6 +279,8 @@ static void fb2_fill_dir_async(GtkTreeIter *parent, GnomeVFSURI *uri) {
 	if (g_list_find(FILEBROWSER2CONFIG(main_v->fb2config)->uri_in_refresh, uri) == NULL) {
 		GnomeVFSAsyncHandle *handle;
 		Tdirectoryloaddata *cdata;
+
+		fb2_treestore_mark_children_refresh1(FILEBROWSER2CONFIG(main_v->fb2config)->filesystem_tstore, parent);
 		
 		cdata = g_new(Tdirectoryloaddata,1);
 		cdata->parent = parent;
@@ -278,23 +298,6 @@ static void fb2_fill_dir_async(GtkTreeIter *parent, GnomeVFSURI *uri) {
 #endif
 }
 
-/**
- * fb2_treestore_mark_children_refresh1:
- *
- * sets value 1 in REFRESH_COLUMN for all children of 'iter' 
- */
-static void fb2_treestore_mark_children_refresh1(GtkTreeStore *tstore, GtkTreeIter *iter) {
-	GtkTreeIter child;
-	DEBUG_MSG("fb2_treestore_mark_children_refresh1, started\n");
-	if (gtk_tree_model_iter_children(GTK_TREE_MODEL(tstore),&child,iter)) {
-		gboolean cont=TRUE;
-		while (cont) {
-			gtk_tree_store_set(GTK_TREE_STORE(tstore),&child,REFRESH_COLUMN, 1,-1);
-			cont = gtk_tree_model_iter_next(GTK_TREE_MODEL(tstore), &child);
-		}
-	}
-	DEBUG_MSG("fb2_treestore_mark_children_refresh1, finished\n");
-}
 /**
  * fb2_uri_from_iter:
  *
@@ -336,7 +339,6 @@ static void fb2_refresh_dir(GnomeVFSURI *uri, GtkTreeIter *dir) {
 		DEBUG_URI(uri, TRUE);
 	}
 	if (dir && uri) {
-		fb2_treestore_mark_children_refresh1(FILEBROWSER2CONFIG(main_v->fb2config)->filesystem_tstore, dir);
 		fb2_fill_dir_async(dir, uri);
 	}
 }
@@ -790,6 +792,38 @@ static void handle_activate_on_file(Tfilebrowser2 *fb2, GnomeVFSURI *uri) {
 	DEBUG_MSG("handle_activate_on_file, finished\n");
 }
 
+static void fb2rpopup_new(Tfilebrowser2 *fb2, gboolean newisdir) {
+	GnomeVFSURI *baseuri;
+	if (fb2->last_popup_on_dir) {
+		baseuri = gnome_vfs_uri_dup(fb2_uri_from_dir_selection(fb2));
+	} else {
+		GnomeVFSURI *childuri = fb2_uri_from_file_selection(fb2);
+		baseuri = gnome_vfs_uri_get_parent(childuri);
+	}
+	if (baseuri) {
+		GnomeVFSURI *newuri;
+		GnomeVFSResult res;
+		if (newisdir) {
+			newuri = gnome_vfs_uri_append_file_name(baseuri, _("New directory"));
+			res = gnome_vfs_make_directory_for_uri(newuri, 0755);
+		} else {
+			GnomeVFSHandle *handle;
+			newuri = gnome_vfs_uri_append_file_name(baseuri, _("New file"));
+			res = gnome_vfs_create_uri(&handle,newuri,GNOME_VFS_OPEN_WRITE,FALSE,0644);
+			if (res) {
+				res = gnome_vfs_close(handle);
+			}
+		}
+		if (res == GNOME_VFS_OK) {
+			fb2_refresh_parent_of_uri(newuri);
+		} else {
+			DEBUG_MSG("fb2rpopup_new, failed creation..\n");
+		}
+		gnome_vfs_uri_unref(newuri);
+		gnome_vfs_uri_unref(baseuri);
+	}
+}
+
 static void fb2rpopup_rename(Tfilebrowser2 *fb2) {
 	GnomeVFSURI *olduri;
 	if (fb2->last_popup_on_dir) {
@@ -895,8 +929,10 @@ static void fb2rpopup_rpopup_action_lcb(Tfilebrowser2 *fb2,guint callback_action
 			fb2rpopup_delete(fb2);
 		break;
 		case 4:
+			fb2rpopup_new(fb2, FALSE);
 		break;
 		case 5:
+			fb2rpopup_new(fb2, TRUE);
 		break;
 		case 6:
 		break;
@@ -945,17 +981,17 @@ static GtkItemFactoryEntry fb2rpopup_dirmenu_entries[] = {
 	{ N_("/Open _Advanced..."),NULL,	fb2rpopup_rpopup_action_lcb,	7,	"<Item>" },
 #endif
 #endif
-	{ N_("/_Refresh"),			NULL,	fb2rpopup_rpopup_action_lcb,	6,	"<Item>" },
 	{ N_("/_Set as basedir"),	NULL,	fb2rpopup_rpopup_action_lcb,	8,	"<Item>" },
 	{ N_("/Show Full _Tree"),	NULL,	fb2rpopup_rpopup_action_lcb,	9,	"<Item>" }
 };
 
 static GtkItemFactoryEntry fb2rpopup_bothmenu_entries[] = {
-	{ N_("/Rena_me"),		NULL,	fb2rpopup_rpopup_action_lcb,		2,	"<Item>" },
-	{ N_("/_Delete"),		NULL,	fb2rpopup_rpopup_action_lcb,		3,	"<Item>" },
 	{ N_("/New _File"),			NULL,	fb2rpopup_rpopup_action_lcb,	4,	"<Item>" },
 	{ N_("/_New Directory"),	NULL,	fb2rpopup_rpopup_action_lcb,	5,	"<Item>" },
-	{ "/sep",						NULL,	NULL,										0,	"<Separator>" }
+	{ N_("/Rena_me"),		NULL,	fb2rpopup_rpopup_action_lcb,		2,	"<Item>" },
+	{ N_("/_Delete"),		NULL,	fb2rpopup_rpopup_action_lcb,		3,	"<Item>" },
+	{ N_("/_Refresh"),			NULL,	fb2rpopup_rpopup_action_lcb,	6,	"<Item>" },
+	{ "/sep",						NULL,	NULL,									0,	"<Separator>" }
 };
 
 static GtkItemFactoryEntry fb2rpopup_filemenu_entries[] = {
