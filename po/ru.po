@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ru\n"
-"POT-Creation-Date: 2003-07-08 11:18+0200\n"
-"PO-Revision-Date: 2003-06-25 06:23+0400\n"
+"POT-Creation-Date: 2003-07-12 02:12-0300\n"
+"PO-Revision-Date: 2003-07-12 06:47+0400\n"
 "Last-Translator: Eugene Rupakov <rupakov@jet.msk.su>\n"
 "Language-Team: Russian <ru@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -137,9 +137,13 @@ msgstr "открытие основного окна..."
 msgid "/Document/Highlight Syntax"
 msgstr "/Документ/Подсветка синтаксиса"
 
-#: ../src/document.c:552 ../src/document.c:553 ../src/document.c:724
+#: ../src/document.c:552 ../src/document.c:553
 msgid "Untitled"
 msgstr "Безымянный"
+
+#: ../src/document.c:724
+msgid " Untitled"
+msgstr " Безымянный"
 
 #: ../src/document.c:824 ../src/document.c:825
 #, c-format
@@ -335,93 +339,93 @@ msgstr ""
 msgid "Bluefish: Warning, file is modified"
 msgstr "Предупреждение Bluefish: файл модифицирован"
 
-#: ../src/document.c:2452
+#: ../src/document.c:2453
 msgid "searching files..."
 msgstr "поиск файлов..."
 
-#: ../src/document.c:2472
+#: ../src/document.c:2473
 msgid "Select basedir"
 msgstr "Выберите базовый каталог"
 
-#: ../src/document.c:2486
+#: ../src/document.c:2487
 msgid "Advanced open file selector"
 msgstr "Улучшенный диалог выбора файлов"
 
-#: ../src/document.c:2497
+#: ../src/document.c:2498
 msgid "grep {contains} `find {basedir} -name '{file type}'`"
 msgstr "grep {содержимое} `find {стартовая директория} -name '{тип файла}'`"
 
-#: ../src/document.c:2502
+#: ../src/document.c:2503
 msgid "<b>General</b>"
 msgstr "<b>Общие</b>"
 
-#: ../src/document.c:2504
+#: ../src/document.c:2505
 msgid "Base_dir:"
 msgstr "Базовая _директория:"
 
-#: ../src/document.c:2506 ../src/gtk_easy.c:1173
+#: ../src/document.c:2507 ../src/gtk_easy.c:1173
 msgid "_Browse..."
 msgstr "П_росмотр..."
 
-#: ../src/document.c:2521
+#: ../src/document.c:2522
 msgid "_File Type:"
 msgstr "_Тип файла:"
 
-#: ../src/document.c:2527
+#: ../src/document.c:2528
 msgid "_Recursive:"
 msgstr "П_росматривать поддиректории:"
 
-#: ../src/document.c:2532
+#: ../src/document.c:2533
 msgid "<b>Contains</b>"
 msgstr "<b>Содержит</b>"
 
-#: ../src/document.c:2535
+#: ../src/document.c:2536
 msgid "Pa_ttern:"
 msgstr "_Шаблон:"
 
-#: ../src/document.c:2539
+#: ../src/document.c:2540
 msgid "Is rege_x:"
 msgstr "ре_гулярное выражение:"
 
-#: ../src/document.c:2636
+#: ../src/document.c:2637
 #, c-format
 msgid "Loading %d file(s)..."
 msgstr "Загрузка %d файл(а,ов)..."
 
-#: ../src/document.c:2670
+#: ../src/document.c:2671
 msgid "Select file to insert"
 msgstr "Выберите файл для вставки"
 
-#: ../src/document.c:2672
+#: ../src/document.c:2673
 msgid "No file to insert"
 msgstr "Файл для вставки не найден"
 
-#: ../src/document.c:2734
+#: ../src/document.c:2735
 msgid "_Save all"
 msgstr "_Сохранить все"
 
-#: ../src/document.c:2734
+#: ../src/document.c:2735
 msgid "Close _all"
 msgstr "Закрыть _все"
 
-#: ../src/document.c:2734
+#: ../src/document.c:2735
 msgid "Choose per _file"
 msgstr "_Выбрать для каждого файла"
 
-#: ../src/document.c:2734
+#: ../src/document.c:2735
 msgid "_Cancel"
 msgstr "От_менить"
 
-#: ../src/document.c:2735
+#: ../src/document.c:2736
 msgid "Some file(s) have been modified"
 msgstr "Некоторые файлы были изменены"
 
-#: ../src/document.c:2983
+#: ../src/document.c:2984
 #, c-format
 msgid "Statistics: %d lines, %d words, %d characters"
 msgstr "Статистика: %d строк, %d слов, %d символов"
 
-#: ../src/document.c:3085
+#: ../src/document.c:3088
 msgid "No selection to indent"
 msgstr "Нет выделения для форматирования"
 
@@ -1060,6 +1064,60 @@ msgstr "Оставить _диалог открытым"
 msgid "starting bluefish"
 msgstr "запуск Bluefish"
 
+#: ../src/html2.c:586
+msgid "Cascading StyleSheet dialog"
+msgstr "диалог Cascading Style Sheet"
+
+#: ../src/html2.c:606
+msgid "_Selector:"
+msgstr "Панель в_ыбора:"
+
+#: ../src/html2.c:625
+msgid "_Property:"
+msgstr "_Свойство:"
+
+#: ../src/html2.c:627 ../src/html_form.c:286 ../src/html_form.c:353
+#: ../src/html_form.c:415 ../src/html_form.c:471 ../src/html_form.c:534
+#: ../src/html_form.c:644
+msgid "_Value:"
+msgstr "_Значение:"
+
+#: ../src/html2.c:645
+msgid "Selector"
+msgstr "Панель выбора"
+
+#: ../src/html2.c:645 ../src/html2.c:648
+msgid "Property"
+msgstr "Свойство"
+
+#: ../src/html2.c:645 ../src/html2.c:648
+msgid "Value"
+msgstr "Значение"
+
+#: ../src/html2.c:663
+msgid " _Add "
+msgstr " _Добавить "
+
+#: ../src/html2.c:666
+msgid " _Update "
+msgstr " О_бновить  "
+
+#: ../src/html2.c:669
+msgid " _Delete "
+msgstr " _Удалить "
+
+#: ../src/html2.c:925 ../src/html2.c:962
+msgid "_Style..."
+msgstr "_Стиль..."
+
+#: ../src/html2.c:1145
+msgid "Bluefish: Select color"
+msgstr "Bluefish: Выберите цвет"
+
+#: ../src/html2.c:1165
+msgid "_websafe"
+msgstr "_websafe"
+
 #: ../src/html.c:353
 msgid "Insert Time"
 msgstr "Вставить время"
@@ -1431,60 +1489,6 @@ msgstr "_Относительная ссылка:"
 #: ../src/html.c:2061 ../src/html_form.c:361
 msgid "_Type:"
 msgstr "_Тип:"
-
-#: ../src/html2.c:586
-msgid "Cascading StyleSheet dialog"
-msgstr "диалог Cascading Style Sheet"
-
-#: ../src/html2.c:606
-msgid "_Selector:"
-msgstr "Панель в_ыбора:"
-
-#: ../src/html2.c:625
-msgid "_Property:"
-msgstr "_Свойство:"
-
-#: ../src/html2.c:627 ../src/html_form.c:286 ../src/html_form.c:353
-#: ../src/html_form.c:415 ../src/html_form.c:471 ../src/html_form.c:534
-#: ../src/html_form.c:644
-msgid "_Value:"
-msgstr "_Значение:"
-
-#: ../src/html2.c:645
-msgid "Selector"
-msgstr "Панель выбора"
-
-#: ../src/html2.c:645 ../src/html2.c:648
-msgid "Property"
-msgstr "Свойство"
-
-#: ../src/html2.c:645 ../src/html2.c:648
-msgid "Value"
-msgstr "Значение"
-
-#: ../src/html2.c:663
-msgid " _Add "
-msgstr " _Добавить "
-
-#: ../src/html2.c:666
-msgid " _Update "
-msgstr " О_бновить  "
-
-#: ../src/html2.c:669
-msgid " _Delete "
-msgstr " _Удалить "
-
-#: ../src/html2.c:925 ../src/html2.c:962
-msgid "_Style..."
-msgstr "_Стиль..."
-
-#: ../src/html2.c:1145
-msgid "Bluefish: Select color"
-msgstr "Bluefish: Выберите цвет"
-
-#: ../src/html2.c:1165
-msgid "_websafe"
-msgstr "_websafe"
 
 #: ../src/html_form.c:129
 msgid "Form"
@@ -3113,32 +3117,31 @@ msgstr "Редактор меню пользователя"
 
 #: ../src/menu.c:1832
 msgid "Add New Menu Entry"
-msgstr ""
+msgstr "Добавить новый пункт меню"
 
 #: ../src/menu.c:1834
 msgid "Apply Changes"
-msgstr ""
+msgstr "Применить изменения"
 
 #: ../src/menu.c:1836
 msgid "Delete Menu Entry"
-msgstr ""
+msgstr "Удалить пункт меню"
 
 #: ../src/menu.c:1839
 msgid "Close Discards Changes"
-msgstr ""
+msgstr "Закрыть с отменой изменений"
 
 #: ../src/menu.c:1841
 msgid "Save Changes and Exit"
-msgstr ""
+msgstr "Сохранить изменения и выйти"
 
 #: ../src/menu.c:1851
 msgid "_Menu Path:"
 msgstr "Путь к _меню"
 
 #: ../src/menu.c:1872
-#, fuzzy
 msgid "Menu path"
-msgstr "Путь к _меню"
+msgstr "Путь к меню"
 
 #: ../src/menu.c:1892
 msgid "Number of _Variables:"
@@ -3786,14 +3789,12 @@ msgid "PERL type"
 msgstr "тип PERL"
 
 #: ../src/snr2.c:1251
-#, fuzzy
 msgid "Starts at:"
-msgstr "Начинать с"
+msgstr "Начинать с:"
 
 #: ../src/snr2.c:1263
-#, fuzzy
 msgid "Regular expression:"
-msgstr "Регулярное выражение"
+msgstr "Регулярное выражение:"
 
 #: ../src/snr2.c:1277
 msgid "Normal"
@@ -3808,9 +3809,8 @@ msgid "Lowercase"
 msgstr "Строчные буквы"
 
 #: ../src/snr2.c:1278
-#, fuzzy
 msgid "Replace type:"
-msgstr "Тип замены"
+msgstr "Тип замены:"
 
 #: ../src/snr2.c:1292
 msgid "Match ca_se"
@@ -3911,137 +3911,3 @@ msgstr "Источник:"
 #: ../src/wizards.c:224
 msgid "Size:"
 msgstr "Размер:"
-
-#, fuzzy
-#~ msgid "/_Delete file"
-#~ msgstr "Удалить файл"
-
-#~ msgid "Edit custom menu"
-#~ msgstr "Редактировать меню пользователя"
-
-#~ msgid "case sensitive"
-#~ msgstr "учитывать размер букв"
-
-#~ msgid " line    1 "
-#~ msgstr " строка    1 "
-
-#~ msgid "Error"
-#~ msgstr "Ошибка"
-
-#~ msgid "Backup for %s failed"
-#~ msgstr "Резервное копирование для %s не удалось"
-
-#~ msgid "Bluefish warning, file backup failure"
-#~ msgstr "Предупреждение Bluefish: ошибка резервного копирования файла"
-
-#~ msgid "Bluefish: Warning, file is open"
-#~ msgstr "Предупреждение Bluefish: файл открыт"
-
-#~ msgid ""
-#~ "File %s\n"
-#~ "is modified by another process\n"
-#~ "new modification time is %s\n"
-#~ "old modification time is %s\n"
-#~ "overwrite?"
-#~ msgstr ""
-#~ "Файл %s\n"
-#~ "модифицирован другим процессом, сохранить его?\n"
-#~ "новое время модификации %s\n"
-#~ "старое время модификацйи %s\n"
-#~ "перезаписать?"
-
-#~ msgid ""
-#~ "Are you sure you want to close\n"
-#~ "%s ?"
-#~ msgstr ""
-#~ "Вы уверены, что хотите закрыть\n"
-#~ "%s?"
-
-#~ msgid "Bluefish warning: file is modified!"
-#~ msgstr "Предупреждение Bluefish: файл модифицирован!"
-
-#~ msgid "cancel"
-#~ msgstr "отменить"
-
-#~ msgid ""
-#~ "Some file(s) are modified\n"
-#~ "please choose your action"
-#~ msgstr ""
-#~ "Некоторые файлы были изменены\n"
-#~ "выберите ваше действие"
-
-#~ msgid "Path exists already"
-#~ msgstr "Путь уже существует"
-
-#~ msgid "delete file?"
-#~ msgstr "удалить файл?"
-
-#~ msgid "Bluefish error"
-#~ msgstr "Ошибка Bluefish"
-
-#~ msgid "Bluefish error: no filename"
-#~ msgstr "Ошибка Bluefish: нет имени файла"
-
-#~ msgid "Bluefish warning: regular expression error"
-#~ msgstr "Предупреждение Bluefish: ошибка регулярного выражения"
-
-#~ msgid "Bluefish message"
-#~ msgstr "Сообщение Bluefish"
-
-#, fuzzy
-#~ msgid "Bluefish - "
-#~ msgstr "Подсказка Bluefish:"
-
-#~ msgid "Backgou_nd Color:"
-#~ msgstr "Цвет _фона:"
-
-#~ msgid "Hide _advanced <<"
-#~ msgstr "Убрать _подробности <<"
-
-#~ msgid "Show _advanced >>"
-#~ msgstr "Показать _подробности >>"
-
-#~ msgid "Beginning of all o_pened files"
-#~ msgstr "Первого из всех о_ткрытых файлов"
-
-#~ msgid "_None"
-#~ msgstr "_Нет"
-
-#~ msgid "POSIX _regular expression type "
-#~ msgstr "регулярное выражение POSI_X "
-
-#~ msgid "PERL compatible regular e_xpression type"
-#~ msgstr "регулярное выражение совместимое с _Perl"
-
-#~ msgid "_Text"
-#~ msgstr "_Текст"
-
-#~ msgid "This text selection will be replaced. Do you want to replace it?"
-#~ msgstr "Этот выделенный текст будет заменен. Заменить его?"
-
-#~ msgid "Replace _this"
-#~ msgstr "Заменить _это"
-
-#~ msgid "Custom _values:"
-#~ msgstr "Прочие _значения:"
-
-#~ msgid "Are you sure you want to replace this?"
-#~ msgstr "Вы уверены, что хотите заменить это?"
-
-#~ msgid "All"
-#~ msgstr "Все"
-
-#~ msgid "_Find: "
-#~ msgstr "_Найти:"
-
-#~ msgid "Where"
-#~ msgstr "Где"
-
-#~ msgid "In s_election"
-#~ msgstr "В в_ыбранном"
-
-#~ msgid "_Normal matching"
-#~ msgstr "_Обычное соответствие"
-
-#~ msgid "Use posix _regular expression matching"
-#~ msgstr "Использовать регулярные выражения в стиле POSI_X"
