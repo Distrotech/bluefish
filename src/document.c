@@ -153,17 +153,17 @@ gboolean test_only_empty_doc_left() {
 }
 
 static void doc_set_undo_redo_widget_state(Tdocument *doc) {
-		gint redo, undo;
-/*		redo = doc_has_redo_list(doc);
-		undo = doc_has_undo_list(doc);
-		if (main_v->props.v_main_tb) {
+	gint redo, undo;
+	redo = doc_has_redo_list(doc);
+	undo = doc_has_undo_list(doc);
+/*		if (main_v->props.v_main_tb) {
 			gtk_widget_set_sensitive(main_v->toolb.redo, redo);
 			gtk_widget_set_sensitive(main_v->toolb.undo, undo);
-		}
-		gtk_widget_set_sensitive(gtk_item_factory_get_widget(gtk_item_factory_from_widget(main_v->menubar), N_("/Edit/Undo")), undo);
-		gtk_widget_set_sensitive(gtk_item_factory_get_widget(gtk_item_factory_from_widget(main_v->menubar), N_("/Edit/Undo all")), undo);
-		gtk_widget_set_sensitive(gtk_item_factory_get_widget(gtk_item_factory_from_widget(main_v->menubar), N_("/Edit/Redo")), redo);
-		gtk_widget_set_sensitive(gtk_item_factory_get_widget(gtk_item_factory_from_widget(main_v->menubar), N_("/Edit/Redo all")), redo);*/
+		}*/
+	gtk_widget_set_sensitive(gtk_item_factory_get_widget(gtk_item_factory_from_widget(main_v->menubar), N_("/Edit/Undo")), undo);
+	gtk_widget_set_sensitive(gtk_item_factory_get_widget(gtk_item_factory_from_widget(main_v->menubar), N_("/Edit/Undo all")), undo);
+	gtk_widget_set_sensitive(gtk_item_factory_get_widget(gtk_item_factory_from_widget(main_v->menubar), N_("/Edit/Redo")), redo);
+	gtk_widget_set_sensitive(gtk_item_factory_get_widget(gtk_item_factory_from_widget(main_v->menubar), N_("/Edit/Redo all")), redo);
 }
 
 void doc_set_modified(Tdocument *doc, gint value) {
@@ -362,6 +362,7 @@ void doc_replace_text_backend(Tdocument *doc, const gchar * newstring, gint star
 	doc_unre_add(doc, newstring, start, start + strlen(newstring), UndoInsert);
 	doc_bind_signals(doc);
 	doc_set_modified(doc, 1);
+	doc->need_highlighting=TRUE;
 }					  
 
 void doc_replace_text(Tdocument * doc, const gchar * newstring, gint start, gint end) {
@@ -376,7 +377,7 @@ void doc_replace_text(Tdocument * doc, const gchar * newstring, gint start, gint
 
 
 #define STARTING_BUFFER_SIZE 2048
-gboolean doc_file_to_textbox(Tdocument * doc, gchar * filename, gboolean enable_undo)
+gboolean doc_file_to_textbox(Tdocument * doc, gchar * filename, gboolean enable_undo, gboolean delay_highlighting)
 {
 	FILE *fd;
 	gchar *errmessage, line[STARTING_BUFFER_SIZE], *message;
@@ -407,6 +408,17 @@ gboolean doc_file_to_textbox(Tdocument * doc, gchar * filename, gboolean enable_
 	}
 	fclose(fd);
 	doc->need_highlighting=TRUE;
+	if (!delay_highlighting) {
+#ifdef DEBUG
+		g_print("doc_file_to_textbox, doc->hlset=%p\n", doc->hl);
+		if (doc->hl) {
+			g_print("doc_file_to_textbox, doc->hlset->highlightlist=%p\n", doc->hl->highlightlist);
+		}
+#endif
+		if (main_v->props.cont_highlight_update) {
+			doc_highlight_full(doc);
+		}
+	}
 	if (!enable_undo) {
 		doc_bind_signals(doc);
 	}
@@ -520,7 +532,7 @@ static void doc_close_but_clicked_lcb(GtkWidget *wid, gpointer data) {
 }
 
 
-Tdocument *doc_new() {
+Tdocument *doc_new(gboolean delay_activate) {
 	GtkWidget *scroll;
 	Tdocument *newdoc = g_new0(Tdocument, 1);
 	DEBUG_MSG("doc_new, main_v is at %p, newdoc at %p\n", main_v, newdoc);
@@ -575,14 +587,18 @@ Tdocument *doc_new() {
 		gtk_widget_show(but);
 		gtk_notebook_append_page_menu(GTK_NOTEBOOK(main_v->notebook), scroll ,hbox, newdoc->tab_menu);
 	}
-	DEBUG_MSG("doc_new, set notebook page to %d\n", g_list_length(main_v->documentlist) - 1);
-	gtk_notebook_set_page(GTK_NOTEBOOK(main_v->notebook),g_list_length(main_v->documentlist) - 1);
+	newdoc->highlightstate = main_v->props.defaulthighlight;
+	if (!delay_activate) {
+		DEBUG_MSG("doc_new, set notebook page to %d\n", g_list_length(main_v->documentlist) - 1);
+		gtk_notebook_set_page(GTK_NOTEBOOK(main_v->notebook),g_list_length(main_v->documentlist) - 1);
 
-	if (main_v->current_document == NULL) {
-		notebook_changed(-1);
+		if (main_v->current_document != newdoc) {
+			notebook_changed(-1);
+		}
+		gtk_widget_grab_focus(newdoc->view);	
 	}
 
-	gtk_widget_grab_focus(newdoc->view);	
+
 	return newdoc;
 }
 
@@ -676,7 +692,7 @@ void doc_destroy(Tdocument * doc)
 	doc_unre_destroy(doc);
 	g_free(doc);
 
-/*	notebook_changed();*/
+	notebook_changed(-1);
 }
 
 /* gint doc_save(Tdocument * doc, gint do_save_as, gint do_move)
@@ -885,7 +901,7 @@ gint doc_close(Tdocument * doc, gint warn_only)
 }
 
 
-void doc_new_with_file(gchar * filename) {
+static void doc_new_with_file(gchar * filename, gboolean delay_activate) {
 
 	Tdocument *doc;
 	
@@ -903,10 +919,11 @@ void doc_new_with_file(gchar * filename) {
 	}
 	DEBUG_MSG("doc_new_with_file, filename=%s exists\n", filename);
 /*	file_and_dir_history_add(filename);*/
-	doc = doc_new();
+	doc = doc_new(delay_activate);
 	doc->filename = g_strdup(filename);
 	hl_reset_highlighting_type(doc, doc->filename);	
-	doc_file_to_textbox(doc, doc->filename, FALSE);
+	DEBUG_MSG("doc_new_with_file, hl is resetted to filename, about to load file\n");
+	doc_file_to_textbox(doc, doc->filename, FALSE, delay_activate);
 	doc->modified = 1; /* force doc_set_modified() to update the tab-label */
 	doc_set_modified(doc, 0);
 	doc_set_stat_info(doc); /* also sets mtime field */
@@ -919,9 +936,11 @@ void docs_new_from_files(GList * file_list) {
 
 	tmplist = g_list_first(file_list);
 	while (tmplist) {
-		doc_new_with_file((gchar *) tmplist->data);
+		doc_new_with_file((gchar *) tmplist->data, TRUE);
 		tmplist = g_list_next(tmplist);
 	}
+	/* since we delayed the highlighting, we do that now */
+	notebook_changed(-1);
 }
 
 void doc_reload(Tdocument *doc) {
@@ -935,7 +954,7 @@ void doc_reload(Tdocument *doc) {
 		gtk_text_buffer_delete(doc->buffer,&itstart,&itend);
 	}
 	
-	doc_file_to_textbox(doc, doc->filename, FALSE);
+	doc_file_to_textbox(doc, doc->filename, FALSE, FALSE);
 	doc_set_modified(doc, 0);
 	doc_set_stat_info(doc); /* also sets mtime field */
 }
@@ -958,12 +977,12 @@ void doc_activate(Tdocument *doc) {
 	doc_set_undo_redo_widget_state(doc);
 
 	/* if highlighting is needed for this document do this now !! */
-	if (TRUE || doc->need_highlighting && doc->highlightstate) {
+	if (doc->need_highlighting && doc->highlightstate) {
 		doc_highlight_full(doc);
+		DEBUG_MSG("doc_activate, after doc_highlight_full, need_highlighting=%d\n",doc->need_highlighting);
 	}
 
 	gtk_widget_grab_focus(GTK_WIDGET(doc->view));
-
 }
 
 
@@ -1012,7 +1031,7 @@ void file_insert_cb(GtkWidget * widget, gpointer data) {
 		return;
 	} else {
 		/* do we need to set the insert point in some way ?? */
-		doc_file_to_textbox(main_v->current_document, tmpfilename, TRUE);
+		doc_file_to_textbox(main_v->current_document, tmpfilename, TRUE, FALSE);
 		g_free(tmpfilename);
 		doc_set_modified(main_v->current_document, 1);
 	}
@@ -1021,7 +1040,7 @@ void file_insert_cb(GtkWidget * widget, gpointer data) {
 void file_new_cb(GtkWidget * widget, gpointer data) {
 	Tdocument *doc;
 
-	doc = doc_new();
+	doc = doc_new(FALSE);
 /*	project management needs a rewite so this is not included yet */
 /* 	if ((main_v->current_project.template) && (file_exists_and_readable(main_v->current_project.template) == 1)) {
              doc_file_to_textbox(doc, main_v->current_project.template);
