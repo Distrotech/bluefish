@@ -1,6 +1,6 @@
 /* Copyright (C) 1998-2000 Olivier Sessink, Chris Mazuc and Roland Steinbach
  * Copyright (C) 2000-2002 Olivier Sessink and Roland Steinbach
- * Copyright (C) 2002-2003 Olivier Sessink
+ * Copyright (C) 2002-2004 Olivier Sessink
  * this file has 
  * content-type: UTF8 
  * and it is important you keep it UTF-8 !!!
@@ -46,6 +46,7 @@
 #include "wizards.h"
 #include "image.h"
 #include "rcfile.h" /* rcfile_save_configfile_menu_cb */
+#include "rpopup.h"
 #include "project.h"
 
 #include "outputbox.h" /* temporary */
@@ -259,6 +260,9 @@ static void menu_html_dialogs_lcb(Tbfwin *bfwin,guint callback_action, GtkWidget
 		new_css_dialog(NULL,bfwin);
 	case 37:
 		sel_colour_cb(NULL,bfwin);	
+	break;
+	case 38:
+		edit_tag_under_cursor_cb(bfwin);
 	break;
 	default:
 		g_print("menu_file_operations_cb, unknown action, abort!\n");
@@ -640,6 +644,8 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/Dialogs/WML/Noop"), NULL, general_wml_cb, 9, NULL},
 	{N_("/Dialogs/WML/sep13"), NULL, NULL, 0, "<Separator>"},
 	{N_("/Dialogs/WML/Set Variable..."), NULL, vardialog_cb, 0, NULL},*/
+	{N_("/Dialogs/sep1"), NULL, NULL, 0, "<Separator>"},
+	{N_("/Dialogs/_Edit tag under cursor..."), "<shift>F10", menu_html_dialogs_lcb, 38, "<Item>"},
 	{N_("/_Document"), NULL, NULL, 0, "<Branch>"},
 	{N_("/Document/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
 	{N_("/Document/_Increase Tabsize"), NULL, gui_change_tabsize, 1, "<Item>"},
