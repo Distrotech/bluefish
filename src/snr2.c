@@ -349,13 +349,11 @@ Tsearch_result search_doc(Tdocument *document, gchar *pattern, gint matchtype, g
 /*****************************************************/
 
 void doc_show_result(Tdocument *document, gint start, gint end) {
-	if (end > 0) {
-		DEBUG_MSG("doc_show_result, select from start=%d to end=%d\n",start, end);
-		if (document != main_v->current_document) {
-			switch_to_document_by_pointer(document);
-		}
-		doc_select_region(document, start, end, TRUE);
+	DEBUG_MSG("doc_show_result, select from start=%d to end=%d\n",start, end);
+	if (document != main_v->current_document) {
+		switch_to_document_by_pointer(document);
 	}
+	doc_select_region(document, start, end, TRUE);
 }
 
 /*****************************************************/
@@ -814,10 +812,18 @@ void snr2_run(void) {
 			DEBUG_MSG("snr2dialog_ok_lcb, search = all\n");
 			result_all = search_all(last_snr2.pattern, last_snr2.matchtype, last_snr2.is_case_sens);
 			DEBUG_MSG("snr2dialog_ok_lcb, result_all.doc=%p\n",result_all.doc);
-			doc_show_result(result_all.doc, result_all.start, result_all.end);
+			if (result_all.end > 0) {
+				doc_show_result(result_all.doc, result_all.start, result_all.end);
+			} else {
+				error_dialog(_("Bluefish message"), _("Search: no match found"));
+			}
 		} else {
 			result = search_doc(main_v->current_document, last_snr2.pattern, last_snr2.matchtype, last_snr2.is_case_sens, startpos);
-			doc_show_result(main_v->current_document, result.start, result.end);	
+			if (result.end > 0) {
+				doc_show_result(main_v->current_document, result.start, result.end);	
+			} else {
+				error_dialog(_("Bluefish message"), _("Search: no match found"));
+			}
 		}
 	}
 	/* if highlighting is needed for this document do this now !! */
@@ -1056,7 +1062,16 @@ static void snr2dialog(gint is_replace, gint is_new_search) {
 	gtk_window_set_default(GTK_WINDOW(snr2win->window), but);
 	gtk_box_pack_start(GTK_BOX(hbox), bf_stock_cancel_button(G_CALLBACK(snr2dialog_cancel_lcb), snr2win), FALSE, TRUE, 0);
 	
+	/* now select all text */
+	{
+		GtkTextIter start,end;
+		GtkTextBuffer* buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(snr2win->patternv));
+		gtk_text_buffer_get_bounds(buffer,&start,&end);
+		gtk_text_buffer_move_mark_by_name(buffer,"insert",&start);
+		gtk_text_buffer_move_mark_by_name(buffer,"selection_bound",&end);
+	}
 	gtk_widget_grab_focus(snr2win->patternv);
+	
 	gtk_widget_show_all(snr2win->window);
 	if (is_replace) {
 		matchingtype_toggled_lcb(NULL, snr2win);
