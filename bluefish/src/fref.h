@@ -5,6 +5,16 @@
 /* 
 <ref name="MySQL Functions" description="MySQL functions for PHP " case="1">
 
+<group name="some_function_group">
+  <description>
+     Group description
+  </description>
+      
+        <group name="Groups can be nested">
+           <function ...>
+           </function>
+        </group>
+
 <function name="mysql_db_query">
 
    <description>
@@ -65,6 +75,7 @@
   
  </tag>
    
+</group>
 
 </ref>
 */

@@ -31,9 +31,10 @@ enum {
  N_COLUMNS
 };
 
-#define FR_TYPE_TAG				1
+#define FR_TYPE_TAG				   1
 #define FR_TYPE_FUNCTION			2
 #define FR_TYPE_CLASS				3
+#define FR_TYPE_GROUP				4
 
 #define MAX_NEST_LEVEL			20
 
@@ -88,6 +89,7 @@ typedef struct
 typedef struct
 {
   FRInfo *act_info;
+  FRInfo *act_grp;
   FRAttrInfo *act_attr;
   FRParamInfo *act_param;
   GtkWidget *tree;
@@ -114,6 +116,7 @@ typedef struct
 #define FR_LOADER_STATE_INSERT          11
 #define FR_LOADER_STATE_VALLIST         12
 #define FR_LOADER_STATE_RETURN          13
+#define FR_LOADER_STATE_GROUPDESC       14
 
 #define FR_INFO_TITLE			1
 #define FR_INFO_DESC			  2
@@ -270,18 +273,30 @@ void fref_loader_start_element(GMarkupParseContext * context,
 	case FR_LOADER_STATE_NONE:
 		if (strcmp(element_name, "group") == 0) {
 		 if (aux->nest_level < MAX_NEST_LEVEL)
-		 {
-     gtk_tree_store_append(aux->store, &iter, &aux->parent);
-     gtk_tree_store_set(aux->store, &iter, STR_COLUMN, 
+		  {
+		   info = g_new0(FRInfo, 1);
+		   info->type = FR_TYPE_GROUP;
+		   info->name = g_strdup(g_hash_table_lookup(attrs, "name"));
+         gtk_tree_store_append(aux->store, &iter, &aux->parent);
+         gtk_tree_store_set(aux->store, &iter, STR_COLUMN, 
  			                   g_strdup(g_hash_table_lookup(attrs, "name")),
- 			                   FILE_COLUMN,g_strdup(g_hash_table_lookup(attrs, "description")),
- 			                   PTR_COLUMN,NULL,-1);
-     aux->grp_parent[aux->nest_level] = aux->parent;							             
-     aux->parent = iter;
-    } else g_warning("Maximum nesting level reached!");       
-    (aux->nest_level)++;
- 
-		} else if (strcmp(element_name, "tag") == 0) {
+ 			                   FILE_COLUMN,NULL,
+ 			                   PTR_COLUMN,info,-1);
+         aux->grp_parent[aux->nest_level] = aux->parent;							             
+         aux->parent = iter;
+        } else g_warning("Maximum nesting level reached!");       
+        (aux->nest_level)++;
+	    } 
+	    else if (strcmp(element_name, "description") == 0) { /* group description */
+	      FRInfo *tmpinfo;
+	      gtk_tree_model_get(GTK_TREE_MODEL(aux->store),&aux->parent,PTR_COLUMN, &tmpinfo, -1);
+	      if (tmpinfo!=NULL)
+	      {
+  			  aux->pstate = FR_LOADER_STATE_NONE;
+  			  aux->state = FR_LOADER_STATE_GROUPDESC;
+	      }
+	    }
+	    else if (strcmp(element_name, "tag") == 0) {
 			aux->state = FR_LOADER_STATE_TAG;
 			aux->pstate = FR_LOADER_STATE_NONE;
 			info = g_new0(FRInfo, 1);
@@ -480,7 +495,7 @@ void fref_loader_end_element(GMarkupParseContext * context,
 			aux->act_param = NULL;
 			aux->pstate = FR_LOADER_STATE_FUNC;
 		}
-		break;					/* param */
+		break;					/* param */	
 	}							/* switch */
 	
 	if (aux->state != FR_LOADER_STATE_VALLIST)
@@ -505,6 +520,7 @@ void fref_loader_text(GMarkupParseContext * context, const gchar * _text,
 	FRParseAux *aux;
 	gchar *text;
 	gint text_len;
+   FRInfo *tmpinfo;	
 
 	if (user_data == NULL && _text == NULL)
 		return;
@@ -547,6 +563,13 @@ void fref_loader_text(GMarkupParseContext * context, const gchar * _text,
 	case FR_LOADER_STATE_INSERT:
 		aux->act_info->insert_text = g_strndup(text, text_len);
 		break;
+	case FR_LOADER_STATE_GROUPDESC:
+	      gtk_tree_model_get(GTK_TREE_MODEL(aux->store),&aux->parent,PTR_COLUMN, &tmpinfo, -1);
+	      if (tmpinfo!=NULL)
+	      {
+  			  tmpinfo->description = g_strndup(text, text_len);
+	      }     
+		break;		
 	}							/* switch */
 	g_free(text);
 }
@@ -832,6 +855,20 @@ gchar *fref_prepare_info(FRInfo * entry, gint infotype,gboolean use_colors)
 
 	ret = g_strdup("");
 	switch (entry->type) {
+	case FR_TYPE_GROUP:
+	         switch (infotype) {
+     		     case FR_INFO_DESC:
+		            		if (entry->description != NULL) {
+                 			tofree = ret;
+                 			if (use_colors)
+                 			   ret = g_strconcat(ret, "<span size=\"small\"  foreground=\"#FFFFFF\" >       ",entry->description, "</span>", NULL);
+                 			else
+                 			   ret = g_strconcat(ret, "<span size=\"small\">       ",entry->description, "</span>", NULL);   
+              			g_free(tofree);
+                		}
+		          break;           
+	         }
+	     break;
 	case FR_TYPE_TAG:
 		   switch (infotype) {
 		     case FR_INFO_TITLE:
@@ -889,7 +926,7 @@ gchar *fref_prepare_info(FRInfo * entry, gint infotype,gboolean use_colors)
 		               g_free(tofree);	    
 	         break;
 	    case FR_INFO_DESC:
-		            		if (entry->description != NULL) {
+		            	if (entry->description != NULL) {
                  			tofree = ret;
                  			if (use_colors)
                  			   ret = g_strconcat(ret, "<span size=\"small\" foreground=\"#FFFFFF\" >       <i>",entry->description, "</i></span>\n", NULL);
@@ -2038,12 +2075,18 @@ gchar* fref_tip(gconstpointer win,gconstpointer tree,gint x, gint y)
 		   }
      break;
      case FR_TYPE_FUNCTION:
+         if (info->return_type!=NULL)
           str = g_strdup_printf("<i>%s</i>  %s( ",info->return_type,info->name);
+         else
+          str = g_strdup_printf("%s( ",info->name); 
           lst = g_list_first(info->params);
           while (lst) {
              tmpp = (FRParamInfo *) lst->data;
              tofree = str;
-             str = g_strconcat(str, "<i>",tmpp->type,"</i>  <b>",tmpp->name, "</b>", NULL);   
+             if (tmpp->type != NULL)
+                str = g_strconcat(str, "<i>",tmpp->type,"</i>  <b>",tmpp->name, "</b>", NULL);   
+             else
+                str = g_strconcat(str, "<b>",tmpp->name, "</b>", NULL);      
              g_free(tofree);
              lst = g_list_next(lst);
              if (lst)
