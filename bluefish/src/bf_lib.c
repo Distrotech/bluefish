@@ -40,7 +40,7 @@
 
 gchar *get_filename_on_disk_encoding(const gchar *utf8filename) {
 	GError *gerror=NULL;
-	gint b_written;
+	gsize b_written;
 	gchar *ondiskencoding = g_filename_from_utf8(utf8filename,-1, NULL,&b_written,&gerror);
 	if (gerror) {
 		g_print(_("Bluefish has trouble reading the filenames. Try to set the environment variable G_BROKEN_FILENAMES=1\n"));
@@ -51,7 +51,7 @@ gchar *get_filename_on_disk_encoding(const gchar *utf8filename) {
 
 gchar *get_utf8filename_from_on_disk_encoding(const gchar *encodedname) {
 	GError *gerror=NULL;
-	gint b_written;
+	gsize b_written;
 	gchar *ondiskencoding = g_filename_to_utf8(encodedname,-1, NULL,&b_written,&gerror);
 	if (gerror) {
 		g_print(_("Bluefish has trouble reading the filenames. Try to set the environment variable G_BROKEN_FILENAMES=1\n"));
