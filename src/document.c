@@ -1826,16 +1826,20 @@ Tdocument *doc_new(gboolean delay_activate) {
 	}
 	newdoc->highlightstate = main_v->props.defaulthighlight;
 	DEBUG_MSG("doc_new, need_highlighting=%d, highlightstate=%d\n", newdoc->need_highlighting, newdoc->highlightstate);
-	if (!delay_activate) {
+/*	
+	these lines should not be here since notebook_changed() calls flush_queue()
+	that means that this document can be closed during notebook_changed(), and functions like open_file 
+	rely on the fact that this function returns an existing document (and not a closed one!!)
+if (!delay_activate) {
 		DEBUG_MSG("doc_new, notebook current page=%d, newdoc is on page %d\n",gtk_notebook_get_current_page(GTK_NOTEBOOK(main_v->notebook)),gtk_notebook_page_num(GTK_NOTEBOOK(main_v->notebook),scroll));
 		DEBUG_MSG("doc_new, setting notebook page to %d\n", g_list_length(main_v->documentlist) - 1);
 		gtk_notebook_set_current_page(GTK_NOTEBOOK(main_v->notebook),g_list_length(main_v->documentlist) - 1);
 		if (main_v->current_document != newdoc) {
 			notebook_changed(-1);
-		}
+		}*/
 /*		doc_activate() will be called by notebook_changed() and it will grab the focus
 		gtk_widget_grab_focus(newdoc->view);	*/
-	}
+/*	}*/
 	return newdoc;
 }
 
@@ -1860,10 +1864,12 @@ void doc_new_with_new_file(gchar * new_filename) {
 /*	doc_set_modified(doc, 0);*/
 	doc_save(doc, 0, 0);
 	doc_set_stat_info(doc); /* also sets mtime field */
+	switch_to_document_by_pointer(doc);
 }
 
 gboolean doc_new_with_file(gchar * filename, gboolean delay_activate) {
 	Tdocument *doc;
+	gboolean opening_in_existing_doc = FALSE;
 	
 	if ((filename == NULL) || (!file_exists_and_readable(filename))) {
 		DEBUG_MSG("doc_new_with_file, file %s !file_exists or readable\n", filename);
@@ -1884,6 +1890,8 @@ gboolean doc_new_with_file(gchar * filename, gboolean delay_activate) {
 
 	if (g_list_length(main_v->documentlist)==1 && doc_is_empty_non_modified_and_nameless(main_v->current_document)) {
 		doc = main_v->current_document;
+		opening_in_existing_doc = TRUE;
+		locals.last_activated_doc = NULL;
 	} else {
 		doc = doc_new(delay_activate);
 	}
@@ -1891,11 +1899,16 @@ gboolean doc_new_with_file(gchar * filename, gboolean delay_activate) {
 	hl_reset_highlighting_type(doc, doc->filename);	
 	DEBUG_MSG("doc_new_with_file, hl is resetted to filename, about to load file\n");
 	doc_file_to_textbox(doc, doc->filename, FALSE, delay_activate);
-	menu_current_document_set_toggle_wo_activate(NULL, doc->encoding);
+	/* hey, this should be done by doc_activate 
+	menu_current_document_set_toggle_wo_activate(NULL, doc->encoding);*/
 	doc->modified = 1; /* force doc_set_modified() to update the tab-label */
 	doc_set_modified(doc, 0);
 	doc_set_stat_info(doc); /* also sets mtime field */
 	if (!delay_activate) {
+		if (opening_in_existing_doc) {
+			doc_activate(doc);
+		} 
+		switch_to_document_by_pointer(doc);
 		filebrowser_open_dir(filename);
 	}
 	return TRUE;	
@@ -1952,9 +1965,19 @@ void doc_reload(Tdocument *doc) {
 	doc_set_stat_info(doc); /* also sets mtime field */
 }
 
+static void doc_set_file_in_titlebar(Tdocument *doc) {
+	gchar *title;
+	if (doc->filename) {
+		title = g_strconcat("Bluefish ",VERSION," - ",doc->filename,NULL);
+	} else {
+		title = g_strconcat("Bluefish ",VERSION," -",_("Untitled"),NULL);
+	}
+	gtk_window_set_title(GTK_WINDOW(main_v->main_window),title);
+	g_free(title);
+}
+
 void doc_activate(Tdocument *doc) {
 	time_t newtime;
-	gchar *title;
 #ifdef DEBUG
 	if (!doc) {
 		DEBUG_MSG("doc_activate, doc=NULL!!! ABORTING!!\n");
@@ -1983,14 +2006,7 @@ void doc_activate(Tdocument *doc) {
 	}
 	DEBUG_MSG("doc_activate, calling gui_set_widgets\n");
 	gui_set_widgets(doc_has_undo_list(doc), doc_has_redo_list(doc), doc->wrapstate, doc->highlightstate, doc->hl, doc->encoding, doc->linenumberstate);
-
-	if (main_v->current_document->filename) {
-		title = g_strconcat("Bluefish ",VERSION," - ",main_v->current_document->filename,NULL);
-	} else {
-		title = g_strconcat("Bluefish ",VERSION," -",_("Untitled"),NULL);
-	}
-	gtk_window_set_title(GTK_WINDOW(main_v->main_window),title);
-	g_free(title);
+	doc_set_file_in_titlebar(doc);
 
 	/* if highlighting is needed for this document do this now !! */
 	if (doc->need_highlighting && doc->highlightstate) {
@@ -2318,7 +2334,7 @@ void file_close_all_cb(GtkWidget * widget, gpointer data)
 		break;
 		}
 	}
-/*	notebook_changed(-1);*/
+	notebook_changed(-1);
 	DEBUG_MSG("file_close_all_cb, finished\n");
 }
 
