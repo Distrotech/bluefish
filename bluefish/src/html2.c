@@ -670,9 +670,9 @@ static Tcs3_diag *css_diag(Tcs3_destination dest, Tcs3_style style, GtkWidget *t
 	/* the ok and cancel button are in a horizontal box below */
 	hbox = gtk_hbox_new(TRUE, 0);
 	gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 0);
-	but = bf_stock_ok_button(G_CALLBACK(cs3d_ok_clicked_lcb), diag);
-	gtk_box_pack_start(GTK_BOX(hbox), but, TRUE, TRUE, 0);
 	but = bf_stock_cancel_button(G_CALLBACK(cs3d_cancel_clicked_lcb), diag);
+	gtk_box_pack_start(GTK_BOX(hbox), but, TRUE, TRUE, 0);
+	but = bf_stock_ok_button(G_CALLBACK(cs3d_ok_clicked_lcb), diag);
 	gtk_box_pack_start(GTK_BOX(hbox), but, TRUE, TRUE, 0);
 	
 	gtk_widget_show_all(diag->win);
@@ -1162,10 +1162,10 @@ static Tcolsel *colsel_dialog(gchar *setcolor, gint modal, gint startpos, gint e
 	gtk_button_box_set_spacing(GTK_BUTTON_BOX(hbox), 1);
 	gtk_box_pack_start(GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
 
+	but = bf_stock_cancel_button(G_CALLBACK(colsel_cancel_clicked_lcb), csd);
+	gtk_box_pack_start(GTK_BOX(hbox), but, TRUE, TRUE, 0);
 	but = bf_stock_ok_button(G_CALLBACK(colsel_ok_clicked_lcb), csd);
 	gtk_window_set_default(GTK_WINDOW(csd->win), but);
-	gtk_box_pack_start(GTK_BOX(hbox), but, TRUE, TRUE, 0);
-	but = bf_stock_cancel_button(G_CALLBACK(colsel_cancel_clicked_lcb), csd);
 	gtk_box_pack_start(GTK_BOX(hbox), but, TRUE, TRUE, 0);
 	gtk_widget_show_all(csd->win);
 	DEBUG_MSG("colsel_dialog, finished\n");
