@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: bluefish gtk2-port\n"
-"POT-Creation-Date: 2003-07-09 18:47-0300\n"
+"POT-Creation-Date: 2003-08-11 09:59+0200\n"
 "PO-Revision-Date: 2000-12-01 21:48+0100\n"
 "Last-Translator: Sáska, Péter <sasek@ccsystem.hu>\n"
 "Language-Team: madgyar <hu@li.org>\n"
@@ -17,84 +17,84 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8 bit\n"
 
-#: ../src/bfspell.c:338
+#: ../src/bfspell.c:334
 msgid "Spell checker"
 msgstr "Helyesírás-ellenőrző"
 
-#: ../src/bfspell.c:342
+#: ../src/bfspell.c:338
 msgid "Checking"
 msgstr "Ellenőrzés"
 
-#: ../src/bfspell.c:349
+#: ../src/bfspell.c:345
 msgid "Original"
 msgstr "Eredeti"
 
-#: ../src/bfspell.c:353
+#: ../src/bfspell.c:349
 msgid "Replacement"
 msgstr "Csere"
 
-#: ../src/bfspell.c:356 ../src/document.c:2353
+#: ../src/bfspell.c:352 ../src/document.c:2589
 msgid "Ignore"
 msgstr "Figyelmen kívül hagy"
 
-#: ../src/bfspell.c:357 ../src/snr2.c:1183
+#: ../src/bfspell.c:353 ../src/snr2.c:1201
 msgid "Replace"
 msgstr "Cserél"
 
-#: ../src/bfspell.c:368
+#: ../src/bfspell.c:364
 msgid "In document"
 msgstr "A dokumentumban"
 
-#: ../src/bfspell.c:369
+#: ../src/bfspell.c:365
 msgid "In selection"
 msgstr "Kijelölésben"
 
-#: ../src/bfspell.c:378
+#: ../src/bfspell.c:374
 msgid "personal dictionary"
 msgstr "személyes szótár"
 
-#: ../src/bfspell.c:381
+#: ../src/bfspell.c:377
 msgid "session dictionary"
 msgstr "session szótár"
 
-#: ../src/bfspell.c:387
+#: ../src/bfspell.c:383
 msgid "Dictionary"
 msgstr "Szótár"
 
-#: ../src/bfspell.c:389
+#: ../src/bfspell.c:385
 msgid "Add"
 msgstr "Hozzáad"
 
-#: ../src/bfspell.c:393
+#: ../src/bfspell.c:389
 msgid "Language"
 msgstr "Nyelv"
 
-#: ../src/bfspell.c:395
+#: ../src/bfspell.c:391
 msgid "Set default"
 msgstr "Alapértelmezett"
 
-#: ../src/bfspell.c:399 ../src/filebrowser.c:1107
+#: ../src/bfspell.c:395 ../src/filebrowser.c:1319
 msgid "Filter"
 msgstr "Szűrő"
 
-#: ../src/bfspell.c:405
+#: ../src/bfspell.c:401
 msgid "no filter"
 msgstr "nincs szűrés"
 
-#: ../src/bfspell.c:407
+#: ../src/bfspell.c:403
 msgid "html filter"
 msgstr "html szűrő"
 
-#: ../src/bluefish.c:78
-#, c-format
+#: ../src/bluefish.c:85
+#, fuzzy, c-format
 msgid ""
 "\n"
-"Usage: %s [options] [filename]\n"
+"Usage: %s [options] [filenames ...]\n"
 msgstr ""
 "\n"
 "Használat: %s [opciók] [fájlnév]\n"
 
-#: ../src/bluefish.c:79
+#: ../src/bluefish.c:86
 msgid ""
 "\n"
 "Currently accepted options are:\n"
@@ -102,93 +102,112 @@ msgstr ""
 "\n"
 "Jelenleg felismert kapcsolók:\n"
 
-#: ../src/bluefish.c:80
+#: ../src/bluefish.c:87
 msgid "-s           skip root check\n"
 msgstr "-s           root ellenőrzés elhagyása\n"
 
-#: ../src/bluefish.c:81
+#: ../src/bluefish.c:88
 msgid "-v           current version\n"
 msgstr "-v           verziószám kiírása\n"
 
-#: ../src/bluefish.c:82
+#: ../src/bluefish.c:89
+#, fuzzy
+msgid "-n           open new window\n"
+msgstr "-v           verziószám kiírása\n"
+
+#: ../src/bluefish.c:90
 msgid "-h           this help screen\n"
 msgstr "-h           ennek a súgónak a megjelenítése\n"
 
-#: ../src/bluefish.c:138
+#: ../src/bluefish.c:152
 msgid "parsing highlighting file..."
 msgstr "szintaxiskiemelés-fájl értelmezése..."
 
-#: ../src/bluefish.c:149
+#: ../src/bluefish.c:163
 msgid "compiling highlighting patterns..."
 msgstr "kiemelési minták értelmezése..."
 
-#: ../src/bluefish.c:153
+#: ../src/bluefish.c:170
 msgid "parsing custom menu file..."
 msgstr "sajátmenü-fájl értelmezése..."
 
-#: ../src/bluefish.c:162
+#: ../src/bluefish.c:179
 msgid "creating main gui..."
 msgstr "grafikus felhasználói felület létrehozása..."
 
-#: ../src/bluefish.c:167
+#: ../src/bluefish.c:188
 msgid "showing main gui..."
 msgstr "grafikus felhasználói felület megjelenítése..."
 
-#: ../src/document.c:148 ../src/gui.c:635
+#: ../src/bluefish.c:202
+msgid "Bluefish tip:"
+msgstr "Bluefish tipp:"
+
+#: ../src/bluefish.c:202
+msgid ""
+"This message is shown since you do not have any items in the Quickbar.\n"
+"\n"
+"If you right-click a button in the HTML toolbars you can add buttons to the "
+"Quickbar."
+msgstr ""
+"Ez az üzenet akkor látható, ha az Eszköztár üres.\n"
+"\n"
+"Az Eszköztárra úgy tehetsz gombogat, hogy a HTML eszköztáron lévő "
+"bármelyikgombra kattintasz a jobb egérgombbal."
+
+#: ../src/document.c:223 ../src/gui.c:885
 msgid "/Document/Highlight Syntax"
 msgstr "/Dokumentum/Szintaxiskiemelés"
 
-#: ../src/document.c:552 ../src/document.c:553
-msgid "Untitled"
+#: ../src/document.c:626
+#, fuzzy, c-format
+msgid "Untitled %d"
 msgstr "Névtelen"
 
-#: ../src/document.c:724
-msgid " Untitled"
-msgstr " Névtelen"
-
-#: ../src/document.c:824 ../src/document.c:825
+#: ../src/document.c:938 ../src/document.c:939
 #, c-format
 msgid "  %s, %s"
 msgstr "  %s, %s"
 
-#: ../src/document.c:1044
+#: ../src/document.c:1152 ../src/document.c:1194
+#, fuzzy
+msgid "Could not read file:\n"
+msgstr "Nem sikerült a fájl megnyitása:\n"
+
+#: ../src/document.c:1225
 msgid "Opening file "
 msgstr "Fájl megnyitása"
 
-#: ../src/document.c:1053
-msgid "Could not open file:\n"
-msgstr "Nem sikerült a fájl megnyitása:\n"
-
-#: ../src/document.c:1197
+#: ../src/document.c:1335
 msgid "Cannot display file, unknown characters found."
 msgstr "A fájlt nem lehet megjeleníteni, ismeretlen karakter(eke)t tartalmaz."
 
-#: ../src/document.c:1299
+#: ../src/document.c:1449
 #, c-format
 msgid " Line  %d"
 msgstr " %d. sor "
 
-#: ../src/document.c:1444
+#: ../src/document.c:1594
 msgid "Edit tag"
 msgstr "Címke szerkesztése"
 
-#: ../src/document.c:1455
+#: ../src/document.c:1605
 msgid "Input _Methods"
 msgstr "Beviteli _módok"
 
-#: ../src/document.c:1564
+#: ../src/document.c:1750
 msgid "Saving file"
 msgstr "Fájl mentése"
 
-#: ../src/document.c:1585
+#: ../src/document.c:1771
 msgid "Abort save"
 msgstr "Mentés megszakítása"
 
-#: ../src/document.c:1585
+#: ../src/document.c:1771
 msgid "Continue save"
 msgstr "Mentés folytatása"
 
-#: ../src/document.c:1587
+#: ../src/document.c:1773
 #, c-format
 msgid ""
 "A backupfile for %s could not be created. If you continue, this file will be "
@@ -197,53 +216,53 @@ msgstr ""
 "Nem sikerült a %s fájl backupjának elkészítése. Ha folytatod, a "
 "fájlfelülíródik."
 
-#: ../src/document.c:1588
+#: ../src/document.c:1774
 msgid "File backup failure"
 msgstr "Sikertelen backup"
 
-#: ../src/document.c:1726
+#: ../src/document.c:1914
 msgid "Move/rename document to"
 msgstr "Dokumentum áthelyezése/átnevezése"
 
-#: ../src/document.c:1726
+#: ../src/document.c:1914
 msgid "Save document as"
 msgstr "Dokumentum mentése másként"
 
-#: ../src/document.c:1736 ../src/document.c:1762 ../src/document.c:1833
+#: ../src/document.c:1926 ../src/document.c:1949 ../src/document.c:2036
 msgid "Cancel"
 msgstr "Mégsem"
 
-#: ../src/document.c:1736 ../src/document.c:1762 ../src/document.c:1833
+#: ../src/document.c:1926 ../src/document.c:1949 ../src/document.c:2036
 msgid "Overwrite"
 msgstr "Felülír"
 
-#: ../src/document.c:1737
+#: ../src/document.c:1927
 #, c-format
 msgid "File %s exists and is opened, overwrite?"
 msgstr "%s létezik és nyitva van, felülírjuk?"
 
-#: ../src/document.c:1738
+#: ../src/document.c:1928
 msgid "The file you have selected is being edited in Bluefish."
 msgstr "A kiválasztott fájlt a Bluefish szerkesztésre megnyitotta."
 
-#: ../src/document.c:1752
+#: ../src/document.c:1939
 msgid "Previously: "
 msgstr "Előzőleg: "
 
-#: ../src/document.c:1763
+#: ../src/document.c:1950
 #, c-format
 msgid "File %s exists, overwrite?"
 msgstr "%s létezik, felülírjuk?"
 
-#: ../src/document.c:1764
+#: ../src/document.c:1951
 msgid "The file you have selected exists."
 msgstr "A kiválasztott fájl létezik."
 
-#: ../src/document.c:1811
+#: ../src/document.c:1998
 msgid "Save as..."
 msgstr "Mentés másként..."
 
-#: ../src/document.c:1837
+#: ../src/document.c:2040
 #, c-format
 msgid ""
 "File: %s\n"
@@ -256,71 +275,71 @@ msgstr ""
 "Új módosítás időpontja: %s\n"
 "Előző módosítás időpontja: %s"
 
-#: ../src/document.c:1838
+#: ../src/document.c:2041
 msgid "The file has been modified by another process."
 msgstr "A fájlt egy másik folyamat módosította."
 
-#: ../src/document.c:1851
+#: ../src/document.c:2054
 #, c-format
 msgid "Saving %s"
 msgstr "%s mentése"
 
-#: ../src/document.c:1861 ../src/document.c:1867 ../src/menu.c:763
+#: ../src/document.c:2064 ../src/document.c:2070 ../src/menu.c:960
 msgid "The filename was:\n"
 msgstr "A fájlnév:\n"
 
-#: ../src/document.c:1862
+#: ../src/document.c:2065
 msgid "File save aborted, could not backup file\n"
 msgstr "Mentés megszakítva, sikertelen backup\n"
 
-#: ../src/document.c:1868
+#: ../src/document.c:2071
 msgid "File save error, could not write file\n"
 msgstr "Mentési hiba, nem sikerült a fájl kiírása\n"
 
-#: ../src/document.c:1915
+#: ../src/document.c:2118
 #, c-format
 msgid ""
 "Do you want to save the changes done to\n"
 "%s?."
 msgstr "Elmented a %s fájl változásait?"
 
-#: ../src/document.c:1920
+#: ../src/document.c:2123
 msgid "Do you want to save the changes done to this untitled file?"
 msgstr "Mented a névtelen fájl változásait?"
 
-#: ../src/document.c:1924
+#: ../src/document.c:2127
 msgid "Do_n't save"
 msgstr "Mentés megszakítása"
 
-#: ../src/document.c:1925
+#: ../src/document.c:2128
 msgid "The file is not saved"
 msgstr "A fájl nem került mentésre"
 
-#: ../src/document.c:2154
+#: ../src/document.c:2364
 msgid "No filename"
 msgstr "Nem adtál meg fájlnevet"
 
-#: ../src/document.c:2258
+#: ../src/document.c:2475
 msgid "Loading files..."
 msgstr "Fájlok betöltése..."
 
-#: ../src/document.c:2276 ../src/msg_queue.c:180
+#: ../src/document.c:2493 ../src/msg_queue.c:200
 msgid "These files were not opened:\n"
 msgstr "Az alábbi fájlokat nem sikerült megnyitni:\n"
 
-#: ../src/document.c:2278 ../src/msg_queue.c:182
+#: ../src/document.c:2495 ../src/msg_queue.c:202
 msgid "Unable to open file(s)\n"
 msgstr "Nem lehet megnyitni a fájl(oka)t\n"
 
-#: ../src/document.c:2309
+#: ../src/document.c:2526
 msgid "Unable to open file"
 msgstr "Nem lehet megnyitni a fájlt"
 
-#: ../src/document.c:2353
+#: ../src/document.c:2589
 msgid "Reload"
 msgstr "Újratölt"
 
-#: ../src/document.c:2357
+#: ../src/document.c:2593
 #, c-format
 msgid ""
 "File %s\n"
@@ -333,125 +352,125 @@ msgstr ""
 "új módosítás időpontja: %s\n"
 "előző módosítás időpontja: %s"
 
-#: ../src/document.c:2358
+#: ../src/document.c:2594
 msgid "Bluefish: Warning, file is modified"
 msgstr "Bluefish figyelmeztetés: a fájl megváltozott!"
 
-#: ../src/document.c:2453
+#: ../src/document.c:2695
 msgid "searching files..."
 msgstr "fájlok keresése..."
 
-#: ../src/document.c:2473
+#: ../src/document.c:2715
 msgid "Select basedir"
 msgstr "Alapkönyvtár választása"
 
-#: ../src/document.c:2487
+#: ../src/document.c:2732
 msgid "Advanced open file selector"
 msgstr "Megnyitás opciókkal"
 
-#: ../src/document.c:2498
+#: ../src/document.c:2743
 msgid "grep {contains} `find {basedir} -name '{file type}'`"
 msgstr "grep {tartalmaz} `find {alapkönyvtár} -name '{fájltípus}'`"
 
-#: ../src/document.c:2503
+#: ../src/document.c:2748
 msgid "<b>General</b>"
 msgstr "<b>Általános</b>"
 
-#: ../src/document.c:2505
+#: ../src/document.c:2750
 msgid "Base_dir:"
 msgstr "Alapkönyvtár"
 
-#: ../src/document.c:2507 ../src/gtk_easy.c:1173
+#: ../src/document.c:2752 ../src/gtk_easy.c:1169
 msgid "_Browse..."
 msgstr "_Tallóz..."
 
-#: ../src/document.c:2522
+#: ../src/document.c:2767
 msgid "_File Type:"
 msgstr "_Fájltípus:"
 
-#: ../src/document.c:2528
+#: ../src/document.c:2773
 msgid "_Recursive:"
 msgstr "_Rekurzív:"
 
-#: ../src/document.c:2533
+#: ../src/document.c:2778
 msgid "<b>Contains</b>"
 msgstr "<b>Tartalmaz</b>"
 
-#: ../src/document.c:2536
+#: ../src/document.c:2781
 msgid "Pa_ttern:"
 msgstr "_Minta:"
 
-#: ../src/document.c:2540
+#: ../src/document.c:2785
 msgid "Is rege_x:"
 msgstr "Rege_x-e:"
 
-#: ../src/document.c:2637
+#: ../src/document.c:2878 ../src/document.c:2896 ../src/document.c:2913
 #, c-format
 msgid "Loading %d file(s)..."
 msgstr "%d fájl betöltése..."
 
-#: ../src/document.c:2671
+#: ../src/document.c:2937
 msgid "Select file to insert"
 msgstr "Válaszd ki a beillesztendő fájlt"
 
-#: ../src/document.c:2673
+#: ../src/document.c:2939
 msgid "No file to insert"
 msgstr "Nincs beilleszthető fájl"
 
-#: ../src/document.c:2735
+#: ../src/document.c:2999
 msgid "_Save all"
 msgstr "Mindet m_enti"
 
-#: ../src/document.c:2735
+#: ../src/document.c:2999
 msgid "Close _all"
 msgstr "Mindet _bezárja"
 
-#: ../src/document.c:2735
+#: ../src/document.c:2999
 msgid "Choose per _file"
 msgstr "Választás _fájlonként"
 
-#: ../src/document.c:2735
+#: ../src/document.c:2999 ../src/gui.c:1014
 msgid "_Cancel"
 msgstr "_Mégsem"
 
-#: ../src/document.c:2736
+#: ../src/document.c:3000
 msgid "Some file(s) have been modified"
 msgstr "Fájl(ok) módosult(ak)"
 
-#: ../src/document.c:2984
+#: ../src/document.c:3247
 #, c-format
 msgid "Statistics: %d lines, %d words, %d characters"
 msgstr "Statisztika: %d sor, %d szó, %d karakter"
 
-#: ../src/document.c:3088
+#: ../src/document.c:3351
 msgid "No selection to indent"
 msgstr "Nincs kijelölt szöveg a behúzáshoz"
 
-#: ../src/filebrowser.c:812
+#: ../src/filebrowser.c:960
 msgid "Error creating path"
 msgstr "Nem sikerült az útvonal létrehozása."
 
-#: ../src/filebrowser.c:812
+#: ../src/filebrowser.c:960
 msgid "The specified pathname already exists."
 msgstr "A megadott útvonal már létezik."
 
-#: ../src/filebrowser.c:857
+#: ../src/filebrowser.c:1011
 msgid "File name"
 msgstr "Fájlnév"
 
-#: ../src/filebrowser.c:859
+#: ../src/filebrowser.c:1013
 msgid "Directory name"
 msgstr "Könyvtárnév"
 
-#: ../src/filebrowser.c:891
+#: ../src/filebrowser.c:1045
 msgid "Opening directory..."
 msgstr "Könyvtár megnyitása..."
 
-#: ../src/filebrowser.c:979
+#: ../src/filebrowser.c:1123 ../src/filebrowser.c:1127
 msgid "Could not rename\n"
 msgstr "Nem sikerült a fájl átnevezése\n"
 
-#: ../src/filebrowser.c:1025
+#: ../src/filebrowser.c:1169
 #, c-format
 msgid ""
 "Are you sure you want to\n"
@@ -460,607 +479,966 @@ msgstr ""
 "Biztosan törlöd a\n"
 "%s fájlt?"
 
-#: ../src/filebrowser.c:1026
+#: ../src/filebrowser.c:1170
 msgid "The file will be permanently deleted."
 msgstr "A fájl végérvényesen törlődik."
 
-#: ../src/filebrowser.c:1084
-msgid "/_Open"
-msgstr "_Megnyit"
+#: ../src/filebrowser.c:1284
+#, fuzzy
+msgid "/Open _Advanced"
+msgstr "/Fájl/Megnyitás _opciókkal..."
 
-#: ../src/filebrowser.c:1085
-msgid "/sep1"
-msgstr "/sep1"
-
-#: ../src/filebrowser.c:1086
-msgid "/Rena_me"
-msgstr "Át_nevez"
-
-#: ../src/filebrowser.c:1087
-msgid "/_Delete"
-msgstr " _Töröl "
-
-#: ../src/filebrowser.c:1088
-msgid "/sep2"
-msgstr "/sep2"
-
-#: ../src/filebrowser.c:1089
-msgid "/New _File"
-msgstr "Ú_j fájl"
-
-#: ../src/filebrowser.c:1090
-msgid "/_New Directory"
-msgstr "Új _könyvtár"
-
-#: ../src/filebrowser.c:1091
-msgid "/sep3"
-msgstr "/sep3"
-
-#: ../src/filebrowser.c:1092
+#: ../src/filebrowser.c:1288
 msgid "/_Refresh"
 msgstr "_Frissít"
 
-#: ../src/filebrowser.c:1212
+#: ../src/filebrowser.c:1292
+msgid "/New _File"
+msgstr "Ú_j fájl"
+
+#: ../src/filebrowser.c:1293
+msgid "/_New Directory"
+msgstr "Új _könyvtár"
+
+#: ../src/filebrowser.c:1297
+msgid "/_Open"
+msgstr "_Megnyit"
+
+#: ../src/filebrowser.c:1298
+msgid "/Rena_me"
+msgstr "Át_nevez"
+
+#: ../src/filebrowser.c:1299
+msgid "/_Delete"
+msgstr " _Töröl "
+
+#: ../src/filebrowser.c:1493
 msgid "All files"
 msgstr "Minden fájl"
 
-#: ../src/fref.c:699
-msgid "Show info window"
-msgstr "Info ablak mutatása"
-
-#: ../src/fref.c:705 ../src/fref.c:949 ../src/fref.c:1473 ../src/fref.c:1504
-msgid "Dialog"
-msgstr "Párbeszéd"
-
-#: ../src/fref.c:706 ../src/fref.c:925 ../src/fref.c:1208 ../src/fref.c:1479
-#: ../src/fref.c:1506
+#: ../src/fref.c:1234 ../src/fref.c:1528 ../src/fref.c:1613 ../src/fref.c:1640
+#: ../src/fref.c:1876
 msgid "Info"
 msgstr "Info"
 
-#: ../src/fref.c:945 ../src/gui.c:581
+#: ../src/fref.c:1254 ../src/gui.c:831
 msgid "Close"
 msgstr "Bezárás"
 
-#: ../src/fref.c:950 ../src/fref.c:1476 ../src/fref.c:1501
+#: ../src/fref.c:1258 ../src/fref.c:1607 ../src/fref.c:1638 ../src/fref.c:1875
+msgid "Dialog"
+msgstr "Párbeszéd"
+
+#: ../src/fref.c:1259 ../src/fref.c:1610 ../src/fref.c:1635
 msgid "Insert"
 msgstr "Beszúrás"
 
-#: ../src/fref.c:1485 ../src/html.c:552 ../src/html.c:1257
+#: ../src/fref.c:1619 ../src/html.c:554 ../src/html.c:1253
 msgid "Options"
 msgstr "Lehetőségek"
 
-#: ../src/fref.c:1493
+#: ../src/fref.c:1627
 msgid "Rescan reference files"
 msgstr "Referencia-fájlok újraolvasása"
 
-#: ../src/fref.c:1496
+#: ../src/fref.c:1630
 msgid "Left doubleclick action"
 msgstr "Dupla kattintásra"
 
-#: ../src/fref.c:1509
+#: ../src/fref.c:1643
 msgid "Info type"
 msgstr "Info típus"
 
-#: ../src/fref.c:1513
+#: ../src/fref.c:1647
 msgid "Description"
 msgstr "Leírás"
 
-#: ../src/fref.c:1516
+#: ../src/fref.c:1650
 msgid "Attributes/Parameters"
 msgstr "Attribútumok/Paraméterek"
 
-#: ../src/fref.c:1518
+#: ../src/fref.c:1652
 msgid "Notes"
 msgstr "Megjegyzés"
 
-#: ../src/gtk_easy.c:1050
+#: ../src/fref.c:1869
+msgid "Show info window"
+msgstr "Info ablak mutatása"
+
+#: ../src/gtk_easy.c:1046
 #, c-format
 msgid "%d of %d"
 msgstr "%d of %d"
 
-#: ../src/gtk_easy.c:1243
-msgid "No file to insert."
-msgstr "Nincs beilleszthető fájl."
-
-#: ../src/gtk_easy.c:1347
+#: ../src/gtk_easy.c:1342
 msgid "Select file"
 msgstr "Válassz fájlt"
 
-#: ../src/gtk_easy.c:1374
+#: ../src/gtk_easy.c:1369
 msgid "Select files"
 msgstr "Válaszd ki a fájlokat"
 
-#: ../src/gui.c:282
+#: ../src/gui.c:252 ../src/gui.c:258
+msgid "Untitled"
+msgstr "Névtelen"
+
+#: ../src/gui.c:525
 msgid "QuickStart..."
 msgstr "Gyors kezdés..."
 
-#: ../src/gui.c:283
+#: ../src/gui.c:526
 msgid "Body..."
 msgstr "Törzs..."
 
-#: ../src/gui.c:284
+#: ../src/gui.c:527
 msgid "Bold"
 msgstr "Félkövér"
 
-#: ../src/gui.c:285
+#: ../src/gui.c:528
 msgid "Italic"
 msgstr "Dőlt"
 
-#: ../src/gui.c:286 ../src/html.c:761
+#: ../src/gui.c:529 ../src/html.c:761
 msgid "Paragraph"
 msgstr "Bekezdés"
 
-#: ../src/gui.c:287
+#: ../src/gui.c:530
 msgid "Break"
 msgstr "Sortörés"
 
-#: ../src/gui.c:288
+#: ../src/gui.c:531
 msgid "Break and clear"
 msgstr "Sortörés törléssel"
 
-#: ../src/gui.c:289
+#: ../src/gui.c:532
 msgid "Non-breaking space"
 msgstr "Nem törhető szóköz"
 
-#: ../src/gui.c:291
+#: ../src/gui.c:534
 msgid "Anchor..."
 msgstr "Horgony..."
 
-#: ../src/gui.c:292
+#: ../src/gui.c:535
 msgid "Rule..."
 msgstr "Vonal..."
 
-#: ../src/gui.c:293
+#: ../src/gui.c:536
 msgid "Center"
 msgstr "Középre"
 
-#: ../src/gui.c:294
+#: ../src/gui.c:537
 msgid "Right Justify"
 msgstr "Jobbra igazít"
 
-#: ../src/gui.c:295
+#: ../src/gui.c:538
 msgid "Comment"
 msgstr "Megjegyzés"
 
-#: ../src/gui.c:296
+#: ../src/gui.c:539
 msgid "E-Mail..."
 msgstr "E-mail..."
 
-#: ../src/gui.c:297
+#: ../src/gui.c:540
 msgid "Font..."
 msgstr "Betű..."
 
-#: ../src/gui.c:298
+#: ../src/gui.c:541
 msgid "Base Font Size..."
 msgstr "Alap fontméret"
 
-#: ../src/gui.c:300
+#: ../src/gui.c:543
 msgid "Font Size +1"
 msgstr "Fontméret +1"
 
-#: ../src/gui.c:301
+#: ../src/gui.c:544
 msgid "Font Size -1"
 msgstr "Fontméret -1"
 
-#: ../src/gui.c:302
+#: ../src/gui.c:545
 msgid "Preformatted Text"
 msgstr "Előformázott szöveg"
 
-#: ../src/gui.c:303
+#: ../src/gui.c:546
 msgid "Subscript"
 msgstr "Alsó index"
 
-#: ../src/gui.c:304
+#: ../src/gui.c:547
 msgid "Superscript"
 msgstr "Felső index"
 
-#: ../src/gui.c:305
+#: ../src/gui.c:548
 msgid "Strong"
 msgstr "Erős nyomaték"
 
-#: ../src/gui.c:306
+#: ../src/gui.c:549
 msgid "Emphasis"
 msgstr "Nyomaték"
 
-#: ../src/gui.c:308 ../src/html.c:770
+#: ../src/gui.c:551 ../src/html.c:770
 msgid "Heading 1"
 msgstr "Címsor 1"
 
-#: ../src/gui.c:309 ../src/html.c:773
+#: ../src/gui.c:552 ../src/html.c:773
 msgid "Heading 2"
 msgstr "Címsor 2"
 
-#: ../src/gui.c:310 ../src/html.c:776
+#: ../src/gui.c:553 ../src/html.c:776
 msgid "Heading 3"
 msgstr "Címsor 3"
 
-#: ../src/gui.c:311 ../src/html.c:779
+#: ../src/gui.c:554 ../src/html.c:779
 msgid "Heading 4"
 msgstr "Címsor 4"
 
-#: ../src/gui.c:312 ../src/html.c:782
+#: ../src/gui.c:555 ../src/html.c:782
 msgid "Heading 5"
 msgstr "Címsor 5"
 
-#: ../src/gui.c:313 ../src/html.c:785
+#: ../src/gui.c:556 ../src/html.c:785
 msgid "Heading 6"
 msgstr "Címsor 6"
 
-#: ../src/gui.c:314
+#: ../src/gui.c:557
 msgid "Table Wizard..."
 msgstr "Táblázat varázsló..."
 
-#: ../src/gui.c:316
+#: ../src/gui.c:559
 msgid "Table..."
 msgstr "Táblázat..."
 
-#: ../src/gui.c:317
+#: ../src/gui.c:560
 msgid "Table Row..."
 msgstr "Sor..."
 
-#: ../src/gui.c:318
+#: ../src/gui.c:561
 msgid "Table Header..."
 msgstr "Fejléc-cella..."
 
-#: ../src/gui.c:319
+#: ../src/gui.c:562
 msgid "Table Data..."
 msgstr "Cella..."
 
-#: ../src/gui.c:321 ../src/html_table.c:82
+#: ../src/gui.c:564 ../src/html_table.c:81
 msgid "Table"
 msgstr "Táblázat"
 
-#: ../src/gui.c:322 ../src/html_table.c:215
+#: ../src/gui.c:565 ../src/html_table.c:213
 msgid "Table Row"
 msgstr "Sor"
 
-#: ../src/gui.c:323 ../src/html_table.c:326
+#: ../src/gui.c:566 ../src/html_table.c:324
 msgid "Table Header"
 msgstr "Fejléc-cella"
 
-#: ../src/gui.c:324 ../src/html_table.c:324
+#: ../src/gui.c:567 ../src/html_table.c:322
 msgid "Table Data"
 msgstr "Cella"
 
-#: ../src/gui.c:325
+#: ../src/gui.c:568
 msgid "Table Caption"
 msgstr "Táblázat címe"
 
-#: ../src/gui.c:326
+#: ../src/gui.c:569
 msgid "Frame Wizard..."
 msgstr "Keret varázsló..."
 
-#: ../src/gui.c:328
+#: ../src/gui.c:571
 msgid "Frameset..."
 msgstr "Keretcsoport..."
 
-#: ../src/gui.c:329
+#: ../src/gui.c:572
 msgid "Frame..."
 msgstr "Keret..."
 
-#: ../src/gui.c:331 ../src/html.c:1753
+#: ../src/gui.c:574 ../src/html.c:1743
 msgid "Frameset"
 msgstr "Frameset"
 
-#: ../src/gui.c:332 ../src/html.c:1838
+#: ../src/gui.c:575 ../src/html.c:1826
 msgid "Frame"
 msgstr "Keret"
 
-#: ../src/gui.c:333
+#: ../src/gui.c:576
 msgid "Noframes"
 msgstr "Keret nélküli"
 
-#: ../src/gui.c:334
+#: ../src/gui.c:577
 msgid "Target"
 msgstr "Cél"
 
-#: ../src/gui.c:335
+#: ../src/gui.c:578
 msgid "Form..."
 msgstr "Űrlap..."
 
-#: ../src/gui.c:336
+#: ../src/gui.c:579
 msgid "Input button..."
 msgstr "Beviteli gomb..."
 
-#: ../src/gui.c:337
+#: ../src/gui.c:580
 msgid "Text..."
 msgstr "Beviteli mező..."
 
-#: ../src/gui.c:338
+#: ../src/gui.c:581
 msgid "Hidden..."
 msgstr "Rejtett..."
 
-#: ../src/gui.c:339
+#: ../src/gui.c:582
 msgid "Textarea..."
 msgstr "Szövegmező..."
 
-#: ../src/gui.c:340
+#: ../src/gui.c:583
 msgid "Radio Button..."
 msgstr "Rádiógomb..."
 
-#: ../src/gui.c:341
+#: ../src/gui.c:584
 msgid "Check Box..."
 msgstr "Kijelölőnégyzet..."
 
-#: ../src/gui.c:342
+#: ../src/gui.c:585
 msgid "Select..."
 msgstr "Választómező..."
 
-#: ../src/gui.c:343
+#: ../src/gui.c:586
 msgid "Option..."
 msgstr "Opció a választómezőben..."
 
-#: ../src/gui.c:344
+#: ../src/gui.c:587
 msgid "Option group..."
 msgstr "Opciócsoport..."
 
-#: ../src/gui.c:345
+#: ../src/gui.c:588
 msgid "Quick List..."
 msgstr "Gyors lista..."
 
-#: ../src/gui.c:346
+#: ../src/gui.c:589
 msgid "Unordered List"
 msgstr "Nem sorszámozott"
 
-#: ../src/gui.c:347
+#: ../src/gui.c:590
 msgid "Ordered List"
 msgstr "Sorszámozott"
 
-#: ../src/gui.c:348
+#: ../src/gui.c:591
 msgid "List Item"
 msgstr "Listaelem"
 
-#: ../src/gui.c:349
+#: ../src/gui.c:592
 msgid "Definition List"
 msgstr "Meghatározáslista"
 
-#: ../src/gui.c:350
+#: ../src/gui.c:593
 msgid "Definition Term"
 msgstr "Fogalom"
 
-#: ../src/gui.c:351 ../src/gui.c:360
+#: ../src/gui.c:594 ../src/gui.c:603
 msgid "Definition"
 msgstr "Meghatározás"
 
-#: ../src/gui.c:352
+#: ../src/gui.c:595
 msgid "Create stylesheet..."
 msgstr "Stíluslap készítése..."
 
-#: ../src/gui.c:353
+#: ../src/gui.c:596
 msgid "Span..."
 msgstr "SPAN..."
 
-#: ../src/gui.c:354
+#: ../src/gui.c:597
 msgid "Div..."
 msgstr "DIV..."
 
-#: ../src/gui.c:355
+#: ../src/gui.c:598
 msgid "Style"
 msgstr "Stílus"
 
-#: ../src/gui.c:356
+#: ../src/gui.c:599
 msgid "Link to stylesheet..."
 msgstr "Link stíluslapra..."
 
-#: ../src/gui.c:357
+#: ../src/gui.c:600
 msgid "Insert image..."
 msgstr "Kép beszúrása..."
 
-#: ../src/gui.c:358
+#: ../src/gui.c:601
 msgid "Insert thumbnail..."
 msgstr "Thumbnail beszúrása..."
 
-#: ../src/gui.c:359
+#: ../src/gui.c:602
 msgid "Multi thumbnail..."
 msgstr "Multi thumbnail..."
 
-#: ../src/gui.c:361
+#: ../src/gui.c:604
 msgid "Code"
 msgstr "Kód"
 
-#: ../src/gui.c:362
+#: ../src/gui.c:605
 msgid "Sample"
 msgstr "Minta"
 
-#: ../src/gui.c:363
+#: ../src/gui.c:606
 msgid "Keyboard"
 msgstr "Billentyűzet"
 
-#: ../src/gui.c:364
+#: ../src/gui.c:607
 msgid "Variable"
 msgstr "Változó"
 
-#: ../src/gui.c:365
+#: ../src/gui.c:608
 msgid "Citation"
 msgstr "Idézet"
 
-#: ../src/gui.c:366
+#: ../src/gui.c:609
 msgid "Abbreviation"
 msgstr "Rövidítés"
 
-#: ../src/gui.c:367
+#: ../src/gui.c:610
 msgid "Acronym"
 msgstr "Betűszó"
 
-#: ../src/gui.c:400
+#: ../src/gui.c:641
 msgid "Remove from quickbar"
 msgstr "Eltávolítás az eszköztárról"
 
-#: ../src/gui.c:430
+#: ../src/gui.c:675
 msgid "Add to quickbar"
 msgstr "Hozzáadás az eszköztárhoz"
 
-#: ../src/gui.c:521
+#: ../src/gui.c:766
 msgid " Quick bar "
 msgstr " Eszköztár "
 
-#: ../src/gui.c:525
+#: ../src/gui.c:770
 msgid "Heading"
 msgstr "Címsorok"
 
-#: ../src/gui.c:527
+#: ../src/gui.c:772
 msgid " Standard bar "
 msgstr " Standard "
 
-#: ../src/gui.c:531
+#: ../src/gui.c:776
 msgid "Context formatting"
 msgstr "Formázás kontext szerint"
 
-#: ../src/gui.c:533
+#: ../src/gui.c:778
 msgid " Fonts "
 msgstr " Betű "
 
-#: ../src/gui.c:537
+#: ../src/gui.c:782
 msgid " Tables "
 msgstr " Táblázat "
 
-#: ../src/gui.c:541
+#: ../src/gui.c:786
 msgid " Frames "
 msgstr " Keret "
 
-#: ../src/gui.c:545
+#: ../src/gui.c:790
 msgid " Forms "
 msgstr " Űrlap "
 
-#: ../src/gui.c:549
+#: ../src/gui.c:794
 msgid " List "
 msgstr " Lista "
 
-#: ../src/gui.c:553
+#: ../src/gui.c:798
 msgid " CSS "
 msgstr " CSS "
 
-#: ../src/gui.c:572
+#: ../src/gui.c:822
 msgid "New"
 msgstr "Új"
 
-#: ../src/gui.c:574
+#: ../src/gui.c:824
 msgid "Open..."
 msgstr "Megnyitás..."
 
-#: ../src/gui.c:577
+#: ../src/gui.c:827
 msgid "Save"
 msgstr "Mentés"
 
-#: ../src/gui.c:579
+#: ../src/gui.c:829
 msgid "Save As..."
 msgstr "Mentés másként..."
 
-#: ../src/gui.c:584
+#: ../src/gui.c:834
 msgid "Copy"
 msgstr "Másolás"
 
-#: ../src/gui.c:586
+#: ../src/gui.c:836
 msgid "Cut"
 msgstr "Kivágás"
 
-#: ../src/gui.c:588
+#: ../src/gui.c:838
 msgid "Paste"
 msgstr "Beillesztés"
 
-#: ../src/gui.c:590
+#: ../src/gui.c:840
 msgid "Search..."
 msgstr "Keres..."
 
-#: ../src/gui.c:592
+#: ../src/gui.c:842
 msgid "Search and Replace..."
 msgstr "Keresés és csere..."
 
-#: ../src/gui.c:595 ../src/preferences.c:1775
+#: ../src/gui.c:845 ../src/preferences.c:1802
 msgid "Undo"
 msgstr "Visszavon"
 
-#: ../src/gui.c:597
+#: ../src/gui.c:847
 msgid "Redo"
 msgstr "Ismétel"
 
-#: ../src/gui.c:600
+#: ../src/gui.c:850
 msgid "Unindent"
 msgstr "Behúzást megszüntet"
 
-#: ../src/gui.c:602
+#: ../src/gui.c:852
 msgid "Indent"
 msgstr "Behúz"
 
-#: ../src/gui.c:609
+#: ../src/gui.c:859
 msgid "Spellcheck..."
 msgstr "Helyesírás-ellenőrzés..."
 
-#: ../src/gui.c:614
+#: ../src/gui.c:864
 msgid "View in browser"
 msgstr "Megtekintés böngészőben"
 
-#: ../src/gui.c:617
+#: ../src/gui.c:867
 msgid "Preferences..."
 msgstr "Tulajdonságok..."
 
-#: ../src/gui.c:627
+#: ../src/gui.c:877
 msgid "/Edit/Undo"
 msgstr "/Szerkesztés/Visszavon"
 
-#: ../src/gui.c:628 ../src/menu.c:98
+#: ../src/gui.c:878 ../src/menu.c:300
 msgid "/Edit/Undo All"
 msgstr "/Szerkesztés/Mindent visszavon"
 
-#: ../src/gui.c:629
+#: ../src/gui.c:879
 msgid "/Edit/Redo"
 msgstr "/Szerkesztés/Újból"
 
-#: ../src/gui.c:630 ../src/menu.c:99
+#: ../src/gui.c:880 ../src/menu.c:301
 msgid "/Edit/Redo All"
 msgstr "/Szerkesztés/Mindent újból"
 
-#: ../src/gui.c:636
+#: ../src/gui.c:886
 msgid "/Document/Wrap"
 msgstr "/Dokumentum/Tördelés"
 
-#: ../src/gui.c:637
+#: ../src/gui.c:887
 msgid "/Document/Line Numbers"
 msgstr "/Dokumentum/Sorok számozása"
 
-#: ../src/gui.c:749
-msgid "Bluefish"
-msgstr "Bluefish"
+#: ../src/gui.c:1014
+#, fuzzy
+msgid "_Continue close"
+msgstr "Mentés folytatása"
 
-#: ../src/gui.c:796
+#: ../src/gui.c:1015
+msgid "Failed to save the current project"
+msgstr ""
+
+#: ../src/gui.c:1039
+#, fuzzy
+msgid "New Bluefish Window"
+msgstr "Bluefish tipp:"
+
+#: ../src/gui.c:1086
 msgid "Stand by..."
 msgstr "Stand by..."
 
-#: ../src/gui.c:887
-msgid "Bluefish tip:"
-msgstr "Bluefish tipp:"
-
-#: ../src/gui.c:887
-msgid ""
-"This message is shown since you do not have any items in the Quickbar.\n"
-"\n"
-"If you right-click a button in the HTML toolbars you can add buttons to the "
-"Quickbar."
-msgstr ""
-"Ez az üzenet akkor látható, ha az Eszköztár üres.\n"
-"\n"
-"Az Eszköztárra úgy tehetsz gombogat, hogy a HTML eszköztáron lévő "
-"bármelyikgombra kattintasz a jobb egérgombbal."
-
-#: ../src/gui.c:983
+#: ../src/gui.c:1272
 msgid "Goto line"
 msgstr "Ugrás sorra"
 
-#: ../src/gui.c:991
+#: ../src/gui.c:1280
 msgid "_Line number:"
 msgstr "_Sor száma: "
 
-#: ../src/gui.c:997
+#: ../src/gui.c:1286
 msgid "From _selection"
 msgstr "_Kijelölésből"
 
-#: ../src/gui.c:1000
+#: ../src/gui.c:1289
 msgid "Keep _dialog"
 msgstr "_Párbeszédablak maradjon nyitva"
 
-#: ../src/gui.c:1069
+#: ../src/gui.c:1358
 msgid "starting bluefish"
 msgstr "bluefish indítása"
+
+#: ../src/html.c:356
+msgid "Insert Time"
+msgstr "Idő beszúrása"
+
+#: ../src/html.c:364
+#, c-format
+msgid "  _Time (%i:%i:%i)"
+msgstr "  _Idő (%i:%i:%i)"
+
+#: ../src/html.c:369
+msgid "  Day of the _week (Sunday)"
+msgstr "  A hét napja (vasárnap)"
+
+#: ../src/html.c:372
+msgid "  Day of the _week (Monday)"
+msgstr "  A hét napja (hétfő)"
+
+#: ../src/html.c:375
+msgid "  Day of the _week (Tuesday)"
+msgstr "  A hét napja (kedd)"
+
+#: ../src/html.c:378
+msgid "  Day of the _week (Wednesday)"
+msgstr "  A hét napja (szerda)"
+
+#: ../src/html.c:381
+msgid "  Day of the _week (Thursday)"
+msgstr "  A hét napja (csütörtök)"
+
+#: ../src/html.c:384
+msgid "  Day of the _week (Friday)"
+msgstr "  A hét napja (péntek)"
+
+#: ../src/html.c:387
+msgid "  Day of the _week (Saturday)"
+msgstr "  A hét napja (szombat)"
+
+#: ../src/html.c:390
+msgid "You appear to have a non existant day!\n"
+msgstr "Úgy tűnik, ez a nap nem létezik!\n"
+
+#: ../src/html.c:398
+#, c-format
+msgid "  _Date (%i/%i/%i)"
+msgstr "  _Dátum (%i/%i/%i)"
+
+#: ../src/html.c:401
+#, c-format
+msgid "  _Unix Time (%i)"
+msgstr "  _Unix-idő (%i)"
+
+#: ../src/html.c:404
+#, c-format
+msgid "  Unix Date _String (%s"
+msgstr " Unix-idő_string (%s"
+
+#: ../src/html.c:547
+msgid "Quick Anchor"
+msgstr "Horgony"
+
+#: ../src/html.c:571
+msgid "_HREF:"
+msgstr "_HREF"
+
+#: ../src/html.c:575 ../src/html_form.c:170
+msgid "_Target:"
+msgstr "_Cél"
+
+#: ../src/html.c:579 ../src/html.c:817 ../src/html.c:1411 ../src/html.c:1838
+#: ../src/html_form.c:218 ../src/html_form.c:279 ../src/html_form.c:346
+#: ../src/html_form.c:407 ../src/html_form.c:462 ../src/html_form.c:524
+#: ../src/html_form.c:582 ../src/image.c:280
+msgid "_Name:"
+msgstr "_Név"
+
+#: ../src/html.c:583 ../src/html.c:821 ../src/html.c:1272
+msgid "_ID:"
+msgstr "_Azonosító"
+
+#: ../src/html.c:587 ../src/html.c:806 ../src/html.c:1268
+#: ../src/html_table.c:95 ../src/html_table.c:241 ../src/html_table.c:355
+msgid "Cl_ass:"
+msgstr "_Osztály"
+
+#: ../src/html.c:591 ../src/html.c:810 ../src/html.c:1170 ../src/html.c:1261
+#: ../src/html_table.c:100 ../src/html_table.c:252 ../src/html_table.c:360
+msgid "St_yle:"
+msgstr "Stíl_us"
+
+#: ../src/html.c:598 ../src/html.c:1276 ../src/html.c:2014
+msgid "_Language:"
+msgstr "Nye_lv"
+
+#: ../src/html.c:602 ../src/html.c:825 ../src/html.c:960 ../src/html.c:1280
+#: ../src/html.c:1435 ../src/html.c:1775 ../src/html.c:1875 ../src/html.c:2052
+#: ../src/html_form.c:174 ../src/html_form.c:230 ../src/html_form.c:298
+#: ../src/html_form.c:362 ../src/html_form.c:415 ../src/html_form.c:475
+#: ../src/html_form.c:595 ../src/html_table.c:105 ../src/html_table.c:257
+#: ../src/html_table.c:365 ../src/image.c:288
+msgid "Custo_m:"
+msgstr "_Egyéb"
+
+#: ../src/html.c:606 ../src/html.c:1284
+msgid "Events"
+msgstr "Események"
+
+#: ../src/html.c:613
+msgid "OnClic_k:"
+msgstr "OnClic_k"
+
+#: ../src/html.c:617
+msgid "OnD_blClick:"
+msgstr "OnD_blClick"
+
+#: ../src/html.c:621
+msgid "OnMouseO_ver:"
+msgstr "OnMouseO_ver"
+
+#: ../src/html.c:625
+msgid "OnMouse_Down:"
+msgstr "OnMouse_Down"
+
+#: ../src/html.c:629
+msgid "OnMouse_Move:"
+msgstr "OnMouse_Move"
+
+#: ../src/html.c:633
+msgid "OnMouseOu_t:"
+msgstr "OnMouseOu_t"
+
+#: ../src/html.c:637
+msgid "OnMouse_Up:"
+msgstr "OnMouse_Up"
+
+#: ../src/html.c:641
+msgid "OnKeyDo_wn:"
+msgstr "OnKeyDo_wn"
+
+#: ../src/html.c:645
+msgid "OnKey_Press:"
+msgstr "OnKey_Press"
+
+#: ../src/html.c:649
+msgid "OnKe_yUp:"
+msgstr "OnKe_yUp"
+
+#: ../src/html.c:764
+msgid "Div"
+msgstr "DIV"
+
+#: ../src/html.c:767
+msgid "Span"
+msgstr "SPAN"
+
+#: ../src/html.c:802 ../src/html_table.c:113 ../src/html_table.c:223
+#: ../src/html_table.c:337
+msgid "Ali_gn:"
+msgstr "I_gazítás"
+
+#: ../src/html.c:923
+msgid "Horizontal Rule"
+msgstr "Vízszintes vonal (HR)"
+
+#: ../src/html.c:934 ../src/html.c:1923 ../src/image.c:306
+msgid "_Align:"
+msgstr "Ig_azítás"
+
+#: ../src/html.c:941 ../src/html.c:1931 ../src/html_table.c:391
+msgid "_Height:"
+msgstr "_Magasság"
+
+#: ../src/html.c:947 ../src/html.c:1927 ../src/html_table.c:138
+#: ../src/html_table.c:384 ../src/image.c:264
+msgid "_Width:"
+msgstr "_Szélesség"
+
+#: ../src/html.c:950
+msgid "Is _percent"
+msgstr "S_zázalékban"
+
+#: ../src/html.c:955
+msgid "No _shading"
+msgstr "_Nincs árnyék"
+
+#: ../src/html.c:1046
+msgid "Quick Start"
+msgstr "Gyors kezdés"
+
+#: ../src/html.c:1095
+msgid "_Doctype:"
+msgstr "_Doctype"
+
+#: ../src/html.c:1101
+msgid "Header tags:"
+msgstr "Fejléc címkék"
+
+#: ../src/html.c:1156 ../src/wizards.c:186
+msgid "_Title:"
+msgstr "_Cím"
+
+#: ../src/html.c:1245
+msgid "Body"
+msgstr "Törzs"
+
+#: ../src/html.c:1291
+msgid "On_Load:"
+msgstr "On_Load"
+
+#: ../src/html.c:1299
+msgid "On_UnLoad:"
+msgstr "On_UnLoad"
+
+#: ../src/html.c:1308
+msgid "Depreciated options"
+msgstr "Tiltott (régi) opciók"
+
+#: ../src/html.c:1318
+msgid "Background _Image:"
+msgstr "Hát_térkép"
+
+#: ../src/html.c:1325
+msgid "Back_ground Color:"
+msgstr "Hátté_rszín"
+
+#: ../src/html.c:1331
+msgid "_Text Color:"
+msgstr "Szöve_gszín"
+
+#: ../src/html.c:1337
+msgid "_Link Color:"
+msgstr "_Link színe"
+
+#: ../src/html.c:1343
+msgid "_Visited Link Color:"
+msgstr "Lát_ogatott link színe"
+
+#: ../src/html.c:1349
+msgid "_Active Link Color:"
+msgstr "_Aktív link színe"
+
+#: ../src/html.c:1397
+msgid "Meta"
+msgstr "Meta"
+
+#: ../src/html.c:1422
+msgid "_HTTP-EQUIV:"
+msgstr "_HTTP-EQUIV"
+
+#: ../src/html.c:1427
+msgid "Con_tent:"
+msgstr "Tar_talom"
+
+#: ../src/html.c:1431
+msgid "_Scheme:"
+msgstr "_Séma"
+
+#: ../src/html.c:1512 ../src/preferences.c:1747
+msgid "Font"
+msgstr "Betű"
+
+#: ../src/html.c:1515
+msgid "Base Font"
+msgstr "Font alapérték"
+
+#: ../src/html.c:1530
+msgid "Size"
+msgstr "Méret"
+
+#: ../src/html.c:1538
+msgid "Color"
+msgstr "Szín"
+
+#: ../src/html.c:1543
+msgid "Face"
+msgstr "Típus"
+
+#: ../src/html.c:1547
+msgid "Custom"
+msgstr "Egyéb"
+
+#: ../src/html.c:1606
+msgid "Email"
+msgstr "Email"
+
+#: ../src/html.c:1614
+msgid "_Email address:"
+msgstr "_Email-cím:"
+
+#: ../src/html.c:1619
+msgid "UrlEncoded _subject:"
+msgstr "Url-kódolt _tárgy:"
+
+#: ../src/html.c:1623
+msgid "UrlEncoded _body:"
+msgstr "Url-kódolt tö_rzs:"
+
+#: ../src/html.c:1666
+msgid "Quick List"
+msgstr "Gyorslista"
+
+#: ../src/html.c:1671 ../src/html.c:1753 ../src/html_form.c:223
+msgid "_Rows:"
+msgstr "So_rok"
+
+#: ../src/html.c:1674
+msgid "Or_dered"
+msgstr "_Sorszámozott"
+
+#: ../src/html.c:1675
+msgid "_Unordered"
+msgstr "_Nem sorszámozott"
+
+#: ../src/html.c:1677
+msgid "Style:"
+msgstr "Stílus"
+
+#: ../src/html.c:1749 ../src/html_form.c:227
+msgid "Co_ls:"
+msgstr "Osz_lopok"
+
+#: ../src/html.c:1758
+msgid "_Add <frame> elements"
+msgstr "<frame> elemek hozzá_adása"
+
+#: ../src/html.c:1834 ../src/html.c:1919 ../src/html.c:2007
+msgid "_Source:"
+msgstr "Forrá_s"
+
+#: ../src/html.c:1842
+msgid "Margin _Width:"
+msgstr "Margó s_zélessége"
+
+#: ../src/html.c:1846
+msgid "Margin _Height:"
+msgstr "Margó _magassága"
+
+#: ../src/html.c:1854
+msgid "Scrollin_g:"
+msgstr "_Gördítősáv"
+
+#: ../src/html.c:1858
+msgid "_Frameborder:"
+msgstr "_Keretszegély"
+
+#: ../src/html.c:1863
+msgid "No _Resize:"
+msgstr "Nem átmé_retezhető"
+
+#: ../src/html.c:1913
+msgid "Embed"
+msgstr "Beágyazott"
+
+#: ../src/html.c:1935 ../src/html_table.c:144
+msgid "Bo_rder:"
+msgstr "Sze_gély"
+
+#: ../src/html.c:1996
+msgid "Script"
+msgstr "Script"
+
+#: ../src/html.c:1999
+msgid "Link"
+msgstr "Link"
+
+#: ../src/html.c:2034
+msgid "_Rel:"
+msgstr "_Rel:"
+
+#: ../src/html.c:2048 ../src/html_form.c:358
+msgid "_Type:"
+msgstr "_Típus:"
 
 #: ../src/html2.c:586
 msgid "Cascading StyleSheet dialog"
@@ -1074,9 +1452,9 @@ msgstr "_Szelektor"
 msgid "_Property:"
 msgstr "_Tulajdonság"
 
-#: ../src/html2.c:627 ../src/html_form.c:286 ../src/html_form.c:353
-#: ../src/html_form.c:415 ../src/html_form.c:471 ../src/html_form.c:534
-#: ../src/html_form.c:644
+#: ../src/html2.c:627 ../src/html_form.c:283 ../src/html_form.c:350
+#: ../src/html_form.c:411 ../src/html_form.c:466 ../src/html_form.c:528
+#: ../src/html_form.c:636
 msgid "_Value:"
 msgstr "É_rték"
 
@@ -1108,499 +1486,127 @@ msgstr " _Töröl "
 msgid "_Style..."
 msgstr "_Stílus..."
 
-#: ../src/html2.c:1145
+#: ../src/html2.c:1147
 msgid "Bluefish: Select color"
 msgstr "Bluefish: Színválasztás"
 
-#: ../src/html2.c:1165
+#: ../src/html2.c:1167
 msgid "_websafe"
 msgstr "_websafe"
 
-#: ../src/html.c:353
-msgid "Insert Time"
-msgstr "Idő beszúrása"
-
-#: ../src/html.c:361
-#, c-format
-msgid "  _Time (%i:%i:%i)"
-msgstr "  _Idő (%i:%i:%i)"
-
-#: ../src/html.c:366
-msgid "  Day of the _week (Sunday)"
-msgstr "  A hét napja (vasárnap)"
-
-#: ../src/html.c:369
-msgid "  Day of the _week (Monday)"
-msgstr "  A hét napja (hétfő)"
-
-#: ../src/html.c:372
-msgid "  Day of the _week (Tuesday)"
-msgstr "  A hét napja (kedd)"
-
-#: ../src/html.c:375
-msgid "  Day of the _week (Wednesday)"
-msgstr "  A hét napja (szerda)"
-
-#: ../src/html.c:378
-msgid "  Day of the _week (Thursday)"
-msgstr "  A hét napja (csütörtök)"
-
-#: ../src/html.c:381
-msgid "  Day of the _week (Friday)"
-msgstr "  A hét napja (péntek)"
-
-#: ../src/html.c:384
-msgid "  Day of the _week (Saturday)"
-msgstr "  A hét napja (szombat)"
-
-#: ../src/html.c:387
-msgid "You appear to have a non existant day!\n"
-msgstr "Úgy tűnik, ez a nap nem létezik!\n"
-
-#: ../src/html.c:395
-#, c-format
-msgid "  _Date (%i/%i/%i)"
-msgstr "  _Dátum (%i/%i/%i)"
-
-#: ../src/html.c:398
-#, c-format
-msgid "  _Unix Time (%i)"
-msgstr "  _Unix-idő (%i)"
-
-#: ../src/html.c:401
-#, c-format
-msgid "  Unix Date _String (%s"
-msgstr " Unix-idő_string (%s"
-
-#: ../src/html.c:545
-msgid "Quick Anchor"
-msgstr "Horgony"
-
-#: ../src/html.c:569
-msgid "_HREF:"
-msgstr "_HREF"
-
-#: ../src/html.c:573 ../src/html_form.c:171
-msgid "_Target:"
-msgstr "_Cél"
-
-#: ../src/html.c:577 ../src/html.c:817 ../src/html.c:1416 ../src/html.c:1850
-#: ../src/html_form.c:220 ../src/html_form.c:282 ../src/html_form.c:349
-#: ../src/html_form.c:411 ../src/html_form.c:467 ../src/html_form.c:530
-#: ../src/html_form.c:589 ../src/image.c:280
-msgid "_Name:"
-msgstr "_Név"
-
-#: ../src/html.c:581 ../src/html.c:821 ../src/html.c:1276
-msgid "_ID:"
-msgstr "_Azonosító"
-
-#: ../src/html.c:585 ../src/html.c:806 ../src/html.c:1272
-#: ../src/html_table.c:96 ../src/html_table.c:243 ../src/html_table.c:357
-msgid "Cl_ass:"
-msgstr "_Osztály"
-
-#: ../src/html.c:589 ../src/html.c:810 ../src/html.c:1174 ../src/html.c:1265
-#: ../src/html_table.c:101 ../src/html_table.c:254 ../src/html_table.c:362
-msgid "St_yle:"
-msgstr "Stíl_us"
-
-#: ../src/html.c:596 ../src/html.c:1280 ../src/html.c:2027
-msgid "_Language:"
-msgstr "Nye_lv"
-
-#: ../src/html.c:600 ../src/html.c:825 ../src/html.c:960 ../src/html.c:1284
-#: ../src/html.c:1440 ../src/html.c:1785 ../src/html.c:1887 ../src/html.c:2065
-#: ../src/html_form.c:175 ../src/html_form.c:232 ../src/html_form.c:301
-#: ../src/html_form.c:365 ../src/html_form.c:419 ../src/html_form.c:480
-#: ../src/html_form.c:602 ../src/html_table.c:106 ../src/html_table.c:259
-#: ../src/html_table.c:367 ../src/image.c:288
-msgid "Custo_m:"
-msgstr "_Egyéb"
-
-#: ../src/html.c:604 ../src/html.c:1288
-msgid "Events"
-msgstr "Események"
-
-#: ../src/html.c:611
-msgid "OnClic_k:"
-msgstr "OnClic_k"
-
-#: ../src/html.c:615
-msgid "OnD_blClick:"
-msgstr "OnD_blClick"
-
-#: ../src/html.c:619
-msgid "OnMouseO_ver:"
-msgstr "OnMouseO_ver"
-
-#: ../src/html.c:623
-msgid "OnMouse_Down:"
-msgstr "OnMouse_Down"
-
-#: ../src/html.c:627
-msgid "OnMouse_Move:"
-msgstr "OnMouse_Move"
-
-#: ../src/html.c:631
-msgid "OnMouseOu_t:"
-msgstr "OnMouseOu_t"
-
-#: ../src/html.c:635
-msgid "OnMouse_Up:"
-msgstr "OnMouse_Up"
-
-#: ../src/html.c:639
-msgid "OnKeyDo_wn:"
-msgstr "OnKeyDo_wn"
-
-#: ../src/html.c:643
-msgid "OnKey_Press:"
-msgstr "OnKey_Press"
-
-#: ../src/html.c:647
-msgid "OnKe_yUp:"
-msgstr "OnKe_yUp"
-
-#: ../src/html.c:764
-msgid "Div"
-msgstr "DIV"
-
-#: ../src/html.c:767
-msgid "Span"
-msgstr "SPAN"
-
-#: ../src/html.c:802 ../src/html_table.c:114 ../src/html_table.c:225
-#: ../src/html_table.c:339
-msgid "Ali_gn:"
-msgstr "I_gazítás"
-
-#: ../src/html.c:923
-msgid "Horizontal Rule"
-msgstr "Vízszintes vonal (HR)"
-
-#: ../src/html.c:934 ../src/html.c:1936 ../src/image.c:306
-msgid "_Align:"
-msgstr "Ig_azítás"
-
-#: ../src/html.c:941 ../src/html.c:1944 ../src/html_table.c:393
-msgid "_Height:"
-msgstr "_Magasság"
-
-#: ../src/html.c:947 ../src/html.c:1940 ../src/html_table.c:139
-#: ../src/html_table.c:386 ../src/image.c:264
-msgid "_Width:"
-msgstr "_Szélesség"
-
-#: ../src/html.c:950
-msgid "Is _percent"
-msgstr "S_zázalékban"
-
-#: ../src/html.c:955
-msgid "No _shading"
-msgstr "_Nincs árnyék"
-
-#: ../src/html.c:1050
-msgid "Quick Start"
-msgstr "Gyors kezdés"
-
-#: ../src/html.c:1099
-msgid "_Doctype:"
-msgstr "_Doctype"
-
-#: ../src/html.c:1105
-msgid "Header tags:"
-msgstr "Fejléc címkék"
-
-#: ../src/html.c:1160 ../src/wizards.c:187
-msgid "_Title:"
-msgstr "_Cím"
-
-#: ../src/html.c:1249
-msgid "Body"
-msgstr "Törzs"
-
-#: ../src/html.c:1295
-msgid "On_Load:"
-msgstr "On_Load"
-
-#: ../src/html.c:1303
-msgid "On_UnLoad:"
-msgstr "On_UnLoad"
-
-#: ../src/html.c:1312
-msgid "Depreciated options"
-msgstr "Tiltott (régi) opciók"
-
-#: ../src/html.c:1322
-msgid "Background _Image:"
-msgstr "Hát_térkép"
-
-#: ../src/html.c:1329
-msgid "Back_ground Color:"
-msgstr "Hátté_rszín"
-
-#: ../src/html.c:1335
-msgid "_Text Color:"
-msgstr "Szöve_gszín"
-
-#: ../src/html.c:1341
-msgid "_Link Color:"
-msgstr "_Link színe"
-
-#: ../src/html.c:1347
-msgid "_Visited Link Color:"
-msgstr "Lát_ogatott link színe"
-
-#: ../src/html.c:1353
-msgid "_Active Link Color:"
-msgstr "_Aktív link színe"
-
-#: ../src/html.c:1402
-msgid "Meta"
-msgstr "Meta"
-
-#: ../src/html.c:1427
-msgid "_HTTP-EQUIV:"
-msgstr "_HTTP-EQUIV"
-
-#: ../src/html.c:1432
-msgid "Con_tent:"
-msgstr "Tar_talom"
-
-#: ../src/html.c:1436
-msgid "_Scheme:"
-msgstr "_Séma"
-
-#: ../src/html.c:1518 ../src/preferences.c:1720
-msgid "Font"
-msgstr "Betű"
-
-#: ../src/html.c:1521
-msgid "Base Font"
-msgstr "Font alapérték"
-
-#: ../src/html.c:1536
-msgid "Size"
-msgstr "Méret"
-
-#: ../src/html.c:1544
-msgid "Color"
-msgstr "Szín"
-
-#: ../src/html.c:1549
-msgid "Face"
-msgstr "Típus"
-
-#: ../src/html.c:1553
-msgid "Custom"
-msgstr "Egyéb"
-
-#: ../src/html.c:1613
-msgid "Email"
-msgstr "Email"
-
-#: ../src/html.c:1621
-msgid "_Email address:"
-msgstr "_Email-cím:"
-
-#: ../src/html.c:1626
-msgid "UrlEncoded _subject:"
-msgstr "Url-kódolt _tárgy:"
-
-#: ../src/html.c:1630
-msgid "UrlEncoded _body:"
-msgstr "Url-kódolt tö_rzs:"
-
-#: ../src/html.c:1674
-msgid "Quick List"
-msgstr "Gyorslista"
-
-#: ../src/html.c:1679 ../src/html.c:1763 ../src/html_form.c:225
-msgid "_Rows:"
-msgstr "So_rok"
-
-#: ../src/html.c:1682
-msgid "Or_dered"
-msgstr "_Sorszámozott"
-
-#: ../src/html.c:1683
-msgid "_Unordered"
-msgstr "_Nem sorszámozott"
-
-#: ../src/html.c:1685
-msgid "Style:"
-msgstr "Stílus"
-
-#: ../src/html.c:1759 ../src/html_form.c:229
-msgid "Co_ls:"
-msgstr "Osz_lopok"
-
-#: ../src/html.c:1768
-msgid "_Add <frame> elements"
-msgstr "<frame> elemek hozzá_adása"
-
-#: ../src/html.c:1846 ../src/html.c:1932 ../src/html.c:2020
-msgid "_Source:"
-msgstr "Forrá_s"
-
-#: ../src/html.c:1854
-msgid "Margin _Width:"
-msgstr "Margó s_zélessége"
-
-#: ../src/html.c:1858
-msgid "Margin _Height:"
-msgstr "Margó _magassága"
-
-#: ../src/html.c:1866
-msgid "Scrollin_g:"
-msgstr "_Gördítősáv"
-
-#: ../src/html.c:1870
-msgid "_Frameborder:"
-msgstr "_Keretszegély"
-
-#: ../src/html.c:1875
-msgid "No _Resize:"
-msgstr "Nem átmé_retezhető"
-
-#: ../src/html.c:1926
-msgid "Embed"
-msgstr "Beágyazott"
-
-#: ../src/html.c:1948 ../src/html_table.c:145
-msgid "Bo_rder:"
-msgstr "Sze_gély"
-
-#: ../src/html.c:2009
-msgid "Script"
-msgstr "Script"
-
-#: ../src/html.c:2012
-msgid "Link"
-msgstr "Link"
-
-#: ../src/html.c:2047
-msgid "_Rel:"
-msgstr "_Rel:"
-
-#: ../src/html.c:2061 ../src/html_form.c:361
-msgid "_Type:"
-msgstr "_Típus:"
-
-#: ../src/html_form.c:129
+#: ../src/html_form.c:128
 msgid "Form"
 msgstr "Űrlap"
 
-#: ../src/html_form.c:147
+#: ../src/html_form.c:146
 msgid "_Action:"
 msgstr "_Akció:"
 
-#: ../src/html_form.c:155
+#: ../src/html_form.c:154
 msgid "Metho_d:"
 msgstr "Metó_dus:"
 
-#: ../src/html_form.c:164
+#: ../src/html_form.c:163
 msgid "_Enctype:"
 msgstr "_Enctype:"
 
-#: ../src/html_form.c:214
+#: ../src/html_form.c:212
 msgid "Text area"
 msgstr "Szövegmező"
 
-#: ../src/html_form.c:276
+#: ../src/html_form.c:273
 msgid "Text"
 msgstr "Szöveg"
 
-#: ../src/html_form.c:294 ../src/html_form.c:594
+#: ../src/html_form.c:291 ../src/html_form.c:587
 msgid "Si_ze:"
 msgstr "_Méret"
 
-#: ../src/html_form.c:298
+#: ../src/html_form.c:295
 msgid "Max _Length:"
 msgstr "Max. _hosszúság"
 
-#: ../src/html_form.c:343
+#: ../src/html_form.c:340
 msgid "Button"
 msgstr "Gomb"
 
-#: ../src/html_form.c:406
+#: ../src/html_form.c:402
 msgid "Hidden"
 msgstr "Rejtett"
 
-#: ../src/html_form.c:462
+#: ../src/html_form.c:457
 msgid "Radio Button"
 msgstr "Rádiógomb"
 
-#: ../src/html_form.c:476 ../src/html_form.c:539
+#: ../src/html_form.c:471 ../src/html_form.c:533
 msgid "Chec_ked:"
 msgstr "_Megjelölt"
 
-#: ../src/html_form.c:524
+#: ../src/html_form.c:518
 msgid "Check Box"
 msgstr "Kiválasztónégyzet"
 
-#: ../src/html_form.c:543
+#: ../src/html_form.c:537
 msgid "_Custo_m:"
 msgstr "_Egyéb"
 
-#: ../src/html_form.c:583
+#: ../src/html_form.c:576
 msgid "Select"
 msgstr "Választómező"
 
-#: ../src/html_form.c:598
+#: ../src/html_form.c:591
 msgid "Multiple _Selections:"
 msgstr "Többszörö_s választás:"
 
-#: ../src/html_form.c:638
+#: ../src/html_form.c:630
 msgid "Option"
 msgstr "Választás"
 
-#: ../src/html_form.c:648 ../src/html_form.c:692
+#: ../src/html_form.c:640 ../src/html_form.c:683
 msgid "_Label:"
 msgstr "_Címke:"
 
-#: ../src/html_form.c:653
+#: ../src/html_form.c:645
 msgid "_Selected:"
 msgstr "_Kiválasztott:"
 
-#: ../src/html_form.c:687
+#: ../src/html_form.c:678
 msgid "Option group"
 msgstr "Opciócsoport"
 
-#: ../src/html_table.c:88
+#: ../src/html_table.c:87
 msgid "Cell _Padding:"
 msgstr "Cella_bélés:"
 
-#: ../src/html_table.c:92
+#: ../src/html_table.c:91
 msgid "C_ell Spacing:"
 msgstr "Cella_köz:"
 
-#: ../src/html_table.c:128 ../src/html_table.c:239 ../src/html_table.c:353
+#: ../src/html_table.c:127 ../src/html_table.c:237 ../src/html_table.c:351
 msgid "_Valign:"
 msgstr "_Függőleges igazítás:"
 
-#: ../src/html_table.c:133 ../src/html_table.c:248 ../src/html_table.c:398
+#: ../src/html_table.c:132 ../src/html_table.c:246 ../src/html_table.c:396
 msgid "Backgrou_nd Color:"
 msgstr "Háttérszí_n:"
 
-#: ../src/html_table.c:159
+#: ../src/html_table.c:158
 msgid "_Frame:"
 msgstr "_Keret:"
 
-#: ../src/html_table.c:170
+#: ../src/html_table.c:169
 msgid "R_ules:"
 msgstr "_Szegélyek:"
 
-#: ../src/html_table.c:371
+#: ../src/html_table.c:369
 msgid "Co_l Span:"
 msgstr "Hány osz_lopnyi:"
 
-#: ../src/html_table.c:375
+#: ../src/html_table.c:373
 msgid "_Row Span:"
 msgstr "Hány so_rnyi_"
 
-#: ../src/html_table.c:380
+#: ../src/html_table.c:378
 msgid "No Wra_p:"
 msgstr "Nincs _sortörés_"
 
@@ -1644,43 +1650,43 @@ msgstr "_Vspace:"
 msgid "Borde_r:"
 msgstr "S_zegély:"
 
-#: ../src/image.c:371
+#: ../src/image.c:373
 msgid "Select files for thumbnail creation"
 msgstr "Fájlok kiválasztása thumbnail készítéséhez"
 
-#: ../src/image.c:487
+#: ../src/image.c:489
 msgid "Scaling (%)"
 msgstr "Átméretezés (%)"
 
-#: ../src/image.c:491 ../src/image.c:499
+#: ../src/image.c:493 ../src/image.c:501
 msgid "Width"
 msgstr "Szélesség"
 
-#: ../src/image.c:495 ../src/image.c:520
+#: ../src/image.c:497 ../src/image.c:524
 msgid "Height"
 msgstr "Magasság"
 
-#: ../src/image.c:510
+#: ../src/image.c:513
 msgid "Multi thumbnail"
 msgstr "Multi thumbnail"
 
-#: ../src/image.c:515
+#: ../src/image.c:519
 msgid "By scaling"
 msgstr "Méretezéssel"
 
-#: ../src/image.c:516
+#: ../src/image.c:520
 msgid "By width, keep aspect ratio"
 msgstr "Szélesség szerint, aránytartással"
 
-#: ../src/image.c:517
+#: ../src/image.c:521
 msgid "By height, keep aspect ratio"
 msgstr "Magasság szerint, aránytartással"
 
-#: ../src/image.c:518
+#: ../src/image.c:522
 msgid "By width and height, ignore aspect ratio"
 msgstr "Szélesség és magasság szerint, arány figyelmen kívül hagyásával"
 
-#: ../src/image.c:542
+#: ../src/image.c:546
 msgid ""
 "%r: original filename  %t: thumbnail filename\n"
 "%w: original width  %h: original height\n"
@@ -1692,2193 +1698,2315 @@ msgstr ""
 "%x: thumbnail szélessség  %y: thumbnail magasság\n"
 "%b: eredeti méret (byte)"
 
-#: ../src/menu.c:58
+#: ../src/menu.c:256
 msgid "/_File"
 msgstr "/_Fájl"
 
-#: ../src/menu.c:59
+#: ../src/menu.c:257
 msgid "/File/tearoff1"
 msgstr "/Fájl/tearoff1"
 
-#: ../src/menu.c:60
+#: ../src/menu.c:258
 msgid "/File/_New"
 msgstr "/Fájl/Ú_j"
 
-#: ../src/menu.c:61
+#: ../src/menu.c:259
 msgid "/File/_Open..."
 msgstr "/Fájl/_Megnyitás"
 
-#: ../src/menu.c:62
+#: ../src/menu.c:262
 msgid "/File/Open A_dvanced..."
 msgstr "/Fájl/Megnyitás _opciókkal..."
 
-#: ../src/menu.c:63
+#: ../src/menu.c:265
 msgid "/File/Open r_ecent"
 msgstr "/Fájl/_Utóbbi megnyitása"
 
-#: ../src/menu.c:64
+#: ../src/menu.c:266
 msgid "/File/Open recent/tearoff1"
 msgstr "/Fájl/Utóbbi megnyitása/tearoff1"
 
-#: ../src/menu.c:65
+#: ../src/menu.c:267
 msgid "/File/_Revert to Saved"
 msgstr "/Fájl/_Visszatérés a mentett verzióhoz"
 
-#: ../src/menu.c:66
+#: ../src/menu.c:268
 msgid "/File/_Insert..."
 msgstr "/Fájl/Fájl _beszúrása..."
 
-#: ../src/menu.c:67
+#: ../src/menu.c:269
 msgid "/File/sep2"
 msgstr "/Fájl/sep2"
 
-#: ../src/menu.c:68
+#: ../src/menu.c:270
 msgid "/File/_Save"
 msgstr "/Fájl/M_entés"
 
-#: ../src/menu.c:69
+#: ../src/menu.c:271
 msgid "/File/Save _As..."
 msgstr "/Fájl/Mentés más_ként..."
 
-#: ../src/menu.c:70
-msgid "/File/_Move to..."
-msgstr "/Fájl/Át_nevezés..."
+#: ../src/menu.c:272
+#, fuzzy
+msgid "/File/_Rename..."
+msgstr "/Fájl/_Megnyitás"
 
-#: ../src/menu.c:71
+#: ../src/menu.c:273
 msgid "/File/Sa_ve All"
 msgstr "/Fájl/Ment _mindent"
 
-#: ../src/menu.c:72
+#: ../src/menu.c:274
 msgid "/File/sep3"
 msgstr "/Fájl/sep3"
 
-#: ../src/menu.c:73
+#: ../src/menu.c:275
 msgid "/File/_Close"
 msgstr "/Fájl/Be_zár"
 
-#: ../src/menu.c:74
+#: ../src/menu.c:276
 msgid "/File/Close A_ll"
 msgstr "/Fájl/M_indent bezár"
 
-#: ../src/menu.c:75
+#: ../src/menu.c:277
 msgid "/File/sep5"
 msgstr "/Fájl/sep5"
 
-#: ../src/menu.c:76
+#: ../src/menu.c:278
 msgid "/File/_Quit"
 msgstr "/Fájl/Ki_lépés"
 
-#: ../src/menu.c:77
+#: ../src/menu.c:279
 msgid "/_Edit"
 msgstr "/S_zerkesztés"
 
-#: ../src/menu.c:78
+#: ../src/menu.c:280
 msgid "/Edit/Tearoff1"
 msgstr "/S_zerkesztés/Tearoff1"
 
-#: ../src/menu.c:79
+#: ../src/menu.c:281
 msgid "/Edit/Cu_t"
 msgstr "/Szerkesztés/_Kivág"
 
-#: ../src/menu.c:80
+#: ../src/menu.c:282
 msgid "/Edit/_Copy"
 msgstr "/Szerkesztés/_Másol"
 
-#: ../src/menu.c:81
+#: ../src/menu.c:283
 msgid "/Edit/_Paste"
 msgstr "/Szerkesztés/_Beilleszt"
 
-#: ../src/menu.c:82
+#: ../src/menu.c:284
 msgid "/Edit/Select _All"
 msgstr "/Szerkesztés/Min_dent kijelöl"
 
-#: ../src/menu.c:83
+#: ../src/menu.c:285
 msgid "/Edit/sep3"
 msgstr "/Szerkesztés/sep3"
 
-#: ../src/menu.c:84
+#: ../src/menu.c:286
 msgid "/Edit/_Find..."
 msgstr "/Szerkesztés/Ke_resés..."
 
-#: ../src/menu.c:85
+#: ../src/menu.c:287
 msgid "/Edit/Ne_w Find..."
 msgstr "/Szerkesztés/Új keresés..."
 
-#: ../src/menu.c:86
+#: ../src/menu.c:288
 msgid "/Edit/Find A_gain"
 msgstr "/Szerkesztés/Tovább keres"
 
-#: ../src/menu.c:87
+#: ../src/menu.c:289
 msgid "/Edit/R_eplace..."
 msgstr "/Szerkesztés/C_sere..."
 
-#: ../src/menu.c:88
+#: ../src/menu.c:290
 msgid "/Edit/New Re_place..."
 msgstr "/Szerkesztés/Új csere..."
 
-#: ../src/menu.c:89
+#: ../src/menu.c:291
 msgid "/Edit/Replace Agai_n"
 msgstr "/Szerkesztés/Tovább cserél"
 
-#: ../src/menu.c:90
+#: ../src/menu.c:292
 msgid "/Edit/Replace _special"
 msgstr "/Szerkesztés/Irányított csere"
 
-#: ../src/menu.c:91
+#: ../src/menu.c:293
 msgid "/Edit/Replace special/Tearoff1"
 msgstr "/Szerkesztés/Irányított csere/Tearoff1"
 
-#: ../src/menu.c:92
+#: ../src/menu.c:294
 msgid "/Edit/Replace special/_ASCII to HTML Entities"
 msgstr "/Szerkesztés/Irányított csere/_ascii-t HTML-re"
 
-#: ../src/menu.c:93
+#: ../src/menu.c:295
 msgid "/Edit/Replace special/_ISO8859 to HTML Entities"
 msgstr "/Szerkesztés/Irányított csere/_ISO-8859-1-et HTML-re"
 
-#: ../src/menu.c:94
+#: ../src/menu.c:296
 msgid "/Edit/Replace special/_Both Types to HTML Entities"
 msgstr "/Szerkesztés/Irányított csere/_mindkét típust HTML-re"
 
-#: ../src/menu.c:95
+#: ../src/menu.c:297
 msgid "/Edit/sep4"
 msgstr "/Szerkesztés/sep4"
 
-#: ../src/menu.c:96
+#: ../src/menu.c:298
 msgid "/Edit/_Undo"
 msgstr "/Szerkesztés/_Visszavon"
 
-#: ../src/menu.c:97
+#: ../src/menu.c:299
 msgid "/Edit/_Redo"
 msgstr "/Szerkesztés/Ú_jból"
 
-#: ../src/menu.c:100
+#: ../src/menu.c:302
 msgid "/Edit/sep5"
 msgstr "/Szerkesztés/sep5"
 
-#: ../src/menu.c:101
+#: ../src/menu.c:303
 msgid "/Edit/_Block operations"
 msgstr "/Szerkesztés/Blokkműveletek"
 
-#: ../src/menu.c:102
+#: ../src/menu.c:304
 msgid "/Edit/Block operations/Tearoff1"
 msgstr "/Szerkesztés/Blokkműveletek/Tearoff1"
 
-#: ../src/menu.c:103
+#: ../src/menu.c:305
 msgid "/Edit/Block operations/_Indent Block"
 msgstr "/Szerkesztés/Blokkműveletek/Blokk behúzása"
 
-#: ../src/menu.c:104
+#: ../src/menu.c:306
 msgid "/Edit/Block operations/_Unindent Block"
 msgstr "/Szerkesztés/Blokkműveletek/Blokk behúzásának megszüntetése"
 
-#: ../src/menu.c:105
+#: ../src/menu.c:307
 msgid "/Edit/sep6"
 msgstr "/Szerkesztés/sep6"
 
-#: ../src/menu.c:106
+#: ../src/menu.c:308
 msgid "/Edit/Goto _Line"
 msgstr "/Szerkesztés/_Ugrás sorra..."
 
-#: ../src/menu.c:107
+#: ../src/menu.c:309
 msgid "/Edit/G_oto Selection"
 msgstr "/Szerkesztés/Ugrás kijelölésre..."
 
-#: ../src/menu.c:108
+#: ../src/menu.c:310
 msgid "/_Tags"
 msgstr "/_Címkék"
 
-#: ../src/menu.c:109
+#: ../src/menu.c:311
 msgid "/Tags/Tearoff1"
 msgstr "/Címkék/tearoff1"
 
-#: ../src/menu.c:111
+#: ../src/menu.c:313
 msgid "/Tags/_Headings"
 msgstr "/Címkék/_Címsorok"
 
-#: ../src/menu.c:112
+#: ../src/menu.c:314
 msgid "/Tags/Headings/Tearoff1"
 msgstr "/Címkék/Címsorok/Tearoff1"
 
-#: ../src/menu.c:113
+#: ../src/menu.c:315
 msgid "/Tags/Headings/H_1"
 msgstr "/Címkék/Címsorok/H_1"
 
-#: ../src/menu.c:114
+#: ../src/menu.c:316
 msgid "/Tags/Headings/H_2"
 msgstr "/Címkék/Címsorok/H_2"
 
-#: ../src/menu.c:115
+#: ../src/menu.c:317
 msgid "/Tags/Headings/H_3"
 msgstr "/Címkék/Címsorok/H_3"
 
-#: ../src/menu.c:116
+#: ../src/menu.c:318
 msgid "/Tags/Headings/H_4"
 msgstr "/Címkék/Címsorok/H_4"
 
-#: ../src/menu.c:117
+#: ../src/menu.c:319
 msgid "/Tags/Headings/H_5"
 msgstr "/Címkék/Címsorok/H_5"
 
-#: ../src/menu.c:118
+#: ../src/menu.c:320
 msgid "/Tags/Headings/H_6"
 msgstr "/Címkék/Címsorok/H_6"
 
-#: ../src/menu.c:119
+#: ../src/menu.c:321
 msgid "/Tags/_Special"
 msgstr "/Címkék/_Speciális karakterek"
 
-#: ../src/menu.c:120
+#: ../src/menu.c:322
 msgid "/Tags/Special/tearoff1"
 msgstr "/Címkék/Speciális karakterek/tearoff1"
 
-#: ../src/menu.c:121
+#: ../src/menu.c:323
 msgid "/Tags/Special/_Accent"
 msgstr "/Címkék/Speciális karakterek/É_kezetes karakterek"
 
-#: ../src/menu.c:122
+#: ../src/menu.c:324
 msgid "/Tags/Special/Accent/tearoff1"
 msgstr "/Címkék/Speciális karakterek/Ékezetes karakterek/tearoff1"
 
-#: ../src/menu.c:123
+#: ../src/menu.c:325
 msgid "/Tags/Special/Accent/_Uppercase"
 msgstr "/Címkék/Speciális karakterek/Ékezetes karakterek/_Nagybetűk"
 
-#: ../src/menu.c:124
+#: ../src/menu.c:326
 msgid "/Tags/Special/Accent/Uppercase/_A-I"
 msgstr "/Címkék/Speciális karakterek/Ékezetes karakterek/Nagybetűk/_A-I"
 
-#: ../src/menu.c:125
+#: ../src/menu.c:327
 msgid "/Tags/Special/Accent/Uppercase/A-I/tearoff1"
 msgstr ""
 "/Címkék/Speciális karakterek/Ékezetes karakterek/Nagybetűk/A-I/tearoff1"
 
-#: ../src/menu.c:126
+#: ../src/menu.c:328
 msgid "/Tags/Special/Accent/Uppercase/A-I/A grave À"
 msgstr ""
 "/Címkék/Speciális karakterek/Ékezetes karakterek/Nagybetűk/A-I/A tompa "
 "ékezettel À"
 
-#: ../src/menu.c:127
+#: ../src/menu.c:329
 msgid "/Tags/Special/Accent/Uppercase/A-I/A acute Á"
 msgstr "/Címkék/Speciális karakterek/Ékezetes karakterek/Nagybetűk/A-I/Á"
 
-#: ../src/menu.c:128
+#: ../src/menu.c:330
 msgid "/Tags/Special/Accent/Uppercase/A-I/A circumflex Â"
 msgstr ""
 "/Címkék/Speciális karakterek/Ékezetes karakterek/Nagybetűk/A-I/A kalappal Â"
 
-#: ../src/menu.c:129
+#: ../src/menu.c:331
 msgid "/Tags/Special/Accent/Uppercase/A-I/A tilde Ã"
 msgstr ""
 "/Címkék/Speciális karakterek/Ékezetes karakterek/Nagybetűk/A-I/A tildével Ã"
 
-#: ../src/menu.c:130
+#: ../src/menu.c:332
 msgid "/Tags/Special/Accent/Uppercase/A-I/AE ligature Æ"
 msgstr ""
 "/Címkék/Speciális karakterek/Ékezetes karakterek/Nagybetűk/A-I/AE "
 "kettőshangzó Æ"
 
-#: ../src/menu.c:131
+#: ../src/menu.c:333
 msgid "/Tags/Special/Accent/Uppercase/A-I/A diaeresis Ä"
 msgstr ""
 "/Címkék/Speciális karakterek/Ékezetes karakterek/Nagybetűk/A-I/A umlauttal Ä"
 
-#: ../src/menu.c:132
+#: ../src/menu.c:334
 msgid "/Tags/Special/Accent/Uppercase/A-I/A ring Å"
 msgstr ""
 "/Címkék/Speciális karakterek/Ékezetes karakterek/Nagybetűk/A-I/A körrel Å"
 
-#: ../src/menu.c:133
+#: ../src/menu.c:335
 msgid "/Tags/Special/Accent/Uppercase/A-I/C cedilla Ç"
 msgstr ""
 "/Címkék/Speciális karakterek/Ékezetes karakterek/Nagybetűk/A-I/C cedilla Ç"
 
-#: ../src/menu.c:134
+#: ../src/menu.c:336
 msgid "/Tags/Special/Accent/Uppercase/A-I/E grave È"
 msgstr ""
 "/Címkék/Speciális karakterek/Ékezetes karakterek/Nagybetűk/A-I/E tompa "
 "ékezettel È"
 
-#: ../src/menu.c:135
+#: ../src/menu.c:337
 msgid "/Tags/Special/Accent/Uppercase/A-I/E acute É"
 msgstr "/Címkék/Speciális karakterek/Ékezetes karakterek/Nagybetűk/A-I/É"
 
-#: ../src/menu.c:136
+#: ../src/menu.c:338
 msgid "/Tags/Special/Accent/Uppercase/A-I/E circumflex Ê"
 msgstr ""
 "/Címkék/Speciális karakterek/Ékezetes karakterek/Nagybetűk/A-I/E kalappal Ê"
 
-#: ../src/menu.c:137
+#: ../src/menu.c:339
 msgid "/Tags/Special/Accent/Uppercase/A-I/E diaeresis Ë"
 msgstr ""
 "/Címkék/Speciális karakterek/Ékezetes karakterek/Nagybetűk/A-I/E umlauttal Ë"
 
-#: ../src/menu.c:138
+#: ../src/menu.c:340
 msgid "/Tags/Special/Accent/Uppercase/A-I/I grave Ì"
 msgstr ""
 "/Címkék/Speciális karakterek/Ékezetes karakterek/Nagybetűk/A-I/I tompa "
 "ékezettel Ì"
 
-#: ../src/menu.c:139
+#: ../src/menu.c:341
 msgid "/Tags/Special/Accent/Uppercase/A-I/I acute Í"
 msgstr "/Címkék/Speciális karakterek/Ékezetes karakterek/Nagybetűk/A-I/Í"
 
-#: ../src/menu.c:140
+#: ../src/menu.c:342
 msgid "/Tags/Special/Accent/Uppercase/A-I/I circumflex Î"
 msgstr ""
 "/Címkék/Speciális karakterek/Ékezetes karakterek/Nagybetűk/A-I/I kalappal Î"
 
-#: ../src/menu.c:141
+#: ../src/menu.c:343
 msgid "/Tags/Special/Accent/Uppercase/A-I/I diaeresis Ï"
 msgstr ""
 "/Címkék/Speciális karakterek/Ékezetes karakterek/Nagybetűk/A-I/I umlauttal Ï"
 
-#: ../src/menu.c:142
+#: ../src/menu.c:344
 msgid "/Tags/Special/Accent/Uppercase/_J-Z"
 msgstr "/Címkék/Speciális karakterek/Ékezetes karakterek/Nagybetűk/_J-Z"
 
-#: ../src/menu.c:143
+#: ../src/menu.c:345
 msgid "/Tags/Special/Accent/Uppercase/J-Z/tearoff1"
 msgstr ""
 "/Címkék/Speciális karakterek/Ékezetes karakterek/Nagybetűk/J-Z/tearoff1"
 
-#: ../src/menu.c:144
+#: ../src/menu.c:346
 msgid "/Tags/Special/Accent/Uppercase/J-Z/N tilde Ñ"
 msgstr ""
 "/Címkék/Speciális karakterek/Ékezetes karakterek/Nagybetűk/J-Z/N tildével Ñ"
 
-#: ../src/menu.c:145
+#: ../src/menu.c:347
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O grave Ò"
 msgstr ""
 "/Címkék/Speciális karakterek/Ékezetes karakterek/Nagybetűk/J-Z/O tompa "
 "ékezettel Ò"
 
-#: ../src/menu.c:146
+#: ../src/menu.c:348
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O acute Ó"
 msgstr "/Címkék/Speciális karakterek/Ékezetes karakterek/Nagybetűk/J-Z/Ó"
 
-#: ../src/menu.c:147
+#: ../src/menu.c:349
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O circumflex Ô"
 msgstr ""
 "/Címkék/Speciális karakterek/Ékezetes karakterek/Nagybetűk/J-Z/O kalappal Ô"
 
-#: ../src/menu.c:148
+#: ../src/menu.c:350
 msgid "/Tags/Special/Accent/Uppercase/J-Z/OE ligature"
 msgstr ""
 "/Címkék/Speciális karakterek/Ékezetes karakterek/Nagybetűk/A-I/AE "
 "kettőshangzó"
 
-#: ../src/menu.c:149
+#: ../src/menu.c:351
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O tilde Õ"
 msgstr ""
 "/Címkék/Speciális karakterek/Ékezetes karakterek/Nagybetűk/J-Z/O tildével Õ"
 
-#: ../src/menu.c:150
+#: ../src/menu.c:352
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O diaeresis Ö"
 msgstr "/Címkék/Speciális karakterek/Ékezetes karakterek/Nagybetűk/J-Z/Ö"
 
-#: ../src/menu.c:151
+#: ../src/menu.c:353
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O slash Ø"
 msgstr ""
 "/Címkék/Speciális karakterek/Ékezetes karakterek/Nagybetűk/J-Z/O áthúzva Ø"
 
-#: ../src/menu.c:152
+#: ../src/menu.c:354
 msgid "/Tags/Special/Accent/Uppercase/J-Z/U grave Ù"
 msgstr ""
 "/Címkék/Speciális karakterek/Ékezetes karakterek/Nagybetűk/J-Z/U tompa "
 "ékezettel Ù"
 
-#: ../src/menu.c:153
+#: ../src/menu.c:355
 msgid "/Tags/Special/Accent/Uppercase/J-Z/U acute Ú"
 msgstr "/Címkék/Speciális karakterek/Ékezetes karakterek/Nagybetűk/J-Z/Ú"
 
-#: ../src/menu.c:154
+#: ../src/menu.c:356
 msgid "/Tags/Special/Accent/Uppercase/J-Z/U circumflex Û"
 msgstr ""
 "/Címkék/Speciális karakterek/Ékezetes karakterek/Nagybetűk/J-Z/U kalappal Û"
 
-#: ../src/menu.c:155
+#: ../src/menu.c:357
 msgid "/Tags/Special/Accent/Uppercase/J-Z/U diaeresis Ü"
 msgstr "/Címkék/Speciális karakterek/Ékezetes karakterek/Nagybetűk/J-Z/Ü"
 
-#: ../src/menu.c:157
+#: ../src/menu.c:359
 msgid "/Tags/Special/Accent/Uppercase/J-Z/Y acute Ý"
 msgstr ""
 "/Címkék/Speciális karakterek/Ékezetes karakterek/Nagybetűk/J-Z/Y vesszővel Ý"
 
-#: ../src/menu.c:159
+#: ../src/menu.c:361
 msgid "/Tags/Special/Accent/_Lowercase"
 msgstr "/Címkék/Speciális karakterek/Ékezetes karakterek/_Kisbetűk"
 
-#: ../src/menu.c:160
+#: ../src/menu.c:362
 msgid "/Tags/Special/Accent/Lowercase/_A-I"
 msgstr "/Címkék/Speciális karakterek/Ékezetes karakterek/Kisbetűk/_A-I"
 
-#: ../src/menu.c:161
+#: ../src/menu.c:363
 msgid "/Tags/Special/Accent/Lowercase/A-I/tearoff1"
 msgstr "/Címkék/Speciális karakterek/Ékezetes karakterek/Kisbetűk/A-I/tearoff1"
 
-#: ../src/menu.c:163
+#: ../src/menu.c:365
 msgid "/Tags/Special/Accent/Lowercase/A-I/a grave à"
 msgstr ""
 "/Címkék/Speciális karakterek/Ékezetes karakterek/Kisbetűk/A-I/a tompa "
 "ékezettel à"
 
-#: ../src/menu.c:165
+#: ../src/menu.c:367
 msgid "/Tags/Special/Accent/Lowercase/A-I/a acute á"
 msgstr "/Címkék/Speciális karakterek/Ékezetes karakterek/Kisbetűk/A-I/á"
 
-#: ../src/menu.c:167
+#: ../src/menu.c:369
 msgid "/Tags/Special/Accent/Lowercase/A-I/a circumflex â"
 msgstr ""
 "/Címkék/Speciális karakterek/Ékezetes karakterek/Kisbetűk/A-I/a kalappal â"
 
-#: ../src/menu.c:169
+#: ../src/menu.c:371
 msgid "/Tags/Special/Accent/Lowercase/A-I/a tilde ã"
 msgstr ""
 "/Címkék/Speciális karakterek/Ékezetes karakterek/Kisbetűk/A-I/a tildével ã"
 
-#: ../src/menu.c:171
+#: ../src/menu.c:373
 msgid "/Tags/Special/Accent/Lowercase/A-I/a ring å"
 msgstr ""
 "/Címkék/Speciális karakterek/Ékezetes karakterek/Kisbetűk/A-I/a körrel å"
 
-#: ../src/menu.c:173
+#: ../src/menu.c:375
 msgid "/Tags/Special/Accent/Lowercase/A-I/ae ligature æ"
 msgstr ""
 "/Címkék/Speciális karakterek/Ékezetes karakterek/Kisbetűk/A-I/ae "
 "kettőshangzó æ"
 
-#: ../src/menu.c:175
+#: ../src/menu.c:377
 msgid "/Tags/Special/Accent/Lowercase/A-I/a diaeresis ä"
 msgstr ""
 "/Címkék/Speciális karakterek/Ékezetes karakterek/Kisbetűk/A-I/a umlauttal ä"
 
-#: ../src/menu.c:177
+#: ../src/menu.c:379
 msgid "/Tags/Special/Accent/Lowercase/A-I/c cedilla ç"
 msgstr ""
 "/Címkék/Speciális karakterek/Ékezetes karakterek/Kisbetűk/A-I/c cedilla ç"
 
-#: ../src/menu.c:179
+#: ../src/menu.c:381
 msgid "/Tags/Special/Accent/Lowercase/A-I/e grave è"
 msgstr ""
 "/Címkék/Speciális karakterek/Ékezetes karakterek/Kisbetűk/A-I/e tompa "
 "ékezettel è"
 
-#: ../src/menu.c:181
+#: ../src/menu.c:383
 msgid "/Tags/Special/Accent/Lowercase/A-I/e acute é"
 msgstr "/Címkék/Speciális karakterek/Ékezetes karakterek/Kisbetűk/A-I/é"
 
-#: ../src/menu.c:183
+#: ../src/menu.c:385
 msgid "/Tags/Special/Accent/Lowercase/A-I/e circumflex ê"
 msgstr ""
 "/Címkék/Speciális karakterek/Ékezetes karakterek/Kisbetűk/A-I/e kalappal ê"
 
-#: ../src/menu.c:185
+#: ../src/menu.c:387
 msgid "/Tags/Special/Accent/Lowercase/A-I/e diaeresis ë"
 msgstr ""
 "/Címkék/Speciális karakterek/Ékezetes karakterek/Kisbetűk/A-I/e umlauttal ë"
 
-#: ../src/menu.c:187
+#: ../src/menu.c:389
 msgid "/Tags/Special/Accent/Lowercase/A-I/i grave ì"
 msgstr ""
 "/Címkék/Speciális karakterek/Ékezetes karakterek/Kisbetűk/A-I/i tompa "
 "ékezettel ì"
 
-#: ../src/menu.c:189
+#: ../src/menu.c:391
 msgid "/Tags/Special/Accent/Lowercase/A-I/i acute í"
 msgstr "/Címkék/Speciális karakterek/Ékezetes karakterek/Kisbetűk/A-I/í"
 
-#: ../src/menu.c:191
+#: ../src/menu.c:393
 msgid "/Tags/Special/Accent/Lowercase/A-I/i circumflex î"
 msgstr ""
 "/Címkék/Speciális karakterek/Ékezetes karakterek/Kisbetűk/A-I/i kalappal î"
 
-#: ../src/menu.c:193
+#: ../src/menu.c:395
 msgid "/Tags/Special/Accent/Lowercase/A-I/i diaeresis ï"
 msgstr ""
 "/Címkék/Speciális karakterek/Ékezetes karakterek/Kisbetűk/A-I/i umlauttal ï"
 
-#: ../src/menu.c:195
+#: ../src/menu.c:397
 msgid "/Tags/Special/Accent/Lowercase/_J-Z"
 msgstr "/Címkék/Speciális karakterek/Ékezetes karakterek/Kisbetűk/_J-Z"
 
-#: ../src/menu.c:196
+#: ../src/menu.c:398
 msgid "/Tags/Special/Accent/Lowercase/J-Z/tearoff1"
 msgstr "/Címkék/Speciális karakterek/Ékezetes karakterek/Kisbetűk/J-Z/tearoff1"
 
-#: ../src/menu.c:198
+#: ../src/menu.c:400
 msgid "/Tags/Special/Accent/Lowercase/J-Z/n tilde ñ"
 msgstr ""
 "/Címkék/Speciális karakterek/Ékezetes karakterek/Kisbetűk/J-Z/n tildével ñ"
 
-#: ../src/menu.c:200
+#: ../src/menu.c:402
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o grave ò"
 msgstr ""
 "/Címkék/Speciális karakterek/Ékezetes karakterek/Kisbetűk/J-Z/o tompa "
 "ékezettel ò"
 
-#: ../src/menu.c:202
+#: ../src/menu.c:404
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o acute ó"
 msgstr "/Címkék/Speciális karakterek/Ékezetes karakterek/Kisbetűk/J-Z/ó"
 
-#: ../src/menu.c:203
+#: ../src/menu.c:405
 msgid "/Tags/Special/Accent/Lowercase/J-Z/oe ligature æ"
 msgstr ""
 "/Címkék/Speciális karakterek/Ékezetes karakterek/Kisbetűk/A-I/ae "
 "kettőshangzó æ"
 
-#: ../src/menu.c:204
+#: ../src/menu.c:406
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o circumflex ô"
 msgstr ""
 "/Címkék/Speciális karakterek/Ékezetes karakterek/Kisbetűk/J-Z/o kalappal ô"
 
-#: ../src/menu.c:206
+#: ../src/menu.c:408
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o tilde õ"
 msgstr ""
 "/Címkék/Speciális karakterek/Ékezetes karakterek/Kisbetűk/J-Z/o tildével õ"
 
-#: ../src/menu.c:208
+#: ../src/menu.c:410
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o diaeresis ö"
 msgstr "/Címkék/Speciális karakterek/Ékezetes karakterek/Kisbetűk/J-Z/ö"
 
-#: ../src/menu.c:210
+#: ../src/menu.c:412
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o slash ø"
 msgstr ""
 "/Címkék/Speciális karakterek/Ékezetes karakterek/Kisbetűk/J-Z/o áthúzva ø"
 
-#: ../src/menu.c:212
+#: ../src/menu.c:414
 msgid "/Tags/Special/Accent/Lowercase/J-Z/u grave ù"
 msgstr ""
 "/Címkék/Speciális karakterek/Ékezetes karakterek/Kisbetűk/J-Z/u tompa "
 "ékezettel ù"
 
-#: ../src/menu.c:214
+#: ../src/menu.c:416
 msgid "/Tags/Special/Accent/Lowercase/J-Z/u acute ú"
 msgstr "/Címkék/Speciális karakterek/Ékezetes karakterek/Kisbetűk/J-Z/ú"
 
-#: ../src/menu.c:216
+#: ../src/menu.c:418
 msgid "/Tags/Special/Accent/Lowercase/J-Z/u circumflex û"
 msgstr ""
 "/Címkék/Speciális karakterek/Ékezetes karakterek/Kisbetűk/J-Z/u kalappal û"
 
-#: ../src/menu.c:218
+#: ../src/menu.c:420
 msgid "/Tags/Special/Accent/Lowercase/J-Z/u diaeresis ü"
 msgstr "/Címkék/Speciális karakterek/Ékezetes karakterek/Kisbetűk/J-Z/ü"
 
-#: ../src/menu.c:220
+#: ../src/menu.c:422
 msgid "/Tags/Special/Accent/Lowercase/J-Z/y acute ý"
 msgstr ""
 "/Címkék/Speciális karakterek/Ékezetes karakterek/Kisbetűk/J-Z/y vesszővel ý"
 
-#: ../src/menu.c:222
+#: ../src/menu.c:424
 msgid "/Tags/Special/Accent/Lowercase/J-Z/y diaeresis ÿ"
 msgstr ""
 "/Címkék/Speciális karakterek/Ékezetes karakterek/Kisbetűk/J-Z/y umlauttal ÿ"
 
-#: ../src/menu.c:224
+#: ../src/menu.c:426
 msgid "/Tags/Special/Accent/separator"
 msgstr "/Címkék/Speciális karakterek/Accent/Separator"
 
-#: ../src/menu.c:225
+#: ../src/menu.c:427
 msgid "/Tags/Special/Accent/U_mlaut ¨"
 msgstr "/Címkék/Speciális karakterek/Ékezetes karakterek/_Umlaut¨"
 
-#: ../src/menu.c:226
+#: ../src/menu.c:428
 msgid "/Tags/Special/Accent/_Acute ´"
 msgstr "/Címkék/Speciális karakterek/Ékezetes karakterek/_Vessző ´"
 
-#: ../src/menu.c:227
+#: ../src/menu.c:429
 msgid "/Tags/Special/Accent/_Cedilla ¸"
 msgstr "/Címkék/Speciális karakterek/Ékezetes karakterek/_Cedilla ¸"
 
-#: ../src/menu.c:228
+#: ../src/menu.c:430
 msgid "/Tags/Special/_Currency"
 msgstr "/Címkék/Speciális karakterek/_Pénznemek"
 
-#: ../src/menu.c:229
+#: ../src/menu.c:431
 msgid "/Tags/Special/Currency/tearoff1"
 msgstr "/Címkék/Speciális karakterek/Pénznemek/tearoff1"
 
-#: ../src/menu.c:230
+#: ../src/menu.c:432
 msgid "/Tags/Special/Currency/_Cent sign ¢"
 msgstr "/Címkék/Speciális karakterek/Pénznemek/_Cent jel ¢"
 
-#: ../src/menu.c:232
+#: ../src/menu.c:434
 msgid "/Tags/Special/Currency/_Pound sterling £"
 msgstr "/Címkék/Speciális karakterek/Pénznemek/_Font sterling £"
 
-#: ../src/menu.c:234
+#: ../src/menu.c:436
 msgid "/Tags/Special/Currency/C_urrency sign ¤"
 msgstr "/Címkék/Speciális karakterek/Pénznemek/_Valuta jel ¤"
 
-#: ../src/menu.c:236
+#: ../src/menu.c:438
 msgid "/Tags/Special/Currency/_Yen sign ¥"
 msgstr "/Címkék/Speciális karakterek/Pénznemek/_Jen jel ¥"
 
-#: ../src/menu.c:237
+#: ../src/menu.c:439
 msgid "/Tags/Special/Currency/_Euro "
 msgstr "/Címkék/Speciális karakterek/Pénznemek/_Euro"
 
-#: ../src/menu.c:238
+#: ../src/menu.c:440
 msgid "/Tags/Special/_Math-Science"
 msgstr "/Címkék/Speciális karakterek/_Matematikai jelek"
 
-#: ../src/menu.c:239
+#: ../src/menu.c:441
 msgid "/Tags/Special/Math-Science/tearoff1"
 msgstr "/Címkék/Speciális karakterek/Matematikai jelek/tearoff1"
 
-#: ../src/menu.c:240
+#: ../src/menu.c:442
 msgid "/Tags/Special/Math-Science/Logical _not sign ¬"
 msgstr "/Címkék/Speciális karakterek/Matematikai jelek/_Tagadásjel ¬"
 
-#: ../src/menu.c:242
+#: ../src/menu.c:444
 msgid "/Tags/Special/Math-Science/_Multiplication sign ×"
 msgstr "/Címkék/Speciális karakterek/Matematikai jelek/_Szorzásjel ×"
 
-#: ../src/menu.c:244
+#: ../src/menu.c:446
 msgid "/Tags/Special/Math-Science/_Division sign ÷"
 msgstr "/Címkék/Speciális karakterek/Matematikai jelek/_Osztásjel ÷"
 
-#: ../src/menu.c:246
+#: ../src/menu.c:448
 msgid "/Tags/Special/Math-Science/_Plus-minus sign ±"
 msgstr "/Címkék/Speciális karakterek/Matematikai jelek/_Plusz-mínusz ±"
 
-#: ../src/menu.c:248
+#: ../src/menu.c:450
 msgid "/Tags/Special/Math-Science/_Less-than sign <"
 msgstr "/Címkék/Speciális karakterek/Matematikai jelek/_Kisebb jel <"
 
-#: ../src/menu.c:250
+#: ../src/menu.c:452
 msgid "/Tags/Special/Math-Science/_Greater-than sign >"
 msgstr "/Címkék/Speciális karakterek/Matematikai jelek/_Nagyobb jel >"
 
-#: ../src/menu.c:252
+#: ../src/menu.c:454
 msgid "/Tags/Special/Math-Science/Superscript _1 ¹"
 msgstr "/Címkék/Speciális karakterek/Matematikai jelek/_Első hatvány ¹"
 
-#: ../src/menu.c:254
+#: ../src/menu.c:456
 msgid "/Tags/Special/Math-Science/Superscript _2 ²"
 msgstr "/Címkék/Speciális karakterek/Matematikai jelek/_Második hatvány ²"
 
-#: ../src/menu.c:256
+#: ../src/menu.c:458
 msgid "/Tags/Special/Math-Science/Superscript _3 ³"
 msgstr "/Címkék/Speciális karakterek/Matematikai jelek/_Harmadik hatvány ³"
 
-#: ../src/menu.c:258
+#: ../src/menu.c:460
 msgid "/Tags/Special/Math-Science/One _quarter ¼"
 msgstr "/Címkék/Speciális karakterek/Matematikai jelek/E_gy negyed ¼"
 
-#: ../src/menu.c:260
+#: ../src/menu.c:462
 msgid "/Tags/Special/Math-Science/One _half ½"
 msgstr "/Címkék/Speciális karakterek/Matematikai jelek/Eg_y ketted ½"
 
-#: ../src/menu.c:262
+#: ../src/menu.c:464
 msgid "/Tags/Special/Math-Science/_Three quarters ¾"
 msgstr "/Címkék/Speciális karakterek/Matematikai jelek/Há_rom negyed ¾"
 
-#: ../src/menu.c:264
+#: ../src/menu.c:466
 msgid "/Tags/Special/Math-Science/Deg_ree sign °"
 msgstr "/Címkék/Speciális karakterek/Matematikai jelek/_Fokjel °"
 
-#: ../src/menu.c:266
+#: ../src/menu.c:468
 msgid "/Tags/Special/_Non Latin"
 msgstr "/Címkék/Speciális karakterek/_Nem latin"
 
-#: ../src/menu.c:267
+#: ../src/menu.c:469
 msgid "/Tags/Special/Non Latin/tearoff1"
 msgstr "/Címkék/Speciális karakterek/Nem latin/tearoff1"
 
-#: ../src/menu.c:268
+#: ../src/menu.c:470
 msgid "/Tags/Special/Non Latin/_ETH (Icelandic) Ð"
 msgstr "/Címkék/Speciális karakterek/Nem latin/Et_h (izlandi) Ð"
 
-#: ../src/menu.c:270
+#: ../src/menu.c:472
 msgid "/Tags/Special/Non Latin/_THORN (Icelandic) Þ"
 msgstr "/Címkék/Speciális karakterek/Nem latin/Tho_rn (izlandi) Þ"
 
-#: ../src/menu.c:272
+#: ../src/menu.c:474
 msgid "/Tags/Special/Non Latin/et_h (Icelandic) ð"
 msgstr "/Címkék/Speciális karakterek/Nem latin/_eth (izlandi) ð"
 
-#: ../src/menu.c:274
+#: ../src/menu.c:476
 msgid "/Tags/Special/Non Latin/th_orn ÿ"
 msgstr "/Címkék/Speciális karakterek/Nem latin/_thorn ÿ"
 
-#: ../src/menu.c:275
+#: ../src/menu.c:477
 msgid "/Tags/Special/Non Latin/Sharp _s ß"
 msgstr "/Címkék/Speciális karakterek/Nem latin/Éles _s ß"
 
-#: ../src/menu.c:276
+#: ../src/menu.c:478
 msgid "/Tags/Special/Non Latin/_Micro sign µ"
 msgstr "/Címkék/Speciális karakterek/Nem latin/_Mikro jel µ"
 
-#: ../src/menu.c:278
+#: ../src/menu.c:480
 msgid "/Tags/Special/_Other"
 msgstr "/Címkék/Speciális karakterek/_Egyéb"
 
-#: ../src/menu.c:279
+#: ../src/menu.c:481
 msgid "/Tags/Special/Other/tearoff1"
 msgstr "/Címkék/Speciális karakterek/Egyéb/tearoff1"
 
-#: ../src/menu.c:280
+#: ../src/menu.c:482
 msgid "/Tags/Special/Other/_Non-breaking space"
 msgstr "/Címkék/Speciális karakterek/Egyéb/N_em törhető szóköz"
 
-#: ../src/menu.c:282
+#: ../src/menu.c:484
 msgid "/Tags/Special/Other/_Section sign §"
 msgstr "/Címkék/Speciális karakterek/Egyéb/_Paragrafusjel §"
 
-#: ../src/menu.c:284
+#: ../src/menu.c:486
 msgid "/Tags/Special/Other/_Copyright sign ©"
 msgstr "/Címkék/Speciális karakterek/Egyéb/_Copyright-jel ©"
 
-#: ../src/menu.c:286
+#: ../src/menu.c:488
 msgid "/Tags/Special/Other/_Left angle quotes «"
 msgstr "/Címkék/Speciális karakterek/Egyéb/Nyitó _idézőjel «"
 
-#: ../src/menu.c:288
+#: ../src/menu.c:490
 msgid "/Tags/Special/Other/_Right angle quotes »"
 msgstr "/Címkék/Speciális karakterek/Egyéb/_Záró idézőjel »"
 
-#: ../src/menu.c:290
+#: ../src/menu.c:492
 msgid "/Tags/Special/Other/Registered _trademark ®"
 msgstr "/Címkék/Speciális karakterek/Egyéb/Bejegyzett _védjegy ®"
 
-#: ../src/menu.c:292
+#: ../src/menu.c:494
 msgid "/Tags/Special/Other/Inverted _exclamation ¡"
 msgstr "/Címkék/Speciális karakterek/Egyéb/Fordított _felkiáltójel ¡"
 
-#: ../src/menu.c:294
+#: ../src/menu.c:496
 msgid "/Tags/Special/Other/Inverted _question mark ¿"
 msgstr "/Címkék/Speciális karakterek/Egyéb/Fordított _kérdőjel ¿"
 
-#: ../src/menu.c:296
+#: ../src/menu.c:498
 msgid "/Tags/Special/Other/_Feminine ordinal ª"
 msgstr "/Címkék/Speciális karakterek/Egyéb/_Nő sorszám ª"
 
-#: ../src/menu.c:298
+#: ../src/menu.c:500
 msgid "/Tags/Special/Other/_Masculine ordinal º"
 msgstr "/Címkék/Speciális karakterek/Egyéb/_Hím sorszám º"
 
-#: ../src/menu.c:300
+#: ../src/menu.c:502
 msgid "/Tags/Special/Other/_Pilcrow (paragraph sign) ¶"
 msgstr "/Címkék/Speciális karakterek/Egyéb/_Bekezdésjel ¶"
 
-#: ../src/menu.c:302
+#: ../src/menu.c:504
 msgid "/Tags/Special/Other/_Broken bar ¦"
 msgstr "/Címkék/Speciális karakterek/Egyéb/_Tört vonal ¦"
 
-#: ../src/menu.c:303
+#: ../src/menu.c:505
 msgid "/Tags/Special/Other/Soft _hypen -"
 msgstr "/Címkék/Speciális karakterek/Egyéb/Feltételes e_lválasztójel -"
 
-#: ../src/menu.c:304
+#: ../src/menu.c:506
 msgid "/Tags/Special/Other/Spa_cing macron ¯"
 msgstr "/Címkék/Speciális karakterek/Egyéb/Hosszúsági ékezet ¯"
 
-#: ../src/menu.c:306
+#: ../src/menu.c:508
 msgid "/Tags/Special/Other/Middle _dot ·"
 msgstr "/Címkék/Speciális karakterek/Egyéb/Középső p_ont ·"
 
-#: ../src/menu.c:308
+#: ../src/menu.c:510
 msgid "/Tags/_Format by layout"
 msgstr "/Címkék/_Megjelenés szerinti formázás"
 
-#: ../src/menu.c:309
+#: ../src/menu.c:511
 msgid "/Tags/Format by layout/tearoff1"
 msgstr "/Címkék/Megjelenés szerinti formázás/tearoff1"
 
-#: ../src/menu.c:310
+#: ../src/menu.c:512
 msgid "/Tags/Format by layout/_Bold"
 msgstr "/Címkék/Megjelenés szerinti formázás/_Félkövér"
 
-#: ../src/menu.c:311
+#: ../src/menu.c:513
 msgid "/Tags/Format by layout/_Italic"
 msgstr "/Címkék/Megjelenés szerinti formázás/_Dőlt"
 
-#: ../src/menu.c:312
+#: ../src/menu.c:514
 msgid "/Tags/Format by layout/_Underline"
 msgstr "/Címkék/Megjelenés szerinti formázás/_Aláhúzott"
 
-#: ../src/menu.c:313
+#: ../src/menu.c:515
 msgid "/Tags/Format by layout/_Strikeout"
 msgstr "/Címkék/Megjelenés szerinti formázás/Át_húzott"
 
-#: ../src/menu.c:314
+#: ../src/menu.c:516
 msgid "/Tags/F_ormat by context"
 msgstr "/Címkék/_Kontextusformázás"
 
-#: ../src/menu.c:315
+#: ../src/menu.c:517
 msgid "/Tags/Format by context/tearoff1"
 msgstr "/Címkék/Kontextusformázás/tearoff1"
 
-#: ../src/menu.c:316
+#: ../src/menu.c:518
 msgid "/Tags/Format by context/_Strong"
 msgstr "/Címkék/Kontextusformázás/_Erős nyomaték"
 
-#: ../src/menu.c:317
+#: ../src/menu.c:519
 msgid "/Tags/Format by context/_Emphasis"
 msgstr "/Címkék/Kontextusformázás/_Nyomaték"
 
-#: ../src/menu.c:318
+#: ../src/menu.c:520
 msgid "/Tags/Format by context/_Define"
 msgstr "/Címkék/Kontextusformázás/_Definíció"
 
-#: ../src/menu.c:319
+#: ../src/menu.c:521
 msgid "/Tags/Format by context/_Code"
 msgstr "/Címkék/Kontextusformázás/_Kódrészlet"
 
-#: ../src/menu.c:320
+#: ../src/menu.c:522
 msgid "/Tags/Format by context/Sa_mple"
 msgstr "/Címkék/Kontextusformázás/_Példa"
 
-#: ../src/menu.c:321
+#: ../src/menu.c:523
 msgid "/Tags/Format by context/_Keyboard"
 msgstr "/Címkék/Kontextusformázás/_Gépelt"
 
-#: ../src/menu.c:322
+#: ../src/menu.c:524
 msgid "/Tags/Format by context/_Variable"
 msgstr "/Címkék/Kontextusformázás/_Változó"
 
-#: ../src/menu.c:323
+#: ../src/menu.c:525
 msgid "/Tags/Format by context/Ci_tation"
 msgstr "/Címkék/Kontextusformázás/_Idézet"
 
-#: ../src/menu.c:324
+#: ../src/menu.c:526
 msgid "/Tags/Format by context/_Abbreviation"
 msgstr "/Címkék/Kontextusformázás/_Rövidítés"
 
-#: ../src/menu.c:325
+#: ../src/menu.c:527
 msgid "/Tags/Format by context/Ac_ronym"
 msgstr "/Címkék/Kontextusformázás/_Betűszó"
 
-#: ../src/menu.c:326
+#: ../src/menu.c:528
 msgid "/Tags/Format _general"
 msgstr "/Címkék/További _formázások"
 
-#: ../src/menu.c:327
+#: ../src/menu.c:529
 msgid "/Tags/Format general/tearoff1"
 msgstr "/Címkék/További formázások/tearoff1"
 
-#: ../src/menu.c:328
+#: ../src/menu.c:530
 msgid "/Tags/Format general/_Paragraph"
 msgstr "/Címkék/További formázások/_Bekezdés"
 
-#: ../src/menu.c:329
+#: ../src/menu.c:531
 msgid "/Tags/Format general/_Break"
 msgstr "/Címkék/További formázások/_Sortörés"
 
-#: ../src/menu.c:330
+#: ../src/menu.c:532
 msgid "/Tags/Format general/Break clear _all"
 msgstr "/Címkék/További formázások/Sortörés törléssel"
 
-#: ../src/menu.c:331
+#: ../src/menu.c:533
 msgid "/Tags/Format general/_Non-Breaking Space"
 msgstr "/Címkék/További formázások/N_em törhető szóköz"
 
-#: ../src/menu.c:332 ../src/menu.c:335 ../src/menu.c:339
+#: ../src/menu.c:534 ../src/menu.c:537 ../src/menu.c:541
 msgid "/Tags/Format general/<separator>"
 msgstr "/Címkék/További formázások/<separator>"
 
-#: ../src/menu.c:333
+#: ../src/menu.c:535
 msgid "/Tags/Format general/Font Si_ze +1"
 msgstr "/Címkék/További formázások/Betűméret +1"
 
-#: ../src/menu.c:334
+#: ../src/menu.c:536
 msgid "/Tags/Format general/Font _Size -1"
 msgstr "/Címkék/További formázások/Betűméret -1"
 
-#: ../src/menu.c:336
+#: ../src/menu.c:538
 msgid "/Tags/Format general/Preformatted _Text"
 msgstr "/Címkék/További formázások/E_lőformázott szöveg"
 
-#: ../src/menu.c:337
+#: ../src/menu.c:539
 msgid "/Tags/Format general/Su_bscript"
 msgstr "/Címkék/További formázások/_Alsó index"
 
-#: ../src/menu.c:338
+#: ../src/menu.c:540
 msgid "/Tags/Format general/Su_perscript"
 msgstr "/Címkék/További formázások/_Felső index"
 
-#: ../src/menu.c:340
+#: ../src/menu.c:542
 msgid "/Tags/Format general/_Center"
 msgstr "/Címkék/További formázások/_Középre igazítás"
 
-#: ../src/menu.c:341
+#: ../src/menu.c:543
 msgid "/Tags/Format general/Align _right"
 msgstr "/Címkék/További formázások/_Jobbra igazítás"
 
-#: ../src/menu.c:342
+#: ../src/menu.c:544
 msgid "/Tags/_Table"
 msgstr "/Címkék/_Táblázat"
 
-#: ../src/menu.c:343
+#: ../src/menu.c:545
 msgid "/Tags/Table/tearoff1"
 msgstr "/Címkék/Táblázat/tearoff1"
 
-#: ../src/menu.c:344
+#: ../src/menu.c:546
 msgid "/Tags/Table/_Table"
 msgstr "/Címkék/Táblázat/_Táblázat"
 
-#: ../src/menu.c:345
+#: ../src/menu.c:547
 msgid "/Tags/Table/Table _Row"
 msgstr "/Címkék/Táblázat/_Sor"
 
-#: ../src/menu.c:346
+#: ../src/menu.c:548
 msgid "/Tags/Table/Table _Header"
 msgstr "/Címkék/Táblázat/_Fejléc-cella"
 
-#: ../src/menu.c:347
+#: ../src/menu.c:549
 msgid "/Tags/Table/Table _Data"
 msgstr "/Címkék/Táblázat/_Cella"
 
-#: ../src/menu.c:348
+#: ../src/menu.c:550
 msgid "/Tags/Table/Table _Caption"
 msgstr "/Címkék/Táblázat/Tá_blázatcím"
 
-#: ../src/menu.c:349
+#: ../src/menu.c:551
 msgid "/Tags/_List"
 msgstr "/Címkék/_Lista"
 
-#: ../src/menu.c:350
+#: ../src/menu.c:552
 msgid "/Tags/List/tearoff1"
 msgstr "/Címkék/Lista/tearoff1"
 
-#: ../src/menu.c:351
+#: ../src/menu.c:553
 msgid "/Tags/List/_Unordered List"
 msgstr "/Címkék/Lista/_Nem sorszámozott"
 
-#: ../src/menu.c:352
+#: ../src/menu.c:554
 msgid "/Tags/List/_Ordered List"
 msgstr "/Címkék/Lista/_Sorszámozott"
 
-#: ../src/menu.c:353
+#: ../src/menu.c:555
 msgid "/Tags/List/List _Item"
 msgstr "/Címkék/Lista/_Listaelem"
 
-#: ../src/menu.c:354
+#: ../src/menu.c:556
 msgid "/Tags/List/Definition _List"
 msgstr "/Címkék/Lista/_Definíciólista"
 
-#: ../src/menu.c:355
+#: ../src/menu.c:557
 msgid "/Tags/List/Definition _Term"
 msgstr "/Címkék/Lista/_Fogalom"
 
-#: ../src/menu.c:356
+#: ../src/menu.c:558
 msgid "/Tags/List/De_finition"
 msgstr "/Címkék/Lista/_Meghatározás"
 
-#: ../src/menu.c:357
+#: ../src/menu.c:559
 msgid "/Tags/List/_Menu"
 msgstr "/Címkék/Lista/M_enü"
 
-#: ../src/menu.c:358
+#: ../src/menu.c:560
 msgid "/Tags/Insert Generator _META-Tag"
 msgstr "/Címkék/_Generator META-címke beszúrása"
 
-#: ../src/menu.c:359
+#: ../src/menu.c:561
 msgid "/Tags/_Comment"
 msgstr "/Címkék/M_egjegyzés"
 
-#: ../src/menu.c:360
+#: ../src/menu.c:562
 msgid "/Dialo_gs"
 msgstr "/_Párbeszéd"
 
-#: ../src/menu.c:361
+#: ../src/menu.c:563
 msgid "/Dialogs/tearoff1"
 msgstr "/Párbeszéd/tearoff1"
 
-#: ../src/menu.c:362
+#: ../src/menu.c:564
 msgid "/Dialogs/_General"
 msgstr "/Párbeszéd/Á_ltalános"
 
-#: ../src/menu.c:363
+#: ../src/menu.c:565
 msgid "/Dialogs/General/tearoff1"
 msgstr "/Párbeszéd/Általános/tearoff1"
 
-#: ../src/menu.c:364
+#: ../src/menu.c:566
 msgid "/Dialogs/General/_Quickstart..."
 msgstr "/Párbeszéd/Általános/Gyors _kezdés..."
 
-#: ../src/menu.c:367
+#: ../src/menu.c:569
 msgid "/Dialogs/General/_Body..."
 msgstr "/Párbeszéd/Általános/_Törzs..."
 
-#: ../src/menu.c:368
+#: ../src/menu.c:570
 msgid "/Dialogs/General/_Anchor..."
 msgstr "/Párbeszéd/Általános/_Horgony..."
 
-#: ../src/menu.c:369
+#: ../src/menu.c:571
 msgid "/Dialogs/General/_Email..."
 msgstr "/Párbeszéd/Általános/_Email..."
 
-#: ../src/menu.c:370
+#: ../src/menu.c:572
 msgid "/Dialogs/General/_Rule..."
 msgstr "/Párbeszéd/Általános/_Vonal..."
 
-#: ../src/menu.c:371
+#: ../src/menu.c:573
 msgid "/Dialogs/General/_Font..."
 msgstr "/Párbeszéd/Általános/_Font..."
 
-#: ../src/menu.c:372
+#: ../src/menu.c:574
 msgid "/Dialogs/General/Basef_ont..."
 msgstr "/Párbeszéd/Általános/_Basefont..."
 
-#: ../src/menu.c:373
+#: ../src/menu.c:575
 msgid "/Dialogs/General/Quick_list..."
 msgstr "/Párbeszéd/Általános/_Lista..."
 
-#: ../src/menu.c:374
+#: ../src/menu.c:576
 msgid "/Dialogs/General/_Meta..."
 msgstr "/Párbeszéd/Általános/_Meta..."
 
-#: ../src/menu.c:375
+#: ../src/menu.c:577
 msgid "/Dialogs/General/Embe_d..."
 msgstr "/Párbeszéd/Általános/B_eágyazás..."
 
-#: ../src/menu.c:376
+#: ../src/menu.c:578
 msgid "/Dialogs/General/Select _Color..."
 msgstr "/Párbeszéd/Általános/_Színválasztás..."
 
-#: ../src/menu.c:377
+#: ../src/menu.c:579
 msgid "/Dialogs/General/Insert _Time..."
 msgstr "/Párbeszéd/Általános/_Idő beszúrása..."
 
-#: ../src/menu.c:378
+#: ../src/menu.c:580
 msgid "/Dialogs/General/Insert _Image..."
 msgstr "/Párbeszéd/Általános/Ké_p beszúrása..."
 
-#: ../src/menu.c:379
+#: ../src/menu.c:581
 msgid "/Dialogs/General/Insert T_humbnail..."
 msgstr "/Párbeszéd/Általános/Thumbn_ail beszúrása..."
 
-#: ../src/menu.c:380
+#: ../src/menu.c:582
 msgid "/Dialogs/_Table"
 msgstr "/Párbeszéd/_Táblázat"
 
-#: ../src/menu.c:381
+#: ../src/menu.c:583
 msgid "/Dialogs/Table/tearoff1"
 msgstr "/Párbeszéd/Táblázat/tearoff1"
 
-#: ../src/menu.c:382
+#: ../src/menu.c:584
 msgid "/Dialogs/Table/Table _Wizard..."
 msgstr "/Párbeszéd/Táblázat/Táblázat _varázsló..."
 
-#: ../src/menu.c:383
+#: ../src/menu.c:585
 msgid "/Dialogs/Table/_Table..."
 msgstr "/Párbeszéd/Táblázat/_Táblázat..."
 
-#: ../src/menu.c:384
+#: ../src/menu.c:586
 msgid "/Dialogs/Table/Table _Row..."
 msgstr "/Párbeszéd/Táblázat/_Sor..."
 
-#: ../src/menu.c:385
+#: ../src/menu.c:587
 msgid "/Dialogs/Table/Table _Head..."
 msgstr "/Párbeszéd/Táblázat/Fej_léc..."
 
-#: ../src/menu.c:386
+#: ../src/menu.c:588
 msgid "/Dialogs/Table/Table _Data..."
 msgstr "/Párbeszéd/Táblázat/_Cella..."
 
-#: ../src/menu.c:387
+#: ../src/menu.c:589
 msgid "/Dialogs/_CSS"
 msgstr "/Párbeszéd/_Stíluslap"
 
-#: ../src/menu.c:388
+#: ../src/menu.c:590
 msgid "/Dialogs/CSS/tearoff1"
 msgstr "/Párbeszéd/Stíluslap/tearoff1"
 
-#: ../src/menu.c:389
+#: ../src/menu.c:591
 msgid "/Dialogs/CSS/_Create Style..."
 msgstr "/Párbeszéd/Stíluslap/Ú_j stílus..."
 
-#: ../src/menu.c:390
+#: ../src/menu.c:592
 msgid "/Dialogs/CSS/S_pan..."
 msgstr "/Párbeszéd/Stíluslap/_Arasz (SPAN)..."
 
-#: ../src/menu.c:391
+#: ../src/menu.c:593
 msgid "/Dialogs/CSS/_Div..."
 msgstr "/Párbeszéd/Stíluslap/S_zakasz (DIV)..."
 
-#: ../src/menu.c:392
+#: ../src/menu.c:594
 msgid "/Dialogs/CSS/_Style..."
 msgstr "/Párbeszéd/Stíluslap/_Stílus..."
 
-#: ../src/menu.c:393
+#: ../src/menu.c:595
 msgid "/Dialogs/CSS/_Link to Stylesheet..."
 msgstr "/Párbeszéd/Stíluslap/_Link stíluslapra..."
 
-#: ../src/menu.c:394
+#: ../src/menu.c:596
 msgid "/Dialogs/_Frame"
 msgstr "/Párbeszéd/_Keretek"
 
-#: ../src/menu.c:395
+#: ../src/menu.c:597
 msgid "/Dialogs/Frame/tearoff1"
 msgstr "/Párbeszéd/Keretek/tearoff1"
 
-#: ../src/menu.c:396
+#: ../src/menu.c:598
 msgid "/Dialogs/Frame/Frame _Wizard..."
 msgstr "/Párbeszéd/Keretek/Keret _varázsló..."
 
-#: ../src/menu.c:397
+#: ../src/menu.c:599
 msgid "/Dialogs/Frame/Frame_set..."
 msgstr "/Párbeszéd/Keretek/Keret_csoport..."
 
-#: ../src/menu.c:398
+#: ../src/menu.c:600
 msgid "/Dialogs/Frame/_Frame..."
 msgstr "/Párbeszéd/Keretek/_Keret..."
 
-#: ../src/menu.c:399
+#: ../src/menu.c:601
 msgid "/Dialogs/F_orm"
 msgstr "/Párbeszéd/Ű_rlapok"
 
-#: ../src/menu.c:400
+#: ../src/menu.c:602
 msgid "/Dialogs/Form/tearoff1"
 msgstr "/Párbeszéd/Űrlapok/tearoff1"
 
-#: ../src/menu.c:401
+#: ../src/menu.c:603
 msgid "/Dialogs/Form/F_orm..."
 msgstr "/Párbeszéd/Űrlapok/Ű_rlap..."
 
-#: ../src/menu.c:402
+#: ../src/menu.c:604
 msgid "/Dialogs/Form/_Input Button..."
 msgstr "/Párbeszéd/Űrlapok/_Beviteli gombok..."
 
-#: ../src/menu.c:403
+#: ../src/menu.c:605
 msgid "/Dialogs/Form/_Text..."
 msgstr "/Párbeszéd/Űrlapok/Szöveg (_text)..."
 
-#: ../src/menu.c:404
+#: ../src/menu.c:606
 msgid "/Dialogs/Form/_Hidden..."
 msgstr "/Párbeszéd/Űrlapok/R_ejtett..."
 
-#: ../src/menu.c:405
+#: ../src/menu.c:607
 msgid "/Dialogs/Form/Text_area..."
 msgstr "/Párbeszéd/Űrlapok/Szövegmező (text_area)..."
 
-#: ../src/menu.c:406
+#: ../src/menu.c:608
 msgid "/Dialogs/Form/Radio _Buttons..."
 msgstr "/Párbeszéd/Űrlapok/Rádió_gombok..."
 
-#: ../src/menu.c:407
+#: ../src/menu.c:609
 msgid "/Dialogs/Form/_Check Buttons..."
 msgstr "/Párbeszéd/Űrlapok/_Jelölőnégyzetek..."
 
-#: ../src/menu.c:408
+#: ../src/menu.c:610
 msgid "/Dialogs/Form/_Select..."
 msgstr "/Párbeszéd/Űrlapok/_Választómező..."
 
-#: ../src/menu.c:409
+#: ../src/menu.c:611
 msgid "/Dialogs/Form/O_ption..."
 msgstr "/Párbeszéd/Űrlapok/Választás (_option)..."
 
-#: ../src/menu.c:410
+#: ../src/menu.c:612
 msgid "/Dialogs/Form/Option _Group..."
 msgstr "/Párbeszéd/Űrlapok/_Legördülő..."
 
-#: ../src/menu.c:437
+#: ../src/menu.c:639
 msgid "/E_xternal"
 msgstr "/_Külső"
 
-#: ../src/menu.c:438
+#: ../src/menu.c:640
 msgid "/External/tearoff1"
 msgstr "/Külső/tearoff1"
 
-#: ../src/menu.c:444
+#: ../src/menu.c:646
 msgid "/_Document"
 msgstr "_Dokumentum"
 
-#: ../src/menu.c:445
+#: ../src/menu.c:647
 msgid "/Document/tearoff1"
 msgstr "/Dokumentum/tearoff1"
 
-#: ../src/menu.c:446
+#: ../src/menu.c:648
 msgid "/Document/_Type"
 msgstr "/Dokumentum/_Típus"
 
-#: ../src/menu.c:447
+#: ../src/menu.c:649
 msgid "/Document/Type/tearoff1"
 msgstr "/Dokumentum/Típus/tearoff1"
 
-#: ../src/menu.c:448
+#: ../src/menu.c:650
 msgid "/Document/_Encoding"
 msgstr "/Dokumentum/_Kódolás"
 
-#: ../src/menu.c:449
+#: ../src/menu.c:651
 msgid "/Document/Encoding/tearoff1"
 msgstr "/Dokumentum/Kódolás/tearoff1"
 
-#: ../src/menu.c:450
+#: ../src/menu.c:652
 msgid "/Document/_Highlight Syntax"
 msgstr "/Dokumentum/S_zintaxiskiemelés"
 
-#: ../src/menu.c:451
+#: ../src/menu.c:653
 msgid "/Document/_Wrap"
 msgstr "/Dokumentum/Tö_rdelés"
 
-#: ../src/menu.c:452
+#: ../src/menu.c:654
 msgid "/Document/_Line Numbers"
 msgstr "/Dokumentum/_Sorok számozása"
 
-#: ../src/menu.c:453 ../src/menu.c:457
+#: ../src/menu.c:655 ../src/menu.c:659
 msgid "/Document/sep1"
 msgstr "/Dokumentum/sep1"
 
-#: ../src/menu.c:454
+#: ../src/menu.c:656
 msgid "/Document/_Update Highlighting"
 msgstr "/Dokumentum/Szintaxiskiemelés _frissítése"
 
-#: ../src/menu.c:455
+#: ../src/menu.c:657
 msgid "/Document/_Previous"
 msgstr "/Dokumentum/_Előző"
 
-#: ../src/menu.c:456
+#: ../src/menu.c:658
 msgid "/Document/_Next"
 msgstr "/Dokumentum/Kö_vetkező"
 
-#: ../src/menu.c:458
+#: ../src/menu.c:660
 msgid "/Document/Word _Count"
 msgstr "/Dokumentum/Sz_avak száma"
 
-#: ../src/menu.c:459
+#: ../src/menu.c:661
+#, fuzzy
+msgid "/Document/Floating window"
+msgstr "/Dokumentum/Kódolás"
+
+#: ../src/menu.c:662
 msgid "/_Options"
 msgstr "/_Beállítások"
 
-#: ../src/menu.c:460
+#: ../src/menu.c:663
 msgid "/Options/tearoff1"
 msgstr "/Beállítások/tearoff1"
 
-#: ../src/menu.c:461
+#: ../src/menu.c:664
 msgid "/Options/_Preferences"
 msgstr "/Beállítások/T_estreszabás..."
 
-#: ../src/menu.c:462
+#: ../src/menu.c:665
 msgid "/Options/_Display"
 msgstr "/Beállítások/_Megjelenítés"
 
-#: ../src/menu.c:463
+#: ../src/menu.c:666
 msgid "/Options/Display/tearoff1"
 msgstr "/Beállítások/Megjelenítés/tearoff1"
 
-#: ../src/menu.c:464
+#: ../src/menu.c:667
 msgid "/Options/Display/View _Main Toolbar"
 msgstr "/Beállítások/Megjelenítés/_Fő eszköztár"
 
-#: ../src/menu.c:465
+#: ../src/menu.c:668
 msgid "/Options/Display/View _HTML Toolbar"
 msgstr "/Beállítások/Megjelenítés/_HTML eszköztár"
 
-#: ../src/menu.c:466
+#: ../src/menu.c:669
 msgid "/Options/Display/View _Custom Menu"
 msgstr "/Beállítások/Megjelenítés/_Saját menü"
 
-#: ../src/menu.c:467
+#: ../src/menu.c:670
 msgid "/Options/Display/View _Left Panel"
 msgstr "/Beállítások/Megjelenítés/_Bal oldali panel"
 
-#: ../src/menu.c:469
+#: ../src/menu.c:672
 msgid "/Options/_Tabsize"
 msgstr "/Beállítások/_Tabulátor mérete"
 
-#: ../src/menu.c:470
+#: ../src/menu.c:673
 msgid "/Options/Tabsize/tearoff1"
 msgstr "/Beállítások/Tabulátor mérete/tearoff1"
 
-#: ../src/menu.c:471
+#: ../src/menu.c:674
 msgid "/Options/Tabsize/_Increase Tabsize"
 msgstr "/Beállítások/Tabulátor mérete/_Növel"
 
-#: ../src/menu.c:472
+#: ../src/menu.c:675
 msgid "/Options/Tabsize/_Decrease Tabsize"
 msgstr "/Beállítások/Tabulátor mérete/_Csökkent"
 
-#: ../src/menu.c:473 ../src/menu.c:475
+#: ../src/menu.c:676 ../src/menu.c:678
 msgid "/Options/sep2"
 msgstr "/Beállítások/sep2"
 
-#: ../src/menu.c:474
+#: ../src/menu.c:677
 msgid "/Options/_Auto Indent"
 msgstr "/Beállítások/_Automatikus behúzás"
 
-#: ../src/menu.c:476
+#: ../src/menu.c:679
 msgid "/Options/_Save Settings"
 msgstr "/Beállítások/_Beállítások mentése"
 
-#: ../src/menu.c:477
+#: ../src/menu.c:680
 msgid "/Options/Save Shortcut _Keys"
 msgstr "/Beállítások/_Gyorsbillentyű-beállítások mentése"
 
-#: ../src/menu.c:611
+#: ../src/menu.c:681
+msgid "/TEMP"
+msgstr ""
+
+#: ../src/menu.c:682
+#, fuzzy
+msgid "/TEMP/tearoff1"
+msgstr "/Fájl/tearoff1"
+
+#: ../src/menu.c:683 ../src/menu.c:1146
+msgid "/TEMP/Window"
+msgstr ""
+
+#: ../src/menu.c:684
+#, fuzzy
+msgid "/TEMP/Window/tearoff1"
+msgstr "/Címkék/Lista/tearoff1"
+
+#: ../src/menu.c:685
+msgid "/TEMP/Window/New"
+msgstr ""
+
+#: ../src/menu.c:686
+msgid "/TEMP/Window/sep1"
+msgstr ""
+
+#: ../src/menu.c:687
+#, fuzzy
+msgid "/TEMP/Open project"
+msgstr "/Fájl/Utóbbi megnyitása"
+
+#: ../src/menu.c:688
+#, fuzzy
+msgid "/TEMP/Open r_ecent project"
+msgstr "/Fájl/_Utóbbi megnyitása"
+
+#: ../src/menu.c:689
+#, fuzzy
+msgid "/TEMP/Open recent project/tearoff1"
+msgstr "/Fájl/Utóbbi megnyitása/tearoff1"
+
+#: ../src/menu.c:690
+msgid "/TEMP/Save project"
+msgstr ""
+
+#: ../src/menu.c:691
+msgid "/TEMP/Save project as"
+msgstr ""
+
+#: ../src/menu.c:692
+msgid "/TEMP/Close & save project"
+msgstr ""
+
+#: ../src/menu.c:693
+msgid "/TEMP/Edit project"
+msgstr ""
+
+#: ../src/menu.c:852
 msgid "/Document/Type"
 msgstr "/Dokumentum/Típus"
 
-#: ../src/menu.c:652
+#: ../src/menu.c:889
 msgid "/Options/Display/View Main Toolbar"
 msgstr "/Beállítások/Megjelenítés/Fő eszköztár"
 
-#: ../src/menu.c:653
+#: ../src/menu.c:890
 msgid "/Options/Display/View HTML Toolbar"
 msgstr "/Beállítások/Megjelenítés/HTML eszköztár"
 
-#: ../src/menu.c:654
+#: ../src/menu.c:891
 msgid "/Options/Display/View Custom Menu"
 msgstr "/Beállítások/Megjelenítés/Saját menü"
 
-#: ../src/menu.c:655
+#: ../src/menu.c:892
 msgid "/Options/Display/View Left Panel"
 msgstr "/Beállítások/Megjelenítés/Bal oldali panel"
 
-#: ../src/menu.c:656
+#: ../src/menu.c:893
 msgid "/Options/Auto Indent"
 msgstr "/Beállítások/Automatikus behúzás"
 
-#: ../src/menu.c:661
-msgid "/External/Browsers/"
-msgstr "/Külső/Böngészők/"
-
-#: ../src/menu.c:664
-msgid "/External/Commands/"
-msgstr "/Külső/Parancsok/"
-
-#: ../src/menu.c:667
-msgid "/External/Outputbox/"
-msgstr "/Külső/Kimenetablak/"
-
-#: ../src/menu.c:703 ../src/menu.c:723 ../src/menu.c:988 ../src/menu.c:1001
-#: ../src/menu.c:1017 ../src/menu.c:1031
-msgid "/External"
-msgstr "/_Külső"
-
-#: ../src/menu.c:721
-msgid "/External/Outputbox"
-msgstr "/Külső/Kimenetablak"
-
-#: ../src/menu.c:760
+#: ../src/menu.c:957
 msgid "Loading file(s)..."
 msgstr "fájlok betöltése..."
 
-#: ../src/menu.c:764
+#: ../src/menu.c:961
 msgid "Could not open file\n"
 msgstr "Nem sikerült a fájl megnyitása:\n"
 
-#: ../src/menu.c:785
+#: ../src/menu.c:984
+#, fuzzy
+msgid "/TEMP/Open recent project"
+msgstr "/Fájl/Utóbbi megnyitása"
+
+#: ../src/menu.c:988
 msgid "/File/Open recent"
 msgstr "/Fájl/Utóbbi megnyitása"
 
-#: ../src/menu.c:806
-msgid "(none)"
-msgstr "(nincs)"
-
-#: ../src/menu.c:894
+#: ../src/menu.c:1203
 msgid "Could not view file in browser, the file does not yet have a name\n"
 msgstr "A fájlnak még nincs neve, nem lehet böngészőben megnézni\n"
 
-#: ../src/menu.c:999
+#: ../src/menu.c:1316
+msgid "/External/Outputbox/"
+msgstr "/Külső/Kimenetablak/"
+
+#: ../src/menu.c:1319
+msgid "/External/Commands/"
+msgstr "/Külső/Parancsok/"
+
+#: ../src/menu.c:1322
+msgid "/External/Browsers/"
+msgstr "/Külső/Böngészők/"
+
+#: ../src/menu.c:1327 ../src/menu.c:1342 ../src/menu.c:1361 ../src/menu.c:1377
+#: ../src/menu.c:1390 ../src/menu.c:1412
+msgid "/External"
+msgstr "/_Külső"
+
+#: ../src/menu.c:1340
 msgid "/External/Browsers"
 msgstr "/Külső/Szűrők"
 
-#: ../src/menu.c:1029
+#: ../src/menu.c:1375
 msgid "/External/Commands"
 msgstr "/Külső/Parancsok"
 
-#: ../src/menu.c:1070
+#: ../src/menu.c:1410
+msgid "/External/Outputbox"
+msgstr "/Külső/Kimenetablak"
+
+#: ../src/menu.c:1456
 msgid "/Document/Encoding"
 msgstr "/Dokumentum/Kódolás"
 
-#: ../src/menu.c:1321
+#: ../src/menu.c:1710
 msgid "This custom search and replace requires a selection"
 msgstr "A keresés/csere végrehajtásához kijelölés szükséges"
 
-#: ../src/menu.c:1399
+#: ../src/menu.c:1788
 msgid "/_Custom menu"
 msgstr "/_Saját menü"
 
-#: ../src/menu.c:1400
+#: ../src/menu.c:1789
 msgid "/Custom menu/sep"
 msgstr "/Saját menü/sep"
 
-#: ../src/menu.c:1401
+#: ../src/menu.c:1790
 msgid "/Custom menu/Edit custom menu..."
 msgstr "/Saját menü/Saját menü szerkesztése..."
 
-#: ../src/menu.c:1542 ../src/menu.c:1685 ../src/menu.c:1935
+#: ../src/menu.c:1937 ../src/menu.c:2080 ../src/menu.c:2331
 msgid "in current document"
 msgstr "aktuális dokumentumban"
 
-#: ../src/menu.c:1542 ../src/menu.c:1685 ../src/menu.c:1936
+#: ../src/menu.c:1937 ../src/menu.c:2080 ../src/menu.c:2332
 msgid "from cursor"
 msgstr "kurzortól"
 
-#: ../src/menu.c:1542 ../src/menu.c:1685 ../src/menu.c:1937
+#: ../src/menu.c:1937 ../src/menu.c:2080 ../src/menu.c:2333
 msgid "in selection"
 msgstr "kijelölésben"
 
-#: ../src/menu.c:1542 ../src/menu.c:1685 ../src/menu.c:1938
+#: ../src/menu.c:1937 ../src/menu.c:2080 ../src/menu.c:2334
 msgid "in all open documents"
 msgstr "minden megnyitott dokumentumban"
 
-#: ../src/menu.c:1543 ../src/menu.c:1686 ../src/menu.c:1948
+#: ../src/menu.c:1938 ../src/menu.c:2081 ../src/menu.c:2344
 msgid "normal"
 msgstr "normál"
 
-#: ../src/menu.c:1543
+#: ../src/menu.c:1938
 msgid "posix regular expressions"
 msgstr "posix reguláris kifejezések"
 
-#: ../src/menu.c:1543
+#: ../src/menu.c:1938
 msgid "perl regular expressions"
 msgstr "perl reguláris kifejezések"
 
-#: ../src/menu.c:1608
+#: ../src/menu.c:2003
 msgid "Search Pattern"
 msgstr "Keresési minta"
 
-#: ../src/menu.c:1609
+#: ../src/menu.c:2004
 msgid "Replace String"
 msgstr "Mire cserélje"
 
-#: ../src/menu.c:1612
+#: ../src/menu.c:2007
 msgid "Formatstring Before"
 msgstr "Formázószöveg előtte"
 
-#: ../src/menu.c:1613
+#: ../src/menu.c:2008
 msgid "Formatstring After"
 msgstr "Formázószöveg utána"
 
-#: ../src/menu.c:1660
+#: ../src/menu.c:2055
 msgid "The menupath you want to update does not exist yet"
 msgstr "A frissítendő menüpont nem létezik"
 
-#: ../src/menu.c:1660
+#: ../src/menu.c:2055
 msgid "Try 'add' instead."
 msgstr "Használd a 'hozzáadás'-t helyette."
 
-#: ../src/menu.c:1662
+#: ../src/menu.c:2057
 msgid "The menupath you want to add already exists."
 msgstr "A hozzáadandó menüpont már létezik"
 
-#: ../src/menu.c:1667
+#: ../src/menu.c:2062
 msgid "The menupath should start with a / character"
 msgstr "A menü útvonalának / karakterrel kell kezdődni"
 
-#: ../src/menu.c:1686 ../src/menu.c:1949
+#: ../src/menu.c:2081 ../src/menu.c:2345
 msgid "posix regular expresions"
 msgstr "posix reguláris kifejezések"
 
-#: ../src/menu.c:1686 ../src/menu.c:1950
+#: ../src/menu.c:2081 ../src/menu.c:2346
 msgid "perl regular expresions"
 msgstr "perl reguláris kifejezések"
 
-#: ../src/menu.c:1821
+#: ../src/menu.c:2217
 msgid "Custom Menu Editor"
 msgstr "Sajátmenü-szerkesztő"
 
-#: ../src/menu.c:1832
+#: ../src/menu.c:2228
 msgid "Add New Menu Entry"
 msgstr "Új menüpont hozzáadása"
 
-#: ../src/menu.c:1834
+#: ../src/menu.c:2230
 msgid "Apply Changes"
 msgstr "Alkalmaz"
 
-#: ../src/menu.c:1836
+#: ../src/menu.c:2232
 msgid "Delete Menu Entry"
 msgstr "Menüpont törlése"
 
-#: ../src/menu.c:1839
+#: ../src/menu.c:2235
 msgid "Close Discards Changes"
 msgstr "Elvet, bezár"
 
-#: ../src/menu.c:1841
+#: ../src/menu.c:2237
 msgid "Save Changes and Exit"
 msgstr "Ment, kilép"
 
-#: ../src/menu.c:1851
+#: ../src/menu.c:2247
 msgid "_Menu Path:"
 msgstr "Menüpont elérési útvonala:"
 
-#: ../src/menu.c:1872
+#: ../src/menu.c:2268
 msgid "Menu path"
 msgstr "Menüpont elérési útvonala"
 
-#: ../src/menu.c:1892
+#: ../src/menu.c:2288
 msgid "Number of _Variables:"
 msgstr "Változók száma:"
 
-#: ../src/menu.c:1900
+#: ../src/menu.c:2296
 msgid "Variables"
 msgstr "Változók"
 
-#: ../src/menu.c:1919
+#: ../src/menu.c:2315
 msgid "Custom Dialo_g"
 msgstr "Saját párbeszédablak"
 
-#: ../src/menu.c:1921
+#: ../src/menu.c:2317
 msgid "Custom _Search and Replace"
 msgstr "Keresés és csere testreszabása"
 
-#: ../src/menu.c:1933
+#: ../src/menu.c:2329
 msgid "_Replace:"
 msgstr "Cserél:"
 
-#: ../src/menu.c:1946
+#: ../src/menu.c:2342
 msgid "Matc_hing:"
 msgstr "Megfelelés:"
 
-#: ../src/menu.c:1956
+#: ../src/menu.c:2352
 msgid "Case Se_nsitive"
 msgstr "Kis/nagybetű megkülönbözteté_se"
 
-#: ../src/preferences.c:203
+#: ../src/preferences.c:223
 msgid "Select font"
 msgstr "Betűtípus"
 
-#: ../src/preferences.c:490 ../src/preferences.c:528
+#: ../src/preferences.c:510 ../src/preferences.c:548
 msgid "Filetype"
 msgstr "Fájltípus"
 
-#: ../src/preferences.c:492
+#: ../src/preferences.c:512
 msgid "Extensions"
 msgstr "Kiterjesztések"
 
-#: ../src/preferences.c:494
+#: ../src/preferences.c:514
 msgid "Update chars"
 msgstr "Frissítést kiváltó karakterek"
 
-#: ../src/preferences.c:496 ../src/preferences.c:538
+#: ../src/preferences.c:516 ../src/preferences.c:558
 msgid "Icon"
 msgstr "Ikon"
 
-#: ../src/preferences.c:499 ../src/preferences.c:539
+#: ../src/preferences.c:519 ../src/preferences.c:559
 msgid "Editable"
 msgstr "Szerkeszthető"
 
-#: ../src/preferences.c:501
+#: ../src/preferences.c:521
 msgid "Content regex"
 msgstr "Tartalom (regex)"
 
-#: ../src/preferences.c:536
+#: ../src/preferences.c:556
 msgid "Extensions (colon separated)"
 msgstr "Kiterjesztések (kettősponttal elválasztva)"
 
-#: ../src/preferences.c:537
+#: ../src/preferences.c:557
 msgid "Highlight update characters"
 msgstr "Kiemelést frissítő karakterek"
 
-#: ../src/preferences.c:540
+#: ../src/preferences.c:560
 msgid "Content regex pattern"
 msgstr "Tartalom regex mintája"
 
-#: ../src/preferences.c:654 ../src/preferences.c:688
+#: ../src/preferences.c:674 ../src/preferences.c:708
 msgid "Filefilter"
 msgstr "Fájlszűrő"
 
-#: ../src/preferences.c:656 ../src/preferences.c:693
+#: ../src/preferences.c:676 ../src/preferences.c:713
 msgid "Inverse filtering"
 msgstr "Inverz szűrés"
 
-#: ../src/preferences.c:658
+#: ../src/preferences.c:678
 msgid "Filetypes in filter"
 msgstr "Fájltípusok a szűrőben"
 
-#: ../src/preferences.c:694
+#: ../src/preferences.c:714
 msgid "Filetypes (colon separated)"
 msgstr "Fájltípusok (kettősponttal elválasztva)"
 
-#: ../src/preferences.c:974
+#: ../src/preferences.c:994
 msgid "filetype"
 msgstr "fájltípus"
 
-#: ../src/preferences.c:982
+#: ../src/preferences.c:1002
 msgid "Pattern name"
 msgstr "Minta neve"
 
-#: ../src/preferences.c:1000 ../src/preferences.c:1494
-#: ../src/preferences.c:1543
+#: ../src/preferences.c:1020 ../src/preferences.c:1515
+#: ../src/preferences.c:1564
 msgid "Pattern"
 msgstr "Minta"
 
-#: ../src/preferences.c:1023
+#: ../src/preferences.c:1043
 msgid "Start pattern and end pattern"
 msgstr "Kezdő és befejező minta"
 
-#: ../src/preferences.c:1025
+#: ../src/preferences.c:1045
 msgid "Only start pattern"
 msgstr "Csak kezdő minta"
 
-#: ../src/preferences.c:1027
+#: ../src/preferences.c:1047
 msgid "Subpattern from parent"
 msgstr "Alminta a szülő alapján"
 
-#: ../src/preferences.c:1033
+#: ../src/preferences.c:1053
 msgid "Start pattern"
 msgstr "Kezdő minta"
 
-#: ../src/preferences.c:1034
+#: ../src/preferences.c:1054
 msgid "End pattern"
 msgstr "Befejező minta"
 
-#: ../src/preferences.c:1035
+#: ../src/preferences.c:1055
 msgid "Case sensitive matching"
 msgstr "Kis/nagybetű megkülönböztetése"
 
-#: ../src/preferences.c:1036
+#: ../src/preferences.c:1056
 msgid "Parentmatch"
 msgstr "Parentmatch"
 
-#: ../src/preferences.c:1037
+#: ../src/preferences.c:1057
 msgid "Foreground color"
 msgstr "Előtérszín"
 
-#: ../src/preferences.c:1038
+#: ../src/preferences.c:1058
 msgid "Background color"
 msgstr "Háttérszín"
 
-#: ../src/preferences.c:1046
+#: ../src/preferences.c:1066
 msgid "don't change weight"
 msgstr "vastagság nem változik"
 
-#: ../src/preferences.c:1048
+#: ../src/preferences.c:1068
 msgid "force non-bold weight"
 msgstr "kötelezően nem-vastag"
 
-#: ../src/preferences.c:1050
+#: ../src/preferences.c:1070
 msgid "force bold weight"
 msgstr "kötelezően vastag"
 
-#: ../src/preferences.c:1056
+#: ../src/preferences.c:1076
 msgid "don't change style"
 msgstr "ne váltson stílust"
 
-#: ../src/preferences.c:1058
+#: ../src/preferences.c:1078
 msgid "force non-italic style"
 msgstr "kötelezően nem dőlt"
 
-#: ../src/preferences.c:1060
+#: ../src/preferences.c:1080
 msgid "force italic style"
 msgstr "kötelezően dőlt"
 
-#: ../src/preferences.c:1210 ../src/preferences.c:1248
+#: ../src/preferences.c:1230 ../src/preferences.c:1268
 msgid "Browser"
 msgstr "Böngésző"
 
-#: ../src/preferences.c:1212 ../src/preferences.c:1254
-#: ../src/preferences.c:1337 ../src/preferences.c:1372
-#: ../src/preferences.c:1502 ../src/preferences.c:1547
+#: ../src/preferences.c:1232 ../src/preferences.c:1274
+#: ../src/preferences.c:1358 ../src/preferences.c:1393
+#: ../src/preferences.c:1523 ../src/preferences.c:1568
 msgid "Command"
 msgstr "parancs"
 
-#: ../src/preferences.c:1253
+#: ../src/preferences.c:1273
 #, c-format
 msgid "%s = current filename"
 msgstr "%s = aktuális fájl neve"
 
-#: ../src/preferences.c:1335 ../src/preferences.c:1366
+#: ../src/preferences.c:1356 ../src/preferences.c:1387
 msgid "Label"
 msgstr "Címke"
 
-#: ../src/preferences.c:1371
+#: ../src/preferences.c:1392
 #, c-format
 msgid ""
 "%s = current filename\n"
 "%f = output filename (for filters)"
 msgstr "%s = aktuális fájl neve%f = kimeneti fájl neve (filtereknél)"
 
-#: ../src/preferences.c:1492 ../src/preferences.c:1539
+#: ../src/preferences.c:1513 ../src/preferences.c:1560 ../src/project.c:265
 msgid "Name"
 msgstr "Név"
 
-#: ../src/preferences.c:1496
+#: ../src/preferences.c:1517
 msgid "File #"
 msgstr "Fájl #"
 
-#: ../src/preferences.c:1498
+#: ../src/preferences.c:1519
 msgid "Line #"
 msgstr "Sor #"
 
-#: ../src/preferences.c:1500
+#: ../src/preferences.c:1521
 msgid "Output #"
 msgstr "Kimenet #"
 
-#: ../src/preferences.c:1504 ../src/preferences.c:1548
+#: ../src/preferences.c:1525 ../src/preferences.c:1569
 msgid "Show all output"
 msgstr "Minden kimenet mutatása"
 
-#: ../src/preferences.c:1544
+#: ../src/preferences.c:1565
 msgid "File subpattern #"
 msgstr "Fájl alminta #"
 
-#: ../src/preferences.c:1545
+#: ../src/preferences.c:1566
 msgid "Line subpattern #"
 msgstr "Sor alminta #"
 
-#: ../src/preferences.c:1546
+#: ../src/preferences.c:1567
 msgid "Output subpattern #"
 msgstr "Kimenet alminta #"
 
-#: ../src/preferences.c:1699
+#: ../src/preferences.c:1725
 msgid "left"
 msgstr "balra"
 
-#: ../src/preferences.c:1699
+#: ../src/preferences.c:1725
 msgid "right"
 msgstr "jobbra"
 
-#: ../src/preferences.c:1699
+#: ../src/preferences.c:1725
 msgid "top"
 msgstr "felül"
 
-#: ../src/preferences.c:1699
+#: ../src/preferences.c:1725
 msgid "bottom"
 msgstr "alul"
 
-#: ../src/preferences.c:1702
+#: ../src/preferences.c:1726
+msgid "no check"
+msgstr ""
+
+#: ../src/preferences.c:1726
+msgid "check mtime and size"
+msgstr ""
+
+#: ../src/preferences.c:1726
+msgid "check mtime"
+msgstr ""
+
+#: ../src/preferences.c:1726
+msgid "check size"
+msgstr ""
+
+#: ../src/preferences.c:1729
 msgid "Edit preferences"
 msgstr "Tulajdonságok szerkesztése"
 
-#: ../src/preferences.c:1713
+#: ../src/preferences.c:1740
 msgid "Editor"
 msgstr "Editor"
 
-#: ../src/preferences.c:1715
+#: ../src/preferences.c:1742
 msgid "Editor options"
 msgstr "Editor beállításai"
 
-#: ../src/preferences.c:1721
+#: ../src/preferences.c:1748
 msgid "Tab width"
 msgstr "Tabulátor szélessége"
 
-#: ../src/preferences.c:1722
+#: ../src/preferences.c:1749
 msgid "Use spaces to indent, not tabs"
 msgstr "Behúzás szóközökkel, nem tabbal"
 
-#: ../src/preferences.c:1723
+#: ../src/preferences.c:1750
 msgid "Word wrap default"
 msgstr "Sortörés csak szóvégen"
 
-#: ../src/preferences.c:1724
+#: ../src/preferences.c:1751
 msgid "Line numbers by default"
 msgstr "Sorszámozás alapértelmezett"
 
-#: ../src/preferences.c:1725
+#: ../src/preferences.c:1752
 msgid "Highlight syntax by default"
 msgstr "Szintaxiskiemelés alapértelmezett"
 
-#: ../src/preferences.c:1726
+#: ../src/preferences.c:1753
 msgid "Highlight # lines"
 msgstr "# sor kiemelése"
 
-#: ../src/preferences.c:1727
+#: ../src/preferences.c:1754
 msgid "Always highlight full document"
 msgstr "Folyamatos kiemelés a teljes dokumentumban"
 
-#: ../src/preferences.c:1729
+#: ../src/preferences.c:1756
 msgid "HTML"
 msgstr "HTML"
 
-#: ../src/preferences.c:1731
+#: ../src/preferences.c:1758
 msgid "HTML options"
 msgstr "HTML beállítások"
 
-#: ../src/preferences.c:1736
+#: ../src/preferences.c:1763
 msgid "Lowercase HTML tags"
 msgstr "Kisbetűs HTML címkék"
 
-#: ../src/preferences.c:1737
+#: ../src/preferences.c:1764
 msgid "Use deprecated tags (e.g. <font> and <nobr>)"
 msgstr "Elavult címkék használata (pl. <font> és <nobr>)"
 
-#: ../src/preferences.c:1738
+#: ../src/preferences.c:1765
 msgid "Use XHTML style tags (<br />)"
 msgstr "XHTML szintaxis (mint <br />)"
 
-#: ../src/preferences.c:1739
+#: ../src/preferences.c:1766
 msgid "Automatic update author meta"
 msgstr "Author meta automatikus frissítése"
 
-#: ../src/preferences.c:1742
+#: ../src/preferences.c:1769
 msgid "Files"
 msgstr "Fájlok"
 
-#: ../src/preferences.c:1744
+#: ../src/preferences.c:1771
 msgid "Encoding"
 msgstr "Kódolás"
 
-#: ../src/preferences.c:1756
+#: ../src/preferences.c:1783
 msgid "Default character set"
 msgstr "Alapértelmezett karakterkészlet"
 
-#: ../src/preferences.c:1759
+#: ../src/preferences.c:1786
 msgid "Auto set <meta> encoding tag on change"
 msgstr "<meta> kódolás címke automatikus beállítása változáskor"
 
-#: ../src/preferences.c:1761
+#: ../src/preferences.c:1788
 msgid "Backup"
 msgstr "Backup"
 
-#: ../src/preferences.c:1765
+#: ../src/preferences.c:1792
 msgid "Create backup on save"
 msgstr "Backup készítése mentéskor"
 
-#: ../src/preferences.c:1766
+#: ../src/preferences.c:1793
 msgid "Backup file suffix"
 msgstr "Backup fájl nevének utótagja"
 
-#: ../src/preferences.c:1768
+#: ../src/preferences.c:1795
 msgid "save"
 msgstr "menti"
 
-#: ../src/preferences.c:1768
+#: ../src/preferences.c:1795
 msgid "abort"
 msgstr "megszakítja"
 
-#: ../src/preferences.c:1768
+#: ../src/preferences.c:1795
 msgid "ask"
 msgstr "kérdez"
 
-#: ../src/preferences.c:1769
+#: ../src/preferences.c:1796
 msgid "Action on backup failure"
 msgstr "Teendő sikertelen backup esetén"
 
-#: ../src/preferences.c:1771
+#: ../src/preferences.c:1798
 msgid "Remove backupfile on close"
 msgstr "Backup fájl törlése bezáráskor"
 
-#: ../src/preferences.c:1780
+#: ../src/preferences.c:1807
 msgid "Undo history size"
 msgstr "Visszavonások száma"
 
-#: ../src/preferences.c:1781
+#: ../src/preferences.c:1808
 msgid "Clear undo history on save"
 msgstr "Mentéskor a visszavonható műveletek törlése"
 
-#: ../src/preferences.c:1783 ../src/preferences.c:1808
+#: ../src/preferences.c:1810 ../src/preferences.c:1836
 msgid "Misc"
 msgstr "Egyéb"
 
-#: ../src/preferences.c:1788
+#: ../src/preferences.c:1815
 msgid "Allow multi instances of a file"
 msgstr "Ugyanaz a fájl több példányban is megnyitható"
 
-#: ../src/preferences.c:1790
+#: ../src/preferences.c:1817
 msgid "Open files in already running bluefish window"
 msgstr "Fájlok megnyitása a már futó bluefish ablakában"
 
-#: ../src/preferences.c:1792
+#: ../src/preferences.c:1819
+msgid "File modified on disk check "
+msgstr ""
+
+#: ../src/preferences.c:1820
 msgid "Number of files in 'Open recent'"
 msgstr "Fájlok száma az 'Utóbbi megnyitása' menüben"
 
-#: ../src/preferences.c:1795
+#: ../src/preferences.c:1823
 msgid "User interface"
 msgstr "Felület"
 
-#: ../src/preferences.c:1797
+#: ../src/preferences.c:1825
 msgid "Dimensions"
 msgstr "Méretek"
 
-#: ../src/preferences.c:1801
+#: ../src/preferences.c:1829
 msgid "Restore last used dimensions"
 msgstr "Utolsó méret visszaállítása"
 
-#: ../src/preferences.c:1802
+#: ../src/preferences.c:1830
 msgid "Initial left panel width"
 msgstr "Bal panel kezdő szélessége"
 
-#: ../src/preferences.c:1803
+#: ../src/preferences.c:1831
 msgid "Initial window height"
 msgstr "Kezdő ablakmagasság"
 
-#: ../src/preferences.c:1804
+#: ../src/preferences.c:1832
 msgid "Initial window width"
 msgstr "Kezdő ablakszélesség"
 
-#: ../src/preferences.c:1813
+#: ../src/preferences.c:1841
 msgid "External browsers in submenu"
 msgstr "Böngészők az almenüben"
 
-#: ../src/preferences.c:1814
+#: ../src/preferences.c:1842
 msgid "External commands in submenu"
 msgstr "Külső parancsok az almenüben"
 
-#: ../src/preferences.c:1815
+#: ../src/preferences.c:1843
 msgid "External outputbox in submenu"
 msgstr "Külső kimenetablakok az almenüben"
 
-#: ../src/preferences.c:1817
+#: ../src/preferences.c:1845
 msgid "Notebook tab font (leave empty for gtk default)"
 msgstr "Fájlablak-fül betűtípusa (üres: gtk alapértelmezett)"
 
-#: ../src/preferences.c:1819
+#: ../src/preferences.c:1847
 msgid "Document notebook tab position"
 msgstr "Dokumentumablak-fül elhelyezkedése"
 
-#: ../src/preferences.c:1820
+#: ../src/preferences.c:1848
 msgid "Left panel notebook tab position"
 msgstr "Baloldali panel fülének elhelyezkedése"
 
-#: ../src/preferences.c:1822
+#: ../src/preferences.c:1850
 msgid "Make HTML dialogs transient"
 msgstr "Átmeneti HTML-párbeszédablakok"
 
-#: ../src/preferences.c:1823
-msgid "Advanced search and replace by default"
-msgstr "Bővített keresés és csere panel alapértelmezett"
-
-#: ../src/preferences.c:1825
+#: ../src/preferences.c:1852
 msgid "File browser"
 msgstr "Fájlböngésző"
 
-#: ../src/preferences.c:1829
+#: ../src/preferences.c:1856
+msgid "Use separate file and directory view"
+msgstr ""
+
+#: ../src/preferences.c:1857
 msgid "Show hidden files"
 msgstr "Rejtett fájlok mutatása"
 
-#: ../src/preferences.c:1830
+#: ../src/preferences.c:1858
 msgid "Show other users files"
 msgstr "Más felhasználók fájljainak mutatása"
 
-#: ../src/preferences.c:1831
+#: ../src/preferences.c:1859
 msgid "Show backup files"
 msgstr "Backup fájlok mutatása"
 
-#: ../src/preferences.c:1832
+#: ../src/preferences.c:1860
 msgid "Unknown icon"
 msgstr "Ismeretlen fájl ikonja"
 
-#: ../src/preferences.c:1833
+#: ../src/preferences.c:1861
 msgid "Directory icon"
 msgstr "Könyvtár ikonja"
 
-#: ../src/preferences.c:1836 ../src/rcfile.c:564
+#: ../src/preferences.c:1864 ../src/rcfile.c:570
 msgid "Images"
 msgstr "Képek"
 
-#: ../src/preferences.c:1838
+#: ../src/preferences.c:1866
 msgid "Thumbnails"
 msgstr "Thumbnail képek"
 
-#: ../src/preferences.c:1842
+#: ../src/preferences.c:1870
 msgid "Thumbnail suffix"
 msgstr "Thumbnail kép nevének utótagja"
 
-#: ../src/preferences.c:1846
+#: ../src/preferences.c:1874
 msgid "Thumbnail filetype"
 msgstr "Thumbnail kép típusa"
 
-#: ../src/preferences.c:1851 ../src/preferences.c:1853
+#: ../src/preferences.c:1879 ../src/preferences.c:1881
 msgid "Filetypes"
 msgstr "Fájltípusok"
 
-#: ../src/preferences.c:1860
+#: ../src/preferences.c:1888
 msgid "Filefilters"
 msgstr "Fájlszűrők"
 
-#: ../src/preferences.c:1868
+#: ../src/preferences.c:1896
 msgid "Syntax highlighting"
 msgstr "Szintaxiskiemelés"
 
-#: ../src/preferences.c:1870
+#: ../src/preferences.c:1898
 msgid "Patterns"
 msgstr "Minták"
 
-#: ../src/preferences.c:1878
+#: ../src/preferences.c:1906
 msgid "External programs"
 msgstr "Külső programok"
 
-#: ../src/preferences.c:1880
+#: ../src/preferences.c:1908
 msgid "Browsers"
 msgstr "Böngészők"
 
-#: ../src/preferences.c:1887
+#: ../src/preferences.c:1915
 msgid "Utilities and filters"
 msgstr "Programok és szűrők"
 
-#: ../src/preferences.c:1895
+#: ../src/preferences.c:1923
 msgid "Output parsers"
 msgstr "Értelmezők"
 
-#: ../src/preferences.c:1897
+#: ../src/preferences.c:1925
 msgid "Outputbox"
 msgstr "Kimenetablak"
 
-#: ../src/rcfile.c:490
+#: ../src/project.c:58
+#, fuzzy
+msgid "New project"
+msgstr "Új _könyvtár"
+
+#: ../src/project.c:88
+#, fuzzy
+msgid "Enter Bluefish project filename"
+msgstr "Bluefish hiba: hiányzó fájlnév"
+
+#: ../src/project.c:145
+#, fuzzy
+msgid "Select Bluefish project filename"
+msgstr "Bluefish hiba: hiányzó fájlnév"
+
+#: ../src/project.c:251
+msgid "Project edit"
+msgstr ""
+
+#: ../src/project.c:261
+#, c-format
+msgid "This project contains %d files"
+msgstr ""
+
+#: ../src/project.c:266
+#, fuzzy
+msgid "Basedir"
+msgstr "Alapkönyvtár"
+
+#: ../src/project.c:267
+msgid "Webdir"
+msgstr ""
+
+#: ../src/rcfile.c:496
 msgid "Galeon"
 msgstr "Galeon"
 
-#: ../src/rcfile.c:492
+#: ../src/rcfile.c:498
 msgid "Mozilla"
 msgstr "Mozilla"
 
-#: ../src/rcfile.c:494
+#: ../src/rcfile.c:500
 msgid "Opera"
 msgstr "Opera"
 
-#: ../src/rcfile.c:496
+#: ../src/rcfile.c:502
 msgid "Netscape"
 msgstr "Netscape"
 
-#: ../src/rcfile.c:498
+#: ../src/rcfile.c:504
 msgid "Gnome default"
 msgstr "Gnome alapértelmezés"
 
-#: ../src/rcfile.c:522
+#: ../src/rcfile.c:528
 msgid "make"
 msgstr "make"
 
-#: ../src/rcfile.c:523
+#: ../src/rcfile.c:529
 msgid "weblint HTML checker"
 msgstr "weblint HTML ellenőrző"
 
-#: ../src/rcfile.c:524
+#: ../src/rcfile.c:530
 msgid "tidy HTML validator"
 msgstr "tidy HTML ellenőrző"
 
-#: ../src/rcfile.c:525
+#: ../src/rcfile.c:531
 msgid "javac"
 msgstr "javac"
 
-#: ../src/rcfile.c:531
+#: ../src/rcfile.c:537
 msgid "Dos2Unix filter"
 msgstr "Dos2Unix szűrő"
 
-#: ../src/rcfile.c:533
+#: ../src/rcfile.c:539
 msgid "Tidy cleanup filter"
 msgstr "Tidy szűrő"
 
-#: ../src/rcfile.c:558
+#: ../src/rcfile.c:564
 msgid "C programming"
 msgstr "C programozás"
 
-#: ../src/rcfile.c:560
+#: ../src/rcfile.c:566
 msgid "All web files"
 msgstr "Minden webfájl"
 
-#: ../src/rcfile.c:562
+#: ../src/rcfile.c:568
 msgid "Java programming"
 msgstr "Java programozás"
 
-#: ../src/rcfile.c:566
+#: ../src/rcfile.c:572
 msgid "Hide objectfiles"
 msgstr "Objektumfájlok elrejtése"
 
-#: ../src/snr2.c:187
+#: ../src/rcfile.c:835
+#, fuzzy
+msgid "Untitled Project"
+msgstr "Névtelen"
+
+#: ../src/snr2.c:191
 msgid "Regular expression error: "
 msgstr "Regex hiba: "
 
-#: ../src/snr2.c:188 ../src/snr2.c:232
+#: ../src/snr2.c:192 ../src/snr2.c:236
 msgid "Search failed"
 msgstr "Sikertelen keresés"
 
-#: ../src/snr2.c:231
+#: ../src/snr2.c:235
 #, c-format
 msgid "Regular expression error: %s at offset %d"
 msgstr "Regex hiba: %s (offset %d)"
 
-#: ../src/snr2.c:801
+#: ../src/snr2.c:807
 msgid "Confirm replace"
 msgstr "Csere jóváhagyása"
 
-#: ../src/snr2.c:813
+#: ../src/snr2.c:819
 msgid "Replace selected text?"
 msgstr "Cserélje a kijelölt szöveget?"
 
-#: ../src/snr2.c:826
+#: ../src/snr2.c:832
 msgid "_Skip"
 msgstr "_Kihagyja"
 
-#: ../src/snr2.c:827
+#: ../src/snr2.c:833
 msgid "_Replace"
 msgstr "_Cseréli"
 
-#: ../src/snr2.c:828
+#: ../src/snr2.c:834
 msgid "Replace _all"
 msgstr "_Mindet cseréli"
 
-#: ../src/snr2.c:1005 ../src/snr2.c:1012
+#: ../src/snr2.c:1012 ../src/snr2.c:1019
 msgid "Search: no match found"
 msgstr "Keresés: nincs találat"
 
-#: ../src/snr2.c:1186
+#: ../src/snr2.c:1204
 msgid "Search"
 msgstr "Keres"
 
-#: ../src/snr2.c:1212
+#: ../src/snr2.c:1230
 msgid "Search _for: "
 msgstr "Kere_sse: "
 
-#: ../src/snr2.c:1224
+#: ../src/snr2.c:1242
 msgid "Replace wit_h: "
 msgstr "M_ire cserélje: "
 
-#: ../src/snr2.c:1234
+#: ../src/snr2.c:1252
 msgid "\\0 refers to the first subsearch_pattern, \\1 to the second etc."
 msgstr "\\0 jelenti az első almintát, \\1 a másodikat stb."
 
-#: ../src/snr2.c:1249
+#: ../src/snr2.c:1267
 msgid "Beginning of document till end"
 msgstr "A _dokumentum elejétől a végéig"
 
-#: ../src/snr2.c:1249
+#: ../src/snr2.c:1267
 msgid "Current position till end"
 msgstr "_Kurzortól a dokumentum végéig"
 
-#: ../src/snr2.c:1249
+#: ../src/snr2.c:1267
 msgid "Beginning of selection till end of selection"
 msgstr "Kijelölés elejétől a kijelölés végéig"
 
-#: ../src/snr2.c:1249
+#: ../src/snr2.c:1267
 msgid "All opened files begin till end"
 msgstr "Minden megnyitott fájl elejétől a végéig"
 
-#: ../src/snr2.c:1250
+#: ../src/snr2.c:1268
 msgid "Disabled"
 msgstr "Nem engedélyezett"
 
-#: ../src/snr2.c:1250
+#: ../src/snr2.c:1268
 msgid "POSIX type"
 msgstr "POSIX típusú"
 
-#: ../src/snr2.c:1250
+#: ../src/snr2.c:1268
 msgid "PERL type"
 msgstr "PERL típusú"
 
-#: ../src/snr2.c:1251
+#: ../src/snr2.c:1269
 msgid "Starts at:"
 msgstr "Kezdje:"
 
-#: ../src/snr2.c:1263
+#: ../src/snr2.c:1281
 msgid "Regular expression:"
 msgstr "Reguláris kifejezés:"
 
-#: ../src/snr2.c:1277
+#: ../src/snr2.c:1295
 msgid "Normal"
 msgstr "Normál"
 
-#: ../src/snr2.c:1277
+#: ../src/snr2.c:1295
 msgid "Uppercase"
 msgstr "Cserélje nagybetűsre"
 
-#: ../src/snr2.c:1277
+#: ../src/snr2.c:1295
 msgid "Lowercase"
 msgstr "Cserélje kisbetűsre"
 
-#: ../src/snr2.c:1278
+#: ../src/snr2.c:1296
 msgid "Replace type:"
 msgstr "Csere típusa:"
 
-#: ../src/snr2.c:1292
+#: ../src/snr2.c:1310
 msgid "Match ca_se"
 msgstr "Ki_sbetű/nagybetű egyezés"
 
-#: ../src/snr2.c:1293
+#: ../src/snr2.c:1311
 msgid "O_verlap searches"
 msgstr "Át_fedő keresés"
 
-#: ../src/snr2.c:1295
+#: ../src/snr2.c:1313
 msgid "Prompt _before replace"
 msgstr "Csere _előtt megerősítés"
 
-#: ../src/snr2.c:1296
+#: ../src/snr2.c:1314
 msgid "Rep_lace once"
 msgstr "Egyszer cseré_lje"
 
@@ -3926,45 +4054,72 @@ msgstr "Táblasorok beszúrása egyet_len sorba:"
 msgid "_Indent table code:"
 msgstr "Táblázatkód _behúzása:"
 
-#: ../src/wizards.c:176
+#: ../src/wizards.c:175
 msgid "Frame Wizard"
 msgstr "Keret varázsló"
 
-#: ../src/wizards.c:191
+#: ../src/wizards.c:190
 msgid "Use _DTD:"
 msgstr "_DTD használata"
 
-#: ../src/wizards.c:194
+#: ../src/wizards.c:193
 msgid "Orientation:"
 msgstr "Tájolás:"
 
-#: ../src/wizards.c:197
+#: ../src/wizards.c:196
 msgid "_Horizontal"
 msgstr "_Vízszintes"
 
-#: ../src/wizards.c:198
+#: ../src/wizards.c:197
 msgid "_Vertical"
 msgstr "_Függőleges"
 
-#: ../src/wizards.c:203
+#: ../src/wizards.c:202
 msgid "Number of _Frames:"
 msgstr "_Keretek száma:"
 
-#: ../src/wizards.c:206
+#: ../src/wizards.c:205
 msgid "Frame's"
 msgstr "Keret"
 
-#: ../src/wizards.c:218
+#: ../src/wizards.c:217
 msgid "Name:"
 msgstr "Név:"
 
-#: ../src/wizards.c:220
+#: ../src/wizards.c:219
 msgid "Source:"
 msgstr "Forrás:"
 
-#: ../src/wizards.c:224
+#: ../src/wizards.c:223
 msgid "Size:"
 msgstr "Méret:"
+
+#~ msgid " Untitled"
+#~ msgstr " Névtelen"
+
+#~ msgid "/sep1"
+#~ msgstr "/sep1"
+
+#~ msgid "/sep2"
+#~ msgstr "/sep2"
+
+#~ msgid "/sep3"
+#~ msgstr "/sep3"
+
+#~ msgid "No file to insert."
+#~ msgstr "Nincs beilleszthető fájl."
+
+#~ msgid "Bluefish"
+#~ msgstr "Bluefish"
+
+#~ msgid "/File/_Move to..."
+#~ msgstr "/Fájl/Át_nevezés..."
+
+#~ msgid "(none)"
+#~ msgstr "(nincs)"
+
+#~ msgid "Advanced search and replace by default"
+#~ msgstr "Bővített keresés és csere panel alapértelmezett"
 
 #~ msgid "/_Delete file"
 #~ msgstr "/_Fájl törlése"
@@ -4031,9 +4186,6 @@ msgstr "Méret:"
 
 #~ msgid "Bluefish error"
 #~ msgstr "Bluefish hiba"
-
-#~ msgid "Bluefish error: no filename"
-#~ msgstr "Bluefish hiba: hiányzó fájlnév"
 
 #~ msgid "Bluefish warning: regular expression error"
 #~ msgstr "Bluefish figyelmeztetés: regex hiba"
