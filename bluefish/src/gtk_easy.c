@@ -1420,3 +1420,32 @@ void destroy_disposable_menu_cb(GtkWidget *widget, GtkWidget *menu) {
 	gtk_widget_destroy(GTK_WIDGET(menu));
 }
 
+
+/***********************************************************************
+ * workarounds for gtk-2.0  
+ * these functions are not needed with gtk-2.2
+ */
+#ifndef HAVE_ATLEAST_GTK_2_2
+static GtkTreePath *gtktreepath_up_multi(GtkTreePath *path, gint num) {
+	while (num > 0) {
+		gtk_tree_path_up(path);
+		num--;
+	}
+	return path;
+}
+
+void gtktreepath_expand_to_root(GtkWidget *tree, const GtkTreePath *this_path) {
+	gint num = gtk_tree_path_get_depth((GtkTreePath *)this_path);
+	while (num >= 0) {
+		GtkTreePath *path = gtk_tree_path_copy(this_path);
+		path = gtktreepath_up_multi(path, num);
+/*		g_signal_handlers_block_matched(G_OBJECT(tree), G_SIGNAL_MATCH_FUNC,
+					0, 0, NULL, row_expanded_lcb, NULL);*/
+		gtk_tree_view_expand_row(GTK_TREE_VIEW(tree), path, FALSE);
+/*		g_signal_handlers_unblock_matched(G_OBJECT(tree), G_SIGNAL_MATCH_FUNC,
+					0, 0, NULL, row_expanded_lcb, NULL);*/
+		gtk_tree_path_free(path);
+		num--;
+	}
+}
+#endif /* ifndef HAVE_ATLEAST_GTK_2_2 */

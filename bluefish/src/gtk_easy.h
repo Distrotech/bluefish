@@ -92,4 +92,5 @@ GList *return_files(gchar * setfile);
 gchar *return_dir(gchar *setdir, gchar *title);
 
 void destroy_disposable_menu_cb(GtkWidget *widget, GtkWidget *menu);
+void gtktreepath_expand_to_root(GtkWidget *tree, const GtkTreePath *this_path);
 #endif

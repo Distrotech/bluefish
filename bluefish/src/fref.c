@@ -1870,23 +1870,23 @@ static void frefcb_search(GtkButton *button,Tbfwin *bfwin) {
 	            }
 	            gtk_widget_destroy(dlg);
 		 
-   	    	ret = g_hash_table_lookup(dict,stf);
-   	    	g_free(stf);
-	      	if (ret!=NULL)
-	      	{
-	      	  path2 = gtk_tree_row_reference_get_path(ret);
-	      	  gtk_tree_view_expand_to_path(GTK_TREE_VIEW(FREFGUI(bfwin->fref)->tree),path2);  
-	      	  gtk_tree_view_set_cursor(GTK_TREE_VIEW(FREFGUI(bfwin->fref)->tree),path2,gtk_tree_view_get_column(GTK_TREE_VIEW(FREFGUI(bfwin->fref)->tree),0),FALSE);
-   	    	}	
-   	    	else error_dialog(bfwin->main_window,_("Reference search"), _("Reference not found")); 
-   	}  else error_dialog(bfwin->main_window,_("Error"), _("Dictionary not found. Perhaps you didn't load a reference."));   	
- 	}
-	g_value_unset(val);
+				ret = g_hash_table_lookup(dict,stf);
+				g_free(stf);
+				if (ret!=NULL) {
+					path2 = gtk_tree_row_reference_get_path(ret);
+#ifndef HAVE_ATLEAST_GTK_2_2
+					gtktreepath_expand_to_root(GTK_TREE_VIEW(FREFGUI(bfwin->fref)->tree), path);
+#else 
+					gtk_tree_view_expand_to_path(GTK_TREE_VIEW(FREFGUI(bfwin->fref)->tree), path);
+#endif
+					gtk_tree_view_set_cursor(GTK_TREE_VIEW(FREFGUI(bfwin->fref)->tree),path2,gtk_tree_view_get_column(GTK_TREE_VIEW(FREFGUI(bfwin->fref)->tree),0),FALSE);
+				} else error_dialog(bfwin->main_window,_("Reference search"), _("Reference not found")); 
+			} else error_dialog(bfwin->main_window,_("Error"), _("Dictionary not found. Perhaps you didn't load a reference."));   	
+		}
+		g_value_unset(val);
 		g_free(val); 
 	}
-   
 }
-
 
 static gboolean frefcb_event_mouseclick(GtkWidget *widget,GdkEventButton *event,Tbfwin *bfwin) {
 	FRInfo *entry;
