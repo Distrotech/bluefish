@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 21-11-03_fr\n"
 "POT-Creation-Date: 2004-08-03 13:37+0200\n"
-"PO-Revision-Date: 2004-07-21 01:53+0200\n"
+"PO-Revision-Date: 2004-08-04 03:12+0200\n"
 "Last-Translator: Michèle Garoche <michele.garoche@easyconnect.fr>\n"
 "Language-Team: français <fr@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -724,7 +724,8 @@ msgstr "Erreur d'enregistrement de fichier"
 #: ../src/document.c:2616
 #, c-format
 msgid "Save changes to \"%s\" before closing?."
-msgstr ""
+msgstr "Voulez-vous enregistrer les modifications apportées à  \"%s\" avant "
+"de le fermer ?"
 
 #: ../src/document.c:2619
 msgid "Save changes to this untitled file before closing?"
@@ -737,7 +738,7 @@ msgstr "Ne pas e_nregistrer"
 
 #: ../src/document.c:2625 ../src/document.c:3709
 msgid "If you don't save your changes they will be lost."
-msgstr ""
+msgstr "Si vous n'enregistrez pas les modifications, elles seront perdues."
 
 #: ../src/document.c:2895
 msgid "No filename"
@@ -1071,9 +1072,8 @@ msgid "Bookmarks"
 msgstr "Signets"
 
 #: ../src/gui.c:252 ../src/menu.c:903
-#, fuzzy
 msgid "/View/View Sidebar"
-msgstr "/Affichage/Afficher la barre d'outils principale"
+msgstr "/Affichage/Afficher le panneau latéral"
 
 #: ../src/gui.c:582
 msgid "QuickStart..."
@@ -2248,7 +2248,7 @@ msgstr "/Fichier/_Nouveau"
 
 #: ../src/menu.c:310
 msgid "/File/New _Window"
-msgstr "/Fichier/Nouvelle fenêtre"
+msgstr "/Fichier/Nouve_lle fenêtre"
 
 #: ../src/menu.c:311
 msgid "/File/_Open..."
@@ -2256,7 +2256,7 @@ msgstr "/Fichier/_Ouvrir..."
 
 #: ../src/menu.c:312
 msgid "/File/Open _recent"
-msgstr "/Fichier/Récemment ouvert"
+msgstr "/Fichier/Récemment ou_vert"
 
 #: ../src/menu.c:313
 msgid "/File/Open recent/tearoff1"
@@ -2264,15 +2264,15 @@ msgstr "/Fichier/Récemment ouvert/tearoff1"
 
 #: ../src/menu.c:316
 msgid "/File/Open Ad_vanced..."
-msgstr "/Fichier/Paramétrer l'ouverture..."
+msgstr "/Fichier/P_aramétrer l'ouverture..."
 
 #: ../src/menu.c:320
 msgid "/File/Open _URL..."
-msgstr "/Fichier/_Ouvrir une URL..."
+msgstr "/Fichier/Ouvrir une _URL..."
 
 #: ../src/menu.c:322
 msgid "/File/Open _from selection"
-msgstr "/Fichier/Ouvrir depuis la sélection"
+msgstr "/Fichier/Ouvrir à partir de la séle_ction"
 
 #: ../src/menu.c:323
 msgid "/File/sep1"
@@ -2284,15 +2284,15 @@ msgstr "/Fichier/_Enregistrer"
 
 #: ../src/menu.c:325
 msgid "/File/Save _As..."
-msgstr "/Fichier/Enregistrer sous..."
+msgstr "/Fichier/Enregistrer _sous..."
 
 #: ../src/menu.c:326
 msgid "/File/Sav_e All"
-msgstr "/Fichier/Tout Enr_egistrer"
+msgstr "/Fichier/Tout Enre_gistrer"
 
 #: ../src/menu.c:327
 msgid "/File/Rever_t to Saved"
-msgstr "/Fichier/_Revenir au dernier enregistrement"
+msgstr "/Fichier/Revenir au _dernier enregistrement"
 
 #: ../src/menu.c:328
 msgid "/File/sep2"
@@ -2312,15 +2312,15 @@ msgstr "/Fichier/sep3"
 
 #: ../src/menu.c:332
 msgid "/File/_Close"
-msgstr "/Fichier/Fer_mer"
+msgstr "/Fichier/_Fermer"
 
 #: ../src/menu.c:333
 msgid "/File/Close A_ll"
-msgstr "/Fichier/Tout fermer"
+msgstr "/Fichier/_Tout fermer"
 
 #: ../src/menu.c:334
 msgid "/File/Close Win_dow"
-msgstr "/Fichier/Fermer la fenêtre"
+msgstr "/Fichier/Fe_rmer la fenêtre"
 
 #: ../src/menu.c:335
 msgid "/File/sep4"
@@ -2368,7 +2368,7 @@ msgstr "/Éditer/sep2"
 
 #: ../src/menu.c:348
 msgid "/Edit/Select _All"
-msgstr "/Éditer/Tout sélectionner"
+msgstr "/Éditer/_Tout sélectionner"
 
 #: ../src/menu.c:349
 msgid "/Edit/sep3"
@@ -2380,7 +2380,7 @@ msgstr "/Éditer/Rec_hercher..."
 
 #: ../src/menu.c:351
 msgid "/Edit/Find A_gain"
-msgstr "/Éditer/Recommencer la recherche"
+msgstr "/Éditer/Rec_ommencer la recherche"
 
 #: ../src/menu.c:352
 msgid "/Edit/Find from selection"
@@ -2412,7 +2412,7 @@ msgstr "/Éditer/Remplacement spécial/_ISO-8859 => entités HTML"
 
 #: ../src/menu.c:359
 msgid "/Edit/Replace special/_Both Types to HTML Entities"
-msgstr "/Éditer/Remplacement spécial/ASCII et ISO => entités HTML"
+msgstr "/Éditer/Remplacement spécial/ASCII et ISO => entités _HTML"
 
 #: ../src/menu.c:360
 msgid "/Edit/Replace special/To _Uppercase"
@@ -2428,11 +2428,11 @@ msgstr "/Éditer/sep4"
 
 #: ../src/menu.c:363
 msgid "/Edit/S_hift Right"
-msgstr "/Edition/Augmenter le retrait"
+msgstr "/Edition/Au_gmenter le retrait"
 
 #: ../src/menu.c:364
 msgid "/Edit/Shift _Left"
-msgstr "/Éditer/Diminuer le retrait"
+msgstr "/Éditer/Dimin_uer le retrait"
 
 #: ../src/menu.c:365
 msgid "/Edit/sep5"
@@ -2440,7 +2440,7 @@ msgstr "/Éditer/sep5"
 
 #: ../src/menu.c:366
 msgid "/Edit/Add _Bookmark"
-msgstr "/Éditer/Ajouter un signet"
+msgstr "/Éditer/A_jouter un signet"
 
 #: ../src/menu.c:367
 msgid "/Edit/sep6"
@@ -2452,11 +2452,11 @@ msgstr "/Éditer/Enregistrer le_s paramètres"
 
 #: ../src/menu.c:369
 msgid "/Edit/Save Shortcut _Keys"
-msgstr "/Éditer/Enregistrer les raccourcis clavier"
+msgstr "/Éditer/Enregistrer les raccourc_is clavier"
 
 #: ../src/menu.c:370
 msgid "/Edit/Preference_s"
-msgstr "/Éditer/Préférences"
+msgstr "/Éditer/_Préférences"
 
 #: ../src/menu.c:371
 msgid "/_View"
@@ -2468,7 +2468,7 @@ msgstr "/Affichage/tearoff1"
 
 #: ../src/menu.c:373
 msgid "/View/View _Main Toolbar"
-msgstr "/Affichage/Afficher la barre d'outils principale"
+msgstr "/Affichage/Afficher la _barre d'outils principale"
 
 #: ../src/menu.c:374
 msgid "/View/View _HTML Toolbar"
@@ -2476,12 +2476,11 @@ msgstr "/Affichage/Afficher la barre d'outils _HTML"
 
 #: ../src/menu.c:375
 msgid "/View/View _Custom Menu"
-msgstr "/Affichage/Afficher le menu personnalisé"
+msgstr "/Affichage/Afficher le menu _personnalisé"
 
 #: ../src/menu.c:376
-#, fuzzy
 msgid "/View/View _Sidebar"
-msgstr "/Affichage/Afficher la barre d'outils principale"
+msgstr "/Affichage/Afficher le panneau _latéral"
 
 #: ../src/menu.c:377
 msgid "/_Tags"
@@ -3197,7 +3196,7 @@ msgstr "/Balises/Liste/Élé_ment de liste"
 
 #: ../src/menu.c:558
 msgid "/Tags/List/De_finition List"
-msgstr "/Balises/Liste/Liste de termes"
+msgstr "/Balises/Liste/L_iste de termes"
 
 #: ../src/menu.c:559
 msgid "/Tags/List/Definition _Term"
@@ -3281,7 +3280,7 @@ msgstr "/Dialogues/Général/Sélectionner une _couleur..."
 
 #: ../src/menu.c:581
 msgid "/Dialogs/General/Insert _Time..."
-msgstr "/Dialogues/Général/Insérer l'heure..."
+msgstr "/Dialogues/Général/Insérer l'_heure..."
 
 #: ../src/menu.c:582
 msgid "/Dialogs/General/Insert _Image..."
@@ -3289,7 +3288,7 @@ msgstr "/Dialogues/Général/Insérer une _image..."
 
 #: ../src/menu.c:583
 msgid "/Dialogs/General/Insert T_humbnail..."
-msgstr "/Dialogues/Général/Insérer une vignette ..."
+msgstr "/Dialogues/Général/Insérer une _vignette ..."
 
 #: ../src/menu.c:584
 msgid "/Dialogs/_Table"
@@ -3301,7 +3300,7 @@ msgstr "/Dialogues/Tableau/tearoff1"
 
 #: ../src/menu.c:586
 msgid "/Dialogs/Table/Table _Wizard..."
-msgstr "/Dialogues/Tableau/Assistant Tableau..."
+msgstr "/Dialogues/Tableau/_Assistant Tableau..."
 
 #: ../src/menu.c:587
 msgid "/Dialogs/Table/_Table..."
@@ -3357,7 +3356,7 @@ msgstr "/Dialogues/Cadre/tearoff1"
 
 #: ../src/menu.c:600
 msgid "/Dialogs/Frame/Frame _Wizard..."
-msgstr "/Dialogues/Cadre/Assistant Cadre..."
+msgstr "/Dialogues/Cadre/_Assistant Cadre..."
 
 #: ../src/menu.c:601
 msgid "/Dialogs/Frame/Frame_set..."
@@ -3381,11 +3380,11 @@ msgstr "/Dialogues/Formulaire/F_ormulaire..."
 
 #: ../src/menu.c:606
 msgid "/Dialogs/Form/_Input..."
-msgstr "/Dialogues/Formulaire/Entrée..."
+msgstr "/Dialogues/Formulaire/_Saisie..."
 
 #: ../src/menu.c:607
 msgid "/Dialogs/Form/Input Buttons..."
-msgstr "/Dialogues/Formulaire/Boutons..."
+msgstr "/Dialogues/Formulaire/Boutons de saisie..."
 
 #: ../src/menu.c:608
 msgid "/Dialogs/Form/Input Text..."
@@ -3417,7 +3416,7 @@ msgstr "/Dialogues/sep1"
 
 #: ../src/menu.c:641
 msgid "/Dialogs/_Edit tag under cursor..."
-msgstr "/Dialogues/Editer la balise sous le curseur..."
+msgstr "/Dialogues/É_diter la balise sous le curseur..."
 
 #: ../src/menu.c:642
 msgid "/_Document"
@@ -3461,7 +3460,7 @@ msgstr "/Document/sep2"
 
 #: ../src/menu.c:652
 msgid "/Document/_Highlight Syntax"
-msgstr "/Document/Colorer le code"
+msgstr "/Document/C_olorer le code"
 
 #: ../src/menu.c:653
 msgid "/Document/_Update Highlighting"
@@ -3493,7 +3492,7 @@ msgstr "/Document/sep4"
 
 #: ../src/menu.c:661
 msgid "/Document/Check _Spelling..."
-msgstr "/Document/Vérification orthographique..."
+msgstr "/Document/Vérification ort_hographique..."
 
 #: ../src/menu.c:663
 msgid "/Document/_Floating window"
@@ -3525,11 +3524,11 @@ msgstr "/Aller à/sep1"
 
 #: ../src/menu.c:670
 msgid "/Go/_First document"
-msgstr "/Aller à/Premier document"
+msgstr "/Aller à/Premier d_ocument"
 
 #: ../src/menu.c:671
 msgid "/Go/L_ast document"
-msgstr "/Aller à/Dernier document"
+msgstr "/Aller à/Dernier doc_ument"
 
 #: ../src/menu.c:673
 msgid "/Go/Goto _Line"
@@ -3549,11 +3548,11 @@ msgstr "/Projet/tearoff1"
 
 #: ../src/menu.c:677
 msgid "/Project/_Open Project..."
-msgstr "/Projet/Ouvrir un projet..."
+msgstr "/Projet/_Ouvrir un projet..."
 
 #: ../src/menu.c:678
 msgid "/Project/Open _recent"
-msgstr "/Projet/Récemment ouvert"
+msgstr "/Projet/Récemment ou_vert"
 
 #: ../src/menu.c:679
 msgid "/Project/Open recent/tearoff1"
@@ -3569,15 +3568,15 @@ msgstr "/Projet/sep1"
 
 #: ../src/menu.c:682
 msgid "/Project/_Save"
-msgstr "/Projet/Enregi_strer"
+msgstr "/Projet/_Enregistrer"
 
 #: ../src/menu.c:683
 msgid "/Project/Save _as..."
-msgstr "/Projet/Enregistrer Sous..."
+msgstr "/Projet/Enregistrer _sous..."
 
 #: ../src/menu.c:684
 msgid "/Project/Save & _close"
-msgstr "/Projet/Enregistrer et Fermer"
+msgstr "/Projet/Enregistrer et _fermer"
 
 #: ../src/menu.c:685
 msgid "/Project/sep2"
@@ -4187,9 +4186,8 @@ msgid "Restore last used dimensions"
 msgstr "Restaurer les dernières dimensions utilisées"
 
 #: ../src/preferences.c:2062
-#, fuzzy
 msgid "Initial sidebar width"
-msgstr "Largeur initiale de la fenêtre"
+msgstr "Largeur initiale du panneau latéral"
 
 #: ../src/preferences.c:2063
 msgid "Initial window height"
@@ -4208,9 +4206,8 @@ msgid "Show main toolbar by default"
 msgstr "Montrer la barre d'outils principale par défaut"
 
 #: ../src/preferences.c:2074
-#, fuzzy
 msgid "Show sidebar by default"
-msgstr "Montrer la barre d'outils principale par défaut"
+msgstr "Afficher le panneau latéral par défaut"
 
 #: ../src/preferences.c:2075
 msgid "Show custom menu by default"
@@ -4245,14 +4242,12 @@ msgid "Document notebook tab position"
 msgstr "Position de l'onglet"
 
 #: ../src/preferences.c:2086
-#, fuzzy
 msgid "Sidebar notebook tab position"
-msgstr "Position de l'onglet panneau gauche"
+msgstr "Position de l'onglet du panneau latéral"
 
 #: ../src/preferences.c:2087
-#, fuzzy
 msgid "Sidebar location"
-msgstr "Emplacement de l'_image :"
+msgstr "Emplacement du panneau latéral"
 
 #: ../src/preferences.c:2090 ../src/rcfile.c:570
 msgid "Images"
