@@ -1099,6 +1099,20 @@ gchar *create_full_path(const gchar * filename, const gchar *basedir) {
 }
 
 /**
+ * strip_trailing_slash:
+ * @dirname: a gchar *pointing to a directory
+ *
+ * Return value: the same string, but 1 char shorter if there was a trailing slash
+ */
+gchar *strip_trailing_slash(gchar *input) {
+	if (input) {
+		gint len = strlen(input);
+		if (input[len-1] == '/') input[len-1] = '\0';
+	}
+	return input;
+}
+
+/**
  * ending_slash:
  * @dirname: a #const gchar * with a diretory name
  *
