@@ -95,9 +95,11 @@ GList *return_allwindows_documentlist() {
  */
 GList *return_filenamestringlist_from_doclist(GList *doclist) {
 	GList *newlist=NULL, *tmplist;
+	DEBUG_MSG("return_filenamestringlist_from_doclist, started for doclist %p\n",doclist);
 	tmplist = g_list_first(doclist);
 	while(tmplist){
 		if (DOCUMENT(tmplist->data)->filename) {
+			DEBUG_MSG("return_filenamestringlist_from_doclist, adding filename %s\n",DOCUMENT(tmplist->data)->filename);
 			newlist = g_list_append(newlist, g_strdup(DOCUMENT(tmplist->data)->filename));
 		}
 		tmplist = g_list_next(tmplist);
