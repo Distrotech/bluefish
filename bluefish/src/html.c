@@ -22,7 +22,7 @@
  */
 /* 
  * Changes by Antti-Juhani Kaijanaho <gaia@iki.fi> on 1999-10-20
- * $Id: html.c,v 1.40 2004-02-11 23:05:53 oli4 Exp $
+ * $Id: html.c,v 1.41 2004-02-22 22:28:43 oli4 Exp $
  */
 /*#define DEBUG*/
 
@@ -1216,7 +1216,7 @@ void body_dialog(Tbfwin *bfwin, Ttagpopup *data) {
 									, "style", "class", "id", "language", "onload", "onunload", NULL };
 
 	GtkWidget *color_but, *file_but, *dgtable[3], *stylebut, *noteb, *hbox, *vbox2, *label, *frame;
-	gchar *bodyvalues[11];
+	gchar *bodyvalues[13];
 	gchar *custom = NULL;
 	Thtml_diag *dg;
 

@@ -38,7 +38,7 @@
 #define DEBUG_MSG(args...)
  /**/
 #else/* notdef __GNUC__ */
-extern void g_none(...);
+extern void g_none(gchar *first, ...);
 #define DEBUG_MSG g_none
 #endif /* __GNUC__ */
 #endif /* DEBUG */
