@@ -405,6 +405,8 @@ static void compile_pattern(gchar *filetype, gchar *name, gint case_insens
 		}
 		DEBUG_MSG("adding tag %p to table %p\n", pat->tag, highlight.tagtable);
 		gtk_text_tag_table_add(highlight.tagtable, pat->tag);
+		/* this might fix a memory leak reported by Jim Hayward <jimhayward@linuxexperience.com> Fri, 13 Aug 2004 14:45:23 -0700 */
+		g_object_unref(pat->tag);
 		/* from the documentation:
 			When adding a tag to a tag table, it will be assigned the highest priority in the table by 
 			default; so normally the precedence of a set of tags is the order in which they were added 

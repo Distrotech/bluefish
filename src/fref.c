@@ -2273,7 +2273,9 @@ GtkWidget *fref_gui(Tbfwin * bfwin)
 	gtk_widget_show(FREFGUI(bfwin->fref)->tree);
 	gtk_widget_show(scroll);
 
-	FREFGUI(bfwin->fref)->argtips = gtk_tooltips_new();
+	/* BUG??: don't we have a global tooltips object somewhere ? 
+	FREFGUI(bfwin->fref)->argtips = gtk_tooltips_new();*/
+	FREFGUI(bfwin->fref)->argtips = main_v->tooltips;
 	FREFGUI(bfwin->fref)->tips =
 		tree_tips_new_full(bfwin, GTK_TREE_VIEW(FREFGUI(bfwin->fref)->tree), fref_tip);
 	tree_tips_set_hide_interval(FREFGUI(bfwin->fref)->tips, 5000);
@@ -2293,6 +2295,7 @@ GtkWidget *fref_gui(Tbfwin * bfwin)
 	g_signal_connect(G_OBJECT(FREFGUI(bfwin->fref)->infocheck), "toggled",
 					 G_CALLBACK(frefcb_infocheck_toggled), bfwin);
 	{
+		/* BUG??: is this ever freed ??? */
 		Tcallbackdata *cd = g_new(Tcallbackdata, 1);
 		cd->data = NULL;
 		cd->bfwin = bfwin;
