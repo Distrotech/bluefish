@@ -1837,7 +1837,6 @@ static void frefcb_search(GtkButton *button,Tbfwin *bfwin) {
 	GValue *val;
 	GtkTreeIter iter;
 	GHashTable *dict;
-	gpointer ret;
 	gint result;
 	gchar *stf=NULL;
 
@@ -1853,6 +1852,7 @@ static void frefcb_search(GtkButton *button,Tbfwin *bfwin) {
 		if ( G_IS_VALUE(val) && g_value_fits_pointer(val)) {
 			dict = (GHashTable*)g_value_peek_pointer(val);
 			if (dict != NULL) {
+				gpointer ret=NULL;
 				dlg = gtk_dialog_new_with_buttons("Find",NULL,GTK_DIALOG_MODAL,
 				                             GTK_STOCK_OK,
 				                             GTK_RESPONSE_ACCEPT,
