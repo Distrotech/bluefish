@@ -570,7 +570,7 @@ static gboolean window_full_key_press_event_lcb(GtkWidget *widget,GdkEventKey *e
  * 	@position: #gint the gtk window position GTK_WIN_POS_NONE, GTK_WIN_POS_CENTER, GTK_WIN_POS_MOUSE
  * 	@borderwidth: #gint border width
  * 	@close_func: #GCallback the callback function when closing the window
- * 	@close_data: #gpointer data passed to the closefunc
+ * 	@close_data: #gpointer data passed to the closefunc, or NULL to pass the widget pointer as close data
  * @delete_on_escape: #gboolean if the escape key should close the dialog
  * @transientforparent: #GtkWidget* with the window to set this transient for, or NULL
  *
@@ -615,7 +615,7 @@ GtkWidget *window_full2(gchar * title, GtkWindowPosition position
  * 	@width: #gint the width of the scrolwin, -1 if default required
  * 	@height: #gint the height of the scrolwin, -1 if default required
  * 	@contents: #gchar* the initial contents of the textbox
- * 	@wrapmode: #GtkWrapMode the wrapmode for the TextView
+ * 	@wrapmode: #GtkWrapMode the wrapmode for the TextView GTK_WRAP_NONE,GTK_WRAP_CHAR,GTK_WRAP_WORD
  *
  * creates a textbuffer, a textview widget (stored in the textview pointer), 
  * puts that inside a scrolwin, adds the content and sets the size and returns
@@ -623,7 +623,7 @@ GtkWidget *window_full2(gchar * title, GtkWindowPosition position
  *
  * Return value: #GtkWidget* to the scolwin
  */
-GtkWidget *textview_buffer_in_scrolwin(GtkWidget **textview, gint width, gint height, gchar *contents, GtkWrapMode wrapmode) {
+GtkWidget *textview_buffer_in_scrolwin(GtkWidget **textview, gint width, gint height, const gchar *contents, GtkWrapMode wrapmode) {
 	GtkWidget *scrolwin;
 	GtkTextBuffer *textbuf;
 	
