@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: bluefish gtk2-port\n"
-"POT-Creation-Date: 2004-10-19 14:29+0200\n"
+"POT-Creation-Date: 2004-10-22 18:18+0200\n"
 "PO-Revision-Date: 2001-11-17 15:24+0100\n"
 "Last-Translator: Unknown <unk@unk.org>\n"
 "Language-Team: no team <LL@li.org>\n"
@@ -343,70 +343,82 @@ msgstr "Fisierul nu a putut fi deschis :\n"
 msgid "This bookmark is set in a file that no longer exists."
 msgstr ""
 
-#: ../src/bookmark.c:585
+#: ../src/bookmark.c:610
+#, fuzzy, c-format
+msgid "Do you really want to delete all bookmarks for %s?"
+msgstr "Sunteti sigur ca vreti sa inlocuiti aceasta?"
+
+#: ../src/bookmark.c:611
+#, fuzzy
+msgid "Delete bookmarks?"
+msgstr "Editor"
+
+#: ../src/bookmark.c:640
 #, fuzzy, c-format
 msgid "Do you really want to delete %s?"
 msgstr "Sunteti sigur ca vreti sa inlocuiti aceasta?"
 
-#: ../src/bookmark.c:587
+#: ../src/bookmark.c:642
 msgid "Delete permanent bookmark."
 msgstr ""
 
-#: ../src/bookmark.c:604
+#: ../src/bookmark.c:659
 #, fuzzy
 msgid "Edit bookmark"
 msgstr "Editor"
 
-#: ../src/bookmark.c:618
+#: ../src/bookmark.c:673
 msgid "Goto bookmark"
 msgstr ""
 
-#: ../src/bookmark.c:626
+#: ../src/bookmark.c:681
 #, fuzzy
 msgid "Edit"
 msgstr "Editor"
 
-#: ../src/bookmark.c:630
+#: ../src/bookmark.c:685
 #, fuzzy
 msgid "Delete"
 msgstr " Sterge "
 
-#: ../src/bookmark.c:635
+#: ../src/bookmark.c:691
+#, fuzzy
+msgid "Delete all in document"
+msgstr "Fisierul nu poate fi deschis"
+
+#: ../src/bookmark.c:696
 #, fuzzy
 msgid "Delete all"
 msgstr " Sterge "
 
-#: ../src/bookmark.c:1211 ../src/bookmark.c:1228 ../src/bookmark.c:1264
+#: ../src/bookmark.c:1276 ../src/bookmark.c:1293 ../src/bookmark.c:1329
 #: ../src/document.c:2022
 #, fuzzy
 msgid "Add bookmark"
 msgstr "Extern"
 
-#: ../src/bookmark.c:1212 ../src/bookmark.c:1265
+#: ../src/bookmark.c:1277 ../src/bookmark.c:1330
 msgid "Cannot add bookmarks in unnamed files."
 msgstr ""
 
-#: ../src/bookmark.c:1229
+#: ../src/bookmark.c:1294
 msgid "You already have a bookmark here!"
 msgstr ""
 
-#: ../src/bookmark.c:1287
+#: ../src/bookmark.c:1367
 msgid "Delete all bookmarks."
 msgstr ""
 
-#: ../src/bookmark.c:1287
+#: ../src/bookmark.c:1367
 msgid "Are you sure?"
 msgstr ""
 
-#: ../src/bookmark.c:1337
-#, c-format
-msgid ""
-"Character count changed in file\n"
-" %s."
+#: ../src/bookmark.c:1409
+msgid "File size changed in file\n"
 msgstr ""
 
-#: ../src/bookmark.c:1339
-msgid "Bookmarks positions could be incorrect."
+#: ../src/bookmark.c:1410
+msgid "Bookmarks positions could be incorrect. Delete bookmarks?"
 msgstr ""
 
 #: ../src/document.c:260
@@ -730,7 +742,7 @@ msgstr ""
 msgid "Base_dir:"
 msgstr "Directorul de baza"
 
-#: ../src/document.c:3381 ../src/gtk_easy.c:1298
+#: ../src/document.c:3381 ../src/gtk_easy.c:1305
 #, fuzzy
 msgid "_Browse..."
 msgstr "Comanda browser"
@@ -766,7 +778,7 @@ msgstr ""
 msgid "<b>Open URL</b>"
 msgstr ""
 
-#: ../src/document.c:3601 ../src/gtk_easy.c:1594
+#: ../src/document.c:3601 ../src/gtk_easy.c:1601
 #, fuzzy
 msgid "Select files"
 msgstr "Selecteaza fisierul"
@@ -901,7 +913,7 @@ msgstr ""
 msgid "Filter"
 msgstr "/_Fisier"
 
-#: ../src/filebrowser.c:1651 ../src/gtk_easy.c:1376
+#: ../src/filebrowser.c:1651 ../src/gtk_easy.c:1383
 #, fuzzy
 msgid "All files"
 msgstr "Fisierul nu poate fi deschis"
@@ -987,21 +999,21 @@ msgstr ""
 msgid "Search"
 msgstr "Cauta"
 
-#: ../src/gtk_easy.c:1154
+#: ../src/gtk_easy.c:1161
 #, c-format
 msgid "%d of %d"
 msgstr ""
 
-#: ../src/gtk_easy.c:1240
+#: ../src/gtk_easy.c:1247
 #, fuzzy
 msgid "Select File"
 msgstr "Selecteaza fisierul"
 
-#: ../src/gtk_easy.c:1369
+#: ../src/gtk_easy.c:1376
 msgid "Show hidden"
 msgstr ""
 
-#: ../src/gtk_easy.c:1567
+#: ../src/gtk_easy.c:1574
 #, fuzzy
 msgid "Select file"
 msgstr "Selecteaza fisierul"
@@ -1516,6 +1528,31 @@ msgstr "Dialog imagine"
 
 #: ../src/gui.c:1466
 msgid "starting bluefish"
+msgstr ""
+
+#: ../src/highlight.c:354 ../src/highlight.c:366 ../src/highlight.c:393
+#: ../src/highlight.c:403
+msgid "Syntax highlighting error for "
+msgstr ""
+
+#: ../src/highlight.c:355
+#, c-format
+msgid "compiling pattern '%s': %s at offset %d"
+msgstr ""
+
+#: ../src/highlight.c:367
+#, c-format
+msgid "studying pattern '%s': %s"
+msgstr ""
+
+#: ../src/highlight.c:394
+#, c-format
+msgid "compiling 2nd pattern '%s': %s at offset %d"
+msgstr ""
+
+#: ../src/highlight.c:404
+#, c-format
+msgid "studying 2nd pattern '%s': %s"
 msgstr ""
 
 #: ../src/html.c:392
