@@ -18,21 +18,18 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 -->
 <chapter id="bluefish-ch-2">
 
-  <title>bluefish installation</title>
-	<simplesect>    
-		<para>
-	      about different methods to have bluefish installed (distribution or own installation)
-		</para>
-	</simplesect>
-
+  <title>Bluefish Installation</title>
 	<sect1 id="bluefish-ch-2-sect-1">
-		<title>requirements</title>
+		<title>Requirements</title>
 		<para>
-			Bluefish aims to be portable, hopefully wherever GTK is ported. A comparatively small
-			set of external libraries are neccessary for it to work. Any recent GNU/Linux distribution
-			or other *NIX with GTK2 installed, will be sufficient. In addition to the list of requirements
-			below, you may also want to look at <xref linkend="bluefish-ch-2-sect-3.5"/>. Note: These
-			requirements fit the GTK2-version. If you only have GTK1, you want the last GTK1-version, v0.7.
+			Bluefish aims to be portable, that is, wherever GTK is ported. A 
+			comparatively small	set of external libraries are neccessary for it 
+			to work. Any recent GNU/Linux distribution or other *NIX with GTK2 
+			installed should be sufficient. In addition to the list of 
+			requirements below, you may also want to look at 
+			<xref linkend="bluefish-ch-2-sect-3.5"/>. Note: These requirements 
+			fit the GTK2-version. If you only have GTK1, you want the last 
+			GTK1-version, v0.7.
 		</para>
 		<para>
 			The main requirements:
@@ -46,34 +43,65 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 			Optional requirements:
 		</para>
 		<itemizedlist>
-			<listitem>libpcre3<emphasis> - for Perl Regular Expression support</emphasis></listitem>
-			<listitem>libaspell<emphasis> - spell checker</emphasis></listitem>
-			<listitem>grep &amp; find<emphasis> - used by the advanced open dialog</emphasis>.
-						<remark>Remember to add link to the advanced open description</remark></listitem>
+			<listitem>libpcre3
+				<emphasis> - for Perl Regular Expression support
+				</emphasis>
+			</listitem>
+			<listitem>
+				libaspell
+				<emphasis> - spell checker</emphasis>
+			</listitem>
+			<listitem>
+				grep &amp; find
+				<emphasis> - used by the advanced open dialog</emphasis>.
+				<remark>
+					Remember to add link to the advanced open description
+				</remark>
+			</listitem>
 		</itemizedlist>
 		<para>
-			Compiling Bluefish require a few additional packages. (Do remember that binary packages
-			exists for many platforms. It is likely you won't need to compile ;-) ). Now, lets
-			assume you want to compile, perhaps to get the latest and greatest from CVS. The requirements
+			Compiling Bluefish requires a few additional packages. (Remember 
+			that binary packages exists for many platforms. It is likely you 
+			won't need to compile ;-) ). Now, let's assume you want to compile, 
+			perhaps to get the latest and greatest from CVS. The requirements 
 			are as follows:
 		</para>
 		<itemizedlist>
-			<listitem>Development files (header files etc) for the packages above.<emphasis>
-				These are often distributed as separate packages. There is also a high probability
-				you have these installed already.</emphasis></listitem>
-			<listitem>gcc<emphasis> - Bluefish has been tested to compile on the 2.95 and 3.x branches.</emphasis></listitem>
-			<listitem>gmake or BSD make</listitem>
-			<listitem>autoconf<emphasis> - only if you are going to compile from CVS</emphasis></listitem>
+			<listitem>
+				Development files (header files, etc) for the packages above.
+				<emphasis>
+					These are often distributed as separate packages. There is 
+					also a high probability you have these installed already.
+				</emphasis>
+			</listitem>
+			<listitem>
+				gcc
+				<emphasis>
+					 - Bluefish has been tested to compile on the 2.95 and 3.x 
+					branches.
+				</emphasis>
+			</listitem>
+			<listitem>
+				gmake or BSD make
+			</listitem>
+			<listitem>
+				autoconf
+				<emphasis>
+					 - only if you are going to compile from CVS
+				</emphasis>
+			</listitem>
 		</itemizedlist>
 	</sect1>
 
 	<sect1 id="bluefish-ch-2-sect-2">
-		<title>quick standard installation</title>
+		<title>Quick Standard Installation</title>
 		<para>
-			There are two main methods for installing Bluefish: Compile from source or install
-			a binary package. The last one is the easiest to do, so we'll cover that first here. ;-) There are
-			a few different approaches, caused by the differences between systems. We'll start off by summarizing
-			a few really quick and simple approaches before dealing with this problem more extensively.
+			There are two main methods for installing Bluefish: Compile from 
+			source or install a binary package. Binary installation is the 
+			easiest to do, so we'll cover that first. There are a few different 
+			approaches, caused by the differences between systems. We'll start 
+			off by summarizing a few really quick and simple approaches before 
+			dealing with this problem more extensively.
 		</para>
 		<itemizedlist>
 			<listitem>
@@ -97,12 +125,12 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 	</sect1>
 
 	<sect1 id="bluefish-ch-2-sect-3">
-		<title>general installation issues</title>
+		<title>General Installation Issues</title>
 		<para>
-			A few considerations before installing may be neccessary. The latest GTK1-version is v0.7, which is
-			no longer updated. Unless you really want the project management feature or only have GTK1 installed,
-			you should use the latest GTK2-version. A lot of bugs have been corrected, along with updates and
-			new features.
+			The latest GTK1-version is v0.7, which is no longer updated. Unless 
+			you really want the project management feature or only have GTK1 
+			installed, you should use the latest GTK2-version. A lot of bugs 
+			have been corrected, along with updates and	new features.
 		</para>
 		<para>
 			If you want the latest and greatest, read about CVS in <xref linkend="bluefish-ch-2-sect-4"/> below.
@@ -110,42 +138,52 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 		</para>
 
 		<sect2 id="bluefish-ch-2-sect-3.1">
-			<title>how to get bluefish</title>
+			<title>How to Get Bluefish</title>
 			<para>
-				Bluefish is available through several different channels. Many Linux distributions
-				ship a version of Bluefish or make it available through their package systems.
-				I.e., Bluefish is available through the Debian apt-system and FreeBSD's ports.
-				You may check if Bluefish is available through your favourite software installer.
+				Many Linux distributions ship a version of Bluefish or make it 
+				available through their package systems. For example, Bluefish 
+				is available through the Debian apt-system and FreeBSD's ports.
+				You may check if Bluefish is available through your favorite 
+				software installer.
 			</para>
 			<para>
-				The main source is the Bluefish website, where the software and a few contributions are available.
-				The download page is reachable at
-				<systemitem class="url">http://bluefish.openoffice.nl/download.html</systemitem>.
-				Here, you may download the source code and binary packages for Debian, Red Hat and Mandrake.
+				However, the main source is the Bluefish website, where the 
+				software and a few contributions are available. The download 
+				page is reachable at 
+				<systemitem class="url">
+					http://bluefish.openoffice.nl/download.html
+				</systemitem>.
+				Here, you may download the source code and binary packages for 
+				Debian, Red Hat/Fedora, and Mandrake.
 			</para>
 		</sect2>
 		
 		<sect2 id="bluefish-ch-2-sect-3.2">
-			<title>operating systems supported by bluefish</title>
+			<title>Operating Systems Supported by Bluefish</title>
 			<para>
-				Bluefish has been reported to work on a number of systems. The Bluefish team
-				mainly support these platforms:
+				Bluefish has been reported to work on a number of systems. The 
+				Bluefish team mainly support these platforms:
 			</para>
 			<itemizedlist>
 				<listitem>Mandrake Linux</listitem>
 				<listitem>Red Hat Linux</listitem>
+				<listitem>Fedora Core</listitem>
 				<listitem>Debian Linux</listitem>
 				<listitem>FreeBSD</listitem>
 			</itemizedlist>
 			<para>
-				Actually, any GNU/Linux distribution with GTK2 is fine -- many distributions also include
-				Bluefish. Actually, the fish will likely work nicely on any POSIX compatible OS
-				where GTK2 is available. Bluefish has been reported to work on
+				Actually, any GNU/Linux distribution with GTK2 is fine and many 
+				distributions include Bluefish. In fact, Bluefish will likely 
+				work quite well on any POSIX compatible OS where GTK2 is 
+				available. Bluefish has been reported to work on the following:
 			</para>
 			<itemizedlist>
 				<listitem>NetBSD - distributed in pkgsrc</listitem>
 				<listitem>OpenBSD - available through their ports system</listitem>
-				<listitem>SGI IRIX - see <systemitem class="url">http://freeware.sgi.com/</systemitem></listitem>
+				<listitem>SGI IRIX - see 
+					<systemitem class="url">
+						http://freeware.sgi.com/
+					</systemitem></listitem>
 				<listitem>Mac OS X</listitem>
 				<listitem>Sun Solaris</listitem>
 				<listitem>Tru64</listitem>
@@ -155,94 +193,119 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 			</itemizedlist>			
 		</sect2>
 		<sect2 id="bluefish-ch-2-sect-3.3">
-			<title>which bluefish version to use</title>
+			<title>Which Bluefish Version to Use</title>
 			<para>
 				Currently, four versions of bluefish are available:
 			</para>
 			<itemizedlist>
 				<listitem>
-					The GTK1-version (v0.7) is deprecated and no longer updated, but is the choice for those
-					of you still running GTK1.
+					The GTK1-version (v0.7) is deprecated and no longer 
+					updated, but is the choice for those of you still running 
+					GTK1.
 				</listitem>
 				<listitem>
-					The latest GTK2-version (v0.10) is the version of choice for most users. It's the latest
-					addition to the Bluefish tree, and is regarded as stable enough for daily use.
+					The latest GTK2-version (v1.0) is the version of choice for 
+					most users. It's the latest addition to the Bluefish tree, 
+					and is regarded as stable enough for daily use.
 				</listitem>
 				<listitem>
-					The latest development snapshot is always one step further than the latest stable release.
-					You'll find some new features, bugs fixed and a prettier gui. The catch is that it may have
-					unfinished, perhaps buggy, features. Try this if you want to see new features, or if there's
-					a bug in the latest stable release that bothers you.
+					The latest development snapshot is always one step further 
+					than the latest stable release. You'll find some new 
+					features, bugs fixes, and a prettier GUI. The catch is that 
+					it may have	unfinished or buggy features. Try this if you 
+					want to see new features, or if there's a bug in the latest 
+					stable release that bothers you.
 				</listitem>
 				<listitem>
-					CVS - the bleeding edge of Bluefish development. You want this if there's a bug that bothers
-					you, but is unfixed even in the latest snapshot, if you want to contribute a patch, or simply
-					want the bleeding edge feature set. The CVS may be unusable for short periods of time, but
-					will often be stable enough for daily use.
+					CVS - the bleeding edge of Bluefish development. You want 
+					this if there's a bug that bothers you, but is unfixed even 
+					in the latest snapshot, if you want to contribute a patch, 
+					or simply want the bleeding edge feature set. The CVS may 
+					be unusable for short periods of time, but will often be 
+					stable enough for daily use.
 				</listitem>
 			</itemizedlist>
 			<para>
-				As commented in <xref linkend="bluefish-ch-2-sect-3.4"/>, the long time between stable releases
-				make the CVS snapshots and current CVS an interesting choice.
+				As commented in <xref linkend="bluefish-ch-2-sect-3.4"/>, the 
+				long time between stable releases make the CVS snapshots and 
+				current CVS an enticing choice.
 			</para>
 		</sect2>
 		<sect2 id="bluefish-ch-2-sect-3.4">
-			<title>how and when updates are released</title>
-			<blockquote><para><emphasis>the development is always a deep black hole, but sometimes there is an new release :-)
-				</emphasis></para>
-				<para>-- Danny Reeh (Bluefish development team)</para>
-			</blockquote>
-			<para>A long time pass between each release. The Bluefish development is not too rapid, there's
-			a small number of developers, and we occationally want to <emphasis>use</emphasis> Bluefish,
-			not only develop it. :-)</para>
-			<para>Because of the long periods of time between releases, the current CVS or CVS snapshots may be what
-			you want to use. Bugs will be fixed and new features introduced. We do try to keep the CVS version
-			usable at any time (actually, the CVS version is used by most of the development team, daily).
+			<title>How and When Updates are Released</title>
+			<para>
+				Often, a long time may pass between each release. Bluefish 
+				development is not too rapid, due to the small number of 
+				volunteer developers. After all, the developers volunteer their
+				time and effort because they actually want to 
+				<emphasis>use</emphasis> Bluefish :-)
+			</para>
+			<para>
+				Because of the long periods of time between releases, the 
+				current CVS or CVS snapshots may be what you want to use. Bugs 
+				will be fixed and new features introduced. We do try to keep 
+				the CVS version usable at any time (actually, the CVS version 
+				is used by most of the development team on a daily basis).
 			</para>
 		</sect2>
 		<sect2 id="bluefish-ch-2-sect-3.5">
-			<title>system specific notes</title>
-			<para>Different systems have different approaches to solutions and packaging. You might find
-			the information below interesting.</para>
+			<title>System Specific Notes</title>
+			<para>
+				Different systems have different approaches to solutions and 
+				packaging. You might find the information below interesting.
+			</para>
 			
 			<para>Mandrake:</para>
 			<itemizedlist>
 				<listitem>
-					libpcre: Breaks pcre into 3 different pieces, make sure pcre-devel is installed if
-					compiling from source. Try this command: <screen>$ rpm -ql pcre-devel</screen>
+					libpcre: Breaks pcre into 3 different pieces, make sure 
+					pcre-devel is installed if compiling from source. Try this 
+					command: <screen>$ rpm -ql pcre-devel</screen>
 				</listitem>
-				<listitem><remark>... more nags with Mandrake?</remark></listitem>
+				<listitem>
+					<remark>... more nags with Mandrake?
+					</remark>
+				</listitem>
 			</itemizedlist>
 
 			<para>Debian:</para>
 			<itemizedlist>
 				<listitem>
-					If you are running <emphasis>unstable</emphasis>, you may experience unstability (ha ha)
-					with Bluefish. Make sure it's not just caused by a buggy version of GTK2. If the bug is
-					very obscure and strange, GTK may be the villain.
+					If you are running <emphasis>unstable</emphasis>, you may 
+					experience instability (ha ha) with Bluefish. Make sure 
+					it's not just caused by a buggy version of GTK2. If the bug 
+					is very obscure and strange, GTK may be the villain.
 				</listitem>
-				<listitem><remark>... more nags with Debian? Of course not...? -- Christian</remark></listitem>
+				<listitem>
+					<remark>
+						... more nags with Debian? Of course not...? -- Christian
+					</remark>
+				</listitem>
 			</itemizedlist>
-						
 		</sect2>
-		
 	</sect1>
 
 	<sect1 id="bluefish-ch-2-sect-4">
-		<title>installing a bluefish source distribution</title>
-		<para>By installing Bluefish from source, you may be able to get a newer version (CVS Snapshot, perhaps)
-		than those distributed as binaries. You may also need to compile from source if there is no
-		available binary for your system.</para>
+		<title>Installing a Bluefish Source Distribution</title>
+		<para>
+			By installing Bluefish from source, you may be able to get a newer 
+			version (from CVS) than those distributed as binaries. You may also 
+			need to compile from source if there is no available binary for 
+			your system.
+		</para>
 
 		<sect2 id="bluefish-ch-2-sect-4.1">
-			<title>quick installation overview</title>
+			<title>Quick Installation Overview</title>
 			<para>
-				This is the short installation description. Consult the other chapters if you are in doubt.
+				This is the short installation description. Consult the other 
+				chapters if you are in doubt.
 			</para>
-			<para>Bluefish installed using the standard 'configure, make, make install' steps. Assuming you have
-				downloaded a bluefish source package, for instance <literal>bluefish-ver.tar.gz</literal>
-				(naturally, change the filename to what's appropriate),
-				you complete the installation with the following steps:
+			<para>
+				Bluefish is installed using the standard 'configure, make, make 
+				install' steps. Assuming you have downloaded a bluefish source 
+				package, for instance <literal>bluefish-ver.tar.gz</literal>
+				(naturally, change the filename to what's appropriate),	you 
+				complete the installation with the following steps:
 			</para>
 			<orderedlist>
 				<listitem><userinput>tar -zxvf bluefish-ver.tar.gz</userinput></listitem>
@@ -250,174 +313,256 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 				<listitem><userinput>./configure</userinput></listitem>
 				<listitem><userinput>make</userinput></listitem>
 				<listitem><userinput>su -c 'make install'</userinput></listitem>
-				<listitem>Now, type <userinput>bluefish</userinput> to run. You may delete the <literal>bluefish-ver</literal> dir.</listitem>
+				<listitem>
+					Now, type <userinput>bluefish</userinput> to run. You may 
+					delete the <literal>bluefish-ver</literal> dir.
+				</listitem>
 			</orderedlist>
 		</sect2>
 		<sect2 id="bluefish-ch-2-sect-4.2">
-			<title>typical <literal>configure</literal> options</title>
+			<title>Typical <literal>Configure</literal> Options</title>
 			<para>
-				The <literal>configure</literal> script is used to automatically find the appropriate settings for
-				your system. Because of differences between systems, this compile-time configuration is neccessary,
-				and configure solves this challenge easily -- with an added bonus of telling whether you have
-				everything you need to compile.
+				The <literal>configure</literal> script is used to 
+				automatically find the appropriate settings for your system. 
+				Because of differences between systems, this compile-time 
+				configuration is neccessary, and configure solves this 
+				challenge easily -- with an added bonus of telling whether you 
+				have everything you need to compile.
 			</para>
 			<para>
-				The configure-script can be configured, specifying locations of shared libraries or similar.
-				This is something you most likely won't need to do, but it's easy to do if neccessary. For a
-				complete list of configure options, type <screen>$ ./configure --help</screen>
+				The configure-script can be configured, specifying locations of 
+				shared libraries or similar. This is something you most likely 
+				won't need to do, but it's easy to do if neccessary. For a 
+				complete list of configure options, type 
+				<screen>$ ./configure --help</screen>
 			</para>
 			<para>
 				The Bluefish-specific configure options are
 			</para>
 			<itemizedlist>
-				<listitem><literal>--disable-splash-screen</literal> - simply disables the splash-screen.</listitem>
-				<listitem>...</listitem>
+				<listitem>
+					<literal>--disable-splash-screen</literal>
+					 - simply disables the splash-screen.
+				</listitem>
+				<listitem>
+					...
+				</listitem>
 			</itemizedlist>
 			<para>You might also need these:</para>
 			<itemizedlist>
-				<listitem><literal>--prefix=/usr</literal> - If you want to install in <literal>/usr</literal>. Usually, <literal>/usr/local</literal> is preferred.</listitem>
-				<listitem><literal>...</literal></listitem>
+				<listitem>
+					<literal>
+						--prefix=/usr
+					</literal>
+					 - If you want to install in 
+					<literal>
+						/usr
+					</literal>
+					. Usually, 
+					<literal>/usr/local</literal> is preferred.
+				</listitem>
+				<listitem>
+					...
+				</listitem>
 			</itemizedlist>			
 		</sect2>
 		<sect2 id="bluefish-ch-2-sect-4.3">
-			<title>installing from development source tree</title>
+			<title>Installing from Development Source Tree</title>
 			<para>
-				So, you want the bleeding edge? This guide will help you download and
-				install the latest source from our CVS repository.
+				So, you want the bleeding edge? This guide will help you 
+				download and install the latest source from our CVS repository.
 			</para>
 			<para>
-				CVS<footnote><para>Concurrent Versions System</para></footnote>, a version control system,
-				is a much used software development tool. It keeps track of all changes to the sourcecode,
-				who did what and why they did it. If you want to read more about CVS, have a look at the
-				CVS-book by Karl Fogel, available at
-				<systemitem class="url">http://cvsbook.red-bean.com/cvsbook.html</systemitem>.
-			</para>
-			<para>The Bluefish project's CVS is generously hosted by SourceForge.net<footnote>
-				<systemitem class="url">http://sourceforge.net</systemitem></footnote>.
-				For more information about them, see their site.
-				The project homepage is 
-				<systemitem class="url">http://sourceforge.net/projects/bluefish</systemitem>.
-				Our CVS repository contains the current Bluefish sourcecode, and even this manual. The repository
-				is accessible by anyone, and is updated almost daily by the developers.
+				CVS
+				<footnote><para>Concurrent Versions System</para></footnote>
+				, a version control system, is a much used software development 
+				tool. It keeps track of all changes to the sourcecode, who did 
+				what and why they did it. If you want to read more about CVS, 
+				have a look at the CVS-book by Karl Fogel, available at
+				<systemitem class="url">
+					http://cvsbook.red-bean.com/cvsbook.html
+				</systemitem>.
 			</para>
 			<para>
-				To access the repository, you need a few small utilities. You may have to install them. They
-				are likely to be available through your favourite source of software (ports, apt etc). The above
-				mentioned CVS-book is a great source for information.
+				The Bluefish project's CVS is generously hosted by 
+				SourceForge.net
+				<footnote>
+					<systemitem class="url">
+						http://sourceforge.net
+					</systemitem>
+				</footnote>.
+				For more information about them, see their site. The project 
+				homepage is 
+				<systemitem class="url">
+					http://sourceforge.net/projects/bluefish
+				</systemitem>.
+				Our CVS repository contains the current Bluefish sourcecode, 
+				and even this manual. The repository is accessible by anyone, 
+				and is updated almost daily by the developers.
 			</para>
 			<para>
-				The first step is to cd to the directory you want to put the sources in, and then log in.
-				The latter is accomplished with this command:
+				To access the repository, you need a few small utilities. You 
+				may have to install them. They are likely to be available 
+				through your favourite source of software (ports, apt etc). The 
+				above mentioned CVS-book is a great source for information.
+			</para>
+			<para>
+				The first step is to cd to the directory you want to put the 
+				sources in, and then log in. The latter is accomplished with 
+				this command:
 				<screen>$ cvs -d :pserver:anonymous@cvs.bluefish.sourceforge.net:/cvsroot/bluefish login</screen>
 				(just hit <action>Enter</action> at the password prompt)
-				The next step is to <emphasis>check out</emphasis> the sourcecode. You can check out single
-				modules, and the one you want is called <literal>bluefish-gtk2</literal>. The command is:
+				The next step is to <emphasis>check out</emphasis> the 
+				sourcecode. You can check out single modules, and the one you 
+				want is called <literal>bluefish-gtk2</literal>. The command 
+				is:
 				<screen>$ cvs -z3 -d :pserver:anonymous@cvs.bluefish.sourceforge.net:/cvsroot/bluefish co bluefish-gtk2</screen>
-				A lot of files will be downloaded, and listed one by one. If you're on dialup, this might take
-				a bit of time. Be patient ;-)
+				A lot of files will be downloaded, and listed one by one. If 
+				you're on dialup, this might take a bit of time. Be patient ;-)
 			</para>
 			<para>
-				When the download has completed, you'll find the bluefish sources in the subdir
-				<literal>bluefish-gtk2</literal>. Enter that directory now: <screen>$ cd bluefish-gtk</screen>
-				Next, you need to generate the configure script. That's accomplished by running
+				When the download has completed, you'll find the bluefish 
+				sources in the subdirectory	
+				<literal>bluefish-gtk2</literal>. 
+				Enter that directory now: 
+				<screen>$ cd bluefish-gtk</screen>
+				Next, you need to generate the configure script. That's 
+				accomplished by running
 				<screen>$ autoconf</screen>
-				Then, you run <literal>configure</literal> with whatever options you might want. This example will
-				cause <literal>make install</literal> to install Bluefish with the specified directory
-				as prefix (I.e. the binary is installed in <literal>/usr/locar/bf-cvs/bin/bluefish</literal>).
-				This is most likely not what you want -- just run configure without parameters instead.
+				Then, you run 
+				<literal>configure</literal> with whatever options you might 
+				want. This example will cause 
+				<literal>make install</literal> 
+				to install Bluefish with the specified directory as prefix 
+				(i.e. the binary is installed in 
+				<literal>/usr/locar/bf-cvs/bin/bluefish</literal>).
+				This is most likely not what you want -- just run configure 
+				without parameters instead.
 				<screen>$ ./configure --prefix=/usr/local/bf-cvs</screen>
 			</para>
 			<para>
-				If configure fails, it'll probably give a hint telling you what's missing or wrong. Assuming it
-				completed successfully, your next step is to compile this thing. Run
+				If configure fails, it'll probably give a hint telling you 
+				what's missing or wrong. Assuming it completed successfully, 
+				your next step is to compile Bluefish. To do this, run
 				<screen>$ make</screen>
-				to accomplish this. When <literal>make</literal> has completed, you can install Bluefish:
-				(<literal>su</literal> to root first, unless you specified a user writeable prefix to configure)
+				. When 
+				<literal>make</literal> 
+				has completed, you can install Bluefish:
+				(<literal>su</literal> 
+				to root first, unless you specified a user writeable prefix to 
+				configure)
 				<screen># make install</screen>			
 			</para>
 			<para>
-				To update the sources at a later time, you run the command <userinput>cvs -z3 -q update</userinput>
+				To update the sources at a later time, you run the command 
+				<userinput>cvs -z3 -q update</userinput>
 				from within the <literal>bluefish-gtk2</literal> directory.
 			</para>
 		</sect2>
 		<sect2 id="bluefish-ch-2-sect-4.4">
-			<title>problems compiling?</title>
+			<title>Problems Compiling?</title>
 			<para>
-				Can't compile? Well, your first step is to make sure you have the neccessary
-				utilities and libraries. See <xref linkend="bluefish-ch-2-sect-1"/>. Next, see if your
-				system is mentioned in <xref linkend="bluefish-ch-2-sect-3.5"/>. Below is list of
-				well known problems that's been mentioned on the bluefish-dev list. If you're unable
-				to find a solution (or if you think you have a solution others might want), feel free
-				to contact us on the <emphasis>bluefish-dev</emphasis> list
+				Can't compile? Well, your first step is to make sure you have 
+				the neccessary utilities and libraries. See 
+				<xref linkend="bluefish-ch-2-sect-1"/>. Next, see if your
+				system is mentioned in 
+				<xref linkend="bluefish-ch-2-sect-3.5"/>. Below is list of well 
+				known problems that's been mentioned on the bluefish-dev list. 
+				If you're unable to find a solution (or if you think you have a 
+				solution others might want), feel free to contact us on the 
+				<emphasis>bluefish-dev</emphasis> list
 				(See <xref linkend="bluefish-ch-1-sect-2.4"/>).
 			</para>
 			<itemizedlist>
 				<listitem>
 					<screen>make: *** No targets specified and no makefile found.  Stop.</screen>
-					This will happen if <emphasis>configure</emphasis> fail and you try to run <literal>make</literal>.
-					It also happens if you're running <literal>make</literal> from the wrong directory.
+					This will happen if <emphasis>configure</emphasis> fail and 
+					you try to run <literal>make</literal>. It also happens if 
+					you're running <literal>make</literal> from the wrong 
+					directory.
 				</listitem>
-				<listitem>... more trouble to come ;-)</listitem>
+				<listitem>
+					... more trouble to come ;-)
+				</listitem>
 			</itemizedlist>
 		</sect2>
 	</sect1>
 
 	<sect1 id="bluefish-ch-2-sect-5">
-		<title>installing a binary distribution</title>
+		<title>Installing a Binary Distribution</title>
 		<para>
-			Different packages -- different installation. We'll cover only a few approaches here<footnote>
-			<para>If you want to contribute a description on how to install Bluefish on your system, just drop us
-			a note. :-)</para></footnote>, since the installation is very system-specific ;-). Lets have a look
-			at some different systems:
+			Different packages -- different installation. We'll cover only a 
+			few approaches here
+			<footnote>
+				<para>
+					If you want to contribute a description on how to install 
+					Bluefish on your system, just drop us a note. :-)
+				</para>
+			</footnote>
+			, since the installation is very system-specific ;-). Lets have a 
+			look at some different systems:
 		</para>
 		<para>
-			For Debian users this is very simple. To download, install and configure bluefish in
-			One Swift Move, run
+			For Debian users this is very simple. To download, install and 
+			configure bluefish in One Swift Move, run
 			<screen>$ su - &amp;&amp; apt-get update &amp;&amp; apt-get install bluefish</screen>
-			You can check if the version available through apt is the latest -- see the Bluefish homepage,
-			and compare the version there with what <userinput>apt-cache show bluefish</userinput> tells you.
-			If there's a newer version on the Bluefish site, download it and install the package like this:
+			You can check if the version available through apt is the latest -- 
+			see the Bluefish homepage, and compare the version there with what 
+			<userinput>apt-cache show bluefish</userinput> tells you.
+			If there's a newer version on the Bluefish site, download it and 
+			install the package like this:
 			<userinput>dpkg -i bluefish-ver.deb</userinput>
 		</para>
 		<para>
 			For rpm based distributions, first check if your distribution
-			has a recent Bluefish version. If it does not, download the rpm for your
-			distribution from any of the Bluefish mirrors. Next, installing a downloaded rpm
-			is as simple as pointing and clicking in your favourite gui package manager, or
-			issuing the following command from the command line: (as root)
+			has a recent Bluefish version. If it does not, download the rpm 
+			for your distribution from any of the Bluefish mirrors. Next, 
+			installing a downloaded rpm is as simple as pointing and clicking 
+			in your favourite gui package manager, or issuing the following 
+			command from the command line: (as root)
 			<screen># rpm -Uvh bluefish-ver.rpm</screen>
 		</para>
 		<para>
-			If you're using FreeBSD, NetBSD or OpenBSD, we probably won't need to tell <emphasis>you</emphasis>
-			how to use your favourite package system. ;-)
+			If you're using FreeBSD, NetBSD or OpenBSD, we probably won't need 
+			to tell <emphasis>you</emphasis> how to use your favourite package 
+			system. ;-)
 		</para>
 	</sect1>
 
 	<sect1 id="bluefish-ch-2-sect-6">
-		<title>post-installation setup</title>
+		<title>Post-installation Setup</title>
 		<para>
-			The first time you run Bluefish it will create a directory <literal>~/.bluefish</literal>
-			where all configuration is stored. This includes all preferences, customized menus,
-			highlighting-patterns, file history etc.
+			The first time you run Bluefish it will create a directory 
+			<literal>~/.bluefish</literal>
+			where all configuration is stored. This includes all preferences, 
+			customized menus, highlighting-patterns, file history etc.
 		</para>
 		<para>
-			Bluefish will work right out of the box, but you can and should take advantage of the many
-			customizations you are able to do. Change the font in the main textview if you don't like it,
-			remove unused toolbars, add shortcuts to the customizeable menu and edit the list of
-			browsers and external programs.
+			Bluefish will work right out of the box, but you can and should 
+			take advantage of the many customizations you are able to do. 
+			Change the font in the main textview if you don't like it, remove 
+			unused toolbars, add shortcuts to the customizeable menu and edit 
+			the list of browsers and external programs.
 		</para>
 		<para>
-			If you are upgrading from a previous version, perhaps CVS, you should note that the syntax
-			highlighting may have changed. To make sure you have the latest highlighting patterns, exit Bluefish
-			and delete the <literal>highlighting</literal> file in your <literal>~/.bluefish</literal> directory.
-			Next time Bluefish is started, the new defaults will be loaded. Note that this will also annihilate all
-			your changes to the highlighting. A more gentle approach may be to move your current highlighting-file
-			to highlighting.old, start Bluefish to get the new patterns, exit bluefish, and then run
-			<userinput>diff -c highlighting.old highlighting</userinput> to find the differences..
+			If you are upgrading from a previous version, perhaps CVS, you 
+			should note that the syntax highlighting may have changed. To make 
+			sure you have the latest highlighting patterns, exit Bluefish
+			and delete the <literal>highlighting</literal> file in your 
+			<literal>~/.bluefish</literal> 
+			directory.
+			Next time Bluefish is started, the new defaults will be loaded. 
+			Note that this will also annihilate all your changes to the 
+			highlighting. A more gentle approach may be to move your current 
+			highlighting-file to highlighting.old, start Bluefish to get the 
+			new patterns, exit bluefish, and then run 
+			<userinput>diff -c highlighting.old highlighting</userinput> 
+			to find the differences..
 		</para>
 		<para>
-			If your settings should happen to be corrupted, for some reason unusable, or you simply want to
-			revert to the defaults, you may safely delete the <literal>~/.bluefish</literal> directory.
+			If your settings should happen to be corrupted, for some reason 
+			unusable, or you simply want to revert to the defaults, you may 
+			safely delete the <literal>~/.bluefish</literal> directory.
 		</para>
 	</sect1>
 
