@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-#define DEBUG
+/*#define DEBUG*/
 
 #include <gtk/gtk.h>
 #include <time.h> /* nanosleep() */
@@ -605,6 +605,7 @@ void gui_create_main(GList *filenames) {
 	/* start to open an empty doc */
 	file_new_cb(NULL, NULL);
 	if (filenames) {
+		DEBUG_MSG("gui_create_main, we have filenames, load them\n");
 		docs_new_from_files(filenames);
 	}
 	/* We have to know when the notebook changes */
@@ -770,6 +771,9 @@ void go_to_line_from_selection_cb(GtkWidget * widget, gpointer data) {
 void splash_screen_set_label(gchar *label) {
 	static struct timespec const req = { 0, 20000000};
 	static struct timespec rem;
+#ifdef DEBUG
+	g_print("Setting slpash label to %s\n", label);
+#endif
 	gtk_label_set(GTK_LABEL(splashscreen.label),label);
 	flush_queue();
 	nanosleep(&req, &rem);
