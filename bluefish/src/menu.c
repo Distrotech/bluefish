@@ -55,7 +55,7 @@ static Tmenus menus = {NULL,NULL,NULL,NULL,NULL,NULL};
 static GtkItemFactoryEntry menu_items[] = {
 	{N_("/_File"), NULL, NULL, 0, "<Branch>"},
 	{N_("/File/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
-	{N_("/File/_New"), "<control>f", file_new_cb, 0, NULL},
+	{N_("/File/_New"), "<control>n", file_new_cb, 0, NULL},
 	{N_("/File/_Open..."), "<control>O", file_open_cb, 0, NULL},
 	{N_("/File/Open advanced..."), NULL, file_open_cb, 1, NULL},
 	{N_("/File/Open r_ecent"), NULL, NULL, 0, "<Branch>"},
@@ -64,7 +64,7 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/File/_Insert..."), NULL, file_insert_cb, 0, NULL},
 	{N_("/File/sep2"), NULL, NULL, 0, "<Separator>"},
 	{N_("/File/_Save"), "<control>S", file_save_cb, 0, NULL},
-	{N_("/File/Save _as..."), NULL, file_save_as_cb, 0, NULL},
+	{N_("/File/Save _as..."), "<shift><control>S", file_save_as_cb, 0, NULL},
 	{N_("/File/_Move to..."), NULL, file_move_to_cb, 0, NULL},
 	{N_("/File/Sa_ve all"), NULL, file_save_all_cb, 0, NULL},
 	{N_("/File/sep3"), NULL, NULL, 0, "<Separator>"},
@@ -354,7 +354,7 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/Dialogs/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
 	{N_("/Dialogs/_General"), NULL, NULL, 0, "<Branch>"},
 	{N_("/Dialogs/General/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
-	{N_("/Dialogs/General/_Quickstart..."), "<alt>q", quickstart_cb, 0, NULL},
+	{N_("/Dialogs/General/_Quickstart..."), "<shift><alt>q", quickstart_cb, 0, NULL},
 /*	{N_("/Dialogs/General/DTD"), NULL, dtd_cb, 0, NULL},
 	{N_("/Dialogs/General/Head"), NULL, head_cb, 0, NULL}, */
 	{N_("/Dialogs/General/_Body..."), "<shift><alt>B", body_cb, 0, NULL},
