@@ -72,7 +72,41 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 		</sect2>
 		<sect2 id="bluefish-ch-2-sect-4.3">
 			<title>installing from develepment source tree</title>
-			<para>cvs login, cvs update and then install</para>
+			<para>The project bluefish is hosted by SourceForge.net 
+			<systemitem class="url">http://sourceforge.net</systemitem>.
+			For more information read the documentation there.
+			The project homepage is 
+			<systemitem class="url">http://sourceforge.net/projects/bluefish</systemitem>.
+			For managing the changes of the devolopers, a version controll system ist
+			 installed.
+			If you still nothing heared about cvs, check the CVS-Book of Karl Fogel
+			<systemitem class="url">http://cvsbook.red-bean.com/cvsbook.html</systemitem>.
+			To the cvs repository, where the bluefish sources are, everyone have access
+			to read them.</para>
+			<para>The sources can be checked out through anonymous (pserver) CVS with 
+			the following instruction set.
+			The module you wish to check out must be specified as the modulename. 
+			For the bluefish gtk2 version, it's <literal>bluefish-gtk2</literal>.</para>
+			<para>First, you have to login:
+			<screen>cvs -d :pserver:anonymous@cvs.bluefish.sourceforge.net:/cvsroot/bluefish login</screen>
+			When prompted for a password for anonymous, simply press the <action>Enter</action> key.
+			and second, check out the module:
+			<screen>cvs -z3 -d :pserver:anonymous@cvs.bluefish.sourceforge.net:/cvsroot/bluefish co bluefish-gtk2</screen>
+			Now, the sources are in the subdir <quote>bluefish-gtk2</quote> of your 
+			current directory.</para>
+			<para>If you want to take the actual version of the blufish sources, you can 
+			simply make an update.
+			You have to go in the subdir <quote>bluefish-gtk2</quote> and type 
+			<userinput>cvs update</userinput>.
+			If you have an modem or isdn internet access please have some patient.</para>
+			<para>The next step is to create the <quote>configure</quote> script. 
+			Execute <userinput>autoconf</userinput> to do that.</para>
+			<para>If you have already compiled bluefish, run <userinput>make clean</userinput>
+			to remove the compiled binaries and objects.</para>
+			<para>Now, it's quite simple, like every open source software. 
+			You have to run <userinput>make</userinput> to compile it.
+			After that put the binaries and ressources to the place, where they were found: 
+			type <userinput>make install</userinput>.</para>
 		</sect2>
 		<sect2 id="bluefish-ch-2-sect-4.4">
 			<title>problems compiling?</title>
