@@ -56,10 +56,10 @@ static void tabledialogok_lcb(GtkWidget * widget, Thtml_diag * dg)
 	finalstring = g_strconcat(thestring, ">", NULL);
 	g_free(thestring);
 
-	if (dg->range.len == -1) {
+	if (dg->range.end == -1) {
 		doc_insert_two_strings(dg->doc, finalstring, cap("</TABLE>"));
 	} else {
-		doc_replace_text(dg->doc, finalstring, dg->range.pos, dg->range.len);
+		doc_replace_text(dg->doc, finalstring, dg->range.pos, dg->range.end);
 	}
 
 	g_free(finalstring);
@@ -191,10 +191,10 @@ static void tablerowdialogok_lcb(GtkWidget * widget, Thtml_diag *dg)
 	finalstring = g_strconcat(thestring, ">", NULL);
 	g_free(thestring);
 
-	if (dg->range.len == -1) {
+	if (dg->range.end == -1) {
 		doc_insert_two_strings(dg->doc, finalstring, cap("</TR>"));
 	} else {
-		doc_replace_text(dg->doc, finalstring, dg->range.pos, dg->range.len);
+		doc_replace_text(dg->doc, finalstring, dg->range.pos, dg->range.end);
 	}
 	g_free(finalstring);
 	html_diag_destroy_cb(NULL, NULL, dg);
@@ -287,14 +287,14 @@ static void table_head_and_data_dialogok_lcb(gint type, GtkWidget * widget, Thtm
 	finalstring = g_strconcat(thestring, ">", NULL);
 	g_free(thestring);
 
-	if (dg->range.len == -1) {
+	if (dg->range.end == -1) {
 		if (type == 1) {
 			doc_insert_two_strings(dg->doc, finalstring, cap("</TD>"));
 		} else {
 			doc_insert_two_strings(dg->doc, finalstring, cap("</TH>"));
 		}
 	} else {
-		doc_replace_text(dg->doc, finalstring, dg->range.pos, dg->range.len);
+		doc_replace_text(dg->doc, finalstring, dg->range.pos, dg->range.end);
 	}
 	g_free(finalstring);
 	html_diag_destroy_cb(NULL, NULL, dg);

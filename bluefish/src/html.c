@@ -22,7 +22,7 @@
  */
 /* 
  * Changes by Antti-Juhani Kaijanaho <gaia@iki.fi> on 1999-10-20
- * $Id: html.c,v 1.1 2002-05-29 17:01:08 oli4 Exp $
+ * $Id: html.c,v 1.2 2002-05-30 09:13:37 oli4 Exp $
  */
 
  #include <gtk/gtk.h>
@@ -326,7 +326,7 @@ void insert_time_cb(GtkWidget * widget, gpointer data)
 	time_struct = localtime(&time_var);
 	DEBUG_MSG("insert_time_cb, timeinsert=%p\n", timeinsert);
 	timeinsert->dialog = window_full(_("Insert Time"), GTK_WIN_POS_MOUSE
-			, 5, insert_time_destroy_lcb, timeinsert);
+			, 5, G_CALLBACK(insert_time_destroy_lcb), timeinsert);
 	vbox = gtk_vbox_new(FALSE, 1);
 	gtk_container_add(GTK_CONTAINER(timeinsert->dialog), vbox);
 
@@ -495,10 +495,10 @@ static void quickanchorok_lcb(GtkWidget * widget, Thtml_diag * dg)
 	recent_attribs.targetlist = add_entry_to_stringlist(recent_attribs.targetlist, GTK_WIDGET(GTK_COMBO(dg->combo[1])->entry));
 	recent_attribs.classlist = add_entry_to_stringlist(recent_attribs.classlist, GTK_WIDGET(GTK_COMBO(dg->combo[3])->entry));
 
-	if (dg->range.len == -1) {
+	if (dg->range.end == -1) {
 		doc_insert_two_strings(dg->doc, finalstring, cap("</A>"));
 	} else {
-		doc_replace_text(dg->doc, finalstring, dg->range.pos, dg->range.len);
+		doc_replace_text(dg->doc, finalstring, dg->range.pos, dg->range.end);
 	}
 	g_free(finalstring);
 	html_diag_destroy_cb(NULL, NULL, dg);
@@ -674,10 +674,10 @@ static void block_tag_editok_lcb(gint type, Thtml_diag * dg) {
 
 	recent_attribs.classlist = add_entry_to_stringlist(recent_attribs.classlist, GTK_WIDGET(GTK_COMBO(dg->combo[2])->entry));
 
-	if (dg->range.len == -1) {
+	if (dg->range.end == -1) {
 		doc_insert_two_strings(dg->doc, finalstring, endstring);
 	} else {
-		doc_replace_text(dg->doc, finalstring, dg->range.pos, dg->range.len);
+		doc_replace_text(dg->doc, finalstring, dg->range.pos, dg->range.end);
 	}
 	g_free(endstring);
 	g_free(finalstring);
@@ -777,10 +777,9 @@ void block_tag_edit_cb(gint type, GtkWidget *widget, gpointer data)
 	dg->entry[1] = entry_with_text(tagvalues[2], 1024);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Style")), 0, 1, 2, 3);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[1], 1, 5, 2, 3);
-#ifdef NEW_CS3
+
 	but = style_but_new(dg->entry[1], dg->dialog);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), but, 5, 6, 2, 3);
-#endif /* #ifdef NEW_CS3 */
 
 	dg->entry[2] = entry_with_text(tagvalues[3], 1024);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Name")), 5, 6, 0, 1);
@@ -827,12 +826,32 @@ void block_tag_edit_cb(gint type, GtkWidget *widget, gpointer data)
 		g_free(custom);
 }
 
+void p_dialog(GtkWidget * widget, gpointer data) {
+	block_tag_edit_cb(1, widget,data);
+}
 void div_dialog(GtkWidget * widget, gpointer data) {
 	block_tag_edit_cb(2, widget,data);
 }
-
 void span_dialog(GtkWidget * widget, gpointer data) {
 	block_tag_edit_cb(3, widget,data);
+}
+void h1_dialog(GtkWidget * widget, gpointer data) {
+	block_tag_edit_cb(4, widget,data);
+}
+void h2_dialog(GtkWidget * widget, gpointer data) {
+	block_tag_edit_cb(5, widget,data);
+}
+void h3_dialog(GtkWidget * widget, gpointer data) {
+	block_tag_edit_cb(6, widget,data);
+}
+void h4_dialog(GtkWidget * widget, gpointer data) {
+	block_tag_edit_cb(7, widget,data);
+}
+void h5_dialog(GtkWidget * widget, gpointer data) {
+	block_tag_edit_cb(8, widget,data);
+}
+void h6_dialog(GtkWidget * widget, gpointer data) {
+	block_tag_edit_cb(9, widget,data);
 }
 
 static void quickruleok_lcb(GtkWidget * widget, Thtml_diag * dg)
@@ -848,10 +867,10 @@ static void quickruleok_lcb(GtkWidget * widget, Thtml_diag * dg)
 	finalstring = g_strdup_printf(main_v->props.xhtml == 1 ? "%s />" : "%s>", thestring);
 	g_free(thestring);
 
-	if (dg->range.len == -1) {
+	if (dg->range.end == -1) {
 		doc_insert_two_strings(dg->doc, finalstring, NULL);
 	} else {
-		doc_replace_text(dg->doc, finalstring, dg->range.pos, dg->range.len);
+		doc_replace_text(dg->doc, finalstring, dg->range.pos, dg->range.end);
 	}
 
 	g_free(finalstring);
@@ -1038,10 +1057,10 @@ static void bodyok_lcb(GtkWidget * widget, Thtml_diag *dg)
 	}
 	recent_attribs.classlist = add_entry_to_stringlist(recent_attribs.classlist, GTK_WIDGET(GTK_COMBO(dg->combo[6])->entry));
 
-	if (dg->range.len == -1) {
+	if (dg->range.end == -1) {
 		doc_insert_two_strings(dg->doc, finalstring, cap("</BODY>"));
 	} else {
-		doc_replace_text(dg->doc, finalstring, dg->range.pos, dg->range.len);
+		doc_replace_text(dg->doc, finalstring, dg->range.pos, dg->range.end);
 	}
 
 	g_free(finalstring);
@@ -1070,10 +1089,10 @@ void body_cb(GtkWidget * widget, gpointer data)
 		dg->entry[3] = entry_with_text(bodyvalues[6], 256);
 		gtk_table_attach_defaults(GTK_TABLE(dgtable[1]), dg->entry[3], 1, 9, 0, 1);
 		gtk_table_attach_defaults(GTK_TABLE(dgtable[1]), gtk_label_new(_("Style")), 0, 1, 0, 1);
-#ifdef NEW_CS3
+
 		stylebut = style_but_new(dg->entry[3], dg->dialog);
 		gtk_table_attach_defaults(GTK_TABLE(dgtable[1]), stylebut, 9, 10, 0, 1);
-#endif /* #ifdef NEW_CS3 */
+
 		dg->combo[6] = combo_with_popdown(bodyvalues[7], recent_attribs.classlist, 1);
 		gtk_table_attach_defaults(GTK_TABLE(dgtable[1]), dg->combo[6], 1, 10, 1, 2);
 		gtk_table_attach_defaults(GTK_TABLE(dgtable[1]), gtk_label_new(_("Class")), 0, 1, 1, 2);
@@ -1176,10 +1195,10 @@ static void metaok_lcb(GtkWidget * widget, Thtml_diag *dg)
 	}
 	g_free(thestring);
 
-	if (dg->range.len == -1) {
+	if (dg->range.end == -1) {
 		doc_insert_two_strings(dg->doc, finalstring, NULL);
 	} else {
-		doc_replace_text(dg->doc, finalstring, dg->range.pos, dg->range.len);
+		doc_replace_text(dg->doc, finalstring, dg->range.pos, dg->range.end);
 	}
 	g_free(finalstring);
 	html_diag_destroy_cb(NULL, NULL, dg);
@@ -1283,10 +1302,10 @@ static void generalfontdialog_lcb(gint type, GtkWidget * widget, Thtml_diag *dg)
 	finalstring = g_strconcat(thestring, ">", NULL);
 	g_free(thestring);
 
-	if (dg->range.len == -1) {
+	if (dg->range.end == -1) {
 		doc_insert_two_strings(dg->doc, finalstring, cap("</FONT>"));
 	} else {
-		doc_replace_text(dg->doc, finalstring, dg->range.pos, dg->range.len);
+		doc_replace_text(dg->doc, finalstring, dg->range.pos, dg->range.end);
 	}
 	g_free(finalstring);
 	html_diag_destroy_cb(NULL, NULL, dg);
@@ -1519,10 +1538,10 @@ static void framesetdialogok_lcb(GtkWidget * widget, Thtml_diag *dg) {
 		finalstring = tmpstr;
 	}
 
-	if (dg->range.len == -1) {
+	if (dg->range.end == -1) {
 		doc_insert_two_strings(dg->doc, finalstring, cap("\n</FRAMESET>"));
 	} else {
-		doc_replace_text(dg->doc, finalstring, dg->range.pos, dg->range.len);
+		doc_replace_text(dg->doc, finalstring, dg->range.pos, dg->range.end);
 	}
 	g_free(finalstring);
 	html_diag_destroy_cb(NULL, NULL, dg);
@@ -1551,7 +1570,7 @@ void framesetdialog_cb(GtkWidget * widget, gpointer data)
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Rows")), 0, 2, 1, 2);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[2], 2, 10, 1, 2);
 
-	if (dg->range.len == -1) {
+	if (dg->range.end == -1) {
 		dg->check[1] = gtk_check_button_new();
 		gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Add <frame> elements")), 0, 6, 2, 3);
 		gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->check[1], 6, 10, 2, 3);
@@ -1601,10 +1620,10 @@ static void framedialogok_lcb(GtkWidget * widget, Thtml_diag *dg) {
 	}
 	g_free(thestring);
 
-	if (dg->range.len == -1) {
+	if (dg->range.end == -1) {
 		doc_insert_two_strings(dg->doc, finalstring, NULL);
 	} else {
-		doc_replace_text(dg->doc, finalstring, dg->range.pos, dg->range.len);
+		doc_replace_text(dg->doc, finalstring, dg->range.pos, dg->range.end);
 	}
 	g_free(finalstring);
 	html_diag_destroy_cb(NULL, NULL, dg);
@@ -1766,10 +1785,10 @@ static void script_linkok_lcb(gint type, GtkWidget * widget,Thtml_diag *dg ) {
 	}
 	g_free(thestring);
 
-	if (dg->range.len == -1) {
+	if (dg->range.end == -1) {
 		doc_insert_two_strings(dg->doc, finalstring, endstring);
 	} else {
-		doc_replace_text(dg->doc, finalstring, dg->range.pos, dg->range.len);
+		doc_replace_text(dg->doc, finalstring, dg->range.pos, dg->range.end);
 	}
 	g_free(finalstring);
 	html_diag_destroy_cb(NULL, NULL, dg);

@@ -57,7 +57,7 @@ Thtml_diag *html_diag_new(gchar *title) {
 	gtk_container_add(GTK_CONTAINER(dg->dialog), dg->vbox);
 
 	dg->range.pos = -1;
-	dg->range.len = -1;
+	dg->range.end = -1;
 
 	gtk_widget_realize(dg->dialog);
 	dg->doc = main_v->current_document;
@@ -152,11 +152,11 @@ void fill_dialogvalues(gchar *dialogitems[], gchar *dialogvalues[]
 	if (data && !sending_widget) {
 		parse_html_for_dialogvalues(dialogitems, dialogvalues, custom, data);
 		diag->range.pos = data->pos;
-		diag->range.len = data->len;
+		diag->range.end = data->end;
 	} else {
 		DEBUG_MSG("fill_dialogvalues, no data, or a sending widget\n");
 		diag->range.pos = -1;
-		diag->range.len = -1;
+		diag->range.end = -1;
 	}
 }
 

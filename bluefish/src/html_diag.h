@@ -48,12 +48,12 @@ typedef struct {
 typedef struct {
 	GList *taglist;
 	gint pos;
-	gint len;
+	gint end;
 } Ttagpopup;
 
 typedef struct {
 	gint pos;
-	gint len;
+	gint end;
 } Treplacerange;
 
 /* the frame wizard uses dynamic widgets, this value should be lower 

@@ -230,28 +230,59 @@ typedef struct {
 static Ttoolbaritem tbi[] = {
 	{"quickstart...", quickstart_cb, NULL,100 , N_("QuickStart...")},
 	{"body...", body_cb, NULL, 101, N_("Body...")},
-	{"strong", general_html_cb, GINT_TO_POINTER(16), 102, N_("Strong")},
-	{"emphasis", general_html_cb, GINT_TO_POINTER(17), 103, N_("Emphasis")},
 	{"bold", general_html_cb, GINT_TO_POINTER(1), 102, N_("Bold")},
 	{"italic", general_html_cb, GINT_TO_POINTER(2), 103, N_("Italic")},
 	{"paragraph", general_html_cb, GINT_TO_POINTER(5), 106, N_("Paragraph")},
 	{"break", general_html_cb, GINT_TO_POINTER(6), 107, N_("Break")},
 	{"breakclear", general_html_cb, GINT_TO_POINTER(41), 108, N_("Break and clear")},
 	{"nbsp", general_html_cb, GINT_TO_POINTER(7), 110, N_("Non-breaking space")},
+	{"", NULL, NULL, 0, NULL}, /* spacing */
 	{"anchor...", quickanchor_cb, NULL,111 , N_("Anchor...")},
 	{"rule...", quickrule_cb, NULL, 112, N_("Rule...")},
-/*	{"", general_html_cb, GINT_TO_POINTER(), , N_("")},
-	{"", general_html_cb, GINT_TO_POINTER(), , N_("")},
-	{"", general_html_cb, GINT_TO_POINTER(), , N_("")},
-	{"", , NULL, , },
-	{"", , NULL, , },*/
-	{"", NULL, NULL, 0, NULL},
-	
+	{"center", general_html_cb, GINT_TO_POINTER(8), 114, N_("Center")},
+	{"rightjustify", general_html_cb, GINT_TO_POINTER(9), 115, N_("Right Justify")},
+	{"comment", general_html_cb, GINT_TO_POINTER(10),116 , N_("Comment")},
+	{"email...", email_cb, NULL, 117, N_("E-Mail...")},
+	{"font...",fontdialog_cb , NULL, 118, N_("Font...")},
+	{"basefont...", basefont_cb, NULL, 119, N_("Base Font Size...")},
+	{"", NULL, NULL, 0, NULL}, /* spacing */
+	{"fontsize+1", general_html_cb, GINT_TO_POINTER(11),120 , N_("Font Size +1")},
+	{"fontsize-1", general_html_cb, GINT_TO_POINTER(12), 121, N_("Font Size -1")},
+	{"preformatted", general_html_cb, GINT_TO_POINTER(13), 122, N_("Preformatted Text")},
+	{"subscript", general_html_cb, GINT_TO_POINTER(14), 123, N_("Subscript")},
+	{"superscript", general_html_cb, GINT_TO_POINTER(15), 124, N_("Superscript")},
+	{"strong", general_html_cb, GINT_TO_POINTER(16), 102, N_("Strong")},
+	{"emphasis", general_html_cb, GINT_TO_POINTER(17), 103, N_("Emphasis")},
+	{"", NULL, NULL, 0, NULL}, /* spacing */
+	{"heading1", general_html_cb, GINT_TO_POINTER(18), 127, N_("Heading 1")},
+	{"heading2", general_html_cb, GINT_TO_POINTER(19), 128, N_("Heading 2")},
+	{"heading3", general_html_cb, GINT_TO_POINTER(20), 129, N_("Heading 3")},
+	{"heading4", general_html_cb, GINT_TO_POINTER(21), 130, N_("Heading 4")},
+	{"heading5", general_html_cb, GINT_TO_POINTER(22), 131, N_("Heading 5")},
+	{"heading6", general_html_cb, GINT_TO_POINTER(23), 132, N_("Heading 6")},
+	{"", NULL, NULL, 0, NULL}, /* spacing */
 	{"table...",tabledialog_cb, NULL, 134, N_("Table...")},
 	{"tablerow...", tablerowdialog_cb, NULL, 135, N_("Table Row...")},
 	{"tableheader...", tableheaddialog_cb, NULL, 136, N_("Table Header...")},
 	{"tabledata...", tabledatadialog_cb, NULL, 137, N_("Table Data...")},
-	{"", NULL, NULL, 0, NULL} /* spacing */
+	{"", NULL, NULL, 0, NULL}, /* spacing */
+	{"table", general_html_cb, GINT_TO_POINTER(24), 138, N_("Table")},
+	{"tablerow", general_html_cb, GINT_TO_POINTER(25), 139, N_("Table Row")},
+	{"tableheader", general_html_cb, GINT_TO_POINTER(26), 140, N_("Table Header")},
+	{"tabledata", general_html_cb, GINT_TO_POINTER(27), 141, N_("Table Data")},
+	{"tablecaption", general_html_cb, GINT_TO_POINTER(28), 142, N_("Table Caption")},
+	{"", NULL, NULL, 0, NULL}, /* spacing */
+/*	{"", , NULL, , N_("")},
+	{"", general_html_cb, GINT_TO_POINTER(), , N_("")},
+	{"", general_html_cb, GINT_TO_POINTER(), , N_("")},
+	{"", , NULL, , N_("")},
+	{"", , NULL, , N_("")},
+	{"", , NULL, , N_("")},
+	{"", general_html_cb, GINT_TO_POINTER(), , N_("")},
+	{"", general_html_cb, GINT_TO_POINTER(), , N_("")},
+	{"", , NULL, , },
+	{"", , NULL, , },
+	{"", NULL, NULL, 0, NULL},*/
 };
 
 static void html_toolbar_remove_from_quickbar_lcb(GtkMenuItem *menuitem, Ttoolbaritem *tbitem) {
@@ -376,11 +407,15 @@ void make_html_toolbar(GtkWidget *handlebox) {
 	gtk_notebook_append_page(GTK_NOTEBOOK(html_notebook), toolbarwidgets.html_toolbar_quickbar, gtk_label_new(_(" Quick bar ")));
 
 	html_toolbar = gtk_toolbar_new();
-	html_toolbar_add_items(html_toolbar, tbi, 0, 10);
+	html_toolbar_add_items(html_toolbar, tbi, 0, 14);
 	gtk_notebook_append_page(GTK_NOTEBOOK(html_notebook), html_toolbar, gtk_label_new(_(" Standard bar ")));
 
 	html_toolbar = gtk_toolbar_new();
-	html_toolbar_add_items(html_toolbar, tbi, 12, 18);
+	html_toolbar_add_items(html_toolbar, tbi, 15, 32);
+	gtk_notebook_append_page(GTK_NOTEBOOK(html_notebook), html_toolbar, gtk_label_new(_(" Fonts ")));
+
+	html_toolbar = gtk_toolbar_new();
+	html_toolbar_add_items(html_toolbar, tbi, 32, 42);
 	gtk_notebook_append_page(GTK_NOTEBOOK(html_notebook), html_toolbar, gtk_label_new(_(" Tables ")));
 
 	gtk_widget_show_all(html_notebook);
