@@ -278,6 +278,9 @@ void project_edit(Tbfwin *bfwin) {
 		pred->project_created_by_editor = TRUE;
 	} else {
 		pred->project_created_by_editor = FALSE;
+		if (bfwin) {
+			pred->project = bfwin->project;
+		}
 	}
 	DEBUG_MSG("project_edit, Tproject at %p\n",bfwin->project);
 	pred->bfwin = bfwin;

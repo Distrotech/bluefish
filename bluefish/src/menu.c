@@ -1210,10 +1210,19 @@ static void view_in_browser(Tbfwin *bfwin, gchar *browser) {
 		gchar *command;
 		table = tmpt = g_new(Tconvert_table, 2);
 		tmpt->my_int = 's';
-		tmpt->my_char = bfwin->current_document->filename;
+		if (bfwin->project && bfwin->project->webdir 
+				&& bfwin->project->basedir && strlen(bfwin->project->webdir)>2
+				&& strlen(bfwin->project->basedir)>2 
+				&& strncmp(bfwin->current_document->filename, bfwin->project->basedir, strlen(bfwin->project->basedir))==0
+				) {
+			tmpt->my_char = g_strconcat(bfwin->project->webdir, &bfwin->current_document->filename[strlen(bfwin->project->basedir)], NULL);
+		} else {
+			tmpt->my_char = g_strdup(bfwin->current_document->filename);
+		}
 		tmpt++;
 		tmpt->my_char = NULL;
 		command = replace_string_printflike(browser, table);
+		g_free(table->my_char);
 		g_free(table);
 		DEBUG_MSG("view_in_browser, should start %s now\n", command);
 		system(command);
