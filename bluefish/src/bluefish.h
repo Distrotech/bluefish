@@ -155,7 +155,7 @@ typedef struct {
 	gchar *backup_abort_style; /* if the backup fails, continue 'save', 'abort' save, or 'ask' user */
 	gchar *image_thumbnailstring;	/* string to append to thumbnail filenames */
 	gchar *image_thumbnailtype;	/* fileformat to use for thumbnails, "jpeg" or "png" can be handled by gdkpixbuf*/
-	gint image_thumbnailsizing_type;	/* fixed width=0, height=1, scaling ratio=2, width+height (discard aspect ratio)=3 */
+	gint image_thumbnailsizing_type;	/* scaling ratio=0, fixed width=1, height=2, width+height (discard aspect ratio)=3 */
 	gint image_thumbnailsizing_val1;	/* the width, height or ratio, depending on the value above */
 	gint image_thumbnailsizing_val2; /* height if the type=3 */
 	gchar *image_thumnailformatstring; /* like <a href="%r"><img src="%t"></a> or more advanced */
