@@ -2,7 +2,7 @@
 #include <string.h>
 #include <gdk/gdkkeysyms.h>
 
-#define DEBUG
+/* #define DEBUG */
 
 #include "fref.h"
 #include "rcfile.h" /* array_from_arglist() */
@@ -499,17 +499,37 @@ void fref_free_info(FRInfo * info)
 /* END OF CONFIG PARSER */
 
 /* GUI */
+static void fill_toplevels(gboolean empty_first) {
+	GList *reflist;
+	
+	if (empty_first) {
+		gtk_tree_store_clear(fref_data.store);
+	}
+	/* prepare first nodes - read from configuration data */
+	reflist = g_list_first(main_v->props.reference_files);
+	while (reflist) {
+		gchar **tmparray = reflist->data;
+		if (count_array(tmparray) == 2) {
+			if (file_exists_and_readable(tmparray[1])) {
+				GtkTreeIter iter;
+				GtkTreeIter iter2;
+				gtk_tree_store_append(fref_data.store, &iter, NULL);
+				gtk_tree_store_set(fref_data.store, &iter, STR_COLUMN,
+							   tmparray[0], PTR_COLUMN, NULL, FILE_COLUMN,
+							   tmparray[1], -1);
+				/* dummy node for expander display */
+				gtk_tree_store_append(fref_data.store, &iter2, &iter);
+			}
+		}
+		reflist = g_list_next(reflist);
+	}
+}
 
 GtkWidget *fref_init()
 {
 	GtkWidget *scroll;
 	GtkCellRenderer *cell;
 	GtkTreeViewColumn *column;
-	GList *reflist;
-	GtkTreeIter iter;
-	GtkTreeIter iter2;
-	gchar **tmparray;
-
 	scroll = gtk_scrolled_window_new(NULL, NULL);
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scroll), GTK_POLICY_AUTOMATIC,GTK_POLICY_AUTOMATIC);
 	fref_data.store =
@@ -527,22 +547,7 @@ GtkWidget *fref_init()
 	gtk_container_add(GTK_CONTAINER(scroll), fref_data.tree);
 	gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(fref_data.tree), FALSE);	
 
-	/* prepare first nodes - read from configuration data */
-	reflist = g_list_first(main_v->props.reference_files);
-	while (reflist) {
-		tmparray = reflist->data;
-		if (count_array(tmparray) == 2) {
-			if (file_exists_and_readable(tmparray[1])) {
-				gtk_tree_store_append(fref_data.store, &iter, NULL);
-				gtk_tree_store_set(fref_data.store, &iter, STR_COLUMN,
-							   tmparray[0], PTR_COLUMN, NULL, FILE_COLUMN,
-							   tmparray[1], -1);
-				/* dummy node for expander display */
-				gtk_tree_store_append(fref_data.store, &iter2, &iter);
-			}
-		}
-		reflist = g_list_next(reflist);
-	}
+	fill_toplevels(FALSE);
 
 	/* autocompletion */
 	fref_data.autocomplete = g_completion_new(NULL);
@@ -1217,8 +1222,16 @@ static void fref_popup_menu_insert(GtkWidget *widget, FRInfo *entry) {
 static void fref_popup_menu_info(GtkWidget *widget, FRInfo *entry) {
 	g_print("info not yet implemented\n");
 }
-static void testfunc(GtkWidget *widget,gpointer user_data) {
-	DEBUG_MSG("testfunc called\n");
+
+
+static void fref_popup_menu_rescan_lcb(GtkWidget *widget,gpointer user_data) {
+	gchar *userdir = g_strconcat(g_get_home_dir(), "/.bluefish/", NULL);
+	DEBUG_MSG("fref_popup_menu_rescan_lcb, started\n");
+	fref_rescan_dir(PKGDATADIR);
+	fref_rescan_dir(userdir);
+	g_free(userdir);
+	DEBUG_MSG("about to refill toplevels\n");
+	fill_toplevels(TRUE);
 }
 static GtkWidget *fref_popup_menu(FRInfo *entry) {
 	GtkWidget *menu, *menu_item;
@@ -1245,6 +1258,7 @@ static GtkWidget *fref_popup_menu(FRInfo *entry) {
 		optionsmenu = gtk_menu_new();
 		gtk_menu_item_set_submenu(GTK_MENU_ITEM(menu_item), optionsmenu);
 		menu_item = gtk_menu_item_new_with_label(_("Rescan reference files"));
+		g_signal_connect(GTK_OBJECT(menu_item), "activate", G_CALLBACK(fref_popup_menu_rescan_lcb), NULL);
 		gtk_menu_append(GTK_MENU(optionsmenu), menu_item);
 		menu_item = gtk_menu_item_new_with_label(_("Left doubleclick action"));
 		gtk_menu_append(GTK_MENU(optionsmenu), menu_item);
@@ -1261,7 +1275,7 @@ static GtkWidget *fref_popup_menu(FRInfo *entry) {
 
 		}
 	gtk_widget_show_all(menu);
-	g_signal_connect(G_OBJECT(menu), "hide", G_CALLBACK(destroy_disposable_menu_hide_cb), menu);
+	g_signal_connect_after(G_OBJECT(menu), "hide", G_CALLBACK(destroy_disposable_menu_hide_cb), menu);
 	return menu;
 }
 
@@ -1573,6 +1587,7 @@ void fref_rescan_dir(const gchar *dir) {
 	while (filename) {
 		if (g_pattern_match(ps, strlen(filename), filename, NULL)) {
 			gchar *path = g_strconcat(dir, filename, NULL);
+			DEBUG_MSG("filename %s has a match!\n",filename);
 			if (!reference_file_known(path)) {
 				main_v->props.reference_files = g_list_append(main_v->props.reference_files, array_from_arglist(g_strdup(filename),path,NULL));
 			}
