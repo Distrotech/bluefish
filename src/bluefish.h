@@ -241,6 +241,7 @@ typedef struct {
 	GList *files;
 	gchar *basedir;
 	gchar *webdir;
+	gpointer editor;
 } Tproject;
 
 typedef struct {
