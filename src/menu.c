@@ -698,8 +698,14 @@ static void browser_lcb(GtkWidget *widget, gchar *name) {
 		while (tmplist) {
 			gchar **arr = tmplist->data;
 			if (strcmp(name, arr[0])==0) {
+				Tconvert_table *table[2];
 				gchar *command;
-				command = g_strdup_printf(arr[1], main_v->current_document->filename);
+				table[0] = g_new(Tconvert_table, 1);
+				table[0]->my_int = 's';
+				table[0]->my_char = main_v->current_document->filename;
+				table[1] = NULL;
+				command = replace_string_printflike(arr[1], table[0]);
+				g_free(table[0]);
 				DEBUG_MSG("browser_lcb, should start %s now\n", command);
 				system(command);
 				g_free(command);
@@ -774,7 +780,7 @@ Tcust_con_struc->array[7] = number of variables from the dialog
 Tcust_con_struc->array[8..] = the description of those variables
 */
 
-
+/* THIS FUNCTION SHOULD BE REMOVED, BF_LIB NOW CONTAINS MULTI-FUNCTIONAL FUNCTIONS */
 static gchar *replace_with(gchar numc, gchar **array) {
 	gint numi, i;
 
@@ -789,6 +795,7 @@ static gchar *replace_with(gchar numc, gchar **array) {
 	return NULL;
 }
 
+/* THIS FUNCTION SHOULD BE REMOVED, BF_LIB NOW CONTAINS MULTI-FUNCTIONAL FUNCTIONS */
 
 static gchar *replace_string(gchar *in_string, gchar **array) {
 	gchar *tmp3;
