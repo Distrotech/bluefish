@@ -160,8 +160,8 @@ void formdialog_dialog(Tbfwin *bfwin, Ttagpopup *data) {
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->combo[4], 1, 8, 0, 1);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), file_but_new(GTK_WIDGET(GTK_COMBO(dg->combo[4])->entry), 0, bfwin), 8, 10, 0, 1);
 	
-	methodlist = g_list_append(methodlist, "GET");
-	methodlist = g_list_append(methodlist, "POST");
+	methodlist = g_list_append(methodlist, cap("GET"));
+	methodlist = g_list_append(methodlist, cap("POST"));
 	dg->combo[1] = combo_with_popdown(tagvalues[1], methodlist, 1);
 	g_list_free(methodlist);
 	bf_mnemonic_label_tad_with_alignment(_("Metho_d:"), dg->combo[1], 0, 0.5, dgtable, 0, 1, 1, 2);
