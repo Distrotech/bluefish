@@ -181,7 +181,7 @@ Thanks to all who helped making this software available.\n\
    <lopopizarro@netcabo.pt>\n\n\
   Russian - Eugene Rupakov\n\
    <rupakov@jet.msk.ru>\n\n\
-  Serbian - Marko Milenovic\n\
+  Serbian - Marko Milenović\n\
    <raven@sbb.co.yu>\n\n\
   Spanish - Walter Oscar Echarri\n\
    <wecharri@infovia.com.ar>\n\n\
