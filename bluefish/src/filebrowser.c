@@ -18,7 +18,6 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 /* #define DEBUG */
-/*#define DEBUG_ADDING_TO_TREE*/
 
 #include <gtk/gtk.h>
 #include <sys/types.h> /* stat() getuid */
@@ -402,21 +401,26 @@ static GtkTreePath *return_path_from_filename(Tfilebrowser *filebrowser,gchar *t
 }
 
 static int comparefunc(GtkTreeModel *store, gchar *name, GtkTreeIter *iter, const gchar *text, gint type) {
-	gboolean has_child = gtk_tree_model_iter_has_child(GTK_TREE_MODEL(store), iter);
 #ifdef DEBUG_SORTING
 	DEBUG_MSG("comparefunc, comparing %s and %s\n", name, text);
 #endif
-	if (type == TYPE_DIR) {
-		if (has_child) {
-			return strcmp(name, text);
-		} else {
-			return 1;
-		}
+	if (main_v->props.filebrowser_two_pane_view) {
+		return strcmp(name, text);
 	} else {
-		if (has_child) {		
-			return -1;
+		gboolean iter_is_dir;
+		iter_is_dir = gtk_tree_model_iter_has_child(GTK_TREE_MODEL(store), iter);
+		if (type == TYPE_DIR) {
+			if (iter_is_dir) {
+				return strcmp(name, text);
+			} else {
+				return 1;
+			}
 		} else {
-			return strcmp(name, text);
+			if (iter_is_dir) {		
+				return -1;
+			} else {
+				return strcmp(name, text);
+			}
 		}
 	}
 }
@@ -499,10 +503,10 @@ static GtkTreeIter add_tree_item(GtkTreeIter *parent, Tfilebrowser *filebrowser,
 
 	if (type == TYPE_FILE && main_v->props.filebrowser_two_pane_view && parent==NULL) {
 		if (get_iter_at_correct_position(GTK_TREE_MODEL(filebrowser->store2),parent,&iter2,text,type)) {
-			DEBUG_MSG("add_tree_item, inserting\n");
+			DEBUG_MSG("add_tree_item, inserting %s in store2\n", text);
 			gtk_list_store_insert_before(GTK_LIST_STORE(filebrowser->store2),&iter1,&iter2);
 		} else {
-			DEBUG_MSG("add_tree_item, appending\n");
+			DEBUG_MSG("add_tree_item, appending %s in store2\n", text);
 			gtk_list_store_append(GTK_LIST_STORE(filebrowser->store2),&iter1);
 		}
 		gtk_list_store_set(GTK_LIST_STORE(filebrowser->store2),&iter1,
@@ -512,12 +516,12 @@ static GtkTreeIter add_tree_item(GtkTreeIter *parent, Tfilebrowser *filebrowser,
 	} else {
 		if (get_iter_at_correct_position(GTK_TREE_MODEL(filebrowser->store),parent,&iter2,text,type)) {
 	#ifdef DEBUG
-			DEBUG_MSG("add_tree_item, inserting %s!\n", text);
+			DEBUG_MSG("add_tree_item, inserting %s in store1\n", text);
 	#endif
 			gtk_tree_store_insert_before(GTK_TREE_STORE(filebrowser->store),&iter1,parent,&iter2);
 		} else {
 	#ifdef DEBUG
-			DEBUG_MSG("add_tree_item, appending %s!\n", text);
+			DEBUG_MSG("add_tree_item, appending %s in store1\n", text);
 	#endif
 			gtk_tree_store_append(GTK_TREE_STORE(filebrowser->store), &iter1, parent);
 		}
@@ -1370,7 +1374,7 @@ static gboolean filebrowser_button_press_lcb(GtkWidget *widget, GdkEventButton *
 		GtkTreePath *path;
 		/* path = filebrowser_get_path_from_selection(GTK_TREE_MODEL(filebrowser->store), GTK_TREE_VIEW(filebrowser->tree),NULL);*/
 		gtk_tree_view_get_path_at_pos(GTK_TREE_VIEW(filebrowser->tree), event->x, event->y, &path, NULL, NULL, NULL);
-		DEBUG_MSG("filebrowser_button_press_lcb, path for position x=%d,y=%d is %p\n",event->x, event->y, path);
+		DEBUG_MSG("filebrowser_button_press_lcb, path for position x=%f,y=%f is %p\n",event->x, event->y, path);
 		if (path) {
 			/* now we have two things: for the two paned, we know it is a directory, so we should refresh it, for the 
 			one paned we need to know if it is a directory or a file and handle appropriately */
@@ -1553,7 +1557,7 @@ void filebrowser_set_basedir(Tbfwin *bfwin, const gchar *basedir) {
 	}
 }
 
-static filebrowser_two_pane_notify_position_lcb(GObject *object,GParamSpec *pspec,gpointer data){
+static void filebrowser_two_pane_notify_position_lcb(GObject *object,GParamSpec *pspec,gpointer data){
 	gint position;
 	g_object_get(object, pspec->name, &position, NULL);
 	if (main_v->props.restore_dimensions) {
