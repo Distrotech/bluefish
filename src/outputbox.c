@@ -1,5 +1,5 @@
 /* Bluefish HTML Editor
- * foutput_box.c the output box
+ * output_box.c the output box
  *
  * Copyright (C) 2002 Olivier Sessink
  *
@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-/*#define DEBUG*/
+/* #define DEBUG */
 
 #include <gtk/gtk.h>
 #include <sys/types.h>
@@ -61,6 +61,7 @@ static void ob_lview_row_activated_lcb(GtkTreeView *tree, GtkTreePath *path,GtkT
 	gint lineval;
 	gtk_tree_model_get_iter(GTK_TREE_MODEL(ob.lstore),&iter,path);
 	gtk_tree_model_get(GTK_TREE_MODEL(ob.lstore), &iter, 0,&file,1,&line, -1);
+	DEBUG_MSG("ob_lview_row_activated_lcb, file=%s, line=%s\n",file,line);
 	if (file && strlen(file)) {
 		doc_new_with_file(file,FALSE);
 	}
@@ -145,12 +146,11 @@ static void fill_output_box(GList *source) {
 				output=g_strndup(&string[ob.def->pmatch[ob.def->output_subpat].rm_so], ob.def->pmatch[ob.def->output_subpat].rm_eo - ob.def->pmatch[ob.def->output_subpat].rm_so);
 			}
 			if (filename) {
-				gchar *fullpath, *curdir;
-				curdir = g_get_current_dir();
-				fullpath = create_full_path(filename, curdir);
+				gchar *fullpath;
+				/* create_full_path uses the current directory of no basedir is set */
+				fullpath = create_full_path(filename, NULL);
 				gtk_list_store_set(GTK_LIST_STORE(ob.lstore), &iter,0,fullpath,-1);
 				g_free(filename);
-				g_free(curdir);
 				g_free(fullpath);
 			}
 			if (line) {
@@ -188,6 +188,7 @@ static GList *run_command() {
 	tmpfile = create_secure_dir_return_filename();
 	command2 = g_strconcat(command1, " > ", tmpfile, " 2>&1", NULL);
 	DEBUG_MSG("run_command, should run %s now\n", command2);
+	change_dir(main_v->current_document->filename);
 	system(command2);
 	retlist = get_stringlist(tmpfile, NULL);
 	remove_secure_dir_and_filename(tmpfile);

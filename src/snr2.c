@@ -837,18 +837,13 @@ replacetype_upcase = 0
 replacetype_lowcase = 0
 */
 void snr2_run_extern_replace(gchar *pattern, gint region,
-							gint matchtype, gint is_case_sens, gchar *replace_string) {
+							gint matchtype, gint is_case_sens, gchar *replace_string,
+							gboolean store_as_last_snr2) {
+	gchar *pattern_bck = last_snr2.pattern, *replace_string_bck = last_snr2.pattern;
+	Tlast_snr2 last_snr2_bck = last_snr2;
 	if (!pattern || !replace_string || !strlen(pattern)) {
 		DEBUG_MSG("snr2_run_extern, returning, non-valid arguments\n");
 		return;
-	}
-	if (last_snr2.pattern) {
-		g_free(last_snr2.pattern);
-		last_snr2.pattern = NULL;
-	}
-	if (last_snr2.replace_string) {
-		g_free(last_snr2.replace_string);
-		last_snr2.replace_string = NULL;
 	}
 	last_snr2.pattern = g_strdup(pattern);
 	last_snr2.region_from_beginning = region == 0 ? 1: 0;
@@ -867,6 +862,14 @@ void snr2_run_extern_replace(gchar *pattern, gint region,
 	last_snr2.replacetype_lowcase = 0;
 
 	snr2_run();
+	if (store_as_last_snr2) {
+		g_free(pattern_bck);
+		g_free(replace_string_bck);
+	} else {
+		g_free(last_snr2.pattern);
+		g_free(last_snr2.replace_string);
+		last_snr2 = last_snr2_bck;
+	}
 }
 
 Tsearch_result doc_search_run_extern(gchar *pattern, gint matchtype, gint is_case_sens) {
@@ -1206,6 +1209,8 @@ void update_filenames_in_file(Tdocument *doc, gchar *oldfilename, gchar *newfile
 
 void update_encoding_meta_in_file(Tdocument *doc, gchar *encoding) {
 	if (encoding) {
+		Tlast_snr2 last_snr2_bck = last_snr2;
+		gchar *last_pattern_bck = g_strdup(last_snr2.pattern);
 		gchar *pattern, *fulltext;
 		Tsearch_result result;
 		/* first find if there is a meta encoding tag already */
@@ -1232,6 +1237,9 @@ void update_encoding_meta_in_file(Tdocument *doc, gchar *encoding) {
 			}
 		}
 		g_free(fulltext);
+		g_free(last_snr2.pattern);
+		last_snr2 = last_snr2_bck;
+		last_snr2.pattern = last_pattern_bck;
 	}
 }
 

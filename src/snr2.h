@@ -42,7 +42,8 @@ void cut_cb(GtkWidget * w, gpointer data);
 void sel_all_cb(GtkWidget * w, gpointer data);
 
 void snr2_run_extern_replace(gchar *pattern, gint region,
-							gint is_regex, gint is_case_sens, gchar *replace_string);
+							gint matchtype, gint is_case_sens, gchar *replace_string,
+							gboolean store_as_last_snr2);
 Tsearch_result doc_search_run_extern(gchar *pattern, gint matchtype, gint is_case_sens);
 
 void search_cb(GtkWidget *widget, gpointer data);
