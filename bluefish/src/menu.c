@@ -1014,7 +1014,7 @@ void external_menu_rebuild() {
 		}
 #ifdef DEBUG
 		else {
-			DEBUG_MSG("need count=2 for browser menu!\n");
+			DEBUG_MSG("need count=2 for browser menu! %p has count %d\n", arr, count_array(arr));
 		}
 #endif
 		tmplist = g_list_next(tmplist);
