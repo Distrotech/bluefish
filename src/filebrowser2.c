@@ -301,7 +301,7 @@ static void fb2_treestore_mark_children_refresh1(GtkTreeStore *tstore, GtkTreeIt
 static void fb2_load_directory_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSResult result,GList *list,guint entries_read,gpointer data) {
 	GList *tmplist;
 	Tdirectoryloaddata *cdata = data;
-	DEBUG_MSG("fb2_load_directory_lcb, appending %d childs to ",entries_read);
+	DEBUG_MSG("fb2_load_directory_lcb, result=%d, appending %d childs to ",result,entries_read);
 	DEBUG_URI(cdata->p_uri, TRUE);
 	tmplist = g_list_first(list);
 	while (tmplist) {
@@ -322,12 +322,12 @@ static void fb2_load_directory_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSResult re
 		}
 		tmplist = g_list_next(tmplist);
 	}
-	if (result == GNOME_VFS_ERROR_EOF) {
-		DEBUG_MSG("fb2_load_directory_lcb, EOF, list=%p\n",list);
+	if (result == GNOME_VFS_ERROR_EOF || result == GNOME_VFS_ERROR_NOT_FOUND) {
+		DEBUG_MSG("fb2_load_directory_lcb, cleanup!\n");
 		fb2_treestore_delete_children_refresh1(FILEBROWSER2CONFIG(main_v->fb2config)->filesystem_tstore, cdata->parent);
 		FILEBROWSER2CONFIG(main_v->fb2config)->uri_in_refresh = g_list_remove(FILEBROWSER2CONFIG(main_v->fb2config)->uri_in_refresh, cdata->p_uri);
 		g_free(cdata);
-	}
+	} 
 }
 
 /**
