@@ -43,6 +43,7 @@ typedef TcheckNsave_return (* CheckNsaveAsyncCallback) (TcheckNsave_status,gint 
 void file_checkNsave_uri_async(GnomeVFSURI *uri, GnomeVFSFileInfo *info, Trefcpointer *buffer, GnomeVFSFileSize buffer_size, gboolean check_modified, CheckNsaveAsyncCallback callback_func, gpointer callback_data);
 void file_doc_fill_fileinfo(Tdocument *doc, GnomeVFSURI *uri);
 void file_doc_retry_uri(Tdocument *doc);
+void file_doc_fill_from_uri(Tdocument *doc, GnomeVFSURI *uri, GnomeVFSFileInfo *finfo, gint goto_line);
 void file_doc_from_uri(Tbfwin *bfwin, GnomeVFSURI *uri, GnomeVFSFileInfo *finfo, gint goto_line);
 void file_docs_from_uris(Tbfwin *bfwin, GSList *urislist);
 void open_advanced(Tbfwin *bfwin, GnomeVFSURI *basedir, gboolean recursive, gchar *extension_filter, gchar *content_filter, gboolean use_regex);

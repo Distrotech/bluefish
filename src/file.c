@@ -510,6 +510,20 @@ void file_doc_retry_uri(Tdocument *doc) {
 	file_openfile_uri_async(f2d->uri,file2doc_lcb,f2d);
 }
 
+void file_doc_fill_from_uri(Tdocument *doc, GnomeVFSURI *uri, GnomeVFSFileInfo *finfo, gint goto_line) {
+	Tfile2doc *f2d;
+	f2d = g_new(Tfile2doc,1);
+	f2d->bfwin = doc->bfwin;
+	f2d->uri = gnome_vfs_uri_ref(uri);
+	f2d->doc = doc;
+	f2d->doc->action.load = f2d;
+	f2d->doc->action.goto_line = goto_line;
+	if (finfo == NULL) {
+		file_doc_fill_fileinfo(f2d->doc, uri);
+	}
+	file_openfile_uri_async(f2d->uri,file2doc_lcb,f2d);
+}
+
 void file_doc_from_uri(Tbfwin *bfwin, GnomeVFSURI *uri, GnomeVFSFileInfo *finfo, gint goto_line) {
 	Tfile2doc *f2d;
 	gchar *curi;

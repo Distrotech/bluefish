@@ -52,6 +52,7 @@
 #include "project.h"
 #include "authen.h" /* set_authen_callbacks() */
 #include "filebrowser2.h"
+#include "file_dialogs.h"
 
 /*********************************************/
 /* this var is global for all bluefish files */
