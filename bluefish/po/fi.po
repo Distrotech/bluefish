@@ -5,14 +5,14 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: bluefish gtk2-port\n"
-"POT-Creation-Date: 2004-03-29 14:55+0200\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-04-01 11:55-0300\n"
 "PO-Revision-Date: 2003-12-06 14:24+0100\n"
 "Last-Translator: Juho Roukala <j.mr@luukku.com>\n"
 "Language-Team: Not a memeber <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Report-Msgid-Bugs-To: \n"
 
 #: ../src/about.c:123
 msgid ""
@@ -114,7 +114,6 @@ msgstr ""
 "Kiitos kaikille, jotka auttoivat tekemään tätä ohjelmaa.\n"
 
 #: ../src/about.c:161
-#, fuzzy
 msgid ""
 "Current translators:\n"
 "\n"
@@ -175,6 +174,9 @@ msgstr ""
 "  Brasilian Portugali - Anderson Rocha\n"
 "   <anderson@maxlinux.com.br>\n"
 "\n"
+"  Bulgaria - Peio Popov\n"
+"   <peio@peio.org>\n"
+"\n"
 "  Espanja - Walter Oscar Echarri\n"
 "   <wecharri@infovia.com.ar>\n"
 "\n"
@@ -183,6 +185,9 @@ msgstr ""
 "\n"
 "  Kiina - Ting Yang (Dormouse)\n"
 "   <mouselinux@163.com>\n"
+"\n"
+"  Norja - Christian Tellefsen\n"
+"   <chris@tellefsen.net>\n"
 "\n"
 "  Portugali - Lopo Pizarro\n"
 "   <lopopizarro@netcabo.pt>\n"
@@ -215,7 +220,7 @@ msgstr ""
 "   <sasek@ccsystem.hu>\n"
 "\n"
 "  Venäjä - Eugene Rupakov\n"
-"   <rupakov@jet.msk.ru>\n"
+"   <rupakov@jet.msk.su>\n"
 "\n"
 
 #: ../src/about.c:198
@@ -263,6 +268,8 @@ msgid ""
 "Bluefish has trouble reading the filenames. Try to set the environment "
 "variable G_BROKEN_FILENAMES=1\n"
 msgstr ""
+"Bluefish ei voi ongelmitta lukea tiedostonimiä. Yritä asettaa ympäristö- "
+"muuttuja G_BROKEN_FILENAMES=1\n"
 
 #: ../src/bfspell.c:346
 msgid "Check Spelling"
@@ -430,7 +437,7 @@ msgid "This bookmark is set in a file that no longer exists."
 msgstr "Tämä kirjanmerkki on asetettu tiedostoon jota ei ole enää olemassa."
 
 #: ../src/bookmark.c:443
-#, fuzzy, c-format
+#, c-format
 msgid "Do you really want to delete %s?"
 msgstr "Haluatko varmasti poistaa %s?"
 
@@ -439,47 +446,40 @@ msgid "Delete permanent bookmark."
 msgstr "Poista pysyvä kirjanmerkki."
 
 #: ../src/bookmark.c:462
-#, fuzzy
 msgid "Edit bookmark"
-msgstr "Siirry kirjanmerkkiin"
+msgstr "Muokkaa kirjanmerkkiä"
 
 #: ../src/bookmark.c:470
 msgid "Goto bookmark"
 msgstr "Siirry kirjanmerkkiin"
 
 #: ../src/bookmark.c:478
-#, fuzzy
 msgid "Edit"
-msgstr "/_Muokkaa"
+msgstr "Muokkaa"
 
 #: ../src/bookmark.c:482
 msgid "Delete"
 msgstr "Poista"
 
 #: ../src/bookmark.c:904 ../src/bookmark.c:939 ../src/document.c:1987
-#, fuzzy
 msgid "Add bookmark"
-msgstr "Siirry kirjanmerkkiin"
+msgstr "Lisää kirjanmerkki"
 
 #: ../src/bookmark.c:905
-#, fuzzy
 msgid "Cannot add bookmarks in unnamed files."
-msgstr ""
-"Nimettömiin tiedostoihin ei voi lisätä kirjanmerkkejä.\n"
-"Tallenna tiedosto ensin."
+msgstr "Nimettömiin tiedostoihin ei voi lisätä kirjanmerkkejä."
 
 #: ../src/bookmark.c:940
 msgid "You already have a bookmark here!"
 msgstr "Sinulla on jo tässä kirjanmerkki!"
 
 #: ../src/bookmark.c:945
-#, fuzzy
 msgid "default"
-msgstr "_Aseta oletus"
+msgstr "oletus"
 
 #: ../src/bookmark.c:975
 msgid "temp"
-msgstr ""
+msgstr "väliaikainen"
 
 #: ../src/bookmark.c:1043
 #, c-format
@@ -491,7 +491,6 @@ msgstr ""
 " %s."
 
 #: ../src/bookmark.c:1045
-#, fuzzy
 msgid "Bookmarks positions could be incorrect."
 msgstr "Kirjanmerkkien sijainnit saattavat olla vääriä."
 
@@ -1577,6 +1576,55 @@ msgstr "/Näytä/Näytä päätyökalurivi"
 msgid "/View/View Custom Menu"
 msgstr "/Näytä/Näytä muotoiltava valikko"
 
+#: ../src/html2.c:554
+msgid "Cascading StyleSheet dialog"
+msgstr "Limitetty tyylisivu -dialogi"
+
+#: ../src/html2.c:574
+msgid "_Selector:"
+msgstr "_Valitsija:"
+
+#: ../src/html2.c:593
+msgid "_Property:"
+msgstr "_Ominaisuus:"
+
+#: ../src/html2.c:595 ../src/html_form.c:650 ../src/html_form.c:799
+#: ../src/html_form.c:894
+msgid "_Value:"
+msgstr "_Arvo:"
+
+#: ../src/html2.c:613
+msgid "Selector"
+msgstr "Valitsija:"
+
+#: ../src/html2.c:613 ../src/html2.c:616
+msgid "Property"
+msgstr "Ominaisuus"
+
+#: ../src/html2.c:613 ../src/html2.c:616
+msgid "Value"
+msgstr "Arvo"
+
+#: ../src/html2.c:631
+msgid " _Add "
+msgstr " _Lisää "
+
+#: ../src/html2.c:634
+msgid " _Update "
+msgstr " _Päivitä "
+
+#: ../src/html2.c:637
+msgid " _Delete "
+msgstr " P_oista "
+
+#: ../src/html2.c:893 ../src/html2.c:930
+msgid "_Style..."
+msgstr "_Tyyli..."
+
+#: ../src/html2.c:1087
+msgid "Bluefish: Select color"
+msgstr "Bluefish: Valitse väri"
+
 #: ../src/html.c:356
 msgid "Insert Time"
 msgstr "Lisää aika"
@@ -1971,55 +2019,6 @@ msgstr "K_ieli:"
 msgid "_Custom:"
 msgstr "_Mukautettu:"
 
-#: ../src/html2.c:554
-msgid "Cascading StyleSheet dialog"
-msgstr "Limitetty tyylisivu -dialogi"
-
-#: ../src/html2.c:574
-msgid "_Selector:"
-msgstr "_Valitsija:"
-
-#: ../src/html2.c:593
-msgid "_Property:"
-msgstr "_Ominaisuus:"
-
-#: ../src/html2.c:595 ../src/html_form.c:650 ../src/html_form.c:799
-#: ../src/html_form.c:894
-msgid "_Value:"
-msgstr "_Arvo:"
-
-#: ../src/html2.c:613
-msgid "Selector"
-msgstr "Valitsija:"
-
-#: ../src/html2.c:613 ../src/html2.c:616
-msgid "Property"
-msgstr "Ominaisuus"
-
-#: ../src/html2.c:613 ../src/html2.c:616
-msgid "Value"
-msgstr "Arvo"
-
-#: ../src/html2.c:631
-msgid " _Add "
-msgstr " _Lisää "
-
-#: ../src/html2.c:634
-msgid " _Update "
-msgstr " _Päivitä "
-
-#: ../src/html2.c:637
-msgid " _Delete "
-msgstr " P_oista "
-
-#: ../src/html2.c:893 ../src/html2.c:930
-msgid "_Style..."
-msgstr "_Tyyli..."
-
-#: ../src/html2.c:1087
-msgid "Bluefish: Select color"
-msgstr "Bluefish: Valitse väri"
-
 #: ../src/html_form.c:141
 msgid "Form"
 msgstr "Lomake"
@@ -2413,14 +2412,12 @@ msgid "/Edit/Replace special/_Both Types to HTML Entities"
 msgstr "/Muokkaa/Korvaa erityisesti/Mo_lemmat tyypit HTML-kokonaisuuksiin"
 
 #: ../src/menu.c:362
-#, fuzzy
 msgid "/Edit/Replace special/To _Uppercase"
-msgstr "/Muokkaa/Korvaa erityisesti/Tearoff1"
+msgstr "/Muokkaa/Korvaa erityisesti/I_soiksi kirjaimiksi"
 
 #: ../src/menu.c:363
-#, fuzzy
 msgid "/Edit/Replace special/To _Lowercase"
-msgstr "/Muokkaa/Korvaa erityisesti/Tearoff1"
+msgstr "/Muokkaa/Korvaa erityisesti/P_ieniksi kirjaimiksi"
 
 #: ../src/menu.c:364
 msgid "/Edit/sep4"
@@ -2439,14 +2436,12 @@ msgid "/Edit/sep5"
 msgstr "/Muokkaa/sep5"
 
 #: ../src/menu.c:368
-#, fuzzy
 msgid "/Edit/Add _Bookmark"
-msgstr "/_Kirjanmerkit"
+msgstr "/Muokkaa/Li_sää kirjanmerkki"
 
 #: ../src/menu.c:369
-#, fuzzy
 msgid "/Edit/sep6"
-msgstr "/Muokkaa/sep1"
+msgstr "/Muokkaa/sep6"
 
 #: ../src/menu.c:370
 msgid "/Edit/_Save Settings"
@@ -3613,9 +3608,8 @@ msgid "/Project/Save _as..."
 msgstr "/Projekti/T_allenna nimellä..."
 
 #: ../src/menu.c:686
-#, fuzzy
 msgid "/Project/Save & _close"
-msgstr "/Projekti/T_allenna nimellä..."
+msgstr "/Projekti/Tallenna & _sulje"
 
 #: ../src/menu.c:687
 msgid "/Project/sep2"
@@ -4109,39 +4103,32 @@ msgid "Clear undo history on save"
 msgstr "Tyhjennä kumoushistoria tallennettaessa"
 
 #: ../src/preferences.c:1896
-#, fuzzy
 msgid "Bookmark options"
-msgstr "Kirjanmerkit"
+msgstr "Kirjanmerkkien valinnat"
 
 #: ../src/preferences.c:1901
-#, fuzzy
 msgid "Sort by line number"
-msgstr "Ei tiedostonimeä"
+msgstr "Järjestä rivinumeron mukaan"
 
 #: ../src/preferences.c:1902
-#, fuzzy
 msgid "Make permanent by default"
-msgstr "Näytä vasen paneeli oletuksena"
+msgstr "Tee pysyvä oletuksena"
 
 #: ../src/preferences.c:1904
-#, fuzzy
 msgid "full path"
-msgstr "Valikon hakemisto"
+msgstr "koko polku"
 
 #: ../src/preferences.c:1904
-#, fuzzy
 msgid "path from basedir"
-msgstr "Oletushakemisto"
+msgstr "polku perushakemistosta"
 
 #: ../src/preferences.c:1904
-#, fuzzy
 msgid "filename"
-msgstr "Ei tiedostonimeä"
+msgstr "tiedostonimi"
 
 #: ../src/preferences.c:1905
-#, fuzzy
 msgid "Bookmarks filename display"
-msgstr "Kirjamerkitty tiedosto on suljettu"
+msgstr "Kirjanmerkkien tiedostonimen näyttö"
 
 #: ../src/preferences.c:1909
 msgid "HTML"
@@ -4408,9 +4395,8 @@ msgid "/Project/Save as..."
 msgstr "/Projekti/Tallenna nimellä..."
 
 #: ../src/project.c:170
-#, fuzzy
 msgid "/Project/Save & close"
-msgstr "/Projekti/Tallenna"
+msgstr "/Projekti/Tallenna & sulje"
 
 #: ../src/project.c:171
 msgid "/Project/Edit Project Options..."
