@@ -22,7 +22,6 @@ VPATH = @srcdir@
 
 PACKAGE = @PACKAGE@
 VERSION = @VERSION@
-USE_NLS = @USE_NLS@
 
 srcdir = src
 
@@ -32,6 +31,9 @@ bindir=@bindir@
 datadir=@datadir@
 pkgdatadir=$(datadir)/$(PACKAGE)
 pixmapsdir=@prefix@/share/pixmaps
+
+INSTALLMAIN=@INSTALLMAIN@
+MAKEMAIN=@MAKEMAIN@
 
 iconpath=@ICONPATH@
 
@@ -45,12 +47,12 @@ INSTALL_DATA = $(INSTALL) -m 644
 #use [ "bla" = "bla" ] instead
 
 bluefish:all
-all:
+all: ${MAKEMAIN}
 	@cd src/ && $(MAKE) all
-	if [ "${USE_NLS}" = "yes" ]; then \
-		cd po/ && $(MAKE) all; \
-	fi
 	@cd data/ && $(MAKE) all
+
+make-nls:
+	cd po/ && $(MAKE) all;
 
 clean:
 	rm -f core *~
@@ -70,18 +72,19 @@ distclean:
 	rm -rf autom4te.cache/
 	rm -f *.orig *.rej
 
-install: src/bluefish
+install-icon:
+	$(INSTALL_DIR) $(DESTDIR)$(iconpath)
+	$(INSTALL_DATA) inline_images/bluefish_icon1.png $(DESTDIR)$(iconpath)/bluefish-icon.png
+
+install-nls:
+	cd po/ && $(MAKE) install
+
+install: src/bluefish ${INSTALLMAIN}
 	pkgdatadir=@pkgdatadir@
 	$(INSTALL_DIR) $(DESTDIR)$(pkgdatadir)
 	$(INSTALL_DATA) images/bluefish_splash.png $(DESTDIR)$(pkgdatadir)
 	@cd icons/ && $(MAKE) install
-	if [ -d $(iconpath) ]; then \
-		$(INSTALL_DATA) inline_images/bluefish_icon1.png $(DESTDIR)$(iconpath)/bluefish-icon.png ;\
-	fi
 	@cd src/ && $(MAKE) install
-	if [ "${USE_NLS}" = "yes" ]; then \
-		cd po/ && $(MAKE) install;\
-	fi
 	@cd data/ && $(MAKE) install
 
 uninstall:

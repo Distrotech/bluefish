@@ -53,9 +53,11 @@ install-gnome2-menu:
 	$(INSTALL_DATA) bluefish.desktop $(DESTDIR)$(GNOME2MENU)
 
 install-icon:
+	$(INSTALL_DIR) $(DESTDIR)$(ICONPATH)
 	$(INSTALL_DATA) gnome-application-bluefish.png $(DESTDIR)$(ICONPATH)/gnome-application-bluefish-project.png
 
 install-gnome2.8: install-gnome2-menu install-icon
+	$(INSTALL_DIR) $(DESTDIR)$(GNOME2MIME)/packages/
 	$(INSTALL_DATA) bluefish.xml $(DESTDIR)$(GNOME2MIME)/packages/
 	$(UPDATE_MIME_PATH) $(GNOME2MIME)
 	$(UPDATE_DESKTOP_PATH)

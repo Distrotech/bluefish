@@ -376,14 +376,25 @@ AC_ARG_WITH(gnome2-menu,
 	],[
 	WITHGNOME2=yes]
 )
+AC_ARG_ENABLE([update-databases],
+	AC_HELP_STRING([--disable-update-databases],[do not run the update-desktop-database or update-mime-database utilities]),[
+	UPDATEDATABASES=$enableval
+	],[
+	UPDATEDATABASES=yes]
+)
 if test "x$WITHGNOME2" != "xno" ; then
 	if test "x$WITHGNOME2" = "xyes" ; then
 		GNOME2PREFIX=/usr/
 	else
 		GNOME2PREFIX=$WITHGNOME2
 	fi
-	AC_PATH_PROG(UPDATE_MIME, update-mime-database, "no")
-	AC_PATH_PROG(UPDATE_DESKTOP, update-desktop-database, "no")
+	if test "${UPDATEDATABASES}" = "no" ; then
+		UPDATE_MIME=true
+		UPDATE_DESKTOP=true
+	else
+		AC_PATH_PROG(UPDATE_MIME, update-mime-database, "no")
+		AC_PATH_PROG(UPDATE_DESKTOP, update-desktop-database, "no")
+	fi
 	echo -n "checking for gnome2 menu directory... "
 	if test -d ${GNOME2PREFIX}/share/applications ; then
 		echo "${GNOME2PREFIX}/share/applications"
@@ -475,10 +486,48 @@ if test "x$WITHICON" != "xno" ; then
 		echo "${ICONPREFIX}"
 		ICONPATH=${ICONPREFIX}
 		AC_SUBST(ICONPATH)
+		INSTALLMAIN="${INSTALLMAIN} install-icon"
 	else
 		echo "no"
 	fi
 fi
+
+if test "${prefix}" == "NONE"; then
+	prefix=${ac_default_prefix}
+	AC_SUBST(prefix)
+fi
+
+pkgdatadir=${datadir}/${PACKAGE}/
+AC_SUBST(pkgdatadir)
+
+dnl *******************************
+dnl   GETTEXT
+dnl *******************************
+AM_GNU_GETTEXT
+AC_PATH_PROG(MSGMERGE, msgmerge, /usr/bin/msgmerge)
+
+if test ! -x "$GMSGFMT" ; then
+	echo "no gmsgfmt - NLS disabled"
+	USE_NLS=no
+fi
+if test ! -x "$MSGFMT" ; then
+	echo "no msfmt - NLS disabled"
+	USE_NLS=no
+fi
+
+dnl OpenBSD has gettext in -lintl
+
+if test "$USE_NLS" = "yes" ; then
+	AC_CHECK_LIB(intl, gettext,
+		LIBS="$LIBS -lintl"
+	)
+	AC_DEFINE(ENABLE_NLS)
+	INSTALLMAIN="${INSTALLMAIN} install-nls"
+	MAKEMAIN="${MAKEMAIN} make-nls"
+fi
+
+AC_SUBST(INSTALLMAIN)
+AC_SUBST(MAKEMAIN)
 
 dnl AC_ARG_WITH(gnome1-menu,
 dnl 	AC_HELP_STRING([--with-gnome1-menu=/path],[gnome1 menu path (default=no)]),[
@@ -513,38 +562,6 @@ dnl AC_SUBST(HAVE_GNOME_VFS)
 dnl AC_PREFIX_DEFAULT("/usr/local")
 dnl you only need this macro if you want something other then /usr/local
 dnl 
-
-if test "${prefix}" == "NONE"; then
-	prefix=${ac_default_prefix}
-	AC_SUBST(prefix)
-fi
-
-pkgdatadir=${datadir}/${PACKAGE}/
-AC_SUBST(pkgdatadir)
-
-dnl *******************************
-dnl   GETTEXT
-dnl *******************************
-AM_GNU_GETTEXT
-AC_PATH_PROG(MSGMERGE, msgmerge, /usr/bin/msgmerge)
-
-if test ! -x "$GMSGFMT" ; then
-	echo "no gmsgfmt - NLS disabled"
-	USE_NLS=no
-fi
-if test ! -x "$MSGFMT" ; then
-	echo "no msfmt - NLS disabled"
-	USE_NLS=no
-fi
-
-dnl OpenBSD has gettext in -lintl
-
-if test "$USE_NLS" = "yes" ; then
-	AC_CHECK_LIB(intl, gettext,
-		LIBS="$LIBS -lintl"
-	)
-	AC_DEFINE(ENABLE_NLS)
-fi
 
 
 
