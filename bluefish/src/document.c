@@ -2399,6 +2399,7 @@ void doc_new_with_new_file(Tbfwin *bfwin, gchar * new_filename) {
 	doc_save(doc, 0, 0);
 	doc_set_stat_info(doc); /* also sets mtime field */
 	switch_to_document_by_pointer(bfwin,doc);
+	doc_activate(doc);
 }
 
 /**
@@ -2460,6 +2461,7 @@ gboolean doc_new_with_file(Tbfwin *bfwin, gchar * filename, gboolean delay_activ
 			doc_activate(doc);
 		} 
 		switch_to_document_by_pointer(bfwin,doc);
+		doc_activate(doc);
 		filebrowser_open_dir(BFWIN(doc->bfwin),filename);
 	}
 	return TRUE;	
@@ -2977,6 +2979,7 @@ void file_new_cb(GtkWidget *widget, Tbfwin *bfwin) {
 	switch_to_document_by_pointer(bfwin,doc);
  	if (bfwin->project && bfwin->project->template && strlen(bfwin->project->template) > 2) {
 		doc_file_to_textbox(doc, bfwin->project->template, FALSE, FALSE);
+		doc_activate(doc);
  	}
 }
 
