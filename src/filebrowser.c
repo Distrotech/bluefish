@@ -132,6 +132,17 @@ void DEBUG_DUMP_TREE_PATH(GtkTreePath *path) {
 #endif /* DEBUG */
 
 
+/*
+ returns TRUE if there is no basedir, or if the file is indeed in the basedir, else returns FALSE
+*/
+static gboolean path_in_basedir(Tfilebrowser *filebrowser, const gchar *path) {
+	if (!filebrowser->basedir || strncmp(filebrowser->basedir, path, strlen(filebrowser->basedir))==0) {
+		return TRUE;
+	}
+	return FALSE;
+}
+
+
 /* MODIFIES THE ITER POINTER TO BY PARENT !!!!!!!! */
 static gboolean get_iter_by_filename_from_parent(GtkTreeStore *store, GtkTreeIter *parent, gchar *filename) {
 	gboolean valid;
@@ -787,6 +798,10 @@ void filebrowser_refresh_dir(Tfilebrowser *filebrowser, gchar *dir) {
 
 void bfwin_filebrowser_refresh_dir(Tbfwin *bfwin, gchar *dir) {
 	if (bfwin->filebrowser) {
+		gboolean showfulltree = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(FILEBROWSER(bfwin->filebrowser)->showfulltree));
+		if (!showfulltree && !path_in_basedir(FILEBROWSER(bfwin->filebrowser), dir)) {
+			gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(FILEBROWSER(bfwin->filebrowser)->showfulltree),TRUE);
+		}
 		filebrowser_refresh_dir(FILEBROWSER(bfwin->filebrowser), dir);
 	}
 }
@@ -881,6 +896,10 @@ void filebrowser_open_dir(Tbfwin *bfwin,const gchar *dirarg) {
 	if (filebrowser && filebrowser->tree) {
 		gchar *dir;
 		GtkTreePath *path;
+		gboolean showfulltree = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(filebrowser->showfulltree));
+		if (!showfulltree && !path_in_basedir(filebrowser, dirarg)) {
+			gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(filebrowser->showfulltree),TRUE);
+		}
 		
 		dir = path_get_dirname_with_ending_slash(dirarg);
 		path = return_path_from_filename(filebrowser, dir);
