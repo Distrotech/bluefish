@@ -22,7 +22,7 @@
  */
 /* 
  * Changes by Antti-Juhani Kaijanaho <gaia@iki.fi> on 1999-10-20
- * $Id: html.c,v 1.39 2004-02-11 22:15:59 oli4 Exp $
+ * $Id: html.c,v 1.40 2004-02-11 23:05:53 oli4 Exp $
  */
 /*#define DEBUG*/
 
@@ -1917,31 +1917,16 @@ void embed_dialog(Tbfwin *bfwin, Ttagpopup *data) {
 	html_diag_finish(dg, G_CALLBACK(embedok_lcb));	
 }
 
-static void script_linkok_lcb(gint type, GtkWidget * widget,Thtml_diag *dg ) {
+static void scriptok_lcb(GtkWidget * widget,Thtml_diag *dg ) {
 	gchar *thestring, *finalstring, *endstring;
 
-	if (type == 0) {
-		thestring = g_strdup(cap("<SCRIPT"));
-		thestring = insert_string_if_entry(dg->entry[0], cap("SRC"), thestring, NULL);
-		thestring = insert_string_if_entry(GTK_COMBO(dg->combo[0])->entry, cap("LANGUAGE"), thestring, NULL);
-	} else {
-		thestring = g_strdup(cap("<LINK"));
-		thestring = insert_string_if_entry(dg->entry[0], cap("HREF"), thestring, NULL);
-		thestring = insert_string_if_entry(GTK_COMBO(dg->combo[0])->entry, cap("REL"), thestring, NULL);
-	}
+	thestring = g_strdup(cap("<SCRIPT"));
+	thestring = insert_string_if_entry(dg->entry[0], cap("SRC"), thestring, NULL);
+	thestring = insert_string_if_entry(GTK_COMBO(dg->combo[0])->entry, cap("LANGUAGE"), thestring, NULL);
 	thestring = insert_string_if_entry(GTK_COMBO(dg->combo[1])->entry, cap("TYPE"), thestring, NULL);
 	thestring = insert_string_if_entry(dg->entry[1], NULL, thestring, NULL);
-	if (main_v->props.xhtml == 1 && type == 1) {
-		finalstring = g_strconcat(thestring, " />", NULL);
-		endstring = NULL;
-	} else {
-		finalstring = g_strconcat(thestring, ">", NULL);
-		if (type == 0) {
-			endstring = cap("</SCRIPT>");
-		} else {
-			endstring = NULL;
-		}
-	}
+	finalstring = g_strconcat(thestring, ">", NULL);
+	endstring = cap("</SCRIPT>");
 	g_free(thestring);
 
 	if (dg->range.end == -1) {
@@ -1953,31 +1938,17 @@ static void script_linkok_lcb(gint type, GtkWidget * widget,Thtml_diag *dg ) {
 	html_diag_destroy_cb(NULL, dg);
 }
 
-static void linkok_lcb(GtkWidget * widget,Thtml_diag *dg ) {
-	script_linkok_lcb(1, widget, dg);
-}
-
-static void scriptok_lcb(GtkWidget * widget,Thtml_diag *dg ) {
-	script_linkok_lcb(0, widget, dg);
-}
-
-static void script_link_cb(gint type, Tbfwin *bfwin, Ttagpopup *data) {
+void script_dialog(Tbfwin *bfwin, Ttagpopup *data) {
 	GtkWidget *file_but;
 	GList *tmplist, *tmplist2;
 	GtkWidget *dgtable, *label;
 	Thtml_diag *dg;
 	static gchar *scriptitems[] =	{ "src", "language", "type", NULL };
-	static gchar *linkitems[] =	{ "href", "rel", "type", NULL };
 	gchar *tagvalues[4];
 	gchar *custom = NULL;
 
-	if (type == 0) {
-		dg = html_diag_new(bfwin,_("Script"));
-		fill_dialogvalues(scriptitems, tagvalues, &custom, (Ttagpopup *) data, dg);
-	} else {
-		dg = html_diag_new(bfwin,_("Link"));
-		fill_dialogvalues(linkitems, tagvalues, &custom, (Ttagpopup *) data, dg);
-	}
+	dg = html_diag_new(bfwin,_("Script"));
+	fill_dialogvalues(scriptitems, tagvalues, &custom, (Ttagpopup *) data, dg);
 
 	dgtable = html_diag_table_in_vbox(dg, 4, 12);
 	dg->entry[0] = entry_with_text(tagvalues[0], 1024);
@@ -1986,7 +1957,7 @@ static void script_link_cb(gint type, Tbfwin *bfwin, Ttagpopup *data) {
 	bf_mnemonic_label_tad_with_alignment(_("_Source:"), dg->entry[0], 0, 0.5, dgtable, 0, 2, 0, 1);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[0], 2, 10, 0, 1);
 
-	if (type == 0) {
+
 		tmplist = g_list_append(NULL, "javascript");
 		tmplist = g_list_append(tmplist, "javascript1.2");
 		tmplist = g_list_append(tmplist, "javascript1.1");
@@ -1994,25 +1965,6 @@ static void script_link_cb(gint type, Tbfwin *bfwin, Ttagpopup *data) {
 		tmplist2 = g_list_append(NULL, "application/javascript");
 		tmplist2 = g_list_append(NULL, "text/javascript");
 		tmplist2 = g_list_append(tmplist2, "application/x-javascript");
-	} else {
-		tmplist = g_list_append(NULL, "stylesheet");
-		tmplist = g_list_append(tmplist, "alternate");
-		tmplist = g_list_append(tmplist, "start");
-		tmplist = g_list_append(tmplist, "next");
-		tmplist = g_list_append(tmplist, "prev");
-		tmplist = g_list_append(tmplist, "contents");
-		tmplist = g_list_append(tmplist, "index");
-		tmplist = g_list_append(tmplist, "glossary");
-		tmplist = g_list_append(tmplist, "copyright");
-		tmplist = g_list_append(tmplist, "chapter");
-		tmplist = g_list_append(tmplist, "section");
-		tmplist = g_list_append(tmplist, "subsection");
-		tmplist = g_list_append(tmplist, "appendix");
-		tmplist = g_list_append(tmplist, "help");
-		tmplist = g_list_append(tmplist, "bookmark");
-		label = gtk_label_new_with_mnemonic(_("_Rel:"));
-		tmplist2 = g_list_append(NULL, "text/css");
-	}
 	tmplist2 = g_list_append(tmplist2, "text/plain");
 	tmplist2 = g_list_append(tmplist2, "text/html");
 
@@ -2031,19 +1983,98 @@ static void script_link_cb(gint type, Tbfwin *bfwin, Ttagpopup *data) {
 	bf_mnemonic_label_tad_with_alignment(_("Custo_m:"), dg->entry[1], 0, 0.5, dgtable, 0, 2, 3, 4);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[1], 2, 10, 3, 4);
 
-	if (type == 0) {
-		html_diag_finish(dg, G_CALLBACK(scriptok_lcb));
-	} else {
-		html_diag_finish(dg, G_CALLBACK(linkok_lcb));
-	}
+	html_diag_finish(dg, G_CALLBACK(scriptok_lcb));
 	g_list_free(tmplist);
 	g_list_free(tmplist2);
 }
 
-void script_dialog(Tbfwin *bfwin, Ttagpopup *data) {
-	script_link_cb(0, bfwin, data);
+static void linkdialogok_lcb(GtkWidget * widget, Thtml_diag *dg) {
+	gchar *thestring, *finalstring;
+
+	thestring = g_strdup(cap("<LINK"));
+	thestring = insert_string_if_entry(GTK_WIDGET(GTK_COMBO(dg->attrwidget[0])->entry), cap("HREF"), thestring, NULL);
+	thestring = insert_string_if_entry(GTK_WIDGET(dg->attrwidget[1]), cap("HREFLANG"), thestring, NULL);
+	thestring = insert_string_if_entry(GTK_WIDGET(GTK_COMBO(dg->attrwidget[2])->entry), cap("TYPE"), thestring, NULL);
+	thestring = insert_string_if_entry(GTK_WIDGET(GTK_COMBO(dg->attrwidget[3])->entry), cap("REL"), thestring, NULL);
+	thestring = insert_string_if_entry(GTK_WIDGET(GTK_COMBO(dg->attrwidget[4])->entry), cap("REV"), thestring, NULL);
+	thestring = insert_string_if_entry(GTK_WIDGET(GTK_COMBO(dg->attrwidget[5])->entry), cap("MEDIA"), thestring, NULL);
+	thestring = insert_string_if_entry(GTK_WIDGET(dg->attrwidget[6]), cap("LANG"), thestring, NULL);
+	finalstring = g_strconcat(thestring, (main_v->props.xhtml == 1) ? " />" : ">", NULL);
+	g_free(thestring);
+
+	if (dg->range.end == -1) {
+		doc_insert_two_strings(dg->doc, finalstring, NULL);
+	} else {
+		doc_replace_text(dg->doc, finalstring, dg->range.pos, dg->range.end);
+	}
+	g_free(finalstring);
+	html_diag_destroy_cb(NULL, dg);
 }
 
-void link_dialog(Tbfwin *bfwin, Ttagpopup *data) {
-	script_link_cb(1, bfwin, data);
-}
+void linkdialog_dialog(Tbfwin *bfwin, Ttagpopup *data) {
+	static gchar *tagitems[] = {"href", "hreflang", "type", "rel", "rev", "media", "lang", NULL };
+	gchar *tagvalues[8];
+	gchar *custom = NULL;
+	Thtml_diag *dg;
+	GtkWidget *dgtable, *but;
+	
+	dg = html_diag_new(bfwin,_("Link"));
+	fill_dialogvalues(tagitems, tagvalues, &custom, (Ttagpopup *) data, dg);
+	dgtable = html_diag_table_in_vbox(dg, 3, 10);
+	{
+		GList *rel_link_list=NULL, *tmplist;
+		rel_link_list = list_relative_document_filenames(bfwin->current_document);
+		tmplist = duplicate_stringlist(bfwin->session->urllist, 1);
+		rel_link_list = g_list_concat(tmplist, rel_link_list);
+		dg->attrwidget[0] = combo_with_popdown(tagvalues[0], rel_link_list, 1);
+		free_stringlist(rel_link_list);
+	}
+	bf_mnemonic_label_tad_with_alignment(_("_Href:"), dg->attrwidget[0], 0, 0.5, dgtable, 0, 1, 0, 1);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->attrwidget[0], 1, 2, 0, 1);
+	but = file_but_new(GTK_COMBO(dg->attrwidget[0])->entry, 0, bfwin);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), but, 2, 3, 0, 1);
+
+	dg->attrwidget[1] = entry_with_text(tagvalues[1], 1024);
+	bf_mnemonic_label_tad_with_alignment(_("Href_lang:"), dg->attrwidget[1], 0, 0.5, dgtable, 0, 1, 1, 2);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->attrwidget[1], 1, 3, 1, 2);
+
+	{
+		GList *tmplist = list_from_arglist(FALSE, "text/html", "text/css", "text/plain", "text/javascript", "application/postscript", NULL);
+		dg->attrwidget[2] = combo_with_popdown(tagvalues[2], tmplist, 1);
+		g_list_free(tmplist);
+	}
+	bf_mnemonic_label_tad_with_alignment(_("_Type:"), dg->attrwidget[2], 0, 0.5, dgtable, 0, 1, 2, 3);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->attrwidget[2], 1, 3, 2, 3);
+	
+	{
+		GList *tmplist = list_from_arglist(FALSE, "Alternate", "Stylesheet", "Start", "Next", "Prev", "Contents", "Index", "Glossary", "Copyright", "Chapter", "Section", "Subsection", "Appendix", "Help", "Bookmark", NULL);
+		dg->attrwidget[3] = combo_with_popdown(tagvalues[3], tmplist, 1);
+		bf_mnemonic_label_tad_with_alignment(_("_Forward Relation:"), dg->attrwidget[3], 0, 0.5, dgtable, 0, 1, 3, 4);
+		gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->attrwidget[3], 1, 3, 3, 4);
+		
+		dg->attrwidget[4] = combo_with_popdown(tagvalues[4], tmplist, 1);
+		bf_mnemonic_label_tad_with_alignment(_("_Reverse Relation:"), dg->attrwidget[4], 0, 0.5, dgtable, 0, 1, 4, 5);
+		gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->attrwidget[4], 1, 3, 4, 5);
+		
+		g_list_free(tmplist);
+	}
+	
+	{
+		GList *tmplist = list_from_arglist(FALSE, "screen", "tty", "tv", "projection", "handheld", "print", "braille", "aural", "all", NULL);
+		dg->attrwidget[5] = combo_with_popdown(tagvalues[5], tmplist, 1);
+		g_list_free(tmplist);
+	}
+	bf_mnemonic_label_tad_with_alignment(_("Media:"), dg->attrwidget[5], 0, 0.5, dgtable, 0, 1, 5, 6);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->attrwidget[5], 1, 3, 5, 6);
+
+	dg->attrwidget[6] = entry_with_text(tagvalues[6], 1024);
+	bf_mnemonic_label_tad_with_alignment(_("L_ang:"), dg->attrwidget[6], 0, 0.5, dgtable, 0, 1, 6, 7);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->attrwidget[6], 1, 3, 6, 7);
+	
+	dg->attrwidget[7] = entry_with_text(custom, 1024);
+	bf_mnemonic_label_tad_with_alignment(_("_Custom:"), dg->attrwidget[7], 0, 0.5, dgtable, 0, 1, 7, 8);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->attrwidget[7], 1, 3, 7, 8);
+	
+	html_diag_finish(dg, G_CALLBACK(linkdialogok_lcb));
+	if (custom)	g_free(custom);
+}	

@@ -637,11 +637,11 @@ gchar **array_from_arglist(const gchar *string1, ...) {
  *
  * Return value: GList *
  */
-GList *list_from_arglist(gboolean allocate_strings, const gchar *string1, ...) {
+GList *list_from_arglist(gboolean allocate_strings, ...) {
 	GList *retval=NULL;
 	va_list args;
 	gchar *s;
-	va_start(args, string1);
+	va_start(args, allocate_strings);
 	s = va_arg(args, gchar*);
 	while (s) {
 		retval = g_list_append(retval, s);

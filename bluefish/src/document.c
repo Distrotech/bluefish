@@ -1653,7 +1653,7 @@ static gboolean find_char(gunichar ch,gchar *data) {
 #endif
 	return (strchr(data, ch) != NULL);
 }
-static gchar *noclosingtag [] = {"br","input","img","hr","meta","frame","map","base",NULL};
+static gchar *noclosingtag [] = {"br","input","img","hr","meta","frame","map","base","link",NULL};
 
 static gchar *closingtagtoinsert(Tdocument *doc, const gchar *tagname, GtkTextIter *iter) {
 	/* only for XML all start tags have to end on < /> so we check for that, all other tags 
