@@ -1931,6 +1931,7 @@ void fb2config_init(void) {
 /* avoid segfaults during bluefish exit */
 void fb2config_cleanup(void) {
 	GList *tmplist = g_list_first(FB2CONFIG(main_v->fb2config)->uri_in_refresh);
+	DEBUG_MSG("fb2config_cleanup, stopping all async directory reads\n");
 	while (tmplist) {
 		Turi_in_refresh *uir = tmplist->data;
 		gnome_vfs_async_cancel(uir->handle);
