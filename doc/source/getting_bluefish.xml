@@ -172,13 +172,13 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 				The first step is to cd to the directory you want to put the 
 				sources in, and then log in. The latter is accomplished with 
 				this command:
-				<screen>$ cvs -d :pserver:anonymous@cvs.bluefish.sourceforge.net:/cvsroot/bluefish login</screen>
+				<screen>$ cvs -d :pserver:anonymous@cvs.sourceforge.net:/cvsroot/bluefish login</screen>
 				(just hit <action>Enter</action> at the password prompt)
 				The next step is to <emphasis>check out</emphasis> the 
 				source code. You can check out single modules, and the one you 
 				want is called <literal>bluefish-gtk2</literal>. The command 
 				is:
-				<screen>$ cvs -z3 -d :pserver:anonymous@cvs.bluefish.sourceforge.net:/cvsroot/bluefish co bluefish-gtk2</screen>
+				<screen>$ cvs -z3 -d :pserver:anonymous@cvs.sourceforge.net:/cvsroot/bluefish co bluefish-gtk2</screen>
 				A lot of files will be downloaded, and listed one by one. If 
 				you're on dial-up, this might take a bit of time. Be patient ;-)
 			</para>
@@ -186,7 +186,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 				When the download has completed, you'll find the bluefish 
 				sources in the subdirectory	
 				<literal>bluefish-gtk2</literal>. You can now enter that directory 
-				and install bluefish using the instruction in<xref linkend="bluefish-ch-2-sect-4.2" />
+				and install bluefish using the instructions in<xref linkend="bluefish-ch-2-sect-4.2" />
 			</para>
 
 
