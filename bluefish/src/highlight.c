@@ -104,7 +104,6 @@ typedef struct {
 
 typedef struct {
 	GtkTextTagTable *tagtable; /* this one should ultimately move to Tfiletype, so every set would have it's own tagtable, but there is currently no way to switch a document to a new tagtable */
-	GList *highlight_filetypes; /* contains all filetypes that have a highlight pattern */
 	GList *all_highlight_patterns; /* contains Tmetapattern, not Tpattern !! */
 #ifdef HL_PROFILING
 	struct tms tms1; /* start time for profiling info */
@@ -466,10 +465,7 @@ void filetype_highlighting_rebuild() {
 		highlight.all_highlight_patterns = NULL;
 	}
 
-	/* free other lists */
-	g_list_free(highlight.highlight_filetypes);
-	highlight.highlight_filetypes = NULL;
-	
+
 	DEBUG_MSG("filetype_highlighting_rebuild, rebuilding the filetype list\n");
 	/* now rebuild the filetype list */
 	tmplist = g_list_first(main_v->props.filetypes);
@@ -565,16 +561,7 @@ void filetype_highlighting_rebuild() {
 		tmplist = g_list_next(tmplist);
 	}
 	
-	/* now link the filetypes with highlight patterns to a new list */
-	DEBUG_MSG("filetype_highlighting_rebuild, rebuilding list of filetypes with highlighting patterns\n");
-	tmplist = g_list_first(main_v->filetypelist);
-	while (tmplist) {
-		if (((Tfiletype *)tmplist->data)->highlightlist) {
-			highlight.highlight_filetypes = g_list_append(highlight.highlight_filetypes, tmplist->data);
-		}
-		tmplist = g_list_next(tmplist);
-	}
-	
+
 	/* now we have finished the rebuilding of the filetypes, we 
 	have to connect all the documents with their filetypes again, we 
 	stored the name of the filetype temporary in the place of the Tfiletype,
@@ -596,7 +583,6 @@ void filetype_highlighting_rebuild() {
 
 void hl_init() {
 	/* init main_v->filetypelist, the first set is the defaultset */
-	highlight.highlight_filetypes = NULL;
 	highlight.all_highlight_patterns = NULL; 
 	highlight.tagtable = gtk_text_tag_table_new();
 
