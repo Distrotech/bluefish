@@ -1,17 +1,17 @@
-cmenu_insert: /SQL/Select mit Bedingung:SELECT * FROM %0 WHERE %1 %2 '%3'::4:Tabellenname:Vergleichsfeld:Vergleich (=, >, <, <>, etc.):Vergleichen mit (ohne quotes):
-cmenu_insert: /SQL/Select Alles ohne Left Join:SELECT * FROM %0 LEFT JOIN %1 ON %2::3:Tabelle:Join Tabelle:Gesamter ON Ausdruck:
-cmenu_insert: /SQL/Select Alles:SELECT * FROM %0::1:Tabellenname:
-cmenu_insert: /PHP/Test/isset():if (isset($%0)) {\n\t:\n}:1:Variable:
-cmenu_insert: /PHP/Test/!isset():if (!isset($%0)) {\n\t:\n}:1:Variable:
-cmenu_insert: /PHP/Test/defined():if (defined($%0)) {\n\t:\n}:1:Konstante:
-cmenu_insert: /PHP/Test/in_array():if (in_array($%0, $%1)) {\n\t:\n}:2:Variable:Array:
+cmenu_insert: /SQL/Select Conditional:SELECT * FROM %0 WHERE %1 %2 '%3'::4:Table Name:Comparison Field:Comparison (=, >, <, <>, etc.):Compare Against (w\\/o quotes):
+cmenu_insert: /SQL/Select All w\\/ Left Join:SELECT * FROM %0 LEFT JOIN %1 ON %2::3:Table:Join Table:Full ON clause:
+cmenu_insert: /SQL/Select All:SELECT * FROM %0::1:Table Name:
+cmenu_insert: /PHP/Test/Is Set:if (isset($%0)) {\n\t:\n}:1:Test Variable:
+cmenu_insert: /PHP/Test/Is NOT Set:if (!isset($%0)) {\n\t:\n}:1:Test Variable:
+cmenu_insert: /PHP/Test/Is Defined:if (defined($%0)) {\n\t:\n}:1:Test Constant:
+cmenu_insert: /PHP/Test/In Array:if (in_array($%0, $%1)) {\n\t:\n}:2:Test Variable:Array Name:
 cmenu_insert: /PHP/PHP Tags:\n<?php\n:\n?>\n:0:
-cmenu_insert: /PHP/ODBC/Zeile holen:while($success = odbc_fetch_row($%0)) {\n\t\n}::1:Ergebnisvariable:
-cmenu_insert: /PHP/ODBC/Query ausführen:$%0 = odbc_exec(%1, %2);\n::3:Ergebnisvariable:ODBC Connection ID:Query String (Quotes oder Variablen mit $):
-cmenu_insert: /PHP/ODBC/Connect:$odbc_id = odbc_connect('%0', '%1', '%2');\n::3:ODBC Datenquelle:Username:Passwort:
-cmenu_insert: /PHP/MySQL/Query:$%0 = mysql_query(%1, %2);\n::3:Ergebnisvariable:Connection ID Name:Query String (Quotes oder Variablen mit $):
-cmenu_insert: /PHP/MySQL/Zeile holen:while ($%1 = mysql_fetch_row($%0)) {\n\techo $%1[0];\n:\n}\nmysql_free_result($%0);\n:2:Query ID:Zeilenvariable:
-cmenu_insert: /PHP/MySQL/Connect:$mysql_id = mysql_connect('%0', '%1', '%2');\nmysql_select_db($mysql_id, '%3');\n::4:Hostname:Username:Passwort:Datenbankname:
+cmenu_insert: /PHP/ODBC/Fetch Row:while($success = odbc_fetch_row($%0)) {\n\t\n}::1:Result Variable Name:
+cmenu_insert: /PHP/ODBC/Execute Query:$%0 = odbc_exec(%1, %2);\n::3:Result Variable Name:ODBC Connection ID Name:Query String (quoted or variable with $):
+cmenu_insert: /PHP/ODBC/Connect:$odbc_id = odbc_connect('%0', '%1', '%2');\n::3:ODBC Data Source Name:Username:Password:
+cmenu_insert: /PHP/MySQL/Query:$%0 = mysql_query(%1, %2);\n::3:Result Variable Name:Connection ID Name:Query String (quoted or variable with $):
+cmenu_insert: /PHP/MySQL/Fetch Row:while ($%1 = mysql_fetch_row($%0)) {\n\techo $%1[0];\n:\n}\nmysql_free_result($%0);\n:2:Result Variable Name:Row Variable Name:
+cmenu_insert: /PHP/MySQL/Connect:$mysql_id = mysql_connect('%0', '%1', '%2');\nmysql_select_db($mysql_id, '%3');\n::4:Host Name:Username:Password:Database Name:
 cmenu_insert: /PHP/InterBase/Query:$%0 = ibase_query(%2);\n:ibase_free_result($%0);\n:2:Result Variable Name:Query String (quoted or variable with $):
 cmenu_insert: /PHP/InterBase/Fetch Row:while ($%1 = ibase_fetch_row($%0)) {\n\techo $%1[0];\n:\n}\nibase_free_result($%0);\n:2:InterBase Result Variable Name:Row Variable  Name:
 cmenu_insert: /PHP/InterBase/Connect:$ibase_id = ibase_connect('%0\:%1', '%2', '%3');\n::4:Host Name:Database Path:Username:Password:
@@ -25,10 +25,10 @@ cmenu_insert: /PHP/General/Location header:header('Location\: '.%0);::1:Destinat
 cmenu_insert: /PHP/General/Iterate over Array:foreach ($%0 as $key => $value) {\n\t:\n}\n:1:Array Name:
 cmenu_insert: /PHP/General/Define Constant:define('%0', %1);::2:Constant Name (unquoted string):Value (quoted or variable with $):
 cmenu_insert: /PHP/General/Date/Month Dth, YYYY:print date('F jS, Y');::0:
-cmenu_insert: /PHP/General/Date/MM\\/DD\\/YY:print date('m/d/y');::0:
-cmenu_insert: /PHP/General/Date/HH:MM:SS (AM\\/PM):print date('h:i:s A');::0:
-cmenu_insert: /PHP/General/Date/HH:MM:SS:print date('H:i:s');::0:
-cmenu_insert: /PHP/General/Date/DD\\/MM\\/YY:print date('d/m/y');::0:
+cmenu_insert: /PHP/General/Date/MM DD YY:print date('m/d/y');::0:
+cmenu_insert: /PHP/General/Date/HH MM SS (AM PM):print date('h\:i\:s A');::0:
+cmenu_insert: /PHP/General/Date/HH MM SS:print date('H\:i\:s');::0:
+cmenu_insert: /PHP/General/Date/DD MM YY:print date('d/m/y');::0:
 cmenu_insert: /PHP/General/Date/D Month YYYY:print date('j F Y');::0:
 cmenu_insert: /PHP/File/Require:require_once(%0);\n::1:Filename (quote or variable with $):
 cmenu_insert: /PHP/File/Open and Print:$fd = fopen(%0, 'r');\nwhile (!feof($fd)) {\n\t$buffer = fgets($fd, 4096);\n\techo $buffer;\n}\nfclose($fd);::1:Filename (quoted or variable with $):
@@ -73,31 +73,15 @@ cmenu_insert: /HTML/Any tag with 'class' attribute:<%0 class="%1">:</%0>:2:Tag N
 cmenu_insert: /HTML/Any single tag:<%0 />::1:Tag Name:
 cmenu_insert: /HTML/Any paired tag:<%0>:</%0>:1:Tag Name:
 cmenu_insert: /HTML/"Made with Bluefish" Link:<a href="http\://bluefish.openoffice.nl/">Made with Bluefish HTML editor.</a>::0:
-cmenu_insert: /DocBook/Layout/Computer Output:<computeroutput>\n:</computeroutput>\n:0:
-cmenu_insert: /DocBook/Tables/Informal Table:<informaltable><tgroup cols="%0" colsep="%1" rowsep\:"%2">:\n</informaltable>:3:# cols:Column Separator:Row Separator:
-cmenu_insert: /DocBook/Sections/Simple Section:<sect%0>\n<title>%1</title>\n</sect%0>\n:\n:2:Section Number:Title:
-cmenu_insert: /DocBook/Sections/Section With ID:<sect%0 id="%1">\n<title>%2</title>\n</sect%0>\n:\n:3:Section Number:Section ID:Title:
-cmenu_insert: /DocBook/Lists/List Item:<listitem><para>:</para></listitem>:0:
-cmenu_insert: /DocBook/Links/Internal Link:<xref linkend="%0">\n::1:Link ID:
-cmenu_insert: /DocBook/Links/External Link:<ulink url="%0">%1</ulink>\n::2:Link URL:Text:
-cmenu_insert: /DocBook/Headers/Legal Notice:<legalnotice>\n<para>:</para>\n</legalnotice>:0:
-cmenu_insert: /DocBook/Headers/History/Revision History:<revhistory>\n:\n</revhistory>:0:
-cmenu_insert: /DocBook/Headers/Authors/Author Group:<authorgroup>\n:\n</authorgroup>:0:
-cmenu_insert: /DocBook/Headers/Article Info:<articleinfo>\n:\n</articleinfo>:0:
-cmenu_insert: /DocBook/GUI/Menu Choice:<menuchoice>\n\t<shortcut>\n\t\t<keycombo><keysym>%0</keysym></keycombo>\n\t</shortcut>\n\t<guimenu>%1</guimenu>\n\t<guimenuitem>%2</guimenuitem>\n</menuchoice>\n::3:Key Symbol:Menu:Menu Item:
-cmenu_insert: /DocBook/GUI/Key Symbol:<keysym>%0</keysym>::1:Key Symbol:
-cmenu_insert: /DocBook/GUI/Key Cap:<keycap>:</keycap>:0:
-cmenu_insert: /DocBook/Figures/Image Object:<imageobject>\n\t<imagedata fileref="%0" format="%1">\n</imageobject>\n::2:Image Location:Format:
-cmenu_insert: /DocBook/Layout/Option:<option>:</option>\n:0:
-cmenu_insert: /DocBook/Layout/Emphasis:<emphasis>:</emphasis>:0:
-cmenu_insert: /DocBook/Layout/Acronym:<acronym>\n:</acronym>:0:
-cmenu_insert: /DocBook/Layout/Application:<application>\n:</application>:0:
 cmenu_insert: /DocBook/Warnings/Warning:<warning><para>\n:</para></warning>\n:0:
 cmenu_insert: /DocBook/Warnings/Tip:<tip><para>:</para></tip>\n\n:0:
 cmenu_insert: /DocBook/Warnings/Note:<note><para>:</para></note>\n\n:0:
 cmenu_insert: /DocBook/Warnings/Important:<important><para>:</para></important>\n\n:0:
 cmenu_insert: /DocBook/Tables/Row:<row>\n\t<entry align="%0" valign="%1">:</entry>\n</row>\n:2:Horizontal Alignment:Vertical Alignment:
+cmenu_insert: /DocBook/Tables/Informal Table:<informaltable><tgroup cols="%0" colsep="%1" rowsep\:"%2">:\n</informaltable>:3:# cols:Column Separator:Row Separator:
 cmenu_insert: /DocBook/Tables/Entry:<entry align="%0" valign="%1">:</entry>\n:2:Horizontal Alignment:Vertical Alignment:
+cmenu_insert: /DocBook/Sections/Simple Section:<sect%0>\n<title>%1</title>\n</sect%0>\n:\n:2:Section Number:Title:
+cmenu_insert: /DocBook/Sections/Section With ID:<sect%0 id="%1">\n<title>%2</title>\n</sect%0>\n:\n:3:Section Number:Section ID:Title:
 cmenu_insert: /DocBook/Program Listing:<programlisting>:</programlisting>:0:
 cmenu_insert: /DocBook/Procedures/Substep:<substeps>\n\t<step><para>\n:</para></step>\n</substeps>\n\n\n\n:0:
 cmenu_insert: /DocBook/Procedures/Step:<step><para>\n:</para>\n\n\n:0:
@@ -106,7 +90,17 @@ cmenu_insert: /DocBook/Paragraph:<para>:</para>:0:
 cmenu_insert: /DocBook/Lists/Variable List Entry:<varlistentry><term>%0</term>\n\t<listitem><para>%1</para></listitem>\n</varlistentry>\n::2:Term:Item:
 cmenu_insert: /DocBook/Lists/Variable List:<variablelist><title>%0</title>\n\t<varlistentry><term>%1</term>\n\t<listitem><para>%2</para></listitem>\n\t</varlistentry>\n</variablelist>::3:Title:Term:Item:
 cmenu_insert: /DocBook/Lists/Ordered List:<orderedlist>\n\t  <listitem><para>:</para></listitem>\n</orderedlist>:0:
+cmenu_insert: /DocBook/Lists/List Item:<listitem><para>:</para></listitem>:0:
 cmenu_insert: /DocBook/Lists/Itemized List:<itemizedlist>\n\t  <listitem><para>:</para></listitem>\n</itemizedlist>:0:
+cmenu_insert: /DocBook/Links/Internal Link:<xref linkend="%0">\n::1:Link ID:
+cmenu_insert: /DocBook/Links/External Link:<ulink url="%0">%1</ulink>\n::2:Link URL:Text:
+cmenu_insert: /DocBook/Layout/Option:<option>:</option>\n:0:
+cmenu_insert: /DocBook/Layout/Emphasis:<emphasis>:</emphasis>:0:
+cmenu_insert: /DocBook/Layout/Computer Output:<computeroutput>\n:</computeroutput>\n:0:
+cmenu_insert: /DocBook/Layout/Application:<application>\n:</application>:0:
+cmenu_insert: /DocBook/Layout/Acronym:<acronym>\n:</acronym>:0:
+cmenu_insert: /DocBook/Headers/Legal Notice:<legalnotice>\n<para>:</para>\n</legalnotice>:0:
+cmenu_insert: /DocBook/Headers/History/Revision History:<revhistory>\n:\n</revhistory>:0:
 cmenu_insert: /DocBook/Headers/History/Revision:<revision>\n\t<revnumber>%0</revnumber>\n\t<date>%1</date>\n\t<authorinitials>%2</authorinitials>\n<revremark>%3</revremark>\n</revision>::4:Revision Number:Revision Date:Author's Initials:Remark:
 cmenu_insert: /DocBook/Headers/Entity/System Entity:<!ENTITY %0 SYSTEM "%0">::1:Entity Name:
 cmenu_insert: /DocBook/Headers/Entity/Simple Entity:<!ENTITY %0 "%0">::1:Entity Name:
@@ -114,20 +108,26 @@ cmenu_insert: /DocBook/Headers/Entity/Complex Entity:<!ENTITY %0 "%1">::2:Entity
 cmenu_insert: /DocBook/Headers/DocTypes/Book:<!Doctype BOOK PUBLIC "-//OASIS//DTD DocBook V%0//EN" [\n:]>:1:Version:
 cmenu_insert: /DocBook/Headers/DocTypes/Article:<!Doctype ARTICLE PUBLIC "-//OASIS//DTD DocBook V%0//EN" [\n:]>:1:Version:
 cmenu_insert: /DocBook/Headers/Copyright:<copyright>\n\t<year>%0</year>\n\t<holder>%1</holder>\n</copyright>::2:Year:Holder:
+cmenu_insert: /DocBook/Headers/Authors/Author Group:<authorgroup>\n:\n</authorgroup>:0:
 cmenu_insert: /DocBook/Headers/Authors/Author:<author>\n\t<firstname>%0</firstname>\n\t<surname>%1</surname>\n</author>::2:First Name:Surname:
+cmenu_insert: /DocBook/Headers/Article Info:<articleinfo>\n:\n</articleinfo>:0:
 cmenu_insert: /DocBook/Headers/Article:<article>\n:\n</article>:0:
+cmenu_insert: /DocBook/GUI/Menu Choice:<menuchoice>\n\t<shortcut>\n\t\t<keycombo><keysym>%0</keysym></keycombo>\n\t</shortcut>\n\t<guimenu>%1</guimenu>\n\t<guimenuitem>%2</guimenuitem>\n</menuchoice>\n::3:Key Symbol:Menu:Menu Item:
+cmenu_insert: /DocBook/GUI/Key Symbol:<keysym>%0</keysym>::1:Key Symbol:
+cmenu_insert: /DocBook/GUI/Key Cap:<keycap>:</keycap>:0:
+cmenu_insert: /DocBook/Figures/Image Object:<imageobject>\n\t<imagedata fileref="%0" format="%1">\n</imageobject>\n::2:Image Location:Format:
 cmenu_insert: /DocBook/Figures/Figure:<para><figure float="0">\n\t<title>%0</title>\n\t<screenshot><mediaobject>\n\t<imageobject>\n\t<imagedata fileref="%1" format="%2">\n\t</imageobject>\n\t<textobject>\n\t<phrase>%3</phrase>\n\t</textobject>\n\t</mediaobject></screenshot>\n</figure></para>\n::4:Title:Image Location:Format:Phrase:
 cmenu_insert: /DocBook/Date:<date>%0\n:</date>:1:Date:
 cmenu_insert: /DHTML/Image Rollover:<img src="%1" id="%0" onmouseover="this.src='%2';" onmouseout="this.src='%1';" />::3:<img> ID:onmouseout src:onmouseover src:
 cmenu_insert: /DHTML/Auto-submit Select Box:<form action="%0" method="%1" name="%2">\n\t<select name="%3" onchange="document.%1.submit();">\n\t:</select>\n\t<noscript>\n\t\t<input type="submit" value="Go" />\n\t</noscript>\n</form>:4:Form Action:Form Method ("get" or "post"):Form Name:Select Name:
 cmenu_insert: /Apache/Deny Access to .inc:<FilesMatch "\\.inc$">\n\tOrder allow,deny\n\tDeny from all\n</FilesMatch>::0:
 cmenu_insert: /Apache/Basic Authentication:AuthName "%1"\nAuthType Basic\nrequire valid-user\nAuthUserFile %0\n::2:Full Path to Password File:Security Description:
-cmenu_insert: / C /ifdef:\n#ifdef %0\n:\n#endif /* %0 */\n:1:#define Name:
+cmenu_insert: / C /ifdef:\n#ifdef %0\n:\n#endif /* %0 */\n:1:#ifdef Name:
 cmenu_insert: / C /define:#define %0\n:\n:1:#define Name:
 cmenu_insert: / C /Walk GList:GList *tmplist;\ntmplist = g_list_first(%0);\nwhile(tmplist){\n\t:\n\ttmplist = g_list_next(tmplist);\n}:1:GList Name:
 cmenu_insert: / C /Comment:/*:*/:0:
+cmenu_replace: /Replace/Strip/End of line Whitespace:(?<=\\S)\\s*(?=(\\n|\\r))::2:2:0:0:
 cmenu_replace: /Replace/Strip/Font tags:(<font[^>]*>|</font>)::0:1:0:0:
-cmenu_replace: /Replace/Strip/End of line whitespace:(?<=\\S)\\s*(?=\n)::0:1:0:0:
 cmenu_replace: /Replace/Strip/Any tag in Selection:(<%0[^>]*>|</%0>)::2:1:0:1:Tag Name:
 cmenu_replace: /Replace/Convert In Selection/Tabs to Spaces (8):(\t):        :2:1:0:0:
 cmenu_replace: /Replace/Convert In Selection/Tabs to Spaces (4):(\t):    :2:1:0:0:
