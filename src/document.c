@@ -2402,7 +2402,7 @@ void document_unset_filename(Tdocument *doc) {
  *
  * Return value: gchar* with newly allocated string, or NULL on failure or abort
  **/
-gchar *ask_new_filename(Tbfwin *bfwin,gchar *oldfilename, const gchar *gui_name, gint is_move) {
+gchar *ask_new_filename(Tbfwin *bfwin,gchar *oldfilename, const gchar *gui_name, gboolean is_move) {
 	Tdocument *exdoc;
 	GList *alldocs;
 	gchar *ondisk = get_filename_on_disk_encoding(oldfilename);
@@ -2488,8 +2488,8 @@ gchar *ask_new_filename(Tbfwin *bfwin,gchar *oldfilename, const gchar *gui_name,
 /**
  * doc_save:
  * @doc: the #Tdocument to save
- * @do_save_as: #gint set to 1 if "save as"
- * @do_move: #gint set to 1 if moving the file.
+ * @do_save_as: #gboolean set to 1 if "save as"
+ * @do_move: #gboolean set to 1 if moving the file.
  * @window_closing: #gboolean if the window is closing, should suppress statusbar messages then
  *
  * Performs all neccessary actions to save an open document.
@@ -2505,7 +2505,7 @@ gchar *ask_new_filename(Tbfwin *bfwin,gchar *oldfilename, const gchar *gui_name,
  * -4: if there is no filename, after asking one from the user
  * -5: if another process modified the file, and the user chose cancel
  **/
-gint doc_save(Tdocument * doc, gint do_save_as, gboolean do_move, gboolean window_closing) {
+gint doc_save(Tdocument * doc, gboolean do_save_as, gboolean do_move, gboolean window_closing) {
 	gint retval;
 #ifdef DEBUG
 	g_assert(doc);
@@ -2674,7 +2674,7 @@ gint doc_close(Tdocument * doc, gint warn_only)
 			return 2;
 			break;
 		case 2:
-			doc_save(doc, 0, 0, FALSE);
+			doc_save(doc, FALSE, FALSE, FALSE);
 			if (doc->modified == 1) {
 				/* something went wrong it's still not saved */
 				return 0;
@@ -2965,7 +2965,7 @@ void doc_new_with_new_file(Tbfwin *bfwin, gchar * new_filename) {
 	if (ft) doc->hl = ft;
 /*	doc->modified = 1;*/
 	doc_set_title(doc);
-	doc_save(doc, 0, 0, FALSE);
+	doc_save(doc, FALSE, FALSE, FALSE);
 	doc_set_stat_info(doc); /* also sets mtime field */
 	switch_to_document_by_pointer(bfwin,doc);
 	doc_activate(doc);
@@ -3490,7 +3490,7 @@ void file_open_from_selection(Tbfwin *bfwin) {
  * Return value: void
  **/
 void file_save_cb(GtkWidget * widget, Tbfwin *bfwin) {
-	doc_save(bfwin->current_document, 0, 0, FALSE);
+	doc_save(bfwin->current_document, FALSE, FALSE, FALSE);
 }
 
 /**
@@ -3503,7 +3503,7 @@ void file_save_cb(GtkWidget * widget, Tbfwin *bfwin) {
  * Return value: void
  **/
 void file_save_as_cb(GtkWidget * widget, Tbfwin *bfwin) {
-	doc_save(bfwin->current_document, 1, 0, FALSE);
+	doc_save(bfwin->current_document, TRUE, FALSE, FALSE);
 }
 
 /**
@@ -3516,7 +3516,7 @@ void file_save_as_cb(GtkWidget * widget, Tbfwin *bfwin) {
  * Return value: void
  **/
 void file_move_to_cb(GtkWidget * widget, Tbfwin *bfwin) {
-	doc_save(bfwin->current_document, 1, 1, FALSE);
+	doc_save(bfwin->current_document, TRUE, TRUE, FALSE);
 }
 
 #ifdef HAVE_GNOME_VFS
@@ -3780,7 +3780,7 @@ void bfwin_close_all_documents(Tbfwin *bfwin, gboolean window_closing) {
 		
 		switch (retval) {
 		case 0:
-			doc_save(tmpdoc, 0, 0, window_closing);
+			doc_save(tmpdoc, FALSE, FALSE, window_closing);
 			if (!tmpdoc->modified) {
 				doc_destroy(tmpdoc, TRUE);
 			} else {
@@ -3842,7 +3842,7 @@ void file_save_all_cb(GtkWidget * widget, Tbfwin *bfwin) {
 	while (tmplist) {
 		tmpdoc = (Tdocument *) tmplist->data;
 		if (tmpdoc->modified) {
-			doc_save(tmpdoc, 0, 0, FALSE);
+			doc_save(tmpdoc, FALSE, FALSE, FALSE);
 		}
 		tmplist = g_list_next(tmplist);
 	}
