@@ -59,7 +59,8 @@ distclean:
 
 install:
 	pkgdatadir=@pkgdatadir@
-	$(INSTALL) -m 644 images/bluefish_splash.png $(pkgdatadir)
+	$(INSTALL_DIR) $(pkgdatadir)
+	$(INSTALL_DATA) images/bluefish_splash.png $(pkgdatadir)
 	@cd icons/ && $(MAKE) install
 	$(INSTALL_DATA) images/bluefish_splash.png $(pkgdatadir)
 	@cd src/ && $(MAKE) install
