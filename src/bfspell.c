@@ -266,10 +266,12 @@ void spell_gui_fill_dicts() {
 
 void spell_gui_add_clicked(GtkWidget *widget, gpointer data) {
 	const gchar *original = gtk_entry_get_text(GTK_ENTRY(bfspell.incorrectword));
-	if (gtk_option_menu_get_history(GTK_OPTION_MENU(bfspell.dict))) {
-		spell_add_to_session(FALSE,original);
-	} else {
-		spell_add_to_session(TRUE,original);
+	if (strlen(original)) {
+		if (gtk_option_menu_get_history(GTK_OPTION_MENU(bfspell.dict))) {
+			spell_add_to_session(FALSE,original);
+		} else {
+			spell_add_to_session(TRUE,original);
+		}
 	}
 }
 void spell_gui_ignore_clicked(GtkWidget *widget, gpointer data) {
