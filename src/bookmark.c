@@ -165,9 +165,9 @@ static Tbmark *bmark_find_bookmark_before_offset(Tbfwin *bfwin, guint offset, Gt
 		compare = (offset - b->offset);
 
 		if (compare <= 0) {
-			return b;
-		} else {
 			return NULL;
+		} else {
+			return b;
 		}
 	}
 	jumpsize = (num_children+2)/2;
@@ -179,24 +179,35 @@ static Tbmark *bmark_find_bookmark_before_offset(Tbfwin *bfwin, guint offset, Gt
 		
 		if (child > num_children) child = num_children;
 		if (child < 1) child = 1;
-		DEBUG_MSG("bmark_find_bookmark_before_offset, in_loop jumpsize=%d,child=%d\n",jumpsize,child);
+		/* we request child-1, NOT child*/
 		gtk_tree_model_iter_nth_child(GTK_TREE_MODEL(bfwin->bookmarkstore), &iter, parent, child-1);
 		gtk_tree_model_get(GTK_TREE_MODEL(bfwin->bookmarkstore),&iter,PTR_COLUMN,&b, -1);
 		
 		bmark_update_offset_from_textmark(b);
 		compare = (offset - b->offset);
-		
+		DEBUG_MSG("in_loop: jumpsize=%2d, child=%2d, child offset=%3d, compare=%3d\n",jumpsize,child,b->offset,compare);
 		if (compare == 0) {
 			return b;
 		} else if (compare < 0) {
 			jumpsize = (jumpsize > 3) ? (jumpsize+1)/2 : jumpsize-1;
 			if (jumpsize <= 0) {
-				return b;
+				child--;
+				/* we request child-1, NOT child*/
+				if (child >= 1 && gtk_tree_model_iter_nth_child(GTK_TREE_MODEL(bfwin->bookmarkstore), &iter, parent, child-1)) {
+					gtk_tree_model_get(GTK_TREE_MODEL(bfwin->bookmarkstore),&iter,PTR_COLUMN,&b, -1);
+					bmark_update_offset_from_textmark(b);
+					DEBUG_MSG("in_loop: returning bookmark (offset %d) for previous child %d\n",b->offset, child);
+					return b;
+				} else{
+					DEBUG_MSG("in_loop: no previous child, return NULL\n");
+					return NULL;
+				}
 			}
 			child = child - jumpsize;
-		} else {
+		} else { /* compare > 0 */
 			jumpsize = (jumpsize > 3) ? (jumpsize+1)/2 : jumpsize-1;
 			if (jumpsize <= 0) {
+				DEBUG_MSG("in_loop: return bookmark (offset %d) from child %d\n",b->offset, child);
 				return b;
 			}
 			child = child + jumpsize;
@@ -744,10 +755,10 @@ static void bmark_get_iter_at_tree_position(Tbfwin * bfwin, Tbmark * m) {
 	if (main_v->props.bookmarks_sort) {
 		Tbmark *bef = bmark_find_bookmark_before_offset(bfwin, m->offset, parent);
 		if (bef == NULL) {
-			gtk_tree_store_append(bfwin->bookmarkstore, &m->iter, parent);
+			gtk_tree_store_prepend(bfwin->bookmarkstore, &m->iter, parent);
 			return;
 		} else {
-			gtk_tree_store_insert_before(GTK_TREE_STORE(bfwin->bookmarkstore),&m->iter,parent,&bef->iter);
+			gtk_tree_store_insert_after(GTK_TREE_STORE(bfwin->bookmarkstore),&m->iter,parent,&bef->iter);
 			return;
 		}
 		
