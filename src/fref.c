@@ -1406,6 +1406,7 @@ void frefcb_row_collapsed(GtkTreeView * treeview, GtkTreeIter * arg1,
 	 	 /* dummy node for expander display */
  	   gtk_tree_store_append(GTK_TREE_STORE(user_data), &iter, arg1);
  	}   
+ 	g_free(val);
 }
 
 static GtkWidget *togglemenuitem(GSList *group, gchar *name, gboolean selected, GCallback toggledfunc, gpointer toggleddata) {
