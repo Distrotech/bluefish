@@ -27,7 +27,7 @@
 #include "authen.h"
 #include "gtk_easy.h"
 
-#ifdef HAVE_ATLEAST_GNOMEVFS_2_5
+#ifdef HAVE_ATLEAST_GNOMEVFS_2_6
 #ifndef HAVE_ATLEAST_GNOMEUI_2_6
 
 #include <libgnomevfs/gnome-vfs-standard-callbacks.h>
@@ -218,4 +218,4 @@ void set_authen_callbacks(void)
 }
 
 #endif /*  */
-#endif							/* HAVE_ATLEAST_GNOMEVFS_2_5 */
+#endif							/* HAVE_ATLEAST_GNOMEVFS_2_6 */

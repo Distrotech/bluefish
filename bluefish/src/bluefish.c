@@ -155,9 +155,9 @@ int main(int argc, char *argv[])
 #ifdef HAVE_ATLEAST_GNOMEUI_2_6
 	gnome_authentication_manager_init();
 #else
-#ifdef HAVE_ATLEAST_GNOMEVFS_2_5
+#ifdef HAVE_ATLEAST_GNOMEVFS_2_6
 	set_authen_callbacks();
-#endif /* HAVE_ATLEAST_GNOMEVFS_2_5 */
+#endif /* HAVE_ATLEAST_GNOMEVFS_2_6 */
 #endif /* HAVE_ATLEAST_GNOME_2_6 */
 #endif /* HAVE_GNOME_VFS */
 	main_v = g_new0(Tmain, 1);
