@@ -793,7 +793,7 @@ GtkWidget *file_but_new(GtkWidget * which_entry, GtkWidget * win, gint full_path
 
 	file_but = gtk_button_new();
 	DEBUG_MSG("file_but_new, entry=%p, button=%p\n",which_entry,file_but);
-	gtk_container_add(GTK_CONTAINER(file_but), hbox_with_pix_and_text(_("_Browse..."), 1));
+	gtk_container_add(GTK_CONTAINER(file_but), hbox_with_pix_and_text(_("_Browse..."), 112));
 	if (full_pathname == 1) {
 		g_signal_connect(G_OBJECT(file_but), "clicked", G_CALLBACK(file_but_clicked_full_lcb), which_entry);
 	} else {
