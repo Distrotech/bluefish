@@ -3199,7 +3199,9 @@ void edit_paste_cb(GtkWidget * widget, Tbfwin *bfwin) {
 	
 	gtk_text_buffer_paste_clipboard (bfwin->current_document->buffer,gtk_clipboard_get(GDK_SELECTION_CLIPBOARD),NULL,TRUE);
 	
-	doc_scroll_to_cursor (bfwin->current_document);
+	GtkTextMark *mark = gtk_text_buffer_get_insert(bfwin->current_document->buffer);
+	gtk_text_view_scroll_mark_onscreen (GTK_TEXT_VIEW(bfwin->current_document->view), mark); 
+	
 	
 	if (wasHighlighted)
 	{
