@@ -116,8 +116,9 @@ static Tpixmap tp[] = {
 	{103, context}, /* context dropdown image */
 	{104, spellcheck},
 	{105, filetree},
-	{106, frinfo},
-	{106, frdialog},
+	{106, fref},
+	{107, frinfo},
+	{108, frdialog},
 	{110, indent},
 	{111, unindent},
 	{112, open_small},

@@ -658,12 +658,13 @@ GtkWidget *hbox_with_pix_and_text(const gchar *label, gint pixmap_type) {
 }
 /**
  * bf_generic_button_with_image:
- * @label: #const gchar* button string with '_' for the mnemonic
+ * @label: #const gchar* button string with '_' for the mnemonic, or NULL
  * @pixmap_type: #gint image to display on button know to new_pixmap() from pixmap.c
  * @func: #GCallback pointer to signal handler
  * @func_data: #gpointer data for signal handler
  *
- * 	Create new button with an image and connect the "clicked" signal to func
+ * Create new button with an image and connect the "clicked" signal to func
+ * if the label is NULL there will be only an image in the button
  *
  * Return value: #GtkWidget* pointer to created button
  */
@@ -672,7 +673,11 @@ GtkWidget *bf_generic_button_with_image(const gchar *label, gint pixmap_type, GC
 
 	button = gtk_button_new();
 	gtk_container_set_border_width(GTK_CONTAINER(button), 0);
-	gtk_container_add(GTK_CONTAINER(button), hbox_with_pix_and_text(label, pixmap_type));
+	if (label) {
+		gtk_container_add(GTK_CONTAINER(button), hbox_with_pix_and_text(label, pixmap_type));
+	} else {
+		gtk_container_add(GTK_CONTAINER(button), new_pixmap(pixmap_type));
+	}
 	GTK_WIDGET_SET_FLAGS(button, GTK_CAN_DEFAULT);
 	g_return_val_if_fail(button, NULL);
 	g_signal_connect(G_OBJECT(button), "clicked", func, func_data);
