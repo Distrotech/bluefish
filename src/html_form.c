@@ -407,7 +407,6 @@ static void hiddenok_lcb(GtkWidget * widget, Thtml_diag *dg)
 	html_diag_destroy_cb(NULL, dg);
 }
 
-
 void hiddendialog_dialog(Tbfwin *bfwin, Ttagpopup *data) {
 	static gchar *tagitems[] = { "name", "value", "type", NULL };
 	gchar *tagvalues[4];
@@ -703,4 +702,113 @@ void optgroupdialog_dialog(Tbfwin *bfwin, Ttagpopup *data) {
 	html_diag_finish(dg, G_CALLBACK(optgroupdialogok_lcb));
 
 	if (custom)	g_free(custom);
+}
+
+static void inputdialogok_lcb(GtkWidget * widget,Thtml_diag *dg) {
+	DEBUG_MSG("TODO: implement inputdialogok_lcb\n");
+}
+
+static void inputdialog_typecombo_activate_lcb(GtkList *list, Thtml_diag *dg) {
+	/* hmm this function should check if the window is being destroyed... */
+	const gchar *text = gtk_entry_get_text(GTK_ENTRY(GTK_COMBO(dg->combo[0])->entry));
+	DEBUG_MSG("TODO: implement inputdialog_typecombo_activate_lcb\n");
+
+	gtk_widget_set_sensitive(dg->check[0], (strcmp(text, "radio")==0 || strcmp(text, "checkbox")==0));
+	gtk_widget_set_sensitive(dg->spin[1], (strcmp(text, "text")==0 || strcmp(text, "passwd")==0));
+	gtk_widget_set_sensitive(dg->entry[2], (strcmp(text, "file")==0));
+}
+
+void inputdialog_dialog(Tbfwin *bfwin, Ttagpopup *data) {
+	static gchar *tagitems[] = { "type", "name", "value", "checked", "size", "maxlength", "accept", "onfocus", "onblur", "onselect", "onchange", NULL };
+	gchar *tagvalues[12];
+	gchar *custom = NULL;
+	Thtml_diag *dg;
+	GtkWidget *noteb, *frame, *dgtable;
+	
+	dg = html_diag_new(bfwin,_("Input"));
+	fill_dialogvalues(tagitems, tagvalues, &custom, (Ttagpopup *) data, dg);
+	noteb = gtk_notebook_new();
+	gtk_box_pack_start(GTK_BOX(dg->vbox), noteb, FALSE, FALSE, 0);
+
+	frame = bf_generic_frame_new(NULL, GTK_SHADOW_NONE, 12);
+	gtk_notebook_append_page(GTK_NOTEBOOK(noteb), frame, gtk_label_new(_("Attributes")));
+	dgtable = gtk_table_new(8, 3, FALSE);
+	gtk_table_set_col_spacings(GTK_TABLE(dgtable), 12);
+	gtk_table_set_row_spacings(GTK_TABLE(dgtable), 6);
+	gtk_container_add(GTK_CONTAINER(frame), dgtable);
+	
+	{
+		GList *poplist=NULL;
+		poplist = g_list_append(poplist, "text");
+		poplist = g_list_append(poplist, "password");
+		poplist = g_list_append(poplist, "checkbox");
+		poplist = g_list_append(poplist, "radio");
+		poplist = g_list_append(poplist, "submit");
+		poplist = g_list_append(poplist, "reset");
+		poplist = g_list_append(poplist, "file");
+		poplist = g_list_append(poplist, "hidden");
+		poplist = g_list_append(poplist, "image");
+		poplist = g_list_append(poplist, "button");
+		dg->combo[0] = combo_with_popdown(tagvalues[0], poplist, 0);
+		g_list_free(poplist);
+	}
+	bf_mnemonic_label_tad_with_alignment(_("_Type:"), dg->combo[0], 0, 0.5, dgtable, 0, 1, 0, 1);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(GTK_COMBO(dg->combo[0])), 1, 3, 0, 1);
+
+	g_signal_connect(G_OBJECT(GTK_COMBO(dg->combo[0])->list), "selection-changed", G_CALLBACK(inputdialog_typecombo_activate_lcb), dg);
+
+	dg->entry[0] = entry_with_text(tagvalues[1], 256);
+	bf_mnemonic_label_tad_with_alignment(_("_Name:"), dg->entry[0], 0, 0.5, dgtable, 0, 1, 1, 2);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[0], 1, 3, 1, 2);
+	
+	dg->entry[1] = entry_with_text(tagvalues[2], 256);
+	bf_mnemonic_label_tad_with_alignment(_("_Value:"), dg->entry[1], 0, 0.5, dgtable, 0, 1, 2, 3);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[1], 1, 3, 2, 3);
+	
+	dg->check[0] = gtk_check_button_new();
+	bf_mnemonic_label_tad_with_alignment(_("_Checked:"), dg->check[0], 0, 0.5, dgtable, 0, 1, 3, 4);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->check[0], 1, 3, 3, 4);
+	parse_existence_for_dialog(tagvalues[3], dg->check[0]);
+	
+	dg->spin[0] = spinbut_with_value(tagvalues[4], 0, 500, 1.0, 5.0);
+	bf_mnemonic_label_tad_with_alignment(_("Si_ze:"), dg->spin[0], 0, 0.5, dgtable, 0, 1, 4, 5);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->spin[0], 1, 2, 4, 5);
+
+	dg->spin[1] = spinbut_with_value(tagvalues[5], 0, 500, 1.0, 5.0);
+	bf_mnemonic_label_tad_with_alignment(_("Max _Length:"), dg->spin[1], 0, 0.5, dgtable, 0, 1, 5, 6);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->spin[1], 1, 2, 5, 6);
+
+	dg->entry[2] = entry_with_text(tagvalues[6], 256);
+	bf_mnemonic_label_tad_with_alignment(_("_Accept:"), dg->entry[2], 0, 0.5, dgtable, 0, 1, 6, 7);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[2], 1, 3, 6, 7);
+	
+	dg->entry[7] = entry_with_text(custom, 256);
+	bf_mnemonic_label_tad_with_alignment(_("C_ustom:"), dg->entry[7], 0, 0.5, dgtable, 0, 1, 7, 8);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[7], 1, 3, 7, 8);
+	
+	frame = bf_generic_frame_new(NULL, GTK_SHADOW_NONE, 12);
+	gtk_notebook_append_page(GTK_NOTEBOOK(noteb), frame, gtk_label_new(_("Events")));
+	dgtable = gtk_table_new(10, 2, FALSE);
+	gtk_table_set_row_spacings(GTK_TABLE(dgtable), 6);
+	gtk_table_set_col_spacings(GTK_TABLE(dgtable), 12);
+	gtk_container_add(GTK_CONTAINER(frame), dgtable);
+	
+	dg->entry[3] = entry_with_text(tagvalues[7], 256);
+	bf_mnemonic_label_tad_with_alignment(_("On_Focus:"), dg->entry[3], 0, 0.5, dgtable, 0, 1, 0, 1);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[3], 1, 3, 0, 1);
+	
+	dg->entry[4] = entry_with_text(tagvalues[8], 256);
+	bf_mnemonic_label_tad_with_alignment(_("On_Blur:"), dg->entry[4], 0, 0.5, dgtable, 0, 1, 1, 2);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[4], 1, 3, 1, 2);
+
+	dg->entry[5] = entry_with_text(tagvalues[9], 256);
+	bf_mnemonic_label_tad_with_alignment(_("On_Select:"), dg->entry[5], 0, 0.5, dgtable, 0, 1, 2, 3);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[5], 1, 3, 2, 3);
+
+	dg->entry[6] = entry_with_text(tagvalues[10], 256);
+	bf_mnemonic_label_tad_with_alignment(_("On_Change:"), dg->entry[6], 0, 0.5, dgtable, 0, 1, 3, 4);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[6], 1, 3, 3, 4);
+	
+	inputdialog_typecombo_activate_lcb(NULL, dg);
+	html_diag_finish(dg, G_CALLBACK(inputdialogok_lcb));
 }
