@@ -92,6 +92,8 @@ typedef struct {
 	GList *highlightlist;
 	GtkWidget *menuitem; /* the menuitem to choose this for highlighting */
 	gulong menuitem_activate_id;
+	gboolean editable; /* this a type that can be edited by Bluefish */
+	gchar *content_regex; /* a regex pattern to test the filetype using the content */
 } Tfiletype;
 
 /*******************/
