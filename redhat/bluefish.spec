@@ -1,10 +1,10 @@
 %define	desktop_vendor 	endur
 %define name  		bluefish
 %define version		gtk2
-%define release 	20041125
+%define release 	20041228
 %define epoch 		1
-%define source		bluefish-2004-11-25
-	
+%define source		bluefish-2004-12-28
+
 
 Summary:	A GTK2 web development application for experienced users.
 Name:		%{name}
@@ -16,10 +16,12 @@ URL:		http://bluefish.openoffice.nl
 License:	GPL
 Group:          Development/Tools
 Requires:	gtk2 >= 2.0.6, pcre >= 3.9, aspell >= 0.50, gnome-vfs2 => 2.4.1
+Requires:       shared-mime-info >= 0.15
 BuildRequires:  gtk2-devel >= 2.0.6, pcre-devel >= 3.9, gnome-vfs2-devel >= 2.4.1
 BuildRequires:  aspell-devel >= 0.50, desktop-file-utils, gettext
 
 BuildRoot: %{_tmppath}/%{name}-%{version}
+Patch0:	bluefish_desktop_icon.patch
 
 %description
 Bluefish is a GTK+ HTML editor for the experienced web designer or
@@ -30,16 +32,16 @@ support.
 
 %prep
 %setup -q -n %{name}-%{version}
+%patch0 -p0
 
 %build
-%configure
+%configure --disable-update-databases
 %{__make} %{?_smp_mflags}
 
 %install
 %{__rm} -rf %{buildroot}
-mkdir -p %{buildroot}%{_datadir}/{application-registry,applications}
-mkdir -p %{buildroot}%{_datadir}/{mime-info,pixmaps}
-
+mkdir -p %{buildroot}%{_datadir}/{applications,mime,pixmaps}
+mkdir -p %{buildroot}%{_datadir}/mime/packages
 make install DESTDIR=%{buildroot}
 
 %find_lang %{name}
@@ -51,6 +53,18 @@ desktop-file-install --vendor %{desktop_vendor} --delete-original \
   --add-category Development                                      \
   %{buildroot}%{_datadir}/applications/%{name}.desktop
 
+%triggerin -- shared-mime-info
+if [ $2 -eq 1 ]; then
+  update-mime-database %{_datadir}/mime > /dev/null 2>&1 || :
+fi
+
+%post 
+update-desktop-database -q || :
+
+%postun
+[ -x /usr/bin/update-mime-database ] && update-mime-database %{_datadir}/mime > /dev/null 2>&1 || :
+update-desktop-database -q || :
+
 %clean
 %{__rm} -rf %{buildroot}
 
@@ -60,11 +74,10 @@ desktop-file-install --vendor %{desktop_vendor} --delete-original \
 %{_bindir}/bluefish
 %{_datadir}/bluefish
 %{_datadir}/applications/*.desktop
-%{_datadir}/application-registry/*
-%{_datadir}/mime-info/*
+%{_datadir}/mime/packages/*
 %{_datadir}/pixmaps/*.png
 
 
 %changelog
-* Thu Nov 25 2004 Matthias Haase <matthias_haase@bennewitz.com>
-- Automatic build - snapshot of 2004-11-25
+* Wed Dec 29 2004 Matthias Haase <matthias_haase@bennewitz.com>
+- Automatic build - snapshot of 2004-12-28
