@@ -1494,6 +1494,7 @@ static void cme_lview_selection_changed(GtkTreeSelection *selection, Tcmenu_edit
 			}
 			tmplist = g_list_next(tmplist);
 		}
+		g_free(selected_value);
 		DEBUG_MSG("cme_clist_select_lcb, lastarray=%p, lastarray[0]=%s\n", cme->lastarray, cme->lastarray[0]);
 
 		i = count_array(cme->lastarray);
@@ -1808,8 +1809,8 @@ void cmenu_editor(GtkWidget *widget, gpointer data) {
 	
 	cme = g_malloc0(sizeof(Tcmenu_editor));
 	DEBUG_MSG("cmenu_editor, cme is at %p\n", cme);
-	cme->win = window_full(_("Custom Menu Editor"), GTK_WIN_POS_CENTER
-			, 0, G_CALLBACK(cme_destroy_lcb), cme, TRUE);
+	cme->win = window_full2(_("Custom Menu Editor"), GTK_WIN_POS_CENTER, 
+							0, G_CALLBACK(cme_destroy_lcb), cme, TRUE, main_v->main_window);
 
 	vbox = gtk_vbox_new(FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(cme->win), vbox);
@@ -1843,7 +1844,7 @@ void cmenu_editor(GtkWidget *widget, gpointer data) {
 	cme->menupath = gtk_entry_new();
 	gtk_label_set_mnemonic_widget(GTK_LABEL(label), cme->menupath);
 	gtk_box_pack_start(GTK_BOX(hbox),cme->menupath , TRUE, TRUE, 0);
-
+	
 	hbox = gtk_hbox_new(FALSE, 12);
 	gtk_box_pack_start(GTK_BOX(vbox2), hbox, TRUE, TRUE, 6);
 
@@ -1889,12 +1890,12 @@ void cmenu_editor(GtkWidget *widget, gpointer data) {
 	
 	frame = gtk_frame_new(_("Variables"));
 	gtk_box_pack_end(GTK_BOX(vbox3), frame, TRUE, TRUE, 0);
-	cme->dynvbox = gtk_vbox_new(FALSE, 0);	
+	cme->dynvbox = gtk_vbox_new(FALSE, 2);	
 	gtk_container_add(GTK_CONTAINER(frame), cme->dynvbox);
 	for (i = 0; i <  MAX_TEXT_ENTRY; i++) {
 		cme->hboxes[i] = gtk_hbox_new(FALSE, 0);
 		gtk_box_pack_start(GTK_BOX(cme->dynvbox), cme->hboxes[i], FALSE, FALSE, 0);
-		tmpstr = g_strdup_printf("%%%d", i);
+		tmpstr = g_strdup_printf("%%%d: ", i);
 		gtk_box_pack_start(GTK_BOX(cme->hboxes[i]), gtk_label_new(tmpstr), FALSE, FALSE, 0);
 		g_free(tmpstr);
 		cme->descriptions[i] = gtk_entry_new();
@@ -1950,14 +1951,14 @@ void cmenu_editor(GtkWidget *widget, gpointer data) {
 		cme->label1 = gtk_label_new_with_mnemonic("");
 		gtk_box_pack_start(GTK_BOX(vbox3), cme->label1, FALSE, FALSE, 0);
 
-		scrolwin = textview_buffer_in_scrolwin(&textview, 280, 50, NULL, GTK_WRAP_NONE);
+		scrolwin = textview_buffer_in_scrolwin(&textview, -1, -1, NULL, GTK_WRAP_NONE);
 		cme->befb = gtk_text_view_get_buffer(GTK_TEXT_VIEW(textview));
 		gtk_box_pack_start(GTK_BOX(vbox3), scrolwin, TRUE, TRUE, 0);
 
 		cme->label2 = gtk_label_new_with_mnemonic("");
 		gtk_box_pack_start(GTK_BOX(vbox3), cme->label2, FALSE, FALSE, 0);
 		
-		scrolwin = textview_buffer_in_scrolwin(&textview, 280, 50, NULL, GTK_WRAP_NONE);
+		scrolwin = textview_buffer_in_scrolwin(&textview, -1, -1, NULL, GTK_WRAP_NONE);
 		cme->aftb = gtk_text_view_get_buffer(GTK_TEXT_VIEW(textview));
 		gtk_box_pack_start(GTK_BOX(vbox3), scrolwin, TRUE, TRUE, 0);
 	}
