@@ -425,7 +425,7 @@ gboolean change_dir(gchar * filename)
 
 	if (!filename)
 		return FALSE;
-	tmpstring = g_dirname(filename);
+	tmpstring = g_path_get_dirname(filename);
 	DEBUG_MSG("change_dir, filename = %s, tmpstring = %s in %p\n", filename, tmpstring, tmpstring);
 	returncode = chdir(tmpstring) == 0 ? TRUE : FALSE;
 	g_free(tmpstring);
@@ -911,7 +911,7 @@ gchar *create_secure_dir_return_filename() {
  * Return value: void
  **/
 void remove_secure_dir_and_filename(gchar *filename) {
-	gchar *dirname = g_dirname(filename);
+	gchar *dirname = g_path_get_dirname(filename);
 	unlink(filename);
 	rmdir(dirname);
 	g_free(dirname);
