@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-/* #define DEBUG */
+/*#define DEBUG*/
 #include <gtk/gtk.h>
 #include <stdlib.h> /* strtod() */
 #include <string.h> /* strlen() */
@@ -545,7 +545,7 @@ static gboolean window_full_key_press_event_lcb(GtkWidget *widget,GdkEventKey *e
  * @delete_on_escape: #gboolean if the escape key should close the dialog
  * @transientforparent: #GtkWidget* with the window to set this transient for, or NULL
  *
- * 	Create new window with title, callback functions, some more settings
+ * Create new window with title, callback functions, some more settings
  * and if needed set a callback so the window will be closed on escape press
  * and set it if needed transient for another window
  *

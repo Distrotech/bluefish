@@ -22,8 +22,9 @@
  */
 /* 
  * Changes by Antti-Juhani Kaijanaho <gaia@iki.fi> on 1999-10-20
- * $Id: html.c,v 1.30 2003-07-23 12:19:37 oli4 Exp $
+ * $Id: html.c,v 1.31 2003-07-27 18:49:26 oli4 Exp $
  */
+/*#define DEBUG*/
 
 #include <gtk/gtk.h>
 #include <stdio.h>
@@ -542,11 +543,9 @@ void quickanchor_dialog(Tbfwin *bfwin, Ttagpopup *data) {
 	Thtml_diag *dg;
 
 	GtkWidget *noteb, *but, *dgtable, *file_but, *frame;
-
+	DEBUG_MSG("quickanchor_dialog, bfwin=%p, data=%p\n",bfwin,data);
 	dg = html_diag_new(bfwin,_("Quick Anchor"));
-	if (data) {
-		fill_dialogvalues(aitems, avalues, &custom, (Ttagpopup *) data, dg);
-	}
+	fill_dialogvalues(aitems, avalues, &custom, (Ttagpopup *) data, dg);
 
 	noteb = gtk_notebook_new();
 	gtk_box_pack_start(GTK_BOX(dg->vbox), noteb, FALSE, FALSE, 0);
