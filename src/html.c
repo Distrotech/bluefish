@@ -22,7 +22,7 @@
  */
 /* 
  * Changes by Antti-Juhani Kaijanaho <gaia@iki.fi> on 1999-10-20
- * $Id: html.c,v 1.38 2004-02-11 22:00:35 oli4 Exp $
+ * $Id: html.c,v 1.39 2004-02-11 22:15:59 oli4 Exp $
  */
 /*#define DEBUG*/
 
@@ -543,7 +543,7 @@ void quickanchor_dialog(Tbfwin *bfwin, Ttagpopup *data) {
 	gchar *avalues[18];
 	Thtml_diag *dg;
 
-	GtkWidget *noteb, *but, *dgtable, *file_but, *frame;
+	GtkWidget *noteb, *dgtable, *file_but;
 	DEBUG_MSG("quickanchor_dialog, bfwin=%p, data=%p\n",bfwin,data);
 	dg = html_diag_new(bfwin,_("Quick Anchor"));
 	fill_dialogvalues(aitems, avalues, &custom, (Ttagpopup *) data, dg);

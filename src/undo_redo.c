@@ -85,15 +85,15 @@ static gint unregroup_activate(unregroup_t *curgroup, Tdocument *doc, gint is_re
 	while (tmplist) {
 		GtkTextIter itstart;
 		unreentry_t *entry = tmplist->data;
+		gtk_text_buffer_get_iter_at_offset(doc->buffer,&itstart,entry->start);
+		gtk_text_view_scroll_to_iter(GTK_TEXT_VIEW(doc->view),&itstart,0.05,FALSE,0.0,0.0);
 		if ((entry->op == UndoInsert && !is_redo) || (entry->op == UndoDelete && is_redo)) {
 			GtkTextIter itend;
 			DEBUG_MSG("unregroup_activate set start to %d, end to %d and delete\n", entry->start, entry->end);
-			gtk_text_buffer_get_iter_at_offset(doc->buffer,&itstart,entry->start);
 			gtk_text_buffer_get_iter_at_offset(doc->buffer,&itend,entry->end);
 			gtk_text_buffer_delete(doc->buffer,&itstart,&itend);
 		} else {
 			DEBUG_MSG("unregroup_activate set start to %d and insert %d chars: %s\n", entry->start, strlen(entry->text), entry->text);
-			gtk_text_buffer_get_iter_at_offset(doc->buffer,&itstart,entry->start);
 			gtk_text_buffer_insert(doc->buffer,&itstart,entry->text,-1);
 		}
 		lastpos = entry->start;		
