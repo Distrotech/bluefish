@@ -58,10 +58,8 @@ install-update-menu:
 	$(UPDATE_DESKTOP)
 
 install-fdmime:
-	# it specifies application/bluefish-project so that is a sbubclass of application 
-	# and should be in that directory
-	$(INSTALL_DIR) $(DESTDIR)$(FDMIME)/application
-	$(INSTALL_DATA) bluefish.xml $(DESTDIR)$(FDMIME)/application
+	$(INSTALL_DIR) $(DESTDIR)$(FDMIME)/packages
+	$(INSTALL_DATA) bluefish.xml $(DESTDIR)$(FDMIME)/packages
 
 install-update-mime:
 	$(UPDATE_MIME) $(FDMIME)
@@ -89,7 +87,7 @@ install: all $(INSTALLDATA)
 	done
 
 uninstall:
-	rm -rf $(FDMIME)/application/bluefish.xml
+	rm -rf $(FDMIME)/packages/bluefish.xml
 	rm -rf $(GMIMEINFO)/bluefish.mime
 	rm -rf $(GMIMEINFO)/bluefish.keys
 	rm -rf $(GAPPREG)/bluefish.applications
