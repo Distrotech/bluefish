@@ -44,12 +44,42 @@
 
 #include "outputbox.h" /* temporary */
 
+/*
+The callback for an ItemFactory entry can take two forms. If callback_action is zero, it is of the following form:
+void callback(void)
+otherwise it is of the form:
+void callback( gpointer callback_data,guint callback_action, GtkWidget *widget)
+callback_data is a pointer to an arbitrary piece of data and is set during the call to gtk_item_factory_create_items().
+
+we want to pass the Tbfwin* so we should never use a callback_action of zero
+*/
+void menu_file_new_cb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget) {
+	file_new_cb(NULL,bfwin);
+}
+void menu_file_open_cb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget) {
+	if (callback_action == 1) {
+		file_open_cb(NULL,bfwin);
+	} 
+#ifdef EXTERNAL_GREP
+#ifdef EXTERNAL_FIND
+	else if (callback_action == 2) {
+		file_open_advanced_cb(NULL,bfwin);
+	}
+#endif
+#endif
+}
+
+
 static GtkItemFactoryEntry menu_items[] = {
 	{N_("/_File"), NULL, NULL, 0, "<Branch>"},
 	{N_("/File/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
-	{N_("/File/_New"), "<control>n", file_new_cb, 0, "<StockItem>", GTK_STOCK_NEW},
-	{N_("/File/_Open..."), "<control>O", file_open_cb, 0, "<StockItem>", GTK_STOCK_OPEN},
-	{N_("/File/Open A_dvanced..."), "<shift><control>O", file_open_cb, 1, NULL},
+	{N_("/File/_New"), "<control>n", menu_file_new_cb, 1, "<StockItem>", GTK_STOCK_NEW},
+	{N_("/File/_Open..."), "<control>O", menu_file_open_cb, 1, "<StockItem>", GTK_STOCK_OPEN},
+#ifdef EXTERNAL_GREP
+#ifdef EXTERNAL_FIND
+	{N_("/File/Open A_dvanced..."), "<shift><control>O", menu_file_open_cb, 2, NULL},
+#endif
+#endif
 	{N_("/File/Open r_ecent"), NULL, NULL, 0, "<Branch>"},
 	{N_("/File/Open recent/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
 	{N_("/File/_Revert to Saved"), NULL, file_revert_to_saved_cb, 0, "<StockItem>", GTK_STOCK_REVERT_TO_SAVED},
@@ -633,7 +663,7 @@ void menu_create_main(Tbfwin *bfwin, GtkWidget *vbox)
 #ifdef ENABLE_NLS
 	gtk_item_factory_set_translate_func(item_factory, menu_translate, "<bluefishmain>", NULL);
 #endif
-	gtk_item_factory_create_items(item_factory, nmenu_items, menu_items, NULL);
+	gtk_item_factory_create_items(item_factory, nmenu_items, menu_items, bfwin);
 	gtk_window_add_accel_group(GTK_WINDOW(bfwin->main_window), accel_group);
 	bfwin->menubar = gtk_item_factory_get_widget(item_factory, "<bluefishmain>");
 	gtk_box_pack_start(GTK_BOX(vbox), bfwin->menubar, FALSE, TRUE, 0);

@@ -2030,6 +2030,7 @@ void document_set_line_numbers(Tdocument *doc, gboolean value) {
 
 /**
  * doc_new:
+ * @bfwin: #Tbfwin* with the window to open the document in
  * @delay_activate: Whether to perform GUI-calls and flush_queue(). Set to TRUE when loading several documents at once.
  *
  * Create a new document, related structures and a nice little textview to display the document in.
@@ -2038,11 +2039,11 @@ void document_set_line_numbers(Tdocument *doc, gboolean value) {
  *
  * Return value: a #Tdocument* pointer to the just created document.
  **/
-Tdocument *doc_new(gboolean delay_activate) {
+Tdocument *doc_new(Tbfwin* bfwin, gboolean delay_activate) {
 	GtkWidget *scroll;
 	Tdocument *newdoc = g_new0(Tdocument, 1);
 	DEBUG_MSG("doc_new, main_v is at %p, newdoc at %p\n", main_v, newdoc);
-
+	newdoc->bfwin = bfwin;
 	newdoc->hl = (Tfiletype *)((GList *)g_list_first(main_v->filetypelist))->data;
 	newdoc->buffer = gtk_text_buffer_new(highlight_return_tagtable());
 	newdoc->view = gtk_text_view_new_with_buffer(newdoc->buffer);
@@ -2090,7 +2091,7 @@ Tdocument *doc_new(gboolean delay_activate) {
 		, G_CALLBACK(doc_buffer_mark_set_lcb), newdoc);
 	g_signal_connect(G_OBJECT(newdoc->view), "toggle-overwrite",
 		G_CALLBACK(doc_view_toggle_overwrite_lcb), newdoc);
-	main_v->documentlist = g_list_append(main_v->documentlist, newdoc);
+	bfwin->documentlist = g_list_append(bfwin->documentlist, newdoc);
 
 	if(!delay_activate) gtk_widget_show(newdoc->view); /* Delay _show() if neccessary */
 
@@ -2116,7 +2117,7 @@ Tdocument *doc_new(gboolean delay_activate) {
 		gtk_box_pack_start(GTK_BOX(hbox), but, FALSE, FALSE, 0);
 		gtk_widget_show(hbox);
 		gtk_widget_show(but);
-		gtk_notebook_append_page_menu(GTK_NOTEBOOK(main_v->notebook), scroll ,hbox, newdoc->tab_menu);
+		gtk_notebook_append_page_menu(GTK_NOTEBOOK(bfwin->notebook), scroll ,hbox, newdoc->tab_menu);
 	}
 	/* for some reason it only works after the document is appended to the notebook */
 	doc_set_tabsize(newdoc, main_v->props.editor_tab_width);
@@ -2624,17 +2625,9 @@ void file_move_to_cb(GtkWidget * widget, gpointer data) {
  *
  * Return value: void
  **/
-void file_open_cb(GtkWidget * widget, gpointer data) {
+void file_open_cb(GtkWidget * widget, Tbfwin *bfwin) {
 	GList *tmplist;
-	if (GPOINTER_TO_INT(data) == 1) {
-#ifdef EXTERNAL_GREP
-#ifdef EXTERNAL_FIND
-		tmplist = return_files_advanced();
-#endif
-#endif
-	} else {
-		tmplist = return_files(NULL);
-	}
+	tmplist = return_files(NULL);
 	if (!tmplist) {
 		return;
 	}
@@ -2648,6 +2641,26 @@ void file_open_cb(GtkWidget * widget, gpointer data) {
 	docs_new_from_files(tmplist);
 	free_stringlist(tmplist);
 }
+#ifdef EXTERNAL_GREP
+#ifdef EXTERNAL_FIND
+void file_open_advanced_cb(GtkWidget * widget, Tbfwin *bfwin) {
+	GList *tmplist;
+	tmplist = return_files_advanced();
+	if (!tmplist) {
+		return;
+	}
+	{
+		gint len = g_list_length(tmplist);
+		gchar *message = g_strdup_printf(_("Loading %d file(s)..."), len);
+		statusbar_message(message,2000+len*50);
+		g_free(message);
+		flush_queue();
+	}
+	docs_new_from_files(tmplist);
+	free_stringlist(tmplist);
+}
+#endif
+#endif
 
 /**
  * file_revert_to_saved_cb:
@@ -2688,17 +2701,16 @@ void file_insert_cb(GtkWidget * widget, gpointer data) {
 
 /**
  * file_new_cb:
- * @widget: unused #GtkWidget
- * @data: unused #gpointer
+ * @windget: #GtkWidget* ignored
+ * @bfwin: Tbfwin* where to open the new document
  *
- * Create a new, empty file.
+ * Create a new, empty file in window bfwin
  *
  * Return value: void
  **/
-void file_new_cb(GtkWidget * widget, gpointer data) {
+void file_new_cb(GtkWidget *widget, Tbfwin *bfwin) {
 	Tdocument *doc;
-
-	doc = doc_new(FALSE);
+	doc = doc_new(bfwin, FALSE);
 	switch_to_document_by_pointer(doc);
 /*	project management needs a rewite so this is not included yet */
 /* 	if ((main_v->current_project.template) && (file_exists_and_readable(main_v->current_project.template) == 1)) {
