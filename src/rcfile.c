@@ -396,9 +396,9 @@ static GList *props_init_main(GList * config_rc)
 	init_prop_integer(&config_rc, &main_v->props.v_filebrowser, "view_filebrowser:", 1);
 	init_prop_integer(&config_rc, &main_v->props.transient_htdialogs, "transient_htdialogs:", 0);
 	init_prop_string(&config_rc, &main_v->props.image_editor_cline, "image_editor_command:", "gimp-remote -n \"%s\"&");
-	init_prop_string(&config_rc, &main_v->props.cfg_editor_font, "editor_font:", "fixed,*");
+	init_prop_string(&config_rc, &main_v->props.editor_font_string, "editor_font_string:", "courier 11");
 	init_prop_integer(&config_rc, &main_v->props.cfg_editor_tabwidth, "editor_tab_width:", 8);
-	init_prop_string(&config_rc, &main_v->props.cfg_tab_font, "notebook_tab_font:", "fixed,*");
+	init_prop_string(&config_rc, &main_v->props.tab_font_string, "tab_font_string:", "helvetica 8");
 	init_prop_string(&config_rc, &main_v->props.cfg_tab_pos, "notebook_tab_position:", "bottom");
 /*	init_prop_string(&config_rc, &main_v->props.cfg_weblint_cline, "weblint_command:", WEBLINT_COMMAND);*/
 	init_prop_integer(&config_rc, &main_v->props.main_window_h, "main_window_height:", 400);

@@ -76,11 +76,15 @@ void document_set_wrap(Tdocument * doc, gint wraptype) {
 	}
 }
 
+#ifdef __GNUC__
+__inline__ 
+#endif
 void doc_set_font(Tdocument *doc, gchar *fontstring) {
-	PangoFontDescription *font_desc;
-	font_desc = pango_font_description_from_string("courier 11");
-	gtk_widget_modify_font(doc->view, font_desc);
-	pango_font_description_free(font_desc);
+	if (fontstring) {
+		apply_font_style(doc->view, fontstring);
+	} else {
+		apply_font_style(doc->view, main_v->props.editor_font_string);
+	}
 }
 
 
@@ -550,6 +554,7 @@ Tdocument *doc_new(gboolean delay_activate) {
 
 	newdoc->tab_label = gtk_label_new(NULL);
 	GTK_WIDGET_UNSET_FLAGS(newdoc->tab_label, GTK_CAN_FOCUS);
+	apply_font_style(newdoc->tab_label, main_v->props.tab_font_string);
 	newdoc->tab_menu = gtk_label_new(NULL);
 
 	doc_unre_init(newdoc);
@@ -662,10 +667,14 @@ gint doc_textbox_to_file(Tdocument * doc, gchar * filename) {
 	}
 }
 
-void doc_destroy(Tdocument * doc)
+void doc_destroy(Tdocument * doc, gboolean delay_activation)
 {
 	if (doc->filename) {
 /*		add_to_recent_list(doc->filename, 1);*/
+	}
+
+	if (delay_activation) {
+		gui_notebook_unbind_signals();
 	}
 
 	gtk_notebook_remove_page(GTK_NOTEBOOK(main_v->notebook),
@@ -691,8 +700,11 @@ void doc_destroy(Tdocument * doc)
 	
 	doc_unre_destroy(doc);
 	g_free(doc);
-
-	notebook_changed(-1);
+	if (!delay_activation) {
+		notebook_changed(-1);
+	} else {
+		gui_notebook_bind_signals();
+	}
 }
 
 /* gint doc_save(Tdocument * doc, gint do_save_as, gint do_move)
@@ -877,12 +889,12 @@ gint doc_close(Tdocument * doc, gint warn_only)
 				return 0;
 			}
 			if (!warn_only) {
-				doc_destroy(doc);
+				doc_destroy(doc, FALSE);
 			}
 			break;
 		case 1:
 			if (!warn_only) {
-				doc_destroy(doc);
+				doc_destroy(doc, FALSE);
 			}
 			break;
 		default:
@@ -892,7 +904,7 @@ gint doc_close(Tdocument * doc, gint warn_only)
 	} else {
 		DEBUG_MSG("doc_close, closing doc=%p\n", doc);
 		if (!warn_only) {
-			doc_destroy(doc);
+			doc_destroy(doc, FALSE);
 		}
 	}
 
@@ -933,14 +945,18 @@ static void doc_new_with_file(gchar * filename, gboolean delay_activate) {
 void docs_new_from_files(GList * file_list) {
 
 	GList *tmplist;
-
+	gboolean delay = (g_list_length(file_list) > 1);
 	tmplist = g_list_first(file_list);
 	while (tmplist) {
-		doc_new_with_file((gchar *) tmplist->data, TRUE);
+		doc_new_with_file((gchar *) tmplist->data, delay);
 		tmplist = g_list_next(tmplist);
 	}
-	/* since we delayed the highlighting, we do that now */
-	notebook_changed(-1);
+
+	if (delay) {
+		/* since we delayed the highlighting, we do that now */
+		gtk_notebook_set_page(GTK_NOTEBOOK(main_v->notebook),g_list_length(main_v->documentlist) - 1);
+		notebook_changed(-1);
+	}
 }
 
 void doc_reload(Tdocument *doc) {
@@ -1083,14 +1099,14 @@ void file_close_all_cb(GtkWidget * widget, gpointer data)
 		case 0:
 			doc_save(tmpdoc, 0, 0);
 			if (!tmpdoc->modified) {
-				doc_destroy(tmpdoc);
+				doc_destroy(tmpdoc, TRUE);
 			} else {
 				return;
 			}
 			tmplist = g_list_first(main_v->documentlist);
 		break;
 		case 1:
-			doc_destroy(tmpdoc);
+			doc_destroy(tmpdoc, TRUE);
 			tmplist = g_list_first(main_v->documentlist);
 		break;
 		case 2:

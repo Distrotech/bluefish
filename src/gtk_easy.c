@@ -137,7 +137,7 @@ void string_apply(gchar ** config_var, GtkWidget * entry)
 	}
 #ifdef DEBUG
 	else {
-		DEBUG_MSG("string_apply, ***** tmpstring == NULL *****\n", tmpstring, tmpstring);
+		DEBUG_MSG("string_apply, ***** tmpstring == NULL *****\n");
 	}
 #endif
 }
@@ -428,49 +428,17 @@ void window_close_by_data_cb(GtkWidget * widget, gpointer data)
  * Description:
  * 	Change the font of a widget with a certain font in a string
  */
-/*
+
 GtkWidget *apply_font_style(GtkWidget * this_widget, gchar * fontstring)
 {
-	GdkFont *tmpfont;
-	GtkStyle *style;
-
-	if (GTK_WIDGET_REALIZED(this_widget)) {
-		DEBUG_MSG("apply_font_style, started with widgets own style\n");
-		style = gtk_style_copy(gtk_widget_get_style (GTK_WIDGET(this_widget)));
-	} else {
-		DEBUG_MSG("apply_font_style, started with theme default style\n");
-		style = gtk_rc_get_style (GTK_WIDGET(this_widget));
-	}
-	if (style == NULL) {
-		DEBUG_MSG("apply_font_style, using rc_get_style from main window");
-		style = gtk_rc_get_style (GTK_WIDGET(main_v->main_window));
-	}
-	if (style == NULL) {
-		style = gtk_style_new ();
-	} else {
-		style = gtk_style_copy (style);
-	}
-	tmpfont = style->font;
-
-	if (main_v->props.fontset) {
-		style->font = gdk_fontset_load(fontstring);
-	} else {
-		style->font = gdk_font_load(fontstring);
-	}
-	if (style->font) {
-		DEBUG_MSG("apply_font_style, loaded font is ok\n");
-		gdk_font_unref(tmpfont);
-		gtk_widget_push_style(style);
-		gtk_widget_set_style(GTK_WIDGET(this_widget), style);
-		gtk_widget_pop_style();
-		DEBUG_MSG("apply_font_style, style applied\n");
-	} else {
-		DEBUG_MSG("apply_font_style, font = NULL, fontstring=%s\n", fontstring);
-		style->font = tmpfont;
-		gtk_style_unref(style);
+	if (fontstring) {
+		PangoFontDescription *font_desc;
+		font_desc = pango_font_description_from_string(fontstring);
+		gtk_widget_modify_font(this_widget, font_desc);
+		pango_font_description_free(font_desc);
 	}
 	return this_widget;
-}*/
+}
 
 /*
  * Function: bf_stock_button

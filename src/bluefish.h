@@ -116,10 +116,10 @@ typedef struct {
 	gchar *filelist_filter;	/* filelist filter type */
 	gchar *image_editor_cline; 	/* image editor commandline */
 	gchar *cfg_weblint_cline;	/* weblint command line */
-	gchar *cfg_editor_font;		/* editor font */
+	gchar *editor_font_string;		/* editor font */
 	gint cfg_editor_tabwidth;	/* editor tabwidth */
 	gchar *cfg_tab_pos;			/* notebook tabs positioning */
-	gchar *cfg_tab_font;		/* notebook tabs font */
+	gchar *tab_font_string;		/* notebook tabs font */
 	gchar *cfg_thumbnailstring;	/* string to append to thumbnail filenames */
 	gchar *cfg_thumbnailtype;	/* fileformat to use for thumbnails */
 	gint full_p;				/* use </p> */
@@ -198,6 +198,7 @@ typedef struct {
 	GtkWidget *main_window;
 	GtkWidget *menubar;
 	gint last_notebook_page;
+	gulong notebook_switch_signal;
 	GtkWidget *notebook;
 	GtkWidget *middlebox; /* we need this to show/hide the filebrowser */
 	GtkWidget *hpane; /* we need this to show/hide the filebrowser */
