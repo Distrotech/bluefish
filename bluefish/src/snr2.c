@@ -20,19 +20,19 @@
 /*
  * THIS IS THE BACKEND FLOW DIAGRAM
  *
- *                         snr2_run
- *         ________________/ | \  \___________________________
- *        /        |         |  \                   \  \      \
- *       /         |         |  replace_prompt_all  |   \      \
- *      /          |         |         /           /     \      \
- *   search_all    |   _____replace_prompt_doc    /       \    replace_all
- *     \           |  /          /               /         \     /
- *      \   doc_show_result     /  replace_doc_once   replace_doc_multiple
- *       \                   __/                  \         /
- *     search_doc           /                   replace_backend
- *           \             / ___________________________/
- *            \           / /
- *             search_backend
+ *                              snr2_run
+ *              ________________/ | \  \___________________________
+ *             /      / |         |  \                   \  \      \
+ *  search_bookmark  |  |         |  replace_prompt_all  |   \      \
+ *     |     |      /   |         |         /           /     \      \
+ *     |   search_all   |   _____replace_prompt_doc    /       \    replace_all
+ *      \    |          |  /          /               /         \     /
+ *       \   \   doc_show_result     /  replace_doc_once   replace_doc_multiple
+ *        \   \                   __/                  \         /
+ *        search_doc             /                   replace_backend
+ *                \             /  ___________________________/
+ *                 \           /  /
+ *                 search_backend
  */
 /*****************************************************/
 /* #define DEBUG */
@@ -1006,13 +1006,22 @@ void replace_prompt_all(Tbfwin *bfwin,gchar *search_pattern, Tmatch_types matcht
 	}
 }
 
+/**
+ * search_bookmark:
+ * @bfwin: #Tbfwin *
+ * @startat: #gint
+ *
+ * will search, and bookmark all matches
+ */
 static void search_bookmark(Tbfwin *bfwin, gint startat) {
 	gint startpos = startat;
+	DEBUG_MSG("search_bookmark, started\n");
 	if (LASTSNR2(bfwin->snr2)->placetype_option==opened_files) {
 		Tsearch_all_result result_all;
 		result_all = search_all(bfwin,LASTSNR2(bfwin->snr2)->search_pattern, LASTSNR2(bfwin->snr2)->matchtype_option, LASTSNR2(bfwin->snr2)->is_case_sens, LASTSNR2(bfwin->snr2)->unescape);
 		while (result_all.end > 0) {
 			gchar *text = doc_get_chars(result_all.doc, result_all.start, result_all.end);
+			DEBUG_MSG("search_bookmark, adding bookmark '%s' at %d in doc %p\n", text, result_all.start, result_all.doc);
 			bmark_add_extern(result_all.doc, result_all.start, NULL, text, !main_v->props.bookmarks_default_store);
 			g_free(text);
 			if (LASTSNR2(bfwin->snr2)->overlapping_search) {
@@ -1028,6 +1037,7 @@ static void search_bookmark(Tbfwin *bfwin, gint startat) {
 		result = search_doc(bfwin,doc, LASTSNR2(bfwin->snr2)->search_pattern, LASTSNR2(bfwin->snr2)->matchtype_option, LASTSNR2(bfwin->snr2)->is_case_sens, startpos, LASTSNR2(bfwin->snr2)->unescape);
 		while (result.end > 0) {
 			gchar *text = doc_get_chars(doc, result.start, result.end);
+			DEBUG_MSG("search_bookmark, adding bookmark '%s' at %d\n", text, result.start);
 			bmark_add_extern(doc, result.start, NULL, text, !main_v->props.bookmarks_default_store);
 			g_free(text);
 			if (LASTSNR2(bfwin->snr2)->overlapping_search) {
@@ -1038,6 +1048,7 @@ static void search_bookmark(Tbfwin *bfwin, gint startat) {
 			result = search_doc(bfwin,doc, LASTSNR2(bfwin->snr2)->search_pattern, LASTSNR2(bfwin->snr2)->matchtype_option, LASTSNR2(bfwin->snr2)->is_case_sens, startpos, LASTSNR2(bfwin->snr2)->unescape);
 		}
 	}
+	DEBUG_MSG("search_bookmark, done\n");
 }
 
 /*****************************************************/

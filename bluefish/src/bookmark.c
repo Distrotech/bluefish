@@ -135,8 +135,7 @@ static void bmark_update_offset_from_textmark(Tbmark *b) {
 
 /* this function re-uses the b->strarr if possible, otherwise it will create a new one and
 append it to the list */
-static void bmark_store(Tbfwin * bfwin, Tbmark * b)
-{
+static void bmark_store(Tbfwin * bfwin, Tbmark * b) {
 	gchar **strarr;
 	if (b->is_temp) {
 		DEBUG_MSG("bmark_store, called for temp bookmark %p ?!?! weird!!!! returning\n", b);
@@ -583,9 +582,12 @@ GtkWidget *bmark_gui(Tbfwin * bfwin)
 
 
 
-/* determine bookmark's location in the tree and  insert - result GtkTreeIter is stored in m->iter */
-static void bmark_get_iter_at_position(Tbfwin * bfwin, Tbmark * m)
-{
+/**
+ * bmark_get_iter_at_position:
+ *
+ * determine bookmark's location in the tree and  insert - result GtkTreeIter is stored in m->iter 
+ */
+static void bmark_get_iter_at_position(Tbfwin * bfwin, Tbmark * m) {
 	GtkTreeIter *parent;
 	gpointer ptr;
 	DEBUG_MSG("bmark_get_iter_at_position, started for filepath=%s\n",m->filepath);
