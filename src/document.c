@@ -449,6 +449,20 @@ static gint doc_check_backup(Tdocument *doc) {
 	return res;
 }
 
+static void doc_update_linenumber(Tdocument *doc) {
+	gint line, column;
+	gchar *string;
+	GtkTextIter itinsert;
+	GtkTextMark* insert = gtk_text_buffer_get_insert(doc->buffer);
+	gtk_text_buffer_get_iter_at_mark(doc->buffer, &itinsert, insert);
+	line = gtk_text_iter_get_line(&itinsert);
+	column = gtk_text_iter_get_line_offset(&itinsert);
+	string = g_strdup_printf(_("line %d column %d"), line, column); 
+	gtk_label_set(GTK_LABEL(main_v->statuslabel),string);	
+	g_free(string);
+	g_print("doc_update_linenumber, line=%d\n", line);
+}
+
 static void doc_buffer_insert_text_lcb(GtkTextBuffer *textbuffer,GtkTextIter * iter,gchar * string,gint len, Tdocument * doc) {
 	gint i = 0;
 	doc_set_modified(doc, 1);
@@ -473,7 +487,7 @@ static void doc_buffer_insert_text_lcb(GtkTextBuffer *textbuffer,GtkTextIter * i
 		gint pos = gtk_text_iter_get_offset(iter);
 		doc_unre_add(doc, string, pos, pos+len, UndoInsert);
 	}
-
+	
 }
 
 static void doc_buffer_delete_range_lcb(GtkTextBuffer *textbuffer,GtkTextIter * itstart,GtkTextIter * itend, Tdocument * doc) {
@@ -508,6 +522,19 @@ static void doc_buffer_delete_range_lcb(GtkTextBuffer *textbuffer,GtkTextIter * 
 
 		g_free(string);
 	}
+}
+
+static gboolean doc_view_key_release_lcb(GtkWidget *widget,
+                                            GdkEventKey *event,
+                                            Tdocument *doc) {
+	doc_update_linenumber(doc);
+	return FALSE;
+}
+static gboolean doc_view_button_release_lcb(GtkWidget *widget,
+                                            GdkEventButton *event,
+                                            Tdocument *doc) {
+	doc_update_linenumber(doc);
+	return FALSE;
 }
 
 void doc_bind_signals(Tdocument *doc) {
@@ -571,8 +598,10 @@ Tdocument *doc_new(gboolean delay_activate) {
 	newdoc->owner_gid = -1;
 	newdoc->is_symlink = 0;
 	doc_bind_signals(newdoc);
-/*	newdoc->highlightstate = main_v->props.defaulthighlight;*/
-
+	g_signal_connect(G_OBJECT(newdoc->view), "key-release-event"
+		, G_CALLBACK(doc_view_key_release_lcb), newdoc);
+	g_signal_connect(G_OBJECT(newdoc->view), "button-release-event"
+		, G_CALLBACK(doc_view_button_release_lcb), newdoc);
 	main_v->documentlist = g_list_append(main_v->documentlist, newdoc);
 
 	gtk_widget_show(newdoc->view);

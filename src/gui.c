@@ -195,12 +195,35 @@ void gui_create_main(GList *filenames) {
 	filebrowser_hide(1);
 
 	/* finally the statusbar */
-	
+	{
+	GtkWidget *hbox;
+	hbox = gtk_hbox_new(FALSE,0);
+	gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 0);
+	main_v->statuslabel = gtk_label_new(NULL);
+	gtk_box_pack_start(GTK_BOX(hbox), main_v->statuslabel, FALSE, FALSE, 0);
+	main_v->statusbar = gtk_statusbar_new();
+	gtk_box_pack_start(GTK_BOX(hbox), main_v->statusbar, TRUE, TRUE, 0);
+
+	}
 	/* show all */
 	DEBUG_MSG("gui_create_main, before show_all\n");
 	gtk_widget_show_all(main_v->main_window);
 }
+/* we need a global var for these functions */
+static gint context_id = 0;
 
-void statusbar_message(gchar *message, gint time) {
-	/* show the message on the statusbar */
+static gint statusbar_remove(gpointer message_id)
+{
+	gtk_statusbar_remove(GTK_STATUSBAR(main_v->statusbar), context_id, GPOINTER_TO_INT(message_id));
+	return 0;
+}
+
+void statusbar_message(gchar * message, gint time)
+{
+	if (main_v->statusbar) {
+		gint count;
+
+		count = gtk_statusbar_push(GTK_STATUSBAR(main_v->statusbar), context_id, message);
+		gtk_timeout_add(time, statusbar_remove, GINT_TO_POINTER(count));
+	}
 }
