@@ -23,6 +23,7 @@
 #include <time.h> /* nanosleep() */
 #include <string.h> /* strchr() */
 #include <unistd.h> /* exit() */
+#include <stdlib.h> /* exit() on Solaris */
 
 #include "bluefish.h"
 #include "gui.h"
@@ -192,11 +193,11 @@ void left_panel_show_hide_toggle(gboolean first_time, gboolean show) {
 }
 
 typedef struct {
-	gchar *ident;
+	const gchar *ident;
 	void *func;
 	gpointer func_data;
 	gint pixmaptype;
-	gchar *tooltiptext;
+	const gchar *tooltiptext;
 } Ttoolbaritem;
 
 typedef struct {

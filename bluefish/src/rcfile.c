@@ -332,7 +332,7 @@ static gboolean parse_config_file(GList * config_list, gchar * filename)
 		if (tmpitem->type == 'l' || tmpitem->type == 'a') {
 			DEBUG_MSG("parse_config_file, freeing list before filling it\n");
 			free_stringlist((GList *) * (void **) tmpitem->pointer);
-			(GList *) * (void **) tmpitem->pointer = NULL;
+			*(void **) tmpitem->pointer = (GList *)NULL;
 		}
 		DEBUG_MSG("parse_config_file, type=%c, identifier=%s\n", tmpitem->type, tmpitem->identifier);
 		tmplist = g_list_next(tmplist);
@@ -369,23 +369,23 @@ static gboolean parse_config_file(GList * config_list, gchar * filename)
 						*(int *) (void *) tmpitem->pointer = atoi(tmpstring);
 						break;
 					case 's':
-						(char *) *(void **) tmpitem->pointer = realloc((char *) *(void **) tmpitem->pointer, strlen(tmpstring) + 1);
+						*(void **) tmpitem->pointer = (char *) realloc((char *) *(void **) tmpitem->pointer, strlen(tmpstring) + 1);
 						strcpy((char *) *(void **) tmpitem->pointer, tmpstring);
 						break;
 					case 'e':
 						tmpstring2 = unescapestring(tmpstring);
-						(char *) *(void **) tmpitem->pointer = realloc((char *) *(void **) tmpitem->pointer, strlen(tmpstring2) + 1);
+						*(void **) tmpitem->pointer = (char *) realloc((char *) *(void **) tmpitem->pointer, strlen(tmpstring2) + 1);
 						strcpy((char *) *(void **) tmpitem->pointer, tmpstring2);
 						g_free(tmpstring2);
 						break;
 					case 'l':
 						tmpstring2 = g_strdup(tmpstring);
-						(GList *) * (void **) tmpitem->pointer = g_list_prepend((GList *) * (void **) tmpitem->pointer, tmpstring2);
+						* (void **) tmpitem->pointer = g_list_prepend((GList *) * (void **) tmpitem->pointer, tmpstring2);
 						DEBUG_MSG("parse_config_file, *(void **)tmpitem->pointer=%p\n", *(void **) tmpitem->pointer);
 						break;
 					case 'a':
 						tmparray = string_to_array(tmpstring, ':');
-						(GList *) * (void **) tmpitem->pointer = g_list_prepend((GList *) * (void **) tmpitem->pointer, tmparray);
+						* (void **) tmpitem->pointer = g_list_prepend((GList *) * (void **) tmpitem->pointer, tmparray);
 						DEBUG_MSG("parse_config_file, *(void **)tmpitem->pointer=%p\n", *(void **) tmpitem->pointer);
 						break;
 					default:

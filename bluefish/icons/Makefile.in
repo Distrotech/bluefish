@@ -49,7 +49,9 @@ bluefish:
 
 install: all
 	$(INSTALL_DIR) $(pkgdatadir)
-	$(INSTALL_DATA) $(OBJS) $(pkgdatadir)
+	for file in $(OBJS) ; \
+		do $(INSTALL_DATA) $$file $(pkgdatadir) ; \
+	done
 
 uninstall:
 	/bin/rm -f $(pkgdatadir)/icon_*.png
