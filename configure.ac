@@ -458,10 +458,14 @@ if test "${GMIMEINFO}" != "no" ; then
 				GMIMEINFO=${prefix}/share/mime-info
 			else
 				# FreeBSD defaults to:
-				if test -d ${prefix}/share/gnome/mime-info ; then
-					GMIMEINFO=${prefix}/share/gnome/mime-info
+				if test -d /usr/X11R6/share/gnome/mime-info ; then
+					GMIMEINFO=/usr/X11R6/share/gnome/mime-info
 				else
-					GMIMEINFO=no
+					if test -d ${prefix}/share/gnome/mime-info ; then
+						GMIMEINFO=${prefix}/share/gnome/mime-info
+					else
+						GMIMEINFO=no
+					fi
 				fi
 			fi
 		fi
@@ -489,10 +493,14 @@ if test "${GAPPREG}" != "no" ; then
 				GAPPREG=${prefix}/share/application-registry
 			else
 				# FreeBSD defaults to:
-				if test -d ${prefix}/share/gnome/application-registry ; then
-					GAPPREG=${prefix}/share/gnome/application-registry
+				if test -d /usr/X11R6/share/gnome/application-registry ; then
+					GAPPREG=/usr/X11R6/share/gnome/application-registry
 				else
-					GAPPREG=no
+					if test -d ${prefix}/share/gnome/application-registry ; then
+						GAPPREG=${prefix}/share/gnome/application-registry
+					else
+						GAPPREG=no
+					fi
 				fi
 			fi
 		fi
@@ -522,12 +530,16 @@ if test "x$ICONPATH" != "xno" ; then
 				ICONPATH=${prefix}/share/pixmaps
 			else
 				# FreeBSD defaults to:
-				if test -d ${prefix}/share/gnome/pixmaps ; then
-					ICONPATH=${prefix}/share/gnome/pixmaps
+				if test -d /usr/X11R6/share/gnome/pixmaps ; then
+					ICONPATH=/usr/X11R6/share/gnome/pixmaps
 				else
-					# the user did not specify an icon-path, and the default path seems to be wrong for this system
-					# we will not install an icon
-					ICONPATH=no
+					if test -d ${prefix}/share/gnome/pixmaps ; then
+						ICONPATH=${prefix}/share/gnome/pixmaps
+					else
+						# the user did not specify an icon-path, and the default path seems to be wrong for this system
+						# we will not install an icon
+						ICONPATH=no
+					fi
 				fi
 			fi
 		fi
