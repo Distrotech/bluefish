@@ -1477,7 +1477,7 @@ static void create_outputbox_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 /* MAIN DIALOG FUNCTIONS              */
 /**************************************/
 
-static void preferences_destroy_lcb(GtkWidget * widget, GdkEvent *event, Tprefdialog *pd) {
+static void preferences_destroy_lcb(GtkWidget * widget, Tprefdialog *pd) {
 	GtkTreeSelection *select;
 	DEBUG_MSG("preferences_destroy_lcb, started\n");
 	select = gtk_tree_view_get_selection(GTK_TREE_VIEW(pd->ftd.lview));
@@ -1580,7 +1580,7 @@ static void preferences_ok_clicked_lcb(GtkWidget *wid, Tprefdialog *pd) {
 	encoding_menu_rebuild();
 	external_menu_rebuild(); /* browsers is also rebuild here! */
 	
-	preferences_destroy_lcb(NULL, NULL, pd);
+	preferences_destroy_lcb(NULL, pd);
 }
 static void preferences_cancel_clicked_lcb(GtkWidget *wid, Tprefdialog *pd) {
 	DEBUG_MSG("preferences_cancel_clicked_lcb, started\n");
@@ -1594,7 +1594,7 @@ static void preferences_cancel_clicked_lcb(GtkWidget *wid, Tprefdialog *pd) {
 	pd->lists[highlight_patterns] = NULL;
 	pd->lists[browsers] = NULL;
 	pd->lists[external_commands] = NULL;
-	preferences_destroy_lcb(NULL, NULL, pd);
+	preferences_destroy_lcb(NULL, pd);
 }
 
 static void restore_dimensions_toggled_lcb(GtkToggleButton *togglebutton,Tprefdialog *pd) {
