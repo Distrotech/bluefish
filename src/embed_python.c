@@ -9,6 +9,38 @@
 #include "bluefish.h"
 #include "document.h"
 
+/* Bluefish - Python bluefish.document type */
+typedef struct {
+	PyObject_HEAD
+	/* Type-specific fields go here. */
+	Tdocument *doc;
+} bluefish_DocumentObject;
+
+static PyTypeObject bluefish_DocumentType = {
+	PyObject_HEAD_INIT(NULL)
+	0,                         /*ob_size*/
+	"bluefish.Document",             /*tp_name*/
+	sizeof(bluefish_DocumentObject), /*tp_basicsize*/
+	0,                         /*tp_itemsize*/
+	0,                         /*tp_dealloc*/
+	0,                         /*tp_print*/
+	0,                         /*tp_getattr*/
+	0,                         /*tp_setattr*/
+	0,                         /*tp_compare*/
+	0,                         /*tp_repr*/
+	0,                         /*tp_as_number*/
+	0,                         /*tp_as_sequence*/
+	0,                         /*tp_as_mapping*/
+	0,                         /*tp_hash */
+	0,                         /*tp_call*/
+	0,                         /*tp_str*/
+	0,                         /*tp_getattro*/
+	0,                         /*tp_setattro*/
+	0,                         /*tp_as_buffer*/
+	Py_TPFLAGS_DEFAULT,        /*tp_flags*/
+	"Document object",           /* tp_doc */
+};
+
 /* Bluefish - python API */
 
 static PyObject *GetObjectFromBluefishModule(char *name) {
@@ -84,11 +116,14 @@ void pythonRun(Tbfwin *bfwin, gchar *filename) {
 	Py_InitModule("bluefish", BluefishMethods);
 
 	PyModule_AddObject(BluefishMod, "bfwin", PyBfwin);
+	
+	bluefish_DocumentType.tp_new = PyType_GenericNew;
+	if (PyType_Ready(&bluefish_DocumentType) >= 0)
+        PyModule_AddObject(BluefishMod, "Document", (PyObject *)&bluefish_DocumentType);
 
 	fp = fopen(filename, "r");
 	PyRun_SimpleFile(fp, filename);
 	fclose(fp);
-
 	Py_Finalize();
 }
 #endif /* HAVE_PYTHON */
