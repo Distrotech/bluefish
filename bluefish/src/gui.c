@@ -57,6 +57,30 @@ void notebook_changed(void)
 	}
 }
 
+gboolean switch_to_document_by_index(gint index) {
+	if (index >= 0) {
+		gtk_notebook_set_page(GTK_NOTEBOOK(main_v->notebook), (index));
+		notebook_changed();
+		return TRUE;
+	}
+	return FALSE;
+}
+
+gboolean switch_to_document_by_pointer(Tdocument *document) {
+	gint index;
+
+	index = g_list_index(main_v->documentlist, document);
+	return switch_to_document_by_index(index);
+}
+
+gboolean switch_to_document_by_filename(gchar *filename) {
+	gint index;
+
+	index = documentlist_return_index_from_filename(filename);
+	return switch_to_document_by_index(index);
+}
+
+
 static void notebook_switch_page_lcb(GtkWidget *notebook,GtkNotebookPage *page,gint page_num,gpointer user_data) {
 	notebook_changed();
 }

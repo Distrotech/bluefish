@@ -29,13 +29,14 @@
 #include "highlight.h" /* all highlight functions */
 #include "gui.h" /* statusbar_message() */
 #include "bf_lib.h"
+#include "stringlist.h"
 #include "gtk_easy.h" /* error_dialog() */
 
-/* gint find_filename_in_documentlist(gchar *filename)
+/* gint documentlist_return_index_from_filename(gchar *filename)
  * returns -1 if the file is not open, else returns the index where
  * the file is in the documentlist
  */
-gint find_filename_in_documentlist(gchar *filename) {
+gint documentlist_return_index_from_filename(gchar *filename) {
 	GList *tmplist;
 	gint count=0;
 
@@ -365,7 +366,7 @@ gint doc_textbox_to_file(Tdocument * doc, gchar * filename) {
 
 		doc_set_modified(doc, 0);
 		if (main_v->props.clear_undo_on_save) {
-			doc_unre_clear_all(doc);
+/*			doc_unre_clear_all(doc);*/
 		}
 		if (!backup_retval) {
 			return 2;
@@ -378,7 +379,7 @@ gint doc_textbox_to_file(Tdocument * doc, gchar * filename) {
 void doc_destroy(Tdocument * doc)
 {
 	if (doc->filename) {
-		add_to_recent_list(doc->filename, 1);
+/*		add_to_recent_list(doc->filename, 1);*/
 	}
 
 	gtk_notebook_remove_page(GTK_NOTEBOOK(main_v->notebook),
@@ -402,7 +403,7 @@ void doc_destroy(Tdocument * doc)
 	g_object_unref(doc->buffer);
 	DEBUG_MSG("doc_destroy, if this line shows up well I guess we needed to unref the buffer\n");
 	
-	doc_unre_destroy(doc);
+/*	doc_unre_destroy(doc);*/
 	g_free(doc);
 
 	notebook_changed();
@@ -442,7 +443,7 @@ gint doc_save(Tdocument * doc, gint do_save_as, gint do_move)
 		oldfilename = doc->filename;
 		doc->filename = NULL;
 		newfilename = return_file_w_title(NULL, _("Save document as"));
-		index = find_filename_in_documentlist(newfilename);
+		index = documentlist_return_index_from_filename(newfilename);
 		DEBUG_MSG("doc_save, index=%d, filename=%p\n", index, newfilename);
 
 		if (index != -1) {
@@ -499,7 +500,7 @@ gint doc_save(Tdocument * doc, gint do_save_as, gint do_move)
 	
 	DEBUG_MSG("doc_save, returned file %s\n", doc->filename);
 	if (do_save_as && oldfilename && main_v->props.link_management) {
-		update_filenames_in_file(doc, oldfilename, doc->filename, 1);
+/*		update_filenames_in_file(doc, oldfilename, doc->filename, 1);*/
 	}
 	statusbar_message(_("Save in progress"), 1);
 	retval = doc_textbox_to_file(doc, doc->filename);
@@ -524,11 +525,11 @@ gint doc_save(Tdocument * doc, gint do_save_as, gint do_move)
 		break;
 	}
 	if (oldfilename) {
-		populate_dir_file_list();
+/*		populate_dir_file_list();*/
 		if (do_move && (retval > 0)) {
 			if (main_v->props.link_management) {
-				all_documents_update_links(doc, oldfilename,
-							   doc->filename);
+/*				all_documents_update_links(doc, oldfilename,
+							   doc->filename);*/
 			}
 			unlink(oldfilename);
 		}
@@ -551,7 +552,7 @@ gint doc_close(Tdocument * doc, gint warn_only)
 		return 0;
 	}
 
-	if (doc_is_empty_non_modified_and_nameless(Tdocument *doc)) {
+	if (doc_is_empty_non_modified_and_nameless(doc)) {
 		/* no need to close this doc, it's an Untitled empty document */
 		return 0;
 	}
@@ -626,7 +627,7 @@ void doc_new_with_file(gchar * filename) {
 		}
 	}
 	DEBUG_MSG("doc_new_with_file, filename=%s exists\n", filename);
-	file_and_dir_history_add(filename);
+/*	file_and_dir_history_add(filename);*/
 	doc = doc_new();
 	doc->filename = g_strdup(filename);
 	doc_file_to_textbox(doc, doc->filename);
@@ -679,14 +680,13 @@ void doc_activate(Tdocument *doc) {
 		}
 	}
 	doc_set_undo_redo_widget_state(doc);
-	DEBUG_MSG("notebook_switched_to_doc, grabbing document %p textbox=%p\n", doc, doc->textbox);
 
 	/* if highlighting is needed for this document do this now !! */
 	if (doc->need_highlighting && doc->highlightstate) {
-		doc_highlight_full(doc);
+/*		doc_highlight_full(doc);*/
 	}
 
-	gtk_widget_grab_focus(GTK_WIDGET(doc->textbox));
+	gtk_widget_grab_focus(GTK_WIDGET(doc->view));
 
 }
 
@@ -711,7 +711,7 @@ void file_move_to_cb(GtkWidget * widget, gpointer data) {
 void file_open_cb(GtkWidget * widget, gpointer data) {
 	GList *tmplist;
 	if (GPOINTER_TO_INT(data) == 1) {
-		tmplist = return_files_advanced();
+/*		tmplist = return_files_advanced();*/
 	} else {
 		tmplist = return_files(NULL);
 	}
@@ -728,7 +728,6 @@ void file_revert_to_saved_cb(GtkWidget * widget, gpointer data) {
 
 void file_insert_cb(GtkWidget * widget, gpointer data) {
 	gchar *tmpfilename;
-	gint currentp;
 
 	tmpfilename = return_file(NULL);
 	if (tmpfilename == NULL) {

@@ -101,7 +101,97 @@ typedef struct {
 } Tdocument;
 
 typedef struct {
+	gint v_html_tb;				/* view html toolbar */
+	gint v_custom_tb;			/* view custom menubar */
+	gint v_main_tb;				/* view main toolbar */
+	gint v_filebrowser;  	/* view filebrowser */
+	gint transient_htdialogs;  /* set html dialogs transient ro the main window */
+	gint main_window_h;			/* main window height */
+	gint main_window_w;			/* main window width */
+	gint main_filelist_size; 	/* width of filelist */
+	gint max_recent_files;	/* length of Open Recent list */
+	gint max_dir_history;	/* length of directory history */
+	gchar *filelist_filter;	/* filelist filter type */
+	gchar *image_editor_cline; 	/* image editor commandline */
+	gchar *cfg_weblint_cline;	/* weblint command line */
+	gchar *cfg_editor_font;		/* editor font */
+	gint cfg_editor_tabwidth;	/* editor tabwidth */
+	gchar *cfg_tab_pos;			/* notebook tabs positioning */
+	gchar *cfg_tab_font;		/* notebook tabs font */
+	gchar *cfg_thumbnailstring;	/* string to append to thumbnail filenames */
+	gchar *cfg_thumbnailtype;	/* fileformat to use for thumbnails */
+	gint full_p;				/* use </p> */
+	gint full_li;				/* use </li> */
+	gint allow_css;				/* CSS allowed */
+	gint allow_dep;				/* allow <FONT>... */
+	gint format_by_context; 	/* use <strong> instead of <b>, <emphasis instead of <i> etc. (W3C reccomendation) */
+	gint xhtml;					/* write <br /> */
+	gint allow_ruby;			/* allow <ruby> */
+	gint allow_h4;				/* allow <Q>... */
+	gint allow_frames;			/* allow <FRAME> */
+	gint force_dtd;				/* write <!DOCTYPE...> */
+	gint dtd_url;				/* URL in DTD */
+	gint xml_start;				/* <?XML...> */
+	gint lowercase_tags;		/* use lowercase tags */
+	gint word_wrap;				/* use wordwrap */
+	gint autoindent;			/* autoindent code */
+	gint line_wrap;				/* use line wrap */
+	gint fontset;				/* load fontset (0 = load font) */
+	gint force_def_style;  /* force white editor background */
+	gint drop_at_drop_pos; 	/* drop at drop position instead of cursor position */
+	gint link_management; 	/* perform link management */
+	gint defaulthighlight;		/* highlight documents by default */
+	gint cont_highlight_full; 	/* if you want to highlight the full text or just the line */
+	gint cont_highlight_update;	/* update the syntax highlighting continuous */
+	gchar *html_ver;
+	GList *external_filters;	/* external filter in list */
+	GList *external_commands;	/* external filter in list */
+	GList *cust_menu; 		/* entries in the custom menu */
+	GList *syntax_configstrings;	/* the strings containing the colors and patterns */
+
+#ifdef WITH_SPC
+	/* spell checker options */
+	gchar *cfg_spc_cline      ;  /* spell checker command line */
+	gchar *cfg_spc_lang       ;  /* language */
+	gint  spc_accept_compound ;  /* accept compound words ? */
+	gint  spc_use_esc_chars   ;  /* specify aditional characters that
+                                     may be part of a word ? */
+	gchar* spc_esc_chars      ;  /* which ones ? */
+	gint   spc_use_pers_dict  ;  /* use a personal dictionary */
+	gchar* spc_pers_dict      ;  /* which one ? */
+   gint   spc_use_input_encoding ;  /* use input encoding */
+   gchar* spc_input_encoding     ;  /* wich one ? */
+   gint   spc_output_html_chars  ; /* output html chars ? (like &aacute;)*/
+#endif
+	gchar *backup_filestring;  /* the string to append to the backup file */
+	gint backup_file; 			/* wheather to use a backup file */
+	gint backup_by_copy; 	/* make a copy instead of renaming the file */
+	gchar *backup_abort_style; /* if the backup fails, continue 'save', 'abort' save, or 'ask' user */
+	gint auto_convert_CR; /* auto remove carriage returns from input files */
+	gint allow_multi_instances; /* allow multiple instances of the same file */
+	gint num_undo_levels; 	/* number of undo levels per document */
+	gint clear_undo_on_save; 	/* clear all undo information on file save */
+	/* key conversion */
+	gint conv_ctrl_enter;		/* convert control-enter key press */
+	gchar *ctrl_enter_text;		/* inserted text */
+	gint conv_shift_enter;		/* convert shift-enter key press */
+	gchar *shift_enter_text;	/* inserted text */
+	gint conv_special_char;		/* convert ctrl-'<','>','&' */
+#ifdef WITH_MSG_QUEUE
+	gint open_in_running_bluefish; /* open commandline documents in already running session*/
+#endif /* WITH_MSG_QUEUE */
+#ifdef AUTOCOMPLET
+	gint autocomplet_html;   /* Shows autocompletion window when editing HTML */
+	gint autocomplet_delay;  /* Delay to show the autocompletion window */
+#endif
+#ifdef PARSEDTD
+        GList *doctypes;	 /* The list of doctypes recognized by bluefish */
+#endif
+} Tproperties;
+
+typedef struct {
 	Tdocument *current_document;
+	Tproperties props;
 	GList *documentlist;
 	GList *hlsetlist;
 	GtkWidget *main_window;
