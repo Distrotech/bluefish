@@ -471,17 +471,17 @@ static GtkItemFactoryEntry menu_items[] = {
 
 #ifdef ENABLE_NLS
 gchar *menu_translate(const gchar * path, gpointer data) {
-	static gchar *menupath = NULL;
 	gchar *retval;
+/*	static gchar *menupath = NULL;
 	if (menupath) g_free(menupath);
 	menupath = g_strdup(path);
-/*	if ((strstr(path, "/tearoff1") != NULL) 
+	if ((strstr(path, "/tearoff1") != NULL) 
 			|| (strstr(path, "/---") != NULL) 
 			|| (strstr(path, "/sep1") != NULL)) {
 		DEBUG_MSG("menu_translate, nogettext returning %s for %s\n", menupath, path);
 		return menupath;
 	}*/
-	retval = gettext(menupath);
+	retval = gettext(path);
 	DEBUG_MSG("menu_translate, returning %s for %s\n", retval, path);
 	return retval;
 }
