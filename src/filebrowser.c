@@ -1367,8 +1367,11 @@ static void filebrowser_rpopup_action_lcb(Tfilebrowser *filebrowser,guint callba
 	case 1: {
 		gchar *filename = get_selected_filename(filebrowser, FALSE);
 		if (filename) {
+		        GdkRectangle r;
+			gtk_tree_view_get_visible_rect(GTK_TREE_VIEW(filebrowser->tree),&r);
 			handle_activate_on_file(filebrowser, filename);
 			g_free(filename);
+			gtk_tree_view_scroll_to_point(GTK_TREE_VIEW(filebrowser->tree),-1,r.y);
 		}
 	} break;
 	case 2:
@@ -1564,10 +1567,13 @@ static gboolean filebrowser_button_press_lcb(GtkWidget *widget, GdkEventButton *
 	/*				gtk_tree_path_free(path);
 					return FALSE;*/
 				} else if (event->type == GDK_2BUTTON_PRESS) {
+				        GdkRectangle r;
 					gchar *filename = return_filename_from_path(filebrowser,GTK_TREE_MODEL(filebrowser->store),path);
 					DEBUG_MSG("filebrowser_button_press_lcb, doubleclick!! open the file %s\n", filename);
+					gtk_tree_view_get_visible_rect(GTK_TREE_VIEW(filebrowser->tree),&r);
 					handle_activate_on_file(filebrowser,filename);
 					g_free(filename);
+					gtk_tree_view_scroll_to_point(GTK_TREE_VIEW(filebrowser->tree),-1,r.y);
 					return TRUE;
 				}
 			}
