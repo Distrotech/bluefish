@@ -1240,16 +1240,26 @@ static void cme_lview_selection_changed(GtkTreeSelection *selection, Tcmenu_edit
 	GtkTreeIter iter;
 	GtkTreeModel *model;
 	if (gtk_tree_selection_get_selected (selection,&model,&iter)) {
+		GList *tmplist;
+		gchar *selected_value;
+		gchar **tmparr;
 		gint num=0, pos=0, i;
 		gint type=0;
 
-		DEBUG_MSG("cme_clist_select_lcb, row=%d, listcount=%d\n", row, g_list_length(cme->worklist));
-		cme->lastarray = g_list_nth_data(cme->worklist, row);
-		DEBUG_MSG("cme_clist_select_lcb, lastarray=%p\n", cme->lastarray);
+		gtk_tree_model_get(model, &iter, 0, &selected_value, -1);
+		tmplist = g_list_first(cme->worklist);
+		while(tmplist) {
+			tmparr = (gchar **)tmplist->data;
+			if (strcmp(tmparr[0], selected_value)==0) {
+				cme->lastarray = (gchar **)tmplist->data;
+			}
+			tmplist = g_list_next(tmplist);
+		}
+		DEBUG_MSG("cme_clist_select_lcb, lastarray=%p, lastarray[0]=%s\n", cme->lastarray, cme->lastarray[0]);
 
 		i = count_array(cme->lastarray);
 		if (i<5) {
-			DEBUG_MSG("cme_clist_select_lcb, invalid array count! (1)\n");
+			DEBUG_MSG("cme_clist_select_lcb, invalid array count! (<5)\n");
 			cme->lastarray = NULL;
 			return;
 		}
@@ -1260,7 +1270,7 @@ static void cme_lview_selection_changed(GtkTreeSelection *selection, Tcmenu_edit
 		if (strcmp(cme->lastarray[1], "1")==0) {
 			type = 1;
 			if (i < 8) {
-				DEBUG_MSG("cme_clist_select_lcb, invalid array count (2)!\n");
+				DEBUG_MSG("cme_clist_select_lcb, invalid array count (<8 type=1)!\n");
 				cme->lastarray = NULL;
 				return;
 			}
@@ -1781,10 +1791,11 @@ void cmenu_editor(GtkWidget *widget, gpointer data) {
 	while (tmplist) {
 		GtkTreeIter iter;
 		splittedstring = (gchar **) tmplist->data;
-		DEBUG_MSG("cmenu_editor, adding '%s'\n", splittedstring[0]);
-		gtk_list_store_append(GTK_LIST_STORE(cme->lstore), &iter);
-		gtk_list_store_set(GTK_LIST_STORE(cme->lstore), &iter, 0, splittedstring[0], -1);
-
+		if (count_array(splittedstring) >= 5) {
+			DEBUG_MSG("cmenu_editor, adding '%s'\n", splittedstring[0]);
+			gtk_list_store_append(GTK_LIST_STORE(cme->lstore), &iter);
+			gtk_list_store_set(GTK_LIST_STORE(cme->lstore), &iter, 0, splittedstring[0], -1);
+		}
 		tmplist = g_list_next(tmplist);
 	}
 	DEBUG_MSG("cmenu_editor, worklist length=%d\n", g_list_length(cme->worklist));
