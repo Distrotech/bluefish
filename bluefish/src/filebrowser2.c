@@ -118,7 +118,8 @@ typedef struct {
 	GtkTreeModel *file_lsort;
 
 	gboolean last_popup_on_dir;
-
+	gboolean filebrowser_show_hidden_files;
+	gboolean filebrowser_show_backup_files;
 	Tbfwin *bfwin;
 } Tfilebrowser2;
 
@@ -657,11 +658,11 @@ static gboolean tree_model_filter_func(GtkTreeModel *model,GtkTreeIter *iter,gpo
 	DEBUG_URI(uri, TRUE); */
 	if (type != TYPE_DIR) {
 		if (main_v->props.filebrowser_two_pane_view) return FALSE;
-		if (!fb2->bfwin->session->filebrowser_show_backup_files) {
+		if (!fb2->filebrowser_show_backup_files) {
 			len = strlen(name);
 			if (len > 1 && (name[len-1] == '~')) return FALSE;
 		}
-		if (!fb2->bfwin->session->filebrowser_show_hidden_files) {
+		if (!fb2->filebrowser_show_hidden_files) {
 			if (name[0] == '.') return FALSE;
 		}
 		return name_visible_in_filter(fb2, name);
@@ -678,7 +679,7 @@ static gboolean tree_model_filter_func(GtkTreeModel *model,GtkTreeIter *iter,gpo
 			return FALSE;
 		}
 	}
-	if (!fb2->bfwin->session->filebrowser_show_hidden_files) {
+	if (!fb2->filebrowser_show_hidden_files) {
 		if (name[0] == '.') return FALSE;
 #ifdef DEBUGTEST
 		{
@@ -718,11 +719,11 @@ static gboolean file_list_filter_func(GtkTreeModel *model,GtkTreeIter *iter,gpoi
 	gtk_tree_model_get(GTK_TREE_MODEL(model), iter, FILENAME_COLUMN, &name, TYPE_COLUMN, &type, -1);
 	if (type != TYPE_FILE) return FALSE;
 	if (!name) return FALSE;
-	if (!fb2->bfwin->session->filebrowser_show_backup_files) {
+	if (!fb2->filebrowser_show_backup_files) {
 		len = strlen(name);
 		if (len > 1 && (name[len-1] == '~')) return FALSE;
 	}
-	if (!fb2->bfwin->session->filebrowser_show_hidden_files) {
+	if (!fb2->filebrowser_show_hidden_files) {
 		if (name[0] == '.') return FALSE;
 	}
 	return name_visible_in_filter(fb2, name);
@@ -1158,12 +1159,12 @@ static void fb2rpopup_rpopup_action_lcb(Tfilebrowser2 *fb2,guint callback_action
 			}
 		break;
 		case 16:
-			fb2->bfwin->session->filebrowser_show_hidden_files = gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(widget));
+			fb2->filebrowser_show_hidden_files = fb2->bfwin->session->filebrowser_show_hidden_files = gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(widget));
 			gtk_tree_model_filter_refilter(GTK_TREE_MODEL_FILTER(fb2->dir_tfilter));
 			gtk_tree_model_filter_refilter(GTK_TREE_MODEL_FILTER(fb2->file_lfilter));
 		break;
 		case 17:
-			fb2->bfwin->session->filebrowser_show_backup_files = gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(widget));
+			fb2->filebrowser_show_backup_files = fb2->bfwin->session->filebrowser_show_backup_files = gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(widget));
 			gtk_tree_model_filter_refilter(GTK_TREE_MODEL_FILTER(fb2->dir_tfilter));
 			gtk_tree_model_filter_refilter(GTK_TREE_MODEL_FILTER(fb2->file_lfilter));
 		break;
@@ -1244,8 +1245,8 @@ static GtkWidget *fb2_rpopup_create_menu(Tfilebrowser2 *fb2, gboolean is_directo
 
 	/* set toggle options */
 	setup_toggle_item(menumaker, "/Follow active document", main_v->props.filebrowser_focus_follow);
-	setup_toggle_item(menumaker, "/Show hidden files", fb2->bfwin->session->filebrowser_show_hidden_files);
-	setup_toggle_item(menumaker, "/Show backup files", fb2->bfwin->session->filebrowser_show_backup_files);
+	setup_toggle_item(menumaker, "/Show hidden files", fb2->filebrowser_show_hidden_files);
+	setup_toggle_item(menumaker, "/Show backup files", fb2->filebrowser_show_backup_files);
 	if (!is_directory && !is_file) {
 		gtk_widget_set_sensitive(gtk_item_factory_get_widget(menumaker, "/Rename"), FALSE);
 		gtk_widget_set_sensitive(gtk_item_factory_get_widget(menumaker, "/Delete"), FALSE);
@@ -1631,6 +1632,8 @@ GtkWidget *fb2_init(Tbfwin *bfwin) {
 	bfwin->fb2 = fb2;
 	fb2->bfwin = bfwin;
 	DEBUG_MSG("fb2_init, started for bfwin=%p, fb2=%p\n",bfwin,fb2);
+	fb2->filebrowser_show_hidden_files = bfwin->session->filebrowser_show_hidden_files;
+	fb2->filebrowser_show_backup_files = bfwin->session->filebrowser_show_backup_files;
 
 	fb2_set_filter_from_session(bfwin);
 
