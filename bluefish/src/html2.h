@@ -26,8 +26,8 @@ void insert_class(GtkWidget * widget, gpointer data);
 
 GtkWidget *style_but_new(GtkWidget * which_entry, GtkWidget * win);
 GtkWidget *style_but_new_for_wizard(GtkWidget * textview);
-void new_css_dialog(GtkWidget *widget, gpointer data);
-void sel_colour_cb(GtkWidget *widget, gpointer data);
+void new_css_dialog(GtkWidget *widget, Tbfwin *bfwin);
+void sel_colour_cb(GtkWidget *widget, Tbfwin *bfwin);
 GtkWidget *color_but_new(GtkWidget * which_entry, GtkWidget * win);
 
 #endif /* __HTML2_H_ */
