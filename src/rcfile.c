@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-#define DEBUG
+/* #define DEBUG */
 
 #include <gtk/gtk.h>
 #include <sys/stat.h>
@@ -713,7 +713,7 @@ void rcfile_parse_custom_menu(void) {
 	defaultfile = return_first_existing_filename(PKGDATADIR"custom_menu.default",
 									"data/custom_menu.default",
 									"../data/custom_menu.default",NULL);
-	if (!parse_config_file(custom_menu_configlist, filename) || main_v->props.cust_menu==NULL) {
+	if (!parse_config_file(custom_menu_configlist, filename) || (main_v->props.cust_menu==NULL && main_v->props.cmenu_insert==NULL && main_v->props.cmenu_replace==NULL )) {
 		/* init the custom_menu in some way? */
 		if (defaultfile) {
 			main_v->props.cust_menu = get_list(defaultfile,NULL,TRUE);
