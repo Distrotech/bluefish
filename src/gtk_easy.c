@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-/* #define DEBUG */
+/*#define DEBUG*/
 #include <gtk/gtk.h>
 #include <stdlib.h> /* strtod() */
 #include <string.h> /* strlen() */
@@ -957,7 +957,14 @@ static void fileselectwin(gchar *setfile, Tfileselect *fileselect, gchar *title)
 	/* When you closed the the file selector dialog focus always returned to the bluefish main window
 	   changed to use gtk_widget_get_parent so focus returns to the dialog that opened the file selector
 	*/
-	gtk_window_set_transient_for(GTK_WINDOW(fileselect->fs), GTK_WINDOW(gtk_widget_get_parent(fileselect->fs)));
+	DEBUG_MSG("gtk_widget_fet_parent returns %p\n",gtk_widget_get_parent(fileselect->fs));
+	{
+		GtkWidget *parent = gtk_widget_get_parent(fileselect->fs);
+		if (!parent) {
+			parent = main_v->main_window;
+		}
+		gtk_window_set_transient_for(GTK_WINDOW(fileselect->fs), GTK_WINDOW(parent));
+	}
 }
 
 gchar *return_file_w_title(gchar * setfile, gchar *title) {
