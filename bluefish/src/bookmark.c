@@ -37,6 +37,11 @@ enum {
  N_COLUMNS
 };
 
+enum {
+	BMARK_ADD_PERM_DIALOG,
+	BMARK_RENAME_TEMP_DIALOG,
+	BMARK_RENAME_PERM_DIALOG
+};
 
 typedef struct {
    GtkTextMark *mark;
@@ -313,6 +318,134 @@ void docset_proc(gpointer key,gpointer value,gpointer user_data)
       }    
 }
 
+void bmark_name_entry_changed(GtkEntry * entry, GtkDialog* dialog)
+{
+	const gchar *string;
+	
+	string = gtk_entry_get_text (GTK_ENTRY (entry));
+	
+	if (strlen (string) <= 0)
+		gtk_dialog_set_response_sensitive (GTK_DIALOG (dialog), GTK_RESPONSE_OK, FALSE);
+	else
+		gtk_dialog_set_response_sensitive (GTK_DIALOG (dialog), GTK_RESPONSE_OK, TRUE);
+}
+
+void bmark_add_rename_dialog(Tbfwin *bfwin, gchar *dialogtitle, gint dialogtype)
+{
+   GtkWidget *dlg, *name, *desc, *button, *table;
+   GtkTextMark *im;   
+   gint result;
+   gpointer ptr;
+   gchar *pstr;
+   GtkTextIter it, sit, eit;
+   Tbmark *m = NULL;
+   Tbmark_data *data = BMARKDATA(main_v->bmarkdata);
+   Tbmark_gui *gui = BMARKGUI(bfwin->bmark); 
+	 
+	if (dialogtype != BMARK_ADD_PERM_DIALOG) {
+		m = get_current_bmark(bfwin);
+   		if (!m) return;
+	}
+	
+   dlg = gtk_dialog_new_with_buttons(dialogtitle,
+   																 GTK_WINDOW(bfwin->main_window),
+																 GTK_DIALOG_MODAL,
+																 GTK_STOCK_CANCEL,
+				                        						 GTK_RESPONSE_CANCEL,
+				                        						 NULL);
+	
+	button = gtk_button_new_from_stock(GTK_STOCK_OK);
+	GTK_WIDGET_SET_FLAGS(button, GTK_CAN_DEFAULT);
+	gtk_dialog_add_action_widget(GTK_DIALOG(dlg), button, GTK_RESPONSE_OK);	
+	gtk_widget_set_sensitive (GTK_WIDGET (button), FALSE);						
+	table = gtk_table_new(2, 2, FALSE);
+	gtk_table_set_col_spacings(GTK_TABLE (table), 12);
+	gtk_table_set_row_spacings(GTK_TABLE (table), 6);		
+	gtk_box_pack_start (GTK_BOX(GTK_DIALOG(dlg)->vbox), table, FALSE, FALSE, 12);
+	
+ 	name = gtk_entry_new();
+	gtk_entry_set_activates_default(GTK_ENTRY(name), TRUE);
+	bf_mnemonic_label_tad_with_alignment(_("_Name:"), name, 0, 0.5, table, 0, 1, 0, 1);
+	gtk_table_attach_defaults (GTK_TABLE(table), name, 1, 2, 0, 1);
+	g_signal_connect (G_OBJECT (name), "changed", G_CALLBACK (bmark_name_entry_changed), dlg);
+	desc = gtk_entry_new();
+	gtk_entry_set_activates_default(GTK_ENTRY(desc), TRUE);
+ 	bf_mnemonic_label_tad_with_alignment(_("_Description:"), desc, 0, 0.5, table, 0, 1, 1, 2);
+	gtk_table_attach_defaults(GTK_TABLE(table), desc, 1, 2, 1, 2);
+	gtk_window_set_default(GTK_WINDOW(dlg), button);
+	
+	if (m != NULL && m->is_temp == FALSE) {
+	   gtk_entry_set_text(GTK_ENTRY(name),m->name);		
+	   gtk_entry_set_text(GTK_ENTRY(desc),m->description);
+	}
+	
+	gtk_widget_show_all(dlg);
+	result = gtk_dialog_run(GTK_DIALOG(dlg));     
+	
+	if (result == GTK_RESPONSE_OK)
+	{		
+	   /* check if name exists */
+	   ptr = g_hash_table_lookup(data->permanent,gtk_entry_get_text(GTK_ENTRY(name)));
+	   if (ptr) {
+		    pstr = g_strdup_printf(_("You already have a bookmark named %s!"), gtk_entry_get_text(GTK_ENTRY(name)));
+       		if (dialogtype == BMARK_ADD_PERM_DIALOG) {
+       			info_dialog(bfwin->main_window, dialogtitle, pstr);	   
+       		} else {
+	       		info_dialog(bfwin->main_window, dialogtitle, pstr);
+       		}
+	        g_free(pstr);
+	        gtk_widget_destroy(dlg);
+	        bmark_add_rename_dialog(bfwin, dialogtitle, dialogtype);
+	        return;
+	   }	else if (dialogtype == BMARK_ADD_PERM_DIALOG) {
+		      m = g_new0(Tbmark,1);	
+		      m->doc = DOCUMENT(bfwin->current_document);
+		      if (!m->doc) return;
+		      
+		      im = gtk_text_buffer_get_insert(m->doc->buffer);
+		      gtk_text_buffer_get_iter_at_mark(m->doc->buffer, &it, im);
+		      m->mark = gtk_text_buffer_create_mark(m->doc->buffer, g_strdup(gtk_entry_get_text(GTK_ENTRY(name))), &it, TRUE);
+		      m->filepath = g_strdup(m->doc->filename);
+		      m->is_temp = FALSE;	      
+		      m->name = g_strdup(gtk_entry_get_text(GTK_ENTRY(name)));
+		      m->description = g_strdup(gtk_entry_get_text(GTK_ENTRY(desc)));
+		      sit=eit=it;
+		      gtk_text_iter_forward_to_line_end(&eit);
+		      gtk_text_iter_forward_chars(&sit, 10);
+		      
+		      if (!gtk_text_iter_in_range(&sit, &it, &eit)) sit = eit;
+		      
+		      m->text = g_strdup(gtk_text_iter_get_slice(&it, &sit));   
+		      g_hash_table_insert(data->permanent, g_strdup(gtk_entry_get_text(GTK_ENTRY(name))), m);
+			  gtk_tree_store_append(data->store, &m->iter, &(gui->perm_branch));
+			  gtk_tree_store_set(data->store, &m->iter, NAME_COLUMN, g_strdup_printf("[%s] --> %s", gtk_entry_get_text(GTK_ENTRY(name)), m->text),PTR_COLUMN, m, -1);
+			  gtk_tree_view_expand_all(GTK_TREE_VIEW(gui->tree));
+		      gtk_widget_grab_focus(bfwin->current_document->view);	
+		      store_mark(m, NULL);
+	   } else {
+		      pstr = g_strdup(m->name);
+			  g_free(m->name);
+			  m->name = g_strdup(gtk_entry_get_text(GTK_ENTRY(name)));
+			  g_free(m->description);
+			  m->description = g_strdup(gtk_entry_get_text(GTK_ENTRY(desc)));
+			  
+			  if (m->is_temp) {
+			     m->is_temp = FALSE;
+			     g_hash_table_remove(data->temporary, &(m->number));
+			     gtk_tree_store_remove(data->store, &m->iter);
+		         g_hash_table_insert(data->permanent, g_strdup(m->name), m);
+		 		 gtk_tree_store_append(data->store, &m->iter, &(gui->perm_branch));
+		 		 gtk_tree_store_set(data->store, &m->iter, NAME_COLUMN, g_strdup_printf("[%s] --> %s",m->name,m->text),PTR_COLUMN, m, -1);	    
+			  }
+			  
+			  gtk_tree_store_set(data->store, &m->iter, NAME_COLUMN, g_strdup_printf("[%s] --> %s",m->name,m->text),-1);
+			  store_mark(m, pstr);
+			  g_free(pstr);	   	
+	   }
+	}
+   gtk_widget_destroy(dlg);		
+}
+
 static void bmark_popup_menu_goto_lcb(GtkWidget *widget,gpointer user_data) 
 {
 	Tbmark *b;
@@ -386,80 +519,18 @@ static void bmark_popup_menu_del_lcb(GtkWidget *widget,gpointer user_data)
    gtk_widget_grab_focus(BFWIN(user_data)->current_document->view);
 }
 
-static void bmark_popup_menu_rename_lcb(GtkWidget *widget,gpointer user_data) 
+static void bmark_popup_menu_rename_lcb(GtkWidget *widget, Tbfwin *bfwin) 
 {
-   GtkWidget *dlg,*name,*desc,*button,*table;
-   gint result;
-   gchar *pstr;
    Tbmark *m;
-   Tbmark_data *data = BMARKDATA(main_v->bmarkdata);
-   Tbfwin *bfwin = BFWIN(user_data);
-   Tbmark_gui *gui = BMARKGUI(bfwin->bmark);   
-
 
    m = get_current_bmark(bfwin);
    if (!m) return;
    
-   if (m->is_temp)
-      dlg = gtk_dialog_new_with_buttons(_("Rename temporary"),GTK_WINDOW(bfwin->main_window),
-										GTK_DIALOG_MODAL,GTK_STOCK_OK,GTK_RESPONSE_OK,NULL);
-	else
-      dlg = gtk_dialog_new_with_buttons(_("Rename permanent"),GTK_WINDOW(bfwin->main_window),
-										GTK_DIALOG_MODAL,GTK_STOCK_OK,GTK_RESPONSE_OK,NULL);
-										
-	
-	button = gtk_button_new_from_stock(GTK_STOCK_CANCEL);
-	GTK_WIDGET_SET_FLAGS(button, GTK_CAN_DEFAULT);
-	gtk_dialog_add_action_widget(GTK_DIALOG(dlg), button, GTK_RESPONSE_CANCEL);									
-	table = gtk_table_new(2, 2, FALSE);
-	gtk_table_set_col_spacings(GTK_TABLE (table), 12);
-	gtk_table_set_row_spacings(GTK_TABLE (table), 6);		
-	gtk_box_pack_start (GTK_BOX(GTK_DIALOG(dlg)->vbox), table, FALSE, FALSE, 12);
-	
- 	name = gtk_entry_new();
-	gtk_entry_set_activates_default(GTK_ENTRY(name), TRUE);
-	bf_mnemonic_label_tad_with_alignment(_("_Name:"), name, 0, 0.5, table, 0, 1, 0, 1);
-	gtk_table_attach_defaults (GTK_TABLE(table), name, 1, 2, 0, 1);
-	if (!m->is_temp)
-	   gtk_entry_set_text(GTK_ENTRY(name),m->name);
-	desc = gtk_entry_new();
-	gtk_entry_set_activates_default(GTK_ENTRY(desc), TRUE);
- 	bf_mnemonic_label_tad_with_alignment(_("_Description:"), desc, 0, 0.5, table, 0, 1, 1, 2);
-	gtk_table_attach_defaults(GTK_TABLE(table), desc, 1, 2, 1, 2);
-	if (!m->is_temp)
-	   gtk_entry_set_text(GTK_ENTRY(desc),m->description);	
-	gtk_window_set_default(GTK_WINDOW(dlg), button);
-	gtk_widget_show_all(dlg);
-	result = gtk_dialog_run(GTK_DIALOG(dlg));     
-	if (result == GTK_RESPONSE_OK)
-	{
-     if (g_hash_table_lookup(data->permanent,gtk_entry_get_text(GTK_ENTRY(name))))
-     {
-       gtk_widget_destroy(dlg);
-       pstr = g_strdup_printf(_("You already have a bookmark named %s!"),gtk_entry_get_text(GTK_ENTRY(name)));
-       info_dialog(bfwin->main_window,_("Rename permanent"),pstr);	   
-       g_free(pstr);       
-       return;
-     }
-     pstr = g_strdup(m->name);
-	  g_free(m->name);
-	  m->name = g_strdup(gtk_entry_get_text(GTK_ENTRY(name)));
-	  g_free(m->description);
-	  m->description = g_strdup(gtk_entry_get_text(GTK_ENTRY(desc)));
-	  if (m->is_temp)
-	  {
-	    m->is_temp = FALSE;
-	    g_hash_table_remove(data->temporary,&(m->number));
-	    gtk_tree_store_remove(data->store,&m->iter);
-       g_hash_table_insert(data->permanent,g_strdup(m->name),m);
- 		 gtk_tree_store_append(data->store, &m->iter, &(gui->perm_branch));
- 		 gtk_tree_store_set(data->store, &m->iter, NAME_COLUMN,g_strdup_printf("[%s] --> %s",m->name,m->text),PTR_COLUMN, m, -1);	    
-	  }
-	  gtk_tree_store_set(data->store, &m->iter, NAME_COLUMN,g_strdup_printf("[%s] --> %s",m->name,m->text),-1);
-	  store_mark(m,pstr);
-	  g_free(pstr);
-	}
-	gtk_widget_destroy(dlg);
+   if (!m->is_temp) {
+   		bmark_add_rename_dialog(bfwin, _("Rename permanent bookmark"), BMARK_RENAME_PERM_DIALOG);
+   } else {
+   		bmark_add_rename_dialog(bfwin, _("Rename temporary bookmark"), BMARK_RENAME_TEMP_DIALOG);
+   }
 }
 
 
@@ -903,95 +974,9 @@ void bmark_del_all_perm(Tbfwin *bfwin)
    bmark_save_all();
 }
 
-void bmark_name_entry_changed(GtkEntry * entry, GtkDialog* dialog)
-{
-	const gchar *string;
-	
-	string = gtk_entry_get_text (GTK_ENTRY (entry));
-	
-	if (strlen (string) <= 0)
-		gtk_dialog_set_response_sensitive (GTK_DIALOG (dialog), GTK_RESPONSE_OK, FALSE);
-	else
-		gtk_dialog_set_response_sensitive (GTK_DIALOG (dialog), GTK_RESPONSE_OK, TRUE);
-}
-
 void bmark_add_perm(Tbfwin *bfwin)
 {
-   GtkWidget *dlg,*name,*desc,*button,*table;
-   GtkTextMark *im;   
-   gint result;
-   gpointer ptr;
-   gchar *pstr;
-   GtkTextIter it,sit,eit;
-   Tbmark *m;
-   Tbmark_data *data = BMARKDATA(main_v->bmarkdata);
-   Tbmark_gui *gui = BMARKGUI(bfwin->bmark);   
-   
-   dlg = gtk_dialog_new_with_buttons(_("Add permanent bookmark "),
-   										GTK_WINDOW(bfwin->main_window),
-										GTK_DIALOG_MODAL,
-										GTK_STOCK_CANCEL,
-				                        GTK_RESPONSE_CANCEL,
-				                        NULL);
-	
-	button = gtk_button_new_from_stock(GTK_STOCK_OK);
-	GTK_WIDGET_SET_FLAGS(button, GTK_CAN_DEFAULT);
-	gtk_dialog_add_action_widget(GTK_DIALOG(dlg), button, GTK_RESPONSE_OK);	
-	gtk_widget_set_sensitive (GTK_WIDGET (button), FALSE);								
-	table = gtk_table_new(2, 2, FALSE);
-	gtk_table_set_col_spacings(GTK_TABLE (table), 12);
-	gtk_table_set_row_spacings(GTK_TABLE (table), 6);		
-	gtk_box_pack_start (GTK_BOX(GTK_DIALOG(dlg)->vbox), table, FALSE, FALSE, 12);
-	
- 	name = gtk_entry_new();
-	gtk_entry_set_activates_default(GTK_ENTRY(name), TRUE);
-	bf_mnemonic_label_tad_with_alignment(_("_Name:"), name, 0, 0.5, table, 0, 1, 0, 1);
-	gtk_table_attach_defaults (GTK_TABLE(table), name, 1, 2, 0, 1);
-	g_signal_connect (G_OBJECT (name), "changed", G_CALLBACK (bmark_name_entry_changed), dlg);
-	desc = gtk_entry_new();
-	gtk_entry_set_activates_default(GTK_ENTRY(desc), TRUE);
- 	bf_mnemonic_label_tad_with_alignment(_("_Description:"), desc, 0, 0.5, table, 0, 1, 1, 2);
-	gtk_table_attach_defaults(GTK_TABLE(table), desc, 1, 2, 1, 2);
-	gtk_window_set_default(GTK_WINDOW(dlg), button);
-	gtk_widget_show_all(dlg);
-	result = gtk_dialog_run(GTK_DIALOG(dlg));     
-	if (result == GTK_RESPONSE_OK)
-	{
-	   /* check if name exists */
-	   ptr = g_hash_table_lookup(data->permanent,gtk_entry_get_text(GTK_ENTRY(name)));
-	   if (ptr)
-	   {
-		     pstr = g_strdup_printf(_("You already have a bookmark named %s!"),gtk_entry_get_text(GTK_ENTRY(name)));
-	        info_dialog(bfwin->main_window,_("Add permanent bookmark"),pstr);	   
-	        g_free(pstr);
-	   }
-	   else
-	   {
-		      m = g_new0(Tbmark,1);	
-		      m->doc = DOCUMENT(bfwin->current_document);
-		      if (!m->doc) return;
-		      im = gtk_text_buffer_get_insert(m->doc->buffer);
-		      gtk_text_buffer_get_iter_at_mark(m->doc->buffer,&it,im);
-		      m->mark = gtk_text_buffer_create_mark(m->doc->buffer,g_strdup(gtk_entry_get_text(GTK_ENTRY(name))),&it,TRUE);
-		      m->filepath = g_strdup(m->doc->filename);
-		      m->is_temp = FALSE;	      
-		      m->name = g_strdup(gtk_entry_get_text(GTK_ENTRY(name)));
-		      m->description = g_strdup(gtk_entry_get_text(GTK_ENTRY(desc)));
-		      sit=eit=it;
-		      gtk_text_iter_forward_to_line_end(&eit);
-		      gtk_text_iter_forward_chars(&sit,10);
-		      if (!gtk_text_iter_in_range(&sit,&it,&eit)) 
-		         sit = eit;
-		      m->text = g_strdup(gtk_text_iter_get_slice(&it,&sit));   
-		      g_hash_table_insert(data->permanent,g_strdup(gtk_entry_get_text(GTK_ENTRY(name))),m);
-				gtk_tree_store_append(data->store, &m->iter, &(gui->perm_branch));
-				gtk_tree_store_set(data->store, &m->iter, NAME_COLUMN,g_strdup_printf("[%s] --> %s",gtk_entry_get_text(GTK_ENTRY(name)),m->text),PTR_COLUMN, m, -1);
-				gtk_tree_view_expand_all(GTK_TREE_VIEW(gui->tree));
-		      gtk_widget_grab_focus(bfwin->current_document->view);	
-		      store_mark(m,NULL);
-	   }
-	}
-   gtk_widget_destroy(dlg);
+	bmark_add_rename_dialog(bfwin, _("Add permanent bookmark"), BMARK_ADD_PERM_DIALOG);
 }
 
 void check_len_proc(gpointer key,gpointer value,gpointer user_data)
