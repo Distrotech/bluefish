@@ -278,13 +278,15 @@ static void free_dir_entries(GList *direntrylist) {
 }
 
 static GtkTreePath *return_path_from_filename(GtkTreeStore *store,gchar *this_filename) {
-	gchar *tmpstr, *p, *filepath=g_strdup(this_filename);
+	gchar *tmpstr, *p, *filepath;
 	gint totlen, curlen, prevlen=1;
 	gboolean found=TRUE;
 	GtkTreeIter iter,parent;
 
 	gtk_tree_model_get_iter_first(GTK_TREE_MODEL(store), &iter);
 	parent = iter;
+
+	filepath=g_strdup(this_filename);
 	
 	totlen = strlen(filepath);
 	curlen = strlen(strchr(&filepath[prevlen], '/'));
@@ -313,6 +315,7 @@ static GtkTreePath *return_path_from_filename(GtkTreeStore *store,gchar *this_fi
 		prevlen = (totlen - curlen+1);
 		p = strchr(&filepath[prevlen], '/');
 	}
+	g_free(filepath);
 	if (found) {
 		DEBUG_MSG("return_path_from_filename, we DID found the path, return a path\n");
 		return gtk_tree_model_get_path(GTK_TREE_MODEL(store),&iter);
@@ -405,8 +408,6 @@ static gboolean get_iter_at_correct_position(GtkTreeStore *store, GtkTreeIter *p
 	return TRUE;
 }
 
-
-
 static GtkTreeIter add_tree_item(GtkTreeIter *parent, GtkTreeStore *store, const gchar *text, gint type, GdkPixbuf *pixbuf) {
 	GtkTreeIter iter1, iter2;
 
@@ -417,7 +418,6 @@ static GtkTreeIter add_tree_item(GtkTreeIter *parent, GtkTreeStore *store, const
 			pixbuf = filebrowser.unknown_icon;
 		}
 	}
-	g_assert(pixbuf);
 
 	if (get_iter_at_correct_position(store,parent,&iter2,text,type)) {
 #ifdef DEBUG_SORTING
@@ -517,34 +517,34 @@ static GtkTreePath *build_tree_from_path(GtkTreeStore *store, gchar *filepath) {
 	/* first build path from root to here */
 
 	{
-	gchar *tmpstr, *p;
-	gint totlen, curlen, prevlen=1;
-	
-	if (!gtk_tree_model_get_iter_first(GTK_TREE_MODEL(store), &iter)) {
-		iter = add_tree_item(NULL, store, "/", TYPE_DIR, NULL);
-	}
-	
-	totlen = strlen(filepath);
-	DEBUG_MSG("build_tree_from_path, totlen=%d\n", totlen);
-	curlen = strlen(strchr(&filepath[prevlen], '/'));
-	DEBUG_MSG("build_tree_from_path, curlen=%d\n", curlen);
-	p = strchr(&filepath[prevlen], '/');
-	while (p) {
-		curlen = strlen(p);
-#ifdef DEBUG_ADDING_TO_TREE
-		DEBUG_MSG("build_tree_from_path, curlen=%d\n", curlen);
-#endif
-		tmpstr = g_strndup(&filepath[prevlen], (totlen - curlen - prevlen));
-#ifdef DEBUG_ADDING_TO_TREE
-		DEBUG_MSG("build_tree_from_path, tmpstr='%s'\n", tmpstr);
-#endif
-		if (!get_iter_by_filename_from_parent(store, &iter, tmpstr)) {
-			iter = add_tree_item(&iter, store, tmpstr, TYPE_DIR, NULL);
+		gchar *tmpstr, *p;
+		gint totlen, curlen, prevlen=1;
+		
+		if (!gtk_tree_model_get_iter_first(GTK_TREE_MODEL(store), &iter)) {
+			iter = add_tree_item(NULL, store, "/", TYPE_DIR, NULL);
 		}
-		g_free(tmpstr);
-		prevlen = (totlen - curlen+1);
+		
+		totlen = strlen(filepath);
+		DEBUG_MSG("build_tree_from_path, totlen=%d\n", totlen);
+		curlen = strlen(strchr(&filepath[prevlen], '/'));
+		DEBUG_MSG("build_tree_from_path, curlen=%d\n", curlen);
 		p = strchr(&filepath[prevlen], '/');
-	}
+		while (p) {
+			curlen = strlen(p);
+	#ifdef DEBUG_ADDING_TO_TREE
+			DEBUG_MSG("build_tree_from_path, curlen=%d\n", curlen);
+	#endif
+			tmpstr = g_strndup(&filepath[prevlen], (totlen - curlen - prevlen));
+	#ifdef DEBUG_ADDING_TO_TREE
+			DEBUG_MSG("build_tree_from_path, tmpstr='%s'\n", tmpstr);
+	#endif
+			if (!get_iter_by_filename_from_parent(store, &iter, tmpstr)) {
+				iter = add_tree_item(&iter, store, tmpstr, TYPE_DIR, NULL);
+			}
+			g_free(tmpstr);
+			prevlen = (totlen - curlen+1);
+			p = strchr(&filepath[prevlen], '/');
+		}
 	}
 	{
 		gchar *dirname;
@@ -1162,6 +1162,7 @@ GtkWidget *filebrowser_init() {
 		DEBUG_MSG("curdir=%s\n",curdir);
 		path = build_tree_from_path(GTK_TREE_STORE(filebrowser.store), curdir);
 		filebrowser_expand_to_root(path);
+		gtk_tree_path_free(path);
 	}
 	
 	g_signal_connect(G_OBJECT(filebrowser.tree), "row-expanded", G_CALLBACK(row_expanded_lcb), filebrowser.store);
