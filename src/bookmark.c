@@ -461,6 +461,7 @@ static void bmark_popup_menu_goto_lcb(GtkWidget * widget, gpointer user_data)
 	if (!b)
 		exit(2);
 #endif
+	DEBUG_MSG("bmark_popup_menu_goto_lcb, calling doc_new_from_uri for %s with goto_offset %d\n",b->filepath,b->offset);
 	doc_new_from_uri(bfwin, b->filepath, NULL, NULL, FALSE, FALSE, -1, b->offset);
 }
 /* 
@@ -749,6 +750,7 @@ static void bmark_get_iter_at_tree_position(Tbfwin * bfwin, Tbmark * m) {
 		case BM_FMODE_HOME:	/* todo */
 			if (bfwin->project != NULL && bfwin->project->basedir && strlen(bfwin->project->basedir)) {
 				gint baselen = strlen(bfwin->project->basedir);
+				if (m->filepath[baselen] == '/') baselen++;  /* ignore the / */
 				if (strncmp(m->filepath, bfwin->project->basedir, baselen)==0) {
 					title = g_strdup(m->filepath + baselen);
 				}
