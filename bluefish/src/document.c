@@ -2159,22 +2159,57 @@ void doc_indent_selection(Tdocument *doc, gboolean unindent) {
 		/* we have a selection, now we loop trough the characters, and for every newline
 		we add or remove a tab, we set the end with a mark */
 		end = gtk_text_buffer_create_mark(doc->buffer,NULL,&itend,TRUE);
+
 		while(gtk_text_iter_compare(&itstart,&itend) < 0) {
-			if ((firstrun && gtk_text_iter_starts_line(&itstart)) || gtk_text_iter_forward_line(&itstart)) {
-				GtkTextMark *cur;
-				firstrun = FALSE;
-				cur = gtk_text_buffer_create_mark(doc->buffer,NULL,&itstart,TRUE);
-				if (unindent) {
-					g_print("doc_indent_selection, unindent is not yet implemented\n");
-				} else { /* indent */
-					gtk_text_buffer_insert(doc->buffer,&itstart,"\t",1);
-				}
-				gtk_text_buffer_get_iter_at_mark(doc->buffer,&itstart,cur);
-				gtk_text_buffer_get_iter_at_mark(doc->buffer,&itend,end);
-				gtk_text_buffer_delete_mark(doc->buffer,cur);
+			GtkTextMark *cur;
+			if (firstrun && !gtk_text_iter_starts_line(&itstart)) {
+				gtk_text_iter_forward_line(&itstart);
 			}
+			firstrun = FALSE;
+			cur = gtk_text_buffer_create_mark(doc->buffer,NULL,&itstart,TRUE);
+			if (unindent) {
+				/* when unindenting we try to set itend to the end of the indenting step
+				which might be a tab or 'tabsize' spaces, then we delete that part */
+				gboolean cont=TRUE;
+				gunichar cchar = gtk_text_iter_get_char(&itstart);
+				if (cchar == 9) { /* 9 is ascii for tab */
+					itend = itstart;
+					cont = gtk_text_iter_forward_char(&itend);
+				} else if (cchar == 32) { /* 32 is ascii for space */
+					gchar *tmpstr;
+					gint i=0;
+					itend = itstart;
+					gtk_text_iter_forward_chars(&itend,main_v->props.editor_tab_width);
+					tmpstr = gtk_text_buffer_get_text(doc->buffer,&itstart,&itend,FALSE);
+					DEBUG_MSG("tab_width=%d, strlen(tmpstr)=%d, tmpstr='%s'\n",main_v->props.editor_tab_width,strlen(tmpstr),tmpstr);
+					while (cont && tmpstr[i] != '\0') {
+						cont = (tmpstr[i] == ' ');
+						DEBUG_MSG("doc_indent_selection, tmpstr[%d]='%c'\n",i,tmpstr[i]);
+						i++;
+					}
+				} else {
+					cont = FALSE;
+				}
+				if (cont) {
+					gtk_text_buffer_delete(doc->buffer,&itstart,&itend);
+				}
+#ifdef DEBUG
+				else {
+					DEBUG_MSG("doc_indent_selection, NOT continue!!\n");
+				}
+#endif
+			} else { /* indent */
+				gtk_text_buffer_insert(doc->buffer,&itstart,"\t",1);
+			}
+			gtk_text_buffer_get_iter_at_mark(doc->buffer,&itstart,cur);
+			gtk_text_buffer_get_iter_at_mark(doc->buffer,&itend,end);
+			gtk_text_buffer_delete_mark(doc->buffer,cur);
+			gtk_text_iter_forward_line(&itstart);
 			DEBUG_MSG("doc_indent_selection, itstart at %d, itend at %d\n",gtk_text_iter_get_offset(&itstart),gtk_text_iter_get_offset(&itend));
 		}
 		gtk_text_buffer_delete_mark(doc->buffer,end);
+	} else {
+		DEBUG_MSG("doc_indent_selection, put a message on the statusbar that we want a selection..\n");
+		statusbar_message(_("No selection to indent"), 2000);
 	}
 }

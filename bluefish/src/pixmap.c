@@ -116,6 +116,8 @@ static Tpixmap tp[] = {
 	{103, context}, /* context dropdown image */
 	{104, spellcheck},
 	{105, filetree},
+	{110, indent},
+	{111, unindent},
 	{150,prefseditor},
 	{151,prefsexternal},
 	{152,prefsfiles},

@@ -509,7 +509,7 @@ void make_html_toolbar(GtkWidget *handlebox) {
 
 static void doc_indent_lcb(GtkWidget *wid,gpointer data) {
 	if (main_v->current_document) {
-		doc_indent_selection(main_v->current_document, FALSE);
+		doc_indent_selection(main_v->current_document, (GPOINTER_TO_INT(data) == 1));
 	}
 }
 
@@ -548,8 +548,10 @@ void make_main_toolbar(GtkWidget *handlebox) {
 	toolbarwidgets.redo = gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), NULL, _("Redo"), "",
 							new_pixmap(11), G_CALLBACK(redo_cb), NULL);
 	gtk_toolbar_append_space(GTK_TOOLBAR(toolbar));
-	gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), NULL, _("Preferences..."),
-							"", new_pixmap(12), G_CALLBACK(open_preferences_cb), NULL);
+	gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), NULL, _("Indent"),
+							"", new_pixmap(110), G_CALLBACK(doc_indent_lcb), GINT_TO_POINTER(0));
+	gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), NULL, _("Unindent"),
+							"", new_pixmap(111), G_CALLBACK(doc_indent_lcb), GINT_TO_POINTER(1));
 /*
 	gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), NULL, _("Print..."), "",
 							new_pixmap(015), G_CALLBACK(file_print_cb), NULL);*/
@@ -557,13 +559,13 @@ void make_main_toolbar(GtkWidget *handlebox) {
 	gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), NULL, _("Spellcheck..."),
 							"", new_pixmap(104), G_CALLBACK(spell_check_cb), NULL);
 #endif /* HAVE_LIBASPELL */
-	gtk_toolbar_append_space(GTK_TOOLBAR(toolbar));
+
 	gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), NULL,
 							_("View in browser"), "",
 							new_pixmap(102), G_CALLBACK(browser_toolbar_cb), NULL);
-	gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), NULL, _("Indent"),
-							"", new_pixmap(106), G_CALLBACK(doc_indent_lcb), NULL);
-
+	gtk_toolbar_append_space(GTK_TOOLBAR(toolbar));
+	gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), NULL, _("Preferences..."),
+							"", new_pixmap(12), G_CALLBACK(open_preferences_cb), NULL);
 	gtk_widget_show_all(toolbar);
 }
 
