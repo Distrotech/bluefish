@@ -843,6 +843,7 @@ void bmark_reload(Tbfwin * bfwin)
 	while (tmplist) {
 		DEBUG_MSG("bmark_reload, calling bmark_set_for_doc for doc=%p\n",tmplist->data);
 		bmark_set_for_doc(DOCUMENT(tmplist->data));
+		bmark_check_length(bfwin, DOCUMENT(tmplist->data));
 		tmplist = g_list_next(tmplist);
 	}
 }
@@ -900,20 +901,19 @@ void bmark_clean_for_doc(Tdocument * doc) {
  * this function will check is this document needs any bookmarks, and set the
  * doc->bmark_parent if needed
  */
-void bmark_set_for_doc(Tdocument * doc)
-{
+void bmark_set_for_doc(Tdocument * doc) {
 	GtkTreeIter tmpiter;
 	GtkTextIter it;
 	gboolean cont;
-	DEBUG_MSG("bmark_set_for_doc, doc=%p\n",doc);
 	if (!doc->filename) {
-		DEBUG_MSG("bmark_set_for_doc, an unnamed document cannot have bookmarks, returning\n");
+		DEBUG_MSG("bmark_set_for_doc, document %p does not have a filename, returning\n", doc);
 		return;
 	}
-	if (!BFWIN(doc->bfwin)->bmark) {
+	DEBUG_MSG("bmark_set_for_doc, doc=%p, filename=%s\n",doc,doc->filename);
+/*	if (!BFWIN(doc->bfwin)->bmark) {
 		DEBUG_MSG("bmark_set_for_doc, no leftpanel, not implemented yet!!\n");
 		return;
-	}
+	}*/
 	if (doc->bmark_parent) {
 		DEBUG_MSG("this document (%p) already has a bmark_parent (%p) why is this function called?\n",doc,doc->bmark_parent);
 		return;
@@ -959,12 +959,13 @@ void bmark_set_for_doc(Tdocument * doc)
 					}
 					doc->bmark_parent = g_memdup(&tmpiter, sizeof(GtkTreeIter));
 					DEBUG_MSG("bmark_set_for_doc, added parent_iter %p to doc %p\n",doc->bmark_parent,doc);
-					break;
+					return;
 				}
 			}
 		}
 		cont = gtk_tree_model_iter_next(GTK_TREE_MODEL(BFWIN(doc->bfwin)->bookmarkstore), &tmpiter);
 	}							/* cont */
+	DEBUG_MSG("bmark_set_for_doc, no bookmarks found for document %s\n", doc->filename);
 }
 
 /**
@@ -1276,6 +1277,25 @@ void bmark_add_at_bevent(Tdocument *doc) {
 	}
 }
 
+void bmark_del_for_document(Tbfwin *bfwin, Tdocument *doc) {
+	if (doc->bmark_parent) {
+		GtkTreeIter tmpiter;
+		while (gtk_tree_model_iter_children(GTK_TREE_MODEL(bfwin->bookmarkstore), &tmpiter, doc->bmark_parent)) {
+			Tbmark *b;
+			gtk_tree_model_get(GTK_TREE_MODEL(bfwin->bookmarkstore), &tmpiter, PTR_COLUMN,&b,-1);
+			if (b) {
+				DEBUG_MSG("bmark_del_for_document, found b=%p\n",b);
+				bmark_check_remove(bfwin,b);
+				if (!b->is_temp)
+					bmark_unstore(bfwin, b);
+				bmark_free(b);
+			} else {
+				DEBUG_MSG("bmark_del_for_document, iter without bookmark ??? LOOP WARNING!\n");
+			}
+		}
+	}
+}
+
 void bmark_del_all(Tbfwin *bfwin,gboolean ask) {
 	gint ret;
 	gchar *btns[]={GTK_STOCK_NO,GTK_STOCK_YES,NULL};
@@ -1286,7 +1306,7 @@ void bmark_del_all(Tbfwin *bfwin,gboolean ask) {
 	if (ask)	{
 	  ret = multi_query_dialog(bfwin->main_window,_("Delete all bookmarks."), _("Are you sure?"), 0, 0, btns);
 	  if (ret==0) return;
-	}  
+	}
 	DEBUG_MSG("bmark_del_all, deleting all bookmarks!\n");
 	while (gtk_tree_model_iter_children(GTK_TREE_MODEL(bfwin->bookmarkstore), &tmpiter, NULL) ) {
 #ifdef DEBUG
@@ -1311,13 +1331,13 @@ void bmark_del_all(Tbfwin *bfwin,gboolean ask) {
 }	
 
 void bmark_check_length(Tbfwin * bfwin, Tdocument * doc) {
-	gchar *pstr;
 	GtkTreeIter tmpiter;
 	gboolean cont;
-	glong size;
-	DEBUG_MSG("bmark_check_length, started\n");
-	if (!doc || !doc->bmark_parent)
+	if (!doc || !doc->bmark_parent) {
+		DEBUG_MSG("bmark_check_length, no bmark_parent iter => no bookmarks, returning\n");
 		return;
+	}
+	DEBUG_MSG("bmark_check_length, doc %p, filename %s\n\n", doc, doc->filename);
 
 	cont =
 		gtk_tree_model_iter_children(GTK_TREE_MODEL(bfwin->bookmarkstore), &tmpiter,
@@ -1327,6 +1347,7 @@ void bmark_check_length(Tbfwin * bfwin, Tdocument * doc) {
 		gtk_tree_model_get(GTK_TREE_MODEL(BFWIN(doc->bfwin)->bookmarkstore), &tmpiter, PTR_COLUMN,
 						   &mark, -1);
 		if (mark) {
+			glong size;
 #ifdef HAVE_GNOME_VFS
 			size = doc->fileinfo->size;
 #else
@@ -1334,18 +1355,22 @@ void bmark_check_length(Tbfwin * bfwin, Tdocument * doc) {
 #endif
 			DEBUG_MSG("bmark_check_length, bmark has %d, file has %ld\n",mark->len, size);
 			if (mark->len != size) {
-				pstr = g_strdup_printf(_("Character count changed in file\n %s."), doc->filename);
-				warning_dialog(bfwin->main_window, pstr,
-							   _("Bookmarks positions could be incorrect."));
-				g_free(pstr);
+				gint ret;
+				gchar *btns[]={GTK_STOCK_NO,GTK_STOCK_YES,NULL};
+				gchar *str;
+				str = g_strconcat(_("File size changed in file\n"),doc->filename,NULL);
+				ret = multi_query_dialog(bfwin->main_window,_("Bookmarks positions could be incorrect. Delete bookmarks?"), str, 0, 0, btns);
+				if (ret==1) {
+					bmark_del_for_document(bfwin, doc);
+				}
 				return;
 			}
 		} else {
 			DEBUG_MSG("bmark_check_length, NOT GOOD no mark in the treestore??\n");
 		}
-		
 		cont = gtk_tree_model_iter_next(GTK_TREE_MODEL(bfwin->bookmarkstore), &tmpiter);
 	}
+	DEBUG_MSG("bmark_check_length, all bookmarks OK, returning\n");
 }
 
 void bmark_cleanup(Tbfwin * bfwin) {
