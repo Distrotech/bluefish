@@ -301,7 +301,7 @@ static TcheckNsave_return doc_checkNsave_lcb(TcheckNsave_status status,gint erro
 			{
 				DEBUG_MSG("doc_checkNsave_lcb, some ERROR, give user a message\n");
 				errmessage = g_strconcat(_("Could not save file:\n\""),gtk_label_get_text(GTK_LABEL(doc->tab_label)), "\"", NULL);
-				error_dialog(BFWIN(doc->bfwin)->main_window,_("File save aborted.\n"), errmessage);
+				error_dialog(BFWIN(doc->bfwin)->main_window,_("File save failed!\n"), errmessage);
 				g_free(errmessage);
 			}
 		break;
