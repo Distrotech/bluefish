@@ -92,7 +92,7 @@ cmenu_insert: /DocBook/Listes/Liste variable:<variablelist><title>%0</title>\n\t
 cmenu_insert: /DocBook/Listes/Liste numérotée:<orderedlist>\n\t  <listitem><para>:</para></listitem>\n</orderedlist>:0:
 cmenu_insert: /DocBook/Listes/Élément de liste:<listitem><para>:</para></listitem>:0:
 cmenu_insert: /DocBook/Listes/Liste non numérotée:<itemizedlist>\n\t  <listitem><para>:</para></listitem>\n</itemizedlist>:0:
-cmenu_insert: /DocBook/Liens/Lien interne:<xref linkend="%0">\n::1:Identifiant du lien:
+cmenu_insert: /DocBook/Liens/Lien interne:<xref linkend="%0"/>\n::1:Identifiant du lien:
 cmenu_insert: /DocBook/Liens/Lien externe:<ulink url="%0">%1</ulink>\n::2:URL du lien:Texte:
 cmenu_insert: /DocBook/Style/Option:<option>:</option>\n:0:
 cmenu_insert: /DocBook/Style/Emphase:<emphasis>:</emphasis>:0:
