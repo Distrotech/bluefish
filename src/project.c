@@ -248,6 +248,7 @@ static void project_edit_cancel_clicked_lcb(GtkWidget *widget, Tprojecteditor *p
 
 static void project_edit_ok_clicked_lcb(GtkWidget *widget, Tprojecteditor *pred) {
 	gchar *oldbasedir;
+	gchar *tmp;
 	Tproject *prj = pred->project;
 	if (pred->bfwin == NULL) {
 		pred->bfwin = gui_new_window(NULL, pred->project);
@@ -256,6 +257,9 @@ static void project_edit_ok_clicked_lcb(GtkWidget *widget, Tprojecteditor *pred)
 	oldbasedir = g_strdup(prj->basedir);
 	string_apply(&prj->name, pred->entries[name]);
 	string_apply(&prj->basedir, pred->entries[basedir]);
+	tmp = prj->basedir;
+	prj->basedir = ending_slash(prj->basedir);
+	g_free(tmp);
 	string_apply(&prj->webdir, pred->entries[webdir]);
 	string_apply(&prj->template, pred->entries[template]);
 	integer_apply(&prj->word_wrap, pred->entries[word_wrap], TRUE);
