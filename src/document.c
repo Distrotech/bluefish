@@ -1026,6 +1026,8 @@ gboolean doc_file_to_textbox(Tdocument * doc, gchar * filename, gboolean enable_
 			gtk_text_view_place_cursor_onscreen(GTK_TEXT_VIEW(doc->view));
 		}
 	}
+	gtk_notebook_set_page(GTK_NOTEBOOK(main_v->notebook),g_list_length(main_v->documentlist) - 1);
+	notebook_changed(-1);
 	return TRUE;
 }
 
