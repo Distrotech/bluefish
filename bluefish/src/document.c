@@ -1370,6 +1370,58 @@ static void doc_close_but_clicked_lcb(GtkWidget *wid, gpointer data) {
 	doc_close(data, 0);
 }
 
+/* contributed by Oskar Swida <swida@aragorn.pb.bialystok.pl>, with help from the gedit source */
+static gboolean doc_textview_expose_event_lcb(GtkWidget * widget, GdkEventExpose * event, gpointer data) {
+	GtkTextView *view = (GtkTextView*)widget;
+	GdkRectangle rect;
+	GdkWindow *win;
+	GtkTextIter l_start,l_end,it;
+	gint l_top1,l_top2;
+	PangoLayout *l;
+	gchar *pomstr;
+	gint numlines,w,i;
+
+	win = gtk_text_view_get_window(view,GTK_TEXT_WINDOW_LEFT);
+	if (win!=event->window) return FALSE;
+
+	gtk_text_view_get_visible_rect(view,&rect);
+	gtk_text_view_get_line_at_y(view,&l_start,rect.y,&l_top1);
+	gtk_text_view_get_line_at_y(view,&l_end,rect.y+rect.height,&l_top2);
+	l = gtk_widget_create_pango_layout(widget,"");
+
+	numlines = gtk_text_buffer_get_line_count(gtk_text_view_get_buffer(view));
+	pomstr = g_strdup_printf("%d",MAX(99,numlines));
+	pango_layout_set_text(l,pomstr,-1);
+	g_free(pomstr);
+	pango_layout_get_pixel_size(l,&w,NULL);
+	gtk_text_view_set_border_window_size(view,GTK_TEXT_WINDOW_LEFT,w+4);   
+	it = l_start;
+	for(i=gtk_text_iter_get_line(&l_start);i<=gtk_text_iter_get_line(&l_end);i++) {
+		gtk_text_iter_set_line(&it,i);
+		gtk_text_view_get_line_yrange(view,&it,&w,NULL);
+      
+		gtk_text_view_buffer_to_window_coords(view,GTK_TEXT_WINDOW_LEFT,0,w,NULL,&w);
+		pomstr = g_strdup_printf("%d",i+1);
+		pango_layout_set_text(l,pomstr,-1);
+      
+		gtk_paint_layout(widget->style,win,GTK_WIDGET_STATE(widget),FALSE,NULL,widget,NULL,2,w,l);
+      g_free(pomstr);
+	}
+	g_object_unref(G_OBJECT(l));
+	return TRUE;
+}
+
+void document_set_line_numbers(Tdocument *doc, gboolean value) {
+	if (value) {
+		gtk_text_view_set_left_margin(GTK_TEXT_VIEW(doc->view),2);
+		gtk_text_view_set_border_window_size(GTK_TEXT_VIEW(doc->view),GTK_TEXT_WINDOW_LEFT,20);
+		g_signal_connect(G_OBJECT(doc->view),"expose-event",G_CALLBACK(doc_textview_expose_event_lcb),NULL);
+	} else {
+		gtk_text_view_set_left_margin(GTK_TEXT_VIEW(doc->view),0);
+		gtk_text_view_set_border_window_size(GTK_TEXT_VIEW(doc->view),GTK_TEXT_WINDOW_LEFT,0);
+	}
+}
+
 Tdocument *doc_new(gboolean delay_activate) {
 	GtkWidget *scroll;
 	Tdocument *newdoc = g_new0(Tdocument, 1);
@@ -1385,6 +1437,9 @@ Tdocument *doc_new(gboolean delay_activate) {
 	gtk_scrolled_window_set_shadow_type(GTK_SCROLLED_WINDOW
 											(scroll), GTK_SHADOW_IN);
 	gtk_container_add(GTK_CONTAINER(scroll), newdoc->view);
+
+	newdoc->linenumberstate = main_v->props.view_line_numbers;
+	document_set_line_numbers(newdoc, newdoc->linenumberstate);
 
 	newdoc->tab_label = gtk_label_new(NULL);
 	GTK_WIDGET_UNSET_FLAGS(newdoc->tab_label, GTK_CAN_FOCUS);
@@ -1580,7 +1635,7 @@ void doc_activate(Tdocument *doc) {
 		}
 	}
 	DEBUG_MSG("doc_activate, calling gui_set_widgets\n");
-	gui_set_widgets(doc_has_undo_list(doc), doc_has_redo_list(doc), doc->wrapstate, doc->highlightstate, doc->hl, doc->encoding);
+	gui_set_widgets(doc_has_undo_list(doc), doc_has_redo_list(doc), doc->wrapstate, doc->highlightstate, doc->hl, doc->encoding, doc->linenumberstate);
 
 	/* if highlighting is needed for this document do this now !! */
 	if (doc->need_highlighting && doc->highlightstate) {
@@ -1935,7 +1990,10 @@ void doc_toggle_wrap_cb(gpointer callback_data,guint action,GtkWidget *widget) {
 	doc_set_wrap(main_v->current_document);
 }
 
-
+void doc_toggle_linenumbers_cb(gpointer callback_data,guint action,GtkWidget *widget) {
+	main_v->current_document->linenumberstate = 1 - main_v->current_document->linenumberstate;
+	document_set_line_numbers(main_v->current_document, main_v->current_document->linenumberstate);
+}
 
 /* callback_action: 1 only ascii, 2 only iso, 3 both
  */

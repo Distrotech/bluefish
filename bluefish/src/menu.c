@@ -441,6 +441,7 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/Document/Encoding/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
 	{N_("/Document/_Highlight syntax"), NULL, doc_toggle_highlighting_cb, 0, "<ToggleItem>"},
 	{N_("/Document/_Wrap"), NULL, doc_toggle_wrap_cb, 0, "<ToggleItem>"},
+	{N_("/Document/_Line numbers"), NULL, doc_toggle_linenumbers_cb, 0, "<ToggleItem>"},
 	{N_("/Document/sep1"), NULL, NULL, 0, "<Separator>"},
 	{N_("/Document/_Update highlighting"), "F5", doc_update_highlighting, 0, NULL},
 	{N_("/Document/_Next"), "F1", gui_notebook_switch, 1, NULL},

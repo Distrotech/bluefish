@@ -10,6 +10,7 @@
 #include "pixmap.h"
 
 enum {
+	view_line_numbers,
 	filebrowser_show_hidden_files,
 	filebrowser_show_others_files,
 	filebrowser_show_backup_files,
@@ -1497,6 +1498,7 @@ static void preferences_ok_clicked_lcb(GtkWidget *wid, Tprefdialog *pd) {
 	string_apply(&main_v->props.editor_font_string, pd->prefs[editor_font_string]);
 	integer_apply(&main_v->props.editor_tab_width, pd->prefs[editor_tab_width], FALSE);
 	integer_apply(&main_v->props.word_wrap, pd->prefs[word_wrap], TRUE);
+	integer_apply(&main_v->props.view_line_numbers, pd->prefs[view_line_numbers], TRUE);
 	integer_apply(&main_v->props.highlight_num_lines_count, pd->prefs[highlight_num_lines_count], FALSE);
 	integer_apply(&main_v->props.lowercase_tags, pd->prefs[lowercase_tags], TRUE);
 	integer_apply(&main_v->props.allow_dep, pd->prefs[allow_dep], TRUE);
@@ -1606,9 +1608,11 @@ static void preferences_dialog() {
 	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
 	vbox2 = gtk_vbox_new(FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(frame), vbox2);
+	
 	pd->prefs[editor_font_string] = prefs_string(_("Font"), main_v->props.editor_font_string, vbox2, pd, string_font);
 	pd->prefs[editor_tab_width] = prefs_integer(_("Tab width"), main_v->props.editor_tab_width, vbox2, pd, 1, 50);
 	pd->prefs[word_wrap] = boxed_checkbut_with_value(_("Word wrap default"), main_v->props.word_wrap, vbox2);
+	pd->prefs[view_line_numbers] = boxed_checkbut_with_value(_("Line numbers by defaults"), main_v->props.view_line_numbers, vbox2);
 	pd->prefs[highlight_num_lines_count] = prefs_integer(_("Highlight # lines"), main_v->props.highlight_num_lines_count, vbox2, pd, 1, 8);
 
 	vbox1 = gtk_vbox_new(FALSE, 5);
