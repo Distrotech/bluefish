@@ -6,14 +6,14 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: bluefish gtk2-port\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-03-26 01:19-0300\n"
+"POT-Creation-Date: 2004-03-29 14:55+0200\n"
 "PO-Revision-Date: 2004-03-26 21:00+0100\n"
 "Last-Translator: David Smeringe <david.smeringe@telia.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Report-Msgid-Bugs-To: \n"
 
 #: ../src/about.c:123
 msgid ""
@@ -263,7 +263,9 @@ msgstr "Lösenord:"
 msgid ""
 "Bluefish has trouble reading the filenames. Try to set the environment "
 "variable G_BROKEN_FILENAMES=1\n"
-msgstr "Bluefish har problem med att lösa filnamnen. Försök att sätta miljövariabeln G_BROKEN_FILENAMES=1\n"
+msgstr ""
+"Bluefish har problem med att lösa filnamnen. Försök att sätta miljövariabeln "
+"G_BROKEN_FILENAMES=1\n"
 
 #: ../src/bfspell.c:346
 msgid "Check Spelling"
@@ -430,52 +432,52 @@ msgstr "Kunde inte hitta filen \"%s\"."
 msgid "This bookmark is set in a file that no longer exists."
 msgstr "Det här bokmärket är satt i en fil som inte längre finns."
 
-#: ../src/bookmark.c:442
+#: ../src/bookmark.c:443
 #, c-format
 msgid "Do you really want to delete %s?"
 msgstr "Vill du verkligen ta bort %s?"
 
-#: ../src/bookmark.c:444
+#: ../src/bookmark.c:445
 msgid "Delete permanent bookmark."
 msgstr "Ta bort fast bokmärke."
 
-#: ../src/bookmark.c:461
+#: ../src/bookmark.c:462
 msgid "Edit bookmark"
 msgstr "Redigera bokmärke"
 
-#: ../src/bookmark.c:469
+#: ../src/bookmark.c:470
 msgid "Goto bookmark"
 msgstr "Gå till bokmärke"
 
-#: ../src/bookmark.c:477
+#: ../src/bookmark.c:478
 msgid "Edit"
 msgstr "Redigera"
 
-#: ../src/bookmark.c:481
+#: ../src/bookmark.c:482
 msgid "Delete"
 msgstr "Ta bort"
 
-#: ../src/bookmark.c:903 ../src/bookmark.c:938 ../src/document.c:1987
+#: ../src/bookmark.c:904 ../src/bookmark.c:939 ../src/document.c:1987
 msgid "Add bookmark"
 msgstr "Lägg till bokmärke"
 
-#: ../src/bookmark.c:904
+#: ../src/bookmark.c:905
 msgid "Cannot add bookmarks in unnamed files."
 msgstr "Kan inte lägga till bokmärken i namnlösa filer"
 
-#: ../src/bookmark.c:939
+#: ../src/bookmark.c:940
 msgid "You already have a bookmark here!"
 msgstr "Du har redan ett bokmärke här!"
 
-#: ../src/bookmark.c:944
+#: ../src/bookmark.c:945
 msgid "default"
 msgstr "standard"
 
-#: ../src/bookmark.c:974
+#: ../src/bookmark.c:975
 msgid "temp"
 msgstr "temp"
 
-#: ../src/bookmark.c:1042
+#: ../src/bookmark.c:1043
 #, c-format
 msgid ""
 "Character count changed in file\n"
@@ -484,7 +486,7 @@ msgstr ""
 "Teckenräkning är ändrad i filen\n"
 "%s"
 
-#: ../src/bookmark.c:1044
+#: ../src/bookmark.c:1045
 msgid "Bookmarks positions could be incorrect."
 msgstr "Bokmärkenas positioner kan vara felaktiga."
 
@@ -1572,55 +1574,6 @@ msgstr "/Visa/Visa huvudverktygsraden"
 msgid "/View/View Custom Menu"
 msgstr "/Visa/Visa specialmenyn"
 
-#: ../src/html2.c:554
-msgid "Cascading StyleSheet dialog"
-msgstr "Stilmallsdialog"
-
-#: ../src/html2.c:574
-msgid "_Selector:"
-msgstr "V_äljare:"
-
-#: ../src/html2.c:593
-msgid "_Property:"
-msgstr "Egenskaper:"
-
-#: ../src/html2.c:595 ../src/html_form.c:650 ../src/html_form.c:799
-#: ../src/html_form.c:894
-msgid "_Value:"
-msgstr "_Värde:"
-
-#: ../src/html2.c:613
-msgid "Selector"
-msgstr "Välj"
-
-#: ../src/html2.c:613 ../src/html2.c:616
-msgid "Property"
-msgstr "Egenskaper"
-
-#: ../src/html2.c:613 ../src/html2.c:616
-msgid "Value"
-msgstr "Värde"
-
-#: ../src/html2.c:631
-msgid " _Add "
-msgstr " L_ägg till "
-
-#: ../src/html2.c:634
-msgid " _Update "
-msgstr " _Uppdatera "
-
-#: ../src/html2.c:637
-msgid " _Delete "
-msgstr " _Ta bort "
-
-#: ../src/html2.c:893 ../src/html2.c:930
-msgid "_Style..."
-msgstr "_Stil..."
-
-#: ../src/html2.c:1087
-msgid "Bluefish: Select color"
-msgstr "Bluefish: Välj färg"
-
 #: ../src/html.c:356
 msgid "Insert Time"
 msgstr "Sätt in tid"
@@ -2014,6 +1967,55 @@ msgstr "Spr_åk:"
 #: ../src/html.c:2075
 msgid "_Custom:"
 msgstr "A_npassad:"
+
+#: ../src/html2.c:554
+msgid "Cascading StyleSheet dialog"
+msgstr "Stilmallsdialog"
+
+#: ../src/html2.c:574
+msgid "_Selector:"
+msgstr "V_äljare:"
+
+#: ../src/html2.c:593
+msgid "_Property:"
+msgstr "Egenskaper:"
+
+#: ../src/html2.c:595 ../src/html_form.c:650 ../src/html_form.c:799
+#: ../src/html_form.c:894
+msgid "_Value:"
+msgstr "_Värde:"
+
+#: ../src/html2.c:613
+msgid "Selector"
+msgstr "Välj"
+
+#: ../src/html2.c:613 ../src/html2.c:616
+msgid "Property"
+msgstr "Egenskaper"
+
+#: ../src/html2.c:613 ../src/html2.c:616
+msgid "Value"
+msgstr "Värde"
+
+#: ../src/html2.c:631
+msgid " _Add "
+msgstr " L_ägg till "
+
+#: ../src/html2.c:634
+msgid " _Update "
+msgstr " _Uppdatera "
+
+#: ../src/html2.c:637
+msgid " _Delete "
+msgstr " _Ta bort "
+
+#: ../src/html2.c:893 ../src/html2.c:930
+msgid "_Style..."
+msgstr "_Stil..."
+
+#: ../src/html2.c:1087
+msgid "Bluefish: Select color"
+msgstr "Bluefish: Välj färg"
 
 #: ../src/html_form.c:141
 msgid "Form"
@@ -4678,5 +4680,3 @@ msgstr "Källkod:"
 #: ../src/wizards.c:223
 msgid "Size:"
 msgstr "Storlek:"
-
-
