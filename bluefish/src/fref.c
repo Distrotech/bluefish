@@ -4,6 +4,7 @@
 
 
 #include "fref.h"
+#include "rcfile.h" /* array_from_arglist() */
 #include "stringlist.h"
 #include "bluefish.h"
 #include "document.h"
@@ -1453,4 +1454,36 @@ void frefcb_info_show(GtkButton * button, gpointer user_data)
 		g_free(pomstr);
 	}
 	g_free(val);
+}
+
+
+static gboolean reference_file_known(gchar *path) {
+	GList *tmplist = g_list_first(main_v->props.reference_files);
+	while (tmplist) {
+		if (strcmp(tmplist->data,path)==0) {
+			return TRUE;
+		}
+		tmplist = g_list_next(tmplist);
+	}
+	return FALSE;
+}
+
+void fref_rescan_dir(const gchar *dir) {
+	const gchar *filename;
+	GError *error = NULL;
+	GPatternSpec* ps = g_pattern_spec_new("funcref_*.xml");
+	GDir* gd = g_dir_open(dir,0,&error);
+	filename = g_dir_read_name(gd);
+	while (filename) {
+		if (g_pattern_match(ps, strlen(filename), filename, NULL)) {
+			gchar *path = g_strconcat(dir, filename, NULL);
+			if (!reference_file_known(path)) {
+				main_v->props.reference_files = g_list_append(main_v->props.reference_files, array_from_arglist(g_strdup(filename),path,NULL));
+			}
+			g_free(path);
+		}
+		filename = g_dir_read_name(gd);
+	}
+	g_dir_close(gd);
+	g_pattern_spec_free(ps);
 }
