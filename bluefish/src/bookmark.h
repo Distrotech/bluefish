@@ -35,6 +35,8 @@ void bmark_add_perm(Tbfwin *bfwin);*/
 void bmark_add(Tbfwin *bfwin);
 
 void bmark_del_all(Tbfwin *bfwin,gboolean ask);
+
+void bmark_store_all(Tbfwin *bfwin);
 /*void bmark_save_all(Tbfwin *bfwin);*/
 void bmark_check_length(Tbfwin *bfwin,Tdocument *doc);
 void bmark_reload(Tbfwin *bfwin);
