@@ -276,7 +276,19 @@ GtkWidget *boxed_entry_with_text(const gchar * setstring, gint max_lenght, GtkWi
 	return returnwidget;
 
 }
-
+/**
+ * boxed_full_entry:
+ * @labeltest: #const gchar * with the text for the label
+ * 	@setstring: #const gchar* if not NULL set this text
+ * 	@max_lenght: #gint max. characters in the entry
+ * @box: the #GtkWidget* box widget to add the entry to
+ *
+ * 	Create new entry with some preset values, and add together 
+ * with a label to a hbox, and add that hbox to
+ * the box pointer
+ *
+ * Return value: #GtkWidget* pointer to the new entry widget
+ */
 GtkWidget *boxed_full_entry(const gchar * labeltext, gchar * setstring,gint max_lenght, GtkWidget * box) {
 	GtkWidget *hbox, *return_widget, *label;
 
@@ -289,7 +301,15 @@ GtkWidget *boxed_full_entry(const gchar * labeltext, gchar * setstring,gint max_
 
 	return return_widget;
 }
-
+/**
+ * checkbut_with_value:
+ * @labeltest: #const gchar * with the text for the label
+ * 	@which_config_int: #gint whether or not to set the checkbutton active
+ *
+ * 	Create new checkbutton with some value
+ *
+ * Return value: #GtkWidget* pointer to the new checkbutton widget
+ */
 GtkWidget *checkbut_with_value(gchar *labeltext, gint which_config_int) {
 	GtkWidget *returnwidget;
 
@@ -297,7 +317,16 @@ GtkWidget *checkbut_with_value(gchar *labeltext, gint which_config_int) {
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(returnwidget), which_config_int);
 	return returnwidget;
 }
-
+/**
+ * boxed_checkbut_with_value:
+ * @labeltest: #const gchar * with the text for the label
+ * 	@which_config_int: #gint whether or not to set the checkbutton active
+ * @box: the #GtkWidget* box widget to add the entry to
+ *
+ * 	Create new checkbutton with some value, and add it to box
+ *
+ * Return value: #GtkWidget* pointer to the new checkbutton widget
+ */
 GtkWidget *boxed_checkbut_with_value(gchar *labeltext, gint which_config_int, GtkWidget * box) {
 	GtkWidget *returnwidget;
 
@@ -305,7 +334,17 @@ GtkWidget *boxed_checkbut_with_value(gchar *labeltext, gint which_config_int, Gt
 	gtk_box_pack_start(GTK_BOX(box), returnwidget, FALSE, FALSE, 3);
 	return returnwidget;
 }
-
+/**
+ * radiobut_with_value:
+ * @labeltest: #const gchar * with the text for the label
+ * 	@enabled: #gint if the radiobutton is enabled or not
+ * @prevbut: #GtkRadioButton* pointer to the first button or NULL if none
+ *
+ * 	Create new radiobutton with some value, and if there is a first button 
+ * for this group, add this button to that group
+ *
+ * Return value: #GtkWidget* pointer to the new radiobutton widget
+ */
 GtkWidget *radiobut_with_value(gchar *labeltext, gint enabled, GtkRadioButton *prevbut) {
 	GtkWidget *returnwidget;
 	GSList *group=NULL;
@@ -317,7 +356,18 @@ GtkWidget *radiobut_with_value(gchar *labeltext, gint enabled, GtkRadioButton *p
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(returnwidget), enabled);
 	return returnwidget;
 }
-
+/**
+ * boxed_radiobut_with_value:
+ * @labeltest: #const gchar * with the text for the label
+ * 	@enabled: #gint if the radiobutton is enabled or not
+ * @prevbut: #GtkRadioButton* pointer to the first button or NULL if none
+ * @box: the #GtkWidget* box widget to add the entry to
+ *
+ * 	Create new radiobutton with some value, and if there is a first button 
+ * for this group, add this button to that group, and this button to box
+ *
+ * Return value: #GtkWidget* pointer to the new radiobutton widget
+ */
 GtkWidget *boxed_radiobut_with_value(gchar *labeltext, gint enabled, GtkRadioButton *prevbut, GtkWidget *box) {
 	GtkWidget *returnwidget;
 
@@ -337,7 +387,18 @@ static gint is_int(gfloat testval) {
 	}
 }
 
-
+/**
+ * spinbut_with_value:
+ * @value: #const gchar * with the value as string for the spinbut
+ * 	@lower: a #gfloat with the lower value for the range
+ * @upper: a #gfloat with the upper value for the range
+ * @step_increment: a #gfloat with the stepsize for the spinbutton
+ * @page_increment: a #gfloat with the pagesize (pgup/pgdn) for the spinbutton
+ *
+ * 	Create new spinbutton with the specified value and range
+ *
+ * Return value: #GtkWidget* pointer to the new spinbutton widget
+ */
 GtkWidget *spinbut_with_value(gchar *value, gfloat lower, gfloat upper, gfloat step_increment, gfloat page_increment) {
 	GtkAdjustment *adj;
 	GtkWidget *returnwidget;
@@ -368,7 +429,18 @@ GtkWidget *boxed_spinbut_with_value(gchar *value, gfloat lower, gfloat upper, gf
 	return returnwidget;
 }
 */
-
+/**
+ * boxed_optionmenu_with_value:
+ * @labeltext: a #const gchar* with the text for the label
+ * @curval: a #gint with the current selected item
+ * @box: a #GtkWidget* with the box to add this to
+ * @options: a #gchar** NULL terminated array with option strings
+ *
+ * 	Create new popupmenu from options, and set the selected index from curval
+ * and add the menu to box
+ *
+ * Return value: #GtkWidget* pointer to the new menu widget
+ */
 GtkWidget *boxed_optionmenu_with_value(const gchar *labeltext, gint curval, GtkWidget *box, gchar **options) {
 	GtkWidget *returnwidget;
 	GtkWidget *hbox, *menu, *menuitem;
@@ -392,20 +464,17 @@ GtkWidget *boxed_optionmenu_with_value(const gchar *labeltext, gint curval, GtkW
 	return returnwidget;
 }
 
-/*
- * Function: window_with_title
- * Arguments:
- * 	title - the title string
- * 	position - the gtk window position
- * 	type - the gtk window type
- * Return value:
- * 	Pointer to created windpw
- * Description:
+/**
+ * window_with_title:
+ * 	@title: #gchar* the title string
+ * 	@position: the gtk window position
+ * 	@type: the gtk window type
+ *
  * 	Create new window with title and some more settings
+ *
+ * Return value: #GtkWidget* pointer to created window
  */
-GtkWidget *window_with_title(gchar * title, GtkWindowPosition position, gint borderwidth)
-{
-
+GtkWidget *window_with_title(gchar * title, GtkWindowPosition position, gint borderwidth) {
 	GtkWidget *returnwidget;
 
 	returnwidget = gtk_window_new(GTK_WINDOW_TOPLEVEL);
@@ -442,20 +511,22 @@ static gboolean window_full_key_press_event_lcb(GtkWidget *widget,GdkEventKey *e
 	return FALSE;
 }
 
-/*
- * Function: window_full
- * Arguments:
- * 	title - the title string
- * 	position - the gtk window position
- * 	borderwidth - border width
- * 	close_func - the callback function when closing the window
- * 	close_data - the gpointer data passed to the closefunc
- * Return value:
- * 	Pointer to created windpw
- * Description:
- * 	Create new window with title, callback functions and some more settings
+/**
+ * window_full2:
+ * 	@title: #gchar* the title string
+ * 	@position: #gint the gtk window position
+ * 	@borderwidth: #gint border width
+ * 	@close_func: #GCallback the callback function when closing the window
+ * 	@close_data: #gpointer data passed to the closefunc
+ * @delete_on_escape: #gboolean if the escape key should close the dialog
+ * @transientforparent: #GtkWidget* with the window to set this transient for, or NULL
+ *
+ * 	Create new window with title, callback functions, some more settings
+ * and if needed set a callback so the window will be closed on escape press
+ * and set it if needed transient for another window
+ *
+ * Return value: #GtkWidget* pointer to created window
  */
-
 GtkWidget *window_full2(gchar * title, GtkWindowPosition position
 			, gint borderwidth, GCallback close_func
 			, gpointer close_data
@@ -482,14 +553,19 @@ GtkWidget *window_full2(gchar * title, GtkWindowPosition position
 	DEBUG_MSG("window_full, return %p\n", returnwidget);
 	return returnwidget;
 }
-/*
- * Function: window_full
- * Arguments:
- * 	textview: will be filled with the textview widget pointer
- * 	width: the width of the scrolwin, -1 if default required
- * 	height: the height of the scrolwin, -1 if default required
- * 	contents: the initial contents of the textbox
- * 	wrapmode: the wrapmode for the TextView
+/**
+ * textview_buffer_in_scrolwin:
+ * 	@textview: #GtkWidget** will be filled with the textview widget pointer
+ * 	@width: #gint the width of the scrolwin, -1 if default required
+ * 	@height: #gint the height of the scrolwin, -1 if default required
+ * 	@contents: #gchar* the initial contents of the textbox
+ * 	@wrapmode: #GtkWrapMode the wrapmode for the TextView
+ *
+ * creates a textbuffer, a textview widget (stored in the textview pointer), 
+ * puts that inside a scrolwin, adds the content and sets the size and returns
+ * the scrolwin
+ *
+ * Return value: #GtkWidget* to the scolwin
  */
 GtkWidget *textview_buffer_in_scrolwin(GtkWidget **textview, gint width, gint height, gchar *contents, GtkWrapMode wrapmode) {
 	GtkWidget *scrolwin;
@@ -508,20 +584,16 @@ GtkWidget *textview_buffer_in_scrolwin(GtkWidget **textview, gint width, gint he
 	return scrolwin;
 }
 
-
-/*
- * Function: apply_font_style
- * Arguments:
- * 	this_widget - the widget to apply the new fontstyle
- * 	fontstring - the fontset which will be loaded
- * Return value:
- * 	this_widget
- * Description:
- * 	Change the font of a widget with a certain font in a string
+/**
+ * apply_font_style:
+ * 	@this_widget: #GtkWidget* the widget to apply the new fontstyle
+ * 	@fontstring: #gchar* the fontset which will be loaded
+ *
+ * 	Change the font of a widget with a certain font from a string
+ *
+ * Return value: #GtkWidget* to this_widget
  */
-
-GtkWidget *apply_font_style(GtkWidget * this_widget, gchar * fontstring)
-{
+GtkWidget *apply_font_style(GtkWidget * this_widget, gchar * fontstring) {
 	if (fontstring) {
 		PangoFontDescription *font_desc;
 		font_desc = pango_font_description_from_string(fontstring);
@@ -531,29 +603,36 @@ GtkWidget *apply_font_style(GtkWidget * this_widget, gchar * fontstring)
 	return this_widget;
 }
 
+/**
+ * hbox_with_pix_and_text:
+ * 	@label: #const gchar* with the text
+ * 	@pixmap_type: #gint with a pixmap type known by new_pixmap() from pixmap.h
+ *
+ * constructs a hbox with a pixmap and text. The pixmap type should be known
+ * to the new_pixmap() function from pixmap.c
+ * This function is very useful to create a button with text and a pixmap
+ *
+ * Return value: #GtkWidget* to the hbox
+ */
 GtkWidget *hbox_with_pix_and_text(const gchar *label, gint pixmap_type) {
 	GtkWidget *hbox = gtk_hbox_new(FALSE, 0);
 	gtk_box_pack_start(GTK_BOX(hbox), new_pixmap(pixmap_type), FALSE, FALSE, 1);
-        gtk_box_pack_start(GTK_BOX(hbox), gtk_label_new_with_mnemonic(label), TRUE, TRUE, 1);
-       	gtk_widget_show_all(hbox);
+	gtk_box_pack_start(GTK_BOX(hbox), gtk_label_new_with_mnemonic(label), TRUE, TRUE, 1);
+	gtk_widget_show_all(hbox);
 	return hbox;
 }
-
-
-/*
- * Function: bf_generic_button_with_image
- * Arguments:
- * 	label - label string
- *      pixmap_type - image to display on button
- * 	func - pointer to signal handler
- * 	func_data - data for signal handler
- * Return value:
- * 	Pointer to create button
- * Description:
- * 	Create new button with an image and link button with "clicked" signal handler
+/**
+ * bf_generic_button_with_image:
+ * 	@label: #const gchar* button string with '_' for the mnemonic
+ * @pixmap_type: #gint image to display on button know to new_pixmap() from pixmap.c
+ * 	@func: #GCallback pointer to signal handler
+ * 	@func_data: #gpointer data for signal handler
+ *
+ * 	Create new button with an image and connect the "clicked" signal to func
+ *
+ * Return value: #GtkWidget* pointer to created button
  */
-GtkWidget *bf_generic_button_with_image(const gchar *label, gint pixmap_type, GCallback func, gpointer func_data)
-{
+GtkWidget *bf_generic_button_with_image(const gchar *label, gint pixmap_type, GCallback func, gpointer func_data) {
         GtkWidget *button;
 
 	button = gtk_button_new();
@@ -562,23 +641,20 @@ GtkWidget *bf_generic_button_with_image(const gchar *label, gint pixmap_type, GC
 	GTK_WIDGET_SET_FLAGS(button, GTK_CAN_DEFAULT);
 	g_return_val_if_fail(button, NULL);
 	g_signal_connect(G_OBJECT(button), "clicked", func, func_data);
-	DEBUG_MSG("bf_browse_button, func_data=%p\n", func_data);
 	return button;
 }
 
-/*
- * Function: bf_stock_button
- * Arguments:
- * 	Text - label string
- * 	func - pointer to signal handler
- * 	func_data - data for signal handler
- * Return value:
- * 	Pointer to create button
- * Description:
- * 	Create new button and link button with "clicked" signal handler
+/**
+ * bf_stock_button:
+ * 	@Text: #const gchar* button string, using '_' for the mnemonic
+ * 	@func: #GCallback pointer to signal handler
+ * 	@func_data: #gpointer data for signal handler
+ *
+ * 	Create new button with mnemonic and connect the "clicked" signal to func
+ *
+ * Return value: pointer to created button
  */
-GtkWidget *bf_stock_button(const gchar * Text, GCallback func, gpointer func_data)
-{
+GtkWidget *bf_stock_button(const gchar * Text, GCallback func, gpointer func_data) {
 	GtkWidget *button;
 
 	button = gtk_button_new_with_mnemonic(Text);
@@ -588,9 +664,17 @@ GtkWidget *bf_stock_button(const gchar * Text, GCallback func, gpointer func_dat
 	DEBUG_MSG("bf_stock_button, func_data=%p\n", func_data);
 	return button;
 }
-
-GtkWidget *bf_gtkstock_button(const gchar * stock_id, GCallback func, gpointer func_data)
-{
+/**
+ * bf_gtkstock_button:
+ * @stock_id: #const gchar* wioth the GTK stock icon ID
+ * 	@func: #GCallback pointer to signal handler
+ * 	@func_data: #gpointer data for signal handler
+ *
+ * 	Create new button from the GTK stock icons
+ *
+ * Return value: pointer to created button
+ */
+GtkWidget *bf_gtkstock_button(const gchar * stock_id, GCallback func, gpointer func_data) {
 	GtkWidget *button;
 
 	button = gtk_button_new_from_stock(stock_id);
@@ -600,49 +684,17 @@ GtkWidget *bf_gtkstock_button(const gchar * stock_id, GCallback func, gpointer f
 	return button;
 }
 
-
-/*
- * Function: bf_stock_ok_button
- * Arguments:
- * 	func - pointer to signal handler
- * 	func_data - data for signal handler
- * Return value:
- * 	Pointer to create button
- * Description:
- * 	Create new "Ok" button
+/**
+ * bf_generic_frame_new:
+ * 	@label: #const gchar* label string. Set to NULL for no label
+ * 	@shadowtype: #GtkShadowType  border type
+ * @borderwidth: #gint outside border width
+ *
+ * 	create a generic frame with shadow type and border
+ *
+ * Return value: #GtkWidget* pointer to created frame
  */
-GtkWidget *bf_stock_ok_button(GtkSignalFunc func, gpointer func_data) {
-	return bf_gtkstock_button(GTK_STOCK_OK, func, func_data);
-}
-
-/*
- * Function: bf_stock_cancel_button
- * Arguments:
- * 	func - pointer to signal handler
- * 	func_data - data for signal handler
- * Return value:
- * 	Pointer to create button
- * Description:
- * 	Create new "Cancel" button
- */
-GtkWidget *bf_stock_cancel_button(GCallback func, gpointer func_data)
-{
-	return bf_gtkstock_button(GTK_STOCK_CANCEL, func, func_data);
-}
-
-/*
- * Function: bf_generic_frame_new
- * Arguments:
- * 	label - label string. Set to NULL for no label
- * 	shadowtype  - border type
- *      borderwidth - outside border width
- * Return value:
- * 	pointer to created frame
- * Description:
- * 	create a generic frame
- */
-GtkWidget *bf_generic_frame_new(const gchar *label, GtkShadowType shadowtype, gint borderwidth)
-{
+GtkWidget *bf_generic_frame_new(const gchar *label, GtkShadowType shadowtype, gint borderwidth) {
   GtkWidget *frame;
 
   frame = gtk_frame_new(label);
@@ -652,42 +704,37 @@ GtkWidget *bf_generic_frame_new(const gchar *label, GtkShadowType shadowtype, gi
   return frame;
 }
 
-/*
- * Function: bf_mnemonic_label_tad_with_alignment
- * Arguments:
- * 	labeltext - label string
- *      m_widget - widget accessed by the label mnemonic
- *      xalign - label horizontal alignment
- *      yalign - label vertical alignment
- *      table - table label is packed into
- *      left_attach - column number to attach the left side of the label to
- *      right_atach - column number to attach the right side of a label to
- *      top_attach - row number to attach the top of a label to
- *      bottom_attach - row number to attach the bottom of a label to 	
- * Return value:
- * 	void
- * Description:
+/**
+ * bf_mnemonic_label_tad_with_alignment:
+ * 	@labeltext: #const gchar* label string
+ * @m_widget: #GtkWidget* widget accessed by the label mnemonic
+ * @xalign: #gfloat label horizontal alignment
+ * @yalign: #gfloat label vertical alignment
+ * @table: #GtkWidget table label is packed into
+ * @left_attach: #gint column number to attach the left side of the label to
+ * @right_atach: #gint: column number to attach the right side of a label to
+ * @top_attach: #gint: row number to attach the top of a label to
+ * @bottom_attach: #gint: row number to attach the bottom of a label to 	
+ *
  * 	create a label with a mnemonic, align it, and attach it to a table
+ *
+ * Return value: void
  */
-void bf_mnemonic_label_tad_with_alignment(const gchar *labeltext, GtkWidget *m_widget, gfloat xalign, gfloat yalign, 
-						GtkWidget *table, guint left_attach, guint right_attach, guint top_attach, guint bottom_attach)
-{
-  GtkWidget *label;
+void bf_mnemonic_label_tad_with_alignment(const gchar *labeltext, GtkWidget *m_widget,
+						float xalign, gfloat yalign, GtkWidget *table, guint left_attach, 
+						guint right_attach, guint top_attach, guint bottom_attach) {
+	GtkWidget *label;
 
-  label = gtk_label_new_with_mnemonic(labeltext);
-  gtk_misc_set_alignment(GTK_MISC(label), xalign, yalign);
-  gtk_table_attach(GTK_TABLE(table), label, left_attach, right_attach, top_attach, bottom_attach, GTK_FILL, GTK_FILL, 0, 0);  
+	label = gtk_label_new_with_mnemonic(labeltext);
+	gtk_misc_set_alignment(GTK_MISC(label), xalign, yalign);
+	gtk_table_attach(GTK_TABLE(table), label, left_attach, right_attach, top_attach, bottom_attach, GTK_FILL, GTK_FILL, 0, 0);  
   
-  if (m_widget != NULL)
-   {
-     if (GTK_IS_COMBO(m_widget))
-      {
-	gtk_label_set_mnemonic_widget(GTK_LABEL(label), (GTK_COMBO(m_widget)->entry));
-	gtk_entry_set_activates_default(GTK_ENTRY(GTK_COMBO(m_widget)->entry), TRUE);
-      }
-     else
-       gtk_label_set_mnemonic_widget(GTK_LABEL(label), m_widget);
-   }
+	if (m_widget != NULL) {
+		if (GTK_IS_COMBO(m_widget)) {
+			gtk_label_set_mnemonic_widget(GTK_LABEL(label), (GTK_COMBO(m_widget)->entry));
+			gtk_entry_set_activates_default(GTK_ENTRY(GTK_COMBO(m_widget)->entry), TRUE);
+		} else gtk_label_set_mnemonic_widget(GTK_LABEL(label), m_widget);
+	}
 }
 
 /*

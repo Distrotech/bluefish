@@ -59,8 +59,10 @@ GtkWidget *hbox_with_pix_and_text(const gchar *label, gint pixmap_type);
 GtkWidget *bf_generic_button_with_image(const gchar *label, gint pixmap_type, GCallback func, gpointer func_data);
 GtkWidget *bf_stock_button(const gchar * Text, GCallback func, gpointer func_data);
 GtkWidget *bf_gtkstock_button(const gchar * stock_id, GCallback func, gpointer func_data);
-GtkWidget *bf_stock_ok_button(GCallback func, gpointer func_data);
-GtkWidget *bf_stock_cancel_button(GCallback func, gpointer func_data);
+
+#define bf_stock_ok_button(func, data) bf_gtkstock_button(GTK_STOCK_OK, func, data)
+#define bf_stock_cancel_button(func, data) bf_gtkstock_button(GTK_STOCK_CANCEL, func, data)
+
 GtkWidget *bf_generic_frame_new(const gchar *label, GtkShadowType shadowtype, gint borderwidth);
 void bf_mnemonic_label_tad_with_alignment(const gchar *labeltext, GtkWidget *m_widget, gfloat xalign, gfloat yalign, 
 						GtkWidget *table, guint left_attach, guint right_attach, guint top_attach, guint bottom_attach);
