@@ -22,7 +22,7 @@
  */
 /* 
  * Changes by Antti-Juhani Kaijanaho <gaia@iki.fi> on 1999-10-20
- * $Id: html.c,v 1.16 2003-03-01 19:32:57 oli4 Exp $
+ * $Id: html.c,v 1.17 2003-03-03 08:56:03 oli4 Exp $
  */
 
 #include <gtk/gtk.h>
@@ -536,7 +536,7 @@ void quickanchor_cb(GtkWidget * widget, gpointer data)
 	gchar *avalues[18];
 	Thtml_diag *dg;
 
-	GtkWidget *noteb, *lvbox, *but, *dgtable, *file_but;
+	GtkWidget *noteb, *but, *dgtable, *file_but, *frame;
 
 	dg = html_diag_new(_("Quick Anchor"));
 	fill_dialogvalues(aitems, avalues, &custom, (Ttagpopup *) data, widget, dg);
@@ -544,10 +544,11 @@ void quickanchor_cb(GtkWidget * widget, gpointer data)
 	noteb = gtk_notebook_new();
 	gtk_box_pack_start(GTK_BOX(dg->vbox), noteb, FALSE, FALSE, 0);
 
-	lvbox = gtk_vbox_new(FALSE, 0);
-	gtk_notebook_append_page(GTK_NOTEBOOK(noteb), lvbox, gtk_label_new(_("Options")));
-	dgtable = gtk_table_new(4, 10, FALSE);
-	gtk_box_pack_start(GTK_BOX(lvbox), dgtable, FALSE, FALSE, 0);
+	frame = bf_generic_frame_new(NULL, GTK_SHADOW_NONE, 12);
+	gtk_notebook_append_page(GTK_NOTEBOOK(noteb), frame, gtk_label_new(_("Options")));
+	dgtable = gtk_table_new(8, 3, FALSE);
+	gtk_table_set_col_spacings(GTK_TABLE(dgtable), 12);
+	gtk_container_add(GTK_CONTAINER(frame), dgtable);
 
 	{
 	GList *rel_link_list=NULL, *tmplist;
@@ -560,85 +561,87 @@ void quickanchor_cb(GtkWidget * widget, gpointer data)
 	free_stringlist(rel_link_list);
 	}
 	file_but = file_but_new(GTK_WIDGET(GTK_COMBO(dg->combo[2])->entry), dg->dialog, 0);
-	gtk_table_attach(GTK_TABLE(dgtable), GTK_WIDGET(file_but), 9, 10, 0, 1, GTK_FILL, GTK_FILL, 0, 0);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("HREF")), 0, 1, 0, 1);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(GTK_COMBO(dg->combo[2])), 1, 9, 0, 1);
+	gtk_table_attach(GTK_TABLE(dgtable), GTK_WIDGET(file_but), 2, 3, 0, 1, GTK_EXPAND, GTK_EXPAND, 0, 0);
+	bf_mnemonic_label_tad_with_alignment(N_("_HREF:"), dg->combo[2], 0, 0.5, dgtable, 0, 1, 0, 1);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(GTK_COMBO(dg->combo[2])), 1, 2, 0, 1);
 
 	dg->combo[1] = combo_with_popdown(avalues[1], recent_attribs.targetlist, 1);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Target")), 0, 1, 1, 2);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(GTK_COMBO(dg->combo[1])), 1, 10, 1, 2);
+	bf_mnemonic_label_tad_with_alignment(N_("_Target:"), dg->combo[1], 0, 0.5, dgtable, 0, 1, 1, 2);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(GTK_COMBO(dg->combo[1])), 1, 3, 1, 2);
 
 	dg->entry[2] = entry_with_text(avalues[2], 256);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Name")), 0, 1, 2, 3);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[2], 1, 10, 2, 3);
+	bf_mnemonic_label_tad_with_alignment(N_("_Name:"), dg->entry[2], 0, 0.5, dgtable, 0, 1, 2, 3);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[2], 1, 3, 2, 3);
 
 	dg->entry[3] = entry_with_text(avalues[3], 256);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("ID")), 0, 1, 3, 4);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[3], 1, 10, 3, 4);
+	bf_mnemonic_label_tad_with_alignment(N_("_ID:"), dg->entry[3], 0, 0.5, dgtable, 0, 1, 3, 4);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[3], 1, 3, 3, 4);
 
 	dg->combo[3] = combo_with_popdown(avalues[14], recent_attribs.classlist, 1);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Class")), 0, 1, 14, 15);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->combo[3], 1, 10, 14, 15);
+	bf_mnemonic_label_tad_with_alignment(N_("Cl_ass:"), dg->combo[3], 0, 0.5, dgtable, 0, 1, 4, 5);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->combo[3], 1, 3, 4, 5);
 
 	dg->entry[16] = entry_with_text(avalues[15], 256);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Style")), 0, 1, 15, 16);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[16], 1, 9, 15, 16);
+	bf_mnemonic_label_tad_with_alignment(N_("St_yle:"), dg->entry[16], 0, 0.5, dgtable, 0, 1, 5, 6);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[16], 1, 2, 5, 6);
 
 	but = style_but_new(dg->entry[16], dg->dialog);
-	gtk_table_attach(GTK_TABLE(dgtable), but, 9, 10, 15, 16, GTK_FILL, GTK_FILL, 0, 0);
+	gtk_table_attach(GTK_TABLE(dgtable), but, 2, 3, 5, 6, GTK_EXPAND, GTK_EXPAND, 0, 0);
 
 	dg->entry[17] = entry_with_text(avalues[16], 256);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Language")), 0, 1, 16, 17);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[17], 1, 10, 16, 17);
+	bf_mnemonic_label_tad_with_alignment(N_("_Language:"), dg->entry[17], 0, 0.5, dgtable, 0, 1, 6, 7);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[17], 1, 3, 6, 7);
 
 	dg->entry[4] = entry_with_text(custom, 1024);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Custom")), 0, 1, 17, 18);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[4], 1, 10, 17, 18);
+	bf_mnemonic_label_tad_with_alignment(N_("Custo_m:"), dg->entry[4], 0, 0.5, dgtable, 0, 1, 7, 8);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[4], 1, 3, 7, 8);
 
-	lvbox = gtk_vbox_new(FALSE, 0);
-	gtk_notebook_append_page(GTK_NOTEBOOK(noteb), lvbox, gtk_label_new(_("Events")));
-	dgtable = gtk_table_new(4, 10, 0);
-	gtk_box_pack_start(GTK_BOX(lvbox), dgtable, FALSE, FALSE, 0);
+	frame = bf_generic_frame_new(NULL, GTK_SHADOW_NONE, 12);
+	gtk_notebook_append_page(GTK_NOTEBOOK(noteb), frame, gtk_label_new(_("Events")));
+	dgtable = gtk_table_new(10, 2, FALSE);
+	gtk_table_set_row_spacings(GTK_TABLE(dgtable), 6);
+	gtk_table_set_col_spacings(GTK_TABLE(dgtable), 12);
+	gtk_container_add(GTK_CONTAINER(frame), dgtable);
 
 	dg->entry[5] = entry_with_text(avalues[4], 256);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("OnClick")), 0, 1, 4, 5);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[5], 1, 10, 4, 5);
+	bf_mnemonic_label_tad_with_alignment(N_("OnClic_k:"), dg->entry[5], 0, 0.5, dgtable, 0, 1, 0, 1);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[5], 1, 2, 0, 1);
 
 	dg->entry[6] = entry_with_text(avalues[5], 256);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("OnDblClick")), 0, 1, 5, 6);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[6], 1, 10, 5, 6);
+	bf_mnemonic_label_tad_with_alignment(N_("OnD_blClick:"), dg->entry[6], 0, 0.5, dgtable, 0, 1, 1, 2);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[6], 1, 2, 1, 2);
 	
 	dg->entry[7] = entry_with_text(avalues[6], 256);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("OnMouseOver")), 0, 1, 6, 7);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[7], 1, 10, 6, 7);
+	bf_mnemonic_label_tad_with_alignment(N_("OnMouseO_ver:"), dg->entry[7], 0, 0.5, dgtable, 0, 1, 2, 3);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[7], 1, 2, 2, 3);
 	
 	dg->entry[8] = entry_with_text(avalues[7], 256);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("OnMouseDown")), 0, 1, 7, 8);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[8], 1, 10, 7, 8);
+	bf_mnemonic_label_tad_with_alignment(N_("OnMouse_Down:"), dg->entry[8], 0, 0.5, dgtable, 0, 1, 3, 4);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[8], 1, 2, 3, 4);
 
 	dg->entry[9] = entry_with_text(avalues[8], 256);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("OnMouseMove")), 0, 1, 8, 9);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[9], 1, 10, 8, 9);
+	bf_mnemonic_label_tad_with_alignment(N_("OnMouse_Move:"), dg->entry[9], 0, 0.5, dgtable, 0, 1, 4, 5);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[9], 1, 2, 4, 5);
 
 	dg->entry[10] = entry_with_text(avalues[9], 256);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("OnMouseOut")), 0, 1, 9, 10);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[10], 1, 10, 9, 10);
+	bf_mnemonic_label_tad_with_alignment(N_("OnMouseOu_t:"), dg->entry[10], 0, 0.5, dgtable, 0, 1, 5, 6);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[10], 1, 2, 5, 6);
 	
 	dg->entry[11] = entry_with_text(avalues[10], 256);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("OnMouseUp")), 0, 1, 10, 11);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[11], 1, 10, 10, 11);
+	bf_mnemonic_label_tad_with_alignment(N_("OnMouse_Up:"), dg->entry[11], 0, 0.5, dgtable, 0, 1, 6, 7);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[11], 1, 2, 6, 7);
 
 	dg->entry[12] = entry_with_text(avalues[11], 256);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("OnKeyDown")), 0, 1, 11, 12);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[12], 1, 10, 11, 12);
+	bf_mnemonic_label_tad_with_alignment(N_("OnKeyDo_wn:"), dg->entry[12], 0, 0.5, dgtable, 0, 1, 7, 8);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[12], 1, 2, 7, 8);
 
 	dg->entry[13] = entry_with_text(avalues[12], 256);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("OnKeyPress")), 0, 1, 12, 13);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[13], 1, 10, 12, 13);
+	bf_mnemonic_label_tad_with_alignment(N_("OnKey_Press:"), dg->entry[13], 0, 0.5, dgtable, 0, 1, 8, 9);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[13], 1, 2, 8, 9);
 
 	dg->entry[14] = entry_with_text(avalues[13], 256);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("OnKeyUp")), 0, 1, 13, 14);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[14], 1, 10, 13, 14);
+	bf_mnemonic_label_tad_with_alignment(N_("OnKe_yUp:"), dg->entry[14], 0, 0.5, dgtable, 0, 1, 9, 10);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[14], 1, 2, 9, 10);
 
 	html_diag_finish(dg, G_CALLBACK(quickanchorok_lcb));
 	if (custom)
@@ -1170,60 +1173,40 @@ void body_cb(GtkWidget * widget, gpointer data)
 	gtk_box_pack_start(GTK_BOX(dg->vbox), noteb, FALSE, FALSE, 0);
 
 	/* Options Tab */
-		frame = gtk_frame_new( NULL );
-		gtk_frame_set_shadow_type(GTK_FRAME(frame), GTK_SHADOW_NONE);
-		gtk_container_set_border_width(GTK_CONTAINER(frame), 12);
+	        frame = bf_generic_frame_new(NULL, GTK_SHADOW_NONE, 12);
 		gtk_notebook_append_page(GTK_NOTEBOOK(noteb), frame, gtk_label_new(_("Options")));
 		dgtable[1] = gtk_table_new(8, 3, FALSE);
-		gtk_table_set_row_spacings(GTK_TABLE(dgtable[1]), 12);
+		gtk_table_set_row_spacings(GTK_TABLE(dgtable[1]), 6);
 		gtk_table_set_col_spacings(GTK_TABLE(dgtable[1]), 12);
 		gtk_container_add(GTK_CONTAINER(frame), dgtable[1]);
-
+		
 		dg->entry[3] = entry_with_text(bodyvalues[6], 256);
 		gtk_table_attach_defaults(GTK_TABLE(dgtable[1]), dg->entry[3], 1, 2, 0, 1);
-		label = gtk_label_new_with_mnemonic(N_("St_yle:"));
-		gtk_misc_set_alignment(GTK_MISC(label), 1, 0.5);
-		gtk_table_attach_defaults(GTK_TABLE(dgtable[1]), label, 0, 1, 0, 1);
-		gtk_label_set_mnemonic_widget(GTK_LABEL(label), dg->entry[3]);
+		bf_mnemonic_label_tad_with_alignment(N_("St_yle:"), dg->entry[3], 1, 0.5, dgtable[1], 0, 1, 0, 1);
 
 		stylebut = style_but_new(dg->entry[3], dg->dialog);
 		gtk_table_attach(GTK_TABLE(dgtable[1]), stylebut, 2, 3, 0, 1, GTK_EXPAND, GTK_EXPAND, 0, 0);
 
 		dg->combo[6] = combo_with_popdown(bodyvalues[7], recent_attribs.classlist, 1);
 		gtk_table_attach_defaults(GTK_TABLE(dgtable[1]), dg->combo[6], 1, 2, 1, 2);
-		label = gtk_label_new_with_mnemonic(N_("Cl_ass:"));
-		gtk_misc_set_alignment(GTK_MISC(label), 1, 0.5);
-		gtk_table_attach_defaults(GTK_TABLE(dgtable[1]), label, 0, 1, 1, 2);
-		gtk_label_set_mnemonic_widget(GTK_LABEL(label), (GTK_COMBO(dg->combo[6])->entry));
-		gtk_entry_set_activates_default(GTK_ENTRY(GTK_COMBO(dg->combo[6])->entry), TRUE);
+		bf_mnemonic_label_tad_with_alignment(N_("Cl_ass:"), dg->combo[6], 1, 0.5, dgtable[1], 0, 1, 1, 2);
 
 		dg->entry[4] = entry_with_text(bodyvalues[8], 256);
 		gtk_table_attach_defaults(GTK_TABLE(dgtable[1]), dg->entry[4], 1, 2, 2, 3);
-		label = gtk_label_new_with_mnemonic(N_("_Id:"));
-		gtk_misc_set_alignment(GTK_MISC(label), 1, 0.5);
-		gtk_table_attach_defaults(GTK_TABLE(dgtable[1]), label, 0, 1, 2, 3);
-		gtk_label_set_mnemonic_widget(GTK_LABEL(label), dg->entry[4]);
+		bf_mnemonic_label_tad_with_alignment(N_("_ID:"), dg->entry[4], 1, 0.5, dgtable[1], 0, 1, 2, 3);
 
 		dg->entry[5] = entry_with_text(bodyvalues[9], 256);
 		gtk_table_attach_defaults(GTK_TABLE(dgtable[1]), dg->entry[5], 1, 2, 3, 4);
-		label = gtk_label_new_with_mnemonic(N_("_Language:"));
-		gtk_misc_set_alignment(GTK_MISC(label), 1, 0.5);
-		gtk_table_attach_defaults(GTK_TABLE(dgtable[1]), label, 0, 1, 3, 4);
-		gtk_label_set_mnemonic_widget(GTK_LABEL(label), dg->entry[5]);
+		bf_mnemonic_label_tad_with_alignment(N_("_Language:"), dg->entry[5], 1, 0.5, dgtable[1], 0, 1, 3, 4);
 
 		dg->entry[2] = entry_with_text(custom, 1024);
 		gtk_table_attach_defaults(GTK_TABLE(dgtable[1]), dg->entry[2], 1, 3, 4, 5);
-		label = gtk_label_new_with_mnemonic(N_("Custom _values:"));
-		gtk_misc_set_alignment(GTK_MISC(label), 1, 0.5);
-		gtk_table_attach_defaults(GTK_TABLE(dgtable[1]), label, 0, 1, 4, 5);
-		gtk_label_set_mnemonic_widget(GTK_LABEL(label), dg->entry[2]);
+		bf_mnemonic_label_tad_with_alignment(N_("Custom _values:"), dg->entry[2], 1, 0.5, dgtable[1], 0, 1, 4, 5);
 
 		/* Events Tab */
-	 	frame = gtk_frame_new( NULL );
-		gtk_frame_set_shadow_type(GTK_FRAME(frame), GTK_SHADOW_NONE);
-		gtk_container_set_border_width(GTK_CONTAINER(frame), 12);
+		frame = bf_generic_frame_new(NULL, GTK_SHADOW_NONE, 12);
 		gtk_notebook_append_page(GTK_NOTEBOOK(noteb), frame, gtk_label_new(_("Events")));
-		
+
 		vbox2 = gtk_vbox_new(FALSE, 12);
 		gtk_container_add(GTK_CONTAINER(frame), vbox2);
 		
@@ -1236,7 +1219,7 @@ void body_cb(GtkWidget * widget, gpointer data)
 		gtk_box_pack_start(GTK_BOX(vbox2), hbox, FALSE, FALSE, 0);
 
 		hbox = gtk_hbox_new(FALSE, 12);
-		dg->entry[7] = entry_with_text(bodyvalues[17], 256);
+		dg->entry[7] = entry_with_text(bodyvalues[11], 256);
 		label = gtk_label_new_with_mnemonic(N_("On_UnLoad:"));
 		gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 0);
 		gtk_label_set_mnemonic_widget(GTK_LABEL(label), dg->entry[7]);
@@ -1245,12 +1228,10 @@ void body_cb(GtkWidget * widget, gpointer data)
 		
 		/* Depreciated options tab */
 	if (!(!main_v->props.allow_dep && widget && !data)){
-	        frame = gtk_frame_new( NULL );
-		gtk_frame_set_shadow_type(GTK_FRAME(frame), GTK_SHADOW_NONE);
-		gtk_container_set_border_width(GTK_CONTAINER(frame), 12);
+	        frame = bf_generic_frame_new(NULL, GTK_SHADOW_NONE, 12);
 		gtk_notebook_append_page(GTK_NOTEBOOK(noteb), frame, gtk_label_new(_("Depreciated options")));
 		dgtable[0] = gtk_table_new(6, 3, FALSE);
-		gtk_table_set_row_spacings(GTK_TABLE(dgtable[0]), 12);
+		gtk_table_set_row_spacings(GTK_TABLE(dgtable[0]), 6);
 		gtk_table_set_col_spacings(GTK_TABLE(dgtable[0]), 12);
 		gtk_container_add(GTK_CONTAINER(frame), dgtable[0]);
 
@@ -1258,61 +1239,38 @@ void body_cb(GtkWidget * widget, gpointer data)
 		file_but = file_but_new(dg->entry[1], dg->dialog, 0);
 
 		gtk_table_attach(GTK_TABLE(dgtable[0]), GTK_WIDGET(file_but), 2, 3, 0, 1, GTK_FILL, GTK_FILL, 0, 0);
-		label = gtk_label_new_with_mnemonic(N_("Background _Image:"));
-		gtk_table_attach_defaults(GTK_TABLE(dgtable[0]), label, 0, 1, 0, 1);
-		gtk_misc_set_alignment(GTK_MISC(label), 0, 0.5);
-		gtk_label_set_mnemonic_widget(GTK_LABEL(label), dg->entry[1]);
+		bf_mnemonic_label_tad_with_alignment(N_("Background _Image:"), dg->entry[1], 0, 0.5, dgtable[0], 0, 1, 0, 1);
 		gtk_table_attach_defaults(GTK_TABLE(dgtable[0]), dg->entry[1], 1, 2, 0, 1);
 
 		dg->combo[1] = combo_with_popdown(bodyvalues[1], recent_attribs.colorlist, 1);
 		color_but = color_but_new(GTK_COMBO(dg->combo[1])->entry, dg->dialog);
 		gtk_table_attach(GTK_TABLE(dgtable[0]), color_but, 2, 3, 1, 2, GTK_FILL, GTK_FILL, 0, 0);
 		gtk_table_attach_defaults(GTK_TABLE(dgtable[0]), dg->combo[1], 1, 2, 1, 2);
-		label = gtk_label_new_with_mnemonic(N_("Back_ground Color:"));
-		gtk_misc_set_alignment(GTK_MISC(label), 0, 0.5);
-		gtk_table_attach_defaults(GTK_TABLE(dgtable[0]), label, 0, 1, 1, 2);
-		gtk_label_set_mnemonic_widget(GTK_LABEL(label), (GTK_COMBO(dg->combo[1])->entry));
-		gtk_entry_set_activates_default(GTK_ENTRY(GTK_COMBO(dg->combo[1])->entry), TRUE);
+		bf_mnemonic_label_tad_with_alignment(N_("Back_ground Color:"), dg->combo[1], 0, 0.5, dgtable[0], 0, 1, 1, 2);
 
 		dg->combo[2] = combo_with_popdown(bodyvalues[2], recent_attribs.colorlist, 1);
 		color_but = color_but_new(GTK_COMBO(dg->combo[2])->entry, dg->dialog);
 		gtk_table_attach(GTK_TABLE(dgtable[0]), color_but, 2, 3, 2, 3, GTK_FILL, GTK_FILL, 0, 0);
 		gtk_table_attach_defaults(GTK_TABLE(dgtable[0]), dg->combo[2], 1, 2, 2, 3);
-		label = gtk_label_new_with_mnemonic(N_("_Text Color:"));
-		gtk_misc_set_alignment(GTK_MISC(label), 0, 0.5);
-		gtk_table_attach_defaults(GTK_TABLE(dgtable[0]), label, 0, 1, 2, 3);
-		gtk_label_set_mnemonic_widget(GTK_LABEL(label), (GTK_COMBO(dg->combo[2])->entry));
-		gtk_entry_set_activates_default(GTK_ENTRY(GTK_COMBO(dg->combo[2])->entry), TRUE);
+		bf_mnemonic_label_tad_with_alignment(N_("_Text Color:"), dg->combo[2], 0, 0.5, dgtable[0], 0, 1, 2, 3);
 
 		dg->combo[3] = combo_with_popdown(bodyvalues[3], recent_attribs.colorlist, 1);
 		color_but = color_but_new(GTK_COMBO(dg->combo[3])->entry, dg->dialog);
 		gtk_table_attach(GTK_TABLE(dgtable[0]), color_but, 2, 3, 3, 4, GTK_FILL, GTK_FILL, 0, 0);
 		gtk_table_attach_defaults(GTK_TABLE(dgtable[0]), dg->combo[3], 1, 2, 3, 4);
-		label = gtk_label_new_with_mnemonic(N_("_Link Color:"));
-		gtk_misc_set_alignment(GTK_MISC(label), 0, 0.5);
-		gtk_table_attach_defaults(GTK_TABLE(dgtable[0]), label, 0, 1, 3, 4);
-		gtk_label_set_mnemonic_widget(GTK_LABEL(label), (GTK_COMBO(dg->combo[3])->entry));
-		gtk_entry_set_activates_default(GTK_ENTRY(GTK_COMBO(dg->combo[3])->entry), TRUE);
+		bf_mnemonic_label_tad_with_alignment(N_("_Link Color:"), dg->combo[3], 0, 0.5, dgtable[0], 0, 1, 3, 4);
 
 		dg->combo[4] = combo_with_popdown(bodyvalues[4], recent_attribs.colorlist, 1);
 		color_but = color_but_new(GTK_COMBO(dg->combo[4])->entry, dg->dialog);
 		gtk_table_attach(GTK_TABLE(dgtable[0]), color_but, 2, 3, 4, 5, GTK_FILL, GTK_FILL, 0, 0);
 		gtk_table_attach_defaults(GTK_TABLE(dgtable[0]), dg->combo[4], 1, 2, 4, 5);
-		label = gtk_label_new_with_mnemonic(N_("_Visited Link Color:"));
-		gtk_misc_set_alignment(GTK_MISC(label), 0, 0.5);
-		gtk_table_attach_defaults(GTK_TABLE(dgtable[0]), label, 0, 1, 4, 5);
-		gtk_label_set_mnemonic_widget(GTK_LABEL(label), (GTK_COMBO(dg->combo[4])->entry));
-		gtk_entry_set_activates_default(GTK_ENTRY(GTK_COMBO(dg->combo[4])->entry), TRUE);
+		bf_mnemonic_label_tad_with_alignment(N_("_Visited Link Color:"), dg->combo[4], 0, 0.5, dgtable[0], 0, 1, 4, 5);
 
 		dg->combo[5] = combo_with_popdown(bodyvalues[5], recent_attribs.colorlist, 1);
 		color_but = color_but_new(GTK_COMBO(dg->combo[5])->entry, dg->dialog);
 		gtk_table_attach(GTK_TABLE(dgtable[0]), color_but, 2, 3, 5, 6, GTK_FILL, GTK_FILL, 0, 0);
 		gtk_table_attach_defaults(GTK_TABLE(dgtable[0]), dg->combo[5], 1, 2, 5, 6);
-		label = gtk_label_new_with_mnemonic(N_("_Active Link Color:"));
-		gtk_misc_set_alignment(GTK_MISC(label), 0, 0.5);
-		gtk_table_attach_defaults(GTK_TABLE(dgtable[0]), label, 0, 1, 5, 6);
-		gtk_label_set_mnemonic_widget(GTK_LABEL(label), (GTK_COMBO(dg->combo[5])->entry));
-		gtk_entry_set_activates_default(GTK_ENTRY(GTK_COMBO(dg->combo[5])->entry), TRUE);
+		bf_mnemonic_label_tad_with_alignment(N_("_Active Link Color:"), dg->combo[5], 0, 0.5, dgtable[0], 0, 1, 5, 6);
 
 	} else {
 		dg->combo[1] = NULL;
