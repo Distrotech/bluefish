@@ -1,3 +1,6 @@
+#include "config.h"
+#ifdef HAVE_PYTHON
+
 #include <Python.h>
 #include <gtk/gtk.h>
 
@@ -59,3 +62,4 @@ void pythonRun(Tbfwin *bfwin, gchar *filename) {
 	can be passed to that function */
 	Py_Finalize();
 }
+#endif /* HAVE_PYTHON */
