@@ -657,12 +657,12 @@ static GtkItemFactoryEntry menu_items[] = {
 #ifdef BOOKMARKS	
 	{N_("/_Bookmarks"), NULL, NULL, 0, "<Branch>"},
 	{N_("/Bookmarks/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
-    {N_("/Bookmarks/Add Temporary"), "<control>d", menu_bmark_operations_cb, 1, "<Item>"},	
-    {N_("/Bookmarks/Add Permanent"), "<shift><control>d", menu_bmark_operations_cb, 2, "<Item>"},	   
+    {N_("/Bookmarks/Add _Temporary"), "<control>d", menu_bmark_operations_cb, 1, "<Item>"},	
+    {N_("/Bookmarks/Add _Permanent"), "<shift><control>d", menu_bmark_operations_cb, 2, "<Item>"},	   
 	{N_("/Bookmarks/sep2"), NULL, NULL, 0, "<Separator>"},   
-    {N_("/Bookmarks/Delete All"), NULL, menu_bmark_operations_cb, 3, "<Item>"},	   	
-    {N_("/Bookmarks/Delete All Temporary"), NULL, menu_bmark_operations_cb, 4, "<Item>"},	      
-    {N_("/Bookmarks/Delete All Permanent"), NULL, menu_bmark_operations_cb, 2, "<Item>"},	      
+    {N_("/Bookmarks/Delete _All"), NULL, menu_bmark_operations_cb, 3, "<Item>"},	   	
+    {N_("/Bookmarks/Delete All Temporar_y"), NULL, menu_bmark_operations_cb, 4, "<Item>"},	      
+    {N_("/Bookmarks/Delete All Per_manent"), NULL, menu_bmark_operations_cb, 2, "<Item>"},	      
 #endif /* BOOKMARKS */		
 	{N_("/_Project"), NULL, NULL, 0, "<Branch>"},
 	{N_("/Project/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
