@@ -970,43 +970,36 @@ gint doc_get_cursor_position(Tdocument *doc) {
 
 /**
  * doc_set_statusbar_lncol:
- * @buffer: a #GtkTextBuffer
  * @doc: a #Tdocument
  * 
  * Return value: void
  **/
-void doc_set_statusbar_lncol(GtkTextBuffer *buffer, Tdocument *doc)
-{
+static void doc_set_statusbar_lncol(Tdocument *doc) {
 	gchar *msg;
 	gint line;
 	gint col = 0;
 	GtkTextIter iter, start;
 
-	gtk_text_buffer_get_iter_at_mark(buffer, &iter, gtk_text_buffer_get_insert(buffer));
+	gtk_text_buffer_get_iter_at_mark(doc->buffer, &iter, gtk_text_buffer_get_insert(doc->buffer));
 
 	line = gtk_text_iter_get_line(&iter);
 	
 	start = iter;
 	gtk_text_iter_set_line_offset(&start, 0);
 
-	while (!gtk_text_iter_equal(&start, &iter))
-	{
-		if (gtk_text_iter_get_char(&start) == '\t')
-		{
+	while (!gtk_text_iter_equal(&start, &iter)) {
+		if (gtk_text_iter_get_char(&start) == '\t') {
 			col += (main_v->props.editor_tab_width - (col  % main_v->props.editor_tab_width));
-		}
-		else
-			++col;
-
+		} else ++col;
 		gtk_text_iter_forward_char(&start);
 	}
-  
+
 	msg = g_strdup_printf(_(" Ln %d, Col %d"), line + 1, col + 1);
 
 	gtk_statusbar_pop(GTK_STATUSBAR(BFWIN(doc->bfwin)->statusbar_lncol), 0);
 	gtk_statusbar_push(GTK_STATUSBAR(BFWIN(doc->bfwin)->statusbar_lncol), 0, msg);
 
-	g_free(msg);	
+	g_free(msg);
 }
 
 /**
@@ -1684,12 +1677,11 @@ static gboolean doc_view_button_press_lcb(GtkWidget *widget,GdkEventButton *beve
 }
 
 
-static void doc_buffer_mark_set_lcb(GtkTextBuffer *buffer,
-													   GtkTextIter *iter,
-                                            		   GtkTextMark *set_mark,
-                                            		   Tdocument *doc)
-{
-	doc_set_statusbar_lncol(buffer, doc);	
+static void doc_buffer_mark_set_lcb(GtkTextBuffer *buffer,GtkTextIter *iter,GtkTextMark *set_mark,Tdocument *doc) {
+	doc_set_statusbar_lncol(doc);
+}
+static void doc_buffer_changed_lcb(GtkTextBuffer *textbuffer,Tdocument*doc) {
+	doc_set_statusbar_lncol(doc);
 }
 
 static void doc_view_toggle_overwrite_lcb(GtkTextView *view, Tdocument *doc)
@@ -2416,7 +2408,7 @@ Tdocument *doc_new(Tbfwin* bfwin, gboolean delay_activate) {
 	g_signal_connect(G_OBJECT(newdoc->view), "button-press-event", 
 		G_CALLBACK(doc_view_button_press_lcb), newdoc);
 	g_signal_connect(G_OBJECT(newdoc->buffer), "changed",
-		G_CALLBACK(doc_set_statusbar_lncol), newdoc);
+		G_CALLBACK(doc_buffer_changed_lcb), newdoc);
 	g_signal_connect(G_OBJECT(newdoc->buffer), "mark-set", 
 		G_CALLBACK(doc_buffer_mark_set_lcb), newdoc);
 	g_signal_connect(G_OBJECT(newdoc->view), "toggle-overwrite",
@@ -2745,7 +2737,7 @@ void doc_activate(Tdocument *doc) {
 	DEBUG_MSG("doc_activate, calling gui_set_widgets\n");
 	gui_set_widgets(BFWIN(doc->bfwin),doc_has_undo_list(doc), doc_has_redo_list(doc), doc->wrapstate, doc->highlightstate, doc->hl, doc->encoding, doc->linenumberstate);
 	gui_set_title(BFWIN(doc->bfwin), doc);
-	doc_set_statusbar_lncol(doc->buffer, doc);
+	doc_set_statusbar_lncol(doc);
 	doc_set_statusbar_insovr(doc);
 	doc_set_statusbar_editmode_encoding(doc);
 
