@@ -218,10 +218,6 @@ GtkWidget *new_pixmap(gint type) {
 	case 158:
 		data = form_select;
 		break;
-
-	case 417:
-		data = form_option;
-		break;
 	case 159:
 		data = list;
 		break;
@@ -295,8 +291,39 @@ GtkWidget *new_pixmap(gint type) {
 	case 189:
 		data = linkstylesheet;
 		break;
+	case 191:
+		data = headings;
+		break;
 	case 192:
 		data = css_small;
+		break;
+	case 193:
+		data = dfn;
+		break;
+	case 194:
+		data = code;
+		break;
+	case 195:
+		data = samp;
+		break;
+	case 196:
+		data = kbd;
+		break;
+	case 197:
+		data = var;
+		break;
+	case 198:
+		data = cite;
+		break;
+	case 199:
+		data = abbr;
+		break;
+	case 200:
+		data = acronym;
+		break;
+		
+	case 417:
+		data = form_option;
 		break;
 	case 205:
 		data = close_small;
@@ -307,6 +334,7 @@ GtkWidget *new_pixmap(gint type) {
 
 	default:
 		g_print("new_pixmap, unknown pixmap type %d requested\n", type);
+		g_assert(NULL);
 		exit(1);
 		break;
 	}
