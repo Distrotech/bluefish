@@ -654,6 +654,7 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/Document/_Next"), "F4", gui_notebook_switch, 2, NULL},
 	{N_("/Document/sep1"), NULL, NULL, 0, "<Separator>"},
 	{N_("/Document/Word _Count"), NULL, word_count_cb, 1, NULL},
+	{N_("/Document/Floating window"), NULL, file_floatingview_menu_cb, 1, NULL},
 	{N_("/_Options"), NULL, NULL, 0, "<Branch>"},
 	{N_("/Options/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
 	{N_("/Options/_Preferences"), NULL, open_preferences_menu_cb, 0, "<StockItem>", GTK_STOCK_PREFERENCES},
