@@ -55,6 +55,7 @@ void file_doc_retry_uri(Tdocument *doc);
 void file_doc_fill_from_uri(Tdocument *doc, GnomeVFSURI *uri, GnomeVFSFileInfo *finfo, gint goto_line);
 void file_doc_from_uri(Tbfwin *bfwin, GnomeVFSURI *uri, GnomeVFSFileInfo *finfo, gint goto_line);
 void file_docs_from_uris(Tbfwin *bfwin, GSList *urislist);
+void file_into_doc(Tdocument *doc, GnomeVFSURI *uri);
 void open_advanced(Tbfwin *bfwin, GnomeVFSURI *basedir, gboolean recursive, gchar *extension_filter, gchar *content_filter, gboolean use_regex);
 
 #endif /* __FILE_H_ */
