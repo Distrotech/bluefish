@@ -75,6 +75,7 @@ typedef struct {
 	GtkWidget *tree2;
 	GtkListStore *store2;
 	GtkWidget *dirmenu;
+	GtkWidget *showfulltree;
 	GList *dirmenu_entries;
 	gchar *last_opened_dir;
 	gboolean last_popup_on_dir;
@@ -1601,6 +1602,9 @@ void filebrowser_set_basedir(Tbfwin *bfwin, const gchar *basedir) {
 			filebrowser_expand_to_root(FILEBROWSER(bfwin->filebrowser),path);
 			gtk_tree_path_free(path);
 		}
+		
+		gtk_widget_set_sensitive(GTK_WIDGET(FILEBROWSER(bfwin->filebrowser)->showfulltree), (FILEBROWSER(bfwin->filebrowser)->basedir != NULL));
+		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(FILEBROWSER(bfwin->filebrowser)->showfulltree), FALSE);
 	}
 }
 
@@ -1766,6 +1770,11 @@ GtkWidget *filebrowser_init(Tbfwin *bfwin) {
 		gtk_adjustment_set_value(GTK_ADJUSTMENT(adj), GTK_ADJUSTMENT(adj)->lower);
 		adj = gtk_scrolled_window_get_vadjustment(GTK_SCROLLED_WINDOW(scrolwin));
 		gtk_adjustment_set_value(GTK_ADJUSTMENT(adj), GTK_ADJUSTMENT(adj)->lower);*/
+		
+		filebrowser->showfulltree = boxed_checkbut_with_value(_("Show full tree"), (!filebrowser->basedir), vbox);
+		if (filebrowser->basedir == NULL) {
+			gtk_widget_set_sensitive(GTK_WIDGET(filebrowser->showfulltree), FALSE);
+		}
 		return vbox;
 	}
 }
