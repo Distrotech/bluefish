@@ -2251,7 +2251,7 @@ void file_revert_to_saved_cb(GtkWidget * widget, gpointer data) {
 void file_insert_cb(GtkWidget * widget, gpointer data) {
 	gchar *tmpfilename;
 
-	tmpfilename = return_file(NULL);
+	tmpfilename = return_file_w_title(NULL, _("Select file to insert"));
 	if (tmpfilename == NULL) {
 		statusbar_message(_("No file to insert"), 2000);
 		return;
