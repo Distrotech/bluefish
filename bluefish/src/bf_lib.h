@@ -43,7 +43,6 @@ Trefcpointer *refcpointer_new(gpointer data);
 void refcpointer_unref(Trefcpointer *rp);
 
 gchar *uri_to_document_filename(GnomeVFSURI *uri);
-gchar *uri_to_document_filename2(gchar *uri);
 
 gchar *get_filename_on_disk_encoding(const gchar *utf8filename);
 gchar *get_utf8filename_from_on_disk_encoding(const gchar *encodedname);

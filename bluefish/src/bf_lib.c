@@ -58,24 +58,16 @@ void refcpointer_unref(Trefcpointer *rp) {
  *
  */
 gchar *uri_to_document_filename(GnomeVFSURI *uri) {
+	gchar *tmpuri, *utf8uri;
 	if (gnome_vfs_uri_is_local(uri)) {
-		return gnome_vfs_uri_to_string(uri, GNOME_VFS_URI_HIDE_TOPLEVEL_METHOD);
+		 tmpuri = gnome_vfs_uri_to_string(uri, GNOME_VFS_URI_HIDE_TOPLEVEL_METHOD);
 	} else {
-		return gnome_vfs_uri_to_string(uri, GNOME_VFS_URI_HIDE_PASSWORD);
+		tmpuri = gnome_vfs_uri_to_string(uri, GNOME_VFS_URI_HIDE_PASSWORD);
 	}
+	utf8uri = gnome_vfs_format_uri_for_display(tmpuri);
+	g_free(tmpuri);
+	return utf8uri;
 }
-/**
- * uri_to_document_filename:
- *
- */
-gchar *uri_to_document_filename2(gchar *uri) {
-	gchar *ret;
-	GnomeVFSURI *guri = gnome_vfs_uri_new(uri);
-	ret = uri_to_document_filename(guri);
-	gnome_vfs_uri_unref(guri);
-	return ret;
-}
-
 
 /**
  * get_filename_on_disk_encoding:
