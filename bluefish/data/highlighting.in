@@ -314,6 +314,7 @@ stylesheet:Declaration:0:[^\:](?\:azimuth|background(?\:\\-(?\:attachment|color|
 stylesheet:Color:0:#[0-9A-Fa-f]{3,6}|rgb|(?\:aqua|black|blue|fuchsia|gray|green|lime|maroon|navy|olive|purple|red|silver|teal|transparent|white|yellow)\\b::2:^Braces$:#cc0099::0:0:
 stylesheet:Misc:0:(?\:absolute|always|attr|auto|avoid|(?\:base|in|over|under)line|bidi\\-override|blink|block|bold(?\:er)?|both|bottom|capitalize|center|circle|collapse|cursive|dashed|decimal|disc|dotted|double|embed|fantasy|fixed|groove|help|hidden|inherit|inset|(?\:in|out)side|invert|italic|justify|larger?|left|lighter|line\\-through|list\\-item|(?\:lower|upper)(?\:case|\\-alpha|\\-roman)|ltr|medium|middle|monospace|no\\-repeat|none|normal|nowrap|oblique|par\\-num|pre|relative|repeat(?\:\\-(?\:x|y))?|ridge|right|rtl|(?\:sans\\-)?serif|scroll|small(?\:er|\\-caps)?|solid|square|sub|super|static|table\\-(?\:caption|cell)|table(?\:\\-(?\:column|footer|header|row)(?\:\\-group)?)?|text\\-(?\:bottom|top)|thick|thin|top|url|visible|xx?\\-(?\:large|small))\\b::2:^Braces$:#663399::1:0:
 stylesheet:Length:1:([0-9]+\\.?[0-9]*(\\%|cm|em|ex|in|mm|pc|pt|px)?)(?![a-z\\-\:])::2:^Braces$:#009966::1:0:
+stylesheet:Reference:1:\\![\\w\\-]+::2:^Braces$:#cc0000::1:2:
 stylesheet:Symbols:1:[\\.,]::2:^Braces$:#009966::0:0:
 stylesheet:Plaintext:1:[a-z]+::2:^Braces$:#000000::1:1:
 stylesheet:String (double quoted):1:":[^\\\\]":1:^top|Braces$:#006699::0:2:
