@@ -52,6 +52,8 @@ GtkWidget *bf_stock_button(const gchar * Text, GCallback func, gpointer func_dat
 GtkWidget *bf_stock_ok_button(GCallback func, gpointer func_data);
 GtkWidget *bf_stock_cancel_button(GCallback func, gpointer func_data);
 GtkWidget *file_but_new(GtkWidget * which_entry, GtkWidget * win, gint full_pathname);
+
+gint multi_stockbutton_dialog(gchar *title, gint defval, gchar *label, gchar **buttons);
 gint multi_button_dialog(gchar *title, gint defval, gchar *label, gchar **buttons);
 
 gchar *return_file_w_title(gchar * setfile, gchar *title);

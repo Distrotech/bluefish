@@ -26,8 +26,13 @@ void doc_toggle_highlighting_cb(gpointer callback_data,guint action,GtkWidget *w
 void doc_toggle_wrap_cb(gpointer callback_data,guint action,GtkWidget *widget);
 void doc_update_highlighting(GtkWidget *wid, gpointer data);
 void document_set_wrap(Tdocument *doc, gint wraptype);
+void doc_set_font(Tdocument *doc, gchar *fontstring);
+void doc_set_tabsize(Tdocument *doc, gint tabsize);
 
+gboolean doc_is_empty_non_modified_and_nameless(Tdocument *doc);
+gboolean test_docs_modified(GList *doclist);
 gboolean test_only_empty_doc_left();
+
 gboolean doc_has_selection(Tdocument *doc);
 void doc_set_modified(Tdocument *doc, gint value);
 void doc_scroll_to_cursor(Tdocument *doc);

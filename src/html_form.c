@@ -75,7 +75,7 @@ GtkWidget *php_var_but(GtkWidget *src, GtkWidget *dest, Thtml_diag *dg, gint typ
 	pixmap = new_pixmap(173);
 	gtk_widget_show(pixmap);
 	gtk_container_add(GTK_CONTAINER(returnwid), pixmap);
-	gtk_signal_connect(GTK_OBJECT(returnwid), "clicked", php_var_insert_cb, dg);
+	gtk_signal_connect(GTK_OBJECT(returnwid), "clicked", G_CALLBACK(php_var_insert_cb), dg);
 	gtk_widget_show(returnwid);
 	return returnwid;
 }
@@ -175,7 +175,7 @@ void formdialog_cb(GtkWidget * widget, gpointer data)
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Custom")), 0, 1, 3, 4);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[2], 1, 12, 3, 4);
 
-	html_diag_finish(dg, GTK_SIGNAL_FUNC(formok_lcb));
+	html_diag_finish(dg, G_CALLBACK(formok_lcb));
 
 	if (custom)	g_free(custom);
 
@@ -232,7 +232,7 @@ void textareadialog_cb(GtkWidget * widget, gpointer data)
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Custom")), 0, 1, 4, 5);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[2], 1, 10, 4, 5);
 
-	html_diag_finish(dg, textareaok_lcb);
+	html_diag_finish(dg, G_CALLBACK(textareaok_lcb));
 
 	if (custom)	g_free(custom);
 }
@@ -301,7 +301,7 @@ void textdialog_cb(GtkWidget * widget, gpointer data)
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Custom")), 0, 1, 4, 5);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[3], 1, 10, 4, 5);
 
-	html_diag_finish(dg, textok_lcb);
+	html_diag_finish(dg, G_CALLBACK(textok_lcb));
 
 	if (custom)	g_free(custom);
 }
@@ -365,7 +365,7 @@ void buttondialog_cb(GtkWidget * widget, gpointer data) {
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Custom")), 0, 1, 3, 4);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[3], 1, 9, 3, 4);
 
-	html_diag_finish(dg, buttondialogok_lcb);
+	html_diag_finish(dg, G_CALLBACK(buttondialogok_lcb));
 
 	if (custom)	g_free(custom);
 }
@@ -419,7 +419,7 @@ void hiddendialog_cb(GtkWidget * widget, gpointer data)
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Custom")), 0, 1, 2, 3);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[3], 1, 10, 2, 3);
 
-	html_diag_finish(dg, hiddenok_lcb);
+	html_diag_finish(dg, G_CALLBACK(hiddenok_lcb));
 
 	if (custom)	g_free(custom);
 }
@@ -483,7 +483,7 @@ void radiodialog_cb(GtkWidget * widget, gpointer data)
 	varbut = php_var_but(dg->entry[1], dg->entry[3], dg, PHPFORM_TYPE_RADIO);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), varbut, 9, 10, 3, 4);
 
-	html_diag_finish(dg, radiodialogok_lcb);
+	html_diag_finish(dg, G_CALLBACK(radiodialogok_lcb));
 
 	if (custom)	g_free(custom);
 }
@@ -546,7 +546,7 @@ void checkdialog_cb(GtkWidget * widget, gpointer data)
 	varbut = php_var_but(dg->entry[1], dg->entry[3], dg, PHPFORM_TYPE_CHECK);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), varbut, 9, 10, 3, 4);
 
-	html_diag_finish(dg, checkdialogok_lcb);
+	html_diag_finish(dg, G_CALLBACK(checkdialogok_lcb));
 
 	if (custom)	g_free(custom);
 }
@@ -602,7 +602,7 @@ void selectdialog_cb(GtkWidget * widget, gpointer data)
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Custom")), 0, 1, 3, 4);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[2], 1, 10, 3, 4);
 
-	html_diag_finish(dg, selectdialogok_lcb);
+	html_diag_finish(dg, G_CALLBACK(selectdialogok_lcb));
 
 	if (custom)	g_free(custom);
 }
@@ -653,7 +653,7 @@ void optiondialog_cb(GtkWidget * widget, gpointer data)
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Selected")), 0, 1, 3, 4);
 	parse_existence_for_dialog(tagvalues[2], dg->check[1]);
 
-	html_diag_finish(dg, optiondialogok_lcb);
+	html_diag_finish(dg, G_CALLBACK(optiondialogok_lcb));
 
 	if (custom)	g_free(custom);
 }
@@ -692,7 +692,7 @@ void optgroupdialog_cb(GtkWidget * widget, gpointer data)
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Label")), 0, 1, 0, 1);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[1], 1, 10, 0, 1);
 
-	html_diag_finish(dg, optgroupdialogok_lcb);
+	html_diag_finish(dg, G_CALLBACK(optgroupdialogok_lcb));
 
 	if (custom)	g_free(custom);
 }

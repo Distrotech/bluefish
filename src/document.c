@@ -36,7 +36,7 @@
 #include "undo_redo.h" /* doc_unre_init() */
 #include "rpopup.h" /* doc_bevent_in_html_tag(), rpopup_edit_tag_cb() */
 #include "char_table.h" /* convert_utf8...() */
-
+#include "pixmap.h"
 
 void add_filename_to_history(gchar *filename) {
 	gchar *dirname;
@@ -69,21 +69,6 @@ gint documentlist_return_index_from_filename(gchar *filename) {
 		tmplist = g_list_next(tmplist);
 	}
 	return -1;
-}
-
-void doc_toggle_highlighting_cb(gpointer callback_data,guint action,GtkWidget *widget)
-{
-	DEBUG_MSG("doc_toggle_highlighting_cb, started\n");
-	main_v->current_document->highlightstate = 1 - main_v->current_document->highlightstate;
-	if (main_v->current_document->highlightstate == 0) {
-		doc_remove_highlighting(main_v->current_document);
-	} else {
-		doc_highlight_full(main_v->current_document);
-	}
-}
-void doc_toggle_wrap_cb(gpointer callback_data,guint action,GtkWidget *widget) {
-	main_v->current_document->wrapstate = 1 - main_v->current_document->wrapstate;
-	doc_set_wrap(main_v->current_document);
 }
 
 void doc_update_highlighting(GtkWidget *wid, gpointer data) {
@@ -631,7 +616,7 @@ gboolean doc_file_to_textbox(Tdocument * doc, gchar * filename, gboolean enable_
 					doc->encoding = g_strdup("ISO-8859-1");
 				}
 			} else {
-				gchar *encoding=NULL;
+				const gchar *encoding=NULL;
 				g_get_charset(&encoding);
 				g_free(doc->encoding);
 				doc->encoding = g_strdup(encoding);
@@ -695,80 +680,6 @@ static gint doc_check_backup(Tdocument *doc) {
 	}
 	return res;
 }
-
-/*
-returning 0 --> cancel or abort
-returning 1 --> ok, closed or saved & closed
-*/
-gint doc_close(Tdocument * doc, gint warn_only)
-{
-	gchar *text;
-	gint retval;
-#ifdef DEBUG
-	if (!doc) {
-		DEBUG_MSG("doc_close, returning because doc=NULL\n");
-		return 0;
-	}
-#endif
-
-	if (doc_is_empty_non_modified_and_nameless(doc) && g_list_length(main_v->documentlist) ==1) {
-		/* no need to close this doc, it's an Untitled empty document */
-		DEBUG_MSG("doc_close, 1 untitled empty non-modified document, returning\n");
-		return 0;
-	}
-
-	if (doc->modified) {
-		if (doc->filename) {
-			text =
-				g_strdup_printf(_("Are you sure you want to close\n%s ?"),
-								doc->filename);
-		} else {
-			text =
-				g_strdup(_
-						 ("Are you sure you want to close\nthis untitled file ?"));
-		}
-	
-		{
-			gchar *buttons[] = {GTK_STOCK_SAVE, GTK_STOCK_CLOSE, GTK_STOCK_CANCEL, NULL};
-			retval = multi_stockbutton_dialog(_("Bluefish warning: file is modified!"), 2, text, buttons);
-		}
-		g_free(text);
-
-		switch (retval) {
-		case 2:
-			DEBUG_MSG("doc_close, retval=2 (cancel) , returning\n");
-			return 2;
-			break;
-		case 0:
-			doc_save(doc, 0, 0);
-			if (doc->modified == 1) {
-				/* something went wrong it's still not saved */
-				return 0;
-			}
-			if (!warn_only) {
-				doc_destroy(doc, FALSE);
-			}
-			break;
-		case 1:
-			if (!warn_only) {
-				doc_destroy(doc, FALSE);
-			}
-			break;
-		default:
-			return 0;			/* something went wrong */
-			break;
-		}
-	} else {
-		DEBUG_MSG("doc_close, closing doc=%p\n", doc);
-		if (!warn_only) {
-			doc_destroy(doc, FALSE);
-		}
-	}
-
-/*	notebook_changed();*/
-	return 1;
-}
-
 
 /* offset is used because at the time a newline is entered in
  * doc_buffer_insert_text_lcb() the cursor is not yet forwarded to the new line, so
@@ -981,97 +892,6 @@ void doc_unbind_signals(Tdocument *doc) {
 		g_signal_handler_disconnect(G_OBJECT(doc->buffer),doc->ins_aft_txt_id);
 		doc->ins_txt_id = 0;
 	}
-}
-
-static void doc_close_but_clicked_lcb(GtkWidget *wid, gpointer data) {
-	doc_close(data, 0);
-}
-
-
-Tdocument *doc_new(gboolean delay_activate) {
-	GtkWidget *scroll;
-	Tdocument *newdoc = g_new0(Tdocument, 1);
-	DEBUG_MSG("doc_new, main_v is at %p, newdoc at %p\n", main_v, newdoc);
-
-	newdoc->hl = hl_get_highlightset_by_filename(NULL);
-	newdoc->buffer = gtk_text_buffer_new(main_v->tagtable);
-	newdoc->view = gtk_text_view_new_with_buffer(newdoc->buffer);
-	scroll = gtk_scrolled_window_new(NULL, NULL);
-	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scroll),
-									   GTK_POLICY_AUTOMATIC,
-									   GTK_POLICY_AUTOMATIC);
-	gtk_scrolled_window_set_shadow_type(GTK_SCROLLED_WINDOW
-											(scroll), GTK_SHADOW_IN);
-	gtk_container_add(GTK_CONTAINER(scroll), newdoc->view);
-
-	newdoc->tab_label = gtk_label_new(NULL);
-	GTK_WIDGET_UNSET_FLAGS(newdoc->tab_label, GTK_CAN_FOCUS);
-	apply_font_style(newdoc->tab_label, main_v->props.tab_font_string);
-	newdoc->tab_menu = gtk_label_new(NULL);
-
-	doc_unre_init(newdoc);
-	doc_set_font(newdoc, NULL);
-	newdoc->wrapstate = main_v->props.word_wrap;
-	doc_set_wrap(newdoc);
-	doc_set_tabsize(newdoc, main_v->props.editor_tab_width);
-
-/* this will force function doc_set_modified to update the tab label*/
-	newdoc->modified = 1;
-	doc_set_modified(newdoc, 0);
-	newdoc->filename = NULL;
-	newdoc->need_highlighting = 0;
-	newdoc->mtime = 0;
-	newdoc->owner_uid = -1;
-	newdoc->owner_gid = -1;
-	newdoc->is_symlink = 0;
-	doc_bind_signals(newdoc);
-
-	g_signal_connect(G_OBJECT(newdoc->view), "button-release-event"
-		, G_CALLBACK(doc_view_button_release_lcb), newdoc);
-	g_signal_connect(G_OBJECT(newdoc->view), "button-press-event"
-		, G_CALLBACK(doc_view_button_press_lcb), newdoc);
-	g_signal_connect(G_OBJECT(newdoc->buffer), "mark-set"
-		, G_CALLBACK(doc_buffer_mark_set_lcb), newdoc);
-	main_v->documentlist = g_list_append(main_v->documentlist, newdoc);
-
-	gtk_widget_show(newdoc->view);
-	gtk_widget_show(newdoc->tab_label);
-	gtk_widget_show(scroll);
-
-	DEBUG_MSG("doc_new, appending doc to notebook\n");
-	{
-		GtkWidget *hbox, *but;
-		hbox = gtk_hbox_new(FALSE,0);
-		but = gtk_button_new();
-		{
-		GtkWidget *image = new_pixmap(205);
-		gtk_widget_show(image);
-		gtk_container_add(GTK_CONTAINER(but), image);
-		gtk_container_set_border_width(GTK_CONTAINER(but), 0);
-		gtk_widget_set_usize(but, 12,12);
-		}
-		
-		gtk_button_set_relief(GTK_BUTTON(but), GTK_RELIEF_NONE);
-		g_signal_connect(G_OBJECT(but), "clicked", G_CALLBACK(doc_close_but_clicked_lcb), newdoc);
-		gtk_box_pack_start(GTK_BOX(hbox), newdoc->tab_label, FALSE, FALSE, 0);
-		gtk_box_pack_start(GTK_BOX(hbox), but, FALSE, FALSE, 0);
-		gtk_widget_show(hbox);
-		gtk_widget_show(but);
-		gtk_notebook_append_page_menu(GTK_NOTEBOOK(main_v->notebook), scroll ,hbox, newdoc->tab_menu);
-	}
-	newdoc->highlightstate = main_v->props.defaulthighlight;
-	if (!delay_activate) {
-		DEBUG_MSG("doc_new, set notebook page to %d\n", g_list_length(main_v->documentlist) - 1);
-		gtk_notebook_set_page(GTK_NOTEBOOK(main_v->notebook),g_list_length(main_v->documentlist) - 1);
-
-		if (main_v->current_document != newdoc) {
-			notebook_changed(-1);
-		}
-		gtk_widget_grab_focus(newdoc->view);	
-	}
-
-
-	return newdoc;
 }
 
 /*
@@ -1318,6 +1138,169 @@ gint doc_save(Tdocument * doc, gint do_save_as, gint do_move)
 		g_free(oldfilename);
 	}
 	return retval;
+}
+
+/*
+returning 0 --> cancel or abort
+returning 1 --> ok, closed or saved & closed
+*/
+gint doc_close(Tdocument * doc, gint warn_only)
+{
+	gchar *text;
+	gint retval;
+#ifdef DEBUG
+	if (!doc) {
+		DEBUG_MSG("doc_close, returning because doc=NULL\n");
+		return 0;
+	}
+#endif
+
+	if (doc_is_empty_non_modified_and_nameless(doc) && g_list_length(main_v->documentlist) ==1) {
+		/* no need to close this doc, it's an Untitled empty document */
+		DEBUG_MSG("doc_close, 1 untitled empty non-modified document, returning\n");
+		return 0;
+	}
+
+	if (doc->modified) {
+		if (doc->filename) {
+			text =
+				g_strdup_printf(_("Are you sure you want to close\n%s ?"),
+								doc->filename);
+		} else {
+			text =
+				g_strdup(_
+						 ("Are you sure you want to close\nthis untitled file ?"));
+		}
+	
+		{
+			gchar *buttons[] = {GTK_STOCK_SAVE, GTK_STOCK_CLOSE, GTK_STOCK_CANCEL, NULL};
+			retval = multi_stockbutton_dialog(_("Bluefish warning: file is modified!"), 2, text, buttons);
+		}
+		g_free(text);
+
+		switch (retval) {
+		case 2:
+			DEBUG_MSG("doc_close, retval=2 (cancel) , returning\n");
+			return 2;
+			break;
+		case 0:
+			doc_save(doc, 0, 0);
+			if (doc->modified == 1) {
+				/* something went wrong it's still not saved */
+				return 0;
+			}
+			if (!warn_only) {
+				doc_destroy(doc, FALSE);
+			}
+			break;
+		case 1:
+			if (!warn_only) {
+				doc_destroy(doc, FALSE);
+			}
+			break;
+		default:
+			return 0;			/* something went wrong */
+			break;
+		}
+	} else {
+		DEBUG_MSG("doc_close, closing doc=%p\n", doc);
+		if (!warn_only) {
+			doc_destroy(doc, FALSE);
+		}
+	}
+
+/*	notebook_changed();*/
+	return 1;
+}
+
+static void doc_close_but_clicked_lcb(GtkWidget *wid, gpointer data) {
+	doc_close(data, 0);
+}
+
+Tdocument *doc_new(gboolean delay_activate) {
+	GtkWidget *scroll;
+	Tdocument *newdoc = g_new0(Tdocument, 1);
+	DEBUG_MSG("doc_new, main_v is at %p, newdoc at %p\n", main_v, newdoc);
+
+	newdoc->hl = hl_get_highlightset_by_filename(NULL);
+	newdoc->buffer = gtk_text_buffer_new(main_v->tagtable);
+	newdoc->view = gtk_text_view_new_with_buffer(newdoc->buffer);
+	scroll = gtk_scrolled_window_new(NULL, NULL);
+	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scroll),
+									   GTK_POLICY_AUTOMATIC,
+									   GTK_POLICY_AUTOMATIC);
+	gtk_scrolled_window_set_shadow_type(GTK_SCROLLED_WINDOW
+											(scroll), GTK_SHADOW_IN);
+	gtk_container_add(GTK_CONTAINER(scroll), newdoc->view);
+
+	newdoc->tab_label = gtk_label_new(NULL);
+	GTK_WIDGET_UNSET_FLAGS(newdoc->tab_label, GTK_CAN_FOCUS);
+	apply_font_style(newdoc->tab_label, main_v->props.tab_font_string);
+	newdoc->tab_menu = gtk_label_new(NULL);
+
+	doc_unre_init(newdoc);
+	doc_set_font(newdoc, NULL);
+	newdoc->wrapstate = main_v->props.word_wrap;
+	doc_set_wrap(newdoc);
+	doc_set_tabsize(newdoc, main_v->props.editor_tab_width);
+
+/* this will force function doc_set_modified to update the tab label*/
+	newdoc->modified = 1;
+	doc_set_modified(newdoc, 0);
+	newdoc->filename = NULL;
+	newdoc->need_highlighting = 0;
+	newdoc->mtime = 0;
+	newdoc->owner_uid = -1;
+	newdoc->owner_gid = -1;
+	newdoc->is_symlink = 0;
+	doc_bind_signals(newdoc);
+
+	g_signal_connect(G_OBJECT(newdoc->view), "button-release-event"
+		, G_CALLBACK(doc_view_button_release_lcb), newdoc);
+	g_signal_connect(G_OBJECT(newdoc->view), "button-press-event"
+		, G_CALLBACK(doc_view_button_press_lcb), newdoc);
+	g_signal_connect(G_OBJECT(newdoc->buffer), "mark-set"
+		, G_CALLBACK(doc_buffer_mark_set_lcb), newdoc);
+	main_v->documentlist = g_list_append(main_v->documentlist, newdoc);
+
+	gtk_widget_show(newdoc->view);
+	gtk_widget_show(newdoc->tab_label);
+	gtk_widget_show(scroll);
+
+	DEBUG_MSG("doc_new, appending doc to notebook\n");
+	{
+		GtkWidget *hbox, *but;
+		hbox = gtk_hbox_new(FALSE,0);
+		but = gtk_button_new();
+		{
+		GtkWidget *image = new_pixmap(205);
+		gtk_widget_show(image);
+		gtk_container_add(GTK_CONTAINER(but), image);
+		gtk_container_set_border_width(GTK_CONTAINER(but), 0);
+		gtk_widget_set_usize(but, 12,12);
+		}
+		
+		gtk_button_set_relief(GTK_BUTTON(but), GTK_RELIEF_NONE);
+		g_signal_connect(G_OBJECT(but), "clicked", G_CALLBACK(doc_close_but_clicked_lcb), newdoc);
+		gtk_box_pack_start(GTK_BOX(hbox), newdoc->tab_label, FALSE, FALSE, 0);
+		gtk_box_pack_start(GTK_BOX(hbox), but, FALSE, FALSE, 0);
+		gtk_widget_show(hbox);
+		gtk_widget_show(but);
+		gtk_notebook_append_page_menu(GTK_NOTEBOOK(main_v->notebook), scroll ,hbox, newdoc->tab_menu);
+	}
+	newdoc->highlightstate = main_v->props.defaulthighlight;
+	if (!delay_activate) {
+		DEBUG_MSG("doc_new, set notebook page to %d\n", g_list_length(main_v->documentlist) - 1);
+		gtk_notebook_set_page(GTK_NOTEBOOK(main_v->notebook),g_list_length(main_v->documentlist) - 1);
+
+		if (main_v->current_document != newdoc) {
+			notebook_changed(-1);
+		}
+		gtk_widget_grab_focus(newdoc->view);	
+	}
+
+
+	return newdoc;
 }
 
 
@@ -1595,6 +1578,23 @@ void edit_select_all_cb(GtkWidget * widget, gpointer data) {
 	gtk_text_buffer_move_mark_by_name(main_v->current_document->buffer,"insert",&itstart);
 	gtk_text_buffer_move_mark_by_name(main_v->current_document->buffer,"selection_bound",&itend);
 }
+
+void doc_toggle_highlighting_cb(gpointer callback_data,guint action,GtkWidget *widget) {
+	DEBUG_MSG("doc_toggle_highlighting_cb, started\n");
+	main_v->current_document->highlightstate = 1 - main_v->current_document->highlightstate;
+	if (main_v->current_document->highlightstate == 0) {
+		doc_remove_highlighting(main_v->current_document);
+	} else {
+		doc_highlight_full(main_v->current_document);
+	}
+}
+
+void doc_toggle_wrap_cb(gpointer callback_data,guint action,GtkWidget *widget) {
+	main_v->current_document->wrapstate = 1 - main_v->current_document->wrapstate;
+	doc_set_wrap(main_v->current_document);
+}
+
+
 
 /* callback_action: 1 only ascii, 2 only iso, 3 both
  */

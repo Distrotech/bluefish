@@ -39,6 +39,7 @@
 #include "bf_lib.h"				/* filename_test_extensions() */
 #include "rcfile.h"				/* array_from_arglist() */
 #include "stringlist.h" 	/* count_array() */
+#include "menu.h" 			/* menu_current_document_type_set_active_wo_activate */
 #include "highlight.h"
 
 

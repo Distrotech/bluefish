@@ -191,7 +191,7 @@ static void estrl_down_clicked_lcb(GtkWidget * widget, Testrl *estrl) {
  * Avoid adding a duplicated element to the stringlist
  */
 static void estrl_add_clicked_lcb(GtkWidget * widget, Testrl *estrl) {
-    gchar **tmplistentry;
+   gchar **tmplistentry;
 	guint i, len;
 
     tmplistentry = g_malloc(((estrl->num_columns ? estrl->num_columns : 1)+2)*sizeof(char *));
@@ -622,7 +622,7 @@ GList *remove_from_stringlist(GList *which_list, gchar * string) {
 	return which_list;
 }
 
-GList *add_to_history_stringlist(GList *which_list, gchar *string) {
+GList *add_to_history_stringlist(GList *which_list, const gchar *string) {
 	if (string && strlen(string) ) {
 		GList *tmplist = g_list_first(which_list);
 		while (tmplist) {
@@ -642,7 +642,7 @@ GList *add_to_history_stringlist(GList *which_list, gchar *string) {
 }
 
 /* designed for adding strings to colorlist, urllist, fontlist and targetlist */
-GList *add_to_stringlist(GList * which_list, gchar * string) {
+GList *add_to_stringlist(GList * which_list, const gchar * string) {
 	if (string && strlen(string) ) {
 		GList *tmplist = g_list_first(which_list);
 		while (tmplist) {

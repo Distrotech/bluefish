@@ -732,7 +732,7 @@ static void close_modal_window_lcb(GtkWidget * widget, gpointer window)
 
 static void fs_history_pulldown_activate_lcb(GtkWidget *menuitem,Tfileselect *fileselect) {
 	const gchar *filename = gtk_entry_get_text(GTK_ENTRY(GTK_FILE_SELECTION(fileselect->fs)->selection_entry));
-	const gchar *dirname = ending_slash(gtk_label_get_text(GTK_LABEL(gtk_bin_get_child(GTK_BIN(menuitem)))));
+	gchar *dirname = ending_slash(gtk_label_get_text(GTK_LABEL(gtk_bin_get_child(GTK_BIN(menuitem)))));
 	gchar *fullpath = g_strconcat(dirname, filename, NULL);
 	g_free(dirname);
 	gtk_file_selection_set_filename(GTK_FILE_SELECTION(fileselect->fs), fullpath);
