@@ -146,6 +146,7 @@ int main(int argc, char *argv[])
 	splash_screen_set_label(_("creating main gui..."));
 #endif /* #ifndef NOSPLASH */
 	gui_create_main(filenames);
+
 #ifndef NOSPLASH
 	splash_screen_set_label(_("showing main gui..."));
 #endif /* #ifndef NOSPLASH */

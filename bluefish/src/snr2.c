@@ -35,7 +35,7 @@
  *             search_backend
  */
 /*****************************************************/
-/*#define DEBUG*/
+#define DEBUG
 
 #include <gtk/gtk.h>
 
@@ -1182,5 +1182,36 @@ void update_filenames_in_file(Tdocument *doc, gchar *oldfilename, gchar *newfile
 	g_free(fulltext);
 	if (doc_has_newfilename) {
 		g_free(olddirname);
+	}
+}
+
+void update_encoding_meta_in_file(Tdocument *doc, gchar *encoding) {
+	if (encoding) {
+		gchar *pattern, *fulltext;
+		Tsearch_result result;
+		/* first find if there is a meta encoding tag already */
+		pattern = "<meta[ \t\n]http-equiv[ \t\n]*=[ \t\n]*\"content-type\"[ \t\n]+content[ \t\n]*=[ \t\n]*\"text/html;[ \t\n]*charset=[a-z0-9-]+\"[ \t\n]*>";
+		fulltext = doc_get_chars(doc, 0, -1);
+		result = search_backend(pattern, match_regex, 0, fulltext, 0);
+		if (result.end > 0) {
+			gchar *replacestring = g_strconcat("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=",encoding,"\">", NULL);
+			DEBUG_MSG("update_encoding_meta_in_file, 1: we have a match\n");
+			doc_replace_text(doc, replacestring, result.start, result.end);
+			g_free(replacestring);
+		} else {
+			DEBUG_MSG("update_encoding_meta_in_file, 1: NO match\n");
+			/* now search for <head>, we can append it to this tag */
+			pattern = "<head>";
+			result = search_backend(pattern, match_regex, 0, fulltext, 0);
+			if (result.end > 0) {
+				gchar *replacestring = g_strconcat("<head>\n<meta http-equiv=\"Content-Type\" content=\"text/html; charset=",encoding,"\">", NULL);
+				DEBUG_MSG("update_encoding_meta_in_file, 2: we have a match\n");
+				doc_replace_text(doc, replacestring, result.start, result.end);
+				g_free(replacestring);
+			} else {
+				DEBUG_MSG("update_encoding_meta_in_file, 2: NO match\n");
+			}
+		}
+		g_free(fulltext);
 	}
 }

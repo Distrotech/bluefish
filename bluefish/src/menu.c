@@ -18,7 +18,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-/*#define DEBUG*/
+#define DEBUG
 #include <gtk/gtk.h>
 #include <stdlib.h> /* atoi */
 #include <string.h> /* strchr() */
@@ -41,6 +41,11 @@
 #include "wizards.h"
 #include "image.h"
 #include "rcfile.h" /* rcfile_save_configfile_menu_cb */
+
+typedef struct {
+	GtkWidget *menuitem;
+	gchar **strarr; /* pointer to config value 0=label, 1=value */
+} Tencoding;
 
 static GtkItemFactoryEntry menu_items[] = {
 	{N_("/_File"), NULL, NULL, 0, "<Branch>"},
@@ -426,6 +431,8 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/Document/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
 	{N_("/Document/Type"), NULL, NULL, 0, "<Branch>"},
 	{N_("/Document/Type/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
+	{N_("/Document/Encoding"), NULL, NULL, 0, "<Branch>"},
+	{N_("/Document/Encoding/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
 	{N_("/Document/Highlight syntax"), NULL, doc_toggle_highlighting_cb, 0, "<ToggleItem>"},
 	{N_("/Document/Wrap"), NULL, doc_toggle_wrap_cb, 0, "<ToggleItem>"},
 	{N_("/Document/sep1"), NULL, NULL, 0, "<Separator>"},
@@ -461,13 +468,13 @@ static void menu_current_document_type_change(GtkMenuItem *menuitem,Tfiletype *h
 		if (hl_set_highlighting_type(main_v->current_document, hlset)) {
 			doc_highlight_full(main_v->current_document);
 		} else {
-			menu_current_document_type_set_active_wo_activate(main_v->current_document->hl);
+			menu_current_document_set_toggle_wo_activate(main_v->current_document->hl, NULL);
 		}
 	}
 	DEBUG_MSG("menu_current_document_type_change, finished\n");
 }
 
-void menu_current_document_type_set_active_wo_activate(Tfiletype *hlset) {
+void menu_current_document_set_toggle_wo_activate(Tfiletype *hlset, gchar *encoding) {
 	if (hlset && !GTK_CHECK_MENU_ITEM(hlset->menuitem)->active) {
 		DEBUG_MSG("setting widget from hlset %p active\n", main_v->current_document->hl);
 		g_signal_handler_disconnect(G_OBJECT(hlset->menuitem),hlset->menuitem_activate_id);
@@ -479,6 +486,19 @@ void menu_current_document_type_set_active_wo_activate(Tfiletype *hlset) {
 	 	DEBUG_MSG("widget from hlset %p is already active!!\n", main_v->current_document->hl);
 	 }
 #endif
+	if (encoding) {
+		GList *tmplist = g_list_first(main_v->encodings);
+		DEBUG_MSG("menu_current_document_set_toggle_wo_activate, searching for widget with %s\n", encoding);
+		while (tmplist) {
+			Tencoding *enc = (Tencoding *)tmplist->data;
+			if(!strcmp(enc->strarr[1], encoding)) {
+				DEBUG_MSG("menu_current_document_set_toggle_wo_activate, setting encoding to %s\n", encoding);
+				gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(enc->menuitem),TRUE);
+				break;
+			}
+			tmplist = g_list_next(tmplist);
+		}
+	}
 }
 
 /* 
@@ -522,7 +542,6 @@ void menu_create_main(GtkWidget *vbox)
 			}
 			tmplist = g_list_next(tmplist);
 		}
-	
 	}
 }
 
@@ -842,7 +861,7 @@ void external_menu_init() {
 		 */
 		if (count_array(arr)==2) {
 			main_v->external_menu = g_list_append(main_v->external_menu
-					, create_menuitem(N_("<main>/External")
+					, create_menuitem(_("<main>/External")
 						, arr[0], G_CALLBACK(browser_lcb), 4)
 					);
 		}
@@ -857,9 +876,59 @@ void external_menu_init() {
 		 */
 		if (count_array(arr)==2) {
 			main_v->external_menu = g_list_append(main_v->external_menu
-					, create_menuitem(N_("<main>/External/Commands")
+					, create_menuitem(_("<main>/External/Commands")
 						, arr[0], G_CALLBACK(external_command_lcb), 1)
 					);
+		}
+		tmplist = g_list_next(tmplist);
+	}
+}
+
+
+
+static void menu_current_document_encoding_change(GtkMenuItem *menuitem,gchar *encoding) {
+	if (GTK_CHECK_MENU_ITEM(menuitem)->active) {
+		if (encoding && (!main_v->current_document->encoding || strcmp(encoding,main_v->current_document->encoding)!=0)) {
+			if (main_v->current_document->encoding) {
+				g_free(main_v->current_document->encoding);
+			}
+			main_v->current_document->encoding = g_strdup(encoding);
+			if (main_v->props.auto_set_encoding_meta) {
+				update_encoding_meta_in_file(main_v->current_document, main_v->current_document->encoding);
+			}
+			DEBUG_MSG("menu_current_document_encoding_change, set to %s\n", encoding);
+		}
+	}
+}
+
+void encoding_menu_rebuild() {
+	GSList *group=NULL;
+	GtkWidget *parent_menu;
+	GList *tmplist;
+	if (main_v->encodings) {
+		tmplist = g_list_first(main_v->encodings);
+		while (tmplist) {
+			Tencoding *enc = (Tencoding *)tmplist->data;
+			gtk_widget_destroy(GTK_WIDGET(enc->menuitem));
+			g_free(enc);
+			tmplist = g_list_next(tmplist);
+		}
+		g_list_free(main_v->encodings);
+		main_v->encodings = NULL;
+	}
+	tmplist = g_list_first(main_v->props.encodings);
+	parent_menu = gtk_item_factory_get_widget(gtk_item_factory_from_widget(main_v->menubar), _("/Document/Encoding"));
+	while (tmplist) {
+		gchar **strarr = (gchar **)tmplist->data;
+		if (count_array(strarr)==2) {
+			Tencoding *enc = g_new(Tencoding,1);
+			enc->strarr = strarr;
+			enc->menuitem = gtk_radio_menu_item_new_with_label(group, strarr[0]);
+			g_signal_connect(G_OBJECT(enc->menuitem), "activate",G_CALLBACK(menu_current_document_encoding_change), (gpointer) strarr[1]);
+			gtk_widget_show(enc->menuitem);
+			gtk_menu_insert(GTK_MENU(parent_menu), enc->menuitem, 1);
+			group = gtk_radio_menu_item_get_group (GTK_RADIO_MENU_ITEM(enc->menuitem));
+			main_v->encodings = g_list_append(main_v->encodings, enc);
 		}
 		tmplist = g_list_next(tmplist);
 	}
