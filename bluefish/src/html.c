@@ -22,7 +22,7 @@
  */
 /* 
  * Changes by Antti-Juhani Kaijanaho <gaia@iki.fi> on 1999-10-20
- * $Id: html.c,v 1.32 2003-09-11 14:53:47 oli4 Exp $
+ * $Id: html.c,v 1.33 2003-09-20 08:12:12 trommaster Exp $
  */
 /*#define DEBUG*/
 
@@ -296,7 +296,7 @@ typedef struct {
 } TimeInsert;
 
 
-static void insert_time_destroy_lcb(GtkWidget * widget, GdkEvent *event, TimeInsert * data) {
+static void insert_time_destroy_lcb(GtkWidget * widget, TimeInsert * data) {
 	DEBUG_MSG("insert_time_destroy_lcb, data=%p\n", data);
 	window_destroy(data->dialog);
 	g_free(data);
@@ -326,7 +326,7 @@ static void insert_time_callback(GtkWidget * widget, TimeInsert * timeinsert)
 	DEBUG_MSG("insert_time_callback, text inserted\n");
 	g_free(insert_string);
 	g_free(final_string);
-	insert_time_destroy_lcb(NULL, NULL, timeinsert);
+	insert_time_destroy_lcb(NULL, timeinsert);
 	DEBUG_MSG("insert_time_callback, finished\n");
 }
 
@@ -335,7 +335,7 @@ static void insert_time_callback(GtkWidget * widget, TimeInsert * timeinsert)
 static void insert_time_cancel(GtkWidget * widget, TimeInsert * data)
 {
 	DEBUG_MSG("insert_time_cancel, data=%p\n", data);
-	insert_time_destroy_lcb(widget, NULL, data);
+	insert_time_destroy_lcb(widget, data);
 }
 
 /************************************************************************/
