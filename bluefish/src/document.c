@@ -37,7 +37,7 @@
 #include <time.h>			/* ctime_r() */
 #include <pcre.h>
 
-/* #define DEBUG */
+#define DEBUG
 
 #ifdef DEBUGPROFILING
 #include <sys/times.h>
@@ -288,28 +288,6 @@ void doc_set_wrap(Tdocument * doc) {
 	}
 }
 /**
- * doc_set_filetype:
- * @doc: a #Tdocument
- * @ft: a #Tfiletype with the new filetype
- *
- * this function will compare the filetype from the document and the new filetype
- * and if they are different it will remove the old highlighting, set the newfiletype
- * and set the filetype widget, it will return TRUE if the type was changed
- *
- * Return value: #gboolean if the value was changed
- **/
-gboolean doc_set_filetype(Tdocument *doc, Tfiletype *ft) {
-	if (ft != doc->hl) {
-		doc_remove_highlighting(doc);
-		doc->hl = ft;
-		doc->need_highlighting = TRUE;
-		doc->autoclosingtag = (ft->autoclosingtag > 0);
-		gui_set_document_widgets(doc);
-		return TRUE;
-	}
-	return FALSE;
-}
-/**
  * get_filetype_by_name:
  * @name: a #gchar* with the filetype name
  *
@@ -343,11 +321,12 @@ Tfiletype *get_filetype_by_name(gchar * name) {
  **/
 Tfiletype *get_filetype_by_filename_and_content(gchar *filename, gchar *buf) {
 	GList *tmplist;
-
+	DEBUG_MSG("get_filetype_by_filename_and_content, filename=%s, strlen(buf)=%d\n",filename,strlen(buf));
 	if (filename) {
 		tmplist = g_list_first(main_v->filetypelist);
 		while (tmplist) {
 			if (filename_test_extensions(((Tfiletype *) tmplist->data)->extensions, filename)) {
+				DEBUG_MSG("get_filetype_by_filename_and_content, found filetype %s for extension\n",((Tfiletype *)tmplist->data)->type);
 				return (Tfiletype *) tmplist->data;
 			}
 			tmplist = g_list_next(tmplist);
@@ -387,6 +366,110 @@ Tfiletype *get_filetype_by_filename_and_content(gchar *filename, gchar *buf) {
 	return NULL;
 }
 /**
+ * doc_set_tooltip:
+ * @doc: #Tdocument*
+ *
+ * will set the tooltip on the notebook tab eventbox
+ *
+ * Return value: void
+ */
+static void doc_set_tooltip(Tdocument *doc) {
+	gchar *text, *tmp;
+	gchar mtimestr[128], *modestr=NULL, *sizestr=NULL;
+	mtimestr[0] = '\0';
+	DEBUG_MSG("doc_set_tooltip, fileinfo=%p for uri %s and filename %s\n", doc->fileinfo, doc->uri, doc->filename);
+	if (doc->fileinfo) {
+		if (doc->fileinfo->valid_fields & GNOME_VFS_FILE_INFO_FIELDS_PERMISSIONS) {
+			modestr = filemode_to_string(doc->fileinfo->permissions);
+		}
+		if (doc->fileinfo->valid_fields & GNOME_VFS_FILE_INFO_FIELDS_MTIME) {
+			ctime_r(&doc->fileinfo->mtime,mtimestr);
+		}
+		if (doc->fileinfo->valid_fields & GNOME_VFS_FILE_INFO_FIELDS_SIZE) {
+			sizestr = g_strdup_printf("%"GNOME_VFS_SIZE_FORMAT_STR, doc->fileinfo->size);
+		}
+	}
+	tmp = text = g_strconcat(_("Name: "),gtk_label_get_text(GTK_LABEL(doc->tab_menu))
+							,_("\nType: "),doc->hl->type
+							,_("\nEncoding: "), (doc->encoding != NULL) ? doc->encoding : main_v->props.newfile_default_encoding
+							,NULL);
+	if (sizestr) {
+		text = g_strconcat(text, _("\nSize (on disk): "), sizestr, _(" bytes"), NULL);
+		g_free(tmp);
+		g_free(sizestr);
+		tmp = text;
+	}
+	if (modestr) {
+		text = g_strconcat(text, _("\nPermissions: "), modestr, NULL);
+		g_free(tmp);
+		g_free(modestr);
+		tmp = text;
+	}
+	if (mtimestr[0] != '\0') {
+		trunc_on_char(mtimestr, '\n');
+		text = g_strconcat(text, _("\nLast modified: "), mtimestr, NULL);
+		g_free(tmp);
+		tmp = text;
+	}
+
+	gtk_tooltips_set_tip(main_v->tooltips, doc->tab_eventbox, text, "");
+	g_free(text);
+}
+/**
+ * doc_set_filetype:
+ * @doc: a #Tdocument
+ * @ft: a #Tfiletype with the new filetype
+ *
+ * this function will compare the filetype from the document and the new filetype
+ * and if they are different it will remove the old highlighting, set the newfiletype
+ * and set the filetype widget, it will return TRUE if the type was changed
+ *
+ * Return value: #gboolean if the value was changed
+ **/
+gboolean doc_set_filetype(Tdocument *doc, Tfiletype *ft) {
+	DEBUG_MSG("doc_set_filetype, will set filetype %s\n",ft->type);
+	if (ft != doc->hl) {
+		doc_remove_highlighting(doc);
+		doc->hl = ft;
+		doc->need_highlighting = TRUE;
+		doc->autoclosingtag = (ft->autoclosingtag > 0);
+		gui_set_document_widgets(doc);
+		doc_set_tooltip(doc);
+		return TRUE;
+	}
+	return FALSE;
+}
+/**
+ * doc_set_title:
+ * @doc: #Tdocument*
+ *
+ * will set the notebook tab label and the notebook tab menu label
+ * and if this document->bfwin == document->bfwin->current_document
+ * it will update the bfwin title
+ * it will also call doc_set_tooltip() to reflect the changes in the tooltip
+ *
+ * Return value: void
+ */
+static void doc_set_title(Tdocument *doc) {
+	gchar *label_string, *tabmenu_string;
+	if (doc->filename) {
+		label_string = g_path_get_basename(doc->filename);
+		tabmenu_string = g_strdup(doc->filename);
+	} else {
+		label_string = g_strdup_printf(_("Untitled %d"),main_v->num_untitled_documents);
+		tabmenu_string =  g_strdup(label_string);
+		main_v->num_untitled_documents++;
+	}
+	gtk_label_set(GTK_LABEL(doc->tab_menu),tabmenu_string);
+	gtk_label_set(GTK_LABEL(doc->tab_label),label_string);
+	doc_set_tooltip(doc);
+	g_free(label_string);
+	g_free(tabmenu_string);
+	if (doc->bfwin == BFWIN(doc->bfwin)->current_document) {
+		gui_set_title(doc->bfwin, doc);
+	}
+}
+/**
  * doc_reset_filetype:
  * @doc: #Tdocument to reset
  * @newfilename: a #gchar* with the new filename
@@ -417,7 +500,20 @@ void doc_reset_filetype(Tdocument * doc, gchar * newfilename, gchar *buf) {
 		ft = (Tfiletype *)tmplist->data;
 	}
 	doc_set_filetype(doc, ft);
-}	
+}
+
+void doc_set_filename(Tdocument *doc, gchar *uri) {
+	if (uri) {
+		if (doc->uri) g_free(doc->uri);
+		if (doc->filename) g_free(doc->filename);
+	
+		doc->uri = g_strdup(uri);
+		doc->filename = uri_to_document_filename2(uri);
+		doc_set_title(doc);
+		doc_reset_filetype(doc, doc->uri, NULL);
+	}
+}
+
 
 /**
  * doc_set_font:
@@ -670,86 +766,6 @@ gboolean doc_has_selection(Tdocument *doc) {
 	return gtk_text_buffer_get_selection_bounds(doc->buffer,NULL,NULL);
 }
 
-/**
- * doc_set_tooltip:
- * @doc: #Tdocument*
- *
- * will set the tooltip on the notebook tab eventbox
- *
- * Return value: void
- */
-static void doc_set_tooltip(Tdocument *doc) {
-	gchar *text, *tmp;
-	gchar mtimestr[128], *modestr=NULL, *sizestr=NULL;
-	mtimestr[0] = '\0';
-	DEBUG_MSG("doc_set_tooltip, fileinfo=%p\n", doc->fileinfo);
-	if (doc->fileinfo) {
-		if (doc->fileinfo->valid_fields & GNOME_VFS_FILE_INFO_FIELDS_PERMISSIONS) {
-			modestr = filemode_to_string(doc->fileinfo->permissions);
-		}
-		if (doc->fileinfo->valid_fields & GNOME_VFS_FILE_INFO_FIELDS_MTIME) {
-			ctime_r(&doc->fileinfo->mtime,mtimestr);
-		}
-		if (doc->fileinfo->valid_fields & GNOME_VFS_FILE_INFO_FIELDS_SIZE) {
-			sizestr = g_strdup_printf("%"GNOME_VFS_SIZE_FORMAT_STR, doc->fileinfo->size);
-		}
-	}
-	tmp = text = g_strconcat(_("Name: "),gtk_label_get_text(GTK_LABEL(doc->tab_menu))
-							,_("\nType: "),doc->hl->type
-							,_("\nEncoding: "), (doc->encoding != NULL) ? doc->encoding : main_v->props.newfile_default_encoding
-							,NULL);
-	if (sizestr) {
-		text = g_strconcat(text, _("\nSize (on disk): "), sizestr, _(" bytes"), NULL);
-		g_free(tmp);
-		g_free(sizestr);
-		tmp = text;
-	}
-	if (modestr) {
-		text = g_strconcat(text, _("\nPermissions: "), modestr, NULL);
-		g_free(tmp);
-		g_free(modestr);
-		tmp = text;
-	}
-	if (mtimestr[0] != '\0') {
-		trunc_on_char(mtimestr, '\n');
-		text = g_strconcat(text, _("\nLast modified: "), mtimestr, NULL);
-		g_free(tmp);
-		tmp = text;
-	}
-
-	gtk_tooltips_set_tip(main_v->tooltips, doc->tab_eventbox, text, "");
-	g_free(text);
-}
-/**
- * doc_set_title:
- * @doc: #Tdocument*
- *
- * will set the notebook tab label and the notebook tab menu label
- * and if this document->bfwin == document->bfwin->current_document
- * it will update the bfwin title
- * it will also call doc_set_tooltip() to reflect the changes in the tooltip
- *
- * Return value: void
- */
-static void doc_set_title(Tdocument *doc) {
-	gchar *label_string, *tabmenu_string;
-	if (doc->filename) {
-		label_string = g_path_get_basename(doc->filename);
-		tabmenu_string = g_strdup(doc->filename);
-	} else {
-		label_string = g_strdup_printf(_("Untitled %d"),main_v->num_untitled_documents);
-		tabmenu_string =  g_strdup(label_string);
-		main_v->num_untitled_documents++;
-	}
-	gtk_label_set(GTK_LABEL(doc->tab_menu),tabmenu_string);
-	gtk_label_set(GTK_LABEL(doc->tab_label),label_string);
-	doc_set_tooltip(doc);
-	g_free(label_string);
-	g_free(tabmenu_string);
-	if (doc->bfwin == BFWIN(doc->bfwin)->current_document) {
-		gui_set_title(doc->bfwin, doc);
-	}
-}
 /**
  * doc_set_modified:
  * @doc: a #Tdocument
@@ -1428,7 +1444,7 @@ gboolean doc_buffer_to_textbox(Tdocument * doc, gchar * buffer, gsize buflen, gb
 	gint cursor_offset;
 
 	if (!buffer) {
-		DEBUG_MSG("doc_file_to_textbox, buffer==NULL, returning\n");
+		DEBUG_MSG("doc_buffer_to_textbox, buffer==NULL, returning\n");
 		return FALSE;
 	}
 
@@ -1481,9 +1497,9 @@ gboolean doc_buffer_to_textbox(Tdocument * doc, gchar * buffer, gsize buflen, gb
 #endif
 			if (retval==0 && pmatch[0].rm_so != -1 && pmatch[1].rm_so != -1) {
 				/* we have a match */
-				DEBUG_MSG("doc_file_to_textbox, match so=%d,eo=%d\n", pmatch[1].rm_so,pmatch[1].rm_eo);
+				DEBUG_MSG("doc_buffer_to_textbox, match so=%d,eo=%d\n", pmatch[1].rm_so,pmatch[1].rm_eo);
 				encoding = g_strndup(&buffer[pmatch[1].rm_so], pmatch[1].rm_eo-pmatch[1].rm_so);
-				DEBUG_MSG("doc_file_to_textbox, detected encoding %s\n", encoding);
+				DEBUG_MSG("doc_buffer_to_textbox, detected encoding %s\n", encoding);
 			}
 			regfree(&preg);
 #ifdef DEBUGPROFILING
@@ -1492,51 +1508,51 @@ gboolean doc_buffer_to_textbox(Tdocument * doc, gchar * buffer, gsize buflen, gb
 #endif		
 		}
 		if (encoding) {
-			DEBUG_MSG("doc_file_to_textbox, try encoding %s from <meta>\n", encoding);
+			DEBUG_MSG("doc_buffer_to_textbox, try encoding %s from <meta>\n", encoding);
 			newbuf = g_convert(buffer,-1,"UTF-8",encoding,NULL, &wsize, &error);
 			if (!newbuf || error) {
-				DEBUG_MSG("doc_file_to_textbox, cound not convert %s to UTF-8: \n", encoding);
+				DEBUG_MSG("doc_buffer_to_textbox, cound not convert %s to UTF-8: \n", encoding);
 				g_free(encoding);
 				encoding=NULL;
 			}
 		}
 		if (!newbuf) {
-			DEBUG_MSG("doc_file_to_textbox, file does not have <meta> encoding, or could not convert, trying newfile default encoding %s\n", main_v->props.newfile_default_encoding);
+			DEBUG_MSG("doc_buffer_to_textbox, file does not have <meta> encoding, or could not convert, trying newfile default encoding %s\n", main_v->props.newfile_default_encoding);
 			newbuf = g_convert(buffer,-1,"UTF-8",main_v->props.newfile_default_encoding,NULL, &wsize, NULL);
 			if (newbuf) {
-				DEBUG_MSG("doc_file_to_textbox, file is in default encoding: %s\n", main_v->props.newfile_default_encoding);
+				DEBUG_MSG("doc_buffer_to_textbox, file is in default encoding: %s\n", main_v->props.newfile_default_encoding);
 				encoding = g_strdup(main_v->props.newfile_default_encoding);
 			}
 		}
 		if (!newbuf) {
-			DEBUG_MSG("doc_file_to_textbox, file is not in UTF-8, trying encoding from locale\n");
+			DEBUG_MSG("doc_buffer_to_textbox, file is not in UTF-8, trying encoding from locale\n");
 			newbuf = g_locale_to_utf8(buffer,-1,NULL,&wsize,NULL);
 			if (newbuf) {
 				const gchar *tmpencoding=NULL;
 				g_get_charset(&tmpencoding);
-				DEBUG_MSG("doc_file_to_textbox, file is in locale encoding: %s\n", tmpencoding);
+				DEBUG_MSG("doc_buffer_to_textbox, file is in locale encoding: %s\n", tmpencoding);
 				encoding = g_strdup(tmpencoding);
 			}
 		}
 		if (!newbuf) {
-			DEBUG_MSG("doc_file_to_textbox, file NOT is converted yet, trying UTF-8 encoding\n");
+			DEBUG_MSG("doc_buffer_to_textbox, file NOT is converted yet, trying UTF-8 encoding\n");
 			if(g_utf8_validate(buffer, -1, NULL)) {
 				encoding = g_strdup("UTF-8");
 			}
 		}
 		if (!newbuf) {
 			GList *tmplist;
-			DEBUG_MSG("doc_file_to_textbox, tried the most obvious encodings, nothing found.. go trough list\n");
+			DEBUG_MSG("doc_buffer_to_textbox, tried the most obvious encodings, nothing found.. go trough list\n");
 			tmplist = g_list_first(main_v->props.encodings);
 			while (tmplist) {
 				gchar **enc = tmplist->data;
-				DEBUG_MSG("doc_file_to_textbox, trying encoding %s\n", enc[1]);
+				DEBUG_MSG("doc_buffer_to_textbox, trying encoding %s\n", enc[1]);
 				newbuf = g_convert(buffer,-1,"UTF-8",enc[1],NULL, &wsize, NULL);
 				if (newbuf) {
 					encoding = g_strdup(enc[1]);
 					tmplist = NULL;
 				} else {
-					DEBUG_MSG("doc_file_to_textbox, no newbuf, next in list\n");
+					DEBUG_MSG("doc_buffer_to_textbox, no newbuf, next in list\n");
 					tmplist = g_list_next(tmplist);
 				}
 			}
@@ -1554,12 +1570,14 @@ gboolean doc_buffer_to_textbox(Tdocument * doc, gchar * buffer, gsize buflen, gb
 	}
 	if (doc->highlightstate) {
 		doc->need_highlighting=TRUE;
-		DEBUG_MSG("doc_file_to_textbox, highlightstate=%d, need_highlighting=%d, delay=%d\n",doc->highlightstate,doc->need_highlighting,delay);
+		DEBUG_MSG("doc_buffer_to_textbox, highlightstate=%d, need_highlighting=%d, delay=%d\n",doc->highlightstate,doc->need_highlighting,delay);
 		if (!delay) {
 #ifdef DEBUG
-			g_print("doc_file_to_textbox, doc->hlset=%p\n", doc->hl);
+			g_print("doc_buffer_to_textbox, doc->hl=%p, type=%s\n", doc->hl, doc->hl->type);
 			if (doc->hl) {
-				g_print("doc_file_to_textbox, doc->hlset->highlightlist=%p\n", doc->hl->highlightlist);
+				g_print("doc_buffer_to_textbox, doc->hlset->highlightlist=%p\n", doc->hl->highlightlist);
+			} else {
+				g_print("doc_buffer_to_textbox, doc does not have a filetype ????\n");
 			}
 #endif
 			doc_highlight_full(doc);
@@ -2326,16 +2344,6 @@ void doc_destroy(Tdocument * doc, gboolean delay_activation) {
 	g_free(doc);
 }
 
-void doc_set_filename(Tdocument *doc, gchar *uri) {
-	if (uri) {
-		if (doc->uri) g_free(doc->uri);
-		if (doc->filename) g_free(doc->filename);
-	
-		doc->uri = g_strdup(uri);
-		doc->filename = uri_to_document_filename2(uri);
-		doc_set_title(doc);
-	}
-}
 
 /**
  * document_unset_filename:
@@ -2773,9 +2781,17 @@ static void doc_view_drag_begin_lcb(GtkWidget *widget,GdkDragContext *drag_conte
 	}
 }
 
-static Tdocument *doc_new_backend(Tbfwin *bfwin) {
+static Tdocument *doc_new_backend(Tbfwin *bfwin, gboolean force_new) {
 	GtkWidget *scroll;
-	Tdocument *newdoc = g_new0(Tdocument, 1);
+	Tdocument *newdoc;
+	
+	/* test if the current document is empty and nameless, if so we return that */
+	if (!force_new && g_list_length(bfwin->documentlist)==1 && doc_is_empty_non_modified_and_nameless(bfwin->current_document)) {
+		newdoc = bfwin->current_document;
+		return newdoc;
+	}
+	
+	newdoc = g_new0(Tdocument, 1);
 	DEBUG_MSG("doc_new_backend, main_v is at %p, bfwin at %p, newdoc at %p\n", main_v, bfwin, newdoc);
 	newdoc->bfwin = (gpointer)bfwin;
 	newdoc->hl = (Tfiletype *)((GList *)g_list_first(main_v->filetypelist))->data;
@@ -2882,7 +2898,7 @@ static Tdocument *doc_new_backend(Tbfwin *bfwin) {
  * creates a new document, which will be loaded in the background
  */
 Tdocument *doc_new_loading_in_background(Tbfwin *bfwin, gchar *uri, GnomeVFSFileInfo *finfo) {
-	Tdocument *doc = doc_new_backend(bfwin);
+	Tdocument *doc = doc_new_backend(bfwin, FALSE);
 	doc->fileinfo = gnome_vfs_file_info_dup(finfo);
 	doc_set_filename(doc,uri);
 	
@@ -2902,7 +2918,7 @@ Tdocument *doc_new_loading_in_background(Tbfwin *bfwin, gchar *uri, GnomeVFSFile
  * Return value: a #Tdocument* pointer to the just created document.
  **/
 Tdocument *doc_new(Tbfwin* bfwin, gboolean delay_activate) {
-	Tdocument *doc = doc_new_backend(bfwin);
+	Tdocument *doc = doc_new_backend(bfwin, TRUE);
 	doc->status = DOC_STATUS_COMPLETE;
 	if(!delay_activate) gtk_widget_show(doc->view); /* Delay _show() if neccessary */
 	return doc;
