@@ -59,10 +59,9 @@ Thtml_diag *html_diag_new(Tbfwin *bfwin, gchar *title) {
 	dg = g_malloc(sizeof(Thtml_diag));
 	dg->tobedestroyed = FALSE;
 	DEBUG_MSG("html_diag_new, dg=%p\n",dg);
-	dg->dialog = window_full(title, GTK_WIN_POS_MOUSE
-		, 12,G_CALLBACK(html_diag_destroy_cb), dg, TRUE);
+	dg->dialog = window_full2(title, GTK_WIN_POS_MOUSE
+		, 12,G_CALLBACK(html_diag_destroy_cb), dg, TRUE,  bfwin ? bfwin->main_window : NULL);
 	gtk_window_set_type_hint(GTK_WINDOW(dg->dialog), GDK_WINDOW_TYPE_HINT_DIALOG);
-
 	gtk_window_set_role(GTK_WINDOW(dg->dialog), "html_dialog");
 	dg->vbox = gtk_vbox_new(FALSE, 1);
 	gtk_container_add(GTK_CONTAINER(dg->dialog), dg->vbox);
