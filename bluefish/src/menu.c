@@ -1311,7 +1311,7 @@ static void cust_menu_lcb(GtkWidget * widget, gpointer data) {
 		if (atoi(cmentry->array[3]) > 0) {
 		     cust_con_struc_dialog(cmentry->array, 0);
 		} else {
-		     doc_insert_two_strings(main_v->current_document, cmentry->array[2],cmentry->array[3]);
+		     doc_insert_two_strings(main_v->current_document, cmentry->array[1],cmentry->array[2]);
 		}
 	} else {
 		DEBUG_MSG("cust_menu_lcb, a custom replace!, cmentry->array[6]=%s\n", cmentry->array[6]);
@@ -1340,7 +1340,6 @@ static Tcmenu_entry *create_cmentry(const gchar *menupath, gint count, gchar **a
 	gtk_item_factory_create_item(ifactory, &cmentry->entry, GINT_TO_POINTER(count), 2);
 	return cmentry;
 }
-
 
 static void fill_cust_menubar() {
 	GtkItemFactory *ifactory;
