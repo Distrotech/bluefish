@@ -502,7 +502,7 @@ static void file2doc_lcb(Topenfile_status status,gint error_info,gchar *buffer,G
 			bmark_set_for_doc(f2d->doc);
 			bmark_check_length(f2d->bfwin,f2d->doc);
 			DEBUG_MSG("file2doc_lcb, focus_next_new_doc=%d\n",f2d->bfwin->focus_next_new_doc);
-			if (f2d->bfwin->focus_next_new_doc || f2d->doc->action.goto_line >= 0 || f2d->doc->action.goto_offset) {
+			if (f2d->bfwin->focus_next_new_doc) {
 				f2d->bfwin->focus_next_new_doc = FALSE;
 				if (f2d->bfwin->current_document == f2d->doc) {
 					doc_force_activate(f2d->doc);
@@ -511,8 +511,10 @@ static void file2doc_lcb(Topenfile_status status,gint error_info,gchar *buffer,G
 				}
 			}
 			if (f2d->doc->action.goto_line >= 0) {
+			   DEBUG_MSG("file2doc_lcb, goto_line=%d\n",f2d->doc->action.goto_line);
 				doc_select_line(f2d->doc, f2d->doc->action.goto_line, TRUE);
 			} else if (f2d->doc->action.goto_offset >= 0) {
+   			DEBUG_MSG("file2doc_lcb, goto_offset=%d\n",f2d->doc->action.goto_offset);
 				doc_select_line_by_offset(f2d->doc, f2d->doc->action.goto_offset, TRUE);
 			}
 			f2d->doc->action.goto_line = -1;

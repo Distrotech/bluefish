@@ -285,7 +285,7 @@ void project_open_from_file(Tbfwin *bfwin, gchar *fromfilename) {
 		bmark_set_store(bfwin);
 
 		DEBUG_MSG("project_open_from_file, calling docs_new_from_files for existing bfwin=%p\n",prwin);
-		slist = gslist_from_glist(prj->files);
+		slist = gslist_from_glist_reversed(prj->files);
 		docs_new_from_uris(prwin, slist, TRUE);
 		/* docs_new_from_files(prwin, prj->files, TRUE); */
 		g_slist_free(slist);
