@@ -653,10 +653,10 @@ static gboolean tree_model_filter_func(GtkTreeModel *model,GtkTreeIter *iter,gpo
 	GnomeVFSURI *uri;
 	DEBUG_MSG("tree_model_filter_func, called for model=%p and fb2=%p\n",model,fb2);
 	gtk_tree_model_get(GTK_TREE_MODEL(model), iter, FILENAME_COLUMN, &name, URI_COLUMN, &uri, TYPE_COLUMN, &type, -1);
-	
+	if (!name) return FALSE;
+
 	if (type != TYPE_DIR) {
 		if (main_v->props.filebrowser_two_pane_view) return FALSE;
-		if (!name) return FALSE;
 		if (!fb2->bfwin->session->filebrowser_show_backup_files) {
 			len = strlen(name);
 			if (len > 1 && (name[len-1] == '~')) return FALSE;
@@ -666,21 +666,17 @@ static gboolean tree_model_filter_func(GtkTreeModel *model,GtkTreeIter *iter,gpo
 		}
 		return name_visible_in_filter(fb2, name);
 	}
-	if (!name) return FALSE;
 	if (fb2->basedir) {
 		/* show only our basedir on the root level, no other directories at that level */
 		if (!gnome_vfs_uri_is_parent(fb2->basedir, uri, TRUE) && !gnome_vfs_uri_equal(fb2->basedir, uri)) {
+#ifdef DEBUG
 			DEBUG_MSG("tree_model_filter_func, not showing because is_parent=%d, equal=%d, for ",gnome_vfs_uri_is_parent(fb2->basedir,uri,TRUE),gnome_vfs_uri_equal(fb2->basedir,uri));
 			DEBUG_URI(uri,FALSE);
 			DEBUG_MSG(" compared to basedir ");
 			DEBUG_URI(fb2->basedir,TRUE);
+#endif
 			return FALSE;
 		}
-	}
-	
-	if (!fb2->bfwin->session->filebrowser_show_backup_files) {
-		len = strlen(name);
-		if (len > 1 && (name[len-1] == '~')) return FALSE;
 	}
 	if (!fb2->bfwin->session->filebrowser_show_hidden_files) {
 		if (name[0] == '.') return FALSE;
