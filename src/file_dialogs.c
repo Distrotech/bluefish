@@ -309,6 +309,7 @@ void file_open_cb(GtkWidget * widget, Tbfwin *bfwin) {
 	dialog = file_chooser_dialog(bfwin, _("Select files"), GTK_FILE_CHOOSER_ACTION_OPEN, NULL, FALSE, TRUE, NULL);
 	if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_ACCEPT) {
 		GSList *tmpslist;
+		bfwin->focus_next_new_doc = TRUE;
 		tmpslist = slist = gtk_file_chooser_get_uris(GTK_FILE_CHOOSER(dialog));
 		while (tmpslist) {
 			GnomeVFSURI *guri;
