@@ -1,6 +1,6 @@
 /* Copyright (C) 1998-2000 Olivier Sessink, Chris Mazuc and Roland Steinbach
  * Copyright (C) 2000-2002 Olivier Sessink and Roland Steinbach
- * Copyright (C) 2002-2004 Olivier Sessink
+ * Copyright (C) 2002-2005 Olivier Sessink
  * this file has 
  * content-type: UTF8 
  * and it is important you keep it UTF-8 !!!
@@ -24,7 +24,7 @@
 #include <string.h>			/* strchr() */
 #include <gdk/gdkkeysyms.h>
 
-/* #define DEBUG */
+/*#define DEBUG*/
 
 #include "bluefish.h"
 #include "about.h"
@@ -1507,16 +1507,20 @@ static void menu_current_document_encoding_change(GtkMenuItem *menuitem,Tbfw_dyn
 	if (GTK_CHECK_MENU_ITEM(menuitem)->active) {
 		gchar *encoding = (gchar *)bdm->data;
 		Tbfwin *bfwin = bdm->bfwin;
-		if (encoding && (!bfwin->current_document->encoding || strcmp(encoding,bfwin->current_document->encoding)!=0)) {
-			if (bfwin->current_document->encoding) g_free(bfwin->current_document->encoding);
-			bfwin->current_document->encoding = g_strdup(encoding);
+		DEBUG_MSG("menu_current_document_encoding_change, encoding=%s\n",encoding);
+		if (encoding) {
+			if ((!bfwin->current_document->encoding || strcmp(encoding,bfwin->current_document->encoding)!=0)) {
+				if (bfwin->current_document->encoding) g_free(bfwin->current_document->encoding);
+				bfwin->current_document->encoding = g_strdup(encoding);
+				if (main_v->props.auto_set_encoding_meta) {
+					update_encoding_meta_in_file(bfwin->current_document, bfwin->current_document->encoding);
+				}
+				doc_set_statusbar_editmode_encoding(bfwin->current_document);
+				DEBUG_MSG("menu_current_document_encoding_change, set to %s\n", encoding);
+			}
 			if (bfwin->session->encoding) g_free(bfwin->session->encoding);
 			bfwin->session->encoding = g_strdup(encoding);
-			if (main_v->props.auto_set_encoding_meta) {
-				update_encoding_meta_in_file(bfwin->current_document, bfwin->current_document->encoding);
-			}
-			doc_set_statusbar_editmode_encoding(bfwin->current_document);
-			DEBUG_MSG("menu_current_document_encoding_change, set to %s\n", encoding);
+			DEBUG_MSG("menu_current_document_encoding_change, session encoding now is %s\n",bfwin->session->encoding);
 		}
 	}
 }

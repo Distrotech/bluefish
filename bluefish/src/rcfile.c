@@ -489,6 +489,7 @@ void rcfile_parse_main(void)
 		/* should we initialize some things ?? */
 	}
 	g_free(filename);
+	if (main_v->props.encoding_search_Nbytes< 1000) main_v->props.encoding_search_Nbytes = 2048;
 	/* do some default configuration for the lists */
 	if (main_v->props.browsers == NULL) {
 		/* if the user does not have browsers --> set them to defaults values */
