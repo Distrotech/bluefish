@@ -27,7 +27,9 @@ enum {
 	DOCUMENT_BACKUP_ABORT_ASK
 };
 
+GList *return_allwindows_documentlist();
 gint documentlist_return_index_from_filename(GList *doclist, gchar *filename);
+Tdocument *documentlist_return_document_from_filename(GList *doclist, gchar *filename);
 Tdocument *documentlist_return_document_from_index(GList *doclist, gint index);
 
 void doc_update_highlighting(Tbfwin *bfwin,guint callback_action, GtkWidget *widget);
