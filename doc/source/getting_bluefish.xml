@@ -25,29 +25,29 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 		</para>
 		<itemizedlist>
 			<listitem>
-				The GTK1-version (v0.7) is deprecated and no longer 
+				<para>The GTK1-version (v0.7) is deprecated and no longer 
 				updated, but is the choice for those of you still running 
-				GTK1.
+				GTK1.</para>
 			</listitem>
 			<listitem>
-				The latest GTK2-version (v1.0) is the version of choice for 
-				most users, and is regarded as stable enough for daily use.
+				<para>The latest GTK2-version (v1.0) is the version of choice for 
+				most users, and is regarded as stable enough for daily use.</para>
 			</listitem>
 			<listitem>
-				The latest development snapshot is always one step further 
+				<para>The latest development snapshot is always one step further 
 				than the latest stable release. In it, you will find some new 
 				features, bug fixes, and a prettier GUI. The catch is that 
 				it may have	unfinished or buggy features. Try this if you 
 				want to see new features or are bothered by a bug in 
-				the latest stable release.
+				the latest stable release.</para>
 			</listitem>
 			<listitem>
-				CVS is the bleeding edge of Bluefish development. You may 
+				<para>CVS is the bleeding edge of Bluefish development. You may 
 				find that the CVS version has several bug fixes and enhancements, 
 				however, it may also contain new, inadvertent bugs. You will
 				also need the CVS version if you want to contribute a patch. 
 				Although the CVS version may be unusable for short periods of 
-				time, it is often stable enough for daily use.
+				time, it is often stable enough for daily use.</para>
 			</listitem>
 		</itemizedlist>
 		<para>
@@ -87,11 +87,11 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 				Bluefish team mainly support these platforms:
 			</para>
 			<itemizedlist>
-				<listitem>Mandrake Linux</listitem>
-				<listitem>Red Hat Linux</listitem>
-				<listitem>Fedora Core</listitem>
-				<listitem>Debian Linux</listitem>
-				<listitem>FreeBSD</listitem>
+				<listitem><para>Mandrake Linux</para></listitem>
+				<listitem><para>Red Hat Linux</para></listitem>
+				<listitem><para>Fedora Core</para></listitem>
+				<listitem><para>Debian Linux</para></listitem>
+				<listitem><para>FreeBSD</para></listitem>
 			</itemizedlist>
 			<para>
 				Actually, any GNU/Linux distribution with GTK2 is fine and many 
@@ -100,21 +100,22 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 				available. Bluefish has been reported to work on the following:
 			</para>
 			<itemizedlist>
-				<listitem>NetBSD - distributed in pkgsrc</listitem>
-				<listitem>OpenBSD - available through their ports system</listitem>
-				<listitem>SGI IRIX - see 
+				<listitem><para>NetBSD - distributed in pkgsrc</para></listitem>
+				<listitem><para>OpenBSD - available through their ports system</para></listitem>
+				<listitem><para>SGI IRIX - see 
 					<ulink url="http://freeware.sgi.com/">
 						http://freeware.sgi.com/
-					</ulink></listitem>
-				<listitem>Mac OS X</listitem>
-				<listitem>Sun Solaris</listitem>
-				<listitem>Tru64</listitem>
-				<listitem>AIX</listitem>
-				<listitem>HP-UX</listitem>
-				<listitem>Win32-cygwin - with a few nags.</listitem>
+					</ulink></para></listitem>
+				<listitem><para>Mac OS X</para></listitem>
+				<listitem><para>Sun Solaris</para></listitem>
+				<listitem><para>Tru64</para></listitem>
+				<listitem><para>AIX</para></listitem>
+				<listitem><para>HP-UX</para></listitem>
+				<listitem><para>Win32-cygwin - with a few nags.</para></listitem>
 			</itemizedlist>			
 		</sect2>
 	</sect1>
+	<?pagebreakus?>
 	<sect1 id="getting-bluefish-stable">
 		<title>Latest Stable Version</title>
 		<para>
@@ -124,6 +125,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 			You may check if Bluefish is available through your favorite 
 			software installer.
 		</para>
+		<?pagebreaka4?>
 		<para>
 			However, the main source is the Bluefish website, where the 
 			software and a few contributions are available. The download 
@@ -159,28 +161,30 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 				software (ports, apt, etc). The above-mentioned CVS book is a 
 				great source for information.
 			</para>
-			<para>
-				The first step is to cd to the directory in which you want to put the 
-				sources. Next, log in using the command:
+			<para>Here's how you get the source.</para>
+			<procedure><title>Getting the source</title>
+			<step>
+			<para>The first step is to cd to the directory in which you want to put the sources.</para>
+			</step>
+			<step><para>Next, log in using the command:
 				<screen>$ cvs -d :pserver:anonymous@cvs.sourceforge.net:/cvsroot/bluefish \
 				login</screen>
-				<note>Hit <action>Enter</action> at the password prompt</note>
-			</para>
-			<para>
-				The next step is to <emphasis>check out</emphasis> the CVS module 
-				containing the source code files:
+				<variablelist>
+				<varlistentry><term><emphasis>Note</emphasis></term>
+				<listitem>
+          <para>Hit <action>Enter</action> at the password prompt.</para>
+          </listitem></varlistentry>
+          </variablelist></para>
+          </step>
+          <step>
+          <para>The next step is to <emphasis>check out</emphasis> the CVS module containing the source code files:
 				<screen>$ cvs -z3 -d :pserver:anonymous@cvs.sourceforge.net:/cvsroot/bluefish \
 				co bluefish-gtk2</screen>
-				A lot of files will be downloaded, and listed one by one. If 
-				you're on dial-up, this might take a bit of time.
-			</para>
-			<para>
-				When the downloads have completed, you will find the bluefish 
-				sources in the subdirectory	
-				<literal>bluefish-gtk2</literal>. You can now enter that directory 
-				and install bluefish using the instructions in <xref linkend="installing-bluefish-devel-source" />.
-			</para>
-
-
+				A lot of files will be downloaded, and listed one by one. If you're on dial-up, this might take a bit of time. When the downloads have completed, you will find the bluefish sources in the subdirectory <literal>bluefish-gtk2</literal>.</para>
+				</step>
+				<step>
+				<para>You can now enter that directory and install bluefish using the instructions in <xref linkend="installing-bluefish-devel-source" />.</para>
+				</step>
+				</procedure>
 	</sect1>
 </chapter>
