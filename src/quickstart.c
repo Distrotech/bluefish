@@ -182,16 +182,20 @@ quickstart_meta_selection_changed(GtkTreeSelection *tselection, TQuickStart *qst
 
 static void
 quickstart_meta_add_clicked(GtkWidget *widget, TQuickStart *qstart) {
-	GtkWidget *dialog;
-	/* FIXME: We can't add any new tags yet */
-	dialog = gtk_message_dialog_new (GTK_WINDOW (qstart->bfwin->main_window),
-															  GTK_DIALOG_DESTROY_WITH_PARENT,
-															  GTK_MESSAGE_INFO,
-															  GTK_BUTTONS_CLOSE,
-															  "%s",
-															  "Feature not implemented yet");
- 	gtk_dialog_run (GTK_DIALOG (dialog));
- 	gtk_widget_destroy (dialog);
+	GtkTreeModel *tmodel;
+	GtkTreeIter iter;
+	GtkTreePath *tpath;
+	GtkTreeViewColumn *column;
+	
+	tmodel = gtk_tree_view_get_model (GTK_TREE_VIEW (qstart->metaView));
+	gtk_list_store_append (GTK_LIST_STORE (tmodel), &iter);
+	gtk_list_store_set (GTK_LIST_STORE (tmodel), &iter, 0, "", -1);
+	
+	tpath = gtk_tree_model_get_path (tmodel, &iter);
+	column = gtk_tree_view_get_column (GTK_TREE_VIEW (qstart->metaView), 0);
+	gtk_tree_view_scroll_to_cell (GTK_TREE_VIEW (qstart->metaView), tpath, column, FALSE, 0, 0);
+	gtk_tree_view_set_cursor (GTK_TREE_VIEW (qstart->metaView), tpath, column, TRUE);
+	gtk_tree_path_free (tpath);
 }
 
 static void
