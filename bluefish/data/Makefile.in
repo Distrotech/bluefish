@@ -16,6 +16,10 @@ pkgdatadir = @pkgdatadir@
 datadir = @datadir@
 localedir = $(datadir)/locale
 
+iconpath=@ICONPATH@
+gnome1menupath=@GNOME1MENUPATH@
+gnome2menupath=@GNOME2MENUPATH@
+
 INSTALL = @INSTALL@
 INSTALL_DIR = $(INSTALL) -d -m 755 
 INSTALL_DATA = ${INSTALL} -m 644
@@ -26,26 +30,31 @@ DEFAULTFILES = highlighting.default filetypes.default encodings.default
 	sed -e 's!PKGDATADIR!$(pkgdatadir)!' < $< > $@
 
 all: $(DEFAULTFILES)
+	sed -e 's!ICONDIR!$(iconpath)!' < bluefish.desktop.in > bluefish.desktop
 
 install: all
 	$(INSTALL_DIR) $(pkgdatadir)
 	@for file in $(DEFAULTFILES) ; do \
 		$(INSTALL_DATA) $$file $(pkgdatadir)/$$file ;\
 	done
-	if [ -d /usr/share/applications ] ; then \
-		$(INSTALL_DATA) bluefish.desktop /usr/share/applications/ ;\
+	if [ -d $(gnome2menupath) ] ; then \
+		$(INSTALL_DATA) bluefish.desktop $(gnome2menupath) ;\
 	fi
-	if [ -d /usr/share/gnome/apps/Applications ] ; then \
-		$(INSTALL_DATA) bluefish.desktop /usr/share/gnome/apps/Applications ;\
+	if [ -d $(gnome1menupath) ] ; then \
+		$(INSTALL_DIR) $(gnome1menupath)/Applications
+		$(INSTALL_DATA) bluefish.desktop $(gnome1menupath)/Applications ;\
 	fi
 
 uninstall:
 	@for file in $(DEFAULTFILES) ; do \
 		rm -r $(pkgdatadir)/$$file ;\
 	done
+	rm -r $(gnome2menupath)/bluefish.desktop
+	rm -r $(gnome1menupath)/Applications/bluefish.desktop
 
 clean:
 	rm -f *.default
+	rm -f bluefish.desktop
 
 distclean: clean
 	rm -f Makefile *.rej *.orig
