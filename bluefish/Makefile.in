@@ -25,12 +25,12 @@ VERSION = @VERSION@
 
 srcdir = src
 
-prefix = @prefix@
-exec_prefix = @exec_prefix@
-bindir = @bindir@
-datadir = @datadir@
-pkgdatadir = $(datadir)/$(PACKAGE)
-pixmapsdir = @prefix@/share/pixmaps
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+bindir=@bindir@
+datadir=@datadir@
+pkgdatadir=$(datadir)/$(PACKAGE)
+pixmapsdir=@prefix@/share/pixmaps
 
 INSTALL = @INSTALL@
 INSTALL_DIR = $(INSTALL) -d -m 755 
@@ -58,7 +58,7 @@ distclean:
 	rm -f *.orig *.rej
 
 install:
-	pkgdatadir = @pkgdatadir@
+	pkgdatadir=@pkgdatadir@
 	$(INSTALL) -m 644 images/bluefish_splash.png $(pkgdatadir)
 	@cd icons/ && $(MAKE) install
 	$(INSTALL_DATA) images/bluefish_splash.png $(pkgdatadir)
