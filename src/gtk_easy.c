@@ -741,6 +741,7 @@ gint multi_button_dialog(gchar *title, gint defval, gchar *label, gchar **button
 /************    FILE SELECTION FUNCTIONS  ******************************/
 /************************************************************************/
 typedef struct {
+	gboolean select_dir;
 	gint multipleselect;
 	gchar *filename_to_return;
 	GList *filenames_to_return;
@@ -755,12 +756,20 @@ static void fs_ok_clicked_lcb(GtkWidget * widget, Tfileselect *fileselect)
 
 	if (file_is_dir(selected_file)) {
 		DEBUG_MSG("fs_ok_clicked_lcb,file_is_dir said %s is a dir!!!!\n", selected_file);
-		dirname = ending_slash(selected_file);
-		gtk_file_selection_set_filename(GTK_FILE_SELECTION(fileselect->fs), dirname);
-		gtk_entry_set_text(GTK_ENTRY(GTK_FILE_SELECTION(fileselect->fs)->selection_entry), "");
-		g_free(dirname);
-		g_free(selected_file);
-		return;
+		if (fileselect->select_dir) {
+			fileselect->filename_to_return = selected_file;
+			g_free(selected_file);	
+			gtk_main_quit();
+			window_destroy(GTK_WIDGET(fileselect->fs));
+			return;
+		} else {
+			dirname = ending_slash(selected_file);
+			gtk_file_selection_set_filename(GTK_FILE_SELECTION(fileselect->fs), dirname);
+			gtk_entry_set_text(GTK_ENTRY(GTK_FILE_SELECTION(fileselect->fs)->selection_entry), "");
+			g_free(dirname);
+			g_free(selected_file);
+			return;
+		}
 	} else {
 		DEBUG_MSG("fs_ok_clicked_lcb,file_is_dir said %s is NOT a dir.\n", selected_file);
 	}
@@ -846,7 +855,7 @@ static void fileselectwin(gchar *setfile, Tfileselect *fileselect, gchar *title)
 }
 
 gchar *return_file_w_title(gchar * setfile, gchar *title) {
-	Tfileselect fileselect={0, NULL, NULL, NULL};
+	Tfileselect fileselect={FALSE, 0, NULL, NULL, NULL};
 
 	fileselectwin(setfile, &fileselect, title);
 	gtk_main();
@@ -858,7 +867,7 @@ gchar *return_file(gchar * setfile) {
 }
 
 GList *return_files_w_title(gchar * setfile, gchar *title) {
-	Tfileselect fileselect={1, NULL, NULL, NULL};
+	Tfileselect fileselect={FALSE, 1, NULL, NULL, NULL};
 	
 	fileselectwin(setfile, &fileselect, title);
 	gtk_main();
@@ -867,6 +876,14 @@ GList *return_files_w_title(gchar * setfile, gchar *title) {
 
 GList *return_files(gchar * setfile) {
 	return return_files_w_title(setfile, _("Select files"));
+}
+
+gchar *return_dir(gchar *setdir, gchar *title) {
+	Tfileselect fileselect={TRUE, 0, NULL, NULL, NULL};
+
+	fileselectwin(setdir, &fileselect, title);
+	gtk_main();
+	return fileselect.filename_to_return;
 }
 
 /************************************************************************/
