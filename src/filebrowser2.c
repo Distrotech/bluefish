@@ -969,7 +969,7 @@ static void fb2rpopup_rename(Tfilebrowser2 *fb2) {
 		gchar *oldfilename;
 		GnomeVFSURI *newuri=NULL;
 		/* Use doc_save(doc, 1, 1) if the file is open. */
-		oldfilename = uri_to_document_filename(olduri);
+		oldfilename = gnome_vfs_uri_to_string(olduri,0);
 		alldocs = return_allwindows_documentlist();
 		tmpdoc = documentlist_return_document_from_filename(alldocs,oldfilename);
 		g_list_free(alldocs);
