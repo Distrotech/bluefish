@@ -41,7 +41,7 @@ install: all
 		$(INSTALL_DATA) bluefish.desktop $(gnome2menupath) ;\
 	fi
 	if [ -d $(gnome1menupath) ] ; then \
-		$(INSTALL_DIR) $(gnome1menupath)/Applications
+		$(INSTALL_DIR) $(gnome1menupath)/Applications ;\
 		$(INSTALL_DATA) bluefish.desktop $(gnome1menupath)/Applications ;\
 	fi
 
