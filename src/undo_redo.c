@@ -185,10 +185,15 @@ static void doc_redo(Tdocument *doc) {
 	}
 }
 
-void doc_unre_add(Tdocument *doc, const char *text, int start, int end, undo_op_t op) {
+void doc_unre_add(Tdocument *doc, const char *text, gint start, gint end, undo_op_t op) {
 	unreentry_t *entry=NULL;
 	gboolean handled = FALSE;
 	
+	if (end < start) {
+		gint tmp = start;
+		start = end;
+		end = tmp;
+	}
 	DEBUG_MSG("doc_unre_add, start=%d, end=%d\n", start, end);
 	if (doc->unre.current->entries) {
 		entry = (unreentry_t *)(doc->unre.current->entries->data);

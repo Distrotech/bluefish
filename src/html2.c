@@ -875,7 +875,7 @@ void new_css_dialog(GtkWidget *widget, gpointer data) {
 	if (has_selection) {
 		gchar *data;
 
-		data = doc_get_chars(dest.doc, sel_start, sel_end-sel_start);
+		data = doc_get_chars(dest.doc, sel_start, sel_end);
 		DEBUG_MSG("new_css_dialog, data=%p\n", data);
 		css_parse(diag, data);
 		g_free(data);

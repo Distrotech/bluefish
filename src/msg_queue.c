@@ -12,6 +12,14 @@
 #include "stringlist.h"
 #include "document.h"
 
+#undef DEBUG
+#undef DEBUG_MSG
+#ifdef __GNUC__
+#define DEBUG_MSG(format, args...)
+ /**/
+#endif 
+
+
 #define MSG_QUEUE_DEBUG
 
 #ifdef WITH_MSG_QUEUE

@@ -67,5 +67,6 @@ void edit_copy_cb(GtkWidget * widget, gpointer data);
 void edit_paste_cb(GtkWidget * widget, gpointer data);
 void edit_select_all_cb(GtkWidget * widget, gpointer data);
 
+void doc_convert_asciichars_in_selection(gpointer callback_data,guint callback_action,GtkWidget *widget);
 
 #endif /* __DOCUMENT_H_ */

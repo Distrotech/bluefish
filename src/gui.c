@@ -139,11 +139,6 @@ void notebook_changed(gint newpage)
 			g_assert(main_v->current_document);
 #endif
 			doc_activate(main_v->current_document);
-			DEBUG_MSG("notebook_changed, setting up toggle item\n");
-			setup_toggle_item(gtk_item_factory_from_widget(main_v->menubar), N_("/Options/Current document/Highlight syntax"),
-							  main_v->current_document->highlightstate);
-			DEBUG_MSG("notebook_changed, calling menu_current_document_type_set_active_wo_activate\n");
-			menu_current_document_type_set_active_wo_activate(main_v->current_document->hl);
 		}
 	}
 	DEBUG_MSG("notebook_changed, done\n");
@@ -518,7 +513,7 @@ void make_main_toolbar(GtkWidget *handlebox) {
 	gtk_widget_show_all(toolbar);
 }
 
-void gui_set_widgets(gboolean undo, gboolean redo) {
+void gui_set_undo_redo_widgets(gboolean undo, gboolean redo) {
 	if (main_v->props.view_main_toolbar) {
 		gtk_widget_set_sensitive(toolbarwidgets.redo, redo);
 		gtk_widget_set_sensitive(toolbarwidgets.undo, undo);
@@ -527,6 +522,13 @@ void gui_set_widgets(gboolean undo, gboolean redo) {
 	gtk_widget_set_sensitive(gtk_item_factory_get_widget(gtk_item_factory_from_widget(main_v->menubar), N_("/Edit/Undo all")), undo);
 	gtk_widget_set_sensitive(gtk_item_factory_get_widget(gtk_item_factory_from_widget(main_v->menubar), N_("/Edit/Redo")), redo);
 	gtk_widget_set_sensitive(gtk_item_factory_get_widget(gtk_item_factory_from_widget(main_v->menubar), N_("/Edit/Redo all")), redo);
+}
+
+void gui_set_widgets(gboolean undo, gboolean redo, gboolean wrap, gboolean highlight, Thighlightset *hl) {
+	gui_set_undo_redo_widgets(undo, redo);
+	setup_toggle_item(gtk_item_factory_from_widget(main_v->menubar),N_("/Options/Current document/Highlight syntax"), highlight);
+	setup_toggle_item(gtk_item_factory_from_widget(main_v->menubar),N_("/Options/Current document/Wrap"), wrap);
+	menu_current_document_type_set_active_wo_activate(hl);
 }
 
 void gui_notebook_bind_signals() {
@@ -604,7 +606,7 @@ void gui_create_main(GList *filenames) {
 	hbox = gtk_hbox_new(FALSE,0);
 	gtk_widget_show(hbox);
 	gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 0);
-	main_v->statuslabel = gtk_label_new(_(" line    0 "));
+	main_v->statuslabel = gtk_label_new(_(" line    1 "));
 	gtk_widget_show(main_v->statuslabel);
 	gtk_box_pack_start(GTK_BOX(hbox), main_v->statuslabel, FALSE, FALSE, 0);
 	main_v->statusbar = gtk_statusbar_new();
