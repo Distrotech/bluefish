@@ -123,6 +123,9 @@ gboolean spell_check_word(Tbfspell *bfspell, gchar * tocheck, GtkTextIter *itsta
 			while ((word = aspell_string_enumeration_next(els)) != 0) {
 				poplist = g_list_append(poplist,g_strdup(word));
 			}
+			if (!poplist) {
+				poplist = g_list_append(poplist, g_strdup("(no suggested words)"));
+			}
 			gtk_entry_set_text(GTK_ENTRY(GTK_COMBO(bfspell->suggestions)->entry), "");
 			gtk_combo_set_popdown_strings(GTK_COMBO(bfspell->suggestions), poplist);
 			free_stringlist(poplist);
@@ -420,12 +423,12 @@ void spell_gui(Tbfspell *bfspell) {
 	gtk_button_box_set_spacing(GTK_BUTTON_BOX(hbox), 12);
 	
 	but = bf_gtkstock_button(GTK_STOCK_CLOSE, G_CALLBACK(spell_gui_cancel_clicked_cb), bfspell);
-	gtk_box_pack_start(GTK_BOX(hbox),but,FALSE, FALSE, 6);
+	gtk_box_pack_start(GTK_BOX(hbox),but,FALSE, FALSE, 0);
 	bfspell->runbut = bf_gtkstock_button(GTK_STOCK_SPELL_CHECK,G_CALLBACK(spell_gui_ok_clicked_cb),bfspell);
-	gtk_box_pack_start(GTK_BOX(hbox),bfspell->runbut,FALSE, FALSE, 6);
+	gtk_box_pack_start(GTK_BOX(hbox),bfspell->runbut,FALSE, FALSE, 0);
 	
 	gtk_window_set_default(GTK_WINDOW(bfspell->win), bfspell->runbut);
-	gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 6);
+	gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 0);
 
 	gtk_widget_show_all(bfspell->win);
 }
