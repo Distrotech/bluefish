@@ -966,6 +966,12 @@ void bmark_store_bevent_location(Tdocument * doc, gint charoffset)
 
 void bmark_add_at_bevent(Tdocument *doc) 
 {
+		/* check for unnamed document */
+		if (!doc->filename) {
+			error_dialog(BFWIN(doc->bfwin)->main_window, _("Add bookmark"),
+					 _("Cannot add bookmarks in unnamed files."));
+		return;
+	}
 	if (BMARKDATA(main_v->bmarkdata)->bevent_doc == doc) {
 		gint offset = BMARKDATA(main_v->bmarkdata)->bevent_charoffset;
 		/* we have the location */
