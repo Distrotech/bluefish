@@ -7,6 +7,7 @@
 #include "stringlist.h"
 #include "bluefish.h"
 #include "document.h"
+#include "bf_lib.h"
 
 typedef struct {
 	GtkWidget *tree;
@@ -58,14 +59,27 @@ void fref_loader_start_element(GMarkupParseContext * context,
 	}
 
 	switch (aux->state) {
+	
 	case FR_LOADER_STATE_NONE:
-		if (strcmp(element_name, "tag") == 0) {
+		if (strcmp(element_name, "group") == 0) {
+		 if (aux->nest_level < MAX_NEST_LEVEL)
+		 {
+     gtk_tree_store_append(aux->store, &iter, &aux->parent);
+     gtk_tree_store_set(aux->store, &iter, STR_COLUMN, 
+ 			                   g_strdup(g_hash_table_lookup(attrs, "name")),
+ 			                   FILE_COLUMN,NULL,PTR_COLUMN,NULL,-1);
+     aux->grp_parent[aux->nest_level] = aux->parent;							             
+     aux->parent = iter;
+    } else g_warning("Maximum nesting level reached!");       
+    (aux->nest_level)++;
+ 
+		} else if (strcmp(element_name, "tag") == 0) {
 			aux->state = FR_LOADER_STATE_TAG;
 			aux->pstate = FR_LOADER_STATE_NONE;
 			info = g_new0(FRInfo, 1);
 			info->type = FR_TYPE_TAG;
 			info->name = g_strdup(g_hash_table_lookup(attrs, "name"));
-			gtk_tree_store_append(aux->store, &iter, aux->parent);
+			gtk_tree_store_append(aux->store, &iter, &aux->parent);
 			gtk_tree_store_set(aux->store, &iter, STR_COLUMN, info->name,
 							   PTR_COLUMN, info, FILE_COLUMN, NULL, -1);
 			aux->act_info = info;
@@ -75,7 +89,7 @@ void fref_loader_start_element(GMarkupParseContext * context,
 			info = g_new0(FRInfo, 1);
 			info->type = FR_TYPE_FUNCTION;
 			info->name = g_strdup(g_hash_table_lookup(attrs, "name"));
-			gtk_tree_store_append(aux->store, &iter, aux->parent);
+			gtk_tree_store_append(aux->store, &iter, &aux->parent);
 			gtk_tree_store_set(aux->store, &iter, STR_COLUMN, info->name,
 							   PTR_COLUMN, info, -1);
 			aux->act_info = info;
@@ -85,7 +99,7 @@ void fref_loader_start_element(GMarkupParseContext * context,
 			info = g_new0(FRInfo, 1);
 			info->type = FR_TYPE_CLASS;
 			info->name = g_strdup(g_hash_table_lookup(attrs, "name"));
-			gtk_tree_store_append(aux->store, &iter, aux->parent);
+			gtk_tree_store_append(aux->store, &iter, &aux->parent);
 			gtk_tree_store_set(aux->store, &iter, STR_COLUMN, info->name,
 							   PTR_COLUMN, info, -1);
 			aux->act_info = info;
@@ -93,6 +107,8 @@ void fref_loader_start_element(GMarkupParseContext * context,
 		} else
 			g_warning("FREF Config Error: Unknown element");
 		break;					/* state NONE */
+		
+				
 	case FR_LOADER_STATE_TAG:
 		if (strcmp(element_name, "description") == 0) {
 			aux->state = FR_LOADER_STATE_DESCR;
@@ -250,10 +266,21 @@ void fref_loader_end_element(GMarkupParseContext * context,
 		}
 		break;					/* param */
 	}							/* switch */
+	
 	if (aux->state != FR_LOADER_STATE_VALLIST)
 		aux->state = aux->pstate;
 	else
 		aux->state = aux->vstate;
+		
+if (strcmp(element_name, "group") == 0) {		
+ if (aux->nest_level>0)
+	  {
+ 	    (aux->nest_level)--;	    
+	    if (aux->nest_level < MAX_NEST_LEVEL) 
+	       aux->parent = aux->grp_parent[aux->nest_level];
+	  }  
+  }
+  
 }
 
 void fref_loader_text(GMarkupParseContext * context, const gchar * _text,
@@ -263,7 +290,7 @@ void fref_loader_text(GMarkupParseContext * context, const gchar * _text,
 	gchar *text;
 	gint text_len;
 
-	if (user_data == NULL)
+	if (user_data == NULL && _text == NULL)
 		return;
 	/* remove white spaces from the begining and the end */
 	text = g_strdup(_text);
@@ -326,13 +353,15 @@ void fref_loader_load_ref_xml(gchar * filename, GtkWidget * tree,
 	gsize len;
 	FRParseAux *aux;
 
-
+ if (filename==NULL) return; 
 	aux = g_new0(FRParseAux, 1);
 	aux->tree = tree;
 	aux->store = store;
 	aux->state = FR_LOADER_STATE_NONE;
-	aux->parent = parent;
+	aux->parent = *parent;
+	aux->nest_level = 0;
 	aux->autoitems = NULL;
+	
 	ctx = g_markup_parse_context_new(&FRParser, (GMarkupParseFlags) 0,
 									 (gpointer) aux, NULL);
 	if (ctx == NULL)
@@ -344,6 +373,7 @@ void fref_loader_load_ref_xml(gchar * filename, GtkWidget * tree,
 	g_markup_parse_context_free(ctx);
 	if (aux->autoitems != NULL)
 		g_completion_add_items(fref_data.autocomplete, aux->autoitems);
+
 	g_free(aux);
 }
 
@@ -353,7 +383,11 @@ void fref_loader_unload_ref(GtkWidget * tree, GtkTreeStore * store,
 	GValue *val;
 	FRInfo *entry;
 	GtkTreeIter iter;
+	GtkTreePath *path;
 
+ path = gtk_tree_model_get_path(GTK_TREE_MODEL(store),position);
+ if (gtk_tree_path_get_depth(path)>1) return;
+ 
 	while (gtk_tree_model_iter_nth_child
 		   (GTK_TREE_MODEL(store), &iter, position, 0)) {
 		val = g_new0(GValue, 1);
@@ -488,6 +522,7 @@ GtkWidget *fref_init()
 	gtk_tree_view_append_column(GTK_TREE_VIEW(fref_data.tree), column);
 
 	gtk_container_add(GTK_CONTAINER(scroll), fref_data.tree);
+	gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(fref_data.tree), FALSE);	
 
 	/* prepare first nodes - read from configuration data */
 	reflist = g_list_first(main_v->props.reference_files);
@@ -730,16 +765,23 @@ GtkWidget *fref_prepare_dialog(FRInfo * entry)
 	GtkWidget *cancelbutton;
 	GtkWidget *okbutton;
 	GtkWidget *infobutton;
+	GtkWidget *scroll;
+	GtkRequisition req,req2;
 	FRAttrInfo *attr = NULL;
 	FRParamInfo *par = NULL;
 	GList *list = NULL;
-	gint itnum;
+	gint itnum,w,h;
 
 
 	dialog = gtk_dialog_new();
 	if (entry->dialog_title != NULL)
 		gtk_window_set_title(GTK_WINDOW(dialog), entry->dialog_title);
 	vbox = GTK_DIALOG(dialog)->vbox;
+	
+	scroll = gtk_scrolled_window_new(NULL, NULL);
+	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scroll), GTK_POLICY_AUTOMATIC,GTK_POLICY_AUTOMATIC);
+	gtk_widget_show(scroll);
+	
 	gtk_widget_show(vbox);
 
 	switch (entry->type) {
@@ -759,8 +801,10 @@ GtkWidget *fref_prepare_dialog(FRInfo * entry)
 	}
 
 	table = gtk_table_new(g_list_length(list), 2, FALSE);
-	gtk_widget_show(table);
-	gtk_box_pack_start(GTK_BOX(vbox), table, TRUE, TRUE, 0);
+
+	
+	gtk_box_pack_start(GTK_BOX(vbox), scroll, TRUE, TRUE, 0);
+	gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(scroll),table);
 
 	switch (entry->type) {
 	case FR_TYPE_TAG:
@@ -817,7 +861,8 @@ GtkWidget *fref_prepare_dialog(FRInfo * entry)
 										   attr->def_value);
 					attr->dlg_item = combo;
 					attr->is_combo = TRUE;
-					gtk_tooltips_set_tip(fref_data.argtips,combo,attr->description,"");
+					gtk_tooltips_set_tip(fref_data.argtips,GTK_COMBO(combo)->entry,
+					                     attr->description,"");
 				} else {
 					input = gtk_entry_new();
 					if (attr->def_value != NULL)
@@ -831,7 +876,8 @@ GtkWidget *fref_prepare_dialog(FRInfo * entry)
 									 (GtkAttachOptions) (0), 5, 5);
 					attr->dlg_item = input;
 					attr->is_combo = FALSE;
-					gtk_tooltips_set_tip(fref_data.argtips,input,attr->description,"");					
+					gtk_tooltips_set_tip(fref_data.argtips,input,
+					                     attr->description,"");					
 				}
 				itnum++;
 				attr = (FRAttrInfo *) g_list_nth_data(list, itnum);
@@ -899,7 +945,8 @@ GtkWidget *fref_prepare_dialog(FRInfo * entry)
 										   par->def_value);
 					par->dlg_item = combo;
 					par->is_combo = TRUE;
-					gtk_tooltips_set_tip(fref_data.argtips,combo,par->description,"");					
+					gtk_tooltips_set_tip(fref_data.argtips,GTK_COMBO(combo)->entry,
+					                     par->description,"");					
 				} else {
 					input = gtk_entry_new();
 					if (par->def_value != NULL)
@@ -913,7 +960,8 @@ GtkWidget *fref_prepare_dialog(FRInfo * entry)
 									 (GtkAttachOptions) (0), 5, 5);
 					par->dlg_item = input;
 					par->is_combo = FALSE;
-					gtk_tooltips_set_tip(fref_data.argtips,input,par->description,"");					
+					gtk_tooltips_set_tip(fref_data.argtips,input,
+					                     par->description,"");					
 				}
 				itnum++;
 				par = (FRParamInfo *) g_list_nth_data(list, itnum);
@@ -946,6 +994,13 @@ GtkWidget *fref_prepare_dialog(FRInfo * entry)
 	gtk_dialog_add_action_widget(GTK_DIALOG(dialog), okbutton,
 								 GTK_RESPONSE_OK);
    gtk_tooltips_enable(fref_data.argtips);
+   
+  gtk_widget_show(table); 
+  gtk_window_get_size(GTK_WINDOW(dialog),&w,&h); 
+  gtk_window_get_size(GTK_WINDOW(dialog),&w,&h);   
+  gtk_widget_size_request(table,&req);
+  gtk_widget_size_request(dialog_action_area,&req2);  
+  gtk_window_resize(GTK_WINDOW(dialog),w,MIN(400,req.height+req2.height+20));
 	return dialog;
 }
 
@@ -1120,30 +1175,35 @@ void frefcb_row_expanded(GtkTreeView * treeview, GtkTreeIter * arg1,
 
 	val = g_new0(GValue, 1);
 	gtk_tree_model_get_value(GTK_TREE_MODEL(user_data), arg1, 2, val);
-	if (G_IS_VALUE(val)) {
+	if (G_IS_VALUE(val) && g_value_peek_pointer(val)!=NULL) {
 		fref_loader_load_ref_xml((gchar *) g_value_peek_pointer(val),
 								 GTK_WIDGET(treeview),
 								 GTK_TREE_STORE(user_data), arg1);
 	}
-	g_free(val);
 
 	/* remove dummy */
-	if (gtk_tree_model_iter_nth_child
-		(GTK_TREE_MODEL(user_data), &iter, arg1, 0)) {
+	
+	if (g_value_peek_pointer(val)!=NULL &&
+	    gtk_tree_model_iter_nth_child(GTK_TREE_MODEL(user_data), &iter, arg1, 0)) {
 		gtk_tree_store_remove(GTK_TREE_STORE(user_data), &iter);
 	}
-
+	g_free(val);
 }
 
 void frefcb_row_collapsed(GtkTreeView * treeview, GtkTreeIter * arg1,
 						  GtkTreePath * arg2, gpointer user_data)
 {
 	GtkTreeIter iter;
+	GValue *val;
 
-	fref_loader_unload_ref(GTK_WIDGET(treeview), GTK_TREE_STORE(user_data),
-						   arg1);
-	/* dummy node for expander display */
-	gtk_tree_store_append(GTK_TREE_STORE(user_data), &iter, arg1);
+
+	val = g_new0(GValue, 1);
+	gtk_tree_model_get_value(GTK_TREE_MODEL(user_data), arg1, 2, val);
+	if (G_IS_VALUE(val) && g_value_peek_pointer(val)!=NULL) {
+	  	fref_loader_unload_ref(GTK_WIDGET(treeview), GTK_TREE_STORE(user_data),arg1);
+	 	 /* dummy node for expander display */
+ 	   gtk_tree_store_append(GTK_TREE_STORE(user_data), &iter, arg1);
+ 	}   
 }
 
 
@@ -1311,12 +1371,11 @@ void frefcb_info_insert(GtkButton * button, gpointer user_data)
 							 val);
 	if (G_IS_VALUE(val) && g_value_peek_pointer(val) != NULL) {
 		entry = (FRInfo *) g_value_peek_pointer(val);
-		if (entry == NULL)
+		if (entry == NULL || entry->insert_text==NULL)
 			return;
 	} else
 		return;
-	doc_insert_two_strings(main_v->current_document, entry->insert_text,
-						   "");
+	doc_insert_two_strings(main_v->current_document, entry->insert_text,"");
 
 }
 
