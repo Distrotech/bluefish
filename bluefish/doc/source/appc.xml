@@ -51,7 +51,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 				<itemizedlist>
 					<listitem>
 						<para>
-							DocBook XSL stylesheets
+							DocBook XSL style sheets
 						</para>
 					</listitem>
 				</itemizedlist>
@@ -64,7 +64,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 				</itemizedlist>
 			</para>
 			<para>
-				To get the Bluefish XML source, we use cvs. To login:
+				To get the Bluefish XML source, we use CVS. To login:
 				<screen>$ cvs -d :pserver:anonymous@cvs.sourceforge.net:/cvsroot/bluefish \ 
 				login</screen>
 			</para>
@@ -79,7 +79,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 			<para>
 				This will download all the files to your system in the 
 				directory <literal>bluefish-gtk2/doc/</literal>. Next, 
-				we will get the DTD and the stylesheets, which are in 
+				we will get the DTD and the style sheets, which are in 
 				CVS under <literal>bluefish-doctools</literal>:
 				<screen>$ cvs -z3 -d :pserver:anonymous@cvs.sourceforge.net:/cvsroot/bluefish \
 				co bluefish-gtk2/doc</screen>
@@ -122,7 +122,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 	 				All <literal>id</literal> names should begin with the 
 	 				name of the book. In our case the main book file is 
 	 				<emphasis>bluefish.xml</emphasis>, so every <literal>id</literal>
-	 				should beging with <emphasis>bluefish</emphasis>.
+	 				should begin with <emphasis>bluefish</emphasis>.
 	 			</para>
 	 			<para>
 	 				Separate words in the <literal>id</literal> with hyphens.
@@ -145,15 +145,15 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 	 			</para>
  			</sect2>
  			<sect2 id="bluefish-manual-guide-screenshots">
- 				<title>Using Screenshots</title>
+ 				<title>Using Screen shots</title>
  				<para>
- 					How to use screenshots. We want png's. Describe the XML. Do
+ 					How to use screen shots. We want png's. Describe the XML.
  				</para>
  			</sect2>
  			<sect2 id="bluefish-manual-guide-menu-ref">
  				<title>Referencing Paths to Menu Items</title>
  				<para>
- 					Use the DocBook gui tags
+ 					Use the DocBook GUI tags
  				</para>
  			</sect2>
  			<sect2 id="bluefish-manual-guide-grammar">
