@@ -22,7 +22,7 @@
  */
 /* 
  * Changes by Antti-Juhani Kaijanaho <gaia@iki.fi> on 1999-10-20
- * $Id: html.c,v 1.23 2003-05-19 18:05:04 oli4 Exp $
+ * $Id: html.c,v 1.24 2003-06-06 08:36:01 oli4 Exp $
  */
 
 #include <gtk/gtk.h>
@@ -555,14 +555,14 @@ void quickanchor_cb(GtkWidget * widget, gpointer data)
 	gtk_container_add(GTK_CONTAINER(frame), dgtable);
 
 	{
-	GList *rel_link_list=NULL, *tmplist;
-/*	rel_link_list = generate_relative_doc_list();*/
-	tmplist = duplicate_stringlist(recent_attribs.urllist, 1);
-	rel_link_list = g_list_concat(tmplist, rel_link_list);
-
-	dg->combo[2] = combo_with_popdown(avalues[0], rel_link_list, 1);
-
-	free_stringlist(rel_link_list);
+		GList *rel_link_list=NULL, *tmplist;
+		rel_link_list = list_relative_document_filenames(main_v->current_document);
+		tmplist = duplicate_stringlist(recent_attribs.urllist, 1);
+		rel_link_list = g_list_concat(tmplist, rel_link_list);
+	
+		dg->combo[2] = combo_with_popdown(avalues[0], rel_link_list, 1);
+	
+		free_stringlist(rel_link_list);
 	}
 	file_but = file_but_new(GTK_WIDGET(GTK_COMBO(dg->combo[2])->entry), dg->dialog, 0);
 	gtk_table_attach(GTK_TABLE(dgtable), GTK_WIDGET(file_but), 2, 3, 0, 1, GTK_SHRINK, GTK_SHRINK, 0, 0);

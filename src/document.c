@@ -2525,3 +2525,27 @@ void menu_indent_cb(gpointer callback_data,guint callback_action, GtkWidget  *wi
 		doc_indent_selection(main_v->current_document, (callback_action == 1));
 	}
 }
+/**
+ * list_relative_document_filenames:
+ * @curdoc: #Tdocument: the current document
+ *
+ * this function will generate a stringlist with a relative links to 
+ * all other open documents. This list should be freed using free_stringlist()
+ *
+ * Return value: #GList with strings
+ */
+GList *list_relative_document_filenames(Tdocument *curdoc) {
+	GList *tmplist, *retlist=NULL;
+	if (curdoc->filename == NULL) {
+		return NULL;
+	} 
+	tmplist = g_list_first(main_v->documentlist);
+	while (tmplist) {
+		Tdocument *tmpdoc = tmplist->data;
+		if (tmpdoc != curdoc && tmpdoc->filename != NULL) {
+			retlist = g_list_append(retlist,create_relative_link_to(curdoc->filename, tmpdoc->filename));
+		}
+		tmplist = g_list_next(tmplist);
+	}
+	return retlist;
+}
