@@ -16,10 +16,10 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 -->
-<appendix id="bluefish-APP-manual">
+<appendix id="bluefish-manual-guide">
   <title>Guidelines for Writing this Manual</title>
 
-	<sect1 id="bluefish-APP-manual-intro">
+	<sect1 id="bluefish-manual-guide-intro">
 		<title>Introduction to DocBook</title>
 		<para>
 			The Bluefish manual is written in 
@@ -29,7 +29,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 			for many other document types. 
 		</para>
 	</sect1>
-	<sect1 id="bluefish-APP-manual-building">
+	<sect1 id="bluefish-manual-guide-building">
 		<title>Building the Manual</title>
 			<para>
 				To generate HTML or PDF files out of the source XML, you 
@@ -65,21 +65,21 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 			</para>
 			<para>
 				To get the Bluefish XML source, we use cvs. To login:
-				<screen>$ cvs -d :pserver:anonymous@cvs.bluefish.sourceforge.net:/cvsroot/bluefish login</screen>
+				<screen>$ cvs -d :pserver:anonymous@cvs.sourceforge.net:/cvsroot/bluefish login</screen>
 			</para>
 			<para>
 				You will be prompted for a password. Since we are 
 				logging in anonymously, you can just hit enter without 
 				providing any password. Next we will checkout the directory 
 				containing the Bluefish documentation:
-				<screen>$ cvs -z3 -d :pserver:anonymous@cvs.bluefish.sourceforge.net:/cvsroot/bluefish co bluefish-gtk2/doc</screen>
+				<screen>$ cvs -z3 -d :pserver:anonymous@cvs.sourceforge.net:/cvsroot/bluefish co bluefish-gtk2/doc</screen>
 			</para>
 			<para>
 				This will download all the files to your system in the 
 				directory <literal>bluefish-gtk2/doc/</literal>. Next, 
 				we will get the DTD and the stylesheets, which are in 
 				CVS under <literal>bluefish-doctools</literal>:
-				<screen>$ cvs -z3 -d :pserver:anonymous@cvs.bluefish.sourceforge.net:/cvsroot/bluefish co bluefish-gtk2/doc</screen>
+				<screen>$ cvs -z3 -d :pserver:anonymous@cvs.sourceforge.net:/cvsroot/bluefish co bluefish-gtk2/doc</screen>
 			</para>
 			<para>
 				Finally, you need the 
@@ -104,7 +104,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 			</para>
 	</sect1>
 
-	<sect1 id="bluefish-APP-manual-conventions">
+	<sect1 id="bluefish-manual-guide-conventions">
  		<title>Conventions for Writing this Manual</title>
  			<para>
  				The DocBook rules are strict and must be maintained in 
@@ -113,44 +113,53 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  				rules we like to follow to make editing the manual 
  				more efficient and organized. 
  			</para>
- 			<para>
- 				Let's establish rules for <literal>id</literal> names.
- 				All <literal>id</literal> names should begin with the 
- 				name of the book. In our case the main book file is 
- 				<emphasis>bluefish.xml</emphasis>, so every <literal>id</literal>
- 				should beging with <emphasis>bluefish</emphasis>.
- 			</para>
- 			<para>
- 				Separate words in the <literal>id</literal> with hyphens.
- 			</para>
- 			<para>
- 				After the book name, use a capitalized abbreviation of the 
- 				type of XML tag to which the <literal>id</literal> belongs.
- 				For example, use <emphasis>bluefish-SECT1</emphasis> for a 
- 				<literal>&lt;sect1&gt;</literal> section <literal>id</literal>.
- 			</para>
- 			<para>
- 				List of abbr. should go here after we agree as to what they are.
- 				<variablelist>
- 					<title>Bluefish DocBook Tag Abbreviations</title>
-					<varlistentry>
-						<term><abbrev>SECT1</abbrev></term>
-						<listitem>
-							<para>
-								sect1 - change 1 to 2 for sect2, etc 
-							</para>
-						</listitem>
-					</varlistentry>
-				</variablelist>
- 			</para>
- 			<para>
- 				Finally, include a word or two describing the content in the 
- 				section. Using our example, a top-level section titled <literal>Introduction to Bluefish</literal>
-				would have the id <emphasis>bluefish-SECT1-intro</emphasis>
- 			</para>
- 			<para>
- 				The main thing is that all id's must be unique.
- 			</para>
+ 			<sect2 id="bluefish-manual-guide-id-names">
+ 				<title>The <literal>id</literal> Attribute</title>
+	 			<para>
+	 				All <literal>id</literal> names should begin with the 
+	 				name of the book. In our case the main book file is 
+	 				<emphasis>bluefish.xml</emphasis>, so every <literal>id</literal>
+	 				should beging with <emphasis>bluefish</emphasis>.
+	 			</para>
+	 			<para>
+	 				Separate words in the <literal>id</literal> with hyphens.
+	 			</para>
+	 			<para>
+	 				Finally, include a word or two describing the content in the 
+	 				section. For example, a chapter entitled 
+	 				<literal>Using Bluefish</literal>
+					would have the id <emphasis>bluefish-using</emphasis>. And,
+					a section within that chapter called 
+					<literal>Keyboard Shortcuts</literal> could have the name 
+					<emphasis>bluefish-using-shortcuts</emphasis>.
+	 			</para>
+	 			<para>
+	 				The main thing is that all id's must be unique or processing will 
+	 				fail. Also, be careful when renaming id's, since the name could be 
+	 				used in links within other parts of the manual. It's best to do 
+	 				a global search for an id in all the manual's files before changing 
+	 				an id.
+	 			</para>
+ 			</sect2>
+ 			<sect2 id="bluefish-manual-guide-screenshots">
+ 				<title>Using Screenshots</title>
+ 				<para>
+ 					How to use screenshots. We want png's. Describe the XML.
+ 				</para>
+ 			</sect2>
+ 			<sect2 id="bluefish-manual-guide-menu-ref">
+ 				<title>Referencing Paths to Menu Items</title>
+ 				<para>
+ 					Use the DocBook gui tags
+ 				</para>
+ 			</sect2>
+ 		<para>
+ 			If you find errors in the manual, or just want to add more, please 
+ 			<link linkend="bluefish-contact">contact</link> us. If you have questions
+ 			on how to edit the manual that are not addressed in this appendix, you can 
+ 			always ask on the <link linkend="bluefish-contact">mailing list</link>. Often, 
+ 			you can look to the chapter source to see how things are done.
+ 		</para>
 	</sect1>
 
 </appendix>

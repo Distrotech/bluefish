@@ -65,7 +65,7 @@ a project file.
 				</screenshot>
 			</figure>
 	</para>
-	<para>The top of the Bluefish interface consist of a menu, a main tool bar, a 
+	<para>The top of the Bluefish interface consists of a menu, a main tool bar, a 
 	HTML tool bar, and a Custom menu.
 			<figure id="main_menu">
 				<title id="bf-figure-main-menu">Bluefish Main Menu</title>
@@ -136,7 +136,7 @@ a project file.
 	</para>
 	<para>
 	On the side, by default the left side, there is the side panel. The side panel 
-	consist of a file browser, a function reference browser and a bookmark browser.
+	consists of a file browser, a function reference browser and a bookmark browser.
 	</para>
 	<para>This is where you may get quick access to files, switching directories in the upper part.
 			<figure id="file_browser">
@@ -958,7 +958,7 @@ class "GtkTextView" style "EditorStyle"
 		entry. An entry can also be removed, press the backspace key when you move
 		the mouse over a menu entry to remove the shortcut.</para>
 		<para>To save the shortcut key combinations for later Bluefish sessions
-		you can store them. In the Options menu choose Save shortcut keys. This
+		you can store them. In the Edit menu choose Save shortcut keys. This
 		will store the settings in file ~/.bluefish/menudump_2. If you want to
 		restore the default combinations simply remove this file and restart
 		Bluefish.</para>
@@ -1017,7 +1017,7 @@ class "GtkTextView" style "EditorStyle"
 			the pattern named <literal>html</literal> has a match at position 0:</para>
 			<programlisting>&lt;p align="center"&gt;</programlisting>
 			<para>So now the highlighting engine searches for the lowest match in
-			all subpatterns of<literal>html</literal>, in the region matched by the
+			all subpatterns of <literal>html</literal>, in the region matched by the
 			type 2 <literal>html</literal> pattern. Again, the lowest match will
 			count. The pattern named <literal>html-tag</literal> has a match at
 			position 1. This pattern is a type 3 pattern, so it matches a subpattern
