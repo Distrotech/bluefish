@@ -32,7 +32,7 @@ support.
 %setup -q -n %{name}-%{version}
 
 %build
-%configure --with-gnome2-appregistry=%{buildroot}/usr/share/application-registry/
+%configure --with-gnome2-prefix=%{buildroot}/usr/share/
 make %{?_smp_mflags}
 
 %install
@@ -40,11 +40,12 @@ rm -rf %{buildroot}
 mkdir -p %{buildroot}%{_datadir}/pixmaps
 mkdir -p %{buildroot}%{_datadir}/applications
 mkdir -p %{buildroot}%{_datadir}/application-registry
+mkdir -p %{buildroot}%{_datadir}/mime-info
 make install                                            \
     bindir=%{buildroot}%{_bindir}                       \
     pkgdatadir=%{buildroot}%{_datadir}/%{name}          \
     datadir=%{buildroot}%{_datadir}                     \
-    gnome2menupath=%{buildroot}%{_datadir}/applications \
+    gnome2prefix=%{buildroot}%{_datadir}                \
     gnome1menupath=/_none                               \
     iconpath=%{buildroot}%{_datadir}/pixmaps            \
     localedir=%{buildroot}%{_datadir}/locale
