@@ -1519,26 +1519,71 @@ The projects are a sort of <emphasis>saved state</emphasis> of Bluefish. Thus, t
   you want to keep the option while converting to table header. The following
   pattern will do this: find (&lt;|&lt;/)td([^&gt;]*)&gt; and replace with
   \0th\1&gt; </para> 
-<para> if you have any search and replace patterns you
-  use often, you can also add them to the Custom Menu. Check the Custom Menu
-  section of this manual for more information. </para>
+<para>If you have any search and replace patterns you
+  use often, you can also add them to the Custom Menu. Check <xref linkend="custom-menu" /> 
+  for more information. </para>
   <para>
-  In the <emphasis>find</emphasis> and the <emphasis>replace</emphasis> dialog it is not possible to insert keys 
-  Enter or Tab. You can, however, insert escape characters, if you enable the 
-  'Patterns contain backslash sequences' option. If you use this option, you can
-  add a newline to your pattern as \n, a tab as a \t, and a backslash becomes a 
-  \\.
+  In the <emphasis>find</emphasis> and the <emphasis>replace</emphasis> dialog it is not possible to insert the keys <literal>Enter</literal> or <literal>Tab</literal>. We use escaped characters to represent these characters. A new line character, produced by pressing the <literal>Enter</literal> key, is represented as <literal>\n</literal>. Use \t for a tab. To get an actual backslash, just escape the backslash, \\. There are many other escape characters used in regular expressions
+  <note><para>To enable the escaped characters in your searches check the
+  'Patterns contain backslash sequences' option.</para>
+  </note>
+  </para>
+  </sect3>
+  <sect3 id="find-bookmark-results">
+<title>Bookmarking Search Results from the Find Dialog</title>
+  <para>
+  Another useful option in the <emphasis>Find</emphasis> dialog is the 'Bookmark results' option. For example, in a PHP document you could search for the word 'function', and add a bookmark to every function. This results in a list of bookmarks that are all named 'function'.
   </para>
   <para>
-  Another useful option in the <emphasis>find</emphasis> dialog is the <emphasis>bookmark results
-  </emphasis> option. For example in a PHP document, you could search for the
-  word 'function', and add a bookmark to every function. This results, however,
-  in a list of bookmarks that are all named 'function'. Not so useful. But also
-  now we can make use of a regular expression. The expression 
-  'function[ \t\n]+[&amp;a-zA-Z0-9_]+' will result in all functions and their name.
-  Much more useful!
+    <figure id="figure-find-bookmark-results-good">
+	<title id="figure-find-bookmark-results-good-title">Find and Bookmark Results</title>
+		<screenshot>
+			<mediaobject>
+				<imageobject>
+					<imagedata fileref="figures/find_bookmark_results_good.png" format="PNG"/>
+				</imageobject>
+				<textobject>
+					<phrase>A screen shot showing bookmarked results from the find dialog</phrase>
+				</textobject>
+			</mediaobject>
+		</screenshot>
+  </figure>
   </para>
-  <para>SCREENSHOT BY ????</para>
+  <para>
+  However, we can once again make use of regular expressions. The expression 'function\s+\w+' will result in all functions and their name. Much more useful!
+  </para>
+  <para>
+  <figure id="figure-find-dialog-bookmark-results">
+	<title id="figure-find-dialog-bookmark-results-title">Find and Bookmark Results Dialog</title>
+		<screenshot>
+			<mediaobject>
+				<imageobject>
+					<imagedata fileref="figures/find_dialog_bookmark_results.png" format="PNG"/>
+				</imageobject>
+				<textobject>
+					<phrase>A screen shot showing another use of regular expressions in the find dialog</phrase>
+				</textobject>
+			</mediaobject>
+		</screenshot>
+  </figure>
+  </para>
+    <para>
+  <figure id="figure-find-bookmark-results-better">
+	<title id="figure-find-bookmark-results-better-title">Find Better Results to Bookmark</title>
+		<screenshot>
+			<mediaobject>
+				<imageobject>
+					<imagedata fileref="figures/find_bookmark_results_better.png" format="PNG"/>
+				</imageobject>
+				<textobject>
+					<phrase>A screen shot showing more useful bookmarked results from the find dialog</phrase>
+				</textobject>
+			</mediaobject>
+		</screenshot>
+  </figure>
+  </para>
+  <para>Check <xref linkend="bookmarks" /> for more information on bookmarking in Bluefish.
+  </para>
 </sect3>
 
 </sect2>
