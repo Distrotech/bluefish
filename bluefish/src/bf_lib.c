@@ -642,7 +642,7 @@ gchar *return_first_existing_filename(const gchar *filename, ...) {
 	va_start(args, filename);
 	while (filename) {
 		if (file_exists_and_readable(filename)) {
-			retval = filename;
+			retval = g_strdup(filename);
 			break;
 		}
 		filename = va_arg(args, gchar*);

@@ -1067,5 +1067,5 @@ static gboolean destroy_disposable_menu_idle(GtkWidget *menu) {
 
 /* connect this to the hide event of a disposable menu to get rid of it */
 void destroy_disposable_menu_hide_cb(GtkWidget *widget, GtkWidget *menu) {
-	gtk_idle_add(destroy_disposable_menu_idle, menu);
+	gtk_idle_add((GtkFunction)destroy_disposable_menu_idle, menu);
 }
