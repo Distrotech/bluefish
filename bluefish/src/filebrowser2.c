@@ -121,9 +121,10 @@ typedef struct {
 
 #define FILEBROWSER2(var) ((Tfilebrowser2 *)(var))
 static void refilter_filelist(Tfilebrowser2 *fb2, GtkTreePath *newroot);
-static void fb2_fill_dir_async(GtkTreeIter *parent, GnomeVFSURI *uri);
 static GnomeVFSURI *fb2_uri_from_fspath(Tfilebrowser2 *fb2, GtkTreePath *fs_path);
+
 /**************/
+
 static void DEBUG_DIRITER(Tfilebrowser2 *fb2, GtkTreeIter *diriter) {
 	gchar *name;
 	gtk_tree_model_get(GTK_TREE_MODEL(FB2CONFIG(main_v->fb2config)->filesystem_tstore), diriter, FILENAME_COLUMN, &name, -1);
@@ -360,8 +361,8 @@ static void fb2_load_directory_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSResult re
  * the GtkTreeIter* 'parent' should exist after this function returns, use the 
  * GtkTreeIter that is stored in the hashtable to make sure it is persistent
  *
- * the uri passed to this function should also exist after this function returns
- * use an uri stored in the treestore to make sure it is persistent
+ * this function will immediatly change values in the treemodel, which might
+ * invalidate iters in the calling function, take care of that!
  *
  */
 static void fb2_fill_dir_async(GtkTreeIter *parent, GnomeVFSURI *uri) {
@@ -409,7 +410,9 @@ static GnomeVFSURI *fb2_uri_from_iter(GtkTreeIter *iter) {
  * are persistent. Most others are not. So better pass NULL then pass a temporary 
  * iter
  *
- * the uri should also be peristent, the uri's in the treestore are persistent
+ * this function does call fb2_fill_dir_async() which changes the treestore and 
+ * thus might invalidates iters
+ *
  */
 static void fb2_refresh_dir(GnomeVFSURI *uri, GtkTreeIter *dir) {
 	/* first we mark all children as 'refresh=1' in the REFRESH_COLUMN, then
@@ -452,12 +455,8 @@ void fb2_refresh_dir_from_uri(GnomeVFSURI *dir) {
  * convenience function, will refresh the parent directory of child_uri
  */
 static void fb2_refresh_parent_of_uri(GnomeVFSURI *child_uri) {
-	guint hashkey;
-	GtkTreeIter *iter;
 	GnomeVFSURI *parent_uri = gnome_vfs_uri_get_parent(child_uri);
-	hashkey = gnome_vfs_uri_hash(parent_uri);
-	iter = g_hash_table_lookup(FB2CONFIG(main_v->fb2config)->filesystem_itable, &hashkey);
-	fb2_refresh_dir(NULL, iter);
+	fb2_refresh_dir(parent_uri, NULL);
 	gnome_vfs_uri_unref(parent_uri);
 }
 /**
@@ -806,54 +805,6 @@ static void refilter_filelist(Tfilebrowser2 *fb2, GtkTreePath *newroot) {
 }
 
 /**
- * fb2_fspath_from_dir_sortpath:
- *
- * return a newly allocated treepath for the filesystem_tstore based on a 'sort_path' from the 
- * directory sort model
- * /
-static GtkTreePath *fb2_fspath_from_dir_sortpath(Tfilebrowser2 *fb2, GtkTreePath *sort_path) {
-	if (sort_path) {
-		GtkTreePath *filter_path;
-		DEBUG_MSG("fb2_fspath_from_dir_sortpath, sort_path=");
-		DEBUG_TPATH(fb2->dir_tsort, sort_path,TRUE);
-		filter_path = gtk_tree_model_sort_convert_path_to_child_path(GTK_TREE_MODEL_SORT(fb2->dir_tsort),sort_path);
-		if (filter_path) {
-			GtkTreePath *fs_path;
-			DEBUG_MSG("fb2_fspath_from_dir_sortpath, filter_path=");
-			DEBUG_TPATH(fb2->dir_tfilter, filter_path,TRUE);
-			fs_path = gtk_tree_model_filter_convert_path_to_child_path(GTK_TREE_MODEL_FILTER(fb2->dir_tfilter), filter_path);
-			gtk_tree_path_free(filter_path);
-#ifdef DEBUG
-			if (fs_path) {
-				DEBUG_MSG("fb2_fspath_from_dir_sortpath, fs_path=");
-				DEBUG_TPATH(GTK_TREE_MODEL(FB2CONFIG(main_v->fb2config)->filesystem_tstore), fs_path,TRUE);
-			}
-#endif
-			return fs_path;
-		}
-	}
-	return NULL;
-}*/
-/**
- * fb2_fspath_from_file_sortpath:
- *
- * return a newly allocated treepath for the filesystem_tstore based on a 'sort_path' from the 
- * file sort model
- * /
-static GtkTreePath *fb2_fspath_from_file_sortpath(Tfilebrowser2 *fb2, GtkTreePath *sort_path) {
-	if (sort_path) {
-		GtkTreePath *filter_path;
-		filter_path = gtk_tree_model_sort_convert_path_to_child_path(GTK_TREE_MODEL_SORT(fb2->file_lsort),sort_path);
-		if (filter_path) {
-			GtkTreePath *fs_path;
-			fs_path = gtk_tree_model_filter_convert_path_to_child_path(GTK_TREE_MODEL_FILTER(fb2->file_lfilter), filter_path);
-			gtk_tree_path_free(filter_path);
-			return fs_path;
-		}
-	}
-	return NULL;
-}*/
-/**
  * fb2_fspath_from_uri:
  *
  * return a newly allocated treepath for the filesystem_tstore based on 'uri'
@@ -943,18 +894,6 @@ static GtkTreePath *fb2_fspath_from_dir_selection(Tfilebrowser2 *fb2) {
 	GtkTreeIter sort_iter;
 	GtkTreeSelection *selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(fb2->dir_v));
 	if (gtk_tree_selection_get_selected(selection,&sort_model,&sort_iter)) {
-		/* the treemodelfilter seems to be very buggy when trying to retrieve data from the lower level 
-		model, so instead of converting the path, we retrieve the uri, and then find the uri in the 
-		hashtable, and convert that to a path */
-		/*GtkTreePath *sort_path;
-		sort_path = gtk_tree_model_get_path(sort_model,&sort_iter);
-		if (sort_path) {
-			GtkTreePath *fs_path;
-			fs_path = fb2_fspath_from_dir_sortpath(fb2, sort_path);
-			gtk_tree_path_free(sort_path);
-			return fs_path;
-		}
-		DEBUG_MSG("fb2_fspath_from_dir_selection, a selection, but no sort_path?\n");*/
 		GnomeVFSURI *uri;
 		gtk_tree_model_get(sort_model, &sort_iter, URI_COLUMN, &uri, -1);
 		if (uri) {
@@ -1498,18 +1437,6 @@ static void dir_v_selection_changed_lcb(GtkTreeSelection *treeselection,Tfilebro
 			dirmenu_set_curdir(fb2, uri);
 			fb2_focus_dir(fb2, uri, TRUE);
 		}
-/*		GtkTreePath *sort_path;
-#ifdef DEBUG11
-		DEBUG_CHILD_ITERS(fb2, &sort_iter);
-#endif
-		sort_path = gtk_tree_model_get_path(sort_model,&sort_iter);
-		if (sort_path) {
-			GnomeVFSURI *uri;
-			uri = fb2_uri_from_dir_sort_path(fb2,sort_path);
-			/ *fb2_refresh_dir(fb2, uri, NULL);* /
-			fb2_focus_dir(fb2, uri, TRUE);
-			gtk_tree_path_free(sort_path);
-		}*/
 	}
 }
 /**
