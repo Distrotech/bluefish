@@ -159,10 +159,6 @@ static void reset_last_snr2(void) {
 
 /***********************************************************/
 
-/* #define wchar_len utf8_byteoffset_to_charsoffset */
-
-/***********************************************************/
-
 Tsearch_result search_backend(gchar *pattern, gint matchtype, gint is_case_sens, gchar *buf, gboolean want_submatches) {
 	Tsearch_result returnvalue;
 	int (*f) ();
@@ -253,13 +249,21 @@ Tsearch_result search_backend(gchar *pattern, gint matchtype, gint is_case_sens,
 			int nmatch,i;
 			regmatch_t *pmatch;
 			pcre_fullinfo(pcre_c, NULL, PCRE_INFO_CAPTURECOUNT, &nmatch);
-			pmatch = g_malloc(nmatch*sizeof(regmatch_t));
-			for (i=0;i<nmatch;i+=2) {
-				pmatch[i].rm_so = ovector[i];
-				pmatch[i].rm_eo = ovector[i+1];
+			DEBUG_MSG("search_backend, nmatch=%d, retval=%d\n", nmatch, retval);
+			pmatch = g_malloc((nmatch+1)*sizeof(regmatch_t));
+			for (i=0;i<=nmatch;i++) { /* nmatch==1 means 1 subpattern, so 2 patterns in total*/
+				pmatch[i].rm_so = ovector[i*2];
+				pmatch[i].rm_eo = ovector[i*2+1];
 			}
 			returnvalue.pmatch = pmatch;
-			returnvalue.nmatch = nmatch;
+			returnvalue.nmatch = retval;
+#ifdef DEBUG
+			{	int i;
+				for (i=0;i<returnvalue.nmatch;i++) {
+					DEBUG_MSG("search_backend, sub pattern %d so=%d, eo=%d\n", i, returnvalue.pmatch[i].rm_so, returnvalue.pmatch[i].rm_eo);
+				}
+			}
+#endif
 			/* if want_submatches is set, pmatch should be 
 			free`ed by the calling function! */
 		}
@@ -312,7 +316,7 @@ Tsearch_result search_doc(Tdocument *document, gchar *pattern, gint matchtype, g
 	DEBUG_MSG("search_doc, started on document %p, startpos=%d\n", document, startpos);
 	fulltext = doc_get_chars(document, startpos, -1);
 	DEBUG_MSG("search_doc, fulltext=%p, pattern=%p\n", fulltext, pattern);
-	result = search_backend(pattern, matchtype, is_case_sens, fulltext, 0);
+	result = search_backend(pattern, matchtype, is_case_sens, fulltext, FALSE);
 	g_free(fulltext);
 	if (result.end > 0) {
 		DEBUG_MSG("search_doc, received a result (start=%d), adding startpos (%d) to it\n", result.start, startpos);
@@ -409,10 +413,10 @@ static gchar *reg_replace(gchar *replace_string, gint offset, Tsearch_result res
 				DEBUG_MSG("reg_replace, from=%d, to=%d, tmpstr2='%s'\n", from, to, tmpstr2);
 				if (result.nmatch >= num+1) {
 					DEBUG_MSG("reg_replace, wanted: sub pattern %d, offset=%d, so=%d, eo=%d\n", num, offset, result.pmatch[num+1].rm_so, result.pmatch[num+1].rm_eo);
-					tmpstr3 = doc_get_chars(doc, offset+result.pmatch[num+1].rm_so, result.pmatch[num+1].rm_eo);
+					tmpstr3 = doc_get_chars(doc, offset+result.pmatch[num+1].rm_so, offset+result.pmatch[num+1].rm_eo);
 					DEBUG_MSG("reg_replace, subpattern %d = '%s'\n", num, tmpstr3);
 				} else {
-					DEBUG_MSG("reg_replace, subpattern %d does not exist\n", num);
+					DEBUG_MSG("reg_replace, subpattern %d does not exist, nmatch=%d\n", num, result.nmatch);
 					tmpstr3 = g_strdup("");
 				}
 				newstring = g_strconcat(tmpstr1, tmpstr2, tmpstr3, NULL);
@@ -453,7 +457,7 @@ actions, so the first char in buf is actually number offset in the text widget *
 	Tsearch_result result;
 	gchar *tmpstr=NULL;
 	
-	result = search_backend(pattern, matchtype, is_case_sens, buf, (matchtype == match_regex));
+	result = search_backend(pattern, matchtype, is_case_sens, buf, (matchtype != match_normal));
 	DEBUG_MSG("replace_backend, offset=%d, result.start=%d, result.end=%d\n", offset, result.start, result.end);
 	if (result.end > 0) {
 		switch (replacetype) {
