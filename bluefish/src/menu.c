@@ -2183,7 +2183,7 @@ static gchar **cme_create_array(Tcmenu_editor *cme, gboolean is_update) {
 		newarray[4+i] = NULL;
 	} else {
 /*		static Tconvert_table table2[] = {{0, N_("in current document")}, {1, N_("from cursor")}, {2, N_("in selection")}, {3, N_("in all open documents")}, {0,NULL}};
-		static Tconvert_table table3[] = {{0, N_("normal")}, {1, N_("posix regular expresions")}, {2, N_("perl regular expresions")}, {0, NULL}};*/
+		static Tconvert_table table3[] = {{0, N_("normal")}, {1, N_("posix regular expressions")}, {2, N_("perl regular expressions")}, {0, NULL}};*/
 		gint converti;
 /*		gchar *convertc;
 		convertc = gtk_editable_get_chars(GTK_EDITABLE(GTK_COMBO(cme->region)->entry), 0, -1);
@@ -2452,7 +2452,7 @@ void cmenu_editor(Tbfwin *bfwin,guint callback_action,GtkWidget *widget) {
 	label = gtk_label_new_with_mnemonic(_("Matc_hing:"));
 	gtk_box_pack_start(GTK_BOX(hbox2), label, FALSE, FALSE, 0);
 	{
-		gchar *matchactions[] = {N_("normal"), N_("posix regular expresions"),	N_("perl regular expresions"), NULL};
+		gchar *matchactions[] = {N_("normal"), N_("posix regular expressions"),	N_("perl regular expressions"), NULL};
 		cme->matching = optionmenu_with_value(matchactions, 0);
 	}
 	gtk_box_pack_start(GTK_BOX(hbox2),cme->matching , TRUE, TRUE, 3);
