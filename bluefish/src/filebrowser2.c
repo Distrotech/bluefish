@@ -217,8 +217,8 @@ static GtkTreeIter *fb2_add_filesystem_entry(GtkTreeIter *parent, GnomeVFSURI *c
 	newiter = g_hash_table_lookup(FB2CONFIG(main_v->fb2config)->filesystem_itable, child_uri);
 	if (newiter != NULL) {
 		gint refresh;
-		DEBUG_MSG("fb2_add_filesystem_entry, set refresh to 0 for iter %p, uri exists ",newiter);
-		DEBUG_URI(child_uri, TRUE);
+/*		DEBUG_MSG("fb2_add_filesystem_entry, set refresh to 0 for iter %p, uri exists ",newiter);
+		DEBUG_URI(child_uri, TRUE);*/
 		/* the child exists already, update the REFRESH column */
 		gtk_tree_model_get(GTK_TREE_MODEL(FB2CONFIG(main_v->fb2config)->filesystem_tstore), newiter, REFRESH_COLUMN, &refresh, -1);
 		if (refresh != 0) {
@@ -233,7 +233,7 @@ static GtkTreeIter *fb2_add_filesystem_entry(GtkTreeIter *parent, GnomeVFSURI *c
 		gnome_vfs_uri_ref(child_uri);
 		tmp = uri_to_document_filename(child_uri);
 		tmp2 = strrchr(tmp, '/');
-		DEBUG_MSG("fb2_add_filesystem_entry, tmp2=%s for tmp=%s\n",tmp2,tmp);
+/*		DEBUG_MSG("fb2_add_filesystem_entry, tmp2=%s for tmp=%s\n",tmp2,tmp);*/
 		if (tmp2 && strlen(tmp2)>2) display_name = gnome_vfs_unescape_string(tmp2+1, "");
 		else display_name = gnome_vfs_uri_to_string(child_uri,GNOME_VFS_URI_HIDE_PASSWORD);
 		g_free(tmp);
@@ -244,8 +244,8 @@ static GtkTreeIter *fb2_add_filesystem_entry(GtkTreeIter *parent, GnomeVFSURI *c
 			else pixmap = FB2CONFIG(main_v->fb2config)->unknown_icon;
 		}
 		gtk_tree_store_append(GTK_TREE_STORE(FB2CONFIG(main_v->fb2config)->filesystem_tstore),newiter,parent);
-		DEBUG_MSG("fb2_add_filesystem_entry, will add ");
-		DEBUG_URI(uri_dup, TRUE);
+/*		DEBUG_MSG("fb2_add_filesystem_entry, will add ");
+		DEBUG_URI(uri_dup, TRUE);*/
 		gtk_tree_store_set(GTK_TREE_STORE(FB2CONFIG(main_v->fb2config)->filesystem_tstore),newiter,
 				PIXMAP_COLUMN, pixmap,
 				FILENAME_COLUMN, display_name,
@@ -253,7 +253,7 @@ static GtkTreeIter *fb2_add_filesystem_entry(GtkTreeIter *parent, GnomeVFSURI *c
 				REFRESH_COLUMN, 0,
 				TYPE_COLUMN, type,
 				-1);
-		DEBUG_MSG("fb2_add_filesystem_entry adding iter %p to hashtable\n",newiter);
+/*		DEBUG_MSG("fb2_add_filesystem_entry adding iter %p to hashtable\n",newiter);*/
 		gnome_vfs_uri_ref(child_uri);
 		g_hash_table_insert(FB2CONFIG(main_v->fb2config)->filesystem_itable,child_uri,newiter);
 		if (load_subdirs && type == TYPE_DIR) {
@@ -669,7 +669,7 @@ static gboolean tree_model_filter_func(GtkTreeModel *model,GtkTreeIter *iter,gpo
 	if (fb2->basedir) {
 		/* show only our basedir on the root level, no other directories at that level */
 		if (!gnome_vfs_uri_is_parent(fb2->basedir, uri, TRUE) && !gnome_vfs_uri_equal(fb2->basedir, uri)) {
-#ifdef DEBUG
+#ifdef DEBUG1
 			DEBUG_MSG("tree_model_filter_func, not showing because is_parent=%d, equal=%d, for ",gnome_vfs_uri_is_parent(fb2->basedir,uri,TRUE),gnome_vfs_uri_equal(fb2->basedir,uri));
 			DEBUG_URI(uri,FALSE);
 			DEBUG_MSG(" compared to basedir ");
@@ -1368,6 +1368,29 @@ static gboolean file_v_button_press_lcb(GtkWidget *widget, GdkEventButton *event
 	return FALSE; /* pass the event on */
 }
 
+static gboolean dirmenu_idle_cleanup_lcb(gpointer callback_data) {
+	GtkTreeModel *oldmodel = callback_data;
+	gboolean cont;
+	GtkTreeIter iter;
+	DEBUG_MSG("dirmenu_idle_cleanup_lcb, cleanup the old model\n");
+	/* now we cleanup the old model and it's contents */
+
+	cont = gtk_tree_model_get_iter_first(GTK_TREE_MODEL(oldmodel), &iter);
+	while (cont) {
+		GnomeVFSURI *uri;
+		gchar *name;
+		gtk_tree_model_get(GTK_TREE_MODEL(oldmodel), &iter, DIR_NAME_COLUMN, &name, DIR_URI_COLUMN, &uri, -1);
+		DEBUG_MSG("dirmenu_idle_cleanup_lcb, removing %s from the old model\n",name);
+		g_free(name);
+		gnome_vfs_uri_unref(uri);
+		/* hmm if this last remove results in an empty listtore there is a crash?? */
+		cont = gtk_list_store_remove(GTK_LIST_STORE(oldmodel),&iter);
+	}
+	DEBUG_MSG("dirmenu_idle_cleanup_lcb, unref the old model\n");
+	g_object_unref(oldmodel);
+	return FALSE;
+}
+
 static void dirmenu_set_curdir(Tfilebrowser2 *fb2, GnomeVFSURI *newcurdir) {
 	GtkTreeIter iter, setiter;
 	GList *tmplist;
@@ -1381,9 +1404,9 @@ static void dirmenu_set_curdir(Tfilebrowser2 *fb2, GnomeVFSURI *newcurdir) {
 	}
 	fb2->currentdir = newcurdir;
 	gnome_vfs_uri_ref(fb2->currentdir);
+	DEBUG_MSG("dirmenu_set_curdir, new curdir %s\n",gnome_vfs_uri_get_path(fb2->currentdir));
 	
 	fb2->dirmenu_m = GTK_TREE_MODEL(gtk_list_store_new(2,G_TYPE_STRING,G_TYPE_POINTER));
-	
 	tmplist = g_list_first(fb2->bfwin->session->recent_dirs);
 	while (tmplist) {
 		GnomeVFSURI *uri;
@@ -1425,21 +1448,8 @@ static void dirmenu_set_curdir(Tfilebrowser2 *fb2, GnomeVFSURI *newcurdir) {
 	gtk_combo_box_set_model(GTK_COMBO_BOX(fb2->dirmenu_v),GTK_TREE_MODEL(fb2->dirmenu_m));
 	if (havesetiter) gtk_combo_box_set_active_iter(GTK_COMBO_BOX(fb2->dirmenu_v),&setiter);
 	g_signal_handler_unblock(fb2->dirmenu_v, fb2->dirmenu_changed_signal);
-	DEBUG_MSG("dirmenu_set_curdir, cleanup the old model\n");
-	/* now we cleanup the old model and it's contents */
-	cont = gtk_tree_model_get_iter_first(GTK_TREE_MODEL(oldmodel), &iter);
-	while (cont) {
-		GnomeVFSURI *uri;
-		gchar *name;
-		gtk_tree_model_get(GTK_TREE_MODEL(oldmodel), &iter, DIR_NAME_COLUMN, &name, DIR_URI_COLUMN, &uri, -1);
-		DEBUG_MSG("dirmenu_set_curdir, removing %s from the old model\n",name);
-		g_free(name);
-		gnome_vfs_uri_unref(uri);
-		/* hmm if this last remove results in an empty listtore there is a crash?? */
-		cont = gtk_list_store_remove(GTK_LIST_STORE(oldmodel),&iter);
-	}
-	DEBUG_MSG("dirmenu_set_curdir, unref the old model\n");
-	g_object_unref(oldmodel);
+	DEBUG_MSG("dirmenu_set_curdir, activated!\n");
+	g_idle_add(dirmenu_idle_cleanup_lcb, oldmodel);
 }
 
 static void dir_v_selection_changed_lcb(GtkTreeSelection *treeselection,Tfilebrowser2 *fb2) {
@@ -1532,13 +1542,16 @@ static void dirmenu_changed_lcb(GtkComboBox *widget,gpointer data) {
 		gnome_vfs_uri_ref(uri);
 		g_signal_handler_block(fb2->dirmenu_v, fb2->dirmenu_changed_signal);
 		if (fb2->basedir) {
-			if (gnome_vfs_uri_is_parent(fb2->basedir,uri,TRUE)) {
+			if (gnome_vfs_uri_is_parent(fb2->basedir,uri,TRUE) || gnome_vfs_uri_equal(fb2->basedir,uri)) {
+				DEBUG_MSG("dirmenu_changed_lcb, uri within basedir %s, call fb2_focus_dir\n",gnome_vfs_uri_get_path(fb2->basedir));
 				fb2_focus_dir(FILEBROWSER2(fb2), uri, FALSE);
 			} else {
 				/* drop basedir or set as new basedir, for now we set it as new basedir */
+				DEBUG_MSG("dirmenu_changed_lcb, uri NOT within basedir %s, call fb2_set_basedir_backend\n",gnome_vfs_uri_get_path(fb2->basedir));
 				fb2_set_basedir_backend(fb2, uri);
 			}
 		} else { /* no basedir, we can focus it */
+			DEBUG_MSG("dirmenu_changed_lcb, no basedir, call fb2_focus_dir\n");
 			fb2_focus_dir(FILEBROWSER2(fb2), uri, FALSE);
 		}
 		gnome_vfs_uri_unref(uri);
