@@ -1,4 +1,23 @@
-/*#define DEBUG*/
+/* Bluefish HTML Editor
+ * preferences.c the preferences code
+ *
+ * Copyright (C) 2002-2003 Olivier Sessink
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ */
+/* #define DEBUG */
 
 #include <gtk/gtk.h>
 #include <string.h> /* strcmp() */
@@ -1304,6 +1323,7 @@ static void externals_apply_changes(Tprefdialog *pd) {
 }
 
 static void external_selection_changed_cb(GtkTreeSelection *selection, Tprefdialog *pd) {
+	DEBUG_MSG("external_selection_changed_cb, started\n");
 	generic_selection_changed_cb(selection,pd->ed.entry,externals_apply_changes,pd,external_commands,2,&pd->ed.curstrarr);
 }
 
@@ -1634,6 +1654,7 @@ static void preferences_ok_clicked_lcb(GtkWidget *wid, Tprefdialog *pd) {
 	highlightpattern_apply_changes(pd);
 	browsers_apply_changes(pd);
 	externals_apply_changes(pd);
+	outputbox_apply_changes(pd);
 
 	free_arraylist(main_v->props.filetypes);
 	main_v->props.filetypes = pd->lists[filetypes];
