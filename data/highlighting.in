@@ -175,7 +175,7 @@ php:String (double quoted):0:":":1:^PHP Block Content$:#009900::1:1:
 php:String (double quote escaped):0:\\\\.::2:^String \\(double quoted\\)$:::1:1:
 php:Variables:1:\\$[a-z_][a-z0-9>_$-]*::2:^PHP Block Content$:#cc0000::2:0:
 php:Variables (special characters):0:(\\[|\\]|->)::2:^PHP Block Content$:#0000cc::2:0:
-php:String (single quoted):0:':':1:^PHP Block Content$:##006699::1:1:
+php:String (single quoted):0:':':1:^PHP Block Content$:#006699::1:1:
 php:String (single quote escaped):0:\\\\.::2:^String \\(single quoted\\)$:::1:1:
 php:Quoted Tags:1:<((/)?[a-z0-9]+):>:1:^String \\(single quoted\\)$:#0000ee::2:0:
 php:Quoted <html> Tags:1:1::3:^Quoted Tags$:#000066::2:0:
