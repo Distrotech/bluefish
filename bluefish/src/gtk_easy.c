@@ -51,6 +51,49 @@ void flush_queue(void)
 	}*/
 }
 
+/*
+ * Function: window_destroy
+ * Arguments:
+ * 	windowname - a pointer to the window widget to destroy
+ * Description:
+ * 	Remove grab and signals and then destroy window
+ */
+void window_destroy(GtkWidget * windowname)
+{
+	DEBUG_MSG("window_destroy, windowname=%p\n", windowname);
+	g_signal_handlers_destroy(G_OBJECT(windowname));
+	gtk_grab_remove(windowname);
+	gtk_widget_destroy(windowname);
+}
+
+/*
+ * Function: window_close_by_widget_cb
+ * Arguments:
+ * 	widget - the parent window of this widget will be destroyed
+ * 	data - ignored
+ * Description:
+ * 	destroy the toplevel window for widget
+ */
+void window_close_by_widget_cb(GtkWidget * widget, gpointer data)
+{
+	DEBUG_MSG("window_close_by_data_cb, widget=%p\n", widget);
+	window_destroy(gtk_widget_get_toplevel(widget));
+}
+
+/*
+ * Function: window_close_by_data_cb
+ * Arguments:
+ * 	widget - ignored
+ * 	data - a pointer to a gtk-window which will be detroyed
+ * Description:
+ * 	destroy a window using the gpointer data
+ */
+void window_close_by_data_cb(GtkWidget * widget, gpointer data)
+{
+	DEBUG_MSG("window_close_by_data_cb, data=%p\n", data);
+	window_destroy(GTK_WIDGET(data));
+}
+
 
 /*
  * Function: error_dialog
@@ -78,7 +121,7 @@ void error_dialog(gchar * window_title, gchar * error_string)
 	gtk_widget_grab_default(okbutton);
 
 /* maybe we need this attachment here ??: g_signal_connect_object(G_OBJECT(okbutton), "clicked", G_CALLBACK(gtk_widget_destroy), dialog);*/
-	g_signal_connect(G_OBJECT(okbutton), "clicked", G_CALLBACK(gtk_widget_destroy), dialog);
+	g_signal_connect(G_OBJECT(okbutton), "clicked", G_CALLBACK(window_close_by_data_cb), dialog);
 
 	gtk_box_pack_start(GTK_BOX(GTK_DIALOG(dialog)->vbox), gtk_label_new(error_string), TRUE, TRUE, 0);
 	gtk_widget_show_all(dialog);
@@ -385,49 +428,6 @@ GtkWidget *window_full(gchar * title, GtkWindowPosition position
 	g_signal_connect(G_OBJECT(returnwidget), "destroy", close_func, close_data);
 
 	return returnwidget;
-}
-
-/*
- * Function: window_destroy
- * Arguments:
- * 	windowname - a pointer to the window widget to destroy
- * Description:
- * 	Remove grab and signals and then destroy window
- */
-void window_destroy(GtkWidget * windowname)
-{
-	DEBUG_MSG("window_destroy, windowname=%p\n", windowname);
-	g_signal_handlers_destroy(G_OBJECT(windowname));
-	gtk_grab_remove(windowname);
-	gtk_widget_destroy(windowname);
-}
-
-/*
- * Function: window_close_by_widget_cb
- * Arguments:
- * 	widget - the parent window of this widget will be destroyed
- * 	data - ignored
- * Description:
- * 	destroy the toplevel window for widget
- */
-void window_close_by_widget_cb(GtkWidget * widget, gpointer data)
-{
-	DEBUG_MSG("window_close_by_data_cb, widget=%p\n", widget);
-	window_destroy(gtk_widget_get_toplevel(widget));
-}
-
-/*
- * Function: window_close_by_data_cb
- * Arguments:
- * 	widget - ignored
- * 	data - a pointer to a gtk-window which will be detroyed
- * Description:
- * 	destroy a window using the gpointer data
- */
-void window_close_by_data_cb(GtkWidget * widget, gpointer data)
-{
-	DEBUG_MSG("window_close_by_data_cb, data=%p\n", data);
-	window_destroy(GTK_WIDGET(data));
 }
 
 /*
