@@ -1519,6 +1519,10 @@ GtkWidget *fb2_init(Tbfwin *bfwin) {
 	bfwin->fb2 = fb2;
 	fb2->bfwin = bfwin;
 
+	if (bfwin->session->last_filefilter) {
+		fb2->curfilter = find_filter_by_name(bfwin->session->last_filefilter);
+	}
+
 	vbox = gtk_vbox_new(FALSE, 0);
 
 	fb2->dirmenu_m = GTK_TREE_MODEL(gtk_list_store_new(3,G_TYPE_STRING,G_TYPE_BOOLEAN,G_TYPE_POINTER));
