@@ -178,6 +178,9 @@ guint utf8_byteoffset_to_charsoffset_cached(gchar *string, glong byteoffset) {
 		utf8_offset_cache_reset();
 		utf8_offset_cache.last_buf = string;
 	}
+#ifdef DEBUG
+	DEBUG_MSG("utf8_byteoffset_to_charsoffset_cached, string %p has strlen %d\n", string, strlen(string));
+#endif
 
 	while (i > 0 && utf8_offset_cache.last_byteoffset[i] > byteoffset) {
 		i--;
