@@ -23,6 +23,7 @@ cmenu_insert: /php/general/if isset:if (isset($%0)) {\n\t:\n}:1:variable name to
 cmenu_insert: /php/general/for loop:for ($%0 = %1; $%0 <= %2; $%0++) {\n :\n}\n:3:loop variable name:from value:to value:
 cmenu_insert: /php/general/echo date:echo date("l dS of F Y h\:i\:s A");::0:
 cmenu_insert: /php/filesystem/open and echo file:$fd = fopen(%0, 'r');\nwhile (!feof($fd)) {\n\t$buffer = fgets($fd, 4096);\n\techo $buffer;\n}\nfclose($fd);::1:file (quoted) or variable (including $):
+cmenu_insert: /php/comment:/*:*/:0:
 cmenu_insert: /html/span with class:<span class="%0">:</span>:1:CSS class name:
 cmenu_insert: /html/meta refresh (client pull):<meta http-equiv="refresh" content="%0; URL=%1">::2:refresh time, in seconds:URL to redirect to:
 cmenu_insert: /html/meta keywords:<meta name="keywords" value="%0">::1:keywords, space separated:
