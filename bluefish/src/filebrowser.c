@@ -286,18 +286,20 @@ static gboolean find_name_in_dir_entries(GList *list, gchar *name) {
 	return FALSE;
 }
 #ifdef HAVE_GNOME_VFS
-static GList *return_dir_entries(Tfilebrowser *filebrowser,gchar *dirname) {
+static GList *return_dir_entries(Tfilebrowser *filebrowser,const gchar *dirname) {
 	GList *tmplist=NULL;
-	Tdir_entry *entry;
 	GnomeVFSResult result;
-	GnomeVFSDirectoryHandle *handle;
-	GnomeVFSFileInfo *gvfi;
+	GnomeVFSDirectoryHandle *handle=NULL;
+	GnomeVFSFileInfo *gvfi=NULL;
+	DEBUG_MSG("return_dir_entries, started for %s\n",dirname);
 	result = gnome_vfs_directory_open(&handle,dirname,GNOME_VFS_FILE_INFO_DEFAULT|GNOME_VFS_FILE_INFO_FOLLOW_LINKS);
 	if (result != GNOME_VFS_OK) {
 		return NULL;
 	}
+	DEBUG_MSG("return_dir_entries, opened %s successfully!\n",dirname);
 	gvfi = gnome_vfs_file_info_new();
 	while (GNOME_VFS_OK == gnome_vfs_directory_read_next(handle, gvfi)) {
+		Tdir_entry *entry;
 		if (strcmp(gvfi->name,".")!=0 && strcmp(gvfi->name,"..")!=0) {
 			entry = g_new(Tdir_entry,1);
 			entry->icon = NULL;
@@ -309,7 +311,9 @@ static GList *return_dir_entries(Tfilebrowser *filebrowser,gchar *dirname) {
 			}
 			if (!view_filter(filebrowser,entry)) {
 				/* free entry */
+				DEBUG_MSG("return_dir_entries, free name %s\n",entry->name);
 				g_free(entry->name);
+				DEBUG_MSG("return_dir_entries, free entry\n");
 				g_free(entry);
 			} else {
 				entry->has_widget = FALSE;
@@ -319,6 +323,7 @@ static GList *return_dir_entries(Tfilebrowser *filebrowser,gchar *dirname) {
 	}
 	gnome_vfs_file_info_unref(gvfi);
 	gnome_vfs_directory_close(handle);
+	DEBUG_MSG("return_dir_entries, done\n");
 	return tmplist;
 }
 #else /* HAVE_GNOME_VFS */
@@ -566,6 +571,7 @@ static gboolean get_iter_at_correct_position(GtkTreeModel *store, GtkTreeIter *p
 
 static GtkTreeIter add_tree_item(GtkTreeIter *parent, Tfilebrowser *filebrowser, const gchar *text, gint type, GdkPixbuf *pixbuf) {
 	GtkTreeIter iter1, iter2;
+	DEBUG_MSG("add_tree_item, started for %s\n",text);
 	if (!pixbuf) {
 		if (type == TYPE_DIR) {	
 			pixbuf = FILEBROWSERCONFIG(main_v->filebrowserconfig)->dir_icon;
@@ -778,9 +784,12 @@ static GtkTreePath *build_tree_from_path(Tfilebrowser *filebrowser, const gchar 
 		DEBUG_MSG("build_tree_from_path, dirname='%s'\n",dirname);
 		
 		if (filebrowser->last_opened_dir) g_free(filebrowser->last_opened_dir);
+		DEBUG_MSG("build_tree_from_path, freed last_opened_dir\n");
 		filebrowser->last_opened_dir = ending_slash(dirname);
+		DEBUG_MSG("build_tree_from_path, after ending slash\n");
 		
 		direntrylist = return_dir_entries(filebrowser,dirname);
+		DEBUG_MSG("build_tree_from_path, after return_dir_entries\n");
 		tmplist = g_list_first(direntrylist);
 		while (tmplist) {
 			Tdir_entry *entry = (Tdir_entry *)tmplist->data;
@@ -798,7 +807,9 @@ static GtkTreePath *build_tree_from_path(Tfilebrowser *filebrowser, const gchar 
 			tmplist = g_list_next(tmplist);
 		}
 		g_free(dirname);
+		DEBUG_MSG("build_tree_from_path, freed dirname\n");
 		free_dir_entries(direntrylist);
+		DEBUG_MSG("build_tree_from_path, cleaned direntrylist\n");
 	}
 	return gtk_tree_model_get_path(GTK_TREE_MODEL(filebrowser->store),&iter);
 }
