@@ -2162,6 +2162,55 @@ gboolean buffer_to_file(Tbfwin *bfwin, gchar *buffer, gchar *filename) {
 	return TRUE;
 }
 
+/* 
+returns a buffer in the encoding stored in doc->encoding, or NULL if that fails 
+and the user aborted conversion to UTF-8
+*/
+gchar *doc_get_buffer_in_encoding(Tdocument *doc) {
+	GtkTextIter itstart, itend;
+	gchar *buffer;
+
+	gtk_text_buffer_get_bounds(doc->buffer,&itstart,&itend);
+	buffer = gtk_text_buffer_get_text(doc->buffer,&itstart,&itend,FALSE);
+	
+	if (doc->encoding) {
+		gchar *newbuf;
+		gsize bytes_written=0, bytes_read=0;
+		DEBUG_MSG("doc_get_buffer_in_encoding, converting from UTF-8 to %s\n", doc->encoding);
+		newbuf = g_convert(buffer,-1,doc->encoding,"UTF-8",&bytes_read,&bytes_written,NULL); 
+		if (newbuf) {
+			g_free(buffer);
+			buffer = newbuf;
+		} else {
+			gchar *options[] = {_("_Abort save"), _("_Continue save in UTF-8"), NULL};
+			gint retval, line, column;
+			glong position;
+			gchar *tmpstr, failed[6];
+			GtkTextIter iter;
+			position = g_utf8_pointer_to_offset(buffer,buffer+bytes_read);
+			gtk_text_buffer_get_iter_at_offset(doc->buffer,&iter,position);
+			line = gtk_text_iter_get_line(&iter);
+			column = gtk_text_iter_get_line_offset(&iter);
+			failed[0]='\0';
+			g_utf8_strncpy(failed,buffer+bytes_read,1);
+			tmpstr = g_strdup_printf(_("Failed to convert %s to character encoding %s. Encoding failed on character '%s' at line %d column %d\n\nContinue saving in UTF-8 encoding?"), doc->filename, doc->encoding, failed, line+1, column+1);
+			retval = multi_warning_dialog(BFWIN(doc->bfwin)->main_window,_("File encoding conversion failure"), tmpstr, 1, 0, options);
+			g_free(tmpstr);
+			if (retval == 0) {
+				DEBUG_MSG("doc_get_buffer_in_encoding, character set conversion failed, user aborted!\n");
+				return NULL;
+			} else {
+				/* continue in UTF-8 */
+				update_encoding_meta_in_file(doc, "UTF-8");
+				g_free(buffer);
+				gtk_text_buffer_get_bounds(doc->buffer,&itstart,&itend);
+				buffer = gtk_text_buffer_get_text(doc->buffer,&itstart,&itend,FALSE);
+			}
+		}
+	}
+	return  buffer;
+}
+
 /**
  * gint doc_textbox_to_file
  * @doc: a #Tdocument*

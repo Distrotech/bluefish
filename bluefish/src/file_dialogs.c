@@ -411,8 +411,18 @@ static TcheckNsave_return doc_checkNsave_lcb(TcheckNsave_status status,gint erro
 	DEBUG_MSG("doc_checkNsave_lcb, doc=%p, status=%d\n",doc,status);
 	switch (status) {
 		case CHECKANDSAVE_ERROR_NOBACKUP:
-			{
+			if (main_v->props.backup_abort_action == 0)  {
 				return CHECKNSAVE_CONT;
+			} else if (main_v->props.backup_abort_action == 1) {
+				return CHECKNSAVE_STOP;
+			} else /* if (main_v->props.backup_abort_action == 2) */{
+				/* we have to ask the user */
+				gchar *options[] = {_("_Abort save"), _("_Continue save"), NULL};
+				gint retval;
+				gchar *tmpstr = g_strdup_printf(_("A backupfile for %s could not be created. If you continue, this file will be overwritten."), doc->filename);
+				retval = multi_warning_dialog(BFWIN(doc->bfwin)->main_window,_("File backup failure"), tmpstr, 1, 0, options);
+				g_free(tmpstr);
+				return (retval == 0) ? CHECKNSAVE_STOP : CHECKNSAVE_CONT;
 			}
 		break;
 		case CHECKANDSAVE_ERROR:
@@ -427,7 +437,13 @@ static TcheckNsave_return doc_checkNsave_lcb(TcheckNsave_status status,gint erro
 		break;
 		case CHECKANDSAVE_ERROR_MODIFIED:
 			{
-				return CHECKNSAVE_CONT;
+				/* we have to ask the user what to do */
+				gchar *options[] = {_("_Abort save"), _("_Continue save"), NULL};
+				gint retval;
+				gchar *tmpstr = g_strdup_printf(_("File %s is modified on disk, overwrite?"), doc->filename);
+				retval = multi_warning_dialog(BFWIN(doc->bfwin)->main_window,_("File modified on disk"), tmpstr, 1, 0, options);
+				g_free(tmpstr);
+				return (retval == 0) ? CHECKNSAVE_STOP : CHECKNSAVE_CONT;
 			}
 		case CHECKANDSAVE_CHECKED:
 		case CHECKANDSAVE_BACKUP:
@@ -444,6 +460,10 @@ static TcheckNsave_return doc_checkNsave_lcb(TcheckNsave_status status,gint erro
 			uri = gnome_vfs_uri_new(doc->uri);
 			file_doc_fill_fileinfo(doc, uri);
 			gnome_vfs_uri_unref(uri);
+			if (main_v->props.clear_undo_on_save) {
+				doc_unre_clear_all(doc);
+			}
+			doc_set_modified(doc, 0);
 			}
 		break;
 	}
@@ -480,14 +500,16 @@ static void doc_save_backend(Tdocument *doc, gboolean do_save_as, gboolean do_mo
 		doc->filename = g_strdup(doc->uri);
 	}
 	{
+		gchar *tmp;
 		Trefcpointer *buffer;
-		GtkTextIter itstart, itend;
 		GnomeVFSURI *uri;
+		tmp = doc_get_buffer_in_encoding(doc);
+		if (!tmp) {
+			return;
+		}
+
+		buffer = refcpointer_new(tmp);
 		uri = gnome_vfs_uri_new(doc->uri);
-		gtk_text_buffer_get_bounds(doc->buffer,&itstart,&itend);
-
-		buffer = refcpointer_new(gtk_text_buffer_get_text(doc->buffer,&itstart,&itend,FALSE));
-
 		file_checkNsave_uri_async(uri, doc->fileinfo, buffer, strlen(buffer->data), !do_save_as, doc_checkNsave_lcb, doc);
 
 		if (do_save_as) {
