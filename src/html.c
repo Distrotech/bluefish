@@ -22,7 +22,7 @@
  */
 /* 
  * Changes by Antti-Juhani Kaijanaho <gaia@iki.fi> on 1999-10-20
- * $Id: html.c,v 1.9 2002-11-06 19:59:30 oli4 Exp $
+ * $Id: html.c,v 1.10 2002-11-30 16:50:39 oli4 Exp $
  */
 
 #include <gtk/gtk.h>
@@ -1115,6 +1115,8 @@ static void bodyok_lcb(GtkWidget * widget, Thtml_diag *dg)
 	thestring = insert_string_if_entry(GTK_WIDGET(GTK_COMBO(dg->combo[6])->entry), cap("CLASS"), thestring, NULL);
 	thestring = insert_string_if_entry(dg->entry[4], cap("ID"), thestring, NULL);
 	thestring = insert_string_if_entry(dg->entry[5], cap("LANG"), thestring, NULL);
+	thestring = insert_string_if_entry(dg->entry[6], cap("OnLoad"), thestring, NULL);
+	thestring = insert_string_if_entry(dg->entry[7], cap("OnUnLoad"), thestring, NULL);
 
 	thestring = insert_string_if_entry(dg->entry[2], NULL, thestring, NULL);
 	finalstring = g_strconcat(thestring, ">\n", NULL);
