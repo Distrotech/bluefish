@@ -2111,12 +2111,12 @@ static gchar **cme_create_array(Tcmenu_editor *cme, gboolean is_update) {
 		gint converti;
 		gchar *convertc;
 		convertc = gtk_editable_get_chars(GTK_EDITABLE(GTK_COMBO(cme->region)->entry), 0, -1);
-		converti = table_convert_char2int(table2, convertc, tcc2i_full_match);
+		converti = table_convert_char2int(table2, convertc, tcc2i_full_match_gettext);
 		g_free(convertc);
 		newarray[3] = g_strdup_printf("%d", converti);
 
 		convertc = gtk_editable_get_chars(GTK_EDITABLE(GTK_COMBO(cme->matching)->entry), 0, -1);
-		converti = table_convert_char2int(table3, convertc, tcc2i_full_match);
+		converti = table_convert_char2int(table3, convertc, tcc2i_full_match_gettext);
 		g_free(convertc);
 		newarray[4] = g_strdup_printf("%d", converti);
 		

@@ -259,36 +259,52 @@ guint countchars(const gchar *string, const gchar *chars) {
 	DEBUG_MSG("countchars, returning %d\n",count);
 	return count;
 }
+static gint table_convert_char2int_backend(Tconvert_table *table, const gchar *my_char
+		, Ttcc2i_mode mode, int (*func)(const gchar *arg1, const gchar *arg2) ) {
+	Tconvert_table *entry;
+	entry = table;
+	while (entry->my_char) {
+		if (func(my_char,entry->my_char)==0) {
+			return entry->my_int;
+		}
+		entry++;
+	}
+	return -1;
+}
+static int strfirstchar(const gchar *mychar, const gchar *tablechar) {
+	return mychar[0] - tablechar[0];
+}
+static int strmycharlen(const gchar *mychar, const gchar *tablechar) {
+	return strncmp(mychar,tablechar,strlen(mychar));
+}
+static int strfull_match_gettext(const gchar *mychar, const gchar *tablechar) {
+	return strcmp(mychar,_(tablechar));
+}
 /**
  * table_convert_char2int:
  * @table: a #tconvert_table * with strings and integers
  * @my_char: a #gchar * containing the string to convert
+ * @mode: #Ttcc2i_mode
  * 
  * this function can be used to translate a string from some set (in table)
  * to an integer
  * 
  * Return value: gint, found in table, or -1 if not found
  **/
-gint table_convert_char2int(Tconvert_table *table, gchar *my_char, Ttcc2i_mode mode) {
-	Tconvert_table *entry;
-	entry = table;
-	while (entry->my_char) {
-		if (mode == tcc2i_firstchar) {
-			if (my_char[0] == entry->my_char[0]) {
-				return entry->my_int;
-			}
-		} else if (mode == tcc2i_mycharlen) {
-			if (strncmp(entry->my_char, my_char, strlen(entry->my_char)) == 0) {
-				return entry->my_int;
-			}
-		} else if (mode == tcc2i_full_match) {
-			if (strcmp(entry->my_char, my_char) == 0) {
-				return entry->my_int;
-			}
-		}
-		entry++;
+gint table_convert_char2int(Tconvert_table *table, const gchar *my_char, Ttcc2i_mode mode) {
+	switch (mode) {
+	case tcc2i_firstchar:
+		return table_convert_char2int_backend(table,my_char,mode,strfirstchar);
+	case tcc2i_mycharlen:
+		return table_convert_char2int_backend(table,my_char,mode,strmycharlen);
+	case tcc2i_full_match:
+		return table_convert_char2int_backend(table,my_char,mode,strcmp);
+	case tcc2i_full_match_gettext:
+		return table_convert_char2int_backend(table,my_char,mode,strfull_match_gettext);
+	default:
+		DEBUG_MSG("bug in call to table_convert_char2int()\n");
+		return -1;
 	}
-	return -1;
 }
 /**
  * table_convert_int2char:
