@@ -320,6 +320,7 @@ void doc_replace_text_backend(Tdocument *doc, const gchar * newstring, gint star
 		gtk_text_buffer_get_iter_at_offset(doc->buffer, &itend,end);
 		buf = gtk_text_buffer_get_text(doc->buffer, &itstart, &itend,FALSE);
 		gtk_text_buffer_delete(doc->buffer,&itstart,&itend);
+		DEBUG_MSG("doc_replace_text_backend, calling doc_unre_add for buf=%s, start=%d and end=%d", buf, start, end);
 		doc_unre_add(doc, buf, start, end, UndoDelete);
 		g_free(buf);
 		DEBUG_MSG("doc_replace_text, text deleted from %d to %d\n", start, end);
@@ -347,7 +348,7 @@ void doc_replace_text(Tdocument * doc, const gchar * newstring, gint start, gint
 }
 
 
-#define STARTING_BUFFER_SIZE 1024
+#define STARTING_BUFFER_SIZE 2048
 gboolean doc_file_to_textbox(Tdocument * doc, gchar * filename)
 {
 	FILE *fd;
