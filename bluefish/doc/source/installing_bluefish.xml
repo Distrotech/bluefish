@@ -135,7 +135,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
       </listitem>
 
       <listitem>
-         Red Hat, Mandrake (and other Linux distributions that supports rpm): Download the latest .rpm from the bluefish website, 
+         Red Hat, Mandrake (and other Linux distributions that support rpm): Download the latest .rpm from the bluefish website, 
 
         <systemitem class="url">http://bluefish.openoffice.nl/</systemitem>
 
@@ -278,7 +278,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
       <para>If configure fails, it'll probably give a hint telling you what's
       missing or wrong. Assuming it completed successfully, your next step is
-      to compile Bluefish. To do this, run <screen>$ make</screen> . When
+      to compile Bluefish. To do this, run <screen>$ make</screen> When
       <literal>make</literal> has completed, you can install Bluefish:
       (<literal>su</literal> to root first, unless you specified a user
       writable prefix to configure) <screen># make install</screen></para>
@@ -295,7 +295,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
       necessary utilities and libraries. See <xref
       linkend="bluefish-ch-2-sect-1" />. Next, see if your system is mentioned
       in <xref linkend="bluefish-ch-2-sect-3" />. Below is list of well known
-      problems that's been mentioned on the bluefish-dev list. If you're
+      problems that have been mentioned on the bluefish-dev list. If you're
       unable to find a solution (or if you think you have a solution others
       might want), feel free to contact us on the
       <emphasis>bluefish-dev</emphasis> list (See <xref
@@ -312,7 +312,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
           <emphasis>configure</emphasis>
 
-           fail and you try to run 
+           fails and you try to run 
 
           <literal>make</literal>
 
