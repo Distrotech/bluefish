@@ -22,7 +22,7 @@
  * indent --line-length 100 --k-and-r-style --tab-size 4 -bbo --ignore-newlines highlight.c
  */
 #define HL_TIMING
-/* #define HL_DEBUG */
+#define HL_DEBUG
 
 #ifdef HL_TIMING
 #include <sys/times.h>
@@ -573,7 +573,7 @@ static void applylevel(Tdocument * doc, GList * level_list, gint start, gint end
 #ifdef HL_DEBUG
 							g_print("applylevel, end_boundary='%c' (at %d), test in '%s', result=%d\n", c,pmatch[0].rm_eo + patmatch[lowest_patmatch].pmatch[0].rm_so + patmatch[lowest_patmatch].pmatch_offset +1 ,patmatch[lowest_patmatch].pat->end_boundary, boundary_ok);
 #endif
-							if(strchr(patmatch[lowest_patmatch].pat->end_boundary, c) == NULL) {
+							if(c != '\0' && strchr(patmatch[lowest_patmatch].pat->end_boundary, c) == NULL) {
 								boundary_ok = FALSE;
 							}
 						}
@@ -644,6 +644,16 @@ static void applylevel(Tdocument * doc, GList * level_list, gint start, gint end
 #endif
 				offset = patmatch[lowest_patmatch].pmatch_offset + patmatch[lowest_patmatch].pmatch[0].rm_eo;
 
+			} else {
+				/* so there is no match at all eh? invalidate this pattern ??
+				this part is perhaps NOT CORRECT YET
+				 */
+#ifdef HL_DEBUG
+				DEBUG_MSG("applylevel, no match, so settings offset(%d) to %d\n", offset, offset+patmatch[lowest_patmatch].pmatch[0].rm_so +1);
+#endif
+				offset += patmatch[lowest_patmatch].pmatch[0].rm_so +1;
+			}
+			
 				/* search for the next match for all patterns that did start < offset, 
 				we do not need to  check type 3 because it can only run once in every level, so we set it to -1 */
 				{
@@ -659,12 +669,8 @@ static void applylevel(Tdocument * doc, GList * level_list, gint start, gint end
 						}
 					}
 				}
-			} else {
-				/* so there is no match at all eh? invalidate this pattern ??
-				this part is perhaps NOT CORRECT YET
-				 */
-				offset += patmatch[lowest_patmatch].pmatch[0].rm_so +1;
-			}
+			
+			
 		}
 		g_free(string);
 		g_free(patmatch);
@@ -1055,7 +1061,7 @@ void hl_reset_to_default()
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
 	arr = array_from_arglist("html", "comment", "0", "<!--", "-->", "", "1", "", "#AAAAAA", "", "1", "2", "", "", NULL);
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
-	arr = array_from_arglist("html", "doctype", "1", "<![a-z0-9]", "[^?-]>", "", "1", "", "#bb8800", "", "0", "0", "", "", NULL);
+	arr = array_from_arglist("html", "doctype", "1", "<![a-z0-9]+", "[^?-]>", "", "1", "", "#bb8800", "", "0", "0", "", "", NULL);
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
 
 	/* the default java pattern */
