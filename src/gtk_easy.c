@@ -1243,11 +1243,11 @@ static void file_but_clicked_lcb(GtkWidget * widget, Tfilebut *fb) {
 	setfile = gtk_editable_get_chars(GTK_EDITABLE(GTK_ENTRY(fb->entry)),0,-1);
 	/* if setfile is empty we should probably use the current document basedir ? right? */
 	if (!setfile || strlen(setfile)==0) {
-		if (fb->bfwin->current_document->filename && strlen(fb->bfwin->current_document->filename)) {
+		if (fb->bfwin && fb->bfwin->current_document->filename && strlen(fb->bfwin->current_document->filename)) {
 			if (setfile) g_free(setfile);
 			setfile = path_get_dirname_with_ending_slash(fb->bfwin->current_document->filename);
 		}
-	} else if (setfile && strchr(setfile, '/') == NULL && fb->bfwin->current_document->filename) {
+	} else if (setfile && strchr(setfile, '/') == NULL && fb->bfwin && fb->bfwin->current_document->filename) {
 		/* if setfile is a relative name, we should try to make it a full path. relative names have 
 		no slashes in the name */
 		gchar *basedir, *oldsetfile;
