@@ -189,6 +189,7 @@ static void savefile_asyncopenuri_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSResult
 static Tsavefile *file_savefile_uri_async(GnomeVFSURI *uri, Trefcpointer *buffer, GnomeVFSFileSize buffer_size, SavefileAsyncCallback callback_func, gpointer callback_data) {
 	Tsavefile *sf;
 	sf = g_new(Tsavefile,1);
+	DEBUG_MSG("file_savefile_uri_async, sf=%p\n",sf);
 	sf->callback_data = callback_data;
 	sf->callback_func = callback_func;
 	sf->buffer = buffer;
@@ -341,6 +342,7 @@ static void checkNsave_checkmodified_lcb(Tcheckmodified_status status,gint error
 	break;
 	}
 	if (startbackup) {
+		DEBUG_MSG("checkNsave_checkmodified_lcb, backup_file=%d\n",main_v->props.backup_file);
 		if (main_v->props.backup_file)  {
 			GList *sourcelist;
 			GList *destlist;
@@ -366,10 +368,8 @@ static void checkNsave_checkmodified_lcb(Tcheckmodified_status status,gint error
 			DEBUG_MSG("checkNsave_checkmodified_lcb, ret ok=%d\n",(ret == GNOME_VFS_OK));
 			gnome_vfs_uri_list_free(sourcelist);
 			gnome_vfs_uri_list_free(destlist);
-	/*		gnome_vfs_uri_unref(dest);
-			g_list_free(sourcelist);
-			g_list_free(destlist);*/
 		} else {
+			DEBUG_MSG("checkNsave_checkmodified_lcb, no backup required, starting save\n");
 			cns->sf = file_savefile_uri_async(cns->uri, cns->buffer, cns->buffer_size, checkNsave_savefile_lcb, cns);
 		}
 	} else {
