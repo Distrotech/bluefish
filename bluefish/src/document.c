@@ -2280,6 +2280,7 @@ static void files_advanced_win_select_basedir_lcb(GtkWidget * widget, Tfiles_adv
 		gtk_entry_set_text(GTK_ENTRY(tfs->basedir),newdir);
 		g_free(newdir);
 	}
+	g_free(olddir);
 }
 
 static void files_advanced_win(Tfiles_advanced *tfs) {
