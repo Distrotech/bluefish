@@ -1,0 +1,77 @@
+<ref name="Python" description="Complete reference for Python 2.2.2">
+<group name="Built-in Functions">
+<function name="abs">
+<description> Return the absolute value of a number. The argument may be a plain or long integer or a floating point number. If the argument is a complex number, its magnitude is returned.</description>
+<insert>abs()</insert>
+<param name="value" required="1" vallist="0" default="" type="integer|float">value</param>
+<dialog title="Insert abs">abs(%0);</dialog>
+<info title="Info window"></info>
+</function>
+<function name="apply">
+<description>The function argument must be a callable object (a user-defined or built-in function or method, or a class object) and the args argument must be a sequence. The function is called with args as the argument list; the number of arguments is the length of the tuple. If the optional keywords argument is present, it must be a dictionary whose keys are strings. It specifies keyword arguments to be added to the end of the the argument list. Calling apply() is different from just calling function(args), since in that case there is always exactly one argument. The use of apply() is equivalent to function(*args, **keywords). Use of apply() is not necessary since the ``extended call syntax,'' as used in the last example, is completely equivalent.</description>
+<insert>apply(function, args[, keywords])</insert>
+<param name="function" required="1">function</param>
+<param name="args" required="0" >args</param>
+<param name="keywords" required="0">keywords</param>
+<dialog title="Insert abs">abs(%0, %1, %2);</dialog>
+<info title="Info window"></info>
+</function>
+<function name="buffer">
+<description>The object argument must be an object that supports the buffer call interface (such as strings, arrays, and buffers). A new buffer object will be created which references the object argument. The buffer object will be a slice from the beginning of object  (or from the specified offset). The slice will extend to the end of object (or will have a length given by the size  argument).</description>
+<insert>buffer(object[, offset[, size]])</insert>
+<param name="object" required="1">object</param>
+<param name="offset" required="0">offset</param>
+<param name="size" required="0">size</param>
+<dialog title="Insert">buffer(%0, %1, %2)</dialog>
+<info title="Info window"></info>
+</function>
+<function name="callable">
+<description>Return true if the object argument appears callable, false if not. If this returns true, it is still possible that a call fails, but if it is false, calling object will never succeed. Note that classes are callable (calling a class returns a new instance); class instances are callable if they have a __call__()  method.</description>
+<insert>callable(object)</insert>
+<param name="object" required="1">object</param>
+<dialog title="Insert">callable(%0)</dialog>
+<info title="Info window"></info>
+</function>
+<function name="chr">
+<description>Return a string of one character whose ASCII code is the integer i. For example, chr(97) returns the string 'a'. This is the inverse of ord(). The argument must be in the range [0..255], inclusive; ValueError will be raised if i is outside that range.</description>
+<insert>chr(i)</insert>
+<param name="i" required="1">i</param>
+<dialog title="Insert">chr(%0)</dialog>
+<info title="Info window"></info>
+</function>
+<function name="cmp">
+<description>Compare the two objects x and y and return an integer according to the outcome. The return value is negative if x &lt; y, zero if x == y and strictly positive if x &gt; y.</description>
+<return type=""></return>
+<insert>cmp(x, y)</insert>
+<param name="x" required="1">x</param>
+<param name="y" required="1">y</param>
+<dialog title="Insert"></dialog>
+<info title="Info window"></info>
+</function>
+<!-- 
+<function name="">
+<description></description>
+<return type=""></return>
+<insert></insert>
+<param name="" required="1"></param>
+<dialog title="Insert"></dialog>
+<info title="Info window"></info>
+</function>
+-->
+
+</group>
+<group name="Built-in Types">
+<group name="Truth Value Testing"></group>
+<group name="Boolean Operations"></group>
+<group name="Comparisons"></group>
+<group name="Numeric Types"></group>
+<group name="Iterator Types"></group>
+<group name="Sequence Types"></group>
+<group name="Mapping Types"></group>
+<group name="File Objects"></group>
+<group name="Other Built-in Types"></group>
+<group name="Special Attributes"></group>
+</group>
+<group name="Built-in Exceptions"></group>
+
+</ref>
