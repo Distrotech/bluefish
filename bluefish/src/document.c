@@ -698,11 +698,13 @@ static void doc_set_tooltip(Tdocument *doc) {
 	if (sizestr) {
 		text = g_strconcat(text, _("\nSize (on disk): "), sizestr, _(" bytes"), NULL);
 		g_free(tmp);
+		g_free(sizestr);
 		tmp = text;
 	}
 	if (modestr) {
 		text = g_strconcat(text, _("\nPermissions: "), modestr, NULL);
 		g_free(tmp);
+		g_free(modestr);
 		tmp = text;
 	}
 	if (mtimestr[0] != '\0') {
@@ -714,7 +716,6 @@ static void doc_set_tooltip(Tdocument *doc) {
 
 	gtk_tooltips_set_tip(main_v->tooltips, doc->tab_eventbox, text, "");
 	g_free(text);
-	g_free(modestr);
 }
 /**
  * doc_set_title:
