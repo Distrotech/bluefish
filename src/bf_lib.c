@@ -97,7 +97,7 @@ gboolean file_copy(gchar *source, gchar *dest) {
 	
 	result = gnome_vfs_open(&read_handle, source, GNOME_VFS_OPEN_READ);
 	if (result != GNOME_VFS_OK) return FALSE;
-	result = gnome_vfs_create(&write_handle, dest, GNOME_VFS_OPEN_WRITE, FALSE, 0x644);
+	result = gnome_vfs_create(&write_handle, dest, GNOME_VFS_OPEN_WRITE, FALSE, 0644);
 	if (result != GNOME_VFS_OK) {
 		gnome_vfs_close(read_handle);
 		return FALSE;

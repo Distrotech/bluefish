@@ -29,7 +29,7 @@
 #include <time.h>			/* ctime_r() */
 #include <pcre.h>
 
-/* #define DEBUG */
+/*#define DEBUG*/
 
 #ifdef DEBUGPROFILING
 #include <sys/times.h>
@@ -1698,7 +1698,7 @@ gboolean buffer_to_file(Tbfwin *bfwin, gchar *buffer, gchar *filename) {
 	/* we use create instead of open, because open will not create the file if it does
       not already exist. The last argument is the permissions to use if the file is created,
       the second to last tells GnomeVFS that its ok if the file already exists, and just open it */
-	result = gnome_vfs_create(&handle, filename, GNOME_VFS_OPEN_WRITE, FALSE, 0x777);
+	result = gnome_vfs_create(&handle, filename, GNOME_VFS_OPEN_WRITE, FALSE, 0644);
 	if (result != GNOME_VFS_OK) {
 		DEBUG_MSG("buffer_to_file, result=%d, returning FALSE\n",result);
 		return FALSE;
@@ -2019,8 +2019,10 @@ gint doc_save(Tdocument * doc, gint do_save_as, gboolean do_move) {
 		GnomeVFSFileInfo *fileinfo;
 		fileinfo = gnome_vfs_file_info_new();
 		modified = doc_check_modified_on_disk(doc,&fileinfo);
-		newmtime = fileinfo->mtime;
-		oldmtime = doc->fileinfo->mtime;
+		if (doc->fileinfo && modified) {
+			newmtime = fileinfo->mtime;
+			oldmtime = doc->fileinfo->mtime;
+		}
 		gnome_vfs_file_info_unref(fileinfo);
 #else
 		struct stat statbuf;
