@@ -1563,10 +1563,10 @@ static void fb2_dir_v_drag_data_received(GtkWidget * widget, GdkDragContext * co
 				if (desturi) {
 					DEBUG_MSG("fb2_dir_v_drag_data_received, copy %s to %s\n",gnome_vfs_uri_get_path(srcuri),gnome_vfs_uri_get_path(desturi));
 					copy_file_async(fb2->bfwin, srcuri, desturi);
-					gnome_vfs_uri_unref(desturi);
+/*					gnome_vfs_uri_unref(desturi);*/
 				}
 			}
-			gnome_vfs_uri_unref(srcuri);
+/*			gnome_vfs_uri_unref(srcuri);*/
 		}
 	}
 	gtk_drag_finish(context, TRUE, TRUE, time);

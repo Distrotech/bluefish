@@ -912,7 +912,10 @@ void copy_file_async(Tbfwin *bfwin, GnomeVFSURI *srcuri, GnomeVFSURI *desturi) {
 	gnome_vfs_uri_ref(desturi);
 	ret = gnome_vfs_async_xfer(&cf->handle,cf->sourcelist,cf->destlist
 			,GNOME_VFS_XFER_FOLLOW_LINKS,GNOME_VFS_XFER_ERROR_MODE_QUERY
-			,GNOME_VFS_XFER_OVERWRITE_MODE_QUERY,GNOME_VFS_PRIORITY_DEFAULT
+			,GNOME_VFS_XFER_OVERWRITE_MODE_SKIP,GNOME_VFS_PRIORITY_DEFAULT
 			,copyfile_progress_lcb, cf ,copyfile_sync_lcb, cf);
+	DEBUG_MSG("copy_file_async, start backup, source=%s, dest=%s (len=%d,%d) in thread %p, ret=%d\n"
+			,gnome_vfs_uri_get_path(srcuri),gnome_vfs_uri_get_path(desturi)
+			,g_list_length(cf->sourcelist),g_list_length(cf->destlist),g_thread_self(),ret);
 }
 
