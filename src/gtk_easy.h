@@ -62,7 +62,9 @@ GtkWidget *bf_stock_ok_button(GCallback func, gpointer func_data);
 GtkWidget *bf_stock_cancel_button(GCallback func, gpointer func_data);
 GtkWidget *bf_generic_frame_new(const gchar *label, GtkShadowType shadowtype, gint borderwidth);
 void bf_mnemonic_label_tad_with_alignment(const gchar *labeltext, GtkWidget *m_widget, gfloat xalign, gfloat yalign, 
-						GtkWidget *table, guint left_attach, guint right_attach, guint top_attach, guint bottom_attach);						
+						GtkWidget *table, guint left_attach, guint right_attach, guint top_attach, guint bottom_attach);
+void bf_label_tad_with_markup(const gchar *labeltext, gfloat xalign, gfloat yalign,
+								GtkWidget *table, guint left_attach, guint right_attach, guint top_attach, guint bottom_attach);						
 GtkWidget *file_but_new(GtkWidget * which_entry, GtkWidget * win, gint full_pathname);
 
 gint multi_stockbutton_dialog(gchar *title, gint defval, gchar *label, gchar **buttons);
