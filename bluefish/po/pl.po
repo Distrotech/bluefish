@@ -4,8 +4,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: bluefish gtk2-port\n"
-"POT-Creation-Date: 2003-04-25 11:19+0200\n"
-"PO-Revision-Date: 13/4/2003 03:25+0100\n"
+"POT-Creation-Date: 2003-04-26 19:32-0300\n"
+"PO-Revision-Date: 25/4/2003 \n"
 "Last-Translator: Oskar Świda (swida@aragorn.pb.bialystok.pl)\n"
 "Language-Team: None\n"
 "MIME-Version: 1.0\n"
@@ -157,7 +157,7 @@ msgid "Cannot display file, unknown characters found."
 msgstr "Nie można wyświetlić pliku, znaleziono nieznane znaki."
 
 #: ../src/document.c:890
-#, c-format, ycp-format
+#, c-format
 msgid " line %4d "
 msgstr " linia %4d "
 
@@ -314,13 +314,12 @@ msgid "Advanced open file selector"
 msgstr "Zaawansowany wybór plików"
 
 #: ../src/document.c:1876
-#, fuzzy
 msgid "grep {contains} `find {basedir} -name '{file type}'`"
-msgstr "grep {zawiera} `find {katalog bazowy} -name '{wzorzec}'`"
+msgstr "grep {zawiera} `find {katalog bazowy} -name '{typ pliku}'`"
 
 #: ../src/document.c:1881
 msgid "<b>General</b>"
-msgstr ""
+msgstr "<b>Ogólne</b>"
 
 #: ../src/document.c:1883
 msgid "Base_dir:"
@@ -331,28 +330,24 @@ msgid "_Browse..."
 msgstr "_Przeglądaj..."
 
 #: ../src/document.c:1900
-#, fuzzy
 msgid "_File Type:"
-msgstr "Typ pliku"
+msgstr "Typ _pliku"
 
 #: ../src/document.c:1906
-#, fuzzy
 msgid "_Recursive:"
-msgstr "_rekurencyjnie"
+msgstr "_Rekurencyjnie"
 
 #: ../src/document.c:1911
-#, fuzzy
 msgid "<b>Contains</b>"
-msgstr "Zawiera"
+msgstr "<b>Zawiera</b>"
 
 #: ../src/document.c:1914
 msgid "Pa_ttern:"
 msgstr "W_zorzec:"
 
 #: ../src/document.c:1918
-#, fuzzy
 msgid "Is rege_x:"
-msgstr "wyrażenie re_gularne"
+msgstr "Wyrażenie re_gularne:"
 
 #: ../src/document.c:1981
 #, c-format
@@ -466,11 +461,11 @@ msgstr "Opcje"
 
 #: ../src/fref.c:1388
 msgid "Rescan reference files"
-msgstr ""
+msgstr "Wyszukaj pliki z referencjami"
 
 #: ../src/fref.c:1391
 msgid "Left doubleclick action"
-msgstr ""
+msgstr "Lewy przycisk myszy"
 
 #: ../src/gtk_easy.c:937 ../src/menu.c:1314 ../src/menu.c:1660
 #: ../src/menu.c:1662 ../src/menu.c:1667
@@ -963,24 +958,75 @@ msgid "Goto line"
 msgstr "Idź do linii"
 
 #: ../src/gui.c:932
-#, fuzzy
 msgid "_Line number: "
-msgstr "Numer linii:"
+msgstr "_Numer linii: "
 
 # src/gui.c:877    1 
 #: ../src/gui.c:938
-#, fuzzy
 msgid "From _selection"
-msgstr "Od zaznaczenia"
+msgstr "Od _zaznaczenia"
 
 #: ../src/gui.c:946
-#, fuzzy
 msgid "Keep _dialog"
-msgstr "Nie chowaj okna"
+msgstr "Nie zamykaj _okna"
 
 #: ../src/gui.c:1008
 msgid "starting bluefish"
 msgstr "uruchamiam Bluefish"
+
+#: ../src/html2.c:586
+msgid "Cascading StyleSheet dialog"
+msgstr "Okno dialogowe CSS"
+
+#: ../src/html2.c:606
+msgid "_Selector:"
+msgstr "_Selektor"
+
+#: ../src/html2.c:625
+msgid "_Property:"
+msgstr "Wła_sność"
+
+#: ../src/html2.c:627 ../src/html_form.c:286 ../src/html_form.c:353
+#: ../src/html_form.c:415 ../src/html_form.c:471 ../src/html_form.c:534
+#: ../src/html_form.c:644
+msgid "_Value:"
+msgstr "_Wartość"
+
+#: ../src/html2.c:645
+msgid "Selector"
+msgstr "Selektor"
+
+#: ../src/html2.c:645 ../src/html2.c:648
+msgid "Property"
+msgstr "Własność"
+
+#: ../src/html2.c:645 ../src/html2.c:648
+msgid "Value"
+msgstr "Wartość"
+
+#: ../src/html2.c:663
+msgid " _Add "
+msgstr " _Dodaj "
+
+#: ../src/html2.c:666
+msgid " _Update "
+msgstr " _Odśwież "
+
+#: ../src/html2.c:669
+msgid " _Delete "
+msgstr " _Kasuj "
+
+#: ../src/html2.c:925 ../src/html2.c:962
+msgid "_Style..."
+msgstr "_Styl..."
+
+#: ../src/html2.c:1145
+msgid "Bluefish: Select color"
+msgstr "Bluefish: Wybierz kolor"
+
+#: ../src/html2.c:1165
+msgid "_websafe"
+msgstr "_bezpieczny sieciowo"
 
 #: ../src/html.c:353
 msgid "Insert Time"
@@ -1357,60 +1403,6 @@ msgstr "_Rel:"
 #: ../src/html.c:1989 ../src/html_form.c:361
 msgid "_Type:"
 msgstr "_Typ:"
-
-#: ../src/html2.c:586
-msgid "Cascading StyleSheet dialog"
-msgstr "Okno dialogowe CSS"
-
-#: ../src/html2.c:606
-msgid "_Selector:"
-msgstr "_Selektor"
-
-#: ../src/html2.c:625
-msgid "_Property:"
-msgstr "Wła_sność"
-
-#: ../src/html2.c:627 ../src/html_form.c:286 ../src/html_form.c:353
-#: ../src/html_form.c:415 ../src/html_form.c:471 ../src/html_form.c:534
-#: ../src/html_form.c:644
-msgid "_Value:"
-msgstr "_Wartość"
-
-#: ../src/html2.c:645
-msgid "Selector"
-msgstr "Selektor"
-
-#: ../src/html2.c:645 ../src/html2.c:648
-msgid "Property"
-msgstr "Własność"
-
-#: ../src/html2.c:645 ../src/html2.c:648
-msgid "Value"
-msgstr "Wartość"
-
-#: ../src/html2.c:663
-msgid " _Add "
-msgstr " _Dodaj "
-
-#: ../src/html2.c:666
-msgid " _Update "
-msgstr " _Odśwież "
-
-#: ../src/html2.c:669
-msgid " _Delete "
-msgstr " _Kasuj "
-
-#: ../src/html2.c:925 ../src/html2.c:962
-msgid "_Style..."
-msgstr "_Styl..."
-
-#: ../src/html2.c:1145
-msgid "Bluefish: Select color"
-msgstr "Bluefish: Wybierz kolor"
-
-#: ../src/html2.c:1165
-msgid "_websafe"
-msgstr "_bezpieczny sieciowo"
 
 #: ../src/html_form.c:129
 msgid "Form"
@@ -1881,84 +1873,68 @@ msgid "/Tags/Special/Accent/Uppercase/A-I/tearoff1"
 msgstr "/Znaczniki/Specjalne/Akcent/Duże/A-I/tearoff1"
 
 #: ../src/menu.c:126
-#, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/A-I/A grave À"
-msgstr "/Znaczniki/Specjalne/Akcent/Duże/A-I/A z kreską w dół "
+msgstr "/Znaczniki/Specjalne/Akcent/Duże/A-I/A z kreską w lewo À"
 
 #: ../src/menu.c:127
-#, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/A-I/A acute Á"
-msgstr "/Znaczniki/Specjalne/Akcent/Duże/A-I/A kreską w górę "
+msgstr "/Znaczniki/Specjalne/Akcent/Duże/A-I/A kreską w prawo Á"
 
 #: ../src/menu.c:128
-#, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/A-I/A circumflex Â"
-msgstr "/Znaczniki/Specjalne/Akcent/Duże/A-I/A z daszkiem "
+msgstr "/Znaczniki/Specjalne/Akcent/Duże/A-I/A z daszkiem Â"
 
 #: ../src/menu.c:129
-#, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/A-I/A tilde Ã"
-msgstr "/Znaczniki/Specjalne/Akcent/Duże/A-I/A z tyldą "
+msgstr "/Znaczniki/Specjalne/Akcent/Duże/A-I/A z tyldą Ã"
 
 #: ../src/menu.c:130
-#, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/A-I/AE ligature Æ"
-msgstr "/Znaczniki/Specjalne/Akcent/Duże/A-I/AE połączone "
+msgstr "/Znaczniki/Specjalne/Akcent/Duże/A-I/AE połączone Æ"
 
 #: ../src/menu.c:131
-#, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/A-I/A diaeresis Ä"
-msgstr "/Znaczniki/Specjalne/Akcent/Duże/A-I/A z umlaut "
+msgstr "/Znaczniki/Specjalne/Akcent/Duże/A-I/A z umlaut Ä"
 
 #: ../src/menu.c:132
-#, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/A-I/A ring Å"
-msgstr "/Znaczniki/Specjalne/Akcent/Duże/A-I/A z kółkiem "
+msgstr "/Znaczniki/Specjalne/Akcent/Duże/A-I/A z kółkiem Å"
 
 #: ../src/menu.c:133
-#, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/A-I/C cedilla Ç"
-msgstr "/Znaczniki/Specjalne/Akcent/Duże/A-I/C z ogonkiem "
+msgstr "/Znaczniki/Specjalne/Akcent/Duże/A-I/C z ogonkiem Ç"
 
 #: ../src/menu.c:134
-#, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/A-I/E grave È"
-msgstr "/Znaczniki/Specjalne/Akcent/Duże/A-I/E z kreską w dół "
+msgstr "/Znaczniki/Specjalne/Akcent/Duże/A-I/E z kreską w lewo È"
 
 #: ../src/menu.c:135
-#, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/A-I/E acute É"
-msgstr "/Znaczniki/Specjalne/Akcent/Duże/A-I/E z kreską w górę "
+msgstr "/Znaczniki/Specjalne/Akcent/Duże/A-I/E z kreską w prawo É"
 
 #: ../src/menu.c:136
-#, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/A-I/E circumflex Ê"
-msgstr "/Znaczniki/Specjalne/Akcent/Duże/A-I/E z daszkiem "
+msgstr "/Znaczniki/Specjalne/Akcent/Duże/A-I/E z daszkiem Ê"
 
 #: ../src/menu.c:137
-#, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/A-I/E diaeresis Ë"
-msgstr "/Znaczniki/Specjalne/Akcent/Duże/A-I/E z umlaut "
+msgstr "/Znaczniki/Specjalne/Akcent/Duże/A-I/E z umlaut Ë"
 
 #: ../src/menu.c:138
-#, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/A-I/I grave Ì"
-msgstr "/Znaczniki/Specjalne/Akcent/Duże/A-I/I z kreską w dół "
+msgstr "/Znaczniki/Specjalne/Akcent/Duże/A-I/I z kreską w lewo Ì"
 
 #: ../src/menu.c:139
-#, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/A-I/I acute Í"
-msgstr "/Znaczniki/Specjalne/Akcent/Duże/A-I/I z kreską w górę "
+msgstr "/Znaczniki/Specjalne/Akcent/Duże/A-I/I z kreską w prawo Í"
 
 #: ../src/menu.c:140
-#, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/A-I/I circumflex Î"
-msgstr "/Znaczniki/Specjalne/Akcent/Duże/A-I/I z daszkiem "
+msgstr "/Znaczniki/Specjalne/Akcent/Duże/A-I/I z daszkiem Î"
 
 #: ../src/menu.c:141
-#, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/A-I/I diaeresis Ï"
-msgstr "/Znaczniki/Specjalne/Akcent/Duże/A-I/I z umlaut "
+msgstr "/Znaczniki/Specjalne/Akcent/Duże/A-I/I z umlaut Ï"
 
 #: ../src/menu.c:142
 msgid "/Tags/Special/Accent/Uppercase/_J-Z"
@@ -1969,68 +1945,56 @@ msgid "/Tags/Special/Accent/Uppercase/J-Z/tearoff1"
 msgstr "/Znaczniki/Specjalne/Akcent/Duże/J-Z/tearoff1"
 
 #: ../src/menu.c:144
-#, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/J-Z/N tilde Ñ"
-msgstr "/Znaczniki/Specjalne/Akcent/Duże/J-Z/N z tyldą "
+msgstr "/Znaczniki/Specjalne/Akcent/Duże/J-Z/N z tyldą Ñ"
 
 #: ../src/menu.c:145
-#, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O grave Ò"
-msgstr "/Znaczniki/Specjalne/Akcent/Duże/J-Z/O z kreską w dół "
+msgstr "/Znaczniki/Specjalne/Akcent/Duże/J-Z/O z kreską w lewo Ò"
 
 #: ../src/menu.c:146
-#, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O acute Ó"
-msgstr "/Znaczniki/Specjalne/Akcent/Duże/J-Z/O z kreską w górę "
+msgstr "/Znaczniki/Specjalne/Akcent/Duże/J-Z/O z kreską w prawo Ó"
 
 #: ../src/menu.c:147
-#, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O circumflex Ô"
-msgstr "/Znaczniki/Specjalne/Akcent/Duże/J-Z/O z daszkiem "
+msgstr "/Znaczniki/Specjalne/Akcent/Duże/J-Z/O z daszkiem Ô"
 
 #: ../src/menu.c:148
 msgid "/Tags/Special/Accent/Uppercase/J-Z/OE ligature"
 msgstr "/Znaczniki/Specjalne/Akcent/Duże/J-Z/OE połączone"
 
 #: ../src/menu.c:149
-#, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O tilde Õ"
-msgstr "/Znaczniki/Specjalne/Akcent/Duże/J-Z/O z tyldą "
+msgstr "/Znaczniki/Specjalne/Akcent/Duże/J-Z/O z tyldą Õ"
 
 #: ../src/menu.c:150
-#, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O diaeresis Ö"
-msgstr "/Znaczniki/Specjalne/Akcent/Duże/J-Z/O z umlaut "
+msgstr "/Znaczniki/Specjalne/Akcent/Duże/J-Z/O z umlaut Ö"
 
 #: ../src/menu.c:151
-#, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O slash Ø"
-msgstr "/Znaczniki/Specjalne/Akcent/Duże/J-Z/O z kreską "
+msgstr "/Znaczniki/Specjalne/Akcent/Duże/J-Z/O z kreską Ø"
 
 #: ../src/menu.c:152
-#, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/J-Z/U grave Ù"
-msgstr "/Znaczniki/Specjalne/Akcent/Duże/J-Z/U z kreską w dół "
+msgstr "/Znaczniki/Specjalne/Akcent/Duże/J-Z/U z kreską w lewo Ù"
 
 #: ../src/menu.c:153
-#, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/J-Z/U acute Ú"
-msgstr "/Znaczniki/Specjalne/Akcent/Duże/J-Z/U z kreską w górę "
+msgstr "/Znaczniki/Specjalne/Akcent/Duże/J-Z/U z kreską w prawo Ú"
 
 #: ../src/menu.c:154
-#, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/J-Z/U circumflex Û"
-msgstr "/Znaczniki/Specjalne/Akcent/Duże/J-Z/U z daszkiem "
+msgstr "/Znaczniki/Specjalne/Akcent/Duże/J-Z/U z daszkiem Û"
 
 #: ../src/menu.c:155
-#, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/J-Z/U diaeresis Ü"
-msgstr "/Znaczniki/Specjalne/Akcent/Duże/J-Z/U z umlaut "
+msgstr "/Znaczniki/Specjalne/Akcent/Duże/J-Z/U z umlaut Ü"
 
 #: ../src/menu.c:157
-#, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/J-Z/Y acute Ý"
-msgstr "/Znaczniki/Specjalne/Akcent/Duże/J-Z/Y z kreską w górę "
+msgstr "/Znaczniki/Specjalne/Akcent/Duże/J-Z/Y z kreską w prawo Ý"
 
 #: ../src/menu.c:159
 msgid "/Tags/Special/Accent/_Lowercase"
@@ -2045,84 +2009,68 @@ msgid "/Tags/Special/Accent/Lowercase/A-I/tearoff1"
 msgstr "/Znaczniki/Specjalne/Akcent/Małe/A-I/tearoff1"
 
 #: ../src/menu.c:163
-#, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/A-I/a grave à"
-msgstr "/Znaczniki/Specjalne/Akcent/Małe/A-I/a z kreską w dół "
+msgstr "/Znaczniki/Specjalne/Akcent/Małe/A-I/a z kreską w lewo à"
 
 #: ../src/menu.c:165
-#, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/A-I/a acute á"
-msgstr "/Znaczniki/Specjalne/Akcent/Małe/A-I/a z kreską w górę "
+msgstr "/Znaczniki/Specjalne/Akcent/Małe/A-I/a z kreską w prawo á"
 
 #: ../src/menu.c:167
-#, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/A-I/a circumflex â"
-msgstr "/Znaczniki/Specjalne/Akcent/Małe/A-I/a z daszkiem "
+msgstr "/Znaczniki/Specjalne/Akcent/Małe/A-I/a z daszkiem â"
 
 #: ../src/menu.c:169
-#, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/A-I/a tilde ã"
-msgstr "/Znaczniki/Specjalne/Akcent/Małe/A-I/a z tyldą "
+msgstr "/Znaczniki/Specjalne/Akcent/Małe/A-I/a z tyldą ã"
 
 #: ../src/menu.c:171
-#, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/A-I/a ring å"
-msgstr "/Znaczniki/Specjalne/Akcent/Małe/A-I/a z kółkiem "
+msgstr "/Znaczniki/Specjalne/Akcent/Małe/A-I/a z kółkiem å"
 
 #: ../src/menu.c:173
-#, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/A-I/ae ligature æ"
-msgstr "/Znaczniki/Specjalne/Akcent/Małe/A-I/ae połączone "
+msgstr "/Znaczniki/Specjalne/Akcent/Małe/A-I/ae połączone æ"
 
 #: ../src/menu.c:175
-#, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/A-I/a diaeresis ä"
-msgstr "/Znaczniki/Specjalne/Akcent/Małe/A-I/a z umlaut "
+msgstr "/Znaczniki/Specjalne/Akcent/Małe/A-I/a z umlaut ä"
 
 #: ../src/menu.c:177
-#, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/A-I/c cedilla ç"
-msgstr "/Znaczniki/Specjalne/Akcent/Małe/A-I/c z ogonkiem "
+msgstr "/Znaczniki/Specjalne/Akcent/Małe/A-I/c z ogonkiem ç"
 
 #: ../src/menu.c:179
-#, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/A-I/e grave è"
-msgstr "/Znaczniki/Specjalne/Akcent/Małe/A-I/e z kreską w dół "
+msgstr "/Znaczniki/Specjalne/Akcent/Małe/A-I/e z kreską w lewo è"
 
 #: ../src/menu.c:181
-#, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/A-I/e acute é"
-msgstr "/Znaczniki/Specjalne/Akcent/Małe/A-I/e z kreską w górę "
+msgstr "/Znaczniki/Specjalne/Akcent/Małe/A-I/e z kreską w prawo é"
 
 #: ../src/menu.c:183
-#, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/A-I/e circumflex ê"
-msgstr "/Znaczniki/Specjalne/Akcent/Małe/A-I/e z daszkiem "
+msgstr "/Znaczniki/Specjalne/Akcent/Małe/A-I/e z daszkiem ê"
 
 #: ../src/menu.c:185
-#, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/A-I/e diaeresis ë"
-msgstr "/Znaczniki/Specjalne/Akcent/Małe/A-I/e z umlaut "
+msgstr "/Znaczniki/Specjalne/Akcent/Małe/A-I/e z umlaut ë"
 
 #: ../src/menu.c:187
-#, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/A-I/i grave ì"
-msgstr "/Znaczniki/Specjalne/Akcent/Małe/A-I/i z kreską w dół "
+msgstr "/Znaczniki/Specjalne/Akcent/Małe/A-I/i z kreską w lewo ì"
 
 #: ../src/menu.c:189
-#, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/A-I/i acute í"
-msgstr "/Znaczniki/Specjalne/Akcent/Małe/A-I/i z kreską w górę "
+msgstr "/Znaczniki/Specjalne/Akcent/Małe/A-I/i z kreską w prawo í"
 
 #: ../src/menu.c:191
-#, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/A-I/i circumflex î"
-msgstr "/Znaczniki/Specjalne/Akcent/Małe/A-I/i z daszkiem "
+msgstr "/Znaczniki/Specjalne/Akcent/Małe/A-I/i z daszkiem î"
 
 #: ../src/menu.c:193
-#, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/A-I/i diaeresis ï"
-msgstr "/Znaczniki/Specjalne/Akcent/Małe/A-I/i z umlaut "
+msgstr "/Znaczniki/Specjalne/Akcent/Małe/A-I/i z umlaut ï"
 
 #: ../src/menu.c:195
 msgid "/Tags/Special/Accent/Lowercase/_J-Z"
@@ -2133,196 +2081,164 @@ msgid "/Tags/Special/Accent/Lowercase/J-Z/tearoff1"
 msgstr "/Znaczniki/Specjalne/Akcent/Małe/J-Z/tearoff1"
 
 #: ../src/menu.c:198
-#, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/J-Z/n tilde ñ"
-msgstr "/Znaczniki/Specjalne/Akcent/Małe/J-Z/n z tyldą "
+msgstr "/Znaczniki/Specjalne/Akcent/Małe/J-Z/n z tyldą ñ"
 
 #: ../src/menu.c:200
-#, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o grave ò"
-msgstr "/Znaczniki/Specjalne/Akcent/Małe/J-Z/o z kreską w dół "
+msgstr "/Znaczniki/Specjalne/Akcent/Małe/J-Z/o z kreską w lewo ò"
 
 #: ../src/menu.c:202
-#, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o acute ó"
-msgstr "/Znaczniki/Specjalne/Akcent/Małe/J-Z/o z kreską w górę "
+msgstr "/Znaczniki/Specjalne/Akcent/Małe/J-Z/o z kreską w prawo ó"
 
 #: ../src/menu.c:203
-#, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/J-Z/oe ligature æ"
-msgstr "/Znaczniki/Specjalne/Akcent/Małe/J-Z/oe połączone "
+msgstr "/Znaczniki/Specjalne/Akcent/Małe/J-Z/oe połączone æ"
 
 #: ../src/menu.c:204
-#, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o circumflex ô"
-msgstr "/Znaczniki/Specjalne/Akcent/Małe/J-Z/o z daszkiem "
+msgstr "/Znaczniki/Specjalne/Akcent/Małe/J-Z/o z daszkiem ô"
 
 #: ../src/menu.c:206
-#, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o tilde õ"
-msgstr "/Znaczniki/Specjalne/Akcent/Małe/J-Z/o z tyldą "
+msgstr "/Znaczniki/Specjalne/Akcent/Małe/J-Z/o z tyldą õ"
 
 #: ../src/menu.c:208
-#, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o diaeresis ö"
-msgstr "/Znaczniki/Specjalne/Akcent/Małe/J-Z/o z umlaut "
+msgstr "/Znaczniki/Specjalne/Akcent/Małe/J-Z/o z umlaut ö"
 
 #: ../src/menu.c:210
-#, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o slash ø"
-msgstr "/Znaczniki/Specjalne/Akcent/Małe/J-Z/o z kreską "
+msgstr "/Znaczniki/Specjalne/Akcent/Małe/J-Z/o z kreską ø"
 
 #: ../src/menu.c:212
-#, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/J-Z/u grave ù"
-msgstr "/Znaczniki/Specjalne/Akcent/Małe/J-Z/u z kreską w dół "
+msgstr "/Znaczniki/Specjalne/Akcent/Małe/J-Z/u z kreską w lewo ù"
 
 #: ../src/menu.c:214
-#, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/J-Z/u acute ú"
-msgstr "/Znaczniki/Specjalne/Akcent/Małe/J-Z/u z kreską w górę "
+msgstr "/Znaczniki/Specjalne/Akcent/Małe/J-Z/u z kreską w prawo ú"
 
 #: ../src/menu.c:216
-#, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/J-Z/u circumflex û"
-msgstr "/Znaczniki/Specjalne/Akcent/Małe/J-Z/u z daszkiem "
+msgstr "/Znaczniki/Specjalne/Akcent/Małe/J-Z/u z daszkiem û"
 
 #: ../src/menu.c:218
-#, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/J-Z/u diaeresis ü"
-msgstr "/Znaczniki/Specjalne/Akcent/Małe/J-Z/u z umlaut "
+msgstr "/Znaczniki/Specjalne/Akcent/Małe/J-Z/u z umlaut ü"
 
 #: ../src/menu.c:220
-#, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/J-Z/y acute ý"
-msgstr "/Znaczniki/Specjalne/Akcent/Małe/J-Z/y z kreską w górę "
+msgstr "/Znaczniki/Specjalne/Akcent/Małe/J-Z/y z kreską w prawo ý"
 
 #: ../src/menu.c:222
-#, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/J-Z/y diaeresis ÿ"
-msgstr "/Znaczniki/Specjalne/Akcent/Małe/J-Z/y z umlaut "
+msgstr "/Znaczniki/Specjalne/Akcent/Małe/J-Z/y z umlaut ÿ"
 
 #: ../src/menu.c:224
 msgid "/Tags/Special/Accent/separator"
 msgstr "/Znaczniki/Specjalne/Akcent/Separator"
 
 #: ../src/menu.c:225
-#, fuzzy
 msgid "/Tags/Special/Accent/U_mlaut ¨"
-msgstr "/Znaczniki/Specjalne/Akcent/Umlaut "
+msgstr "/Znaczniki/Specjalne/Akcent/U_mlaut ¨"
 
 #: ../src/menu.c:226
-#, fuzzy
 msgid "/Tags/Special/Accent/_Acute ´"
-msgstr "/Znaczniki/Specjalne/Akcent/Kreska w górę "
+msgstr "/Znaczniki/Specjalne/Akcent/_Kreska w prawo ´"
 
 #: ../src/menu.c:227
-#, fuzzy
 msgid "/Tags/Special/Accent/_Cedilla ¸"
-msgstr "/Znaczniki/Specjalne/Akcent/Ogonek "
+msgstr "/Znaczniki/Specjalne/Akcent/_Ogonek ¸"
 
 #: ../src/menu.c:228
 msgid "/Tags/Special/_Currency"
-msgstr "/Znaczniki/Specjalne/Waluty"
+msgstr "/Znaczniki/Specjalne/_Waluta"
 
 #: ../src/menu.c:229
 msgid "/Tags/Special/Currency/tearoff1"
 msgstr "/Znaczniki/Specjalne/Waluty/tearoff1"
 
 #: ../src/menu.c:230
-#, fuzzy
 msgid "/Tags/Special/Currency/_Cent sign ¢"
-msgstr "/Znaczniki/Specjalne/Waluty/_Cent "
+msgstr "/Znaczniki/Specjalne/Waluty/_Cent ¢"
 
 #: ../src/menu.c:232
-#, fuzzy
 msgid "/Tags/Special/Currency/_Pound sterling £"
-msgstr "/Znaczniki/Specjalne/Waluty/_Funt "
+msgstr "/Znaczniki/Specjalne/Waluty/_Funt szterling £"
 
 #: ../src/menu.c:234
-#, fuzzy
 msgid "/Tags/Special/Currency/C_urrency sign ¤"
-msgstr "/Znaczniki/Specjalne/Waluty/Wal_uta "
+msgstr "/Znaczniki/Specjalne/Waluty/Znak wal_uty ¤"
 
 #: ../src/menu.c:236
-#, fuzzy
 msgid "/Tags/Special/Currency/_Yen sign ¥"
-msgstr "/Znaczniki/Specjalne/Waluty/_Yen "
+msgstr "/Znaczniki/Specjalne/Waluty/_Yen ¥"
 
 #: ../src/menu.c:237
 msgid "/Tags/Special/Currency/_Euro "
-msgstr "/Znaczniki/Specjalne/Waluty/_Euro"
+msgstr "/Znaczniki/Specjalne/Waluty/_Euro "
 
 #: ../src/menu.c:238
 msgid "/Tags/Special/_Math-Science"
-msgstr "/Znaczniki/Specjalne/Matematyczne"
+msgstr "/Znaczniki/Specjalne/_Matematyczne"
 
 #: ../src/menu.c:239
 msgid "/Tags/Special/Math-Science/tearoff1"
 msgstr "/Znaczniki/Specjalne/Matematyczne/tearoff1"
 
 #: ../src/menu.c:240
-#, fuzzy
 msgid "/Tags/Special/Math-Science/Logical _not sign ¬"
-msgstr "/Znaczniki/Specjalne/Matematyczne/Negacja "
+msgstr "/Znaczniki/Specjalne/Matematyczne/_Negacja ¬"
 
 #: ../src/menu.c:242
-#, fuzzy
 msgid "/Tags/Special/Math-Science/_Multiplication sign ×"
-msgstr "/Znaczniki/Specjalne/Matematyczne/Mnożenie "
+msgstr "/Znaczniki/Specjalne/Matematyczne/_Mnożenie ×"
 
 #: ../src/menu.c:244
-#, fuzzy
 msgid "/Tags/Special/Math-Science/_Division sign ÷"
-msgstr "/Znaczniki/Specjalne/Matematyczne/Dzielenie "
+msgstr "/Znaczniki/Specjalne/Matematyczne/_Dzielenie ÷"
 
 #: ../src/menu.c:246
-#, fuzzy
 msgid "/Tags/Special/Math-Science/_Plus-minus sign ±"
-msgstr "/Znaczniki/Specjalne/Matematyczne/Plus minus "
+msgstr "/Znaczniki/Specjalne/Matematyczne/_Plus minus ±"
 
 #: ../src/menu.c:248
 msgid "/Tags/Special/Math-Science/_Less-than sign <"
-msgstr "/Znaczniki/Specjalne/Matematyczne/Mniej niż"
+msgstr "/Znaczniki/Specjalne/Matematyczne/Mnie_jsze <"
 
 #: ../src/menu.c:250
 msgid "/Tags/Special/Math-Science/_Greater-than sign >"
-msgstr "/Znaczniki/Specjalne/Matematyczne/Więcej niż"
+msgstr "/Znaczniki/Specjalne/Matematyczne/_Większe >"
 
 #: ../src/menu.c:252
-#, fuzzy
 msgid "/Tags/Special/Math-Science/Superscript _1 ¹"
-msgstr "/Znaczniki/Specjalne/Matematyczne/Pierwsza potęga "
+msgstr "/Znaczniki/Specjalne/Matematyczne/P_ierwsza potęga ¹"
 
 #: ../src/menu.c:254
-#, fuzzy
 msgid "/Tags/Special/Math-Science/Superscript _2 ²"
-msgstr "/Znaczniki/Specjalne/Matematyczne/Kwadrat "
+msgstr "/Znaczniki/Specjalne/Matematyczne/_Kwadrat ²"
 
 #: ../src/menu.c:256
-#, fuzzy
 msgid "/Tags/Special/Math-Science/Superscript _3 ³"
-msgstr "/Znaczniki/Specjalne/Matematyczne/Sześcian "
+msgstr "/Znaczniki/Specjalne/Matematyczne/_Sześcian ³"
 
 #: ../src/menu.c:258
-#, fuzzy
 msgid "/Tags/Special/Math-Science/One _quarter ¼"
-msgstr "/Znaczniki/Specjalne/Matematyczne/Ćwierć "
+msgstr "/Znaczniki/Specjalne/Matematyczne/Ćwi_erć ¼"
 
 #: ../src/menu.c:260
-#, fuzzy
 msgid "/Tags/Special/Math-Science/One _half ½"
-msgstr "/Znaczniki/Specjalne/Matematyczne/Pół "
+msgstr "/Znaczniki/Specjalne/Matematyczne/_Pół ½"
 
 #: ../src/menu.c:262
-#, fuzzy
 msgid "/Tags/Special/Math-Science/_Three quarters ¾"
-msgstr "/Znaczniki/Specjalne/Matematyczne/Trzy czwarte "
+msgstr "/Znaczniki/Specjalne/Matematyczne/_Trzy czwarte ¾"
 
 #: ../src/menu.c:264
-#, fuzzy
 msgid "/Tags/Special/Math-Science/Deg_ree sign °"
-msgstr "/Znaczniki/Specjalne/Matematyczne/Stopień "
+msgstr "/Znaczniki/Specjalne/Matematyczne/St_opień °"
 
 #: ../src/menu.c:266
 msgid "/Tags/Special/_Non Latin"
@@ -2333,34 +2249,28 @@ msgid "/Tags/Special/Non Latin/tearoff1"
 msgstr "/Znaczniki/Specjalne/Niełacińskie/tearoff1"
 
 #: ../src/menu.c:268
-#, fuzzy
 msgid "/Tags/Special/Non Latin/_ETH (Icelandic) Ð"
-msgstr "/Znaczniki/Specjalne/Niełacińskie/_ETH (Islandzkie) "
+msgstr "/Znaczniki/Specjalne/Niełacińskie/_ETH (Islandzkie) Ð"
 
 #: ../src/menu.c:270
-#, fuzzy
 msgid "/Tags/Special/Non Latin/_THORN (Icelandic) Þ"
-msgstr "/Znaczniki/Specjalne/Niełacińskie/THORN (Islandzkie) "
+msgstr "/Znaczniki/Specjalne/Niełacińskie/THORN (Islandzkie) Þ"
 
 #: ../src/menu.c:272
-#, fuzzy
 msgid "/Tags/Special/Non Latin/et_h (Icelandic) ð"
-msgstr "/Znaczniki/Specjalne/Niełacińskie/et_h (Islandzkie) "
+msgstr "/Znaczniki/Specjalne/Niełacińskie/et_h (Islandzkie) ð"
 
 #: ../src/menu.c:274
-#, fuzzy
 msgid "/Tags/Special/Non Latin/th_orn ÿ"
-msgstr "/Znaczniki/Specjalne/Niełacińskie/th_orn (Islandzkie) "
+msgstr "/Znaczniki/Specjalne/Niełacińskie/th_orn ÿ"
 
 #: ../src/menu.c:275
-#, fuzzy
 msgid "/Tags/Special/Non Latin/Sharp _s ß"
-msgstr "/Znaczniki/Specjalne/Niełacińskie/Ostre _s "
+msgstr "/Znaczniki/Specjalne/Niełacińskie/Ostre _s ß"
 
 #: ../src/menu.c:276
-#, fuzzy
 msgid "/Tags/Special/Non Latin/_Micro sign µ"
-msgstr "/Znaczniki/Specjalne/Niełacińskie/_Mikro "
+msgstr "/Znaczniki/Specjalne/Niełacińskie/_Mikro µ"
 
 #: ../src/menu.c:278
 msgid "/Tags/Special/_Other"
@@ -2372,76 +2282,63 @@ msgstr "/Znaczniki/Specjalne/Inne/tearoff1"
 
 #: ../src/menu.c:280
 msgid "/Tags/Special/Other/_Non-breaking space"
-msgstr "/Znaczniki/Specjalne/Inne/Twardy odstęp"
+msgstr "/Znaczniki/Specjalne/Inne/Twardy _odstęp"
 
 #: ../src/menu.c:282
-#, fuzzy
 msgid "/Tags/Special/Other/_Section sign §"
-msgstr "/Znaczniki/Specjalne/Inne/Znak _sekcji "
+msgstr "/Znaczniki/Specjalne/Inne/Znak _sekcji §"
 
 #: ../src/menu.c:284
-#, fuzzy
 msgid "/Tags/Special/Other/_Copyright sign ©"
-msgstr "/Znaczniki/Specjalne/Inne/_Znak praw autorskich "
+msgstr "/Znaczniki/Specjalne/Inne/_Znak praw autorskich ©"
 
 #: ../src/menu.c:286
-#, fuzzy
 msgid "/Tags/Special/Other/_Left angle quotes «"
-msgstr "/Znaczniki/Specjalne/Inne/Cudzysłów w _lewo "
+msgstr "/Znaczniki/Specjalne/Inne/Cudzysłów w _lewo «"
 
 #: ../src/menu.c:288
-#, fuzzy
 msgid "/Tags/Special/Other/_Right angle quotes »"
-msgstr "/Znaczniki/Specjalne/Inne/Cudzysłów w p_rawo "
+msgstr "/Znaczniki/Specjalne/Inne/Cudzysłów w p_rawo »"
 
 #: ../src/menu.c:290
-#, fuzzy
 msgid "/Tags/Special/Other/Registered _trademark ®"
-msgstr "/Znaczniki/Specjalne/Inne/Znak 'Registered _Trademark' "
+msgstr "/Znaczniki/Specjalne/Inne/Znak _Towarowy ®"
 
 #: ../src/menu.c:292
-#, fuzzy
 msgid "/Tags/Special/Other/Inverted _exclamation ¡"
-msgstr "/Znaczniki/Specjalne/Inne/Odwrócony _wykrzyknik "
+msgstr "/Znaczniki/Specjalne/Inne/Odwrócony _wykrzyknik ¡"
 
 #: ../src/menu.c:294
-#, fuzzy
 msgid "/Tags/Special/Other/Inverted _question mark ¿"
-msgstr "/Znaczniki/Specjalne/Inne/Odwrócony znak _zapytania "
+msgstr "/Znaczniki/Specjalne/Inne/Odwrócony znak _zapytania ¿"
 
 #: ../src/menu.c:296
-#, fuzzy
 msgid "/Tags/Special/Other/_Feminine ordinal ª"
-msgstr "/Znaczniki/Specjalne/Inne/Znak płci żeńs_kiej "
+msgstr "/Znaczniki/Specjalne/Inne/Znak płci żeńs_kiej ª"
 
 #: ../src/menu.c:298
-#, fuzzy
 msgid "/Tags/Special/Other/_Masculine ordinal º"
-msgstr "/Znaczniki/Specjalne/Inne/Znak płci _męskiej "
+msgstr "/Znaczniki/Specjalne/Inne/Znak płci _męskiej º"
 
 #: ../src/menu.c:300
-#, fuzzy
 msgid "/Tags/Special/Other/_Pilcrow (paragraph sign) ¶"
-msgstr "/Znaczniki/Specjalne/Inne/Znak _paragrafu "
+msgstr "/Znaczniki/Specjalne/Inne/Znak _paragrafu ¶"
 
 #: ../src/menu.c:302
-#, fuzzy
 msgid "/Tags/Special/Other/_Broken bar ¦"
-msgstr "/Znaczniki/Specjalne/Inne/Złama_ny słupek "
+msgstr "/Znaczniki/Specjalne/Inne/Złama_ny słupek ¦"
 
 #: ../src/menu.c:303
 msgid "/Tags/Special/Other/Soft _hypen -"
-msgstr "/Znaczniki/Specjalne/Inne/Miękki z_nacznik"
+msgstr "/Znaczniki/Specjalne/Inne/Miękki z_nacznik -"
 
 #: ../src/menu.c:304
-#, fuzzy
 msgid "/Tags/Special/Other/Spa_cing macron ¯"
-msgstr "/Znaczniki/Specjalne/Inne/_Odstęp "
+msgstr "/Znaczniki/Specjalne/Inne/_Odstęp ¯"
 
 #: ../src/menu.c:306
-#, fuzzy
 msgid "/Tags/Special/Other/Middle _dot ·"
-msgstr "/Znaczniki/Specjalne/Inne/Środkowa kr_opka "
+msgstr "/Znaczniki/Specjalne/Inne/Środkowa kr_opka ·"
 
 #: ../src/menu.c:308
 msgid "/Tags/_Format by layout"
@@ -3710,106 +3607,88 @@ msgid "Search: no match found"
 msgstr "Szukanie: nie znaleziono wzorca"
 
 #: ../src/snr2.c:990
-#, fuzzy
 msgid "Hide _advanced <<"
-msgstr "Schowaj zaawansowane <<"
+msgstr "Schowaj z_aawansowane <<"
 
 #: ../src/snr2.c:1011 ../src/snr2.c:1157
-#, fuzzy
 msgid "Show _advanced >>"
-msgstr "Pokaż zaawansowane >>"
+msgstr "Pokaż z_aawansowane >>"
 
 #: ../src/snr2.c:1062
 msgid "Search"
 msgstr "Szukanie"
 
 #: ../src/snr2.c:1078
-#, fuzzy
 msgid "_Find: "
-msgstr "Znajdź:"
+msgstr "Z_najdź: "
 
 #: ../src/snr2.c:1089
 msgid "Where"
 msgstr "Gdzie"
 
 #: ../src/snr2.c:1093
-#, fuzzy
 msgid "Start at beginning of _document"
-msgstr "Zacznij od początku dokumentu"
+msgstr "Zacznij od początku _dokumentu"
 
 #: ../src/snr2.c:1094
-#, fuzzy
 msgid "Start at cursor pos_ition"
-msgstr "Zacznij od pozycji kursora"
+msgstr "Zacznij od pozycji kur_sora"
 
 #: ../src/snr2.c:1095
-#, fuzzy
 msgid "In s_election"
-msgstr "Wewnątrz zaznaczenia"
+msgstr "Wewnątrz za_znaczenia"
 
 #: ../src/snr2.c:1096
-#, fuzzy
 msgid "In all o_pen files"
-msgstr "We wszystkich otwartych plikach"
+msgstr "We wszystkich otwartych _plikach"
 
 #: ../src/snr2.c:1103
-#, fuzzy
 msgid "_Normal matching"
-msgstr "Dopasowywanie normalne"
+msgstr "Dopasowywanie _normalne"
 
 #: ../src/snr2.c:1104
-#, fuzzy
 msgid "Use posix _regular expression matching"
-msgstr "Używaj wyrażeń regularnych POSIX"
+msgstr "Używaj wyrażeń _regularnych POSIX"
 
 #: ../src/snr2.c:1105
-#, fuzzy
 msgid "Use perl compatible regular e_xpression matching"
-msgstr "Używaj wyrażeń regularnych Perla"
+msgstr "Używaj wyrażeń regularnych _Perla"
 
 #: ../src/snr2.c:1110
-#, fuzzy
 msgid "Case _sensitive"
-msgstr "Rozróżniaj wielkie i małe litery"
+msgstr "Rozróżniaj wielkie i małe _litery"
 
 #: ../src/snr2.c:1111
-#, fuzzy
 msgid "O_verlapping searches"
-msgstr "Wyszukiwanie nakładane"
+msgstr "Wyszuki_wanie nakładane"
 
 #: ../src/snr2.c:1118
 msgid "\\0 refers to the first subpattern, \\1 to the second etc."
 msgstr "\\0 odpowiada pierwszemu wzorcowi, \\1 drugiemu itd."
 
 #: ../src/snr2.c:1122
-#, fuzzy
 msgid "Replace wit_h: "
-msgstr "Zamień na:"
+msgstr "Za_mień na: "
 
 #: ../src/snr2.c:1141
-#, fuzzy
 msgid "Replace _text"
-msgstr "Zamień tekst"
+msgstr "Zamień _tekst"
 
 #: ../src/snr2.c:1142
-#, fuzzy
 msgid "Replace _uppercase"
-msgstr "Zamień wielkie litery"
+msgstr "Zamień _wielkie litery"
 
 #: ../src/snr2.c:1143
-#, fuzzy
 msgid "Replace lo_wercase"
-msgstr "Zamień małe litery"
+msgstr "Zamień _małe litery"
 
 #: ../src/snr2.c:1147
-#, fuzzy
 msgid "Prompt _before replacing"
-msgstr "Potwierdzaj przed zamianą"
+msgstr "Potwierdzaj _przed zamianą"
 
 #: ../src/snr2.c:1148
-#, fuzzy
 msgid "Rep_lace once"
-msgstr "Zamień tylko raz"
+msgstr "Zamień tylko _raz"
 
 #: ../src/stringlist.c:365
 msgid " Add "
@@ -3894,3 +3773,371 @@ msgstr "Źródło:"
 #: ../src/wizards.c:224
 msgid "Size:"
 msgstr "Rozmiar:"
+
+#~ msgid "/php/ibase/ibase fetch row"
+#~ msgstr "/php/ibase/ibase fetch row"
+
+#~ msgid "ibase result variable name"
+#~ msgstr "nazwa zmiennej wynikowej ibase"
+
+#~ msgid "row variable name"
+#~ msgstr "nazwa zmiennej wiersza"
+
+#~ msgid "/php/mysql/mysql fetch row"
+#~ msgstr "/php/mysql/mysql fetch row"
+
+#~ msgid "mysql result variable name"
+#~ msgstr "nazwa zmiennej wynikowej mysql"
+
+#~ msgid "/php/mysql/mysql connect"
+#~ msgstr "/php/mysql/mysql connect"
+
+#~ msgid "mysql host"
+#~ msgstr "mysql host"
+
+#~ msgid "mysql username"
+#~ msgstr "mysql username"
+
+#~ msgid "mysql password"
+#~ msgstr "mysql password"
+
+#~ msgid "database name"
+#~ msgstr "database name"
+
+#~ msgid "/php/ibase/ibase connect"
+#~ msgstr "/php/ibase/ibase connect"
+
+#~ msgid "ibase host"
+#~ msgstr "ibase host"
+
+#~ msgid "ibase database path"
+#~ msgstr "ibase database path"
+
+#~ msgid "ibase username"
+#~ msgstr "ibase username"
+
+#~ msgid "ibase password"
+#~ msgstr "ibase password"
+
+#~ msgid "/php/general/while each in array list"
+#~ msgstr "/php/general/while each in array list"
+
+#~ msgid "array name"
+#~ msgstr "nazwa tablicy"
+
+#~ msgid "/sql/select all from table"
+#~ msgstr "/sql/select all from table"
+
+#~ msgid "table name"
+#~ msgstr "nazwa tabeli"
+
+#~ msgid "/php/general/mail"
+#~ msgstr "/php/general/mail"
+
+#~ msgid "email adress"
+#~ msgstr "adres email"
+
+#~ msgid "subject"
+#~ msgstr "temat"
+
+#~ msgid "mail body variable name"
+#~ msgstr "nazwa zmiennej treści wiadomości"
+
+#~ msgid "/php/general/for loop"
+#~ msgstr "pętla for"
+
+#~ msgid "loop variable name"
+#~ msgstr "zmienna pętli for"
+
+#~ msgid "from value"
+#~ msgstr "od wartości"
+
+#~ msgid "to value"
+#~ msgstr "do wartości"
+
+#~ msgid "/php/ibase/query"
+#~ msgstr "/php/ibase/query"
+
+#~ msgid "result variable name"
+#~ msgstr "nazwa zmiennej wynikowej"
+
+#~ msgid "ibase connection id name"
+#~ msgstr "nazwa połączenia ibase"
+
+#~ msgid "query string (quoted) or variable (including $)"
+#~ msgstr "zapytanie (w cudzysłowach) lub zmienna (raze ze znakiem $)"
+
+#~ msgid "/php/general/include file"
+#~ msgstr "/php/general/include file"
+
+#~ msgid "filename to include"
+#~ msgstr "nazwa pliku"
+
+#~ msgid "/php/general/require file"
+#~ msgstr "/php/general/require file"
+
+#~ msgid "filename to require"
+#~ msgstr "nazwa pliku"
+
+#~ msgid "/php/general/if isset"
+#~ msgstr "/php/general/if isset"
+
+#~ msgid "variable name to test for"
+#~ msgstr "nazwa zmiennej do testowania"
+
+#~ msgid "/php/general/if not isset"
+#~ msgstr "/php/general/if not isset"
+
+#~ msgid "/php/mysql/query"
+#~ msgstr "/php/mysql/query"
+
+#~ msgid "mysql connection id name"
+#~ msgstr "nazwa połączenia mysql"
+
+#~ msgid "/html/font symbol"
+#~ msgstr "/html/font symbol"
+
+#~ msgid "/html/div with class"
+#~ msgstr "/html/div with class"
+
+#~ msgid "CSS class name"
+#~ msgstr "nazwa klasy CSS"
+
+#~ msgid "/html/span with class"
+#~ msgstr "/html/span with class"
+
+#~ msgid "/php/php block"
+#~ msgstr "/php/php block"
+
+#~ msgid "/html/made with bluefish"
+#~ msgstr "zrobione za pomocą bluefish"
+
+#~ msgid "/html/meta keywords"
+#~ msgstr "/html/meta keywords"
+
+#~ msgid "keywords, space separated"
+#~ msgstr "słowa kluczowe, oddzielone spacją"
+
+#~ msgid "/html/meta refresh (client pull)"
+#~ msgstr "/html/meta refresh (client pull)"
+
+#~ msgid "refresh time, in seconds"
+#~ msgstr "czas odświeżania, w sekundach"
+
+#~ msgid "URL to redirect to"
+#~ msgstr "URL, do którego przekierować"
+
+#~ msgid "/active html/form"
+#~ msgstr "/active html/form"
+
+#~ msgid "/active html/form and action"
+#~ msgstr "/active html/form and action"
+
+#~ msgid "Submit button text"
+#~ msgstr "Tekst przycisku 'submit'"
+
+#~ msgid "/active html/input text"
+#~ msgstr "/active html/input text"
+
+#~ msgid "variable name"
+#~ msgstr "nazwa zmiennej"
+
+#~ msgid "/active html/input checkbox"
+#~ msgstr "/active html/input checkbox"
+
+#~ msgid "value when checked"
+#~ msgstr "wartość, kiedy zaznaczony"
+
+#~ msgid "/active html/textarea"
+#~ msgstr "/active html/textarea"
+
+#~ msgid "/active html/select options/from array"
+#~ msgstr "/active html/select options/from array"
+
+#~ msgid "array name containing options"
+#~ msgstr "nazwa tablicy zawierającej opcje"
+
+#~ msgid "/active html/select options/from mysql result"
+#~ msgstr "/active html/select options/from mysql result"
+
+#~ msgid "mysql query result"
+#~ msgstr "wynik zapytania mysql"
+
+#~ msgid "index of the value"
+#~ msgstr "indeks wartości"
+
+#~ msgid "index of the label"
+#~ msgstr "indeks etykiety"
+
+#~ msgid "/active html/select options/from ibase result"
+#~ msgstr "/active html/select options/from ibase result"
+
+#~ msgid "ibase query result"
+#~ msgstr "wynik zapytania ibase"
+
+#~ msgid "/DHTML/mouseover image"
+#~ msgstr "/DHTML/mouseover image"
+
+#~ msgid "unique name"
+#~ msgstr "unikalna nazwa"
+
+#~ msgid "onMouseOut src"
+#~ msgstr "onMouseOut src"
+
+#~ msgid "onMouseOver src"
+#~ msgstr "onMouseOver src"
+
+#~ msgid "/php/odbc/odbc connect"
+#~ msgstr "/php/odbc/odbc connect"
+
+#~ msgid "odbc data source name"
+#~ msgstr "nazwa źródła danych odbc"
+
+#~ msgid "username"
+#~ msgstr "nazwa użytkownika"
+
+#~ msgid "password"
+#~ msgstr "hasło"
+
+#~ msgid "/php/odbc/odbc exec query"
+#~ msgstr "/php/odbc/odbc exec query"
+
+#~ msgid "odbc connection id name"
+#~ msgstr "nazwa połączenia odbc"
+
+#~ msgid "/php/odbc/odbc fetch row"
+#~ msgstr "/php/odbc/odbc fetch row"
+
+#~ msgid "/php/general/echo date"
+#~ msgstr "/php/general/echo date"
+
+#~ msgid "/php/filesystem/open and echo file"
+#~ msgstr "/php/filesystem/open and echo file"
+
+#~ msgid "file (quoted) or variable (including $)"
+#~ msgstr "plik (w cudzysłowie) lub zmienna (ze znakiem $)"
+
+#~ msgid "/php/general/location header"
+#~ msgstr "/php/general/location header"
+
+#~ msgid "location (URL) to redirect to (quoted) or variable (including $)"
+#~ msgstr ""
+#~ "lokalizacja (URL) do przekierowania do (tekst w cudzysłowie) lub zmiennej "
+#~ "ze znakiem $)"
+
+#~ msgid "/apache/basic password required"
+#~ msgstr "/apache/basic password required"
+
+#~ msgid "full path to password file"
+#~ msgstr "pełna ścieżka do pliku z hasłami"
+
+#~ msgid "security description"
+#~ msgstr "opis bezpieczeństwa"
+
+#~ msgid "/apache/deny access to .inc"
+#~ msgstr "/apache/deny access to .inc"
+
+#~ msgid "/replace/strip <font>"
+#~ msgstr "/zamień/usuń <font>"
+
+#~ msgid "/replace/strip <any tag> in selection"
+#~ msgstr "/zamień/usuń <dowolny znacznik> wewnątrz zaznaczenia"
+
+#~ msgid "/replace/convert <td> in <th> in selection"
+#~ msgstr "/zamień/konwertuj <td> na <th> wewnątrz zaznaczenia"
+
+#~ msgid "/replace/convert <any tag> in <any other tag> in selection"
+#~ msgstr ""
+#~ "/zamień/konwertuj <dowolny znacznik> na <inny dowolny znacznik> wewnątrz  "
+#~ "zaznaczenia"
+
+#~ msgid "Filename"
+#~ msgstr "Nazwa pliku"
+
+#~ msgid "_Pattern:"
+#~ msgstr "_Wzorzec:"
+
+#~ msgid "selector"
+#~ msgstr "selektor"
+
+#~ msgid "property"
+#~ msgstr "własność"
+
+#~ msgid "value"
+#~ msgstr "wartość"
+
+#~ msgid "Vertical Align"
+#~ msgstr "Ustawienie pionowe"
+
+#~ msgid " Width "
+#~ msgstr " Szerokość "
+
+#~ msgid "Number of Columns per row"
+#~ msgstr "Ilość kolumn w wierszu"
+
+#~ msgid "Save in progress"
+#~ msgstr "Zapis pliku"
+
+#~ msgid ""
+#~ "File %s\n"
+#~ "is modified by another process"
+#~ msgstr ""
+#~ "Plik %s\n"
+#~ "został zmodyfikowany przez inny proces"
+
+#~ msgid "ISO-8859-1 (Latin 1, West European)"
+#~ msgstr "ISO-8859-1 (Latin 1, Europa Zachodnia)"
+
+#~ msgid "ISO-8859-2 (Latin 2, East European)"
+#~ msgstr "ISO-8859-2 (Latin 2, Europa Wschodnia)"
+
+#~ msgid "ISO-8859-3 (Latin 3, South European)"
+#~ msgstr "ISO-8859-3 (Latin 3, Europa Południowa)"
+
+#~ msgid "ISO-8859-4 (Latin 4, North European)"
+#~ msgstr "ISO-8859-4 (Latin 4, Europa Północna)"
+
+#~ msgid "ISO-8859-5 (Cyrillic)"
+#~ msgstr "ISO-8859-5 (Cyrilica)"
+
+#~ msgid "ISO-8859-6 (Arabic)"
+#~ msgstr "ISO-8859-6 (Arabski)"
+
+#~ msgid "ISO-8859-7 (Greek)"
+#~ msgstr "ISO-8859-7 (Grecki)"
+
+#~ msgid "ISO-8859-8 (Hebrew)"
+#~ msgstr "ISO-8859-8 (Hebrajski)"
+
+#~ msgid "ISO-8859-9 (Turkish)"
+#~ msgstr "ISO-8859-9 (Turecki)"
+
+#~ msgid "ISO-8859-10 (Nordic)"
+#~ msgstr "ISO-8859-10 (Nordycki)"
+
+#~ msgid "ISO-8859-11 (Thai)"
+#~ msgstr "ISO-8859-11 (Tajski)"
+
+#~ msgid "ISO-8859-15 (Latin 9, West European with EURO)"
+#~ msgstr "ISO-8859-15 (Latin 9, Europa Zachodnia EURO)"
+
+#~ msgid "GB2312 (Chinese)"
+#~ msgstr "GB2312 (Chiński)"
+
+#~ msgid "BIG5 (Traditional Chinese)"
+#~ msgstr "BIG5 (Tradycyjny chiński)"
+
+#~ msgid "SJIS (Japanese)"
+#~ msgstr "SJIS (Japoński)"
+
+#~ msgid "KSC (Korean)"
+#~ msgstr "KSC (Koreański)"
+
+#~ msgid "KOI8-R (Russian)"
+#~ msgstr "KOI8-R (Rosyjski)"
+
+#~ msgid "EUCJP (Japanese)"
+#~ msgstr "EUCJP (Japoński)"
+
+#~ msgid "/Tags/Repeat last"
+#~ msgstr "/Znaczniki/Powtórz ostatni"
