@@ -1614,7 +1614,7 @@ The projects are a sort of <emphasis>saved state</emphasis> of Bluefish. Thus, t
 
 <sect2 id="auto-tag-closing">
 <title>Auto tag closing</title>
-<para>By default, Bluefish will automatically produce closing tags for HTML and XML documents. For example, if you type <literal>&lt;p&gt;</literal> within an HTML document, bluefish will produce <literal>&lt;/p&gt;</literal>. So, as soon as you finish typing a non-empty HTML tag, meaning the tag is supposed to have a closing tag, Bluefish will help you out and close the tag automatically. For empty tags, like <literal>&lt;br&gt;</literal>, Bluefish correctly does nothing. This feature can be turned off by unchecking the <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>T</keycap></keycombo></shortcut><guimenu>Document</guimenu><guimenuitem>Auto Close HTML Tags</guimenuitem></menuchoice> menu option.</para>
+<para>By default, Bluefish will automatically produce closing tags for HTML and XML documents. For example, if you type <literal>&lt;p&gt;</literal> within an HTML document, bluefish will produce <literal>&lt;/p&gt;</literal>. So, as soon as you finish typing a non-empty HTML tag, meaning the tag is supposed to have a closing tag, Bluefish will help you out and close the tag automatically. This feature can be turned off by unchecking the <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>T</keycap></keycombo></shortcut><guimenu>Document</guimenu><guimenuitem>Auto Close HTML Tags</guimenuitem></menuchoice> menu option.</para>
 <para>Bluefish has two modes for tag closing, an XML mode and an HTML mode. In XML mode, Bluefish will add a closing tag to any tag that is not closed itself with /&gt;. In HTML mode, Bluefish excludes all known tags that do not need a closing tag, such as &lt;br&gt; and &lt;img&gt;.</para>
 <para>Bluefish will choose the mode based on the file type of the document. In the filetype preferences panel, the default mode for each file type can be set. See <xref linkend="changing-filetypes"/> for more info.</para>
 </sect2>
@@ -1634,7 +1634,7 @@ The projects are a sort of <emphasis>saved state</emphasis> of Bluefish. Thus, t
 					</mediaobject>
 				</screenshot>
 			</figure>
-	<para>Bluefish uses <ulink url="http://aspell.sourceforge.net/">aspell</ulink> for spell checking. If the aspell libraries are not installed on your system, then the spell checking feature will not be available. You may want to install some dictionary too; they are available at the same URL.</para>
+	<para>Bluefish uses <ulink url="http://aspell.sourceforge.net/">aspell</ulink> for spell checking. If the aspell libraries are not installed on your system, then the spell checking feature will not be available. At the aspell web site you can also download dictionaries for many different languages.</para>
 <para>To launch the spell checker, select <menuchoice><guimenu>Document</guimenu><guimenuitem>Check Spelling...</guimenuitem></menuchoice>. The spell checker will launch in a separate window, which you can keep open as you edit files.</para>
 <para>You have the option to check a whole document or just a selection, to use a personal or a session dictionary, and to choose the language depending on the installed dictionaries.</para>
 <para> Click on <guilabel>Spell Check</guilabel> to start spell checking the current document. As you run across misspelled words you want included in the dictionary, click on the <guilabel>Add</guilabel> button in the spell checker window. This will add words to a personal dictionary.</para>
