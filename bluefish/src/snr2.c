@@ -784,7 +784,7 @@ static void replace_prompt_dialog_ok_lcb(GtkWidget *widget, Tbfwin *bfwin) {
 	doc_get_selection(bfwin->current_document, &sel_start_pos, &sel_end_pos);
 	if ((sel_start_pos == LASTSNR2(bfwin->snr2)->result.start) &&
 				(sel_end_pos == LASTSNR2(bfwin->snr2)->result.end)) {
-
+		gint lenadded;
 		if (LASTSNR2(bfwin->snr2)->replacetype_option==string) {
 			tmpstr = g_strdup(LASTSNR2(bfwin->snr2)->replace_pattern);
 			/* if it was a regex replace we need to do the sub-search_pattern matching */
@@ -803,17 +803,23 @@ static void replace_prompt_dialog_ok_lcb(GtkWidget *widget, Tbfwin *bfwin) {
 		the problem starts in document.c in get_positions() because the selection is not saved there
 		I don't know why the selection is gray, but that's basically the reason why it doesn't save the selection
 		 */
+
 		doc_unre_new_group(bfwin->current_document);
 		doc_replace_text_backend(bfwin->current_document, tmpstr, LASTSNR2(bfwin->snr2)->result.start,LASTSNR2(bfwin->snr2)->result.end);
 		doc_unre_new_group(bfwin->current_document);
 		doc_set_modified(bfwin->current_document, 1);
-		
+
+		lenadded = strlen(tmpstr) - (LASTSNR2(bfwin->snr2)->result.end - LASTSNR2(bfwin->snr2)->result.start);
+		DEBUG_MSG("lenadded=%d (streln=%d, end-start=%d)\n",lenadded,strlen(tmpstr),(LASTSNR2(bfwin->snr2)->result.end - LASTSNR2(bfwin->snr2)->result.start));
 		g_free(tmpstr);
 		if (LASTSNR2(bfwin->snr2)->result.pmatch) {
 			g_free(LASTSNR2(bfwin->snr2)->result.pmatch);
 			LASTSNR2(bfwin->snr2)->result.pmatch = NULL;
 		}
 		if (!LASTSNR2(bfwin->snr2)->replace_once) {
+			if (!LASTSNR2(bfwin->snr2)->overlapping_search && lenadded > 0) {
+				LASTSNR2(bfwin->snr2)->result.end += lenadded;
+			}
 			snr2_run(bfwin,NULL);
 		}
 	}
