@@ -58,6 +58,7 @@ TOOLBAR = \
 	frameset frameset.png \
 	frameset2 frameset2.png \
 	framewhiz framewhiz.png \
+	fref fref.png \
 	frdialog frdialog.png \
 	frinfo frinfo.png \
 	headings headings.png \

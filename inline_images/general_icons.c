@@ -1,6 +1,13 @@
 /* GdkPixbuf RGBA C-Source image dump */
 
+#ifdef __SUNPRO_C
+#pragma align 4 (close_small)
+#endif
+#ifdef __GNUC__
+static const guint8 close_small[] __attribute__ ((__aligned__ (4))) = 
+#else
 static const guint8 close_small[] = 
+#endif
 { ""
   /* Pixbuf magic (0x47646b50) */
   "GdkP"
