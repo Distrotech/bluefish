@@ -1905,19 +1905,29 @@ The function reference browser can show an info window on the bottom. Check the 
 </listitem>
 </varlistentry>
 </variablelist>
-<para>The code generated for a png image looks like this:
+<para>The code generated for a png image and a png thumbnail looks like this:
 <programlisting><![CDATA[
-<a href="tot/343-4351_IMG_2.png">
-<img src="tot/343-4351_IMG_2_thumbnail.png" width="89" height="134"
-border="0" name="Gamboling" alt="Gamboling in the meadow" 
-align="middle"></a>
+<a href="/Users/michga/Desktop/343-4351_IMG_2.png">
+<img src="/Users/michga/Desktop/343-4351_IMG_2_thumbnail.png" 
+width="89" height="134" border="0" name="Gamboling" 
+alt="Gamboling in the meadow" align="middle"></a>
 ]]></programlisting></para>
-<para>and for a jpg image:
+<para>and for a jpg image and jpg thumbnail:
 <programlisting><![CDATA[
-<a href="tot/343-4351_IMG_2.JPG">
-<img src="tot/343-4351_IMG_2_thumbnail.jpeg" width="212" height="320" 
-border="0" alt=""></a>
+<a href="/Users/michga/Desktop/343-4351_IMG_2.JPG">
+<img src="/Users/michga/Desktop/343-4351_IMG_2_thumbnail.jpeg" 
+width="89" height="134" border="0" name="Gamboling" 
+alt="Gamboling in the meadow" align="middle"></a>
 ]]></programlisting></para>
+<variablelist>
+<varlistentry>
+<term><emphasis>Note</emphasis></term>
+<listitem>
+<para>You can perfectly mix jpg images with png thumbnails or the other way around.</para>
+<para>If the html file exists beforehand, the paths to image and thumbnail are inserted relative to the location of the html file. On the contrary, if the html file does not exist beforehand, the full path to image and thumbnail is inserted in the code.</para>
+</listitem>
+</varlistentry>
+</variablelist>
 <para>In the multi thumbnail dialog, you first choose the scaling method, then you set the corresponding width and/or height parameters, finally you may want to adjust the HTML code to be inserted for each image.</para>
 <para>Scaling can be based on a fixed ratio, based on a fixed width, based 
 on a fixed height, or based on a fixed width and fixed height (this last 
@@ -1976,6 +1986,14 @@ height="50" border="5" align="middle"></a>
 <img src="tot/343-4352_IMG_2_thumbnail.png" width="50"
 height="50" border="5" align="middle"></a>
 ]]></programlisting></para>
+<variablelist>
+<varlistentry>
+<term><emphasis>Note</emphasis></term>
+<listitem>
+<para>The path to original sources are always full paths. The paths to thumbnails are relative to the html file path if the html file exists beforehand, while they are inserted as full paths when the html file does not exist beforehand.</para>
+</listitem>
+</varlistentry>
+</variablelist>
 <para>Here's a full procedure to generate quickly a photos album with thumbnails. This example is purposedly made with deprecated tags, so that you have an idea of what can be made with the variables. Feel free to adjust it when using CSS style sheets.</para>
 <procedure id="photo-album"><title>Generating a photos album with multi thumbnails</title>
 <step>
@@ -2085,7 +2103,7 @@ width="%x" height="%y" border="0"></a>
 </para>
 <para>Note that you cannot add a pop up menu. Thus, if the item you want to add is inside a pop up menu (as is the code tag located in the <guilabel>Context formatting</guilabel> pop up menu of the <guilabel>Fonts</guilabel> tool bar), you have to first click on the pop up menu to display its contents, then to right click on the desired element to insert it in the <guilabel>Quick bar</guilabel>.
 <figure id="figure-quickbar-add-popup">
-<title id="figure-quickbar-add-popup-title">Adding a pop up menu element in the Quick bar</title>
+<title id="figure-quickbar-add-popup-title">Adding a pop up menu element to the Quick bar</title>
 <screenshot>
 <mediaobject>
 <imageobject>
@@ -2132,23 +2150,43 @@ width="%x" height="%y" border="0"></a>
 
 <sect2 id="custom-menu">
 <title>Custom menu</title>
-	<para>The custom menu allows you to add "often used" strings or
-	search and replace patterns to a menu. Upon install Bluefish will create
-	some default entries. These will give you an idea what can be done with
-	the custom menu.</para>
-		<para>
-	The location for entries in the custom menu is defined by their menu path. A menu path
-	looks like /Main menu/submenu/item or /Main menu/item. 
-	</para>
-	<para>There are two types of items in the custom menu. First is the Custom dialog, which will 
-	insert a string, optionally based on values asked in a dialog. Second is 
-	the Custom Find and Replace, which will run a replace, also optionally based
-	on values asked in a dialog.</para>
-	<para>
-	The most simple custom dialog item has a menupath, for example /MySite/author, and a Formatstring 
-	before, for example 'written by Olivier'. If you add this item, you can add this string
-	by selecting the menu item.
-	</para>
+<para>The custom menu operates <emphasis>only</emphasis> on elements of the <guilabel>Custom menu</guilabel> tool bar, and allows you to:</para>
+<itemizedlist>
+<listitem>
+<para>add "often used" items to a menu</para>
+</listitem>
+<listitem>
+<para>search and replace patterns to the <guilabel>Replace</guilabel> menu</para>
+</listitem>
+<listitem>
+<para>create new menus</para>
+</listitem></itemizedlist>
+<para>Upon install Bluefish will create some default entries. These will give you an idea what can be done with the custom menu.</para>
+<para>The location for entries in the custom menu is defined by their menu path. A menu path looks like <emphasis>/Main menu/submenu/item</emphasis> or <emphasis>/Main menu/item</emphasis>. Here's an extract of the default custom menu paths:
+<figure id="figure-custom-menu-default-path">
+<title id="figure-custom-menu-default-path-title">Extract of the default custom menu path</title>
+<screenshot>
+<mediaobject>
+<imageobject>
+<imagedata fileref="figures/custom_menu_default_path.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>A screen shot showing an extract  of the default custom menu path</phrase>
+</textobject>
+</mediaobject>
+</screenshot>
+</figure>
+</para>
+<para>There are two types of items in the custom menu:</para>
+<itemizedlist>
+<listitem>
+<para>First is the Custom dialog, which will insert a string, optionally based on values asked in a dialog.</para>
+</listitem>
+<listitem>
+<para>Second is the Custom Find and Replace, which will run a replace, also optionally based on values asked in a dialog.</para>
+</listitem>
+</itemizedlist>
+<para>The most simple custom dialog item has a menupath, for example <emphasis>/MySite/author</emphasis>, and a Formatstring before, for example <emphasis>written by Olivier</emphasis>. If you add this item, you can add this string by selecting the menu item.</para>
 	<para>SCREENSHOT BY ????</para>
 	<para>
 	In another example, you have a string you often need to set before 
