@@ -27,7 +27,7 @@
 #include <regex.h> 				/* regcomp() */
 #include <stdlib.h> /* system() */
 
-#define DEBUG
+/* #define DEBUG */
 
 #include "bluefish.h"
 #include "document.h"
@@ -1695,10 +1695,13 @@ static void files_advanced_win(Tfiles_advanced *tfs) {
 	gtk_container_add(GTK_CONTAINER(frame), vbox2);
 	/* filename part */
 	/* curdir should get a value */
-	tfs->basedir = boxed_full_entry(_("Basedir"), curdir, 255, vbox2);
 	{
-		GtkWidget *but = bf_stock_button(_("Browser"), G_CALLBACK(files_advanced_win_select_basedir_lcb), tfs);
-		gtk_box_pack_start(GTK_BOX(vbox2), but, TRUE, TRUE, 5);
+		GtkWidget *but = bf_stock_button(_("Browse"), G_CALLBACK(files_advanced_win_select_basedir_lcb), tfs);
+		hbox = gtk_hbox_new(FALSE,3);
+		gtk_box_pack_start(GTK_BOX(hbox), gtk_label_new(_("Basedir")), FALSE, FALSE, 2);
+		tfs->basedir = boxed_entry_with_text(curdir, 255, hbox);
+		gtk_box_pack_start(GTK_BOX(hbox), but, TRUE, TRUE, 2);
+		gtk_box_pack_start(GTK_BOX(vbox2), hbox, FALSE, FALSE, 2);
 	}
 	g_free(curdir);
 	hbox2 = gtk_hbox_new(FALSE, 0);
