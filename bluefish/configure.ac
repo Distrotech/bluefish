@@ -241,6 +241,14 @@ else
 	echo "no"
 fi
 
+echo -n "checking for gtk+-2.6... "
+if pkg-config gtk+-2.0 --atleast-version=2.6 ; then
+	AC_DEFINE(HAVE_ATLEAST_GTK_2_6)
+	echo "yes"
+else
+	echo "no"
+fi
+
 echo -n "checking for gnome-vfs-2.0... "
 if pkg-config --exists gnome-vfs-2.0 ; then
 	LIBS="$LIBS `pkg-config --libs gnome-vfs-2.0`"
