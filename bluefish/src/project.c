@@ -141,8 +141,24 @@ gboolean project_save(Tbfwin *bfwin, gboolean save_as) {
 	bmark_store_all(bfwin);
 
 	if (save_as || bfwin->project->filename == NULL) {
-		gchar *filename = return_file_w_title(NULL, _("Enter Bluefish project filename"));
 		gint suflen,filen;
+		gchar *filename = NULL;
+#ifdef HAVE_ATLEAST_GTK_2_4
+		{
+			GtkWidget *dialog;
+			dialog = gtk_file_chooser_dialog_new(_("Enter Bluefish project filename"),NULL,
+					GTK_FILE_CHOOSER_ACTION_OPEN,
+					GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+					GTK_STOCK_SAVE, GTK_RESPONSE_ACCEPT,
+					NULL);
+			if (gtk_dialog_run(GTK_DIALOG (dialog)) == GTK_RESPONSE_ACCEPT) {
+				filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog));
+			}
+			gtk_widget_destroy(dialog);
+		}
+#else
+		filename = return_file_w_title(NULL, _("Enter Bluefish project filename"));
+#endif
 		if (!filename) {
 			return FALSE;
 		}
@@ -229,7 +245,23 @@ void project_open_from_file(Tbfwin *bfwin, gchar *fromfilename) {
 
 static void project_open(Tbfwin *bfwin) {
 	/* first we ask for a filename */
-	gchar *filename = return_file_w_title(NULL, _("Select Bluefish project filename"));
+	gchar *filename = NULL;
+#ifdef HAVE_ATLEAST_GTK_2_4
+	{
+		GtkWidget *dialog;
+		dialog = gtk_file_chooser_dialog_new(_("Select Bluefish project filename"),NULL,
+				GTK_FILE_CHOOSER_ACTION_OPEN,
+				GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+				GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT,
+				NULL);
+		if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_ACCEPT) {
+			filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog));
+		}
+		gtk_widget_destroy(dialog);
+	}
+#else
+	filename = return_file_w_title(NULL, _("Select Bluefish project filename"));
+#endif
 	if (filename) {
 		DEBUG_MSG("project_open, for filename %s\n",filename);
 		project_open_from_file(bfwin,filename);

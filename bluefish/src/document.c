@@ -2369,8 +2369,25 @@ gchar *ask_new_filename(Tbfwin *bfwin,gchar *oldfilename, gint is_move) {
 	Tdocument *exdoc;
 	GList *alldocs;
 	gchar *ondisk = get_filename_on_disk_encoding(oldfilename);
-	gchar *newfilename = return_file_w_title(ondisk,
-												(is_move) ? _("Move/rename document to") : _("Save document as"));
+	gchar *newfilename = NULL;
+#ifdef HAVE_ATLEAST_GTK_2_4
+	{
+		GtkWidget *dialog;
+		dialog = gtk_file_chooser_dialog_new ((is_move) ? _("Move/rename document to") : _("Save document as"),GTK_WINDOW(bfwin->main_window),
+				GTK_FILE_CHOOSER_ACTION_SAVE,
+				GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+				GTK_STOCK_SAVE, GTK_RESPONSE_ACCEPT,
+				NULL);
+		gtk_file_chooser_set_filename(GTK_FILE_CHOOSER(dialog),oldfilename);
+		gtk_file_chooser_set_select_multiple(GTK_FILE_CHOOSER(dialog), FALSE);
+		if (gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_ACCEPT) {
+			newfilename = gtk_file_chooser_get_uri(GTK_FILE_CHOOSER(dialog));
+		}
+		gtk_widget_destroy(dialog);
+	}
+#else
+	newfilename = return_file_w_title(ondisk,(is_move) ? _("Move/rename document to") : _("Save document as"));
+#endif
 	g_free(ondisk);
 	if (!newfilename || (oldfilename && strcmp(oldfilename,newfilename)==0)) {
 		if (newfilename) g_free(newfilename);
@@ -3231,7 +3248,25 @@ static void files_advanced_win_select_basedir_lcb(GtkWidget * widget, Tfiles_adv
 	   the dialog to browse for a directory
 	*/
 	gchar *tmpdir = g_strconcat(olddir, "/", NULL);
-	gchar *newdir = return_dir(tmpdir, _("Select basedir"));
+	gchar *newdir = NULL;
+#ifdef HAVE_ATLEAST_GTK_2_4
+	{
+		GtkWidget *dialog;
+		dialog = gtk_file_chooser_dialog_new (_("Select basedir"),NULL,
+				GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER,
+				GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+				GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT,
+				NULL);
+		gtk_file_chooser_set_local_only(GTK_FILE_CHOOSER(dialog),TRUE);
+		gtk_file_chooser_set_filename(GTK_FILE_CHOOSER(dialog),tmpdir);
+		if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_ACCEPT) {
+			newdir = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog));
+		}
+		gtk_widget_destroy(dialog);
+	}
+#else
+	newdir = return_dir(tmpdir, _("Select basedir"));
+#endif
 	g_free(tmpdir);
 	if (newdir) {
 		gtk_entry_set_text(GTK_ENTRY(tfs->basedir),newdir);
@@ -3478,9 +3513,28 @@ void file_open_url_cb(GtkWidget * widget, Tbfwin *bfwin) {
  * Return value: void
  **/
 void file_open_cb(GtkWidget * widget, Tbfwin *bfwin) {
-	GList *tmplist;
+	GList *tmplist = NULL;
 	DEBUG_MSG("file_open_cb, started, calling return_files()\n");
+#ifdef HAVE_ATLEAST_GTK_2_4
+	{
+		GtkWidget *dialog;
+		GSList *slist;
+		dialog = gtk_file_chooser_dialog_new (_("Select files"),GTK_WINDOW(bfwin->main_window),
+				GTK_FILE_CHOOSER_ACTION_OPEN,
+				GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+				GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT,
+				NULL);
+		gtk_file_chooser_set_select_multiple(GTK_FILE_CHOOSER(dialog), TRUE);
+		if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_ACCEPT) {
+			slist = gtk_file_chooser_get_uris(GTK_FILE_CHOOSER(dialog));
+			tmplist = glist_from_gslist(slist);
+			g_slist_free(slist);
+		}
+		gtk_widget_destroy(dialog);
+	}
+#else
 	tmplist = return_files(NULL);
+#endif
 	if (!tmplist) {
 		return;
 	}
@@ -3544,9 +3598,23 @@ void open_advanced_from_filebrowser(Tbfwin *bfwin, gchar *path) {
  * Return value: void
  **/
 void file_insert_menucb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget) {
-	gchar *tmpfilename;
-
+	gchar *tmpfilename=NULL;
+#ifdef HAVE_ATLEAST_GTK_2_4
+	{
+		GtkWidget *dialog;
+		dialog = gtk_file_chooser_dialog_new (_("Select file to insert"),GTK_WINDOW(bfwin->main_window),
+				GTK_FILE_CHOOSER_ACTION_OPEN,
+				GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+				GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT,
+				NULL);
+		if (gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_ACCEPT) {
+			tmpfilename = gtk_file_chooser_get_uri(GTK_FILE_CHOOSER(dialog));
+		}
+		gtk_widget_destroy(dialog);
+	}
+#else 
 	tmpfilename = return_file_w_title(NULL, _("Select file to insert"));
+#endif
 	if (tmpfilename == NULL) {
 		statusbar_message(bfwin,_("No file to insert"), 2000);
 		return;
