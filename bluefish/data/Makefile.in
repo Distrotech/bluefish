@@ -58,6 +58,10 @@ install: all
 	if [ -d $(gnome1menupath) ] ; then \
 		$(INSTALL_DIR) $(DESTDIR)$(gnome1menupath)/Applications ;\
 		$(INSTALL_DATA) bluefish.desktop $(DESTDIR)$(gnome1menupath)/Applications ;\
+	else \
+		if [ ! "x$(gnome1menupath)" = "xnone" ]; then \
+			echo "The gnome1 menu directory $(gnome1menupath) does not exist" ;\
+		fi \
 	fi
 	if [ -d $(gnome2appreg) ] ; then \
 		$(INSTALL_DATA) bluefish.applications $(DESTDIR)$(gnome2appreg) ;\
