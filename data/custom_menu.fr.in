@@ -92,7 +92,7 @@ cmenu_insert: /DocBook/Listes/Liste variable:<variablelist><title>%0</title>\n\t
 cmenu_insert: /DocBook/Listes/Liste numérotée:<orderedlist>\n\t  <listitem><para>:</para></listitem>\n</orderedlist>:0:
 cmenu_insert: /DocBook/Listes/Élément de liste:<listitem><para>:</para></listitem>:0:
 cmenu_insert: /DocBook/Listes/Liste non numérotée:<itemizedlist>\n\t  <listitem><para>:</para></listitem>\n</itemizedlist>:0:
-cmenu_insert: /DocBook/Liens/Lien interne:<xref linkend="%0"/>\n::1:Identifiant du lien:
+cmenu_insert: /DocBook/Liens/Lien interne:<xref linkend="%0" />\n::1:Identifiant du lien:
 cmenu_insert: /DocBook/Liens/Lien externe:<ulink url="%0">%1</ulink>\n::2:URL du lien:Texte:
 cmenu_insert: /DocBook/Style/Option:<option>:</option>\n:0:
 cmenu_insert: /DocBook/Style/Emphase:<emphasis>:</emphasis>:0:
@@ -101,7 +101,7 @@ cmenu_insert: /DocBook/Style/Application:<application>\n:</application>:0:
 cmenu_insert: /DocBook/Style/Acronyme:<acronym>\n:</acronym>:0:
 cmenu_insert: /DocBook/En-têtes/Note juridique:<legalnotice>\n<para>:</para>\n</legalnotice>:0:
 cmenu_insert: /DocBook/En-têtes/Historique/Historique de révision:<revhistory>\n:\n</revhistory>:0:
-cmenu_insert: /DocBook/En-têtes/Historique/Révision:<revision>\n\t<revnumber>%0</revnumber>\n\t<date>%1</date>\n\t<authorinitials>%2</authorinitials>\n<revremark>%3</revremark>\n</revision>::4:Numéro de la révision:Date de la révision:Initiales de l'auteur:Remarque:
+cmenu_insert: /DocBook/En-têtes/Historique/Révision:<revision>\n\t<revnumber>%0</revnumber>\n\t<date>%1</date>\n\t<authorinitials>%2</authorinitials>\n\t<revremark>%3</revremark>\n</revision>::4:Numéro de la révision:Date de la révision:Initiales de l'auteur:Remarque:
 cmenu_insert: /DocBook/En-têtes/Entité/Entité système:<!ENTITY %0 SYSTEM "%0">::1:Nom de l'entité:
 cmenu_insert: /DocBook/En-têtes/Entité/Entité simple:<!ENTITY %0 "%0">::1:Nom de l'entité:
 cmenu_insert: /DocBook/En-têtes/Entité/Entité complexe:<!ENTITY %0 "%1">::2:Nom de l'entité:Définition de l'entité:
