@@ -39,7 +39,7 @@ static void checkmodified_cleanup(Tcheckmodified *cm) {
 	g_free(cm);
 }
 
-static void checkmodified_cancel(Tcheckmodified *cm) {
+void checkmodified_cancel(Tcheckmodified * cm) {
 	gnome_vfs_async_cancel(cm->handle);
 	cm->callback_func(CHECKMODIFIED_CANCELLED, 0, NULL, NULL, cm->callback_data);
 	checkmodified_cleanup(cm);
@@ -573,10 +573,16 @@ static void file2doc_lcb(Topenfile_status status,gint error_info,gchar *buffer,G
 		case OPENFILE_CHANNEL_OPENED:
 			/* do nothing */
 		break;
+   	case OPENFILE_ERROR_CANCELLED:
+   	   /* lets close the document */
+   	   f2d->doc->action.load = NULL;
+   	   DEBUG_MSG("file2doc_lcb, calling doc_close_single_backend\n");
+   	   doc_close_single_backend(f2d->doc, f2d->doc->action.close_window);
+			file2doc_cleanup(f2d);
+   	break;
 		case OPENFILE_ERROR:
 		case OPENFILE_ERROR_NOCHANNEL:
 		case OPENFILE_ERROR_NOREAD:
-		case OPENFILE_ERROR_CANCELLED:
 			DEBUG_MSG("file2doc_lcb, ERROR status=%d, cleanup!!!!!\n",status);
 			if (f2d->doc->action.close_doc) {
 				f2d->doc->action.load = NULL;
@@ -585,7 +591,7 @@ static void file2doc_lcb(Topenfile_status status,gint error_info,gchar *buffer,G
 				doc_set_status(f2d->doc, DOC_STATUS_ERROR);
 			}
 			f2d->doc->action.load = NULL;
-			file2doc_cleanup(data);
+			file2doc_cleanup(f2d);
 		break;
 	}
 }

@@ -127,6 +127,7 @@ typedef struct {
 	gboolean close_window;
 	gpointer save; /* during document save */
 	gpointer info; /* during update of the fileinfo */
+	gpointer checkmodified; /* during check modified on disk checking */
 	gpointer load; /* during load */
 } Tdoc_action;
 

@@ -3227,6 +3227,7 @@ static void doc_activate_modified_lcb(Tcheckmodified_status status,gint error_in
 		/* do nothing */
 	break;
 	}
+	doc->action.checkmodified = NULL;
 }
 
 static gboolean doc_close_from_activate(gpointer data) {
@@ -3261,7 +3262,7 @@ void doc_activate(Tdocument *doc) {
 		gchar *tmpstr;
 		gint retval;
 		DEBUG_MSG("doc_activate, DOC_STATUS_ERROR, retry???\n");
-		tmpstr = g_strconcat(_("File "), doc->uri, _(" failed to load."), NULL);
+		tmpstr = g_strconcat(_("File "), gtk_label_get_text(GTK_LABEL(doc->tab_menu)), _(" failed to load."), NULL);
 		retval = multi_warning_dialog(BFWIN(doc->bfwin)->main_window,_("File failed to load\n"), tmpstr, 0, 1, options);
 		g_free(tmpstr);
 		if (retval == 0) {
@@ -3278,10 +3279,10 @@ void doc_activate(Tdocument *doc) {
 		gtk_widget_show(doc->view); /* This might be the first time this document is activated. */
 	}
 	BFWIN(doc->bfwin)->last_activated_doc = doc;
-	if (doc->uri) {
+	if (doc->uri && doc->fileinfo && !doc->action.checkmodified) {
 		uri = gnome_vfs_uri_new(doc->uri);
 		if (uri) {
-			file_checkmodified_uri_async(uri, doc->fileinfo, doc_activate_modified_lcb, doc);
+			doc->action.checkmodified = file_checkmodified_uri_async(uri, doc->fileinfo, doc_activate_modified_lcb, doc);
 			gnome_vfs_uri_unref(uri);
 		}
 	}
