@@ -89,4 +89,6 @@ uninstall:
 	@cd src/ && $(MAKE) uninstall
 	@cd po/ && $(MAKE) uninstall
 	@cd data/ && $(MAKE) uninstall
+	rm -f $(pkgdatadir)/bluefish_splash.png
+	rm -f $(iconpath)/bluefish-icon.png
 	/bin/rmdir $(DESTDIR)$(pkgdatadir)
