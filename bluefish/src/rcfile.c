@@ -528,32 +528,40 @@ void rcfile_parse_main(void)
 		main_v->props.filetypes = g_list_append(main_v->props.filetypes, arr);
 		arr = array_from_arglist("html", ".html:.htm:.shtml:.shtm", "<> \n\"", ICON_BASEDIR"icon_html.png", NULL);
 		main_v->props.filetypes = g_list_append(main_v->props.filetypes, arr);
-		arr = array_from_arglist("javascript", ".js", "\n'\" ", ICON_BASEDIR"icon_unknown.png", NULL);
+		arr = array_from_arglist("javascript", ".js", "\n'\" ", "", NULL);
 		main_v->props.filetypes = g_list_append(main_v->props.filetypes, arr);
 		arr = array_from_arglist("xml", ".xml", "<> \n\"", ICON_BASEDIR"icon_xml.png", NULL);
 		main_v->props.filetypes = g_list_append(main_v->props.filetypes, arr);
 		arr = array_from_arglist("java", ".java:.jar:.class", "(){}'[]\n\" ", ICON_BASEDIR"icon_java.png", NULL);
 		main_v->props.filetypes = g_list_append(main_v->props.filetypes, arr);
-		arr = array_from_arglist("sql", ".sql", "(){}'[]\n\" ", ICON_BASEDIR"icon_unknown.png", NULL);
+		arr = array_from_arglist("sql", ".sql", "(){}'[]\n\" ", "", NULL);
 		main_v->props.filetypes = g_list_append(main_v->props.filetypes, arr);
 		arr = array_from_arglist("c", ".c:.h", "(){}'[]\n\" ", ICON_BASEDIR"icon_c.png", NULL);
 		main_v->props.filetypes = g_list_append(main_v->props.filetypes, arr);
-		arr = array_from_arglist("webimage", ".jpg:.png:.gif:.jpeg", "", ICON_BASEDIR"icon_image.png", NULL);
-		main_v->props.filetypes = g_list_append(main_v->props.filetypes, arr);
 		arr = array_from_arglist("image", ".jpg:.png:.gif:.jpeg:.tif:.tiff:.xpm:.xcf", "", ICON_BASEDIR"icon_image.png", NULL);
 		main_v->props.filetypes = g_list_append(main_v->props.filetypes, arr);
-		arr = array_from_arglist("stylesheet", ".css", "", ICON_BASEDIR"icon_unknown.png", NULL);
+		arr = array_from_arglist("webimage", ".jpg:.png:.gif:.jpeg", "", ICON_BASEDIR"icon_image.png", NULL);
+		main_v->props.filetypes = g_list_append(main_v->props.filetypes, arr);
+		arr = array_from_arglist("stylesheet", ".css", "", "", NULL);
+		main_v->props.filetypes = g_list_append(main_v->props.filetypes, arr);
+		arr = array_from_arglist("objectfile", ".o:.class", "", "", NULL);
+		main_v->props.filetypes = g_list_append(main_v->props.filetypes, arr);
+		arr = array_from_arglist("python", ".py", "", "", NULL);
+		main_v->props.filetypes = g_list_append(main_v->props.filetypes, arr);
+		arr = array_from_arglist("perl", ".pl", "", "", NULL);
 		main_v->props.filetypes = g_list_append(main_v->props.filetypes, arr);
 	}
 	if (main_v->props.filefilters == NULL) {
 		gchar **arr;
-		arr = array_from_arglist("C programming", "c:image", NULL);
+		arr = array_from_arglist("C programming","1","c:image", NULL);
 		main_v->props.filefilters = g_list_append(main_v->props.filefilters, arr);
-		arr = array_from_arglist("All web files", "html:php:webimage:xml:javascript:stylesheet", NULL);
+		arr = array_from_arglist("All web files","1", "html:php:webimage:xml:javascript:stylesheet", NULL);
 		main_v->props.filefilters = g_list_append(main_v->props.filefilters, arr);
-		arr = array_from_arglist("Java programming", "java:image", NULL);
+		arr = array_from_arglist("Java programming","1", "java:image", NULL);
 		main_v->props.filefilters = g_list_append(main_v->props.filefilters, arr);
-		arr = array_from_arglist("Images", "image", NULL);
+		arr = array_from_arglist("Images","1", "image", NULL);
+		main_v->props.filefilters = g_list_append(main_v->props.filefilters, arr);
+		arr = array_from_arglist("Hide objectfiles","0", "objectfile", NULL);
 		main_v->props.filefilters = g_list_append(main_v->props.filefilters, arr);
 	}
 }
