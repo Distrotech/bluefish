@@ -1229,11 +1229,10 @@ void doc_insert_two_strings(Tdocument *doc, const gchar *before_str, const gchar
 	DEBUG_MSG("doc_insert_two_strings, finished\n");
 }
 
-/* this function should be changed to become case insensitive!! */
 static void add_encoding_to_list(gchar *encoding) {
 	gchar **enc = g_new0(gchar *,3);
 	enc[0] = g_strdup(encoding);
-	if (!arraylist_value_exists(main_v->props.encodings, enc, 1)) {
+	if (!arraylist_value_exists(main_v->props.encodings, enc, 1, FALSE)) {
 		GList *tmplist;
 		enc[1] = g_strdup(encoding);
 		main_v->props.encodings = g_list_insert(main_v->props.encodings, enc, 1);
