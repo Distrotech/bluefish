@@ -1,3 +1,8 @@
+/* This file is part of gimp-help-2. It is copyrighted under the GNU
+   Free Documentation License Version 1.1 which you can get from
+   http://www.gnu.org */
+
+
   body {
     font-size: small;
     font-family: Verdana, sans-serif;
@@ -255,12 +260,6 @@ a:hover {
     min-width: 90%;
   }
 
-
-
-
-
-
-  
   .guilabel, .guimenu, .guisubmenu, .guimenuitem {
     background-color: #eeeee6;
     padding: 2px 5px;
@@ -305,21 +304,12 @@ td.seg {
 }
 
 .screen {
-	background: #000000;
-	color: #00FF00;
+	font-size: medium;
+	background: #dddddd;
+	color: #000000;
 	padding: 5px;
 	margin: 5px;
-	border: 1px dashed #00FF00;
+	border: 2px dashed #999999;
 	width: 70%;
-}
-
-/* For variable lists, indentation of the term element */
-.term {
-	margin-left: 10px;
-}
-
-/* For variable lists, to display tip in blue */
-dt > SPAN[class="term"] > SPAN[class="emphasis"]  > em {
-	color: #6e8ae6;
 }
 
