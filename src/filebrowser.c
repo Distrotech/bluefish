@@ -2018,7 +2018,10 @@ void filebrowser_cleanup(Tbfwin *bfwin) {
 			gtk_list_store_clear(GTK_LIST_STORE(FILEBROWSER(bfwin->filebrowser)->store2));
 			g_object_unref(G_OBJECT(FILEBROWSER(bfwin->filebrowser)->store2));
 		}
-		if (FILEBROWSER(bfwin->filebrowser)->basedir) g_free(FILEBROWSER(bfwin->filebrowser)->basedir);
+		if (FILEBROWSER(bfwin->filebrowser)->basedir)
+			g_free(FILEBROWSER(bfwin->filebrowser)->basedir);
+		if (FILEBROWSER(bfwin->filebrowser)->last_opened_dir) 
+			g_free(FILEBROWSER(bfwin->filebrowser)->last_opened_dir);
 		
 		DEBUG_MSG("filebrowser_cleanup, free filebrowser\n");
 		g_free(bfwin->filebrowser);
