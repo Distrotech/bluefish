@@ -483,7 +483,7 @@ GtkWidget *bmark_gui(Tbfwin * bfwin)
 	GtkWidget *vbox;
 	GtkCellRenderer *cell;
 	GtkTreeViewColumn *column;
-
+	DEBUG_MSG("bmark_gui, building gui for bfwin=%p\n",bfwin);
 	/* Tree Store is in bfwin->bookmarkstore 
 	   Tree View is in bfwin->bmark 
 	 */
@@ -511,68 +511,72 @@ static void bmark_get_iter_at_position(Tbfwin * bfwin, Tbmark * m)
 	GtkTreeIter *parent;
 	gpointer ptr;
 	DEBUG_MSG("bmark_get_iter_at_position, started for filepath=%s\n",m->filepath);
-	if (bfwin->bmark_files) {
-		ptr = g_hash_table_lookup(bfwin->bmark_files, m->filepath);
-		if (ptr == NULL) {			/* closed document or bookmarks never set */
-			gchar *title = NULL;
-			parent = g_new0(GtkTreeIter, 1);
-			gtk_tree_store_append(bfwin->bookmarkstore, parent, NULL);
-			switch (main_v->props.bookmarks_filename_mode) {
-			case BM_FMODE_FULL:
-				g_strdup(m->filepath);
-				break;
-			case BM_FMODE_HOME:	/* todo */
-				if (bfwin->project != NULL && bfwin->project->basedir && strlen(bfwin->project->basedir)) {
-					gint baselen = strlen(bfwin->project->basedir);
-					if (strncmp(m->filepath, bfwin->project->basedir, baselen)==0) {
-						title = g_strdup(m->filepath + baselen);
-					}
+	if (!bfwin->bmark_files) {
+		DEBUG_MSG("bmark_get_iter_at_position, creating hashtable for bfwin=%p\n",bfwin);
+		bfwin->bmark_files = g_hash_table_new_full(g_str_hash, g_str_equal, g_free, NULL);
+	}
+	ptr = g_hash_table_lookup(bfwin->bmark_files, m->filepath);
+	if (ptr == NULL) {			/* closed document or bookmarks never set */
+		gchar *title = NULL;
+		parent = g_new0(GtkTreeIter, 1);
+		gtk_tree_store_append(bfwin->bookmarkstore, parent, NULL);
+		switch (main_v->props.bookmarks_filename_mode) {
+		case BM_FMODE_FULL:
+			g_strdup(m->filepath);
+			break;
+		case BM_FMODE_HOME:	/* todo */
+			if (bfwin->project != NULL && bfwin->project->basedir && strlen(bfwin->project->basedir)) {
+				gint baselen = strlen(bfwin->project->basedir);
+				if (strncmp(m->filepath, bfwin->project->basedir, baselen)==0) {
+					title = g_strdup(m->filepath + baselen);
 				}
-				break;
-	/*		case BM_FMODE_FILE:
-				title = g_path_get_basename(m->filepath);
-				break;*/
 			}
-			if (title == NULL) {
-				title = g_path_get_basename(m->filepath);
-			}
-			gtk_tree_store_set(bfwin->bookmarkstore, parent, NAME_COLUMN, title
-								   , PTR_COLUMN, m->doc, -1);
-			if (m->doc != NULL)
-				m->doc->bmark_parent = parent;
-			DEBUG_MSG("bmark_get_iter_at_position, appending parent %p in hashtable for filepath=%s\n",parent, m->filepath);
-			/* the hash table frees the key, but not the value, on destroy */
-			g_hash_table_insert(bfwin->bmark_files, g_strdup(m->filepath), parent);
-		} else
-			parent = (GtkTreeIter *) ptr;
-	
-		DEBUG_MSG("bmark_get_iter_at_position, sorting=%d\n", main_v->props.bookmarks_sort);
-		if (main_v->props.bookmarks_sort) {
-			GtkTreeIter tmpiter;
-			gboolean cont;
-			cont = gtk_tree_model_iter_children(GTK_TREE_MODEL(bfwin->bookmarkstore), &tmpiter, parent);
-			while (cont) {
-				Tbmark *tmpm = NULL;
-				gtk_tree_model_get(GTK_TREE_MODEL(bfwin->bookmarkstore), &tmpiter, PTR_COLUMN, &tmpm,
-								   -1);
-				if (tmpm) {
-					gint val = strcmp(m->filepath, tmpm->filepath);
-					if (val == 0) {
-						DEBUG_MSG("bmark_get_iter_at_position, there is already a bookmark for this file, comparing two iters\n");
-						if (m->offset < tmpm->offset) {
-							gtk_tree_store_insert_before(bfwin->bookmarkstore, &m->iter, parent,
-														 &tmpiter);
-							return;
-						}
-					} else if (val < 0) {
-						/* different file */
-						DEBUG_MSG("bmark_get_iter_at_position, no bookmark for this file yet, creating\n");
-						gtk_tree_store_insert_before(bfwin->bookmarkstore, &m->iter, parent, &tmpiter);
+			break;
+/*		case BM_FMODE_FILE:
+			title = g_path_get_basename(m->filepath);
+			break;*/
+		}
+		if (title == NULL) {
+			title = g_path_get_basename(m->filepath);
+		}
+		gtk_tree_store_set(bfwin->bookmarkstore, parent, NAME_COLUMN, title
+							   , PTR_COLUMN, m->doc, -1);
+		if (m->doc != NULL) {
+			DEBUG_MSG("bmark_get_iter_at_position, setting parent iter %p for doc%p\n",parent,m->doc);
+			m->doc->bmark_parent = parent;
+		}
+		DEBUG_MSG("bmark_get_iter_at_position, appending parent %p in hashtable for filepath=%s\n",parent, m->filepath);
+		/* the hash table frees the key, but not the value, on destroy */
+		g_hash_table_insert(bfwin->bmark_files, g_strdup(m->filepath), parent);
+	} else
+		parent = (GtkTreeIter *) ptr;
+
+	DEBUG_MSG("bmark_get_iter_at_position, sorting=%d\n", main_v->props.bookmarks_sort);
+	if (main_v->props.bookmarks_sort) {
+		GtkTreeIter tmpiter;
+		gboolean cont;
+		cont = gtk_tree_model_iter_children(GTK_TREE_MODEL(bfwin->bookmarkstore), &tmpiter, parent);
+		while (cont) {
+			Tbmark *tmpm = NULL;
+			gtk_tree_model_get(GTK_TREE_MODEL(bfwin->bookmarkstore), &tmpiter, PTR_COLUMN, &tmpm,
+							   -1);
+			if (tmpm) {
+				gint val = strcmp(m->filepath, tmpm->filepath);
+				if (val == 0) {
+					DEBUG_MSG("bmark_get_iter_at_position, there is already a bookmark for this file, comparing two iters\n");
+					if (m->offset < tmpm->offset) {
+						gtk_tree_store_insert_before(bfwin->bookmarkstore, &m->iter, parent,
+													 &tmpiter);
 						return;
 					}
+				} else if (val < 0) {
+					/* different file */
+					DEBUG_MSG("bmark_get_iter_at_position, no bookmark for this file yet, creating\n");
+					gtk_tree_store_insert_before(bfwin->bookmarkstore, &m->iter, parent, &tmpiter);
+					return;
 				}
-				cont = gtk_tree_model_iter_next(GTK_TREE_MODEL(bfwin->bookmarkstore), &tmpiter);
 			}
+			cont = gtk_tree_model_iter_next(GTK_TREE_MODEL(bfwin->bookmarkstore), &tmpiter);
 		}
 	}
 	gtk_tree_store_append(bfwin->bookmarkstore, &m->iter, parent);
@@ -629,6 +633,7 @@ void bmark_init()
 void bmark_reload(Tbfwin * bfwin)
 {
 	GList *tmplist = g_list_first(bfwin->session->bmarks);
+	DEBUG_MSG("bmark_reload for bfwin %p\n",bfwin);
 	if (bfwin->bmark_files != NULL)
 		g_hash_table_destroy(bfwin->bmark_files);
 	bfwin->bmark_files = g_hash_table_new_full(g_str_hash, g_str_equal, g_free, NULL);
@@ -670,6 +675,7 @@ void bmark_reload(Tbfwin * bfwin)
  */
 void bmark_set_store(Tbfwin * bfwin)
 {
+	DEBUG_MSG("bmark_set_store set store %p for bfwin %p\n",bfwin->bookmarkstore,bfwin);
 	if (bfwin->bookmarkstore) {
 		gtk_tree_view_set_model(bfwin->bmark, GTK_TREE_MODEL(bfwin->bookmarkstore));
 	}
@@ -682,11 +688,13 @@ void bmark_clean_for_doc(Tdocument * doc)
 
 	if (doc->bmark_parent == NULL)
 		return;
+	DEBUG_MSG("bmark_clean_for_doc, getting children for parent_iter=%p\n",doc->bmark_parent);
 	cont =
 		gtk_tree_model_iter_children(GTK_TREE_MODEL(BFWIN(doc->bfwin)->bookmarkstore), &tmpiter,
 									 doc->bmark_parent);
 	while (cont) {
 		Tbmark *b = NULL;
+		DEBUG_MSG("bmark_clean_for_doc, getting bookmark for first child\n");
 		gtk_tree_model_get(GTK_TREE_MODEL(BFWIN(doc->bfwin)->bookmarkstore), &tmpiter, PTR_COLUMN,
 						   &b, -1);
 		if (b) {
@@ -702,6 +710,7 @@ void bmark_clean_for_doc(Tdocument * doc)
 		cont = gtk_tree_model_iter_next(GTK_TREE_MODEL(BFWIN(doc->bfwin)->bookmarkstore), &tmpiter);
 	}							/* cont */
 	/* now unset the Tdocument* in the second column */
+	DEBUG_MSG("unsetting and freeing parent_iter %p for doc%p\n",doc->bmark_parent,doc);
 	gtk_tree_store_set(GTK_TREE_STORE(BFWIN(doc->bfwin)->bookmarkstore), doc->bmark_parent, PTR_COLUMN, NULL, -1);
 	g_free(doc->bmark_parent);
 	doc->bmark_parent = NULL;
@@ -722,7 +731,7 @@ void bmark_set_for_doc(Tdocument * doc)
 		return;
 	}
 	if (doc->bmark_parent) {
-		DEBUG_MSG("this document already has a bmark_parent?!?!? why is this function called?\n");
+		DEBUG_MSG("this document (%p) already has a bmark_parent (%p) why is this function called?\n",doc,doc->bmark_parent);
 		return;
 	}
 	
@@ -765,6 +774,7 @@ void bmark_set_for_doc(Tdocument * doc)
 													 (BFWIN(doc->bfwin)->bookmarkstore), &child);
 					}
 					doc->bmark_parent = g_memdup(&tmpiter, sizeof(GtkTreeIter));
+					DEBUG_MSG("bmark_set_for_doc, added parent_iter %p to doc %p\n",doc->bmark_parent,doc);
 					break;
 				}
 			}
@@ -993,6 +1003,7 @@ void bmark_check_length(Tbfwin * bfwin, Tdocument * doc)
 
 void bmark_cleanup(Tbfwin * bfwin)
 {
+	DEBUG_MSG("bmark_cleanup, cleanup for bfwin=%p\n",bfwin);
 	if (bfwin->bmark_files) g_hash_table_destroy(bfwin->bmark_files);
 	bfwin->bmark_files = NULL;
 }
