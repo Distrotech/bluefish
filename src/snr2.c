@@ -105,12 +105,14 @@ typedef struct {
 	gint replace;
 	Tbfwin *bfwin;
 	GtkWidget *window;
-	GtkWidget *search_entry;
+	GtkWidget *search_combo;
+	/*GtkWidget *search_entry;*/
 	GtkWidget *search_label;
-	GtkWidget *search_scrollbox;
-	GtkWidget *replace_entry;
+	/*GtkWidget *search_scrollbox;*/
+	GtkWidget *replace_combo;
+	/*GtkWidget *replace_entry;*/
 	GtkWidget *replace_label;
-	GtkWidget *replace_scrollbox;
+	/*GtkWidget *replace_scrollbox;*/
 	GtkWidget *subpat_help;
 	GtkWidget *overlapping_search;
 	GtkWidget *prompt_before_replace;
@@ -1182,8 +1184,8 @@ static void snr2dialog_cancel_lcb(GtkWidget *widget, gpointer data) {
  * Sets the last_snr2 as specified by the user and calls snr2_run(NULL) (aka, run on current document)
  */
 static void snr2dialog_ok_lcb(GtkWidget *widget, Tsnr2_win *data) {
-	GtkTextIter itstart, itend;
-	GtkTextBuffer *buf;
+	/*GtkTextIter itstart, itend;
+	GtkTextBuffer *buf;*/
 	Tbfwin *bfwin = data->bfwin;
 	if (LASTSNR2(bfwin->snr2)->search_pattern) {
 		g_free(LASTSNR2(bfwin->snr2)->search_pattern);
@@ -1193,19 +1195,20 @@ static void snr2dialog_ok_lcb(GtkWidget *widget, Tsnr2_win *data) {
 		g_free(LASTSNR2(bfwin->snr2)->replace_pattern);
 		LASTSNR2(bfwin->snr2)->replace_pattern = NULL;
 	}
-	buf = gtk_text_view_get_buffer(GTK_TEXT_VIEW(data->search_entry));
+	/*buf = gtk_text_view_get_buffer(GTK_TEXT_VIEW(data->search_entry));
 	gtk_text_buffer_get_bounds(buf,&itstart,&itend);
-
-	LASTSNR2(bfwin->snr2)->search_pattern = gtk_text_buffer_get_text(buf,&itstart,&itend, FALSE);
+	LASTSNR2(bfwin->snr2)->search_pattern = gtk_text_buffer_get_text(buf,&itstart,&itend, FALSE);*/
+	LASTSNR2(bfwin->snr2)->search_pattern = gtk_editable_get_chars(GTK_EDITABLE(GTK_COMBO(data->search_combo)->entry),0,-1);
 	LASTSNR2(bfwin->snr2)->unescape = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(data->unescape));
  	LASTSNR2(bfwin->snr2)->is_case_sens = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(data->is_case_sens));
  	LASTSNR2(bfwin->snr2)->overlapping_search = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(data->overlapping_search));
 	if (data->replace) {
-		GtkTextIter itstart, itend;
+		/*GtkTextIter itstart, itend;
 		GtkTextBuffer *buf = gtk_text_view_get_buffer(GTK_TEXT_VIEW(data->replace_entry));
-		LASTSNR2(bfwin->snr2)->replace = 1;
 		gtk_text_buffer_get_bounds(buf,&itstart,&itend);
-		LASTSNR2(bfwin->snr2)->replace_pattern = gtk_text_buffer_get_text(buf,&itstart,&itend, FALSE);
+		LASTSNR2(bfwin->snr2)->replace_pattern = gtk_text_buffer_get_text(buf,&itstart,&itend, FALSE);*/
+		LASTSNR2(bfwin->snr2)->replace = 1;
+		LASTSNR2(bfwin->snr2)->replace_pattern = gtk_editable_get_chars(GTK_EDITABLE(GTK_COMBO(data->search_combo)->entry),0,-1);
 	 	LASTSNR2(bfwin->snr2)->prompt_before_replace = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(data->prompt_before_replace));
 	 	LASTSNR2(bfwin->snr2)->replace_once = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(data->replace_once));
 	} else {
@@ -1237,16 +1240,21 @@ static void matchtype_changed_lcb(GtkWidget *widget, Tsnr2_win *snr2win) {
 
 static void replacetype_changed_lcb(GtkWidget *widget, Tsnr2_win *snr2win) {
 	LASTSNR2(snr2win->bfwin->snr2)->replacetype_option =  gtk_option_menu_get_history((GtkOptionMenu *) snr2win->replacetype_option);
-	gtk_widget_set_sensitive(snr2win->replace_entry, LASTSNR2(snr2win->bfwin->snr2)->replacetype_option==0);
+	/*gtk_widget_set_sensitive(snr2win->replace_entry, LASTSNR2(snr2win->bfwin->snr2)->replacetype_option==0);*/
+	gtk_widget_set_sensitive(snr2win->replace_combo, LASTSNR2(snr2win->bfwin->snr2)->replacetype_option==0);
 	DEBUG_MSG("replacetype_changed_lcb, changing option to %d\n", LASTSNR2(snr2win->bfwin->snr2)->replacetype_option);
 }
-
+/*
 static gboolean search_entry_key_press_event_lcb(GtkWidget *widget,GdkEventKey *event,Tsnr2_win *snr2win) {
 	if ((event->state & GDK_CONTROL_MASK) && (event->keyval == GDK_Return)) {
 		snr2dialog_ok_lcb(NULL, snr2win);
 		return TRUE;
 	}
 	return FALSE;
+}*/
+
+static void combo_activate_lcb(GtkEntry *entry,Tsnr2_win *snr2win) {
+	snr2dialog_ok_lcb(NULL, snr2win);
 }
 
 static void snr2dialog(Tbfwin *bfwin, gint is_replace, gint is_new_search) {
@@ -1291,11 +1299,13 @@ static void snr2dialog(Tbfwin *bfwin, gint is_replace, gint is_new_search) {
 					(GtkAttachOptions) (GTK_FILL), (GtkAttachOptions) (0), 2, 0);
 	gtk_label_set_justify (GTK_LABEL (snr2win->search_label), GTK_JUSTIFY_LEFT);
 	gtk_misc_set_alignment (GTK_MISC (snr2win->search_label), 0, 0.5);
-	snr2win->search_scrollbox = textview_buffer_in_scrolwin(&snr2win->search_entry, 300, 50, LASTSNR2(bfwin->snr2)->search_pattern, GTK_WRAP_NONE);
-	gtk_table_attach (GTK_TABLE (table), snr2win->search_scrollbox, 1, 2, 0, 1,
+	/*snr2win->search_scrollbox = textview_buffer_in_scrolwin(&snr2win->search_entry, 300, 50, LASTSNR2(bfwin->snr2)->search_pattern, GTK_WRAP_NONE);*/
+	
+	snr2win->search_combo = combo_with_popdown("", NULL, TRUE);
+	gtk_table_attach (GTK_TABLE (table), snr2win->search_combo, 1, 2, 0, 1,
 					(GtkAttachOptions) (GTK_EXPAND | GTK_FILL), (GtkAttachOptions) (GTK_FILL), 0, 0);
-	g_signal_connect(G_OBJECT(snr2win->search_entry), "key_press_event", G_CALLBACK(search_entry_key_press_event_lcb), snr2win);
-
+	/*g_signal_connect(G_OBJECT(snr2win->search_entry), "key_press_event", G_CALLBACK(search_entry_key_press_event_lcb), snr2win);*/
+	g_signal_connect(G_OBJECT(GTK_COMBO(snr2win->search_combo)->entry), "activate", G_CALLBACK(combo_activate_lcb), snr2win);
 
 	if (is_replace) {
 		snr2win->replace_label = gtk_label_new_with_mnemonic(_("Replace wit_h: "));
@@ -1303,11 +1313,12 @@ static void snr2dialog(Tbfwin *bfwin, gint is_replace, gint is_new_search) {
 						(GtkAttachOptions) (GTK_FILL), (GtkAttachOptions) (0), 2, 0);
 		gtk_label_set_justify (GTK_LABEL (snr2win->replace_label), GTK_JUSTIFY_LEFT);
 		gtk_misc_set_alignment (GTK_MISC (snr2win->replace_label), 0, 0.5);
-		snr2win->replace_scrollbox = textview_buffer_in_scrolwin(&snr2win->replace_entry, 300, 50, LASTSNR2(bfwin->snr2)->replace_pattern, GTK_WRAP_NONE);
-		gtk_table_attach (GTK_TABLE (table), snr2win->replace_scrollbox, 1, 2, 1, 2,
+		/*snr2win->replace_scrollbox = textview_buffer_in_scrolwin(&snr2win->replace_entry, 300, 50, LASTSNR2(bfwin->snr2)->replace_pattern, GTK_WRAP_NONE);*/
+		snr2win->replace_combo = combo_with_popdown("", NULL, TRUE);
+		gtk_table_attach (GTK_TABLE (table), snr2win->replace_combo, 1, 2, 1, 2,
 						(GtkAttachOptions) (GTK_FILL), (GtkAttachOptions) (GTK_FILL), 0, 0);
-		g_signal_connect(G_OBJECT(snr2win->replace_entry), "key_press_event", G_CALLBACK(search_entry_key_press_event_lcb), snr2win);
-
+		/*g_signal_connect(G_OBJECT(snr2win->replace_entry), "key_press_event", G_CALLBACK(search_entry_key_press_event_lcb), snr2win);*/
+		g_signal_connect(G_OBJECT(GTK_COMBO(snr2win->replace_combo)->entry), "activate", G_CALLBACK(combo_activate_lcb), snr2win);
 		snr2win->subpat_help = gtk_label_new(_("\\0 refers to the first subsearch_pattern, \\1 to the second etc."));
 		gtk_box_pack_start(GTK_BOX(vbox), snr2win->subpat_help, FALSE, TRUE, 6);
 		gtk_label_set_justify (GTK_LABEL (snr2win->subpat_help), GTK_JUSTIFY_LEFT);
@@ -1387,20 +1398,20 @@ static void snr2dialog(Tbfwin *bfwin, gint is_replace, gint is_new_search) {
 	gtk_box_pack_start(GTK_BOX(hbox), button, FALSE, TRUE, 0);
 	gtk_window_set_default(GTK_WINDOW(snr2win->window), button);
 	
-	gtk_label_set_mnemonic_widget(GTK_LABEL(snr2win->search_label), GTK_WIDGET(snr2win->search_entry));
+	gtk_label_set_mnemonic_widget(GTK_LABEL(snr2win->search_label), GTK_WIDGET(snr2win->search_combo));
 	if(is_replace) {
-		gtk_label_set_mnemonic_widget(GTK_LABEL(snr2win->replace_label), GTK_WIDGET(snr2win->replace_entry));
+		gtk_label_set_mnemonic_widget(GTK_LABEL(snr2win->replace_label), GTK_WIDGET(snr2win->replace_combo));
 	}
-	gtk_widget_grab_focus(snr2win->search_entry);
+	gtk_widget_grab_focus(snr2win->search_combo);
 	gtk_widget_show_all(vbox);
 
 	gtk_widget_show(snr2win->window);
-	{
+/*	{
 		GtkTextIter itstart, itend;
 		gtk_text_buffer_get_bounds(gtk_text_view_get_buffer(GTK_TEXT_VIEW(snr2win->search_entry)),&itstart,&itend);
 		gtk_text_buffer_move_mark_by_name(gtk_text_view_get_buffer(GTK_TEXT_VIEW(snr2win->search_entry)),"insert",&itstart);
 		gtk_text_buffer_move_mark_by_name(gtk_text_view_get_buffer(GTK_TEXT_VIEW(snr2win->search_entry)),"selection_bound",&itend);
-	}
+	}*/
 	
 	if (is_replace) {
 		matchtype_changed_lcb(NULL, snr2win);
