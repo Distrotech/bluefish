@@ -107,6 +107,7 @@ gboolean spell_run() {
 		g_list_free(poplist);
 		bfspell.offset = 0;
 		delete_aspell_speller(bfspell.spell_checker);
+		bfspell.spell_checker = NULL;
 		return FALSE; /* finished */
 	}
 	while (word) {
@@ -122,6 +123,7 @@ gboolean spell_run() {
 
 void spell_start()
 {
+	memset(&bfspell,0,sizeof(bfspell));
 	bfspell.spell_config = new_aspell_config();
 	/*
 	 * default language should come from config file, runtime from GUI,
@@ -140,13 +142,14 @@ void spell_start()
 	
 }
 
-void spell_stop()
-{
-	delete_aspell_config(bfspell.spell_config);
-}
-
 static void spell_gui_destroy(GtkWidget * widget, GdkEvent *event, gpointer data) {
 	window_destroy(bfspell.win);
+	if (bfspell.spell_checker) {
+		delete_aspell_speller(bfspell.spell_checker);
+		bfspell.spell_checker = NULL;
+	}
+	delete_aspell_config(bfspell.spell_config);
+	bfspell.spell_config = NULL;
 }
 
 void spell_gui_cancel_clicked_cb(GtkWidget *widget, gpointer data) {
@@ -280,8 +283,10 @@ void spell_gui() {
 }
 
 void spell_check_cb(GtkWidget *widget, gpointer data) {
-	spell_gui();
-	flush_queue();
-	spell_start();
-	spell_gui_fill_dicts();
+	if (!bfspell.win) {
+		spell_gui();
+		flush_queue();
+		spell_start();
+		spell_gui_fill_dicts();
+	}
 }
