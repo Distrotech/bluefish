@@ -355,11 +355,11 @@ quickstart_response_lcb(GtkDialog *dialog, gint response, TQuickStart *qstart) {
 									  finalstr, 
 									  is_frameset_dtd ? cap("\n</FRAMESET>\n</HTML>") : cap("\n</BODY>\n</HTML>"));
 		g_free (finalstr);
+		
+		doc_set_filetype(qstart->bfwin->current_document, get_filetype_by_name("html"));
+		doc_highlight_full(qstart->bfwin->current_document);	
 	}
 
-	doc_set_filetype(qstart->bfwin->current_document, get_filetype_by_name("html"));
-	doc_highlight_full(qstart->bfwin->current_document);
-	
 	g_free (qstart);
 	gtk_widget_destroy (GTK_WIDGET (dialog));	
 	DEBUG_MSG("quickstart_response_lcb() finished\n");
