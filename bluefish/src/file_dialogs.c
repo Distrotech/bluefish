@@ -116,6 +116,7 @@ void files_advanced_win(Tbfwin *bfwin, gchar *basedir) {
 	Tfiles_advanced *tfs;
 	
 	tfs = g_new(Tfiles_advanced,1);
+	tfs->bfwin = bfwin;
 
 	tfs->win = window_full2(_("Advanced open file selector"), GTK_WIN_POS_MOUSE, 12, G_CALLBACK(files_advanced_win_destroy),tfs, TRUE, tfs->bfwin->main_window);
 	DEBUG_MSG("files_advanced_win, tfs->win=%p\n",tfs->win);
