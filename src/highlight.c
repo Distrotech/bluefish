@@ -22,8 +22,8 @@
  * indent --line-length 100 --k-and-r-style --tab-size 4 -bbo --ignore-newlines highlight.c
  */
 #define HL_TIMING
-#define HL_DEBUG
-#define DEBUG
+/*#define HL_DEBUG
+#define DEBUG*/
 
 #ifdef HL_TIMING
 #include <sys/times.h>
@@ -133,6 +133,33 @@ static void print_meta_for_pattern(Tpattern *pat) {
 }
 
 #endif /* DEBUG */
+#ifdef HL_TIMING
+typedef struct {
+	struct tms tms1;
+	struct tms tms2;
+	glong total_ms;
+}Ttiming;
+#define TIMING_TEXTBUF 0
+#define TIMING_PCRE_EXEC 1
+#define TIMING_TOTAL 2
+#define TIMING_UTF8 3
+#define TIMING_NUM 4
+static Ttiming timing[TIMING_NUM];
+static void timing_init() {
+	gint i;
+	for (i=0;i<TIMING_NUM;i++){
+		timing[i].total_ms = 0;
+	}
+}
+static void timing_start(gint id) {
+	times(&timing[id].tms1);
+}
+static void timing_stop(gint id) {
+	times(&timing[id].tms2);
+	timing[id].total_ms += (int) (double) ((timing[id].tms2.tms_utime - timing[id].tms1.tms_utime) * 1000 / sysconf(_SC_CLK_TCK));
+}
+#endif /* HL_TIMING */
+
 
 /*********************************/
 /* initializing the highlighting */
@@ -474,14 +501,26 @@ Tfiletype *hl_get_highlightset_by_filename(gchar * filename)
 
 static void patmatch_rematch(gboolean is_parentmatch, Tpatmatch *patmatch, gint offset, gchar *buf, gint length, Tpatmatch *parentmatch) {
 	if (is_parentmatch) {
+#ifdef HL_TIMING
+		timing_start(TIMING_PCRE_EXEC);
+#endif
 		patmatch->is_match = pcre_exec(patmatch->pat->reg2.pcre, patmatch->pat->reg2.pcre_e, buf, length, offset, 0, patmatch->ovector, NUM_SUBMATCHES);
+#ifdef HL_TIMING
+		timing_stop(TIMING_PCRE_EXEC);
+#endif
 	} else {
 		if (patmatch->pat->mode == 3) {
 			patmatch->ovector[0] = parentmatch->ovector[patmatch->pat->numsub*2];
 			patmatch->ovector[1] = parentmatch->ovector[patmatch->pat->numsub*2+1];
 			patmatch->is_match = TRUE;
 		} else {
+#ifdef HL_TIMING
+			timing_start(TIMING_PCRE_EXEC);
+#endif
 			patmatch->is_match = pcre_exec(patmatch->pat->reg1.pcre, patmatch->pat->reg1.pcre_e, buf, length, offset, 0, patmatch->ovector, NUM_SUBMATCHES);
+#ifdef HL_TIMING
+			timing_stop(TIMING_PCRE_EXEC);
+#endif
 		}
 	}
 }
@@ -493,19 +532,31 @@ static void applystyle(Tdocument *doc, gchar *buf, gint so, gint eo, Tpattern *p
 
 	DEBUG_MSG("applystyle, coloring from so=%d to eo=%d\n", so, eo);
 
-	char_start = utf8_byteoffset_to_charsoffset(buf, so);
-	char_end = utf8_byteoffset_to_charsoffset(buf, eo);
-	byte_char_diff_start = so-char_start;
 
+#ifdef HL_TIMING
+	timing_start(TIMING_UTF8);
+#endif
+/*	char_start = utf8_byteoffset_to_charsoffset(buf, so);
+	char_end = utf8_byteoffset_to_charsoffset(buf, eo);
+	byte_char_diff_start = so-char_start;*/
+#ifdef HL_TIMING
+	timing_stop(TIMING_UTF8);
+#endif
 	istart = so;
 	iend = eo;
 #ifdef HL_DEBUG
 	DEBUG_MSG("applystyle, byte_char_diff=%ld\n", byte_char_diff_start);
 	DEBUG_MSG("applystyle, coloring from %d to %d\n", istart, iend);
 #endif
+#ifdef HL_TIMING
+	timing_start(TIMING_TEXTBUF);
+#endif
 	gtk_text_buffer_get_iter_at_offset(doc->buffer, &itstart, istart);
 	gtk_text_buffer_get_iter_at_offset(doc->buffer, &itend, iend);
 	gtk_text_buffer_apply_tag(doc->buffer, pat->tag, &itstart, &itend);
+#ifdef HL_TIMING
+	timing_stop(TIMING_TEXTBUF);
+#endif
 }
 
 
@@ -671,9 +722,6 @@ gboolean hl_set_highlighting_type(Tdocument * doc, Tfiletype *filetype) {
 
 void doc_highlight_full(Tdocument * doc)
 {
-#ifdef HL_TIMING
-	struct tms tms1, tms2;
-#endif
 	gint so = 0, eo = gtk_text_buffer_get_char_count(doc->buffer);
 	doc_remove_highlighting(doc);
 #ifdef DEBUG
@@ -681,13 +729,16 @@ void doc_highlight_full(Tdocument * doc)
 	g_assert(doc->hl);
 #endif
 #ifdef HL_TIMING
-	times(&tms1);
+	timing_init();
+#endif
+
+#ifdef HL_TIMING
+	timing_start(TIMING_TOTAL);
 #endif
 	applylevel(doc, doc_get_chars(doc, so, eo), so, eo, NULL, doc->hl->highlightlist);
 #ifdef HL_TIMING
-	times(&tms2);
-	g_print("doc_highlight_full done, %d ms user-time needed for highlighting\n",
-			  (int) (double) ((tms2.tms_utime - tms1.tms_utime) * 1000 / sysconf(_SC_CLK_TCK)));
+	timing_stop(TIMING_TOTAL);
+	g_print("doc_highlight_full done, %d ms total, %d ms tagging, %d ms matching, %d ms utf8-shit\n",timing[TIMING_TOTAL].total_ms, timing[TIMING_TEXTBUF].total_ms, timing[TIMING_PCRE_EXEC].total_ms, timing[TIMING_UTF8].total_ms);
 #endif
 	doc->need_highlighting = FALSE;
 }
