@@ -50,26 +50,26 @@
 #include "snr2.h" /* snr2_run_extern_replace */
 #include "filebrowser.h"
 
-typedef struct {
-	Tdocument *last_activated_doc;
-#ifdef DEBUGPROFILING
-	struct tms tms1;
-	struct tms tms2;
-#endif
-} Tlocals;
-
-#ifdef DEBUGPROFILING
-static void print_time_diff(gchar *location, struct tms *tms1, struct tms *tms2) {
-	glong tot_ms = (glong) (double) ((tms2->tms_utime - tms1->tms_utime) * 1000000000 / sysconf(_SC_CLK_TCK));
-	g_print("PROFILING: 1: %ld, 2: %ld\n", tms1->tms_utime, tms2->tms_utime);
-	g_print("PROFILING: %s took %ld ns\n", location, tot_ms);
+/**
+ * return_allwindows_documentlist:
+ *
+ * returns a documentlist with all documents in all windows
+ *
+ * Return value: #GList* with all documents
+ */
+GList *return_allwindows_documentlist() {
+	GList *newdoclist=NULL, *bflist, *tmplist=NULL;
+	bflist = g_list_first(main_v->bfwinlist);
+	while (bflist) {
+		tmplist = g_list_first(BFWIN(tmplist->data)->documentlist);
+		while (tmplist) {
+			newdoclist = g_list_append(newdoclist,tmplist->data);
+			tmplist = g_list_next(tmplist);
+		}
+		bflist = g_list_next(bflist);
+	}
+	return newdoclist;
 }
-#endif
-
-/******************************/
-/* global vars for this module */
-/******************************/
-static Tlocals locals = {NULL};
 
 /**
  * add_filename_to_history:
@@ -115,6 +115,31 @@ gint documentlist_return_index_from_filename(GList *doclist, gchar *filename) {
 		tmplist = g_list_next(tmplist);
 	}
 	return -1;
+}
+/**
+ * documentlist_return_index_from_filename:
+ * @doclist: #GList* with the documents to search in
+ * @filename: a #gchar
+ * 
+ * if the file is open, it returns the Tdocument* in the documentlist
+ * if the file is not open it returns NULL
+ *
+ * Return value: #Tdocument* or NULL if not open
+ **/
+Tdocument *documentlist_return_document_from_filename(GList *doclist, gchar *filename) {
+	GList *tmplist;
+	if (!filename) {
+		return NULL;
+	}
+	
+	tmplist = g_list_first(doclist);
+	while (tmplist) {
+		if (DOCUMENT(tmplist->data)->filename &&(strcmp(filename, DOCUMENT(tmplist->data)->filename) ==0)) {
+			return DOCUMENT(tmplist->data);
+		}
+		tmplist = g_list_next(tmplist);
+	}
+	return NULL;
 }
 
 /**
@@ -1648,7 +1673,7 @@ gint doc_textbox_to_file(Tdocument * doc, gchar * filename) {
  * Return value: void
  **/
 void doc_destroy(Tdocument * doc, gboolean delay_activation) {
-	Tbfwin *bfwin = doc->bfwin;
+	Tbfwin *bfwin = BFWIN(doc->bfwin);
 	if (doc->filename) {
 		add_to_recent_list(doc->filename, 1);
 	}
@@ -1724,16 +1749,19 @@ void doc_destroy(Tdocument * doc, gboolean delay_activation) {
  * Return value: gchar* with newly allocated string, or NULL on failure or abort
  **/
 gchar *ask_new_filename(gchar *oldfilename, gint is_move) {
-	gint index;
+	Tdocument *exdoc;
+	GList *alldocs;
 	gchar *newfilename = return_file_w_title(oldfilename,
 												(is_move) ? _("Move/rename document to") : _("Save document as"));
 	if (!newfilename || (oldfilename && strcmp(oldfilename,newfilename)==0)) {
 		if (newfilename) g_free(newfilename);
 		return NULL;
 	}
-	index = documentlist_return_index_from_filename(newfilename);
-	DEBUG_MSG("ask_new_filename, index=%d, newfilename=%s\n", index, newfilename);
-	if (index != -1) {
+	alldocs = return_allwindows_documentlist();
+	exdoc = documentlist_return_document_from_filename(alldocs, newfilename);
+	g_list_free(alldocs);
+	DEBUG_MSG("ask_new_filename, exdoc=%p, newfilename=%s\n", exdoc, newfilename);
+	if (exdoc) {
 		gchar *tmpstr;
 		gint retval;
 		gchar *options[] = {N_("Cancel"), N_("Overwrite"), NULL};
@@ -1744,18 +1772,15 @@ gchar *ask_new_filename(gchar *oldfilename, gint is_move) {
 			g_free(newfilename);
 			return NULL;
 		} else {
-			Tdocument *tmpdoc;
-			tmpdoc = (Tdocument *)g_list_nth_data(main_v->documentlist, index);
-			DEBUG_MSG("ask_new_filename, tmpdoc=%p\n", tmpdoc);
-			g_free(tmpdoc->filename);
-			tmpdoc->filename = NULL;
-			doc_set_modified(tmpdoc, 1);
+			g_free(exdoc->filename);
+			exdoc->filename = NULL;
+			doc_set_modified(exdoc, 1);
 			{
 				gchar *tmpstr2 = g_path_get_basename (newfilename);
 				tmpstr = g_strconcat(_("Previously: "), tmpstr2, NULL);
 				g_free(tmpstr2);
 			}
-			gtk_label_set(GTK_LABEL(tmpdoc->tab_label),tmpstr);
+			gtk_label_set(GTK_LABEL(exdoc->tab_label),tmpstr);
 			g_free(tmpstr);
 		}
 	} else {
