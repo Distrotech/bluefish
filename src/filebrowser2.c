@@ -1211,7 +1211,7 @@ static void dir_v_row_activated_lcb(GtkTreeView *tree, GtkTreePath *path,GtkTree
 static gboolean dir_v_button_press_lcb(GtkWidget *widget, GdkEventButton *event, Tfilebrowser2 *fb2) {
 	DEBUG_MSG("dir_v_button_press_lcb, called for fb2=%p\n",fb2);
 	if (event->button == 3) {
-		GtkWidget *menu = NULL;;
+		GtkWidget *menu = NULL;
 		GtkTreePath *path;
 		gtk_tree_view_get_path_at_pos(GTK_TREE_VIEW(fb2->dir_v), event->x, event->y, &path, NULL, NULL, NULL);
 		if (path) {
