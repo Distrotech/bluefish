@@ -1223,10 +1223,17 @@ void doc_destroy(Tdocument * doc, gboolean delay_activation)
 	}
 	gui_notebook_bind_signals();
 
+
 	/* now we really start to destroy the document */
 	g_object_unref(doc->view->parent);
 
 	if (doc->filename) {
+		if (main_v->props.backup_cleanuponclose) {
+			gchar *backupfile = g_strconcat(doc->filename, main_v->props.backup_filestring, NULL);
+			DEBUG_MSG("unlinking %s, doc->filename=%s\n", backupfile,doc->filename);
+			unlink(backupfile);
+			g_free(backupfile);
+		}
 		g_free(doc->filename);
 	}
 	DEBUG_MSG("doc_destroy, this is kind of tricky, I don't know if the Buffer is also detroyed when you destroy the view\n");
@@ -1451,11 +1458,6 @@ gint doc_close(Tdocument * doc, gint warn_only)
 			DEBUG_MSG("doc_close, starting doc_destroy for doc=%p\n", doc);
 			doc_destroy(doc, FALSE);
 		}
-	}
-	if (main_v->props.backup_cleanuponclose) {
-		gchar *backupfile = g_strconcat(doc->filename, main_v->props.backup_filestring, NULL);
-		unlink(backupfile);
-		g_free(backupfile);
 	}
 	DEBUG_MSG("doc_close, finished\n");
 /*	notebook_changed();*/
