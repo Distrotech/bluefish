@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: bluefish gtk2-port\n"
-"POT-Creation-Date: 2004-10-19 14:29+0200\n"
+"POT-Creation-Date: 2004-10-22 18:18+0200\n"
 "PO-Revision-Date: 2003-04-01 20:03+0200\n"
 "Last-Translator: \n"
 "Language-Team:  <nl@li.org>\n"
@@ -346,71 +346,83 @@ msgstr "Dit bestand kon niet geopend worden:\n"
 msgid "This bookmark is set in a file that no longer exists."
 msgstr ""
 
-#: ../src/bookmark.c:585
+#: ../src/bookmark.c:610
+#, fuzzy, c-format
+msgid "Do you really want to delete all bookmarks for %s?"
+msgstr "Weet u zeker dat u dit wilt vervangen?"
+
+#: ../src/bookmark.c:611
+#, fuzzy
+msgid "Delete bookmarks?"
+msgstr "Editor"
+
+#: ../src/bookmark.c:640
 #, fuzzy, c-format
 msgid "Do you really want to delete %s?"
 msgstr "Weet u zeker dat u dit wilt vervangen?"
 
-#: ../src/bookmark.c:587
+#: ../src/bookmark.c:642
 msgid "Delete permanent bookmark."
 msgstr ""
 
-#: ../src/bookmark.c:604
+#: ../src/bookmark.c:659
 #, fuzzy
 msgid "Edit bookmark"
 msgstr "Editor"
 
-#: ../src/bookmark.c:618
+#: ../src/bookmark.c:673
 msgid "Goto bookmark"
 msgstr ""
 
-#: ../src/bookmark.c:626
+#: ../src/bookmark.c:681
 #, fuzzy
 msgid "Edit"
 msgstr "/_Bewerken"
 
-#: ../src/bookmark.c:630
+#: ../src/bookmark.c:685
 #, fuzzy
 msgid "Delete"
 msgstr "Verwijderen"
 
-#: ../src/bookmark.c:635
+#: ../src/bookmark.c:691
+#, fuzzy
+msgid "Delete all in document"
+msgstr "in alle geopende documenten"
+
+#: ../src/bookmark.c:696
 #, fuzzy
 msgid "Delete all"
 msgstr "Verwijderen"
 
-#: ../src/bookmark.c:1211 ../src/bookmark.c:1228 ../src/bookmark.c:1264
+#: ../src/bookmark.c:1276 ../src/bookmark.c:1293 ../src/bookmark.c:1329
 #: ../src/document.c:2022
 #, fuzzy
 msgid "Add bookmark"
 msgstr "/Opties/tearoff1"
 
-#: ../src/bookmark.c:1212 ../src/bookmark.c:1265
+#: ../src/bookmark.c:1277 ../src/bookmark.c:1330
 #, fuzzy
 msgid "Cannot add bookmarks in unnamed files."
 msgstr "Laat reserve bestanden zien"
 
-#: ../src/bookmark.c:1229
+#: ../src/bookmark.c:1294
 msgid "You already have a bookmark here!"
 msgstr ""
 
-#: ../src/bookmark.c:1287
+#: ../src/bookmark.c:1367
 msgid "Delete all bookmarks."
 msgstr ""
 
-#: ../src/bookmark.c:1287
+#: ../src/bookmark.c:1367
 msgid "Are you sure?"
 msgstr ""
 
-#: ../src/bookmark.c:1337
-#, c-format
-msgid ""
-"Character count changed in file\n"
-" %s."
+#: ../src/bookmark.c:1409
+msgid "File size changed in file\n"
 msgstr ""
 
-#: ../src/bookmark.c:1339
-msgid "Bookmarks positions could be incorrect."
+#: ../src/bookmark.c:1410
+msgid "Bookmarks positions could be incorrect. Delete bookmarks?"
 msgstr ""
 
 #: ../src/document.c:260
@@ -744,7 +756,7 @@ msgstr ""
 msgid "Base_dir:"
 msgstr "Standaard-map"
 
-#: ../src/document.c:3381 ../src/gtk_easy.c:1298
+#: ../src/document.c:3381 ../src/gtk_easy.c:1305
 #, fuzzy
 msgid "_Browse..."
 msgstr "Browser commando"
@@ -782,7 +794,7 @@ msgstr ""
 msgid "<b>Open URL</b>"
 msgstr ""
 
-#: ../src/document.c:3601 ../src/gtk_easy.c:1594
+#: ../src/document.c:3601 ../src/gtk_easy.c:1601
 msgid "Select files"
 msgstr "Kies bestanden"
 
@@ -918,7 +930,7 @@ msgstr "Laat reserve bestanden zien"
 msgid "Filter"
 msgstr "Filter"
 
-#: ../src/filebrowser.c:1651 ../src/gtk_easy.c:1376
+#: ../src/filebrowser.c:1651 ../src/gtk_easy.c:1383
 #, fuzzy
 msgid "All files"
 msgstr "alle bestanden"
@@ -1003,22 +1015,22 @@ msgstr ""
 msgid "Search"
 msgstr "Zoeken"
 
-#: ../src/gtk_easy.c:1154
+#: ../src/gtk_easy.c:1161
 #, c-format
 msgid "%d of %d"
 msgstr ""
 
-#: ../src/gtk_easy.c:1240
+#: ../src/gtk_easy.c:1247
 #, fuzzy
 msgid "Select File"
 msgstr "Kies bestand"
 
-#: ../src/gtk_easy.c:1369
+#: ../src/gtk_easy.c:1376
 #, fuzzy
 msgid "Show hidden"
 msgstr "Laat verborgen bestanden zien"
 
-#: ../src/gtk_easy.c:1567
+#: ../src/gtk_easy.c:1574
 msgid "Select file"
 msgstr "Kies bestand"
 
@@ -1517,6 +1529,32 @@ msgstr "Venster actief houden"
 #: ../src/gui.c:1466
 msgid "starting bluefish"
 msgstr "Start Bluefish"
+
+#: ../src/highlight.c:354 ../src/highlight.c:366 ../src/highlight.c:393
+#: ../src/highlight.c:403
+#, fuzzy
+msgid "Syntax highlighting error for "
+msgstr "/Opties/Lijst/Oplichten van syntaxis..."
+
+#: ../src/highlight.c:355
+#, c-format
+msgid "compiling pattern '%s': %s at offset %d"
+msgstr ""
+
+#: ../src/highlight.c:367
+#, c-format
+msgid "studying pattern '%s': %s"
+msgstr ""
+
+#: ../src/highlight.c:394
+#, c-format
+msgid "compiling 2nd pattern '%s': %s at offset %d"
+msgstr ""
+
+#: ../src/highlight.c:404
+#, c-format
+msgid "studying 2nd pattern '%s': %s"
+msgstr ""
 
 #: ../src/html.c:392
 msgid "Insert Time"

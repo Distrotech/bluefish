@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish gtk2-port\n"
-"POT-Creation-Date: 2004-10-19 14:29+0200\n"
+"POT-Creation-Date: 2004-10-22 18:18+0200\n"
 "PO-Revision-Date: 2004-03-22 11:50+0900\n"
 "Last-Translator: Ryoichi INAGAKI <ryo1@bc,wakwak.com>\n"
 "Language-Team: Japanese <ja@li.org>\n"
@@ -417,76 +417,89 @@ msgstr "ファイル \"%s\" が見つかりませんでした."
 msgid "This bookmark is set in a file that no longer exists."
 msgstr "このブックマークはもう存在していないファイル中にあるようです."
 
-#: ../src/bookmark.c:585
+#: ../src/bookmark.c:610
+#, fuzzy, c-format
+msgid "Do you really want to delete all bookmarks for %s?"
+msgstr "本当に %s を削除してよろしいですか?"
+
+#: ../src/bookmark.c:611
+#, fuzzy
+msgid "Delete bookmarks?"
+msgstr "すべての臨時ブックマークを削除します."
+
+#: ../src/bookmark.c:640
 #, fuzzy, c-format
 msgid "Do you really want to delete %s?"
 msgstr "本当に %s を削除してよろしいですか?"
 
-#: ../src/bookmark.c:587
+#: ../src/bookmark.c:642
 msgid "Delete permanent bookmark."
 msgstr "永続ブックマークを削除します."
 
-#: ../src/bookmark.c:604
+#: ../src/bookmark.c:659
 #, fuzzy
 msgid "Edit bookmark"
 msgstr "ブックマーク先に移動"
 
-#: ../src/bookmark.c:618
+#: ../src/bookmark.c:673
 msgid "Goto bookmark"
 msgstr "ブックマーク先に移動"
 
-#: ../src/bookmark.c:626
+#: ../src/bookmark.c:681
 #, fuzzy
 msgid "Edit"
 msgstr "/編集(_E)"
 
-#: ../src/bookmark.c:630
+#: ../src/bookmark.c:685
 msgid "Delete"
 msgstr "削除"
 
-#: ../src/bookmark.c:635
+#: ../src/bookmark.c:691
+#, fuzzy
+msgid "Delete all in document"
+msgstr "開いている文書内"
+
+#: ../src/bookmark.c:696
 #, fuzzy
 msgid "Delete all"
 msgstr " 削除 "
 
-#: ../src/bookmark.c:1211 ../src/bookmark.c:1228 ../src/bookmark.c:1264
+#: ../src/bookmark.c:1276 ../src/bookmark.c:1293 ../src/bookmark.c:1329
 #: ../src/document.c:2022
 #, fuzzy
 msgid "Add bookmark"
 msgstr "ブックマーク先に移動"
 
-#: ../src/bookmark.c:1212 ../src/bookmark.c:1265
+#: ../src/bookmark.c:1277 ../src/bookmark.c:1330
 #, fuzzy
 msgid "Cannot add bookmarks in unnamed files."
 msgstr ""
 "名前の無いファイルにはブックマークを追加できません.\n"
 "まず, ファイルを保存してください."
 
-#: ../src/bookmark.c:1229
+#: ../src/bookmark.c:1294
 msgid "You already have a bookmark here!"
 msgstr "すでにここにブックマークがあります!"
 
-#: ../src/bookmark.c:1287
+#: ../src/bookmark.c:1367
 #, fuzzy
 msgid "Delete all bookmarks."
 msgstr "すべての臨時ブックマークを削除します."
 
-#: ../src/bookmark.c:1287
+#: ../src/bookmark.c:1367
 msgid "Are you sure?"
 msgstr "本当に?"
 
-#: ../src/bookmark.c:1337
-#, c-format
-msgid ""
-"Character count changed in file\n"
-" %s."
+#: ../src/bookmark.c:1409
+#, fuzzy
+msgid "File size changed in file\n"
 msgstr ""
 "ファイル %s で\n"
 "文字数が変わりました."
 
-#: ../src/bookmark.c:1339
+#: ../src/bookmark.c:1410
 #, fuzzy
-msgid "Bookmarks positions could be incorrect."
+msgid "Bookmarks positions could be incorrect. Delete bookmarks?"
 msgstr "ブックマークの位置が正しくないようです."
 
 #: ../src/document.c:260
@@ -815,7 +828,7 @@ msgstr "<b>全般</b>"
 msgid "Base_dir:"
 msgstr "ベースディレクトリ(_D):"
 
-#: ../src/document.c:3381 ../src/gtk_easy.c:1298
+#: ../src/document.c:3381 ../src/gtk_easy.c:1305
 msgid "_Browse..."
 msgstr "参照(_B)..."
 
@@ -848,7 +861,7 @@ msgstr "URLを開く"
 msgid "<b>Open URL</b>"
 msgstr "URLを開く"
 
-#: ../src/document.c:3601 ../src/gtk_easy.c:1594
+#: ../src/document.c:3601 ../src/gtk_easy.c:1601
 msgid "Select files"
 msgstr "ファイル選択"
 
@@ -971,7 +984,7 @@ msgstr "バックアップファイルを表示する"
 msgid "Filter"
 msgstr "フィルタ"
 
-#: ../src/filebrowser.c:1651 ../src/gtk_easy.c:1376
+#: ../src/filebrowser.c:1651 ../src/gtk_easy.c:1383
 msgid "All files"
 msgstr "すべてのファイル"
 
@@ -1051,22 +1064,22 @@ msgstr "情報ウィンドウを表示"
 msgid "Search"
 msgstr "検索"
 
-#: ../src/gtk_easy.c:1154
+#: ../src/gtk_easy.c:1161
 #, c-format
 msgid "%d of %d"
 msgstr "%d of %d"
 
-#: ../src/gtk_easy.c:1240
+#: ../src/gtk_easy.c:1247
 #, fuzzy
 msgid "Select File"
 msgstr "ファイル選択"
 
-#: ../src/gtk_easy.c:1369
+#: ../src/gtk_easy.c:1376
 #, fuzzy
 msgid "Show hidden"
 msgstr "隠しファイルを表示する"
 
-#: ../src/gtk_easy.c:1567
+#: ../src/gtk_easy.c:1574
 msgid "Select file"
 msgstr "ファイル選択"
 
@@ -1546,6 +1559,32 @@ msgstr "ダイアログの値を保持(_K)"
 #: ../src/gui.c:1466
 msgid "starting bluefish"
 msgstr "bluefishを起動中"
+
+#: ../src/highlight.c:354 ../src/highlight.c:366 ../src/highlight.c:393
+#: ../src/highlight.c:403
+#, fuzzy
+msgid "Syntax highlighting error for "
+msgstr "文章の色分け"
+
+#: ../src/highlight.c:355
+#, c-format
+msgid "compiling pattern '%s': %s at offset %d"
+msgstr ""
+
+#: ../src/highlight.c:367
+#, c-format
+msgid "studying pattern '%s': %s"
+msgstr ""
+
+#: ../src/highlight.c:394
+#, c-format
+msgid "compiling 2nd pattern '%s': %s at offset %d"
+msgstr ""
+
+#: ../src/highlight.c:404
+#, c-format
+msgid "studying 2nd pattern '%s': %s"
+msgstr ""
 
 #: ../src/html.c:392
 msgid "Insert Time"

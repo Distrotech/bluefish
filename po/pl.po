@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: bluefish gtk2-port\n"
-"POT-Creation-Date: 2004-10-19 14:29+0200\n"
+"POT-Creation-Date: 2004-10-22 18:18+0200\n"
 "PO-Revision-Date: 29/3/2004   \n"
 "Last-Translator: Oskar Świda (swida@aragorn.pb.bialystok.pl)\n"
 "Language-Team: None\n"
@@ -434,69 +434,83 @@ msgstr "Nie znaleziono pliku \"%s\"."
 msgid "This bookmark is set in a file that no longer exists."
 msgstr "Ta zakładka została zdefiniowana w pliku, który już nie istnieje."
 
-#: ../src/bookmark.c:585
+#: ../src/bookmark.c:610
+#, fuzzy, c-format
+msgid "Do you really want to delete all bookmarks for %s?"
+msgstr "Na pewno usunąć %s?"
+
+#: ../src/bookmark.c:611
+#, fuzzy
+msgid "Delete bookmarks?"
+msgstr "Skasuj zakładkę trwałą."
+
+#: ../src/bookmark.c:640
 #, c-format
 msgid "Do you really want to delete %s?"
 msgstr "Na pewno usunąć %s?"
 
-#: ../src/bookmark.c:587
+#: ../src/bookmark.c:642
 msgid "Delete permanent bookmark."
 msgstr "Skasuj zakładkę trwałą."
 
-#: ../src/bookmark.c:604
+#: ../src/bookmark.c:659
 msgid "Edit bookmark"
 msgstr "Edytuj zakładkę"
 
-#: ../src/bookmark.c:618
+#: ../src/bookmark.c:673
 msgid "Goto bookmark"
 msgstr "Idź do zakładki"
 
-#: ../src/bookmark.c:626
+#: ../src/bookmark.c:681
 msgid "Edit"
 msgstr "Edytuj"
 
-#: ../src/bookmark.c:630
+#: ../src/bookmark.c:685
 msgid "Delete"
 msgstr "Kasuj"
 
-#: ../src/bookmark.c:635
+#: ../src/bookmark.c:691
+#, fuzzy
+msgid "Delete all in document"
+msgstr "we wszystkich otwartych dokumentach"
+
+#: ../src/bookmark.c:696
 #, fuzzy
 msgid "Delete all"
 msgstr " Kasuj "
 
-#: ../src/bookmark.c:1211 ../src/bookmark.c:1228 ../src/bookmark.c:1264
+#: ../src/bookmark.c:1276 ../src/bookmark.c:1293 ../src/bookmark.c:1329
 #: ../src/document.c:2022
 msgid "Add bookmark"
 msgstr "Dodaj zakładkę"
 
-#: ../src/bookmark.c:1212 ../src/bookmark.c:1265
+#: ../src/bookmark.c:1277 ../src/bookmark.c:1330
 msgid "Cannot add bookmarks in unnamed files."
 msgstr "Nie można dodawać zakładek w plikach bez nazwy."
 
-#: ../src/bookmark.c:1229
+#: ../src/bookmark.c:1294
 msgid "You already have a bookmark here!"
 msgstr "Już zdefiniowałeś zakładkę w tym miejscu!"
 
-#: ../src/bookmark.c:1287
+#: ../src/bookmark.c:1367
 #, fuzzy
 msgid "Delete all bookmarks."
 msgstr "Skasuj zakładkę trwałą."
 
-#: ../src/bookmark.c:1287
+#: ../src/bookmark.c:1367
 msgid "Are you sure?"
 msgstr ""
 
-#: ../src/bookmark.c:1337
-#, c-format
-msgid ""
-"Character count changed in file\n"
-" %s."
+#: ../src/bookmark.c:1409
+#, fuzzy
+msgid "File size changed in file\n"
 msgstr ""
 "Zmieniona liczba znaków w pliku\n"
 " %s."
 
-#: ../src/bookmark.c:1339
-msgid "Bookmarks positions could be incorrect."
+#: ../src/bookmark.c:1410
+#, fuzzy
+msgid "Bookmarks positions could be incorrect. Delete bookmarks?"
 msgstr "Pozycje zakładek mogą być nieprawidłowe."
 
 #: ../src/document.c:260
@@ -825,7 +839,7 @@ msgstr "<b>Ogólne</b>"
 msgid "Base_dir:"
 msgstr "Katalog bazowy:"
 
-#: ../src/document.c:3381 ../src/gtk_easy.c:1298
+#: ../src/document.c:3381 ../src/gtk_easy.c:1305
 msgid "_Browse..."
 msgstr "_Przeglądaj..."
 
@@ -858,7 +872,7 @@ msgstr "Otwórz URL"
 msgid "<b>Open URL</b>"
 msgstr "Otwórz URL"
 
-#: ../src/document.c:3601 ../src/gtk_easy.c:1594
+#: ../src/document.c:3601 ../src/gtk_easy.c:1601
 msgid "Select files"
 msgstr "Wybierz pliki"
 
@@ -981,7 +995,7 @@ msgstr "Pokazuj kopie zapasowe plików"
 msgid "Filter"
 msgstr "Filtr plików"
 
-#: ../src/filebrowser.c:1651 ../src/gtk_easy.c:1376
+#: ../src/filebrowser.c:1651 ../src/gtk_easy.c:1383
 msgid "All files"
 msgstr "Wszystkie pliki"
 
@@ -1061,22 +1075,22 @@ msgstr "Pokaż okno informacji"
 msgid "Search"
 msgstr "Szukanie"
 
-#: ../src/gtk_easy.c:1154
+#: ../src/gtk_easy.c:1161
 #, c-format
 msgid "%d of %d"
 msgstr "%d z %d"
 
-#: ../src/gtk_easy.c:1240
+#: ../src/gtk_easy.c:1247
 #, fuzzy
 msgid "Select File"
 msgstr "Wybierz plik"
 
-#: ../src/gtk_easy.c:1369
+#: ../src/gtk_easy.c:1376
 #, fuzzy
 msgid "Show hidden"
 msgstr "Pokazuj ukryte pliki"
 
-#: ../src/gtk_easy.c:1567
+#: ../src/gtk_easy.c:1574
 msgid "Select file"
 msgstr "Wybierz plik"
 
@@ -1557,6 +1571,32 @@ msgstr "Nie zamykaj _okna"
 #: ../src/gui.c:1466
 msgid "starting bluefish"
 msgstr "uruchamiam Bluefish"
+
+#: ../src/highlight.c:354 ../src/highlight.c:366 ../src/highlight.c:393
+#: ../src/highlight.c:403
+#, fuzzy
+msgid "Syntax highlighting error for "
+msgstr "Podświetlanie składni"
+
+#: ../src/highlight.c:355
+#, c-format
+msgid "compiling pattern '%s': %s at offset %d"
+msgstr ""
+
+#: ../src/highlight.c:367
+#, c-format
+msgid "studying pattern '%s': %s"
+msgstr ""
+
+#: ../src/highlight.c:394
+#, c-format
+msgid "compiling 2nd pattern '%s': %s at offset %d"
+msgstr ""
+
+#: ../src/highlight.c:404
+#, c-format
+msgid "studying 2nd pattern '%s': %s"
+msgstr ""
 
 #: ../src/html.c:392
 msgid "Insert Time"
