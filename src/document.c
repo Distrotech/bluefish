@@ -2155,26 +2155,31 @@ void doc_indent_selection(Tdocument *doc, gboolean unindent) {
 	GtkTextIter itstart,itend;
 	if (gtk_text_buffer_get_selection_bounds(doc->buffer,&itstart,&itend)) {
 		GtkTextMark *end;
-		gboolean firstrun=TRUE;;
+/*		gboolean firstrun=TRUE;*/
+
+		doc_unbind_signals(doc);
+		doc_unre_new_group(doc);
 		/* we have a selection, now we loop trough the characters, and for every newline
 		we add or remove a tab, we set the end with a mark */
 		end = gtk_text_buffer_create_mark(doc->buffer,NULL,&itend,TRUE);
 
 		while(gtk_text_iter_compare(&itstart,&itend) < 0) {
 			GtkTextMark *cur;
-			if (firstrun && !gtk_text_iter_starts_line(&itstart)) {
+/*			if (firstrun && !gtk_text_iter_starts_line(&itstart)) {
 				gtk_text_iter_forward_line(&itstart);
 			}
-			firstrun = FALSE;
+			firstrun = FALSE;*/
 			cur = gtk_text_buffer_create_mark(doc->buffer,NULL,&itstart,TRUE);
 			if (unindent) {
 				/* when unindenting we try to set itend to the end of the indenting step
 				which might be a tab or 'tabsize' spaces, then we delete that part */
 				gboolean cont=TRUE;
+				gchar *buf;
 				gunichar cchar = gtk_text_iter_get_char(&itstart);
 				if (cchar == 9) { /* 9 is ascii for tab */
 					itend = itstart;
 					cont = gtk_text_iter_forward_char(&itend);
+					buf = g_strdup("\t");
 				} else if (cchar == 32) { /* 32 is ascii for space */
 					gchar *tmpstr;
 					gint i=0;
@@ -2187,11 +2192,20 @@ void doc_indent_selection(Tdocument *doc, gboolean unindent) {
 						DEBUG_MSG("doc_indent_selection, tmpstr[%d]='%c'\n",i,tmpstr[i]);
 						i++;
 					}
+					if (cont) {
+						buf = tmpstr;
+					} else {
+						g_free(tmpstr);
+					}
 				} else {
 					cont = FALSE;
 				}
 				if (cont) {
+					gint offsetstart, offsetend;
+					offsetstart = gtk_text_iter_get_offset(&itstart);
+					offsetend = gtk_text_iter_get_offset(&itend);
 					gtk_text_buffer_delete(doc->buffer,&itstart,&itend);
+					doc_unre_add(doc, buf, offsetstart, offsetend, UndoDelete);
 				}
 #ifdef DEBUG
 				else {
@@ -2199,7 +2213,9 @@ void doc_indent_selection(Tdocument *doc, gboolean unindent) {
 				}
 #endif
 			} else { /* indent */
+				gint offsetstart = gtk_text_iter_get_offset(&itstart);
 				gtk_text_buffer_insert(doc->buffer,&itstart,"\t",1);
+				doc_unre_add(doc, "\t", offsetstart, offsetstart+1, UndoInsert);
 			}
 			gtk_text_buffer_get_iter_at_mark(doc->buffer,&itstart,cur);
 			gtk_text_buffer_get_iter_at_mark(doc->buffer,&itend,end);
@@ -2208,6 +2224,8 @@ void doc_indent_selection(Tdocument *doc, gboolean unindent) {
 			DEBUG_MSG("doc_indent_selection, itstart at %d, itend at %d\n",gtk_text_iter_get_offset(&itstart),gtk_text_iter_get_offset(&itend));
 		}
 		gtk_text_buffer_delete_mark(doc->buffer,end);
+		doc_bind_signals(doc);
+		doc_set_modified(doc, 1);
 	} else {
 		DEBUG_MSG("doc_indent_selection, put a message on the statusbar that we want a selection..\n");
 		statusbar_message(_("No selection to indent"), 2000);
