@@ -169,10 +169,37 @@ static void open_adv_open_uri_cleanup(Topenadv_uri *oau) {
 	g_free(oau);
 }
 
+static gboolean open_adv_content_matches_filter(gchar *buffer, Topenadv_uri *oau) {
+	if (oau->use_regex) {
+		pcre *re;
+		const char *error;
+		int erroffset;
+		re = pcre_compile(oau->content_filter, 0, &error, &erroffset, NULL);
+		if (re) {
+			int rc;
+			int ovector[30];
+			rc = pcre_exec(re, NULL, buffer, strlen(buffer), 0, 0, ovector, 30);
+			pcre_free(re);
+			return rc;
+		}
+	} else {
+		return (strstr(buffer, oau->content_filter) != NULL);
+	}
+	return FALSE;
+}
+
 static void open_adv_content_filter_lcb(gint status,gint error_info, gchar *buffer,gpointer data) {
+	Topenadv_uri *oau = data;
 	switch (status) {
 		case OPENFILE_FINISHED:
 			DEBUG_MSG("open_adv_content_filter_lcb, status=%d, now we should do the content filtering\n",status);
+			/* we have all content, do the filtering, and if correct, open the file as document */
+			if (open_adv_content_matches_filter(buffer, oau)) {
+				Tfile2doc *f2d = g_new(Tfile2doc,1);
+				f2d->uri = gnome_vfs_uri_dup(oau->uri);
+				f2d->bfwin = oau->bfwin;
+				file2doc_lcb(status,error_info,buffer,f2d);
+			}
 			open_adv_open_uri_cleanup(data);
 		break;
 		case OPENFILE_ERROR:
