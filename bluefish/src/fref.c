@@ -97,6 +97,7 @@ typedef struct
   gint state;
   gint pstate;
   gint vstate;
+  GHashTable *dict;
 } FRParseAux;
 
 #define FR_LOADER_STATE_NONE            1
@@ -138,7 +139,7 @@ typedef struct {
 
 typedef struct {
 	GtkTreeStore *store;
-	GHashTable *refcount;
+	GHashTable *refcount; /* Opened reference count */
 } Tfref_data;
 #define FREFDATA(var) ((Tfref_data *)(var))
 
@@ -246,6 +247,7 @@ void fref_loader_start_element(GMarkupParseContext * context,
 	int i;
 	gpointer pomstr;
 	GtkTreeIter iter;
+	GtkTreeRowReference *rref;
 
 	if (user_data == NULL)
 		return;
@@ -283,6 +285,9 @@ void fref_loader_start_element(GMarkupParseContext * context,
 			gtk_tree_store_set(aux->store, &iter, STR_COLUMN, info->name,
 							   PTR_COLUMN, info, FILE_COLUMN, NULL, -1);
 			aux->act_info = info;
+			rref = gtk_tree_row_reference_new(GTK_TREE_MODEL(aux->store),
+			           gtk_tree_model_get_path(GTK_TREE_MODEL(aux->store),&iter));
+			g_hash_table_insert(aux->dict,info->name,rref);           
 		} else if (strcmp(element_name, "function") == 0) {
 			aux->state = FR_LOADER_STATE_FUNC;
 			aux->pstate = FR_LOADER_STATE_NONE;
@@ -293,6 +298,9 @@ void fref_loader_start_element(GMarkupParseContext * context,
 			gtk_tree_store_set(aux->store, &iter, STR_COLUMN, info->name,
 							   PTR_COLUMN, info, -1);
 			aux->act_info = info;
+			rref = gtk_tree_row_reference_new(GTK_TREE_MODEL(aux->store),
+			           gtk_tree_model_get_path(GTK_TREE_MODEL(aux->store),&iter));
+			g_hash_table_insert(aux->dict,info->name,rref);           			
 		} else if (strcmp(element_name, "class") == 0) {
 			aux->state = FR_LOADER_STATE_CLASS;
 			aux->pstate = FR_LOADER_STATE_NONE;
@@ -303,6 +311,9 @@ void fref_loader_start_element(GMarkupParseContext * context,
 			gtk_tree_store_set(aux->store, &iter, STR_COLUMN, info->name,
 							   PTR_COLUMN, info, -1);
 			aux->act_info = info;
+			rref = gtk_tree_row_reference_new(GTK_TREE_MODEL(aux->store),
+			           gtk_tree_model_get_path(GTK_TREE_MODEL(aux->store),&iter));
+			g_hash_table_insert(aux->dict,info->name,rref);           			
 		} else if (strcmp(element_name, "ref") == 0) {
 		} else
 			g_warning("FREF Config Error: Unknown element");
@@ -606,7 +617,7 @@ gchar *fref_xml_get_refname(gchar *filename)
 
 
 void fref_loader_load_ref_xml(gchar * filename, GtkWidget * tree,
-							  GtkTreeStore * store, GtkTreeIter * parent)
+							  GtkTreeStore * store, GtkTreeIter * parent, GHashTable *dict)
 {
 	GMarkupParseContext *ctx;
 	gchar *config;
@@ -620,6 +631,7 @@ void fref_loader_load_ref_xml(gchar * filename, GtkWidget * tree,
 	aux->state = FR_LOADER_STATE_NONE;
 	aux->parent = *parent;
 	aux->nest_level = 0;
+	aux->dict = dict;
 	
 	ctx = g_markup_parse_context_new(&FRParser, (GMarkupParseFlags) 0,
 									 (gpointer) aux, NULL);
@@ -693,7 +705,7 @@ void fref_loader_unload_ref(GtkWidget * tree, GtkTreeStore * store,
 	if ( gtk_tree_path_get_depth(path) > 1 )
 	 {
 		 val = g_new0(GValue, 1);	 
-    gtk_tree_model_get_iter(GTK_TREE_MODEL(store),&iter,path);		 
+       gtk_tree_model_get_iter(GTK_TREE_MODEL(store),&iter,path);		 
 		 gtk_tree_model_get_value(GTK_TREE_MODEL(store), &iter, 0, val);    
 		if (G_IS_VALUE(val) && g_value_peek_pointer(val)!=NULL) {
 		  /* have to free name column for group */
@@ -701,6 +713,16 @@ void fref_loader_unload_ref(GtkWidget * tree, GtkTreeStore * store,
 		}
 	  /*gtk_tree_store_remove(store, position);*/
 	  g_free(val); 
+	 }
+	 else /* freeing search dictionary */
+	 {
+        gtk_tree_model_get_iter(GTK_TREE_MODEL(store),&iter,path);  
+	     val = g_new0(GValue, 1);
+		  gtk_tree_model_get_value(GTK_TREE_MODEL(store), &iter, 1, val);
+		  if (G_IS_VALUE(val) && g_value_peek_pointer(val) != NULL) {
+				 g_hash_table_destroy(	g_value_peek_pointer(val));
+		  }
+		  g_free(val);		 
 	 }
 	gtk_tree_path_free(path); 
 
@@ -789,6 +811,7 @@ void fref_cleanup(Tbfwin *bfwin) {
 	DEBUG_MSG("fref_cleanup, started for bfwin=%p, refcount at %p\n",bfwin,FREFDATA(main_v->frefdata)->refcount);
 	fref_loader_unload_all(FREFGUI(bfwin->fref)->tree, FREFDATA(main_v->frefdata)->store);
 /*	g_hash_table_destroy(FREFDATA(main_v->frefdata)->refcount); */
+/* Ok I'll not free search dictionary too ... O.S. */
 	FREFGUI(bfwin->fref)->tree = NULL;
 	FREFGUI(bfwin->fref)->argtips = NULL;
 }
@@ -1155,6 +1178,7 @@ static void frefcb_row_expanded(GtkTreeView * treeview, GtkTreeIter * arg1,
 	gint *cnt=NULL;
 	gpointer *aux;
 	gboolean do_load = FALSE;
+	GHashTable *dict;
 
  if (	 gtk_tree_path_get_depth(arg2) == 1 )
  {
@@ -1174,10 +1198,12 @@ static void frefcb_row_expanded(GtkTreeView * treeview, GtkTreeIter * arg1,
 	{
    	val = g_new0(GValue, 1);
    	gtk_tree_model_get_value(GTK_TREE_MODEL(user_data), arg1, 2, val);
+ 	   dict=g_hash_table_new_full(g_str_hash,g_str_equal,g_free,(GDestroyNotify)gtk_tree_row_reference_free);   	
+      gtk_tree_store_set(GTK_TREE_STORE(user_data), arg1, PTR_COLUMN, dict,-1); 	   
    	if (G_IS_VALUE(val) && g_value_peek_pointer(val)!=NULL) {
    		fref_loader_load_ref_xml((gchar *) g_value_peek_pointer(val),
 								 GTK_WIDGET(treeview),
-								 GTK_TREE_STORE(user_data), arg1);
+								 GTK_TREE_STORE(user_data), arg1, dict);
 	   }
 
    	/* remove dummy */
@@ -1804,6 +1830,64 @@ static void frefcb_full_info(GtkButton *button,Tbfwin *bfwin) {
 	fref_show_info(bfwin,entry, FALSE, NULL);
 }
 
+static void frefcb_search(GtkButton *button,Tbfwin *bfwin) {
+	GtkTreePath *path,*path2;
+	GtkTreeViewColumn *col;
+	GtkWidget *dlg,*entry;
+	GValue *val;
+	GtkTreeIter iter;
+	GHashTable *dict;
+	gpointer ret;
+	gint result;
+	gchar *stf=NULL;
+
+	gtk_tree_view_get_cursor(GTK_TREE_VIEW(FREFGUI(bfwin->fref)->tree), &path, &col);
+	if (path!=NULL)
+	{
+	  while ( gtk_tree_path_get_depth(path) > 1 && gtk_tree_path_up(path) );
+		gtk_tree_model_get_iter(gtk_tree_view_get_model(GTK_TREE_VIEW(FREFGUI(bfwin->fref)->tree)), &iter, path);
+		gtk_tree_path_free(path);
+		val = g_new0(GValue, 1);
+		/* first column of reference title holds dictionary */
+		gtk_tree_model_get_value(gtk_tree_view_get_model(GTK_TREE_VIEW(FREFGUI(bfwin->fref)->tree)), &iter, 1, val);
+		if ( G_IS_VALUE(val) && g_value_fits_pointer(val)) {
+			 dict = (GHashTable*)g_value_peek_pointer(val);
+		 if (dict != NULL)
+		 {
+             	dlg = gtk_dialog_new_with_buttons("Find",NULL,GTK_DIALOG_MODAL,
+                                                  GTK_STOCK_OK,
+                                                  GTK_RESPONSE_ACCEPT,
+                                                  GTK_STOCK_CANCEL,
+                                                  GTK_RESPONSE_REJECT,
+                                                  NULL);
+	            entry = gtk_entry_new();
+	            gtk_box_pack_start(GTK_BOX(GTK_DIALOG(dlg)->vbox),entry,TRUE,TRUE,0); 
+	            gtk_widget_show(entry);
+	            result = gtk_dialog_run(GTK_DIALOG(dlg));  
+	            if (result == GTK_RESPONSE_ACCEPT)
+	            {
+	               stf = g_strdup(gtk_entry_get_text(GTK_ENTRY(entry)));
+	            }
+	            gtk_widget_destroy(dlg);
+		 
+   	    	ret = g_hash_table_lookup(dict,stf);
+   	    	g_free(stf);
+	      	if (ret!=NULL)
+	      	{
+	      	  path2 = gtk_tree_row_reference_get_path(ret);
+	      	  gtk_tree_view_expand_to_path(GTK_TREE_VIEW(FREFGUI(bfwin->fref)->tree),path2);  
+	      	  gtk_tree_view_set_cursor(GTK_TREE_VIEW(FREFGUI(bfwin->fref)->tree),path2,gtk_tree_view_get_column(GTK_TREE_VIEW(FREFGUI(bfwin->fref)->tree),0),FALSE);
+   	    	}	
+   	    	else error_dialog(bfwin->main_window,_("Reference search"), _("Reference not found")); 
+   	}  else error_dialog(bfwin->main_window,_("Error"), _("Dictionary not found. Perhaps you didn't load a reference."));   	
+ 	}
+	g_value_unset(val);
+		g_free(val); 
+	}
+   
+}
+
+
 static gboolean frefcb_event_mouseclick(GtkWidget *widget,GdkEventButton *event,Tbfwin *bfwin) {
 	FRInfo *entry;
 
@@ -1883,7 +1967,7 @@ static void frefcb_infocheck_toggled(GtkToggleButton *togglebutton, Tbfwin *bfwi
 }
 
 GtkWidget *fref_gui(Tbfwin *bfwin) {
-	GtkWidget *scroll,*box,*pane,*box2,*btn1,*btn2;
+	GtkWidget *scroll,*box,*pane,*box2,*btn1,*btn2,*btn3;
 	GtkCellRenderer *cell;
 	GtkTreeViewColumn *column;
 	Tfref_data *fdata = FREFDATA(main_v->frefdata);
@@ -1943,12 +2027,15 @@ GtkWidget *fref_gui(Tbfwin *bfwin) {
 		btn1 = bf_generic_button_with_image(NULL, 108, G_CALLBACK(frefcb_info_dialog), cd);
 	}
 	btn2 = bf_generic_button_with_image(NULL, 107, G_CALLBACK(frefcb_full_info), bfwin);
+	btn3 = bf_generic_button_with_image(NULL, 199, G_CALLBACK(frefcb_search), bfwin);
 	gtk_tooltips_set_tip(FREFGUI(bfwin->fref)->argtips,btn1,_("Dialog"),"");
 	gtk_tooltips_set_tip(FREFGUI(bfwin->fref)->argtips,btn2,_("Info"),"");
+	gtk_tooltips_set_tip(FREFGUI(bfwin->fref)->argtips,btn3,_("Search"),"");
 	
-	gtk_box_pack_start(GTK_BOX(box2),FREFGUI(bfwin->fref)->infocheck,TRUE,TRUE,0);	 				 
-	gtk_box_pack_start(GTK_BOX(box2),btn2,FALSE,TRUE,0);	 				
-	gtk_box_pack_start(GTK_BOX(box2),btn1,FALSE,TRUE,0);	 				 	
+	gtk_box_pack_start(GTK_BOX(box2),FREFGUI(bfwin->fref)->infocheck,TRUE,TRUE,0);
+	gtk_box_pack_start(GTK_BOX(box2),btn3,FALSE,TRUE,0);
+	gtk_box_pack_start(GTK_BOX(box2),btn2,FALSE,TRUE,0);
+	gtk_box_pack_start(GTK_BOX(box2),btn1,FALSE,TRUE,0);
 
 	gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(FREFGUI(bfwin->fref)->infoscroll), FREFGUI(bfwin->fref)->infoview);
 	gtk_box_pack_start(GTK_BOX(box),scroll,TRUE,TRUE,0);
