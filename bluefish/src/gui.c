@@ -1051,7 +1051,6 @@ void gui_create_main(Tbfwin *bfwin, GList *filenames) {
 	recent_menu_init(bfwin);
 	external_menu_rebuild(bfwin);
 	encoding_menu_rebuild(bfwin);
-	menu_outputbox_rebuild(bfwin);
 	snr2_init(bfwin);
 	add_window_entry_to_all_windows(bfwin);
 	add_allwindows_entries_to_window(bfwin);

@@ -23,7 +23,6 @@
 
 void menu_current_document_set_toggle_wo_activate(Tbfwin *bfwin, Tfiletype *filetype, gchar *encoding);
 void menu_create_main(Tbfwin *bfwin,GtkWidget *vbox);
-void menu_outputbox_rebuild(Tbfwin *bfwin);
 void add_to_recent_list(gchar *filename, gint closed_file);
 void recent_menu_init(Tbfwin *bfwin);
 void add_window_entry_to_all_windows(Tbfwin *tobfwin);

@@ -21,7 +21,7 @@
 #include <stdlib.h> /* atoi */
 #include <string.h> /* strchr() */
 
-/*#define DEBUG*/
+/* #define DEBUG */
 
 #include "bluefish.h"
 #include "document.h"			/* file_open etc. */
@@ -267,7 +267,7 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/File/sep2"), NULL, NULL, 0, "<Separator>"},
 	{N_("/File/_Save"), "<control>S", menu_file_operations_cb, 5, "<StockItem>", GTK_STOCK_SAVE},
 	{N_("/File/Save _As..."), "<shift><control>S", menu_file_operations_cb, 6, "<StockItem>", GTK_STOCK_SAVE_AS},
-	{N_("/File/_Move to..."), NULL, menu_file_operations_cb, 7, NULL},
+	{N_("/File/_Rename..."), NULL, menu_file_operations_cb, 7, NULL},
 	{N_("/File/Sa_ve All"), NULL, menu_file_operations_cb, 8, NULL},
 	{N_("/File/sep3"), NULL, NULL, 0, "<Separator>"},
 	{N_("/File/_Close"), "<control>w", menu_file_operations_cb, 9, "<StockItem>", GTK_STOCK_CLOSE},
@@ -890,16 +890,6 @@ void menu_create_main(Tbfwin *bfwin, GtkWidget *vbox) {
 	setup_toggle_item(item_factory, N_("/Options/Auto Indent"), main_v->props.autoindent);
 
 	filetype_menu_rebuild(bfwin, item_factory);
-	
-	if (main_v->props.ext_browsers_in_submenu) {
-		create_parent_and_tearoff(N_("/External/Browsers/"), item_factory);
-	}
-	if (main_v->props.ext_commands_in_submenu) {
-		create_parent_and_tearoff(N_("/External/Commands/"), item_factory);
-	}
-	if (main_v->props.ext_outputbox_in_submenu) {
-		create_parent_and_tearoff(N_("/External/Outputbox/"), item_factory);
-	}
 }
 
 
@@ -922,53 +912,6 @@ static void menu_outputbox_lcb(GtkMenuItem *menuitem,Tbfw_dynmenu *bdm) {
 	outputbox(bdm->bfwin,arr[1], atoi(arr[2]), atoi(arr[3]), atoi(arr[4]), arr[5], (arr[6][0]=='1'));
 }
 
-void menu_outputbox_rebuild(Tbfwin *bfwin) {
-	GList *tmplist;
-	
-	if (bfwin->menu_outputbox) {
-		tmplist = g_list_first(bfwin->menu_outputbox);
-		while (tmplist) {
-			gtk_widget_destroy(BFW_DYNMENU(tmplist->data)->menuitem);
-			g_free(BFW_DYNMENU(tmplist->data));
-			tmplist = g_list_next(tmplist);
-		}
-		g_list_free(bfwin->menu_outputbox);
-		bfwin->menu_outputbox = NULL;
-	}
-	if (!main_v->props.ext_outputbox_in_submenu) {
-		Tbfw_dynmenu *bdm = g_new(Tbfw_dynmenu,1);
-		bdm->menuitem = dynamic_menu_append_spacing(bfwin,N_("/External"));
-		bfwin->menu_outputbox = g_list_append(bfwin->menu_outputbox, bdm);
-	}
-	
-	tmplist = g_list_first(main_v->props.outputbox);
-	while (tmplist) {
-		gchar **arr = tmplist->data;
-		/* outputbox(gchar *pattern, gint file_subpat, gint line_subpat, gint output_subpat, gchar *command, gboolean show_all_output)
-		 * arr[0] = name
-		 * arr[1] = pattern
-		 * arr[2] = file subpattern
-		 * arr[3] = line subpattern
-		 * arr[4] = output subpattern
-		 * arr[5] = command
-		 * arr[6] = show_all_output
-		 */
-		if (count_array(arr)==7) {
-			Tbfw_dynmenu *bdm = g_new(Tbfw_dynmenu,1);
-			gchar *tmp1;
-			if (main_v->props.ext_outputbox_in_submenu) {
-				tmp1 = N_("/External/Outputbox");
-			} else {
-				tmp1 = N_("/External");
-			}
-			bdm->data = arr;
-			bdm->bfwin = bfwin;
-			bdm->menuitem = create_dynamic_menuitem(bfwin,tmp1,arr[0],G_CALLBACK(menu_outputbox_lcb),(gpointer)bdm,-1);
-			bfwin->menu_outputbox = g_list_append(bfwin->menu_outputbox,bdm);
-		}
-		tmplist = g_list_next(tmplist);
-	}
-}
 /*******************************************************************/
 /*               Open Recent menu handling                         */
 /*******************************************************************/
@@ -1293,8 +1236,18 @@ static void external_command_lcb(GtkWidget *widget, Tbfw_dynmenu *bdm) {
 		system(arr[1]);
 	}
 }
+/**
+ * external_menu_rebuild:
+ * @bfwin: #Tbfwin*
+ *
+ * rebuild the browsers, external commands and outputbox menu's
+ *
+ * Return value: void
+ */
 void external_menu_rebuild(Tbfwin *bfwin) {
 	GList *tmplist;
+	
+	/* first cleanup all menu's */
 	tmplist = g_list_first(bfwin->menu_external);
 	while (tmplist) {
 		Tbfw_dynmenu *bdm = (Tbfw_dynmenu *)tmplist->data;
@@ -1306,11 +1259,30 @@ void external_menu_rebuild(Tbfwin *bfwin) {
 	g_list_free(bfwin->menu_external);
 	bfwin->menu_external = NULL;
 
+	tmplist = g_list_first(bfwin->menu_outputbox);
+	while (tmplist) {
+		gtk_widget_destroy(BFW_DYNMENU(tmplist->data)->menuitem);
+		g_free(BFW_DYNMENU(tmplist->data));
+		tmplist = g_list_next(tmplist);
+	}
+	g_list_free(bfwin->menu_outputbox);
+	bfwin->menu_outputbox = NULL;
+	
+	if (main_v->props.ext_outputbox_in_submenu) {
+		create_parent_and_tearoff(N_("/External/Outputbox/"), gtk_item_factory_from_widget(bfwin->menubar));
+	}
+	if (main_v->props.ext_commands_in_submenu) {
+		create_parent_and_tearoff(N_("/External/Commands/"), gtk_item_factory_from_widget(bfwin->menubar));
+	}
+	if (main_v->props.ext_browsers_in_submenu) {
+		create_parent_and_tearoff(N_("/External/Browsers/"), gtk_item_factory_from_widget(bfwin->menubar));
+	}
+
 	if (!main_v->props.ext_browsers_in_submenu) {
 		Tbfw_dynmenu *bdm = g_new(Tbfw_dynmenu,1);
 		bdm->menuitem = dynamic_menu_append_spacing(bfwin,N_("/External"));
 		bfwin->menu_external = g_list_append(bfwin->menu_external,bdm);
-	}
+	} 
 	tmplist = g_list_first(main_v->props.browsers);
 	while (tmplist) {
 		gchar **arr = tmplist->data;
@@ -1327,7 +1299,7 @@ void external_menu_rebuild(Tbfwin *bfwin) {
 			}
 			bdm->bfwin = bfwin;
 			bdm->data = arr;
-			DEBUG_MSG("external_menu_rebuild,Adding browser %s with command %s to the menu\n", arr[0], arr[1]);
+			DEBUG_MSG("external_menu_rebuild,Adding browser %s with command %s to the menu at %s\n", arr[0], arr[1], tmp1);
 			bdm->menuitem = create_dynamic_menuitem(bfwin,tmp1,arr[0],G_CALLBACK(browser_lcb),bdm,-1);
 			DEBUG_MSG("external_menu_rebuild,creating,bfwin=%p,bdm=%p,menuitem=%p\n",bfwin,bdm,bdm->menuitem);
 			bfwin->menu_external = g_list_append(bfwin->menu_external, bdm);
@@ -1364,6 +1336,41 @@ void external_menu_rebuild(Tbfwin *bfwin) {
 			bdm->data = arr;
 			bdm->menuitem = create_dynamic_menuitem(bfwin,tmp1,arr[0],G_CALLBACK(external_command_lcb),bdm,-1);
 			bfwin->menu_external = g_list_append(bfwin->menu_external, bdm);
+		}
+		tmplist = g_list_next(tmplist);
+	}
+
+	/* the outputbox */	
+	if (!main_v->props.ext_outputbox_in_submenu) {
+		Tbfw_dynmenu *bdm = g_new(Tbfw_dynmenu,1);
+		bdm->menuitem = dynamic_menu_append_spacing(bfwin,N_("/External"));
+		bfwin->menu_outputbox = g_list_append(bfwin->menu_outputbox, bdm);
+	}
+	
+	tmplist = g_list_first(main_v->props.outputbox);
+	while (tmplist) {
+		gchar **arr = tmplist->data;
+		/* outputbox(gchar *pattern, gint file_subpat, gint line_subpat, gint output_subpat, gchar *command, gboolean show_all_output)
+		 * arr[0] = name
+		 * arr[1] = pattern
+		 * arr[2] = file subpattern
+		 * arr[3] = line subpattern
+		 * arr[4] = output subpattern
+		 * arr[5] = command
+		 * arr[6] = show_all_output
+		 */
+		if (count_array(arr)==7) {
+			Tbfw_dynmenu *bdm = g_new(Tbfw_dynmenu,1);
+			gchar *tmp1;
+			if (main_v->props.ext_outputbox_in_submenu) {
+				tmp1 = N_("/External/Outputbox");
+			} else {
+				tmp1 = N_("/External");
+			}
+			bdm->data = arr;
+			bdm->bfwin = bfwin;
+			bdm->menuitem = create_dynamic_menuitem(bfwin,tmp1,arr[0],G_CALLBACK(menu_outputbox_lcb),(gpointer)bdm,-1);
+			bfwin->menu_outputbox = g_list_append(bfwin->menu_outputbox,bdm);
 		}
 		tmplist = g_list_next(tmplist);
 	}
