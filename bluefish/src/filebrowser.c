@@ -682,20 +682,21 @@ static void filebrowser_expand_to_root(Tfilebrowser *filebrowser, const GtkTreeP
 
 /**
  * filebrowser_get_path_from_selection:
- * @iter #GtkTreeIter
+ * @model: #GtkTreeModel*
+ * @treeview: #GtkTreeView*
+ * @iter: #GtkTreeIter
  *
  * Retrieves a path to the currently selected item in the filebrowser->
  * iter may be omitted, set to NULL (and usually is).
  *
  * Returns: #GtkTreePath identifying currently selected item. NULL if no item is selected.
  **/
-static GtkTreePath *filebrowser_get_path_from_selection(Tfilebrowser *filebrowser, GtkTreeIter *iter) {
-	GtkTreeModel *model = GTK_TREE_MODEL(filebrowser->store);
-	GtkTreeSelection *selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(filebrowser->tree));
+static GtkTreePath *filebrowser_get_path_from_selection(GtkTreeModel *model, GtkTreeView *treeview, GtkTreeIter *iter) {
+	GtkTreeSelection *selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(treeview));
 	GtkTreeIter localiter;
 	GtkTreeIter *usethisiter = (iter != NULL) ? iter : &localiter;
 	if (gtk_tree_selection_get_selected(selection,&model,usethisiter)) {
-		return gtk_tree_model_get_path(GTK_TREE_MODEL(filebrowser->store),usethisiter);
+		return gtk_tree_model_get_path(GTK_TREE_MODEL(model),usethisiter);
 	}
 	return NULL;
 }
@@ -727,7 +728,7 @@ void filebrowser_open_dir(Tbfwin *bfwin,const gchar *dirarg) {
 		DEBUG_DUMP_TREE_PATH(path);
 
 		/* Get currently selected item. */
-		selpath = filebrowser_get_path_from_selection(filebrowser,NULL);
+		selpath = filebrowser_get_path_from_selection(GTK_TREE_MODEL(filebrowser->store), GTK_TREE_VIEW(filebrowser->tree),NULL);
 		if(selpath) {
 			selfile = return_filename_from_path(filebrowser->store, selpath);
 			seldir = path_get_dirname_with_ending_slash(selfile);
@@ -879,7 +880,7 @@ static void create_file_or_dir_ok_clicked_lcb(GtkWidget *widget, Tcfod *ws) {
 static void create_file_or_dir_win(Tfilebrowser *filebrowser, gint is_file) {
 	GtkTreePath *path;
 	GtkTreeIter iter;
-	path = filebrowser_get_path_from_selection(filebrowser,&iter);
+	path = filebrowser_get_path_from_selection(GTK_TREE_MODEL(filebrowser->store),GTK_TREE_VIEW(filebrowser->tree),&iter);
 	if (path) {
 		Tcfod *ws;
 		gchar *title, *tmp;
@@ -991,7 +992,7 @@ static void filebrowser_rpopup_rename(Tfilebrowser *filebrowser) {
 
 	/* this function should, together with doc_save() use a common backend.. */
 	
-	path = filebrowser_get_path_from_selection(filebrowser,NULL);
+	path = filebrowser_get_path_from_selection(GTK_TREE_MODEL(filebrowser->store),GTK_TREE_VIEW(filebrowser->tree),NULL);
 	oldfilename = return_filename_from_path(GTK_TREE_STORE(filebrowser->store), path);	
 
 	/* Use doc_save(doc, 1, 1) if the file is open. */
@@ -1047,7 +1048,7 @@ static void filebrowser_rpopup_rename(Tfilebrowser *filebrowser) {
 
 static void filebrowser_rpopup_delete(Tfilebrowser *filebrowser) {
 	GtkTreePath *path;
-	path = filebrowser_get_path_from_selection(filebrowser,NULL);
+	path = filebrowser_get_path_from_selection(GTK_TREE_MODEL(filebrowser->store),GTK_TREE_VIEW(filebrowser->tree),NULL);
 	if (path) {
 		gchar *filename;
 		filename = return_filename_from_path(filebrowser->store,path);
@@ -1079,7 +1080,7 @@ static void filebrowser_rpopup_delete(Tfilebrowser *filebrowser) {
 static void filebrowser_rpopup_refresh(Tfilebrowser *filebrowser) {
 	GtkTreePath *path;
 	GtkTreeIter iter;
-	path = filebrowser_get_path_from_selection(filebrowser,&iter);
+	path = filebrowser_get_path_from_selection(GTK_TREE_MODEL(filebrowser->store),GTK_TREE_VIEW(filebrowser->tree),&iter);
 	if (path) {
 		gchar *tmp, *dir;
 		GtkTreePath *path;
@@ -1108,7 +1109,7 @@ static void filebrowser_rpopup_action_lcb(Tfilebrowser *filebrowser,guint callba
 	switch (callback_action) {
 	case 1: {
 		GtkTreePath *path;
-		path = filebrowser_get_path_from_selection(filebrowser,NULL);
+		path = filebrowser_get_path_from_selection(GTK_TREE_MODEL(filebrowser->store),GTK_TREE_VIEW(filebrowser->tree),NULL);
 		if(path) {
 			row_activated_lcb(GTK_TREE_VIEW(filebrowser->tree), path, NULL, filebrowser);
 		}
@@ -1217,7 +1218,7 @@ static gboolean filebrowser_button_press_lcb(GtkWidget *widget, GdkEventButton *
 		gtk_menu_popup(GTK_MENU(menu), NULL, NULL, NULL, NULL, event->button, event->time);
 	}
 	if (event->button==1 && event->type == GDK_2BUTTON_PRESS) {
-		GtkTreePath *path = filebrowser_get_path_from_selection(filebrowser,NULL);
+		GtkTreePath *path = filebrowser_get_path_from_selection(GTK_TREE_MODEL(filebrowser->store), GTK_TREE_VIEW(filebrowser->tree),NULL);
 		DEBUG_MSG("doubleclick!! open the file!!\n");
 		if (path) {
 			row_activated_lcb(GTK_TREE_VIEW(filebrowser->tree), path,NULL,filebrowser);
@@ -1229,7 +1230,14 @@ static gboolean filebrowser_button_press_lcb(GtkWidget *widget, GdkEventButton *
 }
 
 static gboolean filebrowser_tree2_button_press_lcb(GtkWidget *widget, GdkEventButton *event, Tfilebrowser *filebrowser) {
-	DEBUG_MSG("filebrowser_tree2_button_press_lcb, button=%d\n",event->button);
+	if (event->button==1 && event->type == GDK_2BUTTON_PRESS) {
+		GtkTreePath *path1 = filebrowser_get_path_from_selection(GTK_TREE_MODEL(filebrowser->store), GTK_TREE_VIEW(filebrowser->tree),NULL);
+		GtkTreePath *path2 = filebrowser_get_path_from_selection(GTK_TREE_MODEL(filebrowser->store2), GTK_TREE_VIEW(filebrowser->tree2),NULL);
+		gchar *filename1 = return_filename_from_path(filebrowser->store,path1);
+		gchar *filename2 = return_filename_from_path(filebrowser->store2,path2);
+		DEBUG_MSG("filebrowser_tree2_button_press_lcb, button=%d\n",event->button);
+		DEBUG_MSG("filebrowser_tree2_button_press_lcb, filename1=%s,filename2=%s\n",filename1,filename2);
+	}
 }
 
 static Tfilter *new_filter(gchar *name, gchar *mode, gchar *filetypes) {
