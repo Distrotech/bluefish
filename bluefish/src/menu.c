@@ -1119,39 +1119,42 @@ typedef struct {
 
 typedef struct {
 	GtkItemFactoryEntry entry;
+	gint type;
 	gchar **array;
 } Tcmenu_entry;
 
 /*
-Tcust_con_struc->array[0] = title / menupath
-Tcust_con_struc->array[1] = type:
-										0 = custom dialog
-										1 = custom search and replace
+instead of having one list where both insert and replace types have their
+place, I changed that to 2 arraylists:
+main_v->props.cmenu_insert
+main_v->props.cmenu_replace
 
-** for dialog **
-Tcust_con_struc->array[2] = formatstring before, containing %0, %1... that should be replaced by the 
+** for insert **
+array[0] = title / menupath
+array[1] = formatstring before, containing %0, %1... that should be replaced by the 
 				values from the dialog
-Tcust_con_struc->array[3] = formatstring after
-Tcust_con_struc->array[4] = number of variables from the dialog
-Tcust_con_struc->array[5..] = the description of those variables
+array[2] = formatstring after
+array[3] = number of variables from the dialog
+array[4..] = the description of those variables
 
-** for search and replace **
-Tcust_con_struc->array[2] = search pattern, containing %0 etc.
-Tcust_con_struc->array[3] = replace pattern, containing %0 etc.
-Tcust_con_struc->array[4] = replace where:
-										0 = from beginning
-										1 = from cursor
-										2 = selection (selection required)
-										3 = all open documents
-										4 = ask
-Tcust_con_struc->array[5] = replace type:
-										0 = normal
-										1 = regular expression
-Tcust_con_struc->array[6] = case sensitivity:
-										0 = no
-										1 = yes
-Tcust_con_struc->array[7] = number of variables from the dialog
-Tcust_con_struc->array[8..] = the description of those variables
+** for replace **
+array[0] = title / menupath
+array[1] = search pattern, containing %0 etc.
+array[2] = replace pattern, containing %0 etc.
+array[3] = replace where:
+							0 = from beginning
+							1 = from cursor
+							2 = selection (selection required)
+							3 = all open documents
+							4 = ask
+array[4] = replace type:
+							0 = normal
+							1 = regular expression
+array[5] = case sensitivity:
+							0 = no
+							1 = yes
+array[6] = number of variables from the dialog
+array[7..] = the description of those variables
 */
 
 static void cust_con_struc_dialog_destroy_lcb(GtkWidget *widget, Tcust_con_struc *ccs) {
@@ -1325,6 +1328,20 @@ static void cust_menu_lcb(GtkWidget * widget, gpointer data) {
 	}
 }
 
+static Tcmenu_entry *create_cmentry(const gchar *menupath, gint count, gchar **array, GtkItemFactory *ifactory, gint type) {
+	Tcmenu_entry *cmentry = g_malloc0(sizeof(Tcmenu_entry));
+	cmentry->entry.path = g_strdup(menupath);
+	DEBUG_MSG("create_cmentry, entry.path=%s, count=%d\n", cmentry->entry.path, count);
+	cmentry->entry.callback = cust_menu_lcb;
+	cmentry->entry.callback_action = count;
+	cmentry->array = array;
+	cmentry->type = type;
+	create_parent_and_tearoff(cmentry->entry.path, ifactory);
+	gtk_item_factory_create_item(ifactory, &cmentry->entry, GINT_TO_POINTER(count), 2);
+	return cmentry;
+}
+
+
 static void fill_cust_menubar() {
 	GtkItemFactory *ifactory;
 	gint count;
@@ -1347,36 +1364,27 @@ static void fill_cust_menubar() {
 	menus.cmenu_entries = NULL;
 
 	count = 0;
-	tmplist = g_list_first(main_v->props.cust_menu);
+	tmplist = g_list_first(main_v->props.cmenu_insert);
 	while (tmplist) {
 		gint count2;
 		splittedstring = (gchar **) tmplist->data;
 		count2 = count_array(splittedstring);
-		
-		DEBUG_MSG("fill_cust_menubar, splittedstring[0]='%s', splittedstring[1]='%s'\n", splittedstring[0], splittedstring[1]);
-		if (count2 < 5) {
-			DEBUG_MSG("fill_cust_menubar, array count < 5, (count2=%d) this is invalid\n", count2);
-#ifdef DEBUGARRAYS
-			debug_array(splittedstring);
-#endif
-			tmplist = g_list_next(tmplist);
-			continue;
+		if (count2 >= 4) {
+			cmentry = create_cmentry(splittedstring[0], count, splittedstring, ifactory, 0);
+			menus.cmenu_entries = g_list_append(menus.cmenu_entries, cmentry);
 		}
-		if ((strcmp(splittedstring[1] , "1")==0) && (count2 < 8)) {
-			DEBUG_MSG("fill_cust_menubar, type 1, array count < 8, this is invalid\n");
-			tmplist = g_list_next(tmplist);
-			continue;
+		count++;
+		tmplist = g_list_next(tmplist);
+	}
+	tmplist = g_list_first(main_v->props.cmenu_replace);
+	while (tmplist) {
+		gint count2;
+		splittedstring = (gchar **) tmplist->data;
+		count2 = count_array(splittedstring);
+		if (count2 >= 4) {
+			cmentry = create_cmentry(splittedstring[0], count, splittedstring, ifactory, 1);
+			menus.cmenu_entries = g_list_append(menus.cmenu_entries, cmentry);
 		}
-		
-		cmentry = g_malloc0(sizeof(Tcmenu_entry));
-		cmentry->entry.path = g_strdup(splittedstring[0]);
-		DEBUG_MSG("fill_cust_menubar, entry.path=%s, count=%d\n", cmentry->entry.path, count);
-		cmentry->entry.callback = cust_menu_lcb;
-		cmentry->entry.callback_action = count;
-		cmentry->array = splittedstring;
-		create_parent_and_tearoff(cmentry->entry.path, ifactory);
-		gtk_item_factory_create_item(ifactory, &cmentry->entry, GINT_TO_POINTER(count), 2);
-		menus.cmenu_entries = g_list_append(menus.cmenu_entries, cmentry);
 		count++;
 		tmplist = g_list_next(tmplist);
 	}
