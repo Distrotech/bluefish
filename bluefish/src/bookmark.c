@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-/* #define DEBUG */
+#define DEBUG
 
 #include <gtk/gtk.h>
 #include <sys/types.h>
@@ -131,6 +131,18 @@ static void bmark_update_offset_from_textmark(Tbmark *b) {
 		gtk_text_buffer_get_iter_at_mark(b->doc->buffer, &it, b->mark);
 		b->offset = gtk_text_iter_get_offset(&it);
 	}
+}
+
+/* 
+ * this function should use a smart sorting algorithm to find
+ * the GtkTreeIter of the bookmark *before* the place where this
+ * bookmark should be added, but the same function can be used to
+ * find the bookmarks we have to check to detect double bookmarks
+ * at the same line.
+ */
+static gboolean bmark_get_closest_iter_before_offset(Tbfwin *bfwin, guint offset, GtkTreeIter *iter) {
+	return FALSE;
+
 }
 
 /* this function re-uses the b->strarr if possible, otherwise it will create a new one and
@@ -664,29 +676,20 @@ static void bmark_get_iter_at_tree_position(Tbfwin * bfwin, Tbmark * m) {
 		parent = (GtkTreeIter *) ptr;
 
 	/* I have the feeling that there is a smarter way to do this sorting loop, we have to 
-	look at that, because when adding bookmarks from a search this function takes a lot of time! */
-	DEBUG_MSG("bmark_get_iter_at_tree_position, sorting=%d\n", main_v->props.bookmarks_sort);
+	look at that, because when adding bookmarks from a search, or adding bookmarks during
+	project loading this function takes a lot of time and it is mainly due to the sorting! */
+	DEBUG_MSG("bmark_get_iter_at_tree_position, sorting=%d, parent has %d children\n", main_v->props.bookmarks_sort, gtk_tree_model_iter_n_children(GTK_TREE_MODEL(bfwin->bookmarkstore),parent));
 	if (main_v->props.bookmarks_sort) {
-		GtkTreeIter tmpiter;
 		gboolean cont;
+		GtkTreeIter tmpiter;
 		cont = gtk_tree_model_iter_children(GTK_TREE_MODEL(bfwin->bookmarkstore), &tmpiter, parent);
 		while (cont) {
 			Tbmark *tmpm = NULL;
-			gtk_tree_model_get(GTK_TREE_MODEL(bfwin->bookmarkstore), &tmpiter, PTR_COLUMN, &tmpm,
-							   -1);
+			gtk_tree_model_get(GTK_TREE_MODEL(bfwin->bookmarkstore), &tmpiter, PTR_COLUMN, &tmpm, -1);
 			if (tmpm) {
-				gint val = strcmp(m->filepath, tmpm->filepath);
-				if (val == 0) {
-				/*	DEBUG_MSG("bmark_get_iter_at_tree_position, there is already a bookmark for this file, comparing two iters\n");*/
-					if (m->offset < tmpm->offset) {
-						gtk_tree_store_insert_before(bfwin->bookmarkstore, &m->iter, parent,
-													 &tmpiter);
-						return;
-					}
-				} else if (val < 0) {
-					/* different file */
-					DEBUG_MSG("bmark_get_iter_at_tree_position, no bookmark for this file yet, creating\n");
-					gtk_tree_store_insert_before(bfwin->bookmarkstore, &m->iter, parent, &tmpiter);
+				bmark_update_offset_from_textmark(tmpm);
+				if (m->offset < tmpm->offset) {
+					gtk_tree_store_insert_before(bfwin->bookmarkstore, &m->iter, parent,&tmpiter);
 					return;
 				}
 			}
@@ -1057,6 +1060,7 @@ static Tbmark *bmark_get_bmark_at_line(Tdocument *doc, gint offset) {
 	/* check for existing bookmark in this place */
 	if (DOCUMENT(doc)->bmark_parent) {
 		gboolean cont;
+		DEBUG_MSG("bmark_get_bmark_at_line, doc has %d bookmarks\n",gtk_tree_model_iter_n_children(GTK_TREE_MODEL(BFWIN(doc->bfwin)->bookmarkstore),doc->bmark_parent));
 		cont = gtk_tree_model_iter_children(GTK_TREE_MODEL(BFWIN(doc->bfwin)->bookmarkstore), &tmpiter,
 										 doc->bmark_parent);
 		while (cont) {
