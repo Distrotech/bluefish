@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 13-05-03_fr\n"
-"POT-Creation-Date: 2003-06-04 10:21+0200\n"
+"POT-Creation-Date: 2003-06-05 12:31+0200\n"
 "PO-Revision-Date: 2003-05-30 00:48+0200\n"
 "Last-Translator: romeo viuberges <apostledemencia@free.fr>\n"
 "Language-Team: fr_FR <fr@li.org>\n"
@@ -34,7 +34,7 @@ msgstr "Original"
 msgid "Replacement"
 msgstr "Remplacer le texte"
 
-#: ../src/bfspell.c:356 ../src/document.c:1969
+#: ../src/bfspell.c:356 ../src/document.c:1994
 msgid "Ignore"
 msgstr "Ignorer"
 
@@ -74,7 +74,7 @@ msgstr "Langue"
 msgid "Set default"
 msgstr "Par défaut"
 
-#: ../src/bfspell.c:399 ../src/filebrowser.c:1071
+#: ../src/bfspell.c:399 ../src/filebrowser.c:1078
 msgid "Filter"
 msgstr "Filtre"
 
@@ -139,7 +139,7 @@ msgstr "Affichage de l'interface principale..."
 msgid "/Document/Highlight syntax"
 msgstr "/Document/Syntaxe de la coloration"
 
-#: ../src/document.c:421 ../src/document.c:422 ../src/document.c:1988
+#: ../src/document.c:421 ../src/document.c:422 ../src/document.c:1973
 msgid "Untitled"
 msgstr "Sans titre"
 
@@ -150,11 +150,6 @@ msgstr "Ouverture du fichier"
 #: ../src/document.c:866
 msgid "Could not open file:\n"
 msgstr "Impossible d'ouvrir le fichier :\n"
-
-#: ../src/document.c:867 ../src/document.c:1010 ../src/document.c:1590
-#: ../src/document.c:1596 ../src/filebrowser.c:962
-msgid "Error"
-msgstr "Erreur"
 
 #: ../src/document.c:1010
 msgid "Cannot display file, unknown characters found."
@@ -188,112 +183,131 @@ msgstr "Continuer l'enregistrement"
 
 #: ../src/document.c:1366
 #, c-format
-msgid "Backup for %s failed"
-msgstr "Échec de la sauvegarde de %s"
+msgid ""
+"A backupfile for %s could not be created. If you continue, this file will be "
+"overwritten."
+msgstr ""
 
 #: ../src/document.c:1367
-msgid "Bluefish warning, file backup failure"
-msgstr "Avertissement de Bluefish : Échec de la sauvegarde du fichier !"
+#, fuzzy
+msgid "File backup failure"
+msgstr "Action en cas d'échec de la sauvegarde"
 
 #: ../src/document.c:1504
 msgid "Save as..."
 msgstr "Enregistrer sous..."
 
-#: ../src/document.c:1507 ../src/filebrowser.c:951
+#: ../src/document.c:1508
+#, fuzzy
+msgid "Move document to"
+msgstr "Enregistrer document sous"
+
+#: ../src/document.c:1508 ../src/filebrowser.c:958
 msgid "Save document as"
 msgstr "Enregistrer document sous"
 
-#: ../src/document.c:1514 ../src/document.c:1558
-msgid "Overwrite"
-msgstr "Remplacer"
-
-#: ../src/document.c:1514 ../src/document.c:1558
+#: ../src/document.c:1515 ../src/document.c:1559
 msgid "Cancel"
 msgstr "Annuler"
 
-#: ../src/document.c:1515
+#: ../src/document.c:1515 ../src/document.c:1559
+msgid "Overwrite"
+msgstr "Remplacer"
+
+#: ../src/document.c:1516
 #, c-format
 msgid "File %s is open, overwrite?"
 msgstr "Le fichier %s est déjà ouvert, le remplacer ?"
 
-#: ../src/document.c:1516
-msgid "Bluefish: Warning, file is open"
-msgstr "Avertissement de Bluefish : le fichier est ouvert !"
+#: ../src/document.c:1517
+msgid "The file you have selected is being edited in Bluefish."
+msgstr ""
 
-#: ../src/document.c:1535
+#: ../src/document.c:1536
 msgid "Previously: "
 msgstr "Précédemment : "
 
-#: ../src/document.c:1562
-#, c-format
+#: ../src/document.c:1563
+#, fuzzy, c-format
 msgid ""
-"File %s\n"
-"is modified by another process\n"
-"new modification time is %s\n"
-"old modification time is %s\n"
-"overwrite?"
+"File:\n"
+" %s\n"
+"New modification time is %s\n"
+"Old modification time is %s"
 msgstr ""
 "Le fichier %s\n"
 "est modifié par un autre processus\n"
 "heure de la nouvelle modification : %s\n"
-"heure de l'ancienne modification : %s\n"
-"Le remplacer ?"
+"heure de l'ancienne modification : %s"
 
-#: ../src/document.c:1563 ../src/document.c:1974
-msgid "Bluefish: Warning, file is modified"
-msgstr "Avertissement de Bluefish : le fichier a été modifié !"
+#: ../src/document.c:1564
+msgid "The file has been modified by another process."
+msgstr ""
 
-#: ../src/document.c:1579
+#: ../src/document.c:1580
 #, c-format
 msgid "Saving %s"
 msgstr "Enregistrement de %"
 
-#: ../src/document.c:1589
-msgid "File save aborted, could not backup file:\n"
+#: ../src/document.c:1590 ../src/document.c:1596 ../src/menu.c:758
+#, fuzzy
+msgid "The filename was:\n"
+msgstr "Nom de fichier inconnu"
+
+#: ../src/document.c:1591
+#, fuzzy
+msgid "File save aborted, could not backup file\n"
 msgstr "Enregistrement du fichier annulé, sauvegarde impossible :\n"
 
-#: ../src/document.c:1595
-msgid "File save error, could not write file:\n"
+#: ../src/document.c:1597
+#, fuzzy
+msgid "File save error, could not write file\n"
 msgstr "Erreur d'enregistrement, écriture impossible dans le fichier :\n"
 
-#: ../src/document.c:1643
+#: ../src/document.c:1644
 #, c-format
 msgid ""
-"Are you sure you want to close\n"
-"%s ?"
+"Do you want to save the changes done to\n"
+"%s?."
 msgstr ""
-"Êtes-vous certain de vouloir fermer\n"
-"%s ?"
 
-#: ../src/document.c:1648
-msgid ""
-"Are you sure you want to close\n"
-"this untitled file ?"
+#: ../src/document.c:1649
+#, fuzzy
+msgid "Do you want to save the changes done to this untitled file?"
 msgstr ""
 "Êtes-vous certain de vouloir fermer\n"
 "ce fichier sans nom ?"
 
 #: ../src/document.c:1653
-msgid "Bluefish warning: file is modified!"
-msgstr "Avertissement de Bluefish : le fichier a été modifié !"
+#, fuzzy
+msgid "Don't save"
+msgstr "Abandonner l'enregistrement"
 
-#: ../src/document.c:1843
+#: ../src/document.c:1654
+msgid "Changes will be lost unless the file is saved."
+msgstr ""
+
+#: ../src/document.c:1849
 msgid "No filename"
 msgstr "Aucun nom de fichier"
 
-#: ../src/document.c:1919 ../src/msg_queue.c:180
+#: ../src/document.c:1933 ../src/msg_queue.c:180
+msgid "These files were not opened:\n"
+msgstr ""
+
+#: ../src/document.c:1935 ../src/msg_queue.c:182
 msgid "Unable to open file(s)\n"
 msgstr "Impossible d'ouvrir le(s) fichier(s)\n"
 
-#: ../src/document.c:1938
+#: ../src/document.c:1953
 msgid "Unable to open file"
 msgstr "Impossible d'ouvrir le fichier"
 
-#: ../src/document.c:1969
+#: ../src/document.c:1994
 msgid "Reload"
 msgstr "Recharger"
 
-#: ../src/document.c:1973
+#: ../src/document.c:1998
 #, c-format
 msgid ""
 "File %s\n"
@@ -306,117 +320,127 @@ msgstr ""
 "heure de la nouvelle modification : %s\n"
 "heure de l'ancienne modification : %s"
 
-#: ../src/document.c:2071
+#: ../src/document.c:1999
+msgid "Bluefish: Warning, file is modified"
+msgstr "Avertissement de Bluefish : le fichier a été modifié !"
+
+#: ../src/document.c:2091
 msgid "searching files..."
 msgstr "Recherche des fichiers..."
 
-#: ../src/document.c:2090
+#: ../src/document.c:2110
 msgid "Select basedir"
 msgstr "Sélectionnez le répertoire de travail"
 
-#: ../src/document.c:2102
+#: ../src/document.c:2122
 msgid "Advanced open file selector"
 msgstr "Paramétrer la sélection des fichiers"
 
-#: ../src/document.c:2113
+#: ../src/document.c:2133
 msgid "grep {contains} `find {basedir} -name '{file type}'`"
 msgstr "grep {contenu} `find {répertoire} -name '{type de fichier}'`"
 
-#: ../src/document.c:2118
+#: ../src/document.c:2138
 msgid "<b>General</b>"
 msgstr "<b>Général</b>"
 
-#: ../src/document.c:2120
+#: ../src/document.c:2140
 msgid "Base_dir:"
 msgstr "Répertoire _de base :"
 
-#: ../src/document.c:2122 ../src/gtk_easy.c:865
+#: ../src/document.c:2142 ../src/gtk_easy.c:1057
 msgid "_Browse..."
 msgstr "_Parcourir..."
 
-#: ../src/document.c:2137
+#: ../src/document.c:2157
 msgid "_File Type:"
 msgstr "Type de _fichier :"
 
-#: ../src/document.c:2143
+#: ../src/document.c:2163
 msgid "_Recursive:"
 msgstr "_Récursif :"
 
-#: ../src/document.c:2148
+#: ../src/document.c:2168
 msgid "<b>Contains</b>"
 msgstr "<b>Contient</b>"
 
-#: ../src/document.c:2151
+#: ../src/document.c:2171
 msgid "Pa_ttern:"
 msgstr "Modèle :"
 
-#: ../src/document.c:2155
+#: ../src/document.c:2175
 msgid "Is rege_x:"
 msgstr "Est une e_xpression régulière :"
 
-#: ../src/document.c:2218
+#: ../src/document.c:2238
 #, c-format
 msgid "Loading %d file(s)..."
 msgstr "Chargement de %d fichier(s)..."
 
-#: ../src/document.c:2236
+#: ../src/document.c:2256
 msgid "No file to insert"
 msgstr "Aucun fichier à insérer"
 
-#: ../src/document.c:2270
-msgid "save all"
+#: ../src/document.c:2291
+#, fuzzy
+msgid "_Save all"
 msgstr "Tout enregistrer"
 
-#: ../src/document.c:2270
-msgid "close all"
+#: ../src/document.c:2291
+#, fuzzy
+msgid "Close _all"
 msgstr "Tout fermer"
 
-#: ../src/document.c:2270
-msgid "choose per file"
+#: ../src/document.c:2291
+#, fuzzy
+msgid "Choose per _file"
 msgstr "choisir par fichier"
 
-#: ../src/document.c:2270
-msgid "cancel"
+#: ../src/document.c:2291
+#, fuzzy
+msgid "_Cancel"
 msgstr "Annuler"
 
-#: ../src/document.c:2271
-msgid "Bluefish: Warning, some file(s) are modified!"
+#: ../src/document.c:2292
+#, fuzzy
+msgid "Some file(s) have been modified"
 msgstr "Avertissement de Bluefish : certains fichiers ont été modifiés!"
 
-#: ../src/document.c:2271
-msgid ""
-"Some file(s) are modified\n"
-"please choose your action"
+#: ../src/document.c:2292
+msgid "If the modified files are not saved, any changes in them will be lost."
 msgstr ""
-"Certains fichiers ont été modifiés\n"
-"veuillez choisir une action"
 
-#: ../src/document.c:2488
+#: ../src/document.c:2509
 msgid "No selection to indent"
 msgstr "Aucune sélection à indenter"
 
-#: ../src/filebrowser.c:805
+#: ../src/filebrowser.c:810
 msgid "Error creating path"
 msgstr "Erreur de création du chemin"
 
-#: ../src/filebrowser.c:805
-msgid "Path exists already"
-msgstr "Le chemin existe déjà"
+#: ../src/filebrowser.c:810
+msgid "The specified pathname already exists."
+msgstr ""
 
-#: ../src/filebrowser.c:850
+#: ../src/filebrowser.c:855
 msgid "File name"
 msgstr "Nom du fichier"
 
-#: ../src/filebrowser.c:852
+#: ../src/filebrowser.c:857
 msgid "Directory name"
 msgstr "Nom du répertoire"
 
-#: ../src/filebrowser.c:955
+#: ../src/filebrowser.c:886
+#, fuzzy
+msgid "Opening directory..."
+msgstr "Ouverture du fichier"
+
+#: ../src/filebrowser.c:962
 #, fuzzy
 msgid "Could not rename\n"
 msgstr "Impossible d'ouvrir le fichier\n"
 
-#: ../src/filebrowser.c:991
+#: ../src/filebrowser.c:998
 #, c-format
 msgid ""
 "Are you sure you want to\n"
@@ -425,54 +449,54 @@ msgstr ""
 "Êtes-vous certain de vouloir\n"
 "supprimer \"%s\" ?"
 
-#: ../src/filebrowser.c:992
-msgid "delete file?"
-msgstr "Supprimer le fichier ?"
+#: ../src/filebrowser.c:999
+msgid "The file will be permanently deleted."
+msgstr ""
 
-#: ../src/filebrowser.c:1048
+#: ../src/filebrowser.c:1055
 #, fuzzy
 msgid "/_Open file"
 msgstr "Ouverture du fichier"
 
-#: ../src/filebrowser.c:1049
+#: ../src/filebrowser.c:1056
 msgid "/sep1"
 msgstr ""
 
-#: ../src/filebrowser.c:1050
+#: ../src/filebrowser.c:1057
 msgid "/Rena_me file"
 msgstr ""
 
-#: ../src/filebrowser.c:1051
+#: ../src/filebrowser.c:1058
 #, fuzzy
 msgid "/_Delete file"
 msgstr "Supprimer le fichier"
 
-#: ../src/filebrowser.c:1052
+#: ../src/filebrowser.c:1059
 #, fuzzy
 msgid "/sep2"
 msgstr "/Fichier/sep2"
 
-#: ../src/filebrowser.c:1053
+#: ../src/filebrowser.c:1060
 #, fuzzy
 msgid "/New _File"
 msgstr "Créer un fichier"
 
-#: ../src/filebrowser.c:1054
+#: ../src/filebrowser.c:1061
 #, fuzzy
 msgid "/_New Directory"
 msgstr "Créer un répertoire"
 
-#: ../src/filebrowser.c:1055
+#: ../src/filebrowser.c:1062
 #, fuzzy
 msgid "/sep3"
 msgstr "/Éditer/sep3"
 
-#: ../src/filebrowser.c:1056
+#: ../src/filebrowser.c:1063
 #, fuzzy
 msgid "/_Refresh"
 msgstr "Mettre à jour"
 
-#: ../src/filebrowser.c:1176
+#: ../src/filebrowser.c:1183
 msgid "All files"
 msgstr "Tous les fichiers"
 
@@ -525,20 +549,16 @@ msgstr "Attributs/Paramètres"
 msgid "Notes"
 msgstr "Notes"
 
-#: ../src/gtk_easy.c:1047 ../src/menu.c:1315 ../src/menu.c:1661
-#: ../src/menu.c:1663 ../src/menu.c:1668
-msgid "Bluefish error"
-msgstr "Erreur de Bluefish"
+#: ../src/gtk_easy.c:1127
+#, fuzzy
+msgid "No file to insert."
+msgstr "Aucun fichier à insérer"
 
-#: ../src/gtk_easy.c:1047
-msgid "No filename known"
-msgstr "Nom de fichier inconnu"
-
-#: ../src/gtk_easy.c:1151
+#: ../src/gtk_easy.c:1231
 msgid "Select file"
 msgstr "Sélectionner un fichier"
 
-#: ../src/gtk_easy.c:1178
+#: ../src/gtk_easy.c:1258
 msgid "Select files"
 msgstr "Sélectionner des fichiers"
 
@@ -2971,7 +2991,7 @@ msgstr "/Externe/Boîte de sortie"
 msgid "Loading file(s)..."
 msgstr "Chargement des fichier(s)..."
 
-#: ../src/menu.c:758
+#: ../src/menu.c:759
 msgid "Could not open file\n"
 msgstr "Impossible d'ouvrir le fichier\n"
 
@@ -2982,10 +3002,6 @@ msgstr "/Fichier/Ouvrir récent"
 #: ../src/menu.c:801
 msgid "(none)"
 msgstr "(aucun)"
-
-#: ../src/menu.c:889
-msgid "Bluefish error: no filename"
-msgstr "Erreur Bluefish : pas de nom de fichier"
 
 #: ../src/menu.c:889
 msgid "Could not view file in browser, the file does not yet have a name\n"
@@ -3068,17 +3084,24 @@ msgid "Formatstring after"
 msgstr "Suffixe de formatage"
 
 #: ../src/menu.c:1661
-msgid "the menupath you want to update does not exist yet: try 'add'"
+#, fuzzy
+msgid "The menupath you want to update does not exist yet"
 msgstr ""
 "Le chemin du menu que vous voulez mettre à jour n'existe pas encore : "
 "essayer 'Ajouter'"
 
+#: ../src/menu.c:1661
+msgid "Try 'add' instead."
+msgstr ""
+
 #: ../src/menu.c:1663
-msgid "the menupath you want to add exists already"
+#, fuzzy
+msgid "The menupath you want to add already exists."
 msgstr "Le chemin du menu que vous voulez ajouter existe déjà"
 
 #: ../src/menu.c:1668
-msgid "the menupath should start with a / character"
+#, fuzzy
+msgid "The menupath should start with a / character"
 msgstr "Le chemin du menu doit commencer par le caractère /"
 
 #: ../src/menu.c:1690 ../src/menu.c:1911
@@ -3645,8 +3668,9 @@ msgid "Regular expression error: "
 msgstr "Erreur d'expression régulière : "
 
 #: ../src/snr2.c:175 ../src/snr2.c:219
-msgid "Bluefish warning: regular expression error"
-msgstr "Avertissement bluefish : erreur d'expression régulière"
+#, fuzzy
+msgid "Search failed"
+msgstr "Rechercher un modèle"
 
 #: ../src/snr2.c:218
 #, c-format
@@ -3673,10 +3697,6 @@ msgstr "Remplacer"
 #: ../src/snr2.c:695
 msgid "Replace _all"
 msgstr "Tout rempl_acer"
-
-#: ../src/snr2.c:837 ../src/snr2.c:844
-msgid "Bluefish message"
-msgstr "Message de Bluefish"
 
 #: ../src/snr2.c:837 ../src/snr2.c:844
 msgid "Search: no match found"
@@ -3848,6 +3868,69 @@ msgstr "Source :"
 #: ../src/wizards.c:224
 msgid "Size:"
 msgstr "Taille :"
+
+#~ msgid "Error"
+#~ msgstr "Erreur"
+
+#~ msgid "Backup for %s failed"
+#~ msgstr "Échec de la sauvegarde de %s"
+
+#~ msgid "Bluefish warning, file backup failure"
+#~ msgstr "Avertissement de Bluefish : Échec de la sauvegarde du fichier !"
+
+#~ msgid "Bluefish: Warning, file is open"
+#~ msgstr "Avertissement de Bluefish : le fichier est ouvert !"
+
+#~ msgid ""
+#~ "File %s\n"
+#~ "is modified by another process\n"
+#~ "new modification time is %s\n"
+#~ "old modification time is %s\n"
+#~ "overwrite?"
+#~ msgstr ""
+#~ "Le fichier %s\n"
+#~ "est modifié par un autre processus\n"
+#~ "heure de la nouvelle modification : %s\n"
+#~ "heure de l'ancienne modification : %s\n"
+#~ "Le remplacer ?"
+
+#~ msgid ""
+#~ "Are you sure you want to close\n"
+#~ "%s ?"
+#~ msgstr ""
+#~ "Êtes-vous certain de vouloir fermer\n"
+#~ "%s ?"
+
+#~ msgid "Bluefish warning: file is modified!"
+#~ msgstr "Avertissement de Bluefish : le fichier a été modifié !"
+
+#~ msgid "cancel"
+#~ msgstr "Annuler"
+
+#~ msgid ""
+#~ "Some file(s) are modified\n"
+#~ "please choose your action"
+#~ msgstr ""
+#~ "Certains fichiers ont été modifiés\n"
+#~ "veuillez choisir une action"
+
+#~ msgid "Path exists already"
+#~ msgstr "Le chemin existe déjà"
+
+#~ msgid "delete file?"
+#~ msgstr "Supprimer le fichier ?"
+
+#~ msgid "Bluefish error"
+#~ msgstr "Erreur de Bluefish"
+
+#~ msgid "Bluefish error: no filename"
+#~ msgstr "Erreur Bluefish : pas de nom de fichier"
+
+#~ msgid "Bluefish warning: regular expression error"
+#~ msgstr "Avertissement bluefish : erreur d'expression régulière"
+
+#~ msgid "Bluefish message"
+#~ msgstr "Message de Bluefish"
 
 #~ msgid "Backgou_nd Color:"
 #~ msgstr "Couleur de fo_nd :"
