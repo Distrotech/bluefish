@@ -459,9 +459,8 @@ msgid "Delete"
 msgstr "Supprimer"
 
 #: ../src/bookmark.c:494
-#, fuzzy
 msgid "Delete all"
-msgstr " Supprimer "
+msgstr "Tout supprimer "
 
 #: ../src/bookmark.c:917 ../src/bookmark.c:952 ../src/bookmark.c:974
 #: ../src/document.c:1988
@@ -485,13 +484,12 @@ msgid "temp"
 msgstr "temp"
 
 #: ../src/bookmark.c:1003
-#, fuzzy
 msgid "Delete all bookmarks."
-msgstr "Effacer le signet permanent"
+msgstr "Supprimer tous les signets"
 
 #: ../src/bookmark.c:1003
 msgid "Are you sure?"
-msgstr ""
+msgstr "En êtes-vous sûr ?"
 
 #: ../src/bookmark.c:1049
 #, c-format
@@ -3878,9 +3876,8 @@ msgid "filetype"
 msgstr "Type de fichier"
 
 #: ../src/preferences.c:1168
-#, fuzzy
 msgid "Reset"
-msgstr "Encadrement"
+msgstr "Revenir aux valeurs par défaut"
 
 #: ../src/preferences.c:1174
 msgid "Pattern name"
@@ -3956,13 +3953,13 @@ msgid "Command"
 msgstr "Commande"
 
 #: ../src/preferences.c:1575
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s for current filename (any command)\n"
 "%i for input and %f for output filename (filters)"
 msgstr ""
-"%s = nom actuel du fichier\n"
-"%f = nom du fichier cible (pour les filtres)"
+"%s nom du fichier actif (pour toute commande) \n"
+"%i nom du fichier en entrée et %f nom du fichie en sortie (pour les filtres)"
 
 #: ../src/preferences.c:1740
 msgid "Name"
