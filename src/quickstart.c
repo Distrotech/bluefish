@@ -56,6 +56,10 @@ typedef struct {
 	GtkWidget *headView;
 	GtkWidget *metaView;
 	GtkWidget *notebook;
+	GtkWidget *stylelinktype;
+	GtkWidget *stylehref;
+	GtkWidget *stylemedia;
+	GtkWidget *stylearea;
 	GtkWidget *removeButton;
 	Tbfwin *bfwin;
 } TQuickStart;
@@ -199,16 +203,16 @@ static void
 quickstart_response_lcb(GtkDialog *dialog, gint response, TQuickStart *qstart) {
 	DEBUG_MSG("quickstart_response_lcb() started\n");
 	if (response == GTK_RESPONSE_ACCEPT) {
-		GtkTreeModel *dtdmodel, *metamodel;
+		GtkTreeModel *model;
 		GtkTreeIter iter;		
 		gchar *tmpstr, *tmpstr2, *name, *xmlstr, *titlestr, *endstr, *finalstr, *metatag;
 		gchar *dtdstr = NULL;
-		GString *metastr;
+		GString *metastr, *stylestr;
 		unsigned int i = 0;
 		
 		gtk_combo_box_get_active_iter (GTK_COMBO_BOX (qstart->dtd), &iter);
-		dtdmodel = gtk_combo_box_get_model (GTK_COMBO_BOX (qstart->dtd));
-		gtk_tree_model_get (dtdmodel, &iter, 0, &name, -1);
+		model = gtk_combo_box_get_model (GTK_COMBO_BOX (qstart->dtd));
+		gtk_tree_model_get (model, &iter, 0, &name, -1);
 			
 		if (strstr(name, "XHTML")) {
 			xmlstr = g_strconcat ("<?xml version=\"1.0\" encoding=\"", main_v->props.newfile_default_encoding, "\"?>\n", NULL);
@@ -226,26 +230,68 @@ quickstart_response_lcb(GtkDialog *dialog, gint response, TQuickStart *qstart) {
 		}
 		g_free (name);
 		
+		titlestr = g_strconcat (cap("<TITLE>"), gtk_entry_get_text (GTK_ENTRY (qstart->title)), cap("</TITLE>\n"), NULL);
+		
 		metastr = g_string_new ("");
-		metamodel = gtk_tree_view_get_model (GTK_TREE_VIEW (qstart->metaView));
-		if (gtk_tree_model_get_iter_first (metamodel, &iter)) {
+		model = gtk_tree_view_get_model (GTK_TREE_VIEW (qstart->metaView));
+		if (gtk_tree_model_get_iter_first (model, &iter)) {
 			do {
-				gtk_tree_model_get (metamodel, &iter, 0, &metatag, -1);
+				gtk_tree_model_get (model, &iter, 0, &metatag, -1);
 				tmpstr2 = g_strconcat ("<", metatag, endstr, NULL);
 				g_free (metatag);				
 				metastr = g_string_append (metastr, tmpstr2);
 				g_free (tmpstr2);
-			} while (gtk_tree_model_iter_next (metamodel, &iter));
+			} while (gtk_tree_model_iter_next (model, &iter));
 		}
 		
-		titlestr = g_strconcat (cap("<TITLE>"), gtk_entry_get_text (GTK_ENTRY (qstart->title)), cap("</TITLE>\n"), cap("</HEAD>\n<BODY>\n"), NULL);
-		finalstr = g_strconcat (xmlstr, dtdstr, tmpstr, metastr->str, titlestr, NULL);
+		stylestr = g_string_new ("");
+		gtk_combo_box_get_active_iter (GTK_COMBO_BOX (qstart->stylelinktype), &iter);
+		model = gtk_combo_box_get_model (GTK_COMBO_BOX (qstart->stylelinktype));
+		gtk_tree_model_get (model, &iter, 0, &name, -1);
+		
+		if (strcmp(name, "") != 0) {
+			gchar *stylehref, *stylemedia;
+			
+			stylehref = gtk_editable_get_chars (GTK_EDITABLE (GTK_BIN (qstart->stylehref)->child), 0, -1);
+			stylemedia = gtk_editable_get_chars (GTK_EDITABLE (qstart->stylemedia), 0, -1);
+			
+			if (strcmp(name, "Linked") == 0) {
+				stylestr = g_string_append (stylestr, "<link rel=stylesheet type=\"text/css\" ");
+				if (strlen(stylemedia) > 0) {
+					tmpstr2 = g_strdup_printf ("media=\"%s\" href=\"%s\">\n", stylemedia, stylehref);
+				} else {
+					tmpstr2 = g_strdup_printf ("href=\"%s\">\n", stylehref);
+				}
+			} else {
+				stylestr = g_string_append (stylestr, "@import url(");
+				if (strlen(stylemedia) > 0) {
+					tmpstr2 = g_strdup_printf ("%s) %s;\n", stylehref, stylemedia);
+				} else {
+					tmpstr2 = g_strdup_printf ("%s);\n", stylehref);
+				}	
+			}
+			stylestr = g_string_append (stylestr, tmpstr2);
+
+			g_free (tmpstr2);
+			g_free (stylehref);
+			g_free (stylemedia);	
+		}
+		
+		if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (qstart->stylearea))) {
+			tmpstr2 = g_strdup ("<style>\n\n</style>\n");
+		} else {
+			tmpstr2 = g_strdup ("");
+		}
+		
+		finalstr = g_strconcat (xmlstr, dtdstr, tmpstr, titlestr, metastr->str, stylestr->str, tmpstr2, cap("</HEAD>\n<BODY>\n"), NULL);
 		
 		g_free (xmlstr);
 		g_free (dtdstr);
 		g_free (tmpstr);
 		g_free (titlestr);
 		g_string_free (metastr, TRUE);
+		g_string_free (stylestr, TRUE);
+		g_free (tmpstr2);
 		
 		/* FIXME: the old quick start dialog added the code to the current document.
 		 * I think it would be better to open a new document and add the code to it 
@@ -309,14 +355,87 @@ quickstart_meta_page_create(TQuickStart *qstart)
 	return hbox;
 }
 
+/* TODO: create functions to reduce the duplicate code */
 static GtkWidget *
 quickstart_style_page_create(TQuickStart *qstart)
 {
-	GtkWidget *hbox;
+	GtkWidget *frame, *vbox, *vbox2, *hbox, *table, *label, *alignment;
+	GtkListStore *history;
+	unsigned int i = 0;
 
-	hbox = gtk_hbox_new (FALSE, 6);
-	gtk_box_pack_start (GTK_BOX (hbox), gtk_label_new ("style page"), TRUE, TRUE, 0);
-	return hbox;
+	const gchar *type[] = {
+		"",
+		"Linked",
+		"Imported",
+	};
+
+	frame = gtk_frame_new (NULL);
+	gtk_frame_set_shadow_type (GTK_FRAME (frame), GTK_SHADOW_IN);
+	vbox = gtk_vbox_new (FALSE, 12);
+	gtk_container_add (GTK_CONTAINER (frame), vbox);
+	
+	label = gtk_label_new (NULL);
+	gtk_label_set_markup (GTK_LABEL (label), _("<b>External style sheet</b>"));
+	gtk_misc_set_alignment (GTK_MISC (label), 0, 0);	
+	gtk_box_pack_start (GTK_BOX (vbox), label, FALSE, FALSE, 0);
+	
+	alignment = gtk_alignment_new (0, 0, 1, 1);
+	gtk_alignment_set_padding (GTK_ALIGNMENT (alignment), 0, 0, 12, 6);
+	gtk_box_pack_start (GTK_BOX (vbox), alignment, FALSE, FALSE, 0);	
+	vbox2 = gtk_vbox_new (FALSE, 12);
+	gtk_container_add (GTK_CONTAINER (alignment), vbox2);
+	
+	hbox = gtk_hbox_new (FALSE, 12);
+	gtk_box_pack_start (GTK_BOX (vbox2), hbox, FALSE, FALSE, 0);
+	
+	qstart->stylelinktype = gtk_combo_box_new_text ();
+	for (i = 0; i < G_N_ELEMENTS (type); i++) {
+		gtk_combo_box_append_text (GTK_COMBO_BOX (qstart->stylelinktype), type[i]);
+	}
+	gtk_combo_box_set_active (GTK_COMBO_BOX (qstart->stylelinktype), 0);
+	label = gtk_label_new_with_mnemonic (_("_Type:"));
+	gtk_misc_set_alignment (GTK_MISC (label), 0, 0.5);
+	gtk_label_set_mnemonic_widget (GTK_LABEL (label), qstart->stylelinktype);
+	gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (hbox), qstart->stylelinktype, FALSE, FALSE, 0);
+
+	table = gtk_table_new (2, 2, FALSE);
+	gtk_table_set_row_spacings (GTK_TABLE (table), 12);
+	gtk_table_set_col_spacings (GTK_TABLE (table), 12);
+	gtk_box_pack_start (GTK_BOX (vbox2), table, FALSE, FALSE, 0);
+	
+	/* TODO: this should be session history list */	
+	history = gtk_list_store_new (1, G_TYPE_STRING);
+	
+	qstart->stylehref = gtk_combo_box_entry_new_with_model (GTK_TREE_MODEL (history), 0);
+	g_object_unref (history);
+	bf_mnemonic_label_tad_with_alignment(_("_Href:"), qstart->stylehref, 0, 0.5, table, 0, 1, 0, 1);
+	gtk_table_attach (GTK_TABLE (table), qstart->stylehref, 1, 2, 0, 1, GTK_EXPAND|GTK_FILL, GTK_SHRINK, 0, 0);
+	
+	qstart->stylemedia = gtk_entry_new ();
+	bf_mnemonic_label_tad_with_alignment(_("_Media:"), qstart->stylemedia, 0, 0.5, table, 0, 1, 1, 2);
+	gtk_table_attach (GTK_TABLE (table), qstart->stylemedia, 1, 2, 1, 2, GTK_EXPAND|GTK_FILL, GTK_SHRINK, 0, 0);	
+
+	/* TODO: add an option to place content in the style area
+	 * Possibly from a code snippet library
+	 */
+	label = gtk_label_new (NULL);
+	gtk_label_set_markup (GTK_LABEL (label), _("<b>Style area</b>"));
+	gtk_misc_set_alignment (GTK_MISC (label), 0, 0);	
+	gtk_box_pack_start (GTK_BOX (vbox), label, FALSE, FALSE, 0);
+	
+	alignment = gtk_alignment_new (0, 0, 1, 1);
+	gtk_alignment_set_padding (GTK_ALIGNMENT (alignment), 0, 0, 12, 6);
+	gtk_box_pack_start (GTK_BOX (vbox), alignment, FALSE, FALSE, 0);	
+	vbox2 = gtk_vbox_new (FALSE, 12);
+	gtk_container_add (GTK_CONTAINER (alignment), vbox2);
+	
+	hbox = gtk_hbox_new (FALSE, 12);
+	gtk_box_pack_start (GTK_BOX (vbox2), hbox, FALSE, FALSE, 0);
+	qstart->stylearea = gtk_check_button_new_with_mnemonic (_("_Create empty style area"));
+	gtk_box_pack_start (GTK_BOX (hbox), qstart->stylearea, FALSE, FALSE, 0);	
+
+	return frame;
 }
 
 static GtkWidget *
