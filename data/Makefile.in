@@ -80,25 +80,25 @@ install-icon:
 install: all $(INSTALLDATA)
 	$(INSTALL_DIR) $(DESTDIR)$(pkgdatadir)
 	for file in $(DEFAULTFILES) ; do \
-		$(INSTALL_DATA) $$file $(DESTDIR)$(pkgdatadir)/$$file ;\
+		$(INSTALL_DATA) $$file $(DESTDIR)$(pkgdatadir) ;\
 	done
 	for file in $(FUNCREFFILES) ; do \
-		$(INSTALL_DATA) $$file $(DESTDIR)$(pkgdatadir)/$$file ;\
+		$(INSTALL_DATA) $$file $(DESTDIR)$(pkgdatadir) ;\
 	done
 
 uninstall:
-	rm -rf $(FDMIME)/packages/bluefish.xml
-	rm -rf $(GMIMEINFO)/bluefish.mime
-	rm -rf $(GMIMEINFO)/bluefish.keys
-	rm -rf $(GAPPREG)/bluefish.applications
-	rm -rf $(GNOME1MENU)/bluefish.desktop
-	rm -rf $(FDMENU)/bluefish.desktop
-	rm -rf $(ICONPATH)/gnome-application-bluefish-project.png
+	rm -f $(FDMIME)/packages/bluefish.xml
+	rm -f $(GMIMEINFO)/bluefish.mime
+	rm -f $(GMIMEINFO)/bluefish.keys
+	rm -f $(GAPPREG)/bluefish.applications
+	rm -f $(GNOME1MENU)/bluefish.desktop
+	rm -f $(FDMENU)/bluefish.desktop
+	rm -f $(ICONPATH)/gnome-application-bluefish-project.png
 	@for file in $(DEFAULTFILES) ; do \
-		rm -f $(pkgdatadir)/$$file ;\
+		rm -f $(pkgdatadir)$$file ;\
 	done
 	@for file in $(FUNCREFFILES) ; do \
-		rm -rf $(pkgdatadir)/$$file ;\
+		rm -f $(pkgdatadir)$$file ;\
 	done
 
 clean:
