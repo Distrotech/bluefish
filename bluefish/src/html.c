@@ -22,7 +22,7 @@
  */
 /* 
  * Changes by Antti-Juhani Kaijanaho <gaia@iki.fi> on 1999-10-20
- * $Id: html.c,v 1.26 2003-07-07 07:10:39 jimh6583 Exp $
+ * $Id: html.c,v 1.27 2003-07-14 19:04:34 oli4 Exp $
  */
 
 #include <gtk/gtk.h>
@@ -966,7 +966,6 @@ void quickrule_cb(GtkWidget * widget, gpointer data)
 }
 
 static void quickstart_ok_lcb(GtkWidget * widget, Thtml_diag * dg) {
-
 	gchar *tmpchar, *tmpchar1, *tmpchar2, *tmpchar3, *finalstring;
 	GList *tmplist;
 	gchar *text;
@@ -975,19 +974,18 @@ static void quickstart_ok_lcb(GtkWidget * widget, Thtml_diag * dg) {
 		add_to_stringlist(recent_attribs.dtd_cblist, gtk_entry_get_text(GTK_ENTRY(GTK_COMBO(dg->combo[1])->entry)));
 
 	if(strstr(gtk_entry_get_text(GTK_ENTRY(GTK_COMBO(dg->combo[1])->entry)), "XHTML")) {
-		if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dg->check[0])))
+		if (dg->check[0] && gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dg->check[0]))) {
 			tmpchar = g_strconcat("<?xml version=\"1.0\" encoding=\"", main_v->props.newfile_default_encoding, "\"?>\n", NULL);
-		else
+		} else {
 			tmpchar = g_strdup("");
-				
-		if (strcmp(gtk_entry_get_text(GTK_ENTRY(GTK_COMBO(dg->combo[1])->entry)), "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.1//EN\" \"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd\">") == 0 )
+		}
+		if (strcmp(gtk_entry_get_text(GTK_ENTRY(GTK_COMBO(dg->combo[1])->entry)), "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.1//EN\" \"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd\">") == 0 ) {
 			tmpchar1 = g_strdup_printf("%s%s\n%shttp://www.w3.org/1999/xhtml%sen\">\n%s\n", tmpchar, gtk_entry_get_text(GTK_ENTRY(GTK_COMBO(dg->combo[1])->entry)), cap("<HTML XMLNS=\""), cap("\" XML:LANG=\""),  cap("<HEAD>"));
-		else
+		} else {
 			tmpchar1 = g_strdup_printf("%s%s\n%shttp://www.w3.org/1999/xhtml%sen%sen\">\n%s\n", tmpchar, gtk_entry_get_text(GTK_ENTRY(GTK_COMBO(dg->combo[1])->entry)), cap("<HTML XMLNS=\""), cap("\" XML:LANG=\""), cap("\" LANG=\""), cap("<HEAD>"));
-			
+		}
 		g_free(tmpchar);	
-	} 
-	else {
+	} else {
 		tmpchar1 = g_strdup_printf("%s\n%s\n", gtk_entry_get_text(GTK_ENTRY(GTK_COMBO(dg->combo[1])->entry)), cap("<HTML>\n<HEAD>"));
 	}
 
@@ -1029,9 +1027,8 @@ static void quickstart_ok_lcb(GtkWidget * widget, Thtml_diag * dg) {
 	html_diag_destroy_cb(NULL, dg);
 }
 
-void quickstart_doctype_changed_cb(GtkWidget* widget, Thtml_diag *dg)
-{
-	if (GTK_IS_WIDGET(dg->check[0])) {
+void quickstart_doctype_changed_cb(GtkWidget* widget, Thtml_diag *dg) {
+	if (dg->check[0] != NULL) {
 		if(strstr(gtk_entry_get_text(GTK_ENTRY(GTK_COMBO(dg->combo[1])->entry)), "XHTML")) {
 			gtk_widget_set_sensitive(GTK_WIDGET(dg->check[0]), TRUE);
 		} else {
@@ -1181,13 +1178,14 @@ void quickstart_cb(GtkWidget * widget, gpointer data)
 		gtk_table_attach(GTK_TABLE(dgtable), stylebut, 3, 4, 5, 6, GTK_EXPAND, GTK_EXPAND, 0, 0);
 	}
 
-	if (main_v->props.xhtml == 1)
-	{
+	if (main_v->props.xhtml == 1) {
 		gchar *tmpstr;
 		tmpstr = g_strconcat(" _Include: ", "<?xml version=\"1.0\" encoding=\"", main_v->props.newfile_default_encoding, "\"?>", NULL);
 		dg->check[0] = checkbut_with_value(tmpstr, 0);
 		gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->check[0], 1, 2, 9, 10);
 		g_free(tmpstr);
+	} else {
+		dg->check[0] = NULL;
 	}
 	
 	html_diag_finish(dg, G_CALLBACK(quickstart_ok_lcb));
