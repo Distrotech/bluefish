@@ -977,7 +977,7 @@ static void fb2rpopup_rename(Tfilebrowser2 *fb2) {
 			DEBUG_MSG("File is open. Calling doc_save().\n");
 			/* If an error occurs, doc_save takes care of notifying the user.
 			 * Currently, nothing is done here. */	
-			doc_save(tmpdoc, TRUE, TRUE, FALSE);
+			doc_save_backend(tmpdoc, TRUE, TRUE, FALSE, FALSE);
 		} else { /* olduri is not open */
 			gchar *newfilename=NULL;
 			/* Promt user, "File/Move To"-style. */
