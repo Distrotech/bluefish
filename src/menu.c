@@ -1447,14 +1447,14 @@ typedef struct {
 	GList *worklist;
 } Tcmenu_editor;
 
-static void cme_destroy_lcb(GtkWidget *widget, GdkEvent *event, Tcmenu_editor* cme) {
+static void cme_destroy_lcb(GtkWidget *widget, Tcmenu_editor* cme) {
 	window_destroy(cme->win);
 	free_arraylist(cme->worklist);
 	g_free(cme);
 }
 
 static void cme_close_lcb(GtkWidget *widget, gpointer data) {
-	cme_destroy_lcb(NULL, NULL, data);
+	cme_destroy_lcb(NULL, data);
 }
 
 static void cme_ok_lcb(GtkWidget *widget, Tcmenu_editor *cme) {
@@ -1463,7 +1463,7 @@ static void cme_ok_lcb(GtkWidget *widget, Tcmenu_editor *cme) {
 	tmplist = main_v->props.cust_menu;
 	main_v->props.cust_menu = cme->worklist;
 	cme->worklist = tmplist;
-	cme_destroy_lcb(NULL, NULL, cme);
+	cme_destroy_lcb(NULL, cme);
 	fill_cust_menubar();
 }
 
@@ -1621,12 +1621,12 @@ static void cme_type_changed_lcb(GtkWidget *widget, Tcmenu_editor *cme) {
 	if (GTK_TOGGLE_BUTTON(cme->type[1])->active) {
 		DEBUG_MSG("cme_clist_select_lcb, type[1] is active\n");
 		gtk_widget_show(cme->csnr_box);
-		gtk_label_set_text(GTK_LABEL(cme->label1), _("Search pattern"));
-		gtk_label_set_text(GTK_LABEL(cme->label2), _("Replace string"));
+		gtk_label_set_text(GTK_LABEL(cme->label1), _("Search Pattern"));
+		gtk_label_set_text(GTK_LABEL(cme->label2), _("Replace String"));
 	} else {
 		gtk_widget_hide(cme->csnr_box);
-		gtk_label_set_text(GTK_LABEL(cme->label1), _("Formatstring before"));
-		gtk_label_set_text(GTK_LABEL(cme->label2), _("Formatstring after"));
+		gtk_label_set_text(GTK_LABEL(cme->label1), _("Formatstring Before"));
+		gtk_label_set_text(GTK_LABEL(cme->label2), _("Formatstring After"));
 	}
 }
 
@@ -1804,7 +1804,7 @@ gint menu_entry_sort(gchar ** a,gchar ** b) {
 
 void cmenu_editor(GtkWidget *widget, gpointer data) {
 	Tcmenu_editor *cme;
-	GtkWidget *hbox, *vbox,*frame, *vbox2, *but, *hbox2;
+	GtkWidget *hbox, *vbox, *frame, *vbox2, *vbox3, *hbox2, *label, *toolbar;
 	GList *tmplist, *popuplist;
 	gchar **splittedstring;
 	gint i;
@@ -1812,25 +1812,48 @@ void cmenu_editor(GtkWidget *widget, gpointer data) {
 	
 	cme = g_malloc0(sizeof(Tcmenu_editor));
 	DEBUG_MSG("cmenu_editor, cme is at %p\n", cme);
-	cme->win = window_full(_("Edit custom menu"), GTK_WIN_POS_NONE
-			, 5, G_CALLBACK(cme_destroy_lcb), cme, TRUE);
+	cme->win = window_full(_("Custom Menu Editor"), GTK_WIN_POS_CENTER
+			, 0, G_CALLBACK(cme_destroy_lcb), cme, TRUE);
 
-	vbox = gtk_vbox_new(FALSE, 2);
+	vbox = gtk_vbox_new(FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(cme->win), vbox);
+	
+	toolbar = gtk_toolbar_new();
+	gtk_toolbar_set_orientation(GTK_TOOLBAR(toolbar), GTK_ORIENTATION_HORIZONTAL);
+	gtk_toolbar_set_icon_size(GTK_TOOLBAR(toolbar), GTK_ICON_SIZE_SMALL_TOOLBAR);
+	gtk_box_pack_start(GTK_BOX(vbox), toolbar, FALSE, FALSE, 0);
+	
+	gtk_toolbar_insert_stock(GTK_TOOLBAR(toolbar), GTK_STOCK_ADD, "Add New Menu Entry",
+								NULL, G_CALLBACK(cme_add_lcb), cme, -1);
+	gtk_toolbar_insert_stock(GTK_TOOLBAR(toolbar), GTK_STOCK_APPLY, "Apply Changes",
+								NULL, G_CALLBACK(cme_update_lcb), cme, -1);
+	gtk_toolbar_insert_stock(GTK_TOOLBAR(toolbar), GTK_STOCK_DELETE, "Delete Menu Entry",
+								NULL, G_CALLBACK(cme_delete_lcb), cme, -1);
+	gtk_toolbar_append_space(GTK_TOOLBAR(toolbar));
+	gtk_toolbar_insert_stock(GTK_TOOLBAR(toolbar), GTK_STOCK_CLOSE, "Close Discards Changes",
+								NULL, G_CALLBACK(cme_close_lcb), cme, -1);
+	gtk_toolbar_insert_stock(GTK_TOOLBAR(toolbar), GTK_STOCK_SAVE, "Save Changes and Exit",
+								NULL, G_CALLBACK(cme_ok_lcb), cme, -1);
+	
+	vbox2 = gtk_vbox_new(FALSE, 12);
+	gtk_container_set_border_width(GTK_CONTAINER(vbox2), 6);
+	gtk_box_pack_start(GTK_BOX(vbox), vbox2, TRUE, TRUE, 0);							
 	/* upper area */
-	hbox = gtk_hbox_new(FALSE, 2);
-	gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, TRUE, 0);
+	hbox = gtk_hbox_new(FALSE, 12);
+	gtk_box_pack_start(GTK_BOX(vbox2), hbox, FALSE, TRUE, 6);
 
-	gtk_box_pack_start(GTK_BOX(hbox), gtk_label_new(_("Menu path")), FALSE, TRUE, 0);
+	label = gtk_label_new_with_mnemonic(_("_Menu Path:"));
+	gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, TRUE, 0);
 	cme->menupath = gtk_entry_new();
+	gtk_label_set_mnemonic_widget(GTK_LABEL(label), cme->menupath);
 	gtk_box_pack_start(GTK_BOX(hbox),cme->menupath , TRUE, TRUE, 0);
 
-	hbox = gtk_hbox_new(FALSE, 2);
-	gtk_box_pack_start(GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
+	hbox = gtk_hbox_new(FALSE, 12);
+	gtk_box_pack_start(GTK_BOX(vbox2), hbox, TRUE, TRUE, 6);
 
 	/* clist & type area */
-	vbox2 = gtk_vbox_new(FALSE, 0);	
-	gtk_box_pack_start(GTK_BOX(hbox), vbox2, TRUE, TRUE, 0);
+	vbox3 = gtk_vbox_new(FALSE, 12);	
+	gtk_box_pack_start(GTK_BOX(hbox), vbox3, TRUE, TRUE, 0);
 	{
 		GtkWidget *scrolwin;
 		GtkTreeViewColumn *column;
@@ -1849,30 +1872,27 @@ void cmenu_editor(GtkWidget *widget, gpointer data) {
 		DEBUG_MSG("cmenu_editor, created lstore and lview\n");
 		gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(scrolwin), cme->lview);
 		gtk_widget_set_usize(scrolwin, 180, 250);
-		gtk_box_pack_start(GTK_BOX(vbox2), scrolwin, TRUE, TRUE, 0);
+		gtk_box_pack_start(GTK_BOX(vbox3), scrolwin, TRUE, TRUE, 0);
 		
 		select = gtk_tree_view_get_selection(GTK_TREE_VIEW(cme->lview));
 		g_signal_connect(G_OBJECT(select), "changed",G_CALLBACK(cme_lview_selection_changed),cme);
 	}
 
-	cme->type[0] = gtk_radio_button_new_with_label(NULL, _("custom dialog"));
-	gtk_box_pack_start(GTK_BOX(vbox2), cme->type[0], FALSE, TRUE, 0);
-	cme->type[1] = gtk_radio_button_new_with_label_from_widget(GTK_RADIO_BUTTON(cme->type[0]), _("custom search and replace"));
-	gtk_box_pack_start(GTK_BOX(vbox2), cme->type[1], FALSE, TRUE, 0);
-
-	g_signal_connect(GTK_OBJECT(cme->type[0]), "toggled", G_CALLBACK(cme_type_changed_lcb), cme);
-
 	/* dynamic entries area */
-	vbox2 = gtk_vbox_new(FALSE, 0);	
-	gtk_box_pack_start(GTK_BOX(hbox), vbox2, TRUE, TRUE, 0);
+	vbox3 = gtk_vbox_new(FALSE, 0);	
+	gtk_box_pack_start(GTK_BOX(hbox), vbox3, TRUE, TRUE, 0);
 
-	gtk_box_pack_start(GTK_BOX(vbox2), gtk_label_new(_("Number of variables")), FALSE, FALSE, 0);		
+	hbox2 = gtk_hbox_new(FALSE, 12); 
+	label = gtk_label_new_with_mnemonic(_("Number of _Variables:"));
+	gtk_box_pack_start(GTK_BOX(hbox2), label, FALSE, FALSE, 0);		
 	cme->num = spinbut_with_value(NULL, 0, MAX_TEXT_ENTRY, 1,1);
 	g_signal_connect(GTK_OBJECT(cme->num), "changed", G_CALLBACK(cme_spin_changed_lcb), cme);
-	gtk_box_pack_start(GTK_BOX(vbox2),cme->num , FALSE, FALSE, 0);
+	gtk_label_set_mnemonic_widget(GTK_LABEL(label), cme->num);
+	gtk_box_pack_start(GTK_BOX(hbox2),cme->num , FALSE, FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(vbox3), hbox2, FALSE, FALSE, 0);
 	
 	frame = gtk_frame_new(_("Variables"));
-	gtk_box_pack_end(GTK_BOX(vbox2), frame, TRUE, TRUE, 0);
+	gtk_box_pack_end(GTK_BOX(vbox3), frame, TRUE, TRUE, 0);
 	cme->dynvbox = gtk_vbox_new(FALSE, 0);	
 	gtk_container_add(GTK_CONTAINER(frame), cme->dynvbox);
 	for (i = 0; i <  MAX_TEXT_ENTRY; i++) {
@@ -1886,21 +1906,26 @@ void cmenu_editor(GtkWidget *widget, gpointer data) {
 	}
 
 	/* lower area */
-	hbox = gtk_hbox_new(FALSE, 0);
-	gtk_box_pack_start(GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-
 	/* before and after text area */
-	vbox2 = gtk_vbox_new(FALSE, 0);
-	gtk_box_pack_start(GTK_BOX(hbox), vbox2, TRUE, TRUE, 0);
+	vbox3 = gtk_vbox_new(FALSE, 6);
+	gtk_box_pack_start(GTK_BOX(hbox), vbox3, TRUE, TRUE, 0);
+	
+	cme->type[0] = gtk_radio_button_new_with_mnemonic(NULL, _("Custom Dialo_g"));
+	gtk_box_pack_start(GTK_BOX(vbox3), cme->type[0], FALSE, TRUE, 0);
+	cme->type[1] = gtk_radio_button_new_with_mnemonic_from_widget(GTK_RADIO_BUTTON(cme->type[0]), _("Custom _Search and Replace"));
+	gtk_box_pack_start(GTK_BOX(vbox3), cme->type[1], FALSE, TRUE, 0);
+
+	g_signal_connect(GTK_OBJECT(cme->type[0]), "toggled", G_CALLBACK(cme_type_changed_lcb), cme);
 	
 	/* csnr area */
-	cme->csnr_box = gtk_vbox_new(FALSE, 0);
-	gtk_box_pack_start(GTK_BOX(vbox2), cme->csnr_box, FALSE, TRUE, 0);
+	cme->csnr_box = gtk_vbox_new(FALSE, 6);
+	gtk_box_pack_start(GTK_BOX(vbox3), cme->csnr_box, FALSE, TRUE, 12);
 
-	hbox2 = gtk_hbox_new(FALSE, 0);
+	hbox2 = gtk_hbox_new(FALSE, 12);
 	gtk_box_pack_start(GTK_BOX(cme->csnr_box), hbox2, FALSE, TRUE, 0);
 	
-	gtk_box_pack_start(GTK_BOX(hbox2),gtk_label_new(_("Replace")), FALSE, FALSE, 0);
+	label = gtk_label_new_with_mnemonic(_("_Replace:"));
+	gtk_box_pack_start(GTK_BOX(hbox2), label, FALSE, FALSE, 0);
 	popuplist = g_list_append(NULL, _("in current document"));
 	popuplist = g_list_append(popuplist, _("from cursor"));
 	popuplist = g_list_append(popuplist, _("in selection"));
@@ -1908,61 +1933,38 @@ void cmenu_editor(GtkWidget *widget, gpointer data) {
 	cme->region = combo_with_popdown(NULL, popuplist, 0);
 	g_list_free(popuplist);
 	gtk_box_pack_start(GTK_BOX(hbox2),cme->region , TRUE, TRUE, 3);
+	gtk_label_set_mnemonic_widget(GTK_LABEL(label), (GTK_COMBO(cme->region)->entry));
 
-	hbox2 = gtk_hbox_new(FALSE, 0);
+	hbox2 = gtk_hbox_new(FALSE, 12);
 	gtk_box_pack_start(GTK_BOX(cme->csnr_box), hbox2, TRUE, TRUE, 0);
-	gtk_box_pack_start(GTK_BOX(hbox2),gtk_label_new(_("Matching")), FALSE, FALSE, 0);
+	label = gtk_label_new_with_mnemonic(_("Matc_hing:"));
+	gtk_box_pack_start(GTK_BOX(hbox2), label, FALSE, FALSE, 0);
 	popuplist = g_list_append(NULL, _("normal"));
 	popuplist = g_list_append(popuplist, _("posix regular expresions"));
 	popuplist = g_list_append(popuplist, _("perl regular expresions"));
 	cme->matching = combo_with_popdown(NULL, popuplist, 0);
 	g_list_free(popuplist);
 	gtk_box_pack_start(GTK_BOX(hbox2),cme->matching , TRUE, TRUE, 3);
+	gtk_label_set_mnemonic_widget(GTK_LABEL(label), (GTK_COMBO(cme->matching)->entry));
 	
-	cme->is_case_sens = boxed_checkbut_with_value(_("case sensitive"), 0, cme->csnr_box);
+	cme->is_case_sens = boxed_checkbut_with_value(_("Case Se_nsitive"), 0, cme->csnr_box);
 
 	{
 		GtkWidget *scrolwin, *textview;
-		cme->label1 = gtk_label_new("");
-		gtk_box_pack_start(GTK_BOX(vbox2), cme->label1, FALSE, FALSE, 0);
+		cme->label1 = gtk_label_new_with_mnemonic("");
+		gtk_box_pack_start(GTK_BOX(vbox3), cme->label1, FALSE, FALSE, 0);
 
 		scrolwin = textview_buffer_in_scrolwin(&textview, 280, 50, NULL, GTK_WRAP_NONE);
 		cme->befb = gtk_text_view_get_buffer(GTK_TEXT_VIEW(textview));
-		gtk_box_pack_start(GTK_BOX(vbox2), scrolwin, TRUE, TRUE, 0);
+		gtk_box_pack_start(GTK_BOX(vbox3), scrolwin, TRUE, TRUE, 0);
 
-		cme->label2 = gtk_label_new("");
-		gtk_box_pack_start(GTK_BOX(vbox2), cme->label2, FALSE, FALSE, 0);
+		cme->label2 = gtk_label_new_with_mnemonic("");
+		gtk_box_pack_start(GTK_BOX(vbox3), cme->label2, FALSE, FALSE, 0);
 		
 		scrolwin = textview_buffer_in_scrolwin(&textview, 280, 50, NULL, GTK_WRAP_NONE);
 		cme->aftb = gtk_text_view_get_buffer(GTK_TEXT_VIEW(textview));
-		gtk_box_pack_start(GTK_BOX(vbox2), scrolwin, TRUE, TRUE, 0);
+		gtk_box_pack_start(GTK_BOX(vbox3), scrolwin, TRUE, TRUE, 0);
 	}
-	/* button area */
-	vbox2 = gtk_vbox_new(FALSE, 0);	
-	gtk_box_pack_start(GTK_BOX(hbox), vbox2, FALSE, TRUE, 5);
-	but = bf_gtkstock_button(GTK_STOCK_ADD, G_CALLBACK(cme_add_lcb), cme);
-/*	but = bf_stock_button(_("Add"), G_CALLBACK(cme_add_lcb), cme);*/
-	gtk_box_pack_start(GTK_BOX(vbox2), but, FALSE, FALSE, 5);
-	but = bf_gtkstock_button(GTK_STOCK_APPLY, G_CALLBACK(cme_update_lcb), cme);
-/*	but = bf_stock_button(_("Update"), G_CALLBACK(cme_update_lcb), cme);*/
-	gtk_box_pack_start(GTK_BOX(vbox2), but, FALSE, FALSE, 5);
-	but = bf_gtkstock_button(GTK_STOCK_DELETE, G_CALLBACK(cme_delete_lcb), cme);
-/*	but = bf_stock_button(_("Delete"), G_CALLBACK(cme_delete_lcb), cme);*/
-	gtk_box_pack_start(GTK_BOX(vbox2), but, FALSE, FALSE, 5);
-
-	/* frame for cancel/ok buttons */
-/*	frame = gtk_frame_new(NULL);
-	gtk_box_pack_end(GTK_BOX(vbox2), frame, FALSE, FALSE, 0);*/
-	hbox = gtk_hbox_new(TRUE, 1);
-/*	gtk_container_add(GTK_CONTAINER(frame), hbox);*/
-	gtk_box_pack_end (GTK_BOX (vbox2), hbox, FALSE, FALSE, 0);
-
-	but = bf_stock_cancel_button(G_CALLBACK(cme_close_lcb), cme);
-	gtk_box_pack_start(GTK_BOX(hbox), but, TRUE, TRUE, 0);
-
-	but = bf_stock_ok_button(G_CALLBACK(cme_ok_lcb), cme);
-	gtk_window_set_default(GTK_WINDOW(cme->win), but);
-	gtk_box_pack_start(GTK_BOX(hbox), but, TRUE, TRUE, 0);
 	
 	/* ready !! */
 	cme->worklist = duplicate_arraylist(main_v->props.cust_menu);
