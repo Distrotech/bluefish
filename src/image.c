@@ -300,6 +300,9 @@ void image_insert_dialog_cb(GtkWidget * widget, gpointer data) {
 void thumbnail_insert_dialog_cb(GtkWidget * widget, gpointer data) {
 	image_insert_dialog_backend(NULL, NULL, NULL, TRUE);
 }
+void image_insert_from_filename(gchar *filename) {
+	image_insert_dialog_backend(filename,NULL, NULL, FALSE);
+}
 
 typedef struct {
 	GtkWidget *win;
