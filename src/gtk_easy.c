@@ -1241,6 +1241,23 @@ static void file_but_clicked_lcb(GtkWidget * widget, Tfilebut *fb) {
 	gchar *tmpstring=NULL, *tmp2string, *setfile;
 	DEBUG_MSG("file_but_clicked_lcb, started, which_entry=%p\n",fb->entry);
 	setfile = gtk_editable_get_chars(GTK_EDITABLE(GTK_ENTRY(fb->entry)),0,-1);
+	/* if setfile is empty we should probably use the current document basedir ? right? */
+	if (!setfile || strlen(setfile)==0) {
+		if (fb->bfwin->current_document->filename && strlen(fb->bfwin->current_document->filename)) {
+			if (setfile) g_free(setfile);
+			setfile = path_get_dirname_with_ending_slash(fb->bfwin->current_document->filename);
+		}
+	} else if (setfile && strchr(setfile, '/') == NULL && fb->bfwin->current_document->filename) {
+		/* if setfile is a relative name, we should try to make it a full path. relative names have 
+		no slashes in the name */
+		gchar *basedir, *oldsetfile;
+		oldsetfile = setfile;
+		basedir = path_get_dirname_with_ending_slash(fb->bfwin->current_document->filename);
+		setfile = create_full_path(oldsetfile, basedir);
+		g_free(oldsetfile);
+		g_free(basedir);
+	}
+	
 #ifdef HAVE_ATLEAST_GTK_2_4
 	{
 		GtkWidget *dialog;
@@ -1334,8 +1351,9 @@ GtkWidget * file_chooser_dialog(Tbfwin *bfwin, gchar *title, GtkFileChooserActio
 			(action == GTK_FILE_CHOOSER_ACTION_SAVE) ? GTK_STOCK_SAVE : GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT,
 			NULL);
 	gtk_dialog_set_default_response (GTK_DIALOG(dialog), GTK_RESPONSE_ACCEPT);
-	if (set) {
-		if (localonly) {
+	if (set && strlen(set)) {
+		DEBUG_MSG("file_chooser_dialog, set=%s,localonly=%d\n",set,localonly);
+		if (localonly || strchr(set,':')==NULL) {
 			gtk_file_chooser_set_filename(GTK_FILE_CHOOSER(dialog),set);
 		} else {
 			gtk_file_chooser_set_uri(GTK_FILE_CHOOSER(dialog),set);
