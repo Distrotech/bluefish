@@ -111,7 +111,7 @@ static void formok_lcb(GtkWidget * widget, Thtml_diag *dg)
 	}
 
 	g_free(finalstring);
-	html_diag_destroy_cb(NULL, NULL, dg);
+	html_diag_destroy_cb(NULL, dg);
 }
 
 
@@ -200,7 +200,7 @@ static void textareaok_lcb(GtkWidget * widget, Thtml_diag *dg)
 	}
 
 	g_free(finalstring);
-	html_diag_destroy_cb(NULL, NULL, dg);
+	html_diag_destroy_cb(NULL, dg);
 }
 
 void textareadialog_cb(GtkWidget * widget, gpointer data)
@@ -260,7 +260,7 @@ static void textok_lcb(GtkWidget * widget, Thtml_diag *dg)
 		doc_replace_text(dg->doc, finalstring, dg->range.pos, dg->range.end);
 	}
 	g_free(finalstring);
-	html_diag_destroy_cb(NULL, NULL, dg);
+	html_diag_destroy_cb(NULL, dg);
 }
 
 
@@ -329,7 +329,7 @@ static void buttondialogok_lcb(GtkWidget * widget, Thtml_diag *dg)
 		doc_replace_text(dg->doc, finalstring, dg->range.pos, dg->range.end);
 	}
 	g_free(finalstring);
-	html_diag_destroy_cb(NULL, NULL, dg);
+	html_diag_destroy_cb(NULL, dg);
 }
 
 void buttondialog_cb(GtkWidget * widget, gpointer data) {
@@ -390,7 +390,7 @@ static void hiddenok_lcb(GtkWidget * widget, Thtml_diag *dg)
 		doc_replace_text(dg->doc, finalstring, dg->range.pos, dg->range.end);
 	}
 	g_free(finalstring);
-	html_diag_destroy_cb(NULL, NULL, dg);
+	html_diag_destroy_cb(NULL, dg);
 }
 
 
@@ -446,7 +446,7 @@ static void radiodialogok_lcb(GtkWidget * widget, Thtml_diag *dg)
 		doc_replace_text(dg->doc, finalstring, dg->range.pos, dg->range.end);
 	}
 	g_free(finalstring);
-	html_diag_destroy_cb(NULL, NULL, dg);
+	html_diag_destroy_cb(NULL, dg);
 }
 
 
@@ -510,7 +510,7 @@ static void checkdialogok_lcb(GtkWidget * widget,Thtml_diag *dg )
 		doc_replace_text(dg->doc, finalstring, dg->range.pos, dg->range.end);
 	}
 	g_free(finalstring);
-	html_diag_destroy_cb(NULL, NULL, dg);
+	html_diag_destroy_cb(NULL, dg);
 }
 
 void checkdialog_cb(GtkWidget * widget, gpointer data)
@@ -569,7 +569,7 @@ static void selectdialogok_lcb(GtkWidget * widget, Thtml_diag *dg)
 		doc_replace_text(dg->doc, finalstring, dg->range.pos, dg->range.end);
 	}
 	g_free(finalstring);
-	html_diag_destroy_cb(NULL, NULL, dg);
+	html_diag_destroy_cb(NULL, dg);
 }
 
 void selectdialog_cb(GtkWidget * widget, gpointer data)
@@ -624,7 +624,7 @@ static void optiondialogok_lcb(GtkWidget * widget,Thtml_diag *dg )
 		doc_replace_text(dg->doc, finalstring, dg->range.pos, dg->range.end);
 	}
 	g_free(finalstring);
-	html_diag_destroy_cb(NULL, NULL, dg);
+	html_diag_destroy_cb(NULL, dg);
 }
 
 void optiondialog_cb(GtkWidget * widget, gpointer data)
@@ -673,7 +673,7 @@ static void optgroupdialogok_lcb(GtkWidget * widget,Thtml_diag *dg )
 		doc_replace_text(dg->doc, finalstring, dg->range.pos, dg->range.end);
 	}
 	g_free(finalstring);
-	html_diag_destroy_cb(NULL, NULL, dg);
+	html_diag_destroy_cb(NULL, dg);
 }
 
 void optgroupdialog_cb(GtkWidget * widget, gpointer data)

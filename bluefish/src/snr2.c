@@ -887,7 +887,7 @@ Tsearch_result doc_search_run_extern(gchar *pattern, gint matchtype, gint is_cas
 
 /*****************************************************/
 
-static void snr2dialog_destroy_lcb(GtkWidget *widget, GdkEvent *event, gpointer data) {
+static void snr2dialog_destroy_lcb(GtkWidget *widget, gpointer data) {
 	DEBUG_MSG("snr2dialog_destroy_lcb, started, about to call window_destroy\n");
 	window_destroy(((Tsnr2_win *)data)->window);
 	DEBUG_MSG("snr2dialog_destroy_lcb, about to free data %p\n", data);
@@ -896,7 +896,7 @@ static void snr2dialog_destroy_lcb(GtkWidget *widget, GdkEvent *event, gpointer 
 }
 
 static void snr2dialog_cancel_lcb(GtkWidget *widget, gpointer data) {
-	snr2dialog_destroy_lcb(NULL, NULL, data);
+	snr2dialog_destroy_lcb(NULL, data);
 }
 
 /*****************************************************/

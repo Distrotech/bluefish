@@ -59,7 +59,7 @@ static void table_wizard_ok_lcb(GtkWidget * widget, Thtml_diag *dg) {
 
 	doc_insert_two_strings(main_v->current_document, finalstring, NULL);
 	g_free(finalstring);
-	html_diag_destroy_cb(NULL, NULL, dg);
+	html_diag_destroy_cb(NULL, dg);
 }
 
 void tablewizard(GtkWidget *widget, gpointer data) {
@@ -150,7 +150,7 @@ static void frame_wizard_ok_lcb(GtkWidget * widget, Thtml_diag *dg) {
 	g_free(thestring);
 	doc_insert_two_strings(main_v->current_document, finalstring, NULL);
 	g_free(finalstring);
-	html_diag_destroy_cb(NULL, NULL, dg);
+	html_diag_destroy_cb(NULL, dg);
 }
 
 static void frame_wizard_num_changed(GtkWidget *widget, Thtml_diag *dg) {
