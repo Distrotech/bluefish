@@ -49,7 +49,7 @@
 
 #include "bluefish.h"
 #include "bf_lib.h"			/* filename_test_extensions() */
-#include "dialog_utils.h"	/* error_dialog() */
+#include "dialog_utils.h"	/* message_dialog_new() */
 #include "document.h"		/* doc_get_chars() */
 #include "highlight.h"
 #include "menu.h"				/* menu_current_document_set_toggle_wo_activate */
