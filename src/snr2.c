@@ -35,7 +35,7 @@
  *             search_backend
  */
 /*****************************************************/
-#define DEBUG
+/*#define DEBUG*/
 
 #include <gtk/gtk.h>
 
@@ -288,7 +288,15 @@ Tsearch_result search_backend(gchar *pattern, gint matchtype, gint is_case_sens,
 		}
 		/* non regex part end */	
 	}
-
+	
+	/* for multibyte characters */
+	if (want_submatches) {
+		int i;
+		for (i=0;i<returnvalue.nmatch;i++) {
+			returnvalue.pmatch[i].rm_so = utf8_byteoffset_to_charsoffset(buf, returnvalue.pmatch[i].rm_so);
+			returnvalue.pmatch[i].rm_eo = utf8_byteoffset_to_charsoffset(buf, returnvalue.pmatch[i].rm_eo);
+		}
+	}
 
 	if (returnvalue.bstart >= 0) {
 		returnvalue.start = utf8_byteoffset_to_charsoffset(buf, returnvalue.bstart);
@@ -481,11 +489,7 @@ actions, so the first char in buf is actually number offset in the text widget *
 		DEBUG_MSG("replace_backend, len=%d, offset=%d, start=%d, end=%d, document=%p\n", result.end - result.start, offset, result.start + offset, result.end + offset, doc);
 		doc_replace_text_backend(doc, tmpstr, result.start + offset, result.end + offset);
 		if (*replacelen == -1) {
-/*			if (GTK_TEXT(doc->textbox)->use_wchar) {*/
-				*replacelen = strlen(tmpstr);
-/*			} else {
-				*replacelen = wchar_len(tmpstr, -1);
-			}*/
+			*replacelen = g_utf8_strlen(tmpstr, -1);
 		}
 		g_free(tmpstr);
 	}

@@ -491,7 +491,7 @@ void doc_replace_text_backend(Tdocument *doc, const gchar * newstring, gint star
 		DEBUG_MSG("doc_replace_text_backend, set insert pos to %d\n", insert);
 		gtk_text_buffer_get_iter_at_offset(doc->buffer, &itstart,insert);
 		gtk_text_buffer_insert(doc->buffer,&itstart,newstring,-1);
-		doc_unre_add(doc, newstring, insert, insert + strlen(newstring), UndoInsert);
+		doc_unre_add(doc, newstring, insert, insert + g_utf8_strlen(newstring,-1), UndoInsert);
 	}
 	doc_bind_signals(doc);
 	doc_set_modified(doc, 1);
