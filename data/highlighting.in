@@ -15,7 +15,7 @@ c:comment:0:/\\*:\\*/:1:^(top|preprocessor)$:#0000FF::1:2:
 c:keywords:0:\\b(break|case|continue|default|do|else|for|goto|if|return|sizeof|switch|while)\\b::2::#009999::2:0:
 c:storage-keywords:0:\\b(auto|char|const|double|enum|extern|FILE|float|int|long|register|short|signed|static|struct|typedef|union|unsigned|void|volatile)\\b::2::#000099::2:0:
 c:gtk-keywords:0:\\b(Gtk(Widget|AccelLabel|AccelGroup|AccelMap|Accessible|Adjustment|Alignment|Arrow|AspectFrame|Bin|Box|Button|ButtonBox|Calendar|CellEditable|CellRenderer|CellRenderPixbuf|CellRendererText|CellRendererToggle|CheckButton|Clipboard|CList|ColorButton|ColorSelection|ColorSelectionDialog|Combo|ComboBox|ComboBoxEntry|Container|CTree|Curve|Dialog|DrawingArea|Editable|Entry|EventBox|FileChooserAction|FileFilter|FileFilterFlags|FileSelectionDialog|Fixed|FontButton|FontSelection|FontSelectionDialog|Frame|GammaCurve|HandleBox|HBox|HButtonBox|HPaned|HRuler|HScale|HScrollbar|HSeparator|IconFactory|Image|ImageMenuItem|IMContext|IMContextSimple|IMMulticontext|InputDialog|Invisible|ItemFactory|ItemFactoryEntry|Label|Layout|List|ListItem|ListStore|Menu|MenuBar|MenuItem|MenuShell|MessageDialog|Misc|Notebook|Object|OldEditable|OptionMenu|Paned|Pixmap|Plug|Preview|Progress|ProgressBar|RadioButton|RadioMenuItem|Range|RcStyle|Ruler|Scale|Scrollbar|ScrolledWindow|Separator|SeparatorMenuItem|Settings|ShadowType|SizeGroup|Socket|SpinButton|StatusBar|Style|Table|TearoffMenuItem|Text|TextBuffer|TextChildAnchor|TextIter|TextMark|TextTag|TextTagTable|TextView|TextWindowType|TipsQuery|ToggleButton|Toolbar|ToolItem|Tooltips|Tree|TreeDragDest|TreeDragSource|TreeItem|TreeIter|TreeModel|TreeModelSort|TreePath|TreeSelection|TreeSortable|TreeStore|TreeView|TreeViewColumn|VBox|VButtonBox|Viewport|VPaned|VRuler|VScale|VScrollbar|VSeparator|Window|WindowGroup|WindowPosition|WrapMode))\\b::2::#990000::2:0:
-c:glib-basictypes:0:\\b(gint|gint8|gint16|gint32|gint64|guint|guint8|guint16|guint32|guint64|gshort|gushort|glong|gulong|gfloat|gdouble|gchar|guchar|gunichar|gpointer|gconstpointer|gboolean|gsize|gssize)\\b::2::#990000::2:0:
+c:glib-basictypes:0:\\b(g?u?int(8|16|32|64)?|gshort|gushort|glong|gulong|gfloat|gdouble|gchar|guchar|gunichar|gpointer|gconstpointer|gboolean|gsize|gssize)\\b::2::#990000::2:0:
 c:glib-keywords:0:\\b(GCallback|GError|GHashTable|GList|GMarkupParser|GMarkupParseContext|GObject|GObjectClass|GSList|GString|GType|GTypeInfo)\\b::2::#990000::2:0:
 c:gdk-keywords:0:\\b(Gdk(Color|Event|EventButton|EventKey|Pixbuf))\\b::2::#990000::2:0:
 c:braces:0:[{()}]::2::#000000::2:0:
@@ -124,14 +124,14 @@ gettext po:msgid:1:^msgid ::2::#000099:#ffffff:2:0:
 gettext po:msgstr:1:^msgstr ::2::#000099:#ffffff:2:0:
 gettext po:domain:1:^domain::2::#000099:#ffffff:2:0:
 stylesheet:values:1:\\b(absolute|relative|small\\-caps|serif|sans\\-serif|cursive|fantasy|monospace|normal|italic|oblique|small\\-caps|bold|bolder|lighter|smaller|xx\\-small|x\\-small|small|medium|large|x\\-large|xx\\-large|transparent|none|inherit|repeat|repeat\\-x|repeat\\-y|no\\-repeat|scroll|fixed|top|center|bottom|left|center|right|underline|overline|line\\-through|blink|baseline|sub|super|text\\-top|middle|text\\-bottom|capitalize|uppercase|lowercase|justify|auto|thin|thick|dotted|dashed|solid|double|groove|ridge|inset|outset|both|block|inline|list\\-item|pre|nowrap|disc|circle|square|decimal|lower\\-roman|upper\\-roman|lower\\-alpha|upper\\-alpha|inside|outside|collapse)\\b::2::#330066::1:0:
-stylesheet:font:1:\\b(font(\\-color|\\-family|\\-weight|\\-size|\\-variant|\\-style)*)\\b::2::darkblue::2:0:
+stylesheet:font:1:\\b(font(\\-color|\\-family|\\-weight|\\-size|\\-variant|\\-style|))\\b\\s*\:::2::darkblue::2:0:
 stylesheet:misc:1:(\\s*|\\t*)\\b(float|clear|color|min\\-width|max\\-width|width|min\\-height|max\\-height|height|position|top|bottom|left|right|cursor|display|z\\-index|content)\\b\\s*\\\:::2::darkblue::2:0:
-stylesheet:padding:1:\\b(padding(\\-top|\\-bottom|\\-left|\\-right|\\-width|\\-color|\\-style)*)\\b\\s*\\\:::2::darkblue::2:0:
-stylesheet:margins:1:\\b(margin(\\-top|\\-bottom|\\-left|\\-right|\\-width|\\-color|\\-style)*)\\b\\s*\\\:::2::darkblue::2:0:
-stylesheet:background:1:\\b(background(\\-color|\\-image|\\-repeat|\\-attachment|\\-position)*)\\b\\s*\:::2::darkblue::2:0:
-stylesheet:lines:1:\\b(line(\\-top|\\-bottom|\\-left|\\-width|\\-color|\\-style|\\-height)*)\\b\\s*\:::2::darkblue::2:0:
+stylesheet:padding:1:\\b(padding(\\-top|\\-bottom|\\-left|\\-right|\\-width|\\-color|\\-style|))\\b\\s*\\\:::2::darkblue::2:0:
+stylesheet:margins:1:\\b(margin(\\-top|\\-bottom|\\-left|\\-right|\\-width|\\-color|\\-style|))\\b\\s*\\\:::2::darkblue::2:0:
+stylesheet:background:1:\\b(background(\\-color|\\-image|\\-repeat|\\-attachment|\\-position|))\\b\\s*\:::2::darkblue::2:0:
+stylesheet:lines:1:\\b(line(\\-top|\\-bottom|\\-left|\\-width|\\-color|\\-style|\\-height|))\\b\\s*\:::2::darkblue::2:0:
 stylesheet:text:1:\\b(word\\-spacing|letter\\-spacing|text\\-decoration|vertical\\-align|text\\-transform|text\\-align|text\\-ident)\\b\\s*\:::2::darkblue::2:0:
-stylesheet:border:1:\\b(border(\\-collapse|(\\-top|\\-bottom|\\-left|\\-right)*(\\-width|\\-color|\\-style)*))\\b\\s*\:::2::darkblue::2:0:
+stylesheet:border:1:\\b(border(\\-collapse|\\-top|\\-bottom|\\-left|\\-right|\\-width|\\-color|\\-style|))\\b\\s*\:::2::darkblue::2:0:
 stylesheet:length:1:([0-9]*.?[0-9]*(\\%|px|em|ex|pt|in|cm|pc|mm))::2::#009060::1:0:
 stylesheet:selectors:1:(\\*|\\b(a|body|abbr|acronym|address|applet|area|b|bdo|blockquote|br|button|caption|cite|code|col|colgroup|dd|del|dfn|div|dl|dt|em|embed|fieldset|form|h\\d+|hr|i|iframe|img|input|ins|kbd|label|legend|li|map|noframes|noscript|object|ol|optgroup|option|p|pre|q|samp|select|small|span|strong|table|tbody|td|textarea|tfoot|th|thead|tr|tt|ul|var)\\b)::2::#660000::2:0:
 stylesheet:colors:1:#[0-9A-Fa-f]{3,6}::2::#009060::1:1:
