@@ -21,6 +21,9 @@
 #define __GUI_H_
 void gui_toggle_autoindent_cb(gpointer callback_data,guint action,GtkWidget *widget);
 void gui_toggle_hidewidget_cb(gpointer callback_data,guint action,GtkWidget *widget);
+
+void notebook_hide(void);
+void notebook_show(void);
 void notebook_changed(gint newpage);
 
 void gui_notebook_switch(gpointer callback_data,guint action,GtkWidget *widget);
