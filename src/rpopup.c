@@ -57,7 +57,7 @@ gboolean doc_bevent_in_html_tag(Tdocument *doc, GdkEventButton *bevent) {
 	rec_tag.tag_so = rec_tag.tag_eo = -1;
 	rec_tag.doc = doc;
 	
-	g_print("doc_bevent_in_html_tag, xpos=%d, ypos=%d\n", xpos, ypos);
+	DEBUG_MSG("doc_bevent_in_html_tag, xpos=%d, ypos=%d\n", xpos, ypos);
 	gtk_text_view_get_iter_at_location(GTK_TEXT_VIEW(doc->view), &iter, xpos, ypos);
 	{
 		GtkTextIter gtiter, ltiter;

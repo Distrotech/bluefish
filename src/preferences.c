@@ -700,8 +700,8 @@ static void create_highlightpattern_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 	g_signal_connect(G_OBJECT(pd->hpd.radio[1]), "toggled", G_CALLBACK(highlightpattern_type_toggled), pd);
 	g_signal_connect(G_OBJECT(pd->hpd.radio[2]), "toggled", G_CALLBACK(highlightpattern_type_toggled), pd);
 
-	pd->hpd.entry[1] = boxed_full_entry(_("Start pattern"), NULL, 100, vbox3);
-	pd->hpd.entry[2] = boxed_full_entry(_("End pattern"), NULL, 100, vbox3);
+	pd->hpd.entry[1] = boxed_full_entry(_("Start pattern"), NULL, 500, vbox3);
+	pd->hpd.entry[2] = boxed_full_entry(_("End pattern"), NULL, 500, vbox3);
 	pd->hpd.check = boxed_checkbut_with_value(_("Case sensitive matching"), FALSE, vbox3);
 	pd->hpd.entry[3] = boxed_full_entry(_("Parentmatch"), NULL, 100, vbox3);
 	pd->hpd.entry[4] = prefs_string(_("Foreground color"), "", vbox3, pd, string_color);

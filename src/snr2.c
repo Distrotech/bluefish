@@ -35,7 +35,7 @@
  *             search_backend
  */
 /*****************************************************/
-#define DEBUG
+/*#define DEBUG*/
 
 #include <gtk/gtk.h>
 
@@ -1017,7 +1017,7 @@ static void snr2dialog(gint is_replace, gint is_new_search) {
 		vbox2 = gtk_vbox_new(FALSE, 3);
 		gtk_container_add(GTK_CONTAINER(frame), vbox2);
 		snr2win->subpat_help = gtk_label_new(_("\\0 refers to the first subpattern, \\1 to the second etc."));
-		gtk_box_pack_start(GTK_BOX(vbox2), snr2win->subpat_help, TRUE, TRUE, 0);
+		gtk_box_pack_start(GTK_BOX(vbox2), snr2win->subpat_help, FALSE, TRUE, 0);
 		hbox = gtk_hbox_new(FALSE,0);
 		gtk_box_pack_start(GTK_BOX(vbox2), hbox, TRUE, TRUE, 0);
 		gtk_box_pack_start(GTK_BOX(hbox), gtk_label_new(_("Replace with: ")), FALSE, FALSE, 0);
