@@ -123,9 +123,9 @@ gettext po:comment-escape:0:\\\\.::2:^text$:#009900::1:1:
 gettext po:msgid:1:^msgid ::2::#000099:#ffffff:2:0:
 gettext po:msgstr:1:^msgstr ::2::#000099:#ffffff:2:0:
 gettext po:domain:1:^domain::2::#000099:#ffffff:2:0:
-stylesheet:values:1:\\b(absolute|relative|serif|sans\\-serif|cursive|fantasy|monospace|normal|italic|oblique|small\\-caps|bold|bolder|lighter|smaller|xx\\-small|x\\-small|small|medium|large|x\\-large|xx\\-large|transparent|none|repeat|repeat\\-x|repeat\\-y|no\\-repeat|scroll|fixed|top|center|bottom|left|center|right|underline|overline|line\\-through|blink|baseline|sub|super|text\\-top|middle|text\\-bottom|capitalize|uppercase|lowercase|justify|auto|thin|thick|dotted|dashed|solid|double|groove|ridge|inset|outset|both|block|inline|list\\-item|pre|nowrap|disc|circle|square|decimal|lower\\-roman|upper\\-roman|lower\\-alpha|upper\\-alpha|inside|outside|collapse)\\b::2::#330066::1:0:
+stylesheet:values:1:\\b(absolute|relative|small\\-caps|serif|sans\\-serif|cursive|fantasy|monospace|normal|italic|oblique|small\\-caps|bold|bolder|lighter|smaller|xx\\-small|x\\-small|small|medium|large|x\\-large|xx\\-large|transparent|none|inherit|repeat|repeat\\-x|repeat\\-y|no\\-repeat|scroll|fixed|top|center|bottom|left|center|right|underline|overline|line\\-through|blink|baseline|sub|super|text\\-top|middle|text\\-bottom|capitalize|uppercase|lowercase|justify|auto|thin|thick|dotted|dashed|solid|double|groove|ridge|inset|outset|both|block|inline|list\\-item|pre|nowrap|disc|circle|square|decimal|lower\\-roman|upper\\-roman|lower\\-alpha|upper\\-alpha|inside|outside|collapse)\\b::2::#330066::1:0:
 stylesheet:font:1:\\b(font(\\-color|\\-family|\\-weight|\\-size|\\-variant|\\-style)*)\\b::2::darkblue::2:0:
-stylesheet:misc:1:(\\s*|\\t*)\\b(float|clear|color|width|height|position|top|bottom|left|right|cursor|display|z\\-index|content)\\b\\s*\\\:::2::darkblue::2:0:
+stylesheet:misc:1:(\\s*|\\t*)\\b(float|clear|color|min\\-width|max\\-width|width|min\\-height|max\\-height|height|position|top|bottom|left|right|cursor|display|z\\-index|content)\\b\\s*\\\:::2::darkblue::2:0:
 stylesheet:padding:1:\\b(padding(\\-top|\\-bottom|\\-left|\\-right|\\-width|\\-color|\\-style)*)\\b\\s*\\\:::2::darkblue::2:0:
 stylesheet:margins:1:\\b(margin(\\-top|\\-bottom|\\-left|\\-right|\\-width|\\-color|\\-style)*)\\b\\s*\\\:::2::darkblue::2:0:
 stylesheet:background:1:\\b(background(\\-color|\\-image|\\-repeat|\\-attachment|\\-position)*)\\b\\s*\:::2::darkblue::2:0:
@@ -137,7 +137,7 @@ stylesheet:selectors:1:(\\*|\\b(a|body|abbr|acronym|address|applet|area|b|bdo|bl
 stylesheet:colors:1:#[0-9A-Fa-f]{3,6}::2::#009060::1:1:
 stylesheet:comment:1:\\/\\*:\\*\\/:1::#999999::0:0:
 stylesheet:string:1:":":1::#006090::0:2:
-stylesheet:identifiers:1:(#|\\.)[a-z0-9\\-_\:]+ (?=(\\{))::2::#906000::2:0:
+stylesheet:identifiers:1:(#|\\.)[a-z0-9\\-_\:]+ (?=([\\{a-z\\*]))::2::#906000::2:0:
 stylesheet:symbol:1:(\\{|\\}|\\;|\\,)::2::#3D76AF::2:0:
 stylesheet:pseudo-selectors:1:\\\:(first(\\-child|letter|line)|link|active|visited|hover|focus|lang\\(\\)|left|right|first|before|after)::2::#660066::2:0:
 stylesheet:attribute-identifiers:1:\\[[a-z0-9\\.\\-_\\\:]+=":"\\]:1::#906000::2:0:
