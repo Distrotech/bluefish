@@ -215,30 +215,24 @@ if test "x$PKG_CONFIG" = "xno" ; then
 	AC_MSG_ERROR(pkg-config not found please install pkg-config)
 fi
 
-echo -n "checking for gtk+-2.0... "
+echo -n "checking for gtk+-2... "
 if pkg-config --exists gtk+-2.0 ; then
 	LIBS="$LIBS `pkg-config --libs gtk+-2.0`"
 	CFLAGS="$CFLAGS `pkg-config --cflags gtk+-2.0`"
 	echo "yes"
 else
 	echo "no"
-	AC_MSG_ERROR(libgtk2.0-dev missing please install libgtk2.0-dev)
-fi
-
-echo -n "checking for gtk+-2.2... "
-if pkg-config gtk+-2.0 --atleast-version=2.2 ; then
-	AC_DEFINE(HAVE_ATLEAST_GTK_2_2)
-	echo "yes"
-else
-	echo "no"
+	AC_MSG_ERROR(libgtk2.0-dev missing, please install libgtk2.0-dev)
 fi
 
 echo -n "checking for gtk+-2.4... "
+VERSION=`pkg-config --modversion gtk+-2.0`
 if pkg-config gtk+-2.0 --atleast-version=2.4 ; then
+	AC_DEFINE(HAVE_ATLEAST_GTK_2_2)
 	AC_DEFINE(HAVE_ATLEAST_GTK_2_4)
-	echo "yes"
+	echo "yes, ${VERSION}"
 else
-	echo "no"
+	AC_MSG_ERROR(detected gtk $VERSION, but gtk version 2.4 is required)
 fi
 
 echo -n "checking for gtk+-2.6... "
@@ -258,9 +252,7 @@ if pkg-config --exists gnome-vfs-2.0 ; then
 	AC_DEFINE(HAVE_GNOME_VFS)
 	AC_SUBST(HAVE_GNOME_VFS)
 else
-	echo "no"
-	echo "gnome-vfs-2.0 not found, opening remote files will be disabled"
-	HAVE_GNOME_VFS=0
+	AC_MSG_ERROR(gnome-vfs2 is required, please install libgnomevfs2-dev)
 fi
 
 echo -n "checking for gnome-vfs >= 2.2... "
