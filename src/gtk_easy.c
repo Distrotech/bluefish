@@ -38,12 +38,17 @@
  */
 void flush_queue(void)
 {
-	while (gtk_events_pending()) {
+	while(g_main_context_pending(NULL)) {
+		g_main_context_iteration (NULL, TRUE);
+	}
+/*	while (gtk_events_pending()) {
+		DEBUG_MSG("gtk_events_pending\n");
 		gtk_main_iteration();
 	}
 	while (gdk_events_pending()) {
+		DEBUG_MSG("gdk_events_pending\n");
 		gdk_flush();
-	}
+	}*/
 }
 
 

@@ -101,8 +101,26 @@ static GtkItemFactoryEntry menu_items[] = {
 };
 
 static void menu_current_document_type_change(GtkMenuItem *menuitem,Thighlightset *hlset) {
-	hl_set_highlighting_type(main_v->current_document, hlset);
-	doc_highlight_full(main_v->current_document);
+	DEBUG_MSG("menu_current_document_type_change, started for hlset %p\n", hlset);
+	if (GTK_CHECK_MENU_ITEM(menuitem)->active) {
+		hl_set_highlighting_type(main_v->current_document, hlset);
+		doc_highlight_full(main_v->current_document);
+	}
+	DEBUG_MSG("menu_current_document_type_change, finished\n");
+}
+
+void menu_current_document_type_set_active_wo_activate(Thighlightset *hlset) {
+	if (!GTK_CHECK_MENU_ITEM(hlset->menuitem)->active) {
+		DEBUG_MSG("setting widget from hlset %p active\n", main_v->current_document->hl);
+		g_signal_handler_disconnect(G_OBJECT(hlset->menuitem),hlset->menuitem_activate_id);
+		gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (hlset->menuitem), TRUE);
+		hlset->menuitem_activate_id = g_signal_connect(G_OBJECT(hlset->menuitem), "activate",G_CALLBACK(menu_current_document_type_change), (gpointer) hlset);
+	}
+#ifdef DEBUG
+	 else {
+	 	DEBUG_MSG("widget from hlset %p is already active!!\n", main_v->current_document->hl);
+	 }
+#endif
 }
 
 /* 
@@ -138,7 +156,7 @@ void menu_create_main(GtkWidget *vbox)
 		while (tmplist) {
 			Thighlightset *hlset = (Thighlightset *)tmplist->data;
 			hlset->menuitem = gtk_radio_menu_item_new_with_label(group, hlset->type);
-			g_signal_connect(G_OBJECT(hlset->menuitem), "activate",G_CALLBACK(menu_current_document_type_change), (gpointer) hlset);
+			hlset->menuitem_activate_id = g_signal_connect(G_OBJECT(hlset->menuitem), "activate",G_CALLBACK(menu_current_document_type_change), (gpointer) hlset);
 			gtk_widget_show(hlset->menuitem);
 			gtk_menu_insert(GTK_MENU(parent_menu), hlset->menuitem, 1);
 			group = gtk_radio_menu_item_get_group (GTK_RADIO_MENU_ITEM(hlset->menuitem));

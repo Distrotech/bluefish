@@ -606,6 +606,7 @@ void hl_reset_highlighting_type(Tdocument * doc, gchar * newfilename)
 		doc_remove_highlighting(doc);
 		doc->hl = hlset;
 		doc->need_highlighting = TRUE;
+		menu_current_document_type_set_active_wo_activate(hlset);
 	}
 }
 
@@ -614,6 +615,7 @@ void hl_set_highlighting_type(Tdocument * doc, Thighlightset *hlset) {
 		doc_remove_highlighting(doc);
 		doc->hl = hlset;
 		doc->need_highlighting = TRUE;
+		menu_current_document_type_set_active_wo_activate(hlset);
 	}
 }
 

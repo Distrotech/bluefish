@@ -83,6 +83,7 @@ typedef struct {
 	gchar *update_chars;
 	GList *highlightlist;
 	GtkWidget *menuitem;
+	gulong menuitem_activate_id;
 } Thighlightset;
 
 /*******************/
