@@ -8,8 +8,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ru\n"
-"POT-Creation-Date: 2003-05-14 10:54+0200\n"
-"PO-Revision-Date: 2003-04-09 09:30+0400\n"
+"POT-Creation-Date: 2003-05-13 00:53-0300\n"
+"PO-Revision-Date: 2003-05-13 20:12+0400\n"
 "Last-Translator: Eugene Rupakov <rupakov@jet.msk.su>\n"
 "Language-Team: Russian <ru@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -37,7 +37,7 @@ msgstr "Замена"
 msgid "Ignore"
 msgstr "Игнорировать"
 
-#: ../src/bfspell.c:357 ../src/menu.c:1897 ../src/snr2.c:1096
+#: ../src/bfspell.c:357 ../src/menu.c:1897 ../src/snr2.c:1086
 msgid "Replace"
 msgstr "Заменить"
 
@@ -160,7 +160,7 @@ msgid "Cannot display file, unknown characters found."
 msgstr "Невозможно отобразить файл - найдены неизвестные символы."
 
 #: ../src/document.c:872
-#, c-format, ycp-format
+#, c-format
 msgid " line %4d "
 msgstr " строка %4d"
 
@@ -444,11 +444,11 @@ msgstr "Все файлы"
 
 #: ../src/fref.c:661
 msgid "Show info window"
-msgstr ""
+msgstr "Показать окно информации"
 
 #: ../src/fref.c:667 ../src/fref.c:914 ../src/fref.c:1453 ../src/fref.c:1484
 msgid "Dialog"
-msgstr "_Диалоги"
+msgstr "Диалог"
 
 #: ../src/fref.c:668 ../src/fref.c:889 ../src/fref.c:1188 ../src/fref.c:1459
 #: ../src/fref.c:1486
@@ -469,30 +469,27 @@ msgstr "Параметры"
 
 #: ../src/fref.c:1473
 msgid "Rescan reference files"
-msgstr ""
+msgstr "Просмотреть справочные файлы"
 
 #: ../src/fref.c:1476
 msgid "Left doubleclick action"
-msgstr ""
+msgstr "Действие по двойному щелчку левой кнопкой мыши"
 
 #: ../src/fref.c:1489
-#, fuzzy
 msgid "Info type"
-msgstr "Информация"
+msgstr "Тип информации"
 
 #: ../src/fref.c:1493
-#, fuzzy
 msgid "Description"
-msgstr "Определение термина"
+msgstr "Описание"
 
 #: ../src/fref.c:1496
 msgid "Attributes/Parameters"
-msgstr ""
+msgstr "Атрибуты/Параметры"
 
 #: ../src/fref.c:1498
-#, fuzzy
 msgid "Notes"
-msgstr "Код для браузера без врезок"
+msgstr "Примечания"
 
 #: ../src/gtk_easy.c:961 ../src/menu.c:1314 ../src/menu.c:1660
 #: ../src/menu.c:1662 ../src/menu.c:1667
@@ -984,9 +981,8 @@ msgid "Goto line"
 msgstr "Перейти к строке"
 
 #: ../src/gui.c:932
-#, fuzzy
 msgid "_Line number:"
-msgstr "Номер _строки: "
+msgstr "Номер _строки:"
 
 #: ../src/gui.c:938
 msgid "From _selection"
@@ -999,6 +995,60 @@ msgstr "Оставить _диалог открытым"
 #: ../src/gui.c:1010
 msgid "starting bluefish"
 msgstr "запуск Bluefish"
+
+#: ../src/html2.c:586
+msgid "Cascading StyleSheet dialog"
+msgstr "диалог Cascading Style Sheet"
+
+#: ../src/html2.c:606
+msgid "_Selector:"
+msgstr "Панель в_ыбора:"
+
+#: ../src/html2.c:625
+msgid "_Property:"
+msgstr "_Свойство:"
+
+#: ../src/html2.c:627 ../src/html_form.c:286 ../src/html_form.c:353
+#: ../src/html_form.c:415 ../src/html_form.c:471 ../src/html_form.c:534
+#: ../src/html_form.c:644
+msgid "_Value:"
+msgstr "_Значение:"
+
+#: ../src/html2.c:645
+msgid "Selector"
+msgstr "Панель выбора"
+
+#: ../src/html2.c:645 ../src/html2.c:648
+msgid "Property"
+msgstr "Свойство"
+
+#: ../src/html2.c:645 ../src/html2.c:648
+msgid "Value"
+msgstr "Значение"
+
+#: ../src/html2.c:663
+msgid " _Add "
+msgstr " _Добавить "
+
+#: ../src/html2.c:666
+msgid " _Update "
+msgstr " О_бновить  "
+
+#: ../src/html2.c:669
+msgid " _Delete "
+msgstr " _Удалить "
+
+#: ../src/html2.c:925 ../src/html2.c:962
+msgid "_Style..."
+msgstr "_Стиль..."
+
+#: ../src/html2.c:1145
+msgid "Bluefish: Select color"
+msgstr "Bluefish: Выберите цвет"
+
+#: ../src/html2.c:1165
+msgid "_websafe"
+msgstr "_websafe"
 
 #: ../src/html.c:353
 msgid "Insert Time"
@@ -1258,7 +1308,7 @@ msgstr "_Схема:"
 
 #: ../src/html.c:1439 ../src/preferences.c:1698
 msgid "Font"
-msgstr "Font"
+msgstr "Шрифт"
 
 #: ../src/html.c:1442
 msgid "Base Font"
@@ -1371,60 +1421,6 @@ msgstr "_Относительная ссылка:"
 #: ../src/html.c:1982 ../src/html_form.c:361
 msgid "_Type:"
 msgstr "_Тип:"
-
-#: ../src/html2.c:586
-msgid "Cascading StyleSheet dialog"
-msgstr "диалог Cascading Style Sheet"
-
-#: ../src/html2.c:606
-msgid "_Selector:"
-msgstr "Панель в_ыбора:"
-
-#: ../src/html2.c:625
-msgid "_Property:"
-msgstr "_Свойство:"
-
-#: ../src/html2.c:627 ../src/html_form.c:286 ../src/html_form.c:353
-#: ../src/html_form.c:415 ../src/html_form.c:471 ../src/html_form.c:534
-#: ../src/html_form.c:644
-msgid "_Value:"
-msgstr "_Значение:"
-
-#: ../src/html2.c:645
-msgid "Selector"
-msgstr "Панель выбора"
-
-#: ../src/html2.c:645 ../src/html2.c:648
-msgid "Property"
-msgstr "Свойство"
-
-#: ../src/html2.c:645 ../src/html2.c:648
-msgid "Value"
-msgstr "Значение"
-
-#: ../src/html2.c:663
-msgid " _Add "
-msgstr " _Добавить "
-
-#: ../src/html2.c:666
-msgid " _Update "
-msgstr " О_бновить  "
-
-#: ../src/html2.c:669
-msgid " _Delete "
-msgstr " _Удалить "
-
-#: ../src/html2.c:925 ../src/html2.c:962
-msgid "_Style..."
-msgstr "_Стиль..."
-
-#: ../src/html2.c:1145
-msgid "Bluefish: Select color"
-msgstr "Bluefish: Выберите цвет"
-
-#: ../src/html2.c:1165
-msgid "_websafe"
-msgstr "_websafe"
 
 #: ../src/html_form.c:129
 msgid "Form"
@@ -1780,7 +1776,7 @@ msgstr "/Редактирование/Особая замена/_iso8859 в сп
 
 #: ../src/menu.c:94
 msgid "/Edit/Replace special/_both types to HTML entities"
-msgstr "/Редактирование/Особая замена/оба типа в спецсимволы HTMLK_b"
+msgstr "/Редактирование/Особая замена/о_ба типа в спецсимволы HTML"
 
 #: ../src/menu.c:95
 msgid "/Edit/sep4"
@@ -1983,7 +1979,6 @@ msgid "/Tags/Special/Accent/Uppercase/J-Z/O circumflex Ô"
 msgstr "/Тэги/Особые/Accent/Прописные/J-Z/O с крышкой Ô"
 
 #: ../src/menu.c:148
-#, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/J-Z/OE ligature"
 msgstr "/Тэги/Особые/Accent/Прописные/J-Z/Лигатура OE Œ"
 
@@ -2116,7 +2111,6 @@ msgid "/Tags/Special/Accent/Lowercase/J-Z/o acute ó"
 msgstr "/Тэги/Особые/Accent/Строчные/J-Z/o штрих вправо ó"
 
 #: ../src/menu.c:203
-#, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/J-Z/oe ligature æ"
 msgstr "/Тэги/Особые/Accent/Строчные/J-Z/Лигатура oe œ"
 
@@ -3361,26 +3355,24 @@ msgid "Backup file suffix"
 msgstr "Суффикс файла резервной копии"
 
 #: ../src/preferences.c:1745
-#, fuzzy
 msgid "save"
-msgstr "Сохранить"
+msgstr "сохранить"
 
 #: ../src/preferences.c:1745
 msgid "abort"
-msgstr ""
+msgstr "прекратить"
 
 #: ../src/preferences.c:1745
 msgid "ask"
-msgstr ""
+msgstr "спросить"
 
 #: ../src/preferences.c:1746
 msgid "Action on backup failure"
 msgstr "Действие при ошибке резервного копирования"
 
 #: ../src/preferences.c:1748
-#, fuzzy
 msgid "Remove backupfile on close"
-msgstr "Создавать резервную копию при сохранении"
+msgstr "Удалять резервную копию при выходе"
 
 #: ../src/preferences.c:1757
 msgid "Undo history size"
@@ -3582,7 +3574,7 @@ msgstr "Фильтр DOS2UNIX"
 
 #: ../src/rcfile.c:579
 msgid "Tidy cleanup filter"
-msgstr "Фильтр тонкой очистки"
+msgstr "Фильтр HTML Tidy"
 
 #: ../src/rcfile.c:603
 msgid "C programming"
@@ -3613,142 +3605,121 @@ msgstr "Предупреждение Bluefish: ошибка регулярног
 msgid "Regular expression error: %s at offset %d"
 msgstr "Ошибка в регулярном выражении: %s по смещению %d"
 
-#: ../src/snr2.c:684
+#: ../src/snr2.c:676
 msgid "Confirm replace"
 msgstr "Подтвердите замену"
 
-#: ../src/snr2.c:696
+#: ../src/snr2.c:688
 msgid "This text selection will be replaced. Do you want to replace it?"
-msgstr ""
+msgstr "Этот выделенный текст будет заменен. Заменить его?"
 
-#: ../src/snr2.c:710
-msgid "_Skip"
-msgstr ""
-
-#: ../src/snr2.c:711
-#, fuzzy
-msgid "Replace _this"
-msgstr "Заменить _текст"
-
-#: ../src/snr2.c:712
-#, fuzzy
+#: ../src/snr2.c:702
 msgid "Replace _all"
-msgstr "Заменить"
+msgstr "Заменить вс_е"
 
-#: ../src/snr2.c:853 ../src/snr2.c:860
+#: ../src/snr2.c:703
+msgid "Replace _this"
+msgstr "Заменить _это"
+
+#: ../src/snr2.c:843 ../src/snr2.c:850
 msgid "Bluefish message"
 msgstr "Сообщение Bluefish"
 
-#: ../src/snr2.c:853 ../src/snr2.c:860
+#: ../src/snr2.c:843 ../src/snr2.c:850
 msgid "Search: no match found"
 msgstr "Поиск: вхождений не найдено"
 
-#: ../src/snr2.c:1028
+#: ../src/snr2.c:1018
 msgid "Hide _advanced <<"
 msgstr "Убрать _подробности <<"
 
-#: ../src/snr2.c:1049 ../src/snr2.c:1218
+#: ../src/snr2.c:1039 ../src/snr2.c:1208
 msgid "Show _advanced >>"
 msgstr "Показать _подробности >>"
 
-#: ../src/snr2.c:1099
+#: ../src/snr2.c:1089
 msgid "Search"
 msgstr "_Поиск"
 
-#: ../src/snr2.c:1125
-#, fuzzy
+#: ../src/snr2.c:1115
 msgid "Search _for: "
-msgstr "_Поиск"
+msgstr "_Искать: "
 
-#: ../src/snr2.c:1144
+#: ../src/snr2.c:1134
 msgid "Replace wit_h: "
 msgstr "Заменить _на: "
 
-#: ../src/snr2.c:1160
+#: ../src/snr2.c:1150
 msgid "\\0 refers to the first subpattern, \\1 to the second etc."
 msgstr "\\0 указывает на первый подшаблон, \\1 на второй, и т.д."
 
-#: ../src/snr2.c:1164
+#: ../src/snr2.c:1154
 msgid "Match ca_se"
-msgstr ""
+msgstr "Размер _букв должен совпадать"
 
-#: ../src/snr2.c:1165
-#, fuzzy
+#: ../src/snr2.c:1155
 msgid "O_verlap matches"
-msgstr "Пере_секающийся поиск"
+msgstr "Пере_секающиеся совпадения"
 
-#: ../src/snr2.c:1167
-#, fuzzy
+#: ../src/snr2.c:1157
 msgid "Prompt _before replace"
 msgstr "Спросить подтверждение _перед заменой"
 
-#: ../src/snr2.c:1168
+#: ../src/snr2.c:1158
 msgid "Rep_lace once"
-msgstr "За_менить "
+msgstr "За_менить единожды"
 
-#: ../src/snr2.c:1171
-#, fuzzy
+#: ../src/snr2.c:1161
 msgid "Starts at"
-msgstr "Начальный шаблон"
+msgstr "Начинать с"
+
+#: ../src/snr2.c:1165
+msgid "Beginning of _document"
+msgstr "_Начала документа"
+
+#: ../src/snr2.c:1166
+msgid "Current pos_ition"
+msgstr "_Текущей позиции курсора"
+
+#: ../src/snr2.c:1167
+msgid "Beginning of s_election"
+msgstr "Начала вы_деления"
+
+#: ../src/snr2.c:1168
+msgid "Beginning of all o_pened files"
+msgstr "Первого из всех о_ткрытых файлов"
+
+#: ../src/snr2.c:1170
+msgid "Regular expression"
+msgstr "Регулярное выражение"
 
 #: ../src/snr2.c:1175
-#, fuzzy
-msgid "Beginning of _document"
-msgstr "Начать с начала _документа"
+msgid "_None"
+msgstr "_Нет"
 
 #: ../src/snr2.c:1176
-#, fuzzy
-msgid "Current pos_ition"
-msgstr "Начать с позиции _курсора"
+msgid "POSIX _regular expression type "
+msgstr "регулярное выражение POSI_X "
 
 #: ../src/snr2.c:1177
-#, fuzzy
-msgid "Beginning of s_election"
-msgstr "в выделенном"
-
-#: ../src/snr2.c:1178
-#, fuzzy
-msgid "Beginning of all o_pened files"
-msgstr "Во всех о_ткрытых файлах"
-
-#: ../src/snr2.c:1180
-#, fuzzy
-msgid "Regular expression"
-msgstr "Ошибка регулярного выражения:"
-
-#: ../src/snr2.c:1185
-msgid "_None"
-msgstr ""
-
-#: ../src/snr2.c:1186
-#, fuzzy
-msgid "POSIX _regular expression type "
-msgstr "Ошибка регулярного выражения:"
-
-#: ../src/snr2.c:1187
-#, fuzzy
 msgid "PERL compatible regular e_xpression type"
-msgstr "Использовать регулярные выражения, совместимые с _Perl"
+msgstr "регулярное выражение совместимое с _Perl"
+
+#: ../src/snr2.c:1183
+msgid "Replace type"
+msgstr "Тип замены"
+
+#: ../src/snr2.c:1192
+msgid "_Text"
+msgstr "_Текст"
 
 #: ../src/snr2.c:1193
-#, fuzzy
-msgid "Replace type"
-msgstr "Заменить _текст"
-
-#: ../src/snr2.c:1202
-#, fuzzy
-msgid "_Text"
-msgstr "Текст"
-
-#: ../src/snr2.c:1203
-#, fuzzy
 msgid "_Uppercase"
-msgstr "Заменить пр_описные"
+msgstr "Пр_описные буквы"
 
-#: ../src/snr2.c:1204
-#, fuzzy
+#: ../src/snr2.c:1194
 msgid "Lo_wercase"
-msgstr "Заменить ст_рочные"
+msgstr "Ст_рочные буквы"
 
 #: ../src/stringlist.c:365
 msgid " Add "
@@ -3756,7 +3727,7 @@ msgstr " Добавить "
 
 #: ../src/stringlist.c:367
 msgid " Update "
-msgstr " Обновить  "
+msgstr " Обновить "
 
 #: ../src/stringlist.c:369
 msgid " Delete "
@@ -3860,3 +3831,4 @@ msgstr "Размер:"
 
 #~ msgid "Case _sensitive"
 #~ msgstr "У_читывать размер букв"
+

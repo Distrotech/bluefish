@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: bluefish gtk2-port\n"
-"POT-Creation-Date: 2003-05-14 10:54+0200\n"
-"PO-Revision-Date: 2003-04-18 01:06+0200\n"
+"POT-Creation-Date: 2003-05-13 00:53-0300\n"
+"PO-Revision-Date: 2003-05-18 20:12+0200\n"
 "Last-Translator: Rasmus Toftdahl Olesen <rto@pohldata.dk>\n"
 "Language-Team: None\n"
 "MIME-Version: 1.0\n"
@@ -33,7 +33,7 @@ msgstr "Erstatning"
 msgid "Ignore"
 msgstr "Ignorerér"
 
-#: ../src/bfspell.c:357 ../src/menu.c:1897 ../src/snr2.c:1096
+#: ../src/bfspell.c:357 ../src/menu.c:1897 ../src/snr2.c:1086
 msgid "Replace"
 msgstr "Erstat"
 
@@ -156,7 +156,7 @@ msgid "Cannot display file, unknown characters found."
 msgstr "Kan ikke vise fil, ukendte karakterer fundet."
 
 #: ../src/document.c:872
-#, c-format, ycp-format
+#, c-format
 msgid " line %4d "
 msgstr "linje %4d "
 
@@ -440,7 +440,7 @@ msgstr "Alle filer"
 
 #: ../src/fref.c:661
 msgid "Show info window"
-msgstr ""
+msgstr "Vis info vindue"
 
 #: ../src/fref.c:667 ../src/fref.c:914 ../src/fref.c:1453 ../src/fref.c:1484
 msgid "Dialog"
@@ -472,23 +472,20 @@ msgid "Left doubleclick action"
 msgstr "Venstre dobbeltklik handling"
 
 #: ../src/fref.c:1489
-#, fuzzy
 msgid "Info type"
-msgstr "Info"
+msgstr "Info type"
 
 #: ../src/fref.c:1493
-#, fuzzy
 msgid "Description"
-msgstr "Definition"
+msgstr "Beskrivelse"
 
 #: ../src/fref.c:1496
 msgid "Attributes/Parameters"
-msgstr ""
+msgstr "Attributer/Parametre"
 
 #: ../src/fref.c:1498
-#, fuzzy
 msgid "Notes"
-msgstr "Ingen Frames"
+msgstr "Noter"
 
 #: ../src/gtk_easy.c:961 ../src/menu.c:1314 ../src/menu.c:1660
 #: ../src/menu.c:1662 ../src/menu.c:1667
@@ -981,9 +978,8 @@ msgid "Goto line"
 msgstr "Gå til linje"
 
 #: ../src/gui.c:932
-#, fuzzy
 msgid "_Line number:"
-msgstr "_Linje nummer: "
+msgstr "_Linje nummer:"
 
 #: ../src/gui.c:938
 msgid "From _selection"
@@ -996,6 +992,60 @@ msgstr "Behold _dialog"
 #: ../src/gui.c:1010
 msgid "starting bluefish"
 msgstr "starter bluefish"
+
+#: ../src/html2.c:586
+msgid "Cascading StyleSheet dialog"
+msgstr "Cascading StyleSheet dialog"
+
+#: ../src/html2.c:606
+msgid "_Selector:"
+msgstr "_Vælger:"
+
+#: ../src/html2.c:625
+msgid "_Property:"
+msgstr "_Egenskab:"
+
+#: ../src/html2.c:627 ../src/html_form.c:286 ../src/html_form.c:353
+#: ../src/html_form.c:415 ../src/html_form.c:471 ../src/html_form.c:534
+#: ../src/html_form.c:644
+msgid "_Value:"
+msgstr "_Værdi:"
+
+#: ../src/html2.c:645
+msgid "Selector"
+msgstr "Vælger"
+
+#: ../src/html2.c:645 ../src/html2.c:648
+msgid "Property"
+msgstr "Egenskab"
+
+#: ../src/html2.c:645 ../src/html2.c:648
+msgid "Value"
+msgstr "Værdi"
+
+#: ../src/html2.c:663
+msgid " _Add "
+msgstr " _Tilføj "
+
+#: ../src/html2.c:666
+msgid " _Update "
+msgstr " _Opdatér "
+
+#: ../src/html2.c:669
+msgid " _Delete "
+msgstr " _Slet "
+
+#: ../src/html2.c:925 ../src/html2.c:962
+msgid "_Style..."
+msgstr "_Stil"
+
+#: ../src/html2.c:1145
+msgid "Bluefish: Select color"
+msgstr "Bluefish: Vælg farve"
+
+#: ../src/html2.c:1165
+msgid "_websafe"
+msgstr "_web-sikker"
 
 #: ../src/html.c:353
 msgid "Insert Time"
@@ -1368,60 +1418,6 @@ msgstr "_Rel:"
 #: ../src/html.c:1982 ../src/html_form.c:361
 msgid "_Type:"
 msgstr "_Type:"
-
-#: ../src/html2.c:586
-msgid "Cascading StyleSheet dialog"
-msgstr "Cascading StyleSheet dialog"
-
-#: ../src/html2.c:606
-msgid "_Selector:"
-msgstr "_Vælger:"
-
-#: ../src/html2.c:625
-msgid "_Property:"
-msgstr "_Egenskab:"
-
-#: ../src/html2.c:627 ../src/html_form.c:286 ../src/html_form.c:353
-#: ../src/html_form.c:415 ../src/html_form.c:471 ../src/html_form.c:534
-#: ../src/html_form.c:644
-msgid "_Value:"
-msgstr "_Værdi:"
-
-#: ../src/html2.c:645
-msgid "Selector"
-msgstr "Vælger"
-
-#: ../src/html2.c:645 ../src/html2.c:648
-msgid "Property"
-msgstr "Egenskab"
-
-#: ../src/html2.c:645 ../src/html2.c:648
-msgid "Value"
-msgstr "Værdi"
-
-#: ../src/html2.c:663
-msgid " _Add "
-msgstr " _Tilføj "
-
-#: ../src/html2.c:666
-msgid " _Update "
-msgstr " _Opdatér "
-
-#: ../src/html2.c:669
-msgid " _Delete "
-msgstr " _Slet "
-
-#: ../src/html2.c:925 ../src/html2.c:962
-msgid "_Style..."
-msgstr "_Stil"
-
-#: ../src/html2.c:1145
-msgid "Bluefish: Select color"
-msgstr "Bluefish: Vælg farve"
-
-#: ../src/html2.c:1165
-msgid "_websafe"
-msgstr "_web-sikker"
 
 #: ../src/html_form.c:129
 msgid "Form"
@@ -3354,26 +3350,24 @@ msgid "Backup file suffix"
 msgstr "Sikkerhedskopi endelse"
 
 #: ../src/preferences.c:1745
-#, fuzzy
 msgid "save"
-msgstr "Gem"
+msgstr "gem"
 
 #: ../src/preferences.c:1745
 msgid "abort"
-msgstr ""
+msgstr "abort"
 
 #: ../src/preferences.c:1745
 msgid "ask"
-msgstr ""
+msgstr "spørg"
 
 #: ../src/preferences.c:1746
 msgid "Action on backup failure"
 msgstr "Handling ved backup fejl"
 
 #: ../src/preferences.c:1748
-#, fuzzy
 msgid "Remove backupfile on close"
-msgstr "Ipret backup ved gemning"
+msgstr "Fjern backup ved gemning"
 
 #: ../src/preferences.c:1757
 msgid "Undo history size"
@@ -3604,142 +3598,121 @@ msgstr "Bluefish advarsel: fejl ved regulært udtryk"
 msgid "Regular expression error: %s at offset %d"
 msgstr "Fejl ved regulært udtryk: %s ved offset %d"
 
-#: ../src/snr2.c:684
+#: ../src/snr2.c:676
 msgid "Confirm replace"
 msgstr "Bekræft erstat"
 
-#: ../src/snr2.c:696
+#: ../src/snr2.c:688
 msgid "This text selection will be replaced. Do you want to replace it?"
-msgstr ""
+msgstr "Denne tekst markering vil blive erstattet. Vil du restatte den?"
 
-#: ../src/snr2.c:710
-msgid "_Skip"
-msgstr ""
-
-#: ../src/snr2.c:711
-#, fuzzy
-msgid "Replace _this"
-msgstr "Erstat _tekst"
-
-#: ../src/snr2.c:712
-#, fuzzy
+#: ../src/snr2.c:702
 msgid "Replace _all"
-msgstr "Erstat"
+msgstr "Erstat _alle"
 
-#: ../src/snr2.c:853 ../src/snr2.c:860
+#: ../src/snr2.c:703
+msgid "Replace _this"
+msgstr "Erstat _dette"
+
+#: ../src/snr2.c:843 ../src/snr2.c:850
 msgid "Bluefish message"
 msgstr "Bluefish besked"
 
-#: ../src/snr2.c:853 ../src/snr2.c:860
+#: ../src/snr2.c:843 ../src/snr2.c:850
 msgid "Search: no match found"
 msgstr "Søg: intet fundet"
 
-#: ../src/snr2.c:1028
+#: ../src/snr2.c:1018
 msgid "Hide _advanced <<"
 msgstr "Gem _avanceret <<"
 
-#: ../src/snr2.c:1049 ../src/snr2.c:1218
+#: ../src/snr2.c:1039 ../src/snr2.c:1208
 msgid "Show _advanced >>"
 msgstr "Vis _avanceret >>"
 
-#: ../src/snr2.c:1099
+#: ../src/snr2.c:1089
 msgid "Search"
 msgstr "Søg"
 
-#: ../src/snr2.c:1125
-#, fuzzy
+#: ../src/snr2.c:1115
 msgid "Search _for: "
-msgstr "Søg"
+msgstr "Søg _efter: "
 
-#: ../src/snr2.c:1144
+#: ../src/snr2.c:1134
 msgid "Replace wit_h: "
 msgstr "Erstat me_d: "
 
-#: ../src/snr2.c:1160
+#: ../src/snr2.c:1150
 msgid "\\0 refers to the first subpattern, \\1 to the second etc."
 msgstr "\\0 refererer til det første undermønster, \\1 til det ander, osv."
 
-#: ../src/snr2.c:1164
+#: ../src/snr2.c:1154
 msgid "Match ca_se"
-msgstr ""
+msgstr "Genkend _små/store bogstaver"
 
-#: ../src/snr2.c:1165
-#, fuzzy
+#: ../src/snr2.c:1155
 msgid "O_verlap matches"
 msgstr "O_verlappende søgninger"
 
-#: ../src/snr2.c:1167
-#, fuzzy
+#: ../src/snr2.c:1157
 msgid "Prompt _before replace"
 msgstr "Spørg _før erstatning"
 
-#: ../src/snr2.c:1168
+#: ../src/snr2.c:1158
 msgid "Rep_lace once"
 msgstr "E_rstat én gang"
 
-#: ../src/snr2.c:1171
-#, fuzzy
+#: ../src/snr2.c:1161
 msgid "Starts at"
-msgstr "Start mønster"
+msgstr "Start ved"
+
+#: ../src/snr2.c:1165
+msgid "Beginning of _document"
+msgstr "Begyndelsen af _dokumentet"
+
+#: ../src/snr2.c:1166
+msgid "Current pos_ition"
+msgstr "Nuvæørende pos_ition"
+
+#: ../src/snr2.c:1167
+msgid "Beginning of s_election"
+msgstr "Begyndelse af mark_ering"
+
+#: ../src/snr2.c:1168
+msgid "Beginning of all o_pened files"
+msgstr "Begyndelse af alle å_bne filer"
+
+#: ../src/snr2.c:1170
+msgid "Regular expression"
+msgstr "Regulært udtryk"
 
 #: ../src/snr2.c:1175
-#, fuzzy
-msgid "Beginning of _document"
-msgstr "Begynd fra starten af _dokumentet"
+msgid "_None"
+msgstr "_Ingen"
 
 #: ../src/snr2.c:1176
-#, fuzzy
-msgid "Current pos_ition"
-msgstr "Begynd søgning fra den nuværende pos_ition"
+msgid "POSIX _regular expression type "
+msgstr "POSIX _regulært udtryks type "
 
 #: ../src/snr2.c:1177
-#, fuzzy
-msgid "Beginning of s_election"
-msgstr "i det markerede"
-
-#: ../src/snr2.c:1178
-#, fuzzy
-msgid "Beginning of all o_pened files"
-msgstr "I alle å_bne filer"
-
-#: ../src/snr2.c:1180
-#, fuzzy
-msgid "Regular expression"
-msgstr "Fejl ved regulært udtryk: "
-
-#: ../src/snr2.c:1185
-msgid "_None"
-msgstr ""
-
-#: ../src/snr2.c:1186
-#, fuzzy
-msgid "POSIX _regular expression type "
-msgstr "Fejl ved regulært udtryk: "
-
-#: ../src/snr2.c:1187
-#, fuzzy
 msgid "PERL compatible regular e_xpression type"
-msgstr "Brug perl compatible regolære _udtryk genkendelse"
+msgstr "PERL compatible regulære _udtryk type"
+
+#: ../src/snr2.c:1183
+msgid "Replace type"
+msgstr "Erstat type"
+
+#: ../src/snr2.c:1192
+msgid "_Text"
+msgstr "_Tekst"
 
 #: ../src/snr2.c:1193
-#, fuzzy
-msgid "Replace type"
-msgstr "Erstat _tekst"
-
-#: ../src/snr2.c:1202
-#, fuzzy
-msgid "_Text"
-msgstr "Tekst"
-
-#: ../src/snr2.c:1203
-#, fuzzy
 msgid "_Uppercase"
-msgstr "Erstat _store bogstaver"
+msgstr "_Store bogstaver"
 
-#: ../src/snr2.c:1204
-#, fuzzy
+#: ../src/snr2.c:1194
 msgid "Lo_wercase"
-msgstr "Erstat s_må bogstaver"
+msgstr "S_må bogstaver"
 
 #: ../src/stringlist.c:365
 msgid " Add "
