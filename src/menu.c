@@ -588,6 +588,7 @@ static void menu_current_document_type_change(GtkMenuItem *menuitem,Tfiletype *h
 			menu_current_document_set_toggle_wo_activate(main_v->current_document->hl, NULL);
 		}
 	}
+	doc_set_statusbar_editmode_encoding(main_v->current_document);
 	DEBUG_MSG("menu_current_document_type_change, finished\n");
 }
 
@@ -1046,6 +1047,7 @@ static void menu_current_document_encoding_change(GtkMenuItem *menuitem,gchar *e
 			if (main_v->props.auto_set_encoding_meta) {
 				update_encoding_meta_in_file(main_v->current_document, main_v->current_document->encoding);
 			}
+			doc_set_statusbar_editmode_encoding(main_v->current_document);
 			DEBUG_MSG("menu_current_document_encoding_change, set to %s\n", encoding);
 		}
 	}

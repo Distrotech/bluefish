@@ -121,6 +121,7 @@ typedef struct {
 	gboolean highlightstate; /* does this document use highlighting ? */
 	gboolean wrapstate; /* does this document use wrap?*/
 	gboolean linenumberstate; /* does this document use linenumbers? */
+	gboolean overwrite_mode; /* is document in overwrite mode */
 } Tdocument;
 
 typedef struct {
@@ -237,7 +238,9 @@ typedef struct {
 	GtkWidget *middlebox; /* we need this to show/hide the filebrowser */
 	GtkWidget *hpane; /* we need this to show/hide the filebrowser */
 	GtkWidget *statusbar;
-	GtkWidget *statuslabel; /* where we have the line number */
+	GtkWidget *statusbar_lncol; /* where we have the line number */
+	GtkWidget *statusbar_insovr; /* insert/overwrite indicator */
+	GtkWidget *statusbar_editmode; /* editor mode and doc encoding */
 	GList *recent_directories; /* a stringlist with the most recently used directories */
 } Tmain;
 

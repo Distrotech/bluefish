@@ -29,6 +29,7 @@
 #include "bf_lib.h"
 #include "stringlist.h" /* add_to_stringlist */
 #include "document.h" /* doc_save_selection */
+#include "cap.h"
 
 Trecent_attribs recent_attribs;
 /*****************************************/
@@ -309,7 +310,7 @@ gchar *insert_integer_if_spin(GtkWidget * spin, gchar * itemname, gchar * string
 
 	gchar *tempstring;
 
-	if (strlen(gtk_entry_get_text(GTK_ENTRY(spin)))) {
+	if (strcmp(itemname, cap("BORDER")) == 0 || strcmp(gtk_entry_get_text(GTK_ENTRY(spin)), "0") != 0) {
 		if ((percentage) && (GTK_TOGGLE_BUTTON(percentage)->active)) {
 			tempstring = g_strdup_printf("%s %s=\"%d%%\"", string2add2, itemname, gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(spin)));
 		} else {
