@@ -142,19 +142,19 @@ static void input_tag_splitter(gpointer nothing, gpointer data)
 		g_strdown(itemvalue);
 		DEBUG_MSG("input_tag_splitter, itemvalue=%s, counter=%d\n", itemvalue, counter);
 		if (strcmp(itemvalue, "submit") == 0) {
-			buttondialog_cb(NULL, data);
+			buttondialog_dialog(NULL, data);
 		} else if (strcmp(itemvalue, "reset") == 0) {
-			buttondialog_cb(NULL, data);
+			buttondialog_dialog(NULL, data);
 		} else if (strcmp(itemvalue, "button") == 0) {
-			buttondialog_cb(NULL, data);
+			buttondialog_dialog(NULL, data);
 		} else if (strcmp(itemvalue, "text") == 0) {
-			textdialog_cb(NULL, data);
+			textdialog_dialog(NULL, data);
 		} else if (strcmp(itemvalue, "hidden") == 0) {
-			hiddendialog_cb(NULL, data);
+			hiddendialog_dialog(NULL, data);
 		} else if (strcmp(itemvalue, "radio") == 0) {
-			radiodialog_cb(NULL, data);
+			radiodialog_dialog(NULL, data);
 		} else if (strcmp(itemvalue, "checkbox") == 0) {
-			checkdialog_cb(NULL, data);
+			checkdialog_dialog(NULL, data);
 		}
 		g_free(itemvalue);
 	} else {
@@ -177,8 +177,8 @@ static void parse_tagstring(gchar * tagstring, gint pos, gint end)
 	Ttagpopup *tag_popup;
 	gboolean in_quote, has_quotes;
 	Ttagdialog tagdia[] = {
-		{"body", G_CALLBACK(body_cb)},
-		{"a", G_CALLBACK(quickanchor_cb)},
+		{"body", G_CALLBACK(body_dialog)},
+		{"a", G_CALLBACK(quickanchor_dialog)},
 		{"p", G_CALLBACK(p_dialog)},
 		{"div", G_CALLBACK(div_dialog)},
 		{"span", G_CALLBACK(span_dialog)},
@@ -188,21 +188,21 @@ static void parse_tagstring(gchar * tagstring, gint pos, gint end)
 		{"h4", G_CALLBACK(h4_dialog)},
 		{"h5", G_CALLBACK(h5_dialog)},
 		{"h6", G_CALLBACK(h6_dialog)},
-		{"hr", G_CALLBACK(quickrule_cb)},
-		{"font", G_CALLBACK(fontdialog_cb)},
-		{"basefont", G_CALLBACK(basefont_cb)},
-		{"table", G_CALLBACK(tabledialog_cb)},
-		{"tr", G_CALLBACK(tablerowdialog_cb)},
-		{"th", G_CALLBACK(tableheaddialog_cb)},
-		{"td", G_CALLBACK(tabledatadialog_cb)},
-		{"frameset", G_CALLBACK(framesetdialog_cb)},
-		{"frame",G_CALLBACK(framedialog_cb)},
-		{"form",G_CALLBACK(formdialog_cb)},
-		{"textarea",G_CALLBACK(textareadialog_cb)},
-		{"select",G_CALLBACK(selectdialog_cb)},
-		{"option",G_CALLBACK(optiondialog_cb)},
-		{"meta",G_CALLBACK(meta_cb)},
-		{"img",G_CALLBACK(image_insert_dialog_cb)}
+		{"hr", G_CALLBACK(quickrule_dialog)},
+		{"font", G_CALLBACK(font_dialog)},
+		{"basefont", G_CALLBACK(basefont_dialog)},
+		{"table", G_CALLBACK(tabledialog_dialog)},
+		{"tr", G_CALLBACK(tablerowdialog_dialog)},
+		{"th", G_CALLBACK(tableheaddialog_dialog)},
+		{"td", G_CALLBACK(tabledatadialog_dialog)},
+		{"frameset", G_CALLBACK(frameset_dialog)},
+		{"frame",G_CALLBACK(frame_dialog)},
+		{"form",G_CALLBACK(formdialog_dialog)},
+		{"textarea",G_CALLBACK(textareadialog_dialog)},
+		{"select",G_CALLBACK(selectdialog_dialog)},
+		{"option",G_CALLBACK(optiondialog_dialog)},
+		{"meta",G_CALLBACK(meta_dialog)},
+		{"img",G_CALLBACK(image_insert_dialog)}
 	};
 
 	DEBUG_MSG("parse_tagstring, started, tagstring=%s\n", tagstring);
