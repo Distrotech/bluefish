@@ -484,7 +484,22 @@ typedef struct {
 } Timage2thumb;
 
 static void mt_dialog_destroy(GtkWidget *wid, Tmuthudia *mtd) {
-	DEBUG_MSG("multi_thumbnail_dialog_destroy, called for mtd=%p\n",mtd);
+	/* check if we have some images still loading, all images that have 'created == TRUE'
+	are ready */
+	GList *tmplist;
+	for (tmplist = g_list_first(mtd->images); tmplist ; tmplist = g_list_next(tmplist)) {
+		Timage2thumb *tmp = tmplist->data;
+		if (tmp->created == FALSE) {
+			return;
+		}
+	}
+	for (tmplist = g_list_first(mtd->images); tmplist ; tmplist = g_list_next(tmplist)) {
+		Timage2thumb *tmp = tmplist->data;
+		gnome_vfs_uri_unref(tmp->imagename);
+		gnome_vfs_uri_unref(tmp->thumbname);
+		g_free(tmp);
+	}
+	DEBUG_MSG("multi_thumbnail_dialog_destroy, called for mtd=%p\n",mtd);	
 	window_destroy(mtd->win);
 	g_free(mtd);
 }
@@ -587,15 +602,16 @@ static gboolean mt_print_string(Timage2thumb *i2t) {
 
 static void mt_start_load(Timage2thumb *i2t);
 
-static void mt_start_next_load(Timage2thumb *i2t) {
+static gboolean mt_start_next_load(Timage2thumb *i2t) {
 	GList *tmplist;
 	for (tmplist = g_list_first(i2t->mtd->images); tmplist ; tmplist = g_list_next(tmplist)) {
 		Timage2thumb *tmp = tmplist->data;
 		if (tmp->of == NULL && tmp->string == NULL && tmp->created == FALSE) {
 			mt_start_load(tmp);
-			break;
+			return TRUE;
 		}
 	}
+	return FALSE;
 }
 
 static void mt_openfile_lcb(Topenfile_status status,gint error_info, gchar *buffer,GnomeVFSFileSize buflen,gpointer callback_data) {
@@ -613,10 +629,11 @@ static void mt_openfile_lcb(Topenfile_status status,gint error_info, gchar *buff
 		break;
 		case OPENFILE_FINISHED: {
 			GError *error=NULL;
+			gboolean nextload;
 			GdkPixbufLoader* pbloader;
 		
 			DEBUG_MSG("mt_openfile_lcb, finished loading image %s\n",gnome_vfs_uri_get_path(i2t->imagename));
-			mt_start_next_load(i2t); /* fire up the next image load */
+			nextload = mt_start_next_load(i2t); /* fire up the next image load */
 			pbloader = pbloader_from_filename(gnome_vfs_uri_get_path(i2t->imagename));
 			if (gdk_pixbuf_loader_write(pbloader,buffer,buflen,&error) 
 						&& gdk_pixbuf_loader_close(pbloader,&error)) {
@@ -674,6 +691,10 @@ static void mt_openfile_lcb(Topenfile_status status,gint error_info, gchar *buff
 					DEBUG_MSG("mt_openfile_lcb, failed to convert %s to image\n",gnome_vfs_uri_get_path(i2t->imagename));
 					i2t->string = g_strdup("");
 					mt_print_string(i2t);
+				}
+				if (!nextload) {
+					/* there were no more images to load, perhaps we could already call cleanup */
+					mt_dialog_destroy(NULL, i2t->mtd);
 				}
 			}
 		} break;
