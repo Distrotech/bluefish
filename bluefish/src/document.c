@@ -687,7 +687,7 @@ static void doc_set_tooltip(Tdocument *doc) {
 	if (doc->statbuf.st_uid != -1) {
 		modestr = filemode_to_string(doc->statbuf.st_mode);
 		ctime_r(&doc->statbuf.st_mtime,mtimestr);
-		sizestr = g_strdup_printf("%d", doc->statbuf.st_size);
+		sizestr = g_strdup_printf("%ld", doc->statbuf.st_size);
 	}
 #endif
 	tmp = text = g_strconcat(_("Name: "),gtk_label_get_text(GTK_LABEL(doc->tab_menu))
@@ -1944,18 +1944,23 @@ static void doc_view_populate_popup_lcb(GtkTextView *textview,GtkMenu *menu,Tdoc
 
 	gtk_menu_shell_prepend(GTK_MENU_SHELL(menu), GTK_WIDGET(gtk_menu_item_new()));
 
-	if (rpopup_doc_located_tag(doc)) {
-		menuitem = gtk_image_menu_item_new_with_label(_("Edit tag"));
-	} else if (rpopup_doc_located_color(doc)) {
-		menuitem = gtk_image_menu_item_new_with_label(_("Edit color"));
+	menuitem = gtk_image_menu_item_new_with_label(_("Edit color"));
+	gtk_menu_shell_prepend(GTK_MENU_SHELL(menu), GTK_WIDGET(menuitem));
+	if (rpopup_doc_located_color(doc)) {
+		g_signal_connect(G_OBJECT(menuitem), "activate", G_CALLBACK(rpopup_edit_color_cb), doc);
 	} else {
-		menuitem = NULL;
+		gtk_widget_set_sensitive(menuitem, FALSE);
 	}
-	if (menuitem) {
-		gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(menuitem),new_pixmap(113));
-		gtk_menu_shell_prepend(GTK_MENU_SHELL(menu), GTK_WIDGET(menuitem));
+
+	menuitem = gtk_image_menu_item_new_with_label(_("Edit tag"));
+	gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(menuitem),new_pixmap(113));
+	gtk_menu_shell_prepend(GTK_MENU_SHELL(menu), GTK_WIDGET(menuitem));
+	if (rpopup_doc_located_tag(doc)) {
 		g_signal_connect(G_OBJECT(menuitem), "activate", G_CALLBACK(rpopup_edit_tag_cb), doc);
+	} else {
+		gtk_widget_set_sensitive(menuitem, FALSE);
 	}
+	
 	gtk_widget_show_all(GTK_WIDGET(menu));
 }
 

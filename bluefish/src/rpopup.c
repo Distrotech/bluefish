@@ -38,17 +38,17 @@ typedef struct {
 
 typedef struct {
 	Tdocument *doc;
-	gint tag_so;
-	gint tag_eo;
-	gboolean found_tag;
-	gboolean found_color;
-} Trecent_tag;
+	gint so;
+	gint eo;
+	gboolean found;
+} Tevent_substring;
 
 /********************************/
 /* a global var for this module */
 /********************************/
 
-Trecent_tag rec_tag;
+Tevent_substring rec_tag;
+Tevent_substring rec_color;
 
 /*****************/
 /* the functions */
@@ -68,7 +68,7 @@ static gboolean locate_color(Tdocument *doc, const GtkTextIter *iter) {
 	gboolean retval=FALSE;
 	GtkTextIter leftiter=*iter, rightiter, maxiter = *iter;
 	DEBUG_MSG("locate_color, started\n");
-	rec_tag.found_color = FALSE;
+	rec_color.found = FALSE;
 	gtk_text_iter_backward_chars(&maxiter, 8);
 	/* first we look to the left for a #, and we look back at max. 8 chars (7 would be good enough) */
 	iht.findchar = '#';
@@ -85,10 +85,11 @@ static gboolean locate_color(Tdocument *doc, const GtkTextIter *iter) {
 		if (text) {
 			retval = string_is_color(text);
 			if (retval) {
-				rec_tag.tag_so = gtk_text_iter_get_offset(&leftiter);
-				rec_tag.tag_eo = gtk_text_iter_get_offset(&rightiter);
-				rec_tag.found_color = TRUE;
-				rec_tag.doc = doc;
+				rec_color.so = gtk_text_iter_get_offset(&leftiter);
+				rec_color.eo = gtk_text_iter_get_offset(&rightiter);
+				rec_color.found = TRUE;
+				rec_color.doc = doc;
+				DEBUG_MSG("found color from so=%d to eo=%d\n",rec_color.so, rec_color.eo);
 			}
 			g_free(text);
 		}
@@ -102,7 +103,7 @@ static gboolean locate_current_tag(Tdocument *doc, const GtkTextIter *iter) {
 	Tin_html_tag iht;
 	gtiter = ltiter = *iter;
 
-	rec_tag.found_tag = FALSE;
+	rec_tag.found = FALSE;
 
 	/* backward search for tag start */
 	iht.findchar = '>';
@@ -116,17 +117,17 @@ static gboolean locate_current_tag(Tdocument *doc, const GtkTextIter *iter) {
 	iht.ignore_if_prevchar = '?';
 	ltfound = gtk_text_iter_backward_find_char(&ltiter,(GtkTextCharPredicate)iter_char_search_lcb,
                                           &iht,NULL);
-	rec_tag.tag_so = rec_tag.tag_eo = -1;
+	rec_tag.so = rec_tag.eo = -1;
 	rec_tag.doc = doc;
 	if ((ltfound && gtfound && gtk_text_iter_compare(&ltiter,&gtiter) > 0)
 			|| (ltfound && !gtfound)) {
-		rec_tag.tag_so = gtk_text_iter_get_offset(&ltiter);
-		DEBUG_MSG("a tag is started on the left side at %d\n",rec_tag.tag_so);
+		rec_tag.so = gtk_text_iter_get_offset(&ltiter);
+		DEBUG_MSG("a tag is started on the left side at %d\n",rec_tag.so);
 	} else {
 		DEBUG_MSG("no tag start found on the left side\n");
 	}
 
-	if (rec_tag.tag_so >=0) {
+	if (rec_tag.so >=0) {
 		/* forward search for end tag */
 		iht.findchar = 62;/* 62 = > */
 		iht.prevchar = 10; /* \n */
@@ -141,9 +142,9 @@ static gboolean locate_current_tag(Tdocument *doc, const GtkTextIter *iter) {
                                           &iht,NULL);
 		if ((ltfound && gtfound && gtk_text_iter_compare(&ltiter,&gtiter) > 0)
 			|| (gtfound && !ltfound)) {
-			rec_tag.tag_eo = gtk_text_iter_get_offset(&gtiter)+1;
-			DEBUG_MSG("a tag is ended on the right side at %d\n",rec_tag.tag_eo);
-			rec_tag.found_tag = TRUE;
+			rec_tag.eo = gtk_text_iter_get_offset(&gtiter)+1;
+			DEBUG_MSG("a tag is ended on the right side at %d\n",rec_tag.eo);
+			rec_tag.found = TRUE;
 			return TRUE;
 		} else {
 			DEBUG_MSG("no tag end found on the right side\n");
@@ -164,9 +165,8 @@ void doc_bevent_in_html_code(Tdocument *doc, GdkEventButton *bevent) {
 	xpos += gtk_text_view_get_border_window_size(GTK_TEXT_VIEW(doc->view),GTK_TEXT_WINDOW_LEFT);
 	gtk_text_view_get_iter_at_location(GTK_TEXT_VIEW(doc->view), &iter, xpos, ypos);
 	DEBUG_MSG("doc_bevent_in_html_code, buffer coord's x=%d,y=%d, offset=%d\n", xpos, ypos,gtk_text_iter_get_offset(&iter));
-	if (!locate_current_tag(doc, &iter)) {
-		locate_color(doc, &iter);
-	}
+	locate_current_tag(doc, &iter);
+	locate_color(doc, &iter);
 }
 
 static void input_tag_splitter(Tbfwin *bfwin, gpointer data)
@@ -407,26 +407,38 @@ static void parse_tagstring(Tbfwin *bfwin, gchar * tagstring, gint pos, gint end
 }
 
 gboolean rpopup_doc_located_tag(Tdocument *doc) {
-	return (rec_tag.doc == doc && rec_tag.found_tag);
+	return (rec_tag.doc == doc && rec_tag.found);
 }
 
 gboolean rpopup_doc_located_color(Tdocument *doc) {
-	return (rec_tag.doc == doc && rec_tag.found_color);
+	return (rec_color.doc == doc && rec_color.found);
 }
 
 void rpopup_edit_tag_cb(GtkMenuItem *menuitem,Tdocument *doc) {
-	if (rec_tag.doc == doc && rec_tag.found_tag) {
+	if (rpopup_doc_located_tag(doc)) {
 		gchar *text;
-		DEBUG_MSG("rpopup_edit_tag_cb, get text from %d to %d\n", rec_tag.tag_so, rec_tag.tag_eo);
+		DEBUG_MSG("rpopup_edit_tag_cb, get text from %d to %d\n", rec_tag.so, rec_tag.eo);
 		/* we do not need the < and > chars so we cut those */
-		text = doc_get_chars(doc, rec_tag.tag_so+1, rec_tag.tag_eo - 1);
+		text = doc_get_chars(doc, rec_tag.so+1, rec_tag.eo - 1);
 		DEBUG_MSG("rpopup_edit_tag_cb, about to parse %s\n", text);
 		if (text) {
-			parse_tagstring(doc->bfwin, text, rec_tag.tag_so, rec_tag.tag_eo);
+			parse_tagstring(doc->bfwin, text, rec_tag.so, rec_tag.eo);
 			g_free(text);
 		}
 	} else {
 		DEBUG_MSG("rpopup_edit_tag_cb, no tag search known!!\n");
+	}
+}
+
+void rpopup_edit_color_cb(GtkMenuItem *menuitem,Tdocument *doc) {
+	if (rpopup_doc_located_color(doc)) {
+		gchar *text;
+		text = doc_get_chars(doc, rec_color.so, rec_color.eo);
+		if (text) {
+			DEBUG_MSG("rpopup_edit_color_cb, using color '%s'\n",text);
+			edit_color_dialog(doc, text, rec_color.so, rec_color.eo);
+			g_free(text);
+		}
 	}
 }
 
