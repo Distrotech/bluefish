@@ -214,6 +214,11 @@ GtkWidget *left_panel_build(Tbfwin *bfwin) {
 }
 
 void left_panel_show_hide_toggle(Tbfwin *bfwin,gboolean first_time, gboolean show) {
+	if (!first_time && ((show && bfwin->hpane) || (!show && bfwin->hpane == NULL))) {
+		DEBUG_MSG("left_panel_show_hide_toggle, retrurning!!, show=%d, bfwin->hpane=%p, first_time=%d\n",show,bfwin->hpane,first_time);
+		return;
+	} 
+
 	if (!first_time) {
 		gtk_widget_ref(bfwin->notebook_box);
 		if (show) {
