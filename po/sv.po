@@ -503,7 +503,6 @@ msgid "Font Size +1"
 msgstr "Typsnittsstorlek +1"
 
 #: ../src/gui.c:240
-#, fuzzy
 msgid "Font Size -1"
 msgstr "Typsnittsstorlek +1"
 
@@ -625,7 +624,7 @@ msgstr "Formulär..."
 
 #: ../src/gui.c:275
 msgid "Input button..."
-msgstr "Input knapp..."
+msgstr "Inputknapp..."
 
 #: ../src/gui.c:276
 msgid "Text..."
@@ -641,7 +640,7 @@ msgstr "Flerradigt textfält..."
 
 #: ../src/gui.c:279
 msgid "Radio Button..."
-msgstr "Radio Knapp"
+msgstr "Radioknapp..."
 
 #: ../src/gui.c:280
 msgid "Check Box..."
@@ -653,11 +652,11 @@ msgstr "Välj..."
 
 #: ../src/gui.c:282
 msgid "Option..."
-msgstr "Inställning (option)..."
+msgstr "Inställning listenhet..."
 
 #: ../src/gui.c:283
 msgid "Option group..."
-msgstr "Inställningsgrupp..."
+msgstr "Gruppering för formulärlistenheter..."
 
 #: ../src/gui.c:284
 msgid "Quick List..."
@@ -898,8 +897,7 @@ msgid ""
 msgstr ""
 "Det här meddelandet visas då du inte har någonting i din Snabblist.\n"
 "\n"
-"Om du högerklickar på en knapp i någon av verktygslisterna så kan du lägga "
-"till den i din Snabblist"
+"Om du högerklickar på en knapp i någon av verktygslisterna så kan du lägga till den i din Snabblist"
 
 #: ../src/gui.c:883
 msgid "Goto line"
@@ -1394,7 +1392,7 @@ msgstr "Multipla val"
 
 #: ../src/html_form.c:638
 msgid "Option"
-msgstr "Alternativ/listenhet"
+msgstr "Listenhet"
 
 #: ../src/html_form.c:648 ../src/html_form.c:692 ../src/preferences.c:1290
 msgid "Label"
@@ -1406,7 +1404,7 @@ msgstr "Vald"
 
 #: ../src/html_form.c:687
 msgid "Option group"
-msgstr "gruppering för alternativ/listenheter (optgroup)"
+msgstr "gruppering för listenheter (optgroup)"
 
 #: ../src/html_table.c:88
 msgid "Cell Padding"
@@ -1721,619 +1719,496 @@ msgid "/Tags/_Special"
 msgstr "/Taggar/_Special"
 
 #: ../src/menu.c:113
-#, fuzzy
 msgid "/Tags/Special/tearoff1"
 msgstr "/Taggar/Special/tearoff1"
 
 #: ../src/menu.c:114
-#, fuzzy
 msgid "/Tags/Special/_Accent"
 msgstr "/Taggar/Special/Accentuerade"
 
 #: ../src/menu.c:115
-#, fuzzy
 msgid "/Tags/Special/Accent/tearoff1"
 msgstr "/Taggar/Special/Accentuerade/tearoff1"
 
 #: ../src/menu.c:116
-#, fuzzy
 msgid "/Tags/Special/Accent/_Uppercase"
 msgstr "/Taggar/Special/Accentuerade/Versaler"
 
 #: ../src/menu.c:117
-#, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/_A-I"
 msgstr "/Taggar/Special/Accentuerade/Versaler/_A-I"
 
 #: ../src/menu.c:118
-#, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/A-I/tearoff1"
 msgstr "/Taggar/Special/Accentuerade/Versaler/A-I/tearoff1"
 
 #: ../src/menu.c:119
-#, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/A-I/A grave "
-msgstr "/Taggar/Special/Accentuerade/Versaler/A-I/À"
+msgstr "/Taggar/Special/Accentuerade/Versaler/A-I/A grave "
 
 #: ../src/menu.c:120
-#, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/A-I/A acute "
-msgstr "/Taggar/Special/Accentuerade/Versaler/A-I/Á"
+msgstr "/Taggar/Special/Accentuerade/Versaler/A-I/A acute "
 
 #: ../src/menu.c:121
-#, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/A-I/A circumflex "
-msgstr "/Taggar/Special/Accentuerade/Versaler/A-I/Â"
+msgstr "/Taggar/Special/Accentuerade/Versaler/A-I/A circumflex "
 
 #: ../src/menu.c:122
-#, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/A-I/A tilde "
-msgstr "/Taggar/Special/Accentuerade/Versaler/A-I/Ã"
+msgstr "/Taggar/Special/Accentuerade/Versaler/A-I/A tilde "
 
 #: ../src/menu.c:123
-#, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/A-I/AE ligature "
-msgstr "/Taggar/Special/Accentuerade/Versaler/A-I/Æ"
+msgstr "/Taggar/Special/Accentuerade/Versaler/A-I/AE ligature "
 
 #: ../src/menu.c:124
-#, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/A-I/A diaeresis "
-msgstr "/Taggar/Special/Accentuerade/Versaler/A-I/Ä"
+msgstr "/Taggar/Special/Accentuerade/Versaler/A-I/A diaerisis "
 
 #: ../src/menu.c:125
-#, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/A-I/A ring "
-msgstr "/Taggar/Special/Accentuerade/Versaler/A-I/Å"
+msgstr "/Taggar/Special/Accentuerade/Versaler/A-I/A ring "
 
 #: ../src/menu.c:126
-#, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/A-I/C cedilla "
-msgstr "/Taggar/Special/Accentuerade/Versaler/A-I/Ç"
+msgstr "/Taggar/Special/Accentuerade/Versaler/A-I/C cedilla "
 
 #: ../src/menu.c:127
-#, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/A-I/E grave "
-msgstr "/Taggar/Special/Accentuerade/Versaler/A-I/È"
+msgstr "/Taggar/Special/Accentuerade/Versaler/A-I/E grave"
 
 #: ../src/menu.c:128
-#, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/A-I/E acute "
-msgstr "/Taggar/Special/Accentuerade/Versaler/A-I/É"
+msgstr "/Taggar/Special/Accentuerade/Versaler/A-I/E diaerisis "
 
 #: ../src/menu.c:129
-#, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/A-I/E circumflex "
-msgstr "/Taggar/Special/Accentuerade/Versaler/A-I/Ê"
+msgstr "/Taggar/Special/Accentuerade/Versaler/A-I/E circumflex "
 
 #: ../src/menu.c:130
-#, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/A-I/E diaeresis "
-msgstr "/Taggar/Special/Accentuerade/Versaler/A-I/Ë"
+msgstr "/Taggar/Special/Accentuerade/Versaler/A-I/E diaresis "
 
 #: ../src/menu.c:131
-#, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/A-I/I grave "
-msgstr "/Taggar/Special/Accentuerade/Versaler/A-I/Ì"
+msgstr "/Taggar/Special/Accentuerade/Versaler/A-I/I grave "
 
 #: ../src/menu.c:132
-#, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/A-I/I acute "
-msgstr "/Taggar/Special/Accentuerade/Versaler/A-I/Í"
+msgstr "/Taggar/Special/Accentuerade/Versaler/A-I/I acute"
 
 #: ../src/menu.c:133
-#, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/A-I/I circumflex "
-msgstr "/Taggar/Special/Accentuerade/Versaler/A-I/Î"
+msgstr "/Taggar/Special/Accentuerade/Versaler/A-I/I circumflex"
 
 #: ../src/menu.c:134
-#, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/A-I/I diaeresis "
-msgstr "/Taggar/Special/Accentuerade/Versaler/A-I/Ï"
+msgstr "/Taggar/Special/Accentuerade/Versaler/A-I/I diaerisis "
 
 #: ../src/menu.c:135
-#, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/_J-Z"
-msgstr "/Taggar/Special/Accentuerade/Versaler/J-Z"
+msgstr "/Taggar/Special/Accentuerade/Versaler/_J-Z"
 
 #: ../src/menu.c:136
-#, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/J-Z/tearoff1"
 msgstr "/Taggar/Special/Accentuerade/Versaler/J-Z/tearoff1"
 
 #: ../src/menu.c:137
-#, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/J-Z/N tilde "
-msgstr "/Taggar/Special/Accentuerade/Versaler/J-Z/Ñ"
+msgstr "/Taggar/Special/Accentuerade/Versaler/J-Z/N tilde "
 
 #: ../src/menu.c:138
-#, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O grave "
-msgstr "/Taggar/Special/Accentuerade/Versaler/J-Z/Ò"
+msgstr "/Taggar/Special/Accentuerade/Versaler/J-Z/O grave "
 
 #: ../src/menu.c:139
-#, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O acute "
-msgstr "/Taggar/Special/Accentuerade/Versaler/J-Z/Ó"
+msgstr "/Taggar/Special/Accentuerade/Versaler/J-Z/O acute "
 
 #: ../src/menu.c:140
-#, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O circumflex "
-msgstr "/Taggar/Special/Accentuerade/Versaler/J-Z/Ô"
+msgstr "/Taggar/Special/Accentuerade/Versaler/J-Z/O circumflex "
 
 #: ../src/menu.c:141
-#, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/J-Z/OE ligature"
-msgstr "/Taggar/Special/Accentuerade/Versaler/A-I/Æ"
+msgstr "/Taggar/Special/Accentuerade/Versaler/A-I/OE ligature"
 
 #: ../src/menu.c:142
-#, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O tilde "
-msgstr "/Taggar/Special/Accentuerade/Versaler/J-Z/Õ"
+msgstr "/Taggar/Special/Accentuerade/Versaler/J-Z/O tilde "
 
 #: ../src/menu.c:143
-#, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O diaeresis "
-msgstr "/Taggar/Special/Accentuerade/Versaler/J-Z/Ö"
+msgstr "/Taggar/Special/Accentuerade/Versaler/J-Z/O diaeresis "
 
 #: ../src/menu.c:144
-#, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O slash "
-msgstr "/Taggar/Special/Accentuerade/Versaler/J-Z/Ø"
+msgstr "/Taggar/Special/Accentuerade/Versaler/J-Z/O slash "
 
 #: ../src/menu.c:145
-#, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/J-Z/U grave "
-msgstr "/Taggar/Special/Accentuerade/Versaler/J-Z/Ù"
+msgstr "/Taggar/Special/Accentuerade/Versaler/J-Z/U grave "
 
 #: ../src/menu.c:146
-#, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/J-Z/U acute "
-msgstr "/Taggar/Special/Accentuerade/Versaler/J-Z/Ú"
+msgstr "/Taggar/Special/Accentuerade/Versaler/J-Z/U acute "
 
 #: ../src/menu.c:147
-#, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/J-Z/U circumflex "
-msgstr "/Taggar/Special/Accentuerade/Versaler/J-Z/Û"
+msgstr "/Taggar/Special/Accentuerade/Versaler/J-Z/U circumflex "
 
 #: ../src/menu.c:148
-#, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/J-Z/U diaeresis "
-msgstr "/Taggar/Special/Accentuerade/Versaler/J-Z/Ü"
+msgstr "/Taggar/Special/Accentuerade/Versaler/J-Z/U diaerisis "
 
 #: ../src/menu.c:150
-#, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/J-Z/Y acute "
-msgstr "/Taggar/Special/Accentuerade/Versaler/J-Z/Ý"
+msgstr "/Taggar/Special/Accentuerade/Versaler/J-Z/Y acute "
 
 #: ../src/menu.c:152
-#, fuzzy
 msgid "/Tags/Special/Accent/_Lowercase"
-msgstr "/Taggar/Special/Accentuerade/gemener"
+msgstr "/Taggar/Special/Accentuerade/_Gemener"
 
 #: ../src/menu.c:153
-#, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/_A-I"
-msgstr "/Taggar/Special/Accentuerade/gemener/A-I"
+msgstr "/Taggar/Special/Accentuerade/gemener/_A-I"
 
 #: ../src/menu.c:154
-#, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/A-I/tearoff1"
 msgstr "/Taggar/Special/Accentuerade/gemener/A-I/tearoff1"
 
 #: ../src/menu.c:156
-#, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/A-I/a grave "
-msgstr "/Taggar/Special/Accentuerade/gemener/A-I/à"
+msgstr "/Taggar/Special/Accentuerade/gemener/A-I/a grave "
 
 #: ../src/menu.c:158
-#, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/A-I/a acute "
-msgstr "/Taggar/Special/Accentuerade/gemener/A-I/á"
+msgstr "/Taggar/Special/Accentuerade/gemener/A-I/a acute"
 
 #: ../src/menu.c:160
-#, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/A-I/a circumflex "
-msgstr "/Taggar/Special/Accentuerade/gemener/A-I/â"
+msgstr "/Taggar/Special/Accentuerade/gemener/A-I/a circumflex "
 
 #: ../src/menu.c:162
-#, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/A-I/a tilde "
-msgstr "/Taggar/Special/Accentuerade/gemener/A-I/ã"
+msgstr "/Taggar/Special/Accentuerade/gemener/A-I/a tilde "
 
 #: ../src/menu.c:164
-#, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/A-I/a ring "
-msgstr "/Taggar/Special/Accentuerade/gemener/A-I/å"
+msgstr "/Taggar/Special/Accentuerade/gemener/A-I/a diaerisis "
 
 #: ../src/menu.c:166
-#, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/A-I/ae ligature "
-msgstr "/Taggar/Special/Accentuerade/gemener/A-I/æ"
+msgstr "/Taggar/Special/Accentuerade/gemener/A-I/ae ligature "
 
 #: ../src/menu.c:168
-#, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/A-I/a diaeresis "
-msgstr "/Taggar/Special/Accentuerade/gemener/A-I/ä"
+msgstr "/Taggar/Special/Accentuerade/gemener/A-I/a diaerisis "
 
 #: ../src/menu.c:170
-#, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/A-I/c cedilla "
-msgstr "/Taggar/Special/Accentuerade/gemener/A-I/ç"
+msgstr "/Taggar/Special/Accentuerade/gemener/A-I/c cedilla "
 
 #: ../src/menu.c:172
-#, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/A-I/e grave "
-msgstr "/Taggar/Special/Accentuerade/gemener/A-I/è"
+msgstr "/Taggar/Special/Accentuerade/gemener/A-I/e grave "
 
 #: ../src/menu.c:174
-#, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/A-I/e acute "
-msgstr "/Taggar/Special/Accentuerade/gemener/A-I/é"
+msgstr "/Taggar/Special/Accentuerade/gemener/A-I/e acute "
 
 #: ../src/menu.c:176
-#, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/A-I/e circumflex "
-msgstr "/Taggar/Special/Accentuerade/gemener/A-I/ê"
+msgstr "/Taggar/Special/Accentuerade/gemener/A-I/e circumflex "
 
 #: ../src/menu.c:178
-#, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/A-I/e diaeresis "
-msgstr "/Taggar/Special/Accentuerade/gemener/A-I/ë"
+msgstr "/Taggar/Special/Accentuerade/gemener/A-I/e diaerisis "
 
 #: ../src/menu.c:180
-#, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/A-I/i grave "
-msgstr "/Taggar/Special/Accentuerade/gemener/A-I/ì"
+msgstr "/Taggar/Special/Accentuerade/gemener/A-I/i grave "
 
 #: ../src/menu.c:182
-#, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/A-I/i acute "
-msgstr "/Taggar/Special/Accentuerade/gemener/A-I/í"
+msgstr "/Taggar/Special/Accentuerade/gemener/A-I/i acute "
 
 #: ../src/menu.c:184
-#, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/A-I/i circumflex "
-msgstr "/Taggar/Special/Accentuerade/gemener/A-I/î"
+msgstr "/Taggar/Special/Accentuerade/gemener/A-I/i circumflex "
 
 #: ../src/menu.c:186
-#, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/A-I/i diaeresis "
-msgstr "/Taggar/Special/Accentuerade/gemener/A-I/ï"
+msgstr "/Taggar/Special/Accentuerade/gemener/A-I/i diaerisis "
 
 #: ../src/menu.c:188
-#, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/_J-Z"
 msgstr "/Taggar/Special/Accentuerade/gemener/_J-Z"
 
 #: ../src/menu.c:189
-#, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/J-Z/tearoff1"
 msgstr "/Taggar/Special/Accentuerade/gemener/J-Z/tearoff1"
 
 #: ../src/menu.c:191
-#, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/J-Z/n tilde "
-msgstr "/Taggar/Special/Accentuerade/gemener/J-Z/ñ"
+msgstr "/Taggar/Special/Accentuerade/gemener/J-Z/n tilde "
 
 #: ../src/menu.c:193
-#, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o grave "
-msgstr "/Taggar/Special/Accentuerade/gemener/J-Z/ò"
+msgstr "/Taggar/Special/Accentuerade/gemener/J-Z/o grave "
 
 #: ../src/menu.c:195
-#, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o acute "
-msgstr "/Taggar/Special/Accentuerade/gemener/J-Z/ó"
+msgstr "/Taggar/Special/Accentuerade/gemener/J-Z/o acute "
 
 #: ../src/menu.c:196
-#, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/J-Z/oe ligature "
-msgstr "/Taggar/Special/Accentuerade/gemener/A-I/æ"
+msgstr "/Taggar/Special/Accentuerade/gemener/A-I/oe ligature "
 
 #: ../src/menu.c:197
-#, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o circumflex "
-msgstr "/Taggar/Special/Accentuerade/gemener/J-Z/ô"
+msgstr "/Taggar/Special/Accentuerade/gemener/J-Z/o circumflex "
 
 #: ../src/menu.c:199
-#, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o tilde "
-msgstr "/Taggar/Special/Accentuerade/gemener/J-Z/õ"
+msgstr "/Taggar/Special/Accentuerade/gemener/J-Z/o tilde "
 
 #: ../src/menu.c:201
-#, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o diaeresis "
-msgstr "/Taggar/Special/Accentuerade/gemener/J-Z/ö"
+msgstr "/Taggar/Special/Accentuerade/gemener/J-Z/o diaerisis "
 
 #: ../src/menu.c:203
-#, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o slash "
-msgstr "/Taggar/Special/Accentuerade/gemener/J-Z/ø"
+msgstr "/Taggar/Special/Accentuerade/gemener/J-Z/o slash "
 
 #: ../src/menu.c:205
-#, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/J-Z/u grave "
-msgstr "/Taggar/Special/Accentuerade/gemener/J-Z/ù"
+msgstr "/Taggar/Special/Accentuerade/gemener/J-Z/u grave "
 
 #: ../src/menu.c:207
-#, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/J-Z/u acute "
-msgstr "/Taggar/Special/Accentuerade/gemener/J-Z/ú"
+msgstr "/Taggar/Special/Accentuerade/gemener/J-Z/u acute "
 
 #: ../src/menu.c:209
-#, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/J-Z/u circumflex "
-msgstr "/Taggar/Special/Accentuerade/gemener/J-Z/û"
+msgstr "/Taggar/Special/Accentuerade/gemener/J-Z/u circumflex "
 
 #: ../src/menu.c:211
-#, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/J-Z/u diaeresis "
-msgstr "/Taggar/Special/Accentuerade/gemener/J-Z/ü"
+msgstr "/Taggar/Special/Accentuerade/gemener/J-Z/u diaerisis "
 
 #: ../src/menu.c:213
-#, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/J-Z/y acute "
-msgstr "/Taggar/Special/Accentuerade/gemener/J-Z/ý"
+msgstr "/Taggar/Special/Accentuerade/gemener/J-Z/y acute "
 
 #: ../src/menu.c:215
-#, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/J-Z/y diaeresis "
-msgstr "/Taggar/Special/Accentuerade/gemener/J-Z/ÿ"
+msgstr "/Taggar/Special/Accentuerade/gemener/J-Z/y diaerisis "
 
 #: ../src/menu.c:217
-#, fuzzy
 msgid "/Tags/Special/Accent/separator"
 msgstr "/Taggar/Special/Accent/Separator"
 
 #: ../src/menu.c:218
-#, fuzzy
 msgid "/Tags/Special/Accent/U_mlaut "
-msgstr "/Taggar/Special/Accent/¨"
+msgstr "/Taggar/Special/Accent/U_mlaut "
 
 #: ../src/menu.c:219
-#, fuzzy
 msgid "/Tags/Special/Accent/_Acute "
-msgstr "/Taggar/Special/Accent/´"
+msgstr "/Taggar/Special/Accent/_Acute "
 
 #: ../src/menu.c:220
-#, fuzzy
 msgid "/Tags/Special/Accent/_Cedilla "
-msgstr "/Tags/Special/Accent/¸"
+msgstr "/Tags/Special/Accent/_Cedilla "
 
 #: ../src/menu.c:221
-#, fuzzy
 msgid "/Tags/Special/_Currency"
-msgstr "/Taggar/Special/Valuta"
+msgstr "/Taggar/Special/_Valuta"
 
 #: ../src/menu.c:222
-#, fuzzy
 msgid "/Tags/Special/Currency/tearoff1"
 msgstr "/Taggar/Special/Valuta/tearoff1"
 
 #: ../src/menu.c:223
-#, fuzzy
 msgid "/Tags/Special/Currency/_Cent sign "
-msgstr "/Taggar/Special/Valuta/¢"
+msgstr "/Taggar/Special/Valuta/_Cent tecken "
 
 #: ../src/menu.c:225
-#, fuzzy
 msgid "/Tags/Special/Currency/_Pound sterling "
-msgstr "/Taggar/Special/Valuta/£"
+msgstr "/Taggar/Special/Valuta/_Pound sterling "
 
 #: ../src/menu.c:227
-#, fuzzy
 msgid "/Tags/Special/Currency/C_urrency sign "
-msgstr "/Taggar/Special/Valuta/¤"
+msgstr "/Taggar/Special/Valuta/Va_lutatecken "
 
 #: ../src/menu.c:229
-#, fuzzy
 msgid "/Tags/Special/Currency/_Yen sign "
-msgstr "/Taggar/Special/Valuta/¥"
+msgstr "/Taggar/Special/Valuta/Yentecken "
 
 #: ../src/menu.c:230
-#, fuzzy
 msgid "/Tags/Special/Currency/_Euro "
 msgstr "/Taggar/Special/Valuta/_Euro"
 
 #: ../src/menu.c:231
-#, fuzzy
 msgid "/Tags/Special/_Math-Science"
 msgstr "/Taggar/Special/Mattematik-Vetenskap"
 
 #: ../src/menu.c:232
-#, fuzzy
 msgid "/Tags/Special/Math-Science/tearoff1"
 msgstr "/Taggar/Special/Mattematik-Vetenskap/tearoff1"
 
 #: ../src/menu.c:233
-#, fuzzy
 msgid "/Tags/Special/Math-Science/Logical _not sign "
-msgstr "/Taggar/Special/Mattematik-Vetenskap/¬"
+msgstr "/Taggar/Special/Mattematik-Vetenskap/Logical not sign "
 
 #: ../src/menu.c:235
-#, fuzzy
 msgid "/Tags/Special/Math-Science/_Multiplication sign "
-msgstr "/Taggar/Special/Mattematik-Vetenskap/×"
+msgstr "/Taggar/Special/Mattematik-Vetenskap/Multiplikationstecken "
 
 #: ../src/menu.c:237
-#, fuzzy
 msgid "/Tags/Special/Math-Science/_Division sign "
-msgstr "/Taggar/Special/Mattematik-Vetenskap/÷"
+msgstr "/Taggar/Special/Mattematik-Vetenskap/_Divisionstecken "
 
 #: ../src/menu.c:239
-#, fuzzy
 msgid "/Tags/Special/Math-Science/_Plus-minus sign "
-msgstr "/Taggar/Special/Mattematik-Vetenskap/±"
+msgstr "/Taggar/Special/Mattematik-Vetenskap/_Plus-minus-tecken "
 
 #: ../src/menu.c:241
-#, fuzzy
 msgid "/Tags/Special/Math-Science/_Less-than sign <"
-msgstr "/Taggar/Special/Mattematik-Vetenskap/<"
+msgstr "/Taggar/Special/Mattematik-Vetenskap/ Mindre än tecken <"
 
 #: ../src/menu.c:243
-#, fuzzy
 msgid "/Tags/Special/Math-Science/_Greater-than sign >"
-msgstr "/Taggar/Special/Mattematik-Vetenskap/>"
+msgstr "/Taggar/Special/Mattematik-Vetenskap/Större än tecken >"
 
 #: ../src/menu.c:245
-#, fuzzy
 msgid "/Tags/Special/Math-Science/Superscript _1 "
-msgstr "/Taggar/Special/Mattematik-Vetenskap/¹"
+msgstr "/Taggar/Special/Mattematik-Vetenskap/Superskript _1 "
 
 #: ../src/menu.c:247
-#, fuzzy
 msgid "/Tags/Special/Math-Science/Superscript _2 "
-msgstr "/Taggar/Special/Mattematik-Vetenskap/²"
+msgstr "/Taggar/Special/Mattematik-Vetenskap/ Superskript _2 "
 
 #: ../src/menu.c:249
-#, fuzzy
 msgid "/Tags/Special/Math-Science/Superscript _3 "
-msgstr "/Taggar/Special/Mattematik-Vetenskap/³"
+msgstr "/Taggar/Special/Mattematik-Vetenskap/Superskript _3 "
 
 #: ../src/menu.c:251
-#, fuzzy
 msgid "/Tags/Special/Math-Science/One _quarter "
-msgstr "/Taggar/Special/Mattematik-Vetenskap/¼"
+msgstr "/Taggar/Special/Mattematik-Vetenskap/En _fjärdedel "
 
 #: ../src/menu.c:253
-#, fuzzy
 msgid "/Tags/Special/Math-Science/One _half "
-msgstr "/Taggar/Special/Mattematik-Vetenskap/½"
+msgstr "/Taggar/Special/Mattematik-Vetenskap/En halv "
 
 #: ../src/menu.c:255
-#, fuzzy
 msgid "/Tags/Special/Math-Science/_Three quarters "
-msgstr "/Taggar/Special/Mattematik-Vetenskap/¾"
+msgstr "/Taggar/Special/Mattematik-Vetenskap/Tre fjärdedelar "
 
 #: ../src/menu.c:257
-#, fuzzy
 msgid "/Tags/Special/Math-Science/Deg_ree sign "
-msgstr "/Taggar/Special/Mattematik-Vetenskap/°"
+msgstr "/Taggar/Special/Mattematik-Vetenskap/Gradtecken "
 
 #: ../src/menu.c:259
-#, fuzzy
 msgid "/Tags/Special/_Non Latin"
 msgstr "/Taggar/Special/Ej Latin"
 
 #: ../src/menu.c:260
-#, fuzzy
 msgid "/Tags/Special/Non Latin/tearoff1"
 msgstr "/Taggar/Special/Ej Latin/tearoff1"
 
 #: ../src/menu.c:261
-#, fuzzy
 msgid "/Tags/Special/Non Latin/_ETH (Icelandic) "
-msgstr "/Taggar/Special/Ej Latin/Ð"
+msgstr "/Taggar/Special/Ej Latin/_ETH (Isländskt) "
 
 #: ../src/menu.c:263
-#, fuzzy
 msgid "/Tags/Special/Non Latin/_THORN (Icelandic) "
-msgstr "/Taggar/Special/Ej Latin/Þ"
+msgstr "/Taggar/Special/Ej Latin/ _THORN (Isländskt) "
 
 #: ../src/menu.c:265
-#, fuzzy
 msgid "/Tags/Special/Non Latin/et_h (Icelandic) "
-msgstr "/Taggar/Special/Ej Latin/ð"
+msgstr "/Taggar/Special/Ej Latin/et_h (Isländskt) "
 
 #: ../src/menu.c:267
-#, fuzzy
 msgid "/Tags/Special/Non Latin/th_orn "
-msgstr "/Taggar/Special/Ej Latin/ÿ"
+msgstr "/Taggar/Special/Ej Latin/th_orn "
 
 #: ../src/menu.c:268
-#, fuzzy
 msgid "/Tags/Special/Non Latin/Sharp _s "
-msgstr "/Taggar/Special/Ej Latin/ß"
+msgstr "/Taggar/Special/Ej Latin/Sharps "
 
 #: ../src/menu.c:269
-#, fuzzy
 msgid "/Tags/Special/Non Latin/_Micro sign "
-msgstr "/Taggar/Special/Ej Latin/µ"
+msgstr "/Taggar/Special/Ej Latin/Microtecken "
 
 #: ../src/menu.c:271
-#, fuzzy
 msgid "/Tags/Special/_Other"
 msgstr "/Taggar/Special/_Övriga"
 
 #: ../src/menu.c:272
-#, fuzzy
 msgid "/Tags/Special/Other/tearoff1"
 msgstr "/Taggar/Special/Övriga/tearoff1"
 
 #: ../src/menu.c:273
-#, fuzzy
 msgid "/Tags/Special/Other/_Non-breaking space"
 msgstr "/Taggar/Special/Övriga/Radbrytningsfritt mellanslag"
 
 #: ../src/menu.c:275
-#, fuzzy
 msgid "/Tags/Special/Other/_Section sign "
-msgstr "/Taggar/Special/Övriga/§"
+msgstr "/Taggar/Special/Övriga/Paragraftecken "
 
 #: ../src/menu.c:277
-#, fuzzy
 msgid "/Tags/Special/Other/_Copyright sign "
-msgstr "/Taggar/Special/Övriga/©"
+msgstr "/Taggar/Special/Övriga/Copyrighttecken "
 
 #: ../src/menu.c:279
-#, fuzzy
 msgid "/Tags/Special/Other/_Left angle quotes "
-msgstr "/Taggar/Special/Övriga/«"
+msgstr "/Taggar/Special/Övriga/_Left angle quotes "
 
 #: ../src/menu.c:281
-#, fuzzy
 msgid "/Tags/Special/Other/_Right angle quotes "
-msgstr "/Taggar/Special/Övriga/»"
+msgstr "/Taggar/Special/Övriga/_Right angel quotes "
 
 #: ../src/menu.c:283
-#, fuzzy
 msgid "/Tags/Special/Other/Registered _trademark "
-msgstr "/Taggar/Special/Övriga/®"
+msgstr "/Taggar/Special/Övriga/Registrerat varumärke "
 
 #: ../src/menu.c:285
-#, fuzzy
 msgid "/Tags/Special/Other/Inverted _exclamation "
-msgstr "/Taggar/Special/Övriga/¡"
+msgstr "/Taggar/Special/Övriga/Inverted _exclamination "
 
 #: ../src/menu.c:287
-#, fuzzy
 msgid "/Tags/Special/Other/Inverted _question mark "
-msgstr "/Taggar/Special/Övriga/¿"
+msgstr "/Taggar/Special/Övriga/Inverterat frågetecken "
 
 #: ../src/menu.c:289
-#, fuzzy
 msgid "/Tags/Special/Other/_Feminine ordinal "
-msgstr "/Taggar/Special/Övriga/ª"
+msgstr "/Taggar/Special/Övriga/Feminine ordinal "
 
 #: ../src/menu.c:291
-#, fuzzy
 msgid "/Tags/Special/Other/_Masculine ordinal "
-msgstr "/Taggar/Special/Övriga/º"
+msgstr "/Taggar/Special/Övriga/_Masciline ordinal "
 
 #: ../src/menu.c:293
-#, fuzzy
 msgid "/Tags/Special/Other/_Pilcrow (paragraph sign) "
-msgstr "/Taggar/Special/Övriga/¶"
+msgstr "/Taggar/Special/Övriga/_Paragraftecken "
 
 #: ../src/menu.c:295
-#, fuzzy
 msgid "/Tags/Special/Other/_Broken bar "
-msgstr "/Taggar/Special/Övriga/¦"
+msgstr "/Taggar/Special/Övriga/pipe-tecken "
 
 #: ../src/menu.c:296
-#, fuzzy
 msgid "/Tags/Special/Other/Soft _hypen -"
-msgstr "/Taggar/Special/Övriga/­"
+msgstr "/Taggar/Special/Övriga/Soft hypen - "
 
 #: ../src/menu.c:297
-#, fuzzy
 msgid "/Tags/Special/Other/Spa_cing macron "
-msgstr "/Taggar/Special/Övriga/¯"
+msgstr "/Taggar/Special/Övriga/Spa_cing macron "
 
 #: ../src/menu.c:299
-#, fuzzy
 msgid "/Tags/Special/Other/Middle _dot "
-msgstr "/Taggar/Special/Övriga/·"
+msgstr "/Taggar/Special/Övriga/Mittenpunkt "
 
 #: ../src/menu.c:301
 msgid "/Tags/_Format by layout"
@@ -2696,7 +2571,6 @@ msgid "/Dialogs/Form/F_orm..."
 msgstr "/Dialoger/Formulär/F_orm..."
 
 #: ../src/menu.c:395
-#, fuzzy
 msgid "/Dialogs/Form/_Input button..."
 msgstr "/Dialoger/Formulär/_Inputknapp..."
 
@@ -4002,4 +3876,3 @@ msgstr "Antal ramar"
 #: ../src/wizards.c:196
 msgid "Frame's"
 msgstr "Ramar"
-
