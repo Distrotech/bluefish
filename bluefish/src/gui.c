@@ -833,7 +833,7 @@ void gui_show_main() {
 		filebrowser_scroll_initial();
 	}
 	if (main_v->props.quickbar_items == NULL) {
-		error_dialog(_("Bluefish tip:"), _("This message is shown since you do not have any items in the Quickbar.\n\nIf you right-click a button in the HTML toolbars you can add buttons to the Quickbar."));
+		info_dialog(_("Bluefish tip:"), _("This message is shown since you do not have any items in the Quickbar.\n\nIf you right-click a button in the HTML toolbars you can add buttons to the Quickbar."));
 	}
 }
 /***********************/

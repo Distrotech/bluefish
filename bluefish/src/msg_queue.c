@@ -14,7 +14,7 @@
 #include <stdlib.h> /* exit() */
 
 #include "stringlist.h"
-#include "gtk_easy.h" /* error_dialog */
+#include "gtk_easy.h" /* *_dialog */
 #include "gui.h" /* notebook_changed() */
 #include "document.h"
 
@@ -177,9 +177,9 @@ static gboolean msg_queue_check(gint started_by_gtk_timeout)
 					tmp = stringlist_to_string(msg_queue.file_error_list, "\n");
 					free_stringlist(msg_queue.file_error_list);
 					msg_queue.file_error_list = NULL;
-					message = g_strconcat(_("Unable to open file(s)\n"), tmp, NULL);
+					message = g_strconcat(_("These files were not opened:\n"), tmp, NULL);
 					g_free(tmp);
-					error_dialog("Bluefish error", message);
+					warning_dialog(_("Unable to open file(s)\n"), message);
 					g_free(message);
 				}
 				gtk_notebook_set_page(GTK_NOTEBOOK(main_v->notebook),g_list_length(main_v->documentlist) - 1);

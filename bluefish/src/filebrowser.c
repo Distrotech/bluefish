@@ -30,10 +30,11 @@
 
 #include "bluefish.h"
 #include "document.h"
-#include "gtk_easy.h" /* error_dialog() */
+#include "gtk_easy.h" /* *_dialog(), flush_queue() */
 #include "bf_lib.h"
 #include "stringlist.h" /* count_array() */
 #include "filebrowser.h"
+#include "gui.h" /* statusbar_message() */
 
 /* #define DEBUG_SORTING */
 /* #define DEBUG_FILTER */
@@ -129,7 +130,7 @@ static gchar *return_filename_from_path(GtkTreeStore *store,const GtkTreePath *t
 	GtkTreePath *path = gtk_tree_path_copy(thispath);
 
 	while (valid) {
-		gchar *name, *tmpstr;
+		gchar *name = NULL, *tmpstr;
 		GtkTreeIter iter;
 
 		tmpstr = gtk_tree_path_to_string(path);
@@ -151,8 +152,10 @@ static gchar *return_filename_from_path(GtkTreeStore *store,const GtkTreePath *t
 			DEBUG_MSG("return_filename_from_path, found the root, retval=%s\n", retval);
 			valid = FALSE;
 		}
+		g_free(name);
 	}
 	gtk_tree_path_free(path);
+
 	return retval;
 }
 
@@ -713,7 +716,7 @@ static void dirmenu_activate_lcb(GtkWidget *widget, gchar *dir) {
 
 static void populate_dir_history(gboolean firsttime) {
 	GtkWidget *menu;
-	gchar *tmpchar, *tmpdir;
+	gchar *tmpchar, *tmpdir, *tmp;
 	GList *tmplist;
 	GList *new_history_list=NULL;
 	DEBUG_MSG("populate_dir_history, empty\n");
@@ -732,7 +735,10 @@ static void populate_dir_history(gboolean firsttime) {
 		gtk_widget_show(menu);
 	}
 
-	tmpdir = g_strconcat(g_get_current_dir(), DIRSTR, NULL);
+	tmp = g_get_current_dir();
+	tmpdir = g_strconcat(tmp, DIRSTR, NULL);
+	g_free(tmp);
+	
 	new_history_list = add_to_stringlist(new_history_list, tmpdir);
 	while ((tmpchar = strrchr(tmpdir, DIRCHR))) {
 		tmpchar++;
@@ -801,7 +807,7 @@ static void create_file_or_dir_ok_clicked_lcb(GtkWidget *widget, Tcfod *ws) {
 			newname = g_strconcat(ws->basedir,name, NULL);
 			DEBUG_MSG("create_file_or_dir_ok_clicked_lcb, newname=%s\n", newname);
 			if (file_exists_and_readable(newname)) {
-				error_dialog(_("Error creating path"),_("Path exists already"));
+				error_dialog(_("Error creating path"),_("The specified pathname already exists."));
 			} else {
 				if (ws->is_file) {
 					doc_new_with_new_file(newname);
@@ -877,6 +883,8 @@ static void create_file_or_dir_win(gint is_file) {
 static void row_expanded_lcb(GtkTreeView *tree,GtkTreeIter *iter,GtkTreePath *path,GtkTreeStore *store) {
 	gchar *filename = return_filename_from_path(store,path);
 	DEBUG_MSG("row_expanded_lcb, started on filename=%s\n", filename);
+	statusbar_message(_("Opening directory..."), 500);
+	flush_queue();
 	refresh_dir_by_path_and_filename(store, path, filename);
 	g_free(filename);
 	DEBUG_MSG("row_expanded_lcb, finished\n");
@@ -958,7 +966,7 @@ static void filebrowser_rpopup_rename_lcb(GtkWidget *widget, gpointer data) {
 	} /* if(oldfilename is open) */
 
 	if(errmessage) {
-		error_dialog(_("Error"), errmessage);
+		error_dialog(errmessage, NULL);
 		g_free(errmessage);
 	} else {
 		/* Refresh the appropriate parts of the filebrowser. */
@@ -984,13 +992,13 @@ static void filebrowser_rpopup_delete_lcb(GtkWidget *widget, gpointer data) {
 		filename = return_filename_from_path(filebrowser.store,path);
 		gtk_tree_path_free(path);
 		if (filename) {
-			gchar *buttons[] = {GTK_STOCK_DELETE, GTK_STOCK_CANCEL, NULL};
+			gchar *buttons[] = {GTK_STOCK_CANCEL, GTK_STOCK_DELETE, NULL};
 			gchar *label;
 			gint retval;
 			label = g_strdup_printf(_("Are you sure you want to\ndelete \"%s\" ?"), filename);
-			retval = multi_stockbutton_dialog(_("delete file?"), 1, label, buttons);
+			retval = multi_query_dialog(label, _("The file will be permanently deleted."), 0, 0, buttons);
 			g_free(label);
-			if (retval == 0) {
+			if (retval == 1) {
 				gchar *tmp, *dir;
 				DEBUG_MSG("file_list_rpopup_file_delete %s\n", filename);
 				unlink(filename);
