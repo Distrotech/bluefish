@@ -14,6 +14,12 @@
 #include "stringlist.h"
 #include "highlight.h" /* hl_reset_to_default()*/
 
+#undef DEBUG
+#undef DEBUG_MSG
+#ifdef __GNUC__
+#define DEBUG_MSG(format, args...)
+ /**/
+#endif
 typedef struct {
 	void *pointer;
 	unsigned char type;
@@ -78,8 +84,8 @@ static gchar *array_to_string(gchar **array, gchar delimiter) {
 	return finalstring;
 }
 
-#define ARRAYBLOCKSIZE 4
-#define BUFBLOCKSIZE 30
+#define ARRAYBLOCKSIZE 6
+#define BUFBLOCKSIZE 60
 gchar **string_to_array(gchar *string, gchar delimiter) {
 	gchar **array;
 	gchar *tmpchar, *tmpchar2;
@@ -439,7 +445,6 @@ static GList *props_init_main(GList * config_rc)
 	init_prop_integer (&config_rc, &main_v->props.backup_file,"backup_file:",1);
 	init_prop_integer (&config_rc, &main_v->props.backup_by_copy,"backup_by_copy:",0);
 	init_prop_string (&config_rc, &main_v->props.backup_abort_style,"backup_abort_style:","ask");
-	init_prop_integer (&config_rc, &main_v->props.auto_convert_CR,"auto_convert_CR:",1);
 	init_prop_integer (&config_rc, &main_v->props.allow_multi_instances,"allow_multi_instances:",0);
 	init_prop_integer (&config_rc, &main_v->props.num_undo_levels,"num_undo_levels:",100);
 	init_prop_integer (&config_rc, &main_v->props.clear_undo_on_save,"clear_undo_on_save:",0);

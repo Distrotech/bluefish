@@ -612,7 +612,7 @@ void remove_secure_dir_and_filename(gchar *filename) {
 	g_free(dirname);
 }
 
-gchar *buf_replace_char(gchar *buf, gint len, gchar srcchar, gchar destchar) {
+/* gchar *buf_replace_char(gchar *buf, gint len, gchar srcchar, gchar destchar) {
 	gint curlen=0;
 	gchar *tmpbuf=buf;
 	while(tmpbuf[curlen] != '\0' && curlen < len) {
@@ -622,4 +622,4 @@ gchar *buf_replace_char(gchar *buf, gint len, gchar srcchar, gchar destchar) {
 		curlen++;
 	}
 	return buf;
-}
+}*/
