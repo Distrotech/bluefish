@@ -16,7 +16,7 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 -->
-<chapter id="bluefish-ch-7">
+<chapter id="developing-bluefish">
 
   <title>Development guidelines</title>
 	<simplesect>    
@@ -26,7 +26,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 	</simplesect>
 
 
-	<sect1 id="bluefish-ch-7-sect-1">
+	<sect1 id="developing-bluefish-formating-style">
 		<title>Indenting and formating style</title>
 		<para>Indenting can be done with the indent utility. Bluefish 
 		uses tabs - not spaces, and I'll explain why. Some programmers
@@ -45,7 +45,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 	comment all public functions like it is done in bf_lib.c and gtk_easy.c (javadoc style, with some small differences), this can be used to create a function reference
 	</para>
 	</sect1>
-	<sect1 id="bluefish-ch-7-sect-2">
+	<sect1 id="developing-bluefish-naming">
 		<title>Naming</title>
 		<para>
 			for non-local functions, the name should preferably include a prefix that shows 
@@ -69,7 +69,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 		</itemizedlist>
 		
 	</sect1>
-	<sect1 id="bluefish-ch-7-sect-3">
+	<sect1 id="developing-bluefish-declaring-procedures">
 		<title>Declaring procedures</title>
 		<para>
 			All local functions should be static! Callback functions (called for events 
@@ -81,7 +81,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 		</para>
 		
 	</sect1>
-	<sect1 id="bluefish-ch-7-sect-4">
+	<sect1 id="developing-bluefish-header-files">
 		<title>Header files</title>
 		<para>
 			Only functions that are used from outside the file itself 
@@ -90,19 +90,19 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 			non-static functions in the .c file.
 		</para>
 	</sect1>
-	<sect1 id="bluefish-ch-7-sect-5">
+	<sect1 id="developing-bluefish-new-files">
 		<title>New files</title>
 		<para>
 			About new files
 		</para>
 	</sect1>
-	<sect1 id="bluefish-ch-7-sect-6">
+	<sect1 id="developing-bluefish-file-reference">
 		<title>File reference</title>
 		<para>
 			References
 		</para>
 	</sect1>
-	<sect1 id="bluefish-ch-7-sect-7">
+	<sect1 id="developing-bluefish-patches">
 		<title>Patches</title>
 		
 <para>Before starting to code:</para>
@@ -128,25 +128,25 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 	</sect1>
 
-	<sect1 id="bluefish-ch-7-sect-8">
+	<sect1 id="developing-bluefish-translations">
 		<title>Translations</title>
 		<para>
 			Users all over the world will use bluefish
 		</para>
 	</sect1>
-	<sect1 id="bluefish-ch-7-sect-9">
+	<sect1 id="developing-bluefish-tips">
 		<title>Some tips</title>
 		<para>
 			Development tips
 		</para>
 	</sect1>
-	<sect1 id="bluefish-ch-7-sect-10">
+	<sect1 id="developing-bluefish-making-releases">
 		<title>Making releases</title>
 		<para>
 			What is to do
 		</para>
 	</sect1>
-	<sect1 id="bluefish-ch-7-sect-11">
+	<sect1 id="developing-bluefish-useful-stuff">
 		<title>Useful stuff</title>
 		<para>
 			Links and so
