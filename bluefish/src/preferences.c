@@ -1898,8 +1898,8 @@ static void preferences_dialog() {
 	vbox2 = gtk_vbox_new(FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(frame), vbox2);
 	
-	pd->prefs[bookmarks_sort] = boxed_checkbut_with_value(_("Sort bookmarks"), main_v->props.bookmarks_sort, vbox2);
-	pd->prefs[bookmarks_default_store] = boxed_checkbut_with_value(_("Default store bookmarks"), main_v->props.bookmarks_default_store, vbox2);
+	pd->prefs[bookmarks_sort] = boxed_checkbut_with_value(_("Sort by filename"), main_v->props.bookmarks_sort, vbox2);
+	pd->prefs[bookmarks_default_store] = boxed_checkbut_with_value(_("Make bookmarks permanent by default"), main_v->props.bookmarks_default_store, vbox2);
 	{
 		gchar *actions[] = {N_("full path"), N_("path from basedir"), N_("filename"), NULL};
 		pd->prefs[bookmarks_filename_mode] = boxed_optionmenu_with_value(_("Bookmarks filename display"), main_v->props.bookmarks_filename_mode, vbox2, actions);
