@@ -37,7 +37,7 @@
 #include <time.h>			/* ctime_r() */
 #include <pcre.h>
 
-#define DEBUG
+/* #define DEBUG */
 
 #ifdef DEBUGPROFILING
 #include <sys/times.h>
@@ -730,9 +730,7 @@ static void doc_set_tooltip(Tdocument *doc) {
 static void doc_set_title(Tdocument *doc) {
 	gchar *label_string, *tabmenu_string;
 	if (doc->filename) {
-		gint b_written;
-		GError *gerror=NULL;
-		gchar *utf8name = g_filename_to_utf8(doc->filename,-1,NULL,&b_written,&gerror);
+		gchar *utf8name = get_filename_on_disk_encoding(doc->filename);
 		label_string = g_path_get_basename(utf8name);
 		tabmenu_string = g_strdup(utf8name);
 		g_free(utf8name);
@@ -818,9 +816,7 @@ static gboolean doc_check_modified_on_disk(Tdocument *doc, GnomeVFSFileInfo **ne
 	} else if (main_v->props.modified_check_type < 4) {
 		GnomeVFSFileInfo *fileinfo;
 		gboolean unref_fileinfo = FALSE;
-		GError *gerror=NULL;
-		gint b_written;
-		gchar *ondiskencoding = g_filename_from_utf8(doc->filename,-1,NULL,&b_written,&gerror);
+		gchar *ondiskencoding = get_filename_on_disk_encoding(doc->filename);
 		if (*newfileinfo == NULL) {
 			fileinfo = gnome_vfs_file_info_new();
 			unref_fileinfo = TRUE;
@@ -865,7 +861,7 @@ static gboolean doc_check_modified_on_disk(Tdocument *doc, struct stat *newstatb
 		struct stat statbuf;
 		GError *gerror=NULL;
 		gint b_written;
-		gchar *ondiskencoding = g_filename_from_utf8(doc->filename,-1,NULL,&b_written,&gerror);
+		gchar *ondiskencoding = get_filename_on_disk_encoding(doc->filename);
 		if (stat(ondiskencoding, &statbuf) == 0) {
 			g_free(ondiskencoding);
 			*newstatbuf = statbuf;
@@ -893,7 +889,7 @@ static void doc_set_stat_info(Tdocument *doc) {
 	if (doc->filename) {
 		GError *gerror=NULL;
 		gint b_written;
-		gchar *ondiskencoding = g_filename_from_utf8(doc->filename,-1,NULL,&b_written,&gerror);
+		gchar *ondiskencoding = get_filename_on_disk_encoding(doc->filename);
 #ifdef HAVE_GNOME_VFS
 		if (doc->fileinfo == NULL) {
 			doc->fileinfo = gnome_vfs_file_info_new();
@@ -1394,9 +1390,7 @@ static gchar *get_buffer_from_filename(Tbfwin *bfwin, gchar *filename, int *retu
 		}
 	}
 	if (GNOME_VFS_OK != result) {
-		GError *gerror=NULL;
-		gint b_written;
-		gchar *ondiskencoding = g_filename_from_utf8(filename, -1, NULL,&b_written,&gerror);
+		gchar *ondiskencoding = get_filename_on_disk_encoding(filename);
 		result = gnome_vfs_read_entire_file(ondiskencoding,returnsize,&buffer);
 		g_free(ondiskencoding);
 	}
@@ -1404,8 +1398,8 @@ static gchar *get_buffer_from_filename(Tbfwin *bfwin, gchar *filename, int *retu
 		gchar *errmessage = g_strconcat(_("Could not read file:\n"), filename, NULL);
 		warning_dialog(bfwin->main_window,errmessage, NULL);
 		g_free(errmessage);
-		DEBUG_MSG("get_buffer_from_filename, ERROR (result=%d), returning NULL\n",result);
-		DEBUG_MSG("get_buffer_from_filename, error: %s\n", gnome_vfs_result_to_string (result));
+		DEBUG_MSG("get_buffer_from_filename, GNOME_VFS ERROR (result=%d), returning NULL\n",result);
+		DEBUG_MSG("get_buffer_from_filename, gnome_vfs error was: %s\n", gnome_vfs_result_to_string(result));
 		return NULL;
 	}
 	buffer  = g_realloc(buffer, *returnsize+1);
@@ -1420,7 +1414,13 @@ static gchar *get_buffer_from_filename(Tbfwin *bfwin, gchar *filename, int *retu
 	gsize length;
 	GError *gerror=NULL;
 	gint b_written;
-	gchar *ondiskencoding = g_filename_from_utf8(filename, -1, NULL,&b_written,&gerror);
+	gchar *ondiskencoding = get_filename_on_disk_encoding(filename);
+	if (gerror) {
+		DEBUG_MSG("get_buffer_from_filename, failed to convert filename encoding: %s\n",gerror->message);
+		g_error_free(gerror);
+		/* lets try the default encoding */
+		ondiskencoding = g_strdup(filename);
+	}
 	result = g_file_get_contents(ondiskencoding,&buffer,&length,&error);
 	g_free(ondiskencoding);
 	if (result == FALSE) {
@@ -1631,9 +1631,7 @@ static gint doc_check_backup(Tdocument *doc) {
 	if (main_v->props.backup_file && doc->filename && file_exists_and_readable(doc->filename)) {
 		gchar *backupfilename;
 		backupfilename = g_strconcat(doc->filename, main_v->props.backup_filestring, NULL);
-		GError *gerror=NULL;
-		gint b_written;
-		gchar *ondiskencoding = g_filename_from_utf8(backupfilename, -1, NULL,&b_written,&gerror);
+		gchar *ondiskencoding = get_filename_on_disk_encoding(backupfilename);
 		res = file_copy(doc->filename, backupfilename);
 #ifdef HAVE_GNOME_VFS
 		if (doc->fileinfo) {
@@ -2057,9 +2055,7 @@ gboolean buffer_to_file(Tbfwin *bfwin, gchar *buffer, gchar *filename) {
 	GnomeVFSHandle *handle;
 	GnomeVFSFileSize bytes_written;
 	GnomeVFSResult result;
-	GError *gerror=NULL;
-	gint b_written;
-	gchar *ondiskencoding = g_filename_from_utf8(filename, -1, NULL,&b_written,&gerror);
+	gchar *ondiskencoding = get_filename_on_disk_encoding(filename);
 	/* we use create instead of open, because open will not create the file if it does
       not already exist. The last argument is the permissions to use if the file is created,
       the second to last tells GnomeVFS that its ok if the file already exists, and just open it */
@@ -2086,9 +2082,7 @@ gboolean buffer_to_file(Tbfwin *bfwin, gchar *buffer, gchar *filename) {
 #else /* HAVE_GNOME_VFS */
 gboolean buffer_to_file(Tbfwin *bfwin, gchar *buffer, gchar *filename) {
 	FILE *fd;
-	GError *gerror=NULL;
-	gint b_written;
-	gchar *ondiskencoding = g_filename_from_utf8(filename, -1, NULL,&b_written,&gerror);
+	gchar *ondiskencoding = get_filename_on_disk_encoding(filename);
 	fd = fopen(ondiskencoding, "w");
 	g_free(ondiskencoding);
 	if (fd == NULL) {
@@ -2375,7 +2369,7 @@ gchar *ask_new_filename(Tbfwin *bfwin,gchar *oldfilename, gint is_move) {
 	} else {
 		GError *gerror=NULL;
 		gint b_written;
-		gchar *ondiskencoding = g_filename_from_utf8(newfilename, -1, NULL,&b_written,&gerror);
+		gchar *ondiskencoding = get_filename_on_disk_encoding(newfilename);
 		if (g_file_test(ondiskencoding, G_FILE_TEST_EXISTS)) {
 			gchar *tmpstr;
 			gint retval;
@@ -2440,7 +2434,7 @@ gint doc_save(Tdocument * doc, gint do_save_as, gboolean do_move) {
 			if (do_move) {
 				GError *gerror=NULL;
 				gint b_written;
-				gchar *ondiskencoding = g_filename_from_utf8(doc->filename, -1, NULL,&b_written,&gerror);
+				gchar *ondiskencoding = get_filename_on_disk_encoding(doc->filename);
 #ifdef HAVE_GNOME_VFS
 				gnome_vfs_unlink(ondiskencoding);
 #else
@@ -2894,7 +2888,7 @@ Tdocument * doc_new_with_file(Tbfwin *bfwin, gchar * filename, gboolean delay_ac
 	Tdocument *doc;
 	gboolean opening_in_existing_doc = FALSE;
 	gchar *fullfilename;
-	
+	DEBUG_MSG("doc_new_with_file, called for %s\n",filename);
 	if ((filename == NULL) || (!file_exists_and_readable(filename))) {
 		DEBUG_MSG("doc_new_with_file, file %s !file_exists or readable\n", filename);
 		return NULL;
@@ -2922,7 +2916,7 @@ Tdocument * doc_new_with_file(Tbfwin *bfwin, gchar * filename, gboolean delay_ac
 			return tmpdoc;
 		}
 	}
-	DEBUG_MSG("doc_new_with_file, filename=%s exists\n", fullfilename);
+	DEBUG_MSG("doc_new_with_file, fullfilename=%s, filename=%s\n", fullfilename, filename);
 	add_filename_to_history(bfwin,fullfilename);
 
 	if (g_list_length(bfwin->documentlist)==1 && doc_is_empty_non_modified_and_nameless(bfwin->current_document)) {

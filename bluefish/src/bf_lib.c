@@ -38,6 +38,28 @@
 #define DIRCHR '/'
 #endif
 
+gchar *get_filename_on_disk_encoding(const gchar *utf8filename) {
+	GError *gerror=NULL;
+	gint b_written;
+	gchar *ondiskencoding = g_filename_from_utf8(utf8filename,-1, NULL,&b_written,&gerror);
+	if (gerror) {
+		g_print(_("Bluefish has trouble reading the filenames. Try to set the environment variable G_BROKEN_FILENAMES=1\n"));
+		ondiskencoding = g_strdup(utf8filename);
+	}
+	return ondiskencoding;
+}
+
+gchar *get_utf8filename_from_on_disk_encoding(const gchar *encodedname) {
+	GError *gerror=NULL;
+	gint b_written;
+	gchar *ondiskencoding = g_filename_to_utf8(encodedname,-1, NULL,&b_written,&gerror);
+	if (gerror) {
+		g_print(_("Bluefish has trouble reading the filenames. Try to set the environment variable G_BROKEN_FILENAMES=1\n"));
+		ondiskencoding = g_strdup(encodedname);
+	}
+	return ondiskencoding;
+}
+
 gboolean string_is_color(const gchar *color) {
 	GdkColor gcolor;
 	return gdk_color_parse(color, &gcolor);
@@ -173,11 +195,9 @@ gboolean file_copy(gchar *source, gchar *dest) {
 	GnomeVFSFileSize bytes_read, bytes_written;
 	guint buffer[BYTES_TO_PROCESS];
 	GnomeVFSResult result;
-	GError *gerror=NULL;
-	gint b_written;
 	gchar *OnDiEn_source, *OnDiEn_dest;
-	OnDiEn_source = g_filename_from_utf8(source, -1, NULL,&b_written,&gerror);
-	OnDiEn_dest = g_filename_from_utf8(dest, -1, NULL,&b_written,&gerror);
+	OnDiEn_source = get_filename_on_disk_encoding(source);
+	OnDiEn_dest = get_filename_on_disk_encoding(dest);
 	
 	result = gnome_vfs_open(&read_handle, OnDiEn_source, GNOME_VFS_OPEN_READ);
 	g_free(OnDiEn_source);
@@ -214,8 +234,8 @@ gboolean file_copy(gchar *source, gchar *dest) {
 	GError *gerror=NULL;
 	gint b_written;
 	gchar *OnDiEn_source, *OnDiEn_dest;
-	OnDiEn_source = g_filename_from_utf8(source, -1, NULL,&b_written,&gerror);
-	OnDiEn_dest = g_filename_from_utf8(dest, -1, NULL,&b_written,&gerror);
+	OnDiEn_source = get_filename_on_disk_encoding(source);
+	OnDiEn_dest = get_filename_on_disk_encoding(dest);
 
 	in = fopen(OnDiEn_source, "r");
 	g_free(OnDiEn_source);
@@ -291,7 +311,7 @@ gboolean append_string_to_file(gchar *filename, gchar *string) {
 	FILE *out;
 	GError *gerror=NULL;
 	gint b_written;
-	gchar *ondiskencoding = g_filename_from_utf8(filename, -1, NULL,&b_written,&gerror);
+	gchar *ondiskencoding = get_filename_on_disk_encoding(filename);
 	out = fopen(ondiskencoding, "a");
 	g_free(ondiskencoding);
 	if (!out) {
@@ -1093,12 +1113,12 @@ gboolean file_exists_and_readable(const gchar * filename) {
 		return FALSE;
 	}
 	DEBUG_MSG("file_exists_and_readable, filename(%p)=\"%s\", strlen(filename)=%d\n", filename, filename, strlen(filename));
-	ondiskencoding = g_filename_from_utf8(filename, -1, NULL,&b_written,&gerror);
-	DEBUG_MSG("ondiskencoding=%s\n",ondiskencoding);
+	ondiskencoding = get_filename_on_disk_encoding(filename);
+	DEBUG_MSG("file_exists_and_readable, ondiskencoding='%s'\n",ondiskencoding);
 #ifndef WIN32
 #ifdef HAVE_GNOME_VFS
 	{
-		GnomeVFSURI* uri = gnome_vfs_uri_new(filename);
+		GnomeVFSURI* uri = gnome_vfs_uri_new(ondiskencoding);
 		retval = gnome_vfs_uri_exists(uri);
 		gnome_vfs_uri_unref(uri);
 		DEBUG_MSG("file_exists_and_readable, return %d for %s\n",retval,filename);
@@ -1106,7 +1126,7 @@ gboolean file_exists_and_readable(const gchar * filename) {
 #else /* HAVE_GNOME_VFS */
 	{
 		struct stat naamstat;
-		retval = (stat(filename, &naamstat) == -1) && (errno == ENOENT));
+		retval = (stat(ondiskencoding, &naamstat) == -1) && (errno == ENOENT));
 	}
 #endif /* HAVE_GNOME_VFS */
 	g_free(ondiskencoding);

@@ -33,6 +33,8 @@ typedef enum {
 	tcc2i_full_match_gettext
 } Ttcc2i_mode;
 
+gchar *get_filename_on_disk_encoding(const gchar *utf8filename);
+gchar *get_utf8filename_from_on_disk_encoding(const gchar *encodedname);
 gboolean string_is_color(const gchar *color);
 gchar *filemode_to_string(mode_t statmode);
 gchar *return_root_with_protocol(const gchar *url);
