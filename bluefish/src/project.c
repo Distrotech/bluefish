@@ -392,6 +392,7 @@ gboolean project_save_and_close(Tbfwin *bfwin) {
 		add_to_recent_list(bfwin,bfwin->project->filename, TRUE, TRUE);
 	}
 	doc_close_multiple_backend(bfwin, FALSE);
+	/* BUG the following test does not really work anymore with async saving & closing*/
 	if (!test_only_empty_doc_left(bfwin->documentlist)) {
 		DEBUG_MSG("closing all documents failed, returning\n");
 		return FALSE;
