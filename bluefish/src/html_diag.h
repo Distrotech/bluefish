@@ -35,8 +35,8 @@ typedef struct {
 extern Trecent_attribs recent_attribs;
 
 typedef struct {
-	GtkWidget *src1;
-	GtkWidget *src2;
+	GtkWidget *name;
+	GtkWidget *val;
 	GtkWidget *dest;
 	gint type;
 } Tphpvarins; /* this struct contains a src and dest widget for PHP variable generation*/
@@ -75,11 +75,12 @@ typedef struct {
 	GtkWidget *check[8];
 	GtkWidget *clist[4];
 	GtkWidget *text[1];
-	GtkWidget *attrwidget[20];
+	GtkWidget *attrwidget[20]; /* all attribute widgets should go in here */
 	Treplacerange range;
 	GtkTextMark *mark_ins;
 	GtkTextMark *mark_sel;
 	Tphpvarins php_var_ins;
+	GtkWidget *phpbutton;
 	gboolean tobedestroyed; /* this will be set to TRUE on destroy */
 	Tdocument *doc;
 	Tbfwin *bfwin;

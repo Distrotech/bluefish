@@ -44,7 +44,7 @@
 
 static void php_var_insert_cb(GtkWidget *widget, Thtml_diag *dg) {
 	gchar *tmp;
-	tmp = gtk_editable_get_chars(GTK_EDITABLE(dg->php_var_ins.src1), 0, -1);
+	tmp = gtk_editable_get_chars(GTK_EDITABLE(dg->php_var_ins.name), 0, -1);
 
 	if (strlen(tmp)) {
 		gchar *tmp2=NULL;
@@ -54,7 +54,7 @@ static void php_var_insert_cb(GtkWidget *widget, Thtml_diag *dg) {
 			tmp2 = g_strdup_printf("<?php if (isset($_POST['%s'])) { echo $%s; } ?>",tmp,tmp);
 		break;
 		case PHPFORM_TYPE_RADIO:
-			tmp3 = gtk_editable_get_chars(GTK_EDITABLE(dg->php_var_ins.src2), 0, -1);
+			tmp3 = gtk_editable_get_chars(GTK_EDITABLE(dg->php_var_ins.val), 0, -1);
 			if (strlen(tmp3)) {
 				if (main_v->props.xhtml == 1) {
 					tmp2 = g_strdup_printf("<?php if ($_POST['%s']==\"%s\") { echo 'checked=\\\"checked\\\"'; } ?>",tmp,tmp3);
@@ -80,13 +80,11 @@ static void php_var_insert_cb(GtkWidget *widget, Thtml_diag *dg) {
 	g_free(tmp);
 }
 
-GtkWidget *php_var_but(GtkWidget *src1, GtkWidget *src2, GtkWidget *dest, Thtml_diag *dg, gint type) {
-	GtkWidget *pixmap,*returnwid;
-
-	dg->php_var_ins.src1 = src1;
-	dg->php_var_ins.src2 = src2;
+GtkWidget *php_var_but(Thtml_diag *dg, GtkWidget *name, GtkWidget *val, GtkWidget *dest) {
+ 	GtkWidget *pixmap,*returnwid;
+	dg->php_var_ins.name = name;
+	dg->php_var_ins.val = val;
 	dg->php_var_ins.dest = dest;
-	dg->php_var_ins.type = type;
 	returnwid = gtk_button_new();
 	pixmap = new_pixmap(84);
 	gtk_widget_show(pixmap);
@@ -754,6 +752,13 @@ static void inputdialog_typecombo_activate_lcb(GtkList *list, Thtml_diag *dg) {
 		gtk_widget_set_sensitive(dg->spin[0], (strcmp(text, "hidden")!=0));
 		gtk_widget_set_sensitive(dg->spin[1], (strcmp(text, "text")==0 || strcmp(text, "passwd")==0));
 		gtk_widget_set_sensitive(dg->entry[2], (strcmp(text, "file")==0));
+		if (strcmp(text, "text")==0) {
+			dg->php_var_ins.type = PHPFORM_TYPE_TEXT;
+		} else if (strcmp(text, "radio")==0) {
+			dg->php_var_ins.type = PHPFORM_TYPE_RADIO;
+		} else if (strcmp(text, "checkbox")==0) {
+			dg->php_var_ins.type = PHPFORM_TYPE_CHECK;
+		}
 	}
 }
 
@@ -810,9 +815,11 @@ void inputdialog_dialog(Tbfwin *bfwin, Ttagpopup *data, const gchar *type) {
 	
 	dg->entry[7] = entry_with_text(custom, 256);
 	bf_mnemonic_label_tad_with_alignment(_("C_ustom:"), dg->entry[7], 0, 0.5, dgtable, 0, 1, 7, 8);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[7], 1, 3, 7, 8);
-	
-	dgtable = generic_table_inside_notebookframe(noteb, _("Generic"), 4, 3);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[7], 1, 2, 7, 8);
+	dg->phpbutton = php_var_but(dg, dg->entry[0], dg->entry[1], dg->entry[7]);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->phpbutton, 2, 3, 7, 8);
+
+	dgtable = generic_table_inside_notebookframe(noteb, _("Style"), 4, 3);
 	
 	generic_class_id_style_section(dg, 0, dgtable, 0, tagvalues, 11);
 
