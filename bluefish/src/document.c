@@ -3229,6 +3229,11 @@ static void doc_activate_modified_lcb(Tcheckmodified_status status,gint error_in
 	}
 }
 
+static gboolean doc_close_from_activate(gpointer data) {
+	doc_close_single_backend(DOCUMENT(data), FALSE);
+	return FALSE;
+}
+
 /**
  * doc_activate:
  * @doc: a #Tdocument
@@ -3255,16 +3260,16 @@ void doc_activate(Tdocument *doc) {
 		gchar *options[] = {_("_Retry"), _("_Close"), NULL};
 		gchar *tmpstr;
 		gint retval;
-		DEBUG_MSG("ERROR, RETRY???\n");
+		DEBUG_MSG("doc_activate, DOC_STATUS_ERROR, retry???\n");
 		tmpstr = g_strconcat(_("File "), doc->uri, _(" failed to load."), NULL);
 		retval = multi_warning_dialog(BFWIN(doc->bfwin)->main_window,_("File failed to load\n"), tmpstr, 0, 1, options);
 		g_free(tmpstr);
 		if (retval == 0) {
 			file_doc_retry_uri(doc);
 		} else {
-			doc_close_single_backend(doc, FALSE);
-			/*doc_close(doc, FALSE);*/
+			g_idle_add(doc_close_from_activate, doc);
 		}
+		DEBUG_MSG("doc_activate, returning\n");
 		return;
 	} else if (doc->status == DOC_STATUS_LOADING) {
 		DEBUG_MSG("STILL LOADING !\n");
