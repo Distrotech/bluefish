@@ -1221,7 +1221,7 @@ void browser_toolbar_cb(GtkWidget *widget, Tbfwin *bfwin) {
 static void browser_lcb(GtkWidget *widget, Tbfw_dynmenu *bdm) {
 	gchar **arr = (gchar **)bdm->data;
 	if (!bdm->bfwin->current_document->filename || bdm->bfwin->current_document->modified) {
-		file_save_cb(NULL, NULL);
+		file_save_cb(NULL, bdm->bfwin);
 	}
 	view_in_browser(bdm->bfwin,arr[1]);
 }
@@ -1237,7 +1237,7 @@ static void external_command_lcb(GtkWidget *widget, Tbfw_dynmenu *bdm) {
 	need_s = (int)strstr(arr[1], "%s");
 
 	if (need_s) {
-		file_save_cb(NULL, NULL);
+		file_save_cb(NULL, bdm->bfwin);
 		if (!bdm->bfwin->current_document->filename) {
 			return;
 		}

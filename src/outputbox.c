@@ -177,7 +177,7 @@ static GList *run_command(Toutputbox *ob) {
 	GList *retlist;
 	Tconvert_table *table, *tmpt;
 	gchar *command1, *command2, *tmpfile;
-	file_save_cb(NULL, NULL);
+	file_save_cb(NULL, ob->bfwin);
 	if (!ob->bfwin->current_document->filename) {
 		/* if the usder clicked cancel at file_save -> return */
 		return NULL;
