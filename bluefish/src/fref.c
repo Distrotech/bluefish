@@ -494,12 +494,14 @@ GtkWidget *fref_init()
 	while (reflist) {
 		tmparray = reflist->data;
 		if (count_array(tmparray) == 2) {
-			gtk_tree_store_append(fref_data.store, &iter, NULL);
-			gtk_tree_store_set(fref_data.store, &iter, STR_COLUMN,
+			if (file_exists_and_readable(tmparray[1])) {
+				gtk_tree_store_append(fref_data.store, &iter, NULL);
+				gtk_tree_store_set(fref_data.store, &iter, STR_COLUMN,
 							   tmparray[0], PTR_COLUMN, NULL, FILE_COLUMN,
 							   tmparray[1], -1);
-			/* dummy node for expander display */
-			gtk_tree_store_append(fref_data.store, &iter2, &iter);
+				/* dummy node for expander display */
+				gtk_tree_store_append(fref_data.store, &iter2, &iter);
+			}
 		}
 		reflist = g_list_next(reflist);
 	}
