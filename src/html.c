@@ -22,7 +22,7 @@
  */
 /* 
  * Changes by Antti-Juhani Kaijanaho <gaia@iki.fi> on 1999-10-20
- * $Id: html.c,v 1.5 2002-09-05 20:38:28 oli4 Exp $
+ * $Id: html.c,v 1.6 2002-09-21 19:22:44 oli4 Exp $
  */
 
 #include <gtk/gtk.h>
@@ -76,7 +76,7 @@ void insert_char_cb(GtkWidget * widget, gint data) {
 	"&eth;", "&thorn;", "&szlig;", "&micro;", "&nbsp;", "&sect;",
 	"&copy;", "&laquo;", "&raquo;", "&reg;", "&iexcl;", "&iquest;",
 	"&ordf;", "&ordm;", "&para;", "&brvbar;", "&shy;", "&macr;",
-	"&middot;","&euro;"
+	"&middot;","&euro;", "&oelig;", "&OElig;"
 	};
 	doc_insert_two_strings(main_v->current_document, sp_chars[data], NULL);
 }

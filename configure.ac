@@ -174,12 +174,12 @@ AC_OUTPUT
 
 echo "-----------"
 echo "If you like this program, please let me know and send me"
-echo "a postcard and tell me which city/country you're from:"
+echo "a postcard and tell me what city/country you're from:"
 echo ""
 echo "Olivier Sessink"
 echo "Thorbeckestraat 470"
 echo "6702 CJ"
 echo "Wageningen"
-echo "the Netherlands"
+echo "The Netherlands"
 echo "-----------"
 #set
