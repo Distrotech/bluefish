@@ -30,7 +30,7 @@ enum {
 	max_dir_history,	/* length of directory history */
 	backup_file, 			/* wheather to use a backup file */
 	backup_filestring,  /* the string to append to the backup file */
-	backup_abort_style, /* if the backup fails, continue 'save', 'abort' save, or 'ask' user */
+	backup_abort_action, /* if the backup fails, continue 'save', 'abort' save, or 'ask' user */
 	backup_cleanuponclose, /* remove the backupfile after close ? */
 	image_thumbnailstring,	/* string to append to thumbnail filenames */
 	image_thumbnailtype,	/* fileformat to use for thumbnails, "jpeg" or "png" can be handled by gdkpixbuf*/
@@ -1590,7 +1590,7 @@ static void preferences_ok_clicked_lcb(GtkWidget *wid, Tprefdialog *pd) {
 	integer_apply(&main_v->props.auto_set_encoding_meta, pd->prefs[auto_set_encoding_meta], TRUE);
 	integer_apply(&main_v->props.backup_file, pd->prefs[backup_file], TRUE);
 	string_apply(&main_v->props.backup_filestring, pd->prefs[backup_filestring]);
-	string_apply(&main_v->props.backup_abort_style, GTK_COMBO(pd->prefs[backup_abort_style])->entry);
+	main_v->props.backup_abort_action = gtk_option_menu_get_history(GTK_OPTION_MENU(pd->prefs[backup_abort_action]));
 	integer_apply(&main_v->props.backup_cleanuponclose, pd->prefs[backup_cleanuponclose], TRUE);
 	integer_apply(&main_v->props.num_undo_levels, pd->prefs[num_undo_levels], FALSE);
 	integer_apply(&main_v->props.clear_undo_on_save, pd->prefs[clear_undo_on_save], TRUE);
@@ -1685,7 +1685,7 @@ static void restore_dimensions_toggled_lcb(GtkToggleButton *togglebutton,Tprefdi
 }
 static void create_backup_toggled_lcb(GtkToggleButton *togglebutton,Tprefdialog *pd) {
 	gtk_widget_set_sensitive(pd->prefs[backup_filestring], togglebutton->active);
-	gtk_widget_set_sensitive(pd->prefs[backup_abort_style], togglebutton->active);
+	gtk_widget_set_sensitive(pd->prefs[backup_abort_action], togglebutton->active);
 }
 
 static void preferences_dialog() {
@@ -1759,11 +1759,8 @@ static void preferences_dialog() {
 	pd->prefs[backup_file] = boxed_checkbut_with_value(_("Create backup on save"), main_v->props.backup_file, vbox2);
 	pd->prefs[backup_filestring] = prefs_string(_("Backup file suffix"), main_v->props.backup_filestring, vbox2, pd, string_none);
 	{
-		GList *poplist = g_list_append(NULL, _("save"));
-		poplist = g_list_append(poplist, _("abort"));
-		poplist = g_list_append(poplist, _("ask"));
-		pd->prefs[backup_abort_style] = prefs_combo(_("Action on backup failure"),main_v->props.backup_abort_style, vbox2, pd, poplist, FALSE);
-		g_list_free(poplist);
+		gchar *failureactions[] = {N_("save"), N_("abort"), N_("ask"), NULL};
+		pd->prefs[backup_abort_action] = prefs_optionmenu(_("Action on backup failure"), main_v->props.backup_abort_action, vbox2, failureactions);
 	}
 	pd->prefs[backup_cleanuponclose] = boxed_checkbut_with_value(_("Remove backupfile on close"), main_v->props.backup_cleanuponclose, vbox2);
 	create_backup_toggled_lcb(GTK_TOGGLE_BUTTON(pd->prefs[backup_file]), pd);
