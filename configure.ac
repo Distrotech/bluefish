@@ -42,7 +42,7 @@ AC_C_INLINE
 AC_PROG_INSTALL
 
 if test "$CC" = "gcc" ; then
-	CFLAGS="$CFLAGS -Wall"
+	CFLAGS="$CFLAGS -Wall -pipe"
 fi
 
 AC_CANONICAL_HOST
@@ -56,31 +56,24 @@ if test "$CYGWIN" = "yes"; then
   CFLAGS="$CFLAGS -fnative-struct"
 	LIBS="$LIBS -lintl.dll"
 fi  
-  
 
-AC_ARG_WITH(pentium,
-[  --with-pentium          Optimizes your code for pentium cpus],[
-   AC_PATH_PROGS(PGCC, pgcc, $TMP)
-   	if test "$PGCC" != "" ; then
-		CC = $PGCC
-	fi
- 	CFLAGS="-O6 -mpentium -fomit-frame-pointer -fno-exceptions -fno-rtti -pipe -s -ffast-math -fexpensive-optimizations -malign-loops=2 -malign-jumps=2 -malign-functions=2"
-	echo "Using $CC $CFLAGS"
-])
+AC_ARG_ENABLE(gcc3-optimization, 
+		AC_HELP_STRING([--enable-gcc3-optimization=type],
+				[gcc3 can optimize for: i386, i486, pentium, pentium-mmx, pentiumpro, pentium2, pentium3, pentium4, k6, k6-2, k6-3, athlon, athlon-tbird, athlon-4, athlon-xp, athlon-mp, winchip-c6, winchip2, c3]),
+		CFLAGS="-O3 -march=$enableval -fomit-frame-pointer -fno-exceptions -fno-rtti -pipe -s -ffast-math -fexpensive-optimizations -floop-optimize -falign-functions -falign-loops"
+		echo "Using $CC $CFLAGS"
+)
 
-AC_ARG_WITH(pentiumpro,
-[  --with-pentiumpro       Optimizes your code for pentium pro/II/III cpus],[
-   AC_PATH_PROGS(PGCC, pgcc, $TMP)
-   	if test "$PGCC" != "" ; then
-		CC = $PGCC
-	fi
- 	CFLAGS="-O6 -mpentiumpro -march=pentiumpro -fomit-frame-pointer -fno-exceptions -fno-rtti -pipe -s -ffast-math -fexpensive-optimizations -malign-loops=2 -malign-jumps=2 -malign-functions=2"
-	echo "Using $CC $CFLAGS"
-])
+AC_ARG_ENABLE(gcc2-optimization, 
+		AC_HELP_STRING([--enable-gcc2-optimization=type],
+				[gcc2 can optimize for: i386, i486, pentium, pentiumpro, k6]),
+		CFLAGS="-O3 -march=$enableval -fomit-frame-pointer -fno-exceptions -fno-rtti -pipe -s -ffast-math -fexpensive-optimizations"
+		echo "Using $CC $CFLAGS"
+)
 
 AC_PROG_INSTALL
 
-AC_ARG_WITH(debugging_output,
+AC_ARG_WITH(debugging-output,
 [  --with-debugging-output Turns debugging output on],[
    echo "With debugging output",
 AC_DEFINE(DEBUG)],)
@@ -94,8 +87,20 @@ dnl ************************
 dnl Checks for librarries
 dnl ************************
 
-LIBS="$LIBS `pkg-config --libs gtk+-2.0`"
-CFLAGS="$CFLAGS `pkg-config --cflags gtk+-2.0`"
+AC_PATH_PROG(PKG_CONFIG, pkg-config, no)
+if test "x$PKG_CONFIG" = "xno" ; then
+	AC_MSG_ERROR(pkg-config not found please install pkg-config)
+fi
+
+echo -n "checking for gtk+-2.0... "
+if pkg-config --exists gtk+-2.0 ; then
+	LIBS="$LIBS `pkg-config --libs gtk+-2.0`"
+	CFLAGS="$CFLAGS `pkg-config --cflags gtk+-2.0`"
+	echo "yes"
+else
+	echo "no"
+	AC_MSG_ERROR(libgtk2.0-dev missing, please install libgtk2.0-dev)
+fi
 
 AC_PATH_PROG(PCRE_CONFIG, pcre-config, no)
 if test "x$PCRE_CONFIG" = "xno" ; then

@@ -596,7 +596,7 @@ static GtkTreePath *filebrowser_path_up_multi(GtkTreePath *path, gint num) {
 }
 
 static void filebrowser_expand_to_root(const GtkTreePath *this_path) {
-	gint num = gtk_tree_path_get_depth(this_path);
+	gint num = gtk_tree_path_get_depth((GtkTreePath *)this_path);
 	while (num >= 0) {
 		GtkTreePath *path = gtk_tree_path_copy(this_path);
 		path = filebrowser_path_up_multi(path, num);

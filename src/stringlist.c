@@ -56,7 +56,7 @@ typedef struct {
 	gint num_columns;
 	gint last_row;
 	GList **the_list;
-	void *(*function) ();
+	void (*function)();
 } Testrl;
 
 

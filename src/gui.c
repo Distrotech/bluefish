@@ -194,7 +194,7 @@ void left_panel_show_hide_toggle(gboolean first_time, gboolean show) {
 
 typedef struct {
 	const gchar *ident;
-	void *func;
+	void (*func)();
 	gpointer func_data;
 	gint pixmaptype;
 	const gchar *tooltiptext;
