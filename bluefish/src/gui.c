@@ -256,7 +256,7 @@ void left_panel_show_hide_toggle(Tbfwin *bfwin,gboolean first_time, gboolean sho
 			gtk_widget_destroy(bfwin->hpane);
 			filebrowser_cleanup(bfwin);
 			fref_cleanup(bfwin);
-                        bmark_cleanup(bfwin); 
+			bmark_cleanup(bfwin); 
 		}
 	}
 	if (show) {
