@@ -25,7 +25,7 @@
 #endif
 
 #include <gtk/gtk.h>
-#include <sys/types.h>
+#include <sys/types.h> /* _before_ regex.h for freeBSD */
 #include <regex.h> /* regexec() */
 #include <string.h> /* strerror() */
 #include <stdlib.h> /* atoi() */

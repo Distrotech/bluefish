@@ -249,6 +249,104 @@ static void doc_scroll_to_line(Tdocument *doc, gint linenum, gboolean select_lin
 	}
 }
 
+/* gchar *doc_get_chars(Tdocument *doc, gint startpos, gint len)
+ * returns len characters from startpos
+ * if len == -1 it will return everrything to the end
+ */
+gchar *doc_get_chars(Tdocument *doc, gint start, gint len) {
+	GtkTextIter itstart, itend;
+	gchar *string;
+
+	gtk_text_buffer_get_iter_at_offset(doc->buffer, &itstart,start);
+	if (len > 0) {
+		gtk_text_buffer_get_iter_at_offset(doc->buffer, &itend, start + len);
+	} else if (len == -1) {
+		gtk_text_buffer_get_end_iter(doc->buffer, &itend);
+	} else {
+		return NULL;
+	}
+	string = gtk_text_buffer_get_text(doc->buffer, &itstart, &itend,FALSE);
+	return string;
+}
+
+/*  void doc_select_region(Tdocument *doc, gint start, gint end, gboolean do_scroll)
+ *  selects from start to end in the doc, and if do_scroll is set it will make
+ *  sure the selection is visible to the user
+ */
+void doc_select_region(Tdocument *doc, gint start, gint end, gboolean do_scroll) {
+	/* how do we select a region in gtk2?? */
+	GtkTextIter itstart, itend;
+	gtk_text_buffer_get_iter_at_offset(doc->buffer, &itstart,start);
+	gtk_text_buffer_get_iter_at_offset(doc->buffer, &itend,end);
+	gtk_text_buffer_move_mark_by_name(doc->buffer, "insert", &itstart);
+	gtk_text_buffer_move_mark_by_name(doc->buffer, "selection_bound", &itend);
+	gtk_text_view_scroll_to_iter(GTK_TEXT_VIEW(doc->view),&itstart,0.25,FALSE,0.5,0.5);
+}
+
+/*  gboolean doc_get_selection(Tdocument *, gint *start, gint *end)
+ *  returns FALSE if there is no selection
+ *  returns TRUE if there is a selection, and start and end will be set
+ *  to the current selection
+ */
+gboolean doc_get_selection(Tdocument *doc, gint *start, gint *end) {
+	GtkTextIter itstart, itend;
+	GtkTextMark *mark = gtk_text_buffer_get_insert(doc->buffer);
+	gtk_text_buffer_get_iter_at_mark(doc->buffer,&itstart,mark);
+	mark = gtk_text_buffer_get_selection_bound(doc->buffer);
+	gtk_text_buffer_get_iter_at_mark(doc->buffer,&itend,mark);
+	*start = gtk_text_iter_get_offset(&itstart);
+	*end = gtk_text_iter_get_offset(&itend);
+	if (*start == *end) {
+		return FALSE;
+	}
+	return TRUE;
+}
+
+gint doc_get_cursor_position(Tdocument *doc) {
+	GtkTextIter iter;
+	GtkTextMark *mark = gtk_text_buffer_get_insert(doc->buffer);
+	gtk_text_buffer_get_iter_at_mark(doc->buffer, &iter, mark);
+	return gtk_text_iter_get_offset(&iter);
+}
+
+void doc_replace_text_backend(Tdocument *doc, const gchar * newstring, gint start, gint end) {
+	doc_unbind_signals(doc);
+	
+	/* delete region, and add that to undo/redo list */
+	{
+		gchar *buf;
+		GtkTextIter itstart, itend;
+		gtk_text_buffer_get_iter_at_offset(doc->buffer, &itstart,start);
+		gtk_text_buffer_get_iter_at_offset(doc->buffer, &itend,end);
+		buf = gtk_text_buffer_get_text(doc->buffer, &itstart, &itend,FALSE);
+		gtk_text_buffer_delete(doc->buffer,&itstart,&itend);
+		doc_unre_add(doc, buf, start, end, UndoDelete);
+		g_free(buf);
+		DEBUG_MSG("doc_replace_text, text deleted from %d to %d\n", start, end);
+	}
+
+	/* add new text to this region, the buffer is changed so re-calculate itstart */
+	{
+		GtkTextIter itstart;
+		gtk_text_buffer_get_iter_at_offset(doc->buffer, &itstart,start);
+		gtk_text_buffer_insert(doc->buffer,&itstart,newstring,-1);
+	}
+	doc_unre_add(doc, newstring, start, strlen(newstring), UndoInsert);
+	doc_bind_signals(doc);
+	doc_set_modified(doc, 1);
+}					  
+
+void doc_replace_text(Tdocument * doc, const gchar * newstring, gint start, gint end) {
+	doc_unre_new_group(doc);
+
+	doc_replace_text_backend(doc, newstring, start, end);
+	
+	doc_set_modified(doc, 1);
+	doc_unre_new_group(doc);
+/*	doc_need_highlighting(doc);*/
+}
+
+
 #define STARTING_BUFFER_SIZE 1024
 gboolean doc_file_to_textbox(Tdocument * doc, gchar * filename)
 {
