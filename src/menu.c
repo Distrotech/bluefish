@@ -21,7 +21,7 @@
 #include <stdlib.h> /* atoi */
 #include <string.h> /* strchr() */
 
-/* #define DEBUG */
+/*#define DEBUG*/
 
 #include "bluefish.h"
 #include "document.h"			/* file_open etc. */
@@ -1065,26 +1065,35 @@ void add_to_recent_list(gchar *filename, gint closed_file) {
 /* Windows !!    */
 /*****************/
 
-static void remove_all_window_entries_in_window(Tbfwin *menuwin) {
-	GList *tmplist = g_list_first(menuwin->menu_windows);
+static void remove_all_window_entries_in_window(Tbfwin *menubfwin) {
+	GList *tmplist = g_list_first(menubfwin->menu_windows);
+	DEBUG_MSG("removing all window entries in menubfwin %p\n",menubfwin);
 	while (tmplist) {
 		Tbfw_dynmenu *bdm = BFW_DYNMENU(tmplist->data);
 		/*g_signal_handler_disconnect(bdm->menuitem,bdm->signal_id);*/
+		DEBUG_MSG("remove_all_window_entries_in_window, destroy menuitem=%p\n",bdm->menuitem);
 		gtk_widget_destroy(bdm->menuitem);
 		g_free(bdm);
 		tmplist = g_list_next(tmplist);
 	}
+	g_list_free(menubfwin->menu_windows);
+	menubfwin->menu_windows = NULL;
 }
 static void remove_window_entry_from_window(Tbfwin *menubfwin, Tbfwin *tobfwin) {
 	Tbfw_dynmenu *bdm = find_bfw_dynmenu_by_data_in_list(menubfwin->menu_windows, tobfwin);
+	DEBUG_MSG("remove_window_entry_from_window, menuwin=%p, found bdm=%p\n",menubfwin,bdm);
 	if (bdm) {
 		/*g_signal_handler_disconnect(bdm->menuitem,bdm->signal_id);*/
+		DEBUG_MSG("remove_window_entry_from_window, destroy menuitem=%p\n",bdm->menuitem);
 		gtk_widget_destroy(bdm->menuitem);
+		menubfwin->menu_windows = g_list_remove(menubfwin->menu_windows,bdm);
 		g_free(bdm);
+		
 	}
 }
 static void rename_window_entry_from_window(Tbfwin *menubfwin, Tbfwin *tobfwin, gchar *newtitle) {
 	Tbfw_dynmenu *bdm = find_bfw_dynmenu_by_data_in_list(menubfwin->menu_windows, tobfwin);
+	DEBUG_MSG("rename_window_entry_from_window, menubfwin=%p, found bdm=%p\n",menubfwin,bdm);
 	if (bdm) {
 		GtkWidget *label = gtk_bin_get_child(GTK_BIN(bdm->menuitem));
 		DEBUG_MSG("rename_window_entry_from_window, setting label to have title %s\n",newtitle);
@@ -1100,7 +1109,9 @@ static void add_window_entry(Tbfwin *menubfwin, Tbfwin *tobfwin) {
 	bdm->bfwin = menubfwin;
 	bdm->data = tobfwin;
 	winname = gtk_window_get_title(GTK_WINDOW(tobfwin->main_window));
+	DEBUG_MSG("add_window_entry, menubfwin=%p, bdm=%p with title %s\n",menubfwin,bdm,winname);
 	bdm->menuitem = create_dynamic_menuitem(menubfwin,_("/TEMP/Window"),winname,G_CALLBACK(menu_window_lcb),(gpointer)bdm,-1);
+	DEBUG_MSG("add_window_entry, menuitem=%p\n",bdm->menuitem);
 	menubfwin->menu_windows = g_list_append(menubfwin->menu_windows, bdm);
 }
 void add_window_entry_to_all_windows(Tbfwin *tobfwin) {
