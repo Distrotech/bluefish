@@ -774,16 +774,18 @@ gboolean doc_file_to_textbox(Tdocument * doc, gchar * filename, gboolean enable_
 		}
 	}
 	fclose(fd);
-	doc->need_highlighting=TRUE;
-	if (!delay_highlighting) {
+	if (doc->highlightstate) {
+		doc->need_highlighting=TRUE;
+		if (!delay_highlighting) {
 #ifdef DEBUG
-		g_print("doc_file_to_textbox, doc->hlset=%p\n", doc->hl);
-		if (doc->hl) {
-			g_print("doc_file_to_textbox, doc->hlset->highlightlist=%p\n", doc->hl->highlightlist);
-		}
+			g_print("doc_file_to_textbox, doc->hlset=%p\n", doc->hl);
+			if (doc->hl) {
+				g_print("doc_file_to_textbox, doc->hlset->highlightlist=%p\n", doc->hl->highlightlist);
+			}
 #endif
-		if (main_v->props.cont_highlight_update) {
-			doc_highlight_full(doc);
+			if (main_v->props.cont_highlight_update) {
+				doc_highlight_full(doc);
+			}
 		}
 	}
 	if (!enable_undo) {

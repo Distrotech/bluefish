@@ -20,7 +20,7 @@ enum {
 	editor_tab_width,	/* editor tabwidth */
 	tab_font_string,		/* notebook tabs font */
 	highlight_num_lines_count, /* number of lines to highlight in continous highlighting */	
-
+	defaulthighlight,		/* highlight documents by default */
 	transient_htdialogs,  /* set html dialogs transient ro the main window */
 	restore_dimensions,
 	left_panel_width,
@@ -69,7 +69,6 @@ enum {
 	force_def_style,  /* force white editor background */
 	drop_at_drop_pos, 	/* drop at drop position instead of cursor position */
 	link_management, 	/* perform link management */
-	defaulthighlight,		/* highlight documents by default */
 	cont_highlight_full, 	/* if you want to highlight the full text or just the line */
 	cont_highlight_update,	/* update the syntax highlighting continuous */
 	html_ver,
@@ -1499,6 +1498,7 @@ static void preferences_ok_clicked_lcb(GtkWidget *wid, Tprefdialog *pd) {
 	integer_apply(&main_v->props.editor_tab_width, pd->prefs[editor_tab_width], FALSE);
 	integer_apply(&main_v->props.word_wrap, pd->prefs[word_wrap], TRUE);
 	integer_apply(&main_v->props.view_line_numbers, pd->prefs[view_line_numbers], TRUE);
+	integer_apply(&main_v->props.defaulthighlight, pd->prefs[defaulthighlight], TRUE);
 	integer_apply(&main_v->props.highlight_num_lines_count, pd->prefs[highlight_num_lines_count], FALSE);
 	integer_apply(&main_v->props.lowercase_tags, pd->prefs[lowercase_tags], TRUE);
 	integer_apply(&main_v->props.allow_dep, pd->prefs[allow_dep], TRUE);
@@ -1612,7 +1612,8 @@ static void preferences_dialog() {
 	pd->prefs[editor_font_string] = prefs_string(_("Font"), main_v->props.editor_font_string, vbox2, pd, string_font);
 	pd->prefs[editor_tab_width] = prefs_integer(_("Tab width"), main_v->props.editor_tab_width, vbox2, pd, 1, 50);
 	pd->prefs[word_wrap] = boxed_checkbut_with_value(_("Word wrap default"), main_v->props.word_wrap, vbox2);
-	pd->prefs[view_line_numbers] = boxed_checkbut_with_value(_("Line numbers by defaults"), main_v->props.view_line_numbers, vbox2);
+	pd->prefs[view_line_numbers] = boxed_checkbut_with_value(_("Line numbers by default"), main_v->props.view_line_numbers, vbox2);
+	pd->prefs[defaulthighlight] = boxed_checkbut_with_value(_("Highlight syntax by default"), main_v->props.defaulthighlight, vbox2);
 	pd->prefs[highlight_num_lines_count] = prefs_integer(_("Highlight # lines"), main_v->props.highlight_num_lines_count, vbox2, pd, 1, 8);
 
 	vbox1 = gtk_vbox_new(FALSE, 5);
