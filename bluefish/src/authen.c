@@ -68,23 +68,22 @@ static gint authen_ask_user(gchar const *uri, gchar const *object, gchar const *
 {
 	GtkWidget *dialog, *box, *label;
 	GtkWidget *textuser, *textpasswd;
-	gint ret, ok;
-	GString *labelstr;
+	gint ret;
+	gchar *labelstr;
 	dialog =
 		gtk_dialog_new_with_buttons(_("Authentication required"), NULL,
 									GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
-									GTK_STOCK_CANCEL, GTK_RESPONSE_REJECT, GTK_STOCK_OK,
-									GTK_RESPONSE_ACCEPT, NULL);
+									GTK_STOCK_CANCEL, GTK_RESPONSE_REJECT,
+									GTK_STOCK_OK, GTK_RESPONSE_ACCEPT, NULL);
 	gtk_window_set_position(GTK_WINDOW(dialog), GTK_WIN_POS_CENTER);
 
 	box = gtk_vbox_new(FALSE, 5);
 	gtk_container_add(GTK_CONTAINER(GTK_DIALOG(dialog)->vbox), box);
 	gtk_container_set_border_width(GTK_CONTAINER(box), 12);
 
-	labelstr = g_string_sized_new(120);
-	g_string_printf(labelstr, _("Authentication is required for %s\n\nRealm is %s"), uri, object);
-
-	label = gtk_label_new(labelstr->str);
+	labelstr = g_strdup_printf(_("Authentication is required for %s."), uri);
+	label = gtk_label_new(labelstr);
+	g_free(labelstr);
 	gtk_label_set_line_wrap(GTK_LABEL(label), TRUE);
 	gtk_container_add(GTK_CONTAINER(box), label);
 
@@ -101,15 +100,17 @@ static gint authen_ask_user(gchar const *uri, gchar const *object, gchar const *
 
 	gtk_widget_show_all(dialog);
 	ret = gtk_dialog_run(GTK_DIALOG(dialog));
-	ok = (ret == GTK_RESPONSE_ACCEPT);
-	DEBUG_MSG("authen_ask_user: dialog return ret = %d ok = %d\n", ret, ok);
-	if (ok) {
+	
+	DEBUG_MSG("authen_ask_user: dialog return ret = %d ok = %d\n", ret, (ret == GTK_RESPONSE_ACCEPT));
+	if (ret == GTK_RESPONSE_ACCEPT) {
 		*newuser = gtk_editable_get_chars(GTK_EDITABLE(textuser), 0, -1);
 		*newpasswd = gtk_editable_get_chars(GTK_EDITABLE(textpasswd), 0, -1);
+		DEBUG_MSG("authen_ask_user: newuser=%s\n",*newuser);
+		gtk_widget_destroy(dialog);
+		return TRUE;
 	}
-	g_string_free(labelstr, TRUE);
 	gtk_widget_destroy(dialog);
-	return ok;
+	return FALSE;
 }
 
 static gchar *make_key(gchar * proto, gchar * server, int port, gchar * object)
@@ -135,7 +136,7 @@ static void fill_authen_callback(GnomeVFSModuleCallbackFillAuthenticationIn * in
 		out->valid = TRUE;
 		out->username = g_strdup(val->user);
 		out->password = g_strdup(val->passwd);
-		DEBUG_MSG("full_authen_callback: user=%s len(passwd)=%d\n", out->username, strlen(out->password));
+		DEBUG_MSG("fill_authen_callback: user=%s len(passwd)=%d\n", out->username, strlen(out->password));
 	}
 	g_free(key);
 }
@@ -149,14 +150,16 @@ static void full_authen_callback(GnomeVFSModuleCallbackFullAuthenticationIn * in
 
 	DEBUG_MSG("full_authen_callback: uri = %s flags = 0x%x\n", in->uri, in->flags);
 
-	key = make_key(in->protocol, in->server, in->port, in->object);
+/*	key = make_key(in->protocol, in->server, in->port, in->object);
 	g_hash_table_remove(data->hash, key);
-	g_free(key);
+	g_free(key);*/
 
 	if (authen_ask_user(in->uri, in->object, in->default_user, &(out->username), &(out->password))) {
-		g_hash_table_replace(data->hash, key, authen_value_new(out->username, out->password));
-		out->save_password = 1;
+/*		g_hash_table_replace(data->hash, key, authen_value_new(out->username, out->password));*/
+		out->domain = in->default_domain;
+		out->save_password = FALSE;
 		out->abort_auth = FALSE;
+		out->keyring = NULL;
 	} else
 		out->abort_auth = TRUE;
 	DEBUG_MSG("full_authen_callback: user = %s len(passwd)=%d\n", out->username, strlen(out->password));
@@ -188,7 +191,7 @@ void set_authen_callbacks(void)
 	AuthenData *data = g_new0(AuthenData,1);
 	data->hash =
 		g_hash_table_new_full(g_str_hash, g_str_equal, g_free, (GDestroyNotify) authen_value_free);
-	gnome_vfs_module_callback_set_default(GNOME_VFS_MODULE_CALLBACK_FILL_AUTHENTICATION,
+/*	gnome_vfs_module_callback_set_default(GNOME_VFS_MODULE_CALLBACK_FILL_AUTHENTICATION,
 										  (GnomeVFSModuleCallback) fill_authen_callback, data,
 										  NULL);
 	gnome_vfs_module_callback_set_default(GNOME_VFS_MODULE_CALLBACK_FULL_AUTHENTICATION,
@@ -196,7 +199,19 @@ void set_authen_callbacks(void)
 										  NULL);
 	gnome_vfs_module_callback_set_default(GNOME_VFS_MODULE_CALLBACK_SAVE_AUTHENTICATION,
 										  (GnomeVFSModuleCallback) save_authen_callback, data,
-										  NULL);
+										  NULL);*/
+	gnome_vfs_module_callback_push (GNOME_VFS_MODULE_CALLBACK_FILL_AUTHENTICATION,
+					fill_authen_callback, 
+					data,
+					NULL);
+	gnome_vfs_module_callback_push (GNOME_VFS_MODULE_CALLBACK_FULL_AUTHENTICATION,
+					full_authen_callback, 
+					data,
+					NULL);
+	gnome_vfs_module_callback_push (GNOME_VFS_MODULE_CALLBACK_SAVE_AUTHENTICATION,
+					save_authen_callback, 
+					data,
+					NULL);
 	DEBUG_MSG("set_authen_callbacks: callbacks registered\n");
 
 }

@@ -824,6 +824,15 @@ void bf_mnemonic_label_tad_with_alignment(const gchar *labeltext, GtkWidget *m_w
 }
 
 /**
+ * bf_label_with_markup:
+ * @labeltext: #const gchar* labeltext string
+ */
+GtkWidget *bf_label_with_markup(const gchar *labeltext) {
+	GtkWidget *label = gtk_label_new(NULL);
+	gtk_label_set_markup(GTK_LABEL(label), labeltext);
+	return label;
+}
+/**
  * bf_label_tad_with_markup:
  * @labeltext: #const gchar* label string
  * @xalign: #gfloat label horizontal alignment
@@ -843,9 +852,7 @@ void bf_label_tad_with_markup(const gchar *labeltext, gfloat xalign, gfloat yali
 								GtkWidget *table, guint left_attach, guint right_attach, 
 								guint top_attach, guint bottom_attach) {
 	GtkWidget *label;
-	
-	label = gtk_label_new(NULL);
-	gtk_label_set_markup(GTK_LABEL(label), labeltext);
+	label = bf_label_with_markup(labeltext);
 	gtk_misc_set_alignment(GTK_MISC(label), xalign, yalign);
 	gtk_table_attach_defaults(GTK_TABLE(table), label, left_attach, right_attach, top_attach, bottom_attach);	
 }
