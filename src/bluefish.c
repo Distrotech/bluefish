@@ -269,14 +269,24 @@ void bluefish_exit_request() {
 	tmplist = return_allwindows_documentlist();
 	tmpb = (tmplist && test_docs_modified(tmplist));
 	g_list_free(tmplist);
-	if (tmpb) {
-		tmplist = g_list_first(main_v->bfwinlist);
-		while (tmplist) {
-			file_close_all_cb(NULL, BFWIN(tmplist->data));
-			tmplist = g_list_next(tmplist);
+	tmplist = g_list_first(main_v->bfwinlist);
+	while (tmplist) {
+		/* if there is a project, we anyway want to save & close the project */
+		if (BFWIN(tmplist->data)->project) {
+			if (!project_save_and_close(BFWIN(tmplist->data))) {
+				/* cancelled or error! */
+				DEBUG_MSG("bluefish_exit_request, project_save_and_close returned FALSE\n");
+				return;
+			}
 		}
-		/* if we still have modified documents we don't do a thing,
-		 if we don't have them we can quit */
+		if (tmpb) {
+			file_close_all_cb(NULL, BFWIN(tmplist->data));
+		}
+		tmplist = g_list_next(tmplist);
+	}
+	/* if we still have modified documents we don't do a thing,
+	 if we don't have them we can quit */
+	if (tmpb) {
 		tmplist = return_allwindows_documentlist();
 		tmpb = (tmplist && test_docs_modified(tmplist));
 		g_list_free(tmplist);
