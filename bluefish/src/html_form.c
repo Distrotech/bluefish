@@ -51,10 +51,12 @@ static void php_var_insert_cb(GtkWidget *widget, Thtml_diag *dg) {
 			tmp2 = g_strdup_printf("<?php if (isset($%s)) { echo $%s; } ?>",tmp,tmp);
 		break;
 		case PHPFORM_TYPE_RADIO:
-			tmp2 = g_strdup_printf("<?php if (isset($%s)) { echo 'checked'; } ?>",tmp);
-		break;
 		case PHPFORM_TYPE_CHECK:
-			tmp2 = g_strdup_printf("<?php if (isset($%s)) { echo 'checked'; } ?>",tmp);
+			if (main_v->props.xhtml == 1) {
+				tmp2 = g_strdup_printf("<?php if (isset($%s)) { echo 'checked=\\\"checked\\\"'; } ?>",tmp);
+			} else {
+				tmp2 = g_strdup_printf("<?php if (isset($%s)) { echo 'checked'; } ?>",tmp);
+			}
 		break;
 		}
 		if (tmp2) {
@@ -429,7 +431,7 @@ static void radiodialogok_lcb(GtkWidget * widget, Thtml_diag *dg)
 	thestring = g_strdup(cap("<INPUT TYPE=\"RADIO\""));
 	thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(dg->entry[1])), cap("NAME"), thestring, NULL);
 	thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(dg->entry[2])), cap("VALUE"), thestring, NULL);
-	thestring = insert_attr_if_checkbox(dg->check[1], cap("CHECKED"), thestring);
+	thestring = insert_attr_if_checkbox(dg->check[1], main_v->props.xhtml == 1 ? cap("CHECKED=\"checked\"") : cap("CHECKED"), thestring);
 	thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(dg->entry[3])), NULL, thestring, NULL);
 	if (main_v->props.xhtml == 1) {
 		finalstring = g_strconcat(thestring," />", NULL);
