@@ -700,13 +700,13 @@ If you want to disable any of these items by default, you can set these options 
 </textobject>
 </mediaobject></screenshot>
 </figure></para>
-<para>To retrieve next occurrences of the string, if any, you will use the <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>G</keycap></keycombo></shortcut><guimenu>Edit</guimenu><guimenuitem>Find again</guimenuitem></menuchoice> menu item repeatedly. Again, when no further occurrence is found, a dialog will be displayed notifying you that no match was found.</para>
+<para>To find a subsequent occurrence of the string, use the <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>G</keycap></keycombo></shortcut><guimenu>Edit</guimenu><guimenuitem>Find again</guimenuitem></menuchoice> menu item. If no further occurrence is found, a dialog will be displayed notifying you that no match was found.</para>
 </sect3>
 <?linebreaka4?>
 <sect3 id="basic-find-selection">
 <title>Setting limits to the search scope</title>
 <?linebreaka4?>
-<para>You may want to search for a string from the cursor location till the end of the document. Here's an example to search all <literal>name ==</literal> occurrences within a python script from a given location.</para>
+<para>You may want to search for a string from the cursor location till the end of the document. Here is an example to search all <literal>name ==</literal> occurrences within a python script from a given location.</para>
 <procedure id="search-selection"><title>Searching from selection</title>
 <step>
 <para>Put the cursor where you want to start the search from in the document window
@@ -747,7 +747,7 @@ If you want to disable any of these items by default, you can set these options 
 <para>Click OK.</para>
 </step>
 </procedure>
-<para>Here's the result:
+<para>Here is the result:
 <figure id="figure-find-limited-result">
 <title id="figure-find-limited-result-title">Limited search result</title>
 <screenshot><mediaobject>
@@ -781,7 +781,7 @@ If you want to disable any of these items by default, you can set these options 
 </mediaobject></screenshot>
 </figure></para>
 <?linebreaka4?>
-<para>Here's the result applied to a ruby script:
+<para>Here is the result applied to a ruby script:
 <?linebreaka4?>
 <figure id="figure-find-match-result-case">
 <title id="figure-find-match-case-result-title">Case sensitive search result</title>
@@ -1433,7 +1433,7 @@ The projects are a sort of <emphasis>saved state</emphasis> of Bluefish. Thus, t
   the first subpattern match. If we had two parentheses, "\1" would refer to a second subpattern. 
   </para>
   <para>
-  Notice in the replace dialog we have chosen <guilabel>Beginning of selection till end of selection</guilabel>. The results are 
+  Notice in the replace dialog, we have chosen <guilabel>Beginning of selection till end of selection</guilabel>. The results are 
   shown below.
   </para>
   <para>
@@ -1537,21 +1537,10 @@ The projects are a sort of <emphasis>saved state</emphasis> of Bluefish. Thus, t
 
 <sect2 id="indenting">
 <title>Indenting</title>
-<para>The <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>+</keycap></keycombo></shortcut><guimenu>Edit</guimenu><guimenuitem>Shift Right</guimenuitem></menuchoice> and <guimenuitem>Shift Right</guimenuitem> and <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>,</keycap></keycombo></shortcut><guimenu>Edit</guimenu><guimenuitem>Shift Right</guimenuitem></menuchoice>
-<guimenuitem>Shift Left</guimenuitem> menu items, or the corresponding buttons in the tool bar, will indent or unindent the currently selected text. It will normally use tabs for indenting, or spaces if you have <guilabel>Use spaces to indent, not tabs</guilabel> selected in the Editor preferences panel. The number of spaces used is the same as the <guilabel>Tab width</guilabel> option in the same preferences panel.</para>
-<para>Here's an extract of Dante's work indented with the <guilabel>Shift Right</guilabel> button in the main tool bar:
-<figure id="figure-indenting_right">
-<title id="figure-indenting_right-title">Indenting part of a text</title>
-<screenshot><mediaobject>
-<imageobject>
-<imagedata fileref="figures/indenting_right.png" format="PNG"/>
-</imageobject>
-<textobject>
-<phrase>A screen shot of a text indented with the shift right button</phrase>
-</textobject>
-</mediaobject></screenshot>
-</figure>
-</para>
+<para>To indent large sections of text, simply highlight the section and 
+choose <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>+</keycap></keycombo></shortcut><guimenu>Edit</guimenu><guimenuitem>Shift Right</guimenuitem></menuchoice>. To remove an indentation, choose <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>,</keycap></keycombo></shortcut><guimenu>Edit</guimenu><guimenuitem>Shift Right</guimenuitem>
+</menuchoice> <guimenuitem>Shift Left</guimenuitem>. Of course, there are corresponding buttons in the tool bar for these menu options (see below). By default, Bluefish will use tabs for indenting, but can be configured to use spaces if you have <guilabel>Use spaces to indent, not tabs</guilabel> selected in the Editor preferences panel. The number of spaces used is the same as the <guilabel>Tab width</guilabel> option in the same preferences panel.</para>
+<para>Here's an extract of Dante's work indented with the <guilabel>Shift Right</guilabel> button in the main tool bar:<figure id="figure-indenting_right"><title id="figure-indenting_right-title">Indenting part of a text</title><screenshot><mediaobject><imageobject><imagedata fileref="figures/indenting_right.png" format="PNG"/></imageobject><textobject><phrase>A screen shot of a text indented with the shift right button</phrase></textobject></mediaobject></screenshot></figure></para>
 </sect2>
 
 <sect2 id="auto-tag-closing">
