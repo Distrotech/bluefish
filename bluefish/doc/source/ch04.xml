@@ -425,6 +425,20 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 			<para>It is very obvious now, the lowest match will be the end pattern
 			of the <literal>php</literal> pattern, so we're back on the main
 			level, and we have matched all of the code!</para>
+			<figure id="syntax_highlighting_example">
+				<title id="figure-desc">Syntax highlighting example</title>
+				<screenshot>
+					<mediaobject>
+						<imageobject>
+							<imagedata fileref="figures/syntax_highlighting_example.png" format="PNG"/>
+						</imageobject>
+						<textobject>
+							<phrase>The syntax highlighting example</phrase>
+						</textobject>
+					</mediaobject>
+				</screenshot>
+			</figure>
+		
 			<para>The config file for highlighting is a colon separated array with
 			the following content:</para>
 			<programlisting>mode:
