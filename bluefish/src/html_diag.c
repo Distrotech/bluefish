@@ -21,7 +21,7 @@
 #include <gtk/gtk.h>
 #include <string.h>	/* strrchr */
 #include <stdlib.h> /* strtod */
-#define DEBUG
+/* #define DEBUG */
 
 #include "bluefish.h"
 #include "html_diag.h" /* myself */
