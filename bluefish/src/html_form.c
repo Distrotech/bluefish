@@ -492,7 +492,7 @@ static void checkdialogok_lcb(GtkWidget * widget,Thtml_diag *dg )
 	thestring = g_strdup(cap("<INPUT TYPE=\"CHECKBOX\""));
 	thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(dg->entry[1])), cap("NAME"), thestring, NULL);
 	thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(dg->entry[2])), cap("VALUE"), thestring, NULL);
-	thestring = insert_attr_if_checkbox(dg->check[1], cap("CHECKED"), thestring);
+	thestring = insert_attr_if_checkbox(dg->check[1], main_v->props.xhtml == 1 ? cap("CHECKED=\"checked\"") : cap("CHECKED"), thestring);
 	thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(dg->entry[3])), NULL, thestring, NULL);
 	if (main_v->props.xhtml == 1) {
 		finalstring = g_strconcat(thestring," />", NULL);
