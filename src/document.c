@@ -2211,6 +2211,12 @@ gint doc_textbox_to_file(Tdocument * doc, gchar * filename) {
 			if (retval == 0) {
 				DEBUG_MSG("doc_textbox_to_file, character set conversion failed, user aborted!\n");
 				return -4;
+			} else {
+				/* continue in UTF-8 */
+				update_encoding_meta_in_file(doc, "UTF-8");
+				g_free(buffer);
+				gtk_text_buffer_get_bounds(doc->buffer,&itstart,&itend);
+				buffer = gtk_text_buffer_get_text(doc->buffer,&itstart,&itend,FALSE);
 			}
 		}
 	}
