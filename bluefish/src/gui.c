@@ -779,12 +779,12 @@ void make_html_toolbar(Tbfwin *bfwin) {
 
 static void doc_indent_lcb(GtkWidget *wid,Tbfwin *bfwin) {
 	if (bfwin->current_document) {
-		doc_indent_selection(bfwin->current_document,1);
+		doc_indent_selection(bfwin->current_document,0);
 	}
 }
 static void doc_unindent_lcb(GtkWidget *wid,Tbfwin *bfwin) {
 	if (bfwin->current_document) {
-		doc_indent_selection(bfwin->current_document,0);
+		doc_indent_selection(bfwin->current_document,1);
 	}
 }
 	
@@ -1395,11 +1395,12 @@ void gui_toggle_hidewidget_cb(Tbfwin *bfwin,guint action,GtkWidget *widget) {
 	}
 }
 
-void gui_new_window(GList *filenames) {
+Tbfwin *gui_new_window(GList *filenames) {
 	Tbfwin *bfwin = g_new0(Tbfwin,1);
 	gui_create_main(bfwin,NULL);
 	main_v->bfwinlist = g_list_append(main_v->bfwinlist, bfwin);
 	gui_show_main(bfwin);
+	return bfwin;
 }
 
 void gui_new_window_menu_cb(gpointer callback_data,guint callback_action, GtkWidget *widget) {

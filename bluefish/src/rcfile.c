@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-/*#define DEBUG*/
+#define DEBUG
 
 #include <gtk/gtk.h>
 #include <sys/stat.h>
@@ -837,7 +837,7 @@ static GList *return_project_configlist(Tproject *project) {
 gboolean rcfile_parse_project(Tproject *project, gchar *filename) {
 	gboolean retval;
 	GList *configlist = return_project_configlist(project);
-	retval = parse_config_file(main_configlist, filename);
+	retval = parse_config_file(configlist, filename);
 	free_configlist(configlist);
 	return retval;
 }

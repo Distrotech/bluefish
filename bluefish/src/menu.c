@@ -41,6 +41,7 @@
 #include "wizards.h"
 #include "image.h"
 #include "rcfile.h" /* rcfile_save_configfile_menu_cb */
+#include "project.h"
 
 #include "outputbox.h" /* temporary */
 
@@ -675,9 +676,13 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/Options/sep2"), NULL, NULL, 0, "<Separator>"},
 	{N_("/Options/_Save Settings"), NULL, rcfile_save_configfile_menu_cb, 0, NULL},
 	{N_("/Options/Save Shortcut _Keys"), NULL, rcfile_save_configfile_menu_cb, 3, NULL},
-	{N_("/_Windows"), NULL, NULL, 0, "<Branch>"},
-	{N_("/Windows/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
-	{N_("/Windows/New"), NULL, gui_new_window_menu_cb, 1, NULL}
+	{N_("/TEMP"), NULL, NULL, 0, "<Branch>"},
+	{N_("/TEMP/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
+	{N_("/TEMP/New"), NULL, gui_new_window_menu_cb, 1, NULL},
+	{N_("/TEMP/Open project"), NULL, project_menu_cb, 1, NULL},
+	{N_("/TEMP/Save project"), NULL, project_menu_cb, 2, NULL},
+	{N_("/TEMP/Save project as"), NULL, project_menu_cb, 3, NULL},
+	{N_("/TEMP/Close & save project"), NULL, project_menu_cb, 4, NULL}
 };
 
 #ifdef ENABLE_NLS
