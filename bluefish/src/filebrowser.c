@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-/* #define DEBUG */
+#define DEBUG
 /*#define DEBUG_ADDING_TO_TREE*/
 
 #include <gtk/gtk.h>
@@ -72,6 +72,8 @@ typedef struct {
 	Tfilter *curfilter;
 	GtkWidget *tree;
 	GtkTreeStore *store;
+	GtkWidget *tree2;
+	GtkListStore *store2;
 	GtkWidget *dirmenu;
 	GList *dirmenu_entries;
 	Tbfwin *bfwin;
@@ -338,7 +340,7 @@ static GtkTreePath *return_path_from_filename(GtkTreeStore *store,gchar *this_fi
 	}
 }
 
-static int comparefunc(GtkTreeStore *store, gchar *name, GtkTreeIter *iter, const gchar *text, gint type) {
+static int comparefunc(GtkTreeModel *store, gchar *name, GtkTreeIter *iter, const gchar *text, gint type) {
 	gboolean has_child = gtk_tree_model_iter_has_child(GTK_TREE_MODEL(store), iter);
 #ifdef DEBUG_SORTING
 	DEBUG_MSG("comparefunc, comparing %s and %s\n", name, text);
@@ -358,17 +360,17 @@ static int comparefunc(GtkTreeStore *store, gchar *name, GtkTreeIter *iter, cons
 	}
 }
 
-static gboolean get_iter_at_correct_position(GtkTreeStore *store, GtkTreeIter *parent, GtkTreeIter *iter, const gchar *text, gint type) {
+static gboolean get_iter_at_correct_position(GtkTreeModel *store, GtkTreeIter *parent, GtkTreeIter *iter, const gchar *text, gint type) {
 	gint num_children, jumpsize, child, possible_positions;
 	gchar *name;
 
-	DEBUG_MSG("get_iter_at_correct_position, started\n");
-	if (!parent || !gtk_tree_model_iter_has_child(GTK_TREE_MODEL(store), parent)) {
-		DEBUG_MSG("get_iter_at_correct_position, this parent does NOT have children, returning FALSE\n");
+	DEBUG_MSG("get_iter_at_correct_position, started, parent=%p\n",parent);
+	/* if parent=NULL it will return the top level, which is correct for the liststore */
+	num_children = gtk_tree_model_iter_n_children(GTK_TREE_MODEL(store), parent);
+	if (num_children == 0) {
+		DEBUG_MSG("get_iter_at_correct_position, 0 children so we return FALSE\n");
 		return FALSE;
 	}
-	DEBUG_MSG("get_iter_at_correct_position, this parent DOES have children, walk trough the children..\n");
-	num_children = gtk_tree_model_iter_n_children(GTK_TREE_MODEL(store), parent);
 	possible_positions = num_children+1;
 	jumpsize = (possible_positions+1)/2;
 	child = possible_positions - jumpsize;
@@ -378,6 +380,7 @@ static gboolean get_iter_at_correct_position(GtkTreeStore *store, GtkTreeIter *p
 #endif
 	if (num_children == 1) {
 		gint compare;
+		/* if parent=NULL it will return the child from the toplevel which is correct for the liststore */
 		gtk_tree_model_iter_nth_child(GTK_TREE_MODEL(store), iter, parent, 0);
 		gtk_tree_model_get(GTK_TREE_MODEL(store),iter,FILENAME_COLUMN,&name, -1);
 		compare = comparefunc(store, name, iter, text, type);
@@ -425,7 +428,6 @@ static gboolean get_iter_at_correct_position(GtkTreeStore *store, GtkTreeIter *p
 
 static GtkTreeIter add_tree_item(GtkTreeIter *parent, Tfilebrowser *filebrowser, const gchar *text, gint type, GdkPixbuf *pixbuf) {
 	GtkTreeIter iter1, iter2;
-
 	if (!pixbuf) {
 		if (type == TYPE_DIR) {	
 			pixbuf = FILEBROWSERCONFIG(main_v->filebrowserconfig)->dir_icon;
@@ -434,21 +436,35 @@ static GtkTreeIter add_tree_item(GtkTreeIter *parent, Tfilebrowser *filebrowser,
 		}
 	}
 
-	if (get_iter_at_correct_position(filebrowser->store,parent,&iter2,text,type)) {
-#ifdef DEBUG
-		DEBUG_MSG("add_tree_item, inserting %s!\n", text);
-#endif
-		gtk_tree_store_insert_before(filebrowser->store,&iter1,parent,&iter2);
+	if (type == TYPE_FILE && main_v->props.filebrowser_two_pane_view && parent==NULL) {
+		if (get_iter_at_correct_position(GTK_TREE_MODEL(filebrowser->store2),parent,&iter2,text,type)) {
+			DEBUG_MSG("add_tree_item, inserting\n");
+			gtk_list_store_insert_before(GTK_LIST_STORE(filebrowser->store2),&iter1,&iter2);
+		} else {
+			DEBUG_MSG("add_tree_item, appending\n");
+			gtk_list_store_append(GTK_LIST_STORE(filebrowser->store2),&iter1);
+		}
+		gtk_list_store_set(GTK_LIST_STORE(filebrowser->store2),&iter1,
+					PIXMAP_COLUMN, pixbuf,
+					FILENAME_COLUMN, text,
+					-1);
 	} else {
-#ifdef DEBUG
-		DEBUG_MSG("add_tree_item, appending %s!\n", text);
-#endif
-		gtk_tree_store_append(filebrowser->store, &iter1, parent);
+		if (get_iter_at_correct_position(GTK_TREE_MODEL(filebrowser->store),parent,&iter2,text,type)) {
+	#ifdef DEBUG
+			DEBUG_MSG("add_tree_item, inserting %s!\n", text);
+	#endif
+			gtk_tree_store_insert_before(GTK_TREE_STORE(filebrowser->store),&iter1,parent,&iter2);
+		} else {
+	#ifdef DEBUG
+			DEBUG_MSG("add_tree_item, appending %s!\n", text);
+	#endif
+			gtk_tree_store_append(GTK_TREE_STORE(filebrowser->store), &iter1, parent);
+		}
+		gtk_tree_store_set(GTK_TREE_STORE(filebrowser->store), &iter1,
+					PIXMAP_COLUMN, pixbuf,
+					FILENAME_COLUMN, text,
+					-1);
 	}
-	gtk_tree_store_set(filebrowser->store, &iter1,
-				PIXMAP_COLUMN, pixbuf,
-				FILENAME_COLUMN, text,
-				-1);
 	return iter1;
 }
 
@@ -470,7 +486,6 @@ static void refresh_dir_by_path_and_filename(Tfilebrowser *filebrowser, GtkTreeP
 	while (valid) {
 		gchar *name;
 		gtk_tree_model_get(GTK_TREE_MODEL(filebrowser->store), &myiter, 1, &name, -1);
-
 		if (!find_name_in_dir_entries(direntrylist, name)) {
 			if (direntrylist == NULL && strcmp(name, ".")==0) {
 #ifdef DEBUG_ADDING_TO_TREE
@@ -497,6 +512,26 @@ static void refresh_dir_by_path_and_filename(Tfilebrowser *filebrowser, GtkTreeP
 		}
 		g_free(name);
 	}
+	/* we should also check the entries in the listtore, if they have to be refreshed as well */
+	if (main_v->props.filebrowser_two_pane_view) {
+		valid = TRUE;
+		gtk_tree_model_get_iter_first(GTK_TREE_MODEL(filebrowser->store2),&myiter);
+		while (valid) {
+			gchar *name;
+			gtk_tree_model_get(GTK_TREE_MODEL(filebrowser->store2), &myiter, 1, &name, -1);
+			if (!find_name_in_dir_entries(direntrylist, name)) {
+				GtkTreeIter myiter2 = myiter;
+				valid = gtk_tree_model_iter_next(GTK_TREE_MODEL(filebrowser->store2), &myiter);
+				DEBUG_MSG("refresh_dir_by_path_and_filename, removing %s from liststore\n",name);
+				gtk_list_store_remove(filebrowser->store2,&myiter2);
+			} else {
+				DEBUG_MSG("refresh_dir_by_path_and_filename, %s is valid\n",name);
+				valid = gtk_tree_model_iter_next(GTK_TREE_MODEL(filebrowser->store2), &myiter);
+			}
+			g_free(name);
+		}
+	}
+	
 	/* now add the new entries */
 	{
 		GList *tmplist;
@@ -510,7 +545,11 @@ static void refresh_dir_by_path_and_filename(Tfilebrowser *filebrowser, GtkTreeP
 #ifdef DEBUG_ADDING_TO_TREE
 				DEBUG_MSG("refresh_dir_by_path_and_filename, adding row for name=%s\n", entry->name);
 #endif
-				myiter2 = add_tree_item(&myiter, filebrowser, entry->name, entry->type, entry->icon);
+				if (entry->type == TYPE_FILE && main_v->props.filebrowser_two_pane_view) {
+					myiter2 = add_tree_item(NULL, filebrowser, entry->name, entry->type, entry->icon);
+				} else {
+					myiter2 = add_tree_item(&myiter, filebrowser, entry->name, entry->type, entry->icon);
+				}
 				if (entry->type == TYPE_DIR) {
 #ifdef DEBUG_ADDING_TO_TREE
 					DEBUG_MSG("refresh_dir_by_path_and_filename, %s is TYPE_DIR so we setup the fake item\n", entry->name);
@@ -576,7 +615,11 @@ static GtkTreePath *build_tree_from_path(Tfilebrowser *filebrowser, gchar *filep
 				tmp = add_tree_item(&iter, filebrowser, entry->name, TYPE_DIR, NULL);
 				add_tree_item(&tmp, filebrowser, ".", TYPE_FILE, NULL);
 			} else {
-				add_tree_item(&iter, filebrowser, entry->name, TYPE_FILE, entry->icon);
+				if (main_v->props.filebrowser_two_pane_view) {
+					add_tree_item(NULL, filebrowser, entry->name, TYPE_FILE, entry->icon);
+				} else {
+					add_tree_item(&iter, filebrowser, entry->name, TYPE_FILE, entry->icon);
+				}
 			}
 			tmplist = g_list_next(tmplist);
 		}
@@ -1185,6 +1228,10 @@ static gboolean filebrowser_button_press_lcb(GtkWidget *widget, GdkEventButton *
 	return FALSE; /* pass the event on */
 }
 
+static gboolean filebrowser_tree2_button_press_lcb(GtkWidget *widget, GdkEventButton *event, Tfilebrowser *filebrowser) {
+	DEBUG_MSG("filebrowser_tree2_button_press_lcb, button=%d\n",event->button);
+}
+
 static Tfilter *new_filter(gchar *name, gchar *mode, gchar *filetypes) {
 	Tfilter *filter = g_new(Tfilter,1);
 	filter->name = g_strdup(name);
@@ -1284,8 +1331,7 @@ GtkWidget *filebrowser_init(Tbfwin *bfwin) {
 	filebrowser->tree = gtk_tree_view_new_with_model (GTK_TREE_MODEL(filebrowser->store));
 	/* The view now holds a reference.  We can get rid of our own reference */
 	g_object_unref(G_OBJECT(filebrowser->store));
-
-	gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(filebrowser->tree), FALSE);
+	gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(filebrowser->tree), FALSE);	
 
 	{
 		GtkCellRenderer *renderer;
@@ -1318,6 +1364,36 @@ GtkWidget *filebrowser_init(Tbfwin *bfwin) {
 		gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);*/
 /*		gtk_tree_view_append_column(GTK_TREE_VIEW(filebrowser->tree), column);*/
 	}
+	
+	
+	if (main_v->props.filebrowser_two_pane_view) {
+		GtkCellRenderer *renderer;
+		GtkTreeViewColumn *column;
+
+		filebrowser->store2 = gtk_list_store_new (N_COLUMNS,GDK_TYPE_PIXBUF,G_TYPE_STRING);
+		filebrowser->tree2 = gtk_tree_view_new_with_model(GTK_TREE_MODEL(filebrowser->store2));
+		/* The view now holds a reference.  We can get rid of our own reference */
+		g_object_unref(G_OBJECT(filebrowser->store2));
+		gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(filebrowser->tree2), FALSE);
+
+		renderer = gtk_cell_renderer_pixbuf_new();
+		column = gtk_tree_view_column_new ();
+		gtk_tree_view_column_pack_start (column, renderer, FALSE);
+		gtk_tree_view_column_set_attributes(column,renderer
+			,"pixbuf",PIXMAP_COLUMN
+			,"pixbuf_expander_closed",PIXMAP_COLUMN
+			,"pixbuf_expander_open",PIXMAP_COLUMN
+			,NULL);
+		renderer = gtk_cell_renderer_text_new();
+		g_object_set(G_OBJECT(renderer), "editable", FALSE, NULL); /* Not editable. */
+		gtk_tree_view_column_pack_start(column, renderer, TRUE);
+		gtk_tree_view_column_set_attributes(column,renderer,"text", FILENAME_COLUMN,NULL);
+		gtk_tree_view_append_column (GTK_TREE_VIEW(filebrowser->tree2), column);
+	} else {
+		filebrowser->store2 = NULL;
+		filebrowser->tree2 = NULL;
+	}
+	
 	{
 		gchar curdir[1024];
 		GtkTreePath *path;
@@ -1333,6 +1409,9 @@ GtkWidget *filebrowser_init(Tbfwin *bfwin) {
 	g_signal_connect(G_OBJECT(filebrowser->tree), "row-expanded", G_CALLBACK(row_expanded_lcb), filebrowser);
 	g_signal_connect(G_OBJECT(filebrowser->tree), "row-activated",G_CALLBACK(row_activated_lcb),filebrowser);
 	g_signal_connect(G_OBJECT(filebrowser->tree), "button_press_event",G_CALLBACK(filebrowser_button_press_lcb),filebrowser);
+	if (main_v->props.filebrowser_two_pane_view) {
+		g_signal_connect(G_OBJECT(filebrowser->tree2), "button_press_event",G_CALLBACK(filebrowser_tree2_button_press_lcb),filebrowser);
+	}
 
 	{
 		GtkWidget *vbox, *scrolwin;
@@ -1346,9 +1425,21 @@ GtkWidget *filebrowser_init(Tbfwin *bfwin) {
 		
 		scrolwin = gtk_scrolled_window_new(NULL, NULL);
 		gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolwin), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
-		gtk_widget_set_size_request(scrolwin, main_v->props.left_panel_width, -1);
 		gtk_container_add(GTK_CONTAINER(scrolwin), filebrowser->tree);
-		gtk_box_pack_start(GTK_BOX(vbox), scrolwin, TRUE, TRUE, 0);
+		if (main_v->props.filebrowser_two_pane_view) {
+			GtkWidget *vpaned, *scrolwin2;
+			vpaned = gtk_vpaned_new();
+			gtk_paned_add1(GTK_PANED(vpaned), scrolwin);
+			scrolwin2 = gtk_scrolled_window_new(NULL, NULL);
+			gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolwin2), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
+			gtk_container_add(GTK_CONTAINER(scrolwin2), filebrowser->tree2);
+			gtk_paned_add2(GTK_PANED(vpaned), scrolwin2);
+			gtk_widget_set_size_request(vpaned, main_v->props.left_panel_width, -1);
+			gtk_box_pack_start(GTK_BOX(vbox), vpaned, TRUE, TRUE, 0);
+		} else {
+			gtk_widget_set_size_request(scrolwin, main_v->props.left_panel_width, -1);
+			gtk_box_pack_start(GTK_BOX(vbox), scrolwin, TRUE, TRUE, 0);
+		}
 /*		adj = gtk_scrolled_window_get_hadjustment(GTK_SCROLLED_WINDOW(scrolwin));
 		gtk_adjustment_set_value(GTK_ADJUSTMENT(adj), GTK_ADJUSTMENT(adj)->lower);
 		adj = gtk_scrolled_window_get_vadjustment(GTK_SCROLLED_WINDOW(scrolwin));
