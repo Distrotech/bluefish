@@ -391,8 +391,9 @@ Tfiletype *get_filetype_by_filename_and_content(gchar *filename, gchar *buf) {
  *
  * Return value: void
  */
-static void doc_set_tooltip(Tdocument *doc) {
+void doc_set_tooltip(Tdocument *doc) {
 	gchar *text, *tmp;
+	gchar *encoding;
 	gchar mtimestr[128], *modestr=NULL, *sizestr=NULL;
 	mtimestr[0] = '\0';
 	DEBUG_MSG("doc_set_tooltip, fileinfo=%p for uri %s and filename %s\n", doc->fileinfo, doc->uri, doc->uri);
@@ -409,9 +410,13 @@ static void doc_set_tooltip(Tdocument *doc) {
 			sizestr = g_strdup_printf("%"GNOME_VFS_SIZE_FORMAT_STR, doc->fileinfo->size);
 		}
 	}
+	if (doc->encoding) encoding = doc->encoding;
+	else if (BFWIN(doc->bfwin)->session->encoding) encoding = BFWIN(doc->bfwin)->session->encoding;
+	else encoding = main_v->props.newfile_default_encoding;
+	
 	tmp = text = g_strconcat(_("Name: "),gtk_label_get_text(GTK_LABEL(doc->tab_menu))
 							,_("\nType: "),doc->hl->type
-							,_("\nEncoding: "), (doc->encoding != NULL) ? doc->encoding : main_v->props.newfile_default_encoding
+							,_("\nEncoding: "), encoding
 							,NULL);
 	if (sizestr) {
 		text = g_strconcat(text, _("\nSize (on disk): "), sizestr, _(" bytes"), NULL);
@@ -1436,6 +1441,13 @@ static gchar *get_buffer_from_filename(Tbfwin *bfwin, gchar *filename, int *retu
  */
 gboolean doc_buffer_to_textbox(Tdocument * doc, gchar * buffer, gsize buflen, gboolean enable_undo, gboolean delay) {
 	gint cursor_offset;
+	gchar *encoding=NULL;
+	gchar *newbuf=NULL;
+	gsize wsize;
+	GError *error=NULL;
+	GtkTextMark* insert;
+	GtkTextIter iter;
+
 
 	if (!buffer) {
 		DEBUG_MSG("doc_buffer_to_textbox, buffer==NULL, returning\n");
@@ -1446,130 +1458,125 @@ gboolean doc_buffer_to_textbox(Tdocument * doc, gchar * buffer, gsize buflen, gb
 		doc_unbind_signals(doc);
 	}
 	/* now get the current cursor position */
-	{
-		GtkTextMark* insert;
-		GtkTextIter iter;
-		insert = gtk_text_buffer_get_insert(doc->buffer);
-		gtk_text_buffer_get_iter_at_mark(doc->buffer, &iter, insert);
-		cursor_offset = gtk_text_iter_get_offset(&iter);
-	}
+	insert = gtk_text_buffer_get_insert(doc->buffer);
+	gtk_text_buffer_get_iter_at_mark(doc->buffer, &iter, insert);
+	cursor_offset = gtk_text_iter_get_offset(&iter);
 
 	/* This opens the contents of a file to a textbox */
+
+	
+	/* the first try is if the encoding is set in the file */
 	{
-		gchar *encoding=NULL;
-		gchar *newbuf=NULL;
-		gsize wsize;
-		GError *error=NULL;
-		
-		/* the first try is if the encoding is set in the file */
-		{
-			regex_t preg;
-			regmatch_t pmatch[10];
-			gint retval;
-			gchar *pattern = "<meta[ \t\n]http-equiv[ \t\n]*=[ \t\n]*\"content-type\"[ \t\n]+content[ \t\n]*=[ \t\n]*\"text/html;[ \t\n]*charset=([a-z0-9-]+)\"[ \t\n]*/?>";
-			retval = regcomp(&preg,pattern,REG_EXTENDED|REG_ICASE);
+		regex_t preg;
+		regmatch_t pmatch[10];
+		gint retval;
+		/* <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> */
+		gchar *pattern = "<meta[ \t\n\r\f]http-equiv[ \t\n\r\f]*=[ \t\n\r\f]*\"content-type\"[ \t\n\r\f]+content[ \t\n\r\f]*=[ \t\n\r\f]*\"text/x?html;[ \t\n\r\f]*charset=([a-z0-9_-]+)\"[ \t\n\r\f]*/?>";
+		retval = regcomp(&preg,pattern,REG_EXTENDED|REG_ICASE);
 #ifdef DEBUG
-			if (retval) {
-				g_print("regcomp error!\n");
-			}
+		if (retval) {
+			g_print("regcomp error!\n");
+		}
 #endif
-			/* we do a nasty trick to make regexec search only in the first N bytes */
-			if (buflen > main_v->props.encoding_search_Nbytes) {
-				gchar tmp = buffer[main_v->props.encoding_search_Nbytes];
-				buffer[main_v->props.encoding_search_Nbytes] = '\0';
-				retval = regexec(&preg,buffer,10,pmatch,0);
-				buffer[main_v->props.encoding_search_Nbytes] = tmp;
-			} else {
-				retval = regexec(&preg,buffer,10,pmatch,0);
-			}
-#ifdef DEBUG
-			if (retval) {
-				gchar errbuf[1024];
-				regerror(retval, &preg, errbuf, 1024);
-				g_print("regexec error! %s\n", errbuf);
-			}
-#endif
-			if (retval==0 && pmatch[0].rm_so != -1 && pmatch[1].rm_so != -1) {
-				/* we have a match */
-				DEBUG_MSG("doc_buffer_to_textbox, match so=%d,eo=%d\n", pmatch[1].rm_so,pmatch[1].rm_eo);
-				encoding = g_strndup(&buffer[pmatch[1].rm_so], pmatch[1].rm_eo-pmatch[1].rm_so);
-				DEBUG_MSG("doc_buffer_to_textbox, detected encoding %s\n", encoding);
-			}
-			regfree(&preg);
-#ifdef DEBUGPROFILING
-			times(&locals.tms1);
-			print_time_diff("encoding regex match", &locals.tms2, &locals.tms1);
-#endif		
-		}
-		if (encoding) {
-			DEBUG_MSG("doc_buffer_to_textbox, try encoding %s from <meta>\n", encoding);
-			newbuf = g_convert(buffer,-1,"UTF-8",encoding,NULL, &wsize, &error);
-			if (!newbuf || error) {
-				DEBUG_MSG("doc_buffer_to_textbox, cound not convert %s to UTF-8: \n", encoding);
-				g_free(encoding);
-				encoding=NULL;
-			}
-		}
-		if (!newbuf && BFWIN(doc->bfwin)->session->encoding) {
-			DEBUG_MSG("doc_buffer_to_textbox, file does not have <meta> encoding, or could not convert, trying session default encoding %s\n", BFWIN(doc->bfwin)->session->encoding);
-			newbuf = g_convert(buffer,-1,"UTF-8",BFWIN(doc->bfwin)->session->encoding,NULL, &wsize, NULL);
-			if (newbuf) {
-				DEBUG_MSG("doc_buffer_to_textbox, file is in default encoding: %s\n", BFWIN(doc->bfwin)->session->encoding);
-				encoding = g_strdup(BFWIN(doc->bfwin)->session->encoding);
-			}
-		}
-		if (!newbuf) {
-			DEBUG_MSG("doc_buffer_to_textbox, file does not have <meta> encoding, or could not convert, trying newfile default encoding %s\n", main_v->props.newfile_default_encoding);
-			newbuf = g_convert(buffer,-1,"UTF-8",main_v->props.newfile_default_encoding,NULL, &wsize, NULL);
-			if (newbuf) {
-				DEBUG_MSG("doc_buffer_to_textbox, file is in default encoding: %s\n", main_v->props.newfile_default_encoding);
-				encoding = g_strdup(main_v->props.newfile_default_encoding);
-			}
-		}
-		if (!newbuf) {
-			DEBUG_MSG("doc_buffer_to_textbox, file is not in UTF-8, trying encoding from locale\n");
-			newbuf = g_locale_to_utf8(buffer,-1,NULL,&wsize,NULL);
-			if (newbuf) {
-				const gchar *tmpencoding=NULL;
-				g_get_charset(&tmpencoding);
-				DEBUG_MSG("doc_buffer_to_textbox, file is in locale encoding: %s\n", tmpencoding);
-				encoding = g_strdup(tmpencoding);
-			}
-		}
-		if (!newbuf) {
-			DEBUG_MSG("doc_buffer_to_textbox, file NOT is converted yet, trying UTF-8 encoding\n");
-			if(g_utf8_validate(buffer, -1, NULL)) {
-				encoding = g_strdup("UTF-8");
-			}
-		}
-		if (!newbuf) {
-			GList *tmplist;
-			DEBUG_MSG("doc_buffer_to_textbox, tried the most obvious encodings, nothing found.. go trough list\n");
-			tmplist = g_list_first(main_v->props.encodings);
-			while (tmplist) {
-				gchar **enc = tmplist->data;
-				DEBUG_MSG("doc_buffer_to_textbox, trying encoding %s\n", enc[1]);
-				newbuf = g_convert(buffer,-1,"UTF-8",enc[1],NULL, &wsize, NULL);
-				if (newbuf) {
-					encoding = g_strdup(enc[1]);
-					tmplist = NULL;
-				} else {
-					DEBUG_MSG("doc_buffer_to_textbox, no newbuf, next in list\n");
-					tmplist = g_list_next(tmplist);
-				}
-			}
-		}
-		if (!newbuf) {
-			error_dialog(BFWIN(doc->bfwin)->main_window,_("Cannot display file, unknown characters found."), NULL);
-			return FALSE;
+		/* we do a nasty trick to make regexec search only in the first N bytes */
+		if (buflen > main_v->props.encoding_search_Nbytes) {
+			gchar tmp = buffer[main_v->props.encoding_search_Nbytes];
+			buffer[main_v->props.encoding_search_Nbytes] = '\0';
+			retval = regexec(&preg,buffer,10,pmatch,0);
+			buffer[main_v->props.encoding_search_Nbytes] = tmp;
 		} else {
-			if (doc->encoding) g_free(doc->encoding);
-			doc->encoding = encoding;
-			add_encoding_to_list(encoding);
+			retval = regexec(&preg,buffer,10,pmatch,0);
 		}
-		gtk_text_buffer_insert_at_cursor(doc->buffer,newbuf,-1);
-		g_free(newbuf);
+#ifdef DEBUG
+		if (retval) {
+			gchar errbuf[1024];
+			regerror(retval, &preg, errbuf, 1024);
+			g_print("regexec error! %s\n", errbuf);
+		}
+#endif
+		if (retval==0 && pmatch[0].rm_so != -1 && pmatch[1].rm_so != -1) {
+			/* we have a match */
+			DEBUG_MSG("doc_buffer_to_textbox, match so=%d,eo=%d\n", pmatch[1].rm_so,pmatch[1].rm_eo);
+			encoding = g_strndup(&buffer[pmatch[1].rm_so], pmatch[1].rm_eo-pmatch[1].rm_so);
+			DEBUG_MSG("doc_buffer_to_textbox, detected encoding %s\n", encoding);
+		}
+		regfree(&preg);
+#ifdef DEBUGPROFILING
+		times(&locals.tms1);
+		print_time_diff("encoding regex match", &locals.tms2, &locals.tms1);
+#endif		
 	}
+	if (encoding) {
+		DEBUG_MSG("doc_buffer_to_textbox, try encoding %s from <meta>\n", encoding);
+		newbuf = g_convert(buffer,-1,"UTF-8",encoding,NULL, &wsize, &error);
+		if (!newbuf || error) {
+			DEBUG_MSG("doc_buffer_to_textbox, cound not convert %s to UTF-8: \n", encoding);
+			g_free(encoding);
+			encoding=NULL;
+		}
+	}
+	if (!newbuf && BFWIN(doc->bfwin)->session->encoding) {
+		DEBUG_MSG("doc_buffer_to_textbox, file does not have <meta> encoding, or could not convert, trying session default encoding %s\n", BFWIN(doc->bfwin)->session->encoding);
+		newbuf = g_convert(buffer,-1,"UTF-8",BFWIN(doc->bfwin)->session->encoding,NULL, &wsize, NULL);
+		if (newbuf) {
+			DEBUG_MSG("doc_buffer_to_textbox, file is in default encoding: %s\n", BFWIN(doc->bfwin)->session->encoding);
+			encoding = g_strdup(BFWIN(doc->bfwin)->session->encoding);
+		}
+	}
+	if (!newbuf) {
+		DEBUG_MSG("doc_buffer_to_textbox, file does not have <meta> encoding, or could not convert, trying newfile default encoding %s\n", main_v->props.newfile_default_encoding);
+		newbuf = g_convert(buffer,-1,"UTF-8",main_v->props.newfile_default_encoding,NULL, &wsize, NULL);
+		if (newbuf) {
+			DEBUG_MSG("doc_buffer_to_textbox, file is in default encoding: %s\n", main_v->props.newfile_default_encoding);
+			encoding = g_strdup(main_v->props.newfile_default_encoding);
+		}
+	}
+	if (!newbuf) {
+		DEBUG_MSG("doc_buffer_to_textbox, file is not in UTF-8, trying encoding from locale\n");
+		newbuf = g_locale_to_utf8(buffer,-1,NULL,&wsize,NULL);
+		if (newbuf) {
+			const gchar *tmpencoding=NULL;
+			g_get_charset(&tmpencoding);
+			DEBUG_MSG("doc_buffer_to_textbox, file is in locale encoding: %s\n", tmpencoding);
+			encoding = g_strdup(tmpencoding);
+		}
+	}
+	if (!newbuf) {
+		DEBUG_MSG("doc_buffer_to_textbox, file NOT is converted yet, trying UTF-8 encoding\n");
+		if(g_utf8_validate(buffer, -1, NULL)) {
+			encoding = g_strdup("UTF-8");
+		}
+	}
+	if (!newbuf) {
+		GList *tmplist;
+		DEBUG_MSG("doc_buffer_to_textbox, tried the most obvious encodings, nothing found.. go trough list\n");
+		tmplist = g_list_first(main_v->props.encodings);
+		while (tmplist) {
+			gchar **enc = tmplist->data;
+			DEBUG_MSG("doc_buffer_to_textbox, trying encoding %s\n", enc[1]);
+			newbuf = g_convert(buffer,-1,"UTF-8",enc[1],NULL, &wsize, NULL);
+			if (newbuf) {
+				encoding = g_strdup(enc[1]);
+				tmplist = NULL;
+			} else {
+				DEBUG_MSG("doc_buffer_to_textbox, no newbuf, next in list\n");
+				tmplist = g_list_next(tmplist);
+			}
+		}
+	}
+	if (!newbuf) {
+		error_dialog(BFWIN(doc->bfwin)->main_window,_("Cannot display file, unknown characters found."), NULL);
+		return FALSE;
+	}
+
+	if (doc->encoding) g_free(doc->encoding);
+	DEBUG_MSG("doc_buffer_to_textbox, encoding set to %s\n",encoding);
+	doc->encoding = encoding;
+	add_encoding_to_list(encoding);
+
+	gtk_text_buffer_insert_at_cursor(doc->buffer,newbuf,-1);
+	g_free(newbuf);
+
 	if (doc->highlightstate) {
 		doc->need_highlighting=TRUE;
 		DEBUG_MSG("doc_buffer_to_textbox, highlightstate=%d, need_highlighting=%d, delay=%d\n",doc->highlightstate,doc->need_highlighting,delay);
@@ -2788,6 +2795,7 @@ static Tdocument *doc_new_backend(Tbfwin *bfwin, gboolean force_new) {
 	newdoc->fileinfo = NULL;*/
 	newdoc->is_symlink = 0;
 	newdoc->encoding = g_strdup( (bfwin->session->encoding) ? bfwin->session->encoding : main_v->props.newfile_default_encoding);
+	DEBUG_MSG("doc_new_backend, encoding is %s\n",newdoc->encoding);
 	newdoc->overwrite_mode = FALSE;
 	doc_bind_signals(newdoc);
 
