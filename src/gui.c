@@ -217,6 +217,23 @@ GtkWidget *left_panel_build(Tbfwin *bfwin) {
 	return left_notebook;
 }
 
+/**
+ * if there is a left panel, this function will rebuild all widgets
+ */
+void left_panel_rebuild(Tbfwin *bfwin) {
+	if (bfwin->hpane) {
+		DEBUG_MSG("left_panel_rebuild, destroying widgets\n");
+		gtk_widget_destroy(bfwin->leftpanel_notebook);
+		DEBUG_MSG("left_panel_rebuild, cleanup\n");
+		filebrowser_cleanup(bfwin);
+		fref_cleanup(bfwin);
+		DEBUG_MSG("left_panel_rebuild, re-init\n");
+		bfwin->leftpanel_notebook = left_panel_build(bfwin);
+		gtk_paned_add1(GTK_PANED(bfwin->hpane), bfwin->leftpanel_notebook);
+		gtk_widget_show_all(bfwin->leftpanel_notebook);
+	}
+}
+
 void left_panel_show_hide_toggle(Tbfwin *bfwin,gboolean first_time, gboolean show, gboolean sync_menu) {
 	if (sync_menu) setup_toggle_item(gtk_item_factory_from_widget(bfwin->menubar), N_("/View/View Left Panel"), show);
 	if (!first_time && ((show && bfwin->hpane) || (!show && bfwin->hpane == NULL))) {

@@ -1703,6 +1703,7 @@ static void preferences_ok_clicked_lcb(GtkWidget *wid, Tprefdialog *pd) {
 			filetype_menu_rebuild(bfwin,NULL);
 			DEBUG_MSG("preferences_ok_clicked_lcb, calling gui_apply_settings\n");
 			gui_apply_settings(bfwin);
+			left_panel_rebuild(bfwin);
 			DEBUG_MSG("preferences_ok_clicked_lcb, calling doc_force_activate\n");
 			doc_force_activate(bfwin->current_document);
 			tmplist = g_list_next(tmplist);

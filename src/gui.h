@@ -30,6 +30,7 @@ void notebook_show(Tbfwin *bfwin);
 void notebook_changed(Tbfwin *bfwin,gint newpage);
 
 void gui_notebook_switch(Tbfwin *bfwin,guint action,GtkWidget *widget);
+void left_panel_rebuild(Tbfwin *bfwin);
 void left_panel_show_hide_toggle(Tbfwin *bfwin,gboolean first_time, gboolean show, gboolean sync_menu);
 void gui_set_title(Tbfwin *bfwin, Tdocument *doc);
 void gui_apply_settings(Tbfwin *bfwin);
