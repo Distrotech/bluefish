@@ -42,6 +42,7 @@ GtkWidget *boxed_checkbut_with_value(gchar *labeltext, gint which_config_int, Gt
 GtkWidget *radiobut_with_value(gchar *labeltext, gint enabled, GtkRadioButton *prevbut);
 GtkWidget *boxed_radiobut_with_value(gchar *labeltext, gint enabled, GtkRadioButton *prevbut, GtkWidget *box);
 GtkWidget *spinbut_with_value(gchar *value, gfloat lower, gfloat upper, gfloat step_increment, gfloat page_increment);
+GtkWidget *optionmenu_with_value(gchar **options, gint curval);
 GtkWidget *boxed_optionmenu_with_value(const gchar *labeltext, gint curval, GtkWidget *box, gchar **options);
 GtkWidget *window_with_title(gchar * title, GtkWindowPosition position, gint borderwidth);
 
