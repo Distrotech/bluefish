@@ -454,16 +454,6 @@ should write its html string. If there is no next image, we can call for cleanup
 */
 
 typedef struct {
-	GnomeVFSURI *image;
-	GnomeVFSURI *thumb;
-	Topenfile *of; /* if != NULL, the image is loading */
-	Tsavefile *sf; /* if != NULL, the thumbnail is saving */
-	gboolean created; /* both loading and saving is finished */
-	gchar *string; /* the string to insert, if NULL && ->create = TRUE means 
-						that the string is written to the document */
-} Timage2thumb;
-
-typedef struct {
 	GtkWidget *win;
 	GtkWidget *radio[4];
 	GtkWidget *spinlabels[2];
@@ -472,17 +462,221 @@ typedef struct {
 	gint mode;
 	GList *images;
 	Tbfwin *bfwin;
+	Tdocument *document;
 } Tmuthudia;
 
-static void multi_thumbnail_dialog_destroy(GtkWidget *wid, Tmuthudia *mtd) {
+typedef struct {
+	GdkPixbuf *image;
+	GdkPixbuf *thumb;
+	GdkPixbufLoader* pbloader;
+	GnomeVFSURI *imagename;
+	GnomeVFSURI *thumbname;
+	Topenfile *of; /* if != NULL, the image is loading */
+	Tsavefile *sf; /* if != NULL, the thumbnail is saving */
+	gboolean created; /* both loading and saving is finished */
+	gchar *string; /* the string to insert, if NULL && ->create = TRUE means 
+						that the string is written to the document */
+	Tmuthudia *mtd;
+} Timage2thumb;
+
+static void mt_dialog_destroy(GtkWidget *wid, Tmuthudia *mtd) {
 	DEBUG_MSG("multi_thumbnail_dialog_destroy, called for mtd=%p\n",mtd);
 	window_destroy(mtd->win);
 	g_free(mtd);
 }
+/* needs both pixbufs to get the width !! */
+static void mt_fill_string(Timage2thumb *i2t) {
+	gint tw,th,ow,oh;
+	gchar *relthumb, *tmp, *relimage;
+
+	relimage = tmp = gnome_vfs_uri_to_string(i2t->imagename,GNOME_VFS_URI_HIDE_PASSWORD);
+	if (i2t->mtd->document->uri) {
+		relimage = create_relative_link_to(i2t->mtd->document->uri, tmp);
+		g_free(tmp);
+	}
+	relthumb = tmp = gnome_vfs_uri_to_string(i2t->thumbname,GNOME_VFS_URI_HIDE_PASSWORD);
+	if (i2t->mtd->bfwin->current_document->uri) {
+		relthumb = create_relative_link_to(i2t->mtd->document->uri, tmp);
+		g_free(tmp);
+	}
+
+	ow = gdk_pixbuf_get_width(i2t->image);
+	oh = gdk_pixbuf_get_height(i2t->image);
+	tw = gdk_pixbuf_get_width(i2t->thumb);
+	th = gdk_pixbuf_get_height(i2t->thumb);
+	{
+		Tconvert_table *table, *tmpt;
+		gchar *str;
+		table = tmpt = g_new(Tconvert_table, 8);
+		tmpt->my_int = 'r';
+		tmpt->my_char = g_strdup(relimage);
+		tmpt++;
+		tmpt->my_int = 't';
+		tmpt->my_char = g_strdup(relthumb);
+		tmpt++;
+		tmpt->my_int = 'w';
+		tmpt->my_char = g_strdup_printf("%d", ow);
+		tmpt++;
+		tmpt->my_int = 'h';
+		tmpt->my_char = g_strdup_printf("%d", oh);
+		tmpt++;
+		tmpt->my_int = 'x';
+		tmpt->my_char = g_strdup_printf("%d", tw);
+		tmpt++;
+		tmpt->my_int = 'y';
+		tmpt->my_char = g_strdup_printf("%d", th);
+		tmpt++;
+		tmpt->my_int = 'b';
+		tmpt->my_char = g_strdup("xxx");
+		tmpt++;
+		tmpt->my_char = NULL;
+		i2t->string = replace_string_printflike(main_v->props.image_thumnailformatstring, table);
+		DEBUG_MSG("string to insert: %s\n", str);
+		tmpt = table;
+		while (tmpt->my_char) {
+			g_free(tmpt->my_char);
+			tmpt++;
+		}
+		g_free(table);
+	}
+	g_free(relimage);
+	g_free(relthumb);
+}
+
+static Timage2thumb *mt_next(Timage2thumb *i2t) {
+	GList *tmplist;
+	tmplist = g_list_find(i2t->mtd->images, i2t);
+	tmplist = g_list_next(tmplist);
+	return (tmplist) ? tmplist->data : NULL;
+}
+static Timage2thumb *mt_prev(Timage2thumb *i2t) {
+	GList *tmplist;
+	tmplist = g_list_find(i2t->mtd->images, i2t);
+	tmplist = g_list_previous(tmplist);
+	return (tmplist) ? tmplist->data : NULL;
+}
+/* TRUE if already inserted or successfully inserted, FALSE if not yet ready */
+static gboolean mt_print_string(Timage2thumb *i2t) {
+	if (i2t->string == NULL && i2t->created == TRUE) {
+		/* already added the HTML string */
+		return TRUE;
+	} else if (i2t->string) {
+		Timage2thumb *tmp;
+		/* check the previous entry */
+		tmp = mt_prev(i2t);
+		if (tmp && !mt_print_string(tmp)) {
+			return FALSE;
+		}
+		/* we have a string, but it is not yet added, insert the string */
+		doc_insert_two_strings(i2t->mtd->document, i2t->string, NULL);
+		g_free(i2t->string);
+		i2t->string = NULL;
+		i2t->created = TRUE;
+		/* now check if the next string is also already ready for printing */
+		tmp = mt_next(i2t);
+		mt_print_string(tmp);
+		return TRUE;
+	} else {
+		return FALSE;
+	}
+}
+
+static void mt_openfile_lcb(Topenfile_status status,gint error_info, gchar *buffer,GnomeVFSFileSize buflen,gpointer callback_data) {
+	Timage2thumb *i2t = callback_data;
+	gboolean cleanup = TRUE;
+	switch (status) {
+		case OPENFILE_ERROR:
+		case OPENFILE_ERROR_NOCHANNEL:
+		case OPENFILE_ERROR_NOREAD:
+		case OPENFILE_ERROR_CANCELLED:
+			/* should we warn the user ?? */
+			gdk_pixbuf_loader_close(i2t->pbloader,NULL);
+		break;
+		case OPENFILE_CHANNEL_OPENED:
+			/* do nothing */
+			cleanup = FALSE;
+		break;
+		case OPENFILE_FINISHED: {
+			GError *error=NULL;
+			if (gdk_pixbuf_loader_write(i2t->pbloader,buffer,buflen,&error) 
+						&& gdk_pixbuf_loader_close(i2t->pbloader,&error)) {
+				gint tw,th,ow,oh;
+				i2t->image = gdk_pixbuf_loader_get_pixbuf(i2t->pbloader);
+		
+				ow = gdk_pixbuf_get_width(i2t->image);
+				oh = gdk_pixbuf_get_height(i2t->image);		
+				switch (main_v->props.image_thumbnailsizing_type) {
+				case 0:
+					tw = (1.0*ow / 100 * main_v->props.image_thumbnailsizing_val1);
+					th = (1.0*oh / 100 * main_v->props.image_thumbnailsizing_val1);
+				break;
+				case 1:
+					tw = main_v->props.image_thumbnailsizing_val1;
+					th = (1.0*tw/ow*oh);
+				break;
+				case 2:
+					th = main_v->props.image_thumbnailsizing_val1;
+					tw = (1.0*th/oh*ow);
+				break;
+				default: /* all fall back to type 3 */
+					tw = main_v->props.image_thumbnailsizing_val1;
+					th = main_v->props.image_thumbnailsizing_val2;
+				break;
+				}
+				
+				i2t->thumb = gdk_pixbuf_scale_simple(i2t->image, tw, th, GDK_INTERP_BILINEAR);
+				mt_fill_string(i2t); /* create the string */
+				mt_print_string(i2t); /* print the string and all previous string (if possible) */
+				gdk_pixbuf_unref(i2t->image);
+				/* save the thumbnail */
+				if (strcmp(main_v->props.image_thumbnailtype, "jpeg")==0) {
+					gdk_pixbuf_save_to_buffer(i2t->thumb, &buffer, &buflen,main_v->props.image_thumbnailtype,&error, "quality", "50",NULL);
+				} else {
+					gdk_pixbuf_save_to_buffer(i2t->thumb, &buffer, &buflen,main_v->props.image_thumbnailtype,&error,NULL);
+				}
+				g_object_unref(i2t->thumb);
+				if (error) {
+					g_print("ERROR while saving thumbnail to buffer: %s\n", error->message);
+					g_error_free(error);
+				} else {
+					Tsavefile *sf;
+					Trefcpointer *refbuf = refcpointer_new(buffer);
+					sf = file_savefile_uri_async(i2t->thumbname, refbuf, buflen, async_thumbsave_lcb, NULL);
+					refcpointer_unref(refbuf);
+				}
+			}
+		} break;
+	}
+	if (cleanup) {
+		g_object_unref(i2t->pbloader);
+	}
+}
+
+static void mt_start_load(Timage2thumb *i2t) {
+	gchar *filename;
+	GError *error=NULL;
+	gchar *ext = strrchr(filename, '.');
+	if (ext) {
+		gchar *tmp2 = g_utf8_strdown(ext+1,-1);
+		if (strcmp(tmp2, "jpg")==0) {
+			i2t->pbloader = gdk_pixbuf_loader_new_with_type("jpeg", &error);
+		} else {
+			i2t->pbloader = gdk_pixbuf_loader_new_with_type(tmp2, &error);
+		}
+		if (error) {
+			i2t->pbloader = gdk_pixbuf_loader_new(); /* try to guess from the data */
+		}
+		g_free(tmp2);
+	} else {
+		i2t->pbloader = gdk_pixbuf_loader_new();
+	}
+	i2t->of = file_openfile_uri_async(i2t->imagename, mt_openfile_lcb, i2t);
+}
 
 static void multi_thumbnail_ok_clicked(GtkWidget *widget, Tmuthudia *mtd) {
-	GList *files=NULL, *tmplist;
+	GSList *files=NULL, *tmplist;
 	gchar *string2insert=g_strdup("");
+	GtkWidget *dialog;
 
 	gtk_widget_hide(mtd->win);
 
@@ -505,130 +699,31 @@ static void multi_thumbnail_ok_clicked(GtkWidget *widget, Tmuthudia *mtd) {
 			main_v->props.image_thumnailformatstring = tmp;
 		}
 	}
-	{
-		GtkWidget *dialog;
-		/*dialog = gtk_file_chooser_dialog_new (_("Select files for thumbnail creation"),NULL,
-				GTK_FILE_CHOOSER_ACTION_OPEN,
-				GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
-				GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT,
-				NULL);
-		gtk_file_chooser_set_select_multiple(GTK_FILE_CHOOSER(dialog), TRUE);*/
-		dialog = file_chooser_dialog(mtd->bfwin, _("Select files for thumbnail creation"), GTK_FILE_CHOOSER_ACTION_OPEN, NULL, TRUE, TRUE, "webimage");
-		if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_ACCEPT) {
-			GSList *slist = gtk_file_chooser_get_filenames(GTK_FILE_CHOOSER(dialog));
-			files = glist_from_gslist(slist);
-			g_slist_free(slist);
-		}
-		gtk_widget_destroy (dialog);
+		
+	dialog = file_chooser_dialog(mtd->bfwin, _("Select files for thumbnail creation"), GTK_FILE_CHOOSER_ACTION_OPEN, NULL, FALSE, TRUE, "webimage");
+	if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_ACCEPT) {
+		files = gtk_file_chooser_get_filenames(GTK_FILE_CHOOSER(dialog));
 	}
-	tmplist = g_list_first(files);
-	while (tmplist) {
-		GdkPixbuf *tmp_im1, *tmp_im2;
-		gint tw,th,ow,oh;
-		GError *error=NULL;
-		gchar *thumbfilename, *filename=(gchar *)tmplist->data, *relfilename;
+	gtk_widget_destroy (dialog);
 	
-		if (mtd->bfwin->current_document->uri) {
-			relfilename = create_relative_link_to(mtd->bfwin->current_document->uri, filename);
-			DEBUG_MSG("create_relative_link_to, filename=%s relfilename=%s \n", filename, relfilename);
-		} else {
-			relfilename = g_strdup (filename);
-		}
-		thumbfilename = create_thumbnail_filename(relfilename);
-		g_free(relfilename);
+	main_v->props.image_thumbnailsizing_val1 = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(mtd->spins[0]));
+	main_v->props.image_thumbnailsizing_val2 = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(mtd->spins[1]));
 
-		DEBUG_MSG("filename=%s, thumbfilename=%s\n", filename, thumbfilename);
-		tmp_im1 = gdk_pixbuf_new_from_file(filename, NULL);
-		ow = gdk_pixbuf_get_width(tmp_im1);
-		oh = gdk_pixbuf_get_height(tmp_im1);
-		main_v->props.image_thumbnailsizing_val1 = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(mtd->spins[0]));
-		main_v->props.image_thumbnailsizing_val2 = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(mtd->spins[1]));
-
-		switch (main_v->props.image_thumbnailsizing_type) {
-		case 0:
-			tw = (1.0*ow / 100 * main_v->props.image_thumbnailsizing_val1);
-			th = (1.0*oh / 100 * main_v->props.image_thumbnailsizing_val1);
-		break;
-		case 1:
-			tw = main_v->props.image_thumbnailsizing_val1;
-			th = (1.0*tw/ow*oh);
-		break;
-		case 2:
-			th = main_v->props.image_thumbnailsizing_val1;
-			tw = (1.0*th/oh*ow);
-		break;
-		default: /* all fall back to type 3 */
-			tw = main_v->props.image_thumbnailsizing_val1;
-			th = main_v->props.image_thumbnailsizing_val2;
-		break;
-		}
-		DEBUG_MSG("scaling %s to %dx%d\n", filename, tw,th);
-		tmp_im2 = gdk_pixbuf_scale_simple(tmp_im1, tw, th, GDK_INTERP_BILINEAR);
-		gdk_pixbuf_unref(tmp_im1);
-		if (strcmp(main_v->props.image_thumbnailtype, "jpeg")==0) {
-	 		gdk_pixbuf_save(tmp_im2,thumbfilename,main_v->props.image_thumbnailtype,&error, "quality", "50", NULL);
-		} else {
-	 		gdk_pixbuf_save(tmp_im2,thumbfilename,main_v->props.image_thumbnailtype,&error, NULL);
-		}
- 		if (error) {
- 			/* do something */
- 			g_error_free(error);
- 		}
-		gdk_pixbuf_unref (tmp_im2);
-		{
-			Tconvert_table *table, *tmpt;
-			gchar *str, *tmp;
-			table = tmpt = g_new(Tconvert_table, 8);
-			tmpt->my_int = 'r';
-			tmpt->my_char = g_strdup(filename);
-			tmpt++;
-			tmpt->my_int = 't';
-			tmpt->my_char = g_strdup(thumbfilename);
-			tmpt++;
-			tmpt->my_int = 'w';
-			tmpt->my_char = g_strdup_printf("%d", ow);
-			tmpt++;
-			tmpt->my_int = 'h';
-			tmpt->my_char = g_strdup_printf("%d", oh);
-			tmpt++;
-			tmpt->my_int = 'x';
-			tmpt->my_char = g_strdup_printf("%d", tw);
-			tmpt++;
-			tmpt->my_int = 'y';
-			tmpt->my_char = g_strdup_printf("%d", th);
-			tmpt++;
-			tmpt->my_int = 'b';
-			tmpt->my_char = g_strdup("xxx");
-			tmpt++;
-			tmpt->my_char = NULL;
-			str = replace_string_printflike(main_v->props.image_thumnailformatstring, table);
-			DEBUG_MSG("string to insert: %s\n", str);
-			tmpt = table;
-			while (tmpt->my_char) {
-				g_free(tmpt->my_char);
-				tmpt++;
-			}
-			g_free(table);
-			tmp = string2insert;
-			string2insert = g_strconcat(string2insert, str, "\n", NULL);
-			g_free(tmp);
-			g_free(str);
-		}
-		DEBUG_MSG("about to free %s (%p)\n", thumbfilename, thumbfilename);
-		g_free(thumbfilename);
-		DEBUG_MSG("next thumbnail!!\n");
-		tmplist = g_list_next(tmplist);
+	
+	
+	tmplist = files;
+	while (tmplist) {
+		gchar *filename=(gchar *)tmplist->data;
+		
+		
+		
+		tmplist = g_slist_next(tmplist);
 	}
-	DEBUG_MSG("done with all the files, inserting totalstring %s\n", string2insert);
-	doc_insert_two_strings(mtd->bfwin->current_document, string2insert, NULL);
-	g_free(string2insert);
-	DEBUG_MSG("ready, cleanup time!\n");
-	free_stringlist(files);
-	multi_thumbnail_dialog_destroy(NULL, mtd);
+	mt_dialog_destroy(NULL, mtd);
 }
 
 static void multi_thumbnail_cancel_clicked(GtkWidget *widget, Tmuthudia *mtd) {
-	multi_thumbnail_dialog_destroy(NULL, mtd);
+	mt_dialog_destroy(NULL, mtd);
 }
 
 static void multi_thumbnail_radio_toggled_lcb(GtkToggleButton *togglebutton,Tmuthudia *mtd) {
@@ -662,7 +757,7 @@ void multi_thumbnail_dialog(Tbfwin *bfwin) {
 	mtd = g_new(Tmuthudia, 1);
 	mtd->bfwin = bfwin;
 	mtd->win = window_full2(_("Multi thumbnail"), GTK_WIN_POS_MOUSE, 5
-		, G_CALLBACK(multi_thumbnail_dialog_destroy), mtd, TRUE, NULL);
+		, G_CALLBACK(mt_dialog_destroy), mtd, TRUE, NULL);
 	vbox = gtk_vbox_new(FALSE,5);
 	gtk_container_add(GTK_CONTAINER(mtd->win), vbox);
 	
