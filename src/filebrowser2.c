@@ -42,6 +42,7 @@ the trailing slash. So it is convenient to use directories without trailing slas
 #include "bf_lib.h"
 #include "project.h"
 #include "document.h"
+#include "file_dialogs.h"
 #include "image.h"
 #include "menu.h" /* menu_translate() */
 #include "gtk_easy.h" /* destroy_disposable_menu_cb() */
