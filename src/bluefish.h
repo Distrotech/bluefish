@@ -124,6 +124,7 @@ typedef struct {
 	gboolean wrapstate; /* does this document use wrap?*/
 	gboolean linenumberstate; /* does this document use linenumbers? */
 	gboolean overwrite_mode; /* is document in overwrite mode */
+	gpointer *bfwin;
 } Tdocument;
 
 typedef struct {

@@ -27,8 +27,8 @@ enum {
 	DOCUMENT_BACKUP_ABORT_ASK
 };
 
-gint documentlist_return_index_from_filename(gchar *filename);
-Tdocument *documentlist_return_document_from_index(gint index);
+gint documentlist_return_index_from_filename(GList *doclist, gchar *filename);
+Tdocument *documentlist_return_document_from_index(GList *doclist, gint index);
 
 void doc_update_highlighting(GtkWidget *wid, gpointer data);
 void document_set_wrap(Tdocument *doc, gint wraptype);
