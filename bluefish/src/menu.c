@@ -583,26 +583,6 @@ static void menu_current_document_type_change(GtkMenuItem *menuitem,Tfiletype *h
 	DEBUG_MSG("menu_current_document_type_change, finished\n");
 }
 
-void menu_current_document_set_toggle_wo_activate(Tfiletype *hlset, gchar *encoding) {
-	if (hlset && !GTK_CHECK_MENU_ITEM(hlset->menuitem)->active) {
-		DEBUG_MSG("setting widget from hlset %p active\n", main_v->current_document->hl);
-		g_signal_handler_disconnect(G_OBJECT(hlset->menuitem),hlset->menuitem_activate_id);
-		gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (hlset->menuitem), TRUE);
-		hlset->menuitem_activate_id = g_signal_connect(G_OBJECT(hlset->menuitem), "activate",G_CALLBACK(menu_current_document_type_change), (gpointer) hlset);
-	}
-#ifdef DEBUG
-	 else {
-	 	DEBUG_MSG("widget from hlset %p is already active!!\n", main_v->current_document->hl);
-	 }
-#endif
-	if (encoding) {
-		GtkWidget *menuitem = find_menuitem_in_list_by_label(menus.encodings, encoding);
-		if (menuitem) {
-			gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem),TRUE);
-		}
-	}
-}
-
 void filetype_menu_destroy(Tfiletype *filetype) {
 	if (filetype->menuitem) {
 		g_signal_handler_disconnect(filetype->menuitem,filetype->menuitem_activate_id);
@@ -1092,6 +1072,31 @@ void encoding_menu_rebuild() {
 	}
 	
 }
+
+void menu_current_document_set_toggle_wo_activate(Tfiletype *hlset, gchar *encoding) {
+	if (hlset && !GTK_CHECK_MENU_ITEM(hlset->menuitem)->active) {
+		DEBUG_MSG("setting widget from hlset %p active\n", main_v->current_document->hl);
+		g_signal_handler_disconnect(G_OBJECT(hlset->menuitem),hlset->menuitem_activate_id);
+		gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (hlset->menuitem), TRUE);
+		hlset->menuitem_activate_id = g_signal_connect(G_OBJECT(hlset->menuitem), "activate",G_CALLBACK(menu_current_document_type_change), (gpointer) hlset);
+	}
+#ifdef DEBUG
+	 else {
+	 	DEBUG_MSG("widget from hlset %p is already active!!\n", main_v->current_document->hl);
+	 }
+#endif
+	if (encoding) {
+		GtkWidget *menuitem = find_menuitem_in_list_by_label(menus.encodings, encoding);
+		if (menuitem) {
+			g_signal_handlers_block_matched(G_OBJECT(menuitem), G_SIGNAL_MATCH_FUNC,
+					0, 0, NULL, menu_current_document_encoding_change, NULL);
+			gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem),TRUE);
+			g_signal_handlers_unblock_matched(G_OBJECT(menuitem), G_SIGNAL_MATCH_FUNC,
+					0, 0, NULL, menu_current_document_encoding_change, NULL);
+		}
+	}
+}
+
 
 /***************/
 /* custom menu */
