@@ -235,7 +235,7 @@ static void menu_html_dialogs_lcb(Tbfwin *bfwin,guint callback_action, GtkWidget
 		/* unordered list */
 	break;
 	case 34:
-		insert_time_dialog(bfwin,NULL);
+		insert_time_dialog(bfwin);
 	break;
 	case 35:
 		link_dialog(bfwin,NULL);
@@ -803,15 +803,23 @@ static void menu_current_document_type_change(GtkMenuItem *menuitem,Tbfw_dynmenu
 	doc_set_statusbar_editmode_encoding(bdm->bfwin->current_document);
 	DEBUG_MSG("menu_current_document_type_change, finished\n");
 }
-/*
-void filetype_menu_destroy(Tfiletype *filetype) {
-	if (filetype->menuitem) {
-		g_signal_handler_disconnect(filetype->menuitem,filetype->menuitem_activate_id);
-		gtk_widget_destroy(filetype->menuitem);
-		filetype->menuitem = NULL;
+
+void filetype_menus_empty() {
+	GList *tmplist = g_list_first(main_v->bfwinlist);
+	while (tmplist) {
+		Tbfwin *bfwin = BFWIN(tmplist->data);
+		GList *tmplist2 = g_list_first(bfwin->menu_filetypes);
+		while (tmplist2) {
+			Tbfw_dynmenu *bdm = BFW_DYNMENU(tmplist2->data);
+			g_signal_handler_disconnect(bdm->menuitem,bdm->signal_id);
+			gtk_widget_destroy(bdm->menuitem);
+			g_free(bdm);
+			tmplist2 = g_list_next(tmplist2);
+		}
+		tmplist = g_list_next(tmplist);
 	}
 }
-*/
+
 void filetype_menu_rebuild(Tbfwin *bfwin,GtkItemFactory *item_factory) {
 	GSList *group=NULL;
 	GtkWidget *parent_menu;

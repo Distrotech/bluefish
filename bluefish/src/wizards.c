@@ -62,7 +62,7 @@ static void table_wizard_ok_lcb(GtkWidget * widget, Thtml_diag *dg) {
 	html_diag_destroy_cb(NULL, dg);
 }
 
-void tablewizard(Tbfwin *bfwin) {
+void tablewizard_dialog(Tbfwin *bfwin) {
 	GtkWidget *dgtable;
 	Thtml_diag *dg;
 	dg = html_diag_new(bfwin,_("Table Wizard"));
@@ -167,7 +167,7 @@ static void frame_wizard_num_changed(GtkWidget *widget, Thtml_diag *dg) {
 	}
 }
 
-void framewizard(Tbfwin *bfwin) {
+void framewizard_dialog(Tbfwin *bfwin) {
 	GtkWidget *dgtable, *frame, *vbox, *label;
 	Thtml_diag *dg;
 	gint i;
