@@ -29,16 +29,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 <para>To generate HTML, PDF or PostScript files out of the source XML, you will need the following:</para>
 <itemizedlist spacing="compact">
 	<listitem>
-	<para>the Bluefish manual source files via CVS</para>
-	</listitem>
-	<listitem>
-	<para>the Bluefish doc tools via CVS</para>
-	</listitem>
-	<listitem>
-	<para>DocBook 4.3.0</para>
-	</listitem>
-	<listitem>
-	<para>DocBook XSL style sheets</para>
+	<para>Bluefish manual source files</para>
 	</listitem>
 	<listitem>
 	<para>XSLT Processors: we use <command>xsltproc</command> for HTML production, and <command>fop</command> for PDF and PostScript production.</para>
@@ -51,7 +42,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 <para>Here are the procedures to install the required files:</para>
 <procedure id="getting-manual">
 	<title>Getting the Bluefish manual source files</title>
-	<step><para>Login: 
+	<step><para>First, think about where in the filesystem you would like to build the manual. Let us assume you choose your home directory. So, from your home directory, login to Bluefish's CVS repository by issuing the command:
 	<screen>$ cvs -d :pserver:anonymous@cvs.sourceforge.net:/cvsroot/bluefish \ 
 	login</screen></para>
 	</step>
@@ -61,35 +52,165 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 	<para>Checkout the directory containing the Bluefish documentation: 
 	<screen>$ cvs -z3 -d :pserver:anonymous@cvs.sourceforge.net:/cvsroot/bluefish \
 	co bluefish-doc</screen></para>
-	<para>This will download all the files to your system in the directory <literal>bluefish-doc/</literal>.</para>
+	<para>This will download the bluefish-doc CVS module, containing the Bluefish manual source files, to your system in a directory <literal>bluefish-doc/</literal>.</para>
 	</step>
 </procedure>
-<procedure id="getting-doc-tools">
-	<title>Getting the Bluefish doc tools</title>
-<step>
-	<para>Get the doc tools from CVS under <filename>bluefish-doctools</filename>:
-	<screen>$ cvs -z3 -d :pserver:anonymous@cvs.sourceforge.net:/cvsroot/bluefish \
-	co bluefish-doctools/</screen></para>
+
+<procedure id="getting-xsltproc">
+	<title>Installing xsltproc</title>
+	<step>
+	<para>Install libxslt, if needed.</para>
+	<para><command>xsltproc</command> is provided by <ulink url="http://xmlsoft.org/XSLT/">libxslt</ulink>, distributed as part of the GNOME desktop environment and is packaged for most Linux distributions. <ulink url="http://fink.sourceforge.net/">Fink</ulink> provides the package for Mac OS X.</para>
 	</step>
 </procedure>
-<procedure id="installing-docbook-xsl">
-	<title>Installing docbook-xsl</title>
+<procedure id="getting-fop">
+	<title>Installing FOP</title>
+	<para>If you wish to build PDF or PostScript versions of the manual, you will need the Formatting Objects Processor (FOP) package from Apache.</para>
 	<step>
-	<para>Install them for your distribution</para>
+	<para>Download the latest from FOP package from <ulink url="http://www.apache.org/dyn/closer.cgi/xml/fop/">http://www.apache.org/dyn/closer.cgi/xml/fop/</ulink>. To make it easier, just get the binary distribution. As of this writing, the latest is fop-0.20.5-bin.tar.gz.</para>
 	</step>
 	<step>
-	<para>Put a copy of the unpacked tarball into <filename>bluefish-doctools/tools</filename>, renaming it xsl.</para>
+	<para>
+	Move the package to the bluefish-doc directory, and unpack:
+	<screen>$ mv fop-0.20.5-bin.tar.gz ~/bluefish-doc
+$ cd ~/bluefish-doc
+$ tar zxvf fop-0.20.5-bin.tar.gz</screen></para>
+	<para>The files will be unpacked to a directory called <literal>fop-0.20.5</literal>.</para>
+	</step>
+	<step>
+	<para>Rename <literal>fop-0.20.5</literal> to <literal>fop</literal>
+	<screen>$ mv fop-0.20.5 fop</screen></para>
+	</step>
+	<step>
+	<para>FOP does not yet support embedding PNG images in pdf files. To get PNG support, we need Jave Advanced Imageing (JAI) from <ulink url="http://java.sun.com/products/java-media/jai/downloads/download-1_1_2.html">http://java.sun.com/products/java-media/jai/downloads/download-1_1_2.html</ulink>. For Linux, download the CLASSPATH version, jai-1_1_2-lib-linux-i586.tar.gz. Unpack and copy the files jai_core.jar and jai_codec.jar files to ~/bluefish-doc/fop/lib.</para><note><para>JAI support is available for FOP Release 0.20.5 and later.</para></note>
 	</step>
 </procedure>
-<procedure id="getting-xslt-processors">
-	<title>Installing the xslt processors</title>
-	<step>
-	<para>Install libxslt if needed.</para>
-	<para><command>xsltproc</command> is provided by the <ulink url="http://xmlsoft.org/XSLT/">libxslt</ulink>, distributed as part of the GNOME desktop environment and is packaged for most Linux distributions. <ulink url="http://fink.sourceforge.net/">Fink</ulink> provides the package for Mac OS X.</para>
-	</step>
-	<step>
-	<para>Optionally, install fop for your distribution.</para>
-	</step>
+<procedure id="manual-makefile">
+	<title>Make HTML/PDF/PostScript Versions</title>
+	<step><para>From the <literal>bluefish-doc</literal> directory, you can issue various make commands (see list below). All output from these commands can be found in <literal>~bluefish-doc/built-doc</literal>.
+	<variablelist>
+        <title>Make Commands for Producing Output:</title>
+        <varlistentry>
+          <term><option>make html</option></term>
+          <listitem>
+            <para>Produces the book in html format, with numerous html files.</para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><option>make html-one-big</option></term>
+          <listitem>
+            <para>Produces the book in html format, with a unique html file.</para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><option>make html-all</option></term>
+          <listitem>
+            <para>Produces the book in html format, both outputs</para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><option>make pdf-a4</option></term>
+          <listitem>
+            <para>Produces the book in PDF format suitable for A4 paper.</para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><option>make ps-a4</option></term>
+          <listitem>
+            <para>Produces the book in PostScript format suitable for A4 paper.</para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><option>make pspdf-a4</option></term>
+          <listitem>
+            <para>Produces the PDF and PostScript versions for A4 paper.</para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><option>make pdf-us</option></term>
+          <listitem>
+            <para>Produces the book in PDF format suitable for USLetter paper.</para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><option>make ps-us</option></term>
+          <listitem>
+            <para>Produces the book in PostScript format suitable for USLetter paper.</para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><option>make all</option></term>
+          <listitem>
+            <para>Produces all versions of the book.</para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+      <variablelist>
+        <title>Make Commands for Cleaning Output:</title>
+        <varlistentry>
+          <term><option>clean html</option></term>
+          <listitem>
+            <para>Removes the book in html format (both outputs).</para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><option>clean pdf-a4</option></term>
+          <listitem>
+            <para>Removes the book in PostScript format suitable for A4 paper.</para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><option>clean ps-a4</option></term>
+          <listitem>
+            <para>Removes the book in PDF format suitable for A4 paper.</para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><option>clean pdfps-a4</option></term>
+          <listitem>
+            <para>Removes the PDF and PostScript versions for A4 paper.</para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><option>clean pdf-us</option></term>
+          <listitem>
+            <para>Removes the book in PDF format suitable for USLetter paper.</para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><option>clean ps-us</option></term>
+          <listitem>
+            <para>Removes the book in PostScript format suitable for USLetter paper.</para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><option>clean pspdf-us</option></term>
+          <listitem>
+            <para>Removes the PDF and PostScript versions for USLetter paper.</para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><option>clean all</option></term>
+          <listitem>
+            <para>Removes all versions of the book.</para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+      <variablelist>
+        <title>Other Make Commands:</title>
+        <varlistentry>
+          <term><option>make validate-all</option></term>
+          <listitem>
+            <para>Validate the whole book.</para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><option>make tarball-all</option></term>
+          <listitem>
+            <para>Produces tarballs suitable to put on the Bluefish web site or for individual use.</para>
+          </listitem>
+        </varlistentry>
+      </variablelist></para></step>
 </procedure>
 </sect1>
 
