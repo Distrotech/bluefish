@@ -682,7 +682,8 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/TEMP/Open project"), NULL, project_menu_cb, 1, NULL},
 	{N_("/TEMP/Save project"), NULL, project_menu_cb, 2, NULL},
 	{N_("/TEMP/Save project as"), NULL, project_menu_cb, 3, NULL},
-	{N_("/TEMP/Close & save project"), NULL, project_menu_cb, 4, NULL}
+	{N_("/TEMP/Close & save project"), NULL, project_menu_cb, 4, NULL},
+	{N_("/TEMP/Edit project"), NULL, project_menu_cb, 5, NULL}
 };
 
 #ifdef ENABLE_NLS

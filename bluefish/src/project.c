@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-#define DEBUG
+/* #define DEBUG */
 
 #include <gtk/gtk.h>
 
@@ -63,6 +63,7 @@ static Tproject *create_new_project(Tbfwin *bfwin) {
 	Tproject *prj;
 	prj = g_new(Tproject,1);
 	prj->name = g_strdup(_("New project"));
+	prj->files = NULL;
 	update_project_filelist(bfwin,prj);
 	prj->basedir = g_strdup("");
 	prj->webdir = g_strdup("");
@@ -151,6 +152,84 @@ void project_save_and_close(Tbfwin *bfwin) {
 	}
 }
 
+typedef enum {
+	name,
+	basedir,
+	webdir
+} Tprojecteditor_entries;
+
+typedef struct {
+	GtkWidget *win;
+	Tbfwin *bfwin;
+	GtkWidget *entries[3];
+} Tprojecteditor;
+
+static void project_edit_destroy_lcb(GtkWidget *widget, Tprojecteditor *pred) {
+	DEBUG_MSG("project_edit_destroy_lcb, called for pred=%p\n",pred);
+/*	gtk_widget_destroy(pred->win);*/
+	pred->bfwin->project->editor = NULL;
+	g_free(pred);
+}
+
+static void project_edit_cancel_clicked_lcb(GtkWidget *widget, Tprojecteditor *pred) {
+	gtk_widget_destroy(pred->win);
+}
+
+static void project_edit_ok_clicked_lcb(GtkWidget *widget, Tprojecteditor *pred) {
+	Tproject *prj = pred->bfwin->project;
+	string_apply(&prj->name, pred->entries[name]);
+	string_apply(&prj->basedir, pred->entries[basedir]);
+	string_apply(&prj->webdir, pred->entries[webdir]);
+	gtk_widget_destroy(pred->win);
+}
+
+void project_edit(Tbfwin *bfwin) {
+	GtkWidget *vbox, *but, *hbox, *label;
+	Tprojecteditor *pred;
+	
+	if (!bfwin->project) {
+		/* there is no project yet, we have to create one */
+		bfwin->project= create_new_project(bfwin);
+	} else {
+		if (bfwin->project->editor) {
+			gtk_window_present(GTK_WINDOW(((Tprojecteditor *)bfwin->project->editor)->win));
+			return;
+		}
+	}
+	pred = g_new(Tprojecteditor,1);
+	pred->bfwin = bfwin;
+	bfwin->project->editor = pred;
+	
+	pred->win = window_full2(_("Project edit"), GTK_WIN_POS_NONE, 5
+			, G_CALLBACK(project_edit_destroy_lcb), pred, TRUE, NULL);
+	vbox = gtk_vbox_new(FALSE,0);
+	gtk_container_add(GTK_CONTAINER(pred->win),vbox);
+	
+	label = gtk_label_new(NULL);
+	gtk_box_pack_start(GTK_BOX(vbox), label, FALSE, TRUE, 0);
+	gtk_label_set_line_wrap(GTK_LABEL(label),TRUE);
+	{
+		gchar *message;
+		message = g_strdup_printf(_("This project contains %d files"), g_list_length(bfwin->project->files));
+		gtk_label_set_markup(GTK_LABEL(label), message);
+	}
+
+	
+	pred->entries[name] = boxed_full_entry(_("Name"), bfwin->project->name,255, vbox);
+	pred->entries[basedir] = boxed_full_entry(_("Basedir"), bfwin->project->basedir,255, vbox);
+	pred->entries[webdir] = boxed_full_entry(_("Webdir"), bfwin->project->webdir,255, vbox);
+
+	hbox = gtk_hbutton_box_new();
+	gtk_hbutton_box_set_layout_default(GTK_BUTTONBOX_END);
+	gtk_button_box_set_spacing(GTK_BUTTON_BOX(hbox), 6);
+	gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, TRUE, 0);
+	but = bf_stock_cancel_button(G_CALLBACK(project_edit_cancel_clicked_lcb), pred);
+	gtk_box_pack_start(GTK_BOX(hbox), but, FALSE, TRUE, 0);
+	but = bf_stock_ok_button(G_CALLBACK(project_edit_ok_clicked_lcb), pred);
+	gtk_box_pack_start(GTK_BOX(hbox), but, FALSE, TRUE, 0);
+	gtk_widget_show_all(pred->win);
+}
+
 void project_menu_cb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget) {
 	DEBUG_MSG("project_menu_cb, bfwin=%p, callback_action=%d\n",bfwin,callback_action);
 	switch (callback_action) {
@@ -165,6 +244,9 @@ void project_menu_cb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget) {
 	break;
 	case 4:
 		project_save_and_close(bfwin);
+	break;
+	case 5:
+		project_edit(bfwin);
 	break;
 	default:
 		DEBUG_MSG("project_menu_cb, no such callback_action %d\n",callback_action);
