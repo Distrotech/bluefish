@@ -1358,7 +1358,7 @@ GtkWidget *fb2_init(Tbfwin *bfwin) {
 		GnomeVFSURI *uri = NULL;
 		if (bfwin->project && bfwin->project->basedir && strlen(bfwin->project->basedir)>2) {
 			uri = gnome_vfs_uri_new(strip_trailing_slash(bfwin->project->basedir));
-			fb2_build_dir(fb2->basedir);
+			fb2_build_dir(uri);
 		} else if (main_v->props.default_basedir && strlen(main_v->props.default_basedir)>2) {
 			uri = gnome_vfs_uri_new(strip_trailing_slash(main_v->props.default_basedir));
 		}
