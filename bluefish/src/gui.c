@@ -47,6 +47,9 @@
 #include "preferences.h" /* open_preferences_cb */
 #include "outputbox.h" /* init_outputbox() */
 #include "fref.h"
+#ifdef BOOKMARKS
+#include "bookmark.h"
+#endif /* BOOKMARKS */
 #include "project.h"
 
 #ifdef HAVE_LIBASPELL
@@ -202,6 +205,9 @@ GtkWidget *left_panel_build(Tbfwin *bfwin) {
 	GtkWidget *fileb;
 	GtkWidget *left_notebook = gtk_notebook_new();
 	GtkWidget *fref;
+#ifdef BOOKMARKS
+   GtkWidget *bmarks;
+#endif /* BOOKMARKS */
 	gtk_notebook_set_tab_pos(GTK_NOTEBOOK(left_notebook),main_v->props.leftpanel_tabposition);
 	gtk_notebook_set_show_tabs(GTK_NOTEBOOK(left_notebook), TRUE);
 	gtk_notebook_set_show_border(GTK_NOTEBOOK(left_notebook), FALSE);
@@ -210,8 +216,14 @@ GtkWidget *left_panel_build(Tbfwin *bfwin) {
 	gtk_notebook_popup_enable(GTK_NOTEBOOK(left_notebook));
 	fileb = filebrowser_init(bfwin);
 	fref = fref_gui(bfwin);
+#ifdef BOOKMARKS
+	bmarks = bmark_gui(bfwin);
+#endif /* BOOKMARKS */	
 	gtk_notebook_append_page(GTK_NOTEBOOK(left_notebook),fileb,new_pixmap(105));
 	gtk_notebook_append_page(GTK_NOTEBOOK(left_notebook),fref,new_pixmap(106));
+#ifdef BOOKMARKS	
+	gtk_notebook_append_page(GTK_NOTEBOOK(left_notebook),bmarks,NULL);
+#endif /* BOOKMARKS */	
 	gtk_widget_show_all(left_notebook);
 	gtk_notebook_set_current_page(GTK_NOTEBOOK(left_notebook),0);
 	return left_notebook;

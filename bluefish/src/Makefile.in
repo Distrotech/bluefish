@@ -44,6 +44,7 @@ DEFS = -DLOCALEDIR=\"$(localedir)\" -DGNULOCALEDIR=\"$(gnulocaledir)\" \
 SRCS = 	bf_lib.c \
 			bfspell.c \
 			bluefish.c \
+			bookmark.c \
 			cap.c \
 			char_table.c \
 			document.c \
