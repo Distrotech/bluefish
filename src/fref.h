@@ -154,7 +154,6 @@ typedef struct
   gint state;
   gint pstate;
   gint vstate;
-  GList *autoitems;  
 } FRParseAux;
 
 #define FR_LOADER_STATE_NONE            1
@@ -219,7 +218,6 @@ void         fref_show_info(FRInfo *entry, gboolean modal,GtkWidget *parent);
 GList        *fref_string_to_list(gchar *string,gchar *delimiter);
 gchar        *fref_prepare_text(FRInfo *entry,GtkWidget *dialog);
 GtkWidget    *fref_prepare_dialog(FRInfo *entry);
-void         fref_ac_position(GtkMenu *menu,gint *x,gint *y,gboolean *push_in,gpointer user_data);
 
 /* CALLBACKS */
 
@@ -233,8 +231,6 @@ void        frefcb_info_close(GtkButton *button,gpointer user_data);
 void        frefcb_info_dialog(GtkButton *button,gpointer user_data);
 void        frefcb_info_insert(GtkButton *button,gpointer user_data);
 void        frefcb_full_info(GtkButton *button,gpointer user_data);
-void			frefcb_autocomplete(GtkWidget *widget,gpointer data);
-void        frefcb_autocomplete_activate(GtkMenuItem *menuitem,gpointer user_data);
 void 	      frefcb_info_show(GtkButton *button,gpointer user_data); 
 void 			fref_rescan_dir(const gchar *dir);
 void     frefcb_cursor_changed(GtkTreeView *treeview, gpointer user_data);
