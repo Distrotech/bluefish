@@ -30,7 +30,7 @@ AC_DEFINE_UNQUOTED(CURRENT_VERSION_NAME, "$PACKAGE $VERSION HTML editor")
 AC_DEFINE_UNQUOTED(CONFIGURE_OPTIONS, "$0 $*")
 
 # these are the languages that will be installed, so these should be finished
-ALL_LINGUAS="da de es fi fr it ja no pl pt pt_BR ru sr sv zh_CN"
+ALL_LINGUAS="da de es fi fr it ja no pl pt pt_BR ru sr sv zh_CN zh_TW"
 AC_SUBST(ALL_LINGUAS)
 
 dnl ************************
