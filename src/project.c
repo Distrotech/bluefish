@@ -391,7 +391,7 @@ void project_edit(Tbfwin *bfwin) {
 	but = bf_stock_cancel_button(G_CALLBACK(project_edit_cancel_clicked_lcb), pred);
 	gtk_box_pack_start(GTK_BOX(hbox), but, FALSE, FALSE, 0);
 	if (pred->project_created_by_editor == TRUE) {
-		but = bf_generic_button_with_image(_("Create _Project"), 0, G_CALLBACK(project_edit_ok_clicked_lcb), pred);
+		but = bf_allbuttons_backend(_("Create _Project"), 1, 0, G_CALLBACK(project_edit_ok_clicked_lcb), pred);
 	} else {
 		but = bf_stock_ok_button(G_CALLBACK(project_edit_ok_clicked_lcb), pred);
 	}
