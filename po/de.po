@@ -1,18 +1,19 @@
 # German language file for Bluefish.
 # Copyright (C) 2000 Free Software Foundation, Inc.
 # Knud Franzkowiak <knud.franzkowiak@gmx.net>, 2000.
+# Roland Steinbach <roland@netzblick.de>, 2001-2004
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: bluefish gtk2-port\n"
-"POT-Creation-Date: 2004-08-03 13:37+0200\n"
+"POT-Creation-Date: 2004-08-13 09:44+0200\n"
 "PO-Revision-Date: 2002-12-13 23:02+0100\n"
 "Last-Translator: Roland Steinbach <roland@netzblick.de>\n"
 "Language-Team: Not a member <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8 bit\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: roland@netzblick.de\n"
 
 #: ../src/about.c:123
 msgid ""
@@ -407,7 +408,7 @@ msgstr ""
 #: ../src/bookmark.c:274 ../src/html.c:576 ../src/html.c:796
 #: ../src/html.c:1389 ../src/html.c:1817 ../src/html_form.c:231
 #: ../src/html_form.c:596 ../src/html_form.c:795 ../src/html_form.c:890
-#: ../src/image.c:280
+#: ../src/image.c:281
 msgid "_Name:"
 msgstr "_Name:"
 
@@ -428,51 +429,63 @@ msgstr "Kann Datei \"%s\" nicht finden."
 msgid "This bookmark is set in a file that no longer exists."
 msgstr "Die Datei dieses Bookmarks gibt es nicht mehr."
 
-#: ../src/bookmark.c:443
+#: ../src/bookmark.c:445
 #, c-format
 msgid "Do you really want to delete %s?"
 msgstr "Datei %s wirklich löschen?"
 
-#: ../src/bookmark.c:445
+#: ../src/bookmark.c:447
 msgid "Delete permanent bookmark."
 msgstr "Permanentes Lesezeichen löschen "
 
-#: ../src/bookmark.c:462
+#: ../src/bookmark.c:464
 msgid "Edit bookmark"
 msgstr "Bearbeite Lesezeichen"
 
-#: ../src/bookmark.c:470
+#: ../src/bookmark.c:478
 msgid "Goto bookmark"
 msgstr "Gehe zu Lesezeichen"
 
-#: ../src/bookmark.c:478
+#: ../src/bookmark.c:486
 msgid "Edit"
 msgstr "Bearbeiten"
 
-#: ../src/bookmark.c:482
+#: ../src/bookmark.c:490
 msgid "Delete"
 msgstr "Löschen"
 
-#: ../src/bookmark.c:904 ../src/bookmark.c:939 ../src/bookmark.c:971
+#: ../src/bookmark.c:494
+msgid "Delete all"
+msgstr "Alle Löschen"
+
+#: ../src/bookmark.c:917 ../src/bookmark.c:952 ../src/bookmark.c:974
 #: ../src/document.c:1988
 msgid "Add bookmark"
 msgstr "Lesezeichen hinzufügen"
 
-#: ../src/bookmark.c:905 ../src/bookmark.c:972
+#: ../src/bookmark.c:918 ../src/bookmark.c:975
 msgid "Cannot add bookmarks in unnamed files."
 msgstr "Kann Lesezeichen nicht in namenlose Dateien einfügen."
 
-#: ../src/bookmark.c:940
+#: ../src/bookmark.c:953
 msgid "You already have a bookmark here!"
 msgstr "Hier ist bereits ein Lesezeichen!"
 
-#: ../src/bookmark.c:945
+#: ../src/bookmark.c:958
 msgid "default"
 msgstr "Standard"
 
-#: ../src/bookmark.c:981
+#: ../src/bookmark.c:984
 msgid "temp"
 msgstr "temp"
+
+#: ../src/bookmark.c:1003
+msgid "Delete all bookmarks."
+msgstr "Alle Lesezeichen löschen."
+
+#: ../src/bookmark.c:1003
+msgid "Are you sure?"
+msgstr "Sind Sie sicher?"
 
 #: ../src/bookmark.c:1049
 #, c-format
@@ -641,7 +654,7 @@ msgid "Save document as"
 msgstr "Dokument speichern unter"
 
 #: ../src/document.c:2415 ../src/document.c:2430 ../src/document.c:2527
-#: ../src/document.c:3707 ../src/gui.c:1109
+#: ../src/document.c:3708 ../src/gui.c:1109
 msgid "_Cancel"
 msgstr "_Abbrechen"
 
@@ -730,7 +743,7 @@ msgstr "Änderungen an unbenannter Datei speichern?"
 msgid "Do_n't save"
 msgstr "_Nicht Speichern"
 
-#: ../src/document.c:2625 ../src/document.c:3709
+#: ../src/document.c:2625 ../src/document.c:3710
 msgid "If you don't save your changes they will be lost."
 msgstr "Änderungen gehen ohne Sicherung verloren."
 
@@ -839,40 +852,40 @@ msgstr "URL Öffnen"
 msgid "<b>Open URL</b>"
 msgstr "<b>URL Öffnen</b>"
 
-#: ../src/document.c:3551 ../src/gtk_easy.c:1595
+#: ../src/document.c:3548 ../src/gtk_easy.c:1595
 msgid "Select files"
 msgstr "Dateien wählen"
 
-#: ../src/document.c:3567 ../src/document.c:3586 ../src/document.c:3603
+#: ../src/document.c:3568 ../src/document.c:3587 ../src/document.c:3604
 #, c-format
 msgid "Loading %d file(s)..."
 msgstr "Lade %d Datei(en)..."
 
-#: ../src/document.c:3636 ../src/document.c:3643
+#: ../src/document.c:3637 ../src/document.c:3644
 msgid "Select file to insert"
 msgstr "Datei zum Einfügen auswählen"
 
-#: ../src/document.c:3646
+#: ../src/document.c:3647
 msgid "No file to insert"
 msgstr "Keine Datei zum einfügen"
 
-#: ../src/document.c:3707
+#: ../src/document.c:3708
 msgid "_Save All"
 msgstr "_Alle Speichern"
 
-#: ../src/document.c:3707
+#: ../src/document.c:3708
 msgid "Close _All"
 msgstr "Alle s_chließen"
 
-#: ../src/document.c:3707
+#: ../src/document.c:3708
 msgid "Choose per _File"
 msgstr "_Pro Datei auswählen"
 
-#: ../src/document.c:3708
+#: ../src/document.c:3709
 msgid "Multiple open files have been changed."
 msgstr "Mehrere geöffnete Dateien wurden geändert."
 
-#: ../src/document.c:3933
+#: ../src/document.c:3934
 #, c-format
 msgid "Statistics: %d lines, %d words, %d characters"
 msgstr "Statistik: %d Zeilen, %d Wörter, %d Zeichen"
@@ -1465,7 +1478,7 @@ msgstr "Suchen..."
 msgid "Search and Replace..."
 msgstr "Suchen und Ersetzen..."
 
-#: ../src/gui.c:917 ../src/preferences.c:1966
+#: ../src/gui.c:917 ../src/preferences.c:1992
 msgid "Undo"
 msgstr "Rückgängig"
 
@@ -1649,7 +1662,7 @@ msgstr "_Sprache:"
 #: ../src/html.c:1413 ../src/html.c:1753 ../src/html.c:1854 ../src/html.c:1983
 #: ../src/html_form.c:187 ../src/html_form.c:243 ../src/html_form.c:609
 #: ../src/html_form.c:903 ../src/html_table.c:105 ../src/html_table.c:257
-#: ../src/html_table.c:365 ../src/image.c:288
+#: ../src/html_table.c:365 ../src/image.c:289
 msgid "Custo_m:"
 msgstr "Be_nutzerdefiniert:"
 
@@ -1729,7 +1742,7 @@ msgstr "_ID:"
 msgid "Horizontal Rule"
 msgstr "Horizontale Linie"
 
-#: ../src/html.c:912 ../src/html.c:1902 ../src/image.c:306
+#: ../src/html.c:912 ../src/html.c:1902 ../src/image.c:307
 msgid "_Align:"
 msgstr "_Ausrichtung:"
 
@@ -1738,7 +1751,7 @@ msgid "_Height:"
 msgstr "_Höhe:"
 
 #: ../src/html.c:925 ../src/html.c:1906 ../src/html_table.c:138
-#: ../src/html_table.c:384 ../src/image.c:264
+#: ../src/html_table.c:384 ../src/image.c:265
 msgid "_Width:"
 msgstr "_Breite:"
 
@@ -1822,7 +1835,7 @@ msgstr "Inhal_t:"
 msgid "_Scheme:"
 msgstr "_Schema:"
 
-#: ../src/html.c:1490 ../src/preferences.c:1958
+#: ../src/html.c:1490 ../src/preferences.c:1984
 msgid "Font"
 msgstr "Schriftart"
 
@@ -2136,83 +2149,83 @@ msgstr "_Zeilenverbindung:"
 msgid "No Wra_p:"
 msgstr "Ohne Um_bruch:"
 
-#: ../src/image.c:227
+#: ../src/image.c:229
 msgid "Insert thumbnail"
 msgstr "Füge Vorschau ein"
 
-#: ../src/image.c:229
+#: ../src/image.c:231
 msgid "Insert image"
 msgstr "Füge Bild ein"
 
-#: ../src/image.c:236
+#: ../src/image.c:237
 msgid "Preview"
 msgstr "Vorschau"
 
-#: ../src/image.c:256
+#: ../src/image.c:257
 msgid "_Image location:"
 msgstr "B_ildquelle:"
 
-#: ../src/image.c:271
+#: ../src/image.c:272
 msgid "Hei_ght:"
 msgstr "Höhe:"
 
-#: ../src/image.c:276
+#: ../src/image.c:277
 msgid "_Usemap:"
 msgstr "_Imagemap:"
 
-#: ../src/image.c:284
+#: ../src/image.c:285
 msgid "Alternate _text:"
 msgstr "Alt-_Text:"
 
-#: ../src/image.c:292
+#: ../src/image.c:293
 msgid "_Hspace:"
 msgstr "_Horizontaler Abstand:"
 
-#: ../src/image.c:296
+#: ../src/image.c:297
 msgid "_Vspace:"
 msgstr "_Vertikaler Abstand:"
 
-#: ../src/image.c:310
+#: ../src/image.c:311
 msgid "Borde_r:"
 msgstr "_Rand:"
 
-#: ../src/image.c:382 ../src/image.c:390
+#: ../src/image.c:383 ../src/image.c:391
 msgid "Select files for thumbnail creation"
 msgstr "Wähle Dateien für Thumbnail-Erzeugung aus"
 
-#: ../src/image.c:507
+#: ../src/image.c:508
 msgid "Scaling (%)"
 msgstr "Skalieren (%)"
 
-#: ../src/image.c:511 ../src/image.c:519
+#: ../src/image.c:512 ../src/image.c:520
 msgid "Width"
 msgstr "Breite"
 
-#: ../src/image.c:515 ../src/image.c:542
+#: ../src/image.c:516 ../src/image.c:543
 msgid "Height"
 msgstr "Höhe"
 
-#: ../src/image.c:531
+#: ../src/image.c:532
 msgid "Multi thumbnail"
 msgstr "Mehrere Thumbnails"
 
-#: ../src/image.c:537
+#: ../src/image.c:538
 msgid "By scaling"
 msgstr "Durch Skalieren"
 
-#: ../src/image.c:538
+#: ../src/image.c:539
 msgid "By width, keep aspect ratio"
 msgstr "Mit Breite, Seitenverhältnis beibehalten"
 
-#: ../src/image.c:539
+#: ../src/image.c:540
 msgid "By height, keep aspect ratio"
 msgstr "Mit Höhe, Seitenverhältnis beibehalten"
 
-#: ../src/image.c:540
+#: ../src/image.c:541
 msgid "By width and height, ignore aspect ratio"
 msgstr "Mit Breite und Höhe, Seitenverhältnis anpassen"
 
-#: ../src/image.c:564
+#: ../src/image.c:565
 msgid ""
 "%r: original filename  %t: thumbnail filename\n"
 "%w: original width  %h: original height\n"
@@ -3537,20 +3550,20 @@ msgid "/Project/tearoff1"
 msgstr "/Projekt/tearoff1"
 
 #: ../src/menu.c:677
+msgid "/Project/_New Project"
+msgstr "/Projekt/_Neu"
+
+#: ../src/menu.c:678
 msgid "/Project/_Open Project..."
 msgstr "/Projekt/Ö_ffnen"
 
-#: ../src/menu.c:678
+#: ../src/menu.c:679
 msgid "/Project/Open _recent"
 msgstr "/Projekt/_Letzte öffnen"
 
-#: ../src/menu.c:679
+#: ../src/menu.c:680
 msgid "/Project/Open recent/tearoff1"
 msgstr "/Projekt/Letzte öffnen/tearoff1"
-
-#: ../src/menu.c:680
-msgid "/Project/_New Project"
-msgstr "/Projekt/_Neu"
 
 #: ../src/menu.c:681
 msgid "/Project/sep1"
@@ -3809,8 +3822,8 @@ msgstr "Ohne Titel"
 msgid "Select font"
 msgstr "Schriftartauswahl"
 
-#: ../src/preferences.c:626 ../src/preferences.c:810 ../src/preferences.c:1369
-#: ../src/preferences.c:1527
+#: ../src/preferences.c:626 ../src/preferences.c:810 ../src/preferences.c:1395
+#: ../src/preferences.c:1553
 msgid "Label"
 msgstr "Titel"
 
@@ -3846,456 +3859,469 @@ msgstr "Inverser Filter"
 msgid "Filetypes in filter"
 msgstr "Dateitypen im Filter"
 
-#: ../src/preferences.c:1140
+#: ../src/preferences.c:1163
 msgid "filetype"
 msgstr "Dateityp"
 
-#: ../src/preferences.c:1148
+#: ../src/preferences.c:1168
+msgid "Reset"
+msgstr "Zurücksetzen"
+
+#: ../src/preferences.c:1174
 msgid "Pattern name"
 msgstr "Muster"
 
-#: ../src/preferences.c:1166 ../src/preferences.c:1715
+#: ../src/preferences.c:1192 ../src/preferences.c:1741
 msgid "Pattern"
 msgstr "Muster"
 
-#: ../src/preferences.c:1189
+#: ../src/preferences.c:1215
 msgid "Start pattern and end pattern"
 msgstr "Anfangs- und Endmuster"
 
-#: ../src/preferences.c:1191
+#: ../src/preferences.c:1217
 msgid "Only start pattern"
 msgstr "Nur Startmuster"
 
-#: ../src/preferences.c:1193
+#: ../src/preferences.c:1219
 msgid "Subpattern from parent"
 msgstr "Muster vom übergeordnetem"
 
-#: ../src/preferences.c:1199
+#: ../src/preferences.c:1225
 msgid "Start pattern"
 msgstr "Suchmuster"
 
-#: ../src/preferences.c:1200
+#: ../src/preferences.c:1226
 msgid "End pattern"
 msgstr "Endmuster"
 
-#: ../src/preferences.c:1201
+#: ../src/preferences.c:1227
 msgid "Case sensitive matching"
 msgstr "Klein- und Grosschreibung beachten"
 
-#: ../src/preferences.c:1202
+#: ../src/preferences.c:1228
 msgid "Parentmatch"
 msgstr "Übergeordnet"
 
-#: ../src/preferences.c:1203
+#: ../src/preferences.c:1229
 msgid "Foreground color"
 msgstr "Vordergrundfarbe"
 
-#: ../src/preferences.c:1204
+#: ../src/preferences.c:1230
 msgid "Background color"
 msgstr "Hintergrundfarbe"
 
-#: ../src/preferences.c:1212
+#: ../src/preferences.c:1238
 msgid "don't change weight"
 msgstr "Schriftschnitt nicht ändern"
 
-#: ../src/preferences.c:1214
+#: ../src/preferences.c:1240
 msgid "force non-bold weight"
 msgstr "Nicht fett"
 
-#: ../src/preferences.c:1216
+#: ../src/preferences.c:1242
 msgid "force bold weight"
 msgstr "Fett"
 
-#: ../src/preferences.c:1222
+#: ../src/preferences.c:1248
 msgid "don't change style"
 msgstr "Stil nicht ändern"
 
-#: ../src/preferences.c:1224
+#: ../src/preferences.c:1250
 msgid "force non-italic style"
 msgstr "nicht-kursiv"
 
-#: ../src/preferences.c:1226
+#: ../src/preferences.c:1252
 msgid "force italic style"
 msgstr "kursiv"
 
-#: ../src/preferences.c:1370 ../src/preferences.c:1528
-#: ../src/preferences.c:1719
+#: ../src/preferences.c:1396 ../src/preferences.c:1554
+#: ../src/preferences.c:1745
 msgid "Command"
 msgstr "Befehl"
 
-#: ../src/preferences.c:1714
+#: ../src/preferences.c:1575
+#, c-format
+msgid ""
+"%s for current filename (any command)\n"
+"%i for input and %f for output filename (filters)"
+msgstr ""
+"%s = aktueller Dateiname (jeder Befehl)\n"
+"%i = Eingabe-, %f = Ausgabedateiname (für Filter)"
+
+#: ../src/preferences.c:1740
 msgid "Name"
 msgstr "Name"
 
-#: ../src/preferences.c:1716
+#: ../src/preferences.c:1742
 msgid "File #"
 msgstr "Datei Nr."
 
-#: ../src/preferences.c:1717
+#: ../src/preferences.c:1743
 msgid "Line #"
 msgstr "Zeile Nr."
 
-#: ../src/preferences.c:1718
+#: ../src/preferences.c:1744
 msgid "Output #"
 msgstr "Ausgabe Nr."
 
-#: ../src/preferences.c:1720
+#: ../src/preferences.c:1746
 msgid "Show all output"
 msgstr "Gesamte Ausgabe anzeigen"
 
-#: ../src/preferences.c:1935 ../src/preferences.c:1936
+#: ../src/preferences.c:1961 ../src/preferences.c:1962
 msgid "left"
 msgstr "links"
 
-#: ../src/preferences.c:1935 ../src/preferences.c:1936
+#: ../src/preferences.c:1961 ../src/preferences.c:1962
 msgid "right"
 msgstr "rechts"
 
-#: ../src/preferences.c:1935
+#: ../src/preferences.c:1961
 msgid "top"
 msgstr "oben"
 
-#: ../src/preferences.c:1935
+#: ../src/preferences.c:1961
 msgid "bottom"
 msgstr "unten"
 
-#: ../src/preferences.c:1937
+#: ../src/preferences.c:1963
 msgid "no check"
 msgstr "kein Test"
 
-#: ../src/preferences.c:1937
+#: ../src/preferences.c:1963
 msgid "check mtime and size"
 msgstr "mtime und Größe prüfen"
 
-#: ../src/preferences.c:1937
+#: ../src/preferences.c:1963
 msgid "check mtime"
 msgstr "mtime prüfen"
 
-#: ../src/preferences.c:1937
+#: ../src/preferences.c:1963
 msgid "check size"
 msgstr "Größe Prüfen"
 
-#: ../src/preferences.c:1940
+#: ../src/preferences.c:1966
 msgid "Edit preferences"
 msgstr "Einstellungen bearbeiten"
 
-#: ../src/preferences.c:1951
+#: ../src/preferences.c:1977
 msgid "Editor"
 msgstr "Editor"
 
-#: ../src/preferences.c:1953
+#: ../src/preferences.c:1979
 msgid "Editor options"
 msgstr "Editoroptionen"
 
-#: ../src/preferences.c:1959
+#: ../src/preferences.c:1985
 msgid "Tab width"
 msgstr "Tablulatorbreite"
 
-#: ../src/preferences.c:1960
+#: ../src/preferences.c:1986
 msgid "Use spaces to indent, not tabs"
 msgstr "Leerzeichen statt Tabulatoren zum Einrücken benutzen"
 
-#: ../src/preferences.c:1961
+#: ../src/preferences.c:1987
 msgid "Word wrap default"
 msgstr "Wortumbruch"
 
-#: ../src/preferences.c:1962
+#: ../src/preferences.c:1988
 msgid "Line numbers by default"
 msgstr "Zeilennummern"
 
-#: ../src/preferences.c:1963
+#: ../src/preferences.c:1989
 msgid "Highlight syntax by default"
 msgstr "Syntaxhighlight"
 
-#: ../src/preferences.c:1964
+#: ../src/preferences.c:1990
 msgid "Highlight # lines"
 msgstr "Highlight Nr. Zeilen"
 
-#: ../src/preferences.c:1971
+#: ../src/preferences.c:1997
 msgid "Undo history size"
 msgstr "Historygröße"
 
-#: ../src/preferences.c:1972
+#: ../src/preferences.c:1998
 msgid "Clear undo history on save"
 msgstr "Undo-Stufen bei speichern löschen"
 
-#: ../src/preferences.c:1974
+#: ../src/preferences.c:2000
 msgid "Bookmark options"
 msgstr "Lesezeichenoptionen"
 
-#: ../src/preferences.c:1979
+#: ../src/preferences.c:2005
 msgid "Sort by line number"
 msgstr "Nach Zeilennummern sortieren"
 
-#: ../src/preferences.c:1980
+#: ../src/preferences.c:2006
 msgid "Make permanent by default"
 msgstr "Standardmäßig permanent anlegen"
 
-#: ../src/preferences.c:1982
+#: ../src/preferences.c:2008
 msgid "full path"
 msgstr "Gesamter Pfad"
 
-#: ../src/preferences.c:1982
+#: ../src/preferences.c:2008
 msgid "path from basedir"
 msgstr "Pfad von Basisverzeichnis"
 
-#: ../src/preferences.c:1982
+#: ../src/preferences.c:2008
 msgid "filename"
 msgstr "Dateiname"
 
-#: ../src/preferences.c:1983
+#: ../src/preferences.c:2009
 msgid "Bookmarks filename display"
 msgstr "Bokkmarkdateinamen anzeigen"
 
-#: ../src/preferences.c:1987
+#: ../src/preferences.c:2013
 msgid "HTML"
 msgstr "HTML"
 
-#: ../src/preferences.c:1989
+#: ../src/preferences.c:2015
 msgid "HTML options"
 msgstr "HTML Optionen"
 
-#: ../src/preferences.c:1994
+#: ../src/preferences.c:2020
 msgid "Lowercase HTML tags"
 msgstr "HTML Tags in Kleinschrift"
 
-#: ../src/preferences.c:1995
+#: ../src/preferences.c:2021
 msgid "Use deprecated tags (e.g. <font> and <nobr>)"
 msgstr "Alte Tags (z.B. <font> und <nobr>) benutzen"
 
-#: ../src/preferences.c:1996
+#: ../src/preferences.c:2022
 msgid "Use XHTML style tags (<br />)"
 msgstr "Benutze XHTML syntax (z.B. <br />)"
 
-#: ../src/preferences.c:1997
+#: ../src/preferences.c:2023
 msgid "Automatic update author meta"
 msgstr "Automatisch Author Meta-Tag updaten"
 
-#: ../src/preferences.c:2000
+#: ../src/preferences.c:2026
 msgid "Files"
 msgstr "Dateien"
 
-#: ../src/preferences.c:2002
+#: ../src/preferences.c:2028
 msgid "Encoding"
 msgstr "Encoding"
 
-#: ../src/preferences.c:2014
+#: ../src/preferences.c:2040
 msgid "Default character set"
 msgstr "Standardzeichensatz"
 
-#: ../src/preferences.c:2017
+#: ../src/preferences.c:2043
 msgid "Auto set <meta> encoding tag on change"
 msgstr "<meta>-tag automatisch bei Änderungen setzen"
 
-#: ../src/preferences.c:2019
+#: ../src/preferences.c:2045
 msgid "Backup"
 msgstr "Sicherungskopie"
 
-#: ../src/preferences.c:2023
+#: ../src/preferences.c:2049
 msgid "Create backup on save"
 msgstr "Sicherungskopie beim Speichern erstellen"
 
-#: ../src/preferences.c:2024
+#: ../src/preferences.c:2050
 msgid "Backup file suffix"
 msgstr "Sicherungsdatei Erweiterung"
 
-#: ../src/preferences.c:2026
+#: ../src/preferences.c:2052
 msgid "save"
 msgstr "Speichern"
 
-#: ../src/preferences.c:2026
+#: ../src/preferences.c:2052
 msgid "abort"
 msgstr "Abbrechen"
 
-#: ../src/preferences.c:2026
+#: ../src/preferences.c:2052
 msgid "ask"
 msgstr "Nachfragen"
 
-#: ../src/preferences.c:2027
+#: ../src/preferences.c:2053
 msgid "Action on backup failure"
 msgstr "Bei Fehlschlagen der Sicherungskopie"
 
-#: ../src/preferences.c:2029
+#: ../src/preferences.c:2055
 msgid "Remove backupfile on close"
 msgstr "Sicherungskopie beim Schließen erstellen"
 
-#: ../src/preferences.c:2033
+#: ../src/preferences.c:2059
 msgid "Misc"
 msgstr "Verschiedenes"
 
-#: ../src/preferences.c:2038
+#: ../src/preferences.c:2064
 msgid "Allow multi instances of a file"
 msgstr "Erlaube mehrere Instanzen einer Datei"
 
-#: ../src/preferences.c:2040
+#: ../src/preferences.c:2066
 msgid "Open files in already running bluefish window"
 msgstr "Öffne Dateien in bereits laufendem Programm"
 
-#: ../src/preferences.c:2042
+#: ../src/preferences.c:2068
 msgid "File modified on disk check "
 msgstr "Datei auf Festplatte geändert "
 
-#: ../src/preferences.c:2043
+#: ../src/preferences.c:2069
 msgid "Number of files in 'Open recent'"
 msgstr "Anzahl Dateien im 'Vorherige öffnen'-Menü"
 
-#: ../src/preferences.c:2045
+#: ../src/preferences.c:2071
 msgid "File browser"
 msgstr "Dateibrowser"
 
-#: ../src/preferences.c:2049
+#: ../src/preferences.c:2075
 msgid "Default basedir"
 msgstr "Standard-Basisverzeichnis"
 
-#: ../src/preferences.c:2050
+#: ../src/preferences.c:2076
 msgid "Use separate file and directory view"
 msgstr "Separate Datei- und Verzeichnisansicht"
 
-#: ../src/preferences.c:2051
+#: ../src/preferences.c:2077
 msgid "Unknown icon"
 msgstr "Unbekanntes Icon"
 
-#: ../src/preferences.c:2052
+#: ../src/preferences.c:2078
 msgid "Directory icon"
 msgstr "Verzeichnisicon"
 
-#: ../src/preferences.c:2055
+#: ../src/preferences.c:2081
 msgid "User interface"
 msgstr "Benutzerinterface"
 
-#: ../src/preferences.c:2057
+#: ../src/preferences.c:2083
 msgid "Dimensions"
 msgstr "Größen"
 
-#: ../src/preferences.c:2061
+#: ../src/preferences.c:2087
 msgid "Restore last used dimensions"
 msgstr "Letzte benutzte Größe wiederherstellen"
 
-#: ../src/preferences.c:2062
+#: ../src/preferences.c:2088
 msgid "Initial sidebar width"
 msgstr "Sidebar Anfangsbreite"
 
-#: ../src/preferences.c:2063
+#: ../src/preferences.c:2089
 msgid "Initial window height"
 msgstr "Anfangsfensterhöhe"
 
-#: ../src/preferences.c:2064
+#: ../src/preferences.c:2090
 msgid "Initial window width"
 msgstr "Anfangsfensterbreite"
 
-#: ../src/preferences.c:2068
+#: ../src/preferences.c:2094
 msgid "General"
 msgstr "Allgemein"
 
-#: ../src/preferences.c:2073
+#: ../src/preferences.c:2099
 msgid "Show main toolbar by default"
 msgstr "Haupttoolleiste standardmäßig anzeigen"
 
-#: ../src/preferences.c:2074
+#: ../src/preferences.c:2100
 msgid "Show sidebar by default"
 msgstr "Sidebar standardmäßig anzeigen"
 
-#: ../src/preferences.c:2075
+#: ../src/preferences.c:2101
 msgid "Show custom menu by default"
 msgstr "Benutzerdefiniertes Menü standardmäßig anzeigen"
 
-#: ../src/preferences.c:2076
+#: ../src/preferences.c:2102
 msgid "Show HTML toolbar by default"
 msgstr "HTML Toolbar standardmäßig anzeigen"
 
-#: ../src/preferences.c:2077
+#: ../src/preferences.c:2103
 msgid "Make HTML dialogs transient"
 msgstr "HTML-Dialoge durchsichtig"
 
-#: ../src/preferences.c:2079
+#: ../src/preferences.c:2105
 msgid "External browsers in submenu"
 msgstr "Externe Browser im Untermenü"
 
-#: ../src/preferences.c:2080
+#: ../src/preferences.c:2106
 msgid "External commands in submenu"
 msgstr "Externe Befehle im Untermenü"
 
-#: ../src/preferences.c:2081
+#: ../src/preferences.c:2107
 msgid "External outputbox in submenu"
 msgstr "Externe Ausgabebox im Untermenü"
 
-#: ../src/preferences.c:2083
+#: ../src/preferences.c:2109
 msgid "Notebook tab font (leave empty for gtk default)"
 msgstr "Schriftart für Karteikartenreiter (leer für Standard)"
 
-#: ../src/preferences.c:2085
+#: ../src/preferences.c:2111
 msgid "Document notebook tab position"
 msgstr "Karteikartenposition"
 
-#: ../src/preferences.c:2086
+#: ../src/preferences.c:2112
 msgid "Sidebar notebook tab position"
 msgstr "Sidebar Karteikartenposition"
 
-#: ../src/preferences.c:2087
+#: ../src/preferences.c:2113
 msgid "Sidebar location"
 msgstr "Anordnung Sidebar"
 
-#: ../src/preferences.c:2090 ../src/rcfile.c:570
+#: ../src/preferences.c:2116 ../src/rcfile.c:570
 msgid "Images"
 msgstr "Bilder"
 
-#: ../src/preferences.c:2092
+#: ../src/preferences.c:2118
 msgid "Thumbnails"
 msgstr "Thumbnails"
 
-#: ../src/preferences.c:2096
+#: ../src/preferences.c:2122
 msgid "Thumbnail suffix"
 msgstr "Thumbnailerweiterung"
 
-#: ../src/preferences.c:2100
+#: ../src/preferences.c:2126
 msgid "Thumbnail filetype"
 msgstr "Thumbnail Dateityp"
 
-#: ../src/preferences.c:2105 ../src/preferences.c:2107
+#: ../src/preferences.c:2131 ../src/preferences.c:2133
 msgid "Filetypes"
 msgstr "Dateitypen"
 
-#: ../src/preferences.c:2114
+#: ../src/preferences.c:2140
 msgid "Filefilters"
 msgstr "Dateifilter"
 
-#: ../src/preferences.c:2122
+#: ../src/preferences.c:2148
 msgid "Syntax highlighting"
 msgstr "Syntaxhighlighting"
 
-#: ../src/preferences.c:2124
+#: ../src/preferences.c:2150
 msgid "Patterns"
 msgstr "Muster"
 
-#: ../src/preferences.c:2132
+#: ../src/preferences.c:2158
 msgid "External programs"
 msgstr "Externe Programme"
 
-#: ../src/preferences.c:2134
+#: ../src/preferences.c:2160
 msgid "Browsers"
 msgstr "Browser"
 
-#: ../src/preferences.c:2141
+#: ../src/preferences.c:2167
 msgid "Utilities and filters"
 msgstr "Utilities und Filter"
 
-#: ../src/preferences.c:2149
+#: ../src/preferences.c:2175
 msgid "Output parsers"
 msgstr "Ausgabe-Parser"
 
-#: ../src/preferences.c:2151
+#: ../src/preferences.c:2177
 msgid "Outputbox"
 msgstr "Ausgabebox"
 
-#: ../src/preferences.c:2160
+#: ../src/preferences.c:2186
 msgid "Servers"
 msgstr "Server"
 
-#: ../src/preferences.c:2162
+#: ../src/preferences.c:2188
 msgid "Remote servers"
 msgstr "Entfernte Server"
 
-#: ../src/preferences.c:2167
+#: ../src/preferences.c:2193
 msgid "Zope compatibility mode"
 msgstr "Zope Kompatibilitätscode"
 
@@ -4436,7 +4462,7 @@ msgstr "Java-Programmierung"
 msgid "Hide objectfiles"
 msgstr "Objektdateien verstecken"
 
-#: ../src/rcfile.c:880
+#: ../src/rcfile.c:881
 msgid "Untitled Project"
 msgstr "Ohne Titel"
 
@@ -4687,13 +4713,6 @@ msgstr "Grösse:"
 #~ msgid "%s = current filename"
 #~ msgstr "%s = aktueller Dateiname"
 
-#~ msgid ""
-#~ "%s = current filename\n"
-#~ "%f = output filename (for filters)"
-#~ msgstr ""
-#~ "%s = aktueller Dateiname\n"
-#~ "%f = Ausgabedateiname (für Filter)"
-
 #~ msgid "File subpattern #"
 #~ msgstr "Datei Untermuster Nr."
 
@@ -4726,12 +4745,6 @@ msgstr "Grösse:"
 
 #~ msgid "Add temporary bookmark"
 #~ msgstr "Temporäres Lesezeichen erstellen"
-
-#~ msgid "Delete all temporary bookmarks."
-#~ msgstr "Alle temporären Lesezeichen löschen."
-
-#~ msgid "Are you sure?"
-#~ msgstr "Sind Sie sicher?"
 
 #~ msgid "Delete all permanent bookmarks."
 #~ msgstr "Alle dauerhaften Lesezeichen löschen."
