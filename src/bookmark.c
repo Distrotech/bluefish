@@ -552,9 +552,9 @@ static void bmark_popup_menu_deldoc_lcb(GtkWidget * widget, Tbfwin *bfwin) {
 		if (path != NULL) {
 			gchar *name;
 			gchar *pstr;
-			gchar *btns[] = { GTK_STOCK_NO, GTK_STOCK_YES, NULL };
+			const gchar *buttons[] = { GTK_STOCK_NO, GTK_STOCK_YES, NULL };
 			GtkTreeIter iter;
-			gint depth, ret;
+			gint depth, retval;
 			depth = gtk_tree_path_get_depth(path);
 			if (depth == 2) {
 				/* go up to parent */
@@ -571,10 +571,13 @@ static void bmark_popup_menu_deldoc_lcb(GtkWidget * widget, Tbfwin *bfwin) {
 			gtk_tree_model_get(GTK_TREE_MODEL(bfwin->bookmarkstore), &iter, NAME_COLUMN,&name, -1);
 		
 			pstr = g_strdup_printf(_("Do you really want to delete all bookmarks for %s?"), name);
-			ret =	multi_query_dialog(bfwin->main_window, _("Delete bookmarks?"), pstr,
-							   0, 0, btns);
+			retval = message_dialog_new_multi(bfwin->main_window,
+														 GTK_MESSAGE_QUESTION,
+														 buttons,
+														 _("Delete bookmarks?"),
+														 pstr);
 			g_free(pstr);
-			if (ret == 0)
+			if (retval == 0)
 				return;
 			bmark_del_children_backend(bfwin, &iter);
 		}
@@ -585,9 +588,9 @@ static void bmark_popup_menu_deldoc_lcb(GtkWidget * widget, Tbfwin *bfwin) {
 static void bmark_popup_menu_del_lcb(GtkWidget * widget, gpointer user_data)
 {
 	Tbmark *b;
-	gint ret;
+	gint retval;
 	gchar *pstr;
-	gchar *btns[] = { GTK_STOCK_NO, GTK_STOCK_YES, NULL };
+	const gchar *buttons[] = { GTK_STOCK_NO, GTK_STOCK_YES, NULL };
 
 	if (!user_data)
 		return;
@@ -602,11 +605,13 @@ static void bmark_popup_menu_del_lcb(GtkWidget * widget, gpointer user_data)
 		bmark_free(b);
 	} else {
 		pstr = g_strdup_printf(_("Do you really want to delete %s?"), b->name);
-		ret =
-			multi_query_dialog(BFWIN(user_data)->main_window, _("Delete permanent bookmark."), pstr,
-							   0, 0, btns);
+		retval = message_dialog_new_multi(BFWIN(user_data)->main_window,
+													 GTK_MESSAGE_QUESTION,
+													 buttons,
+													 _("Delete permanent bookmark."),
+													 pstr);
 		g_free(pstr);
-		if (ret == 0)
+		if (retval == 0)
 			return;
 		bmark_check_remove(BFWIN(user_data),b); /* check  if we should remove a filename too */	
 		bmark_unstore(BFWIN(user_data), b);
@@ -1334,15 +1339,19 @@ void bmark_del_for_document(Tbfwin *bfwin, Tdocument *doc) {
 }
 
 void bmark_del_all(Tbfwin *bfwin,gboolean ask) {
-	gint ret;
-	gchar *btns[]={GTK_STOCK_NO,GTK_STOCK_YES,NULL};
+	gint retval;
+	const gchar *buttons[] = {GTK_STOCK_NO, GTK_STOCK_YES, NULL};
 	GtkTreeIter tmpiter;
 
 	if (bfwin==NULL) return;
 			
 	if (ask)	{
-	  ret = multi_query_dialog(bfwin->main_window,_("Delete all bookmarks."), _("Are you sure?"), 0, 0, btns);
-	  if (ret==0) return;
+	  retval = message_dialog_new_multi(bfwin->main_window,
+													GTK_MESSAGE_QUESTION,
+													buttons,
+													_("Delete all bookmarks."),
+													NULL);	  
+	  if (retval==0) return;
 	}
 	DEBUG_MSG("bmark_del_all, deleting all bookmarks!\n");
 	while (gtk_tree_model_iter_children(GTK_TREE_MODEL(bfwin->bookmarkstore), &tmpiter, NULL) ) {
@@ -1381,12 +1390,16 @@ void bmark_check_length(Tbfwin * bfwin, Tdocument * doc) {
 #endif
 			DEBUG_MSG("bmark_check_length, bmark has %d, file has %ld\n",mark->len, size);
 			if (mark->len != size) {
-				gint ret;
-				gchar *btns[]={GTK_STOCK_NO,GTK_STOCK_YES,NULL};
+				gint retval;
+				const gchar *buttons[] = {GTK_STOCK_NO, GTK_STOCK_YES, NULL};
 				gchar *str;
 				str = g_strconcat(_("File size changed in file\n"),doc->uri,NULL);
-				ret = multi_query_dialog(bfwin->main_window,_("Bookmarks positions could be incorrect. Delete bookmarks?"), str, 0, 0, btns);
-				if (ret==1) {
+				retval = message_dialog_new_multi(bfwin->main_window,
+															 GTK_MESSAGE_QUESTION,
+															 buttons,
+															 _("Bookmarks positions could be incorrect. Delete bookmarks?"),
+															 str);
+				if (retval==1) {
 					bmark_del_for_document(bfwin, doc);
 				}
 				return;

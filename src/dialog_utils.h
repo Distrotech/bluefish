@@ -26,5 +26,6 @@ GtkWidget * dialog_table_in_vbox(gint rows, gint cols, gint borderWidth, GtkWidg
 GtkWidget * dialog_table_in_vbox_defaults(gint rows, gint cols, gint borderWidth, GtkWidget *box);
 
 void message_dialog_new(GtkWidget *parent, GtkMessageType type, GtkButtonsType button, const gchar *primaryText, const gchar *secondaryText);
+gint message_dialog_new_multi(GtkWidget *parent, GtkMessageType type, const gchar *buttons[], const gchar *primaryText, const gchar *secondaryText);
 
 #endif /* __DIALOG_UTILS_H_ */
