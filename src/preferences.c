@@ -106,18 +106,20 @@ enum {
 };
 
 typedef struct {
-	GtkWidget *entry[2];
-	GtkWidget *combo;
-	GtkWidget *check;
-	gchar **curstrarr;
-} Tfilefilterdialog;
-
-typedef struct {
 	GtkListStore *lstore;
 	GtkWidget *lview;
 	GtkWidget *entry[5];
 	gchar **curstrarr;
 } Tfiletypedialog;
+
+typedef struct {
+	GtkListStore *lstore;
+	GtkWidget *lview;
+	GtkWidget *entry[2];
+	GtkWidget *check;
+	gchar **curstrarr;
+} Tfilefilterdialog;
+
 
 typedef struct {
 	GtkListStore *lstore;
@@ -498,80 +500,156 @@ static void create_filetype_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 	pd->ftd.entry[3] = prefs_string(_("Icon"), NULL, vbox1, pd, string_file);
 }
 
-static void add_new_filefilter_lcb(GtkWidget *wid, Tprefdialog *pd) {
-	GList *poplist;
-	gchar *newtype = gtk_editable_get_chars(GTK_EDITABLE(pd->ffd.entry[0]),0,-1);
-	if (strlen(newtype)) {
-		gchar **strarr = (gchar **)g_new(gpointer, 4);
-		strarr[0] = newtype;
-		strarr[1] = g_strdup("1");
-		strarr[2] = g_strdup("");
-		strarr[3] = NULL;
-		pd->lists[filefilters] = g_list_append(pd->lists[filefilters], strarr);
-		poplist = general_poplist(pd->lists[filefilters], 3, 0);
-		gtk_combo_set_popdown_strings(GTK_COMBO(pd->ffd.combo), poplist);
-		g_list_free(poplist);
-	} else {
-		g_free(newtype);
-	}
+static gchar **filefilter_create_strarr(Tprefdialog *pd) {
+	gchar **strarr = g_malloc(4*sizeof(gchar *));
+	strarr[0] = gtk_editable_get_chars(GTK_EDITABLE(pd->ffd.entry[0]), 0, -1);
+	if (GTK_TOGGLE_BUTTON(pd->ffd.check)->active){
+			strarr[1] = g_strdup("0");
+		} else {
+			strarr[1] = g_strdup("1");
+		}
+	strarr[2] = gtk_editable_get_chars(GTK_EDITABLE(pd->ffd.entry[1]), 0, -1);
+	strarr[3] = NULL;
+	return strarr;
 }
 
 static void filefilter_apply_changes(Tprefdialog *pd) {
-	DEBUG_MSG("filefilter_apply_changes, started\n");
+	DEBUG_MSG("filefilters_apply_changes, started\n");
 	if (pd->ffd.curstrarr) {
-		g_free(pd->ffd.curstrarr[1]);
-		if (GTK_TOGGLE_BUTTON(pd->ffd.check)->active){
-			pd->ffd.curstrarr[1] = g_strdup("0");
+		gchar **strarr;
+		strarr = filefilter_create_strarr(pd);
+		if (strarr) {
+			GList *tmplist;
+			GtkTreeIter iter;
+			gboolean retval = TRUE;
+
+			gtk_tree_model_get_iter_first(GTK_TREE_MODEL(pd->ffd.lstore),&iter);
+			while (retval) {
+				gchar *curval;
+				gtk_tree_model_get(GTK_TREE_MODEL(pd->ffd.lstore),&iter,0,&curval,-1);
+				if (strcmp(curval,pd->ffd.curstrarr[0])==0) {
+					gtk_list_store_set(GTK_LIST_STORE(pd->ffd.lstore), &iter
+						,0,strarr[0]
+						,1,strarr[1][0]
+						,2,strarr[2]
+						,-1);
+					DEBUG_MSG("filefilters_apply_changes, changed in tree model\n");
+					break;
+				}
+				retval = gtk_tree_model_iter_next(GTK_TREE_MODEL(pd->ffd.lstore),&iter);
+			}
+
+			tmplist = g_list_first(pd->lists[filefilters]);
+			while (tmplist) {
+				if (tmplist->data == pd->ffd.curstrarr) {
+					g_strfreev(pd->ffd.curstrarr);
+					tmplist->data = strarr;
+					pd->ffd.curstrarr = strarr;
+					DEBUG_MSG("filefilters_apply_changes, changed custrarr\n");
+					break;
+				}
+				tmplist = g_list_next(tmplist);
+			}
 		} else {
-			pd->ffd.curstrarr[1] = g_strdup("1");
+			DEBUG_MSG("filefilters_apply_changes, NO strarr!!\n");
 		}
-		g_free(pd->ffd.curstrarr[2]);
-		pd->ffd.curstrarr[2] = gtk_editable_get_chars(GTK_EDITABLE(pd->ffd.entry[1]),0,-1);
+	} else {
+		DEBUG_MSG("filefilters_apply_changes, NO curstrarr!!\n");
 	}
 }
 
-static void filefilter_combo_activate(GtkEntry *entry,Tprefdialog *pd) {
-	const gchar *entrytext = gtk_entry_get_text(GTK_ENTRY(GTK_COMBO(pd->ffd.combo)->entry));
-	GList *tmplist = g_list_first(pd->lists[filefilters]);
-	DEBUG_MSG("filefilter_combo_activate, started\n");
-	filefilter_apply_changes(pd);
-
-	while (tmplist) {
-		gchar **strarr =(gchar **)tmplist->data;
-		if (strcmp(strarr[0], entrytext)==0) {
-			gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(pd->ffd.check), (strarr[1][0] == '0'));
-			gtk_entry_set_text(GTK_ENTRY(pd->ffd.entry[1]), strarr[2]);
-			pd->ffd.curstrarr = strarr;
-			return;
-		}
-		tmplist = g_list_next(tmplist);
+static void add_new_filefilter_lcb(GtkWidget *wid, Tprefdialog *pd) {
+	gchar **strarr;
+	strarr = filefilter_create_strarr(pd);
+	if (strarr) {
+		GtkTreeIter iter;
+		pd->lists[filefilters] = g_list_append(pd->lists[filefilters], strarr);
+		gtk_list_store_append(GTK_LIST_STORE(pd->ffd.lstore), &iter);
+		gtk_list_store_set(GTK_LIST_STORE(pd->ffd.lstore), &iter
+				,0,strarr[0]
+				,1,strarr[1][0]
+				,2,strarr[2]
+				,-1);
 	}
-
-	DEBUG_MSG("filefilter_combo_activate\n");
 }
-
+static void filefilter_selection_changed_cb(GtkTreeSelection *selection, Tprefdialog *pd) {
+	GtkTreeIter iter;
+	GtkTreeModel *model;
+	DEBUG_MSG("filefilter_selection_changed_cb, curstrarr=%p, &curstrarr=%p\n", pd->ftd.curstrarr, &pd->ffd.curstrarr);
+	if (gtk_tree_selection_get_selected(selection, &model, &iter)) {
+		gchar *filetype;
+		GList *tmplist = g_list_first(pd->lists[filefilters]);
+		gtk_tree_model_get(model, &iter, 0, &filetype, -1);
+		filefilter_apply_changes(pd);
+		while (tmplist) {
+			gchar **strarr =(gchar **)tmplist->data;
+			if (strcmp(strarr[0],filetype)==0) {
+				gtk_entry_set_text(GTK_ENTRY(pd->ffd.entry[0]), strarr[0]);
+				gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(pd->ffd.check), (strarr[1][0] == '0'));
+				gtk_entry_set_text(GTK_ENTRY(pd->ffd.entry[1]), strarr[2]);
+				pd->ftd.curstrarr = strarr;
+				return;
+			}
+			tmplist = g_list_next(tmplist);
+		}
+	} else {
+		DEBUG_MSG("filefilter_selection_changed_cb, no selection ?!?!\n");
+	}
+}
 
 static void create_filefilter_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 	GtkWidget *hbox, *but;
-	GList *poplist;	
 	pd->lists[filefilters] = duplicate_arraylist(main_v->props.filefilters);
+
+	pd->ffd.lstore = gtk_list_store_new (3,G_TYPE_STRING,G_TYPE_BOOLEAN,G_TYPE_STRING);
+	pd->ffd.lview = gtk_tree_view_new_with_model(GTK_TREE_MODEL(pd->ffd.lstore));
+	{
+		GtkTreeViewColumn *column;
+		GtkWidget *scrolwin;
+		GtkTreeSelection *select;
+	   GtkCellRenderer *renderer = gtk_cell_renderer_text_new ();
+
+		column = gtk_tree_view_column_new_with_attributes ("Filefilter", renderer,"text",0,NULL);
+		gtk_tree_view_append_column (GTK_TREE_VIEW(pd->ffd.lview), column);
+		column = gtk_tree_view_column_new_with_attributes ("Inverse filtering", renderer,"text",1,NULL);
+		gtk_tree_view_append_column (GTK_TREE_VIEW(pd->ffd.lview), column);
+		column = gtk_tree_view_column_new_with_attributes ("Filetypes in filter", renderer,"text",2,NULL);
+		gtk_tree_view_append_column (GTK_TREE_VIEW(pd->ffd.lview), column);
+		scrolwin = gtk_scrolled_window_new(NULL, NULL);
+		gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolwin),GTK_POLICY_AUTOMATIC,GTK_POLICY_AUTOMATIC);
+		gtk_container_add(GTK_CONTAINER(scrolwin), pd->ffd.lview);
+		gtk_widget_set_usize(scrolwin, 150, 150);
+		gtk_box_pack_start(GTK_BOX(vbox1), scrolwin, TRUE, TRUE, 2);
+		
+		select = gtk_tree_view_get_selection(GTK_TREE_VIEW(pd->ffd.lview));
+		g_signal_connect(G_OBJECT(select), "changed",G_CALLBACK(filefilter_selection_changed_cb),pd);
+	}
+	{
+		GList *tmplist = g_list_first(pd->lists[filefilters]);
+		while (tmplist) {
+			gchar **strarr = (gchar **)tmplist->data;
+			if (count_array(strarr)==3) {
+				GtkTreeIter iter;
+				gtk_list_store_append(GTK_LIST_STORE(pd->ffd.lstore), &iter);
+				gtk_list_store_set(GTK_LIST_STORE(pd->ffd.lstore), &iter
+					,0,strarr[0]
+					,1,(strarr[1][0] == '0')
+					,2,strarr[2]
+					,-1);
+			}
+			tmplist = g_list_next(tmplist);
+		}
+	}
 	
 	hbox = gtk_hbox_new(FALSE, 0);
 	gtk_box_pack_start(GTK_BOX(vbox1), hbox, TRUE, TRUE, 0);
+	gtk_box_pack_start(GTK_BOX(hbox), gtk_label_new(_("Filefilter")), FALSE, TRUE, 3);
 	pd->ffd.entry[0] = boxed_entry_with_text(NULL, 1023, hbox);
-	but = but = bf_gtkstock_button(GTK_STOCK_ADD, G_CALLBACK(add_new_filefilter_lcb), pd);
+	but = bf_gtkstock_button(GTK_STOCK_ADD, G_CALLBACK(add_new_filefilter_lcb), pd);
 	gtk_box_pack_start(GTK_BOX(hbox), but, FALSE, TRUE, 3);
-
-	gtk_box_pack_start(GTK_BOX(vbox1), gtk_hseparator_new(), FALSE, FALSE, 3);
-
-	poplist = general_poplist(pd->lists[filefilters], 3, 0);
-	pd->ffd.combo = prefs_combo(_("Filter"), NULL, vbox1, pd, poplist, FALSE);
-	g_signal_connect_after(G_OBJECT(GTK_COMBO(pd->ffd.combo)->list), "selection-changed", G_CALLBACK(filefilter_combo_activate), pd);
-	g_list_free(poplist);
 
 	pd->ffd.check = boxed_checkbut_with_value(_("Inverse filtering"), FALSE, vbox1);
 	pd->ffd.entry[1] = boxed_full_entry(_("Filetypes (colon separated)"), NULL, 500, vbox1);
-	
 }
 
 static gchar **highlightpattern_create_strarr(Tprefdialog *pd) {
@@ -1034,7 +1112,7 @@ static void create_browsers_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 	GtkWidget *hbox, *but;
 	pd->lists[browsers] = duplicate_arraylist(main_v->props.browsers);
 
-	pd->bd.lstore = gtk_list_store_new (4,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING);
+	pd->bd.lstore = gtk_list_store_new (2,G_TYPE_STRING,G_TYPE_STRING);
 	pd->bd.lview = gtk_tree_view_new_with_model(GTK_TREE_MODEL(pd->bd.lstore));
 	{
 		GtkTreeViewColumn *column;
@@ -1152,7 +1230,7 @@ static void create_externals_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 	GtkWidget *hbox, *but;
 	pd->lists[external_commands] = duplicate_arraylist(main_v->props.external_commands);
 
-	pd->ed.lstore = gtk_list_store_new (4,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING);
+	pd->ed.lstore = gtk_list_store_new (2,G_TYPE_STRING,G_TYPE_STRING);
 	pd->ed.lview = gtk_tree_view_new_with_model(GTK_TREE_MODEL(pd->ed.lstore));
 	{
 		GtkTreeViewColumn *column;
@@ -1210,7 +1288,10 @@ static void preferences_destroy_lcb(GtkWidget * widget, GdkEvent *event, Tprefdi
 	select = gtk_tree_view_get_selection(GTK_TREE_VIEW(pd->ftd.lview));
 	g_signal_handlers_destroy(G_OBJECT(select));
 /* g_signal_handlers_destroy(G_OBJECT(GTK_COMBO(pd->ftd.combo)->list));*/
-	g_signal_handlers_destroy(G_OBJECT(GTK_COMBO(pd->ffd.combo)->list));
+/*	g_signal_handlers_destroy(G_OBJECT(GTK_COMBO(pd->ffd.combo)->list));*/
+	select = gtk_tree_view_get_selection(GTK_TREE_VIEW(pd->ffd.lview));
+	g_signal_handlers_destroy(G_OBJECT(select));
+
 	g_signal_handlers_destroy(G_OBJECT(pd->hpd.popmenu));
 /*	g_signal_handlers_destroy(G_OBJECT(GTK_COMBO(pd->bd.combo)->list));*/
 	select = gtk_tree_view_get_selection(GTK_TREE_VIEW(pd->bd.lview));
