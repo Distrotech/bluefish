@@ -1028,7 +1028,8 @@ switch (infotype) {
 				if (g_list_length(lst)>0) ret = g_strdup(_("ATTRIBUTES:\n"));
 				while ( lst != NULL ) {
 					if (FREFPROPERTY(lst->data)->ptype == FREF_EL_ATTR) {
-							ret = g_strconcat(ret," - ",fref_notnull_str(FREFPROPERTY(lst->data)->name),": ",
+							ret = g_strconcat(ret," - ",fref_notnull_str(FREFPROPERTY(lst->data)->name),"(",
+							                            fref_notnull_str(FREFPROPERTY(lst->data)->type),"): ",
 							                            fref_notnull_str(FREFPROPERTY(lst->data)->description),"\n",NULL);
 					}                            
 					lst = g_list_next(lst);
