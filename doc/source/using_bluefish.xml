@@ -20,7 +20,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 <title>Using Bluefish</title>
 <para>
-In this chapter most of the functionality of Bluefish is described. What you can do, how you do it, and how you can customise the default behaviour.
+In this chapter most of the functionalities of Bluefish are described. What you can do, how you do it, and how you can customise the default behaviour.
 </para>
 <sect1 id="starting-bluefish">
 <title>Starting Bluefish</title>
@@ -47,13 +47,27 @@ a project file.
 <sect2 id="user-interface">
 <title>The user interface</title>
 </sect2>
-	<para>The biggest part of the user interface is the editor area. Because Bluefish is
-	has a so called "Multiple Document Interface", there are actually many editor areas
+	<para>The biggest part of the user interface is the editor area. Because Bluefish has a so called "Multiple Document Interface", there are actually many editor areas
 	in Bluefish, accessible via the tabs. By default the tabs are on the bottom.
+			<figure id="editor_array">
+				<title id="bf-figure-editor-array">Bluefish Editor Array</title>
+				<screenshot>
+					<mediaobject>
+						<imageobject>
+							<imagedata fileref="figures/editor_array.png" format="PNG"/>
+						</imageobject>
+						<textobject>
+							<phrase>
+								A screen shot of the Bluefish 0.14 editor array
+							</phrase>
+						</textobject>
+					</mediaobject>
+				</screenshot>
+			</figure>
 	</para>
 	<para>The top of the Bluefish interface consist of a menu, a main tool bar, a 
 	HTML tool bar, and a Custom menu.
-				<figure id="main_menu">
+			<figure id="main_menu">
 				<title id="bf-figure-main-menu">Bluefish Main Menu</title>
 				<screenshot>
 					<mediaobject>
@@ -62,7 +76,58 @@ a project file.
 						</imageobject>
 						<textobject>
 							<phrase>
-								A screen shot of the Bluefish 0.13 main menu
+								A screen shot of the Bluefish 0.14 main menu
+							</phrase>
+						</textobject>
+					</mediaobject>
+				</screenshot>
+			</figure>
+			</para>
+			<para>The main toolbar gives you quick access to the basic functionalities of a text editor.
+			<figure id="main_toolbar">
+				<title id="bf-figure-main-toolbar">Bluefish Main Toolbar</title>
+				<screenshot>
+					<mediaobject>
+						<imageobject>
+							<imagedata fileref="figures/main_toolbar.png" format="PNG"/>
+						</imageobject>
+						<textobject>
+							<phrase>
+								A screen shot of the Bluefish 0.14 main toolbar
+							</phrase>
+						</textobject>
+					</mediaobject>
+				</screenshot>
+			</figure>
+			</para>
+			<para>The HTML toolbar deals with most used HTML functionalities.
+			<figure id="html_toolbar">
+				<title id="bf-figure-html-toolbar">Bluefish HTML Toolbar</title>
+				<screenshot>
+					<mediaobject>
+						<imageobject>
+							<imagedata fileref="figures/html_toolbar.png" format="PNG"/>
+						</imageobject>
+						<textobject>
+							<phrase>
+								A screen shot of the Bluefish 0.14 HTML toolbar
+							</phrase>
+						</textobject>
+					</mediaobject>
+				</screenshot>
+			</figure>
+			</para>
+			<para>The custom toolbar provides access to languages an replacement functions. It is fully customizable through the preferences panel. 
+			<figure id="custom_toolbar">
+				<title id="bf-figure-custom-toolbar">Bluefish Custom Toolbar</title>
+				<screenshot>
+					<mediaobject>
+						<imageobject>
+							<imagedata fileref="figures/custom_toolbar.png" format="PNG"/>
+						</imageobject>
+						<textobject>
+							<phrase>
+								A screen shot of the Bluefish 0.14 custom toolbar
 							</phrase>
 						</textobject>
 					</mediaobject>
@@ -73,10 +138,76 @@ a project file.
 	On the side, by default the left side, there is the side panel. The side panel 
 	consist of a file browser, a function reference browser and a bookmark browser.
 	</para>
+	<para>This is where you may get quick access to files, switching directories in the upper part.
+			<figure id="file_browser">
+				<title id="bf-figure-file-browser">Bluefish File Browser</title>
+				<screenshot>
+					<mediaobject>
+						<imageobject>
+							<imagedata fileref="figures/file_browser.png" format="PNG"/>
+						</imageobject>
+						<textobject>
+							<phrase>
+								A screen shot of the Bluefish 0.14 file browser
+							</phrase>
+						</textobject>
+					</mediaobject>
+				</screenshot>
+			</figure>
+			</para>
+			<para>The function reference browser references CSS2, HTML, PHP, and Python functions with their syntax.
+			<figure id="function_reference_browser">
+				<title id="bf-figure-function-reference-browser">Bluefish Function Reference Browser</title>
+				<screenshot>
+					<mediaobject>
+						<imageobject>
+							<imagedata fileref="figures/function_reference_browser.png" format="PNG"/>
+						</imageobject>
+						<textobject>
+							<phrase>
+								A screen shot of the Bluefish 0.14 function reference browser
+							</phrase>
+						</textobject>
+					</mediaobject>
+				</screenshot>
+			</figure>
+			</para>
+			<para>The bookmark browser allows you to access directly to a marked position in a file.
+			<figure id="bookmark_browser">
+				<title id="bf-figure-bookmark-browser">Bluefish Bookmark Browser</title>
+				<screenshot>
+					<mediaobject>
+						<imageobject>
+							<imagedata fileref="figures/bookmark_browser.png" format="PNG"/>
+						</imageobject>
+						<textobject>
+							<phrase>
+								A screen shot of the Bluefish 0.14 bookmark browser
+							</phrase>
+						</textobject>
+					</mediaobject>
+				</screenshot>
+			</figure>
+	</para>
 	<para>
 	On the bottom of Bluefish is the status bar. Here messages are shown, the current line
 	and column number are shown, the insert (INS) or overwrite (OVR) mode for the cursor,
 	and the file type and character encoding.
+			<figure id="status_bar">
+				<title id="bf-figure-status-bar">Bluefish Status Bar</title>
+				<screenshot>
+					<mediaobject>
+						<imageobject>
+							<imagedata fileref="figures/status_bar.png" format="PNG"/>
+						</imageobject>
+						<textobject>
+							<phrase>
+								A screen shot of the Bluefish 0.14 status bar
+							</phrase>
+						</textobject>
+					</mediaobject>
+				</screenshot>
+			</figure>
 	</para>
 	<para>
 	The visibility of these items can be toggled via the View menu.
