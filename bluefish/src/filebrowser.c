@@ -958,7 +958,7 @@ static void filebrowser_rpopup_rename_lcb(GtkWidget *widget, gpointer data) {
 	} else {
 		/* Promt user, "File/Move To"-style. */
 		newfilename = ask_new_filename(oldfilename, 1);
-		if(newfilename) {
+		if (newfilename) {
 			if(rename(oldfilename, newfilename) != 0) {
 				errmessage = g_strconcat(_("Could not rename\n"), oldfilename, NULL);
 			}
