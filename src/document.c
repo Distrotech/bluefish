@@ -156,6 +156,7 @@ void add_filename_to_history(Tbfwin *bfwin, gchar *filename) {
 
 	add_to_recent_list(bfwin, filename, 0, FALSE); /* the recent menu */
 	dirname = g_path_get_dirname(filename);
+	DEBUG_MSG("add_filename_to_history, adding %s\n",dirname);
 	main_v->recent_directories = add_to_history_stringlist(main_v->recent_directories,dirname,TRUE);
 	g_free(dirname);
 }
@@ -2122,6 +2123,7 @@ gint doc_textbox_to_file(Tdocument * doc, gchar * filename) {
 	}
 	
 	write_retval = buffer_to_file(BFWIN(doc->bfwin), buffer, filename);
+	DEBUG_MSG("doc_textbox_to_file, write_retval=%d\n",write_retval);
 	g_free(buffer);
 	if (!write_retval) {
 		return -2;
@@ -2130,6 +2132,7 @@ gint doc_textbox_to_file(Tdocument * doc, gchar * filename) {
 	if (main_v->props.clear_undo_on_save) {
 		doc_unre_clear_all(doc);
 	}
+	DEBUG_MSG("doc_textbox_to_file, calling doc_set_modified(doc, 0)\n");
 	doc_set_modified(doc, 0);
 	if (!backup_retval) {
 		return 2;
@@ -2365,8 +2368,7 @@ gint doc_save(Tdocument * doc, gint do_save_as, gboolean do_move) {
 		if (doc == BFWIN(doc->bfwin)->current_document) {
 			gui_set_title(BFWIN(doc->bfwin), doc);
 		}
-	}
-	if (!do_save_as) {
+	} else /* (!do_save_as) */ {
 		gboolean modified;
 		time_t oldmtime, newmtime;
 #ifdef HAVE_GNOME_VFS
@@ -2779,7 +2781,7 @@ void doc_new_with_new_file(Tbfwin *bfwin, gchar * new_filename) {
  	}
 	ft = get_filetype_by_filename_and_content(doc->filename, NULL);
 	if (ft) doc->hl = ft;
-	doc->modified = 1;
+/*	doc->modified = 1;*/
 	doc_set_title(doc);
 	doc_save(doc, 0, 0);
 	doc_set_stat_info(doc); /* also sets mtime field */
@@ -2860,9 +2862,9 @@ Tdocument * doc_new_with_file(Tbfwin *bfwin, gchar * filename, gboolean delay_ac
 		doc_activate(doc);
 		/*filebrowser_open_dir(BFWIN(doc->bfwin),fullfilename); is already called by doc_activate() */
 	}
-       bmark_set_for_doc(doc);
-       bmark_check_length(bfwin,doc);
-       bmark_adjust_visible(bfwin);   
+	bmark_set_for_doc(doc);
+	bmark_check_length(bfwin,doc);
+	bmark_adjust_visible(bfwin);   
 	
 	return doc;
 }

@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-/*#define DEBUG*/
+/* #define DEBUG */
 
 #include <gtk/gtk.h>
 #include <sys/types.h> /* stat() getuid */
@@ -144,17 +144,17 @@ static gboolean path_in_basedir(Tfilebrowser *filebrowser, const gchar *path) {
 }
 
 
-/* MODIFIES THE ITER POINTER TO BY PARENT !!!!!!!! */
-static gboolean get_iter_by_filename_from_parent(GtkTreeStore *store, GtkTreeIter *parent, gchar *filename) {
+/* MODIFIES THE ITER POINTER TO BY 'found' !!!!!!!! */
+static gboolean get_iter_by_filename_from_parent(GtkTreeStore *store, GtkTreeIter *parent, GtkTreeIter *found, gchar *filename) {
 	gboolean valid;
 	GtkTreeIter iter;
-	iter = *parent;
 	valid = gtk_tree_model_iter_children(GTK_TREE_MODEL(store),&iter,parent);
 	while (valid) {
 		gchar *name;
 		gtk_tree_model_get(GTK_TREE_MODEL(store), &iter, FILENAME_COLUMN, &name, -1);
+		DEBUG_MSG("get_iter_by_filename_from_parent, comparing '%s' and '%s'\n",name,filename);
 		if (strcmp(name, filename)==0) {
-			*parent = iter;
+			*found = iter;
 			DEBUG_MSG("get_iter_by_filename_from_parent, found!!\n");
 			g_free(name);
 			return TRUE;
@@ -395,19 +395,21 @@ static GtkTreePath *return_path_from_filename(Tfilebrowser *filebrowser,gchar *t
 			while (!found && gtk_tree_model_iter_next(GTK_TREE_MODEL(store), &iter)) {
 				gchar *found_root;
 				gtk_tree_model_get(GTK_TREE_MODEL(store), &iter, FILENAME_COLUMN, &found_root, -1);
-				DEBUG_MSG("return_path_from_filename, searchinf for the root, comparing %s and %s\n",root,found_root);
+				DEBUG_MSG("return_path_from_filename, searching for the root, comparing %s and %s\n",root,found_root);
 				if (strcmp(found_root, root)==0) {
 					/* we found the root for this protocol/server */
 					parent = iter;
 					prevlen = strlen(root);
 					found = TRUE;
+					DEBUG_MSG("return_path_from_filename, we found '%s'!\n",found_root);
 				}
 				g_free(found_root);
 			}
 			if (found && strcmp(root, this_filename)==0) {
-			    /* we are looking for the root!! */
-			    g_free(root);
-			    return gtk_tree_model_get_path(GTK_TREE_MODEL(store),&parent);
+				/* we are looking for the root!! */
+				g_free(root);
+				DEBUG_MSG("return_path_from_filename, 'this_filename' and 'root' are equal! return the GtkTreePath for 'found_root'\n");
+				return gtk_tree_model_get_path(GTK_TREE_MODEL(store),&parent);
 			}
 			g_free(root);
 		} else {
@@ -459,6 +461,7 @@ static GtkTreePath *return_path_from_filename(Tfilebrowser *filebrowser,gchar *t
 		curlen = strlen(p);
 		tmpstr = g_strndup(&filepath[prevlen], (totlen - curlen - prevlen));
 		/* now search for this dirname */
+		DEBUG_MSG("return_path_from_filename, searching for '%s'\n",tmpstr);
 		valid = gtk_tree_model_iter_children(GTK_TREE_MODEL(store),&iter,&parent);
 		while (valid) {
 			gchar *found_name;
@@ -741,7 +744,9 @@ static GtkTreePath *build_tree_from_path(Tfilebrowser *filebrowser, const gchar 
 	/* first build path from root to here */
 	{
 		gchar *tmpstr, *p;
-		gint totlen, curlen, prevlen=1;
+		gint totlen, curlen, prevlen=0;
+		/* if we're working on an URL, prevlen should be 0, else it should be 1 */
+		if (filepath[0] == '/') prevlen = 1;
 		
 		if (!gtk_tree_model_get_iter_first(GTK_TREE_MODEL(filebrowser->store), &iter)) {
 			if (!showfulltree && filebrowser->basedir) {
@@ -768,7 +773,11 @@ static GtkTreePath *build_tree_from_path(Tfilebrowser *filebrowser, const gchar 
 		} else {
 			gchar *root = return_root_with_protocol(filepath);
 			if (root && root[0] != '/') {
-				iter = add_tree_item(NULL, filebrowser, root, TYPE_DIR, NULL);
+				DEBUG_MSG("finding iter for '%s' in the root of the tree\n",root);
+				if (!get_iter_by_filename_from_parent(filebrowser->store, NULL, &iter, root)) {
+					DEBUG_MSG("not found --> adding '%s'\n",root);
+					iter = add_tree_item(NULL, filebrowser, root, TYPE_DIR, NULL);
+				}
 				prevlen = strlen(root);
 			}
 			g_free(root);
@@ -783,7 +792,7 @@ static GtkTreePath *build_tree_from_path(Tfilebrowser *filebrowser, const gchar 
 	#ifdef DEBUG_ADDING_TO_TREE
 			DEBUG_MSG("build_tree_from_path, tmpstr='%s'\n", tmpstr);
 	#endif
-			if (!get_iter_by_filename_from_parent(filebrowser->store, &iter, tmpstr)) {
+			if (!get_iter_by_filename_from_parent(filebrowser->store, &iter, &iter, tmpstr)) {
 				iter = add_tree_item(&iter, filebrowser, tmpstr, TYPE_DIR, NULL);
 			}
 			g_free(tmpstr);
@@ -951,24 +960,19 @@ void filebrowser_open_dir(Tbfwin *bfwin,const gchar *dirarg) {
 		path = return_path_from_filename(filebrowser, dir);
 		DEBUG_MSG("filebrowser_open_dir, called for '%s', dir is '%s'\n", dirarg, dir);
 		DEBUG_DUMP_TREE_PATH(path);
-		if (path) {
+		if (!path) {
+			DEBUG_MSG("filebrowser_open_dir, '%s' does NOT exist in the tree, building..\n", dir);
+			path = build_tree_from_path(filebrowser, dir);
+		} else {
 			DEBUG_MSG("filebrowser_open_dir, it exists in tree, refreshing\n");
 			refresh_dir_by_path_and_filename(filebrowser, path, dir);
+		}
+		if (path) {
 			DEBUG_MSG("filebrowser_open_dir, now scroll to the path\n");
 			filebrowser_expand_to_root(filebrowser,path);
 			gtk_tree_view_scroll_to_cell(GTK_TREE_VIEW(filebrowser->tree),path,0,TRUE,0.5,0.5);
 			gtk_tree_selection_select_path(gtk_tree_view_get_selection(GTK_TREE_VIEW(filebrowser->tree)),path);
 			gtk_tree_path_free(path);
-		} else {
-			DEBUG_MSG("filebrowser_open_dir, it does NOT exist in the tree, building..\n");
-			path = build_tree_from_path(filebrowser, dir);
-/*			path = return_path_from_filename(GTK_TREE_STORE(filebrowser->store), dir);*/
-/*			gtk_tree_view_expand_row(GTK_TREE_VIEW(filebrowser->tree),path,FALSE);*/
-			if (path) {
-				filebrowser_expand_to_root(filebrowser,path);
-				gtk_tree_view_scroll_to_cell(GTK_TREE_VIEW(filebrowser->tree),path,0,TRUE,0.5,1.0);
-				gtk_tree_path_free(path);
-			}
 		}
 		g_free(dir);
 	}
@@ -1728,11 +1732,18 @@ static void populate_dir_history(Tfilebrowser *filebrowser,gboolean firsttime, g
 	}*/
 
 	if (activedir) {
+		gint rootlen=0;
+		gchar *root;
 		DEBUG_MSG("populate_dir_history, activedir=%s\n",activedir);
 		tmpdir = ending_slash(activedir);
 		
 		new_history_list = add_to_stringlist(new_history_list, tmpdir);
-		while ((tmpchar = strrchr(tmpdir, DIRCHR))) {
+		root = return_root_with_protocol(tmpdir);
+		if (root) {
+			rootlen = strlen(root)-1;
+			g_free(root);
+		}
+		while ((tmpchar = strrchr(tmpdir, DIRCHR)) && (tmpchar - tmpdir) >= rootlen) {
 			tmpchar++;
 			*tmpchar = '\0';
 			DEBUG_MSG("populate_dir_history, adding %s\n", tmpdir);
