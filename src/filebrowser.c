@@ -564,6 +564,27 @@ void filebrowser_refresh_dir(gchar *dir) {
 	gtk_tree_path_free(path);
 }
 
+static GtkTreePath *filebrowser_path_up_multi(GtkTreePath *path, gint num) {
+	while (num > 0) {
+		gtk_tree_path_up(path);
+		num--;
+	}
+	return path;
+}
+
+static void filebrowser_expand_to_root(const GtkTreePath *this_path) {
+	gint num = gtk_tree_path_get_depth(this_path);
+	while (num >= 0) {
+		GtkTreePath *path = gtk_tree_path_copy(this_path);
+		path = filebrowser_path_up_multi(path, num);
+		DEBUG_MSG("filebrowser_expand_to_root, expanding ");
+		DEBUG_DUMP_TREE_PATH(path);
+		gtk_tree_view_expand_row(GTK_TREE_VIEW(filebrowser.tree), path, FALSE);
+		gtk_tree_path_free(path);
+		num--;
+	}
+}
+
 void filebrowser_open_dir(gchar *dir) {
 	/* first check if the dir already exists */
 	GtkTreePath *path = return_path_from_filename(filebrowser.store, dir);
@@ -572,12 +593,14 @@ void filebrowser_open_dir(gchar *dir) {
 		DEBUG_MSG("jump_to_dir, it exists in tree, refreshing\n");
 		refresh_dir_by_path_and_filename(GTK_TREE_STORE(filebrowser.store), path, dir);
 		DEBUG_MSG("jump_to_dir, now scroll to the path\n");
+		filebrowser_expand_to_root(path);
 		gtk_tree_view_scroll_to_cell(GTK_TREE_VIEW(filebrowser.tree),path,0,TRUE,0.5,0.5);
 	} else {
 		DEBUG_MSG("jump_to_dir, it does NOT exist in the tree, building..\n");
-		build_tree_from_path(GTK_TREE_STORE(filebrowser.store), dir);
-		path = return_path_from_filename(GTK_TREE_STORE(filebrowser.store), dir);
-		gtk_tree_view_expand_row(GTK_TREE_VIEW(filebrowser.tree),path,FALSE);
+		path = build_tree_from_path(GTK_TREE_STORE(filebrowser.store), dir);
+/*		path = return_path_from_filename(GTK_TREE_STORE(filebrowser.store), dir);*/
+/*		gtk_tree_view_expand_row(GTK_TREE_VIEW(filebrowser.tree),path,FALSE);*/
+		filebrowser_expand_to_root(path);
 		gtk_tree_view_scroll_to_cell(GTK_TREE_VIEW(filebrowser.tree),path,0,TRUE,0.5,0.5);
 	}
 	gtk_tree_path_free(path);
@@ -662,16 +685,28 @@ static void filebrowser_rpopup_filter_toggled_lcb(GtkWidget *widget, Tfilter *fi
 	}
 }
 
+static void filebrowser_rpopup_new_file_lcb(GtkWidget *widget, gpointer data) {
+	DEBUG_MSG("filebrowser_rpopup_new_file_lcb\n");
+}
+static void filebrowser_rpopup_new_dir_lcb(GtkWidget *widget, gpointer data) {
+	DEBUG_MSG("filebrowser_rpopup_new_dir_lcb\n");
+}
+static void filebrowser_rpopup_refresh_lcb(GtkWidget *widget, gpointer data) {
+	DEBUG_MSG("filebrowser_rpopup_refresh_lcb\n");
+}
+
 static GtkWidget *filebrowser_rpopup_create_menu() {
 	GtkWidget *menu, *menu_item;
 
 	menu = gtk_menu_new();
 	menu_item = gtk_menu_item_new_with_label("New file");
-/*	g_signal_connect(GTK_OBJECT(menu_item), "activate", G_CALLBACK(filebrowser_edit_image_lcb), NULL);*/
+	g_signal_connect(GTK_OBJECT(menu_item), "activate", G_CALLBACK(filebrowser_rpopup_new_file_lcb), NULL);
 	gtk_menu_append(GTK_MENU(menu), menu_item);
 	menu_item = gtk_menu_item_new_with_label("New directory");
+	g_signal_connect(GTK_OBJECT(menu_item), "activate", G_CALLBACK(filebrowser_rpopup_new_dir_lcb), NULL);
 	gtk_menu_append(GTK_MENU(menu), menu_item);
 	menu_item = gtk_menu_item_new_with_label("Refresh");
+	g_signal_connect(GTK_OBJECT(menu_item), "activate", G_CALLBACK(filebrowser_rpopup_refresh_lcb), NULL);
 	gtk_menu_append(GTK_MENU(menu), menu_item);
 	menu_item = gtk_menu_item_new_with_label("Filter");
 	gtk_menu_append(GTK_MENU(menu), menu_item);
@@ -877,13 +912,11 @@ GtkWidget *filebrowser_init() {
 		strncat(curdir, "/", 1023);
 		DEBUG_MSG("curdir=%s\n",curdir);
 		path = build_tree_from_path(GTK_TREE_STORE(filebrowser.store), curdir);
-		gtk_tree_view_expand_all(GTK_TREE_VIEW(filebrowser.tree));
+/*		gtk_tree_view_expand_all(GTK_TREE_VIEW(filebrowser.tree));
 		gtk_tree_path_down(path);
-		gtk_tree_view_collapse_row(GTK_TREE_VIEW(filebrowser.tree),path);
-		while (valid) {
-			gtk_tree_view_expand_row(GTK_TREE_VIEW(filebrowser.tree),path,FALSE);
-			valid = gtk_tree_path_up(path);
-		}
+		gtk_tree_view_collapse_row(GTK_TREE_VIEW(filebrowser.tree),path);*/
+		
+		filebrowser_expand_to_root(path);
 	}
 	
 	g_signal_connect(G_OBJECT(filebrowser.tree), "row-expanded", G_CALLBACK(row_expanded_lcb), filebrowser.store);
