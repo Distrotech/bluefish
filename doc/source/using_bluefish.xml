@@ -49,7 +49,7 @@ There are several useful commandline options.
 	<para>The top of the Bluefish interface consist of a menu, a main toolbar, a 
 	HTML toolbar, and a Custom menu.
 				<figure id="main_menu">
-				<title id="figure-desc">Bluefish Main Menu</title>
+				<title id="bf-figure-main-menu">Bluefish Main Menu</title>
 				<screenshot>
 					<mediaobject>
 						<imageobject>
@@ -75,8 +75,8 @@ There are several useful commandline options.
 	</para>
 	<para>
 	The visibility of these items can be toggled via the View menu.
-		<figure id="file_menu">
-				<title id="figure-desc">Bluefish View Menu</title>
+		<figure id="figure-view-menu">
+				<title id="figure-view-menu-title">Bluefish View Menu</title>
 				<screenshot>
 					<mediaobject>
 						<imageobject>
@@ -98,8 +98,8 @@ There are several useful commandline options.
 	Through the <emphasis>File</emphasis> menu a new file can be 
 	created, existing files opened, and opened files saved. 
 	
-				<figure id="file_menu">
-				<title id="figure-desc">Bluefish File Menu</title>
+				<figure id="figure-file-menu">
+				<title id="figure-file-menu-title">Bluefish File Menu</title>
 				<screenshot>
 					<mediaobject>
 						<imageobject>
@@ -312,8 +312,8 @@ environment to make Gnome and Gtk programs detect this encoding.
 	</para>
 	<para>
 	Navigation between documents can also be done using the Go menu.
-	<figure id="file_menu">
-				<title id="figure-desc">Bluefish Go Menu</title>
+	<figure id="figure-go-menu">
+				<title id="figure-go-menu-title">Bluefish Go Menu</title>
 				<screenshot>
 					<mediaobject>
 						<imageobject>
@@ -338,8 +338,8 @@ environment to make Gnome and Gtk programs detect this encoding.
 <sect2 id="projects">
 <title>Projects</title>
 <para>
-<figure id="file_menu">
-				<title id="figure-desc">Bluefish Project Menu</title>
+<figure id="figure-project-menu">
+				<title id="figure-project-menu-title">Bluefish Project Menu</title>
 				<screenshot>
 					<mediaobject>
 						<imageobject>
@@ -472,6 +472,17 @@ The
 </sect2>
 <sect2 id="auto-tag-closing">
 <title>Auto tag closing</title>
+	<para>
+	By default, Bluefish will automatically produce closing tags for HTML and XML 
+	documents. For example, if you type <literal>&lt;p&gt;</literal>
+	within an HTML document, bluefish will produce 
+	<literal>&lt;/p&gt;</literal>. So, as soon as you finish typing a 
+	non-empty HTML tag, meaning the tag is supposed to have a closing tag, Bluefish 
+	will help you out and close the tag automatically. For empty tags, like 
+	<literal>&lt;br&gt;</literal>, Bluefish correctly does nothing. 
+	This feature can be turned off by unchecking the menu option 
+	<literal>Document &gt; Auto Close HTML Tags</literal>.
+	</para>
 </sect2>
 <sect2 id="spell-checker">
 <title>Spell checker</title>
@@ -511,8 +522,8 @@ The
 		example a sed command as a filter, you can add it like this to the
 		external commands and filters (in the preferences dialog): sed -e
 		'some sed command' &gt; '%f' &lt; '%s'
-		<figure id="file_menu">
-				<title id="figure-desc">Bluefish External Menu</title>
+		<figure id="figure-external-menu">
+				<title id="figure-external-menu-title">Bluefish External Menu</title>
 				<screenshot>
 					<mediaobject>
 						<imageobject>
