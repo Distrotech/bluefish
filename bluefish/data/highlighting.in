@@ -36,6 +36,7 @@ php:php-string-double-escape:0:\\\\.::2:^php-string-double$:#009900::1:1:
 php:php-var:1:\\$[a-z_][][a-z0-9>_$-]*::2:^php$:#CC0000::2:0:
 php:php-var-specialchars:0:(\\[|\\]|->)::2:^php-var$:#0000CC::0:0:
 php:php-string-single:0:':':1:^php$:#009900::1:1:
+php:php-string-single-escape:0:\\\\.::2:^php-string-single$:#009900::1:1:
 php:php-comment-C:0:/\\*:\\*/:1:^php$:#7777AA::1:2:
 php:php-comment-1line:0:(//|#).*?$::2:^php$:#7777AA::1:2:
 html:html:1:<((/)?[a-z0-9]+).*?>::2::#0000EE::0:0:
