@@ -196,7 +196,11 @@ static void left_panel_notify_position_lcb(GObject *object,GParamSpec *pspec,gpo
 	g_object_get(object, pspec->name, &position, NULL);
 	DEBUG_MSG("left_panel_notify_position_lcb, new position=%d\n", position);
 	if (main_v->props.restore_dimensions) {
-		main_v->props.left_panel_width = position;
+		if (main_v->props.left_panel_left) {
+			main_v->props.left_panel_width = position;
+		} else {
+			main_v->props.left_panel_width = main_v->globses.main_window_w - position;
+		}
 	}
 }
 
@@ -235,7 +239,11 @@ void left_panel_rebuild(Tbfwin *bfwin) {
 		bmark_cleanup(bfwin);
 		DEBUG_MSG("left_panel_rebuild, re-init\n");
 		bfwin->leftpanel_notebook = left_panel_build(bfwin);
-		gtk_paned_add1(GTK_PANED(bfwin->hpane), bfwin->leftpanel_notebook);
+		if (main_v->props.left_panel_left) {
+			gtk_paned_add1(GTK_PANED(bfwin->hpane), bfwin->leftpanel_notebook);
+		} else {
+			gtk_paned_add2(GTK_PANED(bfwin->hpane), bfwin->leftpanel_notebook);
+		}
 		gtk_widget_show_all(bfwin->leftpanel_notebook);
 	}
 }
@@ -261,11 +269,17 @@ void left_panel_show_hide_toggle(Tbfwin *bfwin,gboolean first_time, gboolean sho
 	}
 	if (show) {
 		bfwin->hpane = gtk_hpaned_new();
-		gtk_paned_set_position(GTK_PANED(bfwin->hpane), main_v->props.left_panel_width);
+		if (main_v->props.left_panel_left) {
+			DEBUG_MSG("set paned position to %d (left)\n",main_v->props.left_panel_width);
+			gtk_paned_set_position(GTK_PANED(bfwin->hpane), main_v->props.left_panel_width);
+		} else {
+			DEBUG_MSG("set paned position to %d (right)\n",main_v->globses.main_window_w - main_v->props.left_panel_width);
+			gtk_paned_set_position(GTK_PANED(bfwin->hpane), main_v->globses.main_window_w - main_v->props.left_panel_width);
+		}
 		g_signal_connect(G_OBJECT(bfwin->hpane),"notify::position",G_CALLBACK(left_panel_notify_position_lcb), NULL);
 		bfwin->leftpanel_notebook = left_panel_build(bfwin);
-		gtk_paned_add1(GTK_PANED(bfwin->hpane), bfwin->leftpanel_notebook);
-		gtk_paned_add2(GTK_PANED(bfwin->hpane), bfwin->notebook_box);
+		gtk_paned_add1(GTK_PANED(bfwin->hpane), main_v->props.left_panel_left ? bfwin->leftpanel_notebook : bfwin->notebook_box);
+		gtk_paned_add2(GTK_PANED(bfwin->hpane), main_v->props.left_panel_left ? bfwin->notebook_box : bfwin->leftpanel_notebook);
 		gtk_box_pack_start(GTK_BOX(bfwin->middlebox), bfwin->hpane, TRUE, TRUE, 0);
 		gtk_widget_show(bfwin->hpane);
 	} else {
@@ -295,11 +309,19 @@ void gui_set_title(Tbfwin *bfwin, Tdocument *doc) {
 }
 
 void gui_apply_settings(Tbfwin *bfwin) {
+	gtk_notebook_set_tab_pos(GTK_NOTEBOOK(bfwin->notebook),main_v->props.document_tabposition);
 	/* We don't want to set the tab position if the left panel is hidden */
 	if (bfwin->leftpanel_notebook) {
 		gtk_notebook_set_tab_pos(GTK_NOTEBOOK(bfwin->leftpanel_notebook),main_v->props.leftpanel_tabposition);
+
+		/* check if the left panel needs to move over to the right */
+		if (main_v->props.left_panel_left && bfwin->leftpanel_notebook == GTK_PANED(bfwin->hpane)->child1) {
+			DEBUG_MSG("gui_apply_settings, left panel is on the right location\n");
+		} else {
+			left_panel_show_hide_toggle(bfwin,FALSE, FALSE, FALSE);
+			left_panel_show_hide_toggle(bfwin,FALSE, TRUE, FALSE);
+		}
 	}
-	gtk_notebook_set_tab_pos(GTK_NOTEBOOK(bfwin->notebook),main_v->props.document_tabposition);
 }
 
 typedef struct {

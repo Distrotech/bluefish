@@ -51,6 +51,7 @@ enum {
 	transient_htdialogs,  /* set html dialogs transient ro the main window */
 	restore_dimensions,
 	left_panel_width,
+	left_panel_left,
 	main_window_h,			/* main window height */
 	main_window_w,			/* main window width */
 	max_recent_files,	/* length of Open Recent list */
@@ -1835,6 +1836,7 @@ static void preferences_apply(Tprefdialog *pd) {
 	string_apply(&main_v->props.tab_font_string, pd->prefs[tab_font_string]);
 	main_v->props.document_tabposition = gtk_option_menu_get_history(GTK_OPTION_MENU(pd->prefs[document_tabposition]));
 	main_v->props.leftpanel_tabposition = gtk_option_menu_get_history(GTK_OPTION_MENU(pd->prefs[leftpanel_tabposition]));
+	main_v->props.left_panel_left = gtk_option_menu_get_history(GTK_OPTION_MENU(pd->prefs[left_panel_left]));
 
 	integer_apply(&main_v->props.view_main_toolbar, pd->prefs[view_main_toolbar], TRUE);
 	integer_apply(&main_v->props.view_left_panel, pd->prefs[view_left_panel], TRUE);
@@ -1931,6 +1933,7 @@ static void preferences_dialog() {
 	Tprefdialog *pd;
 	GtkWidget *dvbox, *frame, *vbox1, *vbox2;
 	gchar *notebooktabpositions[] = {N_("left"), N_("right"), N_("top"), N_("bottom"), NULL};
+	gchar *panellocations[] = {N_("right"), N_("left"), NULL};
 	gchar *modified_check_types[] = {N_("no check"), N_("check mtime and size"), N_("check mtime"), N_("check size"), NULL};
 
 	pd = g_new0(Tprefdialog,1);
@@ -2056,7 +2059,7 @@ static void preferences_dialog() {
 	vbox2 = gtk_vbox_new(FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(frame), vbox2);
 	pd->prefs[restore_dimensions] = boxed_checkbut_with_value(_("Restore last used dimensions"), main_v->props.restore_dimensions, vbox2);
-	pd->prefs[left_panel_width] = prefs_integer(_("Initial left panel width"), main_v->props.left_panel_width, vbox2, pd, 1, 4000);
+	pd->prefs[left_panel_width] = prefs_integer(_("Initial side panel width"), main_v->props.left_panel_width, vbox2, pd, 1, 4000);
 	pd->prefs[main_window_h] = prefs_integer(_("Initial window height"), main_v->globses.main_window_h, vbox2, pd, 1, 4000);
 	pd->prefs[main_window_w] = prefs_integer(_("Initial window width"), main_v->globses.main_window_w, vbox2, pd, 1, 4000);
 	restore_dimensions_toggled_lcb(GTK_TOGGLE_BUTTON(pd->prefs[restore_dimensions]), pd);
@@ -2080,7 +2083,8 @@ static void preferences_dialog() {
 	pd->prefs[tab_font_string] = prefs_string(_("Notebook tab font (leave empty for gtk default)"), main_v->props.tab_font_string, vbox2, pd, string_font);
 	
 	pd->prefs[document_tabposition] = boxed_optionmenu_with_value(_("Document notebook tab position"), main_v->props.document_tabposition, vbox2, notebooktabpositions);
-	pd->prefs[leftpanel_tabposition] = boxed_optionmenu_with_value(_("Left panel notebook tab position"), main_v->props.leftpanel_tabposition, vbox2, notebooktabpositions);
+	pd->prefs[leftpanel_tabposition] = boxed_optionmenu_with_value(_("Side panel notebook tab position"), main_v->props.leftpanel_tabposition, vbox2, notebooktabpositions);
+	pd->prefs[left_panel_left] = boxed_optionmenu_with_value(_("Side panel location"), main_v->props.left_panel_left, vbox2, panellocations);
 
 	vbox1 = gtk_vbox_new(FALSE, 5);
 	gtk_notebook_append_page(GTK_NOTEBOOK(pd->noteb), vbox1, hbox_with_pix_and_text(_("Images"), 155,TRUE));
