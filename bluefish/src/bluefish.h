@@ -267,8 +267,7 @@ typedef struct {
 	GList *positionlist; /* is this used ?? */
 	GList *searchlist; /* used in snr2 */
 	GList *replacelist; /* used in snr2 */
-	GList *bmarks_temp;
-	GList *bmarks_perm;
+	GList *bmarks;
 	GList *recent_files;
 	GList *recent_dirs;
 } Tsessionvars;

@@ -280,10 +280,10 @@ static void menu_bmark_operations_cb(Tbfwin *bfwin,guint callback_action, GtkWid
 	   bmark_add_perm(bfwin);
 	break;
 	case 4:
-	   bmark_del_all_temp(bfwin);
+	   bmark_del_all_temp(bfwin,TRUE);
 	break;
 	case 5:
-	   bmark_del_all_perm(bfwin);
+	   bmark_del_all_perm(bfwin,TRUE);
 	break;	
 	default:
 			g_print("Bmark action no. %d\n",callback_action);
