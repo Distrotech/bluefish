@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: bluefish gtk2-port\n"
-"POT-Creation-Date: 2003-04-16 15:09+0200\n"
+"POT-Creation-Date: 2003-04-22 15:59+0200\n"
 "PO-Revision-Date: 2002-12-13 23:02+0100\n"
 "Last-Translator: Roland Steinbach <roland@netzblick.de>\n"
 "Language-Team: Not a member <LL@li.org>\n"
@@ -175,6 +175,14 @@ msgstr "Eingabe _Methoden"
 msgid "Saving file"
 msgstr "Datei speichern"
 
+#: ../src/document.c:1139 ../src/preferences.c:1763
+msgid "abort"
+msgstr "Abbrechen"
+
+#: ../src/document.c:1142 ../src/preferences.c:1764
+msgid "ask"
+msgstr "Nachfragen"
+
 #: ../src/document.c:1143
 msgid "Abort save"
 msgstr "Sichern abbrechen"
@@ -329,7 +337,7 @@ msgstr "<b>Allgemein</b>"
 msgid "Base_dir:"
 msgstr "Hauptverzeichnis:"
 
-#: ../src/document.c:1885 ../src/gtk_easy.c:771
+#: ../src/document.c:1885 ../src/gtk_easy.c:772
 msgid "_Browse..."
 msgstr "_Browsen..."
 
@@ -368,7 +376,7 @@ msgstr "Alle Speichern"
 
 #: ../src/document.c:2033
 msgid "close all"
-msgstr "Alle schlieen"
+msgstr "Alle schließen"
 
 #: ../src/document.c:2033
 msgid "choose per file"
@@ -443,48 +451,48 @@ msgstr "Aktualisieren"
 msgid "All files"
 msgstr "Alle Dateien"
 
-#: ../src/fref.c:840 ../src/gui.c:544
-msgid "Close"
-msgstr "Schliessen"
-
-#: ../src/fref.c:845 ../src/fref.c:1385 ../src/fref.c:1415
-msgid "Dialog"
-msgstr "Dialog"
-
-#: ../src/fref.c:847 ../src/fref.c:1388 ../src/fref.c:1412
-msgid "Insert"
-msgstr "Einfügen"
-
-#: ../src/fref.c:1131 ../src/fref.c:1391 ../src/fref.c:1417
+#: ../src/fref.c:816 ../src/fref.c:1115 ../src/fref.c:1375 ../src/fref.c:1401
 msgid "Info"
 msgstr "Info"
 
-#: ../src/fref.c:1397 ../src/html.c:552 ../src/html.c:1180
+#: ../src/fref.c:837 ../src/gui.c:544
+msgid "Close"
+msgstr "Schliessen"
+
+#: ../src/fref.c:841 ../src/fref.c:1369 ../src/fref.c:1399
+msgid "Dialog"
+msgstr "Dialog"
+
+#: ../src/fref.c:842 ../src/fref.c:1372 ../src/fref.c:1396
+msgid "Insert"
+msgstr "Einfügen"
+
+#: ../src/fref.c:1381 ../src/html.c:552 ../src/html.c:1180
 msgid "Options"
 msgstr "Optionen"
 
-#: ../src/fref.c:1404
+#: ../src/fref.c:1388
 msgid "Rescan reference files"
 msgstr "Referenzdateien neu laden"
 
-#: ../src/fref.c:1407
+#: ../src/fref.c:1391
 msgid "Left doubleclick action"
 msgstr "Aktion Linker Doppelklick"
 
-#: ../src/gtk_easy.c:936 ../src/menu.c:1314 ../src/menu.c:1660
+#: ../src/gtk_easy.c:937 ../src/menu.c:1314 ../src/menu.c:1660
 #: ../src/menu.c:1662 ../src/menu.c:1667
 msgid "Bluefish error"
 msgstr "Bluefish Fehler"
 
-#: ../src/gtk_easy.c:936
+#: ../src/gtk_easy.c:937
 msgid "No filename known"
 msgstr "Kein Dateiname bekannt"
 
-#: ../src/gtk_easy.c:1025
+#: ../src/gtk_easy.c:1026
 msgid "Select file"
 msgstr "Datei wählen"
 
-#: ../src/gtk_easy.c:1037
+#: ../src/gtk_easy.c:1038
 msgid "Select files"
 msgstr "Dateien wählen"
 
@@ -884,7 +892,7 @@ msgstr "Suchen..."
 msgid "Search and Replace..."
 msgstr "Suchen und Ersetzen..."
 
-#: ../src/gui.c:558 ../src/preferences.c:1721
+#: ../src/gui.c:558 ../src/preferences.c:1772
 msgid "Undo"
 msgstr "Rückgängig"
 
@@ -951,7 +959,7 @@ msgid ""
 "If you right-click a button in the HTML toolbars you can add buttons to the "
 "Quickbar."
 msgstr ""
-"Diese Nachricht wird angezeigt, da Sie keine Eintäge im Schnellzugriff "
+"Diese Nachricht wird angezeigt, da Sie keine Einträge im Schnellzugriff "
 "haben.\n"
 "\n"
 "Durch Rechtsklick können Sie in den HTML-Toolbars Buttons in den "
@@ -1237,7 +1245,7 @@ msgstr "Inhal_t:"
 msgid "_Scheme:"
 msgstr "_Schema:"
 
-#: ../src/html.c:1446 ../src/preferences.c:1664
+#: ../src/html.c:1446 ../src/preferences.c:1715
 msgid "Font"
 msgstr "Schriftart"
 
@@ -3109,8 +3117,8 @@ msgstr "Dateityp"
 msgid "Pattern name"
 msgstr "Muster"
 
-#: ../src/preferences.c:1001 ../src/preferences.c:1442
-#: ../src/preferences.c:1491
+#: ../src/preferences.c:1001 ../src/preferences.c:1493
+#: ../src/preferences.c:1542
 msgid "Pattern"
 msgstr "Muster"
 
@@ -3174,26 +3182,26 @@ msgstr "nicht-kursiv"
 msgid "force italic style"
 msgstr "kursiv"
 
-#: ../src/preferences.c:1165 ../src/preferences.c:1196
+#: ../src/preferences.c:1209 ../src/preferences.c:1247
 msgid "Browser"
 msgstr "Browser"
 
-#: ../src/preferences.c:1167 ../src/preferences.c:1202
-#: ../src/preferences.c:1285 ../src/preferences.c:1320
-#: ../src/preferences.c:1450 ../src/preferences.c:1495
+#: ../src/preferences.c:1211 ../src/preferences.c:1253
+#: ../src/preferences.c:1336 ../src/preferences.c:1371
+#: ../src/preferences.c:1501 ../src/preferences.c:1546
 msgid "Command"
 msgstr "Befehl"
 
-#: ../src/preferences.c:1201
+#: ../src/preferences.c:1252
 #, c-format
 msgid "%s = current filename"
 msgstr "%s = aktueller Dateiname"
 
-#: ../src/preferences.c:1283 ../src/preferences.c:1314
+#: ../src/preferences.c:1334 ../src/preferences.c:1365
 msgid "Label"
 msgstr "Label"
 
-#: ../src/preferences.c:1319
+#: ../src/preferences.c:1370
 #, c-format
 msgid ""
 "%s = current filename\n"
@@ -3202,731 +3210,369 @@ msgstr ""
 "%s = aktueller Dateiname\n"
 "%f = Ausgabedateiname (für Filter)"
 
-#: ../src/preferences.c:1440 ../src/preferences.c:1487
+#: ../src/preferences.c:1491 ../src/preferences.c:1538
 msgid "Name"
 msgstr "Name"
 
-#: ../src/preferences.c:1444
+#: ../src/preferences.c:1495
 msgid "File #"
 msgstr "Datei Nr."
 
-#: ../src/preferences.c:1446
+#: ../src/preferences.c:1497
 msgid "Line #"
 msgstr "Zeile Nr."
 
-#: ../src/preferences.c:1448
+#: ../src/preferences.c:1499
 msgid "Output #"
 msgstr "Ausgabe Nr."
 
-#: ../src/preferences.c:1452 ../src/preferences.c:1496
+#: ../src/preferences.c:1503 ../src/preferences.c:1547
 msgid "Show all output"
 msgstr "Gesamte Ausgabe anzeigen"
 
-#: ../src/preferences.c:1492
+#: ../src/preferences.c:1543
 msgid "File subpattern #"
 msgstr "Datei Untermuster Nr."
 
-#: ../src/preferences.c:1493
+#: ../src/preferences.c:1544
 msgid "Line subpattern #"
 msgstr "Zeilen Untermuster Nr."
 
-#: ../src/preferences.c:1494
+#: ../src/preferences.c:1545
 msgid "Output subpattern #"
 msgstr "Ausgabe Untermuster Nr."
 
-#: ../src/preferences.c:1643
+#: ../src/preferences.c:1694
 msgid "left"
 msgstr "links"
 
-#: ../src/preferences.c:1643
+#: ../src/preferences.c:1694
 msgid "right"
 msgstr "rechts"
 
-#: ../src/preferences.c:1643
+#: ../src/preferences.c:1694
 msgid "top"
 msgstr "oben"
 
-#: ../src/preferences.c:1643
+#: ../src/preferences.c:1694
 msgid "bottom"
 msgstr "unten"
 
-#: ../src/preferences.c:1646
+#: ../src/preferences.c:1697
 msgid "Edit preferences"
 msgstr "Einstellungen bearbeiten"
 
-#: ../src/preferences.c:1657
+#: ../src/preferences.c:1708
 msgid "Editor"
 msgstr "Editor"
 
-#: ../src/preferences.c:1659
+#: ../src/preferences.c:1710
 msgid "Editor options"
 msgstr "Editoroptionen"
 
-#: ../src/preferences.c:1665
+#: ../src/preferences.c:1716
 msgid "Tab width"
 msgstr "Tablulatorbreite"
 
-#: ../src/preferences.c:1666
+#: ../src/preferences.c:1717
 msgid "Word wrap default"
 msgstr "Wortumbruch"
 
-#: ../src/preferences.c:1667
+#: ../src/preferences.c:1718
 msgid "Line numbers by default"
 msgstr "Zeilennummern"
 
-#: ../src/preferences.c:1668
+#: ../src/preferences.c:1719
 msgid "Highlight syntax by default"
 msgstr "Syntaxhighlight"
 
-#: ../src/preferences.c:1669
+#: ../src/preferences.c:1720
 msgid "Highlight # lines"
 msgstr "Highlight Nr. Zeilen"
 
-#: ../src/preferences.c:1670
+#: ../src/preferences.c:1721
 msgid "Always highlight full document"
 msgstr "Immer gesamtes Dokument highlighten"
 
-#: ../src/preferences.c:1672
+#: ../src/preferences.c:1723
 msgid "HTML"
 msgstr "HTML"
 
-#: ../src/preferences.c:1674
+#: ../src/preferences.c:1725
 msgid "HTML options"
 msgstr "HTML Optionen"
 
-#: ../src/preferences.c:1679
+#: ../src/preferences.c:1730
 msgid "Lowercase HTML tags"
 msgstr "HTML Tags in Kleinschrift"
 
-#: ../src/preferences.c:1680
+#: ../src/preferences.c:1731
 msgid "Use deprecated tags (e.g. <font> and <nobr>)"
 msgstr "Alte Tags (z.B. <font> und <nobr>) benutzen"
 
-#: ../src/preferences.c:1681
+#: ../src/preferences.c:1732
 msgid "Use XHTML style tags (<br />)"
 msgstr "Benutze XHTML syntax (z.B. <br />)"
 
-#: ../src/preferences.c:1682
+#: ../src/preferences.c:1733
 msgid "Automatic update author meta"
 msgstr "Automatisch Author Meta-Tag updaten"
 
-#: ../src/preferences.c:1685
+#: ../src/preferences.c:1736
 msgid "Files"
 msgstr "Dateien"
 
-#: ../src/preferences.c:1687
+#: ../src/preferences.c:1738
 msgid "Encoding"
 msgstr "Encoding"
 
-#: ../src/preferences.c:1699
+#: ../src/preferences.c:1750
 msgid "Default character set"
 msgstr "Standardzeichensatz"
 
-#: ../src/preferences.c:1702
+#: ../src/preferences.c:1753
 msgid "Auto set <meta> encoding tag on change"
 msgstr "<meta>-tag automatisch bei Änderungen setzen"
 
-#: ../src/preferences.c:1704
+#: ../src/preferences.c:1755
 msgid "Backup"
 msgstr "Sicherungskopie"
 
-#: ../src/preferences.c:1708
+#: ../src/preferences.c:1759
 msgid "Create backup on save"
 msgstr "Sicherungskopie beim Speichern erstellen"
 
-#: ../src/preferences.c:1709
+#: ../src/preferences.c:1760
 msgid "Backup file suffix"
 msgstr "Sicherungsdatei Erweiterung"
 
-#: ../src/preferences.c:1714
+#: ../src/preferences.c:1762
+msgid "save"
+msgstr "Speichern"
+
+#: ../src/preferences.c:1765
 msgid "Action on backup failure"
 msgstr "Bei Fehlschlagen der Sicherungskopie"
 
-#: ../src/preferences.c:1717
+#: ../src/preferences.c:1768
 msgid "Remove backupfile on close"
 msgstr "Sicherungskopie beim Schließen erstellen"
 
-#: ../src/preferences.c:1726
+#: ../src/preferences.c:1777
 msgid "Undo history size"
 msgstr "Historygröße"
 
-#: ../src/preferences.c:1727
+#: ../src/preferences.c:1778
 msgid "Clear undo history on save"
 msgstr "Undo-Stufen bei speichern lschen"
 
-#: ../src/preferences.c:1729 ../src/preferences.c:1754
+#: ../src/preferences.c:1780 ../src/preferences.c:1805
 msgid "Misc"
 msgstr "Verschiedenes"
 
-#: ../src/preferences.c:1734
+#: ../src/preferences.c:1785
 msgid "Allow multi instances of a file"
 msgstr "Erlaube mehrere Instanzen einer Datei"
 
-#: ../src/preferences.c:1736
+#: ../src/preferences.c:1787
 msgid "Open files in already running bluefish window"
 msgstr "Öffne Dateien in bereits laufendem Programm"
 
-#: ../src/preferences.c:1738
+#: ../src/preferences.c:1789
 msgid "Number of files in 'Open recent'"
 msgstr "Anzahl Dateien im 'Vorherige öffnen'-Menü"
 
-#: ../src/preferences.c:1741
+#: ../src/preferences.c:1792
 msgid "User interface"
 msgstr "Benutzerinterface"
 
-#: ../src/preferences.c:1743
+#: ../src/preferences.c:1794
 msgid "Dimensions"
 msgstr "Größen"
 
-#: ../src/preferences.c:1747
+#: ../src/preferences.c:1798
 msgid "Restore last used dimensions"
 msgstr "Letzte benutzte Größe wiederherstellen"
 
-#: ../src/preferences.c:1748
+#: ../src/preferences.c:1799
 msgid "Initial left panel width"
 msgstr "Anfangsbreite linkes Panel"
 
-#: ../src/preferences.c:1749
+#: ../src/preferences.c:1800
 msgid "Initial window height"
 msgstr "Anfangsfensterhöhe"
 
-#: ../src/preferences.c:1750
+#: ../src/preferences.c:1801
 msgid "Initial window width"
 msgstr "Anfangsfensterbreite"
 
-#: ../src/preferences.c:1759
+#: ../src/preferences.c:1810
 msgid "External browsers in submenu"
 msgstr "Externe Browser im Untermenü"
 
-#: ../src/preferences.c:1760
+#: ../src/preferences.c:1811
 msgid "External commands in submenu"
 msgstr "Externe Befehle im Untermenü"
 
-#: ../src/preferences.c:1761
+#: ../src/preferences.c:1812
 msgid "External outputbox in submenu"
 msgstr "Externe Ausgabebox im Untermenü"
 
-#: ../src/preferences.c:1763
+#: ../src/preferences.c:1814
 msgid "Notebook tab font (leave empty for gtk default)"
 msgstr "Schriftart für Karteikartenreiter (lee für Standard)"
 
-#: ../src/preferences.c:1765
+#: ../src/preferences.c:1816
 msgid "Document notebook tab position"
 msgstr "Karteikartenposition"
 
-#: ../src/preferences.c:1766
+#: ../src/preferences.c:1817
 msgid "Left panel notebook tab position"
 msgstr "Karteikartenposition Linkes Panel"
 
-#: ../src/preferences.c:1768
+#: ../src/preferences.c:1819
 msgid "Make HTML dialogs transient"
 msgstr "HTML-Dialoge durchsichtig"
 
-#: ../src/preferences.c:1769
+#: ../src/preferences.c:1820
 msgid "Advanced search and replace by default"
 msgstr "Erweitertes Suchen und Ersetzenist Standard"
 
-#: ../src/preferences.c:1771
+#: ../src/preferences.c:1822
 msgid "File browser"
 msgstr "Dateibrowser"
 
-#: ../src/preferences.c:1775
+#: ../src/preferences.c:1826
 msgid "Show hidden files"
 msgstr "Versteckte Dateien anzeigen"
 
-#: ../src/preferences.c:1776
+#: ../src/preferences.c:1827
 msgid "Show other users files"
 msgstr "Andere angemeldete Benutzer anzeigen"
 
-#: ../src/preferences.c:1777
+#: ../src/preferences.c:1828
 msgid "Show backup files"
 msgstr "Sicherungsdateien anzeigen"
 
-#: ../src/preferences.c:1778
+#: ../src/preferences.c:1829
 msgid "Unknown icon"
 msgstr "Unbekanntes Icon"
 
-#: ../src/preferences.c:1779
+#: ../src/preferences.c:1830
 msgid "Directory icon"
 msgstr "Verzeichnisicon"
 
-#: ../src/preferences.c:1782 ../src/rcfile.c:541
+#: ../src/preferences.c:1833 ../src/rcfile.c:607
 msgid "Images"
-msgstr "Bildern"
+msgstr "Bilder"
 
-#: ../src/preferences.c:1784
+#: ../src/preferences.c:1835
 msgid "Thumbnails"
 msgstr "Thumbnails"
 
-#: ../src/preferences.c:1788
+#: ../src/preferences.c:1839
 msgid "Thumbnail suffix"
 msgstr "Thumbnailerweiterung"
 
-#: ../src/preferences.c:1792
+#: ../src/preferences.c:1843
 msgid "Thumbnail filetype"
 msgstr "Thumbnail Dateityp"
 
-#: ../src/preferences.c:1797 ../src/preferences.c:1799
+#: ../src/preferences.c:1848 ../src/preferences.c:1850
 msgid "Filetypes"
 msgstr "Dateitypen"
 
-#: ../src/preferences.c:1806
+#: ../src/preferences.c:1857
 msgid "Filefilters"
 msgstr "Dateifilter"
 
-#: ../src/preferences.c:1814
+#: ../src/preferences.c:1865
 msgid "Syntax highlighting"
 msgstr "Syntaxhighlighting"
 
-#: ../src/preferences.c:1816
+#: ../src/preferences.c:1867
 msgid "Patterns"
 msgstr "Muster"
 
-#: ../src/preferences.c:1824
+#: ../src/preferences.c:1875
 msgid "External programs"
 msgstr "Externe Programme"
 
-#: ../src/preferences.c:1826
+#: ../src/preferences.c:1877
 msgid "Browsers"
 msgstr "Browser"
 
-#: ../src/preferences.c:1833
+#: ../src/preferences.c:1884
 msgid "Utilities and filters"
 msgstr "Utilities und Filter"
 
-#: ../src/preferences.c:1841
+#: ../src/preferences.c:1892
 msgid "Output parsers"
 msgstr "Ausgabe-Parser"
 
-#: ../src/preferences.c:1843
+#: ../src/preferences.c:1894
 msgid "Outputbox"
 msgstr "Ausgabebox"
 
-#: ../src/rcfile.c:483
+#: ../src/rcfile.c:535
 msgid "Galeon"
 msgstr "Galeon"
 
-#: ../src/rcfile.c:485
+#: ../src/rcfile.c:537
 msgid "Mozilla"
 msgstr "Mozilla"
 
-#: ../src/rcfile.c:487
+#: ../src/rcfile.c:539
 msgid "Opera"
 msgstr "Opera"
 
-#: ../src/rcfile.c:489
+#: ../src/rcfile.c:541
 msgid "Netscape"
 msgstr "Netscape"
 
-#: ../src/rcfile.c:491
+#: ../src/rcfile.c:543
 msgid "Gnome default"
 msgstr "Gnome Standard"
 
-#: ../src/rcfile.c:507
+#: ../src/rcfile.c:566
 msgid "make"
 msgstr "make"
 
-#: ../src/rcfile.c:508
+#: ../src/rcfile.c:567
 msgid "weblint HTML checker"
 msgstr "WebLint HTML Tester"
 
-#: ../src/rcfile.c:509
+#: ../src/rcfile.c:568
 msgid "tidy HTML validator"
 msgstr "tidy HTML Tester"
 
-#: ../src/rcfile.c:510
+#: ../src/rcfile.c:569
 msgid "javac"
 msgstr "javac"
 
-#: ../src/rcfile.c:516
+#: ../src/rcfile.c:575
 msgid "Dos2Unix filter"
 msgstr "dos2unix FIlter"
 
-#: ../src/rcfile.c:518
+#: ../src/rcfile.c:577
 msgid "Tidy cleanup filter"
 msgstr "Tidy Bereinigungsfilter"
 
-#: ../src/rcfile.c:535
+#: ../src/rcfile.c:601
 msgid "C programming"
 msgstr "C-Programmierung"
 
-#: ../src/rcfile.c:537
+#: ../src/rcfile.c:603
 msgid "All web files"
 msgstr "Alle Webdateien"
 
-#: ../src/rcfile.c:539
+#: ../src/rcfile.c:605
 msgid "Java programming"
 msgstr "Java-Programmierung"
 
-#: ../src/rcfile.c:543
+#: ../src/rcfile.c:609
 msgid "Hide objectfiles"
 msgstr "Objektdateien verstecken"
-
-#: ../src/rcfile.c:633
-msgid "/php/ibase/ibase fetch row"
-msgstr "/php/ibase/ibase Zeile holen"
-
-#: ../src/rcfile.c:633
-msgid "ibase result variable name"
-msgstr "ibase Ergebnisvariablenname"
-
-#: ../src/rcfile.c:633 ../src/rcfile.c:634
-msgid "row variable name"
-msgstr "Zeilenvariablenname"
-
-#: ../src/rcfile.c:634
-msgid "/php/mysql/mysql fetch row"
-msgstr "/php/mysql/mySql Zeile holen"
-
-#: ../src/rcfile.c:634
-msgid "mysql result variable name"
-msgstr "mySql Ergebnisvariablenname"
-
-#: ../src/rcfile.c:635
-msgid "/php/mysql/mysql connect"
-msgstr "/php/mySql/mySql Connect"
-
-#: ../src/rcfile.c:635
-msgid "mysql host"
-msgstr "mySql Host"
-
-#: ../src/rcfile.c:635
-msgid "mysql username"
-msgstr "mySql Benutzer"
-
-#: ../src/rcfile.c:635
-msgid "mysql password"
-msgstr "mySql Passwort"
-
-#: ../src/rcfile.c:635
-msgid "database name"
-msgstr "Datenbankname"
-
-#: ../src/rcfile.c:636
-msgid "/php/ibase/ibase connect"
-msgstr "/php/ibase/ibase Connect"
-
-#: ../src/rcfile.c:636
-msgid "ibase host"
-msgstr "ibase Host"
-
-#: ../src/rcfile.c:636
-msgid "ibase database path"
-msgstr "ibase Datenbankpfad"
-
-#: ../src/rcfile.c:636
-msgid "ibase username"
-msgstr "ibase Benutzername"
-
-#: ../src/rcfile.c:636
-msgid "ibase password"
-msgstr "ibase Passwort"
-
-#: ../src/rcfile.c:637
-msgid "/php/general/while each in array list"
-msgstr "/php/Allgemein/While each in Arrayliste"
-
-#: ../src/rcfile.c:637
-msgid "array name"
-msgstr "Arrayname"
-
-#: ../src/rcfile.c:638
-msgid "/sql/select all from table"
-msgstr "/sql/Select * from table"
-
-#: ../src/rcfile.c:638
-msgid "table name"
-msgstr "Tabellenname"
-
-#: ../src/rcfile.c:639
-msgid "/php/general/mail"
-msgstr "/php/Allgemein/Mail"
-
-#: ../src/rcfile.c:639
-msgid "email adress"
-msgstr "Emailadresse:"
-
-#: ../src/rcfile.c:639
-msgid "subject"
-msgstr "Betreff"
-
-#: ../src/rcfile.c:639
-msgid "mail body variable name"
-msgstr "Mailbody Variablenname"
-
-#: ../src/rcfile.c:640
-msgid "/php/general/for loop"
-msgstr "/php/Allgemein/For-Schleife"
-
-#: ../src/rcfile.c:640
-msgid "loop variable name"
-msgstr "Schleifenvariablenname"
-
-#: ../src/rcfile.c:640
-msgid "from value"
-msgstr "FROM Wert"
-
-#: ../src/rcfile.c:640
-msgid "to value"
-msgstr "TO Wert"
-
-#: ../src/rcfile.c:641
-msgid "/php/ibase/query"
-msgstr "/php/ibase/Abfrage"
-
-#: ../src/rcfile.c:641 ../src/rcfile.c:646 ../src/rcfile.c:664
-#: ../src/rcfile.c:665
-msgid "result variable name"
-msgstr "Ergebnisvariablenname"
-
-#: ../src/rcfile.c:641
-msgid "ibase connection id name"
-msgstr "ibase Verbindungs-ID Name"
-
-#: ../src/rcfile.c:641 ../src/rcfile.c:646 ../src/rcfile.c:664
-msgid "query string (quoted) or variable (including $)"
-msgstr "Abfragestring (mit Quotes) oder Variable (incl. $)"
-
-#: ../src/rcfile.c:642
-msgid "/php/general/include file"
-msgstr "/php/Allgemein/Include Datei"
-
-#: ../src/rcfile.c:642
-msgid "filename to include"
-msgstr "Dateiname fr Include"
-
-#: ../src/rcfile.c:643
-msgid "/php/general/require file"
-msgstr "/php/Allgemein/Require Datei"
-
-#: ../src/rcfile.c:643
-msgid "filename to require"
-msgstr "Dateiname fr Require"
-
-#: ../src/rcfile.c:644
-msgid "/php/general/if isset"
-msgstr "/php/Allgemein/If IsSet"
-
-#: ../src/rcfile.c:644 ../src/rcfile.c:645
-msgid "variable name to test for"
-msgstr "Zu testender Variablenname"
-
-#: ../src/rcfile.c:645
-msgid "/php/general/if not isset"
-msgstr "/php/Allgemein/If Not IsSet"
-
-#: ../src/rcfile.c:646
-msgid "/php/mysql/query"
-msgstr "/php/mysql/Abfrage"
-
-#: ../src/rcfile.c:646
-msgid "mysql connection id name"
-msgstr "mySql Verbindungs-ID Name"
-
-#: ../src/rcfile.c:647
-msgid "/html/font symbol"
-msgstr "/html/Symbol-Font"
-
-#: ../src/rcfile.c:648
-msgid "/html/div with class"
-msgstr "/html/div mit Class"
-
-#: ../src/rcfile.c:648 ../src/rcfile.c:649
-msgid "CSS class name"
-msgstr "CSS Klassenname"
-
-#: ../src/rcfile.c:649
-msgid "/html/span with class"
-msgstr "/html/Span mit Class"
-
-#: ../src/rcfile.c:650
-msgid "/php/php block"
-msgstr "/php/php Block"
-
-#: ../src/rcfile.c:651
-msgid "/html/made with bluefish"
-msgstr "/html/Made with Bluefish"
-
-#: ../src/rcfile.c:652
-msgid "/html/meta keywords"
-msgstr "/html/meta Schlüsselwröter"
-
-#: ../src/rcfile.c:652
-msgid "keywords, space separated"
-msgstr "Schlüsselwörter, durch Leerzeichen getrennt"
-
-#: ../src/rcfile.c:653
-msgid "/html/meta refresh (client pull)"
-msgstr "/html/meta Refresh"
-
-#: ../src/rcfile.c:653
-msgid "refresh time, in seconds"
-msgstr "Refreshzeit (Sekunden)"
-
-#: ../src/rcfile.c:653
-msgid "URL to redirect to"
-msgstr "URL auf die weitergeleitet wird"
-
-#: ../src/rcfile.c:654
-msgid "/active html/form"
-msgstr "/Active html/Formular"
-
-#: ../src/rcfile.c:655
-msgid "/active html/form and action"
-msgstr "/Active html/Formular und Action"
-
-#: ../src/rcfile.c:655
-msgid "Submit button text"
-msgstr "Submit-Knopf Text"
-
-#: ../src/rcfile.c:656
-msgid "/active html/input text"
-msgstr "/Active html/Input Text"
-
-#: ../src/rcfile.c:656 ../src/rcfile.c:657 ../src/rcfile.c:658
-#: ../src/rcfile.c:659 ../src/rcfile.c:660 ../src/rcfile.c:661
-msgid "variable name"
-msgstr "Variablenname"
-
-#: ../src/rcfile.c:657
-msgid "/active html/input checkbox"
-msgstr "/Active html/Input Checkbox"
-
-#: ../src/rcfile.c:657
-msgid "value when checked"
-msgstr "Wert wenn ausgewählt"
-
-#: ../src/rcfile.c:658
-msgid "/active html/textarea"
-msgstr "/Active html/Textarea"
-
-#: ../src/rcfile.c:659
-msgid "/active html/select options/from array"
-msgstr "/Active html/Auswahloptionen/Aus Array"
-
-#: ../src/rcfile.c:659
-msgid "array name containing options"
-msgstr "Array das Optionen enthält"
-
-#: ../src/rcfile.c:660
-msgid "/active html/select options/from mysql result"
-msgstr "/Active html/Auswahloptionen/Aus mySql-Ergebnis"
-
-#: ../src/rcfile.c:660
-msgid "mysql query result"
-msgstr "mySql Abfrageergebnis"
-
-#: ../src/rcfile.c:660 ../src/rcfile.c:661
-msgid "index of the value"
-msgstr "Index des Wertes"
-
-#: ../src/rcfile.c:660 ../src/rcfile.c:661
-msgid "index of the label"
-msgstr "Index des Labels"
-
-#: ../src/rcfile.c:661
-msgid "/active html/select options/from ibase result"
-msgstr "/Active html/Auswahloptionen/Aus ibase-Ergebnis"
-
-#: ../src/rcfile.c:661
-msgid "ibase query result"
-msgstr "ibase Abfrageergebnis"
-
-#: ../src/rcfile.c:662
-msgid "/DHTML/mouseover image"
-msgstr "/DHTML/Mouseover Bild"
-
-#: ../src/rcfile.c:662
-msgid "unique name"
-msgstr "Eindeutiger Name"
-
-#: ../src/rcfile.c:662
-msgid "onMouseOut src"
-msgstr "Beim Mausverlassen src"
-
-#: ../src/rcfile.c:662
-msgid "onMouseOver src"
-msgstr "Bei Mausdrüberfahren src"
-
-#: ../src/rcfile.c:663
-msgid "/php/odbc/odbc connect"
-msgstr "/php/odbc/ODBC Connect"
-
-#: ../src/rcfile.c:663
-msgid "odbc data source name"
-msgstr "ODBC Datenquelle"
-
-#: ../src/rcfile.c:663
-msgid "username"
-msgstr "Benutzername"
-
-#: ../src/rcfile.c:663
-msgid "password"
-msgstr "Passwort"
-
-#: ../src/rcfile.c:664
-msgid "/php/odbc/odbc exec query"
-msgstr "/php/odbc/ODBC Exec Ausdruck"
-
-#: ../src/rcfile.c:664
-msgid "odbc connection id name"
-msgstr "ODBC Verbindungs-ID Name"
-
-#: ../src/rcfile.c:665
-msgid "/php/odbc/odbc fetch row"
-msgstr "/php/odbc/ODBC Zeile holen"
-
-#: ../src/rcfile.c:666
-msgid "/php/general/echo date"
-msgstr "/php/Allgemein/Datum ausgeben"
-
-#: ../src/rcfile.c:667
-msgid "/php/filesystem/open and echo file"
-msgstr "/php/Dateisystem/Datei ffnen und ausgeben"
-
-#: ../src/rcfile.c:667
-msgid "file (quoted) or variable (including $)"
-msgstr "Datei (Quoted) oder Variable (incl. $)"
-
-#: ../src/rcfile.c:668
-msgid "/php/general/location header"
-msgstr "/php/Allgemein/Location Header"
-
-#: ../src/rcfile.c:668
-msgid "location (URL) to redirect to (quoted) or variable (including $)"
-msgstr "Location an die weitergeleitet wird in quotes oder Variable (incl. $)"
-
-#: ../src/rcfile.c:669
-msgid "/apache/basic password required"
-msgstr "/Apache/Passwort erforderlich"
-
-#: ../src/rcfile.c:669
-msgid "full path to password file"
-msgstr "Absoluter Pfad zur Passwortdatei"
-
-#: ../src/rcfile.c:669
-msgid "security description"
-msgstr "Sicherheitsbeschreibung"
-
-#: ../src/rcfile.c:670
-msgid "/apache/deny access to .inc"
-msgstr "/Apache/Zugriff auf .inc verweigern"
-
-#: ../src/rcfile.c:671
-msgid "/replace/strip <font>"
-msgstr "/ersetzen/<font> liöschen"
-
-#: ../src/rcfile.c:672
-msgid "/replace/strip <any tag> in selection"
-msgstr "/ersetzen/<irgendein Tag> in Auswahl löschen"
-
-#: ../src/rcfile.c:673
-msgid "/replace/convert <td> in <th> in selection"
-msgstr "/ersetzen/In Auswahl <td> nach <th> umwandeln"
-
-#: ../src/rcfile.c:674
-msgid "/replace/convert <any tag> in <any other tag> in selection"
-msgstr "/ersetzen/In Auswahl <irgendein tag> nach <anderes tag> umwandeln"
 
 #: ../src/snr2.c:190
 msgid "Regular expression error: "

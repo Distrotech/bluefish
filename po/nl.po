@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: bluefish gtk2-port\n"
-"POT-Creation-Date: 2003-04-16 15:09+0200\n"
+"POT-Creation-Date: 2003-04-22 15:59+0200\n"
 "PO-Revision-Date: 2003-04-01 20:03+0200\n"
 "Last-Translator: \n"
 "Language-Team:  <nl@li.org>\n"
@@ -179,6 +179,14 @@ msgstr "Invoer _Manieren"
 msgid "Saving file"
 msgstr "Bezig met opslaan van bestand"
 
+#: ../src/document.c:1139 ../src/preferences.c:1763
+msgid "abort"
+msgstr "afbreken"
+
+#: ../src/document.c:1142 ../src/preferences.c:1764
+msgid "ask"
+msgstr "vragen"
+
 #: ../src/document.c:1143
 msgid "Abort save"
 msgstr "Opslaan onderbreken"
@@ -333,7 +341,7 @@ msgstr ""
 msgid "Base_dir:"
 msgstr "Standaard-map"
 
-#: ../src/document.c:1885 ../src/gtk_easy.c:771
+#: ../src/document.c:1885 ../src/gtk_easy.c:772
 #, fuzzy
 msgid "_Browse..."
 msgstr "Browser commando"
@@ -458,51 +466,51 @@ msgstr "Document vernieuwen"
 msgid "All files"
 msgstr "alle bestanden"
 
-#: ../src/fref.c:840 ../src/gui.c:544
-msgid "Close"
-msgstr "Sluiten"
-
-#: ../src/fref.c:845 ../src/fref.c:1385 ../src/fref.c:1415
-#, fuzzy
-msgid "Dialog"
-msgstr "/_Dialogen"
-
-#: ../src/fref.c:847 ../src/fref.c:1388 ../src/fref.c:1412
-msgid "Insert"
-msgstr "Invoegen"
-
-#: ../src/fref.c:1131 ../src/fref.c:1391 ../src/fref.c:1417
+#: ../src/fref.c:816 ../src/fref.c:1115 ../src/fref.c:1375 ../src/fref.c:1401
 #, fuzzy
 msgid "Info"
 msgstr "Negeren"
 
-#: ../src/fref.c:1397 ../src/html.c:552 ../src/html.c:1180
+#: ../src/fref.c:837 ../src/gui.c:544
+msgid "Close"
+msgstr "Sluiten"
+
+#: ../src/fref.c:841 ../src/fref.c:1369 ../src/fref.c:1399
+#, fuzzy
+msgid "Dialog"
+msgstr "/_Dialogen"
+
+#: ../src/fref.c:842 ../src/fref.c:1372 ../src/fref.c:1396
+msgid "Insert"
+msgstr "Invoegen"
+
+#: ../src/fref.c:1381 ../src/html.c:552 ../src/html.c:1180
 msgid "Options"
 msgstr "Opties"
 
-#: ../src/fref.c:1404
+#: ../src/fref.c:1388
 #, fuzzy
 msgid "Rescan reference files"
 msgstr "Bluefish: instellingen"
 
-#: ../src/fref.c:1407
+#: ../src/fref.c:1391
 msgid "Left doubleclick action"
 msgstr ""
 
-#: ../src/gtk_easy.c:936 ../src/menu.c:1314 ../src/menu.c:1660
+#: ../src/gtk_easy.c:937 ../src/menu.c:1314 ../src/menu.c:1660
 #: ../src/menu.c:1662 ../src/menu.c:1667
 msgid "Bluefish error"
 msgstr "Bluefish foutmelding"
 
-#: ../src/gtk_easy.c:936
+#: ../src/gtk_easy.c:937
 msgid "No filename known"
 msgstr "Geen bestandsnaam opgegeven"
 
-#: ../src/gtk_easy.c:1025
+#: ../src/gtk_easy.c:1026
 msgid "Select file"
 msgstr "Kies bestand"
 
-#: ../src/gtk_easy.c:1037
+#: ../src/gtk_easy.c:1038
 msgid "Select files"
 msgstr "Kies bestanden"
 
@@ -906,7 +914,7 @@ msgstr "Zoek...."
 msgid "Search and Replace..."
 msgstr "Zoek en vervang..."
 
-#: ../src/gui.c:558 ../src/preferences.c:1721
+#: ../src/gui.c:558 ../src/preferences.c:1772
 msgid "Undo"
 msgstr "Herstel"
 
@@ -1308,7 +1316,7 @@ msgstr "Inhoud"
 msgid "_Scheme:"
 msgstr "Schema"
 
-#: ../src/html.c:1446 ../src/preferences.c:1664
+#: ../src/html.c:1446 ../src/preferences.c:1715
 msgid "Font"
 msgstr "Lettertype"
 
@@ -3476,8 +3484,8 @@ msgstr ""
 msgid "Pattern name"
 msgstr "Patroon"
 
-#: ../src/preferences.c:1001 ../src/preferences.c:1442
-#: ../src/preferences.c:1491
+#: ../src/preferences.c:1001 ../src/preferences.c:1493
+#: ../src/preferences.c:1542
 msgid "Pattern"
 msgstr "Patroon"
 
@@ -3549,799 +3557,437 @@ msgstr ""
 msgid "force italic style"
 msgstr ""
 
-#: ../src/preferences.c:1165 ../src/preferences.c:1196
+#: ../src/preferences.c:1209 ../src/preferences.c:1247
 #, fuzzy
 msgid "Browser"
 msgstr "Browser commando"
 
-#: ../src/preferences.c:1167 ../src/preferences.c:1202
-#: ../src/preferences.c:1285 ../src/preferences.c:1320
-#: ../src/preferences.c:1450 ../src/preferences.c:1495
+#: ../src/preferences.c:1211 ../src/preferences.c:1253
+#: ../src/preferences.c:1336 ../src/preferences.c:1371
+#: ../src/preferences.c:1501 ../src/preferences.c:1546
 #, fuzzy
 msgid "Command"
 msgstr "commando"
 
-#: ../src/preferences.c:1201
+#: ../src/preferences.c:1252
 #, fuzzy, c-format
 msgid "%s = current filename"
 msgstr "Bestandsnaam exporten"
 
-#: ../src/preferences.c:1283 ../src/preferences.c:1314
+#: ../src/preferences.c:1334 ../src/preferences.c:1365
 msgid "Label"
 msgstr "Label"
 
-#: ../src/preferences.c:1319
+#: ../src/preferences.c:1370
 #, c-format
 msgid ""
 "%s = current filename\n"
 "%f = output filename (for filters)"
 msgstr ""
 
-#: ../src/preferences.c:1440 ../src/preferences.c:1487
+#: ../src/preferences.c:1491 ../src/preferences.c:1538
 msgid "Name"
 msgstr "Naam"
 
-#: ../src/preferences.c:1444
+#: ../src/preferences.c:1495
 #, fuzzy
 msgid "File #"
 msgstr "Bestand "
 
-#: ../src/preferences.c:1446
+#: ../src/preferences.c:1497
 #, fuzzy
 msgid "Line #"
 msgstr "Regels passend maken"
 
-#: ../src/preferences.c:1448
+#: ../src/preferences.c:1499
 #, fuzzy
 msgid "Output #"
 msgstr "Uitvoer html karakters"
 
-#: ../src/preferences.c:1452 ../src/preferences.c:1496
+#: ../src/preferences.c:1503 ../src/preferences.c:1547
 msgid "Show all output"
 msgstr ""
 
-#: ../src/preferences.c:1492
+#: ../src/preferences.c:1543
 #, fuzzy
 msgid "File subpattern #"
 msgstr "Bestand bewaren als"
 
-#: ../src/preferences.c:1493
+#: ../src/preferences.c:1544
 #, fuzzy
 msgid "Line subpattern #"
 msgstr "Regel nummer: "
 
-#: ../src/preferences.c:1494
+#: ../src/preferences.c:1545
 msgid "Output subpattern #"
 msgstr ""
 
-#: ../src/preferences.c:1643
+#: ../src/preferences.c:1694
 msgid "left"
 msgstr "links"
 
-#: ../src/preferences.c:1643
+#: ../src/preferences.c:1694
 msgid "right"
 msgstr "rechts"
 
-#: ../src/preferences.c:1643
+#: ../src/preferences.c:1694
 msgid "top"
 msgstr "boven"
 
-#: ../src/preferences.c:1643
+#: ../src/preferences.c:1694
 msgid "bottom"
 msgstr "onder"
 
-#: ../src/preferences.c:1646
+#: ../src/preferences.c:1697
 msgid "Edit preferences"
 msgstr "Instellingen aanpassen"
 
-#: ../src/preferences.c:1657
+#: ../src/preferences.c:1708
 msgid "Editor"
 msgstr "Editor"
 
-#: ../src/preferences.c:1659
+#: ../src/preferences.c:1710
 msgid "Editor options"
 msgstr "Editor opties"
 
-#: ../src/preferences.c:1665
+#: ../src/preferences.c:1716
 msgid "Tab width"
 msgstr "Tab breedte"
 
-#: ../src/preferences.c:1666
+#: ../src/preferences.c:1717
 #, fuzzy
 msgid "Word wrap default"
 msgstr "Woorden passend maken"
 
-#: ../src/preferences.c:1667
+#: ../src/preferences.c:1718
 #, fuzzy
 msgid "Line numbers by default"
 msgstr "Regel nummer: "
 
-#: ../src/preferences.c:1668
+#: ../src/preferences.c:1719
 #, fuzzy
 msgid "Highlight syntax by default"
 msgstr "/Beeld/Oplichten van Syntaxis"
 
-#: ../src/preferences.c:1669
+#: ../src/preferences.c:1720
 #, fuzzy
 msgid "Highlight # lines"
 msgstr "Oplichten als standaard"
 
-#: ../src/preferences.c:1670
+#: ../src/preferences.c:1721
 msgid "Always highlight full document"
 msgstr ""
 
-#: ../src/preferences.c:1672
+#: ../src/preferences.c:1723
 msgid "HTML"
 msgstr "HTML"
 
-#: ../src/preferences.c:1674
+#: ../src/preferences.c:1725
 msgid "HTML options"
 msgstr "HTML opties"
 
-#: ../src/preferences.c:1679
+#: ../src/preferences.c:1730
 msgid "Lowercase HTML tags"
 msgstr ""
 
-#: ../src/preferences.c:1680
+#: ../src/preferences.c:1731
 msgid "Use deprecated tags (e.g. <font> and <nobr>)"
 msgstr ""
 
-#: ../src/preferences.c:1681
+#: ../src/preferences.c:1732
 #, fuzzy
 msgid "Use XHTML style tags (<br />)"
 msgstr "Gebruik XHTML syntaxis (zoals <br />)"
 
-#: ../src/preferences.c:1682
+#: ../src/preferences.c:1733
 msgid "Automatic update author meta"
 msgstr ""
 
-#: ../src/preferences.c:1685
+#: ../src/preferences.c:1736
 msgid "Files"
 msgstr "Bestanden"
 
-#: ../src/preferences.c:1687
+#: ../src/preferences.c:1738
 #, fuzzy
 msgid "Encoding"
 msgstr "Invoer codering"
 
-#: ../src/preferences.c:1699
+#: ../src/preferences.c:1750
 #, fuzzy
 msgid "Default character set"
 msgstr "Kan geen verbinding maken"
 
-#: ../src/preferences.c:1702
+#: ../src/preferences.c:1753
 msgid "Auto set <meta> encoding tag on change"
 msgstr ""
 
-#: ../src/preferences.c:1704
+#: ../src/preferences.c:1755
 msgid "Backup"
 msgstr "Reserve bestanden"
 
-#: ../src/preferences.c:1708
+#: ../src/preferences.c:1759
 msgid "Create backup on save"
 msgstr "Maak reservebestand bij opslaan"
 
-#: ../src/preferences.c:1709
+#: ../src/preferences.c:1760
 msgid "Backup file suffix"
 msgstr "Reservebestand achtervoegsel"
 
-#: ../src/preferences.c:1714
+#: ../src/preferences.c:1762
+msgid "save"
+msgstr "opslaan"
+
+#: ../src/preferences.c:1765
 msgid "Action on backup failure"
 msgstr "Actie als reservebestand mislukt"
 
-#: ../src/preferences.c:1717
+#: ../src/preferences.c:1768
 #, fuzzy
 msgid "Remove backupfile on close"
 msgstr "Maak reservebestand bij opslaan"
 
-#: ../src/preferences.c:1726
+#: ../src/preferences.c:1777
 msgid "Undo history size"
 msgstr ""
 
-#: ../src/preferences.c:1727
+#: ../src/preferences.c:1778
 #, fuzzy
 msgid "Clear undo history on save"
 msgstr "Herstel mogelijkheden wissen indien document wordt opgeslagen"
 
-#: ../src/preferences.c:1729 ../src/preferences.c:1754
+#: ../src/preferences.c:1780 ../src/preferences.c:1805
 msgid "Misc"
 msgstr ""
 
-#: ../src/preferences.c:1734
+#: ../src/preferences.c:1785
 msgid "Allow multi instances of a file"
 msgstr "Meerdere exemplaren van hetzelfde bestand toestaan"
 
-#: ../src/preferences.c:1736
+#: ../src/preferences.c:1787
 #, fuzzy
 msgid "Open files in already running bluefish window"
 msgstr "Bestanden geopend op de commando-prompt, openen in lopende Bluefish"
 
-#: ../src/preferences.c:1738
+#: ../src/preferences.c:1789
 msgid "Number of files in 'Open recent'"
 msgstr ""
 
-#: ../src/preferences.c:1741
+#: ../src/preferences.c:1792
 msgid "User interface"
 msgstr "Gebruikers interface"
 
-#: ../src/preferences.c:1743
+#: ../src/preferences.c:1794
 msgid "Dimensions"
 msgstr "Dimensies"
 
-#: ../src/preferences.c:1747
+#: ../src/preferences.c:1798
 msgid "Restore last used dimensions"
 msgstr "Herstel laatst gebruikte afmetingen"
 
-#: ../src/preferences.c:1748
+#: ../src/preferences.c:1799
 msgid "Initial left panel width"
 msgstr "Initiele breedte van linker paneel"
 
-#: ../src/preferences.c:1749
+#: ../src/preferences.c:1800
 msgid "Initial window height"
 msgstr "Initiele hoogte van programma"
 
-#: ../src/preferences.c:1750
+#: ../src/preferences.c:1801
 msgid "Initial window width"
 msgstr "Initiele breedte van programma"
 
-#: ../src/preferences.c:1759
+#: ../src/preferences.c:1810
 #, fuzzy
 msgid "External browsers in submenu"
 msgstr "Externe programma opties"
 
-#: ../src/preferences.c:1760
+#: ../src/preferences.c:1811
 #, fuzzy
 msgid "External commands in submenu"
 msgstr "/Extern/Commando's"
 
-#: ../src/preferences.c:1761
+#: ../src/preferences.c:1812
 msgid "External outputbox in submenu"
 msgstr ""
 
-#: ../src/preferences.c:1763
+#: ../src/preferences.c:1814
 msgid "Notebook tab font (leave empty for gtk default)"
 msgstr ""
 
-#: ../src/preferences.c:1765
+#: ../src/preferences.c:1816
 #, fuzzy
 msgid "Document notebook tab position"
 msgstr "Positie van tabbladen"
 
-#: ../src/preferences.c:1766
+#: ../src/preferences.c:1817
 #, fuzzy
 msgid "Left panel notebook tab position"
 msgstr "Positie van tabbladen"
 
-#: ../src/preferences.c:1768
+#: ../src/preferences.c:1819
 msgid "Make HTML dialogs transient"
 msgstr "HTML dialogen altijd vooraan"
 
-#: ../src/preferences.c:1769
+#: ../src/preferences.c:1820
 #, fuzzy
 msgid "Advanced search and replace by default"
 msgstr "aanpasbare zoek en vervang..."
 
-#: ../src/preferences.c:1771
+#: ../src/preferences.c:1822
 msgid "File browser"
 msgstr "Bestands beheerder"
 
-#: ../src/preferences.c:1775
+#: ../src/preferences.c:1826
 msgid "Show hidden files"
 msgstr "Laat verborgen bestanden zien"
 
-#: ../src/preferences.c:1776
+#: ../src/preferences.c:1827
 msgid "Show other users files"
 msgstr "Laat bestanden van andere gebruikers zien"
 
-#: ../src/preferences.c:1777
+#: ../src/preferences.c:1828
 msgid "Show backup files"
 msgstr "Laat reserve bestanden zien"
 
-#: ../src/preferences.c:1778
+#: ../src/preferences.c:1829
 #, fuzzy
 msgid "Unknown icon"
 msgstr "Onbekende ikoon"
 
-#: ../src/preferences.c:1779
+#: ../src/preferences.c:1830
 #, fuzzy
 msgid "Directory icon"
 msgstr "Map ikoon"
 
-#: ../src/preferences.c:1782 ../src/rcfile.c:541
+#: ../src/preferences.c:1833 ../src/rcfile.c:607
 #, fuzzy
 msgid "Images"
 msgstr "Afbeeldingen"
 
-#: ../src/preferences.c:1784
+#: ../src/preferences.c:1835
 #, fuzzy
 msgid "Thumbnails"
 msgstr "Voorbeeldafbeelding..."
 
-#: ../src/preferences.c:1788
+#: ../src/preferences.c:1839
 #, fuzzy
 msgid "Thumbnail suffix"
 msgstr "Voorbeeldafbeelding (thumbnail) achtervoegsel"
 
-#: ../src/preferences.c:1792
+#: ../src/preferences.c:1843
 #, fuzzy
 msgid "Thumbnail filetype"
 msgstr "Voorbeeldafbeelding (thumbnail) type"
 
-#: ../src/preferences.c:1797 ../src/preferences.c:1799
+#: ../src/preferences.c:1848 ../src/preferences.c:1850
 #, fuzzy
 msgid "Filetypes"
 msgstr "Bestanden"
 
-#: ../src/preferences.c:1806
+#: ../src/preferences.c:1857
 #, fuzzy
 msgid "Filefilters"
 msgstr "Bestandsfilters"
 
-#: ../src/preferences.c:1814
+#: ../src/preferences.c:1865
 #, fuzzy
 msgid "Syntax highlighting"
 msgstr "/Opties/Lijst/Oplichten van syntaxis..."
 
-#: ../src/preferences.c:1816
+#: ../src/preferences.c:1867
 #, fuzzy
 msgid "Patterns"
 msgstr "Patroon"
 
-#: ../src/preferences.c:1824
+#: ../src/preferences.c:1875
 #, fuzzy
 msgid "External programs"
 msgstr "Externe programma opties"
 
-#: ../src/preferences.c:1826
+#: ../src/preferences.c:1877
 #, fuzzy
 msgid "Browsers"
 msgstr "Browser commando"
 
-#: ../src/preferences.c:1833
+#: ../src/preferences.c:1884
 #, fuzzy
 msgid "Utilities and filters"
 msgstr "Bestandsfilters"
 
-#: ../src/preferences.c:1841
+#: ../src/preferences.c:1892
 #, fuzzy
 msgid "Output parsers"
 msgstr "Uitvoer html karakters"
 
-#: ../src/preferences.c:1843
+#: ../src/preferences.c:1894
 msgid "Outputbox"
 msgstr ""
 
-#: ../src/rcfile.c:483
+#: ../src/rcfile.c:535
 msgid "Galeon"
 msgstr ""
 
-#: ../src/rcfile.c:485
+#: ../src/rcfile.c:537
 msgid "Mozilla"
 msgstr ""
 
-#: ../src/rcfile.c:487
+#: ../src/rcfile.c:539
 msgid "Opera"
 msgstr ""
 
-#: ../src/rcfile.c:489
+#: ../src/rcfile.c:541
 #, fuzzy
 msgid "Netscape"
 msgstr "Bekijken met Netscape"
 
-#: ../src/rcfile.c:491
+#: ../src/rcfile.c:543
 #, fuzzy
 msgid "Gnome default"
 msgstr "Regel nummer: "
 
-#: ../src/rcfile.c:507
+#: ../src/rcfile.c:566
 #, fuzzy
 msgid "make"
 msgstr "Afbeeldingen"
 
-#: ../src/rcfile.c:508
+#: ../src/rcfile.c:567
 msgid "weblint HTML checker"
 msgstr ""
 
-#: ../src/rcfile.c:509
+#: ../src/rcfile.c:568
 msgid "tidy HTML validator"
 msgstr ""
 
-#: ../src/rcfile.c:510
+#: ../src/rcfile.c:569
 msgid "javac"
 msgstr ""
 
-#: ../src/rcfile.c:516
+#: ../src/rcfile.c:575
 msgid "Dos2Unix filter"
 msgstr ""
 
-#: ../src/rcfile.c:518
+#: ../src/rcfile.c:577
 #, fuzzy
 msgid "Tidy cleanup filter"
 msgstr "Bestandsfilters"
 
-#: ../src/rcfile.c:535
+#: ../src/rcfile.c:601
 msgid "C programming"
 msgstr ""
 
-#: ../src/rcfile.c:537
+#: ../src/rcfile.c:603
 #, fuzzy
 msgid "All web files"
 msgstr "alle web bestanden"
 
-#: ../src/rcfile.c:539
+#: ../src/rcfile.c:605
 msgid "Java programming"
 msgstr ""
 
-#: ../src/rcfile.c:543
+#: ../src/rcfile.c:609
 #, fuzzy
 msgid "Hide objectfiles"
 msgstr "Kies bestanden"
-
-#: ../src/rcfile.c:633
-msgid "/php/ibase/ibase fetch row"
-msgstr "/php/ibase/ibase fetch row"
-
-#: ../src/rcfile.c:633
-msgid "ibase result variable name"
-msgstr "ibase resultaat variabele naam"
-
-#: ../src/rcfile.c:633 ../src/rcfile.c:634
-msgid "row variable name"
-msgstr "rij variabele naam"
-
-#: ../src/rcfile.c:634
-msgid "/php/mysql/mysql fetch row"
-msgstr "/php/mysql/mysql fetch row"
-
-#: ../src/rcfile.c:634
-msgid "mysql result variable name"
-msgstr "mysql resultaat variabele naam"
-
-#: ../src/rcfile.c:635
-msgid "/php/mysql/mysql connect"
-msgstr "/php/mysql/mysql connect"
-
-#: ../src/rcfile.c:635
-msgid "mysql host"
-msgstr "mysql host"
-
-#: ../src/rcfile.c:635
-msgid "mysql username"
-msgstr "mysql username"
-
-#: ../src/rcfile.c:635
-msgid "mysql password"
-msgstr "mysql password"
-
-#: ../src/rcfile.c:635
-msgid "database name"
-msgstr "database naam"
-
-#: ../src/rcfile.c:636
-msgid "/php/ibase/ibase connect"
-msgstr "/php/ibase/ibase connect"
-
-#: ../src/rcfile.c:636
-msgid "ibase host"
-msgstr "ibase host"
-
-#: ../src/rcfile.c:636
-msgid "ibase database path"
-msgstr "ibase database path"
-
-#: ../src/rcfile.c:636
-msgid "ibase username"
-msgstr "ibase username"
-
-#: ../src/rcfile.c:636
-msgid "ibase password"
-msgstr "ibase password"
-
-#: ../src/rcfile.c:637
-msgid "/php/general/while each in array list"
-msgstr "/php/general/while each in array list"
-
-#: ../src/rcfile.c:637
-msgid "array name"
-msgstr "array naam"
-
-#: ../src/rcfile.c:638
-msgid "/sql/select all from table"
-msgstr "/sql/select all from table"
-
-#: ../src/rcfile.c:638
-msgid "table name"
-msgstr "tabel naam"
-
-#: ../src/rcfile.c:639
-msgid "/php/general/mail"
-msgstr "/php/general/mail"
-
-#: ../src/rcfile.c:639
-msgid "email adress"
-msgstr "email adres"
-
-#: ../src/rcfile.c:639
-msgid "subject"
-msgstr "onderwerp"
-
-#: ../src/rcfile.c:639
-msgid "mail body variable name"
-msgstr "mail inhoud variabele naam"
-
-#: ../src/rcfile.c:640
-msgid "/php/general/for loop"
-msgstr "/php/general/for loop"
-
-#: ../src/rcfile.c:640
-msgid "loop variable name"
-msgstr "loop variable naam"
-
-#: ../src/rcfile.c:640
-msgid "from value"
-msgstr "van waarde"
-
-#: ../src/rcfile.c:640
-msgid "to value"
-msgstr "tot waarde"
-
-#: ../src/rcfile.c:641
-msgid "/php/ibase/query"
-msgstr "/php/ibase/query"
-
-#: ../src/rcfile.c:641 ../src/rcfile.c:646 ../src/rcfile.c:664
-#: ../src/rcfile.c:665
-msgid "result variable name"
-msgstr "resultaat variabele naam"
-
-#: ../src/rcfile.c:641
-msgid "ibase connection id name"
-msgstr "ibase connection id naam"
-
-#: ../src/rcfile.c:641 ../src/rcfile.c:646 ../src/rcfile.c:664
-msgid "query string (quoted) or variable (including $)"
-msgstr "query string (quoted) or variable (including $)"
-
-#: ../src/rcfile.c:642
-msgid "/php/general/include file"
-msgstr "/php/general/include file"
-
-#: ../src/rcfile.c:642
-msgid "filename to include"
-msgstr "bestandsnaam om in te voegen"
-
-#: ../src/rcfile.c:643
-msgid "/php/general/require file"
-msgstr "/php/general/require file"
-
-#: ../src/rcfile.c:643
-msgid "filename to require"
-msgstr "bestandsnaam om te vereisen"
-
-#: ../src/rcfile.c:644
-msgid "/php/general/if isset"
-msgstr "/php/general/if isset"
-
-#: ../src/rcfile.c:644 ../src/rcfile.c:645
-msgid "variable name to test for"
-msgstr ""
-
-#: ../src/rcfile.c:645
-msgid "/php/general/if not isset"
-msgstr "/php/general/if not isset"
-
-#: ../src/rcfile.c:646
-msgid "/php/mysql/query"
-msgstr "/php/mysql/query"
-
-#: ../src/rcfile.c:646
-msgid "mysql connection id name"
-msgstr "mysql connection id name"
-
-#: ../src/rcfile.c:647
-msgid "/html/font symbol"
-msgstr "/html/font symbol"
-
-#: ../src/rcfile.c:648
-msgid "/html/div with class"
-msgstr "/html/div with class"
-
-#: ../src/rcfile.c:648 ../src/rcfile.c:649
-msgid "CSS class name"
-msgstr "CSS class name"
-
-#: ../src/rcfile.c:649
-msgid "/html/span with class"
-msgstr "/html/span with class"
-
-#: ../src/rcfile.c:650
-msgid "/php/php block"
-msgstr ""
-
-#: ../src/rcfile.c:651
-msgid "/html/made with bluefish"
-msgstr "/html/Gemaakt met bluefish"
-
-#: ../src/rcfile.c:652
-msgid "/html/meta keywords"
-msgstr "/html/meta trefwoorden"
-
-#: ../src/rcfile.c:652
-msgid "keywords, space separated"
-msgstr "trefwoorden, gescheiden door spatie"
-
-#: ../src/rcfile.c:653
-msgid "/html/meta refresh (client pull)"
-msgstr "/html/meta verversen (client pull)"
-
-#: ../src/rcfile.c:653
-msgid "refresh time, in seconds"
-msgstr "verversing tijd, in seconden"
-
-#: ../src/rcfile.c:653
-msgid "URL to redirect to"
-msgstr ""
-
-#: ../src/rcfile.c:654
-msgid "/active html/form"
-msgstr ""
-
-#: ../src/rcfile.c:655
-msgid "/active html/form and action"
-msgstr ""
-
-#: ../src/rcfile.c:655
-msgid "Submit button text"
-msgstr ""
-
-#: ../src/rcfile.c:656
-msgid "/active html/input text"
-msgstr ""
-
-#: ../src/rcfile.c:656 ../src/rcfile.c:657 ../src/rcfile.c:658
-#: ../src/rcfile.c:659 ../src/rcfile.c:660 ../src/rcfile.c:661
-msgid "variable name"
-msgstr ""
-
-#: ../src/rcfile.c:657
-msgid "/active html/input checkbox"
-msgstr ""
-
-#: ../src/rcfile.c:657
-msgid "value when checked"
-msgstr ""
-
-#: ../src/rcfile.c:658
-msgid "/active html/textarea"
-msgstr ""
-
-#: ../src/rcfile.c:659
-msgid "/active html/select options/from array"
-msgstr ""
-
-#: ../src/rcfile.c:659
-msgid "array name containing options"
-msgstr ""
-
-#: ../src/rcfile.c:660
-msgid "/active html/select options/from mysql result"
-msgstr ""
-
-#: ../src/rcfile.c:660
-msgid "mysql query result"
-msgstr ""
-
-#: ../src/rcfile.c:660 ../src/rcfile.c:661
-msgid "index of the value"
-msgstr ""
-
-#: ../src/rcfile.c:660 ../src/rcfile.c:661
-msgid "index of the label"
-msgstr ""
-
-#: ../src/rcfile.c:661
-msgid "/active html/select options/from ibase result"
-msgstr ""
-
-#: ../src/rcfile.c:661
-msgid "ibase query result"
-msgstr ""
-
-#: ../src/rcfile.c:662
-msgid "/DHTML/mouseover image"
-msgstr ""
-
-#: ../src/rcfile.c:662
-msgid "unique name"
-msgstr ""
-
-#: ../src/rcfile.c:662
-msgid "onMouseOut src"
-msgstr ""
-
-#: ../src/rcfile.c:662
-msgid "onMouseOver src"
-msgstr ""
-
-#: ../src/rcfile.c:663
-msgid "/php/odbc/odbc connect"
-msgstr ""
-
-#: ../src/rcfile.c:663
-msgid "odbc data source name"
-msgstr ""
-
-#: ../src/rcfile.c:663
-msgid "username"
-msgstr "gebruikersnaam"
-
-#: ../src/rcfile.c:663
-msgid "password"
-msgstr "paswoord"
-
-#: ../src/rcfile.c:664
-msgid "/php/odbc/odbc exec query"
-msgstr ""
-
-#: ../src/rcfile.c:664
-msgid "odbc connection id name"
-msgstr ""
-
-#: ../src/rcfile.c:665
-msgid "/php/odbc/odbc fetch row"
-msgstr ""
-
-#: ../src/rcfile.c:666
-msgid "/php/general/echo date"
-msgstr ""
-
-#: ../src/rcfile.c:667
-msgid "/php/filesystem/open and echo file"
-msgstr ""
-
-#: ../src/rcfile.c:667
-msgid "file (quoted) or variable (including $)"
-msgstr ""
-
-#: ../src/rcfile.c:668
-msgid "/php/general/location header"
-msgstr ""
-
-#: ../src/rcfile.c:668
-msgid "location (URL) to redirect to (quoted) or variable (including $)"
-msgstr ""
-
-#: ../src/rcfile.c:669
-msgid "/apache/basic password required"
-msgstr ""
-
-#: ../src/rcfile.c:669
-msgid "full path to password file"
-msgstr "volledig pad naar bestand met paswoorden"
-
-#: ../src/rcfile.c:669
-msgid "security description"
-msgstr ""
-
-#: ../src/rcfile.c:670
-msgid "/apache/deny access to .inc"
-msgstr ""
-
-#: ../src/rcfile.c:671
-msgid "/replace/strip <font>"
-msgstr "/vervangen/<font> verwijderen"
-
-#: ../src/rcfile.c:672
-msgid "/replace/strip <any tag> in selection"
-msgstr "/vervangen/<tag naar keuze> verwijderen in selectie"
-
-#: ../src/rcfile.c:673
-msgid "/replace/convert <td> in <th> in selection"
-msgstr "/vervangen/vervang <td> met <th> in selectie"
-
-#: ../src/rcfile.c:674
-msgid "/replace/convert <any tag> in <any other tag> in selection"
-msgstr "/vervangen/ vervang <tag naar keuze> met <andere tag> in selectie"
 
 #: ../src/snr2.c:190
 msgid "Regular expression error: "
@@ -4572,1282 +4218,3 @@ msgstr "Bron"
 #, fuzzy
 msgid "Size:"
 msgstr "Grootte"
-
-#~ msgid "Filename"
-#~ msgstr "Bestandsnaam"
-
-#~ msgid "Id"
-#~ msgstr "Id"
-
-#~ msgid "selector"
-#~ msgstr "keuze"
-
-#~ msgid "property"
-#~ msgstr "eigenschap"
-
-#~ msgid "value"
-#~ msgstr "waarde"
-
-#~ msgid "Vertical Align"
-#~ msgstr "Verticaal Uitlijnen"
-
-#~ msgid " Width "
-#~ msgstr " Breedte "
-
-#~ msgid "Number of Columns per row"
-#~ msgstr "Aantal kolommen per rij"
-
-#~ msgid "Save in progress"
-#~ msgstr "Bezig met opslaan"
-
-#~ msgid ""
-#~ "File %s\n"
-#~ "is modified by another process"
-#~ msgstr ""
-#~ "Bestand %s\n"
-#~ "is gewijzigd door een ander proces"
-
-#~ msgid "<main>/External"
-#~ msgstr "<main>/Extern"
-
-#~ msgid "<main>/File/Open recent"
-#~ msgstr "<main>/Bestand/Recent geopend"
-
-#~ msgid "<main>/External/Browsers"
-#~ msgstr "<main>/Extern/Browsers"
-
-#~ msgid "<main>/External/Commands"
-#~ msgstr "<main>/Extern/Commando's"
-
-#~ msgid "Error: cannot run as root (for security reasons)\n"
-#~ msgstr ""
-#~ "Waarschuwing: kan niet als root gestart worden(wegens "
-#~ "veiligheidsoverwegingen)\n"
-
-#~ msgid "use -s to override\n"
-#~ msgstr "Gebruik -s om door te gaan\n"
-
-#~ msgid "Bluefish is SUID root, this is a security risk!\n"
-#~ msgstr "Bluefish is SUID root, dat is een veiligeheidsrisico!\n"
-
-#~ msgid "Browser is not running, starting browser"
-#~ msgstr "Browser niet actief, bezig met starten browser"
-
-#~ msgid ""
-#~ "That looks like a secure server,\n"
-#~ "Bluefish doesn't support them"
-#~ msgstr ""
-#~ "Lijkt op een beveiligde server,\n"
-#~ "Bluefish ondersteund dat niet"
-
-#~ msgid "Invalid address"
-#~ msgstr "Ongeldig adres"
-
-#~ msgid "The network is unreachable"
-#~ msgstr "Het netwerk is niet te bereiken"
-
-#~ msgid "Can't send data"
-#~ msgstr "Kan geen gegevens verzenden"
-
-#~ msgid "Didn't send all the data"
-#~ msgstr "Niet alle gegevens zijn vezonden"
-
-#~ msgid "Can't open file"
-#~ msgstr "Kan bestand niet openen"
-
-#~ msgid "Open from Web"
-#~ msgstr "Openen van het web"
-
-#~ msgid "URL:"
-#~ msgstr "URL:"
-
-#~ msgid "Abort"
-#~ msgstr "Afbreken"
-
-#~ msgid ""
-#~ "\n"
-#~ "is modified"
-#~ msgstr ""
-#~ "\n"
-#~ "is aangepast"
-
-#~ msgid "File has not been saved yet"
-#~ msgstr "Bestand is nog niet opgeslagen"
-
-#~ msgid "Bluefish: Weblint warning"
-#~ msgstr "Bluefish: Weblint waarschuwing"
-
-#~ msgid "Running Weblint"
-#~ msgstr "Weblint loopt"
-
-#~ msgid "Weblint output"
-#~ msgstr "Weblint resultaat"
-
-#~ msgid "Recheck"
-#~ msgstr "Herhalen"
-
-#~ msgid "Weblint"
-#~ msgstr "Weblint"
-
-#~ msgid ""
-#~ "You don't appear to have weblint installed \n"
-#~ "To use this option you will need to download weblint from:\n"
-#~ "http://www.cre.canon.co.uk/~neilb/weblint/"
-#~ msgstr ""
-#~ "Weblint is niet geinstalleerd \n"
-#~ "Om gebruik te maken van deze optie, dient weblint gedownload te worden "
-#~ "van:\n"
-#~ "http://www.cre.canon.co.uk/~neilb/weblint/"
-
-#~ msgid "Error stat file"
-#~ msgstr "Error stat file"
-
-#~ msgid "Error delete stdout temporary file"
-#~ msgstr "Error delete stdout temporary file"
-
-#~ msgid "Bluefish Preview: Untitled"
-#~ msgstr "Bluefish Preview: Naamloos"
-
-#~ msgid "Font Selection"
-#~ msgstr "Lettertype Selectie"
-
-#~ msgid "Configuration saved and applied succesfully"
-#~ msgstr "Configuratie opgeslagen en succesvol toegepast"
-
-#~ msgid "Saving and applying configuration"
-#~ msgstr "Bezig met opslaan en toepassen van de configuratie"
-
-#~ msgid "Default font"
-#~ msgstr "Standaard lettertype"
-
-#~ msgid "Force white editor background"
-#~ msgstr "Achtergrond van editor altijd wit"
-
-#~ msgid "Autoindent Code"
-#~ msgstr "Automatisch inspringen van Code"
-
-#~ msgid "Update syntax highlighting continuous"
-#~ msgstr "Oplichten van syntaxis steeds verversen"
-
-#~ msgid "Update full widget instead of the current line (slower)"
-#~ msgstr "Het gehele scherm verversen i.p.v. actieve regel (langzamer)"
-
-#~ msgid "Automatic link management"
-#~ msgstr "Automatische link managment"
-
-#~ msgid "Number of undo levels"
-#~ msgstr "Aantal herstel mogelijkheden"
-
-#~ msgid ""
-#~ "Insert drag and drop at drop position\n"
-#~ "instead of cursor position (experimental)"
-#~ msgstr ""
-#~ "Drag and Drop op Drop-plaats invoegen\n"
-#~ "i.p.v. op cursor-positie (experimenteel)"
-
-#~ msgid "Insert text with Shift-Enter"
-#~ msgstr "Tekst invoegen met Shift-Enter"
-
-#~ msgid "Insert text with Ctrl-Enter"
-#~ msgstr "Tekst invoegen in met Ctrl-Enter"
-
-#~ msgid ""
-#~ "Insert HTML entity with Ctrl-(special char)\n"
-#~ "(&lt; &gt; &amp; &quot;)"
-#~ msgstr ""
-#~ "Voeg HTML-element in met Ctrl-(speciaal karakter)\n"
-#~ "(&lt; &gt; &amp; &quot;)"
-
-#~ msgid "allow everything"
-#~ msgstr "alles toestaan"
-
-#~ msgid "Read from File"
-#~ msgstr "Lezen uit bestand"
-
-#~ msgid "used HTML-Version"
-#~ msgstr "Gebruikte HTML-Versie"
-
-#~ msgid "Insert closing lists </LI>, </DT>, </DD>"
-#~ msgstr "Voeg eind-tags van lijsten in </LI>, </DT>, </DD>"
-
-#~ msgid "Insert closing paragraph tag </P>"
-#~ msgstr "Voeg paragraaf eind-tag in </P>"
-
-#~ msgid "Insert lowercase HTML tags (Needed for WML!)"
-#~ msgstr "HTML tags met kleine letters invoegen (noodzakelijk bij WML!)"
-
-#~ msgid "Allow the use of CSS"
-#~ msgstr "Gebruik van CSS toestaan"
-
-#~ msgid "Allow deprecated tags (like <FONT>)"
-#~ msgstr "Verouderde tags toestaan (zoals <FONT>)"
-
-#~ msgid "Format by context (e.g. <strong> instead of <b>)"
-#~ msgstr "Logische tekst-opmaak (b.v. <strong> i.p.v. <b>)"
-
-#~ msgid "Use an XML-Starting-Line"
-#~ msgstr "Gebruik een XML-start-regel"
-
-#~ msgid "Allow the Ruby-Tags included in XHTML 1.0"
-#~ msgstr "Ruby-tags van XHTML 1.0 toestaan"
-
-#~ msgid "Allow new tags of HTML 4.0"
-#~ msgstr "Gebruik van nieuwe HTML 4.0 tags toestaan"
-
-#~ msgid "Allow the use of frames"
-#~ msgstr "Gebruik van frames toestaan"
-
-#~ msgid "Require an DOCTYPE on first line of document"
-#~ msgstr "DOCTYPE declaratie op de eerste regel van het document"
-
-#~ msgid "Set the DTD-URL in the DOCTYPE line"
-#~ msgstr "Plaats de DTD-URL in de DOCTYPE declaratie"
-
-#~ msgid "Main GUI options"
-#~ msgstr "Hoofdscherm opties"
-
-#~ msgid "Notebook tab fontset"
-#~ msgstr "Lettertype van de tabbladen"
-
-#~ msgid "Font is a fontset"
-#~ msgstr "Font is een fontset"
-
-#~ msgid "Items in Open Recent menu"
-#~ msgstr "Aantal items in Recent geopend"
-
-#~ msgid "Items in Directory history"
-#~ msgstr "Aantal items in de Map-geschiedenis"
-
-#~ msgid "File browser mininum size"
-#~ msgstr "Minimale grootte van de bestandsbrowser"
-
-#~ msgid "File browser default filter"
-#~ msgstr "Standaard filter van de bestandsbrowser "
-
-#~ msgid "Show autocompletion window for HTML tags while editing"
-#~ msgstr "Toon scherm voor auto-aanvullen van HTML-tags tijdens werken"
-
-#~ msgid "Delay to show the autocompletion window"
-#~ msgstr "scherm auto-aanvullen vertraagd tonen"
-
-#~ msgid "GUI"
-#~ msgstr "GUI"
-
-#~ msgid "Files and images"
-#~ msgstr "Bestand & afbeelding"
-
-#~ msgid "Thumbnail extension string"
-#~ msgstr "Voorbeeldafbeelding achtervoegsel"
-
-#~ msgid "Backup file before saving"
-#~ msgstr "Backup maken alvorens een bestand opslaan"
-
-#~ msgid "Backup file by copy instead of rename"
-#~ msgstr "Bestand backup middels kopie i.p.v. nieuwe naam"
-
-#~ msgid "save"
-#~ msgstr "opslaan"
-
-#~ msgid "abort"
-#~ msgstr "afbreken"
-
-#~ msgid "ask"
-#~ msgstr "vragen"
-
-#~ msgid "Backup failure action"
-#~ msgstr "Actie indien backup niet lukt"
-
-#~ msgid "HTML filter"
-#~ msgstr "HTML filter"
-
-#~ msgid "JavaScript filter"
-#~ msgstr "Javascript filter"
-
-#~ msgid "Cascading stylesheet filter"
-#~ msgstr "Cascading stylesheet filter"
-
-#~ msgid "Other webfiles filter"
-#~ msgstr "Filter van andere webbestanden"
-
-#~ msgid "Weblint command"
-#~ msgstr "Weblint commando"
-
-#~ msgid "Image editor command"
-#~ msgstr "Commando voor afbeeldingen-editor"
-
-#~ msgid "Spell checker options"
-#~ msgstr "Opties voor spellingscontrole"
-
-#~ msgid "Ispell command"
-#~ msgstr "Ispell commando"
-
-#~ msgid "Default language"
-#~ msgstr "Standaard taal"
-
-#~ msgid "Accept compound words"
-#~ msgstr "Samengestelde woorden accepteren"
-
-#~ msgid "Specify additional characters that might form a word"
-#~ msgstr "Extra karakters aangeven die een woord kunnen vormen"
-
-#~ msgid "Use personal dictionary"
-#~ msgstr "Gebruik persoonlijk woordenboek"
-
-#~ msgid "Use input encoding"
-#~ msgstr "Gebruik invoer codering (bijv. latin1)"
-
-#~ msgid "External"
-#~ msgstr "Extern"
-
-#~ msgid " Save & close "
-#~ msgstr " Opslaan en sluiten "
-
-#~ msgid "Untitled *"
-#~ msgstr "Naamloos *"
-
-#~ msgid "Updating Links in all Documents"
-#~ msgstr "Bezig met vernieuwen van links in alle bestanden"
-
-#~ msgid "Charset conversion running..."
-#~ msgstr "Bezig met omzetten van karakterset ..."
-
-#~ msgid "No commandline set!"
-#~ msgstr "Geen commando bekend!"
-
-#~ msgid " doesn't exist or isn't a directory."
-#~ msgstr " Bestaat niet of het is geen map."
-
-#~ msgid "Error in creating temporary print file."
-#~ msgstr "Fout tijdens het maken van tijdelijk print-bestand"
-
-#~ msgid "System error in printing file. File not printed."
-#~ msgstr "Systeem-fout bij het printen van bestand. Bestand is niet geprint"
-
-#~ msgid "Unable to erase temporary file."
-#~ msgstr "Kan tijdelijk bestand niet verwijderen."
-
-#~ msgid "Print Dialog"
-#~ msgstr "Print Scherm"
-
-#~ msgid ""
-#~ "Enter print command-line below.\n"
-#~ " Remember that you must place %s where\n"
-#~ " the filename is supposed to be placed. \n"
-#~ "\n"
-#~ "Print command:"
-#~ msgstr ""
-#~ "Geef het print commando.\n"
-#~ "Vergeet niet %s te plaatsen daar waar\n"
-#~ "de bestandsnaam hoort te staan.\n"
-#~ "\n"
-#~ "Print commando:"
-
-#~ msgid "Temporary directory:"
-#~ msgstr "Tijdelijke map:"
-
-#~ msgid " Print "
-#~ msgstr " Printen "
-
-#~ msgid "Out of memory.\n"
-#~ msgstr "Tekort aan geheugen.\n"
-
-#~ msgid "filter.c (%s): System call failed: %s.\n"
-#~ msgstr "filter.c (%s): System call failed: %s.\n"
-
-#~ msgid "Subprocess standard error: %s"
-#~ msgstr " Subprocess standard error: %s"
-
-#~ msgid "subprocess unable to dup2 stdin: %s\n"
-#~ msgstr "subprocess unable to dup2 stdin: %s\n"
-
-#~ msgid "subprocess unable to dup2 stdout: %s\n"
-#~ msgstr "subprocess unable to dup2 stdout: %s\n"
-
-#~ msgid "subprocess unable to dup2 stderr: %s\n"
-#~ msgstr "subprocess unable to dup2 stderr: %s\n"
-
-#~ msgid "subprocess unable to exec filter: %s\n"
-#~ msgstr "subproces niet in staat filter: %s uit te voeren\n"
-
-#~ msgid "subprocess terminated abnormally with exit code %d\n"
-#~ msgstr "subproces abnormaal afgesloten met de exit-code %d\n"
-
-#~ msgid "bluefish: subprocess was killed by signal %d\n"
-#~ msgstr "bluefish: subproces is afgesloten met signaal %d\n"
-
-#~ msgid "OK"
-#~ msgstr "OK"
-
-#~ msgid " Ok "
-#~ msgstr "Ok"
-
-#~ msgid " Cancel "
-#~ msgstr " Annuleren "
-
-#~ msgid "Insert class"
-#~ msgstr "Klasse invoegen"
-
-#~ msgid "CLASS="
-#~ msgstr "Klasse="
-
-#~ msgid "tag"
-#~ msgstr "tag"
-
-#~ msgid "class"
-#~ msgstr "klasse"
-
-#~ msgid "pseudo class"
-#~ msgstr "pseudo classe"
-
-#~ msgid "font-family"
-#~ msgstr "lettertype-familie"
-
-#~ msgid "font-style"
-#~ msgstr "lettertype-stijl"
-
-#~ msgid "font-variant"
-#~ msgstr "lettertype-variant"
-
-#~ msgid "font-size"
-#~ msgstr "lettergrootte"
-
-#~ msgid "line-height"
-#~ msgstr "regelhoogte"
-
-#~ msgid "Insert as one line"
-#~ msgstr "Invoegen als 1 regel"
-
-#~ msgid "absolute size"
-#~ msgstr "absolute grootte"
-
-#~ msgid "relative size"
-#~ msgstr "relatieve grootte"
-
-#~ msgid "length/percentage"
-#~ msgstr "lengte/percentage"
-
-#~ msgid "margin"
-#~ msgstr "marge"
-
-#~ msgid "padding"
-#~ msgstr "ruimte tussen rand en inhoud"
-
-#~ msgid "Insert margin as one line"
-#~ msgstr "Marge als 1 regel invoegen"
-
-#~ msgid "Insert padding as one line"
-#~ msgstr "Ruimte tussen rand en inhoud als 1 regel invoegen"
-
-#~ msgid "Margin & padding"
-#~ msgstr "Marge & ruimte"
-
-#~ msgid "width"
-#~ msgstr "breedte"
-
-#~ msgid "color"
-#~ msgstr "kleur"
-
-#~ msgid "style"
-#~ msgstr "stijl"
-
-#~ msgid "Insert values per property"
-#~ msgstr "Waarden per eigenschap invoeren"
-
-#~ msgid "Insert values per border side"
-#~ msgstr "Per zijde waarden invoeren"
-
-#~ msgid "Insert top-values as general value for all sides"
-#~ msgstr "Boven-waarden als waarde voor alle zijden invoeren"
-
-#~ msgid "height"
-#~ msgstr "hoogte"
-
-#~ msgid "float"
-#~ msgstr "zwevend"
-
-#~ msgid "clear"
-#~ msgstr "niet zwevend"
-
-#~ msgid "Size & placement"
-#~ msgstr "Grootte en plaatsing"
-
-#~ msgid "background-color"
-#~ msgstr "achtergrond-kleur"
-
-#~ msgid "background-image"
-#~ msgstr "achtergrond-afbeelding"
-
-#~ msgid "background-repeat"
-#~ msgstr "achtergrond-herhalen"
-
-#~ msgid "background-attachment"
-#~ msgstr "achtergrond-plaatsing"
-
-#~ msgid "background-position"
-#~ msgstr "Positie van achtergrond"
-
-#~ msgid "accross"
-#~ msgstr "accross"
-
-#~ msgid "down"
-#~ msgstr "down"
-
-#~ msgid "Insert background as one line"
-#~ msgstr "Achtergrond als 1 regel invoegen"
-
-#~ msgid "size unit"
-#~ msgstr "eenheid"
-
-#~ msgid "percentage"
-#~ msgstr "percentage"
-
-#~ msgid "Color & background"
-#~ msgstr "Kleur & achtergrond"
-
-#~ msgid "word-spacing"
-#~ msgstr "ruimte tussen woorden"
-
-#~ msgid "letter-spacing"
-#~ msgstr "ruimte tussen letters"
-
-#~ msgid "vertical-align"
-#~ msgstr "verticale uitlijning"
-
-#~ msgid "text-align"
-#~ msgstr "tekst-uitlijning"
-
-#~ msgid "text-decoration"
-#~ msgstr "tekstversiering"
-
-#~ msgid "text-transform"
-#~ msgstr "tekst-transformatie"
-
-#~ msgid "white-space"
-#~ msgstr "witruimte"
-
-#~ msgid "Insert list-item as one line"
-#~ msgstr "Lijst-item als 1 regel invoegen"
-
-#~ msgid ""
-#~ "Bluefish was compiled without\n"
-#~ "Imlib support. This function is\n"
-#~ "therefore not available"
-#~ msgstr ""
-#~ "Bluefish is gecompileerd zonder\n"
-#~ "Imlib support. Daarom is\n"
-#~ "deze functie niet beschikbaar"
-
-#~ msgid "Image preview"
-#~ msgstr "Afbeelding bekijken"
-
-#~ msgid "Imagemap editor"
-#~ msgstr "Afbeeldingsmap editor"
-
-#~ msgid "-p filename  load project on startup\n"
-#~ msgstr "-p bestandsnaam   opstarten met project\n"
-
-#~ msgid "Error creating directory"
-#~ msgstr "Fout bij aanmaken van map"
-
-#~ msgid "Delete"
-#~ msgstr "Verwijderen"
-
-#~ msgid ""
-#~ "Size: %lu\n"
-#~ "Last Modification: %sLast access: %sUser: %s\n"
-#~ "Group: %s\n"
-#~ "Mode: %s\n"
-#~ msgstr ""
-#~ "Grootte: %lu\n"
-#~ "Laatste verandering: %sLaatst geopend: %sGebruiker: %s\n"
-#~ "Groep: %s\n"
-#~ "Modus: %s\n"
-
-#~ msgid "Properties of %s"
-#~ msgstr "eigenschappen van %s"
-
-#~ msgid ""
-#~ "Size: %lu\n"
-#~ "Last Modification: %sLast access: %sUser: %s\n"
-#~ "Mode: %s\n"
-#~ msgstr ""
-#~ "Grootte: %lu\n"
-#~ "Laatste verandering: %sLaatst geopend: %sGebruiker: %s\n"
-#~ "Groep: %s\n"
-#~ "Modus: %s\n"
-
-#~ msgid "Error!"
-#~ msgstr "Fout!"
-
-#~ msgid "Could not stat(2) file."
-#~ msgstr "Onmogelijk om stat(2) vanbestand op te vragen"
-
-#~ msgid "Move file to"
-#~ msgstr "Verplaats bestand naar"
-
-#~ msgid "Copy file to"
-#~ msgstr "Kopieeren"
-
-#~ msgid "Move file succeeded"
-#~ msgstr "Bestand verplaatst"
-
-#~ msgid "Move file failed"
-#~ msgstr "Verplaatsen van bestand mislukt"
-
-#~ msgid "Copying file succeeded"
-#~ msgstr "Bestand gekopieerd"
-
-#~ msgid "Copying file failed"
-#~ msgstr "Kopieren van bestand mislukt"
-
-#~ msgid "File new"
-#~ msgstr "Nieuw bestand"
-
-#~ msgid "File move to"
-#~ msgstr "Bestand verplaatsen naar"
-
-#~ msgid "File delete"
-#~ msgstr "Bestand verwijderen"
-
-#~ msgid "Properties"
-#~ msgstr "Eigenschappen"
-
-#~ msgid "Preview image"
-#~ msgstr "Afbeelding bekijken"
-
-#~ msgid "Edit image"
-#~ msgstr "Afbeelding bewerken"
-
-#~ msgid "Refresh file browser"
-#~ msgstr "Bestandsbrowser verversen"
-
-#~ msgid "Directories"
-#~ msgstr "Mappen"
-
-#~ msgid "Project"
-#~ msgstr "Project"
-
-#~ msgid "Attrs."
-#~ msgstr "Atributen"
-
-#~ msgid "About Bluefish"
-#~ msgstr "Over Bluefish"
-
-#~ msgid ""
-#~ "(C) Olivier Sessink\n"
-#~ "\n"
-#~ "developed by the bluefish development team\n"
-#~ "see AUTHORS for more information\n"
-#~ "http://bluefish.openoffice.nl/"
-#~ msgstr ""
-#~ "(C) Olivier Sessink\n"
-#~ "\n"
-#~ "ontwikkeld door het Bluefish-team\n"
-#~ "voor meer informatie: zie AUTHORS\n"
-#~ "http://bluefish.openoffice.nl/"
-
-#~ msgid "Dismiss"
-#~ msgstr "Sluiten"
-
-#~ msgid "/File/Open from the web..."
-#~ msgstr "/Bestand/Openen vanaf het web..."
-
-#~ msgid "/File/sep4"
-#~ msgstr "/Bestand/sep4"
-
-#~ msgid "/File/Print..."
-#~ msgstr "/Bestand/Printen..."
-
-#~ msgid "/Edit/sep2"
-#~ msgstr "/Bewerken/sep2"
-
-#~ msgid "/Edit/Replace special/Replace ascii chars"
-#~ msgstr "/Bewerken/Vervangen speciaal/Vervang ascii karakters"
-
-#~ msgid "/Edit/Selection to uppercase"
-#~ msgstr "/Bewerken/Selectie naar Hoofdletters"
-
-#~ msgid "/Edit/Selection to lowercase"
-#~ msgstr "/Bewerken/Selectie naar kleine letters"
-
-#~ msgid "/Edit/Indent region"
-#~ msgstr "/Bewerken/Inspringen"
-
-#~ msgid "/Edit/Unindent region"
-#~ msgstr "/Bewerken/Niet Inspringen"
-
-#~ msgid "/Edit/sep7"
-#~ msgstr "/Bewerken/sep7"
-
-#~ msgid "/_View"
-#~ msgstr "/Beel_d"
-
-#~ msgid "/_View/Tearoff1"
-#~ msgstr "/Beel_d/Tearoff1"
-
-#~ msgid "/View/View in _Netscape"
-#~ msgstr "/Beeld/Bekijk in _Netscape"
-
-#~ msgid "/View/_Drag 'n Drop Window"
-#~ msgstr "/Beeld/_Sleepvenster"
-
-#~ msgid "/View/_Preview image under cursor"
-#~ msgstr "/Beeld/Bekijk plaatje onder cursor"
-
-#~ msgid "/View/_Preview "
-#~ msgstr "/Beeld/Bekijk voorbeeld"
-
-#~ msgid "/View/sep1"
-#~ msgstr "/Beeld/sep1"
-
-#~ msgid "/View/Next document"
-#~ msgstr "/Beeld/Volgend document"
-
-#~ msgid "/View/Previous document"
-#~ msgstr "/Beeld/Vorig document"
-
-#~ msgid "/View/sep3"
-#~ msgstr "/Beeld/sep3"
-
-#~ msgid "/View/sep2"
-#~ msgstr "/Beeld/sep2"
-
-#~ msgid "/View/Document status"
-#~ msgstr "/Beeld/Document status"
-
-#~ msgid "/_Project"
-#~ msgstr "/_Project"
-
-#~ msgid "/Project/Open..."
-#~ msgstr "/Project/Openen"
-
-#~ msgid "/Project/Close"
-#~ msgstr "/Project/Sluiten"
-
-#~ msgid "/Project/Save"
-#~ msgstr "/Project/Bewaren"
-
-#~ msgid "/Project/Save as..."
-#~ msgstr "/Project/Bewaren als"
-
-#~ msgid "/Project/sep1"
-#~ msgstr "/Project/sep1"
-
-#~ msgid "/Project/Edit..."
-#~ msgstr "/Project/Bewerken..."
-
-#~ msgid "/Project/sep2"
-#~ msgstr "/Project/sep2"
-
-#~ msgid "/_Project/Files"
-#~ msgstr "/_Project/Bestanden"
-
-#~ msgid "/Tags/Repeat last"
-#~ msgstr "/Elementen/Laatste herhalen"
-
-#~ msgid "/Dialogs/CSS/Add class..."
-#~ msgstr "/Dialogen/CSS/Klasse toevoegen..."
-
-#~ msgid "/Dialogs/Javascript"
-#~ msgstr "/Dialogen/Javascript"
-
-#~ msgid "/Dialogs/Javascript/tearoff1"
-#~ msgstr "/Dialogen/Javascript/tearoff1"
-
-#~ msgid "/Dialogs/Javascript/Mouseover Script"
-#~ msgstr "/Dialogen/Javascript/Script voor muisbeweging"
-
-#~ msgid "/Dialogs/Javascript/Netscape 4 Resize Bugfix Script"
-#~ msgstr "/Dialogs/Javascript/Netscape 4 Resize Bugfix Script"
-
-#~ msgid "/Dialogs/_WML"
-#~ msgstr "/Dialogen/_WML"
-
-#~ msgid "/Dialogs/WML/tearoff1"
-#~ msgstr "/Dialogen/WML/tearoff1"
-
-#~ msgid "/Dialogs/WML/Standard Document"
-#~ msgstr "/Dialogen/WML/Standaard document"
-
-#~ msgid "/Dialogs/WML/Card..."
-#~ msgstr "/Dialogen/WML/Kaart..."
-
-#~ msgid "/Dialogs/WML/Postfield..."
-#~ msgstr "/Dialogen/WML/Veldnaam..."
-
-#~ msgid "/Dialogs/WML/Go..."
-#~ msgstr "/Dialogen/WML/Ga naar..."
-
-#~ msgid "/Dialogs/WML/Do..."
-#~ msgstr "/Dialogen/WML/Actie..."
-
-#~ msgid "/Dialogs/WML/Anchor..."
-#~ msgstr "/Dialogen/WML/Anker..."
-
-#~ msgid "/Dialogs/WML/Access..."
-#~ msgstr "/Dialogen/WML/Toegang..."
-
-#~ msgid "/Dialogs/WML/sep11"
-#~ msgstr "/Dialogen/WML/sep11"
-
-#~ msgid "/Dialogs/WML/Paragraph"
-#~ msgstr "/Dialogen/WML/Alinea"
-
-#~ msgid "/Dialogs/WML/Line Break"
-#~ msgstr "/Dialogen/WML/Nieuwe regel"
-
-#~ msgid "/Dialogs/WML/Italic"
-#~ msgstr "/Dialogen/WML/Cursief"
-
-#~ msgid "/Dialogs/WML/Non-Breaking Space"
-#~ msgstr "/Dialogen/WML/Spatie"
-
-#~ msgid "/Dialogs/WML/Bold"
-#~ msgstr "/Dialogen/WML/Vet"
-
-#~ msgid "/Dialogs/WML/sep12"
-#~ msgstr "/Dialogen/WML/sep12"
-
-#~ msgid "/Dialogs/WML/Prev"
-#~ msgstr "/Dialogen/WML/Vorige"
-
-#~ msgid "/Dialogs/WML/Refresh"
-#~ msgstr "/Dialogen/WML/Verversen"
-
-#~ msgid "/Dialogs/WML/Noop"
-#~ msgstr "/Dialogen/WML/Geen handeling (noop-tag)"
-
-#~ msgid "/Dialogs/WML/sep13"
-#~ msgstr "/Dialogen/WML/sep13"
-
-#~ msgid "/Dialogs/WML/Set Variable..."
-#~ msgstr "/Dialogen/WML/Variabele..."
-
-#~ msgid "/Dialogs/imagemap development..."
-#~ msgstr "/Dialogen/Aanklikbare afbeelding maken..."
-
-#~ msgid "/External/Weblint..."
-#~ msgstr "/Extern/Weblint"
-
-#~ msgid "/External/Filters/tearoff1"
-#~ msgstr "/Extern/Filters/tearoff1"
-
-#~ msgid "/External/Commands/tearoff1"
-#~ msgstr "/Extern/Commando's/tearoff1"
-
-#~ msgid "/_Perl"
-#~ msgstr "/_Perl"
-
-#~ msgid "/Perl/tearoff1"
-#~ msgstr "/Perl/tearoff1"
-
-#~ msgid "/Perl/Status..."
-#~ msgstr "/Perl/Status..."
-
-#~ msgid "/Perl/Strip CR Codes"
-#~ msgstr "/Perl/CR Codes wissen"
-
-#~ msgid "/Options/View Filebrowser"
-#~ msgstr "/Opties/Bestandsbrowser"
-
-#~ msgid "/Options/Lists/External filters..."
-#~ msgstr "/Opties/Lijst/Externe filters..."
-
-#~ msgid "/Options/Lists/External programs..."
-#~ msgstr "/Opties/Lijst/Externe programma's..."
-
-#~ msgid "/Options/Lists/Reset syntax highlighting"
-#~ msgstr "/Opties/Lijst/Oplichten van syntaxis resetten"
-
-#~ msgid "/Options/sep1"
-#~ msgstr "/Opties/sep1"
-
-#~ msgid "/Options/Save config"
-#~ msgstr "/Opties/Instellingen bewaren"
-
-#~ msgid "/_Help"
-#~ msgstr "/_Help"
-
-#~ msgid "/Help/_About..."
-#~ msgstr "/Help/_Over Bluefish"
-
-#~ msgid "name"
-#~ msgstr "naam"
-
-#~ msgid "Bluefish configuration - external filters"
-#~ msgstr "Bluefish instellingen - externe filters"
-
-#~ msgid "Bluefish configuration - external commands"
-#~ msgstr "Bluefish instellingen - externe commando's"
-
-#~ msgid "regex pattern"
-#~ msgstr "gangbare uitdrukking"
-
-#~ msgid "Bluefish configuration - syntax highlighting"
-#~ msgstr "Bluefish configuratie - oplichtende syntaxis "
-
-#~ msgid "Bluefish config - custom menu"
-#~ msgstr "Bluefish configuratie - aangepast menu"
-
-#~ msgid "Replace where"
-#~ msgstr "Vervang waar"
-
-#~ msgid "Update"
-#~ msgstr "Vernieuwen"
-
-#~ msgid "/Custom menu/Reset custom menu"
-#~ msgstr "/Aangepast menu/Aangepast menu opnieuw aanmaken"
-
-#~ msgid "Resolving address"
-#~ msgstr "Resolving address"
-
-#~ msgid "Retrieving file, press ESC to cancel download"
-#~ msgstr "Bezig met binnenhalen van bestand, ESC = annuleren"
-
-#~ msgid "User aborted download"
-#~ msgstr "Download afgebroken door gebruiker"
-
-#~ msgid "Retrieving file, %d bytes received, press ESC to cancel"
-#~ msgstr "Binnenhalen van Bestand, %d bytes ontvangen, ESC = annuleren "
-
-#~ msgid "Retrieving file, %d bytes of %d bytes received, press ESC to cancel"
-#~ msgstr ""
-#~ "Binnenhalen van bestand, %d bytes van %d bytes ontvangen, ESC =annuleren"
-
-#~ msgid "Bluefish project - files"
-#~ msgstr "Bluefish project - bestanden"
-
-#~ msgid "Bluefish project - colorlist"
-#~ msgstr "Bluefish project - lijst met kleuren"
-
-#~ msgid "Bluefish project - fontlist"
-#~ msgstr "Bluefish project - lijst met lettertypen"
-
-#~ msgid "Bluefish project - urllist"
-#~ msgstr "Bluefish project - lijst met url's"
-
-#~ msgid "Bluefish project - targetlist"
-#~ msgstr "Bluefish project - lijst met doelen"
-
-#~ msgid "Bluefish project - dtd_cblist"
-#~ msgstr "Bluefish project -dtd lijst"
-
-#~ msgid "Bluefish project - classlist"
-#~ msgstr "Bluefish project - klasselijst"
-
-#~ msgid "Bluefish project - headers"
-#~ msgstr "Bluefish project - koppen"
-
-#~ msgid "/_Files"
-#~ msgstr "/_Bestanden"
-
-#~ msgid "/Files/Files"
-#~ msgstr "/Bestanden/Bestanden"
-
-#~ msgid "/_Lists"
-#~ msgstr "/_Lijsten"
-
-#~ msgid "/Lists/Colors"
-#~ msgstr "/Lijsten/Kleuren"
-
-#~ msgid "/Lists/Fonts"
-#~ msgstr "/Lijsten/Lettertypen"
-
-#~ msgid "/Lists/Url's"
-#~ msgstr "/Lijstes/Url's"
-
-#~ msgid "/Lists/Targets"
-#~ msgstr "/Lijsten/Doel"
-
-#~ msgid "/Lists/Document type definitions"
-#~ msgstr "/Lijsten/Document type definities"
-
-#~ msgid "/Lists/CSS classes"
-#~ msgstr "/Lijsten/CSS klassen"
-
-#~ msgid "/Lists/headers"
-#~ msgstr "/Lijsten/kop"
-
-#~ msgid "Bluefish warning: some file(s) are modified!"
-#~ msgstr "Bluefish waarschuwing: er zijn bestanden gewijzigd!"
-
-#~ msgid ""
-#~ "Some file(s) in your project are modified\n"
-#~ "please choose your action"
-#~ msgstr ""
-#~ "Er zijn bestanden in uw project aangepast\n"
-#~ "Wilt u?:"
-
-#~ msgid "PHP Reference"
-#~ msgstr "PHP Naslagwerk"
-
-#~ msgid "SSI Reference"
-#~ msgstr "SSI Naslagwerk"
-
-#~ msgid "RXML Reference"
-#~ msgstr "RXML Naslagwerk"
-
-#~ msgid "PHP4 Reference"
-#~ msgstr "PHP4 Naslagwerk"
-
-#~ msgid "Group"
-#~ msgstr "Groep"
-
-#~ msgid "Function"
-#~ msgstr "Functie"
-
-#~ msgid "Insert & close"
-#~ msgstr "Invoegen & sluiten"
-
-#~ msgid "Save as"
-#~ msgstr "Bewaren als"
-
-#~ msgid "Move to"
-#~ msgstr "Verplaats naar"
-
-#~ msgid "cut"
-#~ msgstr "knippen"
-
-#~ msgid "copy"
-#~ msgstr "kopieeren"
-
-#~ msgid "paste"
-#~ msgstr "plakken"
-
-#~ msgid "undo"
-#~ msgstr "herstel"
-
-#~ msgid "redo"
-#~ msgstr "herhaal"
-
-#~ msgid "Configure..."
-#~ msgstr "Instellen"
-
-#~ msgid "Print..."
-#~ msgstr "Afdrukken"
-
-#~ msgid "Underline"
-#~ msgstr "Onderstrepen"
-
-#~ msgid "Strikeout"
-#~ msgstr "Doorhalen"
-
-#~ msgid "Image..."
-#~ msgstr "Figuur..."
-
-#~ msgid "Base Target"
-#~ msgstr "Basis Doel"
-
-#~ msgid "Menu"
-#~ msgstr "Menu"
-
-#~ msgid "Add class to tag..."
-#~ msgstr "Klasse toevoegen aan tag..."
-
-#~ msgid "Javascript for Mouseover Effects"
-#~ msgstr "Javascript voor Muisbeweging effecten"
-
-#~ msgid "Javascript to work around Resize Bug in Netscape 4"
-#~ msgstr ""
-#~ "Javascript voor omzeilen van Netscape 4 bug t.a.v. Grootte veranderen"
-
-#~ msgid "Empty javascript block"
-#~ msgstr "Leeg JavaScript blok"
-
-#~ msgid "Link to javascript..."
-#~ msgstr "Link naar javascript"
-
-#~ msgid " Javascript "
-#~ msgstr " JavaScript "
-
-#~ msgid "Standard WML Document"
-#~ msgstr "Standaard WML document"
-
-#~ msgid "Card Element..."
-#~ msgstr "Kaart element"
-
-#~ msgid "Postfield Element..."
-#~ msgstr "Veldnaam Element"
-
-#~ msgid "Go Element..."
-#~ msgstr "Ga naar-element (Go)"
-
-#~ msgid "Do Element..."
-#~ msgstr "Actie element (Do)"
-
-#~ msgid "Anchor Element..."
-#~ msgstr "Anker Element"
-
-#~ msgid "Access Element..."
-#~ msgstr "Toegang Element"
-
-#~ msgid "Insert a Paragraph"
-#~ msgstr "Alinea invoegen"
-
-#~ msgid "Line Break"
-#~ msgstr "Regel afbreken"
-
-#~ msgid "Non-breaking Space"
-#~ msgstr "Spatie"
-
-#~ msgid "Previous Document in History"
-#~ msgstr "Vorig Document in Geschiedenis"
-
-#~ msgid "No Operation"
-#~ msgstr "Geen handeling (noop-tag)"
-
-#~ msgid "Set variable.."
-#~ msgstr "Variabele"
-
-#~ msgid " WML "
-#~ msgstr " WML "
-
-#~ msgid "Imagemap"
-#~ msgstr "Map van aanklikbare afbeelding"
-
-#~ msgid "Meta..."
-#~ msgstr "Meta..."
-
-#~ msgid "Embed..."
-#~ msgstr "Multimedia (embed)..."
-
-#~ msgid "Select Colour..."
-#~ msgstr "Kleur Kiezen..."
-
-#~ msgid "SSI reference..."
-#~ msgstr "SSI naslagwerk..."
-
-#~ msgid "RXML reference..."
-#~ msgstr "RXML naslagwerk..."
-
-#~ msgid "PHP4 reference..."
-#~ msgstr "PHP4 naslagwerk..."
-
-#~ msgid "Insert Generator META-Tag"
-#~ msgstr "Generator META-Tag invoegen"
-
-#~ msgid " Other "
-#~ msgstr " Overige "
-
-#~ msgid "WML Card"
-#~ msgstr "WML Kaart"
-
-#~ msgid "OnTimer"
-#~ msgstr "Tijdklok"
-
-#~ msgid "WML Postfield"
-#~ msgstr "WML veldnaam"
-
-#~ msgid "WML Variable"
-#~ msgstr "WML variabele"
-
-#~ msgid "Go Dialog"
-#~ msgstr "Ga naar dialoog"
-
-#~ msgid "Sendreferer"
-#~ msgstr "Stuur refereerder"
-
-#~ msgid "Do Dialog"
-#~ msgstr "Actie dialoog"
-
-#~ msgid "Is Optional"
-#~ msgstr "Is optioneel"
-
-#~ msgid "Anchor Dialog"
-#~ msgstr "Anker dialoog"
-
-#~ msgid "WML Access Dialog"
-#~ msgstr "WML Toegang dialoog"
-
-#~ msgid "Domain"
-#~ msgstr "Domein"
-
-#~ msgid "Path"
-#~ msgstr "Pad"
-
-#~ msgid "Invalid especial character! %s\n"
-#~ msgstr "Ongeldig spciaal karakter %s\n"
-
-#~ msgid "Bluefish: Can't create pipe for spellchecker!"
-#~ msgstr "Bluefish: kan geen 'pipe' starten voor ispell"
-
-#~ msgid "Bluefish: Can't create stream for pipe for spellchecker!"
-#~ msgstr "Bluefish: kan geen 'pipe' starten voor ispell"
-
-#~ msgid "Bluefish: Can't create child process for spellchecker!"
-#~ msgstr "Bluefish: Kan geen child-proces voor spellingscontrole aanmaken!"
-
-#~ msgid "Bluefish: Failed to start ispell!\n"
-#~ msgstr "Bluefish: Kan ispell niet starten!\n"
-
-#~ msgid "Select on ispell returned error, what now?\n"
-#~ msgstr "ispell heeft een onbekende fout terug gestuurd\n"
-
-#~ msgid "Bluefish Spell Checker Error"
-#~ msgstr "Bluefish Spellings-controle fout"
-
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "The ispell-process has died for some reason. *One* possible reason\n"
-#~ "could be that you do not have a dictionary file\n"
-#~ "for the language of this document installed.\n"
-#~ "Check /usr/lib/ispell or set another\n"
-#~ "dictionary in the Spellchecker Options menu."
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "Het spellingscontrole-proces (ispell) is afgebroken. Een mogelijke reden\n"
-#~ "KAN zijn dat er geen woordenboek-bestand aanwezig is\n"
-#~ "voor de taal van dit document.\n"
-#~ "Kijk in /usr/lib/ispell of kies een ander\n"
-#~ "woordenboek in de Spellingscontrole Opties menu."
-
-#~ msgid "Start"
-#~ msgstr "Start"
-
-#~ msgid "Word"
-#~ msgstr "Woord"
-
-#~ msgid "Progress"
-#~ msgstr "Voortgang"
-
-#~ msgid ""
-#~ "Accept word\n"
-#~ "in this section"
-#~ msgstr ""
-#~ "Woord accepteren\n"
-#~ "in dit deel"
-
-#~ msgid ""
-#~ "Insert in Personal\n"
-#~ "Dictionary"
-#~ msgstr ""
-#~ "Voeg toe aan Persoonlijk\n"
-#~ "Woordenboek"
-
-#~ msgid ""
-#~ "Ignore\n"
-#~ "Word"
-#~ msgstr ""
-#~ "Negeer\n"
-#~ "Woord"
-
-#~ msgid ""
-#~ "Replace\n"
-#~ "Word"
-#~ msgstr ""
-#~ "Vervang\n"
-#~ "Woord"
-
-#~ msgid "checking spelling"
-#~ msgstr "Bezig met spellingscontrole"
-
-#~ msgid "Perl Version"
-#~ msgstr "Versie van Perl"
-
-#~ msgid "Call Perlscript"
-#~ msgstr "Roep perl script aan"
-
-#~ msgid "Scriptname"
-#~ msgstr "Scriptnaam"
