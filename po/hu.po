@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: bluefish gtk2-port\n"
-"POT-Creation-Date: 2003-06-04 10:21+0200\n"
+"POT-Creation-Date: 2003-06-05 12:31+0200\n"
 "PO-Revision-Date: 2000-12-01 21:48+0100\n"
 "Last-Translator: Sáska, Péter <sasek@ccsystem.hu>\n"
 "Language-Team: madgyar <hu@li.org>\n"
@@ -33,7 +33,7 @@ msgstr "Eredeti"
 msgid "Replacement"
 msgstr "Csere"
 
-#: ../src/bfspell.c:356 ../src/document.c:1969
+#: ../src/bfspell.c:356 ../src/document.c:1994
 msgid "Ignore"
 msgstr "Figyelmen kívül hagy"
 
@@ -73,7 +73,7 @@ msgstr "Nyelv"
 msgid "Set default"
 msgstr "Alapértelmezett"
 
-#: ../src/bfspell.c:399 ../src/filebrowser.c:1071
+#: ../src/bfspell.c:399 ../src/filebrowser.c:1078
 msgid "Filter"
 msgstr "Szűrő"
 
@@ -138,7 +138,7 @@ msgstr "grafikus felhasználói felület megjelenítése..."
 msgid "/Document/Highlight syntax"
 msgstr "/Nézet/Szintaxiskiemelés"
 
-#: ../src/document.c:421 ../src/document.c:422 ../src/document.c:1988
+#: ../src/document.c:421 ../src/document.c:422 ../src/document.c:1973
 msgid "Untitled"
 msgstr "Névtelen"
 
@@ -149,11 +149,6 @@ msgstr "Fájl megnyitása"
 #: ../src/document.c:866
 msgid "Could not open file:\n"
 msgstr "Nem sikerült a fájl megnyitása:\n"
-
-#: ../src/document.c:867 ../src/document.c:1010 ../src/document.c:1590
-#: ../src/document.c:1596 ../src/filebrowser.c:962
-msgid "Error"
-msgstr "Hiba"
 
 #: ../src/document.c:1010
 msgid "Cannot display file, unknown characters found."
@@ -186,112 +181,131 @@ msgstr "Mentés folytatása"
 
 #: ../src/document.c:1366
 #, c-format
-msgid "Backup for %s failed"
-msgstr "Backup sikertelen: %s"
+msgid ""
+"A backupfile for %s could not be created. If you continue, this file will be "
+"overwritten."
+msgstr ""
 
 #: ../src/document.c:1367
-msgid "Bluefish warning, file backup failure"
-msgstr "Bluefish figyelmeztetés: sikertelen backup"
+#, fuzzy
+msgid "File backup failure"
+msgstr "Teendő sikertelen backup esetén"
 
 #: ../src/document.c:1504
 msgid "Save as..."
 msgstr "Mentés másként..."
 
-#: ../src/document.c:1507 ../src/filebrowser.c:951
+#: ../src/document.c:1508
+#, fuzzy
+msgid "Move document to"
+msgstr "Dokumentum mentése másként"
+
+#: ../src/document.c:1508 ../src/filebrowser.c:958
 msgid "Save document as"
 msgstr "Dokumentum mentése másként"
 
-#: ../src/document.c:1514 ../src/document.c:1558
-msgid "Overwrite"
-msgstr "Felülír"
-
-#: ../src/document.c:1514 ../src/document.c:1558
+#: ../src/document.c:1515 ../src/document.c:1559
 msgid "Cancel"
 msgstr "Mégsem"
 
-#: ../src/document.c:1515
+#: ../src/document.c:1515 ../src/document.c:1559
+msgid "Overwrite"
+msgstr "Felülír"
+
+#: ../src/document.c:1516
 #, c-format
 msgid "File %s is open, overwrite?"
 msgstr "%s nyitva van, felülírjuk?"
 
-#: ../src/document.c:1516
-msgid "Bluefish: Warning, file is open"
-msgstr "Bluefish figyelmeztetés: a fájl nyitva van"
+#: ../src/document.c:1517
+msgid "The file you have selected is being edited in Bluefish."
+msgstr ""
 
-#: ../src/document.c:1535
+#: ../src/document.c:1536
 msgid "Previously: "
 msgstr "Előzőleg: "
 
-#: ../src/document.c:1562
-#, c-format
+#: ../src/document.c:1563
+#, fuzzy, c-format
 msgid ""
-"File %s\n"
-"is modified by another process\n"
-"new modification time is %s\n"
-"old modification time is %s\n"
-"overwrite?"
+"File:\n"
+" %s\n"
+"New modification time is %s\n"
+"Old modification time is %s"
 msgstr ""
 "A(z) %s fájlt\n"
 "egy másik folyamat módosította\n"
 "új módosítás időpontja: %s\n"
-"előző módosítás időpontja: %s\n"
-"Felülírjuk?"
+"előző módosítás időpontja: %s"
 
-#: ../src/document.c:1563 ../src/document.c:1974
-msgid "Bluefish: Warning, file is modified"
-msgstr "Bluefish figyelmeztetés: a fájl megváltozott!"
+#: ../src/document.c:1564
+msgid "The file has been modified by another process."
+msgstr ""
 
-#: ../src/document.c:1579
+#: ../src/document.c:1580
 #, c-format
 msgid "Saving %s"
 msgstr "%s mentése"
 
-#: ../src/document.c:1589
-msgid "File save aborted, could not backup file:\n"
+#: ../src/document.c:1590 ../src/document.c:1596 ../src/menu.c:758
+#, fuzzy
+msgid "The filename was:\n"
+msgstr "Nem adtál meg fájlnevet"
+
+#: ../src/document.c:1591
+#, fuzzy
+msgid "File save aborted, could not backup file\n"
 msgstr "Mentés megszakítva, sikertelen backup:\n"
 
-#: ../src/document.c:1595
-msgid "File save error, could not write file:\n"
+#: ../src/document.c:1597
+#, fuzzy
+msgid "File save error, could not write file\n"
 msgstr "Mentési hiba, nem sikerült a fájl kiírása:\n"
 
-#: ../src/document.c:1643
+#: ../src/document.c:1644
 #, c-format
 msgid ""
-"Are you sure you want to close\n"
-"%s ?"
+"Do you want to save the changes done to\n"
+"%s?."
 msgstr ""
-"Biztosan bezárod a\n"
-"%s fájlt?"
 
-#: ../src/document.c:1648
-msgid ""
-"Are you sure you want to close\n"
-"this untitled file ?"
+#: ../src/document.c:1649
+#, fuzzy
+msgid "Do you want to save the changes done to this untitled file?"
 msgstr ""
 "Biztosan bezárod a\n"
 "még nem mentett fájlt?"
 
 #: ../src/document.c:1653
-msgid "Bluefish warning: file is modified!"
-msgstr "Bluefish figyelmeztetés: a fájl megváltozott!"
+#, fuzzy
+msgid "Don't save"
+msgstr "Mentés megszakítása"
 
-#: ../src/document.c:1843
+#: ../src/document.c:1654
+msgid "Changes will be lost unless the file is saved."
+msgstr ""
+
+#: ../src/document.c:1849
 msgid "No filename"
 msgstr "Nem adtál meg fájlnevet"
 
-#: ../src/document.c:1919 ../src/msg_queue.c:180
+#: ../src/document.c:1933 ../src/msg_queue.c:180
+msgid "These files were not opened:\n"
+msgstr ""
+
+#: ../src/document.c:1935 ../src/msg_queue.c:182
 msgid "Unable to open file(s)\n"
 msgstr "Nem lehet megnyitni a fájl(oka)t\n"
 
-#: ../src/document.c:1938
+#: ../src/document.c:1953
 msgid "Unable to open file"
 msgstr "Nem lehet megnyitni a fájlt"
 
-#: ../src/document.c:1969
+#: ../src/document.c:1994
 msgid "Reload"
 msgstr "Újratölt"
 
-#: ../src/document.c:1973
+#: ../src/document.c:1998
 #, c-format
 msgid ""
 "File %s\n"
@@ -304,117 +318,127 @@ msgstr ""
 "új módosítás időpontja: %s\n"
 "előző módosítás időpontja: %s"
 
-#: ../src/document.c:2071
+#: ../src/document.c:1999
+msgid "Bluefish: Warning, file is modified"
+msgstr "Bluefish figyelmeztetés: a fájl megváltozott!"
+
+#: ../src/document.c:2091
 msgid "searching files..."
 msgstr "fájlok keresése..."
 
-#: ../src/document.c:2090
+#: ../src/document.c:2110
 msgid "Select basedir"
 msgstr "Alapkönyvtár választása"
 
-#: ../src/document.c:2102
+#: ../src/document.c:2122
 msgid "Advanced open file selector"
 msgstr "Megnyitás opciókkal"
 
-#: ../src/document.c:2113
+#: ../src/document.c:2133
 msgid "grep {contains} `find {basedir} -name '{file type}'`"
 msgstr "grep {tartalmaz} `find {alapkönyvtár} -name '{fájltípus}'`"
 
-#: ../src/document.c:2118
+#: ../src/document.c:2138
 msgid "<b>General</b>"
 msgstr "<b>Általános</b>"
 
-#: ../src/document.c:2120
+#: ../src/document.c:2140
 msgid "Base_dir:"
 msgstr "Alapkönyvtár"
 
-#: ../src/document.c:2122 ../src/gtk_easy.c:865
+#: ../src/document.c:2142 ../src/gtk_easy.c:1057
 msgid "_Browse..."
 msgstr "_Tallóz..."
 
-#: ../src/document.c:2137
+#: ../src/document.c:2157
 msgid "_File Type:"
 msgstr "_Fájltípus:"
 
-#: ../src/document.c:2143
+#: ../src/document.c:2163
 msgid "_Recursive:"
 msgstr "_Rekurzív:"
 
-#: ../src/document.c:2148
+#: ../src/document.c:2168
 msgid "<b>Contains</b>"
 msgstr "<b>Tartalmaz</b>"
 
-#: ../src/document.c:2151
+#: ../src/document.c:2171
 msgid "Pa_ttern:"
 msgstr "_Minta:"
 
-#: ../src/document.c:2155
+#: ../src/document.c:2175
 msgid "Is rege_x:"
 msgstr "Rege_x-e:"
 
-#: ../src/document.c:2218
+#: ../src/document.c:2238
 #, c-format
 msgid "Loading %d file(s)..."
 msgstr "%d fájl betöltése..."
 
-#: ../src/document.c:2236
+#: ../src/document.c:2256
 msgid "No file to insert"
 msgstr "Nincs beilleszthető fájl"
 
-#: ../src/document.c:2270
-msgid "save all"
+#: ../src/document.c:2291
+#, fuzzy
+msgid "_Save all"
 msgstr "mindet menti"
 
-#: ../src/document.c:2270
-msgid "close all"
+#: ../src/document.c:2291
+#, fuzzy
+msgid "Close _all"
 msgstr "mindet bezárja"
 
-#: ../src/document.c:2270
-msgid "choose per file"
+#: ../src/document.c:2291
+#, fuzzy
+msgid "Choose per _file"
 msgstr "választás fájlonként"
 
-#: ../src/document.c:2270
-msgid "cancel"
-msgstr "mégsem"
+#: ../src/document.c:2291
+#, fuzzy
+msgid "_Cancel"
+msgstr "Mégsem"
 
-#: ../src/document.c:2271
-msgid "Bluefish: Warning, some file(s) are modified!"
+#: ../src/document.c:2292
+#, fuzzy
+msgid "Some file(s) have been modified"
 msgstr "Bluefish figyelmeztetés: fájl(ok) módosult(ak)!"
 
-#: ../src/document.c:2271
-msgid ""
-"Some file(s) are modified\n"
-"please choose your action"
+#: ../src/document.c:2292
+msgid "If the modified files are not saved, any changes in them will be lost."
 msgstr ""
-"Fájl(ok) módosult(ak),\n"
-"mi a teendő?"
 
-#: ../src/document.c:2488
+#: ../src/document.c:2509
 msgid "No selection to indent"
 msgstr "Nincs kijelölt szöveg a behúzáshoz"
 
-#: ../src/filebrowser.c:805
+#: ../src/filebrowser.c:810
 msgid "Error creating path"
 msgstr "Nem sikerült az útvonal létrehozása."
 
-#: ../src/filebrowser.c:805
-msgid "Path exists already"
-msgstr "Az útvonal már létezik"
+#: ../src/filebrowser.c:810
+msgid "The specified pathname already exists."
+msgstr ""
 
-#: ../src/filebrowser.c:850
+#: ../src/filebrowser.c:855
 msgid "File name"
 msgstr "Fájlnév"
 
-#: ../src/filebrowser.c:852
+#: ../src/filebrowser.c:857
 msgid "Directory name"
 msgstr "Könyvtárnév"
 
-#: ../src/filebrowser.c:955
+#: ../src/filebrowser.c:886
+#, fuzzy
+msgid "Opening directory..."
+msgstr "Fájl megnyitása"
+
+#: ../src/filebrowser.c:962
 #, fuzzy
 msgid "Could not rename\n"
 msgstr "Nem sikerült a fájl megnyitása:\n"
 
-#: ../src/filebrowser.c:991
+#: ../src/filebrowser.c:998
 #, c-format
 msgid ""
 "Are you sure you want to\n"
@@ -423,54 +447,54 @@ msgstr ""
 "Biztosan törlöd a\n"
 "%s fájlt?"
 
-#: ../src/filebrowser.c:992
-msgid "delete file?"
-msgstr "törlöd a fájlt?"
+#: ../src/filebrowser.c:999
+msgid "The file will be permanently deleted."
+msgstr ""
 
-#: ../src/filebrowser.c:1048
+#: ../src/filebrowser.c:1055
 #, fuzzy
 msgid "/_Open file"
 msgstr "Fájl megnyitása"
 
-#: ../src/filebrowser.c:1049
+#: ../src/filebrowser.c:1056
 msgid "/sep1"
 msgstr ""
 
-#: ../src/filebrowser.c:1050
+#: ../src/filebrowser.c:1057
 msgid "/Rena_me file"
 msgstr ""
 
-#: ../src/filebrowser.c:1051
+#: ../src/filebrowser.c:1058
 #, fuzzy
 msgid "/_Delete file"
 msgstr "Fájl törlése"
 
-#: ../src/filebrowser.c:1052
+#: ../src/filebrowser.c:1059
 #, fuzzy
 msgid "/sep2"
 msgstr "/Fájl/sep2"
 
-#: ../src/filebrowser.c:1053
+#: ../src/filebrowser.c:1060
 #, fuzzy
 msgid "/New _File"
 msgstr "Új fájl"
 
-#: ../src/filebrowser.c:1054
+#: ../src/filebrowser.c:1061
 #, fuzzy
 msgid "/_New Directory"
 msgstr "Új könyvtár"
 
-#: ../src/filebrowser.c:1055
+#: ../src/filebrowser.c:1062
 #, fuzzy
 msgid "/sep3"
 msgstr "/Szerkesztés/sep3"
 
-#: ../src/filebrowser.c:1056
+#: ../src/filebrowser.c:1063
 #, fuzzy
 msgid "/_Refresh"
 msgstr "Frissítés"
 
-#: ../src/filebrowser.c:1176
+#: ../src/filebrowser.c:1183
 msgid "All files"
 msgstr "Minden fájl"
 
@@ -523,20 +547,16 @@ msgstr "Attribútumok/Paraméterek"
 msgid "Notes"
 msgstr "Megjegyzés"
 
-#: ../src/gtk_easy.c:1047 ../src/menu.c:1315 ../src/menu.c:1661
-#: ../src/menu.c:1663 ../src/menu.c:1668
-msgid "Bluefish error"
-msgstr "Bluefish hiba"
+#: ../src/gtk_easy.c:1127
+#, fuzzy
+msgid "No file to insert."
+msgstr "Nincs beilleszthető fájl"
 
-#: ../src/gtk_easy.c:1047
-msgid "No filename known"
-msgstr "Nem adtál meg fájlnevet"
-
-#: ../src/gtk_easy.c:1151
+#: ../src/gtk_easy.c:1231
 msgid "Select file"
 msgstr "Válassz fájlt"
 
-#: ../src/gtk_easy.c:1178
+#: ../src/gtk_easy.c:1258
 msgid "Select files"
 msgstr "Válaszd ki a fájlokat"
 
@@ -3030,7 +3050,7 @@ msgstr "/Külső/Kimenetablak"
 msgid "Loading file(s)..."
 msgstr "fájlok betöltése..."
 
-#: ../src/menu.c:758
+#: ../src/menu.c:759
 msgid "Could not open file\n"
 msgstr "Nem sikerült a fájl megnyitása:\n"
 
@@ -3041,10 +3061,6 @@ msgstr "/Fájl/Utóbbi megnyitása"
 #: ../src/menu.c:801
 msgid "(none)"
 msgstr "(nincs)"
-
-#: ../src/menu.c:889
-msgid "Bluefish error: no filename"
-msgstr "Bluefish hiba: hiányzó fájlnév"
 
 #: ../src/menu.c:889
 msgid "Could not view file in browser, the file does not yet have a name\n"
@@ -3125,15 +3141,22 @@ msgid "Formatstring after"
 msgstr "Szöveg utána"
 
 #: ../src/menu.c:1661
-msgid "the menupath you want to update does not exist yet: try 'add'"
+#, fuzzy
+msgid "The menupath you want to update does not exist yet"
 msgstr "a frissítendő menüpont már nem létezik: használd a 'hozzáadás'-t"
 
+#: ../src/menu.c:1661
+msgid "Try 'add' instead."
+msgstr ""
+
 #: ../src/menu.c:1663
-msgid "the menupath you want to add exists already"
+#, fuzzy
+msgid "The menupath you want to add already exists."
 msgstr "a hozzáadandó menüpont már létezik"
 
 #: ../src/menu.c:1668
-msgid "the menupath should start with a / character"
+#, fuzzy
+msgid "The menupath should start with a / character"
 msgstr "a menü útvonalának / karakterrel kell kezdődni"
 
 #: ../src/menu.c:1690 ../src/menu.c:1911
@@ -3696,8 +3719,9 @@ msgid "Regular expression error: "
 msgstr "Regex hiba: "
 
 #: ../src/snr2.c:175 ../src/snr2.c:219
-msgid "Bluefish warning: regular expression error"
-msgstr "Bluefish figyelmeztetés: regex hiba"
+#, fuzzy
+msgid "Search failed"
+msgstr "Keresési minta"
 
 #: ../src/snr2.c:218
 #, c-format
@@ -3724,10 +3748,6 @@ msgstr "Cserél"
 #: ../src/snr2.c:695
 msgid "Replace _all"
 msgstr "_Mindet cseréli"
-
-#: ../src/snr2.c:837 ../src/snr2.c:844
-msgid "Bluefish message"
-msgstr "Bluefish üzenet"
 
 #: ../src/snr2.c:837 ../src/snr2.c:844
 msgid "Search: no match found"
@@ -3899,6 +3919,69 @@ msgstr "Forrás:"
 #: ../src/wizards.c:224
 msgid "Size:"
 msgstr "Méret:"
+
+#~ msgid "Error"
+#~ msgstr "Hiba"
+
+#~ msgid "Backup for %s failed"
+#~ msgstr "Backup sikertelen: %s"
+
+#~ msgid "Bluefish warning, file backup failure"
+#~ msgstr "Bluefish figyelmeztetés: sikertelen backup"
+
+#~ msgid "Bluefish: Warning, file is open"
+#~ msgstr "Bluefish figyelmeztetés: a fájl nyitva van"
+
+#~ msgid ""
+#~ "File %s\n"
+#~ "is modified by another process\n"
+#~ "new modification time is %s\n"
+#~ "old modification time is %s\n"
+#~ "overwrite?"
+#~ msgstr ""
+#~ "A(z) %s fájlt\n"
+#~ "egy másik folyamat módosította\n"
+#~ "új módosítás időpontja: %s\n"
+#~ "előző módosítás időpontja: %s\n"
+#~ "Felülírjuk?"
+
+#~ msgid ""
+#~ "Are you sure you want to close\n"
+#~ "%s ?"
+#~ msgstr ""
+#~ "Biztosan bezárod a\n"
+#~ "%s fájlt?"
+
+#~ msgid "Bluefish warning: file is modified!"
+#~ msgstr "Bluefish figyelmeztetés: a fájl megváltozott!"
+
+#~ msgid "cancel"
+#~ msgstr "mégsem"
+
+#~ msgid ""
+#~ "Some file(s) are modified\n"
+#~ "please choose your action"
+#~ msgstr ""
+#~ "Fájl(ok) módosult(ak),\n"
+#~ "mi a teendő?"
+
+#~ msgid "Path exists already"
+#~ msgstr "Az útvonal már létezik"
+
+#~ msgid "delete file?"
+#~ msgstr "törlöd a fájlt?"
+
+#~ msgid "Bluefish error"
+#~ msgstr "Bluefish hiba"
+
+#~ msgid "Bluefish error: no filename"
+#~ msgstr "Bluefish hiba: hiányzó fájlnév"
+
+#~ msgid "Bluefish warning: regular expression error"
+#~ msgstr "Bluefish figyelmeztetés: regex hiba"
+
+#~ msgid "Bluefish message"
+#~ msgstr "Bluefish üzenet"
 
 #, fuzzy
 #~ msgid "Bluefish - "
