@@ -1043,6 +1043,7 @@ static void snr2dialog(gint is_replace, gint is_new_search) {
 		{
 			GtkWidget *scrolwin = textview_buffer_in_scrolwin(&snr2win->replacev, 300, 50, last_snr2.replace_string, GTK_WRAP_NONE);
 			gtk_box_pack_start(GTK_BOX(hbox), scrolwin, TRUE, TRUE, 0);
+			g_signal_connect(G_OBJECT(snr2win->replacev), "key_press_event", G_CALLBACK(patternv_key_press_event_lcb), snr2win);
 		}
 		if (last_snr2.replacetype_upcase || last_snr2.replacetype_lowcase) {
 /*			gtk_text_view_set_editable(GTK_TEXT_VIEW(snr2win->replacev), FALSE);*/

@@ -389,6 +389,8 @@ static gboolean window_full_key_press_event_lcb(GtkWidget *widget,GdkEventKey *e
 	if (event->keyval == GDK_Escape) {
 		DEBUG_MSG("window_full_key_press_event_lcb, emit delete_event on %p\n", win);
 /*		g_signal_emit_by_name(G_OBJECT(win), "delete_event");*/
+		gtk_widget_destroy(win);
+		DEBUG_MSG("indow_full_key_press_event_lcb, DESTROYED %p\n", win);
 		return TRUE;
 	}
 	return FALSE;
@@ -416,8 +418,8 @@ GtkWidget *window_full(gchar * title, GtkWindowPosition position
 	GtkWidget *returnwidget;
 
 	returnwidget = window_with_title(title, position, borderwidth);
-	g_signal_connect(G_OBJECT(returnwidget), "delete_event", close_func, close_data);
-	g_signal_connect(G_OBJECT(returnwidget), "destroy", close_func, close_data);
+/*	g_signal_connect(G_OBJECT(returnwidget), "delete_event", close_func, close_data);*/
+	g_signal_connect(G_OBJECT(returnwidget), "destroy_event", close_func, close_data);
 	if (delete_on_escape) {
 		g_signal_connect(G_OBJECT(returnwidget), "key_press_event", G_CALLBACK(window_full_key_press_event_lcb), returnwidget);
 	}
