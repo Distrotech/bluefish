@@ -22,7 +22,7 @@
  */
 /* 
  * Changes by Antti-Juhani Kaijanaho <gaia@iki.fi> on 1999-10-20
- * $Id: html.c,v 1.24 2003-06-06 08:36:01 oli4 Exp $
+ * $Id: html.c,v 1.25 2003-07-05 08:21:45 jimh6583 Exp $
  */
 
 #include <gtk/gtk.h>
@@ -967,23 +967,35 @@ void quickrule_cb(GtkWidget * widget, gpointer data)
 
 static void quickstart_ok_lcb(GtkWidget * widget, Thtml_diag * dg) {
 
-	gchar *tmpchar1, *tmpchar2, *tmpchar3, *finalstring;
+	gchar *tmpchar, *tmpchar1, *tmpchar2, *tmpchar3, *finalstring;
 	GList *tmplist;
 	gchar *text;
 
 	recent_attribs.dtd_cblist =
 		add_to_stringlist(recent_attribs.dtd_cblist, gtk_entry_get_text(GTK_ENTRY(GTK_COMBO(dg->combo[1])->entry)));
 
-	if(main_v->props.xhtml){
-		tmpchar1 = g_strdup_printf("%s\n%shttp://www.w3.org/1999/xhtml%sen%sen\">\n%s\n", gtk_entry_get_text(GTK_ENTRY(GTK_COMBO(dg->combo[1])->entry)), cap("<HTML XMLNS=\""), cap("\" XML:LANG=\""), cap("\" LANG=\""), cap("<HEAD>"));
-	} else{
+	if(strstr(gtk_entry_get_text(GTK_ENTRY(GTK_COMBO(dg->combo[1])->entry)), "XHTML")) {
+		if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dg->check[0])))
+			tmpchar = g_strconcat("<?xml version=\"1.0\" encoding=\"", main_v->props.newfile_default_encoding, "\"?>", NULL);
+		else
+			tmpchar = g_strdup("");
+				
+		if (strcmp(gtk_entry_get_text(GTK_ENTRY(GTK_COMBO(dg->combo[1])->entry)), "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.1//EN\" \"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd\">") == 0 )
+			tmpchar1 = g_strdup_printf("%s\n%s\n%shttp://www.w3.org/1999/xhtml%sen\">\n%s\n", tmpchar, gtk_entry_get_text(GTK_ENTRY(GTK_COMBO(dg->combo[1])->entry)), cap("<HTML XMLNS=\""), cap("\" XML:LANG=\""),  cap("<HEAD>"));
+		else
+			tmpchar1 = g_strdup_printf("%s\n%s\n%shttp://www.w3.org/1999/xhtml%sen%sen\">\n%s\n", tmpchar, gtk_entry_get_text(GTK_ENTRY(GTK_COMBO(dg->combo[1])->entry)), cap("<HTML XMLNS=\""), cap("\" XML:LANG=\""), cap("\" LANG=\""), cap("<HEAD>"));
+			
+		g_free(tmpchar);	
+	} 
+	else {
 		tmpchar1 = g_strdup_printf("%s\n%s\n", gtk_entry_get_text(GTK_ENTRY(GTK_COMBO(dg->combo[1])->entry)), cap("<HTML>\n<HEAD>"));
 	}
+
 	tmplist = g_list_first(GTK_CLIST(dg->clist[1])->selection);
 	while (tmplist) {
 		DEBUG_MSG("tmplist->data=%d\n", GPOINTER_TO_INT(tmplist->data));
 		gtk_clist_get_text(GTK_CLIST(dg->clist[1]), GPOINTER_TO_INT(tmplist->data), 0, &text);
-		tmpchar2 = g_strconcat(tmpchar1, text, "\n", NULL);
+		tmpchar2 = g_strconcat(tmpchar1, text,"\n",NULL);
 		g_free(tmpchar1);
 		tmpchar1 = tmpchar2;
 		tmplist = g_list_next(tmplist);
@@ -1011,10 +1023,21 @@ static void quickstart_ok_lcb(GtkWidget * widget, Thtml_diag * dg) {
 	g_free(tmpchar1);
 
 	doc_insert_two_strings(dg->doc, finalstring, cap("\n</BODY>\n</HTML>"));
-
+	
 	g_free(finalstring);
 	g_object_unref(G_OBJECT(gtk_text_view_get_buffer(GTK_TEXT_VIEW(dg->text[0]))));
 	html_diag_destroy_cb(NULL, dg);
+}
+
+void quickstart_doctype_changed_cb(GtkWidget* widget, Thtml_diag *dg)
+{
+	if (GTK_IS_WIDGET(dg->check[0])) {
+		if(strstr(gtk_entry_get_text(GTK_ENTRY(GTK_COMBO(dg->combo[1])->entry)), "XHTML")) {
+			gtk_widget_set_sensitive(GTK_WIDGET(dg->check[0]), TRUE);
+		} else {
+			gtk_widget_set_sensitive(GTK_WIDGET(dg->check[0]), FALSE);
+		}
+	}				
 }
 
 void quickstart_cb(GtkWidget * widget, gpointer data)
@@ -1026,26 +1049,56 @@ void quickstart_cb(GtkWidget * widget, gpointer data)
 	
 	dg = html_diag_new(_("Quick Start"));
 
-	dgtable = html_diag_table_in_vbox(dg, 9, 4);
+	dgtable = html_diag_table_in_vbox(dg, 10, 4);
 
 	recent_attribs.dtd_cblist = add_to_stringlist(recent_attribs.dtd_cblist, "");
-	recent_attribs.dtd_cblist = add_to_stringlist(recent_attribs.dtd_cblist, "<!DOCTYPE HTML PUBLIC \"-//IETF//DTD HTML 3.2//EN\">");
-	recent_attribs.dtd_cblist = add_to_stringlist(recent_attribs.dtd_cblist, "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0 Strict//EN\">");
-	recent_attribs.dtd_cblist = add_to_stringlist(recent_attribs.dtd_cblist, "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0 Frameset//EN\">");
-	recent_attribs.dtd_cblist = add_to_stringlist(recent_attribs.dtd_cblist, "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\">");
-	recent_attribs.dtd_cblist = add_to_stringlist(recent_attribs.dtd_cblist, "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0//EN\">");
-	recent_attribs.dtd_cblist = add_to_stringlist(recent_attribs.dtd_cblist, "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"DTD/xhtml1-strict.dtd\">");
-	recent_attribs.dtd_cblist = add_to_stringlist(recent_attribs.dtd_cblist, "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\">");
-	recent_attribs.dtd_cblist = add_to_stringlist(recent_attribs.dtd_cblist, "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Frameset//EN\" \"DTD/xhtml1-frameset.dtd\">");
-	recent_attribs.dtd_cblist = add_to_stringlist(recent_attribs.dtd_cblist, "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Frameset//EN\">");
-	recent_attribs.dtd_cblist = add_to_stringlist(recent_attribs.dtd_cblist, "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"DTD/xhtml1-transitional.dtd\">");
-	recent_attribs.dtd_cblist = add_to_stringlist(recent_attribs.dtd_cblist, "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\">" );
-	recent_attribs.dtd_cblist = add_to_stringlist(recent_attribs.dtd_cblist,"<!DOCTYPE html PUBLIC \"-//IETF//DTD XHTML 1.1//EN\">" );
-
-	dg->combo[1] = combo_with_popdown("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\">", recent_attribs.dtd_cblist, 1);
+	recent_attribs.dtd_cblist = add_to_stringlist(recent_attribs.dtd_cblist, 
+		"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 3.2 Final//EN\">");
+	recent_attribs.dtd_cblist = add_to_stringlist(recent_attribs.dtd_cblist, 
+		"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">");
+	recent_attribs.dtd_cblist = add_to_stringlist(recent_attribs.dtd_cblist, 
+		"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\"  \"http://www.w3.org/TR/REC-html40/loose.dtd\">");
+	recent_attribs.dtd_cblist = add_to_stringlist(recent_attribs.dtd_cblist, 
+		"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0 Frameset//EN\" \"http://www.w3.org/TR/REC-html40/frameset.dtd\">");	
+	recent_attribs.dtd_cblist = add_to_stringlist(recent_attribs.dtd_cblist, 
+		"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\" \"http://www.w3.org/TR/html4/strict.dtd\">");
+	recent_attribs.dtd_cblist = add_to_stringlist(recent_attribs.dtd_cblist, 
+		"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\" \"http://www.w3.org/TR/html4/loose.dtd\">");
+	recent_attribs.dtd_cblist = add_to_stringlist(recent_attribs.dtd_cblist, 
+		"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Frameset//EN\" \"http://www.w3.org/TR/html4/frameset.dtd\">");
+	
+	if (main_v->props.xhtml == 1)
+	{
+		recent_attribs.dtd_cblist = add_to_stringlist(recent_attribs.dtd_cblist, 
+			"<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">");
+		recent_attribs.dtd_cblist = add_to_stringlist(recent_attribs.dtd_cblist, 
+			"<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">");
+		recent_attribs.dtd_cblist = add_to_stringlist(recent_attribs.dtd_cblist, 
+			"<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Frameset//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd\">");
+		recent_attribs.dtd_cblist = add_to_stringlist(recent_attribs.dtd_cblist, 
+			"<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.1//EN\" \"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd\">" );
+	}
+	else
+	{
+		recent_attribs.dtd_cblist = remove_from_stringlist(recent_attribs.dtd_cblist, 
+			"<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">");
+		recent_attribs.dtd_cblist = remove_from_stringlist(recent_attribs.dtd_cblist, 
+			"<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">");
+		recent_attribs.dtd_cblist = remove_from_stringlist(recent_attribs.dtd_cblist, 
+			"<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Frameset//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd\">");
+		recent_attribs.dtd_cblist = remove_from_stringlist(recent_attribs.dtd_cblist, 
+			"<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.1//EN\" \"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd\">" );
+	}
+	
+	if (main_v->props.xhtml == 1) {
+		dg->combo[1] = combo_with_popdown("<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">", recent_attribs.dtd_cblist, 1);
+	} else {
+		dg->combo[1] = combo_with_popdown("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\" \"http://www.w3.org/TR/html4/loose.dtd\">", recent_attribs.dtd_cblist, 1);
+	}
 	gtk_widget_set_size_request(dg->combo[1], 425, -1);
 	bf_mnemonic_label_tad_with_alignment(_("_Doctype:"), dg->combo[1], 0, 0.5, dgtable, 0, 1, 0, 1);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->combo[1], 1, 4, 0, 1);
+	g_signal_connect(G_OBJECT(GTK_ENTRY(GTK_COMBO(dg->combo[1])->entry)), "changed", G_CALLBACK(quickstart_doctype_changed_cb), dg);
 	
 	scrolwin = gtk_scrolled_window_new(NULL, NULL);
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolwin), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
@@ -1059,7 +1112,7 @@ void quickstart_cb(GtkWidget * widget, gpointer data)
 	gtk_clist_set_selection_mode(GTK_CLIST(dg->clist[1]), GTK_SELECTION_MULTIPLE);
 	gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(scrolwin), dg->clist[1]);
 	gtk_clist_freeze(GTK_CLIST(dg->clist[1]));
-	{
+	{		
 		gchar *tmpstr;
 		const gchar *endstr = main_v->props.xhtml == 1 ? " />" : ">";
 		tmpstr = g_strconcat("<meta name=\"generator\" content=\"Bluefish\"",endstr,NULL);
@@ -1077,18 +1130,23 @@ void quickstart_cb(GtkWidget * widget, gpointer data)
 		tmpstr = g_strconcat("<meta name=\"description\" content=\"\"",endstr,NULL);
 		recent_attribs.headerlist = add_to_stringlist(recent_attribs.headerlist, tmpstr);
 		g_free(tmpstr);
+		tmpstr = g_strconcat("<meta name=\"ROBOTS\" content=\"NOINDEX, NOFOLLOW\"", endstr, NULL);
+		recent_attribs.headerlist = add_to_stringlist(recent_attribs.headerlist, tmpstr);
+		g_free(tmpstr);		
 		tmpstr = g_strconcat("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=",main_v->props.newfile_default_encoding,"\"",endstr,NULL);
 		recent_attribs.headerlist = add_to_stringlist(recent_attribs.headerlist, tmpstr);
 		g_free(tmpstr);
+		if (main_v->props.xhtml == 1) {
+			tmpstr = g_strconcat("<meta http-equiv=\"Content-Type\" content=\"application/xhtml+xml; charset=",main_v->props.newfile_default_encoding,"\"",endstr,NULL);			
+			recent_attribs.headerlist = add_to_stringlist(recent_attribs.headerlist, tmpstr);
+			g_free(tmpstr);
+		}
 		tmpstr = g_strconcat("<meta http-equiv=\"Expires\" content=\"Tue, 20 Aug 2004 14:25:27 GMT\"", endstr, NULL);
 		recent_attribs.headerlist = add_to_stringlist(recent_attribs.headerlist, tmpstr);
 		g_free(tmpstr);
 		tmpstr = g_strconcat("<meta http-equiv=\"refresh\" content=\"5; URL=http://\"", endstr, NULL);
 		recent_attribs.headerlist = add_to_stringlist(recent_attribs.headerlist, tmpstr);
-		g_free(tmpstr);
-		tmpstr = g_strconcat("<meta name=\"ROBOTS\" content=\"NOINDEX, NOFOLLOW\"", endstr, NULL);
-		recent_attribs.headerlist = add_to_stringlist(recent_attribs.headerlist, tmpstr);
-		g_free(tmpstr);
+		g_free(tmpstr);	
 	}
 	tmplist = g_list_first(recent_attribs.headerlist);
 	while (tmplist) {
@@ -1123,6 +1181,15 @@ void quickstart_cb(GtkWidget * widget, gpointer data)
 		gtk_table_attach(GTK_TABLE(dgtable), stylebut, 3, 4, 5, 6, GTK_EXPAND, GTK_EXPAND, 0, 0);
 	}
 
+	if (main_v->props.xhtml == 1)
+	{
+		gchar *tmpstr;
+		tmpstr = g_strconcat(" _Include: ", "<?xml version=\"1.0\" encoding=\"", main_v->props.newfile_default_encoding, "\"?>", NULL);
+		dg->check[0] = checkbut_with_value(tmpstr, 0);
+		gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->check[0], 1, 2, 9, 10);
+		g_free(tmpstr);
+	}
+	
 	html_diag_finish(dg, G_CALLBACK(quickstart_ok_lcb));
 }
 
