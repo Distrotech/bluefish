@@ -1,8 +1,8 @@
 /* Bluefish HTML Editor
  * menu.c - the home of the pulldowns
  *
- * Copyright (C) 1998-2001 Olivier Sessink, Chris Mazuc and Roland Steinbach
- * Rewrite 2002 Copyright (C) Olivier Sessink
+ * Copyright (C) 1998-2002 Olivier Sessink, Chris Mazuc and Roland Steinbach
+ * 
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,6 +23,7 @@
 #include "bluefish.h"
 #include "document.h"			/* file_open etc. */
 #include "menu.h" /* my own .h file */
+#include "undo_redo.h" /* undo_cb() redo_cb() etc. */
 
 static GtkItemFactoryEntry menu_items[] = {
 	{N_("/_File"), NULL, NULL, 0, "<Branch>"},
@@ -39,7 +40,17 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/File/Save all"), NULL, file_save_all_cb, 0, NULL},
 	{N_("/File/sep3"), NULL, NULL, 0, "<Separator>"},
 	{N_("/File/Close"), NULL, file_close_cb, 0, NULL},
-	{N_("/File/Close all"), NULL, file_close_all_cb, 0, NULL}
+	{N_("/File/Close all"), NULL, file_close_all_cb, 0, NULL},
+	{N_("/File/sep5"), NULL, NULL, 0, "<Separator>"},
+	{N_("/File/Quit"), "<control>Q", bluefish_exit_request, 0, NULL},
+	{N_("/_Edit"), NULL, NULL, 0, "<Branch>"},
+	{N_("/_Edit/Tearoff1"), NULL, NULL, 0, "<Tearoff>"},
+	{N_("/Edit/sep4"), NULL, NULL, 0, "<Separator>"},
+	{N_("/Edit/Undo"), "<control>z", undo_cb, 0, NULL},
+	{N_("/Edit/Redo"), "<control>r", redo_cb, 0, NULL},
+	{N_("/Edit/Undo all"), NULL, undo_all_cb, 0, NULL},
+	{N_("/Edit/Redo all"), NULL, redo_all_cb, 0, NULL},
+	{N_("/Edit/sep5"), NULL, NULL, 0, "<Separator>"}
 };
 
 

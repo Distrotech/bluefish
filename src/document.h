@@ -21,7 +21,12 @@
 #ifndef __DOCUMENT_H_
 #define __DOCUMENT_H_
 gboolean test_only_empty_doc_left();
+void doc_set_modified(Tdocument *doc, gint value);
 gint documentlist_return_index_from_filename(gchar *filename);
+
+void doc_bind_signals(Tdocument *doc);
+void doc_unbind_signals(Tdocument *doc);
+
 void doc_new_with_file(gchar * filename);
 void docs_new_from_files(GList * file_list);
 void doc_activate(Tdocument *doc);
