@@ -1298,7 +1298,8 @@ static void frefcb_row_expanded(GtkTreeView * treeview, GtkTreeIter * arg1, GtkT
 				do_load = FALSE;
 		} else
 			do_load = FALSE;
-		g_free(val);
+		g_value_unset (val);
+		g_free (val);
 	} else
 		do_load = FALSE;
 	if (do_load) {
@@ -1320,7 +1321,8 @@ static void frefcb_row_expanded(GtkTreeView * treeview, GtkTreeIter * arg1, GtkT
 			&& gtk_tree_model_iter_nth_child(GTK_TREE_MODEL(user_data), &iter, arg1, 0)) {
 			gtk_tree_store_remove(GTK_TREE_STORE(user_data), &iter);
 		}
-		g_free(val);
+		g_value_unset (val);
+		g_free (val);
 	}
 }
 
@@ -1924,7 +1926,7 @@ static guint fref_idle_cleanup(Tfref_cleanup * data)
 	DEBUG_MSG("fref_idle_cleanup, started for data=%s\n", data->cat);
 	gtk_tree_model_get_iter_first(GTK_TREE_MODEL(FREFDATA(main_v->frefdata)->store), &iter);
 	while (cont) {
-		gchar *str;
+		gchar *str = NULL;
 		gtk_tree_model_get(GTK_TREE_MODEL(FREFDATA(main_v->frefdata)->store), &iter, STR_COLUMN,
 						   &str, -1);
 		DEBUG_MSG("fref_idle_cleanup, comparing %s,%s\n", str, data->cat);
@@ -1933,13 +1935,15 @@ static guint fref_idle_cleanup(Tfref_cleanup * data)
 			fref_loader_unload_ref(GTK_TREE_STORE(FREFDATA(main_v->frefdata)->store), &iter);
 			break;
 		}
+		g_free (str);
 		cont = gtk_tree_model_iter_next(GTK_TREE_MODEL(FREFDATA(main_v->frefdata)->store), &iter);
 	}
 	{
 		GtkTreeIter newiter;
 		gtk_tree_store_append(GTK_TREE_STORE(FREFDATA(main_v->frefdata)->store), &newiter, &iter);
 	}
-	g_free(data);
+	g_free (data->cat);
+	g_free (data);
 	return FALSE;				/* do not call again */
 }
 
@@ -2110,7 +2114,7 @@ static gboolean frefcb_event_mouseclick(GtkWidget * widget, GdkEventButton * eve
 static void frefcb_cursor_changed(GtkTreeView * treeview, Tbfwin * bfwin)
 {
 	FRInfo *entry;
-	gchar *info = NULL;
+	gchar *info = NULL, *tmpinfo = NULL; 
 	GdkRectangle rect;
 
 	entry = get_current_entry(bfwin);
@@ -2120,21 +2124,17 @@ static void frefcb_cursor_changed(GtkTreeView * treeview, Tbfwin * bfwin)
 		if (entry->description != NULL) {
 			switch (main_v->globses.fref_info_type) {
 			case FREF_IT_DESC:
-				info =
-					g_strconcat("<span size=\"small\"><b>Description:</b></span>\n",
-								fref_prepare_info(entry, FR_INFO_DESC, FALSE), NULL);
+				tmpinfo = fref_prepare_info(entry, FR_INFO_DESC, FALSE);
+				info = g_strconcat("<span size=\"small\"><b>Description:</b></span>\n", tmpinfo, NULL);
 				break;
 			case FREF_IT_ATTRS:
+				tmpinfo = fref_prepare_info(entry, FR_INFO_ATTRS, FALSE);
 				switch (entry->type) {
 				case FR_TYPE_TAG:
-					info =
-						g_strconcat("<span size=\"small\"><b>Attributes:</b></span>\n",
-									fref_prepare_info(entry, FR_INFO_ATTRS, FALSE), NULL);
+					info = g_strconcat("<span size=\"small\"><b>Attributes:</b></span>\n", tmpinfo, NULL);
 					break;
 				case FR_TYPE_FUNCTION:
-					info =
-						g_strconcat("<span size=\"small\"><b>Parameters:</b></span>\n",
-									fref_prepare_info(entry, FR_INFO_ATTRS, FALSE), NULL);
+					info = g_strconcat("<span size=\"small\"><b>Parameters:</b></span>\n", tmpinfo, NULL);
 					break;
 				}
 				break;
@@ -2147,6 +2147,7 @@ static void frefcb_cursor_changed(GtkTreeView * treeview, Tbfwin * bfwin)
 			gtk_tree_view_get_visible_rect(GTK_TREE_VIEW(FREFGUI(bfwin->fref)->tree), &rect);
 			gtk_widget_set_size_request(FREFGUI(bfwin->fref)->infoview, rect.width, -1);
 			gtk_label_set_markup(GTK_LABEL(FREFGUI(bfwin->fref)->infoview), info);
+			if (tmpinfo) g_free (tmpinfo);
 			g_free(info);
 		} else
 			gtk_label_set_text(GTK_LABEL(FREFGUI(bfwin->fref)->infoview), "");
