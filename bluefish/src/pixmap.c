@@ -137,12 +137,14 @@ static Tpixmap tp[] = {
 	{156,pixmap_prefsinterface},
 	{157,pixmap_prefsoutputparser},
 	{158,pixmap_prefssyntax},
-	{159, pixmap_nothing}
+	{159, pixmap_nothing},
+	{160, pixmap_frhide}
 };
 
 static Tstockpixmap tsp[] = {
 	{1000, GTK_STOCK_FIND},
-	{1001, GTK_STOCK_FIND_AND_REPLACE}
+	{1001, GTK_STOCK_FIND_AND_REPLACE},
+	{1002, GTK_STOCK_PREFERENCES}
 };
 
 GtkWidget *new_pixmap(gint type) {
