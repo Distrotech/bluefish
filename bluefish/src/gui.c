@@ -1122,7 +1122,7 @@ gboolean main_window_delete_event_lcb(GtkWidget *widget,GdkEvent *event,Tbfwin *
 	} else {
 		if (bfwin->documentlist && test_docs_modified(bfwin->documentlist)) {
 			DEBUG_MSG("main_window_delete_event_lcb, we have changed documents!\n");
-			file_close_all_cb(NULL, bfwin);
+			bfwin_close_all_documents(bfwin, TRUE);
 			if (bfwin->documentlist && test_docs_modified(bfwin->documentlist)) {
 				DEBUG_MSG("main_window_delete_event_lcb, we STILL have changed documents!?!\n");
 				/* if there are still documents modified we should cancel the closing */

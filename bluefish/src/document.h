@@ -71,7 +71,7 @@ gboolean buffer_to_file(Tbfwin *bfwin, gchar *buffer, gchar *filename);
 void doc_destroy(Tdocument * doc, gboolean delay_activation);
 void document_unset_filename(Tdocument *doc);
 gchar *ask_new_filename(Tbfwin *bfwin,gchar *oldfilename, gboolean is_move);
-gint doc_save(Tdocument * doc, gint do_save_as, gint do_move);
+gint doc_save(Tdocument * doc, gint do_save_as, gint do_move, gboolean window_closing);
 void document_set_line_numbers(Tdocument *doc, gboolean value);
 Tdocument *doc_new(Tbfwin* bfwin, gboolean delay_activate);
 void doc_new_with_new_file(Tbfwin *bfwin, gchar * new_filename);
@@ -92,6 +92,7 @@ void open_advanced_from_filebrowser(Tbfwin *bfwin, gchar *path);
 void file_insert_menucb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget);
 void file_new_cb(GtkWidget * widget, Tbfwin *bfwin);
 void file_close_cb(GtkWidget * widget, Tbfwin *bfwin);
+void bfwin_close_all_documents(Tbfwin *bfwin, gboolean window_closing);
 void file_close_all_cb(GtkWidget * widget, Tbfwin *bfwin);
 void file_save_all_cb(GtkWidget * widget, Tbfwin *bfwin);
 
