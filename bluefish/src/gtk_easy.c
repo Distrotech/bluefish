@@ -1299,7 +1299,55 @@ GtkWidget *file_but_new(GtkWidget * which_entry, gint full_pathname, Tbfwin *bfw
 /************    FILE SELECTION FUNCTIONS  ******************************/
 /************************************************************************/
 
-#ifndef HAVE_ATLEAST_GTK_2_4
+#ifdef HAVE_ATLEAST_GTK_2_4
+
+static void viewlocal_toggled_lcb(GtkToggleButton *togglebutton,GtkWidget *dialog) {
+	g_object_set(G_OBJECT(dialog), "show-hidden", togglebutton->active, NULL);
+}
+
+GtkWidget * file_chooser_dialog(Tbfwin *bfwin, gchar *title, GtkFileChooserAction action, gchar *set, gboolean localonly, gboolean multiple) {
+	GtkWidget *vbox, *hbox, *dialog, *viewlocal;;
+	dialog = gtk_file_chooser_dialog_new_with_backend(title,bfwin ? GTK_WINDOW(bfwin->main_window) : NULL,
+			action,"gnome-vfs",
+			GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+			(action == GTK_FILE_CHOOSER_ACTION_SAVE) ? GTK_STOCK_SAVE : GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT,
+			NULL);
+	if (set) {
+		if (localonly) {
+			gtk_file_chooser_set_filename(GTK_FILE_CHOOSER(dialog),set);
+		} else {
+			gtk_file_chooser_set_uri(GTK_FILE_CHOOSER(dialog),set);
+		}
+	}
+	gtk_file_chooser_set_local_only(GTK_FILE_CHOOSER(dialog),localonly);
+	gtk_file_chooser_set_select_multiple(GTK_FILE_CHOOSER(dialog), multiple);
+	if (bfwin) {
+		GList *tmplist;
+		/*tmplist = g_list_first(bfwin->session->recent_dirs);*/
+		tmplist = g_list_first(main_v->recent_directories);
+		g_print("session dir len=%d\n",g_list_length(bfwin->session->recent_dirs));
+		while (tmplist) {
+			GError *error=NULL;
+			gtk_file_chooser_add_shortcut_folder(GTK_FILE_CHOOSER(dialog),(gchar*)tmplist->data,&error);
+			DEBUG_MSG("adding folder %s\n",(gchar*)tmplist->data);
+			if (error) {
+				g_print("ERROR adding dir %s: %s\n", (gchar*)tmplist->data, error->message);
+				g_error_free(error);
+			}
+			tmplist = g_list_next(tmplist);
+		}
+	}
+	vbox = gtk_vbox_new(FALSE, 5);
+	hbox = gtk_hbox_new(FALSE, 5);
+	gtk_box_pack_start(GTK_BOX(vbox), hbox, TRUE, TRUE, 5);
+	viewlocal = boxed_checkbut_with_value(_("Show hidden"), 0, hbox);
+	g_signal_connect(G_OBJECT(viewlocal), "toggled", G_CALLBACK(viewlocal_toggled_lcb), dialog);
+	gtk_file_chooser_set_extra_widget(GTK_FILE_CHOOSER(dialog),vbox);
+	gtk_widget_show_all(vbox);
+	return dialog;
+}
+
+#else
 typedef struct {
 	gboolean select_dir;
 	gint multipleselect;

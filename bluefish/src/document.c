@@ -3521,14 +3521,15 @@ void file_open_cb(GtkWidget * widget, Tbfwin *bfwin) {
 	{
 		GtkWidget *dialog;
 		GSList *slist;
-		dialog = gtk_file_chooser_dialog_new_with_backend(_("Select files"),GTK_WINDOW(bfwin->main_window),
+/*		dialog = gtk_file_chooser_dialog_new_with_backend(_("Select files"),GTK_WINDOW(bfwin->main_window),
 				GTK_FILE_CHOOSER_ACTION_OPEN,"gnome-vfs",
 				GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
 				GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT,
 				NULL);
 		gtk_file_chooser_set_local_only(GTK_FILE_CHOOSER(dialog),FALSE);
 		gtk_file_chooser_set_select_multiple(GTK_FILE_CHOOSER(dialog), TRUE);
-		FILE_CHOOSER_USE_VFS(dialog);
+		FILE_CHOOSER_USE_VFS(dialog);*/
+		dialog = file_chooser_dialog(bfwin, _("Select files"), GTK_FILE_CHOOSER_ACTION_OPEN, NULL, FALSE, TRUE);
 		if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_ACCEPT) {
 			slist = gtk_file_chooser_get_uris(GTK_FILE_CHOOSER(dialog));
 			tmplist = glist_from_gslist(slist);
