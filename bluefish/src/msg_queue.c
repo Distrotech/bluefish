@@ -220,7 +220,7 @@ static gboolean msg_queue_check(gint started_by_gtk_timeout)
 		} else if (msgp.mtype == MSG_QUEUE_OPENFILE) {
 			GList *lastlist = g_list_last(main_v->bfwinlist);
 			DEBUG_MSG("msg_queue_check, a filename %s is received\n", msgp.mtext);
-			doc_new_from_uri(BFWIN(lastlist->data), msgp.mtext, NULL, NULL, TRUE, FALSE, -1);
+			doc_new_from_input(BFWIN(lastlist->data), msgp.mtext, TRUE, FALSE, -1);
 			msg_queue_check(0);	/* call myself again, there may have been multiple files */
 /*			if (started_by_gtk_timeout) {
 				notebook_changed(-1);

@@ -1264,6 +1264,7 @@ gboolean main_window_delete_event_lcb(GtkWidget *widget,GdkEvent *event,Tbfwin *
 
 void gui_create_main(Tbfwin *bfwin, GList *filenames) {
 	GtkWidget *vbox;
+	GList *tmplist;
 	DEBUG_MSG("gui_create_main, bfwin=%p, bfwin->bookmarkstore=%p\n",bfwin,bfwin->bookmarkstore);
 	bfwin->main_window = window_full2(_("New Bluefish Window"), GTK_WIN_POS_CENTER, 0, G_CALLBACK(main_window_destroy_lcb), bfwin, FALSE, NULL);
 	gtk_window_set_role(GTK_WINDOW(bfwin->main_window), "bluefish");
@@ -1374,11 +1375,13 @@ void gui_create_main(Tbfwin *bfwin, GList *filenames) {
 	/* start to open an empty doc */
 	file_new_cb(NULL, bfwin);
 	if (filenames) {
-		GSList *slist;
+		tmplist = g_list_first(filenames);
+		bfwin->focus_next_new_doc = TRUE;
+		while (tmplist) {
+			doc_new_from_input(bfwin, tmplist->data, FALSE, (bfwin->project != NULL), -1);
+			tmplist = g_list_next(tmplist);
+		}
 		DEBUG_MSG("gui_create_main, we have filenames, load them\n");
-		slist = gslist_from_glist(filenames);
-		docs_new_from_uris(bfwin, slist, (bfwin->project != NULL));
-		g_slist_free(slist);
 	}
 
 /*	gtk_notebook_set_page(GTK_NOTEBOOK(bfwin->notebook), 0);*/
