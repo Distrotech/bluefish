@@ -570,6 +570,9 @@ gchar *ending_slash(const gchar *dirname) {
 /* gint file_is_dir(gchar * filename)
  * returns 1 if the file pointed to by filename is a dir
  * else returns 0 */
+#ifdef __GNUC__
+__inline__ 
+#endif
 gint file_is_dir(gchar * filename) {
 	return g_file_test(filename, G_FILE_TEST_IS_DIR);
 }
