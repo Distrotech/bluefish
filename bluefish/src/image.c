@@ -234,7 +234,7 @@ void image_insert_dialog_backend(gchar *filename,GtkWidget *widget, gpointer dat
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Image location")), 0, 1, 0, 1);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), imdg->dg->entry[0], 1, 7, 0, 1);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), file_but_new(imdg->dg->entry[0], imdg->dg->dialog, 0), 7, 9, 0, 1);
-	g_signal_connect(G_OBJECT(imdg->dg->entry[0]), "activate", G_CALLBACK(image_filename_changed), imdg);
+	g_signal_connect(G_OBJECT(imdg->dg->entry[0]), "changed", G_CALLBACK(image_filename_changed), imdg);
 
 	imdg->dg->spin[0] = spinbut_with_value(NULL, 0, 5000, 1.0, 10.0);
 	imdg->dg->check[0] = gtk_check_button_new_with_label("%");
