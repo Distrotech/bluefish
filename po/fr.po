@@ -15,14 +15,14 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 16-09-03_fr\n"
-"POT-Creation-Date: 2003-11-19 10:53+0100\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2003-11-20 19:23+0100\n"
 "PO-Revision-Date: 2003-11-17 08:49+0100\n"
 "Last-Translator: Romeo VIU-BERGES <romda@free.fr>\n"
 "Language-Team: français <fr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Report-Msgid-Bugs-To: \n"
 "X-Generator: KBabel 1.0.2\n"
 
 #: ../src/bfspell.c:340
@@ -45,7 +45,7 @@ msgstr "Remplacer par :"
 msgid "I_gnore"
 msgstr "I_gnorer"
 
-#: ../src/bfspell.c:361 ../src/snr2.c:836
+#: ../src/bfspell.c:361 ../src/snr2.c:886
 msgid "_Replace"
 msgstr "_Remplacer"
 
@@ -721,7 +721,7 @@ msgstr ""
 msgid "Show info window"
 msgstr "Afficher la fenêtre d'informations"
 
-#: ../src/fref.c:2059 ../src/snr2.c:1228
+#: ../src/fref.c:2059 ../src/snr2.c:1278
 msgid "Search"
 msgstr "Rechercher"
 
@@ -3963,80 +3963,80 @@ msgstr "Analyseurs syntaxiques"
 msgid "Outputbox"
 msgstr "Boîte de sortie"
 
-#: ../src/project.c:61
+#: ../src/project.c:62
 msgid "New project"
 msgstr "Créer un Projet"
 
-#: ../src/project.c:110
+#: ../src/project.c:112
 msgid "Enter Bluefish project filename"
 msgstr "Entrez le nom du projet "
 
-#: ../src/project.c:134
+#: ../src/project.c:136
 msgid "/Project/Save"
 msgstr "/Projet/Enregistrer"
 
-#: ../src/project.c:135
+#: ../src/project.c:137
 msgid "/Project/Save as..."
 msgstr "/Projet/Enregistrer Sous..."
 
-#: ../src/project.c:136
+#: ../src/project.c:138
 msgid "/Project/Close & save"
 msgstr "/Projet/Enregistrer et Femer"
 
-#: ../src/project.c:137
+#: ../src/project.c:139
 msgid "/Project/Edit Project Options..."
 msgstr "/Projet/Options du projet..."
 
-#: ../src/project.c:192
+#: ../src/project.c:194
 msgid "Select Bluefish project filename"
 msgstr "Sélectionnez le nom de fichier du projet"
 
-#: ../src/project.c:323
+#: ../src/project.c:327
 msgid "Create New Project"
 msgstr "Créer un projet"
 
-#: ../src/project.c:326
+#: ../src/project.c:330
 msgid "Edit Project"
 msgstr "Éditer le projet"
 
-#: ../src/project.c:349
+#: ../src/project.c:353
 #, c-format
 msgid "This project contains %d files"
 msgstr "Ce projet contient %d fichiers"
 
-#: ../src/project.c:361
+#: ../src/project.c:365
 msgid "Project _Name:"
 msgstr "_Nom du projet :"
 
-#: ../src/project.c:365
+#: ../src/project.c:369
 msgid "_Local Directory:"
 msgstr "Répertoire _local :"
 
-#: ../src/project.c:369
+#: ../src/project.c:373
 msgid "_Remote Directory:"
 msgstr "_Répertoire distant :"
 
-#: ../src/project.c:373
+#: ../src/project.c:377
 msgid "_Template:"
 msgstr "Modèle :"
 
-#: ../src/project.c:377
+#: ../src/project.c:381
 msgid "_Word wrap by default"
 msgstr "Césure par défaut"
 
-#: ../src/project.c:388
+#: ../src/project.c:392
 msgid "Create _Project"
 msgstr "Créer un _projet"
 
-#: ../src/project.c:428
+#: ../src/project.c:432
 msgid "Create project"
 msgstr "Créer un projet"
 
-#: ../src/project.c:432
+#: ../src/project.c:436
 msgid "Create project with currently opened documents"
 msgstr "Créer un projet avec les documents ouverts"
 
-#: ../src/project.c:433
+#: ../src/project.c:437
 msgid "Create empty project"
 msgstr "Créer un projet vide"
 
@@ -4104,126 +4104,130 @@ msgstr "Cacher les fichiers objets"
 msgid "Untitled Project"
 msgstr "Projet sans titre"
 
-#: ../src/snr2.c:145
+#: ../src/snr2.c:195
 msgid "Regular expression error: "
 msgstr "Erreur d'expression régulière : "
 
-#: ../src/snr2.c:146 ../src/snr2.c:190
+#: ../src/snr2.c:196 ../src/snr2.c:240
 msgid "Search failed"
 msgstr "Échec de la recherche"
 
-#: ../src/snr2.c:189
+#: ../src/snr2.c:239
 #, c-format
 msgid "Regular expression error: %s at offset %d"
 msgstr "Erreur d'expression régulière : %s à la postion %d"
 
-#: ../src/snr2.c:810
+#: ../src/snr2.c:860
 msgid "Confirm replace"
 msgstr "Confirmer le remplacement"
 
-#: ../src/snr2.c:822
+#: ../src/snr2.c:872
 msgid "Replace selected text?"
 msgstr "Remplacer le texte sélectionné ?"
 
-#: ../src/snr2.c:835
+#: ../src/snr2.c:885
 msgid "_Skip"
 msgstr "Ignorer"
 
-#: ../src/snr2.c:837
+#: ../src/snr2.c:887
 msgid "Replace _all"
 msgstr "Tout rempl_acer"
 
-#: ../src/snr2.c:1023 ../src/snr2.c:1030
+#: ../src/snr2.c:1073 ../src/snr2.c:1080
 msgid "Search: no match found"
 msgstr "Recherche : aucun résultat trouvé"
 
-#: ../src/snr2.c:1225
+#: ../src/snr2.c:1275
 msgid "Replace"
 msgstr "Remplacer"
 
-#: ../src/snr2.c:1254
+#: ../src/snr2.c:1304
 msgid "Search _for: "
 msgstr "Rechercher : "
 
-#: ../src/snr2.c:1268
+#: ../src/snr2.c:1318
 msgid "Replace wit_h: "
 msgstr "Remplacer par : "
 
-#: ../src/snr2.c:1279
+#: ../src/snr2.c:1329
 msgid "\\0 refers to the first subsearch_pattern, \\1 to the second etc."
 msgstr "\\0 se réfère au premier sous-modèle, \\1 au deuxième, etc."
 
-#: ../src/snr2.c:1294
+#: ../src/snr2.c:1344
 msgid "Beginning of document till end"
 msgstr "Du début à la fin du document"
 
-#: ../src/snr2.c:1294
+#: ../src/snr2.c:1344
 msgid "Current position till end"
 msgstr "De la position du curseur jusqu'à la fin"
 
-#: ../src/snr2.c:1294
+#: ../src/snr2.c:1344
 msgid "Beginning of selection till end of selection"
 msgstr "Du début à la fin de la sélection"
 
-#: ../src/snr2.c:1294
+#: ../src/snr2.c:1344
 msgid "All opened files begin till end"
 msgstr "Tous les fichiers ouverts jusqu'à la fin"
 
-#: ../src/snr2.c:1295
+#: ../src/snr2.c:1345
 msgid "Disabled"
 msgstr "Désactivé"
 
-#: ../src/snr2.c:1295
+#: ../src/snr2.c:1345
 msgid "POSIX type"
 msgstr "Type POSIX"
 
-#: ../src/snr2.c:1295
+#: ../src/snr2.c:1345
 msgid "PERL type"
 msgstr "De type PERL"
 
-#: ../src/snr2.c:1296
+#: ../src/snr2.c:1346
 msgid "Starts at:"
 msgstr "Débuter à : "
 
-#: ../src/snr2.c:1308
+#: ../src/snr2.c:1358
 msgid "Regular expression:"
 msgstr "Expression régulière : "
 
-#: ../src/snr2.c:1322
+#: ../src/snr2.c:1372
 msgid "Normal"
 msgstr "Normal"
 
-#: ../src/snr2.c:1322
+#: ../src/snr2.c:1372
 msgid "Uppercase"
 msgstr "Mettre en majuscules"
 
-#: ../src/snr2.c:1322
+#: ../src/snr2.c:1372
 msgid "Lowercase"
 msgstr "Mettre en minuscules"
 
-#: ../src/snr2.c:1323
+#: ../src/snr2.c:1373
 msgid "Replace type:"
 msgstr "Remplacer :"
 
-#: ../src/snr2.c:1336
+#: ../src/snr2.c:1386
 msgid "Patterns contain backslash escape sequences (\\n, \\t)"
 msgstr "Les modèles contiennent des séquences d'échappement (\\n, \\t)"
 
-#: ../src/snr2.c:1337
+#: ../src/snr2.c:1387
 msgid "Match ca_se"
 msgstr "Ré_sultat"
 
-#: ../src/snr2.c:1338
+#: ../src/snr2.c:1388
 msgid "O_verlap searches"
 msgstr "Recherches en parallèle"
 
-#: ../src/snr2.c:1340
+#: ../src/snr2.c:1390
 msgid "Prompt _before replace"
 msgstr "Demander avant de remplacer"
 
-#: ../src/snr2.c:1341
+#: ../src/snr2.c:1391
 msgid "Rep_lace once"
 msgstr "Remplacer une seule fois"
+
+#: ../src/specialchar.c:18
+msgid "Insert special character"
+msgstr ""
 
 #: ../src/stringlist.c:365
 msgid " Add "

@@ -9,14 +9,14 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 16-09-03_right_pt_BR\n"
-"POT-Creation-Date: 2003-11-19 10:53+0100\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2003-11-20 19:23+0100\n"
 "PO-Revision-Date: 2003-11-16 19:44-0200\n"
 "Last-Translator: Anderson Rocha\n"
 "Language-Team: Português Brasileiro <pt@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Report-Msgid-Bugs-To: \n"
 "X-Generator: KBabel 1.0\n"
 
 # src/html_form.c:351 src/html_form.c:396
@@ -43,7 +43,7 @@ msgid "I_gnore"
 msgstr "I_gnorar"
 
 # src/snr2.c:651 src/snr2.c:688
-#: ../src/bfspell.c:361 ../src/snr2.c:836
+#: ../src/bfspell.c:361 ../src/snr2.c:886
 msgid "_Replace"
 msgstr "Substitui_r"
 
@@ -817,7 +817,7 @@ msgid "Show info window"
 msgstr "Mostrar janela de informações"
 
 # src/snr2.c:654 src/toolbars.c:111
-#: ../src/fref.c:2059 ../src/snr2.c:1228
+#: ../src/fref.c:2059 ../src/snr2.c:1278
 msgid "Search"
 msgstr "Procurar"
 
@@ -4784,46 +4784,46 @@ msgid "Outputbox"
 msgstr "Caixa de Saída"
 
 # src/document.c:1798
-#: ../src/project.c:61
+#: ../src/project.c:62
 msgid "New project"
 msgstr "Novo projeto"
 
 # src/document.c:1347 src/document.c:1547
-#: ../src/project.c:110
+#: ../src/project.c:112
 msgid "Enter Bluefish project filename"
 msgstr "Digitar nome do projeto Bluefish"
 
-#: ../src/project.c:134
+#: ../src/project.c:136
 msgid "/Project/Save"
 msgstr "/Projeto/Salvar"
 
-#: ../src/project.c:135
+#: ../src/project.c:137
 msgid "/Project/Save as..."
 msgstr "/Projeto/Salvar como..."
 
-#: ../src/project.c:136
+#: ../src/project.c:138
 msgid "/Project/Close & save"
 msgstr "/Projeto/Fechar & Salvar"
 
-#: ../src/project.c:137
+#: ../src/project.c:139
 msgid "/Project/Edit Project Options..."
 msgstr "/Projeto/Editar Opções do Projeto..."
 
 # src/document.c:1347 src/document.c:1547
-#: ../src/project.c:192
+#: ../src/project.c:194
 msgid "Select Bluefish project filename"
 msgstr "Selecionar nome do projeto Bluefish"
 
-#: ../src/project.c:323
+#: ../src/project.c:327
 msgid "Create New Project"
 msgstr "Criar Novo Projeto"
 
 # src/toolbars.c:523
-#: ../src/project.c:326
+#: ../src/project.c:330
 msgid "Edit Project"
 msgstr "Editar Projeto"
 
-#: ../src/project.c:349
+#: ../src/project.c:353
 #, c-format
 msgid "This project contains %d files"
 msgstr "Este projeto contém %d arquivos"
@@ -4833,43 +4833,43 @@ msgstr "Este projeto contém %d arquivos"
 # src/html_form.c:291 src/html_form.c:342 src/html_form.c:387
 # src/html_form.c:432 src/images.c:247 src/wml.c:167 src/wml.c:207
 # src/wml.c:323
-#: ../src/project.c:361
+#: ../src/project.c:365
 msgid "Project _Name:"
 msgstr "_Nome do Projeto:"
 
 # src/document.c:1798
-#: ../src/project.c:365
+#: ../src/project.c:369
 msgid "_Local Directory:"
 msgstr "Diretório _Local:"
 
 # src/document.c:1798
-#: ../src/project.c:369
+#: ../src/project.c:373
 msgid "_Remote Directory:"
 msgstr "Diretório _Remoto:"
 
 # src/snr2.c:651 src/snr2.c:688
-#: ../src/project.c:373
+#: ../src/project.c:377
 msgid "_Template:"
 msgstr "Modelo:"
 
 # src/configure.c:350
-#: ../src/project.c:377
+#: ../src/project.c:381
 msgid "_Word wrap by default"
 msgstr "Justificar palavras por padrão"
 
-#: ../src/project.c:388
+#: ../src/project.c:392
 msgid "Create _Project"
 msgstr "Criar _Projeto"
 
-#: ../src/project.c:428
+#: ../src/project.c:432
 msgid "Create project"
 msgstr "Criar Projeto"
 
-#: ../src/project.c:432
+#: ../src/project.c:436
 msgid "Create project with currently opened documents"
 msgstr "Criar projeto com os documentos atualmente abertos"
 
-#: ../src/project.c:433
+#: ../src/project.c:437
 msgid "Create empty project"
 msgstr "Criar projeto vazio"
 
@@ -4946,147 +4946,151 @@ msgid "Untitled Project"
 msgstr "Projeto Sem título"
 
 # src/snr2.c:685
-#: ../src/snr2.c:145
+#: ../src/snr2.c:195
 msgid "Regular expression error: "
 msgstr "Erro na expressão regular: "
 
 # src/snr2.c:654 src/toolbars.c:111
-#: ../src/snr2.c:146 ../src/snr2.c:190
+#: ../src/snr2.c:196 ../src/snr2.c:240
 msgid "Search failed"
 msgstr "Falha na procura"
 
 # src/snr2.c:685
-#: ../src/snr2.c:189
+#: ../src/snr2.c:239
 #, c-format
 msgid "Regular expression error: %s at offset %d"
 msgstr "Erro na expressão regular: %s de %d"
 
 # src/snr2.c:474
-#: ../src/snr2.c:810
+#: ../src/snr2.c:860
 msgid "Confirm replace"
 msgstr "Confirmar substituição"
 
-#: ../src/snr2.c:822
+#: ../src/snr2.c:872
 msgid "Replace selected text?"
 msgstr "Substituir texto selecionado?"
 
-#: ../src/snr2.c:835
+#: ../src/snr2.c:885
 msgid "_Skip"
 msgstr "_Pular"
 
 # src/snr2.c:651 src/snr2.c:688
-#: ../src/snr2.c:837
+#: ../src/snr2.c:887
 msgid "Replace _all"
 msgstr "Substituir todos"
 
-#: ../src/snr2.c:1023 ../src/snr2.c:1030
+#: ../src/snr2.c:1073 ../src/snr2.c:1080
 msgid "Search: no match found"
 msgstr "Procura: não encontrada"
 
 # src/snr2.c:651 src/snr2.c:688
-#: ../src/snr2.c:1225
+#: ../src/snr2.c:1275
 msgid "Replace"
 msgstr "Substituir"
 
 # src/snr2.c:654 src/toolbars.c:111
-#: ../src/snr2.c:1254
+#: ../src/snr2.c:1304
 msgid "Search _for: "
 msgstr "Procurar por: "
 
 # src/snr2.c:695
-#: ../src/snr2.c:1268
+#: ../src/snr2.c:1318
 msgid "Replace wit_h: "
 msgstr "Substituir por: "
 
-#: ../src/snr2.c:1279
+#: ../src/snr2.c:1329
 msgid "\\0 refers to the first subsearch_pattern, \\1 to the second etc."
 msgstr "\\0 faz referência com a primeira subprocura, \\1 para a segunda etc."
 
 # src/snr2.c:679
-#: ../src/snr2.c:1294
+#: ../src/snr2.c:1344
 msgid "Beginning of document till end"
 msgstr "No início do documento até o fim"
 
 # src/snr2.c:680
-#: ../src/snr2.c:1294
+#: ../src/snr2.c:1344
 msgid "Current position till end"
 msgstr "Posição atual até o fim"
 
 # src/snr2.c:681
-#: ../src/snr2.c:1294
+#: ../src/snr2.c:1344
 msgid "Beginning of selection till end of selection"
 msgstr "No início da seleção até o fim da seleção"
 
-#: ../src/snr2.c:1294
+#: ../src/snr2.c:1344
 msgid "All opened files begin till end"
 msgstr "Todos arquivos abertos até o fim"
 
 # src/menu.c:1106
-#: ../src/snr2.c:1295
+#: ../src/snr2.c:1345
 msgid "Disabled"
 msgstr "Desativado"
 
 # src/html.c:1315
-#: ../src/snr2.c:1295
+#: ../src/snr2.c:1345
 msgid "POSIX type"
 msgstr "Tipo POSIX"
 
-#: ../src/snr2.c:1295
+#: ../src/snr2.c:1345
 msgid "PERL type"
 msgstr "Tipo PERL"
 
 # src/snr2.c:654 src/toolbars.c:111
-#: ../src/snr2.c:1296
+#: ../src/snr2.c:1346
 msgid "Starts at:"
 msgstr "Começa em:"
 
 # src/snr2.c:685
-#: ../src/snr2.c:1308
+#: ../src/snr2.c:1358
 msgid "Regular expression:"
 msgstr "Expressão Regular:"
 
 # src/html_form.c:110
-#: ../src/snr2.c:1322
+#: ../src/snr2.c:1372
 msgid "Normal"
 msgstr "Normal"
 
 # src/snr2.c:707
-#: ../src/snr2.c:1322
+#: ../src/snr2.c:1372
 msgid "Uppercase"
 msgstr "Maiúscula"
 
 # src/snr2.c:708
-#: ../src/snr2.c:1322
+#: ../src/snr2.c:1372
 msgid "Lowercase"
 msgstr "Minúscula"
 
 # src/snr2.c:706
-#: ../src/snr2.c:1323
+#: ../src/snr2.c:1373
 msgid "Replace type:"
 msgstr "Substituir tipo:"
 
-#: ../src/snr2.c:1336
+#: ../src/snr2.c:1386
 msgid "Patterns contain backslash escape sequences (\\n, \\t)"
 msgstr "Padrões contém sequência de escape barra-invertida (\\n, \\t)"
 
-#: ../src/snr2.c:1337
+#: ../src/snr2.c:1387
 msgid "Match ca_se"
 msgstr "Coincidir Maiúsculas e Minúsculas"
 
 # src/snr2.c:686
-#: ../src/snr2.c:1338
+#: ../src/snr2.c:1388
 msgid "O_verlap searches"
 msgstr "Sobrepor buscas"
 
 # src/snr2.c:712
-#: ../src/snr2.c:1340
+#: ../src/snr2.c:1390
 msgid "Prompt _before replace"
 msgstr "Avisar antes de substituir"
 
 # src/snr2.c:713
-#: ../src/snr2.c:1341
+#: ../src/snr2.c:1391
 msgid "Rep_lace once"
 msgstr "Substituir uma vez"
+
+#: ../src/specialchar.c:18
+msgid "Insert special character"
+msgstr ""
 
 # src/stringlist.c:258
 #: ../src/stringlist.c:365

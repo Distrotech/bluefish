@@ -6,14 +6,14 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: bluefish gtk2-port\n"
-"POT-Creation-Date: 2003-11-19 10:53+0100\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2003-11-20 19:23+0100\n"
 "PO-Revision-Date: 2002-12-22 12:00+0100\n"
 "Last-Translator: Christian Tellefsen <chris@tellefsen.net>\n"
 "Language-Team: Not a member <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8 bit\n"
-"Report-Msgid-Bugs-To: \n"
 
 #: ../src/bfspell.c:340
 #, fuzzy
@@ -37,7 +37,7 @@ msgstr ""
 msgid "I_gnore"
 msgstr "Ignorer"
 
-#: ../src/bfspell.c:361 ../src/snr2.c:836
+#: ../src/bfspell.c:361 ../src/snr2.c:886
 msgid "_Replace"
 msgstr "E_rstatt"
 
@@ -742,7 +742,7 @@ msgstr ""
 msgid "Show info window"
 msgstr "_Vis infovindu"
 
-#: ../src/fref.c:2059 ../src/snr2.c:1228
+#: ../src/fref.c:2059 ../src/snr2.c:1278
 msgid "Search"
 msgstr "Søk"
 
@@ -4053,93 +4053,93 @@ msgstr "Skriv html karakterer"
 msgid "Outputbox"
 msgstr "Output-boks"
 
-#: ../src/project.c:61
+#: ../src/project.c:62
 #, fuzzy
 msgid "New project"
 msgstr "/_Ny _Katalog"
 
-#: ../src/project.c:110
+#: ../src/project.c:112
 msgid "Enter Bluefish project filename"
 msgstr ""
 
-#: ../src/project.c:134
+#: ../src/project.c:136
 #, fuzzy
 msgid "/Project/Save"
 msgstr "/Fil/Nylig åpnede"
 
-#: ../src/project.c:135
+#: ../src/project.c:137
 #, fuzzy
 msgid "/Project/Save as..."
 msgstr "/Fil/Nylig åpnede"
 
-#: ../src/project.c:136
+#: ../src/project.c:138
 #, fuzzy
 msgid "/Project/Close & save"
 msgstr "/Fil/Nylig åpnede"
 
-#: ../src/project.c:137
+#: ../src/project.c:139
 msgid "/Project/Edit Project Options..."
 msgstr ""
 
-#: ../src/project.c:192
+#: ../src/project.c:194
 msgid "Select Bluefish project filename"
 msgstr ""
 
-#: ../src/project.c:323
+#: ../src/project.c:327
 #, fuzzy
 msgid "Create New Project"
 msgstr "/_Ny _Katalog"
 
-#: ../src/project.c:326
+#: ../src/project.c:330
 #, fuzzy
 msgid "Edit Project"
 msgstr "/_Ny _Katalog"
 
-#: ../src/project.c:349
+#: ../src/project.c:353
 #, c-format
 msgid "This project contains %d files"
 msgstr ""
 
-#: ../src/project.c:361
+#: ../src/project.c:365
 #, fuzzy
 msgid "Project _Name:"
 msgstr "_Navn:"
 
-#: ../src/project.c:365
+#: ../src/project.c:369
 #, fuzzy
 msgid "_Local Directory:"
 msgstr "/_Ny _Katalog"
 
-#: ../src/project.c:369
+#: ../src/project.c:373
 #, fuzzy
 msgid "_Remote Directory:"
 msgstr "/_Ny _Katalog"
 
-#: ../src/project.c:373
+#: ../src/project.c:377
 #, fuzzy
 msgid "_Template:"
 msgstr "Erstatt"
 
-#: ../src/project.c:377
+#: ../src/project.c:381
 #, fuzzy
 msgid "_Word wrap by default"
 msgstr "Bryt linjer"
 
-#: ../src/project.c:388
+#: ../src/project.c:392
 #, fuzzy
 msgid "Create _Project"
 msgstr "/_Ny _Katalog"
 
-#: ../src/project.c:428
+#: ../src/project.c:432
 #, fuzzy
 msgid "Create project"
 msgstr "/_Ny _Katalog"
 
-#: ../src/project.c:432
+#: ../src/project.c:436
 msgid "Create project with currently opened documents"
 msgstr ""
 
-#: ../src/project.c:433
+#: ../src/project.c:437
 msgid "Create empty project"
 msgstr ""
 
@@ -4208,129 +4208,133 @@ msgstr "Skjul objektfiler"
 msgid "Untitled Project"
 msgstr "Uten navn"
 
-#: ../src/snr2.c:145
+#: ../src/snr2.c:195
 msgid "Regular expression error: "
 msgstr "Feil i regexp: "
 
-#: ../src/snr2.c:146 ../src/snr2.c:190
+#: ../src/snr2.c:196 ../src/snr2.c:240
 msgid "Search failed"
 msgstr "Ingen treff"
 
-#: ../src/snr2.c:189
+#: ../src/snr2.c:239
 #, c-format
 msgid "Regular expression error: %s at offset %d"
 msgstr "Feil i regexp: %s ved offset %d"
 
-#: ../src/snr2.c:810
+#: ../src/snr2.c:860
 msgid "Confirm replace"
 msgstr "Bekreft erstatt"
 
-#: ../src/snr2.c:822
+#: ../src/snr2.c:872
 msgid "Replace selected text?"
 msgstr "Erstatt den merkede teksten?"
 
-#: ../src/snr2.c:835
+#: ../src/snr2.c:885
 msgid "_Skip"
 msgstr "_Hopp over"
 
-#: ../src/snr2.c:837
+#: ../src/snr2.c:887
 msgid "Replace _all"
 msgstr "Erstatt _alle"
 
-#: ../src/snr2.c:1023 ../src/snr2.c:1030
+#: ../src/snr2.c:1073 ../src/snr2.c:1080
 msgid "Search: no match found"
 msgstr "Søk: Ingen treff"
 
-#: ../src/snr2.c:1225
+#: ../src/snr2.c:1275
 msgid "Replace"
 msgstr "Erstatt"
 
-#: ../src/snr2.c:1254
+#: ../src/snr2.c:1304
 msgid "Search _for: "
 msgstr "Søk etter:"
 
-#: ../src/snr2.c:1268
+#: ../src/snr2.c:1318
 msgid "Replace wit_h: "
 msgstr "Ers_tatt med: "
 
-#: ../src/snr2.c:1279
+#: ../src/snr2.c:1329
 msgid "\\0 refers to the first subsearch_pattern, \\1 to the second etc."
 msgstr "\\0 angir det første undermønsteret, \\1 til det andre etc."
 
-#: ../src/snr2.c:1294
+#: ../src/snr2.c:1344
 msgid "Beginning of document till end"
 msgstr "Hele dokumentet"
 
-#: ../src/snr2.c:1294
+#: ../src/snr2.c:1344
 msgid "Current position till end"
 msgstr "Fra markørens posisjon og utover"
 
-#: ../src/snr2.c:1294
+#: ../src/snr2.c:1344
 msgid "Beginning of selection till end of selection"
 msgstr "I det markerte området"
 
-#: ../src/snr2.c:1294
+#: ../src/snr2.c:1344
 msgid "All opened files begin till end"
 msgstr "Alle åpne filer"
 
-#: ../src/snr2.c:1295
+#: ../src/snr2.c:1345
 msgid "Disabled"
 msgstr "Deaktivert"
 
-#: ../src/snr2.c:1295
+#: ../src/snr2.c:1345
 msgid "POSIX type"
 msgstr "POSIX type"
 
-#: ../src/snr2.c:1295
+#: ../src/snr2.c:1345
 msgid "PERL type"
 msgstr "PERL type"
 
-#: ../src/snr2.c:1296
+#: ../src/snr2.c:1346
 #, fuzzy
 msgid "Starts at:"
 msgstr "Startmønster"
 
-#: ../src/snr2.c:1308
+#: ../src/snr2.c:1358
 #, fuzzy
 msgid "Regular expression:"
 msgstr "Feil i regexp: "
 
-#: ../src/snr2.c:1322
+#: ../src/snr2.c:1372
 msgid "Normal"
 msgstr "Standard"
 
-#: ../src/snr2.c:1322
+#: ../src/snr2.c:1372
 msgid "Uppercase"
 msgstr "Store bokstaver"
 
-#: ../src/snr2.c:1322
+#: ../src/snr2.c:1372
 msgid "Lowercase"
 msgstr "Små bokstaver"
 
-#: ../src/snr2.c:1323
+#: ../src/snr2.c:1373
 #, fuzzy
 msgid "Replace type:"
 msgstr "E_rstatt"
 
-#: ../src/snr2.c:1336
+#: ../src/snr2.c:1386
 msgid "Patterns contain backslash escape sequences (\\n, \\t)"
 msgstr ""
 
-#: ../src/snr2.c:1337
+#: ../src/snr2.c:1387
 msgid "Match ca_se"
 msgstr "Treff store/små bokstaver"
 
-#: ../src/snr2.c:1338
+#: ../src/snr2.c:1388
 msgid "O_verlap searches"
 msgstr "O_verlappende søk"
 
-#: ../src/snr2.c:1340
+#: ../src/snr2.c:1390
 msgid "Prompt _before replace"
 msgstr "Spør før erstatning"
 
-#: ../src/snr2.c:1341
+#: ../src/snr2.c:1391
 msgid "Rep_lace once"
 msgstr "Erstatt én gang"
+
+#: ../src/specialchar.c:18
+msgid "Insert special character"
+msgstr ""
 
 #: ../src/stringlist.c:365
 msgid " Add "
