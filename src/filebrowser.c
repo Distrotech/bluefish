@@ -756,6 +756,7 @@ static GtkTreePath *filebrowser_get_path_from_selection(GtkTreeModel *model, Gtk
 
 /**
  * filebrowser_open_dir:
+ * bfwin: #Tbfwin* with filebrowser window
  * @dirarg const #char * dirname or filename to focus on.
  *
  * This function makes the filebrowser zoom to a designated directory,
