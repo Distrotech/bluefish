@@ -1106,7 +1106,7 @@ static void fb2rpopup_rpopup_action_lcb(Tfilebrowser2 *fb2,guint callback_action
 		case 1:
 			{
 				GnomeVFSURI *uri = fb2_uri_from_file_selection(fb2);
-				handle_activate_on_file(fb2, uri);
+				if (uri) handle_activate_on_file(fb2, uri);
 			}
 		break;
 		case 2:
