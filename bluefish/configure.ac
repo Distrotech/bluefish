@@ -276,7 +276,7 @@ if pkg-config --exists libxml-2.0 ; then
 	CFLAGS="$CFLAGS `pkg-config --cflags libxml-2.0`"
 	echo "yes, `pkg-config --modversion libxml-2.0`"
 else
-	AC_MSG_ERROR(libxml is required, please install libxml-dev)
+	AC_MSG_ERROR(libxml2 is required, please install libxml2-dev)
 fi
 
 echo -n "checking for libgnomeui >= 2.6... "
