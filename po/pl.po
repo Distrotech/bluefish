@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bluefish gtk2-port\n"
 "POT-Creation-Date: 2003-03-25 22:38+0100\n"
-"PO-Revision-Date: 2003-02-05 03:25+0100\n"
+"PO-Revision-Date: 13/4/2003 03:25+0100\n"
 "Last-Translator: Oskar Świda (swida@aragorn.pb.bialystok.pl)\n"
 "Language-Team: None\n"
 "MIME-Version: 1.0\n"
@@ -47,7 +47,7 @@ msgstr "Wewnątrz zaznaczenia"
 
 #: ../src/bfspell.c:378
 msgid "personal dictionary"
-msgstr "słownik"
+msgstr "słownik osobisty"
 
 #: ../src/bfspell.c:381
 msgid "session dictionary"
@@ -188,7 +188,7 @@ msgstr "Kopia zapasowa dla %s nieudana"
 
 #: ../src/document.c:1146
 msgid "Bluefish warning, file backup failure"
-msgstr "Bluefish ostrzeżenie, błąd przy tworzeniu kopii zapasowej"
+msgstr "Ostrzeżenie, błąd przy tworzeniu kopii zapasowej"
 
 #: ../src/document.c:1272
 msgid "Save as..."
@@ -352,7 +352,7 @@ msgstr "wyrażenie re_gularne"
 #: ../src/document.c:1969
 #, c-format
 msgid "Loading %d file(s)..."
-msgstr "przeszukuję %d plików..."
+msgstr "Ładuję %d plik(i)..."
 
 #: ../src/document.c:1987
 msgid "No file to insert"
@@ -376,7 +376,7 @@ msgstr "anuluj"
 
 #: ../src/document.c:2022
 msgid "Bluefish: Warning, some file(s) are modified!"
-msgstr "Bluefish: ostrzeżenie, zmodyfikowane pliki!"
+msgstr "Ostrzeżenie, niektóre pliki zostały zmodyfikowane!"
 
 #: ../src/document.c:2022
 msgid ""
@@ -458,7 +458,7 @@ msgstr "Informacja"
 #: ../src/gtk_easy.c:909 ../src/menu.c:1314 ../src/menu.c:1660
 #: ../src/menu.c:1662 ../src/menu.c:1667
 msgid "Bluefish error"
-msgstr "Błąd Bluefish"
+msgstr "Błąd"
 
 #: ../src/gtk_easy.c:909
 msgid "No filename known"
@@ -514,7 +514,7 @@ msgstr "Linia pozioma..."
 
 #: ../src/gui.c:257
 msgid "Center"
-msgstr "Centruj"
+msgstr "Wyśrodkowanie"
 
 #: ../src/gui.c:258
 msgid "Right Justify"
@@ -598,7 +598,7 @@ msgstr "Tabela..."
 
 #: ../src/gui.c:281
 msgid "Table Row..."
-msgstr "Wiersz..."
+msgstr "Wiersz tabeli..."
 
 #: ../src/gui.c:282
 msgid "Table Header..."
@@ -960,7 +960,7 @@ msgstr "Nie chowaj okna"
 
 #: ../src/gui.c:1004
 msgid "starting bluefish"
-msgstr "Uruchamiam Bluefish"
+msgstr "uruchamiam Bluefish"
 
 #: ../src/html2.c:586
 msgid "Cascading StyleSheet dialog"
@@ -1074,7 +1074,7 @@ msgstr "  Data U_nix'owa (%s"
 
 #: ../src/html.c:545
 msgid "Quick Anchor"
-msgstr "Szybki odnośnik"
+msgstr "Szybkie łącze"
 
 #: ../src/html.c:552 ../src/html.c:1180
 msgid "Options"
@@ -2558,7 +2558,7 @@ msgstr "/Okna dialogowe/Ogólne/Treść..."
 
 #: ../src/menu.c:368
 msgid "/Dialogs/General/_Anchor..."
-msgstr "/Okna dialogowe/Ogólne/Kotwica..."
+msgstr "/Okna dialogowe/Ogólne/Łącze..."
 
 #: ../src/menu.c:369
 msgid "/Dialogs/General/_Email..."
@@ -2923,12 +2923,11 @@ msgstr "(nic)"
 
 #: ../src/menu.c:888
 msgid "Bluefish error: no filename"
-msgstr "Błąd Bluefish: brak nazwy pliku"
+msgstr "Błąd: brak nazwy pliku"
 
 #: ../src/menu.c:888
 msgid "Could not view file in browser, the file does not yet have a name\n"
-msgstr ""
-"Nie można pokazać pliku w przeglądarce, plik nie posiada jeszcze nazwy\n"
+msgstr "Nie można pokazać pliku w przeglądarce, plik nie posiada jeszcze nazwy\n"
 
 #: ../src/menu.c:997
 msgid "/External/Browsers"
@@ -3581,35 +3580,35 @@ msgstr "mysql username"
 
 #: ../src/rcfile.c:628
 msgid "mysql password"
-msgstr ""
+msgstr "mysql password"
 
 #: ../src/rcfile.c:628
 msgid "database name"
-msgstr ""
+msgstr "database name"
 
 #: ../src/rcfile.c:629
 msgid "/php/ibase/ibase connect"
-msgstr ""
+msgstr "/php/ibase/ibase connect"
 
 #: ../src/rcfile.c:629
 msgid "ibase host"
-msgstr ""
+msgstr "ibase host"
 
 #: ../src/rcfile.c:629
 msgid "ibase database path"
-msgstr ""
+msgstr "ibase database path"
 
 #: ../src/rcfile.c:629
 msgid "ibase username"
-msgstr ""
+msgstr "ibase username"
 
 #: ../src/rcfile.c:629
 msgid "ibase password"
-msgstr ""
+msgstr "ibase password"
 
 #: ../src/rcfile.c:630
 msgid "/php/general/while each in array list"
-msgstr ""
+msgstr "/php/general/while each in array list"
 
 #: ../src/rcfile.c:630
 msgid "array name"
@@ -3617,7 +3616,7 @@ msgstr "nazwa tablicy"
 
 #: ../src/rcfile.c:631
 msgid "/sql/select all from table"
-msgstr ""
+msgstr "/sql/select all from table"
 
 #: ../src/rcfile.c:631
 msgid "table name"
@@ -3625,7 +3624,7 @@ msgstr "nazwa tabeli"
 
 #: ../src/rcfile.c:632
 msgid "/php/general/mail"
-msgstr ""
+msgstr "/php/general/mail"
 
 #: ../src/rcfile.c:632
 msgid "email adress"
@@ -3657,7 +3656,7 @@ msgstr "do wartości"
 
 #: ../src/rcfile.c:634
 msgid "/php/ibase/query"
-msgstr ""
+msgstr "/php/ibase/query"
 
 #: ../src/rcfile.c:634 ../src/rcfile.c:639 ../src/rcfile.c:657
 #: ../src/rcfile.c:658
@@ -3674,7 +3673,7 @@ msgstr "zapytanie (w cudzysłowach) lub zmienna (raze ze znakiem $)"
 
 #: ../src/rcfile.c:635
 msgid "/php/general/include file"
-msgstr ""
+msgstr "/php/general/include file"
 
 #: ../src/rcfile.c:635
 msgid "filename to include"
@@ -3682,7 +3681,7 @@ msgstr "nazwa pliku"
 
 #: ../src/rcfile.c:636
 msgid "/php/general/require file"
-msgstr ""
+msgstr "/php/general/require file"
 
 #: ../src/rcfile.c:636
 msgid "filename to require"
@@ -3690,7 +3689,7 @@ msgstr "nazwa pliku"
 
 #: ../src/rcfile.c:637
 msgid "/php/general/if isset"
-msgstr ""
+msgstr "/php/general/if isset"
 
 #: ../src/rcfile.c:637 ../src/rcfile.c:638
 msgid "variable name to test for"
@@ -3698,11 +3697,11 @@ msgstr "nazwa zmiennej do testowania"
 
 #: ../src/rcfile.c:638
 msgid "/php/general/if not isset"
-msgstr ""
+msgstr "/php/general/if not isset"
 
 #: ../src/rcfile.c:639
 msgid "/php/mysql/query"
-msgstr ""
+msgstr "/php/mysql/query"
 
 #: ../src/rcfile.c:639
 msgid "mysql connection id name"
@@ -3710,11 +3709,11 @@ msgstr "nazwa połączenia mysql"
 
 #: ../src/rcfile.c:640
 msgid "/html/font symbol"
-msgstr ""
+msgstr "/html/font symbol"
 
 #: ../src/rcfile.c:641
 msgid "/html/div with class"
-msgstr ""
+msgstr "/html/div with class"
 
 #: ../src/rcfile.c:641 ../src/rcfile.c:642
 msgid "CSS class name"
@@ -3722,11 +3721,11 @@ msgstr "nazwa klasy CSS"
 
 #: ../src/rcfile.c:642
 msgid "/html/span with class"
-msgstr ""
+msgstr "/html/span with class"
 
 #: ../src/rcfile.c:643
 msgid "/php/php block"
-msgstr ""
+msgstr "/php/php block"
 
 #: ../src/rcfile.c:644
 msgid "/html/made with bluefish"
@@ -3734,7 +3733,7 @@ msgstr "zrobione za pomocą bluefish"
 
 #: ../src/rcfile.c:645
 msgid "/html/meta keywords"
-msgstr ""
+msgstr "/html/meta keywords"
 
 #: ../src/rcfile.c:645
 msgid "keywords, space separated"
@@ -3742,7 +3741,7 @@ msgstr "słowa kluczowe, oddzielone spacją"
 
 #: ../src/rcfile.c:646
 msgid "/html/meta refresh (client pull)"
-msgstr ""
+msgstr "/html/meta refresh (client pull)"
 
 #: ../src/rcfile.c:646
 msgid "refresh time, in seconds"
@@ -3754,11 +3753,11 @@ msgstr "URL, do którego przekierować"
 
 #: ../src/rcfile.c:647
 msgid "/active html/form"
-msgstr ""
+msgstr "/active html/form"
 
 #: ../src/rcfile.c:648
 msgid "/active html/form and action"
-msgstr ""
+msgstr "/active html/form and action"
 
 #: ../src/rcfile.c:648
 msgid "Submit button text"
@@ -3766,7 +3765,7 @@ msgstr "Tekst przycisku 'submit'"
 
 #: ../src/rcfile.c:649
 msgid "/active html/input text"
-msgstr ""
+msgstr "/active html/input text"
 
 #: ../src/rcfile.c:649 ../src/rcfile.c:650 ../src/rcfile.c:651
 #: ../src/rcfile.c:652 ../src/rcfile.c:653 ../src/rcfile.c:654
@@ -3775,7 +3774,7 @@ msgstr "nazwa zmiennej"
 
 #: ../src/rcfile.c:650
 msgid "/active html/input checkbox"
-msgstr ""
+msgstr "/active html/input checkbox"
 
 #: ../src/rcfile.c:650
 msgid "value when checked"
@@ -3783,11 +3782,11 @@ msgstr "wartość, kiedy zaznaczony"
 
 #: ../src/rcfile.c:651
 msgid "/active html/textarea"
-msgstr ""
+msgstr "/active html/textarea"
 
 #: ../src/rcfile.c:652
 msgid "/active html/select options/from array"
-msgstr "z tablicy"
+msgstr "/active html/select options/from array"
 
 #: ../src/rcfile.c:652
 msgid "array name containing options"
@@ -3795,7 +3794,7 @@ msgstr "nazwa tablicy zawierającej opcje"
 
 #: ../src/rcfile.c:653
 msgid "/active html/select options/from mysql result"
-msgstr "z wyniku zapytania mysql"
+msgstr "/active html/select options/from mysql result"
 
 #: ../src/rcfile.c:653
 msgid "mysql query result"
@@ -3811,7 +3810,7 @@ msgstr "indeks etykiety"
 
 #: ../src/rcfile.c:654
 msgid "/active html/select options/from ibase result"
-msgstr "z wyniku zapytania ibase"
+msgstr "/active html/select options/from ibase result"
 
 #: ../src/rcfile.c:654
 msgid "ibase query result"
@@ -3819,7 +3818,7 @@ msgstr "wynik zapytania ibase"
 
 #: ../src/rcfile.c:655
 msgid "/DHTML/mouseover image"
-msgstr ""
+msgstr "/DHTML/mouseover image"
 
 #: ../src/rcfile.c:655
 msgid "unique name"
@@ -3827,47 +3826,47 @@ msgstr "unikalna nazwa"
 
 #: ../src/rcfile.c:655
 msgid "onMouseOut src"
-msgstr ""
+msgstr "onMouseOut src"
 
 #: ../src/rcfile.c:655
 msgid "onMouseOver src"
-msgstr ""
+msgstr "onMouseOver src"
 
 #: ../src/rcfile.c:656
 msgid "/php/odbc/odbc connect"
-msgstr ""
+msgstr "/php/odbc/odbc connect"
 
 #: ../src/rcfile.c:656
 msgid "odbc data source name"
-msgstr ""
+msgstr "nazwa źródła danych odbc"
 
 #: ../src/rcfile.c:656
 msgid "username"
-msgstr ""
+msgstr "nazwa użytkownika"
 
 #: ../src/rcfile.c:656
 msgid "password"
-msgstr ""
+msgstr "hasło"
 
 #: ../src/rcfile.c:657
 msgid "/php/odbc/odbc exec query"
-msgstr ""
+msgstr "/php/odbc/odbc exec query"
 
 #: ../src/rcfile.c:657
 msgid "odbc connection id name"
-msgstr ""
+msgstr "nazwa połączenia odbc"
 
 #: ../src/rcfile.c:658
 msgid "/php/odbc/odbc fetch row"
-msgstr ""
+msgstr "/php/odbc/odbc fetch row"
 
 #: ../src/rcfile.c:659
 msgid "/php/general/echo date"
-msgstr ""
+msgstr "/php/general/echo date"
 
 #: ../src/rcfile.c:660
 msgid "/php/filesystem/open and echo file"
-msgstr ""
+msgstr "/php/filesystem/open and echo file"
 
 #: ../src/rcfile.c:660
 msgid "file (quoted) or variable (including $)"
@@ -3875,17 +3874,15 @@ msgstr "plik (w cudzysłowie) lub zmienna (ze znakiem $)"
 
 #: ../src/rcfile.c:661
 msgid "/php/general/location header"
-msgstr "/php/general/nagłówek przekierowania"
+msgstr "/php/general/location header"
 
 #: ../src/rcfile.c:661
 msgid "location (URL) to redirect to (quoted) or variable (including $)"
-msgstr ""
-"lokalizacja (URL) do przekierowania do (tekst w cudzysłowie) lub zmiennej "
-"(ze znakiem $)"
+msgstr "lokalizacja (URL) do przekierowania do (tekst w cudzysłowie) lub zmiennej ze znakiem $)"
 
 #: ../src/rcfile.c:662
 msgid "/apache/basic password required"
-msgstr "/apache/basic wymagane hasło"
+msgstr "/apache/basic password required"
 
 #: ../src/rcfile.c:662
 msgid "full path to password file"
@@ -3897,7 +3894,7 @@ msgstr "opis bezpieczeństwa"
 
 #: ../src/rcfile.c:663
 msgid "/apache/deny access to .inc"
-msgstr "/apache/zablokuj dostęp do .inc"
+msgstr "/apache/deny access to .inc"
 
 #: ../src/rcfile.c:664
 msgid "/replace/strip <font>"
@@ -3913,9 +3910,7 @@ msgstr "/zamień/konwertuj <td> na <th> wewnątrz zaznaczenia"
 
 #: ../src/rcfile.c:667
 msgid "/replace/convert <any tag> in <any other tag> in selection"
-msgstr ""
-"/zamień/konwertuj <dowolny znacznik> na <inny dowolny znacznik> wewnątrz "
-"zaznaczenia"
+msgstr "/zamień/konwertuj <dowolny znacznik> na <inny dowolny znacznik> wewnątrz zaznaczenia"
 
 #: ../src/snr2.c:188
 msgid "Regular expression error: "
@@ -3923,7 +3918,7 @@ msgstr "Błąd wyrażenia regularnego: "
 
 #: ../src/snr2.c:189 ../src/snr2.c:233
 msgid "Bluefish warning: regular expression error"
-msgstr "Ostrzeżenie Bluefish: błąd wyrażenia regularnego"
+msgstr "Ostrzeżenie: błąd wyrażenia regularnego"
 
 #: ../src/snr2.c:232
 #, c-format
