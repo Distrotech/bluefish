@@ -369,7 +369,7 @@ static void bmark_popup_menu_del_lcb(GtkWidget *widget,gpointer user_data)
    if (b->is_temp)
    {
 	      gtk_tree_store_remove(data->store,&(b->iter));   
-	      g_hash_table_remove(data->temporary,gtk_text_mark_get_name(b->mark));
+	      g_hash_table_remove(data->temporary,&b->number);
 	      bmark_free(b);
    }   
    else
