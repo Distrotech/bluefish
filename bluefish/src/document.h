@@ -67,7 +67,7 @@ void doc_insert_two_strings(Tdocument *doc, const gchar *before_str, const gchar
 
 void doc_bind_signals(Tdocument *doc);
 void doc_unbind_signals(Tdocument *doc);
-
+void doc_destroy(Tdocument * doc, gboolean delay_activation);
 void document_unset_filename(Tdocument *doc);
 gchar *ask_new_filename(Tbfwin *bfwin,gchar *oldfilename, gboolean is_move);
 gint doc_save(Tdocument * doc, gint do_save_as, gint do_move);

@@ -521,22 +521,27 @@ static void bmark_get_iter_at_position(Tbfwin * bfwin, Tbmark * m)
 			g_strdup(m->filepath);
 			break;
 		case BM_FMODE_HOME:	/* todo */
-			if (bfwin->project != NULL) {
-				title = g_strdup(m->filepath + strlen(bfwin->project->basedir));
-			} else {
-			   title = g_path_get_basename(m->filepath);
+			if (bfwin->project != NULL && bfwin->project->basedir && strlen(bfwin->project->basedir)) {
+				gint baselen = strlen(bfwin->project->basedir);
+				if (strncmp(m->filepath, bfwin->project->basedir, baselen)==0) {
+					title = g_strdup(m->filepath + baselen);
+				}
 			}
 			break;
-		case BM_FMODE_FILE:
+/*		case BM_FMODE_FILE:
 			title = g_path_get_basename(m->filepath);
-			break;
+			break;*/
+		}
+		if (title == NULL) {
+			title = g_path_get_basename(m->filepath);
 		}
 		gtk_tree_store_set(bfwin->bookmarkstore, parent, NAME_COLUMN, title
 							   , PTR_COLUMN, m->doc, -1);
 		if (m->doc != NULL)
 			m->doc->bmark_parent = parent;
 		DEBUG_MSG("bmark_get_iter_at_position, appending parent %p in hashtable for filepath=%s\n",parent, m->filepath);
-		g_hash_table_insert(bfwin->bmark_files, m->filepath, parent);
+		/* the hash table frees the key, but not the value, on destroy */
+		g_hash_table_insert(bfwin->bmark_files, g_strdup(m->filepath), parent);
 	} else
 		parent = (GtkTreeIter *) ptr;
 
@@ -986,6 +991,5 @@ void bmark_check_length(Tbfwin * bfwin, Tdocument * doc)
 
 void bmark_cleanup(Tbfwin * bfwin)
 {
-	/* I don't know if this is needed */
-
+	if (bfwin->bmark_files) g_hash_table_destroy(bfwin->bmark_files);
 }

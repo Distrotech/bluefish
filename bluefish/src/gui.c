@@ -1032,8 +1032,23 @@ static void main_win_on_drag_data_lcb(GtkWidget * widget, GdkDragContext * conte
 }
 
 void gui_bfwin_cleanup(Tbfwin *bfwin) {
+	GList *tmplist;
 	/* call all cleanup functions here */
 	/*remove_window_entry_from_all_windows(bfwin);*/
+	
+	/* all documents have to be freed for this window */
+	tmplist = g_list_first(bfwin->documentlist);
+	DEBUG_MSG("gui_bfwin_cleanup, have %d documents in window %p\n",g_list_length(bfwin->documentlist),bfwin);
+	while (tmplist) {
+		DEBUG_MSG("gui_bfwin_cleanup closing doc=%p\n",tmplist->data);
+		doc_destroy(DOCUMENT(tmplist->data), TRUE);
+		/* no this is not an indefinite loop, because the documents remove themselves
+		from the documentlist, we remove the top document untill there are no documents
+		left */
+		tmplist = g_list_first(bfwin->documentlist);
+	}
+	
+	bmark_cleanup(bfwin);
 }
 
 void main_window_destroy_lcb(GtkWidget *widget,Tbfwin *bfwin) {
