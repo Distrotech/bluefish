@@ -14,10 +14,21 @@
 <xsl:param name="chunker.output.encoding" select="'UTF-8'"/>
  <!-- Insert list of procedures in toc -->
 <xsl:param name="generate.toc">
-book      toc,title,figure,example,procedure
+book	toc,title,figure,example,procedure
+chapter		toc
+preface		toc
+appendix	toc
+sect1			toc
+sect2			toc
+sect3			toc
+section		toc
 </xsl:param>
 <!-- Toc depth -->
 <xsl:variable name="toc.section.depth">3</xsl:variable>
+<!-- Allow toc in section -->
+<xsl:param name="generate.section.toc.level" select="3"></xsl:param>
+<!-- Toc max depth -->
+<xsl:param name="toc.max.depth">3</xsl:param>
 <!-- Section autolabelling -->
 <xsl:variable name="section.autolabel">f</xsl:variable>
 <!-- Css stylesheet -->
