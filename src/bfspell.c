@@ -1,6 +1,7 @@
 
 #include "config.h"
 
+#ifdef HAVE_LIBASPELL
 #include <aspell.h>
 #include <gtk/gtk.h>
 
@@ -290,3 +291,4 @@ void spell_check_cb(GtkWidget *widget, gpointer data) {
 		spell_gui_fill_dicts();
 	}
 }
+#endif /* HAVE_LIBASPELL */
