@@ -616,6 +616,7 @@ static void bmark_popup_menu_deldoc_lcb(GtkWidget * widget, Tbfwin *bfwin) {
 			bmark_del_children_backend(bfwin, &iter);
 		}
 	}
+	gtk_widget_grab_focus(bfwin->current_document->view);
 }
 
 static void bmark_popup_menu_del_lcb(GtkWidget * widget, gpointer user_data)
@@ -1376,6 +1377,7 @@ void bmark_del_all(Tbfwin *bfwin,gboolean ask) {
 #endif
 		bmark_del_children_backend(bfwin, &tmpiter);
 	}
+	gtk_widget_grab_focus(bfwin->current_document->view);
 }	
 
 void bmark_check_length(Tbfwin * bfwin, Tdocument * doc) {
