@@ -120,7 +120,6 @@ TOOLBAR = \
 	table_tr2 table_tr2.png \
 	tablewhiz tablewhiz.png \
 	thumbnail thumbnail.png \
-	time time.png \
 	underline underline.png \
 	undo undo.png \
 	unknown_file unknown_file.png \
