@@ -42,6 +42,7 @@ enum {
 	clear_undo_on_save, 	/* clear all undo information on file save */
 	newfile_default_encoding,/* if you open a new file, what encoding will it use */
 	auto_set_encoding_meta,/* auto set metatag for the encoding */
+	auto_update_meta,
 	ext_browsers_in_submenu,
 	ext_commands_in_submenu,
 	ext_outputbox_in_submenu,
@@ -1507,6 +1508,7 @@ static void preferences_ok_clicked_lcb(GtkWidget *wid, Tprefdialog *pd) {
 	integer_apply(&main_v->props.lowercase_tags, pd->prefs[lowercase_tags], TRUE);
 	integer_apply(&main_v->props.allow_dep, pd->prefs[allow_dep], TRUE);
 	integer_apply(&main_v->props.xhtml, pd->prefs[xhtml], TRUE);
+	integer_apply(&main_v->props.auto_update_meta, pd->prefs[auto_update_meta], TRUE);
 	
 	string_apply(&main_v->props.newfile_default_encoding, GTK_COMBO(pd->prefs[newfile_default_encoding])->entry);
 	integer_apply(&main_v->props.auto_set_encoding_meta, pd->prefs[auto_set_encoding_meta], TRUE);
@@ -1644,6 +1646,7 @@ static void preferences_dialog() {
 	pd->prefs[lowercase_tags] = boxed_checkbut_with_value(_("Lowercase HTML tags"), main_v->props.lowercase_tags, vbox2);
 	pd->prefs[allow_dep] = boxed_checkbut_with_value(_("Use deprecated tags (e.g. <font> and <nobr>)"), main_v->props.allow_dep, vbox2);
 	pd->prefs[xhtml] = boxed_checkbut_with_value(_("Use XHTML style tags (<br />)"), main_v->props.xhtml, vbox2);
+	pd->prefs[auto_update_meta] = boxed_checkbut_with_value(_("Automatic update author meta"), main_v->props.auto_update_meta, vbox2);
 	
 	vbox1 = gtk_vbox_new(FALSE, 5);
 	gtk_notebook_append_page(GTK_NOTEBOOK(pd->noteb), vbox1, hbox_with_pix_and_text(_("Files"),152));
