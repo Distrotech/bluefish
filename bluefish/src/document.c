@@ -857,8 +857,6 @@ static gboolean doc_check_modified_on_disk(Tdocument *doc, struct stat *newstatb
 		return FALSE;
 	} else if (main_v->props.modified_check_type < 4) {
 		struct stat statbuf;
-		GError *gerror=NULL;
-		gint b_written;
 		gchar *ondiskencoding = get_filename_on_disk_encoding(doc->filename);
 		if (stat(ondiskencoding, &statbuf) == 0) {
 			g_free(ondiskencoding);
@@ -1408,15 +1406,7 @@ static gchar *get_buffer_from_filename(Tbfwin *bfwin, gchar *filename, int *retu
 	gchar *buffer;
 	GError *error=NULL;
 	gsize length;
-	GError *gerror=NULL;
-	gint b_written;
 	gchar *ondiskencoding = get_filename_on_disk_encoding(filename);
-	if (gerror) {
-		DEBUG_MSG("get_buffer_from_filename, failed to convert filename encoding: %s\n",gerror->message);
-		g_error_free(gerror);
-		/* lets try the default encoding */
-		ondiskencoding = g_strdup(filename);
-	}
 	result = g_file_get_contents(ondiskencoding,&buffer,&length,&error);
 	g_free(ondiskencoding);
 	if (result == FALSE) {

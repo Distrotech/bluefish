@@ -336,9 +336,7 @@ static GList *return_dir_entries(Tfilebrowser *filebrowser,gchar *dirname) {
 	GList *tmplist=NULL;
 	Tdir_entry *entry;
 	const gchar *name;
-	gint bytes_w;
-	GError *error=NULL;
-	gchar *ode_dirname = g_filename_to_utf8(dirname, -1, NULL, &bytes_w, &gerror);
+	gchar *ode_dirname = get_filename_on_disk_encoding(dirname);
 	dir = g_dir_open(ode_dirname, 0, NULL);
 	while ((name = g_dir_read_name(dir))) {
 		gchar *fullpath;
