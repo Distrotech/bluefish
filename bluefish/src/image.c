@@ -365,9 +365,15 @@ static void multi_thumbnail_ok_clicked(GtkWidget *widget, Tmuthudia *mtd) {
 		GdkPixbuf *tmp_im1, *tmp_im2;
 		gint tw,th,ow,oh;
 		GError *error=NULL;
-		gchar *thumbfilename, *filename=(gchar *)tmplist->data;
+		gchar *thumbfilename, *filename=(gchar *)tmplist->data, *relfilename;
 	
-		thumbfilename = create_thumbnail_filename(filename);
+		if (main_v->current_document->filename) {
+			relfilename = create_relative_link_to(main_v->current_document->filename, filename);
+		} else {
+			relfilename = g_path_get_basename(filename);
+		}
+		thumbfilename = create_thumbnail_filename(relfilename);
+		g_free(relfilename);
 
 		DEBUG_MSG("filename=%s, thumbfilename=%s\n", filename, thumbfilename);
 		tmp_im1 = gdk_pixbuf_new_from_file(filename, NULL);
