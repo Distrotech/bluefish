@@ -623,10 +623,10 @@ GtkWidget *hbox_with_pix_and_text(const gchar *label, gint pixmap_type) {
 }
 /**
  * bf_generic_button_with_image:
- * 	@label: #const gchar* button string with '_' for the mnemonic
+ * @label: #const gchar* button string with '_' for the mnemonic
  * @pixmap_type: #gint image to display on button know to new_pixmap() from pixmap.c
- * 	@func: #GCallback pointer to signal handler
- * 	@func_data: #gpointer data for signal handler
+ * @func: #GCallback pointer to signal handler
+ * @func_data: #gpointer data for signal handler
  *
  * 	Create new button with an image and connect the "clicked" signal to func
  *
@@ -646,9 +646,9 @@ GtkWidget *bf_generic_button_with_image(const gchar *label, gint pixmap_type, GC
 
 /**
  * bf_stock_button:
- * 	@Text: #const gchar* button string, using '_' for the mnemonic
- * 	@func: #GCallback pointer to signal handler
- * 	@func_data: #gpointer data for signal handler
+ * @Text: #const gchar* button string, using '_' for the mnemonic
+ * @func: #GCallback pointer to signal handler
+ * @func_data: #gpointer data for signal handler
  *
  * 	Create new button with mnemonic and connect the "clicked" signal to func
  *
@@ -667,10 +667,10 @@ GtkWidget *bf_stock_button(const gchar * Text, GCallback func, gpointer func_dat
 /**
  * bf_gtkstock_button:
  * @stock_id: #const gchar* wioth the GTK stock icon ID
- * 	@func: #GCallback pointer to signal handler
- * 	@func_data: #gpointer data for signal handler
+ * @func: #GCallback pointer to signal handler
+ * @func_data: #gpointer data for signal handler
  *
- * 	Create new button from the GTK stock icons
+ * Create new button from the GTK stock icons
  *
  * Return value: pointer to created button
  */
@@ -686,11 +686,11 @@ GtkWidget *bf_gtkstock_button(const gchar * stock_id, GCallback func, gpointer f
 
 /**
  * bf_generic_frame_new:
- * 	@label: #const gchar* label string. Set to NULL for no label
- * 	@shadowtype: #GtkShadowType  border type
+ * @label: #const gchar* label string. Set to NULL for no label
+ * @shadowtype: #GtkShadowType  border type
  * @borderwidth: #gint outside border width
  *
- * 	create a generic frame with shadow type and border
+ * create a generic frame with shadow type and border
  *
  * Return value: #GtkWidget* pointer to created frame
  */
@@ -706,7 +706,7 @@ GtkWidget *bf_generic_frame_new(const gchar *label, GtkShadowType shadowtype, gi
 
 /**
  * bf_mnemonic_label_tad_with_alignment:
- * 	@labeltext: #const gchar* label string
+ * @labeltext: #const gchar* label string
  * @m_widget: #GtkWidget* widget accessed by the label mnemonic
  * @xalign: #gfloat label horizontal alignment
  * @yalign: #gfloat label vertical alignment
@@ -737,26 +737,25 @@ void bf_mnemonic_label_tad_with_alignment(const gchar *labeltext, GtkWidget *m_w
 	}
 }
 
-/*
- * Function: bf_label_tad_with_markup
- * Arguments:
- * 	labeltext - label string
- *      xalign - label horizontal alignment
- *      yalign - label vertical alignment
- *      table - table label is packed into
- *      left_attach - column number to attach the left side of the label to
- *      right_atach - column number to attach the right side of a label to
- *      top_attach - row number to attach the top of a label to
- *      bottom_attach - row number to attach the bottom of a label to 	
- * Return value:
- * 	void
- * Description:
- * 	create a label with markup, align it, and attach it to a table
- *      using the table defaults
+/**
+ * bf_label_tad_with_markup:
+ * @labeltext: #const gchar* label string
+ * @xalign: #gfloat label horizontal alignment
+ * @yalign: #gfloat label vertical alignment
+ * @table: #GtkWidget* table label is packed into
+ * @left_attach: #guint column number to attach the left side of the label to
+ * @right_atach: #guint column number to attach the right side of a label to
+ * @top_attach: #guint row number to attach the top of a label to
+ * @bottom_attach: #guint row number to attach the bottom of a label to 	
+ *
+ *	create a label with markup, align it, and attach it to a table
+ * using the table defaults
+ *
+ * Return value: void
  */
 void bf_label_tad_with_markup(const gchar *labeltext, gfloat xalign, gfloat yalign,
-								GtkWidget *table, guint left_attach, guint right_attach, guint top_attach, guint bottom_attach)
-{
+								GtkWidget *table, guint left_attach, guint right_attach, 
+								guint top_attach, guint bottom_attach) {
 	GtkWidget *label;
 	
 	label = gtk_label_new(NULL);
@@ -765,15 +764,14 @@ void bf_label_tad_with_markup(const gchar *labeltext, gfloat xalign, gfloat yali
 	gtk_table_attach_defaults(GTK_TABLE(table), label, left_attach, right_attach, top_attach, bottom_attach);	
 }								
 
-/*
- * Function: error_dialog
- * Arguments:
- * 	windiw_title - the title of the error window
- * 	error_string - the description of the error
- * Return value:
- * 	void
- * Description:
+/**
+ * error_dialog:
+ * @window_title: #gchar* the title of the error window
+ * @error_string: #gchar* the description of the error
+ *
  * 	displays an error dialog
+ *
+ * Return value: void
  */
 void error_dialog(gchar * window_title, gchar * error_string)
 {
@@ -792,22 +790,6 @@ void error_dialog(gchar * window_title, gchar * error_string)
 	gtk_box_pack_start(GTK_BOX(GTK_DIALOG(dialog)->vbox), gtk_label_new(error_string), TRUE, TRUE, 0);
 	gtk_widget_show_all(dialog);
 }
-
-
-
-/************************************************************************/
-
-/*
- * Function: file_but_new
- * Arguments:
- * 	which_entry - GTK_ENTRY where to put the filename
- * 	win - the GTK_WINDOW where the button is placed
- * 	full_pathname - 1 or 0, if you want the full path or a relative path
- * Return value:
- * 	Pointer to file button
- * Description:
- * 	Create new "open file" button
- */
 
 static void file_but_clicked_lcb(GtkWidget * widget, GtkWidget * which_entry)
 {
@@ -829,7 +811,6 @@ static void file_but_clicked_lcb(GtkWidget * widget, GtkWidget * which_entry)
 	}
 }
 
-
 static void file_but_clicked_full_lcb(GtkWidget * widget, GtkWidget * which_entry)
 {
 	gchar *tmpstring, *setfile;
@@ -843,18 +824,18 @@ static void file_but_clicked_full_lcb(GtkWidget * widget, GtkWidget * which_entr
 		g_free(tmpstring);
 	}
 }
-
-GtkWidget *file_but_new(GtkWidget * which_entry, GtkWidget * win, gint full_pathname)
-{
-/*	GtkWidget *pixmap;*/
+/**
+ * file_but_new:
+ * @which_entry: #GtkWidget* GTK_ENTRY where to put the filename
+ * @win: #GtkWidget* the GTK_WINDOW where the button is placed
+ * @full_pathname: #gint 1 or 0, if you want the full path or a relative path
+ *
+ *	Create new "open file" button, that will put the string into an entry
+ *
+ * Return value: #GtkWidget* pointer to file button
+ */
+GtkWidget *file_but_new(GtkWidget * which_entry, GtkWidget * win, gint full_pathname) {
 	GtkWidget *file_but;
-
-/*	file_but = gtk_button_new();
-	pixmap = new_pixmap(177);
-	gtk_widget_show(pixmap);
-	gtk_container_add(GTK_CONTAINER(file_but), pixmap);
-	file_but = gtk_button_new_with_label("file..");*/
-/*	file_but = gtk_button_new_from_stock(GTK_STOCK_OPEN); */
 
 	file_but = gtk_button_new();
 	DEBUG_MSG("file_but_new, entry=%p, button=%p\n",which_entry,file_but);
