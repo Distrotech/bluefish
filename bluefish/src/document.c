@@ -1884,7 +1884,7 @@ void file_close_all_cb(GtkWidget * widget, gpointer data)
 
 	/* first a warning loop */
 	if (test_docs_modified(NULL)) {
-		gchar *options[] = {N_("save all"), N_("close all"), N_("choose per file"), N_("cancel"), NULL};
+		gchar *options[] = {_("save all"), _("close all"), _("choose per file"), _("cancel"), NULL};
 		retval =	multi_button_dialog(_("Bluefish: Warning, some file(s) are modified!"), 3, _("Some file(s) are modified\nplease choose your action"), options);
 		if (retval == 3) {
 			DEBUG_MSG("file_close_all_cb, cancel clicked, returning 0\n");

@@ -15,7 +15,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-/* #define DEBUG */
+/*#define DEBUG*/
 #include <gtk/gtk.h>
 #include <stdlib.h> /* atoi */
 #include <string.h> /* strchr() */
@@ -469,22 +469,20 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/Options/Save shortcut _keys"), NULL, rcfile_save_configfile_menu_cb, 3, NULL}
 };
 
-#ifdef ENABLE_NLS                                                                                        
-gchar *menu_translate(const gchar * path, gpointer data) {                                                                                                        
+#ifdef ENABLE_NLS
+gchar *menu_translate(const gchar * path, gpointer data) {
 	static gchar *menupath = NULL;
 	gchar *retval;
-	gchar *factory;
-	factory = (gchar *) data;
 	if (menupath) g_free(menupath);
 	menupath = g_strdup(path);
-	if ((strstr(path, "/tearoff1") != NULL) 
+/*	if ((strstr(path, "/tearoff1") != NULL) 
 			|| (strstr(path, "/---") != NULL) 
 			|| (strstr(path, "/MRU") != NULL))
-				return menupath;                                                                         
+				return menupath;*/
 	retval = gettext(menupath);
-	return retval;                                                                                   
-}                                                                                                        
-                                                                                                         
+	DEBUG_MSG("menu_translate, returning %s for %s\n", retval, path);
+	return retval;
+}
 #endif       
 
 /************************************************/
@@ -531,7 +529,7 @@ static GtkWidget *create_dynamic_menuitem(gchar *menubasepath, gchar *label, GCa
 	/* add it to main_v->menubar */
 	factory = gtk_item_factory_from_widget(main_v->menubar);
 	menu = gtk_item_factory_get_widget(factory, menubasepath);
-	DEBUG_MSG("create_dynamic_menuitem, menubar=%p, menu=%p\n", main_v->menubar, menu);
+	DEBUG_MSG("create_dynamic_menuitem, menubar=%p, menu=%p basepath=%s\n", main_v->menubar, menu, menubasepath);
 	if (menu != NULL) {
 		tmp = gtk_menu_item_new_with_label(label);
 		g_signal_connect(G_OBJECT(tmp), "activate",callback, data);
@@ -555,11 +553,12 @@ static void create_parent_and_tearoff(gchar *menupath, GtkItemFactory *ifactory)
 	GtkItemFactoryEntry entry;
 
 	basepath = g_strndup(menupath, (strlen(menupath) - strlen(strrchr(menupath, '/'))));
-	DEBUG_MSG("create_parent_and_tearoff, basepath=%s\n", basepath);
+	DEBUG_MSG("create_parent_and_tearoff, basepath=%s for menupath=%s\n", basepath, menupath);
 	widg = gtk_item_factory_get_widget(ifactory, basepath);
 	if (!widg) {
+		DEBUG_MSG("create_parent_and_tearoff, no widget found for %s, will create it\n", basepath);
 		create_parent_and_tearoff(basepath, ifactory);
-		entry.path = g_strconcat(basepath, "/sep", NULL);
+		entry.path = g_strconcat(basepath, "/tearoff1", NULL);
 		entry.accelerator = NULL;
 		entry.callback = NULL;
 		entry.callback_action = 0;
@@ -621,16 +620,16 @@ void menu_create_main(GtkWidget *vbox)
 	gtk_box_pack_start(GTK_BOX(vbox), main_v->menubar, FALSE, TRUE, 0);
 	gtk_widget_show(main_v->menubar);
 
-	setup_toggle_item(item_factory, _("/Options/Display/View Main toolbar"), main_v->props.view_main_toolbar);
-	setup_toggle_item(item_factory, _("/Options/Display/View HTML toolbar"), main_v->props.view_html_toolbar);
-	setup_toggle_item(item_factory, _("/Options/Display/View Custom menu"), main_v->props.view_custom_menu);
-	setup_toggle_item(item_factory, _("/Options/Display/View Left panel"), main_v->props.view_left_panel);
-	setup_toggle_item(item_factory, _("/Options/Auto indent"), main_v->props.autoindent);
+	setup_toggle_item(item_factory, N_("/Options/Display/View Main toolbar"), main_v->props.view_main_toolbar);
+	setup_toggle_item(item_factory, N_("/Options/Display/View HTML toolbar"), main_v->props.view_html_toolbar);
+	setup_toggle_item(item_factory, N_("/Options/Display/View Custom menu"), main_v->props.view_custom_menu);
+	setup_toggle_item(item_factory, N_("/Options/Display/View Left panel"), main_v->props.view_left_panel);
+	setup_toggle_item(item_factory, N_("/Options/Auto indent"), main_v->props.autoindent);
 	{
 		GSList *group=NULL;
 		GtkWidget *parent_menu;
 		GList *tmplist = g_list_first(main_v->filetypelist);
-		parent_menu = gtk_item_factory_get_widget(item_factory, _("/Document/Type"));
+		parent_menu = gtk_item_factory_get_widget(item_factory, N_("/Document/Type"));
 		while (tmplist) {
 			Tfiletype *filetype = (Tfiletype *)tmplist->data;
 			if (filetype->highlightlist) {
@@ -644,13 +643,13 @@ void menu_create_main(GtkWidget *vbox)
 		}
 	}
 	if (main_v->props.ext_browsers_in_submenu) {
-		create_parent_and_tearoff(_("/External/Browsers/"), item_factory);
+		create_parent_and_tearoff(N_("/External/Browsers/"), item_factory);
 	}
 	if (main_v->props.ext_commands_in_submenu) {
-		create_parent_and_tearoff(_("/External/Commands/"), item_factory);
+		create_parent_and_tearoff(N_("/External/Commands/"), item_factory);
 	}
 	if (main_v->props.ext_outputbox_in_submenu) {
-		create_parent_and_tearoff(_("/External/Outputbox/"), item_factory);
+		create_parent_and_tearoff(N_("/External/Outputbox/"), item_factory);
 	}
 }
 
@@ -703,9 +702,9 @@ void menu_outputbox_rebuild() {
 		if (count_array(arr)==7) {
 			gchar *tmp1;
 			if (main_v->props.ext_outputbox_in_submenu) {
-				tmp1 = _("/External/Outputbox");
+				tmp1 = N_("/External/Outputbox");
 			} else {
-				tmp1 = _("/External");
+				tmp1 = N_("/External");
 			}
 			menus.outputbox_menu = g_list_append(menus.outputbox_menu
 					,create_dynamic_menuitem(tmp1,arr[0],G_CALLBACK(menu_outputbox_lcb),(gpointer)arr,-1));
@@ -960,7 +959,7 @@ static void external_command_lcb(GtkWidget *widget, gchar **arr) {
 void external_menu_init() {
 	GList *tmplist = g_list_first(main_v->props.browsers);
 	if (!main_v->props.ext_browsers_in_submenu) {
-		dynamic_menu_append_spacing(_("/External"));
+		dynamic_menu_append_spacing(N_("/External"));
 	}
 	while (tmplist) {
 		gchar **arr = tmplist->data;
@@ -970,9 +969,9 @@ void external_menu_init() {
 		if (count_array(arr)==2) {
 			gchar *tmp1;
 			if (main_v->props.ext_browsers_in_submenu) {
-				tmp1 = _("/External/Browsers");
+				tmp1 = N_("/External/Browsers");
 			} else {
-				tmp1 = _("/External");
+				tmp1 = N_("/External");
 			}
 			menus.external_menu = g_list_append(menus.external_menu
 					, create_dynamic_menuitem(tmp1,arr[0],G_CALLBACK(browser_lcb),arr,-1));
@@ -981,7 +980,7 @@ void external_menu_init() {
 	}
 	
 	if (!main_v->props.ext_commands_in_submenu) {
-		dynamic_menu_append_spacing(_("/External"));
+		dynamic_menu_append_spacing(N_("/External"));
 	}
 	
 	tmplist = g_list_first(main_v->props.external_commands);
@@ -993,9 +992,9 @@ void external_menu_init() {
 		if (count_array(arr)==2) {
 			gchar *tmp1;
 			if (main_v->props.ext_commands_in_submenu) {
-				tmp1 = _("/External/Commands");
+				tmp1 = N_("/External/Commands");
 			} else {
-				tmp1 = _("/External");
+				tmp1 = N_("/External");
 			}		
 			menus.external_menu = g_list_append(menus.external_menu
 					, create_dynamic_menuitem(tmp1,arr[0],G_CALLBACK(external_command_lcb),arr,-1));
@@ -1033,7 +1032,7 @@ void encoding_menu_rebuild() {
 		menus.encodings = NULL;
 	}
 	tmplist = g_list_last(main_v->props.encodings);
-	parent_menu = gtk_item_factory_get_widget(gtk_item_factory_from_widget(main_v->menubar), _("/Document/Encoding"));
+	parent_menu = gtk_item_factory_get_widget(gtk_item_factory_from_widget(main_v->menubar), N_("/Document/Encoding"));
 	while (tmplist) {
 		gchar **strarr = (gchar **)tmplist->data;
 		if (count_array(strarr)==2) {
