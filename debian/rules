@@ -16,7 +16,12 @@ build-stamp:
 	dh_testdir
 	CFLAGS="$(CFLAGS)" ./configure \
 	            --prefix=/usr --sysconfdir=/etc --mandir=/usr/share/man \
-		    --with-internal-preview
+	            --with-freedesktop_org-menu=/usr/share/applications \
+	            --with-freedesktop_org-mime=/usr/share/mime \
+	            --without-gnome2_4-mime \
+	            --without-gnome2_4-appreg \
+	            --with-icon-path=/usr/share/pixmaps \
+	            --disable-update-databases
 	$(MAKE)
 	touch build-stamp
 
