@@ -618,13 +618,16 @@ gint doc_close(Tdocument * doc, gint warn_only)
 {
 	gchar *text;
 	gint retval;
-
+#ifdef DEBUG
 	if (!doc) {
+		DEBUG_MSG("doc_close, returning because doc=NULL\n");
 		return 0;
 	}
+#endif
 
-	if (doc_is_empty_non_modified_and_nameless(doc)) {
+	if (doc_is_empty_non_modified_and_nameless(doc) && g_list_length(main_v->documentlist) ==1) {
 		/* no need to close this doc, it's an Untitled empty document */
+		DEBUG_MSG("doc_close, 1 untitled empty non-modified document, returning\n");
 		return 0;
 	}
 
@@ -1131,7 +1134,7 @@ gint doc_save(Tdocument * doc, gint do_save_as, gint do_move)
 		statusbar_message(_("Save as..."), 1);
 		oldfilename = doc->filename;
 		doc->filename = NULL;
-		newfilename = return_file_w_title(NULL, _("Save document as"));
+		newfilename = return_file_w_title(oldfilename, _("Save document as"));
 		index = documentlist_return_index_from_filename(newfilename);
 		DEBUG_MSG("doc_save, index=%d, filename=%p\n", index, newfilename);
 
@@ -1239,13 +1242,12 @@ void doc_new_with_file(gchar * filename, gboolean delay_activate) {
 	Tdocument *doc;
 	
 	if ((filename == NULL) || (!file_exists_and_readable(filename))) {
-        error_dialog("Error",filename);
+		error_dialog(_("Error"),filename);
 		statusbar_message(_("Unable to open file"), 2000);
 		return;
 	}
 	if (!main_v->props.allow_multi_instances) {
-		gboolean res;
-		res = switch_to_document_by_filename(filename);
+		gboolean res = switch_to_document_by_filename(filename);
 		if (res){
 			return;
 		}
@@ -1253,7 +1255,11 @@ void doc_new_with_file(gchar * filename, gboolean delay_activate) {
 	DEBUG_MSG("doc_new_with_file, filename=%s exists\n", filename);
 	add_filename_to_history(filename);
 
-	doc = doc_new(delay_activate);
+	if (doc_is_empty_non_modified_and_nameless(main_v->current_document) && g_list_length(main_v->documentlist) ==1) {
+		doc = main_v->current_document;
+	} else {
+		doc = doc_new(delay_activate);
+	}
 	doc->filename = g_strdup(filename);
 	hl_reset_highlighting_type(doc, doc->filename);	
 	DEBUG_MSG("doc_new_with_file, hl is resetted to filename, about to load file\n");
