@@ -147,10 +147,6 @@ AC_ARG_WITH(highlight-profiling,
    echo "With highlighting profiling",
 AC_DEFINE(HL_PROFILING)],)
 
-AC_ARG_WITH(bookmarks,
-[  --with-bookmarks    enables experimental bookmarks feature],[
-   echo "With bookmarks",
-AC_DEFINE(BOOKMARKS)],)
 
 
 dnl ************************
