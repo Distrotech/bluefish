@@ -261,9 +261,12 @@ static void menu_html_dialogs_lcb(Tbfwin *bfwin,guint callback_action, GtkWidget
 		exit(123);
 	}
 }
+#ifdef HAVE_LIBASPELL
 static void spell_check_menu_cb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget) {
 	spell_check_cb(NULL, bfwin);
 }
+#endif /* HAVE_LIBASPELL */
+
 static GtkItemFactoryEntry menu_items[] = {
 	{N_("/_File"), NULL, NULL, 0, "<Branch>"},
 	{N_("/File/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
@@ -611,7 +614,9 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/Document/Character _Encoding"), NULL, NULL, 0, "<Branch>"},
 	{N_("/Document/Character Encoding/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
 	{N_("/Document/sep4"), NULL, NULL, 0, "<Separator>"},
-	{N_("/Document/Check _Spelling..."), NULL, spell_check_menu_cb, 0, "<StockItem>", GTK_STOCK_SPELL_CHECK},		
+#ifdef HAVE_LIBASPELL
+	{N_("/Document/Check _Spelling..."), NULL, spell_check_menu_cb, 0, "<StockItem>", GTK_STOCK_SPELL_CHECK},
+#endif /* HAVE_LIBASPELL */
 	{N_("/Document/_Floating window"), NULL, file_floatingview_menu_cb, 1, "<Item>"},			
 	{N_("/Document/Word _Count"), NULL, word_count_cb, 1, "<Item>"},
 	{N_("/_Project"), NULL, NULL, 0, "<Branch>"},
