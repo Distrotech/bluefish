@@ -103,9 +103,9 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 				<listitem>NetBSD - distributed in pkgsrc</listitem>
 				<listitem>OpenBSD - available through their ports system</listitem>
 				<listitem>SGI IRIX - see 
-					<systemitem class="url">
+					<ulink url="http://freeware.sgi.com/">
 						http://freeware.sgi.com/
-					</systemitem></listitem>
+					</ulink></listitem>
 				<listitem>Mac OS X</listitem>
 				<listitem>Sun Solaris</listitem>
 				<listitem>Tru64</listitem>
@@ -164,7 +164,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 			<para>
 				To access the repository, you need a few small utilities. They 
 				are likely to be available through your favorite source of 
-				software (ports, apt, etc). The above-mentioned CVS-book is a 
+				software (ports, apt, etc). The above-mentioned CVS book is a 
 				great source for information.
 			</para>
 			<para>
@@ -172,6 +172,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 				sources. Next, log in using the command:
 				<screen>$ cvs -d :pserver:anonymous@cvs.sourceforge.net:/cvsroot/bluefish login</screen>
 				(just hit <action>Enter</action> at the password prompt)
+			</para>
+			<para>
 				The next step is to <emphasis>check out</emphasis> the CVS module 
 				containing the source code files:
 				<screen>$ cvs -z3 -d :pserver:anonymous@cvs.sourceforge.net:/cvsroot/bluefish co bluefish-gtk2</screen>
