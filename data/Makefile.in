@@ -53,10 +53,10 @@ install: all
 
 uninstall:
 	@for file in $(DEFAULTFILES) ; do \
-		rm -r $(DESTDIR)$(pkgdatadir)/$$file ;\
+		rm -f $(DESTDIR)$(pkgdatadir)/$$file ;\
 	done
-	rm -r $(DESTDIR)$(gnome2menupath)/bluefish.desktop
-	rm -r $(DESTDIR)$(gnome1menupath)/Applications/bluefish.desktop
+	rm -f $(DESTDIR)$(gnome2menupath)/bluefish.desktop
+	rm -f $(DESTDIR)$(gnome1menupath)/Applications/bluefish.desktop
 
 clean:
 	rm -f *.default
