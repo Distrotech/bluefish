@@ -929,6 +929,7 @@ void snr2_run_extern_replace(gchar *pattern, gint region,
 }
 
 static void matchingtype_toggled_lcb(GtkToggleButton *togglebutton,Tsnr2_win *snr2win){
+	DEBUG_MSG("matchingtype_toggled_lcb, started\n");
 	if (GTK_TOGGLE_BUTTON(snr2win->is_normal)->active) {
 		gtk_widget_hide(snr2win->subpat_help);
 	} else {
@@ -1038,7 +1039,9 @@ static void snr2dialog(gint is_replace, gint is_new_search) {
 	
 	gtk_widget_grab_focus(snr2win->pattern);
 	gtk_widget_show_all(snr2win->window);
-	matchingtype_toggled_lcb(NULL, snr2win);
+	if (is_replace) {
+		matchingtype_toggled_lcb(NULL, snr2win);
+	}
 }
 
 /*****************************************************/
