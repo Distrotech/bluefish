@@ -244,6 +244,36 @@ a project file.
 	If you want to disable any of these items by default, you can set these options in
 	the preferences under <emphasis>User interface</emphasis>.
 	</para>
+	<para>The <guimenu>Help</guimenu> menu contains the typical About box. As usual, you will find in it developers', maintainers', and translators' details. Plus the configure flags used to compile Bluefish on your system.
+	<figure id="figure-about-window">
+				<title id="figure-about-window-title">Bluefish About Window</title>
+				<screenshot>
+					<mediaobject>
+						<imageobject>
+							<imagedata fileref="figures/about_window.png" format="PNG"/>
+						</imageobject>
+						<textobject>
+							<phrase>A screen shot of the Bluefish 0.14 about window</phrase>
+						</textobject>
+					</mediaobject>
+				</screenshot>
+			</figure>
+</para>
+<para>The other menus are described in the following sections:</para>
+<itemizedlist>
+<listitem>
+<para>the <guimenu>Tags</guimenu> and <guimenu>Dialogs</guimenu> menu in <xref linkend="HTML"/></para>
+</listitem>
+<listitem>
+<para>the <guimenu>Go</guimenu> menu is in <xref linkend="navigation-multiple"/></para>
+</listitem>
+<listitem>
+<para>the <guimenu>Project</guimenu> menu in <xref linkend="projects"/></para>
+</listitem>
+<listitem>
+<para>the <guimenu>External</guimenu> menu in <xref linkend="external-programs-filters"/></para>
+</listitem>
+</itemizedlist>
 </sect1>
 
 <sect1 id="working-with-files">
