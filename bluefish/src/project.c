@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-/*#define DEBUG*/
+#define DEBUG
 
 #include <gtk/gtk.h>
 #include <string.h>
@@ -333,8 +333,8 @@ static void setup_bfwin_for_nonproject(Tbfwin *bfwin) {
 	/* normally there is always a current_document, but this function might be called in the transition
 	after all documents are just closed */
 	if (bfwin->current_document) gui_set_title(bfwin, bfwin->current_document);
-/*	fb2_set_basedir(bfwin, newbasedir);
-	g_free (newbasedir);*/
+	fb2_set_basedir(bfwin, main_v->props.default_basedir);
+/*	g_free (newbasedir);*/
 	recent_menu_from_list(bfwin, main_v->session->recent_files, FALSE);
 	set_project_menu_widgets(bfwin, FALSE);
 }
