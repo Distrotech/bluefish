@@ -538,7 +538,7 @@ static gboolean window_full_key_press_event_lcb(GtkWidget *widget,GdkEventKey *e
 /**
  * window_full2:
  * 	@title: #gchar* the title string
- * 	@position: #gint the gtk window position
+ * 	@position: #gint the gtk window position GTK_WIN_POS_NONE, GTK_WIN_POS_CENTER, GTK_WIN_POS_MOUSE
  * 	@borderwidth: #gint border width
  * 	@close_func: #GCallback the callback function when closing the window
  * 	@close_data: #gpointer data passed to the closefunc
@@ -548,6 +548,9 @@ static gboolean window_full_key_press_event_lcb(GtkWidget *widget,GdkEventKey *e
  * 	Create new window with title, callback functions, some more settings
  * and if needed set a callback so the window will be closed on escape press
  * and set it if needed transient for another window
+ *
+ * the close_func should have the form 
+ * void close_func(GtkObject *object,gpointer user_data);
  *
  * Return value: #GtkWidget* pointer to created window
  */

@@ -1067,7 +1067,7 @@ static gdouble *hex_to_gdouble_arr(gchar *color)
 	return tmpcol;
 }
  
-static void colsel_destroy_lcb(GtkWidget *widget, GdkEvent *event, Tcolsel *csd) {
+static void colsel_destroy_lcb(GtkWidget *widget, Tcolsel *csd) {
 	if (csd->is_modal) {
 		gtk_main_quit();
 	} else {
@@ -1089,12 +1089,12 @@ static void colsel_destroy_lcb(GtkWidget *widget, GdkEvent *event, Tcolsel *csd)
 }
 
 static void colsel_ok_clicked_lcb(GtkWidget *widget, Tcolsel *csd) { 
-	colsel_destroy_lcb(NULL, NULL, csd);
+	colsel_destroy_lcb(NULL, csd);
 }
 
 static void colsel_cancel_clicked_lcb(GtkWidget *widget, Tcolsel *csd) {
 	gtk_entry_set_text(GTK_ENTRY(csd->hexentry), "");
-	colsel_destroy_lcb(NULL, NULL, csd);
+	colsel_destroy_lcb(NULL, csd);
 }
 /* declaration needed to connect/disconnect callback */
 static void colsel_color_changed(GtkWidget *widget, Tcolsel *csd);
@@ -1142,7 +1142,7 @@ static Tcolsel *colsel_dialog(gchar *setcolor, gint modal, gint startpos, gint e
 	csd->startpos = startpos;
 	csd->endpos = endpos;
 	DEBUG_MSG("colsel_dialog, malloced at %p\n", csd);
-	csd->win = window_full(_("Bluefish: Select color"), GTK_WIN_POS_MOUSE, 12, G_CALLBACK(colsel_destroy_lcb), csd, TRUE);
+	csd->win = window_full2(_("Bluefish: Select color"), GTK_WIN_POS_MOUSE, 12, G_CALLBACK(colsel_destroy_lcb), csd, TRUE, NULL);
 	vbox = gtk_vbox_new(FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(csd->win), vbox);
 	csd->csel = gtk_color_selection_new();
