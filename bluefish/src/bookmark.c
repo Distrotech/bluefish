@@ -490,39 +490,37 @@ void bmark_add_rename_dialog(Tbfwin *bfwin, gchar *dialogtitle, gint dialogtype)
 static void bmark_popup_menu_goto_lcb(GtkWidget *widget,gpointer user_data) 
 {
 	Tbmark *b;
-	Tdocument *dd;
 	GtkTextIter it;
-	gint ret;
 	Tforeach_data *fa;
 	Tbmark_data *data = BMARKDATA(main_v->bmarkdata);
-	gchar *btns[]={GTK_STOCK_NO,GTK_STOCK_YES,NULL};
-	
 
 	if (!user_data) return;
 	b = get_current_bmark(BFWIN(user_data));
 	if (!b) return;
-	if (b->filepath && !b->doc)
-	{
-		if (!g_file_test(b->filepath,G_FILE_TEST_EXISTS))
-		  {
-		  	gchar *string = g_strdup_printf (_("Could not find the file \"%s\"."), b->filepath);
- 			  error_dialog(BFWIN(user_data)->main_window, string, _("This bookmark is set in a file that no longer exists."));
- 			  g_free (string);
- 			  return;
-		  }	
-		ret = multi_query_dialog(BFWIN(user_data)->main_window,_("Bookmarked file is closed"), _("Do you want to open it?"), 1, 0, btns);	
-		if (ret==0) return;
-		dd = doc_new_with_file(BFWIN(user_data),b->filepath,TRUE,TRUE);
+	if (b->filepath && !b->doc) {
+		/* check if that document _is_ open */
+		Tdocument *tmpdoc;
+		GList *doclist = return_allwindows_documentlist();
+		tmpdoc = documentlist_return_document_from_filename(doclist, b->filepath);
+		g_list_free(doclist);
+		if (tmpdoc == NULL) {
+			if (!g_file_test(b->filepath,G_FILE_TEST_EXISTS)) {
+				gchar *string = g_strdup_printf (_("Could not find the file \"%s\"."), b->filepath);
+				error_dialog(BFWIN(user_data)->main_window, string, _("This bookmark is set in a file that no longer exists."));
+				g_free (string);
+				return;
+			}
+			tmpdoc = doc_new_with_file(BFWIN(user_data),b->filepath,TRUE,TRUE);
+		}
 		/* now I have to check all bookmarks */
 		fa = g_new0(Tforeach_data,1);
-		fa->doc = dd;
+		fa->doc = tmpdoc;
 		fa->string = b->filepath;
 		g_hash_table_foreach(data->bmark_table,docset_proc,fa);
 		g_free(fa);
 	} 
 	
-	if (b->doc)
-	{
+	if (b->doc)	{
 		gtk_text_buffer_get_iter_at_mark(b->doc->buffer,&it,b->mark);
 		gtk_text_buffer_place_cursor(b->doc->buffer,&it);
 		gtk_text_view_scroll_mark_onscreen(GTK_TEXT_VIEW(b->doc->view),b->mark);		
