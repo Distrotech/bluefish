@@ -903,6 +903,17 @@ void bmark_del_all_perm(Tbfwin *bfwin)
    bmark_save_all();
 }
 
+void bmark_name_entry_changed(GtkEntry * entry, GtkDialog* dialog)
+{
+	const gchar *string;
+	
+	string = gtk_entry_get_text (GTK_ENTRY (entry));
+	
+	if (strlen (string) <= 0)
+		gtk_dialog_set_response_sensitive (GTK_DIALOG (dialog), GTK_RESPONSE_OK, FALSE);
+	else
+		gtk_dialog_set_response_sensitive (GTK_DIALOG (dialog), GTK_RESPONSE_OK, TRUE);
+}
 
 void bmark_add_perm(Tbfwin *bfwin)
 {
@@ -919,13 +930,14 @@ void bmark_add_perm(Tbfwin *bfwin)
    dlg = gtk_dialog_new_with_buttons(_("Add permanent bookmark "),
    										GTK_WINDOW(bfwin->main_window),
 										GTK_DIALOG_MODAL,
-										GTK_STOCK_OK,
-				                        GTK_RESPONSE_OK,
+										GTK_STOCK_CANCEL,
+				                        GTK_RESPONSE_CANCEL,
 				                        NULL);
 	
-	button = gtk_button_new_from_stock(GTK_STOCK_CANCEL);
+	button = gtk_button_new_from_stock(GTK_STOCK_OK);
 	GTK_WIDGET_SET_FLAGS(button, GTK_CAN_DEFAULT);
-	gtk_dialog_add_action_widget(GTK_DIALOG(dlg), button, GTK_RESPONSE_CANCEL);									
+	gtk_dialog_add_action_widget(GTK_DIALOG(dlg), button, GTK_RESPONSE_OK);	
+	gtk_widget_set_sensitive (GTK_WIDGET (button), FALSE);								
 	table = gtk_table_new(2, 2, FALSE);
 	gtk_table_set_col_spacings(GTK_TABLE (table), 12);
 	gtk_table_set_row_spacings(GTK_TABLE (table), 6);		
@@ -935,6 +947,7 @@ void bmark_add_perm(Tbfwin *bfwin)
 	gtk_entry_set_activates_default(GTK_ENTRY(name), TRUE);
 	bf_mnemonic_label_tad_with_alignment(_("_Name:"), name, 0, 0.5, table, 0, 1, 0, 1);
 	gtk_table_attach_defaults (GTK_TABLE(table), name, 1, 2, 0, 1);
+	g_signal_connect (G_OBJECT (name), "changed", G_CALLBACK (bmark_name_entry_changed), dlg);
 	desc = gtk_entry_new();
 	gtk_entry_set_activates_default(GTK_ENTRY(desc), TRUE);
  	bf_mnemonic_label_tad_with_alignment(_("_Description:"), desc, 0, 0.5, table, 0, 1, 1, 2);
