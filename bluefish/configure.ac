@@ -29,7 +29,7 @@ AC_DEFINE_UNQUOTED(PACKAGE, "$PACKAGE")
 AC_DEFINE_UNQUOTED(VERSION, "$VERSION")
 AC_DEFINE_UNQUOTED(CURRENT_VERSION_NAME, "$PACKAGE $VERSION HTML editor")
 
-ALL_LINGUAS="de da fr ru ro cs es el en ja it sv pt_BR hu pl nl"
+ALL_LINGUAS="de da fr ru ro cs es el en ja it sv pt_BR hu pl nl no"
 
 dnl ************************
 dnl Compiler options
