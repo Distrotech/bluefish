@@ -278,6 +278,14 @@ static Ttoolbaritem tbi[] = {
 	{"image...", image_insert_dialog_cb, NULL, 113, N_("Insert image...")},
 	{"thumbnail...", thumbnail_insert_dialog_cb, NULL, 125, N_("Insert thumbnail...")},
 	{"mthumbnail...", multi_thumbnail_dialog_cb, NULL, 125, N_("Multi thumbnail...")},
+	{"dfn", general_html_cb, GINT_TO_POINTER(48), 193, N_("Definition")},
+	{"code", general_html_cb, GINT_TO_POINTER(49), 194, N_("Code")},
+	{"samp", general_html_cb, GINT_TO_POINTER(50), 195, N_("Sample")},
+	{"kbd", general_html_cb, GINT_TO_POINTER(51), 196, N_("Keyboard")},
+	{"var", general_html_cb, GINT_TO_POINTER(52), 197, N_("Variable")},
+	{"cite", general_html_cb, GINT_TO_POINTER(53), 198, N_("Citation")},
+	{"abbr", general_html_cb, GINT_TO_POINTER(54), 199, N_("Abbreviation")},
+	{"acronym", general_html_cb, GINT_TO_POINTER(55), 200, N_("Acronym")},
 /*	{"", general_html_cb, GINT_TO_POINTER(), , N_("")},
 	{"", general_html_cb, GINT_TO_POINTER(), , N_("")},
 
@@ -324,7 +332,6 @@ static gboolean html_toolbar_quickbar_item_button_press_lcb(GtkWidget *widget,Gd
 
 
 static void html_toolbar_add_to_quickbar_lcb(GtkMenuItem *menuitem, Ttoolbaritem *tbitem) {
-	GtkWidget *item;
 	Tquickbaritem *qbi;
 	DEBUG_MSG("adding tbitem %p to quickbar\n", tbitem);
 	main_v->props.quickbar_items = add_to_stringlist(main_v->props.quickbar_items, tbitem->ident);
@@ -368,6 +375,29 @@ static void html_toolbar_add_items(GtkWidget *html_toolbar, Ttoolbaritem *tbi, g
 	}
 }
 
+static void html_toolbar_add_items_to_submenu(GtkWidget *html_toolbar, Ttoolbaritem *tbi, gint from, gint to, gchar *menulabel, gint menupix) {
+	GtkWidget *menu_bar, *sub_menu, *menu_item;
+	gint i;
+	sub_menu = gtk_menu_new();
+	for (i=from;i<=to;i++) {
+		if (tbi[i].func == NULL) {
+			gtk_toolbar_append_space(GTK_TOOLBAR(html_toolbar));
+		} else {
+			menu_item = gtk_menu_item_new();
+			gtk_container_add(GTK_CONTAINER(menu_item), new_pixmap(tbi[i].pixmaptype));
+			g_signal_connect(GTK_OBJECT(menu_item), "activate", G_CALLBACK(tbi[i].func), tbi[i].func_data);
+			g_signal_connect(menu_item, "button-press-event", G_CALLBACK(html_toolbar_item_button_press_lcb), &tbi[i]);
+			gtk_menu_append(GTK_MENU(sub_menu), menu_item);
+		}
+	}
+	menu_bar = gtk_menu_bar_new();
+	menu_item = gtk_menu_item_new();
+	gtk_container_add(GTK_CONTAINER(menu_item),new_pixmap(menupix));
+	gtk_menu_item_set_submenu(GTK_MENU_ITEM(menu_item), sub_menu);
+	gtk_menu_bar_append(GTK_MENU_BAR(menu_bar), menu_item);
+	gtk_toolbar_append_element(GTK_TOOLBAR(html_toolbar),GTK_TOOLBAR_CHILD_WIDGET,menu_bar,NULL,menulabel,NULL,new_pixmap(menupix),NULL,NULL);
+}
+
 void make_html_toolbar(GtkWidget *handlebox) {
 /*
  * every item with a ... in the tooltip brings up a dialog, every item
@@ -375,8 +405,6 @@ void make_html_toolbar(GtkWidget *handlebox) {
  *
  */
 	GtkWidget *html_toolbar, *html_notebook;
-	GtkWidget *menu_bar;	/* for construction of a dropdown menu */
-	GtkWidget *menu_item, *sub_menu;
 
 	DEBUG_MSG("make_html_toolbar, started\n");
 	html_notebook = gtk_notebook_new();
@@ -413,11 +441,14 @@ void make_html_toolbar(GtkWidget *handlebox) {
 
 	html_toolbar = gtk_toolbar_new();
 	html_toolbar_add_items(html_toolbar, tbi, 0, 14);
+	html_toolbar_add_items_to_submenu(html_toolbar, tbi, 26, 31, _("Heading"), 191);
 	html_toolbar_add_items(html_toolbar, tbi, 73, 76);
 	gtk_notebook_append_page(GTK_NOTEBOOK(html_notebook), html_toolbar, gtk_label_new(_(" Standard bar ")));
 
 	html_toolbar = gtk_toolbar_new();
-	html_toolbar_add_items(html_toolbar, tbi, 15, 31);
+	html_toolbar_add_items(html_toolbar, tbi, 15, 25);
+	html_toolbar_add_items_to_submenu(html_toolbar, tbi, 76, 83, _("Context formatting"), 300);
+	html_toolbar_add_items(html_toolbar, tbi, 25, 31);
 	gtk_notebook_append_page(GTK_NOTEBOOK(html_notebook), html_toolbar, gtk_label_new(_(" Fonts ")));
 
 	html_toolbar = gtk_toolbar_new();
