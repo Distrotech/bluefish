@@ -611,16 +611,18 @@ void filetype_menu_rebuild(GtkItemFactory *item_factory) {
 	parent_menu = gtk_item_factory_get_widget(item_factory, N_("/Document/Type"));
 	while (tmplist) {
 		Tfiletype *filetype = (Tfiletype *)tmplist->data;
+		if (filetype->editable) {
 #ifdef DEBUG
-		if (filetype->menuitem) {
-			DEBUG_MSG("filetype_menu_rebuild, %s has a menuitem already!!!\n", filetype->type);
-		}
+			if (filetype->menuitem) {
+				DEBUG_MSG("filetype_menu_rebuild, %s has a menuitem already!!!\n", filetype->type);
+			}
 #endif
-		filetype->menuitem = gtk_radio_menu_item_new_with_label(group, filetype->type);
-		filetype->menuitem_activate_id = g_signal_connect(G_OBJECT(filetype->menuitem), "activate",G_CALLBACK(menu_current_document_type_change), (gpointer) filetype);
-		gtk_widget_show(filetype->menuitem);
-		gtk_menu_insert(GTK_MENU(parent_menu), filetype->menuitem, 1);
-		group = gtk_radio_menu_item_get_group (GTK_RADIO_MENU_ITEM(filetype->menuitem));
+			filetype->menuitem = gtk_radio_menu_item_new_with_label(group, filetype->type);
+			filetype->menuitem_activate_id = g_signal_connect(G_OBJECT(filetype->menuitem), "activate",G_CALLBACK(menu_current_document_type_change), (gpointer) filetype);
+			gtk_widget_show(filetype->menuitem);
+			gtk_menu_insert(GTK_MENU(parent_menu), filetype->menuitem, 1);
+			group = gtk_radio_menu_item_get_group (GTK_RADIO_MENU_ITEM(filetype->menuitem));
+		}
 		tmplist = g_list_previous(tmplist);
 	}
 }
