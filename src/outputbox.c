@@ -203,21 +203,58 @@ static void outputbox_def_cleanup(Toutputbox *ob, gboolean do_shutdown) {
 	DEBUG_MSG("outputbox_def_cleanup, finished\n");
 }
 
+/*static void parse_for_lines(Toutputbox *ob) {
+	gint pos=0, size;
+	gchar *newpos=NULL;
+	if (!ob->def->buf) return;
+	
+	newpos = strchr(ob->def->buf+pos, '\n');
+	while (newpos != NULL) {
+		*newpos = '\0';
+		fill_output_box(ob, ob->def->buf+pos);
+		pos = (newpos - ob->def->buf + 1);
+		newpos = strchr(ob->def->buf+pos, '\n');
+	}
+	size = strlen(ob->def->buf+pos)+1;
+	DEBUG_MSG("parse_for_lines, remaining size=%d\n",size);
+	if (size > 1) {
+		memmove(ob->def->buf,ob->def->buf+pos,size);
+	} else {
+		g_free(ob->def->buf);
+		ob->def->buf = NULL;
+	}
+	DEBUG_MSG("parse_for_lines, remaining is %s\n",ob->def->buf);
+}*/
+
 static gboolean io_watch_lcb(GIOChannel *source,GIOCondition condition,gpointer data) {
 	Toutputbox *ob = data;
 	DEBUG_MSG("io_watch_lcb, called with condition %d\n",condition);
 	if (condition & G_IO_IN) {
-		gchar *buf=NULL;
-		gsize buflen=1, termpos=0;
+/*		gchar buf[1024];
+		gsize bytes_read=0;
 		GError *error=NULL;
-		while (buflen != 0) {
-			g_io_channel_read_line(source,&buf,&buflen,&termpos,&error);
-			if (buf) {
-				DEBUG_MSG("io_watch_lcb, read %d chars (termpos=%d): %s",buflen,termpos,buf);
-				if (termpos > 0) buf[termpos] = '\0';
-				fill_output_box(ob, buf);
-				g_free(buf);
+		DEBUG_MSG("io_watch_lcb, read.. (buffer size=%d)\n",g_io_channel_get_buffer_size(source));
+		g_io_channel_read_chars(source,buf,4096,&bytes_read,&error);
+		if (bytes_read > 0) {
+			DEBUG_MSG("io_watch_lcb, read %d bytes..\n",bytes_read);
+			if (ob->def->buf) {
+				gchar *tmp = ob->def->buf;
+				ob->def->buf = g_strconcat(tmp, buf, NULL);
+				g_free(tmp);
+			} else {
+				ob->def->buf = g_strndup(buf,bytes_read);
 			}
+			parse_for_lines(ob);
+		}*/
+		gchar *buf=NULL;
+		gsize buflen=0,termpos=0;
+		GError *error=NULL;
+		GIOStatus status = g_io_channel_read_line(source,&buf,&buflen,&termpos,&error);
+		while (status == G_IO_STATUS_NORMAL && buflen > 0) {
+			if (termpos < buflen) buf[termpos] = '\0';
+			fill_output_box(ob, buf);
+			g_free(buf);
+			status = g_io_channel_read_line(source,&buf,&buflen,&termpos,&error);
 		}
 	}
 	if (condition & G_IO_OUT) {
@@ -260,6 +297,7 @@ static void start_command(Toutputbox *ob, const gchar *command) {
 	}
 	close(fd[1]);
 	ob->def->channel = g_io_channel_unix_new(fd[0]);
+	g_io_channel_set_flags(ob->def->channel,G_IO_FLAG_NONBLOCK,NULL);
 	g_io_add_watch(ob->def->channel, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP,io_watch_lcb,ob);
 }
 
@@ -318,7 +356,7 @@ void outputbox(Tbfwin *bfwin,gchar *pattern, gint file_subpat, gint line_subpat,
 		/* we have a command still running !!! we have to cancel that first! */
 		outputbox_def_cleanup(ob, TRUE);
 	}
-	ob->def = g_new(Toutput_def,1);
+	ob->def = g_new0(Toutput_def,1);
 	ob->def->pattern = g_strdup(pattern);
 	ob->def->file_subpat = file_subpat;
 	ob->def->line_subpat = line_subpat;
