@@ -23,13 +23,10 @@
 
 void formdialog_dialog(Tbfwin *bfwin, Ttagpopup *data);
 void textareadialog_dialog(Tbfwin *bfwin, Ttagpopup *data);
-void textdialog_dialog(Tbfwin *bfwin, Ttagpopup *data);
-void buttondialog_dialog(Tbfwin *bfwin, Ttagpopup *data);
-void hiddendialog_dialog(Tbfwin *bfwin, Ttagpopup *data);
-void radiodialog_dialog(Tbfwin *bfwin, Ttagpopup *data);
-void checkdialog_dialog(Tbfwin *bfwin, Ttagpopup *data);
 void selectdialog_dialog(Tbfwin *bfwin, Ttagpopup *data);
 void optiondialog_dialog(Tbfwin *bfwin, Ttagpopup *data);
 void optgroupdialog_dialog(Tbfwin *bfwin, Ttagpopup *data);
-void inputdialog_dialog(Tbfwin *bfwin, Ttagpopup *data);
+void inputdialog_dialog(Tbfwin *bfwin, Ttagpopup *data, const gchar *type);
+void inputdialog_rpopup(Tbfwin *bfwin, Ttagpopup *data);
+void buttondialog_dialog(Tbfwin *bfwin, Ttagpopup *data);
 #endif /* __HTML_FORM_H_ */

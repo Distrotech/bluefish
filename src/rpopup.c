@@ -168,7 +168,7 @@ void doc_bevent_in_html_code(Tdocument *doc, GdkEventButton *bevent) {
 	locate_current_tag(doc, &iter);
 	locate_color(doc, &iter);
 }
-
+/*
 static void input_tag_splitter(Tbfwin *bfwin, gpointer data)
 {
 	Ttagpopup *tag_popup;
@@ -216,7 +216,7 @@ static void input_tag_splitter(Tbfwin *bfwin, gpointer data)
 		DEBUG_MSG("input_tag_splitter, not found ?\n");
 	}
 }
-
+*/
 
 typedef struct {
 	gchar *tag;
@@ -257,7 +257,9 @@ static void parse_tagstring(Tbfwin *bfwin, gchar * tagstring, gint pos, gint end
 		{"select",G_CALLBACK(selectdialog_dialog)},
 		{"option",G_CALLBACK(optiondialog_dialog)},
 		{"meta",G_CALLBACK(meta_dialog)},
-		{"img",G_CALLBACK(image_insert_dialog)}
+		{"img",G_CALLBACK(image_insert_dialog)},
+		{"input",G_CALLBACK(inputdialog_rpopup)},
+		{"button",G_CALLBACK(buttondialog_dialog)}
 	};
 
 	DEBUG_MSG("parse_tagstring, started, tagstring=%s\n", tagstring);
@@ -390,10 +392,10 @@ static void parse_tagstring(Tbfwin *bfwin, gchar * tagstring, gint pos, gint end
 	if (strcmp(tmpstring, "link") == 0) {
 		link_cb(NULL, tag_popup);
 	} else*/
-	if (strcmp(tmpstring, "input") == 0) {
+/*	if (strcmp(tmpstring, "input") == 0) {
 		DEBUG_MSG("parse_tagstring, identified as INPUT tag, splitting tag!\n");
 		input_tag_splitter(bfwin, tag_popup);
-	}
+	}*/
 	tmplist = g_list_first(tmplist);
 	while (tmplist) {
 		g_free(((Ttagitem *) tmplist->data)->item);

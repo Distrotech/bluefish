@@ -21,7 +21,7 @@
 #include <gtk/gtk.h>
 #include <string.h>	/* strrchr */
 #include <stdlib.h> /* strtod */
-/*#define DEBUG*/
+/* #define DEBUG */
 
 #include "bluefish.h"
 #include "html_diag.h" /* myself */
@@ -37,6 +37,7 @@ Trecent_attribs recent_attribs;
 /*****************************************/
 
 void html_diag_destroy_cb(GtkWidget * widget, Thtml_diag *dg) {
+	dg->tobedestroyed = TRUE;
 	DEBUG_MSG("html_diag_destroy_cb, widget=%p, dg=%p, dg->dialog=%p\n",widget,dg,dg->dialog);
 	if (dg->mark_ins) {
 		gtk_text_buffer_delete_mark(dg->doc->buffer,dg->mark_ins);
@@ -55,6 +56,7 @@ Thtml_diag *html_diag_new(Tbfwin *bfwin, gchar *title) {
 	Thtml_diag *dg;
 	
 	dg = g_malloc(sizeof(Thtml_diag));
+	dg->tobedestroyed = FALSE;
 	DEBUG_MSG("html_diag_new, dg=%p\n",dg);
 	dg->dialog = window_full(title, GTK_WIN_POS_MOUSE
 		, 12,G_CALLBACK(html_diag_destroy_cb), dg, TRUE);

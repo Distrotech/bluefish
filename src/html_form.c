@@ -19,13 +19,14 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-
+/* #define DEBUG */
 #include <gtk/gtk.h>
 
 #include <string.h>
 
 #include "cap.h"
 #include "bluefish.h"
+#include "html2.h" /* style_but_new() */
 #include "html_diag.h" /* html_diag functions */
 #include "html_form.h" /* myself */
 #include "stringlist.h" /* add to stringlist */
@@ -249,7 +250,7 @@ void textareadialog_dialog(Tbfwin *bfwin, Ttagpopup *data) {
 
 	if (custom)	g_free(custom);
 }
-
+/*
 static void textok_lcb(GtkWidget * widget, Thtml_diag *dg)
 {
 	gchar *thestring, *finalstring;
@@ -258,8 +259,8 @@ static void textok_lcb(GtkWidget * widget, Thtml_diag *dg)
 	thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(dg->entry[1])), cap("NAME"), thestring, NULL);
 	thestring = insert_integer_if_spin(dg->spin[1], cap("SIZE"), thestring, FALSE, 0);
 	thestring = insert_integer_if_spin(dg->spin[2], cap("MAXLENGTH"), thestring, FALSE, 0);
-/*	thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(dg->spin[1])), cap("SIZE"), thestring, NULL);
-	thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(dg->spin[2])), cap("MAXLENGTH"), thestring, NULL);*/
+/ *	thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(dg->spin[1])), cap("SIZE"), thestring, NULL);
+	thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(dg->spin[2])), cap("MAXLENGTH"), thestring, NULL);* /
 	thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(dg->entry[2])), cap("VALUE"), thestring, NULL);	
 	thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(dg->entry[3])), NULL, thestring, NULL);
 	if (main_v->props.xhtml == 1) {
@@ -560,7 +561,7 @@ void checkdialog_dialog(Tbfwin *bfwin, Ttagpopup *data) {
 
 	if (custom)	g_free(custom);
 }
-
+*/
 static void selectdialogok_lcb(GtkWidget * widget, Thtml_diag *dg)
 {
 	gchar *thestring, *finalstring;
@@ -705,25 +706,67 @@ void optgroupdialog_dialog(Tbfwin *bfwin, Ttagpopup *data) {
 }
 
 static void inputdialogok_lcb(GtkWidget * widget,Thtml_diag *dg) {
-	DEBUG_MSG("TODO: implement inputdialogok_lcb\n");
+	gchar *thestring, *finalstring;
+	const char *text;
+	text = gtk_entry_get_text(GTK_ENTRY(GTK_COMBO(dg->combo[0])->entry));
+	thestring = g_strdup(cap("<INPUT"));
+	thestring = insert_string_if_entry(GTK_WIDGET(GTK_COMBO(dg->combo[0])->entry), cap("TYPE"), thestring, NULL);
+	thestring = insert_string_if_entry(GTK_WIDGET(dg->entry[0]), cap("NAME"), thestring, NULL);
+	thestring = insert_string_if_entry(GTK_WIDGET(dg->entry[1]), cap("VALUE"), thestring, NULL);
+	if (strcmp(text, "radio")==0 || strcmp(text, "checkbox")==0) {
+		thestring = insert_attr_if_checkbox(dg->check[0], main_v->props.xhtml == 1 ? cap("CHECKED=\"checked\"") : cap("CHECKED"), thestring);
+	}
+	if (strcmp(text, "hidden")!=0) {
+		thestring = insert_integer_if_spin(dg->spin[0], cap("SIZE"), thestring, FALSE, 0);
+	}
+	if (strcmp(text, "text")==0 || strcmp(text, "passwd")==0) {
+		thestring = insert_integer_if_spin(dg->spin[1], cap("MAXLENGTH"), thestring, FALSE, 0);
+	}
+	if (strcmp(text, "file")==0) {
+		thestring = insert_string_if_entry(GTK_WIDGET(dg->entry[2]), cap("ACCEPT"), thestring, NULL);
+	}
+	thestring = insert_string_if_entry(GTK_WIDGET(dg->entry[8]), cap("ID"), thestring, NULL);
+	thestring = insert_string_if_entry(GTK_WIDGET(GTK_COMBO(dg->combo[1])->entry), cap("CLASS"), thestring, NULL);
+	thestring = insert_string_if_entry(GTK_WIDGET(dg->entry[10]), cap("STYLE"), thestring, NULL);
+	thestring = insert_string_if_entry(GTK_WIDGET(dg->entry[3]), cap("ONFOCUS"), thestring, NULL);
+	thestring = insert_string_if_entry(GTK_WIDGET(dg->entry[4]), cap("ONBLUR"), thestring, NULL);
+	thestring = insert_string_if_entry(GTK_WIDGET(dg->entry[5]), cap("ONSELECT"), thestring, NULL);
+	thestring = insert_string_if_entry(GTK_WIDGET(dg->entry[6]), cap("ONCHANGE"), thestring, NULL);
+	thestring = insert_string_if_entry(GTK_WIDGET(dg->entry[7]), NULL, thestring, NULL);
+	if (main_v->props.xhtml == 1) {
+		finalstring = g_strconcat(thestring," />", NULL);
+	} else {
+		finalstring = g_strconcat(thestring,">", NULL);
+	}
+	g_free(thestring);
+
+	if (dg->range.end == -1) {
+		doc_insert_two_strings(dg->doc, finalstring, NULL);
+	} else {
+		doc_replace_text(dg->doc, finalstring, dg->range.pos, dg->range.end);
+	}
+	g_free(finalstring);
+	html_diag_destroy_cb(NULL, dg);
 }
 
 static void inputdialog_typecombo_activate_lcb(GtkList *list, Thtml_diag *dg) {
 	/* hmm this function should check if the window is being destroyed... */
-	const gchar *text = gtk_entry_get_text(GTK_ENTRY(GTK_COMBO(dg->combo[0])->entry));
-	DEBUG_MSG("TODO: implement inputdialog_typecombo_activate_lcb\n");
-
-	gtk_widget_set_sensitive(dg->check[0], (strcmp(text, "radio")==0 || strcmp(text, "checkbox")==0));
-	gtk_widget_set_sensitive(dg->spin[1], (strcmp(text, "text")==0 || strcmp(text, "passwd")==0));
-	gtk_widget_set_sensitive(dg->entry[2], (strcmp(text, "file")==0));
+	if (!dg->tobedestroyed) {
+		const gchar *text = gtk_entry_get_text(GTK_ENTRY(GTK_COMBO(dg->combo[0])->entry));
+		DEBUG_MSG("inputdialog_typecombo_activate_lcb, text=%s\n",text);
+		gtk_widget_set_sensitive(dg->check[0], (strcmp(text, "radio")==0 || strcmp(text, "checkbox")==0));
+		gtk_widget_set_sensitive(dg->spin[0], (strcmp(text, "hidden")!=0));
+		gtk_widget_set_sensitive(dg->spin[1], (strcmp(text, "text")==0 || strcmp(text, "passwd")==0));
+		gtk_widget_set_sensitive(dg->entry[2], (strcmp(text, "file")==0));
+	}
 }
 
-void inputdialog_dialog(Tbfwin *bfwin, Ttagpopup *data) {
-	static gchar *tagitems[] = { "type", "name", "value", "checked", "size", "maxlength", "accept", "onfocus", "onblur", "onselect", "onchange", NULL };
-	gchar *tagvalues[12];
+void inputdialog_dialog(Tbfwin *bfwin, Ttagpopup *data, const gchar *type) {
+	static gchar *tagitems[] = { "type", "name", "value", "checked", "size", "maxlength", "accept", "onfocus", "onblur", "onselect", "onchange", "id", "class", "style", NULL };
+	gchar *tagvalues[15];
 	gchar *custom = NULL;
 	Thtml_diag *dg;
-	GtkWidget *noteb, *frame, *dgtable;
+	GtkWidget *noteb, *frame, *dgtable, *but;
 	
 	dg = html_diag_new(bfwin,_("Input"));
 	fill_dialogvalues(tagitems, tagvalues, &custom, (Ttagpopup *) data, dg);
@@ -749,7 +792,7 @@ void inputdialog_dialog(Tbfwin *bfwin, Ttagpopup *data) {
 		poplist = g_list_append(poplist, "hidden");
 		poplist = g_list_append(poplist, "image");
 		poplist = g_list_append(poplist, "button");
-		dg->combo[0] = combo_with_popdown(tagvalues[0], poplist, 0);
+		dg->combo[0] = combo_with_popdown(tagvalues[0] ? tagvalues[0] : type, poplist, 0);
 		g_list_free(poplist);
 	}
 	bf_mnemonic_label_tad_with_alignment(_("_Type:"), dg->combo[0], 0, 0.5, dgtable, 0, 1, 0, 1);
@@ -787,6 +830,27 @@ void inputdialog_dialog(Tbfwin *bfwin, Ttagpopup *data) {
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[7], 1, 3, 7, 8);
 	
 	frame = bf_generic_frame_new(NULL, GTK_SHADOW_NONE, 12);
+	gtk_notebook_append_page(GTK_NOTEBOOK(noteb), frame, gtk_label_new(_("Generic")));
+	dgtable = gtk_table_new(10, 2, FALSE);
+	gtk_table_set_row_spacings(GTK_TABLE(dgtable), 6);
+	gtk_table_set_col_spacings(GTK_TABLE(dgtable), 12);
+	gtk_container_add(GTK_CONTAINER(frame), dgtable);
+	
+	dg->entry[8] = entry_with_text(tagvalues[11], 256);
+	bf_mnemonic_label_tad_with_alignment(_("_ID:"), dg->entry[8], 0, 0.5, dgtable, 0, 1, 0, 1);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[8], 1, 3, 0, 1);
+
+	dg->combo[1] = combo_with_popdown(tagvalues[12], bfwin->session->classlist, 1);
+	bf_mnemonic_label_tad_with_alignment(_("Cl_ass:"), dg->combo[1], 0, 0.5, dgtable, 0, 1, 1, 2);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->combo[1], 1, 3, 1, 2);
+
+	dg->entry[10] = entry_with_text(tagvalues[13], 256);
+	bf_mnemonic_label_tad_with_alignment(_("St_yle:"), dg->entry[10], 0, 0.5, dgtable, 0, 1, 2, 3);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[10], 1, 2, 2, 3);
+	but = style_but_new(dg->entry[10], dg->dialog);
+	gtk_table_attach(GTK_TABLE(dgtable), but, 2, 3, 2, 3, GTK_SHRINK, GTK_SHRINK, 0, 0);
+
+	frame = bf_generic_frame_new(NULL, GTK_SHADOW_NONE, 12);
 	gtk_notebook_append_page(GTK_NOTEBOOK(noteb), frame, gtk_label_new(_("Events")));
 	dgtable = gtk_table_new(10, 2, FALSE);
 	gtk_table_set_row_spacings(GTK_TABLE(dgtable), 6);
@@ -811,4 +875,67 @@ void inputdialog_dialog(Tbfwin *bfwin, Ttagpopup *data) {
 	
 	inputdialog_typecombo_activate_lcb(NULL, dg);
 	html_diag_finish(dg, G_CALLBACK(inputdialogok_lcb));
+	if (custom)	g_free(custom);
+}
+
+void inputdialog_rpopup(Tbfwin *bfwin, Ttagpopup *data) {
+	inputdialog_dialog(bfwin, data, NULL);
+}
+
+static void buttondialogok_lcb(GtkWidget * widget, Thtml_diag *dg) {
+	gchar *thestring, *finalstring;
+
+	thestring = g_strdup(cap("<BUTTON"));
+	thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(dg->entry[1])), cap("NAME"), thestring, NULL);
+	thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(dg->entry[2])), cap("VALUE"), thestring, NULL);	
+	thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(GTK_COMBO(dg->combo[1])->entry)), cap("TYPE"), thestring, NULL);
+	thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(dg->entry[3])), NULL, thestring, NULL);
+	finalstring = g_strconcat(thestring, ">", NULL);
+	g_free(thestring);
+
+	if (dg->range.end == -1) {
+		doc_insert_two_strings(dg->doc, finalstring, cap("</BUTTON>"));
+	} else {
+		doc_replace_text(dg->doc, finalstring, dg->range.pos, dg->range.end);
+	}
+	g_free(finalstring);
+	html_diag_destroy_cb(NULL, dg);
+}
+
+void buttondialog_dialog(Tbfwin *bfwin, Ttagpopup *data) {
+	static gchar *tagitems[] = { "name", "value", "type",  NULL };
+	gchar *tagvalues[4];
+	gchar *custom = NULL;
+	GtkWidget *dgtable;
+	Thtml_diag *dg;
+	GList *tmplist=NULL;
+
+	dg = html_diag_new(bfwin,_("Button"));
+	fill_dialogvalues(tagitems, tagvalues, &custom, (Ttagpopup *) data, dg);
+
+	dgtable = html_diag_table_in_vbox(dg, 5, 10);
+
+	dg->entry[1] = entry_with_text(tagvalues[0], 256);
+	bf_mnemonic_label_tad_with_alignment(_("_Name:"), dg->entry[1], 0, 0.5, dgtable, 0, 1, 0, 1);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[1], 1, 10, 0, 1);
+
+	dg->entry[2] = entry_with_text(tagvalues[1], 256);
+	bf_mnemonic_label_tad_with_alignment(_("_Value:"), dg->entry[2], 0, 0.5, dgtable, 0, 1, 1, 2);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[2], 1, 9, 1, 2);
+	tmplist = g_list_append(tmplist, "");
+	tmplist = g_list_append(tmplist, "submit");
+	tmplist = g_list_append(tmplist, "reset");
+	tmplist = g_list_append(tmplist, "button");
+	dg->combo[1] = combo_with_popdown(tagvalues[2], tmplist, 0);
+	g_list_free(tmplist);
+	bf_mnemonic_label_tad_with_alignment(_("_Type:"), dg->combo[1], 0, 0.5, dgtable, 0, 1, 2, 3);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(dg->combo[1]), 1, 9, 2, 3);
+
+	dg->entry[3] = entry_with_text(custom, 256);
+	bf_mnemonic_label_tad_with_alignment(_("Custo_m:"), dg->entry[3], 0, 0.5, dgtable, 0, 1, 3, 4);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[3], 1, 9, 3, 4);
+
+	html_diag_finish(dg, G_CALLBACK(buttondialogok_lcb));
+
+	if (custom)	g_free(custom);
 }
