@@ -837,19 +837,18 @@ static void hig_dialog_backend (GtkDialog *dialog, gchar *primary, gchar *second
 	gchar *spanend = "</span>\n\n";
 	gchar *msgend = "\n";
 	
-	gtk_container_set_border_width (GTK_CONTAINER (dialog), 6);
 	gtk_window_set_resizable (GTK_WINDOW (dialog), FALSE);
 	gtk_dialog_set_has_separator (GTK_DIALOG (dialog), FALSE);
 
 	vbox = GTK_DIALOG (dialog)->vbox;
-
+	
 	hbox = gtk_hbox_new (FALSE, 12);
-	gtk_box_pack_start (GTK_BOX (vbox), hbox, TRUE, TRUE, 0);
-	gtk_container_set_border_width (GTK_CONTAINER (hbox), 6);
+	gtk_container_set_border_width (GTK_CONTAINER (hbox), 12);
+	gtk_box_pack_start (GTK_BOX (vbox), hbox, TRUE, FALSE, 0);
 
 	if(icon) {
 		image = gtk_image_new_from_stock (icon , GTK_ICON_SIZE_DIALOG); /* icon unknown ==> "broken image" displayed. */
-		gtk_box_pack_start (GTK_BOX (hbox), image, TRUE, TRUE, 0);
+		gtk_box_pack_start (GTK_BOX (hbox), image, FALSE, FALSE, 0);
 		gtk_misc_set_alignment (GTK_MISC (image), 0, 0);
 	}
 
@@ -865,7 +864,6 @@ static void hig_dialog_backend (GtkDialog *dialog, gchar *primary, gchar *second
 	gtk_label_set_use_markup (GTK_LABEL (label), TRUE);
 	gtk_label_set_justify (GTK_LABEL (label), GTK_JUSTIFY_LEFT);
 	gtk_label_set_line_wrap (GTK_LABEL (label), TRUE);
-	gtk_misc_set_alignment (GTK_MISC (label), 0.5, 0);
 }
 
 /**
