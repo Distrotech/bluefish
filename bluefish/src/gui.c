@@ -249,7 +249,10 @@ void left_panel_rebuild(Tbfwin *bfwin) {
 }
 
 void left_panel_show_hide_toggle(Tbfwin *bfwin,gboolean first_time, gboolean show, gboolean sync_menu) {
-	if (sync_menu) setup_toggle_item(gtk_item_factory_from_widget(bfwin->menubar), _("/View/View Sidebar"), show);
+	if (sync_menu) {
+		DEBUG_MSG("left_panel_show_hide_toggle, trying to sync menu\n");
+		setup_toggle_item_from_widget(bfwin->menubar, "/View/View Sidebar", show);
+	}
 	if (!first_time && ((show && bfwin->hpane) || (!show && bfwin->hpane == NULL))) {
 		DEBUG_MSG("left_panel_show_hide_toggle, retrurning!!, show=%d, bfwin->hpane=%p, first_time=%d\n",show,bfwin->hpane,first_time);
 		return;
@@ -947,20 +950,21 @@ void gui_set_undo_redo_widgets(Tbfwin *bfwin, gboolean undo, gboolean redo) {
 		gtk_widget_set_sensitive(bfwin->toolbar_redo, redo);
 		gtk_widget_set_sensitive(bfwin->toolbar_undo, undo);
 	}
-	gtk_widget_set_sensitive(gtk_item_factory_get_widget(gtk_item_factory_from_widget(bfwin->menubar), _("/Edit/Undo")), undo);
-	gtk_widget_set_sensitive(gtk_item_factory_get_widget(gtk_item_factory_from_widget(bfwin->menubar), _("/Edit/Undo All")), undo);
-	gtk_widget_set_sensitive(gtk_item_factory_get_widget(gtk_item_factory_from_widget(bfwin->menubar), _("/Edit/Redo")), redo);
-	gtk_widget_set_sensitive(gtk_item_factory_get_widget(gtk_item_factory_from_widget(bfwin->menubar), _("/Edit/Redo All")), redo);
+	
+	menuitem_set_sensitive(bfwin->menubar, "/Edit/Undo", undo);
+	menuitem_set_sensitive(bfwin->menubar, "/Edit/Undo All", undo);
+	menuitem_set_sensitive(bfwin->menubar, "/Edit/Redo", redo);
+	menuitem_set_sensitive(bfwin->menubar, "/Edit/Redo All", redo);
 }
 
 void gui_set_document_widgets(Tdocument *doc) {
 	GtkItemFactory *tmp1 = gtk_item_factory_from_widget(BFWIN(doc->bfwin)->menubar);
-	setup_toggle_item(tmp1,_("/Document/Highlight Syntax"), (doc->highlightstate && doc->hl->highlightlist != NULL));
-	gtk_widget_set_sensitive(gtk_item_factory_get_widget(tmp1,_("/Document/Highlight Syntax")), (doc->hl->highlightlist != NULL));
+	setup_toggle_item(tmp1,("/Document/Highlight Syntax"), (doc->highlightstate && doc->hl->highlightlist != NULL));
+	/*gtk_widget_set_sensitive(gtk_item_factory_get_widget(tmp1,_("/Document/Highlight Syntax")), (doc->hl->highlightlist != NULL));*/
 	gui_set_undo_redo_widgets(doc->bfwin, doc_has_undo_list(doc), doc_has_redo_list(doc));
-	setup_toggle_item(gtk_item_factory_from_widget(BFWIN(doc->bfwin)->menubar),_("/Document/Wrap"), doc->wrapstate);
-	setup_toggle_item(gtk_item_factory_from_widget(BFWIN(doc->bfwin)->menubar),_("/Document/Line Numbers"), doc->linenumberstate);
-	setup_toggle_item(gtk_item_factory_from_widget(BFWIN(doc->bfwin)->menubar),_("/Document/Auto Close HTML tags"), doc->autoclosingtag);
+	setup_toggle_item(gtk_item_factory_from_widget(BFWIN(doc->bfwin)->menubar),"/Document/Wrap", doc->wrapstate);
+	setup_toggle_item(gtk_item_factory_from_widget(BFWIN(doc->bfwin)->menubar),"/Document/Line Numbers", doc->linenumberstate);
+	setup_toggle_item(gtk_item_factory_from_widget(BFWIN(doc->bfwin)->menubar),"/Document/Auto Close HTML tags", doc->autoclosingtag);
 	menu_current_document_set_toggle_wo_activate(BFWIN(doc->bfwin),doc->hl, doc->encoding);
 }
 
@@ -1152,8 +1156,11 @@ void gui_create_main(Tbfwin *bfwin, GList *filenames) {
 	gtk_widget_show(vbox);
 
 	/* first a menubar */
+	DEBUG_MSG("gui_create_main, starting menu_create_main\n");
 	menu_create_main(bfwin, vbox);
+	DEBUG_MSG("gui_create_main, starting recent_menu\n");
 	recent_menu_init(bfwin);
+	DEBUG_MSG("gui_create_main, starting external-encoding_menu\n");
 	external_menu_rebuild(bfwin);
 	encoding_menu_rebuild(bfwin);
 	snr2_init(bfwin);
@@ -1161,6 +1168,7 @@ void gui_create_main(Tbfwin *bfwin, GList *filenames) {
 	add_allwindows_entries_to_window(bfwin);*/
 	/* then the toolbars */
 	{
+		DEBUG_MSG("gui_create_main, creating handles for all menu/toolbars\n");
 		bfwin->main_toolbar_hb = gtk_handle_box_new();
 		gtk_box_pack_start(GTK_BOX(vbox), bfwin->main_toolbar_hb, FALSE, FALSE, 0);
 		bfwin->html_toolbar_hb = gtk_handle_box_new();
@@ -1481,21 +1489,30 @@ GtkWidget *start_splash_screen() {
 #endif /* #ifndef NOSPLASH */
 
 void gui_set_html_toolbar_visible(Tbfwin *bfwin, gboolean visible, gboolean sync_menu) {
-	if (sync_menu) setup_toggle_item(gtk_item_factory_from_widget(bfwin->menubar), _("/View/View HTML Toolbar"), visible);
+	if (sync_menu) {
+		DEBUG_MSG("gui_set_html_toolbar_visible, trying to sync menu\n");
+		setup_toggle_item_from_widget(bfwin->menubar, "/View/View HTML Toolbar", visible);
+	}
 	if (gtk_container_children(GTK_CONTAINER(bfwin->html_toolbar_hb)) == NULL) {
 		make_html_toolbar(bfwin);
 	}
 	widget_set_visible(bfwin->html_toolbar_hb,visible);
 }
 void gui_set_main_toolbar_visible(Tbfwin *bfwin, gboolean visible, gboolean sync_menu) {
-	if (sync_menu) setup_toggle_item(gtk_item_factory_from_widget(bfwin->menubar), _("/View/View Main Toolbar"), visible);
+	if (sync_menu) {
+		DEBUG_MSG("gui_set_main_toolbar_visible, trying to sync menu\n");
+		setup_toggle_item_from_widget(bfwin->menubar, "/View/View Main Toolbar", visible);
+	}
 	if (gtk_container_children(GTK_CONTAINER(bfwin->main_toolbar_hb)) == NULL) {
 		make_main_toolbar(bfwin);
 	}
 	widget_set_visible(bfwin->main_toolbar_hb,visible);
 }
 void gui_set_custom_menu_visible(Tbfwin *bfwin, gboolean visible, gboolean sync_menu) {
-	if (sync_menu) setup_toggle_item(gtk_item_factory_from_widget(bfwin->menubar), _("/View/View Custom Menu"), visible);
+	if (sync_menu) {
+		DEBUG_MSG("gui_set_custom_menu_visible, trying to sync menu\n");
+		setup_toggle_item_from_widget(bfwin->menubar, "/View/View Custom Menu", visible);
+	}
 	if (gtk_container_children(GTK_CONTAINER(bfwin->custom_menu_hb)) == NULL) {
 		make_cust_menubar(bfwin,bfwin->custom_menu_hb);
 	}

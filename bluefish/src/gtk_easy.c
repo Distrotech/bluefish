@@ -135,10 +135,9 @@ void window_close_by_data_cb(GtkWidget * widget, gpointer data) {
  */
 void setup_toggle_item(GtkItemFactory * ifactory, gchar * path, gint state) {
 	GtkWidget *toggle;
-
 	toggle = gtk_item_factory_get_widget(ifactory, path);
 	if (!toggle) {
-		DEBUG_MSG("warning, this menuitem (%s) does NOT exist!", path);
+		g_print("warning, menuitem \"%s\" does NOT exist! check the translation!\n", path);
 		return;
 	}
 	DEBUG_MSG("setting path %s to %d\n",path,state);
