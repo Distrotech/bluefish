@@ -410,6 +410,7 @@ static GList *props_init_main(GList * config_rc)
 	init_prop_integer(&config_rc, &main_v->props.editor_tab_width, "editor_tab_width:", 3);
 	init_prop_string(&config_rc, &main_v->props.tab_font_string, "tab_font_string:", "helvetica 8");
 	init_prop_arraylist(&config_rc, &main_v->props.browsers, "browsers:");
+	init_prop_arraylist(&config_rc, &main_v->props.external_commands, "external_commands:");
 	init_prop_stringlist(&config_rc, &main_v->props.quickbar_items, "quickbar_items:");
 	init_prop_integer(&config_rc, &main_v->props.highlight_num_lines_count, "highlight_num_lines_count:", 1);
 
@@ -453,8 +454,6 @@ static GList *props_init_main(GList * config_rc)
 	init_prop_integer(&config_rc, &main_v->props.cont_highlight_full, "cont_highlight_full:", 0);
 	init_prop_integer(&config_rc, &main_v->props.cont_highlight_update, "continuous_highlight_update:", 1);
 	init_prop_string(&config_rc, &main_v->props.html_ver, "used_html_version:", "HTML 4.0 Transitional");
-	init_prop_arraylist(&config_rc, &main_v->props.external_filters, "external_filters:");
-	init_prop_arraylist(&config_rc, &main_v->props.external_commands, "external_commands:");
 	init_prop_string  (&config_rc, &main_v->props.backup_filestring,"backup_filestring:","~");
 	init_prop_integer (&config_rc, &main_v->props.backup_file,"backup_file:",1);
 	init_prop_integer (&config_rc, &main_v->props.backup_by_copy,"backup_by_copy:",0);
@@ -492,6 +491,29 @@ void rcfile_parse_main(void)
 		/* should we initialize some things ?? */
 	}
 	g_free(filename);
+	/* do some default configuration for the lists */
+	if (main_v->props.browsers == NULL) {
+		gchar **arr;
+		arr = array_from_arglist("Galeon", "galeon %s&",NULL);
+		main_v->props.browsers = g_list_append(main_v->props.browsers,arr);
+		arr = array_from_arglist("Mozilla", "mozilla -remote 'openURL(%s, new-window)' || mozilla %s&",NULL);
+		main_v->props.browsers = g_list_append(main_v->props.browsers,arr);
+		arr = array_from_arglist("Opera", "opera -remote 'openURL(%s,new-window)' || opera %s&",NULL);
+		main_v->props.browsers = g_list_append(main_v->props.browsers,arr);
+		arr = array_from_arglist("Netscape", "/usr/lib/netscape/477/communicator/communicator-smotif %s&",NULL);
+		main_v->props.browsers = g_list_append(main_v->props.browsers,arr);
+		arr = array_from_arglist("Gnome default", "gnome-moz-remote --newwin %s&",NULL);
+		main_v->props.browsers = g_list_append(main_v->props.browsers,arr);
+	}
+	if (main_v->props.external_commands == NULL) {
+		gchar **arr;
+		arr = array_from_arglist("Java Compiler", "xterm -e sh -c \"javac %s;read\"&",NULL);
+		main_v->props.external_commands = g_list_append(main_v->props.external_commands,arr);
+		arr = array_from_arglist("Make", "xterm -e sh -c \"make;read\"&",NULL);
+		main_v->props.external_commands = g_list_append(main_v->props.external_commands,arr);
+		arr = array_from_arglist("Dos2Unix", "cat %s | dos2unix > %f",NULL);
+		main_v->props.external_commands = g_list_append(main_v->props.external_commands,arr);
+	}
 }
 
 gint rcfile_save_main(void) {

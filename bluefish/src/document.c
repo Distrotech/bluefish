@@ -394,6 +394,10 @@ gchar *doc_get_chars(Tdocument *doc, gint start, gint end) {
 	return string;
 }
 
+gint doc_get_max_offset(Tdocument *doc) {
+	return gtk_text_buffer_get_char_count(doc->buffer);
+}
+
 /*  void doc_select_region(Tdocument *doc, gint start, gint end, gboolean do_scroll)
  *  selects from start to end in the doc, and if do_scroll is set it will make
  *  sure the selection is visible to the user

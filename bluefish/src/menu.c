@@ -73,7 +73,7 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/Edit/Replace special"), NULL, NULL, 0, "<Branch>"},
 	{N_("/Edit/Replace special/Tearoff1"), NULL, NULL, 0, "<Tearoff>"},
 	{N_("/Edit/Replace special/ascii to HTML entities"), NULL, doc_convert_asciichars_in_selection, 1, NULL},
-	{N_("/Edit/Replace special/iso8859_1 to HTML entities"), NULL, doc_convert_asciichars_in_selection, 2, NULL},
+	{N_("/Edit/Replace special/iso8859 to HTML entities"), NULL, doc_convert_asciichars_in_selection, 2, NULL},
 	{N_("/Edit/Replace special/both types to HTML entities"), NULL, doc_convert_asciichars_in_selection, 3, NULL},
 	{N_("/Edit/sep4"), NULL, NULL, 0, "<Separator>"},
 	{N_("/Edit/Undo"), "<control>z", undo_cb, 0, NULL},
@@ -413,8 +413,6 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/Dialogs/WML/Set Variable..."), NULL, vardialog_cb, 0, NULL},*/
 	{N_("/E_xternal"), NULL, NULL, 0, "<Branch>"},
 	{N_("/External/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
-	{N_("/External/Filters"), NULL, NULL, 0, "<Branch>"},
-	{N_("/External/Filters/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
 	{N_("/External/Commands"), NULL, NULL, 0, "<Branch>"},
 	{N_("/External/Commands/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
 	{N_("/External/sep1"), NULL, NULL, 0, "<Separator>"},
@@ -698,24 +696,101 @@ static void browser_lcb(GtkWidget *widget, gchar *name) {
 		while (tmplist) {
 			gchar **arr = tmplist->data;
 			if (strcmp(name, arr[0])==0) {
-				Tconvert_table *table[2];
+				Tconvert_table *table, *tmpt;
 				gchar *command;
-				table[0] = g_new(Tconvert_table, 1);
-				table[0]->my_int = 's';
-				table[0]->my_char = main_v->current_document->filename;
-				table[1] = NULL;
-				command = replace_string_printflike(arr[1], table[0]);
-				g_free(table[0]);
+				table = tmpt = g_new(Tconvert_table, 2);
+				tmpt->my_int = 's';
+				tmpt->my_char = main_v->current_document->filename;
+				tmpt++;
+				tmpt->my_char = NULL;
+				command = replace_string_printflike(arr[1], table);
+				g_free(table);
 				DEBUG_MSG("browser_lcb, should start %s now\n", command);
 				system(command);
 				g_free(command);
+				break;
 			}
 			tmplist = g_list_next(tmplist);
 		}
 	}
 }
+static void external_command_lcb(GtkWidget *widget, gchar *name) {
+	gchar **arr=NULL;
+	gchar *secure_tempname = NULL;
+	gboolean need_s=FALSE, need_f=FALSE;
+	DEBUG_MSG("external_command_lcb, searching array for '%s'\n", name);
+	{
+		GList *tmplist = g_list_first(main_v->props.external_commands);
+		while (tmplist) {
+			gchar **tmp = tmplist->data;
+			DEBUG_MSG("comparing '%s' and '%s'\n", name, tmp[0]);
+			if (strcmp(name, tmp[0])==0) {
+				arr = tmplist->data;
+				break;
+			}
+			tmplist = g_list_next(tmplist);
+		}
+		if (!arr) return;
+	}
+	DEBUG_MSG("external_command_lcb, found %p\n", arr);
 
-void browsers_menu_init() {
+	change_dir(main_v->current_document->filename);
+	/* now check if
+	 * %s - we need a filename 
+	 * %f - output filename that we need to read after the command has finished (filter)
+	 */
+	need_f = (strstr(arr[1], "%f"));
+	need_s = (strstr(arr[1], "%s"));
+	if (need_f || need_s) {
+		gchar *command;
+		Tconvert_table *table, *tmpt;
+		table = tmpt = g_new(Tconvert_table, 3);
+		if (need_s) {
+			if (!main_v->current_document->filename) {
+				file_save_cb(NULL, NULL);
+				if (!main_v->current_document->filename) {
+					g_free(table);
+					return;
+				}
+			}
+			DEBUG_MSG("adding 's' to table\n");
+			tmpt->my_int = 's';
+			tmpt->my_char = main_v->current_document->filename;
+			tmpt++;
+		}
+		if (need_f) {
+			secure_tempname = create_secure_dir_return_filename();
+			DEBUG_MSG("adding 'f' to table\n");
+			tmpt->my_int = 'f';
+			tmpt->my_char = secure_tempname;
+			tmpt++;
+		}
+		tmpt->my_char = NULL;
+		command = replace_string_printflike(arr[1], table);
+		g_free(table);
+		system(command);
+		g_free(command);
+		if (need_f) {
+			gint end;
+			gchar *buf = NULL;
+			gboolean suc6;
+			/* empty textbox and fill from file secure_tempname */
+			end = doc_get_max_offset(main_v->current_document);
+			suc6 = g_file_get_contents(secure_tempname, &buf, NULL, NULL);
+			if (suc6 && buf) {
+				if (strlen(buf)) {
+					doc_replace_text(main_v->current_document, buf, 0, end);
+				}
+				g_free(buf);
+			}
+			remove_secure_dir_and_filename(secure_tempname);
+		}
+	} else {
+		DEBUG_MSG("external_command_lcb, about to start %s\n", arr[1]);
+		system(arr[1]);
+	}
+}
+void external_menu_init() {
 	GList *tmplist = g_list_first(main_v->props.browsers);
 	while (tmplist) {
 		gchar **arr = tmplist->data;
@@ -723,9 +798,24 @@ void browsers_menu_init() {
 		 *  arr[1] = command
 		 */
 		if (count_array(arr)==2) {
-			main_v->browsers = g_list_append(main_v->browsers
+			main_v->external_menu = g_list_append(main_v->external_menu
 					, create_menuitem(N_("<main>/External")
-						, arr[0], G_CALLBACK(browser_lcb), 6)
+						, arr[0], G_CALLBACK(browser_lcb), 4)
+					);
+		}
+		tmplist = g_list_next(tmplist);
+	}
+	
+	tmplist = g_list_first(main_v->props.external_commands);
+	while (tmplist) {
+		gchar **arr = tmplist->data;
+		/*  arr[0] = name
+		 *  arr[1] = command
+		 */
+		if (count_array(arr)==2) {
+			main_v->external_menu = g_list_append(main_v->external_menu
+					, create_menuitem(N_("<main>/External/Commands")
+						, arr[0], G_CALLBACK(external_command_lcb), 1)
 					);
 		}
 		tmplist = g_list_next(tmplist);
@@ -780,61 +870,6 @@ Tcust_con_struc->array[7] = number of variables from the dialog
 Tcust_con_struc->array[8..] = the description of those variables
 */
 
-/* THIS FUNCTION SHOULD BE REMOVED, BF_LIB NOW CONTAINS MULTI-FUNCTIONAL FUNCTIONS */
-static gchar *replace_with(gchar numc, gchar **array) {
-	gint numi, i;
-
-	numi = ((int) numc) -48;
-	for (i=0; array[i] != NULL; i++) {
-		DEBUG_MSG("replace_with, i=%d, searching for numi=%d\n", i, numi);
-		if (i == numi) {
-			DEBUG_MSG("replace_with, returning %d= %s\n", i, array[i]);
-			return array[i];
-		}
-	}
-	return NULL;
-}
-
-/* THIS FUNCTION SHOULD BE REMOVED, BF_LIB NOW CONTAINS MULTI-FUNCTIONAL FUNCTIONS */
-
-static gchar *replace_string(gchar *in_string, gchar **array) {
-	gchar *tmp3;
-	gchar *found, *search_in, *freestr;
-	gchar *newstring, *tmpnewstring, *begin, *replace_w;
-
-	newstring = g_strdup("");
-	freestr = search_in = begin = g_strdup(in_string);
-	while ( (search_in) && (found = strchr(search_in, '%')) ) {
-		DEBUG_MSG("replace_string, found=%s, search_in=%s\n", found, search_in);
-		tmp3 = found;
-		DEBUG_MSG("replace_string, char=%c\n", *tmp3);
-		tmp3++;
-		DEBUG_MSG("replace_string, char=%c\n", *tmp3);
-		if ((replace_w = replace_with(*tmp3, array))) {
-			*found = '\0';
-			tmpnewstring = newstring;
-			newstring = g_strconcat(tmpnewstring, begin, replace_w, NULL);
-			DEBUG_MSG("replace_string, newstring=%s\n", newstring);
-			g_free(tmpnewstring);
-			begin = ++tmp3;
-			search_in = tmp3;
-		} else if (*tmp3 == '\0') {
-			DEBUG_MSG("replace_string, *tmp3 = \\0, found end of string\n");
-			search_in = NULL;
-		} else {
-			search_in = ++found;
-			DEBUG_MSG("replace_string, search_in=%s\n", search_in);
-		}
-	}
-	tmpnewstring = newstring;
-	newstring = g_strconcat(tmpnewstring, begin,NULL);
-	DEBUG_MSG("replace_string, newstring=%s\n", newstring);
-	g_free(tmpnewstring);
-	
-	g_free(freestr);
-	return newstring;
-}
-
 static void cust_con_struc_dialog_destroy_lcb(GtkWidget *widget, GdkEvent *event,  Tcust_con_struc *ccs) {
 	window_destroy(ccs->dialog);
 	g_free(ccs);
@@ -845,7 +880,7 @@ static void cust_con_struc_dialog_cancel_lcb(GtkWidget *widget, gpointer data) {
 }
 
 static void cust_con_struc_dialog_ok_lcb(GtkWidget *widget, Tcust_con_struc *ccs) {
-	gchar **dialogarray;
+	Tconvert_table *table, *tmpt;
 	gint num_vars, i;
 
 	DEBUG_MSG("cust_con_struc_dialog_ok_lcb, ccs at %p\n", ccs);
@@ -855,23 +890,31 @@ static void cust_con_struc_dialog_ok_lcb(GtkWidget *widget, Tcust_con_struc *ccs
 		gchar *before=NULL, *after=NULL;
 		num_vars = atoi(ccs->array[4]);
 		DEBUG_MSG("cust_con_struc_dialog_ok_lcb, num_vars=%d, ccs->array[3]=%s\n", num_vars, ccs->array[3]);
-		dialogarray = g_malloc((num_vars+1) * sizeof(char *));
+		table = tmpt = g_new(Tconvert_table, num_vars+1);
 		for (i=0; i<num_vars; i++) {
-			dialogarray[i] = gtk_editable_get_chars(GTK_EDITABLE(ccs->textentry[i]), 0, -1);
-			DEBUG_MSG("cust_con_struc_dialog_ok_lcb, i=%d, dialogarray[i]=%s\n", i, dialogarray[i]);
+			DEBUG_MSG("cust_con_struc_dialog_ok_lcb, tmpt=%p, i=%d\n", tmpt, i);
+			tmpt->my_int = 48 + i;
+			tmpt->my_char = gtk_editable_get_chars(GTK_EDITABLE(ccs->textentry[i]), 0, -1);
+			tmpt++;
 		}
-		dialogarray[i] = NULL;
-		DEBUG_MSG("cust_con_struc_dialog_ok_lcb, i=%d, dialogarray[i]=%p\n", i, dialogarray[i]);
+		DEBUG_MSG("cust_con_struc_dialog_ok_lcb, setting tmpt(%p) to NULL\n", tmpt);
+		tmpt->my_char = NULL;
 
 		if (strlen(ccs->array[2])) {
 			DEBUG_MSG("cust_con_struc_dialog_ok_lcb, ccs->array[2]=%s\n",ccs->array[2] );
-			before = replace_string(ccs->array[2], dialogarray);
+			before = replace_string_printflike(ccs->array[2], table);
 		}
 		if (strlen(ccs->array[3])) {
-			after = replace_string(ccs->array[3], dialogarray);
+			after = replace_string_printflike(ccs->array[3], table);
 		}
 		doc_insert_two_strings(main_v->current_document, before, after);
-		g_strfreev(dialogarray);
+		tmpt = table;
+		while (tmpt->my_char) {
+			DEBUG_MSG("cust_con_struc_dialog_ok_lcb, tmpt=%p, about to free(%p) %s\n", tmpt, tmpt->my_char, tmpt->my_char);
+			g_free(tmpt->my_char);
+			tmpt++;
+		}
+		g_free(table);
 
 		if (before) {
 			g_free(before);
@@ -882,24 +925,32 @@ static void cust_con_struc_dialog_ok_lcb(GtkWidget *widget, Tcust_con_struc *ccs
 	} else {
 		gchar *search=NULL, *replace=NULL;
 		num_vars = atoi(ccs->array[7]);
-		dialogarray = g_malloc((num_vars+1) * sizeof(char *));
+		table = tmpt = g_new(Tconvert_table, num_vars+1);
 		for (i=0; i<num_vars; i++) {
-			dialogarray[i] = gtk_editable_get_chars(GTK_EDITABLE(ccs->textentry[i]), 0, -1);
-			DEBUG_MSG("cust_con_struc_dialog_ok_lcb, i=%d, dialogarray[i]=%s\n", i, dialogarray[i]);
+			tmpt->my_int = 48 + i;
+			tmpt->my_char = gtk_editable_get_chars(GTK_EDITABLE(ccs->textentry[i]), 0, -1);
+			tmpt++;
 		}
-		dialogarray[i] = NULL;
+		tmpt->my_char = NULL;
 		if (strlen(ccs->array[2])) {
 			DEBUG_MSG("cust_con_struc_dialog_ok_lcb, ccs->array[2]=%s\n",ccs->array[2] );
-			search = replace_string(ccs->array[2], dialogarray);
+			search = replace_string_printflike(ccs->array[2], table);
 		}
 		if (strlen(ccs->array[3])) {
-			replace = replace_string(ccs->array[3], dialogarray);
+			replace = replace_string_printflike(ccs->array[3], table);
 		} else {
 			replace = g_strdup("");
 		}
 		snr2_run_extern_replace(search, atoi(ccs->array[4]),
 				atoi(ccs->array[5]), atoi(ccs->array[6]), replace);
-		g_strfreev(dialogarray);
+		
+		tmpt = table;
+		while (tmpt->my_char) {
+			g_free(tmpt->my_char);
+			tmpt++;
+		}
+		g_free(table);
+		
 		if (search) {
 			g_free(search);
 		}
