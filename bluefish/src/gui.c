@@ -149,10 +149,6 @@ void gui_notebook_switch(gpointer callback_data,guint action,GtkWidget *widget) 
 	}
 }
 
-static void main_window_delete_lcb(GtkWidget *wid, gpointer data) {
-	bluefish_exit_request();
-}
-
 static void left_panel_notify_position_lcb(GObject *object,GParamSpec *pspec,gpointer data){
 	gint position;
 	g_object_get(object, pspec->name, &position, NULL);
@@ -640,12 +636,25 @@ static void main_win_on_drag_data_lcb(GtkWidget * widget, GdkDragContext * conte
 	g_free(url);
 
 }				
+gboolean main_window_delete_lcb(GtkWidget *widget,GdkEvent *event,gpointer user_data) {
+	bluefish_exit_request();
+	return TRUE;
+}
+
+gboolean main_window_destroy_event_lcb(GtkWidget *widget,GdkEvent *event,gpointer user_data) {
+	/* we should save all open documents and do stuff like that here!! */
+	bluefish_exit_request();
+	return TRUE;
+}
+
 void gui_create_main(GList *filenames) {
 	GtkWidget *vbox;
-	main_v->main_window = window_full(CURRENT_VERSION_NAME, GTK_WIN_POS_CENTER, 0, G_CALLBACK(main_window_delete_lcb), NULL, FALSE);
+	main_v->main_window = window_full(CURRENT_VERSION_NAME, GTK_WIN_POS_CENTER, 0, G_CALLBACK(main_window_destroy_event_lcb), NULL, FALSE);
 	gtk_window_set_role(GTK_WINDOW(main_v->main_window), "bluefish");
 	gtk_window_set_default_size(GTK_WINDOW(main_v->main_window), main_v->props.main_window_w, main_v->props.main_window_h);
+	g_signal_connect(G_OBJECT(main_v->main_window), "delete_event", G_CALLBACK(main_window_delete_lcb), NULL);
 	g_signal_connect(G_OBJECT(main_v->main_window), "configure-event", G_CALLBACK(gui_main_window_configure_event_lcb), NULL);
+
 
 	vbox = gtk_vbox_new(FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(main_v->main_window), vbox);
