@@ -1,26 +1,30 @@
+# translation of ru.po to 
+# translation of ru.po to
+# translation of ru.po to
+# translation of ru.po to
 # translation of ru.po to Russian
 # Russian language file for Bluefish.
 # Copyright (C) 2000,2003 Free Software Foundation, Inc.
 # Eugene Rupakov <rupakov@jet.msk.su>, 2003
 #  <taurus@croco.net>, 2003
+# Eugene Rupakov <taurus@croco.net>, 2003
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-11-03 21:26+0100\n"
-"PO-Revision-Date: 2003-07-12 06:47+0400\n"
-"Last-Translator: Eugene Rupakov <rupakov@jet.msk.su>\n"
-"Language-Team: Russian <ru@li.org>\n"
+"POT-Creation-Date: 2003-11-04 11:52-0300\n"
+"PO-Revision-Date: 2003-11-03 21:02+0300\n"
+"Last-Translator: Eugene Rupakov <taurus@croco.net>\n"
+"Language-Team:  <ru@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.0\n"
 
 #: ../src/bfspell.c:340
-#, fuzzy
 msgid "Check Spelling"
-msgstr "Проверка"
+msgstr "Проверка правописания"
 
 #: ../src/bfspell.c:344
 msgid "Checking"
@@ -28,30 +32,27 @@ msgstr "Проверка"
 
 #: ../src/bfspell.c:353
 msgid "_Misspelled word:"
-msgstr ""
+msgstr "_Неверное слово:"
 
 #: ../src/bfspell.c:357
 msgid "Change _to:"
-msgstr ""
+msgstr "_Изменить на:"
 
 #: ../src/bfspell.c:360
-#, fuzzy
 msgid "I_gnore"
-msgstr "Игнорировать"
+msgstr "И_гнорировать"
 
 #: ../src/bfspell.c:361 ../src/snr2.c:886
 msgid "_Replace"
 msgstr "_Заменить"
 
 #: ../src/bfspell.c:374
-#, fuzzy
 msgid "In _document"
-msgstr "в документе"
+msgstr "В _документе"
 
 #: ../src/bfspell.c:375
-#, fuzzy
 msgid "I_n selection"
-msgstr "В выбранном"
+msgstr "В в_ыбранном"
 
 #: ../src/bfspell.c:384
 msgid "personal dictionary"
@@ -62,29 +63,24 @@ msgid "session dictionary"
 msgstr "словарь сессии"
 
 #: ../src/bfspell.c:393
-#, fuzzy
 msgid "Dictionary:"
-msgstr "Словарь"
+msgstr "Словарь:"
 
 #: ../src/bfspell.c:397
-#, fuzzy
 msgid "_Add"
-msgstr "Добавить "
+msgstr "_Добавить "
 
 #: ../src/bfspell.c:401
-#, fuzzy
 msgid "Language:"
-msgstr "_Язык:"
+msgstr "Язык:"
 
 #: ../src/bfspell.c:405
-#, fuzzy
 msgid "Set defa_ult"
-msgstr "Установить по умолчанию"
+msgstr "Установить по _умолчанию"
 
 #: ../src/bfspell.c:409
-#, fuzzy
 msgid "Filter:"
-msgstr "Фильтр"
+msgstr "Фильтр:"
 
 #: ../src/bfspell.c:417
 msgid "no filter"
@@ -95,13 +91,13 @@ msgid "html filter"
 msgstr "фильтр HTML"
 
 #: ../src/bluefish.c:91
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "\n"
 "Usage: %s [options] [filenames ...]\n"
 msgstr ""
 "\n"
-"Использование: %s [опции] [имя файла]\n"
+"Использование: %s [опции] [имена файлов]\n"
 
 #: ../src/bluefish.c:92
 msgid ""
@@ -120,13 +116,12 @@ msgid "-v           current version\n"
 msgstr "-v           текущая версия\n"
 
 #: ../src/bluefish.c:95
-#, fuzzy
 msgid "-n           open new window\n"
-msgstr "-v           текущая версия\n"
+msgstr "-n           открыть новое окно\n"
 
 #: ../src/bluefish.c:96
 msgid "-p filename  open project\n"
-msgstr ""
+msgstr "-p <имя файла>  открыть проект\n"
 
 #: ../src/bluefish.c:97
 msgid "-h           this help screen\n"
@@ -173,14 +168,14 @@ msgid "/Document/Highlight Syntax"
 msgstr "/Документ/Подсветка синтаксиса"
 
 #: ../src/document.c:653
-#, fuzzy, c-format
+#, c-format
 msgid "Untitled %d"
-msgstr "Безымянный"
+msgstr "Безымянный %d"
 
 #: ../src/document.c:1001
-#, fuzzy, c-format
+#, c-format
 msgid " Ln %d, Col %d"
-msgstr "%d из %d"
+msgstr " Стр %d, стлб %d"
 
 #: ../src/document.c:1034 ../src/document.c:1035
 #, c-format
@@ -188,9 +183,8 @@ msgid "  %s, %s"
 msgstr "  %s, %s"
 
 #: ../src/document.c:1277 ../src/document.c:1296
-#, fuzzy
 msgid "Could not read file:\n"
-msgstr "Не удается открыть файл:\n"
+msgstr "Не удается прочитать файл:\n"
 
 #: ../src/document.c:1327
 msgid "Opening file "
@@ -213,14 +207,12 @@ msgid "Saving file"
 msgstr "Сохранение файла"
 
 #: ../src/document.c:1845
-#, fuzzy
 msgid "_Abort save"
-msgstr "Прекратить сохранение"
+msgstr "_Прекратить сохранение"
 
 #: ../src/document.c:1845
-#, fuzzy
 msgid "_Continue save"
-msgstr "Продолжить сохранение"
+msgstr "Про_должить сохранение"
 
 #: ../src/document.c:1847
 #, c-format
@@ -253,9 +245,8 @@ msgid "_Cancel"
 msgstr "От_менить"
 
 #: ../src/document.c:2034 ../src/document.c:2048 ../src/document.c:2136
-#, fuzzy
 msgid "_Overwrite"
-msgstr "Перезаписать"
+msgstr "Пере_записать"
 
 #: ../src/document.c:2035
 #, c-format
@@ -267,15 +258,13 @@ msgid "The file you have selected is being edited in Bluefish."
 msgstr "Выбранный Вами файл уже редактируется в Bluefish."
 
 #: ../src/document.c:2049
-#, fuzzy, c-format
+#, c-format
 msgid "A file named \"%s\" already exists."
-msgstr "Указанный путь уже существует."
+msgstr "Файл \"%s\" уже существует."
 
 #: ../src/document.c:2051
-#, fuzzy
 msgid "Do you want to replace the existing file?"
-msgstr ""
-"Вы уверены, что хотите сохранить изменения, внесенные в этот безымянный файл?"
+msgstr "Вы уверены, что хотите перезаписать существующий файл?"
 
 #: ../src/document.c:2098
 msgid "Save as..."
@@ -295,7 +284,6 @@ msgstr ""
 "Старое время модификацйи %s"
 
 #: ../src/document.c:2141
-#, fuzzy
 msgid "File has been modified by another process."
 msgstr "Файл был изменен другим процессом."
 
@@ -305,39 +293,39 @@ msgid "Saving %s"
 msgstr "Сохранение %s"
 
 #: ../src/document.c:2164
-#, fuzzy
 msgid ""
 "Could not backup file:\n"
 "\""
-msgstr "Не удается открыть файл:\n"
+msgstr ""
+"Не удается сохранить резервную копию файла:\n"
+"\""
 
 #: ../src/document.c:2165
-#, fuzzy
 msgid "File save aborted.\n"
-msgstr "Сохранение файла прекращено, невозможно создать резервную копию:\n"
+msgstr "Сохранение файла прекращено.\n"
 
 #: ../src/document.c:2170
-#, fuzzy
 msgid ""
 "Could not write file:\n"
 "\""
-msgstr "Не удается открыть файл:\n"
+msgstr ""
+"Не удается записать файл:\n"
+"\""
 
 #: ../src/document.c:2171
 msgid "File save error"
-msgstr ""
+msgstr "Ошибка сохранения файла"
 
 #: ../src/document.c:2217
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Do you want to save the changes made to\n"
 "\"%s\"?."
 msgstr ""
 "Вы хотите сохранить изменения, внесенные в\n"
-"%s?"
+"\"%s\"?"
 
 #: ../src/document.c:2220
-#, fuzzy
 msgid "Do you want to save the changes made to this untitled file?"
 msgstr ""
 "Вы уверены, что хотите сохранить изменения, внесенные в этот безымянный файл?"
@@ -347,9 +335,8 @@ msgid "Do_n't save"
 msgstr "_Не сохранять"
 
 #: ../src/document.c:2225
-#, fuzzy
 msgid "This file has not been saved."
-msgstr "Файл не сохранен"
+msgstr "Файл не был сохранен."
 
 #: ../src/document.c:2461
 msgid "No filename"
@@ -360,11 +347,12 @@ msgid "Loading files..."
 msgstr "Загрузка файлов..."
 
 #: ../src/document.c:2607
-#, fuzzy
 msgid ""
 "These files could not opened:\n"
 "\n"
-msgstr "Эти файлы не были открыты:\n"
+msgstr ""
+"Эти файлы не могут быть открыты:\n"
+"\n"
 
 #: ../src/document.c:2609 ../src/msg_queue.c:205
 msgid "Unable to open file(s)\n"
@@ -375,32 +363,29 @@ msgid "Unable to open file"
 msgstr "Невозможно открыть файл"
 
 #: ../src/document.c:2702
-#, fuzzy
 msgid "_Reload"
-msgstr "Перезагрузить"
+msgstr "Переза_грузить"
 
 #: ../src/document.c:2702
-#, fuzzy
 msgid "_Ignore"
-msgstr "Игнорировать"
+msgstr "_Игнорировать"
 
 #: ../src/document.c:2706
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Filename: %s\n"
 "\n"
 "New modification time is: %s\n"
 "Old modification time is: %s"
 msgstr ""
-"Файл %s\n"
+"Имя файла: %s\n"
 "\n"
 "Новое время модификации %s\n"
-"Старое время модификацйи %s"
+"Старое время модификации %s"
 
 #: ../src/document.c:2707
-#, fuzzy
 msgid "File has been modified by another process\n"
-msgstr "Файл был изменен другим процессом."
+msgstr "Файл был изменен другим процессом\n"
 
 #: ../src/document.c:2810
 msgid "searching files..."
@@ -452,7 +437,7 @@ msgstr "ре_гулярное выражение:"
 
 #: ../src/document.c:3023
 msgid "Open URL"
-msgstr ""
+msgstr "Открыть URL"
 
 #: ../src/document.c:3056 ../src/document.c:3074 ../src/document.c:3091
 #, c-format
@@ -468,28 +453,24 @@ msgid "No file to insert"
 msgstr "Файл для вставки не найден"
 
 #: ../src/document.c:3178
-#, fuzzy
 msgid "_Save All"
 msgstr "_Сохранить все"
 
 #: ../src/document.c:3178
-#, fuzzy
 msgid "Close _All"
 msgstr "Закрыть _все"
 
 #: ../src/document.c:3178
-#, fuzzy
 msgid "Choose per _File"
 msgstr "_Выбрать для каждого файла"
 
 #: ../src/document.c:3179
-#, fuzzy
 msgid "Multiple open files have been changed."
-msgstr "Некоторые файлы были изменены"
+msgstr "Несколько открытых файлов были изменены."
 
 #: ../src/document.c:3180
 msgid "Your changes will be lost if you don't save them."
-msgstr ""
+msgstr "Ваши правки пропадут, если вы их не сохраните."
 
 #: ../src/document.c:3434
 #, c-format
@@ -534,23 +515,20 @@ msgid "The file will be permanently deleted."
 msgstr "Файл был удален насовсем."
 
 #: ../src/filebrowser.c:1283 ../src/filebrowser.c:1287
-#, fuzzy
 msgid "Could not delete \n"
-msgstr "Не удается переименовать файл\n"
+msgstr "Не удается удалить \n"
 
 #: ../src/filebrowser.c:1414
-#, fuzzy
 msgid "/Open _Advanced"
-msgstr "/Файл/Открыть улу_чшенный диалог..."
+msgstr "/Открыть рас_ширенный диалог"
 
 #: ../src/filebrowser.c:1418
 msgid "/_Refresh"
 msgstr "/О_бновить"
 
 #: ../src/filebrowser.c:1419
-#, fuzzy
 msgid "/_Set as basedir"
-msgstr "Выберите базовый каталог"
+msgstr "/Установить как _базовый каталог"
 
 #: ../src/filebrowser.c:1423
 msgid "/New _File"
@@ -581,9 +559,8 @@ msgid "All files"
 msgstr "Все файлы"
 
 #: ../src/filebrowser.c:1832
-#, fuzzy
 msgid "Show full tree"
-msgstr "Показывать весь вывод"
+msgstr "Показывать всё дерево"
 
 #: ../src/fref.c:1306 ../src/fref.c:1600 ../src/fref.c:1685 ../src/fref.c:1712
 #: ../src/fref.c:2055
@@ -631,24 +608,23 @@ msgid "Notes"
 msgstr "Примечания"
 
 #: ../src/fref.c:1894
-#, fuzzy
 msgid "Reference search"
-msgstr "Настройки..."
+msgstr "Поиск по оглавлению"
 
 #: ../src/fref.c:1894
-#, fuzzy
 msgid "Reference not found"
-msgstr "Поиск: вхождений не найдено"
+msgstr "Оглавление не найдено"
 
 #: ../src/fref.c:1907
 msgid "Error"
-msgstr ""
+msgstr "Ошибка"
 
 #: ../src/fref.c:1907
 msgid ""
 "Perhaps you didn't load a reference, or you did not select a reference to "
 "search in."
 msgstr ""
+"Возможно, вы не загрузили справочник, или не выбрали справочник для поиска"
 
 #: ../src/fref.c:2042
 msgid "Show info window"
@@ -672,9 +648,8 @@ msgid "Select files"
 msgstr "Выберите файлы"
 
 #: ../src/gui.c:238 ../src/menu.c:862
-#, fuzzy
 msgid "/View/View Left Panel"
-msgstr "/Параметры/Интерфейс/Показывать панель слева"
+msgstr "/Вид/Показывать панель слева"
 
 #: ../src/gui.c:550
 msgid "QuickStart..."
@@ -1041,9 +1016,8 @@ msgid "New"
 msgstr "Новый"
 
 #: ../src/gui.c:855
-#, fuzzy
 msgid "Open.."
-msgstr "Открыть..."
+msgstr "Открыть.."
 
 #: ../src/gui.c:857
 msgid "Save"
@@ -1083,11 +1057,11 @@ msgstr "Повторить действие"
 
 #: ../src/gui.c:881
 msgid "Shift Left"
-msgstr ""
+msgstr "Сдвинуть влево"
 
 #: ../src/gui.c:883
 msgid "Shift Right"
-msgstr ""
+msgstr "Сдвинуть вправо"
 
 #: ../src/gui.c:890
 msgid "Spellcheck..."
@@ -1126,18 +1100,16 @@ msgid "/Document/Line Numbers"
 msgstr "/Документ/Номера строк"
 
 #: ../src/gui.c:1050
-#, fuzzy
 msgid "Do_n't Save"
 msgstr "_Не сохранять"
 
 #: ../src/gui.c:1051
 msgid "Failed to save the current project"
-msgstr ""
+msgstr "Не удалось записать текущий проект"
 
 #: ../src/gui.c:1075
-#, fuzzy
 msgid "New Bluefish Window"
-msgstr "Подсказка Bluefish:"
+msgstr "Новое окно Bluefish"
 
 #: ../src/gui.c:1128
 msgid "Stand by..."
@@ -1164,19 +1136,70 @@ msgid "starting bluefish"
 msgstr "запуск Bluefish"
 
 #: ../src/gui.c:1429 ../src/menu.c:860
-#, fuzzy
 msgid "/View/View HTML Toolbar"
-msgstr "/Параметры/Интерфейс/Показывать панель инструментов HTML"
+msgstr "/Вид/Показывать панель инструментов HTML"
 
 #: ../src/gui.c:1436 ../src/menu.c:859
-#, fuzzy
 msgid "/View/View Main Toolbar"
-msgstr "/Параметры/Интерфейс/Показывать основную панель инструментов"
+msgstr "/Вид/Показывать основную панель инструментов"
 
 #: ../src/gui.c:1443 ../src/menu.c:861
-#, fuzzy
 msgid "/View/View Custom Menu"
-msgstr "/Параметры/Интерфейс/Показывать меню пользователя"
+msgstr "/Вид/Показывать меню пользователя"
+
+#: ../src/html2.c:587
+msgid "Cascading StyleSheet dialog"
+msgstr "диалог Cascading Style Sheet"
+
+#: ../src/html2.c:607
+msgid "_Selector:"
+msgstr "Панель в_ыбора:"
+
+#: ../src/html2.c:626
+msgid "_Property:"
+msgstr "_Свойство:"
+
+#: ../src/html2.c:628 ../src/html_form.c:283 ../src/html_form.c:350
+#: ../src/html_form.c:411 ../src/html_form.c:466 ../src/html_form.c:528
+#: ../src/html_form.c:636
+msgid "_Value:"
+msgstr "_Значение:"
+
+#: ../src/html2.c:646
+msgid "Selector"
+msgstr "Панель выбора"
+
+#: ../src/html2.c:646 ../src/html2.c:649
+msgid "Property"
+msgstr "Свойство"
+
+#: ../src/html2.c:646 ../src/html2.c:649
+msgid "Value"
+msgstr "Значение"
+
+#: ../src/html2.c:664
+msgid " _Add "
+msgstr " _Добавить "
+
+#: ../src/html2.c:667
+msgid " _Update "
+msgstr " О_бновить  "
+
+#: ../src/html2.c:670
+msgid " _Delete "
+msgstr " _Удалить "
+
+#: ../src/html2.c:926 ../src/html2.c:963
+msgid "_Style..."
+msgstr "_Стиль..."
+
+#: ../src/html2.c:1157
+msgid "Bluefish: Select color"
+msgstr "Bluefish: Выберите цвет"
+
+#: ../src/html2.c:1177
+msgid "_websafe"
+msgstr "_websafe"
 
 #: ../src/html.c:356
 msgid "Insert Time"
@@ -1550,60 +1573,6 @@ msgstr "_Относительная ссылка:"
 msgid "_Type:"
 msgstr "_Тип:"
 
-#: ../src/html2.c:587
-msgid "Cascading StyleSheet dialog"
-msgstr "диалог Cascading Style Sheet"
-
-#: ../src/html2.c:607
-msgid "_Selector:"
-msgstr "Панель в_ыбора:"
-
-#: ../src/html2.c:626
-msgid "_Property:"
-msgstr "_Свойство:"
-
-#: ../src/html2.c:628 ../src/html_form.c:283 ../src/html_form.c:350
-#: ../src/html_form.c:411 ../src/html_form.c:466 ../src/html_form.c:528
-#: ../src/html_form.c:636
-msgid "_Value:"
-msgstr "_Значение:"
-
-#: ../src/html2.c:646
-msgid "Selector"
-msgstr "Панель выбора"
-
-#: ../src/html2.c:646 ../src/html2.c:649
-msgid "Property"
-msgstr "Свойство"
-
-#: ../src/html2.c:646 ../src/html2.c:649
-msgid "Value"
-msgstr "Значение"
-
-#: ../src/html2.c:664
-msgid " _Add "
-msgstr " _Добавить "
-
-#: ../src/html2.c:667
-msgid " _Update "
-msgstr " О_бновить  "
-
-#: ../src/html2.c:670
-msgid " _Delete "
-msgstr " _Удалить "
-
-#: ../src/html2.c:926 ../src/html2.c:963
-msgid "_Style..."
-msgstr "_Стиль..."
-
-#: ../src/html2.c:1157
-msgid "Bluefish: Select color"
-msgstr "Bluefish: Выберите цвет"
-
-#: ../src/html2.c:1177
-msgid "_websafe"
-msgstr "_websafe"
-
 #: ../src/html_form.c:128
 msgid "Form"
 msgstr "Форма"
@@ -1810,7 +1779,7 @@ msgstr ""
 
 #: ../src/menu.c:274
 msgid "/_File"
-msgstr "/Файл _F"
+msgstr "/_Файл"
 
 #: ../src/menu.c:275
 msgid "/File/tearoff1"
@@ -1821,41 +1790,36 @@ msgid "/File/_New"
 msgstr "/Файл/Новый _N"
 
 #: ../src/menu.c:277
-#, fuzzy
 msgid "/File/New _Window"
-msgstr "/Файл/Новый _N"
+msgstr "/Файл/Новое о_кно"
 
 #: ../src/menu.c:278
 msgid "/File/_Open..."
-msgstr "/Файл/Открыть... _O"
+msgstr "/Файл/_Открыть..."
 
 #: ../src/menu.c:279
 msgid "/File/Open r_ecent"
-msgstr "/Файл/Открыть недавние _e"
+msgstr "/Файл/Открыть не_давние"
 
 #: ../src/menu.c:280
 msgid "/File/Open recent/tearoff1"
 msgstr "/Файл/Открыть недавние/tearoff1"
 
 #: ../src/menu.c:283
-#, fuzzy
 msgid "/File/Open Ad_vanced..."
 msgstr "/Файл/Открыть улу_чшенный диалог..."
 
 #: ../src/menu.c:287
-#, fuzzy
 msgid "/File/Open _URL..."
-msgstr "/Файл/Открыть... _O"
+msgstr "/Файл/Открыть _URL..."
 
 #: ../src/menu.c:289
-#, fuzzy
 msgid "/File/Open _from selection"
-msgstr "/Файл/Открыть недавние"
+msgstr "/Файл/Открыть из в_ыделения"
 
 #: ../src/menu.c:290
-#, fuzzy
 msgid "/File/sep1"
-msgstr "/Файл/sep2"
+msgstr "/Файл/sep1"
 
 #: ../src/menu.c:291
 msgid "/File/_Save"
@@ -1882,9 +1846,8 @@ msgid "/File/_Insert..."
 msgstr "/Файл/Вставить _I"
 
 #: ../src/menu.c:297
-#, fuzzy
 msgid "/File/Rena_me..."
-msgstr "/Файл/Открыть... _O"
+msgstr "/Файл/Пере_именовать..."
 
 #: ../src/menu.c:298
 msgid "/File/sep3"
@@ -1899,14 +1862,12 @@ msgid "/File/Close A_ll"
 msgstr "/Файл/Зак_рыть все"
 
 #: ../src/menu.c:301
-#, fuzzy
 msgid "/File/Close Win_dow"
-msgstr "/Файл/Зак_рыть все"
+msgstr "/Файл/Закры_ть окно"
 
 #: ../src/menu.c:302
-#, fuzzy
 msgid "/File/sep4"
-msgstr "/Файл/sep2"
+msgstr "/Файл/sep4"
 
 #: ../src/menu.c:303
 msgid "/File/_Quit"
@@ -1914,7 +1875,7 @@ msgstr "/Файл/Вы_ход"
 
 #: ../src/menu.c:304
 msgid "/_Edit"
-msgstr "/Редактирование _E"
+msgstr "/Р_едактирование"
 
 #: ../src/menu.c:305
 msgid "/Edit/Tearoff1"
@@ -1929,9 +1890,8 @@ msgid "/Edit/_Redo"
 msgstr "/Редактирование/Повтор действия _R"
 
 #: ../src/menu.c:310
-#, fuzzy
 msgid "/Edit/sep1"
-msgstr "/Редактирование/sep3"
+msgstr "/Редактирование/sep1"
 
 #: ../src/menu.c:311
 msgid "/Edit/Cu_t"
@@ -1946,9 +1906,8 @@ msgid "/Edit/_Paste"
 msgstr "/Редактирование/Вставить _P"
 
 #: ../src/menu.c:314
-#, fuzzy
 msgid "/Edit/sep2"
-msgstr "/Редактирование/sep3"
+msgstr "/Редактирование/sep2"
 
 #: ../src/menu.c:315
 msgid "/Edit/Select _All"
@@ -1967,9 +1926,8 @@ msgid "/Edit/Find A_gain"
 msgstr "/Редактирование/Найти _далее..."
 
 #: ../src/menu.c:319
-#, fuzzy
 msgid "/Edit/Find from selection"
-msgstr "/Файл/Открыть недавние"
+msgstr "/Редактировать/Найти в выделенном"
 
 #: ../src/menu.c:320
 msgid "/Edit/R_eplace..."
@@ -2005,61 +1963,51 @@ msgstr "/Редактирование/sep4"
 
 #: ../src/menu.c:328
 msgid "/Edit/Sh_ift Right"
-msgstr ""
+msgstr "/Редактирование/Сдвинуть в_лево"
 
 #: ../src/menu.c:329
-#, fuzzy
 msgid "/Edit/S_hift Left"
-msgstr "/Редактирование/Вставить _P"
+msgstr "/Редактирование/Сдвинуть В_право"
 
 #: ../src/menu.c:330
 msgid "/Edit/sep5"
 msgstr "/Редактирование/sep5"
 
 #: ../src/menu.c:331
-#, fuzzy
 msgid "/Edit/_Save Settings"
-msgstr "/Параметры/_Сохранить настройки"
+msgstr "/Редактирование/_Сохранить настройки"
 
 #: ../src/menu.c:332
-#, fuzzy
 msgid "/Edit/Save Shortcut _Keys"
-msgstr "/Параметры/Сохранить _клавиши быстрого доступа"
+msgstr "/Редактирование/Сохранить _клавиши быстрого доступа"
 
 #: ../src/menu.c:333
-#, fuzzy
 msgid "/Edit/_Preferences"
-msgstr "Редактирование настроек"
+msgstr "/Редактирование/_Настройки"
 
 #: ../src/menu.c:334
-#, fuzzy
 msgid "/_View"
-msgstr "/Файл _F"
+msgstr "/_Вид"
 
 #: ../src/menu.c:335
-#, fuzzy
 msgid "/View/tearoff1"
-msgstr "/Файл/tearoff1"
+msgstr "/Вид/tearoff1"
 
 #: ../src/menu.c:336
-#, fuzzy
 msgid "/View/View _Main Toolbar"
-msgstr "/Параметры/Интерфейс/Показывать _основную панель инструментов"
+msgstr "/Вид/Показывать _основную панель инструментов"
 
 #: ../src/menu.c:337
-#, fuzzy
 msgid "/View/View _HTML Toolbar"
-msgstr "/Параметры/Интерфейс/Показывать панель инструментов _HTML "
+msgstr "/Вид/Показывать панель инструментов _HTML "
 
 #: ../src/menu.c:338
-#, fuzzy
 msgid "/View/View _Custom Menu"
-msgstr "/Параметры/Интерфейс/Показывать _меню пользователя"
+msgstr "/Вид/Показывать _меню пользователя"
 
 #: ../src/menu.c:339
-#, fuzzy
 msgid "/View/View _Left Panel"
-msgstr "/Параметры/Интерфейс/Показывать панель с_лева"
+msgstr "/Вид/Показывать панель с_лева"
 
 #: ../src/menu.c:340
 msgid "/_Tags"
@@ -2798,9 +2746,8 @@ msgid "/Tags/_Comment"
 msgstr "/Теги/Комментарий _C"
 
 #: ../src/menu.c:527
-#, fuzzy
 msgid "/Dial_ogs"
-msgstr "/Диалоги _g"
+msgstr "/Диало_ги"
 
 #: ../src/menu.c:528
 msgid "/Dialogs/tearoff1"
@@ -3003,208 +2950,176 @@ msgid "/Document/tearoff1"
 msgstr "/Документ/tearoff1"
 
 #: ../src/menu.c:606
-#, fuzzy
 msgid "/Document/_Increase Tabsize"
-msgstr "/Параметры/Ширина табуляции/У_величить ширину табуляции"
+msgstr "/Документ/У_величить ширину табуляции"
 
 #: ../src/menu.c:607
-#, fuzzy
 msgid "/Document/_Decrease Tabsize"
-msgstr "/Параметры/Ширина табуляции/У_меньшить ширину табуляции"
+msgstr "/Документ/У_меньшить ширину табуляции"
 
 #: ../src/menu.c:608
 msgid "/Document/sep1"
 msgstr "/Документ/sep1"
 
 #: ../src/menu.c:609
-#, fuzzy
 msgid "/Document/_Auto Indent"
-msgstr "/Параметры/Ставить отступы _автоматически"
+msgstr "/Документ/Ставить отступы _автоматически"
 
 #: ../src/menu.c:610
 msgid "/Document/_Wrap"
-msgstr "/Документ/_Перенос сло_в"
+msgstr "/Документ/Пере_нос строк"
 
 #: ../src/menu.c:611
 msgid "/Document/_Line Numbers"
 msgstr "/Документ/Но_мера строк"
 
 #: ../src/menu.c:612
-#, fuzzy
 msgid "/Document/sep2"
-msgstr "/Документ/sep1"
+msgstr "/Документ/sep2"
 
 #: ../src/menu.c:613
 msgid "/Document/_Highlight Syntax"
-msgstr "/Документ/По_дсветка синтаксиса"
+msgstr "/Документ/Подсветка си_нтаксиса"
 
 #: ../src/menu.c:614
 msgid "/Document/_Update Highlighting"
 msgstr "/Документ/Обновить _подсветку синтаксиса"
 
 #: ../src/menu.c:615
-#, fuzzy
 msgid "/Document/sep3"
-msgstr "/Документ/sep1"
+msgstr "/Документ/sep3"
 
 #: ../src/menu.c:616
-#, fuzzy
 msgid "/Document/Document _Type"
-msgstr "/Документ/Тип документа _T"
+msgstr "/Документ/_Тип документа"
 
 #: ../src/menu.c:617
-#, fuzzy
 msgid "/Document/Document Type/tearoff1"
 msgstr "/Документ/Тип документа/tearoff1"
 
 #: ../src/menu.c:618
-#, fuzzy
 msgid "/Document/Character _Encoding"
-msgstr "/Документ/Кодировка _E"
+msgstr "/Документ/_Кодировка"
 
 #: ../src/menu.c:619
-#, fuzzy
 msgid "/Document/Character Encoding/tearoff1"
 msgstr "/Документ/Кодировка/tearoff1"
 
 #: ../src/menu.c:620
-#, fuzzy
 msgid "/Document/sep4"
-msgstr "/Документ/sep1"
+msgstr "/Документ/sep4"
 
 #: ../src/menu.c:622
-#, fuzzy
 msgid "/Document/Check _Spelling..."
-msgstr "/Документ/Кодировка"
+msgstr "/Документ/Проверка п_равописания..."
 
 #: ../src/menu.c:624
-#, fuzzy
 msgid "/Document/_Floating window"
-msgstr "/Документ/Кодировка"
+msgstr "/Документ/П_лавающее окно"
 
 #: ../src/menu.c:625
 msgid "/Document/Word _Count"
-msgstr "/Документ/Число слов _C"
+msgstr "/Документ/Число _слов"
 
 #: ../src/menu.c:626
-#, fuzzy
 msgid "/_Project"
-msgstr "/Файл/Открыть недавние"
+msgstr "/Прое_кт"
 
 #: ../src/menu.c:627
-#, fuzzy
 msgid "/Project/tearoff1"
-msgstr "/Файл/tearoff1"
+msgstr "/Проект/tearoff1"
 
 #: ../src/menu.c:628
-#, fuzzy
 msgid "/Project/_Open Project..."
-msgstr "/Файл/Открыть недавние"
+msgstr "/Проект/_Открыть проект"
 
 #: ../src/menu.c:629
-#, fuzzy
 msgid "/Project/Open r_ecent"
-msgstr "/Файл/Открыть недавние _e"
+msgstr "/Проект/Открыть не_давние"
 
 #: ../src/menu.c:630
-#, fuzzy
 msgid "/Project/Open recent/tearoff1"
-msgstr "/Файл/Открыть недавние/tearoff1"
+msgstr "/Проект/Открыть недавние/tearoff1"
 
 #: ../src/menu.c:631
-#, fuzzy
 msgid "/Project/_New Project"
-msgstr "/Файл/Открыть недавние"
+msgstr "/Проект/_Новый проект"
 
 #: ../src/menu.c:632
-#, fuzzy
 msgid "/Project/sep1"
-msgstr "/Файл/Открыть недавние"
+msgstr "/Проект/sep1"
 
 #: ../src/menu.c:633
-#, fuzzy
 msgid "/Project/_Save"
-msgstr "/Файл/Открыть недавние"
+msgstr "/Проект/_Сохранить"
 
 #: ../src/menu.c:634
-#, fuzzy
 msgid "/Project/Save _as..."
-msgstr "/Файл/Открыть недавние"
+msgstr "/Проект/Сохранить _как"
 
 #: ../src/menu.c:635
-#, fuzzy
 msgid "/Project/_Close & save"
-msgstr "/Файл/Открыть недавние"
+msgstr "/Проект/Со_хранить и закрыть"
 
 #: ../src/menu.c:636
-#, fuzzy
 msgid "/Project/sep2"
-msgstr "/Файл/Открыть недавние"
+msgstr "/Проект/sep2"
 
 #: ../src/menu.c:637
 msgid "/Project/E_dit Project Options..."
-msgstr ""
+msgstr "/Проект/Ре_дактировать параметры проекта..."
 
 #: ../src/menu.c:638
 msgid "/_Go"
-msgstr ""
+msgstr "/_Переход"
 
 #: ../src/menu.c:639
-#, fuzzy
 msgid "/Go/tearoff1"
-msgstr "/Файл/tearoff1"
+msgstr "/Переход/tearoff1"
 
 #: ../src/menu.c:640
 msgid "/Go/_Previous document"
-msgstr ""
+msgstr "/Переход/_Предыдущий документ"
 
 #: ../src/menu.c:641
-#, fuzzy
 msgid "/Go/_Next document"
-msgstr "/_Документ"
+msgstr "/Переход/_Следующий документ"
 
 #: ../src/menu.c:642 ../src/menu.c:645
-#, fuzzy
 msgid "/Go/sep1"
-msgstr "/sep1"
+msgstr "/Переход/sep1"
 
 #: ../src/menu.c:643
-#, fuzzy
 msgid "/Go/_First document"
-msgstr "в текущем документе"
+msgstr "/Переход/Пе_рвый документ"
 
 #: ../src/menu.c:644
-#, fuzzy
 msgid "/Go/L_ast document"
-msgstr "/_Документ"
+msgstr "/Переход/Пос_ледний документ"
 
 #: ../src/menu.c:646
-#, fuzzy
 msgid "/Go/Goto _Line"
-msgstr "/Редактирование/_Перейти к строке"
+msgstr "/Переход/Перейти к с_троке"
 
 #: ../src/menu.c:647
-#, fuzzy
 msgid "/Go/Goto _Selection"
-msgstr "/Редактирование/Перейти к выбранн_ому"
+msgstr "/Переход/Перейти к выбра_нному"
 
 #: ../src/menu.c:648
 msgid "/E_xternal"
-msgstr "/Внешние _x"
+msgstr "/Вне_шние"
 
 #: ../src/menu.c:649
 msgid "/External/tearoff1"
 msgstr "/Внешние/tearoff1"
 
 #: ../src/menu.c:816
-#, fuzzy
 msgid "/Document/Document Type"
 msgstr "/Документ/Тип документа"
 
 #: ../src/menu.c:863
-#, fuzzy
 msgid "/Document/Auto Indent"
-msgstr "/Параметры/Ставить отступы автоматически"
+msgstr "/Документ/Ставить отступы автоматически"
 
 #: ../src/menu.c:932
 msgid "Loading file(s)..."
@@ -3219,18 +3134,16 @@ msgid "Could not open file\n"
 msgstr "Не удается открыть файл\n"
 
 #: ../src/menu.c:959
-#, fuzzy
 msgid "/Project/Open recent"
-msgstr "/Файл/Открыть недавние"
+msgstr "/Проект/Открыть недавние"
 
 #: ../src/menu.c:963
 msgid "/File/Open recent"
 msgstr "/Файл/Открыть недавние"
 
 #: ../src/menu.c:1126
-#, fuzzy
 msgid "/Windows"
-msgstr "/Теги/Список/tearoff1"
+msgstr "/Окна"
 
 #: ../src/menu.c:1192
 msgid "Could not view file in browser, the file does not yet have a name\n"
@@ -3266,7 +3179,6 @@ msgid "/External/Outputbox"
 msgstr "/Внешние/Окно вывода"
 
 #: ../src/menu.c:1445
-#, fuzzy
 msgid "/Document/Character Encoding"
 msgstr "/Документ/Кодировка"
 
@@ -3625,19 +3537,19 @@ msgstr "снизу"
 
 #: ../src/preferences.c:1743
 msgid "no check"
-msgstr ""
+msgstr "не проверять"
 
 #: ../src/preferences.c:1743
 msgid "check mtime and size"
-msgstr ""
+msgstr "проверять дату модификации и размер"
 
 #: ../src/preferences.c:1743
 msgid "check mtime"
-msgstr ""
+msgstr "проверять дату модификации"
 
 #: ../src/preferences.c:1743
 msgid "check size"
-msgstr ""
+msgstr "проверять размер"
 
 #: ../src/preferences.c:1746
 msgid "Edit preferences"
@@ -3773,7 +3685,7 @@ msgstr "Открывать файлы в уже открытом окне Bluefi
 
 #: ../src/preferences.c:1836
 msgid "File modified on disk check "
-msgstr ""
+msgstr "Проверка факта обновления файла на диске"
 
 #: ../src/preferences.c:1837
 msgid "Number of files in 'Open recent'"
@@ -3804,28 +3716,24 @@ msgid "Initial window width"
 msgstr "Начальная ширина окна"
 
 #: ../src/preferences.c:1853
-#, fuzzy
 msgid "General"
-msgstr "<b>Общие</b>"
+msgstr "Общие"
 
 #: ../src/preferences.c:1858
-#, fuzzy
 msgid "Show main toolbar by default"
-msgstr "Номера строк по умолчанию"
+msgstr "Показывать основную панель инструментов по умолчанию"
 
 #: ../src/preferences.c:1859
-#, fuzzy
 msgid "Show left panel by default"
-msgstr "Номера строк по умолчанию"
+msgstr "Показывать левую панель по умолчанию"
 
 #: ../src/preferences.c:1860
-#, fuzzy
 msgid "Show custom menu by default"
-msgstr "Номера строк по умолчанию"
+msgstr "Показывать меню пользователя по умолчанию"
 
 #: ../src/preferences.c:1861
 msgid "Show HTML toolbar by default"
-msgstr ""
+msgstr "Показывать панель инструментов HTML по умолчанию"
 
 #: ../src/preferences.c:1862
 msgid "Make HTML dialogs transient"
@@ -3862,13 +3770,12 @@ msgid "File browser"
 msgstr "Просмотр файлов"
 
 #: ../src/preferences.c:1878
-#, fuzzy
 msgid "Default basedir"
-msgstr "Выберите базовый каталог"
+msgstr "Базовый каталог по умолчанию"
 
 #: ../src/preferences.c:1879
 msgid "Use separate file and directory view"
-msgstr ""
+msgstr "Использовать разные окна для директорий и для файлов"
 
 #: ../src/preferences.c:1880
 msgid "Show hidden files"
@@ -3939,94 +3846,81 @@ msgid "Outputbox"
 msgstr "Окно вывода"
 
 #: ../src/project.c:60
-#, fuzzy
 msgid "New project"
-msgstr "/Новая _директория"
+msgstr "Новый проект"
 
 #: ../src/project.c:107
 msgid "Enter Bluefish project filename"
-msgstr ""
+msgstr "Введите имя проекта Bluefish"
 
 #: ../src/project.c:131
-#, fuzzy
 msgid "/Project/Save"
-msgstr "/Файл/Открыть недавние"
+msgstr "/Проект/Сохранить"
 
 #: ../src/project.c:132
-#, fuzzy
 msgid "/Project/Save as..."
-msgstr "/Файл/Открыть недавние"
+msgstr "/Проект/Сохранить как..."
 
 #: ../src/project.c:133
-#, fuzzy
 msgid "/Project/Close & save"
-msgstr "/Файл/Открыть недавние"
+msgstr "/Проект/Сохранить и закрыть"
 
 #: ../src/project.c:134
 msgid "/Project/Edit Project Options..."
-msgstr ""
+msgstr "/Проект/Редактировать параметры проекта..."
 
 #: ../src/project.c:189
 msgid "Select Bluefish project filename"
-msgstr ""
+msgstr "Выберите имя файла проекта Bluefish"
 
 #: ../src/project.c:316
-#, fuzzy
 msgid "Create New Project"
-msgstr "/Новая _директория"
+msgstr "Создать новый проект"
 
 #: ../src/project.c:319
-#, fuzzy
 msgid "Edit Project"
-msgstr "/Новая _директория"
+msgstr "Редактировать проект"
 
 #: ../src/project.c:342
 #, c-format
 msgid "This project contains %d files"
-msgstr ""
+msgstr "В этом проекте %d файлов"
 
 #: ../src/project.c:353
-#, fuzzy
 msgid "Project _Name:"
-msgstr "_Имя:"
+msgstr "_Имя проекта:"
 
 #: ../src/project.c:357
-#, fuzzy
 msgid "_Local Directory:"
-msgstr "/Новая _директория"
+msgstr "_Локальная директория:"
 
 #: ../src/project.c:361
-#, fuzzy
 msgid "_Remote Directory:"
-msgstr "/Новая _директория"
+msgstr "У_даленная директория:"
 
 #: ../src/project.c:365
-#, fuzzy
 msgid "_Template:"
-msgstr "Заменить"
+msgstr "_Шаблон:"
 
 #: ../src/project.c:369
-#, fuzzy
 msgid "_Word wrap by default"
-msgstr "Перенос строк по умолчанию"
+msgstr "П_еренос строк по умолчанию"
 
 #: ../src/project.c:380
-#, fuzzy
 msgid "Create _Project"
-msgstr "/Новая _директория"
+msgstr "Создать _проект"
 
 #: ../src/project.c:420
-#, fuzzy
 msgid "Create project"
-msgstr "/Новая _директория"
+msgstr "Создать проект"
 
 #: ../src/project.c:424
 msgid "Create project with currently opened documents"
-msgstr ""
+msgstr "Создать проект из текущих открытых документов"
 
 #: ../src/project.c:425
 msgid "Create empty project"
-msgstr ""
+msgstr "Создать пустой проект"
 
 #: ../src/rcfile.c:503
 msgid "Galeon"
@@ -4089,9 +3983,8 @@ msgid "Hide objectfiles"
 msgstr "Спрятать объектные файлы"
 
 #: ../src/rcfile.c:842
-#, fuzzy
 msgid "Untitled Project"
-msgstr "Безымянный"
+msgstr "Безымянный Проект"
 
 #: ../src/snr2.c:195
 msgid "Regular expression error: "
@@ -4198,6 +4091,7 @@ msgstr "Тип замены:"
 #: ../src/snr2.c:1386
 msgid "Patterns contain backslash escape sequences (\\n, \\t)"
 msgstr ""
+"Шаблоны содержат escape-последовательности с обратной дробью (\\n, \\t)"
 
 #: ../src/snr2.c:1387
 msgid "Match ca_se"
@@ -4214,10 +4108,6 @@ msgstr "Спросить подтверждение _перед заменой"
 #: ../src/snr2.c:1391
 msgid "Rep_lace once"
 msgstr "За_менить единожды"
-
-#: ../src/specialchar.c:18
-msgid "Insert special character"
-msgstr ""
 
 #: ../src/stringlist.c:365
 msgid " Add "
@@ -4302,169 +4192,3 @@ msgstr "Источник:"
 #: ../src/wizards.c:223
 msgid "Size:"
 msgstr "Размер:"
-
-#~ msgid "Spell checker"
-#~ msgstr "Программа проверки синтаксиса"
-
-#~ msgid "Original"
-#~ msgstr "Оригинал"
-
-#~ msgid "Replacement"
-#~ msgstr "Замена"
-
-#~ msgid "Language"
-#~ msgstr "Язык"
-
-#~ msgid "File %s exists, overwrite?"
-#~ msgstr "Файл %s существует, перезаписать его?"
-
-#~ msgid "The file you have selected exists."
-#~ msgstr "Выбранный Вами файл существует."
-
-#~ msgid "File save error, could not write file\n"
-#~ msgstr "Ошибка при сохранении файла, невозможно записать файл:\n"
-
-#~ msgid ""
-#~ "File %s\n"
-#~ "is modified by another process\n"
-#~ "new modification time is %s\n"
-#~ "old modification time is %s"
-#~ msgstr ""
-#~ "Файл %s\n"
-#~ "модифицирован другим процессом\n"
-#~ "новое время модификации %s\n"
-#~ "старое время модификацйи %s"
-
-#~ msgid "Bluefish: Warning, file is modified"
-#~ msgstr "Предупреждение Bluefish: файл модифицирован"
-
-#~ msgid "No selection to indent"
-#~ msgstr "Нет выделения для форматирования"
-
-#~ msgid "Unindent"
-#~ msgstr "Удалить отступы"
-
-#~ msgid "Indent"
-#~ msgstr "Отформатировать"
-
-#~ msgid "/File/sep5"
-#~ msgstr "/Файл/sep5"
-
-#~ msgid "/Edit/Ne_w Find..."
-#~ msgstr "/Редактирование/_Новый поиск..."
-
-#~ msgid "/Edit/New Re_place..."
-#~ msgstr "/Редактирование/Новая _замена..."
-
-#~ msgid "/Edit/_Block operations"
-#~ msgstr "/Редактирование/Операции с _блоками"
-
-#~ msgid "/Edit/Block operations/Tearoff1"
-#~ msgstr "/Редактирование/Операции с блоками/Tearoff1"
-
-#~ msgid "/Edit/Block operations/_Indent Block"
-#~ msgstr "/Редактирование/Операции с блоками/От_форматировать блок"
-
-#~ msgid "/Edit/Block operations/_Unindent Block"
-#~ msgstr "/Редактирование/Операции с блоками/_Убрать отступы в блоке"
-
-#~ msgid "/Edit/sep6"
-#~ msgstr "/Редактирование/sep6"
-
-#~ msgid "/Document/_Previous"
-#~ msgstr "/Документ/Предыдущий _P"
-
-#~ msgid "/Document/_Next"
-#~ msgstr "/Документ/Следующий _N"
-
-#~ msgid "/_Options"
-#~ msgstr "/Параметры _O"
-
-#~ msgid "/Options/tearoff1"
-#~ msgstr "/Параметры/tearoff1"
-
-#~ msgid "/Options/_Preferences"
-#~ msgstr "/Параметры/Настройки... P"
-
-#~ msgid "/Options/_Display"
-#~ msgstr "/Параметры/Интерфейс _D"
-
-#~ msgid "/Options/Display/tearoff1"
-#~ msgstr "/Параметры/Интерфейс/tearoff1"
-
-#~ msgid "/Options/_Tabsize"
-#~ msgstr "/Параметры/Ширина табуляции _T"
-
-#~ msgid "/Options/Tabsize/tearoff1"
-#~ msgstr "/Параметры/Ширина табуляции/tearoff1"
-
-#~ msgid "/Options/sep2"
-#~ msgstr "/Параметры/sep2"
-
-#, fuzzy
-#~ msgid "/TEMP/tearoff1"
-#~ msgstr "/Файл/tearoff1"
-
-#, fuzzy
-#~ msgid "/TEMP/Window/tearoff1"
-#~ msgstr "/Теги/Список/tearoff1"
-
-#, fuzzy
-#~ msgid "/TEMP/Project/Open"
-#~ msgstr "/Файл/Открыть недавние"
-
-#, fuzzy
-#~ msgid "/TEMP/Project/Edit"
-#~ msgstr "/Файл/Открыть недавние"
-
-#, fuzzy
-#~ msgid "Basedir"
-#~ msgstr "Базовая _директория:"
-
-#~ msgid "Show other users files"
-#~ msgstr "Показывать прочие файлы пользователя"
-
-#~ msgid " Line  %d"
-#~ msgstr " Строка %d"
-
-#~ msgid "Cancel"
-#~ msgstr "Отменить"
-
-#, fuzzy
-#~ msgid "_Continue close"
-#~ msgstr "Продолжить сохранение"
-
-#, fuzzy
-#~ msgid "/TEMP/Open recent project/tearoff1"
-#~ msgstr "/Файл/Открыть недавние/tearoff1"
-
-#, fuzzy
-#~ msgid "/TEMP/Open recent project"
-#~ msgstr "/Файл/Открыть недавние"
-
-#~ msgid "Untitled"
-#~ msgstr "Безымянный"
-
-#~ msgid " Untitled"
-#~ msgstr " Безымянный"
-
-#~ msgid "/sep2"
-#~ msgstr "/sep2"
-
-#~ msgid "/sep3"
-#~ msgstr "/sep3"
-
-#~ msgid "No file to insert."
-#~ msgstr "Файл для вставки не найден"
-
-#~ msgid "Bluefish"
-#~ msgstr "Bluefish"
-
-#~ msgid "/File/_Move to..."
-#~ msgstr "/Файл/Пере_местить в..."
-
-#~ msgid "(none)"
-#~ msgstr "(нет)"
-
-#~ msgid "Advanced search and replace by default"
-#~ msgstr "Улучшенный поиск и замена по умолчанию"
