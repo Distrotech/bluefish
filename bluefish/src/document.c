@@ -677,7 +677,7 @@ static gboolean doc_check_modified_on_disk(Tdocument *doc, GnomeVFSFileInfo **ne
 		GnomeVFSFileInfo *fileinfo;
 		gboolean unref_fileinfo = FALSE;
 		if (*newfileinfo == NULL) {
-			fileinfo = gnome_vfs_file_info_new(void);
+			fileinfo = gnome_vfs_file_info_new();
 			unref_fileinfo = TRUE;
 		} else {
 			fileinfo = *newfileinfo;
@@ -685,7 +685,7 @@ static gboolean doc_check_modified_on_disk(Tdocument *doc, GnomeVFSFileInfo **ne
 		if (gnome_vfs_get_file_info(doc->filename, fileinfo
 				, GNOME_VFS_FILE_INFO_DEFAULT|GNOME_VFS_FILE_INFO_FOLLOW_LINKS) == GNOME_VFS_OK) {
 			if (main_v->props.modified_check_type == 1 || main_v->props.modified_check_type == 2) {
-				if (doc->fileinfo->mtime < filinfo->mtime) {
+				if (doc->fileinfo->mtime < fileinfo->mtime) {
 					if (unref_fileinfo) gnome_vfs_file_info_unref(fileinfo);
 					return TRUE;
 				}
@@ -2015,7 +2015,7 @@ gint doc_save(Tdocument * doc, gint do_save_as, gboolean do_move) {
 		time_t oldmtime, newmtime;
 #ifdef HAVE_GNOME_VFS
 		GnomeVFSFileInfo *fileinfo;
-		fileinfo = gnome_vfs_file_info_new(void);
+		fileinfo = gnome_vfs_file_info_new();
 		modified = doc_check_modified_on_disk(doc,&fileinfo);
 		newmtime = fileinfo->mtime;
 		oldmtime = doc->fileinfo->mtime;
@@ -2563,7 +2563,7 @@ void doc_activate(Tdocument *doc) {
 #ifdef HAVE_GNOME_VFS
 	{
 		GnomeVFSFileInfo *fileinfo;
-		fileinfo = gnome_vfs_file_info_new(void);
+		fileinfo = gnome_vfs_file_info_new();
 		modified = doc_check_modified_on_disk(doc,&fileinfo);
 		newmtime = fileinfo->mtime;
 		oldmtime = doc->fileinfo->mtime;
