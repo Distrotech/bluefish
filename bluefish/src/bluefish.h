@@ -342,6 +342,8 @@ typedef struct {
 	gpointer bmark;
 	GtkTreeStore *bookmarkstore; /* this is a link to project->bookmarkstore OR main_v->bookmarkstore
 											  and it is only here for convenience !!!! */
+	GHashTable *bmark_files;     /* no way, I have to have list of file iters. Other way I 
+	                                cannot properly load bmarks for closed files */
 } Tbfwin;
 
 typedef struct {

@@ -299,8 +299,10 @@ GtkWidget *bmark_gui(Tbfwin *bfwin) {
 /* determine bookmark's location in the tree and  insert - result GtkTreeIter is stored in m->iter */
 static void bmark_get_iter_at_position(Tbfwin *bfwin, Tbmark *m) {
    GtkTreeIter *parent;
+   gpointer ptr;
    
-   if ( m->doc == NULL || m->doc->bmark_parent == NULL ) 
+   ptr = g_hash_table_lookup(bfwin->bmark_files,m->filepath);
+   if ( ptr == NULL )  /* closed document or bookmarks never set */
    {
     	parent = g_new0(GtkTreeIter,1);
 		gtk_tree_store_append(bfwin->bookmarkstore,parent,NULL);
@@ -322,9 +324,10 @@ static void bmark_get_iter_at_position(Tbfwin *bfwin, Tbmark *m) {
 			break;                   
 		}  
 		if (m->doc != NULL)  m->doc->bmark_parent = parent;
+		g_hash_table_insert(bfwin->bmark_files,m->filepath,parent);
    }
    else 
-    parent = m->doc->bmark_parent;
+    parent = (GtkTreeIter*)ptr;
    
 	DEBUG_MSG("bmark_get_iter_at_position, sorting=%d\n",main_v->props.bookmarks_sort);
 	if (main_v->props.bookmarks_sort) {
@@ -391,6 +394,9 @@ void bmark_init()
 void bmark_reload(Tbfwin *bfwin)
 {
 	GList *tmplist = g_list_first(bfwin->session->bmarks);
+	if (bfwin->bmark_files != NULL)
+	   g_hash_table_destroy(bfwin->bmark_files); 
+	bfwin->bmark_files = g_hash_table_new_full(g_str_hash,g_str_equal,g_free,NULL);   
 	while (tmplist) {
 	  	gchar **items = (gchar **) tmplist->data;
 	  	gchar *ptr = NULL;
