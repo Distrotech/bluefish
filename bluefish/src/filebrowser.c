@@ -1191,10 +1191,10 @@ static void filebrowser_rpopup_rename(Tfilebrowser *filebrowser) {
 			/* If an error occurs, doc_save takes care of notifying the user.
 			 * Currently, nothing is done here.
 			 */	
-			doc_save(tmpdoc, 1, 1, FALSE);
+			doc_save(tmpdoc, TRUE, TRUE, FALSE);
 		} else {
 			/* Promt user, "File/Move To"-style. */
-			newfilename = ask_new_filename(filebrowser->bfwin,oldfilename, oldfilename,1);
+			newfilename = ask_new_filename(filebrowser->bfwin, oldfilename, oldfilename, TRUE);
 			if (newfilename) {
 				gchar *old_OnDiEn, *new_OnDiEn; /* OnDiskEncoding */
 				old_OnDiEn = get_filename_on_disk_encoding(oldfilename);
