@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-/* #define DEBUG */
+#define DEBUG
 
 #include <gtk/gtk.h>
 #include <sys/stat.h>
@@ -39,9 +39,10 @@
 #include "document.h" /* DOCUMENT_BACKUP_ABORT_ASK */
 
 typedef struct {
-	void *pointer;
-	unsigned char type;
-	gchar *identifier;
+	void *pointer; /* where should the value be stored ?*/
+	unsigned char type; /* a=arraylist, l=stringlist, s=string, e=string with escape, i=integer */
+	gchar *identifier; /* the string that should be in the config file for this entry */
+	gint len; /* only used for arrays, the length the array should have */
 } Tconfig_list_item;
 
 static GList *main_configlist=NULL;
@@ -81,7 +82,7 @@ gchar **array_from_arglist(const gchar *string1, ...) {
 
 
 /*this should add 1 empty entry to the configuration list */
-GList *make_config_list_item(GList * config_list, void *pointer_to_var, unsigned char type_of_var, gchar * name_of_var)
+GList *make_config_list_item(GList * config_list, void *pointer_to_var, unsigned char type_of_var, gchar * name_of_var, gint len)
 {
 	Tconfig_list_item *config_list_item;
 	if (!pointer_to_var) {
@@ -92,39 +93,40 @@ GList *make_config_list_item(GList * config_list, void *pointer_to_var, unsigned
 	config_list_item->pointer = pointer_to_var;
 	config_list_item->type = type_of_var;
 	config_list_item->identifier = name_of_var;
+	config_list_item->len = len;
 	return (GList *) g_list_append(config_list, config_list_item);
 }
 
 static void init_prop_integer(GList ** config_list, void *pointer_to_var, gchar * name_of_var, gint default_value)
 {
-	*config_list = make_config_list_item(*config_list, pointer_to_var, 'i', name_of_var);
+	*config_list = make_config_list_item(*config_list, pointer_to_var, 'i', name_of_var, 0);
 	*(gint *) pointer_to_var = default_value;
 }
 
 static void init_prop_string(GList ** config_list, void *pointer_to_var, gchar * name_of_var, gchar * default_value)
 {
-	*config_list = make_config_list_item(*config_list, pointer_to_var, 's', name_of_var);
+	*config_list = make_config_list_item(*config_list, pointer_to_var, 's', name_of_var, 0);
 	*(gchar **) pointer_to_var = g_strdup(default_value);
 	DEBUG_MSG("init_prop_string, name_of_var=%s, default_value=%s\n", name_of_var, default_value);
 }
 
 static void init_prop_string_with_escape(GList ** config_list, void *pointer_to_var, gchar * name_of_var, gchar * default_value)
 {
-	*config_list = make_config_list_item(*config_list, pointer_to_var, 'e', name_of_var);
+	*config_list = make_config_list_item(*config_list, pointer_to_var, 'e', name_of_var, 0);
 	*(gchar **) pointer_to_var = unescapestring(default_value);
 	DEBUG_MSG("init_prop_string, name_of_var=%s, default_value=%s\n", name_of_var, default_value);
 }
 
 static void init_prop_stringlist(GList ** config_list, void *pointer_to_var, gchar * name_of_var)
 {
-	*config_list = make_config_list_item(*config_list, pointer_to_var, 'l', name_of_var);
+	*config_list = make_config_list_item(*config_list, pointer_to_var, 'l', name_of_var, 0);
 	pointer_to_var = NULL;
 }
 
 
-static void init_prop_arraylist(GList ** config_list, void *pointer_to_var, gchar * name_of_var)
+static void init_prop_arraylist(GList ** config_list, void *pointer_to_var, gchar * name_of_var, gint len)
 {
-	*config_list = make_config_list_item(*config_list, pointer_to_var, 'a', name_of_var);
+	*config_list = make_config_list_item(*config_list, pointer_to_var, 'a', name_of_var, len);
 	pointer_to_var = NULL;
 }
 
@@ -295,7 +297,12 @@ static gboolean parse_config_file(GList * config_list, gchar * filename)
 						break;
 					case 'a':
 						tmparray = string_to_array(tmpstring, ':');
-						* (void **) tmpitem->pointer = g_list_prepend((GList *) * (void **) tmpitem->pointer, tmparray);
+						if (tmpitem->len <= 0 || tmpitem->len == count_array(tmparray)) {
+							* (void **) tmpitem->pointer = g_list_prepend((GList *) * (void **) tmpitem->pointer, tmparray);
+						} else {
+							DEBUG_MSG("parse_config_file, not storing array, count_array() != tmpitem->len\n");
+							g_strfreev(tmparray);
+						}
 						DEBUG_MSG("parse_config_file, *(void **)tmpitem->pointer=%p\n", *(void **) tmpitem->pointer);
 						break;
 					default:
@@ -329,14 +336,14 @@ static GList *props_init_main(GList * config_rc)
 	init_prop_string    (&config_rc, &main_v->props.editor_font_string, "editor_font_string:", "courier 11");
 	init_prop_integer   (&config_rc, &main_v->props.editor_tab_width, "editor_tab_width:", 3);
 	init_prop_string    (&config_rc, &main_v->props.tab_font_string, "tab_font_string:", "");
-	init_prop_arraylist (&config_rc, &main_v->props.browsers, "browsers:");
-	init_prop_arraylist (&config_rc, &main_v->props.external_commands, "external_commands:");
+	init_prop_arraylist (&config_rc, &main_v->props.browsers, "browsers:", 0);
+	init_prop_arraylist (&config_rc, &main_v->props.external_commands, "external_commands:", 0);
 	init_prop_stringlist(&config_rc, &main_v->props.quickbar_items, "quickbar_items:");
 	init_prop_integer   (&config_rc, &main_v->props.highlight_num_lines_count, "highlight_num_lines_count:", 1);
 	init_prop_integer   (&config_rc, &main_v->props.defaulthighlight, "defaulthighlight:", 1);
-	init_prop_arraylist (&config_rc, &main_v->props.filetypes, "filetypes:");
+	init_prop_arraylist (&config_rc, &main_v->props.filetypes, "filetypes:", 0);
 	init_prop_integer   (&config_rc, &main_v->props.numcharsforfiletype, "numcharsforfiletype:", 200);
-	init_prop_arraylist (&config_rc, &main_v->props.filefilters, "filefilters:");
+	init_prop_arraylist (&config_rc, &main_v->props.filefilters, "filefilters:", 0);
 	init_prop_string    (&config_rc, &main_v->props.last_filefilter, "last_filefilter:", "");
 	init_prop_integer   (&config_rc, &main_v->props.transient_htdialogs, "transient_htdialogs:", 1);
 	init_prop_integer   (&config_rc, &main_v->props.restore_dimensions, "restore_dimensions:", 1);	
@@ -360,14 +367,14 @@ static GList *props_init_main(GList * config_rc)
 	init_prop_integer   (&config_rc, &main_v->props.num_undo_levels,"num_undo_levels:",100);
 	init_prop_integer   (&config_rc, &main_v->props.clear_undo_on_save,"clear_undo_on_save:",0);
 	init_prop_string    (&config_rc, &main_v->props.newfile_default_encoding,"newfile_default_encoding:","UTF-8");
-	init_prop_arraylist (&config_rc, &main_v->props.encodings, "encodings:");
+	init_prop_arraylist (&config_rc, &main_v->props.encodings, "encodings:", 0);
 	init_prop_integer   (&config_rc, &main_v->props.auto_set_encoding_meta,"auto_set_encoding_meta:",1);
 	init_prop_integer   (&config_rc, &main_v->props.auto_update_meta,"auto_update_meta:",1);
-	init_prop_arraylist (&config_rc, &main_v->props.outputbox, "outputbox:");
+	init_prop_arraylist (&config_rc, &main_v->props.outputbox, "outputbox:", 0);
 	init_prop_integer   (&config_rc, &main_v->props.ext_browsers_in_submenu,"ext_browsers_in_submenu:",0);
 	init_prop_integer   (&config_rc, &main_v->props.ext_commands_in_submenu,"ext_commands_in_submenu:",1);
 	init_prop_integer   (&config_rc, &main_v->props.ext_outputbox_in_submenu,"ext_outputbox_in_submenu:",1);
-	init_prop_arraylist (&config_rc, &main_v->props.reference_files, "reference_files:");
+	init_prop_arraylist (&config_rc, &main_v->props.reference_files, "reference_files:", 0);
 	init_prop_integer   (&config_rc, &main_v->props.fref_ldoubleclick_action,"fref_ldoubleclick_action:",0);
 	init_prop_integer   (&config_rc, &main_v->props.fref_info_type,"fref_info_type:",0);	
 	init_prop_integer   (&config_rc, &main_v->props.document_tabposition,"document_tabposition:",(gint)GTK_POS_BOTTOM);
@@ -659,7 +666,7 @@ void rcfile_parse_highlighting(void) {
 	DEBUG_MSG("rcfile_parse_highlighting, started\n");
 
 	highlighting_configlist = NULL;
-	init_prop_arraylist(&highlighting_configlist, &main_v->props.highlight_patterns, "patterns:");
+	init_prop_arraylist(&highlighting_configlist, &main_v->props.highlight_patterns, "patterns:", 0);
 
 	filename = g_strconcat(g_get_home_dir(), "/.bluefish/highlighting", NULL);
 	defaultfile = return_first_existing_filename(PKGDATADIR"highlighting.default",
@@ -698,7 +705,9 @@ void rcfile_parse_custom_menu(void) {
 	DEBUG_MSG("rcfile_parse_custom_menu, started\n");
 
 	custom_menu_configlist = NULL;
-	init_prop_arraylist(&custom_menu_configlist, &main_v->props.cust_menu, "custom_menu:");
+	init_prop_arraylist(&custom_menu_configlist, &main_v->props.cust_menu, "custom_menu:", 0);
+	init_prop_arraylist(&custom_menu_configlist, &main_v->props.cmenu_insert, "cmenu_insert:", 0);
+	init_prop_arraylist(&custom_menu_configlist, &main_v->props.cmenu_replace, "cmenu_replace:", 0);
 
 	filename = g_strconcat(g_get_home_dir(), "/.bluefish/custom_menu", NULL);
 	defaultfile = return_first_existing_filename(PKGDATADIR"custom_menu.default",
@@ -717,6 +726,48 @@ void rcfile_parse_custom_menu(void) {
 			main_v->props.lasttime_cust_menu = TIME_T_TO_GINT(time(NULL));
 		}
 	}
+	/* for backwards compatibility with older (before Bluefish 0.10) custom menu files we can convert those.. 
+	we will not need the 'type' anymore, since we will put them in separate lists, hence the memmove() call
+	*/
+	if (main_v->props.cust_menu) {
+		GList *tmplist= g_list_first(main_v->props.cust_menu);
+		while (tmplist) {
+			gchar **strarr = (gchar **)tmplist->data;
+			gint count = count_array(strarr);
+			if (count >= 5 && strarr[1][0] == '0') {
+				DEBUG_MSG("rcfile_parse_custom_menu, converting insert, 0=%s, 1=%s\n", strarr[0], strarr[1]);
+				g_free(strarr[1]);
+				memmove(&strarr[1], &strarr[2], (count-1) * sizeof(gchar *));
+				main_v->props.cmenu_insert = g_list_append(main_v->props.cmenu_insert, strarr);
+			} else if (count >= 8 && strarr[1][0] == '1') {
+				DEBUG_MSG("rcfile_parse_custom_menu, converting replace, 0=%s, 1=%s\n", strarr[0], strarr[1]);
+				g_free(strarr[1]);
+				memmove(&strarr[1], &strarr[2], (count-1) * sizeof(gchar *));
+				main_v->props.cmenu_replace = g_list_append(main_v->props.cmenu_replace, strarr);
+			} else if (count >= 4 && count == (4+atoi(strarr[1]))) { /*  the first check avoids a segfault if count == 1 */
+				/* a very old insert type, 0=menupath, 1=numvariables, 2=string1, 3=string2, 4... are variables 
+				   we can re-arrange it for the new insert type */
+				gchar *numvars = strarr[1];
+				strarr[1] = strarr[2];
+				strarr[2] = strarr[3];
+				strarr[3] = numvars; /* the variables; beyond [3], are still the same */
+				DEBUG_MSG("rcfile_parse_custom_menu, converting very old insert, 0=%s\n", strarr[0]);
+				main_v->props.cmenu_insert = g_list_append(main_v->props.cmenu_insert, strarr);
+			} else {
+#ifdef DEBUG
+				if (count > 2) {
+					g_print("rcfile_parse_custom_menu, ignoring %s with type %s (count=%d)\n",strarr[0], strarr[1], count);
+				} else {
+					g_print("rcfile_parse_custom_menu, ignoring invalid cust_menu entry with count=%d..\n", count);
+				}
+#endif
+			}
+			tmplist = g_list_next(tmplist);
+		}
+		g_list_free(main_v->props.cust_menu);
+		main_v->props.cust_menu = NULL;
+	}
+	
 /*		main_v->props.cust_menu = g_list_append(main_v->props.cust_menu, array_from_arglist(N_("/php/ibase/ibase fetch row"), "0", "while ($%1 = ibase_fetch_row($%0)) {\n	echo $%1[0];\n", "\n}\nibase_free_result($%0);\n", "2", _("ibase result variable name"), _("row variable name"), NULL));
 		main_v->props.cust_menu = g_list_append(main_v->props.cust_menu, array_from_arglist(N_("/php/mysql/mysql fetch row"), "0", "while ($%1 = mysql_fetch_row($%0)) {\n	echo $%1[0];\n", "\n}\nmysql_free_result($%0);\n", "2", _("mysql result variable name"), _("row variable name"), NULL));
 		main_v->props.cust_menu = g_list_append(main_v->props.cust_menu, array_from_arglist(N_("/php/mysql/mysql connect"), "0", "$mysql_id = mysql_connect('%0', '%1', '%2');\nmysql_select_db('%3', $mysql_id);\n", "", "4", _("mysql host"), _("mysql username"), _("mysql password"), _("database name"), NULL));

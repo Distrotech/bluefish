@@ -143,6 +143,9 @@ typedef struct {
 	gchar *tab_font_string;		/* notebook tabs font */
 	GList *browsers; /* browsers array */
 	GList *external_commands;	/* external commands array */
+	GList *cust_menu; 		/* entries in the custom menu */
+	GList *cmenu_insert; /* custom menu inserts */
+	GList *cmenu_replace; /* custom menu replaces */
 	GList *quickbar_items; /* items in the quickbar toolbar */
 	gint highlight_num_lines_count; /* number of lines to highlight in continous highlighting */	
 	gint defaulthighlight;		/* highlight documents by default */
@@ -217,7 +220,6 @@ typedef struct {
 	gint link_management; 	/* perform link management */
 	gint cont_highlight_update;	/* update the syntax highlighting continuous */
 	gchar *html_ver;
-	GList *cust_menu; 		/* entries in the custom menu */
 	/* key conversion */
 	gint conv_ctrl_enter;		/* convert control-enter key press */
 	gchar *ctrl_enter_text;		/* inserted text */
