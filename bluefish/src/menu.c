@@ -430,7 +430,8 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/Options/sep2"), NULL, NULL, 0, "<Separator>"},
 	{N_("/Options/View Main toolbar"), NULL, gui_toggle_hidewidget_cb, 0, "<ToggleItem>"},
 	{N_("/Options/View HTML toolbar"), NULL, gui_toggle_hidewidget_cb, 1, "<ToggleItem>"},
-	{N_("/Options/View Custom menu"), NULL, gui_toggle_hidewidget_cb, 2, "<ToggleItem>"}
+	{N_("/Options/View Custom menu"), NULL, gui_toggle_hidewidget_cb, 2, "<ToggleItem>"},
+	{N_("/Options/View Left panel"), NULL, gui_toggle_hidewidget_cb, 3, "<ToggleItem>"}
 };
 
 static void menu_current_document_type_change(GtkMenuItem *menuitem,Tfiletype *hlset) {
@@ -482,6 +483,7 @@ void menu_create_main(GtkWidget *vbox)
 	setup_toggle_item(item_factory, _("/Options/View Main toolbar"), main_v->props.view_main_toolbar);
 	setup_toggle_item(item_factory, _("/Options/View HTML toolbar"), main_v->props.view_html_toolbar);
 	setup_toggle_item(item_factory, _("/Options/View Custom menu"), main_v->props.view_custom_menu);
+	setup_toggle_item(item_factory, _("/Options/View Left panel"), main_v->props.view_left_panel);
 	setup_toggle_item(item_factory, _("/Options/Auto indent"), main_v->props.autoindent);
 /*	setup_toggle_item(item_factory, "/Options/View Filebrowser", main_v->props.v_filebrowser);*/
 	{

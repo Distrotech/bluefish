@@ -93,6 +93,12 @@ void gui_toggle_hidewidget_cb(gpointer callback_data,guint action,GtkWidget *wid
 			make_cust_menubar(hidewidgets.custom_menu_hb);
 		}
 	break;
+	case 3:
+		DEBUG_MSG("gui_toggle_hidewidget_cb, setting vlp from %d to %d\n", main_v->props.view_left_panel, 1 - main_v->props.view_left_panel);
+		main_v->props.view_left_panel = 1 - main_v->props.view_left_panel;
+		left_panel_show_hide_toggle(FALSE, main_v->props.view_left_panel);
+		return;
+	break;
 	default:
 		g_print("gui_toggle_hidewidget_cb should NEVER be called with action %d\n", action);
 		exit(1);
@@ -192,7 +198,7 @@ void left_panel_show_hide_toggle(gboolean first_time, gboolean show) {
 	}
 	if (show) {
 		main_v->hpane = gtk_hpaned_new();
-		fileb = filebrowser_init(first_time);
+		fileb = filebrowser_init();
 		gtk_widget_show_all(fileb);
 		gtk_paned_add1(GTK_PANED(main_v->hpane), fileb);
 		gtk_paned_add2(GTK_PANED(main_v->hpane), main_v->notebook);
@@ -538,6 +544,7 @@ void gui_create_main(GList *filenames) {
 	GtkWidget *vbox;
 	main_v->main_window = window_full(CURRENT_VERSION_NAME, GTK_WIN_POS_CENTER, 0, G_CALLBACK(main_window_delete_lcb), NULL);
 	gtk_window_set_wmclass(GTK_WINDOW(main_v->main_window), "Bluefish", "bluefish");
+	gtk_window_set_default_size(GTK_WINDOW(main_v->main_window), main_v->props.main_window_w, main_v->props.main_window_h);
 
 	vbox = gtk_vbox_new(FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(main_v->main_window), vbox);
