@@ -29,7 +29,7 @@
 #include <time.h>			/* ctime_r() */
 #include <pcre.h>
 
-/*#define DEBUG*/
+/* #define DEBUG */
 
 #ifdef DEBUGPROFILING
 #include <sys/times.h>
@@ -2464,18 +2464,18 @@ void doc_new_with_new_file(Tbfwin *bfwin, gchar * new_filename) {
  * @move_to_this_win: #gboolean if the file should be moved to this window if already open
  *
  * Create a new document and read in a file.
- * Errors are not propagated to user in any other way than returning TRUE/FALSE here.
+ * Errors are not propagated to user in any other way than returning a pointer or NULL
  *
- * Return value: #gboolean, TRUE if successful, FALSE on error.
+ * Return value: #Tdocument*, or NULL on error
  **/
-gboolean doc_new_with_file(Tbfwin *bfwin, gchar * filename, gboolean delay_activate, gboolean move_to_this_win) {
+Tdocument * doc_new_with_file(Tbfwin *bfwin, gchar * filename, gboolean delay_activate, gboolean move_to_this_win) {
 	Tdocument *doc;
 	gboolean opening_in_existing_doc = FALSE;
 	gchar *fullfilename;
 	
 	if ((filename == NULL) || (!file_exists_and_readable(filename))) {
 		DEBUG_MSG("doc_new_with_file, file %s !file_exists or readable\n", filename);
-		return FALSE;
+		return NULL;
 	}
 	fullfilename = create_full_path(filename, NULL);
 	
@@ -2496,7 +2496,7 @@ gboolean doc_new_with_file(Tbfwin *bfwin, gchar * filename, gboolean delay_activ
 				}
 			}
 			g_free(fullfilename);
-			return TRUE;
+			return tmpdoc;
 		}
 	}
 	DEBUG_MSG("doc_new_with_file, filename=%s exists\n", fullfilename);
@@ -2526,9 +2526,9 @@ gboolean doc_new_with_file(Tbfwin *bfwin, gchar * filename, gboolean delay_activ
 		} 
 		switch_to_document_by_pointer(bfwin,doc);
 		doc_activate(doc);
-		filebrowser_open_dir(BFWIN(doc->bfwin),fullfilename);
+		/*filebrowser_open_dir(BFWIN(doc->bfwin),fullfilename); is already called by doc_activate() */
 	}
-	return TRUE;	
+	return doc;
 }
 
 /**
@@ -2591,7 +2591,7 @@ void docs_new_from_files(Tbfwin *bfwin, GList * file_list, gboolean move_to_this
 		gtk_notebook_set_page(GTK_NOTEBOOK(bfwin->notebook),g_list_length(bfwin->documentlist) - 1);
 		notebook_changed(bfwin,-1);
 		if (bfwin->current_document && bfwin->current_document->filename) {
-			filebrowser_open_dir(bfwin,bfwin->current_document->filename);
+			/*filebrowser_open_dir(bfwin,bfwin->current_document->filename); is called by doc_activate() */
 			doc_activate(bfwin->current_document);
 		}
 	}
@@ -2646,7 +2646,6 @@ void doc_activate(Tdocument *doc) {
 		return;
 	}
 	BFWIN(doc->bfwin)->last_activated_doc = doc;
-
 	gtk_widget_show(doc->view); /* This might be the first time this document is activated. */
 #ifdef HAVE_GNOME_VFS
 	{
@@ -2697,16 +2696,18 @@ void doc_activate(Tdocument *doc) {
 	}
 
 /*	doc_scroll_to_cursor(doc);*/
-	DEBUG_MSG("doc_activate, doc=%p, about to grab focus\n",doc);
-	gtk_widget_grab_focus(GTK_WIDGET(doc->view));
 	if (doc->filename) {
 		gchar *dir1 = g_path_get_dirname(doc->filename);
 		gchar *dir2 = ending_slash(dir1);
 		chdir(dir2);
+		DEBUG_MSG("doc_activate, call filebrowser_open_dir() for %s\n",dir2);
 		filebrowser_open_dir(BFWIN(doc->bfwin),dir2);
 		g_free(dir1);
 		g_free(dir2);
 	}
+	DEBUG_MSG("doc_activate, doc=%p, about to grab focus\n",doc);
+	gtk_widget_grab_focus(GTK_WIDGET(doc->view));
+
 	DEBUG_MSG("doc_activate, doc=%p, finished\n",doc);
 }
 

@@ -1118,6 +1118,7 @@ static void handle_activate_on_file(Tfilebrowser *filebrowser, gchar *filename) 
 	} else {
 		DEBUG_MSG("handle_activate_on_file, file %s is not-editable, do something special now?\n",filename);
 	}
+	DEBUG_MSG("handle_activate_on_file, finished\n");
 }
 
 /* Called both by the filebrowser "activate"-signal and filebrowser_rpopup_open_lcb */
@@ -1489,6 +1490,7 @@ static gboolean filebrowser_button_press_lcb(GtkWidget *widget, GdkEventButton *
 					DEBUG_MSG("filebrowser_button_press_lcb, doubleclick!! open the file %s\n", filename);
 					handle_activate_on_file(filebrowser,filename);
 					g_free(filename);
+					return TRUE;
 				}
 			}
 			gtk_tree_path_free(path);
