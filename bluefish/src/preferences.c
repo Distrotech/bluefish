@@ -1912,7 +1912,7 @@ static void preferences_apply(Tprefdialog *pd) {
 	main_v->props.outputbox	 = duplicate_arraylist(pd->lists[outputbox]);
 
 	/* apply the changes to highlighting patterns and filetypes to the running program */
-	filetype_highlighting_rebuild();
+	filetype_highlighting_rebuild(TRUE);
 	filebrowser_filters_rebuild();
 	
 	all_documents_apply_settings();
