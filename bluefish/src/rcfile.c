@@ -320,8 +320,8 @@ static GList *props_init_main(GList * config_rc)
 	init_prop_integer   (&config_rc, &main_v->props.view_main_toolbar, "view_main_toolbar:", 1);
 	init_prop_integer   (&config_rc, &main_v->props.view_left_panel, "view_left_panel:", 1);
 	init_prop_integer   (&config_rc, &main_v->props.view_line_numbers, "view_line_numbers:", 1);
-	init_prop_integer   (&config_rc, &main_v->props.filebrowser_show_hidden_files, "fb_show_hidden_f:", 0);
-	init_prop_integer   (&config_rc, &main_v->props.filebrowser_show_others_files, "fb_show_others_f:", 0);
+	init_prop_integer   (&config_rc, &main_v->props.filebrowser_show_hidden_files, "fb_show_hidden_f:", 1);
+	init_prop_integer   (&config_rc, &main_v->props.filebrowser_show_others_files, "fb_show_others_f:", 1);
 	init_prop_integer   (&config_rc, &main_v->props.filebrowser_show_backup_files, "fb_show_backup_f:", 0);
 	init_prop_string    (&config_rc, &main_v->props.filebrowser_unknown_icon, "fb_unknown_icon:", PKGDATADIR"icon_unknown.png");
 	init_prop_string    (&config_rc, &main_v->props.filebrowser_dir_icon, "fb_dir_icon:", PKGDATADIR"icon_dir.png");
