@@ -209,7 +209,7 @@ patternname:
 case_sensitive(0-on/1-off):
 start reg-ex:
 end reg-ex:
-start & end pattern(1), only start(2), subpattern(3):
+start &amp; end pattern(1), only start(2), subpattern(3):
 parent-match:
 foreground-color:
 background-color:
@@ -270,10 +270,9 @@ don't change style(0), non-italic(1), italic(2):
 			<title>external programs  preferences</title>
 			<para>integrating external commands and browsers
 If you want to use for example a sed command as a filter, you can add it like this to the external commands and filters (in the preferences dialog):
-sed -e 'some sed command' > '%f' < '%s'
+sed -e 'some sed command' &gt; '%f' &lt; '%s'
 			</para>
 		</sect2>
 	</sect1>
 
 </chapter>
-
