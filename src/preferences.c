@@ -1183,7 +1183,7 @@ static gchar **external_create_strarr(Tprefdialog *pd) {
 }
 
 static void externals_apply_changes(Tprefdialog *pd) {
-	DEBUG_MSG("browsers_apply_changes, started\n");
+	DEBUG_MSG("externals_apply_changes, started\n");
 	if (pd->ed.curstrarr) {
 		gchar **strarr;
 		strarr = external_create_strarr(pd);
@@ -1559,6 +1559,7 @@ static void preferences_ok_clicked_lcb(GtkWidget *wid, Tprefdialog *pd) {
 	
 	free_arraylist(main_v->props.browsers);
 	main_v->props.browsers = pd->lists[browsers];
+	DEBUG_MSG("preferences_ok_clicked_lcb, new browsers list=%p\n", main_v->props.browsers);
 	
 	free_arraylist(main_v->props.external_commands);
 	main_v->props.external_commands = pd->lists[external_commands];
@@ -1573,7 +1574,7 @@ static void preferences_ok_clicked_lcb(GtkWidget *wid, Tprefdialog *pd) {
 	
 	menu_outputbox_rebuild();
 	encoding_menu_rebuild();
-	external_menu_rebuild();
+	external_menu_rebuild(); /* browsers is also rebuild here! */
 	
 	preferences_destroy_lcb(NULL, NULL, pd);
 }
