@@ -524,7 +524,9 @@ dnl AC_SUBST(GNOME1MENUPATH)
 dnl AC_SUBST(GNOME2PREFIX)
 dnl AC_SUBST(HAVE_GNOME_VFS)
 
-AC_PREFIX_DEFAULT("/usr/local")
+dnl AC_PREFIX_DEFAULT("/usr/local")
+dnl you only need this macro if you want something other then /usr/local
+dnl 
 
 if test "${prefix}" == "NONE"; then
 	prefix=${ac_default_prefix}
