@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * char_table.h - character convertion functions and data structures
  *
- * Copyright (C) 2002 Olivier Sessink
+ * Copyright (C) 2002-2004 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,4 +19,6 @@
  *
  */
 
-gchar *convert_string_utf8_to_html(gchar *utf8string, gboolean ascii, gboolean iso);
+gchar *convert_string_utf8_to_html(const gchar *utf8string, gboolean ascii, gboolean iso);
+#define xml_escape(var) convert_string_utf8_to_html(var, TRUE, FALSE);
+#define html_escape(var) convert_string_utf8_to_html(var, TRUE, FALSE);
