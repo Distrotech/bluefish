@@ -1831,7 +1831,7 @@ static void frefcb_full_info(GtkButton *button,Tbfwin *bfwin) {
 }
 
 static void frefcb_search(GtkButton *button,Tbfwin *bfwin) {
-	GtkTreePath *path,*path2;
+	GtkTreePath *path;
 	GtkTreeViewColumn *col;
 	GtkWidget *dlg,*entry;
 	GValue *val;
@@ -1842,49 +1842,48 @@ static void frefcb_search(GtkButton *button,Tbfwin *bfwin) {
 	gchar *stf=NULL;
 
 	gtk_tree_view_get_cursor(GTK_TREE_VIEW(FREFGUI(bfwin->fref)->tree), &path, &col);
-	if (path!=NULL)
-	{
-	  while ( gtk_tree_path_get_depth(path) > 1 && gtk_tree_path_up(path) );
+	if (path!=NULL) {
+		while ( gtk_tree_path_get_depth(path) > 1 && gtk_tree_path_up(path) );
+		
 		gtk_tree_model_get_iter(gtk_tree_view_get_model(GTK_TREE_VIEW(FREFGUI(bfwin->fref)->tree)), &iter, path);
 		gtk_tree_path_free(path);
 		val = g_new0(GValue, 1);
 		/* first column of reference title holds dictionary */
 		gtk_tree_model_get_value(gtk_tree_view_get_model(GTK_TREE_VIEW(FREFGUI(bfwin->fref)->tree)), &iter, 1, val);
 		if ( G_IS_VALUE(val) && g_value_fits_pointer(val)) {
-			 dict = (GHashTable*)g_value_peek_pointer(val);
-		 if (dict != NULL)
-		 {
-             	dlg = gtk_dialog_new_with_buttons("Find",NULL,GTK_DIALOG_MODAL,
-                                                  GTK_STOCK_OK,
-                                                  GTK_RESPONSE_ACCEPT,
-                                                  GTK_STOCK_CANCEL,
-                                                  GTK_RESPONSE_REJECT,
-                                                  NULL);
-	            entry = gtk_entry_new();
-	            gtk_box_pack_start(GTK_BOX(GTK_DIALOG(dlg)->vbox),entry,TRUE,TRUE,0); 
-	            gtk_widget_show(entry);
-	            result = gtk_dialog_run(GTK_DIALOG(dlg));  
-	            if (result == GTK_RESPONSE_ACCEPT)
-	            {
-	               stf = g_strdup(gtk_entry_get_text(GTK_ENTRY(entry)));
-	            }
-	            gtk_widget_destroy(dlg);
-		 
-				ret = g_hash_table_lookup(dict,stf);
-				g_free(stf);
+			dict = (GHashTable*)g_value_peek_pointer(val);
+			if (dict != NULL) {
+				dlg = gtk_dialog_new_with_buttons("Find",NULL,GTK_DIALOG_MODAL,
+				                             GTK_STOCK_OK,
+				                             GTK_RESPONSE_ACCEPT,
+				                             GTK_STOCK_CANCEL,
+				                             GTK_RESPONSE_REJECT,
+				                             NULL);
+				entry = gtk_entry_new();
+				gtk_box_pack_start(GTK_BOX(GTK_DIALOG(dlg)->vbox),entry,TRUE,TRUE,0); 
+				gtk_widget_show(entry);
+				result = gtk_dialog_run(GTK_DIALOG(dlg));  
+				if (result == GTK_RESPONSE_ACCEPT) {
+					stf = g_strdup(gtk_entry_get_text(GTK_ENTRY(entry)));
+					ret = g_hash_table_lookup(dict,stf);
+					g_free(stf);
+					if (!ret) error_dialog(bfwin->main_window,_("Reference search"), _("Reference not found")); 
+				}
+				gtk_widget_destroy(dlg);
+
 				if (ret!=NULL) {
-					path2 = gtk_tree_row_reference_get_path(ret);
+					GtkTreePath * path2 = gtk_tree_row_reference_get_path(ret);
 #ifndef HAVE_ATLEAST_GTK_2_2
-					gtktreepath_expand_to_root(GTK_TREE_VIEW(FREFGUI(bfwin->fref)->tree), path);
+					gtktreepath_expand_to_root(FREFGUI(bfwin->fref)->tree, path2);
 #else 
-					gtk_tree_view_expand_to_path(GTK_TREE_VIEW(FREFGUI(bfwin->fref)->tree), path);
+					gtk_tree_view_expand_to_path(GTK_TREE_VIEW(FREFGUI(bfwin->fref)->tree), path2);
 #endif
 					gtk_tree_view_set_cursor(GTK_TREE_VIEW(FREFGUI(bfwin->fref)->tree),path2,gtk_tree_view_get_column(GTK_TREE_VIEW(FREFGUI(bfwin->fref)->tree),0),FALSE);
-				} else error_dialog(bfwin->main_window,_("Reference search"), _("Reference not found")); 
-			} else error_dialog(bfwin->main_window,_("Error"), _("Dictionary not found. Perhaps you didn't load a reference."));   	
+				}
+			} else error_dialog(bfwin->main_window,_("Error"), _("Perhaps you didn't load a reference, or you did not select a reference to search in."));
 		}
 		g_value_unset(val);
-		g_free(val); 
+		g_free(val);
 	}
 }
 
