@@ -9,8 +9,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 21-11-03_fr\n"
-"POT-Creation-Date: 2004-11-22 12:51+0100\n"
-"PO-Revision-Date: 2004-11-14 20:57+0100\n"
+"POT-Creation-Date: 2004-11-23 11:13+0100\n"
+"PO-Revision-Date: 2004-11-23 11:13+0100\n"
 "Last-Translator: Michèle Garoche <michele.garoche@easyconnect.fr>\n"
 "Language-Team: français <fr@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -42,6 +42,7 @@ msgstr ""
 "Cette version de Bluefish a été compilée avec les options suivantes :\n"
 
 #: ../src/about.c:124
+#, fuzzy
 msgid ""
 "Project leader:\n"
 "  Olivier Sessink <olivier@bluefish.openoffice.nl>\n"
@@ -50,6 +51,7 @@ msgid ""
 "  Jim Hayward <jimhayward@linuxexperience.net>\n"
 "  Oskar Świda <swida@aragorn.pb.bialystok.pl>\n"
 "  Eugene Morenko(More) <more@irpin.com>\n"
+"  Alastair Porter <alastair@linuxexperience.com>\n"
 "\n"
 "Developers for previous releases:\n"
 "  Chris Mazuc\n"
@@ -65,6 +67,9 @@ msgid ""
 "  Antti-Juhani Kaijanaho\n"
 "\n"
 "Documentation:\n"
+"  Scott White <wwsw3@earthlink.net>\n"
+"  Michèle Garoche <michele.garoche@easyconnect.fr>\n"
+"  Anita Lewis <ajreiki@highstream.net>\n"
 "  Alastair Porter <alastair@linuxexperience.com>\n"
 "  Daniel Blair <joecamel@realcoders.org>\n"
 "  Denny Reeh\n"
@@ -73,6 +78,7 @@ msgid ""
 "  Debian:   Davide Puricelli <evo@debian.org>\n"
 "  Redhat:   Matthias Haase <matthias_haase@bennewitz.com>\n"
 "  Mandrake: Todd Lyons <todd@mrball.net>\n"
+"  Fink: Michèle Garoche <michele.garoche@easyconnect.fr>\n"
 "\n"
 "If you know of anyone missing from this list, please let us know\n"
 "<bluefish@bluefish.openoffice.nl>\n"
@@ -101,6 +107,9 @@ msgstr ""
 "  Antti-Juhani Kaijanaho\n"
 "\n"
 "Documentation :\n"
+"  Scott White <wwsw3@earthlink.net>\n"
+"  Michèle Garoche <michele.garoche@easyconnect.fr>\n"
+"  Anita Lewis <ajreiki@highstream.net>\n"
 "  Alastair Porter <alastair@linuxexperience.com>\n"
 "  Daniel Blair <joecamel@realcoders.org>\n"
 "  Denny Reeh\n"
@@ -109,13 +118,14 @@ msgstr ""
 "  Debian:   Davide Puricelli <evo@debian.org>\n"
 "  Redhat:   Matthias Haase <matthias_haase@bennewitz.com>\n"
 "  Mandrake: Todd Lyons <todd@mrball.net>\n"
+"  Fink: Michèle Garoche <michele.garoche@easyconnect.fr>\n"
 "\n"
 "Si vous remarquez un quelconque oubli, faites-le nous savoir :\n"
 "<bluefish@bluefish.openoffice.nl>\n"
 "\n"
 "Merci à tous ceux qui ont contribué à donner vie à ce logiciel.\n"
 
-#: ../src/about.c:160
+#: ../src/about.c:165
 msgid ""
 "Current translators:\n"
 "\n"
@@ -225,20 +235,20 @@ msgstr ""
 "   <barathee@yahoo.com>\n"
 "\n"
 
-#: ../src/about.c:197
+#: ../src/about.c:202
 msgid "About Bluefish"
 msgstr "À propos de Bluefish"
 
-#: ../src/about.c:229 ../src/fref.c:1427 ../src/fref.c:1711 ../src/fref.c:1798
+#: ../src/about.c:234 ../src/fref.c:1427 ../src/fref.c:1711 ../src/fref.c:1798
 #: ../src/fref.c:1833 ../src/fref.c:2310
 msgid "Info"
 msgstr "Informations"
 
-#: ../src/about.c:231
+#: ../src/about.c:236
 msgid "Authors"
 msgstr "Auteurs"
 
-#: ../src/about.c:232
+#: ../src/about.c:237
 msgid "Translators"
 msgstr "Traducteurs"
 
@@ -907,98 +917,98 @@ msgstr "Certains fichiers ont été modifiés."
 msgid "Statistics: %d lines, %d words, %d characters"
 msgstr "Statistiques : %d lignes, %d mots, %d caractères"
 
-#: ../src/filebrowser.c:1054
+#: ../src/filebrowser.c:1057
 msgid "Error creating path"
 msgstr "Erreur de création du chemin"
 
-#: ../src/filebrowser.c:1054
+#: ../src/filebrowser.c:1057
 msgid "The specified pathname already exists."
 msgstr "Le chemin de fichier spécifié existe déjà."
 
-#: ../src/filebrowser.c:1124
+#: ../src/filebrowser.c:1127
 msgid "File name"
 msgstr "Nom du fichier"
 
-#: ../src/filebrowser.c:1126
+#: ../src/filebrowser.c:1129
 msgid "Directory name"
 msgstr "Nom du répertoire"
 
-#: ../src/filebrowser.c:1157
+#: ../src/filebrowser.c:1160
 msgid "Opening directory..."
 msgstr "Ouverture du répertoire en cours..."
 
-#: ../src/filebrowser.c:1246 ../src/filebrowser.c:1250
+#: ../src/filebrowser.c:1249 ../src/filebrowser.c:1253
 msgid "Could not rename\n"
 msgstr "Impossible de renommer le fichier\n"
 
-#: ../src/filebrowser.c:1293
+#: ../src/filebrowser.c:1296
 #, c-format
 msgid "Are you sure you want to delete \"%s\" ?"
 msgstr ""
 "Êtes-vous certain(e) de vouloir\n"
 "supprimer \"%s\" ?"
 
-#: ../src/filebrowser.c:1294
+#: ../src/filebrowser.c:1297
 msgid "If you delete this file, it will be permanently lost."
 msgstr "Le fichier sera définitivement effacé."
 
-#: ../src/filebrowser.c:1303 ../src/filebrowser.c:1307
+#: ../src/filebrowser.c:1306 ../src/filebrowser.c:1310
 msgid "Could not delete \n"
 msgstr "Impossible d'effacer le fichier\n"
 
-#: ../src/filebrowser.c:1446
+#: ../src/filebrowser.c:1449
 msgid "/Open _Advanced..."
 msgstr "/P_aramétrer l'ouverture..."
 
-#: ../src/filebrowser.c:1450
+#: ../src/filebrowser.c:1453
 msgid "/_Refresh"
 msgstr "/Actualise_r"
 
-#: ../src/filebrowser.c:1451
+#: ../src/filebrowser.c:1454
 msgid "/_Set as basedir"
 msgstr "/_Sélectionner comme répertoire de travail"
 
-#: ../src/filebrowser.c:1455
+#: ../src/filebrowser.c:1458
 msgid "/New _File"
 msgstr "/Créer un _fichier"
 
-#: ../src/filebrowser.c:1456
+#: ../src/filebrowser.c:1459
 msgid "/_New Directory"
 msgstr "/Créer u_n répertoire"
 
-#: ../src/filebrowser.c:1461
+#: ../src/filebrowser.c:1464
 msgid "/_Open"
 msgstr "/_Ouvrir un fichier"
 
-#: ../src/filebrowser.c:1462
+#: ../src/filebrowser.c:1465
 msgid "/Rena_me"
 msgstr "/Reno_mmer"
 
-#: ../src/filebrowser.c:1463
+#: ../src/filebrowser.c:1466
 msgid "/_Delete"
 msgstr "/_Supprimer "
 
-#: ../src/filebrowser.c:1485
+#: ../src/filebrowser.c:1488
 msgid "Show hidden files"
 msgstr "Afficher les fichiers cachés"
 
-#: ../src/filebrowser.c:1490
+#: ../src/filebrowser.c:1493
 msgid "Show backup files"
 msgstr "Afficher les fichiers de sauvegarde"
 
-#: ../src/filebrowser.c:1496
+#: ../src/filebrowser.c:1499
 msgid "Filter"
 msgstr "Filtre"
 
-#: ../src/filebrowser.c:1696 ../src/gtk_easy.c:1383
+#: ../src/filebrowser.c:1699 ../src/gtk_easy.c:1383
 msgid "All files"
 msgstr "Tous les fichiers"
 
-#: ../src/filebrowser.c:1968
+#: ../src/filebrowser.c:1971
 msgid "Show full tree"
 msgstr "Afficher toute l'arborescence"
 
-#: ../src/filebrowser.c:1969
+#: ../src/filebrowser.c:1972
 msgid "Follow focus"
 msgstr "Suivre le focus"
 
