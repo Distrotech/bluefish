@@ -494,8 +494,7 @@ gchar **string_to_array(gchar *string, gchar delimiter) {
 	while (*tmpchar != '\0') {
 		DEBUG_MSG("string_to_array, count=%d, newstring(%p)\n", count, newstring);
 		if (*tmpchar == '\\') {
-			tmpchar2 = tmpchar;
-			tmpchar2++;
+			tmpchar2 = tmpchar+1;
 			switch (*tmpchar2) {
 			case '\0':
 				newstring[count] = '\\';
@@ -506,6 +505,10 @@ gchar **string_to_array(gchar *string, gchar delimiter) {
 			break;
 			case 'n':
 				newstring[count] = '\n';
+				tmpchar++;
+			break;
+			case 't':
+				newstring[count] = '\t';
 				tmpchar++;
 			break;
 			default:
