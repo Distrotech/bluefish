@@ -62,6 +62,9 @@ AC_ARG_ENABLE(auto-optimization,
 				[try to automatically determine the most optimal build options for your architecture]),
 
 		UNAMEP=`uname -p`
+		if test "x$UNAMEP" = "x"; then
+			UNAMEP="unknown"
+		fi
 		if test "x$UNAMEP" = "xunknown"; then
 			UNAMEP=`grep "model name" /proc/cpuinfo | cut -d: -f2`
 		fi
@@ -83,10 +86,10 @@ AC_ARG_ENABLE(auto-optimization,
 			else
 				MARCH=""
 			fi
-			CFLAGS="-DG_DISABLE_ASSERT -O3 $MARCH -malign-double -fomit-frame-pointer -fno-exceptions -fno-rtti -pipe -s -ffast-math -fexpensive-optimizations -falign-functions -falign-loops -fstrict-aliasing"
+			CFLAGS="-DG_DISABLE_ASSERT -O3 $MARCH -malign-double -fomit-frame-pointer -fno-exceptions -pipe -s -ffast-math -fexpensive-optimizations -falign-functions -falign-loops -fstrict-aliasing"
 		elif $CC -dumpversion|egrep -q "^3\.0.*"; then
 # gcc-3.0
-			CFLAGS="-DG_DISABLE_ASSERT -O3 -fomit-frame-pointer -fno-exceptions -fno-rtti -pipe -s -ffast-math -fexpensive-optimizations -falign-functions -falign-loops"
+			CFLAGS="-DG_DISABLE_ASSERT -O3 -fomit-frame-pointer -fno-exceptions -pipe -s -ffast-math -fexpensive-optimizations -falign-functions -falign-loops"
 		elif $CC -dumpversion | egrep -q "^2\.95.*" ; then
 # gcc-2.95
 			if echo $UNAMEP|egrep -q "(Pentium III|Pentium II|Pentium\(R\) 4|Athlon)"; then
@@ -98,7 +101,7 @@ AC_ARG_ENABLE(auto-optimization,
 			else 
 				MARCH=""
 			fi
-			CFLAGS="-DG_DISABLE_ASSERT $MARCH -O3 -fomit-frame-pointer -fno-exceptions -fno-rtti -pipe -s -ffast-math -fexpensive-optimizations"
+			CFLAGS="-DG_DISABLE_ASSERT $MARCH -O3 -fomit-frame-pointer -fno-exceptions -pipe -s -ffast-math -fexpensive-optimizations"
 		else
 			echo "warning: compiler is not known: not optimizing!"
 		fi
@@ -109,7 +112,7 @@ AC_ARG_ENABLE(gcc3-optimization,
 		AC_HELP_STRING([--enable-gcc3-optimization=type],
 				[gcc3 can optimize for: i386, i486, pentium, pentium-mmx, pentiumpro, pentium2, pentium3, pentium4, k6, k6-2, k6-3, athlon, athlon-tbird, athlon-4, athlon-xp, athlon-mp, winchip-c6, winchip2, c3]),
 		if $CC -dumpversion|egrep -q "^3\..*"; then
-			CFLAGS="-O3 -march=$enableval -fomit-frame-pointer -fno-exceptions -fno-rtti -pipe -s -ffast-math -fexpensive-optimizations -falign-functions -falign-loops"
+			CFLAGS="-O3 -march=$enableval -fomit-frame-pointer -fno-exceptions -pipe -s -ffast-math -fexpensive-optimizations -falign-functions -falign-loops"
 			echo "using $CC $CFLAGS"
 		else
 			echo "warning: compiler is not gcc3: not optimizing!"
@@ -120,7 +123,7 @@ AC_ARG_ENABLE(gcc2-optimization,
 		AC_HELP_STRING([--enable-gcc2-optimization=type],
 				[gcc2 can optimize for: i386, i486, pentium, pentiumpro, k6]),
 		if $CC -dumpversion | egrep -q "^2\..*" ; then
-			CFLAGS="-O3 -march=$enableval -fomit-frame-pointer -fno-exceptions -fno-rtti -pipe -s -ffast-math -fexpensive-optimizations"
+			CFLAGS="-O3 -march=$enableval -fomit-frame-pointer -fno-exceptions -pipe -s -ffast-math -fexpensive-optimizations"
 			echo "using $CC $CFLAGS"
 		else 
 			echo "warning: compiler is not gcc2: not optimizing!"
