@@ -94,7 +94,7 @@ static void checkmodified_asyncfileinfo_lcb(GnomeVFSAsyncHandle *handle, GList *
 
 Tcheckmodified * file_checkmodified_uri_async(GnomeVFSURI *uri, GnomeVFSFileInfo *curinfo, CheckmodifiedAsyncCallback callback_func, gpointer callback_data) {
 	Tcheckmodified *cm;
-	DEBUG_MSG("file_checkmodified_uri_async, STARTED for %s\n", gnome_vfs_uri_get_path(uri));
+	DEBUG_MSG("file_checkmodified_uri_async, STARTED for %s, curinfo=%p\n", gnome_vfs_uri_get_path(uri));
 	if (curinfo == NULL) {
 		callback_func(CHECKMODIFIED_OK, 0, NULL, NULL, callback_data);
 		return NULL;
