@@ -449,10 +449,11 @@ gboolean doc_set_filetype(Tdocument *doc, Tfiletype *ft) {
  * Return value: void
  */
 void doc_set_title(Tdocument *doc) {
-	gchar *label_string, *tabmenu_string;
+	gchar *label_string, *tabmenu_string, *utf8uri;
+	utf8uri = gnome_vfs_format_uri_for_display(doc->uri);
 	if (doc->uri) {
-		label_string = g_path_get_basename(doc->uri);
-		tabmenu_string = g_strdup(doc->uri);
+		label_string = g_path_get_basename(utf8uri);
+		tabmenu_string = g_strdup(utf8uri);
 	} else {
 		label_string = g_strdup_printf(_("Untitled %d"),main_v->num_untitled_documents);
 		tabmenu_string =  g_strdup(label_string);
@@ -463,6 +464,7 @@ void doc_set_title(Tdocument *doc) {
 	doc_set_tooltip(doc);
 	g_free(label_string);
 	g_free(tabmenu_string);
+	g_free(utf8uri);
 	if (doc->bfwin == BFWIN(doc->bfwin)->current_document) {
 		gui_set_title(doc->bfwin, doc);
 	}
@@ -503,10 +505,7 @@ void doc_reset_filetype(Tdocument * doc, gchar * newfilename, gchar *buf) {
 void doc_set_filename(Tdocument *doc, gchar *uri) {
 	if (uri) {
 		if (doc->uri) g_free(doc->uri);
-		if (doc->uri) g_free(doc->uri);
-	
 		doc->uri = g_strdup(uri);
-		doc->uri = uri_to_document_filename2(uri);
 		doc_set_title(doc);
 		doc_reset_filetype(doc, doc->uri, NULL);
 	}
@@ -631,7 +630,7 @@ gboolean doc_is_empty_non_modified_and_nameless(Tdocument *doc) {
 	if (!doc) {
 		return FALSE;
 	}
-	if (doc->modified || doc->uri || doc->uri) {
+	if (doc->modified || doc->uri) {
 		return FALSE;
 	}
 	if (gtk_text_buffer_get_char_count(doc->buffer) > 0) {
@@ -837,7 +836,6 @@ void doc_set_modified(Tdocument *doc, gint value) {
 #endif
 }
 
-#ifdef HAVE_GNOME_VFS
 /* returns 1 if the file is modified on disk, returns 0 
 if the file is modified by another process, returns
 0 if there was no previous mtime information available 
@@ -850,7 +848,6 @@ static gboolean doc_check_modified_on_disk(Tdocument *doc, GnomeVFSFileInfo **ne
 	} else if (main_v->props.modified_check_type < 4) {
 		GnomeVFSFileInfo *fileinfo;
 		gboolean unref_fileinfo = FALSE;
-		gchar *ondiskencoding = get_filename_on_disk_encoding(doc->uri);
 		if (*newfileinfo == NULL) {
 			fileinfo = gnome_vfs_file_info_new();
 			unref_fileinfo = TRUE;
@@ -859,9 +856,8 @@ static gboolean doc_check_modified_on_disk(Tdocument *doc, GnomeVFSFileInfo **ne
 			fileinfo = *newfileinfo;
 			DEBUG_MSG("doc_check_modified_on_disk, using existing fileinfo at %p\n", fileinfo);
 		}
-		if (gnome_vfs_get_file_info(ondiskencoding, fileinfo
+		if (gnome_vfs_get_file_info(doc->uri, fileinfo
 					, GNOME_VFS_FILE_INFO_DEFAULT|GNOME_VFS_FILE_INFO_FOLLOW_LINKS) == GNOME_VFS_OK) {
-			g_free(ondiskencoding);
 			if (main_v->props.modified_check_type == 1 || main_v->props.modified_check_type == 2) {
 				if (doc->fileinfo->mtime < fileinfo->mtime) {
 					if (unref_fileinfo) gnome_vfs_file_info_unref(fileinfo);
@@ -874,60 +870,25 @@ static gboolean doc_check_modified_on_disk(Tdocument *doc, GnomeVFSFileInfo **ne
 					return TRUE;
 				}
 			}
-		} else g_free(ondiskencoding);
+		}
 		if (unref_fileinfo) gnome_vfs_file_info_unref(fileinfo);
 	} else {
 		DEBUG_MSG("doc_check_mtime, type %d checking not yet implemented\n", main_v->props.modified_check_type);
 	}
 	return FALSE;
 }
-#else /* HAVE_GNOME_VFS */
-/* returns 1 if the file is modified on disk, returns 0 
-if the file is modified by another process, returns
-0 if there was no previous mtime information available 
-if newstatbuf is not NULL, it will be filled with the new statbuf from the file IF IT WAS CHANGED!!!
-leave NULL if you do not need this information, if the file is not changed, this field will not be set!!
-*/
-static gboolean doc_check_modified_on_disk(Tdocument *doc, struct stat *newstatbuf) {
-	if (main_v->props.modified_check_type == 0 || !doc->uri || doc->statbuf.st_mtime == 0 || doc->statbuf.st_size == 0) {
-		return FALSE;
-	} else if (main_v->props.modified_check_type < 4) {
-		struct stat statbuf;
-		gchar *ondiskencoding = get_filename_on_disk_encoding(doc->uri);
-		if (stat(ondiskencoding, &statbuf) == 0) {
-			g_free(ondiskencoding);
-			*newstatbuf = statbuf;
-			if (main_v->props.modified_check_type == 1 || main_v->props.modified_check_type == 2) {
-				if (doc->statbuf.st_mtime < statbuf.st_mtime) {
-					return TRUE;
-				}
-			}
-			if (main_v->props.modified_check_type == 1 || main_v->props.modified_check_type == 3) {
-				if (doc->statbuf.st_size != statbuf.st_size) {
-					return TRUE;
-				}
-			}
-		} else g_free(ondiskencoding);
-	} else {
-		DEBUG_MSG("doc_check_mtime, type %d checking not yet implemented\n", main_v->props.modified_check_type);
-	}
-	return FALSE;
-}
-#endif /* HAVE_GNOME_VFS */
 
 /* doc_set_stat_info() includes setting the mtime field, so there is no need
 to call doc_update_mtime() as well */
 static void doc_set_stat_info(Tdocument *doc) {
 	if (doc->uri) {
-		gchar *ondiskencoding = get_filename_on_disk_encoding(doc->uri);
 		if (doc->fileinfo == NULL) {
 			doc->fileinfo = gnome_vfs_file_info_new();
 			DEBUG_MSG("doc_set_stat_info, new fileinfo at %p\n",doc->fileinfo);
 		}
-		gnome_vfs_get_file_info(ondiskencoding, doc->fileinfo
+		gnome_vfs_get_file_info(doc->uri, doc->fileinfo
 				,GNOME_VFS_FILE_INFO_DEFAULT|GNOME_VFS_FILE_INFO_FOLLOW_LINKS);
 		doc->is_symlink = GNOME_VFS_FILE_INFO_SYMLINK(doc->fileinfo);
-		g_free(ondiskencoding);
 		doc_set_tooltip(doc);
 	}
 }
@@ -1654,21 +1615,12 @@ static gint doc_check_backup(Tdocument *doc) {
 	gint res = 1;
 
 	if (main_v->props.backup_file && doc->uri && file_exists_and_readable(doc->uri)) {
-		gchar *backupfilename, *ondiskencoding;
+		gchar *backupfilename;
 		backupfilename = g_strconcat(doc->uri, main_v->props.backup_filestring, NULL);
-		ondiskencoding = get_filename_on_disk_encoding(backupfilename);
 		res = file_copy(doc->uri, backupfilename);
-#ifdef HAVE_GNOME_VFS
 		if (doc->fileinfo) {
-			gnome_vfs_set_file_info(ondiskencoding, doc->fileinfo, GNOME_VFS_SET_FILE_INFO_PERMISSIONS|GNOME_VFS_SET_FILE_INFO_OWNER);
+			gnome_vfs_set_file_info(backupfilename, doc->fileinfo, GNOME_VFS_SET_FILE_INFO_PERMISSIONS|GNOME_VFS_SET_FILE_INFO_OWNER);
 		}
-#else
-		if (doc->statbuf.st_uid != -1 && !doc->is_symlink) {
-			chmod(ondiskencoding, doc->statbuf.st_mode);
-			chown(ondiskencoding, doc->statbuf.st_uid, doc->statbuf.st_gid);
-		}
-#endif
-		g_free(ondiskencoding);
 		g_free(backupfilename);
 	}
 	return res;
