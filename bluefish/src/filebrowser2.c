@@ -651,6 +651,7 @@ static gboolean tree_model_filter_func(GtkTreeModel *model,GtkTreeIter *iter,gpo
 	gchar *name;
 	gint len, type;
 	GnomeVFSURI *uri;
+	DEBUG_MSG("tree_model_filter_func, called for model=%p and fb2=%p\n",model,fb2);
 	gtk_tree_model_get(GTK_TREE_MODEL(model), iter, FILENAME_COLUMN, &name, URI_COLUMN, &uri, TYPE_COLUMN, &type, -1);
 	
 	if (type != TYPE_DIR) {
@@ -716,6 +717,7 @@ static gboolean file_list_filter_func(GtkTreeModel *model,GtkTreeIter *iter,gpoi
 	Tfilebrowser2 *fb2 = data;
 	gchar *name;
 	gint len, type;
+	DEBUG_MSG("file_list_filter_func, called for model=%p and fb2=%p\n",model,fb2);
 	gtk_tree_model_get(GTK_TREE_MODEL(model), iter, FILENAME_COLUMN, &name, TYPE_COLUMN, &type, -1);
 	if (type != TYPE_FILE) return FALSE;
 	if (!name) return FALSE;
@@ -1454,7 +1456,7 @@ void fb2_set_basedir(Tbfwin *bfwin, gchar *curi) {
 		Tfilebrowser2 *fb2 = bfwin->fb2;
 		if (curi) {
 			GnomeVFSURI *uri;
-			DEBUG_MSG("fb2_set_basedir, set curi=%s\n",curi);
+			DEBUG_MSG("fb2_set_basedir, set curi=%s for bfwin=%p and fb2=%p\n",curi,bfwin,fb2);
 			uri = gnome_vfs_uri_new(strip_trailing_slash(curi));
 			if (uri) {
 				GtkTreePath *basedir;
