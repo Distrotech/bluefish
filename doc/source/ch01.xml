@@ -19,10 +19,10 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 <chapter id="bluefish-ch-1">
 
   <title>general information</title>
-	<simplesect>    
+<!--	<simplesect>    
 		<para>
-		</para>
-	</simplesect>
+		</para> 
+	</simplesect>-->
 
 	<sect1 id="bluefish-ch-1-sect-1">
 		<title>about this manual</title>
@@ -69,8 +69,10 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 				</para></listitem>
 				<listitem><para>
 					When you can type in something, it might be an example of the input, like this:
-				</para><para>
-					<userinput>foo -bar | bang -l</userinput>
+					<screen>$ foo -bar | bang -l</screen>
+					You are not supposed to write the <literal>$</literal> character - it's simply identifying
+					your command prompt. If you need to be <emphasis>root</emphasis> to execute a command,
+					the prompt is shown as a <literal>#</literal>.
 				</para></listitem>
 			</itemizedlist>
 		</sect2>
@@ -78,8 +80,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 		<sect2 id="bluefish-ch-1-sect-1.2">
 			<title>requirements for maintain the manual</title>
 			<para>technical things you need, if you will generate html out of xml</para>
-			<remark>(Christian) Doesn't this (and "conventions" below) belong with coding style etc?
-			Putting it here will only scare a novice.</remark>
+			<remark>Doesn't this (and "conventions" below) belong with coding style etc?
+			Putting it here will only scare a novice.. - christian</remark>
 		</sect2>
 
 		<sect2 id="bluefish-ch-1-sect-1.3">
@@ -94,7 +96,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 		<para>
 			Bluefish is a powerful editor for experienced web designers and programmers. Bluefish
 			supports many programming and markup languages, but it focuses on editing dynamic and
-			interactive websites.
+			interactive websites. It is based on the GTK2 GUI interface.
 		</para>
 		<para>
 			Bluefish is a WYSIWYM<footnote><para>What You See Is What You Mean</para></footnote> text editor,
@@ -102,11 +104,12 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 			To alleviate the editing process, a large number of features are at your disposal. Numerous methods for
 			inserting markup and code exists, through toolbars, dialogs and predefined and user customized menus.
 			Syntax highlighting, advanced search and replace functionality, scalability and language function
-			references make Bluefish a powerful tool.
+			references make Bluefish a powerful tool for development.
 		</para>
 
 		<sect2 id="bluefish-ch-1-sect-2.1">
 			<title>history of bluefish</title>
+				<remark>left for someone else to write ;-) - christian</remark>
 				<para>
 					when bluefish said "hello world"
 				</para>
@@ -124,7 +127,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 		<sect2 id="bluefish-ch-1-sect-2.2">
 			<title>main features of bluefish</title>
 			<para>
-				Bluefish has many features, this list will give you an overview of the most important or outstanding features.
+				Bluefish has many features, this list will give you an overview of
+				the most important or outstanding features.
 			</para>
 			<itemizedlist>
 				<listitem><para>A What You See Is What You Need interface</para></listitem>
@@ -137,7 +141,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 						<listitem><para>C</para></listitem>
 						<listitem><para>cfml</para></listitem>
 						<listitem><para>ColdFusion</para></listitem>
-						<listitem><para>Gettext's po</para></listitem>
+						<listitem><para>Gettext po</para></listitem>
 						<listitem><para>HTML</para></listitem>
 						<listitem><para>Java</para></listitem>
 						<listitem><para>Pascal</para></listitem>
@@ -152,7 +156,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 				<listitem><para>Multiple encodings support, can convert between different character sets, supports multibyte characters, unicode, UTF8 etc.</para></listitem>
 				<listitem><para>Nice wizards for startup, tables, frames, and others</para></listitem>
 				<listitem><para>Dialogs for many HTML tags, with all their attributes</para></listitem>
-				<listitem><para>HTML toolbar and tearable menus </para></listitem>
+				<listitem><para>HTML toolbar and tearable menus</para></listitem>
 				<listitem><para>User-customizable toolbar for quick access to often used functions</para></listitem>
 				<listitem><para>Open files based on filename patterns and/or content</para></listitem>
 				<listitem><para>Fully featured image insert dialog</para></listitem>
@@ -164,12 +168,12 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 				<listitem><para>Very powerful search and replace, allowing POSIX and Perl Compatible regular expressions and sub-pattern replacing</para></listitem>
 				<listitem><para>Excellent undo/redo functionality</para></listitem>
 				<listitem><para>Configurable recent documents and recent directories functionality</para></listitem>
-				<listitem><para>Translations in da fr es it hu pl no ru sv</para></listitem>
-				<listitem><para>User customizable integration of many programs, including weblint, tidy, make, javac etc. etc.</para></listitem>
-				<listitem><para>XML based function reference. Currently, references exist for HTML and PHP. Additions like GTK, Perl and Python will be added. You may also create your own function reference. The XML-format is described later in the manual.</para></listitem>
+				<listitem><para>Translations in <emphasis>da fr es it hu pl no ru sv</emphasis></para></listitem>
+				<listitem><para>User customizable integration with many programs, including weblint, tidy, make, javac etc.</para></listitem>
+				<listitem><para>XML based function reference. Currently, references are included for HTML and PHP. A GTK reference is available, and support for Perl and Python will be added. You may also create your own function reference. The XML format is described later in the manual.</para></listitem>
 			</itemizedlist>
 			<para>
-				As Bluefish is a part of a larger desktop enviroment, we have begun to focus on keeping the GUI
+				As Bluefish is a part of a larger desktop enviroment, we've focused on making the GUI
 				consistent with the Gnome HIG<footnote>
 					<para>GNOME Human Interface Guidelines, accessible at
 						<systemitem class="url">http://developer.gnome.org/projects/gup/hig/</systemitem>
@@ -178,16 +182,18 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 					Bluefish is <emphasis>for the programmer</emphasis>.
 			</para>
 			<para>
-				Some features from v0.7 are not yet implemented. The main missing piece 
+				Some features from v0.7 (GTK1) are not yet implemented. The main missing piece is project management,
+				which will be implemented before v1.0. If you depend on this feature, v0.7 may still
+				be the version of choice.
 			</para>
 		</sect2>
 		
 		<sect2 id="bluefish-ch-1-sect-2.3">
 			<title>how stable is bluefish?</title>
 			<para>
-				The Bluefish developers aim to produce code that neither crash nor leak memory. Of course, that's
-				not always easy to do, but we do try to minimize the damage. Leaks and crashes
-				are often fixed in CVS as soon as they're discovered and hunted down. The developers use the
+				Quite stable! The Bluefish developers aim to produce code that neither crash nor leak memory.
+				Of course, that's not always easy to do, but we do try to minimize the damage. Leaks and crashes
+				are often fixed in CVS as soon as they're discovered and hunted down. The developers use
 				Bluefish for their daily work, in addition to a large amount of users. Some nags do still exist,
 				one problem is slightly slow copy/pasting.
 			</para>
@@ -198,6 +204,37 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 			<para>
 				We appreciate any and all contributions! Please do tell us if Bluefish crashes on you :-).
 			</para>
+		</sect2>
+		<sect2 id="bluefish-ch-1-sect-2.4">
+			<title>contact us</title>
+			<para>
+				We, the Bluefish development team, always welcome all comments, user requests, constructive
+				critizism and contributions. Are you curious or seek information regarding Bluefish? Do you want
+				to contribute by translating Bluefish or its manual? Here's your options:
+			</para>
+			<itemizedlist>
+				<listitem><para>
+					<systemitem class="url">http://bluefish.openoffice.nl/</systemitem> - The main website. Here
+					you'll find news, updates and more information.
+				</para></listitem>
+				<listitem><para>
+					<systemitem class="url">http://bfwiki.tellefsen.net/</systemitem> - The Bluefish WiKi. Here's
+					the notebook for the developers, containing a lot of information, including, but not limited to,
+					updated project roadmaps, status of translations, feature requests and open bugs.
+				</para></listitem>
+				<listitem><para>
+					You can subscribe to the Bluefish mailinglist by sending an email containing
+					<quote>subscribe bluefish-dev</quote> to <email>bluefish-dev-request@lists.ems.ru</email>.
+				</para></listitem>
+				<listitem><para>
+					Do you want to help translate Bluefish? Please do tell us. Drop an email to
+					Walter Echarri <email>wecharri(at)infovia.com.ar</email>, our friendly translation maintainer.
+				</para></listitem>
+				<listitem><para>
+					If you've got a generic question, you can also drop an email to
+					<email>bluefish(at)bluefish.openoffice.nl</email>.
+				</para></listitem>
+			</itemizedlist>
 		</sect2>
 	</sect1>
 
