@@ -396,6 +396,31 @@ static void bmark_popup_menu_goto_lcb(GtkWidget * widget, gpointer user_data)
 	}
 }
 
+static void bmark_check_remove(Tbfwin *bfwin,Tbmark *b)
+{
+   gpointer ptr=NULL;
+   gboolean re = FALSE;
+
+   gtk_tree_store_remove(bfwin->bookmarkstore, &(b->iter));  	     
+   if (bfwin->bmark_files) 
+   {
+      ptr = g_hash_table_lookup(bfwin->bmark_files,b->filepath);
+      if (ptr!=NULL) 
+       {
+          if ( !gtk_tree_model_iter_has_child(GTK_TREE_MODEL(bfwin->bookmarkstore), (GtkTreeIter*)ptr))
+            re = TRUE;
+       }   
+   }
+   if (re)    
+   {
+  	   gtk_tree_store_remove(bfwin->bookmarkstore,(GtkTreeIter*)ptr );   
+  	   g_hash_table_remove(bfwin->bmark_files,b->filepath);
+  	   g_free(ptr);  	   
+  	   if (b->doc)
+  	      b->doc->bmark_parent = NULL;
+  	}   
+}
+
 static void bmark_popup_menu_del_lcb(GtkWidget * widget, gpointer user_data)
 {
 	Tbmark *b;
@@ -421,9 +446,10 @@ static void bmark_popup_menu_del_lcb(GtkWidget * widget, gpointer user_data)
 		g_free(pstr);
 		if (ret == 0)
 			return;
-		gtk_tree_store_remove(BFWIN(user_data)->bookmarkstore, &(b->iter));
+		bmark_check_remove(BFWIN(user_data),b); /* check  if we should remove a filename too */	
 		bmark_unstore(BFWIN(user_data), b);
 		bmark_free(b);
+		
 	}
 	gtk_widget_grab_focus(BFWIN(user_data)->current_document->view);
 }
@@ -809,6 +835,7 @@ GHashTable *bmark_get_bookmarked_lines(Tdocument * doc, GtkTextIter *fromit, Gtk
 	if (doc->bmark_parent && BFWIN(doc->bfwin)->bmark) {
 		gboolean cont;
 		GtkTreeIter tmpiter;
+
 		GHashTable *ret = g_hash_table_new_full(g_int_hash, g_int_equal, g_free, g_free);
 		cont = gtk_tree_model_iter_children(GTK_TREE_MODEL(BFWIN(doc->bfwin)->bookmarkstore), 
 									&tmpiter, doc->bmark_parent);
