@@ -1282,9 +1282,16 @@ static void filebrowser_rpopup_action_lcb(Tfilebrowser *filebrowser,guint callba
 			open_advanced_from_filebrowser(filebrowser->bfwin, path);
 			g_free(path);
 		}
-	} break;	
+	} break;
 #endif
-#endif	
+#endif
+	case 8: {
+		gchar *path = get_selected_filename(filebrowser, TRUE);
+		if (path) {
+			filebrowser_set_basedir(filebrowser->bfwin, path);
+			g_free(path);
+		}
+	} break;
 	}
 }
 
@@ -1320,7 +1327,8 @@ static GtkItemFactoryEntry filebrowser_dirmenu_entries[] = {
 #endif
 #endif
 	
-	{ N_("/_Refresh"),			NULL,	filebrowser_rpopup_action_lcb,		6,	"<Item>" }
+	{ N_("/_Refresh"),			NULL,	filebrowser_rpopup_action_lcb,		6,	"<Item>" },
+	{ N_("/_Set as basedir"),			NULL,	filebrowser_rpopup_action_lcb,		8,	"<Item>" }
 };
 
 static GtkItemFactoryEntry filebrowser_bothmenu_entries[] = {
