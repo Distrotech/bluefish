@@ -22,6 +22,12 @@
 #define __HTML_DIAG_H_
 
 typedef struct {
+	GList *classlist;
+	GList *colorlist;
+} Trecent_attribs;
+extern Trecent_attribs recent_attribs;
+
+typedef struct {
 	GtkWidget *src;
 	GtkWidget *dest;
 	gint type;

@@ -30,6 +30,7 @@
 #include "stringlist.h" /* add_to_stringlist */
 #include "document.h" /* doc_save_selection */
 
+Trecent_attribs recent_attribs;
 /*****************************************/
 /********** DIALOG FUNCTIONS *************/
 /*****************************************/
