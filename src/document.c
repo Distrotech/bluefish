@@ -26,6 +26,7 @@
 #include <string.h> /* strchr() */
 #include <regex.h> 				/* regcomp() */
 #include <stdlib.h> /* system() */
+#include <time.h> /* ctime_r() */
 
 /* #define DEBUG */
 
@@ -334,13 +335,19 @@ inline static void doc_update_mtime(Tdocument *doc) {
 }
 /* returns 1 if the time didn't change, returns 0 
 if the file is modified by another process, returns
-1 if there was no previous mtime information available */
-static gint doc_check_mtime(Tdocument *doc) {
+1 if there was no previous mtime information available 
+if newtime is not NULL, it will be filled with the new mtime from the file IF IT WAS CHANGED!!!
+leave NULL if you do not need this information, if the file is not changed, this field will not be set!!
+*/
+static gint doc_check_mtime(Tdocument *doc, time_t *newtime) {
 	if (doc->filename && 0 != doc->mtime) {
 		struct stat statbuf;
 		if (stat(doc->filename, &statbuf) == 0) {
 			if (doc->mtime < statbuf.st_mtime) {
 				DEBUG_MSG("doc_check_mtime, doc->mtime=%d, statbuf.st_mtime=%d\n", (int)doc->mtime, (int)statbuf.st_mtime);
+				if (newtime) {
+					*newtime = statbuf.st_mtime;
+				}
 				return 0;
 			}
 		}
@@ -1242,13 +1249,15 @@ gint doc_save(Tdocument * doc, gint do_save_as, gint do_move)
 		doc->filename = oldfilename;
 		return -4;
 	}
-	
-	if (doc_check_mtime(doc) == 0) {
-		gchar *tmpstr;
+	{
+	time_t newtime;
+	if (doc_check_mtime(doc,&newtime) == 0) {
+		gchar *tmpstr,datestring[128]; /* according to 'man ctime_r' this should be at least 26, so 128 should do ;-)*/
 		gint retval;
 		gchar *options[] = {N_("Overwrite"), N_("Cancel"), NULL};
 
-		tmpstr = g_strdup_printf(_("File %s\nis modified by another process, overwrite?"), doc->filename);
+		ctime_r(&newtime,datestring);
+		tmpstr = g_strdup_printf(_("File %s\nis modified by another process\nModification time is %s\noverwrite?"), doc->filename, datestring);
 		retval = multi_button_dialog(_("Bluefish: Warning, file is modified"), 0, tmpstr, options);
 		g_free(tmpstr);
 		if (retval == 1) {
@@ -1257,6 +1266,7 @@ gint doc_save(Tdocument * doc, gint do_save_as, gint do_move)
 			}
 			return -5;
 		}
+	}
 	}
 	
 	DEBUG_MSG("doc_save, returned file %s\n", doc->filename);
@@ -1631,12 +1641,14 @@ void doc_reload(Tdocument *doc) {
 }
 
 void doc_activate(Tdocument *doc) {
-	if (doc_check_mtime(doc) == 0) {
-		gchar *tmpstr;
+	time_t newtime;
+	if (doc_check_mtime(doc,&newtime) == 0) {
+		gchar *tmpstr, datestring[128]; /* according to 'man ctime_r' this should be at least 26, so 128 should do ;-)*/
 		gint retval;
 		gchar *options[] = {N_("Reload"), N_("Ignore"), NULL};
 
-		tmpstr = g_strdup_printf(_("File %s\nis modified by another process"), doc->filename);
+		ctime_r(&newtime,datestring);
+		tmpstr = g_strdup_printf(_("File %s\nis modified by another process\nmodification time is %s"), doc->filename,datestring);
 		retval = multi_button_dialog(_("Bluefish: Warning, file is modified"), 0, tmpstr, options);
 		g_free(tmpstr);
 		if (retval == 1) {
