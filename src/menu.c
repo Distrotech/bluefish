@@ -687,7 +687,7 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/Project/sep1"), NULL, NULL, 0, "<Separator>"},
 	{N_("/Project/_Save"), NULL, project_menu_cb, 2, "<Item>"},
 	{N_("/Project/Save _as..."), NULL, project_menu_cb, 3, "<Item>"},
-	{N_("/Project/_Close & save"), NULL, project_menu_cb, 4, "<Item>"},
+	{N_("/Project/Save & _close"), NULL, project_menu_cb, 4, "<Item>"},
 	{N_("/Project/sep2"), NULL, NULL, 0, "<Separator>"},
 	{N_("/Project/E_dit Project Options..."), NULL, project_menu_cb, 5, "<StockItem>", GTK_STOCK_PREFERENCES},
 	{N_("/E_xternal"), NULL, NULL, 0, "<Branch>"},
