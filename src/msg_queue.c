@@ -7,6 +7,7 @@
 #include <errno.h>				/* errno */
 #include <unistd.h> /* getpid, getuid */
 #include <string.h> /* strncpy */
+#include <stdlib.h> /* exit() */
 
 #include "bluefish.h"
 #include "stringlist.h"

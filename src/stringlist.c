@@ -606,7 +606,7 @@ gboolean put_stringlist(gchar * filename, GList * which_list) {
 	return put_stringlist_limited(filename,which_list, -1);
 }
 
-GList *remove_from_stringlist(GList *which_list, gchar * string) {
+GList *remove_from_stringlist(GList *which_list, const gchar * string) {
 	if (string && strlen(string) ) {
 		GList *tmplist = g_list_first(which_list);
 		while (tmplist) {

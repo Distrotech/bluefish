@@ -44,7 +44,7 @@ Tmain *main_v;
 void g_none(...) {
 	return;
 }
-#endif;
+#endif
 
 static gint parse_commandline(int argc, char **argv
 		, gboolean *root_override
