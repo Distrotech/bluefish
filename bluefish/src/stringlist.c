@@ -248,8 +248,9 @@ static void estrl_sort_clicked_lcb(GtkWidget * widget, Testrl *estrl) {
  *  post_dialog_func.- function to call after editing to process the modified
  *                     stringlist
 */
+
 void estrl_dialog(GList **which_list, gchar *title, gint what_list
-				, gint column_num, gchar **column_titles, void *post_dialog_func) {
+				, gint column_num, gchar **column_titles, void (*post_dialog_func)()) {
 	Testrl *estrl;
 	GList *tmplist;
 	GtkWidget *but_var=NULL, *hbox, *scrolwin, *vbox2, *vbox;
