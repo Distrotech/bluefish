@@ -825,3 +825,27 @@ void rcfile_save_all(void) {
 	rcfile_save_custom_menu();
 }
 
+static GList *return_project_configlist(Tproject *project) {
+	GList *configlist = NULL;
+	init_prop_string(&configlist, &project->name,"name:",_("Untitled Project"));
+	init_prop_stringlist(&configlist, &project->files, "files:");
+	init_prop_string(&configlist, &project->basedir,"basedir:","");
+	init_prop_string(&configlist, &project->webdir,"webdir:","");
+	return configlist;
+} 
+
+gboolean rcfile_parse_project(Tproject *project, gchar *filename) {
+	gboolean retval;
+	GList *configlist = return_project_configlist(project);
+	retval = parse_config_file(main_configlist, filename);
+	free_configlist(configlist);
+	return retval;
+}
+
+gboolean rcfile_save_project(Tproject *project, gchar *filename) {
+	gboolean retval;
+	GList *configlist = return_project_configlist(project);
+	retval = save_config_file(configlist, filename);
+	free_configlist(configlist);
+	return retval;
+}
