@@ -502,7 +502,9 @@ It is also possible to move or rename a document, using the
 </sect2>
 <sect2 id="inserting">
 <title>Inserting files</title>
-<para>You can insert any file into the current document with the <menuchoice><guimenu>File</guimenu><guimenuitem>Insert...</guimenuitem></menuchoice> menu item. The file will be inserting at the cursor location.</para></sect2>
+<para>You can insert any file into the current document with the <menuchoice><guimenu>File</guimenu><guimenuitem>Insert...</guimenuitem></menuchoice> menu item. The file will be inserting at the cursor location.</para>
+<para>For more in-depth information about dealing with files, see <xref linkend="more-files" />.
+</para></sect2>
 <sect2 id="editing">
 <title>Editing</title>
 <sect3 id="undo-redo">
@@ -556,11 +558,11 @@ The file type of a file changes the behaviour of Bluefish. File types are recogn
 by their extension, or by the beginning of the content of the file. The current
 document type is shown in the far right of the status bar. How these extensions
 and patterns can be changed is
-described in the "Customising Bluefish" section.
+described in <xref linkend="bluefish-preferences" />.
 </para>
 <para>
 If the type of a file is not properly detected, you can change the type using the 
-Document/Type menu.
+<menuchoice><guimenu>Document</guimenu><guisubmenu>Document Type</guisubmenu></menuchoice> menu.
 </para>
 <sect3 id="syntax-highlighting">
 <title>Syntax highlighting</title>
@@ -588,28 +590,43 @@ Document/Type menu.
 <title>Remote files</title>
 	<para>
 		Assuming a working Internet connection, files can also be opened from the web using 
-	<menuchoice><guimenu>File</guimenu><guimenuitem>File &gt; Open URL</guimenuitem></menuchoice> (make sure to type the http:// or it 
-	doesn't work... bug, maybe???). TO BE WRITTEN BY ???
+	<menuchoice><guimenu>File</guimenu><guimenuitem>Open URL</guimenuitem></menuchoice> (make sure to type the http:// or it 
+	doesn't work... bug, maybe???).
 	</para>
-	<para>SCREENSHOT BY ????</para>
+	<para>Be aware that if the file is huge or optimized (i.e. the lines are very long), it may take a very long time to get the rendering if syntax highlighting is enabled.</para>
+	<para>		
+	<figure id="figure-open-url">
+				<title id="figure-open-url-title">Opening an url from the web</title>
+				<screenshot>
+					<mediaobject>
+						<imageobject>
+							<imagedata fileref="figures/open_url.png" format="PNG"/>
+						</imageobject>
+						<textobject>
+							<phrase>Opening an url from the web</phrase>
+						</textobject>
+					</mediaobject>
+				</screenshot>
+			</figure>
+			</para>
 </sect3>
 <sect3 id="character-encoding">
 <title>Character encoding</title>
 <para>
 There are many different standards for character encoding of text files. Most well known is the ASCII
-standard, which describes only 127 characters, and is supported by every text editor on the world. 
+standard, which describes only 127 characters, and is supported by every text editor in the world. 
 The most common standard nowadays is UTF-8, which 
 describes thousands of characters, and is backwards compatible with ASCII. 
 Internally, Bluefish will always work with UTF-8. When opening
 a file, Bluefish has to detect the correct encoding for the file. For HTML files the encoding should
-be present in a &lt;meta name=&quot;encoding&quot; tag. Bluefish will always use this tag if it is 
+be present in a &lt;meta name=&quot;encoding&quot;&gt; tag. Bluefish will always use this tag if it is 
 available in the file. If this tag has an encoding that is not present in the Bluefish config file, 
 this encoding is automatically added to the Bluefish config file.
 </para>
 
 <para>
 The locale also defines a default encoding. If you are using a locale (a local setting, defining 
-language, time format, currency format, number formatting etc.) Bluefish will try to load the 
+language, time format, currency format, number formatting etc.), Bluefish will try to load the 
 file using the encoding defined in the locale.
 </para>
 
@@ -623,18 +640,55 @@ If these steps fail, Bluefish will simply try every encoding defined in the Blue
 config file. 
 </para>
 <para>
-Filenames on disk can also contain more then ASCII characters. All Gnome and GTK programs 
+Filenames on disk can also contain non ASCII characters. All Gnome and GTK programs 
 (including Bluefish) assume that filenames are in UTF-8 encoding. If you have filenames
-in the encoding of your locale on your disk, you have to set G_BROKEN_FILENAMES=1 in the 
+in the encoding of your locale on your disk, you have to set <userinput>G_BROKEN_FILENAMES=1</userinput> in the 
 environment to make Gnome and GTK programs detect this encoding.
 </para>
+<para>For Japanese, Chinese, and Corean documents, you may have to install and launch the right server, such as canna, and the right method, such as kinput2.</para>
+<para>Here is how to write a Japanese document on a non-Japanese system.</para>
+<procedure><title>Writing in Japanese with Bluefish on a non-Japanese system</title>
+	<step>
+	<para>Launch the canna server if it is not running already</para>
+</step>
+<step>
+<para>Set the encoding to Japanese, for example: <userinput>export LANG=ja_JP.UTF-8</userinput></para>
+</step>
+<step>
+<para>Set the Xinput method with <userinput>export XMODIFIERS="@im=kinput2"</userinput></para>
+</step>
+<step>
+<para>Launch kinput2 as a background process with <userinput>kinput2 &amp;</userinput></para>
+</step>
+<step>
+<para>Launch bluefish as a background process with <userinput>bluefish &amp;</userinput></para>
+</step>
+<step>
+<para>To activate the Xinput method within bluefish, use <keycombo><keycap>Shift</keycap><keycap>Space</keycap></keycombo>. A small window with a Japanese glyph will appear at one of the corner of the Bluefish window. Once the desired glyph has been composed, press <keycap>Space</keycap>, and hit <keycap>enter</keycap> to validate it.</para>
+</step>
+</procedure>
+	<para>Here, you can see the small Xinput method window, at the bottom left corner of the window and the first Japanese word not already validated in the Bluefish window launched on a French system.	
+	<figure id="figure-japanese-with-bluefish">
+				<title id="figure-japanese-with-bluefish-title">Writing in Japanese with Bluefish</title>
+				<screenshot>
+					<mediaobject>
+						<imageobject>
+							<imagedata fileref="figures/japanese_with_bluefish.png" format="PNG"/>
+						</imageobject>
+						<textobject>
+							<phrase>Writing in Japanese with Bluefish</phrase>
+						</textobject>
+					</mediaobject>
+				</screenshot>
+			</figure>
+	</para>
 
 </sect3>
 <sect3 id="open-advanced">
 <title>Open advanced</title>
 	<para>
-		In the <emphasis>File &gt; Open Advanced</emphasis> dialog, accessible from the <menuchoice><guimenu>File</guimenu><guimenuitem>File &gt; Open Advanced...</guimenuitem></menuchoice> menu item, multiple files 
-	can be opened from a directory based on their extension or by their content. The
+		In the <emphasis>File &gt; Open Advanced</emphasis> dialog, accessible from the <menuchoice><shortcut><keycombo><keycap>Shift</keycap><keycap>Ctrl</keycap><keycap>O</keycap></keycombo></shortcut><guimenu>File</guimenu><guimenuitem>File &gt; Open Advanced...</guimenuitem></menuchoice> menu item, multiple files 
+	can be opened from a directory based on their extension or their content. The
 	same functionality is available from the filebrowser in the side panel. If you right
 	click a directory, you can also there select <guimenuitem>Open advanced...</guimenuitem>.
 	</para>
