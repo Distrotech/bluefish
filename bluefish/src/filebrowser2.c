@@ -665,18 +665,26 @@ static void refilter_dirlist(Tfilebrowser2 *fb2, GtkTreePath *newroot) {
  *
  */
 static void refilter_filelist(Tfilebrowser2 *fb2, GtkTreePath *newroot) {
-	GtkTreeModel *oldmodel1, *oldmodel2;
-	oldmodel1 = fb2->file_lfilter;
-	oldmodel2 = fb2->file_lsort;
-	fb2->file_lfilter = gtk_tree_model_filter_new(GTK_TREE_MODEL(FILEBROWSER2CONFIG(main_v->fb2config)->filesystem_tstore),newroot);
-	gtk_tree_model_filter_set_visible_func(GTK_TREE_MODEL_FILTER(fb2->file_lfilter),file_list_filter_func,fb2,NULL);
-
-	fb2->file_lsort = gtk_tree_model_sort_new_with_model(GTK_TREE_MODEL(fb2->file_lfilter));
-	gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE(fb2->file_lsort),FILENAME_COLUMN,GTK_SORT_ASCENDING);
-	DEBUG_MSG("refilter_filelist, connect file_v to new sort(%p)&filter(%p) model\n", fb2->file_lsort, fb2->file_lfilter);
-	gtk_tree_view_set_model(GTK_TREE_VIEW(fb2->file_v),GTK_TREE_MODEL(fb2->file_lsort));
-	g_object_unref(oldmodel1);
-	g_object_unref(oldmodel2);
+	GtkTreePath *curpath;
+	g_object_get(fb2->file_lfilter, "virtual-root", &curpath, NULL);
+	if ((curpath == NULL && newroot != NULL) || (curpath != NULL && newroot == NULL) || (curpath != NULL && gtk_tree_path_compare(curpath, newroot) != 0)) {
+		GtkTreeModel *oldmodel1, *oldmodel2;
+		oldmodel1 = fb2->file_lfilter;
+		oldmodel2 = fb2->file_lsort;
+		
+		fb2->file_lfilter = gtk_tree_model_filter_new(GTK_TREE_MODEL(FILEBROWSER2CONFIG(main_v->fb2config)->filesystem_tstore),newroot);
+		gtk_tree_model_filter_set_visible_func(GTK_TREE_MODEL_FILTER(fb2->file_lfilter),file_list_filter_func,fb2,NULL);
+	
+		fb2->file_lsort = gtk_tree_model_sort_new_with_model(GTK_TREE_MODEL(fb2->file_lfilter));
+		gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE(fb2->file_lsort),FILENAME_COLUMN,GTK_SORT_ASCENDING);
+		DEBUG_MSG("refilter_filelist, connect file_v to new sort(%p)&filter(%p) model\n", fb2->file_lsort, fb2->file_lfilter);
+		gtk_tree_view_set_model(GTK_TREE_VIEW(fb2->file_v),GTK_TREE_MODEL(fb2->file_lsort));
+		g_object_unref(oldmodel1);
+		g_object_unref(oldmodel2);
+	}
+#ifdef DEBUG
+	else DEBUG_MSG("refilter_filelist, root did not change!\n");
+#endif
 }
 
 /**
