@@ -57,7 +57,7 @@ distclean:
 	rm -rf autom4te.cache/
 	rm -f *.orig *.rej
 
-install:
+install: src/bluefish
 	pkgdatadir=@pkgdatadir@
 	$(INSTALL_DIR) $(pkgdatadir)
 	$(INSTALL_DATA) images/bluefish_splash.png $(pkgdatadir)
