@@ -253,7 +253,10 @@ It is very obvious now, the lowest match will be the end pattern of the <literal
 		</sect2>
 		<sect2 id="bluefish-ch-4-sect-9.8">
 			<title>external programs  preferences</title>
-			<para>integrating external commands and browsers</para>
+			<para>integrating external commands and browsers
+If you want to use for example a sed command as a filter, you can add it like this to the external commands and filters (in the preferences dialog):
+sed -e 'some sed command' > '%f' < '%s'
+			</para>
 		</sect2>
 	</sect1>
 
