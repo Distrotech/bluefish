@@ -22,7 +22,7 @@
  * indent --line-length 100 --k-and-r-style --tab-size 4 -bbo --ignore-newlines highlight.c
  */
 #define HL_TIMING
-/* #define HL_DEBUG*/
+/* #define HL_DEBUG */
 
 #ifdef HL_TIMING
 #include <sys/times.h>
@@ -106,7 +106,7 @@ static gboolean add_pattern_to_name(GList * patternlist, regex_t * parentmatch, 
 	return resval;
 }
 
-static void hl_compile_pattern(Thighlightset * hlset, gchar * name, gint case_insens, gchar * pat1, gchar * pat2,
+static void hl_compile_pattern(Tfiletype * hlset, gchar * name, gint case_insens, gchar * pat1, gchar * pat2,
 							   gchar * pat3, gint mode, gchar * parent, gchar * fgcolor, gchar * bgcolor, gint weight,
 							   gint style, gchar *start_boundary, gchar *end_boundary)
 {
@@ -305,19 +305,19 @@ static void hl_compile_pattern(Thighlightset * hlset, gchar * name, gint case_in
 }
 
 
-Thighlightset *hl_get_highlightset_by_type(gchar * type)
+Tfiletype *hl_get_highlightset_by_type(gchar * type)
 {
 	GList *tmplist;
-	tmplist = g_list_first(main_v->hlsetlist);
+	tmplist = g_list_first(main_v->filetypelist);
 	while (tmplist) {
 #ifdef DEBUG
-		if (!tmplist || !tmplist->data || !((Thighlightset *) tmplist->data)->type) {
+		if (!tmplist || !tmplist->data || !((Tfiletype *) tmplist->data)->type) {
 			DEBUG_MSG("hl_get_highlightset_by_type is perhaps not yet finished??\n");
 			exit(1);
 		}
 #endif							/* DEBUG */
-		if (strcmp(((Thighlightset *) tmplist->data)->type, type) == 0) {
-			return (Thighlightset *) tmplist->data;
+		if (strcmp(((Tfiletype *) tmplist->data)->type, type) == 0) {
+			return (Tfiletype *) tmplist->data;
 		}
 		tmplist = g_list_next(tmplist);
 	}
@@ -328,7 +328,7 @@ Thighlightset *hl_get_highlightset_by_type(gchar * type)
 void hl_init()
 {
 	GList *tmplist;
-	/* init main_v->hlsetlist, the first set is the defaultset */
+	/* init main_v->filetypelist, the first set is the defaultset */
 
 	main_v->tagtable = gtk_text_tag_table_new();
 
@@ -336,14 +336,16 @@ void hl_init()
 	tmplist = g_list_first(main_v->props.filetypes);
 	while (tmplist) {
 		gchar **strarr;
-		Thighlightset *hlset;
+		Tfiletype *filetype;
 		strarr = (gchar **) tmplist->data;
 		if (count_array(strarr) == 4) {
-			hlset = g_new0(Thighlightset, 1);
-			hlset->type = g_strdup(strarr[0]);
-			hlset->extensions = g_strsplit(strarr[1], ":", 20);
-			hlset->update_chars = g_strdup(strarr[2]);
-			main_v->hlsetlist = g_list_append(main_v->hlsetlist, hlset);
+			filetype = g_new(Tfiletype, 1);
+			filetype->type = g_strdup(strarr[0]);
+			filetype->extensions = g_strsplit(strarr[1], ":", 127);
+			filetype->update_chars = g_strdup(strarr[2]);
+			filetype->icon = gdk_pixbuf_new_from_file(strarr[3], NULL);
+			filetype->highlightlist = NULL;
+			main_v->filetypelist = g_list_append(main_v->filetypelist, filetype);
 		}
 #ifdef DEBUG
 		else {
@@ -357,7 +359,7 @@ void hl_init()
 
 	tmplist = g_list_first(main_v->props.highlight_patterns);
 	while (tmplist) {
-		Thighlightset *hlset;
+		Tfiletype *hlset;
 		gchar **strarr;
 		strarr = (gchar **) tmplist->data;
 
@@ -377,26 +379,26 @@ void hl_init()
 
 }
 
-Thighlightset *hl_get_highlightset_by_filename(gchar * filename)
+Tfiletype *hl_get_highlightset_by_filename(gchar * filename)
 {
 	GList *tmplist;
 	/* find set for this filetype */
 	if (filename) {
-		tmplist = g_list_first(main_v->hlsetlist);
+		tmplist = g_list_first(main_v->filetypelist);
 		while (tmplist) {
-			if (filename_test_extensions(((Thighlightset *) tmplist->data)->extensions, filename)) {
-				return (Thighlightset *) tmplist->data;
+			if (filename_test_extensions(((Tfiletype *) tmplist->data)->extensions, filename)) {
+				return (Tfiletype *) tmplist->data;
 			}
 			tmplist = g_list_next(tmplist);
 		}
 	}
 	/* if none found return first set (is default set) */
-	tmplist = g_list_first(main_v->hlsetlist);
+	tmplist = g_list_first(main_v->filetypelist);
 	if (!tmplist) {
 		DEBUG_MSG("hl_get_highlightset_by_filename, no highlightsets?\n");
 		return NULL;
 	} else {
-		return (Thighlightset *) tmplist->data;
+		return (Tfiletype *) tmplist->data;
 	}
 }
 
@@ -686,22 +688,28 @@ void doc_remove_highlighting(Tdocument * doc)
 
 void hl_reset_highlighting_type(Tdocument * doc, gchar * newfilename)
 {
-	Thighlightset *hlset = hl_get_highlightset_by_filename(newfilename);
-
-	if (hlset != doc->hl) {
-		doc_remove_highlighting(doc);
-		doc->hl = hlset;
-		doc->need_highlighting = TRUE;
-		menu_current_document_type_set_active_wo_activate(hlset);
+	Tfiletype *filetype = hl_get_highlightset_by_filename(newfilename);
+	if (filetype && filetype->highlightlist) {
+		if (filetype != doc->hl) {
+			doc_remove_highlighting(doc);
+			doc->hl = filetype;
+			doc->need_highlighting = TRUE;
+			menu_current_document_type_set_active_wo_activate(filetype);
+		}
 	}
 }
 
-void hl_set_highlighting_type(Tdocument * doc, Thighlightset *hlset) {
-	if (hlset != doc->hl) {
-		doc_remove_highlighting(doc);
-		doc->hl = hlset;
-		doc->need_highlighting = TRUE;
-		menu_current_document_type_set_active_wo_activate(hlset);
+gboolean hl_set_highlighting_type(Tdocument * doc, Tfiletype *filetype) {
+	if (filetype && filetype->highlightlist) {
+		if (filetype != doc->hl) {
+			doc_remove_highlighting(doc);
+			doc->hl = filetype;
+			doc->need_highlighting = TRUE;
+			menu_current_document_type_set_active_wo_activate(filetype);
+		}
+		return TRUE;
+	} else {
+		return FALSE;
 	}
 }
 
@@ -949,25 +957,6 @@ void doc_highlight_line(Tdocument * doc)
 void hl_reset_to_default()
 {
 	gchar **arr;
-
-	/* the default file types */
-	arr = array_from_arglist("php", ".php:.php4", " <>'\"/?$\t-{}[]{}\n;", "iconlocation", NULL);
-	main_v->props.filetypes = g_list_append(main_v->props.filetypes, arr);
-	arr = array_from_arglist("html", ".html:.htm:.shtml:.shtm", "<> \n\"", "iconlocation", NULL);
-	main_v->props.filetypes = g_list_append(main_v->props.filetypes, arr);
-	arr = array_from_arglist("javascript", ".js", "\n'\" ", "iconlocation", NULL);
-	main_v->props.filetypes = g_list_append(main_v->props.filetypes, arr);
-	arr = array_from_arglist("xml", ".xml", "<> \n\"", "iconlocation", NULL);
-	main_v->props.filetypes = g_list_append(main_v->props.filetypes, arr);
-	arr = array_from_arglist("java", ".java", "(){}'[]\n\" ", "iconlocation", NULL);
-	main_v->props.filetypes = g_list_append(main_v->props.filetypes, arr);
-	arr = array_from_arglist("sql", ".sql", "(){}'[]\n\" ", "iconlocation", NULL);
-	main_v->props.filetypes = g_list_append(main_v->props.filetypes, arr);
-#ifdef MAKE_BLUEFISH_WITH_BLUEFISH
-	arr = array_from_arglist("c", ".c:.h", "(){}'[]\n\" ", "iconlocation", NULL);
-	main_v->props.filetypes = g_list_append(main_v->props.filetypes, arr);
-#endif 
-
 
 #ifdef MAKE_BLUEFISH_WITH_BLUEFISH
 	arr = array_from_arglist("c", "string", "0", "\"", "\"", "", "1", "", "#009900", "", "0", "0", "", "", NULL);

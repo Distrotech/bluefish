@@ -33,6 +33,7 @@
 #include "html.h"
 #include "html2.h"
 #include "html_form.h"
+#include "filebrowser.h"
 
 typedef struct {
 	GtkWidget *main_toolbar_hb;
@@ -177,42 +178,33 @@ static void main_window_delete_lcb(GtkWidget *wid, gpointer data) {
 	bluefish_exit_request();
 }
 
-void filebrowser_hide(gint first_time) {
-/*	if (!first_time) {
-		gtk_widget_ref(main_v->notebook);
-		gtk_container_remove(GTK_CONTAINER(main_v->filebrowser.hpane), main_v->notebook);
-		gtk_widget_destroy(main_v->filebrowser.hpane);
-	}*/
-	main_v->hpane = NULL;
-
-	gtk_box_pack_start(GTK_BOX(main_v->middlebox), main_v->notebook, TRUE, TRUE, 0);
-/*	if (!first_time) {
-		gtk_widget_unref(main_v->notebook);
-	}*/
-}
-
-void filebrowser_show(gint first_time) {
-/*	GtkWidget *noteb;
+void left_panel_show_hide_toggle(gboolean first_time, gboolean show) {
+	GtkWidget *fileb;
 
 	if (!first_time) {
 		gtk_widget_ref(main_v->notebook);
-		gtk_container_remove(GTK_CONTAINER(main_v->middlebox), main_v->notebook);
-	}*/
-
-	main_v->hpane = gtk_hpaned_new();
-	gtk_paned_set_gutter_size(GTK_PANED(main_v->hpane), 8);
-/*	
-	noteb = make_filelist();
-	
-	gtk_paned_add1(GTK_PANED(main_v->filebrowser.hpane), noteb);*/
-	gtk_paned_add2(GTK_PANED(main_v->hpane), main_v->notebook);
-	gtk_box_pack_start(GTK_BOX(main_v->middlebox), main_v->hpane, TRUE, TRUE, 0);
-
-	gtk_widget_show(main_v->hpane);
-/*
+		if (show) {
+			gtk_container_remove(GTK_CONTAINER(main_v->middlebox), main_v->notebook);
+		} else {
+			gtk_container_remove(GTK_CONTAINER(main_v->hpane), main_v->notebook);
+			gtk_widget_destroy(main_v->hpane);
+		}
+	}
+	if (show) {
+		main_v->hpane = gtk_hpaned_new();
+		fileb = filebrowser_init();
+		gtk_widget_show_all(fileb);
+		gtk_paned_add1(GTK_PANED(main_v->hpane), fileb);
+		gtk_paned_add2(GTK_PANED(main_v->hpane), main_v->notebook);
+		gtk_box_pack_start(GTK_BOX(main_v->middlebox), main_v->hpane, TRUE, TRUE, 0);
+		gtk_widget_show(main_v->hpane);
+	} else {
+		main_v->hpane = NULL;
+		gtk_box_pack_start(GTK_BOX(main_v->middlebox), main_v->notebook, TRUE, TRUE, 0);
+	}
 	if (!first_time) {
 		gtk_widget_unref(main_v->notebook);
-	}*/
+	}
 }
 
 typedef struct {
@@ -524,7 +516,7 @@ void gui_set_undo_redo_widgets(gboolean undo, gboolean redo) {
 	gtk_widget_set_sensitive(gtk_item_factory_get_widget(gtk_item_factory_from_widget(main_v->menubar), N_("/Edit/Redo all")), redo);
 }
 
-void gui_set_widgets(gboolean undo, gboolean redo, gboolean wrap, gboolean highlight, Thighlightset *hl) {
+void gui_set_widgets(gboolean undo, gboolean redo, gboolean wrap, gboolean highlight, Tfiletype *hl) {
 	gui_set_undo_redo_widgets(undo, redo);
 	setup_toggle_item(gtk_item_factory_from_widget(main_v->menubar),N_("/Options/Current document/Highlight syntax"), highlight);
 	setup_toggle_item(gtk_item_factory_from_widget(main_v->menubar),N_("/Options/Current document/Wrap"), wrap);
@@ -598,7 +590,7 @@ void gui_create_main(GList *filenames) {
 	gtk_notebook_set_tab_vborder(GTK_NOTEBOOK(main_v->notebook), 0);
 	gtk_notebook_popup_enable(GTK_NOTEBOOK(main_v->notebook));
 
-	filebrowser_hide(1);
+	left_panel_show_hide_toggle(TRUE, main_v->props.view_left_panel);
 
 	/* finally the statusbar */
 	{
