@@ -185,6 +185,19 @@ static void doc_redo(Tdocument *doc) {
 	}
 }
 
+/**
+ * doc_unre_add:
+ * @doc: a #Tdocument
+ * @text: a #const gchar * with the deleted/inserted text
+ * @start: a #gint with the start position
+ * @end: a #gint with the end position
+ * @op: a #undo_op_t, if this is a insert or delete call
+ * 
+ * adds the text to the current undo/redo group for document doc
+ * with action insert or undo, dependent on the value of op
+ * 
+ * Return value: void
+ **/
 void doc_unre_add(Tdocument *doc, const char *text, gint start, gint end, undo_op_t op) {
 	unreentry_t *entry=NULL;
 	gboolean handled = FALSE;
@@ -246,6 +259,15 @@ static void doc_unre_finish(Tdocument *doc) {
 	}
 }
 
+/**
+ * doc_unre_new_group:
+ * @doc: a #Tdocument
+ * 
+ * starts a new undo/redo group for document doc, all items in one group
+ * are processed as a single undo or redo operation
+ * 
+ * Return value: void
+ **/
 void doc_unre_new_group(Tdocument *doc) {
 	DEBUG_MSG("doc_unre_new_group, started, num entries=%d\n", g_list_length(doc->unre.current->entries));
 	if (g_list_length(doc->unre.current->entries) > 0) {
@@ -262,7 +284,14 @@ void doc_unre_new_group(Tdocument *doc) {
 	}
 }
 
-
+/**
+ * doc_unre_init:
+ * @doc: a #Tdocument
+ * 
+ * initializes the Tdocument struct for undo/redo operations
+ * 
+ * Return value: void
+ **/
 void doc_unre_init(Tdocument *doc) {
 	DEBUG_MSG("doc_unre_init, started\n");
 	doc->unre.first = NULL;
@@ -271,7 +300,14 @@ void doc_unre_init(Tdocument *doc) {
 	doc->unre.num_groups = 0;
 	doc->unre.redofirst = NULL;
 }
-
+/**
+ * doc_unre_destroy:
+ * @doc: a #Tdocument
+ * 
+ * cleans/free's all undo/redo information for this document (for document close etc.)
+ * 
+ * Return value: void
+ **/
 void doc_unre_destroy(Tdocument *doc) {
 	/* TODO */
 	DEBUG_MSG("doc_unre_destroy, about to destroy undolist %p\n",doc->unre.first );
@@ -281,12 +317,28 @@ void doc_unre_destroy(Tdocument *doc) {
 	DEBUG_MSG("doc_unre_destroy, about to destroy current %p\n", doc->unre.current);
 	unregroup_destroy(doc->unre.current);
 }
+/**
+ * doc_unre_clear_all:
+ * @doc: a #Tdocument
+ * 
+ * cleans all undo/redo information for doc, but re-inits the doc for new undo/redo operations
+ * 
+ * Return value: void
+ **/
 
 void doc_unre_clear_all(Tdocument *doc) {
 	doc_unre_destroy(doc);
 	doc_unre_init(doc);
 }
-
+/**
+ * doc_undo_op_compare:
+ * @doc: a #Tdocument
+ * @testfor: a #undo_op_t, test for the last operation
+ * 
+ * tests the last undo/redo operation, if it was insert or delete
+ * 
+ * Return value: gboolean, TRUE if testfor was the last operation, FALSE if not
+ **/
 gint doc_undo_op_compare(Tdocument *doc, undo_op_t testfor) {
 	if (doc->unre.current->entries && doc->unre.current->entries->data) {
 		unreentry_t *entry = doc->unre.current->entries->data;
@@ -297,7 +349,15 @@ gint doc_undo_op_compare(Tdocument *doc, undo_op_t testfor) {
 	}
 	return 1;
 }
-
+/**
+ * undo_cb:
+ * @widget: a #GtkWidget *, ignored
+ * @data: a #gpointer, ignored
+ * 
+ * activates the last undo group on the current document
+ * 
+ * Return value: void
+ **/
 void undo_cb(GtkWidget * widget, gpointer data) {
 	DEBUG_MSG("undo_cb, started\n");
 	if (main_v->current_document) {
@@ -306,7 +366,15 @@ void undo_cb(GtkWidget * widget, gpointer data) {
 		doc_unre_finish(main_v->current_document);
 	}
 }
-
+/**
+ * redo_cb:
+ * @widget: a #GtkWidget *, ignored
+ * @data: a #gpointer, ignored
+ * 
+ * activates the last redo group on the current document
+ * 
+ * Return value: void
+ **/
 void redo_cb(GtkWidget * widget, gpointer data) {
 	if (main_v->current_document) {
 		doc_unre_start(main_v->current_document);
@@ -314,7 +382,15 @@ void redo_cb(GtkWidget * widget, gpointer data) {
 		doc_unre_finish(main_v->current_document);
 	}
 }
-
+/**
+ * undo_all_cb:
+ * @widget: a #GtkWidget *, ignored
+ * @data: a #gpointer, ignored
+ * 
+ * activates all undo groups on the current document
+ * 
+ * Return value: void
+ **/
 void undo_all_cb(GtkWidget * widget, gpointer data) {
 	/* TODO */
 	if (main_v->current_document) {
@@ -325,7 +401,15 @@ void undo_all_cb(GtkWidget * widget, gpointer data) {
 		doc_unre_finish(main_v->current_document);
 	}
 }
-
+/**
+ * redo_all_cb:
+ * @widget: a #GtkWidget *, ignored
+ * @data: a #gpointer, ignored
+ * 
+ * activates all redo groups on the current document
+ * 
+ * Return value: void
+ **/
 void redo_all_cb(GtkWidget * widget, gpointer data) {
 	/* TODO */
 	if (main_v->current_document) {
@@ -336,14 +420,30 @@ void redo_all_cb(GtkWidget * widget, gpointer data) {
 		doc_unre_finish(main_v->current_document);
 	}
 }
-
+/**
+ * doc_has_undo_list:
+ * @doc: a #Tdocument
+ * 
+ * returns TRUE if the document doc has a undo list
+ * returns FALSE if there is nothing to undo
+ * 
+ * Return value: gboolean, TRUE if the doc has a undo list, else FALSE
+ **/
 #ifdef __GNUC__
 __inline__ 
 #endif
 gboolean doc_has_undo_list(Tdocument *doc) {
 	return (doc->unre.first || doc->unre.current->entries) ? TRUE : FALSE;
 }
-
+/**
+ * doc_has_redo_list:
+ * @doc: a #Tdocument
+ * 
+ * returns TRUE if the document doc has a redo list
+ * returns FALSE if there is nothing to redo
+ * 
+ * Return value: gboolean, TRUE if the doc has a redo list, else FALSE
+ **/
 #ifdef __GNUC__
 __inline__
 #endif
