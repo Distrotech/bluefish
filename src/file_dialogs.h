@@ -20,8 +20,8 @@
 #ifndef __FILEDIALOGS_H_
 #define __FILEDIALOGS_H_
 
+void files_advanced_win(Tbfwin *bfwin, gchar *basedir);
 void file_open_advanced_cb(GtkWidget * widget, Tbfwin *bfwin);
-void open_advanced_from_filebrowser(Tbfwin *bfwin, gchar *path);
 void file_open_cb(GtkWidget * widget, Tbfwin *bfwin);
 void file_open_url_cb(GtkWidget * widget, Tbfwin *bfwin);
 void file_save_cb(GtkWidget * widget, Tbfwin *bfwin);

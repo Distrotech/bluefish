@@ -1070,7 +1070,7 @@ static void fb2rpopup_rpopup_action_lcb(Tfilebrowser2 *fb2,guint callback_action
 				gchar *curi;
 				GnomeVFSURI *uri = fb2_uri_from_dir_selection(fb2);
 				curi = gnome_vfs_uri_to_string(uri,0);
-				open_advanced_from_filebrowser(fb2->bfwin, curi);
+				files_advanced_win(fb2->bfwin, curi);
 				g_free(curi);
 			}
 		break;
