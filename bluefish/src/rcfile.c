@@ -648,11 +648,10 @@ static gint rcfile_save_highlighting(void) {
 void rcfile_parse_custom_menu(void) {
 	gchar *filename;
 	gchar *defaultfile;
-	GList *cust_menu = NULL;
 	DEBUG_MSG("rcfile_parse_custom_menu, started\n");
 
 	custom_menu_configlist = NULL;
-	init_prop_arraylist(&custom_menu_configlist, &cust_menu, "custom_menu:", 0);
+	init_prop_arraylist(&custom_menu_configlist, &main_v->props.cust_menu, "custom_menu:", 0);
 	init_prop_arraylist(&custom_menu_configlist, &main_v->props.cmenu_insert, "cmenu_insert:", 0);
 	init_prop_arraylist(&custom_menu_configlist, &main_v->props.cmenu_replace, "cmenu_replace:", 0);
 
@@ -660,7 +659,7 @@ void rcfile_parse_custom_menu(void) {
 	defaultfile = return_first_existing_filename(PKGDATADIR"custom_menu.default",
 									"data/custom_menu.default",
 									"../data/custom_menu.default",NULL);
-	if (!parse_config_file(custom_menu_configlist, filename) || (cust_menu==NULL && main_v->props.cmenu_insert==NULL && main_v->props.cmenu_replace==NULL )) {
+	if (!parse_config_file(custom_menu_configlist, filename) || (main_v->props.cust_menu==NULL && main_v->props.cmenu_insert==NULL && main_v->props.cmenu_replace==NULL )) {
 		DEBUG_MSG("error parsing the custom menu file\n");
 		/* init the custom_menu in some way? */
 		if (defaultfile) {
@@ -686,9 +685,9 @@ void rcfile_parse_custom_menu(void) {
 	/* for backwards compatibility with older (before Bluefish 0.10) custom menu files we can convert those.. 
 	we will not need the 'type' anymore, since we will put them in separate lists, hence the memmove() call
 	*/
-	DEBUG_MSG("cust_menu=%p\n",cust_menu);
-	if (cust_menu) {
-		GList *tmplist= g_list_first(cust_menu);
+	DEBUG_MSG("main_v->props.cust_menu=%p\n",main_v->props.cust_menu);
+	if (main_v->props.cust_menu) {
+		GList *tmplist= g_list_first(main_v->props.cust_menu);
 		while (tmplist) {
 			gchar **strarr = (gchar **)tmplist->data;
 			gint count = count_array(strarr);
@@ -723,7 +722,8 @@ void rcfile_parse_custom_menu(void) {
 			}
 			tmplist = g_list_next(tmplist);
 		}
-		g_list_free(cust_menu);
+		g_list_free(main_v->props.cust_menu);
+		main_v->props.cust_menu=NULL;
 	}
 	
 /*		main_v->props.cust_menu = g_list_append(main_v->props.cust_menu, array_from_arglist(N_("/php/ibase/ibase fetch row"), "0", "while ($%1 = ibase_fetch_row($%0)) {\n	echo $%1[0];\n", "\n}\nibase_free_result($%0);\n", "2", _("ibase result variable name"), _("row variable name"), NULL));
