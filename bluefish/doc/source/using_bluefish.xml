@@ -93,6 +93,8 @@ a project file.
 					</mediaobject>
 				</screenshot>
 			</figure>
+	If you want to disable any of these items by default, you can set these options in
+	the preferences under <emphasis>User interface</emphasis>.
 	</para>
 
 </sect1>
@@ -122,8 +124,19 @@ a project file.
 <title>Opening files</title>
 	<para>
 	Through <emphasis>File/Open</emphasis> 
-	one or more files can be opened. Recently opened files (up to 15?) can be 
-	opened by selecting from the list within <emphasis>File/Open recent. </emphasis>
+	one or more files can be opened. Recently opened files can be 
+	opened by selecting from the list within <emphasis>File/Open recent</emphasis>. The number of
+	files in this menu can be set in the preferences under <emphasis>Files</emphasis>.
+	</para>
+	<para>
+	The file browser in the side panel can also be used to open files. The file browser 
+	supports filtering files, available from the right click context menu in the 
+	filebrowser. By default the filebrowser follows the document focus. If you change to
+	a different document, the filebrowser will show the contents of the directory
+	where this document is located. This behaviour can be changed on the bottom of the 
+	filebrowser. The filebrowser can also show only a selection of your files. If you 
+	right click a directory, you can make this directory the base directory for the
+	filebrowser using the <emphasis>Set as basedir</emphasis> option.
 	</para>
 	<para>
 	Information about currently opened files can be seen if you move the mouse over
@@ -152,7 +165,16 @@ a project file.
 	</para>
 	<para>
 	To save a document, you can use the <emphasis>File</emphasis> menu, use the save button in the toolbar, or you can 
-	press the shortcut key combination (Ctrl+S).
+	press the shortcut key combination (Ctrl+S). By default a backup is made during save. The original file
+	is copied to the same filename with a tilde '~' appended. This suffix and the backup behaviour can
+	be changed in the preferences under <emphasis>Files</emphasis>.
+	</para>
+	<para>
+	Before saving the file, Bluefish will check if the original file was changed on disk, using the 
+	last modified time and the file size. On some filesystems the last modified time
+	is sometimes not very precise (most notably on samba mounts). This makes Bluefish think the file
+	is modified when it is not. This check can be changed in the preferences 
+	under <emphasis>Files</emphasis>.
 	</para>
 	<para>
 	You can also save a document under a different name, using the <emphasis>Save as</emphasis> menu
@@ -236,10 +258,14 @@ Document/Type menu.
 	<para>
 	During the editing, Bluefish will only update the highlighting patterns in the
 	block of text around the cursor. The number of lines (the size) of this block can be
-	adjusted in the preferences.
+	adjusted in the preferences under <emphasis>Editor</emphasis>.
 	</para>
 	<para>The syntax highlighting for the total document can be refreshed
-	using the <emphasis>Document/Update highlighting</emphasis> menu, or the shortcut (F5)</para>
+	using the <emphasis>Document/Update highlighting</emphasis> menu, or the shortcut (F5). 
+	The syntax highlighting can be disabled in the preferences under 
+	<emphasis>Editor</emphasis>.
+	
+	</para>
 </sect3>
 </sect2>
 <sect2 id="more-files">
@@ -274,7 +300,8 @@ file using the encoding defined in the locale.
 
 <para>
 Bluefish itself also has a setting for a default encoding. This is the next encoding 
-Bluefish will try.
+Bluefish will try. This is also the encoding Bluefish will use for files created by Bluefish 
+(UTF-8 by default).
 </para>
 <para>
 If these steps fail, Bluefish will simply try every encoding defined in the Bluefish 
@@ -434,6 +461,12 @@ The
 	bookmarks by right-clicking in the text, and selecting add bookmark.
 	</para>
 	<para>
+	Bookmarks can be temporary or permanent. Permanent bookmarks are stored, and temporary
+	bookmarks are gone after Bluefish is closed.	The default is set in the preferences
+	under <emphasis>Editor</emphasis>. If you right click a bookmark and 
+	select <emphasis>Edit</emphasis> you can change this setting for a bookmark.
+	</para>
+	<para>
 	A way to add many bookmarks at the same time is using the search dialog. Check the 
 	'Bookmark results' option, and all search results will be added to your bookmarks. 
 	For example this manual has sections, and each section is identified by a header 
@@ -574,11 +607,21 @@ The
 	  <para> HTML is obviously the most supported language in Bluefish. There is a
 	  special HTML tool bar with many dialogs, and several menu sections to work
 	  with tags. You can also right-click a tag and bring up the dialog from
-	  there.</para> <para> In the reference tree on the left panel there is also
-	  HTML reference available.</para> <para>There are several special search and
+	  there. The preferences have several settings on HTML style 
+	  under <emphasis>HTML</emphasis>.</para> 
+	  <para>In the reference tree on the left panel there is also
+	  HTML reference available.</para> 
+	  <para>There are several special search and
 	  replace actions in the menu Edit-Replace special. These can be used to
 	  convert special characters (like &lt; and &amp;), or ISO characters to their
-	  HTML entities.</para> 
+	  HTML entities.</para>
+	  <sect3 id="thumbnails">
+<title>Thumbnail generation</title>
+</sect3>
+<para>
+Bluefish can automatically generate thumbnails for images. ..... 
+</para>
+
 </sect2>
 <sect2 id="quickbar">
 <title>Customising the quick bar</title>
@@ -655,6 +698,7 @@ The
 <title>Customising Bluefish</title>
 <sect2 id="editor-preferences">
 <title>Editor preferences</title>
+	<para>The font of the editor can be set in the preferences under <emphasis>Editor</emphasis>. </para>
 	<para>
 	A frequently asked question is how to change the background color of the editor in Bluefish.
 	Bluefish uses the default editor background color as set in your GTK theme. If you want to 
