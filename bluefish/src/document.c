@@ -30,6 +30,10 @@
 
 /* #define DEBUG */
 
+#ifdef DEBUGPROFILING
+#include <sys/times.h>
+#endif
+
 #include "bluefish.h"
 #include "document.h"
 #include "highlight.h" /* all highlight functions */
@@ -47,7 +51,19 @@
 
 typedef struct {
 	Tdocument *last_activated_doc;
+#ifdef DEBUGPROFILING
+	struct tms tms1;
+	struct tms tms2;
+#endif
 } Tlocals;
+
+#ifdef DEBUGPROFILING
+static void print_time_diff(gchar *location, struct tms *tms1, struct tms *tms2) {
+	glong tot_ms = (glong) (double) ((tms2->tms_utime - tms1->tms_utime) * 1000000000 / sysconf(_SC_CLK_TCK));
+	g_print("PROFILING: 1: %ld, 2: %ld\n", tms1->tms_utime, tms2->tms_utime);
+	g_print("PROFILING: %s took %ld ns\n", location, tot_ms);
+}
+#endif
 
 /******************************/
 /* global vars for this module */
@@ -816,8 +832,7 @@ static void add_encoding_to_list(gchar *encoding) {
 
 
 #define STARTING_BUFFER_SIZE 4096
-gboolean doc_file_to_textbox(Tdocument * doc, gchar * filename, gboolean enable_undo, gboolean delay_highlighting)
-{
+gboolean doc_file_to_textbox(Tdocument * doc, gchar * filename, gboolean enable_undo, gboolean delay) {
 	FILE *fd;
 	gchar *errmessage, *message;
 	gint cursor_offset, document_size=0;
@@ -866,6 +881,9 @@ gboolean doc_file_to_textbox(Tdocument * doc, gchar * filename, gboolean enable_
 		gint buffer_size = STARTING_BUFFER_SIZE;
 		size_t size = STARTING_BUFFER_SIZE;
 		gchar *buffer = g_malloc(1+(buffer_size * sizeof(gchar)));
+#ifdef DEBUGPROFILING
+		times(&locals.tms1);
+#endif
 		while (TRUE) {
 			size = fread(chunk,sizeof(gchar),STARTING_BUFFER_SIZE,fd);
 			memcpy(&buffer[buffer_size-STARTING_BUFFER_SIZE], chunk, STARTING_BUFFER_SIZE);
@@ -882,7 +900,10 @@ gboolean doc_file_to_textbox(Tdocument * doc, gchar * filename, gboolean enable_
 		}
 		DEBUG_MSG("doc_file_to_textbox, final buffer_size=%d, strlen(buffer)=%d\n", buffer_size, strlen(buffer));
 		fclose(fd);
-		
+#ifdef DEBUGPROFILING
+		times(&locals.tms2);
+		print_time_diff("file loading", &locals.tms1, &locals.tms2);
+#endif
 		/* the first try is if the encoding is set in the file */
 		{
 			regex_t preg;
@@ -922,6 +943,10 @@ gboolean doc_file_to_textbox(Tdocument * doc, gchar * filename, gboolean enable_
 				DEBUG_MSG("doc_file_to_textbox, detected encoding %s\n", encoding);
 			}
 			regfree(&preg);
+#ifdef DEBUGPROFILING
+			times(&locals.tms1);
+			print_time_diff("encoding regex match", &locals.tms2, &locals.tms1);
+#endif		
 			if (encoding) {
 				DEBUG_MSG("doc_file_to_textbox, try encoding %s\n", encoding);
 				newbuf = g_convert(buffer,-1,"UTF-8",encoding,NULL, &wsize, &error);
@@ -1002,8 +1027,8 @@ gboolean doc_file_to_textbox(Tdocument * doc, gchar * filename, gboolean enable_
 	}
 	if (doc->highlightstate) {
 		doc->need_highlighting=TRUE;
-		DEBUG_MSG("doc_file_to_textbox, highlightstate=%d, need_highlighting=%d, delay_highlighting=%d\n",doc->highlightstate,doc->need_highlighting,delay_highlighting);
-		if (!delay_highlighting) {
+		DEBUG_MSG("doc_file_to_textbox, highlightstate=%d, need_highlighting=%d, delay=%d\n",doc->highlightstate,doc->need_highlighting,delay);
+		if (!delay) {
 #ifdef DEBUG
 			g_print("doc_file_to_textbox, doc->hlset=%p\n", doc->hl);
 			if (doc->hl) {
@@ -1017,17 +1042,17 @@ gboolean doc_file_to_textbox(Tdocument * doc, gchar * filename, gboolean enable_
 		doc_bind_signals(doc);
 	}
 	
-	/* set the cursor position back */
 	{
+		/* set the cursor position back */
 		GtkTextIter iter;
 		gtk_text_buffer_get_iter_at_offset(doc->buffer,&iter,cursor_offset);
 		gtk_text_buffer_place_cursor(doc->buffer,&iter);
-		if (!delay_highlighting) {
+		if (!delay) {
 			gtk_text_view_place_cursor_onscreen(GTK_TEXT_VIEW(doc->view));
 		}
+/*		gtk_notebook_set_page(GTK_NOTEBOOK(main_v->notebook),g_list_length(main_v->documentlist) - 1);
+		notebook_changed(-1);*/
 	}
-	gtk_notebook_set_page(GTK_NOTEBOOK(main_v->notebook),g_list_length(main_v->documentlist) - 1);
-	notebook_changed(-1);
 	return TRUE;
 }
 
@@ -1381,7 +1406,7 @@ void doc_destroy(Tdocument * doc, gboolean delay_activation)
 	page we ref+ the scrolthingie, remove the page, and unref it again */
 	g_object_ref(doc->view->parent);
 	/* now we remove the document from the document list */
-	if (g_list_length(main_v->documentlist) > 1) {
+/*	if (g_list_length(main_v->documentlist) > 1) {
 		main_v->documentlist = g_list_remove(main_v->documentlist, doc);
 		DEBUG_MSG("removed %p from documentlist, list length=%d\n",doc, g_list_length(main_v->documentlist));
 	} else {
@@ -1391,21 +1416,25 @@ void doc_destroy(Tdocument * doc, gboolean delay_activation)
 		DEBUG_MSG("doc_destroy, freed documentlist\n");
 		main_v->documentlist = NULL;
 		DEBUG_MSG("doc_destroy, documentlist = NULL\n");
-	}
-	DEBUG_MSG("doc_destroy, g_list_length(documentlist)=%d\n",g_list_length(main_v->documentlist));
+	}*/
+	main_v->documentlist = g_list_remove(main_v->documentlist, doc);
+	DEBUG_MSG("removed %p from documentlist, list %p length=%d\n",doc
+			, main_v->documentlist
+			, g_list_length(main_v->documentlist));
 	if (main_v->current_document == doc) {
 		main_v->current_document = NULL;
 	}
 	/* then we remove the page from the notebook */
+	DEBUG_MSG("about to remove widget from notebook (doc=%p, current_document=%p)\n",doc,main_v->current_document);
 	gtk_notebook_remove_page(GTK_NOTEBOOK(main_v->notebook),
 							 gtk_notebook_page_num(GTK_NOTEBOOK(main_v->notebook),doc->view->parent));
-/*	flush_queue();*/
+	DEBUG_MSG("doc_destroy, removed widget from notebook (doc=%p), delay_activation=%d\n",doc,delay_activation);
+	DEBUG_MSG("doc_destroy, (doc=%p) about to bind notebook signals...\n",doc);
+	gui_notebook_bind_signals();
 	if (!delay_activation) {
 		notebook_changed(-1);
 	}
-	gui_notebook_bind_signals();
-
-
+	DEBUG_MSG("doc_destroy, (doc=%p) after calling notebook_changed()\n",doc);
 	/* now we really start to destroy the document */
 	g_object_unref(doc->view->parent);
 
@@ -1421,15 +1450,11 @@ void doc_destroy(Tdocument * doc, gboolean delay_activation)
 	
 	if (doc->encoding)
 		g_free(doc->encoding);
-		
-	DEBUG_MSG("doc_destroy, this is kind of tricky, I don't know if the Buffer is also detroyed when you destroy the view\n");
-	g_object_unref(doc->buffer);
-	DEBUG_MSG("doc_destroy, if this line shows up well I guess we needed to unref the buffer\n");
 	
+	g_object_unref(doc->buffer);
 	doc_unre_destroy(doc);
-	g_free(doc);
-
 	DEBUG_MSG("doc_destroy, finished for %p\n", doc);
+	g_free(doc);
 }
 
 /* gint doc_save(Tdocument * doc, gint do_save_as, gint do_move)
@@ -1786,16 +1811,15 @@ Tdocument *doc_new(gboolean delay_activate) {
 	newdoc->highlightstate = main_v->props.defaulthighlight;
 	DEBUG_MSG("doc_new, need_highlighting=%d, highlightstate=%d\n", newdoc->need_highlighting, newdoc->highlightstate);
 	if (!delay_activate) {
-		DEBUG_MSG("doc_new, set notebook page to %d\n", g_list_length(main_v->documentlist) - 1);
-		gtk_notebook_set_page(GTK_NOTEBOOK(main_v->notebook),g_list_length(main_v->documentlist) - 1);
-
+		DEBUG_MSG("doc_new, notebook current page=%d, newdoc is on page %d\n",gtk_notebook_get_current_page(GTK_NOTEBOOK(main_v->notebook)),gtk_notebook_page_num(GTK_NOTEBOOK(main_v->notebook),scroll));
+		DEBUG_MSG("doc_new, setting notebook page to %d\n", g_list_length(main_v->documentlist) - 1);
+		gtk_notebook_set_current_page(GTK_NOTEBOOK(main_v->notebook),g_list_length(main_v->documentlist) - 1);
 		if (main_v->current_document != newdoc) {
 			notebook_changed(-1);
 		}
-		gtk_widget_grab_focus(newdoc->view);	
+/*		doc_activate() will be called by notebook_changed() and it will grab the focus
+		gtk_widget_grab_focus(newdoc->view);	*/
 	}
-
-
 	return newdoc;
 }
 
@@ -1856,8 +1880,9 @@ gboolean doc_new_with_file(gchar * filename, gboolean delay_activate) {
 	doc->modified = 1; /* force doc_set_modified() to update the tab-label */
 	doc_set_modified(doc, 0);
 	doc_set_stat_info(doc); /* also sets mtime field */
-	filebrowser_open_dir(filename);
-	
+	if (!delay_activate) {
+		filebrowser_open_dir(filename);
+	}
 	return TRUE;	
 }
 
@@ -1868,7 +1893,7 @@ void docs_new_from_files(GList * file_list) {
 	DEBUG_MSG("docs_new_from_files, lenght=%d\n", g_list_length(file_list));
 	tmplist = g_list_first(file_list);
 	while (tmplist) {
-		DEBUG_MSG("docs_new_from_files, about to open %s\n", (gchar *) tmplist->data);
+		DEBUG_MSG("docs_new_from_files, about to open %s, delay=%d\n", (gchar *) tmplist->data, delay);
 		if (!doc_new_with_file((gchar *) tmplist->data, delay)) {
 			errorlist = g_list_append(errorlist, g_strdup((gchar *) tmplist->data));
 		}
@@ -1885,9 +1910,12 @@ void docs_new_from_files(GList * file_list) {
 	free_stringlist(errorlist);
 
 	if (delay) {
-		/* since we delayed the highlighting, we do that now */
+		DEBUG_MSG("since we delayed the highlighting, we set the notebook and filebrowser page now\n");
 		gtk_notebook_set_page(GTK_NOTEBOOK(main_v->notebook),g_list_length(main_v->documentlist) - 1);
 		notebook_changed(-1);
+		if (main_v->current_document && main_v->current_document->filename) {
+			filebrowser_open_dir(main_v->current_document->filename);
+		}
 	}
 }
 
@@ -1910,6 +1938,7 @@ void doc_reload(Tdocument *doc) {
 
 void doc_activate(Tdocument *doc) {
 	time_t newtime;
+	gchar *title;
 #ifdef DEBUG
 	if (!doc) {
 		DEBUG_MSG("doc_activate, doc=NULL!!! ABORTING!!\n");
@@ -1938,6 +1967,14 @@ void doc_activate(Tdocument *doc) {
 	}
 	DEBUG_MSG("doc_activate, calling gui_set_widgets\n");
 	gui_set_widgets(doc_has_undo_list(doc), doc_has_redo_list(doc), doc->wrapstate, doc->highlightstate, doc->hl, doc->encoding, doc->linenumberstate);
+
+	if (main_v->current_document->filename) {
+		title = g_strconcat("Bluefish ",VERSION," - ",main_v->current_document->filename,NULL);
+	} else {
+		title = g_strconcat("Bluefish ",VERSION," -",_("Untitled"),NULL);
+	}
+	gtk_window_set_title(GTK_WINDOW(main_v->main_window),title);
+	g_free(title);
 
 	/* if highlighting is needed for this document do this now !! */
 	if (doc->need_highlighting && doc->highlightstate) {
