@@ -72,6 +72,7 @@ typedef struct {
 	GtkWidget *spin[8];
 	GtkWidget *check[8];
 	GtkWidget *clist[4];
+	GtkWidget *text[1];
 	Treplacerange range;
 	Tphpvarins php_var_ins;
 	Tdocument *doc;
