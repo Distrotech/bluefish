@@ -47,6 +47,7 @@
 #include "preferences.h" /* open_preferences_cb */
 #include "outputbox.h" /* init_outputbox() */
 #include "fref.h"
+#include "project.h"
 
 #ifdef HAVE_LIBASPELL
 #include "bfspell.h"
@@ -985,18 +986,31 @@ gboolean main_window_delete_event_lcb(GtkWidget *widget,GdkEvent *event,Tbfwin *
 	 * This is useful for popping up 'are you sure you want to quit?'
 	 * type dialogs. */
 	DEBUG_MSG("main_window_delete_event_lcb, started\n");
-	if (bfwin->documentlist && test_docs_modified(bfwin->documentlist)) {
-		DEBUG_MSG("main_window_delete_event_lcb, we have changed documents!\n");
-		file_close_all_cb(NULL, bfwin);
+	if (bfwin->project) {
+		if (!project_save_and_close(bfwin)) {
+			gint retval;
+			gchar *options[] = {_("_Continue close"), _("_Cancel"), NULL};
+			retval = multi_warning_dialog(bfwin->main_window,_("Failed to save the current project"), NULL, 0, 1, options);
+			if (retval == 1) {
+				DEBUG_MSG("main_window_delete_event_lcb, cancel clicked, returning FALSE\n");
+				return TRUE;
+			}
+			DEBUG_MSG("main_window_delete_event_lcb, continue clicked, returning TRUE\n");
+			return FALSE;
+		}
+	} else {	
 		if (bfwin->documentlist && test_docs_modified(bfwin->documentlist)) {
-			DEBUG_MSG("main_window_delete_event_lcb, we STILL have changed documents!?!\n");
-			/* if there are still documents modified we should cancel the closing */
-			return TRUE;
+			DEBUG_MSG("main_window_delete_event_lcb, we have changed documents!\n");
+			file_close_all_cb(NULL, bfwin);
+			if (bfwin->documentlist && test_docs_modified(bfwin->documentlist)) {
+				DEBUG_MSG("main_window_delete_event_lcb, we STILL have changed documents!?!\n");
+				/* if there are still documents modified we should cancel the closing */
+				return TRUE;
+			}
 		}
 	}
 	return FALSE;
 }
-
 
 void gui_create_main(Tbfwin *bfwin, GList *filenames) {
 	GtkWidget *vbox;

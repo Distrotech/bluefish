@@ -21,7 +21,7 @@
 #define __PROJECT_H_ 
 
 /* #define DEBUG */
-
+gboolean project_save_and_close(Tbfwin *bfwin);
 void project_menu_cb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget);
 
 #endif /* __PROJECT_H_  */
