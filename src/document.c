@@ -320,10 +320,10 @@ void doc_replace_text_backend(Tdocument *doc, const gchar * newstring, gint star
 		gtk_text_buffer_get_iter_at_offset(doc->buffer, &itend,end);
 		buf = gtk_text_buffer_get_text(doc->buffer, &itstart, &itend,FALSE);
 		gtk_text_buffer_delete(doc->buffer,&itstart,&itend);
-		DEBUG_MSG("doc_replace_text_backend, calling doc_unre_add for buf=%s, start=%d and end=%d", buf, start, end);
+		DEBUG_MSG("doc_replace_text_backend, calling doc_unre_add for buf=%s, start=%d and end=%d\n", buf, start, end);
 		doc_unre_add(doc, buf, start, end, UndoDelete);
 		g_free(buf);
-		DEBUG_MSG("doc_replace_text, text deleted from %d to %d\n", start, end);
+		DEBUG_MSG("doc_replace_text_backend, text deleted from %d to %d\n", start, end);
 	}
 
 	/* add new text to this region, the buffer is changed so re-calculate itstart */
@@ -332,7 +332,7 @@ void doc_replace_text_backend(Tdocument *doc, const gchar * newstring, gint star
 		gtk_text_buffer_get_iter_at_offset(doc->buffer, &itstart,start);
 		gtk_text_buffer_insert(doc->buffer,&itstart,newstring,-1);
 	}
-	doc_unre_add(doc, newstring, start, strlen(newstring), UndoInsert);
+	doc_unre_add(doc, newstring, start, start + strlen(newstring), UndoInsert);
 	doc_bind_signals(doc);
 	doc_set_modified(doc, 1);
 }					  
@@ -349,11 +349,14 @@ void doc_replace_text(Tdocument * doc, const gchar * newstring, gint start, gint
 
 
 #define STARTING_BUFFER_SIZE 2048
-gboolean doc_file_to_textbox(Tdocument * doc, gchar * filename)
+gboolean doc_file_to_textbox(Tdocument * doc, gchar * filename, gboolean enable_undo)
 {
 	FILE *fd;
 	gchar *errmessage, line[STARTING_BUFFER_SIZE], *message;
 
+	if (!enable_undo) {
+		doc_unbind_signals(doc);
+	}
 	message = g_strconcat(_("Opening file "), filename, NULL);
 	statusbar_message(message, 1000);
 	g_free(message);
@@ -366,6 +369,9 @@ gboolean doc_file_to_textbox(Tdocument * doc, gchar * filename)
 			g_strconcat(_("Could not open file:\n"), filename, NULL);
 		error_dialog(_("Error"), errmessage);	/* 7 */
 		g_free(errmessage);
+		if (!enable_undo) {
+			doc_bind_signals(doc);
+		}
 		return FALSE;
 	}
 
@@ -374,6 +380,9 @@ gboolean doc_file_to_textbox(Tdocument * doc, gchar * filename)
 	}
 	fclose(fd);
 	doc->need_highlighting=TRUE;
+	if (!enable_undo) {
+		doc_bind_signals(doc);
+	}
 	return TRUE;
 }
 
@@ -852,7 +861,7 @@ void doc_new_with_file(gchar * filename) {
 /*	file_and_dir_history_add(filename);*/
 	doc = doc_new();
 	doc->filename = g_strdup(filename);
-	doc_file_to_textbox(doc, doc->filename);
+	doc_file_to_textbox(doc, doc->filename, FALSE);
 	doc->modified = 1; /* force doc_set_modified() to update the tab-label */
 	doc_set_modified(doc, 0);
 	doc_set_stat_info(doc); /* also sets mtime field */
@@ -881,7 +890,7 @@ void doc_reload(Tdocument *doc) {
 		gtk_text_buffer_delete(doc->buffer,&itstart,&itend);
 	}
 	
-	doc_file_to_textbox(doc, doc->filename);
+	doc_file_to_textbox(doc, doc->filename, FALSE);
 	doc_set_modified(doc, 0);
 	doc_set_stat_info(doc); /* also sets mtime field */
 }
@@ -958,7 +967,7 @@ void file_insert_cb(GtkWidget * widget, gpointer data) {
 		return;
 	} else {
 		/* do we need to set the insert point in some way ?? */
-		doc_file_to_textbox(main_v->current_document, tmpfilename);
+		doc_file_to_textbox(main_v->current_document, tmpfilename, TRUE);
 		g_free(tmpfilename);
 		doc_set_modified(main_v->current_document, 1);
 	}
