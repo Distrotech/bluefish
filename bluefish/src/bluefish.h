@@ -306,12 +306,12 @@ typedef struct {
 
 typedef struct {
 	Tproperties props;
-	Tbfwin *current_bfwin;
 	GList *filetypelist; /* highlighting.c: a list of all filetypes with their icons and highlighting sets */
 	GList *bfwinlist;
 	GList *recent_directories; /* a stringlist with the most recently used directories */
 	gpointer filebrowserconfig;
 	gpointer frefdata;
+	gint num_untitled_documents;
 } Tmain;
 
 extern Tmain *main_v;

@@ -125,6 +125,7 @@ int main(int argc, char *argv[])
 {
 	gboolean root_override=FALSE, open_in_new_window=FALSE;
 	GList *filenames = NULL, *projectfiles=NULL;
+	Tbfwin *firstbfwin;
 #ifndef NOSPLASH
 	GtkWidget *splash_window;
 #endif /* #ifndef NOSPLASH */
@@ -187,9 +188,9 @@ int main(int argc, char *argv[])
 #endif /* #ifndef NOSPLASH */
 
 	/* create the first window */
-	main_v->current_bfwin = g_new0(Tbfwin,1);
-	main_v->bfwinlist = g_list_append(NULL, main_v->current_bfwin);
-	gui_create_main(main_v->current_bfwin,filenames);
+	firstbfwin = g_new0(Tbfwin,1);
+	main_v->bfwinlist = g_list_append(NULL, firstbfwin);
+	gui_create_main(firstbfwin,filenames);
 
 #ifndef NOSPLASH
 	splash_screen_set_label(_("showing main gui..."));
@@ -204,9 +205,9 @@ int main(int argc, char *argv[])
 		g_free(shortcutfilename);
 	}
 
-	gui_show_main(main_v->current_bfwin);
+	gui_show_main(firstbfwin);
 	if (main_v->props.view_html_toolbar && main_v->props.quickbar_items == NULL) {
-		info_dialog(main_v->current_bfwin->main_window, _("Bluefish tip:"), _("This message is shown since you do not have any items in the Quickbar.\n\nIf you right-click a button in the HTML toolbars you can add buttons to the Quickbar."));
+		info_dialog(firstbfwin->main_window, _("Bluefish tip:"), _("This message is shown since you do not have any items in the Quickbar.\n\nIf you right-click a button in the HTML toolbars you can add buttons to the Quickbar."));
 	}
 #ifndef NOSPLASH
 	flush_queue();

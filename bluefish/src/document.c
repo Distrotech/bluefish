@@ -99,7 +99,7 @@ GList *return_filenamestringlist_from_doclist(GList *doclist) {
 	return newlist;
 }
 
-/**
+/*
  * return_num_untitled_documents:
  * @doclist: #GList* with documents
  *
@@ -107,7 +107,7 @@ GList *return_filenamestringlist_from_doclist(GList *doclist) {
  * opened in Bluefish
  *
  * Return value: #gint with number
- */
+ *
 gint return_num_untitled_documents(GList *doclist) {
 	gint retval = 0;
 	GList *tmplist = g_list_first(doclist);
@@ -116,7 +116,7 @@ gint return_num_untitled_documents(GList *doclist) {
 		tmplist = g_list_next(tmplist);
 	}
 	return retval;
-}
+}*/
 
 /**
  * add_filename_to_history:
@@ -592,6 +592,35 @@ gboolean test_only_empty_doc_left(GList *doclist) {
 gboolean doc_has_selection(Tdocument *doc) {
 	return gtk_text_buffer_get_selection_bounds(doc->buffer,NULL,NULL);
 }
+
+/**
+ * doc_set_title:
+ * @doc: #Tdocument*
+ *
+ * will set the notebook tab label and the notebook tab menu label
+ * and if this document->bfwin == document->bfwin->current_document
+ * it will update the bfwin title
+ *
+ * Return value: void
+ */
+static void doc_set_title(Tdocument *doc) {
+	gchar *label_string, *tabmenu_string;
+	if (doc->filename) {
+		label_string = g_path_get_basename(doc->filename);
+		tabmenu_string = g_strdup(doc->filename);
+	} else {
+		label_string = g_strdup_printf(_("Untitled %d"),main_v->num_untitled_documents);
+		tabmenu_string =  g_strdup(label_string);
+		main_v->num_untitled_documents++;
+	}
+	gtk_label_set(GTK_LABEL(doc->tab_menu),tabmenu_string);
+	gtk_label_set(GTK_LABEL(doc->tab_label),label_string);
+	g_free(label_string);
+	g_free(tabmenu_string);
+	if (doc->bfwin == BFWIN(doc->bfwin)->current_document) {
+		gui_set_title(doc->bfwin, doc);
+	}
+}
 /**
  * doc_set_modified:
  * @doc: a #Tdocument
@@ -612,22 +641,10 @@ gboolean doc_has_selection(Tdocument *doc) {
 void doc_set_modified(Tdocument *doc, gint value) {
 	DEBUG_MSG("doc_set_modified, started, doc=%p, value=%d\n", doc, value);
 	if (doc->modified != value) {
-		gchar *label_string, *tabmenu_string;
 		GdkColor colorred = {0, 65535, 0, 0};
 		GdkColor colorblack = {0, 0, 0, 0};
 
 		doc->modified = value;
-		if (doc->filename) {
-			label_string = g_path_get_basename(doc->filename);
-			tabmenu_string = g_strdup(doc->filename);
-		} else {
-			gchar *message;
-			GList *alldocs = return_allwindows_documentlist();
-			message = g_strdup_printf(_("Untitled %d"),return_num_untitled_documents(alldocs));
-			g_list_free(alldocs);
-			label_string = g_strdup(message);
-			tabmenu_string = message;
-		}
 		if (doc->modified) {
 			gtk_widget_modify_fg(doc->tab_menu, GTK_STATE_NORMAL, &colorred);
 			gtk_widget_modify_fg(doc->tab_menu, GTK_STATE_PRELIGHT, &colorred);
@@ -641,10 +658,6 @@ void doc_set_modified(Tdocument *doc, gint value) {
 			gtk_widget_modify_fg(doc->tab_label, GTK_STATE_PRELIGHT, &colorblack);
 			gtk_widget_modify_fg(doc->tab_label, GTK_STATE_ACTIVE, &colorblack);
 		}
-		gtk_label_set(GTK_LABEL(doc->tab_menu),tabmenu_string);
-		gtk_label_set(GTK_LABEL(doc->tab_label),label_string);
-		g_free(label_string);
-		g_free(tabmenu_string);
 	}
 #ifdef DEBUG
 	else {
@@ -1933,7 +1946,7 @@ gchar *ask_new_filename(Tbfwin *bfwin,gchar *oldfilename, gint is_move) {
 		} else {
 			g_free(exdoc->filename);
 			exdoc->filename = NULL;
-			doc_set_modified(exdoc, 1);
+			doc_set_title(exdoc);
 			{
 				gchar *tmpstr2 = g_path_get_basename (newfilename);
 				tmpstr = g_strconcat(_("Previously: "), tmpstr2, NULL);
@@ -2007,12 +2020,12 @@ gint doc_save(Tdocument * doc, gint do_save_as, gboolean do_move) {
 		doc->filename = newfilename;
 		/* TODO: should feed the contents to the function too !! */
 		doc_reset_filetype(doc, doc->filename, NULL);
-		doc_set_modified(doc, 1);
+		doc_set_title(doc);
 		if (doc == BFWIN(doc->bfwin)->current_document) {
 			gui_set_title(BFWIN(doc->bfwin), doc);
 		}
 	}
-	{
+	if (!do_save_as) {
 		gboolean modified;
 		time_t oldmtime, newmtime;
 #ifdef HAVE_GNOME_VFS
@@ -2271,10 +2284,8 @@ Tdocument *doc_new(Tbfwin* bfwin, gboolean delay_activate) {
 	doc_set_font(newdoc, NULL);
 	newdoc->wrapstate = main_v->props.word_wrap;
 	doc_set_wrap(newdoc);
-
-/* this will force function doc_set_modified to update the tab label*/
-	newdoc->modified = 1;
-	doc_set_modified(newdoc, 0);
+	/* newdoc->modified = 0; */
+	doc_set_title(newdoc);
 	/*newdoc->filename = NULL;*/
 	newdoc->need_highlighting = 0;
 #ifdef HAVE_GNOME_VFS
@@ -2380,8 +2391,8 @@ void doc_new_with_new_file(Tbfwin *bfwin, gchar * new_filename) {
  	}
 	ft = get_filetype_by_filename_and_content(doc->filename, NULL);
 	if (ft) doc->hl = ft;
-	doc->modified = 1; /* force doc_set_modified() (in doc_save()) to update the tab-label */
-/*	doc_set_modified(doc, 0);*/
+	doc->modified = 1;
+	doc_set_title(doc);
 	doc_save(doc, 0, 0);
 	doc_set_stat_info(doc); /* also sets mtime field */
 	switch_to_document_by_pointer(bfwin,doc);
@@ -2439,8 +2450,7 @@ gboolean doc_new_with_file(Tbfwin *bfwin, gchar * filename, gboolean delay_activ
 
 	/* hey, this should be done by doc_activate 
 	menu_current_document_set_toggle_wo_activate(NULL, doc->encoding);*/
-	doc->modified = 1; /* force doc_set_modified() to update the tab-label */
-	doc_set_modified(doc, 0);
+	doc_set_title(doc);
 	doc_set_stat_info(doc); /* also sets mtime field */
 	if (!delay_activate) {
 		if (opening_in_existing_doc) {
