@@ -31,6 +31,8 @@
 #include "snr2.h" /* search_cb, replace_cb */
 #include "html_table.h"
 #include "html.h"
+#include "html2.h"
+#include "html_form.h"
 
 typedef struct {
 	GtkWidget *main_toolbar_hb;
@@ -272,17 +274,44 @@ static Ttoolbaritem tbi[] = {
 	{"tabledata", general_html_cb, GINT_TO_POINTER(27), 141, N_("Table Data")},
 	{"tablecaption", general_html_cb, GINT_TO_POINTER(28), 142, N_("Table Caption")},
 	{"", NULL, NULL, 0, NULL}, /* spacing */
-/*	{"", , NULL, , N_("")},
+/*	{"framewizard...",framewizard , NULL, 143, N_("Frame Wizard...")},*/
+	{"frameset...", framesetdialog_cb, NULL,144 , N_("Frameset...")},
+	{"frame...",framedialog_cb , NULL, 145, N_("Frame...")},
+	{"", NULL, NULL, 0, NULL}, /* spacing */
+	{"frameset", general_html_cb, GINT_TO_POINTER(29),146 , N_("Frameset")},
+	{"frame", general_html_cb, GINT_TO_POINTER(30), 147, N_("Frame")},
+	{"noframes", general_html_cb, GINT_TO_POINTER(31), 148, N_("Noframes")},
+	{"target", general_html_cb, GINT_TO_POINTER(32), 149, N_("Target")},
+	{"form...",formdialog_cb , NULL, 150, N_("Form...")},
+	{"inputbutton...", buttondialog_cb, NULL, 151, N_("Input button...")},
+	{"text...",textdialog_cb , NULL, 153, N_("Text...")},
+	{"hidden...", hiddendialog_cb, NULL, 154, N_("Hidden...")},
+	{"textarea...",textareadialog_cb , NULL, 155, N_("Textarea...")},
+	{"radiobutton...", radiodialog_cb, NULL, 156, N_("Radio Button...")},
+	{"checkbox...", checkdialog_cb, NULL, 157, N_("Check Box...")},
+	{"select...", selectdialog_cb, NULL, 158, N_("Select...")},
+	{"option...",optiondialog_cb , NULL, 417, N_("Option...")},
+	{"optiongroup...", optgroupdialog_cb, NULL, 300, N_("Option group...")},
+	{"quicklist...", quicklist_cb, NULL, 159, N_("Quick List...")},
+	{"unorderedlist", general_html_cb, GINT_TO_POINTER(33), 160, N_("Unordered List")},
+	{"orderedlist", general_html_cb, GINT_TO_POINTER(34), 161, N_("Ordered List")},
+	{"listitem", general_html_cb, GINT_TO_POINTER(35), 162, N_("List Item")},
+	{"definitionlist", general_html_cb, GINT_TO_POINTER(36), 163, N_("Definition List")},
+	{"definitionterm", general_html_cb, GINT_TO_POINTER(37), 164, N_("Definition Term")},
+	{"definition", general_html_cb, GINT_TO_POINTER(38), 165, N_("Definition")},
+	{"createstylesheet...", new_css_dialog, NULL, 180, N_("Create stylesheet...")},
+	{"Span...", span_dialog, NULL,181 , N_("Span...")},
+	{"Div...",div_dialog , NULL,182 , N_("Div...")},
+	{"Style", general_html_cb, GINT_TO_POINTER(42), 184, N_("Style")},
+	{"Link to stylesheet...", link_cb, NULL,189 , N_("Link to stylesheet...")},
+/*	{"", general_html_cb, GINT_TO_POINTER(), , N_("")},
 	{"", general_html_cb, GINT_TO_POINTER(), , N_("")},
-	{"", general_html_cb, GINT_TO_POINTER(), , N_("")},
+
 	{"", , NULL, , N_("")},
 	{"", , NULL, , N_("")},
-	{"", , NULL, , N_("")},
-	{"", general_html_cb, GINT_TO_POINTER(), , N_("")},
-	{"", general_html_cb, GINT_TO_POINTER(), , N_("")},
-	{"", , NULL, , },
 	{"", , NULL, , },
 	{"", NULL, NULL, 0, NULL},*/
+	{"", NULL, NULL, 0, NULL} /* spacing */
 };
 
 static void html_toolbar_remove_from_quickbar_lcb(GtkMenuItem *menuitem, Ttoolbaritem *tbitem) {
@@ -417,6 +446,23 @@ void make_html_toolbar(GtkWidget *handlebox) {
 	html_toolbar = gtk_toolbar_new();
 	html_toolbar_add_items(html_toolbar, tbi, 32, 42);
 	gtk_notebook_append_page(GTK_NOTEBOOK(html_notebook), html_toolbar, gtk_label_new(_(" Tables ")));
+
+	html_toolbar = gtk_toolbar_new();
+	html_toolbar_add_items(html_toolbar, tbi, 43, 51);
+	gtk_notebook_append_page(GTK_NOTEBOOK(html_notebook), html_toolbar, gtk_label_new(_(" Frames ")));
+
+	html_toolbar = gtk_toolbar_new();
+	html_toolbar_add_items(html_toolbar, tbi, 52, 60);
+	gtk_notebook_append_page(GTK_NOTEBOOK(html_notebook), html_toolbar, gtk_label_new(_(" Forms ")));
+
+	html_toolbar = gtk_toolbar_new();
+	html_toolbar_add_items(html_toolbar, tbi, 61, 68);
+	gtk_notebook_append_page(GTK_NOTEBOOK(html_notebook), html_toolbar, gtk_label_new(_(" List ")));
+
+	html_toolbar = gtk_toolbar_new();
+	html_toolbar_add_items(html_toolbar, tbi, 68, 73);
+	gtk_notebook_append_page(GTK_NOTEBOOK(html_notebook), html_toolbar, gtk_label_new(_(" CSS ")));
+
 
 	gtk_widget_show_all(html_notebook);
 }
