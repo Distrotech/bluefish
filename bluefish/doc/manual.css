@@ -313,3 +313,13 @@ td.seg {
 	width: 70%;
 }
 
+/* For variable lists, indentation of the term element */
+.term {
+	margin-left: 10px;
+}
+
+/* For variable lists, to display tip in blue */
+dt > SPAN[class="term"] > SPAN[class="emphasis"]  > em {
+	color: #6e8ae6;
+}
+
