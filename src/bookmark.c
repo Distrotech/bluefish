@@ -366,6 +366,7 @@ static void bmark_popup_menu_del_lcb(GtkWidget *widget,gpointer user_data)
       g_hash_table_remove(data->permanent,b->name);
       bmark_free(b);
    }
+   bmark_save_all();
    gtk_widget_grab_focus(BFWIN(user_data)->current_document->view);
 }
 
@@ -974,30 +975,39 @@ void bmark_add_perm(Tbfwin *bfwin)
 
 void check_len_proc(gpointer key,gpointer value,gpointer user_data)
 {
-  gchar *pstr;
   Tbmark *b = BMARK(value);
-  Tbfwin *bfwin = BFWIN(user_data);
-  
- if (b->doc && b->filepath)
+  Tforeach_data *fa = (Tforeach_data*)user_data;
+   
+ if (b->doc && b->filepath && (b->doc == fa->doc) )
  { 
   if (b->len != gtk_text_buffer_get_char_count(b->doc->buffer))
   {
-     pstr = g_strdup_printf(_("Character count changed in file\n %s."),b->doc->filename);
-     warning_dialog(bfwin->main_window,pstr, _("Bookmark position can be incorrect."));
-     g_free(pstr);
+     b->len = gtk_text_buffer_get_char_count(b->doc->buffer);
+     fa->integer=1;
   }     
  }
 }
 
-void bmark_check_lengths(Tbfwin *bfwin)
+
+void bmark_check_length(Tbfwin *bfwin,Tdocument *doc)
 {
+  gchar *pstr;
+  Tforeach_data *fa;
   Tbmark_data *data = BMARKDATA(main_v->bmarkdata);
-  
-  g_hash_table_foreach(data->permanent,check_len_proc,bfwin);
+
+  fa = g_new0(Tforeach_data,1);
+  fa->doc = doc;
+  fa->integer=0;
+  g_hash_table_foreach(data->permanent,check_len_proc,fa);
+  if (fa->integer>0)
+  {
+     pstr = g_strdup_printf(_("Character count changed in file\n %s."),doc->filename);
+     warning_dialog(bfwin->main_window,pstr, _("Bookmarks positions can be incorrect."));
+     g_free(pstr);
+  }
+  g_free(fa);   
 }
-
-
-
+ 
 
 
 #endif /* BOOKMARKS */
