@@ -530,7 +530,7 @@ static gboolean bmark_event_mouseclick(GtkWidget * widget, GdkEventButton * even
 
 GtkWidget *bmark_gui(Tbfwin * bfwin)
 {
-	GtkWidget *vbox;
+	GtkWidget *vbox, *scroll;
 	GtkCellRenderer *cell;
 	GtkTreeViewColumn *column;
 	DEBUG_MSG("bmark_gui, building gui for bfwin=%p\n",bfwin);
@@ -545,7 +545,10 @@ GtkWidget *bmark_gui(Tbfwin * bfwin)
 	gtk_tree_view_append_column(GTK_TREE_VIEW(bfwin->bmark), column);
 	gtk_widget_show_all(bfwin->bmark);
 	gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(bfwin->bmark), FALSE);
-	gtk_box_pack_start(GTK_BOX(vbox), bfwin->bmark, TRUE, TRUE, 0);
+	scroll = gtk_scrolled_window_new(NULL, NULL);
+	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scroll), GTK_POLICY_NEVER,GTK_POLICY_AUTOMATIC);
+	gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(scroll), bfwin->bmark);
+	gtk_box_pack_start(GTK_BOX(vbox), scroll, TRUE, TRUE, 0);
 	g_signal_connect(G_OBJECT(bfwin->bmark), "button-press-event",
 					 G_CALLBACK(bmark_event_mouseclick), bfwin);
 	gtk_tree_view_expand_all(bfwin->bmark);
