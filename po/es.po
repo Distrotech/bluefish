@@ -6,14 +6,14 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: bluefish gtk2-port\n"
-"POT-Creation-Date: 2004-11-25 10:39+0100\n"
-"PO-Revision-Date: 2004-11-07 12:51-0300\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-11-27 15:52-0300\n"
+"PO-Revision-Date: 2004-11-27 16:09-0300\n"
 "Last-Translator: Walter Echarri <wecharri@yahoo.com>\n"
 "Language-Team: español <es@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8 bit\n"
-"Report-Msgid-Bugs-To: \n"
 
 #: ../src/about.c:123
 msgid ""
@@ -775,16 +775,16 @@ msgstr "Anteriormente: "
 # src/toolbars.c:252
 # src/toolbars.c:256
 #: ../src/document.c:2412
-#, fuzzy, c-format
+#, c-format
 msgid "Move/rename %s to"
-msgstr "Mover/Modificar nombre del documento"
+msgstr "Mover/Modificar nombre"
 
 # src/toolbars.c:154
 # src/document.c:617
 #: ../src/document.c:2412
-#, fuzzy, c-format
+#, c-format
 msgid "Save %s as"
-msgstr "Guardar como"
+msgstr "Guardar %s como"
 
 # src/gtk_easy.c:250 src/html.c:2136
 # src/gtk_easy.c:413
@@ -1901,16 +1901,14 @@ msgid "Paste"
 msgstr "Pegar"
 
 #: ../src/gui.c:1090
-#, fuzzy
 msgid "Find..."
-msgstr "Buscar"
+msgstr "Buscar..."
 
 # src/snr.c:209
 # src/snr2.c:560 src/snr2.c:597
 #: ../src/gui.c:1092
-#, fuzzy
 msgid "Replace..."
-msgstr "Reemplazar"
+msgstr "Reemplazar..."
 
 # src/toolbars.c:172
 # src/toolbars.c:174
@@ -2014,6 +2012,79 @@ msgstr "compilación segundo patrón '%s': %s en la posición %d"
 #, c-format
 msgid "studying 2nd pattern '%s': %s"
 msgstr "análisis del segundo patrón '%s': %s"
+
+#: ../src/html2.c:554
+msgid "Cascading StyleSheet dialog"
+msgstr "Diálogo de hojas de estilo CSS"
+
+# src/html.c:1797
+# src/html_form.c:398
+#: ../src/html2.c:574
+msgid "_Selector:"
+msgstr "_Selector:"
+
+#: ../src/html2.c:593
+msgid "_Property:"
+msgstr "_Propiedad:"
+
+# src/html.c:1525 src/html.c:1545 src/html.c:1579 src/html.c:1630
+# src/html.c:1667 src/html.c:1719 src/html.c:1763
+# src/html_form.c:126 src/html_form.c:146 src/html_form.c:180
+# src/html_form.c:231 src/html_form.c:268 src/html_form.c:320
+# src/html_form.c:364 src/wml.c:171 src/wml.c:211
+#: ../src/html2.c:595 ../src/html_form.c:650 ../src/html_form.c:799
+#: ../src/html_form.c:894
+msgid "_Value:"
+msgstr "_Valor:"
+
+# src/html.c:1797
+# src/html_form.c:398
+#: ../src/html2.c:613
+msgid "Selector"
+msgstr "Selector"
+
+#: ../src/html2.c:613 ../src/html2.c:616
+msgid "Property"
+msgstr "Propiedad"
+
+# src/html.c:1525 src/html.c:1545 src/html.c:1579 src/html.c:1630
+# src/html.c:1667 src/html.c:1719 src/html.c:1763
+# src/html_form.c:126 src/html_form.c:146 src/html_form.c:180
+# src/html_form.c:231 src/html_form.c:268 src/html_form.c:320
+# src/html_form.c:364 src/wml.c:171 src/wml.c:211
+#: ../src/html2.c:613 ../src/html2.c:616
+msgid "Value"
+msgstr "Valor"
+
+# src/stringlist.c:146
+# src/stringlist.c:142
+#: ../src/html2.c:631
+msgid " _Add "
+msgstr "_Agregar "
+
+# src/stringlist.c:147
+# src/stringlist.c:143
+#: ../src/html2.c:634
+msgid " _Update "
+msgstr "_Actualizar "
+
+# src/stringlist.c:148
+# src/stringlist.c:144
+#: ../src/html2.c:637
+msgid " _Delete "
+msgstr "_Borrar "
+
+# src/html.c:1844 src/toolbars.c:440
+# src/html.c:1128 src/toolbars.c:444
+#: ../src/html2.c:893 ../src/html2.c:930
+msgid "_Style..."
+msgstr "_Estilo..."
+
+# src/callbacks.c:647
+# src/project.c:56
+#: ../src/html2.c:1087
+msgid "Bluefish: Select color"
+msgstr "Bluefish - Selector de colores"
 
 # src/toolbars.c:465
 # src/toolbars.c:510
@@ -2590,79 +2661,6 @@ msgstr "_Idioma:"
 #: ../src/html.c:2112
 msgid "_Custom:"
 msgstr "_Personalizar:"
-
-#: ../src/html2.c:554
-msgid "Cascading StyleSheet dialog"
-msgstr "Diálogo de hojas de estilo CSS"
-
-# src/html.c:1797
-# src/html_form.c:398
-#: ../src/html2.c:574
-msgid "_Selector:"
-msgstr "_Selector:"
-
-#: ../src/html2.c:593
-msgid "_Property:"
-msgstr "_Propiedad:"
-
-# src/html.c:1525 src/html.c:1545 src/html.c:1579 src/html.c:1630
-# src/html.c:1667 src/html.c:1719 src/html.c:1763
-# src/html_form.c:126 src/html_form.c:146 src/html_form.c:180
-# src/html_form.c:231 src/html_form.c:268 src/html_form.c:320
-# src/html_form.c:364 src/wml.c:171 src/wml.c:211
-#: ../src/html2.c:595 ../src/html_form.c:650 ../src/html_form.c:799
-#: ../src/html_form.c:894
-msgid "_Value:"
-msgstr "_Valor:"
-
-# src/html.c:1797
-# src/html_form.c:398
-#: ../src/html2.c:613
-msgid "Selector"
-msgstr "Selector"
-
-#: ../src/html2.c:613 ../src/html2.c:616
-msgid "Property"
-msgstr "Propiedad"
-
-# src/html.c:1525 src/html.c:1545 src/html.c:1579 src/html.c:1630
-# src/html.c:1667 src/html.c:1719 src/html.c:1763
-# src/html_form.c:126 src/html_form.c:146 src/html_form.c:180
-# src/html_form.c:231 src/html_form.c:268 src/html_form.c:320
-# src/html_form.c:364 src/wml.c:171 src/wml.c:211
-#: ../src/html2.c:613 ../src/html2.c:616
-msgid "Value"
-msgstr "Valor"
-
-# src/stringlist.c:146
-# src/stringlist.c:142
-#: ../src/html2.c:631
-msgid " _Add "
-msgstr "_Agregar "
-
-# src/stringlist.c:147
-# src/stringlist.c:143
-#: ../src/html2.c:634
-msgid " _Update "
-msgstr "_Actualizar "
-
-# src/stringlist.c:148
-# src/stringlist.c:144
-#: ../src/html2.c:637
-msgid " _Delete "
-msgstr "_Borrar "
-
-# src/html.c:1844 src/toolbars.c:440
-# src/html.c:1128 src/toolbars.c:444
-#: ../src/html2.c:893 ../src/html2.c:930
-msgid "_Style..."
-msgstr "_Estilo..."
-
-# src/callbacks.c:647
-# src/project.c:56
-#: ../src/html2.c:1087
-msgid "Bluefish: Select color"
-msgstr "Bluefish - Selector de colores"
 
 # src/html.c:1478
 # src/html_form.c:79
@@ -5308,9 +5306,8 @@ msgstr "_Diálogo Personalizado"
 # src/snr.c:142 src/snr.c:175 src/toolbars.c:168
 # src/toolbars.c:170
 #: ../src/menu.c:2449
-#, fuzzy
 msgid "Custom Replace"
-msgstr "Personalizar _Buscar y Reemplazar"
+msgstr "Personalizar Reemplazar"
 
 # src/snr.c:209
 # src/snr2.c:560 src/snr2.c:597
@@ -6326,9 +6323,8 @@ msgid "Replace o_nce"
 msgstr "Reem_plazar una vez"
 
 #: ../src/snr2.c:1448
-#, fuzzy
 msgid "Bookmark results"
-msgstr "Marcadores"
+msgstr "Añadir un marcador al resultdo"
 
 # src/stringlist.c:146
 # src/stringlist.c:142
