@@ -26,6 +26,7 @@
 
 #include "bluefish.h"
 #include "document.h"
+#include "gtk_easy.h" /* error_dialog() */
 #include "bf_lib.h"
 #include "stringlist.h" /* count_array() */
 #include "filebrowser.h"
@@ -677,7 +678,6 @@ static void populate_dir_history(gboolean firsttime) {
 	gtk_option_menu_set_history(GTK_OPTION_MENU(filebrowser.dirmenu), 0);
 }
 
-
 static void filebrowser_rpopup_filter_toggled_lcb(GtkWidget *widget, Tfilter *filter) {
 	if (GTK_CHECK_MENU_ITEM(widget)->active) {
 		DEBUG_MSG("filebrowser_rpopup_filter_toggled_lcb, setting curfilter to (%p) %s\n", filter, filter->name);
@@ -685,14 +685,136 @@ static void filebrowser_rpopup_filter_toggled_lcb(GtkWidget *widget, Tfilter *fi
 	}
 }
 
-static void filebrowser_rpopup_new_file_lcb(GtkWidget *widget, gpointer data) {
-	DEBUG_MSG("filebrowser_rpopup_new_file_lcb\n");
+typedef struct {
+	GtkWidget *win;
+	GtkWidget *entry;
+	gchar *basedir; /* must have a trailing slash */
+	gint is_file;
+} Tcfod;
+
+static void create_file_or_dir_destroy_lcb(GtkWidget *widget, GdkEvent *event,Tcfod *ws) {
+	window_destroy(ws->win);
+	g_free(ws->basedir);
+	g_free(ws);
 }
+
+static void create_file_or_dir_cancel_clicked_lcb(GtkWidget *widget, Tcfod *ws) {
+	create_file_or_dir_destroy_lcb(NULL, NULL, ws);
+}
+
+static void create_file_or_dir_ok_clicked_lcb(GtkWidget *widget, Tcfod *ws) {
+	gchar *newname, *name;
+
+	name = gtk_editable_get_chars(GTK_EDITABLE(ws->entry), 0, -1);	
+	if (name) {
+		if (strlen(name)) {
+			newname = g_strconcat(ws->basedir,name, NULL);
+			DEBUG_MSG("create_file_or_dir_ok_clicked_lcb, newname=%s\n", newname);
+			if (file_exists_and_readable(newname)) {
+				error_dialog(_("Error creating path"),_("Path exists already"));
+			} else {
+				if (ws->is_file) {
+					doc_new_with_new_file(newname);
+				} else {
+					if(mkdir(newname, 0755)== -1) {
+/*						error_dialog(_("Error creating directory"),strerror(errno));*/
+					}
+				}
+			}
+			g_free(newname);
+			DEBUG_MSG("create_file_or_dir_ok_clicked_lcb, refreshing basedir %s\n", ws->basedir);
+			filebrowser_refresh_dir(ws->basedir);
+		}
+		g_free(name);
+	}
+	create_file_or_dir_destroy_lcb(NULL, NULL, ws);
+}
+
+static void create_file_or_dir_win(gint is_file) {
+	GtkTreeModel *model = GTK_TREE_MODEL(filebrowser.store);
+	GtkTreeSelection *selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(filebrowser.tree));
+	GtkTreeIter iter;
+	if (gtk_tree_selection_get_selected(selection,&model,&iter)) {
+		Tcfod *ws;
+		gchar *title, *tmp;
+		GtkWidget *vbox, *but, *hbox;
+		GtkTreePath *path;
+
+		ws = g_malloc(sizeof(Tcfod));
+		if (gtk_tree_model_iter_has_child(GTK_TREE_MODEL(filebrowser.store), &iter)) {
+			DEBUG_MSG("create_file_or_dir_win, a dir is selected\n");
+		} else {
+			GtkTreeIter parent;
+			DEBUG_MSG("create_file_or_dir_win, a file is selected\n");
+			gtk_tree_model_iter_parent(GTK_TREE_MODEL(filebrowser.store), &parent, &iter);
+			iter = parent;
+		}
+		path = gtk_tree_model_get_path(GTK_TREE_MODEL(filebrowser.store),&iter);
+		tmp = return_filename_from_path(filebrowser.store,path);
+		ws->basedir = ending_slash(tmp);
+		g_free(tmp);
+		gtk_tree_path_free(path);
+		
+		if (is_file) {
+			title = _("File name");
+		} else {
+			title = _("Directory name");
+		}
+		ws->is_file = is_file;
+
+		ws->win = window_full(title, GTK_WIN_POS_MOUSE, 5,G_CALLBACK(create_file_or_dir_destroy_lcb), ws);
+		vbox = gtk_vbox_new(FALSE, 0);
+		gtk_container_add(GTK_CONTAINER(ws->win), vbox);
+		ws->entry = boxed_entry_with_text(NULL, 250, vbox);
+	
+		hbox = gtk_hbutton_box_new();
+		gtk_hbutton_box_set_layout_default(GTK_BUTTONBOX_END);
+		gtk_button_box_set_spacing(GTK_BUTTON_BOX(hbox), 1);
+	
+		but = bf_stock_ok_button(G_CALLBACK(create_file_or_dir_ok_clicked_lcb), ws);
+		gtk_box_pack_start(GTK_BOX(hbox),but , FALSE, FALSE, 0);
+	
+		but = bf_stock_cancel_button(G_CALLBACK(create_file_or_dir_cancel_clicked_lcb), ws);
+		gtk_box_pack_start(GTK_BOX(hbox),but , FALSE, FALSE, 0);
+	
+		gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 0);
+		gtk_widget_grab_focus(ws->entry);
+		gtk_widget_show_all(GTK_WIDGET(ws->win));
+	}
+}
+
+static void filebrowser_rpopup_new_file_lcb(GtkWidget *widget, gpointer data) {
+	create_file_or_dir_win(TRUE);
+}
+
 static void filebrowser_rpopup_new_dir_lcb(GtkWidget *widget, gpointer data) {
-	DEBUG_MSG("filebrowser_rpopup_new_dir_lcb\n");
+	create_file_or_dir_win(FALSE);
 }
 static void filebrowser_rpopup_refresh_lcb(GtkWidget *widget, gpointer data) {
-	DEBUG_MSG("filebrowser_rpopup_refresh_lcb\n");
+	GtkTreeModel *model = GTK_TREE_MODEL(filebrowser.store);
+	GtkTreeSelection *selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(filebrowser.tree));
+	GtkTreeIter iter;
+	if (gtk_tree_selection_get_selected(selection,&model,&iter)) {
+		GtkTreePath *path;
+		gchar *tmp, *dir;
+		if (gtk_tree_model_iter_has_child(GTK_TREE_MODEL(filebrowser.store), &iter)) {
+			DEBUG_MSG("create_file_or_dir_win, a dir is selected\n");
+		} else {
+			GtkTreeIter parent;
+			DEBUG_MSG("create_file_or_dir_win, a file is selected\n");
+			gtk_tree_model_iter_parent(GTK_TREE_MODEL(filebrowser.store), &parent, &iter);
+			iter = parent;
+		}
+		path = gtk_tree_model_get_path(GTK_TREE_MODEL(filebrowser.store),&iter);
+		tmp = return_filename_from_path(filebrowser.store,path);
+		DEBUG_MSG("filebrowser_rpopup_refresh_lcb, return_filename_from_path returned %s\n", tmp);
+		dir = ending_slash(tmp);
+		DEBUG_MSG("filebrowser_rpopup_refresh_lcb, ending_slash returned %s\n", dir);
+		filebrowser_refresh_dir(dir);
+		g_free(tmp);
+		g_free(dir);
+		gtk_tree_path_free(path);
+	}
 }
 
 static GtkWidget *filebrowser_rpopup_create_menu() {
@@ -738,29 +860,33 @@ static GtkWidget *filebrowser_rpopup_create_menu() {
 
 static void renderer_edited_lcb(GtkCellRendererText *cell,const gchar *path_string,const gchar *new_text,GtkTreeStore *store) {
 	GtkTreePath *path = gtk_tree_path_new_from_string (path_string);
-	gchar *newfilename, *oldfilename;
+	gchar *newfilename, *oldfilename, *basedir, *tmp;
 
 	oldfilename = return_filename_from_path(store, path);
-	{
-		gchar *dir = g_dirname(oldfilename);
-		newfilename = g_strconcat(dir, "/", new_text, NULL);
-	}
+	tmp = g_path_get_dirname(oldfilename);
+	basedir = ending_slash(tmp);
+	g_free(tmp);
+	newfilename = g_strconcat(basedir, new_text, NULL);
+
 	if (strcmp(oldfilename, newfilename)!=0) {
 		DEBUG_MSG("text changed, oldfilename=%s, newfilename=%s\n", oldfilename, newfilename);
 		if (rename(oldfilename, newfilename) == 0) {
-			GtkTreeIter ti;
-			gchar *old_text;
-			gtk_tree_model_get_iter (GTK_TREE_MODEL(store), &ti, path);
-
-			gtk_tree_model_get (GTK_TREE_MODEL(store), &ti, FILENAME_COLUMN, &old_text, -1);
-			g_free (old_text);
-
-			gtk_tree_store_set (store, &ti, FILENAME_COLUMN,new_text, -1);
+			gint index;
+			index = documentlist_return_index_from_filename(oldfilename);
+			if (index >= 0) {
+				Tdocument *doc = (Tdocument *)g_list_nth_data(main_v->documentlist, index);
+				g_free(doc->filename);
+				doc->filename = g_strdup(newfilename);
+				doc->modified = 1 - doc->modified; /* force the update of the labels */
+				doc_set_modified(doc, 1 - doc->modified);
+			}
+			filebrowser_refresh_dir(basedir);
 		}
 	}
+	g_free(basedir);
 	g_free(oldfilename);
 	g_free(newfilename);
-	gtk_tree_path_free (path);
+	gtk_tree_path_free(path);
 }
 
 static void row_expanded_lcb(GtkTreeView *tree,GtkTreeIter *iter,GtkTreePath *path,GtkTreeStore *store) {
@@ -904,7 +1030,6 @@ GtkWidget *filebrowser_init() {
 		gtk_tree_view_append_column(GTK_TREE_VIEW(filebrowser.tree), column);
 	}
 	{
-		gboolean valid=TRUE;
 		gchar curdir[1024];
 		GtkTreePath *path;
 		
@@ -912,10 +1037,6 @@ GtkWidget *filebrowser_init() {
 		strncat(curdir, "/", 1023);
 		DEBUG_MSG("curdir=%s\n",curdir);
 		path = build_tree_from_path(GTK_TREE_STORE(filebrowser.store), curdir);
-/*		gtk_tree_view_expand_all(GTK_TREE_VIEW(filebrowser.tree));
-		gtk_tree_path_down(path);
-		gtk_tree_view_collapse_row(GTK_TREE_VIEW(filebrowser.tree),path);*/
-		
 		filebrowser_expand_to_root(path);
 	}
 	
