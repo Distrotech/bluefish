@@ -279,6 +279,7 @@ typedef struct {
 	GList *menu_external;
 	GList *menu_encodings;
 	GList *menu_outputbox;
+	GList *menu_windows;
 	GtkWidget *menu_cmenu;
 	GList *menu_cmenu_entries;
 	GList *menu_filetypes;

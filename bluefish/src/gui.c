@@ -244,24 +244,25 @@ void left_panel_show_hide_toggle(Tbfwin *bfwin,gboolean first_time, gboolean sho
 }
 
 void gui_set_title(Tbfwin *bfwin, Tdocument *doc) {
-	gchar *title;
+	gchar *title, *prfilepart;
 	if (bfwin->project) {
 		if (doc->filename) {
-			title = g_strconcat("Bluefish ",VERSION," - ",bfwin->project->name," - ",doc->filename,NULL);
+			prfilepart = g_strconcat(bfwin->project->name," - ",doc->filename,NULL);
 		} else {
-			title = g_strconcat("Bluefish ",VERSION," - ",bfwin->project->name," -",_(" Untitled"),NULL);
+			prfilepart = g_strconcat(bfwin->project->name," - ",_("Untitled"),NULL);
 		}
 	} else {
 		if (doc->filename) {
-			title = g_strconcat("Bluefish ",VERSION," - ",doc->filename,NULL);
+			prfilepart = g_strdup(doc->filename);
 		} else {
-			title = g_strconcat("Bluefish ",VERSION," -",_(" Untitled"),NULL);
+			prfilepart = g_strdup(_("Untitled"));
 		}
 	}
+	title = g_strconcat("Bluefish "VERSION" - ", prfilepart, NULL);
 	gtk_window_set_title(GTK_WINDOW(bfwin->main_window),title);
+	rename_window_entry_in_all_windows(bfwin, prfilepart);
 	g_free(title);
-
-
+	g_free(prfilepart);
 }
 
 void gui_apply_settings(Tbfwin *bfwin) {
@@ -982,7 +983,7 @@ static void main_win_on_drag_data_lcb(GtkWidget * widget, GdkDragContext * conte
 
 void gui_bfwin_cleanup(Tbfwin *bfwin) {
 	/* call all cleanup functions here */
-	
+	remove_window_entry_from_all_windows(bfwin);
 }
 
 void main_window_destroy_lcb(GtkWidget *widget,Tbfwin *bfwin) {
@@ -1035,7 +1036,7 @@ gboolean main_window_delete_event_lcb(GtkWidget *widget,GdkEvent *event,Tbfwin *
 
 void gui_create_main(Tbfwin *bfwin, GList *filenames) {
 	GtkWidget *vbox;
-	bfwin->main_window = window_full2(_("Bluefish"), GTK_WIN_POS_CENTER, 0, G_CALLBACK(main_window_destroy_lcb), bfwin, FALSE, NULL);
+	bfwin->main_window = window_full2(_("New Bluefish Window"), GTK_WIN_POS_CENTER, 0, G_CALLBACK(main_window_destroy_lcb), bfwin, FALSE, NULL);
 	gtk_window_set_role(GTK_WINDOW(bfwin->main_window), "bluefish");
 	gtk_window_set_default_size(GTK_WINDOW(bfwin->main_window), main_v->props.main_window_w, main_v->props.main_window_h);
 	g_signal_connect(G_OBJECT(bfwin->main_window), "delete_event", G_CALLBACK(main_window_delete_event_lcb), bfwin);
@@ -1052,7 +1053,8 @@ void gui_create_main(Tbfwin *bfwin, GList *filenames) {
 	encoding_menu_rebuild(bfwin);
 	menu_outputbox_rebuild(bfwin);
 	snr2_init(bfwin);
-
+	add_window_entry_to_all_windows(bfwin);
+	add_allwindows_entries_to_window(bfwin);
 	/* then the toolbars */
 	{
 		bfwin->main_toolbar_hb = gtk_handle_box_new();
