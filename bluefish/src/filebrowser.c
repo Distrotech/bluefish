@@ -113,9 +113,11 @@ static gboolean get_iter_by_filename_from_parent(GtkTreeStore *store, GtkTreeIte
 		if (strcmp(name, filename)==0) {
 			*parent = iter;
 			DEBUG_MSG("get_iter_by_filename_from_parent, found!!\n");
+			g_free(name);
 			return TRUE;
 		}
 		valid = gtk_tree_model_iter_next(GTK_TREE_MODEL(store), &iter);
+		g_free(name);
 	}
 	DEBUG_MSG("get_iter_by_filename_from_parent, NOT found..\n");
 	return FALSE;
@@ -262,6 +264,7 @@ static GList *return_dir_entries(gchar *dirname) {
 		}
 		if (!view_filter(entry)) {
 			/* free entry */
+			g_free(entry->name);
 			g_free(entry);
 		} else {
 			entry->has_widget = FALSE;
@@ -311,9 +314,11 @@ static GtkTreePath *return_path_from_filename(GtkTreeStore *store,gchar *this_fi
 				/* we found the node!!, make this node the next parent */
 				found = TRUE;
 				parent = iter;
+				g_free(found_name);
 				break;
 			}
 			valid = gtk_tree_model_iter_next(GTK_TREE_MODEL(store), &iter);
+			g_free(found_name);
 		}
 		g_free(tmpstr);
 		prevlen = (totlen - curlen+1);
@@ -372,6 +377,7 @@ static gboolean get_iter_at_correct_position(GtkTreeStore *store, GtkTreeIter *p
 		gtk_tree_model_iter_nth_child(GTK_TREE_MODEL(store), iter, parent, 0);
 		gtk_tree_model_get(GTK_TREE_MODEL(store),iter,FILENAME_COLUMN,&name, -1);
 		compare = comparefunc(store, name, iter, text, type);
+		g_free(name);
 		if (compare == 0) {
 			return FALSE;
 		} else if (compare < 0) {
@@ -390,6 +396,7 @@ static gboolean get_iter_at_correct_position(GtkTreeStore *store, GtkTreeIter *p
 		gtk_tree_model_iter_nth_child(GTK_TREE_MODEL(store), iter, parent, child-1);
 		gtk_tree_model_get(GTK_TREE_MODEL(store),iter,FILENAME_COLUMN,&name, -1);
 		compare = comparefunc(store, name, iter, text, type);
+		g_free(name);
 		if (compare == 0) {
 			return TRUE;
 		} else if (compare > 0) {
@@ -484,6 +491,7 @@ static void refresh_dir_by_path_and_filename(GtkTreeStore *store, GtkTreePath *t
 		} else {
 			valid = gtk_tree_model_iter_next (GTK_TREE_MODEL(store), &myiter);
 		}
+		g_free(name);
 	}
 	/* now add the new entries */
 	{
@@ -1107,14 +1115,16 @@ GtkWidget *filebrowser_init() {
 		filename = return_first_existing_filename(main_v->props.filebrowser_unknown_icon,
 						"icon_unknown.png","../icons/icon_unknown.png",
 						"icons/icon_unknown.png",NULL);
-	
+			
 		filebrowser.unknown_icon = gdk_pixbuf_new_from_file(filename, NULL);
+		g_free(filename);
 		
 		filename = return_first_existing_filename(main_v->props.filebrowser_dir_icon,
 						"icon_dir.png","../icons/icon_dir.png",
 						"icons/icon_dir.png",NULL);
 
 		filebrowser.dir_icon = gdk_pixbuf_new_from_file(filename, NULL);
+		g_free(filename);
 
 		if (!filebrowser.dir_icon || !filebrowser.unknown_icon) {
 			g_print("the dir_icon and unknown_icon items in the config file are invalid\n");

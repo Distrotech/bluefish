@@ -562,6 +562,7 @@ void rcfile_parse_main(void)
 				main_v->props.lasttime_encodings = TIME_T_TO_GINT(time(NULL));
 			}
 		}
+		g_free(defaultfile);
 	}
 	if (main_v->props.outputbox==NULL) {
 		/* if the user does not have outputbox settings --> set them to defaults values */
@@ -596,6 +597,7 @@ void rcfile_parse_main(void)
 				main_v->props.lasttime_filetypes = TIME_T_TO_GINT(time(NULL));
 			}
 		}
+		g_free(defaultfile);
 	}
 	if (main_v->props.filefilters == NULL) {
 		/* if the user does not have file filters --> set them to defaults values */
@@ -665,6 +667,7 @@ void rcfile_parse_highlighting(void) {
 		}
 	}
 	g_free(filename);
+	g_free(defaultfile);
 }
 
 static gint rcfile_save_highlighting(void) {
@@ -746,6 +749,7 @@ void rcfile_parse_custom_menu(void) {
 	*/
 
 	g_free(filename);
+	g_free(defaultfile);
 }
 static gint rcfile_save_custom_menu(void) {
 	gint retval;

@@ -373,7 +373,7 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/Dialogs/General/Quick_list..."), "<shift><alt>L", quicklist_cb, 0, NULL},
 	{N_("/Dialogs/General/_Meta..."), "<shift><alt>m", meta_cb, 0, NULL},
 	{N_("/Dialogs/General/Embe_d..."), "<shift><alt>E", embed_cb, 0, NULL},
-	{N_("/Dialogs/General/Select _colour..."), NULL, sel_colour_cb, 0, NULL},
+	{N_("/Dialogs/General/Select _color..."), NULL, sel_colour_cb, 0, NULL},
 	{N_("/Dialogs/General/Insert _time..."), NULL, insert_time_cb, 0, NULL},
 	{N_("/Dialogs/General/Insert _image..."), "<shift><alt>I", image_insert_dialog_cb, 0, NULL},
 	{N_("/Dialogs/General/Insert t_humbnail..."), "<shift><alt>N", thumbnail_insert_dialog_cb, 0, NULL},
