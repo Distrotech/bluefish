@@ -45,7 +45,7 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/File/sep5"), NULL, NULL, 0, "<Separator>"},
 	{N_("/File/Quit"), "<control>Q", bluefish_exit_request, 0, NULL},
 	{N_("/_Edit"), NULL, NULL, 0, "<Branch>"},
-	{N_("/_Edit/Tearoff1"), NULL, NULL, 0, "<Tearoff>"},
+	{N_("/Edit/Tearoff1"), NULL, NULL, 0, "<Tearoff>"},
 	{N_("/Edit/sep3"), NULL, NULL, 0, "<Separator>"},
 	{N_("/Edit/Find..."), "F6", search_cb, 0, NULL},
 	{N_("/Edit/New find..."), NULL, new_search_cb, 0, NULL},

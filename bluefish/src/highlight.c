@@ -629,6 +629,7 @@ void doc_highlight_full(Tdocument *doc) {
 	times(&tms2);
 	g_print("doc_highlight_full done, %d ms user-time needed for highlighting\n", (int) (double) ((tms2.tms_utime - tms1.tms_utime) * 1000 / sysconf(_SC_CLK_TCK)));
 #endif
+	doc->need_highlighting = FALSE;
 }
 
 static void remove_tag_by_list_in_region(Tdocument * doc, GList * patlist,
@@ -825,11 +826,11 @@ void doc_highlight_line(Tdocument * doc) {
 							  tms1.tms_utime) * 1000 /
 							 sysconf(_SC_CLK_TCK)));
 #endif
-
 	} else {
 		g_print
 			("doc_highlight_line, patternlist=NULL so we don't need highlighting\n");
 	}
+	doc->need_highlighting = FALSE;
 }
 
 #define MAKE_BLUEFISH_WITH_BLUEFISH

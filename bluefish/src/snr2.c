@@ -798,6 +798,10 @@ void snr2_run(void) {
 			doc_show_result(main_v->current_document, result.start, result.end);	
 		}
 	}
+	/* if highlighting is needed for this document do this now !! */
+	if (main_v->current_document->need_highlighting && main_v->current_document->highlightstate) {
+		doc_highlight_full(main_v->current_document);
+	}
 }
 
 /*****************************************************/
