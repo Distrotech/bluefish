@@ -22,7 +22,7 @@
 #include <gtk/gtk.h>
 #include <time.h> /* nanosleep() */
 #include <string.h> /* strchr() */
-
+#include <unistd.h> /* exit() */
 
 #include "bluefish.h"
 #include "gui.h"

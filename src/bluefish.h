@@ -34,9 +34,7 @@
 #define DEBUG_MSG(format, args...)
  /**/
 #else/* notdef __GNUC__ */
-void g_none(...) {
-	return;
-}
+extern void g_none(...);
 #define DEBUG_MSG g_none
 #endif /* __GNUC__ */
 #endif /* DEBUG */

@@ -50,7 +50,7 @@ Thtml_diag *html_diag_new(gchar *title) {
 	dg = g_malloc(sizeof(Thtml_diag));
 	dg->dialog = window_full(title, GTK_WIN_POS_MOUSE
 		, 5,G_CALLBACK(html_diag_destroy_cb), dg);
-	gtk_window_set_type_hint (GTK_WINDOW(dg->dialog), GDK_WINDOW_DIALOG);
+	gtk_window_set_type_hint(GTK_WINDOW(dg->dialog), GDK_WINDOW_TYPE_HINT_DIALOG);
 
 	gtk_window_set_role(GTK_WINDOW(dg->dialog), "html_dialog");
 	dg->vbox = gtk_vbox_new(FALSE, 1);

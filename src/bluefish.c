@@ -40,6 +40,11 @@ Tmain *main_v;
 /********************************/
 /* functions used in bluefish.c */
 /********************************/
+#ifndef __GNUC__
+void g_none(...) {
+	return;
+}
+#endif;
 
 static gint parse_commandline(int argc, char **argv
 		, gboolean *root_override
