@@ -678,7 +678,10 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/Options/Save Shortcut _Keys"), NULL, rcfile_save_configfile_menu_cb, 3, NULL},
 	{N_("/TEMP"), NULL, NULL, 0, "<Branch>"},
 	{N_("/TEMP/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
-	{N_("/TEMP/New"), NULL, gui_new_window_menu_cb, 1, NULL},
+	{N_("/TEMP/Window"), NULL, NULL, 0, "<Branch>"},
+	{N_("/TEMP/Window/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
+	{N_("/TEMP/Window/New"), NULL, gui_new_window_menu_cb, 1, NULL},
+	{N_("/TEMP/Window/sep1"), NULL, NULL, 0, "<Separator>"},
 	{N_("/TEMP/Open project"), NULL, project_menu_cb, 1, NULL},
 	{N_("/TEMP/Save project"), NULL, project_menu_cb, 2, NULL},
 	{N_("/TEMP/Save project as"), NULL, project_menu_cb, 3, NULL},
@@ -758,7 +761,7 @@ static GtkWidget *remove_menuitem_in_list_by_label(gchar *labelstring, GList **m
 }
 
 /* the result of this function can be added to the menuitem-list */
-static GtkWidget *create_dynamic_menuitem(Tbfwin *bfwin, gchar *menubasepath, gchar *label, GCallback callback, gpointer data, gint menu_insert_offset) {
+static GtkWidget *create_dynamic_menuitem(Tbfwin *bfwin, gchar *menubasepath, const gchar *label, GCallback callback, gpointer data, gint menu_insert_offset) {
 	GtkWidget *tmp, *menu;
 	GtkItemFactory *factory;
 
@@ -1113,6 +1116,81 @@ void add_to_recent_list(gchar *filename, gint closed_file) {
 		append_string_to_file(recentfile, tmpfilename);
 		g_free(recentfile);
 		g_free(tmpfilename);
+	}
+}
+/*****************/
+/* Windows !!    */
+/*****************/
+
+static void remove_all_window_entries_in_window(Tbfwin *menuwin) {
+	GList *tmplist = g_list_first(menuwin->menu_windows);
+	while (tmplist) {
+		Tbfw_dynmenu *bdm = BFW_DYNMENU(tmplist->data);
+		/*g_signal_handler_disconnect(bdm->menuitem,bdm->signal_id);*/
+		gtk_widget_destroy(bdm->menuitem);
+		g_free(bdm);
+		tmplist = g_list_next(tmplist);
+	}
+}
+static void remove_window_entry_from_window(Tbfwin *menubfwin, Tbfwin *tobfwin) {
+	Tbfw_dynmenu *bdm = find_bfw_dynmenu_by_data_in_list(menubfwin->menu_windows, tobfwin);
+	if (bdm) {
+		/*g_signal_handler_disconnect(bdm->menuitem,bdm->signal_id);*/
+		gtk_widget_destroy(bdm->menuitem);
+		g_free(bdm);
+	}
+}
+static void rename_window_entry_from_window(Tbfwin *menubfwin, Tbfwin *tobfwin, gchar *newtitle) {
+	Tbfw_dynmenu *bdm = find_bfw_dynmenu_by_data_in_list(menubfwin->menu_windows, tobfwin);
+	if (bdm) {
+		GtkWidget *label = gtk_bin_get_child(GTK_BIN(bdm->menuitem));
+		DEBUG_MSG("rename_window_entry_from_window, setting label to have title %s\n",newtitle);
+		gtk_label_set_text(GTK_LABEL(label), newtitle);
+	}
+}	
+static void menu_window_lcb(GtkWidget *widget, Tbfw_dynmenu *bdm) {
+	gtk_window_present(GTK_WINDOW(BFWIN(bdm->data)->main_window));
+}
+static void add_window_entry(Tbfwin *menubfwin, Tbfwin *tobfwin) {
+	const gchar *winname;
+	Tbfw_dynmenu *bdm = g_new(Tbfw_dynmenu,1);
+	bdm->bfwin = menubfwin;
+	bdm->data = tobfwin;
+	winname = gtk_window_get_title(GTK_WINDOW(tobfwin->main_window));
+	bdm->menuitem = create_dynamic_menuitem(menubfwin,_("/TEMP/Window"),winname,G_CALLBACK(menu_window_lcb),(gpointer)bdm,-1);
+	menubfwin->menu_windows = g_list_append(menubfwin->menu_windows, bdm);
+}
+void add_window_entry_to_all_windows(Tbfwin *tobfwin) {
+	GList *tmplist = g_list_first(main_v->bfwinlist);
+	while (tmplist) {
+		if (tmplist->data != tobfwin) {
+			add_window_entry(BFWIN(tmplist->data), tobfwin);
+		}
+		tmplist = g_list_next(tmplist);
+	}
+}
+void add_allwindows_entries_to_window(Tbfwin *menubfwin) {
+	GList *tmplist = g_list_first(main_v->bfwinlist);
+	while (tmplist) {
+		if (tmplist->data != menubfwin) {
+			add_window_entry(menubfwin, BFWIN(tmplist->data));
+		}
+		tmplist = g_list_next(tmplist);
+	}
+}	
+void remove_window_entry_from_all_windows(Tbfwin *tobfwin) {
+	GList *tmplist = g_list_first(main_v->bfwinlist);
+	while (tmplist) {
+		remove_window_entry_from_window(BFWIN(tmplist->data), tobfwin);
+		tmplist = g_list_next(tmplist);
+	}
+	remove_all_window_entries_in_window(tobfwin);
+}
+void rename_window_entry_in_all_windows(Tbfwin *tobfwin, gchar *newtitle) {
+	GList *tmplist = g_list_first(main_v->bfwinlist);
+	while (tmplist) {
+		rename_window_entry_from_window(BFWIN(tmplist->data), tobfwin, newtitle);
+		tmplist = g_list_next(tmplist);
 	}
 }
 
