@@ -585,7 +585,7 @@ static void main_win_on_drag_data_lcb(GtkWidget * widget, GdkDragContext * conte
 
 	/* netscape sends URL's labelled as string */
 	if (info == TARGET_STRING) {
-		gchar *stringdata = g_strndup(data->data, data->length);
+		gchar *stringdata = g_strndup((gchar *)data->data, data->length);
 		if (strchr(stringdata, ':')) {
 			DEBUG_MSG("on_drag_data_cb, TARGET_STRING contains :, so it's probably an URL\n");
 			info = TARGET_URI_LIST;
