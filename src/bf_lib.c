@@ -30,6 +30,10 @@
 #include "bluefish.h"  /* for DEBUG_MSG and stuff like that */
 #include "bf_lib.h"  /* myself */
 
+#ifdef HAVE_GNOME_VFS
+#include <libgnomevfs/gnome-vfs.h>
+#endif
+
 #ifdef WIN32
 #define DIRSTR "\\"
 #define DIRCHR 92
@@ -797,31 +801,39 @@ gchar *path_get_dirname_with_ending_slash(const gchar *filename) {
  *
  * Return value: gboolean, TRUE if readable, else FALSE
  **/
-gboolean file_exists_and_readable(const gchar * filename)
-{
-	struct stat naamstat;
-
+gboolean file_exists_and_readable(const gchar * filename) {
 #ifdef DEVELOPMENT
 	g_assert(filename);
 #endif
-
 	if (!filename || strlen(filename) < 2) {
 		DEBUG_MSG("file_exists_and_readable, strlen(filename) < 2 or no filename!!!!\n");
 		return FALSE;
 	}
 	DEBUG_MSG("file_exists_and_readable, filename(%p)=\"%s\", strlen(filename)=%d\n", filename, filename, strlen(filename));
 #ifndef WIN32
-	if ((stat(filename, &naamstat) == -1) && (errno == ENOENT)) {
-/*              if(naamstat.st_mode & S_IREAD) { */
-		return FALSE;
-/*              }
-   return(0); */
-	} else {
-		return TRUE;
+
+#ifdef HAVE_GNOME_VFS
+	{
+		gboolean result;
+		GnomeVFSURI* uri = gnome_vfs_uri_new(filename);
+		result = gnome_vfs_uri_exists(uri);
+		gnome_vfs_uri_unref(uri);
+		DEBUG_MSG("file_exists_and_readable, return %d for %s\n",result,filename);
+		return result;
 	}
-#else
+#else /* HAVE_GNOME_VFS */
+	{
+		struct stat naamstat;
+		if ((stat(filename, &naamstat) == -1) && (errno == ENOENT)) {
+			return FALSE;
+		} else {
+			return TRUE;
+		}
+	}
+#endif /* HAVE_GNOME_VFS */
+#else /* WIN32 */
 	return TRUE;
-#endif
+#endif /* WIN32 */
 }
 /**
  * return_first_existing_filename:
