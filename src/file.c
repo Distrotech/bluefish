@@ -136,7 +136,11 @@ static void file2doc_lcb(gint status,gint error_info,gchar *buffer,GnomeVFSFileS
 			DEBUG_MSG("file2doc_lcb, focus_next_new_doc=%d\n",f2d->bfwin->focus_next_new_doc);
 			if (f2d->bfwin->focus_next_new_doc) {
 				f2d->bfwin->focus_next_new_doc = FALSE;
-				switch_to_document_by_pointer(f2d->bfwin,f2d->doc);
+				if (f2d->bfwin->current_document == f2d->doc) {
+					doc_force_activate(f2d->doc);
+				} else {
+					switch_to_document_by_pointer(f2d->bfwin,f2d->doc);
+				}
 			}
 			file2doc_cleanup(data);
 		break;
