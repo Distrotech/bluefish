@@ -273,6 +273,7 @@ typedef struct {
 	gpointer bfspell;
 	gpointer filebrowser;
 	gpointer snr2;
+	gpointer fref;
 } Tbfwin;
 
 typedef struct {
@@ -282,6 +283,7 @@ typedef struct {
 	GList *bfwinlist;
 	GList *recent_directories; /* a stringlist with the most recently used directories */
 	gpointer filebrowserconfig;
+	gpointer frefdata;
 } Tmain;
 
 extern Tmain *main_v;

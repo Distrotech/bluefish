@@ -204,7 +204,7 @@ GtkWidget *left_panel_build(Tbfwin *bfwin) {
 	gtk_notebook_set_tab_vborder(GTK_NOTEBOOK(left_notebook), 0);
 	gtk_notebook_popup_enable(GTK_NOTEBOOK(left_notebook));
 	fileb = filebrowser_init(bfwin);
-	fref = fref_init();
+	fref = fref_gui(bfwin);
 	gtk_notebook_append_page(GTK_NOTEBOOK(left_notebook),fileb,new_pixmap(105));
 	gtk_notebook_append_page(GTK_NOTEBOOK(left_notebook),fref,new_pixmap(106));
 	gtk_widget_show_all(left_notebook);
@@ -221,7 +221,7 @@ void left_panel_show_hide_toggle(Tbfwin *bfwin,gboolean first_time, gboolean sho
 			gtk_container_remove(GTK_CONTAINER(bfwin->hpane), bfwin->notebook_box);
 			gtk_widget_destroy(bfwin->hpane);
 			filebrowser_cleanup(bfwin);
-			fref_cleanup();
+			fref_cleanup(bfwin);
 		}
 	}
 	if (show) {
