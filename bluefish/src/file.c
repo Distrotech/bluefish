@@ -54,16 +54,21 @@ static void checkmodified_cleanup(Tcheckmodified *cm) {
 
 static gboolean checkmodified_is_modified(GnomeVFSFileInfo *orig, GnomeVFSFileInfo *new) {
 	/* modified_check_type;  0=no check, 1=by mtime and size, 2=by mtime, 3=by size, 4,5,...not implemented (md5sum?) */
-	DEBUG_MSG("checkmodified_is_modified, matches=%d\n",gnome_vfs_file_info_matches(orig,new));
+/*	DEBUG_MSG("checkmodified_is_modified, matches=%d\n",gnome_vfs_file_info_matches(orig,new));*/
+/*	if (gnome_vfs_file_info_matches(orig,new)) {
+		/ * this is a test of all the fields * /
+		return FALSE;
+	}*/
 	if (main_v->props.modified_check_type == 1 || main_v->props.modified_check_type == 2) {
-		DEBUG_MSG("checkmodified_is_modified, mtime1=%d, mtime2=%d\n",orig->mtime, new->mtime);
-		if (orig->mtime != new->mtime) return FALSE;
+/*		DEBUG_MSG("checkmodified_is_modified, mtime1=%d, mtime2=%d\n",orig->mtime, new->mtime);*/
+		if (orig->mtime != new->mtime) return TRUE;
 	}
 	if (main_v->props.modified_check_type == 1 || main_v->props.modified_check_type == 3) {
 		DEBUG_MSG("checkmodified_is_modified, 1validfields=%d, 2validfields=%d, size1=%d, size2=%d\n",orig->valid_fields,new->valid_fields,orig->size, new->size);
-		if (orig->size != new->size) return FALSE;
+		DEBUG_MSG("checkmodified_is_modified, matches=%d\n",gnome_vfs_file_info_matches(orig,new));
+		if (orig->size != new->size) return TRUE;
 	}
-	return TRUE;
+	return FALSE;
 }
 
 static void checkmodified_asyncfileinfo_lcb(GnomeVFSAsyncHandle *handle, GList *results, /* GnomeVFSGetFileInfoResult* items */gpointer data) {
@@ -217,30 +222,11 @@ static void checkNsave_savefile_lcb(Tsavefile_status status,gint error_info,gpoi
 		checkNsave_cleanup(cns);
 	break;
 	}
-	
 }
 
 gint checkNsave_progress_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSXferProgressInfo *info,gpointer data) {
-	DEBUG_MSG("checkNsave_progress_lcb, started with status %d and phase %d for source %s and target %s, index=%d, total=%d\n"
-			,info->status,info->phase,info->source_name,info->target_name,info->file_index,info->files_total);
-	TcheckNsave *cns = data;
-/*	if (info->status == GNOME_VFS_XFER_PROGRESS_STATUS_OVERWRITE) {
-		return GNOME_VFS_XFER_OVERWRITE_ACTION_REPLACE;
-	} else if (info->status == GNOME_VFS_XFER_PROGRESS_STATUS_VFSERROR) {
-		DEBUG_MSG("checkNsave_progress_lcb, abort!!\n");
-		/ * BUG: perhaps the user still wants to continue * /
-		cns->callback_func(CHECKANDSAVE_ERROR_NOBACKUP, 0, cns->callback_data);
-		checkNsave_cleanup(cns);
-		return GNOME_VFS_XFER_ERROR_ACTION_ABORT;
-	} else if (info->status == GNOME_VFS_XFER_PROGRESS_STATUS_OK) {
-		if (info->phase == GNOME_VFS_XFER_PHASE_COMPLETED) {
-			/ * backup == ok, we start the actual file save * /
-			DEBUG_MSG("checkNsave_progress_lcb, starting the actual save\n");
-			file_savefile_uri_async(cns->uri, cns->buffer, cns->buffer_size, checkNsave_savefile_lcb, cns);
-		}
-	}*/
-	/* Christian Kellner found we should NEVER return 0, it aborts!! */
-	return 1;
+	/* Nautilus returns 0 by default for this callback */
+	return 0;
 }
 
 gint checkNsave_sync_lcb(GnomeVFSXferProgressInfo *info,gpointer data) {
@@ -251,11 +237,14 @@ gint checkNsave_sync_lcb(GnomeVFSXferProgressInfo *info,gpointer data) {
 		DEBUG_MSG("checkNsave_sync_lcb, status=OVERWRITE, return REPLACE\n");
 		return GNOME_VFS_XFER_OVERWRITE_ACTION_REPLACE;
 	} else if (info->status == GNOME_VFS_XFER_PROGRESS_STATUS_VFSERROR) {
-		DEBUG_MSG("checkNsave_sync_lcb, status=VFSERROR, abort!!\n");
-		/* BUG: perhaps the user still wants to continue */
-		cns->callback_func(CHECKANDSAVE_ERROR_NOBACKUP, 0, cns->callback_data);
-		checkNsave_cleanup(cns);
-		return GNOME_VFS_XFER_ERROR_ACTION_ABORT;
+		DEBUG_MSG("checkNsave_sync_lcb, status=VFSERROR, abort?\n");
+		/* this results in "Xlib: unexpected async reply" which seems to be a gnome_vfs bug */
+		if (cns->callback_func(CHECKANDSAVE_ERROR_NOBACKUP, 0, cns->callback_data) == CHECKNSAVE_CONT) {
+			return GNOME_VFS_XFER_ERROR_ACTION_SKIP;
+		} else {
+			checkNsave_cleanup(cns);
+			return GNOME_VFS_XFER_ERROR_ACTION_ABORT;
+		}
 	} else if (info->status == GNOME_VFS_XFER_PROGRESS_STATUS_OK) {
 		DEBUG_MSG("checkNsave_sync_lcb, status=OK\n");
 		if (info->phase == GNOME_VFS_XFER_PHASE_COMPLETED) {
@@ -264,7 +253,8 @@ gint checkNsave_sync_lcb(GnomeVFSXferProgressInfo *info,gpointer data) {
 			file_savefile_uri_async(cns->uri, cns->buffer, cns->buffer_size, checkNsave_savefile_lcb, cns);
 		}
 	} 
-	/* Christian Kellner found we should NEVER return 0, it aborts!! */
+	/* Christian Kellner (gicmo on #nautilus on irc.gimp.ca) found 
+		we should NEVER return 0 for default calls, it aborts!! */
 	return 1;
 }
 static void checkNsave_checkmodified_lcb(Tcheckmodified_status status,gint error_info,gpointer data) {
