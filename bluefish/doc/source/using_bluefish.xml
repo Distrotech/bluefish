@@ -210,7 +210,7 @@ a project file.
 			</figure>
 	</para>
 	<para>
-	The visibility of these items can be toggled via the View menu.
+	The visibility of these items can be toggled via the <guimenu>View</guimenu> menu.
 		<figure id="figure-view-menu">
 				<title id="figure-view-menu-title">Bluefish View Menu</title>
 				<screenshot>
@@ -232,9 +232,9 @@ a project file.
 <sect1 id="working-with-files">
 <title>Working with files</title>
 	<para>
-	Most of the file operations are accessible from the File menu. 
-	Through the <emphasis>File</emphasis> menu a new file can be 
-	created, existing files opened, and opened files saved. 
+	Most of the file operations are accessible from the <guimenu>File</guimenu>. 
+	Through it, a new file can be created, existing files opened, and opened files saved or renamed.</para>
+	<para>It is also possible to insert a file into another one, and to revert a modified file to its previously saved state.
 	
 				<figure id="figure-file-menu">
 				<title id="figure-file-menu-title">Bluefish File Menu</title>
@@ -244,7 +244,7 @@ a project file.
 							<imagedata fileref="figures/file_menu.png" format="PNG"/>
 						</imageobject>
 						<textobject>
-							<phrase>The Bluefish File Menu</phrase>
+							<phrase>A screen shot of the Bluefish File Menu</phrase>
 						</textobject>
 					</mediaobject>
 				</screenshot>
@@ -254,15 +254,14 @@ a project file.
 	<sect2 id="creating-files">
 	<title>Creating files</title>
 	<para>
-	Apart from using <emphasis>File/New</emphasis> (shortcut Ctrl+N) or the first main toolbar item to create a new file, you may also use <emphasis>File/New Window</emphasis> (shortcut Shift+Ctrl+N).
+	Apart from using <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>N</keycap></keycombo></shortcut><guimenu>File</guimenu><guimenuitem>New</guimenuitem></menuchoice> or the <guilabel>New</guilabel> icon to create a new file, you may also use <menuchoice><shortcut><keycombo><keycap>Shift</keycap><keycap>Ctrl</keycap><keycap>N</keycap></keycombo></shortcut><guimenu>File</guimenu><guimenuitem>New Window</guimenuitem></menuchoice>.
 	</para>
 	<para>Both methods create an untitled file of type text with the default character encoding defined in preferences.</para>
 	</sect2>
 <sect2 id="opening-files">
 <title>Opening files</title>
 	<para>
-	Through <emphasis>File/Open</emphasis> (shortcut Ctrl+O) 
-	one or more files can be opened. As for creating files, you may want to open the files in a new window. In this case, use <emphasis>File/New Window</emphasis> to first open the new window and then open the desired files as usual.
+	Through <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>O</keycap></keycombo></shortcut><guimenu>File</guimenu><guimenuitem>Open...</guimenuitem></menuchoice> one or more files can be opened. As for creating files, you may want to open the files in a new window. In this case, use <menuchoice><guimenu>File</guimenu><guimenuitem>New Window</guimenuitem></menuchoice> to first open the new window and then open the desired files as usual.
 				<figure id="figure-open-file">
 				<title id="figure-open-file">Bluefish Open File Dialog</title>
 				<screenshot>
@@ -287,12 +286,11 @@ The latest opened directories appear in the upper part of the left side panel, w
 	</listitem>
 	</varlistentry>
 	</variablelist>
-	<para>Recently opened files can be 
-	opened by selecting them from the list within <emphasis>File/Open recent</emphasis>. The number of
-	files in this menu can be set in the preferences under <emphasis>Files</emphasis>.
+	<para>
+	Recently opened files can be opened by selecting them from the list within <menuchoice><guimenu>File</guimenu><guimenuitem>Open recent</guimenuitem></menuchoice>. The number of files in this menu can be set in the preferences under <emphasis>Files</emphasis>.
 	</para>
 	<para>
-	The file browser in the side panel can also be used to open files. It supports filtering files, by right clicking the contextual menu in the filebrowser. If you right click a directory, you can make this directory the base directory for the filebrowser using the <emphasis>Set as basedir</emphasis> option. Then you can access it directly from the popup menu in the upper part of the file browser.
+	The file browser in the side panel can also be used to open files. It supports filtering files, by right clicking the contextual menu in the filebrowser. If you right click a directory, you can make this directory the base directory for the filebrowser using the <guimenuitem>Set as basedir</guimenuitem> option. Then you can access it directly from the popup menu in the upper part of the file browser.
 				<figure id="figure-file-browser-filtering">
 				<title id="figure-file-browser-filtering">Filtering Files with the Bluefish File Browser</title>
 				<screenshot>
@@ -334,9 +332,8 @@ The latest opened directories appear in the upper part of the left side panel, w
 	<para>
 	An interesting feature of Bluefish is the 
 	ability to open files by selecting the text of a currently opened file. 
-	For example, if a filename is shown in for example a terminal application, 
-	you can select the filename, and use <emphasis>File/Open from Selection</emphasis> 
-	from the menu to open that file. 
+	For example, if a filename is shown in say a terminal application, 
+	you can select the filename, and use <menuchoice><guimenu>File</guimenu><guimenuitem>Open from Selection</guimenuitem></menuchoice> to open that file. 
 	The file, if it exists, will be opened in another tab within Bluefish. 
 	</para>
 	<para>
@@ -344,7 +341,7 @@ The latest opened directories appear in the upper part of the left side panel, w
 	Bluefish as arguments. This can even be done while Bluefish is running and 
 	the resulting file will then show up in its own tab.
 	</para>
-	<para>Files can also be opened by clicking on the second icon in the main toolbar.</para>
+	<para>Files can also be opened by clicking on the <guilabel>Open...</guilabel> icon in the main toolbar.</para>
 	<variablelist>
 	<varlistentry>
           <term><emphasis>Note</emphasis></term>
@@ -360,11 +357,24 @@ The latest opened directories appear in the upper part of the left side panel, w
 	If a document is modified, the filename is shown in red in the document tabs, and also 
 	if you right click on the tabs, the full path is shown in red in the list that will pop 
 	up.
+		<figure id="figure-modified-file-tooltip">
+				<title id="figure-modified-file-tooltip">Tool Tip for Modified File</title>
+				<screenshot>
+					<mediaobject>
+						<imageobject>
+							<imagedata fileref="figures/modified_file_tooltip.png" format="PNG"/>
+						</imageobject>
+						<textobject>
+							<phrase>Tool Tip for Modified File</phrase>
+						</textobject>
+					</mediaobject>
+				</screenshot>
+			</figure>
+
 	</para>
 	<para>
-	To save a document, you can use the <emphasis>File</emphasis> menu, use the save button in the toolbar, or you can 
-	press the shortcut key combination (Ctrl+S). By default a backup is made during save. The original file
-	is copied to the same filename with a tilde '~' appended. This suffix and the backup behaviour can
+	To save a document, you can use the <guimenu>File</guimenu> menu, the <guilabel>Save</guilabel> icon in the toolbar, or press the shortcut key combination <shortcut><keycombo><keycap>Ctrl</keycap><keycap>S</keycap></keycombo></shortcut>. By default a backup is made during save. The original file
+	is copied to the same filename with a tilde <keycap>~</keycap> appended. This suffix and the backup behaviour can
 	be changed in the preferences under <emphasis>Files</emphasis>.
 	</para>
 	<para>
@@ -375,30 +385,58 @@ The latest opened directories appear in the upper part of the left side panel, w
 	under <emphasis>Files</emphasis>.
 	</para>
 	<para>
-	You can also save a document under a different name, using the <emphasis>Save as</emphasis> menu
-	entry, the save as button in the toolbar, or the shortcut (Shift+Ctrl+S). The 
-	original file will still exist. It is also possible to move or rename a document, using the 
-	<emphasis>Rename</emphasis> option in the menu, or shortcut (F2).
+	You can also save a document under a different name, using the <menuchoice><shortcut><keycombo><keycap>Shift</keycap><keycap>Ctrl</keycap><keycap>S</keycap></keycombo></shortcut><guimenuitem>Save As...</guimenuitem></menuchoice> menu entry, or the <guilabel>Save As...</guilabel> icon in the main toolbar. The original file will still exist.
+		<figure id="figure-renaming-file">
+				<title id="figure-renaming-file">Saving a File under a new Name</title>
+				<screenshot>
+					<mediaobject>
+						<imageobject>
+							<imagedata fileref="figures/renaming_file.png" format="PNG"/>
+						</imageobject>
+						<textobject>
+							<phrase>Saving a File under a new Name</phrase>
+						</textobject>
+					</mediaobject>
+				</screenshot>
+			</figure>
 	</para>
 	<para>
-	To save all modified files, you can use the <emphasis>Save all</emphasis> menu entry. This will
-	save all documents that have been modified.
+	To save all modified files, you can use the <menuchoice><guimenu>File</guimenu><guimenuitem>Save All</guimenuitem></menuchoice> menu entry. This will save all documents that have been modified and bring you a save dialog if some files are new files.
 	</para>
+</sect2>
+<sect2 id="renaming">
+<title>Renaming files</title>
+<para>
+It is also possible to move or rename a document, using the 
+<menuchoice><shortcut><keycap>F2</keycap></shortcut><guimenu>File</guimenu><guimenuitem>Rename...</guimenuitem></menuchoice> menu item.
+		<figure id="figure-moving-file">
+				<title id="figure-moving-file">Moving a file to another location</title>
+				<screenshot>
+					<mediaobject>
+						<imageobject>
+							<imagedata fileref="figures/moving_file.png" format="PNG"/>
+						</imageobject>
+						<textobject>
+							<phrase>Moving a file to another location</phrase>
+						</textobject>
+					</mediaobject>
+				</screenshot>
+			</figure>
+</para>
 </sect2>
 <sect2 id="editing">
 <title>Editing</title>
 <sect3 id="undo-redo">
 <title>Undo and Redo</title>
 <para>
-The undo and redo functionality is available from the <emphasis>Edit</emphasis> menu, 
-from the main tool bar, and from the keyboard shortcuts. 
+The undo and redo functionalities are available from the <guimenu>Edit</guimenu> menu,  the main tool bar, and the keyboard shortcuts. 
 </para>
 <itemizedlist>
-	  <listitem><para>Undo (Ctrl+Z)</para></listitem>
-	  <listitem><para>Redo (Shift+Ctrl+Z)</para></listitem>
+	  <listitem><para><menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>Z</keycap></keycombo></shortcut><guimenuitem>Undo</guimenuitem></menuchoice></para></listitem>
+	  <listitem><para><menuchoice><shortcut><keycombo><keycap>Shift</keycap><keycap>Ctrl</keycap><keycap>Z</keycap></keycombo></shortcut><guimenuitem>Redo</guimenuitem></menuchoice></para></listitem>
 </itemizedlist>
 <para>
-The functions <emphasis>Undo all</emphasis> and <emphasis>Redo all</emphasis> in the <emphasis>Edit</emphasis> menu will undo or redo all 
+The functions <guimenuitem>Undo All</guimenuitem> and <guimenuitem>Redo All</guimenuitem> in the <guimenu>Edit</guimenu> menu will undo or redo all 
 of the stored changes. The maximum number of changes can be configured in
 the preferences, by default Bluefish will remember the last 100 changes per 
 document. It is possible to clear the changes after the document is saved, 
@@ -408,13 +446,12 @@ an option in the preferences which is disabled by default.
 <sect3 id="cut-copy-paste">
 <title>Cut, Copy, and Paste</title>
 <para>
-The functions <emphasis>Cut</emphasis>, <emphasis>Copy</emphasis>, and <emphasis>Paste</emphasis> are available from the <emphasis>Edit</emphasis> menu, from the 
-main tool bar, and from the keyboard shortcuts.
+The functions <guimenuitem>Cut</guimenuitem>, <guimenuitem>Copy</guimenuitem>, and <guimenuitem>Paste</guimenuitem> are available from the <guimenu>Edit</guimenu> menu, the main tool bar, and the keyboard shortcuts.
 </para>
 <itemizedlist>
-	  <listitem><para>Cut (Ctrl+X)</para></listitem>
-	  <listitem><para>Copy (Ctrl+C)</para></listitem>
-	  <listitem><para>Paste (Ctrl+V)</para></listitem>
+	  <listitem><para><menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>X</keycap></keycombo></shortcut><guimenuitem>Cut</guimenuitem></menuchoice></para></listitem>
+	  <listitem><para><menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>C</keycap></keycombo></shortcut><guimenuitem>Copy</guimenuitem></menuchoice></para></listitem>
+	  <listitem><para><menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>V</keycap></keycombo></shortcut><guimenuitem>Paste</guimenuitem></menuchoice></para></listitem>
 </itemizedlist>
 <para>
 On X Windows Systems, you can also paste the current selected text using the 
@@ -459,7 +496,7 @@ Document/Type menu.
 	adjusted in the preferences under <emphasis>Editor</emphasis>.
 	</para>
 	<para>The syntax highlighting for the total document can be refreshed
-	using the <emphasis>Document/Update highlighting</emphasis> menu, or the shortcut (F5). 
+	using the <menuchoice><shortcut><keycap>F5</keycap></shortcut><guimenu>Document</guimenu><guimenuitem>Update Highlighting</guimenuitem></menuchoice> menu. 
 	The syntax highlighting can be disabled in the preferences under 
 	<emphasis>Editor</emphasis>.
 	
@@ -472,8 +509,8 @@ Document/Type menu.
 <title>Remote files</title>
 	<para>
 		Assuming a working Internet connection, files can also be opened from the web using 
-	<emphasis>File &gt; Open URL</emphasis>(make sure to type the http:// or it 
-	doesn't work...bug, maybe???). 
+	<menuchoice><guimenu>File</guimenu><guimenuitem>File &gt; Open URL</guimenuitem></menuchoice> (make sure to type the http:// or it 
+	doesn't work... bug, maybe???). 
 	</para>
 </sect3>
 <sect3 id="character-encoding">
@@ -516,19 +553,19 @@ environment to make Gnome and GTK programs detect this encoding.
 <sect3 id="open-advanced">
 <title>Open advanced</title>
 	<para>
-		In the <emphasis>File &gt; Open Advanced</emphasis> dialog, multiple files 
+		In the <emphasis>File &gt; Open Advanced</emphasis> dialog, accessible from the <menuchoice><guimenu>File</guimenu><guimenuitem>File &gt; Open Advanced...</guimenuitem></menuchoice> menu item, multiple files 
 	can be opened from a directory based on their extension or by their content. The
 	same functionality is available from the filebrowser in the side panel. If you right
-	click a directory, you can also there select <emphasis>Open advanced</emphasis>.
+	click a directory, you can also there select <guimenuitem>Open advanced...</guimenuitem>.
 	</para>
 	<para>
 	To open all files by extension, enter the extension in the dialog, and leave the search 
-	pattern empty. Check the <emphasis>recursive</emphasis> option if you want to include
+	pattern empty. Check the <guilabel>recursive</guilabel> option if you want to include
 	all subdirectories in the search.
 	</para>
 	<para>
 	To open files by content, leave the extension at *, and enter a search pattern in the dialog. You can 
-	use regular expression patterns if you check the <emphasis>Is regex</emphasis> option.
+	use regular expression patterns if you check the <guilabel>Is regex</guilabel> option.
 	</para>
 	<para>
 	The open advanced functionality runs the find and grep utilities to get a list of filenames. If these 
@@ -583,7 +620,7 @@ environment to make Gnome and GTK programs detect this encoding.
 	the document notebook tabs, you get a list of all opened documents.
 	</para>
 	<para>
-	Navigation between documents can also be done using the Go menu.
+	Navigation between documents can also be done using the <guimenu>Go</guimenu> menu.
 	<figure id="figure-go-menu">
 				<title id="figure-go-menu-title">Bluefish Go Menu</title>
 				<screenshot>
