@@ -666,7 +666,7 @@ static gint rcfile_save_highlighting(void) {
 }
 
 void rcfile_parse_custom_menu(void) {
-	gchar *filename, *defaultfile, *langdefaultfile;
+	gchar *filename, *defaultfile, *langdefaultfile1, *langdefaultfile2, *tmp;
 	DEBUG_MSG("rcfile_parse_custom_menu, started\n");
 
 	custom_menu_configlist = NULL;
@@ -675,8 +675,14 @@ void rcfile_parse_custom_menu(void) {
 	init_prop_arraylist(&custom_menu_configlist, &main_v->props.cmenu_replace, "cmenu_replace:", 0, TRUE);
 
 	filename = g_strconcat(g_get_home_dir(), "/.bluefish/custom_menu", NULL);
-	langdefaultfile = g_strconcat(PKGDATADIR"custom_menu.default.", g_getenv("LANG"), NULL);
-	defaultfile = return_first_existing_filename(langdefaultfile, 
+	tmp = g_strdup(g_getenv("LANG"));
+	tmp = trunc_on_char(tmp, '.');
+	tmp = trunc_on_char(tmp, '@');
+	langdefaultfile1 = g_strconcat(PKGDATADIR"custom_menu.default.", tmp, NULL);
+	tmp = trunc_on_char(tmp, '_');
+	langdefaultfile2 = g_strconcat(PKGDATADIR"custom_menu.default.", tmp, NULL);
+	g_free(tmp);
+	defaultfile = return_first_existing_filename(langdefaultfile1, langdefaultfile2,
 									PKGDATADIR"custom_menu.default",
 									"data/custom_menu.default",
 									"../data/custom_menu.default",NULL);
@@ -794,7 +800,8 @@ void rcfile_parse_custom_menu(void) {
 
 	g_free(filename);
 	g_free(defaultfile);
-	g_free(langdefaultfile);
+	g_free(langdefaultfile1);
+	g_free(langdefaultfile2);
 }
 static gint rcfile_save_custom_menu(void) {
 	gint retval;
