@@ -927,18 +927,24 @@ gchar *fref_prepare_info(FRInfo * entry, gint infotype, gboolean use_colors)
 		case FR_INFO_ATTRS:
 			lst = g_list_first(entry->attributes);
 			while (lst) {
+				gchar *escaped1, *escaped2;
 				tmpa = (FRAttrInfo *) lst->data;
 				tofree = ret;
-				if (use_colors)
+				escaped1 = xml_escape(tmpa->name);
+				escaped2 = xml_escape(tmpa->description);
+				if (use_colors) 
+					
 					ret =
-						g_strconcat(ret, "<span size=\"small\" >          <b><i>", tmpa->name,
+						g_strconcat(ret, "<span size=\"small\" >          <b><i>", escaped1,
 									"</i></b></span> - <span size=\"small\" foreground=\"",
-									FR_COL_3, "\" >", tmpa->description, "</span>\n", NULL);
+									FR_COL_3, "\" >", escaped2, "</span>\n", NULL);
 				else
 					ret =
-						g_strconcat(ret, "<span size=\"small\" >          <b><i>", tmpa->name,
-									"</i></b></span> - <span size=\"small\">", tmpa->description,
+						g_strconcat(ret, "<span size=\"small\" >          <b><i>", escaped1,
+									"</i></b></span> - <span size=\"small\">", escaped2,
 									"</span>\n", NULL);
+				g_free(escaped1);
+				g_free(escaped2);
 				g_free(tofree);
 				lst = g_list_next(lst);
 			}
@@ -1023,25 +1029,40 @@ gchar *fref_prepare_info(FRInfo * entry, gint infotype, gboolean use_colors)
 				tmpp = (FRParamInfo *) lst->data;
 				tofree = ret;
 				if (tmpp->description != NULL && tmpp->type != NULL) {
+					gchar *escaped1, *escaped2, *escaped3;
+					escaped1 = xml_escape(tmpp->name);
+					escaped2 = xml_escape(tmpp->type);
+					escaped3 = xml_escape(tmpp->description);
 					if (use_colors)
 						ret =
-							g_strconcat(ret, "<span size=\"small\">          <b><i>", tmpp->name,
-										"(", tmpp->type,
+							g_strconcat(ret, "<span size=\"small\">          <b><i>", escaped1,
+										"(", escaped2,
 										")</i></b></span> - <span size=\"small\" foreground=\"",
-										FR_COL_3, "\">", tmpp->description, "</span>\n", NULL);
+										FR_COL_3, "\">", escaped3, "</span>\n", NULL);
 					else
 						ret =
-							g_strconcat(ret, "<span size=\"small\">          <b><i>", tmpp->name,
-										"(", tmpp->type, ")</i></b></span> - <span size=\"small\">",
-										tmpp->description, "</span>\n", NULL);
+							g_strconcat(ret, "<span size=\"small\">          <b><i>", escaped1,
+										"(", escaped2, ")</i></b></span> - <span size=\"small\">",
+										escaped3, "</span>\n", NULL);
+					g_free(escaped1);
+					g_free(escaped2);
+					g_free(escaped3);
 				} else if (tmpp->type != NULL) {
+					gchar *escaped1, *escaped2;
+					escaped1 = xml_escape(tmpp->name);
+					escaped2 = xml_escape(tmpp->type);
 					ret =
-						g_strconcat(ret, "<span size=\"small\">          <b><i>", tmpp->name, "(",
-									tmpp->type, ")</i></b></span>\n", NULL);
+						g_strconcat(ret, "<span size=\"small\">          <b><i>", escaped1, "(",
+									escaped2, ")</i></b></span>\n", NULL);
+					g_free(escaped1);
+					g_free(escaped2);
 				} else {
+					gchar *escaped1;
+					escaped1 = xml_escape(tmpp->name);
 					ret =
-						g_strconcat(ret, "<span size=\"small\">          <b><i>", tmpp->name,
+						g_strconcat(ret, "<span size=\"small\">          <b><i>", escaped1,
 									"</i></b></span>\n", NULL);
+					g_free(escaped1);
 				}
 				g_free(tofree);
 				lst = g_list_next(lst);
