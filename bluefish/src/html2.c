@@ -54,7 +54,7 @@ static GList *glist_with_html_tags(gint with_pseudo_classes) {
 	if(main_v->props.allow_h4){
 		tmplist = g_list_append(tmplist, "bdo");
 	}
-	tmplist = g_list_append(tmplist, "bockquote");
+	tmplist = g_list_append(tmplist, "blockquote");
 	tmplist = g_list_append(tmplist, "body");
 	tmplist = g_list_append(tmplist, "br");
 	if(main_v->props.allow_h4){
