@@ -324,7 +324,8 @@ typedef struct {
 	GtkWidget *notebook;
 	GtkWidget *notebook_fake;
 	GtkWidget *notebook_box; /* Container for notebook and notebook_fake */
-	GtkWidget *middlebox; /* we need this to show/hide the filebrowser */
+	GtkWidget *middlebox; /* holds the document notebook, OR the hpaned with the left panel AND the document notebook */
+	GtkWidget *vpane; /* holds the middlebox AND the outputbox (which might be NULL) */
 	GtkWidget *hpane; /* we need this to show/hide the filebrowser */
 	GtkWidget *statusbar;
 	GtkWidget *statusbar_lncol; /* where we have the line number */
@@ -339,7 +340,6 @@ typedef struct {
 	GtkWidget *main_toolbar_hb;
 	GtkWidget *html_toolbar_hb;
 	GtkWidget *custom_menu_hb; /* handle box for custom menu */
-	GtkWidget *output_box;
 	GtkWidget *leftpanel_notebook;
 	/* following are lists with dynamic menu entries */
 	GList *menu_recent_files;
