@@ -37,14 +37,32 @@
 #define DIRSTR "/"
 #define DIRCHR '/'
 #endif
-
+/**
+ * list_switch_order:
+ * @first: a #GList * item
+ * @second: a #GList * item
+ * 
+ * this function will switch place of these two list items
+ * actually not the items themselves, but the data they are 
+ * pointer to is switched
+ * 
+ * Return value: void
+ **/
 void list_switch_order(GList *first, GList *second) {
 	gpointer tmp;
 	tmp = first->data;
 	first->data = second->data;
 	second->data = tmp;
 }
-
+/**
+ * file_copy:
+ * @source: a #gchar * containing the source filename
+ * @dest: a #gchar * containing the destination filename
+ * 
+ * copies the contents of the file source to dest
+ * 
+ * Return value: gboolean, TRUE if the function succeeds
+ **/
 gboolean file_copy(gchar *source, gchar *dest) {
 #ifdef DEVELOPMENT
 	g_assert(source);
@@ -69,7 +87,16 @@ gboolean file_copy(gchar *source, gchar *dest) {
 	fclose(out);
 	return TRUE;
 }
-
+/**
+ * append_string_to_file:
+ * @filename: a #gchar * containing the destination filename
+ * @string: a #gchar * containing the string to append
+ * 
+ * opens the file filename in append mode, and appends the string
+ * no newline or anything else is appended, just the string
+ * 
+ * Return value: gboolean, TRUE if the function succeeds
+ **/
 gboolean append_string_to_file(gchar *filename, gchar *string) {
 	FILE *out;
 
@@ -82,7 +109,16 @@ gboolean append_string_to_file(gchar *filename, gchar *string) {
 	fclose(out);
 	return TRUE;
 }
-
+/**
+ * table_convert_char2int:
+ * @table: a #tconvert_table * with strings and integers
+ * @my_char: a #gchar * containing the string to convert
+ * 
+ * this function can be used to translate a string from some set (in table)
+ * to an integer
+ * 
+ * Return value: gint, found in table, or -1 if not found
+ **/
 gint table_convert_char2int(Tconvert_table *table, gchar *my_char) {
 	Tconvert_table *entry;
 	entry = table;
@@ -94,9 +130,18 @@ gint table_convert_char2int(Tconvert_table *table, gchar *my_char) {
 	}
 	return -1;
 }
-/* 
- * WARNING: does NOT malloc any memory, do not free!!
- */
+/**
+ * table_convert_int2char:
+ * @table: a #tconvert_table * with strings and integers
+ * @my_int: a #gint containing the integer to convert
+ * 
+ * this function can be used to translate an integer from some set (in table)
+ * to a string
+ * WARNING: This function will return a pointer into table, it will 
+ * NOT allocate new memory
+ * 
+ * Return value: gchar * found in table, else NULL
+ **/
 gchar *table_convert_int2char(Tconvert_table *table, gint my_int) {
 	Tconvert_table *entry;
 	entry = table;
@@ -108,7 +153,17 @@ gchar *table_convert_int2char(Tconvert_table *table, gint my_int) {
 	}
 	return NULL;
 }
-
+/**
+ * replace_string_printflike:
+ * @string: a formatstring #gchar * to convert
+ * @table: a #Tconvert_table * to use for conversion
+ * 
+ * this function can convert a format string with %0, %1 etc. 
+ * into the final string, where each %number entry is replaced 
+ * with the string found in table
+ * 
+ * Return value: a newly allocated gchar * with the resulting string
+ **/
 gchar *replace_string_printflike(const gchar *string, Tconvert_table *table) {
 	gchar *p, *prev, *stringdup;
 	gchar *tmp, *dest = g_strdup("");
@@ -156,20 +211,40 @@ typedef struct {
 } Tutf8_offset_cache;
 
 static Tutf8_offset_cache utf8_offset_cache;
+
+/**
+ * utf8_offset_cache_reset:
+ * 
+ * this function will reset the utf8 offset cache used by 
+ * utf8_byteoffset_to_charsoffset_cached()
+ *
+ * normally this is done automatically if utf8_byteoffset_to_charsoffset_cached() 
+ * is called with a new buffer. But if you ever call that function for 
+ * the same buffer but the buffer is changed in the meantime you have 
+ * to reset it manually using utf8_offset_cache_reset()
+ * 
+ * Return value: void
+ **/
 #ifdef __GNUC__
 __inline__ 
 #endif
 void utf8_offset_cache_reset() {
-	/* set all to 0, and set the last_buf to NULL */
-/*	gint i;
-	for (i=0;i<UTF8_OFFSET_CACHE_SIZE;i++) {
-		utf8_offset_cache.last_byteoffset[i] = 0;
-		utf8_offset_cache.last_charoffset[i] = 0;
-	}
-	utf8_offset_cache.last_buf = NULL;*/
 	memset(&utf8_offset_cache, 0, sizeof(Tutf8_offset_cache));
 }
-
+/**
+ * utf8_byteoffset_to_charsoffset_cached:
+ * @string: the gchar * you want to count
+ * @byteoffset: glong with the byteoffset you want the charoffset for
+ * 
+ * this function calculates the UTF-8 character offset in a string for
+ * a given byte offset
+ * It uses caching to speedup multiple calls for the same buffer, the cache
+ * is emptied if you change to another buffer. If you use the same buffer but 
+ * change it inbetween calls, you have to reset it yourself using
+ * the utf8_offset_cache_reset() function
+ * 
+ * Return value: guint with character offset
+ **/
 guint utf8_byteoffset_to_charsoffset_cached(gchar *string, glong byteoffset) {
 	guint retval;
 	gint i = UTF8_OFFSET_CACHE_SIZE-1;
@@ -193,11 +268,6 @@ guint utf8_byteoffset_to_charsoffset_cached(gchar *string, glong byteoffset) {
 	}
 	if (i == (UTF8_OFFSET_CACHE_SIZE-1)) {
 		/* add this new calculation to the cache */
-/*		gint j;
-		for (j=0;j<(UTF8_OFFSET_CACHE_SIZE-1);j++) {
-			utf8_offset_cache.last_byteoffset[j] = utf8_offset_cache.last_byteoffset[j+1];
-			utf8_offset_cache.last_charoffset[j] = utf8_offset_cache.last_charoffset[j+1];	
-		}*/
 		/* this is a nasty trick to move all guint entries one back in the array, so we can add the new one */
 		memmove(&utf8_offset_cache.last_byteoffset[0], &utf8_offset_cache.last_byteoffset[1], (UTF8_OFFSET_CACHE_SIZE+UTF8_OFFSET_CACHE_SIZE-1)*sizeof(guint));
 
@@ -207,14 +277,16 @@ guint utf8_byteoffset_to_charsoffset_cached(gchar *string, glong byteoffset) {
 	return retval;
 }
 
-/**************************************************/
-/**************************************************/
-
-
-
-/* static guint countchars(gchar *string, gchar *chars)
- * counts the amount of times the chars in chars are present in string */
-static guint countchars(gchar *string, gchar *chars) {
+/**
+ * countchars:
+ * @string: a gchar * to count the chars in
+ * @chars: a gchar * with the characters you are interested in
+ *
+ * this function will count every character in string that is also in chars
+ * 
+ * Return value: guint with the number of characters found
+ **/
+guint countchars(gchar *string, gchar *chars) {
 	guint count=0;
 	gchar *newstr = strpbrk(string, chars);
 	while(newstr) {
@@ -224,8 +296,16 @@ static guint countchars(gchar *string, gchar *chars) {
 	return count;
 }
 
-/* gchar *escapestring(gchar *original, gchar delimiter)
- * returns a newly allocated string which is backslash escaped */
+/**
+ * escapestring:
+ * @original: a gchar * to escape
+ * @delimiter: a gchar that needs escaping, use '\0' if you don't need one
+ *
+ * this function will backslash escape \n, \t, and \ characters, and if 
+ * there is a delimiter it will also be escaped
+ * 
+ * Return value: a newly allocated gchar * that is escaped
+ **/
 gchar *escapestring(gchar *original, gchar delimiter)
 {
 	gchar *tmp, *newstring, *escapedchars;
@@ -272,8 +352,16 @@ gchar *escapestring(gchar *original, gchar delimiter)
 	return newstring;
 }
 
-/* gchar *unescapestring(gchar *original)
- * returns a newly allocated string which is backslash un-escaped */
+/**
+ * escapestring:
+ * @original: a gchar * to unescape
+ *
+ * this function will backslash unescape \n, \t, and \\ sequences to 
+ * their characters, and if there is any other escaped character 
+ * it will be replaced without the backslash
+ * 
+ * Return value: a newly allocated gchar * that is unescaped
+ **/
 gchar *unescapestring(gchar *original)
 {
 	gchar *tmp1, *tmp2, *newstring;
@@ -321,9 +409,15 @@ gchar *unescapestring(gchar *original)
 	return newstring;
 }
 
-
-/* gboolean change_dir(gchar * filename)
- * changes the current working directory to the directory of filename */
+/**
+ * change_dir:
+ * @filename: a gchar * with the path (may be a filename!!) to change to
+ *
+ * this function will get the directory name from the filename
+ * and chdir() to that directory
+ * 
+ * Return value: gboolean, returning what chdir() returned
+ **/
 gboolean change_dir(gchar * filename)
 {
 	gchar *tmpstring;
@@ -339,9 +433,16 @@ gboolean change_dir(gchar * filename)
 	return returncode;
 }
 
-/* gchar *strip_any_whitespace(gchar *string)
+/**
+ * strip_any_whitespace:
+ * @string: a gchar * to strip
+ *
  * strips any double chars defined by isspace() from the string, 
- * only single spaces are returned */
+ * only single spaces are returned
+ * the same string is returned, no memory is allocated in this function
+ * 
+ * Return value: the same gchar * as passed to the function
+ **/
 gchar *strip_any_whitespace(gchar *string) {
 	gint count=0, len;
 
@@ -371,13 +472,16 @@ gchar *strip_any_whitespace(gchar *string) {
 	DEBUG_MSG("strip_any_whitespace, returning string='%s'\n", string);
 	return string;
 }
-
-
-/* gchar *trunc_on_char(gchar * string, gchar which_char)
- *      string - text string
- *      which_char      - termination character
+/**
+ * trunc_on_char:
+ * @string: a gchar * to truncate
+ * @which_char: a gchar with the char to truncate on
+ *
  * Returns a pointer to the same string which is truncated at the first
- * occurence of which_char */
+ * occurence of which_char
+ * 
+ * Return value: the same gchar * as passed to the function
+ **/
 gchar *trunc_on_char(gchar * string, gchar which_char)
 {
 	gchar *tmpchar = string;
@@ -390,13 +494,12 @@ gchar *trunc_on_char(gchar * string, gchar which_char)
 	}
 	return string;
 }
-
 /* gchar *strip_common_path(char *image_fn, char *html_fn)
  * returns a newly allocated string containing the the to_filename
  * but all the common path with from_filename is removed 
  *
- * IS THIS IN USE ?? */ 
-gchar *strip_common_path(char *to_filename, char *from_filename)
+ * IS THIS IN USE ?? OBVIOUSLY NOT BECAUSE I CAN REMOVE IT */ 
+/*gchar *strip_common_path(char *to_filename, char *from_filename)
 {
 	gchar *tempstr;
 	int count, count2, dir_length;
@@ -413,26 +516,25 @@ gchar *strip_common_path(char *to_filename, char *from_filename)
 			break;
 		}
 	}
-
-	/* contributed by Tony Kemp <tony.kemp@studentmail.newcastle.edu.au> */
 	while (to_filename[count - 1] != DIRCHR)
 		count--;
-
-
 	DEBUG_MSG("strip_common_path, equal count = %d\n", count);
 	count2 = strlen(to_filename);
 	tempstr = g_malloc(count2 - count + 2);
 	memcpy(tempstr, &to_filename[count], count2 - count + 2);
 	DEBUG_MSG("strip_common_path, tempstr= %s, should be %d long\n", tempstr, count2 - count);
 	return tempstr;
-	/* the function that calls this one must use gfree() somewhere!! */
-}
+} */
 
-
-/* gchar *most_efficient_filename(gchar *filename)
- *      filename: the string which will be modified to remove dir/../
- * Returns the same string, but modified , 
- * not wanted dir/../ combinations are removed */
+/**
+ * most_efficient_filename:
+ * @filename: a gchar * with a possibly inefficient filename like /hello/../tmp/../myfile
+ *
+ * tries to eliminate any dir/../ combinations in filename
+ * this function could do evern better, it should also remove /./ entries
+ * 
+ * Return value: the same gchar * as passed to the function
+ **/
 gchar *most_efficient_filename(gchar *filename) {
 	gint i,j, len;
 
@@ -455,11 +557,21 @@ gchar *most_efficient_filename(gchar *filename) {
 	return filename;
 }
 
-
-/* gchar *create_relative_link_to(gchar * current_filepath, gchar * link_to_filepath)
- * 	current_filepath: the file to link FROM, a full path
- * 	link_to_filepath: the file to link TO, a full path
- * Returns a newly allocated string containing a relative path */
+/**
+ * create_relative_link_to:
+ * @current_filepath: a gchar * with the current filename
+ * @link_to_filepath: a gchar * with a file to link to
+ *
+ * creates a newly allocated relative link from current_filepath 
+ * to link_to_filepath
+ *
+ * if current_filepath == NULL it returns the most efficient filepath 
+ * for link_to_filepath
+ *
+ * if link_to_filepath == NULL it will return NULL
+ *
+ * Return value: a newly allocated gchar * with the relative link
+ **/
 gchar *create_relative_link_to(gchar * current_filepath, gchar * link_to_filepath)
 {
 	gchar *returnstring = NULL;
@@ -478,9 +590,7 @@ gchar *create_relative_link_to(gchar * current_filepath, gchar * link_to_filepat
 	eff_current_filepath = most_efficient_filename(g_strdup(current_filepath));
 	eff_link_to_filepath = most_efficient_filename(g_strdup(link_to_filepath));
 
-	/* get the size of the directory    of the current_filename */
-
-	
+	/* get the size of the directory of the current_filename */
 	current_filename_length = strlen(strrchr(eff_current_filepath, DIRCHR))-1;
 	link_to_filename_length = strlen(strrchr(eff_link_to_filepath, DIRCHR))-1;
 	DEBUG_MSG("create_relative_link_to, filenames: current: %d, link_to:%d\n", current_filename_length,link_to_filename_length); 
