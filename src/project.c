@@ -33,6 +33,7 @@
 #include "bf_lib.h"
 #include "filebrowser.h"
 #include "menu.h"
+#include "bookmark.h"
 
 static void free_session(Tsessionvars *session) {
 	free_stringlist(session->classlist);
@@ -45,6 +46,7 @@ static void free_session(Tsessionvars *session) {
 	free_stringlist(session->positionlist);
 	free_stringlist(session->searchlist);
 	free_stringlist(session->replacelist);
+	free_arraylist(session->bmarks);
 	g_free(session);
 }
 
@@ -114,6 +116,7 @@ gboolean project_save(Tbfwin *bfwin, gboolean save_as) {
 		/* there is no project yet, we have to create one */
 		DEBUG_MSG("project_save, bfwin=%p does not have a project yet, create one\n",bfwin);
 		bfwin->project= create_new_project(bfwin);
+  	   bmark_reload(bfwin);
 	}
 	DEBUG_MSG("project_save, project=%p, num files was %d\n", bfwin->project, g_list_length(bfwin->project->files));
 	update_project_filelist(bfwin, bfwin->project);
@@ -201,6 +204,7 @@ void project_open_from_file(Tbfwin *bfwin, gchar *fromfilename) {
 	}
 	set_project_menu_widgets(prwin, TRUE);
 	recent_menu_init_project(prwin);
+   bmark_reload(bfwin);
 }
 
 static void project_open(Tbfwin *bfwin) {

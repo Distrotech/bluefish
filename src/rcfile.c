@@ -870,10 +870,9 @@ static GList *return_session_configlist(GList *configlist, Tsessionvars *session
 	init_prop_stringlist(&configlist, &session->urllist, "urllist:", FALSE);
 	init_prop_stringlist(&configlist, &session->fontlist, "fontlist:", FALSE);
 	init_prop_stringlist(&configlist, &session->dtd_cblist, "dtd_cblist:", FALSE);
-	init_prop_arraylist (&configlist, &session->bmarks_temp, "bmarks_temp:", 0, FALSE); /* what is the lenght for a bookmark array? */
-	init_prop_arraylist (&configlist, &session->bmarks_perm, "bmarks_perm:", 0, FALSE);
-	init_prop_limitedstringlist(&configlist, &session->bmarks_perm, "recent_files:", main_v->props.max_recent_files, FALSE);
-	init_prop_limitedstringlist(&configlist, &session->bmarks_perm, "recent_dirs:", main_v->props.max_dir_history, FALSE);
+	init_prop_arraylist (&configlist, &session->bmarks, "bmarks:", 0, FALSE); /* what is the lenght for a bookmark array? */
+	init_prop_limitedstringlist(&configlist, &session->recent_files, "recent_files:", main_v->props.max_recent_files, FALSE);
+	init_prop_limitedstringlist(&configlist, &session->recent_dirs, "recent_dirs:", main_v->props.max_dir_history, FALSE);
 	return configlist;
 }
 
