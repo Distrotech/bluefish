@@ -749,11 +749,11 @@ void rcfile_parse_custom_menu(gboolean full_reset, gboolean load_new) {
 	gchar *defaultfile, *langdefaultfile1=NULL, *langdefaultfile2=NULL, *tmp;
 	DEBUG_MSG("rcfile_parse_custom_menu, started\n");
 
+#ifdef PLATFORM_DARWIN
+	tmp = g_strdup(g_getenv("LANGUAGE"));
+#else
 	tmp = g_strdup(g_getenv("LANG"));
-	if (!tmp) {
-		/* on macosx it seems to be LANGUAGE */
-		tmp = g_strdup(g_getenv("LANGUAGE"));
-	}
+#endif
 	DEBUG_MSG("rcfile_parse_custom_menu, Language is: %s", tmp);
 	if (tmp) {
 		tmp = trunc_on_char(tmp, '.');
