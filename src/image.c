@@ -1,4 +1,5 @@
 #include <gtk/gtk.h>
+#include <string.h>
 
 #include "bluefish.h"
 #include "html_diag.h"
@@ -13,10 +14,9 @@ typedef struct {
 	GtkWidget *im;
 
 	/* and some options for the thumbnails */
-	GtkWidget *set_default;
-	GtkWidget *set_by[3];
-	GtkWidget *value_of[3];
+	gboolean is_thumbnail;
 	GtkAdjustment *adjustment;
+	guint adj_changed_id;
 } Timage_diag;
 
 
@@ -29,8 +29,42 @@ void image_diag_destroy_cb(GtkWidget * widget, GdkEvent *event,  Timage_diag *im
 static void image_insert_dialogok_lcb(GtkWidget * widget, Timage_diag *imdg) {
 	gchar *thestring, *finalstring;
 
-	thestring = g_strdup(cap("<IMG"));
-	thestring = insert_string_if_entry(imdg->dg->entry[0], cap("SRC"), thestring, NULL);
+	if (imdg->is_thumbnail) {
+		gchar *thumbnailfilename, *filename, *tmp;
+		gint len=0;
+
+		filename = gtk_editable_get_chars(GTK_EDITABLE(imdg->dg->entry[0]), 0, -1);
+		tmp = strrchr(filename, '.');
+		if (tmp) {
+			len = strlen(tmp);
+		}
+		thumbnailfilename = g_malloc0((strlen(filename)-len+strlen(main_v->props.image_thumbnailstring)+strlen(main_v->props.image_thumbnailtype)+1)*sizeof(gchar));
+		thumbnailfilename = strncpy(thumbnailfilename, filename, strlen(filename)-len);
+		thumbnailfilename = strcat(thumbnailfilename, main_v->props.image_thumbnailstring);
+		thumbnailfilename = strcat(thumbnailfilename, ".");
+		thumbnailfilename = strcat(thumbnailfilename, main_v->props.image_thumbnailtype);
+		{
+			gint w,h;
+			GError *error=NULL;
+			GdkPixbuf *tmp_im;
+			w = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(imdg->dg->spin[0]));
+			h = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(imdg->dg->spin[1]));
+			tmp_im = gdk_pixbuf_scale_simple(imdg->pb, w, h, GDK_INTERP_BILINEAR);
+ 			gdk_pixbuf_save(tmp_im,thumbnailfilename,main_v->props.image_thumbnailtype,&error, NULL);
+			gdk_pixbuf_unref (tmp_im);
+			if (error) {
+				g_print("ERROR while saving thumbnail: %s\n", error->message);
+				g_error_free(error);
+			}
+		}
+		thestring = g_strconcat(cap("<A HREF=\""),filename, cap("\"><IMG SRC=\""), thumbnailfilename, "\"", NULL);
+		g_free(filename);
+		g_free(thumbnailfilename);
+	} else {
+		thestring = g_strdup(cap("<IMG"));
+		thestring = insert_string_if_entry(imdg->dg->entry[0], cap("SRC"), thestring, NULL);
+	}
+
 	thestring = insert_integer_if_spin(imdg->dg->spin[0], cap("WIDTH"), thestring, imdg->dg->check[0]);
 	thestring = insert_integer_if_spin(imdg->dg->spin[1], cap("HEIGHT"), thestring, imdg->dg->check[1]);
 	thestring = insert_integer_if_spin(imdg->dg->spin[2], cap("BORDER"), thestring, NULL);
@@ -99,8 +133,16 @@ static void image_filename_changed(GtkWidget * widget, Timage_diag *imdg) {
 	if ((pd_height / 300) > toobig) {
 		toobig = pd_height / 300;
 	}
-	gtk_spin_button_set_value(GTK_SPIN_BUTTON(imdg->dg->spin[0]), pb_width);
-	gtk_spin_button_set_value(GTK_SPIN_BUTTON(imdg->dg->spin[1]), pd_height);
+	if (imdg->is_thumbnail) {
+		gtk_spin_button_set_value(GTK_SPIN_BUTTON(imdg->dg->spin[0]), (pb_width/toobig));
+		gtk_spin_button_set_value(GTK_SPIN_BUTTON(imdg->dg->spin[1]), (pd_height/toobig));
+		g_signal_handler_block(G_OBJECT(imdg->adjustment), imdg->adj_changed_id);
+		gtk_adjustment_set_value(GTK_ADJUSTMENT(imdg->adjustment), 1.0 / toobig);
+		g_signal_handler_unblock(G_OBJECT(imdg->adjustment), imdg->adj_changed_id);
+	} else {
+		gtk_spin_button_set_value(GTK_SPIN_BUTTON(imdg->dg->spin[0]), pb_width);
+		gtk_spin_button_set_value(GTK_SPIN_BUTTON(imdg->dg->spin[1]), pd_height);
+	}
 	
 	tmp_pb = gdk_pixbuf_scale_simple(imdg->pb, (pb_width / toobig), (pd_height / toobig), GDK_INTERP_NEAREST);
 	imdg->im = gtk_image_new_from_pixbuf(tmp_pb);
@@ -109,9 +151,28 @@ static void image_filename_changed(GtkWidget * widget, Timage_diag *imdg) {
 	gtk_widget_show(imdg->im);
 }
 
-static void thumbnail_changed(Timage_diag *imdg, gboolean reload) {
-	GdkPixbuf *tmp_pb;
 
+static void image_adjust_changed(GtkAdjustment * adj, Timage_diag *imdg) {
+	GdkPixbuf *tmp_pb;
+	gint tn_width, tn_height;
+	if (!imdg->pb) {
+		image_filename_changed(NULL, imdg);
+		return;
+	}
+	if (imdg->im) {
+		gtk_widget_destroy(imdg->im);
+	}
+	tn_width = imdg->adjustment->value * gdk_pixbuf_get_width(imdg->pb);
+	tn_height = imdg->adjustment->value * gdk_pixbuf_get_height(imdg->pb);
+
+	gtk_spin_button_set_value(GTK_SPIN_BUTTON(imdg->dg->spin[0]), tn_width);
+	gtk_spin_button_set_value(GTK_SPIN_BUTTON(imdg->dg->spin[1]),tn_height);
+
+	tmp_pb = gdk_pixbuf_scale_simple(imdg->pb, tn_width, tn_height, GDK_INTERP_NEAREST);
+	imdg->im = gtk_image_new_from_pixbuf(tmp_pb);
+	gdk_pixbuf_unref(tmp_pb);
+	gtk_container_add(GTK_CONTAINER(imdg->frame), imdg->im);
+	gtk_widget_show(imdg->im);
 }
 
 void image_insert_dialog_backend(gchar *filename,GtkWidget *widget, gpointer data, gboolean is_thumbnail) {
@@ -124,6 +185,7 @@ void image_insert_dialog_backend(gchar *filename,GtkWidget *widget, gpointer dat
 	imdg = g_new(Timage_diag, 1);
 	imdg->pb = NULL;
 	imdg->im = NULL;
+	imdg->is_thumbnail = is_thumbnail;
 	if (is_thumbnail) {
 		imdg->dg = html_diag_new(_("Insert image"));
 	} else {
@@ -135,43 +197,17 @@ void image_insert_dialog_backend(gchar *filename,GtkWidget *widget, gpointer dat
 	}
 
 	imdg->frame = gtk_frame_new(_("Preview"));
-	gtk_widget_set_usize(imdg->frame, -1, 50);
-	gtk_box_pack_start(GTK_BOX(imdg->dg->vbox), imdg->frame, FALSE, FALSE, 0);
+/*	gtk_widget_set_usize(imdg->frame, -1, 50);*/
+	gtk_box_pack_start(GTK_BOX(imdg->dg->vbox), imdg->frame, TRUE, TRUE, 0);
 	if (is_thumbnail) {
-		GtkWidget *scale, *frame2;
+		GtkWidget *scale;
 
-		frame2 = gtk_frame_new(_("Thumbnail settings"));
-		gtk_box_pack_start(GTK_BOX(imdg->dg->vbox), frame2, FALSE, FALSE, 0);
-
-		dgtable = gtk_table_new(3, 3, FALSE);
-		gtk_table_set_row_spacings(GTK_TABLE(dgtable), 4);
-		gtk_table_set_col_spacings(GTK_TABLE(dgtable), 4);
-		gtk_container_add(GTK_CONTAINER(frame2), dgtable);
-		
-		imdg->set_by[0] = radiobut_with_value(_("Set by width"), (main_v->props.image_thumbnailsizing_type == 0)?1:0 , NULL);
-		gtk_table_attach(GTK_TABLE(dgtable), imdg->set_by[0], 0, 1, 0, 1, GTK_FILL, GTK_FILL, 0, 0);
-		imdg->set_by[1] = radiobut_with_value(_("Set by height"), (main_v->props.image_thumbnailsizing_type == 1)?1:0, imdg->set_by[0]);
-		gtk_table_attach(GTK_TABLE(dgtable), imdg->set_by[1], 0, 1, 1, 2, GTK_FILL, GTK_FILL, 0, 0);
-		imdg->set_by[2] = radiobut_with_value(_("Set by ratio"), (main_v->props.image_thumbnailsizing_type == 2)?1:0, imdg->set_by[1]);
-		gtk_table_attach(GTK_TABLE(dgtable), imdg->set_by[2], 0, 1, 2, 3, GTK_FILL, GTK_FILL, 0, 0);
-		
-		imdg->value_of[0] = spinbut_with_value("", 1, 10000, 1, 10);
-		gtk_table_attach(GTK_TABLE(dgtable), imdg->value_of[0], 1, 2, 0, 1, GTK_FILL, GTK_FILL, 0, 0);
-		imdg->value_of[1] = spinbut_with_value("", 1, 10000, 1, 10);
-		gtk_table_attach(GTK_TABLE(dgtable), imdg->value_of[1], 1, 2, 1, 2, GTK_FILL, GTK_FILL, 0, 0);
-		imdg->value_of[2] = spinbut_with_value("", 0.0001, 1.1, 0.01, 0.1);
-		gtk_table_attach(GTK_TABLE(dgtable), imdg->value_of[2], 1, 2, 2, 3, GTK_FILL, GTK_FILL, 0, 0);
-		
-		imdg->set_default = checkbut_with_value(_("Set as default"), 0);
-		gtk_table_attach(GTK_TABLE(dgtable), imdg->set_default, 2, 3, 0, 1, GTK_FILL, GTK_FILL, 0, 0);
-		
 		imdg->adjustment = GTK_ADJUSTMENT(gtk_adjustment_new(0.5, 0.0001, 1.1, 0.001, 0.1, 0.1));
 		scale = gtk_hscale_new(imdg->adjustment);
-/*		gtk_signal_connect(GTK_OBJECT(imdg->adjustment), "value_changed", G_CALLBACK(image_adjust_changed), imdg);*/
+		imdg->adj_changed_id = g_signal_connect(G_OBJECT(imdg->adjustment), "value_changed", G_CALLBACK(image_adjust_changed), imdg);
 		gtk_scale_set_digits(GTK_SCALE(scale), 3);
 		gtk_range_set_update_policy(GTK_RANGE(scale), GTK_UPDATE_DISCONTINUOUS);
-		gtk_table_attach_defaults(GTK_TABLE(dgtable), scale, 2, 3, 1, 3);
-		
+		gtk_box_pack_start(GTK_BOX(imdg->dg->vbox), scale, FALSE, FALSE, 0);
 	}
 
 	dgtable = html_diag_table_in_vbox(imdg->dg, 5, 9);
@@ -245,4 +281,103 @@ void image_insert_dialog_cb(GtkWidget * widget, gpointer data) {
 }
 void thumbnail_insert_dialog_cb(GtkWidget * widget, gpointer data) {
 	image_insert_dialog_backend(NULL, NULL, NULL, TRUE);
+}
+
+typedef struct {
+	GtkWidget *win;
+	GtkWidget *radio[4];
+	GtkWidget *spinlabels[2];
+	GtkWidget *spins[2];
+	GtkTextBuffer *tbuf;
+	gint mode;
+} Tmuthudia;
+
+static void multi_thumbnail_dialog_destroy(GtkWidget *wid, GdkEvent *event, Tmuthudia *mtd) {
+	window_destroy(mtd->win);
+	g_free(mtd);
+}
+
+static void multi_thumbnail_ok_clicked(GtkWidget *widget, Tmuthudia *mtd) {
+	multi_thumbnail_dialog_destroy(NULL, NULL, mtd);
+}
+
+static void multi_thumbnail_cancel_clicked(GtkWidget *widget, Tmuthudia *mtd) {
+	multi_thumbnail_dialog_destroy(NULL, NULL, mtd);
+}
+
+static void multi_thumbnail_radio_toggled_lcb(GtkToggleButton *togglebutton,Tmuthudia *mtd) {
+	/* only call this for activate, not for de-activate*/
+	if (togglebutton->active) {
+		if (GTK_TOGGLE_BUTTON(mtd->radio[0])->active) {
+			gtk_widget_hide(mtd->spins[1]);
+			gtk_widget_hide(mtd->spinlabels[1]);
+		} else if (GTK_TOGGLE_BUTTON(mtd->radio[1])->active) {
+			gtk_widget_hide(mtd->spins[1]);
+			gtk_widget_hide(mtd->spinlabels[1]);
+		} else if (GTK_TOGGLE_BUTTON(mtd->radio[2])->active) {
+			gtk_widget_hide(mtd->spins[1]);
+			gtk_widget_hide(mtd->spinlabels[1]);
+		} else {
+			gtk_widget_show(mtd->spins[1]);
+			gtk_widget_show(mtd->spinlabels[1]);
+		}
+	}
+}
+
+void multi_thumbnail_dialog_cb(GtkWidget * widget, gpointer data) {
+	Tmuthudia *mtd;
+	GtkWidget *vbox, *hbox, *but, *table, *view, *label;
+	
+	mtd = g_new(Tmuthudia, 1);
+	mtd->win = window_full(_("Multi thumbnail"), GTK_WIN_POS_MOUSE, 5, G_CALLBACK(multi_thumbnail_dialog_destroy), mtd);
+	vbox = gtk_vbox_new(FALSE,5);
+	gtk_container_add(GTK_CONTAINER(mtd->win), vbox);
+	
+	table = gtk_table_new(4,3,FALSE);
+	mtd->radio[0] = gtk_radio_button_new_with_label(NULL, _("By scaling"));
+	mtd->radio[1] = gtk_radio_button_new_with_label_from_widget(GTK_RADIO_BUTTON(mtd->radio[0]),_("By width, keep aspect ratio"));
+	mtd->radio[2] = gtk_radio_button_new_with_label_from_widget(GTK_RADIO_BUTTON(mtd->radio[0]),_("By height, keep aspect ratio"));
+	mtd->radio[3] = gtk_radio_button_new_with_label_from_widget(GTK_RADIO_BUTTON(mtd->radio[0]),_("By width and height, ignore aspect ratio"));
+	mtd->spinlabels[0] = gtk_label_new("");
+	mtd->spinlabels[1] = gtk_label_new("");
+	mtd->spins[0] = gtk_spin_button_new_with_range(0,1000,1);
+	mtd->spins[1] = gtk_spin_button_new_with_range(0,1000,1);
+	
+	g_signal_connect(G_OBJECT(mtd->radio[0]), "toggled", G_CALLBACK(multi_thumbnail_radio_toggled_lcb), mtd);
+	g_signal_connect(G_OBJECT(mtd->radio[1]), "toggled", G_CALLBACK(multi_thumbnail_radio_toggled_lcb), mtd);
+	g_signal_connect(G_OBJECT(mtd->radio[2]), "toggled", G_CALLBACK(multi_thumbnail_radio_toggled_lcb), mtd);
+	g_signal_connect(G_OBJECT(mtd->radio[3]), "toggled", G_CALLBACK(multi_thumbnail_radio_toggled_lcb), mtd);
+	
+	multi_thumbnail_radio_toggled_lcb(mtd->radio[0], mtd);
+	
+	gtk_table_attach_defaults(GTK_TABLE(table), mtd->radio[0], 0, 1, 0, 1);
+	gtk_table_attach_defaults(GTK_TABLE(table), mtd->radio[1], 0, 1, 1, 2);
+	gtk_table_attach_defaults(GTK_TABLE(table), mtd->radio[2], 0, 1, 2, 3);
+	gtk_table_attach_defaults(GTK_TABLE(table), mtd->radio[3], 0, 1, 3, 4);
+	gtk_table_attach_defaults(GTK_TABLE(table), mtd->spinlabels[0], 1, 2, 0, 1);
+	gtk_table_attach_defaults(GTK_TABLE(table), mtd->spinlabels[1], 1, 2, 1, 2);
+	gtk_table_attach_defaults(GTK_TABLE(table), mtd->spins[0], 2, 3, 0, 1);
+	gtk_table_attach_defaults(GTK_TABLE(table), mtd->spins[1], 2, 3, 1, 2);
+	
+	gtk_box_pack_start(GTK_BOX(vbox),table,FALSE,FALSE,0);
+	
+	label = gtk_label_new("%r: original filename  %t: thumbnail filename\n%w: original width  %h: original height\n%x: thumbnail width  %y: thumbnail height\n%b: original size (bytes)");
+	gtk_box_pack_start(GTK_BOX(vbox),label,FALSE,FALSE,0);
+	
+	mtd->tbuf = gtk_text_buffer_new(NULL);
+	gtk_text_buffer_set_text(mtd->tbuf, main_v->props.image_thumnailformatstring, -1);
+	view = gtk_text_view_new_with_buffer(mtd->tbuf);
+	gtk_text_view_set_wrap_mode(GTK_TEXT_VIEW(view),GTK_WRAP_CHAR);
+	gtk_box_pack_start(GTK_BOX(vbox),view,TRUE,TRUE,0);
+	
+	hbox = gtk_hbutton_box_new();
+	gtk_hbutton_box_set_layout_default(GTK_BUTTONBOX_END);
+	gtk_button_box_set_spacing(GTK_BUTTON_BOX(hbox), 1);
+	gtk_box_pack_start(GTK_BOX(vbox),hbox,FALSE, FALSE, 0);
+	but = bf_stock_cancel_button(G_CALLBACK(multi_thumbnail_cancel_clicked), mtd);
+	gtk_box_pack_start(GTK_BOX(hbox), but,FALSE, FALSE, 0);
+	but = bf_stock_ok_button(G_CALLBACK(multi_thumbnail_ok_clicked), mtd);
+	gtk_box_pack_start(GTK_BOX(hbox), but,FALSE, FALSE, 0);
+	gtk_window_set_default(GTK_WINDOW(mtd->win), but);
+	gtk_widget_show_all(mtd->win);
 }

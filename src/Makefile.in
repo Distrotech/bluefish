@@ -81,7 +81,7 @@ patchclean: clean
 	rm -f *.orig *.rej  
 
 distclean: patchclean
-	rm -f config.h
+	rm -f config.h Makefile
 
 install: all
 	$(INSTALL_DIR) $(bindir)
