@@ -7,6 +7,7 @@
 #include "stringlist.h" /* duplicate_arraylist*/
 #include "bf_lib.h" /* list_switch_order() */
 #include "gtk_easy.h"
+#include "document.h"
 #include "pixmap.h"
 #include "highlight.h"
 #include "filebrowser.h"
@@ -1664,6 +1665,7 @@ static void preferences_ok_clicked_lcb(GtkWidget *wid, Tprefdialog *pd) {
 	encoding_menu_rebuild();
 	external_menu_rebuild(); /* browsers is also rebuild here! */
 	gui_apply_settings();
+	all_documents_apply_settings();
 	preferences_destroy_lcb(NULL, pd);
 }
 static void preferences_cancel_clicked_lcb(GtkWidget *wid, Tprefdialog *pd) {
