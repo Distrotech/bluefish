@@ -609,24 +609,27 @@ static void filebrowser_expand_to_root(const GtkTreePath *this_path) {
 }
 
 void filebrowser_open_dir(gchar *dir) {
+	if (filebrowser.tree) {
 	/* first check if the dir already exists */
-	GtkTreePath *path = return_path_from_filename(filebrowser.store, dir);
-	DEBUG_DUMP_TREE_PATH(path);
-	if (path) {
-		DEBUG_MSG("jump_to_dir, it exists in tree, refreshing\n");
-		refresh_dir_by_path_and_filename(GTK_TREE_STORE(filebrowser.store), path, dir);
-		DEBUG_MSG("jump_to_dir, now scroll to the path\n");
-		filebrowser_expand_to_root(path);
-		gtk_tree_view_scroll_to_cell(GTK_TREE_VIEW(filebrowser.tree),path,0,TRUE,0.5,0.5);
-	} else {
-		DEBUG_MSG("jump_to_dir, it does NOT exist in the tree, building..\n");
-		path = build_tree_from_path(GTK_TREE_STORE(filebrowser.store), dir);
-/*		path = return_path_from_filename(GTK_TREE_STORE(filebrowser.store), dir);*/
-/*		gtk_tree_view_expand_row(GTK_TREE_VIEW(filebrowser.tree),path,FALSE);*/
-		filebrowser_expand_to_root(path);
-		gtk_tree_view_scroll_to_cell(GTK_TREE_VIEW(filebrowser.tree),path,0,TRUE,0.5,1.0);
+		GtkTreePath *path = return_path_from_filename(filebrowser.store, dir);
+		DEBUG_MSG("filebrowser_open_dir, called for %s\n", dir);
+		DEBUG_DUMP_TREE_PATH(path);
+		if (path) {
+			DEBUG_MSG("jump_to_dir, it exists in tree, refreshing\n");
+			refresh_dir_by_path_and_filename(GTK_TREE_STORE(filebrowser.store), path, dir);
+			DEBUG_MSG("jump_to_dir, now scroll to the path\n");
+			filebrowser_expand_to_root(path);
+			gtk_tree_view_scroll_to_cell(GTK_TREE_VIEW(filebrowser.tree),path,0,TRUE,0.5,0.5);
+		} else {
+			DEBUG_MSG("jump_to_dir, it does NOT exist in the tree, building..\n");
+			path = build_tree_from_path(GTK_TREE_STORE(filebrowser.store), dir);
+/*			path = return_path_from_filename(GTK_TREE_STORE(filebrowser.store), dir);*/
+/*			gtk_tree_view_expand_row(GTK_TREE_VIEW(filebrowser.tree),path,FALSE);*/
+			filebrowser_expand_to_root(path);
+			gtk_tree_view_scroll_to_cell(GTK_TREE_VIEW(filebrowser.tree),path,0,TRUE,0.5,1.0);
+		}
+		gtk_tree_path_free(path);
 	}
-	gtk_tree_path_free(path);
 }
 
 static void dirmenu_activate_lcb(GtkWidget *widget, gchar *dir) {
@@ -1182,4 +1185,9 @@ void filebrowser_scroll_initial() {
 	if (filebrowser.tree) {
 		gtk_tree_view_scroll_to_point(GTK_TREE_VIEW(filebrowser.tree), 2000, 2000);
 	}
+}
+
+void filebrowser_cleanup() {
+	filebrowser.store = NULL;
+	filebrowser.tree = NULL;
 }
