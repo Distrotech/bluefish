@@ -21,9 +21,9 @@
  * indenting is done with
  * indent --line-length 100 --k-and-r-style --tab-size 4 -bbo --ignore-newlines highlight.c
  */
-/* #define HL_TIMING
+/*#define HL_TIMING
 #define HL_DEBUG 
-#define DEBUG */
+#define DEBUG*/
 
 #ifdef HL_TIMING /* some overall profiling information, not per pattern, but per type of code , interesting to bluefish programmers*/
 #include <sys/times.h>
@@ -1088,8 +1088,8 @@ static gboolean pattern_has_mode3_child(Tpattern *pat) {
 }
 
 void doc_highlight_region(Tdocument * doc, guint startof, guint endof) {
-	gint so, eo;
 	Tpattern *pat = NULL;
+	guint so=-1, eo=-1;
 	GList *patternlist = doc->hl->highlightlist;
 #ifdef HL_TIMING
 	timing_init();
@@ -1240,18 +1240,21 @@ void doc_highlight_region(Tdocument * doc, guint startof, guint endof) {
 						up to 2.2.4 is buggy
 						inbetween is unknown,
 						2.4.4 is fixed */
-					DEBUG_MSG("doc_highlight_line (2), very weird situation, the tag is ended but it doesn't start ??, itsearch now is at %d\n", gtk_text_iter_get_offset(&itsearch));
-					/* itsearch is now at offset 0, so we do a forward search to find the first start */
-					tag_found = gtk_text_iter_forward_to_tag_toggle(&itsearch, GTK_TEXT_TAG(slist->data));
-					DEBUG_MSG("(2) a forward search to the tag finds %d\n", gtk_text_iter_get_offset(&itsearch));
-					if (!tag_found) {
-						g_print("doc_highlight_line, (2) a tag that is started is nowhere to be found ??? BUG!\n");
-						exit(123);
-					}
-					if (gtk_text_iter_compare(&itsearch, &itend) > 0) {
-						/* we probably have hit the bug in gtk, but this tag is probably started before itstart */
-						itsearch = itstart;
-						gtk_text_iter_backward_char(&itsearch);
+					if (gtk_text_iter_begins_tag(&itsearch, GTK_TEXT_TAG(slist->data))) {
+						/* we have hit the bug in gtk, this tag should have been found by gtk_text_iter_backward_to_tag_toggle */
+					} else {
+						DEBUG_MSG("doc_highlight_line (2), very weird situation, the tag is ended but it doesn't start ??, itsearch now is at %d\n", gtk_text_iter_get_offset(&itsearch));
+						/* itsearch is now at offset 0, so we do a forward search to find the first start */
+						tag_found = gtk_text_iter_forward_to_tag_toggle(&itsearch, GTK_TEXT_TAG(slist->data));
+						DEBUG_MSG("(2) a forward search to the tag finds %d\n", gtk_text_iter_get_offset(&itsearch));
+						if (!tag_found) {
+							g_print("doc_highlight_line, (2) a tag that is started is nowhere to be found ??? BUG!\n");
+							exit(123);
+						}
+						if (gtk_text_iter_compare(&itsearch, &itend) > 0) {
+							itsearch = itstart;
+							gtk_text_iter_backward_char(&itsearch);
+						}
 					}
 				}
 				DEBUG_MSG("doc_highlight_line, (2) tag %p (%s) starts at itsearch=%d\n", slist->data,get_metaname_from_tag(slist->data),gtk_text_iter_get_offset(&itsearch));
@@ -1281,6 +1284,8 @@ void doc_highlight_region(Tdocument * doc, guint startof, guint endof) {
 		remove_tag_by_list_in_region(doc, patternlist, &itstart, &itend);
 		so = gtk_text_iter_get_offset(&itstart);
 		eo = gtk_text_iter_get_offset(&itend);
+	} else {
+		DEBUG_MSG("doc_highlight_line, so >= eo, not highlighting!\n");
 	}
 #ifdef HL_TIMING
 		timing_stop(TIMING_LINE_HIGHLIGHTING);
@@ -1302,7 +1307,7 @@ void doc_highlight_region(Tdocument * doc, guint startof, guint endof) {
 		g_print("doc_highlight_line done, %ld ms total, %ld ms line_highlighting\n",timing[TIMING_TOTAL].total_ms, timing[TIMING_LINE_HIGHLIGHTING].total_ms);
 #endif
 	} else {
-		DEBUG_MSG("doc_highlight_line, patternlist=NULL so we don't need highlighting\n");
+		DEBUG_MSG("doc_highlight_line, no patternlist, not highlighting!\n");
 	}
 	doc->need_highlighting = FALSE;
 }
