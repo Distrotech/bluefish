@@ -245,18 +245,12 @@ void left_panel_show_hide_toggle(Tbfwin *bfwin,gboolean first_time, gboolean sho
 
 void gui_set_title(Tbfwin *bfwin, Tdocument *doc) {
 	gchar *title, *prfilepart;
+	const gchar *tablabel;
+	tablabel = gtk_label_get_text(GTK_LABEL(doc->tab_label));
 	if (bfwin->project) {
-		if (doc->filename) {
-			prfilepart = g_strconcat(bfwin->project->name," - ",doc->filename,NULL);
-		} else {
-			prfilepart = g_strconcat(bfwin->project->name," - ",_("Untitled"),NULL);
-		}
+		prfilepart = g_strconcat(bfwin->project->name," - ",tablabel,NULL);
 	} else {
-		if (doc->filename) {
-			prfilepart = g_strdup(doc->filename);
-		} else {
-			prfilepart = g_strdup(_("Untitled"));
-		}
+		prfilepart = g_strdup(tablabel);
 	}
 	title = g_strconcat(prfilepart, " - Bluefish "VERSION,NULL);
 	gtk_window_set_title(GTK_WINDOW(bfwin->main_window),title);
