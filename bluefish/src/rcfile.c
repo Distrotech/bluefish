@@ -363,6 +363,8 @@ static GList *props_init_main(GList * config_rc)
 	init_prop_integer   (&config_rc, &main_v->props.ext_commands_in_submenu,"ext_commands_in_submenu:",1);
 	init_prop_integer   (&config_rc, &main_v->props.ext_outputbox_in_submenu,"ext_outputbox_in_submenu:",1);
 	init_prop_arraylist (&config_rc, &main_v->props.reference_files, "reference_files:");
+	init_prop_integer   (&config_rc, &main_v->props.document_tabposition,"document_tabposition:",(gint)GTK_POS_BOTTOM);
+	init_prop_integer   (&config_rc, &main_v->props.leftpanel_tabposition,"leftpanel_tabposition:",(gint)GTK_POS_BOTTOM);
 #ifdef HAVE_LIBASPELL
 	init_prop_string(&config_rc, &main_v->props.spell_default_lang, "spell_default_lang:", "en");
 #endif /* HAVE_LIBASPELL */
@@ -371,8 +373,6 @@ static GList *props_init_main(GList * config_rc)
 
 	/* not yet in use */
 	init_prop_string(&config_rc, &main_v->props.image_editor_cline, "image_editor_command:", "gimp-remote -n \"%s\"&");
-	init_prop_string(&config_rc, &main_v->props.cfg_tab_pos, "notebook_tab_position:", "bottom");
-/*	init_prop_string(&config_rc, &main_v->props.cfg_weblint_cline, "weblint_command:", WEBLINT_COMMAND);*/
 	init_prop_integer(&config_rc, &main_v->props.full_p, "closing_paragraph_tag:", 1);
 	init_prop_integer(&config_rc, &main_v->props.full_li, "closing_list_item_tag:", 1);
 	init_prop_integer(&config_rc, &main_v->props.allow_css, "allow_the_use_of_css:", 1);

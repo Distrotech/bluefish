@@ -175,6 +175,8 @@ typedef struct {
 	gint ext_commands_in_submenu;
 	gint ext_outputbox_in_submenu;
 	GList *reference_files; /* all reference files */
+	gint document_tabposition;
+	gint leftpanel_tabposition;
 #ifdef HAVE_LIBASPELL
 	gchar *spell_default_lang;
 #endif /* HAVE_LIBASPELL */
@@ -182,8 +184,6 @@ typedef struct {
 	gint cont_highlight_full; 	/* if you want to highlight the full text or just the line */
 	/* not yet in use */
 	gchar *image_editor_cline; 	/* image editor commandline */
-	gchar *cfg_weblint_cline;	/* weblint command line */
-	gchar *cfg_tab_pos;			/* notebook tabs positioning */
 	gint full_p;				/* use </p> */
 	gint full_li;				/* use </li> */
 	gint allow_css;				/* CSS allowed */

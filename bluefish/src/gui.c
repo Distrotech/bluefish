@@ -55,8 +55,8 @@ typedef struct {
 	GtkWidget *main_toolbar_hb;
 	GtkWidget *html_toolbar_hb;
 	GtkWidget *custom_menu_hb; /* handle box for custom menu */
-	GtkWidget *filebrowse_box;
 	GtkWidget *output_box;
+	GtkWidget *leftpanel_notebook;
 } Thidegui;
 
 typedef struct {
@@ -179,7 +179,7 @@ GtkWidget *left_panel_build() {
 	GtkWidget *fileb;
 	GtkWidget *left_notebook = gtk_notebook_new();
 	GtkWidget *fref;
-	gtk_notebook_set_tab_pos(GTK_NOTEBOOK(left_notebook),GTK_POS_BOTTOM);
+	gtk_notebook_set_tab_pos(GTK_NOTEBOOK(left_notebook),main_v->props.leftpanel_tabposition);
 	gtk_notebook_set_show_tabs(GTK_NOTEBOOK(left_notebook), TRUE);
 	gtk_notebook_set_show_border(GTK_NOTEBOOK(left_notebook), FALSE);
 	gtk_notebook_set_tab_hborder(GTK_NOTEBOOK(left_notebook), 0);
@@ -210,7 +210,8 @@ void left_panel_show_hide_toggle(gboolean first_time, gboolean show) {
 		main_v->hpane = gtk_hpaned_new();
 		gtk_paned_set_position(GTK_PANED(main_v->hpane), main_v->props.left_panel_width);
 		g_signal_connect(G_OBJECT(main_v->hpane),"notify::position",G_CALLBACK(left_panel_notify_position_lcb), NULL);
-		gtk_paned_add1(GTK_PANED(main_v->hpane), left_panel_build());
+		hidewidgets.leftpanel_notebook = left_panel_build();
+		gtk_paned_add1(GTK_PANED(main_v->hpane), hidewidgets.leftpanel_notebook);
 		gtk_paned_add2(GTK_PANED(main_v->hpane), main_v->notebook);
 		gtk_box_pack_start(GTK_BOX(main_v->middlebox), main_v->hpane, TRUE, TRUE, 0);
 		gtk_widget_show(main_v->hpane);
@@ -221,6 +222,11 @@ void left_panel_show_hide_toggle(gboolean first_time, gboolean show) {
 	if (!first_time) {
 		gtk_widget_unref(main_v->notebook);
 	}
+}
+
+void  gui_apply_settings() {
+	gtk_notebook_set_tab_pos(GTK_NOTEBOOK(hidewidgets.leftpanel_notebook),main_v->props.leftpanel_tabposition);
+	gtk_notebook_set_tab_pos(GTK_NOTEBOOK(main_v->notebook),main_v->props.document_tabposition);
 }
 
 typedef struct {
@@ -750,7 +756,7 @@ void gui_create_main(GList *filenames) {
 
 	/* notebook with the text widget in there */
 	main_v->notebook = gtk_notebook_new();
-	gtk_notebook_set_tab_pos(GTK_NOTEBOOK(main_v->notebook),GTK_POS_BOTTOM);
+	gtk_notebook_set_tab_pos(GTK_NOTEBOOK(main_v->notebook),main_v->props.document_tabposition);
 	gtk_notebook_set_show_tabs(GTK_NOTEBOOK(main_v->notebook), TRUE);
 	gtk_notebook_set_show_border(GTK_NOTEBOOK(main_v->notebook), FALSE);
 	gtk_notebook_set_tab_hborder(GTK_NOTEBOOK(main_v->notebook), 0);
@@ -764,16 +770,16 @@ void gui_create_main(GList *filenames) {
 
 	/* finally the statusbar */
 	{
-	GtkWidget *hbox;
-	hbox = gtk_hbox_new(FALSE,0);
-	gtk_widget_show(hbox);
-	gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 0);
-	main_v->statuslabel = gtk_label_new(_(" line    1 "));
-	gtk_widget_show(main_v->statuslabel);
-	gtk_box_pack_start(GTK_BOX(hbox), main_v->statuslabel, FALSE, FALSE, 0);
-	main_v->statusbar = gtk_statusbar_new();
-	gtk_widget_show(main_v->statusbar);
-	gtk_box_pack_start(GTK_BOX(hbox), main_v->statusbar, TRUE, TRUE, 0);
+		GtkWidget *hbox;
+		hbox = gtk_hbox_new(FALSE,0);
+		gtk_widget_show(hbox);
+		gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 0);
+		main_v->statuslabel = gtk_label_new(_(" line    1 "));
+		gtk_widget_show(main_v->statuslabel);
+		gtk_box_pack_start(GTK_BOX(hbox), main_v->statuslabel, FALSE, FALSE, 0);
+		main_v->statusbar = gtk_statusbar_new();
+		gtk_widget_show(main_v->statusbar);
+		gtk_box_pack_start(GTK_BOX(hbox), main_v->statusbar, TRUE, TRUE, 0);
 	}
 	
 	/* everything is ready - we can start loading documents */
