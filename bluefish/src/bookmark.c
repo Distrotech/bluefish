@@ -550,8 +550,6 @@ static gboolean bmark_event_mouseclick(GtkWidget * widget, GdkEventButton * even
 	return FALSE;
 }
 
-
-
 /* Initialize bookmarks gui for window */
 
 GtkWidget *bmark_gui(Tbfwin * bfwin)
@@ -871,14 +869,25 @@ void bmark_set_for_doc(Tdocument * doc)
 	}							/* cont */
 }
 
-/* this function is called VERY OFTEN (might be 20X per second!!!!) by document.c
-so we obviously need to keep this function VERY FAST 
-
-the function will return NULL if no bookmarks for this document are 
-known (this is faster then looking in an empty hash table)
-*/
+/**
+ * bmark_get_bookmarked_lines:
+ * @doc: Tdocument *
+ * @ fromit: GtkTextIter *
+ * @ toit: GtkTextIter *
+ *
+ * this function returns a hash table with all bookmarks between fromit and toit
+ *
+ * this function is called VERY OFTEN (might be 20X per second!!!!) by document.c
+ * to redraw the bookmarks at the sides
+ * so we obviously need to keep this function VERY FAST 
+ *
+ * the function will return NULL if no bookmarks for this document are 
+ * known (this is faster then looking in an empty hash table)
+ *
+ * Return value: #GHashTable * pointer or NULL
+ */
 GHashTable *bmark_get_bookmarked_lines(Tdocument * doc, GtkTextIter *fromit, GtkTextIter *toit) {
-	if (doc->bmark_parent && BFWIN(doc->bfwin)->bmark) {
+	if (doc->bmark_parent) {
 		gboolean cont;
 		GtkTreeIter tmpiter;
 
@@ -993,14 +1002,14 @@ static void bmark_add_current_doc_backend(Tbfwin *bfwin, const gchar *name, gint
 	}
 }
 
-static gboolean bmark_line_has_bookmark(Tdocument *doc, gint offset) {
+static Tbmark *bmark_get_bmark_at_line(Tdocument *doc, gint offset) {
 	GtkTextIter sit, eit;
 	GtkTreeIter tmpiter;
 	gtk_text_buffer_get_iter_at_offset(doc->buffer,&sit,offset);
 	eit = sit;
 	gtk_text_iter_set_line_offset(&sit, 0);
 	gtk_text_iter_forward_to_line_end(&eit);
-	DEBUG_MSG("bmark_line_has_bookmark, searching bookmarks between %d - %d\n",gtk_text_iter_get_offset(&sit),gtk_text_iter_get_offset(&eit));
+	DEBUG_MSG("bmark_get_bmark_at_line, searching bookmarks between offsets %d - %d\n",gtk_text_iter_get_offset(&sit),gtk_text_iter_get_offset(&eit));
 	/* check for existing bookmark in this place */
 	if (DOCUMENT(doc)->bmark_parent) {
 		gboolean cont;
@@ -1013,15 +1022,15 @@ static gboolean bmark_line_has_bookmark(Tdocument *doc, gint offset) {
 				GtkTextIter testit;
 				gtk_text_buffer_get_iter_at_mark(doc->buffer, &testit,m->mark);
 				if (gtk_text_iter_in_range(&testit,&sit,&eit)) {
-					DEBUG_MSG("bmark_line_has_bookmark, there exists a bookmark already, returning TRUE\n");
-					return TRUE;
+					DEBUG_MSG("bmark_get_bmark_at_line, there exists a bookmark already, returning TRUE\n");
+					return m;
 				}
 			}
 			cont = gtk_tree_model_iter_next(GTK_TREE_MODEL(BFWIN(doc->bfwin)->bookmarkstore), &tmpiter);
 		}							/* cont */
 	}
-	DEBUG_MSG("bmark_line_has_bookmark, no existing bookmark found, return FALSE\n");
-	return FALSE;
+	DEBUG_MSG("bmark_get_bmark_at_line, no existing bookmark found, return NULL\n");
+	return NULL;
 }
 
 /**
@@ -1036,7 +1045,7 @@ static gboolean bmark_line_has_bookmark(Tdocument *doc, gint offset) {
  * this function.
  */
 void bmark_add_extern(Tdocument *doc, gint offset, const gchar *name, const gchar *text, gboolean is_temp) {
-	if (!bmark_line_has_bookmark(doc, offset)) {
+	if (!bmark_get_bmark_at_line(doc, offset)) {
 		if (text) {
 			bmark_add_backend(doc, NULL, offset, (name) ? name : "", text, is_temp);
 		} else {
@@ -1068,7 +1077,7 @@ void bmark_add(Tbfwin * bfwin) {
 		offset = gtk_text_iter_get_offset(&it);
 	
 		/* check for existing bookmark in this place */
-		has_mark = bmark_line_has_bookmark(DOCUMENT(bfwin->current_document), offset);
+		has_mark = (bmark_get_bmark_at_line(DOCUMENT(bfwin->current_document), offset) != NULL);
 		if (has_mark) {
 			info_dialog(bfwin->main_window, _("Add bookmark"),
 						_("You already have a bookmark here!"));
@@ -1078,19 +1087,35 @@ void bmark_add(Tbfwin * bfwin) {
 	}
 }
 
+gboolean bmark_have_bookmark_at_stored_bevent(Tdocument * doc) {
+	if (BMARKDATA(main_v->bmarkdata)->bevent_doc == doc) {
+		return (bmark_get_bmark_at_line(doc, BMARKDATA(main_v->bmarkdata)->bevent_charoffset) != NULL);
+	}
+	return FALSE;
+}
 
-void bmark_store_bevent_location(Tdocument * doc, gint charoffset)
-{
+void bmark_store_bevent_location(Tdocument * doc, gint charoffset) {
 	DEBUG_MSG("bmark_store_bevent_location, storing offset=%d for doc=%p\n",charoffset,doc);
 	BMARKDATA(main_v->bmarkdata)->bevent_doc = doc;
 	BMARKDATA(main_v->bmarkdata)->bevent_charoffset = charoffset;
 }
 
-void bmark_add_at_bevent(Tdocument *doc) 
-{
+void bmark_del_at_bevent(Tdocument *doc) {
+	if (BMARKDATA(main_v->bmarkdata)->bevent_doc == doc) {
+		Tbmark *b = bmark_get_bmark_at_line(doc, BMARKDATA(main_v->bmarkdata)->bevent_charoffset);
+		if (b) {
+			DEBUG_MSG("bmark_del_at_bevent, deleting bookmark %p\n",b);
+			bmark_check_remove(BFWIN(doc->bfwin),b); /* check  if we should remove a filename too */	
+			bmark_unstore(BFWIN(doc->bfwin), b);
+			bmark_free(b);		
+		}
+	}
+}
+
+void bmark_add_at_bevent(Tdocument *doc) {
 		/* check for unnamed document */
-		if (!doc->filename) {
-			error_dialog(BFWIN(doc->bfwin)->main_window, _("Add bookmark"),
+	if (!doc->filename) {
+		error_dialog(BFWIN(doc->bfwin)->main_window, _("Add bookmark"),
 					 _("Cannot add bookmarks in unnamed files."));
 		return;
 	}
@@ -1105,12 +1130,7 @@ void bmark_add_at_bevent(Tdocument *doc)
 	}
 }
 
-
-
-
-void bmark_del_all(Tbfwin *bfwin,gboolean ask)
-{
-
+void bmark_del_all(Tbfwin *bfwin,gboolean ask) {
 	Tbmark *mark;
 	gint ret;
 	gchar *btns[]={GTK_STOCK_NO,GTK_STOCK_YES,NULL};
@@ -1138,10 +1158,7 @@ void bmark_del_all(Tbfwin *bfwin,gboolean ask)
 	}
 }	
 
-
-
-void bmark_check_length(Tbfwin * bfwin, Tdocument * doc)
-{
+void bmark_check_length(Tbfwin * bfwin, Tdocument * doc) {
 	gchar *pstr;
 	GtkTreeIter tmpiter;
 	gboolean cont;
@@ -1179,8 +1196,7 @@ void bmark_check_length(Tbfwin * bfwin, Tdocument * doc)
 	}
 }
 
-void bmark_cleanup(Tbfwin * bfwin)
-{
+void bmark_cleanup(Tbfwin * bfwin) {
 	DEBUG_MSG("bmark_cleanup, cleanup for bfwin=%p\n",bfwin);
 /* we are not destroying a store, so let's not destroy tree positions, it seems, they 
    are recovered from store - Oskar */	
