@@ -44,6 +44,102 @@ GtkWidget *new_pixmap(gint type) {
 	case 013:
 		data = redo;
 		break;
+	case 100:
+		data = quick_start;
+		break;
+	case 101:
+		data = body;
+		break;
+	case 102:
+		data = bold;
+		break;
+	case 103:
+		data = italic;
+		break;
+	case 104:
+		data = underline;
+		break;
+	case 105:
+		data = strikeout;
+		break;
+	case 106:
+		data = paragraph;
+		break;
+	case 107:
+		data = brbreak;
+		break;
+	case 108:
+		data = breakall;
+		break;
+	case 110:
+		data = nbsp;
+		break;
+	case 111:
+		data = anchor;
+		break;
+	case 112:
+		data = hrule;
+		break;
+	case 113:
+		data = image;
+		break;
+	case 114:
+		data = center;
+		break;
+	case 115:
+		data = right;
+		break;
+	case 116:
+		data = comment;
+		break;
+	case 117:
+		data = email;
+		break;
+	case 118:
+		data = font;
+		break;
+	case 119:
+		data = font_base;
+		break;
+	case 120:
+		data = fontp1;
+		break;
+	case 121:
+		data = fontm1;
+		break;
+	case 122:
+		data = fontpre;
+		break;
+	case 123:
+		data = fontsub;
+		break;
+	case 124:
+		data = fontsuper;
+		break;
+	case 125:
+		data = thumbnail;
+		break;
+	case 127:
+		data = fonth1;
+		break;
+	case 128:
+		data = fonth2;
+		break;
+	case 129:
+		data = fonth3;
+		break;
+	case 130:
+		data = fonth4;
+		break;
+	case 131:
+		data = fonth5;
+		break;
+	case 132:
+		data = fonth6;
+		break;
+	case 133:
+		data = tablewhiz;
+		break;
 	case 134:
 		data = table;
 		break;

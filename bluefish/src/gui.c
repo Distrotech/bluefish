@@ -30,6 +30,7 @@
 #include "undo_redo.h" /* undo_cb() redo_cb() etc. */
 #include "snr2.h" /* search_cb, replace_cb */
 #include "html_table.h"
+#include "html.h"
 
 typedef struct {
 	GtkWidget *main_toolbar_hb;
@@ -41,7 +42,8 @@ typedef struct {
 typedef struct {
 	GtkWidget *undo;
 	GtkWidget *redo;
-	GtkWidget *html_toolbar_quickbar;
+	GtkWidget *html_toolbar_quickbar; /* the quickbar widget */
+	GList *html_toolbar_quickbar_children; /* this list is needed to remove widgets from the quickbar */
 } Ttoolbar;
 
 typedef struct {
@@ -220,8 +222,31 @@ typedef struct {
 	gchar *tooltiptext;
 } Ttoolbaritem;
 
+typedef struct {
+	Ttoolbaritem *tbitem;
+	GtkWidget *button;
+}Tquickbaritem;
+
 static Ttoolbaritem tbi[] = {
+	{"quickstart...", quickstart_cb, NULL,100 , N_("QuickStart...")},
+	{"body...", body_cb, NULL, 101, N_("Body...")},
+	{"strong", general_html_cb, GINT_TO_POINTER(16), 102, N_("Strong")},
+	{"emphasis", general_html_cb, GINT_TO_POINTER(17), 103, N_("Emphasis")},
+	{"bold", general_html_cb, GINT_TO_POINTER(1), 102, N_("Bold")},
+	{"italic", general_html_cb, GINT_TO_POINTER(2), 103, N_("Italic")},
+	{"paragraph", general_html_cb, GINT_TO_POINTER(5), 106, N_("Paragraph")},
+	{"break", general_html_cb, GINT_TO_POINTER(6), 107, N_("Break")},
+	{"breakclear", general_html_cb, GINT_TO_POINTER(41), 108, N_("Break and clear")},
+	{"nbsp", general_html_cb, GINT_TO_POINTER(7), 110, N_("Non-breaking space")},
+	{"anchor...", quickanchor_cb, NULL,111 , N_("Anchor...")},
+	{"rule...", quickrule_cb, NULL, 112, N_("Rule...")},
+/*	{"", general_html_cb, GINT_TO_POINTER(), , N_("")},
+	{"", general_html_cb, GINT_TO_POINTER(), , N_("")},
+	{"", general_html_cb, GINT_TO_POINTER(), , N_("")},
+	{"", , NULL, , },
+	{"", , NULL, , },*/
 	{"", NULL, NULL, 0, NULL},
+	
 	{"table...",tabledialog_cb, NULL, 134, N_("Table...")},
 	{"tablerow...", tablerowdialog_cb, NULL, 135, N_("Table Row...")},
 	{"tableheader...", tableheaddialog_cb, NULL, 136, N_("Table Header...")},
@@ -230,17 +255,50 @@ static Ttoolbaritem tbi[] = {
 };
 
 static void html_toolbar_remove_from_quickbar_lcb(GtkMenuItem *menuitem, Ttoolbaritem *tbitem) {
+	GList *tmplist;
+	Tquickbaritem *qbi;
 	main_v->props.quickbar_items = remove_from_stringlist(main_v->props.quickbar_items, tbitem->ident);
-	/* how do we locate the widget ??? */
+	tmplist = g_list_first(toolbarwidgets.html_toolbar_quickbar_children);
+	while (tmplist) {
+		qbi = tmplist->data;
+		if (qbi->tbitem == tbitem) {
+			break;
+		}
+		tmplist = g_list_next(tmplist);
+	}
+	gtk_widget_hide(qbi->button);
+	gtk_widget_destroy(qbi->button);
+	g_free(qbi);
 }
+
+static gboolean html_toolbar_quickbar_item_button_press_lcb(GtkWidget *widget,GdkEventButton *bevent,Ttoolbaritem *tbitem) {
+	if (bevent->button == 3) {
+		GtkWidget *menu = gtk_menu_new ();
+		GtkWidget *menuitem = gtk_menu_item_new_with_label(_("Remove from quickbar"));
+		DEBUG_MSG("popup for tbitem %p\n", tbitem);
+		g_signal_connect(G_OBJECT(menuitem), "activate", G_CALLBACK(html_toolbar_remove_from_quickbar_lcb), tbitem);
+		gtk_menu_append(GTK_MENU(menu), menuitem);
+		gtk_widget_show_all (menu);
+		gtk_menu_popup (GTK_MENU (menu), NULL, NULL,
+			  NULL, widget, 0, gtk_get_current_event_time ());
+		return TRUE;
+	}
+	return FALSE;
+}
+
 
 static void html_toolbar_add_to_quickbar_lcb(GtkMenuItem *menuitem, Ttoolbaritem *tbitem) {
 	GtkWidget *item;
+	Tquickbaritem *qbi;
 	DEBUG_MSG("adding tbitem %p to quickbar\n", tbitem);
 	main_v->props.quickbar_items = add_to_stringlist(main_v->props.quickbar_items, tbitem->ident);
-	item = gtk_toolbar_append_item(GTK_TOOLBAR(toolbarwidgets.html_toolbar_quickbar), NULL, _(tbitem->tooltiptext),
+	qbi = g_new(Tquickbaritem,1);
+	qbi->button = gtk_toolbar_append_item(GTK_TOOLBAR(toolbarwidgets.html_toolbar_quickbar), NULL, _(tbitem->tooltiptext),
 						"", new_pixmap(tbitem->pixmaptype), G_CALLBACK(tbitem->func), tbitem->func_data);
-	gtk_widget_show(item);
+	g_signal_connect(qbi->button, "button-press-event", html_toolbar_quickbar_item_button_press_lcb, tbitem);
+	gtk_widget_show(qbi->button);
+	qbi->tbitem = tbitem;
+	toolbarwidgets.html_toolbar_quickbar_children = g_list_append(toolbarwidgets.html_toolbar_quickbar_children, qbi);
 }
 
 static gboolean html_toolbar_item_button_press_lcb(GtkWidget *widget,GdkEventButton *bevent,Ttoolbaritem *tbitem) {
@@ -303,8 +361,12 @@ void make_html_toolbar(GtkWidget *handlebox) {
 			DEBUG_MSG("make_html_toolbar, searching for %s\n", tmpstr);
 			for (i=0;i<numitems;i++) {
 				if (strcmp(tbi[i].ident, tmpstr)==0) {
-					gtk_toolbar_append_item(GTK_TOOLBAR(toolbarwidgets.html_toolbar_quickbar), NULL, _(tbi[i].tooltiptext),
+					Tquickbaritem *qbi = g_new(Tquickbaritem,1);
+					qbi->button = gtk_toolbar_append_item(GTK_TOOLBAR(toolbarwidgets.html_toolbar_quickbar), NULL, _(tbi[i].tooltiptext),
 						"", new_pixmap(tbi[i].pixmaptype), G_CALLBACK(tbi[i].func), tbi[i].func_data);
+					g_signal_connect(qbi->button, "button-press-event", html_toolbar_quickbar_item_button_press_lcb, &tbi[i]);
+					qbi->tbitem = &tbi[i];
+					toolbarwidgets.html_toolbar_quickbar_children = g_list_append(toolbarwidgets.html_toolbar_quickbar_children, qbi);
 					break;
 				}
 			}
@@ -314,11 +376,11 @@ void make_html_toolbar(GtkWidget *handlebox) {
 	gtk_notebook_append_page(GTK_NOTEBOOK(html_notebook), toolbarwidgets.html_toolbar_quickbar, gtk_label_new(_(" Quick bar ")));
 
 	html_toolbar = gtk_toolbar_new();
-/*	gtk_toolbar_append_item(GTK_TOOLBAR(html_toolbar), NULL, _("QuickStart..."), "", new_pixmap(100), GTK_SIGNAL_FUNC(quickstart_cb), NULL);*/
-	gtk_notebook_append_page(GTK_NOTEBOOK(html_notebook), toolbarwidgets.html_toolbar_quickbar, gtk_label_new(_(" Standard bar ")));
+	html_toolbar_add_items(html_toolbar, tbi, 0, 10);
+	gtk_notebook_append_page(GTK_NOTEBOOK(html_notebook), html_toolbar, gtk_label_new(_(" Standard bar ")));
 
 	html_toolbar = gtk_toolbar_new();
-	html_toolbar_add_items(html_toolbar, tbi, 0, 6);
+	html_toolbar_add_items(html_toolbar, tbi, 12, 18);
 	gtk_notebook_append_page(GTK_NOTEBOOK(html_notebook), html_toolbar, gtk_label_new(_(" Tables ")));
 
 	gtk_widget_show_all(html_notebook);
@@ -631,7 +693,6 @@ void go_to_line_from_selection_cb(GtkWidget * widget, gpointer data) {
 	}
 }
 
-#define BLUEFISH_SPLASH_FILENAME "/home/olivier/bluefish/cvs/bluefish-gtk2/images/bluefish_splash.png"
 #ifndef NOSPLASH
 
 void splash_screen_set_label(gchar *label) {

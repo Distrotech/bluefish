@@ -495,6 +495,11 @@ void rcfile_parse_main(void)
 	g_free(filename);
 }
 
+gint rcfile_save_main(void) {
+	gchar *filename = g_strconcat(g_get_home_dir(), "/.bluefish/rcfile_v2", NULL);
+	return save_config_file(main_configlist, filename);
+}
+
 void rcfile_parse_highlighting(void) {
 	gchar *filename;
 

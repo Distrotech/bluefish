@@ -24,6 +24,12 @@
 typedef struct {
 	GList *classlist;
 	GList *colorlist;
+	GList *targetlist;
+	GList *urllist;
+	GList *fontlist;
+	GList *dtd_cblist;
+	GList *headerlist;
+	GList *positionlist;
 } Trecent_attribs;
 extern Trecent_attribs recent_attribs;
 
