@@ -2,7 +2,7 @@
 #include <string.h>
 #include <gdk/gdkkeysyms.h>
 
-/* #define DEBUG */
+/*#define DEBUG*/
 #include "bluefish.h"
 #include "fref.h"
 #include "rcfile.h" /* array_from_arglist() */
@@ -715,40 +715,38 @@ void fref_loader_unload_all(GtkWidget * tree, GtkTreeStore * store)
 	gpointer *aux;
 	gboolean do_unload = FALSE;
 
-
-	while (gtk_tree_model_iter_nth_child
-		   (GTK_TREE_MODEL(store), &iter, NULL, 0)) {
-     if (gtk_tree_path_get_depth(gtk_tree_model_get_path(GTK_TREE_MODEL(store),&iter)) == 1 )
-     {
-      	val = g_new0(GValue, 1);
-      	gtk_tree_model_get_value(GTK_TREE_MODEL(store), &iter, 0, val);
-	        cat = (gchar*)(g_value_peek_pointer(val));
-		     aux = g_hash_table_lookup(FREFDATA(main_v->frefdata)->refcount,cat);
-	        if (aux!=NULL)
-	        {
-	          cnt = (gint*)aux;
-	    	    *cnt = (*cnt)-1;
-	    	    if (*cnt==0) do_unload = TRUE; else do_unload = FALSE;
-	        } else do_unload = FALSE;
-	      g_free(val);
-	   } else do_unload=FALSE;
-    if (do_unload)
-    {
-		fref_loader_unload_ref(tree, store, &iter);
-		val = g_new0(GValue, 1);
-		gtk_tree_model_get_value(GTK_TREE_MODEL(store), &iter, 2, val);
-		if (G_IS_VALUE(val) && g_value_peek_pointer(val) != NULL) {
-			g_free(g_value_peek_pointer(val));
-		}
-		g_free(val);
-	  val = g_new0(GValue, 1);
-		gtk_tree_model_get_value(GTK_TREE_MODEL(store), &iter, 0, val);
-		if (G_IS_VALUE(val) && g_value_peek_pointer(val) != NULL) {
-			g_free(g_value_peek_pointer(val));
-		}		
-		gtk_tree_store_remove(store, &iter);
-		g_free(val);
-	 } /* do_unload */	
+	DEBUG_MSG("fref_loader_unload_all, started for tree=%p, store=%p\n",tree,store);
+	while (gtk_tree_model_iter_nth_child(GTK_TREE_MODEL(store), &iter, NULL, 0)) {
+		if (gtk_tree_path_get_depth(gtk_tree_model_get_path(GTK_TREE_MODEL(store),&iter)) == 1 ) {
+			val = g_new0(GValue, 1);
+			gtk_tree_model_get_value(GTK_TREE_MODEL(store), &iter, 0, val);
+			cat = (gchar*)(g_value_peek_pointer(val));
+			DEBUG_MSG("fref_loader_unload_all, cat=%s\n",cat);
+			aux = g_hash_table_lookup(FREFDATA(main_v->frefdata)->refcount,cat);
+			if (aux!=NULL) {
+				cnt = (gint*)aux;
+				*cnt = (*cnt)-1;
+				if (*cnt<=0) do_unload = TRUE; else do_unload = FALSE;
+				DEBUG_MSG("fref_loader_unload_all, cnt=%d, do_unload=%d\n",*cnt,do_unload);
+			} else do_unload = FALSE;
+			g_free(val);
+		} else do_unload=FALSE;
+		if (do_unload) {
+			fref_loader_unload_ref(tree, store, &iter);
+			val = g_new0(GValue, 1);
+			gtk_tree_model_get_value(GTK_TREE_MODEL(store), &iter, 2, val);
+			if (G_IS_VALUE(val) && g_value_peek_pointer(val) != NULL) {
+				g_free(g_value_peek_pointer(val));
+			}
+			g_free(val);
+		  val = g_new0(GValue, 1);
+			gtk_tree_model_get_value(GTK_TREE_MODEL(store), &iter, 0, val);
+			if (G_IS_VALUE(val) && g_value_peek_pointer(val) != NULL) {
+				g_free(g_value_peek_pointer(val));
+			}		
+			gtk_tree_store_remove(store, &iter);
+			g_free(val);
+		} /* do_unload */	
 	}							/* while */
 	gtk_tree_store_clear(store);
 }
@@ -788,17 +786,20 @@ static void fill_toplevels(Tfref_data *fdata, gboolean empty_first) {
 }
 
 void fref_cleanup(Tbfwin *bfwin) {
+	DEBUG_MSG("fref_cleanup, started for bfwin=%p, refcount at %p\n",bfwin,FREFDATA(main_v->frefdata)->refcount);
 	fref_loader_unload_all(FREFGUI(bfwin->fref)->tree, FREFDATA(main_v->frefdata)->store);
-	g_hash_table_destroy(FREFDATA(main_v->frefdata)->refcount);
+/*	g_hash_table_destroy(FREFDATA(main_v->frefdata)->refcount); */
 	FREFGUI(bfwin->fref)->tree = NULL;
 	FREFGUI(bfwin->fref)->argtips = NULL;
 }
 
+/* fref_init is ONCE called by bluefish.c to init the fref_data structure */
 void fref_init() {
 	Tfref_data *fdata = g_new(Tfref_data,1);
 	fdata->store = gtk_tree_store_new(N_COLUMNS,G_TYPE_STRING,G_TYPE_POINTER,G_TYPE_STRING);
 	fdata->refcount = g_hash_table_new_full(g_str_hash,g_str_equal,g_free,g_free);
 	fill_toplevels(fdata,FALSE);
+	DEBUG_MSG("fref_init, refcount at %p\n",fdata->refcount);
 	main_v->frefdata = fdata;
 }
 
