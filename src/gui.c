@@ -428,7 +428,7 @@ static void html_toolbar_add_items(GtkWidget *html_toolbar, Ttoolbaritem *tbi, g
 }
 
 static void html_toolbar_add_items_to_submenu(GtkWidget *html_toolbar, Ttoolbaritem *tbi, gint from, gint to, gchar *menulabel, gint menupix) {
-	GtkWidget *menu_bar, *sub_menu, *menu_item;
+	GtkWidget *menu_bar, *sub_menu, *menu_item, *pixmap;
 	gint i;
 	sub_menu = gtk_menu_new();
 	for (i=from;i<=to;i++) {
@@ -447,7 +447,9 @@ static void html_toolbar_add_items_to_submenu(GtkWidget *html_toolbar, Ttoolbari
 	gtk_container_add(GTK_CONTAINER(menu_item),new_pixmap(menupix));
 	gtk_menu_item_set_submenu(GTK_MENU_ITEM(menu_item), sub_menu);
 	gtk_menu_bar_append(GTK_MENU_BAR(menu_bar), menu_item);
-	gtk_toolbar_append_element(GTK_TOOLBAR(html_toolbar),GTK_TOOLBAR_CHILD_WIDGET,menu_bar,NULL,menulabel,NULL,new_pixmap(menupix),NULL,NULL);
+	pixmap = new_pixmap(menupix);
+	gtk_toolbar_append_element(GTK_TOOLBAR(html_toolbar),GTK_TOOLBAR_CHILD_WIDGET,menu_bar,NULL,menulabel,NULL,pixmap,NULL,NULL);
+	gtk_object_sink(GTK_OBJECT(pixmap));
 }
 
 void make_html_toolbar(GtkWidget *handlebox) {

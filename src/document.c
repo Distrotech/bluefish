@@ -2275,7 +2275,9 @@ static void files_advanced_win_select_basedir_lcb(GtkWidget * widget, Tfiles_adv
 	   current working directory was being parsed as /directory/file when you opened 
 	   the dialog to browse for a directory
 	*/
-	gchar *newdir = return_dir(g_strconcat(olddir, "/", NULL), _("Select basedir"));
+	gchar *tmpdir = g_strconcat(olddir, "/", NULL);
+	gchar *newdir = return_dir(tmpdir, _("Select basedir"));
+	g_free(tmpdir);
 	if (newdir) {
 		gtk_entry_set_text(GTK_ENTRY(tfs->basedir),newdir);
 		g_free(newdir);
