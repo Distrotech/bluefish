@@ -26,6 +26,7 @@
 #include "gui.h" /* gui_create_main() */
 #include "rcfile.h" /* rcfile_parse_main() */
 #include "bf_lib.h" /* create_full_path() */
+#include "highlight.h" /* hl_init() */
 
 
 /*********************************************/

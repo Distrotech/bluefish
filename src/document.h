@@ -29,6 +29,7 @@ void document_set_wrap(Tdocument *doc, gint wraptype);
 gboolean test_only_empty_doc_left();
 gboolean doc_has_selection(Tdocument *doc);
 void doc_set_modified(Tdocument *doc, gint value);
+void doc_scroll_to_cursor(Tdocument *doc);
 gchar *doc_get_chars(Tdocument *doc, gint start, gint len);
 void doc_select_region(Tdocument *doc, gint start, gint end, gboolean do_scroll);
 void doc_select_line(Tdocument *doc, gint line, gboolean do_scroll);

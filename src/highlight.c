@@ -37,7 +37,9 @@
 #include "bluefish.h"
 #include "bf_lib.h"				/* filename_test_extensions() */
 #include "rcfile.h"				/* array_from_arglist() */
+#include "stringlist.h" 	/* count_array() */
 #include "highlight.h"
+
 
 #define NUM_SUBMATCHES 20
 
@@ -601,9 +603,7 @@ void hl_reset_highlighting_type(Tdocument * doc, gchar * newfilename)
 	Thighlightset *hlset = hl_get_highlightset_by_filename(newfilename);
 
 	if (hlset != doc->hl) {
-		GtkTextIter itstart, itend;
-		gtk_text_buffer_get_bounds(doc->buffer, &itstart, &itend);
-		gtk_text_buffer_remove_all_tags(doc->buffer, &itstart, &itend);
+		doc_remove_highlighting(doc);
 		doc->hl = hlset;
 		doc->need_highlighting = TRUE;
 	}
@@ -945,13 +945,19 @@ void hl_reset_to_default()
 	DEBUG_MSG("hl_reset_to_default, done\n");
 
 	/* the default HTML pattern */
-	arr = array_from_arglist("html", "html", "1", "<((/)?[a-z0-9]+)", "[^?-]>", "", "1", "", "#DD0000", "", "0", "0", NULL);
+	arr = array_from_arglist("html", "html", "1", "<((/)?[a-z0-9]+)", "[^?-]>", "", "1", "", "#0000EE", "", "0", "0", NULL);
+	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
+	arr = array_from_arglist("html", "html-tag", "1", "1", "", "", "3", "^html$", "#000077", "", "2", "0", NULL);
+	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
+	arr = array_from_arglist("html", "html-attrib", "1", "([a-z]*=)(\"[^\"]*\")", "", "", "2", "^html$", "", "", "0", "0",NULL);
+	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
+	arr = array_from_arglist("html", "html-attrib-sub2", "1", "2", "", "", "3", "^html-attrib$", "#009900", "", "0", "0", NULL);
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
 	arr = array_from_arglist("html", "specialchar", "1", "&[^;]*;", "", "", "2", "", "#999999", "", "2", "0", NULL);
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
 	arr = array_from_arglist("html", "comment", "0", "<!--", "-->", "", "1", "", "#AAAAAA", "", "1", "2", NULL);
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
-	arr = array_from_arglist("html", "doctype", "1", "<![a-z0-9]", "[^?-]>", "", "1", "", "#00BB00", "", "0", "0", NULL);
+	arr = array_from_arglist("html", "doctype", "1", "<![a-z0-9]", "[^?-]>", "", "1", "", "#bb8800", "", "0", "0", NULL);
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
 
 	/* the default java pattern */
