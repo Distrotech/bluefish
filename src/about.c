@@ -66,22 +66,35 @@ If you know of anyone missing from this list, please let us know\n\
 Thanks to all who helped making this software available.\n\
 ";
 
-static const gchar *TRANSLATORS = "\n\
-Current translators:\n\
-  Brazilian Portuguese (PT_BR) -  Anderson Rocha <anderson@maxlinux.com.br>\n\
-  Chinese (zh_CN) -  Ting Yang (Dormouse) <mouselinux@163.com>\n\
-  Danish (DA) -  Rasmus Toftdahl Olesen <rto@pohldata.dk>\n\
-  Finnish (FI) -  Juho Roukala <j.mr@luukku.com>\n\
-  French (FR) -  Roméo Viu-Berges <apostledemencia@free.fr>\n\
-  German (DE) -  Roland Steinbach <roland@netzblick.de>\n\
-  Hungarian (HU) -  Péter Sáska <sasek@ccsystem.hu>\n\
-  Italian (IT) -  Stefano Canepa <sc@linux.it>\n\
-  Polish (PL) -  Oskar Swida <swida@aragorn.pb.bialystok.pl>\n\
-  Portuguese (PT) - Lopo Pizarro <lopopizarro@netcabo.pt>\n\
-  Russian (RU) -  Eugene Rupakov <rupakov@jet.msk.ru>\n\
-  Spanish (ES) -  Walter Oscar Echarri <wecharri@infovia.com.ar>\n\
-  Swedish (SV) -  David Smeringe <david.smeringe@telia.com>\n\
-  Tamil (TA) -  Murugapandian Barathee <barathee@yahoo.com>\n\
+static const gchar *TRANSLATORS = "Current translators:\n\
+  Brazilian Portuguese (PT_BR) -  Anderson Rocha\n\
+   <anderson@maxlinux.com.br>\n\n\
+  Chinese (zh_CN) -  Ting Yang (Dormouse)\n\
+   <mouselinux@163.com>\n\n\
+  Danish (DA) -  Rasmus Toftdahl Olesen\n\
+   <rto@pohldata.dk>\n\n\
+  Finnish (FI) -  Juho Roukala\n\
+   <j.mr@luukku.com>\n\n\
+  French (FR) -  Roméo Viu-Berges\n\
+   <apostledemencia@free.fr>\n\n\
+  German (DE) -  Roland Steinbach\n\
+   <roland@netzblick.de>\n\n\
+  Hungarian (HU) -  Péter Sáska\n\
+   <sasek@ccsystem.hu>\n\n\
+  Italian (IT) -  Stefano Canepa\n\
+   <sc@linux.it>\n\n\
+  Polish (PL) -  Oskar Swida\n\
+   <swida@aragorn.pb.bialystok.pl>\n\n\
+  Portuguese (PT) - Lopo Pizarro\n\
+   <lopopizarro@netcabo.pt>\n\n\
+  Russian (RU) -  Eugene Rupakov\n\
+   <rupakov@jet.msk.ru>\n\n\
+  Spanish (ES) -  Walter Oscar Echarri\n\
+   <wecharri@infovia.com.ar>\n\n\
+  Swedish (SV) -  David Smeringe\n\
+   <david.smeringe@telia.com>\n\n\
+  Tamil (TA) -  Murugapandian Barathee\n\
+   <barathee@yahoo.com>\n\
 ";
 
 static GtkWidget *info;
@@ -161,6 +174,7 @@ static void add_page(GtkNotebook * notebook, const gchar * name, const gchar * b
 	label = gtk_label_new(name);
 	sw = textview_buffer_in_scrolwin(&textview, -1, 200, buf, GTK_WRAP_WORD);
 	gtk_text_view_set_editable(GTK_TEXT_VIEW(textview), FALSE);
+	gtk_text_view_set_cursor_visible (GTK_TEXT_VIEW (textview), FALSE);
 	gtk_notebook_append_page(notebook, sw, label);
 }
 
@@ -169,7 +183,7 @@ static void about_dialog_close_lcb(GtkObject *object,GtkWidget *win) {
 }
 
 void about_dialog_create(gpointer * data, guint * callback_action, GtkWidget * widget) {
-	GtkWidget *vbox, *vbox2;
+	GtkWidget *vbox, *vbox2, *hbox;
 	GtkWidget *notebook;
 	GtkWidget *info_ok_button;
 	GdkColor color;
@@ -212,9 +226,12 @@ void about_dialog_create(gpointer * data, guint * callback_action, GtkWidget * w
 
 	gtk_box_pack_start(GTK_BOX(vbox), notebook, TRUE, TRUE, 0);
 
+	hbox = gtk_hbutton_box_new ();
+	gtk_button_box_set_layout (GTK_BUTTON_BOX (hbox), GTK_BUTTONBOX_END);
+	gtk_box_pack_start( GTK_BOX (vbox), hbox, FALSE, FALSE, 4);
 	info_ok_button = gtk_button_new_from_stock(GTK_STOCK_CLOSE);
 	GTK_WIDGET_SET_FLAGS(info_ok_button, GTK_CAN_DEFAULT);
-	gtk_box_pack_start(GTK_BOX(vbox), info_ok_button, FALSE, FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(hbox), info_ok_button, FALSE, FALSE, 0);
 	gtk_widget_grab_default(info_ok_button);
 
 	g_signal_connect(info_ok_button, "clicked", G_CALLBACK(about_dialog_close_lcb), info);
