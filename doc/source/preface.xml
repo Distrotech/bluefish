@@ -45,7 +45,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
     <para>
 			The manual targets the <emphasis>end user</emphasis>. To that end, we 
 			have tried to use a simple, well-explained approach whenever possible. 
-			Some typographic conventions are denoted below.
+			Some typographic conventions are denoted below:
 	</para>
     <itemizedlist>
 		<listitem>
@@ -79,15 +79,22 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 				When referring to user input, like issuing commands to the 
 				command prompt, a monotype font is used:
 				<screen>$ foo -bar | bang -l</screen>
-				<note>Do not write the <literal>$</literal> character - it 
+				<variablelist>
+				<varlistentry>
+          <term><emphasis>Note</emphasis></term>
+          <listitem>
+            <para>Do not write the <literal>$</literal> character - it 
 				simply identifies the command prompt. For commands requiring 
-				root access, the prompt is shown as a <literal>#</literal>.</note>
+				root access, the prompt is shown as a <literal>#</literal>.</para>
+            </listitem>
+     </varlistentry>
+     </variablelist>
 		</listitem>
     </itemizedlist>
     <para>
     	Finally, if you find errors in this manual or wish to write new sections,
     	join the <link linkend="bluefish-contact">mailing list</link> and let us know.
-    	Guidelines for this manual can be found in <xref linkend="bluefish-manual-guide" />
+    	Guidelines for this manual can be found in <xref linkend="bluefish-manual-guide" />.
     </para>
   </sect1>
   <sect1 id="bluefish-what-is-bf">
@@ -138,7 +145,7 @@ the project. </para>
       <title>Main Features of Bluefish</title>
       <para>
 				This list will give you an overview of the most important or 
-				outstanding features found in Bluefish.
+				outstanding features found in Bluefish:
 			</para>
       <itemizedlist>
         <listitem>
@@ -152,7 +159,7 @@ the project. </para>
 					Customizable syntax highlighting based on Perl compatible 
 					regular expressions, with subpattern support. Default 
 					patterns are included for
-						<itemizedlist><listitem>C</listitem><listitem>cfml</listitem><listitem>ColdFusion</listitem><listitem>Gettext po</listitem><listitem>HTML</listitem><listitem>Java</listitem><listitem>Pascal</listitem><listitem>Perl</listitem><listitem>PHP</listitem><listitem>Python</listitem><listitem>R</listitem><listitem>XML</listitem></itemizedlist>
+						<itemizedlist spacing="compact"><listitem>C</listitem><listitem>cfml</listitem><listitem>ColdFusion</listitem><listitem>Gettext po</listitem><listitem>HTML</listitem><listitem>Java</listitem><listitem>Pascal</listitem><listitem>Perl</listitem><listitem>PHP</listitem><listitem>Python</listitem><listitem>R</listitem><listitem>XML</listitem></itemizedlist>
 				</listitem>
         <listitem>
 					Anti-aliased text window
@@ -237,21 +244,12 @@ the project. </para>
       </itemizedlist>
       <para>
 				As Bluefish is a part of a larger desktop environment, 
-				we have focused on making the GUI consistent with the Gnome HIG
-					<footnote><para>GNOME Human Interface Guidelines, accessible at
+				we have focused on making the GUI consistent with the Gnome HIG<footnote><para>GNOME Human Interface Guidelines, accessible at
 							<ulink url="http://developer.gnome.org/projects/gup/hig/">
 								http://developer.gnome.org/projects/gup/hig/
 							</ulink>
-						</para></footnote>
-					. However, we prefer not following it in every detail, as 
-					some parts are intended 
-						<emphasis>
-							for the end user
-						</emphasis>
-					, while Bluefish is 
-						<emphasis>
-							for the programmer
-						</emphasis>.
+						</para></footnote>. However, we prefer not following it in every detail, as 
+					some parts are intended <emphasis>for the end user</emphasis>, while Bluefish is <emphasis>for the programmer</emphasis>.
 			</para>
       <para>
 				Some features from v0.7 (GTK1) are not yet implemented. The main
@@ -273,11 +271,7 @@ the project. </para>
 				issue of slightly sluggish copy/paste functions.
 			</para>
       <para>
-				For an updated list of open bugs, please visit the s-list on 
-				the Bluefish WiKi, at 
-					<ulink url="http://bfwiki.tellefsen.net/?pagename=ToDoList">
-						http://bfwiki.tellefsen.net/?pagename=ToDoList
-					</ulink>.
+				For an updated list of open bugs, please go to the <ulink url="http://bfwiki.tellefsen.net/?pagename=ToDoList">http://bfwiki.tellefsen.net/?pagename=ToDoList</ulink> page on the Bluefish WiKi.
 			</para>
       <para>
 				We appreciate any and all contributions! Please tell us if 
@@ -313,16 +307,14 @@ the project. </para>
 					email containing <quote>subscribe bluefish-dev</quote> to 
 						<email>
 							bluefish-dev-request@lists.ems.ru
-						</email>
-					.
+						</email>.
 				</listitem>
         <listitem>
 					Do you want to help translate Bluefish? Please let us know 
 					by dropping an email to Walter Echarri
 						<email>
 							wecharri(at)infovia.com.ar
-						</email>
-					, our friendly translation maintainer.
+						</email>, our friendly translation maintainer.
 				</listitem>
         <listitem>
 					If you have a general question, drop an email
