@@ -1742,6 +1742,7 @@ GtkWidget *filebrowser_init(Tbfwin *bfwin) {
 		}
 		DEBUG_MSG("filebrowser_init, the basedir is set to %s\n",filebrowser->basedir);
 	}
+	DEBUG_MSG("filebrowser_init, filebrowser is at %p for bfwin %p\n", filebrowser, bfwin);
 	if (!filebrowser->curfilter) {
 		/* get the default filter */
 		filebrowser->curfilter = find_filter_by_name(main_v->props.last_filefilter);
