@@ -334,7 +334,7 @@ gboolean change_dir(gchar * filename)
 	g_free(tmpstring);
 	DEBUG_MSG("change_dir, after gfree(tmpstring) \n");
 	return returncode;
-};
+}
 
 /* gchar *strip_any_whitespace(gchar *string)
  * strips any double chars defined by isspace() from the string, 
@@ -386,7 +386,7 @@ gchar *trunc_on_char(gchar * string, gchar which_char)
 		tmpchar++;
 	}
 	return string;
-};
+}
 
 /* gchar *strip_common_path(char *image_fn, char *html_fn)
  * returns a newly allocated string containing the the to_filename

@@ -504,7 +504,7 @@ GtkWidget *bf_stock_button(const gchar * Text, GCallback func, gpointer func_dat
 	g_signal_connect(G_OBJECT(button), "clicked", func, func_data);
 	DEBUG_MSG("bf_stock_button, func_data=%p\n", func_data);
 	return button;
-};
+}
 
 GtkWidget *bf_gtkstock_button(const gchar * stock_id, GCallback func, gpointer func_data)
 {
@@ -515,7 +515,7 @@ GtkWidget *bf_gtkstock_button(const gchar * stock_id, GCallback func, gpointer f
 	GTK_WIDGET_SET_FLAGS(button, GTK_CAN_DEFAULT);
 	g_signal_connect(G_OBJECT(button), "clicked", func, func_data);
 	return button;
-};
+}
 
 
 /*
@@ -530,7 +530,7 @@ GtkWidget *bf_gtkstock_button(const gchar * stock_id, GCallback func, gpointer f
  */
 GtkWidget *bf_stock_ok_button(GtkSignalFunc func, gpointer func_data) {
 	return bf_gtkstock_button(GTK_STOCK_OK, func, func_data);
-};
+}
 
 /*
  * Function: bf_stock_cancel_button
@@ -545,7 +545,7 @@ GtkWidget *bf_stock_ok_button(GtkSignalFunc func, gpointer func_data) {
 GtkWidget *bf_stock_cancel_button(GCallback func, gpointer func_data)
 {
 	return bf_gtkstock_button(GTK_STOCK_CANCEL, func, func_data);
-};
+}
 
 /*
  * Function: error_dialog
