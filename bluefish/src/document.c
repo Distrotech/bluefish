@@ -1223,6 +1223,22 @@ static void doc_convert_chars_to_entities_in_selection(Tdocument *doc, gboolean 
 	}
 }
 
+static void doc_convert_case_in_selection(Tdocument *doc, gboolean toUpper) {
+	gint start, end;
+	if (doc_get_selection(doc, &start, &end)) {
+		gchar *string = doc_get_chars(doc, start, end);
+		if (string) {
+			gchar *newstring = (toUpper) ? g_utf8_strup(string,-1) : g_utf8_strdown(string,-1);
+			g_free(string);
+			if (newstring) {
+				doc_replace_text(doc, newstring, start, end);
+				g_free(newstring);
+			}
+		}
+	}
+}
+
+
 /**
  * doc_insert_two_strings:
  * @doc: a #Tdocument
@@ -3770,20 +3786,24 @@ void all_documents_apply_settings() {
 
 }
 
-/* callback_action: 1 only ascii, 2 only iso, 3 both
- */
 /**
  * doc_convert_asciichars_in_selection:
  * @callback_data: unused #gpointer
- * @callback_action: Chars to change. #guint set to 1 (only ascii), 2 (only iso) or 3 (both).
+ * @callback_action: #guint type of chars to change
  * @widget: unused #GtkWidget*
  *
  * Convert characters in current document to entities.
+ * callback_action set to 1 (only ascii), 2 (only iso) or 3 (both).
+ * or 4 (ToUppercase) or 5 (ToLowercase)
  *
  * Return value: void
  **/
 void doc_convert_asciichars_in_selection(Tbfwin *bfwin,guint callback_action,GtkWidget *widget) {
-	doc_convert_chars_to_entities_in_selection(bfwin->current_document, (callback_action != 2), (callback_action != 1));
+	if (callback_action >= 4) {
+		doc_convert_case_in_selection(bfwin->current_document, (callback_action == 4));
+	} else {
+		doc_convert_chars_to_entities_in_selection(bfwin->current_document, (callback_action != 2), (callback_action != 1));
+	}
 }
 
 /**

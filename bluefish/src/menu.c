@@ -359,6 +359,8 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/Edit/Replace special/_ASCII to HTML Entities"), NULL, doc_convert_asciichars_in_selection, 1, "<Item>"},
 	{N_("/Edit/Replace special/_ISO8859 to HTML Entities"), NULL, doc_convert_asciichars_in_selection, 2, "<Item>"},
 	{N_("/Edit/Replace special/_Both Types to HTML Entities"), NULL, doc_convert_asciichars_in_selection, 3, "<Item>"},
+	{N_("/Edit/Replace special/To _Uppercase"), NULL, doc_convert_asciichars_in_selection, 4, "<Item>"},
+	{N_("/Edit/Replace special/To _Lowercase"), NULL, doc_convert_asciichars_in_selection, 5, "<Item>"},
 	{N_("/Edit/sep4"), NULL, NULL, 0, "<Separator>"},
 	{N_("/Edit/Sh_ift Right"), NULL, menu_indent_cb, 2, "<Item>"},
 	{N_("/Edit/S_hift Left"), NULL, menu_indent_cb, 1, "<Item>"},
