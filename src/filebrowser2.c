@@ -94,7 +94,7 @@ static void refilter_filelist(Tfilebrowser2 *fb2, GtkTreePath *newroot);
 static void fb2_fill_dir_async(GtkTreeIter *parent, GnomeVFSURI *uri);
 static GnomeVFSURI *fb2_uri_from_fspath(Tfilebrowser2 *fb2, GtkTreePath *fs_path);
 /**************/
-static void DEBUG_DIRITER(Tfilebrowser2 *fb2, const GtkTreeIter *diriter) {
+static void DEBUG_DIRITER(Tfilebrowser2 *fb2, GtkTreeIter *diriter) {
 	gchar *name;
 	gtk_tree_model_get(GTK_TREE_MODEL(FILEBROWSER2CONFIG(main_v->fb2config)->filesystem_tstore), diriter, FILENAME_COLUMN, &name, -1);
 	g_print("DEBUG_DIRITER, iter(%p) has filename %s\n",diriter,name);
@@ -109,7 +109,7 @@ static void DEBUG_URI(const GnomeVFSURI *uri, gboolean newline) {
 	}
 	g_free(name);
 }
-static void DEBUG_TPATH(const GtkTreePath *path, gboolean newline) {
+static void DEBUG_TPATH(GtkTreePath *path, gboolean newline) {
 	gchar *name = gtk_tree_path_to_string(path);
 	DEBUG_MSG(name);
 	if (newline) {
@@ -232,8 +232,9 @@ static void fb2_treestore_mark_children_refresh1(GtkTreeStore *tstore, GtkTreeIt
  * the callback from the asynchronous directory load
  *
  */
-static void fb2_load_directory_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSResult result,GList *list,guint entries_read,Tdirectoryloaddata *cdata) {
+static void fb2_load_directory_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSResult result,GList *list,guint entries_read,gpointer data) {
 	GList *tmplist;
+	Tdirectoryloaddata *cdata = data;
 	DEBUG_MSG("fb2_load_directory_lcb, appending %d childs to ",entries_read);
 	DEBUG_URI(cdata->p_uri, TRUE);
 	tmplist = g_list_first(list);
@@ -493,7 +494,8 @@ void fb2_focus_document(Tbfwin *bfwin, Tdocument *doc) {
  *
  * will return TRUE if this file should be visible in the dir view
  */
-static gboolean tree_model_filter_func(GtkTreeModel *model,GtkTreeIter *iter,Tfilebrowser2 *fb2) {
+static gboolean tree_model_filter_func(GtkTreeModel *model,GtkTreeIter *iter,gpointer data) {
+	Tfilebrowser2 *fb2 = data;
 	gchar *name;
 	gint len, type;
 	GnomeVFSURI *uri;
@@ -526,7 +528,8 @@ static gboolean tree_model_filter_func(GtkTreeModel *model,GtkTreeIter *iter,Tfi
  *
  * will return TRUE if this file should be visible in the file list
  */
-static gboolean file_list_filter_func(GtkTreeModel *model,GtkTreeIter *iter,Tfilebrowser2 *fb2) {
+static gboolean file_list_filter_func(GtkTreeModel *model,GtkTreeIter *iter,gpointer data) {
+/*	Tfilebrowser2 *fb2 = data;*/
 	gchar *name;
 	gint len, type;
 	gtk_tree_model_get(GTK_TREE_MODEL(model), iter, FILENAME_COLUMN, &name, TYPE_COLUMN, &type, -1);
@@ -547,7 +550,7 @@ static gboolean file_list_filter_func(GtkTreeModel *model,GtkTreeIter *iter,Tfil
  * will set the root of the directory view to 'newroot'
  *
  */
-static void refilter_dirlist(Tfilebrowser2 *fb2, const GtkTreePath *newroot) {
+static void refilter_dirlist(Tfilebrowser2 *fb2, GtkTreePath *newroot) {
 	GtkTreeModel *oldmodel1, *oldmodel2;
 	GtkTreePath *useroot;
 	oldmodel1 = fb2->dir_tfilter;
@@ -661,7 +664,7 @@ static GnomeVFSURI *fb2_uri_from_fspath(Tfilebrowser2 *fb2, GtkTreePath *fs_path
 		if (gtk_tree_model_get_iter(GTK_TREE_MODEL(FILEBROWSER2CONFIG(main_v->fb2config)->filesystem_tstore),&fsiter,fs_path)) {
 			return fb2_uri_from_iter(&fsiter);
 		} else {
-			DEBUG_MSG("fb2_uri_from_fspath, WARNING, no fsiter for fs_path=%p ");
+			DEBUG_MSG("fb2_uri_from_fspath, WARNING, no fsiter for fs_path=%p ",fs_path);
 			DEBUG_TPATH(fs_path, TRUE);
 		}
 	}
