@@ -28,7 +28,7 @@
 #include <stdlib.h> /* system() */
 #include <time.h> /* ctime_r() */
 
-#define DEBUG
+/*#define DEBUG*/
 
 #include "bluefish.h"
 #include "document.h"

@@ -55,7 +55,7 @@ clean:
 	rm -f *.gmo
 
 distclean: clean
-	rm -f Makefile tmp.po ${PACKAGE}.po *.rej *.orig
+	rm -f Makefile tmp.po ${PACKAGE}.po *.rej *.orig *~
 
 ${PACKAGE}.po:
 	$(XGETTEXT) --default-domain=${PACKAGE} --keyword=_ --keyword=N_ ../src/*.c
