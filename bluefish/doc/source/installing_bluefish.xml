@@ -141,11 +141,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
       </listitem>
 
       <listitem>
-         To compile, or install on another platform, see 
-
-        <xref linkend="installing-bluefish-source"></xref>
-
-        . 
+         To compile, or install on another platform, see <xref linkend="installing-bluefish-source"></xref>. 
       </listitem>
     </itemizedlist>
   </sect1>
@@ -295,28 +291,12 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
       <itemizedlist>
         <listitem>
-           
-
-          <screen>make: *** No targets specified and no makefile found.
+            <screen>make: *** No targets specified and no makefile found.
           Stop.</screen>
-
-           This will happen if 
-
-          <emphasis>configure</emphasis>
-
-           fails and you try to run 
-
-          <literal>make</literal>
-
-          . It also happens if you're running 
-
-          <literal>make</literal>
-
-           from the wrong directory. 
+           This will happen if <emphasis>configure</emphasis> fails and you try to run <literal>make</literal>. It also happens if you're running <literal>make</literal> from the wrong directory. 
         </listitem>
-
         <listitem>
-           ... more trouble to come ;-) 
+        ... more trouble to come ;-) 
         </listitem>
       </itemizedlist>
     </sect2>
@@ -897,10 +877,10 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
     <title>Installing a Binary Distribution</title>
 
     <para>Different packages -- different installation. We will cover only a few
-    approaches here <footnote>
+    approaches here<footnote>
         <para>If you want to contribute a description on how to install
         Bluefish on your system, just drop us a note. :-)</para>
-      </footnote> , since the installation is very system-specific ;-). Lets
+      </footnote>, since the installation is very system-specific ;-). Lets
     have a look at some different systems:</para>
 
     <para>For Debian users this is very simple. To download, install, and
