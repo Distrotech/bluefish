@@ -46,13 +46,14 @@
 #include "filebrowser.h"
 
 typedef struct {
-	gboolean active_closing;
-} Tlocal;
+	Tdocument *last_activated_doc;
+} Tlocals;
 
 /******************************/
 /* global vars for this module */
 /******************************/
-static Tlocal local = {FALSE};
+static Tlocals locals = {NULL};
+
 
 void add_filename_to_history(gchar *filename) {
 	gchar *dirname;
@@ -1163,17 +1164,10 @@ gint doc_textbox_to_file(Tdocument * doc, gchar * filename) {
 
 void doc_destroy(Tdocument * doc, gboolean delay_activation)
 {
-	if (local.active_closing) {
-		DEBUG_MSG("doc_destroy is running already, returning\n");
-		return;
-	}
-	local.active_closing = TRUE;
 	if (doc->filename) {
 		add_to_recent_list(doc->filename, 1);
 	}
-/*	if (delay_activation) {*/
-		gui_notebook_unbind_signals();
-/*	}*/
+	gui_notebook_unbind_signals();
 	/* to make this go really quick, we first only destroy the notebook page and run flush_queue(), 
 	after the document is gone from the GUI we complete the destroy, to destroy only the notebook
 	page we ref+ the scrolthingie, remove the page, and unref it again */
@@ -1191,19 +1185,18 @@ void doc_destroy(Tdocument * doc, gboolean delay_activation)
 		DEBUG_MSG("doc_destroy, documentlist = NULL\n");
 	}
 	DEBUG_MSG("doc_destroy, g_list_length(documentlist)=%d\n",g_list_length(main_v->documentlist));
+	if (main_v->current_document == doc) {
+		main_v->current_document = NULL;
+	}
 	/* then we remove the page from the notebook */
 	gtk_notebook_remove_page(GTK_NOTEBOOK(main_v->notebook),
 							 gtk_notebook_page_num(GTK_NOTEBOOK(main_v->notebook),doc->view->parent));
 /*	flush_queue();*/
-#ifdef KJHKJGKJG
 	if (!delay_activation) {
-		/* probably it is not needed to call this function, gtk_notebook_remove_page()
-		will have called it probably */
 		notebook_changed(-1);
-	} /*	else {*/
-#endif
+	} else {
 		gui_notebook_bind_signals();
-/*	}*/
+	}
 
 	/* now we really start to destroy the document */
 	g_object_unref(doc->view->parent);
@@ -1218,16 +1211,6 @@ void doc_destroy(Tdocument * doc, gboolean delay_activation)
 	doc_unre_destroy(doc);
 	g_free(doc);
 
-	if (!delay_activation) {
-		notebook_changed(-1);
-	}
-#ifdef DEBUG
-	if (main_v->current_document == doc) {
-		DEBUG_MSG("doc_destroy, main_v->current_document == doc!! ABORTING!!\n");
-		exit(24);
-	}
-#endif
-	local.active_closing = FALSE;
 	DEBUG_MSG("doc_destroy, finished for %p\n", doc);
 }
 
@@ -1444,7 +1427,7 @@ gint doc_close(Tdocument * doc, gint warn_only)
 }
 
 static void doc_close_but_clicked_lcb(GtkWidget *wid, gpointer data) {
-	if (!local.active_closing) doc_close(data, 0);
+	doc_close(data, 0);
 }
 
 /* contributed by Oskar Swida <swida@aragorn.pb.bialystok.pl>, with help from the gedit source */
@@ -1701,6 +1684,16 @@ void doc_reload(Tdocument *doc) {
 
 void doc_activate(Tdocument *doc) {
 	time_t newtime;
+#ifdef DEBUG
+	if (!doc) {
+		DEBUG_MSG("doc_activate, doc=NULL!!! ABORTING!!\n");
+		exit(44);
+	}
+#endif
+	if (doc == locals.last_activated_doc) {
+		return;
+	}
+	locals.last_activated_doc = doc;
 	if (doc_check_mtime(doc,&newtime) == 0) {
 		gchar *tmpstr, oldtimestr[128], newtimestr[128];/* according to 'man ctime_r' this should be at least 26, so 128 should do ;-)*/
 		gint retval;
@@ -1728,7 +1721,6 @@ void doc_activate(Tdocument *doc) {
 
 	doc_scroll_to_cursor(doc);
 	gtk_widget_grab_focus(GTK_WIDGET(doc->view));
-	flush_queue();
 	if (doc->filename) {
 		gchar *dir1 = g_path_get_dirname(doc->filename);
 		gchar *dir2 = ending_slash(dir1);

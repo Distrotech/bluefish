@@ -118,6 +118,10 @@ void notebook_changed(gint newpage)
 			DEBUG_MSG("notebook_changed, finished, main_v->current_document=%p\n", main_v->current_document);
 			g_assert(main_v->current_document);
 #endif
+			/* now we flush the queue first, so that we don't call doc_activate 
+			on _this_ document if the user has another close click in the queue */
+			flush_queue();
+
 			doc_activate(main_v->current_document);
 		}
 	}
