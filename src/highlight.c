@@ -791,10 +791,13 @@ static void patmatch_rematch(gboolean is_parentmatch, Tpattern *pat, gint offset
 #endif
 		}
 	}
+#ifdef DEVELOPMENT
 	if (pat->ovector[1] > to) {
-		DEBUG_MSG("patmatch_rematch,end > to, setting ovector[1] to to (=%d)\n", to);
-		pat->ovector[1] = to;
+		g_print("BUG: patmatch_rematch,end > to, setting ovector[1] to to (=%d)\n", to);
+		/*pat->ovector[1] = to;*/
+		exit(567);
 	}
+#endif
 }
 
 static void applystyle(Tdocument *doc, gchar *buf, guint buf_char_offset, gint so, gint eo, Tpattern *pat) {
@@ -870,10 +873,9 @@ static void applystyle(Tdocument *doc, gchar *buf, guint buf_char_offset, gint s
 static void applylevel(Tdocument * doc, gchar * buf, guint buf_char_offset, gint offset, const gint to, Tpattern *parentpat, GList *childs_list) {
 	gint parent_mode1_start=offset;
 	gint parent_mode1_offset=offset;
-
 #ifdef DEVELOPMENT
-	if (offset > to ) {
-		DEBUG_MSG("applylevel, impossible start, offset > to, offset=%d, to=%d\n", offset, to);
+	if (offset >= to ) {
+		DEBUG_MSG("applylevel, impossible start, offset >= to, offset=%d, to=%d\n", offset, to);
 		exit(24);
 	}
 	
@@ -907,6 +909,12 @@ static void applylevel(Tdocument * doc, gchar * buf, guint buf_char_offset, gint
 			if (PATTERN(tmplist->data)->ovector[0] <= offset) {
 				DEBUG_MSG("1, rematching pattern %p, ovector[0]=%d, offset=%d\n",PATTERN(tmplist->data),PATTERN(tmplist->data)->ovector[0], offset);
 				patmatch_rematch(FALSE, PATTERN(tmplist->data), offset, buf, to, parentpat);
+#ifdef DEVELOPMENT
+				if (PATTERN(tmplist->data)->ovector[1] > to) {
+					g_print("BUG: PATTERN(tmplist->data)->ovector[1] > to\n");
+					exit(321);
+				}
+#endif
 			}
 #ifdef DEBUG
 			else {
@@ -938,6 +946,12 @@ static void applylevel(Tdocument * doc, gchar * buf, guint buf_char_offset, gint
 				parentpat->ovector[0] = to;
 				parentpat->is_match = 1;
 			}
+#ifdef DEVELOPMENT
+			if (parentpat->ovector[1] > to) {
+				g_print("BUG: parentpat->ovector[1] > to\n");
+				exit(765);
+			}
+#endif
 			if ((lowest_pm == NULL || (lowest_pm->ovector[0] > parentpat->ovector[0]))) {
 				lowest_pm = parentpat;
 				DEBUG_MSG("3 lowest_pm=%p (parentpat!!), parentpat->is_match=%d, start=%d\n",lowest_pm,parentpat->is_match, parentpat->ovector[0]);
@@ -948,7 +962,14 @@ static void applylevel(Tdocument * doc, gchar * buf, guint buf_char_offset, gint
 			}
 #endif
 		}
-	
+#ifdef DEVELOPMENT
+		if (offset > to ) {
+			g_print("BUG: applylevel, impossible before applying, offset > to, offset=%d, to=%d\n", offset, to);
+			g_print("lowest_pm->mode=%d, lowest_pm->childs=%p\n",lowest_pm->mode,lowest_pm->childs);
+			exit(24);
+		}
+#endif
+
 		/* apply the lowest match */
 		while (lowest_pm != NULL) {
 			if (lowest_pm == parentpat) {
@@ -989,12 +1010,6 @@ static void applylevel(Tdocument * doc, gchar * buf, guint buf_char_offset, gint
 				break;
 #endif
 				}
-#ifdef DEBUG
-				if (offset > to ) {
-					DEBUG_MSG("applylevel, impossible after applying, offset > to, offset=%d, to=%d\n", offset, to);
-					exit(24);
-				}
-#endif
 				if (offset == to) {
 					DEBUG_MSG("offset==to, there is no further pattern that will match inb this level\n");
 					DEBUG_MSG("applylevel, finished, to=%d, returning to previous level\n", to);
@@ -1006,13 +1021,16 @@ static void applylevel(Tdocument * doc, gchar * buf, guint buf_char_offset, gint
 
 				tmplist = g_list_first(childs_list);
 				while (tmplist) {
-					if ((PATTERN(tmplist->data)->ovector[1] <=to) && (PATTERN(tmplist->data)->ovector[0] <= offset)) {
+					if (((PATTERN(tmplist->data)->ovector[1] <=to) && (PATTERN(tmplist->data)->ovector[0] <= offset)) 
+						|| PATTERN(tmplist->data)->ovector[1] > to) {
 						if (PATTERN(tmplist->data)->mode == 3) {
 							PATTERN(tmplist->data)->is_match = FALSE; /* mode 3 types can only match as first match */
 						} else {
 							patmatch_rematch(FALSE, PATTERN(tmplist->data), offset, buf, to, parentpat);
 							DEBUG_MSG("2 rematch: pat=%p, pat.is_match=%d, start=%d\n",PATTERN(tmplist->data),PATTERN(tmplist->data)->is_match,PATTERN(tmplist->data)->ovector[0]);
 						}
+					} else if (PATTERN(tmplist->data)->ovector[1] > to) {
+						PATTERN(tmplist->data)->is_match = 0;
 					}
 					if ((PATTERN(tmplist->data)->is_match>0) && (lowest_pm == NULL || (lowest_pm->ovector[0] > PATTERN(tmplist->data)->ovector[0]))) {
 						lowest_pm = PATTERN(tmplist->data);
@@ -1047,7 +1065,13 @@ static void applylevel(Tdocument * doc, gchar * buf, guint buf_char_offset, gint
 					}
 #endif
 				}
-		
+#ifdef DEVELOPMENT
+				if (lowest_pm && lowest_pm->ovector[1] > to) {
+					g_print("BUG: lowest_pm->ovector[1] > to !!\n");
+					g_print("is_parentpat=%d, lowest_pm->mode=%d\n",(lowest_pm == parentpat), lowest_pm->mode);
+					exit(345);
+				}
+#endif
 #ifdef DEBUG
 				if (lowest_pm) {
 					if (lowest_pm == parentpat) {
