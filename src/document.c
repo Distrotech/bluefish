@@ -2527,11 +2527,7 @@ gint doc_save(Tdocument * doc, gboolean do_save_as, gboolean do_move, gboolean w
 		if (doc->filename) {
 			if (do_move) {
 				gchar *ondiskencoding = get_filename_on_disk_encoding(doc->filename);
-#ifdef HAVE_GNOME_VFS
 				gnome_vfs_unlink(ondiskencoding);
-#else
-				unlink(ondiskencoding);
-#endif
 				g_free(ondiskencoding);
 			}
 			g_free(doc->filename);
@@ -2546,7 +2542,6 @@ gint doc_save(Tdocument * doc, gboolean do_save_as, gboolean do_move, gboolean w
 	} else /* (!do_save_as) */ {
 		gboolean modified;
 		time_t oldmtime, newmtime;
-#ifdef HAVE_GNOME_VFS
 		GnomeVFSFileInfo *fileinfo;
 		fileinfo = gnome_vfs_file_info_new();
 		modified = doc_check_modified_on_disk(doc,&fileinfo);
@@ -2555,12 +2550,6 @@ gint doc_save(Tdocument * doc, gboolean do_save_as, gboolean do_move, gboolean w
 			oldmtime = doc->fileinfo->mtime;
 		}
 		gnome_vfs_file_info_unref(fileinfo);
-#else
-		struct stat statbuf;
-		modified = doc_check_modified_on_disk(doc,&statbuf);
-		newmtime = statbuf.st_mtime;
-		oldmtime = doc->statbuf.st_mtime;
-#endif
 		if (modified) {
 			gchar *tmpstr, oldtimestr[128], newtimestr[128];/* according to 'man ctime_r' this should be at least 26, so 128 should do ;-)*/
 			gint retval;
