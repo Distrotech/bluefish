@@ -1690,6 +1690,7 @@ gint doc_close(Tdocument * doc, gint warn_only)
 }
 
 static void doc_close_but_clicked_lcb(GtkWidget *wid, gpointer data) {
+
 	doc_close(data, 0);
 }
 
@@ -1824,16 +1825,16 @@ Tdocument *doc_new(gboolean delay_activate) {
 	}
 	newdoc->highlightstate = main_v->props.defaulthighlight;
 	DEBUG_MSG("doc_new, need_highlighting=%d, highlightstate=%d\n", newdoc->need_highlighting, newdoc->highlightstate);
-	if (!delay_activate) {
+/*	if (!delay_activate) {
 		DEBUG_MSG("doc_new, notebook current page=%d, newdoc is on page %d\n",gtk_notebook_get_current_page(GTK_NOTEBOOK(main_v->notebook)),gtk_notebook_page_num(GTK_NOTEBOOK(main_v->notebook),scroll));
 		DEBUG_MSG("doc_new, setting notebook page to %d\n", g_list_length(main_v->documentlist) - 1);
 		gtk_notebook_set_current_page(GTK_NOTEBOOK(main_v->notebook),g_list_length(main_v->documentlist) - 1);
 		if (main_v->current_document != newdoc) {
 			notebook_changed(-1);
-		}
+		}*/
 /*		doc_activate() will be called by notebook_changed() and it will grab the focus
 		gtk_widget_grab_focus(newdoc->view);	*/
-	}
+/*	}*/
 	return newdoc;
 }
 
@@ -1993,10 +1994,11 @@ void doc_activate(Tdocument *doc) {
 	/* if highlighting is needed for this document do this now !! */
 	if (doc->need_highlighting && doc->highlightstate) {
 		doc_highlight_full(doc);
-		DEBUG_MSG("doc_activate, after doc_highlight_full, need_highlighting=%d\n",doc->need_highlighting);
+		DEBUG_MSG("doc_activate, doc=%p, after doc_highlight_full, need_highlighting=%d\n",doc,doc->need_highlighting);
 	}
 
 	doc_scroll_to_cursor(doc);
+	DEBUG_MSG("doc_activate, doc=%p, about to grab focus\n",doc);
 	gtk_widget_grab_focus(GTK_WIDGET(doc->view));
 	if (doc->filename) {
 		gchar *dir1 = g_path_get_dirname(doc->filename);
@@ -2006,6 +2008,7 @@ void doc_activate(Tdocument *doc) {
 		g_free(dir1);
 		g_free(dir2);
 	}
+	DEBUG_MSG("doc_activate, doc=%p, finished\n",doc);
 }
 
 /**************************************************************************/
@@ -2247,6 +2250,7 @@ void file_new_cb(GtkWidget * widget, gpointer data) {
 	Tdocument *doc;
 
 	doc = doc_new(FALSE);
+	notebook_changed(-1);
 /*	project management needs a rewite so this is not included yet */
 /* 	if ((main_v->current_project.template) && (file_exists_and_readable(main_v->current_project.template) == 1)) {
              doc_file_to_textbox(doc, main_v->current_project.template);
@@ -2313,7 +2317,7 @@ void file_close_all_cb(GtkWidget * widget, gpointer data)
 		break;
 		}
 	}
-	notebook_changed(-1);
+/*	notebook_changed(-1);*/
 	DEBUG_MSG("file_close_all_cb, finished\n");
 }
 
