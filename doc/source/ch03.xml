@@ -16,24 +16,470 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 -->
-<chapter id="bluefish-ch-3">
-
-  <title>tutorial introduction</title>
-	<simplesect>    
+<chapter id="bluefish-ch-4">
+	<title>Using Bluefish</title>
+	<sect1 id="bluefish-ch-4-sect-1">
+		<title>The Menu</title>
 		<para>
-	      generals about using the tutorial
+			The main menu for Bluefish consists of 10 options. In order from left to right these are: File, Edit, View, Tags, Dialogs, Document, Go, Bookmarks, Project, and External. All the menus in Bluefish have "tear-off" capability, meaning each window can be detached from the main Bluefish window. To accomplish this, click on the dashed line at the top of any expanded menu. A clone of that menu will then become a separate window that will remain in front of the main window. This provides easy access for commonly used menu items. 
+			<figure id="main_menu">
+				<title id="figure-desc">Bluefish Main Menu</title>
+				<screenshot>
+					<mediaobject>
+						<imageobject>
+							<imagedata fileref="figures/main_menu.png" format="PNG"/>
+						</imageobject>
+						<textobject>
+							<phrase>
+								A screenshot of the Bluefish 0.13 main menu
+							</phrase>
+						</textobject>
+					</mediaobject>
+				</screenshot>
+			</figure>
 		</para>
-	</simplesect>
-
-	<sect1 id="bluefish-ch-3-sect-1">
-		<title>starting bluefish</title>
-		<para>generals about starting bluefish</para>
+		<sect2 id="bluefish-ch-4-sect-1.1">
+			<title>The File Menu</title>
+			<para>
+				Through the <emphasis>File</emphasis> menu a new file can be created, existing files opened, and opened files saved. Through <emphasis>File &gt; Open</emphasis> one or more files can be opened. Recently opened files (up to 15?) can be opened by selecting from the list within <emphasis>File &gt; Open recent. </emphasis>In the <emphasis>File &gt; Open Advanced</emphasis> dialog, multiple files can be opened from a directory using regular expressions. Assuming a working internet connection, files can also be opened from the web using <emphasis>File &gt; Open URL</emphasis>(make sure to type the http:// or it doesn't work...bug, maybe???). An interesting feature of Bluefish is the ability to open files by selecting the text of a currently opened file. For example, if a file has the text "/path/to/file", you can highlight that text and select <emphasis>File &gt; Open from Selection</emphasis>. The file, if it exists, will be opened in another tab within Bluefish. Finally, files can be opened via the command line by feeding filenames to Bluefish as arguments. This can even be done while Bluefish is running and the resulting file will then show up in its own tab.
+			</para>
+			<para>
+				Paragraph about saving files
+			</para>
+			<para>
+				Small paragraph about insert and rename
+			</para>
+			<para>
+				Paragraph about closing and exiting Bluefish
+			</para>
+			<figure id="file_menu">
+				<title id="figure-desc">Bluefish File Menu</title>
+				<screenshot>
+					<mediaobject>
+						<imageobject>
+							<imagedata fileref="figures/file_menu.png" format="PNG"/>
+						</imageobject>
+						<textobject>
+							<phrase>The Bluefish File Menu</phrase>
+						</textobject>
+					</mediaobject>
+				</screenshot>
+			</figure>
+		</sect2>
+		<sect2 id="bluefish-ch-4-sect-1.2">
+			<title>The Edit Menu</title>
+			<figure id="file_menu">
+				<title id="figure-desc">Bluefish Edit Menu</title>
+				<screenshot>
+					<mediaobject>
+						<imageobject>
+							<imagedata fileref="figures/edit_menu.png" format="PNG"/>
+						</imageobject>
+						<textobject>
+							<phrase>A screenshot of the Bluefish 0.13 edit menu</phrase>
+						</textobject>
+					</mediaobject>
+				</screenshot>
+			</figure>
+			<para>Enter info about the edit menu.</para>
+			<sect3 id="bluefish-ch-4-sect-1.1.1">
+				<title>Undo/Redo Functions</title>
+				<para>Info about the Undo/Redo Functions. How to set levels of undo,
+				etc.</para>
+			</sect3>
+		</sect2>
+		<sect2 id="bluefish-ch-4-sect-1.2">
+			<title>The View Menu</title>
+			<figure id="file_menu">
+				<title id="figure-desc">Bluefish View Menu</title>
+				<screenshot>
+					<mediaobject>
+						<imageobject>
+							<imagedata fileref="figures/view_menu.png" format="PNG"/>
+						</imageobject>
+						<textobject>
+							<phrase>A screenshot of the Bluefish 0.13 view menu</phrase>
+						</textobject>
+					</mediaobject>
+				</screenshot>
+			</figure>
+			<para>Enter info about the view menu.</para>
+		</sect2>
+		<sect2 id="bluefish-ch-4-sect-1.3">
+			<title>The Tags Menu</title>
+			<figure id="file_menu">
+				<title id="figure-desc">Bluefish Tags Menu</title>
+				<screenshot>
+					<mediaobject>
+						<imageobject>
+							<imagedata fileref="figures/tags_menu.png" format="PNG"/>
+						</imageobject>
+						<textobject>
+							<phrase>A screenshot of the Bluefish 0.13 tags menu</phrase>
+						</textobject>
+					</mediaobject>
+				</screenshot>
+			</figure>
+			<para>Enter info about the tags menu.</para>
+		</sect2>
+		<sect2 id="bluefish-ch-4-sect-1.4">
+			<title>The Dialogs Menu</title>
+			<figure id="file_menu">
+				<title id="figure-desc">Bluefish Dialogs Menu</title>
+				<screenshot>
+					<mediaobject>
+						<imageobject>
+							<imagedata fileref="figures/dialogs_menu.png" format="PNG"/>
+						</imageobject>
+						<textobject>
+							<phrase>A screenshot of the Bluefish 0.13 dialogs menu</phrase>
+						</textobject>
+					</mediaobject>
+				</screenshot>
+			</figure>
+			<para>Enter info about the dialogs menu.</para>
+		</sect2>
+		<sect2 id="bluefish-ch-4-sect-1.4">
+			<title>The Document Menu</title>
+			<figure id="file_menu">
+				<title id="figure-desc">Bluefish Document Menu</title>
+				<screenshot>
+					<mediaobject>
+						<imageobject>
+							<imagedata fileref="figures/document_menu.png" format="PNG"/>
+						</imageobject>
+						<textobject>
+							<phrase>A screenshot of the Bluefish 0.13 Document menu</phrase>
+						</textobject>
+					</mediaobject>
+				</screenshot>
+			</figure>
+			<para>Enter info about the document menu.</para>
+		</sect2>
+		<sect2 id="bluefish-ch-4-sect-1.4">
+			<title>The Go Menu</title>
+			<figure id="file_menu">
+				<title id="figure-desc">Bluefish Go Menu</title>
+				<screenshot>
+					<mediaobject>
+						<imageobject>
+							<imagedata fileref="figures/go_menu.png" format="PNG"/>
+						</imageobject>
+						<textobject>
+							<phrase>A screenshot of the Bluefish 0.13 go menu</phrase>
+						</textobject>
+					</mediaobject>
+				</screenshot>
+			</figure>
+			<para>Enter info about the go menu.</para>
+		</sect2>
+		<sect2 id="bluefish-ch-4-sect-1.4">
+			<title>The Bookmarks Menu</title>
+			<figure id="file_menu">
+				<title id="figure-desc">Bluefish Bookmarks Menu</title>
+				<screenshot>
+					<mediaobject>
+						<imageobject>
+							<imagedata fileref="figures/bookmarks_menu.png" format="PNG"/>
+						</imageobject>
+						<textobject>
+							<phrase>A screenshot of the Bluefish 0.13 bookmarks menu</phrase>
+						</textobject>
+					</mediaobject>
+				</screenshot>
+			</figure>
+			<para>Enter info about the bookmarks menu.</para>
+		</sect2>
+		<sect2 id="bluefish-ch-4-sect-1.4">
+			<title>The Project Menu</title>
+			<figure id="file_menu">
+				<title id="figure-desc">Bluefish Project Menu</title>
+				<screenshot>
+					<mediaobject>
+						<imageobject>
+							<imagedata fileref="figures/project_menu.png" format="PNG"/>
+						</imageobject>
+						<textobject>
+							<phrase>A screenshot of the Bluefish 0.13 project menu</phrase>
+						</textobject>
+					</mediaobject>
+				</screenshot>
+			</figure>
+			<para>Enter info about the project menu.</para>
+		</sect2>
+		<sect2 id="bluefish-ch-4-sect-1.4">
+			<title>The External Menu</title>
+			<figure id="file_menu">
+				<title id="figure-desc">Bluefish External Menu</title>
+				<screenshot>
+					<mediaobject>
+						<imageobject>
+							<imagedata fileref="figures/external_menu.png" format="PNG"/>
+						</imageobject>
+						<textobject>
+							<phrase>A screenshot of the Bluefish 0.13 external menu</phrase>
+						</textobject>
+					</mediaobject>
+				</screenshot>
+			</figure>
+			<para>Enter info about the external menu.</para>
+		</sect2>
 	</sect1>
-
-	<sect1 id="bluefish-ch-3-sect-2">
-		<title>using bluefish, an overview</title>
-		<para>overview of the aspects in using bluefish</para>
+	<sect1 id="bluefish-ch-4-sect-2">
+		<title>Changing Shortcut Keys</title>
+		<para>Many menu entries are accessible via key combination; also called a
+		shortcut. For example, pressing the Ctrl+S keys saves the current file to
+		disk. If available, shortcut key combinations are shown on the right of
+		the menu entry.</para>
+		<para>What many people do not know is that they can be changed. Move the
+		mouse over a menu entry, and press the key combination you would like to
+		use. Immediately this combination will show up on the right of the menu
+		entry. An entry can also be removed, press the backspace key when you move
+		the mouse over a menu entry to remove the shortcut.</para>
+		<para>To save the shortcut key combinations for later Bluefish sessions
+		you can store them. In the Options menu choose Save shortcut keys. This
+		will store the settings in file ~/.bluefish/menudump_2. If you want to
+		restore the default combinations simply remove this file and restart
+		Bluefish.</para>
 	</sect1>
-
+	<sect1 id="bluefish-ch-4-sect-3">
+		<title>The Toolbar</title>
+		<para>a little toolbox</para>
+	</sect1>
+	<sect1 id="bluefish-ch-4-sect-4">
+		<title>The File Editing Area</title>
+		<sect2 id="bluefish-ch-4-sect-4.1">
+			<title>Navigation trough text and documents</title>
+			<para>The editing area is a standard gtk editing area. This means there are 
+		many keyboard shortcuts available to navigate trought the text.</para>
+			<itemizedlist>
+				<listitem>
+					<para>control+right-arrow will jump to the next word boundary</para>
+				</listitem>
+				<listitem>
+					<para>control+left-arrow will jump to the previous word boundary</para>
+				</listitem>
+				<listitem>
+					<para>end will jump to the end of line</para>
+				</listitem>
+				<listitem>
+					<para>home will jump to the beginning of the line</para>
+				</listitem>
+				<listitem>
+					<para>page-up will jump one page up</para>
+				</listitem>
+				<listitem>
+					<para>page-down will jump one page down</para>
+				</listitem>
+				<listitem>
+					<para>control+home will jump to the top of the document</para>
+				</listitem>
+				<listitem>
+					<para>control+end will jump to the end of the document</para>
+				</listitem>
+				<listitem>
+					<para>control + page-up will change to the previous document</para>
+				</listitem>
+				<listitem>
+					<para>control + page-down will change to the next document</para>
+				</listitem>
+			</itemizedlist>
+			<para>
+		These shortcuts are also available when selecting text. Some examples: To select the 
+		current line, press home, hold shift and press end. To select the current word, 
+		press control+left-arrow, hold shift and press control+right-arrow.
+		</para>
+			<para>
+		Navigating trough a large list of documents can be difficult. But if you right
+		click the document notebook tabs, you get a list of all opened documents.
+		</para>
+		</sect2>
+	</sect1>
+	<sect1 id="bluefish-ch-4-sect-5">
+		<title>Bookmarks</title>
+		<para>In Bluefish you can add bookmarks to a line in the text, and you can later 
+		use the bookmark to quickly jump to this location. Bookmarks can be temporary or 
+		permanent, the default can be configured in the preferences.
+		</para>
+		<para>
+		Bookmarks can be added to the current cursor location by using the 
+		menu /Edit/Add bookmark, or by using the shortcut key combination control+d. You 
+		can also add bookmarks by right-clicking in the text, and selecting add bookmark.
+		</para>
+		<para>
+		A way to add many bookmarks at the same time is using the search dialog. Check the
+		'Bookmark results' option, and all search results will be added to your bookmarks.
+		For example this manual has sections, and each section is identified by a header
+		like '&lt;sect1 id="bluefish-ch-4-sect-6"&gt;'. A way to automatically 
+		get a bookmark to every section is to search for the following regular expression 
+		pattern: '&lt;sect[0-9]+ id="[^"]+"&gt;' and bookmark all results. 
+		</para>
+		<para>
+		Bookmarks can be found in the side panel, sorted by document and line number. If you
+		right click a bookmark, you get a popup menu with several options. Among the option is 
+		edit, which allows you to change a bookmark from temporary to permanent or the other
+		way around, and you can name bookmarks.
+		</para>
+	</sect1>
+	<sect1 id="bluefish-ch-4-sect-6">
+		<title>Quickbar</title>
+		<para>The quickbar is a user defined toolbar. All HTML toolbar buttons can
+		be added to the quickbar by simply right-clicking them and selecting
+		"Add to quickbar". If you want to remove items from the Quickbar,
+		right-click them and select "Remove from Quickbar"</para>
+	</sect1>
+	<sect1 id="bluefish-ch-4-sect-7">
+		<title>Custom Menu</title>
+		<para>here you can "bookmark" things</para>
+		<sect2 id="bluefish-ch-4-sect-7.1">
+			<title>What is the Custom Menu?</title>
+			<para>The custom menu allows you to add "often used" strings or
+			search and replace patterns to a menu. Upon install Bluefish will create
+			some default entries, these will give you an idea what can be done with
+			the custom menu.</para>
+		</sect2>
+		<sect2 id="bluefish-ch-4-sect-7.2">
+			<title>Editing the Custom Menu</title>
+			<para>changing and editing entries</para>
+		</sect2>
+	</sect1>
+	<sect1 id="bluefish-ch-4-sect-8">
+		<title>Syntax Highlighting</title>
+		<para>Syntax highlighting is the coloring of words that have a special
+		meaning in the language you are writing. Obviously the patterns are
+		different for every language. The "&lt;title&gt;" word for
+		example means "start of title" in HTML, the "function"
+		word means "start of function" in PHP.</para>
+		<sect2 id="bluefish-ch-4-sect-8.2">
+			<title>Modifying Highlight Patterns</title>
+			<para>The highlight patterns are build from perl compatible regular
+			expressions. A pattern has options for coloring and style of the text it
+			matches. Within a match other patterns can be used to color parts of
+			that match. There are three types of patterns:
+			<itemizedlist><listitem>1 Two patterns, match from the start to the end
+			pattern</listitem><listitem>2 One pattern that matches from start to end</listitem><listitem>3
+			Match a subpattern from the parent pattern</listitem></itemizedlist></para>
+			<para>One specific pattern can also be used within several other parent
+			patterns. The parent-match option is a regular expression that defines
+			all parents for a certain pattern. If empty it will default to ^top$, so
+			basically it will be on the top level.</para>
+			<para>So how does it work? Lets take a look at a little example text, a
+			piece of PHP code within some html code:</para>
+			<programlisting>&lt;p align="center"&gt;
+&lt;?php
+// this is a comment ?&gt;
+?&gt;</programlisting>
+			<para>The first thing the highlighting engine does is finding the
+			pattern that has the lowest match. Using the default patterns for PHP,
+			the pattern named <literal>html</literal> has a match at position 0:</para>
+			<programlisting>&lt;p align="center"&gt;</programlisting>
+			<para>So now the highlightiong engine searches for the lowest match in
+			all subpatterns of<literal>html</literal>, in the region matched by the
+			type 2 <literal>html</literal> pattern. Again, the lowest match will
+			count. The pattern named <literal>html-tag</literal> has a match at
+			position 1. This pattern is a type 3 pattern, so it matches a subpattern
+			of the parent:</para>
+			<programlisting>p</programlisting>
+			<para>the match from subpattern <literal>html-tag</literal> ends at
+			position 2 and it does not have any child patterns, so the highlighting
+			engine continues at position 2 with all subpatterns from
+			<literal>html</literal>. A type 2 pattern named <literal>html-attrib</literal>
+			has the lowest match:</para>
+			<programlisting>align="center"</programlisting>
+			<para>This pattern does have a child pattern, again a type 3 pattern
+			called <literal>html-attrib-sub2</literal> matching:</para>
+			<programlisting>"center"</programlisting>
+			<para>The pattern <literal>html-attrib-sub2</literal> does not have any
+			child patterns, and subpatterns of <literal>html-attrib</literal> do not
+			have any more matches, and also <literal>html</literal> subpatterns do
+			not have any more matches. So we are back on the main level, the
+			remaining code to highlight is:</para>
+			<programlisting>&lt;?php
+// this is a comment ?&gt;
+?&gt;</programlisting>
+			<para>Now a pattern named <literal>php</literal> has the lowest match.
+			This is a type 0 pattern, so the highlight engine continues with all the
+			remaining code, but it will not only search for the lowest match of the
+			child patterns of <literal>php</literal>, but it will also use for the
+			end pattern of <literal>php</literal>. The lowest match in this example
+			is a pattern named <literal>php-comment-C++</literal> As you can see the
+			?&gt; within the comment does not end the <literal>php</literal>
+			pattern, because it lies within a subpattern of <literal>php</literal>:</para>
+			<programlisting>// this is a comment ?&gt;</programlisting>
+			<para>The pattern <literal>php-comment-C++</literal> does not have any
+			child patterns, so the remaining code for the <literal>php</literal>
+			subpatterns is:</para>
+			<programlisting>?&gt;</programlisting>
+			<para>It is very obvious now, the lowest match will be the end pattern
+			of the <literal>php</literal> pattern, so we're back on the main
+			level, and we have matched all of the code!</para>
+			<para>The config file for highlighting is a colon separated array with
+			the following content:</para>
+			<programlisting>mode:
+patternname:
+case_sensitive(0-on/1-off):
+start reg-ex:
+end reg-ex:
+start &amp; end pattern(1), only start(2), subpattern(3):
+parent-match:
+foreground-color:
+background-color:
+don't change weight(0), non-bold(1), bold(2):
+don't change style(0), non-italic(1), italic(2): </programlisting>
+		</sect2>
+	</sect1>
+	<sect1 id="bluefish-ch-4-sect-9">
+		<title>Bluefish Preferences</title>
+		<para>see in the menu Options/Preferences</para>
+		<sect2 id="bluefish-ch-4-sect-9.1">
+			<title>Editor Preferences</title>
+			<para>editor</para>
+		</sect2>
+		<sect2 id="bluefish-ch-4-sect-9.2">
+			<title>Html Preferences</title>
+			<para>html</para>
+		</sect2>
+		<sect2 id="bluefish-ch-4-sect-9.3">
+			<title>Files Preferences</title>
+			<para>files</para>
+		</sect2>
+		<sect2 id="bluefish-ch-4-sect-9.4">
+			<title>User Inferface Preferences</title>
+			<para>user interface</para>
+		</sect2>
+		<sect2 id="bluefish-ch-4-sect-9.5">
+			<title>Images Preferences</title>
+			<para>images</para>
+		</sect2>
+		<sect2 id="bluefish-ch-4-sect-9.6">
+			<title>File Types Preferences</title>
+			<para>Here you can define all filestypes that should be reckognised by Bluefish. 
+			The defaults for these filetypes are retrieved from a file called filetypes.default 
+			in ${prefix}/share/bluefish/.</para>
+			<para>
+			The filetypes consist first of a name (this name is also used in the file filters, and in 
+			the highlighting patterns). Second is a list of extensions, separated by a colon (:). Third 
+			are the highlighting update characters. Upon a keypress of one of these characters, the highlighting 
+			engine will refresh the highlighting around the cursor. If this field is empty, any character 
+			will force the highlighting engine to refresh. Special characters like the tab and the newline 
+			can be entered as \t and \n, the backslash itself is entered as \\. Fifth is the icon location
+			for this filetype. Sixth is whether this filetype is editable by Bluefish (whether or not Bluefish
+			should try to open it after a doubleclick). Seventh is a regular expression that can be used to
+			detect the filetype if a file without extension is loaded. Eight is the auto-tag-closing mode. A 
+			value of 0 means that Bluefish should not close XML/HTML tags, a value of 1 means it should close 
+			the tags XML style (&lt;br /&gt;), a value of 2 means HTML style.
+			</para>
+		</sect2>
+		<sect2 id="bluefish-ch-4-sect-9.7">
+			<title>Syntax Highlightning Preferences</title>
+			<para>syntax highlighting, also see above</para>
+		</sect2>
+		<sect2 id="bluefish-ch-4-sect-9.8">
+			<title>External Programs Preferences</title>
+			<para>integrating external commands and browsers If you want to use for
+			example a sed command as a filter, you can add it like this to the
+			external commands and filters (in the preferences dialog): sed -e
+			'some sed command' &gt; '%f' &lt; '%s'</para>
+		</sect2>
+	</sect1>
 </chapter>
-
