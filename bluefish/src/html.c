@@ -22,7 +22,7 @@
  */
 /* 
  * Changes by Antti-Juhani Kaijanaho <gaia@iki.fi> on 1999-10-20
- * $Id: html.c,v 1.35 2003-12-13 22:47:02 oli4 Exp $
+ * $Id: html.c,v 1.36 2003-12-24 22:55:25 jimh6583 Exp $
  */
 /*#define DEBUG*/
 
@@ -895,7 +895,7 @@ static void quickruleok_lcb(GtkWidget * widget, Thtml_diag * dg) {
 	thestring = insert_string_if_entry(GTK_WIDGET(GTK_COMBO(dg->combo[1])->entry), cap("ALIGN"), thestring, NULL);
 	thestring = insert_integer_if_spin(dg->spin[1], cap("SIZE"), thestring, FALSE, 1);
 	thestring = insert_integer_if_spin(dg->spin[2], cap("WIDTH"), thestring, GTK_TOGGLE_BUTTON(dg->check[1])->active,GTK_TOGGLE_BUTTON(dg->check[1])->active ? 100 : 0);
-	thestring = insert_attr_if_checkbox(dg->check[2], cap("NOSHADE"), thestring);
+	thestring = insert_attr_if_checkbox(dg->check[2], main_v->props.xhtml == 1 ? cap("NOSHADE=\"noshade\"") : cap("NOSHADE"), thestring);
 	thestring = insert_string_if_entry(dg->entry[1], NULL, thestring, NULL);
 	finalstring = g_strdup_printf(main_v->props.xhtml == 1 ? "%s />" : "%s>", thestring);
 	g_free(thestring);
