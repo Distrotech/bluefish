@@ -1,11 +1,11 @@
-%define	desktop_vendor 	bennewitz
+%define	desktop_vendor 	endur
 %define name  		bluefish
 %define version 	gtk2
-%define snap    	gtk2port-2002-11-08
-%define release 	snap_20021108
+%define snap    	gtk2port-2002-11-17
+%define release 	snap
 %define prefix		/usr
 
-Summary:	A web development environment for the expereinced webmasters
+Summary:	A WYSIWYG GPLized HTML editor
 Name:		%{name}
 Version:	%{version}
 Release:	%{release}
@@ -74,6 +74,14 @@ rm -rf %{buildroot}
 %{_datadir}/pixmaps/%{name}.png
 
 %changelog
+* Sat Nov 18 2002 Matthias Haase <matthias_haase@bennewitz.com> gtk2port-2002-11-17
+- Change the desktop_vendor
+- Rebuild for snap 2002-11-17
+- Fix for release (if rpm -Uv)
+
+* Sat Nov 16 2002 Matthias Haase <matthias_haase@bennewitz.com> gtk2port-2002-11-08
+- Change the desktop_vendor
+
 * Mon Nov 11 2002 Matthias Haase <matthias_haase@bennewitz.com> gtk2port-2002-11-08
 - Fixup for required pcre/pcre-devel
 
