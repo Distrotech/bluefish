@@ -1258,6 +1258,7 @@ void gui_bfwin_cleanup(Tbfwin *bfwin) {
 	}
 	fb2_cleanup(bfwin);
 	bmark_cleanup(bfwin);
+	outputbox_cleanup(bfwin);
 }
 
 void main_window_destroy_lcb(GtkWidget *widget,Tbfwin *bfwin) {
@@ -1349,12 +1350,17 @@ void gui_create_main(Tbfwin *bfwin, GList *filenames) {
 			gtk_widget_show(bfwin->custom_menu_hb);
 		}
 	}
-	
-	/* then the work area */
-	bfwin->middlebox = gtk_hbox_new(TRUE, 0);
-	gtk_box_pack_start(GTK_BOX(vbox), bfwin->middlebox, TRUE, TRUE, 0);
-	gtk_widget_show(bfwin->middlebox);
 
+	
+	/* the area for the middlebox and the outputbox */
+	bfwin->vpane = gtk_vpaned_new();
+	gtk_box_pack_start(GTK_BOX(vbox), bfwin->vpane, TRUE, TRUE, 0);
+	/* then the area for left panel and */
+	bfwin->middlebox = gtk_hbox_new(TRUE, 0);
+	gtk_paned_add1(GTK_PANED(bfwin->vpane), bfwin->middlebox);
+	gtk_widget_show(bfwin->middlebox);
+	gtk_widget_show(bfwin->vpane);
+	
 	/* Fake-label (for notebook_hide() and _show() ;) */
 	bfwin->notebook_fake = gtk_label_new(_("Stand by..."));
 	
@@ -1372,8 +1378,9 @@ void gui_create_main(Tbfwin *bfwin, GList *filenames) {
 	gtk_box_pack_start(GTK_BOX(bfwin->notebook_box), bfwin->notebook, TRUE, TRUE, 0);
 	gtk_box_pack_start(GTK_BOX(bfwin->notebook_box), bfwin->notebook_fake, TRUE, TRUE, 0);
 
-	/* output_box */
-	init_output_box(bfwin, vbox);
+	/* output_box * /
+	init_output_box(bfwin, vbox); */
+	bfwin->outputbox = NULL;
 
 	left_panel_show_hide_toggle(bfwin,TRUE, (bfwin->project && bfwin->project->view_left_panel) || (!bfwin->project && main_v->props.view_left_panel), FALSE);
 
