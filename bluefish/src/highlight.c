@@ -417,7 +417,7 @@ void filetype_highlighting_rebuild() {
 			if (thisdoc->hl) {
 				DEBUG_MSG("doc %p has type %p named %s\n", thisdoc, thisdoc->hl, thisdoc->hl->type);
 				DEBUG_MSG("disconnected document %p from filetype %s\n", thisdoc, thisdoc->hl->type);
-				thisdoc->hl = g_strdup(thisdoc->hl->type);
+				thisdoc->hl = (gpointer)g_strdup(thisdoc->hl->type);
 			}
 			tmplist = g_list_next(tmplist);
 		}
