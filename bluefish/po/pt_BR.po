@@ -5,14 +5,14 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: bluefish gtk2\n"
-"POT-Creation-Date: 2004-03-29 14:55+0200\n"
-"PO-Revision-Date: 2004-02-27 11:50-0300\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-03-31 23:15-0300\n"
+"PO-Revision-Date: 2004-03-28 13:27-0300\n"
 "Last-Translator: Anderson Rocha <anderson@ilheusnet.com.br>\n"
 "Language-Team: Português Brasileiro <pt@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Report-Msgid-Bugs-To: \n"
 "X-Generator: KBabel 1.3\n"
 
 #: ../src/about.c:123
@@ -115,7 +115,6 @@ msgstr ""
 "Obrigado por todos que ajudaram a fazer este software disponível.\n"
 
 #: ../src/about.c:161
-#, fuzzy
 msgid ""
 "Current translators:\n"
 "\n"
@@ -173,8 +172,10 @@ msgid ""
 msgstr ""
 "Atuais tradutores:\n"
 "\n"
-"  Português Brasileiro - Anderson Rocha\n"
-"   <anderson@ilheusnet.com.br>\n"
+"  Alemão - Roland Steinbach\n"
+"   <roland@netzblick.de>\n"
+"\n"
+"  Búlgaro - Peio Popov    <peio@peio.org>\n"
 "\n"
 "  Chinês - Ting Yang (Dormouse)\n"
 "   <mouselinux@163.com>\n"
@@ -182,14 +183,14 @@ msgstr ""
 "  Dinamarquês - Rasmus Toftdahl Olesen\n"
 "   <rto@pohldata.dk>\n"
 "\n"
+"  Espanhol - Walter Oscar Echarri\n"
+"   <wecharri@infovia.com.ar>\n"
+"\n"
 "  Filandês - Juho Roukala\n"
 "   <j.mr@luukku.com>\n"
 "\n"
 "  Francês - Roméo Viu-Berges\n"
 "   <apostledemencia@free.fr>\n"
-"\n"
-"  Alemão - Roland Steinbach\n"
-"   <roland@netzblick.de>\n"
 "\n"
 "  Húngaro - Péter Sáska\n"
 "   <sasek@ccsystem.hu>\n"
@@ -197,20 +198,23 @@ msgstr ""
 "  Italiano - Stefano Canepa\n"
 "   <sc@linux.it>\n"
 "\n"
+"  Norueguês - Christian Tellefsen\n"
+"   <chris@tellefsen.net>\n"
+"\n"
 "  Polonês - Oskar Swida\n"
 "   <swida@aragorn.pb.bialystok.pl>\n"
 "\n"
 "  Português - Lopo Pizarro\n"
 "   <lopopizarro@netcabo.pt>\n"
 "\n"
+"  Português Brasileiro - Anderson Rocha\n"
+"   <anderson@ilheusnet.com.br>\n"
+"\n"
 "  Russo - Eugene Rupakov\n"
-"   <rupakov@jet.msk.ru>\n"
+"   <rupakov@jet.msk.su>\n"
 "\n"
 "  Sérvio - Marko Milenović\n"
 "   <raven@sbb.co.yu>\n"
-"\n"
-"  Espanhol - Walter Oscar Echarri\n"
-"   <wecharri@infovia.com.ar>\n"
 "\n"
 "  Sueco - David Smeringe\n"
 "   <david.smeringe@telia.com>\n"
@@ -265,6 +269,8 @@ msgid ""
 "Bluefish has trouble reading the filenames. Try to set the environment "
 "variable G_BROKEN_FILENAMES=1\n"
 msgstr ""
+"Bluefish teve problemas ao ler os nome dos arquivos. Tente configurar a "
+"variável do ambiente G_BROKEN_FILENAMES=1\n"
 
 # src/html_form.c:351 src/html_form.c:396
 #: ../src/bfspell.c:346
@@ -462,18 +468,17 @@ msgstr "Esse bookmark está configurado em um arquivo que não existe mais."
 
 # src/document.c:1465
 #: ../src/bookmark.c:443
-#, fuzzy, c-format
+#, c-format
 msgid "Do you really want to delete %s?"
-msgstr "Você realmente deseja remover %s?"
+msgstr "Do you really want to delete %s?"
 
 #: ../src/bookmark.c:445
 msgid "Delete permanent bookmark."
 msgstr "Apagar bookmark permanente."
 
 #: ../src/bookmark.c:462
-#, fuzzy
 msgid "Edit bookmark"
-msgstr "Ir para bookmark"
+msgstr "Editar bookmark"
 
 #: ../src/bookmark.c:470
 msgid "Goto bookmark"
@@ -481,9 +486,8 @@ msgstr "Ir para bookmark"
 
 # src/menu.c:88
 #: ../src/bookmark.c:478
-#, fuzzy
 msgid "Edit"
-msgstr "/_Editar"
+msgstr "Editar"
 
 # src/stringlist.c:262
 #: ../src/bookmark.c:482
@@ -491,16 +495,12 @@ msgid "Delete"
 msgstr "Apagar"
 
 #: ../src/bookmark.c:904 ../src/bookmark.c:939 ../src/document.c:1987
-#, fuzzy
 msgid "Add bookmark"
-msgstr "Ir para bookmark"
+msgstr "Adicionar bookmark"
 
 #: ../src/bookmark.c:905
-#, fuzzy
 msgid "Cannot add bookmarks in unnamed files."
-msgstr ""
-"Não pode adicionar bookmarks em arquivo sem nome.\n"
-"Por favor, salve o arquivo primeiro."
+msgstr "Não é possível adicionar bookmarks em arquivos sem nome."
 
 #: ../src/bookmark.c:940
 msgid "You already have a bookmark here!"
@@ -508,13 +508,12 @@ msgstr "Você já possue um bookmark aqui!"
 
 # src/document.c:830
 #: ../src/bookmark.c:945
-#, fuzzy
 msgid "default"
-msgstr "Definir padrão"
+msgstr "padrão"
 
 #: ../src/bookmark.c:975
 msgid "temp"
-msgstr ""
+msgstr "temp"
 
 #: ../src/bookmark.c:1043
 #, c-format
@@ -526,9 +525,8 @@ msgstr ""
 "  %s."
 
 #: ../src/bookmark.c:1045
-#, fuzzy
 msgid "Bookmarks positions could be incorrect."
-msgstr "As posições dos bookmarks estão incorretas."
+msgstr "As posições dos bookmarks podem estar incorretas."
 
 # src/highlight.c:429 src/interface.c:213 src/menu.c:122
 #: ../src/document.c:254 ../src/gui.c:936 ../src/gui.c:937
@@ -1816,6 +1814,71 @@ msgstr "/Exibir/Exibir Barra de Ferramentas Principal"
 msgid "/View/View Custom Menu"
 msgstr "/Exibir/Exibir Barra de Ferramentas Personalizada"
 
+# src/configure.c:437
+#: ../src/html2.c:554
+msgid "Cascading StyleSheet dialog"
+msgstr "Diálogo de Cascading StyleSheet"
+
+# src/html_form.c:427
+#: ../src/html2.c:574
+msgid "_Selector:"
+msgstr "_Seletor:"
+
+# src/menu.c:135
+#: ../src/html2.c:593
+msgid "_Property:"
+msgstr "_Propriedade:"
+
+# src/html_form.c:160 src/html_form.c:179 src/html_form.c:256
+# src/html_form.c:295 src/html_form.c:346 src/html_form.c:391
+# src/html_form.c:476 src/wml.c:171 src/wml.c:211
+#: ../src/html2.c:595 ../src/html_form.c:650 ../src/html_form.c:799
+#: ../src/html_form.c:894
+msgid "_Value:"
+msgstr "_Valor:"
+
+# src/html_form.c:427
+#: ../src/html2.c:613
+msgid "Selector"
+msgstr "Seletor"
+
+# src/menu.c:135
+#: ../src/html2.c:613 ../src/html2.c:616
+msgid "Property"
+msgstr "Propriedade"
+
+# src/html_form.c:160 src/html_form.c:179 src/html_form.c:256
+# src/html_form.c:295 src/html_form.c:346 src/html_form.c:391
+# src/html_form.c:476 src/wml.c:171 src/wml.c:211
+#: ../src/html2.c:613 ../src/html2.c:616
+msgid "Value"
+msgstr "Valor"
+
+# src/stringlist.c:258
+#: ../src/html2.c:631
+msgid " _Add "
+msgstr " _Adicionar "
+
+# src/stringlist.c:260
+#: ../src/html2.c:634
+msgid " _Update "
+msgstr " Atualizar "
+
+# src/stringlist.c:262
+#: ../src/html2.c:637
+msgid " _Delete "
+msgstr " Apagar "
+
+# src/html.c:905 src/html.c:1317 src/toolbars.c:452
+#: ../src/html2.c:893 ../src/html2.c:930
+msgid "_Style..."
+msgstr "E_stilo..."
+
+# src/project.c:56
+#: ../src/html2.c:1087
+msgid "Bluefish: Select color"
+msgstr "Bluefish: Selecionar cor"
+
 # src/toolbars.c:519
 #: ../src/html.c:356
 msgid "Insert Time"
@@ -2317,71 +2380,6 @@ msgstr "Idiom_a:"
 msgid "_Custom:"
 msgstr "Personalizado:"
 
-# src/configure.c:437
-#: ../src/html2.c:554
-msgid "Cascading StyleSheet dialog"
-msgstr "Diálogo de Cascading StyleSheet"
-
-# src/html_form.c:427
-#: ../src/html2.c:574
-msgid "_Selector:"
-msgstr "_Seletor:"
-
-# src/menu.c:135
-#: ../src/html2.c:593
-msgid "_Property:"
-msgstr "_Propriedade:"
-
-# src/html_form.c:160 src/html_form.c:179 src/html_form.c:256
-# src/html_form.c:295 src/html_form.c:346 src/html_form.c:391
-# src/html_form.c:476 src/wml.c:171 src/wml.c:211
-#: ../src/html2.c:595 ../src/html_form.c:650 ../src/html_form.c:799
-#: ../src/html_form.c:894
-msgid "_Value:"
-msgstr "_Valor:"
-
-# src/html_form.c:427
-#: ../src/html2.c:613
-msgid "Selector"
-msgstr "Seletor"
-
-# src/menu.c:135
-#: ../src/html2.c:613 ../src/html2.c:616
-msgid "Property"
-msgstr "Propriedade"
-
-# src/html_form.c:160 src/html_form.c:179 src/html_form.c:256
-# src/html_form.c:295 src/html_form.c:346 src/html_form.c:391
-# src/html_form.c:476 src/wml.c:171 src/wml.c:211
-#: ../src/html2.c:613 ../src/html2.c:616
-msgid "Value"
-msgstr "Valor"
-
-# src/stringlist.c:258
-#: ../src/html2.c:631
-msgid " _Add "
-msgstr " _Adicionar "
-
-# src/stringlist.c:260
-#: ../src/html2.c:634
-msgid " _Update "
-msgstr " Atualizar "
-
-# src/stringlist.c:262
-#: ../src/html2.c:637
-msgid " _Delete "
-msgstr " Apagar "
-
-# src/html.c:905 src/html.c:1317 src/toolbars.c:452
-#: ../src/html2.c:893 ../src/html2.c:930
-msgid "_Style..."
-msgstr "E_stilo..."
-
-# src/project.c:56
-#: ../src/html2.c:1087
-msgid "Bluefish: Select color"
-msgstr "Bluefish: Selecionar cor"
-
 # src/html_form.c:110
 #: ../src/html_form.c:141
 msgid "Form"
@@ -2872,15 +2870,13 @@ msgstr "/Editar/Substituir especial/Ambos tipos para Entidades HTML"
 
 # src/menu.c:102
 #: ../src/menu.c:362
-#, fuzzy
 msgid "/Edit/Replace special/To _Uppercase"
-msgstr "/Editar/Substituir especial/Tearoff1"
+msgstr "/Editar/Substituir especial/Para Maiúsc_ula"
 
 # src/menu.c:102
 #: ../src/menu.c:363
-#, fuzzy
 msgid "/Edit/Replace special/To _Lowercase"
-msgstr "/Editar/Substituir especial/Tearoff1"
+msgstr "/Editar/Substituir especial/Para Minúscula"
 
 # src/menu.c:103
 #: ../src/menu.c:364
@@ -2902,15 +2898,13 @@ msgid "/Edit/sep5"
 msgstr "/Editar/sep5"
 
 #: ../src/menu.c:368
-#, fuzzy
 msgid "/Edit/Add _Bookmark"
-msgstr "/_Bookmarks"
+msgstr "/Editar/Adicionar _Bookmarks"
 
 # src/menu.c:96
 #: ../src/menu.c:369
-#, fuzzy
 msgid "/Edit/sep6"
-msgstr "/Editar/sep1"
+msgstr "/Editar/sep6"
 
 # src/menu.c:473
 #: ../src/menu.c:370
@@ -4314,9 +4308,8 @@ msgid "/Project/Save _as..."
 msgstr "/Projeto/Salvar como..."
 
 #: ../src/menu.c:686
-#, fuzzy
 msgid "/Project/Save & _close"
-msgstr "/Projeto/Salvar como..."
+msgstr "/Projeto/Salvar & fe_char"
 
 #: ../src/menu.c:687
 msgid "/Project/sep2"
@@ -4889,44 +4882,37 @@ msgid "Clear undo history on save"
 msgstr "Limpar histórico de desfazer quando salvar"
 
 #: ../src/preferences.c:1896
-#, fuzzy
 msgid "Bookmark options"
-msgstr "Bookmarks"
+msgstr "Opções de Bookmark"
 
 # src/document.c:1347 src/document.c:1547
 #: ../src/preferences.c:1901
-#, fuzzy
 msgid "Sort by line number"
-msgstr "Nenhum nome de arquivo"
+msgstr "Classificar por número de linha"
 
 # src/document.c:830
 #: ../src/preferences.c:1902
-#, fuzzy
 msgid "Make permanent by default"
-msgstr "Mostrar painel esquerdo por padrão"
+msgstr "Fazer permanente por padrão"
 
 # src/menu.c:1083
 #: ../src/preferences.c:1904
-#, fuzzy
 msgid "full path"
-msgstr "Caminho do Menu"
+msgstr "caminho completo"
 
 # src/html_form.c:489
 #: ../src/preferences.c:1904
-#, fuzzy
 msgid "path from basedir"
-msgstr "Diretóriobase Padrão"
+msgstr "caminho pela basedir"
 
 # src/document.c:1347 src/document.c:1547
 #: ../src/preferences.c:1904
-#, fuzzy
 msgid "filename"
-msgstr "Nenhum nome de arquivo"
+msgstr "nome de arquivo"
 
 #: ../src/preferences.c:1905
-#, fuzzy
 msgid "Bookmarks filename display"
-msgstr "Arquivo de bookmark está fechado"
+msgstr "Mostrar nome do arquivo dos Bookmarks"
 
 # src/configure.c:397
 #: ../src/preferences.c:1909
@@ -5233,9 +5219,8 @@ msgid "/Project/Save as..."
 msgstr "/Projeto/Salvar como..."
 
 #: ../src/project.c:170
-#, fuzzy
 msgid "/Project/Save & close"
-msgstr "/Projeto/Salvar"
+msgstr "/Projeto/Salvar & fechar"
 
 #: ../src/project.c:171
 msgid "/Project/Edit Project Options..."
@@ -5622,65 +5607,3 @@ msgstr "Código Fonte:"
 #: ../src/wizards.c:223
 msgid "Size:"
 msgstr "Tamanho:"
-
-#~ msgid "You already have a bookmark named %s!"
-#~ msgstr "Você já possue um bookmark nomeado %s!"
-
-# src/document.c:1465
-#~ msgid "Do you want to open it?"
-#~ msgstr "Você deseja abrir isso?"
-
-#~ msgid "Rename permanent bookmark"
-#~ msgstr "Renomear bookmark permanente"
-
-#~ msgid "Rename temporary bookmark"
-#~ msgstr "Renomear bookmark temporário"
-
-#~ msgid "Rename"
-#~ msgstr "Renomear"
-
-#~ msgid "Permanent"
-#~ msgstr "Permanente"
-
-#~ msgid "Add temporary bookmark"
-#~ msgstr "Adicionar bookmark temporário"
-
-#~ msgid "Delete all temporary bookmarks."
-#~ msgstr "Apagar todos bookmarks temporários."
-
-#~ msgid "Are you sure?"
-#~ msgstr "Você tem certeza?"
-
-#~ msgid "Delete all permanent bookmarks."
-#~ msgstr "Apagar todos bookmarks permanentes."
-
-#~ msgid "Are you REALLY sure?"
-#~ msgstr "Você REALMENTE tem certeza?"
-
-#~ msgid "Add permanent bookmark"
-#~ msgstr "Adicionar bookmark permanente"
-
-# src/menu.c:70
-#~ msgid "/Bookmarks/tearoff1"
-#~ msgstr "/Bookmarks/tearoff1"
-
-#~ msgid "/Bookmarks/Add _Temporary"
-#~ msgstr "/Bookmarks/Adicionar _Temporário"
-
-#~ msgid "/Bookmarks/Add _Permanent"
-#~ msgstr "/Bookmarks/Adicionar _Permanente"
-
-#~ msgid "/Bookmarks/sep2"
-#~ msgstr "/Bookmarks/sep2"
-
-#~ msgid "/Bookmarks/Delete All Temporar_y"
-#~ msgstr "/Bookmarks/Apagar Todos Temporários"
-
-#~ msgid "/Bookmarks/Delete All Per_manent"
-#~ msgstr "/Bookmarks/Apagar Todos Per_manentes"
-
-#~ msgid "/Project/_Close & save"
-#~ msgstr "/Projeto/Fechar & Salvar"
-
-#~ msgid "/Project/Close & save"
-#~ msgstr "/Projeto/Fechar & Salvar"
