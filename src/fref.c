@@ -10,6 +10,7 @@
 #include "document.h"
 #include "bf_lib.h"
 #include "gtk_easy.h"
+#include "treetips.h"
 
 enum {
 	FREF_ACTION_INSERT,
@@ -133,6 +134,7 @@ typedef struct {
 	GtkWidget *infoview;
 	GtkWidget *infoscroll;
 	Tbfwin *bfwin;
+	TreeTips *tips;
 } Tfref_gui;
 
 #define FREFGUI(var) ((Tfref_gui *)(var))
@@ -806,6 +808,7 @@ void fref_cleanup(Tbfwin *bfwin) {
 /* Ok I'll not free search dictionary too ... O.S. */
 	FREFGUI(bfwin->fref)->tree = NULL;
 	FREFGUI(bfwin->fref)->argtips = NULL;
+	tree_tips_destroy(FREFGUI(bfwin->fref)->tips);
 }
 
 /* fref_init is ONCE called by bluefish.c to init the fref_data structure */
@@ -1991,6 +1994,72 @@ static void frefcb_infocheck_toggled(GtkToggleButton *togglebutton, Tbfwin *bfwi
 	else gtk_widget_hide(FREFGUI(bfwin->fref)->infoscroll);   
 }
 
+gchar* fref_tip(gconstpointer win,gconstpointer tree,gint x, gint y)
+{
+   gchar *str=NULL,*tofree=NULL;
+   GList *lst;
+   FRAttrInfo *tmpa;
+   FRParamInfo *tmpp;
+   FRInfo *info=NULL;
+   GtkTreePath *path;
+   
+
+   if ( !gtk_tree_view_get_path_at_pos(GTK_TREE_VIEW(tree),x,y,&path,NULL,NULL,NULL) )
+     return NULL;   
+
+   if (path != NULL) {
+		GValue *val;
+		GtkTreeIter iter;
+		gtk_tree_model_get_iter(gtk_tree_view_get_model(GTK_TREE_VIEW(tree)), &iter, path);
+		gtk_tree_path_free(path);
+		val = g_new0(GValue, 1);
+		gtk_tree_model_get_value(gtk_tree_view_get_model(GTK_TREE_VIEW(tree)), &iter, 1, val);
+		if (G_IS_VALUE(val) && g_value_fits_pointer(val)) {
+			info = (FRInfo*)(g_value_peek_pointer(val));
+		}
+		g_value_unset(val);
+		g_free(val);
+	}     
+      
+   if (!info) return NULL;
+
+   switch(info->type)
+   {
+     case FR_TYPE_TAG:
+          str = g_strdup_printf("<b>%s:</b> ",info->name);
+          lst = g_list_first(info->attributes);
+          while (lst) {
+             tmpa = (FRAttrInfo *) lst->data;
+             tofree = str;
+             str = g_strconcat(str, "<span size=\"small\" ><i>",tmpa->name, "</i></span>  ", NULL);   
+             g_free(tofree);
+             lst = g_list_next(lst);
+		   }
+     break;
+     case FR_TYPE_FUNCTION:
+          str = g_strdup_printf("<i>%s</i>  %s( ",info->return_type,info->name);
+          lst = g_list_first(info->params);
+          while (lst) {
+             tmpp = (FRParamInfo *) lst->data;
+             tofree = str;
+             str = g_strconcat(str, "<i>",tmpp->type,"</i>  <b>",tmpp->name, "</b>", NULL);   
+             g_free(tofree);
+             lst = g_list_next(lst);
+             if (lst)
+             {
+                tofree = str;
+                str = g_strconcat(str, ",", NULL);   
+                g_free(tofree);             
+             }
+		   }
+ 	      tofree = str;
+         str = g_strconcat(str, " )", NULL);   
+         g_free(tofree);     
+     break;
+   }
+   return str;
+}
+
 GtkWidget *fref_gui(Tbfwin *bfwin) {
 	GtkWidget *scroll,*box,*pane,*box2,*btn1,*btn2,*btn3;
 	GtkCellRenderer *cell;
@@ -2033,6 +2102,8 @@ GtkWidget *fref_gui(Tbfwin *bfwin) {
 	gtk_widget_show(scroll);
 
 	FREFGUI(bfwin->fref)->argtips = gtk_tooltips_new();
+	FREFGUI(bfwin->fref)->tips = tree_tips_new_full(bfwin,GTK_TREE_VIEW(FREFGUI(bfwin->fref)->tree),fref_tip);
+	tree_tips_set_hide_interval(FREFGUI(bfwin->fref)->tips,5000);
 
 	FREFGUI(bfwin->fref)->infoview = gtk_label_new(NULL);
 	gtk_label_set_line_wrap(GTK_LABEL(FREFGUI(bfwin->fref)->infoview),TRUE);
