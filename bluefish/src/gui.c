@@ -491,23 +491,23 @@ static void link_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
 static void formdialog_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
 	formdialog_dialog(bfwin,NULL);
 }
-static void buttondialog_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
-	buttondialog_dialog(bfwin,NULL);
+static void inputbuttondialog_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
+	inputdialog_dialog(bfwin, NULL, "submit");
 }
 static void textdialog_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
-	textdialog_dialog(bfwin,NULL);
+	inputdialog_dialog(bfwin, NULL, "text");
 }
 static void hiddendialog_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
-	hiddendialog_dialog(bfwin,NULL);
+	inputdialog_dialog(bfwin, NULL, "hidden");
 }
 static void textareadialog_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
 	textareadialog_dialog(bfwin,NULL);
 }
 static void radiodialog_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
-	radiodialog_dialog(bfwin,NULL);
+	inputdialog_dialog(bfwin, NULL, "radio");
 }
 static void checkdialog_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
-	checkdialog_dialog(bfwin,NULL);
+	inputdialog_dialog(bfwin, NULL, "checkbox");
 }
 static void selectdialog_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
 	selectdialog_dialog(bfwin,NULL);
@@ -517,6 +517,9 @@ static void optiondialog_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
 }
 static void optgroupdialog_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
 	optgroupdialog_dialog(bfwin,NULL);
+}
+static void buttondialog_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
+	buttondialog_dialog(bfwin,NULL);
 }
 static void image_insert_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
 	image_insert_dialog(bfwin,NULL);
@@ -608,15 +611,16 @@ static Ttoolbaritem tbi[] = {
 	{"noframes", noframes_clicked_lcb,  60, N_("Noframes")},
 	{"target", target_clicked_lcb,  61, N_("Target")},
 	{"form...",formdialog_clicked_lcb , 62, N_("Form...")},
-	{"inputbutton...", buttondialog_clicked_lcb, 63, N_("Input button...")},
-	{"text...",textdialog_clicked_lcb , 65, N_("Text...")},
-	{"hidden...", hiddendialog_clicked_lcb, 66, N_("Hidden...")},
+	{"inputbutton...", inputbuttondialog_clicked_lcb, 63, N_("Input Button...")},
+	{"text...",textdialog_clicked_lcb , 65, N_("Input Text...")},
+	{"hidden...", hiddendialog_clicked_lcb, 66, N_("Input Hidden...")},
 	{"textarea...",textareadialog_clicked_lcb , 67, N_("Textarea...")},
-	{"radiobutton...", radiodialog_clicked_lcb, 68, N_("Radio Button...")},
-	{"checkbox...", checkdialog_clicked_lcb, 69, N_("Check Box...")},
+	{"radiobutton...", radiodialog_clicked_lcb, 68, N_("Input Radio Button...")},
+	{"checkbox...", checkdialog_clicked_lcb, 69, N_("Input Check Box...")},
 	{"select...", selectdialog_clicked_lcb, 70, N_("Select...")},
 	{"option...",optiondialog_clicked_lcb , 71, N_("Option...")},
 	{"optiongroup...", optgroupdialog_clicked_lcb, 72, N_("Option group...")},
+	{"button...", buttondialog_clicked_lcb, 63, N_("Button...")},
 	{"quicklist...", quicklist_clicked_lcb, 73, N_("Quick List...")},
 	{"unorderedlist", unorderedlist_clicked_lcb,  74, N_("Unordered List")},
 	{"orderedlist", orderedlist_clicked_lcb,  75, N_("Ordered List")},
@@ -822,15 +826,15 @@ void make_html_toolbar(Tbfwin *bfwin) {
 	gtk_notebook_append_page(GTK_NOTEBOOK(html_notebook), html_toolbar, gtk_label_new(_(" Frames ")));
 
 	html_toolbar = gtk_toolbar_new();
-	html_toolbar_add_items(bfwin,html_toolbar, tbi, 53, 62);
+	html_toolbar_add_items(bfwin,html_toolbar, tbi, 53, 63);
 	gtk_notebook_append_page(GTK_NOTEBOOK(html_notebook), html_toolbar, gtk_label_new(_(" Forms ")));
 
 	html_toolbar = gtk_toolbar_new();
-	html_toolbar_add_items(bfwin,html_toolbar, tbi, 63, 69);
+	html_toolbar_add_items(bfwin,html_toolbar, tbi, 64, 70);
 	gtk_notebook_append_page(GTK_NOTEBOOK(html_notebook), html_toolbar, gtk_label_new(_(" List ")));
 
 	html_toolbar = gtk_toolbar_new();
-	html_toolbar_add_items(bfwin,html_toolbar, tbi, 70, 72);
+	html_toolbar_add_items(bfwin,html_toolbar, tbi, 71, 73);
 	gtk_notebook_append_page(GTK_NOTEBOOK(html_notebook), html_toolbar, gtk_label_new(_(" CSS ")));
 
 	gtk_widget_show_all(html_notebook);

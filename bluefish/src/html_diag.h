@@ -79,6 +79,7 @@ typedef struct {
 	GtkTextMark *mark_ins;
 	GtkTextMark *mark_sel;
 	Tphpvarins php_var_ins;
+	gboolean tobedestroyed; /* this will be set to TRUE on destroy */
 	Tdocument *doc;
 	Tbfwin *bfwin;
 } Thtml_diag;

@@ -220,22 +220,16 @@ static void menu_html_dialogs_lcb(Tbfwin *bfwin,guint callback_action, GtkWidget
 		formdialog_dialog(bfwin,NULL);
 	break;
 	case 23:
-		buttondialog_dialog(bfwin,NULL);
+		inputdialog_dialog(bfwin, NULL, "submit");
 	break;
 	case 24:
-		textdialog_dialog(bfwin,NULL);
+		inputdialog_dialog(bfwin, NULL, "text");
 	break;
 	case 25:
-		hiddendialog_dialog(bfwin,NULL);
+		buttondialog_dialog(bfwin, NULL);
 	break;
 	case 26:
 		textareadialog_dialog(bfwin,NULL);
-	break;
-	case 27:
-		radiodialog_dialog(bfwin,NULL);
-	break;
-	case 28:
-		checkdialog_dialog(bfwin,NULL);
 	break;
 	case 29:
 		selectdialog_dialog(bfwin,NULL);
@@ -250,7 +244,7 @@ static void menu_html_dialogs_lcb(Tbfwin *bfwin,guint callback_action, GtkWidget
 		quickstart_dialog(bfwin,NULL);
 	break;
 	case 33:
-		inputdialog_dialog(bfwin, NULL);
+		inputdialog_dialog(bfwin, NULL, NULL);
 	break;
 	case 34:
 		insert_time_dialog(bfwin);
@@ -613,16 +607,14 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/Dialogs/F_orm"), NULL, NULL, 0, "<Branch>"},
 	{N_("/Dialogs/Form/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
 	{N_("/Dialogs/Form/F_orm..."), NULL, menu_html_dialogs_lcb, 22, "<Item>"},
-	{N_("/Dialogs/Form/_Input ..."), NULL, menu_html_dialogs_lcb, 33, "<Item>"},
-	{N_("/Dialogs/Form/_Input Button..."), NULL, menu_html_dialogs_lcb, 23, "<Item>"},
-	{N_("/Dialogs/Form/_Text..."), NULL, menu_html_dialogs_lcb, 24, "<Item>"},
-	{N_("/Dialogs/Form/_Hidden..."), NULL, menu_html_dialogs_lcb, 25, "<Item>"},
+	{N_("/Dialogs/Form/_Input..."), NULL, menu_html_dialogs_lcb, 33, "<Item>"},
+	{N_("/Dialogs/Form/Input Buttons..."), NULL, menu_html_dialogs_lcb, 23, "<Item>"},
+	{N_("/Dialogs/Form/Input Text..."), NULL, menu_html_dialogs_lcb, 24, "<Item>"},
 	{N_("/Dialogs/Form/Text_area..."), NULL, menu_html_dialogs_lcb, 26, "<Item>"},
-	{N_("/Dialogs/Form/Radio _Buttons..."), NULL, menu_html_dialogs_lcb, 27, "<Item>"},
-	{N_("/Dialogs/Form/_Check Buttons..."), NULL, menu_html_dialogs_lcb, 28, "<Item>"},
 	{N_("/Dialogs/Form/_Select..."), NULL, menu_html_dialogs_lcb, 29, "<Item>"},
 	{N_("/Dialogs/Form/O_ption..."), NULL, menu_html_dialogs_lcb, 30, "<Item>"},
 	{N_("/Dialogs/Form/Option _Group..."), NULL, menu_html_dialogs_lcb, 31, "<Item>"},
+	{N_("/Dialogs/Form/_Button..."), NULL, menu_html_dialogs_lcb, 25, "<Item>"},
 /*	{N_("/Dialogs/Javascript"), NULL, NULL, 0, "<Branch>"},
 	{N_("/Dialogs/Javascript/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
 	{N_("/Dialogs/Javascript/Mouseover Script"), NULL, mouseover_script_cb, 0, NULL},
