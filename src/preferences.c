@@ -1,4 +1,4 @@
-/*#define DEBUG*/
+/* #define DEBUG */
 
 #include <gtk/gtk.h>
 #include <string.h> /* strcmp() */
@@ -420,6 +420,8 @@ static void filetype_apply_changes(Tprefdialog *pd) {
 			}
 			retval = gtk_tree_model_iter_next(GTK_TREE_MODEL(pd->ftd.lstore),&iter);
 		}
+	} else {
+		DEBUG_MSG("filetype_apply_changes, no curstrarr, nothing to apply\n");
 	}
 }
 
@@ -1567,6 +1569,8 @@ static void preferences_ok_clicked_lcb(GtkWidget *wid, Tprefdialog *pd) {
 	/* apply the changes to highlighting patterns and filetypes to the running program */
 	filetype_highlighting_rebuild();
 	filetype_menu_rebuild(NULL);
+	filebrowser_filters_rebuild();
+	
 	menu_outputbox_rebuild();
 	encoding_menu_rebuild();
 	external_menu_rebuild();
