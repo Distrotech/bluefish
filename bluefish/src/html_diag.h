@@ -78,19 +78,20 @@ typedef struct {
 	GtkTextMark *mark_sel;
 	Tphpvarins php_var_ins;
 	Tdocument *doc;
+	Tbfwin *bfwin;
 } Thtml_diag;
 
 void html_diag_destroy_cb(GtkWidget * widget, Thtml_diag *dg);
 
 void html_diag_cancel_clicked_cb(GtkWidget *widget, gpointer data);
 
-Thtml_diag *html_diag_new(gchar *title);
+Thtml_diag *html_diag_new(Tbfwin *bfwin,gchar *title);
 GtkWidget *html_diag_table_in_vbox(Thtml_diag *dg, gint rows, gint cols);
 void html_diag_finish(Thtml_diag *dg, GtkSignalFunc ok_func);
 void parse_html_for_dialogvalues(gchar *dialogitems[], gchar *dialogvalues[]
 		, gchar **custom, Ttagpopup *data);
 void fill_dialogvalues(gchar *dialogitems[], gchar *dialogvalues[]
-	, gchar **custom, Ttagpopup *data, GtkWidget *sending_widget, Thtml_diag *diag);
+	, gchar **custom, Ttagpopup *data, Thtml_diag *diag);
 
 void parse_existence_for_dialog(gchar * valuestring, GtkWidget * checkbox);
 void parse_integer_for_dialog(gchar * valuestring, GtkWidget * spin, GtkWidget * entry, GtkWidget * checkbox);
