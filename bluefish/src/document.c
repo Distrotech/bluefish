@@ -1924,19 +1924,6 @@ static void doc_get_iter_at_bevent(Tdocument *doc, GdkEventButton *bevent, GtkTe
 	gtk_text_view_get_iter_at_location(GTK_TEXT_VIEW(doc->view), iter, xpos, ypos);
 }
 
-/* block should be moved to bookmark.c */
-typedef struct {
-	Tdocument *doc;
-	gint charoffset;
-} Tbmark_beventloc;
-#define BMARK_BEVENTLOC(p) ((Tbmark_beventloc)(p))
-
-void bmark_store_bevent_location(Tdocument *doc, gint charoffset) {
-/*	BMARK_BEVENTLOC(main_v->bmarkdata->beventloc).doc = doc;
-	BMARK_BEVENTLOC(main_v->bmarkdata->beventloc).charoffset = charoffset;*/
-}
-/* end of block to move */
-
 static gboolean doc_view_button_press_lcb(GtkWidget *widget,GdkEventButton *bevent, Tdocument *doc) {
 	DEBUG_MSG("doc_view_button_press_lcb, button %d\n", bevent->button);
 	if (bevent->button==2) {
@@ -1951,8 +1938,8 @@ static gboolean doc_view_button_press_lcb(GtkWidget *widget,GdkEventButton *beve
 	return FALSE;
 }
 
-static void rpopup_bookmark_lcb(GtkWidget *widget, Tbfwin *bfwin) {
-	bmark_add(bfwin);
+static void rpopup_bookmark_lcb(GtkWidget *widget, Tdocument *doc) {
+	bmark_add_at_bevent(doc);
 }
 
 
@@ -1982,7 +1969,7 @@ static void doc_view_populate_popup_lcb(GtkTextView *textview,GtkMenu *menu,Tdoc
 	gtk_menu_shell_prepend(GTK_MENU_SHELL(menu), GTK_WIDGET(gtk_menu_item_new()));
 
 	menuitem = gtk_menu_item_new_with_label(_("Add bookmark"));
-	g_signal_connect(menuitem, "activate", G_CALLBACK(rpopup_bookmark_lcb), doc->bfwin);
+	g_signal_connect(menuitem, "activate", G_CALLBACK(rpopup_bookmark_lcb), doc);
 	gtk_menu_shell_prepend(GTK_MENU_SHELL(menu), GTK_WIDGET(menuitem));
 
 /*
