@@ -108,10 +108,14 @@ static Tbmark *get_current_bmark(Tbfwin *bfwin) {
 
 static void bmark_popup_menu_goto_lcb(GtkWidget *widget,gpointer user_data) 
 {
-	Tbmark *b;
+	Tbmark *b,*baux;
+	Tdocument *dd;
 	GtkTextIter it;
 	gint ret;
-   gchar *btns[]={GTK_STOCK_YES,GTK_STOCK_NO,NULL};
+	gchar *pomstr;
+	Tbmark_data *data = BMARKDATA(main_v->bmarkdata);
+   gchar *btns[]={GTK_STOCK_NO,GTK_STOCK_YES,NULL};
+   
    
 
 	
@@ -120,11 +124,24 @@ static void bmark_popup_menu_goto_lcb(GtkWidget *widget,gpointer user_data)
    if (!b) return;
    if (b->filepath && !b->doc)
    {
-      ret = multi_query_dialog(BFWIN(user_data)->main_window,_("Bookmark file is closed"), _("Do you want to open it?"), 0, 0, btns);   
-      if (ret==1) return;
-      b->doc = doc_new_with_file(BFWIN(user_data),b->filepath,TRUE,TRUE);
-      gtk_text_buffer_get_iter_at_offset(b->doc->buffer,&it,b->offset);
-      b->mark = gtk_text_buffer_create_mark(b->doc->buffer,"",&it,TRUE); 
+      ret = multi_query_dialog(BFWIN(user_data)->main_window,_("Bookmarked file is closed"), _("Do you want to open it?"), 1, 0, btns);   
+      if (ret==0) return;
+      dd = doc_new_with_file(BFWIN(user_data),b->filepath,TRUE,TRUE);
+/*      gtk_text_buffer_get_iter_at_offset(b->doc->buffer,&it,b->offset);
+      b->mark = gtk_text_buffer_create_mark(b->doc->buffer,"",&it,TRUE); */
+      /* now I have to check all bookmarks */
+      for(ret=0;ret<10;ret++)
+      {
+        baux = data->temporary[ret];
+        if ( baux && baux->filepath && !baux->doc && (g_ascii_strcasecmp(baux->filepath,b->filepath)==0) )
+        {
+           pomstr = g_strdup_printf("%d",ret);
+           baux->doc = dd;
+           gtk_text_buffer_get_iter_at_offset(baux->doc->buffer,&it,baux->offset);
+           baux->mark = gtk_text_buffer_create_mark(baux->doc->buffer,pomstr,&it,TRUE); 
+           g_free(pomstr);
+        }
+      }
    } 
    
    if (b->doc)
@@ -297,6 +314,7 @@ void bmark_add_temp(Tbfwin *bfwin)
    GtkTextIter it,eit,sit;
    gint ret,ffree,i;
    GSList *lst;
+   gboolean has_mark;
    gchar *btns[]={GTK_STOCK_NO,GTK_STOCK_YES,NULL};
    gchar *pomstr;
    Tbmark_data *data = BMARKDATA(main_v->bmarkdata);
@@ -306,18 +324,26 @@ void bmark_add_temp(Tbfwin *bfwin)
    /* check for existing bookmark in this place */
    im = gtk_text_buffer_get_insert(DOCUMENT(bfwin->current_document)->buffer);
    gtk_text_buffer_get_iter_at_mark(DOCUMENT(bfwin->current_document)->buffer,&it,im);   
-   if (gtk_text_buffer_get_selection_bounds(DOCUMENT(bfwin->current_document)->buffer,NULL,NULL))
-      i=1;
-   else 
-      i=2;   
-   lst = gtk_text_iter_get_marks(&it);
-   if (g_slist_length(lst)>i)
+   ret = gtk_text_iter_get_offset(&it);
+   has_mark = FALSE;
+   
+   for(i=0;i<10;i++)
    {
-      info_dialog(bfwin->main_window,_("Add temporary bookmark"),_("You have already bookmark here!"));
-      g_slist_free(lst);
+     m = data->temporary[i];
+     if (m && m->mark && m->doc==DOCUMENT(bfwin->current_document))
+     {
+       gtk_text_buffer_get_iter_at_mark(DOCUMENT(bfwin->current_document)->buffer,&it,m->mark);   
+       if ( ret == gtk_text_iter_get_offset(&it) )
+          { has_mark=TRUE;break;}       
+     } 
+   }
+   
+   if (has_mark)
+   {
+      info_dialog(bfwin->main_window,_("Add temporary bookmark"),_("You already have a bookmark here!"));
       return;
    }
-   g_slist_free(lst);
+
    /* find free number */
    ffree = -1;
    for(i=0;i<10;i++)
@@ -360,6 +386,7 @@ void bmark_add_temp(Tbfwin *bfwin)
 		gtk_tree_store_set(data->store, &m->iter, NAME_COLUMN,g_strdup_printf("[%d] --> %s",ffree+1,
 							   gtk_text_iter_get_slice(&it,&sit)),PTR_COLUMN, m, -1);      
 		gtk_tree_view_expand_all(GTK_TREE_VIEW(gui->tree));
+      gtk_widget_grab_focus(bfwin->current_document->view);		
 }
 
 void bmark_del_all_temp(Tbfwin *bfwin)
