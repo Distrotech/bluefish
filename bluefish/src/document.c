@@ -1673,7 +1673,7 @@ static gchar *closingtagtoinsert(Tdocument *doc, const gchar *tagname, GtkTextIt
 	/* only for XML all start tags have to end on < /> so we check for that, all other tags 
 	 * will be treated like HTML tags */
 	if (tagname[0] != '/') {
-		if (doc->hl && doc->hl->autoclosingtag == 1 /* xml mode */) {
+		if (main_v->props.xhtml || (doc->hl && doc->hl->autoclosingtag == 1) /* xml mode */) {
 			gchar *tmp;
 			GtkTextIter itstart = *iter, itend=*iter;
 			gtk_text_iter_backward_chars(&itstart,2);
