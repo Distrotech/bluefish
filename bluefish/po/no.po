@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: bluefish gtk2-port\n"
-"POT-Creation-Date: 2003-03-23 05:04+0100\n"
+"POT-Creation-Date: 2003-04-01 21:53+0200\n"
 "PO-Revision-Date: 2002-12-22 12:00+0100\n"
 "Last-Translator: Christian Tellefsen <chris@tellefsen.net>\n"
 "Language-Team: Not a member <LL@li.org>\n"
@@ -30,7 +30,7 @@ msgstr "Original"
 msgid "Replacement"
 msgstr "Erstatning"
 
-#: ../src/bfspell.c:356 ../src/document.c:1732
+#: ../src/bfspell.c:356 ../src/document.c:1733
 msgid "Ignore"
 msgstr "Ignorer"
 
@@ -132,7 +132,7 @@ msgstr "oppretter gui..."
 msgid "showing main gui..."
 msgstr "viser gui..."
 
-#: ../src/document.c:96 ../src/gui.c:597
+#: ../src/document.c:96 ../src/gui.c:598
 msgid "/Document/Highlight syntax"
 msgstr "/Vis/Fargelegg syntaks"
 
@@ -236,11 +236,12 @@ msgstr ""
 "Bluefish var sist i kontakt med filen %s\n"
 "Overskriv?"
 
-#: ../src/document.c:1331 ../src/document.c:1737
+#: ../src/document.c:1331 ../src/document.c:1738
 msgid "Bluefish: Warning, file is modified"
 msgstr "Bluefish: Advarsel: Filen er endret"
 
 #: ../src/document.c:1347
+#, c-format
 msgid "Saving %s"
 msgstr "Lagrer %s"
 
@@ -277,19 +278,19 @@ msgstr "Bluefish advarsel: filen er endret!"
 msgid "No filename"
 msgstr "Uten filnavn"
 
-#: ../src/document.c:1686 ../src/msg_queue.c:180
+#: ../src/document.c:1687 ../src/msg_queue.c:180
 msgid "Unable to open file(s)\n"
 msgstr "Kunne ikke åpne filen(e)\n"
 
-#: ../src/document.c:1702
+#: ../src/document.c:1703
 msgid "Unable to open file"
 msgstr "Kunne ikke åpne filen"
 
-#: ../src/document.c:1732
+#: ../src/document.c:1733
 msgid "Reload"
 msgstr "Les inn"
 
-#: ../src/document.c:1736
+#: ../src/document.c:1737
 #, c-format
 msgid ""
 "File %s\n"
@@ -302,88 +303,76 @@ msgstr ""
 "Filen ble sist endret %s\n"
 "Bluefish var sist i kontakt med filen %s"
 
-#: ../src/document.c:1826
+#: ../src/document.c:1827
 msgid "searching files..."
 msgstr "søker..."
 
-#: ../src/document.c:1845
+#: ../src/document.c:1846
 msgid "Select basedir"
 msgstr "Valg"
 
-#: ../src/document.c:1857
+#: ../src/document.c:1858
 msgid "Advanced open file selector"
 msgstr "Åpne (avansert)"
 
-#: ../src/document.c:1863
-msgid "grep {contains} `find {basedir} -name '{pattern}'`"
+#: ../src/document.c:1869
+msgid "grep {contains} `find {basedir} -name '{file type}'`"
 msgstr "grepp {inneholder} `finn {katalog} -name '{søkeuttrykk}'`"
 
-#: ../src/document.c:1865
-msgid "Filename"
-msgstr "Filnavn"
-
-#: ../src/document.c:1872 ../src/gtk_easy.c:744
-msgid "_Browse..."
-msgstr "_Bla gjennom"
-
-#: ../src/document.c:1874
+#: ../src/document.c:1875
 msgid "Base_dir:"
 msgstr "Startkatalog"
 
-#: ../src/document.c:1884
-msgid "_Pattern:"
-msgstr "_Mønster"
+#: ../src/document.c:1877 ../src/gtk_easy.c:744
+msgid "_Browse..."
+msgstr "_Bla gjennom"
 
-#: ../src/document.c:1902
-msgid "_recursive"
-msgstr "_rekursivt"
+#: ../src/document.c:1892
+msgid "_File Type:"
+msgstr "_Filtype:"
 
-#: ../src/document.c:1904
-msgid "Contains"
-msgstr "Inneholder"
+#: ../src/document.c:1898
+msgid "_Recursive:"
+msgstr "_Rekursivt:"
 
-#: ../src/document.c:1909
+#: ../src/document.c:1910
 msgid "Pa_ttern:"
 msgstr "Møns_ter"
 
-#: ../src/document.c:1910
-msgid "is rege_x"
-msgstr "bruker rege_xp"
+#: ../src/document.c:1914
+msgid "Is rege_x:"
+msgstr "Bruker rege_xp:"
 
-#: ../src/document.c:1969
+#: ../src/document.c:1977
+#, c-format
 msgid "Loading %d file(s)..."
 msgstr "Leser inn %d fil(er)..."
 
-#: ../src/document.c:1987 ../src/gtk_easy.c:909 ../src/menu.c:1314
-#: ../src/menu.c:1660 ../src/menu.c:1662 ../src/menu.c:1667
-msgid "Bluefish error"
-msgstr "Bluefish feil"
+#: ../src/document.c:1995
+msgid "No file to insert"
+msgstr "Du må velge en fil"
 
-#: ../src/document.c:1987 ../src/gtk_easy.c:909
-msgid "No filename known"
-msgstr "Ukjent filnavn"
-
-#: ../src/document.c:2021
+#: ../src/document.c:2029
 msgid "save all"
 msgstr "lagre alle"
 
-#: ../src/document.c:2021
+#: ../src/document.c:2029
 msgid "close all"
 msgstr "lukk alle"
 
-#: ../src/document.c:2021
+#: ../src/document.c:2029
 msgid "choose per file"
 msgstr "velg per fil"
 
-#: ../src/document.c:2021
+#: ../src/document.c:2029
 msgid "cancel"
 msgstr "avbryt"
 
-#: ../src/document.c:2022
+#: ../src/document.c:2030
 msgid "Bluefish: Warning, some file(s) are modified!"
 msgstr "Bluefish: Advarsel: noen fil(er) er endret!"
 
-#: ../src/document.c:2022
+#: ../src/document.c:2030
 msgid ""
 "Some file(s) are modified\n"
 "please choose your action"
@@ -391,7 +380,7 @@ msgstr ""
 "Noen filer er endret\n"
 "hva skal gjøres"
 
-#: ../src/document.c:2239
+#: ../src/document.c:2247
 msgid "No selection to indent"
 msgstr "Det er ikke valgt noe for innrykk"
 
@@ -412,6 +401,7 @@ msgid "Directory name"
 msgstr "Katalognavn"
 
 #: ../src/filebrowser.c:845
+#, c-format
 msgid ""
 "Are you sure you want to\n"
 "delete \"%s\" ?"
@@ -443,21 +433,30 @@ msgstr "Oppdater dokumentet"
 msgid "All files"
 msgstr "Alle filer"
 
-#: ../src/fref.c:692 ../src/gui.c:543
+#: ../src/fref.c:687 ../src/gui.c:544
 msgid "Close"
 msgstr "Lukk"
 
-#: ../src/fref.c:697
+#: ../src/fref.c:692
 msgid "Dialog"
 msgstr "Dialog"
 
-#: ../src/fref.c:699
+#: ../src/fref.c:694
 msgid "Insert"
 msgstr "Sett inn"
 
-#: ../src/fref.c:980
+#: ../src/fref.c:967
 msgid "Info"
 msgstr "Info"
+
+#: ../src/gtk_easy.c:909 ../src/menu.c:1314 ../src/menu.c:1660
+#: ../src/menu.c:1662 ../src/menu.c:1667
+msgid "Bluefish error"
+msgstr "Bluefish feil"
+
+#: ../src/gtk_easy.c:909
+msgid "No filename known"
+msgstr "Ukjent filnavn"
 
 #: ../src/gtk_easy.c:998
 msgid "Select file"
@@ -467,463 +466,463 @@ msgstr "Velg fil"
 msgid "Select files"
 msgstr "Velg filer"
 
-#: ../src/gui.c:246
+#: ../src/gui.c:247
 msgid "QuickStart..."
 msgstr "Hurtigstart..."
 
-#: ../src/gui.c:247
+#: ../src/gui.c:248
 msgid "Body..."
 msgstr "Body..."
 
-#: ../src/gui.c:248
+#: ../src/gui.c:249
 msgid "Bold"
 msgstr "Fet"
 
-#: ../src/gui.c:249
+#: ../src/gui.c:250
 msgid "Italic"
 msgstr "Kursiv"
 
-#: ../src/gui.c:250 ../src/html.c:761
+#: ../src/gui.c:251 ../src/html.c:761
 msgid "Paragraph"
 msgstr "Avsnitt"
 
-#: ../src/gui.c:251
+#: ../src/gui.c:252
 msgid "Break"
 msgstr "Break"
 
-#: ../src/gui.c:252
+#: ../src/gui.c:253
 msgid "Break and clear"
 msgstr "Break and clear"
 
-#: ../src/gui.c:253
+#: ../src/gui.c:254
 msgid "Non-breaking space"
 msgstr "Non-breaking space"
 
-#: ../src/gui.c:255
+#: ../src/gui.c:256
 msgid "Anchor..."
 msgstr "Anker"
 
-#: ../src/gui.c:256
+#: ../src/gui.c:257
 msgid "Rule..."
 msgstr "Skillelinje..."
 
-#: ../src/gui.c:257
+#: ../src/gui.c:258
 msgid "Center"
 msgstr "Sentrer"
 
-#: ../src/gui.c:258
+#: ../src/gui.c:259
 msgid "Right Justify"
 msgstr "Høyrestilt"
 
-#: ../src/gui.c:259
+#: ../src/gui.c:260
 msgid "Comment"
 msgstr "Kommentar"
 
-#: ../src/gui.c:260
+#: ../src/gui.c:261
 msgid "E-Mail..."
 msgstr "E-Post..."
 
-#: ../src/gui.c:261
+#: ../src/gui.c:262
 msgid "Font..."
 msgstr "Skrifttype..."
 
-#: ../src/gui.c:262
+#: ../src/gui.c:263
 msgid "Base Font Size..."
 msgstr "Grund skrifttype størrelse..."
 
-#: ../src/gui.c:264
+#: ../src/gui.c:265
 msgid "Font Size +1"
 msgstr "Skriftstørrelse +1"
 
-#: ../src/gui.c:265
+#: ../src/gui.c:266
 msgid "Font Size -1"
 msgstr "Skriftstørrelse -1"
 
-#: ../src/gui.c:266
+#: ../src/gui.c:267
 msgid "Preformatted Text"
 msgstr "Preformatert tekst"
 
-#: ../src/gui.c:267
+#: ../src/gui.c:268
 msgid "Subscript"
 msgstr "Senket"
 
-#: ../src/gui.c:268
+#: ../src/gui.c:269
 msgid "Superscript"
 msgstr "Hevet"
 
-#: ../src/gui.c:269
+#: ../src/gui.c:270
 msgid "Strong"
 msgstr "Fet (strong)"
 
-#: ../src/gui.c:270
+#: ../src/gui.c:271
 msgid "Emphasis"
 msgstr "Kursiv"
 
-#: ../src/gui.c:272 ../src/html.c:770
+#: ../src/gui.c:273 ../src/html.c:770
 msgid "Heading 1"
 msgstr "Overskrift 1"
 
-#: ../src/gui.c:273 ../src/html.c:773
+#: ../src/gui.c:274 ../src/html.c:773
 msgid "Heading 2"
 msgstr "Overskrift 2"
 
-#: ../src/gui.c:274 ../src/html.c:776
+#: ../src/gui.c:275 ../src/html.c:776
 msgid "Heading 3"
 msgstr "Overskrift 3"
 
-#: ../src/gui.c:275 ../src/html.c:779
+#: ../src/gui.c:276 ../src/html.c:779
 msgid "Heading 4"
 msgstr "Overskrift 4"
 
-#: ../src/gui.c:276 ../src/html.c:782
+#: ../src/gui.c:277 ../src/html.c:782
 msgid "Heading 5"
 msgstr "Overskrift 5"
 
-#: ../src/gui.c:277 ../src/html.c:785
+#: ../src/gui.c:278 ../src/html.c:785
 msgid "Heading 6"
 msgstr "Overskrift 6"
 
-#: ../src/gui.c:278
+#: ../src/gui.c:279
 msgid "Table Wizard..."
 msgstr "Tabellveiviser..."
 
-#: ../src/gui.c:280
+#: ../src/gui.c:281
 msgid "Table..."
 msgstr "Tabell..."
 
-#: ../src/gui.c:281
+#: ../src/gui.c:282
 msgid "Table Row..."
 msgstr "Tabellrad..."
 
-#: ../src/gui.c:282
+#: ../src/gui.c:283
 msgid "Table Header..."
 msgstr "Tabelloverskrift..."
 
-#: ../src/gui.c:283
+#: ../src/gui.c:284
 msgid "Table Data..."
 msgstr "Tabelldata..."
 
-#: ../src/gui.c:285 ../src/html_table.c:82
+#: ../src/gui.c:286 ../src/html_table.c:82
 msgid "Table"
 msgstr "Tabell"
 
-#: ../src/gui.c:286 ../src/html_table.c:215
+#: ../src/gui.c:287 ../src/html_table.c:215
 msgid "Table Row"
 msgstr "Tabellrad"
 
-#: ../src/gui.c:287 ../src/html_table.c:326
+#: ../src/gui.c:288 ../src/html_table.c:326
 msgid "Table Header"
 msgstr "Tabelloverskrift"
 
-#: ../src/gui.c:288 ../src/html_table.c:324
+#: ../src/gui.c:289 ../src/html_table.c:324
 msgid "Table Data"
 msgstr "Tabelldata"
 
-#: ../src/gui.c:289
+#: ../src/gui.c:290
 msgid "Table Caption"
 msgstr "Tabell Caption"
 
-#: ../src/gui.c:290
+#: ../src/gui.c:291
 msgid "Frame Wizard..."
 msgstr "Frame veiviser"
 
-#: ../src/gui.c:292
+#: ../src/gui.c:293
 msgid "Frameset..."
 msgstr "Frameset..."
 
-#: ../src/gui.c:293
+#: ../src/gui.c:294
 msgid "Frame..."
 msgstr "Frame..."
 
-#: ../src/gui.c:295 ../src/html.c:1673
+#: ../src/gui.c:296 ../src/html.c:1681
 msgid "Frameset"
 msgstr "Frameset"
 
-#: ../src/gui.c:296 ../src/html.c:1758
+#: ../src/gui.c:297 ../src/html.c:1766
 msgid "Frame"
 msgstr "Frame"
 
-#: ../src/gui.c:297
+#: ../src/gui.c:298
 msgid "Noframes"
 msgstr "Ingen Frames"
 
-#: ../src/gui.c:298
+#: ../src/gui.c:299
 msgid "Target"
 msgstr "Target"
 
-#: ../src/gui.c:299
+#: ../src/gui.c:300
 msgid "Form..."
 msgstr "Formr..."
 
-#: ../src/gui.c:300
+#: ../src/gui.c:301
 msgid "Input button..."
 msgstr "Input knapp..."
 
-#: ../src/gui.c:301
+#: ../src/gui.c:302
 msgid "Text..."
 msgstr "Tekst..."
 
-#: ../src/gui.c:302
+#: ../src/gui.c:303
 msgid "Hidden..."
 msgstr "Usynlig..."
 
-#: ../src/gui.c:303
+#: ../src/gui.c:304
 msgid "Textarea..."
 msgstr "Tekstfelt..."
 
-#: ../src/gui.c:304
+#: ../src/gui.c:305
 msgid "Radio Button..."
 msgstr "Radioknapp..."
 
-#: ../src/gui.c:305
+#: ../src/gui.c:306
 msgid "Check Box..."
 msgstr "Avkrysningsboks..."
 
-#: ../src/gui.c:306
+#: ../src/gui.c:307
 msgid "Select..."
 msgstr "Valg..."
 
-#: ../src/gui.c:307
+#: ../src/gui.c:308
 msgid "Option..."
 msgstr "Option..."
 
-#: ../src/gui.c:308
+#: ../src/gui.c:309
 msgid "Option group..."
 msgstr "Option group..."
 
-#: ../src/gui.c:309
+#: ../src/gui.c:310
 msgid "Quick List..."
 msgstr "Hurtigliste..."
 
-#: ../src/gui.c:310
+#: ../src/gui.c:311
 msgid "Unordered List"
 msgstr "Uordnet Liste"
 
-#: ../src/gui.c:311
+#: ../src/gui.c:312
 msgid "Ordered List"
 msgstr "Ordnet Liste"
 
-#: ../src/gui.c:312
+#: ../src/gui.c:313
 msgid "List Item"
 msgstr "Listeelement"
 
-#: ../src/gui.c:313
+#: ../src/gui.c:314
 msgid "Definition List"
 msgstr "Definisjonsliste"
 
-#: ../src/gui.c:314
+#: ../src/gui.c:315
 msgid "Definition Term"
 msgstr "Definisjonsterm"
 
-#: ../src/gui.c:315 ../src/gui.c:324
+#: ../src/gui.c:316 ../src/gui.c:325
 msgid "Definition"
 msgstr "Definition"
 
-#: ../src/gui.c:316
+#: ../src/gui.c:317
 msgid "Create stylesheet..."
 msgstr "Opprett stylesheet..."
 
-#: ../src/gui.c:317
+#: ../src/gui.c:318
 msgid "Span..."
 msgstr "Span..."
 
-#: ../src/gui.c:318
+#: ../src/gui.c:319
 msgid "Div..."
 msgstr "Div..."
 
-#: ../src/gui.c:319
+#: ../src/gui.c:320
 msgid "Style"
 msgstr "Stil"
 
-#: ../src/gui.c:320
+#: ../src/gui.c:321
 msgid "Link to stylesheet..."
 msgstr "Link til stylesheet..."
 
-#: ../src/gui.c:321
+#: ../src/gui.c:322
 msgid "Insert image..."
 msgstr "Sett inn tid..."
 
-#: ../src/gui.c:322
+#: ../src/gui.c:323
 msgid "Insert thumbnail..."
 msgstr "Sett inn bilde som thumbnail..."
 
-#: ../src/gui.c:323
+#: ../src/gui.c:324
 msgid "Multi thumbnail..."
 msgstr "Thumbnail..."
 
-#: ../src/gui.c:325
+#: ../src/gui.c:326
 msgid "Code"
 msgstr "Kode"
 
-#: ../src/gui.c:326
+#: ../src/gui.c:327
 msgid "Sample"
 msgstr "Eksempel"
 
-#: ../src/gui.c:327
+#: ../src/gui.c:328
 msgid "Keyboard"
 msgstr "Tastatur"
 
-#: ../src/gui.c:328
+#: ../src/gui.c:329
 msgid "Variable"
 msgstr "Variabler"
 
-#: ../src/gui.c:329
+#: ../src/gui.c:330
 msgid "Citation"
 msgstr "Inneholder"
 
-#: ../src/gui.c:330
+#: ../src/gui.c:331
 msgid "Abbreviation"
 msgstr "Forkortelse"
 
-#: ../src/gui.c:331
+#: ../src/gui.c:332
 msgid "Acronym"
 msgstr "\"Action\""
 
-#: ../src/gui.c:364
+#: ../src/gui.c:365
 msgid "Remove from quickbar"
 msgstr "Fjern fra hurtigmeny"
 
-#: ../src/gui.c:394
+#: ../src/gui.c:395
 msgid "Add to quickbar"
 msgstr " Legg til hurtigmeny "
 
-#: ../src/gui.c:483
+#: ../src/gui.c:484
 msgid " Quick bar "
 msgstr " Hurtigmeny "
 
-#: ../src/gui.c:487
+#: ../src/gui.c:488
 msgid "Heading"
 msgstr "Overskrifter"
 
-#: ../src/gui.c:489
+#: ../src/gui.c:490
 msgid " Standard bar "
 msgstr " Standard "
 
-#: ../src/gui.c:493
+#: ../src/gui.c:494
 msgid "Context formatting"
 msgstr "Kontekst formatering"
 
-#: ../src/gui.c:495
+#: ../src/gui.c:496
 msgid " Fonts "
 msgstr " Skrifter "
 
-#: ../src/gui.c:499
+#: ../src/gui.c:500
 msgid " Tables "
 msgstr " Tabeller "
 
-#: ../src/gui.c:503
+#: ../src/gui.c:504
 msgid " Frames "
 msgstr " Frames "
 
-#: ../src/gui.c:507
+#: ../src/gui.c:508
 msgid " Forms "
 msgstr " Skjema "
 
-#: ../src/gui.c:511
+#: ../src/gui.c:512
 msgid " List "
 msgstr " Lister "
 
-#: ../src/gui.c:515
+#: ../src/gui.c:516
 msgid " CSS "
 msgstr " CSS "
 
-#: ../src/gui.c:534
+#: ../src/gui.c:535
 msgid "New"
 msgstr "Ny"
 
-#: ../src/gui.c:536
+#: ../src/gui.c:537
 msgid "Open..."
 msgstr "Åpne..."
 
-#: ../src/gui.c:539
+#: ../src/gui.c:540
 msgid "Save"
 msgstr "Lagre"
 
-#: ../src/gui.c:541
+#: ../src/gui.c:542
 msgid "Save As..."
 msgstr "Lagre som..."
 
-#: ../src/gui.c:546
+#: ../src/gui.c:547
 msgid "Copy"
 msgstr "Kopier"
 
-#: ../src/gui.c:548
+#: ../src/gui.c:549
 msgid "Cut"
 msgstr "Klipp"
 
-#: ../src/gui.c:550
+#: ../src/gui.c:551
 msgid "Paste"
 msgstr "Lim inn"
 
-#: ../src/gui.c:552
+#: ../src/gui.c:553
 msgid "Search..."
 msgstr "Søk..."
 
-#: ../src/gui.c:554
+#: ../src/gui.c:555
 msgid "Search and Replace..."
 msgstr "Søk og Erstatt..."
 
-#: ../src/gui.c:557 ../src/preferences.c:1718
+#: ../src/gui.c:558 ../src/preferences.c:1718
 msgid "Undo"
 msgstr "Angre"
 
-#: ../src/gui.c:559
+#: ../src/gui.c:560
 msgid "Redo"
 msgstr "Gjenta"
 
-#: ../src/gui.c:562
+#: ../src/gui.c:563
 msgid "Unindent"
 msgstr "Reduser innrykk"
 
-#: ../src/gui.c:564
+#: ../src/gui.c:565
 msgid "Indent"
 msgstr "Øk innrykk"
 
-#: ../src/gui.c:571
+#: ../src/gui.c:572
 msgid "Spellcheck..."
 msgstr "Stavekontroll..."
 
-#: ../src/gui.c:576
+#: ../src/gui.c:577
 msgid "View in browser"
 msgstr "Vis i nettleser"
 
-#: ../src/gui.c:579
+#: ../src/gui.c:580
 msgid "Preferences..."
 msgstr "Innstillinger..."
 
-#: ../src/gui.c:589
+#: ../src/gui.c:590
 msgid "/Edit/Undo"
 msgstr "/Rediger/Angre"
 
-#: ../src/gui.c:590 ../src/menu.c:98
+#: ../src/gui.c:591 ../src/menu.c:98
 msgid "/Edit/Undo all"
 msgstr "/Rediger/Angre alle"
 
-#: ../src/gui.c:591
+#: ../src/gui.c:592
 msgid "/Edit/Redo"
 msgstr "/Rediger/Gjenta"
 
-#: ../src/gui.c:592 ../src/menu.c:99
+#: ../src/gui.c:593 ../src/menu.c:99
 msgid "/Edit/Redo all"
 msgstr "/Rediger/Gjenta alle"
 
-#: ../src/gui.c:598
+#: ../src/gui.c:599
 msgid "/Document/Wrap"
 msgstr "/Dokument/Brekk linjer"
 
-#: ../src/gui.c:599
+#: ../src/gui.c:600
 msgid "/Document/Line numbers"
 msgstr "Linjenummer: "
 
-#: ../src/gui.c:777
+#: ../src/gui.c:778
 msgid " line    1 "
 msgstr " linje    1 "
 
-#: ../src/gui.c:827
+#: ../src/gui.c:828
 msgid "Bluefish tip:"
 msgstr "Bluefish tips:"
 
-#: ../src/gui.c:827
+#: ../src/gui.c:828
 msgid ""
 "This message is shown since you do not have any items in the Quickbar.\n"
 "\n"
@@ -935,23 +934,23 @@ msgstr ""
 "Hvis du høyreklikker på en knapp i HTML-verktøylinjen, kan du legge til "
 "knapper i hurtigmenyen."
 
-#: ../src/gui.c:923
+#: ../src/gui.c:924
 msgid "Goto line"
 msgstr "Gå til linje"
 
-#: ../src/gui.c:931
+#: ../src/gui.c:932
 msgid "Line number: "
 msgstr "Linjenummer: "
 
-#: ../src/gui.c:934
+#: ../src/gui.c:935
 msgid "From selection"
 msgstr "Fra markering"
 
-#: ../src/gui.c:942
+#: ../src/gui.c:943
 msgid "Keep dialog"
 msgstr "Behold dialog"
 
-#: ../src/gui.c:1004
+#: ../src/gui.c:1005
 msgid "starting bluefish"
 msgstr "starter bluefish"
 
@@ -1014,6 +1013,7 @@ msgid "Insert Time"
 msgstr "Sett inn tid"
 
 #: ../src/html.c:361
+#, c-format
 msgid "  _Time (%i:%i:%i)"
 msgstr "  _Tid (%i:%i:%i)"
 
@@ -1050,14 +1050,17 @@ msgid "You appear to have a non existant day!\n"
 msgstr "Det ser ut til at du har oppgitt en ugyldig dag.\n"
 
 #: ../src/html.c:395
+#, c-format
 msgid "  _Date (%i/%i/%i)"
 msgstr "  _Dato (%i/%i/%i)"
 
 #: ../src/html.c:398
+#, c-format
 msgid "  _Unix Time (%i)"
 msgstr "  _Unix tid (%i)"
 
 #: ../src/html.c:401
+#, c-format
 msgid "  Unix Date _String (%s"
 msgstr "  Unix tid (%s"
 
@@ -1077,7 +1080,7 @@ msgstr "_HREF:"
 msgid "_Target:"
 msgstr "_Target:"
 
-#: ../src/html.c:577 ../src/html.c:817 ../src/html.c:1344 ../src/html.c:1770
+#: ../src/html.c:577 ../src/html.c:817 ../src/html.c:1344 ../src/html.c:1778
 #: ../src/html_form.c:220 ../src/html_form.c:282 ../src/html_form.c:349
 #: ../src/html_form.c:411 ../src/html_form.c:467 ../src/html_form.c:530
 #: ../src/html_form.c:589 ../src/image.c:261
@@ -1098,12 +1101,12 @@ msgstr "Kl_asse:"
 msgid "St_yle:"
 msgstr "Stil:"
 
-#: ../src/html.c:596 ../src/html.c:1203 ../src/html.c:1947
+#: ../src/html.c:596 ../src/html.c:1203 ../src/html.c:1955
 msgid "_Language:"
 msgstr "Språk:"
 
 #: ../src/html.c:600 ../src/html.c:825 ../src/html.c:960 ../src/html.c:1368
-#: ../src/html.c:1705 ../src/html.c:1807 ../src/html.c:1985
+#: ../src/html.c:1713 ../src/html.c:1815 ../src/html.c:1993
 #: ../src/html_form.c:175 ../src/html_form.c:232 ../src/html_form.c:301
 #: ../src/html_form.c:365 ../src/html_form.c:419 ../src/html_form.c:480
 #: ../src/html_form.c:602 ../src/html_table.c:106 ../src/html_table.c:259
@@ -1172,15 +1175,15 @@ msgstr "Justerin_g:"
 msgid "Horizontal Rule"
 msgstr "Horisontal linje"
 
-#: ../src/html.c:934 ../src/html.c:1856 ../src/image.c:281
+#: ../src/html.c:934 ../src/html.c:1864 ../src/image.c:281
 msgid "_Align:"
 msgstr "Justering:"
 
-#: ../src/html.c:941 ../src/html.c:1864 ../src/html_table.c:393
+#: ../src/html.c:941 ../src/html.c:1872 ../src/html_table.c:393
 msgid "_Height:"
 msgstr "_Høyde:"
 
-#: ../src/html.c:947 ../src/html.c:1860 ../src/html_table.c:139
+#: ../src/html.c:947 ../src/html.c:1868 ../src/html_table.c:139
 #: ../src/html_table.c:386 ../src/image.c:245
 msgid "_Width:"
 msgstr "Bredde:"
@@ -1293,95 +1296,95 @@ msgstr "Skriftfamilie"
 msgid "Custom"
 msgstr "Brukerdefinert"
 
-#: ../src/html.c:1533
+#: ../src/html.c:1541
 msgid "Email"
 msgstr "E-post"
 
-#: ../src/html.c:1541
+#: ../src/html.c:1549
 msgid "_Email address:"
 msgstr "_E-post adresse:"
 
-#: ../src/html.c:1546
+#: ../src/html.c:1554
 msgid "UrlEncoded _subject:"
 msgstr "UrlEncoded emne:"
 
-#: ../src/html.c:1550
+#: ../src/html.c:1558
 msgid "UrlEncoded _body:"
 msgstr "UrlEncoded body:"
 
-#: ../src/html.c:1594
+#: ../src/html.c:1602
 msgid "Quick List"
 msgstr "Hurtigliste"
 
-#: ../src/html.c:1599 ../src/html.c:1683 ../src/html_form.c:225
+#: ../src/html.c:1607 ../src/html.c:1691 ../src/html_form.c:225
 msgid "_Rows:"
 msgstr "_Rader:"
 
-#: ../src/html.c:1602
+#: ../src/html.c:1610
 msgid "Or_dered"
 msgstr "Or_dnet"
 
-#: ../src/html.c:1603
+#: ../src/html.c:1611
 msgid "_Unordered"
 msgstr "_Uordnet"
 
-#: ../src/html.c:1605
+#: ../src/html.c:1613
 msgid "Style:"
 msgstr "Stil:"
 
-#: ../src/html.c:1679 ../src/html_form.c:229
+#: ../src/html.c:1687 ../src/html_form.c:229
 msgid "Co_ls:"
 msgstr "Ko_lonner"
 
-#: ../src/html.c:1688
+#: ../src/html.c:1696
 msgid "_Add <frame> elements"
 msgstr "Legg til <fr_ame> elementer"
 
-#: ../src/html.c:1766 ../src/html.c:1852 ../src/html.c:1940
+#: ../src/html.c:1774 ../src/html.c:1860 ../src/html.c:1948
 msgid "_Source:"
 msgstr "Kilde:"
 
-#: ../src/html.c:1774
+#: ../src/html.c:1782
 msgid "Margin _Width:"
 msgstr " Kantbredde: "
 
-#: ../src/html.c:1778
+#: ../src/html.c:1786
 msgid "Margin _Height:"
 msgstr " Kanthøyde: "
 
-#: ../src/html.c:1786
+#: ../src/html.c:1794
 msgid "Scrollin_g:"
 msgstr "Scrollin_g: "
 
-#: ../src/html.c:1790
+#: ../src/html.c:1798
 msgid "_Frameborder:"
 msgstr "_Frameborder:"
 
-#: ../src/html.c:1795
+#: ../src/html.c:1803
 msgid "No _Resize:"
 msgstr "Behold størrelsen:"
 
-#: ../src/html.c:1846
+#: ../src/html.c:1854
 msgid "Embed"
 msgstr "Embed"
 
-#: ../src/html.c:1868 ../src/html_table.c:145
+#: ../src/html.c:1876 ../src/html_table.c:145
 msgid "Bo_rder:"
 msgstr "Ramme_r"
 
-#: ../src/html.c:1929
+#: ../src/html.c:1937
 msgid "Script"
 msgstr "Skript"
 
-#: ../src/html.c:1932
+#: ../src/html.c:1940
 msgid "Link"
 msgstr "Lænke"
 
-#: ../src/html.c:1967
+#: ../src/html.c:1975
 msgid "_Rel:"
 msgstr "_Rel:"
 
-#: ../src/html.c:1981 ../src/html_form.c:361
+#: ../src/html.c:1989 ../src/html_form.c:361
 msgid "_Type:"
 msgstr "_Type:"
 
@@ -3257,11 +3260,11 @@ msgstr "Marker syntaks"
 
 #: ../src/preferences.c:1667
 msgid "Highlight # lines"
-msgstr "Highlight som standard"
+msgstr "Syntaksmarker # linjer"
 
 #: ../src/preferences.c:1668
 msgid "Always highlight full document"
-msgstr ""
+msgstr "Syntaksmarker alltid hele dokumentet."
 
 #: ../src/preferences.c:1670
 msgid "HTML"
@@ -3535,371 +3538,371 @@ msgstr "Java programmering"
 msgid "Hide objectfiles"
 msgstr "Skjul objektfiler"
 
-#: ../src/rcfile.c:625
+#: ../src/rcfile.c:626
 msgid "/php/ibase/ibase fetch row"
 msgstr "/php/ibase/ibase hent række"
 
-#: ../src/rcfile.c:625
+#: ../src/rcfile.c:626
 msgid "ibase result variable name"
 msgstr "ibase resultat variabel navn"
 
-#: ../src/rcfile.c:625 ../src/rcfile.c:626
+#: ../src/rcfile.c:626 ../src/rcfile.c:627
 msgid "row variable name"
 msgstr "rad variabel navn"
 
-#: ../src/rcfile.c:626
+#: ../src/rcfile.c:627
 msgid "/php/mysql/mysql fetch row"
 msgstr "/php/mysql/mysql hent rekke"
 
-#: ../src/rcfile.c:626
+#: ../src/rcfile.c:627
 msgid "mysql result variable name"
 msgstr "mysql resultat variabelnavn"
 
-#: ../src/rcfile.c:627
+#: ../src/rcfile.c:628
 msgid "/php/mysql/mysql connect"
 msgstr "/php/mysql/mysql tilkobling"
 
-#: ../src/rcfile.c:627
+#: ../src/rcfile.c:628
 msgid "mysql host"
 msgstr "mysql tjener"
 
-#: ../src/rcfile.c:627
+#: ../src/rcfile.c:628
 msgid "mysql username"
 msgstr "mysql brukernavn"
 
-#: ../src/rcfile.c:627
+#: ../src/rcfile.c:628
 msgid "mysql password"
 msgstr "mysql passord"
 
-#: ../src/rcfile.c:627
+#: ../src/rcfile.c:628
 msgid "database name"
 msgstr "databasenavn"
 
-#: ../src/rcfile.c:628
+#: ../src/rcfile.c:629
 msgid "/php/ibase/ibase connect"
 msgstr "/php/ibase/ibase tilkobling"
 
-#: ../src/rcfile.c:628
+#: ../src/rcfile.c:629
 msgid "ibase host"
 msgstr "ibase tjener"
 
-#: ../src/rcfile.c:628
+#: ../src/rcfile.c:629
 msgid "ibase database path"
 msgstr "ibase databasesti"
 
-#: ../src/rcfile.c:628
+#: ../src/rcfile.c:629
 msgid "ibase username"
 msgstr "ibase brukernavn"
 
-#: ../src/rcfile.c:628
+#: ../src/rcfile.c:629
 msgid "ibase password"
 msgstr "ibase passord"
 
-#: ../src/rcfile.c:629
+#: ../src/rcfile.c:630
 msgid "/php/general/while each in array list"
 msgstr "/php/generell/while each gjennom array (liste)"
 
-#: ../src/rcfile.c:629
+#: ../src/rcfile.c:630
 msgid "array name"
 msgstr "arraynavn"
 
-#: ../src/rcfile.c:630
+#: ../src/rcfile.c:631
 msgid "/sql/select all from table"
 msgstr "/sql/velg alle fra tabell"
 
-#: ../src/rcfile.c:630
+#: ../src/rcfile.c:631
 msgid "table name"
 msgstr "tabellnavn"
 
-#: ../src/rcfile.c:631
+#: ../src/rcfile.c:632
 msgid "/php/general/mail"
 msgstr "/php/generell/post"
 
-#: ../src/rcfile.c:631
+#: ../src/rcfile.c:632
 msgid "email adress"
 msgstr "e-post adresse:"
 
-#: ../src/rcfile.c:631
+#: ../src/rcfile.c:632
 msgid "subject"
 msgstr "emne"
 
-#: ../src/rcfile.c:631
+#: ../src/rcfile.c:632
 msgid "mail body variable name"
 msgstr "mail body variabelnavn"
 
-#: ../src/rcfile.c:632
+#: ../src/rcfile.c:633
 msgid "/php/general/for loop"
 msgstr "/php/generell/for løkke"
 
-#: ../src/rcfile.c:632
+#: ../src/rcfile.c:633
 msgid "loop variable name"
 msgstr "navn for loopvariabel"
 
-#: ../src/rcfile.c:632
+#: ../src/rcfile.c:633
 msgid "from value"
 msgstr "fra verdi"
 
-#: ../src/rcfile.c:632
+#: ../src/rcfile.c:633
 msgid "to value"
 msgstr "til verdi"
 
-#: ../src/rcfile.c:633
+#: ../src/rcfile.c:634
 msgid "/php/ibase/query"
 msgstr "/php/ibase/query"
 
-#: ../src/rcfile.c:633 ../src/rcfile.c:638 ../src/rcfile.c:656
-#: ../src/rcfile.c:657
+#: ../src/rcfile.c:634 ../src/rcfile.c:639 ../src/rcfile.c:657
+#: ../src/rcfile.c:658
 msgid "result variable name"
 msgstr "resultatets variabelnavn"
 
-#: ../src/rcfile.c:633
+#: ../src/rcfile.c:634
 msgid "ibase connection id name"
 msgstr "ibase tilkobling id-navn"
 
-#: ../src/rcfile.c:633 ../src/rcfile.c:638 ../src/rcfile.c:656
+#: ../src/rcfile.c:634 ../src/rcfile.c:639 ../src/rcfile.c:657
 msgid "query string (quoted) or variable (including $)"
 msgstr "query (i anførselstegn) eller variabel (inkl. $)"
 
-#: ../src/rcfile.c:634
+#: ../src/rcfile.c:635
 msgid "/php/general/include file"
 msgstr "/php/generell/inkluder fil"
 
-#: ../src/rcfile.c:634
+#: ../src/rcfile.c:635
 msgid "filename to include"
 msgstr "filenavn for inkludering"
 
-#: ../src/rcfile.c:635
+#: ../src/rcfile.c:636
 msgid "/php/general/require file"
 msgstr "/php/generell/krever fil"
 
-#: ../src/rcfile.c:635
+#: ../src/rcfile.c:636
 msgid "filename to require"
 msgstr "filnavn som kreves"
 
-#: ../src/rcfile.c:636
+#: ../src/rcfile.c:637
 msgid "/php/general/if isset"
 msgstr "/php/generell/if isset"
 
-#: ../src/rcfile.c:636 ../src/rcfile.c:637
+#: ../src/rcfile.c:637 ../src/rcfile.c:638
 msgid "variable name to test for"
 msgstr "variabelnavn det skal testes for"
 
-#: ../src/rcfile.c:637
+#: ../src/rcfile.c:638
 msgid "/php/general/if not isset"
 msgstr "/php/generell/if not isset"
 
-#: ../src/rcfile.c:638
+#: ../src/rcfile.c:639
 msgid "/php/mysql/query"
 msgstr "/php/mysql/query"
 
-#: ../src/rcfile.c:638
+#: ../src/rcfile.c:639
 msgid "mysql connection id name"
 msgstr "mysql tilkobling id navn"
 
-#: ../src/rcfile.c:639
+#: ../src/rcfile.c:640
 msgid "/html/font symbol"
 msgstr "/html/skrift symbol"
 
-#: ../src/rcfile.c:640
+#: ../src/rcfile.c:641
 msgid "/html/div with class"
 msgstr "/html/div med klasse"
 
-#: ../src/rcfile.c:640 ../src/rcfile.c:641
+#: ../src/rcfile.c:641 ../src/rcfile.c:642
 msgid "CSS class name"
 msgstr "CSS klassenavn"
 
-#: ../src/rcfile.c:641
+#: ../src/rcfile.c:642
 msgid "/html/span with class"
 msgstr "/html/span med klasse"
 
-#: ../src/rcfile.c:642
+#: ../src/rcfile.c:643
 msgid "/php/php block"
 msgstr "/php/php blokk"
 
-#: ../src/rcfile.c:643
+#: ../src/rcfile.c:644
 msgid "/html/made with bluefish"
 msgstr "/html/laget i Bluefish"
 
-#: ../src/rcfile.c:644
+#: ../src/rcfile.c:645
 msgid "/html/meta keywords"
 msgstr "/html/meta nøkkelord"
 
-#: ../src/rcfile.c:644
+#: ../src/rcfile.c:645
 msgid "keywords, space separated"
 msgstr "nøkkelord, separert med mellomrom"
 
-#: ../src/rcfile.c:645
+#: ../src/rcfile.c:646
 msgid "/html/meta refresh (client pull)"
 msgstr "/html/meta refresh (klient pull)"
 
-#: ../src/rcfile.c:645
+#: ../src/rcfile.c:646
 msgid "refresh time, in seconds"
 msgstr "Ventetid før refresh (sekunder)"
 
-#: ../src/rcfile.c:645
+#: ../src/rcfile.c:646
 msgid "URL to redirect to"
 msgstr "URL det skal henvises til"
 
-#: ../src/rcfile.c:646
+#: ../src/rcfile.c:647
 msgid "/active html/form"
 msgstr "/aktiv html/form"
 
-#: ../src/rcfile.c:647
+#: ../src/rcfile.c:648
 msgid "/active html/form and action"
 msgstr "/aktiv html/form"
 
-#: ../src/rcfile.c:647
+#: ../src/rcfile.c:648
 msgid "Submit button text"
 msgstr "Submit-knapp tekst"
 
-#: ../src/rcfile.c:648
+#: ../src/rcfile.c:649
 msgid "/active html/input text"
 msgstr "/aktiv html/input tekst"
 
-#: ../src/rcfile.c:648 ../src/rcfile.c:649 ../src/rcfile.c:650
-#: ../src/rcfile.c:651 ../src/rcfile.c:652 ../src/rcfile.c:653
+#: ../src/rcfile.c:649 ../src/rcfile.c:650 ../src/rcfile.c:651
+#: ../src/rcfile.c:652 ../src/rcfile.c:653 ../src/rcfile.c:654
 msgid "variable name"
 msgstr "variabelnavn"
 
-#: ../src/rcfile.c:649
+#: ../src/rcfile.c:650
 msgid "/active html/input checkbox"
 msgstr "/aktiv html/avkrysningsboks"
 
-#: ../src/rcfile.c:649
+#: ../src/rcfile.c:650
 msgid "value when checked"
 msgstr "verdi når valgt"
 
-#: ../src/rcfile.c:650
+#: ../src/rcfile.c:651
 msgid "/active html/textarea"
 msgstr "/aktiv html/tekstområde"
 
-#: ../src/rcfile.c:651
+#: ../src/rcfile.c:652
 msgid "/active html/select options/from array"
 msgstr "/aktiv html/select alternativer/fra array"
 
-#: ../src/rcfile.c:651
+#: ../src/rcfile.c:652
 msgid "array name containing options"
 msgstr "arraynavn med alternativer"
 
-#: ../src/rcfile.c:652
+#: ../src/rcfile.c:653
 msgid "/active html/select options/from mysql result"
 msgstr "/aktiv html/select alternativer/fra mysql resultat"
 
-#: ../src/rcfile.c:652
+#: ../src/rcfile.c:653
 msgid "mysql query result"
 msgstr "myqsl query resultat"
 
-#: ../src/rcfile.c:652 ../src/rcfile.c:653
+#: ../src/rcfile.c:653 ../src/rcfile.c:654
 msgid "index of the value"
 msgstr "indeks for verdien"
 
-#: ../src/rcfile.c:652 ../src/rcfile.c:653
+#: ../src/rcfile.c:653 ../src/rcfile.c:654
 msgid "index of the label"
 msgstr "indeks for etiketten"
 
-#: ../src/rcfile.c:653
+#: ../src/rcfile.c:654
 msgid "/active html/select options/from ibase result"
 msgstr "/aktiv html/select alternativer/fra ibase resultat"
 
-#: ../src/rcfile.c:653
+#: ../src/rcfile.c:654
 msgid "ibase query result"
 msgstr "ibase query resultat"
 
-#: ../src/rcfile.c:654
+#: ../src/rcfile.c:655
 msgid "/DHTML/mouseover image"
 msgstr "/DHTML/mouseover bilde"
 
-#: ../src/rcfile.c:654
+#: ../src/rcfile.c:655
 msgid "unique name"
 msgstr "unikt navn"
 
-#: ../src/rcfile.c:654
+#: ../src/rcfile.c:655
 msgid "onMouseOut src"
 msgstr "onMouseOut src"
 
-#: ../src/rcfile.c:654
+#: ../src/rcfile.c:655
 msgid "onMouseOver src"
 msgstr "onMouseOver src"
 
-#: ../src/rcfile.c:655
+#: ../src/rcfile.c:656
 msgid "/php/odbc/odbc connect"
 msgstr "/php/odbc/odbc tilkobling"
 
-#: ../src/rcfile.c:655
+#: ../src/rcfile.c:656
 msgid "odbc data source name"
 msgstr "odbc data kildenavn"
 
-#: ../src/rcfile.c:655
+#: ../src/rcfile.c:656
 msgid "username"
 msgstr "brukernavn"
 
-#: ../src/rcfile.c:655
+#: ../src/rcfile.c:656
 msgid "password"
 msgstr "passord"
 
-#: ../src/rcfile.c:656
+#: ../src/rcfile.c:657
 msgid "/php/odbc/odbc exec query"
 msgstr "/php/odbc/odbc send query"
 
-#: ../src/rcfile.c:656
+#: ../src/rcfile.c:657
 msgid "odbc connection id name"
 msgstr "odbc tilkobling id"
 
-#: ../src/rcfile.c:657
+#: ../src/rcfile.c:658
 msgid "/php/odbc/odbc fetch row"
 msgstr "/php/odbc/odbc hent rad"
 
-#: ../src/rcfile.c:658
+#: ../src/rcfile.c:659
 msgid "/php/general/echo date"
 msgstr "/php/generell/skriv dato"
 
-#: ../src/rcfile.c:659
+#: ../src/rcfile.c:660
 msgid "/php/filesystem/open and echo file"
 msgstr "/php/filsystem/åpne og les fil"
 
-#: ../src/rcfile.c:659
+#: ../src/rcfile.c:660
 msgid "file (quoted) or variable (including $)"
 msgstr "fil (i anførselstegn) eller variabel (inkluderende $)"
 
-#: ../src/rcfile.c:660
+#: ../src/rcfile.c:661
 msgid "/php/general/location header"
 msgstr "/php/generell/location header"
 
-#: ../src/rcfile.c:660
+#: ../src/rcfile.c:661
 msgid "location (URL) to redirect to (quoted) or variable (including $)"
 msgstr ""
 "Adresse (URL) det skal videresendes til (i anførselstegn) eller variabel "
 "(inklusiv $)"
 
-#: ../src/rcfile.c:661
+#: ../src/rcfile.c:662
 msgid "/apache/basic password required"
 msgstr "/apache/basic passord nødvendig"
 
-#: ../src/rcfile.c:661
+#: ../src/rcfile.c:662
 msgid "full path to password file"
 msgstr "full sti til passordfil"
 
-#: ../src/rcfile.c:661
+#: ../src/rcfile.c:662
 msgid "security description"
 msgstr "sikkerhetsbeskrivelse"
 
-#: ../src/rcfile.c:662
+#: ../src/rcfile.c:663
 msgid "/apache/deny access to .inc"
 msgstr "/apache/nekt adgang til .inc"
 
-#: ../src/rcfile.c:663
+#: ../src/rcfile.c:664
 msgid "/replace/strip <font>"
 msgstr "/erstatt/fjern <font>"
 
-#: ../src/rcfile.c:664
+#: ../src/rcfile.c:665
 msgid "/replace/strip <any tag> in selection"
 msgstr "/erstatt/fjern <ethvert tag> i markert område"
 
-#: ../src/rcfile.c:665
+#: ../src/rcfile.c:666
 msgid "/replace/convert <td> in <th> in selection"
 msgstr "/erstatt/konverter <td> til <th> i markert område"
 
-#: ../src/rcfile.c:666
+#: ../src/rcfile.c:667
 msgid "/replace/convert <any tag> in <any other tag> in selection"
 msgstr "/erstatt/konverter <ethvert tag> til <et annet tag> i markert område"
 
