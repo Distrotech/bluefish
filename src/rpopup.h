@@ -20,7 +20,9 @@
 
 gboolean doc_bevent_in_html_code(Tdocument *doc, GdkEventButton *bevent);
 gboolean rpopup_doc_located_tag(Tdocument *doc);
+gboolean rpopup_doc_located_color(Tdocument *doc);
 void rpopup_edit_tag_cb(GtkMenuItem *menuitem,Tdocument *doc);
+void rpopup_edit_color_cb(GtkMenuItem *menuitem,Tdocument *doc);
 void edit_tag_under_cursor_cb(Tbfwin *bfwin);
 
 #endif /* __RPOPUP_H_ */

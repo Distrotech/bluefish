@@ -18,7 +18,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-/*#define DEBUG*/
+/* #define DEBUG */
 
 #include <gtk/gtk.h>
 #include <string.h>  	/* strlen() */
@@ -1056,16 +1056,21 @@ static void colsel_ok_clicked_lcb(GtkWidget *widget, Tcolsel *csd) {
 	gchar *tmpstr;
 	/* only on a OK click we do the setcolor thing */
 	tmpstr = gtk_editable_get_chars(GTK_EDITABLE(csd->hexentry), 0, -1);
+	if (csd->bfwin) {
+		csd->bfwin->session->colorlist = add_to_stringlist(csd->bfwin->session->colorlist, tmpstr);
+	}
+	
 	if (csd->is_modal) {
 		g_free(csd->returnval);
 		csd->returnval = tmpstr;
 		gtk_main_quit();
 	} else {
-		DEBUG_MSG("colsel_destroy_lcb, NOT modal, entering the value %s\n",tmpstr);
 		if (string_is_color(tmpstr)) {
 			if (csd->startpos || csd->endpos) {
+				DEBUG_MSG("colsel_ok_clicked_lcb, replacing with %s\n", tmpstr);
 				doc_replace_text(csd->bfwin->current_document, tmpstr, csd->startpos, csd->endpos);
 			} else {
+				DEBUG_MSG("colsel_ok_clicked_lcb, inserting %s\n", tmpstr);
 				doc_insert_two_strings(csd->bfwin->current_document,tmpstr, NULL);
 			}
 		}
@@ -1114,7 +1119,7 @@ static void colsel_color_changed(GtkWidget *widget, Tcolsel *csd) {
 static Tcolsel *colsel_dialog(Tbfwin *bfwin,const gchar *setcolor, gint modal, gint startpos, gint endpos) {
 	Tcolsel *csd;
 	GtkWidget *vbox, *hbox, *but;
-	gdouble *color;
+	GdkColor gcolor;
 	const gchar *this_color=setcolor;
 
 	csd = g_malloc(sizeof(Tcolsel));
@@ -1130,14 +1135,34 @@ static Tcolsel *colsel_dialog(Tbfwin *bfwin,const gchar *setcolor, gint modal, g
 	vbox = gtk_vbox_new(FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(csd->win), vbox);
 	csd->csel = gtk_color_selection_new();
+	gtk_color_selection_set_has_opacity_control(GTK_COLOR_SELECTION(csd->csel), FALSE);
+	
 	if (this_color) {
-		color = hex_to_gdouble_arr(this_color);
-		if (color) {
-			gtk_color_selection_set_color(GTK_COLOR_SELECTION(csd->csel), color);
+		if (gdk_color_parse(this_color, &gcolor)) {
+			gtk_color_selection_set_current_color(GTK_COLOR_SELECTION(csd->csel), &gcolor);
 		} else {
 			this_color=NULL;
 		}
 	}
+	if (bfwin && bfwin->session->colorlist) {
+		GtkSettings* gtksettings;
+/*		GdkColor *gcolorarr=NULL;
+		gint num=0;*/
+		gchar *strings = stringlist_to_string(bfwin->session->colorlist, ":");
+		strings[strlen(strings)-1] = '\0';
+		gtksettings = gtk_widget_get_settings(GTK_WIDGET(csd->csel));
+		g_object_set(G_OBJECT(gtksettings), "gtk-color-palette", strings, NULL); 
+/*		DEBUG_MSG("colsel_dialog, setting palette from %s\n", strings);
+		if (gtk_color_selection_palette_from_string(strings, &gcolorarr, &num)) {
+			DEBUG_MSG("num=%d, gcolorarr=%p\n",num,gcolorarr);
+		} else {
+			DEBUG_MSG("hmm, failed to parse our string :(\n");
+		} */
+		g_free(strings);
+	}
+	gtk_color_selection_set_has_palette(GTK_COLOR_SELECTION(csd->csel), TRUE);
+	
+	
 	csd->csel_changed_id = gtk_signal_connect(GTK_OBJECT(csd->csel), "color-changed", G_CALLBACK(colsel_color_changed), csd);
 	gtk_box_pack_start(GTK_BOX(vbox), csd->csel, TRUE, TRUE, 0);
 
@@ -1163,8 +1188,13 @@ static Tcolsel *colsel_dialog(Tbfwin *bfwin,const gchar *setcolor, gint modal, g
 	gtk_window_set_default(GTK_WINDOW(csd->win), but);
 	gtk_box_pack_start(GTK_BOX(hbox), but, TRUE, TRUE, 0);
 	gtk_widget_show_all(csd->win);
+
 	DEBUG_MSG("colsel_dialog, finished\n");
 	return csd;
+}
+
+void edit_color_dialog(Tdocument *doc, gchar *color, gint startpos, gint endpos) {
+	colsel_dialog(doc->bfwin, color, FALSE, startpos, endpos);
 }
 
 void sel_colour_cb(GtkWidget *widget, Tbfwin *bfwin) {
