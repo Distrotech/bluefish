@@ -482,7 +482,7 @@ void doc_insert_two_strings(Tdocument *doc, const gchar *before_str, const gchar
 			gtk_text_buffer_insert(doc->buffer,&itselect,after_str,-1);
 		}
 	}
-	
+	doc_unre_new_group(doc);
 	DEBUG_MSG("doc_insert_two_strings, finished\n");
 }
 

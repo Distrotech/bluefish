@@ -27,7 +27,7 @@
 #include "rcfile.h" /* rcfile_parse_main() */
 #include "bf_lib.h" /* create_full_path() */
 #include "highlight.h" /* hl_init() */
-
+#include "msg_queue.h" /* msg_queue_start()*/
 
 /*********************************************/
 /* this var is global for all bluefish files */
@@ -99,9 +99,14 @@ int main(int argc, char *argv[])
 	main_v = g_new0(Tmain, 1);
 	DEBUG_MSG("main, main_v is at %p\n", main_v);
 	
+	rcfile_check_directory();
 	rcfile_parse_main();
 	
 	parse_commandline(argc, argv, &root_override, &filenames);
+	
+	if (filenames && main_v->props.open_in_running_bluefish) {
+		msg_queue_start(filenames);
+	}
 	
 #ifndef NOSPLASH
 	/* start splash screen somewhere here */
@@ -109,15 +114,26 @@ int main(int argc, char *argv[])
 	splash_screen_set_label(_("parsing highlighting file..."));
 #endif /* #ifndef NOSPLASH */
 
+	/* set GTK settings */
+	{
+		GtkSettings* gtksettings = gtk_settings_get_default();
+		g_object_set(gtksettings, "gtk-can-change-accels", TRUE, NULL); 
+	}
+
 	rcfile_parse_highlighting();
 #ifndef NOSPLASH
 	splash_screen_set_label(_("compiling highlighting patterns..."));
 #endif /* #ifndef NOSPLASH */
 	hl_init();
 #ifndef NOSPLASH
-	splash_screen_set_label(_("creating custom menu..."));
+	splash_screen_set_label(_("parsing custom menu file..."));
 #endif /* #ifndef NOSPLASH */
 	rcfile_parse_custom_menu();
+
+	if (!filenames && main_v->props.open_in_running_bluefish) {
+		msg_queue_start(NULL);
+	}
+
 #ifndef NOSPLASH
 	splash_screen_set_label(_("creating main gui..."));
 #endif /* #ifndef NOSPLASH */
@@ -130,7 +146,11 @@ int main(int argc, char *argv[])
 	flush_queue();
 	gtk_widget_destroy(splash_window);
 #endif /* #ifndef NOSPLASH */
+
 	gtk_main();
+	
+	/* do the cleanup */
+	msg_queue_cleanup();
 	return 0;
 }
 

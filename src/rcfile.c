@@ -61,8 +61,6 @@ gchar **array_from_arglist(const gchar *string1, ...) {
 	return retval;
 }
 
-
-
 static gchar *array_to_string(gchar **array, gchar delimiter) {
 
 	gchar **tmp, *escaped1, *finalstring;
@@ -539,5 +537,13 @@ void rcfile_parse_custom_menu(void) {
 	g_free(filename);
 }
 
-
+#define DIR_MODE (S_IRWXU | S_IRGRP | S_IXGRP | S_IROTH | S_IXOTH)	/* same as 0755 */
+void rcfile_check_directory(void) {
+	struct stat filestat;
+	gchar *rcdir = g_strconcat(g_get_home_dir(), "/.bluefish", NULL);
+	if (!g_file_test(rcdir, G_FILE_TEST_IS_DIR)) {
+		mkdir(rcdir, DIR_MODE);
+	}
+	g_free(rcdir);
+}
 
