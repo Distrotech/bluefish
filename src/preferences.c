@@ -1693,10 +1693,13 @@ static void preferences_ok_clicked_lcb(GtkWidget *wid, Tprefdialog *pd) {
 		GList *tmplist = g_list_first(main_v->bfwinlist);
 		while (tmplist) {
 			Tbfwin *bfwin = BFWIN(tmplist->data);
+			DEBUG_MSG("preferences_ok_clicked_lcb, calling encoding_menu_rebuild\n");
 			encoding_menu_rebuild(bfwin);
 			external_menu_rebuild(bfwin); /* browsers is also rebuild here! */
 			filetype_menu_rebuild(bfwin,NULL);
+			DEBUG_MSG("preferences_ok_clicked_lcb, calling gui_apply_settings\n");
 			gui_apply_settings(bfwin);
+			DEBUG_MSG("preferences_ok_clicked_lcb, calling doc_force_activate\n");
 			doc_force_activate(bfwin->current_document);
 			tmplist = g_list_next(tmplist);
 		}

@@ -875,10 +875,12 @@ void make_main_toolbar(Tbfwin *bfwin) {
 }
 
 void gui_set_undo_redo_widgets(Tbfwin *bfwin, gboolean undo, gboolean redo) {
-	if (main_v->props.view_main_toolbar) {
+	if (GTK_WIDGET_VISIBLE(bfwin->main_toolbar_hb)) {
+		DEBUG_MSG("gui_set_undo_redo_widgets, doing toolbar\n");
 		gtk_widget_set_sensitive(bfwin->toolbar_redo, redo);
 		gtk_widget_set_sensitive(bfwin->toolbar_undo, undo);
 	}
+	DEBUG_MSG("gui_set_undo_redo_widgets, doing menu\n");
 	gtk_widget_set_sensitive(gtk_item_factory_get_widget(gtk_item_factory_from_widget(bfwin->menubar), N_("/Edit/Undo")), undo);
 	gtk_widget_set_sensitive(gtk_item_factory_get_widget(gtk_item_factory_from_widget(bfwin->menubar), N_("/Edit/Undo All")), undo);
 	gtk_widget_set_sensitive(gtk_item_factory_get_widget(gtk_item_factory_from_widget(bfwin->menubar), N_("/Edit/Redo")), redo);
