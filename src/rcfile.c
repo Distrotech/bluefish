@@ -397,15 +397,23 @@ static gboolean parse_config_file(GList * config_list, gchar * filename)
 
 static GList *props_init_main(GList * config_rc)
 {
-	init_prop_integer(&config_rc, &main_v->props.v_html_tb, "view_html_toolbar:", 1);
-	init_prop_integer(&config_rc, &main_v->props.v_custom_tb, "view_custom_toolbar:", 1);
-	init_prop_integer(&config_rc, &main_v->props.v_main_tb, "view_main_toolbar:", 1);
+/* these are used in the gtk-2 port already */
+	init_prop_integer(&config_rc, &main_v->props.view_html_toolbar, "view_html_toolbar:", 1);
+	init_prop_integer(&config_rc, &main_v->props.view_custom_menu, "view_custom_menu:", 1);
+	init_prop_integer(&config_rc, &main_v->props.view_main_toolbar, "view_main_toolbar:", 1);
+	init_prop_string(&config_rc, &main_v->props.editor_font_string, "editor_font_string:", "courier 11");
+	init_prop_string(&config_rc, &main_v->props.tab_font_string, "tab_font_string:", "helvetica 8");
+	init_prop_arraylist(&config_rc, &main_v->props.browsers, "browsers:");
+
+
+
+/* not yet in use */
+
 	init_prop_integer(&config_rc, &main_v->props.v_filebrowser, "view_filebrowser:", 1);
 	init_prop_integer(&config_rc, &main_v->props.transient_htdialogs, "transient_htdialogs:", 0);
 	init_prop_string(&config_rc, &main_v->props.image_editor_cline, "image_editor_command:", "gimp-remote -n \"%s\"&");
-	init_prop_string(&config_rc, &main_v->props.editor_font_string, "editor_font_string:", "courier 11");
-	init_prop_integer(&config_rc, &main_v->props.cfg_editor_tabwidth, "editor_tab_width:", 8);
-	init_prop_string(&config_rc, &main_v->props.tab_font_string, "tab_font_string:", "helvetica 8");
+
+
 	init_prop_string(&config_rc, &main_v->props.cfg_tab_pos, "notebook_tab_position:", "bottom");
 /*	init_prop_string(&config_rc, &main_v->props.cfg_weblint_cline, "weblint_command:", WEBLINT_COMMAND);*/
 	init_prop_integer(&config_rc, &main_v->props.main_window_h, "main_window_height:", 400);
@@ -458,8 +466,6 @@ static GList *props_init_main(GList * config_rc)
 #ifdef WITH_MSG_QUEUE
 	init_prop_integer (&config_rc, &main_v->props.open_in_running_bluefish,"open_in_running_bluefish:",1);
 #endif
-	init_prop_arraylist(&config_rc, &main_v->props.browsers, "browsers:");
-
 	return config_rc;
 }
 
