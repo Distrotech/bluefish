@@ -145,6 +145,12 @@ AC_ARG_WITH(highlight-profiling,
 AC_DEFINE(HL_PROFILING)],)
 
 dnl ************************
+dnl Check for standard headers
+dnl ************************
+
+AC_HEADER_STDC
+
+dnl ************************
 dnl Checks for librarries
 dnl ************************
 
@@ -180,6 +186,14 @@ AC_CHECK_LIB(posix4, nanosleep,
 	)
 )
 
+AC_CHECK_HEADER(aspell.h, 
+	AC_CHECK_LIB(libaspell, new_aspell_config, 
+		LIBS="$LIBS -laspell"
+		AC_DEFINE(HAVE_LIBASPELL),
+		echo "libaspell not found please install libaspell-dev or similar"), 
+	echo "libaspell not found please install libaspell-dev or similar"
+)
+
 localedir='${prefix}/share/locale'
 AC_SUBST(localedir)
 
@@ -187,7 +201,6 @@ dnl ************************
 dnl Checks for header files.
 dnl ************************
 
-AC_HEADER_STDC
 AC_CHECK_HEADERS(stdlib.h unistd.h string.h strings.h errno.h stdio.h sys/stat.h ctype.h getopt.h math.h time.h sys/types.h fcntl.h netdb.h netinet/in.h sys/socket.h arpa/inet.h dirent.h sys/select.h sys/time.h sys/ipc.h sys/msg.h)
 
 dnl ************************

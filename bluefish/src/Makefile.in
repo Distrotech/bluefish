@@ -42,6 +42,7 @@ DEFS = -DLOCALEDIR=\"$(localedir)\" -DGNULOCALEDIR=\"$(gnulocaledir)\" \
 -DLOCALE_ALIAS_PATH=\"$(aliaspath)\" -DPKGDATADIR=\"$(pkgdatadir)\" @DEFS@
 
 SRCS = 	bf_lib.c \
+			bfspell.c \
 			bluefish.c \
 			cap.c \
 			char_table.c \
