@@ -725,9 +725,9 @@ static void inputdialogok_lcb(GtkWidget * widget,Thtml_diag *dg) {
 	if (strcmp(text, "file")==0) {
 		thestring = insert_string_if_entry(GTK_WIDGET(dg->entry[2]), cap("ACCEPT"), thestring, NULL);
 	}
-	thestring = insert_string_if_entry(GTK_WIDGET(dg->entry[8]), cap("ID"), thestring, NULL);
-	thestring = insert_string_if_entry(GTK_WIDGET(GTK_COMBO(dg->combo[1])->entry), cap("CLASS"), thestring, NULL);
-	thestring = insert_string_if_entry(GTK_WIDGET(dg->entry[10]), cap("STYLE"), thestring, NULL);
+	thestring = insert_string_if_entry(GTK_WIDGET(GTK_COMBO(dg->attrwidget[0])->entry), cap("CLASS"), thestring, NULL);
+	thestring = insert_string_if_entry(GTK_WIDGET(dg->attrwidget[1]), cap("ID"), thestring, NULL);
+	thestring = insert_string_if_entry(GTK_WIDGET(dg->attrwidget[2]), cap("STYLE"), thestring, NULL);
 	thestring = insert_string_if_entry(GTK_WIDGET(dg->entry[3]), cap("ONFOCUS"), thestring, NULL);
 	thestring = insert_string_if_entry(GTK_WIDGET(dg->entry[4]), cap("ONBLUR"), thestring, NULL);
 	thestring = insert_string_if_entry(GTK_WIDGET(dg->entry[5]), cap("ONSELECT"), thestring, NULL);
@@ -762,28 +762,24 @@ static void inputdialog_typecombo_activate_lcb(GtkList *list, Thtml_diag *dg) {
 }
 
 void inputdialog_dialog(Tbfwin *bfwin, Ttagpopup *data, const gchar *type) {
-	static gchar *tagitems[] = { "type", "name", "value", "checked", "size", "maxlength", "accept", "onfocus", "onblur", "onselect", "onchange", "id", "class", "style", NULL };
+	static gchar *tagitems[] = { "type", "name", "value", "checked", "size", "maxlength", "accept", "onfocus", "onblur", "onselect", "onchange", "class", "id", "style", NULL };
 	gchar *tagvalues[15];
 	gchar *custom = NULL;
 	Thtml_diag *dg;
-	GtkWidget *noteb, *frame, *dgtable, *but;
+	GtkWidget *noteb, *dgtable;
 	
 	dg = html_diag_new(bfwin,_("Input"));
 	fill_dialogvalues(tagitems, tagvalues, &custom, (Ttagpopup *) data, dg);
 	noteb = gtk_notebook_new();
 	gtk_box_pack_start(GTK_BOX(dg->vbox), noteb, FALSE, FALSE, 0);
 
-	frame = bf_generic_frame_new(NULL, GTK_SHADOW_NONE, 12);
-	gtk_notebook_append_page(GTK_NOTEBOOK(noteb), frame, gtk_label_new(_("Attributes")));
-	dgtable = gtk_table_new(8, 3, FALSE);
-	gtk_table_set_col_spacings(GTK_TABLE(dgtable), 12);
-	gtk_table_set_row_spacings(GTK_TABLE(dgtable), 6);
-	gtk_container_add(GTK_CONTAINER(frame), dgtable);
-	
+	dgtable = generic_table_inside_notebookframe(noteb, _("Attributes"), 10, 3);
+
 	{
-		GList *poplist = list_from_arglist(FALSE, "text", "password", "checkbox", "radio", "submit", "reset", "file", "hidden", "image", "button", NULL);
-		
-		dg->combo[0] = combo_with_popdown(tagvalues[0] ? tagvalues[0] : type, poplist, 0);
+		GList *poplist;
+		const gchar *type2 = (type) ? type : "text";
+		poplist = list_from_arglist(FALSE, "text", "password", "checkbox", "radio", "submit", "reset", "file", "hidden", "image", "button", NULL);
+		dg->combo[0] = combo_with_popdown(tagvalues[0] ? tagvalues[0] : type2, poplist, 0);
 		g_list_free(poplist);
 	}
 	bf_mnemonic_label_tad_with_alignment(_("_Type:"), dg->combo[0], 0, 0.5, dgtable, 0, 1, 0, 1);
@@ -820,33 +816,11 @@ void inputdialog_dialog(Tbfwin *bfwin, Ttagpopup *data, const gchar *type) {
 	bf_mnemonic_label_tad_with_alignment(_("C_ustom:"), dg->entry[7], 0, 0.5, dgtable, 0, 1, 7, 8);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[7], 1, 3, 7, 8);
 	
-	frame = bf_generic_frame_new(NULL, GTK_SHADOW_NONE, 12);
-	gtk_notebook_append_page(GTK_NOTEBOOK(noteb), frame, gtk_label_new(_("Generic")));
-	dgtable = gtk_table_new(10, 2, FALSE);
-	gtk_table_set_row_spacings(GTK_TABLE(dgtable), 6);
-	gtk_table_set_col_spacings(GTK_TABLE(dgtable), 12);
-	gtk_container_add(GTK_CONTAINER(frame), dgtable);
+	dgtable = generic_table_inside_notebookframe(noteb, _("Generic"), 4, 3);
 	
-	dg->entry[8] = entry_with_text(tagvalues[11], 256);
-	bf_mnemonic_label_tad_with_alignment(_("_ID:"), dg->entry[8], 0, 0.5, dgtable, 0, 1, 0, 1);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[8], 1, 3, 0, 1);
+	generic_class_id_style_section(dg, 0, dgtable, 0, tagvalues, 11);
 
-	dg->combo[1] = combo_with_popdown(tagvalues[12], bfwin->session->classlist, 1);
-	bf_mnemonic_label_tad_with_alignment(_("Cl_ass:"), dg->combo[1], 0, 0.5, dgtable, 0, 1, 1, 2);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->combo[1], 1, 3, 1, 2);
-
-	dg->entry[10] = entry_with_text(tagvalues[13], 256);
-	bf_mnemonic_label_tad_with_alignment(_("St_yle:"), dg->entry[10], 0, 0.5, dgtable, 0, 1, 2, 3);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[10], 1, 2, 2, 3);
-	but = style_but_new(dg->entry[10], dg->dialog);
-	gtk_table_attach(GTK_TABLE(dgtable), but, 2, 3, 2, 3, GTK_SHRINK, GTK_SHRINK, 0, 0);
-
-	frame = bf_generic_frame_new(NULL, GTK_SHADOW_NONE, 12);
-	gtk_notebook_append_page(GTK_NOTEBOOK(noteb), frame, gtk_label_new(_("Events")));
-	dgtable = gtk_table_new(10, 2, FALSE);
-	gtk_table_set_row_spacings(GTK_TABLE(dgtable), 6);
-	gtk_table_set_col_spacings(GTK_TABLE(dgtable), 12);
-	gtk_container_add(GTK_CONTAINER(frame), dgtable);
+	dgtable = generic_table_inside_notebookframe(noteb, _("Events"), 10, 5);
 	
 	dg->entry[3] = entry_with_text(tagvalues[7], 256);
 	bf_mnemonic_label_tad_with_alignment(_("On_Focus:"), dg->entry[3], 0, 0.5, dgtable, 0, 1, 0, 1);

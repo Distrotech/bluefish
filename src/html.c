@@ -22,7 +22,7 @@
  */
 /* 
  * Changes by Antti-Juhani Kaijanaho <gaia@iki.fi> on 1999-10-20
- * $Id: html.c,v 1.37 2004-02-11 18:56:58 oli4 Exp $
+ * $Id: html.c,v 1.38 2004-02-11 22:00:35 oli4 Exp $
  */
 /*#define DEBUG*/
 
@@ -506,7 +506,6 @@ static void quickanchorok_lcb(GtkWidget * widget, Thtml_diag * dg)
 	thestring = insert_string_if_entry(GTK_WIDGET(GTK_COMBO(dg->combo[2])->entry), cap("HREF"), thestring, NULL);
 	thestring = insert_string_if_entry(GTK_WIDGET(GTK_COMBO(dg->combo[1])->entry), cap("TARGET"), thestring, NULL);
 	thestring = insert_string_if_entry(GTK_WIDGET(dg->entry[2]), cap("NAME"), thestring, NULL);
-	thestring = insert_string_if_entry(GTK_WIDGET(dg->entry[3]), cap("ID"), thestring, NULL);
 	thestring = insert_string_if_entry(GTK_WIDGET(dg->entry[4]), NULL, thestring, NULL);
 	thestring = insert_string_if_entry(GTK_WIDGET(dg->entry[5]), cap("ONCLICK"), thestring, NULL);
 	thestring = insert_string_if_entry(GTK_WIDGET(dg->entry[6]), cap("ONDBLCLICK"), thestring, NULL);
@@ -518,15 +517,16 @@ static void quickanchorok_lcb(GtkWidget * widget, Thtml_diag * dg)
 	thestring = insert_string_if_entry(GTK_WIDGET(dg->entry[12]), cap("ONKEYDOWN"), thestring, NULL);
 	thestring = insert_string_if_entry(GTK_WIDGET(dg->entry[13]), cap("ONKEYPRESS"), thestring, NULL);
 	thestring = insert_string_if_entry(GTK_WIDGET(dg->entry[14]), cap("ONKEYUP"), thestring, NULL);
-	thestring = insert_string_if_entry(GTK_WIDGET(GTK_COMBO(dg->combo[3])->entry), cap("CLASS"), thestring, NULL);
-	thestring = insert_string_if_entry(GTK_WIDGET(dg->entry[16]), cap("STYLE"), thestring, NULL);
+	thestring = insert_string_if_entry(GTK_WIDGET(GTK_COMBO(dg->attrwidget[0])->entry), cap("CLASS"), thestring, NULL);
+	thestring = insert_string_if_entry(GTK_WIDGET(dg->attrwidget[1]), cap("ID"), thestring, NULL);
+	thestring = insert_string_if_entry(GTK_WIDGET(dg->attrwidget[2]), cap("STYLE"), thestring, NULL);
 	thestring = insert_string_if_entry(GTK_WIDGET(dg->entry[17]), cap("LANG"), thestring, NULL);
 	finalstring = g_strdup_printf("%s>", thestring);
 	g_free(thestring);
 
 	bfwin->session->urllist = add_entry_to_stringlist(bfwin->session->urllist, GTK_WIDGET(GTK_COMBO(dg->combo[2])->entry));
 	bfwin->session->targetlist = add_entry_to_stringlist(bfwin->session->targetlist, GTK_WIDGET(GTK_COMBO(dg->combo[1])->entry));
-	bfwin->session->classlist = add_entry_to_stringlist(bfwin->session->classlist, GTK_WIDGET(GTK_COMBO(dg->combo[3])->entry));
+	bfwin->session->classlist = add_entry_to_stringlist(bfwin->session->classlist, GTK_WIDGET(GTK_COMBO(dg->attrwidget[0])->entry));
 
 	if (dg->range.end == -1) {
 		doc_insert_two_strings(dg->doc, finalstring, cap("</A>"));
@@ -538,7 +538,7 @@ static void quickanchorok_lcb(GtkWidget * widget, Thtml_diag * dg)
 }
 
 void quickanchor_dialog(Tbfwin *bfwin, Ttagpopup *data) {
-	static gchar *aitems[] = { "href", "target", "name", "id", "onclick", "ondblclick", "onmouseover", "onmousedown", "onmousemove", "onmouseout", "onmouseup", "onkeydown", "onkeypress", "onkeyup", "class", "style", "lang", NULL };
+	static gchar *aitems[] = { "href", "target", "name", "onkeyup", "onclick", "ondblclick", "onmouseover", "onmousedown", "onmousemove", "onmouseout", "onmouseup", "onkeydown", "onkeypress", "class", "id", "style", "lang", NULL };
 	gchar *custom = NULL;
 	gchar *avalues[18];
 	Thtml_diag *dg;
@@ -551,11 +551,7 @@ void quickanchor_dialog(Tbfwin *bfwin, Ttagpopup *data) {
 	noteb = gtk_notebook_new();
 	gtk_box_pack_start(GTK_BOX(dg->vbox), noteb, FALSE, FALSE, 0);
 
-	frame = bf_generic_frame_new(NULL, GTK_SHADOW_NONE, 12);
-	gtk_notebook_append_page(GTK_NOTEBOOK(noteb), frame, gtk_label_new(_("Attributes")));
-	dgtable = gtk_table_new(8, 3, FALSE);
-	gtk_table_set_col_spacings(GTK_TABLE(dgtable), 12);
-	gtk_container_add(GTK_CONTAINER(frame), dgtable);
+	dgtable = generic_table_inside_notebookframe(noteb, _("Attributes"), 8, 3);
 
 	{
 		GList *rel_link_list=NULL, *tmplist;
@@ -580,20 +576,7 @@ void quickanchor_dialog(Tbfwin *bfwin, Ttagpopup *data) {
 	bf_mnemonic_label_tad_with_alignment(_("_Name:"), dg->entry[2], 0, 0.5, dgtable, 0, 1, 2, 3);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[2], 1, 3, 2, 3);
 
-	dg->entry[3] = entry_with_text(avalues[3], 256);
-	bf_mnemonic_label_tad_with_alignment(_("_ID:"), dg->entry[3], 0, 0.5, dgtable, 0, 1, 3, 4);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[3], 1, 3, 3, 4);
-
-	dg->combo[3] = combo_with_popdown(avalues[14], bfwin->session->classlist, 1);
-	bf_mnemonic_label_tad_with_alignment(_("Cl_ass:"), dg->combo[3], 0, 0.5, dgtable, 0, 1, 4, 5);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->combo[3], 1, 3, 4, 5);
-
-	dg->entry[16] = entry_with_text(avalues[15], 256);
-	bf_mnemonic_label_tad_with_alignment(_("St_yle:"), dg->entry[16], 0, 0.5, dgtable, 0, 1, 5, 6);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[16], 1, 2, 5, 6);
-
-	but = style_but_new(dg->entry[16], dg->dialog);
-	gtk_table_attach(GTK_TABLE(dgtable), but, 2, 3, 5, 6, GTK_SHRINK, GTK_SHRINK, 0, 0);
+	generic_class_id_style_section(dg, 0, dgtable, 3, avalues, 13);
 
 	dg->entry[17] = entry_with_text(avalues[16], 256);
 	bf_mnemonic_label_tad_with_alignment(_("_Language:"), dg->entry[17], 0, 0.5, dgtable, 0, 1, 6, 7);
@@ -603,12 +586,7 @@ void quickanchor_dialog(Tbfwin *bfwin, Ttagpopup *data) {
 	bf_mnemonic_label_tad_with_alignment(_("Custo_m:"), dg->entry[4], 0, 0.5, dgtable, 0, 1, 7, 8);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[4], 1, 3, 7, 8);
 
-	frame = bf_generic_frame_new(NULL, GTK_SHADOW_NONE, 12);
-	gtk_notebook_append_page(GTK_NOTEBOOK(noteb), frame, gtk_label_new(_("Events")));
-	dgtable = gtk_table_new(10, 2, FALSE);
-	gtk_table_set_row_spacings(GTK_TABLE(dgtable), 6);
-	gtk_table_set_col_spacings(GTK_TABLE(dgtable), 12);
-	gtk_container_add(GTK_CONTAINER(frame), dgtable);
+	dgtable = generic_table_inside_notebookframe(noteb, _("Events"), 10, 2);
 
 	dg->entry[5] = entry_with_text(avalues[4], 256);
 	bf_mnemonic_label_tad_with_alignment(_("OnClic_k:"), dg->entry[5], 0, 0.5, dgtable, 0, 1, 0, 1);
@@ -646,7 +624,7 @@ void quickanchor_dialog(Tbfwin *bfwin, Ttagpopup *data) {
 	bf_mnemonic_label_tad_with_alignment(_("OnKey_Press:"), dg->entry[13], 0, 0.5, dgtable, 0, 1, 8, 9);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[13], 1, 2, 8, 9);
 
-	dg->entry[14] = entry_with_text(avalues[13], 256);
+	dg->entry[14] = entry_with_text(avalues[3], 256);
 	bf_mnemonic_label_tad_with_alignment(_("OnKe_yUp:"), dg->entry[14], 0, 0.5, dgtable, 0, 1, 9, 10);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[14], 1, 2, 9, 10);
 
