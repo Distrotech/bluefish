@@ -32,7 +32,7 @@ gnulocaledir = $(prefix)/share/locale
 aliaspath = $(localedir):.
 
 CC = @CC@
-CFLAGS = @CFLAGS@
+CFLAGS = -DFB2 @CFLAGS@
 LDFLAGS = @LDFLAGS@
 LIBS = @LIBS@
 INSTALL = @INSTALL@
@@ -50,7 +50,9 @@ SRCS = 	about.c \
 			cap.c \
 			char_table.c \
 			document.c \
+			file.c \
 			filebrowser.c \
+			filebrowser2.c \
 			fref.c \
 			gtk_easy.c \
 			gui.c \

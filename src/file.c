@@ -258,14 +258,20 @@ static void open_adv_load_directory_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSResu
 /*				DEBUG_MSG("open_adv_load_directory_lcb, open dir %s\n", gnome_vfs_uri_get_path(child_uri));*/
 				open_advanced(oa->bfwin, child_uri, oa->recursive, oa->extension_filter, oa->content_filter, oa->use_regex);
 			} else if (finfo->type == GNOME_VFS_FILE_TYPE_REGULAR){
-				if (filename_test_extensions(ext, gnome_vfs_uri_get_path(child_uri))) { /* test extension */
-					if (oa->content_filter) { /* do we need content filtering */
-/*						DEBUG_MSG("open_adv_load_directory_lcb, content filter %s\n", gnome_vfs_uri_get_path(child_uri));*/
-						openadv_content_filter_file(oa->bfwin, child_uri, finfo, oa->content_filter, oa->use_regex);
-					} else { /* open this file as document */
-						DEBUG_MSG("open_adv_load_directory_lcb, open %s\n", gnome_vfs_uri_get_path(child_uri));
-						file_doc_from_uri(oa->bfwin, child_uri, finfo);
+				if (oa->extension_filter) {
+					if (filename_test_extensions(ext, finfo->name)) { /* test extension */
+						if (oa->content_filter) { /* do we need content filtering */
+							DEBUG_MSG("open_adv_load_directory_lcb, content filter %s\n", gnome_vfs_uri_get_path(child_uri));
+							openadv_content_filter_file(oa->bfwin, child_uri, finfo, oa->content_filter, oa->use_regex);
+						} else { /* open this file as document */
+							DEBUG_MSG("open_adv_load_directory_lcb, open %s\n", gnome_vfs_uri_get_path(child_uri));
+							file_doc_from_uri(oa->bfwin, child_uri, finfo);
+						}
 					}
+				} else if (oa->content_filter) {
+					openadv_content_filter_file(oa->bfwin, child_uri, finfo, oa->content_filter, oa->use_regex);
+				} else {
+					file_doc_from_uri(oa->bfwin, child_uri, finfo);
 				}
 			}
 			gnome_vfs_uri_unref(child_uri);
@@ -284,7 +290,7 @@ void open_advanced(Tbfwin *bfwin, GnomeVFSURI *basedir, gboolean recursive, gcha
 		Topenadv_dir *oa;
 		
 		oa = g_new0(Topenadv_dir, 1);
-		DEBUG_MSG("open_advanced, open dir %s, oa=%p\n", gnome_vfs_uri_get_path(basedir), oa);
+		DEBUG_MSG("open_advanced, open dir %s, oa=%p, extension_filter=%s\n", gnome_vfs_uri_get_path(basedir), oa, extension_filter);
 		oa->bfwin = bfwin;
 		oa->basedir = gnome_vfs_uri_dup(basedir);
 		oa->recursive = recursive;
