@@ -72,6 +72,7 @@ typedef struct {
 	GtkTextTag *tag;
 #ifdef HL_PROFILING
 	gint runcount;
+	gint applycount;
 	struct tms tms1;
 	struct tms tms2;
 	glong total_ms;
@@ -90,6 +91,10 @@ typedef struct {
 	GtkTextTagTable *tagtable; /* this one should ultimately move to Tfiletype, so every set would have it's own tagtable, but there is currently no way to switch a document to a new tagtable */
 	GList *highlight_filetypes; /* contains all filetypes that have a highlight pattern */
 	GList *all_highlight_patterns; /* contains Tmetapattern, not Tpattern !! */
+#ifdef HL_PROFILING
+	struct tms tms1;
+	struct tms tms2;
+#endif
 } Thighlight;
 
 typedef struct {
@@ -164,10 +169,12 @@ static void hl_profiling_reset(Tdocument *doc) {
 		Tmetapattern *mpat = (Tmetapattern *)tmplist->data;
 		if (strcmp(mpat->filetype, doc->hl->type)==0) {
 			mpat->pat->runcount = 0;
+			mpat->pat->applycount = 0;
 			mpat->pat->total_ms = 0;
 		}
 		tmplist = g_list_next(tmplist);
 	}
+	times(&highlight.tms1);
 }
 
 static void hl_profiling_tagstart(Tpattern *pat) {
@@ -180,17 +187,26 @@ static void hl_profiling_tagstop(Tpattern *pat) {
 	pat->total_ms += (glong) (double) ((pat->tms2.tms_utime - pat->tms1.tms_utime) * 1000 / sysconf(_SC_CLK_TCK));
 }
 
+static void hl_profiling_tagapply(Tpattern *pat) {
+	pat->applycount++;
+}
+
 static void hl_profiling_print(Tdocument *doc) {
+	GList *tmplist;
+	glong tot_ms;
 	/* print results for all patterns for the current filetype */
-	GList *tmplist = g_list_first(highlight.all_highlight_patterns);
+	times(&highlight.tms2);
+	tot_ms = (glong) (double) ((highlight.tms2.tms_utime - highlight.tms1.tms_utime) * 1000 / sysconf(_SC_CLK_TCK));
+	g_print("PROFILING: total time %ld ms\n", tot_ms);
+	tmplist = g_list_first(highlight.all_highlight_patterns);
 	while (tmplist){
 		Tmetapattern *mpat = (Tmetapattern *)tmplist->data;
 		if (strcmp(mpat->filetype, doc->hl->type)==0) {
-			g_print("PROFILING: patterns %s ran %d times and was matching %ld ms\n", mpat->name, mpat->pat->runcount, mpat->pat->total_ms);
+			g_print("PROFILING: patterns %s ran %d times, %d times successful (%d%%), and was matching %ld ms\n", mpat->name, mpat->pat->runcount, mpat->pat->applycount,(int)(100.0*mpat->pat->applycount/mpat->pat->runcount),mpat->pat->total_ms);
 		}
 		tmplist = g_list_next(tmplist);
 	}
-
+	g_print("-- -- -- -- -- --\n");
 }
 
 #endif /* HL_PROFILING */
@@ -649,9 +665,15 @@ static void patmatch_rematch(gboolean is_parentmatch, Tpatmatch *patmatch, gint 
 				DEBUG_MSG("parentmatch=%p\n",parentmatch);
 			}
 #endif
+#ifdef HL_PROFILING
+			hl_profiling_tagstart(patmatch->pat);
+#endif
 			patmatch->ovector[0] = parentmatch->ovector[patmatch->pat->numsub*2];
 			patmatch->ovector[1] = parentmatch->ovector[patmatch->pat->numsub*2+1];
 			patmatch->is_match = TRUE;
+#ifdef HL_PROFILING
+			hl_profiling_tagstop(patmatch->pat);
+#endif
 		} else {
 #ifdef HL_PROFILING
 			hl_profiling_tagstart(patmatch->pat);
@@ -676,6 +698,9 @@ static void applystyle(Tdocument *doc, gchar *buf, guint buf_char_offset, gint s
 	guint char_start, char_end, byte_char_diff_start;
 
 	DEBUG_MSG("applystyle, coloring from so=%d to eo=%d\n", so, eo);
+#ifdef HL_PROFILING
+	hl_profiling_tagapply(pat);
+#endif
 
 #ifdef HL_TIMING
 	timing_start(TIMING_UTF8);
@@ -725,6 +750,9 @@ static void applystyle(Tdocument *doc, gchar *buf, guint buf_char_offset, gint s
  * parentmatch: if there is a parent with mode 1 we have to search for the end together with it's children
  * childs_list: a list of Tpattern that needs to be applied in this region
  */
+#define APPLYLEVEL_NO_LOWEST_MATCH -2
+#define APPLYLEVEL_PARENTEND_IS_LOWEST_MATCH -1
+
 static void applylevel(Tdocument * doc, gchar * buf, guint buf_char_offset, gint offset, gint length, Tpatmatch *parentmatch, GList *childs_list) {
 	gint parent_mode1_start=offset;
 	gint parent_mode1_offset=offset;
@@ -753,7 +781,10 @@ static void applylevel(Tdocument * doc, gchar * buf, guint buf_char_offset, gint
 		Tpatmatch *patmatch;
 		/* create the patmatch structures for this level */
 		GList *tmplist;
-		gint lowest_pm = -2; /* -2 means no lowest match, -1 means the parents ending is the lowest match, 0... means some pattern is the lowest match */
+		gint lowest_pm = APPLYLEVEL_NO_LOWEST_MATCH; 
+				/* APPLYLEVEL_NO_LOWEST_MATCH means no lowest match, 
+					APPLYLEVEL_PARENTEND_IS_LOWEST_MATCH means the parents ending is the lowest match, 
+					0,1,2... means some pattern is the lowest match */
 			i = 0;
 #ifdef DEBUG
 			if (!childs_list) {
@@ -767,7 +798,7 @@ static void applylevel(Tdocument * doc, gchar * buf, guint buf_char_offset, gint
 				patmatch[i].pat = (Tpattern *) tmplist->data;
 				/* match all patmatches for the first time and directly search for the lowest match */
 				patmatch_rematch(FALSE, &patmatch[i], offset, buf, length, parentmatch);
-				if ((patmatch[i].is_match > 0) && (lowest_pm == -2 || (patmatch[lowest_pm].ovector[0] > patmatch[i].ovector[0]))) {
+				if ((patmatch[i].is_match > 0) && (lowest_pm == APPLYLEVEL_NO_LOWEST_MATCH || (patmatch[lowest_pm].ovector[0] > patmatch[i].ovector[0]))) {
 					lowest_pm = i;
 				}
 #ifdef DEBUG
@@ -788,14 +819,15 @@ static void applylevel(Tdocument * doc, gchar * buf, guint buf_char_offset, gint
 					parentmatch->is_match = 1;
 				}
 				if (parentmatch->is_match && (lowest_pm == -2 || (patmatch[lowest_pm].ovector[0] > parentmatch->ovector[0]))) {
-					lowest_pm = -1;
+					lowest_pm = APPLYLEVEL_PARENTEND_IS_LOWEST_MATCH;
 				}
 				DEBUG_MSG("lowest_pm=%d, parentmatch->is_match=%d, start=%d\n",lowest_pm,parentmatch->is_match, parentmatch->ovector[0]);
 			}
+
 			
 			/* apply the lowest match */
 			while (lowest_pm > -2) {
-				if (lowest_pm == -1) {
+				if (lowest_pm == APPLYLEVEL_PARENTEND_IS_LOWEST_MATCH) {
 #ifdef DEBUG
 					DEBUG_MSG("parent is the match!! ");
 					print_meta_for_pattern(parentmatch->pat);
@@ -803,7 +835,7 @@ static void applylevel(Tdocument * doc, gchar * buf, guint buf_char_offset, gint
 #endif
 					/* apply the parent, and return from this level */
 					applystyle(doc, buf,buf_char_offset, parent_mode1_start, parentmatch->ovector[1], parentmatch->pat);
-					lowest_pm = -2; /* makes us return */
+					lowest_pm = APPLYLEVEL_NO_LOWEST_MATCH; /* makes us return */
 				} else {
 #ifdef DEBUG
 					print_meta_for_pattern(patmatch[lowest_pm].pat);
@@ -835,10 +867,10 @@ static void applylevel(Tdocument * doc, gchar * buf, guint buf_char_offset, gint
 					break;
 					}
 					
-					/* rematch the patterns that have a startpoint < offset */
-					lowest_pm = -2;
+					/* init for the next round, rematch the patterns that have a startpoint < offset */
+					lowest_pm = APPLYLEVEL_NO_LOWEST_MATCH;
 					for (i = 0; i < numpats; i++) {
-						if (patmatch[i].ovector[0] < offset) {
+						if ((patmatch[i].is_match>0) && patmatch[i].ovector[0] < offset) {
 							if (patmatch[i].pat->mode == 3) {
 								patmatch[i].is_match = FALSE; /* mode 3 types can only match as first match */
 							} else {
@@ -846,7 +878,7 @@ static void applylevel(Tdocument * doc, gchar * buf, guint buf_char_offset, gint
 								DEBUG_MSG("rematch: cur lowest_pm=%d, patmatch[%d].is_match=%d\n",lowest_pm,i,patmatch[i].is_match);
 							}
 						}
-						if ((patmatch[i].is_match>0) && (lowest_pm == -2 || (patmatch[lowest_pm].ovector[0] > patmatch[i].ovector[0]))) {
+						if ((patmatch[i].is_match>0) && (lowest_pm == APPLYLEVEL_NO_LOWEST_MATCH || (patmatch[lowest_pm].ovector[0] > patmatch[i].ovector[0]))) {
 							lowest_pm = i;
 						}
 					}
@@ -861,12 +893,12 @@ static void applylevel(Tdocument * doc, gchar * buf, guint buf_char_offset, gint
 							parentmatch->ovector[0] = length;
 							parentmatch->is_match = 1;
 						}
-						if (lowest_pm == -2 || (patmatch[lowest_pm].ovector[0] > parentmatch->ovector[0])) {
-							lowest_pm = -1;
+						if (lowest_pm == APPLYLEVEL_NO_LOWEST_MATCH || (patmatch[lowest_pm].ovector[0] > parentmatch->ovector[0])) {
+							lowest_pm = APPLYLEVEL_PARENTEND_IS_LOWEST_MATCH;
 						}
 					}
 #ifdef DEBUG
-					if (lowest_pm == -1) {
+					if (lowest_pm == APPLYLEVEL_PARENTEND_IS_LOWEST_MATCH) {
 						DEBUG_MSG("lowest_match %d has start %d\n", lowest_pm, parentmatch->ovector[0]);
 					} else {
 						DEBUG_MSG("lowest_match %d has start %d\n", lowest_pm, patmatch[lowest_pm].ovector[0]);
