@@ -84,10 +84,12 @@ static void unregroup_activate(unregroup_t *curgroup, Tdocument *doc, gint is_re
 		unreentry_t *entry = tmplist->data;
 		if ((entry->op == UndoInsert && !is_redo) || (entry->op == UndoDelete && is_redo)) {
 			GtkTextIter itend;
+			DEBUG_MSG("unregroup_activate set start to %d, end to %d and delete\n", entry->start, entry->end);
 			gtk_text_buffer_get_iter_at_offset(doc->buffer,&itstart,entry->start);
 			gtk_text_buffer_get_iter_at_offset(doc->buffer,&itend,entry->end);
 			gtk_text_buffer_delete(doc->buffer,&itstart,&itend);
 		} else {
+			DEBUG_MSG("unregroup_activate set start to %d and insert %d chars: %s\n", entry->start, strlen(entry->text), entry->text);
 			gtk_text_buffer_get_iter_at_offset(doc->buffer,&itstart,entry->start);
 			gtk_text_buffer_insert(doc->buffer,&itstart,entry->text,-1);
 		}
@@ -135,10 +137,12 @@ static void doc_undo(Tdocument *doc) {
 	unregroup_t *curgroup = NULL;
 	if (g_list_length(doc->unre.current->entries) > 0) {
 		/* if the current group has entries we have to undo that one */
+		DEBUG_MSG("doc_undo, undo the entries of the current group\n");
 		curgroup = doc->unre.current;
 		doc->unre.current = unregroup_new(doc);
 	} else if (doc->unre.first){
 		/* we have to undo the first one in the list */
+		DEBUG_MSG("doc_undo, current group is empty--> undo the entries of the previous group\n");
 		curgroup = doc->unre.first->data;
 		doc->unre.first = g_list_remove(doc->unre.first, curgroup);
 		doc->unre.num_groups--;
@@ -156,6 +160,7 @@ static void doc_undo(Tdocument *doc) {
 		/* since activate calls doc_set_modified, and doc_set_modified sets 
 		the undo/redo widgets, the lenght of the redolist should be > 0 _before_
 		activate is called */
+		DEBUG_MSG("doc_undo, calling unregroup_activate\n");
 		unregroup_activate(curgroup, doc, 0);
 	}
 }
