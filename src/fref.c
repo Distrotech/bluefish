@@ -581,7 +581,8 @@ void fref_cleanup()
 }
 
 
-gchar *fref_prepare_info(FRInfo * entry)
+/*------------ PREPARE INFO -----------------------*/
+gchar *fref_prepare_info(FRInfo * entry, gint infotype)
 {
 	gchar *ret, *tofree;
 	GList *lst;
@@ -591,96 +592,149 @@ gchar *fref_prepare_info(FRInfo * entry)
 	ret = g_strdup("");
 	switch (entry->type) {
 	case FR_TYPE_TAG:
-		tofree = ret;
-		ret = g_strconcat(ret, "<span size=\"medium\" weight=\"bold\">TAG: ",entry->name, "</span>\n", NULL);
-		g_free(tofree);
-		if (entry->description != NULL) {
-			tofree = ret;
-			ret = g_strconcat(ret, "<span size=\"small\">",entry->description, "</span>\n", NULL);
-			g_free(tofree);
-		}
-		tofree = ret;
-		ret =g_strconcat(ret,"<span size=\"medium\" weight=\"bold\">ATTRIBUTES:</span>\n",NULL);
-		g_free(tofree);
-		lst = g_list_first(entry->attributes);
-		while (lst) {
-			tmpa = (FRAttrInfo *) lst->data;
-			tofree = ret;
-			ret = g_strconcat(ret, "<span size=\"small\" style=\"italic\">",tmpa->name, "</span> - <span size=\"small\">",tmpa->description, "</span>\n", NULL);
-			g_free(tofree);
-			lst = g_list_next(lst);
-		}
-		if (entry->info_text != NULL) {
-			tofree = ret;
-			ret = g_strconcat(ret,"<span size=\"medium\" weight=\"bold\">NOTES:</span> ",NULL);
-			g_free(tofree);
-			tofree = ret;
-			ret = g_strconcat(ret, "<span size=\"small\">", entry->info_text,"</span>\n", NULL);
-			g_free(tofree);
-		}
-		break;
+		   switch (infotype) {
+		     case FR_INFO_TITLE:
+		            		tofree = ret;
+		               ret = g_strconcat(ret, "<span size=\"medium\" foreground=\"#FFFFFF\" background=\"",FR_COL_1,"\">  TAG: <b>",entry->name, "</b></span>", NULL);
+		               g_free(tofree);
+		          break;
+		     case FR_INFO_DESC:
+		            		if (entry->description != NULL) {
+                 			tofree = ret;
+                 			ret = g_strconcat(ret, "<span size=\"small\"  foreground=\"#FFFFFF\" background=\"",FR_COL_2,"\">       ",entry->description, "</span>", NULL);
+              			g_free(tofree);
+                		}
+		          break;     
+		     case FR_INFO_NOTES:
+		              if (entry->info_text != NULL) {
+                 			tofree = ret;
+                  		ret = g_strconcat(ret,"<span size=\"medium\" foreground=\"",FR_COL_4,"\" ><b>NOTES:</b> \n",entry->info_text,"</span>", NULL);
+			                g_free(tofree);
+                	}				     
+		          break;     
+		     case FR_INFO_ATTRS:
+		          lst = g_list_first(entry->attributes);
+		          while (lst) {
+			                      tmpa = (FRAttrInfo *) lst->data;
+			                      tofree = ret;
+			                      ret = g_strconcat(ret, "<span size=\"small\" background=\"",FR_COL_4,"\">          <b><i>",tmpa->name, "</i></b></span> - <span size=\"small\" foreground=\"",FR_COL_3,"\" background=\"",FR_COL_4,"\">",tmpa->description, "</span>\n", NULL);
+			                      g_free(tofree);
+			                      lst = g_list_next(lst);
+		          }
+		          break;     
+		   } /* switch infotype */
+		break; /* TAG */
 	case FR_TYPE_FUNCTION:
-		tofree = ret;
-		ret = g_strconcat(ret,"<span size=\"medium\" weight=\"bold\">FUNCTION: ",entry->name, "</span>\n", NULL);
-		g_free(tofree);
-		if (entry->description != NULL) {
-			tofree = ret;
-			ret =g_strconcat(ret, "<span size=\"small\">", entry->description, "</span>\n", NULL);
-			g_free(tofree);
-		}
-		if (entry->return_type != NULL) {
-			tofree = ret;
-			ret = g_strconcat(ret,"<span size=\"medium\" weight=\"bold\">RETURNS: ",entry->return_type, "</span>\n", NULL);
-			g_free(tofree);
-		}
-		if (entry->return_description != NULL) {
-			tofree = ret;
-			ret =g_strconcat(ret, "<span size=\"small\">",entry->return_description, "</span>\n", NULL);
-			g_free(tofree);
-		}
-		tofree = ret;
-		ret =g_strconcat(ret,"<span size=\"medium\" weight=\"bold\">PARAMETERS:</span>\n",NULL);
-		g_free(tofree);
-		lst = g_list_first(entry->params);
-		while (lst) {
-			tmpp = (FRParamInfo *) lst->data;
-			tofree = ret;
-			if (tmpp->description!=NULL && tmpp->type!=NULL)
-			   ret =g_strconcat(ret, "<span size=\"small\" style=\"italic\">",tmpp->name, "(", tmpp->type,")</span> - <span size=\"small\">",tmpp->description, "</span>\n", NULL);
-			else
-			   if (tmpp->type!=NULL)
-			      ret =g_strconcat(ret, "<span size=\"small\" style=\"italic\">",tmpp->name, "(", tmpp->type,")</span>\n", NULL);   
-			   else
-			      ret =g_strconcat(ret, "<span size=\"small\" style=\"italic\">",tmpp->name, "</span>\n", NULL);        
-			g_free(tofree);
-			lst = g_list_next(lst);
-		}
-		if (entry->info_text != NULL) {
-			tofree = ret;
-			ret =g_strconcat(ret,"<span size=\"medium\" weight=\"bold\">NOTES: </span>",NULL);
-			g_free(tofree);
-			tofree = ret;
-			ret =g_strconcat(ret, "<span size=\"small\">", entry->info_text,"</span>\n", NULL);
-			g_free(tofree);
-		}
-		break;
+	  switch (infotype)
+	  {
+	    case FR_INFO_TITLE:
+		            		tofree = ret;
+		               ret = g_strconcat(ret, "<span size=\"medium\" foreground=\"#FFFFFF\" background=\"",FR_COL_1,"\">  FUNCTION: <b>",entry->name, "</b></span>", NULL);
+		               g_free(tofree);	    
+	         break;
+	    case FR_INFO_DESC:
+		            		if (entry->description != NULL) {
+                 			tofree = ret;
+                 			ret = g_strconcat(ret, "<span size=\"small\" foreground=\"#FFFFFF\" background=\"",FR_COL_2,"\">       <i>",entry->description, "</i></span>\n", NULL);
+              			g_free(tofree);
+                		}
+		               if (entry->return_type != NULL) {
+			                 tofree = ret;
+			                 ret = g_strconcat(ret,"<span size=\"medium\" foreground=\"",FR_COL_4,"\">       <b>RETURNS: ",entry->return_type, "</b></span>\n", NULL);
+			                 g_free(tofree);
+		               }
+		               if (entry->return_description != NULL) {
+			                 tofree = ret;
+			                 ret = g_strconcat(ret, "<span size=\"small\" foreground=\"",FR_COL_4,"\">       ",entry->return_description, "</span>\n", NULL);
+			                 g_free(tofree);
+		               }    			    
+	         break;     
+		     case FR_INFO_NOTES:
+		              if (entry->info_text != NULL) {
+                 			tofree = ret;
+                  		ret = g_strconcat(ret,"<span size=\"medium\" foreground=\"",FR_COL_4,"\"><b>NOTES:</b> \n",entry->info_text,"</span>", NULL);
+			                g_free(tofree);
+                	}				     
+		          break;     	         
+		    case FR_INFO_ATTRS:
+		                  lst = g_list_first(entry->params);
+		                  while (lst) {
+			                               tmpp = (FRParamInfo *) lst->data;
+			                               tofree = ret;
+			                               if (tmpp->description!=NULL && 
+			                                   tmpp->type!=NULL)
+			                                  ret = g_strconcat(ret, "<span size=\"small\">          <b><i>",tmpp->name, "(", tmpp->type,")</i></b></span> - <span size=\"small\" foreground=\"",FR_COL_3,"\">",tmpp->description, "</span>\n", NULL);
+			                               else
+			                                  if (tmpp->type!=NULL)
+			                                     ret = g_strconcat(ret, "<span size=\"small\">          <b><i>",tmpp->name, "(", tmpp->type,")</i></b></span>\n", NULL);   
+			                                  else
+			                                     ret = g_strconcat(ret, "<span size=\"small\">          <b><i>",tmpp->name, "</i></b></span>\n", NULL);        
+			                               g_free(tofree);
+			                               lst = g_list_next(lst);
+		                  }
+		          break;      
+	  } /* switch infotype */
+ 	break;
 	}
 	return ret;
 }
 
-void fref_show_info(gchar * txt, gboolean modal, GtkWidget * parent)
+/*------------ SHOW INFO -----------------------*/
+void fref_show_info(FRInfo * entry, gboolean modal, GtkWidget * parent)
 {
-	GtkWidget *label, *frame, *scroll, *view, *btn1, *btn2, *btn3, *vbox,
-		*hbox;
+	GtkWidget *label_t, *frame, *scroll, *view, *btn1, *btn2, *btn3, *vbox,
+		*hbox,*fourbox,*label_d,*label_a,*label_n,*ev_t,*ev_d,*ev_a,*ev_n;
 	int x, y, w, h;
+	GdkColor col1,col2,col4;
 
+ 	gdk_color_parse(FR_COL_1,&col1); 
+ 	gdk_color_parse(FR_COL_2,&col2); 
+ 	gdk_color_parse(FR_COL_4,&col4); 
+ 	
+ 	label_t = gtk_label_new(fref_prepare_info(entry,FR_INFO_TITLE));
+ 	label_d = gtk_label_new(fref_prepare_info(entry,FR_INFO_DESC));
+ 	label_a = gtk_label_new(fref_prepare_info(entry,FR_INFO_ATTRS));
+ 	label_n = gtk_label_new(fref_prepare_info(entry,FR_INFO_NOTES));
+ 	gtk_label_set_use_markup(GTK_LABEL(label_t),TRUE); 
+ 	gtk_label_set_use_markup(GTK_LABEL(label_d),TRUE);
+ 	gtk_label_set_use_markup(GTK_LABEL(label_a),TRUE); 	
+ 	gtk_label_set_use_markup(GTK_LABEL(label_n),TRUE); 	
+  gtk_misc_set_alignment(GTK_MISC(label_t), 0.0, 0.0);
+	gtk_misc_set_padding(GTK_MISC(label_t), 5, 5);
+	gtk_label_set_line_wrap(GTK_LABEL(label_t), TRUE); 	
+  gtk_misc_set_alignment(GTK_MISC(label_d), 0.0, 0.0);
+	gtk_misc_set_padding(GTK_MISC(label_d), 5, 5);
+	gtk_label_set_line_wrap(GTK_LABEL(label_d), TRUE); 	
+  gtk_misc_set_alignment(GTK_MISC(label_a), 0.0, 0.0);
+	gtk_misc_set_padding(GTK_MISC(label_a), 5, 5);
+	gtk_label_set_line_wrap(GTK_LABEL(label_a), TRUE); 	
+  gtk_misc_set_alignment(GTK_MISC(label_n), 0.0, 0.0);
+	gtk_misc_set_padding(GTK_MISC(label_n), 5, 5);
+	gtk_label_set_line_wrap(GTK_LABEL(label_n), TRUE); 	
+  ev_t = gtk_event_box_new();
+  gtk_widget_modify_bg(GTK_WIDGET(ev_t),GTK_STATE_NORMAL,&col1);    
+  gtk_container_add(GTK_CONTAINER(ev_t),label_t);
+  gtk_widget_show(ev_t);
+  ev_d = gtk_event_box_new();
+  gtk_widget_modify_bg(GTK_WIDGET(ev_d),GTK_STATE_NORMAL,&col2);    
+  gtk_container_add(GTK_CONTAINER(ev_d),label_d);
+  gtk_widget_show(ev_d);
+  ev_a = gtk_event_box_new();
+  gtk_widget_modify_bg(GTK_WIDGET(ev_a),GTK_STATE_NORMAL,&col4);    
+  gtk_container_add(GTK_CONTAINER(ev_a),label_a);
+  gtk_widget_show(ev_a);
+  ev_n = gtk_event_box_new();
+  gtk_widget_modify_bg(GTK_WIDGET(ev_n),GTK_STATE_NORMAL,&col1);    
+  gtk_container_add(GTK_CONTAINER(ev_n),label_n);
+  gtk_widget_show(ev_n);
+
+ 	
 	scroll = gtk_scrolled_window_new(NULL, NULL);
 	btn2 = NULL;
 	btn3 = NULL;
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scroll),
 								   GTK_POLICY_NEVER, GTK_POLICY_AUTOMATIC);
-	view =
-		gtk_viewport_new(GTK_ADJUSTMENT
+	view = gtk_viewport_new(GTK_ADJUSTMENT
 						 (gtk_adjustment_new(0, 0, 1024, 1, 100, 200)),
 						 GTK_ADJUSTMENT(gtk_adjustment_new
 										(0, 0, 768, 1, 100, 200)));
@@ -688,15 +742,25 @@ void fref_show_info(gchar * txt, gboolean modal, GtkWidget * parent)
 	if (modal) {
 		gtk_window_set_modal(GTK_WINDOW(fref_data.info_window), TRUE);
 	}
-	label = gtk_label_new("");
-	gtk_container_set_border_width(GTK_CONTAINER(fref_data.info_window),
-								   1);
-	gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0);
-	gtk_misc_set_padding(GTK_MISC(label), 3, 3);
-	gtk_label_set_line_wrap(GTK_LABEL(label), TRUE);
+	
+	fourbox = gtk_vbox_new(FALSE, 0);
+	
 	frame = gtk_frame_new("");
-	gtk_container_add(GTK_CONTAINER(view), GTK_WIDGET(label));
-	hbox = gtk_hbox_new(TRUE, 5);
+
+
+	hbox = gtk_hbox_new(TRUE, 5);	
+	
+	gtk_container_add(GTK_CONTAINER(view), GTK_WIDGET(fourbox)); 
+	gtk_box_pack_start(GTK_BOX(fourbox),ev_t,FALSE,FALSE,0);
+	gtk_box_pack_start(GTK_BOX(fourbox),ev_d,FALSE,FALSE,0);
+	gtk_box_pack_start(GTK_BOX(fourbox),ev_a,FALSE,FALSE,0);
+	gtk_box_pack_start(GTK_BOX(fourbox),ev_n,FALSE,FALSE,0);
+	
+	gtk_container_set_border_width(GTK_CONTAINER(fref_data.info_window),0);
+
+	
+	
+
 
 	btn1 = gtk_button_new_with_label(_("Close"));
 	gtk_widget_show(btn1);
@@ -724,12 +788,16 @@ void fref_show_info(gchar * txt, gboolean modal, GtkWidget * parent)
 	gtk_container_add(GTK_CONTAINER(frame), GTK_WIDGET(vbox));
 	gtk_container_set_border_width(GTK_CONTAINER(frame), 0);
 	gtk_frame_set_label_widget(GTK_FRAME(frame), NULL);
-	gtk_label_set_markup(GTK_LABEL(label), txt);
+	
 	gtk_widget_set_size_request(fref_data.info_window, 400, 300);
-	gtk_widget_show(GTK_WIDGET(label));
 	gtk_widget_show(GTK_WIDGET(frame));
 	gtk_widget_show(scroll);
 	gtk_widget_show(view);
+	gtk_widget_show(fourbox);
+	gtk_widget_show(label_t);	
+	gtk_widget_show(label_d);		
+	gtk_widget_show(label_a);		
+	gtk_widget_show(label_n);		
 	gtk_frame_set_shadow_type(GTK_FRAME(frame), GTK_SHADOW_ETCHED_IN);
 
 	g_signal_connect(G_OBJECT(fref_data.info_window), "key-press-event",
@@ -760,6 +828,7 @@ void fref_show_info(gchar * txt, gboolean modal, GtkWidget * parent)
 	gtk_widget_show(fref_data.info_window);
 	gtk_widget_grab_focus(fref_data.info_window);
 }
+
 
 
 GtkWidget *fref_prepare_dialog(FRInfo * entry)
@@ -1349,7 +1418,7 @@ gboolean frefcb_event_keypress(GtkWidget * widget, GdkEventKey * event,
 	GtkTreeIter iter;
 	GValue *val;
 	FRInfo *entry;
-	gchar *pomstr;
+
 
 	gtk_tree_view_get_cursor(GTK_TREE_VIEW(user_data), &path, &col);
 	gtk_tree_model_get_iter(gtk_tree_view_get_model
@@ -1362,9 +1431,7 @@ gboolean frefcb_event_keypress(GtkWidget * widget, GdkEventKey * event,
 		if (entry == NULL)
 			return FALSE;
 		if (g_strcasecmp(gdk_keyval_name(event->keyval), "F1") == 0) {
-			pomstr = fref_prepare_info(entry);
-			fref_show_info(pomstr, FALSE, NULL);
-			g_free(pomstr);
+			fref_show_info(entry, FALSE, NULL);
 		}
 	}
 	g_free(val);
@@ -1542,7 +1609,6 @@ void frefcb_info_show(GtkButton * button, gpointer user_data)
 	GtkTreeIter iter;
 	GValue *val;
 	FRInfo *entry;
-	gchar *pomstr;
 
 	if (user_data == NULL)
 		return;
@@ -1558,10 +1624,9 @@ void frefcb_info_show(GtkButton * button, gpointer user_data)
 		entry = (FRInfo *) g_value_peek_pointer(val);
 		if (entry == NULL)
 			return;
-		pomstr = fref_prepare_info(entry);
-		fref_show_info(pomstr, TRUE,
+		fref_show_info(entry, TRUE,
 					   gtk_widget_get_toplevel(GTK_WIDGET(button)));
-		g_free(pomstr);
+
 	}
 	g_free(val);
 }
