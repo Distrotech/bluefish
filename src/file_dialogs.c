@@ -562,6 +562,9 @@ void doc_close_single_backend(Tdocument *doc, gboolean close_window) {
 	} else {
 		doc_destroy(doc, close_window);
 	}
+	if (close_window && BFWIN(doc->bfwin)->documentlist == NULL) { /* the documentlist is empty */
+		gtk_widget_destroy(BFWIN(doc->bfwin)->main_window);
+	}
 }
 
 /**
