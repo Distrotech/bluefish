@@ -43,8 +43,11 @@ GtkWidget *radiobut_with_value(gchar *labeltext, gint enabled, GtkRadioButton *p
 GtkWidget *boxed_radiobut_with_value(gchar *labeltext, gint enabled, GtkRadioButton *prevbut, GtkWidget *box);
 GtkWidget *spinbut_with_value(gchar *value, gfloat lower, gfloat upper, gfloat step_increment, gfloat page_increment);
 GtkWidget *window_with_title(gchar * title, GtkWindowPosition position, gint borderwidth);
-GtkWidget *window_full(gchar * title, GtkWindowPosition position, gint borderwidth, GCallback close_func,
-					   gpointer close_data, gboolean delete_on_escape);
+
+#define window_full(title,position,borderwidth,close_func,close_data,delete_on_escape) window_full2(title,position,borderwidth,close_func,close_data,delete_on_escape,NULL)
+
+GtkWidget *window_full2(gchar * title, GtkWindowPosition position, gint borderwidth, GCallback close_func,
+					   gpointer close_data, gboolean delete_on_escape, GtkWidget *transientforparent);
 
 GtkWidget *textview_buffer_in_scrolwin(GtkWidget **textview, gint width, gint height, gchar *contents, GtkWrapMode wrapmode);
 void window_destroy(GtkWidget * windowname);

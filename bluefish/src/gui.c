@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-/* #define DEBUG*/
+/* #define DEBUG */
 
 #include <gtk/gtk.h>
 #include <time.h> /* nanosleep() */
@@ -688,19 +688,21 @@ static void main_win_on_drag_data_lcb(GtkWidget * widget, GdkDragContext * conte
 
 }				
 gboolean main_window_delete_lcb(GtkWidget *widget,GdkEvent *event,gpointer user_data) {
+	DEBUG_MSG("main_window_delete_lcb, started\n");
 	bluefish_exit_request();
 	return TRUE;
 }
 
-gboolean main_window_destroy_event_lcb(GtkWidget *widget,GdkEvent *event,gpointer user_data) {
+gboolean main_window_destroy_lcb(GtkWidget *widget,gpointer user_data) {
 	/* we should save all open documents and do stuff like that here!! */
+	DEBUG_MSG("main_window_destroy_event_lcb, started\n");
 	bluefish_exit_request();
 	return TRUE;
 }
 
 void gui_create_main(GList *filenames) {
 	GtkWidget *vbox;
-	main_v->main_window = window_full(CURRENT_VERSION_NAME, GTK_WIN_POS_CENTER, 0, G_CALLBACK(main_window_destroy_event_lcb), NULL, FALSE);
+	main_v->main_window = window_full2(CURRENT_VERSION_NAME, GTK_WIN_POS_CENTER, 0, G_CALLBACK(main_window_destroy_lcb), NULL, FALSE, NULL);
 	gtk_window_set_role(GTK_WINDOW(main_v->main_window), "bluefish");
 	gtk_window_set_default_size(GTK_WINDOW(main_v->main_window), main_v->props.main_window_w, main_v->props.main_window_h);
 	g_signal_connect(G_OBJECT(main_v->main_window), "delete_event", G_CALLBACK(main_window_delete_lcb), NULL);

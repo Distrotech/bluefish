@@ -18,6 +18,8 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
+/* #define DEBUG */
+
 #include <gtk/gtk.h>
 #include <unistd.h> /* getopt() */
 #include <stdlib.h> /* getopt() exit() and abort() on Solaris */
@@ -183,8 +185,9 @@ int main(int argc, char *argv[])
 	}
 	gtk_widget_destroy(splash_window);
 #endif /* #ifndef NOSPLASH */
-
+	DEBUG_MSG("main, before gtk_main()\n");
 	gtk_main();
+	DEBUG_MSG("main, after gtk_main()\n");
 #ifdef WITH_MSG_QUEUE	
 	/* do the cleanup */
 	msg_queue_cleanup();
@@ -193,6 +196,9 @@ int main(int argc, char *argv[])
 }
 
 void bluefish_exit_request() {
+	GList *tmplist;
+	int level;
+	DEBUG_MSG("bluefish_exit_request, started\n");
 	/* if we have modified documents we have to do something, file_close_all_cb()
 	does exactly want we want to do */
 	if (test_docs_modified(NULL)) {
@@ -203,13 +209,38 @@ void bluefish_exit_request() {
 			return;
 		}
 	}
-
-	gtk_widget_hide(main_v->main_window);
+/*	gtk_widget_hide(main_v->main_window);*/
+	tmplist = g_list_first(gtk_window_list_toplevels());
+	while (tmplist) {
+		gtk_widget_hide(GTK_WIDGET(tmplist->data));
+		tmplist = g_list_next(tmplist);
+	}
+	flush_queue();
+	
 	rcfile_save_all();
 	{
 		gchar *filename = g_strconcat(g_get_home_dir(), "/.bluefish/dir_history", NULL);
 		put_stringlist_limited(filename, main_v->recent_directories, main_v->props.max_dir_history);
 		g_free(filename);
 	}
+	
+	tmplist = gtk_window_list_toplevels();
+	g_list_foreach(tmplist, (GFunc)g_object_ref, NULL);
+	tmplist = g_list_first(tmplist);
+	while (tmplist) {
+		if (tmplist->data != main_v->main_window) {
+			gtk_widget_destroy(GTK_WIDGET(tmplist->data));
+		}
+		tmplist = g_list_next(tmplist);
+	}
+	g_list_foreach (tmplist, (GFunc)g_object_unref, NULL);
+	
+	/* I don't understand why, but if I call gtk_main_quit here, the main() function does not continue after gtk_main(), very weird, so I'll call exit() here */
 	gtk_main_quit();
+	DEBUG_MSG("bluefish_exit_request, after gtk_main_quit()\n");
+#ifdef WITH_MSG_QUEUE	
+	/* do the cleanup */
+	msg_queue_cleanup();
+#endif /* WITH_MSG_QUEUE */
+	exit(0);
 }

@@ -1778,8 +1778,10 @@ typedef struct {
 	GtkWidget *is_regex;
 } Tfiles_advanced;
 
-static void files_advanced_win_destroy(GtkWidget * widget, GdkEvent *event,  Tfiles_advanced *tfs) {
+static void files_advanced_win_destroy(GtkWidget * widget, Tfiles_advanced *tfs) {
+	DEBUG_MSG("files_advanced_win_destroy, started\n");
 	gtk_main_quit();
+	DEBUG_MSG("files_advanced_win_destroy, gtk_main_quit called\n");
 	window_destroy(tfs->win);
 }
 
@@ -1789,7 +1791,7 @@ static void files_advanced_win_ok_clicked(GtkWidget * widget, Tfiles_advanced *t
 	gchar *c_basedir, *c_find_pattern, *c_recursive, *c_grep_pattern, *c_is_regex;
 	temp_file = create_secure_dir_return_filename();
 	if (!temp_file) {
-		files_advanced_win_destroy(widget, NULL, tfs);
+		files_advanced_win_destroy(widget, tfs);
 		DEBUG_MSG("files_advanced_win_ok_clicked, can't get a secure temp filename ?????\n");
 		return;
 	}
@@ -1828,10 +1830,10 @@ command = `grep -E 'c_grep_pattern' `find c_basedir -name c_find_pattern c_recur
 	g_free(command);
 	remove_secure_dir_and_filename(temp_file);
 	g_free(temp_file);
-	files_advanced_win_destroy(widget, NULL, tfs);
+	files_advanced_win_destroy(widget, tfs);
 }
 static void files_advanced_win_cancel_clicked(GtkWidget * widget, Tfiles_advanced *tfs) {
-	files_advanced_win_destroy(widget, NULL, tfs);
+	files_advanced_win_destroy(widget, tfs);
 }
 
 static void files_advanced_win_select_basedir_lcb(GtkWidget * widget, Tfiles_advanced *tfs) {
@@ -1841,8 +1843,10 @@ static void files_advanced_win_select_basedir_lcb(GtkWidget * widget, Tfiles_adv
 	   the dialog to browse for a directory
 	*/
 	gchar *newdir = return_dir(g_strconcat(olddir, "/", NULL), _("Select basedir"));
-	gtk_entry_set_text(GTK_ENTRY(tfs->basedir),newdir);
-	g_free(newdir);
+	if (newdir) {
+		gtk_entry_set_text(GTK_ENTRY(tfs->basedir),newdir);
+		g_free(newdir);
+	}
 }
 
 static void files_advanced_win(Tfiles_advanced *tfs) {
@@ -1850,7 +1854,8 @@ static void files_advanced_win(Tfiles_advanced *tfs) {
 	GList *list;
 	gchar *curdir=g_get_current_dir();
 	
-	tfs->win = window_full(_("Advanced open file selector"), GTK_WIN_POS_MOUSE, 5, G_CALLBACK(files_advanced_win_destroy),tfs, TRUE);
+	tfs->win = window_full2(_("Advanced open file selector"), GTK_WIN_POS_MOUSE, 5, G_CALLBACK(files_advanced_win_destroy),tfs, TRUE, main_v->main_window);
+	DEBUG_MSG("files_advanced_win, tfs->win=%p\n",tfs->win);
 	tfs->filenames_to_return = NULL;
 	vbox = gtk_vbox_new(FALSE, 0);
 	gtk_container_set_border_width(GTK_CONTAINER(vbox), 6);
@@ -1924,6 +1929,7 @@ GList *return_files_advanced() {
 	Tfiles_advanced tfs = {NULL, NULL, NULL, NULL, NULL, NULL, NULL};
 
 	files_advanced_win(&tfs);
+	DEBUG_MSG("return_files_advanced, calling gtk_main()\n");
 	gtk_main();
 	return tfs.filenames_to_return;
 }	
@@ -2176,7 +2182,7 @@ void doc_indent_selection(Tdocument *doc, gboolean unindent) {
 				/* when unindenting we try to set itend to the end of the indenting step
 				which might be a tab or 'tabsize' spaces, then we delete that part */
 				gboolean cont=TRUE;
-				gchar *buf;
+				gchar *buf = NULL;
 				gunichar cchar = gtk_text_iter_get_char(&itstart);
 				if (cchar == 9) { /* 9 is ascii for tab */
 					itend = itstart;
