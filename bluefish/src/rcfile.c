@@ -521,27 +521,26 @@ void rcfile_parse_main(void)
 		arr = array_from_arglist("Dos2Unix", "cat %s | dos2unix > %f",NULL);
 		main_v->props.external_commands = g_list_append(main_v->props.external_commands,arr);
 	}
-#define ICON_BASEDIR "/home/olivier/.bluefish/icons/"
 	if (main_v->props.filetypes == NULL) {
 		gchar **arr;
 		/* the default file types */
-		arr = array_from_arglist("php", ".php:.php4:.inc:.php3", " <>'\"/?$\t-{}[]{}\n;", ICON_BASEDIR"icon_php.png", NULL);
+		arr = array_from_arglist("php", ".php:.php4:.inc:.php3", " <>'\"/?$\t-{}[]{}\n;", PKGDATADIR"icon_php.png", NULL);
 		main_v->props.filetypes = g_list_append(main_v->props.filetypes, arr);
-		arr = array_from_arglist("html", ".html:.htm:.shtml:.shtm", "<> \n\"", ICON_BASEDIR"icon_html.png", NULL);
+		arr = array_from_arglist("html", ".html:.htm:.shtml:.shtm", "<> \n\"", PKGDATADIR"icon_html.png", NULL);
 		main_v->props.filetypes = g_list_append(main_v->props.filetypes, arr);
 		arr = array_from_arglist("javascript", ".js", "\n'\" ", "", NULL);
 		main_v->props.filetypes = g_list_append(main_v->props.filetypes, arr);
-		arr = array_from_arglist("xml", ".xml", "<> \n\"", ICON_BASEDIR"icon_xml.png", NULL);
+		arr = array_from_arglist("xml", ".xml", "<> \n\"", PKGDATADIR"icon_xml.png", NULL);
 		main_v->props.filetypes = g_list_append(main_v->props.filetypes, arr);
-		arr = array_from_arglist("java", ".java:.jar:.class", "(){}'[]\n\" ", ICON_BASEDIR"icon_java.png", NULL);
+		arr = array_from_arglist("java", ".java:.jar:.class", "(){}'[]\n\" ", PKGDATADIR"icon_java.png", NULL);
 		main_v->props.filetypes = g_list_append(main_v->props.filetypes, arr);
 		arr = array_from_arglist("sql", ".sql", "(){}'[]\n\" ", "", NULL);
 		main_v->props.filetypes = g_list_append(main_v->props.filetypes, arr);
-		arr = array_from_arglist("c", ".c:.h", "(){}'[]\n\" ", ICON_BASEDIR"icon_c.png", NULL);
+		arr = array_from_arglist("c", ".c:.h", "(){}'[]\n\" ", PKGDATADIR"icon_c.png", NULL);
 		main_v->props.filetypes = g_list_append(main_v->props.filetypes, arr);
-		arr = array_from_arglist("image", ".jpg:.png:.gif:.jpeg:.tif:.tiff:.xpm:.xcf", "", ICON_BASEDIR"icon_image.png", NULL);
+		arr = array_from_arglist("image", ".jpg:.png:.gif:.jpeg:.tif:.tiff:.xpm:.xcf", "", PKGDATADIR"icon_image.png", NULL);
 		main_v->props.filetypes = g_list_append(main_v->props.filetypes, arr);
-		arr = array_from_arglist("webimage", ".jpg:.png:.gif:.jpeg", "", ICON_BASEDIR"icon_image.png", NULL);
+		arr = array_from_arglist("webimage", ".jpg:.png:.gif:.jpeg", "", PKGDATADIR"icon_image.png", NULL);
 		main_v->props.filetypes = g_list_append(main_v->props.filetypes, arr);
 		arr = array_from_arglist("stylesheet", ".css", "", "", NULL);
 		main_v->props.filetypes = g_list_append(main_v->props.filetypes, arr);

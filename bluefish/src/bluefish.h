@@ -21,7 +21,7 @@
 #ifndef __BLUEFISH_H_
 #define __BLUEFISH_H_
 
-#define BLUEFISH_SPLASH_FILENAME "/home/olivier/bluefish/cvs/bluefish-gtk2/images/bluefish_splash.png"
+#define BLUEFISH_SPLASH_FILENAME PKGDATADIR"bluefish_splash.png"
 
 #define WITH_MSG_QUEUE
 
