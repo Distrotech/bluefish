@@ -1521,6 +1521,7 @@ void gtktreepath_expand_to_root(GtkWidget *tree, const GtkTreePath *this_path) {
  * Copyright (C) 2000, 2001 Eazel, Inc.
  */
 #ifndef HAVE_ATLEAST_GNOMEVFS_2_2
+#define READ_CHUNK_SIZE 8192
 GnomeVFSResult gnome_vfs_read_entire_file (const char *uri,int *file_size,char **file_contents){
 	GnomeVFSResult result;
 	GnomeVFSHandle *handle;
