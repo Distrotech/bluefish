@@ -509,8 +509,8 @@ instructions in <xref linkend="getting-bluefish-cvs" />. Next, install it with t
         <varlistentry>
           <term><option>--enable-auto-optimization</option></term>
           <listitem>
-            <para>optimizes the build process for a given architecture if
-            possible</para>
+            <para>Optimizes the build process for a given architecture if
+            possible. It works only on a selected set of x86 platforms.</para>
             <para>How: rely on the result of:</para>
             <orderedlist>
               <listitem>
@@ -599,7 +599,7 @@ instructions in <xref linkend="getting-bluefish-cvs" />. Next, install it with t
         <varlistentry>
           <term><option>--disable-nls</option></term>
           <listitem>
-            <para>disables the Native Language Support</para>
+            <para>disables the Native Language Support (might speed up the program)</para>
           </listitem>
         </varlistentry>
       </variablelist>
@@ -615,31 +615,94 @@ instructions in <xref linkend="getting-bluefish-cvs" />. Next, install it with t
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><option>--with-icon-path</option></term>
-          <listitem>
-            <para>customized path for the icon.</para>
-            <para>Usage:
-            <option>--with-icon-path=customizedpath</option></para>
-            <para>Defaults to: <filename>/usr/share/pixmaps</filename></para>
-          </listitem>
-        </varlistentry>
-        <varlistentry>
           <term><option>--with-gnome1-menu</option></term>
           <listitem>
             <para>customized path for the gnome1 menu.</para>
             <para>Usage:
-            <option>--with-gnome1-menu=customizedpath</option></para>
-            <para>Defaults to:
-            <filename>/usr/share/gnome/apps/</filename></para>
+            <option>--with-gnome1-menu=customizedpath</option>
+            <option>--without-gnome1-menu</option>
+            </para>
+            <para>By default disabled.</para>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><option>--with-gnome2-prefix</option></term>
+          <term><option>--with-freedesktop_org-menu</option></term>
           <listitem>
-            <para>customized path for the gnome2 menu and mime-type</para>
+            <para>customized path for the freedesktop.org (gnome and kde) menu</para>
             <para>Usage:
-            <option>--with-gnome2-prefix=customizedpath</option></para>
-            <para>Defaults to: <filename>/usr/share/</filename></para>
+            <option>--with-freedesktop_org-menu=customizedpath</option>
+            <option>--without-freedesktop_org-menu</option>
+            </para>
+            <para>Defaults to autodetection. Autodetection will try
+            <filename>/usr/share/applications</filename>,
+            <filename>PREFIX/share/applications</filename>, 
+            <filename>/usr/X11R6/share/gnome/applications</filename>, and
+            <filename>PREFIX/share/gnome/applications</filename>.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><option>--with-freedesktop_org-mime</option></term>
+          <listitem>
+            <para>customized path for the freedesktop.org (gnome and kde) mime</para>
+            <para>Usage:
+            <option>--with-freedesktop_org-mime=customizedpath</option>
+            <option>--without-freedesktop_org-mime</option>
+            </para>
+            <para>Defaults to autodetection. Autodetection will try
+            <filename>/usr/share/mime</filename>,
+            <filename>PREFIX/share/mime</filename>, 
+            <filename>/usr/X11R6/share/gnome/mime</filename>, and
+            <filename>PREFIX/share/gnome/mime</filename>.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><option>--with-gnome2_4-mime</option></term>
+          <listitem>
+            <para>customized path for the gnome 2.4 mime</para>
+            <para>Usage:
+            <option>--with-gnome2_4-mime=customizedpath</option>
+            <option>--without-gnome2_4-mime</option>
+            </para>
+            <para>Defaults to autodetection. Autodetection will try
+            <filename>/usr/share/mime-info</filename>,
+            <filename>PREFIX/share/mime-info</filename>, 
+            <filename>/usr/X11R6/share/gnome/mime-info</filename>, and
+            <filename>PREFIX/share/gnome/mime-info</filename>.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><option>--with-gnome2_4-appreg</option></term>
+          <listitem>
+            <para>customized path for the gnome 2.4 application registry</para>
+            <para>Usage:
+            <option>--with-gnome2_4-appreg=customizedpath</option>
+            <option>--without-gnome2_4-appreg</option>
+            </para>
+            <para>Defaults to autodetection. Autodetection will try
+            <filename>/usr/share/application-registry</filename>,
+            <filename>PREFIX/share/application-registry</filename>, 
+            <filename>/usr/X11R6/share/gnome/application-registry</filename>, and
+            <filename>PREFIX/share/gnome/application-registry</filename>.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><option>--with-icon-path</option></term>
+          <listitem>
+            <para>customized path for the icon.</para>
+            <para>Usage:
+            <option>--with-icon-path=customizedpath</option>
+            <option>--without-icon-path</option>
+            </para>
+            <para>Defaults to auto detection. Autodetection will try 
+            <filename>/usr/share/pixmaps</filename>,
+            <filename>PREFIX/share/pixmaps</filename>, 
+            <filename>/usr/X11R6/share/gnome/pixmaps</filename>, and
+            <filename>PREFIX/share/gnome/pixmaps</filename>.
+            </para>
           </listitem>
         </varlistentry>
         <varlistentry>
