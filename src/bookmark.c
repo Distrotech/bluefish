@@ -68,6 +68,10 @@ typedef struct {
 
 typedef struct {
 	GtkWidget *tree;
+	/* I would propose to add a GtkTreeStore here as well. I think we also 
+	don't need the hash table. We can add a pointer to a Tbmark structure to one column,
+	then when a user clicks the bookmark we simply use the GtkTreeIter to retreive the Tbmark 
+	struct, and then jump to the GtkTextMark.. */
 	GtkWidget *buttons;
 	Tbfwin *bfwin;
 } Tbmark_gui;
@@ -78,7 +82,7 @@ typedef struct {
 	GtkTreeStore *store;
 	GHashTable *bmark_table;  
 	gint lasttemp;
-   guchar filename_mode;
+   guchar filename_mode; /* what is stored in here ? the same thing as in main_v->props.bookmark_filename_mode ?? */
 	GHashTable *file_iters;
 } Tbmark_data;
 
@@ -136,7 +140,10 @@ static gboolean delmark_proc(gpointer key,gpointer value,gpointer user_data) {
 	Tbmark *b = BMARK(value);
 	/* remove it from the sessionlist */
 	if (b->strarr) {
-		/* why is there no link to Tbfwin* or to the session in Tbmark_data ??? how can I remove it from the sessionlist now ??*/
+		/* why is there no link to Tbfwin* or to the session in Tbmark_data ??? 
+		how can I remove it from the sessionlist now ??
+		This is some issue we can resolve using the treestore in the window, because then
+		we simply pass the window to this function */
 		/* session->bmark = g_list_remove(session->bmark, b->strarr);
 		g_strfreev(b->strarr);
 		*/
@@ -882,8 +889,4 @@ void bmark_reload(Tbfwin *bfwin) {
   g_hash_table_foreach(data->bmark_table,restore_proc,bfwin);  
   gtk_tree_view_expand_all(GTK_TREE_VIEW(BMARKGUI(bfwin->bmark)->tree));    
 }
- 
-
-
-
 
