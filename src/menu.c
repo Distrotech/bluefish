@@ -252,6 +252,9 @@ static void menu_html_dialogs_lcb(Tbfwin *bfwin,guint callback_action, GtkWidget
 	case 35:
 		link_dialog(bfwin,NULL);
 	break;
+	case 36:
+		new_css_dialog(NULL,bfwin);
+	break;
 	default:
 		g_print("menu_file_operations_cb, unknown action, abort!\n");
 		exit(123);
@@ -596,7 +599,7 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/Dialogs/Table/Table _Data..."), NULL, menu_html_dialogs_lcb, 16, NULL},
 	{N_("/Dialogs/_CSS"), NULL, NULL, 0, "<Branch>"},
 	{N_("/Dialogs/CSS/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
-	{N_("/Dialogs/CSS/_Create Style..."), "<shift><alt>S", new_css_dialog, 0, NULL},
+	{N_("/Dialogs/CSS/_Create Style..."), "<shift><alt>S", menu_html_dialogs_lcb, 36, NULL},
 	{N_("/Dialogs/CSS/S_pan..."), NULL, menu_html_dialogs_lcb, 17, NULL},
 	{N_("/Dialogs/CSS/_Div..."), NULL, menu_html_dialogs_lcb, 18, NULL},
 	{N_("/Dialogs/CSS/_Style..."), NULL, general_html_menu_cb, 42, NULL},

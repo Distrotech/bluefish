@@ -862,7 +862,7 @@ static void css_parse(Tcs3_diag *diag, gchar *data) {
 	DEBUG_MSG("css_parse, finished\n");
 }
 
-void new_css_dialog(Tbfwin *bfwin, guint action, GtkWidget *widget) {
+void new_css_dialog(GtkWidget *wid, Tbfwin *bfwin) {
 	Tcs3_destination dest;
 	Tcs3_diag *diag;
 	gint sel_start, sel_end;
