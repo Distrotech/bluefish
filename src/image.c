@@ -440,6 +440,28 @@ void thumbnail_insert_dialog(Tbfwin *bfwin) {
 void image_insert_from_filename(Tbfwin *bfwin, gchar *filename) {
 	image_insert_dialog_backend(filename,bfwin, NULL, FALSE);
 }
+/* 
+to get the multi thumbnail dialog to work with asynchronous backend is a little complex:
+
+1) start loading images asynchronous, to avoid heavy memory usage, we'll limit the number 
+of simultaneous image loads to 3 or so
+2) each image that is loaded, we check is there are images not loading yet, and we'll fire 
+the next load, we also immediately create the thumbnail and dispose the original pixbuf to 
+free that memory. we will write the HTML string only if all previous files have written 
+their html string in the document, if previous files have not finished we do nothing. If
+we can write the html string, we also check if the next image is already finished, and 
+should write its html string. If there is no next image, we can call for cleanup
+*/
+
+typedef struct {
+	GnomeVFSURI *image;
+	GnomeVFSURI *thumb;
+	Topenfile *of; /* if != NULL, the image is loading */
+	Tsavefile *sf; /* if != NULL, the thumbnail is saving */
+	gboolean created; /* both loading and saving is finished */
+	gchar *string; /* the string to insert, if NULL && ->create = TRUE means 
+						that the string is written to the document */
+} Timage2thumb;
 
 typedef struct {
 	GtkWidget *win;
@@ -448,6 +470,7 @@ typedef struct {
 	GtkWidget *spins[2];
 	GtkTextBuffer *tbuf;
 	gint mode;
+	GList *images;
 	Tbfwin *bfwin;
 } Tmuthudia;
 
