@@ -56,10 +56,10 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 	</para>
     <itemizedlist>
 		<listitem>
-				Any urls are denoted like this: 
-					<systemitem class="url">
+				Any URLs are denoted like this: 
+					<ulink url="http://bluefish.openoffice.nl">
 						http://bluefish.openoffice.nl
-					</systemitem>
+					</ulink>
 		</listitem>
 		<listitem>
 				Shortcuts look like this: <accel>Ctrl-S</accel>
@@ -72,10 +72,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 				However, many of Bluefish's menus are quite complex. When 
 				referring to submenus, options are separated by the right 
 				angle-bracket (&gt;), like: 
-					<guimenuitem>
-						File &gt; Open
-					</guimenuitem>
-				.
+					<guimenuitem>File &gt; Open</guimenuitem>.
 			</listitem>
       <listitem>
 				When referring to user input, like issuing commands to the 
@@ -86,6 +83,11 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 				root access, the prompt is shown as a <literal>#</literal>.
 			</listitem>
     </itemizedlist>
+    <para>
+    	Finally, if you find errors in this manual or wish to write new sections,
+    	join the <link linkend="bluefish-contact">mailing list</link> and let us know.
+    	Guidelines for this manual can be found in <xref linkend="bluefish-APP-manual" />
+    </para>
   </sect1>
   <sect1 id="bluefish-pre-1-sect-2">
     <title>What is Bluefish?</title>
@@ -100,7 +102,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 			Get</para></footnote> text editor. This is deliberate, allowing the 
 			programmer to stay in full control. To alleviate the editing 
 			process, a large number of features are at your disposal. For 
-			inserting markup and code, there are toolbars, dialogs, and 
+			inserting markup and code, there are tool bars, dialogs, and 
 			predefined/user-customized menus. Syntax highlighting, advanced 
 			search/replace functionality, scalability and language function
 			references make Bluefish a powerful tool for development.
@@ -166,10 +168,10 @@ the project. </para>
 					Dialogs for many HTML tags, with all their attributes
 				</listitem>
         <listitem>
-					HTML toolbar and tear-off menus
+					HTML tool bar and tear-off menus
 				</listitem>
         <listitem>
-					User-customizable toolbar for quick access to often used 
+					User-customizable tool bar for quick access to often used 
 					functions
 				</listitem>
         <listitem>
@@ -183,7 +185,7 @@ the project. </para>
 					thumbnail with the original image
 				</listitem>
         <listitem>
-					Multi thumbnail generation for easy creation of photo albums
+					Multi-thumbnail generation for easy creation of photo albums
 					or screenshot pages
 				</listitem>
         <listitem>
@@ -230,9 +232,9 @@ the project. </para>
 				As Bluefish is a part of a larger desktop environment, 
 				we've focused on making the GUI consistent with the Gnome HIG
 					<footnote><para>GNOME Human Interface Guidelines, accessible at
-							<systemitem class="url">
+							<ulink url="http://developer.gnome.org/projects/gup/hig/">
 								http://developer.gnome.org/projects/gup/hig/
-							</systemitem>
+							</ulink>
 						</para></footnote>
 					. However, we prefer not following it in every detail, as 
 					some parts are intended 
@@ -266,9 +268,9 @@ the project. </para>
       <para>
 				For an updated list of open bugs, please visit the s-list on 
 				the Bluefish WiKi, at
-					<systemitem class="url">
+					<ulink class="http://bfwiki.tellefsen.net/?pagename=ToDoList">
 						http://bfwiki.tellefsen.net/?pagename=ToDoList
-					</systemitem>.
+					</ulink>.
 			</para>
       <para>
 				We appreciate any and all contributions! Please tell us if 
@@ -285,15 +287,15 @@ the project. </para>
 				are your options:
 			</para>
       <itemizedlist>
-        <listitem><systemitem class="url">
+        <listitem><ulink url="http://bluefish.openoffice.nl/">
 						http://bluefish.openoffice.nl/
-					</systemitem>
+					</ulink>
 					- The main website where you'll find news, updates and more 
 					information.
 				</listitem>
-        <listitem><systemitem class="url">
+        <listitem><ulink url="http://bfwiki.tellefsen.net/">
 						http://bfwiki.tellefsen.net/
-						</systemitem>
+						</ulink>
 					- The Bluefish WiKi is the notebook for the developers,
 					containing a lot of information. This includes, but is not 
 					limited to: updated project roadmaps, status of 
@@ -301,11 +303,7 @@ the project. </para>
 				</listitem>
         <listitem>
 					You can subscribe to the Bluefish mailing list by sending an 
-					email containing
-						<quote>
-							subscribe bluefish-dev
-						</quote>
-					to 
+					email containing <quote>subscribe bluefish-dev</quote> to 
 						<email>
 							bluefish-dev-request@lists.ems.ru
 						</email>
