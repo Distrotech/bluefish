@@ -620,3 +620,20 @@ void rcfile_check_directory(void) {
 	g_free(rcdir);
 }
 
+void rcfile_save_configfile_menu_cb(gpointer callback_data,guint action,GtkWidget *widget) {
+	switch (action) {
+	case 0:
+		rcfile_save_main();
+	break;
+	case 3:
+		g_print("saving of  shortcut keys not yet implemented\n");
+	break;
+	default:
+		g_print("rcfile_save_configfile_menu_cb, unknown action %d\n", action);
+#ifdef DEBUG
+		exit(10);
+#endif
+	break;
+	}
+
+}

@@ -25,6 +25,8 @@
 #include <stdio.h> /* fopen() */
 #include <string.h> /* strchr() */
 
+#define DEBUG
+
 #include "bluefish.h"
 #include "document.h"
 #include "highlight.h" /* all highlight functions */
@@ -731,7 +733,7 @@ static void doc_update_linenumber(Tdocument *doc, GtkTextIter *iter, gint offset
 
 static void doc_buffer_insert_text_lcb(GtkTextBuffer *textbuffer,GtkTextIter * iter,gchar * string,gint len, Tdocument * doc) {
 
-	DEBUG_MSG("doc_buffer_insert_text_lcb, started\n");
+	DEBUG_MSG("doc_buffer_insert_text_lcb, started, string='%s'\n", string);
 
 	/* undo_redo stuff */
 	if (len == 1) {
