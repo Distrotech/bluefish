@@ -31,7 +31,6 @@ config.status: configure
 		--mandir=\$${prefix}/share/man \
 		--with-freedesktop_org-menu=\$${prefix}/share/applications \
 		--with-freedesktop_org-mime=\$${prefix}/share/mime \
-		--with-internal-preview \
 		--without-gnome2_4-mime \
 		--without-gnome2_4-appreg \
 		--with-icon-path=\$${prefix}/share/pixmaps \
