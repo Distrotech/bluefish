@@ -3,9 +3,12 @@
 #ifdef HAVE_LIBASPELL
 #include <aspell.h>
 #include <gtk/gtk.h>
+#include <string.h>
 
 #include "bluefish.h"
 #include "gtk_easy.h"
+#include "document.h"
+#include "stringlist.h"
 #include "bfspell.h"
 /*
  * indent -ts4 -kr
