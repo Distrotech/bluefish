@@ -69,3 +69,16 @@ python:special_values:0:\\b(None)\\b::2::#5caeee::0:0:
 python:include:0:^(import|from).*?$::2::#000099::0:0:
 python:comment:0:#.*?$::2::#AAAAAA::1:2:
 python:braces:0:[{()}\\[\\]]::2::#000000::2:0:
+pas::1:\\b(begin|end)\\b:\\b(end)\\b:2::#0000FF::0:0:
+pas::1:\\b(begin)\\b:\\b(end)\\b:1::#0000FF::0:0:
+pas::1:\\b(text|string|longint|boolean|byte|char|word|integer|real)\\b::2::#36648B::0:0:
+pas:procs:1:\\b(proc[a-z,0-9]*\\;$)::2::#E88707::2:0:
+pas:program:1:\\b(program|var|procedure|uses|unit|object|type|const)\\b::2::#000000::2:0:
+pas:flow:1:\\b(while|for|to|downto|do|with|case|of|repeat|until|if|then|else|goto|and|not|or)\\b::2::#C96EC4::2:0:
+pas:comment:1:[{]:[}]:1::#999999::0:0:
+pas:array:1:\\b(array)\\b::2::#A52A2A::0:0:
+pas:data:1:\\b(text|string|longint|boolean|byte|char|word|integer|real|single|double)\\b::2::#36648B::0:0:
+pas:output:1:\\b(append|reset|assign|close|rewrite|writeln|readln|write|read)\\b::2::#A02424::0:0:
+pas:sqbracket:1:[\\[]:[\\]]:1::#289C02::0:0:
+pas:begin:1:\\b(begin|end)\\b:\\b(end)\\b:2::#36648B::2:0:
+pas:braces:0:[()]::2::#B22727::0:0:
