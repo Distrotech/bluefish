@@ -981,6 +981,7 @@ gboolean main_window_destroy_lcb(GtkWidget *widget,Tbfwin *bfwin) {
 gboolean main_window_delete_lcb(GtkWidget *widget,GdkEvent *event,Tbfwin *bfwin) {
 	DEBUG_MSG("main_window_delete_lcb, started\n");
 	main_window_destroy_lcb(widget,bfwin);
+	return TRUE;
 }
 
 
@@ -1381,10 +1382,13 @@ void gui_toggle_hidewidget_cb(Tbfwin *bfwin,guint action,GtkWidget *widget) {
 	}
 }
 
-void gui_new_window() {
+void gui_new_window(GList *filenames) {
 	Tbfwin *bfwin = g_new0(Tbfwin,1);
 	gui_create_main(bfwin,NULL);
 	main_v->bfwinlist = g_list_append(main_v->bfwinlist, bfwin);
 	gui_show_main(bfwin);
 }
 
+void gui_new_window_menu_cb(gpointer callback_data,guint callback_action, GtkWidget *widget) {
+	gui_new_window(NULL);
+}
