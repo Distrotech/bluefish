@@ -43,6 +43,7 @@ void doc_reset_filetype(Tdocument * doc, gchar * newfilename, gchar *buf);
 void doc_set_font(Tdocument *doc, gchar *fontstring);
 void doc_set_tabsize(Tdocument *doc, gint tabsize);
 void gui_change_tabsize(Tbfwin *bfwin,guint action,GtkWidget *widget);
+void session_set_savedir(Tbfwin *bfwin, gchar *curi);
 
 gboolean doc_is_empty_non_modified_and_nameless(Tdocument *doc);
 gboolean test_docs_modified(GList *doclist);
