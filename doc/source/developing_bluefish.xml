@@ -130,9 +130,136 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 	<sect1 id="developing-bluefish-translations">
 		<title>Translations</title>
-		<para>
-			Users all over the world will use bluefish
+		 <sect2>
+		 <title>Introduction</title>
+		 <para>
+		       Bluefish has been translated into more than 15
+		       different languages and this only the begining.
+		       Translation process is not a difficult task but you
+		       will need some time because there are more than one
+		       thousand strings to be translate.The good news are you
+		       don't need to be a programmer to make Bluefish speak
+		       your language and the only tool you need is a text editor
+		       (<application>Vim</application>, <application>Emacs</application>, etc.)
+                 </para> 
+        
+                 <para>
+		      Bluefish uses po (Portable Object) files. A po file is
+		      just a plain text file that you can edit with your
+		      favorite text editor.
+                 </para>
+		 </sect2>
+                <sect2> 
+		<title>PO files basics</title>
+
+		 <para>
+		 	In general, in a po file there are four entries:
+		 </para>
+		<itemizedlist>
+		<listitem><para>Those which begin with "#:" showing the places in the source code that
+               			contains the string being translated (there may be one or
+				more)</para></listitem>
+		<listitem><para>Those which begin with "#," containing some flags (not always
+                		present)</para></listitem>
+		<listitem><para>Those which begin with "msgid" containing the English string
+                		being translated (it may be spanned in several
+				lines)</para></listitem>
+		<listitem><para>Those which begin with "msgstrg" containing the translated
+                		string</para></listitem>
+		</itemizedlist>
+                <warning>
+		<para>When an entry is tagged as fuzzy that means it is probably
+		      incorrect. You have to make sure the translation is correct
+		      and then delete the #, fuzzy line. Remember that as long as a
+		      translation is marked "fuzzy", it will NOT actually be
+		      used!
+	        </para>
+		</warning>
+		<para>So if you are a translator you have to:</para>
+
+	
+                 <itemizedlist>    
+                 
+		 <listitem><para>translate all empty msfstrg entries</para></listitem>
+                                 		
+                 <listitem><para>
+		 	 	 check all fuzzy entries, correct them if they are wrong and remove
+		 		 all fuzzy tags
+		 </para></listitem>
+                                             		
+                 </itemizedlist>
+                 </sect2>
+		 <sect2>
+		 	<title>Shortcut keys</title>
+
+		<para>Shortcut keys known as hotkeys or even accelerator keys are
+		defined as follows (look at the underscore, please):</para>
+                
+		<screen>
+		# src/toolbars.c:482
+		#: ../src/filebrowser.c:1453
+		msgid "/_Refresh"
+		msgstr "/_Actualizar"
+		</screen>	
+
+		<para>That it means that in the English locale the user have to
+		press <keycap>Alt+r</keycap> to activate this particular GUI element. On the
+		other hand if your locale es Spanish your shortcut key will be
+		<keycap>Alt+a</keycap>.
 		</para>
+		<warning>
+		You have to keep in mind that two GUI elements must not
+		have the same shortcut key at the same level. 
+		</warning>
+		</sect2>
+		
+		 <sect2>
+		 <title>How to contribute</title>
+        
+		 <para>
+		 It is really easy. Just drop me a line at
+		 wecharri@arnet.com.ar and I will send you your po file ready
+		 to be translated. When you finish, just send it me back (use
+		 <application>gzip</application> or <application>bzip2</application> if possible,
+		 please). Then I will check it and if everything is right I will add it into
+		 <application>CVS</application>.
+		 </para>
+
+		 <para>
+		 About ten days before a new release I will send a new
+		 fresh po copy to each translator to repeat this process.
+		 </para>
+
+		 <para>All po files will be named as follows:</para>
+
+		           <screen>date-foo.po.gz (date: day-month-year)</screen>
+
+			   <para>Example:</para>
+			   <screen>12-12-2004.es.po.gz (for Spanish po file)</screen>
+
+
+		 <para>Please, remember: </para>
+		 <orderedlist>
+		 <listitem><para>Do not rename it (I need it for tracking stuff)</para></listitem>
+		 <listitem><para>Send it me back as soon as possible in zipped format too.</para></listitem>
+		 <listitem><para>Do not mix it without any local copy you have.</para></listitem>
+		 <listitem><para>Remember they are in UTF-8 format</para></listitem>
+                 <listitem><para>Subject in my mail will be ***New Bluefish PO
+		 File !***</para></listitem>
+                 </orderedlist>
+                 <para>
+		 And at last, do not start a new translation before contact me
+		 or contact Olivier and do not post your po file at the list,
+		 please..
+ 		  </para>
+		 <para>
+		 If you have some doubts, do not hesitate contact me at
+		 wecharri@arnet.com.ar
+		 </para>
+		 </sect2>
+		
+
+                    
 	</sect1>
 	<sect1 id="developing-bluefish-tips">
 		<title>Some tips</title>
