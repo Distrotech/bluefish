@@ -36,6 +36,7 @@ void bmark_save_all();
 void bmark_check_length(Tbfwin *bfwin,Tdocument *doc);
 void bmark_adjust_visible(Tbfwin *win);
 
-void bmark_name_entry_changed(GtkEntry * entry, GtkDialog* dialog);
+void bmark_name_entry_changed(GtkEntry *entry, GtkDialog *dialog);
+void bmark_add_rename_dialog(Tbfwin *bfwin, gchar *dialogtitle, gint dialogtype);
 
 #endif /* __BOOKMARK_H__ */
