@@ -155,7 +155,7 @@ static GList *glist_with_html_tags(gint with_pseudo_classes) {
 	return tmplist;
 }
 
-typedef enum {entry, textbox} Tdest_type;
+typedef enum {entry, textbox, wizard} Tdest_type;
 typedef enum {onestyle, multistyle} Tcs3_style;
 typedef enum {but_none, but_file, but_style, but_color} Textra_button;
 typedef struct {
@@ -430,6 +430,10 @@ static void cs3d_ok_clicked_lcb(GtkWidget * widget, Tcs3_diag *diag) {
 					doc_insert_two_strings(dest.doc, stylebuf, NULL);
 				}
 			}
+		} else if (dest.dest_type == wizard) {
+			GtkTextBuffer *buf;
+			buf = gtk_text_view_get_buffer(GTK_TEXT_VIEW(dest.entry));
+			gtk_text_buffer_set_text(buf, stylebuf, -1);
 		} else {
 #ifdef DEVELOPMENT
 			g_print("cs3d_ok_clicked_lcb, an unknown dest type, this should never happen!\n");
@@ -864,6 +868,8 @@ void new_css_dialog(GtkWidget *widget, gpointer data) {
 		has_selection = FALSE;
 	} else {
 		has_selection = TRUE;
+		dest.doc_start = sel_start;
+		dest.doc_end = sel_end;
 	}
 	if (dest.doc_start > dest.doc_end) {
 		gint swap = dest.doc_start;
@@ -911,6 +917,44 @@ GtkWidget *style_but_new(GtkWidget * which_entry, GtkWidget * win)
 	gtk_container_add(GTK_CONTAINER(style_but), hbox);
 
 	gtk_signal_connect(GTK_OBJECT(style_but), "clicked", G_CALLBACK(style_but_clicked_lcb), which_entry);
+	gtk_widget_show_all(style_but);
+	return style_but;
+}
+
+static void style_but_for_wizard_clicked_lcb(GtkWidget * widget, GtkWidget * textview)
+{
+	Tcs3_destination dest;
+	Tcs3_diag *diag;
+	gchar *data;
+	GtkWidget *win;
+
+	dest.dest_type = wizard;
+	dest.entry = textview;
+	dest.doc = NULL;
+
+	win = gtk_widget_get_toplevel(textview);
+	diag = css_diag(dest, multistyle, win, TRUE);
+	{
+		GtkTextBuffer *buf;
+		GtkTextIter itstart, itend;
+		buf = gtk_text_view_get_buffer(GTK_TEXT_VIEW(textview));
+		gtk_text_buffer_get_bounds(buf,&itstart,&itend);
+		data = gtk_text_buffer_get_text(buf, &itstart, &itend, FALSE);
+		css_parse(diag, data);
+		g_free(data);
+	}
+}
+
+GtkWidget *style_but_new_for_wizard(GtkWidget * textview) {
+	GtkWidget *style_but, *hbox;
+
+	style_but = gtk_button_new();
+	hbox = gtk_hbox_new(FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(hbox), new_pixmap(92),FALSE, FALSE, 3);
+	gtk_box_pack_start(GTK_BOX(hbox), gtk_label_new(_("Style")),TRUE, TRUE, 3);
+	gtk_container_add(GTK_CONTAINER(style_but), hbox);
+
+	gtk_signal_connect(GTK_OBJECT(style_but), "clicked", G_CALLBACK(style_but_for_wizard_clicked_lcb), textview);
 	gtk_widget_show_all(style_but);
 	return style_but;
 }

@@ -22,7 +22,7 @@
  */
 /* 
  * Changes by Antti-Juhani Kaijanaho <gaia@iki.fi> on 1999-10-20
- * $Id: html.c,v 1.4 2002-08-07 12:39:50 oli4 Exp $
+ * $Id: html.c,v 1.5 2002-09-05 20:38:28 oli4 Exp $
  */
 
 #include <gtk/gtk.h>
@@ -986,13 +986,28 @@ static void quickstart_ok_lcb(GtkWidget * widget, Thtml_diag * dg) {
 	tmpchar2 = g_strconcat(tmpchar1, cap("<TITLE>"), tmpchar3, cap("</TITLE>\n"), NULL);
 	g_free(tmpchar1);
 	g_free(tmpchar3);
+	{
+		GtkTextBuffer *buf;
+		GtkTextIter itstart, itend;
+		buf = gtk_text_view_get_buffer(GTK_TEXT_VIEW(dg->text[0]));
+		gtk_text_buffer_get_bounds(buf,&itstart,&itend);
+		tmpchar3 = gtk_text_buffer_get_text(buf, &itstart, &itend, FALSE);
+		if (strlen(tmpchar3)) {
+			tmpchar1 = tmpchar2;
+			tmpchar2 = g_strconcat(tmpchar1, cap("<style type=\"text/css\"><!--\n"), tmpchar3, cap("\n--></style>"), NULL);
+			g_free(tmpchar1);
+		}
+		g_free(tmpchar3);
+	}
+	
 	tmpchar1 = tmpchar2;
-	finalstring = g_strconcat(tmpchar1, cap("</HEAD>\n<BODY>"), NULL);
+	finalstring = g_strconcat(tmpchar1, cap("</HEAD>\n<BODY>\n"), NULL);
 	g_free(tmpchar1);
 
-	doc_insert_two_strings(dg->doc, finalstring, cap("</BODY>\n</HTML>"));
+	doc_insert_two_strings(dg->doc, finalstring, cap("\n</BODY>\n</HTML>"));
 
 	g_free(finalstring);
+	g_object_unref(G_OBJECT(gtk_text_view_get_buffer(GTK_TEXT_VIEW(dg->text[0]))));
 	html_diag_destroy_cb(NULL, NULL, dg);
 }
 
@@ -1005,7 +1020,7 @@ void quickstart_cb(GtkWidget * widget, gpointer data)
 	
 	dg = html_diag_new(_("Quick Start"));
 
-	dgtable = html_diag_table_in_vbox(dg, 7, 4);
+	dgtable = html_diag_table_in_vbox(dg, 9, 4);
 
 	recent_attribs.dtd_cblist = add_to_stringlist(recent_attribs.dtd_cblist, "");
 	recent_attribs.dtd_cblist = add_to_stringlist(recent_attribs.dtd_cblist, "<!DOCTYPE HTML PUBLIC \"-//IETF//DTD HTML 3.2//EN\">");
@@ -1036,6 +1051,8 @@ void quickstart_cb(GtkWidget * widget, gpointer data)
 	gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(scrolwin), dg->clist[1]);
 	gtk_clist_freeze(GTK_CLIST(dg->clist[1]));
 
+	recent_attribs.headerlist = add_to_stringlist(recent_attribs.headerlist, "<meta name=\"generator\" value=\"Bluefish\">");
+
 	tmplist = g_list_first(recent_attribs.headerlist);
 	while (tmplist) {
 		text[0] = tmplist->data;
@@ -1047,6 +1064,24 @@ void quickstart_cb(GtkWidget * widget, gpointer data)
 	dg->entry[1] = entry_with_text(NULL, 0);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Title")), 0, 1, 4, 5);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[1], 1, 4, 4, 5);
+	{
+		GtkWidget *scroll, *stylebut;
+		GtkTextBuffer *buf;
+		buf = gtk_text_buffer_new(NULL);
+		dg->text[0] = gtk_text_view_new_with_buffer(buf);
+		scroll = gtk_scrolled_window_new(NULL, NULL);
+		gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scroll),
+									   GTK_POLICY_AUTOMATIC,
+									   GTK_POLICY_AUTOMATIC);
+		gtk_scrolled_window_set_shadow_type(GTK_SCROLLED_WINDOW
+											(scroll), GTK_SHADOW_IN);
+		gtk_container_add(GTK_CONTAINER(scroll), dg->text[0]);
+		gtk_table_attach(GTK_TABLE(dgtable), gtk_label_new(_("Style")), 0, 1, 5, 6,GTK_FILL, GTK_FILL, 0, 0);
+		gtk_widget_set_usize(scroll, 300, 100);
+		gtk_table_attach_defaults(GTK_TABLE(dgtable), scroll, 1, 3, 5, 9);
+		stylebut = style_but_new_for_wizard(dg->text[0]);
+		gtk_table_attach(GTK_TABLE(dgtable), stylebut, 3, 4, 5, 6, GTK_FILL, GTK_FILL, 0, 0);
+	}
 
 	html_diag_finish(dg, G_CALLBACK(quickstart_ok_lcb));
 }
