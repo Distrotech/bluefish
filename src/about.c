@@ -71,7 +71,7 @@ Documentation:\n\
   Denny Reeh\n\
 \n\
 Package Maintainers:\n\
-  Debain:   Davide Puricelli <evo@debian.org>\n\
+  Debian:   Davide Puricelli <evo@debian.org>\n\
   Redhat:   Matthias Haase <matthias_haase@bennewitz.com>\n\
   Mandrake: Todd Lyons <todd@mrball.net>\n\
 \n\
@@ -83,18 +83,20 @@ Thanks to all who helped making this software available.\n\
 
 static const gchar *TRANSLATORS = "\n\
 Current translators:\n\
+  Brazilian Portuguese (PT_BR) -  Anderson Rocha <anderson@maxlinux.com.br>\n\
+  Chinese (zh_CN) -  Ting Yang (Dormouse) <mouselinux@163.com>\n\
   Danish (DA) -  Rasmus Toftdahl Olesen <rto@pohldata.dk>\n\
+  Finnish (FI) -  Juho Roukala <j.mr@luukku.com>\n\
   French (FR) -  Roméo Viu-Berges <apostledemencia@free.fr>\n\
   German (DE) -  Roland Steinbach <roland@netzblick.de>\n\
   Hungarian (HU) -  Péter Sáska <sasek@ccsystem.hu>\n\
   Italian (IT) -  Stefano Canepa <sc@linux.it>\n\
   Polish (PL) -  Oskar Swida <swida@aragorn.pb.bialystok.pl>\n\
-  Portuguese (PT_BR) -  Anderson Rocha <anderson@maxlinux.com.br>\n\
+  Portuguese (PT) - Lopo Pizarro <lopopizarro@netcabo.pt>\n\
   Russian (RU) -  Eugene Rupakov <rupakov@jet.msk.ru>\n\
   Spanish (ES) -  Walter Oscar Echarri <wecharri@infovia.com.ar>\n\
   Swedish (SV) -  David Smeringe <david.smeringe@telia.com>\n\
-  Chinese (zh_CN) -  Ting Yang (Dormouse) <mouselinux@163.com>\n\
-  Finnish (FI) -  Juho Roukala <j.mr@luukku.com>\n\
+  Tamil (TA) -  Murugapandian Barathee <barathee@yahoo.com>\n\
 ";
 
 static const char *LICENSE = "GNU GENERAL PUBLIC LICENSE\n\
