@@ -109,8 +109,7 @@ AC_CHECK_LIB(posix4, nanosleep,
 	AC_DEFINE(HAVE_NANOSLEEP),
 	AC_CHECK_LIB(rt, nanosleep,
 		LIBS="$LIBS -lrt"
-		AC_DEFINE(HAVE_NANOSLEEP),
-		AC_MSG_ERROR(function nanosleep not found unknown how to continue)
+		AC_DEFINE(HAVE_NANOSLEEP)
 	)
 )
 
