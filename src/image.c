@@ -504,7 +504,7 @@ static void multi_thumbnail_radio_toggled_lcb(GtkToggleButton *togglebutton,Tmut
 void multi_thumbnail_dialog_cb(GtkWidget * widget, gpointer data) {
 	Tmuthudia *mtd;
 	GtkWidget *vbox, *hbox, *but, *table, *label, *scrolwin, *textview;
-	
+	gint tb;
 	
 	mtd = g_new(Tmuthudia, 1);
 	mtd->win = window_full(_("Multi thumbnail"), GTK_WIN_POS_MOUSE, 5, G_CALLBACK(multi_thumbnail_dialog_destroy), mtd, TRUE);
@@ -527,10 +527,7 @@ void multi_thumbnail_dialog_cb(GtkWidget * widget, gpointer data) {
 	g_signal_connect(G_OBJECT(mtd->radio[3]), "toggled", G_CALLBACK(multi_thumbnail_radio_toggled_lcb), mtd);
 	gtk_spin_button_set_value(GTK_SPIN_BUTTON(mtd->spins[0]), main_v->props.image_thumbnailsizing_val1);
 	gtk_spin_button_set_value(GTK_SPIN_BUTTON(mtd->spins[1]), main_v->props.image_thumbnailsizing_val2);
-	if (main_v->props.image_thumbnailsizing_type > 4) {
-		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(mtd->radio[main_v->props.image_thumbnailsizing_type]), TRUE);
-	}
-	
+
 	gtk_table_attach_defaults(GTK_TABLE(table), mtd->radio[0], 0, 1, 0, 1);
 	gtk_table_attach_defaults(GTK_TABLE(table), mtd->radio[1], 0, 1, 1, 2);
 	gtk_table_attach_defaults(GTK_TABLE(table), mtd->radio[2], 0, 1, 2, 3);
@@ -559,4 +556,8 @@ void multi_thumbnail_dialog_cb(GtkWidget * widget, gpointer data) {
 	gtk_box_pack_start(GTK_BOX(hbox), but,FALSE, FALSE, 5);
 	gtk_window_set_default(GTK_WINDOW(mtd->win), but);
 	gtk_widget_show_all(mtd->win);
+
+	tb = main_v->props.image_thumbnailsizing_type < 4 ? main_v->props.image_thumbnailsizing_type : 0;
+	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(mtd->radio[tb]), TRUE);
+	multi_thumbnail_radio_toggled_lcb(GTK_TOGGLE_BUTTON(mtd->radio[tb]), mtd);
 }
