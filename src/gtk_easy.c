@@ -1051,14 +1051,20 @@ static void ungroupradoiitems(GtkWidget *menu) {
 	GList *tmplist = g_list_first(GTK_MENU_SHELL(menu)->children);
 	while (tmplist) {
 		GtkWidget *sub;
+		DEBUG_MSG("ungroupradiomenuitems, another item\n");
 		if (GTK_IS_RADIO_MENU_ITEM(tmplist->data)) gtk_radio_menu_item_set_group(tmplist->data,NULL);
 		sub = gtk_menu_item_get_submenu(tmplist->data);
 		if (sub) ungroupradoiitems(sub);
 		tmplist = g_list_next(tmplist);
 	}
 }
-/* connect this to the hide event of a disposable menu to get rid of it */
-void destroy_disposable_menu_hide_cb(GtkWidget *widget, GtkWidget *menu) {
+static gboolean destroy_disposable_menu_idle(GtkWidget *menu) {
 	ungroupradoiitems(menu);
 	gtk_widget_destroy(GTK_WIDGET(menu));
+	return FALSE;
+}
+
+/* connect this to the hide event of a disposable menu to get rid of it */
+void destroy_disposable_menu_hide_cb(GtkWidget *widget, GtkWidget *menu) {
+	gtk_idle_add(destroy_disposable_menu_idle, menu);
 }
