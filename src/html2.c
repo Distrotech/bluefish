@@ -560,17 +560,17 @@ static void cs3d_prop_activate_lcb(GtkWidget * widget, Tcs3_diag *diag) {
 			}
 			switch(tmp->buttype) {
 			case but_color:
-				gtk_widget_show(diag->extra_but);
+				gtk_widget_set_sensitive(diag->extra_but, TRUE);
 			break;
 			default:
-				gtk_widget_hide(diag->extra_but);
+				gtk_widget_set_sensitive(diag->extra_but, FALSE);
 			break;
 			}
 		} else {
-				gtk_widget_hide(diag->extra_but);
+				gtk_widget_set_sensitive(diag->extra_but, FALSE);
 		}
 	} else {
-		gtk_widget_hide(diag->extra_but);
+		gtk_widget_set_sensitive(diag->extra_but, FALSE);
 	}
 }
 
@@ -584,25 +584,27 @@ static Tcs3_diag *css_diag(Tcs3_destination dest, Tcs3_style style, GtkWidget *t
 	
 	diag = g_malloc(sizeof(Tcs3_diag));
 	diag->win = window_full(_("Cascading StyleSheet dialog"), GTK_WIN_POS_MOUSE, 
-			5, G_CALLBACK(cs3d_destroy_lcb), diag, TRUE);
+			12, G_CALLBACK(cs3d_destroy_lcb), diag, TRUE);
 	gtk_window_set_role(GTK_WINDOW(diag->win), "css");
 	diag->dest = dest;
 	diag->styletype = style;
 	diag->grab = grab;
 	diag->selected_row = -1;
 
-	vbox = gtk_vbox_new(FALSE, 5);
+	vbox = gtk_vbox_new(FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(diag->win),vbox);
 	
-	table = gtk_table_new(3,3,0);
+	table = gtk_table_new(3, 6, FALSE);
+	gtk_table_set_row_spacings(GTK_TABLE(table), 12);
+	gtk_table_set_col_spacings(GTK_TABLE(table), 12);
 	gtk_box_pack_start(GTK_BOX(vbox), table, FALSE, FALSE, 0);
 	tmplist = NULL;
 	
 	if (diag->styletype == multistyle) {
 		tmplist = glist_with_html_tags(1);
 		diag->selector = combo_with_popdown(NULL, tmplist,1);
-		gtk_table_attach_defaults(GTK_TABLE(table), gtk_label_new(_("selector")), 0,1,0,1);
-		gtk_table_attach_defaults(GTK_TABLE(table), diag->selector, 1,2,0,1);
+		bf_mnemonic_label_tad_with_alignment(N_("_Selector:"), diag->selector, 0, 0.5, table, 0, 1, 0, 1);
+		gtk_table_attach_defaults(GTK_TABLE(table), diag->selector, 1 ,5 , 0, 1);
 		g_list_free(tmplist);
 		tmplist = NULL;
 	} 
@@ -620,19 +622,19 @@ static Tcs3_diag *css_diag(Tcs3_destination dest, Tcs3_style style, GtkWidget *t
 	gtk_signal_connect(GTK_OBJECT(GTK_COMBO(diag->property)->entry), "changed", G_CALLBACK(cs3d_prop_activate_lcb), diag);
 
 	diag->value = combo_with_popdown(NULL, tmplist,1);
-	gtk_table_attach_defaults(GTK_TABLE(table), gtk_label_new(_("property")), 0,1,1,2);
-	gtk_table_attach_defaults(GTK_TABLE(table), diag->property, 1,2,1,2);
-	gtk_table_attach_defaults(GTK_TABLE(table), gtk_label_new(_("value")), 0,1,2,3);
-	gtk_table_attach_defaults(GTK_TABLE(table), diag->value, 1,2,2,3);
-
+	bf_mnemonic_label_tad_with_alignment(N_("_Property:"), diag->property, 0, 0.5, table, 0, 1, 1, 2);
+	gtk_table_attach_defaults(GTK_TABLE(table), diag->property, 1, 5, 1, 2);
+	bf_mnemonic_label_tad_with_alignment(N_("_Value:"), diag->value, 0, 0.5, table, 0, 1, 2, 3);
+	gtk_table_attach_defaults(GTK_TABLE(table), diag->value, 1, 5, 2, 3);
+	
 	gtk_widget_realize(diag->win);
 
 	diag->extra_but = color_but_new(GTK_WIDGET(GTK_COMBO(diag->value)->entry), diag->win);
-	gtk_table_attach_defaults(GTK_TABLE(table), diag->extra_but, 2,3,2,3);
+	gtk_table_attach(GTK_TABLE(table), diag->extra_but, 5, 6, 2, 3, GTK_EXPAND, GTK_EXPAND, 0, 0);
 
 	/* the list widget and the buttons are in a horizontal box */
-	hbox = gtk_hbox_new(FALSE, 0);
-	gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 0);
+	hbox = gtk_hbox_new(FALSE, 12);
+	gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 18);
 
 	scrolwin = gtk_scrolled_window_new(NULL, NULL);
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolwin), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
@@ -655,25 +657,32 @@ static Tcs3_diag *css_diag(Tcs3_destination dest, Tcs3_style style, GtkWidget *t
 
 	gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(scrolwin), diag->clist);
 
-	vbox2 = gtk_vbox_new(FALSE, 0);
+	vbox2 = gtk_vbox_new(FALSE, 6);
 	gtk_box_pack_start(GTK_BOX(hbox), vbox2, FALSE, FALSE, 0);
 	
-	but = bf_stock_button(_(" Add "), G_CALLBACK(cs3d_add_clicked_lcb), diag);
+	but = bf_stock_button(N_(" _Add "), G_CALLBACK(cs3d_add_clicked_lcb), diag);
 	gtk_box_pack_start(GTK_BOX(vbox2), but, FALSE, FALSE, 0);
 
-	but = bf_stock_button(_(" Update "), G_CALLBACK(cs3d_update_clicked_lcb), diag);
+	but = bf_stock_button(N_(" _Update "), G_CALLBACK(cs3d_update_clicked_lcb), diag);
 	gtk_box_pack_start(GTK_BOX(vbox2), but, FALSE, FALSE, 0);
 	
-	but = bf_stock_button(_(" Delete "), G_CALLBACK(cs3d_del_clicked_lcb), diag);
+	but = bf_stock_button(N_(" _Delete "), G_CALLBACK(cs3d_del_clicked_lcb), diag);
 	gtk_box_pack_start(GTK_BOX(vbox2), but, FALSE, FALSE, 0);
 
 	/* the ok and cancel button are in a horizontal box below */
-	hbox = gtk_hbox_new(TRUE, 0);
-	gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 0);
+	hbox = gtk_hbox_new(FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(hbox), gtk_hseparator_new(), TRUE, TRUE, 0);
+	gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 12);	
+
+	hbox = gtk_hbutton_box_new();
+	gtk_hbutton_box_set_layout_default(GTK_BUTTONBOX_END);
+	gtk_button_box_set_spacing(GTK_BUTTON_BOX(hbox), 12);
+	
 	but = bf_stock_cancel_button(G_CALLBACK(cs3d_cancel_clicked_lcb), diag);
-	gtk_box_pack_start(GTK_BOX(hbox), but, TRUE, TRUE, 0);
+	gtk_box_pack_start(GTK_BOX(hbox), but, FALSE, FALSE, 0);
 	but = bf_stock_ok_button(G_CALLBACK(cs3d_ok_clicked_lcb), diag);
-	gtk_box_pack_start(GTK_BOX(hbox), but, TRUE, TRUE, 0);
+	gtk_box_pack_start(GTK_BOX(hbox), but, FALSE, FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 0);	
 	
 	gtk_widget_show_all(diag->win);
 	

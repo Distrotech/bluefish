@@ -94,7 +94,7 @@ static Tpixmap tp[] = {
 	{81, meta},
 	{82, embed},
 	{83, color_select},
-/*	{84, time}, a function called time already exist, we cannot have a variable called time */
+	{84, php3}, 
 	{85, cssnewstyle},
 	{86, cssspan},
 	{87, cssdiv},

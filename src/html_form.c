@@ -72,7 +72,7 @@ GtkWidget *php_var_but(GtkWidget *src, GtkWidget *dest, Thtml_diag *dg, gint typ
 	dg->php_var_ins.dest = dest;
 	dg->php_var_ins.type = type;
 	returnwid = gtk_button_new();
-	pixmap = new_pixmap(173);
+	pixmap = new_pixmap(84);
 	gtk_widget_show(pixmap);
 	gtk_container_add(GTK_CONTAINER(returnwid), pixmap);
 	gtk_signal_connect(GTK_OBJECT(returnwid), "clicked", G_CALLBACK(php_var_insert_cb), dg);
@@ -144,7 +144,7 @@ void formdialog_cb(GtkWidget * widget, gpointer data)
 	free_stringlist(rel_link_list);
 	}
 	
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Action")), 0, 1, 0, 1);
+	bf_mnemonic_label_tad_with_alignment(N_("_Action:"), dg->combo[4], 0, 0.5, dgtable, 0, 1, 0, 1);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->combo[4], 1, 8, 0, 1);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), file_but_new(GTK_WIDGET(GTK_COMBO(dg->combo[4])->entry), dg->dialog, 0), 8, 10, 0, 1);
 	
@@ -152,7 +152,7 @@ void formdialog_cb(GtkWidget * widget, gpointer data)
 	methodlist = g_list_append(methodlist, "POST");
 	dg->combo[1] = combo_with_popdown(tagvalues[1], methodlist, 1);
 	g_list_free(methodlist);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Method")), 0, 1, 1, 2);
+	bf_mnemonic_label_tad_with_alignment(N_("Metho_d:"), dg->combo[1], 0, 0.5, dgtable, 0, 1, 1, 2);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(GTK_COMBO(dg->combo[1])), 1, 2, 1, 2);
 
 	/* I need to add more types */
@@ -161,18 +161,18 @@ void formdialog_cb(GtkWidget * widget, gpointer data)
 	enctypelist = g_list_append(enctypelist, "text/plain");
 	dg->combo[2] = combo_with_popdown(tagvalues[2], enctypelist, 1);
 	g_list_free(enctypelist);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Enctype")), 3, 4, 1, 2);
+	bf_mnemonic_label_tad_with_alignment(N_("_Enctype:"), dg->combo[2], 0, 0.5, dgtable, 3, 4, 1, 2);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(dg->combo[2]), 4, 10, 1, 2);
 
 	recent_attribs.targetlist = add_to_stringlist(recent_attribs.targetlist, "_top");
 	recent_attribs.targetlist = add_to_stringlist(recent_attribs.targetlist, "_blank");
 	recent_attribs.targetlist = add_to_stringlist(recent_attribs.targetlist, "_parent");
 	dg->combo[3] = combo_with_popdown(tagvalues[3], recent_attribs.targetlist, 1);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Target")), 0, 1, 2, 3);
+	bf_mnemonic_label_tad_with_alignment(N_("_Target:"), dg->combo[3], 0, 0.5, dgtable, 0, 1, 2, 3);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(GTK_COMBO(dg->combo[3])), 1, 10, 2, 3);
 
 	dg->entry[2] = entry_with_text(custom, 1024);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Custom")), 0, 1, 3, 4);
+	bf_mnemonic_label_tad_with_alignment(N_("Custo_m:"), dg->entry[2], 0, 0.5, dgtable, 0, 1, 3, 4);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[2], 1, 12, 3, 4);
 
 	html_diag_finish(dg, G_CALLBACK(formok_lcb));
@@ -214,23 +214,23 @@ void textareadialog_cb(GtkWidget * widget, gpointer data)
 	dg = html_diag_new(_("Text area"));
 	fill_dialogvalues(tagitems, tagvalues, &custom, (Ttagpopup *) data, widget, dg);
 
-	dgtable = html_diag_table_in_vbox(dg, 5, 10);
+	dgtable = html_diag_table_in_vbox(dg, 4, 10);
 
 	dg->entry[1] = entry_with_text(tagvalues[0], 256);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Name")), 0, 1, 0, 1);
+	bf_mnemonic_label_tad_with_alignment(N_("_Name:"), dg->entry[1], 0, 0.5, dgtable, 0, 1, 0, 1);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[1], 1, 10, 0, 1);
 
 	dg->spin[1] = spinbut_with_value(tagvalues[2], 0, 500, 1.0, 5.0);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->spin[1], 1, 2, 2, 3);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Rows")), 0, 1, 2, 3);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->spin[1], 1, 2, 1, 2);
+	bf_mnemonic_label_tad_with_alignment(N_("_Rows:"), dg->spin[1], 0, 0.5, dgtable, 0, 1, 1, 2);
 
 	dg->spin[2] = spinbut_with_value(tagvalues[3], 0, 500, 1.0, 5.0);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->spin[2], 1, 2, 3, 4);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Cols")), 0, 1, 3, 4);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->spin[2], 1, 2, 2, 3);
+	bf_mnemonic_label_tad_with_alignment(N_("Co_ls:"), dg->spin[2], 0, 0.5, dgtable, 0, 1, 2, 3);
 
 	dg->entry[2] = entry_with_text(custom, 1024);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Custom")), 0, 1, 4, 5);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[2], 1, 10, 4, 5);
+	bf_mnemonic_label_tad_with_alignment(N_("Custo_m:"), dg->entry[2], 0, 0.5, dgtable, 0, 1, 3, 4);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[2], 1, 10, 3, 4);
 
 	html_diag_finish(dg, G_CALLBACK(textareaok_lcb));
 
@@ -279,11 +279,11 @@ void textdialog_cb(GtkWidget * widget, gpointer data)
 	dgtable = html_diag_table_in_vbox(dg, 5, 10);
 
 	dg->entry[1] = entry_with_text(tagvalues[0], 256);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Name")), 0, 1, 0, 1);
+	bf_mnemonic_label_tad_with_alignment(N_("_Name:"), dg->entry[1], 0, 0.5, dgtable, 0, 1, 0, 1);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[1], 1, 10, 0, 1);
 
 	dg->entry[2] = entry_with_text(tagvalues[1], 256);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Value")), 0, 1, 1, 2);
+	bf_mnemonic_label_tad_with_alignment(N_("_Value:"), dg->entry[2], 0, 0.5, dgtable, 0, 1, 1, 2);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[2], 1, 9, 1, 2);
 
 	varbut = php_var_but(dg->entry[1], dg->entry[2], dg, PHPFORM_TYPE_TEXT);
@@ -291,14 +291,14 @@ void textdialog_cb(GtkWidget * widget, gpointer data)
 
 	dg->spin[1] = spinbut_with_value(tagvalues[2], 0, 500, 1.0, 5.0);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->spin[1], 1, 2, 2, 3);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Size")), 0, 1, 2, 3);
+	bf_mnemonic_label_tad_with_alignment(N_("Si_ze:"), dg->spin[1], 0, 0.5, dgtable, 0, 1, 2, 3);
 
 	dg->spin[2] = spinbut_with_value(tagvalues[3], 0, 500, 1.0, 5.0);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->spin[2], 1, 2, 3, 4);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Max Length")), 0, 1, 3, 4);
+	bf_mnemonic_label_tad_with_alignment(N_("Max _Length:"), dg->spin[2], 0, 0.5, dgtable, 0, 1, 3, 4);
 
 	dg->entry[3] = entry_with_text(custom, 1024);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Custom")), 0, 1, 4, 5);
+	bf_mnemonic_label_tad_with_alignment(N_("Custo_m:"), dg->entry[3], 0, 0.5, dgtable, 0, 1, 4, 5);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[3], 1, 10, 4, 5);
 
 	html_diag_finish(dg, G_CALLBACK(textok_lcb));
@@ -346,11 +346,11 @@ void buttondialog_cb(GtkWidget * widget, gpointer data) {
 	dgtable = html_diag_table_in_vbox(dg, 5, 10);
 
 	dg->entry[1] = entry_with_text(tagvalues[0], 256);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Name")), 0, 1, 0, 1);
+	bf_mnemonic_label_tad_with_alignment(N_("_Name:"), dg->entry[1], 0, 0.5, dgtable, 0, 1, 0, 1);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[1], 1, 10, 0, 1);
 
 	dg->entry[2] = entry_with_text(tagvalues[1], 256);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Value")), 0, 1, 1, 2);
+	bf_mnemonic_label_tad_with_alignment(N_("_Value:"), dg->entry[2], 0, 0.5, dgtable, 0, 1, 1, 2);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[2], 1, 9, 1, 2);
 
 	tmplist = g_list_append(tmplist, "submit");
@@ -358,11 +358,11 @@ void buttondialog_cb(GtkWidget * widget, gpointer data) {
 	tmplist = g_list_append(tmplist, "button");
 	dg->combo[1] = combo_with_popdown(tagvalues[2], tmplist, 0);
 	g_list_free(tmplist);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Type")), 0, 1, 2, 3);
+	bf_mnemonic_label_tad_with_alignment(N_("_Type:"), dg->combo[1], 0, 0.5, dgtable, 0, 1, 2, 3);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(dg->combo[1]), 1, 9, 2, 3);
 
 	dg->entry[3] = entry_with_text(custom, 256);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Custom")), 0, 1, 3, 4);
+	bf_mnemonic_label_tad_with_alignment(N_("Custo_m:"), dg->entry[3], 0, 0.5, dgtable, 0, 1, 3, 4);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[3], 1, 9, 3, 4);
 
 	html_diag_finish(dg, G_CALLBACK(buttondialogok_lcb));
@@ -408,15 +408,15 @@ void hiddendialog_cb(GtkWidget * widget, gpointer data)
 
 	dgtable = html_diag_table_in_vbox(dg, 5, 10);
 	dg->entry[1] = entry_with_text(tagvalues[0], 256);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Name")), 0, 1, 0, 1);
+	bf_mnemonic_label_tad_with_alignment(N_("_Name:"), dg->entry[1], 0, 0.5, dgtable, 0, 1, 0, 1);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[1], 1, 10, 0, 1);
 
 	dg->entry[2] = entry_with_text(tagvalues[1], 256);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Value")), 0, 1, 1, 2);
+	bf_mnemonic_label_tad_with_alignment(N_("_Value:"), dg->entry[2], 0, 0.5, dgtable, 0, 1, 1, 2);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[2], 1, 10, 1, 2);
 
 	dg->entry[3] = entry_with_text(custom, 1024);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Custom")), 0, 1, 2, 3);
+	bf_mnemonic_label_tad_with_alignment(N_("Custo_m:"), dg->entry[3], 0, 0.5, dgtable, 0, 1, 2, 3);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[3], 1, 10, 2, 3);
 
 	html_diag_finish(dg, G_CALLBACK(hiddenok_lcb));
@@ -464,20 +464,20 @@ void radiodialog_cb(GtkWidget * widget, gpointer data)
 
 	dgtable = html_diag_table_in_vbox(dg, 5, 10);
 	dg->entry[1] = entry_with_text(tagvalues[0], 256);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Name")), 0, 1, 0, 1);
+	bf_mnemonic_label_tad_with_alignment(N_("_Name:"), dg->entry[1], 0, 0.5, dgtable, 0, 1, 0, 1);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[1], 1, 10, 0, 1);
 
 	dg->entry[2] = entry_with_text(tagvalues[1], 256);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Value")), 0, 1, 1, 2);
+	bf_mnemonic_label_tad_with_alignment(N_("_Value:"), dg->entry[2], 0, 0.5, dgtable, 0, 1, 1, 2);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[2], 1, 10, 1, 2);
 
 	dg->check[1] = gtk_check_button_new();
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->check[1], 1, 2, 2, 3);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Checked")), 0, 1, 2, 3);
+	bf_mnemonic_label_tad_with_alignment(N_("Chec_ked:"), dg->check[1], 0, 0.5, dgtable, 0, 1, 2, 3);
 	parse_existence_for_dialog(tagvalues[2], dg->check[1]);
 
 	dg->entry[3] = entry_with_text(custom, 1024);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Custom")), 0, 1, 3, 4);
+	bf_mnemonic_label_tad_with_alignment(N_("Custo_m:"), dg->entry[3], 0, 0.5, dgtable, 0, 1, 3, 4);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[3], 1, 9, 3, 4);
 
 	varbut = php_var_but(dg->entry[1], dg->entry[3], dg, PHPFORM_TYPE_RADIO);
@@ -527,20 +527,20 @@ void checkdialog_cb(GtkWidget * widget, gpointer data)
 	dgtable = html_diag_table_in_vbox(dg, 5, 10);
 	
 	dg->entry[1] = entry_with_text(tagvalues[0], 256);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Name")), 0, 1, 0, 1);
+	bf_mnemonic_label_tad_with_alignment(N_("_Name:"), dg->entry[1], 0, 0.5, dgtable, 0, 1, 0, 1);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[1], 1, 10, 0, 1);
 
 	dg->entry[2] = entry_with_text(tagvalues[1], 256);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Value")), 0, 1, 1, 2);
+	bf_mnemonic_label_tad_with_alignment(N_("_Value:"), dg->entry[2], 0, 0.5, dgtable, 0, 1, 1, 2);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[2], 1, 10, 1, 2);
 
 	dg->check[1] = gtk_check_button_new();
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->check[1], 1, 2, 2, 3);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Checked")), 0, 1, 2, 3);
+	bf_mnemonic_label_tad_with_alignment(N_("Chec_ked:"), dg->check[1], 0, 0.5, dgtable, 0, 1, 2, 3);
 	parse_existence_for_dialog(tagvalues[2], dg->check[1]);
 
 	dg->entry[3] = entry_with_text(custom, 1024);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Custom")), 0, 1, 3, 4);
+	bf_mnemonic_label_tad_with_alignment(N_("_Custo_m:"), dg->entry[3], 0, 0.5, dgtable, 0, 1, 3, 4);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[3], 1, 9, 3, 4);
 
 	varbut = php_var_but(dg->entry[1], dg->entry[3], dg, PHPFORM_TYPE_CHECK);
@@ -586,20 +586,20 @@ void selectdialog_cb(GtkWidget * widget, gpointer data)
 	dgtable = html_diag_table_in_vbox(dg, 5, 10);
 
 	dg->entry[1] = entry_with_text(tagvalues[0], 256);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Name")), 0, 1, 0, 1);
+	bf_mnemonic_label_tad_with_alignment(N_("_Name:"), dg->entry[1], 0, 0.5, dgtable, 0, 1, 0, 1);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[1], 1, 10, 0, 1);
 
 	dg->spin[1] = spinbut_with_value(tagvalues[1], 0, 100, 1.0, 5.0);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->spin[1], 1, 2, 1, 2);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Size")), 0, 1, 1, 2);
+	bf_mnemonic_label_tad_with_alignment(N_("Si_ze:"), dg->spin[1], 0, 0.5, dgtable, 0, 1, 1, 2);
 
 	dg->check[1] = gtk_check_button_new();
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->check[1], 1, 2, 2, 3);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Multiple selections")), 0, 1, 2, 3);
+	bf_mnemonic_label_tad_with_alignment(N_("Multiple _Selections:"), dg->check[1], 0, 0.5, dgtable, 0, 1, 2, 3);
 	parse_existence_for_dialog(tagvalues[2], dg->check[1]);
 
 	dg->entry[2] = entry_with_text(custom, 1024);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Custom")), 0, 1, 3, 4);
+	bf_mnemonic_label_tad_with_alignment(N_("Custo_m:"), dg->entry[2], 0, 0.5, dgtable, 0, 1, 3, 4);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[2], 1, 10, 3, 4);
 
 	html_diag_finish(dg, G_CALLBACK(selectdialogok_lcb));
@@ -638,19 +638,19 @@ void optiondialog_cb(GtkWidget * widget, gpointer data)
 	dg = html_diag_new(_("Option"));
 	fill_dialogvalues(tagitems, tagvalues, &custom, (Ttagpopup *) data, widget, dg);
 
-	dgtable = html_diag_table_in_vbox(dg, 5, 10);
+	dgtable = html_diag_table_in_vbox(dg, 3, 10);
 
 	dg->entry[1] = entry_with_text(tagvalues[0], 256);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Value")), 0, 1, 0, 1);
+	bf_mnemonic_label_tad_with_alignment(N_("_Value:"), dg->entry[1], 0, 0.5, dgtable, 0, 1, 0, 1);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[1], 1, 10, 0, 1);
 
 	dg->entry[2] = entry_with_text(tagvalues[2], 256);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Label")), 0, 1, 2, 3);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[2], 1, 10, 2, 3);
+	bf_mnemonic_label_tad_with_alignment(N_("_Label:"), dg->entry[2], 0, 0.5, dgtable, 0, 1, 1, 2);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[2], 1, 10, 1, 2);
 
 	dg->check[1] = gtk_check_button_new();
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->check[1], 1, 2, 3, 4);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Selected")), 0, 1, 3, 4);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->check[1], 1, 2, 2, 3);
+	bf_mnemonic_label_tad_with_alignment(N_("_Selected:"), dg->check[1], 0, 0.5, dgtable, 0, 1, 2, 3);
 	parse_existence_for_dialog(tagvalues[2], dg->check[1]);
 
 	html_diag_finish(dg, G_CALLBACK(optiondialogok_lcb));
@@ -689,7 +689,7 @@ void optgroupdialog_cb(GtkWidget * widget, gpointer data)
 
 	dgtable = html_diag_table_in_vbox(dg, 5, 10);
 	dg->entry[1] = entry_with_text(tagvalues[0], 256);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Label")), 0, 1, 0, 1);
+	bf_mnemonic_label_tad_with_alignment(N_("_Label:"), dg->entry[1], 0, 0.5, dgtable, 0, 1, 0, 1);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[1], 1, 10, 0, 1);
 
 	html_diag_finish(dg, G_CALLBACK(optgroupdialogok_lcb));

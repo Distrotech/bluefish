@@ -85,25 +85,25 @@ void tabledialog_cb(GtkWidget * widget, gpointer data)
 	dgtable = html_diag_table_in_vbox(dg, 5, 8);
 
 	dg->spin[1] = spinbut_with_value(tagvalues[0], 0, 100, 1.0, 5.0);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Cell Padding")), 0, 1, 0, 1);
+	bf_mnemonic_label_tad_with_alignment(N_("Cell _Padding:"), dg->spin[1], 0, 0.5, dgtable, 0, 1, 0, 1);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->spin[1], 1, 2, 0, 1);
 
 	dg->spin[3] = spinbut_with_value(tagvalues[1], 0, 100, 1.0, 5.0);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Cell Spacing")), 0, 1, 1, 2);
+	bf_mnemonic_label_tad_with_alignment(N_("C_ell Spacing:"), dg->spin[3], 0, 0.5, dgtable, 0, 1, 1, 2);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->spin[3], 1, 2, 1, 2);
 
 	dg->combo[4] = combo_with_popdown_sized(tagvalues[7], recent_attribs.classlist, 1, 80);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Class")), 0, 1, 2, 3);
+	bf_mnemonic_label_tad_with_alignment(N_("Cl_ass:"), dg->combo[4], 0, 0.5, dgtable, 0, 1, 2, 3);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->combo[4], 1, 2, 2, 3);
 
 	dg->entry[2] = entry_with_text(tagvalues[8], 1024);
 	var_but = style_but_new(dg->entry[2], dg->dialog);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Style")), 0, 1, 3, 4);
+	bf_mnemonic_label_tad_with_alignment(N_("St_yle:"), dg->entry[2], 0, 0.5, dgtable, 0, 1, 3, 4);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[2], 1, 4, 3, 4);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), var_but, 4, 5, 3, 4);
 
 	dg->entry[1] = entry_with_text(custom, 1024);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Custom")), 0, 1, 4, 5);
+	bf_mnemonic_label_tad_with_alignment(N_("Custo_m:"), dg->entry[1], 0, 0.5, dgtable, 0, 1, 4, 5);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[1], 1, 5, 4, 5);
 
 	alignlist = g_list_append(alignlist, "left");
@@ -111,7 +111,7 @@ void tabledialog_cb(GtkWidget * widget, gpointer data)
 	alignlist = g_list_append(alignlist, "center");
 	dg->combo[1] = combo_with_popdown_sized(tagvalues[3], alignlist, 0, 80);
 	g_list_free(alignlist);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Align")), 2, 3, 0, 1);
+	bf_mnemonic_label_tad_with_alignment(N_("Ali_gn:"), dg->combo[1], 1, 0.5, dgtable, 2, 3, 0, 1);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->combo[1], 3, 5, 0, 1);
 
   alignlist = NULL;
@@ -125,24 +125,24 @@ void tabledialog_cb(GtkWidget * widget, gpointer data)
 	dg->combo[2] = combo_with_popdown_sized(tagvalues[4], alignlist, 1, 80);
 	g_list_free(alignlist);
 
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Vertical Align")), 2, 3, 1, 2);
+	bf_mnemonic_label_tad_with_alignment(N_("_Valign:"), dg->combo[2], 1, 0.5, dgtable, 2, 3, 1, 2);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->combo[2], 3, 5, 1, 2);
 
 	dg->combo[3] = combo_with_popdown_sized(tagvalues[5], recent_attribs.colorlist, 1, 80);
 	var_but = color_but_new(GTK_COMBO(dg->combo[3])->entry, dg->dialog);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Background Color")), 2, 3, 2, 3);
+	bf_mnemonic_label_tad_with_alignment(N_("Backgrou_nd Color:"), dg->combo[3], 0, 0.5, dgtable, 2, 3, 2, 3);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->combo[3], 3, 4, 2, 3);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), var_but, 4, 5, 2, 3);
 
 	dg->spin[2] = spinbut_with_value(NULL, 0, 900, 1.0, 5.0);
 	dg->check[1] = gtk_check_button_new_with_label("%");
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_(" Width ")), 5, 6, 0, 1);
+	bf_mnemonic_label_tad_with_alignment(N_("_Width:"), dg->spin[2], 0, 0.5, dgtable, 5, 6, 0, 1);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->spin[2], 6, 7, 0, 1);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->check[1], 7, 8, 0, 1);
 	parse_integer_for_dialog(tagvalues[6], dg->spin[2], NULL, dg->check[1]);
 
 	dg->spin[4] = spinbut_with_value(tagvalues[2], 0, 100, 1.0, 5.0);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Border")), 5, 6, 1, 2);
+	bf_mnemonic_label_tad_with_alignment(N_("Bo_rder:"), dg->spin[4], 0, 0.5, dgtable, 5, 6, 1, 2);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->spin[4], 6, 8, 1, 2);
 
 	popuplist = g_list_append(NULL, "");
@@ -156,7 +156,7 @@ void tabledialog_cb(GtkWidget * widget, gpointer data)
 	popuplist = g_list_append(popuplist, "box");
 	popuplist = g_list_append(popuplist, "border");
 	dg->combo[5] = combo_with_popdown_sized(tagvalues[10], popuplist, 0, 80);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Frame")), 5, 6, 2, 3);
+	bf_mnemonic_label_tad_with_alignment(N_("_Frame:"), dg->combo[5], 0, 0.5, dgtable, 5, 6, 2, 3);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->combo[5], 6, 8, 2, 3);
 	g_list_free(popuplist);
 
@@ -167,7 +167,7 @@ void tabledialog_cb(GtkWidget * widget, gpointer data)
 	popuplist = g_list_append(popuplist, "cols");
 	popuplist = g_list_append(popuplist, "all");
 	dg->combo[6] = combo_with_popdown_sized(tagvalues[9], popuplist, 0, 80);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Rules")), 5, 6, 3, 4);
+	bf_mnemonic_label_tad_with_alignment(N_("R_ules:"), dg->combo[6], 0, 0.5, dgtable, 5, 6, 3, 4);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->combo[6], 6, 8, 3, 4);
 	g_list_free(popuplist);
 
@@ -222,7 +222,7 @@ void tablerowdialog_cb(GtkWidget * widget, gpointer data)
 	alignlist = g_list_insert(alignlist, "center", 2);
 	dg->combo[1] = combo_with_popdown_sized(tagvalues[0], alignlist, 0, 90);
 	g_list_free(alignlist);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Align")), 0, 1, 0, 1);
+	bf_mnemonic_label_tad_with_alignment(N_("Ali_gn:"), dg->combo[1], 0, 0.5, dgtable, 0, 1, 0, 1);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(dg->combo[1]), 1, 2, 0, 1);
 
   alignlist = NULL;
@@ -236,27 +236,27 @@ void tablerowdialog_cb(GtkWidget * widget, gpointer data)
 	dg->combo[2] = combo_with_popdown_sized(tagvalues[1], alignlist, 0, 90);
 	g_list_free(alignlist);
 
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("VAlign")), 0, 1, 1, 2);
+	bf_mnemonic_label_tad_with_alignment(N_("_Valign:"), dg->combo[2], 0, 0.5, dgtable, 0, 1, 1, 2);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(GTK_COMBO(dg->combo[2])), 1, 2, 1, 2);
 
 	dg->combo[4] = combo_with_popdown_sized(tagvalues[3], recent_attribs.classlist, 1, 90);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Class")), 2, 3, 0, 1);
+	bf_mnemonic_label_tad_with_alignment(N_("Cl_ass:"), dg->combo[4], 1, 0.5, dgtable, 2, 3, 0, 1);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->combo[4], 3, 5, 0, 1);
 
 	dg->combo[3] = combo_with_popdown_sized(tagvalues[2], recent_attribs.colorlist, 1, 90);
 	color_but = color_but_new(GTK_COMBO(dg->combo[3])->entry, dg->dialog);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Background Color")), 2, 3, 1, 2);
+	bf_mnemonic_label_tad_with_alignment(N_("Backgou_nd Color:"), dg->combo[3], 0, 0.5, dgtable, 2, 3, 1, 2);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(GTK_COMBO(dg->combo[3])), 3, 4, 1, 2);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(color_but), 4, 5, 1, 2);
 
 	dg->entry[2] = entry_with_text(tagvalues[4], 1024);
 	var_but = style_but_new(dg->entry[2], dg->dialog);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Style")), 0, 1, 2, 3);
+	bf_mnemonic_label_tad_with_alignment(N_("St_yle:"), dg->entry[2], 0, 0.5, dgtable, 0, 1, 2, 3);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[2], 1, 4, 2, 3);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), var_but, 4, 5, 2, 3);
 
 	dg->entry[1] = entry_with_text(custom, 1024);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Custom")), 0, 1, 3, 4);
+	bf_mnemonic_label_tad_with_alignment(N_("Custo_m:"), dg->entry[1], 0, 0.5, dgtable, 0, 1, 3, 4);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[1], 1, 5, 3, 4);
 
 	html_diag_finish(dg, G_CALLBACK(tablerowdialogok_lcb));
@@ -336,7 +336,7 @@ static void table_head_and_data_dialog_cb(gint type, GtkWidget * widget, gpointe
 	alignlist = g_list_insert(alignlist, "justify", 3);
 	dg->combo[1] = combo_with_popdown_sized(tagvalues[1], alignlist, 1, 80);
 	g_list_free(alignlist);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Align")), 0, 1, 0, 1);
+	bf_mnemonic_label_tad_with_alignment(N_("Ali_gn:"), dg->combo[1], 0, 0.5, dgtable, 0, 1, 0, 1);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(GTK_COMBO(dg->combo[1])), 1, 2, 0, 1);
 
   alignlist = NULL;
@@ -350,52 +350,52 @@ static void table_head_and_data_dialog_cb(gint type, GtkWidget * widget, gpointe
 	dg->combo[2] = combo_with_popdown_sized(tagvalues[4], alignlist, 1, 90);
 	g_list_free(alignlist);
 
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("VAlign")), 0, 1, 1, 2);
+	bf_mnemonic_label_tad_with_alignment(N_("_Valign:"), dg->combo[2], 0, 0.5, dgtable, 0, 1, 1, 2);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(GTK_COMBO(dg->combo[2])), 1, 2, 1, 2);
 
 	dg->combo[4] = combo_with_popdown_sized(tagvalues[8], recent_attribs.classlist, 1, 80);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Class")), 0, 1, 2, 3);
+	bf_mnemonic_label_tad_with_alignment(N_("Cl_ass:"), dg->combo[4], 0, 0.5, dgtable, 0, 1, 2, 3);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(GTK_COMBO(dg->combo[4])), 1, 2, 2, 3);
 
 	dg->entry[2] = entry_with_text(tagvalues[9], 512);
 	var_but = style_but_new(dg->entry[2], dg->dialog);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Style")), 0, 1, 3, 4);
+	bf_mnemonic_label_tad_with_alignment(N_("St_yle:"), dg->entry[2], 0, 0.5, dgtable, 0, 1, 3, 4);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[2], 1, 6, 3, 4);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), var_but, 6, 7, 3, 4);
 
 	dg->entry[1] = entry_with_text(custom, 1024);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Custom")), 0, 1, 4, 5);
+	bf_mnemonic_label_tad_with_alignment(N_("Custo_m:"), dg->entry[1], 0, 0.5, dgtable, 0, 1, 4, 5);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[1], 1, 7, 4, 5);
 
 	dg->spin[5] = spinbut_with_value(tagvalues[2], 0, 10, 1.0, 2.0);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Col Span")), 2, 3, 0, 1);
+	bf_mnemonic_label_tad_with_alignment(N_("Co_l Span:"), dg->spin[5], 1, 0.5, dgtable, 2, 3, 0, 1);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->spin[5], 3, 4, 0, 1);
 
 	dg->spin[4] = spinbut_with_value(tagvalues[5], 0, 100, 1.0, 5.0);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Row Span")), 2, 3, 1, 2);
+	bf_mnemonic_label_tad_with_alignment(N_("_Row Span:"), dg->spin[4], 1, 0.5, dgtable, 2, 3, 1, 2);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->spin[4], 3, 4, 1, 2);
 
 	dg->check[1] = gtk_check_button_new();
 	parse_existence_for_dialog(tagvalues[7], dg->check[1]);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("No Wrap")), 2, 3, 2, 3);
+	bf_mnemonic_label_tad_with_alignment(N_("No Wra_p:"), dg->check[1], 1, 0.5, dgtable, 2, 3, 2, 3);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->check[1], 3, 4, 2, 3);
 	
 	dg->spin[1] = spinbut_with_value(NULL, 0, 100, 1.0, 5.0);
 	dg->check[2] = gtk_check_button_new_with_label("%");
 	parse_integer_for_dialog(tagvalues[0], dg->spin[1], NULL, dg->check[2]);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Width")), 4, 5, 0, 1);
+	bf_mnemonic_label_tad_with_alignment(N_("_Width:"), dg->spin[1], 1, 0.5, dgtable, 4, 5, 0, 1);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->spin[1], 5, 6, 0, 1);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->check[2], 6, 7, 0, 1);
 
 	dg->spin[3] = spinbut_with_value(NULL, 0, 100, 1.0, 5.0);
 	dg->check[3] = gtk_check_button_new_with_label("%");
 	parse_integer_for_dialog(tagvalues[3], dg->spin[3], NULL, dg->check[3]);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Height")), 4, 5, 1, 2);
+	bf_mnemonic_label_tad_with_alignment(N_("_Height:"), dg->spin[3], 1, 0.5, dgtable, 4, 5, 1, 2);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->spin[3], 5, 6, 1, 2);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->check[3], 6, 7, 1, 2);
 
 	dg->combo[3] = combo_with_popdown_sized(tagvalues[6], recent_attribs.colorlist, 1, 80);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Background Color")), 4, 5, 2, 3);
+	bf_mnemonic_label_tad_with_alignment(N_("Backgrou_nd Color:"), dg->combo[3], 1, 0.5, dgtable, 4, 5, 2, 3);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(GTK_COMBO(dg->combo[3])), 5, 6, 2, 3);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(color_but_new(GTK_COMBO(dg->combo[3])->entry, dg->dialog)), 6, 7, 2, 3);
 

@@ -67,24 +67,26 @@ void tablewizard(GtkWidget *widget, gpointer data) {
 	Thtml_diag *dg;
 	dg = html_diag_new(_("Table Wizard"));
 
-	dgtable = gtk_table_new(2, 10, 0);
+	dgtable = gtk_table_new(4, 5, 0);
+	gtk_table_set_row_spacings(GTK_TABLE(dgtable), 6);
+	gtk_table_set_col_spacings(GTK_TABLE(dgtable), 12);
 	gtk_box_pack_start(GTK_BOX(dg->vbox), dgtable, FALSE, FALSE, 0);
 
 	dg->spin[1] = spinbut_with_value(NULL, 1, 100, 1.0, 5.0);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Number of rows")), 0, 1, 0, 1);
+	bf_mnemonic_label_tad_with_alignment(N_("Number of _rows:"), dg->spin[1], 0, 0.5, dgtable, 0, 1, 0, 1);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->spin[1], 1, 5, 0, 1);
 
 	dg->spin[2] = spinbut_with_value(NULL, 1, 100, 1.0, 5.0);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Number of Columns per row")), 0, 1, 1, 2);
+	bf_mnemonic_label_tad_with_alignment(N_("Number of colu_mns:"), dg->spin[2], 0, 0.5, dgtable, 0, 1, 1, 2);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->spin[2], 1, 5, 1, 2);
 
 	dg->check[1] = gtk_check_button_new();
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Tablerows on one line")), 5, 8, 0, 1);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->check[1], 8, 10, 0, 1);
+	bf_mnemonic_label_tad_with_alignment(N_("Table rows on one _line:"), dg->check[1], 0, 0.5, dgtable, 0, 1, 2, 3);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->check[1], 1, 2, 2, 3);
 
 	dg->check[2] = gtk_check_button_new();
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Indent table code")), 5, 8, 1, 2);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->check[2], 8, 10, 1, 2);
+	bf_mnemonic_label_tad_with_alignment(N_("_Indent table code:"), dg->check[2], 0, 0.5, dgtable, 0, 1, 3, 4);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->check[2], 1, 5, 3, 4);
 
 	html_diag_finish(dg, G_CALLBACK(table_wizard_ok_lcb));
 }
@@ -158,58 +160,68 @@ static void frame_wizard_num_changed(GtkWidget *widget, Thtml_diag *dg) {
 	num = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(dg->spin[1]));
 	for (i = 0; i < MAX_FRAMES_IN_FRAMEWIZARD ; i++) {
 		if (i < num) {
-			gtk_widget_show(dg->clist[i]);
+			gtk_widget_set_sensitive(dg->clist[i], TRUE);
 		} else {
-			gtk_widget_hide(dg->clist[i]); 
+			gtk_widget_set_sensitive(dg->clist[i], FALSE); 
 		}
 	}
 }
 
 void framewizard(GtkWidget * widget, gpointer data) {
 
-	GtkWidget *dgtable, *frame, *vbox;
+	GtkWidget *dgtable, *frame, *vbox, *label;
 	Thtml_diag *dg;
 	gint i;
 
 	dg = html_diag_new(_("Frame Wizard"));
 
-	dgtable = gtk_table_new(8, 5, 0);
-	gtk_box_pack_start(GTK_BOX(dg->vbox), dgtable, FALSE, FALSE, 0);
-
+	dgtable = gtk_table_new(4, 12, FALSE);
+	gtk_table_set_row_spacings(GTK_TABLE(dgtable), 6);
+	gtk_table_set_col_spacings(GTK_TABLE(dgtable), 12);
+	frame = gtk_aspect_frame_new(NULL, 0, 0.5, 0, TRUE);
+	gtk_frame_set_shadow_type(GTK_FRAME(frame), GTK_SHADOW_NONE);
+	gtk_box_pack_start(GTK_BOX(dg->vbox), frame, FALSE, FALSE, 0);
+	gtk_container_add(GTK_CONTAINER(frame), dgtable);
+	
 	dg->entry[12] = entry_with_text(NULL, 256);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Title")), 0, 1, 0, 1);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[12], 1, 5, 0, 1);
+	bf_mnemonic_label_tad_with_alignment(N_("_Title:"), dg->entry[12], 0, 0.5, dgtable, 0, 1, 0, 1);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[12], 1, 12, 0, 1);
 
 	dg->check[0] = gtk_check_button_new();
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Use DTD")), 0, 1, 1, 2);
+	bf_mnemonic_label_tad_with_alignment(N_("Use _DTD:"), dg->check[0], 0, 0.5, dgtable, 0, 1, 1, 2);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->check[0], 1, 2, 1, 2);
 
-	dg->radio[1] = radiobut_with_value(_("Horizontal"), 0, NULL);
-	dg->radio[2] = radiobut_with_value(_("Vertical"), 0, GTK_RADIO_BUTTON(dg->radio[1]));
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->radio[1], 0, 2, 2, 3);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->radio[2], 0, 2, 3, 4);
+	label = gtk_label_new(N_("Orientation:"));
+	gtk_misc_set_alignment(GTK_MISC(label), 0, 0.5);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), label, 0, 1, 2, 3);
+	dg->radio[1] = radiobut_with_value(N_("_Horizontal"), 0, NULL);
+	dg->radio[2] = radiobut_with_value(N_("_Vertical"), 0, GTK_RADIO_BUTTON(dg->radio[1]));
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->radio[1], 1, 2, 2, 3);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->radio[2], 2, 3, 2, 3);
 
 	dg->spin[1] = spinbut_with_value("2", 1, MAX_FRAMES_IN_FRAMEWIZARD, 1.0, 2.0);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Number of Frames")), 0, 1, 4, 5);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->spin[1], 1, 2, 4, 5);
+	bf_mnemonic_label_tad_with_alignment(N_("Number of _Frames:"), dg->spin[1], 0, 0.5, dgtable, 0, 1, 3, 4);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->spin[1], 1, 2, 3, 4);
 	g_signal_connect(G_OBJECT(dg->spin[1]), "changed", G_CALLBACK(frame_wizard_num_changed), dg);
 	frame = gtk_frame_new(_("Frame's"));
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), frame, 2, 5, 1, 8);
+	gtk_container_set_border_width(GTK_CONTAINER(frame), 6);
+	gtk_box_pack_start(GTK_BOX(dg->vbox), frame, FALSE, FALSE, 0);
 	vbox = gtk_vbox_new(FALSE, 0);
+	gtk_container_set_border_width(GTK_CONTAINER(vbox), 6);
 	gtk_container_add(GTK_CONTAINER(frame), vbox);
 
 	for (i = 0; i < MAX_FRAMES_IN_FRAMEWIZARD ; i++) {
 		GtkWidget *file_but;
 	/* since there are no clists in this dialog we can use it freely :) */
-		dg->clist[i] = gtk_hbox_new(FALSE, 0);
+		dg->clist[i] = gtk_hbox_new(FALSE, 6);
 		gtk_box_pack_start(GTK_BOX(vbox), dg->clist[i], FALSE, FALSE, 0);
-		gtk_box_pack_start(GTK_BOX(dg->clist[i]), gtk_label_new(_("Name")), TRUE, TRUE, 0);
+		gtk_box_pack_start(GTK_BOX(dg->clist[i]), gtk_label_new(_("Name:")), TRUE, TRUE, 0);
 		dg->combo[i] = boxed_combo_with_popdown(NULL, recent_attribs.targetlist, 1, dg->clist[i]);
-		gtk_box_pack_start(GTK_BOX(dg->clist[i]), gtk_label_new(_("Source")), TRUE, TRUE, 0);
+		gtk_box_pack_start(GTK_BOX(dg->clist[i]), gtk_label_new(_("Source:")), TRUE, TRUE, 0);
 		dg->combo[i+5] = boxed_combo_with_popdown(NULL, recent_attribs.urllist, 1, dg->clist[i]);
 		file_but = file_but_new(GTK_WIDGET(GTK_COMBO(dg->combo[i+5])->entry), dg->dialog, 0);
-		gtk_box_pack_start(GTK_BOX(dg->clist[i]), file_but, TRUE, TRUE, 0);		
-		gtk_box_pack_start(GTK_BOX(dg->clist[i]), gtk_label_new(_("Size")), TRUE, TRUE, 0);
+		gtk_box_pack_start(GTK_BOX(dg->clist[i]), file_but, FALSE, FALSE, 0);		
+		gtk_box_pack_start(GTK_BOX(dg->clist[i]), gtk_label_new(_("Size:")), TRUE, TRUE, 0);
 		dg->entry[i] = boxed_entry_with_text(NULL, 100, dg->clist[i]);
 
 	}
