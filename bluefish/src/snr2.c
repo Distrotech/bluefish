@@ -935,9 +935,9 @@ static void snr2dialog_ok_lcb(GtkWidget *widget, Tsnr2_win *data) {
  	last_snr2.is_case_sens = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(data->is_case_sens));
  	last_snr2.overlapping_search = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(data->overlapping_search));
 	if (data->replace) {
-		last_snr2.replace = 1;
 		GtkTextIter itstart, itend;
 		GtkTextBuffer *buf = gtk_text_view_get_buffer(GTK_TEXT_VIEW(data->replace_entry));
+		last_snr2.replace = 1;
 		gtk_text_buffer_get_bounds(buf,&itstart,&itend);
 		last_snr2.replace_pattern = gtk_text_buffer_get_text(buf,&itstart,&itend, FALSE);
 	 	last_snr2.prompt_before_replace = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(data->prompt_before_replace));
