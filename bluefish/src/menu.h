@@ -37,5 +37,6 @@ void encoding_menu_rebuild(Tbfwin *bfwin);
 void make_cust_menubar(Tbfwin *bfwin,GtkWidget *cust_handle_box);
 void filetype_menu_rebuild(Tbfwin *bfwin,GtkItemFactory *item_factory);
 void filetype_menus_empty(void);
+gchar *menu_translate(const gchar * path, gpointer data);
 
 #endif							/* __MENU_H_ */

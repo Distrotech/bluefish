@@ -36,6 +36,7 @@
 #include "filebrowser.h"
 #include "gui.h" /* statusbar_message() */
 #include "image.h" /* image_insert_from_filename() */
+#include "menu.h" /* translation */
 
 /*#define DEBUG_SORTING
 #define DEBUG_FILTER
@@ -1438,6 +1439,9 @@ static GtkWidget *filebrowser_rpopup_create_menu(Tfilebrowser *filebrowser, gboo
 
 	/* Create menu as defined in filebrowser_menu_entries[] */
 	menumaker = gtk_item_factory_new(GTK_TYPE_MENU, "<Filebrowser>", NULL);
+#ifdef ENABLE_NLS
+	gtk_item_factory_set_translate_func(menumaker,menu_translate,"<Filebrowser>",NULL);
+#endif
 	if (is_directory) {
 		gtk_item_factory_create_items(menumaker, sizeof(filebrowser_dirmenu_entries)/sizeof(GtkItemFactoryEntry), filebrowser_dirmenu_entries, filebrowser);
 	} else {
