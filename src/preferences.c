@@ -282,6 +282,16 @@ static void generic_selection_changed_cb(GtkTreeSelection *selection
 	}
 }
 
+static gchar **generic_create_strarr(gint numitems, GtkWidget **entries) {
+	gint i;
+	gchar **strarr = g_malloc((numitems+1)*sizeof(gchar *));
+	for (i=0;i<numitems;i++) {
+		strarr[i] = gtk_editable_get_chars(GTK_EDITABLE(entries[i]), 0, -1);
+	}
+	strarr[numitems] = NULL;
+	return strarr;
+}
+
 /**********************************************************/
 /* FILETYPE, FILTERS AND HIGHLIGHT PATTERNS FUNCTIONS     */
 /**********************************************************/
@@ -310,18 +320,32 @@ static void add_new_general_lcb(Tprefdialog *pd, GtkWidget *entry, gint numentri
 	}
 }
 
+static gchar **filetype_create_strarr(Tprefdialog *pd) {
+	gchar **strarr;
+	gchar *escaped, *tmp;
+	tmp = gtk_editable_get_chars(GTK_EDITABLE(pd->ftd.entry[0]),0,-1);
+	if (strlen(tmp)) {
+		strarr = g_malloc(5*sizeof(gchar *));
+		strarr[0] = tmp;
+		strarr[1] = gtk_editable_get_chars(GTK_EDITABLE(pd->ftd.entry[1]),0,-1);
+		escaped = gtk_editable_get_chars(GTK_EDITABLE(pd->ftd.entry[2]),0,-1);
+		strarr[2] = unescapestring(escaped);
+		g_free(escaped);
+		strarr[3] = gtk_editable_get_chars(GTK_EDITABLE(pd->ftd.entry[3]),0,-1);
+		strarr[4] = NULL;
+		DEBUG_MSG("filetype_create_strarr, created at %p\n", strarr);
+		return strarr;
+	} else {
+		g_free(tmp);
+		return NULL;
+	}
+}
 
 static void add_new_filetype_lcb(GtkWidget *wid, Tprefdialog *pd) {
-	add_new_general_lcb(pd, pd->ftd.entry[0],4,filetypes,GTK_LIST_STORE(pd->ftd.lstore));
-/*	gchar *newtype = gtk_editable_get_chars(GTK_EDITABLE(pd->ftd.entry[0]),0,-1);
-	DEBUG_MSG("add_new_filetype_lcb, newtype=%s\n", newtype);
-	if (strlen(newtype)) {
-		gchar **strarr = g_malloc(5*sizeof(gchar *));
-		strarr[0] = newtype;
-		strarr[1] = g_strdup("");
-		strarr[2] = g_strdup("");
-		strarr[3] = g_strdup("");
-		strarr[4] = NULL;
+/*	add_new_general_lcb(pd, pd->ftd.entry[0],4,filetypes,GTK_LIST_STORE(pd->ftd.lstore));*/
+	gchar **strarr;
+	strarr = filetype_create_strarr(pd);
+	if (strarr) {
 		pd->lists[filetypes] = g_list_append(pd->lists[filetypes], strarr);
 		{
 			GtkTreeIter iter;
@@ -335,25 +359,26 @@ static void add_new_filetype_lcb(GtkWidget *wid, Tprefdialog *pd) {
 				,-1);
 			g_free(escaped);
 		}
-	} else {
-		g_free(newtype);
-	}*/
+	}
 }
 
 static void filetype_apply_changes(Tprefdialog *pd) {
 	DEBUG_MSG("filetype_apply_changes, started\n");
 	if (pd->ftd.curstrarr) {
 		GtkTreeIter iter;
-		gchar *escaped;
 		gboolean retval = TRUE;
-		g_free(pd->ftd.curstrarr[1]);
-		pd->ftd.curstrarr[1] = gtk_editable_get_chars(GTK_EDITABLE(pd->ftd.entry[1]),0,-1);
-		g_free(pd->ftd.curstrarr[2]);
-		escaped = gtk_editable_get_chars(GTK_EDITABLE(pd->ftd.entry[2]),0,-1);
-		pd->ftd.curstrarr[2] = unescapestring(escaped);
-		g_free(escaped);
-		g_free(pd->ftd.curstrarr[3]);
-		pd->ftd.curstrarr[3] = gtk_editable_get_chars(GTK_EDITABLE(pd->ftd.entry[3]),0,-1);
+		GList *tmplist;
+		tmplist = g_list_first(pd->lists[filetypes]);
+		while (tmplist) {
+			if (tmplist->data == pd->ftd.curstrarr) {
+				g_strfreev(pd->ftd.curstrarr);
+				tmplist->data = filetype_create_strarr(pd);
+				pd->ftd.curstrarr = tmplist->data;
+				DEBUG_MSG("filetype_apply_changes, new curstrarr=%p\n", pd->ftd.curstrarr);
+				break;
+			}
+			tmplist = g_list_next(tmplist);
+		}
 		
 		gtk_tree_model_get_iter_first(GTK_TREE_MODEL(pd->ftd.lstore),&iter);
 		while (retval) {
@@ -361,6 +386,7 @@ static void filetype_apply_changes(Tprefdialog *pd) {
 			gtk_tree_model_get(GTK_TREE_MODEL(pd->ftd.lstore),&iter,0,&curval,-1);
 			if (strcmp(curval,pd->ftd.curstrarr[0])==0) {
 				gchar *escaped = escapestring(pd->ftd.curstrarr[2],'\0');
+				DEBUG_MSG("filetype_apply_changes, set listore 0=%s,1=%s\n", pd->ftd.curstrarr[0], pd->ftd.curstrarr[1]);
 				gtk_list_store_set(GTK_LIST_STORE(pd->ftd.lstore), &iter
 					,0,pd->ftd.curstrarr[0]
 					,1,pd->ftd.curstrarr[1]
@@ -542,51 +568,65 @@ static void create_filefilter_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 	
 }
 
+static gchar **highlightpattern_create_strarr(Tprefdialog *pd) {
+	gchar **strarr;
+	strarr = g_malloc(12*sizeof(gchar *));
+	strarr[0] = g_strdup(pd->hpd.selected_filetype);
+	strarr[1] = gtk_editable_get_chars(GTK_EDITABLE(pd->hpd.entry[0]),0,-1);
+	if (GTK_TOGGLE_BUTTON(pd->hpd.check)->active){
+		strarr[2] = g_strdup("0");
+	} else {
+		strarr[2] = g_strdup("1");
+	}
+	strarr[3] = gtk_editable_get_chars(GTK_EDITABLE(pd->hpd.entry[1]),0,-1);
+	strarr[4] = gtk_editable_get_chars(GTK_EDITABLE(pd->hpd.entry[2]),0,-1);
+	if (GTK_TOGGLE_BUTTON(pd->hpd.radio[0])->active){
+		strarr[5] = g_strdup("1");
+	} else if (GTK_TOGGLE_BUTTON(pd->hpd.radio[1])->active) {
+		strarr[5] = g_strdup("2");
+	} else {
+		strarr[5] = g_strdup("3");
+	}
+	strarr[6] = gtk_editable_get_chars(GTK_EDITABLE(pd->hpd.entry[3]),0,-1);
+	strarr[7] = gtk_editable_get_chars(GTK_EDITABLE(pd->hpd.entry[4]),0,-1);
+	strarr[8] = gtk_editable_get_chars(GTK_EDITABLE(pd->hpd.entry[5]),0,-1);
+	if (GTK_TOGGLE_BUTTON(pd->hpd.radio[3])->active){
+		strarr[9] = g_strdup("0");
+	} else if (GTK_TOGGLE_BUTTON(pd->hpd.radio[4])->active) {
+		strarr[9] = g_strdup("1");
+	} else {
+		strarr[9] = g_strdup("2");
+	}
+	if (GTK_TOGGLE_BUTTON(pd->hpd.radio[6])->active){
+		strarr[10] = g_strdup("0");
+	} else if (GTK_TOGGLE_BUTTON(pd->hpd.radio[7])->active) {
+		strarr[10] = g_strdup("1");
+	} else {
+		strarr[10] = g_strdup("2");
+	}
+	strarr[11] = NULL;
+	DEBUG_MSG("highlightpattern_create_strarr, strarr at %p with count %d\n", strarr, count_array(strarr));
+	return strarr;
+}
 
 static void highlightpattern_apply_changes(Tprefdialog *pd) {
 	DEBUG_MSG("highlightpattern_apply_changes, started\n");
 	if (pd->hpd.curstrarr) {
-		g_free(pd->hpd.curstrarr[2]);
-		if (GTK_TOGGLE_BUTTON(pd->hpd.check)->active){
-			pd->hpd.curstrarr[2] = g_strdup("0");
-		} else {
-			pd->hpd.curstrarr[2] = g_strdup("1");
+		GList *tmplist;
+		tmplist = g_list_first(pd->lists[highlight_patterns]);
+		while (tmplist) {
+			if (tmplist->data == pd->hpd.curstrarr) {
+				DEBUG_MSG("highlightpattern_apply_changes, curstrarr==tmplist->data==%p\n", tmplist->data);
+				g_strfreev(tmplist->data);
+				tmplist->data = highlightpattern_create_strarr(pd);
+				pd->hpd.curstrarr = NULL;
+				return;
+			}
+			tmplist = g_list_next(tmplist);
 		}
-		g_free(pd->hpd.curstrarr[3]);
-		pd->hpd.curstrarr[3] = gtk_editable_get_chars(GTK_EDITABLE(pd->hpd.entry[1]),0,-1);
-		g_free(pd->hpd.curstrarr[4]);
-		pd->hpd.curstrarr[4] = gtk_editable_get_chars(GTK_EDITABLE(pd->hpd.entry[2]),0,-1);
-		g_free(pd->hpd.curstrarr[5]);
-		if (GTK_TOGGLE_BUTTON(pd->hpd.radio[0])->active){
-			pd->hpd.curstrarr[5] = g_strdup("1");
-		} else if (GTK_TOGGLE_BUTTON(pd->hpd.radio[1])->active) {
-			pd->hpd.curstrarr[5] = g_strdup("2");
-		} else {
-			pd->hpd.curstrarr[5] = g_strdup("3");
-		}
-		g_free(pd->hpd.curstrarr[6]);
-		pd->hpd.curstrarr[6] = gtk_editable_get_chars(GTK_EDITABLE(pd->hpd.entry[3]),0,-1);
-		g_free(pd->hpd.curstrarr[7]);
-		pd->hpd.curstrarr[7] = gtk_editable_get_chars(GTK_EDITABLE(pd->hpd.entry[4]),0,-1);
-		g_free(pd->hpd.curstrarr[8]);
-		pd->hpd.curstrarr[8] = gtk_editable_get_chars(GTK_EDITABLE(pd->hpd.entry[5]),0,-1);
-		g_free(pd->hpd.curstrarr[9]);
-		if (GTK_TOGGLE_BUTTON(pd->hpd.radio[3])->active){
-			pd->hpd.curstrarr[9] = g_strdup("0");
-		} else if (GTK_TOGGLE_BUTTON(pd->hpd.radio[4])->active) {
-			pd->hpd.curstrarr[9] = g_strdup("1");
-		} else {
-			pd->hpd.curstrarr[9] = g_strdup("2");
-		}
-		g_free(pd->hpd.curstrarr[10]);
-		if (GTK_TOGGLE_BUTTON(pd->hpd.radio[6])->active){
-			pd->hpd.curstrarr[10] = g_strdup("0");
-		} else if (GTK_TOGGLE_BUTTON(pd->hpd.radio[7])->active) {
-			pd->hpd.curstrarr[10] = g_strdup("1");
-		} else {
-			pd->hpd.curstrarr[10] = g_strdup("2");
-		}
+		DEBUG_MSG("highlightpattern_apply_changes, nothing found for curstrarr %p?!?\n", pd->hpd.curstrarr);
 	}
+	DEBUG_MSG("highlightpattern_apply_changes, no curstrarr, nothing to apply\n");
 }
 
 static void highlightpattern_popmenu_activate(GtkMenuItem *menuitem,Tprefdialog *pd) {
@@ -630,19 +670,7 @@ static void add_new_highlightpattern_lcb(GtkWidget *wid, Tprefdialog *pd) {
 	gchar *pattern = gtk_editable_get_chars(GTK_EDITABLE(pd->hpd.entry[0]),0,-1);
 	GtkWidget *menuitem = gtk_menu_get_active(GTK_MENU( gtk_option_menu_get_menu(GTK_OPTION_MENU(pd->hpd.popmenu)) ));
 	if (strlen(pattern) && strlen(pd->hpd.selected_filetype)) {
-		gchar **strarr = g_malloc(12 * sizeof(gchar *));
-		strarr[0] = g_strdup(pd->hpd.selected_filetype);
-		strarr[1] = pattern;
-		strarr[2] = g_strdup("");
-		strarr[3] = g_strdup("");
-		strarr[4] = g_strdup("");
-		strarr[5] = g_strdup("");
-		strarr[6] = g_strdup("");
-		strarr[7] = g_strdup("");
-		strarr[8] = g_strdup("");
-		strarr[9] = g_strdup("");
-		strarr[10] = g_strdup("");
-		strarr[11] = NULL;
+		gchar **strarr = highlightpattern_create_strarr(pd);
 		DEBUG_MSG("add_new_highlightpattern_lcb, appending strarr %p to list\n", strarr);
 		pd->lists[highlight_patterns] = g_list_append(pd->lists[highlight_patterns], strarr);
 		{
@@ -664,13 +692,20 @@ static void highlightpattern_selection_changed_cb(GtkTreeSelection *selection, T
 	DEBUG_MSG("highlightpattern_selection_changed_cb, started\n");
 	if (gtk_tree_selection_get_selected(selection, &model, &iter)) {
 		GList *tmplist = g_list_first(pd->lists[highlight_patterns]);
-		GtkWidget *menuitem = gtk_menu_get_active(GTK_MENU( gtk_option_menu_get_menu(GTK_OPTION_MENU(pd->hpd.popmenu)) ));
-		DEBUG_MSG("highlightpattern_selection_changed_cb, pd=%p, menuitem=%p, label=%p\n", pd, menuitem, GTK_BIN(menuitem)->child);
+/*		GtkWidget *menuitem = gtk_menu_get_active(GTK_MENU( gtk_option_menu_get_menu(GTK_OPTION_MENU(pd->hpd.popmenu)) ));*/
 		gtk_tree_model_get(model, &iter, 0, &pattern, -1);
 		highlightpattern_apply_changes(pd);
+		DEBUG_MSG("changed applied, searching for the data of the new selection\n");
 		while (tmplist) {
 			gchar **strarr =(gchar **)tmplist->data;
+#ifdef DEBUG
+			if (strarr == NULL){
+				DEBUG_MSG("strarr== NULL !!!!!!!!!!!!!!!\n");
+			}
+#endif
 			if (strcmp(strarr[1], pattern)==0 && strcmp(strarr[0], pd->hpd.selected_filetype)==0) {
+				DEBUG_MSG("highlightpattern_selection_changed_cb, found strarr=%p\n", strarr);
+				DEBUG_MSG("0=%s, 1=%s, 2=%s, 3=%s, 4=%s\n",strarr[0],strarr[1],strarr[2],strarr[3],strarr[4]);
 				gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(pd->hpd.check), (strarr[2][0] == '0'));
 				gtk_entry_set_text(GTK_ENTRY(pd->hpd.entry[0]), strarr[1]);
 				gtk_entry_set_text(GTK_ENTRY(pd->hpd.entry[1]), strarr[3]);
@@ -714,6 +749,7 @@ static void highlightpattern_type_toggled(GtkToggleButton *togglebutton,Tprefdia
 	} else {
 		gtk_widget_set_sensitive(pd->hpd.entry[2], FALSE);
 	}
+	DEBUG_MSG("highlightpattern_type_toggled, done\n");
 }
 static void highlightpattern_up_clicked_lcb(GtkWidget *wid, Tprefdialog *pd) {
 	GtkTreeIter iter;
