@@ -67,13 +67,14 @@ static Tproject *create_new_project(Tbfwin *bfwin) {
 		if (prefix[strlen(prefix)-1] == '/') {
 			prj->basedir = g_strdup(prefix);
 		} else {
-			prj->basedir = g_path_get_basename(prefix);
+			prj->basedir = g_path_get_dirname(prefix);
 		}
 		g_free(prefix);
 	} else {
 		prj->basedir = g_strdup("");
 	}
 	prj->webdir = g_strdup("");
+	prj->template = g_strdup("");
 	return prj;
 }
 
@@ -162,6 +163,7 @@ static void project_destroy(Tbfwin *bfwin) {
 	g_free(bfwin->project->name);
 	g_free(bfwin->project->basedir);
 	g_free(bfwin->project->webdir);
+	g_free(bfwin->project->template);
 	g_free(bfwin->project);
 	bfwin->project = NULL;
 }
@@ -187,13 +189,15 @@ gboolean project_save_and_close(Tbfwin *bfwin) {
 typedef enum {
 	name,
 	basedir,
-	webdir
+	webdir,
+	template,
+	projecteditor_entries_num
 } Tprojecteditor_entries;
 
 typedef struct {
 	GtkWidget *win;
 	Tbfwin *bfwin;
-	GtkWidget *entries[3];
+	GtkWidget *entries[projecteditor_entries_num];
 	gboolean project_created_by_editor;
 } Tprojecteditor;
 
@@ -222,6 +226,7 @@ static void project_edit_ok_clicked_lcb(GtkWidget *widget, Tprojecteditor *pred)
 	string_apply(&prj->name, pred->entries[name]);
 	string_apply(&prj->basedir, pred->entries[basedir]);
 	string_apply(&prj->webdir, pred->entries[webdir]);
+	string_apply(&prj->template, pred->entries[template]);
 	DEBUG_MSG("project_edit_ok_clicked_lcb, name=%s, basedir=%s, webdir=%s\n",prj->name,prj->basedir,prj->webdir);
 	if (strcmp(prj->basedir, oldbasedir)!=0 && strlen(prj->basedir) > 2) {
 		filebrowser_set_basedir(pred->bfwin, prj->basedir);
@@ -269,6 +274,7 @@ void project_edit(Tbfwin *bfwin) {
 	pred->entries[name] = boxed_full_entry(_("Name"), bfwin->project->name,255, vbox);
 	pred->entries[basedir] = boxed_full_entry(_("Basedir"), bfwin->project->basedir,255, vbox);
 	pred->entries[webdir] = boxed_full_entry(_("Webdir"), bfwin->project->webdir,255, vbox);
+	pred->entries[template] = boxed_full_entry(_("Template"), bfwin->project->template,255, vbox);
 
 	hbox = gtk_hbutton_box_new();
 	gtk_hbutton_box_set_layout_default(GTK_BUTTONBOX_END);
