@@ -89,12 +89,14 @@ static const gchar *TRANSLATORS = "Current translators:\n\
    <lopopizarro@netcabo.pt>\n\n\
   Russian (RU) -  Eugene Rupakov\n\
    <rupakov@jet.msk.ru>\n\n\
+  Serbian (SR) - Marko Milenović\n\
+   <raven@sbb.co.yu>\n\n\ 
   Spanish (ES) -  Walter Oscar Echarri\n\
    <wecharri@infovia.com.ar>\n\n\
   Swedish (SV) -  David Smeringe\n\
    <david.smeringe@telia.com>\n\n\
   Tamil (TA) -  Murugapandian Barathee\n\
-   <barathee@yahoo.com>\n\
+   <barathee@yahoo.com>\n\n\
 ";
 
 static GtkWidget *info;
