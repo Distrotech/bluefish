@@ -1209,7 +1209,7 @@ static void snr2dialog(gint is_replace, gint is_new_search) {
 	gtk_table_set_row_spacings (GTK_TABLE (table), 12);
 	gtk_table_set_col_spacings (GTK_TABLE (table), 6);
 
-	snr2win->search_label = gtk_label_new_with_mnemonic(N_("Search _for: "));
+	snr2win->search_label = gtk_label_new_with_mnemonic(_("Search _for: "));
 	gtk_table_attach (GTK_TABLE (table), snr2win->search_label, 0, 1, 0, 1,
 					(GtkAttachOptions) (GTK_FILL), (GtkAttachOptions) (0), 2, 0);
 	gtk_label_set_justify (GTK_LABEL (snr2win->search_label), GTK_JUSTIFY_LEFT);
@@ -1221,7 +1221,7 @@ static void snr2dialog(gint is_replace, gint is_new_search) {
 
 
 	if (is_replace) {
-		snr2win->replace_label = gtk_label_new_with_mnemonic(N_("Replace wit_h: "));
+		snr2win->replace_label = gtk_label_new_with_mnemonic(_("Replace wit_h: "));
 		gtk_table_attach (GTK_TABLE (table), snr2win->replace_label, 0, 1, 1, 2,
 						(GtkAttachOptions) (GTK_FILL), (GtkAttachOptions) (0), 2, 0);
 		gtk_label_set_justify (GTK_LABEL (snr2win->replace_label), GTK_JUSTIFY_LEFT);
@@ -1248,7 +1248,7 @@ static void snr2dialog(gint is_replace, gint is_new_search) {
 	{
 		gchar *placeactions[] = {N_("Beginning of document till end"), N_("Current position till end"),	N_("Beginning of selection till end of selection"), N_("All opened files begin till end"), NULL};
 		gchar *matchactions[] = {N_("Disabled"), N_("POSIX type"),	N_("PERL type"), NULL};
-		GtkWidget *matchlabel, *placelabel = gtk_label_new("Starts at:");
+		GtkWidget *matchlabel, *placelabel = gtk_label_new(_("Starts at:"));
 		DEBUG_MSG("snr2dialog, last_snr2.placetype_option=%d\n", last_snr2.placetype_option);
 		snr2win->placetype_option = optionmenu_with_value(placeactions, last_snr2.placetype_option);
 
@@ -1260,7 +1260,7 @@ static void snr2dialog(gint is_replace, gint is_new_search) {
 						(GtkAttachOptions) (GTK_EXPAND | GTK_FILL), (GtkAttachOptions) (GTK_FILL), 0, 0);
 		g_signal_connect(G_OBJECT((GtkWidget *) snr2win->placetype_option), "changed", G_CALLBACK(placetype_changed_lcb), snr2win);
 		
-		matchlabel = gtk_label_new("Regular expression:");
+		matchlabel = gtk_label_new(_("Regular expression:"));
 		DEBUG_MSG("snr2dialog, last_snr2.matchtype_option=%d\n", last_snr2.matchtype_option);
 		snr2win->matchtype_option = optionmenu_with_value(matchactions, last_snr2.matchtype_option);
 
@@ -1275,7 +1275,7 @@ static void snr2dialog(gint is_replace, gint is_new_search) {
 
 		if (is_replace) {
 			gchar *replaceactions[] = {N_("Normal"), N_("Uppercase"),	N_("Lowercase"), NULL};
-			GtkWidget *replacelabel = gtk_label_new("Replace type:");
+			GtkWidget *replacelabel = gtk_label_new(_("Replace type:"));
 			DEBUG_MSG("snr2dialog, last_snr2.replacetype_option=%d\n", last_snr2.replacetype_option);
 			snr2win->replacetype_option = optionmenu_with_value(replaceactions, last_snr2.replacetype_option);
 	
