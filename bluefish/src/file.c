@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-/* #define DEBUG */
+#define DEBUG
 
 #include <gtk/gtk.h>
 #include <string.h> /* memcpy */
@@ -129,12 +129,14 @@ static void file2doc_lcb(gint status,gint error_info,gchar *buffer,GnomeVFSFileS
 		case OPENFILE_FINISHED:
 			DEBUG_MSG("file2doc_lcb, status=%d, now we should convert %s data into a GtkTextBuffer and such\n",status, gnome_vfs_uri_get_path(f2d->uri));
 			doc_buffer_to_textbox(f2d->doc, buffer, buflen, FALSE, TRUE);
+			doc_reset_filetype(f2d->doc, f2d->doc->filename, buffer);
 			doc_set_status(f2d->doc, DOC_STATUS_COMPLETE);
 			bmark_set_for_doc(f2d->doc);
 			bmark_check_length(f2d->bfwin,f2d->doc);
+			DEBUG_MSG("file2doc_lcb, focus_next_new_doc=%d\n",f2d->bfwin->focus_next_new_doc);
 			if (f2d->bfwin->focus_next_new_doc) {
-				switch_to_document_by_pointer(f2d->bfwin,f2d->doc);
 				f2d->bfwin->focus_next_new_doc = FALSE;
+				switch_to_document_by_pointer(f2d->bfwin,f2d->doc);
 			}
 			file2doc_cleanup(data);
 		break;
@@ -179,7 +181,19 @@ void file_doc_fill_fileinfo(Tdocument *doc, GnomeVFSURI *uri) {
 	gnome_vfs_async_get_file_info(&handle,fi->uris,GNOME_VFS_FILE_INFO_DEFAULT|GNOME_VFS_FILE_INFO_FOLLOW_LINKS
 			,GNOME_VFS_PRIORITY_DEFAULT,file_asyncfileinfo_lcb,fi);
 }
- 
+
+void file_doc_retry_uri(Tdocument *doc) {
+	Tfile2doc *f2d;
+	f2d = g_new(Tfile2doc,1);
+	f2d->bfwin = doc->bfwin;
+	f2d->doc = doc;
+	doc_set_status(doc, DOC_STATUS_LOADING);
+	f2d->uri = gnome_vfs_uri_new(doc->uri);
+	if (doc->fileinfo == NULL) {
+		file_doc_fill_fileinfo(f2d->doc, f2d->uri);
+	}
+	file_openfile_uri_async(f2d->uri,file2doc_lcb,f2d);
+}
 
 void file_doc_from_uri(Tbfwin *bfwin, GnomeVFSURI *uri, GnomeVFSFileInfo *finfo) {
 	Tfile2doc *f2d;
