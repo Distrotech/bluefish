@@ -451,16 +451,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
         </varlistentry>
       </variablelist>
 
-      <tip>
-        <para>By default, <command>make install</command> will install all the
-        files in <filename>/usr/local/bin</filename>,
-        <filename>/usr/local/lib</filename>, etc. You can specify an
-        installation prefix other than <filename>/usr/local</filename> using
-        <option>--prefix</option>, for instance
-        <option>--prefix=$HOME</option>.</para>
-      </tip>
-
-      <variablelist>
+       <variablelist>
         <title>Fine tuning of the installation directories:</title>
 
         <varlistentry>
