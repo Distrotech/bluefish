@@ -48,6 +48,7 @@ SRCS = 	bf_lib.c \
 			char_table.c \
 			document.c \
 			filebrowser.c \
+			fref.c \
 			gtk_easy.c \
 			gui.c \
 			highlight.c \
@@ -67,8 +68,7 @@ SRCS = 	bf_lib.c \
 			snr2.c \
 			stringlist.c \
 			undo_redo.c \
-			wizards.c \
-			fref.c
+			wizards.c
 
 OBJS = $(SRCS:.c=.o)
 
