@@ -216,7 +216,7 @@ GtkWidget *bmark_gui(Tbfwin *bfwin)
 {
    GtkWidget *vbox,*mi,*menu;
 	GtkCellRenderer *cell;
-	GtkTreeViewColumn *column;   
+	GtkTreeViewColumn *column;
    Tbmark_data *bd = BMARKDATA(main_v->bmarkdata);
    
    
@@ -226,23 +226,19 @@ GtkWidget *bmark_gui(Tbfwin *bfwin)
    menu = gtk_menu_new();
    mi = gtk_menu_item_new_with_label(_("Show all bookmarks"));
    gtk_menu_append(GTK_MENU(menu), mi);   
-   gtk_widget_show(mi);
    mi = gtk_menu_item_new_with_label(_("Show bookmarks for project files"));
    gtk_menu_append(GTK_MENU(menu), mi);   
-   gtk_widget_show(mi);
    mi = gtk_menu_item_new_with_label(_("Show bookmarks for opened files"));
    gtk_menu_append(GTK_MENU(menu), mi);   
-   gtk_widget_show(mi);
    mi = gtk_menu_item_new_with_label(_("Show bookmarks for active file"));
    gtk_menu_append(GTK_MENU(menu), mi);   
-   gtk_widget_show(mi);
    gtk_option_menu_set_menu(GTK_OPTION_MENU(BMARKGUI(bfwin->bmark)->viewmenu),menu);
 
    BMARKGUI(bfwin->bmark)->tree = gtk_tree_view_new_with_model(GTK_TREE_MODEL(bd->store));
    gtk_tree_store_append(bd->store, &(BMARKGUI(bfwin->bmark)->temp_branch), NULL);
-	gtk_tree_store_set(bd->store, &(BMARKGUI(bfwin->bmark)->temp_branch), NAME_COLUMN,g_strdup(_("Temporary")), PTR_COLUMN,NULL, -1);
+	gtk_tree_store_set(bd->store, &(BMARKGUI(bfwin->bmark)->temp_branch), NAME_COLUMN,_("Temporary"), PTR_COLUMN,NULL, -1);
    gtk_tree_store_append(bd->store, &(BMARKGUI(bfwin->bmark)->perm_branch), NULL);
-	gtk_tree_store_set(bd->store, &(BMARKGUI(bfwin->bmark)->perm_branch), NAME_COLUMN,g_strdup(_("Permanent")), PTR_COLUMN,NULL, -1);
+	gtk_tree_store_set(bd->store, &(BMARKGUI(bfwin->bmark)->perm_branch), NAME_COLUMN,_("Permanent"), PTR_COLUMN,NULL, -1);
 	cell = gtk_cell_renderer_text_new();
 	column =	gtk_tree_view_column_new_with_attributes("", cell, "text",
 												 NAME_COLUMN, NULL);  
