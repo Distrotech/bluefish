@@ -199,14 +199,17 @@ static GtkTreeIter *fb2_add_filesystem_entry(GtkTreeIter *parent, GnomeVFSURI *c
 	} else {
 		gchar *tmp, *display_name;
 		GnomeVFSURI *uri_dup;
-		gpointer pixmap = FILEBROWSER2CONFIG(main_v->fb2config)->dir_icon;
-		if (type != TYPE_DIR) {
-			pixmap = FILEBROWSER2CONFIG(main_v->fb2config)->unknown_icon;
-		}
+		gpointer pixmap;
 		newiter = g_new(GtkTreeIter,1);
 		uri_dup = gnome_vfs_uri_dup(child_uri);
 		tmp = uri_to_document_filename(child_uri);
 		display_name = g_strdup(strrchr(tmp, '/')+1);
+		pixmap = FILEBROWSER2CONFIG(main_v->fb2config)->dir_icon;
+		if (type != TYPE_DIR) {
+			Tfiletype *ft = get_filetype_by_filename_and_content(display_name, NULL);
+			if (ft && ft->icon) pixmap = ft->icon;
+			else pixmap = FILEBROWSER2CONFIG(main_v->fb2config)->unknown_icon;
+		}
 		g_free(tmp);
 		gtk_tree_store_append(GTK_TREE_STORE(FILEBROWSER2CONFIG(main_v->fb2config)->filesystem_tstore),newiter,parent);
 		DEBUG_MSG("fb2_add_filesystem_entry, will add ");
