@@ -115,12 +115,21 @@ typedef struct {
 } Tfiletypedialog;
 
 typedef struct {
+	GtkWidget *entry[6];
+	GtkWidget *combo[2];
+	GtkWidget *check;
+	GtkWidget *radio[9];
+	gchar **curstrarr;
+} Thighlightpatterndialog;
+
+typedef struct {
 	GtkWidget *prefs[property_num_max];
 	GList *lists[lists_num_max];
 	GtkWidget *win;
 	GtkWidget *noteb;
 	Tfiletypedialog ftd;
 	Tfilefilterdialog ffd;
+	Thighlightpatterndialog hpd;
 } Tprefdialog;
 
 typedef enum {
@@ -378,10 +387,57 @@ static void create_filefilter_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 	
 }
 
+static GList *highlightpattern_poplist(Tprefdialog *pd, gint numcombo) {
+	GList *tmplist, *poplist=NULL;
+	const gchar *entrytext=NULL;
+	
+	if (numcombo == 1) {
+		tmplist = g_list_first(pd->lists[highlight_patterns]);
+		entrytext = gtk_entry_get_text(GTK_ENTRY(GTK_COMBO(pd->hpd.combo[0])->entry));
+	} else {
+		tmplist = g_list_first(pd->lists[filetypes]);
+	}
+	while(tmplist){
+		gchar **strarr =(gchar **)tmplist->data;
+		if (numcombo == 1) {
+			if (count_array(strarr) >= 10 && strcmp(strarr[0], entrytext)==0) poplist = g_list_append(poplist, strarr[1]);
+		} else {
+			if (count_array(strarr) >= 3) poplist = g_list_append(poplist, strarr[0]);
+		}
+		tmplist = g_list_next(tmplist);
+	}
+	return poplist;
+}
 
 
+static void create_highlightpattern_gui(Tprefdialog *pd, GtkWidget *vbox1) {
+	GtkWidget *hbox, *but;
+	GList *poplist;	
+	pd->lists[highlight_patterns] = duplicate_arraylist(main_v->props.highlight_patterns);
+	hbox = gtk_hbox_new(FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(vbox1), hbox, TRUE, TRUE, 0);
 
+	poplist = highlightpattern_poplist(pd, 0);
+	pd->hpd.combo[0] = prefs_combo(_("Filetype"), NULL, vbox1, pd, poplist, FALSE);
+/*	g_signal_connect_after(G_OBJECT(GTK_COMBO(pd->hpd.combo[0])->list), "selection-changed", G_CALLBACK(highlightpattern_combo_activate), pd);*/
+	g_list_free(poplist);
 
+	pd->hpd.entry[0] = boxed_entry_with_text(NULL, 1023, hbox);
+	but = gtk_button_new_with_label(_("Add new pattern"));
+/*	g_signal_connect(G_OBJECT(but), "clicked", G_CALLBACK(add_new_highlightpattern_lcb), pd);*/
+	gtk_box_pack_start(GTK_BOX(hbox), but, TRUE, TRUE, 3);
+
+	gtk_box_pack_start(GTK_BOX(vbox1), gtk_hseparator_new(), FALSE, FALSE, 3);
+
+	poplist = highlightpattern_poplist(pd, 1);
+	pd->hpd.combo[1] = prefs_combo(_("Pattern"), NULL, vbox1, pd, poplist, FALSE);
+/*	g_signal_connect_after(G_OBJECT(GTK_COMBO(pd->hpd.combo[1])->list), "selection-changed", G_CALLBACK(highlightpattern_combo_activate), pd);*/
+	g_list_free(poplist);
+
+	pd->hpd.entry[0] = boxed_full_entry(_("Start pattern"), NULL, 100, vbox1);
+	pd->hpd.entry[1] = boxed_full_entry(_("End pattern"), NULL, 100, vbox1);
+	pd->hpd.check = boxed_checkbut_with_value(_("Case sensitive matching"), FALSE, vbox1);
+}
 
 
 
@@ -555,6 +611,17 @@ static void preferences_dialog() {
 	gtk_container_add(GTK_CONTAINER(frame), vbox2);
 	
 	create_filefilter_gui(pd, vbox2);
+
+	vbox1 = gtk_vbox_new(FALSE, 5);
+	gtk_notebook_append_page(GTK_NOTEBOOK(pd->noteb), vbox1, hbox_with_pix_and_text(_("Syntax highlighting"), 014));
+
+	frame = gtk_frame_new(_("Patterns"));
+	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
+	vbox2 = gtk_vbox_new(FALSE, 0);
+	gtk_container_add(GTK_CONTAINER(frame), vbox2);
+
+
+	create_highlightpattern_gui(pd, vbox2);
 	
 	{
 		GtkWidget *ahbox, *but;
