@@ -55,7 +55,6 @@ enum {
 	ext_outputbox_in_submenu,
 	document_tabposition,
 	leftpanel_tabposition,
-	default_advanced_snr,
 	cont_highlight_full, 	/* if you want to highlight the full text or just the line */
 	/* not yet in use */
 	image_editor_cline, 	/* image editor commandline */
@@ -1616,7 +1615,6 @@ static void preferences_ok_clicked_lcb(GtkWidget *wid, Tprefdialog *pd) {
 	integer_apply(&main_v->props.ext_commands_in_submenu, pd->prefs[ext_commands_in_submenu], TRUE);
 	integer_apply(&main_v->props.ext_outputbox_in_submenu, pd->prefs[ext_outputbox_in_submenu], TRUE);
 	integer_apply(&main_v->props.transient_htdialogs, pd->prefs[transient_htdialogs], TRUE);
-	integer_apply(&main_v->props.default_advanced_snr, pd->prefs[default_advanced_snr], TRUE);
 	
 	integer_apply(&main_v->props.filebrowser_show_hidden_files, pd->prefs[filebrowser_show_hidden_files], TRUE);
 	integer_apply(&main_v->props.filebrowser_show_others_files, pd->prefs[filebrowser_show_others_files], TRUE);
@@ -1824,7 +1822,6 @@ static void preferences_dialog() {
 	pd->prefs[leftpanel_tabposition] = boxed_optionmenu_with_value(_("Left panel notebook tab position"), main_v->props.leftpanel_tabposition, vbox2, notebooktabpositions);
 	
 	pd->prefs[transient_htdialogs] = boxed_checkbut_with_value(_("Make HTML dialogs transient"), main_v->props.transient_htdialogs, vbox2);
-	pd->prefs[default_advanced_snr] = boxed_checkbut_with_value(_("Advanced search and replace by default"), main_v->props.default_advanced_snr, vbox2);
 
 	frame = gtk_frame_new(_("File browser"));
 	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);

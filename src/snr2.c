@@ -120,8 +120,6 @@ typedef struct {
 	GtkWidget *replacetype_option;
 	GtkWidget *matchtype_option;
 	GtkWidget *placetype_option;
-
-	gboolean is_advanced;
 } Tsnr2_win;
 #define LASTSNR2(var) ((Tlast_snr2 *)(var))
 /***********************************************************/
@@ -1191,7 +1189,6 @@ static void snr2dialog(Tbfwin *bfwin, gint is_replace, gint is_new_search) {
 
 	snr2win = g_malloc(sizeof(Tsnr2_win));
 	snr2win->bfwin = bfwin;
-	snr2win->is_advanced = main_v->props.default_advanced_snr;
 	if (is_replace) {
 		tmptext = _("Replace");
 		snr2win->replace = 1;

@@ -344,6 +344,7 @@ static GList *props_init_main(GList * config_rc)
 	init_prop_integer   (&config_rc, &main_v->props.image_thumbnailsizing_val2,"image_thumbnailsizing_val2:",100);
 	init_prop_string    (&config_rc, &main_v->props.image_thumnailformatstring,"image_thumnailformatstring:","<a href=\"%r\"><img src=\"%t\" width=\"%x\" height=\"%y\" border=\"0\"></a>");
 	init_prop_integer   (&config_rc, &main_v->props.allow_multi_instances,"allow_multi_instances:",0);
+	init_prop_integer   (&config_rc, &main_v->props.modified_check_type,"modified_check_type:",1);
 	init_prop_integer   (&config_rc, &main_v->props.num_undo_levels,"num_undo_levels:",100);
 	init_prop_integer   (&config_rc, &main_v->props.clear_undo_on_save,"clear_undo_on_save:",0);
 	init_prop_string    (&config_rc, &main_v->props.newfile_default_encoding,"newfile_default_encoding:","UTF-8");
@@ -362,7 +363,6 @@ static GList *props_init_main(GList * config_rc)
 #ifdef HAVE_LIBASPELL
 	init_prop_string(&config_rc, &main_v->props.spell_default_lang, "spell_default_lang:", "en");
 #endif /* HAVE_LIBASPELL */
-	init_prop_integer   (&config_rc, &main_v->props.default_advanced_snr,"default_advanced_snr:",0);
 	init_prop_integer(&config_rc, &main_v->props.cont_highlight_full, "cont_highlight_full:", 1);
 	init_prop_integer(&config_rc, &main_v->props.lasttime_cust_menu, "lasttime_cust_menu:", 0);
 	init_prop_integer(&config_rc, &main_v->props.lasttime_highlighting, "lasttime_highlighting:", 0);
