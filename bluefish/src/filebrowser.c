@@ -384,7 +384,7 @@ static GtkTreePath *return_path_from_filename(Tfilebrowser *filebrowser,gchar *t
 		if (root && root[0] != '/') {
 			DEBUG_MSG("return_path_from_filename, the root is an URL\n");
 			/* we have an URL like sftp:// or http:// or something like that */
-			gboolean found = FALSE;
+			found = FALSE;
 			while (!found && gtk_tree_model_iter_next(GTK_TREE_MODEL(store), &iter)) {
 				gchar *found_root;
 				gtk_tree_model_get(GTK_TREE_MODEL(store), &iter, FILENAME_COLUMN, &found_root, -1);
