@@ -1187,6 +1187,7 @@ void doc_insert_two_strings(Tdocument *doc, const gchar *before_str, const gchar
 			/* thus, no need to get a new one. */
 			gtk_text_iter_backward_chars(&itinsert, g_utf8_strlen(after_str, -1));
 			gtk_text_buffer_place_cursor(doc->buffer, &itinsert);
+			gtk_widget_grab_focus(doc->view);
 		}
 	} else { /* there is a selection */
 		GtkTextMark *marktoresetto;
