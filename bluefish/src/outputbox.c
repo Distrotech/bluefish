@@ -305,11 +305,9 @@ static void run_command(Toutputbox *ob) {
 	Tconvert_table *table, *tmpt;
 	gchar *command1;
 	gchar *localfilename;
-
-	file_save_cb(NULL, ob->bfwin);
+	
 	if (!ob->bfwin->current_document->uri) {
-		/* if the usder clicked cancel at file_save -> return 
-		BUG: that function now is async, so this check will not help very much */
+		/* cannot (yet) use nameless files */
 		return;
 	}
 	localfilename = gnome_vfs_get_local_path_from_uri(ob->bfwin->current_document->uri);
