@@ -21,6 +21,7 @@
 #ifndef __BLUEFISH_H_
 #define __BLUEFISH_H_
 
+#include "config.h"
 #define BLUEFISH_SPLASH_FILENAME PKGDATADIR"bluefish_splash.png"
 
 #define WITH_MSG_QUEUE
@@ -34,8 +35,6 @@
 
 #define _(String) (String)
 #define N_(String) (String)
-#define CURRENT_VERSION_NAME "bluefish-gtk2-porting"
-#define VERSION "pre-gtk2"
 
 #define DIRSTR "/"
 #define DIRCHR '/'
