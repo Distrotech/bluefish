@@ -115,6 +115,7 @@ static Tpixmap tp[] = {
 	{102, view_in_browser},
 	{103, context}, /* context dropdown image */
 	{104, spellcheck},
+	{105, filetree},
 	{150,prefseditor},
 	{151,prefsexternal},
 	{152,prefsfiles},
@@ -124,7 +125,7 @@ static Tpixmap tp[] = {
 	{156,prefsinterface},
 	{157,prefsoutputparser},
 	{158,prefssyntax},
-	{104, nothing}
+	{159, nothing}
 };
 
 GtkWidget *new_pixmap(gint type) {

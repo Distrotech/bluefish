@@ -27,6 +27,7 @@ TOOLBAR = \
 	dtd dtd.png \
 	email email.png \
 	embed embed.png \
+	filetree filetree.png \
 	font font.png \
 	font_base font_base.png \
 	fonth1 fonth1.png \
