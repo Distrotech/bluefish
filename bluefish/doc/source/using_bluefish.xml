@@ -681,7 +681,7 @@ If the type of a file is not properly detected, you can change the type using th
 <title>Remote files</title>
 	<para>
 		Assuming a working Internet connection, files can also be opened from the web using 
-	<menuchoice><guimenu>File</guimenu><guimenuitem>Open URL</guimenuitem></menuchoice>. This feature depands on your gnome_vfs setup. If is installed and working, http://, sftp://, smb:// and possibly more types of remote services should be supported by Bluefish. Depending on your gnome_vfs 
+	<menuchoice><guimenu>File</guimenu><guimenuitem>Open URL</guimenuitem></menuchoice>. This feature depends on your gnome_vfs setup. If it is installed and working, http://, sftp://, smb:// and possibly more types of remote services should be supported by Bluefish. Depending on your gnome_vfs 
 	version, some of these protocols are not fully stable yet, which can crash Bluefish!
 	</para>
 	<figure id="figure-open-url">
@@ -1034,35 +1034,139 @@ The projects are a sort of <emphasis>saved state</emphasis> of Bluefish. Thus, t
 <sect2 id="bookmarks">
 <title>Bookmarks</title>
 	<para>In Bluefish you can add bookmarks to a line in the text, and you can later use 
-	the bookmark to quickly jump to this location. Bookmarks can be temporary or permanent, 
-	the default can be configured in the preferences.
+	the bookmark to quickly jump to this location, or even to open the document referred to by the bookmark at that line.
 	</para>
 	<para>
-	Bookmarks can be added to the current cursor location by using the menu /Edit/Add 
-	bookmark, or by using the shortcut key combination control+d. You can also add 
-	bookmarks by right-clicking in the text, and selecting add bookmark.
+	Bookmarks can be added to the current cursor location by using the <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>D</keycap></keycombo></shortcut><guimenu>Edit</guimenu><guimenuitem>Add Bookmark</guimenuitem></menuchoice> menu item; or by right-clicking in the text, and selecting <guilabel>Add bookmark</guilabel>.
 	</para>
+	<para>You can delete a bookmark using the <guilabel>Delete bookmark</guilabel> item in the document contextual menu.</para>
+	<para>Each bookmark in a given document is marked by a blue background on the line number.</para>
+ <para><figure id="figure-bookmark-marked">
+	<title id="figure-bookmark-marked-title">How bookmarks are marked</title>
+		<screenshot>
+			<mediaobject>
+				<imageobject>
+					<imagedata fileref="figures/bookmark_marked.png" format="PNG"/>
+				</imageobject>
+				<textobject>
+					<phrase>A screen shot showing how bookmarks are marked</phrase>
+				</textobject>
+			</mediaobject>
+		</screenshot>
+</figure>
+</para>
 	<para>
 	Bookmarks can be temporary or permanent. Permanent bookmarks are stored, and temporary
 	bookmarks are gone after Bluefish is closed.	The default is set in the preferences
-	under <emphasis>Editor</emphasis>. If you right click a bookmark and 
-	select <emphasis>Edit</emphasis> you can change this setting for a bookmark.
+	under <emphasis>Editor</emphasis>.
 	</para>
-	<para>SCREENSHOT BY ????</para>
 	<para>
-	A way to add many bookmarks at the same time is using the <emphasis>Find</emphasis> dialog. Check the 
-	'Bookmark results' option, and all search results will be added to your bookmarks. 
+	Bookmarks can be found in the third tab of the side panel, sorted by document and line number.<para>
+ <para><figure id="figure-bookmark-tab">
+	<title id="figure-bookmark-tab-title">Bookmarks in the side panel</title>
+		<screenshot>
+			<mediaobject>
+				<imageobject>
+					<imagedata fileref="figures/bookmark_tab.png" format="PNG"/>
+				</imageobject>
+				<textobject>
+					<phrase>A screen shot showing bookmarks in the side panel</phrase>
+				</textobject>
+			</mediaobject>
+		</screenshot>
+</figure>
+</para>
+	</para> If you 
+	right click a bookmark in the bookmark tab of the side panel, you get a pop up menu with several options.</para>
+<para>
+<figure id="figure-bookmark-cm">
+	<title id="figure-bookmark-cm-title">Contextual menu on bookmark in the side panel</title>
+		<screenshot>
+			<mediaobject>
+				<imageobject>
+					<imagedata fileref="figures/bookmark_cm.png" format="PNG"/>
+				</imageobject>
+				<textobject>
+					<phrase>A screen shot showing the contextual menu on bookmark in the side panel</phrase>
+				</textobject>
+			</mediaobject>
+		</screenshot>
+</figure>
+</para>
+<para>The <guilabel>Goto bookmark</guilabel> item allows you to go to the bookmark location in the document, opening it if needed.</para>
+<para>The <guilabel>Edit</guilabel> item allows you to change a bookmark from temporary to permanent or the other way around, to name it, and to give it a short description.
+	</para>
+<para>
+<figure id="figure-bookmark-edit">
+	<title id="figure-bookmark-edit-title">Editing a bookmark</title>
+		<screenshot>
+			<mediaobject>
+				<imageobject>
+					<imagedata fileref="figures/bookmark_edit.png" format="PNG"/>
+				</imageobject>
+				<textobject>
+					<phrase>A screen shot showing the edition of a bookmark</phrase>
+				</textobject>
+			</mediaobject>
+		</screenshot>
+</figure>
+</para>
+<para>Note that after naming a bookmark, the default name - first characters of the bookmarked line - is displayed after the new name.</para>
+<para>
+<figure id="figure-bookmark-name">
+	<title id="figure-bookmark-name-title">A named bookmark</title>
+		<screenshot>
+			<mediaobject>
+				<imageobject>
+					<imagedata fileref="figures/bookmark_name.png" format="PNG"/>
+				</imageobject>
+				<textobject>
+					<phrase>A screen shot showing a named bookmark</phrase>
+				</textobject>
+			</mediaobject>
+		</screenshot>
+</figure>
+</para>
+<para>You may also delete a bookmark via this contextual menu, delete all bookmarks in the active document, or delete all bookmarks stored in the bookmark tab of the side panel. The latter ones are also available when you right click the name of a document in this tab.</para>
+<para>
+<figure id="figure-bookmark-document-cm">
+	<title id="figure-bookmark-document-cm-title">The contextual menu on a document in the bookmark tab</title>
+		<screenshot>
+			<mediaobject>
+				<imageobject>
+					<imagedata fileref="figures/bookmark_document_cm.png" format="PNG"/>
+				</imageobject>
+				<textobject>
+					<phrase>A screen shot showing the contextual menu on a document in the bookmark tab</phrase>
+				</textobject>
+			</mediaobject>
+		</screenshot>
+</figure>
+</para>
+	<para>
+	A way to add many bookmarks at the same time is using the <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>F</keycap></keycombo></shortcut><guimenu>Edit</guimenu><guimenuitem>Find</guimenuitem></menuchoice> dialog. Check the 
+	<guilabel>Bookmark result</guilabel> option, and all search results will be added to your bookmarks. 
 	For example this manual has sections, and each section is identified by a header 
 	like '&lt;sect1 id="bluefish-ch-4-sect-6"&gt;'. A way to automatically get a 
 	bookmark to every section is to search for the following regular expression 
 	pattern: '&lt;sect[0-9]+ id="[^"]+"&gt;' and bookmark all results. 
 	</para>
-	<para>
-	Bookmarks can be found in the side panel, sorted by document and line number. If you 
-	right click a bookmark, you get a pop up menu with several options. Among the option 
-	is edit, which allows you to change a bookmark from temporary to permanent or the 
-	other way around, and you can name bookmarks.
-	</para>
+	<para>Here is an example to bookmark all functions in an Objective-C file with this method:</para>
+<para>
+<figure id="figure-bookmark-find-cm">
+	<title id="figure-bookmark-find-title">Bookmarking via the Find menu</title>
+		<screenshot>
+			<mediaobject>
+				<imageobject>
+					<imagedata fileref="figures/bookmark_find.png" format="PNG"/>
+				</imageobject>
+				<textobject>
+					<phrase>A screen shot showing how to bookmark via the Find menu</phrase>
+				</textobject>
+			</mediaobject>
+		</screenshot>
+</figure>
+</para>
 </sect2>
 <sect2 id="find-replace">
 <title>Find and Replace</title>
