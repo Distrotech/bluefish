@@ -37,6 +37,11 @@
 /*****************************************************/
 #include <gtk/gtk.h>
 
+#include "config.h"
+#ifdef HAVE_STRINGS_H
+#include <strings.h>
+#endif /* HAVE_STRINGS_H */
+
 #include <stdio.h>
 #include <string.h>
 #include <sys/types.h>  /* _before_ regex.h for freeBSD */

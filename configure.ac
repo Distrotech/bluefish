@@ -112,7 +112,7 @@ dnl Checks for header files.
 dnl ************************
 
 AC_HEADER_STDC
-AC_CHECK_HEADERS(stdlib.h unistd.h string.h errno.h stdio.h sys/stat.h ctype.h getopt.h math.h time.h sys/types.h fcntl.h netdb.h netinet/in.h sys/socket.h arpa/inet.h dirent.h sys/select.h sys/time.h sys/ipc.h)
+AC_CHECK_HEADERS(stdlib.h unistd.h string.h strings.h errno.h stdio.h sys/stat.h ctype.h getopt.h math.h time.h sys/types.h fcntl.h netdb.h netinet/in.h sys/socket.h arpa/inet.h dirent.h sys/select.h sys/time.h sys/ipc.h)
 
 dnl ************************
 dnl Checks for external programs.
