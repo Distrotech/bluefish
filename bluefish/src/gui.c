@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-/*#define DEBUG*/
+/* #define DEBUG */
 
 #include <gtk/gtk.h>
 #include <time.h> /* nanosleep() */
@@ -1433,7 +1433,7 @@ void gui_toggle_hidewidget_cb(Tbfwin *bfwin,guint action,GtkWidget *widget) {
 
 Tbfwin *gui_new_window(GList *filenames) {
 	Tbfwin *bfwin = g_new0(Tbfwin,1);
-	gui_create_main(bfwin,NULL);
+	gui_create_main(bfwin,filenames);
 	main_v->bfwinlist = g_list_append(main_v->bfwinlist, bfwin);
 	gui_show_main(bfwin);
 	return bfwin;
