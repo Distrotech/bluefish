@@ -29,6 +29,68 @@
 #include "gui.h"
 #include "bookmark.h"
 
+/*************************** FILE INFO ASYNC ******************************/
+enum {
+	CHECKMODIFIED_ERROR,
+	CHECKMODIFIED_MODIFIED,
+	CHECKMODIFIED_OK
+};
+
+typedef void (* CheckmodifiedAsyncCallback) (gint status,gint error_info,gpointer callback_data);
+
+typedef struct {
+	GList *uris;
+	GnomeVFSFileInfo *orig_finfo;
+	CheckmodifiedAsyncCallback callback_func;
+	gpointer callback_data;
+} Tcheckmodified;
+
+static void checkmodified_cleanup(Tcheckmodified *cm) {
+	gnome_vfs_uri_unref(cm->uris->data);
+	g_list_free(cm->uris);
+	gnome_vfs_file_info_unref(cm->orig_finfo);
+	g_free(cm);
+}
+
+static gboolean checkmodified_is_modified(GnomeVFSFileInfo *orig, GnomeVFSFileInfo *new) {
+	/* modified_check_type;  0=no check, 1=by mtime and size, 2=by mtime, 3=by size, 4,5,...not implemented (md5sum?) */
+	if (main_v->props.modified_check_type == 1 || main_v->props.modified_check_type == 2) {
+		if (orig->mtime != new->mtime) return FALSE;
+	}
+	if (main_v->props.modified_check_type == 1 || main_v->props.modified_check_type == 3) {
+		if (orig->size != new->size) return FALSE;
+	}
+	return TRUE;
+}
+
+static void checkmodified_asyncfileinfo_lcb(GnomeVFSAsyncHandle *handle, GList *results, /* GnomeVFSGetFileInfoResult* items */gpointer data) {
+	GnomeVFSGetFileInfoResult* item;
+	Tcheckmodified *cm;
+	cm = data;
+	item = results->data;
+	if (item->result == GNOME_VFS_OK) {
+		if (checkmodified_is_modified(cm->orig_finfo, item->file_info)) {
+			cm->callback_func(CHECKMODIFIED_MODIFIED, item->result, cm->callback_data);
+		} else {
+			cm->callback_func(CHECKMODIFIED_OK, item->result, cm->callback_data);
+		}
+	} else {
+		cm->callback_func(CHECKMODIFIED_ERROR, item->result, cm->callback_data);
+	}	
+	checkmodified_cleanup(cm);
+}
+
+void file_checkmodified_uri_async(GnomeVFSURI *uri, GnomeVFSFileInfo *curinfo, CheckmodifiedAsyncCallback callback_func, gpointer callback_data) {
+	GnomeVFSAsyncHandle *handle;
+	Tcheckmodified *cm;
+	cm = g_new(Tcheckmodified,1);
+	gnome_vfs_uri_ref(uri);
+	cm->uris = g_list_append(NULL, uri);
+	gnome_vfs_file_info_ref(curinfo);
+	cm->orig_finfo = curinfo;
+	gnome_vfs_async_get_file_info(&handle,cm->uris,GNOME_VFS_FILE_INFO_DEFAULT|GNOME_VFS_FILE_INFO_FOLLOW_LINKS
+			,GNOME_VFS_PRIORITY_DEFAULT,checkmodified_asyncfileinfo_lcb,cm);
+}
 /*************************** SAVE FILE ASYNC ******************************/
 enum {
 	SAVEFILE_ERROR,
