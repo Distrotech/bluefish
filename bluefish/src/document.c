@@ -1827,7 +1827,7 @@ static void files_advanced_win(Tfiles_advanced *tfs) {
 	/* filename part */
 	/* curdir should get a value */
 	{
-		GtkWidget *but = bf_stock_button(_("Browse"), G_CALLBACK(files_advanced_win_select_basedir_lcb), tfs);
+		GtkWidget *but = bf_gtkstock_button(GTK_STOCK_OPEN, G_CALLBACK(files_advanced_win_select_basedir_lcb), tfs);
 		hbox = gtk_hbox_new(FALSE,3);
 		gtk_box_pack_start(GTK_BOX(hbox), gtk_label_new(_("Basedir")), FALSE, FALSE, 2);
 		tfs->basedir = boxed_entry_with_text(curdir, 255, hbox);
@@ -1873,8 +1873,8 @@ static void files_advanced_win(Tfiles_advanced *tfs) {
 	gtk_box_pack_start(GTK_BOX(hbox),but , FALSE, FALSE, 0);
 	gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 0);
 	gtk_widget_show_all(GTK_WIDGET(tfs->win));
-	gtk_grab_add(GTK_WIDGET(tfs->win));
-	gtk_widget_realize(GTK_WIDGET(tfs->win));
+/*	gtk_grab_add(GTK_WIDGET(tfs->win));
+	gtk_widget_realize(GTK_WIDGET(tfs->win));*/
 	gtk_window_set_transient_for(GTK_WINDOW(tfs->win), GTK_WINDOW(main_v->main_window));
 }
 

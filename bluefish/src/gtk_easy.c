@@ -758,8 +758,8 @@ static void fs_ok_clicked_lcb(GtkWidget * widget, Tfileselect *fileselect)
 	if (file_is_dir(selected_file)) {
 		DEBUG_MSG("fs_ok_clicked_lcb,file_is_dir said %s is a dir!!!!\n", selected_file);
 		if (fileselect->select_dir) {
-			fileselect->filename_to_return = selected_file;
-			g_free(selected_file);	
+			fileselect->filename_to_return = g_path_get_dirname(selected_file);
+			g_free(selected_file);
 			gtk_main_quit();
 			window_destroy(GTK_WIDGET(fileselect->fs));
 			return;
@@ -788,7 +788,11 @@ static void fs_ok_clicked_lcb(GtkWidget * widget, Tfileselect *fileselect)
 		}
 	} else {
 		/* NO multiple files allowed --> return just one file */
-		fileselect->filename_to_return = g_strdup(gtk_file_selection_get_filename(GTK_FILE_SELECTION(fileselect->fs)));
+		if (fileselect->select_dir) {
+			fileselect->filename_to_return = g_path_get_dirname(selected_file);
+		} else {
+				fileselect->filename_to_return = g_strdup(selected_file);
+		}
 	}
 	if ((fileselect->multipleselect 
 			&& (g_list_length(fileselect->filenames_to_return) < 1)) 
