@@ -388,7 +388,6 @@ void doc_set_tabsize(Tdocument *doc, gint tabsize) {
  *
  * Return value: void
  **/
- 
 void gui_change_tabsize(gpointer callback_data,guint action,GtkWidget *widget) {
 	GList *tmplist;
 	PangoTabArray *tab_array;
@@ -2068,7 +2067,6 @@ Tdocument *doc_new(gboolean delay_activate) {
 	doc_set_font(newdoc, NULL);
 	newdoc->wrapstate = main_v->props.word_wrap;
 	doc_set_wrap(newdoc);
-	doc_set_tabsize(newdoc, main_v->props.editor_tab_width);
 
 /* this will force function doc_set_modified to update the tab label*/
 	newdoc->modified = 1;
@@ -2119,6 +2117,9 @@ Tdocument *doc_new(gboolean delay_activate) {
 		gtk_widget_show(but);
 		gtk_notebook_append_page_menu(GTK_NOTEBOOK(main_v->notebook), scroll ,hbox, newdoc->tab_menu);
 	}
+	/* for some reason it only works after the document is appended to the notebook */
+	doc_set_tabsize(newdoc, main_v->props.editor_tab_width);
+	
 	newdoc->highlightstate = main_v->props.defaulthighlight;
 	DEBUG_MSG("doc_new, need_highlighting=%d, highlightstate=%d\n", newdoc->need_highlighting, newdoc->highlightstate);
 /*	
@@ -2925,6 +2926,23 @@ void doc_toggle_wrap_cb(gpointer callback_data,guint action,GtkWidget *widget) {
 void doc_toggle_linenumbers_cb(gpointer callback_data,guint action,GtkWidget *widget) {
 	main_v->current_document->linenumberstate = 1 - main_v->current_document->linenumberstate;
 	document_set_line_numbers(main_v->current_document, main_v->current_document->linenumberstate);
+}
+/**
+ * all_documents_apply_settings:
+ *
+ * applies changes from the preferences to all documents
+ *
+ * Return value: void
+ */
+void all_documents_apply_settings() {
+	GList *tmplist = g_list_first(main_v->documentlist);
+	while (tmplist){
+		Tdocument *doc = tmplist->data;
+		doc_set_tabsize(doc, main_v->props.editor_tab_width);
+		doc_set_font(doc, main_v->props.editor_font_string);
+		tmplist = g_list_next(tmplist);
+	}
+
 }
 
 /* callback_action: 1 only ascii, 2 only iso, 3 both
