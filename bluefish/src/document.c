@@ -1671,6 +1671,13 @@ static void files_advanced_win_cancel_clicked(GtkWidget * widget, Tfiles_advance
 	files_advanced_win_destroy(widget, NULL, tfs);
 }
 
+static void files_advanced_win_select_basedir_lcb(GtkWidget * widget, Tfiles_advanced *tfs) {
+	gchar *olddir = gtk_editable_get_chars(GTK_EDITABLE(tfs->basedir),0,-1);
+	gchar *newdir =return_dir(olddir, _("Select basedir"));
+	gtk_entry_set_text(GTK_ENTRY(tfs->basedir),newdir);
+	g_free(newdir);
+}
+
 static void files_advanced_win(Tfiles_advanced *tfs) {
 	GtkWidget *vbox, *hbox, *frame, *vbox2, *but, *hbox2;
 	GList *list;
@@ -1689,6 +1696,10 @@ static void files_advanced_win(Tfiles_advanced *tfs) {
 	/* filename part */
 	/* curdir should get a value */
 	tfs->basedir = boxed_full_entry(_("Basedir"), curdir, 255, vbox2);
+	{
+		GtkWidget *but = bf_stock_button(_("Browser"), G_CALLBACK(files_advanced_win_select_basedir_lcb), tfs);
+		gtk_box_pack_start(GTK_BOX(vbox2), but, TRUE, TRUE, 5);
+	}
 	g_free(curdir);
 	hbox2 = gtk_hbox_new(FALSE, 0);
 	gtk_box_pack_start(GTK_BOX(vbox2), hbox2, TRUE, TRUE, 5);
@@ -1702,6 +1713,8 @@ static void files_advanced_win(Tfiles_advanced *tfs) {
 	list = g_list_append(list, "*.pl");
 	list = g_list_append(list, "*.cgi");
 	list = g_list_append(list, "*.xml");
+	list = g_list_append(list, "*.c");
+	list = g_list_append(list, "*.py");
 	tfs->find_pattern = combo_with_popdown_sized("", list, 1, 300);
 	gtk_box_pack_start(GTK_BOX(hbox2), tfs->find_pattern, TRUE, TRUE, 5);
 	g_list_free(list);

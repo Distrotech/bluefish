@@ -67,7 +67,7 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/File/_Move to..."), NULL, file_move_to_cb, 0, NULL},
 	{N_("/File/Sa_ve all"), NULL, file_save_all_cb, 0, NULL},
 	{N_("/File/sep3"), NULL, NULL, 0, "<Separator>"},
-	{N_("/File/_Close"), NULL, file_close_cb, 0, NULL},
+	{N_("/File/_Close"), "<control>w", file_close_cb, 0, NULL},
 	{N_("/File/Close all"), NULL, file_close_all_cb, 0, NULL},
 	{N_("/File/sep5"), NULL, NULL, 0, "<Separator>"},
 	{N_("/File/_Quit"), "<control>Q", bluefish_exit_request, 0, NULL},
@@ -878,6 +878,10 @@ static void external_command_lcb(GtkWidget *widget, gchar **arr) {
 	gchar *secure_tempname = NULL;
 	gboolean need_s=FALSE, need_f=FALSE;
 
+	file_save_cb(NULL, NULL);
+	if (!main_v->current_document->filename) {
+		return;
+	}
 	change_dir(main_v->current_document->filename);
 	/* now check if
 	 * %s - we need a filename 

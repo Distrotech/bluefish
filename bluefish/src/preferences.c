@@ -1528,6 +1528,14 @@ static void preferences_ok_clicked_lcb(GtkWidget *wid, Tprefdialog *pd) {
 	integer_apply(&main_v->props.filebrowser_show_backup_files, pd->prefs[filebrowser_show_backup_files], TRUE);
 	string_apply(&main_v->props.filebrowser_unknown_icon, pd->prefs[filebrowser_unknown_icon]);
 	string_apply(&main_v->props.filebrowser_dir_icon, pd->prefs[filebrowser_dir_icon]);
+	
+	string_apply(&main_v->props.image_thumbnailstring, pd->prefs[image_thumbnailstring]);
+	string_apply(&main_v->props.image_thumbnailtype, GTK_COMBO(pd->prefs[image_thumbnailtype])->entry);
+
+	
+	
+	
+	
 	filetype_apply_changes(pd);
 	filefilter_apply_changes(pd);
 	highlightpattern_apply_changes(pd);
