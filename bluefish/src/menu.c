@@ -1108,7 +1108,10 @@ void add_to_recent_list(Tbfwin *bfwin,gchar *filename, gint closed_file, gboolea
 		}
 	} else {
 		/* once we get rid of the other ways to store recent files this will be the only line we still need */
-		bfwin->session->recent_files = add_to_history_stringlist(bfwin->session->recent_files, filename, TRUE);
+		if (!is_project) {
+			bfwin->session->recent_files = add_to_history_stringlist(bfwin->session->recent_files, filename, TRUE);
+		}
+		DEBUG_MSG("add_to_recent_list, added to session recent_files, length=%d\n",g_list_length(bfwin->session->recent_files));
 
 		if (bfwin->project) {
 			/* we do nothing when the file is opened, since opened files are anyway opened again in a project */
