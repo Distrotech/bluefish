@@ -27,9 +27,8 @@
 
 #include "bluefish.h"
 
-#ifdef HAVE_GNOME_VFS
 #include <libgnomevfs/gnome-vfs.h>
-#endif
+
 #ifdef HAVE_ATLEAST_GNOMEUI_2_6
 #include <libgnomeui/libgnomeui.h>
 #endif
@@ -151,7 +150,6 @@ int main(int argc, char *argv[])
 	gtk_init(&argc, &argv);
 #endif /* HAVE_ATLEAST_GNOMEUI_2_6
  */
-#ifdef HAVE_GNOME_VFS
 	DEBUG_MSG("main, we have gnome_vfs, so we init it\n");
 	gnome_vfs_init();
 #ifdef HAVE_ATLEAST_GNOMEUI_2_6
@@ -161,7 +159,6 @@ int main(int argc, char *argv[])
 	set_authen_callbacks();
 #endif /* HAVE_ATLEAST_GNOMEVFS_2_6 */
 #endif /* HAVE_ATLEAST_GNOME_2_6 */
-#endif /* HAVE_GNOME_VFS */
 	main_v = g_new0(Tmain, 1);
 	main_v->session = g_new0(Tsessionvars,1);
 	DEBUG_MSG("main, main_v is at %p\n", main_v);
