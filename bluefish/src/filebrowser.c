@@ -46,7 +46,10 @@ every document).
 the most difficult thing to code now is when we for example open a new file, we'll have to 
 find which directory item corresponds to that filename, and if it is not yet there, we'll 
 have to find where we should add it. Same for a document that has not been focused before.
-So we need to think of something smart to do that....
+A possibility to do this is to have a hashtable with TreeIters to each directory that is already 
+in the tree. If you then want to open some directory, you check the full path in the hashtable, 
+if not exists you remove the last directory component, check again etc. until you have found a
+position in the tree where you can add things.
 */
 #include <gtk/gtk.h>
 #include <sys/types.h>	/* stat() getuid */
