@@ -2177,6 +2177,7 @@ static gchar *fref_prepare_text(Tfref_element *elem) {
 	gint proptype,input_type;
 	gboolean first;
 	GtkWidget *dlgitem;
+	gchar *sep="";
 
 	dest = g_strdup("");
 	stringdup = g_strdup(elem->insert);
@@ -2195,6 +2196,14 @@ while (p) {
 /*		switch (elem->etype) 
 		{
 			case FREF_EL_TAG:*/
+			
+			switch (elem->etype)			
+			{
+				case FREF_EL_FUNCTION:sep=",";break;
+				case FREF_EL_CSSPROP:
+				case FREF_EL_CSSSELECT:
+							sep=" ";break;
+			} /* switch */
 				
 				converted = "";
 				
@@ -2308,7 +2317,7 @@ while (p) {
 															first=FALSE;
 														} 
 														else
-															converted = g_strconcat(converted,",",gtk_entry_get_text(GTK_ENTRY(dlgitem)),NULL);
+															converted = g_strconcat(converted,sep,gtk_entry_get_text(GTK_ENTRY(dlgitem)),NULL);
 													}		
 												}					 
 									   	break;
@@ -2335,7 +2344,7 @@ while (p) {
 																			{
 																				converted = g_strconcat(converted,g_value_peek_pointer(val),NULL);		 
 																				first=FALSE;
-																			}	else converted = g_strconcat(converted,",",g_value_peek_pointer(val),NULL);
+																			}	else converted = g_strconcat(converted,sep,g_value_peek_pointer(val),NULL);
 																		}	
 																	}			 
 																}
@@ -2358,7 +2367,7 @@ while (p) {
 														{
 															converted = g_strconcat(converted,gtk_entry_get_text(GTK_ENTRY(GTK_BIN(dlgitem)->child)),NULL);
 															first=FALSE;
-														} else converted = g_strconcat(converted,",",gtk_entry_get_text(GTK_ENTRY(GTK_BIN(dlgitem)->child)),NULL);	
+														} else converted = g_strconcat(converted,sep,gtk_entry_get_text(GTK_ENTRY(GTK_BIN(dlgitem)->child)),NULL);	
 													}	
 												}								 
 									   	break;
@@ -2398,7 +2407,7 @@ while (p) {
 														{
 															converted = g_strconcat(converted,gtk_entry_get_text(GTK_ENTRY(dlgitem)),NULL);
 															first=FALSE;
-														} else converted = g_strconcat(converted,",",gtk_entry_get_text(GTK_ENTRY(dlgitem)),NULL);
+														} else converted = g_strconcat(converted,sep,gtk_entry_get_text(GTK_ENTRY(dlgitem)),NULL);
 													}		
 									   	break;
 									   	case FREF_INP_LIST:
@@ -2422,7 +2431,7 @@ while (p) {
 																		{
 																			converted = g_strconcat(converted,g_value_peek_pointer(val),NULL);
 																			first=FALSE;
-																		} else	g_strconcat(converted,",",g_value_peek_pointer(val),NULL);
+																		} else	g_strconcat(converted,sep,g_value_peek_pointer(val),NULL);
 																	}	
 																}
 																g_value_unset(val);
@@ -2442,7 +2451,7 @@ while (p) {
 													{
 														converted = g_strconcat(converted,gtk_entry_get_text(GTK_ENTRY(GTK_BIN(dlgitem)->child)),NULL);
 														first=FALSE;
-													} else converted = g_strconcat(converted,",",gtk_entry_get_text(GTK_ENTRY(GTK_BIN(dlgitem)->child)),NULL);
+													} else converted = g_strconcat(converted,sep,gtk_entry_get_text(GTK_ENTRY(GTK_BIN(dlgitem)->child)),NULL);
 												} 
 									   	break;
 									   } /* switch */
@@ -2482,7 +2491,7 @@ while (p) {
 													{
 														converted = g_strconcat(converted,gtk_entry_get_text(GTK_ENTRY(dlgitem)),NULL);
 														first=FALSE;
-													} else 	converted = g_strconcat(converted,",",gtk_entry_get_text(GTK_ENTRY(dlgitem)),NULL);
+													} else 	converted = g_strconcat(converted,sep,gtk_entry_get_text(GTK_ENTRY(dlgitem)),NULL);
 												}	
 									   	break;
 									   	case FREF_INP_LIST:
@@ -2506,7 +2515,7 @@ while (p) {
 																		{
 																			converted = g_strconcat(converted,g_value_peek_pointer(val),NULL);
 																			first=FALSE;
-																		} else	converted = g_strconcat(converted,",",g_value_peek_pointer(val),NULL);
+																		} else	converted = g_strconcat(converted,sep,g_value_peek_pointer(val),NULL);
 																	}
 																}
 																g_value_unset(val);
@@ -2526,7 +2535,7 @@ while (p) {
 													{
 														converted = g_strconcat(converted,gtk_entry_get_text(GTK_ENTRY(GTK_BIN(dlgitem)->child)),NULL);
 														first = FALSE;
-													} else 	converted = g_strconcat(converted,",",gtk_entry_get_text(GTK_ENTRY(GTK_BIN(dlgitem)->child)),NULL);
+													} else 	converted = g_strconcat(converted,sep,gtk_entry_get_text(GTK_ENTRY(GTK_BIN(dlgitem)->child)),NULL);
 												}	
 									   	break;
 									   } /* switch */
@@ -2546,8 +2555,7 @@ while (p) {
 							input_type = FREFPROPERTY(lst->data)->input_type;
 							dlgitem = FREFPROPERTY(lst->data)->dlgitem;
 					
-							if ( ( proptype == FREF_EL_ATTR || proptype == FREF_EL_PARAM )
-							      && FREFPROPERTY(lst->data)->required) 
+							if (  proptype == FREF_EL_ATTR || proptype == FREF_EL_PARAM ) 
 							{ 
 									if ( dlgitem != NULL)
 									{
@@ -2568,7 +2576,7 @@ while (p) {
 														{
 															converted = g_strconcat(converted,gtk_entry_get_text(GTK_ENTRY(dlgitem)),NULL);
 															first=FALSE;
-														} else converted = g_strconcat(converted,",",gtk_entry_get_text(GTK_ENTRY(dlgitem)),NULL);
+														} else converted = g_strconcat(converted,sep,gtk_entry_get_text(GTK_ENTRY(dlgitem)),NULL);
 													}				 
 												}					 
 									   	break;
@@ -2595,7 +2603,7 @@ while (p) {
 																			{
 																				converted = g_strconcat(converted,g_value_peek_pointer(val),NULL);
 																				first=FALSE;
-																			} else converted = g_strconcat(converted,",",g_value_peek_pointer(val),NULL);
+																			} else converted = g_strconcat(converted,sep,g_value_peek_pointer(val),NULL);
 																		}		 
 																	}			 
 																}
@@ -2619,7 +2627,7 @@ while (p) {
 														{
 															converted = g_strconcat(converted,gtk_entry_get_text(GTK_ENTRY(GTK_BIN(dlgitem)->child)),NULL);
 															first=FALSE;
-														} else converted = g_strconcat(converted,",",gtk_entry_get_text(GTK_ENTRY(GTK_BIN(dlgitem)->child)),NULL);
+														} else converted = g_strconcat(converted,sep,gtk_entry_get_text(GTK_ENTRY(GTK_BIN(dlgitem)->child)),NULL);
 													}							 
 												}								 
 									   	break;
@@ -2630,135 +2638,6 @@ while (p) {
 					} /* while */											
 				}				
 		/*	break	;  TAG DATA - now all types */
-/*			case FREF_EL_FUNCTION:
-			case FREF_EL_SNIPPET:			
-				converted="";
-				d1 = g_ascii_digit_value(*p);
-				if (d1 != -1) 
-				{
-					d2 = g_ascii_digit_value(*(p + 1));
-					if (d2 != -1)
-					{
-						d1 = d1 * 10 + d2;
-						p++;
-					}	
-					lst = g_list_first(elem->properties);
-					cnt=0;
-					while ( lst ) 
-					{
-						if ( FREFPROPERTY(lst->data)->ptype == FREF_EL_PARAM) 
-						{ 
-							if (cnt>=d1) break;						
-							cnt++;
-						}
-						lst = g_list_next(lst);
-					}
-					if (lst != NULL && FREFPROPERTY(lst->data)->ptype == FREF_EL_PARAM ) {
-							if ( FREFPROPERTY(lst->data)->dlgitem != NULL )
-							{							
-									   switch ( FREFPROPERTY(lst->data)->input_type )
-									   {
-									   	case FREF_INP_ENTRY:
-									   	case FREF_INP_COLOUR:
-									   	case FREF_INP_FILE:
-												converted = g_strdup(gtk_entry_get_text(GTK_ENTRY(FREFPROPERTY(lst->data)->dlgitem)));									   	
-											break;
-									   	case FREF_INP_LIST:
-									   	{
-														GtkTreeIter it;
-														if ( gtk_combo_box_get_active_iter(GTK_COMBO_BOX(FREFPROPERTY(lst->data)->dlgitem),&it) ) 
-														{
-																GValue *val = g_new0(GValue, 1);
-																gtk_tree_model_get_value(GTK_TREE_MODEL(gtk_combo_box_get_model(
-																										 GTK_COMBO_BOX(FREFPROPERTY(lst->data)->dlgitem)	)),
-																										 &it, 0, val);
-																if (G_IS_VALUE(val) && g_value_fits_pointer(val) && g_value_peek_pointer(val)) 
-																{
-																			converted = g_strdup(g_value_peek_pointer(val));
-																}
-																g_value_unset(val);
-																g_free(val);
-														}		
-											}			
-									   	break;
-									   	case FREF_INP_LIST_ENTRY:
-									   	case FREF_INP_COLOUR_LIST:
-														converted = g_strdup(gtk_entry_get_text(GTK_ENTRY(
-										                    GTK_BIN(FREFPROPERTY(lst->data)->dlgitem)->child)));									   	
-										   break;
-									   } 
-							
-							} 
-					} 
-				}  d1 != -1 
-				else if (*p == '*') ALL parameters 
-				{
-						lst = g_list_first(elem->properties);
-						converted = "";
-						gboolean first=TRUE;
-						while ( lst ) 
-						{
-							if ( FREFPROPERTY(lst->data)->ptype == FREF_EL_PARAM) 
-							{ 
-									if ( FREFPROPERTY(lst->data)->dlgitem != NULL )
-									{
-
-
-									   switch ( FREFPROPERTY(lst->data)->input_type )
-									   {
-									   	case FREF_INP_ENTRY:
-									   	case FREF_INP_COLOUR:
-									   	case FREF_INP_FILE:
-													if (first)
-													{
-														converted = g_strconcat(converted,
-																		 gtk_entry_get_text(GTK_ENTRY(FREFPROPERTY(lst->data)->dlgitem)),NULL);
-														first = FALSE;						 
-													} else
-														converted = g_strconcat(converted,",",
-																		 gtk_entry_get_text(GTK_ENTRY(FREFPROPERTY(lst->data)->dlgitem)),NULL);
-											break;
-									   	case FREF_INP_LIST:
-									   	{
-														GtkTreeIter it;
-														if ( gtk_combo_box_get_active_iter(GTK_COMBO_BOX(FREFPROPERTY(lst->data)->dlgitem),&it) ) 
-														{
-																GValue *val = g_new0(GValue, 1);
-																gtk_tree_model_get_value(GTK_TREE_MODEL(gtk_combo_box_get_model(
-																										 GTK_COMBO_BOX(FREFPROPERTY(lst->data)->dlgitem)	)),
-																										 &it, 0, val);
-																if (G_IS_VALUE(val) && g_value_fits_pointer(val) && g_value_peek_pointer(val)) 
-																{
-																		if (first)
-																		{
-																				converted = g_strconcat(converted,g_value_peek_pointer(val),NULL);
-																				first = FALSE;						 
-																		} else
-																		converted = g_strconcat(converted,",",g_value_peek_pointer(val),NULL);
-																}
-																g_value_unset(val);
-																g_free(val);
-														}		
-											}			
-									   	break;
-									   	case FREF_INP_LIST_ENTRY:
-									   	case FREF_INP_COLOUR_LIST:
-												if ( first )
-														{
-															converted = g_strconcat(converted,gtk_entry_get_text(
-															GTK_ENTRY(GTK_BIN(FREFPROPERTY(lst->data)->dlgitem)->child)),NULL);
-															first = FALSE;
-														} else	
-															converted = g_strconcat(converted,",",gtk_entry_get_text(GTK_ENTRY(
-															GTK_BIN(FREFPROPERTY(lst->data)->dlgitem)->child)),NULL);
-										   break;
-									   }  switch 
-									}  null item 							
-					   	}
-							lst = g_list_next(lst);
-						}  while 							
-				}
-			break;  FUNCTION DATA */
 /*		}					TYPE  switch */
 	} /* else */
 		dest = g_strconcat(dest, prev, converted, NULL);
