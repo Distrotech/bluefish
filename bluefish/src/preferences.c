@@ -904,31 +904,27 @@ static void highlightpattern_apply_changes(Tprefdialog *pd) {
 	DEBUG_MSG("highlightpattern_apply_changes, no curstrarr, nothing to apply\n");
 }
 
-static void highlightpattern_popmenu_activate(GtkMenuItem *menuitem,Tprefdialog *pd) {
-	GList *tmplist;
-
-	DEBUG_MSG("highlightpattern_popmenu_activate, pd=%p, menuitem=%p\n", pd, menuitem);
-	tmplist = g_list_first(pd->lists[highlight_patterns]);
-	highlightpattern_apply_changes(pd);
-	pd->hpd.curstrarr = NULL;
-	if (menuitem) {
-		pd->hpd.selected_filetype = gtk_label_get_text(GTK_LABEL(GTK_BIN(menuitem)->child));
-	}
+static void highlightpattern_fill_from_selected_filetype(Tprefdialog *pd) {
 	DEBUG_MSG("highlightpattern_popmenu_activate, applied changes, about to clear liststore\n");
 	gtk_list_store_clear(GTK_LIST_STORE(pd->hpd.lstore));
-	DEBUG_MSG("highlightpattern_popmenu_activate, about to fill for filetype %s (tmplist=%p)\n",pd->hpd.selected_filetype,tmplist);
-	/* fill list model here */
-	while (tmplist) {
-		gchar **strarr =(gchar **)tmplist->data;
-		if (strarr[0]) {
-			if (strcmp(strarr[0], pd->hpd.selected_filetype)==0) {
-				GtkTreeIter iter;
-				DEBUG_MSG("highlightpattern_popmenu_activate, appending %s\n",strarr[1]);
-				gtk_list_store_append(GTK_LIST_STORE(pd->hpd.lstore), &iter);
-				gtk_list_store_set(GTK_LIST_STORE(pd->hpd.lstore), &iter, 0, strarr[1], -1);
+	if (pd->hpd.selected_filetype) {
+		GList *tmplist;
+		tmplist = g_list_first(pd->lists[highlight_patterns]);
+		DEBUG_MSG("highlightpattern_popmenu_activate, about to fill for filetype %s (tmplist=%p)\n",pd->hpd.selected_filetype,tmplist);
+		/* fill list model here */
+		while (tmplist) {
+			gchar **strarr =(gchar **)tmplist->data;
+			if (strarr[0]) {
+				DEBUG_MSG("found entry with filetype %s\n",strarr[0]);
+				if (strcmp(strarr[0], pd->hpd.selected_filetype)==0) {
+					GtkTreeIter iter;
+					DEBUG_MSG("highlightpattern_popmenu_activate, appending pattern %s with filetype %s\n",strarr[1],strarr[0]);
+					gtk_list_store_append(GTK_LIST_STORE(pd->hpd.lstore), &iter);
+					gtk_list_store_set(GTK_LIST_STORE(pd->hpd.lstore), &iter, 0, strarr[1], -1);
+				}
 			}
+			tmplist = g_list_next(tmplist);
 		}
-		tmplist = g_list_next(tmplist);
 	}
 	pd->hpd.curstrarr = NULL;
 	gtk_entry_set_text(GTK_ENTRY(pd->hpd.entry[0]), "");
@@ -941,7 +937,16 @@ static void highlightpattern_popmenu_activate(GtkMenuItem *menuitem,Tprefdialog 
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(pd->hpd.radio[0]),TRUE);
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(pd->hpd.radio[3]),TRUE);
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(pd->hpd.radio[6]),TRUE);
-	
+}
+
+static void highlightpattern_popmenu_activate(GtkMenuItem *menuitem,Tprefdialog *pd) {
+	DEBUG_MSG("highlightpattern_popmenu_activate, pd=%p, menuitem=%p\n", pd, menuitem);
+	highlightpattern_apply_changes(pd);
+	pd->hpd.curstrarr = NULL;
+	if (menuitem) {
+		pd->hpd.selected_filetype = gtk_label_get_text(GTK_LABEL(GTK_BIN(menuitem)->child));
+	}
+	highlightpattern_fill_from_selected_filetype(pd);
 }
 
 static void add_new_highlightpattern_lcb(GtkWidget *wid, Tprefdialog *pd) {
@@ -1126,7 +1131,25 @@ static void highlightpattern_gui_rebuild_filetype_popup(Tprefdialog *pd) {
 		}
 		tmplist = g_list_next(tmplist);
 	}
-	
+}
+
+static void highlightpattern_reset_clicked_lcb(GtkWidget *button, Tprefdialog *pd) {
+	gchar *defaultfile = return_first_existing_filename(PKGDATADIR"highlighting.default",
+									"data/highlighting.default",
+									"../data/highlighting.default",NULL);
+	if (defaultfile) {
+		/* get current selected filetype && create array to compare to*/
+		gchar **compare = array_from_arglist(pd->hpd.selected_filetype, NULL);
+		DEBUG_MSG("highlightpattern_reset_clicked_lcb, defaultfile=%s\n",defaultfile);
+		/* delete filetype from arraylist */
+		pd->lists[highlight_patterns] = arraylist_delete_identical(pd->lists[highlight_patterns], compare, 1, TRUE);
+		/* load filetype from default file */
+		pd->lists[highlight_patterns] = arraylist_append_identical_from_file(pd->lists[highlight_patterns], defaultfile, compare, 1, TRUE);
+		g_strfreev(compare);
+		/* re-load selected filetype in preferences gui */
+		DEBUG_MSG("highlightpattern_reset_clicked_lcb, about to rebuild gui\n");
+		highlightpattern_fill_from_selected_filetype(pd);
+	}
 }
 
 static void create_highlightpattern_gui(Tprefdialog *pd, GtkWidget *vbox1) {
@@ -1142,6 +1165,9 @@ static void create_highlightpattern_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 	gtk_option_menu_set_menu(GTK_OPTION_MENU(pd->hpd.popmenu), gtk_menu_new());
 	highlightpattern_gui_rebuild_filetype_popup(pd);
 	gtk_box_pack_start(GTK_BOX(hbox),pd->hpd.popmenu,TRUE, TRUE, 3);
+	but = gtk_button_new_with_label(_("Reset"));
+	g_signal_connect(G_OBJECT(but), "clicked", G_CALLBACK(highlightpattern_reset_clicked_lcb), pd);
+	gtk_box_pack_start(GTK_BOX(hbox),but,FALSE, FALSE, 3);
 
 	hbox = gtk_hbox_new(FALSE, 0);
 	gtk_box_pack_start(GTK_BOX(vbox1), hbox, TRUE, TRUE, 3);
