@@ -36,6 +36,7 @@
 #include "html2.h"
 #include "html_table.h"
 #include "html_form.h"
+#include "rcfile.h" /* rcfile_save_configfile_menu_cb */
 
 static GtkItemFactoryEntry menu_items[] = {
 	{N_("/_File"), NULL, NULL, 0, "<Branch>"},
@@ -441,7 +442,9 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/Options/Tabsize/Decrease tabsize"), NULL, gui_change_tabsize, 0, NULL},
 	{N_("/Options/sep2"), NULL, NULL, 0, "<Separator>"},
 	{N_("/Options/Auto indent"), NULL, gui_toggle_autoindent_cb, 0, "<ToggleItem>"},
-	{N_("/Options/sep2"), NULL, NULL, 0, "<Separator>"}
+	{N_("/Options/sep2"), NULL, NULL, 0, "<Separator>"},
+	{N_("/Options/Save settings"), NULL, rcfile_save_configfile_menu_cb, 0, NULL},
+	{N_("/Options/Save shortcut keys"), NULL, rcfile_save_configfile_menu_cb, 3, NULL}
 };
 
 static void menu_current_document_type_change(GtkMenuItem *menuitem,Tfiletype *hlset) {
