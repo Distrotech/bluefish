@@ -1,0 +1,75 @@
+<chapter id="bluefish-ch-2">
+
+  <title>bluefish installation</title>
+	<simplesect>    
+		<para>
+	      about different methodes to have bluefish installed (distribution or own installation)
+		</para>
+	</simplesect>
+
+	<sect1 id="bluefish-ch-2-sect-1">
+		<title>requirements</title>
+		<para>what you need, to run bluefish</para>
+	</sect1>
+
+	<sect1 id="bluefish-ch-2-sect-2">
+		<title>quick standard installation</title>
+		<para>quick and dirty installation</para>
+	</sect1>
+
+	<sect1 id="bluefish-ch-2-sect-3">
+		<title>general installation issues</title>
+		<para>differences between source and binary installation</para>
+
+		<sect2 id="bluefish-ch-2-sect-3.1">
+			<title>how to get bluefish</title>
+			<para>download bluefish, but how, where and who</para>
+		</sect2>
+		<sect2 id="bluefish-ch-2-sect-3.2">
+			<title>operating systems supported by bluefish</title>
+			<para>know operating systems, on which bluefish is running (is there everywhere a windows? NO!)</para>
+		</sect2>
+		<sect2 id="bluefish-ch-2-sect-3.3">
+			<title>which bluefish version to use</title>
+			<para>which user should use which version (offical, alpha/beta, snapshot, development)</para>
+		</sect2>
+		<sect2 id="bluefish-ch-2-sect-3.4">
+			<title>how and when updates are released</title>
+			<para>the development is always a deep black hole, but sometimes there is an new release :-)</para>
+		</sect2>
+
+	</sect1>
+
+	<sect1 id="bluefish-ch-2-sect-4">
+		<title>installing a bluefish source distribution</title>
+		<para>the advantages of an source distribution</para>
+
+		<sect2 id="bluefish-ch-2-sect-4.1">
+			<title>quick installation overview</title>
+			<para>the typical ./configure,  make clean, make and make install</para>
+		</sect2>
+		<sect2 id="bluefish-ch-2-sect-4.2">
+			<title>typical _configure_ options</title>
+			<para>what configure is and why/what options can set</para>
+		</sect2>
+		<sect2 id="bluefish-ch-2-sect-4.3">
+			<title>installing from develepment source tree</title>
+			<para>cvs login, cvs update and then install</para>
+		</sect2>
+		<sect2 id="bluefish-ch-2-sect-4.4">
+			<title>problems compiling?</title>
+			<para>common problems and solutions</para>
+		</sect2>
+	</sect1>
+
+	<sect1 id="bluefish-ch-2-sect-5">
+		<title>installing a bluefish binary distribution</title>
+		<para>rpm is the magic thing</para>
+	</sect1>
+
+	<sect1 id="bluefish-ch-2-sect-6">
+		<title>post-installation setup</title>
+		<para>what is to do after the installation</para>
+	</sect1>
+
+</chapter>
