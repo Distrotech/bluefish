@@ -155,6 +155,7 @@ typedef struct {
 	gchar *newfile_default_encoding; /* if you open a new file, what encoding will it use */
 	GList *encodings; /* all encodings you can choose from */
 	gint auto_set_encoding_meta; /* auto set metatag for the encoding */
+	GList *outputbox; /* all outputbox commands */
 
 	/* not yet in use */
 	gchar *image_editor_cline; 	/* image editor commandline */
@@ -231,11 +232,6 @@ typedef struct {
 	GtkWidget *statusbar;
 	GtkWidget *statuslabel; /* where we have the line number */
 	GList *recent_directories; /* a stringlist with the most recently used directories */
-	GList *recent_files; /* menu.c: a list of menuitems for a recent file */
-	GList *encodings; /* menu.c: a list of structs for encodings */
-	GList *external_menu; /* menu.c: a list of menuitems for external commands and browsers */
-	GtkWidget *cmenu; /* menu.c: the custom menu widget */
-	GList *cmenu_entries; /* menu.c: the list of menuitems for the custom menu */
 } Tmain;
 
 extern Tmain *main_v;
