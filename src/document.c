@@ -1980,18 +1980,13 @@ static gboolean doc_view_button_press_lcb(GtkWidget *widget,GdkEventButton *beve
 	return FALSE;
 }
 
-static void rpopup_bookmark_lcb(GtkWidget *widget, Tdocument *doc) {
+static void rpopup_add_bookmark_lcb(GtkWidget *widget, Tdocument *doc) {
 	bmark_add_at_bevent(doc);
 }
-
-
-/*
-static void rpopup_permanent_bookmark_lcb(GtkWidget *widget, Tbfwin *bfwin) {
-	bmark_add_perm(bfwin);
+static void rpopup_del_bookmark_lcb(GtkWidget *widget, Tdocument *doc) {
+	bmark_del_at_bevent(doc);
 }
-static void rpopup_temporary_bookmark_lcb(GtkWidget *widget, Tbfwin *bfwin) {
-	bmark_add_temp(bfwin);
-}*/
+
 
 static void doc_view_populate_popup_lcb(GtkTextView *textview,GtkMenu *menu,Tdocument *doc) {
 	GtkWidget *menuitem;
@@ -2010,9 +2005,15 @@ static void doc_view_populate_popup_lcb(GtkTextView *textview,GtkMenu *menu,Tdoc
 
 	gtk_menu_shell_prepend(GTK_MENU_SHELL(menu), GTK_WIDGET(gtk_menu_item_new()));
 
-	menuitem = gtk_menu_item_new_with_label(_("Add bookmark"));
-	g_signal_connect(menuitem, "activate", G_CALLBACK(rpopup_bookmark_lcb), doc);
-	gtk_menu_shell_prepend(GTK_MENU_SHELL(menu), GTK_WIDGET(menuitem));
+	if (bmark_have_bookmark_at_stored_bevent(doc)) {
+		menuitem = gtk_menu_item_new_with_label(_("Delete bookmark"));
+		g_signal_connect(menuitem, "activate", G_CALLBACK(rpopup_del_bookmark_lcb), doc);
+		gtk_menu_shell_prepend(GTK_MENU_SHELL(menu), GTK_WIDGET(menuitem));
+	} else {
+		menuitem = gtk_menu_item_new_with_label(_("Add bookmark"));
+		g_signal_connect(menuitem, "activate", G_CALLBACK(rpopup_add_bookmark_lcb), doc);
+		gtk_menu_shell_prepend(GTK_MENU_SHELL(menu), GTK_WIDGET(menuitem));
+	}
 
 /*
 	menuitem = gtk_menu_item_new_with_label(_("Add permanent bookmark"));

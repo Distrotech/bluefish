@@ -20,26 +20,22 @@
 #ifndef __BOOKMARK_H__
 #define __BOOKMARK_H__
 
-void bmark_store_bevent_location(Tdocument * doc, gint charoffset);
-void bmark_add_at_bevent(Tdocument *doc);
-GtkWidget *bmark_gui(Tbfwin *bfwin); /* used in gui.c */
-void bmark_init(void); /* only used once */
-void bmark_cleanup(Tbfwin *bfwin);
-
+void bmark_store_all(Tbfwin *bfwin);
+GtkWidget *bmark_gui(Tbfwin *bfwin); /* used in gui.c to build the bookmark panel */
+void bmark_init(void); /* only used once from bluefish.c */
+void bmark_reload(Tbfwin *bfwin);
+void bmark_set_store(Tbfwin *bfwin);
 void bmark_clean_for_doc(Tdocument *doc); /* set bookmark's doc to NULL when closing file */ 
 void bmark_set_for_doc(Tdocument *doc); /* set bookmark's doc to proper doc when opening file */ 
-void bmark_set_store(Tbfwin *bfwin);
-
+GHashTable *bmark_get_bookmarked_lines(Tdocument * doc, GtkTextIter *fromit, GtkTextIter *toit);
 void bmark_add_extern(Tdocument *doc, gint offset, const gchar *name, const gchar *text, gboolean is_temp);
 void bmark_add(Tbfwin *bfwin);
-
+gboolean bmark_have_bookmark_at_stored_bevent(Tdocument * doc);
+void bmark_store_bevent_location(Tdocument * doc, gint charoffset);
+void bmark_del_at_bevent(Tdocument *doc);
+void bmark_add_at_bevent(Tdocument *doc);
 void bmark_del_all(Tbfwin *bfwin,gboolean ask);
-
-void bmark_store_all(Tbfwin *bfwin);
-/*void bmark_save_all(Tbfwin *bfwin);*/
 void bmark_check_length(Tbfwin *bfwin,Tdocument *doc);
-void bmark_reload(Tbfwin *bfwin);
-
-GHashTable *bmark_get_bookmarked_lines(Tdocument * doc, GtkTextIter *fromit, GtkTextIter *toit);
+void bmark_cleanup(Tbfwin *bfwin);
 
 #endif /* __BOOKMARK_H__ */
