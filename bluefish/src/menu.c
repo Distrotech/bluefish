@@ -20,38 +20,39 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 #include <gtk/gtk.h>
-#include <stdlib.h> /* atoi */
-#include <string.h> /* strchr() */
+#include <stdlib.h>			/* atoi */
+#include <string.h>			/* strchr() */
 #include <gdk/gdkkeysyms.h>
 
 /* #define DEBUG */
 
 #include "bluefish.h"
+#include "about.h"
+#include "bf_lib.h"			/* append_string_to_file() */
 #include "bfspell.h"
 #include "bookmark.h"
-#include "pixmap.h"
-#include "document.h"			/* file_open etc. */
-#include "highlight.h" /* doc_highlight_full */
-#include "menu.h" /* my own .h file */
-#include "undo_redo.h" /* undo_cb() redo_cb() etc. */
-#include "snr2.h" /* search_cb, replace_cb */
-#include "gui.h" /* go_to_line_win_cb */
-#include "stringlist.h" 	/* free_stringlist() */
-#include "bf_lib.h"  /* append_string_to_file() */
-#include "gtk_easy.h" /* window_full, bf_stock_ok_button */
-#include "preferences.h" /* open_preferences_menu_cb */
+#include "document.h"
+#include "file_dialogs.h"
+#include "gtk_easy.h"		/* window_full, bf_stock_ok_button */
+#include "gui.h"				/* go_to_line_win_cb */
+#include "highlight.h"		/* doc_highlight_full */
 #include "html.h"
 #include "html2.h"
-#include "html_table.h"
 #include "html_form.h"
-#include "wizards.h"
+#include "html_table.h"
 #include "image.h"
-#include "rcfile.h" /* rcfile_save_configfile_menu_cb */
-#include "rpopup.h"
+#include "menu.h"				/* my own .h file */
+#include "pixmap.h"
+#include "preferences.h"	/* open_preferences_menu_cb */
 #include "project.h"
-#include "about.h"
+#include "rcfile.h"			/* rcfile_save_configfile_menu_cb */
+#include "rpopup.h"
+#include "snr2.h"				/* search_cb, replace_cb */
+#include "stringlist.h"		/* free_stringlist() */
+#include "undo_redo.h"		/* undo_cb() redo_cb() etc. */
+#include "wizards.h"
 
-#include "outputbox.h" /* temporary */
+#include "outputbox.h"		/* temporary */
 
 /*
 The callback for an ItemFactory entry can take two forms. If callback_action is zero, it is of the following form:
