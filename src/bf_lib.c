@@ -1053,6 +1053,7 @@ gchar *create_full_path(gchar * filename, gchar *basedir) {
 	gchar *absolute_filename;
 	gchar *tmpcdir;
 
+	if (!filename) return NULL;
 	DEBUG_MSG("create_full_path, filename=%s, basedir=%s\n", filename, basedir);
 #ifdef STRIP_FILE_URI
 	if (strchr(filename, ':') != NULL) { /* it is an URI!! */

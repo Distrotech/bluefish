@@ -2395,15 +2395,18 @@ gchar *ask_new_filename(Tbfwin *bfwin,gchar *oldfilename, gint is_move) {
 	newfilename = return_file_w_title(ondisk,(is_move) ? _("Move/rename document to") : _("Save document as"));
 #endif
 	g_free(ondisk);
-	/* make a full path, re-use the ondisk variable */
-	ondisk = newfilename;
-	newfilename = create_full_path(ondisk, NULL);
-	g_free(ondisk);
 	
 	if (!newfilename || (oldfilename && strcmp(oldfilename,newfilename)==0)) {
 		if (newfilename) g_free(newfilename);
 		return NULL;
 	}
+	
+	/* make a full path, re-use the ondisk variable */
+	ondisk = newfilename;
+	newfilename = create_full_path(ondisk, NULL);
+	g_free(ondisk);
+
+	
 	alldocs = return_allwindows_documentlist();
 	exdoc = documentlist_return_document_from_filename(alldocs, newfilename);
 	g_list_free(alldocs);
