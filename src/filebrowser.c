@@ -1760,31 +1760,32 @@ GtkWidget *filebrowser_init(Tbfwin *bfwin) {
 		filebrowser->tree2 = NULL;
 	}
 	
-	if (bfwin->project && bfwin->project->basedir && strlen(bfwin->project->basedir)>2) {
-		filebrowser->showfulltree = checkbut_with_value(_("Show full tree"), FALSE);
-		filebrowser_set_basedir(bfwin, bfwin->project->basedir);
-	} else {
-		filebrowser->showfulltree = checkbut_with_value(_("Show full tree"), TRUE);
-		if (bfwin->current_document && bfwin->current_document->filename){
-			GtkTreePath *path;
-			DEBUG_MSG("filebrowser_init, build tree from current doc %s\n",bfwin->current_document->filename);
-			path = build_tree_from_path(filebrowser, bfwin->current_document->filename);
-			if (path) {
-				filebrowser_expand_to_root(filebrowser,path);
-				gtk_tree_path_free(path);
-			}
+	{
+		GtkTreePath *path = NULL;
+		gchar *buildfrom = NULL;
+		
+		if (bfwin->project && bfwin->project->basedir && strlen(bfwin->project->basedir)>2) {
+			filebrowser->showfulltree = checkbut_with_value(_("Show full tree"), FALSE);
+			filebrowser_set_basedir(bfwin, bfwin->project->basedir);
+			buildfrom = bfwin->project->basedir;
 		} else {
-			gchar curdir[1024];
-			GtkTreePath *path;
-			
-			getcwd(curdir, 1023);
-			strncat(curdir, "/", 1023);
-			DEBUG_MSG("filebrowser_init, build tree from curdir=%s\n",curdir);
-			path = build_tree_from_path(filebrowser, curdir);
-			if (path) {
-				filebrowser_expand_to_root(filebrowser,path);
-				gtk_tree_path_free(path);
+			filebrowser->showfulltree = checkbut_with_value(_("Show full tree"), TRUE);
+			if (bfwin->current_document && bfwin->current_document->filename){
+				DEBUG_MSG("filebrowser_init, build tree from current doc %s\n",bfwin->current_document->filename);
+				buildfrom = bfwin->current_document->filename; 
+			} else {
+				gchar curdir[1024];
+				
+				getcwd(curdir, 1023);
+				strncat(curdir, "/", 1023);
+				DEBUG_MSG("filebrowser_init, build tree from curdir=%s\n",curdir);
+				buildfrom = curdir;
 			}
+		}
+		path = build_tree_from_path(filebrowser, buildfrom);
+		if (path) {
+					filebrowser_expand_to_root(filebrowser,path);
+					gtk_tree_path_free(path);
 		}
 	}
 	g_signal_connect(G_OBJECT(filebrowser->tree), "row-expanded", G_CALLBACK(row_expanded_lcb), filebrowser);
