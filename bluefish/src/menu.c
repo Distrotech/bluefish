@@ -55,6 +55,10 @@
 
 #include "outputbox.h"		/* temporary */
 
+#ifdef HAVE_PYTHON
+#include "embed_python.h"
+#endif
+
 /*
 The callback for an ItemFactory entry can take two forms. If callback_action is zero, it is of the following form:
 void callback(void)
@@ -72,13 +76,9 @@ static void menu_file_operations_cb(Tbfwin *bfwin,guint callback_action, GtkWidg
 	case 2:
 		file_open_cb(NULL,bfwin);
 	break;
-#ifdef EXTERNAL_GREP
-#ifdef EXTERNAL_FIND
 	case 3:
 		file_open_advanced_cb(NULL,bfwin);
 	break;
-#endif
-#endif
 	case 4:
 		doc_reload(bfwin->current_document);
 	break;
@@ -147,7 +147,15 @@ static void menu_file_operations_cb(Tbfwin *bfwin,guint callback_action, GtkWidg
 	break;
 #ifdef HAVE_PYTHON
 	case 99:
-		pythonRun(bfwin, "/home/olivier/cvsbluefish/testpython.py");
+		{
+			GtkWidget *dialog = file_chooser_dialog(bfwin, "for testing: choose python file", GTK_FILE_CHOOSER_ACTION_OPEN, NULL, TRUE, FALSE, NULL);
+			if (gtk_dialog_run(GTK_DIALOG (dialog)) == GTK_RESPONSE_ACCEPT) {
+				gchar *file;
+				file = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog));
+				if (file) pythonRun(bfwin, file);
+			}
+			gtk_widget_destroy (dialog);
+		}
 	break;
 #endif
 	default:
@@ -311,9 +319,6 @@ static void toggle_doc_property(Tbfwin *bfwin,guint callback_action, GtkWidget *
 static GtkItemFactoryEntry menu_items[] = {
 	{N_("/_File"), NULL, NULL, 0, "<Branch>"},
 	{N_("/File/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
-#ifdef HAVE_PYTHON
-	{N_("/File/TestPython"), NULL, menu_file_operations_cb, 99, "<Item>"},
-#endif
 	{N_("/File/_New"), "<control>n", menu_file_operations_cb, 1, "<StockItem>", GTK_STOCK_NEW},
 	{N_("/File/New _Window"), "<shift><control>n", gui_window_menu_cb, 1, "<Item>"},	
 	{N_("/File/_Open..."), "<control>O", menu_file_operations_cb, 2, "<StockItem>", GTK_STOCK_OPEN},
@@ -342,6 +347,10 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/File/Close Win_dow"), NULL, gui_window_menu_cb, 2, "<Item>"},
 	{N_("/File/sep4"), NULL, NULL, 0, "<Separator>"},
 	{N_("/File/_Quit"), "<control>Q", bluefish_exit_request, 0, "<StockItem>", GTK_STOCK_QUIT},
+#ifdef HAVE_PYTHON
+	{N_("/File/sep5"), NULL, NULL, 0, "<Separator>"},
+	{N_("/File/Run Python Script"), NULL, menu_file_operations_cb, 99, "<Item>"},
+#endif
 	{N_("/_Edit"), NULL, NULL, 0, "<Branch>"},
 	{N_("/Edit/Tearoff1"), NULL, NULL, 0, "<Tearoff>"},
 	{N_("/Edit/_Undo"), "<control>z", menu_file_operations_cb, 20, "<StockItem>", GTK_STOCK_UNDO},
