@@ -704,23 +704,25 @@ static void doc_buffer_delete_range_lcb(GtkTextBuffer *textbuffer,GtkTextIter * 
 				i++;
 			}
 		}
-
 		/* undo_redo stuff */
 		{
 			gint start, end, len;
 			start = gtk_text_iter_get_offset(itstart);
 			end = gtk_text_iter_get_offset(itend);	
 			len = end - start;
+			DEBUG_MSG("doc_buffer_delete_range_lcb, start=%d, end=%d, len=%d, string='%s'\n", start, end, len, string);
 			if (len == 1) {
 				if ((string[0] == ' ' || string[0] == '\n' || string[0] == '\t') || !doc_undo_op_compare(doc,UndoDelete)) {
 					DEBUG_MSG("doc_buffer_delete_range_lcb, need a new undogroup\n");
 					doc_unre_new_group(doc);
 				}
-				doc_unre_add(doc, string, start, end, UndoDelete);
 				if (string[0] == '\n') {
 					doc_update_linenumber(doc, NULL, 0);
 				}
+			} else {
+				doc_unre_new_group(doc);
 			}
+			doc_unre_add(doc, string, start, end, UndoDelete);
 		}
 
 		g_free(string);

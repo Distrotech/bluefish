@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-/* #define HL_TIMING */
+#define HL_TIMING
 
 #ifdef HL_TIMING
 #include <sys/times.h>
@@ -675,17 +675,25 @@ void doc_highlight_line(Tdocument * doc) {
 		gtk_text_buffer_get_iter_at_mark(doc->buffer, &itstart, mark);
 		/* move to the beginning of the line */
 		gtk_text_iter_set_line_offset(&itstart, 0);
+		if (main_v->props.highlight_num_lines_count) {
+			gtk_text_iter_backward_lines(&itstart,main_v->props.highlight_num_lines_count);
+		}
 #ifdef DEBUG
 		DEBUG_MSG("doc_highlight_line, itstart is at %d\n", gtk_text_iter_get_offset(&itstart));
 #endif
 		gtk_text_buffer_get_iter_at_mark(doc->buffer, &itend, mark);
 /*		gtk_text_iter_forward_to_line_end(&itend);
 		gtk_text_iter_set_line_offset(&itend, 0);*/
-		gtk_text_iter_forward_line(&itend);
+		gtk_text_iter_forward_lines(&itend,1+main_v->props.highlight_num_lines_count);
+
 		gtk_text_iter_set_line_offset(&itend, 0);
 #ifdef DEBUG
 		DEBUG_MSG("doc_highlight_line, itend is at %d\n", gtk_text_iter_get_offset(&itend));
 #endif
+		if (gtk_text_iter_get_offset(&itstart) == gtk_text_iter_get_offset(&itend)) {
+			DEBUG_MSG("doc_highlight_line start end end are the same, cannot highlight!!\n");
+			return;
+		}
 
 		/* get all the tags that itstart is in */
 		taglist = gtk_text_iter_get_tags(&itstart);
@@ -816,7 +824,7 @@ void doc_highlight_line(Tdocument * doc) {
 		applylevel(doc, patternlist, so, eo, NULL, NULL);
 #ifdef HL_TIMING
 		times(&tms2);
-		DEBUG_MSG
+		g_print
 			("doc_highlight_line done, %d ms user-time needed for highlighting\n",
 			 (int) (double) ((tms2.tms_utime -
 							  tms1.tms_utime) * 1000 /
