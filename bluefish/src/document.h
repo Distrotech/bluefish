@@ -68,36 +68,36 @@ void doc_unbind_signals(Tdocument *doc);
 gchar *ask_new_filename(gchar *oldfilename, gboolean is_move);
 gint doc_save(Tdocument * doc, gint do_save_as, gint do_move);
 
-void doc_new_with_new_file(gchar * new_filename);
-Tdocument *doc_new(gboolean delay_activate);
-gboolean doc_new_with_file(gchar * filename, gboolean delay_activate);
-void docs_new_from_files(GList * file_list);
+Tdocument *doc_new(Tbfwin* bfwin, gboolean delay_activate);
+void doc_new_with_new_file(Tbfwin *bfwin, gchar * new_filename);
+gboolean doc_new_with_file(Tbfwin *bfwin, gchar * filename, gboolean delay_activate);
+void docs_new_from_files(Tbfwin *bfwin, GList * file_list);
 void doc_reload(Tdocument *doc);
 void doc_activate(Tdocument *doc);
 
 /* callbacks for the menu and toolbars */
-void file_save_cb(GtkWidget * widget, gpointer data);
-void file_save_as_cb(GtkWidget * widget, gpointer data);
-void file_move_to_cb(GtkWidget * widget, gpointer data);
-void file_open_cb(GtkWidget * widget, gpointer data);
+void file_save_cb(GtkWidget * widget, Tbfwin *bfwin);
+void file_save_as_cb(GtkWidget * widget, Tbfwin *bfwin);
+void file_move_to_cb(GtkWidget * widget, Tbfwin *bfwin);
+void file_open_cb(GtkWidget * widget, Tbfwin *bfwin);
 void file_insert_menucb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget);
-void file_new_cb(GtkWidget * widget, gpointer data);
-void file_close_cb(GtkWidget * widget, gpointer data);
-void file_close_all_cb(GtkWidget * widget, gpointer data);
-void file_save_all_cb(GtkWidget * widget, gpointer data);
+void file_new_cb(GtkWidget * widget, Tbfwin *bfwin);
+void file_close_cb(GtkWidget * widget, Tbfwin *bfwin);
+void file_close_all_cb(GtkWidget * widget, Tbfwin *bfwin);
+void file_save_all_cb(GtkWidget * widget, Tbfwin *bfwin);
 
 void edit_cut_cb(GtkWidget * widget, Tbfwin *bfwin);
 void edit_copy_cb(GtkWidget * widget, Tbfwin *bfwin);
 void edit_paste_cb(GtkWidget * widget, Tbfwin *bfwin);
 void edit_select_all_cb(GtkWidget * widget, Tbfwin *bfwin);
 
-void doc_toggle_highlighting_cb(gpointer callback_data,guint action,GtkWidget *widget);
-void doc_toggle_wrap_cb(gpointer callback_data,guint action,GtkWidget *widget);
-void doc_toggle_linenumbers_cb(gpointer callback_data,guint action,GtkWidget *widget);
+void doc_toggle_highlighting_cb(Tbfwin *bfwin,guint action,GtkWidget *widget);
+void doc_toggle_wrap_cb(Tbfwin *bfwin,guint action,GtkWidget *widget);
+void doc_toggle_linenumbers_cb(Tbfwin *bfwin,guint action,GtkWidget *widget);
 void all_documents_apply_settings();
 
-void doc_convert_asciichars_in_selection(gpointer callback_data,guint callback_action,GtkWidget *widget);
-void word_count_cb (gpointer callback_data,guint callback_action,GtkWidget *widget);
+void doc_convert_asciichars_in_selection(Tbfwin *bfwin,guint callback_action,GtkWidget *widget);
+void word_count_cb (Tbfwin *bfwin,guint callback_action,GtkWidget *widget);
 void doc_indent_selection(Tdocument *doc, gboolean unindent);
 void menu_indent_cb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget);
 GList * list_relative_document_filenames(Tdocument *curdoc);

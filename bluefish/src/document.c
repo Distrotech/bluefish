@@ -503,6 +503,7 @@ gboolean test_docs_modified(GList *doclist) {
 }
 /**
  * test_only_empty_doc_left:
+ * @doclist: #GList* with all documents to test in
  *
  * returns TRUE if there is only 1 document open, and that document
  * is not modified and 0 bytes long and without filename
@@ -1849,7 +1850,7 @@ gint doc_save(Tdocument * doc, gint do_save_as, gboolean do_move) {
 		/* TODO: should feed the contents to the function too !! */
 		doc_reset_filetype(doc, doc->filename, NULL);
 		doc_set_modified(doc, 1);
-		if (doc == main_v->current_document) {
+		if (doc == BFWIN(doc->bfwin)->current_document) {
 			doc_set_file_in_titlebar(doc);
 		}
 	}
@@ -1931,7 +1932,7 @@ gint doc_close(Tdocument * doc, gint warn_only)
 	}
 #endif
 
-	if (doc_is_empty_non_modified_and_nameless(doc) && g_list_length(main_v->documentlist) ==1) {
+	if (doc_is_empty_non_modified_and_nameless(doc) && g_list_length(BFWIN(doc->bfwin)->documentlist) ==1) {
 		/* no need to close this doc, it's an Untitled empty document */
 		DEBUG_MSG("doc_close, 1 untitled empty non-modified document, returning\n");
 		return 0;
@@ -2070,7 +2071,7 @@ Tdocument *doc_new(Tbfwin* bfwin, gboolean delay_activate) {
 	GtkWidget *scroll;
 	Tdocument *newdoc = g_new0(Tdocument, 1);
 	DEBUG_MSG("doc_new, main_v is at %p, newdoc at %p\n", main_v, newdoc);
-	newdoc->bfwin = bfwin;
+	newdoc->bfwin = (gpointer)bfwin;
 	newdoc->hl = (Tfiletype *)((GList *)g_list_first(main_v->filetypelist))->data;
 	newdoc->buffer = gtk_text_buffer_new(highlight_return_tagtable());
 	newdoc->view = gtk_text_view_new_with_buffer(newdoc->buffer);
@@ -2159,7 +2160,7 @@ if (!delay_activate) {
 		DEBUG_MSG("doc_new, notebook current page=%d, newdoc is on page %d\n",gtk_notebook_get_current_page(GTK_NOTEBOOK(main_v->notebook)),gtk_notebook_page_num(GTK_NOTEBOOK(main_v->notebook),scroll));
 		DEBUG_MSG("doc_new, setting notebook page to %d\n", g_list_length(main_v->documentlist) - 1);
 		gtk_notebook_set_current_page(GTK_NOTEBOOK(main_v->notebook),g_list_length(main_v->documentlist) - 1);
-		if (main_v->current_document != newdoc) {
+		if (bfwin->current_document != newdoc) {
 			notebook_changed(-1);
 		}*/
 /*		doc_activate() will be called by notebook_changed() and it will grab the focus
@@ -2176,7 +2177,7 @@ if (!delay_activate) {
  *
  * Return value: void
  **/
-void doc_new_with_new_file(gchar * new_filename) {
+void doc_new_with_new_file(Tbfwin *bfwin, gchar * new_filename) {
 	Tdocument *doc;
 	Tfiletype *ft;
 	if (new_filename == NULL) {
@@ -2192,7 +2193,7 @@ void doc_new_with_new_file(gchar * new_filename) {
 	} 
 	DEBUG_MSG("doc_new_with_new_file, new_filename=%s\n", new_filename);
 	add_filename_to_history(new_filename);
-	doc = doc_new(FALSE);
+	doc = doc_new(bfwin, FALSE);
 	doc->filename = g_strdup(new_filename);
 	ft = get_filetype_by_filename_and_content(doc->filename, NULL);
 	if (ft) doc->hl = ft;
@@ -2213,7 +2214,7 @@ void doc_new_with_new_file(gchar * new_filename) {
  *
  * Return value: #gboolean, TRUE if successful, FALSE on error.
  **/
-gboolean doc_new_with_file(gchar * filename, gboolean delay_activate) {
+gboolean doc_new_with_file(Tbfwin *bfwin, gchar * filename, gboolean delay_activate) {
 	Tdocument *doc;
 	gboolean opening_in_existing_doc = FALSE;
 	
@@ -2222,11 +2223,13 @@ gboolean doc_new_with_file(gchar * filename, gboolean delay_activate) {
 		return FALSE;
 	}
 	if (!main_v->props.allow_multi_instances) {
-		gint index = documentlist_return_index_from_filename(filename);
-		if (index != -1) {
-			DEBUG_MSG("doc_new_with_file, %s is already open at index=%d\n",filename,index);
+		GList *alldocs = return_allwindows_documentlist();
+		Tdocument *tmpdoc = documentlist_return_document_from_filename(alldocs, filename);
+		g_list_free(alldocs);
+		if (tmpdoc) {
+			DEBUG_MSG("doc_new_with_file, %s is already open %p\n",filename,tmpdoc);
 			if (!delay_activate) {
-				switch_to_document_by_index(index);
+				switch_to_document_by_pointer(tmpdoc);
 			}
 			return TRUE;
 		}
@@ -2234,12 +2237,12 @@ gboolean doc_new_with_file(gchar * filename, gboolean delay_activate) {
 	DEBUG_MSG("doc_new_with_file, filename=%s exists\n", filename);
 	add_filename_to_history(filename);
 
-	if (g_list_length(main_v->documentlist)==1 && doc_is_empty_non_modified_and_nameless(main_v->current_document)) {
-		doc = main_v->current_document;
+	if (g_list_length(bfwin->documentlist)==1 && doc_is_empty_non_modified_and_nameless(bfwin->current_document)) {
+		doc = bfwin->current_document;
 		opening_in_existing_doc = TRUE;
-		locals.last_activated_doc = NULL;
+		bfwin->last_activated_doc = NULL;
 	} else {
-		doc = doc_new(delay_activate);
+		doc = doc_new(bfwin, delay_activate);
 	}
 	doc->filename = g_strdup(filename);
 	DEBUG_MSG("doc_new_with_file, hl is resetted to filename, about to load file\n");
@@ -2272,7 +2275,7 @@ gboolean doc_new_with_file(gchar * filename, gboolean delay_activate) {
  *
  * Return value: void
  **/
-void docs_new_from_files(GList * file_list) {
+void docs_new_from_files(Tbfwin *bfwin, GList * file_list) {
 
 	GList *tmplist, *errorlist=NULL;
 	gboolean delay = (g_list_length(file_list) > 1);
@@ -2290,7 +2293,7 @@ void docs_new_from_files(GList * file_list) {
 	tmplist = g_list_first(file_list);
 	while (tmplist) {
 		DEBUG_MSG("docs_new_from_files, about to open %s, delay=%d\n", (gchar *) tmplist->data, delay);
-		if (!doc_new_with_file((gchar *) tmplist->data, delay)) {
+		if (!doc_new_with_file(bfwin,(gchar *) tmplist->data, delay)) {
 			errorlist = g_list_append(errorlist, g_strdup((gchar *) tmplist->data));
 		}
 		if(pbar) {
@@ -2316,11 +2319,11 @@ void docs_new_from_files(GList * file_list) {
 		progress_destroy(pbar);
 		notebook_show();
 
-		gtk_notebook_set_page(GTK_NOTEBOOK(main_v->notebook),g_list_length(main_v->documentlist) - 1);
+		gtk_notebook_set_page(GTK_NOTEBOOK(bfwin->notebook),g_list_length(bfwin->documentlist) - 1);
 		notebook_changed(-1);
-		if (main_v->current_document && main_v->current_document->filename) {
-			filebrowser_open_dir(main_v->current_document->filename);
-			doc_activate(main_v->current_document);
+		if (bfwin->current_document && bfwin->current_document->filename) {
+			filebrowser_open_dir(bfwin->current_document->filename);
+			doc_activate(bfwin->current_document);
 		}
 	}
 }
@@ -2369,10 +2372,10 @@ void doc_activate(Tdocument *doc) {
 		exit(44);
 	}
 #endif
-	if (doc == NULL || doc == locals.last_activated_doc) {
+	if (doc == NULL || doc == BFWIN(doc->bfwin)->last_activated_doc) {
 		return;
 	}
-	locals.last_activated_doc = doc;
+	BFWIN(doc->bfwin)->last_activated_doc = doc;
 
 	gtk_widget_show(doc->view); /* This might be the first time this document is activated. */
 	
@@ -2420,7 +2423,7 @@ void doc_activate(Tdocument *doc) {
 }
 
 void doc_force_activate(Tdocument *doc) {
-	locals.last_activated_doc = NULL;
+	BFWIN(doc->bfwin)->last_activated_doc = NULL;
 	doc_activate(doc);
 }
 
@@ -2437,6 +2440,7 @@ typedef struct {
 	GtkWidget *recursive;
 	GtkWidget *grep_pattern;
 	GtkWidget *is_regex;
+	Tbfwin *bfwin;
 } Tfiles_advanced;
 
 static void files_advanced_win_destroy(GtkWidget * widget, Tfiles_advanced *tfs) {
@@ -2518,7 +2522,7 @@ static void files_advanced_win(Tfiles_advanced *tfs) {
 	GList *list;
 	gchar *curdir=g_get_current_dir();
 	
-	tfs->win = window_full2(_("Advanced open file selector"), GTK_WIN_POS_MOUSE, 12, G_CALLBACK(files_advanced_win_destroy),tfs, TRUE, main_v->main_window);
+	tfs->win = window_full2(_("Advanced open file selector"), GTK_WIN_POS_MOUSE, 12, G_CALLBACK(files_advanced_win_destroy),tfs, TRUE, tfs->bfwin->main_window);
 	DEBUG_MSG("files_advanced_win, tfs->win=%p\n",tfs->win);
 	tfs->filenames_to_return = NULL;
 	vbox = gtk_vbox_new(FALSE, 0);
@@ -2590,11 +2594,11 @@ static void files_advanced_win(Tfiles_advanced *tfs) {
 	gtk_widget_show_all(GTK_WIDGET(tfs->win));
 /*	gtk_grab_add(GTK_WIDGET(tfs->win));
 	gtk_widget_realize(GTK_WIDGET(tfs->win));*/
-	gtk_window_set_transient_for(GTK_WINDOW(tfs->win), GTK_WINDOW(main_v->main_window));
+	gtk_window_set_transient_for(GTK_WINDOW(tfs->win), GTK_WINDOW(tfs->bfwin->main_window));
 }
 
-GList *return_files_advanced() {
-	Tfiles_advanced tfs = {NULL, NULL, NULL, NULL, NULL, NULL, NULL};
+GList *return_files_advanced(Tbfwin *bfwin) {
+	Tfiles_advanced tfs = {NULL, NULL, NULL, NULL, NULL, NULL, NULL, bfwin};
 
 	files_advanced_win(&tfs);
 	DEBUG_MSG("return_files_advanced, calling gtk_main()\n");
@@ -2614,7 +2618,7 @@ GList *return_files_advanced() {
  * Return value: void
  **/
 void file_save_cb(GtkWidget * widget, Tbfwin *bfwin) {
-	doc_save(main_v->current_document, 0, 0);
+	doc_save(bfwin->current_document, 0, 0);
 }
 
 /**
@@ -2627,7 +2631,7 @@ void file_save_cb(GtkWidget * widget, Tbfwin *bfwin) {
  * Return value: void
  **/
 void file_save_as_cb(GtkWidget * widget, Tbfwin *bfwin) {
-	doc_save(main_v->current_document, 1, 0);
+	doc_save(bfwin->current_document, 1, 0);
 }
 
 /**
@@ -2640,7 +2644,7 @@ void file_save_as_cb(GtkWidget * widget, Tbfwin *bfwin) {
  * Return value: void
  **/
 void file_move_to_cb(GtkWidget * widget, Tbfwin *bfwin) {
-	doc_save(main_v->current_document, 1, 1);
+	doc_save(bfwin->current_document, 1, 1);
 }
 
 /**
@@ -2665,14 +2669,14 @@ void file_open_cb(GtkWidget * widget, Tbfwin *bfwin) {
 		g_free(message);
 		flush_queue();
 	}
-	docs_new_from_files(tmplist);
+	docs_new_from_files(bfwin,tmplist);
 	free_stringlist(tmplist);
 }
 #ifdef EXTERNAL_GREP
 #ifdef EXTERNAL_FIND
 void file_open_advanced_cb(GtkWidget * widget, Tbfwin *bfwin) {
 	GList *tmplist;
-	tmplist = return_files_advanced();
+	tmplist = return_files_advanced(bfwin);
 	if (!tmplist) {
 		return;
 	}
@@ -2683,7 +2687,7 @@ void file_open_advanced_cb(GtkWidget * widget, Tbfwin *bfwin) {
 		g_free(message);
 		flush_queue();
 	}
-	docs_new_from_files(tmplist);
+	docs_new_from_files(bfwin,tmplist);
 	free_stringlist(tmplist);
 }
 #endif
@@ -2742,8 +2746,8 @@ void file_new_cb(GtkWidget *widget, Tbfwin *bfwin) {
  *
  * Return value: void
  **/
-void file_close_cb(GtkWidget * widget, gpointer data) {
-	doc_close(main_v->current_document, 0);
+void file_close_cb(GtkWidget * widget, Tbfwin *bfwin) {
+	doc_close(bfwin->current_document, 0);
 }
 
 /**
@@ -2755,8 +2759,7 @@ void file_close_cb(GtkWidget * widget, gpointer data) {
  *
  * Return value: void
  **/
-void file_close_all_cb(GtkWidget * widget, gpointer data)
-{
+void file_close_all_cb(GtkWidget * widget, Tbfwin *bfwin) {
 	GList *tmplist;
 	Tdocument *tmpdoc;
 	gint retval = -1;
@@ -2776,10 +2779,10 @@ void file_close_all_cb(GtkWidget * widget, gpointer data)
 	}
 	DEBUG_MSG("file_close_all_cb, after the warnings, retval=%d, now close all the windows\n", retval);
 
-	tmplist = g_list_first(main_v->documentlist);
+	tmplist = g_list_first(bfwin->documentlist);
 	while (tmplist) {
 		tmpdoc = (Tdocument *) tmplist->data;
-		if (test_only_empty_doc_left()) {
+		if (test_only_empty_doc_left(bfwin->documentlist)) {
 			return;
 		}
 		
@@ -2791,15 +2794,15 @@ void file_close_all_cb(GtkWidget * widget, gpointer data)
 			} else {
 				return;
 			}
-			tmplist = g_list_first(main_v->documentlist);
+			tmplist = g_list_first(bfwin->documentlist);
 		break;
 		case 1:
 			doc_destroy(tmpdoc, TRUE);
-			tmplist = g_list_first(main_v->documentlist);
+			tmplist = g_list_first(bfwin->documentlist);
 		break;
 		case 2:
 			if (doc_close(tmpdoc, 0)) {
-				tmplist = g_list_first(main_v->documentlist);
+				tmplist = g_list_first(bfwin->documentlist);
 			} else {
 /*				notebook_changed();*/
 				return;
@@ -2825,13 +2828,12 @@ void file_close_all_cb(GtkWidget * widget, gpointer data)
  *
  * Return value: void
  **/
-void file_save_all_cb(GtkWidget * widget, gpointer data)
-{
+void file_save_all_cb(GtkWidget * widget, Tbfwin *bfwin) {
 
 	GList *tmplist;
 	Tdocument *tmpdoc;
 
-	tmplist = g_list_first(main_v->documentlist);
+	tmplist = g_list_first(bfwin->documentlist);
 	while (tmplist) {
 		tmpdoc = (Tdocument *) tmplist->data;
 		if (tmpdoc->modified) {
@@ -2923,10 +2925,9 @@ void edit_select_all_cb(GtkWidget * widget, Tbfwin *bfwin) {
  * Return value: void
  **/
 void doc_toggle_highlighting_cb(Tbfwin *bfwin,guint action,GtkWidget *widget) {
-
 	bfwin->current_document->highlightstate = 1 - bfwin->current_document->highlightstate;
 	DEBUG_MSG("doc_toggle_highlighting_cb, started, highlightstate now is %d\n", bfwin->current_document->highlightstate);
-	if (main_v->current_document->highlightstate == 0) {
+	if (bfwin->current_document->highlightstate == 0) {
 		doc_remove_highlighting(bfwin->current_document);
 	} else {
 		doc_highlight_full(bfwin->current_document);
@@ -2943,9 +2944,9 @@ void doc_toggle_highlighting_cb(Tbfwin *bfwin,guint action,GtkWidget *widget) {
  *
  * Return value: void
  **/
-void doc_toggle_wrap_cb(gpointer callback_data,guint action,GtkWidget *widget) {
-	main_v->current_document->wrapstate = 1 - main_v->current_document->wrapstate;
-	doc_set_wrap(main_v->current_document);
+void doc_toggle_wrap_cb(Tbfwin *bfwin,guint action,GtkWidget *widget) {
+	bfwin->current_document->wrapstate = 1 - bfwin->current_document->wrapstate;
+	doc_set_wrap(bfwin->current_document);
 }
 
 /**
@@ -2958,9 +2959,9 @@ void doc_toggle_wrap_cb(gpointer callback_data,guint action,GtkWidget *widget) {
  *
  * Return value: void
  **/
-void doc_toggle_linenumbers_cb(gpointer callback_data,guint action,GtkWidget *widget) {
-	main_v->current_document->linenumberstate = 1 - main_v->current_document->linenumberstate;
-	document_set_line_numbers(main_v->current_document, main_v->current_document->linenumberstate);
+void doc_toggle_linenumbers_cb(Tbfwin *bfwin,guint action,GtkWidget *widget) {
+	bfwin->current_document->linenumberstate = 1 - bfwin->current_document->linenumberstate;
+	document_set_line_numbers(bfwin->current_document, bfwin->current_document->linenumberstate);
 }
 /**
  * all_documents_apply_settings:
@@ -2970,7 +2971,7 @@ void doc_toggle_linenumbers_cb(gpointer callback_data,guint action,GtkWidget *wi
  * Return value: void
  */
 void all_documents_apply_settings() {
-	GList *tmplist = g_list_first(main_v->documentlist);
+	GList *tmplist = g_list_first(return_allwindows_documentlist());
 	while (tmplist){
 		Tdocument *doc = tmplist->data;
 		doc_set_tabsize(doc, main_v->props.editor_tab_width);
@@ -3007,11 +3008,11 @@ void doc_convert_asciichars_in_selection(Tbfwin *bfwin,guint callback_action,Gtk
  *
  * Return value: void
  **/
-void word_count_cb (gpointer callback_data,guint callback_action,GtkWidget *widget) {
+void word_count_cb (Tbfwin *bfwin,guint callback_action,GtkWidget *widget) {
 	guint chars = 0, lines = 0, words = 0;
 	gchar *allchars, *wc_message;
 	
-   allchars = doc_get_chars(main_v->current_document, 0, -1);
+   allchars = doc_get_chars(bfwin->current_document, 0, -1);
 	wordcount(allchars, &chars, &lines, &words);
 	g_free(allchars);
 	
@@ -3143,7 +3144,7 @@ GList *list_relative_document_filenames(Tdocument *curdoc) {
 	if (curdoc->filename == NULL) {
 		return NULL;
 	} 
-	tmplist = g_list_first(main_v->documentlist);
+	tmplist = g_list_first(BFWIN(curdoc->bfwin)->documentlist);
 	while (tmplist) {
 		Tdocument *tmpdoc = tmplist->data;
 		if (tmpdoc != curdoc && tmpdoc->filename != NULL) {
