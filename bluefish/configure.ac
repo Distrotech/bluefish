@@ -22,7 +22,7 @@ AC_CONFIG_HEADER(src/config.h)
 
 
 PACKAGE=bluefish
-VERSION=pre0.13
+VERSION=pre0.14
 AC_SUBST(PACKAGE)
 AC_SUBST(VERSION)
 AC_DEFINE_UNQUOTED(PACKAGE, "$PACKAGE")
@@ -178,6 +178,14 @@ fi
 echo -n "checking for gtk+-2.2... "
 if pkg-config gtk+-2.0 --atleast-version=2.2 ; then
 	AC_DEFINE(HAVE_ATLEAST_GTK_2_2)
+	echo "yes"
+else
+	echo "no"
+fi
+
+echo -n "checking for gtk+-2.4... "
+if pkg-config gtk+-2.0 --atleast-version=2.4 ; then
+	AC_DEFINE(HAVE_ATLEAST_GTK_2_4)
 	echo "yes"
 else
 	echo "no"
