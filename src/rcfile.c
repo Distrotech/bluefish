@@ -175,10 +175,12 @@ static gint save_config_file(GList * config_list, gchar * filename)
 			break;
 		case 'l':
 		case 'm':
-			DEBUG_MSG("save_config_file, tmpitem(%p), &tmpitem=%p\n", tmpitem, &tmpitem);
+			DEBUG_MSG("save_config_file, type %c, tmpitem(%p), &tmpitem=%p\n", tmpitem->type, tmpitem, &tmpitem);
+			tmplist2 = NULL;
 			if (tmpitem->type == 'm') {
 				tmplist2 = g_list_nth((GList *) * (void **) tmpitem->pointer,tmpitem->len);
-			} else {
+			}
+			if (!tmplist2) {
 				tmplist2 = g_list_last((GList *) * (void **) tmpitem->pointer);
 			}
 			DEBUG_MSG("save_config_file, the tmplist2(%p)\n", tmplist2);
@@ -908,6 +910,7 @@ gboolean rcfile_save_project(Tproject *project, gchar *filename) {
 	GList *configlist = return_project_configlist(project);
 	DEBUG_MSG("rcfile_save_project, project %p, name='%s', basedir='%s', webdir='%s'\n",project, project->name, project->basedir, project->webdir);
 	DEBUG_MSG("rcfile_save_project, bmarks=%p, list length=%d\n",project->session->bmarks, g_list_length(project->session->bmarks));
+	DEBUG_MSG("rcfile_save_project, length session recent_files=%d\n",g_list_length(project->session->recent_files));
 	retval = save_config_file(configlist, filename);
 	free_configlist(configlist);
 	return retval;
@@ -917,8 +920,8 @@ gboolean rcfile_save_global_session(void) {
 	gboolean retval;
 	gchar *filename = g_strconcat(g_get_home_dir(), "/.bluefish/session", NULL);
 	GList *configlist = return_session_configlist(NULL, main_v->session);
-	g_print("rcfile_save_global_session, saving global session to %s\n",filename);
-	g_print("rcfile_save_global_session, length bookmarks=%d\n",g_list_length(main_v->session->bmarks));
+	DEBUG_MSG("rcfile_save_global_session, saving global session to %s\n",filename);
+	DEBUG_MSG("rcfile_save_global_session, length session recent_files=%d\n",g_list_length(main_v->session->recent_files));
 	retval = save_config_file(configlist, filename);
 	free_configlist(configlist);
 	g_free(filename);
