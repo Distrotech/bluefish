@@ -109,7 +109,7 @@ gboolean file_copy(gchar *source, gchar *dest) {
 	while (result == GNOME_VFS_OK) {
 		result = gnome_vfs_write (write_handle, buffer, bytes_read, &bytes_written);
 		if (result != GNOME_VFS_OK || bytes_written != bytes_read) {
-			DEBUG_MSG("file_copy, return FALSE, write result=%d, written=%d, read=%d\n",result,bytes_written,bytes_read);
+			DEBUG_MSG("file_copy, return FALSE, write result=%d, written=%ld, read=%ld\n",result,(long)bytes_written,(long)bytes_read);
 			gnome_vfs_close(write_handle);
 			gnome_vfs_close(read_handle);
 			return FALSE;
@@ -767,6 +767,12 @@ gchar *create_full_path(gchar * filename, gchar *basedir) {
 	gchar *tmpcdir;
 
 	DEBUG_MSG("create_full_path, filename=%s, basedir=%s\n", filename, basedir);
+#ifdef HAVE_GNOME_VFS
+	if (strchr(filename, ':') != NULL) {
+		DEBUG_MSG("create_full_path, %s is an URI\n",filename);
+		return g_strdup(filename);
+	}
+#endif /* HAVE_GNOME_VFS */
 	if (g_path_is_absolute(filename)) {
 		absolute_filename = g_strdup(filename);
 	} else {
@@ -1098,3 +1104,4 @@ void wordcount(gchar *text, guint *chars, guint *lines, guint *words)
 	/* We start counting line numbers from 1 */
 	if(*chars > 0) (*lines)++;
 }
+

@@ -29,7 +29,7 @@
 #include <time.h>			/* ctime_r() */
 #include <pcre.h>
 
-/*#define DEBUG*/
+/* #define DEBUG */
 
 #ifdef DEBUGPROFILING
 #include <sys/times.h>
@@ -1091,14 +1091,14 @@ static void add_encoding_to_list(gchar *encoding) {
 #define STARTING_BUFFER_SIZE 8192
 static gchar *get_buffer_from_filename(Tbfwin *bfwin, gchar *filename, int *returnsize) {
 	GnomeVFSResult result;
-/*	GnomeVFSHandle *handle;
+	GnomeVFSHandle *handle;
 	GnomeVFSFileSize bytes_read;
 	gchar chunk[STARTING_BUFFER_SIZE];
-	unsigned long long buffer_size = STARTING_BUFFER_SIZE;*/
+	unsigned long long buffer_size = STARTING_BUFFER_SIZE;
 	gchar *buffer;
 
 	DEBUG_MSG("get_buffer_from_filename, started for %s\n",filename);
-/*	result = gnome_vfs_open (&handle, filename, GNOME_VFS_OPEN_READ);
+	result = gnome_vfs_open (&handle, filename, GNOME_VFS_OPEN_READ);
 	if (result != GNOME_VFS_OK) {
 		gchar *errmessage = g_strconcat(_("Could not read file:\n"), filename, NULL);
 		warning_dialog(bfwin->main_window,errmessage, NULL);
@@ -1115,21 +1115,23 @@ static gchar *get_buffer_from_filename(Tbfwin *bfwin, gchar *filename, int *retu
 			buffer_size += STARTING_BUFFER_SIZE;
 			buffer = g_realloc(buffer, 1+(buffer_size * sizeof(gchar)));
 		} else {
-			DEBUG_MSG("get_buffer_from_filename, size=%lld, terminating buffer at %lld\n",bytes_read,buffer_size-STARTING_BUFFER_SIZE+bytes_read);
-			buffer[buffer_size-STARTING_BUFFER_SIZE+bytes_read] = '\0';
-			*returnsize= buffer_size-STARTING_BUFFER_SIZE+bytes_read;
 			break;
 		}
-	}	
-	gnome_vfs_close(handle);*/
-	result = gnome_vfs_read_entire_file(filename,returnsize,&buffer);
+	}
+	DEBUG_MSG("get_buffer_from_filename, size=%lld, terminating buffer at %lld\n",bytes_read,buffer_size-STARTING_BUFFER_SIZE+bytes_read);
+	buffer[buffer_size-STARTING_BUFFER_SIZE+bytes_read] = '\0';
+	*returnsize= buffer_size-STARTING_BUFFER_SIZE+bytes_read;
+	gnome_vfs_close(handle);
+	/* using gnome_vfs_read_entire_file results in a buffer without \0 at the end */
+/*	result = gnome_vfs_read_entire_file(filename,returnsize,&buffer);
 	if (GNOME_VFS_OK != result) {
 		gchar *errmessage = g_strconcat(_("Could not read file:\n"), filename, NULL);
 		warning_dialog(bfwin->main_window,errmessage, NULL);
 		g_free(errmessage);
 		DEBUG_MSG("get_buffer_from_filename, ERROR (result=%d), returning NULL\n",result);
+		DEBUG_MSG("get_buffer_from_filename, error: %s\n", gnome_vfs_result_to_string (result));
 		return NULL;
-	}
+	}*/
 	return buffer;
 }
 #else /* no gnome-vfs */
