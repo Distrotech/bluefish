@@ -392,6 +392,11 @@ static GtkTreePath *return_path_from_filename(Tfilebrowser *filebrowser,gchar *t
 				g_free(found_root);
 			}
 		}
+		if (strcmp(root, this_filename)==0) {
+			/* we are looking for the root!! */
+			g_free(root);
+			return gtk_tree_model_get_path(GTK_TREE_MODEL(store),&parent);
+		}
 		g_free(root);
 	}
 
