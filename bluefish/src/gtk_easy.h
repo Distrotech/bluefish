@@ -93,5 +93,14 @@ GList *return_files(gchar * setfile);
 gchar *return_dir(gchar *setdir, gchar *title);
 
 void destroy_disposable_menu_cb(GtkWidget *widget, GtkWidget *menu);
+
+#ifndef HAVE_ATLEAST_GTK_2_2
 void gtktreepath_expand_to_root(GtkWidget *tree, const GtkTreePath *this_path);
 #endif
+
+#ifndef HAVE_ATLEAST_GNOMEVFS_2_2
+GnomeVFSResult gnome_vfs_read_entire_file (const char *uri,int *file_size,char **file_contents);
+#endif
+
+#endif
+
