@@ -684,13 +684,22 @@ void add_to_recent_list(gchar *filename, gint closed_file) {
 /*****************/
 
 static void browser_lcb(GtkWidget *widget, gchar *name) {
-	GList *tmplist = g_list_first(main_v->props.browsers);
-	while (tmplist) {
-		gchar **arr = tmplist->data;
-		if (strcmp(name, arr[0])==0) {
-			DEBUG_MSG("browser_lcb, should start %s now\n", arr[1]);
+	if (!main_v->current_document->filename) {
+		file_save_cb(NULL, NULL);
+	}
+	if (main_v->current_document->filename) {
+		GList *tmplist = g_list_first(main_v->props.browsers);
+		while (tmplist) {
+			gchar **arr = tmplist->data;
+			if (strcmp(name, arr[0])==0) {
+				gchar *command;
+				command = g_strdup_printf(arr[1], main_v->current_document->filename);
+				DEBUG_MSG("browser_lcb, should start %s now\n", command);
+				system(command);
+				g_free(command);
+			}
+			tmplist = g_list_next(tmplist);
 		}
-		tmplist = g_list_next(tmplist);
 	}
 }
 
