@@ -18,7 +18,7 @@ msgstr ""
 # src/html_form.c:325 src/html_form.c:369
 #: ../src/bfspell.c:340
 msgid "Check Spelling"
-msgstr "Corregir Ortograf�a"
+msgstr "Corregir ortografía"
 
 # src/html.c:1724 src/html.c:1768
 # src/html_form.c:325 src/html_form.c:369
@@ -84,7 +84,7 @@ msgstr "_Añadir"
 
 #: ../src/bfspell.c:401
 msgid "Language:"
-msgstr "Idioma:"
+msgstr "_Idioma:"
 
 # src/callbacks.c:1141
 # src/document.c:1003
@@ -115,7 +115,7 @@ msgid ""
 "Usage: %s [options] [filenames ...]\n"
 msgstr ""
 "\n"
-"Uso: %s [opciones] [nombres archivos ...]\n"
+"Uso: %s [opciones] [nombre_archivos ...]\n"
 
 # src/commandline.c:65
 # src/init.c:637
@@ -143,11 +143,11 @@ msgstr "-v           versión actual\n"
 # src/init.c:639
 #: ../src/bluefish.c:95
 msgid "-n           open new window\n"
-msgstr "-n           abrir ventana nueva\n"
+msgstr "-n          abrir ventana nueva\n"
 
 #: ../src/bluefish.c:96
 msgid "-p filename  open project\n"
-msgstr "-p nombre_archivo abrir proyecto\n"
+msgstr "-p archivo  abrir proyecto\n"
 
 # src/commandline.c:68
 # src/init.c:640
@@ -211,7 +211,7 @@ msgstr "Sin Título %d"
 #: ../src/document.c:1001
 #, c-format
 msgid " Ln %d, Col %d"
-msgstr "Ln %d, Col %d"
+msgstr "Ln %d; Col %d"
 
 #: ../src/document.c:1034 ../src/document.c:1035
 #, c-format
@@ -318,7 +318,7 @@ msgstr "Ya existe un archivo denominado \"%s\"."
 # src/document.c:813 src/document.c:884
 #: ../src/document.c:2026
 msgid "Do you want to replace the existing file?"
-msgstr "¿Desea reemplazar el arhivo existente?"
+msgstr "¿Desea reemplazar el archivo existente?"
 
 # src/toolbars.c:154
 # src/document.c:617
@@ -371,7 +371,7 @@ msgid ""
 "Could not write file:\n"
 "\""
 msgstr ""
-"No se pudo abrir el archivo:\n"
+"No se pudo guardar el archivo:\n"
 "\""
 
 #: ../src/document.c:2146
@@ -399,7 +399,7 @@ msgstr "_No guardar"
 
 #: ../src/document.c:2200
 msgid "This file has not been saved."
-msgstr "No se guardó el archivo"
+msgstr "No se guardó el archivo."
 
 # src/callbacks.c:166 src/callbacks.c:244
 # src/document.c:649 src/document.c:671 src/document.c:756
@@ -453,7 +453,7 @@ msgid ""
 "New modification time is: %s\n"
 "Old modification time is: %s"
 msgstr ""
-"Nombre de Archivo: %s\n"
+"Archivo: %s\n"
 "\n"
 "Fecha modificación reciente: %s\n"
 "Fecha modificación anterior: %s"
@@ -551,22 +551,22 @@ msgstr "Ningún archivo para insertar"
 # src/menu.c:110
 #: ../src/document.c:3152
 msgid "_Save All"
-msgstr "_Guardar Todos"
+msgstr "_Guardar todos"
 
 # src/menu.c:113
 # src/menu.c:113
 #: ../src/document.c:3152
 msgid "Close _All"
-msgstr "Cerrar _Todos"
+msgstr "Cerrar _todos"
 
 #: ../src/document.c:3152
 msgid "Choose per _File"
-msgstr "Elegir por cada _Archivo"
+msgstr "Elegir por cada _archivo"
 
 # src/document.c:817 src/document.c:888
 #: ../src/document.c:3153
 msgid "Multiple open files have been changed."
-msgstr "Se han modificado múltiples archivos abiertos."
+msgstr "Han sido modificados múltiples archivos abiertos."
 
 #: ../src/document.c:3154
 msgid "Your changes will be lost if you don't save them."
@@ -628,7 +628,7 @@ msgstr "Se borrará el archivo definitivamente."
 # src/document.c:102
 #: ../src/filebrowser.c:1250 ../src/filebrowser.c:1254
 msgid "Could not delete \n"
-msgstr "No se pudo borrar \n"
+msgstr "No se pudo borrar\n"
 
 # src/menu.c:104
 # src/menu.c:103
@@ -687,7 +687,7 @@ msgstr "Todos los archivos"
 
 #: ../src/filebrowser.c:1769 ../src/filebrowser.c:1773
 msgid "Show full tree"
-msgstr "Mostrar árbol completo"
+msgstr "Mostrar el árbol completo"
 
 # src/html.c:1847
 # src/html.c:1131
@@ -768,6 +768,8 @@ msgid ""
 "Perhaps you didn't load a reference, or you did not select a reference to "
 "search in."
 msgstr ""
+"Quizás no haya cargado una referencia, o no seleccionó una referencia para \n"
+"buscar."
 
 #: ../src/fref.c:2018
 msgid "Show info window"
@@ -1132,13 +1134,13 @@ msgstr "Opciones..."
 # src/menu.c:475
 #: ../src/gui.c:591
 msgid "Option group..."
-msgstr "Grupo de opciones..."
+msgstr "Grupo de Opciones..."
 
 # src/toolbars.c:395
 # src/toolbars.c:399
 #: ../src/gui.c:592
 msgid "Quick List..."
-msgstr "Lista rápida..."
+msgstr "Lista Rápida..."
 
 # src/toolbars.c:399
 # src/toolbars.c:403
@@ -1459,13 +1461,13 @@ msgstr "_No guardar"
 
 #: ../src/gui.c:1030
 msgid "Failed to save the current project"
-msgstr "Error al guardar el proyecto actual"
+msgstr "Fallo al guardar el proyecto actual"
 
 # src/callbacks.c:166 src/callbacks.c:244
 # src/document.c:649 src/document.c:671 src/document.c:756
 #: ../src/gui.c:1054
 msgid "New Bluefish Window"
-msgstr "Nueva Ventana Buefish"
+msgstr "Nueva ventana Bluefish"
 
 # src/toolbars.c:432
 # src/toolbars.c:436
@@ -1505,19 +1507,19 @@ msgstr "iniciando bluefish"
 # src/menu.c:479
 #: ../src/gui.c:1408 ../src/menu.c:856
 msgid "/View/View HTML Toolbar"
-msgstr "/Ver/Ver Barra de Herramientas HTML"
+msgstr "/Ver/Barra de Herramientas HTML"
 
 # src/menu.c:139
 # src/menu.c:478
 #: ../src/gui.c:1415 ../src/menu.c:855
 msgid "/View/View Main Toolbar"
-msgstr "/Ver/Ver Barra de Herramientas Principal"
+msgstr "/Ver/Barra de Herramientas Principal"
 
 # src/menu.c:141
 # src/menu.c:480
 #: ../src/gui.c:1422 ../src/menu.c:857
 msgid "/View/View Custom Menu"
-msgstr "/Ver/Ver Menú Personalizado"
+msgstr "/Ver/Menú Personalizado"
 
 #: ../src/html2.c:587
 msgid "Cascading StyleSheet dialog"
@@ -2472,7 +2474,7 @@ msgstr "/Archivo/_Nuevo"
 # src/menu.c:102
 #: ../src/menu.c:274
 msgid "/File/New _Window"
-msgstr "/Archivo/Nueva _Ventana"
+msgstr "/Archivo/Ventana _nueva"
 
 # src/menu.c:104
 # src/menu.c:103
@@ -2556,7 +2558,7 @@ msgstr "/Archivo/_Insertar..."
 # src/menu.c:103
 #: ../src/menu.c:294
 msgid "/File/Rena_me..."
-msgstr "/Archivo/Reno_mbrar..."
+msgstr "/Archivo/_Renombrar..."
 
 # src/menu.c:111
 # src/menu.c:111
@@ -2580,7 +2582,7 @@ msgstr "/Archivo/Cerrar t_odo"
 # src/menu.c:113
 #: ../src/menu.c:298
 msgid "/File/Close Win_dow"
-msgstr "/Archivo/Cerrar ven_tana"
+msgstr "/Archivo/Cerrar _ventana"
 
 # src/menu.c:107
 # src/menu.c:106
@@ -2723,7 +2725,7 @@ msgstr "/Edición/_Desplazar a la derecha"
 # src/menu.c:120
 #: ../src/menu.c:325
 msgid "/Edit/S_hift Left"
-msgstr "/Edición/Despla_zar a la izquierda"
+msgstr "/Edición/Desplazar a la _izquierda"
 
 # src/menu.c:121
 # src/menu.c:121
@@ -2739,7 +2741,7 @@ msgstr "/Edición/_Guardar configuración"
 # src/menu.c:489
 #: ../src/menu.c:328
 msgid "/Edit/Save Shortcut _Keys"
-msgstr "/Edición/Guardar _Teclas de Acceso Rápido"
+msgstr "/Edición/Guardar _teclas de acceso rápido"
 
 # src/toolbars.c:469
 # src/toolbars.c:514
@@ -2775,7 +2777,7 @@ msgstr "/Ver/Barra de Herramientas _HTML"
 # src/menu.c:480
 #: ../src/menu.c:334
 msgid "/View/View _Custom Menu"
-msgstr "/Ver/Menú Personalizado"
+msgstr "/Ver/_Menú Personalizado"
 
 #: ../src/menu.c:335
 msgid "/View/View _Left Panel"
@@ -4267,11 +4269,11 @@ msgstr "/Documento/sep4"
 
 #: ../src/menu.c:618
 msgid "/Document/Check _Spelling..."
-msgstr "/Documento/Corregir _ortograf�a"
+msgstr "/Documento/Corregir _ortografía..."
 
 #: ../src/menu.c:620
 msgid "/Document/_Floating window"
-msgstr "/Documento/Ventana _flotante"
+msgstr "/Documento/Ventana -flotante"
 
 # src/menu.c:118
 # src/menu.c:118
@@ -4307,7 +4309,7 @@ msgstr "/Proyecto/Abrir r_eciente"
 # src/menu.c:103
 #: ../src/menu.c:626
 msgid "/Project/Open recent/tearoff1"
-msgstr "/Proyecto/Abrir r_eciente/tearoff1"
+msgstr "/Proyecto/Abrir reciente/tearoff1"
 
 # src/menu.c:104
 # src/menu.c:103
@@ -4443,7 +4445,7 @@ msgstr "No se pudo abrir el archivo\n"
 # src/menu.c:103
 #: ../src/menu.c:955
 msgid "/Project/Open recent"
-msgstr "/Proyecto/Abrir r_eciente"
+msgstr "/Proyecto/Abrir reciente"
 
 # src/menu.c:104
 # src/menu.c:103
@@ -5009,7 +5011,7 @@ msgstr "Ancho de Tabulación"
 
 #: ../src/preferences.c:1765
 msgid "Use spaces to indent, not tabs"
-msgstr "Usar espacios y no tabulaciones para sangrar"
+msgstr "Use espacios y no tabulaciones para sangrar"
 
 # src/html.c:1233 src/html.c:1314
 # src/configure.c:311
@@ -5203,7 +5205,7 @@ msgstr "Mostrar en forma predeterminada Menú Personalizado"
 
 #: ../src/preferences.c:1860
 msgid "Show HTML toolbar by default"
-msgstr "Mostrar en forma determinada Barra de Herramientas HTML"
+msgstr "Mostrar en forma predeterminada Barra de Herramientas HTML"
 
 # src/configure.c:342
 # src/configure.c:393
@@ -5349,7 +5351,7 @@ msgstr "Proyecto nuevo"
 
 #: ../src/project.c:107
 msgid "Enter Bluefish project filename"
-msgstr "Escriba nombre del proyecto Bluefish"
+msgstr "Ingrese nombre del proyecto Bluefish"
 
 # src/menu.c:104
 # src/menu.c:103
@@ -5375,7 +5377,7 @@ msgstr "/Proyecto/Editar Opciones del Proyecto..."
 
 #: ../src/project.c:194
 msgid "Select Bluefish project filename"
-msgstr "Seleccionar nombre del proyecto Bluefish"
+msgstr "Selecciones nombre del proyecto Bluefish"
 
 #: ../src/project.c:321
 msgid "Create New Project"
@@ -5405,11 +5407,11 @@ msgstr "_Nombre del proyecto:"
 
 #: ../src/project.c:362
 msgid "_Local Directory:"
-msgstr "Directorio _Local"
+msgstr "Directorio _local:"
 
 #: ../src/project.c:366
 msgid "_Remote Directory:"
-msgstr "Directorio _Remoto"
+msgstr "Directorio _remoto:"
 
 # src/snr.c:209
 # src/snr2.c:560 src/snr2.c:597
@@ -5425,7 +5427,7 @@ msgstr "_Ajuste de línea predeterminado"
 
 #: ../src/project.c:385
 msgid "Create _Project"
-msgstr "Crear _Proyecto"
+msgstr "Crear _proyecto"
 
 #: ../src/project.c:425
 msgid "Create project"
@@ -5647,7 +5649,7 @@ msgstr "Reemplazar tipo:"
 
 #: ../src/snr2.c:1386
 msgid "Patterns contain backslash escape sequences (\\n, \\t)"
-msgstr ""
+msgstr "Los patrones contienen secuencias de escape (\\n, \\t)"
 
 #: ../src/snr2.c:1387
 msgid "Match ca_se"
@@ -5799,5 +5801,4 @@ msgstr "Fuente:"
 #: ../src/wizards.c:223
 msgid "Size:"
 msgstr "Tamaño:"
-
 
