@@ -105,17 +105,11 @@ static void menu_file_operations_cb(Tbfwin *bfwin,guint callback_action, GtkWidg
 	case 14:
 		search_cb(NULL, bfwin);
 	break;
-	case 15:
-		new_search_cb(NULL, bfwin);
-	break;
 	case 16:
 		search_again_cb(NULL, bfwin);
 	break;
 	case 17:
 		replace_cb(NULL, bfwin);
-	break;
-	case 18:
-		new_replace_cb(NULL, bfwin);
 	break;
 	case 19:
 		replace_again_cb(NULL, bfwin);
@@ -308,10 +302,8 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/Edit/Select _All"), "<control>a", menu_file_operations_cb, 13, "<Item>"},
 	{N_("/Edit/sep2"), NULL, NULL, 0, "<Separator>"},
 	{N_("/Edit/_Find..."), "<control>f", menu_file_operations_cb, 14, "<StockItem>", GTK_STOCK_FIND},
-	{N_("/Edit/Ne_w Find..."), NULL, menu_file_operations_cb, 15, "<Item>"},
 	{N_("/Edit/Find A_gain"), "<control>g", menu_file_operations_cb, 16, "<Item>"},
 	{N_("/Edit/R_eplace..."), "<control>h", menu_file_operations_cb, 17, "<StockItem>", GTK_STOCK_FIND_AND_REPLACE},
-	{N_("/Edit/New Re_place..."), NULL, menu_file_operations_cb, 18, "<Item>"},
 	{N_("/Edit/Replace Agai_n"), "<shift><control>h", menu_file_operations_cb, 19, "<Item>"},
 	{N_("/Edit/Replace _special"), NULL, NULL, 0, "<Branch>"},
 	{N_("/Edit/Replace special/Tearoff1"), NULL, NULL, 0, "<Tearoff>"},

@@ -59,6 +59,7 @@
 #include "gtk_easy.h"         /* a lot of GUI functions */
 #include "snr2.h"
 #include "highlight.h" /* doc_highlight_full() */
+#include "stringlist.h" /* add_to_history_stringlist */
 
 /* Note:
     With multibyte text support a byte-offset
@@ -1199,6 +1200,9 @@ static void snr2dialog_ok_lcb(GtkWidget *widget, Tsnr2_win *data) {
 	gtk_text_buffer_get_bounds(buf,&itstart,&itend);
 	LASTSNR2(bfwin->snr2)->search_pattern = gtk_text_buffer_get_text(buf,&itstart,&itend, FALSE);*/
 	LASTSNR2(bfwin->snr2)->search_pattern = gtk_editable_get_chars(GTK_EDITABLE(GTK_COMBO(data->search_combo)->entry),0,-1);
+	
+	data->bfwin->session->searchlist = add_to_history_stringlist(data->bfwin->session->searchlist,LASTSNR2(bfwin->snr2)->search_pattern,TRUE);
+	
 	LASTSNR2(bfwin->snr2)->unescape = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(data->unescape));
  	LASTSNR2(bfwin->snr2)->is_case_sens = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(data->is_case_sens));
  	LASTSNR2(bfwin->snr2)->overlapping_search = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(data->overlapping_search));
@@ -1209,6 +1213,9 @@ static void snr2dialog_ok_lcb(GtkWidget *widget, Tsnr2_win *data) {
 		LASTSNR2(bfwin->snr2)->replace_pattern = gtk_text_buffer_get_text(buf,&itstart,&itend, FALSE);*/
 		LASTSNR2(bfwin->snr2)->replace = 1;
 		LASTSNR2(bfwin->snr2)->replace_pattern = gtk_editable_get_chars(GTK_EDITABLE(GTK_COMBO(data->search_combo)->entry),0,-1);
+		
+		data->bfwin->session->replacelist = add_to_history_stringlist(data->bfwin->session->replacelist,LASTSNR2(bfwin->snr2)->replace_pattern,TRUE);
+		
 	 	LASTSNR2(bfwin->snr2)->prompt_before_replace = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(data->prompt_before_replace));
 	 	LASTSNR2(bfwin->snr2)->replace_once = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(data->replace_once));
 	} else {
@@ -1435,19 +1442,6 @@ void search_cb(GtkWidget *widget, Tbfwin *bfwin) {
 }
 
 /**
- * new_search_cb:
- * @widget: unused #GtkWidget*
- * @data: unused #gpointer
- * 
- * Show the search-dialog, new search.
- * 
- * Return value: void
- **/
-void new_search_cb(GtkWidget *widget, Tbfwin *bfwin) {
-	snr2dialog(bfwin, 0, 1);
-}
-
-/**
  * search_again_cb:
  * @widget: unused #GtkWidget*
  * @data: unused #gpointer
@@ -1484,19 +1478,6 @@ void replace_again_cb(GtkWidget *widget, Tbfwin *bfwin) {
  **/ 
 void replace_cb(GtkWidget *widget, Tbfwin *bfwin) {
 	snr2dialog(bfwin, 1, 0);
-}
-
-/**
- * search_again_cb:
- * @widget: unused #GtkWidget*
- * @data: unused #gpointer
- * 
- * Show replace dialog, new replace.
- * 
- * Return value: void
- **/ 
-void new_replace_cb(GtkWidget *widget, Tbfwin *bfwin) {
-	snr2dialog(bfwin, 1, 1);
 }
 
 /*****************************************************/
