@@ -702,7 +702,7 @@ The
 	select <emphasis>Edit</emphasis> you can change this setting for a bookmark.
 	</para>
 	<para>
-	A way to add many bookmarks at the same time is using the search dialog. Check the 
+	A way to add many bookmarks at the same time is using the <emphasis>Find</emphasis> dialog. Check the 
 	'Bookmark results' option, and all search results will be added to your bookmarks. 
 	For example this manual has sections, and each section is identified by a header 
 	like '&lt;sect1 id="bluefish-ch-4-sect-6"&gt;'. A way to automatically get a 
@@ -716,8 +716,8 @@ The
 	other way around, and you can name bookmarks.
 	</para>
 </sect2>
-<sect2 id="search-replace">
-<title>Search and Replace</title>
+<sect2 id="find-replace">
+<title>Find and Replace</title>
 	<para>
 	The edit menu features several options for Find and Replace. The Find... (Ctrl+F)
 	and Replace... (Ctrl+H) menu items will simply start the dialogs described elsewhere in
@@ -732,8 +732,8 @@ The
 	find from selection Bluefish will start a new search for this selected string.
 	</para>
 <sect3 id="search-replace-regex">
-<title>Search and replace with regular expressions</title>
-  <para> With the search and replace you can do incredible
+<title>Find or replace with regular expressions</title>
+  <para> With the find and replace you can do incredible
   things. We'll start with a simple example. In some HTML table we have
   several table data tags where we actually want table header tags. Table data
   is &lt;td&gt;&lt;/td&gt; and we want &lt;th&gt;&lt;/th&gt;. </para> <para>
@@ -754,7 +754,7 @@ The
   section of this manual for more information. </para>
   
   <para>
-  In the search and the search and replace dialog it is not possible to insert keys 
+  In the <emphasis>find</emphasis> and the <emphasis>replace</emphasis> dialog it is not possible to insert keys 
   Enter or Tab. You can, however, insert escape characters, if you enable the 
   'Patterns contain backslash sequences' option. If you use this option, you can
   add a newline to your pattern as \n, a tab as a \t, and a backslash becomes a 
@@ -762,7 +762,7 @@ The
   </para>
   
   <para>
-  Another useful option in the search dialog is the <emphasis>bookmark results
+  Another useful option in the <emphasis>find</emphasis> dialog is the <emphasis>bookmark results
   </emphasis> option. For example in a PHP document, you could search for the
   word 'function', and add a bookmark to every function. This results, however,
   in a list of bookmarks that are all named 'function'. Not so useful. But also
