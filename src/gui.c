@@ -1462,7 +1462,8 @@ Tbfwin *gui_new_window(GList *filenames, Tproject *project) {
 		bfwin->session = g_new0(Tsessionvars,1);
 	}
 	gui_create_main(bfwin,filenames);
-/*	main_v->bfwinlist = g_list_append(main_v->bfwinlist, bfwin);*/
+	/* never comment this out again Jim! */
+	main_v->bfwinlist = g_list_append(main_v->bfwinlist, bfwin);
 	gui_show_main(bfwin);
 	return bfwin;
 }
