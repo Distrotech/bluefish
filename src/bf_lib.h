@@ -47,6 +47,7 @@ gchar *most_efficient_filename(gchar *filename);
 gchar *create_relative_link_to(gchar * current_filepath, gchar * link_to_filepath);
 gchar *create_full_path(gchar * filename, gchar *basedir);
 gchar *ending_slash(const gchar *dirname);
+gchar *path_get_dirname_with_ending_slash(const gchar *filename);
 gint file_is_dir(gchar * filename);
 gint file_exists_and_readable(const gchar * filename);
 gchar *return_first_existing_filename(const gchar * filename, ...);
