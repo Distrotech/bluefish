@@ -28,6 +28,7 @@ enum {
 };
 
 gint documentlist_return_index_from_filename(gchar *filename);
+Tdocument *documentlist_return_document_from_index(gint index);
 
 void doc_update_highlighting(GtkWidget *wid, gpointer data);
 void document_set_wrap(Tdocument *doc, gint wraptype);
@@ -57,6 +58,8 @@ void doc_insert_two_strings(Tdocument *doc, const gchar *before_str, const gchar
 
 void doc_bind_signals(Tdocument *doc);
 void doc_unbind_signals(Tdocument *doc);
+
+gint doc_save(Tdocument * doc, gint do_save_as, gint do_move);
 
 void doc_new_with_new_file(gchar * new_filename);
 Tdocument *doc_new(gboolean delay_activate);

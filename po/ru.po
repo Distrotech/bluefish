@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ru\n"
-"POT-Creation-Date: 2003-06-03 14:46+0200\n"
+"POT-Creation-Date: 2003-06-04 10:21+0200\n"
 "PO-Revision-Date: 2003-05-13 20:12+0400\n"
 "Last-Translator: Eugene Rupakov <rupakov@jet.msk.su>\n"
 "Language-Team: Russian <ru@li.org>\n"
@@ -33,7 +33,7 @@ msgstr "Оригинал"
 msgid "Replacement"
 msgstr "Замена"
 
-#: ../src/bfspell.c:356 ../src/document.c:1955
+#: ../src/bfspell.c:356 ../src/document.c:1969
 msgid "Ignore"
 msgstr "Игнорировать"
 
@@ -73,7 +73,7 @@ msgstr "Язык"
 msgid "Set default"
 msgstr "Установить по умолчанию"
 
-#: ../src/bfspell.c:399 ../src/filebrowser.c:936
+#: ../src/bfspell.c:399 ../src/filebrowser.c:1071
 msgid "Filter"
 msgstr "Фильтр"
 
@@ -134,95 +134,95 @@ msgstr "создание основного окна..."
 msgid "showing main gui..."
 msgstr "открытие основного окна..."
 
-#: ../src/document.c:133 ../src/gui.c:606
+#: ../src/document.c:147 ../src/gui.c:606
 msgid "/Document/Highlight syntax"
 msgstr "/Документ/Подсветка синтаксиса"
 
-#: ../src/document.c:407 ../src/document.c:408 ../src/document.c:1974
+#: ../src/document.c:421 ../src/document.c:422 ../src/document.c:1988
 msgid "Untitled"
 msgstr "Безымянный"
 
-#: ../src/document.c:843
+#: ../src/document.c:857
 msgid "Opening file "
 msgstr "Открытие файла"
 
-#: ../src/document.c:852
+#: ../src/document.c:866
 msgid "Could not open file:\n"
 msgstr "Не удается открыть файл:\n"
 
-#: ../src/document.c:853 ../src/document.c:996 ../src/document.c:1576
-#: ../src/document.c:1582
+#: ../src/document.c:867 ../src/document.c:1010 ../src/document.c:1590
+#: ../src/document.c:1596 ../src/filebrowser.c:962
 msgid "Error"
 msgstr "Ошибка"
 
-#: ../src/document.c:996
+#: ../src/document.c:1010
 msgid "Cannot display file, unknown characters found."
 msgstr "Невозможно отобразить файл - найдены неизвестные символы."
 
-#: ../src/document.c:1097
+#: ../src/document.c:1111
 #, c-format, ycp-format
 msgid " line %4d "
 msgstr " строка %4d"
 
-#: ../src/document.c:1241
+#: ../src/document.c:1255
 msgid "Edit tag"
 msgstr "Редактировать метку"
 
-#: ../src/document.c:1252
+#: ../src/document.c:1266
 msgid "Input _Methods"
 msgstr "Методы ввода (_M)"
 
-#: ../src/document.c:1329
+#: ../src/document.c:1343
 msgid "Saving file"
 msgstr "Сохранение файла"
 
-#: ../src/document.c:1350
+#: ../src/document.c:1364
 msgid "Abort save"
 msgstr "Прекратить сохранение"
 
-#: ../src/document.c:1350
+#: ../src/document.c:1364
 msgid "Continue save"
 msgstr "Продолжить сохранение"
 
-#: ../src/document.c:1352
+#: ../src/document.c:1366
 #, c-format
 msgid "Backup for %s failed"
 msgstr "Резервное копирование для %s не удалось"
 
-#: ../src/document.c:1353
+#: ../src/document.c:1367
 msgid "Bluefish warning, file backup failure"
 msgstr "Предупреждение Bluefish: ошибка резервного копирования файла"
 
-#: ../src/document.c:1490
+#: ../src/document.c:1504
 msgid "Save as..."
 msgstr "Сохранить как..."
 
-#: ../src/document.c:1493
+#: ../src/document.c:1507 ../src/filebrowser.c:951
 msgid "Save document as"
 msgstr "Сохранить документ как"
 
-#: ../src/document.c:1500 ../src/document.c:1544
+#: ../src/document.c:1514 ../src/document.c:1558
 msgid "Overwrite"
 msgstr "Перезаписать"
 
-#: ../src/document.c:1500 ../src/document.c:1544
+#: ../src/document.c:1514 ../src/document.c:1558
 msgid "Cancel"
 msgstr "Отменить"
 
-#: ../src/document.c:1501
+#: ../src/document.c:1515
 #, c-format
 msgid "File %s is open, overwrite?"
 msgstr "Файл %s открыт, перезаписать его?"
 
-#: ../src/document.c:1502
+#: ../src/document.c:1516
 msgid "Bluefish: Warning, file is open"
 msgstr "Предупреждение Bluefish: файл открыт"
 
-#: ../src/document.c:1521
+#: ../src/document.c:1535
 msgid "Previously: "
 msgstr "Предварительно:"
 
-#: ../src/document.c:1548
+#: ../src/document.c:1562
 #, c-format
 msgid ""
 "File %s\n"
@@ -237,24 +237,24 @@ msgstr ""
 "старое время модификацйи %s\n"
 "перезаписать?"
 
-#: ../src/document.c:1549 ../src/document.c:1960
+#: ../src/document.c:1563 ../src/document.c:1974
 msgid "Bluefish: Warning, file is modified"
 msgstr "Предупреждение Bluefish: файл модифицирован"
 
-#: ../src/document.c:1565
+#: ../src/document.c:1579
 #, c-format
 msgid "Saving %s"
 msgstr "Сохранение %s"
 
-#: ../src/document.c:1575
+#: ../src/document.c:1589
 msgid "File save aborted, could not backup file:\n"
 msgstr "Сохранение файла прекращено, невозможно создать резервную копию:\n"
 
-#: ../src/document.c:1581
+#: ../src/document.c:1595
 msgid "File save error, could not write file:\n"
 msgstr "Ошибка при сохранении файла, невозможно записать файл:\n"
 
-#: ../src/document.c:1629
+#: ../src/document.c:1643
 #, c-format
 msgid ""
 "Are you sure you want to close\n"
@@ -263,7 +263,7 @@ msgstr ""
 "Вы уверены, что хотите закрыть\n"
 "%s?"
 
-#: ../src/document.c:1634
+#: ../src/document.c:1648
 msgid ""
 "Are you sure you want to close\n"
 "this untitled file ?"
@@ -271,27 +271,27 @@ msgstr ""
 "Вы уверены, что хотите закрыть\n"
 "этот безымянный файл?"
 
-#: ../src/document.c:1639
+#: ../src/document.c:1653
 msgid "Bluefish warning: file is modified!"
 msgstr "Предупреждение Bluefish: файл модифицирован!"
 
-#: ../src/document.c:1829
+#: ../src/document.c:1843
 msgid "No filename"
 msgstr "Нет имени файла"
 
-#: ../src/document.c:1905 ../src/msg_queue.c:180
+#: ../src/document.c:1919 ../src/msg_queue.c:180
 msgid "Unable to open file(s)\n"
 msgstr "Невозможно открыть файл(ы)\n"
 
-#: ../src/document.c:1924
+#: ../src/document.c:1938
 msgid "Unable to open file"
 msgstr "Невозможно открыть файл"
 
-#: ../src/document.c:1955
+#: ../src/document.c:1969
 msgid "Reload"
 msgstr "Перезагрузить"
 
-#: ../src/document.c:1959
+#: ../src/document.c:1973
 #, c-format
 msgid ""
 "File %s\n"
@@ -304,84 +304,84 @@ msgstr ""
 "новое время модификации %s\n"
 "старое время модификацйи %s"
 
-#: ../src/document.c:2057
+#: ../src/document.c:2071
 msgid "searching files..."
 msgstr "поиск файлов..."
 
-#: ../src/document.c:2076
+#: ../src/document.c:2090
 msgid "Select basedir"
 msgstr "Выберите базовый каталог"
 
-#: ../src/document.c:2088
+#: ../src/document.c:2102
 msgid "Advanced open file selector"
 msgstr "Улучшенный диалог выбора файлов"
 
-#: ../src/document.c:2099
+#: ../src/document.c:2113
 msgid "grep {contains} `find {basedir} -name '{file type}'`"
 msgstr "grep {содержимое} `find {стартовая директория} -name '{тип файла}'`"
 
-#: ../src/document.c:2104
+#: ../src/document.c:2118
 msgid "<b>General</b>"
 msgstr "<b>Общие</b>"
 
-#: ../src/document.c:2106
+#: ../src/document.c:2120
 msgid "Base_dir:"
 msgstr "Базовая _директория:"
 
-#: ../src/document.c:2108 ../src/gtk_easy.c:865
+#: ../src/document.c:2122 ../src/gtk_easy.c:865
 msgid "_Browse..."
 msgstr "П_росмотр..."
 
-#: ../src/document.c:2123
+#: ../src/document.c:2137
 msgid "_File Type:"
 msgstr "_Тип файла:"
 
-#: ../src/document.c:2129
+#: ../src/document.c:2143
 msgid "_Recursive:"
 msgstr "П_росматривать поддиректории:"
 
-#: ../src/document.c:2134
+#: ../src/document.c:2148
 msgid "<b>Contains</b>"
 msgstr "<b>Содержит</b>"
 
-#: ../src/document.c:2137
+#: ../src/document.c:2151
 msgid "Pa_ttern:"
 msgstr "_Шаблон:"
 
-#: ../src/document.c:2141
+#: ../src/document.c:2155
 msgid "Is rege_x:"
 msgstr "ре_гулярное выражение:"
 
-#: ../src/document.c:2204
+#: ../src/document.c:2218
 #, c-format
 msgid "Loading %d file(s)..."
 msgstr "Загрузка %d файл(а,ов)..."
 
-#: ../src/document.c:2222
+#: ../src/document.c:2236
 msgid "No file to insert"
 msgstr "Файл для вставки не найден"
 
-#: ../src/document.c:2256
+#: ../src/document.c:2270
 msgid "save all"
 msgstr "сохранить все"
 
-#: ../src/document.c:2256
+#: ../src/document.c:2270
 msgid "close all"
 msgstr "закрыть все"
 
-#: ../src/document.c:2256
+#: ../src/document.c:2270
 msgid "choose per file"
 msgstr "выбрать для каждого файла"
 
-#: ../src/document.c:2256
+#: ../src/document.c:2270
 msgid "cancel"
 msgstr "отменить"
 
-#: ../src/document.c:2257
+#: ../src/document.c:2271
 msgid "Bluefish: Warning, some file(s) are modified!"
 msgstr "Предупреждение Bluefish: некоторые файлы были изменены!"
 
-#: ../src/document.c:2257
+#: ../src/document.c:2271
 msgid ""
 "Some file(s) are modified\n"
 "please choose your action"
@@ -389,27 +389,32 @@ msgstr ""
 "Некоторые файлы были изменены\n"
 "выберите ваше действие"
 
-#: ../src/document.c:2474
+#: ../src/document.c:2488
 msgid "No selection to indent"
 msgstr "Нет выделения для форматирования"
 
-#: ../src/filebrowser.c:760
+#: ../src/filebrowser.c:805
 msgid "Error creating path"
 msgstr "Ошибка при создании пути"
 
-#: ../src/filebrowser.c:760
+#: ../src/filebrowser.c:805
 msgid "Path exists already"
 msgstr "Путь уже существует"
 
-#: ../src/filebrowser.c:817
+#: ../src/filebrowser.c:850
 msgid "File name"
 msgstr "Имя файла"
 
-#: ../src/filebrowser.c:819
+#: ../src/filebrowser.c:852
 msgid "Directory name"
 msgstr "Имя директории"
 
-#: ../src/filebrowser.c:863
+#: ../src/filebrowser.c:955
+#, fuzzy
+msgid "Could not rename\n"
+msgstr "Не удается открыть файл\n"
+
+#: ../src/filebrowser.c:991
 #, c-format
 msgid ""
 "Are you sure you want to\n"
@@ -418,27 +423,54 @@ msgstr ""
 "Вы уверены, что хотите\n"
 "удалить \"%s\"?"
 
-#: ../src/filebrowser.c:864
+#: ../src/filebrowser.c:992
 msgid "delete file?"
 msgstr "удалить файл?"
 
-#: ../src/filebrowser.c:924
-msgid "New file"
-msgstr "Новый файл"
+#: ../src/filebrowser.c:1048
+#, fuzzy
+msgid "/_Open file"
+msgstr "Открытие файла"
 
-#: ../src/filebrowser.c:927
-msgid "New directory"
-msgstr "Новая директория"
+#: ../src/filebrowser.c:1049
+msgid "/sep1"
+msgstr ""
 
-#: ../src/filebrowser.c:930
-msgid "Delete file"
+#: ../src/filebrowser.c:1050
+msgid "/Rena_me file"
+msgstr ""
+
+#: ../src/filebrowser.c:1051
+#, fuzzy
+msgid "/_Delete file"
 msgstr "Удалить файл"
 
-#: ../src/filebrowser.c:933
-msgid "Refresh"
+#: ../src/filebrowser.c:1052
+#, fuzzy
+msgid "/sep2"
+msgstr "/Файл/sep2"
+
+#: ../src/filebrowser.c:1053
+#, fuzzy
+msgid "/New _File"
+msgstr "Новый файл"
+
+#: ../src/filebrowser.c:1054
+#, fuzzy
+msgid "/_New Directory"
+msgstr "Новая директория"
+
+#: ../src/filebrowser.c:1055
+#, fuzzy
+msgid "/sep3"
+msgstr "/Редактирование/sep3"
+
+#: ../src/filebrowser.c:1056
+#, fuzzy
+msgid "/_Refresh"
 msgstr "Обновить"
 
-#: ../src/filebrowser.c:1093
+#: ../src/filebrowser.c:1176
 msgid "All files"
 msgstr "Все файлы"
 
