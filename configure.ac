@@ -215,7 +215,7 @@ if test "x$PKG_CONFIG" = "xno" ; then
 	AC_MSG_ERROR(pkg-config not found please install pkg-config)
 fi
 
-echo -n "checking for gtk+-2... "
+echo -n "checking for gtk+ ... "
 if pkg-config --exists gtk+-2.0 ; then
 	LIBS="$LIBS `pkg-config --libs gtk+-2.0`"
 	CFLAGS="$CFLAGS `pkg-config --cflags gtk+-2.0`"
@@ -225,7 +225,7 @@ else
 	AC_MSG_ERROR(libgtk2.0-dev missing, please install libgtk2.0-dev)
 fi
 
-echo -n "checking for gtk+-2.4... "
+echo -n "checking for gtk+ >= 2.4... "
 VERSION=`pkg-config --modversion gtk+-2.0`
 if pkg-config gtk+-2.0 --atleast-version=2.4 ; then
 	AC_DEFINE(HAVE_ATLEAST_GTK_2_2)
@@ -235,7 +235,7 @@ else
 	AC_MSG_ERROR(detected gtk $VERSION, but gtk version 2.4 is required)
 fi
 
-echo -n "checking for gtk+-2.6... "
+echo -n "checking for gtk+ >= 2.6... "
 if pkg-config gtk+-2.0 --atleast-version=2.6 ; then
 	AC_DEFINE(HAVE_ATLEAST_GTK_2_6)
 	echo "yes"
