@@ -615,7 +615,7 @@ static GtkTreePath *filebrowser_path_up_multi(GtkTreePath *path, gint num) {
 static void filebrowser_expand_to_root(const GtkTreePath *this_path) {
 	gint num = gtk_tree_path_get_depth((GtkTreePath *)this_path);
 	DEBUG_MSG("filebrowser_expand_to_root, num=%d, ",num);
-	DEBUG_DUMP_TREE_PATH(this_path);
+	DEBUG_DUMP_TREE_PATH((GtkTreePath *) this_path);
 	while (num >= 0) {
 		GtkTreePath *path = gtk_tree_path_copy(this_path);
 		path = filebrowser_path_up_multi(path, num);
@@ -682,6 +682,7 @@ void filebrowser_open_dir(const gchar *dirarg) {
 		if(selpath) {
 			selfile = return_filename_from_path(filebrowser.store, selpath);
 			seldir = path_get_dirname_with_ending_slash(selfile);
+			gtk_tree_path_free(selpath);
 		}
 		/* Continue if a) no selection or b) Zoom neccessary */
 		if(!seldir || strcmp(seldir, dir) != 0) {
@@ -701,7 +702,6 @@ void filebrowser_open_dir(const gchar *dirarg) {
 			}
 		}
 		gtk_tree_path_free(path);
-		gtk_tree_path_free(selpath);
 		g_free(dir);
 		g_free(seldir);
 		g_free(selfile);
