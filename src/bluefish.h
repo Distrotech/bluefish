@@ -40,8 +40,19 @@ extern void g_none(...);
 #endif /* __GNUC__ */
 #endif /* DEBUG */
 
-#define _(String) (String)
-#define N_(String) (String)
+#ifdef ENABLE_NLS                                                               
+                                                                                
+#include <libintl.h>                                                            
+#define _(String) gettext (String)                                              
+#define N_(String) (String)                                                     
+                                                                                
+#else                                                                           
+                                                                                
+#define _(String)(String)                                                       
+#define N_(String)(String)                                                      
+                                                                                
+#endif    
+
 
 #define DIRSTR "/"
 #define DIRCHR '/'
