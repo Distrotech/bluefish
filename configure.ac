@@ -147,8 +147,8 @@ AC_ARG_ENABLE(gcc2-optimization,
 
 AC_PROG_INSTALL
 
-AC_ARG_WITH(debugging-output,
-[  --with-debugging-output Turns debugging output on],[
+AC_ARG_ENABLE(debugging-output,
+[  --enable-debugging-output Turns massive debugging output on, will slow down the program!],[
    echo "With debugging output",
 AC_DEFINE(DEBUG)],)
 
@@ -157,12 +157,26 @@ AC_ARG_ENABLE(splash-screen,
    echo "Without splash screen",
 	AC_DEFINE(NOSPLASH)],)
 
-AC_ARG_WITH(highlight-profiling,
-[  --with-highlight-profiling Enables profiling information about highlighting patterns],[
+AC_ARG_ENABLE(highlight-profiling,
+[  --enable-highlight-profiling Enables profiling information about highlighting patterns],[
    echo "With highlighting profiling",
 AC_DEFINE(HL_PROFILING)],)
 
+AC_ARG_ENABLE(development,
+[  --enable-development        Enables development checks, will slow down the program!],[
+   echo "With development checks"
+	AC_DEFINE(DEVELOPMENT)],)
 
+AC_ARG_ENABLE(gprof-profiling,
+[  --enable-gprof-profiling    Enables gprof profiling, will slow down the program!],[
+   echo "With gprof profiling"
+	CFLAGS="$CFLAGS -pg"
+	LDFLAGS="$LDFLAGS -pg"],)
+
+AC_ARG_ENABLE(gcov-coverage,
+[  --enable-gcov-coverage      Enables coverage, will slow down the program!],[
+   echo "With gcov coverage"
+	CFLAGS="$CFLAGS -fprofile-arcs -ftest-coverage"],)
 
 dnl ************************
 dnl Check for standard headers

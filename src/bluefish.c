@@ -256,6 +256,7 @@ int main(int argc, char *argv[])
 	/* do the cleanup */
 	msg_queue_cleanup();
 #endif /* WITH_MSG_QUEUE */
+	DEBUG_MSG("Bluefish: exiting cleanly\n");
 	return 0;
 }
 
@@ -317,5 +318,6 @@ void bluefish_exit_request() {
 	/* do the cleanup */
 	msg_queue_cleanup();
 #endif /* WITH_MSG_QUEUE */
+	DEBUG_MSG("Bluefish: exiting cleanly\n");
 	exit(0);
 }
