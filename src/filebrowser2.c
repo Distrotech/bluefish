@@ -672,28 +672,27 @@ static gboolean file_list_filter_func(GtkTreeModel *model,GtkTreeIter *iter,gpoi
  */
 static void refilter_dirlist(Tfilebrowser2 *fb2, GtkTreePath *newroot) {
 	GtkTreeModel *oldmodel1, *oldmodel2;
-	GtkTreePath *useroot;
+	GtkTreePath *useroot=NULL;
 	oldmodel1 = fb2->dir_tfilter;
 	oldmodel2 = fb2->dir_tsort;
+	if (fb2->basedir) gnome_vfs_uri_unref(fb2->basedir);
+	fb2->basedir = NULL;
 	if (newroot) {
-		GnomeVFSURI *uri;
-		/* store this basedir in fb2 */
-		if (fb2->basedir) gnome_vfs_uri_unref(fb2->basedir);
-		uri = fb2_uri_from_fspath(fb2, newroot);
-		fb2->basedir = gnome_vfs_uri_dup(uri);
-		DEBUG_MSG("refilter_dirlist, basedir is set to ");
-		DEBUG_URI(uri, FALSE);
-		DEBUG_MSG(" at path(%p) ",newroot);
-		DEBUG_TPATH(GTK_TREE_MODEL(FILEBROWSER2CONFIG(main_v->fb2config)->filesystem_tstore), newroot, TRUE);
 		/* to make it possible to select the root, we move the filter-root one up*/
 		useroot = gtk_tree_path_copy(newroot);
-		gtk_tree_path_up(useroot);
-	} else {
-		DEBUG_MSG("refilter_dirlist, show full tree, and unset basedir\n");
-		useroot = NULL;
-		if (fb2->basedir) gnome_vfs_uri_unref(fb2->basedir);
-		fb2->basedir = NULL;
+		if (gtk_tree_path_get_depth(newroot) > 1 && gtk_tree_path_up(useroot)) { /* do not set the root as basedir, it is useless  */
+			GnomeVFSURI *uri;
+			/* store this basedir in fb2 */
+			uri = fb2_uri_from_fspath(fb2, newroot);
+			gnome_vfs_uri_ref(uri);
+			fb2->basedir = uri;
+		} else {
+			DEBUG_MSG("there is no parent for this path, so we will set the basedir to NULL\n");
+			gtk_tree_path_free(useroot);
+			useroot = NULL;
+		}
 	}
+	DEBUG_MSG("refilter_dirlist, newroot=%p, basedir=%s\n",useroot,fb2->basedir ? gnome_vfs_uri_extract_short_path_name(fb2->basedir) : "NULL");
 	fb2->dir_tfilter = gtk_tree_model_filter_new(GTK_TREE_MODEL(FILEBROWSER2CONFIG(main_v->fb2config)->filesystem_tstore),useroot);
 	gtk_tree_model_filter_set_visible_func(GTK_TREE_MODEL_FILTER(fb2->dir_tfilter),tree_model_filter_func,fb2,NULL);
 	fb2->dir_tsort = gtk_tree_model_sort_new_with_model(GTK_TREE_MODEL(fb2->dir_tfilter));
