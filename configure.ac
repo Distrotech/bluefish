@@ -23,8 +23,8 @@ AC_CONFIG_HEADER(src/config.h)
 
 PACKAGE=bluefish
 VERSION=gtk2-port
-AC_SUBST(PACKAGE)
-AC_SUBST(VERSION)
+#AC_SUBST(PACKAGE)
+#AC_SUBST(VERSION)
 AC_DEFINE_UNQUOTED(PACKAGE, "$PACKAGE")
 AC_DEFINE_UNQUOTED(VERSION, "$VERSION")
 AC_DEFINE_UNQUOTED(CURRENT_VERSION_NAME, "$PACKAGE $VERSION HTML editor")
@@ -35,13 +35,15 @@ dnl ************************
 dnl Compiler options
 dnl ************************
 
+AC_ARG_PROGRAM
 AC_PROG_CC
+AC_ISC_POSIX
+AC_C_INLINE
+AC_PROG_INSTALL
+
 if test "$CC" = "gcc" ; then
 	CFLAGS="$CFLAGS -Wall"
 fi
-
-AC_ISC_POSIX
-AC_C_INLINE
 
 AC_CANONICAL_HOST
     case $host_os in
@@ -139,12 +141,13 @@ dnl ************************
 
 AC_PREFIX_DEFAULT("/usr/local")
 
-echo "defining bindir=$bindir"
-pkgdatadir=${datadir}/${PACKAGE}
-echo "defining pkgdatadir=$pkgdatadir"
+if test "${prefix}" == "NONE"; then
+	prefix=${ac_default_prefix}
+	AC_SUBST(prefix)
+fi
 
-AC_DEFINE_UNQUOTED(PKGDATADIR, ${datadir}/${PACKAGE})
-AC_DEFINE_UNQUOTED(PREFIX, "${PREFIX}")
+pkgdatadir=${datadir}/${PACKAGE}/
+AC_SUBST(pkgdatadir)
 
 AC_CONFIG_FILES(Makefile icons/Makefile src/Makefile)
 AC_OUTPUT
@@ -159,3 +162,4 @@ echo "6702 CJ"
 echo "Wageningen"
 echo "the Netherlands"
 echo "-----------"
+#set

@@ -783,8 +783,12 @@ GtkWidget *start_splash_screen() {
 	gtk_box_pack_end(GTK_BOX(vbox),splashscreen.label , FALSE, FALSE, 0);
 	gtk_widget_show(splashscreen.label);
 	{
-		GdkPixbuf* pixbuf= gdk_pixbuf_new_from_file(BLUEFISH_SPLASH_FILENAME,NULL);
-		if (pixbuf) {
+		GError *error=NULL;
+		GdkPixbuf* pixbuf= gdk_pixbuf_new_from_file(BLUEFISH_SPLASH_FILENAME,&error);
+		if (error) {
+			g_print("ERROR while loading splash screen: %s\n", error->message);
+			g_error_free(error);
+		} else if (pixbuf) {
 			image = gtk_image_new_from_pixbuf(pixbuf);
 			gtk_box_pack_end(GTK_BOX(vbox), image, FALSE, FALSE, 0);
 			g_object_unref(pixbuf);
