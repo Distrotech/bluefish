@@ -63,7 +63,7 @@ static void ob_lview_row_activated_lcb(GtkTreeView *tree, GtkTreePath *path,GtkT
 	gtk_tree_model_get(GTK_TREE_MODEL(ob->lstore), &iter, 0,&file,1,&line, -1);
 	DEBUG_MSG("ob_lview_row_activated_lcb, file=%s, line=%s\n",file,line);
 	if (file && strlen(file)) {
-		doc_new_with_file(ob->bfwin,file,FALSE);
+		doc_new_with_file(ob->bfwin,file,FALSE,FALSE);
 	}
 	if (line && strlen(line)) {
 		lineval = atoi(line);

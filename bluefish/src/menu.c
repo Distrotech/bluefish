@@ -950,10 +950,15 @@ static GtkWidget *remove_recent_entry(Tbfwin *bfwin, const gchar *filename, gboo
 
 	if(strcmp(filename, "last") ==0) {
 		tmplist = g_list_first(*worklist);
-		tmp = tmplist->data;
-		DEBUG_MSG("remove_recent_entry, remove last entry\n");
-		*worklist = g_list_remove(*worklist, tmplist->data);
-		return tmp;
+		if (tmplist) {
+			tmp = tmplist->data;
+			DEBUG_MSG("remove_recent_entry, remove last entry\n");
+			*worklist = g_list_remove(*worklist, tmplist->data);
+			return tmp;
+		} else {
+			DEBUG_MSG("remove_recent_entry, worklist contained no items, returning NULL\n");
+			return NULL;
+		}
 	}	else {
 		return remove_menuitem_in_list_by_label(filename, worklist);
 	}
@@ -975,7 +980,7 @@ static void open_recent_file_cb(GtkWidget *widget, Tbfwin *bfwin) {
 
 	statusbar_message(bfwin,_("Loading file(s)..."),2000);
 	flush_queue();
-	if (!doc_new_with_file(bfwin,filename, FALSE)) {
+	if (!doc_new_with_file(bfwin,filename, FALSE, FALSE)) {
 		gchar *message = g_strconcat(_("The filename was:\n"), filename, NULL);
 		warning_dialog(bfwin->main_window,_("Could not open file\n"), message);
 		g_free(message);
@@ -1091,9 +1096,11 @@ void add_to_recent_list(Tbfwin *bfwin,gchar *filename, gint closed_file, gboolea
 				DEBUG_MSG("add_to_recent_list, inserted item in menu\n");
 				if(g_list_length(*worklist) > main_v->props.max_recent_files) {
 					tmp = remove_recent_entry(bfwin,"last",is_project);
-					DEBUG_MSG("add_to_recent_list, list too long, entry %s to be deleted\n", GTK_LABEL(GTK_BIN(tmp)->child)->label);
-					gtk_widget_hide(tmp);
-					gtk_widget_destroy(tmp);
+					if (tmp) {
+						DEBUG_MSG("add_to_recent_list, list too long, entry %s to be deleted\n", GTK_LABEL(GTK_BIN(tmp)->child)->label);
+						gtk_widget_hide(tmp);
+						gtk_widget_destroy(tmp);
+					}
 				}
 			}
 			tmplist = g_list_next(tmplist);

@@ -49,6 +49,6 @@ void go_to_line_from_selection_cb(Tbfwin *bfwin,guint callback_action, GtkWidget
 void splash_screen_set_label(gchar *label);
 GtkWidget *start_splash_screen(void);
 
-Tbfwin *gui_new_window(GList *filenames);
+Tbfwin *gui_new_window(GList *filenames, Tproject *project);
 void gui_window_menu_cb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget);
 #endif /* __GUI_H_ */
