@@ -79,7 +79,9 @@ static void setup_bfwin_for_project(Tbfwin *bfwin) {
 	bmark_set_store(bfwin);
 	bmark_reload(bfwin);
 	/*filebrowser_set_basedir(bfwin, bfwin->project->basedir);*/
-	fb2_set_basedir(bfwin, bfwin->project->basedir);
+	if (bfwin->project->basedir != NULL) {
+		fb2_set_basedir(bfwin, bfwin->project->basedir);
+	}
 	recent_menu_from_list(bfwin, bfwin->project->session->recent_files, FALSE);
 	set_project_menu_widgets(bfwin, TRUE);
 }
@@ -140,7 +142,7 @@ static Tproject *create_new_project(Tbfwin *bfwin) {
 		}
 		g_free(prefix);
 	} else {
-		prj->basedir = g_strdup("");
+		prj->basedir = NULL;
 	}
 	prj->webdir = g_strdup("");
 	prj->template = g_strdup("");
@@ -333,12 +335,14 @@ static void project_destroy(Tproject *project) {
 }
 
 static void setup_bfwin_for_nonproject(Tbfwin *bfwin) {
+	gchar * newbasedir = g_strdup (g_get_home_dir());
 	bfwin->session = main_v->session;
 	bfwin->bookmarkstore = main_v->bookmarkstore;
 	bfwin->project = NULL;
 	bmark_set_store(bfwin);
 	gui_set_title(bfwin, bfwin->current_document);
-	fb2_set_basedir(bfwin, NULL);
+	fb2_set_basedir(bfwin, newbasedir);
+	g_free (newbasedir);
 	recent_menu_from_list(bfwin, main_v->session->recent_files, FALSE);
 	set_project_menu_widgets(bfwin, FALSE);
 }
@@ -433,6 +437,7 @@ static void project_edit_destroy_lcb(GtkWidget *widget, Tprojecteditor *pred) {
 }
 
 static void project_edit_cancel_clicked_lcb(GtkWidget *widget, Tprojecteditor *pred) {
+	
 	gtk_widget_destroy(pred->win);
 }
 
