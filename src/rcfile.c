@@ -860,8 +860,8 @@ static GList *return_globalsession_configlist(gboolean init_values) {
 }
 
 static GList *return_session_configlist(GList *configlist, Tsessionvars *session) {
-	init_prop_stringlist(&configlist, &session->searchlist, "searchlist:", FALSE);
-	init_prop_stringlist(&configlist, &session->replacelist, "replacelist:", FALSE);
+	init_prop_limitedstringlist(&configlist, &session->searchlist, "searchlist:", 10, FALSE);
+	init_prop_limitedstringlist(&configlist, &session->replacelist, "replacelist:", 10, FALSE);
 	init_prop_stringlist(&configlist, &session->classlist, "classlist:", FALSE);
 	init_prop_stringlist(&configlist, &session->colorlist, "colorlist:", FALSE);
 	init_prop_stringlist(&configlist, &session->targetlist, "targetlist:", FALSE);
