@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bluefish gtk2-port\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-11-03 21:26+0100\n"
-"PO-Revision-Date: 2003-07-09 22:18+0200\n"
+"POT-Creation-Date: 2003-11-04 00:29-0300\n"
+"PO-Revision-Date: 2003-11-06 22:32+0100\n"
 "Last-Translator: David Smeringe <david.smeringe@telia.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -16,9 +16,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: ../src/bfspell.c:340
-#, fuzzy
 msgid "Check Spelling"
-msgstr "Kontrollerar"
+msgstr "Kontrollera stavning"
 
 #: ../src/bfspell.c:344
 msgid "Checking"
@@ -26,30 +25,27 @@ msgstr "Kontrollerar"
 
 #: ../src/bfspell.c:353
 msgid "_Misspelled word:"
-msgstr ""
+msgstr "_Felstavat ord:"
 
 #: ../src/bfspell.c:357
 msgid "Change _to:"
-msgstr ""
+msgstr "Ändra _till:"
 
 #: ../src/bfspell.c:360
-#, fuzzy
 msgid "I_gnore"
-msgstr "Ignorera"
+msgstr "I_gnorera"
 
 #: ../src/bfspell.c:361 ../src/snr2.c:886
 msgid "_Replace"
 msgstr "_Ersätt"
 
 #: ../src/bfspell.c:374
-#, fuzzy
 msgid "In _document"
-msgstr "I dokumentet"
+msgstr "I _dokumentet"
 
 #: ../src/bfspell.c:375
-#, fuzzy
 msgid "I_n selection"
-msgstr "I det markerade området"
+msgstr "I _urvalet"
 
 #: ../src/bfspell.c:384
 msgid "personal dictionary"
@@ -60,29 +56,24 @@ msgid "session dictionary"
 msgstr "sessionsordbok"
 
 #: ../src/bfspell.c:393
-#, fuzzy
 msgid "Dictionary:"
-msgstr "Ordbok"
+msgstr "Ordbok:"
 
 #: ../src/bfspell.c:397
-#, fuzzy
 msgid "_Add"
-msgstr "Lägg till"
+msgstr "_Lägg till"
 
 #: ../src/bfspell.c:401
-#, fuzzy
 msgid "Language:"
-msgstr "Språ_k:"
+msgstr "Språk:"
 
 #: ../src/bfspell.c:405
-#, fuzzy
 msgid "Set defa_ult"
-msgstr "Använd standard"
+msgstr "Använd standa_rd"
 
 #: ../src/bfspell.c:409
-#, fuzzy
 msgid "Filter:"
-msgstr "Filtrera"
+msgstr "Filtrera:"
 
 #: ../src/bfspell.c:417
 msgid "no filter"
@@ -93,13 +84,11 @@ msgid "html filter"
 msgstr "htmlfilter"
 
 #: ../src/bluefish.c:91
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "\n"
 "Usage: %s [options] [filenames ...]\n"
-msgstr ""
-"\n"
-"Användning: %s [flaggor] [filnamn]\n"
+msgstr "\nAnvändning: %s [flaggor] [filnamn ...]\n"
 
 #: ../src/bluefish.c:92
 msgid ""
@@ -118,13 +107,12 @@ msgid "-v           current version\n"
 msgstr "-v           aktuell version\n"
 
 #: ../src/bluefish.c:95
-#, fuzzy
 msgid "-n           open new window\n"
-msgstr "-v           aktuell version\n"
+msgstr "-n           öppna nytt fönster\n"
 
 #: ../src/bluefish.c:96
 msgid "-p filename  open project\n"
-msgstr ""
+msgstr "-p filnamn  öppna projekt\n"
 
 #: ../src/bluefish.c:97
 msgid "-h           this help screen\n"
@@ -171,14 +159,14 @@ msgid "/Document/Highlight Syntax"
 msgstr "/Dokument/Färgkodningssyntax"
 
 #: ../src/document.c:653
-#, fuzzy, c-format
+#, c-format
 msgid "Untitled %d"
-msgstr "Namnlös"
+msgstr "Namnlöst %d"
 
 #: ../src/document.c:1001
-#, fuzzy, c-format
+#, c-format
 msgid " Ln %d, Col %d"
-msgstr "%d av %d"
+msgstr "Rad %d, Kol %d"
 
 #: ../src/document.c:1034 ../src/document.c:1035
 #, c-format
@@ -186,9 +174,8 @@ msgid "  %s, %s"
 msgstr "  %s, %s"
 
 #: ../src/document.c:1277 ../src/document.c:1296
-#, fuzzy
 msgid "Could not read file:\n"
-msgstr "Kunde inte öppna filen:\n"
+msgstr "Kunde inte läsa filen:\n"
 
 #: ../src/document.c:1327
 msgid "Opening file "
@@ -211,14 +198,12 @@ msgid "Saving file"
 msgstr "Sparar filen"
 
 #: ../src/document.c:1845
-#, fuzzy
 msgid "_Abort save"
-msgstr "Avbryt spara"
+msgstr "_Avbryt spara"
 
 #: ../src/document.c:1845
-#, fuzzy
 msgid "_Continue save"
-msgstr "Fortsätt spara"
+msgstr "_Fortsätt spara"
 
 #: ../src/document.c:1847
 #, c-format
@@ -251,9 +236,8 @@ msgid "_Cancel"
 msgstr "A_vbryt"
 
 #: ../src/document.c:2034 ../src/document.c:2048 ../src/document.c:2136
-#, fuzzy
 msgid "_Overwrite"
-msgstr "Skriv över"
+msgstr "_Skriv över"
 
 #: ../src/document.c:2035
 #, c-format
@@ -265,14 +249,13 @@ msgid "The file you have selected is being edited in Bluefish."
 msgstr "Filen som du har valt redigeras i Bluefish."
 
 #: ../src/document.c:2049
-#, fuzzy, c-format
+#, c-format
 msgid "A file named \"%s\" already exists."
-msgstr "Angiven katalogsökväg finns redan."
+msgstr "En fil med namnet \"%s\" finns redan."
 
 #: ../src/document.c:2051
-#, fuzzy
 msgid "Do you want to replace the existing file?"
-msgstr "Vill du spara ändringarna gjorda för den här namnlösa filen?"
+msgstr "Vill du ersätta den befintliga filen?"
 
 #: ../src/document.c:2098
 msgid "Save as..."
@@ -292,7 +275,6 @@ msgstr ""
 "Gammal modifieringstid: %s"
 
 #: ../src/document.c:2141
-#, fuzzy
 msgid "File has been modified by another process."
 msgstr "Filen har ändrats av en annan process."
 
@@ -302,37 +284,39 @@ msgid "Saving %s"
 msgstr "Sparar %s"
 
 #: ../src/document.c:2164
-#, fuzzy
 msgid ""
 "Could not backup file:\n"
 "\""
-msgstr "Kunde inte öppna filen:\n"
+msgstr ""
+"Kunde inte säkerhetskopiera filen:\n"
+"\""
 
 #: ../src/document.c:2165
-#, fuzzy
 msgid "File save aborted.\n"
-msgstr "Sparande av fil är avbruten, kunde inte säkerhetskopiera filen:\n"
+msgstr "Sparande av fil är avbruten.\n"
 
 #: ../src/document.c:2170
-#, fuzzy
 msgid ""
 "Could not write file:\n"
 "\""
-msgstr "Kunde inte öppna filen:\n"
+msgstr ""
+"Kunde inte skriva filen:\n"
+"\""
 
 #: ../src/document.c:2171
 msgid "File save error"
-msgstr ""
+msgstr "Fel vid spara fil"
 
 #: ../src/document.c:2217
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Do you want to save the changes made to\n"
 "\"%s\"?."
-msgstr "Vill du spara ändringarna gjorda för %s?"
+msgstr ""
+"Vill du spara ändringarna gjorda för\n"
+"\"%s\"?"
 
 #: ../src/document.c:2220
-#, fuzzy
 msgid "Do you want to save the changes made to this untitled file?"
 msgstr "Vill du spara ändringarna gjorda för den här namnlösa filen?"
 
@@ -341,9 +325,8 @@ msgid "Do_n't save"
 msgstr "Spara i_nte"
 
 #: ../src/document.c:2225
-#, fuzzy
 msgid "This file has not been saved."
-msgstr "Filen är inte sparad"
+msgstr "Filen har inte blivit sparad."
 
 #: ../src/document.c:2461
 msgid "No filename"
@@ -354,11 +337,10 @@ msgid "Loading files..."
 msgstr "Läser in filer..."
 
 #: ../src/document.c:2607
-#, fuzzy
 msgid ""
 "These files could not opened:\n"
 "\n"
-msgstr "De här filerna var inte öppnade\n"
+msgstr "De här filerna kunde inte öppnas:\n\n"
 
 #: ../src/document.c:2609 ../src/msg_queue.c:205
 msgid "Unable to open file(s)\n"
@@ -369,32 +351,29 @@ msgid "Unable to open file"
 msgstr "Kan inte öppna filen"
 
 #: ../src/document.c:2702
-#, fuzzy
 msgid "_Reload"
-msgstr "Läs om"
+msgstr "_Läs om"
 
 #: ../src/document.c:2702
-#, fuzzy
 msgid "_Ignore"
-msgstr "Ignorera"
+msgstr "_Ignorera"
 
 #: ../src/document.c:2706
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Filename: %s\n"
 "\n"
 "New modification time is: %s\n"
 "Old modification time is: %s"
 msgstr ""
-"Fil: %s\n"
+"Filnamn: %s\n"
 "\n"
 "Ny modifieringstid: %s\n"
 "Gammal modifieringstid: %s"
 
 #: ../src/document.c:2707
-#, fuzzy
 msgid "File has been modified by another process\n"
-msgstr "Filen har ändrats av en annan process."
+msgstr "Filen har ändrats av en annan process\n"
 
 #: ../src/document.c:2810
 msgid "searching files..."
@@ -446,7 +425,7 @@ msgstr "Är regulj_ärt uttryck:"
 
 #: ../src/document.c:3023
 msgid "Open URL"
-msgstr ""
+msgstr "Öppna URL"
 
 #: ../src/document.c:3056 ../src/document.c:3074 ../src/document.c:3091
 #, c-format
@@ -462,28 +441,24 @@ msgid "No file to insert"
 msgstr "Ingen fil att sätta in"
 
 #: ../src/document.c:3178
-#, fuzzy
 msgid "_Save All"
 msgstr "_Spara alla"
 
 #: ../src/document.c:3178
-#, fuzzy
 msgid "Close _All"
 msgstr "Stäng _alla"
 
 #: ../src/document.c:3178
-#, fuzzy
 msgid "Choose per _File"
 msgstr "Välj per _fil"
 
 #: ../src/document.c:3179
-#, fuzzy
 msgid "Multiple open files have been changed."
-msgstr "En eller flera filerhar ändrats!"
+msgstr "Flera öppna filer har ändrats."
 
 #: ../src/document.c:3180
 msgid "Your changes will be lost if you don't save them."
-msgstr ""
+msgstr "Dina ändringar kommer gå förlorade om du inte sparar dom."
 
 #: ../src/document.c:3434
 #, c-format
@@ -528,23 +503,20 @@ msgid "The file will be permanently deleted."
 msgstr "Filen kommer att tas bort permanent."
 
 #: ../src/filebrowser.c:1283 ../src/filebrowser.c:1287
-#, fuzzy
 msgid "Could not delete \n"
-msgstr "Kunde byta namn\n"
+msgstr "Kunde inte ta bort \n"
 
 #: ../src/filebrowser.c:1414
-#, fuzzy
 msgid "/Open _Advanced"
-msgstr "/Arkiv/Öppna avancerat..."
+msgstr "/Öppna _Avancerat"
 
 #: ../src/filebrowser.c:1418
 msgid "/_Refresh"
 msgstr "/_Uppdatera"
 
 #: ../src/filebrowser.c:1419
-#, fuzzy
 msgid "/_Set as basedir"
-msgstr "Välj startkatalog"
+msgstr "/_Sätt som startkatalog"
 
 #: ../src/filebrowser.c:1423
 msgid "/New _File"
@@ -575,9 +547,8 @@ msgid "All files"
 msgstr "Alla filer"
 
 #: ../src/filebrowser.c:1832
-#, fuzzy
 msgid "Show full tree"
-msgstr "Visa all utdata"
+msgstr "Visa hela trädet"
 
 #: ../src/fref.c:1306 ../src/fref.c:1600 ../src/fref.c:1685 ../src/fref.c:1712
 #: ../src/fref.c:2055
@@ -625,24 +596,22 @@ msgid "Notes"
 msgstr "Anteckningar"
 
 #: ../src/fref.c:1894
-#, fuzzy
 msgid "Reference search"
-msgstr "Inställningar..."
+msgstr "Referenssök"
 
 #: ../src/fref.c:1894
-#, fuzzy
 msgid "Reference not found"
-msgstr "Sökning: hittade inget"
+msgstr "Referens hittades inte"
 
 #: ../src/fref.c:1907
 msgid "Error"
-msgstr ""
+msgstr "Fel"
 
 #: ../src/fref.c:1907
 msgid ""
 "Perhaps you didn't load a reference, or you did not select a reference to "
 "search in."
-msgstr ""
+msgstr "Antagligen laddade du inte en referens, eller så valde du kanske inte en referens att söka i."
 
 #: ../src/fref.c:2042
 msgid "Show info window"
@@ -666,9 +635,8 @@ msgid "Select files"
 msgstr "Välj filer"
 
 #: ../src/gui.c:238 ../src/menu.c:862
-#, fuzzy
 msgid "/View/View Left Panel"
-msgstr "/Alternativ/Visning/Visa vänstra panelen"
+msgstr "/Visa/Visa Vänstra Panelen"
 
 #: ../src/gui.c:550
 msgid "QuickStart..."
@@ -1035,9 +1003,8 @@ msgid "New"
 msgstr "Ny"
 
 #: ../src/gui.c:855
-#, fuzzy
 msgid "Open.."
-msgstr "Öppna..."
+msgstr "Öppna.."
 
 #: ../src/gui.c:857
 msgid "Save"
@@ -1077,11 +1044,11 @@ msgstr "Gör om"
 
 #: ../src/gui.c:881
 msgid "Shift Left"
-msgstr ""
+msgstr "Flytta åt vänster"
 
 #: ../src/gui.c:883
 msgid "Shift Right"
-msgstr ""
+msgstr "Flytta åt höger"
 
 #: ../src/gui.c:890
 msgid "Spellcheck..."
@@ -1120,18 +1087,16 @@ msgid "/Document/Line Numbers"
 msgstr "/Dokument/Radnummer"
 
 #: ../src/gui.c:1050
-#, fuzzy
 msgid "Do_n't Save"
 msgstr "Spara i_nte"
 
 #: ../src/gui.c:1051
 msgid "Failed to save the current project"
-msgstr ""
+msgstr "Misslyckades med att spara nuvarande projekt"
 
 #: ../src/gui.c:1075
-#, fuzzy
 msgid "New Bluefish Window"
-msgstr "Bluefish-tips:"
+msgstr "Nytt Bluefish-fönster"
 
 #: ../src/gui.c:1128
 msgid "Stand by..."
@@ -1158,19 +1123,70 @@ msgid "starting bluefish"
 msgstr "startar bluefish"
 
 #: ../src/gui.c:1429 ../src/menu.c:860
-#, fuzzy
 msgid "/View/View HTML Toolbar"
-msgstr "/Alternativ/Visning/Visa HTML-verktygsraden"
+msgstr "/Visa/Visa HTML-verktygsraden"
 
 #: ../src/gui.c:1436 ../src/menu.c:859
-#, fuzzy
 msgid "/View/View Main Toolbar"
-msgstr "/Alternativ/Visning/Visa huvudlisten"
+msgstr "/Visa/Visa huvudverktygsraden"
 
 #: ../src/gui.c:1443 ../src/menu.c:861
-#, fuzzy
 msgid "/View/View Custom Menu"
-msgstr "/Alternativ/Visning/Visa specialmenyn"
+msgstr "/Visa/Visa specialmenyn"
+
+#: ../src/html2.c:587
+msgid "Cascading StyleSheet dialog"
+msgstr "Stilmallsdialog"
+
+#: ../src/html2.c:607
+msgid "_Selector:"
+msgstr "V_äljare:"
+
+#: ../src/html2.c:626
+msgid "_Property:"
+msgstr "Egenskaper:"
+
+#: ../src/html2.c:628 ../src/html_form.c:283 ../src/html_form.c:350
+#: ../src/html_form.c:411 ../src/html_form.c:466 ../src/html_form.c:528
+#: ../src/html_form.c:636
+msgid "_Value:"
+msgstr "_Värde:"
+
+#: ../src/html2.c:646
+msgid "Selector"
+msgstr "Välj"
+
+#: ../src/html2.c:646 ../src/html2.c:649
+msgid "Property"
+msgstr "Egenskaper"
+
+#: ../src/html2.c:646 ../src/html2.c:649
+msgid "Value"
+msgstr "Värde"
+
+#: ../src/html2.c:664
+msgid " _Add "
+msgstr " L_ägg till "
+
+#: ../src/html2.c:667
+msgid " _Update "
+msgstr " _Uppdatera "
+
+#: ../src/html2.c:670
+msgid " _Delete "
+msgstr " _Ta bort "
+
+#: ../src/html2.c:926 ../src/html2.c:963
+msgid "_Style..."
+msgstr "_Stil..."
+
+#: ../src/html2.c:1157
+msgid "Bluefish: Select color"
+msgstr "Bluefish: Välj färg"
+
+#: ../src/html2.c:1177
+msgid "_websafe"
+msgstr "_webbsäker"
 
 #: ../src/html.c:356
 msgid "Insert Time"
@@ -1544,60 +1560,6 @@ msgstr "_Rel:"
 msgid "_Type:"
 msgstr "_Typ:"
 
-#: ../src/html2.c:587
-msgid "Cascading StyleSheet dialog"
-msgstr "Stilmallsdialog"
-
-#: ../src/html2.c:607
-msgid "_Selector:"
-msgstr "V_äljare:"
-
-#: ../src/html2.c:626
-msgid "_Property:"
-msgstr "Egenskaper:"
-
-#: ../src/html2.c:628 ../src/html_form.c:283 ../src/html_form.c:350
-#: ../src/html_form.c:411 ../src/html_form.c:466 ../src/html_form.c:528
-#: ../src/html_form.c:636
-msgid "_Value:"
-msgstr "_Värde:"
-
-#: ../src/html2.c:646
-msgid "Selector"
-msgstr "Välj"
-
-#: ../src/html2.c:646 ../src/html2.c:649
-msgid "Property"
-msgstr "Egenskaper"
-
-#: ../src/html2.c:646 ../src/html2.c:649
-msgid "Value"
-msgstr "Värde"
-
-#: ../src/html2.c:664
-msgid " _Add "
-msgstr " L_ägg till "
-
-#: ../src/html2.c:667
-msgid " _Update "
-msgstr " _Uppdatera "
-
-#: ../src/html2.c:670
-msgid " _Delete "
-msgstr " _Ta bort "
-
-#: ../src/html2.c:926 ../src/html2.c:963
-msgid "_Style..."
-msgstr "_Stil..."
-
-#: ../src/html2.c:1157
-msgid "Bluefish: Select color"
-msgstr "Bluefish: Välj färg"
-
-#: ../src/html2.c:1177
-msgid "_websafe"
-msgstr "_webbsäker"
-
 #: ../src/html_form.c:128
 msgid "Form"
 msgstr "Formulär"
@@ -1815,9 +1777,8 @@ msgid "/File/_New"
 msgstr "/Arkiv/_Nytt"
 
 #: ../src/menu.c:277
-#, fuzzy
 msgid "/File/New _Window"
-msgstr "/Arkiv/_Nytt"
+msgstr "/Arkiv/Nytt _Fönster"
 
 #: ../src/menu.c:278
 msgid "/File/_Open..."
@@ -1832,24 +1793,20 @@ msgid "/File/Open recent/tearoff1"
 msgstr "/Arkiv/Öppna senaste/tearoff1"
 
 #: ../src/menu.c:283
-#, fuzzy
 msgid "/File/Open Ad_vanced..."
-msgstr "/Arkiv/Öppna avancerat..."
+msgstr "/Arkiv/Öppna A_vancerat..."
 
 #: ../src/menu.c:287
-#, fuzzy
 msgid "/File/Open _URL..."
-msgstr "/Arkiv/_Öppna..."
+msgstr "/Arkiv/Öppna _URL..."
 
 #: ../src/menu.c:289
-#, fuzzy
 msgid "/File/Open _from selection"
-msgstr "/Arkiv/Öppna senaste"
+msgstr "/Arkiv/Öppna _från markering"
 
 #: ../src/menu.c:290
-#, fuzzy
 msgid "/File/sep1"
-msgstr "/Arkiv/sep2"
+msgstr "/Arkiv/sep1"
 
 #: ../src/menu.c:291
 msgid "/File/_Save"
@@ -1876,9 +1833,8 @@ msgid "/File/_Insert..."
 msgstr "/Arkiv/_Infoga..."
 
 #: ../src/menu.c:297
-#, fuzzy
 msgid "/File/Rena_me..."
-msgstr "/Arkiv/_Öppna..."
+msgstr "/Arkiv/_Döp om..."
 
 #: ../src/menu.c:298
 msgid "/File/sep3"
@@ -1893,14 +1849,12 @@ msgid "/File/Close A_ll"
 msgstr "/Arkiv/Stäng alla"
 
 #: ../src/menu.c:301
-#, fuzzy
 msgid "/File/Close Win_dow"
-msgstr "/Arkiv/Stäng alla"
+msgstr "/Arkiv/Stäng Föns_ter"
 
 #: ../src/menu.c:302
-#, fuzzy
 msgid "/File/sep4"
-msgstr "/Arkiv/sep2"
+msgstr "/Arkiv/sep4"
 
 #: ../src/menu.c:303
 msgid "/File/_Quit"
@@ -1923,9 +1877,8 @@ msgid "/Edit/_Redo"
 msgstr "/Redigera/_Gör om"
 
 #: ../src/menu.c:310
-#, fuzzy
 msgid "/Edit/sep1"
-msgstr "/Redigera/sep3"
+msgstr "/Redigera/sep1"
 
 #: ../src/menu.c:311
 msgid "/Edit/Cu_t"
@@ -1940,9 +1893,8 @@ msgid "/Edit/_Paste"
 msgstr "/Redigera/Klistra _in"
 
 #: ../src/menu.c:314
-#, fuzzy
 msgid "/Edit/sep2"
-msgstr "/Redigera/sep3"
+msgstr "/Redigera/sep2"
 
 #: ../src/menu.c:315
 msgid "/Edit/Select _All"
@@ -1961,9 +1913,8 @@ msgid "/Edit/Find A_gain"
 msgstr "/Redigera/Sök ige_n"
 
 #: ../src/menu.c:319
-#, fuzzy
 msgid "/Edit/Find from selection"
-msgstr "/Arkiv/Öppna senaste"
+msgstr "/Redigera/Sök utifrån markering"
 
 #: ../src/menu.c:320
 msgid "/Edit/R_eplace..."
@@ -1999,61 +1950,51 @@ msgstr "/Redigera/sep4"
 
 #: ../src/menu.c:328
 msgid "/Edit/Sh_ift Right"
-msgstr ""
+msgstr "/Edit/Flytta åt _höger"
 
 #: ../src/menu.c:329
-#, fuzzy
 msgid "/Edit/S_hift Left"
-msgstr "/Redigera/Klistra _in"
+msgstr "/Redigera/Flytta åt _vänster"
 
 #: ../src/menu.c:330
 msgid "/Edit/sep5"
 msgstr "/Redigera/sep5"
 
 #: ../src/menu.c:331
-#, fuzzy
 msgid "/Edit/_Save Settings"
-msgstr "/Alternativ/_Spara inställningarna"
+msgstr "/Redigera/_Spara inställningarna"
 
 #: ../src/menu.c:332
-#, fuzzy
 msgid "/Edit/Save Shortcut _Keys"
-msgstr "/Alternativ/Spara _kortkomandon"
+msgstr "/Redigera/Spara _kortkomandon"
 
 #: ../src/menu.c:333
-#, fuzzy
 msgid "/Edit/_Preferences"
-msgstr "Redigera inställningar"
+msgstr "/Redigera/_Inställningar"
 
 #: ../src/menu.c:334
-#, fuzzy
 msgid "/_View"
-msgstr "/_Arkiv"
+msgstr "/_Visa"
 
 #: ../src/menu.c:335
-#, fuzzy
 msgid "/View/tearoff1"
-msgstr "/Arkiv/tearoff1"
+msgstr "/Visa/tearoff1"
 
 #: ../src/menu.c:336
-#, fuzzy
 msgid "/View/View _Main Toolbar"
-msgstr "/Alternativ/Visning/Visa h_uvudverktygsraden"
+msgstr "/Visa/Visa h_uvudverktygsraden"
 
 #: ../src/menu.c:337
-#, fuzzy
 msgid "/View/View _HTML Toolbar"
-msgstr "/Alternativ/Visning/Visa _HTML-verktygen"
+msgstr "/Visa/Visa _HTML-verktygen"
 
 #: ../src/menu.c:338
-#, fuzzy
 msgid "/View/View _Custom Menu"
-msgstr "/Alternativ/Visning/Visa _anpassad meny"
+msgstr "/Visa/Visa _anpassad meny"
 
 #: ../src/menu.c:339
-#, fuzzy
 msgid "/View/View _Left Panel"
-msgstr "/Alternativ/Visning/Visa vänstra pane_len"
+msgstr "/Visa/Visa vänstra pane_len"
 
 #: ../src/menu.c:340
 msgid "/_Tags"
@@ -2792,9 +2733,8 @@ msgid "/Tags/_Comment"
 msgstr "/Taggar/_Kommentar"
 
 #: ../src/menu.c:527
-#, fuzzy
 msgid "/Dial_ogs"
-msgstr "/Dialo_ger"
+msgstr "/Dial_oger"
 
 #: ../src/menu.c:528
 msgid "/Dialogs/tearoff1"
@@ -2997,23 +2937,20 @@ msgid "/Document/tearoff1"
 msgstr "/Dokument/tearoff1"
 
 #: ../src/menu.c:606
-#, fuzzy
 msgid "/Document/_Increase Tabsize"
-msgstr "/Alternativ/Tabulatorsteg/_Öka tabulatorsteg"
+msgstr "/Dokument/_Öka tabulatorsteg"
 
 #: ../src/menu.c:607
-#, fuzzy
 msgid "/Document/_Decrease Tabsize"
-msgstr "/Alternativ/Tabulatorsteg/_Minska tabulatorsteg"
+msgstr "/Dokument/_Minska tabulatorsteg"
 
 #: ../src/menu.c:608
 msgid "/Document/sep1"
 msgstr "/Dokument/sep1"
 
 #: ../src/menu.c:609
-#, fuzzy
 msgid "/Document/_Auto Indent"
-msgstr "/Alternativ/_Automatisk indentering"
+msgstr "/Dokument/_Automatisk indentering"
 
 #: ../src/menu.c:610
 msgid "/Document/_Wrap"
@@ -3024,9 +2961,8 @@ msgid "/Document/_Line Numbers"
 msgstr "/Dokument/R_adnummer"
 
 #: ../src/menu.c:612
-#, fuzzy
 msgid "/Document/sep2"
-msgstr "/Dokument/sep1"
+msgstr "/Dokument/sep2"
 
 #: ../src/menu.c:613
 msgid "/Document/_Highlight Syntax"
@@ -3037,150 +2973,124 @@ msgid "/Document/_Update Highlighting"
 msgstr "/Dokument/_Uppdatera färgkodning"
 
 #: ../src/menu.c:615
-#, fuzzy
 msgid "/Document/sep3"
-msgstr "/Dokument/sep1"
+msgstr "/Dokument/sep3"
 
 #: ../src/menu.c:616
-#, fuzzy
 msgid "/Document/Document _Type"
-msgstr "/Dokument/_Typ"
+msgstr "/Dokument/Dokument_typ"
 
 #: ../src/menu.c:617
-#, fuzzy
 msgid "/Document/Document Type/tearoff1"
-msgstr "/Dokument/Typ/tearoff1"
+msgstr "/Dokument/Dokumenttyp/tearoff1"
 
 #: ../src/menu.c:618
-#, fuzzy
 msgid "/Document/Character _Encoding"
-msgstr "/Dokument/_Kodning"
+msgstr "/Dokument/T_eckenkodning"
 
 #: ../src/menu.c:619
-#, fuzzy
 msgid "/Document/Character Encoding/tearoff1"
-msgstr "/Dokument/Kodning/tearoff1"
+msgstr "/Dokument/Teckenkodning/tearoff1"
 
 #: ../src/menu.c:620
-#, fuzzy
 msgid "/Document/sep4"
-msgstr "/Dokument/sep1"
+msgstr "/Dokument/sep4"
 
 #: ../src/menu.c:622
-#, fuzzy
 msgid "/Document/Check _Spelling..."
-msgstr "/Dokument/Kodning"
+msgstr "/Dokument/Kontrollera _Stavning..."
 
 #: ../src/menu.c:624
-#, fuzzy
 msgid "/Document/_Floating window"
-msgstr "/Dokument/Kodning"
+msgstr "/Dokument/_Flytande fönster"
 
 #: ../src/menu.c:625
 msgid "/Document/Word _Count"
 msgstr "/Dokument/Räkna _ord"
 
 #: ../src/menu.c:626
-#, fuzzy
 msgid "/_Project"
-msgstr "/Arkiv/Öppna senaste"
+msgstr "/Projekt"
 
 #: ../src/menu.c:627
-#, fuzzy
 msgid "/Project/tearoff1"
-msgstr "/Arkiv/tearoff1"
+msgstr "/Projekt/tearoff1"
 
 #: ../src/menu.c:628
-#, fuzzy
 msgid "/Project/_Open Project..."
-msgstr "/Arkiv/Öppna senaste"
+msgstr "/Projekt/_Öppna Projekt..."
 
 #: ../src/menu.c:629
-#, fuzzy
 msgid "/Project/Open r_ecent"
-msgstr "/Arkiv/Öppna s_enaste"
+msgstr "/Projekt/Öppna s_enaste"
 
 #: ../src/menu.c:630
-#, fuzzy
 msgid "/Project/Open recent/tearoff1"
-msgstr "/Arkiv/Öppna senaste/tearoff1"
+msgstr "/Projekt/Öppna senaste/tearoff1"
 
 #: ../src/menu.c:631
-#, fuzzy
 msgid "/Project/_New Project"
-msgstr "/Arkiv/Öppna senaste"
+msgstr "/Projekt/_Nytt Projekt"
 
 #: ../src/menu.c:632
-#, fuzzy
 msgid "/Project/sep1"
-msgstr "/Arkiv/Öppna senaste"
+msgstr "/Arkiv/sep1"
 
 #: ../src/menu.c:633
-#, fuzzy
 msgid "/Project/_Save"
-msgstr "/Arkiv/Öppna senaste"
+msgstr "/Projekt/_Spara"
 
 #: ../src/menu.c:634
-#, fuzzy
 msgid "/Project/Save _as..."
-msgstr "/Arkiv/Öppna senaste"
+msgstr "/Projekt/Sp_ara _som..."
 
 #: ../src/menu.c:635
-#, fuzzy
 msgid "/Project/_Close & save"
-msgstr "/Arkiv/Öppna senaste"
+msgstr "/Projekt/_Stäng & spara"
 
 #: ../src/menu.c:636
-#, fuzzy
 msgid "/Project/sep2"
-msgstr "/Arkiv/Öppna senaste"
+msgstr "/Projekt/sep2"
 
 #: ../src/menu.c:637
 msgid "/Project/E_dit Project Options..."
-msgstr ""
+msgstr "/Projekt/Re_digera Projektinställningar..."
 
 #: ../src/menu.c:638
 msgid "/_Go"
-msgstr ""
+msgstr "/_Gå"
 
 #: ../src/menu.c:639
-#, fuzzy
 msgid "/Go/tearoff1"
-msgstr "/Arkiv/tearoff1"
+msgstr "/Gå/tearoff1"
 
 #: ../src/menu.c:640
 msgid "/Go/_Previous document"
-msgstr ""
+msgstr "/Gå/_Föregående dokument"
 
 #: ../src/menu.c:641
-#, fuzzy
 msgid "/Go/_Next document"
-msgstr "/_Dokument"
+msgstr "/Gå/_Nästa dokument"
 
 #: ../src/menu.c:642 ../src/menu.c:645
-#, fuzzy
 msgid "/Go/sep1"
-msgstr "/sep1"
+msgstr "/Gå/sep1"
 
 #: ../src/menu.c:643
-#, fuzzy
 msgid "/Go/_First document"
-msgstr "i aktuellt dokument"
+msgstr "/Gå/_Första dokumentet"
 
 #: ../src/menu.c:644
-#, fuzzy
 msgid "/Go/L_ast document"
-msgstr "/_Dokument"
+msgstr "/Gå/Sist_a dokumentet"
 
 #: ../src/menu.c:646
-#, fuzzy
 msgid "/Go/Goto _Line"
-msgstr "/Redigera/_Gå till rad"
+msgstr "/Gå/Gå ti_ll rad"
 
 #: ../src/menu.c:647
-#, fuzzy
 msgid "/Go/Goto _Selection"
-msgstr "/Redigera/G_å till markering"
+msgstr "/Gå/Gå till _markering"
 
 #: ../src/menu.c:648
 msgid "/E_xternal"
@@ -3191,14 +3101,12 @@ msgid "/External/tearoff1"
 msgstr "/Externa/tearoff1"
 
 #: ../src/menu.c:816
-#, fuzzy
 msgid "/Document/Document Type"
-msgstr "/Dokument/Typ"
+msgstr "/Dokument/Dokumenttyp"
 
 #: ../src/menu.c:863
-#, fuzzy
 msgid "/Document/Auto Indent"
-msgstr "/Alternativ/Automatisk indentering"
+msgstr "/Dokument/Automatisk indentering"
 
 #: ../src/menu.c:932
 msgid "Loading file(s)..."
@@ -3213,18 +3121,16 @@ msgid "Could not open file\n"
 msgstr "Kunde inte öppna filen\n"
 
 #: ../src/menu.c:959
-#, fuzzy
 msgid "/Project/Open recent"
-msgstr "/Arkiv/Öppna senaste"
+msgstr "/Projekt/Öppna senaste"
 
 #: ../src/menu.c:963
 msgid "/File/Open recent"
 msgstr "/Arkiv/Öppna senaste"
 
 #: ../src/menu.c:1126
-#, fuzzy
 msgid "/Windows"
-msgstr "/Taggar/Lista/tearoff1"
+msgstr "/Fönster"
 
 #: ../src/menu.c:1192
 msgid "Could not view file in browser, the file does not yet have a name\n"
@@ -3260,9 +3166,8 @@ msgid "/External/Outputbox"
 msgstr "/Externa/Utskriftsfönster"
 
 #: ../src/menu.c:1445
-#, fuzzy
 msgid "/Document/Character Encoding"
-msgstr "/Dokument/Kodning"
+msgstr "/Dokument/Teckenkodning"
 
 #: ../src/menu.c:1708
 msgid "This custom search and replace requires a selection"
@@ -3619,19 +3524,19 @@ msgstr "botten"
 
 #: ../src/preferences.c:1743
 msgid "no check"
-msgstr ""
+msgstr "ingen kontroll"
 
 #: ../src/preferences.c:1743
 msgid "check mtime and size"
-msgstr ""
+msgstr "kontrollera förändringstid och storlek"
 
 #: ../src/preferences.c:1743
 msgid "check mtime"
-msgstr ""
+msgstr "kontrollera förändringstid"
 
 #: ../src/preferences.c:1743
 msgid "check size"
-msgstr ""
+msgstr "kontrollera storlek"
 
 #: ../src/preferences.c:1746
 msgid "Edit preferences"
@@ -3767,7 +3672,7 @@ msgstr "Öppna filer i ett redan startat bluefishfönster"
 
 #: ../src/preferences.c:1836
 msgid "File modified on disk check "
-msgstr ""
+msgstr "kontroll över fil ändrad på disk"
 
 #: ../src/preferences.c:1837
 msgid "Number of files in 'Open recent'"
@@ -3798,28 +3703,24 @@ msgid "Initial window width"
 msgstr "Initial fönsterbredd"
 
 #: ../src/preferences.c:1853
-#, fuzzy
 msgid "General"
-msgstr "<b>Vanlig</b>"
+msgstr "Generell"
 
 #: ../src/preferences.c:1858
-#, fuzzy
 msgid "Show main toolbar by default"
-msgstr "Radnummer som standard"
+msgstr "Visa huvudverktygsrad som standard"
 
 #: ../src/preferences.c:1859
-#, fuzzy
 msgid "Show left panel by default"
-msgstr "Radnummer som standard"
+msgstr "Visa vänsterpanelen som standard"
 
 #: ../src/preferences.c:1860
-#, fuzzy
 msgid "Show custom menu by default"
-msgstr "Radnummer som standard"
+msgstr "Visa specialmenyn som standard"
 
 #: ../src/preferences.c:1861
 msgid "Show HTML toolbar by default"
-msgstr ""
+msgstr "Visa HTML-verktygsraden som standard"
 
 #: ../src/preferences.c:1862
 msgid "Make HTML dialogs transient"
@@ -3854,13 +3755,12 @@ msgid "File browser"
 msgstr "Filbläddrare"
 
 #: ../src/preferences.c:1878
-#, fuzzy
 msgid "Default basedir"
-msgstr "Välj startkatalog"
+msgstr "Standardstartkatalog"
 
 #: ../src/preferences.c:1879
 msgid "Use separate file and directory view"
-msgstr ""
+msgstr "Använd separata fil och katalogvyer"
 
 #: ../src/preferences.c:1880
 msgid "Show hidden files"
@@ -3931,94 +3831,81 @@ msgid "Outputbox"
 msgstr "Utdatabox"
 
 #: ../src/project.c:60
-#, fuzzy
 msgid "New project"
-msgstr "/_Ny katalog"
+msgstr "Nytt projekt"
 
 #: ../src/project.c:107
 msgid "Enter Bluefish project filename"
-msgstr ""
+msgstr "Skriv in Bluefish-projektfilnamn"
 
 #: ../src/project.c:131
-#, fuzzy
 msgid "/Project/Save"
-msgstr "/Arkiv/Öppna senaste"
+msgstr "/Projekt/Spara"
 
 #: ../src/project.c:132
-#, fuzzy
 msgid "/Project/Save as..."
-msgstr "/Arkiv/Öppna senaste"
+msgstr "/Projekt/Spara som..."
 
 #: ../src/project.c:133
-#, fuzzy
 msgid "/Project/Close & save"
-msgstr "/Arkiv/Öppna senaste"
+msgstr "/Projekt/Stäng & spara"
 
 #: ../src/project.c:134
 msgid "/Project/Edit Project Options..."
-msgstr ""
+msgstr "/Projekt/Redigera projektinställningar..."
 
 #: ../src/project.c:189
 msgid "Select Bluefish project filename"
-msgstr ""
+msgstr "Välj Bluefish-projektfilnamn"
 
 #: ../src/project.c:316
-#, fuzzy
 msgid "Create New Project"
-msgstr "/_Ny katalog"
+msgstr "Skapa Nytt Projekt"
 
 #: ../src/project.c:319
-#, fuzzy
 msgid "Edit Project"
-msgstr "/_Ny katalog"
+msgstr "Redigera Projekt"
 
 #: ../src/project.c:342
 #, c-format
 msgid "This project contains %d files"
-msgstr ""
+msgstr "Det här projektet innehåller %d filer"
 
 #: ../src/project.c:353
-#, fuzzy
 msgid "Project _Name:"
-msgstr "_Namn:"
+msgstr "Projektnamn:"
 
 #: ../src/project.c:357
-#, fuzzy
 msgid "_Local Directory:"
-msgstr "/_Ny katalog"
+msgstr "_Lokal katalog:"
 
 #: ../src/project.c:361
-#, fuzzy
 msgid "_Remote Directory:"
-msgstr "/_Ny katalog"
+msgstr "_Fjärrkatalog:"
 
 #: ../src/project.c:365
-#, fuzzy
 msgid "_Template:"
-msgstr "Ersätt"
+msgstr "_Template:"
 
 #: ../src/project.c:369
-#, fuzzy
 msgid "_Word wrap by default"
-msgstr "Ordbrytning standard"
+msgstr "Ordbrytning som standard"
 
 #: ../src/project.c:380
-#, fuzzy
 msgid "Create _Project"
-msgstr "/_Ny katalog"
+msgstr "Skapa _Projekt"
 
 #: ../src/project.c:420
-#, fuzzy
 msgid "Create project"
-msgstr "/_Ny katalog"
+msgstr "Create project"
 
 #: ../src/project.c:424
 msgid "Create project with currently opened documents"
-msgstr ""
+msgstr "Skapa ett projekt med de öppna dokumenten"
 
 #: ../src/project.c:425
 msgid "Create empty project"
-msgstr ""
+msgstr "Skapa tomt projekt"
 
 #: ../src/rcfile.c:503
 msgid "Galeon"
@@ -4081,9 +3968,8 @@ msgid "Hide objectfiles"
 msgstr "Dölj objektfiler"
 
 #: ../src/rcfile.c:842
-#, fuzzy
 msgid "Untitled Project"
-msgstr "Namnlös"
+msgstr "Namnlöst Projekt"
 
 #: ../src/snr2.c:195
 msgid "Regular expression error: "
@@ -4188,7 +4074,7 @@ msgstr "Ersättningstyp:"
 
 #: ../src/snr2.c:1386
 msgid "Patterns contain backslash escape sequences (\\n, \\t)"
-msgstr ""
+msgstr "Mönster innehåller bakåtstreckssekvenser (\\n, \\t)"
 
 #: ../src/snr2.c:1387
 msgid "Match ca_se"
@@ -4205,10 +4091,6 @@ msgstr "Fråga _före ersättning"
 #: ../src/snr2.c:1391
 msgid "Rep_lace once"
 msgstr "Ers_ätt en gång"
-
-#: ../src/specialchar.c:18
-msgid "Insert special character"
-msgstr ""
 
 #: ../src/stringlist.c:365
 msgid " Add "
@@ -4294,168 +4176,4 @@ msgstr "Källkod:"
 msgid "Size:"
 msgstr "Storlek:"
 
-#~ msgid "Spell checker"
-#~ msgstr "Stavningskontroll"
 
-#~ msgid "Original"
-#~ msgstr "Original"
-
-#~ msgid "Replacement"
-#~ msgstr "Ersättning"
-
-#~ msgid "Language"
-#~ msgstr "Språk"
-
-#~ msgid "File %s exists, overwrite?"
-#~ msgstr "Filen %s finns, skriv över?"
-
-#~ msgid "The file you have selected exists."
-#~ msgstr "Filen du har valt existerar."
-
-#~ msgid "File save error, could not write file\n"
-#~ msgstr "Fel vid sparande av fil, kunde inte skriva filen:\n"
-
-#~ msgid ""
-#~ "File %s\n"
-#~ "is modified by another process\n"
-#~ "new modification time is %s\n"
-#~ "old modification time is %s"
-#~ msgstr ""
-#~ "Filen %s\n"
-#~ "är ändrad av en annan process\n"
-#~ "ny ändringstid är %s\n"
-#~ "gamla ändringstiden är %s"
-
-#~ msgid "Bluefish: Warning, file is modified"
-#~ msgstr "Bluefish: Varning, filen är ändrad"
-
-#~ msgid "No selection to indent"
-#~ msgstr "Ingen markering att indentera"
-
-#~ msgid "Unindent"
-#~ msgstr "Minska indentering"
-
-#~ msgid "Indent"
-#~ msgstr "Indentera"
-
-#~ msgid "/File/sep5"
-#~ msgstr "/Arkiv/sep5"
-
-#~ msgid "/Edit/Ne_w Find..."
-#~ msgstr "/Redigera/N_y sökning..."
-
-#~ msgid "/Edit/New Re_place..."
-#~ msgstr "/Redigera/Ny e_rsätt..."
-
-#~ msgid "/Edit/_Block operations"
-#~ msgstr "/Redigera/_Blockoperationer"
-
-#~ msgid "/Edit/Block operations/Tearoff1"
-#~ msgstr "/Redigera/Urvalsoperationer/Tearoff1"
-
-#~ msgid "/Edit/Block operations/_Indent Block"
-#~ msgstr "/Redigera/Urvalsoperationer/_Indentera urval"
-
-#~ msgid "/Edit/Block operations/_Unindent Block"
-#~ msgstr "/Redigera/Urvalsoperationer/_Minska indentering av urval"
-
-#~ msgid "/Edit/sep6"
-#~ msgstr "/Redigera/sep6"
-
-#~ msgid "/Document/_Previous"
-#~ msgstr "/Dokument/F_öregående"
-
-#~ msgid "/Document/_Next"
-#~ msgstr "/Dokument/_Nästa"
-
-#~ msgid "/_Options"
-#~ msgstr "/_Alternativ"
-
-#~ msgid "/Options/tearoff1"
-#~ msgstr "/Alternativ/tearoff1"
-
-#~ msgid "/Options/_Preferences"
-#~ msgstr "/Alternativ/_Inställningar"
-
-#~ msgid "/Options/_Display"
-#~ msgstr "/Alternativ/_Visning"
-
-#~ msgid "/Options/Display/tearoff1"
-#~ msgstr "/Alternativ/Visning/tearoff1"
-
-#~ msgid "/Options/_Tabsize"
-#~ msgstr "/Alternativ/_Tabulatorsteg"
-
-#~ msgid "/Options/Tabsize/tearoff1"
-#~ msgstr "/Alternativ/Tabulatorsteg/tearoff1"
-
-#~ msgid "/Options/sep2"
-#~ msgstr "/Alternativ/sep2"
-
-#, fuzzy
-#~ msgid "/TEMP/tearoff1"
-#~ msgstr "/Arkiv/tearoff1"
-
-#, fuzzy
-#~ msgid "/TEMP/Window/tearoff1"
-#~ msgstr "/Taggar/Lista/tearoff1"
-
-#, fuzzy
-#~ msgid "/TEMP/Project/Open"
-#~ msgstr "/Arkiv/Öppna senaste"
-
-#, fuzzy
-#~ msgid "/TEMP/Project/Edit"
-#~ msgstr "/Arkiv/Öppna senaste"
-
-#, fuzzy
-#~ msgid "Basedir"
-#~ msgstr "Start_katalog:"
-
-#~ msgid "Show other users files"
-#~ msgstr "Visa andra användares filer"
-
-#~ msgid " Line  %d"
-#~ msgstr " Rad  %d"
-
-#~ msgid "Cancel"
-#~ msgstr "Avbryt"
-
-#, fuzzy
-#~ msgid "_Continue close"
-#~ msgstr "Fortsätt spara"
-
-#, fuzzy
-#~ msgid "/TEMP/Open recent project/tearoff1"
-#~ msgstr "/Arkiv/Öppna senaste/tearoff1"
-
-#, fuzzy
-#~ msgid "/TEMP/Open recent project"
-#~ msgstr "/Arkiv/Öppna senaste"
-
-#~ msgid "Untitled"
-#~ msgstr "Namnlös"
-
-#~ msgid " Untitled"
-#~ msgstr " Namnlös"
-
-#~ msgid "/sep2"
-#~ msgstr "/sep2"
-
-#~ msgid "/sep3"
-#~ msgstr "/sep3"
-
-#~ msgid "No file to insert."
-#~ msgstr "Ingen fil att sätta in."
-
-#~ msgid "Bluefish"
-#~ msgstr "Bluefish"
-
-#~ msgid "/File/_Move to..."
-#~ msgstr "/Arkiv/_Flytta till..."
-
-#~ msgid "(none)"
-#~ msgstr "(ingen)"
-
-#~ msgid "Advanced search and replace by default"
-#~ msgstr "Avancerad sök och ersätt som standard"
