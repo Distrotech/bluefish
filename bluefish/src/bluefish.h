@@ -136,6 +136,7 @@ typedef struct {
 	gchar *filebrowser_dir_icon;
 	gchar *editor_font_string;		/* editor font */
 	gint editor_tab_width;	/* editor tabwidth */
+	gint editor_indent_wspaces; /* indent with spaces, not tabs */
 	gchar *tab_font_string;		/* notebook tabs font */
 	GList *browsers; /* browsers array */
 	GList *external_commands;	/* external commands array */
