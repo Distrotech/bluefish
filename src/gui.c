@@ -26,6 +26,9 @@
 #include "gtk_easy.h"
 #include "menu.h" /* menu_create_main(), recent_menu_init() */
 #include "bf_lib.h" /* get_int_from_string() */
+#include "pixmap.h"  /* new_pixmap(); */
+#include "undo_redo.h" /* undo_cb() redo_cb() etc. */
+#include "snr2.h" /* search_cb, replace_cb */
 
 typedef struct {
 	GtkWidget *main_toolbar_hb;
@@ -190,6 +193,52 @@ void filebrowser_show(gint first_time) {
 	}*/
 }
 
+void make_main_toolbar(GtkWidget *handlebox) {
+	GtkWidget *toolbar = gtk_toolbar_new ();
+	gtk_toolbar_set_orientation (GTK_TOOLBAR (toolbar), GTK_ORIENTATION_HORIZONTAL);
+	gtk_container_add (GTK_CONTAINER (handlebox), toolbar);
+
+	gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), NULL, _("New"), "",
+							new_pixmap(000), G_CALLBACK(file_new_cb), NULL);
+	gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), NULL, _("Open..."), "",
+							new_pixmap(001), G_CALLBACK(file_open_cb), NULL);
+
+	gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), NULL, _("Save"), "",
+							new_pixmap(002), G_CALLBACK(file_save_cb), NULL);
+	gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), NULL, _("Save As..."), "",
+							new_pixmap(003), G_CALLBACK(file_save_as_cb), NULL);
+	gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), NULL, _("Close"), "",
+							new_pixmap(004), G_CALLBACK(file_close_cb), NULL);
+	gtk_toolbar_append_space(GTK_TOOLBAR(toolbar));
+	gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), NULL, _("Copy"), "",
+							new_pixmap(005), G_CALLBACK(edit_copy_cb), NULL);
+	gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), NULL, _("Cut"), "",
+							new_pixmap(006), G_CALLBACK(edit_cut_cb), NULL);
+	gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), NULL, _("Paste"), "",
+							new_pixmap(007), G_CALLBACK(edit_paste_cb), NULL);
+	gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), NULL, _("Search..."), "",
+							new_pixmap(010), G_CALLBACK(search_cb), NULL);
+	gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), NULL,
+							_("Search and Replace..."), "", new_pixmap(011), G_CALLBACK(replace_cb), NULL);
+	gtk_toolbar_append_space(GTK_TOOLBAR(toolbar));
+/*	main_v->toolb.undo = gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), NULL, _("Undo"), "",
+							new_pixmap(012), G_CALLBACK(undo_cb), NULL);
+	main_v->toolb.redo = gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), NULL, _("Redo"), "",
+							new_pixmap(013), G_CALLBACK(redo_cb), NULL);
+	gtk_toolbar_append_space(GTK_TOOLBAR(toolbar));
+	gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), NULL, _("Configure..."),
+							"", new_pixmap(014), G_CALLBACK(configure_cb), NULL);
+	gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), NULL, _("Print..."), "",
+							new_pixmap(015), G_CALLBACK(file_print_cb), NULL);
+	gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), NULL, _("Spellcheck..."),
+							"", new_pixmap(016), G_CALLBACK(spell_check_cb), NULL);
+	gtk_toolbar_append_space(GTK_TOOLBAR(toolbar));
+	gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), NULL,
+							_("View in Netscape"), "",
+							new_pixmap(170), G_CALLBACK(view_in_netscape_cb), NULL);*/
+	gtk_widget_show_all(handlebox);
+}
+
 void gui_notebook_bind_signals() {
 	main_v->notebook_switch_signal = g_signal_connect_after(G_OBJECT(main_v->notebook),"switch-page",G_CALLBACK(notebook_switch_page_lcb), NULL);
 }
@@ -227,7 +276,11 @@ void gui_create_main(GList *filenames) {
 		gtk_box_pack_start(GTK_BOX(vbox), hidewidgets.html_toolbar_hb, FALSE, FALSE, 0);
 		hidewidgets.custom_menu_hb = gtk_handle_box_new();
 		gtk_box_pack_start(GTK_BOX(vbox), hidewidgets.custom_menu_hb, FALSE, FALSE, 0);
-		
+
+		if (main_v->props.view_main_toolbar) {
+			make_main_toolbar(hidewidgets.main_toolbar_hb);
+			gtk_widget_show(hidewidgets.main_toolbar_hb);
+		}
 		if (main_v->props.view_custom_menu) {
 			make_cust_menubar(hidewidgets.custom_menu_hb);
 			gtk_widget_show(hidewidgets.custom_menu_hb);

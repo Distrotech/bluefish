@@ -609,6 +609,14 @@ void hl_reset_highlighting_type(Tdocument * doc, gchar * newfilename)
 	}
 }
 
+void hl_set_highlighting_type(Tdocument * doc, Thighlightset *hlset) {
+	if (hlset != doc->hl) {
+		doc_remove_highlighting(doc);
+		doc->hl = hlset;
+		doc->need_highlighting = TRUE;
+	}
+}
+
 void doc_highlight_full(Tdocument * doc)
 {
 #ifdef HL_TIMING
