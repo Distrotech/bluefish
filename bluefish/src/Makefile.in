@@ -80,13 +80,13 @@ bluefish: $(SRCS) $(OBJS)
 	$(CC) $(DEFS) $(CFLAGS) -c -o $@ $<
 
 clean:
-	rm -f $(OBJS) bluefish core *~ *.bak
+	rm -f $(OBJS) bluefish
 
 patchclean: clean
 	rm -f *.orig *.rej  
 
 distclean: patchclean
-	rm -f config.h Makefile
+	rm -f config.h Makefile *~ *.bak core
 
 install: all
 	$(INSTALL_DIR) $(bindir)
