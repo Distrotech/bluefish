@@ -1775,7 +1775,7 @@ gint doc_textbox_to_file(Tdocument * doc, gchar * filename) {
 			DEBUG_MSG("doc_textbox_to_file, backup failure, abort!\n");
 			return -1;
 		} else if (main_v->props.backup_abort_action == DOCUMENT_BACKUP_ABORT_ASK) {
-			gchar *options[] = {N_("Abort save"), N_("Continue save"), NULL};
+			gchar *options[] = {_("_Abort save"), _("_Continue save"), NULL};
 			gint retval;
 			gchar *tmpstr = g_strdup_printf(_("A backupfile for %s could not be created. If you continue, this file will be overwritten."), filename);
 			retval = multi_warning_dialog(BFWIN(doc->bfwin)->main_window,_("File backup failure"), tmpstr, 1, 0, options);
@@ -1933,7 +1933,7 @@ gchar *ask_new_filename(Tbfwin *bfwin,gchar *oldfilename, gint is_move) {
 	if (exdoc) {
 		gchar *tmpstr;
 		gint retval;
-		gchar *options[] = {N_("Cancel"), N_("Overwrite"), NULL};
+		gchar *options[] = {_("_Cancel"), _("_Overwrite"), NULL};
 		tmpstr = g_strdup_printf(_("File %s exists and is opened, overwrite?"), newfilename);
 		retval = multi_warning_dialog(bfwin->main_window,tmpstr, _("The file you have selected is being edited in Bluefish."), 1, 0, options);
 		g_free(tmpstr);
@@ -1956,7 +1956,7 @@ gchar *ask_new_filename(Tbfwin *bfwin,gchar *oldfilename, gint is_move) {
 		if (g_file_test(newfilename, G_FILE_TEST_EXISTS)) {
 			gchar *tmpstr;
 			gint retval;
-			gchar *options[] = {N_("Cancel"), N_("Overwrite"), NULL};
+			gchar *options[] = {_("_Cancel"), _("_Overwrite"), NULL};
 			tmpstr = g_strdup_printf(_("File %s exists, overwrite?"), newfilename);
 			retval = multi_warning_dialog(bfwin->main_window,tmpstr, _("The file you have selected exists."), 1, 0, options);
 			g_free(tmpstr);
@@ -2043,7 +2043,7 @@ gint doc_save(Tdocument * doc, gint do_save_as, gboolean do_move) {
 		if (modified) {
 			gchar *tmpstr, oldtimestr[128], newtimestr[128];/* according to 'man ctime_r' this should be at least 26, so 128 should do ;-)*/
 			gint retval;
-			gchar *options[] = {N_("Cancel"), N_("Overwrite"), NULL};
+			gchar *options[] = {_("_Cancel"), _("_Overwrite"), NULL};
 	
 			ctime_r(&newmtime,newtimestr);
 			ctime_r(&oldmtime,oldtimestr);
@@ -2600,7 +2600,7 @@ void doc_activate(Tdocument *doc) {
 	if (modified) {
 		gchar *tmpstr, oldtimestr[128], newtimestr[128];/* according to 'man ctime_r' this should be at least 26, so 128 should do ;-)*/
 		gint retval;
-		gchar *options[] = {N_("Reload"), N_("Ignore"), NULL};
+		gchar *options[] = {_("_Reload"), _("_Ignore"), NULL};
 
 		ctime_r(&newmtime,newtimestr);
 		ctime_r(&oldmtime,oldtimestr);
