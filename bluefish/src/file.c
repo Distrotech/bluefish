@@ -52,7 +52,7 @@ typedef struct {
 
 static void openfile_cleanup(Topenfile *of) {
 	DEBUG_MSG("openfile_cleanup %p\n",of);
-	/*g_io_channel_unref(of->channel);*/
+	g_io_channel_unref(of->channel);
 	g_free(of->buffer);
 	g_free(of);
 }
@@ -63,14 +63,14 @@ static void openfile_cleanup(Topenfile *of) {
 
 static gboolean open_file_channel_lcb(GIOChannel *source,GIOCondition condition,gpointer data) {
 	Topenfile *of = data;
-	DEBUG_MSG("open_file_channel_lcb, of=%p\n",of);
+	DEBUG_MSG("open_file_channel_lcb, of=%p, condition=%d\n",of,condition);
 	if (condition & G_IO_IN) { /* Data is available. */
 		gchar chunk[CHUNK_SIZE];
 		gsize bytes_read;
 		GIOStatus gstatus;
 		DEBUG_MSG("open_file_channel_lcb, try to read %d bytes from channel",CHUNK_SIZE);
 		gstatus = g_io_channel_read_chars(source, chunk,CHUNK_SIZE,&bytes_read,NULL);
-		DEBUG_MSG(" status: %d\n",gstatus);
+		DEBUG_MSG(" got %d, status: %d\n",bytes_read, gstatus);
 		if ((bytes_read + of->used_size) > of->buffer_size) {
 			of->buffer_size += BUFFER_INCR_SIZE;
 			of->buffer = g_realloc(of->buffer, of->buffer_size+1);/* the +1 is so we can add a \0 to the buffer */
@@ -107,9 +107,14 @@ static void open_file_as_channel_lcb(GnomeVFSAsyncHandle *handle,GIOChannel *cha
 	if (result == GNOME_VFS_OK) {
 		of->callback_func(OPENFILE_CHANNEL_OPENED,GNOME_VFS_OK,NULL,of->callback_data);
 		of->channel = channel;
-		g_io_channel_set_encoding(channel, NULL, NULL);
-		g_io_add_watch_full(channel, G_PRIORITY_HIGH,G_IO_IN|G_IO_NVAL|G_IO_HUP,open_file_channel_lcb,of,NULL);
-		g_io_channel_unref(channel);
+		if (g_io_channel_set_encoding(channel, NULL, NULL) != G_IO_STATUS_NORMAL) {
+			DEBUG_MSG("open_file_as_channel_lcb, error setting the encoding\n");
+		}
+		DEBUG_MSG("open_file_as_channel_lcb, close_on_ref=%d\n", g_io_channel_get_close_on_unref(channel));
+		g_io_channel_set_close_on_unref(channel,TRUE);
+		/*g_io_add_watch_full(channel, G_PRIORITY_HIGH,G_IO_IN|G_IO_NVAL|G_IO_HUP,open_file_channel_lcb,of,NULL);*/
+		g_io_add_watch(channel, G_IO_IN|G_IO_NVAL|G_IO_HUP,open_file_channel_lcb,of);
+		/*g_io_channel_unref(channel);*/
 	} else {
 		DEBUG_MSG("open_file_as_channel_lcb, error %d, cleanup %p\n",result,of);
 		of->callback_func(OPENFILE_ERROR_NOCHANNEL, result, NULL, of->callback_data);
@@ -218,11 +223,20 @@ static void openadv_content_filter_file(Tbfwin *bfwin, GnomeVFSURI *uri, gchar *
 	file_open_uri_async(uri, open_adv_content_filter_lcb, oau);
 }
 
-
+static void open_adv_load_directory_cleanup(Topenadv_dir *oa) {
+	DEBUG_MSG("open_adv_load_directory_cleanup %p for %s\n", oa, gnome_vfs_uri_get_path(oa->basedir));
+	gnome_vfs_uri_unref(oa->basedir);
+	if (oa->extension_filter) g_free(oa->extension_filter);
+	if (oa->content_filter) g_free(oa->content_filter);
+	g_free(oa);
+}
 
 static void open_adv_load_directory_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSResult result,GList *list,guint entries_read,gpointer data) {
 	Topenadv_dir *oa = data;
 	GList *tmplist;
+	gchar **ext;
+	DEBUG_MSG("open_adv_load_directory_lcb, called for %p %s with %d items, result=%d\n",oa, gnome_vfs_uri_get_path(oa->basedir), entries_read, result);
+	ext = array_from_arglist(oa->extension_filter, NULL);
 	tmplist = g_list_first(list);
 	while (tmplist) {
 		GnomeVFSFileInfo *finfo = tmplist->data;
@@ -233,8 +247,6 @@ static void open_adv_load_directory_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSResu
 /*				DEBUG_MSG("open_adv_load_directory_lcb, open dir %s\n", gnome_vfs_uri_get_path(child_uri));*/
 				open_advanced(oa->bfwin, child_uri, oa->recursive, oa->extension_filter, oa->content_filter, oa->use_regex);
 			} else if (finfo->type == GNOME_VFS_FILE_TYPE_REGULAR){
-				gchar **ext;
-				ext = array_from_arglist(oa->extension_filter, NULL);
 				if (filename_test_extensions(ext, gnome_vfs_uri_get_path(child_uri))) { /* test extension */
 					if (oa->content_filter) { /* do we need content filtering */
 /*						DEBUG_MSG("open_adv_load_directory_lcb, content filter %s\n", gnome_vfs_uri_get_path(child_uri));*/
@@ -244,19 +256,15 @@ static void open_adv_load_directory_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSResu
 						file_doc_from_uri(oa->bfwin, child_uri);
 					}
 				}
-				g_strfreev(ext);
 			}
 			gnome_vfs_uri_unref(child_uri);
 		}
 		tmplist = g_list_next(tmplist);
 	}	
-	
 	if (result == GNOME_VFS_ERROR_EOF) {
-		gnome_vfs_uri_unref(oa->basedir);
-		g_free(oa->extension_filter);
-		g_free(oa->content_filter);
-		g_free(oa);
+		open_adv_load_directory_cleanup(oa);
 	}
+	g_strfreev(ext);
 }
 
 void open_advanced(Tbfwin *bfwin, GnomeVFSURI *basedir, gboolean recursive, gchar *extension_filter, gchar *content_filter, gboolean use_regex) {
@@ -265,6 +273,7 @@ void open_advanced(Tbfwin *bfwin, GnomeVFSURI *basedir, gboolean recursive, gcha
 		Topenadv_dir *oa;
 		
 		oa = g_new0(Topenadv_dir, 1);
+		DEBUG_MSG("open_advanced, open dir %s, oa=%p\n", gnome_vfs_uri_get_path(basedir), oa);
 		oa->bfwin = bfwin;
 		oa->basedir = gnome_vfs_uri_dup(basedir);
 		oa->recursive = recursive;
