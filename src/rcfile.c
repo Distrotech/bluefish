@@ -18,8 +18,6 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-/* #define DEBUG */
-
 #include <gtk/gtk.h>
 #include <sys/stat.h>
 #include <sys/types.h>
@@ -410,9 +408,15 @@ static GList *arraylist_load_defaults(GList *thelist, const gchar *filename, con
 			if (strcmp(tmparr[0],name)==0) {
 				GList *todelete = tmplist;
 				tmplist = g_list_next(tmplist);
-				g_list_delete_link(tmplist, todelete);
-				g_strfreev(tmparr);
-				g_list_free_1(todelete);
+				if (tmplist) {
+					g_list_delete_link(tmplist, todelete);
+					g_strfreev(tmparr);
+					g_list_free_1(todelete);
+				} else {
+					thelist = NULL;
+					g_strfreev(tmparr);
+					g_list_free(todelete);
+				}
 			} else {
 				tmplist = g_list_next(tmplist);
 			}
@@ -423,17 +427,19 @@ static GList *arraylist_load_defaults(GList *thelist, const gchar *filename, con
 			tmplist = g_list_next(tmplist);
 		}
 		g_list_free(thelist);
+		thelist = NULL;
 	}
 	if (name) {
 		deflist = get_list(filename,NULL,TRUE);
-		tmplist = g_list_first(deflist);
+		tmplist = g_list_last(deflist); /* to keep the same order as in the config file we have to run this list in reverse order*/
 		while (tmplist) {
 			gchar **tmparr = tmplist->data;
-			DEBUG_MSG("arraylist_load_defaults, testing if %s should be added for name %s\n",tmparr[0],name);
+			DEBUG_MSG("arraylist_load_defaults, testing if %s should be added (requested=%s)\n",tmparr[0],name);
 			if (strcmp(tmparr[0],name)==0) {
+				DEBUG_MSG("adding %s to thelist\n",tmparr[0]);
 				thelist = g_list_append(thelist, duplicate_stringarray(tmparr));
 			}
-			tmplist = g_list_next(tmplist);
+			tmplist = g_list_previous(tmplist);
 		}
 		free_arraylist(deflist);
 	} else {
@@ -478,7 +484,14 @@ void rcfile_parse_main(void)
 	}
 	if (main_v->props.encodings == NULL) {
 		/* if the user does not have encodings --> set them to defaults values */
-		main_v->props.encodings = arraylist_load_defaults(main_v->props.encodings, PKGDATADIR"encodings.default", NULL);
+		gchar *filename = return_first_existing_filename(PKGDATADIR"encodings.default",
+										"data/encodings.default",
+									"../data/encodings.default",NULL);
+		if (filename) {
+			main_v->props.encodings = arraylist_load_defaults(main_v->props.encodings,filename,NULL);
+		} else {
+			g_print("Unable to find 'encodings.default'\n");
+		}
 	}
 	if (main_v->props.outputbox==NULL) {
 		/* if the user does not have outputbox settings --> set them to defaults values */
@@ -498,7 +511,14 @@ void rcfile_parse_main(void)
 	}
 	if (main_v->props.filetypes == NULL) {
 		/* if the user does not have file-types --> set them to defaults values */
-		main_v->props.filetypes = arraylist_load_defaults(main_v->props.filetypes, PKGDATADIR"filetypes.default", NULL);
+		gchar *filename = return_first_existing_filename(PKGDATADIR"filetypes.default",
+										"data/filetypes.default",
+									"../data/filetypes.default",NULL);
+		if (filename) {
+			main_v->props.filetypes = arraylist_load_defaults(main_v->props.filetypes,filename,NULL);
+		} else {
+			g_print("Unable to find 'filetypes.default'\n");
+		}
 	}
 	if (main_v->props.filefilters == NULL) {
 		/* if the user does not have file filters --> set them to defaults values */
@@ -522,7 +542,14 @@ static gint rcfile_save_main(void) {
 }
 
 static void load_default_highlightingpatterns(gchar *name) {
-	arraylist_load_defaults(main_v->props.highlight_patterns,PKGDATADIR"highlighting.default",name);
+	gchar *filename = return_first_existing_filename(PKGDATADIR"highlighting.default",
+									"data/highlighting.default",
+									"../data/highlighting.default",NULL);
+	if (filename) {
+		main_v->props.highlight_patterns = arraylist_load_defaults(main_v->props.highlight_patterns,filename,name);
+	} else {
+		g_print("Unable to find 'highlighting.default'\n");
+	}
 }
 
 static gboolean arraylist_test_identifier_exists(GList *arrlist, const gchar *name) {
@@ -547,8 +574,13 @@ void rcfile_parse_highlighting(void) {
 	filename = g_strconcat(g_get_home_dir(), "/.bluefish/highlighting", NULL);
 	if (!parse_config_file(highlighting_configlist, filename)) {
 		/* init the highlighting in some way? */
-		main_v->props.highlight_patterns = arraylist_load_defaults(main_v->props.highlight_patterns,PKGDATADIR"defaulthighlightingpatterns", NULL);
-		DEBUG_MSG("rcfile_parse_highlighting, about to save highlighting configlist\n");
+		gchar *types[] = {"php", "html", "c", "java", "xml","cfml","python", NULL};
+		gint i = 0;
+		while (types[i]) {
+			DEBUG_MSG("rcfile_parse_highlighting, type %s not found, reloading from default\n", types[i]);
+			load_default_highlightingpatterns(types[i]);
+			i++;
+		}
 		save_config_file(highlighting_configlist, filename);
 		DEBUG_MSG("rcfile_parse_highlighting, done saving\n");
 	} else {
@@ -562,7 +594,6 @@ void rcfile_parse_highlighting(void) {
 			}
 			i++;
 		}
-
 	}
 	g_free(filename);
 }
