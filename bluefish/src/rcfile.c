@@ -36,6 +36,7 @@
 #include "fref.h"
 #include "stringlist.h"
 #include "highlight.h" /* hl_reset_to_default()*/
+#include "document.h" /* DOCUMENT_BACKUP_ABORT_ASK */
 
 typedef struct {
 	void *pointer;
@@ -345,7 +346,7 @@ static GList *props_init_main(GList * config_rc)
 	init_prop_integer   (&config_rc, &main_v->props.max_dir_history, "max_dir_history:", 10);
 	init_prop_integer   (&config_rc, &main_v->props.backup_file,"backup_file:",1);
 	init_prop_string    (&config_rc, &main_v->props.backup_filestring,"backup_filestring:","~");
-	init_prop_string    (&config_rc, &main_v->props.backup_abort_style,"backup_abort_style:","ask");
+	init_prop_integer    (&config_rc, &main_v->props.backup_abort_action,"backup_abort_action:",DOCUMENT_BACKUP_ABORT_ASK);
 	init_prop_integer   (&config_rc, &main_v->props.backup_cleanuponclose,"backup_cleanuponclose:",0);
 	init_prop_string    (&config_rc, &main_v->props.image_thumbnailstring, "image_thumbnailstring:", "_thumbnail");
 	init_prop_string    (&config_rc, &main_v->props.image_thumbnailtype, "image_thumbnailtype:", "png");

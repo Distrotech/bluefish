@@ -1136,10 +1136,10 @@ gint doc_textbox_to_file(Tdocument * doc, gchar * filename) {
 	backup_retval = doc_check_backup(doc);
 
 	if (!backup_retval) {
-		if (strcmp(main_v->props.backup_abort_style, _("abort"))==0) {
+		if (main_v->props.backup_abort_action == DOCUMENT_BACKUP_ABORT_ABORT) {
 			DEBUG_MSG("doc_textbox_to_file, backup failure, abort!\n");
 			return -1;
-		} else if (strcmp(main_v->props.backup_abort_style, _("ask"))==0) {
+		} else if (main_v->props.backup_abort_action == DOCUMENT_BACKUP_ABORT_ASK) {
 			gchar *options[] = {N_("Abort save"), N_("Continue save"), NULL};
 			gint retval;
 			gchar *tmpstr =  g_strdup_printf(_("Backup for %s failed"), filename);

@@ -21,6 +21,12 @@
 #ifndef __DOCUMENT_H_
 #define __DOCUMENT_H_
 
+enum {
+	DOCUMENT_BACKUP_ABORT_SAVE,
+	DOCUMENT_BACKUP_ABORT_ABORT,
+	DOCUMENT_BACKUP_ABORT_ASK
+};
+
 gint documentlist_return_index_from_filename(gchar *filename);
 
 void doc_update_highlighting(GtkWidget *wid, gpointer data);
