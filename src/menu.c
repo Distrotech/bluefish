@@ -1282,10 +1282,11 @@ static void cust_con_struc_dialog(gchar **array, gint type) {
 		}
 		ccs->textentry[i] = gtk_entry_new();
 		DEBUG_MSG("cust_con_struc_dialog_cb, textentry[%d]=%p\n", i, ccs->textentry[i]);
+		gtk_entry_set_activates_default(GTK_ENTRY(ccs->textentry[i]), TRUE);
 		gtk_box_pack_start(GTK_BOX(hbox), ccs->textentry[i], TRUE, TRUE, 0);		
 		gtk_box_pack_start(GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
 	}
-
+	
 	gtk_box_pack_start(GTK_BOX(vbox), gtk_hseparator_new(), FALSE, FALSE, 12);
 	hbox = gtk_hbutton_box_new();
 	gtk_hbutton_box_set_layout_default(GTK_BUTTONBOX_END);
@@ -1294,10 +1295,10 @@ static void cust_con_struc_dialog(gchar **array, gint type) {
 	cancb = bf_stock_cancel_button(G_CALLBACK(cust_con_struc_dialog_cancel_lcb), ccs);
 	gtk_box_pack_start(GTK_BOX(hbox),cancb , FALSE, FALSE, 0);
 	gtk_box_pack_start(GTK_BOX(hbox),okb , FALSE, FALSE, 0);
-	gtk_window_set_default(GTK_WINDOW(ccs->dialog), okb);
 	gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 0);
 
 	gtk_widget_grab_focus(ccs->textentry[0]);
+	gtk_widget_grab_default(okb);
 	gtk_widget_show_all(ccs->dialog);
 }
 
