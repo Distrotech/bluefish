@@ -1347,7 +1347,7 @@ static void fs_ok_clicked_lcb(GtkWidget * widget, Tfileselect *fileselect)
 	window_destroy(GTK_WIDGET(fileselect->fs));
 }
 
-static void close_modal_window_lcb(GtkWidget * widget, gpointer window)
+void close_modal_window_lcb(GtkWidget * widget, gpointer window)
 {
 	DEBUG_MSG("close_modal_window_lcb, widget=%p, window=%p\n", widget, window);
 	gtk_main_quit();

@@ -49,6 +49,7 @@
 #include "rcfile.h" /* rcfile_save_configfile_menu_cb */
 #include "rpopup.h"
 #include "project.h"
+#include "about.h"
 
 #include "outputbox.h" /* temporary */
 
@@ -702,12 +703,14 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/Project/sep2"), NULL, NULL, 0, "<Separator>"},
 	{N_("/Project/E_dit Project Options..."), NULL, project_menu_cb, 5, "<StockItem>", GTK_STOCK_PREFERENCES},
 	{N_("/E_xternal"), NULL, NULL, 0, "<Branch>"},
-	{N_("/External/tearoff1"), NULL, NULL, 0, "<Tearoff>"},	
+	{N_("/External/tearoff1"), NULL, NULL, 0, "<Tearoff>"}, 
 /*	{N_("/External/_Commands"), NULL, NULL, 0, "<Branch>"},
 	{N_("/External/Commands/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
 	{N_("/External/_Outputbox"), NULL, NULL, 0, "<Branch>"},
 	{N_("/External/Outputbox/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
 	{N_("/External/sep1"), NULL, NULL, 0, "<Separator>"},*/
+	{N_("/_Help"), NULL, NULL, 0, "<Branch>"},
+	{N_("/Help/About..."), NULL, about_dialog_create, 0, "<Item>"},	
 };
 
 #ifdef ENABLE_NLS
