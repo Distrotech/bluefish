@@ -1341,7 +1341,11 @@ gint doc_save(Tdocument * doc, gint do_save_as, gint do_move)
 	if (do_save_as && oldfilename && main_v->props.link_management) {
 /*		update_filenames_in_file(doc, oldfilename, doc->filename, 1);*/
 	}
-	statusbar_message(_("Save in progress"), 1);
+	{
+		gchar *tmp = g_strdup_printf(_("Saving %s"), doc->filename);
+		statusbar_message(tmp, 1);
+		g_free(tmp);
+	}
 	retval = doc_textbox_to_file(doc, doc->filename);
 
 	switch (retval) {
