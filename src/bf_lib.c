@@ -474,8 +474,8 @@ gchar *strip_any_whitespace(gchar *string) {
 }
 /**
  * trunc_on_char:
- * @string: a gchar * to truncate
- * @which_char: a gchar with the char to truncate on
+ * @string: a #gchar * to truncate
+ * @which_char: a #gchar with the char to truncate on
  *
  * Returns a pointer to the same string which is truncated at the first
  * occurence of which_char
@@ -559,8 +559,8 @@ gchar *most_efficient_filename(gchar *filename) {
 
 /**
  * create_relative_link_to:
- * @current_filepath: a gchar * with the current filename
- * @link_to_filepath: a gchar * with a file to link to
+ * @current_filepath: a #gchar * with the current filename
+ * @link_to_filepath: a #gchar * with a file to link to
  *
  * creates a newly allocated relative link from current_filepath 
  * to link_to_filepath
@@ -650,14 +650,20 @@ gchar *create_relative_link_to(gchar * current_filepath, gchar * link_to_filepat
 	return returnstring;
 }
 
-
-/* gchar *create_full_path(gchar * filename, gchar *basedir)
- * 	filename: the relative filename
- * 	basedir: a dir or file in the dir used as basedir for the filename
- * 		if this is NULL the current working directory is used
- * Returns a newly allocated string containing a absolute path */
-gchar *create_full_path(gchar * filename, gchar *basedir)
-{
+/**
+ * create_full_path:
+ * @filename: a gchar * with the (relative or not) filename
+ * @basedir: a gchar * with a basedir or NULL for current dir
+ *
+ * if filename is already absolute, it returns it
+ * else it will use basedir if available, else the current dir
+ * to add to the filename to form the full path
+ *
+ * it does use most_efficient_filename() to remote unwanted dir/../ entries
+ *
+ * Return value: a newly allocated gchar * with the full path
+ **/
+gchar *create_full_path(gchar * filename, gchar *basedir) {
 	gchar *absolute_filename;
 	gchar *tmpcdir;
 
@@ -679,13 +685,16 @@ gchar *create_full_path(gchar * filename, gchar *basedir)
 	return absolute_filename;
 }
 
-
-
-/* gchar *ending_slash(const gchar *dirname)
- * returns a newly allocated string which is 
- * guaranteed to end on a slash (/) */
+/**
+ * ending_slash:
+ * @dirname: a #const gchar * with a diretory name
+ *
+ * makes sure the last character of the newly allocated 
+ * string it returns is a '/'
+ *
+ * Return value: a newly allocated gchar * dirname that does end on a '/'
+ **/
 gchar *ending_slash(const gchar *dirname) {
-	/* result should be free-ed !!! */
 	if (!dirname) {
 		return g_strdup("");
 	}
@@ -696,29 +705,36 @@ gchar *ending_slash(const gchar *dirname) {
 		return g_strconcat(dirname, DIRSTR, NULL);
 	}
 }
-/* searches for the last / character, and cuts the string after that */
+/**
+ * path_get_dirname_with_ending_slash:
+ * @filename: a #const gchar * with a file path
+ *
+ * returns a newly allocated string, containing everything up to 
+ * the last '/' character, including that character itself.
+ *
+ * if no '/' character is found it returns NULL
+ *
+ * Return value: a newly allocated gchar * dirname that does end on a '/', or NULL on failure
+ **/
 gchar *path_get_dirname_with_ending_slash(const gchar *filename) {
-	gchar *tmp, *retval = g_strdup(filename);
-	tmp = strrchr(retval, DIRCHR);
-	tmp++;
-	*tmp = '\0';
-	return retval;
+	gchar *tmp = strrchr(filename, DIRCHR);
+	if (tmp) {
+		return g_strndup(filename, (tmp - filename + 1));
+	} else {
+		return NULL;
+	}
 }
-
-/* gint file_is_dir(gchar * filename)
- * returns 1 if the file pointed to by filename is a dir
- * else returns 0 */
-#ifdef __GNUC__
-__inline__ 
-#endif
-gint file_is_dir(gchar * filename) {
-	return g_file_test(filename, G_FILE_TEST_IS_DIR);
-}
-
-/* gint file_exists_and_readable(gchar * filename)
- * returns 1 if the file pointed to by filename does exist
- * and is readable for the current process */
-gint file_exists_and_readable(const gchar * filename)
+/**
+ * file_exists_and_readable:
+ * @filename: a #const gchar * with a file path
+ *
+ * tests if the file exists, using stat(), and is readable, the last
+ * check is not reliable, it does not check all the groups you are
+ * in, so change this function before you rely on that check!
+ *
+ * Return value: gboolean, TRUE if readable, else FALSE
+ **/
+gboolean file_exists_and_readable(const gchar * filename)
 {
 	struct stat naamstat;
 
@@ -728,23 +744,32 @@ gint file_exists_and_readable(const gchar * filename)
 
 	if (!filename || strlen(filename) < 2) {
 		DEBUG_MSG("file_exists_and_readable, strlen(filename) < 2 or no filename!!!!\n");
-		return 0;
+		return FALSE;
 	}
 	DEBUG_MSG("file_exists_and_readable, filename(%p)=\"%s\", strlen(filename)=%d\n", filename, filename, strlen(filename));
 #ifndef WIN32
 	if ((stat(filename, &naamstat) == -1) && (errno == ENOENT)) {
 /*              if(naamstat.st_mode & S_IREAD) { */
-		return (0);
+		return FALSE;
 /*              }
    return(0); */
 	} else {
-		return (1);
+		return TRUE;
 	}
 #else
-	return (1);
+	return TRUE;
 #endif
 }
-
+/**
+ * return_first_existing_filename:
+ * @filename: a #const gchar * with a filename
+ * @...: more filenames
+ *
+ * you can pass multiple filenames to this function, and it will return
+ * the first filename that really exists according to file_exists_and_readable()
+ *
+ * Return value: gchar * with the first filename found
+ **/
 gchar *return_first_existing_filename(const gchar *filename, ...) {
 	va_list args;
 	gchar *retval=NULL;
@@ -761,11 +786,16 @@ gchar *return_first_existing_filename(const gchar *filename, ...) {
 	return retval;
 }
 
-/*  gboolean filename_test_extensions(gchar **extensions, gchar *filename)
- *  give a NULL terminated array of strings with all extensions
- *  returns TRUE if the filename has one of those extensions
- *  returns FALSE if not
- */
+/**
+ * filename_test_extensions:
+ * @extensions: a #gchar ** NULL terminated arrau of strings
+ * @filename: a #const gchar * with a filename
+ *
+ * tests if the filename matches one of the extensions passed in the NULL terminated array
+ * of strings
+ *
+ * Return value: gboolean, TRUE if the file has one of the extensions in the array
+ **/
 gboolean filename_test_extensions(gchar **extensions, gchar *filename) {
 	if (!extensions) {
 		return FALSE;
@@ -779,13 +809,16 @@ gboolean filename_test_extensions(gchar **extensions, gchar *filename) {
 	return FALSE;
 }
 
-/*
- * gchar *bf_str_repeat(const gchar * str, gint number_of)
- *      str - pointer to string
- *      number_of - number copies of string
- * returns:     pointer to new allocated string
- *      calculate, allocate buffer and copies number_of times str to new buffer
- */
+/**
+ * bf_str_repeat:
+ * @str: a #const gchar * 
+ * @number_of: a #gint
+ *
+ * returns a newly allocated string, 
+ * containing str repeated number_of times
+ *
+ * Return value: the newly allocated #gchar *
+ **/
 gchar *bf_str_repeat(const gchar * str, gint number_of) {
 	gchar *retstr;
 	gint len = strlen(str) * number_of;
@@ -798,10 +831,16 @@ gchar *bf_str_repeat(const gchar * str, gint number_of) {
 	return retstr;
 }
 
-/* gint get_int_from_string(gchar *string)
+/**
+ * get_int_from_string:
+ * @string: a #const gchar * 
+ *
  * tries to find a positive integer value in the string and returns it
- * returns -1 on failure
- */
+ * the string does not have to start or end with the integer
+ * it returns -1 if no integer was found somewhere in the string
+ *
+ * Return value: the found #gint, -1 on failure
+ **/
 gint get_int_from_string(gchar *string) {
 	if (string) {
 		gint faktor = 1, result=-1;
@@ -825,15 +864,20 @@ gint get_int_from_string(gchar *string) {
 	}
 	return -1;
 }
-/* gchar *create_secure_dir_return_filename()
+
+/**
+ * create_secure_dir_return_filename:
+ *
  * this function uses mkdir(name) to create a dir with permissions rwx------
  * mkdir will fail if name already exists or is a symlink or something
  * the name is chosen by tempnam() so the chance that mkdir() fails in
  * a normal situation is minimal, it almost must be a hacking attempt
  *
  * the filename generated can safely be used for output of an external 
- * script
- */
+ * script because the dir has rwx------ permissions
+ *
+ * Return value: a newly allocated #gchar * containing a temporary filename in a secure dir
+ **/
 gchar *create_secure_dir_return_filename() {
 	gchar *name, *name2;
 	DEBUG_MSG("create_secure_dir_return_filename,g_get_tmp_dir()=%s\n", g_get_tmp_dir());
@@ -856,7 +900,16 @@ gchar *create_secure_dir_return_filename() {
 	g_free(name);
 	return name2;
 }
-
+/**
+ * remove_secure_dir_and_filename:
+ * @filename: the #gchar * filename to remove
+ *
+ * this function will remove a the filename created 
+ * by create_secure_dir_return_filename(), and the safe
+ * directory the file was created in
+ *
+ * Return value: void
+ **/
 void remove_secure_dir_and_filename(gchar *filename) {
 	gchar *dirname = g_dirname(filename);
 	unlink(filename);

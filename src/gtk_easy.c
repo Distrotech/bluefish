@@ -915,7 +915,7 @@ static void fs_ok_clicked_lcb(GtkWidget * widget, Tfileselect *fileselect)
 
 	selected_file = g_strdup(gtk_file_selection_get_filename(GTK_FILE_SELECTION(fileselect->fs)));
 
-	if (file_is_dir(selected_file)) {
+	if (g_file_test(selected_file, G_FILE_TEST_IS_DIR)) {
 		DEBUG_MSG("fs_ok_clicked_lcb,file_is_dir said %s is a dir!!!!\n", selected_file);
 		if (fileselect->select_dir) {
 			fileselect->filename_to_return = g_path_get_dirname(selected_file);
