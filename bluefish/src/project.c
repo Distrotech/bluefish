@@ -315,15 +315,16 @@ static void setup_bfwin_for_nonproject(Tbfwin *bfwin) {
 gboolean project_save_and_close(Tbfwin *bfwin) {
 	gboolean dont_save = FALSE;
 	while (!bfwin->project->filename) {
+		gchar *text;
+		gint retval;
+		gchar *buttons[] = {_("Do_n't save"), GTK_STOCK_CANCEL, GTK_STOCK_SAVE, NULL};
 		if (dont_save) {
 			break;
 		}
 		DEBUG_MSG("project_save_and_close, project not named, getting action\n");
 		/* dialog */
-		gchar *text;
+
 		text = g_strdup(_("Do you want to save the project?"));
-		gint retval;
-		gchar *buttons[] = {_("Do_n't save"), GTK_STOCK_CANCEL, GTK_STOCK_SAVE, NULL};
 		retval = multi_query_dialog(bfwin->main_window, text, 
 			_("If you don't save your changes they will be lost."), 2, 1, buttons);
 		switch (retval) {

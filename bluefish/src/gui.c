@@ -698,12 +698,12 @@ static void html_toolbar_remove_from_quickbar_lcb(GtkMenuItem *menuitem, Ttoolba
 
 /* return the position in the quickbar GList of a tool bar item */
 gint get_quickbar_item_position(Ttoolbaritem *tbitem) {
-	GList *winlist = g_list_first(main_v->bfwinlist);
+	GList *tmplist, *winlist = g_list_first(main_v->bfwinlist);
 	gint pos = 0;
 	Tquickbaritem *qbi;
 	Tbfwin *bfwin = BFWIN(winlist->data);
 	qbi = g_new(Tquickbaritem,1);	
-	GList *tmplist  = g_list_first(bfwin->toolbar_quickbar_children);
+	tmplist  = g_list_first(bfwin->toolbar_quickbar_children);
 
 	while (tmplist) {
 		qbi = tmplist->data;
@@ -725,11 +725,13 @@ static void html_toolbar_quickbar_move_left_lcb(GtkMenuItem *menuitem, Ttoolbari
 	GList *winlist = g_list_first(main_v->bfwinlist); 
 	DEBUG_MSG("moving tbitem %p left on quickbars\n", tbitem);
 	while (winlist) {
+		GList *tmplist;
+		gint pos;
 		Tbfwin *bfwin = BFWIN(winlist->data);
 		Tquickbaritem *qbi;
 		qbi = g_new(Tquickbaritem,1);
-		gint pos = get_quickbar_item_position(tbitem);
-		GList *tmplist = g_list_nth(bfwin->toolbar_quickbar_children, pos);
+		pos = get_quickbar_item_position(tbitem);
+		tmplist = g_list_nth(bfwin->toolbar_quickbar_children, pos);
 		qbi = tmplist->data;
 
 		if (qbi) {
@@ -741,6 +743,7 @@ static void html_toolbar_quickbar_move_left_lcb(GtkMenuItem *menuitem, Ttoolbari
 		}
 		
 		if (pos) {
+			GList *other;
 			qbi = g_new(Tquickbaritem,1);
 			qbi->button = gtk_toolbar_insert_item(GTK_TOOLBAR(bfwin->toolbar_quickbar), NULL, _(tbitem->tooltiptext),
 							"", new_pixmap(tbitem->pixmaptype), G_CALLBACK(tbitem->func), bfwin, pos-1);
@@ -748,7 +751,7 @@ static void html_toolbar_quickbar_move_left_lcb(GtkMenuItem *menuitem, Ttoolbari
 			gtk_widget_show(qbi->button);
 			qbi->tbitem = tbitem;
 			
-			GList *other = g_list_previous(tmplist);
+			other = g_list_previous(tmplist);
 			list_switch_order(tmplist, other);
 			
 			tmplist = g_list_nth(main_v->globses.quickbar_items, pos);
@@ -766,11 +769,13 @@ static void html_toolbar_quickbar_move_right_lcb(GtkMenuItem *menuitem, Ttoolbar
 	GList *winlist = g_list_first(main_v->bfwinlist); 
 	DEBUG_MSG("moving tbitem %p right on quickbars\n", tbitem);
 	while (winlist) {
+		gint pos;
+		GList *tmplist, *other;
 		Tbfwin *bfwin = BFWIN(winlist->data);
 		Tquickbaritem *qbi;
 		qbi = g_new(Tquickbaritem,1);
-		gint pos = get_quickbar_item_position(tbitem);
-		GList *tmplist = g_list_nth(bfwin->toolbar_quickbar_children, pos);
+		pos = get_quickbar_item_position(tbitem);
+		tmplist = g_list_nth(bfwin->toolbar_quickbar_children, pos);
 		qbi = tmplist->data;
 
 		if (qbi) {
@@ -786,7 +791,7 @@ static void html_toolbar_quickbar_move_right_lcb(GtkMenuItem *menuitem, Ttoolbar
 		gtk_widget_show(qbi->button);
 		qbi->tbitem = tbitem;
 		
-		GList *other = g_list_next(tmplist);
+		other = g_list_next(tmplist);
 		list_switch_order(tmplist, other);
 			
 		tmplist = g_list_nth(main_v->globses.quickbar_items, pos);
