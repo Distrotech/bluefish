@@ -206,10 +206,10 @@ gboolean    frefcb_info_keypress(GtkWidget *widget,GdkEventKey *event,gpointer u
 void        frefcb_info_close(GtkButton *button,gpointer user_data);
 void        frefcb_info_dialog(GtkButton *button,gpointer user_data);
 void        frefcb_info_insert(GtkButton *button,gpointer user_data);
-void		     frefcb_autocomplete(GtkWidget *widget,gpointer data);
+void			frefcb_autocomplete(GtkWidget *widget,gpointer data);
 void        frefcb_autocomplete_activate(GtkMenuItem *menuitem,gpointer user_data);
 void 	      frefcb_info_show(GtkButton *button,gpointer user_data); 
-
+void 			fref_rescan_dir(const gchar *dir);
 #endif /* __FREF_H__ */
 
 
