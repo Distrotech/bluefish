@@ -88,7 +88,10 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 	<sect1 id="bluefish-ch-4-sect-6">
 		<title>quickbar</title>
 		<para>
-			quickbar?
+			The quickbar is a user defined toolbar. All HTML toolbar buttons 
+			can be added to the quickbar by simply right-clicking them and 
+			selecting "Add to quickbar". If you want to remove items from 
+			the Quickbar, right-click them and select "Remove from Quickbar"
 		</para>
 	</sect1>
 	<sect1 id="bluefish-ch-4-sect-7">
@@ -99,7 +102,10 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 		<sect2 id="bluefish-ch-4-sect-7.1">
 			<title>what is the custom menu?</title>
 			<para>
-				why the custom menu is there
+				The custom menu allows you to add "often used" strings or search 
+				and replace patterns to a menu. Upon install Bluefish will create
+				some default entries, these will give you an idea what can be done 
+				with the custom menu.
 			</para>
 		</sect2>
 		<sect2 id="bluefish-ch-4-sect-7.2">
@@ -112,7 +118,10 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 	<sect1 id="bluefish-ch-4-sect-8">
 		<title>syntax highlighting</title>
 		<para>
-			seeing your text in different colors
+			Syntax highlighting is the coloring of words that have a 
+			special meaning in the language you are writing. Obviously the patterns 
+			are different for every language. The "&lt;title&gt;" word for example means
+			"start of title" in HTML, the "function" word means "start of function" in PHP.
 		</para>
 		<sect2 id="bluefish-ch-4-sect-8.1">
 			<title>using syntax highlighting</title>
@@ -122,9 +131,20 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 		</sect2>
 		<sect2 id="bluefish-ch-4-sect-8.2">
 			<title>modifying highlight patterns</title>
-			<para>
-				customize the highlight rules
-			</para>
+			<para>The highlight patterns are build from perl compatible regular expressions. A pattern has 
+			options for coloring and style of the text it matches. Within a match other patterns can be used 
+			to color parts of that match. There are three
+			types of patterns:</para>
+	<itemizedlist>
+	  <listitem><para>Match from the start to the end pattern</para></listitem>
+	  <listitem><para>One pattern that matches from start to end</para></listitem>
+	  <listitem><para>Match a subpattern from the parent pattern</para></listitem>
+	</itemizedlist>
+	<para>
+		One specific pattern can also be used within several other parent patterns. The parent-match
+		option is a regular expression that defines all parents for a certain pattern. If emty
+		it will default to ^top$, so basically it will be on the top level.
+	</para>
 		</sect2>
 	</sect1>
 	<sect1 id="bluefish-ch-4-sect-9">
