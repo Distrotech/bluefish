@@ -56,6 +56,7 @@ void doc_select_region(Tdocument *doc, gint start, gint end, gboolean do_scroll)
 void doc_select_line(Tdocument *doc, gint line, gboolean do_scroll);
 gboolean doc_get_selection(Tdocument *doc, gint *start, gint *end);
 gint doc_get_cursor_position(Tdocument *doc);
+void doc_set_statusbar_lncol(GtkTextBuffer *buffer, Tdocument *doc);
 void doc_set_statusbar_insovr(Tdocument *doc);
 void doc_set_statusbar_editmode_encoding(Tdocument *doc);
 
