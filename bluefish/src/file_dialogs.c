@@ -33,6 +33,7 @@
 /* the start of the callback functions for the menu, acting on a document */
 /**************************************************************************/
 typedef struct {
+	GtkWidget *dialog;
 	GtkWidget *basedir;
 	GtkWidget *find_pattern;
 	GtkWidget *recursive;
@@ -40,6 +41,14 @@ typedef struct {
 	GtkWidget *is_regex;
 	Tbfwin *bfwin;
 } Tfiles_advanced;
+
+static void files_advanced_win_findpattern_changed(GtkComboBox *combobox, Tfiles_advanced *tfs) {
+	if (strlen(gtk_entry_get_text (GTK_ENTRY (GTK_BIN (tfs->find_pattern)->child))) > 0) {
+		gtk_dialog_set_response_sensitive (GTK_DIALOG (tfs->dialog), GTK_RESPONSE_ACCEPT, TRUE);
+	} else {
+		gtk_dialog_set_response_sensitive (GTK_DIALOG (tfs->dialog), GTK_RESPONSE_ACCEPT, FALSE);
+	}
+}
 
 static void files_advanced_win_ok_clicked(Tfiles_advanced *tfs) {
 	GnomeVFSURI *baseuri;
@@ -80,7 +89,7 @@ static void files_advanced_win_select_basedir_lcb(GtkWidget * widget, Tfiles_adv
 }
 
 void files_advanced_win(Tbfwin *bfwin, gchar *basedir) {
-	GtkWidget *table, *dialog;
+	GtkWidget *table;
 	GtkListStore *lstore;
 	GtkTreeIter iter;
 	Tfiles_advanced *tfs;
@@ -104,18 +113,18 @@ void files_advanced_win(Tbfwin *bfwin, gchar *basedir) {
 	tfs = g_new (Tfiles_advanced, 1);
 	tfs->bfwin = bfwin;
 
-	dialog = gtk_dialog_new_with_buttons (_("Advanced open file selector"),
-														GTK_WINDOW (tfs->bfwin->main_window),
-														GTK_DIALOG_DESTROY_WITH_PARENT,
-														GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
-														GTK_STOCK_OK, GTK_RESPONSE_ACCEPT,
-														NULL);	
+	tfs->dialog = gtk_dialog_new_with_buttons (_("Advanced open file selector"),
+																GTK_WINDOW (tfs->bfwin->main_window),
+																GTK_DIALOG_DESTROY_WITH_PARENT,
+																GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+																GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT,
+																NULL);	
 
 	table = gtk_table_new (7, 5, FALSE);
 	gtk_container_set_border_width (GTK_CONTAINER (table), 10);
 	gtk_table_set_row_spacings (GTK_TABLE (table), 12);
 	gtk_table_set_col_spacings (GTK_TABLE (table), 12);
-	gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog)->vbox), table, FALSE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (GTK_DIALOG (tfs->dialog)->vbox), table, FALSE, FALSE, 0);
 
 	bf_label_tad_with_markup(_("<b>General</b>"), 0, 0.5, table, 0, 3, 0, 1);
 	if (!basedir) {
@@ -136,6 +145,7 @@ void files_advanced_win(Tbfwin *bfwin, gchar *basedir) {
 	g_object_unref (lstore);
 	bf_mnemonic_label_tad_with_alignment(_("_File Type:"), tfs->find_pattern, 0, 0.5, table, 1, 2, 2, 3);
 	gtk_table_attach_defaults(GTK_TABLE(table), tfs->find_pattern, 2, 4, 2, 3);
+	g_signal_connect (G_OBJECT (tfs->find_pattern), "changed", G_CALLBACK (files_advanced_win_findpattern_changed), tfs);
 
 	tfs->recursive = checkbut_with_value(NULL, tfs->bfwin ? tfs->bfwin->session->adv_open_recursive : TRUE);
 	bf_mnemonic_label_tad_with_alignment(_("_Recursive:"), tfs->recursive, 0, 0.5, table, 1, 2, 3, 4);
@@ -152,14 +162,15 @@ void files_advanced_win(Tbfwin *bfwin, gchar *basedir) {
 	bf_mnemonic_label_tad_with_alignment(_("Is rege_x:"), tfs->is_regex, 0, 0.5, table, 1, 2, 6, 7);
 	gtk_table_attach_defaults(GTK_TABLE(table), tfs->is_regex, 2, 3, 6, 7);
 
-	gtk_widget_show_all (GTK_DIALOG (dialog)->vbox);
+	gtk_dialog_set_response_sensitive (GTK_DIALOG (tfs->dialog), GTK_RESPONSE_ACCEPT, FALSE);
+	gtk_widget_show_all (GTK_DIALOG (tfs->dialog)->vbox);
 		
-	if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_ACCEPT) {
+	if (gtk_dialog_run (GTK_DIALOG (tfs->dialog)) == GTK_RESPONSE_ACCEPT) {
 		files_advanced_win_ok_clicked(tfs);
 	}
 	
+	gtk_widget_destroy (tfs->dialog);
 	g_free (tfs);
-	gtk_widget_destroy (dialog);
 }
 
 void file_open_advanced_cb(GtkWidget * widget, Tbfwin *bfwin) {
