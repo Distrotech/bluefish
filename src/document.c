@@ -1341,7 +1341,7 @@ static gchar *get_buffer_from_filename(Tbfwin *bfwin, gchar *filename, int *retu
 	GnomeVFSFileSize bytes_read;
 	gchar chunk[STARTING_BUFFER_SIZE];
 	unsigned long long buffer_size = STARTING_BUFFER_SIZE;*/
-	gchar *buffer;
+	gchar *buffer=NULL;
 
 	DEBUG_MSG("get_buffer_from_filename, started for %s\n",filename);
 /*	result = gnome_vfs_open (&handle, filename, GNOME_VFS_OPEN_READ);
@@ -1402,7 +1402,9 @@ static gchar *get_buffer_from_filename(Tbfwin *bfwin, gchar *filename, int *retu
 	}
 	if (GNOME_VFS_OK != result) {
 		gchar *ondiskencoding = get_filename_on_disk_encoding(filename);
+		DEBUG_MSG("get_buffer_from_filename, about to read entire file\n");
 		result = gnome_vfs_read_entire_file(ondiskencoding,returnsize,&buffer);
+		DEBUG_MSG("get_buffer_from_filename, read file, buffer len=%d!\n",strlen(buffer));
 		g_free(ondiskencoding);
 	}
 	if (GNOME_VFS_OK != result) {
