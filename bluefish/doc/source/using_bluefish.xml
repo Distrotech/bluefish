@@ -1034,6 +1034,7 @@ config file. </para>
 <para>You can open multiple files at once with the <menuchoice><shortcut><keycombo><keycap>Shift</keycap><keycap>Ctrl</keycap><keycap>O</keycap></keycombo></shortcut><guimenu>File</guimenu><guimenuitem>Open Advanced...</guimenuitem></menuchoice> menu item from a directory based on their extension or their contents. The same functionality is available from the file browser in the side panel by right-clicking a directory. This feature is available only when the find and grep utilities are installed on your system.</para>
 <para>To open all files by extension, enter the extension in the dialog, and leave the search pattern empty. Check the <guilabel>recursive</guilabel> option if you want to include all subdirectories in the search. To open files by content, leave the extension at *, and enter a search pattern in the dialog. You can use regular expression patterns if you check the <guilabel>Is regex</guilabel> option.</para>
 <para>You may also combine both methods. Here we open recursively all Chinese XML files in a given tree, whose contents contain the word packaging.
+<?linebreaka4?>
 <figure id="figure-open-advanced">
 <title id="figure-open-advanced-title">Using the Open Advanced dialog</title>
 <screenshot>
@@ -1056,344 +1057,324 @@ config file. </para>
 
 <sect2 id="navigation-one">
 <title>Navigating through a document</title>
-	<para>The editing area is a standard GTK editing area. This means there are 
-	many keyboard shortcuts available to navigate through the text.</para>
-	<itemizedlist>
-		<listitem>
-			<para><keycombo><keycap>Ctrl</keycap><keycap>Right-Arrow</keycap></keycombo> will jump to the next word boundary</para>
-		</listitem>
-		<listitem>
-			<para><keycombo><keycap>Ctrl</keycap><keycap>Left-Arrow</keycap></keycombo> will jump to the previous word boundary</para>
-		</listitem>
-		<listitem>
-			<para><keycap>End</keycap> will jump to the end of line</para>
-		</listitem>
-		<listitem>
-			<para><keycap>Home</keycap> will jump to the beginning of the line</para>
-		</listitem>
-		<listitem>
-			<para><keycap>Page-Up</keycap> will jump one page up</para>
-		</listitem>
-		<listitem>
-			<para><keycap>Page-Down</keycap> will jump one page down</para>
-		</listitem>
-		<listitem>
-			<para><keycombo><keycap>Ctrl</keycap><keycap>Home</keycap></keycombo> will jump to the top of the document</para>
-		</listitem>
-		<listitem>
-			<para><keycombo><keycap>Ctrl</keycap><keycap>End</keycap></keycombo> will jump to the end of the document</para>
-		</listitem>
-	</itemizedlist>
-	<para>
-	These shortcuts are also available when selecting text. Some examples:</para>
-	<itemizedlist>
-	<listitem>
-	<para>To select 
-	the current line, press <keycap>Home</keycap>, hold <keycap>Shift</keycap> and press <keycap>End</keycap>.</para>
-	</listitem>
-	<listitem>
-	<para>To select the current word, 
-	press <keycombo><keycap>Ctrl</keycap><keycap>Left-Arrow</keycap></keycombo>, hold <keycap>Shift</keycap> and press <keycombo><keycap>Ctrl</keycap><keycap>Right-Arrow</keycap></keycombo>.</para>
-	</listitem>
-	</itemizedlist>
+<?linebreaka4?>
+<para>The editing area is a standard GTK editing area. This means there are many keyboard shortcuts available to navigate through the text.</para>
+<itemizedlist>
+<listitem>
+<para><keycombo><keycap>Ctrl</keycap><keycap>Right-Arrow</keycap></keycombo> will jump to the next word boundary</para>
+</listitem>
+<listitem>
+<para><keycombo><keycap>Ctrl</keycap><keycap>Left-Arrow</keycap></keycombo> will jump to the previous word boundary</para>
+</listitem>
+<listitem>
+<para><keycap>End</keycap> will jump to the end of line</para>
+</listitem>
+<listitem>
+<para><keycap>Home</keycap> will jump to the beginning of the line</para>
+</listitem>
+<listitem>
+<para><keycap>Page-Up</keycap> will jump one page up</para>
+</listitem>
+<listitem>
+<para><keycap>Page-Down</keycap> will jump one page down</para>
+</listitem>
+<listitem>
+<para><keycombo><keycap>Ctrl</keycap><keycap>Home</keycap></keycombo> will jump to the top of the document</para>
+</listitem>
+<listitem>
+<para><keycombo><keycap>Ctrl</keycap><keycap>End</keycap></keycombo> will jump to the end of the document</para>
+</listitem>
+</itemizedlist>
+<para>These shortcuts are also available when selecting text. Some examples:</para>
+<itemizedlist>
+<listitem>
+<para>To select the current line, press <keycap>Home</keycap>, hold <keycap>Shift</keycap> and press <keycap>End</keycap>.</para>
+</listitem>
+<listitem>
+<para>To select the current word, press <keycombo><keycap>Ctrl</keycap><keycap>Left-Arrow</keycap></keycombo>, hold <keycap>Shift</keycap> and press <keycombo><keycap>Ctrl</keycap><keycap>Right-Arrow</keycap></keycombo>.</para>
+</listitem>
+</itemizedlist>
 </sect2>
 
 <sect2 id="navigation-multiple">
 <title>Navigating through many documents</title>
-	<para>
-	Navigating through a large list of documents can be difficult. But if you right-click 
-	the document notebook tabs, you get a list of all opened documents.
-	</para>
-	<para>
-	Navigation between documents can also be done using the <guimenu>Go</guimenu> menu, or its shortcuts.
-	<figure id="figure-go-menu">
-				<title id="figure-go-menu-title">Bluefish Go Menu</title>
-				<screenshot>
-					<mediaobject>
-						<imageobject>
-							<imagedata fileref="figures/go_menu.png" format="PNG"/>
-						</imageobject>
-						<textobject>
-							<phrase>A screen shot of the Bluefish 1.0 go menu</phrase>
-						</textobject>
-					</mediaobject>
-				</screenshot>
-			</figure>
-	</para>
-	<para>The shortcuts are the following:</para>
-	<itemizedlist>
-		<listitem>
-			<para><keycombo><keycap>Ctrl</keycap><keycap>Page-Up</keycap></keycombo> will change to the previous document</para>
-		</listitem>
-		<listitem>
-			<para><keycombo><keycap>Ctrl</keycap><keycap>Page-Down</keycap></keycombo> will change to the next document</para>
-		</listitem>
-		<listitem>
-			<para><keycombo><keycap>Shift</keycap><keycap>Ctrl</keycap><keycap>Page-Up</keycap></keycombo> will change to the first document</para>
-		</listitem>
-		<listitem>
-			<para><keycombo><keycap>Shift</keycap><keycap>Ctrl</keycap><keycap>Page-Down</keycap></keycombo> will change to the last document</para>
-		</listitem>
-	</itemizedlist>
-	<para>The <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>L</keycap></keycombo></shortcut><guimenu>Go</guimenu><guimenuitem>Goto Line</guimenuitem></menuchoice> offers an interesting feature.</para>
-	<para>If there is some number in the document, you may select it, then click the <guilabel>From selection</guilabel> label in the Goto line dialog. Bluefish will fill in the <guilabel>Line number</guilabel> field with that number and go directly to it.
-	<figure id="figure-goto-line">
-				<title id="figure-goto-line-title">Using the Goto Line dialog</title>
-				<screenshot>
-					<mediaobject>
-						<imageobject>
-							<imagedata fileref="figures/goto_line.png" format="PNG"/>
-						</imageobject>
-						<textobject>
-							<phrase>A screen shot showing the Goto Line dialog</phrase>
-						</textobject>
-					</mediaobject>
-				</screenshot>
-			</figure>
-</para>
-	<para>The same feature is available from the <menuchoice><guimenu>Go</guimenu><guimenuitem>Goto Selection</guimenuitem></menuchoice>.</para>
-	<variablelist>
-	<varlistentry>
-          <term><emphasis>Tip</emphasis></term>
-          <listitem>
-            <para>You may want to check the <guilabel>Keep dialog</guilabel> box to keep the dialog open, when you plan to access several parts of the document by line numbers.</para>
-            </listitem>
-     </varlistentry>
-     </variablelist>
+<?linebreaka4?>
+<para>Navigating through a large list of documents can be difficult. But if you right-click the document notebook tabs, you get a list of all opened documents.</para>
+<?linebreaka4?>
+<para>Navigation between documents can also be done using the <guimenu>Go</guimenu> menu, or its shortcuts.
+<?linebreakus?>
+<figure id="figure-go-menu">
+<title id="figure-go-menu-title">Bluefish Go Menu</title>
+<screenshot><mediaobject>
+<imageobject>
+<imagedata fileref="figures/go_menu.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>A screen shot of the Bluefish 1.0 go menu</phrase>
+</textobject>
+</mediaobject></screenshot>
+</figure></para>
+<?linebreakus?>
+<para>The shortcuts are the following:</para>
+<itemizedlist spacing="compact">
+<listitem>
+<para><keycombo><keycap>Ctrl</keycap><keycap>Page-Up</keycap></keycombo> will change to the previous document</para>
+</listitem>
+<listitem>
+<para><keycombo><keycap>Ctrl</keycap><keycap>Page-Down</keycap></keycombo> will change to the next document</para>
+</listitem>
+<listitem>
+<para><keycombo><keycap>Shift</keycap><keycap>Ctrl</keycap><keycap>Page-Up</keycap></keycombo> will change to the first document</para>
+</listitem>
+<listitem>
+<para><keycombo><keycap>Shift</keycap><keycap>Ctrl</keycap><keycap>Page-Down</keycap></keycombo> will change to the last document</para>
+</listitem>
+</itemizedlist>
+<para>The <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>L</keycap></keycombo></shortcut><guimenu>Go</guimenu><guimenuitem>Goto Line</guimenuitem></menuchoice> offers an interesting feature.</para>
+<para>If there is some number in the document, you may select it, then click the <guilabel>From selection</guilabel> label in the Goto line dialog. Bluefish will fill in the <guilabel>Line number</guilabel> field with that number and go directly to it. The same feature is available from the <menuchoice><guimenu>Go</guimenu><guimenuitem>Goto Selection</guimenuitem></menuchoice>.
+<figure id="figure-goto-line">
+<title id="figure-goto-line-title">Using the Goto Line dialog</title>
+<screenshot><mediaobject>
+<imageobject>
+<imagedata fileref="figures/goto_line.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>A screen shot showing the Goto Line dialog</phrase>
+</textobject>
+</mediaobject></screenshot>
+</figure></para>
+<variablelist>
+<varlistentry>
+<term><emphasis>Tip</emphasis></term>
+<listitem>
+<para>Check the <guilabel>Keep dialog</guilabel> box to keep the dialog open, when you plan to access several parts of the document by line numbers.</para>
+</listitem>
+</varlistentry>
+</variablelist>
 </sect2>
 
 <sect2 id="projects">
 <title>Projects</title>
-<para>
+<para>The projects are a sort of <emphasis>saved state</emphasis> of Bluefish. Thus, they are a very convenient way to work with files scattered all over your disks or to pick up only the files you are interested in within a huge tree. Projects features are accessible through the <guimenu>Project</guimenu> menu.
 <figure id="figure-project-menu">
-	<title id="figure-project-menu-title">Bluefish Project Menu</title>
-		<screenshot>
-			<mediaobject>
-				<imageobject>
-					<imagedata fileref="figures/project_menu.png" format="PNG"/>
-				</imageobject>
-				<textobject>
-					<phrase>A screen shot of the Bluefish 1.0 project menu</phrase>
-				</textobject>
-			</mediaobject>
-		</screenshot>
-</figure>
-</para>
-<para>
-The projects are a sort of <emphasis>saved state</emphasis> of Bluefish. Thus, they are a very convenient way to work with files scattered all over your disks or to pick up only the files you are interested in within a huge tree.</para>
+<title id="figure-project-menu-title">The Bluefish Project Menu</title>
+<screenshot><mediaobject>
+<imageobject>
+<imagedata fileref="figures/project_menu.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>A screen shot of the Bluefish 1.0 project menu</phrase>
+</textobject>
+</mediaobject></screenshot>
+</figure></para>
 <procedure id="creating-new-project"><title>Creating a New Project</title>
-	<step>
-	<para>Click on the <menuchoice><guimenu>Project</guimenu><guimenuitem>New Project</guimenuitem></menuchoice></para>
-	</step>
-	<step>
-	<para>Fill in the fields in the <guilabel>Create New Project</guilabel> dialog</para>
-<para><figure id="figure-project-new-dialog">
-	<title id="figure-project-new-dialog-title">Creating a New Project</title>
-		<screenshot>
-			<mediaobject>
-				<imageobject>
-					<imagedata fileref="figures/project_new_dialog.png" format="PNG"/>
-				</imageobject>
-				<textobject>
-					<phrase>A screen shot of the new project dialog</phrase>
-				</textobject>
-			</mediaobject>
-		</screenshot>
-</figure>
-</para>
-  <para>Using a base directory, or basedir, the file browser in the
-  side panel shows only the files within the basedir and its subdirectories.
-  If Bluefish is installed with gnome-vfs support the basedir can be remote,
-  for example sftp://someserver/somedir or
-  smb://user:password@server/someshare/.</para>
- <para>If the webdir is entered
-  in the project settings, Bluefish will launch the browser to the appropriate
-  URL. If your basedir for example is /var/www/ and your webdir
-  http://localhost/ Bluefish will use this information to launch the browser
-  to the correct URL. This can be very convenient for testing server side
-  scripting languages like PHP, JSP, etc.</para> 
-  <para>The template field
-  allows a project to have to a user-defined template file. Normally, Bluefish displays an empty editing view for a new file request. 
-  However, if a template is defined, Bluefish will use the template file's contents for new files. New files can be requested via the <guilabel>New</guilabel> button on the main tool bar or 
-  <menuchoice><shortcut><keycap>Ctrl</keycap><keycap>N</keycap></shortcut><guimenu>File</guimenu><guimenuitem>New</guimenuitem></menuchoice>.</para> 
- </step>
- <step>
- <para>Once the project is created, you need to tell Bluefish where you want to save it. An <guilabel>Enter Bluefish project filename</guilabel> dialog will be displayed. Notice that you can save the project in a location different from the files to which the project points.</para>
- <para><figure id="figure-project-save-dialog">
-	<title id="figure-project-save-dialog-title">Entering Bluefish Project Filename</title>
-		<screenshot>
-			<mediaobject>
-				<imageobject>
-					<imagedata fileref="figures/project_save_dialog.png" format="PNG"/>
-				</imageobject>
-				<textobject>
-					<phrase>A screen shot of the enter bluefish project dialog</phrase>
-				</textobject>
-			</mediaobject>
-		</screenshot>
-</figure>
-</para>
+<step>
+<para>Click on the <menuchoice><guimenu>Project</guimenu><guimenuitem>New Project</guimenuitem></menuchoice></para>
+<para>If some documents are already opened, check the appropriated box in the <guilabel>Create project</guilabel> dialog.
+<figure id="figure-project-create-dialog">
+<title id="figure-project-create-dialog-title">The Create Project dialog</title>
+<screenshot><mediaobject>
+<imageobject>
+<imagedata fileref="figures/project_create_dialog.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>A screen shot of the create project dialog</phrase>
+</textobject>
+</mediaobject></screenshot>
+</figure></para>
+</step>
+<step>
+<para>Fill in the fields in the <guilabel>Create New Project</guilabel> dialog
+<figure id="figure-project-new-dialog">
+<title id="figure-project-new-dialog-title">Creating a New Project</title>
+<screenshot><mediaobject>
+<imageobject>
+<imagedata fileref="figures/project_new_dialog.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>A screen shot of the new project dialog</phrase>
+</textobject>
+</mediaobject></screenshot>
+</figure></para>
+<para>With a <guilabel>Basedir</guilabel> the file browser in the side panel shows only the files within its hierarchy. With gnome-vfs support, the <guilabel>Basedir</guilabel> can be remote, as <filename>smb://user:pass@server/someshare/</filename> or <filename>sftp://someserver/somedir</filename>.</para>
+<para>The <guilabel>Preview URL</guilabel> allows Bluefish to launch the browser to the appropriate URL, for example <filename>http://localhost/ Bluefish</filename>. This can be very convenient for testing server side scripting languages like PHP, JSP, etc.</para> 
+<para>If the <guilabel>Template</guilabel> field is used, Bluefish will use the template file's contents for new files, which can be requested either via the <guilabel>New</guilabel> button on the main tool bar or <menuchoice><shortcut><keycap>Ctrl</keycap><keycap>N</keycap></shortcut><guimenu>File</guimenu><guimenuitem>New</guimenuitem></menuchoice>. Otherwise an empty document will be created.</para> 
+</step>
+<step>
+<para>Once the project is created, you need to tell Bluefish where you want to save it. An <guilabel>Enter Bluefish project filename</guilabel> dialog will be displayed. Notice that you can save the project in a location different from the files to which the project points.
+<?linebreaka4?>
+<figure id="figure-project-save-dialog">
+<title id="figure-project-save-dialog-title">Entering Bluefish Project Filename</title>
+<screenshot><mediaobject>
+<imageobject>
+<imagedata fileref="figures/project_save_dialog.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>A screen shot of the enter bluefish project dialog</phrase>
+</textobject>
+</mediaobject></screenshot>
+</figure></para>
 </step>
 </procedure>
-<para>To open a project, you have the choice between <menuchoice><guimenu>Project</guimenu><guimenuitem>Open Project...</guimenuitem></menuchoice> or <menuchoice><guimenu>Project</guimenu><guimenuitem>Open recent</guimenuitem></menuchoice>. When you choose the former, a <guilabel>Selecting a Bluefish Project</guilabel> dialog is presented to you.</para>
- <para><figure id="figure-project-open-dialog">
-	<title id="figure-project-open-dialog-title">Selecting a Bluefish Project</title>
-		<screenshot>
-			<mediaobject>
-				<imageobject>
-					<imagedata fileref="figures/project_open_dialog.png" format="PNG"/>
-				</imageobject>
-				<textobject>
-					<phrase>A screen shot of the select Bluefish project filename dialog</phrase>
-				</textobject>
-			</mediaobject>
-		</screenshot>
-</figure>
-</para>
-<para>Likewise, you can save the project with <menuchoice><guimenu>Project</guimenu><guimenuitem>Save</guimenuitem></menuchoice> to save the project file with its current name and location, <menuchoice><guimenu>Project</guimenu><guimenuitem>Save as...</guimenuitem></menuchoice> to save it under a new name/location, or <menuchoice><guimenu>Project</guimenu><guimenuitem>Save &amp; close</guimenuitem></menuchoice> to save and close it.</para>
-<para>If any file in the project has been modified, you will be presented with a dialog allowing you to save the modified file, discard the changes, or cancel the whole process.</para>
-<para>All files open when the project is saved are automatically opened the next time you open the project.</para>
- <para><figure id="figure-project-open">
-	<title id="figure-project-open-title">Opening a Bluefish Project</title>
-		<screenshot>
-			<mediaobject>
-				<imageobject>
-					<imagedata fileref="figures/project_open.png" format="PNG"/>
-				</imageobject>
-				<textobject>
-					<phrase>A screen shot of a Bluefish project</phrase>
-				</textobject>
-			</mediaobject>
-		</screenshot>
-</figure>
-</para>
+<para>To open a project, you have the choice between <menuchoice><guimenu>Project</guimenu><guimenuitem>Open Project...</guimenuitem></menuchoice> or <menuchoice><guimenu>Project</guimenu><guimenuitem>Open recent</guimenuitem></menuchoice>. When you choose the former, a <guilabel>Selecting a Bluefish Project</guilabel> dialog is presented to you.
+<?linebreaka4?>
+<figure id="figure-project-open-dialog">
+<title id="figure-project-open-dialog-title">Selecting a Bluefish Project</title>
+<screenshot><mediaobject>
+<imageobject>
+<imagedata fileref="figures/project_open_dialog.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>A screen shot of the select Bluefish project filename dialog</phrase>
+</textobject>
+</mediaobject></screenshot>
+</figure></para>
+<para>To save the project under its current name/location, use <menuchoice><guimenu>Project</guimenu><guimenuitem>Save</guimenuitem></menuchoice> or <menuchoice><guimenu>Project</guimenu><guimenuitem>Save &amp; close</guimenuitem></menuchoice>; to save it under a new name/location, use <menuchoice><guimenu>Project</guimenu><guimenuitem>Save as...</guimenuitem></menuchoice>. If any file in the project has changed, a dialog will allow you to save the file, discard the changes, or cancel. All files open when the project is saved are automatically opened the next time you open the project.
+<?linebreaka4?>
+<?linebreaka4?>
+<?linebreaka4?>
+<?linebreaka4?>
+<figure id="figure-project-open">
+<title id="figure-project-open-title">Opening a Bluefish Project</title>
+<screenshot><mediaobject>
+<imageobject>
+<imagedata fileref="figures/project_open.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>A screen shot of a Bluefish project</phrase>
+</textobject>
+</mediaobject></screenshot>
+</figure></para>
+<?linebreaka4?>
+<?linebreaka4?>
+<?linebreaka4?>
 <para>Notice that the side panel only shows the tree related to the project.</para>
-  <para>Also, the recently used files in that project are shown in the
-  <menuchoice><guimenu>File</guimenu><guimenuitem>Open recent</guimenuitem></menuchoice> menu item.</para>
-  <para>A project also saves some basic Bluefish settings, giving the project its own customized Bluefish setup. Currently,
-  the word wrap preference and the state of various tool and menu bars are saved in a project
-  file.</para> 
-  <para>The project file itself is simply a text file in the
-  standard Bluefish format (same format as the config file). This format is
-  <literal>key: value</literal>. Here is an example:</para>
-  <programlisting>
-	name: BluefishDoc
-	basedir: ~/bluefishcvs/bluefish-gtk2/doc/
-	webdir: http://micmacfr.homeunix.org/bluefish/doc
-	template: 
-	view_main_toolbar: 1
-	view_left_panel: 1
-	view_custom_menu: 1
-	view_html_toolbar: 1
-	word_wrap: 1
-</programlisting>
+<para>Also, the recently used files in that project are shown in the <menuchoice><guimenu>File</guimenu><guimenuitem>Open recent</guimenuitem></menuchoice> menu item.</para>
+<para>A project also saves some basic Bluefish settings, giving the project its own customized Bluefish setup. Currently, the word wrap preference and the state of various tool and menu bars are saved in a project file. The project file itself is simply a text file in the standard Bluefish format (same format as the config file). This format is <literal>key: value</literal>. Here is an example:
+<programlisting>name: BluefishDoc
+basedir: ~/bluefishcvs/bluefish-gtk2/doc/
+webdir: http://micmacfr.homeunix.org/bluefish/doc
+template: 
+view_main_toolbar: 1
+view_left_panel: 1
+view_custom_menu: 1
+view_html_toolbar: 1
+word_wrap: 1
+</programlisting></para>
 </sect2>
-
+<?linebreaka4?>
 <sect2 id="bookmarks">
 <title>Bookmarks</title>
+<?linebreaka4?>
 <para>In Bluefish you can add bookmarks to a line in the text, and you can later use the bookmark to quickly jump to this location, or even to open the document referred to by the bookmark at that line.</para>
-<para>Bookmarks can be added to the current cursor location by using the <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>D</keycap></keycombo></shortcut><guimenu>Edit</guimenu><guimenuitem>Add Bookmark</guimenuitem></menuchoice> menu item; or by right-clicking in the text, and selecting <guilabel>Add bookmark</guilabel>.</para>
-<para>You can delete a bookmark using the <guilabel>Delete bookmark</guilabel> item in the document contextual menu.</para>
-<para>Each bookmark in a given document is marked by a blue background in the line number margin.</para>
- <para><figure id="figure-bookmark-marked">
-	<title id="figure-bookmark-marked-title">How bookmarks are marked</title>
-		<screenshot>
-			<mediaobject>
-				<imageobject>
-					<imagedata fileref="figures/bookmark_marked.png" format="PNG"/>
-				</imageobject>
-				<textobject>
-					<phrase>A screen shot showing how bookmarks are marked</phrase>
-				</textobject>
-			</mediaobject>
-		</screenshot>
-</figure>
-</para>
+<para>Bookmarks can be added to the current cursor location by using the <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>D</keycap></keycombo></shortcut><guimenu>Edit</guimenu><guimenuitem>Add Bookmark</guimenuitem></menuchoice> menu item; or by right-clicking in the text, and selecting <guilabel>Add bookmark</guilabel>. You can delete a bookmark using the <guilabel>Delete bookmark</guilabel> item in the document contextual menu.</para>
+<para>Each bookmark in a given document is marked by a blue background in the line number margin.
+<figure id="figure-bookmark-marked">
+<title id="figure-bookmark-marked-title">How bookmarks are marked</title>
+<screenshot><mediaobject>
+<imageobject>
+<imagedata fileref="figures/bookmark_marked.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>A screen shot showing how bookmarks are marked</phrase>
+</textobject>
+</mediaobject></screenshot>
+</figure></para>
+<?linebreaka4?>
 <para>Bookmarks can be temporary or permanent. Permanent bookmarks are stored, and temporary bookmarks are gone after Bluefish is closed.	The default is set in the preferences under <guilabel>Editor</guilabel>.</para>
-<para>Bookmarks can be found in the third tab of the side panel, sorted by document and line number.</para>
-<para><figure id="figure-bookmark-tab">
-	<title id="figure-bookmark-tab-title">Bookmarks in the side panel</title>
-		<screenshot>
-			<mediaobject>
-				<imageobject>
-					<imagedata fileref="figures/bookmark_tab.png" format="PNG"/>
-				</imageobject>
-				<textobject>
-					<phrase>A screen shot showing bookmarks in the side panel</phrase>
-				</textobject>
-			</mediaobject>
-		</screenshot>
-</figure>
-</para>
-<para>If you right click a bookmark in the bookmark tab of the side panel, you get a pop up menu with several options.</para>
-<para><figure id="figure-bookmark-cm">
-	<title id="figure-bookmark-cm-title">Contextual menu on bookmark in the side panel</title>
-		<screenshot>
-			<mediaobject>
-				<imageobject>
-					<imagedata fileref="figures/bookmark_cm.png" format="PNG"/>
-				</imageobject>
-				<textobject>
-					<phrase>A screen shot showing the contextual menu on bookmark in the side panel</phrase>
-				</textobject>
-			</mediaobject>
-		</screenshot>
-</figure>
-</para>
+<?linebreaka4?>
+<?linebreaka4?>
+<para>Bookmarks can be found in the third tab of the side panel, sorted by document and line number.
+<?linebreaka4?>
+<figure id="figure-bookmark-tab">
+<title id="figure-bookmark-tab-title">Bookmarks in the side panel</title>
+<screenshot><mediaobject>
+<imageobject>
+<imagedata fileref="figures/bookmark_tab.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>A screen shot showing bookmarks in the side panel</phrase>
+</textobject></mediaobject>
+</screenshot>
+</figure></para>
+<?linebreaka4?>
+<para>If you right click a bookmark in the bookmark tab of the side panel, you get a pop up menu with several options.
+<?linebreak?>
+<figure id="figure-bookmark-cm">
+<title id="figure-bookmark-cm-title">Contextual menu on bookmark in the side panel</title>
+<screenshot><mediaobject>
+<imageobject>
+<imagedata fileref="figures/bookmark_cm.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>A screen shot showing the contextual menu on bookmark in the side panel</phrase>
+</textobject>
+</mediaobject></screenshot>
+</figure></para>
+<?linebreaka4?>
 <para>The <guilabel>Goto bookmark</guilabel> item allows you to go to the bookmark location in the document, opening it if needed.</para>
-<para>The <guilabel>Edit</guilabel> item allows you to change a bookmark from temporary to permanent or the other way around, to name it, and to give it a short description.</para>
-<para>
+<?linebreaka4?>
+<?linebreaka4?>
+<para>The <guilabel>Edit</guilabel> item allows you to change a bookmark from temporary to permanent or the other way around, to name it, and to give it a short description.
+<?linebreakus?>
 <figure id="figure-bookmark-edit">
-	<title id="figure-bookmark-edit-title">Editing a bookmark</title>
-		<screenshot>
-			<mediaobject>
-				<imageobject>
-					<imagedata fileref="figures/bookmark_edit.png" format="PNG"/>
-				</imageobject>
-				<textobject>
-					<phrase>A screen shot showing the edition of a bookmark</phrase>
-				</textobject>
-			</mediaobject>
-		</screenshot>
-</figure>
-</para>
-<para>Note that after naming a bookmark, the default name - first characters of the bookmarked line - is displayed after the new name.</para>
-<para>
+<title id="figure-bookmark-edit-title">Editing a bookmark</title>
+<screenshot><mediaobject>
+<imageobject>
+<imagedata fileref="figures/bookmark_edit.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>A screen shot showing the edition of a bookmark</phrase>
+</textobject></mediaobject>
+</screenshot>
+</figure></para>
+<?linebreaka4?>
+<?linebreaka4?>
+<?linebreaka4?>
+<para>Note that after naming a bookmark, the default name - first characters of the bookmarked line - is displayed after the new name.
+<?linebreaka4?>
+<?linebreaka4?>
 <figure id="figure-bookmark-name">
-	<title id="figure-bookmark-name-title">A named bookmark</title>
-		<screenshot>
-			<mediaobject>
-				<imageobject>
-					<imagedata fileref="figures/bookmark_name.png" format="PNG"/>
-				</imageobject>
-				<textobject>
-					<phrase>A screen shot showing a named bookmark</phrase>
-				</textobject>
-			</mediaobject>
-		</screenshot>
-</figure>
-</para>
-<para>Via this contextual menu, you may also delete a bookmark, delete all bookmarks in the active document, or delete all bookmarks stored in the bookmark tab of the side panel. The latter ones are also available when you right click the name of a document in this tab.</para>
-<para>
+<title id="figure-bookmark-name-title">A named bookmark</title>
+<?linebreaka4?>
+<?linebreakus?>
+<screenshot><mediaobject>
+<imageobject>
+<imagedata fileref="figures/bookmark_name.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>A screen shot showing a named bookmark</phrase>
+</textobject>
+</mediaobject></screenshot>
+</figure></para>
+<?linebreaka4?>
+<?linebreaka4?>
+<?linebreaka4?>
+<para>Via this contextual menu, you may also delete a bookmark, delete all bookmarks in the active document, or delete all bookmarks stored in the bookmark tab of the side panel. The latter ones are also available when you right click the name of a document in this tab.
+<?linebreak?>
+<?linebreaka4?>
 <figure id="figure-bookmark-document-cm">
-	<title id="figure-bookmark-document-cm-title">The contextual menu on a document in the bookmark tab</title>
-		<screenshot>
-			<mediaobject>
-				<imageobject>
-					<imagedata fileref="figures/bookmark_document_cm.png" format="PNG"/>
-				</imageobject>
-				<textobject>
-					<phrase>A screen shot showing the contextual menu on a document in the bookmark tab</phrase>
-				</textobject>
-			</mediaobject>
-		</screenshot>
-</figure>
-</para>
+<title id="figure-bookmark-document-cm-title">The contextual menu on a document in the bookmark tab</title>
+<screenshot><mediaobject>
+<imageobject>
+<imagedata fileref="figures/bookmark_document_cm.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>A screen shot showing the contextual menu on a document in the bookmark tab</phrase>
+</textobject>
+</mediaobject></screenshot>
+</figure></para>
+<?linebreaka4?>
+<?linebreaka4?>
 
 <sect3 id="generate-bookmark">
 <title>Generating several bookmarks at once</title>
+<?linebreaka4?>
+<?linebreak?>
 <para>To add many bookmarks at once, use the <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>F</keycap></keycombo></shortcut><guimenu>Edit</guimenu><guimenuitem>Find</guimenuitem></menuchoice> dialog. Check the <guilabel>Bookmark result</guilabel> option, and all search results will be added to your bookmarks.</para>
+<?linebreaka4?>
 <para>For example, the XML files for this manual have sections, each identified by a header like <literal>&lt;sect1 id="nameofthesection"&gt;</literal>. A way to automatically get a bookmark to every section is to search for the following posix regular expression pattern: <literal>&lt;sect[0-9]+ id="[^"]+"&gt;</literal> and bookmark all results.
+<?linebreakus?>
 <figure id="figure-bookmark-find-posix">
 <title id="figure-bookmark-find-posix-title">Bookmarking with Posix regular expression</title>
 <screenshot><mediaobject>
@@ -1405,7 +1386,18 @@ The projects are a sort of <emphasis>saved state</emphasis> of Bluefish. Thus, t
 </textobject>
 </mediaobject></screenshot>
 </figure></para>
+<?linebreaka4?>
+<?linebreaka4?>
+<?linebreaka4?>
+<?linebreaka4?>
+<?linebreak?>
+<?linebreaka4?>
+<?linebreaka4?>
+<?linebreaka4?>
+<?linebreaka4?>
+<?linebreaka4?>
 <para>Here is the result:
+<?linebreak?>
 <figure id="figure-bookmark-find-posix-result">
 <title id="figure-bookmark-find-posix-result-title">Bookmarks with Posix regular expression</title>
 <screenshot><mediaobject>
@@ -1417,9 +1409,8 @@ The projects are a sort of <emphasis>saved state</emphasis> of Bluefish. Thus, t
 </textobject>
 </mediaobject></screenshot>
 </figure></para>
-<para>Here is an example which bookmarks all functions in an Objective-C file:
-</para>
-<para>
+<?pagebreaka4?>
+<para>Here are two examples which bookmarks all functions in Objective-C and PHP files with POSIX or PERL regular expressions:
 <figure id="figure-bookmark-find-cm">
 <title id="figure-bookmark-find-title">Bookmarking Objective C functions via the Find menu</title>
 <screenshot><mediaobject>
@@ -1430,8 +1421,8 @@ The projects are a sort of <emphasis>saved state</emphasis> of Bluefish. Thus, t
 <phrase>A screen shot showing how to bookmark Objective C functions via the Find menu</phrase>
 </textobject>
 </mediaobject></screenshot>
-</figure></para>
-<para>Here is another example which bookmarks all functions in a php file with Perl regular expression.
+</figure>
+<?linebreaka4?>
 <figure id="figure-bookmark-find-perl">
 <title id="figure-bookmark-find-perl-title">Bookmarking PHP functions via the Find menu</title>
 <screenshot><mediaobject>
@@ -1793,7 +1784,7 @@ choose <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>+</keycap></
 </screenshot>
 </figure>
 </para>
-<para>In all cases, when you want to replace some part of the text, you should first select the part to replace, then use the appropiated menu item.</para>
+<para>In all cases, when you want to replace some part of the text, you should first select the part to replace, then use the appropriated menu item.</para>
 </sect3>
 
 <sect3 id="thumbnails">
