@@ -305,19 +305,12 @@ void open_advanced_from_filebrowser(Tbfwin *bfwin, gchar *path) {
 void file_open_cb(GtkWidget * widget, Tbfwin *bfwin) {
 #ifdef HAVE_ATLEAST_GTK_2_4
 	GtkWidget *dialog;
-	GSList *slist;
 	dialog = file_chooser_dialog(bfwin, _("Select files"), GTK_FILE_CHOOSER_ACTION_OPEN, NULL, FALSE, TRUE, NULL);
 	if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_ACCEPT) {
-		GSList *tmpslist;
+		GSList *slist;
 		bfwin->focus_next_new_doc = TRUE;
-		tmpslist = slist = gtk_file_chooser_get_uris(GTK_FILE_CHOOSER(dialog));
-		while (tmpslist) {
-			GnomeVFSURI *guri;
-			guri = gnome_vfs_uri_new(tmpslist->data);
-			file_doc_from_uri(bfwin, guri, NULL);
-			gnome_vfs_uri_unref(guri);
-			tmpslist = g_slist_next(tmpslist);
-		}
+		slist = gtk_file_chooser_get_uris(GTK_FILE_CHOOSER(dialog));
+		docs_new_from_uris(bfwin, slist, FALSE);
 		g_slist_free(slist);
 	}
 	gtk_widget_destroy(dialog);

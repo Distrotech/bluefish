@@ -869,7 +869,7 @@ void bmark_init()
  * from bfwin->session->bmarks and parse
  * them into treestore bfwin->bookmarkstore
  *
- * this function should ALSO check all dcouments that are
+ * this function should ALSO check all douments that are
  * opened (bfwin->documentlist) if they have bookmarks !!
  */
 void bmark_reload(Tbfwin * bfwin)
