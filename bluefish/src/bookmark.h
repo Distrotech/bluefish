@@ -22,7 +22,7 @@ void bmark_del_all_perm(Tbfwin *bfwin);
 
 void bmark_save_all();
 void bmark_check_lengths(Tbfwin *bfwin);
-
+void bmark_adjust_visible(Tbfwin *win);
 
 #endif /* BOOKMARKS */
 

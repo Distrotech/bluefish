@@ -149,6 +149,10 @@ void notebook_changed(Tbfwin *bfwin, gint newpage) {
 	flush_queue();
 
 	doc_activate(bfwin->current_document);
+#ifdef BOOKMARKS
+   bmark_adjust_visible(bfwin);
+#endif /* BOOKMARKS */	
+	
 }
 
 gboolean switch_to_document_by_index(Tbfwin *bfwin,gint index) {
