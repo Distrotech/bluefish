@@ -47,6 +47,7 @@ enum {
 	ext_commands_in_submenu,
 	ext_outputbox_in_submenu,
 	default_advanced_snr,
+	cont_highlight_full, 	/* if you want to highlight the full text or just the line */
 	/* not yet in use */
 	image_editor_cline, 	/* image editor commandline */
 	cfg_weblint_cline,	/* weblint command line */
@@ -70,7 +71,6 @@ enum {
 	force_def_style,  /* force white editor background */
 	drop_at_drop_pos, 	/* drop at drop position instead of cursor position */
 	link_management, 	/* perform link management */
-	cont_highlight_full, 	/* if you want to highlight the full text or just the line */
 	cont_highlight_update,	/* update the syntax highlighting continuous */
 	html_ver,
 	cust_menu, 		/* entries in the custom menu */
@@ -1505,6 +1505,8 @@ static void preferences_ok_clicked_lcb(GtkWidget *wid, Tprefdialog *pd) {
 	integer_apply(&main_v->props.view_line_numbers, pd->prefs[view_line_numbers], TRUE);
 	integer_apply(&main_v->props.defaulthighlight, pd->prefs[defaulthighlight], TRUE);
 	integer_apply(&main_v->props.highlight_num_lines_count, pd->prefs[highlight_num_lines_count], FALSE);
+	integer_apply(&main_v->props.cont_highlight_full, pd->prefs[cont_highlight_full], TRUE);
+
 	integer_apply(&main_v->props.lowercase_tags, pd->prefs[lowercase_tags], TRUE);
 	integer_apply(&main_v->props.allow_dep, pd->prefs[allow_dep], TRUE);
 	integer_apply(&main_v->props.xhtml, pd->prefs[xhtml], TRUE);
@@ -1634,7 +1636,7 @@ static void preferences_dialog() {
 	pd->prefs[view_line_numbers] = boxed_checkbut_with_value(_("Line numbers by default"), main_v->props.view_line_numbers, vbox2);
 	pd->prefs[defaulthighlight] = boxed_checkbut_with_value(_("Highlight syntax by default"), main_v->props.defaulthighlight, vbox2);
 	pd->prefs[highlight_num_lines_count] = prefs_integer(_("Highlight # lines"), main_v->props.highlight_num_lines_count, vbox2, pd, 1, 8);
-
+	pd->prefs[cont_highlight_full] = boxed_checkbut_with_value(_("Always highlight full document"), main_v->props.cont_highlight_full, vbox2);
 	vbox1 = gtk_vbox_new(FALSE, 5);
 	gtk_notebook_append_page(GTK_NOTEBOOK(pd->noteb), vbox1, hbox_with_pix_and_text(_("HTML"),154));
 

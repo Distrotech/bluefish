@@ -178,6 +178,7 @@ typedef struct {
 	gchar *spell_default_lang;
 #endif /* HAVE_LIBASPELL */
 	gint default_advanced_snr;
+	gint cont_highlight_full; 	/* if you want to highlight the full text or just the line */
 	/* not yet in use */
 	gchar *image_editor_cline; 	/* image editor commandline */
 	gchar *cfg_weblint_cline;	/* weblint command line */
@@ -201,7 +202,6 @@ typedef struct {
 	gint force_def_style;  /* force white editor background */
 	gint drop_at_drop_pos; 	/* drop at drop position instead of cursor position */
 	gint link_management; 	/* perform link management */
-	gint cont_highlight_full; 	/* if you want to highlight the full text or just the line */
 	gint cont_highlight_update;	/* update the syntax highlighting continuous */
 	gchar *html_ver;
 	GList *cust_menu; 		/* entries in the custom menu */
