@@ -18,6 +18,11 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
+
+/* this is needed for Solaris to comply with the latest POSIX standard 
+ * regarding the ctime_r() function */
+#define _POSIX_C_SOURCE 200312L
+
 #include <gtk/gtk.h>
 #include <sys/types.h> 	/* stat() */
 #include <sys/stat.h> 	/* stat() */
