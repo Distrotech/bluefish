@@ -44,11 +44,9 @@ void snr2_run_extern_replace(Tdocument *doc, gchar *search_pattern, gint region,
 Tsearch_result doc_search_run_extern(Tdocument *doc, gchar *search_pattern, gint matchtype, gint is_case_sens);
 
 void search_cb(GtkWidget *widget, Tbfwin *bfwin);
-void new_search_cb(GtkWidget *widget, Tbfwin *bfwin);
 void replace_again_cb(GtkWidget *widget, Tbfwin *bfwin);
 void search_again_cb(GtkWidget *widget, Tbfwin *bfwin);
 void replace_cb(GtkWidget *widget, Tbfwin *bfwin);
-void new_replace_cb(GtkWidget *widget, Tbfwin *bfwin);
 void update_filenames_in_file(Tdocument *doc, gchar *oldfilename, gchar *newfilename, gint doc_has_newfilename);
 void update_encoding_meta_in_file(Tdocument *doc, gchar *encoding);
 
