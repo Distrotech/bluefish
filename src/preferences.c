@@ -515,9 +515,9 @@ static void filetype_apply_change(Tprefdialog *pd, gint type, gchar *path, gchar
 	}
 	if (strarr[index]) g_free(strarr[index]);
 	if (type == 0) {
-		strarr[index] = g_strdup(newval);
-	} else {
 		strarr[index] = unescape_string(newval, FALSE);
+	} else {
+		strarr[index] = g_strdup(newval);
 	}
 	gtk_tree_path_free(tpath);
 }
