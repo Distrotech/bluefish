@@ -341,33 +341,37 @@ static void checkNsave_checkmodified_lcb(Tcheckmodified_status status,gint error
 	break;
 	}
 	if (startbackup) {
-		GList *sourcelist;
-		GList *destlist;
-		gchar *tmp, *tmp2;
-		GnomeVFSURI *dest;
-		GnomeVFSResult ret;
-		/* now first create the backup, then start save */
-		tmp = gnome_vfs_uri_to_string(cns->uri,0);
-		tmp2 = g_strconcat(tmp, main_v->props.backup_filestring, NULL);
-		dest = gnome_vfs_uri_new(tmp2);
-		g_free(tmp);
-		g_free(tmp2);
-		sourcelist = g_list_append(NULL, cns->uri);
-		gnome_vfs_uri_ref(cns->uri);
-		destlist = g_list_append(NULL, dest);
-		DEBUG_MSG("checkNsave_checkmodified_lcb, start backup, source=%s, dest=%s (len=%d,%d) in thread %p\n",gnome_vfs_uri_get_path(cns->uri),gnome_vfs_uri_get_path(dest)
-				,g_list_length(sourcelist),g_list_length(destlist),g_thread_self());
-		ret = gnome_vfs_async_xfer(&cns->handle,sourcelist,destlist
-					,GNOME_VFS_XFER_FOLLOW_LINKS,GNOME_VFS_XFER_ERROR_MODE_QUERY
-					,GNOME_VFS_XFER_OVERWRITE_MODE_REPLACE,GNOME_VFS_PRIORITY_DEFAULT
-					,checkNsave_progress_lcb, cns
-					,checkNsave_sync_lcb, cns);
-		DEBUG_MSG("checkNsave_checkmodified_lcb, ret ok=%d\n",(ret == GNOME_VFS_OK));
-		gnome_vfs_uri_list_free(sourcelist);
-		gnome_vfs_uri_list_free(destlist);
-/*		gnome_vfs_uri_unref(dest);
-		g_list_free(sourcelist);
-		g_list_free(destlist);*/
+		if (main_v->props.backup_file)  {
+			GList *sourcelist;
+			GList *destlist;
+			gchar *tmp, *tmp2;
+			GnomeVFSURI *dest;
+			GnomeVFSResult ret;
+			/* now first create the backup, then start save */
+			tmp = gnome_vfs_uri_to_string(cns->uri,0);
+			tmp2 = g_strconcat(tmp, main_v->props.backup_filestring, NULL);
+			dest = gnome_vfs_uri_new(tmp2);
+			g_free(tmp);
+			g_free(tmp2);
+			sourcelist = g_list_append(NULL, cns->uri);
+			gnome_vfs_uri_ref(cns->uri);
+			destlist = g_list_append(NULL, dest);
+			DEBUG_MSG("checkNsave_checkmodified_lcb, start backup, source=%s, dest=%s (len=%d,%d) in thread %p\n",gnome_vfs_uri_get_path(cns->uri),gnome_vfs_uri_get_path(dest)
+					,g_list_length(sourcelist),g_list_length(destlist),g_thread_self());
+			ret = gnome_vfs_async_xfer(&cns->handle,sourcelist,destlist
+						,GNOME_VFS_XFER_FOLLOW_LINKS,GNOME_VFS_XFER_ERROR_MODE_QUERY
+						,GNOME_VFS_XFER_OVERWRITE_MODE_REPLACE,GNOME_VFS_PRIORITY_DEFAULT
+						,checkNsave_progress_lcb, cns
+						,checkNsave_sync_lcb, cns);
+			DEBUG_MSG("checkNsave_checkmodified_lcb, ret ok=%d\n",(ret == GNOME_VFS_OK));
+			gnome_vfs_uri_list_free(sourcelist);
+			gnome_vfs_uri_list_free(destlist);
+	/*		gnome_vfs_uri_unref(dest);
+			g_list_free(sourcelist);
+			g_list_free(destlist);*/
+		} else {
+			cns->sf = file_savefile_uri_async(cns->uri, cns->buffer, cns->buffer_size, checkNsave_savefile_lcb, cns);
+		}
 	} else {
 		checkNsave_cleanup(cns);
 	}
