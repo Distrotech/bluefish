@@ -212,7 +212,7 @@ static void image_adjust_changed(GtkAdjustment * adj, Timage_diag *imdg) {
 	DEBUG_MSG("image_adjust_changed finished. GTK_IS_WIDGET(imdg->im) == %d\n", GTK_IS_WIDGET(imdg->im));
 }
 
-void image_insert_dialog_backend(gchar *filename,GtkWidget *widget, gpointer data, gboolean is_thumbnail) {
+void image_insert_dialog_backend(gchar *filename,Tbfwin *bfwin, Ttagpopup *data, gboolean is_thumbnail) {
 	gchar *tagvalues[11];
 	gchar *custom = NULL;
 	Timage_diag *imdg;
@@ -224,13 +224,13 @@ void image_insert_dialog_backend(gchar *filename,GtkWidget *widget, gpointer dat
 	imdg->im = NULL;
 	imdg->is_thumbnail = is_thumbnail;
 	if (is_thumbnail) {
-		imdg->dg = html_diag_new(_("Insert thumbnail"));
+		imdg->dg = html_diag_new(bfwin,_("Insert thumbnail"));
 	} else {
-		imdg->dg = html_diag_new(_("Insert image"));
+		imdg->dg = html_diag_new(bfwin,_("Insert image"));
 	}
 	{
 		static gchar *tagitems[] = { "width", "height", "alt", "border", "src", "hspace", "vspace", "align", "name", "usemap", NULL };
-		fill_dialogvalues(tagitems, tagvalues, &custom, (Ttagpopup *) data, widget, imdg->dg);
+		fill_dialogvalues(tagitems, tagvalues, &custom, (Ttagpopup *) data, imdg->dg);
 	}
 
 	imdg->frame = gtk_frame_new(_("Preview"));
@@ -319,14 +319,14 @@ void image_insert_dialog_backend(gchar *filename,GtkWidget *widget, gpointer dat
 	if (custom)	g_free(custom);
 }
 
-void image_insert_dialog_cb(GtkWidget * widget, gpointer data) {
-	image_insert_dialog_backend(NULL, widget, data, FALSE);
+void image_insert_dialog(Tbfwin *bfwin, Ttagpopup *data) {
+	image_insert_dialog_backend(NULL, bfwin, data, FALSE);
 }
-void thumbnail_insert_dialog_cb(GtkWidget * widget, gpointer data) {
-	image_insert_dialog_backend(NULL, NULL, NULL, TRUE);
+void thumbnail_insert_dialog(Tbfwin *bfwin) {
+	image_insert_dialog_backend(NULL, bfwin, NULL, TRUE);
 }
-void image_insert_from_filename(gchar *filename) {
-	image_insert_dialog_backend(filename,NULL, NULL, FALSE);
+void image_insert_from_filename(Tbfwin *bfwin, gchar *filename) {
+	image_insert_dialog_backend(filename,bfwin, NULL, FALSE);
 }
 
 typedef struct {
@@ -336,6 +336,7 @@ typedef struct {
 	GtkWidget *spins[2];
 	GtkTextBuffer *tbuf;
 	gint mode;
+	Tbfwin *bfwin;
 } Tmuthudia;
 
 static void multi_thumbnail_dialog_destroy(GtkWidget *wid, GdkEvent *event, Tmuthudia *mtd) {
@@ -376,8 +377,8 @@ static void multi_thumbnail_ok_clicked(GtkWidget *widget, Tmuthudia *mtd) {
 		GError *error=NULL;
 		gchar *thumbfilename, *filename=(gchar *)tmplist->data, *relfilename;
 	
-		if (main_v->current_document->filename) {
-			relfilename = create_relative_link_to(main_v->current_document->filename, filename);
+		if (mtd->bfwin->current_document->filename) {
+			relfilename = create_relative_link_to(mtd->bfwin->current_document->filename, filename);
 		} else {
 			relfilename = g_path_get_basename(filename);
 		}
@@ -467,7 +468,7 @@ static void multi_thumbnail_ok_clicked(GtkWidget *widget, Tmuthudia *mtd) {
 		tmplist = g_list_next(tmplist);
 	}
 	DEBUG_MSG("done with all the files, inserting totalstring %s\n", string2insert);
-	doc_insert_two_strings(main_v->current_document, string2insert, NULL);
+	doc_insert_two_strings(mtd->bfwin, string2insert, NULL);
 	g_free(string2insert);
 	DEBUG_MSG("ready, cleanup time!\n");
 	free_stringlist(files);
@@ -501,12 +502,13 @@ static void multi_thumbnail_radio_toggled_lcb(GtkToggleButton *togglebutton,Tmut
 	}
 }
 
-void multi_thumbnail_dialog_cb(GtkWidget * widget, gpointer data) {
+void multi_thumbnail_dialog(Tbfwin *bfwin) {
 	Tmuthudia *mtd;
 	GtkWidget *vbox, *hbox, *but, *table, *label, *scrolwin, *textview;
 	gint tb;
 	
 	mtd = g_new(Tmuthudia, 1);
+	mtd->bfwin = bfwin;
 	mtd->win = window_full(_("Multi thumbnail"), GTK_WIN_POS_MOUSE, 5, G_CALLBACK(multi_thumbnail_dialog_destroy), mtd, TRUE);
 	vbox = gtk_vbox_new(FALSE,5);
 	gtk_container_add(GTK_CONTAINER(mtd->win), vbox);
