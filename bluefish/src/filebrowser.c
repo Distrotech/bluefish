@@ -695,15 +695,6 @@ static void populate_dir_history(gboolean firsttime) {
 	gtk_option_menu_set_history(GTK_OPTION_MENU(filebrowser.dirmenu), 0);
 }
 
-static void filebrowser_rpopup_filter_toggled_lcb(GtkWidget *widget, Tfilter *filter) {
-	if (GTK_CHECK_MENU_ITEM(widget)->active) {
-		DEBUG_MSG("filebrowser_rpopup_filter_toggled_lcb, setting curfilter to (%p) %s\n", filter, filter->name);
-		filebrowser.curfilter = filter;
-		if (main_v->props.last_filefilter) g_free(main_v->props.last_filefilter);
-		main_v->props.last_filefilter = g_strdup(filter->name);
-	}
-}
-
 typedef struct {
 	GtkWidget *win;
 	GtkWidget *entry;
@@ -870,6 +861,17 @@ static void filebrowser_rpopup_refresh_lcb(GtkWidget *widget, gpointer data) {
 		gtk_tree_path_free(path);
 	}
 }
+
+static void filebrowser_rpopup_filter_toggled_lcb(GtkWidget *widget, Tfilter *filter) {
+	if (GTK_CHECK_MENU_ITEM(widget)->active) {
+		DEBUG_MSG("filebrowser_rpopup_filter_toggled_lcb, setting curfilter to (%p) %s\n", filter, filter->name);
+		filebrowser.curfilter = filter;
+		if (main_v->props.last_filefilter) g_free(main_v->props.last_filefilter);
+		main_v->props.last_filefilter = g_strdup(filter->name);
+		filebrowser_rpopup_refresh_lcb(widget, NULL);
+	}
+}
+
 
 static GtkWidget *filebrowser_rpopup_create_menu() {
 	GtkWidget *menu, *menu_item;
