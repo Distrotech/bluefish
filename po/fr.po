@@ -9,8 +9,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 21-11-03_fr\n"
-"POT-Creation-Date: 2004-10-22 18:18+0200\n"
-"PO-Revision-Date: 2004-10-20 21:56+0200\n"
+"POT-Creation-Date: 2004-10-22 18:32+0200\n"
+"PO-Revision-Date: 2004-10-22 18:37+0200\n"
 "Last-Translator: Michèle Garoche <michele.garoche@easyconnect.fr>\n"
 "Language-Team: français <fr@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -288,7 +288,7 @@ msgstr "Remplacer _par :"
 msgid "I_gnore"
 msgstr "I_gnorer"
 
-#: ../src/bfspell.c:367 ../src/snr2.c:883
+#: ../src/bfspell.c:367 ../src/snr2.c:884
 msgid "_Replace"
 msgstr "_Remplacer"
 
@@ -587,7 +587,7 @@ msgid "Cannot display file, unknown characters found."
 msgstr ""
 "Impossible d'afficher le fichier, des caractères inconnus ont été trouvés."
 
-#: ../src/document.c:2005 ../src/snr2.c:1331
+#: ../src/document.c:2005 ../src/snr2.c:1332
 msgid "Replace"
 msgstr "Remplacer"
 
@@ -1064,7 +1064,7 @@ msgstr ""
 msgid "Show info window"
 msgstr "Afficher la fenêtre d'informations"
 
-#: ../src/fref.c:2311 ../src/snr2.c:1334
+#: ../src/fref.c:2311 ../src/snr2.c:1335
 msgid "Search"
 msgstr "Rechercher"
 
@@ -4538,120 +4538,120 @@ msgstr "Projet sans titre"
 msgid "Regular expression error: "
 msgstr "Erreur d'expression régulière : "
 
-#: ../src/snr2.c:188 ../src/snr2.c:232
+#: ../src/snr2.c:188 ../src/snr2.c:233
 msgid "Search failed"
 msgstr "Échec de la recherche"
 
-#: ../src/snr2.c:231
+#: ../src/snr2.c:232
 #, c-format
 msgid "Regular expression error: %s at offset %d"
 msgstr "Erreur d'expression régulière : %s à la position %d"
 
-#: ../src/snr2.c:857
+#: ../src/snr2.c:858
 msgid "Confirm replace"
 msgstr "Confirmer le remplacement"
 
-#: ../src/snr2.c:869
+#: ../src/snr2.c:870
 msgid "Replace selected text?"
 msgstr "Remplacer le texte sélectionné ?"
 
-#: ../src/snr2.c:882
+#: ../src/snr2.c:883
 msgid "_Skip"
 msgstr "_Ignorer"
 
-#: ../src/snr2.c:884
+#: ../src/snr2.c:885
 msgid "Replace _all"
 msgstr "Tout rempl_acer"
 
-#: ../src/snr2.c:1129 ../src/snr2.c:1136
+#: ../src/snr2.c:1130 ../src/snr2.c:1137
 msgid "Search: no match found"
 msgstr "Recherche : aucun résultat trouvé"
 
-#: ../src/snr2.c:1360
+#: ../src/snr2.c:1361
 msgid "_Search for: "
 msgstr "_Rechercher : "
 
-#: ../src/snr2.c:1373
+#: ../src/snr2.c:1374
 msgid "_Replace with: "
 msgstr "Remplacer _par : "
 
-#: ../src/snr2.c:1383
+#: ../src/snr2.c:1384
 msgid "\\0 refers to the first subsearch_pattern, \\1 to the second etc."
 msgstr "\\0 se réfère au premier sous-modèle, \\1 au deuxième, etc."
 
-#: ../src/snr2.c:1398
+#: ../src/snr2.c:1399
 msgid "Beginning of document till end"
 msgstr "Du début à la fin du document"
 
-#: ../src/snr2.c:1398
+#: ../src/snr2.c:1399
 msgid "Current position till end"
 msgstr "De la position du curseur jusqu'à la fin"
 
-#: ../src/snr2.c:1398
+#: ../src/snr2.c:1399
 msgid "Beginning of selection till end of selection"
 msgstr "Du début à la fin de la sélection"
 
-#: ../src/snr2.c:1398
+#: ../src/snr2.c:1399
 msgid "All opened files begin till end"
 msgstr "Du début à la fin de tous les fichiers ouverts"
 
-#: ../src/snr2.c:1399
+#: ../src/snr2.c:1400
 msgid "Disabled"
 msgstr "Désactivé"
 
-#: ../src/snr2.c:1399
+#: ../src/snr2.c:1400
 msgid "POSIX type"
 msgstr "Type POSIX"
 
-#: ../src/snr2.c:1399
+#: ../src/snr2.c:1400
 msgid "PERL type"
 msgstr "De type PERL"
 
-#: ../src/snr2.c:1400
+#: ../src/snr2.c:1401
 msgid "Starts at:"
 msgstr "Zone de recherche : "
 
-#: ../src/snr2.c:1412
+#: ../src/snr2.c:1413
 msgid "Regular expression:"
 msgstr "Expression régulière : "
 
-#: ../src/snr2.c:1426
+#: ../src/snr2.c:1427
 msgid "Normal"
 msgstr "Normal"
 
-#: ../src/snr2.c:1426
+#: ../src/snr2.c:1427
 msgid "Uppercase"
 msgstr "Mettre en majuscules"
 
-#: ../src/snr2.c:1426
+#: ../src/snr2.c:1427
 msgid "Lowercase"
 msgstr "Mettre en minuscules"
 
-#: ../src/snr2.c:1427
+#: ../src/snr2.c:1428
 msgid "Replace type:"
 msgstr "Type de remplacement :"
 
-#: ../src/snr2.c:1440
+#: ../src/snr2.c:1441
 msgid "_Patterns contain backslash escape sequences (\\n, \\t)"
 msgstr "Les _modèles contiennent des séquences d'échappement (\\n, \\t)"
 
-#: ../src/snr2.c:1441
+#: ../src/snr2.c:1442
 msgid "_Match case"
 msgstr "Respecter la ca_sse"
 
-#: ../src/snr2.c:1442
+#: ../src/snr2.c:1443
 msgid "O_verlap searches"
 msgstr "Recherches en _parallèle"
 
-#: ../src/snr2.c:1444
+#: ../src/snr2.c:1445
 msgid "Prompt _before replace"
 msgstr "_Demander avant de remplacer"
 
-#: ../src/snr2.c:1445
+#: ../src/snr2.c:1446
 msgid "Replace o_nce"
 msgstr "Remplacer _une seule fois"
 
-#: ../src/snr2.c:1447
+#: ../src/snr2.c:1448
 msgid "Bookmark results"
 msgstr "Ajouter un signet au résultat"
 
