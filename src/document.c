@@ -41,7 +41,7 @@
 #include "bf_lib.h"
 #include "menu.h" /* add_to_recent_list */
 #include "stringlist.h" /* free_stringlist() */
-#include "gtk_easy.h" /* *_dialog() and progress_* */
+#include "gtk_easy.h" /* *_dialog() */
 #include "undo_redo.h" /* doc_unre_init() */
 #include "rpopup.h" /* doc_bevent_in_html_tag(), rpopup_edit_tag_cb() */
 #include "char_table.h" /* convert_utf8...() */
@@ -1722,6 +1722,11 @@ gint doc_close(Tdocument * doc, gint warn_only)
 	return 1;
 }
 
+static void doc_close_but_clicked_lcb(GtkWidget *wid, gpointer data) {
+
+	doc_close(data, 0);
+}
+
 /* contributed by Oskar Swida <swida@aragorn.pb.bialystok.pl>, with help from the gedit source */
 static gboolean doc_textview_expose_event_lcb(GtkWidget * widget, GdkEventExpose * event, gpointer data) {
 	GtkTextView *view = (GtkTextView*)widget;
@@ -1774,21 +1779,21 @@ void document_set_line_numbers(Tdocument *doc, gboolean value) {
 	}
 }
 
-/**
- * doc_new:
- * delay_activate #gboolean If set to FALSE, this document will not be visible until notebook_add_doc(NULL, FALSE) is called.
- *
- * Creates a new document struct, its TextView and notebook-label.
- *
- * Returns A new, empty #Tdocument*
- **/
 Tdocument *doc_new(gboolean delay_activate) {
+	GtkWidget *scroll;
 	Tdocument *newdoc = g_new0(Tdocument, 1);
 	DEBUG_MSG("doc_new, main_v is at %p, newdoc at %p\n", main_v, newdoc);
 
 	newdoc->hl = hl_get_highlightset_by_filename(NULL);
 	newdoc->buffer = gtk_text_buffer_new(highlight_return_tagtable());
 	newdoc->view = gtk_text_view_new_with_buffer(newdoc->buffer);
+	scroll = gtk_scrolled_window_new(NULL, NULL);
+	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scroll),
+									   GTK_POLICY_AUTOMATIC,
+									   GTK_POLICY_AUTOMATIC);
+	gtk_scrolled_window_set_shadow_type(GTK_SCROLLED_WINDOW
+											(scroll), GTK_SHADOW_IN);
+	gtk_container_add(GTK_CONTAINER(scroll), newdoc->view);
 
 	newdoc->linenumberstate = main_v->props.view_line_numbers;
 	document_set_line_numbers(newdoc, newdoc->linenumberstate);
@@ -1828,15 +1833,29 @@ Tdocument *doc_new(gboolean delay_activate) {
 
 	gtk_widget_show(newdoc->view);
 	gtk_widget_show(newdoc->tab_label);
+	gtk_widget_show(scroll);
 
-	if(!delay_activate) {
-		DEBUG_MSG("doc_new, appending doc to notebook\n");
-		notebook_add_doc(newdoc, FALSE);
-	} else	{
-		DEBUG_MSG("doc_new, delaying append to notebook\n");
-		notebook_add_doc(newdoc, TRUE);
+	DEBUG_MSG("doc_new, appending doc to notebook\n");
+	{
+		GtkWidget *hbox, *but;
+		hbox = gtk_hbox_new(FALSE,0);
+		but = gtk_button_new();
+		{
+		GtkWidget *image = new_pixmap(101);
+		gtk_widget_show(image);
+		gtk_container_add(GTK_CONTAINER(but), image);
+		gtk_container_set_border_width(GTK_CONTAINER(but), 0);
+		gtk_widget_set_usize(but, 12,12);
+		}
+		
+		gtk_button_set_relief(GTK_BUTTON(but), GTK_RELIEF_NONE);
+		g_signal_connect(G_OBJECT(but), "clicked", G_CALLBACK(doc_close_but_clicked_lcb), newdoc);
+		gtk_box_pack_start(GTK_BOX(hbox), newdoc->tab_label, FALSE, FALSE, 0);
+		gtk_box_pack_start(GTK_BOX(hbox), but, FALSE, FALSE, 0);
+		gtk_widget_show(hbox);
+		gtk_widget_show(but);
+		gtk_notebook_append_page_menu(GTK_NOTEBOOK(main_v->notebook), scroll ,hbox, newdoc->tab_menu);
 	}
-
 	newdoc->highlightstate = main_v->props.defaulthighlight;
 	DEBUG_MSG("doc_new, need_highlighting=%d, highlightstate=%d\n", newdoc->need_highlighting, newdoc->highlightstate);
 /*	
@@ -1933,12 +1952,7 @@ void docs_new_from_files(GList * file_list) {
 	gboolean delay = (g_list_length(file_list) > 1);
 	DEBUG_MSG("docs_new_from_files, lenght=%d\n", g_list_length(file_list));
 	tmplist = g_list_first(file_list);
-	
-	gpointer progress_bar = progress_popup (g_list_length (file_list)); /* Create && show nice progress-dialog. */
-	guint i = 0;
 	while (tmplist) {
-		progress_set(progress_bar, ++i);
-		flush_queue();		
 		DEBUG_MSG("docs_new_from_files, about to open %s, delay=%d\n", (gchar *) tmplist->data, delay);
 		if (!doc_new_with_file((gchar *) tmplist->data, delay)) {
 			errorlist = g_list_append(errorlist, g_strdup((gchar *) tmplist->data));
@@ -1956,9 +1970,6 @@ void docs_new_from_files(GList * file_list) {
 	free_stringlist(errorlist);
 
 	if (delay) {
-		DEBUG_MSG("GUI updates has been delayed. Adding new files to notebook.");
-		notebook_add_doc(NULL, FALSE);
-	
 		DEBUG_MSG("since we delayed the highlighting, we set the notebook and filebrowser page now\n");
 		gtk_notebook_set_page(GTK_NOTEBOOK(main_v->notebook),g_list_length(main_v->documentlist) - 1);
 		notebook_changed(-1);
@@ -2299,7 +2310,7 @@ void file_close_all_cb(GtkWidget * widget, gpointer data)
 	/* first a warning loop */
 	if (test_docs_modified(NULL)) {
 		gchar *options[] = {_("_Save all"), _("Close _all"), _("Choose per _file"), _("_Cancel"), NULL};
-		retval = multi_query_dialog(_("Some file(s) have been modified."), NULL, 0, 3, options);
+		retval = multi_query_dialog(_("Some file(s) have been modified"), NULL, 0, 3, options);
 		if (retval == 3) {
 			DEBUG_MSG("file_close_all_cb, cancel clicked, returning 0\n");
 			return;
@@ -2345,7 +2356,6 @@ void file_close_all_cb(GtkWidget * widget, gpointer data)
 		}
 	}
 	notebook_changed(-1);
-	notebook_add_doc(NULL, FALSE); /* An untitled document has been added. Make sure to flush queue. */
 	DEBUG_MSG("file_close_all_cb, finished\n");
 }
 
