@@ -93,6 +93,7 @@ typedef struct {
 	GtkListStore *store2;
 	GtkWidget *dirmenu;
 	GtkWidget *showfulltree;
+	GtkWidget *focus_follow;
 	GList *dirmenu_entries;
 	gchar *last_opened_dir; /* SHOULD end on a '/' */
 	gboolean last_popup_on_dir;
@@ -1815,6 +1816,10 @@ static void populate_dir_history(Tfilebrowser *filebrowser,gboolean firsttime, g
 	gtk_option_menu_set_history(GTK_OPTION_MENU(filebrowser->dirmenu), 0);
 }
 
+static void focus_follow_toggled_lcb(GtkToggleButton *togglebutton, Tbfwin *bfwin) {
+	main_v->props.filebrowser_focus_follow = togglebutton->active;
+}
+
 /**
  * filebrowsel_init:
  * @bfwin: #Tbfwin*
@@ -1916,6 +1921,7 @@ GtkWidget *filebrowser_init(Tbfwin *bfwin) {
 		gchar *buildfrom = NULL;
 		
 		filebrowser->showfulltree = checkbut_with_value(_("Show full tree"), FALSE);
+		filebrowser->focus_follow = checkbut_with_value(_("Follow focus"), main_v->props.filebrowser_focus_follow);
 		if (bfwin->project && bfwin->project->basedir && strlen(bfwin->project->basedir)>2) {
 			buildfrom = bfwin->project->basedir;
 		} else {
@@ -1980,7 +1986,9 @@ GtkWidget *filebrowser_init(Tbfwin *bfwin) {
 		gtk_adjustment_set_value(GTK_ADJUSTMENT(adj), GTK_ADJUSTMENT(adj)->lower);*/
 		
 		gtk_box_pack_start(GTK_BOX(vbox), filebrowser->showfulltree, FALSE, FALSE, 0);
+		gtk_box_pack_start(GTK_BOX(vbox), filebrowser->focus_follow, FALSE, FALSE, 0);
 		g_signal_connect(G_OBJECT(filebrowser->showfulltree), "toggled", G_CALLBACK(showfulltree_toggled_lcb), bfwin);
+		g_signal_connect(G_OBJECT(filebrowser->focus_follow), "toggled", G_CALLBACK(focus_follow_toggled_lcb), bfwin);
 		if (filebrowser->basedir == NULL) {
 			gtk_toggle_button_set_state(GTK_TOGGLE_BUTTON(filebrowser->showfulltree), TRUE);
 			gtk_widget_set_sensitive(GTK_WIDGET(filebrowser->showfulltree), FALSE);

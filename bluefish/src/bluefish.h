@@ -157,6 +157,7 @@ typedef struct {
 	gint filebrowser_show_hidden_files;
 	gint filebrowser_show_backup_files;
 	gint filebrowser_two_pane_view; /* have one or two panes in the filebrowser */
+	gint filebrowser_focus_follow; /* have the directory of the current document in focus */
 	gchar *filebrowser_unknown_icon;
 	gchar *filebrowser_dir_icon;
 	gchar *editor_font_string;		/* editor font */
