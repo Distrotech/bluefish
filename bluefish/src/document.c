@@ -770,6 +770,8 @@ void doc_set_statusbar_insovr(Tdocument *doc)
  * doc_set_statusbar_editmode_encoding:
  * @doc: a #Tdocument
  * 
+ * 
+ * 
  *
  * Return value: void
  **/
@@ -777,23 +779,13 @@ void doc_set_statusbar_editmode_encoding(Tdocument *doc)
 {
 	gchar *msg;
 	Tfiletype *filetype = NULL;
-	GList *tmplist;
-	
-	/* find set for this filetype */
-	if (doc->filename) {
-		tmplist = g_list_first(main_v->filetypelist);
-		while (tmplist) {
-			if (filename_test_extensions(((Tfiletype *) tmplist->data)->extensions, doc->filename)) {
-				filetype = (Tfiletype *) tmplist->data;
-			}
-			tmplist = g_list_next(tmplist);
-		}
-	}
+
+	filetype = get_filetype_by_filename_and_content(doc->filename, NULL);
 	
 	if (filetype == NULL)
 		msg = g_strdup_printf(_("  %s, %s"), "unknown", doc->encoding);
 	else 
-		msg = g_strdup_printf(_("  %s, %s"), filetype->type, doc->encoding);
+		msg = g_strdup_printf(_("  %s, %s"), doc->hl->type, doc->encoding);
 	
 	gtk_statusbar_push(GTK_STATUSBAR(main_v->statusbar_editmode), 0, msg);
 	g_free(msg);		
