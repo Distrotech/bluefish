@@ -144,18 +144,9 @@ enum {
 typedef struct {
 	GtkListStore *lstore;
 	GtkWidget *lview;
-	GtkWidget *entry[6];
-	gchar **curstrarr;
-} Tfiletypedialog;
-
-typedef struct {
-	GtkListStore *lstore;
-	GtkWidget *lview;
-	GtkWidget *entry[2];
-	GtkWidget *check;
-	gchar **curstrarr;
-} Tfilefilterdialog;
-
+	int insertloc;
+	GList **thelist;
+} Tlistpref;
 
 typedef struct {
 	GtkListStore *lstore;
@@ -169,38 +160,16 @@ typedef struct {
 } Thighlightpatterndialog;
 
 typedef struct {
-	GtkListStore *lstore;
-	GtkWidget *lview;
-	GtkWidget *entry[2];
-	gchar **curstrarr;
-} Tbrowsersdialog;
-
-typedef struct {
-	GtkListStore *lstore;
-	GtkWidget *lview;
-	GtkWidget *entry[2];
-	gchar **curstrarr;
-} Texternaldialog;
-
-typedef struct {
-	GtkListStore *lstore;
-	GtkWidget *lview;
-	GtkWidget *entry[6];
-	GtkWidget *check;
-	gchar **curstrarr;
-} Toutputboxdialog;
-
-typedef struct {
 	GtkWidget *prefs[property_num_max];
 	GList *lists[lists_num_max];
 	GtkWidget *win;
 	GtkWidget *noteb;
-	Tfiletypedialog ftd;
-	Tfilefilterdialog ffd;
+	Tlistpref ftd;
+	Tlistpref ffd;
 	Thighlightpatterndialog hpd;
-	Tbrowsersdialog bd;
-	Texternaldialog ed;
-	Toutputboxdialog od;
+	Tlistpref bd;
+	Tlistpref ed;
+	Tlistpref od;
 } Tprefdialog;
 
 typedef enum {
@@ -230,7 +199,8 @@ static void pref_create_column(GtkTreeView *treeview, gint type, GCallback func,
 static gchar **pref_create_empty_strarr(gint len) {
 	gchar **strarr = g_malloc0((len+1)*sizeof(gchar *));
 	gint i;
-	for (i=0;i<len;i++) {
+	strarr[0] = g_strdup(_("Untitled"));
+	for (i=1;i<len;i++) {
 		strarr[i] = g_strdup("");
 	}
 	strarr[len] = NULL;
@@ -264,15 +234,46 @@ static void pref_apply_change(GtkListStore *lstore, gint pointerindex, gint type
 	}
 	gtk_tree_path_free(tpath);
 }
-static void pref_delete_strarr(Tprefdialog *pd, GtkWidget *lview, GtkListStore *lstore, gint pointercolumn, gint listindex) {
+static void pref_delete_strarr(Tprefdialog *pd, Tlistpref *lp, gint pointercolumn) {
 	GtkTreeIter iter;
-	GtkTreeSelection *select = gtk_tree_view_get_selection(GTK_TREE_VIEW(lview));
+	GtkTreeSelection *select;
+	lp->insertloc = -1;
+	select = gtk_tree_view_get_selection(GTK_TREE_VIEW(lp->lview));
 	if (gtk_tree_selection_get_selected (select,NULL,&iter)) {
 		gchar **strarr;
-		gtk_tree_model_get(GTK_TREE_MODEL(lstore), &iter, pointercolumn, &strarr, -1);
-		gtk_list_store_remove(GTK_LIST_STORE(lstore),&iter);
-		pd->lists[listindex] = g_list_remove(pd->lists[listindex], strarr);
+		gtk_tree_model_get(GTK_TREE_MODEL(lp->lstore), &iter, pointercolumn, &strarr, -1);
+		gtk_list_store_remove(GTK_LIST_STORE(lp->lstore),&iter);
+		*lp->thelist = g_list_remove(*lp->thelist, strarr);
 		g_strfreev(strarr);
+	}
+}
+
+static void listpref_row_inserted(GtkTreeModel *treemodel,GtkTreePath *arg1,GtkTreeIter *arg2,Tlistpref *lp) {
+	gint *indices = gtk_tree_path_get_indices(arg1);
+	if (indices) {
+		lp->insertloc = indices[0];
+		DEBUG_MSG("reorderable_row_inserted, insertloc=%d\n",lp->insertloc);
+	}
+}
+static void listpref_row_deleted(GtkTreeModel *treemodel,GtkTreePath *arg1,Tlistpref *lp) {
+	if (lp->insertloc > -1) {
+		gint *indices = gtk_tree_path_get_indices(arg1);
+		if (indices) {
+			GList *lprepend, *ldelete;
+			gint deleteloc = indices[0];
+			if (deleteloc > lp->insertloc) deleteloc--;
+			DEBUG_MSG("reorderable_row_deleted, deleteloc=%d, insertloc=%d\n",deleteloc,lp->insertloc);
+			*lp->thelist = g_list_first(*lp->thelist);
+			lprepend = g_list_nth(*lp->thelist,lp->insertloc);
+			ldelete = g_list_nth(*lp->thelist,deleteloc);
+			DEBUG_MSG("lprepend %s, ldelete %s\n",((gchar **)lprepend->data)[0], ((gchar **)ldelete->data)[0]);
+			if (ldelete != lprepend) {
+				gpointer data = ldelete->data;
+				*lp->thelist = g_list_remove(*lp->thelist, data);
+				*lp->thelist = g_list_first(g_list_prepend(lprepend, data));
+			}
+		}
+		lp->insertloc = -1;
 	}
 }
 
@@ -602,24 +603,18 @@ static void add_new_filetype_lcb(GtkWidget *wid, Tprefdialog *pd) {
 	gtk_list_store_append(GTK_LIST_STORE(pd->ftd.lstore), &iter);
 	set_filetype_strarr_in_list(&iter, strarr,pd);
 	pd->lists[filetypes] = g_list_append(pd->lists[filetypes], strarr);
+	pd->ftd.insertloc = -1;
 }
 static void delete_filetype_lcb(GtkWidget *wid, Tprefdialog *pd) {
-	pref_delete_strarr(pd, pd->ftd.lview, pd->ftd.lstore, 7, filetypes);
+	pref_delete_strarr(pd, &pd->ftd, 7);
 }
-/*
-static void filetype_reordered_lcb(GtkTreeModel *treemodel,GtkTreePath *arg1,GtkTreeIter *arg2,
-			gpointer arg3,Tprefdialog *pd) {
-	gchar *tmp = gtk_tree_path_to_string(arg1);
-	g_print("filetype_reordered_lcb, called %s\n",tmp);
-	g_free(tmp);
-}*/
 
 static void create_filetype_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 	GtkWidget *hbox, *but, *scrolwin;
 	pd->lists[filetypes] = duplicate_arraylist(main_v->props.filetypes);
 	pd->ftd.lstore = gtk_list_store_new (8,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_BOOLEAN,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_POINTER);
 	pd->ftd.lview = gtk_tree_view_new_with_model(GTK_TREE_MODEL(pd->ftd.lstore));
-	pref_create_column(GTK_TREE_VIEW(pd->ftd.lview), 1, G_CALLBACK(filetype_0_edited_lcb), pd, _("Filetype"), 0);
+	pref_create_column(GTK_TREE_VIEW(pd->ftd.lview), 1, G_CALLBACK(filetype_0_edited_lcb), pd, _("Label"), 0);
 	pref_create_column(GTK_TREE_VIEW(pd->ftd.lview), 1, G_CALLBACK(filetype_1_edited_lcb), pd, _("Extensions"), 1);
 	pref_create_column(GTK_TREE_VIEW(pd->ftd.lview), 1, G_CALLBACK(filetype_2_edited_lcb), pd, _("Update chars"), 2);
 	pref_create_column(GTK_TREE_VIEW(pd->ftd.lview), 1, G_CALLBACK(filetype_3_edited_lcb), pd, _("Icon"), 3);
@@ -632,8 +627,6 @@ static void create_filetype_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 	gtk_container_add(GTK_CONTAINER(scrolwin), pd->ftd.lview);
 	gtk_widget_set_size_request(scrolwin, 150, 190);
 	gtk_box_pack_start(GTK_BOX(vbox1), scrolwin, TRUE, TRUE, 2);
-/*	gtk_tree_view_set_reorderable(GTK_TREE_VIEW(pd->ftd.lview), TRUE);
-	g_signal_connect(G_OBJECT(pd->ftd.lstore), "rows-reordered", G_CALLBACK(filetype_reordered_lcb), pd);*/
 	
 /*	select = gtk_tree_view_get_selection(GTK_TREE_VIEW(pd->ftd.lview));
 	gtk_tree_selection_set_mode (select, GTK_SELECTION_SINGLE);
@@ -652,6 +645,12 @@ static void create_filetype_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 			tmplist = g_list_next(tmplist);
 		}
 	}
+	gtk_tree_view_set_reorderable(GTK_TREE_VIEW(pd->ftd.lview), TRUE);
+	pd->ftd.thelist = &pd->lists[filetypes];
+	pd->ftd.insertloc = -1;
+	g_signal_connect(G_OBJECT(pd->ftd.lstore), "row-inserted", G_CALLBACK(listpref_row_inserted), &pd->ftd);
+	g_signal_connect(G_OBJECT(pd->ftd.lstore), "row-deleted", G_CALLBACK(listpref_row_deleted), &pd->ftd);
+
 	hbox = gtk_hbox_new(FALSE, 0);
 	gtk_box_pack_start(GTK_BOX(vbox1),hbox, TRUE, TRUE, 2);
 	but = bf_gtkstock_button(GTK_STOCK_ADD, G_CALLBACK(add_new_filetype_lcb), pd);
@@ -788,17 +787,18 @@ static void add_new_filefilter_lcb(GtkWidget *wid, Tprefdialog *pd) {
 	gtk_list_store_append(GTK_LIST_STORE(pd->ffd.lstore), &iter);
 	set_filefilter_strarr_in_list(&iter, strarr,pd);
 	pd->lists[filefilters] = g_list_append(pd->lists[filefilters], strarr);
+	pd->ffd.insertloc = -1;
 }
 
 static void delete_filefilter_lcb(GtkWidget *wid, Tprefdialog *pd) {
-	pref_delete_strarr(pd, pd->ffd.lview, pd->ffd.lstore, 3, filefilters);
+	pref_delete_strarr(pd, &pd->ffd, 3);
 }
 static void create_filefilter_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 	GtkWidget *hbox, *but, *scrolwin;
 	pd->lists[filefilters] = duplicate_arraylist(main_v->props.filefilters);
 	pd->ffd.lstore = gtk_list_store_new (4,G_TYPE_STRING,G_TYPE_BOOLEAN,G_TYPE_STRING,G_TYPE_POINTER);
 	pd->ffd.lview = gtk_tree_view_new_with_model(GTK_TREE_MODEL(pd->ffd.lstore));
-	pref_create_column(GTK_TREE_VIEW(pd->ffd.lview), 1, G_CALLBACK(filefilter_0_edited_lcb), pd, _("Filefilter"), 0);
+	pref_create_column(GTK_TREE_VIEW(pd->ffd.lview), 1, G_CALLBACK(filefilter_0_edited_lcb), pd, _("Label"), 0);
 	pref_create_column(GTK_TREE_VIEW(pd->ffd.lview), 2, G_CALLBACK(filefilter_1_toggled_lcb), pd, _("Inverse filter"), 1);
 	pref_create_column(GTK_TREE_VIEW(pd->ffd.lview), 1, G_CALLBACK(filefilter_2_edited_lcb), pd, _("Filetypes in filter"), 2);
 	scrolwin = gtk_scrolled_window_new(NULL, NULL);
@@ -818,6 +818,12 @@ static void create_filefilter_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 			tmplist = g_list_next(tmplist);
 		}
 	}
+	gtk_tree_view_set_reorderable(GTK_TREE_VIEW(pd->ffd.lview), TRUE);
+	pd->ffd.thelist = &pd->lists[filefilters];
+	pd->ffd.insertloc = -1;
+	g_signal_connect(G_OBJECT(pd->ffd.lstore), "row-inserted", G_CALLBACK(listpref_row_inserted), &pd->ffd);
+	g_signal_connect(G_OBJECT(pd->ffd.lstore), "row-deleted", G_CALLBACK(listpref_row_deleted), &pd->ffd);
+
 	hbox = gtk_hbox_new(FALSE, 0);
 	gtk_box_pack_start(GTK_BOX(vbox1),hbox, TRUE, TRUE, 2);
 	but = bf_gtkstock_button(GTK_STOCK_ADD, G_CALLBACK(add_new_filefilter_lcb), pd);
@@ -1327,9 +1333,10 @@ static void add_new_browser_lcb(GtkWidget *wid, Tprefdialog *pd) {
 	gtk_list_store_append(GTK_LIST_STORE(pd->bd.lstore), &iter);
 	set_browser_strarr_in_list(&iter, strarr,pd);
 	pd->lists[browsers] = g_list_append(pd->lists[browsers], strarr);
+	pd->bd.insertloc = -1;
 }
 static void delete_browser_lcb(GtkWidget *wid, Tprefdialog *pd) {
-	pref_delete_strarr(pd, pd->bd.lview, pd->bd.lstore, 2, browsers);
+	pref_delete_strarr(pd, &pd->bd, 2);
 }
 static void create_browsers_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 	GtkWidget *hbox, *but, *scrolwin;
@@ -1353,6 +1360,12 @@ static void create_browsers_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 			tmplist = g_list_next(tmplist);
 		}
 	}
+	gtk_tree_view_set_reorderable(GTK_TREE_VIEW(pd->bd.lview), TRUE);
+	pd->bd.thelist = &pd->lists[browsers];
+	pd->bd.insertloc = -1;
+	g_signal_connect(G_OBJECT(pd->bd.lstore), "row-inserted", G_CALLBACK(listpref_row_inserted), &pd->bd);
+	g_signal_connect(G_OBJECT(pd->bd.lstore), "row-deleted", G_CALLBACK(listpref_row_deleted), &pd->bd);
+
 	hbox = gtk_hbox_new(FALSE, 0);
 	gtk_box_pack_start(GTK_BOX(vbox1),hbox, TRUE, TRUE, 2);
 	but = bf_gtkstock_button(GTK_STOCK_ADD, G_CALLBACK(add_new_browser_lcb), pd);
@@ -1476,11 +1489,12 @@ static void add_new_external_commands_lcb(GtkWidget *wid, Tprefdialog *pd) {
 	GtkTreeIter iter;
 	strarr = pref_create_empty_strarr(2);
 	gtk_list_store_append(GTK_LIST_STORE(pd->ed.lstore), &iter);
-	set_browser_strarr_in_list(&iter, strarr,pd);
+	set_external_commands_strarr_in_list(&iter, strarr,pd);
 	pd->lists[external_commands] = g_list_append(pd->lists[external_commands], strarr);
+	pd->ed.insertloc = -1;
 }
 static void delete_external_commands_lcb(GtkWidget *wid, Tprefdialog *pd) {
-	pref_delete_strarr(pd,pd->ed.lview, pd->ed.lstore, 2, external_commands);
+	pref_delete_strarr(pd, &pd->ed, 2);
 }
 static void create_externals_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 	GtkWidget *hbox, *but, *scrolwin;
@@ -1504,6 +1518,12 @@ static void create_externals_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 			tmplist = g_list_next(tmplist);
 		}
 	}
+	gtk_tree_view_set_reorderable(GTK_TREE_VIEW(pd->ed.lview), TRUE);
+	pd->ed.thelist = &pd->lists[external_commands];
+	pd->ed.insertloc = -1;
+	g_signal_connect(G_OBJECT(pd->ed.lstore), "row-inserted", G_CALLBACK(listpref_row_inserted), &pd->ed);
+	g_signal_connect(G_OBJECT(pd->ed.lstore), "row-deleted", G_CALLBACK(listpref_row_deleted), &pd->ed);
+
 	hbox = gtk_hbox_new(FALSE, 0);
 	gtk_box_pack_start(GTK_BOX(vbox1),hbox, TRUE, TRUE, 2);
 	but = bf_gtkstock_button(GTK_STOCK_ADD, G_CALLBACK(add_new_external_commands_lcb), pd);
@@ -1657,9 +1677,10 @@ static void add_new_outputbox_lcb(GtkWidget *wid, Tprefdialog *pd) {
 	gtk_list_store_append(GTK_LIST_STORE(pd->od.lstore), &iter);
 	set_outputbox_strarr_in_list(&iter, strarr,pd);
 	pd->lists[outputbox] = g_list_append(pd->lists[outputbox], strarr);
+	pd->od.insertloc = -1;
 }
 static void delete_outputbox_lcb(GtkWidget *wid, Tprefdialog *pd) {
-	pref_delete_strarr(pd, pd->od.lview, pd->od.lstore, 7, outputbox);
+	pref_delete_strarr(pd, &pd->od, 7);
 }
 
 static void create_outputbox_gui(Tprefdialog *pd, GtkWidget *vbox1) {
@@ -1693,6 +1714,12 @@ static void create_outputbox_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 			tmplist = g_list_next(tmplist);
 		}
 	}
+	gtk_tree_view_set_reorderable(GTK_TREE_VIEW(pd->od.lview), TRUE);
+	pd->od.thelist = &pd->lists[outputbox];
+	pd->od.insertloc = -1;
+	g_signal_connect(G_OBJECT(pd->od.lstore), "row-inserted", G_CALLBACK(listpref_row_inserted), &pd->od);
+	g_signal_connect(G_OBJECT(pd->od.lstore), "row-deleted", G_CALLBACK(listpref_row_deleted), &pd->od);
+
 	hbox = gtk_hbox_new(FALSE, 0);
 	gtk_box_pack_start(GTK_BOX(vbox1),hbox, TRUE, TRUE, 2);
 	but = bf_gtkstock_button(GTK_STOCK_ADD, G_CALLBACK(add_new_outputbox_lcb), pd);
@@ -1720,10 +1747,11 @@ static void preferences_destroy_lcb(GtkWidget * widget, Tprefdialog *pd) {
 	pd->lists[browsers] = NULL;
 	pd->lists[external_commands] = NULL;
 
-	select = gtk_tree_view_get_selection(GTK_TREE_VIEW(pd->ftd.lview));
-	g_signal_handlers_destroy(G_OBJECT(select));
-/* g_signal_handlers_destroy(G_OBJECT(GTK_COMBO(pd->ftd.combo)->list));*/
-/*	g_signal_handlers_destroy(G_OBJECT(GTK_COMBO(pd->ffd.combo)->list));*/
+/*	select = gtk_tree_view_get_selection(GTK_TREE_VIEW(pd->ftd.lview));
+	g_signal_handlers_destroy(G_OBJECT(select));*/
+	DEBUG_MSG("preferences_destroy_lcb, destroying handlers for lstore %p\n",pd->ftd.lstore);
+	g_signal_handlers_destroy(G_OBJECT(pd->ftd.lstore));
+
 	select = gtk_tree_view_get_selection(GTK_TREE_VIEW(pd->ffd.lview));
 	g_signal_handlers_destroy(G_OBJECT(select));
 
