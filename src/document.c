@@ -2051,7 +2051,7 @@ Tdocument *doc_new(gboolean delay_activate) {
 		G_CALLBACK(doc_view_toggle_overwrite_lcb), newdoc);
 	main_v->documentlist = g_list_append(main_v->documentlist, newdoc);
 
-	gtk_widget_show(newdoc->view);
+	if(!delay_activate) gtk_widget_show(newdoc->view); /* Delay _show() if neccessary */
 
 	gtk_widget_show(newdoc->tab_label);
 	gtk_widget_show(scroll);
@@ -2200,13 +2200,26 @@ void docs_new_from_files(GList * file_list) {
 
 	GList *tmplist, *errorlist=NULL;
 	gboolean delay = (g_list_length(file_list) > 1);
+	gpointer pbar = NULL;
+	gint i = 0;
 	DEBUG_MSG("docs_new_from_files, lenght=%d\n", g_list_length(file_list));
+	
+	/* Hide the notebook and show a progressbar while
+	 * adding several files. */
+	if(g_list_length(file_list) > 8) {
+		notebook_hide();
+		pbar = progress_popup(_("Loading files..."), g_list_length(file_list));
+	}
 	
 	tmplist = g_list_first(file_list);
 	while (tmplist) {
 		DEBUG_MSG("docs_new_from_files, about to open %s, delay=%d\n", (gchar *) tmplist->data, delay);
 		if (!doc_new_with_file((gchar *) tmplist->data, delay)) {
 			errorlist = g_list_append(errorlist, g_strdup((gchar *) tmplist->data));
+		}
+		if(pbar) {
+			progress_set(pbar, ++i);
+			flush_queue();
 		}
 		tmplist = g_list_next(tmplist);
 	}
@@ -2222,6 +2235,10 @@ void docs_new_from_files(GList * file_list) {
 
 	if (delay) {
 		DEBUG_MSG("since we delayed the highlighting, we set the notebook and filebrowser page now\n");
+
+		/* Destroy the progressbar and show the notebook when finished. */
+		progress_destroy(pbar);
+		notebook_show();
 
 		gtk_notebook_set_page(GTK_NOTEBOOK(main_v->notebook),g_list_length(main_v->documentlist) - 1);
 		notebook_changed(-1);
@@ -2280,6 +2297,9 @@ void doc_activate(Tdocument *doc) {
 		return;
 	}
 	locals.last_activated_doc = doc;
+
+	gtk_widget_show(doc->view); /* This might be the first time this document is activated. */
+	
 	if (doc_check_mtime(doc,&newtime) == 0) {
 		gchar *tmpstr, oldtimestr[128], newtimestr[128];/* according to 'man ctime_r' this should be at least 26, so 128 should do ;-)*/
 		gint retval;

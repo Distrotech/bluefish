@@ -37,6 +37,10 @@ void info_dialog(gchar * primary, gchar * secondary);
 gint multi_error_dialog(gchar *primary, gchar *secondary, gint defval, gint cancelval, gchar **buttons);
 gint multi_warning_dialog(gchar *primary, gchar *secondary, gint defval, gint cancelval, gchar **buttons);
 gint multi_query_dialog(gchar *primary, gchar *secondary, gint defval, gint cancelval, gchar **buttons);
+/* Progress bar */
+void progress_set(gpointer gp, guint value);
+gpointer progress_popup(gchar *title, guint maxvalue);
+void progress_destroy(gpointer gp);
 
 void setup_toggle_item(GtkItemFactory * ifactory, gchar * path, gint state);
 void string_apply(gchar ** config_var, GtkWidget * entry);

@@ -835,9 +835,11 @@ static void hig_dialog_backend (GtkDialog *dialog, gchar *primary, gchar *second
 	gtk_box_pack_start (GTK_BOX (vbox), hbox, TRUE, TRUE, 0);
 	gtk_container_set_border_width (GTK_CONTAINER (hbox), 6);
 
-	image = gtk_image_new_from_stock (icon , GTK_ICON_SIZE_DIALOG); /* icon unknown ==> "broken image" displayed. */
-	gtk_box_pack_start (GTK_BOX (hbox), image, TRUE, TRUE, 0);
-	gtk_misc_set_alignment (GTK_MISC (image), 0, 0);
+	if(icon) {
+		image = gtk_image_new_from_stock (icon , GTK_ICON_SIZE_DIALOG); /* icon unknown ==> "broken image" displayed. */
+		gtk_box_pack_start (GTK_BOX (hbox), image, TRUE, TRUE, 0);
+		gtk_misc_set_alignment (GTK_MISC (image), 0, 0);
+	}
 
 	if(secondary) /* Creates label-content. */
 		message = g_strconcat(spanstart, primary, spanend, secondary, msgend, NULL);
@@ -1003,7 +1005,118 @@ gint multi_warning_dialog(gchar *primary, gchar *secondary, gint defval, gint ca
 gint multi_query_dialog(gchar *primary, gchar *secondary, gint defval, gint cancelval, gchar **buttons) {
 	return multi_button_dialog_backend(primary, secondary, GTK_STOCK_DIALOG_QUESTION, defval, cancelval, buttons);
 }
- 
+
+/************************************************************************/
+/*********************** PROGRESS-BAR FUNCTIONS *************************/
+/************************************************************************/
+/* Progress-bar-inspiration from the gtk-tutorial.. */
+
+typedef struct _Tprogress {
+	GtkWidget *bar;
+	gboolean active; /* if FALSE, the bar is set to "confused-mode". */
+	gboolean show_text; /* TRUE: String added to bar: text " " value " of  " maxvalue'*/
+	gchar *text; /* Optional text to be displayed. */
+	guint value; /* The current value. */
+	guint maxvalue; /* The maximum value. Used to calculate a fraction between 0 and 1. */
+	GtkWidget *owner; /* The widget to be destroyed when the bar is finished. */
+	guint timer; /* keep track of the timer */
+
+} Tprogress;
+
+void progress_destroy(gpointer gp)
+{
+	if(gp) {
+		Tprogress *p = (Tprogress *) gp;
+		/* bar is destroyed when owner is destroyed. */
+		if(p->owner)
+			gtk_widget_destroy (p->owner);
+		else
+			gtk_widget_destroy(p->bar);
+			
+		gtk_timeout_remove(p->timer);
+		p->timer = 0;
+		
+		g_free(p);
+	}
+}
+
+static gboolean progress_update(gpointer data)
+{
+	DEBUG_MSG("Entering: progress_update()\n");
+
+	Tprogress *p = (Tprogress *) data;
+	gdouble frac = (gdouble) p->value / (gdouble) p->maxvalue;
+
+	gtk_progress_bar_set_fraction (GTK_PROGRESS_BAR (p->bar), frac);
+	gchar *msg = g_strdup_printf (_("%d of %d"), p->value, p->maxvalue);
+	gtk_progress_bar_set_text (GTK_PROGRESS_BAR (p->bar), msg);
+	g_free (msg);
+	
+	if (p->value < p->maxvalue) {
+/*		flush_queue ();*/
+		return TRUE; /* Yes! Call me again! GIMMI! */
+	} else {
+		/* We're done! Signal that we're maxed now. */
+		return FALSE;
+	}
+}
+
+/**
+ * progress_set:
+ * @p The Tprogress struct assigned by a progress-creator. (i.e. progress_popup).
+ * @value a #guint between 0 and p->maxvalue.
+ *
+ * Set a new value for the progressbar-value. Does not actually update the progress-bar.
+ **/
+void progress_set(gpointer gp, guint value)
+{
+	Tprogress *p = (Tprogress *) gp;
+	p->value = value;
+}
+
+/**
+ * progress_popup:
+ *
+ * Creates a popup containing a progress-bar. The dialog disappears when value = maxvalue.
+ * 'text' must be freeed after use!
+ *
+ * Returns: #gpointer camouflaged pointer to struct Tprogress, a data-structure passed to progress_update.
+ **/
+gpointer progress_popup(gchar *title, guint maxvalue)
+{
+	Tprogress *p;
+	
+	p = g_malloc (sizeof (Tprogress));
+
+	p->bar = gtk_progress_bar_new ();
+	p->value = 0;
+	p->maxvalue = maxvalue;
+	
+	
+	/* other parameters */
+	p->active = TRUE;
+	p->show_text = TRUE;
+	p->value = 0;
+	p->maxvalue = maxvalue;
+
+	p->owner = gtk_dialog_new();
+
+	gtk_window_set_modal (GTK_WINDOW (p->owner), TRUE);
+	gtk_window_set_transient_for (GTK_WINDOW (p->owner), GTK_WINDOW (main_v->main_window));
+
+
+	/* Label, if applicable. Append pretty icon! */
+	hig_dialog_backend(GTK_DIALOG (p->owner), title, NULL, GTK_STOCK_DIALOG_INFO);
+
+	gtk_box_pack_start (GTK_BOX (GTK_DIALOG (p->owner)->vbox),
+                        p->bar, TRUE, TRUE, 12);
+
+	p->timer = gtk_timeout_add (500, progress_update, p);
+	gtk_widget_show_all (p->owner);
+	
+	return (gpointer) p;
+}
+
 
 /************************************************************************/
 /************************ file_but_* FUNCTIONS **************************/

@@ -237,6 +237,8 @@ typedef struct {
 	gint last_notebook_page; /* a check to see if the notebook changed to a new page */
 	gulong notebook_switch_signal;
 	GtkWidget *notebook;
+	GtkWidget *notebook_fake;
+	GtkWidget *notebook_box; /* Container for notebook and notebook_fake */
 	GtkWidget *middlebox; /* we need this to show/hide the filebrowser */
 	GtkWidget *hpane; /* we need this to show/hide the filebrowser */
 	GtkWidget *statusbar;

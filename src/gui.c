@@ -83,6 +83,33 @@ static Tsplashscreen splashscreen;
 /* start of the functions */
 /**************************/
 
+/**
+ * notebook_hide:
+ *
+ * Hides the notebook. Used when loading a large amount of files, to avoid
+ * slowing things down. Shows a "Stand by..." label instead..
+ *
+ * Return value: void
+ **/
+void notebook_hide()
+{
+	gtk_widget_hide (main_v->notebook);
+	gtk_widget_show (main_v->notebook_fake);
+}
+
+/**
+ * notebook_show:
+ *
+ * Shows the notebook, after a notebook_hide() has been called.
+ *
+ * Return value: void
+ **/
+void notebook_show()
+{
+	gtk_widget_hide (main_v->notebook_fake);
+	gtk_widget_show (main_v->notebook);	
+}
+
 void notebook_changed(gint newpage) {
 	gint cur = newpage;
 	gint doclistlen;
@@ -198,18 +225,18 @@ GtkWidget *left_panel_build() {
 	fref = fref_init();
 	gtk_notebook_append_page(GTK_NOTEBOOK(left_notebook),fileb,new_pixmap(105));
 	gtk_notebook_append_page(GTK_NOTEBOOK(left_notebook),fref,new_pixmap(106));
-	gtk_widget_show_all(left_notebook);	
+	gtk_widget_show_all(left_notebook);
 	gtk_notebook_set_current_page(GTK_NOTEBOOK(left_notebook),0);
 	return left_notebook;
 }
 
 void left_panel_show_hide_toggle(gboolean first_time, gboolean show) {
 	if (!first_time) {
-		gtk_widget_ref(main_v->notebook);
+		gtk_widget_ref(main_v->notebook_box);
 		if (show) {
-			gtk_container_remove(GTK_CONTAINER(main_v->middlebox), main_v->notebook);
+			gtk_container_remove(GTK_CONTAINER(main_v->middlebox), main_v->notebook_box);
 		} else {
-			gtk_container_remove(GTK_CONTAINER(main_v->hpane), main_v->notebook);
+			gtk_container_remove(GTK_CONTAINER(main_v->hpane), main_v->notebook_box);
 			gtk_widget_destroy(main_v->hpane);
 			filebrowser_cleanup();
 			fref_cleanup();
@@ -221,15 +248,15 @@ void left_panel_show_hide_toggle(gboolean first_time, gboolean show) {
 		g_signal_connect(G_OBJECT(main_v->hpane),"notify::position",G_CALLBACK(left_panel_notify_position_lcb), NULL);
 		hidewidgets.leftpanel_notebook = left_panel_build();
 		gtk_paned_add1(GTK_PANED(main_v->hpane), hidewidgets.leftpanel_notebook);
-		gtk_paned_add2(GTK_PANED(main_v->hpane), main_v->notebook);
+		gtk_paned_add2(GTK_PANED(main_v->hpane), main_v->notebook_box);
 		gtk_box_pack_start(GTK_BOX(main_v->middlebox), main_v->hpane, TRUE, TRUE, 0);
 		gtk_widget_show(main_v->hpane);
 	} else {
 		main_v->hpane = NULL;
-		gtk_box_pack_start(GTK_BOX(main_v->middlebox), main_v->notebook, TRUE, TRUE, 0);
+		gtk_box_pack_start(GTK_BOX(main_v->middlebox), main_v->notebook_box, TRUE, TRUE, 0);
 	}
 	if (!first_time) {
-		gtk_widget_unref(main_v->notebook);
+		gtk_widget_unref(main_v->notebook_box);
 	}
 }
 
@@ -765,6 +792,9 @@ void gui_create_main(GList *filenames) {
 	gtk_box_pack_start(GTK_BOX(vbox), main_v->middlebox, TRUE, TRUE, 0);
 	gtk_widget_show(main_v->middlebox);
 
+	/* Fake-label (for notebook_hide() and _show() ;) */
+	main_v->notebook_fake = gtk_label_new(_("Stand by..."));
+	
 	/* notebook with the text widget in there */
 	main_v->notebook = gtk_notebook_new();
 	gtk_notebook_set_tab_pos(GTK_NOTEBOOK(main_v->notebook),main_v->props.document_tabposition);
@@ -773,7 +803,12 @@ void gui_create_main(GList *filenames) {
 	gtk_notebook_set_tab_hborder(GTK_NOTEBOOK(main_v->notebook), 0);
 	gtk_notebook_set_tab_vborder(GTK_NOTEBOOK(main_v->notebook), 0);
 	gtk_notebook_popup_enable(GTK_NOTEBOOK(main_v->notebook));
-	
+
+	/* Add notebook and its fake friend to their common hbox. */
+	main_v->notebook_box = gtk_hbox_new (TRUE, 0);
+	gtk_box_pack_start (GTK_BOX (main_v->notebook_box), main_v->notebook, TRUE, TRUE, 0);
+	gtk_box_pack_start (GTK_BOX (main_v->notebook_box), main_v->notebook_fake, TRUE, TRUE, 0);
+
 	/* output_box */
 	init_output_box(vbox);
 
@@ -820,6 +855,7 @@ void gui_create_main(GList *filenames) {
 	gtk_notebook_set_scrollable(GTK_NOTEBOOK(main_v->notebook), TRUE);
 	/* don't use show_all since some widgets are and should be hidden */
 	gtk_widget_show(main_v->notebook);
+	gtk_widget_show (main_v->notebook_box);
 
 	{
 		/* drag n drop support */

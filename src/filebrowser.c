@@ -1081,10 +1081,10 @@ static void filebrowser_rpopup_filter_toggled_lcb(GtkWidget *widget, Tfilter *fi
 }
 
 static GtkItemFactoryEntry filebrowser_menu_entries[] = {
-	{ N_("/_Open file"),			NULL,	filebrowser_rpopup_open_file_lcb,		0,	"<Item>" },
+	{ N_("/_Open"),			NULL,	filebrowser_rpopup_open_file_lcb,		0,	"<Item>" },
 	{ N_("/sep1"),				NULL,	NULL,										0, "<Separator>" },
-	{ N_("/Rena_me file"),		NULL,	filebrowser_rpopup_rename_lcb,			0,	"<Item>" },
-	{ N_("/_Delete file"),		NULL,	filebrowser_rpopup_delete_lcb,			0,	"<Item>" },
+	{ N_("/Rena_me"),		NULL,	filebrowser_rpopup_rename_lcb,			0,	"<Item>" },
+	{ N_("/_Delete"),		NULL,	filebrowser_rpopup_delete_lcb,			0,	"<Item>" },
 	{ N_("/sep2"),				NULL,	NULL,										0, "<Separator>" },
 	{ N_("/New _File"),			NULL,	filebrowser_rpopup_new_file_lcb,		0,	"<Item>" },
 	{ N_("/_New Directory"),	NULL,	filebrowser_rpopup_new_dir_lcb,		0,	"<Item>" },
