@@ -428,19 +428,27 @@ static GtkTreePath *return_path_from_filename(Tfilebrowser *filebrowser,gchar *t
 			}
 		}
 	} else { /* there is no showfulltree */
-		gint basedirlen = strlen(filebrowser->basedir);
-		if (strncmp(this_filename,filebrowser->basedir,basedirlen)==0) {
-			prevlen = strlen(filebrowser->basedir);
-		} else {
-			DEBUG_MSG("return_path_from_filename, file %s is not in basedir %s, return NULL\n",this_filename,filebrowser->basedir);
-			return NULL;
+		if (filebrowser->basedir) { 
+			gint basedirlen = strlen(filebrowser->basedir);
+			if (strncmp(this_filename,filebrowser->basedir,basedirlen)==0) {
+				prevlen = strlen(filebrowser->basedir);
+			} else {
+				DEBUG_MSG("return_path_from_filename, file %s is not in basedir %s, return NULL\n",this_filename,filebrowser->basedir);
+				return NULL;
+			}
 		}
 	}
 
+	totlen = strlen(this_filename);
 	filepath = g_strdup(this_filename);
-	totlen = strlen(filepath);
-	curlen = strlen(strchr(&filepath[prevlen], '/'));
+	
 	p = strchr(&filepath[prevlen], '/');
+	
+	if (p) {
+		curlen = strlen(p);
+	} else {
+		curlen = prevlen;
+	}
 	DEBUG_MSG("return_path_from_filename, filepath=%s\n",filepath);
 	while (p && found) {
 		gboolean valid;
