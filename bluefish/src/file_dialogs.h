@@ -27,5 +27,6 @@ void file_open_url_cb(GtkWidget * widget, Tbfwin *bfwin);
 void file_save_cb(GtkWidget * widget, Tbfwin *bfwin);
 void file_save_as_cb(GtkWidget * widget, Tbfwin *bfwin);
 void file_move_to_cb(GtkWidget * widget, Tbfwin *bfwin);
+void file_save_all_cb(GtkWidget * widget, Tbfwin *bfwin);
 
 #endif /* __FILEDIALOGS_H_ */

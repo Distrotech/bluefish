@@ -3522,31 +3522,6 @@ void file_close_all_cb(GtkWidget * widget, Tbfwin *bfwin) {
 	bfwin_close_all_documents(bfwin, FALSE);
 }
 
-
-/**
- * file_save_all_cb:
- * @widget: unused #GtkWidget
- * @data: unused #gpointer
- *
- * 	Save all editor notebooks
- *
- * Return value: void
- **/
-void file_save_all_cb(GtkWidget * widget, Tbfwin *bfwin) {
-
-	GList *tmplist;
-	Tdocument *tmpdoc;
-
-	tmplist = g_list_first(bfwin->documentlist);
-	while (tmplist) {
-		tmpdoc = (Tdocument *) tmplist->data;
-		if (tmpdoc->modified) {
-			doc_save(tmpdoc, FALSE, FALSE, FALSE);
-		}
-		tmplist = g_list_next(tmplist);
-	}
-}
-
 /**
  * edit_cut_cb:
  * @widget: unused #GtkWidget
