@@ -60,14 +60,14 @@ install: all
 		$(INSTALL_DATA) bluefish.desktop $(DESTDIR)$(gnome1menupath)/Applications ;\
 	fi
 	if [ -d $(gnome2appreg) ] ; then \
-		$(INSTALL_DATA) bluefish.applications $(gnome2appreg) ;\
+		$(INSTALL_DATA) bluefish.applications $(DESTDIR)$(gnome2appreg) ;\
 	fi
 	if [ -d $(gnome2mime-info) ] ; then \
-		$(INSTALL_DATA) bluefish.mime $(gnome2mime-info) ;\
-		$(INSTALL_DATA) bluefish.keys $(gnome2mime-info) ;\
+		$(INSTALL_DATA) bluefish.mime $(DESTDIR)$(gnome2mime-info) ;\
+		$(INSTALL_DATA) bluefish.keys $(DESTDIR)$(gnome2mime-info) ;\
 	fi
 	if [ -d $(gnome2icons) ] ; then \
-		$(INSTALL_DATA) gnome-application-bluefish.png $(gnome2icons) ;\
+		$(INSTALL_DATA) gnome-application-bluefish.png $(DESTDIR)$(gnome2icons) ;\
 	fi
 
 uninstall:
@@ -76,7 +76,8 @@ uninstall:
 	done
 	rm -f $(DESTDIR)$(gnome2menupath)/bluefish.desktop
 	rm -f $(DESTDIR)$(gnome1menupath)/Applications/bluefish.desktop
-	rm -r $(gnome2appregistry)/bluefish.applications
+	rm -r $(DESTDIR)$(gnome2appregistry)/bluefish.applications
+	rm -f $(DESTDIR)$(gnome2icons)
 
 clean:
 	rm -f *.default
