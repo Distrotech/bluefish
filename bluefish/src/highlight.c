@@ -144,7 +144,9 @@ typedef struct {
 #define TIMING_TOTAL 2
 #define TIMING_UTF8 3
 #define TIMING_UTF8_INV 4
-#define TIMING_NUM 5
+#define TIMING_TEXTBUF_ITER 5
+#define TIMING_TEXTBUF_TAG 6
+#define TIMING_NUM 7
 static Ttiming timing[TIMING_NUM];
 static void timing_init() {
 	gint i;
@@ -554,14 +556,26 @@ static void applystyle(Tdocument *doc, gchar *buf, gint so, gint eo, Tpattern *p
 #ifdef HL_TIMING
 	timing_start(TIMING_TEXTBUF);
 #endif
+
+#ifdef HL_TIMING
+	timing_start(TIMING_TEXTBUF_ITER);
+#endif
 	gtk_text_buffer_get_iter_at_offset(doc->buffer, &itstart, istart);
 	gtk_text_buffer_get_iter_at_offset(doc->buffer, &itend, iend);
+#ifdef HL_TIMING
+	timing_stop(TIMING_TEXTBUF_ITER);
+#endif
+#ifdef HL_TIMING
+	timing_start(TIMING_TEXTBUF_TAG);
+#endif
 	gtk_text_buffer_apply_tag(doc->buffer, pat->tag, &itstart, &itend);
+#ifdef HL_TIMING
+	timing_stop(TIMING_TEXTBUF_TAG);
+#endif
 #ifdef HL_TIMING
 	timing_stop(TIMING_TEXTBUF);
 #endif
 }
-
 
 static void applylevel(Tdocument * doc, gchar * buf, gint offset, gint length, Tpatmatch *parentmatch, GList *childs_list) {
 	gint parent_mode1_start=offset;
@@ -763,6 +777,7 @@ void doc_highlight_full(Tdocument * doc)
 	timing_stop(TIMING_TOTAL);
 	g_print("doc_highlight_full done, %ld ms total, %ld ms tagging (%dX), %ld ms matching (%dX)\n",timing[TIMING_TOTAL].total_ms, timing[TIMING_TEXTBUF].total_ms, timing[TIMING_TEXTBUF].numtimes, timing[TIMING_PCRE_EXEC].total_ms, timing[TIMING_PCRE_EXEC].numtimes);
 	g_print("%ld ms utf8-shit (%dX), %ld ms utf8-invalidate (%dX)\n", timing[TIMING_UTF8].total_ms, timing[TIMING_UTF8].numtimes, timing[TIMING_UTF8_INV].total_ms, timing[TIMING_UTF8_INV].numtimes);
+	g_print("%ld ms setting iters, %ld ms setting tags\n", timing[TIMING_TEXTBUF_ITER].total_ms, timing[TIMING_TEXTBUF_TAG].total_ms);
 #endif
 	doc->need_highlighting = FALSE;
 }
@@ -988,8 +1003,6 @@ void doc_highlight_line(Tdocument * doc)
 	doc->need_highlighting = FALSE;
 }
 
-#define MAKE_BLUEFISH_WITH_BLUEFISH
-
 void hl_reset_to_default()
 {
 	gchar **arr;
@@ -1048,139 +1061,60 @@ void hl_reset_to_default()
 	arr =array_from_arglist("php", "php-comment-C++", "0", "//.*$", "",  "2", "^php$", "#7777AA", "", "1", "2", NULL);
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
 
-#ifdef POSIX_REGEX
-
-	/* the default php pattern */
-	arr = array_from_arglist("php", "html", "1", "<((/)?[a-z0-9]+)", "[^?-]>", "", "1", "", "#000077", "", "0", "0", "", "", NULL);
+	arr = array_from_arglist("html", "html", "1", "<((/)?[a-z0-9]+)", ">", "1", "", "#0000EE", "", "0", "0",  NULL);
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
-	arr = array_from_arglist("php", "html-tag", "1", "1", "", "", "3", "^html$", "#550044", "", "2", "0", "", "", NULL);
+	arr = array_from_arglist("html", "html-tag", "1", "1", "",  "3", "^html$", "#000077", "", "2", "0", NULL);
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
-	arr =
-		array_from_arglist("php", "html-tag-table", "1", "^(/)?(table|td|tr|tbody)$", "", "", "2", "^html-tag$", "#5005AA",
-						   "", "0", "0", "", "", NULL);
+	arr = array_from_arglist("html", "html-attrib", "1", "([a-z]*=)(\"[^\"]*\")", "", "2", "^html$", "", "", "0", "0", NULL);
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
-	arr =
-		array_from_arglist("php", "html-tag-special", "1", "^(/)?(img|a)$", "", "", "2", "^html-tag$", "#BB0540", "", "0",
-						   "0", "", "", NULL);
+	arr = array_from_arglist("html", "html-attrib-sub2", "1", "2", "", "3", "^html-attrib$", "#009900", "", "0", "0",  NULL);
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
-	arr =
-		array_from_arglist("php", "html-attrib", "1", "([a-z]*=)(\"[^\"]*\")", "", "", "2", "^html$", "", "", "0", "0",
-						   "", "", NULL);
+	arr = array_from_arglist("html", "specialchar", "1", "&[^;]*;", "", "2", "", "#999999", "", "2", "0",  NULL);
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
-	arr =
-		array_from_arglist("php", "html-attrib-sub2", "1", "2", "", "", "3", "^html-attrib$", "#009900", "", "0", "0", "", "", NULL);
+	arr = array_from_arglist("html", "comment", "0", "<!--", "-->", "1", "", "#AAAAAA", "", "1", "2",  NULL);
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
-	arr = array_from_arglist("php", "specialchar", "1", "&[^;]*;", "", "", "2", "", "#999999", "", "2", "0", "", "", NULL);
-	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
-	arr = array_from_arglist("php", "comment", "0", "<!--", "-->", "", "1", "", "#AAAAAA", "", "1", "2", "", "", NULL);
-	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
-	arr =
-		array_from_arglist("php", "php", "1", "<\\?php", "\\?>", "", "1", "^(top|html|html-attrib-sub2)$", "#0000FF", "",
-						   "0", "0", "", "", NULL);
-	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
-	arr =
-		array_from_arglist("php", "php-keywords", "0",
-						   "(return|goto|if|else|case|default|switch|break|continue|while|do|for|global|var|class|function|new)",
-						   "", "", "2", "^php$", "#000000", "", "2", "0", " \t\n", " \t\n;:", NULL);
-	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
-	arr = array_from_arglist("php", "php-braces", "0", "[{()}]", "", "", "2", "^php$", "#000000", "", "2", "0", "", "", NULL);
-	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
-	arr = array_from_arglist("php", "php-string-double", "0", "\"", "\"", "", "1", "^php$", "#009900", "", "1", "1", "", "", NULL);
-	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
-	arr =
-		array_from_arglist("php", "php-var", "1", "\\$[a-z][][a-z0-9>_$-]*", "", "", "2", "^php$", "#CC0000", "", "2", "0",
-						   "", "", NULL);
-	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
-	arr =
-		array_from_arglist("php", "php-var-specialchars", "0", "(\\[|\\]|->)", "", "", "2", "^php-var$", "#0000CC", "", "0",
-						   "0", "", "", NULL);
-	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
-	arr = array_from_arglist("php", "php-string-single", "0", "'", "'", "", "1", "^php$", "#009900", "", "1", "1", "", "", NULL);
-	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
-	arr = array_from_arglist("php", "php-comment-C", "0", "/\\*", "\\*/", "", "1", "^php$", "#7777AA", "", "1", "2", "", "", NULL);
-	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
-	arr =
-		array_from_arglist("php", "php-comment-C++", "0", "//[^\n]*\n", "", "", "2", "^php$", "#7777AA", "", "1", "2", "", "", NULL);
-	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
-	DEBUG_MSG("hl_reset_to_default, done\n");
-
-	/* the default HTML pattern */
-	arr = array_from_arglist("html", "html", "1", "<((/)?[a-z0-9]+)", "[^?-]>", "", "1", "", "#0000EE", "", "0", "0", "", "", NULL);
-	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
-	arr = array_from_arglist("html", "html-tag", "1", "1", "", "", "3", "^html$", "#000077", "", "2", "0", "", "", NULL);
-	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
-	arr = array_from_arglist("html", "html-attrib", "1", "([a-z]*=)(\"[^\"]*\")", "", "", "2", "^html$", "", "", "0", "0","", "", NULL);
-	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
-	arr = array_from_arglist("html", "html-attrib-sub2", "1", "2", "", "", "3", "^html-attrib$", "#009900", "", "0", "0", "", "", NULL);
-	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
-	arr = array_from_arglist("html", "specialchar", "1", "&[^;]*;", "", "", "2", "", "#999999", "", "2", "0", "", "", NULL);
-	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
-	arr = array_from_arglist("html", "comment", "0", "<!--", "-->", "", "1", "", "#AAAAAA", "", "1", "2", "", "", NULL);
-	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
-	arr = array_from_arglist("html", "doctype", "1", "<![a-z0-9]+", "[^?-]>", "", "1", "", "#bb8800", "", "0", "0", "", "", NULL);
+	arr = array_from_arglist("html", "doctype", "1", "<![a-z0-9]+", "[^?-]>",  "1", "", "#bb8800", "", "0", "0", NULL);
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
 
-	/* the default XML pattern */
-	arr = array_from_arglist("xml", "tag", "1", "<((/)?[a-z0-9]+)", "[^?-]>", "", "1", "", "#0000EE", "", "0", "0", "", "", NULL);
+	arr = array_from_arglist("xml", "tag", "1", "<((/)?[a-z0-9]+)", "[^?-]>",  "1", "", "#0000EE", "", "0", "0",  NULL);
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
-	arr = array_from_arglist("xml", "tag-name", "1", "1", "", "", "3", "^html$", "#000077", "", "2", "0", "", "", NULL);
+	arr = array_from_arglist("xml", "tag-name", "1", "1", "", "3", "^tag$", "#000077", "", "2", "0",  NULL);
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
-	arr = array_from_arglist("xml", "tag-attrib", "1", "([a-z]*=)(\"[^\"]*\")", "", "", "2", "^tag$", "", "", "0", "0","", "", NULL);
+	arr = array_from_arglist("xml", "tag-attrib", "1", "([a-z]*=)(\"[^\"]*\")", "",  "2", "^tag$", "", "", "0", "0", NULL);
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
-	arr = array_from_arglist("xml", "tag-attrib-sub2", "1", "2", "", "", "3", "^tag-attrib$", "#009900", "", "0", "0", "", "", NULL);
+	arr = array_from_arglist("xml", "tag-attrib-sub2", "1", "2", "",  "3", "^tag-attrib$", "#009900", "", "0", "0",  NULL);
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
-	arr = array_from_arglist("xml", "specialchar", "1", "&[^;]*;", "", "", "2", "", "#999999", "", "2", "0", "", "", NULL);
+	arr = array_from_arglist("xml", "specialchar", "1", "&[^;]*;", "",  "2", "", "#999999", "", "2", "0",  NULL);
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
-	arr = array_from_arglist("xml", "comment", "0", "<!--", "-->", "", "1", "", "#AAAAAA", "", "1", "2", "", "", NULL);
+	arr = array_from_arglist("xml", "comment", "0", "<!--", "-->",  "1", "", "#AAAAAA", "", "1", "2",  NULL);
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
-	arr = array_from_arglist("xml", "doctype", "1", "<![a-z0-9]+", "[^?-]>", "", "1", "", "#bb8800", "", "0", "0", "", "", NULL);
-	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
-
-	/* the default java pattern */
-	arr = array_from_arglist("java", "comment-C", "0", "/\\*", "\\*/", "", "1", "", "#AAAAAA", "", "1", "2", "", "", NULL);
-	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
-	arr = array_from_arglist("java", "comment-C++", "0", "//[^\n]*\n", "", "", "2", "", "#AAAAAA", "", "1", "2", "", "", NULL);
-	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
-	arr = array_from_arglist("java", "string", "0", "\"", "\"", "", "1", "", "#009900", "", "0", "0", "", "", NULL);
-	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
-	arr =
-		array_from_arglist("java", "include", "0", "(import|package)[^\n]*\n", "", "", "2", "", "#000099", "", "0", "0",
-						   "\n", "", NULL);
-	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
-	arr =
-		array_from_arglist("java", "keywords", "0",
-						   "(new|super|return|goto|if|else|case|default|switch|break|continue|while|do|for|catch|throw|finally|try|class)",
-						   "", "", "2", "", "#000000", "", "2", "0", " \t\n*};", " \t\n{:;", NULL);
-	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
-	arr =
-		array_from_arglist("java", "special_values", "0", "(false|null|true)", "", "", "2", "", "#5caeee",
-						   "", "0", "0", " \t\n=(", " \t\n);,", NULL);
-	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
-	arr =
-		array_from_arglist("java", "modifiers", "0",
-						   "(abstract|final|native|private|protected|public|static|transient|synchronized|volatile|extends|implements)",
-						   "", "", "2", "", "#990000", "", "2", "0", " \t\n", " \t\n", NULL);
-	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
-	arr = array_from_arglist("java", "this", "0", "this\\.", "", "", "2", "", "#000099", "", "2", "0", "=+*/ \n\t(", "", NULL);
-	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
-	arr =
-		array_from_arglist("java", "primitive-types", "0", "(void|double|boolean|int)", "", "", "2", "", "#880088", "", "2",
-						   "0", " \t\n(,", " \t\n,;)", NULL);
-	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
-	arr = array_from_arglist("java", "braces", "0", "[{()}]", "", "", "2", "", "#000000", "", "2", "0", "", "", NULL);
-	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
-	arr = array_from_arglist("java", "character", "0", "'", "'", "", "1", "", "#009900", "", "0", "0", "", "", NULL);
+	arr = array_from_arglist("xml", "doctype", "1", "<![a-z0-9]+", "[^?-]>",  "1", "", "#bb8800", "", "0", "0",  NULL);
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
 
-	arr = array_from_arglist("sql", "braces", "0", "[{()}]", "", "", "2", "", "#000000", "", "2", "0", "", "", NULL);
+	arr = array_from_arglist("java", "comment-C", "0", "/\\*", "\\*/", "1", "", "#AAAAAA", "", "1", "2",  NULL);
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
-	arr = array_from_arglist("sql", "commands", "1","(create|alter|insert|update|delete)","", "", "2", "", "#990000", "", "2", "0", " \t\n", " \t\n", NULL);
+	arr = array_from_arglist("java", "comment-C++", "0", "//.*$", "", "2", "", "#AAAAAA", "", "1", "2",  NULL);
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
-	arr = array_from_arglist("sql", "keywords", "1","(references|cascade|not null|null|default|table|user|foreign key|index|unique|primary key|constraint|alter|values)","", "", "2", "", "#990000", "", "2", "0", " \t\n", " \t\n", NULL);
+	arr = array_from_arglist("java", "string", "0", "\"", "\"", "1", "", "#009900", "", "0", "0",  NULL);
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
-	arr = array_from_arglist("sql", "storage", "1", "(integer|varchar|char|blob|double|timestamp)", "", "", "2", "", "#880088", "", "2","0", " \t\n", " \t\n", NULL);
+	arr = array_from_arglist("java", "string-escape", "0", "\\\\.", "", "2", "^string$", "#009900", "", "0", "0",  NULL);
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
-#endif /* POSIX_REGEX */
+	arr =	array_from_arglist("java", "include", "0", "^(import|package).*$", "",  "2", "", "#000099", "", "0", "0",  NULL);
+	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
+	arr =	array_from_arglist("java", "keywords", "0", "\\b(new|super|return|goto|if|else|case|default|switch|break|continue|while|do|for|catch|throw|finally|try|class)\\b","",  "2", "", "#000000", "", "2", "0",  NULL);
+	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
+	arr = array_from_arglist("java", "special_values", "0", "\\b(false|null|true)\\b", "", "2", "", "#5caeee", "", "0", "0", NULL);
+	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
+	arr = array_from_arglist("java", "modifiers", "0", "\\b(abstract|final|native|private|protected|public|static|transient|synchronized|volatile|extends|implements)\\b","", "2", "", "#990000", "", "2", "0",  NULL);
+	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
+	arr = array_from_arglist("java", "\\bthis", "0", "this\\.", "",  "2", "", "#000099", "", "2", "0", NULL);
+	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
+	arr = array_from_arglist("java", "primitive-types", "0", "\\b(void|double|boolean|int)\\b", "",  "2", "", "#880088", "", "2","0",  NULL);
+	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
+	arr = array_from_arglist("java", "braces", "0", "[{()}]", "", "", "2", "", "#000000", "", "2", "0",  NULL);
+	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
+	arr = array_from_arglist("java", "character", "0", "'", "'", "1", "", "#009900", "", "0", "0",  NULL);
+	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
 }
 
 GtkTextTagTable *highlight_return_tagtable() {
