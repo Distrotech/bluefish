@@ -1130,14 +1130,15 @@ static void file_but_clicked_lcb(GtkWidget * widget, GtkWidget * which_entry)
 	if (tmpstring != NULL) {
 		if (main_v->current_document->filename != NULL) {
 			tmp2string = create_relative_link_to(main_v->current_document->filename, tmpstring);
-			g_free(tmpstring);
-			tmpstring = tmp2string;
+		} else {
+			tmp2string = g_path_get_basename(tmpstring);
 		}
-		gtk_entry_set_text(GTK_ENTRY(which_entry), tmpstring);
+		g_free(tmpstring);
+		gtk_entry_set_text(GTK_ENTRY(which_entry), tmp2string);
 /*	perhaps I break something by commenting-out this call, but otherwise the dialog is sometimes started
 	again after the signal is emmitted
 		gtk_signal_emit_by_name(GTK_OBJECT(which_entry), "activate"); */
-		g_free(tmpstring);
+		g_free(tmp2string);
 	}
 }
 
