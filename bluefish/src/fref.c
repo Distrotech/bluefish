@@ -260,6 +260,8 @@ void fref_loader_start_element(GMarkupParseContext * context, const gchar * elem
 	gpointer pomstr;
 	GtkTreeIter iter;
 	GtkTreeRowReference *rref;
+	GtkTreePath *path = NULL;
+	gchar *string = NULL;
 
 	if (user_data == NULL)
 		return;
@@ -281,9 +283,10 @@ void fref_loader_start_element(GMarkupParseContext * context, const gchar * elem
 				info->type = FR_TYPE_GROUP;
 				info->name = g_strdup(g_hash_table_lookup(attrs, "name"));
 				gtk_tree_store_append(aux->store, &iter, &aux->parent);
+				string = g_strdup(g_hash_table_lookup(attrs, "name"));
 				gtk_tree_store_set(aux->store, &iter, STR_COLUMN,
-								   g_strdup(g_hash_table_lookup(attrs, "name")), FILE_COLUMN, NULL,
-								   PTR_COLUMN, info, -1);
+								   string, FILE_COLUMN, NULL, PTR_COLUMN, info, -1);
+				g_free (string);
 				aux->grp_parent[aux->nest_level] = aux->parent;
 				aux->parent = iter;
 			} else
@@ -306,10 +309,8 @@ void fref_loader_start_element(GMarkupParseContext * context, const gchar * elem
 			gtk_tree_store_set(aux->store, &iter, STR_COLUMN, info->name, PTR_COLUMN, info,
 							   FILE_COLUMN, NULL, -1);
 			aux->act_info = info;
-			rref =
-				gtk_tree_row_reference_new(GTK_TREE_MODEL(aux->store),
-										   gtk_tree_model_get_path(GTK_TREE_MODEL(aux->store),
-																   &iter));
+			path = gtk_tree_model_get_path(GTK_TREE_MODEL(aux->store), &iter);
+			rref = gtk_tree_row_reference_new(GTK_TREE_MODEL(aux->store), path);
 			g_hash_table_insert(aux->dict, g_strdup(info->name), rref);
 		} else if (strcmp(element_name, "function") == 0) {
 			aux->state = FR_LOADER_STATE_FUNC;
@@ -320,10 +321,8 @@ void fref_loader_start_element(GMarkupParseContext * context, const gchar * elem
 			gtk_tree_store_append(aux->store, &iter, &aux->parent);
 			gtk_tree_store_set(aux->store, &iter, STR_COLUMN, info->name, PTR_COLUMN, info, -1);
 			aux->act_info = info;
-			rref =
-				gtk_tree_row_reference_new(GTK_TREE_MODEL(aux->store),
-										   gtk_tree_model_get_path(GTK_TREE_MODEL(aux->store),
-																   &iter));
+			path = gtk_tree_model_get_path(GTK_TREE_MODEL(aux->store), &iter);
+			rref = gtk_tree_row_reference_new(GTK_TREE_MODEL(aux->store), path);
 			g_hash_table_insert(aux->dict, g_strdup(info->name), rref);
 		} else if (strcmp(element_name, "class") == 0) {
 			aux->state = FR_LOADER_STATE_CLASS;
@@ -334,10 +333,8 @@ void fref_loader_start_element(GMarkupParseContext * context, const gchar * elem
 			gtk_tree_store_append(aux->store, &iter, &aux->parent);
 			gtk_tree_store_set(aux->store, &iter, STR_COLUMN, info->name, PTR_COLUMN, info, -1);
 			aux->act_info = info;
-			rref =
-				gtk_tree_row_reference_new(GTK_TREE_MODEL(aux->store),
-										   gtk_tree_model_get_path(GTK_TREE_MODEL(aux->store),
-																   &iter));
+			path = gtk_tree_model_get_path(GTK_TREE_MODEL(aux->store), &iter);
+			rref = gtk_tree_row_reference_new(GTK_TREE_MODEL(aux->store), path);
 			g_hash_table_insert(aux->dict, g_strdup(info->name), rref);
 		} else if (strcmp(element_name, "ref") == 0) {
 		} else
@@ -450,6 +447,7 @@ void fref_loader_start_element(GMarkupParseContext * context, const gchar * elem
 		break;					/* state PARAM */
 	}							/* switch */
 
+	if (path) gtk_tree_path_free (path);
 	g_hash_table_destroy(attrs);
 }
 
@@ -555,6 +553,9 @@ void fref_loader_text(GMarkupParseContext * context, const gchar * _text, gsize 
 	case FR_LOADER_STATE_GROUPDESC:
 		gtk_tree_model_get(GTK_TREE_MODEL(aux->store), &aux->parent, PTR_COLUMN, &tmpinfo, -1);
 		if (tmpinfo != NULL) {
+			/* BUG?? this appears as if it is freed in fref_free_info()
+			 * but a small memory leak is shown when opening the HTML ref
+			 */
 			tmpinfo->description = g_strndup(text, text_len);
 		}
 		break;
@@ -2254,6 +2255,7 @@ GtkWidget *fref_gui(Tbfwin * bfwin)
 
 	FREFGUI(bfwin->fref)->tree = gtk_tree_view_new_with_model(GTK_TREE_MODEL(fdata->store));
 	gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(FREFGUI(bfwin->fref)->tree), FALSE);
+	gtk_tree_view_set_rules_hint (GTK_TREE_VIEW (FREFGUI(bfwin->fref)->tree), TRUE);
 	cell = gtk_cell_renderer_text_new();
 	column = gtk_tree_view_column_new_with_attributes("", cell, "text", STR_COLUMN, NULL);
 	gtk_tree_view_append_column(GTK_TREE_VIEW(FREFGUI(bfwin->fref)->tree), column);
