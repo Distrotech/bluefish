@@ -192,7 +192,11 @@ static GList *run_command(Toutputbox *ob) {
 	tmpfile = create_secure_dir_return_filename();
 	command2 = g_strconcat(command1, " > ", tmpfile, " 2>&1", NULL);
 	DEBUG_MSG("run_command, should run %s now\n", command2);
-	change_dir(ob->bfwin->current_document->filename);
+	{
+		gchar *tmpstring = g_path_get_dirname(ob->bfwin->current_document->filename);
+		chdir(tmpstring);
+		g_free(tmpstring);
+	}
 	system(command2);
 	retlist = get_stringlist(tmpfile, NULL);
 	remove_secure_dir_and_filename(tmpfile);

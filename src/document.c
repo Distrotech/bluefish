@@ -1474,7 +1474,6 @@ gboolean doc_file_to_textbox(Tdocument * doc, gchar * filename, gboolean enable_
 	}
 
 	/* This opens the contents of a file to a textbox */
-	change_dir(filename);
 	{
 		gchar *encoding=NULL;
 		gchar *newbuf=NULL;
@@ -2185,7 +2184,6 @@ gint doc_textbox_to_file(Tdocument * doc, gchar * filename) {
 			}
 		}
 	}
-	change_dir(filename);
 	
 	gtk_text_buffer_get_bounds(doc->buffer,&itstart,&itend);
 	buffer = gtk_text_buffer_get_text(doc->buffer,&itstart,&itend,FALSE);
@@ -2385,7 +2383,7 @@ gchar *ask_new_filename(Tbfwin *bfwin,gchar *oldfilename, gint is_move) {
 		FILE_CHOOSER_USE_VFS(dialog);
 		gtk_file_chooser_set_select_multiple(GTK_FILE_CHOOSER(dialog), FALSE);*/
 		dialog = file_chooser_dialog(bfwin, (is_move) ? _("Move/rename document to") : _("Save document as"),
-				 GTK_FILE_CHOOSER_ACTION_SAVE, NULL, FALSE, FALSE);
+				 GTK_FILE_CHOOSER_ACTION_SAVE, oldfilename, FALSE, FALSE);
 		if (gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_ACCEPT) {
 			newfilename = gtk_file_chooser_get_uri(GTK_FILE_CHOOSER(dialog));
 		}
@@ -2547,6 +2545,10 @@ gint doc_save(Tdocument * doc, gint do_save_as, gboolean do_move) {
 		gchar *tmp = g_strdup_printf(_("Saving %s"), doc->filename);
 		statusbar_message(BFWIN(doc->bfwin),tmp, 1);
 		g_free(tmp);
+		/* re-use tmp */
+		tmp = g_path_get_dirname(doc->filename);
+		if (BFWIN(doc->bfwin)->session->savedir) g_free(BFWIN(doc->bfwin)->session->savedir);
+		BFWIN(doc->bfwin)->session->savedir = tmp;
 	}
 	retval = doc_textbox_to_file(doc, doc->filename);
 
@@ -2939,6 +2941,11 @@ Tdocument * doc_new_with_file(Tbfwin *bfwin, gchar * filename, gboolean delay_ac
 		return NULL;
 	}
 	fullfilename = create_full_path(filename, NULL);
+	if (bfwin) {
+		gchar *tmpstring = g_path_get_dirname(fullfilename);
+		if (bfwin->session->opendir) g_free(bfwin->session->opendir);
+		bfwin->session->opendir = tmpstring;
+	}
 	
 	if (!main_v->props.allow_multi_instances) {
 		GList *alldocs = return_allwindows_documentlist();

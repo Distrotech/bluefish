@@ -94,7 +94,9 @@ static void init_prop_string(GList ** config_list, void *pointer_to_var, gchar *
 static void init_prop_string_with_escape(GList ** config_list, void *pointer_to_var, gchar * name_of_var, gchar * default_value)
 {
 	*config_list = make_config_list_item(*config_list, pointer_to_var, 'e', name_of_var, 0);
-	*(gchar **) pointer_to_var = unescape_string(default_value, FALSE);
+	if (*(gchar **) pointer_to_var == NULL && default_value) {
+		*(gchar **) pointer_to_var = unescape_string(default_value, FALSE);
+	}
 	DEBUG_MSG("init_prop_string, name_of_var=%s, default_value=%s\n", name_of_var, default_value);
 }
 
@@ -867,6 +869,8 @@ static GList *return_session_configlist(GList *configlist, Tsessionvars *session
 	init_prop_arraylist (&configlist, &session->bmarks, "bmarks:", 6, FALSE); /* what is the lenght for a bookmark array? */
 	init_prop_limitedstringlist(&configlist, &session->recent_files, "recent_files:", main_v->props.max_recent_files, FALSE);
 	init_prop_limitedstringlist(&configlist, &session->recent_dirs, "recent_dirs:", main_v->props.max_dir_history, FALSE);
+	init_prop_string_with_escape(&configlist, &session->opendir, "opendir:", NULL);
+	init_prop_string_with_escape(&configlist, &session->savedir, "savedir:", NULL);
 	return configlist;
 }
 
