@@ -2197,7 +2197,7 @@ static void preferences_dialog() {
 		GtkWidget *ahbox, *but;
 		ahbox = gtk_hbutton_box_new();
 		gtk_hbutton_box_set_layout_default(GTK_BUTTONBOX_END);
-		gtk_button_box_set_spacing(GTK_BUTTON_BOX(ahbox), 1);
+		gtk_button_box_set_spacing(GTK_BUTTON_BOX(ahbox), 12);
 
 		gtk_box_pack_start(GTK_BOX(dvbox), ahbox, FALSE, FALSE, 0);
 		but = bf_gtkstock_button(GTK_STOCK_APPLY, G_CALLBACK(preferences_apply_clicked_lcb), pd);
