@@ -30,14 +30,6 @@
 #include "bookmark.h"
 
 /*************************** FILE INFO ASYNC ******************************/
-typedef enum {
-	CHECKMODIFIED_ERROR,
-	CHECKMODIFIED_MODIFIED,
-	CHECKMODIFIED_OK
-} Tcheckmodified_status;
-
-typedef void (* CheckmodifiedAsyncCallback) (Tcheckmodified_status ,gint error_info,gpointer callback_data);
-
 typedef struct {
 	GList *uris;
 	GnomeVFSFileInfo *orig_finfo;
@@ -79,13 +71,13 @@ static void checkmodified_asyncfileinfo_lcb(GnomeVFSAsyncHandle *handle, GList *
 	if (item->result == GNOME_VFS_OK) {
 		if (checkmodified_is_modified(cm->orig_finfo, item->file_info)) {
 			DEBUG_MSG("checkmodified_asyncfileinfo_lcb, calling callback with MODIFIED\n");
-			cm->callback_func(CHECKMODIFIED_MODIFIED, item->result, cm->callback_data);
+			cm->callback_func(CHECKMODIFIED_MODIFIED, item->result, cm->orig_finfo, item->file_info, cm->callback_data);
 		} else {
 			DEBUG_MSG("checkmodified_asyncfileinfo_lcb, calling callback with OK\n");
-			cm->callback_func(CHECKMODIFIED_OK, item->result, cm->callback_data);
+			cm->callback_func(CHECKMODIFIED_OK, item->result, cm->orig_finfo, item->file_info, cm->callback_data);
 		}
 	} else {
-		cm->callback_func(CHECKMODIFIED_ERROR, item->result, cm->callback_data);
+		cm->callback_func(CHECKMODIFIED_ERROR, item->result, NULL, NULL, cm->callback_data);
 	}	
 	checkmodified_cleanup(cm);
 }
@@ -95,7 +87,7 @@ void file_checkmodified_uri_async(GnomeVFSURI *uri, GnomeVFSFileInfo *curinfo, C
 	Tcheckmodified *cm;
 	DEBUG_MSG("file_checkmodified_uri_async, STARTED for %s\n", gnome_vfs_uri_get_path(uri));
 	if (curinfo == NULL) {
-		callback_func(CHECKMODIFIED_OK, 0, callback_data);
+		callback_func(CHECKMODIFIED_OK, 0, NULL, NULL, callback_data);
 		return;
 	}
 	cm = g_new(Tcheckmodified,1);
@@ -257,7 +249,7 @@ gint checkNsave_sync_lcb(GnomeVFSXferProgressInfo *info,gpointer data) {
 		we should NEVER return 0 for default calls, it aborts!! */
 	return 1;
 }
-static void checkNsave_checkmodified_lcb(Tcheckmodified_status status,gint error_info,gpointer data) {
+static void checkNsave_checkmodified_lcb(Tcheckmodified_status status,gint error_info, GnomeVFSFileInfo *orig, GnomeVFSFileInfo *new, gpointer data) {
 	TcheckNsave *cns = data;
 	gboolean startbackup = FALSE;
 	DEBUG_MSG("checkNsave_checkmodified_lcb, status=%d\n",status);
@@ -328,7 +320,7 @@ void file_checkNsave_uri_async(GnomeVFSURI *uri, GnomeVFSFileInfo *info, Trefcpo
 		/* first check if the file is modified on disk */
 		file_checkmodified_uri_async(uri, info, checkNsave_checkmodified_lcb, cns);
 	} else {
-		checkNsave_checkmodified_lcb(CHECKMODIFIED_OK,0,cns);
+		checkNsave_checkmodified_lcb(CHECKMODIFIED_OK,0,NULL, NULL, cns);
 	}
 }
 

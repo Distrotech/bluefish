@@ -861,7 +861,7 @@ if the file is modified by another process, returns
 0 if there was no previous mtime information available 
 if newstatbuf is not NULL, it will be filled with the new statbuf from the file IF IT WAS CHANGED!!!
 leave NULL if you do not need this information, if the file is not changed, this field will not be set!!
-*/
+* /
 static gboolean doc_check_modified_on_disk(Tdocument *doc, GnomeVFSFileInfo **newfileinfo) {
 	if (main_v->props.modified_check_type == 0 || !doc->uri || doc->fileinfo == NULL) {
 		return FALSE;
@@ -896,11 +896,11 @@ static gboolean doc_check_modified_on_disk(Tdocument *doc, GnomeVFSFileInfo **ne
 		DEBUG_MSG("doc_check_mtime, type %d checking not yet implemented\n", main_v->props.modified_check_type);
 	}
 	return FALSE;
-}
+}*/
 
 /* doc_set_stat_info() includes setting the mtime field, so there is no need
 to call doc_update_mtime() as well */
-static void doc_set_stat_info(Tdocument *doc) {
+/* static void doc_set_stat_info(Tdocument *doc) {
 	if (doc->uri) {
 		if (doc->fileinfo == NULL) {
 			doc->fileinfo = gnome_vfs_file_info_new();
@@ -911,7 +911,7 @@ static void doc_set_stat_info(Tdocument *doc) {
 		doc->is_symlink = GNOME_VFS_FILE_INFO_SYMLINK(doc->fileinfo);
 		doc_set_tooltip(doc);
 	}
-}
+} */
 
 /**
  * doc_scroll_to_cursor:
@@ -3169,6 +3169,41 @@ void doc_reload(Tdocument *doc) {
 	gnome_vfs_uri_unref(uri);
 }
 
+static void doc_activate_modified_lcb(Tcheckmodified_status status,gint error_info,GnomeVFSFileInfo *orig, GnomeVFSFileInfo *new, gpointer callback_data) {
+	Tdocument *doc = callback_data;
+	switch (status) {
+	case CHECKMODIFIED_ERROR:
+		DEBUG_MSG("doc_activate_modified_lcb, CHECKMODIFIED_ERROR ??\n");
+	break;
+	case CHECKMODIFIED_MODIFIED:
+		{
+		gchar *tmpstr, oldtimestr[128], newtimestr[128];/* according to 'man ctime_r' this should be at least 26, so 128 should do ;-)*/
+		gint retval;
+		gchar *options[] = {_("_Reload"), _("_Ignore"), NULL};
+
+		ctime_r(&new->mtime,newtimestr);
+		ctime_r(&orig->mtime,oldtimestr);
+		tmpstr = g_strdup_printf(_("Filename: %s\n\nNew modification time is: %s\nOld modification time is: %s"), gtk_label_get_text(GTK_LABEL(doc->tab_menu)), newtimestr, oldtimestr);
+		retval = multi_warning_dialog(BFWIN(doc->bfwin)->main_window,_("File has been modified by another process\n"), tmpstr, 0, 1, options);
+		g_free(tmpstr);
+		if (retval == 1) {
+			if (doc->fileinfo) {
+				gnome_vfs_file_info_unref(doc->fileinfo);
+			}
+			doc->fileinfo = new;
+			gnome_vfs_file_info_ref(doc->fileinfo);
+			doc_set_tooltip(doc);
+		} else {
+			doc_reload(doc);
+		}
+		}
+	break;
+	case CHECKMODIFIED_OK:
+		/* do nothing */
+	break;
+	}
+}
+
 /**
  * doc_activate:
  * @doc: a #Tdocument
@@ -3181,9 +3216,7 @@ void doc_reload(Tdocument *doc) {
  * Return value: void
  **/
 void doc_activate(Tdocument *doc) {
-	gboolean modified;
-	GnomeVFSFileInfo *fileinfo;
-	time_t oldmtime, newmtime;
+	GnomeVFSURI *uri;
 #ifdef DEBUG
 	if (!doc) {
 		DEBUG_MSG("doc_activate, doc=NULL!!! ABORTING!!\n");
@@ -3215,29 +3248,14 @@ void doc_activate(Tdocument *doc) {
 		gtk_widget_show(doc->view); /* This might be the first time this document is activated. */
 	}
 	BFWIN(doc->bfwin)->last_activated_doc = doc;
-	fileinfo = gnome_vfs_file_info_new();
-	modified = doc_check_modified_on_disk(doc,&fileinfo);
-	newmtime = fileinfo->mtime;
-	if (doc->fileinfo) {
-		oldmtime = doc->fileinfo->mtime;
-	}
-	gnome_vfs_file_info_unref(fileinfo);
-	if (modified) {
-		gchar *tmpstr, oldtimestr[128], newtimestr[128];/* according to 'man ctime_r' this should be at least 26, so 128 should do ;-)*/
-		gint retval;
-		gchar *options[] = {_("_Reload"), _("_Ignore"), NULL};
-
-		ctime_r(&newmtime,newtimestr);
-		ctime_r(&oldmtime,oldtimestr);
-		tmpstr = g_strdup_printf(_("Filename: %s\n\nNew modification time is: %s\nOld modification time is: %s"), doc->uri, newtimestr, oldtimestr);
-		retval = multi_warning_dialog(BFWIN(doc->bfwin)->main_window,_("File has been modified by another process\n"), tmpstr, 0, 1, options);
-		g_free(tmpstr);
-		if (retval == 1) {
-			doc_set_stat_info(doc);
-		} else {
-			doc_reload(doc);
+	if (doc->uri) {
+		uri = gnome_vfs_uri_new(doc->uri);
+		if (uri) {
+			file_checkmodified_uri_async(uri, doc->fileinfo, doc_activate_modified_lcb, doc);
+			gnome_vfs_uri_unref(uri);
 		}
 	}
+	
 	DEBUG_MSG("doc_activate, calling gui_set_document_widgets()\n");
 	gui_set_document_widgets(doc);
 	gui_set_title(BFWIN(doc->bfwin), doc);
@@ -3261,9 +3279,7 @@ void doc_activate(Tdocument *doc) {
 		if (main_v->props.filebrowser_focus_follow) {
 			DEBUG_MSG("doc_activate, call filebrowser_open_dir() for %s\n",dir2);
 			filebrowser_open_dir(BFWIN(doc->bfwin),dir2);
-#ifdef FB2
 			fb2_focus_document(BFWIN(doc->bfwin), doc);
-#endif
 		}
 		g_free(dir1);
 		g_free(dir2);
