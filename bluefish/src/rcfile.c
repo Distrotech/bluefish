@@ -676,12 +676,19 @@ void rcfile_parse_custom_menu(void) {
 
 	filename = g_strconcat(g_get_home_dir(), "/.bluefish/custom_menu", NULL);
 	tmp = g_strdup(g_getenv("LANG"));
+	if (!tmp) {
+		/* on macosx it seems to be LANGUAGE */
+		tmp = g_strdup(g_getenv("LANGUAGE"));
+	}
+	DEBUG_MSG("rcfile_parse_custom_menu, Language is: %s", tmp);
 	if (tmp) {
 		tmp = trunc_on_char(tmp, '.');
 		tmp = trunc_on_char(tmp, '@');
-		langdefaultfile1 = g_strconcat(PKGDATADIR"custom_menu.default.", tmp, NULL);
+		langdefaultfile1 = g_strconcat(PKGDATADIR"custom_menu.",tmp,".default.", NULL);
+		DEBUG_MSG("rcfile_parse_custom_menu, langdefaultfile1 is: %s", langdefaultfile1);
 		tmp = trunc_on_char(tmp, '_');
-		langdefaultfile2 = g_strconcat(PKGDATADIR"custom_menu.default.", tmp, NULL);
+		langdefaultfile2 = g_strconcat(PKGDATADIR"custom_menu.",tmp,"default.", NULL);
+		DEBUG_MSG("rcfile_parse_custom_menu, langdefaultfile2 is: %s", langdefaultfile2);
 		g_free(tmp);
 	}
 	if (langdefaultfile1) {
@@ -694,6 +701,7 @@ void rcfile_parse_custom_menu(void) {
 									"data/custom_menu.default",
 									"../data/custom_menu.default",NULL);
 	}
+	DEBUG_MSG("rcfile_parse_custom_menu, defaultfile is: %s", defaultfile);
 	if (!parse_config_file(custom_menu_configlist, filename) || (main_v->props.cust_menu==NULL && main_v->props.cmenu_insert==NULL && main_v->props.cmenu_replace==NULL )) {
 		DEBUG_MSG("error parsing the custom menu file\n");
 		/* init the custom_menu in some way? */
