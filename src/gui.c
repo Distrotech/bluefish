@@ -1406,9 +1406,6 @@ void go_to_line_win_cb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget) {
 	gtk_box_pack_start(GTK_BOX(hbox), but1, FALSE, FALSE, 0);
 	gtk_window_set_default(GTK_WINDOW(tgl->win), but1);
 
-	g_signal_connect(G_OBJECT (tgl->entry), "activate", G_CALLBACK(tgl_enter_lcb),
-                            (gpointer *) tgl);
-
 	gtk_widget_show_all(tgl->win);
 }
 
