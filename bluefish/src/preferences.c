@@ -119,7 +119,7 @@ enum {
 typedef struct {
 	GtkListStore *lstore;
 	GtkWidget *lview;
-	GtkWidget *entry[5];
+	GtkWidget *entry[6];
 	gchar **curstrarr;
 } Tfiletypedialog;
 
@@ -354,19 +354,52 @@ static gchar **filetype_create_strarr(Tprefdialog *pd) {
 	gchar *escaped, *tmp;
 	tmp = gtk_editable_get_chars(GTK_EDITABLE(pd->ftd.entry[0]),0,-1);
 	if (strlen(tmp)) {
-		strarr = g_malloc(5*sizeof(gchar *));
+		strarr = g_malloc(7*sizeof(gchar *));
 		strarr[0] = tmp;
 		strarr[1] = gtk_editable_get_chars(GTK_EDITABLE(pd->ftd.entry[1]),0,-1);
 		escaped = gtk_editable_get_chars(GTK_EDITABLE(pd->ftd.entry[2]),0,-1);
 		strarr[2] = unescapestring(escaped);
 		g_free(escaped);
 		strarr[3] = gtk_editable_get_chars(GTK_EDITABLE(pd->ftd.entry[3]),0,-1);
-		strarr[4] = NULL;
+		strarr[4] = g_strdup(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(pd->ftd.entry[4])) ? "1" : "0");
+		strarr[5] = gtk_editable_get_chars(GTK_EDITABLE(pd->ftd.entry[5]),0,-1);
+		strarr[6] = NULL;
 		DEBUG_MSG("filetype_create_strarr, created at %p\n", strarr);
 		return strarr;
 	} else {
 		g_free(tmp);
 		return NULL;
+	}
+}
+
+static void set_filetype_strarr_in_list(GtkTreeIter *iter, gchar **strarr, Tprefdialog *pd) {
+	gint arrcount;
+	arrcount = count_array(strarr);
+	if (arrcount>=4) {
+		gchar *escaped = escapestring(strarr[2],'\0');
+		/* for backwards compatibility we accept 4 as well */
+		if (arrcount ==4) {
+			DEBUG_MSG("set_filetype_strarr_in_list, 4 will be set to %d\n",TRUE);
+			gtk_list_store_set(GTK_LIST_STORE(pd->ftd.lstore), iter
+				,0,strarr[0]
+				,1,strarr[1]
+				,2,escaped
+				,3,strarr[3]
+				,4,TRUE
+				,5,""
+				,-1);
+		} else if (arrcount == 6) {
+			DEBUG_MSG("set_filetype_strarr_in_list, 4=%d, string was %s\n",(strarr[4][0] != '0'), strarr[4]);
+			gtk_list_store_set(GTK_LIST_STORE(pd->ftd.lstore), iter
+				,0,strarr[0]
+				,1,strarr[1]
+				,2,escaped
+				,3,strarr[3]
+				,4,(strarr[4][0] != '0')
+				,5,strarr[5]
+				,-1);
+		}
+		g_free(escaped);
 	}
 }
 
@@ -378,15 +411,8 @@ static void add_new_filetype_lcb(GtkWidget *wid, Tprefdialog *pd) {
 		pd->lists[filetypes] = g_list_append(pd->lists[filetypes], strarr);
 		{
 			GtkTreeIter iter;
-			gchar *escaped = escapestring(strarr[2],'\0');
 			gtk_list_store_append(GTK_LIST_STORE(pd->ftd.lstore), &iter);
-			gtk_list_store_set(GTK_LIST_STORE(pd->ftd.lstore), &iter
-				,0,strarr[0]
-				,1,strarr[1]
-				,2,escaped
-				,3,strarr[3]
-				,-1);
-			g_free(escaped);
+			set_filetype_strarr_in_list(&iter,strarr,pd);
 			gtk_tree_selection_select_iter(gtk_tree_view_get_selection(GTK_TREE_VIEW(pd->ftd.lview)),&iter);
 		}
 	}
@@ -415,15 +441,8 @@ static void filetype_apply_changes(Tprefdialog *pd) {
 			gchar *curval;
 			gtk_tree_model_get(GTK_TREE_MODEL(pd->ftd.lstore),&iter,0,&curval,-1);
 			if (strcmp(curval,pd->ftd.curstrarr[0])==0) {
-				gchar *escaped = escapestring(pd->ftd.curstrarr[2],'\0');
 				DEBUG_MSG("filetype_apply_changes, set listore 0=%s,1=%s\n", pd->ftd.curstrarr[0], pd->ftd.curstrarr[1]);
-				gtk_list_store_set(GTK_LIST_STORE(pd->ftd.lstore), &iter
-					,0,pd->ftd.curstrarr[0]
-					,1,pd->ftd.curstrarr[1]
-					,2,escaped
-					,3,pd->ftd.curstrarr[3]
-					,-1);
-				g_free(escaped);				
+				set_filetype_strarr_in_list(&iter,pd->ftd.curstrarr,pd);
 			}
 			retval = gtk_tree_model_iter_next(GTK_TREE_MODEL(pd->ftd.lstore),&iter);
 		}
@@ -450,6 +469,13 @@ static void filetype_selection_changed_cb(GtkTreeSelection *selection, Tprefdial
 				gtk_entry_set_text(GTK_ENTRY(pd->ftd.entry[1]), strarr[1]);
 				gtk_entry_set_text(GTK_ENTRY(pd->ftd.entry[2]), escaped);
 				gtk_entry_set_text(GTK_ENTRY(pd->ftd.entry[3]), strarr[3]);
+				if (count_array(strarr)==6) {
+					gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(pd->ftd.entry[4]), (strarr[4][0] != '0'));
+					gtk_entry_set_text(GTK_ENTRY(pd->ftd.entry[3]), strarr[5]);
+				} else {
+					gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(pd->ftd.entry[4]), TRUE);
+					gtk_entry_set_text(GTK_ENTRY(pd->ftd.entry[3]), "");
+				}
 				pd->ftd.curstrarr = strarr;
 				g_free(escaped);
 				return;
@@ -465,14 +491,14 @@ static void create_filetype_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 	GtkWidget *hbox, *but;
 	pd->lists[filetypes] = duplicate_arraylist(main_v->props.filetypes);
 
-	pd->ftd.lstore = gtk_list_store_new (4,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING);
+	pd->ftd.lstore = gtk_list_store_new (6,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_BOOLEAN,G_TYPE_STRING);
 	pd->ftd.lview = gtk_tree_view_new_with_model(GTK_TREE_MODEL(pd->ftd.lstore));
 	{
 		GtkTreeViewColumn *column;
 		GtkWidget *scrolwin;
 		GtkTreeSelection *select;
-	   GtkCellRenderer *renderer = gtk_cell_renderer_text_new ();
-
+	   GtkCellRenderer *renderer = gtk_cell_renderer_text_new();
+		GtkCellRenderer *renderertoggle = gtk_cell_renderer_toggle_new();
 		column = gtk_tree_view_column_new_with_attributes (_("Filetype"), renderer,"text",0,NULL);
 		gtk_tree_view_append_column (GTK_TREE_VIEW(pd->ftd.lview), column);
 		column = gtk_tree_view_column_new_with_attributes (_("Extensions"), renderer,"text",1,NULL);
@@ -480,6 +506,11 @@ static void create_filetype_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 		column = gtk_tree_view_column_new_with_attributes (_("Update chars"), renderer,"text",2,NULL);
 		gtk_tree_view_append_column (GTK_TREE_VIEW(pd->ftd.lview), column);
 		column = gtk_tree_view_column_new_with_attributes (_("Icon"), renderer,"text",3,NULL);
+		gtk_tree_view_append_column (GTK_TREE_VIEW(pd->ftd.lview), column);
+		
+		column = gtk_tree_view_column_new_with_attributes (_("Editable"), renderertoggle,"active",4,NULL);
+		gtk_tree_view_append_column (GTK_TREE_VIEW(pd->ftd.lview), column);
+		column = gtk_tree_view_column_new_with_attributes (_("Content regex"), renderer,"text",5,NULL);
 		gtk_tree_view_append_column (GTK_TREE_VIEW(pd->ftd.lview), column);
 		scrolwin = gtk_scrolled_window_new(NULL, NULL);
 		gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolwin),GTK_POLICY_AUTOMATIC,GTK_POLICY_AUTOMATIC);
@@ -493,18 +524,13 @@ static void create_filetype_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 	{
 		GList *tmplist = g_list_first(pd->lists[filetypes]);
 		while (tmplist) {
+			gint arrcount;
 			gchar **strarr = (gchar **)tmplist->data;
-			if (count_array(strarr)==4) {
+			arrcount = count_array(strarr);
+			if (arrcount>=4) {
 				GtkTreeIter iter;
-				gchar *escaped = escapestring(strarr[2],'\0');
 				gtk_list_store_append(GTK_LIST_STORE(pd->ftd.lstore), &iter);
-				gtk_list_store_set(GTK_LIST_STORE(pd->ftd.lstore), &iter
-					,0,strarr[0]
-					,1,strarr[1]
-					,2,escaped
-					,3,strarr[3]
-					,-1);
-				g_free(escaped);
+				set_filetype_strarr_in_list(&iter, strarr,pd);
 			}
 			tmplist = g_list_next(tmplist);
 		}
@@ -522,6 +548,8 @@ static void create_filetype_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 	pd->ftd.entry[1] = boxed_full_entry(_("Extensions (colon separated)"), NULL, 500, vbox1);
 	pd->ftd.entry[2] = boxed_full_entry(_("Highlight update characters"), NULL, 500, vbox1);
 	pd->ftd.entry[3] = prefs_string(_("Icon"), NULL, vbox1, pd, string_file);
+	pd->ftd.entry[4] = boxed_checkbut_with_value(_("Editable"), TRUE, vbox1);
+	pd->ftd.entry[5] = boxed_full_entry(_("Content regex pattern"), NULL, 500, vbox1);
 }
 
 static gchar **filefilter_create_strarr(Tprefdialog *pd) {

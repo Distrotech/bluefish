@@ -435,6 +435,7 @@ void filetype_highlighting_rebuild() {
 			if (filetype->icon) {
 				g_object_unref(filetype->icon);
 			}
+			g_free(filetype->content_regex);
 			/* the highlightpatterns are freed separately, see below */
 			g_free(filetype);
 			tmplist = g_list_next(tmplist);
@@ -470,12 +471,21 @@ void filetype_highlighting_rebuild() {
 	/* now rebuild the filetype list */
 	tmplist = g_list_first(main_v->props.filetypes);
 	while (tmplist) {
+		gint arrcount;
 		gchar **strarr;
 		Tfiletype *filetype;
 		strarr = (gchar **) tmplist->data;
-		if (count_array(strarr) == 4) {
+		arrcount = count_array(strarr);
+		if (arrcount >= 4) {
 			filetype = g_new(Tfiletype, 1);
 			filetype->menuitem = NULL;
+			if (arrcount == 6) {
+				filetype->editable = (strarr[4][0] != '0');
+				filetype->content_regex = g_strdup(strarr[5]);
+			} else {
+				filetype->editable = TRUE;
+				filetype->content_regex = NULL;
+			}
 			filetype->type = g_strdup(strarr[0]);
 			DEBUG_MSG("extensions for %s loaded from %s\n", strarr[0], strarr[1]);
 			filetype->extensions = g_strsplit(strarr[1], ":", 127);
