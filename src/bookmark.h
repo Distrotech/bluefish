@@ -1,6 +1,7 @@
 /* Bluefish HTML Editor - bookmarks
  *
  * Copyright (C) 2003 Oskar Swida
+ * modifications (C) 2004 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -32,7 +33,7 @@ void bmark_del_all_temp(Tbfwin *bfwin);
 void bmark_add_perm(Tbfwin *bfwin);
 void bmark_del_all_perm(Tbfwin *bfwin);
 
-void bmark_save_all();
+void bmark_save_all(void);
 void bmark_check_length(Tbfwin *bfwin,Tdocument *doc);
 void bmark_adjust_visible(Tbfwin *win);
 
