@@ -25,6 +25,7 @@
 #include "document.h" /* file_new_cb() */
 #include "gtk_easy.h"
 #include "menu.h" /* menu_create_main() */
+#include "bf_lib.h" /* get_int_from_string() */
 
 void notebook_changed(gint newpage)
 {
@@ -199,7 +200,7 @@ void gui_create_main(GList *filenames) {
 	GtkWidget *hbox;
 	hbox = gtk_hbox_new(FALSE,0);
 	gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 0);
-	main_v->statuslabel = gtk_label_new(NULL);
+	main_v->statuslabel = gtk_label_new(_(" line    0 "));
 	gtk_box_pack_start(GTK_BOX(hbox), main_v->statuslabel, FALSE, FALSE, 0);
 	main_v->statusbar = gtk_statusbar_new();
 	gtk_box_pack_start(GTK_BOX(hbox), main_v->statusbar, TRUE, TRUE, 0);
@@ -209,12 +210,13 @@ void gui_create_main(GList *filenames) {
 	DEBUG_MSG("gui_create_main, before show_all\n");
 	gtk_widget_show_all(main_v->main_window);
 }
-/* we need a global var for these functions */
-static gint context_id = 0;
+/***********************/
+/* statusbar functions */
+/***********************/
 
 static gint statusbar_remove(gpointer message_id)
 {
-	gtk_statusbar_remove(GTK_STATUSBAR(main_v->statusbar), context_id, GPOINTER_TO_INT(message_id));
+	gtk_statusbar_remove(GTK_STATUSBAR(main_v->statusbar), 0, GPOINTER_TO_INT(message_id));
 	return 0;
 }
 
@@ -223,7 +225,114 @@ void statusbar_message(gchar * message, gint time)
 	if (main_v->statusbar) {
 		gint count;
 
-		count = gtk_statusbar_push(GTK_STATUSBAR(main_v->statusbar), context_id, message);
+		count = gtk_statusbar_push(GTK_STATUSBAR(main_v->statusbar), 0, message);
 		gtk_timeout_add(time, statusbar_remove, GINT_TO_POINTER(count));
 	}
 }
+
+
+/***********************/
+/* GOTO line functions */
+/***********************/
+
+typedef struct {
+	GtkWidget *win;
+	GtkWidget *entry;
+	GtkWidget *check;
+} Tgotoline;
+
+static void tgl_destroy_lcb(GtkWidget * widget, GdkEvent *event,  Tgotoline *tgl) {
+	window_destroy(tgl->win);
+	g_free(tgl);
+}
+
+static void tgl_ok_clicked_lcb(GtkWidget * widget, Tgotoline *tgl)
+{
+	gchar *linestr;
+	gint linenum;
+
+	linestr = gtk_editable_get_chars(GTK_EDITABLE(tgl->entry), 0, -1);
+	linenum = get_int_from_string(linestr);
+	DEBUG_MSG("tgl_ok_clicked_lcb, going to line %d (linestr=%s)\n", linenum, linestr);
+	g_free(linestr);
+	
+	if (linenum > 0) {
+		doc_select_line(main_v->current_document, linenum, TRUE);
+	}
+
+	if (GTK_TOGGLE_BUTTON(tgl->check)->active) {
+		if (linenum > 0) {
+			gchar *new_text;
+			gint position=0;
+			gtk_editable_delete_text (GTK_EDITABLE(tgl->entry), 0, -1);
+			new_text = g_strdup_printf("%d", linenum);
+			gtk_editable_insert_text(GTK_EDITABLE(tgl->entry),new_text,strlen(new_text),&position);
+			g_free(new_text);
+		}
+	} else {
+		tgl_destroy_lcb(NULL, NULL, tgl);
+	}
+
+}
+
+static void tgl_fromsel_clicked_lcb(GtkWidget * widget, Tgotoline *tgl) {
+	gchar *string;
+	GtkClipboard* cb;
+
+	cb = gtk_clipboard_get(GDK_SELECTION_PRIMARY);
+	string = gtk_clipboard_wait_for_text(cb);
+	if (string) {
+		gtk_entry_set_text (GTK_ENTRY(tgl->entry), string);
+	}
+	tgl_ok_clicked_lcb(widget, tgl);
+}
+
+static void tgl_cancel_clicked_lcb(GtkWidget *widget, gpointer data) {
+	tgl_destroy_lcb(NULL, NULL, data);
+}
+
+void tgl_enter_lcb (GtkWidget *widget, gpointer ud) {
+     Tgotoline *tgl;
+     tgl = ud;
+     tgl_ok_clicked_lcb (widget, tgl);
+}
+
+void go_to_line_win_cb(GtkWidget * widget, gpointer data)
+{
+	Tgotoline *tgl;
+	GtkWidget *but1, *vbox, *hbox;
+	
+	tgl = g_new(Tgotoline, 1);
+	tgl->win = window_full(_("Goto line"), GTK_WIN_POS_MOUSE
+						  ,5, G_CALLBACK(tgl_destroy_lcb), tgl);
+	vbox = gtk_vbox_new(FALSE, 0);
+	gtk_container_add(GTK_CONTAINER(tgl->win), vbox);
+
+	hbox = gtk_hbox_new(FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 0);
+
+	gtk_box_pack_start(GTK_BOX(hbox), gtk_label_new(_("Line number: ")), FALSE, FALSE, 0);
+	tgl->entry = boxed_entry_with_text(NULL, 20, hbox);
+
+	but1 = bf_stock_button(_("From selection"), G_CALLBACK(tgl_fromsel_clicked_lcb), tgl);
+	gtk_box_pack_start(GTK_BOX(hbox), but1, FALSE, FALSE, 0);
+
+	hbox = gtk_hbutton_box_new();
+	gtk_hbutton_box_set_layout_default(GTK_BUTTONBOX_END);
+	gtk_button_box_set_spacing(GTK_BUTTON_BOX(hbox), 1);
+	gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 0);
+
+	tgl->check = boxed_checkbut_with_value(_("Keep dialog"), 0, hbox);
+	
+	but1 = bf_stock_ok_button(G_CALLBACK(tgl_ok_clicked_lcb), tgl);
+	gtk_box_pack_start(GTK_BOX(hbox), but1, FALSE, FALSE, 0);
+	gtk_window_set_default(GTK_WINDOW(tgl->win), but1);
+
+	but1 = bf_stock_cancel_button(G_CALLBACK(tgl_cancel_clicked_lcb), tgl);
+	gtk_box_pack_start(GTK_BOX(hbox), but1, FALSE, FALSE, 0);
+	gtk_widget_grab_focus (tgl->entry);
+        g_signal_connect (G_OBJECT (tgl->entry), "activate", G_CALLBACK(tgl_enter_lcb),
+                            (gpointer *) tgl);
+	gtk_widget_show_all(tgl->win);
+}
+

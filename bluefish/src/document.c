@@ -311,7 +311,21 @@ void doc_select_region(Tdocument *doc, gint start, gint end, gboolean do_scroll)
 	gtk_text_buffer_get_iter_at_offset(doc->buffer, &itend,end);
 	gtk_text_buffer_move_mark_by_name(doc->buffer, "insert", &itstart);
 	gtk_text_buffer_move_mark_by_name(doc->buffer, "selection_bound", &itend);
-	gtk_text_view_scroll_to_iter(GTK_TEXT_VIEW(doc->view),&itstart,0.25,FALSE,0.5,0.5);
+	if (do_scroll) {
+		gtk_text_view_scroll_to_iter(GTK_TEXT_VIEW(doc->view),&itstart,0.25,FALSE,0.5,0.5);
+	}
+}
+
+void doc_select_line(Tdocument *doc, gint line, gboolean do_scroll) {
+	GtkTextIter itstart, itend;
+	gtk_text_buffer_get_iter_at_line(doc->buffer,&itstart,line);
+	itend = itstart;
+	gtk_text_iter_forward_to_line_end(&itend);
+	gtk_text_buffer_move_mark_by_name(doc->buffer, "insert", &itstart);
+	gtk_text_buffer_move_mark_by_name(doc->buffer, "selection_bound", &itend);
+	if (do_scroll) {
+		gtk_text_view_scroll_to_iter(GTK_TEXT_VIEW(doc->view),&itstart,0.25,FALSE,0.5,0.5);	
+	}
 }
 
 /*  gboolean doc_get_selection(Tdocument *, gint *start, gint *end)
@@ -449,15 +463,20 @@ static gint doc_check_backup(Tdocument *doc) {
 	return res;
 }
 
-static void doc_update_linenumber(Tdocument *doc) {
-	gint line, column;
+static void doc_update_linenumber(Tdocument *doc, GtkTextIter *iter) {
+	gint line;
 	gchar *string;
 	GtkTextIter itinsert;
-	GtkTextMark* insert = gtk_text_buffer_get_insert(doc->buffer);
-	gtk_text_buffer_get_iter_at_mark(doc->buffer, &itinsert, insert);
+
+	if (iter == NULL) {
+		GtkTextMark* insert;
+		insert = gtk_text_buffer_get_insert(doc->buffer);
+		gtk_text_buffer_get_iter_at_mark(doc->buffer, &itinsert, insert);
+	} else {
+		itinsert = *iter;
+	}
 	line = gtk_text_iter_get_line(&itinsert);
-	column = gtk_text_iter_get_line_offset(&itinsert);
-	string = g_strdup_printf(_("line %d column %d"), line, column); 
+	string = g_strdup_printf(_(" line %4d "), line); 
 	gtk_label_set(GTK_LABEL(main_v->statuslabel),string);	
 	g_free(string);
 	g_print("doc_update_linenumber, line=%d\n", line);
@@ -479,9 +498,14 @@ static void doc_buffer_insert_text_lcb(GtkTextBuffer *textbuffer,GtkTextIter * i
 	}
 	
 	/* undo_redo stuff */
-	if ((len == 1 && (string[0] == ' ' || string[0] == '\n' || string[0] == '\t')) || !doc_undo_op_compare(doc,UndoInsert)) {
-		DEBUG_MSG("doc_buffer_insert_text_lcb, need a new undogroup\n");
-		doc_unre_new_group(doc);
+	if (len == 1) {
+		if ((string[0] == ' ' || string[0] == '\n' || string[0] == '\t') || !doc_undo_op_compare(doc,UndoInsert)) {
+			DEBUG_MSG("doc_buffer_insert_text_lcb, need a new undogroup\n");
+			doc_unre_new_group(doc);
+		}
+		if (string[0] == '\n') {
+			doc_update_linenumber(doc, NULL);
+		}
 	}
 	{
 		gint pos = gtk_text_iter_get_offset(iter);
@@ -513,11 +537,16 @@ static void doc_buffer_delete_range_lcb(GtkTextBuffer *textbuffer,GtkTextIter * 
 			start = gtk_text_iter_get_offset(itstart);
 			end = gtk_text_iter_get_offset(itend);	
 			len = end - start;
-			if ((len == 1 && (string[0] == ' ' || string[0] == '\n' || string[0] == '\t')) || !doc_undo_op_compare(doc,UndoDelete)) {
-				DEBUG_MSG("doc_buffer_delete_range_lcb, need a new undogroup\n");
-				doc_unre_new_group(doc);
+			if (len == 1) {
+				if ((string[0] == ' ' || string[0] == '\n' || string[0] == '\t') || !doc_undo_op_compare(doc,UndoDelete)) {
+					DEBUG_MSG("doc_buffer_delete_range_lcb, need a new undogroup\n");
+					doc_unre_new_group(doc);
+				}
+				doc_unre_add(doc, string, start, end, UndoDelete);
+				if (string[0] == '\n') {
+					doc_update_linenumber(doc, NULL);
+				}
 			}
-			doc_unre_add(doc, string, start, end, UndoDelete);
 		}
 
 		g_free(string);
@@ -527,14 +556,23 @@ static void doc_buffer_delete_range_lcb(GtkTextBuffer *textbuffer,GtkTextIter * 
 static gboolean doc_view_key_release_lcb(GtkWidget *widget,
                                             GdkEventKey *event,
                                             Tdocument *doc) {
-	doc_update_linenumber(doc);
+/*	doc_update_linenumber(doc);*/
 	return FALSE;
 }
 static gboolean doc_view_button_release_lcb(GtkWidget *widget,
                                             GdkEventButton *event,
                                             Tdocument *doc) {
-	doc_update_linenumber(doc);
+/*	doc_update_linenumber(doc);*/
 	return FALSE;
+}
+
+static void doc_buffer_mark_set_lcb(GtkTextBuffer *buffer,GtkTextIter *iter,
+                                            GtkTextMark *set_mark,
+                                            Tdocument *doc) {
+	GtkTextMark *ins_mark = gtk_text_buffer_get_insert(buffer);
+	if (ins_mark == set_mark) {
+		doc_update_linenumber(doc, iter);
+	}
 }
 
 void doc_bind_signals(Tdocument *doc) {
@@ -602,6 +640,8 @@ Tdocument *doc_new(gboolean delay_activate) {
 		, G_CALLBACK(doc_view_key_release_lcb), newdoc);
 	g_signal_connect(G_OBJECT(newdoc->view), "button-release-event"
 		, G_CALLBACK(doc_view_button_release_lcb), newdoc);
+	g_signal_connect(G_OBJECT(newdoc->buffer), "mark-set"
+		, G_CALLBACK(doc_buffer_mark_set_lcb), newdoc);
 	main_v->documentlist = g_list_append(main_v->documentlist, newdoc);
 
 	gtk_widget_show(newdoc->view);

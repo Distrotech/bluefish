@@ -26,7 +26,7 @@ GTK_WIN_POS_CENTER
 GTK_WIN_POS_MOUSE */
 
 typedef enum { none, file, font } Textra_but;
-
+void flush_queue(void);
 void error_dialog(gchar * window_title, gchar * error_string);
 void setup_toggle_item(GtkItemFactory * ifactory, gchar * path, gint state);
 void string_apply(gchar ** config_var, GtkWidget * entry);

@@ -28,6 +28,7 @@ gboolean test_only_empty_doc_left();
 void doc_set_modified(Tdocument *doc, gint value);
 gchar *doc_get_chars(Tdocument *doc, gint start, gint len);
 void doc_select_region(Tdocument *doc, gint start, gint end, gboolean do_scroll);
+void doc_select_line(Tdocument *doc, gint line, gboolean do_scroll);
 gboolean doc_get_selection(Tdocument *doc, gint *start, gint *end);
 gint doc_get_cursor_position(Tdocument *doc);
 
