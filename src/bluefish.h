@@ -174,7 +174,9 @@ typedef struct {
 	gint ext_browsers_in_submenu;
 	gint ext_commands_in_submenu;
 	gint ext_outputbox_in_submenu;
-
+#ifdef HAVE_LIBASPELL
+	gchar *spell_default_lang;
+#endif /* HAVE_LIBASPELL */
 	/* not yet in use */
 	gchar *image_editor_cline; 	/* image editor commandline */
 	gchar *cfg_weblint_cline;	/* weblint command line */
@@ -202,20 +204,6 @@ typedef struct {
 	gint cont_highlight_update;	/* update the syntax highlighting continuous */
 	gchar *html_ver;
 	GList *cust_menu; 		/* entries in the custom menu */
-#ifdef WITH_SPC
-	/* spell checker options */
-	gchar *cfg_spc_cline      ;  /* spell checker command line */
-	gchar *cfg_spc_lang       ;  /* language */
-	gint  spc_accept_compound ;  /* accept compound words ? */
-	gint  spc_use_esc_chars   ;  /* specify aditional characters that
-                                     may be part of a word ? */
-	gchar* spc_esc_chars      ;  /* which ones ? */
-	gint   spc_use_pers_dict  ;  /* use a personal dictionary */
-	gchar* spc_pers_dict      ;  /* which one ? */
-   gint   spc_use_input_encoding ;  /* use input encoding */
-   gchar* spc_input_encoding     ;  /* wich one ? */
-   gint   spc_output_html_chars  ; /* output html chars ? (like &aacute;)*/
-#endif
 	/* key conversion */
 	gint conv_ctrl_enter;		/* convert control-enter key press */
 	gchar *ctrl_enter_text;		/* inserted text */
@@ -223,13 +211,7 @@ typedef struct {
 	gchar *shift_enter_text;	/* inserted text */
 	gint conv_special_char;		/* convert ctrl-'<','>','&' */
 	gint open_in_running_bluefish; /* open commandline documents in already running session*/
-#ifdef AUTOCOMPLET
-	gint autocomplet_html;   /* Shows autocompletion window when editing HTML */
-	gint autocomplet_delay;  /* Delay to show the autocompletion window */
-#endif
-#ifdef PARSEDTD
-	GList *doctypes;	 /* The list of doctypes recognized by bluefish */
-#endif
+
 } Tproperties;
 
 typedef struct {
