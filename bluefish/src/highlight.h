@@ -21,7 +21,7 @@
 #ifndef __HIGHLIGHT_H_
 #define __HIGHLIGHT_H_
 
-void filetype_highlighting_rebuild(void);
+void filetype_highlighting_rebuild(gboolean gui_errors);
 void hl_init(void);
 void doc_highlight_full(Tdocument *doc);
 void doc_highlight_region(Tdocument * doc, guint startof, guint endof);

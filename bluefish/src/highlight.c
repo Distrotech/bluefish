@@ -50,6 +50,7 @@
 #include "menu.h" 			/* menu_current_document_set_toggle_wo_activate */
 #include "document.h" /* doc_get_chars() */
 #include "highlight.h"
+#include "gtk_easy.h" /* error_dialog() */
 
 #define MAX_OVECTOR 30 /* should be a multiple of three for pcre_exec(), 
 									and at maximum 2/3 of this size can really be used for substrings */
@@ -292,7 +293,17 @@ static void timing_stop(gint id) {
 /* initializing the highlighting */
 /*********************************/
 
-static void compile_pattern(gchar *filetype, gchar *name, gint case_insens
+static void highlight_error(gboolean gui_errors, gchar *str1, gchar *str2) {
+	if (gui_errors) {
+		error_dialog(NULL,str1, str2);
+	} else {
+		gchar *message = g_strconcat(str1, ", ", str2, "\n", NULL);
+		g_print(message);
+		g_free(message);
+	}
+}
+
+static void compile_pattern(gboolean gui_errors, gchar *filetype, gchar *name, gint case_insens
 			, gchar *pat1, gchar *pat2, gint mode, gchar *parentmatch
 			, gchar *fgcolor, gchar *bgcolor, gint weight, gint style) {
 	/*
@@ -339,20 +350,30 @@ static void compile_pattern(gchar *filetype, gchar *name, gint case_insens
 					(case_insens) ? PCRE_CASELESS|PCRE_MULTILINE|PCRE_DOTALL : PCRE_MULTILINE|PCRE_DOTALL,
 					&err,&erroffset,NULL);
 			if (err) {
-				g_print("error compiling pattern %s offset %d\n", err, erroffset);
+				gchar *str1, *str2;
+				str1 = g_strconcat(_("Syntax highlighting error for "),filetype," - ",name,NULL);
+				str2 = g_strdup_printf(_("compiling pattern '%s': %s at offset %d"), pat1, err, erroffset);
+				highlight_error(gui_errors, str1, str2);
+				g_free(str1);
+				g_free(str2);
 				g_free(pat);
 				return;
 			} else {
 				DEBUG_MSG("result: pat->reg1.pcre=%p\n", pat->reg1.pcre);
 				pat->reg1.pcre_e = pcre_study(pat->reg1.pcre,0,&err);
 				if (err) {
-					g_print("error studying pattern %s\n", err);
+					gchar *str1, *str2;
+					str1 = g_strconcat(_("Syntax highlighting error for "),filetype," - ",name,NULL);
+					str2 = g_strdup_printf(_("studying pattern '%s': %s"), pat1, err);
+					highlight_error(gui_errors, str1, str2);
+					g_free(str1);
+					g_free(str2);
 					pcre_free(pat->reg1.pcre);
 					g_free(pat);
 					return;
 				} else {
 					if (pcre_fullinfo(pat->reg1.pcre,pat->reg1.pcre_e,PCRE_INFO_CAPTURECOUNT,&pat->ovector_size)!=0) {
-						g_print("error gettting info for pattern %s\n", pat1);
+						g_print("Error for %s - %s, gettting info for pattern '%s'\n", filetype, name, pat1);
 					}
 					if (pat->ovector_size > MAX_OVECTOR) pat->ovector_size = MAX_OVECTOR;
 					if (pat->ovector_size < MIN_OVECTOR) pat->ovector_size = MIN_OVECTOR;
@@ -368,12 +389,22 @@ static void compile_pattern(gchar *filetype, gchar *name, gint case_insens
 					(case_insens) ? PCRE_CASELESS|PCRE_MULTILINE|PCRE_DOTALL : PCRE_MULTILINE|PCRE_DOTALL,
 					&err,&erroffset,NULL);
 			if (err) {
-				g_print("error compiling pattern %s offset %d\n", err, erroffset);
+				gchar *str1, *str2;
+				str1 = g_strconcat(_("Syntax highlighting error for "),filetype," - ",name,NULL);
+				str2 = g_strdup_printf(_("compiling 2nd pattern '%s': %s at offset %d"), pat2, err, erroffset);
+				highlight_error(gui_errors, str1, str2);
+				g_free(str1);
+				g_free(str2);
 			}
 			DEBUG_MSG("result: pat->reg2.pcre=%p\n", pat->reg2.pcre);
 			pat->reg2.pcre_e = pcre_study(pat->reg2.pcre,0,&err);
 			if (err) {
-				g_print("error studying pattern %s\n", err);
+				gchar *str1, *str2;
+				str1 = g_strconcat(_("Syntax highlighting error for "),filetype," - ",name,NULL);
+				str2 = g_strdup_printf(_("studying 2nd pattern '%s': %s"), pat2, err);
+				highlight_error(gui_errors, str1, str2);
+				g_free(str1);
+				g_free(str2);
 			}
 		}
 		if (mode == 3) {
@@ -442,7 +473,11 @@ static void add_patterns_to_parent(GList **list, gchar *filetype, gchar *name) {
 	}
 }
 
-void filetype_highlighting_rebuild() {
+/*
+ * if gui_errors is set, we can send a popup with an error message,
+ * else (during startup) we use g_print()
+ */
+void filetype_highlighting_rebuild(gboolean gui_errors) {
 	GList *tmplist;
 	GList *alldoclist;
 	
@@ -554,7 +589,7 @@ void filetype_highlighting_rebuild() {
 		gchar **strarr;
 		strarr = (gchar **) tmplist->data;
 		if (count_array(strarr) == 11) {
-			compile_pattern(strarr[0], strarr[1], atoi(strarr[2]), strarr[3], strarr[4], atoi(strarr[5]), strarr[6]
+			compile_pattern(gui_errors, strarr[0], strarr[1], atoi(strarr[2]), strarr[3], strarr[4], atoi(strarr[5]), strarr[6]
 				, strarr[7], strarr[8], atoi(strarr[9]), atoi(strarr[10]));
 		}
 #ifdef DEBUG		
@@ -631,7 +666,7 @@ void hl_init() {
 	highlight.all_highlight_patterns = NULL; 
 	highlight.tagtable = gtk_text_tag_table_new();
 
-	filetype_highlighting_rebuild();
+	filetype_highlighting_rebuild(FALSE);
 }
 
 /**************************************/
