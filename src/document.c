@@ -28,7 +28,7 @@
 #include <stdlib.h> /* system() */
 #include <time.h> /* ctime_r() */
 
-/* #define DEBUG*/
+/* #define DEBUG */
 
 #include "bluefish.h"
 #include "document.h"
@@ -1657,6 +1657,7 @@ gboolean doc_new_with_file(gchar * filename, gboolean delay_activate) {
 	doc->modified = 1; /* force doc_set_modified() to update the tab-label */
 	doc_set_modified(doc, 0);
 	doc_set_stat_info(doc); /* also sets mtime field */
+	filebrowser_open_dir(filename);
 	return TRUE;	
 }
 
