@@ -45,6 +45,7 @@
 #define MSG_QUEUE_SEND_ALIVE 46064
 #define MSG_QUEUE_OPENFILE 46063
 #define MSG_QUEUE_ASK_ALIVE 46062
+#define MSG_QUEUE_OPENNEWWIN 46061
 #define MSG_QUEUE_PER_DOCUMENT_TIMEOUT 20000000	/* nanoseconds */
 
 /* 
@@ -184,8 +185,9 @@ static gboolean msg_queue_check(gint started_by_gtk_timeout)
 			msgsnd(msg_queue.msgid, (void *) &small_msgp, MSQ_QUEUE_SMALL_SIZE * sizeof(char),
 				   IPC_NOWAIT);
 		} else if (msgp.mtype == MSG_QUEUE_OPENFILE) {
+			GList *lastlist = g_list_last(main_v->bfwinlist);
 			DEBUG_MSG("msg_queue_check, a filename %s is received\n", msgp.mtext);
-			if (!doc_new_with_file(BFWIN(main_v->bfwinlist->data),msgp.mtext, TRUE)) {
+			if (!doc_new_with_file(BFWIN(lastlist->data),msgp.mtext, TRUE)) {
 				msg_queue.file_error_list = g_list_append(msg_queue.file_error_list, g_strdup(msgp.mtext));
 			}
 			msg_queue_check(0);	/* call myself again, there may have been multiple files */
@@ -197,12 +199,14 @@ static gboolean msg_queue_check(gint started_by_gtk_timeout)
 					msg_queue.file_error_list = NULL;
 					message = g_strconcat(_("These files were not opened:\n"), tmp, NULL);
 					g_free(tmp);
-					warning_dialog(BFWIN(main_v->bfwinlist->data),_("Unable to open file(s)\n"), message);
+					warning_dialog(BFWIN(main_v->bfwinlist->data)->main_window,_("Unable to open file(s)\n"), message);
 					g_free(message);
 				}
 /*				gtk_notebook_set_page(GTK_NOTEBOOK(main_v->notebook),g_list_length(main_v->documentlist) - 1);
 				notebook_changed(-1);*/
 			}
+		} else if (msgp.mtype == MSG_QUEUE_OPENNEWWIN) {
+			gui_new_window(NULL);
 		}
 #ifdef DEBUG
 		 else {
@@ -361,15 +365,28 @@ static void msg_queue_request_alive(void)
 	}
 }
 
+static void msg_queue_send_new_window(void) {
+	int retval;
+	struct msgbuf {
+		long mtype;
+		char mtext[MSQ_QUEUE_SMALL_SIZE];
+	} small_msgp;
+	/* perhaps we should first check if the queue is alive */
+	
+	small_msgp.mtype = MSG_QUEUE_OPENNEWWIN;
+	retval = msgsnd(msg_queue.msgid,(void *) &small_msgp, MSQ_QUEUE_SMALL_SIZE * sizeof(char),IPC_NOWAIT);
+	if (retval == -1) {
+		/* hmm an error, we have to do some error handling here */
+	}
+}
+
 /*
 	static struct timespec const req = { 0, 200000000};
 	static struct timespec rem;
 	nanosleep(&req, &rem);
 */
 
-void msg_queue_start(GList * filenames)
-{
-
+void msg_queue_start(GList * filenames, gboolean in_new_window) {
 	gboolean received_keepalive = FALSE;
 	gboolean queue_already_open;
 
@@ -377,6 +394,9 @@ void msg_queue_start(GList * filenames)
 	queue_already_open = msg_queue_open();
 	if (queue_already_open && msg_queue.functional) {
 		msg_queue_request_alive();
+		if (in_new_window) {
+			msg_queue_send_new_window();
+		}
 		/* if we have filenames to open, we start sending them now, else we just check if we have to be master or not */
 		if (filenames) {
 			received_keepalive = msg_queue_send_files(filenames);

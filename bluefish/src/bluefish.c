@@ -58,13 +58,14 @@ void g_none(...) {
 
 static gint parse_commandline(int argc, char **argv
 		, gboolean *root_override
-		, GList **load_filenames) {
+		, GList **load_filenames
+		, gboolean *open_in_new_win) {
 	int c;
 	gchar *tmpname;
 
 	opterr = 0;
 	DEBUG_MSG("parse_commandline, started\n");
-	while ((c = getopt(argc, argv, "hsv?")) != -1) {
+	while ((c = getopt(argc, argv, "hsvn?")) != -1) {
 		switch (c) {
 		case 's':
 			*root_override = 1;
@@ -77,13 +78,17 @@ static gint parse_commandline(int argc, char **argv
 		case 'h':
 		case '?':
 			g_print(CURRENT_VERSION_NAME);
-			g_print(_("\nUsage: %s [options] [filename]\n"), argv[0]);
+			g_print(_("\nUsage: %s [options] [filenames ...]\n"), argv[0]);
 			g_print(_("\nCurrently accepted options are:\n"));
 			g_print(_("-s           skip root check\n"));
 			g_print(_("-v           current version\n"));
+			g_print(_("-n           open new window\n"));
 			g_print(_("-h           this help screen\n"));
 			exit(1);
 			break;
+		case 'n':
+			*open_in_new_win = 1;
+		break;
 		default:
 			DEBUG_MSG("parse_commandline, abort ?!?\n");
 			abort();
@@ -107,7 +112,7 @@ static gint parse_commandline(int argc, char **argv
 
 int main(int argc, char *argv[])
 {
-	gboolean root_override;
+	gboolean root_override=FALSE, open_in_new_window=FALSE;
 	GList *filenames = NULL;
 #ifndef NOSPLASH
 	GtkWidget *splash_window;
@@ -128,10 +133,10 @@ int main(int argc, char *argv[])
 	rcfile_check_directory();
 	rcfile_parse_main();
 	
-	parse_commandline(argc, argv, &root_override, &filenames);
+	parse_commandline(argc, argv, &root_override, &filenames, &open_in_new_window);
 #ifdef WITH_MSG_QUEUE	
 	if (filenames && main_v->props.open_in_running_bluefish) {
-		msg_queue_start(filenames);
+		msg_queue_start(filenames, open_in_new_window);
 	}
 #endif /* WITH_MSG_QUEUE */
 #ifndef NOSPLASH
@@ -160,7 +165,7 @@ int main(int argc, char *argv[])
 	rcfile_parse_custom_menu();
 #ifdef WITH_MSG_QUEUE
 	if (!filenames && main_v->props.open_in_running_bluefish) {
-		msg_queue_start(NULL);
+		msg_queue_start(NULL, open_in_new_window);
 	}
 #endif /* WITH_MSG_QUEUE */
 #ifndef NOSPLASH
