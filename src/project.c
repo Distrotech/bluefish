@@ -355,7 +355,7 @@ void project_edit(Tbfwin *bfwin) {
 		g_free(message);
 	}
 	
-	table = gtk_table_new (5, 3, FALSE);
+	table = gtk_table_new (5, 4, FALSE);
 	gtk_table_set_col_spacings (GTK_TABLE (table), 12);
 	gtk_table_set_row_spacings (GTK_TABLE (table), 6);	
 	gtk_box_pack_start (GTK_BOX (vbox), table, FALSE, FALSE, 12);
@@ -366,16 +366,18 @@ void project_edit(Tbfwin *bfwin) {
 	gtk_table_attach_defaults(GTK_TABLE(table), pred->entries[name], 2, 3, 0, 1);
 
 	pred->entries[basedir] = entry_with_text(pred->project->basedir, 255);
-	bf_mnemonic_label_tad_with_alignment(_("_Local Directory:"), pred->entries[basedir], 1, 0.5, table, 0, 1, 1, 2);
+	bf_mnemonic_label_tad_with_alignment(_("_Basedir:"), pred->entries[basedir], 1, 0.5, table, 0, 1, 1, 2);
 	gtk_table_attach_defaults(GTK_TABLE(table), pred->entries[basedir], 2, 3, 1, 2);
 
 	pred->entries[webdir] = entry_with_text(pred->project->webdir, 255);
-	bf_mnemonic_label_tad_with_alignment(_("_Remote Directory:"), pred->entries[webdir], 1, 0.5, table, 0, 1, 2, 3);
+	bf_mnemonic_label_tad_with_alignment(_("_Preview URL:"), pred->entries[webdir], 1, 0.5, table, 0, 1, 2, 3);
 	gtk_table_attach_defaults(GTK_TABLE(table), pred->entries[webdir], 2, 3, 2, 3);
 	
 	pred->entries[template] = entry_with_text(pred->project->template, 255);
 	bf_mnemonic_label_tad_with_alignment(_("_Template:"), pred->entries[template], 1, 0.5, table, 0, 1, 3, 4);
-	gtk_table_attach_defaults(GTK_TABLE(table), pred->entries[template], 2, 3, 3, 4);	
+	but = file_but_new(pred->entries[template], 1, NULL);
+	gtk_table_attach_defaults(GTK_TABLE(table), pred->entries[template], 2, 3, 3, 4);
+	gtk_table_attach_defaults(GTK_TABLE(table), but, 3, 4, 3, 4);
 
 	gtk_table_set_row_spacing(GTK_TABLE(table), 3, 18);
 	pred->entries[word_wrap] = checkbut_with_value(_("_Word wrap by default"), pred->project->word_wrap);

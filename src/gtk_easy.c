@@ -1256,6 +1256,7 @@ static void file_but_destroy(GtkObject *object, Tfilebut *fb) {
  * @which_entry: #GtkWidget* GTK_ENTRY where to put the filename
  * @win: #GtkWidget* the GTK_WINDOW where the button is placed
  * @full_pathname: #gint 1 or 0, if you want the full path or a relative path
+ * #bfwin: #Tbfwin, only required if you want a relative pathname
  *
  *	Create new "open file" button, that will put the string into an entry
  *
