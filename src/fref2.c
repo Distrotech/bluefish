@@ -822,23 +822,23 @@ void fref_load_from_file(gchar * filename, GtkWidget * tree, GtkTreeStore * stor
 
 	if (filename == NULL)
 		return;
-	info->dictionary =g_hash_table_new_full(g_str_hash, g_str_equal, NULL,
-								      (GDestroyNotify) gtk_tree_row_reference_free);
+	info->dictionary =g_hash_table_new(g_str_hash, g_str_equal);
 	info->commons = g_hash_table_new(g_str_hash, g_str_equal);
 	info->elements = g_hash_table_new(g_str_hash, g_str_equal);
 	info->proplists = g_hash_table_new(g_str_hash, g_str_equal);
 	xmlLineNumbersDefault(1);
 	doc = xmlParseFile(filename);
 	if (doc==NULL) {
-		g_warning(_("Cannot load reference file %s\n"),filename);
+		error_dialog(bfwin->main_window,_("Load error"),_("Cannot load reference file, perhaps it is not well-formed."));
 		g_hash_table_destroy(info->dictionary);
 		g_hash_table_destroy(info->commons);
 		g_hash_table_destroy(info->elements);
+		g_hash_table_destroy(info->proplists);
 		return;
 	}	
 	cur = xmlDocGetRootElement(doc);	
 	if ( xmlStrcmp(cur->name, "ref") != 0 &&  xmlStrcmp(cur->name,"r") != 0 ) {
-		g_warning(_("Bad root element in reference file %s\nShould be <ref> or <r> and found %s"),filename,cur->name);
+		error_dialog(bfwin->main_window,_("Bad root element in reference file"),_(" %s\nShould be <ref> or <r> "));
 		g_hash_table_destroy(info->dictionary);
 		g_hash_table_destroy(info->commons);		
 		g_hash_table_destroy(info->elements);
@@ -1277,6 +1277,17 @@ static void fref_save_element(GtkTreeStore *store,GtkTreeIter *iter,xmlDocPtr do
 					fref_save_property(FREFPROPERTY(lst->data),node2);
 					lst = g_list_next(lst);
 				} /* while */
+				lst = g_list_first(el->notes);
+				while (lst)
+				{
+					Tfref_note *n = FREFNOTE(lst->data);
+					node2 = xmlNewNode(NULL, "note");
+					xmlNewProp(node2,"title",n->title);
+					txt = xmlNewText(n->text);
+					xmlAddChild(node2,txt);
+					xmlAddChild(node,node2);									
+					lst = g_list_next(lst);
+				}				
 				xmlAddChild(parent,node);
 			}	
 		} /* switch */
@@ -3502,12 +3513,18 @@ static void frefcb_new_td(GtkWidget * widget, Tbfwin *bfwin, gint type, gboolean
 						gtk_widget_destroy(dialog);
 						return;
 					}								
-					gtk_tree_model_get_iter(GTK_TREE_MODEL(FREFDATA(main_v->frefdata)->store),&iter, path);			
-					gtk_tree_store_append(GTK_TREE_STORE(FREFDATA(main_v->frefdata)->store), &auxit, &iter);
-				
-					gtk_tree_store_set(GTK_TREE_STORE(FREFDATA(main_v->frefdata)->store), &auxit, 
-					PIXMAP_COLUMN,gtk_image_get_pixbuf(GTK_IMAGE(new_pixmap(164))),
-					STR_COLUMN,note->title, FILE_COLUMN, NULL, PTR_COLUMN,rec,VISIBLE_COLUMN,TRUE, -1);	
+					if ( entry->etype==FREF_EL_REF || entry->etype==FREF_EL_GROUP )
+					{
+						gtk_tree_model_get_iter(GTK_TREE_MODEL(FREFDATA(main_v->frefdata)->store),&iter, path);			
+						gtk_tree_store_append(GTK_TREE_STORE(FREFDATA(main_v->frefdata)->store), &auxit, &iter);				
+						gtk_tree_store_set(GTK_TREE_STORE(FREFDATA(main_v->frefdata)->store), &auxit, 
+						PIXMAP_COLUMN,gtk_image_get_pixbuf(GTK_IMAGE(new_pixmap(164))),
+						STR_COLUMN,note->title, FILE_COLUMN, NULL, PTR_COLUMN,rec,VISIBLE_COLUMN,TRUE, -1);	
+					}
+					else /* note for element */
+					{
+						FREFELEMENT(entry->data)->notes = g_list_append(FREFELEMENT(entry->data)->notes,note);
+					}	
 				break;
 				case FREF_EL_GROUP:
 					note = g_new0(Tfref_note,1);
@@ -4091,7 +4108,6 @@ static void frefcb_del_entity(GtkWidget * widget, Tbfwin *bfwin)
 {
 	Tfref_record *rec = get_current_entry(bfwin);
 	gchar *btns[] = { GTK_STOCK_NO, GTK_STOCK_YES, NULL };	
-	gchar *pstr;
 	gint ret;
 	GtkTreePath *path;
 	GtkTreeIter it;
