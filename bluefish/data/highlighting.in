@@ -116,17 +116,47 @@ pascal:Brackets:1:[\\[]:[\\]]:1::#289C02::0:0:
 pascal:Begin:1:\\b(begin|end)\\b:\\b(end)\\b:2::#36648B::2:0:
 pascal:Braces:0:[()]::2::#B22727::0:0:
 perl:oneline comment:1:(//|#).*?$::2::#7777AA::0:2:
-perl:HEREDOc:1:<<EOF$":"EOF:1::#009900::0:0:
-perl:String (double quoted):0:":":1::#009900::0:0:
-perl:String (single quoted):0:':':1::#009900::0:0:
+perl:HERE DOC:1:<<EOF$":"EOF:1::#009900::0:0:
+perl:HERE POD:1:^=[a-z]+:^=cut:1::#111188::1:2:
+perl:RegExp 01:0:~\\s*(s|tr|y)\\s*/.*?(?<!\\\\)/.*?(?<!\\\\)/\\s*[gcimosxde]*::2::#666666::0:1:
+perl:RegExp 02:0:~\\s*(s|tr|y)\\s*\\|.*?(?<!\\\\)\\|.*?(?<!\\\\)\\|\\s*[gcimosxde]*::2::#666666::0:1:
+perl:RegExp 03:0:~\\s*(s|tr|y)\\s*".*?(?<!\\\\)".*?(?<!\\\\)"\\s*[gcimosxde]*::2::#666666::0:1:
+perl:RegExp 04:0:~\\s*(s|tr|y)\\s*'.*?(?<!\\\\)'.*?(?<!\\\\)'\\s*[gcimosxde]*::2::#666666::0:1:
+perl:RegExp 05:0:~\\s*/:(?<!\\\\)/\\s*[gcimosxde]*:1::#666666::0:1:
+perl:RegExp 06:0:~\\s*":(?<!\\\\)"\\s*[gcimosxde]*:1::#666666::0:1:
+perl:RegExp 06:0:~\\s*m\\s*":(?<!\\\\)"\\s*[gcimosxde]*:1::#666666::0:1:
+perl:RegExp 06:0:~\\s*m\\s*':(?<!\\\\)'\\s*[gcimosxde]*:1::#666666::0:1:
+perl:RegExp 07:0:~\\s*m\\s*/:(?<!\\\\)/\\s*[gcimosxde]*::1::#666666::0:1:
+perl:RegExp 08:0:~\\s*m\\s*\\|:(?<!\\\\)\\|\\s*[gcimosxde]*:1::#666666::0:1:
+perl:RegExp 09:0:~\\s*m\\s*\\[:(?<!\\\\)\\]\\s*[gcimosxde]*:1::#666666::0:1:
+perl:RegExp 10:0:~\\s*m\\s*\\{:(?<!\\\\)\\}\\s*[gcimosxde]*:1::#666666::0:1:
+perl:RegExp 11:0:~\\s*m\\s*\\(:(?<!\\\\)\\)\\s*[gcimosxde]*:1::#666666::0:1:
+perl:String (single quoted) 1:0:\\bq\\s*~:(?<!\\\\)~:1::#009900::0:0:
+perl:String (single quoted) 2:0:\\bq\\s*\\(:(?<!\\\\)\\):1::#009900::0:0:
+perl:String (single quoted) 3:0:\\bq\\s*\\[:(?<!\\\\)\\]:1::#009900::0:0:
+perl:String (single quoted) 4:0:\\bq\\s*\\|:(?<!\\\\)\\|:1::#009900::0:0:
+perl:String (single quoted) 5:0:\\bq\\s*/:(?<!\\\\)/:1::#009900::0:0:
+perl:String (single quoted) 6:0:':(?<!\\\\)':1::#009900::0:0:
+perl:String (double quoted) 1:0:\\bqq\\s*~:(?<!\\\\)~:1::#009900::0:0:
+perl:String (double quoted) 2:0:\\bqq\\s*\\(:(?<!\\\\)\\):1::#009900::0:0:
+perl:String (double quoted) 3:0:\\bqq\\s*\\[:(?<!\\\\)\\]:1::#009900::0:0:
+perl:String (double quoted) 4:0:\\bqq\\s*\\|:(?<!\\\\)\\|:1::#009900::0:0:
+perl:String (double quoted) 5:0:\\bqq\\s*/:(?<!\\\\)/:1::#009900::0:0:
+perl:String (double quoted) 6:0:":(?<!\\\\)":1::#009900::0:0:
+perl:String (execute) 1:0:\\bqx\\s*~:(?<!\\\\)~:1::#880000::0:0:
+perl:String (execute) 2:0:\\bqx\\s*\\(:(?<!\\\\)\\):1::#880000::0:0:
+perl:String (execute) 3:0:\\bqx\\s*\\[:(?<!\\\\)\\]:1::#880000::0:0:
+perl:String (execute) 4:0:\\bqx\\s*\\|:(?<!\\\\)\\|:1::#880000::0:0:
+perl:String (execute) 5:0:\\bqx\\s*/:(?<!\\\\)/:1::#880000::0:0:
+perl:String (execute) 6:0:\\`:(?<!\\\\)\\`:1::#880000::0:0:
 perl:Statements:0:\\b(if|until|while|elsif|else|unless|for(each)?|continue|last|goto|next|redo|do(?=\\s*\\{)|BEGIN|END)\\b::2::#000000::2:0:
 perl:Modules:0:^(bless|caller|import|no|package|prototype|require|return|INIT|CHECK|BEGIN|END|use|new)::2::#990000::2:0:
 perl:Pragma:0:\\b(attrs|autouse|base|blib|constant|diagnostics|fields|integer|less|lib|locale|ops|overload|re|sigtrap|strict|subs|vars|vmsish)\\b::2::#990000::2:0:
 perl:Methods:0:\\b(can|isa|VERSION)\\b::2::#900000::2:0:
 perl:File Tests:0:\\b-[rwxRWXoOezsfdlSpbcugktTBMAC]\\b::2::#990000::2:0:
-perl:Variables (Scalar):1:\\$[a-z_][][a-z0-9>_$-]*::2::#000099::2:0:
-perl:Variables (Array):1:\\@[a-z_][][a-z0-9>_$-]*::2::#0000ff::2:0:
-perl:Variables (Hash):1:\\%[a-z_][][a-z0-9>_$-]*::2::#0000cc::2:0:
+perl:Variables (Scalar):1:\\$(\\\\(\\\\)?|\\^[a-z]?|[^0-9a-z_]|[a-z0-9_]+)::2::#000099::0:0:
+perl:Variables (Array):1:\\@\\$?[a-z0-9_]([a-z0-9_]+)?::2::#0000ff::0:0:
+perl:Variables (Hash):1:\\%\\$?[a-z]([a-z0-9_]+)?::2::#0000cc::0:0:
 perl:File Functions:1:\\b(bind|binmode|close(?:dir)?|connect|eof|fcntl|fileno|flock|getc|getpeername|getsockname|getsockopt|ioctl|listen|open(?:dir)?|recv|read(?:dir)?|rewinddir|seek(?:dir)?|send|setsockopt|shutdown|socket|sysopen|sysread|sysseek|syswrite|tell(?:dir)?|write|accept|pipe|socketpair|print|printf|select)\\b::2::#900000::2:0:
 php:HTML:1:<((/)?[a-z0-9]+):>:1::#000077::0:0:
 php:<html> Tags:1:1::3:^HTML$:#550044::2:0:
