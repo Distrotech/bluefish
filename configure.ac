@@ -201,6 +201,14 @@ else
 	echo "no"
 fi
 
+echo -n "checking for gnome-vfs-2.5... "
+if pkg-config gnome-vfs-2.0 --atleast-version=2.5 ; then
+	AC_DEFINE(HAVE_ATLEAST_GNOMEVFS_2_5)
+	echo "yes"
+else
+	echo "no"
+fi
+
 AC_PATH_PROG(PCRE_CONFIG, pcre-config, no)
 if test "x$PCRE_CONFIG" = "xno" ; then
 	AC_MSG_ERROR(pcre-config not found please install libpcre3-dev or similar)

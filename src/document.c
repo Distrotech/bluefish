@@ -1320,7 +1320,38 @@ static gchar *get_buffer_from_filename(Tbfwin *bfwin, gchar *filename, int *retu
 	*returnsize= buffer_size-STARTING_BUFFER_SIZE+bytes_read;
 	gnome_vfs_close(handle);*/
 	/* using gnome_vfs_read_entire_file results in a buffer without \0 at the end */
-	result = gnome_vfs_read_entire_file(filename,returnsize,&buffer);
+	int gotsource=0;
+
+	if (main_v->props.server_zope_compat) {
+	    GnomeVFSURI* uri=gnome_vfs_uri_new(filename);
+	    if (uri) {
+		gchar const *scheme=gnome_vfs_uri_get_scheme(uri);
+		if (scheme && (strcmp(scheme, "http")==0 || strcmp(scheme, "https")==0)) {
+		    GnomeVFSURI* sourceuri;
+#ifdef HAVE_ATLEAST_GNOME_2_5
+		    /* TODO */
+		    /* use metadata to get source property */
+		    sourceuri=gnome_vfs_uri_append_file_name(uri, "document_src");
+#else
+		    sourceuri=gnome_vfs_uri_append_file_name(uri, "document_src");
+#endif
+		    if (sourceuri) {
+			gchar *sourcefilename=gnome_vfs_uri_to_string(sourceuri, 0);
+			if (sourcefilename) {
+			    result = gnome_vfs_read_entire_file(sourcefilename,returnsize,&buffer);
+			    DEBUG_MSG("get_buffer_from_filename, loading %s returns %d\n", sourcefilename, result);
+			    if (result==GNOME_VFS_OK) {
+				gotsource=1;
+			    }
+			    g_free(sourcefilename);
+			}
+			gnome_vfs_uri_unref(sourceuri);
+		    }
+		}
+		gnome_vfs_uri_unref(uri);
+	    }
+	}
+	if (!gotsource) result = gnome_vfs_read_entire_file(filename,returnsize,&buffer);
 	if (GNOME_VFS_OK != result) {
 		gchar *errmessage = g_strconcat(_("Could not read file:\n"), filename, NULL);
 		warning_dialog(bfwin->main_window,errmessage, NULL);

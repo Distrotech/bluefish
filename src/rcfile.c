@@ -411,7 +411,9 @@ static GList *props_init_main(GList * config_rc)
 #ifdef WITH_MSG_QUEUE
 	init_prop_integer (&config_rc, &main_v->props.open_in_running_bluefish,"open_in_running_bluefish:",1, TRUE);
 #endif
-
+#ifdef HAVE_GNOME_VFS
+	init_prop_integer (&config_rc, &main_v->props.server_zope_compat,"server_zope_compat:", 0, TRUE); 
+#endif
 	return config_rc;
 }
 
