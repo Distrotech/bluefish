@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-/*#define DEBUG*/
+/* #define DEBUG */
 /*#define DEBUG_ADDING_TO_TREE*/
 
 #include <gtk/gtk.h>
@@ -612,7 +612,7 @@ static void refresh_dir_by_path_and_filename(Tfilebrowser *filebrowser, GtkTreeP
 				} else {
 					myiter2 = add_tree_item(&myiter, filebrowser, entry->name, entry->type, entry->icon);
 				}
-				if (entry->type == TYPE_DIR) {
+				if (entry->type == TYPE_DIR && !main_v->props.filebrowser_two_pane_view) {
 #ifdef DEBUG_ADDING_TO_TREE
 					DEBUG_MSG("refresh_dir_by_path_and_filename, %s is TYPE_DIR so we setup the fake item\n", entry->name);
 #endif
@@ -1370,28 +1370,40 @@ static gboolean filebrowser_button_press_lcb(GtkWidget *widget, GdkEventButton *
 		GtkTreePath *path;
 		/* path = filebrowser_get_path_from_selection(GTK_TREE_MODEL(filebrowser->store), GTK_TREE_VIEW(filebrowser->tree),NULL);*/
 		gtk_tree_view_get_path_at_pos(GTK_TREE_VIEW(filebrowser->tree), event->x, event->y, &path, NULL, NULL, NULL);
+		DEBUG_MSG("filebrowser_button_press_lcb, path for position x=%d,y=%d is %p\n",event->x, event->y, path);
 		if (path) {
-			gtk_tree_model_get_iter(GTK_TREE_MODEL(filebrowser->store),&iter,path);
-			if (gtk_tree_model_iter_has_child(GTK_TREE_MODEL(filebrowser->store),&iter)) {
-				DEBUG_MSG("filebrowser_button_press_lcb, clicked a directory, refresh!\n");
-				if (!main_v->props.filebrowser_two_pane_view && !gtk_tree_view_row_expanded(GTK_TREE_VIEW(filebrowser->tree), path)) {
-					DEBUG_MSG("filebrowser_button_press_lcb, was not yet explanded, in single paned view, refresh makes no sense\n");
-				} else {
-					gchar *tmp, *dir;
-					tmp = return_filename_from_path(filebrowser,GTK_TREE_MODEL(filebrowser->store),path);
-					dir = ending_slash(tmp);
-					DEBUG_MSG("filebrowser_button_press_lcb, ending_slash returned %s\n", dir);
-					filebrowser_refresh_dir(filebrowser,dir);
-					g_free(tmp);
-					g_free(dir);
+			/* now we have two things: for the two paned, we know it is a directory, so we should refresh it, for the 
+			one paned we need to know if it is a directory or a file and handle appropriately */
+			if (main_v->props.filebrowser_two_pane_view) {
+				gchar *tmp, *dir;
+				tmp = return_filename_from_path(filebrowser,GTK_TREE_MODEL(filebrowser->store),path);
+				dir = ending_slash(tmp);
+				filebrowser_refresh_dir(filebrowser,dir);
+				g_free(tmp);
+				g_free(dir);
+			} else {
+				gtk_tree_model_get_iter(GTK_TREE_MODEL(filebrowser->store),&iter,path);
+				if (gtk_tree_model_iter_has_child(GTK_TREE_MODEL(filebrowser->store),&iter)) {
+					DEBUG_MSG("filebrowser_button_press_lcb, clicked a directory, refresh!\n");
+					if (!main_v->props.filebrowser_two_pane_view && !gtk_tree_view_row_expanded(GTK_TREE_VIEW(filebrowser->tree), path)) {
+						DEBUG_MSG("filebrowser_button_press_lcb, was not yet explanded, in single paned view, refresh makes no sense\n");
+					} else {
+						gchar *tmp, *dir;
+						tmp = return_filename_from_path(filebrowser,GTK_TREE_MODEL(filebrowser->store),path);
+						dir = ending_slash(tmp);
+						DEBUG_MSG("filebrowser_button_press_lcb, ending_slash returned %s\n", dir);
+						filebrowser_refresh_dir(filebrowser,dir);
+						g_free(tmp);
+						g_free(dir);
+					}
+	/*				gtk_tree_path_free(path);
+					return FALSE;*/
+				} else if (event->type == GDK_2BUTTON_PRESS) {
+					gchar *filename = return_filename_from_path(filebrowser,GTK_TREE_MODEL(filebrowser->store),path);
+					DEBUG_MSG("filebrowser_button_press_lcb, doubleclick!! open the file %s\n", filename);
+					handle_activate_on_file(filebrowser,filename);
+					g_free(filename);
 				}
-/*				gtk_tree_path_free(path);
-				return FALSE;*/
-			} else if (event->type == GDK_2BUTTON_PRESS) {
-				gchar *filename = return_filename_from_path(filebrowser,GTK_TREE_MODEL(filebrowser->store),path);
-				DEBUG_MSG("filebrowser_button_press_lcb, doubleclick!! open the file %s\n", filename);
-				handle_activate_on_file(filebrowser,filename);
-				g_free(filename);
 			}
 			gtk_tree_path_free(path);
 /*			return TRUE;*/
