@@ -666,6 +666,50 @@ gint doc_get_cursor_position(Tdocument *doc) {
 	return gtk_text_iter_get_offset(&iter);
 }
 /**
+ * doc_set_statusbar_insovr:
+ * @doc: a #Tdocument
+ * 
+ * 
+ *
+ * Return value: void
+ **/
+void doc_set_statusbar_insovr(Tdocument *doc)
+{
+	gtk_statusbar_push(GTK_STATUSBAR(main_v->statusbar_insovr), 0, (doc->overwrite_mode ? " OVR" : " INS"));
+}
+/**
+ * doc_set_statusbar_editmode_encoding:
+ * @doc: a #Tdocument
+ * 
+ *
+ * Return value: void
+ **/
+void doc_set_statusbar_editmode_encoding(Tdocument *doc)
+{
+	gchar *msg;
+	Tfiletype *filetype = NULL;
+	GList *tmplist;
+	
+	/* find set for this filetype */
+	if (doc->filename) {
+		tmplist = g_list_first(main_v->filetypelist);
+		while (tmplist) {
+			if (filename_test_extensions(((Tfiletype *) tmplist->data)->extensions, doc->filename)) {
+				filetype = (Tfiletype *) tmplist->data;
+			}
+			tmplist = g_list_next(tmplist);
+		}
+	}
+	
+	if (filetype == NULL)
+		msg = g_strdup_printf(_("  %s, %s"), "unknown", doc->encoding);
+	else 
+		msg = g_strdup_printf(_("  %s, %s"), filetype->type, doc->encoding);
+	
+	gtk_statusbar_push(GTK_STATUSBAR(main_v->statusbar_editmode), 0, msg);
+	g_free(msg);		
+}
+/**
  * doc_replace_text_backend:
  * @doc: a #Tdocument
  * @newstring: a #const char * with the new string
@@ -1118,9 +1162,10 @@ static void doc_update_linenumber(Tdocument *doc, GtkTextIter *iter, gint offset
 	} else {
 		itinsert = *iter;
 	}
-	line = gtk_text_iter_get_line(&itinsert)+1;
-	string = g_strdup_printf(_(" line %4d "), line + offset); 
-	gtk_label_set(GTK_LABEL(main_v->statuslabel),string);	
+	line = gtk_text_iter_get_line(&itinsert) + 1;
+		
+	string = g_strdup_printf(_(" Line  %d"), line + offset);
+	gtk_statusbar_push(GTK_STATUSBAR(main_v->statusbar_lncol), 0, string);
 	g_free(string);
 	DEBUG_MSG("doc_update_linenumber, line=%d\n", line);
 }
@@ -1304,6 +1349,12 @@ static void doc_buffer_mark_set_lcb(GtkTextBuffer *buffer,GtkTextIter *iter,
 	if (ins_mark == set_mark) {
 		doc_update_linenumber(doc, iter, 0);
 	}
+}
+
+static void doc_view_toggle_overwrite_lcb(GtkTextView *view, Tdocument *doc)
+{	
+	doc->overwrite_mode = (doc->overwrite_mode ? FALSE : TRUE);	
+	doc_set_statusbar_insovr(doc);
 }
 
 void doc_bind_signals(Tdocument *doc) {
@@ -1821,6 +1872,7 @@ Tdocument *doc_new(gboolean delay_activate) {
 	newdoc->owner_gid = -1;
 	newdoc->is_symlink = 0;
 	newdoc->encoding = g_strdup(main_v->props.newfile_default_encoding);
+	newdoc->overwrite_mode = FALSE;
 	doc_bind_signals(newdoc);
 
 	g_signal_connect(G_OBJECT(newdoc->view), "button-release-event"
@@ -1829,6 +1881,8 @@ Tdocument *doc_new(gboolean delay_activate) {
 		, G_CALLBACK(doc_view_button_press_lcb), newdoc);
 	g_signal_connect(G_OBJECT(newdoc->buffer), "mark-set"
 		, G_CALLBACK(doc_buffer_mark_set_lcb), newdoc);
+	g_signal_connect(G_OBJECT(newdoc->view), "toggle-overwrite",
+		G_CALLBACK(doc_view_toggle_overwrite_lcb), newdoc);
 	main_v->documentlist = g_list_append(main_v->documentlist, newdoc);
 
 	gtk_widget_show(newdoc->view);
@@ -2028,6 +2082,8 @@ void doc_activate(Tdocument *doc) {
 	DEBUG_MSG("doc_activate, calling gui_set_widgets\n");
 	gui_set_widgets(doc_has_undo_list(doc), doc_has_redo_list(doc), doc->wrapstate, doc->highlightstate, doc->hl, doc->encoding, doc->linenumberstate);
 	doc_set_file_in_titlebar(doc);
+	doc_set_statusbar_insovr(doc);
+	doc_set_statusbar_editmode_encoding(doc);
 
 	/* if highlighting is needed for this document do this now !! */
 	if (doc->need_highlighting && doc->highlightstate) {
