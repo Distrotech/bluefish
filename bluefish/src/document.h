@@ -36,6 +36,7 @@ Tdocument *documentlist_return_document_from_index(GList *doclist, gint index);
 void doc_update_highlighting(Tbfwin *bfwin,guint callback_action, GtkWidget *widget);
 void doc_set_wrap(Tdocument *doc);
 gboolean doc_set_filetype(Tdocument *doc, Tfiletype *ft);
+void doc_set_title(Tdocument *doc);
 Tfiletype *get_filetype_by_name(gchar * name);
 Tfiletype *get_filetype_by_filename_and_content(gchar *filename, gchar *buf);
 void doc_reset_filetype(Tdocument * doc, gchar * newfilename, gchar *buf);
@@ -88,9 +89,6 @@ void doc_activate(Tdocument *doc);
 void doc_force_activate(Tdocument *doc);
 /* callbacks for the menu and toolbars */
 void file_open_from_selection(Tbfwin *bfwin);
-void file_save_cb(GtkWidget * widget, Tbfwin *bfwin);
-void file_save_as_cb(GtkWidget * widget, Tbfwin *bfwin);
-void file_move_to_cb(GtkWidget * widget, Tbfwin *bfwin);
 
 void file_insert_menucb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget);
 void file_new_cb(GtkWidget * widget, Tbfwin *bfwin);

@@ -40,9 +40,8 @@ typedef enum {
 } TcheckNsave_return;
 
 typedef TcheckNsave_return (* CheckNsaveAsyncCallback) (TcheckNsave_status,gint error_info,gpointer callback_data);
-
-void file_checkNsave_uri_async(GnomeVFSURI *uri, GnomeVFSFileInfo *info, Trefcpointer *buffer, GnomeVFSFileSize buffer_size, CheckNsaveAsyncCallback callback_func, gpointer callback_data);
-
+void file_checkNsave_uri_async(GnomeVFSURI *uri, GnomeVFSFileInfo *info, Trefcpointer *buffer, GnomeVFSFileSize buffer_size, gboolean check_modified, CheckNsaveAsyncCallback callback_func, gpointer callback_data);
+void file_doc_fill_fileinfo(Tdocument *doc, GnomeVFSURI *uri);
 void file_doc_retry_uri(Tdocument *doc);
 void file_doc_from_uri(Tbfwin *bfwin, GnomeVFSURI *uri, GnomeVFSFileInfo *finfo);
 void file_docs_from_uris(Tbfwin *bfwin, GSList *urislist);
