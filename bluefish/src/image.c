@@ -133,14 +133,10 @@ static void image_diag_finish(Timage_diag *imdg, GtkSignalFunc ok_func) {
 }
 
 static void image_filename_changed(GtkWidget * widget, Timage_diag *imdg) {
+	DEBUG_MSG("image_filename_changed() started. GTK_IS_WIDGET(imdg->im) == %d\n", GTK_IS_WIDGET(imdg->im));
 	gint pb_width, pd_height, toobig;
 	GdkPixbuf *tmp_pb;
 	
-	if (imdg->im) {
-		gtk_container_remove(GTK_CONTAINER(imdg->frame), imdg->im);
-		imdg->im = NULL;
-		/*gtk_widget_destroy(imdg->im);*/
-	}
 	if (imdg->pb) {
 		g_object_unref(imdg->pb);
 	}
@@ -171,25 +167,31 @@ static void image_filename_changed(GtkWidget * widget, Timage_diag *imdg) {
 	}
 	
 	tmp_pb = gdk_pixbuf_scale_simple(imdg->pb, (pb_width / toobig), (pd_height / toobig), main_v->props.image_thumbnail_refresh_quality ? GDK_INTERP_BILINEAR : GDK_INTERP_NEAREST);
+	
+	if (GTK_IS_WIDGET(imdg->im)) {
+		DEBUG_MSG("imdg->im == %p\n", imdg->im);
+		DEBUG_MSG("gtk_widget_destroy() %p\n", imdg->im);
+		gtk_widget_destroy(imdg->im);
+	}
+	
 	imdg->im = gtk_image_new_from_pixbuf(tmp_pb);
 
 	g_object_unref(tmp_pb);
 	gtk_container_add(GTK_CONTAINER(imdg->frame), imdg->im);
 	gtk_widget_show(imdg->im);
+	DEBUG_MSG("imdg->im == %p\n", imdg->im);
+	DEBUG_MSG("image_filename_changed() finished. GTK_IS_WIDGET(imdg->im) == %d\n", GTK_IS_WIDGET(imdg->im));
 }
 
-
 static void image_adjust_changed(GtkAdjustment * adj, Timage_diag *imdg) {
+	DEBUG_MSG("image_adjust_changed started. GTK_IS_WIDGET(imdg->im) == %d\n", GTK_IS_WIDGET(imdg->im));
 	GdkPixbuf *tmp_pb;
 	gint tn_width, tn_height;
 	if (!imdg->pb) {
 		image_filename_changed(NULL, imdg);
 		return;
 	}
-	if (imdg->im) {
-		/* gtk_widget_destroy(imdg->im); */
-		gtk_container_remove(GTK_CONTAINER(imdg->frame), imdg->im);
-	}
+
 	tn_width = imdg->adjustment->value * gdk_pixbuf_get_width(imdg->pb);
 	tn_height = imdg->adjustment->value * gdk_pixbuf_get_height(imdg->pb);
 
@@ -197,10 +199,18 @@ static void image_adjust_changed(GtkAdjustment * adj, Timage_diag *imdg) {
 	gtk_spin_button_set_value(GTK_SPIN_BUTTON(imdg->dg->spin[1]),tn_height);
 
 	tmp_pb = gdk_pixbuf_scale_simple(imdg->pb, tn_width, tn_height, main_v->props.image_thumbnail_refresh_quality ? GDK_INTERP_BILINEAR : GDK_INTERP_NEAREST);
+	
+	if (GTK_IS_WIDGET(imdg->im)) {
+		DEBUG_MSG("imdg->im == %p\n", imdg->im);
+		DEBUG_MSG("gtk_widget_destroy() %p\n", imdg->im);		
+		gtk_widget_destroy(imdg->im);
+	}
+	
 	imdg->im = gtk_image_new_from_pixbuf(tmp_pb);
 	g_object_unref(tmp_pb);
 	gtk_container_add(GTK_CONTAINER(imdg->frame), imdg->im);
 	gtk_widget_show(imdg->im);
+	DEBUG_MSG("image_adjust_changed finished. GTK_IS_WIDGET(imdg->im) == %d\n", GTK_IS_WIDGET(imdg->im));
 }
 
 void image_insert_dialog_backend(gchar *filename,GtkWidget *widget, gpointer data, gboolean is_thumbnail) {
