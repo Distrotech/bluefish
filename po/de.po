@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: bluefish gtk2-port\n"
-"POT-Creation-Date: 2003-07-08 11:18+0200\n"
+"POT-Creation-Date: 2003-07-14 04:26-0300\n"
 "PO-Revision-Date: 2002-12-13 23:02+0100\n"
 "Last-Translator: Roland Steinbach <roland@netzblick.de>\n"
 "Language-Team: Not a member <LL@li.org>\n"
@@ -135,9 +135,13 @@ msgstr "Öffne Hauptfenster..."
 msgid "/Document/Highlight Syntax"
 msgstr "/Dokument/Syntaxhighlight"
 
-#: ../src/document.c:552 ../src/document.c:553 ../src/document.c:724
+#: ../src/document.c:552 ../src/document.c:553
 msgid "Untitled"
 msgstr "Ohne Titel"
+
+#: ../src/document.c:724
+msgid " Untitled"
+msgstr " Ohne Titel"
 
 #: ../src/document.c:824 ../src/document.c:825
 #, c-format
@@ -333,93 +337,93 @@ msgstr ""
 msgid "Bluefish: Warning, file is modified"
 msgstr "Bluefish Warnung: Datei geändert"
 
-#: ../src/document.c:2452
+#: ../src/document.c:2453
 msgid "searching files..."
 msgstr "Suche Dateien..."
 
-#: ../src/document.c:2472
+#: ../src/document.c:2473
 msgid "Select basedir"
 msgstr "Basisverzeichnis auswählen"
 
-#: ../src/document.c:2486
+#: ../src/document.c:2487
 msgid "Advanced open file selector"
 msgstr "Erweiterte Dateiauswahl"
 
-#: ../src/document.c:2497
+#: ../src/document.c:2498
 msgid "grep {contains} `find {basedir} -name '{file type}'`"
 msgstr "grep {contains} `find {basedir} -name '{file type}'`"
 
-#: ../src/document.c:2502
+#: ../src/document.c:2503
 msgid "<b>General</b>"
 msgstr "<b>Allgemein</b>"
 
-#: ../src/document.c:2504
+#: ../src/document.c:2505
 msgid "Base_dir:"
 msgstr "Hauptverzeichnis:"
 
-#: ../src/document.c:2506 ../src/gtk_easy.c:1173
+#: ../src/document.c:2507 ../src/gtk_easy.c:1173
 msgid "_Browse..."
 msgstr "_Browsen..."
 
-#: ../src/document.c:2521
+#: ../src/document.c:2522
 msgid "_File Type:"
 msgstr "Dateit_yp:"
 
-#: ../src/document.c:2527
+#: ../src/document.c:2528
 msgid "_Recursive:"
 msgstr "_rekursiv:"
 
-#: ../src/document.c:2532
+#: ../src/document.c:2533
 msgid "<b>Contains</b>"
 msgstr "<b>enthält</b>"
 
-#: ../src/document.c:2535
+#: ../src/document.c:2536
 msgid "Pa_ttern:"
 msgstr "Mus_ter:"
 
-#: ../src/document.c:2539
+#: ../src/document.c:2540
 msgid "Is rege_x:"
 msgstr "ist regulärer Ausdruck:"
 
-#: ../src/document.c:2636
+#: ../src/document.c:2637
 #, c-format
 msgid "Loading %d file(s)..."
 msgstr "Lade %d Datei(en)..."
 
-#: ../src/document.c:2670
+#: ../src/document.c:2671
 msgid "Select file to insert"
 msgstr "Datei zum Einfügen auswählen"
 
-#: ../src/document.c:2672
+#: ../src/document.c:2673
 msgid "No file to insert"
 msgstr "Keine Datei zum einfügen"
 
-#: ../src/document.c:2734
+#: ../src/document.c:2735
 msgid "_Save all"
 msgstr "_Alle Speichern"
 
-#: ../src/document.c:2734
+#: ../src/document.c:2735
 msgid "Close _all"
 msgstr "Alle s_chließen"
 
-#: ../src/document.c:2734
+#: ../src/document.c:2735
 msgid "Choose per _file"
 msgstr "_Pro Datei auswählen"
 
-#: ../src/document.c:2734
+#: ../src/document.c:2735
 msgid "_Cancel"
 msgstr "_Abbrechen"
 
-#: ../src/document.c:2735
+#: ../src/document.c:2736
 msgid "Some file(s) have been modified"
 msgstr "Datei(en) geändert"
 
-#: ../src/document.c:2983
+#: ../src/document.c:2984
 #, c-format
 msgid "Statistics: %d lines, %d words, %d characters"
 msgstr "Statistik: %d Zeilen, %d Wörter, %d Zeichen"
 
-#: ../src/document.c:3085
+#: ../src/document.c:3088
 msgid "No selection to indent"
 msgstr "Nichts zum Einrücken ausgewählt"
 
@@ -1059,6 +1063,60 @@ msgstr "_Dialog erhalten"
 msgid "starting bluefish"
 msgstr "Starte bluefish..."
 
+#: ../src/html2.c:586
+msgid "Cascading StyleSheet dialog"
+msgstr "CSS Dialog"
+
+#: ../src/html2.c:606
+msgid "_Selector:"
+msgstr "Au_swahl:"
+
+#: ../src/html2.c:625
+msgid "_Property:"
+msgstr "Ei_genschaft:"
+
+#: ../src/html2.c:627 ../src/html_form.c:286 ../src/html_form.c:353
+#: ../src/html_form.c:415 ../src/html_form.c:471 ../src/html_form.c:534
+#: ../src/html_form.c:644
+msgid "_Value:"
+msgstr "_Wert:"
+
+#: ../src/html2.c:645
+msgid "Selector"
+msgstr "Auswahl"
+
+#: ../src/html2.c:645 ../src/html2.c:648
+msgid "Property"
+msgstr "Eigenschaft"
+
+#: ../src/html2.c:645 ../src/html2.c:648
+msgid "Value"
+msgstr "Wert"
+
+#: ../src/html2.c:663
+msgid " _Add "
+msgstr " Hin_zufügen "
+
+#: ../src/html2.c:666
+msgid " _Update "
+msgstr " Akt_ualisieren "
+
+#: ../src/html2.c:669
+msgid " _Delete "
+msgstr " _Löschen "
+
+#: ../src/html2.c:925 ../src/html2.c:962
+msgid "_Style..."
+msgstr "_Stil..."
+
+#: ../src/html2.c:1145
+msgid "Bluefish: Select color"
+msgstr "Bluefish: Farbe auswählen"
+
+#: ../src/html2.c:1165
+msgid "_websafe"
+msgstr "_Websafe"
+
 #: ../src/html.c:353
 msgid "Insert Time"
 msgstr "Zeit einfügen"
@@ -1430,60 +1488,6 @@ msgstr "_Rel:"
 #: ../src/html.c:2061 ../src/html_form.c:361
 msgid "_Type:"
 msgstr "_Typ:"
-
-#: ../src/html2.c:586
-msgid "Cascading StyleSheet dialog"
-msgstr "CSS Dialog"
-
-#: ../src/html2.c:606
-msgid "_Selector:"
-msgstr "Au_swahl:"
-
-#: ../src/html2.c:625
-msgid "_Property:"
-msgstr "Ei_genschaft:"
-
-#: ../src/html2.c:627 ../src/html_form.c:286 ../src/html_form.c:353
-#: ../src/html_form.c:415 ../src/html_form.c:471 ../src/html_form.c:534
-#: ../src/html_form.c:644
-msgid "_Value:"
-msgstr "_Wert:"
-
-#: ../src/html2.c:645
-msgid "Selector"
-msgstr "Auswahl"
-
-#: ../src/html2.c:645 ../src/html2.c:648
-msgid "Property"
-msgstr "Eigenschaft"
-
-#: ../src/html2.c:645 ../src/html2.c:648
-msgid "Value"
-msgstr "Wert"
-
-#: ../src/html2.c:663
-msgid " _Add "
-msgstr " Hin_zufügen "
-
-#: ../src/html2.c:666
-msgid " _Update "
-msgstr " Akt_ualisieren "
-
-#: ../src/html2.c:669
-msgid " _Delete "
-msgstr " _Löschen "
-
-#: ../src/html2.c:925 ../src/html2.c:962
-msgid "_Style..."
-msgstr "_Stil..."
-
-#: ../src/html2.c:1145
-msgid "Bluefish: Select color"
-msgstr "Bluefish: Farbe auswählen"
-
-#: ../src/html2.c:1165
-msgid "_websafe"
-msgstr "_Websafe"
 
 #: ../src/html_form.c:129
 msgid "Form"
