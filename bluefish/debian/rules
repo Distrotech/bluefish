@@ -1,0 +1,53 @@
+#! /usr/bin/make -f 
+
+tmp:=$(shell pwd)/debian/tmp
+
+CFLAGS = -O2
+ifneq (,$(findstring debug,$(DEB_BUILD_OPTIONS)))
+CFLAGS += -g
+endif
+ifeq (,$(findstring nostrip,$(DEB_BUILD_OPTIONS)))
+INSTALL_PROGRAM += -s
+endif
+
+build: build-stamp
+build-stamp:
+	dh_testdir
+	autoconf
+	CFLAGS="$(CFLAGS)" ./configure \
+	            --prefix=/usr --sysconfdir=/etc --mandir=/usr/share/man \
+		    --with-internal-preview
+	$(MAKE)
+	touch build-stamp
+
+clean:
+	dh_testdir
+	dh_testroot
+	[ ! -f Makefile ] || $(MAKE) distclean
+	rm -f build-stamp
+	rm -f configure po/*.gmo po/stamp-cat-id po/bluefish.pot po/cat-id-tbl.c data/Makefile
+	rm -rf $(tmp)
+	dh_clean
+
+binary-indep:
+
+binary-arch: build 
+	dh_testdir
+	dh_testroot
+	$(MAKE) install prefix=$(tmp)/usr sysconfdir=$(tmp)/etc mandir=$(tmp)/usr/share/man pixmapsdir=$(tmp)/usr/share/pixmaps
+	dh_installdocs
+	dh_installmenu
+	dh_installchangelogs
+ifeq "$(findstring nostrip,$(DEB_BUILD_OPTIONS))" ""	
+	dh_strip
+endif
+	dh_compress
+	dh_fixperms
+	dh_installdeb
+	dh_shlibdeps
+	dh_gencontrol
+	dh_md5sums
+	dh_builddeb
+
+binary: binary-indep binary-arch
+.PHONY: build clean binary-indep binary-arch binary
