@@ -20,7 +20,7 @@
 #ifndef __GUI_H_
 #define __GUI_H_
 
-void notebook_changed(void);
+void notebook_changed(gint newpage);
 void gui_create_main();
 void statusbar_message(gchar *message, gint time);
 gboolean switch_to_document_by_index(gint index);

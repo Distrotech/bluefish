@@ -1,9 +1,8 @@
 /* Bluefish HTML Editor
- * bluefish.c - the main function
+ * menu.h - uhh, duh.
  *
  * Copyright (C) 1998 Olivier Sessink and Chris Mazuc
  * Copyright (C) 1999-2002 Olivier Sessink
- *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
@@ -18,42 +17,10 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-#include <gtk/gtk.h>
 
-#include "bluefish.h"
-#include "document.h"
-#include "gui.h"
-/*********************************************/
-/* this var is global for all bluefish files */
-/*********************************************/
-Tmain *main_v;
+#ifndef __MENU_H_
+#define __MENU_H_
 
+void menu_create_main(GtkWidget *vbox);
 
-
-int main(int argc, char *argv[])
-{
-	gtk_init(&argc, &argv);
-	
-	main_v = g_new0(Tmain, 1);
-	DEBUG_MSG("main, main_v is at %p\n", main_v);
-	{
-		GList *filenames=NULL;
-		
-		/* get filesnames from commandline and from message queue */
-		
-		gui_create_main(filenames);
-	}
-
-	gtk_main();
-	return 0;
-}
-
-void bluefish_exit_request() {
-
-	file_close_all_cb(NULL, NULL);
-
-	/* check for changed documents here */
-	if (test_only_empty_doc_left()) {
-		gtk_main_quit();
-	}
-}
+#endif							/* __MENU_H_ */

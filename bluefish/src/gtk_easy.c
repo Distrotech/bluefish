@@ -700,25 +700,14 @@ static void fs_ok_clicked_lcb(GtkWidget * widget, Tfileselect *fileselect)
 	}
 
 	if (fileselect->multipleselect) {
+		gchar **filenames, **orig;
 		/* multiple files allowed --> scan trough the list for selections */
-		dirname = g_dirname(selected_file);
-		{
-		gint rownum = 0;
-		gchar *temp, *totalfilename;
-		GList *row = GTK_CLIST(GTK_FILE_SELECTION(fileselect->fs)->file_list)->row_list;
-		while (row) {
-			if (GTK_CLIST_ROW(row)->state == GTK_STATE_SELECTED) {
-				gtk_clist_get_text(GTK_CLIST(GTK_FILE_SELECTION(fileselect->fs)->file_list), rownum, 0, &temp);
-				DEBUG_MSG("fs_ok_clicked_lcb, temp=%s\n", temp);
-				totalfilename = g_strconcat(dirname, DIRSTR, temp, NULL);
-				fileselect->filenames_to_return = g_list_append(fileselect->filenames_to_return, totalfilename);
-			}
-			DEBUG_MSG("fs_ok_clicked_lcb, rownum=%d\n", rownum);
-			rownum++;
-			row = g_list_next(row);
+		orig = filenames = gtk_file_selection_get_selections(GTK_FILE_SELECTION(fileselect->fs));
+		while (*filenames) {
+			fileselect->filenames_to_return = g_list_append(fileselect->filenames_to_return, g_strdup(*filenames));
+			filenames++;
 		}
-		}
-		g_free(dirname);
+		g_strfreev(orig);
 	} else {
 		/* NO multiple files allowed --> return just one file */
 		fileselect->filename_to_return = g_strdup(gtk_file_selection_get_filename(GTK_FILE_SELECTION(fileselect->fs)));
@@ -751,7 +740,7 @@ static void fileselectwin(gchar *setfile, Tfileselect *fileselect, gchar *title)
 					   "clicked", G_CALLBACK(close_modal_window_lcb), fileselect->fs);
 	g_signal_connect(G_OBJECT(GTK_FILE_SELECTION(fileselect->fs)->ok_button), "clicked", G_CALLBACK(fs_ok_clicked_lcb), fileselect);
 	if (fileselect->multipleselect) {
-		gtk_clist_set_selection_mode(GTK_CLIST(GTK_FILE_SELECTION(fileselect->fs)->file_list), GTK_SELECTION_EXTENDED);
+		gtk_file_selection_set_select_multiple(GTK_FILE_SELECTION(fileselect->fs), TRUE);
 	}
 	if (setfile) {
 		gtk_file_selection_set_filename(GTK_FILE_SELECTION(fileselect->fs), setfile);

@@ -21,6 +21,7 @@
 #ifndef __BLUEFISH_H_
 #define __BLUEFISH_H_
 
+#define DEBUG
 #define DEBUG_MSG g_print
 #define _(String) (String)
 #define N_(String) (String)
@@ -93,6 +94,7 @@ typedef struct {
 	unre_t unre;
 	GtkWidget *view;
 	GtkWidget *tab_label;
+	GtkWidget *tab_menu;
 	GtkTextBuffer *buffer;
 	gint last_rbutton_event; /* index of last 3rd button click */
 	Thighlightset *hl; /* highlighting set to use for this document */
@@ -147,8 +149,6 @@ typedef struct {
 	GList *external_filters;	/* external filter in list */
 	GList *external_commands;	/* external filter in list */
 	GList *cust_menu; 		/* entries in the custom menu */
-	GList *syntax_configstrings;	/* the strings containing the colors and patterns */
-
 #ifdef WITH_SPC
 	/* spell checker options */
 	gchar *cfg_spc_cline      ;  /* spell checker command line */
@@ -185,8 +185,10 @@ typedef struct {
 	gint autocomplet_delay;  /* Delay to show the autocompletion window */
 #endif
 #ifdef PARSEDTD
-        GList *doctypes;	 /* The list of doctypes recognized by bluefish */
+	GList *doctypes;	 /* The list of doctypes recognized by bluefish */
 #endif
+	GList *filetypes;
+	GList *highlight_patterns;
 } Tproperties;
 
 typedef struct {
@@ -195,6 +197,7 @@ typedef struct {
 	GList *documentlist;
 	GList *hlsetlist;
 	GtkWidget *main_window;
+	GtkWidget *menubar;
 	gint last_notebook_page;
 	GtkWidget *notebook;
 	GtkWidget *middlebox; /* we need this to show/hide the filebrowser */

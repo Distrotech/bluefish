@@ -207,17 +207,19 @@ static void estrl_add_clicked_lcb(GtkWidget * widget, Testrl *estrl) {
     tmplistentry = g_malloc(((estrl->num_columns ? estrl->num_columns : 1)+2)*sizeof(char *));
     for (len = i = 0; i < (estrl->num_columns ? estrl->num_columns  : 1); i++) {
 		tmplistentry[i] = gtk_entry_get_text(GTK_ENTRY(estrl->ins_upd_entry[i]));
-        len += strlen(tmplistentry[i]);
-	DEBUG_MSG("tmplistentry[%d]='%s'\n", i, tmplistentry[i]);
+		len += strlen(tmplistentry[i]);
+		DEBUG_MSG("tmplistentry[%d]='%s'\n", i, tmplistentry[i]);
     }
     tmplistentry[i]=NULL;
-    if( len )
-        if( !is_duplicated(tmplistentry, estrl) )
-        	gtk_clist_append(GTK_CLIST(estrl->clist), tmplistentry);
-        else
-            g_free(tmplistentry);
-    else
-        g_free(tmplistentry);
+    if(len) {
+		if(!is_duplicated(tmplistentry, estrl)) {
+			gtk_clist_append(GTK_CLIST(estrl->clist), tmplistentry);
+		} else {
+			g_free(tmplistentry);
+		}
+	} else {
+		g_free(tmplistentry);
+	}
 }
 
 static void estrl_update_clicked_lcb(GtkWidget * widget, Testrl *estrl) {
@@ -290,7 +292,9 @@ void estrl_dialog(GList **which_list, gchar *title, gint what_list
 		break;
 	case 2:
 		/* color */
+#ifdef NOTYET
 		but_var = color_but_new(estrl->ins_upd_entry[0], estrl->win);
+#endif
 		break;
 	case 4:
 		/* url */
@@ -302,7 +306,9 @@ void estrl_dialog(GList **which_list, gchar *title, gint what_list
 		break;
 	case 8:
 		/* syntax highlighting patterns */
+#ifdef NOTYET
 		but_var = color_but_new(estrl->ins_upd_entry[0], estrl->win);
+#endif
 		break;
 
 #ifdef PARSEDTD
