@@ -392,7 +392,15 @@ if test "x$WITHGNOME2" != "xno" ; then
 			AC_SUBST(GNOME2MENU)
 			INSTALLDATA="$INSTALLDATA install-gnome2.6"
 		else
-			echo "no"
+			if test -d ${GNOME2PREFIX}/applications ; then
+				# this is FreeBSD default
+				echo "${GNOME2PREFIX}/applications"
+				GNOME2MENU=${GNOME2PREFIX}/applications
+				AC_SUBST(GNOME2MENU)
+				INSTALLDATA="$INSTALLDATA install-gnome2.6"
+			else
+				echo "no"
+			fi
 		fi
 		echo -n "checking for gnome2 mime-info directory... "
 		if test -d ${GNOME2PREFIX}/share/mime-info ; then
@@ -400,7 +408,13 @@ if test "x$WITHGNOME2" != "xno" ; then
 			GNOME2MIMEINFO=${GNOME2PREFIX}/share/mime-info
 			AC_SUBST(GNOME2MIMEINFO)
 		else
-			echo "no"
+			if test -d ${GNOME2PREFIX}/mime-info ; then
+				echo "${GNOME2PREFIX}/mime-info"
+				GNOME2MIMEINFO=${GNOME2PREFIX}/mime-info
+				AC_SUBST(GNOME2MIMEINFO)
+			else
+				echo "no"
+			fi
 		fi
 		echo -n "checking for gnome2 application-registry directory... "
 		if test -d ${GNOME2PREFIX}/share/application-registry ; then
@@ -408,7 +422,13 @@ if test "x$WITHGNOME2" != "xno" ; then
 			GNOME2APPLICATIONREGISTRY=${GNOME2PREFIX}/share/application-registry
 			AC_SUBST(GNOME2APPLICATIONREGISTRY)
 		else
-			echo "no"
+			if test -d ${GNOME2PREFIX}/application-registry ; then
+				echo "${GNOME2PREFIX}/application-registry"
+				GNOME2APPLICATIONREGISTRY=${GNOME2PREFIX}/application-registry
+				AC_SUBST(GNOME2APPLICATIONREGISTRY)
+			else
+				echo "no"
+			fi
 		fi
 	else
 		echo -n "checking for gnome2 menu directory... "
@@ -417,7 +437,14 @@ if test "x$WITHGNOME2" != "xno" ; then
 			GNOME2MENU=${GNOME2PREFIX}/share/applications
 			AC_SUBST(GNOME2MENU)
 		else
-			echo "no"
+			if test -d ${GNOME2PREFIX}/applications ; then
+				# future FreeBSD default ?
+				echo "${GNOME2PREFIX}/applications"
+				GNOME2MENU=${GNOME2PREFIX}/applications
+				AC_SUBST(GNOME2MENU)
+			else
+				echo "no"
+			fi
 		fi
 		echo -n "checking for gnome2 mime directory... "
 		if test -d ${GNOME2PREFIX}/share/mime/ ; then
@@ -426,7 +453,15 @@ if test "x$WITHGNOME2" != "xno" ; then
 			AC_SUBST(GNOME2MIME)
 			INSTALLDATA="$INSTALLDATA install-gnome2.8"
 		else
-			echo "no"
+			if test -d ${GNOME2PREFIX}/mime/ ; then
+				# future FreeBSD default ?
+				echo "${GNOME2PREFIX}/mime/"
+				GNOME2MIME=${GNOME2PREFIX}/mime/
+				AC_SUBST(GNOME2MIME)
+				INSTALLDATA="$INSTALLDATA install-gnome2.8"
+			else
+				echo "no"
+			fi
 		fi
 		AC_SUBST(UPDATE_MIME_PATH, ${UPDATE_MIME})
 		AC_SUBST(UPDATE_DESKTOP_PATH, ${UPDATE_DESKTOP})
