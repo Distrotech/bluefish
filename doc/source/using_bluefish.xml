@@ -69,6 +69,11 @@ There are several useful commandline options.
 	consist of a file browser, a function reference browser and a bookmark browser.
 	</para>
 	<para>
+	On the bottom of Bluefish is the statusbar. Here messages are shown, the current line
+	and column number are shown, the insert (INS) or overwrite (OVR) mode for the cursor,
+	and the filetype and character encoding.
+	</para>
+	<para>
 	The visibility of these items can be toggled via the View menu.
 		<figure id="file_menu">
 				<title id="figure-desc">Bluefish View Menu</title>
@@ -132,13 +137,63 @@ There are several useful commandline options.
 <title>Editing</title>
 <sect3 id="undo-redo">
 <title>Undo and Redo</title>
+<para>
+The undo and redo functionality is available from the Edit menu, 
+from the main toolbar, and from the keyboard shortcuts. 
+</para>
+<itemizedlist>
+	  <listitem><para>Undo (Ctrl+Z)</para></listitem>
+	  <listitem><para>Redo (Shift+Ctrl+Z)</para></listitem>
+</itemizedlist>
+<para>
+The functions Undo all and Redo all in the Edit menu will undo or redo all 
+of the stored changes. The maximum number of changes can be configured in
+the preferences, by default Bluefish will remember the last 100 changes per 
+document. It is possible to clear the changes after the document is saved, 
+this optionin the preferences is disabled by default.
+</para>
 </sect3>
 <sect3 id="cut-copy-paste">
 <title>Cut, Copy, and Paste</title>
+<para>
+The functions Cut, Copy, and Paste are available from the Edit menu, from the 
+main toolbar, and from the keyboard shortcuts.
+</para>
+<itemizedlist>
+	  <listitem><para>Cut (Ctrl+X)</para></listitem>
+	  <listitem><para>Copy (Ctrl+C)</para></listitem>
+	  <listitem><para>Paste (Ctrl+V)</para></listitem>
+</itemizedlist>
+<para>
+On X Windows Systems, you can also paste the current selected text using the 
+middle mouse button. First select some text (in Bluefish or in any other X 
+application), then press the middle mouse button where you want to paste the
+selected text.
+</para>
+<para>
+Cut or copy and then paste can also be done by selecting some text and 
+dragging it to the destination. If the text is dragged to another 
+document (or another application), it is copied. If the text is 
+dragged within one document it is moved. Dragging to other applications 
+is not possible to every application, but most gnome and gtk programs
+are supported.
+</para>
+
 </sect3>
 </sect2>
 <sect2 id="file-types">
 <title>File types</title>
+<para>
+The file type of a file changes the behaviour of Bluefish. File types are recognised 
+by their extension, or by the beginning of the content of the file. The current
+document type is shown in the far right of the statusbar. How these extensions
+and patterns can be changed is
+described in the "Customising Bluefish" section.
+</para>
+<para>
+If the type of a file is not properly detected, you can change the type using the 
+Document/Type menu.
+</para>
 <sect3 id="syntax-highlighting">
 <title>Syntax highlighting</title>
 	<para>Syntax highlighting is the coloring of words that have a special
@@ -146,14 +201,17 @@ There are several useful commandline options.
 	different for every language. The "&lt;title&gt;" word for
 	example means "start of title" in HTML, the "function"
 	word means "start of function" in PHP.</para>
+	<para>
+	During the editing, Bluefish will only update the highlighting patterns in the
+	block of text around the cursor. The number of lines (the size) of this block can be
+	adjusted in the preferences.
+	</para>
+	<para>The syntax highlighting for the total document can be refreshed
+	using the Document/Update highlighting menu, ot the shortcut (F5)</para>
 </sect3>
 </sect2>
 <sect2 id="more-files">
 <title>More on files</title>
-	<para>
-		In the <emphasis>File &gt; Open Advanced</emphasis> dialog, multiple files 
-	can be opened from a directory using regular expressions. 
-	</para>
 <sect3 id="remote-files">
 <title>Remote files</title>
 	<para>
@@ -164,9 +222,46 @@ There are several useful commandline options.
 </sect3>
 <sect3 id="character-encoding">
 <title>Character encoding</title>
+<para>
+There are many different standards for character encoding of text files. Most well known is the ASCII
+standard, which describes only 127 characters, and is supported by every text editor on the world. 
+The most common standard nowadays is UTF-8, which 
+describes thousands of characters, and is backwards compatible with ASCII. 
+Internally, Bluefish will always work with UTF-8. When opening
+a file, Bluefish has to detect the correct encoding for the file. For HTML files the encoding should
+be present in a &lt;meta name=&quot;encoding&quot; tag. Bluefish will always use this tag if it is 
+available in the file. If this tag has an encoding that is not present in the Bluefish config file, 
+this encoding is automatically added to the Bluefish config file.
+</para>
+
+<para>
+The locale also defines a default encoding. If you are using a locale (a local setting, defining 
+language, time format, currency format, number formatting etc.) Bluefish will try to load the 
+file using the encoding defined in the locale.
+</para>
+
+<para>
+Bluefish itself also has a setting for a default encoding. This is the next encoding 
+Bluefish will try.
+</para>
+<para>
+If these steps fail, Bluefish will simply try every encoding defined in the Bluefish 
+config file. 
+</para>
+<para>
+Filenames on disk can also contain more then ASCII characters. All Gnome and Gtk programs 
+(including Bluefish) assume that filenames are in UTF-8 encoding. If you have filenames
+in the encoding of your locale on your disk, you have to set G_BROKEN_FILENAMES=1 in the 
+environment to make Gnome and Gtk programs detect this encoding.
+</para>
+
 </sect3>
 <sect3 id="open-advanced">
 <title>Open advanced</title>
+	<para>
+		In the <emphasis>File &gt; Open Advanced</emphasis> dialog, multiple files 
+	can be opened from a directory based on their extension or by their content. 
+	</para>
 </sect3>
 </sect2>
 </sect1>
