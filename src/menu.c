@@ -53,7 +53,8 @@ typedef struct {
 static GtkItemFactoryEntry menu_items[] = {
 	{N_("/_File"), NULL, NULL, 0, "<Branch>"},
 	{N_("/File/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
-	{N_("/_File/Makeoutput TEMPORARY FOR TESTING"), NULL, outputbox_make, 0, NULL},
+	{N_("/File/Makeoutput TEMPORARY FOR TESTING"), NULL, outputbox_make, 0, NULL},
+	{N_("/File/weblint output TEMPORARY FOR TESTING"), NULL, outputbox_weblint, 0, NULL},
 	{N_("/File/_New"), "F8", file_new_cb, 0, NULL},
 	{N_("/File/_Open..."), "<control>O", file_open_cb, 0, NULL},
 	{N_("/File/Open advanced..."), NULL, file_open_cb, 1, NULL},

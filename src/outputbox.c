@@ -56,10 +56,14 @@ static void ob_lview_row_activated_lcb(GtkTreeView *tree, GtkTreePath *path,GtkT
 	gint lineval;
 	gtk_tree_model_get_iter(GTK_TREE_MODEL(ob.lstore),&iter,path);
 	gtk_tree_model_get(GTK_TREE_MODEL(ob.lstore), &iter, 0,&file,1,&line, -1);
-	doc_new_with_file(file,FALSE);
-	lineval = atoi(line);
-	flush_queue();
-	doc_select_line(main_v->current_document, lineval, TRUE);
+	if (file && strlen(file)) {
+		doc_new_with_file(file,FALSE);
+	}
+	if (line && strlen(line)) {
+		lineval = atoi(line);
+		flush_queue();
+		doc_select_line(main_v->current_document, lineval, TRUE);
+	}
 	g_free(line);
 	g_free(file);
 }
@@ -102,7 +106,7 @@ void init_output_box(GtkWidget *vbox) {
 		gtk_widget_show(image);
 		gtk_container_add(GTK_CONTAINER(but), image);
 		gtk_container_set_border_width(GTK_CONTAINER(but), 0);
-		gtk_widget_set_usize(but, 24,24);
+		gtk_widget_set_usize(but, 16,16);
 		g_signal_connect(G_OBJECT(but), "clicked", G_CALLBACK(output_box_close_clicked_lcb), NULL);
 		gtk_box_pack_start(GTK_BOX(ob.hbox), vbox2, FALSE, FALSE, 0);
 		gtk_box_pack_start(GTK_BOX(vbox2), but, FALSE, FALSE, 0);
@@ -174,12 +178,29 @@ static GList *run_command() {
 void outputbox_make() {
 	GList *olist;
 	ob.def = g_new(Toutput_def,1);
-	ob.def->pattern = "([a-zA-Z0-9.]+):([0-9]+):(.*)";
+	ob.def->pattern = "([a-zA-Z0-9/_.-]+):([0-9]+):(.*)";
 	ob.def->file_subpat = 1;
 	ob.def->line_subpat = 2;
 	ob.def->output_subpat = 3;
 	regcomp(&ob.def->preg,ob.def->pattern, REG_EXTENDED);
 	ob.def->command = "make";
+	olist = run_command();
+	fill_output_box(olist);
+	gtk_widget_show_all(ob.hbox);
+	free_stringlist(olist);
+	g_free(ob.def);
+	ob.def = NULL;
+}
+
+void outputbox_weblint() {
+	GList *olist;
+	ob.def = g_new(Toutput_def,1);
+	ob.def->pattern = "([a-zA-Z0-9/_.-]+)\\(([0-9]+)\\): (.*)";
+	ob.def->file_subpat = 1;
+	ob.def->line_subpat = 2;
+	ob.def->output_subpat = 3;
+	regcomp(&ob.def->preg,ob.def->pattern, REG_EXTENDED);
+	ob.def->command = "weblint %s";
 	olist = run_command();
 	fill_output_box(olist);
 	gtk_widget_show_all(ob.hbox);
