@@ -15,6 +15,7 @@ bindir = @bindir@
 pkgdatadir = @pkgdatadir@
 datadir = @datadir@
 localedir = $(datadir)/locale
+ALL_LINGUAS = @ALL_LINGUAS@
 
 INSTALL = @INSTALL@
 INSTALL_DIR = $(INSTALL) -d -m 755 
@@ -37,13 +38,17 @@ all-no:
 .po.gmo: $(SRCS)
 	$(MSGFMT) $< -o $@
 
+# we only install the languages named in ALL_LINGUAS
+# because there is no reason to install 50% translated languages
+
 install:
 	$(INSTALL_DIR) $(DESTDIR)$(localedir)
-	@for file in $(SRCS) ; do \
-		lang=`echo $${file} | sed -e 's/\.po$$//'`;\
-		$(INSTALL_DIR) $(DESTDIR)$(localedir)/$${lang}/ ;\
-		$(INSTALL_DIR) $(DESTDIR)$(localedir)/$${lang}/LC_MESSAGES/ ;\
-		$(INSTALL_DATA) $${lang}.gmo $(DESTDIR)$(localedir)/$${lang}/LC_MESSAGES/${PACKAGE}.mo;\
+	@for lang in $(ALL_LINGUAS) ; do \
+		if test -f ${lang}.po; then \
+			$(INSTALL_DIR) $(DESTDIR)$(localedir)/$${lang}/ ;\
+			$(INSTALL_DIR) $(DESTDIR)$(localedir)/$${lang}/LC_MESSAGES/ ;\
+			$(INSTALL_DATA) $${lang}.gmo $(DESTDIR)$(localedir)/$${lang}/LC_MESSAGES/${PACKAGE}.mo;\
+		fi ;\
 	done
 
 uninstall:

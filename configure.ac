@@ -30,7 +30,8 @@ AC_DEFINE_UNQUOTED(VERSION, "$VERSION")
 AC_DEFINE_UNQUOTED(CURRENT_VERSION_NAME, "$PACKAGE $VERSION HTML editor")
 AC_DEFINE_UNQUOTED(CONFIGURE_OPTIONS, "$0 $*")
 
-ALL_LINGUAS="cs da de el es fr hu it ja nl no pl pt_BR ro ru sv"
+# these are the languages that will be installed, so these should be finished
+ALL_LINGUAS="da de es fi fr it no pl pt pt_BR ru sr sv zh_CN"
 
 dnl ************************
 dnl Compiler options
@@ -84,34 +85,56 @@ AC_ARG_ENABLE(auto-optimization,
 			UNAMEP=`grep "model name" /proc/cpuinfo | cut -d: -f2`
 		fi
 
-		if $CC -dumpversion|egrep -q "^3\.2.*"; then
-# gcc-3.2
-			if echo $UNAMEP|grep -q "Intel(R) Pentium(R) 4 CPU"; then
+		if $CC -dumpversion|egrep -i -q "^3\.(3|4).*"; then
+# gcc-3.3 or gcc-3.4
+			if echo $UNAMEP|grep -i -q "Intel(R) Pentium(R) 4 CPU"; then
 				MARCH="-march=pentium4 -mmmx -mfpmath=sse -msse"
-			elif echo $UNAMEP|grep -q "Pentium III"; then
+			elif echo $UNAMEP|grep -i -q "Pentium III"; then
 				MARCH="-march=pentium3 -mmmx -mfpmath=sse"
-			elif echo $UNAMEP|grep -q "AMD-K6(tm) 3D"; then
+			elif echo $UNAMEP|grep -i -q "AMD-K6(tm) 3D"; then
 				MARCH="-march=k6-2 -m3dnow"
-			elif echo $UNAMEP|grep -q "Pentium 75 - 200"; then
+			elif echo $UNAMEP|grep -i -q "Pentium 75 - 200"; then
 				MARCH=-march=pentium
-			elif echo $UNAMEP|grep -q "Pentium II"; then
+			elif echo $UNAMEP|grep -i -q "Pentium II"; then
 				MARCH="-march=pentium2 -mmmx"
-			elif echo $UNAMEP|grep -q "AMD Athlon(TM) XP"; then
+			elif echo $UNAMEP|grep -i -q "AMD Athlon(TM) XP"; then
+				MARCH="-march=athlon-xp -mfpmath=sse -mmmx -msse -m3dnow"
+			elif echo $UNAMEP|grep -i -q "AMD Athlon(TM) MP"; then
+				MARCH="-march=athlon-mp -mfpmath=sse -mmmx -msse -m3dnow"
+			elif echo $UNAMEP|grep -i -q "AMD Athlon(tm) 64"; then
+				MARCH="-march=k8 -m64"
+			else
+				MARCH=""
+			fi
+			CFLAGS="-DG_DISABLE_ASSERT -O3 $MARCH -malign-double -fno-exceptions -pipe -s -ffast-math"
+		elif $CC -dumpversion|egrep -i -q "^3\.2.*"; then
+# gcc-3.2
+			if echo $UNAMEP|grep -i -q "Intel(R) Pentium(R) 4 CPU"; then
+				MARCH="-march=pentium4 -mmmx -mfpmath=sse -msse"
+			elif echo $UNAMEP|grep -i -q "Pentium III"; then
+				MARCH="-march=pentium3 -mmmx -mfpmath=sse"
+			elif echo $UNAMEP|grep -i -q "AMD-K6(tm) 3D"; then
+				MARCH="-march=k6-2 -m3dnow"
+			elif echo $UNAMEP|grep -i -q "Pentium 75 - 200"; then
+				MARCH=-march=pentium
+			elif echo $UNAMEP|grep -i -q "Pentium II"; then
+				MARCH="-march=pentium2 -mmmx"
+			elif echo $UNAMEP|grep -i -q "AMD Athlon(TM) XP"; then
 				MARCH="-march=athlon-xp -mfpmath=sse -mmmx -msse -m3dnow"
 			else
 				MARCH=""
 			fi
 			CFLAGS="-DG_DISABLE_ASSERT -O3 $MARCH -malign-double -fomit-frame-pointer -fno-exceptions -pipe -s -ffast-math -fexpensive-optimizations -falign-functions -falign-loops -fstrict-aliasing"
-		elif $CC -dumpversion|egrep -q "^3\.0.*"; then
+		elif $CC -dumpversion|egrep -i -q "^3\.0.*"; then
 # gcc-3.0
 			CFLAGS="-DG_DISABLE_ASSERT -O3 -fomit-frame-pointer -fno-exceptions -pipe -s -ffast-math -fexpensive-optimizations -falign-functions -falign-loops"
-		elif $CC -dumpversion | egrep -q "^2\.95.*" ; then
+		elif $CC -dumpversion | egrep -i -q "^2\.95.*" ; then
 # gcc-2.95
-			if echo $UNAMEP|egrep -q "(Pentium III|Pentium II|Pentium\(R\) 4|Athlon)"; then
+			if echo $UNAMEP|egrep -i -q "(Pentium III|Pentium II|Pentium\(R\) 4|Athlon)"; then
 				MARCH=-march=pentiumpro
-			elif echo $UNAMEP|grep -q "AMD-K6"; then
+			elif echo $UNAMEP|grep -i -q "AMD-K6"; then
 				MARCH=-march=k6
-			elif echo $UNAMEP|grep -q "Pentium 75 - 200"; then
+			elif echo $UNAMEP|grep -i -q "Pentium 75 - 200"; then
 				MARCH=-march=pentium
 			else 
 				MARCH=""
@@ -326,23 +349,36 @@ dnl ************************
 dnl Program locations
 dnl ************************
 AC_ARG_WITH(icon-path,
-[  --with-icon-path=/path if the icon should not be installed in /usr/share/pixmaps/],[
+	AC_HELP_STRING([--with-icon-path=/path],[if the icon should not be installed in /usr/share/pixmaps/]),[
 	ICONPATH=$withval
 ], [
 	ICONPATH=/usr/share/pixmaps/
 ])
 AC_ARG_WITH(gnome1-menu,
-[  --with-gnome1-menu=/path if the gnome1 menu is not /usr/share/gnome/apps/],[
+	AC_HELP_STRING([--with-gnome1-menu=/path],[gnome1 menu path (default=no)]),[
 	GNOME1MENUPATH=$withval
 ], [
-	GNOME1MENUPATH=/usr/share/gnome/apps/
+	GNOME1MENUPATH=none
 ])
 AC_ARG_WITH(gnome2-prefix,
-[  --with-gnome2-prefix=/path if the gnome2 menu & mime-types are not in /usr/share/],[
+	AC_HELP_STRING([--with-gnome2-prefix=/path],[if the gnome2 menu & mime-types are not in /usr/share/]),[
 	GNOME2PREFIX=$withval
 ], [
 	GNOME2PREFIX=/usr/share/
 ])
+
+AC_ARG_ENABLE(update_mime,
+		AC_HELP_STRING([--disable-update-mime],[do not run update-mime-database during install]), UPDATE_MIME=$enableval,UPDATE_MIME=yes)
+AM_CONDITIONAL(UPDATE_MIME, test x"$UPDATE_MIME" = x"yes")
+
+AC_ARG_ENABLE(update_desktop,
+		AC_HELP_STRING([--disable-update-desktop],[do not run update-desktop-database during install]), UPDATE_DESKTOP=$enableval,UPDATE_DESKTOP=yes)
+update_desktop_database=`which update-desktop-database`
+if test -z "$update_desktop_database" ; then
+	UPDATE_DESKTOP=no
+fi
+AM_CONDITIONAL(UPDATE_DESKTOP, test x"$UPDATE_DESKTOP" = x"yes")
+
 AC_SUBST(ICONPATH)
 AC_SUBST(GNOME1MENUPATH)
 AC_SUBST(GNOME2PREFIX)
