@@ -42,10 +42,12 @@ INSTALL_DATA = $(INSTALL) -m 644
 bluefish:all
 all:
 	@cd src/ && $(MAKE) all
+	@cd po/ && $(MAKE) all
 
 clean:
 	rm -f core *~
 	@cd src/ && $(MAKE) clean
+	@cd po/ && $(MAKE) clean
 
 patchclean: clean
 	rm -f *.orig *.rej
@@ -53,6 +55,7 @@ patchclean: clean
 
 distclean:
 	@cd src/ && $(MAKE) distclean
+	@cd po/ && $(MAKE) distclean
 	rm -f Makefile src/Makefile icons/Makefile config.status config.cache config.log
 	rm -rf autom4te.cache/
 	rm -f *.orig *.rej
@@ -64,9 +67,10 @@ install: src/bluefish
 	@cd icons/ && $(MAKE) install
 	$(INSTALL_DATA) images/bluefish_splash.png $(pkgdatadir)
 	@cd src/ && $(MAKE) install
-
+	@cd po/ && $(MAKE) install
 
 uninstall:
 	@cd icons/ && $(MAKE) uninstall
 	@cd src/ && $(MAKE) uninstall
+	@cd po/ && $(MAKE) uninstall
 	/bin/rmdir $(pkgdatadir)

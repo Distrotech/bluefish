@@ -173,7 +173,26 @@ fi
 pkgdatadir=${datadir}/${PACKAGE}/
 AC_SUBST(pkgdatadir)
 
-AC_CONFIG_FILES(Makefile icons/Makefile src/Makefile)
+dnl *******************************
+dnl   GETTEXT
+dnl *******************************
+AM_GNU_GETTEXT
+
+if test "$GMSGFMT" = "no"; then
+	echo "no gmsgfmt - NLS disabled"
+	USE_NLS=no
+fi
+if test "$MSGFMT" = "no" ; then
+	echo "no msfmt - NLS disabled"
+	USE_NLS=no
+fi
+if test "$USE_NLS" = "yes" ; then
+	AC_DEFINE(ENABLE_NLS)
+fi
+
+
+
+AC_CONFIG_FILES(Makefile icons/Makefile src/Makefile po/Makefile.in)
 AC_OUTPUT
 
 echo "-----------"
