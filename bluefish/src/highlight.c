@@ -847,6 +847,8 @@ void hl_reset_to_default() {
 	main_v->props.filetypes = g_list_append(main_v->props.filetypes, arr);
 	arr = array_from_arglist("xml", ".xml", "<> \n\"", "iconlocation", NULL);
 	main_v->props.filetypes = g_list_append(main_v->props.filetypes, arr);
+	arr = array_from_arglist("java", ".java", "(){}'[]\n\"", "iconlocation", NULL);
+	main_v->props.filetypes = g_list_append(main_v->props.filetypes, arr);
 
 #ifdef MAKE_BLUEFISH_WITH_BLUEFISH
 	arr = array_from_arglist("c", ".c:.h", "(){}'[]\n\"", "iconlocation", NULL);
@@ -912,4 +914,32 @@ void hl_reset_to_default() {
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
 	arr = array_from_arglist("html", "doctype", "1", "<![a-z0-9]", "[^?-]>", "", "1", "", "#00BB00", "", "0", "0", NULL);
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
+
+	/* the default java pattern */
+	arr = array_from_arglist("java", "comment-C", "0", "/\\*", "\\*/", "", "1", "", "#AAAAAA", "", "1", "2", NULL);
+	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
+	arr = array_from_arglist("java", "comment-C++", "0", "//[^\n]*\n", "", "", "2", "", "#AAAAAA", "", "1", "2", NULL);
+	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);	
+	arr = array_from_arglist("java", "string", "0", "\"", "\"", "", "1", "", "#009900", "", "0", "0", NULL);
+	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
+	arr = array_from_arglist("java", "include", "0", "^(import|package)[^\n]*\n", "", "", "2", "", "#000099", "", "0", "0", NULL);
+	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
+	arr = array_from_arglist("java", "keywords", "0", "[ \t\n*](new|super|return|goto|if|else|case|default|switch|break|continue|while|do|for|catch|throw|finally|try|class)[ \t\n*]", "", "", "2", "", "#000000", "", "2", "0", NULL);
+	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
+	arr = array_from_arglist("java", "special_values", "0", "[ \t\n*](false|null|true)[ \t\n*]", "", "", "2", "", "#990000", "", "2", "0", NULL);
+	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
+	arr = array_from_arglist("java", "modifiers", "0", "[ \t\n*](abstract|final|native|private|protected|public|static|transient|synchronized|volatile|extends|implements)[ \t\n*]", "", "", "2", "", "#990000", "", "2", "0", NULL);
+	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
+	arr = array_from_arglist("java", "this", "0", "[ \t\n]this\\.", "", "", "2", "", "#000099", "", "2", "0", NULL);
+	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
+	arr = array_from_arglist("java", "primitive-types", "0", "[ \t\n](void|double|boolean|int)[ \t\n]", "", "", "2", "", "#880088", "", "2", "0", NULL);
+	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
+	
+	arr = array_from_arglist("java", "braces", "0", "[{()}]", "", "", "2", "", "#000000", "", "2", "0", NULL);
+	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
+	arr = array_from_arglist("java", "character", "0", "'", "'", "", "1", "", "#009900", "", "0", "0", NULL);
+	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
+
+	
+	
 }
