@@ -362,6 +362,13 @@ The latest opened directories appear in the upper part of the left side panel, w
             </listitem>
      </varlistentry>
      </variablelist>
+
+	<para>Be aware that if the file is huge it may take a very long time 
+	to get the rendering if syntax highlighting is enabled. The gtk editing 
+	widget used in Bluefish, furthermore, is not very good at handling files 
+	with very long lines, and that could also slow down Bluefish considerably.
+	</para>
+	<para>		
 </sect2>
 <sect2 id="saving-files">
 <title>Saving files</title>
@@ -675,11 +682,9 @@ If the type of a file is not properly detected, you can change the type using th
 <title>Remote files</title>
 	<para>
 		Assuming a working Internet connection, files can also be opened from the web using 
-	<menuchoice><guimenu>File</guimenu><guimenuitem>Open URL</guimenuitem></menuchoice> (make sure to type the http:// or it 
-	doesn't work... bug, maybe???).
+	<menuchoice><guimenu>File</guimenu><guimenuitem>Open URL</guimenuitem></menuchoice>. This feature depands on your gnome_vfs setup. If is installed and working, http://, sftp://, smb:// and possibly more types of remote services should be supported by Bluefish. Depending on your gnome_vfs 
+	version, some of these protocols are not fully stable yet, which can crash Bluefish!
 	</para>
-	<para>Be aware that if the file is huge or optimized (i.e. the lines are very long), it may take a very long time to get the rendering if syntax highlighting is enabled.</para>
-	<para>		
 	<figure id="figure-open-url">
 				<title id="figure-open-url-title">Opening an url from the web</title>
 				<screenshot>
@@ -1255,10 +1260,34 @@ left-double-click action. This is also configurable from the context menu.
 <title>Thumbnail generation</title>
 </sect3>
 <para>
-Bluefish can automatically generate thumbnails for images. ..... TO BE WRITTEN BY ???
+Bluefish can automatically generate thumbnails for images. A thumbnail is a small 
+image, with a 
+link to the larger image. Bluefish will create the small image based on your 
+settings, and insert a
+&lt;img&gt; tag in the file, and a &lt;a&gt; tag linking the original.
 </para>
+<para>There are actually two thumbnail dialogs in Bluefish, a single thumbnail 
+dialog, and a multi thumbnail dialog.</para>
+<para>The single thumbnail dialog is very straightforward. You select the 
+image, choose the scaling, and some attributes, and press OK. Bluefish will create 
+the thumbnail with 
+extension _thumbnail.png (can be changed in the preferences).</para>
 <para>SCREENSHOT BY ????</para>
-
+<para>In the multi thumbnail dialog, you first setup some a constraint, and 
+the HTML code to be inserted for each image.</para>
+<para>Scaling can be based on a fixed ratio, based on a fixed width, based 
+on a fixed height, or based on a fixed width and fixed height (this last 
+option does not keep the original aspect ratio!).</para>
+<para>In the HTML code for each image, you can use several placeholders, such as
+%r for the original filename, %t for the thumbnail filename, %w for the original 
+width, %h for the original height, %x for the thumbnail width, %y for the thumbnail 
+height, and finally %b for the original file size (in bytes). The default string is
+&lt;a href=&quot;%r&quot;&gt;&lt;img src=&quot;%t&quot; width=&quot;%x&quot; height=&quot;%y&quot; border=&quot;0&quot;&gt;&lt;/a&gt;
+</para>
+<para>
+Agter you have set up the scaling and the HTML code, you can select multiple images, and 
+Bluefish will create the thumbnails and insert the code.
+</para>
 </sect2>
 <sect2 id="quickbar">
 <title>Customising the quick bar</title>
