@@ -25,8 +25,8 @@
 #include <string.h>
 #include <unistd.h>				/* getopt() */
 
-#include "about.h"
 #include "bluefish.h"
+#include "about.h"
 #include "gtk_easy.h"
 
 static GtkWidget *info;
@@ -126,7 +126,7 @@ void about_dialog_create(gpointer * data, guint * callback_action, GtkWidget * w
 \n\
 Developers for this release:\n\
   Jim Hayward <jimhayward@linuxexperience.com>\n\
-  Oskar ¿wida <swida@aragorn.pb.bialystok.pl>\n\
+  Oskar Świda <swida@aragorn.pb.bialystok.pl>\n\
   Christian Tellefsen <christian@tellefsen.net>\n\
   Eugene Morenko(More) <more@irpin.com>\n\
 \n\
@@ -191,8 +191,6 @@ Thanks to all who helped making this software available.\n\
    <barathee@yahoo.com>\n\n\
 ");
 
-	I1 = g_strdup(INFO);
-	g_strlcat(I1, CONFIGURE_OPTIONS,50000);
 	info = window_full2(_("About Bluefish"), GTK_WIN_POS_CENTER, 6
 			,G_CALLBACK(about_dialog_close_lcb),NULL, TRUE, NULL);
 	gtk_window_set_resizable(GTK_WINDOW(info), FALSE);
@@ -224,7 +222,9 @@ Thanks to all who helped making this software available.\n\
 	notebook = gtk_notebook_new();
 
 	/* add pages */
+	I1 = g_strconcat(INFO, CONFIGURE_OPTIONS, NULL);
 	add_page(GTK_NOTEBOOK(notebook), _("Info"), I1, TRUE);
+	g_free(I1);
 	add_page(GTK_NOTEBOOK(notebook), _("Authors"), AUTHORS, TRUE);
 	add_page(GTK_NOTEBOOK(notebook), _("Translators"), TRANSLATORS, TRUE);
 

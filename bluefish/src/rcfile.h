@@ -28,4 +28,6 @@ void rcfile_save_configfile_menu_cb(gpointer callback_data,guint action,GtkWidge
 void rcfile_save_all(void);
 gboolean rcfile_parse_project(Tproject *project, gchar *filename);
 gboolean rcfile_save_project(Tproject *project, gchar *filename);
+gboolean rcfile_save_global_session(void);
+gboolean rcfile_parse_global_session(void);
 #endif /* __RCFILE_H_ */

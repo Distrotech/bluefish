@@ -1045,7 +1045,6 @@ void main_window_destroy_lcb(GtkWidget *widget,Tbfwin *bfwin) {
 	gui_bfwin_cleanup(bfwin);
 	DEBUG_MSG("main_window_destroy_lcb, will destroy the window now\n");
 	gtk_widget_destroy(bfwin->main_window);
-	free_session(bfwin->session);
 	g_free(bfwin);
 	DEBUG_MSG("main_window_destroy_lcb, bfwin is free'ed\n");
 	if (NULL == main_v->bfwinlist) {

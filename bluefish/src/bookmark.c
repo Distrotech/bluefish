@@ -159,6 +159,25 @@ static void bmark_clean_tree(Tbfwin *bfwin) {
 	gtk_tree_store_remove(data->store,&(BMARKGUI(bfwin->bmark)->perm_branch));
 }
 
+/* this is the new loading function ! */
+static void load_bmarks_from_list(GList *sourcelist, GHashTable **tab) {
+	GList *tmplist = g_list_first(sourcelist);
+	while (tmplist) {
+		gchar **items = (gchar **) tmplist->data;
+		if (items && items[0] && items[1] && items[2] && items[3] && items[4] && items[5]) {
+			Tbmark *b;
+			b = g_new0(Tbmark,1);
+			b->name = g_strdup(items[0]);
+			b->description = g_strdup(items[1]);
+			b->filepath = g_strdup(items[2]);
+			b->offset = atoi(items[3]);
+			b->text = g_strdup(items[4]);
+			b->len = atoi(items[5]);
+			g_hash_table_insert(*tab,g_strdup(b->name),b);
+		}
+		tmplist = g_list_next(tmplist);
+	}
+}
 
 static void load_bmarks_from_file(gchar *filename,GHashTable **tab) {
 	Tbmark *b;
