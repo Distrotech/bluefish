@@ -377,15 +377,18 @@ static GtkTreePath *return_path_from_filename(Tfilebrowser *filebrowser,gchar *t
 
 	gtk_tree_model_get_iter_first(GTK_TREE_MODEL(store), &iter);
 	parent = iter;
-	/* the first thing we do is that we try to find the root element where this filename should belong to */
-	{
+	if (showfulltree) {
+		/* the first thing we do is that we try to find the root element where this filename should belong to */
 		gchar *root = return_root_with_protocol(this_filename);
+		DEBUG_MSG("return_path_from_filename, root=%s\n",root);
 		if (root && root[0] != '/') {
+			DEBUG_MSG("return_path_from_filename, the root is an URL\n");
 			/* we have an URL like sftp:// or http:// or something like that */
 			gboolean found = FALSE;
 			while (!found && gtk_tree_model_iter_next(GTK_TREE_MODEL(store), &iter)) {
 				gchar *found_root;
 				gtk_tree_model_get(GTK_TREE_MODEL(store), &iter, FILENAME_COLUMN, &found_root, -1);
+				DEBUG_MSG("return_path_from_filename, searchinf for the root, comparing %s and %s\n",root,found_root);
 				if (strcmp(found_root, root)==0) {
 					/* we found the root for this protocol/server */
 					parent = iter;
@@ -400,6 +403,7 @@ static GtkTreePath *return_path_from_filename(Tfilebrowser *filebrowser,gchar *t
 			}
 			g_free(root);
 		} else {
+			DEBUG_MSG("return_path_from_filename, the root is local\n");
 			g_free(root);
 			/* it is a local file, that normally means that we can use the first toplevel node in the tree */
 			if (!showfulltree && filebrowser->basedir) {
@@ -416,6 +420,12 @@ static GtkTreePath *return_path_from_filename(Tfilebrowser *filebrowser,gchar *t
 					found = FALSE;
 				}
 			}
+		}
+	} else { /* there is no showfulltree */
+		if (strcmp(this_filename,filebrowser->basedir)==0) {
+			prevlen = strlen(filebrowser->basedir);
+		} else {
+			return NULL;
 		}
 	}
 
