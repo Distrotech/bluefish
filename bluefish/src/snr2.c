@@ -1212,7 +1212,7 @@ static void snr2dialog_ok_lcb(GtkWidget *widget, Tsnr2_win *data) {
 		gtk_text_buffer_get_bounds(buf,&itstart,&itend);
 		LASTSNR2(bfwin->snr2)->replace_pattern = gtk_text_buffer_get_text(buf,&itstart,&itend, FALSE);*/
 		LASTSNR2(bfwin->snr2)->replace = 1;
-		LASTSNR2(bfwin->snr2)->replace_pattern = gtk_editable_get_chars(GTK_EDITABLE(GTK_COMBO(data->search_combo)->entry),0,-1);
+		LASTSNR2(bfwin->snr2)->replace_pattern = gtk_editable_get_chars(GTK_EDITABLE(GTK_COMBO(data->replace_combo)->entry),0,-1);
 		
 		data->bfwin->session->replacelist = add_to_history_stringlist(data->bfwin->session->replacelist,LASTSNR2(bfwin->snr2)->replace_pattern,TRUE);
 		
