@@ -3172,9 +3172,13 @@ void doc_activate(Tdocument *doc) {
 	if (doc->filename) {
 		gchar *dir1 = g_path_get_dirname(doc->filename);
 		gchar *dir2 = ending_slash(dir1);
-		chdir(dir2);
-		DEBUG_MSG("doc_activate, call filebrowser_open_dir() for %s\n",dir2);
-		filebrowser_open_dir(BFWIN(doc->bfwin),dir2);
+		if (dir2[0] == '/') {
+			chdir(dir2);
+		}
+		if (main_v->props.filebrowser_focus_follow) {
+			DEBUG_MSG("doc_activate, call filebrowser_open_dir() for %s\n",dir2);
+			filebrowser_open_dir(BFWIN(doc->bfwin),dir2);
+		}
 		g_free(dir1);
 		g_free(dir2);
 	}
