@@ -33,6 +33,8 @@ typedef enum {
 	tcc2i_full_match_gettext
 } Ttcc2i_mode;
 gchar *uri_to_document_filename(GnomeVFSURI *uri);
+gchar *uri_to_document_filename2(gchar *uri);
+
 gchar *get_filename_on_disk_encoding(const gchar *utf8filename);
 gchar *get_utf8filename_from_on_disk_encoding(const gchar *encodedname);
 gboolean string_is_color(const gchar *color);

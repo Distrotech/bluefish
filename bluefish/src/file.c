@@ -24,6 +24,7 @@
 #include "bluefish.h"
 #include "bf_lib.h"
 #include "stringlist.h"
+#include "document.h"
 #include "file.h"
 
 /*************************** OPEN FILE ASYNC ******************************/
@@ -36,12 +37,12 @@ enum {
 	OPENFILE_FINISHED
 };
 
-typedef void (* OpenfileAsyncCallback) (gint status,gint error_info, gchar *buffer,gpointer callback_data);
+typedef void (* OpenfileAsyncCallback) (gint status,gint error_info, gchar *buffer,GnomeVFSFileSize buflen,gpointer callback_data);
 
 typedef struct {
 	gchar *buffer;
-	unsigned long long buffer_size;
-	unsigned long long used_size;
+	GnomeVFSFileSize buffer_size;
+	GnomeVFSFileSize used_size;
 	OpenfileAsyncCallback callback_func;
 	gpointer callback_data;
 } Topenfile;
@@ -65,7 +66,7 @@ static void openfile_asyncread_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSResult re
 	Topenfile *of = data;
 	if (result == GNOME_VFS_OK) {
 		of->used_size += bytes_read;
-		DEBUG_MSG("openfile_asyncread_lcb, read %lld bytes, in total %lld\n",bytes_read,of->used_size);
+		DEBUG_MSG("openfile_asyncread_lcb, read %"GNOME_VFS_SIZE_FORMAT_STR" bytes, in total %"GNOME_VFS_SIZE_FORMAT_STR"\n",bytes_read,of->used_size);
 		if ((of->used_size + CHUNK_SIZE) > of->buffer_size) {
 			of->buffer_size += BUFFER_INCR_SIZE;
 			of->buffer = g_realloc(of->buffer, of->buffer_size+1);/* the +1 is so we can add a \0 to the buffer */
@@ -74,7 +75,7 @@ static void openfile_asyncread_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSResult re
 	} else if (result == GNOME_VFS_ERROR_EOF) {
 		DEBUG_MSG("openfile_asyncread_lcb, EOF after %lld bytes\n",of->used_size);
 		of->buffer[of->used_size] = '\0';
-		of->callback_func(OPENFILE_FINISHED,result,of->buffer, of->callback_data);
+		of->callback_func(OPENFILE_FINISHED,result,of->buffer,of->used_size, of->callback_data);
 		gnome_vfs_async_close(handle,openfile_asyncclose_lcb,of);
 	} else {
 		DEBUG_MSG("openfile_asyncread_lcb, error?? result=%d\n",result);
@@ -85,10 +86,10 @@ static void openfile_asyncread_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSResult re
 static void openfile_asyncopenuri_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSResult result,gpointer data) {
 	Topenfile *of = data;
 	if (result == GNOME_VFS_OK) {
-		of->callback_func(OPENFILE_CHANNEL_OPENED,result,NULL,of->callback_data);
+		of->callback_func(OPENFILE_CHANNEL_OPENED,result,NULL,0,of->callback_data);
 		gnome_vfs_async_read(handle,of->buffer,CHUNK_SIZE,openfile_asyncread_lcb,of);
 	} else {
-		of->callback_func(OPENFILE_ERROR_NOCHANNEL, result, NULL, of->callback_data);
+		of->callback_func(OPENFILE_ERROR_NOCHANNEL, result, NULL,0, of->callback_data);
 		openfile_cleanup(of);
 	}
 }
@@ -110,6 +111,7 @@ static void file_openfile_uri_async(GnomeVFSURI *uri, OpenfileAsyncCallback call
 /************ MAKE DOCUMENT FROM ASYNC OPENED FILE ************************/
 typedef struct {
 	Tbfwin *bfwin;
+	Tdocument *doc;
 	GnomeVFSURI *uri;
 } Tfile2doc;
 
@@ -118,13 +120,13 @@ static void file2doc_cleanup(Tfile2doc *f2d) {
 	g_free(f2d);
 }
 
-static void file2doc_lcb(gint status,gint error_info,gchar *buffer,gpointer data) {
+static void file2doc_lcb(gint status,gint error_info,gchar *buffer,GnomeVFSFileSize buflen ,gpointer data) {
 	Tfile2doc *f2d = data;
 	DEBUG_MSG("file2doc_lcb, status=%d, f2d=%p\n",status,f2d);
 	switch (status) {
 		case OPENFILE_FINISHED:
 			DEBUG_MSG("file2doc_lcb, status=%d, now we should convert %s data into a GtkTextBuffer and such\n",status, gnome_vfs_uri_get_path(f2d->uri));
-			puts(buffer);
+			doc_buffer_to_textbox(f2d->doc, buffer, buflen, FALSE, TRUE);
 			file2doc_cleanup(data);
 		break;
 		case OPENFILE_ERROR:
@@ -136,12 +138,16 @@ static void file2doc_lcb(gint status,gint error_info,gchar *buffer,gpointer data
 	}
 }
 
-void file_doc_from_uri(Tbfwin *bfwin, GnomeVFSURI *uri) {
+void file_doc_from_uri(Tbfwin *bfwin, GnomeVFSURI *uri, GnomeVFSFileInfo *finfo) {
 	Tfile2doc *f2d;
+	gchar *curi;
 	f2d = g_new(Tfile2doc,1);
 	DEBUG_MSG("file_doc_from_uri, open %s, f2d=%p\n", gnome_vfs_uri_get_path(uri), f2d);
 	f2d->bfwin = bfwin;
 	f2d->uri = gnome_vfs_uri_dup(uri);
+	curi = gnome_vfs_uri_to_string(uri,0);
+	f2d->doc = doc_new_loading_in_background(bfwin, curi, finfo);
+	g_free(curi);
 	file_openfile_uri_async(f2d->uri,file2doc_lcb,f2d);
 }
 
@@ -159,17 +165,19 @@ typedef struct {
 typedef struct {
 	Tbfwin *bfwin;
 	GnomeVFSURI *uri;
+	GnomeVFSFileInfo *finfo;
 	gchar *content_filter;
 	gboolean use_regex;
 } Topenadv_uri;
 
 static void open_adv_open_uri_cleanup(Topenadv_uri *oau) {
 	gnome_vfs_uri_unref(oau->uri);
+	gnome_vfs_file_info_unref(oau->finfo);
 	g_free(oau->content_filter);
 	g_free(oau);
 }
 
-static gboolean open_adv_content_matches_filter(gchar *buffer, Topenadv_uri *oau) {
+static gboolean open_adv_content_matches_filter(gchar *buffer,GnomeVFSFileSize buflen, Topenadv_uri *oau) {
 	if (oau->use_regex) {
 		pcre *re;
 		const char *error;
@@ -178,7 +186,7 @@ static gboolean open_adv_content_matches_filter(gchar *buffer, Topenadv_uri *oau
 		if (re) {
 			int rc;
 			int ovector[30];
-			rc = pcre_exec(re, NULL, buffer, strlen(buffer), 0, 0, ovector, 30);
+			rc = pcre_exec(re, NULL, buffer, buflen, 0, 0, ovector, 30);
 			pcre_free(re);
 			return rc;
 		}
@@ -188,17 +196,21 @@ static gboolean open_adv_content_matches_filter(gchar *buffer, Topenadv_uri *oau
 	return FALSE;
 }
 
-static void open_adv_content_filter_lcb(gint status,gint error_info, gchar *buffer,gpointer data) {
+static void open_adv_content_filter_lcb(gint status,gint error_info, gchar *buffer,GnomeVFSFileSize buflen,gpointer data) {
 	Topenadv_uri *oau = data;
 	switch (status) {
 		case OPENFILE_FINISHED:
 			DEBUG_MSG("open_adv_content_filter_lcb, status=%d, now we should do the content filtering\n",status);
 			/* we have all content, do the filtering, and if correct, open the file as document */
-			if (open_adv_content_matches_filter(buffer, oau)) {
+			if (open_adv_content_matches_filter(buffer,buflen,oau)) {
+				gchar *curi;
 				Tfile2doc *f2d = g_new(Tfile2doc,1);
 				f2d->uri = gnome_vfs_uri_dup(oau->uri);
 				f2d->bfwin = oau->bfwin;
-				file2doc_lcb(status,error_info,buffer,f2d);
+				curi = gnome_vfs_uri_to_string(oau->uri,0);
+				f2d->doc = doc_new_loading_in_background(oau->bfwin, curi, oau->finfo);
+				g_free(curi);
+				file2doc_lcb(status,error_info,buffer,buflen,f2d);
 			}
 			open_adv_open_uri_cleanup(data);
 		break;
@@ -210,12 +222,13 @@ static void open_adv_content_filter_lcb(gint status,gint error_info, gchar *buff
 	}
 }
 
-static void openadv_content_filter_file(Tbfwin *bfwin, GnomeVFSURI *uri, gchar *content_filter, gboolean use_regex) {
+static void openadv_content_filter_file(Tbfwin *bfwin, GnomeVFSURI *uri, GnomeVFSFileInfo* finfo, gchar *content_filter, gboolean use_regex) {
 	Topenadv_uri *oau;
 	
 	oau = g_new0(Topenadv_uri,1);
 	oau->bfwin = bfwin;
 	oau->uri = gnome_vfs_uri_dup(uri);
+	oau->finfo = gnome_vfs_file_info_dup(finfo);
 	oau->content_filter = g_strdup(content_filter);
 	oau->use_regex = use_regex;
 	file_openfile_uri_async(uri, open_adv_content_filter_lcb, oau);
@@ -248,10 +261,10 @@ static void open_adv_load_directory_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSResu
 				if (filename_test_extensions(ext, gnome_vfs_uri_get_path(child_uri))) { /* test extension */
 					if (oa->content_filter) { /* do we need content filtering */
 /*						DEBUG_MSG("open_adv_load_directory_lcb, content filter %s\n", gnome_vfs_uri_get_path(child_uri));*/
-						openadv_content_filter_file(oa->bfwin, child_uri, oa->content_filter, oa->use_regex);
+						openadv_content_filter_file(oa->bfwin, child_uri, finfo, oa->content_filter, oa->use_regex);
 					} else { /* open this file as document */
 						DEBUG_MSG("open_adv_load_directory_lcb, open %s\n", gnome_vfs_uri_get_path(child_uri));
-						file_doc_from_uri(oa->bfwin, child_uri);
+						file_doc_from_uri(oa->bfwin, child_uri, finfo);
 					}
 				}
 			}
@@ -279,7 +292,7 @@ void open_advanced(Tbfwin *bfwin, GnomeVFSURI *basedir, gboolean recursive, gcha
 		if (content_filter) oa->content_filter = g_strdup(content_filter);
 		oa->use_regex = use_regex;
 	
-		gnome_vfs_async_load_directory_uri(&handle,basedir,GNOME_VFS_FILE_INFO_DEFAULT,
+		gnome_vfs_async_load_directory_uri(&handle,basedir,GNOME_VFS_FILE_INFO_DEFAULT|GNOME_VFS_FILE_INFO_FOLLOW_LINKS,
 										10,GNOME_VFS_PRIORITY_DEFAULT,open_adv_load_directory_lcb,oa);
 	}
 }
