@@ -32,6 +32,7 @@
 #include "rcfile.h"
 #include "bf_lib.h"
 #include "filebrowser.h"
+#include "filebrowser2.h"
 #include "menu.h"
 #include "bookmark.h"
 
@@ -274,6 +275,7 @@ void project_open_from_file(Tbfwin *bfwin, gchar *fromfilename) {
 		DEBUG_MSG("project_open_from_file, calling left_panel_show_hide_toggle bfwin=%p\n",prwin);
 		left_panel_show_hide_toggle(prwin,FALSE,prj->view_left_panel, TRUE);
 		filebrowser_set_basedir(prwin, prj->basedir);
+		fb2_set_basedir(prwin, prj->basedir);
 		DEBUG_MSG("project_open_from_file, calling docs_new_from_files for existing bfwin=%p\n",prwin);
 		docs_new_from_files(prwin, prj->files, TRUE);
 	} else {

@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-#define DEBUG
+/* #define DEBUG */
 
 /* ******* FILEBROWSER DESIGN ********
 there is only one treestore left for all bluefish windows. This treestore has all files 
@@ -668,6 +668,7 @@ static void refilter_filelist(Tfilebrowser2 *fb2, GtkTreePath *newroot) {
 	g_object_unref(oldmodel1);
 	g_object_unref(oldmodel2);
 }
+
 /**
  * fb2_fspath_from_dir_sortpath:
  *
@@ -1081,18 +1082,18 @@ static void fb2rpopup_rpopup_action_lcb(Tfilebrowser2 *fb2,guint callback_action
 			fb2_focus_document(fb2->bfwin, fb2->bfwin->current_document);
 		break;
 		case 15:
-			main_v->props.filebrowser_focus_follow = gtk_check_menu_item_get_active(widget);
+			main_v->props.filebrowser_focus_follow = gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(widget));
 			if (main_v->props.filebrowser_focus_follow) {
 				fb2_focus_document(fb2->bfwin, fb2->bfwin->current_document);
 			}
 		break;
 		case 16:
-			main_v->props.filebrowser_show_hidden_files = gtk_check_menu_item_get_active(widget);
+			main_v->props.filebrowser_show_hidden_files = gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(widget));
 			gtk_tree_model_filter_refilter(GTK_TREE_MODEL_FILTER(fb2->dir_tfilter));
 			gtk_tree_model_filter_refilter(GTK_TREE_MODEL_FILTER(fb2->file_lfilter));
 		break;
 		case 17:
-			main_v->props.filebrowser_show_backup_files = gtk_check_menu_item_get_active(widget);
+			main_v->props.filebrowser_show_backup_files = gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(widget));
 			gtk_tree_model_filter_refilter(GTK_TREE_MODEL_FILTER(fb2->dir_tfilter));
 			gtk_tree_model_filter_refilter(GTK_TREE_MODEL_FILTER(fb2->file_lfilter));
 		break;
@@ -1284,6 +1285,23 @@ static void dir_v_selection_changed_lcb(GtkTreeSelection *treeselection,Tfilebro
 		}*/
 	}
 }
+
+void fb2_set_basedir(Tbfwin *bfwin, gchar *curi) {
+	if (bfwin->fb2) {
+		Tfilebrowser2 *fb2 = bfwin->fb2;
+		GnomeVFSURI *uri;
+		DEBUG_MSG("fb2_set_basedir, set uri=%s\n",curi);
+		uri = gnome_vfs_uri_new(strip_trailing_slash(curi));
+		fb2_build_dir(uri);
+		{
+			GtkTreePath *basedir = fb2_fspath_from_uri(fb2, uri);
+			refilter_dirlist(fb2, basedir);
+			gtk_tree_path_free(basedir);
+		}
+		fb2_focus_dir(fb2, fb2->basedir, FALSE);		
+	}
+}
+
 
 GtkWidget *fb2_init(Tbfwin *bfwin) {
 	Tfilebrowser2 *fb2;
