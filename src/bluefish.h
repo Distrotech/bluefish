@@ -104,7 +104,7 @@ typedef struct {
 #define DOCUMENT(var) ((Tdocument *)(var))
 
 typedef struct {
-	gchar *filename;
+	gchar *filename; /* or NULL if no filename known */
 	gchar *encoding;
 	gint modified;
 	time_t mtime; /* from stat() */
@@ -127,7 +127,7 @@ typedef struct {
 	gboolean wrapstate; /* does this document use wrap?*/
 	gboolean linenumberstate; /* does this document use linenumbers? */
 	gboolean overwrite_mode; /* is document in overwrite mode */
-	gpointer *bfwin;
+	gpointer bfwin;
 } Tdocument;
 
 typedef struct {

@@ -1053,7 +1053,6 @@ static void add_encoding_to_list(gchar *encoding) {
 	}
 }
 
-
 #define STARTING_BUFFER_SIZE 4096
 /**
  * doc_file_to_textbox:
@@ -2774,7 +2773,7 @@ void file_close_all_cb(GtkWidget * widget, Tbfwin *bfwin) {
 	DEBUG_MSG("file_close_all_cb, started\n");
 
 	/* first a warning loop */
-	if (test_docs_modified(NULL)) {
+	if (test_docs_modified(bfwin->documentlist)) {
 		gchar *options[] = {_("_Save all"), _("Close _all"), _("Choose per _file"), _("_Cancel"), NULL};
 		retval = multi_query_dialog(bfwin->main_window,_("Some file(s) have been modified"), NULL, 0, 3, options);
 		if (retval == 3) {

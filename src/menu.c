@@ -128,6 +128,9 @@ static void menu_file_operations_cb(Tbfwin *bfwin,guint callback_action, GtkWidg
 	case 23:
 		redo_all_cb(NULL, bfwin);
 	break;
+	case 24:
+		file_close_all_cb(NULL,bfwin);
+	break;
 	default:
 		g_print("menu_file_operations_cb, unknown action, abort!\n");
 		exit(123);
@@ -266,7 +269,7 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/File/Sa_ve All"), NULL, menu_file_operations_cb, 8, NULL},
 	{N_("/File/sep3"), NULL, NULL, 0, "<Separator>"},
 	{N_("/File/_Close"), "<control>w", menu_file_operations_cb, 9, "<StockItem>", GTK_STOCK_CLOSE},
-	{N_("/File/Close A_ll"), "<shift><control>w", file_close_all_cb, 0, NULL},
+	{N_("/File/Close A_ll"), "<shift><control>w", menu_file_operations_cb, 24, NULL},
 	{N_("/File/sep5"), NULL, NULL, 0, "<Separator>"},
 	{N_("/File/_Quit"), "<control>Q", bluefish_exit_request, 0, "<StockItem>", GTK_STOCK_QUIT},
 	{N_("/_Edit"), NULL, NULL, 0, "<Branch>"},
