@@ -395,7 +395,7 @@ quickstart_style_page_create(TQuickStart *qstart)
 	gtk_container_add (GTK_CONTAINER (frame), vbox);
 	
 	label = gtk_label_new (NULL);
-	gtk_label_set_markup (GTK_LABEL (label), _("<b>External style sheet</b>"));
+	gtk_label_set_markup (GTK_LABEL (label), _("<b>External Style Sheet</b>"));
 	gtk_misc_set_alignment (GTK_MISC (label), 0, 0);	
 	gtk_box_pack_start (GTK_BOX (vbox), label, FALSE, FALSE, 0);
 	
@@ -413,7 +413,7 @@ quickstart_style_page_create(TQuickStart *qstart)
 		gtk_combo_box_append_text (GTK_COMBO_BOX (qstart->stylelinktype), type[i]);
 	}
 	g_signal_connect (G_OBJECT (qstart->stylelinktype), "changed", G_CALLBACK (quickstart_stylelinktype_changed), qstart);
-	label = gtk_label_new_with_mnemonic (_("_Type:"));
+	label = gtk_label_new_with_mnemonic (_("Ty_pe:"));
 	gtk_misc_set_alignment (GTK_MISC (label), 0, 0.5);
 	gtk_label_set_mnemonic_widget (GTK_LABEL (label), qstart->stylelinktype);
 	gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, FALSE, 0);
@@ -429,7 +429,7 @@ quickstart_style_page_create(TQuickStart *qstart)
 	
 	qstart->stylehref = gtk_combo_box_entry_new_with_model (GTK_TREE_MODEL (history), 0);
 	g_object_unref (history);
-	bf_mnemonic_label_tad_with_alignment(_("_Href:"), qstart->stylehref, 0, 0.5, table, 0, 1, 0, 1);
+	bf_mnemonic_label_tad_with_alignment(_("Hre_f:"), qstart->stylehref, 0, 0.5, table, 0, 1, 0, 1);
 	gtk_table_attach (GTK_TABLE (table), qstart->stylehref, 1, 2, 0, 1, GTK_EXPAND|GTK_FILL, GTK_SHRINK, 0, 0);
 	
 	qstart->stylemedia = gtk_entry_new ();
@@ -440,7 +440,7 @@ quickstart_style_page_create(TQuickStart *qstart)
 	 * Possibly from a code snippet library
 	 */
 	label = gtk_label_new (NULL);
-	gtk_label_set_markup (GTK_LABEL (label), _("<b>Style area</b>"));
+	gtk_label_set_markup (GTK_LABEL (label), _("<b>Style Area</b>"));
 	gtk_misc_set_alignment (GTK_MISC (label), 0, 0);	
 	gtk_box_pack_start (GTK_BOX (vbox), label, FALSE, FALSE, 0);
 	
@@ -452,7 +452,7 @@ quickstart_style_page_create(TQuickStart *qstart)
 	
 	hbox = gtk_hbox_new (FALSE, 12);
 	gtk_box_pack_start (GTK_BOX (vbox2), hbox, FALSE, FALSE, 0);
-	qstart->stylearea = gtk_check_button_new_with_mnemonic (_("_Create empty style area"));
+	qstart->stylearea = gtk_check_button_new_with_mnemonic (_("Create _empty style area"));
 	gtk_box_pack_start (GTK_BOX (hbox), qstart->stylearea, FALSE, FALSE, 0);	
 
 	gtk_combo_box_set_active (GTK_COMBO_BOX (qstart->stylelinktype), 0);
@@ -547,7 +547,10 @@ quickstart_dialog_new(Tbfwin *bfwin) {
 	page = quickstart_style_page_create(qstart);
 	gtk_notebook_append_page (GTK_NOTEBOOK (qstart->notebook), page, NULL);
 	page = quickstart_script_page_create(qstart);
-	gtk_notebook_append_page (GTK_NOTEBOOK (qstart->notebook), page, NULL);	
+	gtk_notebook_append_page (GTK_NOTEBOOK (qstart->notebook), page, NULL);
+	
+	gtk_tree_model_get_iter_first (GTK_TREE_MODEL (headStore), &iter);
+	gtk_tree_selection_select_iter (selection, &iter);
 	
 	gtk_widget_show_all (dialog);
 }
