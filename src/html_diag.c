@@ -58,6 +58,11 @@ Thtml_diag *html_diag_new(gchar *title) {
 
 	dg->range.pos = -1;
 	dg->range.end = -1;
+	if (main_v->props.transient_htdialogs) {
+		/* must be set before realizing */
+		DEBUG_MSG("html_diag_finish, setting transient!\n");
+		gtk_window_set_transient_for(GTK_WINDOW(dg->dialog), GTK_WINDOW(main_v->main_window));
+	}
 
 	gtk_widget_realize(dg->dialog);
 	dg->doc = main_v->current_document;
@@ -88,11 +93,6 @@ void html_diag_finish(Thtml_diag *dg, GtkSignalFunc ok_func) {
 
 	gtk_box_pack_start(GTK_BOX(dg->vbox), hbox, FALSE, FALSE, 0);
 	gtk_widget_show_all(GTK_WIDGET(dg->dialog));
-	if (main_v->props.transient_htdialogs) {
-		DEBUG_MSG("html_diag_finish, setting transient!\n");
-/*		gtk_window_set_modal(GTK_WINDOW(dg->dialog), TRUE);*/
-		gtk_window_set_transient_for(GTK_WINDOW(dg->dialog), GTK_WINDOW(main_v->main_window));
-	}
 }
 
 /*************************************************/

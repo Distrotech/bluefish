@@ -78,7 +78,7 @@ gboolean append_string_to_file(gchar *filename, gchar *string) {
 gint table_convert_char2int(Tconvert_table *table, gchar *my_char) {
 	Tconvert_table *entry;
 	entry = table;
-	while (entry) {
+	while (entry->my_char) {
 		if (strcmp(entry->my_char, my_char) == 0) {
 			return entry->my_int;
 		}
@@ -92,7 +92,7 @@ gint table_convert_char2int(Tconvert_table *table, gchar *my_char) {
 gchar *table_convert_int2char(Tconvert_table *table, gint my_int) {
 	Tconvert_table *entry;
 	entry = table;
-	while (entry) {
+	while (entry->my_char) {
 		if (my_int == entry->my_int) {
 			return entry->my_char;
 		}

@@ -164,8 +164,6 @@ typedef struct {
 	gint cont_highlight_full; 	/* if you want to highlight the full text or just the line */
 	gint cont_highlight_update;	/* update the syntax highlighting continuous */
 	gchar *html_ver;
-	GList *external_filters;	/* external filter in list */
-	GList *external_commands;	/* external filter in list */
 	GList *cust_menu; 		/* entries in the custom menu */
 #ifdef WITH_SPC
 	/* spell checker options */
@@ -208,7 +206,8 @@ typedef struct {
 	gint highlight_num_lines_count; /* number of lines to highlight in continous highlighting */
 	GList *filetypes;
 	GList *highlight_patterns;
-	GList *browsers;
+	GList *browsers; /* browsers array */
+	GList *external_commands;	/* external commands array */
 	GList *quickbar_items;
 } Tproperties;
 
@@ -229,7 +228,7 @@ typedef struct {
 	GtkWidget *statuslabel; /* where we have the line number */
 	GList *recent_directories; /* a stringlist with the most recently used directories */
 	GList *recent_files; /* menu.c: a list of menuitems for a recent file */
-	GList *browsers; /* menu.c: a list of menuitems for a recent file */
+	GList *external_menu; /* menu.c: a list of menuitems for external commands and browsers */
 	GtkWidget *cmenu; /* menu.c: the custom menu widget */
 	GList *cmenu_entries; /* menu.c: the list of menuitems for the custom menu */
 } Tmain;

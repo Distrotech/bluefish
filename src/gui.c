@@ -558,7 +558,7 @@ void gui_create_main(GList *filenames) {
 	/* first a menubar */
 	menu_create_main(vbox);
 	recent_menu_init();
-	browsers_menu_init();
+	external_menu_init();
 
 	/* then the toolbars */
 	{
