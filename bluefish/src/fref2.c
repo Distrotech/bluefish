@@ -791,11 +791,13 @@ void fref_rescan_dir(const gchar * dir)
 	const gchar *filename;
 	GError *error = NULL;
 	gchar *tofree;
-	GPatternSpec *ps = g_pattern_spec_new("bflib_*.xml*"); /* also xml.gz files */
+	GPatternSpec *ps = g_pattern_spec_new("bflib_*.xml"); 
+	GPatternSpec *ps2 = g_pattern_spec_new("bflib_*.xml.gz"); /* also xml.gz files */
 	GDir *gd = g_dir_open(dir, 0, &error);
 	filename = g_dir_read_name(gd);
 	while (filename) {
-		if (g_pattern_match(ps, strlen(filename), filename, NULL)) {
+		if (g_pattern_match(ps, strlen(filename), filename, NULL) ||
+		    g_pattern_match(ps2, strlen(filename), filename, NULL)) {
 			gchar *path = g_strconcat(dir, filename, NULL);
 			DEBUG_MSG("filename %s has a match!\n", filename);
 			if (!reference_file_known(path)) {
@@ -811,6 +813,7 @@ void fref_rescan_dir(const gchar * dir)
 	}
 	g_dir_close(gd);
 	g_pattern_spec_free(ps);
+	g_pattern_spec_free(ps2);
 }
 
 
@@ -843,12 +846,12 @@ void fref_load_from_file(gchar * filename, GtkWidget * tree, GtkTreeStore * stor
 	}	
 	cur = xmlDocGetRootElement(doc);	
 	if ( xmlStrcmp(cur->name, "ref") != 0 &&  xmlStrcmp(cur->name,"r") != 0 ) {
-		/* Oskar there is a %s in the second string here that isn't doing anything. Something missing? */
+		
 		message_dialog_new(bfwin->main_window, 
 						 		 GTK_MESSAGE_ERROR, 
 						 		 GTK_BUTTONS_CLOSE, 
 						 		 _("Bad root element in reference file"), 
-						 		 _(" %s\nShould be <ref> or <r> "));
+						 		 _(" \nShould be <ref> or <r> "));
 		g_hash_table_destroy(info->dictionary);
 		g_hash_table_destroy(info->commons);		
 		g_hash_table_destroy(info->elements);
