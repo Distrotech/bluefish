@@ -24,17 +24,50 @@
 #include "bluefish.h"
 
 Tdocument *doc_new() {
+	GtkWidget *scroll;
 	Tdocument *newdoc = g_new0(Tdocument, 1);
 
 	newdoc->hl = hl_get_highlightset_by_filename(NULL);
-	newdoc->buffer = gtk_text_buffer_new(newdoc->hl->tagtable);
+	newdoc->buffer = gtk_text_buffer_new(main_v->tagtable);
 	newdoc->view = gtk_text_view_new_with_buffer(newdoc->buffer);
+	scroll = gtk_scrolled_window_new(NULL, NULL);
+	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scroll),
+									   GTK_POLICY_AUTOMATIC,
+									   GTK_POLICY_AUTOMATIC);
+	gtk_scrolled_window_set_shadow_type(GTK_SCROLLED_WINDOW
+											(scroll), GTK_SHADOW_IN);
+	gtk_container_add(GTK_CONTAINER(scroll), newdoc->view);
+
+	newdoc->tab_label = gtk_label_new(NULL);
+	GTK_WIDGET_UNSET_FLAGS(newdoc->tab_label, GTK_CAN_FOCUS);
+
+	doc_unre_init(newdoc);
+
+/* this will force function doc_set_modified to update the tab label*/
+	newdoc->modified = 1;
+	doc_set_modified(newdoc, 0);
+	newdoc->filename = NULL;
+	newdoc->need_highlighting = 0;
+	newdoc->mtime = 0;
+	newdoc->owner_uid = -1;
+	newdoc->owner_gid = -1;
+	newdoc->is_symlink = 0;
+	newdoc->highlightstate = main_v->props.defaulthighlight;
+
+	main_v->documentlist = g_list_append(main_v->documentlist, newdoc);
+	gtk_notebook_append_page(GTK_NOTEBOOK(main_v->notebook), scroll ,newdoc->tab_label);
+
 
 	main_v->documentlist = g_list_append(main_v->documentlist, newdoc);
 
-	gtk_notebook_append_page(GTK_NOTEBOOK(main_v->notebook), newdoc->view,newdoc->tab_label);
-	gtk_widget_show(tmptable);
-	
+	gtk_widget_show(newdoc->view);
+	gtk_widget_show(newdoc->tab_label);
+	gtk_widget_show(scroll);
+
+	gtk_notebook_set_page(GTK_NOTEBOOK(main_v->notebook),g_list_length(main_v->documentlist) - 1);
+	notebook_changed();
+
+	gtk_widget_grab_focus(document->view);	
 	return newdoc;
 }
 
@@ -60,12 +93,23 @@ gint find_filename_in_documentlist(gchar *filename) {
 	}
 	return -1;
 }
+
+gboolean doc_is_empty_non_modified_and_nameless(Tdocument *doc) {
+	if (tmpdoc->modified || tmpdoc->filename) {
+		return FALSE;
+	}
+	if (gtk_text_buffer_get_char_count(tmpdoc->buffer) > 0) {
+		return FALSE;
+	}
+	return TRUE;
+}
+
+
 /* gboolean test_docs_modified(GList *doclist)
  * if doclist is NULL it will use main_v->documentlist as doclist
  * returns TRUE if there are any modified documents in doclist
  * returns FALSE if there are no modified documents in doclist
  */
-
 gboolean test_docs_modified(GList *doclist) {
 
 	GList *tmplist;
@@ -107,14 +151,97 @@ gboolean test_only_empty_doc_left(Tdocument *doc) {
 		g_assert(tmplist->data);
 #endif
 		tmpdoc = tmplist->data;
-		if (tmpdoc->modified || tmpdoc->filename) {
-			return FALSE;
-		}
-		if (gtk_text_buffer_get_char_count(tmpdoc->buffer) > 0) {
+		if (!doc_is_empty_non_modified_and_nameless(tmpdoc)) {
 			return FALSE;
 		}
 	}
 	return TRUE;
+}
+
+static void doc_set_undo_redo_widget_state(Tdocument *doc) {
+		gint redo, undo;
+		redo = doc_has_redo_list(doc);
+		undo = doc_has_undo_list(doc);
+		if (main_v->props.v_main_tb) {
+			gtk_widget_set_sensitive(main_v->toolb.redo, redo);
+			gtk_widget_set_sensitive(main_v->toolb.undo, undo);
+		}
+		gtk_widget_set_sensitive(gtk_item_factory_get_widget(gtk_item_factory_from_widget(main_v->menubar), N_("/Edit/Undo")), undo);
+		gtk_widget_set_sensitive(gtk_item_factory_get_widget(gtk_item_factory_from_widget(main_v->menubar), N_("/Edit/Undo all")), undo);
+		gtk_widget_set_sensitive(gtk_item_factory_get_widget(gtk_item_factory_from_widget(main_v->menubar), N_("/Edit/Redo")), redo);
+		gtk_widget_set_sensitive(gtk_item_factory_get_widget(gtk_item_factory_from_widget(main_v->menubar), N_("/Edit/Redo all")), redo);
+}
+
+void doc_set_modified(Tdocument *doc, gint value) {
+	if (doc->modified != value) {
+		gchar *temp_string;
+		doc->modified = value;
+		if (doc->modified) {
+			if (doc->filename) {
+				temp_string = g_strconcat(g_basename(doc->filename), " *", NULL);			
+			} else {
+				temp_string = g_strdup(_("Untitled *"));			
+			}
+		} else {
+			if (doc->filename) {
+				temp_string = g_strdup(g_basename(doc->filename));
+			} else {
+				temp_string = g_strdup(_("Untitled"));
+			}
+		}
+		gtk_label_set(GTK_LABEL(doc->tab_label),temp_string);
+		g_free(temp_string);
+	}
+	/* only when this is the current document we have to change these */
+	if (doc == main_v->current_document) {
+		doc_set_undo_redo_widget_state(doc);
+	}
+}
+
+inline static void doc_update_mtime(Tdocument *doc) {
+	if (doc->filename) {
+		struct stat statbuf;
+		if (stat(doc->filename, &statbuf) == 0) {
+			doc->mtime = statbuf.st_mtime;
+		}
+	} else {
+		doc->mtime = 0;
+	}
+}
+/* returns 1 if the time didn't change, returns 0 
+if the file is modified by another process, returns
+1 if there was no previous mtime information available */
+static gint doc_check_mtime(Tdocument *doc) {
+	if (doc->filename && 0 != doc->mtime) {
+		struct stat statbuf;
+		if (stat(doc->filename, &statbuf) == 0) {
+			if (doc->mtime < statbuf.st_mtime) {
+				DEBUG_MSG("doc_check_mtime, doc->mtime=%d, statbuf.st_mtime=%d\n", (int)doc->mtime, (int)statbuf.st_mtime);
+				return 0;
+			}
+		}
+	} 
+	return 1;
+}
+
+/* doc_set_stat_info() includes setting the mtime field, so there is no need
+to call doc_update_mtime() as well */
+static void doc_set_stat_info(Tdocument *doc) {
+	if (doc->filename) {
+		struct stat statbuf;
+		if (lstat(doc->filename, &statbuf) == 0) {
+			if (S_ISLNK(statbuf.st_mode)) {
+				doc->is_symlink = 1;
+				stat(doc->filename, &statbuf);
+			} else {
+				doc->is_symlink = 0;
+			}
+			doc->mtime = statbuf.st_mtime;
+			doc->owner_uid = statbuf.st_uid;
+			doc->owner_gid = statbuf.st_gid;
+			doc->mode = statbuf.st_mode;
+		}
+	}
 }
 
 static void doc_scroll_to_line(Tdocument *doc, gint linenum, gboolean select_line) {
@@ -149,14 +276,325 @@ gboolean doc_file_to_textbox(Tdocument * doc, gchar * filename)
 		error_dialog(_("Error"), errmessage);	/* 7 */
 		g_free(errmessage);
 		return FALSE;
-	} 
+	}
 
 	while (fgets(line, STARTING_BUFFER_SIZE, fd) != NULL) {
 		gtk_text_buffer_insert_at_cursor(doc->buffer,line,-1);
 	}
 	fclose(fd);
-	if (some_property_if_we_have_default_highlighting) {
-		doc_highlight_full(doc);
-	}
+	doc->need_highlighting=TRUE;
 	return TRUE;
+}
+
+/* static gint file_check_backup(Tdocument *doc)
+ * returns 1 on success, 0 on failure
+ * if no backup is required, or no filename known, 1 is returned
+ */
+static gint doc_check_backup(Tdocument *doc) {
+	gint res = 1;
+
+	if (main_v->props.backup_file && doc->filename && file_exists_and_readable(doc->filename)) {
+		gchar *backupfilename;
+		backupfilename = g_strconcat(doc->filename, main_v->props.backup_filestring, NULL);
+		res = file_copy(doc->filename, backupfilename);
+		if (doc->owner_uid != -1 && !doc->is_symlink) {
+			chmod(backupfilename, doc->mode);
+			chown(backupfilename, doc->owner_uid, doc->owner_gid);
+		}
+		g_free(backupfilename);
+	}
+	return res;
+}
+
+/*
+ * gint doc_textbox_to_file(Tdocument * doc, gchar * filename)
+ * returns 1 on success
+ * returns 2 on success but the backup failed
+ * returns -1 if the backup failed and save was aborted
+ * returns -2 if the file pointer could not be opened
+ * returns -3 if the backup failed and save was aborted by the user
+ */
+
+gint doc_textbox_to_file(Tdocument * doc, gchar * filename) {
+	FILE *fd;
+	gchar *tmpchar;
+	gint backup_retval;
+
+	statusbar_message(_("Saving file"), 1000);
+
+	/* This writes the contents of a textbox to a file */
+	backup_retval = file_check_backup(doc);
+
+	if (!backup_retval) {
+		if (strcmp(main_v->props.backup_abort_style, "abort")==0) {
+			DEBUG_MSG("doc_textbox_to_file, backup failure, abort!\n");
+			return -1;
+		} else if (strcmp(main_v->props.backup_abort_style, "ask")==0) {
+			gchar *options[] = {N_("Abort save"), N_("Continue save"), NULL};
+			gint retval;
+			gchar *tmpstr =  g_strdup_printf(_("Backup %s failed"), filename);
+			retval = multi_button_dialog(_("Bluefish warning, file backup failure"), 1, tmpstr, options);
+			g_free(tmpstr);
+			if (retval == 0) {
+				DEBUG_MSG("doc_textbox_to_file, backup failure, user aborted!\n");
+				return -3;
+			}
+		}
+	}
+	change_dir(filename);
+	fd = fopen(filename, "w");
+	if (fd == NULL) {
+		DEBUG_MSG("textbox_to_file, cannot open file %s\n", filename);
+		return -2;
+	} else {
+		GtkTextIter itstart, itend;
+		gtk_text_buffer_get_bounds(doc->buffer,&itstart,&itend);
+		tmpchar = gtk_text_buffer_get_text(doc->buffer,&itstart,&itend,FALSE);
+		fputs(tmpchar, fd);
+		g_free(tmpchar);
+		fclose(fd);
+
+		doc_set_modified(doc, 0);
+		if (main_v->props.clear_undo_on_save) {
+			doc_unre_clear_all(doc);
+		}
+		if (!backup_retval) {
+			return 2;
+		} else {
+			return 1;
+		}
+	}
+}
+
+void doc_destroy(Tdocument * doc)
+{
+	if (doc->filename) {
+		add_to_recent_list(doc->filename, 1);
+	}
+
+	gtk_notebook_remove_page(GTK_NOTEBOOK(main_v->notebook),
+							 gtk_notebook_page_num(GTK_NOTEBOOK(main_v->notebook),doc->view->parent));
+
+	if (g_list_length(main_v->documentlist) > 1) {
+		main_v->documentlist = g_list_remove(main_v->documentlist, doc);
+	} else {
+		main_v->documentlist = g_list_remove(main_v->documentlist, doc);
+		DEBUG_MSG("doc_destroy, last document removed from documentlist\n");
+		g_list_free(main_v->documentlist);
+		DEBUG_MSG("doc_destroy, freed documentlist\n");
+		main_v->documentlist = NULL;
+		DEBUG_MSG("doc_destroy, documentlist = NULL\n");
+	}
+	DEBUG_MSG("doc_destroy, g_list_length(documentlist)=%d\n",g_list_length(main_v->documentlist));
+	if (doc->filename) {
+		g_free(doc->filename);
+	}
+	DEBUG_MSG("doc_destroy, this is kind of tricky, I don't know if the Buffer is also detroyed when you destroy the view\n");
+	g_object_unref(doc->buffer);
+	DEBUG_MSG("doc_destroy, if this line shows up well I guess we needed to unref the buffer\n");
+	
+	doc_unre_destroy(doc);
+	g_free(doc);
+
+	notebook_changed();
+}
+
+/* gint doc_save(Tdocument * doc, gint do_save_as, gint do_move)
+ * returns 1 on success
+ * returns 2 on success but the backup failed
+ * returns 3 on user abort
+ * returns -1 if the backup failed and save was aborted
+ * returns -2 if the file pointer could not be opened 
+ * returns -3 if the backup failed and save was aborted by the user
+ * returns -4 if there is no filename, after asking one from the user
+ * returns -5 if another process modified the file, and the user chose cancel
+ */
+
+gint doc_save(Tdocument * doc, gint do_save_as, gint do_move)
+{
+	gchar *oldfilename = NULL;
+	gint retval;
+#ifdef DEBUG
+	g_assert(doc);
+#endif
+
+	DEBUG_MSG("doc_save, doc=%p, save_as=%d, do_move=%d\n", doc, do_save_as, do_move);
+	if (doc->filename == NULL) {
+		do_save_as = 1;
+	}
+	if (do_move) {
+		do_save_as = 1;
+	}
+
+	if (do_save_as) {
+		gchar *newfilename = NULL;
+		gint index;
+		statusbar_message(_("Save as..."), 1);
+		oldfilename = doc->filename;
+		doc->filename = NULL;
+		newfilename = return_file_w_title(NULL, _("Save document as"));
+		index = find_filename_in_documentlist(newfilename);
+		DEBUG_MSG("doc_save, index=%d, filename=%p\n", index, newfilename);
+
+		if (index != -1) {
+			gchar *tmpstr;
+			gint retval;
+			gchar *options[] = {N_("Overwrite"), N_("Cancel"), NULL};
+			tmpstr = g_strdup_printf(_("File %s is open, overwrite?"), newfilename);
+			retval = multi_button_dialog(_("Bluefish: Warning, file is open"), 1, tmpstr, options);
+			g_free(tmpstr);
+			if (retval == 1) {
+				g_free(newfilename);
+				doc->filename = oldfilename;
+				return 3;
+			} else {
+				Tdocument *tmpdoc;
+				tmpdoc = (Tdocument *)g_list_nth_data(main_v->documentlist, index);
+				DEBUG_MSG("doc_save, tmpdoc=%p\n", tmpdoc);
+#ifdef DEBUG
+				g_assert(tmpdoc);
+				g_assert(tmpdoc->filename);
+#endif
+				g_free(tmpdoc->filename);
+				tmpdoc->filename = NULL;
+				doc_set_modified(tmpdoc, 1);
+				tmpstr = g_strconcat(_("Previously: "), strip_filename(newfilename), NULL);
+				gtk_label_set(GTK_LABEL(tmpdoc->tab_label),tmpstr);
+				g_free(tmpstr);
+			}
+		}
+		doc->filename = newfilename;
+		doc->modified = 1;
+	}
+
+	if (doc->filename == NULL) {
+		doc->filename = oldfilename;
+		return -4;
+	}
+	
+	if (doc_check_mtime(doc) == 0) {
+		gchar *tmpstr;
+		gint retval;
+		gchar *options[] = {N_("Overwrite"), N_("Cancel"), NULL};
+
+		tmpstr = g_strdup_printf(_("File %s\nis modified by another process, overwrite?"), doc->filename);
+		retval = multi_button_dialog(_("Bluefish: Warning, file is modified"), 0, tmpstr, options);
+		g_free(tmpstr);
+		if (retval == 1) {
+			if (oldfilename) {
+				g_free(oldfilename);
+			}
+			return -5;
+		}
+	}
+	
+	DEBUG_MSG("doc_save, returned file %s\n", doc->filename);
+	if (do_save_as && oldfilename && main_v->props.link_management) {
+		update_filenames_in_file(doc, oldfilename, doc->filename, 1);
+	}
+	statusbar_message(_("Save in progress"), 1);
+	retval = doc_textbox_to_file(doc, doc->filename);
+
+	switch (retval) {
+		gchar *errmessage;
+		case -1:
+			/* backup failed and aborted */
+			errmessage = g_strconcat(_("File save aborted, could not backup file:\n"), doc->filename, NULL);
+			error_dialog(_("Error"), errmessage);
+			g_free(errmessage);
+		break;
+		case -2:
+			/* could not open the file pointer */
+			errmessage = g_strconcat(_("File save error, could not write file:\n"), doc->filename, NULL);
+			error_dialog(_("Error"), errmessage);
+			g_free(errmessage);
+		break;
+		default:
+			doc_update_mtime(doc);
+			DEBUG_MSG("doc_save, received return value %d from doc_textbox_to_file\n", retval);
+		break;
+	}
+	if (oldfilename) {
+		populate_dir_file_list();
+		if (do_move && (retval > 0)) {
+			if (main_v->props.link_management) {
+				all_documents_update_links(doc, oldfilename,
+							   doc->filename);
+			}
+			unlink(oldfilename);
+		}
+
+		g_free(oldfilename);
+	}
+	return retval;
+}
+
+/*
+returning 0 --> cancel or abort
+returning 1 --> ok, closed or saved & closed
+*/
+gint doc_close(Tdocument * doc, gint warn_only)
+{
+	gchar *text;
+	gint retval;
+
+	if (!doc) {
+		return 0;
+	}
+
+	if (doc_is_empty_non_modified_and_nameless(Tdocument *doc)) {
+		/* no need to close this doc, it's an Untitled empty document */
+		return 0;
+	}
+
+	if (doc->modified) {
+		if (doc->filename) {
+			text =
+				g_strdup_printf(_("Are you sure you want to close\n%s ?"),
+								doc->filename);
+		} else {
+			text =
+				g_strdup(_
+						 ("Are you sure you want to close\nthis untitled file ?"));
+		}
+	
+		{
+			gchar *buttons[] = {N_("Save"), N_("Close"), N_("Cancel"), NULL};
+			retval = multi_button_dialog(_("Bluefish warning: file is modified!"), 2, text, buttons);
+		}
+		g_free(text);
+
+		switch (retval) {
+		case 2:
+			DEBUG_MSG("doc_close, retval=2 (cancel) , returning\n");
+			return 2;
+			break;
+		case 0:
+			doc_save(doc, 0, 0);
+			if (doc->modified == 1) {
+				/* something went wrong it's still not saved */
+				return 0;
+			}
+			if (!warn_only) {
+				doc_destroy(doc);
+			}
+			break;
+		case 1:
+			if (!warn_only) {
+				doc_destroy(doc);
+			}
+			break;
+		default:
+			return 0;			/* something went wrong */
+			break;
+		}
+	} else {
+		DEBUG_MSG("doc_close, closing doc=%p\n", doc);
+		if (!warn_only) {
+			doc_destroy(doc);
+		}
+	}
+
+	notebook_changed();
+	return 1;
 }

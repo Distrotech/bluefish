@@ -66,7 +66,6 @@ typedef struct {
 	gchar **extensions;
 	gchar *update_chars;
 	GList *highlightlist;
-	GtkTextTagTable *tagtable;
 } Thighlightset;
 
 /*******************/
@@ -89,6 +88,8 @@ typedef struct {
 	GtkTextBuffer *buffer;
 	gint last_rbutton_event; /* index of last 3rd button click */
 	Thighlightset *hl; /* highlighting set to use for this document */
+	gint need_highlighting; /* if you open 10+ documents you don't need immediate highlighting, just set this var, and notebook_switch() will trigger the actual highlighting when needed */
+	gint highlightstate;
 } Tdocument;
 
 typedef struct {
@@ -97,6 +98,7 @@ typedef struct {
 	GList *hlsetlist;
 	GtkWidget *main_window;
 	GtkWidget *notebook;
+	GtkTextTagTable *tagtable; /* this one should ultimately move to Thighlightset, so every set would have it's own tagtable, but there is currently no way to switch a document to a new tagtable */
 } Tmain;
 
 extern Tmain *main_v;
