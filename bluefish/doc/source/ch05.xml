@@ -65,7 +65,7 @@ with the search and replace you can do increadible things. We'll start with a si
 		</para>
 		<para>we can also do one replace using regular expressions: find (&lt;|&lt;/)?td&gt; and replace with \0th&gt; For more information about regular expressions you might want to read man 7 regex, or read any of the great internet sites about regular expressions.</para>
 		<para>
-		if you understand the above example, you will realize that you can do much more. Suppose you also want to match a table data tag that does have some attributes like &lt;td class=&quot;myclass&quot;&gt;, and you want to keep the option while converting to table header. The following pattern will do this: find (<|</)td([^>]*)> and replace with \0th\1>
+		if you understand the above example, you will realize that you can do much more. Suppose you also want to match a table data tag that does have some attributes like &lt;td class=&quot;myclass&quot;&gt;, and you want to keep the option while converting to table header. The following pattern will do this: find (&lt;|&lt;/)td([^&gt;]*)&gt; and replace with \0th\1&gt;
 		</para>
 		
 		
