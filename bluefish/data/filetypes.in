@@ -1,7 +1,7 @@
 text:.txt:::1::0:
 php:.php\:.php4\:.inc\:.php3: <>'"/?$\\t-{}[]{}\n;:PKGDATADIRicon_php.png:1:^#!/[a-z/]+php:2:
 html:.html\:.htm\:.shtml\:.shtm:<> \n":PKGDATADIRicon_html.png:1:<html[^>]*>:2:
-python:.py::PKGDATADIRicon_python.png:1:^#!/[a-z/]+python:0:
+python:.py::PKGDATADIRicon_python.png:1:^#!/[a-z/]+/python:0:
 c:.c\:.h:(){}'[]\n/#" :PKGDATADIRicon_c.png:1::0:
 java:.java:(){}'[]\n/" :PKGDATADIRicon_java.png:1::0:
 perl:.pl\:.PL\:.cgi:::1:^#!/[a-z/]+perl:0:
@@ -18,3 +18,4 @@ pascal:.pas: (){}'[]\n;":PKGDATADIRicon_pascal.png:1::0:
 R:.r\:.rd\:.R\:.Rd\:.RD: <>=+-*/'"{}[]()\t\n.,\:$&|#:PKGDATADIRicon_r.png:1::0:
 gettext po:.po:"\n::1::0:
 octave:.m:::1::0:
+shell:.sh:::1:^#!/[a-z]+/[a-z/]*/(ba)?sh$:0:
