@@ -49,6 +49,17 @@ gchar *uri_to_document_filename(GnomeVFSURI *uri) {
 		return gnome_vfs_uri_to_string(uri, GNOME_VFS_URI_HIDE_PASSWORD);
 	}
 }
+/**
+ * uri_to_document_filename:
+ *
+ */
+gchar *uri_to_document_filename2(gchar *uri) {
+	gchar *ret;
+	GnomeVFSURI *guri = gnome_vfs_uri_new(uri);
+	ret = uri_to_document_filename(guri);
+	gnome_vfs_uri_unref(guri);
+	return ret;
+}
 
 
 /**

@@ -64,7 +64,7 @@ void doc_replace_text_backend(Tdocument *doc, const gchar * newstring, gint star
 void doc_replace_text(Tdocument *doc, const gchar * newstring, gint start, gint end);
 
 void doc_insert_two_strings(Tdocument *doc, const gchar *before_str, const gchar *after_str);
-
+gboolean doc_buffer_to_textbox(Tdocument * doc, gchar * buffer, gsize buflen, gboolean enable_undo, gboolean delay);
 void doc_bind_signals(Tdocument *doc);
 void doc_unbind_signals(Tdocument *doc);
 gboolean buffer_to_file(Tbfwin *bfwin, gchar *buffer, gchar *filename);
@@ -74,6 +74,7 @@ gchar *ask_new_filename(Tbfwin *bfwin,gchar *oldfilename, const gchar *gui_name,
 gint doc_save(Tdocument * doc, gboolean do_save_as, gboolean do_move, gboolean window_closing);
 void document_set_line_numbers(Tdocument *doc, gboolean value);
 Tdocument *doc_new(Tbfwin* bfwin, gboolean delay_activate);
+Tdocument *doc_new_loading_in_background(Tbfwin *bfwin, gchar *uri, GnomeVFSFileInfo *finfo);
 void doc_new_with_new_file(Tbfwin *bfwin, gchar * new_filename);
 Tdocument *doc_new_with_file(Tbfwin *bfwin, gchar * filename, gboolean delay_activate, gboolean move_to_this_win);
 void docs_new_from_files(Tbfwin *bfwin, GList * file_list, gboolean move_to_this_win);

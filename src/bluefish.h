@@ -113,16 +113,18 @@ typedef struct {
 #define BFWIN(var) ((Tbfwin *)(var))
 #define DOCUMENT(var) ((Tdocument *)(var))
 
+enum {
+	DOC_STATUS_ERROR,
+	DOC_STATUS_LOADING,
+	DOC_STATUS_COMPLETE
+};
 typedef struct {
+	gchar *uri; /* slowly we should move all functions so they will use the URI, and not the filename */
 	gchar *filename; /* this is the UTF-8 encoded filename, before you use it on disk you need convert to disk-encoding! */
+	gint status; /* can be DOC_STATUS_ERROR, DOC_STATUS_LOADING, DOC_STATUS_COMPLETE */
 	gchar *encoding;
 	gint modified;
-/*	time_t mtime; */ /* from stat() */
-#ifdef HAVE_GNOME_VFS
 	GnomeVFSFileInfo *fileinfo;
-#else /* HAVE_GNOME_VFS */
-	struct stat statbuf;
-#endif /* HAVE_GNOME_VFS */
 	gint is_symlink; /* file is a symbolic link */
 	gulong del_txt_id; /* text delete signal */
 	gulong ins_txt_id; /* text insert signal */
@@ -293,6 +295,7 @@ typedef struct {
 typedef struct {
 	Tsessionvars *session; /* points to the global session, or to the project session */
 	Tdocument *current_document; /* one object out of the documentlist, the current visible document */
+	gboolean focus_next_new_doc; /* for documents loading in the background, switch to the first that is finished loading */
 	GList *documentlist; /* document.c and others: all Tdocument objects */
 	Tdocument *last_activated_doc;
 	Tproject *project; /* might be NULL for a default project */

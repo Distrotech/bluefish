@@ -681,7 +681,6 @@ static void doc_set_tooltip(Tdocument *doc) {
 	gchar *text, *tmp;
 	gchar mtimestr[128], *modestr=NULL, *sizestr=NULL;
 	mtimestr[0] = '\0';
-#ifdef HAVE_GNOME_VFS
 	DEBUG_MSG("doc_set_tooltip, fileinfo=%p\n", doc->fileinfo);
 	if (doc->fileinfo) {
 		if (doc->fileinfo->valid_fields & GNOME_VFS_FILE_INFO_FIELDS_PERMISSIONS) {
@@ -694,13 +693,6 @@ static void doc_set_tooltip(Tdocument *doc) {
 			sizestr = g_strdup_printf("%"GNOME_VFS_SIZE_FORMAT_STR, doc->fileinfo->size);
 		}
 	}
-#else
-	if (doc->statbuf.st_mode != 0 || doc->statbuf.st_size != 0) {
-		modestr = filemode_to_string(doc->statbuf.st_mode);
-		ctime_r(&doc->statbuf.st_mtime,mtimestr);
-		sizestr = g_strdup_printf("%ld", doc->statbuf.st_size);
-	}
-#endif
 	tmp = text = g_strconcat(_("Name: "),gtk_label_get_text(GTK_LABEL(doc->tab_menu))
 							,_("\nType: "),doc->hl->type
 							,_("\nEncoding: "), (doc->encoding != NULL) ? doc->encoding : main_v->props.newfile_default_encoding
@@ -1345,7 +1337,6 @@ static void add_encoding_to_list(gchar *encoding) {
 	}
 }
 
-#ifdef HAVE_GNOME_VFS
 #define STARTING_BUFFER_SIZE 8192
 static gchar *get_buffer_from_filename(Tbfwin *bfwin, gchar *filename, int *returnsize) {
 	GnomeVFSResult result= GNOME_VFS_NUM_ERRORS;
@@ -1431,51 +1422,18 @@ static gchar *get_buffer_from_filename(Tbfwin *bfwin, gchar *filename, int *retu
 	buffer[*returnsize] = '\0';
 	return buffer;
 }
-#else /* no gnome-vfs */
-static gchar *get_buffer_from_filename(Tbfwin *bfwin, gchar *filename, int *returnsize) {
-	gboolean result;
-	gchar *buffer;
-	GError *error=NULL;
-	gsize length;
-	gchar *ondiskencoding = get_filename_on_disk_encoding(filename);
-	result = g_file_get_contents(ondiskencoding,&buffer,&length,&error);
-	g_free(ondiskencoding);
-	if (result == FALSE) {
-		gchar *errmessage = g_strconcat(_("Could not read file:\n"), filename, NULL);
-		warning_dialog(bfwin->main_window,errmessage, NULL);
-		g_free(errmessage);
-		return NULL;
-	}
-	*returnsize = length;
-	return buffer;
-}
-#endif
 
-/**
- * doc_file_to_textbox:
- * @doc: The #Tdocument target.
- * @filename: Filename to read in.
- * @enable_undo: #gboolean
- * @delay: Whether to delay GUI-calls.
- *
- * Open and read in a file to the doc buffer.
- * The data is inserted starting at the current cursor position.
- * Charset is detected, and highlighting performed (if applicable).
- *
- * Return value: A #gboolean, TRUE if successful, FALSE on error.
- **/ 
-gboolean doc_file_to_textbox(Tdocument * doc, gchar * filename, gboolean enable_undo, gboolean delay) {
-	gchar *message;
+gboolean doc_buffer_to_textbox(Tdocument * doc, gchar * buffer, gsize buflen, gboolean enable_undo, gboolean delay) {
 	gint cursor_offset;
-	int document_size=0;
+
+	if (!buffer) {
+		DEBUG_MSG("doc_file_to_textbox, buffer==NULL, returning\n");
+		return FALSE;
+	}
 
 	if (!enable_undo) {
 		doc_unbind_signals(doc);
 	}
-	message = g_strconcat(_("Opening file "), filename, NULL);
-	statusbar_message(BFWIN(doc->bfwin),message, 1000);
-	g_free(message);
-
 	/* now get the current cursor position */
 	{
 		GtkTextMark* insert;
@@ -1491,11 +1449,7 @@ gboolean doc_file_to_textbox(Tdocument * doc, gchar * filename, gboolean enable_
 		gchar *newbuf=NULL;
 		gsize wsize;
 		GError *error=NULL;
-		gchar *buffer = get_buffer_from_filename(BFWIN(doc->bfwin), filename, &document_size);
-		if (!buffer) {
-			DEBUG_MSG("doc_file_to_textbox, buffer==NULL, returning\n");
-			return FALSE;
-		}
+		
 		/* the first try is if the encoding is set in the file */
 		{
 			regex_t preg;
@@ -1509,7 +1463,7 @@ gboolean doc_file_to_textbox(Tdocument * doc, gchar * filename, gboolean enable_
 			}
 #endif
 			/* we do a nasty trick to make regexec search only in the first N bytes */
-			if (document_size > main_v->props.encoding_search_Nbytes) {
+			if (buflen > main_v->props.encoding_search_Nbytes) {
 				gchar tmp = buffer[main_v->props.encoding_search_Nbytes];
 				buffer[main_v->props.encoding_search_Nbytes] = '\0';
 				retval = regexec(&preg,buffer,10,pmatch,0);
@@ -1588,17 +1542,14 @@ gboolean doc_file_to_textbox(Tdocument * doc, gchar * filename, gboolean enable_
 		}
 		if (!newbuf) {
 			error_dialog(BFWIN(doc->bfwin)->main_window,_("Cannot display file, unknown characters found."), NULL);
+			return FALSE;
 		} else {
-			g_free(buffer);
-			buffer = newbuf;
 			if (doc->encoding) g_free(doc->encoding);
 			doc->encoding = encoding;
 			add_encoding_to_list(encoding);
 		}
-		if (buffer) {
-			gtk_text_buffer_insert_at_cursor(doc->buffer,buffer,-1);
-			g_free(buffer);
-		}
+		gtk_text_buffer_insert_at_cursor(doc->buffer,newbuf,-1);
+		g_free(newbuf);
 	}
 	if (doc->highlightstate) {
 		doc->need_highlighting=TRUE;
@@ -1625,11 +1576,36 @@ gboolean doc_file_to_textbox(Tdocument * doc, gchar * filename, gboolean enable_
 		if (!delay) {
 			gtk_text_view_place_cursor_onscreen(GTK_TEXT_VIEW(doc->view));
 		}
-/*		gtk_notebook_set_page(GTK_NOTEBOOK(main_v->notebook),g_list_length(main_v->documentlist) - 1);
-		notebook_changed(-1);*/
 	}
 	return TRUE;
 }
+/**
+ * doc_file_to_textbox:
+ * @doc: The #Tdocument target.
+ * @filename: Filename to read in.
+ * @enable_undo: #gboolean
+ * @delay: Whether to delay GUI-calls.
+ *
+ * Open and read in a file to the doc buffer.
+ * The data is inserted starting at the current cursor position.
+ * Charset is detected, and highlighting performed (if applicable).
+ *
+ * Return value: A #gboolean, TRUE if successful, FALSE on error.
+ **/ 
+gboolean doc_file_to_textbox(Tdocument *doc, gchar *filename, gboolean enable_undo, gboolean delay) {
+	gchar *buffer, *message;
+	int document_size=0;	
+	gboolean ret;
+	message = g_strconcat(_("Opening file "), filename, NULL);
+	statusbar_message(BFWIN(doc->bfwin),message, 1000);
+	g_free(message);
+	
+	buffer = get_buffer_from_filename(BFWIN(doc->bfwin), filename, &document_size);
+	ret = doc_buffer_to_textbox(doc, buffer, document_size, enable_undo, delay);
+	g_free(buffer);
+	return ret;
+}
+
 
 /**
  * doc_check_backup:
@@ -2120,7 +2096,7 @@ void doc_unbind_signals(Tdocument *doc) {
 		doc->ins_txt_id = 0;
 	}
 }
-#ifdef HAVE_GNOME_VFS
+
 gboolean buffer_to_file(Tbfwin *bfwin, gchar *buffer, gchar *filename) {
 	GnomeVFSHandle *handle;
 	GnomeVFSFileSize bytes_written=0;
@@ -2152,21 +2128,6 @@ gboolean buffer_to_file(Tbfwin *bfwin, gchar *buffer, gchar *filename) {
 	}
 	return TRUE;
 }
-#else /* HAVE_GNOME_VFS */
-gboolean buffer_to_file(Tbfwin *bfwin, gchar *buffer, gchar *filename) {
-	FILE *fd;
-	gchar *ondiskencoding = get_filename_on_disk_encoding(filename);
-	fd = fopen(ondiskencoding, "w");
-	g_free(ondiskencoding);
-	if (fd == NULL) {
-		DEBUG_MSG("buffer_to_file, cannot open file %s\n", filename);
-		return FALSE;
-	}
-	fputs(buffer, fd);
-	fclose(fd);
-	return TRUE;
-}
-#endif /* HAVE_GNOME_VFS */
 
 /**
  * gint doc_textbox_to_file
@@ -2354,16 +2315,25 @@ void doc_destroy(Tdocument * doc, gboolean delay_activation) {
 	if (doc->encoding)
 		g_free(doc->encoding);
 
-#ifdef HAVE_GNOME_VFS
 	if (doc->fileinfo) {
 		gnome_vfs_file_info_unref (doc->fileinfo);
 	}
-#endif	/* HAVE_GNOME_VFS */
 
 	g_object_unref(doc->buffer);
 	doc_unre_destroy(doc);
 	DEBUG_MSG("doc_destroy, finished for %p\n", doc);
 	g_free(doc);
+}
+
+void doc_set_filename(Tdocument *doc, gchar *uri) {
+	if (uri) {
+		if (doc->uri) g_free(doc->uri);
+		if (doc->filename) g_free(doc->filename);
+	
+		doc->uri = g_strdup(uri);
+		doc->filename = uri_to_document_filename2(uri);
+		doc_set_title(doc);
+	}
 }
 
 /**
@@ -2802,21 +2772,10 @@ static void doc_view_drag_begin_lcb(GtkWidget *widget,GdkDragContext *drag_conte
 	}
 }
 
-/**
- * doc_new:
- * @bfwin: #Tbfwin* with the window to open the document in
- * @delay_activate: Whether to perform GUI-calls and flush_queue(). Set to TRUE when loading several documents at once.
- *
- * Create a new document, related structures and a nice little textview to display the document in.
- * Finally, add a new tab to the notebook.
- * The GtkTextView is not actually gtk_widget_shown() if delay_activate == TRUE. This is done by doc_activate() instead.
- *
- * Return value: a #Tdocument* pointer to the just created document.
- **/
-Tdocument *doc_new(Tbfwin* bfwin, gboolean delay_activate) {
+static Tdocument *doc_new_backend(Tbfwin *bfwin) {
 	GtkWidget *scroll;
 	Tdocument *newdoc = g_new0(Tdocument, 1);
-	DEBUG_MSG("doc_new, main_v is at %p, bfwin at %p, newdoc at %p\n", main_v, bfwin, newdoc);
+	DEBUG_MSG("doc_new_backend, main_v is at %p, bfwin at %p, newdoc at %p\n", main_v, bfwin, newdoc);
 	newdoc->bfwin = (gpointer)bfwin;
 	newdoc->hl = (Tfiletype *)((GList *)g_list_first(main_v->filetypelist))->data;
 	newdoc->autoclosingtag = (newdoc->hl->autoclosingtag > 0);
@@ -2846,18 +2805,13 @@ Tdocument *doc_new(Tbfwin* bfwin, gboolean delay_activate) {
 	doc_set_font(newdoc, NULL);
 	newdoc->wrapstate = (bfwin->project) ? bfwin->project->word_wrap : main_v->props.word_wrap;
 	doc_set_wrap(newdoc);
-	/* newdoc->modified = 0; */
+
 	doc_set_title(newdoc);
-	/*newdoc->filename = NULL;*/
+	/* we initialize already with 0 , so we don't need these:
 	newdoc->need_highlighting = 0;
-#ifdef HAVE_GNOME_VFS
-	/*newdoc->fileinfo = NULL;*/
-#else
-	newdoc->statbuf.st_mtime = 0;
-	newdoc->statbuf.st_size = 0;
-	newdoc->statbuf.st_uid = -1;
-	newdoc->statbuf.st_gid = -1;
-#endif
+	newdoc->filename = NULL;
+	newdoc->modified = 0;
+	newdoc->fileinfo = NULL;*/
 	newdoc->is_symlink = 0;
 	newdoc->encoding = g_strdup(main_v->props.newfile_default_encoding);
 	newdoc->overwrite_mode = FALSE;
@@ -2890,8 +2844,6 @@ Tdocument *doc_new(Tbfwin* bfwin, gboolean delay_activate) {
 
 	bfwin->documentlist = g_list_append(bfwin->documentlist, newdoc);
 
-	if(!delay_activate) gtk_widget_show(newdoc->view); /* Delay _show() if neccessary */
-
 	gtk_widget_show(newdoc->tab_label);
 	gtk_widget_show(scroll);
 
@@ -2919,21 +2871,40 @@ Tdocument *doc_new(Tbfwin* bfwin, gboolean delay_activate) {
 	
 	newdoc->highlightstate = main_v->props.defaulthighlight;
 	DEBUG_MSG("doc_new, need_highlighting=%d, highlightstate=%d\n", newdoc->need_highlighting, newdoc->highlightstate);
-/*	
-	these lines should not be here since notebook_changed() calls flush_queue()
-	that means that this document can be closed during notebook_changed(), and functions like open_file 
-	rely on the fact that this function returns an existing document (and not a closed one!!)
-if (!delay_activate) {
-		DEBUG_MSG("doc_new, notebook current page=%d, newdoc is on page %d\n",gtk_notebook_get_current_page(GTK_NOTEBOOK(main_v->notebook)),gtk_notebook_page_num(GTK_NOTEBOOK(main_v->notebook),scroll));
-		DEBUG_MSG("doc_new, setting notebook page to %d\n", g_list_length(main_v->documentlist) - 1);
-		gtk_notebook_set_current_page(GTK_NOTEBOOK(main_v->notebook),g_list_length(main_v->documentlist) - 1);
-		if (bfwin->current_document != newdoc) {
-			notebook_changed(-1);
-		}*/
-/*		doc_activate() will be called by notebook_changed() and it will grab the focus
-		gtk_widget_grab_focus(newdoc->view);	*/
-/*	}*/
 	return newdoc;
+}
+
+/**
+ * doc_new_loading_in_background:
+ * @bfwin: the #Tbfwin* in which window to load this document
+ *
+ * creates a new document, which will be loaded in the background
+ */
+Tdocument *doc_new_loading_in_background(Tbfwin *bfwin, gchar *uri, GnomeVFSFileInfo *finfo) {
+	Tdocument *doc = doc_new_backend(bfwin);
+	doc->fileinfo = gnome_vfs_file_info_dup(finfo);
+	doc_set_filename(doc,uri);
+	
+	doc->status = DOC_STATUS_LOADING;
+	return doc;
+}
+
+/**
+ * doc_new:
+ * @bfwin: #Tbfwin* with the window to open the document in
+ * @delay_activate: Whether to perform GUI-calls and flush_queue(). Set to TRUE when loading several documents at once.
+ *
+ * Create a new document, related structures and a nice little textview to display the document in.
+ * Finally, add a new tab to the notebook.
+ * The GtkTextView is not actually gtk_widget_shown() if delay_activate == TRUE. This is done by doc_activate() instead.
+ *
+ * Return value: a #Tdocument* pointer to the just created document.
+ **/
+Tdocument *doc_new(Tbfwin* bfwin, gboolean delay_activate) {
+	Tdocument *doc = doc_new_backend(bfwin);
+	doc->status = DOC_STATUS_COMPLETE;
+	if(!delay_activate) gtk_widget_show(doc->view); /* Delay _show() if neccessary */
+	return doc;
 }
 
 /**
