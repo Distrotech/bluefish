@@ -661,13 +661,13 @@ static Tcs3_diag *css_diag(Tcs3_destination dest, Tcs3_style style, GtkWidget *t
 	vbox2 = gtk_vbox_new(FALSE, 6);
 	gtk_box_pack_start(GTK_BOX(hbox), vbox2, FALSE, FALSE, 0);
 	
-	but = bf_stock_button(_(" _Add "), G_CALLBACK(cs3d_add_clicked_lcb), diag);
+	but = bf_generic_mnemonic_button(_(" _Add "), G_CALLBACK(cs3d_add_clicked_lcb), diag);
 	gtk_box_pack_start(GTK_BOX(vbox2), but, FALSE, FALSE, 0);
 
-	but = bf_stock_button(_(" _Update "), G_CALLBACK(cs3d_update_clicked_lcb), diag);
+	but = bf_generic_mnemonic_button(_(" _Update "), G_CALLBACK(cs3d_update_clicked_lcb), diag);
 	gtk_box_pack_start(GTK_BOX(vbox2), but, FALSE, FALSE, 0);
 	
-	but = bf_stock_button(_(" _Delete "), G_CALLBACK(cs3d_del_clicked_lcb), diag);
+	but = bf_generic_mnemonic_button(_(" _Delete "), G_CALLBACK(cs3d_del_clicked_lcb), diag);
 	gtk_box_pack_start(GTK_BOX(vbox2), but, FALSE, FALSE, 0);
 
 	/* the ok and cancel button are in a horizontal box below */
