@@ -1,31 +1,36 @@
 # French locale definition for Bluefish.
 # Copyright (C) YEAR Free Software Foundation, Inc.
 # Marc LeMaire <lemairem@securenet.net>, 13/01/2000.
-# Rom�o VIU-BERGES <apostledemencia@free.fr>, 20/12/2002.
+# Rom? VIU-BERGES <apostledemencia@free.fr>, 20/12/2002.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: bluefish gtk2-port\n"
 "POT-Creation-Date: 2002-12-19 23:16+0100\n"
-"PO-Revision-Date: 2002-12-20 16:20+0100\n"
-"Last-Translator: AppZer0 <apostledemencia@free.fr>\n"
-"Language-Team: francais/french \n"
+"PO-Revision-Date: 2003-02-12 10:43+0100\n"
+"Last-Translator: Roméo Viu-Berges <apostledemencia@free.fr>\n"
+"Language-Team: français <fr@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 0.9.6\n"
 
 #: ../src/bluefish.c:75
 #, c-format
-msgid "\n"
+msgid ""
+"\n"
 "Usage: %s [options] [filename]\n"
-msgstr "\n"
+msgstr ""
+"\n"
 "Utilisation : %s [options] [nomdefichier]\n"
 
 #: ../src/bluefish.c:76
-msgid "\n"
+msgid ""
+"\n"
 "Currently accepted options are:\n"
-msgstr "\n"
-"Les options couramment acceptées sont:\n"
+msgstr ""
+"\n"
+"Les options couramment acceptées sont :\n"
 
 #: ../src/bluefish.c:77
 msgid "-s           skip root check\n"
@@ -157,9 +162,11 @@ msgstr "Précédemment"
 
 #: ../src/document.c:1246
 #, c-format
-msgid "File %s\n"
+msgid ""
+"File %s\n"
 "is modified by another process, overwrite?"
-msgstr "Le fichier %s\n"
+msgstr ""
+"Le fichier %s\n"
 "est modifié par un autre processus, écraser?"
 
 #: ../src/document.c:1247
@@ -181,15 +188,19 @@ msgstr "Erreur d'enregistrement, n'a pu écrire le fichier:\n"
 
 #: ../src/document.c:1322
 #, c-format
-msgid "Are you sure you want to close\n"
+msgid ""
+"Are you sure you want to close\n"
 "%s ?"
-msgstr "Êtes-vous certain de vouloir fermer\n"
+msgstr ""
+"Êtes-vous certain de vouloir fermer\n"
 "%s ?"
 
 #: ../src/document.c:1327
-msgid "Are you sure you want to close\n"
+msgid ""
+"Are you sure you want to close\n"
 "this untitled file ?"
-msgstr "Êtes-vous certain de vouloir fermer\n"
+msgstr ""
+"Êtes-vous certain de vouloir fermer\n"
 "ce fichier sans nom ?"
 
 #: ../src/document.c:1332
@@ -219,9 +230,11 @@ msgstr "Ignorer"
 
 #: ../src/document.c:1630
 #, c-format
-msgid "File %s\n"
+msgid ""
+"File %s\n"
 "is modified by another process"
-msgstr "Fichier %s\n"
+msgstr ""
+"Fichier %s\n"
 "est modifié par un autre processus"
 
 #: ../src/document.c:1718
@@ -304,9 +317,11 @@ msgid "Bluefish: Warning, some file(s) are modified!"
 msgstr "Avertissement Bluefish: certains fichiers ont été modifiés!"
 
 #: ../src/document.c:1888
-msgid "Some file(s) are modified\n"
+msgid ""
+"Some file(s) are modified\n"
 "please choose your action"
-msgstr "Certains fichiers ont été modifiés\n"
+msgstr ""
+"Certains fichiers ont été modifiés\n"
 "veuillez choisir une action"
 
 #: ../src/filebrowser.c:729
@@ -327,9 +342,11 @@ msgstr "Nom du dossier"
 
 #: ../src/filebrowser.c:823
 #, c-format
-msgid "Are you sure you want to\n"
+msgid ""
+"Are you sure you want to\n"
 "delete \"%s\" ?"
-msgstr "Êtes-vous certain de vouloir\n"
+msgstr ""
+"Êtes-vous certain de vouloir\n"
 "effacer \"%s\" ?"
 
 #: ../src/filebrowser.c:824
@@ -831,9 +848,8 @@ msgid "/Edit/Redo all"
 msgstr "/Éditer/Tout refaire"
 
 #: ../src/gui.c:544
-#, fuzzy
 msgid "/Document/Wrap"
-msgstr "/Document/Wrap"
+msgstr "/Document/Césure"
 
 #: ../src/gui.c:545
 msgid "/Document/Line numbers"
@@ -1132,9 +1148,8 @@ msgid "OnUnLoad"
 msgstr "OnUnLoad"
 
 #: ../src/html.c:1195
-#, fuzzy
 msgid "Deprecated options"
-msgstr "Correcteur"
+msgstr "Options dépréciées"
 
 #: ../src/html.c:1201
 msgid "Background Image"
@@ -2687,9 +2702,8 @@ msgid "/Document/_Highlight syntax"
 msgstr "/Document/Surligner le code"
 
 #: ../src/menu.c:443
-#, fuzzy
 msgid "/Document/_Wrap"
-msgstr "/Document/_Wrap"
+msgstr "/Document/Césure"
 
 #: ../src/menu.c:444
 msgid "/Document/_Line numbers"
@@ -2783,7 +2797,6 @@ msgid "/Options/_Save settings"
 msgstr "/Options/_Sauver les paramètres"
 
 #: ../src/menu.c:469
-#, fuzzy
 msgid "/Options/Save shortcut _keys"
 msgstr "/Options/Sauvegarder touches de racourcis"
 
@@ -3107,9 +3120,11 @@ msgstr "Commande"
 
 #: ../src/preferences.c:1291
 #, c-format
-msgid "%s = current filename\n"
+msgid ""
+"%s = current filename\n"
 "%f = output filename (for filters)"
-msgstr "%s = nom du fichier actuel\n"
+msgstr ""
+"%s = nom du fichier actuel\n"
 "%f = nom du fichier cible (pour les filtres)"
 
 #: ../src/preferences.c:1464
@@ -3147,9 +3162,8 @@ msgid "Tab width"
 msgstr "Largeur de tabulation"
 
 #: ../src/preferences.c:1614
-#, fuzzy
 msgid "Word wrap default"
-msgstr "Retour de mot"
+msgstr "Césure par défaut"
 
 #: ../src/preferences.c:1615
 msgid "Line numbers by default"
@@ -3217,7 +3231,7 @@ msgstr "Échec de la sauvegarde"
 
 #: ../src/preferences.c:1672
 msgid "Undo history size"
-msgstr "Taille de l'historique 'Annuler'"
+msgstr "Taille de l'historique"
 
 #: ../src/preferences.c:1673
 msgid "Clear undo history on save"
@@ -4044,4 +4058,5 @@ msgstr "Nombre de cadres"
 #: ../src/wizards.c:196
 msgid "Frame's"
 msgstr "Cadres"
+
 
