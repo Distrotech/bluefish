@@ -1282,8 +1282,8 @@ static void filebrowser_rpopup_delete(Tfilebrowser *filebrowser) {
 			} else {
 				GList *alldocs = return_allwindows_documentlist();
 				Tdocument *exdoc = documentlist_return_document_from_filename(alldocs, filename);
+				if (exdoc) document_unset_filename(exdoc);
 				g_list_free(alldocs);
-				document_unset_filename(exdoc);
 			}
 			tmp = g_path_get_dirname(filename);
 			dir = ending_slash(tmp);
