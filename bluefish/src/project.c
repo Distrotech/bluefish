@@ -207,7 +207,7 @@ void project_open_from_file(Tbfwin *bfwin, gchar *fromfilename) {
 	set_project_menu_widgets(prwin, TRUE);
 	recent_menu_init_project(prwin);
    bmark_reload(bfwin);
-   bmark_set_model(bfwin);
+   bmark_set_store(bfwin);
 }
 
 static void project_open(Tbfwin *bfwin) {
