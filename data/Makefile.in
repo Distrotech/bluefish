@@ -23,6 +23,7 @@ have_gnome_vfs=@HAVE_GNOME_VFS@
 gnome2applications=${gnome2prefix}/applications/
 gnome2mime-info=${gnome2prefix}/mime-info/
 gnome2appreg=${gnome2prefix}/application-registry/
+gnome2icons=${gnome2prefix}/pixmaps/
 
 INSTALL = @INSTALL@
 INSTALL_DIR = $(INSTALL) -d -m 755 
@@ -64,6 +65,9 @@ install: all
 	if [ -d $(gnome2mime-info) ] ; then \
 		$(INSTALL_DATA) bluefish.mime $(gnome2mime-info) ;\
 		$(INSTALL_DATA) bluefish.keys $(gnome2mime-info) ;\
+	fi
+	if [ -d $(gnome2icons) ] ; then \
+		$(INSTALL_DATA) gnome-application-bluefish.png $(gnome2icons) ;\
 	fi
 
 uninstall:
