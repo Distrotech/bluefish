@@ -23,6 +23,7 @@ GNOME2APPLICATIONREGISTRY=@GNOME2APPLICATIONREGISTRY@
 GNOME2MIME=@GNOME2MIME@
 UPDATE_MIME_PATH=@UPDATE_MIME_PATH@
 UPDATE_DESKTOP_PATH=@UPDATE_DESKTOP_PATH@
+ICONPATH=@ICONPATH@
 
 HAVE_GNOME_VFS=@HAVE_GNOME_VFS@
 
@@ -76,7 +77,7 @@ endif
 		$(INSTALL_DATA) $$file $(DESTDIR)$(pkgdatadir)/$$file ;\
 	done
 ifdef ICONPATH
-	$(INSTALL_DATA) gnome-application-bluefish.png $(DESTDIR)$(ICONPATH)
+	$(INSTALL_DATA) gnome-application-bluefish.png $(DESTDIR)$(ICONPATH)/gnome-application-bluefish-project.png
 endif
 
 uninstall:
