@@ -1162,8 +1162,14 @@ void doc_destroy(Tdocument * doc, gboolean delay_activation)
 		gui_notebook_unbind_signals();
 	}
 
+	/* to make this go really quick, we first only destroy the notebook page and run flush_queue(), 
+	after the document is gone from the GUI we complete the destroy, to destroy only the notebook
+	page we ref+ the scrolthingie, remove the page, and unref it again */
+	g_object_ref(doc->view->parent);
 	gtk_notebook_remove_page(GTK_NOTEBOOK(main_v->notebook),
 							 gtk_notebook_page_num(GTK_NOTEBOOK(main_v->notebook),doc->view->parent));
+	flush_queue();
+	g_object_unref(doc->view->parent);
 
 	if (g_list_length(main_v->documentlist) > 1) {
 		main_v->documentlist = g_list_remove(main_v->documentlist, doc);
@@ -1405,8 +1411,6 @@ gint doc_close(Tdocument * doc, gint warn_only)
 }
 
 static void doc_close_but_clicked_lcb(GtkWidget *wid, gpointer data) {
-	/* to avoid that the button is still visible while the document is half closed, we hide the button*/
-	gtk_widget_hide(wid);
 	doc_close(data, 0);
 }
 
