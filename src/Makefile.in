@@ -41,7 +41,8 @@ INSTALL_PROGRAM = $(INSTALL) -s -m 755
 DEFS = -DLOCALEDIR=\"$(localedir)\" -DGNULOCALEDIR=\"$(gnulocaledir)\" \
 -DLOCALE_ALIAS_PATH=\"$(aliaspath)\" -DPKGDATADIR=\"$(pkgdatadir)\" @DEFS@
 
-SRCS = 	bf_lib.c \
+SRCS = 	about.c \
+			bf_lib.c \
 			bfspell.c \
 			bluefish.c \
 			bookmark.c \
@@ -100,6 +101,3 @@ install: all
 
 uninstall:
 	/bin/rm -f $(DESTDIR)$(bindir)/bluefish
-
-
-

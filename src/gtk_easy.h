@@ -89,7 +89,7 @@ void bf_mnemonic_label_tad_with_alignment(const gchar *labeltext, GtkWidget *m_w
 void bf_label_tad_with_markup(const gchar *labeltext, gfloat xalign, gfloat yalign,
 								GtkWidget *table, guint left_attach, guint right_attach, guint top_attach, guint bottom_attach);						
 GtkWidget *file_but_new(GtkWidget * which_entry, gint full_pathname, Tbfwin *bfwin);
-
+void close_modal_window_lcb(GtkWidget * widget, gpointer window);
 gchar *return_file_w_title(gchar * setfile, gchar *title);
 gchar *return_file(gchar * setfile);
 GList *return_files_w_title(gchar * setfile, gchar *title);
