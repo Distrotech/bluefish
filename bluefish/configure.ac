@@ -188,10 +188,12 @@ if pkg-config --exists gnome-vfs-2.0 ; then
 	LIBS="$LIBS `pkg-config --libs gnome-vfs-2.0`"
 	CFLAGS="$CFLAGS `pkg-config --cflags gnome-vfs-2.0`"
 	echo "yes"
+	HAVE_GNOME_VFS=1
 	AC_DEFINE(HAVE_GNOME_VFS)
 else
 	echo "no"
 	echo "gnome-vfs-2.0 not found, opening remote files will be disabled"
+	HAVE_GNOME_VFS=0
 fi
 
 echo -n "checking for gnome-vfs-2.2... "
@@ -294,10 +296,17 @@ AC_ARG_WITH(gnome2-menu,
 ], [
 	GNOME2MENUPATH=/usr/share/applications/
 ])
+AC_ARG_WITH(gnome2-appregistry,
+[  --with-gnome2-appregistry=/path if the app. registry is not /usr/share/application--registry/],[
+	GNOME2APPREGISTRY=$withval
+], [
+	GNOME2APPREGISTRY=/usr/share/application-registry/
+])
 AC_SUBST(ICONPATH)
 AC_SUBST(GNOME1MENUPATH)
 AC_SUBST(GNOME2MENUPATH)
-
+AC_SUBST(GNOME2APPREGISTRY)
+AC_SUBST(HAVE_GNOME_VFS)
 AC_PREFIX_DEFAULT("/usr/local")
 
 if test "${prefix}" == "NONE"; then
