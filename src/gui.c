@@ -232,7 +232,7 @@ void left_panel_rebuild(Tbfwin *bfwin) {
 		DEBUG_MSG("left_panel_rebuild, cleanup\n");
 		filebrowser_cleanup(bfwin);
 		fref_cleanup(bfwin);
-                bmark_cleanup(bfwin);
+		bmark_cleanup(bfwin);
 		DEBUG_MSG("left_panel_rebuild, re-init\n");
 		bfwin->leftpanel_notebook = left_panel_build(bfwin);
 		gtk_paned_add1(GTK_PANED(bfwin->hpane), bfwin->leftpanel_notebook);
