@@ -38,16 +38,16 @@ all-no:
 	$(MSGFMT) $< -o $@
 
 install:
-	@for file in $(FINISHED_CATALOGS) ; do \
-		lang=`echo $${file} | sed -e 's/\.gmo$$//'`;\
+	@for file in $(SRCS) ; do \
+		lang=`echo $${file} | sed -e 's/\.po$$//'`;\
 		$(INSTALL_DIR) $(localedir)/$${lang}/ ;\
 		$(INSTALL_DIR) $(localedir)/$${lang}/LC_MESSAGES/ ;\
 		$(INSTALL_DATA) $${lang}.gmo $(localedir)/$${lang}/LC_MESSAGES/${PACKAGE}.mo;\
 	done
 
 uninstall:
-	@for file in $(FINISHED_CATALOGS) ; do \
-		lang=`echo $${file} | sed -e 's/\.gmo$$//'`;\
+	@for file in $(SRCS) ; do \
+		lang=`echo $${file} | sed -e 's/\.po$$//'`;\
 		rm -f $(localedir)/$${lang}/LC_MESSAGES/${PACKAGE}.mo;\
 	done
 
@@ -61,8 +61,8 @@ ${PACKAGE}.po:
 	$(XGETTEXT) --default-domain=${PACKAGE} --keyword=_ --keyword=N_ ../src/*.c
 
 update-po: ${PACKAGE}.po
-	@for file in $(CATALOGS) ; do \
-		lang=`echo $${file} | sed -e 's/\.gmo$$//'`;\
+	@for file in $(SRCS) ; do \
+		lang=`echo $${file} | sed -e 's/\.po$$//'`;\
 		echo -n "updating $${lang}.po...";\
 		$(MSGMERGE) -q --output-file=tmp.po $${lang}.po bluefish.po && mv tmp.po $${lang}.po;\
 		$(MSGFMT) --statistics $${lang}.po -o $${lang}.gmo ;\
