@@ -172,7 +172,7 @@ Tsearch_result search_backend(gchar *search_pattern, Tmatch_types matchtype, gin
 			
 			regerror(retval,  &reg_pat, errorstr, ERRORSTR_SIZE);
 			errorstr2 = g_strconcat(_("Regular expression error: "), errorstr, NULL);
-			error_dialog(_("Bluefish warning: regular expression error"), errorstr2);
+			warning_dialog(_("Search failed"), errorstr2);
 			g_free(errorstr2);
 			/* error compiling the search_pattern, returning the default result set,
 			which is the 'nothing found' set */
@@ -216,7 +216,7 @@ Tsearch_result search_backend(gchar *search_pattern, Tmatch_types matchtype, gin
 		if (err) {
 			gchar *errstring;
 			errstring = g_strdup_printf(_("Regular expression error: %s at offset %d"), err, erroffset);
-			error_dialog(_("Bluefish warning: regular expression error"), errstring);
+			warning_dialog(_("Search failed"), errstring);
 			g_free(errstring);
 			return returnvalue;/* error compiling the search_pattern, returning the default result set,which is the 'nothing found' set */
 		}
@@ -834,14 +834,14 @@ void snr2_run(Tdocument *doc) {
 			if (result_all.end > 0) {
 				doc_show_result(result_all.doc, result_all.start, result_all.end);
 			} else {
-				error_dialog(_("Bluefish message"), _("Search: no match found"));
+				info_dialog(_("Search: no match found"), NULL);
 			}
 		} else {
 			result = search_doc(doc, last_snr2.search_pattern, last_snr2.matchtype_option, last_snr2.is_case_sens, startpos);
 			if (result.end > 0) {
 				doc_show_result(doc, result.start, result.end);	
 			} else {
-				error_dialog(_("Bluefish message"), _("Search: no match found"));
+				info_dialog(_("Search: no match found"), NULL);
 			}
 		}
 	}

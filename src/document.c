@@ -19,14 +19,14 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 #include <gtk/gtk.h>
-#include <sys/types.h> /* stat() */
-#include <sys/stat.h> /* stat() */
-#include <unistd.h> /* stat() */
-#include <stdio.h> /* fopen() */
-#include <string.h> /* strchr() */
-#include <regex.h> 				/* regcomp() */
-#include <stdlib.h> /* system() */
-#include <time.h> /* ctime_r() */
+#include <sys/types.h> 	/* stat() */
+#include <sys/stat.h> 	/* stat() */
+#include <unistd.h>		/* stat() */
+#include <stdio.h>		/* fopen() */
+#include <string.h>		/* strchr() */
+#include <regex.h> 		/* regcomp() */
+#include <stdlib.h>		/* system() */
+#include <time.h>			/* ctime_r() */
 
 /* #define DEBUG */
 
@@ -41,7 +41,7 @@
 #include "bf_lib.h"
 #include "menu.h" /* add_to_recent_list */
 #include "stringlist.h" /* free_stringlist() */
-#include "gtk_easy.h" /* error_dialog() */
+#include "gtk_easy.h" /* *_dialog() */
 #include "undo_redo.h" /* doc_unre_init() */
 #include "rpopup.h" /* doc_bevent_in_html_tag(), rpopup_edit_tag_cb() */
 #include "char_table.h" /* convert_utf8...() */
@@ -864,7 +864,7 @@ gboolean doc_file_to_textbox(Tdocument * doc, gchar * filename, gboolean enable_
 		DEBUG_MSG("file_to_textbox, cannot open file %s\n", filename);
 		errmessage =
 			g_strconcat(_("Could not open file:\n"), filename, NULL);
-		error_dialog(_("Error"), errmessage);	/* 7 */
+		warning_dialog(errmessage, NULL);	/* 7 */
 		g_free(errmessage);
 		if (!enable_undo) {
 			doc_bind_signals(doc);
@@ -1007,7 +1007,7 @@ gboolean doc_file_to_textbox(Tdocument * doc, gchar * filename, gboolean enable_
 								}
 							}
 							if (!newbuf) {
-								error_dialog(_("Error"), _("Cannot display file, unknown characters found."));
+								error_dialog(_("Cannot display file, unknown characters found."), NULL);
 							}
 						} else {
 							DEBUG_MSG("doc_file_to_textbox, file is in %s encoding\n", main_v->props.newfile_default_encoding);
@@ -1363,8 +1363,8 @@ gint doc_textbox_to_file(Tdocument * doc, gchar * filename) {
 		} else if (main_v->props.backup_abort_action == DOCUMENT_BACKUP_ABORT_ASK) {
 			gchar *options[] = {N_("Abort save"), N_("Continue save"), NULL};
 			gint retval;
-			gchar *tmpstr =  g_strdup_printf(_("Backup for %s failed"), filename);
-			retval = multi_button_dialog(_("Bluefish warning, file backup failure"), 1, tmpstr, options);
+			gchar *tmpstr = g_strdup_printf(_("A backupfile for %s could not be created. If you continue, this file will be overwritten."), filename);
+			retval = multi_warning_dialog(_("File backup failure"), tmpstr, 1, 0, options);
 			g_free(tmpstr);
 			if (retval == 0) {
 				DEBUG_MSG("doc_textbox_to_file, backup failure, user aborted!\n");
@@ -1504,18 +1504,19 @@ gint doc_save(Tdocument * doc, gint do_save_as, gint do_move)
 		statusbar_message(_("Save as..."), 1);
 		oldfilename = doc->filename;
 		doc->filename = NULL;
-		newfilename = return_file_w_title(oldfilename, _("Save document as"));
+		newfilename = return_file_w_title(oldfilename,
+												(do_move) ? _("Move document to") : _("Save document as"));
 		index = documentlist_return_index_from_filename(newfilename);
 		DEBUG_MSG("doc_save, index=%d, filename=%p\n", index, newfilename);
 
 		if (index != -1) {
 			gchar *tmpstr;
 			gint retval;
-			gchar *options[] = {N_("Overwrite"), N_("Cancel"), NULL};
+			gchar *options[] = {N_("Cancel"), N_("Overwrite"), NULL};
 			tmpstr = g_strdup_printf(_("File %s is open, overwrite?"), newfilename);
-			retval = multi_button_dialog(_("Bluefish: Warning, file is open"), 1, tmpstr, options);
+			retval = multi_warning_dialog(tmpstr, _("The file you have selected is being edited in Bluefish."), 1, 0, options);
 			g_free(tmpstr);
-			if (retval == 1) {
+			if (retval == 0) {
 				g_free(newfilename);
 				doc->filename = oldfilename;
 				return 3;
@@ -1555,14 +1556,14 @@ gint doc_save(Tdocument * doc, gint do_save_as, gint do_move)
 	if (doc_check_mtime(doc,&newtime) == 0) {
 		gchar *tmpstr, oldtimestr[128], newtimestr[128];/* according to 'man ctime_r' this should be at least 26, so 128 should do ;-)*/
 		gint retval;
-		gchar *options[] = {N_("Overwrite"), N_("Cancel"), NULL};
+		gchar *options[] = {N_("Cancel"), N_("Overwrite"), NULL};
 
 		ctime_r(&newtime,newtimestr);
 		ctime_r(&doc->mtime,oldtimestr);
-		tmpstr = g_strdup_printf(_("File %s\nis modified by another process\nnew modification time is %s\nold modification time is %s\noverwrite?"), doc->filename,newtimestr,oldtimestr);
-		retval = multi_button_dialog(_("Bluefish: Warning, file is modified"), 0, tmpstr, options);
+		tmpstr = g_strdup_printf(_("File:\n %s\nNew modification time is %s\nOld modification time is %s"), doc->filename, newtimestr, oldtimestr);
+		retval = multi_warning_dialog(_("The file has been modified by another process."), tmpstr, 1, 0, options);
 		g_free(tmpstr);
-		if (retval == 1) {
+		if (retval == 0) {
 			if (oldfilename) {
 				g_free(oldfilename);
 			}
@@ -1586,14 +1587,14 @@ gint doc_save(Tdocument * doc, gint do_save_as, gint do_move)
 		gchar *errmessage;
 		case -1:
 			/* backup failed and aborted */
-			errmessage = g_strconcat(_("File save aborted, could not backup file:\n"), doc->filename, NULL);
-			error_dialog(_("Error"), errmessage);
+			errmessage = g_strconcat(_("The filename was:\n"), doc->filename, NULL);
+			error_dialog(_("File save aborted, could not backup file\n"), errmessage);
 			g_free(errmessage);
 		break;
 		case -2:
 			/* could not open the file pointer */
-			errmessage = g_strconcat(_("File save error, could not write file:\n"), doc->filename, NULL);
-			error_dialog(_("Error"), errmessage);
+			errmessage = g_strconcat(_("The filename was:\n"), doc->filename, NULL);
+			error_dialog(_("File save error, could not write file\n"), errmessage);
 			g_free(errmessage);
 		break;
 		default:
@@ -1640,26 +1641,26 @@ gint doc_close(Tdocument * doc, gint warn_only)
 	if (doc->modified) {
 		if (doc->filename) {
 			text =
-				g_strdup_printf(_("Are you sure you want to close\n%s ?"),
-								doc->filename);
+				g_strdup_printf(_("Do you want to save the changes done to\n%s?."),
+								doc->filename); /* Reduce to filename w/o path? */
 		} else {
 			text =
 				g_strdup(_
-						 ("Are you sure you want to close\nthis untitled file ?"));
+						 ("Do you want to save the changes done to this untitled file?"));
 		}
 	
 		{
-			gchar *buttons[] = {GTK_STOCK_SAVE, GTK_STOCK_CLOSE, GTK_STOCK_CANCEL, NULL};
-			retval = multi_stockbutton_dialog(_("Bluefish warning: file is modified!"), 2, text, buttons);
+			gchar *buttons[] = {_("Don't save"), GTK_STOCK_CANCEL, GTK_STOCK_SAVE, NULL};
+			retval = multi_query_dialog(text, _("Changes will be lost unless the file is saved."), 2, 1, buttons);
 		}
 		g_free(text);
 
 		switch (retval) {
-		case 2:
+		case 1:
 			DEBUG_MSG("doc_close, retval=2 (cancel) , returning\n");
 			return 2;
 			break;
-		case 0:
+		case 2:
 			doc_save(doc, 0, 0);
 			if (doc->modified == 1) {
 				/* something went wrong it's still not saved */
@@ -1669,7 +1670,7 @@ gint doc_close(Tdocument * doc, gint warn_only)
 				doc_destroy(doc, FALSE);
 			}
 			break;
-		case 1:
+		case 0:
 			if (!warn_only) {
 				doc_destroy(doc, FALSE);
 			}
@@ -1862,7 +1863,6 @@ void doc_new_with_new_file(gchar * new_filename) {
 }
 
 gboolean doc_new_with_file(gchar * filename, gboolean delay_activate) {
-
 	Tdocument *doc;
 	
 	if ((filename == NULL) || (!file_exists_and_readable(filename))) {
@@ -1917,9 +1917,9 @@ void docs_new_from_files(GList * file_list) {
 	if (errorlist){
 		gchar *message, *tmp;
 		tmp = stringlist_to_string(errorlist, "\n");
-		message = g_strconcat(_("Unable to open file(s)\n"), tmp, NULL);
+		message = g_strconcat(_("These files were not opened:\n"), tmp, NULL);
 		g_free(tmp);
-		error_dialog("Bluefish error", message);
+		warning_dialog(_("Unable to open file(s)\n"), message);
 		g_free(message);
 	}
 	free_stringlist(errorlist);
@@ -1930,6 +1930,7 @@ void docs_new_from_files(GList * file_list) {
 		notebook_changed(-1);
 		if (main_v->current_document && main_v->current_document->filename) {
 			filebrowser_open_dir(main_v->current_document->filename);
+			doc_activate(main_v->current_document);
 		}
 	}
 }
@@ -1971,8 +1972,8 @@ void doc_activate(Tdocument *doc) {
 
 		ctime_r(&newtime,newtimestr);
 		ctime_r(&doc->mtime,oldtimestr);
-		tmpstr = g_strdup_printf(_("File %s\nis modified by another process\nnew modification time is %s\nold modification time is %s"), doc->filename,newtimestr,oldtimestr);
-		retval = multi_button_dialog(_("Bluefish: Warning, file is modified"), 0, tmpstr, options);
+		tmpstr = g_strdup_printf(_("File %s\nis modified by another process\nnew modification time is %s\nold modification time is %s"), doc->filename, newtimestr, oldtimestr);
+		retval = multi_warning_dialog(_("Bluefish: Warning, file is modified"), tmpstr, 0, 1, options);
 		g_free(tmpstr);
 		if (retval == 1) {
 			doc_set_stat_info(doc);
@@ -2271,8 +2272,8 @@ void file_close_all_cb(GtkWidget * widget, gpointer data)
 
 	/* first a warning loop */
 	if (test_docs_modified(NULL)) {
-		gchar *options[] = {_("save all"), _("close all"), _("choose per file"), _("cancel"), NULL};
-		retval =	multi_button_dialog(_("Bluefish: Warning, some file(s) are modified!"), 3, _("Some file(s) are modified\nplease choose your action"), options);
+		gchar *options[] = {_("_Save all"), _("Close _all"), _("Choose per _file"), _("_Cancel"), NULL};
+		retval = multi_query_dialog(_("Some file(s) have been modified"), _("If the modified files are not saved, any changes in them will be lost."), 0, 3, options);
 		if (retval == 3) {
 			DEBUG_MSG("file_close_all_cb, cancel clicked, returning 0\n");
 			return;

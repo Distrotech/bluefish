@@ -27,7 +27,17 @@ GTK_WIN_POS_MOUSE */
 
 typedef enum { none, file, font } Textra_but;
 void flush_queue(void);
-void error_dialog(gchar * window_title, gchar * error_string);
+
+/* Single-button dialogs*/
+void single_button_dialog_backend(gchar * primary, gchar * secondary, gchar * icon);
+void error_dialog(gchar * primary, gchar * secondary);
+void warning_dialog(gchar * primary, gchar * secondary);
+void info_dialog(gchar * primary, gchar * secondary);
+/* Multi-button dialogs */
+gint multi_error_dialog(gchar *primary, gchar *secondary, gint defval, gint cancelval, gchar **buttons);
+gint multi_warning_dialog(gchar *primary, gchar *secondary, gint defval, gint cancelval, gchar **buttons);
+gint multi_query_dialog(gchar *primary, gchar *secondary, gint defval, gint cancelval, gchar **buttons);
+
 void setup_toggle_item(GtkItemFactory * ifactory, gchar * path, gint state);
 void string_apply(gchar ** config_var, GtkWidget * entry);
 void integer_apply(gint *config_var, GtkWidget * widget, gboolean is_checkbox);
@@ -70,9 +80,6 @@ void bf_mnemonic_label_tad_with_alignment(const gchar *labeltext, GtkWidget *m_w
 void bf_label_tad_with_markup(const gchar *labeltext, gfloat xalign, gfloat yalign,
 								GtkWidget *table, guint left_attach, guint right_attach, guint top_attach, guint bottom_attach);						
 GtkWidget *file_but_new(GtkWidget * which_entry, GtkWidget * win, gint full_pathname);
-
-gint multi_stockbutton_dialog(gchar *title, gint defval, gchar *label, gchar **buttons);
-gint multi_button_dialog(gchar *title, gint defval, gchar *label, gchar **buttons);
 
 gchar *return_file_w_title(gchar * setfile, gchar *title);
 gchar *return_file(gchar * setfile);

@@ -26,6 +26,7 @@
 #include "gtk_easy.h"
 #include "bf_lib.h"
 #include "pixmap.h"
+#include "gui.h" /* statusbar_message() */
 
 #ifdef WIN32
 #define DIRSTR "\\"
@@ -76,7 +77,7 @@ void window_destroy(GtkWidget * windowname) {
  * Return value: void
  */
 void window_close_by_widget_cb(GtkWidget * widget, gpointer data) {
-	DEBUG_MSG("window_close_by_data_cb, widget=%p\n", widget);
+	DEBUG_MSG("window_close_by_widget_cb, widget=%p\n", widget);
 	window_destroy(gtk_widget_get_toplevel(widget));
 }
 
@@ -157,7 +158,7 @@ void string_apply(gchar ** config_var, GtkWidget * entry)
  * 	@entry: the spinbutton or checkbox #GtkWidget * to read
  * @is_checkbox: a gboolean, TRUE if entry is a checkbox
  *
- * 	sets the content from the widget to the variable pointer to by the config_var pointer
+ * 	sets the content from the widget to the variable pointed to by the config_var pointer
  *
  * Return value: void
  */
@@ -787,32 +788,223 @@ void bf_label_tad_with_markup(const gchar *labeltext, gfloat xalign, gfloat yali
 	gtk_table_attach_defaults(GTK_TABLE(table), label, left_attach, right_attach, top_attach, bottom_attach);	
 }								
 
+/**************************************************************************/
+/***********************  BUTTON DIALOG FUNCTIONS  ************************/
+/**************************************************************************/
+/*    If this code doesn't work, blame Christian <chris@tellefsen.net>    */
+
+/* Emit a delete-event to the appropriate dialog, to detect a user bailing through escape. */
+static gboolean dialog_key_press_event_lcb(GtkWidget *widget,GdkEventKey *event,GtkWidget *dialog) {
+	DEBUG_MSG("widget is %p and dialog is %p", widget, dialog);
+	DEBUG_MSG("dialog_key_press_event_lcb, started\n");
+	if (event->keyval == GDK_Escape) {
+		DEBUG_MSG("dialog_key_press_event_lcb, emit delete_event on %p\n", dialog);
+		g_signal_emit_by_name(G_OBJECT(dialog), "delete_event");
+		DEBUG_MSG("window_full_key_press_event_lcb, emitted delete-event to %p\n", dialog);
+		return TRUE;
+	}
+	return FALSE;
+}
+
+/* This function is called from single_button_dialog_backend() and multiple_button_dialog_backend()
+ * The dialog passed is made HIG-compliant.
+ *
+ * A HiG-dialog is consists of a GtkDialog, with a 2-cell vbox. The top
+ * vbox contains an hbox, with an image and a label. The label has a primary
+ * (strong && larger) message and an additional, more descriptive message.
+ * It is not resizeable, has no title, placement is selected by the wm.
+ */
+static void hig_dialog_backend (GtkDialog *dialog, gchar *primary, gchar *secondary, gchar *icon)
+{
+	GtkWidget *vbox, *hbox, *image, *label;
+	gchar *message;
+	gchar *spanstart = "<span weight=\"bold\" size=\"larger\">";
+	gchar *spanend = "</span>\n\n";
+	gchar *msgend = "\n";
+	
+	gtk_container_set_border_width (GTK_CONTAINER (dialog), 6);
+	gtk_window_set_resizable (GTK_WINDOW (dialog), FALSE);
+	gtk_dialog_set_has_separator (GTK_DIALOG (dialog), FALSE);
+
+	vbox = GTK_DIALOG (dialog)->vbox;
+
+	hbox = gtk_hbox_new (FALSE, 12);
+	gtk_box_pack_start (GTK_BOX (vbox), hbox, TRUE, TRUE, 0);
+	gtk_container_set_border_width (GTK_CONTAINER (hbox), 6);
+
+	image = gtk_image_new_from_stock (icon , GTK_ICON_SIZE_DIALOG); /* icon unknown ==> "broken image" displayed. */
+	gtk_box_pack_start (GTK_BOX (hbox), image, TRUE, TRUE, 0);
+	gtk_misc_set_alignment (GTK_MISC (image), 0, 0);
+
+	if(secondary) /* Creates label-content. */
+		message = g_strconcat(spanstart, primary, spanend, secondary, msgend, NULL);
+	else
+		message = g_strconcat(spanstart, primary, spanend, NULL);
+			
+	label = gtk_label_new (message);
+	g_free(message);
+
+	gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, FALSE, 0);
+	gtk_label_set_use_markup (GTK_LABEL (label), TRUE);
+	gtk_label_set_justify (GTK_LABEL (label), GTK_JUSTIFY_LEFT);
+	gtk_label_set_line_wrap (GTK_LABEL (label), TRUE);
+	gtk_misc_set_alignment (GTK_MISC (label), 0.5, 0);
+}
+
+/**
+ * multi_button_dialog_backend:
+ * @primary #gchar* containing primary dialog message.
+ * @secondary #gchar* containing more explanatory message. Set to NULL if unused.
+ * @icon #gchar* Your stock GTK image, i.e. GTK_STOCK_DIALOG_WARNING.
+ * @defval: #gint default index when user press ENTER.
+ * @cancelval: #gint: default index when user press ESCAPE. Should be something non-fatal. If this value is -1, the escape-button will be disabled.
+ * @buttons: #gchar** array of buttons. NULL-terminated!! Must contain at least one button.
+ *
+ * create a modal dialog with several buttons, returning the index of the clicked button
+ *
+ * Return value: #gint the index num of the button label which was clicked	so 0 for the first, 1 for the 2nd etc.
+ */
+gint multi_button_dialog_backend(gchar *primary, gchar *secondary, gchar *icon, gint defval, gint cancelval, gchar **buttons)
+{
+	GtkWidget *dialog;
+	int i, retval;
+
+	DEBUG_MSG ("multi_button_dialog_backend: Starting. Creating dialog w/button '%s', ID=0\n", *buttons);
+	dialog = gtk_dialog_new_with_buttons (NULL, /* Note that no title is being set. */
+												GTK_WINDOW (main_v->main_window),
+												GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+												*buttons, 0,
+												NULL);
+	/* Add buttons. The index must be correct! */
+	for (i = 1; *++buttons; i++) { /* Walk through the button-list until one reaches NULL. */
+		DEBUG_MSG ("multi_button_dialog_backend: Adding button '%s', ID=%d\n", *buttons, i);
+		gtk_dialog_add_button (GTK_DIALOG (dialog), *buttons, i);
+	}
+
+	gtk_dialog_set_default_response (GTK_DIALOG (dialog), defval); /* enter-default*/
+	if(cancelval != -1)/* enable escape ? */
+		g_signal_connect(G_OBJECT(dialog), "key_press_event",
+				G_CALLBACK(dialog_key_press_event_lcb), dialog); /* kill when escape is hit */
+
+	hig_dialog_backend (GTK_DIALOG (dialog), primary, secondary, icon);
+	gtk_widget_show_all (dialog);
+	retval = gtk_dialog_run (GTK_DIALOG (dialog));
+	gtk_widget_destroy (dialog);
+
+	DEBUG_MSG("multi_button_dialog_backend: got %d\n", retval);	
+	return (retval == GTK_RESPONSE_DELETE_EVENT) ? cancelval : retval; /* When user hits escape -- give cancelval. */
+} 
+
+/**
+ * single_button_dialog_backend:
+ * @primary #gchar* containing primary dialog message.
+ * @secondary #gchar* containing more explanatory message. Set to NULL if unused.
+ * @icon #gchar* Your stock GTK image, i.e. GTK_STOCK_DIALOG_WARNING.
+ * 
+ * Create and display a single-button message-dialog - HiG-style.
+ **/
+void single_button_dialog_backend(gchar * primary, gchar * secondary, gchar * icon)
+{
+	gchar *buttons[] = {GTK_STOCK_OK, NULL};
+	multi_button_dialog_backend(primary, secondary, icon, 0, 0, buttons);
+}
+
 /**
  * error_dialog:
- * @window_title: #gchar* the title of the error window
- * @error_string: #gchar* the description of the error
+ * @primary: #gchar* the primary error-description
+ * @secondary: #gchar* the secondary description of the error or NULL.
  *
- * 	displays an error dialog
+ * 	Display an error dialog, Gnome HiG style
  *
  * Return value: void
  */
-void error_dialog(gchar * window_title, gchar * error_string)
+void error_dialog(gchar * primary, gchar * secondary)
 {
-	GtkWidget *dialog, *okbutton;
-
-	dialog = gtk_dialog_new();
-	gtk_window_set_title(GTK_WINDOW(dialog), window_title);
-	gtk_window_position(GTK_WINDOW(dialog), GTK_WIN_POS_MOUSE);
-	gtk_container_border_width(GTK_CONTAINER(dialog), 10);
-	gtk_window_set_role(GTK_WINDOW(dialog), "error_dialog");
-	okbutton = bf_stock_ok_button(G_CALLBACK(window_close_by_data_cb), dialog);
-	gtk_box_pack_start(GTK_BOX(GTK_DIALOG(dialog)->action_area), okbutton, TRUE, TRUE, 0);
-	GTK_WIDGET_SET_FLAGS(okbutton, GTK_CAN_DEFAULT);
-	gtk_widget_grab_default(okbutton);
-
-	gtk_box_pack_start(GTK_BOX(GTK_DIALOG(dialog)->vbox), gtk_label_new(error_string), TRUE, TRUE, 0);
-	gtk_widget_show_all(dialog);
+	single_button_dialog_backend(primary, secondary, GTK_STOCK_DIALOG_ERROR);
 }
+
+/**
+ * info_dialog:
+ * @primary: #gchar* the primary error-description
+ * @secondary: #gchar* the secondary description of the error or NULL.
+ *
+ * 	Display an informational dialog, Gnome HiG style
+ *
+ * Return value: void
+ */
+void info_dialog(gchar * primary, gchar * secondary)
+{
+	single_button_dialog_backend(primary, secondary, GTK_STOCK_DIALOG_INFO);
+}
+
+/**
+ * warning_dialog:
+ * @primary: #gchar* the primary error-description
+ * @secondary: #gchar* the secondary description of the error or NULL.
+ *
+ * 	Display a warning dialog, Gnome HiG style
+ *
+ * Return value: void
+ */
+void warning_dialog(gchar * primary, gchar * secondary)
+{
+	single_button_dialog_backend(primary, secondary, GTK_STOCK_DIALOG_WARNING);
+}
+
+/* multi_button_dialog and multi_stockbutton_dialog was here */
+
+/**
+ * multi_error_dialog:
+ * @primary: #gchar* the primary error-description
+ * @secondary: #gchar* the secondary description of the error or NULL.
+ * @defval: #gint default index when user press ENTER.
+ * @cancelval: #gint: default index when user press ESCAPE. Should be something non-fatal. If this value is -1, the escape-button will be disabled.
+ * @buttons: #gchar** NULL terminated array of strings with button labels
+ *
+ * Create a modal error-dialog with several buttons, returning the index of the clicked button
+ *
+ * Return value: #gint the index num of the button label which was clicked	so 0 for the first, 1 for the 2nd etc.
+ */
+gint multi_error_dialog(gchar *primary, gchar *secondary, gint defval, gint cancelval, gchar **buttons) {
+	return multi_button_dialog_backend(primary, secondary, GTK_STOCK_DIALOG_ERROR, defval, cancelval, buttons);
+}
+
+/**
+ * multi_warning_dialog:
+ * @primary: #gchar* the primary error-description
+ * @secondary: #gchar* the secondary description of the error or NULL.
+ * @defval: #gint default index when user press ENTER.
+ * @cancelval: #gint: default index when user press ESCAPE. Should be something non-fatal. If this value is -1, the escape-button will be disabled.
+ * @buttons: #gchar** NULL terminated array of strings with button labels
+ *
+ * Create a modal warning-dialog with several buttons, returning the index of the clicked button
+ *
+ * Return value: #gint the index num of the button label which was clicked	so 0 for the first, 1 for the 2nd etc.
+ */
+gint multi_warning_dialog(gchar *primary, gchar *secondary, gint defval, gint cancelval, gchar **buttons) {
+	return multi_button_dialog_backend(primary, secondary, GTK_STOCK_DIALOG_WARNING, defval, cancelval, buttons);
+}
+ 
+/**
+ * multi_error_dialog:
+ * @primary: #gchar* the primary error-description
+ * @secondary: #gchar* the secondary description of the error or NULL.
+ * @defval: #gint default index when user press ENTER.
+ * @cancelval: #gint: default index when user press ESCAPE. Should be something non-fatal. If this value is -1, the escape-button will be disabled.
+ * @buttons: #gchar** NULL terminated array of strings with button labels
+ *
+ * Create a modal question-dialog with several buttons, returning the index of the clicked button
+ *
+ * Return value: #gint the index num of the button label which was clicked	so 0 for the first, 1 for the 2nd etc.
+ */
+gint multi_query_dialog(gchar *primary, gchar *secondary, gint defval, gint cancelval, gchar **buttons) {
+	return multi_button_dialog_backend(primary, secondary, GTK_STOCK_DIALOG_QUESTION, defval, cancelval, buttons);
+}
+ 
+
+/************************************************************************/
+/************************ file_but_* FUNCTIONS **************************/
+/************************************************************************/
 
 static void file_but_clicked_lcb(GtkWidget * widget, GtkWidget * which_entry)
 {
@@ -870,118 +1062,6 @@ GtkWidget *file_but_new(GtkWidget * which_entry, GtkWidget * win, gint full_path
 	}
 	gtk_widget_show(file_but);
 	return file_but;
-}
-
-
-/**************************************************************************/
-
-#define MAX_MUBUDI_BUT 9
-typedef struct {
-	GtkWidget *win;
-	GtkWidget *buts[MAX_MUBUDI_BUT];
-	gint retval;
-} Tmubudi;
-
-static void mubudi_destroy_lcb(GtkWidget * widget, GdkEvent *event, 	Tmubudi *mbd) {
-	DEBUG_MSG("mubudi_destroy_lcb, quitting gtk main loop\n");
-	gtk_main_quit();
-}
-
-static void mubudi_but_clicked_lcb(GtkWidget * widget, Tmubudi *mbd)
-{
-	gint i=0;
-
-	while (mbd->buts[i]) {
-		if (mbd->buts[i] == widget) {
-			mbd->retval = i;
-			DEBUG_MSG("mubudi_but_clicked_lcb, retval=%d\n", i);
-		}
-		DEBUG_MSG("mubudi_but_clicked_lcb, checking %d, if %p=%p\n", i, mbd->buts[i], widget);
-		i++;
-	}
-	mubudi_destroy_lcb(NULL, NULL, mbd);
-}
-
-/**
- * multi_button_dialog_backend:
- * @use_gtk_stock_buttons: #gboolean, the buttons array contains GTK_STOCKBUTTON identifiers
- * @title: #gchar* title string
- * @defval: #gint default value (when no button is clicked)
- * @label: #gchar* label string
- * @buttons: #gchar** NULL terminated array of strings, containing the button labels
- *
- * create a modal dialog with several buttons, returning the index of the clicked button
- *
- * Return value: #gint the index num of the button label which was clicked	so 0 for the first, 1 for the 2nd etc.
- */
-gint multi_button_dialog_backend(gboolean use_gtk_stock_buttons, gchar *title, gint defval, gchar *label, gchar **buttons) {
-	Tmubudi *mbd;
-
-	GtkWidget *vbox, *hbox;
-	gint retval, count;
-
-	mbd = g_malloc0(sizeof(Tmubudi));
-	mbd->retval = defval;
-
-	mbd->win = window_full(title, GTK_WIN_POS_CENTER, 5,
-			G_CALLBACK(mubudi_destroy_lcb), mbd, FALSE);
-	gtk_grab_add(mbd->win);
-
-	vbox = gtk_vbox_new(FALSE, 5);
-	gtk_container_add(GTK_CONTAINER(mbd->win), vbox);
-	gtk_box_pack_start(GTK_BOX(vbox), gtk_label_new(label), FALSE, FALSE, 0);
-	hbox = gtk_hbox_new(TRUE, 5);
-	gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 0);
-
-	count = 0;
-	while (buttons[count]) {
-		if (use_gtk_stock_buttons) {
-			mbd->buts[count] = bf_gtkstock_button(buttons[count], G_CALLBACK(mubudi_but_clicked_lcb), mbd);
-		} else {
-			mbd->buts[count] = bf_stock_button(buttons[count], G_CALLBACK(mubudi_but_clicked_lcb), mbd);
-		}
-		if (count == defval) {
-			gtk_window_set_default(GTK_WINDOW(mbd->win), mbd->buts[count]);
-		}
-		gtk_box_pack_start(GTK_BOX(hbox), mbd->buts[count], TRUE, TRUE, 5);
-		count++;
-	}
-
-	gtk_widget_show_all(mbd->win);
-	gtk_window_set_transient_for(GTK_WINDOW(mbd->win), GTK_WINDOW(main_v->main_window));
-	gtk_main();
-	window_destroy(mbd->win);
-	retval = mbd->retval;
-	free(mbd);
-	return retval;
-}
-/**
- * multi_stockbutton_dialog:
- * @title: #gchar* title string
- * @defval: #gint default value (when no button is clicked)
- * @label: #gchar* label string
- * @buttons: #gchar** NULL terminated array of gtk stock identifiers
- *
- * create a modal dialog with several buttons, returning the index of the clicked button
- *
- * Return value: #gint the index num of the button label which was clicked	so 0 for the first, 1 for the 2nd etc.
- */
-gint multi_stockbutton_dialog(gchar *title, gint defval, gchar *label, gchar **buttons) {
-	return multi_button_dialog_backend(TRUE, title, defval, label, buttons);
-}
-/**
- * multi_button_dialog:
- * @title: #gchar* title string
- * @defval: #gint default value (when no button is clicked)
- * @label: #gchar* label string
- * @buttons: #gchar** NULL terminated array of strings with button labels
- *
- * create a modal dialog with several buttons, returning the index of the clicked button
- *
- * Return value: #gint the index num of the button label which was clicked	so 0 for the first, 1 for the 2nd etc.
- */
-gint multi_button_dialog(gchar *title, gint defval, gchar *label, gchar **buttons) {
-	return multi_button_dialog_backend(FALSE, title, defval, label, buttons);
 }
 
 /************************************************************************/
@@ -1044,7 +1124,7 @@ static void fs_ok_clicked_lcb(GtkWidget * widget, Tfileselect *fileselect)
 			&& (g_list_length(fileselect->filenames_to_return) < 1)) 
 		|| (!fileselect->multipleselect 
 			&& strlen(fileselect->filename_to_return) < 1)){
-		error_dialog(_("Bluefish error"), _("No filename known"));
+		statusbar_message(_("No file to insert."), 2000);
 	}
 	
 	g_free(selected_file);	

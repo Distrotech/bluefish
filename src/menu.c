@@ -755,8 +755,8 @@ static void open_recent_file_cb(GtkWidget *widget, gpointer nothing) {
 	statusbar_message(_("Loading file(s)..."),2000);
 	flush_queue();
 	if (!doc_new_with_file(filename, FALSE)) {
-		gchar *message = g_strconcat(_("Could not open file\n"), filename, NULL);
-		error_dialog("Bluefish error", message);
+		gchar *message = g_strconcat(_("The filename was:\n"), filename, NULL);
+		warning_dialog(_("Could not open file\n"), message);
 		g_free(message);
 		return;
 	}
@@ -886,7 +886,7 @@ static void view_in_browser(gchar *browser) {
 		system(command);
 		g_free(command);
 	} else {
-		error_dialog(_("Bluefish error: no filename"), _("Could not view file in browser, the file does not yet have a name\n"));
+		warning_dialog(_("Could not view file in browser, the file does not yet have a name\n"), NULL);
 	}
 }
 
@@ -1312,7 +1312,7 @@ static void cust_menu_lcb(GtkWidget * widget, gpointer data) {
 	} else {
 		DEBUG_MSG("cust_menu_lcb, a custom search and replace!, cmentry->array[7]=%s\n", cmentry->array[7]);
 		if (strcmp(cmentry->array[4], "2")==0 && !doc_has_selection(main_v->current_document)) {
-			error_dialog(_("Bluefish error"), _("This custom search and replace requires a selection"));
+			warning_dialog(_("This custom search and replace requires a selection"), NULL);
 			return;
 		}
 		if (atoi(cmentry->array[7]) > 0) {
@@ -1658,14 +1658,14 @@ static gchar **cme_create_array(Tcmenu_editor *cme, gboolean is_update) {
 		}
 		if (invalid) {
 			if (is_update) {
-				error_dialog(_("Bluefish error"), _("the menupath you want to update does not exist yet: try 'add'"));
+				warning_dialog(_("The menupath you want to update does not exist yet"), _("Try 'add' instead."));
 			} else {
-				error_dialog(_("Bluefish error"), _("the menupath you want to add exists already"));
+				warning_dialog(_("The menupath you want to add already exists."), NULL);
 			}
 		}
 		if (newarray[0][0] != '/') {
 			DEBUG_MSG("cme_create_array, menupath does not start with slash, returning NULL\n");
-			error_dialog(_("Bluefish error"), _("the menupath should start with a / character"));
+			warning_dialog(_("The menupath should start with a / character"), NULL);
 			invalid = TRUE;
 		}
 		if (invalid) {
