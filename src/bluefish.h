@@ -213,7 +213,6 @@ typedef struct {
 #ifdef HAVE_LIBASPELL
 	gchar *spell_default_lang;
 #endif /* HAVE_LIBASPELL */
-	gint cont_highlight_full; 	/* if you want to highlight the full text or just the line */
 	gint lasttime_cust_menu; /* the last time the defaultfile was checked for new entries */
 	gint lasttime_highlighting; /* see above */
 	gint lasttime_filetypes; /* see above */
