@@ -1269,8 +1269,8 @@ static void external_command_lcb(GtkWidget *widget, Tbfw_dynmenu *bdm) {
 	 * %s - we need a filename 
 	 * %f - output filename that we need to read after the command has finished (filter)
 	 */
-	need_f = (int)strstr(arr[1], "%f");
-	need_s = (int)strstr(arr[1], "%s");
+	need_f = (strstr(arr[1], "%f") != NULL);
+	need_s = (strstr(arr[1], "%s") != NULL);
 
 	if (need_s) {
 		file_save_cb(NULL, bdm->bfwin);
