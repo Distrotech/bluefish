@@ -21,16 +21,18 @@
 
 #include <gtk/gtk.h>
 #include <string.h> /* memcpy */
+
 #include "bluefish.h"
 #include "bf_lib.h"
-#include "stringlist.h"
+#include "bookmark.h"
+#include "dialog_utils.h"
 #include "document.h"
 #include "file.h"
-#include "file_dialogs.h"
 #include "filebrowser2.h"
+#include "file_dialogs.h"
 #include "gtk_easy.h"
 #include "gui.h"
-#include "bookmark.h"
+#include "stringlist.h"
 
 /*************************** FILE INFO ASYNC ******************************/
 
@@ -933,13 +935,17 @@ static gint copyfile_progress_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSXferProgre
 
 	if (info->status == GNOME_VFS_XFER_PROGRESS_STATUS_OVERWRITE) {
 		/* BUG: we should ask the user what to do ? */
-		gchar *options[] = {_("_Skip"), _("_Overwrite"), NULL};
+		const gchar *buttons[] = {_("_Skip"), _("_Overwrite"), NULL};
 		gint retval;
 		gchar *tmpstr, *dispname;
 		DEBUG_MSG("copyfile_progress_lcb, overwrite? skip for the moment\n");
 		dispname = gnome_vfs_format_uri_for_display(info->target_name);
 		tmpstr = g_strdup_printf(_("%s already exists, overwrite?"),dispname);
-		retval = multi_warning_dialog(BFWIN(cf->bfwin)->main_window,_("Overwrite file?"), tmpstr, 1, 0, options);
+		retval = message_dialog_new_multi(BFWIN(cf->bfwin)->main_window,
+													 GTK_MESSAGE_WARNING,
+													 buttons,
+													 _("Overwrite file?"),
+													 tmpstr);
 		g_free(tmpstr);
 		return (retval == 0) ? GNOME_VFS_XFER_OVERWRITE_ACTION_SKIP : GNOME_VFS_XFER_OVERWRITE_ACTION_REPLACE;
 	} else if (info->status == GNOME_VFS_XFER_PROGRESS_STATUS_VFSERROR) {
