@@ -219,7 +219,7 @@ static void checkNsave_cleanup(TcheckNsave *cns) {
 	DEBUG_MSG("checkNsave_cleanup, called for %p\n",cns);
 	refcpointer_unref(cns->buffer);
 	gnome_vfs_uri_unref(cns->uri);
-	gnome_vfs_file_info_unref(cns->finfo);
+	if (cns->finfo) gnome_vfs_file_info_unref(cns->finfo);
 	g_free(cns);
 }
 
