@@ -95,6 +95,8 @@ typedef struct {
 	GtkWidget *dir_v; /* treeview widget */
 	GtkWidget *file_v; /* listview widget */
 	
+	gulong expand_signal;
+	
 	GnomeVFSURI *basedir;
 
 	GtkTreeModel *dir_tfilter;
@@ -110,18 +112,23 @@ typedef struct {
 
 #define FILEBROWSER2(var) ((Tfilebrowser2 *)(var))
 static void refilter_filelist(Tfilebrowser2 *fb2, GtkTreePath *newroot);
-static void fb2_fill_dir_async(Tfilebrowser2 *fb2, GtkTreeIter *parent, GnomeVFSURI *uri, gboolean load_subdirs);
+static void fb2_fill_dir_async(GtkTreeIter *parent, GnomeVFSURI *uri);
 /**************/
 static void DEBUG_DIRITER(Tfilebrowser2 *fb2, GtkTreeIter *diriter) {
 	gchar *name;
 	gtk_tree_model_get(GTK_TREE_MODEL(FILEBROWSER2CONFIG(main_v->fb2config)->filesystem_tstore), diriter, FILENAME_COLUMN, &name, -1);
 	g_print("DEBUG_DIRITER, iter(%p) has filename %s\n",diriter,name);
 }
-
-
 /**************/
 
-static GtkTreeIter *fb2_add_filesystem_entry(Tfilebrowser2 *fb2, GtkTreeIter *parent, GnomeVFSURI *child_uri, gint type, gboolean load_subdirs) {
+/**
+ * fb2_add_filesystem_entry:
+ *
+ * returns the GtkTreeIter* that is stored in the hashtable. This can be a new iter pointer
+ * if there was no iter in the hashtable yet, else it is the existing iter
+ *
+ */
+static GtkTreeIter *fb2_add_filesystem_entry(GtkTreeIter *parent, GnomeVFSURI *child_uri, gint type, gboolean load_subdirs) {
 	GtkTreeIter *newiter;
 	guint *hashkey;
 	
@@ -139,7 +146,7 @@ static GtkTreeIter *fb2_add_filesystem_entry(Tfilebrowser2 *fb2, GtkTreeIter *pa
 		}
 		newiter = g_new(GtkTreeIter,1);
 		gtk_tree_store_append(GTK_TREE_STORE(FILEBROWSER2CONFIG(main_v->fb2config)->filesystem_tstore),newiter,parent);
-		DEBUG_MSG("fb2_add_filesystem_entry, will add %s\n",gnome_vfs_uri_extract_short_name(child_uri));
+		DEBUG_MSG("fb2_add_filesystem_entry, will add %s with uri %s\n",gnome_vfs_uri_extract_short_name(child_uri),gnome_vfs_uri_to_string(child_uri, GNOME_VFS_URI_HIDE_PASSWORD));
 		gtk_tree_store_set(GTK_TREE_STORE(FILEBROWSER2CONFIG(main_v->fb2config)->filesystem_tstore),newiter,
 				PIXMAP_COLUMN, pixmap,
 				FILENAME_COLUMN, gnome_vfs_uri_extract_short_name(child_uri),
@@ -150,8 +157,10 @@ static GtkTreeIter *fb2_add_filesystem_entry(Tfilebrowser2 *fb2, GtkTreeIter *pa
 		DEBUG_MSG("fb2_add_filesystem_entry adding iter %p to hashkey %u\n",newiter,*hashkey);
 		g_hash_table_insert(FILEBROWSER2CONFIG(main_v->fb2config)->filesystem_itable,hashkey,newiter);
 		if (load_subdirs && type == TYPE_DIR) {
-			/* load this directory, if it has subdirectories the expander will be shown after they are added */
-			fb2_fill_dir_async(fb2, newiter, child_uri, FALSE);
+			GnomeVFSURI *dummy_uri;
+			/* add a dummy item so the expander will be shown */
+			dummy_uri = gnome_vfs_uri_append_string(child_uri,"dummy");
+			fb2_add_filesystem_entry(newiter, dummy_uri, TYPE_DIR, FALSE);
 		}
 	}
 	return newiter;
@@ -160,11 +169,13 @@ static GtkTreeIter *fb2_add_filesystem_entry(Tfilebrowser2 *fb2, GtkTreeIter *pa
 typedef struct {
 	GtkTreeIter *parent;
 	GnomeVFSURI *p_uri;
-	Tfilebrowser2 *fb2;
-	gboolean load_subdirs;
 } Tdirectoryloaddata;
-
-static void fb2_treestore_delete_children_refresh1(Tfilebrowser2 *fb2, GtkTreeStore *tstore, GtkTreeIter *iter) {
+/**
+ * fb2_treestore_delete_children_refresh1
+ *
+ * deletes all children of 'iter' that have value 1 in the REFRESH_COLUMN
+ */
+static void fb2_treestore_delete_children_refresh1(GtkTreeStore *tstore, GtkTreeIter *iter) {
 	GtkTreeIter child;
 	if (gtk_tree_model_iter_children(GTK_TREE_MODEL(tstore),&child,iter)) {
 		gboolean cont=TRUE;
@@ -173,17 +184,17 @@ static void fb2_treestore_delete_children_refresh1(Tfilebrowser2 *fb2, GtkTreeSt
 			GtkTreeIter this = child;
 			gtk_tree_model_get(GTK_TREE_MODEL(tstore), &child, REFRESH_COLUMN, &refresh, -1);
 			cont = gtk_tree_model_iter_next(GTK_TREE_MODEL(tstore), &child);
-			if (refresh) {
+			if (refresh == 1) {
 				GnomeVFSURI *d_uri;
 				gchar *d_name;
-				guint *hashkey;
-				hashkey = g_new(guint,1);
+				guint hashkey;
 				/* delete 'this' ! */
-				gtk_tree_model_get(GTK_TREE_MODEL(tstore), &this, FILENAME_COLUMN, &d_name, URI_COLUMN, &d_uri -1);
+				gtk_tree_model_get(GTK_TREE_MODEL(tstore), &this, FILENAME_COLUMN, &d_name, URI_COLUMN, &d_uri, -1);
 				gtk_tree_store_remove(tstore,&this);
-				*hashkey = gnome_vfs_uri_hash(d_uri);
-				g_hash_table_remove(FILEBROWSER2CONFIG(main_v->fb2config)->filesystem_itable, hashkey);
-				g_free(hashkey);
+				
+				hashkey = gnome_vfs_uri_hash(d_uri);
+				g_hash_table_remove(FILEBROWSER2CONFIG(main_v->fb2config)->filesystem_itable, &hashkey);
+				
 				gnome_vfs_uri_unref(d_uri);
 				g_free(d_name);
 			}
@@ -191,15 +202,21 @@ static void fb2_treestore_delete_children_refresh1(Tfilebrowser2 *fb2, GtkTreeSt
 	}
 }
 
+/**
+ * fb2_load_directory_lcb
+ *
+ * the callback from the asynchronous directory load
+ *
+ */
 static void fb2_load_directory_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSResult result,GList *list,guint entries_read,Tdirectoryloaddata *cdata) {
 	GList *tmplist;
-	DEBUG_MSG("cdata=%p\n",cdata);
 	DEBUG_MSG("fb2_load_directory_lcb, appending %d childs to %s\n",entries_read,gnome_vfs_uri_get_path(cdata->p_uri));
 	tmplist = g_list_first(list);
 	while (tmplist) {
 		GnomeVFSFileInfo *finfo = tmplist->data;
-		GnomeVFSURI *child_uri = gnome_vfs_uri_append_string(cdata->p_uri,finfo->name);
+		
 		if (strcmp(finfo->name,".")!=0 && strcmp(finfo->name,"..")!=0) {
+			GnomeVFSURI *child_uri;
 			gint type;
 			DEBUG_MSG("found %s with type %d\n", finfo->name, finfo->type);
 			if (finfo->type == GNOME_VFS_FILE_TYPE_DIRECTORY) {
@@ -207,36 +224,48 @@ static void fb2_load_directory_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSResult re
 			} else {
 				type = TYPE_FILE;
 			}
-			fb2_add_filesystem_entry(cdata->fb2, cdata->parent, child_uri, type, cdata->load_subdirs);
+			/* child_uri is stored in the treestore, so it does not need to be freed */
+			child_uri = gnome_vfs_uri_append_string(cdata->p_uri,finfo->name);
+			fb2_add_filesystem_entry(cdata->parent, child_uri, type, TRUE);
 		}
 		tmplist = g_list_next(tmplist);
 	}
-
 	if (result == GNOME_VFS_ERROR_EOF) {
 		DEBUG_MSG("fb2_load_directory_lcb, EOF, list=%p\n",list);
-		fb2_treestore_delete_children_refresh1(cdata->fb2, FILEBROWSER2CONFIG(main_v->fb2config)->filesystem_tstore, cdata->parent);
+		fb2_treestore_delete_children_refresh1(FILEBROWSER2CONFIG(main_v->fb2config)->filesystem_tstore, cdata->parent);
 		g_free(cdata);
 	}
 }
 
-static void fb2_fill_dir_async(Tfilebrowser2 *fb2, GtkTreeIter *parent, GnomeVFSURI *uri, gboolean load_subdirs) {
+/**
+ * fb2_fill_dir_async:
+ *
+ * starts the asynchronous diretory fill
+ *
+ * the GtkTreeIter* 'parent' should exist after this function returns, use the 
+ * GtkTreeIter that is stored in the hashtable to make sure it is persistent
+ *
+ * the uri passed to this function should also exist after this function returns
+ * use an uri stored in the treestore to make sure it is persistent
+ *
+ */
+static void fb2_fill_dir_async(GtkTreeIter *parent, GnomeVFSURI *uri) {
 	GnomeVFSAsyncHandle *handle;
 	Tdirectoryloaddata *cdata;
-	gint priority = GNOME_VFS_PRIORITY_DEFAULT;
 	
 	cdata = g_new(Tdirectoryloaddata,1);
-	cdata->fb2 = fb2;
 	cdata->parent = parent;
 	cdata->p_uri = uri;
-	cdata->load_subdirs = load_subdirs;
 	DEBUG_MSG("fb2_fill_dir_async, opening %s\n",gnome_vfs_uri_get_path(uri));	
-	if (!load_subdirs) {
-		priority = GNOME_VFS_PRIORITY_MIN;
-	}
 	gnome_vfs_async_load_directory_uri(&handle,uri,GNOME_VFS_FILE_INFO_DEFAULT,
-								10,priority,fb2_load_directory_lcb,cdata);
+								10,GNOME_VFS_PRIORITY_DEFAULT,fb2_load_directory_lcb,cdata);
 }
 
+/**
+ * fb2_treestore_mark_children_refresh1:
+ *
+ * sets value 1 in REFRESH_COLUMN for all children of 'iter' 
+ */
 static void fb2_treestore_mark_children_refresh1(GtkTreeStore *tstore, GtkTreeIter *iter) {
 	GtkTreeIter child;
 	DEBUG_MSG("fb2_treestore_mark_children_refresh1, started\n");
@@ -249,20 +278,28 @@ static void fb2_treestore_mark_children_refresh1(GtkTreeStore *tstore, GtkTreeIt
 	}
 	DEBUG_MSG("fb2_treestore_mark_children_refresh1, finished\n");
 }
-
+/**
+ * fb2_uri_from_iter:
+ *
+ * reads the uri stored in the treestore for iter 'iter'
+ */
 static GnomeVFSURI *fb2_uri_from_iter(GtkTreeIter *iter) {
 	GnomeVFSURI *uri;
 	gtk_tree_model_get(GTK_TREE_MODEL(FILEBROWSER2CONFIG(main_v->fb2config)->filesystem_tstore), iter, URI_COLUMN, &uri, -1);
 	return uri;
 }
 
-/*
-the 'dir' iter that is passed to this function will be used in the asynchronous
-update, so it needs to be a persistent iter. The iters that are in the hashtable 
-are persistent. Most others are not. So better pass NULL then pass a temporary 
-iter
-*/
-static void fb2_refresh_dir(Tfilebrowser2 *fb2, GnomeVFSURI *uri, GtkTreeIter *dir) {
+/**
+ * fb2_refresh_dir:
+ *
+ * the 'dir' iter that is passed to this function will be used in the asynchronous
+ * update, so it needs to be a persistent iter. The iters that are in the hashtable 
+ * are persistent. Most others are not. So better pass NULL then pass a temporary 
+ * iter
+ *
+ * the uri should also be peristent, the uri's in the treestore are persistent
+ */
+static void fb2_refresh_dir(GnomeVFSURI *uri, GtkTreeIter *dir) {
 	/* first we mark all children as 'refresh=1' in the REFRESH_COLUMN, then
 	we read the directory, and all existing items are set to refresh=0, after we
 	have finished reading the directory, all items that still have refresh=1 can be 
@@ -278,11 +315,17 @@ static void fb2_refresh_dir(Tfilebrowser2 *fb2, GnomeVFSURI *uri, GtkTreeIter *d
 	DEBUG_MSG("fb2_refresh_dir, uri is %s\n", gnome_vfs_uri_get_path(uri));
 	if (dir && uri) {
 		fb2_treestore_mark_children_refresh1(FILEBROWSER2CONFIG(main_v->fb2config)->filesystem_tstore, dir);
-		fb2_fill_dir_async(fb2, dir, uri, TRUE);
+		fb2_fill_dir_async(dir, uri);
 	}
 }
-
-static GtkTreeIter *fb2_build_dir(Tfilebrowser2 *fb2, GnomeVFSURI *uri) {
+/**
+ * fb2_build_dir:
+ *
+ * builds directories up to uri (uri should point to a directory, not to a file)
+ *
+ * returns a pointer to the iter stored in the hashtable, so this is a persistent iter
+ */
+static GtkTreeIter *fb2_build_dir(GnomeVFSURI *uri) {
 	GnomeVFSURI* tmp, *parent_uri;
 	GtkTreeIter *parent = NULL;
 
@@ -299,7 +342,7 @@ static GtkTreeIter *fb2_build_dir(Tfilebrowser2 *fb2, GnomeVFSURI *uri) {
 	}
 	if (!parent) {
 		DEBUG_MSG("adding toplevel %s\n",gnome_vfs_uri_get_path(tmp));
-		parent = fb2_add_filesystem_entry(fb2, NULL, tmp, TYPE_DIR, FALSE);
+		parent = fb2_add_filesystem_entry(NULL, tmp, TYPE_DIR, FALSE);
 		parent_uri = tmp;
 	} else {
 		parent_uri = tmp;
@@ -316,8 +359,8 @@ static GtkTreeIter *fb2_build_dir(Tfilebrowser2 *fb2, GnomeVFSURI *uri) {
 				tmp2 = tmp3;
 			}
 			DEBUG_MSG("%s is the parent of %s\n",gnome_vfs_uri_get_path(parent_uri),gnome_vfs_uri_get_path(tmp2));
-			parent = fb2_add_filesystem_entry(fb2, parent, tmp2, TYPE_DIR, FALSE);
-			/* probably needed: gnome_vfs_uri_unref(parent_uri); */
+			parent = fb2_add_filesystem_entry(parent, tmp2, TYPE_DIR, FALSE);
+			gnome_vfs_uri_unref(parent_uri);
 			parent_uri = tmp2;
 			DEBUG_MSG("new parent_uri=%s, requested uri=%s\n",gnome_vfs_uri_get_path(parent_uri),gnome_vfs_uri_get_path(uri));
 			if (gnome_vfs_uri_equal(parent_uri,uri)) {
@@ -326,23 +369,31 @@ static GtkTreeIter *fb2_build_dir(Tfilebrowser2 *fb2, GnomeVFSURI *uri) {
 			}
 		}
 	}
+	gnome_vfs_uri_unref(parent_uri);
 	return parent;
 }
-
-static void fb2_focus_dir(Tfilebrowser2 *fb2, GnomeVFSURI *path, gboolean noselect) {
+/**
+ * fb2_focus_dir:
+ *
+ * builds the directory tree, refreshed the directory, and (if not noselect) expands and selects the 
+ * result. during the expand it will block the expand signal handler, so the expand callback
+ * will not be called
+ *
+ */
+static void fb2_focus_dir(Tfilebrowser2 *fb2, GnomeVFSURI *uri, gboolean noselect) {
 	guint hashkey;
 	GtkTreeIter *dir;
-	hashkey = gnome_vfs_uri_hash(path);
+	hashkey = gnome_vfs_uri_hash(uri);
 	dir = g_hash_table_lookup(FILEBROWSER2CONFIG(main_v->fb2config)->filesystem_itable, &hashkey);
 	DEBUG_MSG("fb2_focus_dir, found %p for hashkey %u\n",dir,hashkey);
 	if (!dir) {
-		dir = fb2_build_dir(fb2, path);
+		dir = fb2_build_dir(uri);
 	}
 	if (dir) {
 		GtkTreePath *fs_path;
 		DEBUG_DIRITER(fb2, dir);
-		
-		fb2_refresh_dir(fb2, path, dir);
+		/* 'uri' is not persistent, 'dir' is peristent, so only pass 'dir' */
+		fb2_refresh_dir(NULL, dir);
 		/* set this directory as the top tree for the file widget */
 		fs_path = gtk_tree_model_get_path(GTK_TREE_MODEL(FILEBROWSER2CONFIG(main_v->fb2config)->filesystem_tstore),dir);
 		if (fs_path) {
@@ -354,7 +405,9 @@ static void fb2_focus_dir(Tfilebrowser2 *fb2, GnomeVFSURI *path, gboolean nosele
 				if (filter_path) {
 					GtkTreePath *sort_path = gtk_tree_model_sort_convert_child_path_to_path(GTK_TREE_MODEL_SORT(fb2->dir_tsort),filter_path);
 					if (sort_path) {
+						g_signal_handler_block(fb2->dir_v, fb2->expand_signal);
 						gtk_tree_view_expand_to_path(GTK_TREE_VIEW(fb2->dir_v), sort_path);
+						g_signal_handler_unblock(fb2->dir_v, fb2->expand_signal);
 						gtk_tree_selection_select_path(gtk_tree_view_get_selection(GTK_TREE_VIEW(fb2->dir_v)),sort_path);
 						gtk_tree_view_scroll_to_cell(GTK_TREE_VIEW(fb2->dir_v),sort_path,0,TRUE,0.5,0.5);
 						gtk_tree_path_free(sort_path);
@@ -368,21 +421,31 @@ static void fb2_focus_dir(Tfilebrowser2 *fb2, GnomeVFSURI *path, gboolean nosele
 		}
 	}
 }
-
+/**
+ * fb2_focus_document:
+ *
+ * external function, will make sure the filebrowser shows the current dcoument
+ * directory
+ */
 void fb2_focus_document(Tbfwin *bfwin, Tdocument *doc) {
 	DEBUG_MSG("fb2_focus_document,doc->filename=%s\n",doc->filename);
 	if (bfwin->fb2 && doc->filename) {
-		GnomeVFSURI *path, *dir;
+		GnomeVFSURI *file_uri, *dir_uri;
 		/* first we make sure we have the correct directory open, then
 		we could select the document, but if the directory *was* open already, this
 		could disturb the user... hmmm... */
-		path = gnome_vfs_uri_new(doc->filename);
-		dir = gnome_vfs_uri_get_parent(path);
-		fb2_focus_dir(FILEBROWSER2(bfwin->fb2), dir, FALSE);
-		gnome_vfs_uri_unref(path);
+		file_uri = gnome_vfs_uri_new(doc->filename);
+		dir_uri = gnome_vfs_uri_get_parent(file_uri);
+		fb2_focus_dir(FILEBROWSER2(bfwin->fb2), dir_uri, FALSE);
+		gnome_vfs_uri_unref(file_uri);
+		gnome_vfs_uri_unref(dir_uri);
 	}
 }
-
+/**
+ * tree_model_filter_func
+ *
+ * will return TRUE if this file should be visible in the dir view
+ */
 static gboolean tree_model_filter_func(GtkTreeModel *model,GtkTreeIter *iter,gpointer data) {
 	gchar *name;
 	gint len, type;
@@ -398,7 +461,11 @@ static gboolean tree_model_filter_func(GtkTreeModel *model,GtkTreeIter *iter,gpo
 	}
 	return TRUE;
 }
-
+/**
+ * file_list_filter_func:
+ *
+ * will return TRUE if this file should be visible in the file list
+ */
 static gboolean file_list_filter_func(GtkTreeModel *model,GtkTreeIter *iter,gpointer data) {
 	gchar *name;
 	gint len, type;
@@ -414,7 +481,12 @@ static gboolean file_list_filter_func(GtkTreeModel *model,GtkTreeIter *iter,gpoi
 	}
 	return TRUE;
 }
-
+/**
+ * refilter_dirlist:
+ *
+ * will set the root of the directory view to 'newroot'
+ *
+ */
 static void refilter_dirlist(Tfilebrowser2 *fb2, GtkTreePath *newroot) {
 	GtkTreeModel *oldmodel1, *oldmodel2;
 	oldmodel1 = fb2->dir_tfilter;
@@ -427,7 +499,12 @@ static void refilter_dirlist(Tfilebrowser2 *fb2, GtkTreePath *newroot) {
 	g_object_unref(oldmodel1);
 	g_object_unref(oldmodel2);
 }
-
+/**
+ * refilter_filelist:
+ *
+ * will set the root of the file view to 'newroot'
+ *
+ */
 static void refilter_filelist(Tfilebrowser2 *fb2, GtkTreePath *newroot) {
 	GtkTreeModel *oldmodel1, *oldmodel2;
 	oldmodel1 = fb2->file_lfilter;
@@ -440,7 +517,12 @@ static void refilter_filelist(Tfilebrowser2 *fb2, GtkTreePath *newroot) {
 	g_object_unref(oldmodel1);
 	g_object_unref(oldmodel2);
 }
-
+/**
+ * fb2_fspath_from_dir_sortpath:
+ *
+ * return a newly allocated treepath for the filesystem_tstore based on a 'sort_path' from the 
+ * directory sort model
+ */
 static GtkTreePath *fb2_fspath_from_dir_sortpath(Tfilebrowser2 *fb2, GtkTreePath *sort_path) {
 	if (sort_path) {
 		GtkTreePath *filter_path;
@@ -454,6 +536,12 @@ static GtkTreePath *fb2_fspath_from_dir_sortpath(Tfilebrowser2 *fb2, GtkTreePath
 	}
 	return NULL;
 }
+/**
+ * fb2_fspath_from_file_sortpath:
+ *
+ * return a newly allocated treepath for the filesystem_tstore based on a 'sort_path' from the 
+ * file sort model
+ */
 static GtkTreePath *fb2_fspath_from_file_sortpath(Tfilebrowser2 *fb2, GtkTreePath *sort_path) {
 	if (sort_path) {
 		GtkTreePath *filter_path;
@@ -467,6 +555,27 @@ static GtkTreePath *fb2_fspath_from_file_sortpath(Tfilebrowser2 *fb2, GtkTreePat
 	}
 	return NULL;
 }
+/**
+ * fb2_fspath_from_uri:
+ *
+ * return a newly allocated treepath for the filesystem_tstore based on 'uri'
+ */
+static GtkTreePath *fb2_fspath_from_uri(Tfilebrowser2 *fb2, GnomeVFSURI *uri) {
+	GtkTreeIter *iter;
+	guint hashkey;
+
+	hashkey = gnome_vfs_uri_hash(uri);
+	iter = g_hash_table_lookup(FILEBROWSER2CONFIG(main_v->fb2config)->filesystem_itable, &hashkey);
+	if (iter) {
+		return gtk_tree_model_get_path(GTK_TREE_MODEL(FILEBROWSER2CONFIG(main_v->fb2config)->filesystem_tstore), iter);
+	}
+	return NULL;
+}
+/**
+ * fb2_uri_from_file_sort_path:
+ *
+ * returns the uri stored in the treestore based on the 'sort_path' from the file sort
+ */
 static GnomeVFSURI *fb2_uri_from_file_sort_path(Tfilebrowser2 *fb2, GtkTreePath *sort_path) {
 	GtkTreePath *fs_path = fb2_fspath_from_file_sortpath(fb2, sort_path);
 	if (fs_path) {
@@ -477,6 +586,11 @@ static GnomeVFSURI *fb2_uri_from_file_sort_path(Tfilebrowser2 *fb2, GtkTreePath 
 	}
 	return NULL;
 }
+/**
+ * fb2_uri_from_dir_sort_path:
+ *
+ * returns the uri stored in the treestore based on the 'sort_path' from the dir sort
+ */
 static GnomeVFSURI *fb2_uri_from_dir_sort_path(Tfilebrowser2 *fb2, GtkTreePath *sort_path) {
 	GtkTreePath *fs_path = fb2_fspath_from_dir_sortpath(fb2, sort_path);
 	if (fs_path) {
@@ -487,6 +601,11 @@ static GnomeVFSURI *fb2_uri_from_dir_sort_path(Tfilebrowser2 *fb2, GtkTreePath *
 	}
 	return NULL;
 }
+/**
+ * fb2_isdir_from_dir_sort_path:
+ *
+ * returns TRUE if 'sort_path' from the directory sort model points to a directory
+ */
 static gboolean fb2_isdir_from_dir_sort_path(Tfilebrowser2 *fb2, GtkTreePath *sort_path) {
 	GtkTreePath *fs_path = fb2_fspath_from_dir_sortpath(fb2, sort_path);
 	if (fs_path) {
@@ -500,6 +619,11 @@ static gboolean fb2_isdir_from_dir_sort_path(Tfilebrowser2 *fb2, GtkTreePath *so
 	}
 	return FALSE;
 }
+/**
+ * fb2_fspath_from_dir_selection:
+ *
+ * returns a newly allocated treepath for the current selected entry in the dir view
+ */
 static GtkTreePath *fb2_fspath_from_dir_selection(Tfilebrowser2 *fb2) {
 	GtkTreeModel *sort_model;
 	GtkTreeIter sort_iter;
@@ -518,6 +642,11 @@ static GtkTreePath *fb2_fspath_from_dir_selection(Tfilebrowser2 *fb2) {
 	DEBUG_MSG("fb2_fspath_from_dir_selection, returning NULL\n");
 	return NULL;
 }
+/**
+ * fb2_uri_from_file_selection:
+ *
+ * returns the uri stored in the treestore for the current selected entry in the file_v
+ */
 static GnomeVFSURI *fb2_uri_from_file_selection(Tfilebrowser2 *fb2) {
 	GtkTreeModel *sort_model;
 	GtkTreeIter sort_iter;
@@ -534,6 +663,11 @@ static GnomeVFSURI *fb2_uri_from_file_selection(Tfilebrowser2 *fb2) {
 	}
 	return NULL;
 }
+/**
+ * fb2_uri_from_dir_selection:
+ *
+ * returns the uri stored in the treestore for the current selected entry in the dir_v
+ */
 static GnomeVFSURI *fb2_uri_from_dir_selection(Tfilebrowser2 *fb2) {
 	GtkTreeModel *sort_model;
 	GtkTreeIter sort_iter;
@@ -550,7 +684,11 @@ static GnomeVFSURI *fb2_uri_from_dir_selection(Tfilebrowser2 *fb2) {
 	}
 	return NULL;
 }
-
+/**
+ * handle_activate_on_file:
+ *
+ * opens the file, project or inserts the image pointer to by 'uri'
+ */
 static void handle_activate_on_file(Tfilebrowser2 *fb2, GnomeVFSURI *uri) {
 	Tfiletype *ft;
 	gchar *filename;
@@ -714,8 +852,14 @@ static GtkWidget *fb2_rpopup_create_menu(Tfilebrowser2 *fb2, gboolean is_directo
 	return menu;
 }
 
-static void dir_v_row_expanded_lcb(GtkTreeView *tree,GtkTreeIter *iter,GtkTreePath *path,Tfilebrowser2 *fb2) {
+static void dir_v_row_expanded_lcb(GtkTreeView *tree,GtkTreeIter *iter,GtkTreePath *sort_path,Tfilebrowser2 *fb2) {
+	GnomeVFSURI *uri;
 	DEBUG_MSG("dir_v_row_expanded_lcb, called\n");
+	/* refresh the directory that is being expanded */
+	uri = fb2_uri_from_dir_sort_path(fb2, sort_path);
+	if (uri) {
+		fb2_refresh_dir(uri, NULL);
+	}
 }
 
 static void dir_v_row_activated_lcb(GtkTreeView *tree, GtkTreePath *path,GtkTreeViewColumn *column, Tfilebrowser2 *fb2) {
@@ -852,20 +996,40 @@ GtkWidget *fb2_init(Tbfwin *bfwin) {
 		gtk_box_pack_start(GTK_BOX(vbox), vpaned, TRUE, TRUE, 0);
 	}
 
-	g_signal_connect(G_OBJECT(fb2->dir_v), "row-expanded", G_CALLBACK(dir_v_row_expanded_lcb), fb2);
+	fb2->expand_signal = g_signal_connect(G_OBJECT(fb2->dir_v), "row-expanded", G_CALLBACK(dir_v_row_expanded_lcb), fb2);
 	g_signal_connect(G_OBJECT(fb2->dir_v), "row-activated",G_CALLBACK(dir_v_row_activated_lcb),fb2);
 	g_signal_connect(G_OBJECT(fb2->dir_v), "button_press_event",G_CALLBACK(dir_v_button_press_lcb),fb2);
 	g_signal_connect(G_OBJECT(fb2->file_v), "button_press_event",G_CALLBACK(file_v_button_press_lcb),fb2);
 	
 	if (bfwin->project && bfwin->project->basedir && strlen(bfwin->project->basedir)>2) {
 		fb2->basedir = gnome_vfs_uri_new(bfwin->project->basedir);
+		fb2_build_dir(fb2->basedir);
 	} else if (main_v->props.default_basedir && strlen(main_v->props.default_basedir)>2) {
 		fb2->basedir = gnome_vfs_uri_new(main_v->props.default_basedir);
 	}
 	DEBUG_MSG("fb2_init, the basedir is set to %s\n",gnome_vfs_uri_get_path(fb2->basedir));
 	gtk_widget_show_all(vbox);
 	
+	DEBUG_MSG("fb2_init, focus on the basedir!!\n");
+
+	{
+		GtkTreePath *basedir = fb2_fspath_from_uri(fb2, fb2->basedir);
+		refilter_dirlist(fb2, basedir);
+		gtk_tree_path_free(basedir);
+	}
+	fb2_focus_dir(fb2, fb2->basedir, FALSE);
 	return vbox;
+}
+
+void fb2_cleanup(Tbfwin *bfwin) {
+	Tfilebrowser2 *fb2 = FILEBROWSER2(bfwin->fb2);
+	if (fb2->basedir) gnome_vfs_uri_unref(fb2->basedir);
+	g_object_unref(G_OBJECT(fb2->dir_tfilter));
+	g_object_unref(G_OBJECT(fb2->dir_tsort));
+	g_object_unref(G_OBJECT(fb2->file_lfilter));
+	g_object_unref(G_OBJECT(fb2->file_lsort));
+	g_free(fb2);
+	bfwin->fb2 = NULL;
 }
 
 void fb2config_init() {
@@ -877,7 +1041,7 @@ void fb2config_init() {
 	fb2config = g_new(Tfilebrowser2config,1);
 	main_v->fb2config = fb2config;
 
-	fb2config->filesystem_itable = g_hash_table_new(g_int_hash,g_int_equal);
+	fb2config->filesystem_itable = g_hash_table_new_full(g_int_hash,g_int_equal,g_free,g_free);
 	fb2config->filesystem_tstore = gtk_tree_store_new(N_COLUMNS,GDK_TYPE_PIXBUF,G_TYPE_STRING,G_TYPE_POINTER,G_TYPE_BOOLEAN,G_TYPE_INT);
 	filename = return_first_existing_filename(main_v->props.filebrowser_unknown_icon,
 					"icon_unknown.png","../icons/icon_unknown.png",
@@ -892,4 +1056,11 @@ void fb2config_init() {
 
 	fb2config->dir_icon = gdk_pixbuf_new_from_file(filename, NULL);
 	g_free(filename);
+
+	{
+		GtkTreeIter *iter;
+		GnomeVFSURI *uri;
+		uri = gnome_vfs_uri_new(main_v->props.default_basedir);
+		iter = fb2_build_dir(uri);
+	}
 }
