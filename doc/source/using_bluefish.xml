@@ -24,7 +24,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 <sect1 id="starting-bluefish">
 <title>Starting Bluefish</title>
 <para>In GNOME, Bluefish can be started from the Applications/Programming menu. From a 
-terminal, simply launch bluefish using the command <emphasis>bluefish</emphasis>.</para>
+terminal, simply launch bluefish using the command <application>bluefish</application>.</para>
 
 <sect2 id="commandline-options">
 <title>Command line options</title>
@@ -45,9 +45,9 @@ terminal, simply launch bluefish using the command <emphasis>bluefish</emphasis>
 <listitem><para>display this help screen</para></listitem>
 </varlistentry></variablelist>
 <para>Many programs like browsers, email clients and file managers can be configured to 
-open files in Bluefish. For example, <emphasis>bluefish '%s'</emphasis> will open
-a file in the current window, <emphasis>bluefish -n '%s'</emphasis> will open a
-file in a new window, and <emphasis>bluefish -p '%s'</emphasis> will open
+open files in Bluefish. For example, <command>bluefish '%s'</command> will open
+a file in the current window, <command>bluefish -n '%s'</command> will open a
+file in a new window, and <command>bluefish -p '%s'</command> will open
 a project file.
 </para>
 </sect2>
@@ -145,7 +145,7 @@ a project file.
 	</para>
 	<para>
 	To the left of the editor area is the side panel. If you would prefer that the side 
-	bar be on the right side, simply change the setting in the <emphasis>User Interface</emphasis>
+	bar be on the right side, simply change the setting in the <guilabel>User Interface</guilabel>
 	tab found in the 
 	<menuchoice>
 		<guimenu>Edit</guimenu>
@@ -242,7 +242,7 @@ a project file.
 				</screenshot>
 			</figure>
 	If you want to disable any of these items by default, you can set these options in
-	the preferences under <emphasis>User interface</emphasis>.
+	the preferences under <guilabel>User interface</guilabel>.
 	</para>
 	<para>The <guimenu>Help</guimenu> menu contains the typical About box. As usual, you will find in it developers', maintainers', and translators' details. Plus the configure flags used to compile Bluefish on your system.
 	<figure id="figure-about-window">
@@ -313,7 +313,7 @@ a project file.
 		</menuchoice> or the <guilabel>New</guilabel> icon to create a new file, you may also use <menuchoice><shortcut><keycombo><keycap>Shift</keycap><keycap>Ctrl</keycap><keycap>N</keycap></keycombo></shortcut><guimenu>File</guimenu><guimenuitem>New Window</guimenuitem></menuchoice>.
 	</para>
 	<para>Both methods create an untitled file of type <literal>text</literal> 
-	with the default character encoding defined in the <emphasis>Files</emphasis> tab 
+	with the default character encoding defined in the <guilabel>Files</guilabel> tab 
 	in the <menuchoice>
 		<guimenu>Edit</guimenu>
 		<guimenuitem>Preferences</guimenuitem>
@@ -352,10 +352,10 @@ a project file.
           <listitem>
           <para>The most recently opened directories appear in the upper part of the 
           left side panel, while the lower part contains user-defined locations. To add 
-          a new directory to the list, click on <emphasis>Add</emphasis>. You can 
+          a new directory to the list, click on <guilabel>Add</guilabel>. You can 
           also filter the file list by file type using the pop menu located on the right side.
           The list of file types in the filter menu is provided through the 
-          <emphasis>Filetypes</emphasis> tab found in Bluefish's
+          <guilabel>Filetypes</guilabel> tab found in Bluefish's
 		<menuchoice>
 			<guimenu>Edit</guimenu><guimenuitem>Preferences</guimenuitem>
 		</menuchoice>
@@ -364,7 +364,7 @@ a project file.
 	</varlistentry>
 	</variablelist>
 	<para>
-	Recently opened files can be opened by selecting them from the list within <menuchoice><guimenu>File</guimenu><guimenuitem>Open recent</guimenuitem></menuchoice>. The number of files in this menu can be set in the preferences under <emphasis>Files</emphasis>.
+	Recently opened files can be opened by selecting them from the list within <menuchoice><guimenu>File</guimenu><guimenuitem>Open recent</guimenuitem></menuchoice>. The number of files in this menu can be set in the preferences under <guilabel>Files</guilabel>.
 	</para>
 	<para>
 	The file browser in the side panel can also be used to open files. It supports filtering files, by right clicking the contextual menu in the file browser.
@@ -458,14 +458,14 @@ a project file.
 	<para>
 	To save a document, you can use the <guimenu>File</guimenu> menu, the <guilabel>Save</guilabel> icon in the tool bar, or press the shortcut key combination <keycombo><keycap>Ctrl</keycap><keycap>S</keycap></keycombo>. By default a backup is made during save. The original file
 	is copied to the same filename with a tilde <keycap>~</keycap> appended. This suffix and the backup behaviour can
-	be changed in the preferences under <emphasis>Files</emphasis>.
+	be changed in the preferences under <guilabel>Files</guilabel>.
 	</para>
 	<para>
 	Before saving the file, Bluefish will check if the original file was changed on disk, using the 
 	last modified time and the file size. On some filesystems the last modified time
 	is sometimes not very precise (most notably on samba mounts). This makes Bluefish think the file
 	is modified when it is not. This check can be changed in the preferences 
-	under <emphasis>Files</emphasis>.
+	under <guilabel>Files</guilabel>.
 	</para>
 	<para>
 	You can also save a document under a different name, using the <menuchoice><shortcut><keycombo><keycap>Shift</keycap><keycap>Ctrl</keycap><keycap>S</keycap></keycombo></shortcut><guimenuitem>Save As...</guimenuitem></menuchoice> menu entry, or the <guilabel>Save As...</guilabel> icon in the main tool bar. The original file will still exist.
@@ -778,7 +778,7 @@ dialog.</para>
 
 <sect3 id="basic-find-selection">
 <title>Setting limits to the search scope</title>
-<para>You may want to search for a string from the cursor location till the end of the document. Here's an example to search all 'name == ' occurrences within a python script from a given location.</para>
+<para>You may want to search for a string from the cursor location till the end of the document. Here's an example to search all <literal>name ==</literal> occurrences within a python script from a given location.</para>
 <procedure id="search-selection"><title>Searching from selection</title>
 	<step>
 	<para>Put the cursor where you want to start the search from in the document window</para>
@@ -934,12 +934,12 @@ If the type of a file is not properly detected, you can change the type using th
 	<para>
 	While editing, Bluefish will only update the highlighting patterns in the
 	block of text around the cursor. The number of lines (the size) of this block can be
-	adjusted in the preferences under <emphasis>Editor</emphasis>.
+	adjusted in the preferences under <guilabel>Editor</guilabel>.
 	</para>
 	<para>The syntax highlighting for the total document can be refreshed
 	using the <menuchoice><shortcut><keycap>F5</keycap></shortcut><guimenu>Document</guimenu><guimenuitem>Update Highlighting</guimenuitem></menuchoice> menu. 
 	The syntax highlighting can be disabled in the preferences under 
-	<emphasis>Editor</emphasis>.	
+	<guilabel>Editor</guilabel>.	
 	</para>
 	<para>For more information about adding or modifying syntax highlighting for existent or new languages, see <xref linkend="changing-highlighting-patterns" />.
 </para>
@@ -1027,7 +1027,7 @@ environment to make GNOME and GTK programs detect this encoding.
 <sect3 id="open-advanced">
 <title>Open advanced</title>
 	<para>
-		In the <emphasis>Open Advanced</emphasis> dialog, accessible from the <menuchoice><shortcut><keycombo><keycap>Shift</keycap><keycap>Ctrl</keycap><keycap>O</keycap></keycombo></shortcut><guimenu>File</guimenu><guimenuitem>Open Advanced...</guimenuitem></menuchoice> menu item, multiple files 
+		In the <guilabel>Open Advanced</guilabel> dialog, accessible from the <menuchoice><shortcut><keycombo><keycap>Shift</keycap><keycap>Ctrl</keycap><keycap>O</keycap></keycombo></shortcut><guimenu>File</guimenu><guimenuitem>Open Advanced...</guimenuitem></menuchoice> menu item, multiple files 
 	can be opened from a directory based on their extension or their contents. The
 	same functionality is available from the file browser in the side panel. If you right
 	click a directory, you can also there select <guimenuitem>Open advanced...</guimenuitem>.
@@ -1290,7 +1290,7 @@ The projects are a sort of <emphasis>saved state</emphasis> of Bluefish. Thus, t
   file.</para> 
   <para>The project file itself is simply a text file in the
   standard Bluefish format (same format as the config file). This format is
-  'key: value'. Here is an example:</para>
+  <literal>key: value</literal>. Here is an example:</para>
   <programlisting>
 	name: BluefishDoc
 	basedir: ~/bluefishcvs/bluefish-gtk2/doc/
@@ -1324,7 +1324,7 @@ The projects are a sort of <emphasis>saved state</emphasis> of Bluefish. Thus, t
 		</screenshot>
 </figure>
 </para>
-<para>Bookmarks can be temporary or permanent. Permanent bookmarks are stored, and temporary bookmarks are gone after Bluefish is closed.	The default is set in the preferences under <emphasis>Editor</emphasis>.</para>
+<para>Bookmarks can be temporary or permanent. Permanent bookmarks are stored, and temporary bookmarks are gone after Bluefish is closed.	The default is set in the preferences under <guilabel>Editor</guilabel>.</para>
 <para>Bookmarks can be found in the third tab of the side panel, sorted by document and line number.</para>
 <para><figure id="figure-bookmark-tab">
 	<title id="figure-bookmark-tab-title">Bookmarks in the side panel</title>
@@ -1404,7 +1404,7 @@ The projects are a sort of <emphasis>saved state</emphasis> of Bluefish. Thus, t
 		</screenshot>
 </figure>
 </para>
-<para id="generate-bookmark">To add many bookmarks at once, use the <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>F</keycap></keycombo></shortcut><guimenu>Edit</guimenu><guimenuitem>Find</guimenuitem></menuchoice> dialog. Check the <guilabel>Bookmark result</guilabel> option, and all search results will be added to your bookmarks. For example, the XML for this manual has sections, each identified by a header like '&lt;sect1 id="bluefish-ch-4-sect-6"&gt;'. A way to automatically get a bookmark to every section is to search for the following regular expression pattern: '&lt;sect[0-9]+ id="[^"]+"&gt;' and bookmark all results.</para>
+<para id="generate-bookmark">To add many bookmarks at once, use the <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>F</keycap></keycombo></shortcut><guimenu>Edit</guimenu><guimenuitem>Find</guimenuitem></menuchoice> dialog. Check the <guilabel>Bookmark result</guilabel> option, and all search results will be added to your bookmarks. For example, the XML for this manual has sections, each identified by a header like <literal>&lt;sect1 id="bluefish-ch-4-sect-6"&gt;</literal>. A way to automatically get a bookmark to every section is to search for the following regular expression pattern: <literal>&lt;sect[0-9]+ id="[^"]+"&gt;</literal> and bookmark all results.</para>
 <para>Here is an example which bookmarks all functions in an Objective-C file:</para>
 <para>
 <figure id="figure-bookmark-find-cm">
@@ -1491,7 +1491,7 @@ The projects are a sort of <emphasis>saved state</emphasis> of Bluefish. Thus, t
   the first subpattern match. If we had two parentheses, "\1" would refer to a second subpattern. 
   </para>
   <para>
-  Notice in the replace dialog we have chosen <literal>Beginning of selection till end of selection</literal>. The results are 
+  Notice in the replace dialog we have chosen <guilabel>Beginning of selection till end of selection</guilabel>. The results are 
   shown below.
   </para>
   <para>
@@ -1523,16 +1523,16 @@ The projects are a sort of <emphasis>saved state</emphasis> of Bluefish. Thus, t
   use often, you can also add them to the Custom Menu. Check <xref linkend="custom-menu" /> 
   for more information. </para>
   <para>
-  In the <emphasis>find</emphasis> and the <emphasis>replace</emphasis> dialog it is not possible to insert the keys <literal>Enter</literal> or <literal>Tab</literal>. We use escaped characters to represent these characters. A new line character, produced by pressing the <literal>Enter</literal> key, is represented as <literal>\n</literal>. Use \t for a tab. To get an actual backslash, just escape the backslash, \\. There are many other escape characters used in regular expressions
+  In the <guilabel>find</guilabel> and the <guilabel>replace</guilabel> dialog it is not possible to insert the keys <keycap>Enter</keycap> or <keycap>Tab</keycap>. We use escaped characters to represent these characters. A new line character, produced by pressing the <keycap>Enter</keycap> key, is represented as <literal>\n</literal>. Use <literal>\t</literal> for a tab. To get an actual backslash, just escape the backslash, <literal>\\</literal>. There are many other escape characters used in regular expressions
   <note><para>To enable the escaped characters in your searches check the
-  'Patterns contain backslash sequences' option.</para>
+  <guilabel>Patterns contain backslash sequences (\n, \t)</guilabel> option.</para>
   </note>
   </para>
   </sect3>
   <sect3 id="find-bookmark-results">
 <title>Bookmarking Search Results from the Find Dialog</title>
   <para>
-  Another useful option in the <emphasis>Find</emphasis> dialog is the 'Bookmark results' option. For example, in a PHP document you could search for the word 'function', and add a bookmark to every function. This results in a list of bookmarks that are all named 'function'.
+  Another useful option in the <guilabel>Find</guilabel> dialog is the <guilabel>Bookmark results</guilabel> option. For example, in a PHP document you could search for the word <emphasis>function</emphasis>, and add a bookmark to every function. This results in a list of bookmarks that are all named 'function'.
   </para>
   <para>
     <figure id="figure-find-bookmark-results-good">
@@ -1844,7 +1844,42 @@ The function reference browser can show an info window on the bottom. Check the 
 <title>Thumbnail generation</title>
 <para>Bluefish can automatically generate thumbnails for images. A thumbnail is a small image, with a link to the larger image. Bluefish will create the small image based on your settings, and insert a &lt;img&gt; tag in the file, and a &lt;a&gt; tag linking the original. The thumbnails are created in the same directory as the original sources.</para>
 <para>The formats used for thumbnails may be png or jpg format. By default, the format used for thumbnails is png. You can change it in the <guilabel>Images</guilabel> panel of Preferences. For jpg images, the thumbnail extension is jpeg.</para>
-<para>There are actually two thumbnail dialogs in Bluefish, an Insert thumbnail dialog, and a Multi thumbnail dialog. The first one is accessible from the <menuchoice><shortcut><keycombo><keycap>Shift</keycap><keycap>Alt</keycap><keycap>N</keycap></keycombo></shortcut><guimenu>Dialogs</guimenu><guisubmenu>General</guisubmenu><guimenuitem>Insert Thumbnail...</guimenuitem></menuchoice> or from the <guilabel>Standard bar</guilabel> of the HTML toolbar. The second one is only accessible from the <guilabel>Standard bar</guilabel> of the HTML toolbar.</para>
+<para>There are actually two thumbnail dialogs in Bluefish:</para>
+<itemizedlist>
+<listitem>
+<para>an Insert thumbnail dialog,accessible from the <menuchoice><shortcut><keycombo><keycap>Shift</keycap><keycap>Alt</keycap><keycap>N</keycap></keycombo></shortcut><guimenu>Dialogs</guimenu><guisubmenu>General</guisubmenu><guimenuitem>Insert Thumbnail...</guimenuitem></menuchoice> or from the <guilabel>Standard bar</guilabel> of the HTML toolbar.
+<figure id="figure-thumbnail-simple-icon">
+<title id="figure-thumbnail-simple-icon-title">The Insert thumbnail icon</title>
+<screenshot>
+<mediaobject>
+<imageobject>
+<imagedata fileref="figures/thumbnail_simple_icon.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>A screen shot of the insert thumbnail icon</phrase>
+</textobject>
+</mediaobject>
+</screenshot>
+</figure>
+</para>
+</listitem>
+<listitem>
+<para>a Multi thumbnail dialog, only accessible from the <guilabel>Standard bar</guilabel> of the HTML toolbar.<figure id="figure-thumbnail-multi-icon">
+<title id="figure-thumbnail-multi-icon-title">The Multi thumbnail icon</title>
+<screenshot>
+<mediaobject>
+<imageobject>
+<imagedata fileref="figures/thumbnail_multi_icon.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>A screen shot of the multi thumbnail icon</phrase>
+</textobject>
+</mediaobject>
+</screenshot>
+</figure>
+</para>
+</listitem>
+</itemizedlist>
 <para>The Insert thumbnail dialog is very straightforward. You select the image, choose the scaling (moving the cursor under the image, the result appears immediately in the preview frame), and some attributes, and press OK. Bluefish will create the thumbnail with extension _thumbnail.png or _thumbnail.jpeg (depending of the settings for images in the preferences).
 <figure id="figure-thumbnail-simple-dialog">
 <title id="figure-thumbnail-simple-dialog-title">The Insert thumbnail dialog</title>
@@ -1865,6 +1900,8 @@ The function reference browser can show an info window on the bottom. Check the 
 <term><emphasis>Tip</emphasis></term>
 <listitem>
 <para>If the source image is not accessible, change <guilabel>webimage</guilabel> to <guilabel>image</guilabel> in the <guilabel>Select File</guilabel> window loaded after clicking on <guilabel>browse</guilabel> for choosing an image. This way you can choose whichever format you want for the original sources. Another way to do it is to change the definition of webimage (see <xref linkend="changing-filetypes"/>).</para>
+<para>If that does not solve the problem, it is likely that the type of images you want to load is not defined yet in preferences. In this case, change the definition of image as explained in <xref linkend="changing-filetypes"/>.</para>
+<para>As last resource, if you don't want to change the generic file types, you may choose <guilabel>All files</guilabel> in the pop up menu at the bottom of the <guilabel>Select File</guilabel> window.</para>
 </listitem>
 </varlistentry>
 </variablelist>
@@ -1915,7 +1952,8 @@ option does not keep the original aspect ratio!).</para>
 ]]></programlisting></para>
 <para>After you have set up the scaling method and parameters, as well as the HTML code, you can select multiple images, and Bluefish will create the thumbnails and insert the code.</para>
 <para>Here is an example of two thumbnails created with a non nul border width and middle-aligned, with a fixed height and width, disregarding the aspect ration.</para>
-<para>The <guilabel>Multi thumbnail</guilabel> window is the following:<figure id="figure-thumbnail_multi_dialog">
+<para>The <guilabel>Multi thumbnail</guilabel> window is the following:
+<figure id="figure-thumbnail_multi_dialog">
 <title id="figure-thumbnail-multi-dialog-title">The Multi thumbnail dialog</title>
 <screenshot>
 <mediaobject>
@@ -1938,6 +1976,77 @@ height="50" border="5" align="middle"></a>
 <img src="tot/343-4352_IMG_2_thumbnail.png" width="50"
 height="50" border="5" align="middle"></a>
 ]]></programlisting></para>
+<para>Here's a full procedure to generate quickly a photos album with thumbnails. This example is purposedly made with deprecated tags, so that you have an idea of what can be made with the variables. Feel free to adjust it when using CSS style sheets.</para>
+<procedure id="photo-album"><title>Generating a photos album with multi thumbnails</title>
+<step>
+<para>Put the photos in a folder on its own</para>
+</step>
+<step>
+<para>Open a new file in bluefish, click on the <guilabel>Multi thumbnail...</guilabel> icon in the <guilabel>Standard bar</guilabel> tab of the html tool bar.</para>
+</step>
+<step>
+<para>Enter the scaling percentage in the <guilabel>Scaling (%)</guilabel> field</para>
+</step>
+<step>
+<para>Change the html code as follows:
+<programlisting><![CDATA[
+<tr><td><a href="%r">
+<img src="%t" 
+width="%x" height="%y" border="0"></a>
+</td>
+</tr>
+<tr><td>Original: %w x %h</td></tr>
+]]></programlisting>
+and click <guilabel>OK</guilabel>.</para>
+</step>
+<step>
+<para>Choose the photos folder in the <guilabel>Select files for thumbnail creation</guilabel> window, click <keycombo><keycap>Ctrl</keycap><keycap>A</keycap></keycombo> to select all files, then click <guilabel>OK</guilabel>. The code generated by bluefish will look like this:</para>
+<programlisting><![CDATA[
+<tr><td><a href="/Users/michga/Desktop/photos/343-4344_IMG.JPG">
+<img src="/Users/michga/Desktop/photos/343-4344_IMG_thumbnail.png" 
+width="80" height="53" border="0"></a>
+</td>
+</tr>
+<tr><td>Original: 1600 x 1065</td></tr>
+<tr><td><a href="/Users/michga/Desktop/photos/343-4347_IMG.JPG">
+<img src="/Users/michga/Desktop/photos/343-4347_IMG_thumbnail.png" 
+width="80" height="53" border="0"></a>
+</td>
+</tr>
+<tr><td>Original: 1600 x 1065</td></tr>
+]]></programlisting>
+</step>
+<step>
+<para>Use <keycombo><keycap>Ctrl</keycap><keycap>A</keycap></keycombo> to select the file's contents and click on the <guilabel>Tab</guilabel> icon located in the <guilabel>Tables</guilabel> tab of the html tool bar to embed the code into table tags.
+<figure id="figure-table-icon">
+<title id="figure-table-icon-title">The Table icon in the html tool bar</title>
+<screenshot>
+<mediaobject>
+<imageobject>
+<imagedata fileref="figures/table_icon.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>A screen shot of the table icon in the html tool bar</phrase>
+</textobject>
+</mediaobject>
+</screenshot>
+</figure>
+</para>
+</step>
+<step>
+<para>Save the file where you want.</para>
+</step>
+</procedure>
+<para>If you want to add the file names and the file size in bytes, use this code:
+<programlisting><![CDATA[
+<tr><td><a href="%r">
+<img src="%t" 
+width="%x" height="%y" border="0"></a>
+</td>
+</tr>
+<tr><td>%r:  %w x %h (%b bytes)</td></tr>
+]]></programlisting>
+</para>
 </sect3>
 
 </sect2>
@@ -2145,7 +2254,7 @@ height="50" border="5" align="middle"></a>
 
 <sect2 id="editor-preferences">
 <title>Editor preferences</title>
-	<para>The font of the editor can be set in the preferences under <emphasis>Editor</emphasis>. </para>
+	<para>The font of the editor can be set in the preferences under <guilabel>Editor</guilabel>. </para>
 	<para>
 	A frequently asked question is how to change the background color of the editor in Bluefish.
 	Bluefish uses the default editor background color as set in your GTK theme. If you want to 
