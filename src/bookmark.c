@@ -169,7 +169,7 @@ static void bmark_unstore(Tbfwin * bfwin, Tbmark * b)
 	if (bfwin->session->bmarks == NULL || b->strarr == NULL)
 		return;
 	DEBUG_MSG("bmark_remove, removing bookmark %p from sessionlist\n",b);
-	g_list_remove(bfwin->session->bmarks, b->strarr);
+	bfwin->session->bmarks = g_list_remove(bfwin->session->bmarks, b->strarr);
 	g_strfreev(b->strarr);
 	b->strarr = NULL;
 }
