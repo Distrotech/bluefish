@@ -22,7 +22,7 @@
  */
 /* 
  * Changes by Antti-Juhani Kaijanaho <gaia@iki.fi> on 1999-10-20
- * $Id: html.c,v 1.20 2003-03-19 09:14:06 oli4 Exp $
+ * $Id: html.c,v 1.21 2003-03-25 22:02:06 oli4 Exp $
  */
 
 #include <gtk/gtk.h>
@@ -1503,16 +1503,24 @@ void basefont_cb(GtkWidget *widget, gpointer data) {
 static void emailok_lcb(GtkWidget * widget, Thtml_diag *dg)
 {
 	gchar *finalstring, *tmpstr, *subj, *body;
+	gboolean have_questionmark = FALSE;
 	tmpstr = g_strconcat(cap("<A HREF=\"mailto:")
 			, gtk_entry_get_text(GTK_ENTRY(dg->entry[1]))
 			, NULL);
 	if (strlen(gtk_entry_get_text(GTK_ENTRY(dg->entry[2])))) {
 		subj = g_strconcat("?Subject=", gtk_entry_get_text(GTK_ENTRY(dg->entry[2])), NULL);
+		have_questionmark = TRUE;
 	} else {
 		subj = g_strdup("");
 	}
 	if (strlen(gtk_entry_get_text(GTK_ENTRY(dg->entry[3])))) {
-		body = g_strconcat("?Body=", gtk_entry_get_text(GTK_ENTRY(dg->entry[3])), NULL);
+		gchar *str2;
+		if (have_questionmark) {
+			str2 = "&Body=";
+		} else {
+			str2 = "?Body=";
+		}
+		body = g_strconcat(str2, gtk_entry_get_text(GTK_ENTRY(dg->entry[3])), NULL);
 	} else {
 		body = g_strdup("");
 	}
