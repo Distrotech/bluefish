@@ -10,6 +10,7 @@
 #include "bluefish.h"
 #include "document.h"
 #include "bf_lib.h"
+#include "gtk_easy.h"
 
 typedef struct {
 	GtkWidget *tree;
@@ -775,7 +776,7 @@ GtkWidget *fref_prepare_dialog(FRInfo * entry)
 	GList *list = NULL;
 	gint itnum,w,h;
 
-
+	DEBUG_MSG("fref_prepare_dialog, started\n");
 	dialog = gtk_dialog_new();
 	if (entry->dialog_title != NULL)
 		gtk_window_set_title(GTK_WINDOW(dialog), entry->dialog_title);
@@ -800,6 +801,7 @@ GtkWidget *fref_prepare_dialog(FRInfo * entry)
 	}
 	if (list == NULL) {
 		gtk_widget_destroy(dialog);
+		DEBUG_MSG("fref_prepare_dialog, list==NULL, aborting..\n");
 		return NULL;
 	}
 
@@ -1189,22 +1191,48 @@ static GtkWidget *togglemenuitem(GSList *group, gchar *name, gboolean selected, 
 }
 
 static void fref_ldblclck_changed(GtkWidget *widget, gpointer data) {
-	g_print("fref_ldblclck_changed not yet implemented\n");
+	DEBUG_MSG("fref_ldblclck_changed, set to %d\n", GPOINTER_TO_INT(data));
+	main_v->props.fref_ldoubleclick_action = GPOINTER_TO_INT(data);
 }
 
-static GtkWidget *fref_popup_menu(gboolean have_item) {
+static void fref_popup_menu_dialog(GtkWidget *widget, FRInfo *entry) {
+	GtkWidget *dialog;
+	gint resp;
+	gchar *pomstr;
+	DEBUG_MSG("starting dialog\n");
+	dialog = fref_prepare_dialog(entry);
+	if (dialog) {
+		resp = gtk_dialog_run(GTK_DIALOG(dialog));
+		if (resp == GTK_RESPONSE_OK) {
+			pomstr = fref_prepare_text(entry, dialog);
+			gtk_widget_destroy(dialog);
+			doc_insert_two_strings(main_v->current_document, pomstr,NULL);
+			g_free(pomstr);
+		} else gtk_widget_destroy(dialog);
+	}
+}
+static void fref_popup_menu_insert(GtkWidget *widget, FRInfo *entry) {
+	doc_insert_two_strings(main_v->current_document,entry->insert_text, NULL);
+}
+static void fref_popup_menu_info(GtkWidget *widget, FRInfo *entry) {
+	g_print("info not yet implemented\n");
+}
+static void testfunc(GtkWidget *widget,gpointer user_data) {
+	DEBUG_MSG("testfunc called\n");
+}
+static GtkWidget *fref_popup_menu(FRInfo *entry) {
 	GtkWidget *menu, *menu_item;
 	DEBUG_MSG("fref_popup_menu, started\n");
 	menu = gtk_menu_new();
-	if (have_item) {
+	if (entry) {
 		menu_item = gtk_menu_item_new_with_label(_("Dialog"));
-/*		g_signal_connect(GTK_OBJECT(menu_item), "activate", G_CALLBACK(filebrowser_rpopup_new_file_lcb), NULL);*/
+		g_signal_connect(GTK_OBJECT(menu_item), "activate", G_CALLBACK(fref_popup_menu_dialog), entry);
 		gtk_menu_append(GTK_MENU(menu), menu_item);
 		menu_item = gtk_menu_item_new_with_label(_("Insert"));
-/*		g_signal_connect(GTK_OBJECT(menu_item), "activate", G_CALLBACK(filebrowser_rpopup_new_dir_lcb), NULL);*/
+		g_signal_connect(GTK_OBJECT(menu_item), "activate", G_CALLBACK(fref_popup_menu_insert), entry);
 		gtk_menu_append(GTK_MENU(menu), menu_item);
 		menu_item = gtk_menu_item_new_with_label(_("Info"));
-/*		g_signal_connect(GTK_OBJECT(menu_item), "activate", G_CALLBACK(filebrowser_rpopup_delete_lcb), NULL);*/
+		g_signal_connect(GTK_OBJECT(menu_item), "activate", G_CALLBACK(fref_popup_menu_info), entry);
 		gtk_menu_append(GTK_MENU(menu), menu_item);
 		menu_item = gtk_menu_item_new();
 		gtk_menu_append(GTK_MENU(menu), menu_item);
@@ -1223,16 +1251,17 @@ static GtkWidget *fref_popup_menu(gboolean have_item) {
 		
 		ldblclckmenu = gtk_menu_new();
 		gtk_menu_item_set_submenu(GTK_MENU_ITEM(menu_item), ldblclckmenu);
-		menu_item = togglemenuitem(NULL, _("Insert"), (main_v->props.fref_ldoubleclick_action == FREF_ACTION_INSERT), G_CALLBACK(fref_ldblclck_changed), NULL);
+		menu_item = togglemenuitem(NULL, _("Insert"), (main_v->props.fref_ldoubleclick_action == FREF_ACTION_INSERT), G_CALLBACK(fref_ldblclck_changed), GINT_TO_POINTER(FREF_ACTION_INSERT));
 		group = gtk_radio_menu_item_group(GTK_RADIO_MENU_ITEM(menu_item));
 		gtk_menu_append(GTK_MENU(ldblclckmenu), menu_item);
-		menu_item = togglemenuitem(group, _("Dialog"), (main_v->props.fref_ldoubleclick_action == FREF_ACTION_DIALOG), G_CALLBACK(fref_ldblclck_changed), NULL);
+		menu_item = togglemenuitem(group, _("Dialog"), (main_v->props.fref_ldoubleclick_action == FREF_ACTION_DIALOG), G_CALLBACK(fref_ldblclck_changed), GINT_TO_POINTER(FREF_ACTION_DIALOG));
 		gtk_menu_append(GTK_MENU(ldblclckmenu), menu_item);
-		menu_item = togglemenuitem(group, _("Info"), (main_v->props.fref_ldoubleclick_action == FREF_ACTION_INFO), G_CALLBACK(fref_ldblclck_changed), NULL);
+		menu_item = togglemenuitem(group, _("Info"), (main_v->props.fref_ldoubleclick_action == FREF_ACTION_INFO), G_CALLBACK(fref_ldblclck_changed), GINT_TO_POINTER(FREF_ACTION_INFO));
 		gtk_menu_append(GTK_MENU(ldblclckmenu), menu_item);
 
 		}
 	gtk_widget_show_all(menu);
+	g_signal_connect(G_OBJECT(menu), "hide", G_CALLBACK(destroy_disposable_menu_hide_cb), menu);
 	return menu;
 }
 
@@ -1245,15 +1274,11 @@ gboolean frefcb_event_mouseclick(GtkWidget * widget,
 	GtkTreeIter iter;
 	GValue *val;
 	FRInfo *entry;
-	GtkWidget *dialog;
-	gchar *pomstr;
-	gint resp;
-
 
 	gtk_tree_view_get_cursor(GTK_TREE_VIEW(user_data), &path, &col);
 	if (path == NULL) {
 		if (event->button == 3 && event->type == GDK_BUTTON_PRESS) {
-			gtk_menu_popup(GTK_MENU(fref_popup_menu(FALSE)), NULL, NULL, NULL, NULL, event->button, event->time);
+			gtk_menu_popup(GTK_MENU(fref_popup_menu(NULL)), NULL, NULL, NULL, NULL, event->button, event->time);
 			return TRUE;
 		} else {
 			return FALSE;
@@ -1268,43 +1293,33 @@ gboolean frefcb_event_mouseclick(GtkWidget * widget,
 		entry = (FRInfo *) g_value_peek_pointer(val);
 		if (entry == NULL) {
 			if (event->button == 3 && event->type == GDK_BUTTON_PRESS) {
-				gtk_menu_popup(GTK_MENU(fref_popup_menu(FALSE)), NULL, NULL, NULL, NULL, event->button, event->time);
+				gtk_menu_popup(GTK_MENU(fref_popup_menu(NULL)), NULL, NULL, NULL, NULL, event->button, event->time);
 				return TRUE;
 			} else return FALSE;
 		}
 	} else {
 		if (event->button == 3 && event->type == GDK_BUTTON_PRESS) {
-				gtk_menu_popup(GTK_MENU(fref_popup_menu(FALSE)), NULL, NULL, NULL, NULL, event->button, event->time);
+				gtk_menu_popup(GTK_MENU(fref_popup_menu(NULL)), NULL, NULL, NULL, NULL, event->button, event->time);
 				return TRUE;
 		} else return FALSE;
 	}
 
 	if (event->button == 3 && event->type == GDK_BUTTON_PRESS) {	/* right mouse click */
-		gtk_menu_popup(GTK_MENU(fref_popup_menu(TRUE)), NULL, NULL, NULL, NULL, event->button, event->time);
+		gtk_menu_popup(GTK_MENU(fref_popup_menu(entry)), NULL, NULL, NULL, NULL, event->button, event->time);
 	} else if (event->button == 1 && event->type == GDK_2BUTTON_PRESS) {	/* double click  */
 		switch (main_v->props.fref_ldoubleclick_action) {
 			case FREF_ACTION_INSERT:
-				doc_insert_two_strings(main_v->current_document,entry->insert_text, NULL);
+				fref_popup_menu_insert(NULL, entry);
 			break;
 			case FREF_ACTION_DIALOG:
-			{
-				dialog = fref_prepare_dialog(entry);
-				if (dialog) {
-					resp = gtk_dialog_run(GTK_DIALOG(dialog));
-					if (resp == GTK_RESPONSE_OK) {
-						pomstr = fref_prepare_text(entry, dialog);
-						gtk_widget_destroy(dialog);
-						doc_insert_two_strings(main_v->current_document, pomstr,NULL);
-						g_free(pomstr);
-					} else gtk_widget_destroy(dialog);
-				}
-			}
+				fref_popup_menu_dialog(NULL, entry);
 			break;
 			case FREF_ACTION_INFO:
-				g_print("info not yet implemented\n");
+				fref_popup_menu_info(NULL, entry);
 			break;
 			default:
-				g_print("do some statusbar message here\n");
+				g_print("do some error message here\n");
+				main_v->props.fref_ldoubleclick_action = FREF_ACTION_DIALOG;
 			break;
 		}
 	}

@@ -75,4 +75,6 @@ gchar *return_file(gchar * setfile);
 GList *return_files_w_title(gchar * setfile, gchar *title);
 GList *return_files(gchar * setfile);
 gchar *return_dir(gchar *setdir, gchar *title);
+
+void destroy_disposable_menu_hide_cb(GtkWidget *widget, GtkWidget *menu);
 #endif
