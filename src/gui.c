@@ -978,18 +978,16 @@ void go_to_line_from_selection_cb(GtkWidget * widget, gpointer data) {
 
 void splash_screen_set_label(gchar *label) {
 	static struct timespec const req = { 0, 10000000};
-	static struct timespec rem;
 #ifdef DEBUG
 	g_print("Setting splash label to %s\n", label);
 #endif
 	gtk_label_set(GTK_LABEL(splashscreen.label),label);
 	flush_queue();
-	nanosleep(&req, &rem);
+	nanosleep(&req, NULL);
 }
 
 GtkWidget *start_splash_screen() {
 	static struct timespec const req = { 0, 100000000};
-	static struct timespec rem;
 	GtkWidget *image, *vbox;
 	GdkColor color;
 
@@ -1027,7 +1025,7 @@ GtkWidget *start_splash_screen() {
 	gtk_widget_show(splashscreen.window);
 	flush_queue();
 	DEBUG_MSG("start_splash_screen, should be visible\n");
-	nanosleep(&req, &rem);
+	nanosleep(&req, NULL);
 	return splashscreen.window;
 }
 #endif /* #ifndef NOSPLASH */

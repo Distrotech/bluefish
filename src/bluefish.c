@@ -23,6 +23,7 @@
 #include <gtk/gtk.h>
 #include <unistd.h> /* getopt() */
 #include <stdlib.h> /* getopt() exit() and abort() on Solaris */
+#include <time.h> /* nanosleep */
 
 #include "bluefish.h"
 
@@ -180,8 +181,7 @@ int main(int argc, char *argv[])
 	flush_queue();
 	{
 		static struct timespec const req = { 0, 10000000};
-		static struct timespec rem;
-		nanosleep(&req, &rem);
+		nanosleep(&req, NULL);
 	}
 	gtk_widget_destroy(splash_window);
 #endif /* #ifndef NOSPLASH */
@@ -197,7 +197,6 @@ int main(int argc, char *argv[])
 
 void bluefish_exit_request() {
 	GList *tmplist;
-	int level;
 	DEBUG_MSG("bluefish_exit_request, started\n");
 	/* if we have modified documents we have to do something, file_close_all_cb()
 	does exactly want we want to do */
