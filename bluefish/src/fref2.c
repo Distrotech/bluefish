@@ -1406,7 +1406,7 @@ void fref_cleanup(Tbfwin *bfwin) {
 
 GtkWidget *fref_gui(Tbfwin * bfwin)
 {
-	GtkWidget *scroll, *box, *pane, *box2, *btn1, *btn3;
+	GtkWidget *scroll, *box, *pane, *box2, *btn1, *btn3,*btn2;
 	GtkCellRenderer *cell;
 	GtkTreeViewColumn *column;
 	Tfref_data *fdata = FREFDATA(main_v->frefdata);
@@ -1485,11 +1485,12 @@ GtkWidget *fref_gui(Tbfwin * bfwin)
 		Tcallbackdata *cd = g_new(Tcallbackdata, 1);
 		cd->data = NULL;
 		cd->bfwin = bfwin;
-		btn1 = bf_allbuttons_backend(NULL, FALSE, 108, G_CALLBACK(frefcb_info_dialog), cd);
+		btn1 = bf_allbuttons_backend(NULL, FALSE, 161, G_CALLBACK(frefcb_info_dialog), cd);
 	}
-	
-	btn3 = bf_allbuttons_backend(NULL, FALSE, 109, G_CALLBACK(frefcb_search), bfwin);
+	btn2 = bf_allbuttons_backend(NULL, FALSE, 108, G_CALLBACK(frefcb_search), bfwin);	
+	btn3 = bf_allbuttons_backend(NULL, FALSE, 109, G_CALLBACK(frefcb_search), bfwin);	
 	gtk_tooltips_set_tip(FREFGUI(bfwin->fref)->argtips, btn1, _("Dialog"), "");
+	gtk_tooltips_set_tip(FREFGUI(bfwin->fref)->argtips, btn2, _("Insert"), "");	
 	gtk_tooltips_set_tip(FREFGUI(bfwin->fref)->argtips, btn3, _("Search"), "");
 	
 
@@ -1581,12 +1582,13 @@ GtkWidget *fref_gui(Tbfwin * bfwin)
 	gtk_widget_show_all(FREFGUI(bfwin->fref)->menu_edit);
 
 
-	gtk_box_pack_start(GTK_BOX(box2), FREFGUI(bfwin->fref)->infocheck, FALSE, FALSE, 10);
+	gtk_box_pack_start(GTK_BOX(box2), FREFGUI(bfwin->fref)->infocheck, FALSE, FALSE, 3);
 	gtk_box_pack_start(GTK_BOX(box2), FREFGUI(bfwin->fref)->btn_show, FALSE, TRUE, 0);
 	gtk_box_pack_start(GTK_BOX(box2), FREFGUI(bfwin->fref)->btn_pref, FALSE, TRUE, 0);
 	gtk_box_pack_start(GTK_BOX(box2), FREFGUI(bfwin->fref)->btn_edit, FALSE, TRUE, 0);
 	gtk_box_pack_start(GTK_BOX(box2), btn3, FALSE, TRUE, 0);
 	gtk_box_pack_start(GTK_BOX(box2), btn1, FALSE, TRUE, 0);
+	gtk_box_pack_start(GTK_BOX(box2), btn2, FALSE, TRUE, 0);
 
 	gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(FREFGUI(bfwin->fref)->infoscroll),
 										  FREFGUI(bfwin->fref)->infoview);
