@@ -25,7 +25,7 @@
 #include <stdio.h> /* fopen() */
 #include <string.h> /* strchr() */
 
-#define DEBUG
+/*#define DEBUG*/
 
 #include "bluefish.h"
 #include "document.h"
@@ -174,9 +174,9 @@ void gui_change_tabsize(gpointer callback_data,guint action,GtkWidget *widget) {
 }
 
 gboolean doc_is_empty_non_modified_and_nameless(Tdocument *doc) {
-#ifdef DEBUG
-	g_assert(doc);
-#endif
+	if (!doc) {
+		return FALSE;
+	}
 	if (doc->modified || doc->filename) {
 		return FALSE;
 	}
@@ -755,6 +755,7 @@ static void doc_buffer_insert_text_lcb(GtkTextBuffer *textbuffer,GtkTextIter * i
 
 static void doc_buffer_insert_text_after_lcb(GtkTextBuffer *textbuffer,GtkTextIter * iter,gchar * string,gint len, Tdocument * doc) {
 	/* highlighting stuff */
+	DEBUG_MSG("doc_buffer_insert_text_after_lcb, started\n");
 	if (string && doc->hl->update_chars) {
 		gint i=0;
 		while (string[i] != '\0') {
@@ -1371,7 +1372,7 @@ gboolean doc_new_with_file(gchar * filename, gboolean delay_activate) {
 	DEBUG_MSG("doc_new_with_file, filename=%s exists\n", filename);
 	add_filename_to_history(filename);
 
-	if (doc_is_empty_non_modified_and_nameless(main_v->current_document) && g_list_length(main_v->documentlist) ==1) {
+	if (g_list_length(main_v->documentlist)==1 && doc_is_empty_non_modified_and_nameless(main_v->current_document)) {
 		doc = main_v->current_document;
 	} else {
 		doc = doc_new(delay_activate);
@@ -1390,8 +1391,10 @@ void docs_new_from_files(GList * file_list) {
 
 	GList *tmplist, *errorlist=NULL;
 	gboolean delay = (g_list_length(file_list) > 1);
+	DEBUG_MSG("docs_new_from_files, lenght=%d\n", g_list_length(file_list));
 	tmplist = g_list_first(file_list);
 	while (tmplist) {
+		DEBUG_MSG("docs_new_from_files, about to open %s\n", (gchar *) tmplist->data);
 		if (!doc_new_with_file((gchar *) tmplist->data, delay)) {
 			errorlist = g_list_append(errorlist, g_strdup((gchar *) tmplist->data));
 		}

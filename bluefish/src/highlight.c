@@ -21,8 +21,8 @@
  * indenting is done with
  * indent --line-length 100 --k-and-r-style --tab-size 4 -bbo --ignore-newlines highlight.c
  */
-#define HL_TIMING
-/*#define HL_DEBUG
+/*#define HL_TIMING
+#define HL_DEBUG
 #define DEBUG*/
 
 #ifdef HL_TIMING
@@ -973,31 +973,34 @@ void doc_highlight_line(Tdocument * doc)
 			gboolean tag_found;
 					/* if the tags starts at itend there is no need to search backward to the start */
 			if (!gtk_text_iter_begins_tag(&itend, GTK_TEXT_TAG(slist->data))) {
-				DEBUG_MSG("doc_highlight_line, (2) looking for tag %p from so=%d to eo=%d\n", slist->data,
-						  gtk_text_iter_get_offset(&itstart), gtk_text_iter_get_offset(&itend));
+				DEBUG_MSG("doc_highlight_line, (2) looking for tag %p from so=%d to eo=%d, itsearch=%d\n", slist->data,
+						  gtk_text_iter_get_offset(&itstart), gtk_text_iter_get_offset(&itend), gtk_text_iter_get_offset(&itsearch));
 				tag_found = gtk_text_iter_backward_to_tag_toggle(&itsearch, GTK_TEXT_TAG(slist->data));
 				if (!tag_found) {
-					DEBUG_MSG("doc_highlight_line, very weird situation, the tag is started but it doesn't end ??\n");
-					exit(1);
+					DEBUG_MSG("doc_highlight_line, very weird situation, the tag is ended but it doesn't start ??, itsearch now is at %d\n", gtk_text_iter_get_offset(&itsearch));
+					/* itsearch is now at offset 0, so we do a forward search to find the first start */
+					tag_found = gtk_text_iter_forward_to_tag_toggle(&itsearch, GTK_TEXT_TAG(slist->data));
+					DEBUG_MSG("a forward search to the tag finds %d\n", gtk_text_iter_get_offset(&itsearch));
+					if (!tag_found) {
+						g_print("doc_highlight_line, a tag that is started is nowhere to be found ??? BUG!\n");
+						exit(123);
+					}
+				} 
+				DEBUG_MSG("doc_highlight_line, tag %p starts at itsearch=%d\n", slist->data,gtk_text_iter_get_offset(&itsearch));
+				if (gtk_text_iter_compare(&itsearch, &itstart) <= 0) {
+					/* both the start and endpoint are within this 
+					   tag --> pattern matching can start with this
+					   subpattern,	since we did run the same algorithm for itstart we can skip a bit now */
 				} else {
-					DEBUG_MSG("doc_highlight_line, tag %p starts at itsearch=%d\n", slist->data,
-							  gtk_text_iter_get_offset(&itsearch));
-					if (gtk_text_iter_compare(&itsearch, &itstart) <= 0) {
-						/* both the start and endpoint are within this 
-						   tag --> pattern matching can start with this
-						   subpattern,	since we did run the same algorithm for itstart we can skip a bit now */
+					/* this tag starts somewhere in the middle of the line, move 
+					   itend to the end of this tag */
+					if (gtk_text_iter_ends_tag(&itend, GTK_TEXT_TAG(slist->data))) {
+						DEBUG_MSG("doc_highlight_line, itend at %d is already at the end of tag %p\n",
+								  gtk_text_iter_get_offset(&itend), slist->data);
 					} else {
-						/* this tag starts somewhere in the middle of the line, move 
-						   itend to the end of this tag */
-						if (gtk_text_iter_ends_tag(&itend, GTK_TEXT_TAG(slist->data))) {
-							DEBUG_MSG("doc_highlight_line, itend at %d is already at the end of tag %p\n",
-									  gtk_text_iter_get_offset(&itend), slist->data);
-						} else {
-							DEBUG_MSG("doc_highlight_line, move itend from %d to end of tag %p\n",
-									  gtk_text_iter_get_offset(&itend), slist->data);
-							gtk_text_iter_forward_to_tag_toggle(&itend, GTK_TEXT_TAG(slist->data));
-							DEBUG_MSG("doc_highlight_line, itend is set forward to %d\n", gtk_text_iter_get_offset(&itend));
-						}
+						DEBUG_MSG("doc_highlight_line, move itend from %d to end of tag %p\n",gtk_text_iter_get_offset(&itend), slist->data);
+						gtk_text_iter_forward_to_tag_toggle(&itend, GTK_TEXT_TAG(slist->data));
+						DEBUG_MSG("doc_highlight_line, itend is set forward to %d\n", gtk_text_iter_get_offset(&itend));
 					}
 				}
 			}

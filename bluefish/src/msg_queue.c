@@ -153,6 +153,11 @@ static gboolean msg_queue_check(gint started_by_gtk_timeout)
 	} msgp;
 	gint retval;
 
+	if (g_list_length(main_v->documentlist) <= 0) {
+		DEBUG_MSG("msg_queue_check, no documentlist yet, so we do not continue\n");
+		return TRUE;
+	}
+
 	if (msg_queue.msgid == -1) {
 		return FALSE;
 	}
