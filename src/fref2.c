@@ -152,6 +152,7 @@ typedef struct {
 	gpointer vlist;   /* here we have pointer not values, because it can be common defined list of values */
 	guchar *def;       /* default value */
 	gpointer description;
+	GtkWidget *dlgitem; /* widget for data retrieve */
 } Tfref_property;
 #define FREFPROPERTY(var) ((Tfref_property *)(var))
 
@@ -742,7 +743,8 @@ void fref_load_from_file(gchar * filename, GtkWidget * tree, GtkTreeStore * stor
 
 	tmps = xmlGetProp(cur,fref_names[FID_VERSION]);
 	if (xmlStrcmp(tmps, (const xmlChar *) "2") != 0 ) {
-		g_warning(_("Unproper reference version"));
+		warning_dialog(bfwin->main_window,_("Bad reference"),
+									 _("This is probably old reference file. \nPlease update it to the new format."));
 		g_hash_table_destroy(info->dictionary);
 		g_hash_table_destroy(info->commons);		
 		xmlFree(tmps);
@@ -753,7 +755,7 @@ void fref_load_from_file(gchar * filename, GtkWidget * tree, GtkTreeStore * stor
 	if (tmps!=NULL)
 		info->description = tmps;
 	cur = cur->xmlChildrenNode;
-	FREFGUI(bfwin->fref)->prg = progress_popup(bfwin->main_window,"Loading reference",fref_node_count);
+	FREFGUI(bfwin->fref)->prg = progress_popup(bfwin->main_window,_("Loading reference"),fref_node_count);
 	flush_queue();
 	while (cur != NULL) {
 		fref_parse_node(cur,tree,store,parent,info,doc,bfwin);
@@ -766,6 +768,7 @@ void fref_load_from_file(gchar * filename, GtkWidget * tree, GtkTreeStore * stor
 
 void fref_free_record(gpointer key, gpointer value,gpointer udata) {
 	Tfref_record *rec;
+		
 	if ( value == NULL ) return;
 	rec = FREFRECORD(value);
 
@@ -829,11 +832,13 @@ void fref_free_storeelem(GtkTreeStore *store, GtkTreeIter *position) {
 	gtk_tree_store_remove(store, position);
 }
 
-void fref_unload_ref(GtkTreeStore *store, GtkTreeIter *iter) {
+void fref_unload_ref(GtkTreeStore *store, GtkTreeIter *iter,Tbfwin *bfwin) {
 	Tfref_record *rec=NULL;
 	Tfref_info *info=NULL;
 	GValue *val;
 	GtkTreeIter iter2;
+	GtkWidget *winfo,*wlabel;
+	
 	
 		val = g_new0(GValue, 1);
 		gtk_tree_model_get_value(GTK_TREE_MODEL(store),iter, PTR_COLUMN, val);
@@ -846,7 +851,13 @@ void fref_unload_ref(GtkTreeStore *store, GtkTreeIter *iter) {
 		info = FREFINFO(rec->data);
 		/* free commons - there are elements of reference */
 		
-		g_hash_table_foreach(info->commons,fref_free_record,NULL);
+		fref_node_count = g_hash_table_size(info->commons);
+		winfo = window_with_title("", GTK_WIN_POS_CENTER,1);
+		wlabel = gtk_label_new(_(" Freeing reference memory "));
+		gtk_container_add(GTK_CONTAINER(winfo),wlabel);
+		gtk_widget_show_all(winfo);
+		flush_queue();
+		g_hash_table_foreach(info->commons,fref_free_record,bfwin);
 		g_hash_table_destroy(info->commons);		
 		while (gtk_tree_model_iter_children(GTK_TREE_MODEL(store), &iter2, iter)) {
 				fref_free_storeelem(store, &iter2);
@@ -860,9 +871,11 @@ void fref_unload_ref(GtkTreeStore *store, GtkTreeIter *iter) {
 		g_free(rec);
 		g_value_unset(val);
 		g_free(val);		
+		window_destroy(winfo);
+		gtk_widget_destroy(wlabel);
 }
 
-void fref_unload_all(GtkWidget * tree, GtkTreeStore * store)
+void fref_unload_all(GtkWidget * tree, GtkTreeStore * store,Tbfwin *bfwin)
 {
 
 	GtkTreeIter iter;
@@ -896,7 +909,7 @@ void fref_unload_all(GtkWidget * tree, GtkTreeStore * store)
 		if (do_unload) {
 			gchar *file, *name;
 			DEBUG_MSG("fref_loader_unload_all, calling fref_loader_unload_ref\n");
-			fref_unload_ref(store, &iter);
+			fref_unload_ref(store, &iter,bfwin);
 			gtk_tree_model_get(GTK_TREE_MODEL(store), &iter, STR_COLUMN, &name, FILE_COLUMN, &file,
 							   -1);
 			if (file) {
@@ -1262,76 +1275,205 @@ while (p) {
 					}	
 					lst = g_list_first(elem->properties);
 					cnt=0;
-					while ( lst && cnt<d1) 
+					while ( lst ) 
 					{
 						if ( FREFPROPERTY(lst->data)->ptype == FREF_EL_ATTR) 
 						{ 
+							if (cnt>=d1) break;												
 							cnt++;
 					   }
 						lst = g_list_next(lst);
 					} /* while */
-					if (lst != NULL) 
+					if (lst != NULL && FREFPROPERTY(lst->data)->ptype == FREF_EL_ATTR) 
 					{
 						if (from_dialog) 
 						{
-							/* get values from dialog */
+							if ( FREFPROPERTY(lst->data)->dlgitem != NULL )
+							{
+								if ( GTK_IS_COMBO_BOX(FREFPROPERTY(lst->data)->dlgitem) ) { /* combo */
+									GtkTreeIter it;
+									if ( gtk_combo_box_get_active_iter(GTK_COMBO_BOX(FREFPROPERTY(lst->data)->dlgitem),&it) ) {
+										GValue *val = g_new0(GValue, 1);
+										gtk_tree_model_get_value(GTK_TREE_MODEL(gtk_combo_box_get_model(
+																								 GTK_COMBO_BOX(FREFPROPERTY(lst->data)->dlgitem)	)),
+																								 &it, 0, val);
+										if (G_IS_VALUE(val) && g_value_fits_pointer(val)) {
+												converted = g_strconcat(" ",FREFPROPERTY(lst->data)->name,"=\"",
+																		 g_value_peek_pointer(val),
+																		 "\"",NULL);
+										}
+										g_value_unset(val);
+										g_free(val);												
+									}									
+								} else { /* entry */
+									converted = g_strconcat(" ",FREFPROPERTY(lst->data)->name,"=\"",
+															 gtk_entry_get_text(GTK_ENTRY(FREFPROPERTY(lst->data)->dlgitem)),
+															 "\"",NULL);
+								}
+							} /* null item */							
 						} else 
 						{
 							converted = g_strconcat(" ",FREFPROPERTY(lst->data)->name,"=\"\"",NULL);
 						}
 					} 
 				} /* d1 == -1 */
-				else if (*p == '_') /* only non-empty attributes */
+				else if (*p == '_' && from_dialog) /* only non-empty attributes from dialog */
 				{
+					lst = g_list_first(elem->properties);
+					converted = "";
+					while ( lst ) 
+					{
+							if ( FREFPROPERTY(lst->data)->ptype == FREF_EL_ATTR ) 
+							{ 
+									if ( FREFPROPERTY(lst->data)->dlgitem != NULL )
+									{
+										if ( GTK_IS_COMBO_BOX(FREFPROPERTY(lst->data)->dlgitem) ) { /* combo */
+											GtkTreeIter it;
+											if ( gtk_combo_box_get_active_iter(GTK_COMBO_BOX(FREFPROPERTY(lst->data)->dlgitem),&it) ) {
+												GValue *val = g_new0(GValue, 1);
+												gtk_tree_model_get_value(GTK_TREE_MODEL(gtk_combo_box_get_model(
+																										 GTK_COMBO_BOX(FREFPROPERTY(lst->data)->dlgitem)	)),
+																										 &it, 0, val);
+												if (G_IS_VALUE(val) && g_value_fits_pointer(val) && strcmp("",(gchar*)g_value_peek_pointer(val))!=0) {
+														converted = g_strconcat(converted," ",FREFPROPERTY(lst->data)->name,"=\"",
+																				 g_value_peek_pointer(val),
+																				 "\"",NULL);
+												}
+												g_value_unset(val);
+												g_free(val);												
+											}									
+										} else { /* entry */
+											if ( strcmp("",gtk_entry_get_text(GTK_ENTRY(FREFPROPERTY(lst->data)->dlgitem))) != 0 )
+												converted = g_strconcat(converted," ",FREFPROPERTY(lst->data)->name,"=\"",
+																	 gtk_entry_get_text(GTK_ENTRY(FREFPROPERTY(lst->data)->dlgitem)),
+																	 "\"",NULL);
+										}
+									} /* null item */							
+					   	}
+							lst = g_list_next(lst);
+					} /* while */							
+				}
+				else if (*p == '*') /* ALL attributes */
+				{
+						lst = g_list_first(elem->properties);
+						converted = "";
+						while ( lst ) 
+						{
+							if ( FREFPROPERTY(lst->data)->ptype == FREF_EL_ATTR ) 
+							{ 
+								if (from_dialog)
+								{
+									if ( FREFPROPERTY(lst->data)->dlgitem != NULL )
+									{
+										if ( GTK_IS_COMBO_BOX(FREFPROPERTY(lst->data)->dlgitem) ) { /* combo */
+											GtkTreeIter it;
+											if ( gtk_combo_box_get_active_iter(GTK_COMBO_BOX(FREFPROPERTY(lst->data)->dlgitem),&it) ) {
+												GValue *val = g_new0(GValue, 1);
+												gtk_tree_model_get_value(GTK_TREE_MODEL(gtk_combo_box_get_model(
+																										 GTK_COMBO_BOX(FREFPROPERTY(lst->data)->dlgitem)	)),
+																										 &it, 0, val);
+												if (G_IS_VALUE(val) && g_value_fits_pointer(val)) {
+														converted = g_strconcat(converted," ",FREFPROPERTY(lst->data)->name,"=\"",
+																				 g_value_peek_pointer(val),
+																				 "\"",NULL);
+												}
+												g_value_unset(val);
+												g_free(val);												
+											}									
+										} else { /* entry */
+											converted = g_strconcat(converted," ",FREFPROPERTY(lst->data)->name,"=\"",
+																	 gtk_entry_get_text(GTK_ENTRY(FREFPROPERTY(lst->data)->dlgitem)),
+																	 "\"",NULL);
+										}
+									} /* null item */							
+								}
+								else
+								{
+									converted = g_strconcat(converted," ",FREFPROPERTY(lst->data)->name,"=\"\"",NULL);
+								}	
+					   	}
+							lst = g_list_next(lst);
+						} /* while */							
 				}
 				else if (*p == '!') /* only required attributes */
 				{
+						lst = g_list_first(elem->properties);
+						converted = "";
+						while ( lst ) 
+						{
+							if ( FREFPROPERTY(lst->data)->ptype == FREF_EL_ATTR && FREFPROPERTY(lst->data)->required) 
+							{ 
+								if (from_dialog)
+								{
+									if ( FREFPROPERTY(lst->data)->dlgitem != NULL )
+									{
+										if ( GTK_IS_COMBO_BOX(FREFPROPERTY(lst->data)->dlgitem) ) { /* combo */
+											GtkTreeIter it;
+											if ( gtk_combo_box_get_active_iter(GTK_COMBO_BOX(FREFPROPERTY(lst->data)->dlgitem),&it) ) {
+												GValue *val = g_new0(GValue, 1);
+												gtk_tree_model_get_value(GTK_TREE_MODEL(gtk_combo_box_get_model(
+																										 GTK_COMBO_BOX(FREFPROPERTY(lst->data)->dlgitem)	)),
+																										 &it, 0, val);
+												if (G_IS_VALUE(val) && g_value_fits_pointer(val)) {
+														converted = g_strconcat(converted," ",FREFPROPERTY(lst->data)->name,"=\"",
+																				 g_value_peek_pointer(val),
+																				 "\"",NULL);
+												}
+												g_value_unset(val);
+												g_free(val);												
+											}									
+										} else { /* entry */
+											converted = g_strconcat(converted," ",FREFPROPERTY(lst->data)->name,"=\"",
+																	 gtk_entry_get_text(GTK_ENTRY(FREFPROPERTY(lst->data)->dlgitem)),
+																	 "\"",NULL);
+										}
+									} /* null item */							
+								}
+								else
+								{
+									converted = g_strconcat(converted," ",FREFPROPERTY(lst->data)->name,"=\"\"",NULL);
+								}	
+					   	}
+							lst = g_list_next(lst);
+						} /* while */			
 				}
-				else if (*p == '~') /* only non-empty and required attributes */
+				else if (*p == '~' && from_dialog) /* only non-empty and required attributes from dialog*/
 				{
+					lst = g_list_first(elem->properties);
+					converted = "";
+					while ( lst ) 
+					{
+							if ( FREFPROPERTY(lst->data)->ptype == FREF_EL_ATTR && FREFPROPERTY(lst->data)->required) 
+							{ 
+									if ( FREFPROPERTY(lst->data)->dlgitem != NULL )
+									{
+										if ( GTK_IS_COMBO_BOX(FREFPROPERTY(lst->data)->dlgitem) ) { /* combo */
+											GtkTreeIter it;
+											if ( gtk_combo_box_get_active_iter(GTK_COMBO_BOX(FREFPROPERTY(lst->data)->dlgitem),&it) ) {
+												GValue *val = g_new0(GValue, 1);
+												gtk_tree_model_get_value(GTK_TREE_MODEL(gtk_combo_box_get_model(
+																										 GTK_COMBO_BOX(FREFPROPERTY(lst->data)->dlgitem)	)),
+																										 &it, 0, val);
+												if (G_IS_VALUE(val) && g_value_fits_pointer(val) && strcmp("",(gchar*)g_value_peek_pointer(val))!=0) {
+														converted = g_strconcat(converted," ",FREFPROPERTY(lst->data)->name,"=\"",
+																				 g_value_peek_pointer(val),
+																				 "\"",NULL);
+												}
+												g_value_unset(val);
+												g_free(val);												
+											}									
+										} else { /* entry */
+											if ( strcmp("",gtk_entry_get_text(GTK_ENTRY(FREFPROPERTY(lst->data)->dlgitem))) != 0 )
+												converted = g_strconcat(converted," ",FREFPROPERTY(lst->data)->name,"=\"",
+																	 gtk_entry_get_text(GTK_ENTRY(FREFPROPERTY(lst->data)->dlgitem)),
+																	 "\"",NULL);
+										}
+									} /* null item */							
+					   	}
+							lst = g_list_next(lst);
+					} /* while */											
 				}				
 			break	; /* TAG DATA */
-			 /*else if (*p == '_') {	 non empty attributes 
-					lst = g_list_first(entry->attributes);
-					tmp3 = g_strdup("");
-					while (lst != NULL) {
-						tmpa = (FRAttrInfo *) lst->data;
-						if (tmpa->dlg_item) {
-							if (GTK_IS_COMBO(tmpa->dlg_item))
-								tmp2 =
-									gtk_entry_get_text(GTK_ENTRY(GTK_COMBO(tmpa->dlg_item)->entry));
-							else
-								tmp2 = gtk_entry_get_text(GTK_ENTRY(tmpa->dlg_item));
-							if (strcmp(tmp2, "") != 0) {
-								tofree = tmp3;
-								tmp3 = g_strconcat(tmp3, " ", tmpa->name, "=\"", tmp2, "\"", NULL);
-								g_free(tofree);
-							}
-						}
-						lst = g_list_next(lst);
-					}			 while 
-					converted = tmp3;
-				} else if (*p == '~') {	 non empty attributes and required  
-					lst = g_list_first(entry->attributes);
-					tmp3 = g_strdup("");
-					while (lst != NULL) {
-						tmpa = (FRAttrInfo *) lst->data;
-						if (tmpa->dlg_item) {
-							if (GTK_IS_COMBO(tmpa->dlg_item))
-								tmp2 =
-									gtk_entry_get_text(GTK_ENTRY(GTK_COMBO(tmpa->dlg_item)->entry));
-							else
-								tmp2 = gtk_entry_get_text(GTK_ENTRY(tmpa->dlg_item));
-							if (strcmp(tmp2, "") != 0 || tmpa->required) {
-								tofree = tmp3;
-								tmp3 = g_strconcat(tmp3, " ", tmpa->name, "=\"", tmp2, "\"", NULL);
-								g_free(tofree);
-							}
-						}
-						lst = g_list_next(lst);
-					}			 while 
-					converted = tmp3;
-				}				 required and non-empty */
 			case FREF_EL_FUNCTION:
 			case FREF_EL_SNIPPET:			
 				converted="";
@@ -1346,24 +1488,98 @@ while (p) {
 					}	
 					lst = g_list_first(elem->properties);
 					cnt=0;
-					while ( lst && cnt<d1) 
+					while ( lst ) 
 					{
 						if ( FREFPROPERTY(lst->data)->ptype == FREF_EL_PARAM) 
 						{ 
+							if (cnt>=d1) break;						
 							cnt++;
 						}
 						lst = g_list_next(lst);
 					}
-					if (lst != NULL) {
+					if (lst != NULL && FREFPROPERTY(lst->data)->ptype == FREF_EL_PARAM ) {
 						if ( from_dialog ) 
 						{
-							/* get values from dialog */
+							if ( FREFPROPERTY(lst->data)->dlgitem != NULL )
+							{
+								if ( GTK_IS_COMBO_BOX(FREFPROPERTY(lst->data)->dlgitem) ) { /* combo */
+									GtkTreeIter it;
+									if ( gtk_combo_box_get_active_iter(GTK_COMBO_BOX(FREFPROPERTY(lst->data)->dlgitem),&it) ) {
+										GValue *val = g_new0(GValue, 1);
+										gtk_tree_model_get_value(GTK_TREE_MODEL(gtk_combo_box_get_model(
+																								 GTK_COMBO_BOX(FREFPROPERTY(lst->data)->dlgitem)	)),
+																								 &it, 0, val);
+										if (G_IS_VALUE(val) && g_value_fits_pointer(val)) {
+												converted = g_strdup(g_value_peek_pointer(val));
+										}
+										g_value_unset(val);
+										g_free(val);												
+									}									
+								} else { /* entry */
+									converted = g_strdup(gtk_entry_get_text(GTK_ENTRY(FREFPROPERTY(lst->data)->dlgitem)));
+								}
+							} /* null item */							
 						} else 
 						{
-							converted = g_strconcat(" ",FREFPROPERTY(lst->data)->name,"=\"\"",NULL);
+							converted = g_strdup(FREFPROPERTY(lst->data)->name);
 						}
 					} 
-				} 
+				} /* d1 != -1 */
+				else if (*p == '*') /* ALL parameters */
+				{
+						lst = g_list_first(elem->properties);
+						converted = "";
+						gboolean first=TRUE;
+						while ( lst ) 
+						{
+							if ( FREFPROPERTY(lst->data)->ptype == FREF_EL_PARAM) 
+							{ 
+								if (from_dialog)
+								{
+									if ( FREFPROPERTY(lst->data)->dlgitem != NULL )
+									{
+										if ( GTK_IS_COMBO_BOX(FREFPROPERTY(lst->data)->dlgitem) ) { /* combo */
+											GtkTreeIter it;
+											if ( gtk_combo_box_get_active_iter(GTK_COMBO_BOX(FREFPROPERTY(lst->data)->dlgitem),&it) ) {
+												GValue *val = g_new0(GValue, 1);
+												gtk_tree_model_get_value(GTK_TREE_MODEL(gtk_combo_box_get_model(
+																										 GTK_COMBO_BOX(FREFPROPERTY(lst->data)->dlgitem)	)),
+																										 &it, 0, val);
+												if (G_IS_VALUE(val) && g_value_fits_pointer(val)) {
+														if ( first )
+														{
+															converted = g_strconcat(converted,g_value_peek_pointer(val),NULL);
+															first = FALSE;
+														} else	
+															converted = g_strconcat(converted,",",g_value_peek_pointer(val),NULL);
+												}
+												g_value_unset(val);
+												g_free(val);												
+											}									
+										} else { /* entry */
+											if (first)
+											{
+												converted = g_strconcat(converted,
+																		 gtk_entry_get_text(GTK_ENTRY(FREFPROPERTY(lst->data)->dlgitem)),NULL);
+												first = FALSE;						 
+											} else
+												converted = g_strconcat(converted,",",
+																		 gtk_entry_get_text(GTK_ENTRY(FREFPROPERTY(lst->data)->dlgitem)),NULL);
+										}
+									} /* null item */							
+								}
+								else
+								{
+									if (first) {
+										converted = g_strconcat(converted,FREFPROPERTY(lst->data)->name,NULL);
+										first = FALSE;
+									} else
+										converted = g_strconcat(converted,",",FREFPROPERTY(lst->data)->name,NULL);
+								}	
+					   	}
+							lst = g_list_next(lst);
+						} /* while */							
+				}
 			break; /* FUNCTION DATA */
 		}					/* switch */
 	} /* else */
@@ -1405,9 +1621,197 @@ static void fref_insert_lcb(GtkButton * button, Tbfwin * bfwin) {
 	}	
 }
 
+static GList *fref_string_to_list(gchar * string, gchar * delimiter)
+{
+	GList *lst;
+	gchar **arr;
+	gint i;
+
+	lst = NULL;
+	arr = g_strsplit(string, delimiter, 0);
+	i = 0;
+	while (arr[i] != NULL) {
+		lst = g_list_append(lst, arr[i]);
+		i++;
+	}
+	return lst;
+}
+
+
+static GtkWidget *fref_prepare_dialog(Tbfwin * bfwin, Tfref_element *entry)
+{
+	GtkWidget *dialog;
+	GtkWidget *vbox;
+	GtkWidget *table;
+	GtkWidget *label;
+	GtkWidget *input;
+	GtkWidget *combo;
+	GtkWidget *dialog_action_area;
+	GtkWidget *cancelbutton;
+	GtkWidget *okbutton;
+	GtkWidget *infobutton;
+	GtkWidget *scroll;
+	GtkRequisition req, req2;
+	GList *list = NULL;
+	gint itnum, w, h;
+	gchar *tofree;
+
+	dialog = gtk_dialog_new();
+	if (entry->name != NULL)
+		gtk_window_set_title(GTK_WINDOW(dialog), entry->name);
+	vbox = GTK_DIALOG(dialog)->vbox;
+	scroll = gtk_scrolled_window_new(NULL, NULL);
+	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scroll), GTK_POLICY_AUTOMATIC,
+								   GTK_POLICY_AUTOMATIC);
+
+	list = g_list_first(entry->properties);
+
+	if (list == NULL) {
+		gtk_widget_destroy(dialog);
+		DEBUG_MSG("fref_prepare_dialog, list==NULL, aborting..\n");
+		return NULL;
+	}
+
+	itnum = 0;
+	while ( list )
+	{
+		if ( FREFPROPERTY(list->data)->ptype == FREF_EL_ATTR || 
+			  FREFPROPERTY(list->data)->ptype == FREF_EL_PARAM ) itnum++;
+		list = g_list_next(list);
+	}
+	
+	table = gtk_table_new(itnum, 2, FALSE);
+	gtk_box_pack_start(GTK_BOX(vbox), scroll, TRUE, TRUE, 0);
+	gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(scroll), table);
+
+	list = g_list_first(entry->properties);	
+	itnum=0;
+	while ( list )
+	{
+		if ( FREFPROPERTY(list->data)->ptype == FREF_EL_ATTR || 
+			  FREFPROPERTY(list->data)->ptype == FREF_EL_PARAM )
+		{
+			label = gtk_label_new("");
+			if ( FREFPROPERTY(list->data)->required )
+			{
+				tofree =g_strconcat("<span color='#FF0000'>", FREFPROPERTY(list->data)->name, "</span>", NULL);
+				gtk_label_set_markup(GTK_LABEL(label), tofree);
+				g_free(tofree);			
+			}
+			else
+			{
+						gtk_label_set_text(GTK_LABEL(label), FREFPROPERTY(list->data)->name);			
+			}
+			gtk_table_attach(GTK_TABLE(table), label, 0, 1, itnum, itnum + 1,
+								 (GtkAttachOptions) (GTK_FILL), (GtkAttachOptions) (0), 5, 6);
+			gtk_label_set_justify(GTK_LABEL(label), GTK_JUSTIFY_LEFT);
+			gtk_misc_set_alignment(GTK_MISC(label), 0, 0.5);			
+			gtk_widget_show(label);			
+			if ( FREFPROPERTY(list->data)->vlist )
+			{
+					GList *gl = fref_string_to_list(FREFPROPERTY(list->data)->vlist, ","),*pomgl;
+					gint pos,pos2=0;
+					
+					if ( FREFPROPERTY(list->data)->vlistonly )
+						combo = gtk_combo_box_new_text();
+					else
+						combo = gtk_combo_box_entry_new_text();	
+					if ( gl )
+					{
+						pomgl = g_list_first(gl);
+						pos=0;
+						while (pomgl)
+						{
+								gtk_combo_box_insert_text(GTK_COMBO_BOX(combo),pos,pomgl->data);
+								if ( FREFPROPERTY(list->data)->def && ( strcmp(pomgl->data,FREFPROPERTY(list->data)->def) == 0) )
+								{
+									pos2 = pos;
+								}
+								pomgl = g_list_next(pomgl);
+								pos++;
+						}
+					}						
+					gtk_widget_show(combo);
+					gtk_table_attach(GTK_TABLE(table), combo, 1, 2, itnum, itnum + 1,
+									 (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
+									 (GtkAttachOptions) (0), 5, 5);
+					if (FREFPROPERTY(list->data)->def != NULL)
+					{
+						gtk_combo_box_set_active(GTK_COMBO_BOX(combo),pos2);
+					}	
+					FREFPROPERTY(list->data)->dlgitem = combo;
+					if (FREFPROPERTY(list->data)->description)
+						gtk_tooltips_set_tip(FREFGUI(bfwin->fref)->argtips, combo,FREFPROPERTY(list->data)->description, "");
+			}
+			else /* not vlist */
+			{
+					input = gtk_entry_new();
+					if (FREFPROPERTY(list->data)->def != NULL)
+						gtk_entry_set_text(GTK_ENTRY(input), FREFPROPERTY(list->data)->def);
+					gtk_widget_show(input);
+					gtk_table_attach(GTK_TABLE(table), input, 1, 2, itnum, itnum + 1,
+									 (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
+									 (GtkAttachOptions) (0), 5, 5);
+					FREFPROPERTY(list->data)->dlgitem = input;									 
+					gtk_entry_set_activates_default(GTK_ENTRY(input), TRUE);
+					if (FREFPROPERTY(list->data)->description)
+						gtk_tooltips_set_tip(FREFGUI(bfwin->fref)->argtips, input,FREFPROPERTY(list->data)->description, "");
+			}
+		}	  		
+		itnum++;
+		list = g_list_next(list);
+	} /* while */
+
+	dialog_action_area = GTK_DIALOG(dialog)->action_area;
+	gtk_button_box_set_layout(GTK_BUTTON_BOX(dialog_action_area), GTK_BUTTONBOX_END);
+	cancelbutton = gtk_button_new_from_stock("gtk-cancel");
+	gtk_widget_show(cancelbutton);
+	gtk_dialog_add_action_widget(GTK_DIALOG(dialog), cancelbutton, GTK_RESPONSE_CANCEL);
+	okbutton = gtk_button_new_from_stock("gtk-ok");
+	gtk_widget_show(okbutton);
+	gtk_dialog_add_action_widget(GTK_DIALOG(dialog), okbutton, GTK_RESPONSE_OK);
+	gtk_dialog_set_default_response(GTK_DIALOG(dialog), GTK_RESPONSE_OK);
+	gtk_widget_show(dialog_action_area);
+	gtk_widget_show(table);
+	gtk_window_get_size(GTK_WINDOW(dialog), &w, &h);
+	gtk_widget_size_request(table, &req);
+	gtk_widget_size_request(dialog_action_area, &req2);
+	gtk_window_resize(GTK_WINDOW(dialog), req.width + 25, MIN(400, req.height + req2.height + 20));
+	gtk_widget_show_all(dialog);
+	gtk_tooltips_enable(FREFGUI(bfwin->fref)->argtips);
+	return dialog;
+}
+
+
 static void fref_dialog_lcb(GtkButton * button, Tbfwin * bfwin) {
-			error_dialog(bfwin->main_window, _("Not implemented"),
-			                 _("Interactive insertion - not implemented yet"));
+	Tfref_record *el = get_current_entry(bfwin);
+	GtkWidget *dialog;
+	gint resp;
+	gchar *pomstr;
+	if ( el == NULL || el->etype == FREF_EL_GROUP || el->etype == FREF_EL_REF ) return;
+	switch ( el->etype ) 
+	{
+		case FREF_EL_FUNCTION:
+		case FREF_EL_TAG:
+		case FREF_EL_CSSPROP:
+		case FREF_EL_CLASS:
+		case FREF_EL_SNIPPET:{
+					dialog = fref_prepare_dialog(bfwin, el->data);
+					if (dialog) 
+					{
+							resp = gtk_dialog_run(GTK_DIALOG(dialog));
+							if (resp == GTK_RESPONSE_OK) 
+							{
+									pomstr = fref_prepare_text(el->data, TRUE);
+									gtk_widget_destroy(dialog);
+									doc_insert_two_strings(bfwin->current_document, pomstr, NULL);
+									g_free(pomstr);
+							} else
+								gtk_widget_destroy(dialog);
+					}			
+		}	
+		break;		
+	}		
 }
 
 
@@ -1433,7 +1837,7 @@ static guint fref_idle_cleanup(Tfref_cleanup * data)
 		DEBUG_MSG("fref_idle_cleanup, comparing %s,%s\n", str, data->cat);
 		if (strcmp(str, data->cat) == 0) {
 			DEBUG_MSG("fref_idle_cleanup, found!\n");
-			fref_unload_ref(GTK_TREE_STORE(FREFDATA(main_v->frefdata)->store), &iter);
+			fref_unload_ref(GTK_TREE_STORE(FREFDATA(main_v->frefdata)->store), &iter,data->bfwin);
 			break;
 		}
 		g_free (str);
@@ -1456,6 +1860,8 @@ static void frefcb_row_collapsed(GtkTreeView * treeview, GtkTreeIter * arg1, Gtk
 	gpointer *aux;
 	gboolean do_unload = FALSE;
 	GtkTreeModel *treemodel = GTK_TREE_MODEL(FREFDATA(main_v->frefdata)->store);
+	GtkTextIter its,ite;
+	GtkTextBuffer *buff = gtk_text_view_get_buffer(GTK_TEXT_VIEW(FREFGUI(bfwin->fref)->infoview));
 	
 	
 	
@@ -1475,8 +1881,12 @@ static void frefcb_row_collapsed(GtkTreeView * treeview, GtkTreeIter * arg1, Gtk
 				data->bfwin = bfwin;
 				g_signal_handler_block(FREFGUI(bfwin->fref)->tree,FREFGUI(bfwin->fref)->row_expand_signal);	
 				g_signal_handler_block(FREFGUI(bfwin->fref)->tree,FREFGUI(bfwin->fref)->tree_signal);				
-				//gtk_timeout_add(250, (GtkFunction) fref_idle_cleanup, data); 
+				/*gtk_timeout_add(250, (GtkFunction) fref_idle_cleanup, data); */
 				fref_idle_cleanup(data);
+				gtk_text_buffer_get_start_iter(buff,&its);
+				gtk_text_buffer_get_end_iter(buff,&ite);
+   			gtk_text_buffer_delete(buff,&its,&ite);
+
 				g_signal_handler_unblock(FREFGUI(bfwin->fref)->tree,FREFGUI(bfwin->fref)->tree_signal);	
 				g_signal_handler_unblock(FREFGUI(bfwin->fref)->tree,FREFGUI(bfwin->fref)->row_expand_signal);
 			}
@@ -1804,7 +2214,7 @@ void fref_init() {
 void fref_cleanup(Tbfwin *bfwin) {
 	DEBUG_MSG("fref_cleanup, started for bfwin=%p, refcount at %p\n", bfwin,
 			  FREFDATA(main_v->frefdata)->refcount);
-	fref_unload_all(FREFGUI(bfwin->fref)->tree, FREFDATA(main_v->frefdata)->store);
+	fref_unload_all(FREFGUI(bfwin->fref)->tree, FREFDATA(main_v->frefdata)->store,bfwin);
 /*	g_hash_table_destroy(FREFDATA(main_v->frefdata)->refcount); */
 /* Ok I'll not free search dictionary too ... O.S. */
 	FREFGUI(bfwin->fref)->tree = NULL;
