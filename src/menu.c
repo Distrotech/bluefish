@@ -469,6 +469,24 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/Options/Save shortcut _keys"), NULL, rcfile_save_configfile_menu_cb, 3, NULL}
 };
 
+#ifdef ENABLE_NLS                                                                                        
+gchar *menu_translate(const gchar * path, gpointer data) {                                                                                                        
+	static gchar *menupath = NULL;
+	gchar *retval;
+	gchar *factory;
+	factory = (gchar *) data;
+	if (menupath) g_free(menupath);
+	menupath = g_strdup(path);
+	if ((strstr(path, "/tearoff1") != NULL) 
+			|| (strstr(path, "/---") != NULL) 
+			|| (strstr(path, "/MRU") != NULL))
+				return menupath;                                                                         
+	retval = gettext(menupath);
+	return retval;                                                                                   
+}                                                                                                        
+                                                                                                         
+#endif       
+
 /************************************************/
 /* generic functions for dynamic created menu's */
 /************************************************/

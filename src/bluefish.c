@@ -22,6 +22,10 @@
 #include <unistd.h> /* getopt() */
 #include <stdlib.h> /* getopt() exit() and abort() on Solaris */
 
+#ifdef ENABLE_NLS
+#include <localesss.h>
+#endif
+
 #include "bluefish.h"
 #include "document.h" /*  */
 #include "gui.h" /* gui_create_main() */
@@ -105,7 +109,8 @@ int main(int argc, char *argv[])
 
 #ifdef ENABLE_NLS                                                               
 	setlocale(LC_ALL,"");                                                   
-	bindtextdomain(PACKAGE,LOCALEDIR);                                      
+	bindtextdomain(PACKAGE,LOCALEDIR);
+	DEBUG_MSG("set bindtextdomain for %s to %s\n",PACKAGE,LOCALEDIR);
 	textdomain(PACKAGE);                                                    
 #endif    
 	gtk_init(&argc, &argv);
