@@ -21,6 +21,14 @@
 #ifndef __BLUEFISH_H_
 #define __BLUEFISH_H_
 
+#define DEBUG_MSG g_print
+#define _(String) (String)
+#define N_(String) (String)
+#define CURRENT_VERSION_NAME "bluefish-gtk2-porting"
+
+#include <sys/types.h>
+#include <regex.h>
+
 /*********************/
 /* undo/redo structs */
 /*********************/
@@ -97,11 +105,15 @@ typedef struct {
 	GList *documentlist;
 	GList *hlsetlist;
 	GtkWidget *main_window;
+	gint last_notebook_page;
 	GtkWidget *notebook;
 	GtkWidget *middlebox; /* we need this to show/hide the filebrowser */
+	GtkWidget *hpane; /* we need this to show/hide the filebrowser */
 	GtkTextTagTable *tagtable; /* this one should ultimately move to Thighlightset, so every set would have it's own tagtable, but there is currently no way to switch a document to a new tagtable */
 } Tmain;
 
 extern Tmain *main_v;
 
+/* public functions from bluefish.c */
+void bluefish_exit_request();
 #endif /* __BLUEFISH_H_ */

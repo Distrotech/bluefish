@@ -20,6 +20,7 @@
 #ifndef __GUI_H_
 #define __GUI_H_
 
+void notebook_changed(void);
 void gui_create_main();
 void statusbar_message(gchar *message, gint time);
 

@@ -19,57 +19,17 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 #include <gtk/gtk.h>
-
+#include <sys/types.h> /* stat() */
+#include <sys/stat.h> /* stat() */
+#include <unistd.h> /* stat() */
+#include <stdio.h> /* fopen() */
 
 #include "bluefish.h"
-
-Tdocument *doc_new() {
-	GtkWidget *scroll;
-	Tdocument *newdoc = g_new0(Tdocument, 1);
-
-	newdoc->hl = hl_get_highlightset_by_filename(NULL);
-	newdoc->buffer = gtk_text_buffer_new(main_v->tagtable);
-	newdoc->view = gtk_text_view_new_with_buffer(newdoc->buffer);
-	scroll = gtk_scrolled_window_new(NULL, NULL);
-	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scroll),
-									   GTK_POLICY_AUTOMATIC,
-									   GTK_POLICY_AUTOMATIC);
-	gtk_scrolled_window_set_shadow_type(GTK_SCROLLED_WINDOW
-											(scroll), GTK_SHADOW_IN);
-	gtk_container_add(GTK_CONTAINER(scroll), newdoc->view);
-
-	newdoc->tab_label = gtk_label_new(NULL);
-	GTK_WIDGET_UNSET_FLAGS(newdoc->tab_label, GTK_CAN_FOCUS);
-
-	doc_unre_init(newdoc);
-
-/* this will force function doc_set_modified to update the tab label*/
-	newdoc->modified = 1;
-	doc_set_modified(newdoc, 0);
-	newdoc->filename = NULL;
-	newdoc->need_highlighting = 0;
-	newdoc->mtime = 0;
-	newdoc->owner_uid = -1;
-	newdoc->owner_gid = -1;
-	newdoc->is_symlink = 0;
-	newdoc->highlightstate = main_v->props.defaulthighlight;
-
-	main_v->documentlist = g_list_append(main_v->documentlist, newdoc);
-	gtk_notebook_append_page(GTK_NOTEBOOK(main_v->notebook), scroll ,newdoc->tab_label);
-
-
-	main_v->documentlist = g_list_append(main_v->documentlist, newdoc);
-
-	gtk_widget_show(newdoc->view);
-	gtk_widget_show(newdoc->tab_label);
-	gtk_widget_show(scroll);
-
-	gtk_notebook_set_page(GTK_NOTEBOOK(main_v->notebook),g_list_length(main_v->documentlist) - 1);
-	notebook_changed();
-
-	gtk_widget_grab_focus(document->view);	
-	return newdoc;
-}
+#include "document.h"
+#include "highlight.h" /* all highlight functions */
+#include "gui.h" /* statusbar_message() */
+#include "bf_lib.h"
+#include "gtk_easy.h" /* error_dialog() */
 
 /* gint find_filename_in_documentlist(gchar *filename)
  * returns -1 if the file is not open, else returns the index where
@@ -95,10 +55,10 @@ gint find_filename_in_documentlist(gchar *filename) {
 }
 
 gboolean doc_is_empty_non_modified_and_nameless(Tdocument *doc) {
-	if (tmpdoc->modified || tmpdoc->filename) {
+	if (doc->modified || doc->filename) {
 		return FALSE;
 	}
-	if (gtk_text_buffer_get_char_count(tmpdoc->buffer) > 0) {
+	if (gtk_text_buffer_get_char_count(doc->buffer) > 0) {
 		return FALSE;
 	}
 	return TRUE;
@@ -160,7 +120,7 @@ gboolean test_only_empty_doc_left() {
 
 static void doc_set_undo_redo_widget_state(Tdocument *doc) {
 		gint redo, undo;
-		redo = doc_has_redo_list(doc);
+/*		redo = doc_has_redo_list(doc);
 		undo = doc_has_undo_list(doc);
 		if (main_v->props.v_main_tb) {
 			gtk_widget_set_sensitive(main_v->toolb.redo, redo);
@@ -169,7 +129,7 @@ static void doc_set_undo_redo_widget_state(Tdocument *doc) {
 		gtk_widget_set_sensitive(gtk_item_factory_get_widget(gtk_item_factory_from_widget(main_v->menubar), N_("/Edit/Undo")), undo);
 		gtk_widget_set_sensitive(gtk_item_factory_get_widget(gtk_item_factory_from_widget(main_v->menubar), N_("/Edit/Undo all")), undo);
 		gtk_widget_set_sensitive(gtk_item_factory_get_widget(gtk_item_factory_from_widget(main_v->menubar), N_("/Edit/Redo")), redo);
-		gtk_widget_set_sensitive(gtk_item_factory_get_widget(gtk_item_factory_from_widget(main_v->menubar), N_("/Edit/Redo all")), redo);
+		gtk_widget_set_sensitive(gtk_item_factory_get_widget(gtk_item_factory_from_widget(main_v->menubar), N_("/Edit/Redo all")), redo);*/
 }
 
 void doc_set_modified(Tdocument *doc, gint value) {
@@ -180,7 +140,7 @@ void doc_set_modified(Tdocument *doc, gint value) {
 			if (doc->filename) {
 				temp_string = g_strconcat(g_basename(doc->filename), " *", NULL);			
 			} else {
-				temp_string = g_strdup(_("Untitled *"));			
+				temp_string = g_strdup(_("Untitled *"));
 			}
 		} else {
 			if (doc->filename) {
@@ -248,7 +208,7 @@ static void doc_scroll_to_line(Tdocument *doc, gint linenum, gboolean select_lin
 	GtkTextIter itstart;
 
 	gtk_text_buffer_get_iter_at_line(doc->buffer,&itstart,linenum);
-	gtk_text_view_scroll_to_iter(doc->view,&itstart,0.25,FALSE,0.5,0.5);
+	gtk_text_view_scroll_to_iter(GTK_TEXT_VIEW(doc->view),&itstart,0.25,FALSE,0.5,0.5);
 	if (select_line) {
 		GtkTextIter itend = itstart;
 		gtk_text_iter_forward_to_line_end(&itend);
@@ -286,7 +246,7 @@ gboolean doc_file_to_textbox(Tdocument * doc, gchar * filename)
 	return TRUE;
 }
 
-/* static gint file_check_backup(Tdocument *doc)
+/* static gint doc_check_backup(Tdocument *doc)
  * returns 1 on success, 0 on failure
  * if no backup is required, or no filename known, 1 is returned
  */
@@ -306,6 +266,55 @@ static gint doc_check_backup(Tdocument *doc) {
 	return res;
 }
 
+
+Tdocument *doc_new() {
+	GtkWidget *scroll;
+	Tdocument *newdoc = g_new0(Tdocument, 1);
+
+	newdoc->hl = hl_get_highlightset_by_filename(NULL);
+	newdoc->buffer = gtk_text_buffer_new(main_v->tagtable);
+	newdoc->view = gtk_text_view_new_with_buffer(newdoc->buffer);
+	scroll = gtk_scrolled_window_new(NULL, NULL);
+	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scroll),
+									   GTK_POLICY_AUTOMATIC,
+									   GTK_POLICY_AUTOMATIC);
+	gtk_scrolled_window_set_shadow_type(GTK_SCROLLED_WINDOW
+											(scroll), GTK_SHADOW_IN);
+	gtk_container_add(GTK_CONTAINER(scroll), newdoc->view);
+
+	newdoc->tab_label = gtk_label_new(NULL);
+	GTK_WIDGET_UNSET_FLAGS(newdoc->tab_label, GTK_CAN_FOCUS);
+
+/*	doc_unre_init(newdoc);*/
+
+/* this will force function doc_set_modified to update the tab label*/
+	newdoc->modified = 1;
+	doc_set_modified(newdoc, 0);
+	newdoc->filename = NULL;
+	newdoc->need_highlighting = 0;
+	newdoc->mtime = 0;
+	newdoc->owner_uid = -1;
+	newdoc->owner_gid = -1;
+	newdoc->is_symlink = 0;
+/*	newdoc->highlightstate = main_v->props.defaulthighlight;*/
+
+	main_v->documentlist = g_list_append(main_v->documentlist, newdoc);
+	gtk_notebook_append_page(GTK_NOTEBOOK(main_v->notebook), scroll ,newdoc->tab_label);
+
+
+	main_v->documentlist = g_list_append(main_v->documentlist, newdoc);
+
+	gtk_widget_show(newdoc->view);
+	gtk_widget_show(newdoc->tab_label);
+	gtk_widget_show(scroll);
+
+	gtk_notebook_set_page(GTK_NOTEBOOK(main_v->notebook),g_list_length(main_v->documentlist) - 1);
+	notebook_changed();
+
+	gtk_widget_grab_focus(newdoc->view);	
+	return newdoc;
+}
+
 /*
  * gint doc_textbox_to_file(Tdocument * doc, gchar * filename)
  * returns 1 on success
@@ -323,7 +332,7 @@ gint doc_textbox_to_file(Tdocument * doc, gchar * filename) {
 	statusbar_message(_("Saving file"), 1000);
 
 	/* This writes the contents of a textbox to a file */
-	backup_retval = file_check_backup(doc);
+	backup_retval = doc_check_backup(doc);
 
 	if (!backup_retval) {
 		if (strcmp(main_v->props.backup_abort_style, "abort")==0) {
@@ -654,6 +663,34 @@ void doc_reload(Tdocument *doc) {
 	doc_set_stat_info(doc); /* also sets mtime field */
 }
 
+void doc_activate(Tdocument *doc) {
+	if (doc_check_mtime(doc) == 0) {
+		gchar *tmpstr;
+		gint retval;
+		gchar *options[] = {N_("Reload"), N_("Ignore"), NULL};
+
+		tmpstr = g_strdup_printf(_("File %s\nis modified by another process"), doc->filename);
+		retval = multi_button_dialog(_("Bluefish: Warning, file is modified"), 0, tmpstr, options);
+		g_free(tmpstr);
+		if (retval == 1) {
+			doc_set_stat_info(doc);
+		} else {
+			doc_reload(doc);
+		}
+	}
+	doc_set_undo_redo_widget_state(doc);
+	DEBUG_MSG("notebook_switched_to_doc, grabbing document %p textbox=%p\n", doc, doc->textbox);
+
+	/* if highlighting is needed for this document do this now !! */
+	if (doc->need_highlighting && doc->highlightstate) {
+		doc_highlight_full(doc);
+	}
+
+	gtk_widget_grab_focus(GTK_WIDGET(doc->textbox));
+
+}
+
+
 /**************************************************************************/
 /* the start of the callback functions for the menu, acting on a document */
 /**************************************************************************/
@@ -805,4 +842,6 @@ void file_save_all_cb(GtkWidget * widget, gpointer data)
 		tmplist = g_list_next(tmplist);
 	}
 }
+
+
 

@@ -20,9 +20,8 @@
  */
 #include <gtk/gtk.h>
 
-
 #include "bluefish.h"
-
+#include "gui.h"
 /*********************************************/
 /* this var is global for all bluefish files */
 /*********************************************/
@@ -36,8 +35,21 @@ int main(int argc, char *argv[])
 	
 	main_v = g_new0(Tmain, 1);
 	
-	gui_create_main();
+	{
+		GList *filenames=NULL;
+		
+		/* get filesnames from commandline and from message queue */
+		
+		gui_create_main(filenames);
+	}
 
 	gtk_main();
 	return 0;
+}
+
+void bluefish_exit_request() {
+
+	/* check for changed documents */
+
+	gtk_main_quit();
 }
