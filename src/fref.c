@@ -1877,7 +1877,7 @@ static void frefcb_search(GtkButton *button,Tbfwin *bfwin) {
 			dict = (GHashTable*)g_value_peek_pointer(val);
 			if (dict != NULL) {
 				gpointer ret=NULL;
-				dlg = gtk_dialog_new_with_buttons("Find",NULL,GTK_DIALOG_MODAL,
+				dlg = gtk_dialog_new_with_buttons(_("Reference search"),NULL,GTK_DIALOG_MODAL,
 				                             GTK_STOCK_OK,
 				                             GTK_RESPONSE_ACCEPT,
 				                             GTK_STOCK_CANCEL,
