@@ -76,7 +76,6 @@ enum {
 	ext_browsers_in_submenu,
 	ext_commands_in_submenu,
 	ext_outputbox_in_submenu,
-	bookmarks_sort,
 	bookmarks_default_store,
 	bookmarks_filename_mode,
 	document_tabposition,
@@ -1826,7 +1825,6 @@ static void preferences_apply(Tprefdialog *pd) {
 	integer_apply(&main_v->props.defaulthighlight, pd->prefs[defaulthighlight], TRUE);
 	integer_apply(&main_v->props.highlight_num_lines_count, pd->prefs[highlight_num_lines_count], FALSE);
 
-	integer_apply(&main_v->props.bookmarks_sort, pd->prefs[bookmarks_sort], TRUE);
 	integer_apply(&main_v->props.bookmarks_default_store, pd->prefs[bookmarks_default_store], TRUE);
 	main_v->props.bookmarks_filename_mode = gtk_option_menu_get_history(GTK_OPTION_MENU(pd->prefs[bookmarks_filename_mode]));
 
@@ -2004,7 +2002,6 @@ static void preferences_dialog() {
 	vbox2 = gtk_vbox_new(FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(frame), vbox2);
 	
-	pd->prefs[bookmarks_sort] = boxed_checkbut_with_value(_("Sort by line number"), main_v->props.bookmarks_sort, vbox2);
 	pd->prefs[bookmarks_default_store] = boxed_checkbut_with_value(_("Make permanent by default"), main_v->props.bookmarks_default_store, vbox2);
 	{
 		gchar *actions[] = {N_("full path"), N_("path from basedir"), N_("filename"), NULL};
