@@ -1244,8 +1244,8 @@ static void filebrowser_rpopup_delete(Tfilebrowser *filebrowser) {
 		gchar *buttons[] = {GTK_STOCK_CANCEL, GTK_STOCK_DELETE, NULL};
 		gchar *label;
 		gint retval;
-		label = g_strdup_printf(_("Are you sure you want to\ndelete \"%s\" ?"), filename);
-		retval = multi_query_dialog(filebrowser->bfwin->main_window,label, _("The file will be permanently deleted."), 0, 0, buttons);
+		label = g_strdup_printf(_("Are you sure you want to delete \"%s\" ?"), filename);
+		retval = multi_query_dialog(filebrowser->bfwin->main_window,label, _("If you delete this file, it will be permanently lost."), 0, 0, buttons);
 		g_free(label);
 		if (retval == 1) {
 			gchar *errmessage = NULL;
