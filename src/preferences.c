@@ -796,10 +796,12 @@ static void highlightpattern_popmenu_activate(GtkMenuItem *menuitem,Tprefdialog 
 	/* fill list model here */
 	while (tmplist) {
 		gchar **strarr =(gchar **)tmplist->data;
-		if (strcmp(strarr[0], pd->hpd.selected_filetype)==0) {
-			GtkTreeIter iter;
-			gtk_list_store_append(GTK_LIST_STORE(pd->hpd.lstore), &iter);
-			gtk_list_store_set(GTK_LIST_STORE(pd->hpd.lstore), &iter, 0, strarr[1], -1);
+		if (strarr[0]) {
+			if (strcmp(strarr[0], pd->hpd.selected_filetype)==0) {
+				GtkTreeIter iter;
+				gtk_list_store_append(GTK_LIST_STORE(pd->hpd.lstore), &iter);
+				gtk_list_store_set(GTK_LIST_STORE(pd->hpd.lstore), &iter, 0, strarr[1], -1);
+			}
 		}
 		tmplist = g_list_next(tmplist);
 	}
