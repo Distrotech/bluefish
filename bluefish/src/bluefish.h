@@ -284,6 +284,7 @@ typedef struct {
 	GList *recent_dirs;
 	gchar *opendir;
 	gchar *savedir;
+	gchar *encoding;
 	gint   adv_open_recursive;
 	gchar *last_filefilter;	/* last filelist filter type */
 	gint filebrowser_show_hidden_files;

@@ -1510,6 +1510,14 @@ gboolean doc_buffer_to_textbox(Tdocument * doc, gchar * buffer, gsize buflen, gb
 				encoding=NULL;
 			}
 		}
+		if (!newbuf && BFWIN(doc->bfwin)->session->encoding) {
+			DEBUG_MSG("doc_buffer_to_textbox, file does not have <meta> encoding, or could not convert, trying session default encoding %s\n", BFWIN(doc->bfwin)->session->encoding);
+			newbuf = g_convert(buffer,-1,"UTF-8",BFWIN(doc->bfwin)->session->encoding,NULL, &wsize, NULL);
+			if (newbuf) {
+				DEBUG_MSG("doc_buffer_to_textbox, file is in default encoding: %s\n", BFWIN(doc->bfwin)->session->encoding);
+				encoding = g_strdup(BFWIN(doc->bfwin)->session->encoding);
+			}
+		}
 		if (!newbuf) {
 			DEBUG_MSG("doc_buffer_to_textbox, file does not have <meta> encoding, or could not convert, trying newfile default encoding %s\n", main_v->props.newfile_default_encoding);
 			newbuf = g_convert(buffer,-1,"UTF-8",main_v->props.newfile_default_encoding,NULL, &wsize, NULL);
@@ -2779,7 +2787,7 @@ static Tdocument *doc_new_backend(Tbfwin *bfwin, gboolean force_new) {
 	newdoc->modified = 0;
 	newdoc->fileinfo = NULL;*/
 	newdoc->is_symlink = 0;
-	newdoc->encoding = g_strdup(main_v->props.newfile_default_encoding);
+	newdoc->encoding = g_strdup( (bfwin->session->encoding) ? bfwin->session->encoding : main_v->props.newfile_default_encoding);
 	newdoc->overwrite_mode = FALSE;
 	doc_bind_signals(newdoc);
 
