@@ -25,27 +25,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 		</para>
 	</simplesect>
 
+
 	<sect1 id="bluefish-ch-7-sect-1">
-		<title>Debugging bluefish</title>
-
-	 <itemizedlist>
-	  <listitem><para>get the latest cvs release (info on the development page)</para></listitem>
-   <listitem><para>use ./configure --with-debugging-output</para></listitem>
-    <listitem><para>make clean</para></listitem>
-    <listitem><para>make</para></listitem>
-    <listitem><para>do not run make install since it strips the debugging symbols from the executable</para></listitem>
-    <listitem><para>use 'gdb src/bluefish' to run bluefish in the debugger, do not run gdb bluefish or gdb /usr/local/bin/bluefish since these binaries do not have any debugging symbols anymore</para></listitem>
-    <listitem><para>type 'r' to start</para></listitem>
-    <listitem><para>reproduce the crash</para></listitem>
-    <listitem><para>copy &amp; paste the last 50 lines of output to an email</para></listitem>
-    <listitem><para>type 'bt' to get the backstrace info, and copy it also to the mail (if it is over 50 lines, the first lines are the most interesting)</para></listitem>
-    <listitem><para>send the mail to the general address, the mailinglist or a specific developer</para></listitem>
-	</itemizedlist>
-
-
-
-	</sect1>
-	<sect1 id="bluefish-ch-7-sect-2">
 		<title>Indenting and formating style</title>
 		<para>Indenting can be done with the indent utility. Bluefish 
 		uses tabs - not spaces, and I'll explain why. Some programmers
@@ -64,7 +45,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 	comment all public functions like it is done in bf_lib.c and gtk_easy.c (javadoc style, with some small differences), this can be used to create a function reference
 	</para>
 	</sect1>
-	<sect1 id="bluefish-ch-7-sect-3">
+	<sect1 id="bluefish-ch-7-sect-2">
 		<title>naming</title>
 		<para>
 			for non-local functions, the name should prefferably include a prefix that shows 
@@ -88,7 +69,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 		</itemizedlist>
 		
 	</sect1>
-	<sect1 id="bluefish-ch-7-sect-4">
+	<sect1 id="bluefish-ch-7-sect-3">
 		<title>Declaring procedures</title>
 		<para>
 			All local functions should be static! Callback functions (called for events 
@@ -100,7 +81,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 		</para>
 		
 	</sect1>
-	<sect1 id="bluefish-ch-7-sect-5">
+	<sect1 id="bluefish-ch-7-sect-4">
 		<title>header files</title>
 		<para>
 			Only functions that are used from outside the file itself 
@@ -109,19 +90,19 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 			non-static functions in the .c file.
 		</para>
 	</sect1>
-	<sect1 id="bluefish-ch-7-sect-6">
+	<sect1 id="bluefish-ch-7-sect-5">
 		<title>new files</title>
 		<para>
 			about new files
 		</para>
 	</sect1>
-	<sect1 id="bluefish-ch-7-sect-7">
+	<sect1 id="bluefish-ch-7-sect-6">
 		<title>file reference</title>
 		<para>
 			references
 		</para>
 	</sect1>
-	<sect1 id="bluefish-ch-7-sect-8">
+	<sect1 id="bluefish-ch-7-sect-7">
 		<title>patches</title>
 		
 <para>Before starting to code:</para>
@@ -146,43 +127,26 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 		
 
 	</sect1>
-	<sect1 id="bluefish-ch-7-sect-9">
-		<title>cvs</title>
-		<para>
-			what cvs is
-		</para>
-		<sect2 id="bluefish-ch-7-sect-9.1">
-			<title>usage</title>
-			<para>
-				use it
-			</para>
-		</sect2>
-		<sect2 id="bluefish-ch-7-sect-9.2">
-			<title> guidelines</title>
-			<para>
-				what to do
-			</para>
-		</sect2>
-	</sect1>
-	<sect1 id="bluefish-ch-7-sect-10">
+
+	<sect1 id="bluefish-ch-7-sect-8">
 		<title>translations</title>
 		<para>
 			users all over the world will use bluefish
 		</para>
 	</sect1>
-	<sect1 id="bluefish-ch-7-sect-11">
+	<sect1 id="bluefish-ch-7-sect-9">
 		<title>some tips</title>
 		<para>
 			development tipps
 		</para>
 	</sect1>
-	<sect1 id="bluefish-ch-7-sect-12">
+	<sect1 id="bluefish-ch-7-sect-10">
 		<title>making releases</title>
 		<para>
 			what is to do
 		</para>
 	</sect1>
-	<sect1 id="bluefish-ch-7-sect-13">
+	<sect1 id="bluefish-ch-7-sect-11">
 		<title>useful stuff</title>
 		<para>
 			links and so

@@ -17,300 +17,129 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 -->
 <chapter id="bluefish-ch-1">
-  <title>General Information</title>
-<!--<simplesect>    
+  <title>Getting Bluefish</title>
+	<sect1 id="bluefish-ch-1-sect-1">
+		<title>Choosing a Version</title>
 		<para>
-		</para> 
-	</simplesect>
--->
-  <sect1 id="bluefish-ch-1-sect-1">
-    <title>About this Manual</title>
-    <para>
-			Bluefish has a large feature set, allowing the user to customize the
-			editing experience in numerous ways. This manual targets the novice 
-			user, providing a starting point for mastering Bluefish. However, 
-			advanced users will still find this text an excellent reference.
+			Currently, four versions of bluefish are available:
 		</para>
-    <para>
-			Chapters 1-4 are highly recommended for anyone new to Bluefish.
-			They present general information, installation instructions, and an
-			introduction to the main features of Bluefish.
+		<itemizedlist>
+			<listitem>
+				The GTK1-version (v0.7) is deprecated and no longer 
+				updated, but is the choice for those of you still running 
+				GTK1.
+			</listitem>
+			<listitem>
+				The latest GTK2-version (v1.0) is the version of choice for 
+				most users. It's the latest addition to the Bluefish tree, 
+				and is regarded as stable enough for daily use.
+			</listitem>
+			<listitem>
+				The latest development snapshot is always one step further 
+				than the latest stable release. You'll find some new 
+				features, bugs fixes, and a prettier GUI. The catch is that 
+				it may have	unfinished or buggy features. Try this if you 
+				want to see new features, or if there's a bug in the latest 
+				stable release that bothers you.
+			</listitem>
+			<listitem>
+				CVS - the bleeding edge of Bluefish development. You want 
+				this if there's a bug that bothers you, but is unfixed even 
+				in the latest snapshot, if you want to contribute a patch, 
+				or simply want the bleeding edge feature set. The CVS may 
+				be unusable for short periods of time, but will often be 
+				stable enough for daily use.
+			</listitem>
+		</itemizedlist>
+		<para>
+			As commented in <xref linkend="bluefish-ch-1-sect-1.1"/>, the 
+			long time between stable releases make the CVS snapshots and 
+			current CVS an enticing choice.
 		</para>
-    <para>
-			Chapters 5 and 6 contain a nearly complete feature reference, useful
-			for advanced users interested in customizing Bluefish. Some examples
-			of regular expressions used for find and replace are also included 
-			here.
+		<para>
+			If you want the latest and greatest, read 
+			<xref linkend="bluefish-ch-1-sect-3"/> below. If you simply want to 
+			use Bluefish, read <xref linkend="bluefish-ch-1-sect-2"/> for how 
+			to get the latest stable package that fit your system.
 		</para>
-    <para>
-			As a reference to the Bluefish developers, or anyone interested in 
-			contributing code, chapter 7 contains guidelines for the 
-			Bluefish source.
-		</para>
-    <para>
-			The manual targets the <emphasis>end user</emphasis>. Thus, we 
-			have tried to use a simple, well-explained approach for the large 
-			part of the manual. Some typographic conventions are denoted below.
-		</para>
-    <itemizedlist>
-      <listitem>
-				Any urls are denoted like this: 
+
+		<sect2 id="bluefish-ch-1-sect-1.1">
+			<title>How and When Updates are Released</title>
+			<para>
+				Often, a long time may pass between each release. Bluefish 
+				development is not too rapid, due to the small number of 
+				volunteer developers. After all, the developers volunteer their
+				time and effort because they actually want to 
+				<emphasis>use</emphasis> Bluefish :-)
+			</para>
+			<para>
+				Because of the long periods of time between releases, the 
+				current CVS or CVS snapshots may be what you want to use. Bugs 
+				will be fixed and new features introduced. We do try to keep 
+				the CVS version usable at any time (actually, the CVS version 
+				is used by most of the development team on a daily basis).
+			</para>
+		</sect2>
+
+		<sect2 id="bluefish-ch-1-sect-1.2">
+			<title>Operating Systems Supported by Bluefish</title>
+			<para>
+				Bluefish has been reported to work on a number of systems. The 
+				Bluefish team mainly support these platforms:
+			</para>
+			<itemizedlist>
+				<listitem>Mandrake Linux</listitem>
+				<listitem>Red Hat Linux</listitem>
+				<listitem>Fedora Core</listitem>
+				<listitem>Debian Linux</listitem>
+				<listitem>FreeBSD</listitem>
+			</itemizedlist>
+			<para>
+				Actually, any GNU/Linux distribution with GTK2 is fine and many 
+				distributions include Bluefish. In fact, Bluefish will likely 
+				work quite well on any POSIX compatible OS where GTK2 is 
+				available. Bluefish has been reported to work on the following:
+			</para>
+			<itemizedlist>
+				<listitem>NetBSD - distributed in pkgsrc</listitem>
+				<listitem>OpenBSD - available through their ports system</listitem>
+				<listitem>SGI IRIX - see 
 					<systemitem class="url">
-						http://bluefish.openoffice.nl
-					</systemitem>
-			</listitem>
-      <listitem>
-				Shortcuts look like this: <accel>Ctrl-S</accel>
-			</listitem>
-      <listitem>
-				Menu options are displayed like this: 
-					<guimenu>
-						File
-					</guimenu> 
-				However, many of Bluefish's menus are quite complex. When 
-				refering to submenus, options are separated by the right 
-				angle-bracket (&gt;), like: 
-					<guimenuitem>
-						File &gt; Open
-					</guimenuitem>
-				.
-			</listitem>
-      <listitem>
-				When refering to user input, like issuing commands to the 
-				command prompt, a monotype font is used:
-				<screen>$ foo -bar | bang -l</screen>
-				Note: Do not write the <literal>$</literal> character - it's 
-				simply identifying	the command prompt. For commands requiring 
-				root access, the prompt is shown as a <literal>#</literal>.
-			</listitem>
-    </itemizedlist>
-  </sect1>
-  <sect1 id="bluefish-ch-1-sect-2">
-    <title>What is Bluefish?</title>
-    <para>
-			Bluefish is a powerful editor for experienced web designers and 
-			programmers based on the GTK2 GUI interface. Bluefish supports many 
-			programming and markup languages, but focuses on editing dynamic and
-			interactive websites.
+						http://freeware.sgi.com/
+					</systemitem></listitem>
+				<listitem>Mac OS X</listitem>
+				<listitem>Sun Solaris</listitem>
+				<listitem>Tru64</listitem>
+				<listitem>AIX</listitem>
+				<listitem>HP-UX</listitem>
+				<listitem>Win32-cygwin - with a few nags.</listitem>
+			</itemizedlist>			
+		</sect2>
+	</sect1>
+	<sect1 id="bluefish-ch-1-sect-2">
+		<title>Latest Stable Version</title>
+		<para>
+			Many Linux distributions ship a version of Bluefish or make it 
+			available through their package systems. For example, Bluefish 
+			is available through the Debian apt-system and FreeBSD's ports.
+			You may check if Bluefish is available through your favorite 
+			software installer.
 		</para>
-    <para>
-			Bluefish is not a WYSIWYG<footnote><para>What You See Is What You 
-			Get</para></footnote> text editor. This is deliberate, allowing the 
-			programmer to stay in full control. To alleviate the editing 
-			process, a large number of features are at your disposal. For 
-			inserting markup and code, there are toolbars, dialogs, and 
-			predefined/user-customized menus. Syntax highlighting, advanced 
-			search/replace functionality, scalability and language function
-			references make Bluefish a powerful tool for development.
+		<para>
+			However, the main source is the Bluefish website, where the 
+			software and a few contributions are available. The download 
+			page is reachable at 
+			<systemitem class="url">
+				http://bluefish.openoffice.nl/download.html
+			</systemitem>.
+			Here, you may download the source code and binary packages for 
+			Debian, Red Hat/Fedora, and Mandrake.
 		</para>
-    <sect2 id="bluefish-ch-1-sect-2.1">
-      <title>History of Bluefish</title>
-      <remark>left for someone else to write ;-) - christian</remark>
-      <remark>also left for someone else to write :o( - scott</remark>
-      <para>
-				Several years have passed since the first Bluefish release. 
-				Since that time, the fish has gained a reputation as an 
-				excellent editor, with qualities like stability, usability and 
-				numerous features. Also, Bluefish is small and needs only GTK2 
-				to function, making it usable even on slow machines.
-			</para>
-    </sect2>
-    <sect2 id="bluefish-ch-1-sect-2.2">
-      <title>Main Features of Bluefish</title>
-      <para>
-				This list will give you an overview of the most important or 
-				outstanding features found in Bluefish.
-			</para>
-      <itemizedlist>
-        <listitem>
-					A What You Write Is What You Get interface
-				</listitem>
-        <listitem>
-					Multiple document interface, will easily open 500+ documents
-					(tested 3500 with documents simultaneously).
-				</listitem>
-        <listitem>
-					Customizable syntax highlighting based on Perl compatible 
-					regular expressions, with subpattern support. Default 
-					patterns are included for
-						<itemizedlist><listitem>C</listitem><listitem>cfml</listitem><listitem>ColdFusion</listitem><listitem>Gettext po</listitem><listitem>HTML</listitem><listitem>Java</listitem><listitem>Pascal</listitem><listitem>Perl</listitem><listitem>PHP</listitem><listitem>Python</listitem><listitem>R</listitem><listitem>XML</listitem></itemizedlist>
-				</listitem>
-        <listitem>
-					Anti-aliased text window
-				</listitem>
-        <listitem>
-					Multiple encodings support, can convert between different 
-					character sets, supports multibyte characters, unicode, UTF8
-					etc.
-				</listitem>
-        <listitem>
-					Nice wizards for startup, tables, frames, and others
-				</listitem>
-        <listitem>
-					Dialogs for many HTML tags, with all their attributes
-				</listitem>
-        <listitem>
-					HTML toolbar and tearable menus
-				</listitem>
-        <listitem>
-					User-customizable toolbar for quick access to often used 
-					functions
-				</listitem>
-        <listitem>
-					Open files based on filename patterns and/or content
-				</listitem>
-        <listitem>
-					Fully featured image insert dialog
-				</listitem>
-        <listitem>
-					Thumbnail creation and automatically linking of the 
-					thumbnail with the original image
-				</listitem>
-        <listitem>
-					Multi thumbnail generation for easy creation of photo albums
-					or screenshot pages
-				</listitem>
-        <listitem>
-					Line numbers along the document
-				</listitem>
-        <listitem>
-					A custom menu, specify your own tags or sets of code, and 
-					define your own dialogs
-				</listitem>
-        <listitem>
-					Custom search and replace pattern support for the Custom 
-					menu
-				</listitem>
-        <listitem>
-					Very powerful search and replace, allowing POSIX and Perl 
-					Compatible regular expressions and sub-pattern replacing
-				</listitem>
-        <listitem>
-					Excellent undo/redo functionality
-				</listitem>
-        <listitem>
-					Configurable recent documents and recent directories 
-					functionality
-				</listitem>
-        <listitem>
-					Translations in 
-						<emphasis>
-							da fr es it hu pl no ru sv
-						</emphasis>
-				</listitem>
-        <listitem>
-					User customizable integration with many programs, 
-					including weblint, tidy, make, javac etc.
-				</listitem>
-        <listitem>
-					XML based function reference. Currently, references are 
-					included for HTML and PHP. A GTK reference is available, and
-					support for Perl and Python will be added. You may also 
-					create your own function reference. The XML format is 
-					described later in the manual.
-				</listitem>
-      </itemizedlist>
-      <para>
-				As Bluefish is a part of a larger desktop enviroment, 
-				we've focused on making the GUI consistent with the Gnome HIG
-					<footnote><para>GNOME Human Interface Guidelines, accessible at
-							<systemitem class="url">
-								http://developer.gnome.org/projects/gup/hig/
-							</systemitem>
-						</para></footnote>
-					. However, we prefer not following it in every detail, as 
-					some parts are intended 
-						<emphasis>
-							for the end user
-						</emphasis>
-					, while Bluefish is 
-						<emphasis>
-							for the programmer
-						</emphasis>.
-			</para>
-      <para>
-				Some features from v0.7 (GTK1) are not yet implemented. The main
-				missing piece is project management, which will be implemented 
-				before v1.0. If you depend on this feature, v0.7 may still be 
-				the version of choice.
-			</para>
-    </sect2>
-    <sect2 id="bluefish-ch-1-sect-2.3">
-      <title>How Stable is Bluefish?</title>
-      <para>
-				Quite stable! The Bluefish developers aim to produce code that 
-				neither crashes nor leaks memory. Of course, that's not always 
-				easy to do. Leaks and crashes are often fixed in CVS as soon as 
-				they're discovered and hunted down. In addition to Bluefish's 
-				large userbase, the developers use Bluefish for their daily 
-				work. So, fixing bugs and preventing crashes is always a major 
-				priority. However, some nags still exist. One example being the 
-				issue of slightly sluggish copy/paste functions.
-			</para>
-      <para>
-				For an updated list of open bugs, please visit the todo-list on 
-				the Bluefish WiKi, at
-					<systemitem class="url">
-						http://bfwiki.tellefsen.net/?pagename=ToDoList
-					</systemitem>.
-			</para>
-      <para>
-				We appreciate any and all contributions! Please tell us if 
-				Bluefish crashes on you :-).
-			</para>
-    </sect2>
-    <sect2 id="bluefish-ch-1-sect-2.4">
-      <title>Contact Us</title>
-      <para>
-				We, the Bluefish development team, welcome all comments, user 
-				requests, constructive	criticisms, and contributions. Are you
-				curious or seeking information regarding Bluefish? Would you 
-				like to contribute by translating Bluefish or its manual? Here 
-				are your options:
-			</para>
-      <itemizedlist>
-        <listitem><systemitem class="url">
-						http://bluefish.openoffice.nl/
-					</systemitem>
-					- The main website where you'll find news, updates and more 
-					information.
-				</listitem>
-        <listitem><systemitem class="url">
-						http://bfwiki.tellefsen.net/
-						</systemitem>
-					- The Bluefish WiKi is the notebook for the developers,
-					containing a lot of information. This includes, but is not 
-					limited to: updated project roadmaps, status of 
-					translations, feature requests, and open bugs.
-				</listitem>
-        <listitem>
-					You can subscribe to the Bluefish mailinglist by sending an 
-					email containing
-						<quote>
-							subscribe bluefish-dev
-						</quote>
-					to 
-						<email>
-							bluefish-dev-request@lists.ems.ru
-						</email>
-					.
-				</listitem>
-        <listitem>
-					Do you want to help translate Bluefish? Please let us know 
-					by dropping an email to Walter Echarri
-						<email>
-							wecharri(at)infovia.com.ar
-						</email>
-					, our friendly translation maintainer.
-				</listitem>
-        <listitem>
-					If you've got a general question, you can also drop an email
-					to
-						<email>
-							bluefish(at)bluefish.openoffice.nl
-						</email>.
-				</listitem>
-      </itemizedlist>
-    </sect2>
-  </sect1>
+	</sect1>
+	<sect1 id="bluefish-ch-1-sect-3">
+		<title>Latest Developmental Version</title>
+		<para>
+			CVS Instructions
+		</para>
+	</sect1>
 </chapter>

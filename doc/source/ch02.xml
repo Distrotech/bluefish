@@ -18,7 +18,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 -->
 <chapter id="bluefish-ch-2">
 
-  <title>Bluefish Installation</title>
+  <title>Installing Bluefish</title>
 	<sect1 id="bluefish-ch-2-sect-1">
 		<title>Requirements</title>
 		<para>
@@ -27,7 +27,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 			to work. Any recent GNU/Linux distribution or other *NIX with GTK2 
 			installed should be sufficient. In addition to the list of 
 			requirements below, you may also want to look at 
-			<xref linkend="bluefish-ch-2-sect-3.5"/>. Note: These requirements 
+			<xref linkend="bluefish-ch-2-sect-3"/>. Note: These requirements 
 			fit the GTK2-version. If you only have GTK1, you want the last 
 			GTK1-version, v0.7.
 		</para>
@@ -125,164 +125,39 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 	</sect1>
 
 	<sect1 id="bluefish-ch-2-sect-3">
-		<title>General Installation Issues</title>
+		<title>System Specific Installation Issues</title>
 		<para>
-			The latest GTK1-version is v0.7, which is no longer updated. Unless 
-			you really want the project management feature or only have GTK1 
-			installed, you should use the latest GTK2-version. A lot of bugs 
-			have been corrected, along with updates and	new features.
+			Different systems have different approaches to solutions and 
+			packaging. You might find the information below interesting.
 		</para>
-		<para>
-			If you want the latest and greatest, read about CVS in <xref linkend="bluefish-ch-2-sect-4"/> below.
-			If you simply want to use Bluefish, get the latest stable package that fit your system.
-		</para>
-
-		<sect2 id="bluefish-ch-2-sect-3.1">
-			<title>How to Get Bluefish</title>
-			<para>
-				Many Linux distributions ship a version of Bluefish or make it 
-				available through their package systems. For example, Bluefish 
-				is available through the Debian apt-system and FreeBSD's ports.
-				You may check if Bluefish is available through your favorite 
-				software installer.
-			</para>
-			<para>
-				However, the main source is the Bluefish website, where the 
-				software and a few contributions are available. The download 
-				page is reachable at 
-				<systemitem class="url">
-					http://bluefish.openoffice.nl/download.html
-				</systemitem>.
-				Here, you may download the source code and binary packages for 
-				Debian, Red Hat/Fedora, and Mandrake.
-			</para>
-		</sect2>
 		
-		<sect2 id="bluefish-ch-2-sect-3.2">
-			<title>Operating Systems Supported by Bluefish</title>
-			<para>
-				Bluefish has been reported to work on a number of systems. The 
-				Bluefish team mainly support these platforms:
-			</para>
-			<itemizedlist>
-				<listitem>Mandrake Linux</listitem>
-				<listitem>Red Hat Linux</listitem>
-				<listitem>Fedora Core</listitem>
-				<listitem>Debian Linux</listitem>
-				<listitem>FreeBSD</listitem>
-			</itemizedlist>
-			<para>
-				Actually, any GNU/Linux distribution with GTK2 is fine and many 
-				distributions include Bluefish. In fact, Bluefish will likely 
-				work quite well on any POSIX compatible OS where GTK2 is 
-				available. Bluefish has been reported to work on the following:
-			</para>
-			<itemizedlist>
-				<listitem>NetBSD - distributed in pkgsrc</listitem>
-				<listitem>OpenBSD - available through their ports system</listitem>
-				<listitem>SGI IRIX - see 
-					<systemitem class="url">
-						http://freeware.sgi.com/
-					</systemitem></listitem>
-				<listitem>Mac OS X</listitem>
-				<listitem>Sun Solaris</listitem>
-				<listitem>Tru64</listitem>
-				<listitem>AIX</listitem>
-				<listitem>HP-UX</listitem>
-				<listitem>Win32-cygwin - with a few nags.</listitem>
-			</itemizedlist>			
-		</sect2>
-		<sect2 id="bluefish-ch-2-sect-3.3">
-			<title>Which Bluefish Version to Use</title>
-			<para>
-				Currently, four versions of bluefish are available:
-			</para>
-			<itemizedlist>
-				<listitem>
-					The GTK1-version (v0.7) is deprecated and no longer 
-					updated, but is the choice for those of you still running 
-					GTK1.
-				</listitem>
-				<listitem>
-					The latest GTK2-version (v1.0) is the version of choice for 
-					most users. It's the latest addition to the Bluefish tree, 
-					and is regarded as stable enough for daily use.
-				</listitem>
-				<listitem>
-					The latest development snapshot is always one step further 
-					than the latest stable release. You'll find some new 
-					features, bugs fixes, and a prettier GUI. The catch is that 
-					it may have	unfinished or buggy features. Try this if you 
-					want to see new features, or if there's a bug in the latest 
-					stable release that bothers you.
-				</listitem>
-				<listitem>
-					CVS - the bleeding edge of Bluefish development. You want 
-					this if there's a bug that bothers you, but is unfixed even 
-					in the latest snapshot, if you want to contribute a patch, 
-					or simply want the bleeding edge feature set. The CVS may 
-					be unusable for short periods of time, but will often be 
-					stable enough for daily use.
-				</listitem>
-			</itemizedlist>
-			<para>
-				As commented in <xref linkend="bluefish-ch-2-sect-3.4"/>, the 
-				long time between stable releases make the CVS snapshots and 
-				current CVS an enticing choice.
-			</para>
-		</sect2>
-		<sect2 id="bluefish-ch-2-sect-3.4">
-			<title>How and When Updates are Released</title>
-			<para>
-				Often, a long time may pass between each release. Bluefish 
-				development is not too rapid, due to the small number of 
-				volunteer developers. After all, the developers volunteer their
-				time and effort because they actually want to 
-				<emphasis>use</emphasis> Bluefish :-)
-			</para>
-			<para>
-				Because of the long periods of time between releases, the 
-				current CVS or CVS snapshots may be what you want to use. Bugs 
-				will be fixed and new features introduced. We do try to keep 
-				the CVS version usable at any time (actually, the CVS version 
-				is used by most of the development team on a daily basis).
-			</para>
-		</sect2>
-		<sect2 id="bluefish-ch-2-sect-3.5">
-			<title>System Specific Notes</title>
-			<para>
-				Different systems have different approaches to solutions and 
-				packaging. You might find the information below interesting.
-			</para>
-			
-			<para>Mandrake:</para>
-			<itemizedlist>
-				<listitem>
-					libpcre: Breaks pcre into 3 different pieces, make sure 
-					pcre-devel is installed if compiling from source. Try this 
-					command: <screen>$ rpm -ql pcre-devel</screen>
-				</listitem>
-				<listitem>
-					<remark>... more nags with Mandrake?
-					</remark>
-				</listitem>
-			</itemizedlist>
+		<para>Mandrake:</para>
+		<itemizedlist>
+			<listitem>
+				libpcre: Breaks pcre into 3 different pieces, make sure 
+				pcre-devel is installed if compiling from source. Try this 
+				command: <screen>$ rpm -ql pcre-devel</screen>
+			</listitem>
+			<listitem>
+				<remark>... more nags with Mandrake?
+				</remark>
+			</listitem>
+		</itemizedlist>
 
-			<para>Debian:</para>
-			<itemizedlist>
-				<listitem>
-					If you are running <emphasis>unstable</emphasis>, you may 
-					experience instability (ha ha) with Bluefish. Make sure 
-					it's not just caused by a buggy version of GTK2. If the bug 
-					is very obscure and strange, GTK may be the villain.
-				</listitem>
-				<listitem>
-					<remark>
-						... more nags with Debian? Of course not...? -- Christian
-					</remark>
-				</listitem>
-			</itemizedlist>
-		</sect2>
+		<para>Debian:</para>
+		<itemizedlist>
+			<listitem>
+				If you are running <emphasis>unstable</emphasis>, you may 
+				experience instability (ha ha) with Bluefish. Make sure 
+				it's not just caused by a buggy version of GTK2. If the bug 
+				is very obscure and strange, GTK may be the villain.
+			</listitem>
+			<listitem>
+				<remark>
+					... more nags with Debian? Of course not...? -- Christian
+				</remark>
+			</listitem>
+		</itemizedlist>
 	</sect1>
 
 	<sect1 id="bluefish-ch-2-sect-4">
@@ -318,9 +193,6 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 					delete the <literal>bluefish-ver</literal> dir.
 				</listitem>
 			</orderedlist>
-		</sect2>
-		<sect2 id="bluefish-ch-2-sect-4.2">
-			<title>Typical <literal>Configure</literal> Options</title>
 			<para>
 				The <literal>configure</literal> script is used to 
 				automatically find the appropriate settings for your system. 
@@ -330,43 +202,13 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 				have everything you need to compile.
 			</para>
 			<para>
-				The configure-script can be configured, specifying locations of 
-				shared libraries or similar. This is something you most likely 
-				won't need to do, but it's easy to do if neccessary. For a 
-				complete list of configure options, type 
-				<screen>$ ./configure --help</screen>
+				The configure-script can be, um, configured. This is something 
+				you most likely won't need to do, but it's easy to do if 
+				neccessary. For a complete list of configure options, see 
+				<xref linkend="bluefish-ch-2-sect-5" />
 			</para>
-			<para>
-				The Bluefish-specific configure options are
-			</para>
-			<itemizedlist>
-				<listitem>
-					<literal>--disable-splash-screen</literal>
-					 - simply disables the splash-screen.
-				</listitem>
-				<listitem>
-					...
-				</listitem>
-			</itemizedlist>
-			<para>You might also need these:</para>
-			<itemizedlist>
-				<listitem>
-					<literal>
-						--prefix=/usr
-					</literal>
-					 - If you want to install in 
-					<literal>
-						/usr
-					</literal>
-					. Usually, 
-					<literal>/usr/local</literal> is preferred.
-				</listitem>
-				<listitem>
-					...
-				</listitem>
-			</itemizedlist>			
 		</sect2>
-		<sect2 id="bluefish-ch-2-sect-4.3">
+		<sect2 id="bluefish-ch-2-sect-4.2">
 			<title>Installing from Development Source Tree</title>
 			<para>
 				So, you want the bleeding edge? This guide will help you 
@@ -459,19 +301,19 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 				from within the <literal>bluefish-gtk2</literal> directory.
 			</para>
 		</sect2>
-		<sect2 id="bluefish-ch-2-sect-4.4">
+		<sect2 id="bluefish-ch-2-sect-4.3">
 			<title>Problems Compiling?</title>
 			<para>
 				Can't compile? Well, your first step is to make sure you have 
 				the neccessary utilities and libraries. See 
 				<xref linkend="bluefish-ch-2-sect-1"/>. Next, see if your
 				system is mentioned in 
-				<xref linkend="bluefish-ch-2-sect-3.5"/>. Below is list of well 
+				<xref linkend="bluefish-ch-2-sect-3"/>. Below is list of well 
 				known problems that's been mentioned on the bluefish-dev list. 
 				If you're unable to find a solution (or if you think you have a 
 				solution others might want), feel free to contact us on the 
 				<emphasis>bluefish-dev</emphasis> list
-				(See <xref linkend="bluefish-ch-1-sect-2.4"/>).
+				(See <xref linkend="bluefish-pre-1-sect-2.4"/>).
 			</para>
 			<itemizedlist>
 				<listitem>
@@ -489,6 +331,13 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 	</sect1>
 
 	<sect1 id="bluefish-ch-2-sect-5">
+		<title>Configure Options</title>
+		<para>
+			Michèle's list will go here, that is the next priority!
+		</para>
+	</sect1>
+
+	<sect1 id="bluefish-ch-2-sect-6">
 		<title>Installing a Binary Distribution</title>
 		<para>
 			Different packages -- different installation. We'll cover only a 

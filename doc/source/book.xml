@@ -19,12 +19,17 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 -->
 <!DOCTYPE book SYSTEM "../../../bluefish-doctools/tools/dtd/dblite.dtd"
 [
+<!ENTITY pre1     SYSTEM "pre1.xml">
+<!ENTITY part1    SYSTEM "part1.xml">
+<!ENTITY part2    SYSTEM "part2.xml">
+<!ENTITY part3    SYSTEM "part3.xml">
 <!ENTITY ch01     SYSTEM "ch01.xml">
 <!ENTITY ch02     SYSTEM "ch02.xml">
 <!ENTITY ch03     SYSTEM "ch03.xml">
 <!ENTITY ch04     SYSTEM "ch04.xml">
 <!ENTITY ch05     SYSTEM "ch05.xml">
 <!ENTITY ch06     SYSTEM "ch06.xml">
+<!ENTITY ch07     SYSTEM "ch07.xml">
 <!ENTITY appa     SYSTEM "appa.xml">
 <!ENTITY appb     SYSTEM "appb.xml">
 <!ENTITY appc     SYSTEM "appc.xml">
@@ -48,7 +53,10 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
         <firstname>Alastair</firstname>
         <surname>Porter</surname>
       </author>
-
+      <author>
+        <firstname>Scott</firstname>
+        <surname>White</surname>
+      </author>
     </authorgroup>
 
     <editor>
@@ -63,12 +71,10 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
   <!-- External entity refs -->
 
-  &ch01;
-  &ch02;
-  &ch03;
-  &ch04;
-  &ch05;
-  &ch06;
+  &pre1;
+  &part1;
+  &part2;
+  &part3;
   &appa;
   &appb;
   &appc;
