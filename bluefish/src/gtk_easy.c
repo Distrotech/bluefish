@@ -1323,7 +1323,7 @@ static void fs_ok_clicked_lcb(GtkWidget * widget, Tfileselect *fileselect)
 		orig = filenames = gtk_file_selection_get_selections(GTK_FILE_SELECTION(fileselect->fs));
 		if (filenames) {
 			while (*filenames) {
-				fileselect->filenames_to_return = g_list_append(fileselect->filenames_to_return, g_strdup(*filenames));
+				fileselect->filenames_to_return = g_list_append(fileselect->filenames_to_return, get_utf8filename_from_on_disk_encoding(*filenames));
 				filenames++;
 			}
 			g_strfreev(orig);
