@@ -663,6 +663,8 @@ static void bmark_get_iter_at_tree_position(Tbfwin * bfwin, Tbmark * m) {
 	} else
 		parent = (GtkTreeIter *) ptr;
 
+	/* I have the feeling that there is a smarter way to do this sorting loop, we have to 
+	look at that, because when adding bookmarks from a search this function takes a lot of time! */
 	DEBUG_MSG("bmark_get_iter_at_tree_position, sorting=%d\n", main_v->props.bookmarks_sort);
 	if (main_v->props.bookmarks_sort) {
 		GtkTreeIter tmpiter;
@@ -1034,6 +1036,10 @@ static void bmark_add_current_doc_backend(Tbfwin *bfwin, const gchar *name, gint
 	}
 }
 
+/* 
+can we make this function faster? when adding bookmarks from a search this function uses
+a lot of time, perhaps that can be improved
+*/
 static Tbmark *bmark_get_bmark_at_line(Tdocument *doc, gint offset) {
 	GtkTextIter sit, eit;
 	GtkTreeIter tmpiter;
@@ -1077,6 +1083,7 @@ static Tbmark *bmark_get_bmark_at_line(Tdocument *doc, gint offset) {
  * this function.
  */
 void bmark_add_extern(Tdocument *doc, gint offset, const gchar *name, const gchar *text, gboolean is_temp) {
+	DEBUG_MSG("adding bookmark at offset %d with name %s\n",offset,name); /* dummy */
 	if (!bmark_get_bmark_at_line(doc, offset)) {
 		if (text) {
 			bmark_add_backend(doc, NULL, offset, (name) ? name : "", text, is_temp);

@@ -62,18 +62,6 @@
 #include "highlight.h" /* doc_highlight_full() */
 #include "stringlist.h" /* add_to_history_stringlist */
 
-/* Note:
-    With multibyte text support a byte-offset
-    of a string can not be used as a character-offset of GtkText.
-    The member "start" and "end" are character-offset.
-    The member "bstart" and "bend" are byte-offset in the source
-    buffer.
-    These values are set in search_backend().
-    In single-byte text mode,
-        start == bstart, end == bend .
-
-    Iwasa, updated 2002 by Olivier
-*/
 /* Updates, May 2003, by Ruben Dorta */
 
 typedef enum { string, uppercase, lowercase } Treplace_types;
@@ -425,6 +413,9 @@ Tsearch_all_result search_all(Tbfwin *bfwin,gchar *search_pattern, Tmatch_types 
 		tmplist = g_list_first(bfwin->documentlist);
 	}
 	while (tmplist) {
+		/* this is NOT EFFICIENT because search_doc will allocate memory, and copy the GtkTextBuffer
+		contents into a new buffer for every time this function is called, we should use the
+		search_backend function !!!! */
 		result = search_doc(bfwin,(Tdocument *)tmplist->data, search_pattern, matchtype, is_case_sens, LASTSNR2(bfwin->snr2)->result.end, unescape);
 		if (result.end > 0) {
 			result_all.start = result.start;

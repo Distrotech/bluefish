@@ -615,6 +615,8 @@ size 4: 14.29      0.31     0.05   120356     0.00     0.00  utf8_byteoffset_to_
 
 typedef struct {
 	gchar *last_buf;
+	/* the two arrays must be grouped and in this order, because they are moved back 
+	one position in ONE memmove() call */
 	guint  last_byteoffset[UTF8_OFFSET_CACHE_SIZE];
 	guint  last_charoffset[UTF8_OFFSET_CACHE_SIZE];
 #ifdef UTF8_BYTECHARDEBUG
