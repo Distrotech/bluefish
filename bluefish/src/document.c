@@ -3190,15 +3190,17 @@ static void new_floatingview(Tdocument *doc) {
 	DEBUG_MSG("new_floatingview for doc=%p is at %p\n",doc,doc->floatingview);
 	title = (doc->filename) ? doc->filename : "Untitled";
 	fv->window = window_full2(title, GTK_WIN_POS_NONE, 5, G_CALLBACK(floatingview_destroy_lcb), doc, TRUE, NULL);
-
+	gtk_window_set_role(GTK_WINDOW(fv->window), "floatingview");
 	fv->textview = gtk_text_view_new_with_buffer(doc->buffer);
+	gtk_text_view_set_editable(GTK_TEXT_VIEW(fv->textview),FALSE);
+	gtk_text_view_set_cursor_visible(GTK_TEXT_VIEW(fv->textview),FALSE);
 	apply_font_style(fv->textview, main_v->props.editor_font_string);
 	gtk_text_view_set_wrap_mode(GTK_TEXT_VIEW(fv->textview), GTK_WRAP_WORD);
 	scrolwin = gtk_scrolled_window_new(NULL, NULL);
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolwin), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
 	gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(scrolwin), fv->textview);
 	gtk_container_add(GTK_CONTAINER(fv->window),scrolwin);
-	gtk_widget_set_size_request(scrolwin, 800, 600);
+	gtk_window_set_default_size(GTK_WINDOW(fv->window),600,600);
 	gtk_widget_show_all(fv->window);
 }
 
