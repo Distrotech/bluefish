@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: bluefish gtk2-port\n"
-"POT-Creation-Date: 2003-05-14 10:54+0200\n"
+"POT-Creation-Date: 2003-05-13 00:53-0300\n"
 "PO-Revision-Date: 2003-01-12 14:30+0100\n"
 "Last-Translator: David Smeringe <david.smeringe@telia.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
@@ -34,7 +34,7 @@ msgstr "Ersättning"
 msgid "Ignore"
 msgstr "Ignorera"
 
-#: ../src/bfspell.c:357 ../src/menu.c:1897 ../src/snr2.c:1096
+#: ../src/bfspell.c:357 ../src/menu.c:1897 ../src/snr2.c:1086
 msgid "Replace"
 msgstr "Ersätt"
 
@@ -157,7 +157,7 @@ msgid "Cannot display file, unknown characters found."
 msgstr "Kan inte visa filen på grund av okända tecken."
 
 #: ../src/document.c:872
-#, c-format, ycp-format
+#, c-format
 msgid " line %4d "
 msgstr " rad %4d "
 
@@ -441,7 +441,7 @@ msgstr "Alla filer"
 
 #: ../src/fref.c:661
 msgid "Show info window"
-msgstr ""
+msgstr "Visa infofönster"
 
 #: ../src/fref.c:667 ../src/fref.c:914 ../src/fref.c:1453 ../src/fref.c:1484
 msgid "Dialog"
@@ -473,23 +473,20 @@ msgid "Left doubleclick action"
 msgstr "Vänster dubbelklickshändelse"
 
 #: ../src/fref.c:1489
-#, fuzzy
 msgid "Info type"
-msgstr "Info"
+msgstr "Infotyp"
 
 #: ../src/fref.c:1493
-#, fuzzy
 msgid "Description"
-msgstr "Definition"
+msgstr "Beskrivning"
 
 #: ../src/fref.c:1496
 msgid "Attributes/Parameters"
-msgstr ""
+msgstr "Attribut/Parametrar"
 
 #: ../src/fref.c:1498
-#, fuzzy
 msgid "Notes"
-msgstr "Inga ramar"
+msgstr "Anteckningar"
 
 #: ../src/gtk_easy.c:961 ../src/menu.c:1314 ../src/menu.c:1660
 #: ../src/menu.c:1662 ../src/menu.c:1667
@@ -981,9 +978,8 @@ msgid "Goto line"
 msgstr "Gå till rad"
 
 #: ../src/gui.c:932
-#, fuzzy
 msgid "_Line number:"
-msgstr "_Radnummer: "
+msgstr "_Radnummer:"
 
 #: ../src/gui.c:938
 msgid "From _selection"
@@ -996,6 +992,60 @@ msgstr "Behåll _dialogrutan"
 #: ../src/gui.c:1010
 msgid "starting bluefish"
 msgstr "startar bluefish"
+
+#: ../src/html2.c:586
+msgid "Cascading StyleSheet dialog"
+msgstr "Stilmallsdialog"
+
+#: ../src/html2.c:606
+msgid "_Selector:"
+msgstr "V_äljare:"
+
+#: ../src/html2.c:625
+msgid "_Property:"
+msgstr "Egenskaper:"
+
+#: ../src/html2.c:627 ../src/html_form.c:286 ../src/html_form.c:353
+#: ../src/html_form.c:415 ../src/html_form.c:471 ../src/html_form.c:534
+#: ../src/html_form.c:644
+msgid "_Value:"
+msgstr "_Värde:"
+
+#: ../src/html2.c:645
+msgid "Selector"
+msgstr "Välj"
+
+#: ../src/html2.c:645 ../src/html2.c:648
+msgid "Property"
+msgstr "Egenskaper"
+
+#: ../src/html2.c:645 ../src/html2.c:648
+msgid "Value"
+msgstr "Värde"
+
+#: ../src/html2.c:663
+msgid " _Add "
+msgstr " L_ägg till "
+
+#: ../src/html2.c:666
+msgid " _Update "
+msgstr " _Uppdatera "
+
+#: ../src/html2.c:669
+msgid " _Delete "
+msgstr " _Ta bort "
+
+#: ../src/html2.c:925 ../src/html2.c:962
+msgid "_Style..."
+msgstr "_Stil..."
+
+#: ../src/html2.c:1145
+msgid "Bluefish: Select color"
+msgstr "Bluefish: Välj färg"
+
+#: ../src/html2.c:1165
+msgid "_websafe"
+msgstr "_webbsäker"
 
 #: ../src/html.c:353
 msgid "Insert Time"
@@ -1368,60 +1418,6 @@ msgstr "_Rel:"
 #: ../src/html.c:1982 ../src/html_form.c:361
 msgid "_Type:"
 msgstr "_Typ:"
-
-#: ../src/html2.c:586
-msgid "Cascading StyleSheet dialog"
-msgstr "Stilmallsdialog"
-
-#: ../src/html2.c:606
-msgid "_Selector:"
-msgstr "V_äljare:"
-
-#: ../src/html2.c:625
-msgid "_Property:"
-msgstr "Egenskaper:"
-
-#: ../src/html2.c:627 ../src/html_form.c:286 ../src/html_form.c:353
-#: ../src/html_form.c:415 ../src/html_form.c:471 ../src/html_form.c:534
-#: ../src/html_form.c:644
-msgid "_Value:"
-msgstr "_Värde:"
-
-#: ../src/html2.c:645
-msgid "Selector"
-msgstr "Välj"
-
-#: ../src/html2.c:645 ../src/html2.c:648
-msgid "Property"
-msgstr "Egenskaper"
-
-#: ../src/html2.c:645 ../src/html2.c:648
-msgid "Value"
-msgstr "Värde"
-
-#: ../src/html2.c:663
-msgid " _Add "
-msgstr " L_ägg till "
-
-#: ../src/html2.c:666
-msgid " _Update "
-msgstr " _Uppdatera "
-
-#: ../src/html2.c:669
-msgid " _Delete "
-msgstr " _Ta bort "
-
-#: ../src/html2.c:925 ../src/html2.c:962
-msgid "_Style..."
-msgstr "_Stil..."
-
-#: ../src/html2.c:1145
-msgid "Bluefish: Select color"
-msgstr "Bluefish: Välj färg"
-
-#: ../src/html2.c:1165
-msgid "_websafe"
-msgstr "_webbsäker"
 
 #: ../src/html_form.c:129
 msgid "Form"
@@ -3603,142 +3599,121 @@ msgstr "Bluefish-varning: fel i reguljärt uttryck"
 msgid "Regular expression error: %s at offset %d"
 msgstr "Fel i reguljärt uttryck: %s vid avstånd %d"
 
-#: ../src/snr2.c:684
+#: ../src/snr2.c:676
 msgid "Confirm replace"
 msgstr "Bekräfta ersättning"
 
-#: ../src/snr2.c:696
+#: ../src/snr2.c:688
 msgid "This text selection will be replaced. Do you want to replace it?"
-msgstr ""
+msgstr "Den här textmarkeringen kommer att ersättas. Vill du ersätta den?"
 
-#: ../src/snr2.c:710
-msgid "_Skip"
-msgstr ""
-
-#: ../src/snr2.c:711
-#, fuzzy
-msgid "Replace _this"
-msgstr "Ersätt _text"
-
-#: ../src/snr2.c:712
-#, fuzzy
+#: ../src/snr2.c:702
 msgid "Replace _all"
-msgstr "Ersätt"
+msgstr "Ersätt alla"
 
-#: ../src/snr2.c:853 ../src/snr2.c:860
+#: ../src/snr2.c:703
+msgid "Replace _this"
+msgstr "Ersätt _detta"
+
+#: ../src/snr2.c:843 ../src/snr2.c:850
 msgid "Bluefish message"
 msgstr "Bluefish-meddelande"
 
-#: ../src/snr2.c:853 ../src/snr2.c:860
+#: ../src/snr2.c:843 ../src/snr2.c:850
 msgid "Search: no match found"
 msgstr "Sökning: hittade inget"
 
-#: ../src/snr2.c:1028
+#: ../src/snr2.c:1018
 msgid "Hide _advanced <<"
 msgstr "Dölj _avancerat <<"
 
-#: ../src/snr2.c:1049 ../src/snr2.c:1218
+#: ../src/snr2.c:1039 ../src/snr2.c:1208
 msgid "Show _advanced >>"
 msgstr "Visa _avancerat >>"
 
-#: ../src/snr2.c:1099
+#: ../src/snr2.c:1089
 msgid "Search"
 msgstr "Sök"
 
-#: ../src/snr2.c:1125
-#, fuzzy
+#: ../src/snr2.c:1115
 msgid "Search _for: "
-msgstr "Sök"
+msgstr "Sök _efter: "
 
-#: ../src/snr2.c:1144
+#: ../src/snr2.c:1134
 msgid "Replace wit_h: "
 msgstr "Ersätt me_d: "
 
-#: ../src/snr2.c:1160
+#: ../src/snr2.c:1150
 msgid "\\0 refers to the first subpattern, \\1 to the second etc."
 msgstr "\\0 refererar till det första undermönstret, \\1 till det andra osv."
 
-#: ../src/snr2.c:1164
+#: ../src/snr2.c:1154
 msgid "Match ca_se"
-msgstr ""
+msgstr "Matcha versaler/gemener"
 
-#: ../src/snr2.c:1165
-#, fuzzy
+#: ../src/snr2.c:1155
 msgid "O_verlap matches"
-msgstr "Ö_verlappande sökningar"
+msgstr "Ö_verlappande matchningar"
 
-#: ../src/snr2.c:1167
-#, fuzzy
+#: ../src/snr2.c:1157
 msgid "Prompt _before replace"
 msgstr "Fråga _före ersättning"
 
-#: ../src/snr2.c:1168
+#: ../src/snr2.c:1158
 msgid "Rep_lace once"
 msgstr "Ers_ätt en gång"
 
-#: ../src/snr2.c:1171
-#, fuzzy
+#: ../src/snr2.c:1161
 msgid "Starts at"
-msgstr "Startmönster"
+msgstr "Börjar vid"
+
+#: ../src/snr2.c:1165
+msgid "Beginning of _document"
+msgstr "Början av _dokumentet"
+
+#: ../src/snr2.c:1166
+msgid "Current pos_ition"
+msgstr "Nuvarande position"
+
+#: ../src/snr2.c:1167
+msgid "Beginning of s_election"
+msgstr "Början av u_rvalet"
+
+#: ../src/snr2.c:1168
+msgid "Beginning of all o_pened files"
+msgstr "I början av alla ö_ppna filer"
+
+#: ../src/snr2.c:1170
+msgid "Regular expression"
+msgstr "Reguljärt uttryck"
 
 #: ../src/snr2.c:1175
-#, fuzzy
-msgid "Beginning of _document"
-msgstr "Börja från början av _dokumentet"
+msgid "_None"
+msgstr "_Ingen"
 
 #: ../src/snr2.c:1176
-#, fuzzy
-msgid "Current pos_ition"
-msgstr "Börja vid markörens pos_ition"
+msgid "POSIX _regular expression type "
+msgstr "POSIX _reguljärt uttryckstyp"
 
 #: ../src/snr2.c:1177
-#, fuzzy
-msgid "Beginning of s_election"
-msgstr "i urval"
-
-#: ../src/snr2.c:1178
-#, fuzzy
-msgid "Beginning of all o_pened files"
-msgstr "I alla ö_ppna filer"
-
-#: ../src/snr2.c:1180
-#, fuzzy
-msgid "Regular expression"
-msgstr "Fel i regjulärt uttryck: "
-
-#: ../src/snr2.c:1185
-msgid "_None"
-msgstr ""
-
-#: ../src/snr2.c:1186
-#, fuzzy
-msgid "POSIX _regular expression type "
-msgstr "Fel i regjulärt uttryck: "
-
-#: ../src/snr2.c:1187
-#, fuzzy
 msgid "PERL compatible regular e_xpression type"
-msgstr "Använd perlkompatibelt re_guljärt uttryck för matchning"
+msgstr "PERL-kompatibelt re_guljärt uttryckstyp"
+
+#: ../src/snr2.c:1183
+msgid "Replace type"
+msgstr "Ersättningstyp"
+
+#: ../src/snr2.c:1192
+msgid "_Text"
+msgstr "_Text"
 
 #: ../src/snr2.c:1193
-#, fuzzy
-msgid "Replace type"
-msgstr "Ersätt _text"
-
-#: ../src/snr2.c:1202
-#, fuzzy
-msgid "_Text"
-msgstr "Textfält"
-
-#: ../src/snr2.c:1203
-#, fuzzy
 msgid "_Uppercase"
-msgstr "Omvandla _versaler"
+msgstr "_Versaler"
 
-#: ../src/snr2.c:1204
-#, fuzzy
+#: ../src/snr2.c:1194
 msgid "Lo_wercase"
-msgstr "Omvandla ge_mener"
+msgstr "Ge_mener"
 
 #: ../src/stringlist.c:365
 msgid " Add "
