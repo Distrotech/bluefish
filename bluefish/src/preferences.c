@@ -250,21 +250,22 @@ static void add_new_filetype_lcb(GtkWidget *wid, Tprefdialog *pd) {
 	g_list_free(poplist);
 }
 
-static void filetype_combo_activate(GtkEntry *entry,Tprefdialog *pd) {
-	const gchar *entrytext = gtk_entry_get_text(GTK_ENTRY(GTK_COMBO(pd->ftd.combo)->entry));
-	GList *tmplist = g_list_first(pd->lists[filetypes]);
-
-	if (pd->ftd.curstrarr) {
-		DEBUG_MSG("filetype_combo_activate, previous was %s, new is %s\n", pd->ftd.curstrarr[0], entrytext);
+static void filetype_apply_changes(Tprefdialog *pd) {
+if (pd->ftd.curstrarr) {
 		g_free(pd->ftd.curstrarr[1]);
 		pd->ftd.curstrarr[1] = gtk_editable_get_chars(GTK_EDITABLE(pd->ftd.entry[1]),0,-1);
 		g_free(pd->ftd.curstrarr[2]);
 		pd->ftd.curstrarr[2] = gtk_editable_get_chars(GTK_EDITABLE(pd->ftd.entry[2]),0,-1);
 		g_free(pd->ftd.curstrarr[3]);
 		pd->ftd.curstrarr[3] = gtk_editable_get_chars(GTK_EDITABLE(pd->ftd.entry[3]),0,-1);
-	} else {
-		DEBUG_MSG("filetype_combo_activate, no previous, new is %s\n", entrytext);
 	}
+}
+
+static void filetype_combo_activate(GtkEntry *entry,Tprefdialog *pd) {
+	const gchar *entrytext = gtk_entry_get_text(GTK_ENTRY(GTK_COMBO(pd->ftd.combo)->entry));
+	GList *tmplist = g_list_first(pd->lists[filetypes]);
+
+	filetype_apply_changes(pd);
 
 	while (tmplist) {
 		gchar **strarr =(gchar **)tmplist->data;
@@ -333,12 +334,8 @@ static void add_new_filefilter_lcb(GtkWidget *wid, Tprefdialog *pd) {
 	g_list_free(poplist);
 }
 
-static void filefilter_combo_activate(GtkEntry *entry,Tprefdialog *pd) {
-	const gchar *entrytext = gtk_entry_get_text(GTK_ENTRY(GTK_COMBO(pd->ffd.combo)->entry));
-	GList *tmplist = g_list_first(pd->lists[filefilters]);
-
+static void filefilter_apply_changes(Tprefdialog *pd) {
 	if (pd->ffd.curstrarr) {
-		DEBUG_MSG("filefilter_combo_activate, previous was %s, new is %s\n", pd->ffd.curstrarr[0], entrytext);
 		g_free(pd->ffd.curstrarr[1]);
 		if (GTK_TOGGLE_BUTTON(pd->ffd.check)->active){
 			pd->ffd.curstrarr[1] = g_strdup("0");
@@ -347,10 +344,14 @@ static void filefilter_combo_activate(GtkEntry *entry,Tprefdialog *pd) {
 		}
 		g_free(pd->ffd.curstrarr[2]);
 		pd->ffd.curstrarr[2] = gtk_editable_get_chars(GTK_EDITABLE(pd->ffd.entry[1]),0,-1);
-		
-	} else {
-		DEBUG_MSG("filefilter_combo_activate, no previous, new is %s\n", entrytext);
 	}
+}
+
+static void filefilter_combo_activate(GtkEntry *entry,Tprefdialog *pd) {
+	const gchar *entrytext = gtk_entry_get_text(GTK_ENTRY(GTK_COMBO(pd->ffd.combo)->entry));
+	GList *tmplist = g_list_first(pd->lists[filefilters]);
+
+	filefilter_apply_changes(pd);
 
 	while (tmplist) {
 		gchar **strarr =(gchar **)tmplist->data;
@@ -450,11 +451,7 @@ static void highlightpattern_combo0_activate(GtkEntry *entry,Tprefdialog *pd) {
 	const gchar *entrytext = gtk_entry_get_text(GTK_ENTRY(GTK_COMBO(pd->hpd.combo)->entry));
 	GList *tmplist = g_list_first(pd->lists[highlight_patterns]);
 
-	if (pd->hpd.curstrarr) {
-		highlightpattern_apply_changes(pd);
-	} else {
-		DEBUG_MSG("highlightpattern_combo0_activate, no previous, new is %s\n", entrytext);
-	}
+	highlightpattern_apply_changes(pd);
 
 	gtk_list_store_clear(GTK_LIST_STORE(pd->hpd.lstore));
 
@@ -509,13 +506,8 @@ static void highlightpattern_selection_changed_cb(GtkTreeSelection *selection, T
 	if (gtk_tree_selection_get_selected(selection, &model, &iter)) {
 		GList *tmplist = g_list_first(pd->lists[highlight_patterns]);
 		gtk_tree_model_get(model, &iter, 0, &pattern, -1);
-		if (pd->hpd.curstrarr) {
-			DEBUG_MSG("highlightpattern_selection_changed_cb, previous was %s, new is %s\n", pd->hpd.curstrarr[1], pattern);
-			/* apply changes */
-			highlightpattern_apply_changes(pd);
-		} else {
-			DEBUG_MSG("highlightpattern_selection_changed_cb, no previous, new is %s\n", pattern);
-		}
+		highlightpattern_apply_changes(pd);
+
 		while (tmplist) {
 			gchar **strarr =(gchar **)tmplist->data;
 			if (strcmp(strarr[1], pattern)==0) {
@@ -685,8 +677,15 @@ static void preferences_ok_clicked_lcb(GtkWidget *wid, Tprefdialog *pd) {
 	integer_apply(&main_v->props.filebrowser_show_backup_files, pd->prefs[filebrowser_show_backup_files], TRUE);
 	string_apply(&main_v->props.filebrowser_unknown_icon, pd->prefs[filebrowser_unknown_icon]);
 	string_apply(&main_v->props.filebrowser_dir_icon, pd->prefs[filebrowser_dir_icon]);
-	
-
+	filetype_apply_changes(pd);
+	filefilter_apply_changes(pd);
+	highlightpattern_apply_changes(pd);
+	free_arraylist(main_v->props.filetypes);
+	main_v->props.filetypes = pd->lists[filetypes];
+	free_arraylist(main_v->props.filefilters);
+	main_v->props.filetypes = pd->lists[filefilters];
+	free_arraylist(main_v->props.highlight_patterns);
+	main_v->props.filetypes = pd->lists[highlight_patterns];
 	
 	preferences_destroy_lcb(NULL, NULL, pd);
 }
