@@ -875,6 +875,9 @@ void bmark_reload(Tbfwin *bfwin) {
   Tbmark_data *data = BMARKDATA(main_v->bmarkdata);
   bmark_del_all(bfwin, FALSE); 
   bmark_clean_tree(bfwin);
+  /* I (Olivier) don't understand, you use 1 global table where you load the bookmarks into, but every window
+  has separate bookmarks??? how can that work?? I would expect that every window has it's own
+  store for bookmarks...? */
   load_bmarks_from_list(bfwin->session->bmarks,&(data->bmark_table));  
   g_hash_table_foreach(data->bmark_table,restore_proc,bfwin);  
   gtk_tree_view_expand_all(GTK_TREE_VIEW(BMARKGUI(bfwin->bmark)->tree));    
