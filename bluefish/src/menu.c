@@ -134,6 +134,11 @@ static void menu_file_operations_cb(Tbfwin *bfwin,guint callback_action, GtkWidg
 	case 24:
 		file_close_all_cb(NULL,bfwin);
 	break;
+#ifdef HAVE_GNOME_VFS
+	case 25:
+		file_open_url_cb(NULL, bfwin);
+	break;
+#endif
 	default:
 		g_print("menu_file_operations_cb, unknown action, abort!\n");
 		exit(123);
@@ -260,8 +265,11 @@ static GtkItemFactoryEntry menu_items[] = {
 #ifdef EXTERNAL_GREP
 #ifdef EXTERNAL_FIND
 	{N_("/File/Open A_dvanced..."), "<shift><control>O", menu_file_operations_cb, 3, NULL},
-#endif
-#endif
+#endif /* EXTERNAL_FIND */
+#endif /* EXTERNAL_GREP */
+#ifdef HAVE_GNOME_VFS
+	{N_("/File/Open URL..."), NULL, menu_file_operations_cb, 25, NULL},
+#endif /* HAVE_GNOME_VFS */
 	{N_("/File/Open r_ecent"), NULL, NULL, 0, "<Branch>"},
 	{N_("/File/Open recent/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
 	{N_("/File/_Revert to Saved"), NULL, menu_file_operations_cb, 4, "<StockItem>", GTK_STOCK_REVERT_TO_SAVED},

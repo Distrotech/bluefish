@@ -2887,6 +2887,56 @@ void file_move_to_cb(GtkWidget * widget, Tbfwin *bfwin) {
 	doc_save(bfwin->current_document, 1, 1);
 }
 
+#ifdef HAVE_GNOME_VFS
+typedef struct {
+	Tbfwin *bfwin;
+	GtkWidget *win;
+	GtkWidget *entry;
+} Tou;
+static void open_url_destroy_lcb(GtkWidget *widget, Tou *ou) {
+	g_free(ou);
+}
+static void open_url_cancel_lcb(GtkWidget *widget, Tou *ou) {
+	gtk_widget_destroy(ou->win);
+}
+static void open_url_ok_lcb(GtkWidget *widget, Tou *ou) {
+	gchar *url = gtk_editable_get_chars(GTK_EDITABLE(ou->entry),0,-1);
+	doc_new_with_file(ou->bfwin,url,FALSE);
+	g_free(url);
+	gtk_widget_destroy(ou->win);
+}
+
+/**
+ * file_open_url_cb:
+ * @widget: #GtkWidget* ignored
+ * @bfwin: #Tbfwin* bfwin pointer
+ *
+ * opens a dialog where you can enter an URL to open of any kind
+ * supported by gnome-vfs
+ *
+ * Return value: void
+ **/
+void file_open_url_cb(GtkWidget * widget, Tbfwin *bfwin) {
+	GtkWidget *vbox, *hbox, *but;
+	Tou *ou;
+	ou = g_new(Tou,1);
+	ou->bfwin = bfwin;
+	ou->win = window_full2(_("Open URL"), GTK_WIN_POS_NONE, 5
+			, G_CALLBACK(open_url_destroy_lcb), ou, TRUE, NULL);
+	vbox = gtk_vbox_new(FALSE,0);
+	gtk_container_add(GTK_CONTAINER(ou->win),vbox);
+	ou->entry = boxed_entry_with_text("", 255, vbox);
+	hbox = gtk_hbutton_box_new();
+	gtk_hbutton_box_set_layout_default(GTK_BUTTONBOX_END);
+	gtk_button_box_set_spacing(GTK_BUTTON_BOX(hbox), 6);
+	gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, TRUE, 0);
+	but = bf_stock_cancel_button(G_CALLBACK(open_url_cancel_lcb), ou);
+	gtk_box_pack_start(GTK_BOX(hbox), but, FALSE, TRUE, 0);
+	but = bf_stock_ok_button(G_CALLBACK(open_url_ok_lcb), ou);
+	gtk_box_pack_start(GTK_BOX(hbox), but, FALSE, TRUE, 0);
+	gtk_widget_show_all(ou->win);
+}
+#endif /* HAVE_GNOME_VFS */
 /**
  * file_open_cb:
  * @widget: unused #GtkWidget
