@@ -2059,7 +2059,7 @@ static void preferences_dialog() {
 	vbox2 = gtk_vbox_new(FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(frame), vbox2);
 	pd->prefs[restore_dimensions] = boxed_checkbut_with_value(_("Restore last used dimensions"), main_v->props.restore_dimensions, vbox2);
-	pd->prefs[left_panel_width] = prefs_integer(_("Initial side panel width"), main_v->props.left_panel_width, vbox2, pd, 1, 4000);
+	pd->prefs[left_panel_width] = prefs_integer(_("Initial sidebar width"), main_v->props.left_panel_width, vbox2, pd, 1, 4000);
 	pd->prefs[main_window_h] = prefs_integer(_("Initial window height"), main_v->globses.main_window_h, vbox2, pd, 1, 4000);
 	pd->prefs[main_window_w] = prefs_integer(_("Initial window width"), main_v->globses.main_window_w, vbox2, pd, 1, 4000);
 	restore_dimensions_toggled_lcb(GTK_TOGGLE_BUTTON(pd->prefs[restore_dimensions]), pd);
@@ -2071,7 +2071,7 @@ static void preferences_dialog() {
 	gtk_container_add(GTK_CONTAINER(frame), vbox2);
 
 	pd->prefs[view_main_toolbar] = boxed_checkbut_with_value(_("Show main toolbar by default"), main_v->props.view_main_toolbar, vbox2);
-	pd->prefs[view_left_panel] = boxed_checkbut_with_value(_("Show left panel by default"), main_v->props.view_left_panel, vbox2);
+	pd->prefs[view_left_panel] = boxed_checkbut_with_value(_("Show sidebar by default"), main_v->props.view_left_panel, vbox2);
 	pd->prefs[view_custom_menu] = boxed_checkbut_with_value(_("Show custom menu by default"), main_v->props.view_custom_menu, vbox2);
 	pd->prefs[view_html_toolbar] = boxed_checkbut_with_value(_("Show HTML toolbar by default"), main_v->props.view_html_toolbar, vbox2);
 	pd->prefs[transient_htdialogs] = boxed_checkbut_with_value(_("Make HTML dialogs transient"), main_v->props.transient_htdialogs, vbox2);
@@ -2083,8 +2083,8 @@ static void preferences_dialog() {
 	pd->prefs[tab_font_string] = prefs_string(_("Notebook tab font (leave empty for gtk default)"), main_v->props.tab_font_string, vbox2, pd, string_font);
 	
 	pd->prefs[document_tabposition] = boxed_optionmenu_with_value(_("Document notebook tab position"), main_v->props.document_tabposition, vbox2, notebooktabpositions);
-	pd->prefs[leftpanel_tabposition] = boxed_optionmenu_with_value(_("Side panel notebook tab position"), main_v->props.leftpanel_tabposition, vbox2, notebooktabpositions);
-	pd->prefs[left_panel_left] = boxed_optionmenu_with_value(_("Side panel location"), main_v->props.left_panel_left, vbox2, panellocations);
+	pd->prefs[leftpanel_tabposition] = boxed_optionmenu_with_value(_("Sidebar notebook tab position"), main_v->props.leftpanel_tabposition, vbox2, notebooktabpositions);
+	pd->prefs[left_panel_left] = boxed_optionmenu_with_value(_("Sidebar location"), main_v->props.left_panel_left, vbox2, panellocations);
 
 	vbox1 = gtk_vbox_new(FALSE, 5);
 	gtk_notebook_append_page(GTK_NOTEBOOK(pd->noteb), vbox1, hbox_with_pix_and_text(_("Images"), 155,TRUE));

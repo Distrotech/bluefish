@@ -249,7 +249,7 @@ void left_panel_rebuild(Tbfwin *bfwin) {
 }
 
 void left_panel_show_hide_toggle(Tbfwin *bfwin,gboolean first_time, gboolean show, gboolean sync_menu) {
-	if (sync_menu) setup_toggle_item(gtk_item_factory_from_widget(bfwin->menubar), _("/View/View Left Panel"), show);
+	if (sync_menu) setup_toggle_item(gtk_item_factory_from_widget(bfwin->menubar), _("/View/View Sidebar"), show);
 	if (!first_time && ((show && bfwin->hpane) || (!show && bfwin->hpane == NULL))) {
 		DEBUG_MSG("left_panel_show_hide_toggle, retrurning!!, show=%d, bfwin->hpane=%p, first_time=%d\n",show,bfwin->hpane,first_time);
 		return;
