@@ -272,7 +272,20 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 	<sect1 id="bluefish-ch-4-sect-3">
 		<title>The Toolbar</title>
 		<para>a little toolbox</para>
+		<sect2 id="bluefish-ch-4-html-toolbar">
+		<title>HTML toolbar</title>
+		<para>describe and screenshot</para>
+		</sect2>
+		
+		<sect2 id="bluefish-ch-4-quickbar">
+		<title>Quickbar</title>
+		<para>The quickbar is a user defined toolbar. All HTML toolbar buttons can
+		be added to the quickbar by simply right-clicking them and selecting
+		"Add to quickbar". If you want to remove items from the Quickbar,
+		right-click them and select "Remove from Quickbar"</para>
+		</sect2>
 	</sect1>
+
 	<sect1 id="bluefish-ch-4-sect-4">
 		<title>The File Editing Area</title>
 		<sect2 id="bluefish-ch-4-sect-4.1">
@@ -319,7 +332,9 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 		</para>
 		</sect2>
 	</sect1>
-	<sect1 id="bluefish-ch-4-sect-5">
+	
+	<sect1 id="bluefish-ch-4-side-panel">
+		<sect2 id="bluefish-ch-4-bookmarks">
 		<title>Bookmarks</title>
 		<para>In Bluefish you can add bookmarks to a line in the text, and you can later use the bookmark to quickly jump to this location. Bookmarks can be temporary or permanent, the default can be configured in the preferences.
 		</para>
@@ -332,13 +347,19 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 		<para>
 		Bookmarks can be found in the side panel, sorted by document and line number. If you right click a bookmark, you get a popup menu with several options. Among the option is edit, which allows you to change a bookmark from temporary to permanent or the other way around, and you can name bookmarks.
 		</para>
-	</sect1>
-	<sect1 id="bluefish-ch-4-sect-6">
-		<title>Quickbar</title>
-		<para>The quickbar is a user defined toolbar. All HTML toolbar buttons can
-		be added to the quickbar by simply right-clicking them and selecting
-		"Add to quickbar". If you want to remove items from the Quickbar,
-		right-click them and select "Remove from Quickbar"</para>
+		</sect2>
+		<sect2 id="bluefish-ch-4-function-reference">
+		<title>Function reference</title>
+		<para>
+		Describe and screenshot
+		</para>
+		</sect2>
+		<sect2 id="bluefish-ch-4-function-reference">
+		<title>File browser</title>
+		<para>
+		Describe and screenshot
+		</para>
+		</sect2>
 	</sect1>
 	<sect1 id="bluefish-ch-4-sect-7">
 		<title>Custom Menu</title>
