@@ -1632,9 +1632,9 @@ static gint doc_check_backup(Tdocument *doc) {
 	gint res = 1;
 
 	if (main_v->props.backup_file && doc->filename && file_exists_and_readable(doc->filename)) {
-		gchar *backupfilename;
+		gchar *backupfilename, *ondiskencoding;
 		backupfilename = g_strconcat(doc->filename, main_v->props.backup_filestring, NULL);
-		gchar *ondiskencoding = get_filename_on_disk_encoding(backupfilename);
+		ondiskencoding = get_filename_on_disk_encoding(backupfilename);
 		res = file_copy(doc->filename, backupfilename);
 #ifdef HAVE_GNOME_VFS
 		if (doc->fileinfo) {
@@ -2326,14 +2326,12 @@ void doc_destroy(Tdocument * doc, gboolean delay_activation) {
  */
 void document_unset_filename(Tdocument *doc) {
 	if (doc->filename) {
-		gint b_written;
-		GError *gerror=NULL;
 		gchar *tmpstr2, *tmpstr3;
 		gchar *tmpstr, *oldfilename = doc->filename;
 		doc->filename = NULL;
 		doc_set_title(doc);
 		tmpstr2 = g_path_get_basename(oldfilename);
-		tmpstr3 = g_filename_to_utf8(tmpstr2,-1,NULL,&b_written,&gerror);
+		tmpstr3 = get_utf8filename_from_on_disk_encoding(tmpstr2);
 		tmpstr = g_strconcat(_("Previously: "), tmpstr3, NULL);
 		g_free(tmpstr2);
 		g_free(tmpstr3);
