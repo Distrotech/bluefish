@@ -33,7 +33,6 @@
 /* the start of the callback functions for the menu, acting on a document */
 /**************************************************************************/
 typedef struct {
-	GtkWidget *win;
 	GtkWidget *basedir;
 	GtkWidget *find_pattern;
 	GtkWidget *recursive;
@@ -42,155 +41,125 @@ typedef struct {
 	Tbfwin *bfwin;
 } Tfiles_advanced;
 
-static void files_advanced_win_destroy(GtkWidget * widget, Tfiles_advanced *tfs) {
-	DEBUG_MSG("files_advanced_win_destroy, started\n");
-	window_destroy(tfs->win);
-	g_free(tfs);
-}
-
-static void files_advanced_win_ok_clicked(GtkWidget * widget, Tfiles_advanced *tfs) {
+static void files_advanced_win_ok_clicked(Tfiles_advanced *tfs) {
 	GnomeVFSURI *baseuri;
 	gchar *basedir, *content_filter, *extension_filter;
-	
-	extension_filter = gtk_editable_get_chars(GTK_EDITABLE(GTK_COMBO(tfs->find_pattern)->entry), 0, -1);
-	basedir = gtk_editable_get_chars(GTK_EDITABLE(tfs->basedir), 0, -1);
-	baseuri = gnome_vfs_uri_new(basedir);
-	content_filter = gtk_editable_get_chars(GTK_EDITABLE(tfs->grep_pattern), 0, -1);
+
+	extension_filter = gtk_editable_get_chars (GTK_EDITABLE (GTK_BIN (tfs->find_pattern)->child), 0, -1);
+	basedir = gtk_editable_get_chars (GTK_EDITABLE (tfs->basedir), 0, -1);
+	baseuri = gnome_vfs_uri_new (basedir);
+	content_filter = gtk_editable_get_chars (GTK_EDITABLE (tfs->grep_pattern), 0, -1);
 
 	open_advanced(tfs->bfwin, baseuri, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(tfs->recursive))
 			, strlen(extension_filter) ==0 ? NULL : extension_filter
 			, strlen(content_filter) ==0 ? NULL : content_filter
 			, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(tfs->is_regex)));
-	g_free(basedir);
-	g_free(content_filter);
-	g_free(extension_filter);
-	gnome_vfs_uri_unref(baseuri);
-	
-	tfs->bfwin->session->adv_open_recursive = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(tfs->recursive));
-	
-	files_advanced_win_destroy(widget, tfs);
-}
 
-static void files_advanced_win_cancel_clicked(GtkWidget * widget, Tfiles_advanced *tfs) {
-	files_advanced_win_destroy(widget, tfs);
+	g_free (basedir);
+	g_free (content_filter);
+	g_free (extension_filter);
+	gnome_vfs_uri_unref (baseuri);
+	
+	tfs->bfwin->session->adv_open_recursive = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(tfs->recursive));
 }
 
 static void files_advanced_win_select_basedir_lcb(GtkWidget * widget, Tfiles_advanced *tfs) {
-	gchar *olddir = gtk_editable_get_chars(GTK_EDITABLE(tfs->basedir),0,-1);
-	/* concat a "/" to the end of the current directory. This fixes a bug where your 
-	   current working directory was being parsed as /directory/file when you opened 
-	   the dialog to browse for a directory
-	*/
-	gchar *tmpdir = g_strconcat(olddir, "/", NULL);
 	gchar *newdir = NULL;
-#ifdef HAVE_ATLEAST_GTK_2_4
-	{
-		GtkWidget *dialog;
-		/*dialog = gtk_file_chooser_dialog_new (_("Select basedir"),NULL,
-				GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER,
-				GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
-				GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT,
-				NULL);
-		gtk_file_chooser_set_local_only(GTK_FILE_CHOOSER(dialog),TRUE);
-		gtk_file_chooser_set_filename(GTK_FILE_CHOOSER(dialog),tmpdir);*/
-		dialog = file_chooser_dialog(tfs->bfwin, _("Select basedir"), GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER, NULL, TRUE, FALSE, NULL);
-		if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_ACCEPT) {
-			newdir = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog));
-		}
-		gtk_widget_destroy(dialog);
+	GtkWidget *dialog;
+
+	dialog = file_chooser_dialog(tfs->bfwin, _("Select basedir"), GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER, NULL, TRUE, FALSE, NULL);
+	if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_ACCEPT) {
+		newdir = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (dialog));
 	}
-#else
-	newdir = return_dir(tmpdir, _("Select basedir"));
-#endif
-	g_free(tmpdir);
+	gtk_widget_destroy (dialog);
+
 	if (newdir) {
-		gtk_entry_set_text(GTK_ENTRY(tfs->basedir),newdir);
-		g_free(newdir);
+		gtk_entry_set_text (GTK_ENTRY (tfs->basedir), newdir);
+		g_free (newdir);
 	}
-	g_free(olddir);
 }
 
 void files_advanced_win(Tbfwin *bfwin, gchar *basedir) {
-	GtkWidget *vbox, *hbox, *but, *table;
-	GList *list;
+	GtkWidget *table, *dialog;
+	GtkListStore *lstore;
+	GtkTreeIter iter;
 	Tfiles_advanced *tfs;
+	unsigned int i = 0;
 	
-	tfs = g_new(Tfiles_advanced,1);
+	const gchar *fileExts[] = {
+		".html",
+		".htm",
+		".php",
+		".php3",
+		".shtml",
+		".pl",
+		".cgi",
+		".xml",
+		".c",
+		".h",
+		".py",
+		".java",
+	};
+	
+	tfs = g_new (Tfiles_advanced, 1);
 	tfs->bfwin = bfwin;
 
-	tfs->win = window_full2(_("Advanced open file selector"), GTK_WIN_POS_MOUSE, 12, G_CALLBACK(files_advanced_win_destroy),tfs, TRUE, tfs->bfwin->main_window);
-	DEBUG_MSG("files_advanced_win, tfs->win=%p\n",tfs->win);
-	vbox = gtk_vbox_new(FALSE, 0);
-	gtk_container_add(GTK_CONTAINER(tfs->win), vbox);
-	
-	table = gtk_table_new(9, 5, FALSE);
-	gtk_table_set_row_spacings(GTK_TABLE(table), 12);
-	gtk_table_set_col_spacings(GTK_TABLE(table), 12);
-	gtk_box_pack_start(GTK_BOX(vbox), table, FALSE, FALSE, 0);
-	
-	/*gtk_table_attach_defaults(GTK_TABLE(table), gtk_label_new(_("grep {contains} `find {basedir} -name '{file type}'`")), 0, 5, 0, 1);*/
-	gtk_table_attach_defaults(GTK_TABLE(table), gtk_hseparator_new(), 0, 5, 1, 2);
+	dialog = gtk_dialog_new_with_buttons (_("Advanced open file selector"),
+														GTK_WINDOW (tfs->bfwin->main_window),
+														GTK_DIALOG_DESTROY_WITH_PARENT,
+														GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+														GTK_STOCK_OK, GTK_RESPONSE_ACCEPT,
+														NULL);	
 
-	bf_label_tad_with_markup(_("<b>General</b>"), 0, 0.5, table, 0, 3, 2, 3);
+	table = gtk_table_new (7, 5, FALSE);
+	gtk_container_set_border_width (GTK_CONTAINER (table), 10);
+	gtk_table_set_row_spacings (GTK_TABLE (table), 12);
+	gtk_table_set_col_spacings (GTK_TABLE (table), 12);
+	gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog)->vbox), table, FALSE, FALSE, 0);
+
+	bf_label_tad_with_markup(_("<b>General</b>"), 0, 0.5, table, 0, 3, 0, 1);
 	if (!basedir) {
 		tfs->basedir = entry_with_text(bfwin->session->opendir, 255);
 	} else {
 		tfs->basedir = entry_with_text(basedir, 255);
 	}
-	bf_mnemonic_label_tad_with_alignment(_("Base_dir:"), tfs->basedir, 0, 0.5, table, 1, 2, 3, 4);
-	gtk_table_attach_defaults(GTK_TABLE(table), tfs->basedir, 2, 4, 3, 4);
-	gtk_table_attach(GTK_TABLE(table), bf_allbuttons_backend(_("_Browse..."), TRUE, 112, G_CALLBACK(files_advanced_win_select_basedir_lcb), tfs), 4, 5, 3, 4, GTK_SHRINK, GTK_SHRINK, 0, 0);
+	bf_mnemonic_label_tad_with_alignment(_("Base_dir:"), tfs->basedir, 0, 0.5, table, 1, 2, 1, 2);
+	gtk_table_attach_defaults(GTK_TABLE(table), tfs->basedir, 2, 4, 1, 2);
+	gtk_table_attach(GTK_TABLE(table), bf_allbuttons_backend(_("_Browse..."), TRUE, 112, G_CALLBACK(files_advanced_win_select_basedir_lcb), tfs), 4, 5, 1, 2, GTK_SHRINK, GTK_SHRINK, 0, 0);
 
-	list = g_list_append(NULL, "");
-	list = g_list_append(list, ".php");
-	list = g_list_append(list, ".php3");
-	list = g_list_append(list, ".html");
-	list = g_list_append(list, ".htm");
-	list = g_list_append(list, ".shtml");
-	list = g_list_append(list, ".pl");
-	list = g_list_append(list, ".cgi");
-	list = g_list_append(list, ".xml");
-	list = g_list_append(list, ".c");
-	list = g_list_append(list, ".h");
-	list = g_list_append(list, ".py");
-	list = g_list_append(list, ".java");
-	tfs->find_pattern = combo_with_popdown("", list, 1);
-	bf_mnemonic_label_tad_with_alignment(_("_File Type:"), tfs->find_pattern, 0, 0.5, table, 1, 2, 4, 5);
-	gtk_table_attach_defaults(GTK_TABLE(table), tfs->find_pattern, 2, 4, 4, 5);
-
-	g_list_free(list);
+	lstore = gtk_list_store_new (1, G_TYPE_STRING);
+	for (i = 0; i < G_N_ELEMENTS (fileExts); i++) {
+		gtk_list_store_append (GTK_LIST_STORE (lstore), &iter);
+		gtk_list_store_set (GTK_LIST_STORE (lstore), &iter, 0, fileExts[i], -1);
+	};
+	tfs->find_pattern = gtk_combo_box_entry_new_with_model (GTK_TREE_MODEL (lstore), 0);
+	g_object_unref (lstore);
+	bf_mnemonic_label_tad_with_alignment(_("_File Type:"), tfs->find_pattern, 0, 0.5, table, 1, 2, 2, 3);
+	gtk_table_attach_defaults(GTK_TABLE(table), tfs->find_pattern, 2, 4, 2, 3);
 
 	tfs->recursive = checkbut_with_value(NULL, tfs->bfwin ? tfs->bfwin->session->adv_open_recursive : TRUE);
-	bf_mnemonic_label_tad_with_alignment(_("_Recursive:"), tfs->recursive, 0, 0.5, table, 1, 2, 5, 6);
-	gtk_table_attach_defaults(GTK_TABLE(table), tfs->recursive, 2, 3, 5, 6);	
+	bf_mnemonic_label_tad_with_alignment(_("_Recursive:"), tfs->recursive, 0, 0.5, table, 1, 2, 3, 4);
+	gtk_table_attach_defaults(GTK_TABLE(table), tfs->recursive, 2, 3, 3, 4);	
 	
-	/* content */
 	gtk_table_set_row_spacing(GTK_TABLE(table), 5, 18);
-	bf_label_tad_with_markup(_("<b>Contains</b>"), 0, 0.5, table, 0, 3, 6, 7);
+	bf_label_tad_with_markup(_("<b>Contains</b>"), 0, 0.5, table, 0, 3, 4, 5);
 
 	tfs->grep_pattern = entry_with_text(NULL, 255);
-	bf_mnemonic_label_tad_with_alignment(_("Pa_ttern:"), tfs->grep_pattern, 0, 0.5, table, 1, 2, 7, 8);
-	gtk_table_attach_defaults(GTK_TABLE(table), tfs->grep_pattern, 2, 4, 7, 8);
+	bf_mnemonic_label_tad_with_alignment(_("Pa_ttern:"), tfs->grep_pattern, 0, 0.5, table, 1, 2, 5, 6);
+	gtk_table_attach_defaults(GTK_TABLE(table), tfs->grep_pattern, 2, 4, 5, 6);
 	
 	tfs->is_regex = checkbut_with_value(NULL, 0);
-	bf_mnemonic_label_tad_with_alignment(_("Is rege_x:"), tfs->is_regex, 0, 0.5, table, 1, 2, 8, 9);
-	gtk_table_attach_defaults(GTK_TABLE(table), tfs->is_regex, 2, 3, 8, 9);
+	bf_mnemonic_label_tad_with_alignment(_("Is rege_x:"), tfs->is_regex, 0, 0.5, table, 1, 2, 6, 7);
+	gtk_table_attach_defaults(GTK_TABLE(table), tfs->is_regex, 2, 3, 6, 7);
+
+	gtk_widget_show_all (GTK_DIALOG (dialog)->vbox);
+		
+	if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_ACCEPT) {
+		files_advanced_win_ok_clicked(tfs);
+	}
 	
-	/* buttons */
-	hbox = gtk_hbox_new(FALSE, 0);
-	gtk_box_pack_start(GTK_BOX(hbox), gtk_hseparator_new(), TRUE, TRUE, 0);
-	gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 12);
-	hbox = gtk_hbutton_box_new();
-	gtk_hbutton_box_set_layout_default(GTK_BUTTONBOX_END);
-	gtk_button_box_set_spacing(GTK_BUTTON_BOX(hbox), 12);
-	but = bf_stock_cancel_button(G_CALLBACK(files_advanced_win_cancel_clicked), tfs);
-	gtk_box_pack_start(GTK_BOX(hbox),but , FALSE, FALSE, 0);
-	but = bf_stock_ok_button(G_CALLBACK(files_advanced_win_ok_clicked), tfs);
-	gtk_box_pack_start(GTK_BOX(hbox),but , FALSE, FALSE, 0);
-	gtk_window_set_default(GTK_WINDOW(tfs->win), but);
-	gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 0);
-	gtk_widget_show_all(GTK_WIDGET(tfs->win));
-/*	gtk_window_set_transient_for(GTK_WINDOW(tfs->win), GTK_WINDOW(tfs->bfwin->main_window));*/
+	g_free (tfs);
+	gtk_widget_destroy (dialog);
 }
 
 void file_open_advanced_cb(GtkWidget * widget, Tbfwin *bfwin) {
