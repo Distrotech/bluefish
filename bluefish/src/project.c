@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * project.c - project functionality
  *
- * Copyright (C) 2003-2004 Olivier Sessink
+ * Copyright (C) 2003-2005 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -259,13 +259,6 @@ void project_open_from_file(Tbfwin *bfwin, gchar *fromfilename) {
 		g_free(prj);
 		return;
 	}
-	if (strlen(prj->basedir)>2) {
-		gchar *tmp;
-		tmp = prj->basedir;
-		prj->basedir = gnome_vfs_make_uri_from_input(tmp);
-		g_free(tmp);
-	}
-	
 	add_to_recent_list(bfwin,fromfilename, FALSE, TRUE);
 	prj->filename = g_strdup(fromfilename);
 	DEBUG_MSG("project_open_from_file, basedir=%s\n",prj->basedir);
