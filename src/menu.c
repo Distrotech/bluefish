@@ -1281,12 +1281,16 @@ static void cust_con_struc_dialog(gchar **array, gint type) {
 		gtk_box_pack_start(GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
 	}
 
-	hbox = gtk_hbox_new(TRUE, 0);
+	gtk_box_pack_start(GTK_BOX(vbox), gtk_hseparator_new(), FALSE, FALSE, 12);
+	hbox = gtk_hbutton_box_new();
+	gtk_hbutton_box_set_layout_default(GTK_BUTTONBOX_END);
+	gtk_button_box_set_spacing(GTK_BUTTON_BOX(hbox), 12);
 	okb = bf_stock_ok_button(G_CALLBACK(cust_con_struc_dialog_ok_lcb), ccs);
 	cancb = bf_stock_cancel_button(G_CALLBACK(cust_con_struc_dialog_cancel_lcb), ccs);
-	gtk_box_pack_start(GTK_BOX(hbox), okb, TRUE, TRUE, 0);
-	gtk_box_pack_start(GTK_BOX(hbox), cancb, TRUE, TRUE, 0);
-	gtk_box_pack_start(GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
+	gtk_box_pack_start(GTK_BOX(hbox),cancb , FALSE, FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(hbox),okb , FALSE, FALSE, 0);
+	gtk_window_set_default(GTK_WINDOW(ccs->dialog), okb);
+	gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 0);
 
 	gtk_widget_grab_focus(ccs->textentry[0]);
 	gtk_widget_show_all(ccs->dialog);
