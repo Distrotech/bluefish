@@ -1305,6 +1305,7 @@ static void filebrowser_rpopup_action_lcb(Tfilebrowser *filebrowser,guint callba
 		gchar *filename = get_selected_filename(filebrowser, FALSE);
 		if (filename) {
 			handle_activate_on_file(filebrowser, filename);
+			g_free(filename);
 		}
 	} break;
 	case 2:
