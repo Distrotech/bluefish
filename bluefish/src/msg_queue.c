@@ -88,8 +88,6 @@ static gboolean msg_queue_check_alive(gboolean wait_first)
 	return FALSE;
 }
 
-
-
 /*  gint msg_queue_open(void)
  *  returns 1 if another process has the queue open already
  *  returns 0 if we opened the queue
