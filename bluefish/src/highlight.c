@@ -476,18 +476,12 @@ void filetype_highlighting_rebuild() {
 		Tfiletype *filetype;
 		strarr = (gchar **) tmplist->data;
 		arrcount = count_array(strarr);
-		if (arrcount == 6) {
+		if (arrcount == 7) {
 			filetype = g_new(Tfiletype, 1);
 			filetype->editable = (strarr[4][0] != '0');
 			filetype->content_regex = g_strdup(strarr[5]);
 			filetype->type = g_strdup(strarr[0]);
-			/* the autoclosingtag is now hardcoded, so no user defined filetype can have autotagclosing by 
-			default, that should chjange some time */
-			if (strcmp(filetype->type, "xml")==0) {
-				filetype->autoclosingtag = 1;
-			} else if (strcmp(filetype->type, "html")==0 || strcmp(filetype->type, "php")==0 || strcmp(filetype->type, "jsp")==0 || strcmp(filetype->type, "cfml")==0) {
-				filetype->autoclosingtag = 2;
-			}
+			filetype->autoclosingtag = atoi(strarr[6]);
 			DEBUG_MSG("extensions for %s loaded from %s\n", strarr[0], strarr[1]);
 			filetype->extensions = g_strsplit(strarr[1], ":", 127);
 			filetype->update_chars = g_strdup(strarr[2]);
