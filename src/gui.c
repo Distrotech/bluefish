@@ -696,12 +696,124 @@ static void html_toolbar_remove_from_quickbar_lcb(GtkMenuItem *menuitem, Ttoolba
 	}
 }
 
+/* return the position in the quickbar GList of a tool bar item */
+gint get_quickbar_item_position(Ttoolbaritem *tbitem) {
+	GList *winlist = g_list_first(main_v->bfwinlist);
+	gint pos = 0;
+	Tquickbaritem *qbi;
+	Tbfwin *bfwin = BFWIN(winlist->data);
+	qbi = g_new(Tquickbaritem,1);	
+	GList *tmplist  = g_list_first(bfwin->toolbar_quickbar_children);
+
+	while (tmplist) {
+		qbi = tmplist->data;
+		if (qbi->tbitem == tbitem) {
+			break;
+		}
+		pos += 1;
+		tmplist = g_list_next(tmplist);
+	}
+	g_list_free(tmplist);
+	DEBUG_MSG("quickbar item is at %d\n", pos);
+	g_list_free(winlist);
+	return pos;
+}
+
+static gboolean html_toolbar_quickbar_item_button_press_lcb(GtkWidget *widget,GdkEventButton *bevent,Ttoolbaritem *tbitem);
+
+static void html_toolbar_quickbar_move_left_lcb(GtkMenuItem *menuitem, Ttoolbaritem *tbitem) {
+	GList *winlist = g_list_first(main_v->bfwinlist); 
+	DEBUG_MSG("moving tbitem %p left on quickbars\n", tbitem);
+	while (winlist) {
+		Tbfwin *bfwin = BFWIN(winlist->data);
+		Tquickbaritem *qbi;
+		qbi = g_new(Tquickbaritem,1);
+		gint pos = get_quickbar_item_position(tbitem);
+		GList *tmplist = g_list_nth(bfwin->toolbar_quickbar_children, pos);
+		qbi = tmplist->data;
+
+		if (qbi) {
+			if (pos) { /* pos > 0 */
+				gtk_widget_hide(qbi->button);
+				gtk_widget_destroy(qbi->button);
+			}
+			g_free(qbi);
+		}
+		
+		if (pos) {
+			qbi = g_new(Tquickbaritem,1);
+			qbi->button = gtk_toolbar_insert_item(GTK_TOOLBAR(bfwin->toolbar_quickbar), NULL, _(tbitem->tooltiptext),
+							"", new_pixmap(tbitem->pixmaptype), G_CALLBACK(tbitem->func), bfwin, pos-1);
+			g_signal_connect(qbi->button, "button-press-event", G_CALLBACK(html_toolbar_quickbar_item_button_press_lcb), tbitem);
+			gtk_widget_show(qbi->button);
+			qbi->tbitem = tbitem;
+			
+			GList *other = g_list_previous(tmplist);
+			list_switch_order(tmplist, other);
+			
+			tmplist = g_list_nth(main_v->globses.quickbar_items, pos);
+			other = g_list_previous(tmplist);
+			list_switch_order(tmplist, other);
+			g_list_free(tmplist);
+			g_list_free(other);
+		}
+		winlist = g_list_next(winlist);
+	}
+	g_list_free(winlist);
+}
+
+static void html_toolbar_quickbar_move_right_lcb(GtkMenuItem *menuitem, Ttoolbaritem *tbitem) {
+	GList *winlist = g_list_first(main_v->bfwinlist); 
+	DEBUG_MSG("moving tbitem %p right on quickbars\n", tbitem);
+	while (winlist) {
+		Tbfwin *bfwin = BFWIN(winlist->data);
+		Tquickbaritem *qbi;
+		qbi = g_new(Tquickbaritem,1);
+		gint pos = get_quickbar_item_position(tbitem);
+		GList *tmplist = g_list_nth(bfwin->toolbar_quickbar_children, pos);
+		qbi = tmplist->data;
+
+		if (qbi) {
+			gtk_widget_hide(qbi->button);
+			gtk_widget_destroy(qbi->button);
+			g_free(qbi);
+		}
+		
+		qbi = g_new(Tquickbaritem,1);
+		qbi->button = gtk_toolbar_insert_item(GTK_TOOLBAR(bfwin->toolbar_quickbar), NULL, _(tbitem->tooltiptext),
+							"", new_pixmap(tbitem->pixmaptype), G_CALLBACK(tbitem->func), bfwin, pos+1);
+		g_signal_connect(qbi->button, "button-press-event", G_CALLBACK(html_toolbar_quickbar_item_button_press_lcb), tbitem);
+		gtk_widget_show(qbi->button);
+		qbi->tbitem = tbitem;
+		
+		GList *other = g_list_next(tmplist);
+		list_switch_order(tmplist, other);
+			
+		tmplist = g_list_nth(main_v->globses.quickbar_items, pos);
+		other = g_list_next(tmplist);
+		list_switch_order(tmplist, other);
+		g_list_free(tmplist);
+		g_list_free(other);
+		
+		winlist = g_list_next(winlist);
+	}
+	g_list_free(winlist);
+}
+
 static gboolean html_toolbar_quickbar_item_button_press_lcb(GtkWidget *widget,GdkEventButton *bevent,Ttoolbaritem *tbitem) {
 	if (bevent->button == 3) {
 		GtkWidget *menu = gtk_menu_new ();
 		GtkWidget *menuitem = gtk_menu_item_new_with_label(_("Remove from quickbar"));
+		GtkWidget *itemleft = gtk_menu_item_new_with_label(_("Move Left"));
+		GtkWidget *itemright = gtk_menu_item_new_with_label(_("Move Right"));
+		GtkWidget *sep = gtk_separator_menu_item_new();
 		DEBUG_MSG("popup for tbitem %p\n", tbitem);
 		g_signal_connect(G_OBJECT(menuitem), "activate", G_CALLBACK(html_toolbar_remove_from_quickbar_lcb), tbitem);
+		g_signal_connect(G_OBJECT(itemleft), "activate", G_CALLBACK(html_toolbar_quickbar_move_left_lcb), tbitem);
+		g_signal_connect(G_OBJECT(itemright), "activate", G_CALLBACK(html_toolbar_quickbar_move_right_lcb), tbitem);
+		gtk_menu_append(GTK_MENU(menu), itemleft);
+		gtk_menu_append(GTK_MENU(menu), itemright);
+		gtk_menu_append(GTK_MENU(menu), sep);
 		gtk_menu_append(GTK_MENU(menu), menuitem);
 		gtk_widget_show_all (menu);
 		gtk_menu_popup (GTK_MENU (menu), NULL, NULL,
@@ -1108,17 +1220,7 @@ gboolean main_window_delete_event_lcb(GtkWidget *widget,GdkEvent *event,Tbfwin *
 	 * type dialogs. */
 	DEBUG_MSG("main_window_delete_event_lcb, started\n");
 	if (bfwin->project) {
-		if (!project_save_and_close(bfwin)) {
-			gint retval;
-			gchar *options[] = {_("Do_n't Save"), _("_Cancel"), NULL};
-			retval = multi_warning_dialog(bfwin->main_window,_("Failed to save the current project"), NULL, 0, 1, options);
-			if (retval == 1) {
-				DEBUG_MSG("main_window_delete_event_lcb, cancel clicked, returning TRUE\n");
-				return TRUE;
-			}
-			DEBUG_MSG("main_window_delete_event_lcb, continue clicked, returning FALSE\n");
-			return FALSE;
-		}
+		return project_save_and_close(bfwin);
 	} else {
 		if (bfwin->documentlist && test_docs_modified(bfwin->documentlist)) {
 			DEBUG_MSG("main_window_delete_event_lcb, we have changed documents!\n");

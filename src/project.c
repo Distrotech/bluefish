@@ -163,6 +163,24 @@ gboolean project_save(Tbfwin *bfwin, gboolean save_as) {
 		if (!filename) {
 			return FALSE;
 		}
+		if (save_as || bfwin->project->filename == NULL) {
+			gchar *ondiskencoding = get_filename_on_disk_encoding(filename);
+			if (g_file_test(ondiskencoding, G_FILE_TEST_EXISTS)) {
+				gchar *tmpstr;
+				gint retval;
+				gchar *options[] = {_("_Cancel"), _("_Overwrite"), NULL};
+				tmpstr = g_strdup_printf(_("A file named \"%s\" already exists."), filename);
+				retval = multi_warning_dialog(bfwin->main_window,tmpstr, 
+												_("Do you want to replace the existing file?"), 1, 0, options);
+				g_free(tmpstr);
+				if (retval == 0) {
+					g_free(filename);
+					g_free(ondiskencoding);
+					return FALSE;
+				}
+			}
+			g_free(ondiskencoding);
+		}
 		suflen = strlen(main_v->props.project_suffix);
 		filen = strlen(filename);
 		if (filen > suflen && strcmp(&filename[filen - suflen], main_v->props.project_suffix)==0) {
@@ -295,20 +313,76 @@ static void setup_bfwin_for_nonproject(Tbfwin *bfwin) {
 }
 
 gboolean project_save_and_close(Tbfwin *bfwin) {
-	if (project_save(bfwin, FALSE)) {
-		DEBUG_MSG("project_save_and_close, save returned TRUE\n");
+	gboolean dont_save = FALSE;
+	while (!bfwin->project->filename) {
+		if (dont_save) {
+			break;
+		}
+		DEBUG_MSG("project_save_and_close, project not named, getting action\n");
+		/* dialog */
+		gchar *text;
+		text = g_strdup(_("Do you want to save the project?"));
+		gint retval;
+		gchar *buttons[] = {_("Do_n't save"), GTK_STOCK_CANCEL, GTK_STOCK_SAVE, NULL};
+		retval = multi_query_dialog(bfwin->main_window, text, 
+			_("If you don't save your changes they will be lost."), 2, 1, buttons);
+		switch (retval) {
+		case 0:
+			/* don't save proj. save files, though */
+			DEBUG_MSG("project_save_and_close, don't save project, but save files\n");
+			dont_save = TRUE;
+		break;
+		case 1:
+			/* cancel */
+			DEBUG_MSG("project_save_and_close, not closing window any more");
+			return TRUE;
+		break;
+		case 2:
+			DEBUG_MSG("project_save_and_close, bringing up save project dialog\n");
+			dont_save = project_save(bfwin, FALSE);
+		break;
+		default:
+		break;
+		}		
+	}
+	/* need to save the files regardless of if the project is to be saved or not */
+	if (bfwin->documentlist && test_docs_modified(bfwin->documentlist)) {
+		DEBUG_MSG("project_save_and_close, we have changed documents!\n");
+		bfwin_close_all_documents(bfwin, TRUE);
+		if (bfwin->documentlist && test_docs_modified(bfwin->documentlist)) {
+			DEBUG_MSG("project_save_and_close, we STILL have changed documents!?!\n");
+			/* if there are still documents modified we should cancel the closing */
+			return TRUE;
+		}
+	}
+	/* files are saved and we are not saving the project, destroy window */
+	DEBUG_MSG("project_save_and_close, final cleanups\n");
+	if (dont_save) {
+		DEBUG_MSG("project_save_and_close, don't save, but destroy project\n");
+		file_close_all_cb(NULL,bfwin);
+		if (test_only_empty_doc_left(bfwin->documentlist)) {
+			DEBUG_MSG("project_save_and_close, all documents are closed\n");
+			project_destroy(bfwin->project);
+			setup_bfwin_for_nonproject(bfwin);
+			DEBUG_MSG("project_save_and_close, returning FALSE\n");
+			return FALSE;
+		}
+		return FALSE;
+	}
+	/* if the project has been saved, close it up, otherwise (not saved) close the window */
+	if (bfwin->project->filename) {
 		file_close_all_cb(NULL,bfwin);
 		if (test_only_empty_doc_left(bfwin->documentlist)) {
 			DEBUG_MSG("project_save_and_close, all documents are closed\n");
 			add_to_recent_list(bfwin,bfwin->project->filename, TRUE, TRUE);
 			project_destroy(bfwin->project);
 			setup_bfwin_for_nonproject(bfwin);
-			DEBUG_MSG("project_save_and_close, returning TRUE\n");
-			return TRUE;
+			DEBUG_MSG("project_save_and_close, returning FALSE\n");
+			return FALSE;
 		}
 	}
-	DEBUG_MSG("project_save_and_close, returning FALSE\n");
-	return FALSE;
+	DEBUG_MSG("project_save_and_close, returning TRUE\n");
+	return TRUE;
 }
 
 typedef enum {
