@@ -194,7 +194,9 @@ static void font_button_lcb(GtkWidget *wid, GtkWidget *entry) {
 	const gchar *fontname;
 	fsd = gtk_font_selection_dialog_new(_("Select font"));
 	fontname = gtk_entry_get_text(GTK_ENTRY(entry)); /* do NOT free, this is an internal pointer */
-	gtk_font_selection_dialog_set_font_name(GTK_FONT_SELECTION_DIALOG(fsd), fontname);
+	if (strlen(fontname)) {
+		gtk_font_selection_dialog_set_font_name(GTK_FONT_SELECTION_DIALOG(fsd), fontname);
+	}
 	g_signal_connect(GTK_OBJECT(fsd),"response",G_CALLBACK(font_dialog_response_lcb),entry);
 	gtk_window_set_transient_for(GTK_WINDOW(GTK_DIALOG(fsd)), GTK_WINDOW(gtk_widget_get_toplevel(entry)));
 	gtk_window_set_modal(GTK_WINDOW(GTK_DIALOG(fsd)), TRUE);
