@@ -948,27 +948,48 @@ static void main_win_on_drag_data_lcb(GtkWidget * widget, GdkDragContext * conte
 	gtk_drag_finish(context, TRUE, (mode == GDK_ACTION_COPY), time);
 	g_free(filename);
 	g_free(url);
-
-}				
-gboolean main_window_delete_lcb(GtkWidget *widget,GdkEvent *event,gpointer user_data) {
-	DEBUG_MSG("main_window_delete_lcb, started\n");
-	bluefish_exit_request();
-	return TRUE;
 }
 
-gboolean main_window_destroy_lcb(GtkWidget *widget,gpointer user_data) {
-	/* we should save all open documents and do stuff like that here!! */
+void gui_bfwin_cleanup(Tbfwin *bfwin) {
+	/* call all cleanup functions here */
+	
+}
+
+gboolean main_window_destroy_lcb(GtkWidget *widget,Tbfwin *bfwin) {
 	DEBUG_MSG("main_window_destroy_event_lcb, started\n");
-	bluefish_exit_request();
+	if (bfwin->documentlist && test_docs_modified(bfwin->documentlist)) {
+		file_close_all_cb(NULL, bfwin);
+		if (bfwin->documentlist && test_docs_modified(bfwin->documentlist)) {
+			/* if there are still documents modified we should cancel the closing */
+			return TRUE;
+		}
+	}
+	DEBUG_MSG("main_window_destroy_lcb, will hide the window now\n");
+	gtk_widget_hide(bfwin->main_window);
+	main_v->bfwinlist = g_list_remove(main_v->bfwinlist, bfwin);
+	DEBUG_MSG("main_window_destroy_lcb, bfwin(%p) is removed from bfwinlist\n",bfwin);
+	gui_bfwin_cleanup(bfwin);
+	DEBUG_MSG("main_window_destroy_lcb, will destroy the window now\n");
+	gtk_widget_destroy(bfwin->main_window);
+	g_free(bfwin);
+	DEBUG_MSG("main_window_destroy_lcb, bfwin is free'ed\n");
+	if (NULL == main_v->bfwinlist) {
+		bluefish_exit_request();
+	}
 	return TRUE;
 }
+gboolean main_window_delete_lcb(GtkWidget *widget,GdkEvent *event,Tbfwin *bfwin) {
+	DEBUG_MSG("main_window_delete_lcb, started\n");
+	main_window_destroy_lcb(widget,bfwin);
+}
+
 
 void gui_create_main(Tbfwin *bfwin, GList *filenames) {
 	GtkWidget *vbox;
-	bfwin->main_window = window_full2(_("Bluefish"), GTK_WIN_POS_CENTER, 0, G_CALLBACK(main_window_destroy_lcb), NULL, FALSE, NULL);
+	bfwin->main_window = window_full2(_("Bluefish"), GTK_WIN_POS_CENTER, 0, G_CALLBACK(main_window_destroy_lcb), bfwin, FALSE, NULL);
 	gtk_window_set_role(GTK_WINDOW(bfwin->main_window), "bluefish");
 	gtk_window_set_default_size(GTK_WINDOW(bfwin->main_window), main_v->props.main_window_w, main_v->props.main_window_h);
-	g_signal_connect(G_OBJECT(bfwin->main_window), "delete_event", G_CALLBACK(main_window_delete_lcb), NULL);
+/*	g_signal_connect(G_OBJECT(bfwin->main_window), "delete_event", G_CALLBACK(main_window_delete_lcb), bfwin);*/
 	g_signal_connect(G_OBJECT(bfwin->main_window), "configure-event", G_CALLBACK(gui_main_window_configure_event_lcb), bfwin);
 
 	vbox = gtk_vbox_new(FALSE, 0);
@@ -1358,5 +1379,12 @@ void gui_toggle_hidewidget_cb(Tbfwin *bfwin,guint action,GtkWidget *widget) {
 		*property = 1;
 		gtk_widget_show(handlebox);
 	}
-
 }
+
+void gui_new_window() {
+	Tbfwin *bfwin = g_new0(Tbfwin,1);
+	gui_create_main(bfwin,NULL);
+	main_v->bfwinlist = g_list_append(main_v->bfwinlist, bfwin);
+	gui_show_main(bfwin);
+}
+

@@ -213,14 +213,14 @@ void bluefish_exit_request() {
 	/* if we have modified documents we have to do something, file_close_all_cb()
 	does exactly want we want to do */
 	tmplist = return_allwindows_documentlist();
-	tmpb = test_docs_modified(tmplist);
+	tmpb = (tmplist && test_docs_modified(tmplist));
 	g_list_free(tmplist);
 	if (tmpb) {
 		file_close_all_cb(NULL, NULL);
 		/* if we still have modified documents we don't do a thing,
 		 if we don't have them we can quit */
 		tmplist = return_allwindows_documentlist();
-		tmpb = test_docs_modified(tmplist);
+		tmpb = (tmplist && test_docs_modified(tmplist));
 		g_list_free(tmplist);
 		if (tmpb) {
 			return;
