@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * rcfile.c - loading and parsing of the configfiles
  *
- * Copyright (C) 2000-2002 Olivier Sessink
+ * Copyright (C) 2000-2004 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -928,9 +928,16 @@ gboolean rcfile_save_global_session(void) {
  settings from main_v->props */
 gboolean rcfile_parse_global_session(void) {
 	gboolean retval;
-	gchar *filename = g_strconcat(g_get_home_dir(), "/.bluefish/session", NULL);
+	gchar *filename;
 	GList *configlist = return_globalsession_configlist(TRUE);
 	configlist = return_session_configlist(configlist, main_v->session);
+	filename = g_strconcat(g_get_home_dir(), "/.bluefish/session", NULL);
+	if (!file_exists_and_readable(filename)) {
+		/* versions before 0.13 did not have a separate session file, so 
+		we'll try to load these items from rcfile_v2 */
+		g_free(filename);
+		filename = g_strconcat(g_get_home_dir(), "/.bluefish/rcfile_v2", NULL);
+	}
 	retval = parse_config_file(configlist, filename);
 	free_configlist(configlist);
 	g_free(filename);
