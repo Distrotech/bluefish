@@ -20,23 +20,24 @@
 /* #define DEBUG */
 
 #include <gtk/gtk.h>
-#include <sys/types.h> /* stat() getuid */
-#include <sys/stat.h> /* stat() */
-#include <unistd.h> /* stat() getuid */
-#include <string.h> /*strchr() */
-#include <stdio.h> /* rename() */	
-#include <stdlib.h> /* atoi() */
+#include <sys/types.h>	/* stat() getuid */
+#include <sys/stat.h>	/* stat() */
+#include <unistd.h>		/* stat() getuid */
+#include <string.h>		/*strchr() */
+#include <stdio.h>		/* rename() */	
+#include <stdlib.h>		/* atoi() */
 
 #include "bluefish.h"
 
-#include "document.h"
-#include "gtk_easy.h" /* *_dialog(), flush_queue() */
-#include "bf_lib.h"
-#include "stringlist.h" /* count_array() */
 #include "filebrowser.h"
-#include "gui.h" /* statusbar_message() */
-#include "image.h" /* image_insert_from_filename() */
-#include "menu.h" /* translation */
+#include "bf_lib.h"
+#include "document.h"
+#include "gtk_easy.h"	/* *_dialog(), flush_queue() */
+#include "gui.h"			/* statusbar_message() */
+#include "image.h" 		/* image_insert_from_filename() */
+#include "menu.h" 		/* translation */
+#include "project.h" 	/* project_open_from_file() */
+#include "stringlist.h" /* count_array() */
 
 /*#define DEBUG_SORTING
 #define DEBUG_FILTER
@@ -1128,6 +1129,8 @@ static void handle_activate_on_file(Tfilebrowser *filebrowser, gchar *filename) 
 		gchar *relfilename = create_relative_link_to(filebrowser->bfwin->current_document->filename, filename);
 		image_insert_from_filename(filebrowser->bfwin,relfilename);
 		g_free(relfilename);
+	} else if (strcmp(ft->type, "bfproject") == 0) {
+		project_open_from_file(filebrowser->bfwin, filename);
 	} else {
 		DEBUG_MSG("handle_activate_on_file, file %s is not-editable, do something special now?\n",filename);
 	}
