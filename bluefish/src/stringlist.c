@@ -42,16 +42,6 @@
 #define STRING_MAX_SIZE 1024
 #define MAX_ARRAY_LENGTH 10
 
-/*
-typedef struct {
-	GtkWidget *window;
-	GtkWidget *ins_upd_entry[MAX_ARRAY_LENGTH];
-	GtkWidget *clist;
-	guint num_columns;
-	gint last_row;
-	GList *the_list;
-} Teditstringlist;
-*/
 
 /************************************************************************/
 

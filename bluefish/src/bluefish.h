@@ -89,9 +89,9 @@ typedef struct {
 	gid_t owner_gid; /* group ID of owner */
 	mode_t mode; /* mode field in stat() format so any stat macro's will work*/
 	gint is_symlink; /* file is a symbolic link */
-	gulong del_txt_id;
-	gulong ins_txt_id;
-	gulong ins_aft_txt_id;
+	gulong del_txt_id; /* text delete signal */
+	gulong ins_txt_id; /* text insert signal */
+	gulong ins_aft_txt_id; /* text insert-after signal, for auto-indenting */
 	unre_t unre;
 	GtkWidget *view;
 	GtkWidget *tab_label;
@@ -167,7 +167,6 @@ typedef struct {
 	gint backup_file; 			/* wheather to use a backup file */
 	gint backup_by_copy; 	/* make a copy instead of renaming the file */
 	gchar *backup_abort_style; /* if the backup fails, continue 'save', 'abort' save, or 'ask' user */
-	gint auto_convert_CR; /* auto remove carriage returns from input files */
 	gint allow_multi_instances; /* allow multiple instances of the same file */
 	gint num_undo_levels; 	/* number of undo levels per document */
 	gint clear_undo_on_save; 	/* clear all undo information on file save */

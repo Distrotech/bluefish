@@ -521,32 +521,34 @@ static void doc_buffer_insert_text_lcb(GtkTextBuffer *textbuffer,GtkTextIter * i
 }
 
 static void doc_buffer_insert_text_after_lcb(GtkTextBuffer *textbuffer,GtkTextIter * iter,gchar * string,gint len, Tdocument * doc) {
-	/* indenting, this should be the last one because it changes the 
-	textbuffer --> it invalidates all GtkTextIters */
-	if (len == 1 && string[0] == '\n') {
-		gchar *string, *indenting;
-		GtkTextIter itstart = *iter, itend = *iter;
-		/* set to the beginning of the previous line */
-		gtk_text_iter_backward_line (&itstart);
-		gtk_text_iter_set_line_index(&itstart, 0);
+	/* this function is only attached to the signal if the auto-indenting is active!!! */
+	if (main_v->props.autoindent) {
+		/* indenting, this should be the last one because it changes the 
+		textbuffer --> it invalidates all GtkTextIters */
+		if (len == 1 && string[0] == '\n') {
+			gchar *string, *indenting;
+			GtkTextIter itstart = *iter, itend = *iter;
+			/* set to the beginning of the previous line */
+			gtk_text_iter_backward_line (&itstart);
+			gtk_text_iter_set_line_index(&itstart, 0);
 		
-		string = gtk_text_buffer_get_text(doc->buffer,&itstart,&itend,FALSE);
-		if (string) {
-			/* now count the indenting in this string */
-			indenting = string;
-			while (*indenting == '\t' || *indenting == ' ') {
-				indenting++;
+			string = gtk_text_buffer_get_text(doc->buffer,&itstart,&itend,FALSE);
+			if (string) {
+				/* now count the indenting in this string */
+				indenting = string;
+				while (*indenting == '\t' || *indenting == ' ') {
+					indenting++;
+				}
+				/* ending search, non-whitespace found, so terminate at this position */
+				*indenting = '\0';
+				if (strlen(string)) {
+					DEBUG_MSG("doc_buffer_insert_text_lcb, inserting indenting\n");
+					gtk_text_buffer_insert(doc->buffer,&itend,string,-1);
+				}
+				g_free(string);
 			}
-			/* ending search, non-whitespace found, so terminate at this position */
-			*indenting = '\0';
-			if (strlen(string)) {
-				DEBUG_MSG("doc_buffer_insert_text_lcb, inserting indenting\n");
-				gtk_text_buffer_insert(doc->buffer,&itend,string,-1);
-			}
-			g_free(string);
 		}
 	}
-
 }
 
 static void doc_buffer_delete_range_lcb(GtkTextBuffer *textbuffer,GtkTextIter * itstart,GtkTextIter * itend, Tdocument * doc) {
@@ -646,9 +648,13 @@ void doc_bind_signals(Tdocument *doc) {
 	doc->del_txt_id = g_signal_connect(G_OBJECT(doc->buffer),
 					 "delete-range",
 					 G_CALLBACK(doc_buffer_delete_range_lcb), doc);
-	doc->ins_aft_txt_id = g_signal_connect_after(G_OBJECT(doc->buffer),
+	if (main_v->props.autoindent) {
+		doc->ins_aft_txt_id = g_signal_connect_after(G_OBJECT(doc->buffer),
 					 "insert-text",
 					 G_CALLBACK(doc_buffer_insert_text_after_lcb), doc);
+	} else {
+		doc->ins_aft_txt_id = 0;
+	}
 }
 
 void doc_unbind_signals(Tdocument *doc) {
