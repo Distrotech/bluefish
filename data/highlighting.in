@@ -10,7 +10,7 @@ cfml:specialchar:1:&[^;]*;::2::#999999::2:0:
 cfml:doctype:1:<![a-z0-9]+:[^?-]>:1::#bb8800::0:0:
 c:string:0:":":1::#009900::0:0:
 c:string-escape:0:\\\\.::2:^string$:#009900::0:0:
-c:preprocessor:0:#(include|define|if|ifdef|else|endif).*?$::2::#000099::0:0:
+c:preprocessor:0:#(include|define|if|ifdef|else|endif):$:1::#000099::0:0:
 c:comment:0:/\\*:\\*/:1:^(top|preprocessor)$:#AAAAAA::1:2:
 c:keywords:0:\\b(return|goto|if|else|case|default|switch|break|continue|while|do|for|sizeof)\\b::2::#000000::2:0:
 c:storage-keywords:0:\\b(const|extern|auto|register|static|unsigned|signed|volatile|char|double|float|int|long|short|void|typedef|struct|union|enum|FILE|gint|gchar|GList|GtkWidget|gpointer|guint|gboolean)\\b::2::#990000::2:0:
