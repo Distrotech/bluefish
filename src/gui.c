@@ -952,7 +952,7 @@ static gboolean gui_main_window_configure_event_lcb(GtkWidget *widget,GdkEvent *
 			if (main_v->globses.main_window_w > 0 ) {
 				main_v->globses.main_window_w = event->width;
 				main_v->globses.main_window_h = event->height;
-				DEBUG_MSG("gui_main_window_configure_event_lcb, width=%d, height=%d\n",event->width,event->height);
+				DEBUG_MSG("gui_main_window_configure_event_lcb, width=%d, height=%d\n",main_v->globses.main_window_w,main_v->globses.main_window_h);
 			}
 		} else if (revent->type == GDK_WINDOW_STATE) {
 			GdkEventWindowState *event = (GdkEventWindowState *)revent;
