@@ -40,8 +40,6 @@ typedef void (* OpenfileAsyncCallback) (gint status,gint error_info, gchar *buff
 
 typedef struct {
 	gchar *buffer;
-	GIOChannel *channel;
-	GnomeVFSAsyncHandle *handle;
 	unsigned long long buffer_size;
 	unsigned long long used_size;
 	OpenfileAsyncCallback callback_func;
@@ -52,78 +50,52 @@ typedef struct {
 
 static void openfile_cleanup(Topenfile *of) {
 	DEBUG_MSG("openfile_cleanup %p\n",of);
-	g_io_channel_unref(of->channel);
 	g_free(of->buffer);
 	g_free(of);
 }
 
-/* static void open_file__close_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSResult result,gpointer data) {
-	openfile_cleanup(data);
-} */
-
-static gboolean open_file_channel_lcb(GIOChannel *source,GIOCondition condition,gpointer data) {
+static void openfile_asyncclose_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSResult result,gpointer data) {
 	Topenfile *of = data;
-	DEBUG_MSG("open_file_channel_lcb, of=%p, condition=%d\n",of,condition);
-	if (condition & G_IO_IN) { /* Data is available. */
-		gchar chunk[CHUNK_SIZE];
-		gsize bytes_read;
-		GIOStatus gstatus;
-		DEBUG_MSG("open_file_channel_lcb, try to read %d bytes from channel",CHUNK_SIZE);
-		gstatus = g_io_channel_read_chars(source, chunk,CHUNK_SIZE,&bytes_read,NULL);
-		DEBUG_MSG(" got %d, status: %d\n",bytes_read, gstatus);
-		if ((bytes_read + of->used_size) > of->buffer_size) {
+	DEBUG_MSG("openfile_asyncclose_lcb, cleaning %p\n",of);
+	openfile_cleanup(of);
+}
+
+static void openfile_asyncread_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSResult result,gpointer buffer
+							,GnomeVFSFileSize bytes_requested,GnomeVFSFileSize bytes_read ,gpointer data) {
+	Topenfile *of = data;
+	if (result == GNOME_VFS_OK) {
+		of->used_size += bytes_read;
+		DEBUG_MSG("openfile_asyncread_lcb, read %lld bytes, in total %lld\n",bytes_read,of->used_size);
+		if ((of->used_size + CHUNK_SIZE) > of->buffer_size) {
 			of->buffer_size += BUFFER_INCR_SIZE;
 			of->buffer = g_realloc(of->buffer, of->buffer_size+1);/* the +1 is so we can add a \0 to the buffer */
 		}
-		memcpy(of->buffer + of->used_size, chunk, bytes_read);
-		of->used_size += bytes_read;
-		DEBUG_MSG("open_file_channel_lcb, chunk read, used_size=%lld\n",of->used_size);
+		gnome_vfs_async_read(handle,of->buffer+of->used_size,CHUNK_SIZE,openfile_asyncread_lcb,of);
+	} else if (result == GNOME_VFS_ERROR_EOF) {
+		DEBUG_MSG("openfile_asyncread_lcb, EOF after %lld bytes\n",of->used_size);
+		of->buffer[of->used_size] = '\0';
+		of->callback_func(OPENFILE_FINISHED,result,of->buffer, of->callback_data);
+		gnome_vfs_async_close(handle,openfile_asyncclose_lcb,of);
+	} else {
+		DEBUG_MSG("openfile_asyncread_lcb, error?? result=%d\n",result);
+		/* should we call close, or the cleanup function now? */
 	}
-	if (condition & G_IO_NVAL) { /* an error happened */
-		/* cleanup ! */
-		DEBUG_MSG("open_file_channel_lcb, an error happened! cleanup!\n");
-		of->callback_func(OPENFILE_ERROR_NOREAD,condition,of->buffer,of->callback_data);
-		openfile_cleanup(of);
-		return FALSE;
-	}
-	if (condition & G_IO_HUP) { /* end-of-file */
-		GError *error = NULL;
-		DEBUG_MSG("open_file_channel_lcb, end-of-file!, used_size=%lld\n",of->used_size);
-		g_io_channel_shutdown(source, FALSE, &error);
-		of->buffer[of->used_size] = '\0'; /* because we allocated 1 more byte then requested we can do this */
-		/* now do something with the data */
-		of->callback_func(OPENFILE_FINISHED,condition,of->buffer, of->callback_data);
-		openfile_cleanup(of);
-		/*gnome_vfs_async_close(of->handle, open_file__close_lcb, of);*/
-		return FALSE;
-	}
-	DEBUG_MSG("open_file_channel_lcb, return TRUE\n");
-	return TRUE; /* keep calling me for this channel */
 }
 
-static void open_file_as_channel_lcb(GnomeVFSAsyncHandle *handle,GIOChannel *channel, GnomeVFSResult result, gpointer data) {
+static void openfile_asyncopenuri_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSResult result,gpointer data) {
 	Topenfile *of = data;
-	DEBUG_MSG("open_file_as_channel_lcb, of=%p\n",of);
 	if (result == GNOME_VFS_OK) {
-		of->callback_func(OPENFILE_CHANNEL_OPENED,GNOME_VFS_OK,NULL,of->callback_data);
-		of->channel = channel;
-		if (g_io_channel_set_encoding(channel, NULL, NULL) != G_IO_STATUS_NORMAL) {
-			DEBUG_MSG("open_file_as_channel_lcb, error setting the encoding\n");
-		}
-		DEBUG_MSG("open_file_as_channel_lcb, close_on_ref=%d\n", g_io_channel_get_close_on_unref(channel));
-		g_io_channel_set_close_on_unref(channel,TRUE);
-		/*g_io_add_watch_full(channel, G_PRIORITY_HIGH,G_IO_IN|G_IO_NVAL|G_IO_HUP,open_file_channel_lcb,of,NULL);*/
-		g_io_add_watch(channel, G_IO_IN|G_IO_NVAL|G_IO_HUP,open_file_channel_lcb,of);
-		/*g_io_channel_unref(channel);*/
+		of->callback_func(OPENFILE_CHANNEL_OPENED,result,NULL,of->callback_data);
+		gnome_vfs_async_read(handle,of->buffer,CHUNK_SIZE,openfile_asyncread_lcb,of);
 	} else {
-		DEBUG_MSG("open_file_as_channel_lcb, error %d, cleanup %p\n",result,of);
 		of->callback_func(OPENFILE_ERROR_NOCHANNEL, result, NULL, of->callback_data);
 		openfile_cleanup(of);
 	}
 }
 
-static void file_open_uri_async(GnomeVFSURI *uri, OpenfileAsyncCallback callback_func, gpointer callback_data) {
+static void file_openfile_uri_async(GnomeVFSURI *uri, OpenfileAsyncCallback callback_func, gpointer callback_data) {
 	Topenfile *of;
+	GnomeVFSAsyncHandle *handle;
 	of = g_new(Topenfile,1);
 	DEBUG_MSG("file_open_uri_async, %s, of=%p\n",gnome_vfs_uri_get_path(uri), of);
 	of->callback_data = callback_data;
@@ -131,9 +103,8 @@ static void file_open_uri_async(GnomeVFSURI *uri, OpenfileAsyncCallback callback
 	of->buffer_size = BUFFER_INCR_SIZE;
 	of->used_size = 0;
 	of->buffer = g_malloc(of->buffer_size+1); /* the +1 is so we can add a \0 to the buffer */
-	gnome_vfs_async_open_uri_as_channel(&of->handle, uri,GNOME_VFS_OPEN_READ, CHUNK_SIZE
-							,GNOME_VFS_PRIORITY_DEFAULT,open_file_as_channel_lcb,of);
-
+	gnome_vfs_async_open_uri(&handle,uri,GNOME_VFS_OPEN_READ,GNOME_VFS_PRIORITY_DEFAULT
+				,openfile_asyncopenuri_lcb,of);
 }
 
 /************ MAKE DOCUMENT FROM ASYNC OPENED FILE ************************/
@@ -171,7 +142,7 @@ void file_doc_from_uri(Tbfwin *bfwin, GnomeVFSURI *uri) {
 	DEBUG_MSG("file_doc_from_uri, open %s, f2d=%p\n", gnome_vfs_uri_get_path(uri), f2d);
 	f2d->bfwin = bfwin;
 	f2d->uri = gnome_vfs_uri_dup(uri);
-	file_open_uri_async(f2d->uri,file2doc_lcb,f2d);
+	file_openfile_uri_async(f2d->uri,file2doc_lcb,f2d);
 }
 
 /*************************** OPEN ADVANCED ******************************/
@@ -220,7 +191,7 @@ static void openadv_content_filter_file(Tbfwin *bfwin, GnomeVFSURI *uri, gchar *
 	oau->uri = gnome_vfs_uri_dup(uri);
 	oau->content_filter = g_strdup(content_filter);
 	oau->use_regex = use_regex;
-	file_open_uri_async(uri, open_adv_content_filter_lcb, oau);
+	file_openfile_uri_async(uri, open_adv_content_filter_lcb, oau);
 }
 
 static void open_adv_load_directory_cleanup(Topenadv_dir *oa) {
