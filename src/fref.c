@@ -15,7 +15,7 @@
 typedef struct {
 	GtkWidget *tree;
 	GtkTreeStore *store;
-	GtkWidget *info_window;
+/*	GtkWidget *info_window;*/
 	GCompletion *autocomplete;
 	GtkListStore *autostore;
 	GtkWidget *auto_list;
@@ -650,7 +650,7 @@ void fref_cleanup()
 	g_object_unref(G_OBJECT(fref_data.store));
 	fref_data.tree = NULL;
 	fref_data.store = NULL;
-	fref_data.info_window = NULL;
+/*	fref_data.info_window = NULL;*/
 	g_completion_free(fref_data.autocomplete);
 	fref_data.argtips = NULL;
 }
@@ -755,11 +755,16 @@ gchar *fref_prepare_info(FRInfo * entry, gint infotype)
 }
 
 /*------------ SHOW INFO -----------------------*/
+static void info_window_close_lcb(GtkWidget *widget, gpointer data) {
+	gtk_widget_destroy(data);
+}
+
 void fref_show_info(FRInfo * entry, gboolean modal, GtkWidget * parent)
 {
 	GtkWidget *label_t, *frame, *scroll, *view, *btn1, *btn2, *btn3, *vbox,
 		*hbox,*fourbox,*label_d,*label_a,*label_n,*ev_t,*ev_d,*ev_a,*ev_n;
-	int x, y, w, h;
+	GtkWidget *info_window;
+/*	int x, y, w, h;*/
 	GdkColor col1,col2,col4;
 
  	gdk_color_parse(FR_COL_1,&col1); 
@@ -774,35 +779,30 @@ void fref_show_info(FRInfo * entry, gboolean modal, GtkWidget * parent)
  	gtk_label_set_use_markup(GTK_LABEL(label_d),TRUE);
  	gtk_label_set_use_markup(GTK_LABEL(label_a),TRUE); 	
  	gtk_label_set_use_markup(GTK_LABEL(label_n),TRUE); 	
-  gtk_misc_set_alignment(GTK_MISC(label_t), 0.0, 0.0);
+	gtk_misc_set_alignment(GTK_MISC(label_t), 0.0, 0.0);
 	gtk_misc_set_padding(GTK_MISC(label_t), 5, 5);
 	gtk_label_set_line_wrap(GTK_LABEL(label_t), TRUE); 	
-  gtk_misc_set_alignment(GTK_MISC(label_d), 0.0, 0.0);
+	gtk_misc_set_alignment(GTK_MISC(label_d), 0.0, 0.0);
 	gtk_misc_set_padding(GTK_MISC(label_d), 5, 5);
 	gtk_label_set_line_wrap(GTK_LABEL(label_d), TRUE); 	
-  gtk_misc_set_alignment(GTK_MISC(label_a), 0.0, 0.0);
+	gtk_misc_set_alignment(GTK_MISC(label_a), 0.0, 0.0);
 	gtk_misc_set_padding(GTK_MISC(label_a), 5, 5);
 	gtk_label_set_line_wrap(GTK_LABEL(label_a), TRUE); 	
-  gtk_misc_set_alignment(GTK_MISC(label_n), 0.0, 0.0);
+	gtk_misc_set_alignment(GTK_MISC(label_n), 0.0, 0.0);
 	gtk_misc_set_padding(GTK_MISC(label_n), 5, 5);
 	gtk_label_set_line_wrap(GTK_LABEL(label_n), TRUE); 	
-  ev_t = gtk_event_box_new();
-  gtk_widget_modify_bg(GTK_WIDGET(ev_t),GTK_STATE_NORMAL,&col1);    
-  gtk_container_add(GTK_CONTAINER(ev_t),label_t);
-  gtk_widget_show(ev_t);
-  ev_d = gtk_event_box_new();
-  gtk_widget_modify_bg(GTK_WIDGET(ev_d),GTK_STATE_NORMAL,&col2);    
-  gtk_container_add(GTK_CONTAINER(ev_d),label_d);
-  gtk_widget_show(ev_d);
-  ev_a = gtk_event_box_new();
-  gtk_widget_modify_bg(GTK_WIDGET(ev_a),GTK_STATE_NORMAL,&col4);    
-  gtk_container_add(GTK_CONTAINER(ev_a),label_a);
-  gtk_widget_show(ev_a);
-  ev_n = gtk_event_box_new();
-  gtk_widget_modify_bg(GTK_WIDGET(ev_n),GTK_STATE_NORMAL,&col1);    
-  gtk_container_add(GTK_CONTAINER(ev_n),label_n);
-  gtk_widget_show(ev_n);
-
+	ev_t = gtk_event_box_new();
+  	gtk_widget_modify_bg(GTK_WIDGET(ev_t),GTK_STATE_NORMAL,&col1);    
+	gtk_container_add(GTK_CONTAINER(ev_t),label_t);
+	ev_d = gtk_event_box_new();
+	gtk_widget_modify_bg(GTK_WIDGET(ev_d),GTK_STATE_NORMAL,&col2);    
+	gtk_container_add(GTK_CONTAINER(ev_d),label_d);
+	ev_a = gtk_event_box_new();
+	gtk_widget_modify_bg(GTK_WIDGET(ev_a),GTK_STATE_NORMAL,&col4);    
+	gtk_container_add(GTK_CONTAINER(ev_a),label_a);
+	ev_n = gtk_event_box_new();
+	gtk_widget_modify_bg(GTK_WIDGET(ev_n),GTK_STATE_NORMAL,&col1);    
+	gtk_container_add(GTK_CONTAINER(ev_n),label_n);
  	
 	scroll = gtk_scrolled_window_new(NULL, NULL);
 	btn2 = NULL;
@@ -813,98 +813,82 @@ void fref_show_info(FRInfo * entry, gboolean modal, GtkWidget * parent)
 						 (gtk_adjustment_new(0, 0, 1024, 1, 100, 200)),
 						 GTK_ADJUSTMENT(gtk_adjustment_new
 										(0, 0, 768, 1, 100, 200)));
-	fref_data.info_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+	info_window = window_full2(_("Info"), GTK_WIN_POS_NONE
+			, 0, G_CALLBACK(info_window_close_lcb)
+			, NULL,TRUE,FALSE);
+
+/*	info_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);*/
 	if (modal) {
-		gtk_window_set_modal(GTK_WINDOW(fref_data.info_window), TRUE);
+		gtk_window_set_modal(GTK_WINDOW(info_window), TRUE);
 	}
 	
 	fourbox = gtk_vbox_new(FALSE, 0);
 	
-	frame = gtk_frame_new("");
-
+	frame = gtk_frame_new(NULL);
 
 	hbox = gtk_hbox_new(TRUE, 5);	
 	
 	gtk_container_add(GTK_CONTAINER(view), GTK_WIDGET(fourbox)); 
-	gtk_box_pack_start(GTK_BOX(fourbox),ev_t,FALSE,FALSE,0);
-	gtk_box_pack_start(GTK_BOX(fourbox),ev_d,FALSE,FALSE,0);
-	gtk_box_pack_start(GTK_BOX(fourbox),ev_a,FALSE,FALSE,0);
-	gtk_box_pack_start(GTK_BOX(fourbox),ev_n,FALSE,FALSE,0);
+	gtk_box_pack_start(GTK_BOX(fourbox),ev_t,TRUE,TRUE,0);
+	gtk_box_pack_start(GTK_BOX(fourbox),ev_d,TRUE,TRUE,0);
+	gtk_box_pack_start(GTK_BOX(fourbox),ev_a,TRUE,TRUE,0);
+	gtk_box_pack_start(GTK_BOX(fourbox),ev_n,TRUE,TRUE,0);
 	
-	gtk_container_set_border_width(GTK_CONTAINER(fref_data.info_window),0);
-
-	
-	
-
-
 	btn1 = gtk_button_new_with_label(_("Close"));
-	gtk_widget_show(btn1);
 	gtk_box_pack_start(GTK_BOX(hbox), btn1, TRUE, TRUE, 5);
 
 	if (!modal) {
 		btn2 = gtk_button_new_with_label(_("Dialog"));
-		gtk_widget_show(btn2);
 		btn3 = gtk_button_new_with_label(_("Insert"));
-		gtk_widget_show(btn3);
 		gtk_box_pack_start(GTK_BOX(hbox), btn2, TRUE, TRUE, 5);
 		gtk_box_pack_start(GTK_BOX(hbox), btn3, TRUE, TRUE, 5);
 	}
 
-	gtk_widget_show(hbox);
 	gtk_container_add(GTK_CONTAINER(scroll), GTK_WIDGET(view));
-	gtk_container_add(GTK_CONTAINER(fref_data.info_window),
+	gtk_container_add(GTK_CONTAINER(info_window),
 					  GTK_WIDGET(frame));
 
 	vbox = gtk_vbox_new(FALSE, 1);
 	gtk_box_pack_start(GTK_BOX(vbox), scroll, TRUE, TRUE, 0);
 	gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 5);
-	gtk_widget_show(vbox);
 
 	gtk_container_add(GTK_CONTAINER(frame), GTK_WIDGET(vbox));
 	gtk_container_set_border_width(GTK_CONTAINER(frame), 0);
 	gtk_frame_set_label_widget(GTK_FRAME(frame), NULL);
 	
-	gtk_widget_set_size_request(fref_data.info_window, 400, 300);
-	gtk_widget_show(GTK_WIDGET(frame));
-	gtk_widget_show(scroll);
-	gtk_widget_show(view);
-	gtk_widget_show(fourbox);
-	gtk_widget_show(label_t);	
-	gtk_widget_show(label_d);		
-	gtk_widget_show(label_a);		
-	gtk_widget_show(label_n);		
+	gtk_widget_set_size_request(info_window, 400, 300);
 	gtk_frame_set_shadow_type(GTK_FRAME(frame), GTK_SHADOW_ETCHED_IN);
 
-	g_signal_connect(G_OBJECT(fref_data.info_window), "key-press-event",
+	g_signal_connect(G_OBJECT(info_window), "key-press-event",
 					 G_CALLBACK(frefcb_info_keypress),
-					 fref_data.info_window);
-	g_signal_connect(G_OBJECT(fref_data.info_window), "focus-out-event",
+					 info_window);
+/*	g_signal_connect(G_OBJECT(info_window), "focus-out-event",
 					 G_CALLBACK(frefcb_info_lost_focus),
-					 fref_data.info_window);
+					 info_window);*/
 	g_signal_connect(G_OBJECT(btn1), "clicked",
-					 G_CALLBACK(frefcb_info_close), fref_data.info_window);
+					 G_CALLBACK(frefcb_info_close), info_window);
 	if (!modal) {
 		g_signal_connect(G_OBJECT(btn2), "clicked",
 						 G_CALLBACK(frefcb_info_dialog),
-						 fref_data.info_window);
+						 info_window);
 		g_signal_connect(G_OBJECT(btn3), "clicked",
 						 G_CALLBACK(frefcb_info_insert),
-						 fref_data.info_window);
+						 info_window);
 	}
-	gtk_window_set_decorated(GTK_WINDOW(fref_data.info_window), FALSE);
+/*	gtk_window_set_decorated(GTK_WINDOW(info_window), FALSE);*/
+/* let the window manager do it's work */
+/*	
 	if (!modal)
-		gtk_window_set_position(GTK_WINDOW(fref_data.info_window),
+		gtk_window_set_position(GTK_WINDOW(info_window),
 								GTK_WIN_POS_CENTER_ALWAYS);
 	else if (parent != NULL) {
 		gtk_window_get_position(GTK_WINDOW(parent), &x, &y);
 		gtk_window_get_size(GTK_WINDOW(parent), &w, &h);
-		gtk_window_move(GTK_WINDOW(fref_data.info_window), x + w + 10, y);
-	}
-	gtk_widget_show(fref_data.info_window);
-	gtk_widget_grab_focus(fref_data.info_window);
+		gtk_window_move(GTK_WINDOW(info_window), x + w + 10, y);
+	}*/
+	gtk_widget_show_all(info_window);
+/*	gtk_widget_grab_focus(info_window);*/
 }
-
-
 
 GtkWidget *fref_prepare_dialog(FRInfo * entry)
 {
@@ -1364,7 +1348,7 @@ static void fref_popup_menu_insert(GtkWidget *widget, FRInfo *entry) {
 	doc_insert_two_strings(main_v->current_document,entry->insert_text, NULL);
 }
 static void fref_popup_menu_info(GtkWidget *widget, FRInfo *entry) {
-	g_print("info not yet implemented\n");
+	fref_show_info(entry, FALSE, NULL);
 }
 
 
@@ -1423,42 +1407,37 @@ static GtkWidget *fref_popup_menu(FRInfo *entry) {
 	return menu;
 }
 
-gboolean frefcb_event_mouseclick(GtkWidget * widget,
-								 GdkEventButton * event,
-								 gpointer user_data)
-{
+static FRInfo *get_current_entry() {
 	GtkTreePath *path;
 	GtkTreeViewColumn *col;
-	GtkTreeIter iter;
-	GValue *val;
+	gtk_tree_view_get_cursor(GTK_TREE_VIEW(fref_data.tree), &path, &col);
+	if (path != NULL) {
+		FRInfo *retval=NULL;
+		GValue *val;
+		GtkTreeIter iter;
+		gtk_tree_model_get_iter(gtk_tree_view_get_model(GTK_TREE_VIEW(fref_data.tree)), &iter, path);
+		gtk_tree_path_free(path);
+		val = g_new0(GValue, 1);
+		gtk_tree_model_get_value(gtk_tree_view_get_model(GTK_TREE_VIEW(fref_data.tree)), &iter, 1, val);
+		if (G_IS_VALUE(val) && g_value_fits_pointer(val)) {
+			retval = (FRInfo *) g_value_peek_pointer(val);
+		}
+		g_value_unset(val);
+		g_free(val);
+		return retval;
+	}
+	return NULL;
+}
+
+gboolean frefcb_event_mouseclick(GtkWidget * widget,GdkEventButton * event,gpointer user_data)
+{
 	FRInfo *entry;
 
-	gtk_tree_view_get_cursor(GTK_TREE_VIEW(user_data), &path, &col);
-	if (path == NULL) {
+	entry = get_current_entry();
+	if (entry == NULL) {
 		if (event->button == 3 && event->type == GDK_BUTTON_PRESS) {
 			gtk_menu_popup(GTK_MENU(fref_popup_menu(NULL)), NULL, NULL, NULL, NULL, event->button, event->time);
 			return TRUE;
-		} else {
-			return FALSE;
-		}
-	}
-	gtk_tree_model_get_iter(gtk_tree_view_get_model
-							(GTK_TREE_VIEW(user_data)), &iter, path);
-	val = g_new0(GValue, 1);
-	gtk_tree_model_get_value(gtk_tree_view_get_model
-							 (GTK_TREE_VIEW(user_data)), &iter, 1, val);
-	if (G_IS_VALUE(val) && g_value_peek_pointer(val) != NULL) {
-		entry = (FRInfo *) g_value_peek_pointer(val);
-		if (entry == NULL) {
-			if (event->button == 3 && event->type == GDK_BUTTON_PRESS) {
-				gtk_menu_popup(GTK_MENU(fref_popup_menu(NULL)), NULL, NULL, NULL, NULL, event->button, event->time);
-				return TRUE;
-			} else return FALSE;
-		}
-	} else {
-		if (event->button == 3 && event->type == GDK_BUTTON_PRESS) {
-				gtk_menu_popup(GTK_MENU(fref_popup_menu(NULL)), NULL, NULL, NULL, NULL, event->button, event->time);
-				return TRUE;
 		} else return FALSE;
 	}
 
@@ -1476,50 +1455,36 @@ gboolean frefcb_event_mouseclick(GtkWidget * widget,
 				fref_popup_menu_info(NULL, entry);
 			break;
 			default:
-				g_print("do some error message here\n");
+				g_print("weird, fref_doubleclick_action=%d\n",main_v->props.fref_ldoubleclick_action);
 				main_v->props.fref_ldoubleclick_action = FREF_ACTION_DIALOG;
 			break;
 		}
 	}
-	g_free(val);		
-	return TRUE; /* we have handled the event */
+	return FALSE; /* we have handled the event, but the treeview freezes if you return TRUE,
+	so we return FALSE */
 }
 
 gboolean frefcb_event_keypress(GtkWidget * widget, GdkEventKey * event,
 							   gpointer user_data)
 {
-	GtkTreePath *path;
-	GtkTreeViewColumn *col;
-	GtkTreeIter iter;
-	GValue *val;
 	FRInfo *entry;
-
-
-	gtk_tree_view_get_cursor(GTK_TREE_VIEW(user_data), &path, &col);
-	gtk_tree_model_get_iter(gtk_tree_view_get_model
-							(GTK_TREE_VIEW(user_data)), &iter, path);
-	val = g_new0(GValue, 1);
-	gtk_tree_model_get_value(gtk_tree_view_get_model
-							 (GTK_TREE_VIEW(user_data)), &iter, 1, val);
-	if (G_IS_VALUE(val) && g_value_peek_pointer(val) != NULL) {
-		entry = (FRInfo *) g_value_peek_pointer(val);
-		if (entry == NULL)
-			return FALSE;
+	entry = get_current_entry();
+	if (entry != NULL) {
 		if (g_strcasecmp(gdk_keyval_name(event->keyval), "F1") == 0) {
 			fref_show_info(entry, FALSE, NULL);
+			return TRUE;
 		}
 	}
-	g_free(val);
 	return FALSE;
 }
 
-gboolean frefcb_info_lost_focus(GtkWidget * widget, GdkEventFocus * event,
+/*gboolean frefcb_info_lost_focus(GtkWidget * widget, GdkEventFocus * event,
 								gpointer user_data)
 {
 	if (user_data != NULL)
 		gtk_widget_destroy(GTK_WIDGET(user_data));
 	return TRUE;
-}
+}*/
 
 gboolean frefcb_info_keypress(GtkWidget * widget, GdkEventKey * event,
 							  gpointer user_data)
@@ -1540,29 +1505,14 @@ void frefcb_info_close(GtkButton * button, gpointer user_data)
 
 void frefcb_info_dialog(GtkButton * button, gpointer user_data)
 {
-	GtkTreePath *path;
-	GtkTreeViewColumn *col;
-	GtkTreeIter iter;
-	GValue *val;
 	FRInfo *entry;
 	GtkWidget *dialog;
 	gchar *pomstr;
 	gint resp;
 
-	if (user_data != NULL)
-		gtk_widget_destroy(GTK_WIDGET(user_data));
-
-	gtk_tree_view_get_cursor(GTK_TREE_VIEW(fref_data.tree), &path, &col);
-	gtk_tree_model_get_iter(GTK_TREE_MODEL(fref_data.store), &iter, path);
-	val = g_new0(GValue, 1);
-	gtk_tree_model_get_value(GTK_TREE_MODEL(fref_data.store), &iter, 1,
-							 val);
-	if (G_IS_VALUE(val) && g_value_peek_pointer(val) != NULL) {
-		entry = (FRInfo *) g_value_peek_pointer(val);
-		if (entry == NULL)
-			return;
-	} else
-		return;
+	if (user_data != NULL) gtk_widget_destroy(GTK_WIDGET(user_data));
+	entry = get_current_entry();
+	if (entry == NULL) return;
 
 	dialog = fref_prepare_dialog(entry);
 	if (dialog) {
@@ -1572,33 +1522,18 @@ void frefcb_info_dialog(GtkButton * button, gpointer user_data)
 			gtk_widget_destroy(dialog);
 			doc_insert_two_strings(main_v->current_document, pomstr, NULL);
 			g_free(pomstr);
-		} else
-			gtk_widget_destroy(dialog);
+		} else gtk_widget_destroy(dialog);
 	}
 }
 
 void frefcb_info_insert(GtkButton * button, gpointer user_data)
 {
-	GtkTreePath *path;
-	GtkTreeViewColumn *col;
-	GtkTreeIter iter;
-	GValue *val;
 	FRInfo *entry;
 
 	if (user_data != NULL)
 		gtk_widget_destroy(GTK_WIDGET(user_data));
-
-	gtk_tree_view_get_cursor(GTK_TREE_VIEW(fref_data.tree), &path, &col);
-	gtk_tree_model_get_iter(GTK_TREE_MODEL(fref_data.store), &iter, path);
-	val = g_new0(GValue, 1);
-	gtk_tree_model_get_value(GTK_TREE_MODEL(fref_data.store), &iter, 1,
-							 val);
-	if (G_IS_VALUE(val) && g_value_peek_pointer(val) != NULL) {
-		entry = (FRInfo *) g_value_peek_pointer(val);
-		if (entry == NULL || entry->insert_text==NULL)
-			return;
-	} else
-		return;
+	entry = get_current_entry();
+	if (entry == NULL || entry->insert_text==NULL) return;
 	doc_insert_two_strings(main_v->current_document, entry->insert_text,NULL);
 
 }
@@ -1679,31 +1614,11 @@ void frefcb_autocomplete_activate(GtkMenuItem * menuitem,
 
 void frefcb_info_show(GtkButton * button, gpointer user_data)
 {
-	GtkTreePath *path;
-	GtkTreeViewColumn *col;
-	GtkTreeIter iter;
-	GValue *val;
 	FRInfo *entry;
+	entry = get_current_entry();
+	if (entry == NULL) return;
 
-	if (user_data == NULL)
-		return;
-	gtk_tree_view_get_cursor(GTK_TREE_VIEW(user_data), &path, &col);
-	if (path == NULL)
-		return;
-	gtk_tree_model_get_iter(gtk_tree_view_get_model
-							(GTK_TREE_VIEW(user_data)), &iter, path);
-	val = g_new0(GValue, 1);
-	gtk_tree_model_get_value(gtk_tree_view_get_model
-							 (GTK_TREE_VIEW(user_data)), &iter, 1, val);
-	if (G_IS_VALUE(val) && g_value_peek_pointer(val) != NULL) {
-		entry = (FRInfo *) g_value_peek_pointer(val);
-		if (entry == NULL)
-			return;
-		fref_show_info(entry, TRUE,
-					   gtk_widget_get_toplevel(GTK_WIDGET(button)));
-
-	}
-	g_free(val);
+	fref_show_info(entry, TRUE,gtk_widget_get_toplevel(GTK_WIDGET(button)));
 }
 
 static gboolean reference_file_known(gchar *path) {
