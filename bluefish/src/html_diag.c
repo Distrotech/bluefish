@@ -111,9 +111,7 @@ GtkWidget *html_diag_table_in_vbox(Thtml_diag *dg, gint rows, gint cols) {
 void html_diag_finish(Thtml_diag *dg, GtkSignalFunc ok_func) {
 	GtkWidget *hbox;
 
-	hbox = gtk_hbox_new(FALSE, 0);
-	gtk_box_pack_start(GTK_BOX(hbox), gtk_hseparator_new(), TRUE, TRUE, 0);
-	gtk_box_pack_start(GTK_BOX(dg->vbox), hbox, FALSE, FALSE, 12);
+	gtk_box_pack_start(GTK_BOX(dg->vbox), gtk_hseparator_new(), FALSE, FALSE, 12);
 	hbox = gtk_hbutton_box_new();
 	gtk_hbutton_box_set_layout_default(GTK_BUTTONBOX_END);
 	gtk_button_box_set_spacing(GTK_BUTTON_BOX(hbox), 12);
