@@ -46,8 +46,6 @@ all: $(DEFAULTFILES)
 		sed -e 's!EXPECT_URIS!false!' -e 's!SUPPORTED_URI_SCHEMES!!' < bluefish.applications.in > bluefish.applications ;\
 	fi
 
-endif
-
 install-gnome1-menu:
 	$(INSTALL_DATA) bluefish.desktop $(DESTDIR)$(GNOME1MENU)
 

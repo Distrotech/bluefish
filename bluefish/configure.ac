@@ -333,12 +333,8 @@ AC_DEFINE_UNQUOTED(EXTERNAL_GREP, "$EXTERNAL_GREP")
 dnl **************************
 dnl  For the spell checker
 dnl **************************
-
 dnl don't define WITH_SPC if you want to build without spell-checker 
 AC_DEFINE(WITH_SPC)
-
-AC_PATH_PROG(ISPELL, ispell, /usr/bin/ispell )
-AC_DEFINE_UNQUOTED(ISPELL_COMMAND, "$ISPELL")
 
 dnl Checks select argument types
 AC_FUNC_SELECT_ARGTYPES
