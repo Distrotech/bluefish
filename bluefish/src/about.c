@@ -161,6 +161,8 @@ Thanks to all who helped making this software available.\n\
 	gchar *TRANSLATORS = _("Current translators:\n\n\
   Brazilian Portuguese - Anderson Rocha\n\
    <anderson@maxlinux.com.br>\n\n\
+  Bulgarian - Peio Popov\n\
+   <peio@peio.org>\n\n\
   Chinese - Ting Yang (Dormouse)\n\
    <mouselinux@163.com>\n\n\
   Danish - Rasmus Toftdahl Olesen\n\
@@ -175,6 +177,8 @@ Thanks to all who helped making this software available.\n\
    <sasek@ccsystem.hu>\n\n\
   Italian - Stefano Canepa\n\
    <sc@linux.it>\n\n\
+  Norwegian - Christian Tellefsen\n\
+   <chris@tellefsen.net>\n\n\
   Polish - Oskar Swida\n\
    <swida@aragorn.pb.bialystok.pl>\n\n\
   Portuguese - Lopo Pizarro\n\
