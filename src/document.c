@@ -687,7 +687,7 @@ static void doc_set_tooltip(Tdocument *doc) {
 	if (doc->statbuf.st_uid != -1) {
 		modestr = filemode_to_string(doc->statbuf.st_mode);
 		ctime_r(&doc->statbuf.st_mtime,mtimestr);
-		sizestr = _strdup_printf("%d", doc->statbuf.st_size);
+		sizestr = g_strdup_printf("%d", doc->statbuf.st_size);
 	}
 #endif
 	tmp = text = g_strconcat(_("Name: "),gtk_label_get_text(GTK_LABEL(doc->tab_menu))
