@@ -525,6 +525,19 @@ static void patmatch_rematch(gboolean is_parentmatch, Tpatmatch *patmatch, gint 
 	}
 }
 
+static glong utf8_byteoffset_to_charsoffset_cached(gchar *string, glong byteoffset) {
+	static glong last_byteoffset, last_charoffset;
+	glong retval;
+	if (last_byteoffset < byteoffset) {
+		retval = g_utf8_pointer_to_offset(string+last_byteoffset, string+byteoffset)+last_charoffset;
+	} else {
+		retval = g_utf8_pointer_to_offset(string, string+byteoffset);
+	}
+	last_byteoffset = byteoffset;
+	last_charoffset = retval;
+	return retval;
+}
+
 static void applystyle(Tdocument *doc, gchar *buf, gint so, gint eo, Tpattern *pat) {
 	GtkTextIter itstart, itend;
 	gint istart, iend;
@@ -536,14 +549,14 @@ static void applystyle(Tdocument *doc, gchar *buf, gint so, gint eo, Tpattern *p
 #ifdef HL_TIMING
 	timing_start(TIMING_UTF8);
 #endif
-/*	char_start = utf8_byteoffset_to_charsoffset(buf, so);
-	char_end = utf8_byteoffset_to_charsoffset(buf, eo);
-	byte_char_diff_start = so-char_start;*/
+	char_start = utf8_byteoffset_to_charsoffset_cached(buf, so);
+	char_end = utf8_byteoffset_to_charsoffset_cached(buf, eo);
+	byte_char_diff_start = so-char_start;
 #ifdef HL_TIMING
 	timing_stop(TIMING_UTF8);
 #endif
-	istart = so;
-	iend = eo;
+	istart = char_start;
+	iend = char_end;
 #ifdef HL_DEBUG
 	DEBUG_MSG("applystyle, byte_char_diff=%ld\n", byte_char_diff_start);
 	DEBUG_MSG("applystyle, coloring from %d to %d\n", istart, iend);
@@ -738,7 +751,7 @@ void doc_highlight_full(Tdocument * doc)
 	applylevel(doc, doc_get_chars(doc, so, eo), so, eo, NULL, doc->hl->highlightlist);
 #ifdef HL_TIMING
 	timing_stop(TIMING_TOTAL);
-	g_print("doc_highlight_full done, %d ms total, %d ms tagging, %d ms matching, %d ms utf8-shit\n",timing[TIMING_TOTAL].total_ms, timing[TIMING_TEXTBUF].total_ms, timing[TIMING_PCRE_EXEC].total_ms, timing[TIMING_UTF8].total_ms);
+	g_print("doc_highlight_full done, %ld ms total, %ld ms tagging, %ld ms matching, %ld ms utf8-shit\n",timing[TIMING_TOTAL].total_ms, timing[TIMING_TEXTBUF].total_ms, timing[TIMING_PCRE_EXEC].total_ms, timing[TIMING_UTF8].total_ms);
 #endif
 	doc->need_highlighting = FALSE;
 }
@@ -999,11 +1012,13 @@ void hl_reset_to_default()
 	
 	arr = array_from_arglist("c", "string", "0", "\"", "\"", "1", "", "hp_green", NULL);
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
-	arr = array_from_arglist("c", "comment", "0", "/\\*", "\\*/", "1", "", "comment", NULL);
+	arr = array_from_arglist("c", "string-escape", "0", "\\\\.", "", "2", "^string$", "hp_green", NULL);
+	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
+	arr = array_from_arglist("c", "comment", "0", "/\\*", "\\*/", "1", "", "hp_comment", NULL);
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
 	arr = array_from_arglist("c", "keyword", "0", "\\b(return|goto|if|else|case|default|switch|break|continue|while|do|for|sizeof)\\b", "", "2", "", "hp_black", NULL);
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
-	arr = array_from_arglist("c", "preprocessor", "0", "^#(include|define|if|ifdef|else|endif).*$", "", "2", "", "hp_darkblue", NULL);
+	arr = array_from_arglist("c", "preprocessor", "0", "^#(include|define|if|ifdef|else|endif).*$", "", "2", "", "darkblue", NULL);
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
 	arr = array_from_arglist("c", "storage-keyword", "0", "\\b(const|extern|auto|register|static|unsigned|signed|volatile|char|double|float|int|long|short|void|typedef|struct|union|enum|FILE|gint|gchar|GList|GtkWidget|gpointer|guint|gboolean)\\b", "", "2", "", "darkred", NULL);
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
