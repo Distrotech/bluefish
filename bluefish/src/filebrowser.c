@@ -274,21 +274,23 @@ static GList *return_dir_entries(Tfilebrowser *filebrowser,gchar *dirname) {
 	}
 	gvfi = gnome_vfs_file_info_new();
 	while (GNOME_VFS_OK == gnome_vfs_directory_read_next(handle, gvfi)) {
-		entry = g_new(Tdir_entry,1);
-		entry->icon = NULL;
-		entry->name = g_strdup(gvfi->name);
-		if (gvfi->type == GNOME_VFS_FILE_TYPE_DIRECTORY) {
-			entry->type = TYPE_DIR;
-		} else {
-			entry->type = TYPE_FILE;
-		}
-		if (!view_filter(filebrowser,entry)) {
-			/* free entry */
-			g_free(entry->name);
-			g_free(entry);
-		} else {
-			entry->has_widget = FALSE;
-			tmplist = g_list_append(tmplist, entry);
+		if (strcmp(gvfi->name,".")!=0 && strcmp(gvfi->name,"..")!=0) {
+			entry = g_new(Tdir_entry,1);
+			entry->icon = NULL;
+			entry->name = g_strdup(gvfi->name);
+			if (gvfi->type == GNOME_VFS_FILE_TYPE_DIRECTORY) {
+				entry->type = TYPE_DIR;
+			} else {
+				entry->type = TYPE_FILE;
+			}
+			if (!view_filter(filebrowser,entry)) {
+				/* free entry */
+				g_free(entry->name);
+				g_free(entry);
+			} else {
+				entry->has_widget = FALSE;
+				tmplist = g_list_append(tmplist, entry);
+			}
 		}
 	}
 	gnome_vfs_file_info_unref(gvfi);
