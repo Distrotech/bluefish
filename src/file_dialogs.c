@@ -208,7 +208,6 @@ void file_open_advanced_cb(GtkWidget * widget, Tbfwin *bfwin) {
  * Return value: void
  **/
 void file_open_cb(GtkWidget * widget, Tbfwin *bfwin) {
-#ifdef HAVE_ATLEAST_GTK_2_4
 	GtkWidget *dialog;
 	dialog = file_chooser_dialog(bfwin, _("Select files"), GTK_FILE_CHOOSER_ACTION_OPEN, NULL, FALSE, TRUE, NULL);
 	if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_ACCEPT) {
@@ -219,21 +218,6 @@ void file_open_cb(GtkWidget * widget, Tbfwin *bfwin) {
 		g_slist_free(slist);
 	}
 	gtk_widget_destroy(dialog);
-#else
-	GList *tmplist = NULL;
-	gint len;
-	gchar *message;
-	DEBUG_MSG("file_open_cb, started, calling return_files()\n");
-	tmplist = return_files(NULL);
-	len = g_list_length(tmplist)
-	message = g_strdup_printf(_("Loading %d file(s)..."), len);
-	statusbar_message(bfwin,message,2000+len*50);
-	g_free(message);
-	flush_queue();
-	DEBUG_MSG("file_open_cb, calling docs_new_from_files()\n");
-	docs_new_from_files(bfwin,tmplist, FALSE);
-	free_stringlist(tmplist);
-#endif
 }
 
 typedef struct {
@@ -253,7 +237,7 @@ static void open_url_ok_lcb(GtkWidget *widget, Tou *ou) {
 	/*doc_new_with_file(ou->bfwin,url,FALSE,FALSE);*/
 	uri = gnome_vfs_uri_new(url);
 	if (uri) {
-		file_doc_from_uri(ou->bfwin, uri, NULL);
+		doc_new_from_uri(ou->bfwin, NULL, uri, NULL, FALSE, FALSE, -1);
 	}
 	g_free(url);
 	gnome_vfs_uri_unref(uri);

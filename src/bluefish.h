@@ -121,7 +121,7 @@ typedef enum {
 } Tdocstatus;
 
 typedef struct {
-	gint go_to_line;
+	gint goto_line;
 	gboolean close_doc;
 	gboolean close_window;
 	gpointer save; /* during document save */

@@ -2974,15 +2974,24 @@ void doc_new_with_new_file(Tbfwin *bfwin, gchar * new_filename) {
 	doc_activate(doc);
 }
 
-void doc_new_from_uri(Tbfwin *bfwin, gchar *curi, gboolean delay_activate, gboolean move_to_this_win) {
+/**
+ * doc_new_from_uri:
+ *
+ * OR curi OR uri should be set !
+ *
+ */
+void doc_new_from_uri(Tbfwin *bfwin, gchar *curi, GnomeVFSURI *uri, GnomeVFSFileInfo *finfo, gboolean delay_activate, gboolean move_to_this_win, gint goto_line) {
 	GList *alldocs;
 	Tdocument *tmpdoc;
-	if (!curi || !bfwin) {
+	gchar *tmpcuri;
+	if (!bfwin || (!curi && !uri)) {
 		return;
 	}
+	tmpcuri = (curi) ? g_strdup(curi) : gnome_vfs_uri_to_string(uri,0);
+	DEBUG_MSG("doc_new_from_uri, started for %s\n",tmpcuri);
 	/* check if the document already is opened */
 	alldocs = return_allwindows_documentlist();
-	tmpdoc = documentlist_return_document_from_filename(alldocs, curi);
+	tmpdoc = documentlist_return_document_from_filename(alldocs, tmpcuri);
 	g_list_free(alldocs);
 	if (tmpdoc) { /* document is already open */
 		if (move_to_this_win) {
@@ -2991,12 +3000,52 @@ void doc_new_from_uri(Tbfwin *bfwin, gchar *curi, gboolean delay_activate, gbool
 			switch_to_document_by_pointer(BFWIN(tmpdoc->bfwin),tmpdoc);
 			if (bfwin != tmpdoc->bfwin) gtk_window_present(GTK_WINDOW(BFWIN(tmpdoc->bfwin)->main_window));
 		}
+		if (tmpdoc >= 0) doc_select_line(tmpdoc, goto_line, TRUE);
 	} else { /* document is not yet opened */
-		GnomeVFSURI *uri = gnome_vfs_uri_new(curi);
+		GnomeVFSURI *tmpuri = uri;
+		if (tmpuri) {
+			gnome_vfs_uri_ref(tmpuri);
+		} else {
+			tmpuri = gnome_vfs_uri_new(tmpcuri);
+			if (!tmpuri) {
+				g_print("WARNING: could not create uri from %s\n",tmpcuri);
+				g_free(tmpcuri);
+				return;
+			}
+		}
 		if (!delay_activate)	bfwin->focus_next_new_doc = TRUE;
-		DEBUG_MSG("doc_new_from_uri, delay_activate=%d, focus_next_new_doc=%d\n",delay_activate, bfwin->focus_next_new_doc);
-		file_doc_from_uri(bfwin, uri, NULL);
-		gnome_vfs_uri_unref(uri);
+		DEBUG_MSG("doc_new_from_uri, uri=%p, delay_activate=%d, focus_next_new_doc=%d\n",tmpuri,delay_activate, bfwin->focus_next_new_doc);
+		file_doc_from_uri(bfwin, tmpuri, finfo, goto_line);
+		gnome_vfs_uri_unref(tmpuri);
+	}
+	g_free(tmpcuri);
+}
+
+void doc_new_from_input(Tbfwin *bfwin, gchar *input, gboolean delay_activate, gboolean move_to_this_win, gint goto_line) {
+	gchar *curi=NULL;
+	if (!input) {
+		return;
+	}
+	DEBUG_MSG("doc_new_from_input, input=%s\n",input);
+	if (strchr(input, '/')==NULL) { /* relative ?*/
+		if (bfwin->current_document->uri) {
+			gchar *relname;
+			GnomeVFSURI *tmp1;
+			tmp1 = gnome_vfs_uri_new(bfwin->current_document->uri);
+			relname = gnome_vfs_uri_to_string(tmp1,0);
+			gnome_vfs_uri_unref(tmp1);
+			curi = gnome_vfs_uri_make_full_from_relative(relname, input);
+			g_free(relname);
+		} else {
+			DEBUG_MSG("doc_new_from_input, trying home-dir\n");
+			curi = gnome_vfs_make_uri_from_input_with_dirs(input, GNOME_VFS_MAKE_URI_DIR_HOMEDIR);
+		}
+	} else {
+		DEBUG_MSG("doc_new_from_input, converting..\n");
+		curi = gnome_vfs_make_uri_from_input(input);
+	}
+	if (curi) {
+		doc_new_from_uri(bfwin, curi, NULL, NULL, delay_activate, move_to_this_win, goto_line);
 	}
 }
 
@@ -3006,7 +3055,7 @@ void docs_new_from_uris(Tbfwin *bfwin, GSList *urislist, gboolean move_to_this_w
 	bfwin->focus_next_new_doc = TRUE;
 	tmpslist = urislist;
 	while (tmpslist) {
-		doc_new_from_uri(bfwin, tmpslist->data, TRUE, move_to_this_win);
+		doc_new_from_uri(bfwin, tmpslist->data, NULL, NULL, TRUE, move_to_this_win, -1);
 		tmpslist = g_slist_next(tmpslist);
 	}
 }
@@ -3024,7 +3073,7 @@ void docs_new_from_uris(Tbfwin *bfwin, GSList *urislist, gboolean move_to_this_w
  *
  * Return value: #Tdocument*, or NULL on error
  **/
-Tdocument * doc_new_with_file(Tbfwin *bfwin, gchar * filename, gboolean delay_activate, gboolean move_to_this_win) {
+Tdocument * olddoc_new_with_file(Tbfwin *bfwin, gchar * filename, gboolean delay_activate, gboolean move_to_this_win) {
 	Tdocument *doc;
 	gboolean opening_in_existing_doc = FALSE;
 	gchar *fullfilename;
@@ -3308,18 +3357,19 @@ void file_open_from_selection(Tbfwin *bfwin) {
 	string = gtk_clipboard_wait_for_text(cb);
 	if (string) {
 		DEBUG_MSG("file_open_from_selection, opening %s\n",string);
-		if (NULL == strchr(string,'/') && bfwin->current_document->uri) {
-			/* now we should look in the directory of the current file */
+		doc_new_from_input(bfwin, string, FALSE, FALSE, -1);
+/*		if (NULL == strchr(string,'/') && bfwin->current_document->uri) {
+			/ * now we should look in the directory of the current file * /
 			gchar *dir, *tmp;
 			dir = g_path_get_dirname(bfwin->current_document->uri);
 			tmp = g_strconcat(dir, "/", string, NULL);
 			DEBUG_MSG("file_open_from_selection, trying %s\n",tmp);
-			doc_new_with_file(bfwin,tmp,FALSE,FALSE);
+			doc_new_from_uri(bfwin, tmp, NULL, NULL, FALSE, FALSE, -1);
 			g_free(dir);
 			g_free(tmp);
 		} else {
-			doc_new_with_file(bfwin,string,FALSE,FALSE);
-		}
+			
+		}*/
 		g_free(string);
 	}
 }

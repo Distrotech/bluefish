@@ -1191,60 +1191,17 @@ TARGET_STRING
 static void main_win_on_drag_data_lcb(GtkWidget * widget, GdkDragContext * context
 			, gint x, gint y, GtkSelectionData * data
 			, guint info, guint time, Tbfwin *bfwin) {
-	gchar *filename, *url;
 	int mode = 0;
-	gint url_is_local;
+	gchar *stringdata;
 
 	if ((data->length == 0) || (data->format != 8) || ((info != TARGET_STRING) && (info != TARGET_URI_LIST))) {
 		DEBUG_MSG("on_drag_data_cb, currently unknown DnD object, need to do string comparision\n");
 		gtk_drag_finish(context, FALSE, TRUE, time);
 		return;
 	}
-
-	/* netscape sends URL's labelled as string */
-	if (info == TARGET_STRING) {
-		gchar *stringdata = g_strndup((gchar *)data->data, data->length);
-		if (strchr(stringdata, ':')) {
-			DEBUG_MSG("on_drag_data_cb, TARGET_STRING contains :, so it's probably an URL\n");
-			info = TARGET_URI_LIST;
-		}
-		g_free(stringdata);
-	}
-
-	/* construct both filename and url from the given data */
-	if (info == TARGET_STRING) {
-		filename = g_strndup((gchar *)data->data, data->length);
-		filename = trunc_on_char(trunc_on_char(filename, '\n'), '\r');
-		url = g_strconcat("file:", filename, NULL);
-		url_is_local = 1;
-		DEBUG_MSG("on_drag_data_cb, TARGET_STRING, url=%s\n",url);
-	} else { /* TARGET_UTI_LIST*/
-		gchar *tmp2;
-		gint len;
-
-		url = g_strndup((gchar *)data->data, data->length);
-		url = trunc_on_char(trunc_on_char(url, '\n'), '\r');
-		if (strncmp(url, "file://", 7) == 0) {
-			filename = g_strdup(url+7);
-			url_is_local = 1;
-			DEBUG_MSG("on_drag_data_cb, TARGET_URI_LIST, url=%s, filename=%s\n",url,filename);
-		} else {
-			len = strlen(url);
-			tmp2 = strrchr(url, '#');
-			if (tmp2) {
-				len -= strlen(tmp2);
-			}
-			filename = g_strndup(url, len);
-			url_is_local = 0;
-			DEBUG_MSG("on_drag_data_cb, TARGET_URI_LIST, url=%s\n",url);
-		}
-	}
-	DEBUG_MSG("on_drag_data_cb, filename='%s', url='%s'\n", filename, url);
-	doc_new_with_file(bfwin,url_is_local ? filename : url, FALSE, FALSE);
-
+	stringdata = g_strndup((gchar *)data->data, data->length);
+	doc_new_from_input(bfwin, stringdata, FALSE, FALSE, -1);
 	gtk_drag_finish(context, TRUE, (mode == GDK_ACTION_COPY), time);
-	g_free(filename);
-	g_free(url);
 }
 
 void gui_bfwin_cleanup(Tbfwin *bfwin) {

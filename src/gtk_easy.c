@@ -1258,22 +1258,16 @@ static void file_but_clicked_lcb(GtkWidget * widget, Tfilebut *fb) {
 		g_free(basedir);
 	}
 	
-#ifdef HAVE_ATLEAST_GTK_2_4
 	{
 		GtkWidget *dialog;
 		dialog = file_chooser_dialog(NULL, _("Select File"), GTK_FILE_CHOOSER_ACTION_OPEN, setfile, FALSE, FALSE, NULL);
 		gtk_window_set_transient_for(GTK_WINDOW(dialog),GTK_WINDOW(gtk_widget_get_toplevel(fb->entry)));
-		gtk_file_chooser_set_filename(GTK_FILE_CHOOSER(dialog),setfile);
+		gtk_file_chooser_set_uri(GTK_FILE_CHOOSER(dialog),setfile);
 		if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_ACCEPT) {
-			tmp2string = gtk_file_chooser_get_uri(GTK_FILE_CHOOSER(dialog));
-			tmpstring = create_full_path(tmp2string, NULL);
-			g_free(tmp2string);
+			tmpstring = gtk_file_chooser_get_uri(GTK_FILE_CHOOSER(dialog));
 		}
 		gtk_widget_destroy(dialog);
 	}
-#else
-	tmpstring = return_file(setfile);
-#endif
 	g_free(setfile);
 	DEBUG_MSG("file_but_clicked_lcb, return_file returned %s\n",tmpstring);
 	if (tmpstring) {
@@ -1329,17 +1323,8 @@ GtkWidget *file_but_new(GtkWidget * which_entry, gint full_pathname, Tbfwin *bfw
 /************    FILE SELECTION FUNCTIONS  ******************************/
 /************************************************************************/
 
-#ifdef HAVE_ATLEAST_GTK_2_4
-
 static void viewlocal_toggled_lcb(GtkToggleButton *togglebutton,GtkWidget *dialog) {
 	g_object_set(G_OBJECT(dialog), "show-hidden", togglebutton->active, NULL);
-}
-
-static void file_chooser_set_current_dir(GtkWidget *dialog, gchar *dir) {
-	if (dir) {
-		if (dir[0] == '/') gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER(dialog),dir);
-		else gtk_file_chooser_set_current_folder_uri(GTK_FILE_CHOOSER(dialog),dir);
-	}
 }
 
 GtkWidget * file_chooser_dialog(Tbfwin *bfwin, gchar *title, GtkFileChooserAction action, 
@@ -1353,19 +1338,15 @@ GtkWidget * file_chooser_dialog(Tbfwin *bfwin, gchar *title, GtkFileChooserActio
 	gtk_dialog_set_default_response (GTK_DIALOG(dialog), GTK_RESPONSE_ACCEPT);
 	if (set && strlen(set)) {
 		DEBUG_MSG("file_chooser_dialog, set=%s,localonly=%d\n",set,localonly);
-		if (localonly || strchr(set,':')==NULL) {
-			gtk_file_chooser_set_filename(GTK_FILE_CHOOSER(dialog),set);
-		} else {
-			gtk_file_chooser_set_uri(GTK_FILE_CHOOSER(dialog),set);
-		}
+		gtk_file_chooser_set_uri(GTK_FILE_CHOOSER(dialog),set);
 	} else if (!localonly && bfwin) { /* localonly is used for the project files */
 		if (action == GTK_FILE_CHOOSER_ACTION_SAVE) {
 			DEBUG_MSG("file_chooser_dialog, opendir=%s, savedir=%s\n",bfwin->session->opendir,bfwin->session->savedir);
-			if (bfwin->session->savedir) file_chooser_set_current_dir(dialog,bfwin->session->savedir);
-			else if (bfwin->session->opendir) file_chooser_set_current_dir(dialog,bfwin->session->opendir);
+			if (bfwin->session->savedir) gtk_file_chooser_set_current_folder_uri(GTK_FILE_CHOOSER(dialog),bfwin->session->savedir);
+			else if (bfwin->session->opendir) gtk_file_chooser_set_current_folder_uri(GTK_FILE_CHOOSER(dialog),bfwin->session->opendir);
 		} else {
 			DEBUG_MSG("file_chooser_dialog, opendir=%s\n",bfwin->session->opendir);
-			file_chooser_set_current_dir(dialog,bfwin->session->opendir);
+			gtk_file_chooser_set_current_folder_uri(GTK_FILE_CHOOSER(dialog),bfwin->session->opendir);
 		}
 	}
 #ifdef DEBUG
@@ -1431,214 +1412,6 @@ GtkWidget * file_chooser_dialog(Tbfwin *bfwin, gchar *title, GtkFileChooserActio
 	return dialog;
 }
 
-#else
-typedef struct {
-	gboolean select_dir;
-	gint multipleselect;
-	gchar *filename_to_return;
-	GList *filenames_to_return;
-	GtkWidget *fs;
-} Tfileselect;
-
-static void fs_ok_clicked_lcb(GtkWidget * widget, Tfileselect *fileselect)
-{
-	gchar *dirname, *selected_file;
-
-	selected_file = get_utf8filename_from_on_disk_encoding(gtk_file_selection_get_filename(GTK_FILE_SELECTION(fileselect->fs)));
-
-	if (g_file_test(selected_file, G_FILE_TEST_IS_DIR)) {
-		DEBUG_MSG("fs_ok_clicked_lcb,file_is_dir said %s is a dir!!!!\n", selected_file);
-		if (fileselect->select_dir) {
-			fileselect->filename_to_return = g_path_get_dirname(selected_file);
-			g_free(selected_file);
-			gtk_main_quit();
-			window_destroy(GTK_WIDGET(fileselect->fs));
-			return;
-		} else {
-			dirname = ending_slash(selected_file);
-			gtk_file_selection_set_filename(GTK_FILE_SELECTION(fileselect->fs), dirname);
-			gtk_entry_set_text(GTK_ENTRY(GTK_FILE_SELECTION(fileselect->fs)->selection_entry), "");
-			g_free(dirname);
-			g_free(selected_file);
-			return;
-		}
-	} else {
-		DEBUG_MSG("fs_ok_clicked_lcb,file_is_dir said %s is NOT a dir.\n", selected_file);
-	}
-
-	if (fileselect->multipleselect) {
-		gchar **filenames, **orig;
-		/* multiple files allowed --> scan trough the list for selections */
-		orig = filenames = gtk_file_selection_get_selections(GTK_FILE_SELECTION(fileselect->fs));
-		if (filenames) {
-			while (*filenames) {
-				fileselect->filenames_to_return = g_list_append(fileselect->filenames_to_return, get_utf8filename_from_on_disk_encoding(*filenames));
-				filenames++;
-			}
-			g_strfreev(orig);
-		}
-	} else {
-		/* NO multiple files allowed --> return just one file */
-		if (fileselect->select_dir) {
-			fileselect->filename_to_return = g_path_get_dirname(selected_file);
-		} else {
-				fileselect->filename_to_return = g_strdup(selected_file);
-		}
-	}
-	if ((fileselect->multipleselect 
-			&& (g_list_length(fileselect->filenames_to_return) < 1)) 
-		|| (!fileselect->multipleselect 
-			&& strlen(fileselect->filename_to_return) < 1)){
-/*		statusbar_message(_("No file to insert."), 2000);*/
-	}
-	
-	g_free(selected_file);	
-	gtk_main_quit();
-	window_destroy(GTK_WIDGET(fileselect->fs));
-}
-
-void close_modal_window_lcb(GtkWidget * widget, gpointer window)
-{
-	DEBUG_MSG("close_modal_window_lcb, widget=%p, window=%p\n", widget, window);
-	gtk_main_quit();
-	window_destroy(window);
-}
-
-static void fs_history_pulldown_activate_lcb(GtkWidget *menuitem,Tfileselect *fileselect) {
-	const gchar *filename = gtk_entry_get_text(GTK_ENTRY(GTK_FILE_SELECTION(fileselect->fs)->selection_entry));
-	gchar *dirname = ending_slash(gtk_label_get_text(GTK_LABEL(gtk_bin_get_child(GTK_BIN(menuitem)))));
-	gchar *fullpath = g_strconcat(dirname, filename, NULL);
-	g_free(dirname);
-	gtk_file_selection_set_filename(GTK_FILE_SELECTION(fileselect->fs), fullpath);
-	g_free(fullpath);
-}
-
-static void fs_history_pulldown_changed(GtkOptionMenu *optionmenu,Tfileselect *fileselect) {
-	GtkWidget *menuitem, *menu;
-	GList *tmplist;
-	DEBUG_MSG("fs_history_pulldown_changed\n");
-	menu = gtk_option_menu_get_menu(GTK_OPTION_MENU(optionmenu));
-	tmplist = g_list_first(main_v->recent_directories);
-	while (tmplist) {
-		menuitem = gtk_menu_item_new_with_label((gchar *)tmplist->data);
-		g_signal_connect(G_OBJECT(menuitem),"activate",G_CALLBACK(fs_history_pulldown_activate_lcb),fileselect);
-		gtk_widget_show(menuitem);
-		gtk_menu_shell_append(GTK_MENU_SHELL(menu), menuitem);
-		tmplist = g_list_next(tmplist);
-	}
-}
-
-static void fileselectwin(gchar *setfile, Tfileselect *fileselect, gchar *title) {
-
-	fileselect->fs = gtk_file_selection_new(title);
-	DEBUG_MSG("fileselectwin, started, fileselect->fs=%p\n", fileselect->fs);		
-	gtk_file_selection_show_fileop_buttons(GTK_FILE_SELECTION(fileselect->fs));
-	/*gtk_file_selection_hide_fileop_buttons(GTK_FILE_SELECTION(fileselect->fs));*/
-	g_signal_connect(G_OBJECT(fileselect->fs), "destroy", G_CALLBACK(close_modal_window_lcb), fileselect->fs);
-	g_signal_connect(G_OBJECT(GTK_FILE_SELECTION(fileselect->fs)->cancel_button),
-					   "clicked", G_CALLBACK(close_modal_window_lcb), fileselect->fs);
-	g_signal_connect(G_OBJECT(GTK_FILE_SELECTION(fileselect->fs)->ok_button), "clicked", G_CALLBACK(fs_ok_clicked_lcb), fileselect);
-	g_signal_connect(G_OBJECT(GTK_FILE_SELECTION(fileselect->fs)->history_pulldown), "changed", G_CALLBACK(fs_history_pulldown_changed), fileselect);
-
-	if (fileselect->multipleselect) {
-		gtk_file_selection_set_select_multiple(GTK_FILE_SELECTION(fileselect->fs), TRUE);
-	}
-	if (setfile) {
-		gtk_file_selection_set_filename(GTK_FILE_SELECTION(fileselect->fs), setfile);
-	}
-	gtk_window_set_role(GTK_WINDOW(fileselect->fs), "fileselect");
-
-	gtk_widget_show(fileselect->fs);
-/*	gtk_grab_add(GTK_WIDGET(fileselect->fs));*/
-	gtk_widget_realize(GTK_WIDGET(fileselect->fs));
-	if (setfile) {
-		/* this only has effect after the widget is shown */
-		gtk_editable_select_region(GTK_EDITABLE(GTK_FILE_SELECTION(fileselect->fs)->selection_entry),0,-1);
-	}
-	
-	/* When you closed the the file selector dialog focus always returned to the bluefish main window
-	   changed to use gtk_widget_get_parent so focus returns to the dialog that opened the file selector
-	*/
-	DEBUG_MSG("gtk_widget_fet_parent returns %p\n",gtk_widget_get_parent(fileselect->fs));
-	{
-		GtkWidget *parent = gtk_widget_get_parent(fileselect->fs);
-		if (parent) {
-			gtk_window_set_transient_for(GTK_WINDOW(fileselect->fs), GTK_WINDOW(parent));
-		}
-	}
-}
-/**
- * return_file_w_title:
- * @setfile: #gchar* the file to intitially set the dialog with
- * @title: #gchar* with the dialog title
- *
- * makes a modal dialog with title that will return a file
- *
- * Return value: #gchar* with the selected filename
- */
-gchar *return_file_w_title(gchar * setfile, gchar *title) {
-	Tfileselect fileselect={FALSE, 0, NULL, NULL, NULL};
-
-	fileselectwin(setfile, &fileselect, title);
-	gtk_main();
-	return fileselect.filename_to_return;
-}
-/**
- * return_file:
- * @setfile: #gchar* the file to intitially set the dialog with
- *
- * makes a modal dialog that will return a file
- *
- * Return value: #gchar* with the selected filename
- */
-gchar *return_file(gchar * setfile) {
-	return return_file_w_title(setfile, _("Select file"));
-}
-/**
- * return_files_w_title:
- * @setfile: #gchar* the file to intitially set the dialog with
- * @title: #gchar* with the dialog title
- *
- * makes a modal dialog that will return multiple files
- *
- * Return value: #GList* containing a stringlist with all selected files
- */
-GList *return_files_w_title(gchar * setfile, gchar *title) {
-	Tfileselect fileselect={FALSE, 1, NULL, NULL, NULL};
-	
-	fileselectwin(setfile, &fileselect, title);
-	gtk_main();
-	return fileselect.filenames_to_return;
-}
-/**
- * return_files:
- * @setfile: #gchar* the file to intitially set the dialog with
- *
- * makes a modal dialog that will return multiple files
- *
- * Return value: #GList* containing a stringlist with all selected files
- */
-GList *return_files(gchar * setfile) {
-	return return_files_w_title(setfile, _("Select files"));
-}
-/**
- * return_dir:
- * @setdir: #gchar* the dir to intitially set the dialog with
- * @title: #gchar* with the dialog title
- *
- * makes a modal dialog that will return a directory
- *
- * Return value: #gchar* with the selected directory
- */
-gchar *return_dir(gchar *setdir, gchar *title) {
-	Tfileselect fileselect={TRUE, 0, NULL, NULL, NULL};
-
-	fileselectwin(setdir, &fileselect, title);
-	gtk_main();
-	return fileselect.filename_to_return;
-}
-#endif /* HAVE_ATLEAST_GTK_2_4 */
-
 /************************************************************************/
 
 static void ungroupradoiitems(GtkWidget *menu) {
@@ -1660,36 +1433,6 @@ void destroy_disposable_menu_cb(GtkWidget *widget, GtkWidget *menu) {
 	ungroupradoiitems(menu);
 	gtk_widget_destroy(GTK_WIDGET(menu));
 }
-
-
-/***********************************************************************
- * workarounds for gtk-2.0  
- * these functions are not needed with gtk-2.2
- */
-#ifndef HAVE_ATLEAST_GTK_2_2
-static GtkTreePath *gtktreepath_up_multi(GtkTreePath *path, gint num) {
-	while (num > 0) {
-		gtk_tree_path_up(path);
-		num--;
-	}
-	return path;
-}
-
-void gtktreepath_expand_to_root(GtkWidget *tree, const GtkTreePath *this_path) {
-	gint num = gtk_tree_path_get_depth((GtkTreePath *)this_path);
-	while (num >= 0) {
-		GtkTreePath *path = gtk_tree_path_copy(this_path);
-		path = gtktreepath_up_multi(path, num);
-/*		g_signal_handlers_block_matched(G_OBJECT(tree), G_SIGNAL_MATCH_FUNC,
-					0, 0, NULL, row_expanded_lcb, NULL);*/
-		gtk_tree_view_expand_row(GTK_TREE_VIEW(tree), path, FALSE);
-/*		g_signal_handlers_unblock_matched(G_OBJECT(tree), G_SIGNAL_MATCH_FUNC,
-					0, 0, NULL, row_expanded_lcb, NULL);*/
-		gtk_tree_path_free(path);
-		num--;
-	}
-}
-#endif /* ifndef HAVE_ATLEAST_GTK_2_2 */
 
 /*****************************************
  * workaround for gnome-vfs-2.0
