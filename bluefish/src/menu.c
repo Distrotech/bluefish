@@ -1108,7 +1108,9 @@ void add_to_recent_list(Tbfwin *bfwin,gchar *filename, gint closed_file, gboolea
 		}
 	} else {
 		/* once we get rid of the other ways to store recent files this will be the only line we still need */
-		if (!is_project) {
+		if (is_project) {
+			main_v->globses.recent_projects = add_to_history_stringlist(main_v->globses.recent_projects, filename, TRUE);
+		} else {
 			bfwin->session->recent_files = add_to_history_stringlist(bfwin->session->recent_files, filename, TRUE);
 		}
 		DEBUG_MSG("add_to_recent_list, added to session recent_files, length=%d\n",g_list_length(bfwin->session->recent_files));

@@ -45,43 +45,31 @@ static GList *glist_with_html_tags(gint with_pseudo_classes) {
 	} else {
 		tmplist = g_list_append(tmplist, "a");
 	}
-	if(main_v->props.allow_h4){
-		tmplist = g_list_append(tmplist, "abbr");
-		tmplist = g_list_append(tmplist, "acronym");
-	}
+	tmplist = g_list_append(tmplist, "abbr");
+	tmplist = g_list_append(tmplist, "acronym");
 	tmplist = g_list_append(tmplist, "address");
 	tmplist = g_list_append(tmplist, "applet");
 	tmplist = g_list_append(tmplist, "area");
 	tmplist = g_list_append(tmplist, "b");
-	if(main_v->props.allow_h4){
-		tmplist = g_list_append(tmplist, "bdo");
-	}
+	tmplist = g_list_append(tmplist, "bdo");
 	tmplist = g_list_append(tmplist, "blockquote");
 	tmplist = g_list_append(tmplist, "body");
 	tmplist = g_list_append(tmplist, "br");
-	if(main_v->props.allow_h4){
-		tmplist = g_list_append(tmplist, "button");
-	}
+	tmplist = g_list_append(tmplist, "button");
 	tmplist = g_list_append(tmplist, "caption");
 	tmplist = g_list_append(tmplist, "cite");
 	tmplist = g_list_append(tmplist, "code");
-	if(main_v->props.allow_h4){
-		tmplist = g_list_append(tmplist, "col");
-		tmplist = g_list_append(tmplist, "colgroup");
-	}
+	tmplist = g_list_append(tmplist, "col");
+	tmplist = g_list_append(tmplist, "colgroup");
 	tmplist = g_list_append(tmplist, "dd");
-	if(main_v->props.allow_h4){
-		tmplist = g_list_append(tmplist, "del");
-	}
+	tmplist = g_list_append(tmplist, "del");
 	tmplist = g_list_append(tmplist, "dfn");
 	tmplist = g_list_append(tmplist, "div");
 	tmplist = g_list_append(tmplist, "dl");
 	tmplist = g_list_append(tmplist, "dt");
 	tmplist = g_list_append(tmplist, "em");
 	tmplist = g_list_append(tmplist, "embed");
-	if(main_v->props.allow_h4){
-		tmplist = g_list_append(tmplist, "fieldset");
-	}
+	tmplist = g_list_append(tmplist, "fieldset");
 	tmplist = g_list_append(tmplist, "form");
 	tmplist = g_list_append(tmplist, "h1");
 	tmplist = g_list_append(tmplist, "h2");
@@ -91,38 +79,24 @@ static GList *glist_with_html_tags(gint with_pseudo_classes) {
 	tmplist = g_list_append(tmplist, "h6");
 	tmplist = g_list_append(tmplist, "hr");
 	tmplist = g_list_append(tmplist, "i");
-	if(main_v->props.allow_h4){
-		tmplist = g_list_append(tmplist, "iframe");
-	}
+	tmplist = g_list_append(tmplist, "iframe");
 	tmplist = g_list_append(tmplist, "img");
 	tmplist = g_list_append(tmplist, "input");
-	if(main_v->props.allow_h4){
-		tmplist = g_list_append(tmplist, "ins");
-	}
+	tmplist = g_list_append(tmplist, "ins");
 	tmplist = g_list_append(tmplist, "kbd");
-	if(main_v->props.allow_h4){
-		tmplist = g_list_append(tmplist, "label");
-		tmplist = g_list_append(tmplist, "legend");
-	}
+	tmplist = g_list_append(tmplist, "label");
+	tmplist = g_list_append(tmplist, "legend");
 	tmplist = g_list_append(tmplist, "li");
 	tmplist = g_list_append(tmplist, "map");
-	if(main_v->props.allow_frames){
-		tmplist = g_list_append(tmplist, "noframes");
-	}
+	tmplist = g_list_append(tmplist, "noframes");
 	tmplist = g_list_append(tmplist, "noscript");
-	if(main_v->props.allow_h4){
-		tmplist = g_list_append(tmplist, "object");
-	}
+	tmplist = g_list_append(tmplist, "object");
 	tmplist = g_list_append(tmplist, "ol");
-	if(main_v->props.allow_h4){
-		tmplist = g_list_append(tmplist, "optgroup");
-	}
+	tmplist = g_list_append(tmplist, "optgroup");
 	tmplist = g_list_append(tmplist, "option");
 	tmplist = g_list_append(tmplist, "p");
 	tmplist = g_list_append(tmplist, "pre");
-	if(main_v->props.allow_h4){
-		tmplist = g_list_append(tmplist, "q");
-	}
+	tmplist = g_list_append(tmplist, "q");
 	if(main_v->props.allow_ruby){
 		tmplist = g_list_append(tmplist, "rb");
 		tmplist = g_list_append(tmplist, "rp");
@@ -132,23 +106,15 @@ static GList *glist_with_html_tags(gint with_pseudo_classes) {
 	tmplist = g_list_append(tmplist, "samp");
 	tmplist = g_list_append(tmplist, "select");
 	tmplist = g_list_append(tmplist, "small");
-	if(main_v->props.allow_h4){
-		tmplist = g_list_append(tmplist, "span");
-	}
+	tmplist = g_list_append(tmplist, "span");
 	tmplist = g_list_append(tmplist, "strong");
 	tmplist = g_list_append(tmplist, "table");
-	if(main_v->props.allow_h4){
-		tmplist = g_list_append(tmplist, "tbody");
-	}
+	tmplist = g_list_append(tmplist, "tbody");
 	tmplist = g_list_append(tmplist, "td");
 	tmplist = g_list_append(tmplist, "textarea");
-	if(main_v->props.allow_h4){
-		tmplist = g_list_append(tmplist, "tfoot");
-	}
+	tmplist = g_list_append(tmplist, "tfoot");
 	tmplist = g_list_append(tmplist, "th");
-	if(main_v->props.allow_h4){
-		tmplist = g_list_append(tmplist, "thead");
-	}
+	tmplist = g_list_append(tmplist, "thead");
 	tmplist = g_list_append(tmplist, "tr");
 	tmplist = g_list_append(tmplist, "tt");
 	tmplist = g_list_append(tmplist, "ul");

@@ -341,7 +341,6 @@ static GList *props_init_main(GList * config_rc)
 	init_prop_string    (&config_rc, &main_v->props.tab_font_string, "tab_font_string:", "");
 	init_prop_arraylist (&config_rc, &main_v->props.browsers, "browsers:", 2, TRUE);
 	init_prop_arraylist (&config_rc, &main_v->props.external_commands, "external_commands:", 2, TRUE);
-	init_prop_stringlist(&config_rc, &main_v->props.quickbar_items, "quickbar_items:", TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.highlight_num_lines_count, "highlight_num_lines_count:", 5, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.defaulthighlight, "defaulthighlight:", 1, TRUE);
 	/* old type filetypes have a different count, they are converted below */
@@ -352,9 +351,6 @@ static GList *props_init_main(GList * config_rc)
 	init_prop_integer   (&config_rc, &main_v->props.transient_htdialogs, "transient_htdialogs:", 1, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.restore_dimensions, "restore_dimensions:", 1, TRUE);	
 	init_prop_integer   (&config_rc, &main_v->props.left_panel_width, "left_panel_width:", 150, TRUE);
-	init_prop_integer   (&config_rc, &main_v->props.two_pane_filebrowser_height, "two_pane_filebrowser_height:", 250, TRUE);
-	init_prop_integer   (&config_rc, &main_v->props.main_window_h, "main_window_height:", 400, TRUE);
-	init_prop_integer   (&config_rc, &main_v->props.main_window_w, "main_window_width:", 600, TRUE); /* negative width means maximized */
 	init_prop_integer   (&config_rc, &main_v->props.max_recent_files, "max_recent_files:", 15, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.max_dir_history, "max_dir_history:", 10, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.backup_file,"backup_file:",1, TRUE);
@@ -382,8 +378,6 @@ static GList *props_init_main(GList * config_rc)
 	init_prop_integer   (&config_rc, &main_v->props.ext_commands_in_submenu,"ext_commands_in_submenu:",1, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.ext_outputbox_in_submenu,"ext_outputbox_in_submenu:",1, TRUE);
 	init_prop_arraylist (&config_rc, &main_v->props.reference_files, "reference_files:", 2, TRUE);
-	init_prop_integer   (&config_rc, &main_v->props.fref_ldoubleclick_action,"fref_ldoubleclick_action:",0, TRUE);
-	init_prop_integer   (&config_rc, &main_v->props.fref_info_type,"fref_info_type:",0, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.bookmarks_sort,"bookmarks_sort:",1, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.bookmarks_default_store,"bookmarks_default_store:",1, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.bookmarks_filename_mode,"bookmarks_filename_mode:",1, TRUE);
@@ -394,21 +388,12 @@ static GList *props_init_main(GList * config_rc)
 #ifdef HAVE_LIBASPELL
 	init_prop_string(&config_rc, &main_v->props.spell_default_lang, "spell_default_lang:", "en");
 #endif /* HAVE_LIBASPELL */
-	init_prop_integer(&config_rc, &main_v->props.lasttime_cust_menu, "lasttime_cust_menu:", 0, TRUE);
-	init_prop_integer(&config_rc, &main_v->props.lasttime_highlighting, "lasttime_highlighting:", 0, TRUE);
-	init_prop_integer(&config_rc, &main_v->props.lasttime_filetypes, "lasttime_filetypes:", 0, TRUE);
-	init_prop_integer(&config_rc, &main_v->props.lasttime_encodings, "lasttime_encodings:", 0, TRUE);
 	/* not yet in use */
 	init_prop_string(&config_rc, &main_v->props.image_editor_cline, "image_editor_command:", "gimp-remote -n \"%s\"&");
-	init_prop_integer(&config_rc, &main_v->props.full_p, "closing_paragraph_tag:", 1, TRUE);
-	init_prop_integer(&config_rc, &main_v->props.full_li, "closing_list_item_tag:", 1, TRUE);
-	init_prop_integer(&config_rc, &main_v->props.allow_css, "allow_the_use_of_css:", 1, TRUE);
 	init_prop_integer(&config_rc, &main_v->props.allow_dep, "allow_the_use_of_font:", 0, TRUE);
 	init_prop_integer(&config_rc, &main_v->props.format_by_context, "format_by_context:", 1, TRUE);
 	init_prop_integer(&config_rc, &main_v->props.xhtml, "use_xhtml:", 0, TRUE);
 	init_prop_integer(&config_rc, &main_v->props.allow_ruby, "allow_the_use_of_ruby:", 0, TRUE);
-	init_prop_integer(&config_rc, &main_v->props.allow_h4, "allow_the_use_of_html4:", 1, TRUE);
-	init_prop_integer(&config_rc, &main_v->props.allow_frames, "allow_the_use_of_frames:", 1, TRUE);
 	init_prop_integer(&config_rc, &main_v->props.force_dtd, "force_an_dtd:", 0, TRUE);
 	init_prop_integer(&config_rc, &main_v->props.dtd_url, "url_in_dtd:", 0, TRUE);
 	init_prop_integer(&config_rc, &main_v->props.xml_start, "xml_starting_line:", 0, TRUE);
@@ -418,13 +403,6 @@ static GList *props_init_main(GList * config_rc)
 	init_prop_integer(&config_rc, &main_v->props.drop_at_drop_pos, "drop_at_drop_position:", 0, TRUE);
 	init_prop_integer(&config_rc, &main_v->props.link_management, "link_management:", 1, TRUE);
 	
-	init_prop_string(&config_rc, &main_v->props.html_ver, "used_html_version:", "HTML 4.0 Transitional");
-	/* key conversion */
-	init_prop_integer (&config_rc, &main_v->props.conv_ctrl_enter,"conv_ctrl_enter:",0, TRUE);
-	init_prop_integer (&config_rc, &main_v->props.conv_shift_enter,"conv_shift_enter:",0, TRUE);
-	init_prop_string_with_escape (&config_rc, &main_v->props.shift_enter_text,"shift_enter_text:","<br>\\n");
-	init_prop_string_with_escape (&config_rc, &main_v->props.ctrl_enter_text,"ctrl_enter_text:","\\n</p>\\n<p>");
-	init_prop_integer (&config_rc, &main_v->props.conv_special_char,"conv_special_char:",0, TRUE);
 #ifdef WITH_MSG_QUEUE
 	init_prop_integer (&config_rc, &main_v->props.open_in_running_bluefish,"open_in_running_bluefish:",1, TRUE);
 #endif
@@ -539,9 +517,9 @@ void rcfile_parse_main(void)
 				g_print("Unable to find '"PKGDATADIR"encodings.default'\n");
 			}
 		} else {
-			if (config_file_is_newer(main_v->props.lasttime_encodings,defaultfile)) {
+			if (config_file_is_newer(main_v->globses.lasttime_encodings,defaultfile)) {
 				main_v->props.encodings = arraylist_load_new_identifiers_from_file(main_v->props.encodings,defaultfile,1);
-				main_v->props.lasttime_encodings = TIME_T_TO_GINT(time(NULL));
+				main_v->globses.lasttime_encodings = TIME_T_TO_GINT(time(NULL));
 			}
 		}
 		g_free(defaultfile);
@@ -574,9 +552,9 @@ void rcfile_parse_main(void)
 				g_print("Unable to find '"PKGDATADIR"filetypes.default'\n");
 			}
 		} else {
-			if (config_file_is_newer(main_v->props.lasttime_filetypes,defaultfile)) {
+			if (config_file_is_newer(main_v->globses.lasttime_filetypes,defaultfile)) {
 				main_v->props.filetypes = arraylist_load_new_identifiers_from_file(main_v->props.filetypes,defaultfile,1);
-				main_v->props.lasttime_filetypes = TIME_T_TO_GINT(time(NULL));
+				main_v->globses.lasttime_filetypes = TIME_T_TO_GINT(time(NULL));
 			}
 		}
 		g_free(defaultfile);
@@ -668,9 +646,9 @@ void rcfile_parse_highlighting(void) {
 		save_config_file(highlighting_configlist, filename);
 		DEBUG_MSG("rcfile_parse_highlighting, done saving\n");
 	} else {
-		if (config_file_is_newer(main_v->props.lasttime_highlighting,defaultfile)) {
+		if (config_file_is_newer(main_v->globses.lasttime_highlighting,defaultfile)) {
 			main_v->props.highlight_patterns = arraylist_load_new_identifiers_from_file(main_v->props.highlight_patterns,defaultfile,2);
-			main_v->props.lasttime_highlighting = TIME_T_TO_GINT(time(NULL));
+			main_v->globses.lasttime_highlighting = TIME_T_TO_GINT(time(NULL));
 		}
 	}
 	g_free(filename);
@@ -708,7 +686,7 @@ void rcfile_parse_custom_menu(void) {
 			g_print("Unable to find '"PKGDATADIR"custom_menu.default'\n");
 		}
 	} else {
-		if (config_file_is_newer(main_v->props.lasttime_cust_menu,defaultfile)) {
+		if (config_file_is_newer(main_v->globses.lasttime_cust_menu,defaultfile)) {
 			GList *default_insert=NULL, *default_replace=NULL, *tmp_configlist=NULL;
 			DEBUG_MSG("config_file_is_newer!\n");
 			init_prop_arraylist(&tmp_configlist, &default_insert, "cmenu_insert:", 0, TRUE);
@@ -716,7 +694,7 @@ void rcfile_parse_custom_menu(void) {
 			parse_config_file(tmp_configlist, defaultfile);
 			main_v->props.cmenu_insert = arraylist_load_new_identifiers_from_list(main_v->props.cmenu_insert, default_insert, 1);
 			main_v->props.cmenu_replace = arraylist_load_new_identifiers_from_list(main_v->props.cmenu_replace, default_replace, 1);
-			main_v->props.lasttime_cust_menu = TIME_T_TO_GINT(time(NULL));
+			main_v->globses.lasttime_cust_menu = TIME_T_TO_GINT(time(NULL));
 			free_arraylist(default_replace);
 			free_arraylist(default_insert);
 			free_configlist(tmp_configlist);
@@ -865,6 +843,22 @@ void rcfile_save_all(void) {
 	rcfile_save_global_session();
 }
 
+static GList *return_globalsession_configlist(void) {
+	GList *config_rc = NULL;
+	init_prop_stringlist(&config_rc, &main_v->globses.quickbar_items, "quickbar_items:", TRUE);
+	init_prop_integer   (&config_rc, &main_v->globses.two_pane_filebrowser_height, "two_pane_filebrowser_height:", 250, TRUE);
+	init_prop_integer   (&config_rc, &main_v->globses.main_window_h, "main_window_height:", 400, TRUE);
+	init_prop_integer   (&config_rc, &main_v->globses.main_window_w, "main_window_width:", 600, TRUE); /* negative width means maximized */
+	init_prop_integer   (&config_rc, &main_v->globses.fref_ldoubleclick_action,"fref_ldoubleclick_action:",0, TRUE);
+	init_prop_integer   (&config_rc, &main_v->globses.fref_info_type,"fref_info_type:",0, TRUE);
+	init_prop_integer(&config_rc, &main_v->globses.lasttime_cust_menu, "lasttime_cust_menu:", 0, TRUE);
+	init_prop_integer(&config_rc, &main_v->globses.lasttime_highlighting, "lasttime_highlighting:", 0, TRUE);
+	init_prop_integer(&config_rc, &main_v->globses.lasttime_filetypes, "lasttime_filetypes:", 0, TRUE);
+	init_prop_integer(&config_rc, &main_v->globses.lasttime_encodings, "lasttime_encodings:", 0, TRUE);
+	init_prop_limitedstringlist(&config_rc, &main_v->globses.recent_projects, "recent_projects:", main_v->props.max_recent_files, FALSE);
+	return config_rc;
+}
+
 static GList *return_session_configlist(GList *configlist, Tsessionvars *session) {
 	init_prop_stringlist(&configlist, &session->searchlist, "searchlist:", FALSE);
 	init_prop_stringlist(&configlist, &session->replacelist, "replacelist:", FALSE);
@@ -919,7 +913,8 @@ gboolean rcfile_save_project(Tproject *project, gchar *filename) {
 gboolean rcfile_save_global_session(void) {
 	gboolean retval;
 	gchar *filename = g_strconcat(g_get_home_dir(), "/.bluefish/session", NULL);
-	GList *configlist = return_session_configlist(NULL, main_v->session);
+	GList *configlist = return_globalsession_configlist();
+	configlist = return_session_configlist(configlist, main_v->session);
 	DEBUG_MSG("rcfile_save_global_session, saving global session to %s\n",filename);
 	DEBUG_MSG("rcfile_save_global_session, length session recent_files=%d\n",g_list_length(main_v->session->recent_files));
 	retval = save_config_file(configlist, filename);
@@ -932,7 +927,8 @@ gboolean rcfile_save_global_session(void) {
 gboolean rcfile_parse_global_session(void) {
 	gboolean retval;
 	gchar *filename = g_strconcat(g_get_home_dir(), "/.bluefish/session", NULL);
-	GList *configlist = return_session_configlist(NULL, main_v->session);
+	GList *configlist = return_globalsession_configlist();
+	configlist = return_session_configlist(configlist, main_v->session);
 	retval = parse_config_file(configlist, filename);
 	free_configlist(configlist);
 	g_free(filename);

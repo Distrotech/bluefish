@@ -1111,14 +1111,14 @@ static GtkWidget *togglemenuitem(GSList *group, gchar *name, gboolean selected, 
 static void fref_ldblclck_changed(GtkWidget *widget, gpointer data) {
 	if (GTK_CHECK_MENU_ITEM(widget)->active) {
 		DEBUG_MSG("fref_ldblclck_changed, set to %d\n", GPOINTER_TO_INT(data));
-		main_v->props.fref_ldoubleclick_action = GPOINTER_TO_INT(data);
+		main_v->globses.fref_ldoubleclick_action = GPOINTER_TO_INT(data);
 	}
 }
 
 static void fref_infotype_changed(GtkWidget *widget, gpointer data) {
 	if (GTK_CHECK_MENU_ITEM(widget)->active) {
 	 	DEBUG_MSG("fref_infotype_changed, set to %d\n", GPOINTER_TO_INT(data));
-	 	main_v->props.fref_info_type = GPOINTER_TO_INT(data);
+	 	main_v->globses.fref_info_type = GPOINTER_TO_INT(data);
 	}
 }
 
@@ -1707,24 +1707,24 @@ static GtkWidget *fref_popup_menu(Tbfwin *bfwin, FRInfo *entry) {
 		
 		ldblclckmenu = gtk_menu_new();
 		gtk_menu_item_set_submenu(GTK_MENU_ITEM(menu_item), ldblclckmenu);
-		menu_item = togglemenuitem(NULL, _("Insert"), (main_v->props.fref_ldoubleclick_action == FREF_ACTION_INSERT), G_CALLBACK(fref_ldblclck_changed), GINT_TO_POINTER(FREF_ACTION_INSERT));
+		menu_item = togglemenuitem(NULL, _("Insert"), (main_v->globses.fref_ldoubleclick_action == FREF_ACTION_INSERT), G_CALLBACK(fref_ldblclck_changed), GINT_TO_POINTER(FREF_ACTION_INSERT));
 		group = gtk_radio_menu_item_group(GTK_RADIO_MENU_ITEM(menu_item));
 		gtk_menu_append(GTK_MENU(ldblclckmenu), menu_item);
-		menu_item = togglemenuitem(group, _("Dialog"), (main_v->props.fref_ldoubleclick_action == FREF_ACTION_DIALOG), G_CALLBACK(fref_ldblclck_changed), GINT_TO_POINTER(FREF_ACTION_DIALOG));
+		menu_item = togglemenuitem(group, _("Dialog"), (main_v->globses.fref_ldoubleclick_action == FREF_ACTION_DIALOG), G_CALLBACK(fref_ldblclck_changed), GINT_TO_POINTER(FREF_ACTION_DIALOG));
 		gtk_menu_append(GTK_MENU(ldblclckmenu), menu_item);
-		menu_item = togglemenuitem(group, _("Info"), (main_v->props.fref_ldoubleclick_action == FREF_ACTION_INFO), G_CALLBACK(fref_ldblclck_changed), GINT_TO_POINTER(FREF_ACTION_INFO));
+		menu_item = togglemenuitem(group, _("Info"), (main_v->globses.fref_ldoubleclick_action == FREF_ACTION_INFO), G_CALLBACK(fref_ldblclck_changed), GINT_TO_POINTER(FREF_ACTION_INFO));
 		gtk_menu_append(GTK_MENU(ldblclckmenu), menu_item);
 
 		menu_item = gtk_menu_item_new_with_label(_("Info type"));
 		gtk_menu_append(GTK_MENU(optionsmenu), menu_item);
 		infowinmenu = gtk_menu_new();
 		gtk_menu_item_set_submenu(GTK_MENU_ITEM(menu_item), infowinmenu);
-		menu_item = togglemenuitem(NULL, _("Description"), (main_v->props.fref_info_type == FREF_IT_DESC), G_CALLBACK(fref_infotype_changed), GINT_TO_POINTER(FREF_IT_DESC));
+		menu_item = togglemenuitem(NULL, _("Description"), (main_v->globses.fref_info_type == FREF_IT_DESC), G_CALLBACK(fref_infotype_changed), GINT_TO_POINTER(FREF_IT_DESC));
 		group2 = gtk_radio_menu_item_group(GTK_RADIO_MENU_ITEM(menu_item));
 		gtk_menu_append(GTK_MENU(infowinmenu), menu_item);
-		menu_item = togglemenuitem(group2, _("Attributes/Parameters"), (main_v->props.fref_info_type == FREF_IT_ATTRS), G_CALLBACK(fref_infotype_changed), GINT_TO_POINTER(FREF_IT_ATTRS));
+		menu_item = togglemenuitem(group2, _("Attributes/Parameters"), (main_v->globses.fref_info_type == FREF_IT_ATTRS), G_CALLBACK(fref_infotype_changed), GINT_TO_POINTER(FREF_IT_ATTRS));
 		gtk_menu_append(GTK_MENU(infowinmenu), menu_item);
-		menu_item = togglemenuitem(group2, _("Notes"), (main_v->props.fref_info_type == FREF_IT_NOTES), G_CALLBACK(fref_infotype_changed), GINT_TO_POINTER(FREF_IT_NOTES));
+		menu_item = togglemenuitem(group2, _("Notes"), (main_v->globses.fref_info_type == FREF_IT_NOTES), G_CALLBACK(fref_infotype_changed), GINT_TO_POINTER(FREF_IT_NOTES));
 		gtk_menu_append(GTK_MENU(infowinmenu), menu_item);
 
 		
@@ -1935,7 +1935,7 @@ static gboolean frefcb_event_mouseclick(GtkWidget *widget,GdkEventButton *event,
 		Tcallbackdata *cd = g_new(Tcallbackdata,1);
 		cd->data = entry;
 		cd->bfwin = bfwin;
-		switch (main_v->props.fref_ldoubleclick_action) {
+		switch (main_v->globses.fref_ldoubleclick_action) {
 			case FREF_ACTION_INSERT:
 				fref_popup_menu_insert(NULL, cd);
 			break;
@@ -1946,8 +1946,8 @@ static gboolean frefcb_event_mouseclick(GtkWidget *widget,GdkEventButton *event,
 				fref_popup_menu_info(NULL, cd);
 			break;
 			default:
-				g_print("weird, fref_doubleclick_action=%d\n",main_v->props.fref_ldoubleclick_action);
-				main_v->props.fref_ldoubleclick_action = FREF_ACTION_DIALOG;
+				g_print("weird, fref_doubleclick_action=%d\n",main_v->globses.fref_ldoubleclick_action);
+				main_v->globses.fref_ldoubleclick_action = FREF_ACTION_DIALOG;
 			break;
 		}
 	}
@@ -1963,7 +1963,7 @@ static void frefcb_cursor_changed(GtkTreeView *treeview, Tbfwin *bfwin) {
 	if (entry==NULL) return;
 	if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(FREFGUI(bfwin->fref)->infocheck))) {
 		if (entry->description!=NULL) {
-			switch (main_v->props.fref_info_type) {
+			switch (main_v->globses.fref_info_type) {
 			case FREF_IT_DESC:
 				info = g_strconcat("<span size=\"small\"><b>Description:</b></span>\n",fref_prepare_info(entry,FR_INFO_DESC,FALSE),NULL);
 			break;    

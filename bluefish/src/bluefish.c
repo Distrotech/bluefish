@@ -218,7 +218,7 @@ int main(int argc, char *argv[])
 	}
 
 	gui_show_main(firstbfwin);
-	if (main_v->props.view_html_toolbar && main_v->props.quickbar_items == NULL) {
+	if (main_v->props.view_html_toolbar && main_v->globses.quickbar_items == NULL) {
 		info_dialog(firstbfwin->main_window, _("Bluefish tip:"), _("This message is shown since you do not have any items in the Quickbar.\n\nIf you right-click a button in the HTML toolbars you can add buttons to the Quickbar."));
 	}
 	if (projectfiles) {
