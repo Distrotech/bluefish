@@ -22,7 +22,7 @@
  */
 /* 
  * Changes by Antti-Juhani Kaijanaho <gaia@iki.fi> on 1999-10-20
- * $Id: html.c,v 1.42 2004-03-07 11:33:42 oli4 Exp $
+ * $Id: html.c,v 1.43 2004-08-29 10:48:27 oli4 Exp $
  */
 /*#define DEBUG*/
 
@@ -260,6 +260,42 @@ void general_html_menu_cb(Tbfwin* bfwin,guint callback_action, GtkWidget *widget
 		break;
 	case 55:
 		doc_insert_two_strings(bfwin->current_document, cap("<ACRONYM>"), cap("</ACRONYM>"));
+		break;
+	case 56:
+		doc_insert_two_strings(bfwin->current_document, cap("<SMALL>"), cap("</SMALL>"));
+		break;
+	case 57:
+		doc_insert_two_strings(bfwin->current_document, cap("<BIG>"), cap("</BIG>"));
+		break;
+	case 58:
+		doc_insert_two_strings(bfwin->current_document, cap("<BUTTON>"), cap("</BUTTON>"));
+		break;
+	case 59:
+		doc_insert_two_strings(bfwin->current_document, cap("<SCRIPT>"), cap("</SCRIPT>"));
+		break;
+	case 60:
+		doc_insert_two_strings(bfwin->current_document, cap("<SPAN>"), cap("</SPAN>"));
+		break;
+	case 61:
+		doc_insert_two_strings(bfwin->current_document, main_v->props.xhtml == 1 ? cap("<LINK />") : cap("<LINK>"), NULL);
+		break;
+	case 62:
+		doc_insert_two_strings(bfwin->current_document, cap("<DIV>"), cap("</DIV>"));
+		break;
+	case 63:
+		doc_insert_two_strings(bfwin->current_document, cap("<A>"), cap("</A>"));
+		break;
+	case 64:
+		doc_insert_two_strings(bfwin->current_document, main_v->props.xhtml == 1 ? cap("<IMG />") : cap("<IMG>"), NULL);
+		break;
+	case 65:
+		doc_insert_two_strings(bfwin->current_document, main_v->props.xhtml == 1 ? cap("<INPUT />") : cap("<INPUT>"), NULL);
+		break;
+	case 66:
+		doc_insert_two_strings(bfwin->current_document, cap("<TEXTAREA>"), cap("</TEXTAREA>"));
+		break;
+	case 67:
+		doc_insert_two_strings(bfwin->current_document, cap("<FORM>"), cap("</FORM>"));
 		break;
 	default:
 		break;
