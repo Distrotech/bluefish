@@ -1236,6 +1236,116 @@ static void cme_ok_lcb(GtkWidget *widget, Tcmenu_editor *cme) {
 	fill_cust_menubar();
 }
 
+static void cme_lview_selection_changed(GtkTreeSelection *selection, Tcmenu_editor *cme) {
+	GtkTreeIter iter;
+	GtkTreeModel *model;
+	if (gtk_tree_selection_get_selected (selection,&model,&iter)) {
+		gint num=0, pos=0, i;
+		gint type=0;
+
+		DEBUG_MSG("cme_clist_select_lcb, row=%d, listcount=%d\n", row, g_list_length(cme->worklist));
+		cme->lastarray = g_list_nth_data(cme->worklist, row);
+		DEBUG_MSG("cme_clist_select_lcb, lastarray=%p\n", cme->lastarray);
+
+		i = count_array(cme->lastarray);
+		if (i<5) {
+			DEBUG_MSG("cme_clist_select_lcb, invalid array count! (1)\n");
+			cme->lastarray = NULL;
+			return;
+		}
+		if (strcmp(cme->lastarray[1], "0")==0) {
+			type = 0;
+			DEBUG_MSG("cme_clist_select_lcb, type=%d\n", type);
+		}
+		if (strcmp(cme->lastarray[1], "1")==0) {
+			type = 1;
+			if (i < 8) {
+				DEBUG_MSG("cme_clist_select_lcb, invalid array count (2)!\n");
+				cme->lastarray = NULL;
+				return;
+			}
+			DEBUG_MSG("cme_clist_select_lcb, type=%d\n", type);
+		}
+		if (type > 1) {
+			DEBUG_MSG("cme_clist_select_lcb, invalid type! (type=%d)\n", type);
+			cme->lastarray = NULL;
+			return;
+		}
+
+		DEBUG_MSG("cme_clist_select_lcb, cme->lastarray[0]=%s, [i]='%s'\n", cme->lastarray[0], cme->lastarray[1]);
+		gtk_entry_set_text(GTK_ENTRY(cme->menupath), cme->lastarray[0]);
+	
+		gtk_editable_delete_text(GTK_EDITABLE(cme->before), 0, -1);
+		DEBUG_MSG("cme_clist_select_lcb, cme->lastarray[2]='%s'\n", cme->lastarray[2]);
+		gtk_editable_insert_text(GTK_EDITABLE(cme->before), cme->lastarray[2], strlen(cme->lastarray[2]), &pos);
+		gtk_editable_delete_text(GTK_EDITABLE(cme->after), 0, -1);
+		DEBUG_MSG("cme_clist_select_lcb, cme->lastarray[3]='%s'\n", cme->lastarray[3]);
+		pos = 0;
+		gtk_editable_insert_text(GTK_EDITABLE(cme->after), cme->lastarray[3], strlen(cme->lastarray[3]), &pos);
+		DEBUG_MSG("cme_clist_select_lcb, type=%d\n", type);
+		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(cme->type[type]), TRUE);
+		if (type == 0) {
+			DEBUG_MSG("cme_clist_select_lcb, type=0, custom dialog\n");
+			gtk_widget_hide(cme->csnr_box);
+		
+			num = atoi(cme->lastarray[4]);
+			DEBUG_MSG("cme_clist_select_lcb, num=%d\n", num);
+			gtk_spin_button_set_value(GTK_SPIN_BUTTON(cme->num), num);
+	
+			cme_create_entries(cme, num);
+			DEBUG_MSG("cme_clist_select_lcb, %d entries created\n", num);
+			for (i = 0 ; i < num; i++) {
+				gtk_entry_set_text(GTK_ENTRY(cme->descriptions[i]), cme->lastarray[i+5]);
+			}
+			for (i = num ; i < MAX_TEXT_ENTRY; i++) {
+				gtk_entry_set_text(GTK_ENTRY(cme->descriptions[i]), "");
+			}
+		}
+		if (type == 1) {
+			static Tconvert_table table1[] = {{0, "0"}, {1, "1"}, {0, NULL}};
+			static Tconvert_table table2[] = {{0, "current document"}, {1, "from cursor"}, {2, "in selection"}, {3, "in all open documents"}, {0, NULL}};
+			gint regioni;
+			gchar *regionc;
+			DEBUG_MSG("cme_clist_select_lcb, type=1, custom search and replace\n");
+			gtk_widget_show(cme->csnr_box);
+			DEBUG_MSG("cme_clist_select_lcb, cme->lastarray[5]=%s\n", cme->lastarray[5]);
+			gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(cme->is_regex), table_convert_char2int(table1, cme->lastarray[5]));
+			DEBUG_MSG("cme_clist_select_lcb, cme->lastarray[6]=%s\n", cme->lastarray[6]);
+			gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(cme->is_case_sens), table_convert_char2int(table1, cme->lastarray[6]));
+			
+			gtk_editable_delete_text(GTK_EDITABLE(GTK_COMBO(cme->region)->entry), 0, -1);
+			regioni = atoi(cme->lastarray[4]);
+			regionc = table_convert_int2char(table2, regioni);
+			if (regionc) {
+				gtk_editable_insert_text(GTK_EDITABLE(GTK_COMBO(cme->region)->entry), regionc, strlen(regionc), &pos);
+			}
+
+			num = atoi(cme->lastarray[7]);
+			gtk_spin_button_set_value(GTK_SPIN_BUTTON(cme->num), num);
+	
+			cme_create_entries(cme, num);
+			for (i = 0 ; i < num; i++) {
+				gtk_entry_set_text(GTK_ENTRY(cme->descriptions[i]), cme->lastarray[i+8]);
+			}
+			for (i = num ; i < MAX_TEXT_ENTRY; i++) {
+				gtk_entry_set_text(GTK_ENTRY(cme->descriptions[i]), "");
+			}
+		}
+		DEBUG_MSG("cme_clist_select_lcb, finished\n");
+	} else {
+		gint i;
+		gtk_entry_set_text(GTK_ENTRY(cme->menupath), "");
+		gtk_editable_delete_text(GTK_EDITABLE(cme->before), 0, -1);
+		gtk_editable_delete_text(GTK_EDITABLE(cme->after), 0, -1);
+		gtk_spin_button_set_value(GTK_SPIN_BUTTON(cme->num), 0);
+		for (i = 0 ; i < MAX_TEXT_ENTRY; i++) {
+			gtk_entry_set_text(GTK_ENTRY(cme->descriptions[i]), "");
+		}
+		cme->lastarray = NULL;
+		DEBUG_MSG("cme_clist_unselect_lcb, lastarray=%p\n", cme->lastarray);
+	}
+}
+
 static void cme_clist_unselect_lcb(GtkWidget * widget, gint row, gint column, GdkEventButton * event, Tcmenu_editor *cme) {
 	gint i;
 
@@ -1548,17 +1658,27 @@ void cmenu_editor(GtkWidget *widget, gpointer data) {
 	gtk_box_pack_start(GTK_BOX(hbox), vbox2, TRUE, TRUE, 0);
 	{
 		GtkWidget *scrolwin;
-		scrolwin = gtk_scrolled_window_new(NULL, NULL);
-		gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolwin), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
+		GtkTreeViewColumn *column;
+		GtkTreeSelection *select;
+	   GtkCellRenderer *renderer = gtk_cell_renderer_text_new ();
+
 		cme->lstore = gtk_list_store_new (1, G_TYPE_STRING);
 		cme->lview = gtk_tree_view_new_with_model(GTK_TREE_MODEL(cme->lstore));
 /*		gtk_signal_connect(GTK_OBJECT(cme->clist), "select_row", GTK_SIGNAL_FUNC(cme_clist_select_lcb), cme);
 		gtk_signal_connect(GTK_OBJECT(cme->clist), "unselect_row", GTK_SIGNAL_FUNC(cme_clist_unselect_lcb), cme);*/
+		column = gtk_tree_view_column_new_with_attributes ("Menu path", renderer,"text", 0,NULL);
+		gtk_tree_view_append_column (GTK_TREE_VIEW(cme->lview), column);
+
+		scrolwin = gtk_scrolled_window_new(NULL, NULL);
+		gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolwin), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
 
 		DEBUG_MSG("cmenu_editor, created lstore and lview\n");
 		gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(scrolwin), cme->lview);
 		gtk_widget_set_usize(scrolwin, 180, 250);
 		gtk_box_pack_start(GTK_BOX(vbox2), scrolwin, TRUE, TRUE, 0);
+		
+		select = gtk_tree_view_get_selection(GTK_TREE_VIEW(cme->lview));
+		g_signal_connect(G_OBJECT(select), "changed",G_CALLBACK(cme_lview_selection_changed),cme);
 	}
 
 	cme->type[0] = gtk_radio_button_new_with_label(NULL, _("custom dialog"));
