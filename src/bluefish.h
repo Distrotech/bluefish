@@ -109,6 +109,7 @@ typedef struct {
 	gint need_highlighting; /* if you open 10+ documents you don't need immediate highlighting, just set this var, and notebook_switch() will trigger the actual highlighting when needed */
 	gboolean highlightstate;
 	gboolean wrapstate;
+	gboolean linenumberstate;
 } Tdocument;
 
 typedef struct {
@@ -116,6 +117,7 @@ typedef struct {
 	gint view_custom_menu;			/* view custom menubar */
 	gint view_main_toolbar;				/* view main toolbar */
 	gint view_left_panel;  	/* view filebrowser/functionbrowser etc. */
+	gint view_line_numbers; /* view line numbers on the left side by default */
 	gint filebrowser_show_hidden_files;
 	gint filebrowser_show_others_files;
 	gint filebrowser_show_backup_files;

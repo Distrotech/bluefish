@@ -410,6 +410,7 @@ static GList *props_init_main(GList * config_rc)
 	init_prop_integer   (&config_rc, &main_v->props.view_custom_menu, "view_custom_menu:", 1);
 	init_prop_integer   (&config_rc, &main_v->props.view_main_toolbar, "view_main_toolbar:", 1);
 	init_prop_integer   (&config_rc, &main_v->props.view_left_panel, "view_left_panel:", 1);
+	init_prop_integer   (&config_rc, &main_v->props.view_line_numbers, "view_line_numbers:", 1);
 	init_prop_integer   (&config_rc, &main_v->props.filebrowser_show_hidden_files, "fb_show_hidden_f:", 0);
 	init_prop_integer   (&config_rc, &main_v->props.filebrowser_show_others_files, "fb_show_others_f:", 0);
 	init_prop_integer   (&config_rc, &main_v->props.filebrowser_show_backup_files, "fb_show_backup_f:", 0);
@@ -512,6 +513,7 @@ void rcfile_parse_main(void)
 	g_free(filename);
 	/* do some default configuration for the lists */
 	if (main_v->props.browsers == NULL) {
+		/* if the user does not have browsers --> set them to defaults values */
 		gchar **arr;
 		arr = array_from_arglist("Galeon", "galeon -x %s&",NULL);
 		main_v->props.browsers = g_list_append(main_v->props.browsers,arr);
@@ -525,6 +527,7 @@ void rcfile_parse_main(void)
 		main_v->props.browsers = g_list_append(main_v->props.browsers,arr);
 	}
 	if (main_v->props.encodings == NULL) {
+		/* if the user does not have encodings --> set them to defaults values */
 		main_v->props.encodings = g_list_append(main_v->props.encodings,array_from_arglist(_("UTF-8"), "UTF-8",NULL));
 		main_v->props.encodings = g_list_append(main_v->props.encodings,array_from_arglist(_("ISO-8859-1 (Latin 1, West European)"),"ISO-8859-1",NULL));
 		main_v->props.encodings = g_list_append(main_v->props.encodings,array_from_arglist(_("ISO-8859-2 (Latin 2, East European)"),"ISO-8859-2",NULL));
@@ -548,6 +551,7 @@ void rcfile_parse_main(void)
 		main_v->props.encodings = g_list_append(main_v->props.encodings,array_from_arglist(_("EUCJP (Japanese)"),"EUCJP",NULL));
 	}
 	if (main_v->props.outputbox==NULL) {
+		/* if the user does not have outputbox settings --> set them to defaults values */
 		main_v->props.outputbox = g_list_append(main_v->props.outputbox,array_from_arglist("make","([a-zA-Z0-9/_.-]+):([0-9]+):(.*)","1","2","3","make","1",NULL));
 		main_v->props.outputbox = g_list_append(main_v->props.outputbox,array_from_arglist("weblint HTML checker","([a-zA-Z0-9/_.-]+)\\(([0-9]+)\\): (.*)","1","2","3","weblint %s","1",NULL));
 		main_v->props.outputbox = g_list_append(main_v->props.outputbox,array_from_arglist("tidy HTML validator","line ([0-9]+) column [0-9]+ - (.*)","-1","1","2","tidy -qe %s","0",NULL));
@@ -555,6 +559,7 @@ void rcfile_parse_main(void)
 /*		main_v->props.outputbox = g_list_append(main_v->props.outputbox,array_from_arglist(,NULL)); */
 	}
 	if (main_v->props.external_commands == NULL) {
+		/* if the user does not have external commands --> set them to defaults values */
 		gchar **arr;
 		arr = array_from_arglist("Dos2Unix filter", "cat %s | dos2unix > %f",NULL);
 		main_v->props.external_commands = g_list_append(main_v->props.external_commands,arr);
@@ -562,6 +567,7 @@ void rcfile_parse_main(void)
 		main_v->props.external_commands = g_list_append(main_v->props.external_commands,arr);
 	}
 	if (main_v->props.filetypes == NULL) {
+		/* if the user does not have file-types --> set them to defaults values */
 		gchar **arr;
 		/* the default file types */
 		arr = array_from_arglist("php", ".php:.php4:.inc:.php3", " <>'\"/?$\t-{}[]{}\n;", PKGDATADIR"icon_php.png", NULL);
@@ -594,6 +600,7 @@ void rcfile_parse_main(void)
 		main_v->props.filetypes = g_list_append(main_v->props.filetypes, arr);
 	}
 	if (main_v->props.filefilters == NULL) {
+		/* if the user does not have file filters --> set them to defaults values */
 		gchar **arr;
 		arr = array_from_arglist("C programming","1","c:image", NULL);
 		main_v->props.filefilters = g_list_append(main_v->props.filefilters, arr);

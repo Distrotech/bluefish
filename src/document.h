@@ -22,8 +22,7 @@
 #define __DOCUMENT_H_
 
 gint documentlist_return_index_from_filename(gchar *filename);
-void doc_toggle_highlighting_cb(gpointer callback_data,guint action,GtkWidget *widget);
-void doc_toggle_wrap_cb(gpointer callback_data,guint action,GtkWidget *widget);
+
 void doc_update_highlighting(GtkWidget *wid, gpointer data);
 void document_set_wrap(Tdocument *doc, gint wraptype);
 void doc_set_font(Tdocument *doc, gchar *fontstring);
@@ -74,6 +73,10 @@ void edit_cut_cb(GtkWidget * widget, gpointer data);
 void edit_copy_cb(GtkWidget * widget, gpointer data);
 void edit_paste_cb(GtkWidget * widget, gpointer data);
 void edit_select_all_cb(GtkWidget * widget, gpointer data);
+
+void doc_toggle_highlighting_cb(gpointer callback_data,guint action,GtkWidget *widget);
+void doc_toggle_wrap_cb(gpointer callback_data,guint action,GtkWidget *widget);
+void doc_toggle_linenumbers_cb(gpointer callback_data,guint action,GtkWidget *widget);
 
 void doc_convert_asciichars_in_selection(gpointer callback_data,guint callback_action,GtkWidget *widget);
 void word_count_cb (gpointer callback_data,guint callback_action,GtkWidget *widget);
