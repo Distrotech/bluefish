@@ -510,7 +510,7 @@ It is also possible to move or rename a document, using the
 </sect2>
 <sect2 id="inserting">
 <title>Inserting files</title>
-<para>You can insert any file into the current document with the <menuchoice><guimenu>File</guimenu><guimenuitem>Insert...</guimenuitem></menuchoice> menu item. The file will be inserting at the cursor location.</para>
+<para>You can insert any file into the current document with the <menuchoice><guimenu>File</guimenu><guimenuitem>Insert...</guimenuitem></menuchoice> menu item. The file will be inserted at the cursor location.</para>
 <para>For more in-depth information about dealing with files, see <xref linkend="more-files" />.
 </para></sect2>
 <sect2 id="editing">
@@ -695,7 +695,7 @@ are supported.
 		</screenshot>
 	</figure>
 </para>
-<para>To retrieve next occurrences of the string, if any, you will use the <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>G</keycap></keycombo></shortcut><guimenu>Edit</guimenu><guimenuitem>Find again</guimenuitem></menuchoice> menu item repeatedly. Again, when none occurrence is found any more, you will be warned with the above mentioned search not found dialog.</para>
+<para>To retrieve next occurrences of the string, if any, you will use the <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>G</keycap></keycombo></shortcut><guimenu>Edit</guimenu><guimenuitem>Find again</guimenuitem></menuchoice> menu item repeatedly. Again, when no further occurrence is found, you will be warned with the above mentioned search not found dialog.</para>
 </sect3>
 <sect3 id="basic-find-selection">
 <title>Setting limits to the search scope</title>
@@ -1160,7 +1160,7 @@ The projects are a sort of <emphasis>saved state</emphasis> of Bluefish. Thus, t
 </para>
 </step>
 </procedure>
-<para>To open a project, you have the choice between <menuchoice><guimenu>Project</guimenu><guimenuitem>Open Project...</guimenuitem></menuchoice> or <guimenu>Project</guimenu><guimenuitem>Open recent</guimenuitem>. When you choose the former, a <guilabel>Selecting a Bluefish Project</guilabel> dialog is presented to you.</para>
+<para>To open a project, you have the choice between <menuchoice><guimenu>Project</guimenu><guimenuitem>Open Project...</guimenuitem></menuchoice> or <menuchoice><guimenu>Project</guimenu><guimenuitem>Open recent</guimenuitem></menuchoice>. When you choose the former, a <guilabel>Selecting a Bluefish Project</guilabel> dialog is presented to you.</para>
  <para><figure id="figure-project-open-dialog">
 	<title id="figure-project-open-dialog-title">Selecting a Bluefish Project</title>
 		<screenshot>
@@ -1355,7 +1355,7 @@ The projects are a sort of <emphasis>saved state</emphasis> of Bluefish. Thus, t
 <sect2 id="find-replace">
 <title>Find and Replace</title>
 	<para>
-	The <guimenu>Edit</guimenu> menu features several options for Find and Replace. The <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>F</keycap></keycombo></shortcut><guimenu>Edit</guimenu><guimenuitem>Find</guimenuitem></menuchoice> and <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>H</keycap></keycombo><guimenu>Edit</guimenu><guimenuitem>Replace...</guimenuitem></shortcut></menuchoice> menu items will simply start the dialogs described elsewhere in this manual.</para>
+	The <guimenu>Edit</guimenu> menu features several options for Find and Replace. The <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>F</keycap></keycombo></shortcut><guimenu>Edit</guimenu><guimenuitem>Find</guimenuitem></menuchoice> and <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>H</keycap></keycombo></shortcut><guimenu>Edit</guimenu><guimenuitem>Replace...</guimenuitem></menuchoice> menu items will simply start the dialogs described elsewhere in this manual.</para>
 	<para>
 	The <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>G</keycap></keycombo></shortcut><guimenu>Edit</guimenu><guimenuitem>Find again</guimenuitem></menuchoice> menu item will repeat the last used search. It will 
 	continue the search after the position where the previous search was stopped. If the 
@@ -1499,14 +1499,14 @@ CSS 2.0 reference, an HTML reference and a Python reference. The functions are
 grouped depending on the language, by type, module, object, etc.
 </para>
 <para>
-The function reference browser can show a info window on the bottom. Check the 'Show 
+The function reference browser can show an info window on the bottom. Check the 'Show 
 info window' check box. In this window some information about the currently selected 
 item can be shown. What exactly is shown can be chosen in the right-click context menu.
 </para>
 <para>SCREENSHOT BY ????</para>
 <para>Every item in the function reference can simply insert text, show an info window, 
 or show a dialog that can be used to insert text. In the right-click context menu each of
-these functions are accessible. One of these functions can be bound to a 
+these functions is accessible. One of these functions can be bound to a 
 left-double-click action. This is also configurable from the context menu.
 </para>
 </sect2>
@@ -1539,7 +1539,7 @@ left-double-click action. This is also configurable from the context menu.
 	  all tags, however, have a dialog, so this is not always possible. Colors in the 
 	  style #RRGGBB can also be edited from the right-click context menu.
 	  </para>
-	  <para>In the reference browser on the left panel there is a
+	  <para>In the reference browser on the left panel there is an
 	  HTML reference available. All possible attributes and valid values can be
 	  found in this reference.
 	  </para> 
@@ -1564,7 +1564,7 @@ image, choose the scaling, and some attributes, and press OK. Bluefish will crea
 the thumbnail with 
 extension _thumbnail.png (can be changed in the preferences).</para>
 <para>SCREENSHOT BY ????</para>
-<para>In the multi thumbnail dialog, you first setup some a constraint, and 
+<para>In the multi thumbnail dialog, you first setup some constraint, and 
 the HTML code to be inserted for each image.</para>
 <para>Scaling can be based on a fixed ratio, based on a fixed width, based 
 on a fixed height, or based on a fixed width and fixed height (this last 
@@ -1592,7 +1592,7 @@ Bluefish will create the thumbnails and insert the code.
 <title>Custom menu</title>
 	<para>The custom menu allows you to add "often used" strings or
 	search and replace patterns to a menu. Upon install Bluefish will create
-	some default entries, these will give you an idea what can be done with
+	some default entries. These will give you an idea what can be done with
 	the custom menu.</para>
 	
 	<para>
