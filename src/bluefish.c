@@ -161,7 +161,11 @@ int main(int argc, char *argv[])
 #ifndef NOSPLASH
 	splash_screen_set_label(_("creating main gui..."));
 #endif /* #ifndef NOSPLASH */
-	gui_create_main(filenames);
+
+	/* create the first window */
+	main_v->current_bfwin = g_new0(Tbfwin,1);
+	main_v->bfwinlist = g_list_append(NULL, main_v->current_bfwin);
+	gui_create_main(main_v->current_bfwin,filenames);
 
 #ifndef NOSPLASH
 	splash_screen_set_label(_("showing main gui..."));
@@ -176,7 +180,10 @@ int main(int argc, char *argv[])
 		g_free(shortcutfilename);
 	}
 
-	gui_show_main();
+	gui_show_main(main_v->current_bfwin);
+	if (main_v->props.view_html_toolbar && main_v->props.quickbar_items == NULL) {
+		info_dialog(_("Bluefish tip:"), _("This message is shown since you do not have any items in the Quickbar.\n\nIf you right-click a button in the HTML toolbars you can add buttons to the Quickbar."));
+	}
 #ifndef NOSPLASH
 	flush_queue();
 	{
@@ -223,6 +230,7 @@ void bluefish_exit_request() {
 		g_free(filename);
 	}
 	
+/*	NEEDS TO BE PORTED FOR MULTIPLE-WINDOW SUPPORT
 	tmplist = gtk_window_list_toplevels();
 	g_list_foreach(tmplist, (GFunc)g_object_ref, NULL);
 	tmplist = g_list_first(tmplist);
@@ -232,7 +240,7 @@ void bluefish_exit_request() {
 		}
 		tmplist = g_list_next(tmplist);
 	}
-	g_list_foreach (tmplist, (GFunc)g_object_unref, NULL);
+	g_list_foreach (tmplist, (GFunc)g_object_unref, NULL); */
 	
 	/* I don't understand why, but if I call gtk_main_quit here, the main() function does not continue after gtk_main(), very weird, so I'll call exit() here */
 	gtk_main_quit();
