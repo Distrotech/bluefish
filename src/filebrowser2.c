@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-/* #define DEBUG */
+#define DEBUG
 
 /* ******* NEW FILEBROWSER DESIGN ********
 I'm thinking about a new design for the filebrowser, the 
@@ -500,6 +500,24 @@ static gboolean fb2_isdir_from_dir_sort_path(Tfilebrowser2 *fb2, GtkTreePath *so
 	}
 	return FALSE;
 }
+static GtkTreePath *fb2_fspath_from_dir_selection(Tfilebrowser2 *fb2) {
+	GtkTreeModel *sort_model;
+	GtkTreeIter sort_iter;
+	GtkTreeSelection *selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(fb2->dir_v));
+	if (gtk_tree_selection_get_selected(selection,&sort_model,&sort_iter)) {
+		GtkTreePath *sort_path;
+		sort_path = gtk_tree_model_get_path(sort_model,&sort_iter);
+		if (sort_path) {
+			GtkTreePath *fs_path;
+			fs_path = fb2_fspath_from_dir_sortpath(fb2, sort_path);
+			gtk_tree_path_free(sort_path);
+			return fs_path;
+		}
+		DEBUG_MSG("fb2_fspath_from_dir_selection, a selection, but no sort_path?\n");
+	}
+	DEBUG_MSG("fb2_fspath_from_dir_selection, returning NULL\n");
+	return NULL;
+}
 static GnomeVFSURI *fb2_uri_from_file_selection(Tfilebrowser2 *fb2) {
 	GtkTreeModel *sort_model;
 	GtkTreeIter sort_iter;
@@ -564,12 +582,29 @@ static void fb2rpopup_rpopup_action_lcb(Tfilebrowser2 *fb2,guint callback_action
 			}
 		break;
 		case 2:
-		
 		break;
 		case 3:
-		
 		break;
-	
+		case 4:
+		break;
+		case 5:
+		break;
+		case 6:
+		break;
+		case 7:
+		break;
+		case 8:
+			{
+				GtkTreePath *fs_path;
+				fs_path = fb2_fspath_from_dir_selection(fb2);
+				DEBUG_MSG("fb2rpopup_rpopup_action_lcb, fs_path=%p\n",fs_path);
+				refilter_dirlist(fb2, fs_path);
+			}
+		break;
+		case 9:
+			refilter_dirlist(fb2, NULL);
+		break;
+
 	
 	}
 }
