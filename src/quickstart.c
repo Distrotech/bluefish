@@ -145,17 +145,17 @@ quickstart_load_metatags(GtkListStore *lstore) {
  * other?
  */	
 	const gchar *metaTags[] = {
-		"meta name=\"generator\" content=\"Bluefish\"",
-		"meta name=\"author\" content=\"\"",
-		"meta name=\"copyright\" content=\"\"",
-		"meta name=\"keywords\" content=\"\"",
-		"meta name=\"description\" content=\"\"",
-		"meta name=\"ROBOTS\" content=\"NOINDEX, NOFOLLOW\"",
-		"meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"",
-		"meta http-equiv=\"Content-Type\" content=\"application/xhtml+xml; charset=UTF-8\"",
-		"meta http-equiv=\"Content-Style-Type\" content=\"text/css\"",
-		"meta http-equiv=\"Expires\" content=\"\"",
-		"meta http-equiv=\"refresh\" content=\"5; URL=http://\"",
+		"name=\"generator\" content=\"Bluefish\"",
+		"name=\"author\" content=\"\"",
+		"name=\"copyright\" content=\"\"",
+		"name=\"keywords\" content=\"\"",
+		"name=\"description\" content=\"\"",
+		"name=\"ROBOTS\" content=\"NOINDEX, NOFOLLOW\"",
+		"http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"",
+		"http-equiv=\"Content-Type\" content=\"application/xhtml+xml; charset=UTF-8\"",
+		"http-equiv=\"Content-Style-Type\" content=\"text/css\"",
+		"http-equiv=\"Expires\" content=\"\"",
+		"http-equiv=\"refresh\" content=\"5; URL=http://\"",
 	};
 
 	for (i = 0; i < G_N_ELEMENTS (metaTags); i++) {
@@ -230,6 +230,7 @@ quickstart_response_lcb(GtkDialog *dialog, gint response, TQuickStart *qstart) {
 		gchar *tmpstr, *tmpstr2, *name, *xmlstr, *titlestr, *scriptsrc, *stylearea, *scriptarea, *endstr, *finalstr, *metatag;
 		gchar *dtdstr = NULL;
 		GString *metastr, *stylestr;
+		gboolean is_frameset_dtd = FALSE;
 		unsigned int i = 0;
 		
 		gtk_combo_box_get_active_iter (GTK_COMBO_BOX (qstart->dtd), &iter);
@@ -245,10 +246,15 @@ quickstart_response_lcb(GtkDialog *dialog, gint response, TQuickStart *qstart) {
 			tmpstr = g_strdup_printf ("%s\n", cap("<HTML>\n<HEAD>"));
 			endstr = g_strdup (">\n");
 		}
+		
 		for (i = 0; i < G_N_ELEMENTS (dtds); i++) {
 			if (strcmp(name, dtds[i].name) == 0) {
 				dtdstr = g_strconcat (dtds[i].dtd, "\n", NULL);
 			}
+		}
+		
+		if (strstr(name, "Frameset")) {
+			is_frameset_dtd = TRUE;
 		}
 		g_free (name);
 		
@@ -259,7 +265,7 @@ quickstart_response_lcb(GtkDialog *dialog, gint response, TQuickStart *qstart) {
 		if (gtk_tree_model_get_iter_first (model, &iter)) {
 			do {
 				gtk_tree_model_get (model, &iter, 0, &metatag, -1);
-				tmpstr2 = g_strconcat ("<", metatag, endstr, NULL);
+				tmpstr2 = g_strconcat ("<meta ", metatag, endstr, NULL);
 				g_free (metatag);				
 				metastr = g_string_append (metastr, tmpstr2);
 				g_free (tmpstr2);
@@ -321,7 +327,8 @@ quickstart_response_lcb(GtkDialog *dialog, gint response, TQuickStart *qstart) {
 		}
 		
 		finalstr = g_strconcat (xmlstr, dtdstr, tmpstr, titlestr, metastr->str, 
-										stylestr->str, stylearea, scriptsrc, scriptarea, cap("</HEAD>\n<BODY>\n"), NULL);
+										stylestr->str, stylearea, scriptsrc, scriptarea, 
+										cap("</HEAD>\n"), is_frameset_dtd ? cap("<FRAMESET>\n") : cap("<BODY>\n"), NULL);
 		
 		g_free (xmlstr);
 		g_free (dtdstr);
@@ -343,7 +350,9 @@ quickstart_response_lcb(GtkDialog *dialog, gint response, TQuickStart *qstart) {
 			switch_to_document_by_pointer(qstart->bfwin, doc);
 		}
 
-		doc_insert_two_strings(qstart->bfwin->current_document, finalstr, cap("\n</BODY>\n</HTML>"));	
+		doc_insert_two_strings(qstart->bfwin->current_document, 
+									  finalstr, 
+									  is_frameset_dtd ? cap("\n</FRAMESET>\n</HTML>") : cap("\n</BODY>\n</HTML>"));
 		g_free (finalstr);
 	}
 	
