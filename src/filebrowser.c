@@ -294,7 +294,7 @@ static GList *return_dir_entries(Tfilebrowser *filebrowser,const gchar *dirname)
 	DEBUG_MSG("return_dir_entries, started for %s\n",dirname);
 	gint bytes_w;
 	GError *gerror=NULL;
-	gchar *ondiskname = g_filename_to_utf8(dirname, -1, NULL, &bytes_w, &gerror);
+	gchar *ondiskname = g_filename_from_utf8(dirname, -1, NULL, &bytes_w, &gerror);
 	result = gnome_vfs_directory_open(&handle,ondiskname,GNOME_VFS_FILE_INFO_DEFAULT|GNOME_VFS_FILE_INFO_FOLLOW_LINKS);
 	g_free(ondiskname);
 	if (result != GNOME_VFS_OK) {
