@@ -324,13 +324,13 @@ static void checkNsave_checkmodified_lcb(Tcheckmodified_status status,gint error
 	break;
 	}
 	if (startbackup) {
-		DEBUG_MSG("checkNsave_checkmodified_lcb, backup_file=%d\n",main_v->props.backup_file);
 		if (main_v->props.backup_file)  {
 			GList *sourcelist;
 			GList *destlist;
 			gchar *tmp, *tmp2;
 			GnomeVFSURI *dest;
 			GnomeVFSResult ret;
+			DEBUG_MSG("checkNsave_checkmodified_lcb, backup required (%d)\n",main_v->props.backup_file);
 			/* now first create the backup, then start save */
 			tmp = gnome_vfs_uri_to_string(cns->uri,0);
 			tmp2 = g_strconcat(tmp, main_v->props.backup_filestring, NULL);
