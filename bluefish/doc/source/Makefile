@@ -24,8 +24,17 @@ RUN_FOP=${TOOLS_DIR}/tools/bin/run-fop.sh
 all: html pdf ps
 
 html: $(BOOK_ALL_SOURCE)
+	rm -f $(OUTPUT_DIR)/*.html
+	rm -rf $(OUTPUT_DIR)/figures
+	rm -rf $(OUTPUT_DIR)/imgs
 	$(XSLTPROC) $(XSL_HTML_CHUNK) $(BOOK_XML_SOURCE) > $(BOOK_HTML_TARGET)
 	mv *.html $(OUTPUT_DIR)/
+	mv *.html $(OUTPUT_DIR)/
+	mkdir -p $(OUTPUT_DIR)/figures
+	mkdir -p $(OUTPUT_DIR)/imgs
+	cp $(BOOK_DIR)/figures/*.png $(OUTPUT_DIR)/figures/ 
+	cp $(BOOK_DIR)/imgs/*.png $(OUTPUT_DIR)/imgs/ 
+
 
 html-one-big: $(BOOK_ALL_SOURCE)
 	$(XSLTPROC) $(XSL_HTML) $(BOOK_XML_SOURCE) > $(BOOK_HTML_TARGET)
@@ -43,4 +52,6 @@ clean:
 	rm -f $(BOOK_PDF_TARGET) $(BOOK_PS_TARGET) 
 	rm -f $(BOOK_PDF_TARGET) $(BOOK_PS_TARGET) 
 	rm -f $(OUTPUT_DIR)/*.html
+	rm -rf $(OUTPUT_DIR)/figures
+	rm -rf $(OUTPUT_DIR)/imgs
 
