@@ -1955,8 +1955,10 @@ void doc_destroy(Tdocument * doc, gboolean delay_activation) {
 		g_free(doc->encoding);
 
 #ifdef HAVE_GNOME_VFS
-	gnome_vfs_file_info_unref (doc->fileinfo);
-#endif	
+	if (doc->fileinfo) {
+		gnome_vfs_file_info_unref (doc->fileinfo);
+	}
+#endif	/* HAVE_GNOME_VFS */
 	
 	g_object_unref(doc->buffer);
 	doc_unre_destroy(doc);
@@ -2185,19 +2187,16 @@ gint doc_close(Tdocument * doc, gint warn_only)
 	}
 
 	if (doc->modified) {
-		if (doc->filename) {
-			text =
-				g_strdup_printf(_("Do you want to save the changes done to\n%s?."),
-								doc->filename); /* Reduce to filename w/o path? */
+		if (doc->tab_label) {
+			text = g_strdup_printf(_("Do you want to save the changes made to\n\"%s\"?."),
+									gtk_label_get_text (GTK_LABEL (doc->tab_label)));
 		} else {
-			text =
-				g_strdup(_
-						 ("Do you want to save the changes done to this untitled file?"));
+			text = g_strdup(_("Do you want to save the changes made to this untitled file?"));
 		}
 	
 		{
 			gchar *buttons[] = {_("Do_n't save"), GTK_STOCK_CANCEL, GTK_STOCK_SAVE, NULL};
-			retval = multi_query_dialog(BFWIN(doc->bfwin)->main_window,_("The file is not saved"),text, 2, 1, buttons);
+			retval = multi_query_dialog(BFWIN(doc->bfwin)->main_window,_("This file has not been saved."),text, 2, 1, buttons);
 		}
 		g_free(text);
 
@@ -3147,11 +3146,16 @@ void file_close_all_cb(GtkWidget * widget, Tbfwin *bfwin) {
 
 	/* first a warning loop */
 	if (test_docs_modified(bfwin->documentlist)) {
-		gchar *options[] = {_("_Save all"), _("Close _all"), _("Choose per _file"), _("_Cancel"), NULL};
-		retval = multi_query_dialog(bfwin->main_window,_("Some file(s) have been modified"), NULL, 0, 3, options);
-		if (retval == 3) {
+		if (g_list_length (bfwin->documentlist) > 1) {
+			gchar *options[] = {_("_Save all"), _("Close _all"), _("Choose per _file"), _("_Cancel"), NULL};
+			retval = multi_query_dialog(bfwin->main_window,_("Multiple files have been modified."), 
+										_("Your changes will be lost if you don't save them."), 3, 3, options);
+			if (retval == 3) {
 			DEBUG_MSG("file_close_all_cb, cancel clicked, returning 0\n");
 			return;
+			}
+		} else {
+			retval = 2;
 		}
 	} else {
 		retval = 1;
@@ -3180,7 +3184,7 @@ void file_close_all_cb(GtkWidget * widget, Tbfwin *bfwin) {
 			tmplist = g_list_first(bfwin->documentlist);
 		break;
 		case 2:
-			if (doc_close(tmpdoc, 0)) {
+			if (doc_close(tmpdoc, 0) != 2) {
 				tmplist = g_list_first(bfwin->documentlist);
 			} else {
 /*				notebook_changed();*/
