@@ -98,7 +98,7 @@ void parse_existence_for_dialog(gchar * valuestring, GtkWidget * checkbox);
 void parse_integer_for_dialog(gchar * valuestring, GtkWidget * spin, GtkWidget * entry, GtkWidget * checkbox);
 
 gchar *insert_string_if_entry(GtkWidget * entry, gchar * itemname, gchar * string2add2, gchar *defaultvalue);
-gchar *insert_integer_if_spin(GtkWidget * spin, gchar * itemname, gchar * string2add2, GtkWidget * percentage);
+gchar *insert_integer_if_spin(GtkWidget * spin, gchar * itemname, gchar * string2add2, gboolean ispercentage, gint dontinsertonvalue);
 gchar *insert_attr_if_checkbox(GtkWidget * checkbox, gchar * itemname, gchar *string2add2);
 gchar *format_entry_into_string(GtkEntry * entry, gchar * formatstring);
 GList *add_entry_to_stringlist(GList *which_list, GtkWidget *entry);

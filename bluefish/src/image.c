@@ -83,11 +83,11 @@ static void image_insert_dialogok_lcb(GtkWidget * widget, Timage_diag *imdg) {
 		thestring = insert_string_if_entry(imdg->dg->entry[0], cap("SRC"), thestring, NULL);
 	}
 
-	thestring = insert_integer_if_spin(imdg->dg->spin[0], cap("WIDTH"), thestring, imdg->dg->check[0]);
-	thestring = insert_integer_if_spin(imdg->dg->spin[1], cap("HEIGHT"), thestring, imdg->dg->check[1]);
-	thestring = insert_integer_if_spin(imdg->dg->spin[2], cap("BORDER"), thestring, NULL);
-	thestring = insert_integer_if_spin(imdg->dg->spin[3], cap("HSPACE"), thestring, NULL);
-	thestring = insert_integer_if_spin(imdg->dg->spin[4], cap("VSPACE"), thestring, NULL);
+	thestring = insert_integer_if_spin(imdg->dg->spin[0], cap("WIDTH"), thestring, GTK_TOGGLE_BUTTON(imdg->dg->check[0])->active,0);
+	thestring = insert_integer_if_spin(imdg->dg->spin[1], cap("HEIGHT"), thestring, GTK_TOGGLE_BUTTON(imdg->dg->check[1])->active,0);
+	thestring = insert_integer_if_spin(imdg->dg->spin[2], cap("BORDER"), thestring, FALSE, 1);
+	thestring = insert_integer_if_spin(imdg->dg->spin[3], cap("HSPACE"), thestring, FALSE,0);
+	thestring = insert_integer_if_spin(imdg->dg->spin[4], cap("VSPACE"), thestring, FALSE,0);
 	thestring = insert_string_if_entry(imdg->dg->entry[1], cap("NAME"), thestring, NULL);
 	thestring = insert_string_if_entry(imdg->dg->entry[2], cap("ALT"), thestring, "");
 	thestring = insert_string_if_entry(imdg->dg->entry[3], cap("USEMAP"), thestring, NULL);

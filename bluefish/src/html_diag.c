@@ -305,16 +305,14 @@ gchar *insert_string_if_entry(GtkWidget * entry, gchar * itemname, gchar * strin
 	return string2add2;
 }
 
-gchar *insert_integer_if_spin(GtkWidget * spin, gchar * itemname, gchar * string2add2, GtkWidget * percentage)
-{
-
-	gchar *tempstring;
-
-	if (strcmp(itemname, cap("BORDER")) == 0 || strcmp(gtk_entry_get_text(GTK_ENTRY(spin)), "0") != 0) {
-		if ((percentage) && (GTK_TOGGLE_BUTTON(percentage)->active)) {
-			tempstring = g_strdup_printf("%s %s=\"%d%%\"", string2add2, itemname, gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(spin)));
+gchar *insert_integer_if_spin(GtkWidget * spin, gchar * itemname, gchar * string2add2, gboolean ispercentage, gint dontinsertonvalue) {
+	gint val = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(spin));
+	if (val != dontinsertonvalue) {
+		gchar *tempstring;
+		if (ispercentage && (GTK_TOGGLE_BUTTON(ispercentage)->active)) {
+			tempstring = g_strdup_printf("%s %s=\"%d%%\"", string2add2, itemname, val);
 		} else {
-			tempstring = g_strdup_printf("%s %s=\"%d\"", string2add2, itemname, gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(spin)));
+			tempstring = g_strdup_printf("%s %s=\"%d\"", string2add2, itemname, val);
 		}
 		g_free(string2add2);
 		string2add2 = tempstring;
