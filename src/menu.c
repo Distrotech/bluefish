@@ -45,6 +45,7 @@
 #include "pixmap.h"
 #include "preferences.h"	/* open_preferences_menu_cb */
 #include "project.h"
+#include "quickstart.h"
 #include "rcfile.h"			/* rcfile_save_configfile_menu_cb */
 #include "rpopup.h"
 #include "snr2.h"				/* search_cb, replace_cb */
@@ -242,7 +243,7 @@ static void menu_html_dialogs_lcb(Tbfwin *bfwin,guint callback_action, GtkWidget
 		optgroupdialog_dialog(bfwin,NULL);
 	break;
 	case 32:
-		quickstart_dialog(bfwin,NULL);
+		quickstart_dialog_new(bfwin);
 	break;
 	case 33:
 		inputdialog_dialog(bfwin, NULL, NULL);
