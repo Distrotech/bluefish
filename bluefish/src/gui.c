@@ -701,13 +701,17 @@ static void html_toolbar_add_items(Tbfwin *bfwin, GtkWidget *html_toolbar, Ttool
 
 static void html_toolbar_add_items_to_submenu(Tbfwin *bfwin, GtkWidget *html_toolbar, Ttoolbaritem *tbi, gint from, gint to, gchar *menulabel, gint menupix) {
 	GtkWidget *menu_bar, *sub_menu, *menu_item, *pixmap;
+	GtkTooltips *tooltips;
 	gint i;
+	
+	tooltips = gtk_tooltips_new();	
 	sub_menu = gtk_menu_new();
 	for (i=from;i<=to;i++) {
 		if (tbi[i].func == NULL) {
 			gtk_toolbar_append_space(GTK_TOOLBAR(html_toolbar));
 		} else {
 			menu_item = gtk_menu_item_new();
+			gtk_tooltips_set_tip(GTK_TOOLTIPS(tooltips), menu_item, tbi[i].tooltiptext, NULL);
 			gtk_container_add(GTK_CONTAINER(menu_item), new_pixmap(tbi[i].pixmaptype));
 			g_signal_connect(GTK_OBJECT(menu_item), "activate", G_CALLBACK(tbi[i].func), bfwin);
 			g_signal_connect(menu_item, "button-press-event", G_CALLBACK(html_toolbar_item_button_press_lcb), &tbi[i]);
