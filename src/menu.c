@@ -24,6 +24,7 @@
 #include "document.h"			/* file_open etc. */
 #include "menu.h" /* my own .h file */
 #include "undo_redo.h" /* undo_cb() redo_cb() etc. */
+#include "snr2.h" /* search_cb, replace_cb */
 
 static GtkItemFactoryEntry menu_items[] = {
 	{N_("/_File"), NULL, NULL, 0, "<Branch>"},
@@ -45,6 +46,13 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/File/Quit"), "<control>Q", bluefish_exit_request, 0, NULL},
 	{N_("/_Edit"), NULL, NULL, 0, "<Branch>"},
 	{N_("/_Edit/Tearoff1"), NULL, NULL, 0, "<Tearoff>"},
+	{N_("/Edit/sep3"), NULL, NULL, 0, "<Separator>"},
+	{N_("/Edit/Find..."), "F6", search_cb, 0, NULL},
+	{N_("/Edit/New find..."), NULL, new_search_cb, 0, NULL},
+	{N_("/Edit/Find again"), "<shift>F6", search_again_cb, 0, NULL},
+	{N_("/Edit/Replace..."), "F7", replace_cb, 0, NULL},
+	{N_("/Edit/New replace..."), NULL, new_replace_cb, 0, NULL},
+	{N_("/Edit/Replace again"), "<shift>F7", replace_again_cb, 0, NULL},
 	{N_("/Edit/sep4"), NULL, NULL, 0, "<Separator>"},
 	{N_("/Edit/Undo"), "<control>z", undo_cb, 0, NULL},
 	{N_("/Edit/Redo"), "<control>r", redo_cb, 0, NULL},

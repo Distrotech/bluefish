@@ -20,9 +20,18 @@
  */
 #ifndef __DOCUMENT_H_
 #define __DOCUMENT_H_
+
+gint documentlist_return_index_from_filename(gchar *filename);
 gboolean test_only_empty_doc_left();
 void doc_set_modified(Tdocument *doc, gint value);
-gint documentlist_return_index_from_filename(gchar *filename);
+gchar *doc_get_chars(Tdocument *doc, gint start, gint len);
+void doc_select_region(Tdocument *doc, gint start, gint end, gboolean do_scroll);
+gboolean doc_get_selection(Tdocument *doc, gint *start, gint *end);
+gint doc_get_cursor_position(Tdocument *doc);
+
+/* the prototype for these functions is changed!! */
+void doc_replace_text_backend(Tdocument *doc, const gchar * newstring, gint start, gint end);
+void doc_replace_text(Tdocument *doc, const gchar * newstring, gint start, gint end);
 
 void doc_bind_signals(Tdocument *doc);
 void doc_unbind_signals(Tdocument *doc);
