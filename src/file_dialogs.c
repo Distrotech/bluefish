@@ -291,3 +291,48 @@ void open_advanced_from_filebrowser(Tbfwin *bfwin, gchar *path) {
 	free_stringlist(tmplist);
 }
 
+/*************** end of advanced open code *************/
+
+/**
+ * file_open_cb:
+ * @widget: unused #GtkWidget
+ * @bfwin: #Tbfwin* with the current window
+ *
+ * Prompt user for files to open.
+ *
+ * Return value: void
+ **/
+void file_open_cb(GtkWidget * widget, Tbfwin *bfwin) {
+#ifdef HAVE_ATLEAST_GTK_2_4
+	GtkWidget *dialog;
+	GSList *slist;
+	dialog = file_chooser_dialog(bfwin, _("Select files"), GTK_FILE_CHOOSER_ACTION_OPEN, NULL, FALSE, TRUE, NULL);
+	if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_ACCEPT) {
+		GSList *tmpslist;
+		tmpslist = slist = gtk_file_chooser_get_uris(GTK_FILE_CHOOSER(dialog));
+		while (tmpslist) {
+			GnomeVFSURI *guri;
+			guri = gnome_vfs_uri_new(tmpslist->data);
+			file_doc_from_uri(bfwin, guri, NULL);
+			gnome_vfs_uri_unref(guri);
+			tmpslist = g_slist_next(tmpslist);
+		}
+		g_slist_free(slist);
+	}
+	gtk_widget_destroy(dialog);
+#else
+	GList *tmplist = NULL;
+	gint len;
+	gchar *message;
+	DEBUG_MSG("file_open_cb, started, calling return_files()\n");
+	tmplist = return_files(NULL);
+	len = g_list_length(tmplist)
+	message = g_strdup_printf(_("Loading %d file(s)..."), len);
+	statusbar_message(bfwin,message,2000+len*50);
+	g_free(message);
+	flush_queue();
+	DEBUG_MSG("file_open_cb, calling docs_new_from_files()\n");
+	docs_new_from_files(bfwin,tmplist, FALSE);
+	free_stringlist(tmplist);
+#endif
+}
