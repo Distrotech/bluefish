@@ -1165,6 +1165,7 @@ static void filebrowser_rpopup_rename(Tfilebrowser *filebrowser) {
 }
 
 static void filebrowser_rpopup_delete(Tfilebrowser *filebrowser) {
+	gchar *errmessage = NULL;
 	gchar *filename = get_selected_filename(filebrowser, FALSE);
 	if (filename) {
 		gchar *buttons[] = {GTK_STOCK_CANCEL, GTK_STOCK_DELETE, NULL};
@@ -1176,11 +1177,22 @@ static void filebrowser_rpopup_delete(Tfilebrowser *filebrowser) {
 		if (retval == 1) {
 			gchar *tmp, *dir;
 			DEBUG_MSG("file_list_rpopup_file_delete %s\n", filename);
+
 #ifdef HAVE_GNOME_VFS
-			gnome_vfs_unlink(filename);
+			if ( gnome_vfs_unlink(filename) != GNOME_VFS_OK) {
+				errmessage = g_strconcat(_("Could not delete \n"), filename, NULL);
+			}
 #else
-			unlink(filename);
+			if( unlink(filename) != 0) {
+				errmessage = g_strconcat(_("Could not delete \n"), filename, NULL);
+			}
 #endif
+
+			if (errmessage) {
+				error_dialog(filebrowser->bfwin->main_window,errmessage, NULL);
+				g_free(errmessage);
+			}
+
 			tmp = g_path_get_dirname(filename);
 			dir = ending_slash(tmp);
 			g_free(tmp);
