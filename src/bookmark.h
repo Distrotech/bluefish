@@ -31,16 +31,13 @@ void bmark_clean_for_doc(Tdocument *doc); /* set bookmark's doc to NULL when clo
 void bmark_set_for_doc(Tdocument *doc); /* set bookmark's doc to proper doc when opening file */ 
 void bmark_set_store(Tbfwin *bfwin);
 
-void bmark_add_temp(Tbfwin *bfwin);
-void bmark_add_perm(Tbfwin *bfwin);
+/*void bmark_add_temp(Tbfwin *bfwin);
+void bmark_add_perm(Tbfwin *bfwin);*/
 void bmark_add(Tbfwin *bfwin);
 
 void bmark_del_all(Tbfwin *bfwin,gboolean ask);
 /*void bmark_save_all(Tbfwin *bfwin);*/
 void bmark_check_length(Tbfwin *bfwin,Tdocument *doc);
 void bmark_reload(Tbfwin *bfwin);
-
-void bmark_name_entry_changed(GtkEntry *entry, GtkDialog *dialog);
-void bmark_add_rename_dialog(Tbfwin *bfwin, gchar *dialogtitle, gint dialogtype);
 
 #endif /* __BOOKMARK_H__ */
