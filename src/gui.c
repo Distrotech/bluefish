@@ -1486,6 +1486,7 @@ void gui_toggle_hidewidget_cb(Tbfwin *bfwin,guint action,GtkWidget *widget) {
 
 Tbfwin *gui_new_window(GList *filenames, Tproject *project) {
 	Tbfwin *bfwin = g_new0(Tbfwin,1);
+	bfwin->bmark_files = NULL; /* Oskar */
 	if (project) {
 		bfwin->project = project;
 		bfwin->session = project->session;

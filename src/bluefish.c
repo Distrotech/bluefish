@@ -203,7 +203,7 @@ int main(int argc, char *argv[])
 	firstbfwin->bookmarkstore = main_v->bookmarkstore;
 	main_v->bfwinlist = g_list_append(NULL, firstbfwin);
 	gui_create_main(firstbfwin,filenames);
-
+   bmark_reload(firstbfwin);
 #ifndef NOSPLASH
 	splash_screen_set_label(_("showing main gui..."));
 #endif /* #ifndef NOSPLASH */
