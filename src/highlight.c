@@ -1128,6 +1128,7 @@ void doc_highlight_line(Tdocument * doc)
 
 		/* get all the tags that itstart is in */
 		taglist = gtk_text_iter_get_tags(&itstart);
+		DEBUG_MSG("doc_highlight_line, (1) getting all tags at itstart %d\n",gtk_text_iter_get_offset(&itstart));
 		/* find for every tag if it ends _after_ itend or not */
 		itsearch = itstart;
 		slist = taglist;
@@ -1139,24 +1140,34 @@ void doc_highlight_line(Tdocument * doc)
 				gchar *test;
 				testpat = find_pattern_by_tag(patternlist, GTK_TEXT_TAG(slist->data));
 				if (testpat) {
-					DEBUG_MSG("doc_highlight_line, tag %p goes with ", testpat->tag);
+					DEBUG_MSG("doc_highlight_line, (1) tag %p goes with ", testpat->tag);
 					print_meta_for_pattern(testpat);
 				} else {
-					DEBUG_MSG("doc_highlight_line, tag %p doesn't have pattern??\n",slist->data);
+					DEBUG_MSG("doc_highlight_line, (1) tag %p doesn't have pattern??\n",slist->data);
 					print_meta_for_tag(GTK_TEXT_TAG(slist->data));
 					/*exit(9);*/
 				}
 				test = gtk_text_buffer_get_text(doc->buffer, &itstart, &itend,FALSE);
-				DEBUG_MSG("doc_highlight_line, current string='%s'\n", test);
+				DEBUG_MSG("doc_highlight_line, (1) current string='%s'\n", test);
 				g_free(test);
 			}
 #endif
 			/* if the tags ends at itstart there is no need to search forward to the end */
 			if (!gtk_text_iter_ends_tag(&itstart, GTK_TEXT_TAG(slist->data))) {
-				DEBUG_MSG("doc_highlight_line, forward looking for tag %p (%s) from so=%d to eo=%d\n", slist->data, get_metaname_from_tag(slist->data),
+				DEBUG_MSG("doc_highlight_line, (1) forward looking for tag %p (%s) from so=%d to eo=%d\n", slist->data, get_metaname_from_tag(slist->data),
 						  gtk_text_iter_get_offset(&itstart), gtk_text_iter_get_offset(&itend));
 				tag_found = gtk_text_iter_forward_to_tag_toggle(&itsearch, GTK_TEXT_TAG(slist->data));
-				DEBUG_MSG("doc_highlight_line, tag %p (%s) ends at itsearch=%d\n", slist->data, get_metaname_from_tag(slist->data),gtk_text_iter_get_offset(&itsearch));
+				if (!tag_found) {
+					DEBUG_MSG("doc_highlight_line (1), very weird situation, the tag %p is started but it doesn't end ??, itsearch now is at %d\n", slist->data, gtk_text_iter_get_offset(&itsearch));
+					/* itsearch is now at the end of the buffer so we do a backward search to find the first start */
+					tag_found = gtk_text_iter_backward_to_tag_toggle(&itsearch, GTK_TEXT_TAG(slist->data));
+					DEBUG_MSG("(1) a backward search to the tag finds %d\n", gtk_text_iter_get_offset(&itsearch));
+					if (!tag_found) {
+						g_print("doc_highlight_line, (1) a tag that is started is nowhere to be found ??? BUG!\n");
+						exit(123);
+					}
+				}
+				DEBUG_MSG("doc_highlight_line, (1) tag %p (%s) ends at itsearch=%d\n", slist->data, get_metaname_from_tag(slist->data),gtk_text_iter_get_offset(&itsearch));
 				if (gtk_text_iter_compare(&itsearch, &itend) > 0) {
 					/* both the start and endpoint are within this 
 					   tag --> pattern matching can start with this
@@ -1175,7 +1186,7 @@ void doc_highlight_line(Tdocument * doc)
 							/* the current line does not have the start of the tag or the end of the tag, but now 
 							   it does have a match on the end pattern --> so the pattern should be invalidated */
 							pat = NULL;
-							DEBUG_MSG("doc_highlight_line, a match of the endpattern is found on this line '%s', the pattern is invalidated\n",string);
+							DEBUG_MSG("doc_highlight_line, (1) a match of the endpattern is found on this line '%s', the pattern is invalidated\n",string);
 							itend = itsearch;
 							gtk_text_iter_backward_to_tag_toggle(&itstart, slist->data);
 						}
@@ -1188,26 +1199,26 @@ void doc_highlight_line(Tdocument * doc)
 						 */
 						patternlist = pat->childs;
 #ifdef DEBUG
-						DEBUG_MSG("doc_highlight_line, going to use patternlist %p from pattern ", patternlist);
+						DEBUG_MSG("doc_highlight_line, (1) going to use patternlist %p from pattern ", patternlist);
 						print_meta_for_pattern(pat);
 #endif
 					} else {
-						DEBUG_MSG("doc_highlight_line, no pat or pat has a mode3 child, continue with next tag\n");
+						DEBUG_MSG("doc_highlight_line, (1) no pat or pat has a mode3 child, continue with next tag\n");
 					}
 				} else {
 					/* this tag stops somewhere in the middle of the line, move 
 					   itstart to the beginning of this tag, 
 						there is also no need anymore to look further in slist, we have to start with this patternlist */
 					if (gtk_text_iter_begins_tag(&itstart, GTK_TEXT_TAG(slist->data))) {
-						DEBUG_MSG("doc_highlight_line, itstart at %d is already at the beginning of tag %p (%s)\n",gtk_text_iter_get_offset(&itstart), slist->data, get_metaname_from_tag(slist->data));
+						DEBUG_MSG("doc_highlight_line, (1) itstart at %d is already at the beginning of tag %p (%s)\n",gtk_text_iter_get_offset(&itstart), slist->data, get_metaname_from_tag(slist->data));
 					} else {
-						DEBUG_MSG("doc_highlight_line, move itstart from %d to beginning of tag %p (%s)\n",
+						DEBUG_MSG("doc_highlight_line, (1) move itstart from %d to beginning of tag %p (%s)\n",
 								  gtk_text_iter_get_offset(&itstart), slist->data, get_metaname_from_tag(slist->data));
 						gtk_text_iter_backward_to_tag_toggle(&itstart, GTK_TEXT_TAG(slist->data));
-						DEBUG_MSG("doc_highlight_line, itstart is set back to %d\n", gtk_text_iter_get_offset(&itstart));
+						DEBUG_MSG("doc_highlight_line, (1) itstart is set back to %d\n", gtk_text_iter_get_offset(&itstart));
 					}
 					if (pat) {
-						DEBUG_MSG("doc_highlight_line, skip all other tags, slist=g_list_last()\n");
+						DEBUG_MSG("doc_highlight_line, (1) skip all other tags, slist=g_list_last()\n");
 						slist = g_slist_last(slist);
 					}
 				}
@@ -1219,6 +1230,7 @@ void doc_highlight_line(Tdocument * doc)
 
 		/* get all the tags that itend is in */
 		taglist = gtk_text_iter_get_tags(&itend);
+		DEBUG_MSG("doc_highlight_line, (2) getting all tags for itend at %d\n", gtk_text_iter_get_offset(&itend));
 		/* find for every tag if it starts _before_ itstart (that means all of this line-highlighting
 		 * is within that tag) or _after_ itstart (which means that we should remove that tag, move
 		 * our highlighting endpoint to the end of that tag, and rehighlight the whole bit) */
