@@ -1341,47 +1341,17 @@ static void add_encoding_to_list(gchar *encoding) {
 		g_free(enc);
 	}
 }
-
+/*
 #define STARTING_BUFFER_SIZE 8192
 static gchar *get_buffer_from_filename(Tbfwin *bfwin, gchar *filename, int *returnsize) {
 	GnomeVFSResult result= GNOME_VFS_NUM_ERRORS;
-/*	GnomeVFSHandle *handle;
-	GnomeVFSFileSize bytes_read;
-	gchar chunk[STARTING_BUFFER_SIZE];
-	unsigned long long buffer_size = STARTING_BUFFER_SIZE;*/
 	gchar *buffer=NULL;
 
 	DEBUG_MSG("get_buffer_from_filename, started for %s\n",filename);
-/*	result = gnome_vfs_open (&handle, filename, GNOME_VFS_OPEN_READ);
-	if (result != GNOME_VFS_OK) {
-		gchar *errmessage = g_strconcat(_("Could not read file:\n"), filename, NULL);
-		warning_dialog(bfwin->main_window,errmessage, NULL);
-		g_free(errmessage);
-		DEBUG_MSG("get_buffer_from_filename, ERROR (result=%d), returning NULL\n",result);
-		return NULL;
-	}
-	buffer = g_malloc(1+(buffer_size * sizeof(gchar)));
-	while (result == GNOME_VFS_OK) {
-		result = gnome_vfs_read(handle, chunk, STARTING_BUFFER_SIZE, &bytes_read);
-		memcpy(&buffer[buffer_size-STARTING_BUFFER_SIZE], chunk, STARTING_BUFFER_SIZE);
-		DEBUG_MSG("get_buffer_from_filename, copy %lld bytes to position %lld, size=%lld\n",(long long)STARTING_BUFFER_SIZE, (long long)buffer_size-STARTING_BUFFER_SIZE, (long long)bytes_read);
-		if (bytes_read == STARTING_BUFFER_SIZE) {
-			buffer_size += STARTING_BUFFER_SIZE;
-			buffer = g_realloc(buffer, 1+(buffer_size * sizeof(gchar)));
-		} else {
-			DEBUG_MSG("get_buffer_from_filename, bytes_read was only %lld, result=%d\n",bytes_read,result);
-			break;
-		}
-	}
-	DEBUG_MSG("get_buffer_from_filename, size=%lld, terminating buffer at %lld\n",bytes_read,buffer_size-STARTING_BUFFER_SIZE+bytes_read);
-	buffer[buffer_size-STARTING_BUFFER_SIZE+bytes_read] = '\0';
-	*returnsize= buffer_size-STARTING_BUFFER_SIZE+bytes_read;
-	gnome_vfs_close(handle);*/
-	/* using gnome_vfs_read_entire_file results in a buffer without \0 at the end */
 	
-	/* a small hack to better support Zope. gnome-vfs metadata should be
+	/ * a small hack to better support Zope. gnome-vfs metadata should be
 	used to get the source-link for WebDAV request but unfortunatelly
-	that functionality is yet not functional on gnome-vfs.*/
+	that functionality is yet not functional on gnome-vfs.* /
 	if (main_v->props.server_zope_compat) {
 		GnomeVFSURI* uri=gnome_vfs_uri_new(filename);
 		if (uri) {
@@ -1389,8 +1359,8 @@ static gchar *get_buffer_from_filename(Tbfwin *bfwin, gchar *filename, int *retu
 			if (scheme && (strcmp(scheme, "http")==0 || strcmp(scheme, "https")==0)) {
 				GnomeVFSURI* sourceuri;
 #ifdef HAVE_ATLEAST_GNOME_2_5
-				/* TODO */
-				/* use metadata to get source property */
+				/ * TODO * /
+				/ * use metadata to get source property * /
 				sourceuri=gnome_vfs_uri_append_file_name(uri, "document_src");
 #else
 				sourceuri=gnome_vfs_uri_append_file_name(uri, "document_src");
@@ -1426,7 +1396,7 @@ static gchar *get_buffer_from_filename(Tbfwin *bfwin, gchar *filename, int *retu
 	buffer  = g_realloc(buffer, *returnsize+1);
 	buffer[*returnsize] = '\0';
 	return buffer;
-}
+}*/
 
 gboolean doc_buffer_to_textbox(Tdocument * doc, gchar * buffer, gsize buflen, gboolean enable_undo, gboolean delay) {
 	gint cursor_offset;
@@ -1598,7 +1568,7 @@ gboolean doc_buffer_to_textbox(Tdocument * doc, gchar * buffer, gsize buflen, gb
  * Charset is detected, and highlighting performed (if applicable).
  *
  * Return value: A #gboolean, TRUE if successful, FALSE on error.
- **/ 
+ ** / 
 gboolean doc_file_to_textbox(Tdocument *doc, gchar *filename, gboolean enable_undo, gboolean delay) {
 	gchar *buffer, *message;
 	int document_size=0;	
@@ -1611,7 +1581,7 @@ gboolean doc_file_to_textbox(Tdocument *doc, gchar *filename, gboolean enable_un
 	ret = doc_buffer_to_textbox(doc, buffer, document_size, enable_undo, delay);
 	g_free(buffer);
 	return ret;
-}
+}*/
 
 void doc_set_fileinfo(Tdocument *doc, GnomeVFSFileInfo *finfo) {
 	DEBUG_MSG("doc_set_fileinfo, doc=%p, new finfo=%p, old fileinfo=%p\n",doc,finfo,doc->fileinfo);
@@ -2862,32 +2832,37 @@ Tdocument *doc_new(Tbfwin* bfwin, gboolean delay_activate) {
 /**
  * doc_new_with_new_file:
  * @bfwin: #Tbfwin*
- * @new_filename: #gchar* filename to give document.
+ * @new_curi: #gchar* character uri to give document.
  *
- * Create a new document, name it by new_filename, and create the file.
+ * Create a new document, name it by new_curi, and create the file.
  *
  * Return value: void
  **/
-void doc_new_with_new_file(Tbfwin *bfwin, gchar * new_filename) {
+void doc_new_with_new_file(Tbfwin *bfwin, gchar *new_curi) {
 	Tdocument *doc;
 	Tfiletype *ft;
-	if (new_filename == NULL) {
+	if (new_curi == NULL) {
 		statusbar_message(bfwin,_("No filename"), 2);
 		return;
 	}
 	if (!main_v->props.allow_multi_instances) {
 		gboolean res;
-		res = switch_to_document_by_filename(bfwin,new_filename);
+		res = switch_to_document_by_filename(bfwin,new_curi);
 		if (res){
 			return;
 		}
 	} 
 	DEBUG_MSG("doc_new_with_new_file, new_filename=%s\n", new_filename);
-	add_filename_to_history(bfwin,new_filename);
+	add_filename_to_history(bfwin,new_curi);
 	doc = doc_new(bfwin, FALSE);
-	doc->uri = g_strdup(new_filename);
+	doc->uri = g_strdup(new_curi);
 	if (bfwin->project && bfwin->project->template && strlen(bfwin->project->template) > 2) {
-		doc_file_to_textbox(doc, bfwin->project->template, FALSE, FALSE);
+		GnomeVFSURI *uri;
+		uri = gnome_vfs_uri_new(bfwin->project->template);
+		if (uri) {
+			file_into_doc(bfwin->current_document, uri);
+			gnome_vfs_uri_unref(uri);
+		}
  	}
 	ft = get_filetype_by_filename_and_content(doc->uri, NULL);
 	if (ft) doc->hl = ft;

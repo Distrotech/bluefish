@@ -655,10 +655,12 @@ void file_new_cb(GtkWidget *widget, Tbfwin *bfwin) {
 	doc = doc_new(bfwin, FALSE);
 	switch_to_document_by_pointer(bfwin,doc);
  	if (bfwin->project && bfwin->project->template && strlen(bfwin->project->template) > 2) {
-			GnomeVFSURI *uri;
+		GnomeVFSURI *uri;
 		uri = gnome_vfs_uri_new(bfwin->project->template);
-		file_into_doc(bfwin->current_document, uri);
-		gnome_vfs_uri_unref(uri);
+		if (uri) {
+			file_into_doc(bfwin->current_document, uri);
+			gnome_vfs_uri_unref(uri);
+		}
 		/*doc_file_to_textbox(doc, bfwin->project->template, FALSE, FALSE);
 		doc_activate(doc);*/
  	}
