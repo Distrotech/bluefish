@@ -306,6 +306,8 @@ typedef struct {
 	gint word_wrap;
 	Tsessionvars *session;
 	GtkTreeStore *bookmarkstore; /* project bookmarks */
+	gboolean close; /* if this is TRUE, it means the project is saved and all, 
+	so after all documents are closed it just just be cleaned up and discarded */
 } Tproject;
 
 typedef struct {

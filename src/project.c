@@ -323,14 +323,14 @@ static void project_destroy(Tproject *project) {
 }
 
 static void setup_bfwin_for_nonproject(Tbfwin *bfwin) {
-	gchar * newbasedir = g_strdup (g_get_home_dir());
+/*	gchar * newbasedir = g_strdup (g_get_home_dir());*/
 	bfwin->session = main_v->session;
 	bfwin->bookmarkstore = main_v->bookmarkstore;
 	bfwin->project = NULL;
 	bmark_set_store(bfwin);
 	gui_set_title(bfwin, bfwin->current_document);
-	fb2_set_basedir(bfwin, newbasedir);
-	g_free (newbasedir);
+/*	fb2_set_basedir(bfwin, newbasedir);
+	g_free (newbasedir);*/
 	recent_menu_from_list(bfwin, main_v->session->recent_files, FALSE);
 	set_project_menu_widgets(bfwin, FALSE);
 }
@@ -339,8 +339,14 @@ static void setup_bfwin_for_nonproject(Tbfwin *bfwin) {
  * returns TRUE if the project is closed, 
  * returns FALSE if something went wrong or was cancelled
  */
-gboolean project_save_and_close(Tbfwin *bfwin) {
+gboolean project_save_and_close(Tbfwin *bfwin, gboolean close_win) {
 	gboolean dont_save = FALSE;
+	if (bfwin->project->close) {
+		project_destroy(bfwin->project);
+		setup_bfwin_for_nonproject(bfwin);
+		return TRUE;
+	}
+	
 	while (!bfwin->project->filename) {
 		gchar *text;
 		gint retval;
@@ -381,15 +387,9 @@ gboolean project_save_and_close(Tbfwin *bfwin) {
 		}
 		add_to_recent_list(bfwin,bfwin->project->filename, TRUE, TRUE);
 	}
-	doc_close_multiple_backend(bfwin, FALSE);
-	/* BUG the following test does not really work anymore with async saving & closing
-	if (!test_only_empty_doc_left(bfwin->documentlist)) {
-		DEBUG_MSG("closing all documents failed, returning\n");
-		return FALSE;
-	}*/
-	project_destroy(bfwin->project);
-	setup_bfwin_for_nonproject(bfwin);
-	DEBUG_MSG("project_save_and_close, returning TRUE\n");
+	bfwin->project->close = TRUE;
+	doc_close_multiple_backend(bfwin, close_win);
+	DEBUG_MSG("project_save_and_close, documents are closing!\n");
 	return TRUE;
 }
 
@@ -619,7 +619,7 @@ void project_menu_cb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget) {
 		project_save(bfwin, TRUE);
 	break;
 	case 4:
-		project_save_and_close(bfwin);
+		project_save_and_close(bfwin, (g_list_length(main_v->bfwinlist) > 1));
 	break;
 	case 5:
 		project_edit(bfwin);

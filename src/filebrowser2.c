@@ -1591,7 +1591,9 @@ GtkWidget *fb2_init(Tbfwin *bfwin) {
 		{"text/uri-list", 0, TARGET_URI_LIST },
 		{"STRING", 0, TARGET_STRING},
 	};
-
+#ifdef DEVELOPMENT
+	if (!bfwin->session) exit(321);
+#endif
 	fb2 = g_new0(Tfilebrowser2,1);
 	bfwin->fb2 = fb2;
 	fb2->bfwin = bfwin;

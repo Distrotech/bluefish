@@ -127,6 +127,7 @@ void notebook_changed(Tbfwin *bfwin, gint newpage) {
 	}
 	if (doclistlen == 0) {
 		DEBUG_MSG("notebook_changed, doclistlen=%d, before doc_new()!\n",doclistlen);
+		if (bfwin->project && bfwin->project->close) project_save_and_close(bfwin, FALSE);
 		bfwin->current_document = doc_new(bfwin,TRUE);
 		bfwin->last_notebook_page = 1;
 		DEBUG_MSG("notebook_changed, after doc_new(), returning\n");
@@ -1283,7 +1284,8 @@ gboolean main_window_delete_event_lcb(GtkWidget *widget,GdkEvent *event,Tbfwin *
 	 * type dialogs. */
 	DEBUG_MSG("main_window_delete_event_lcb, started\n");
 	if (bfwin->project) {
-		return !project_save_and_close(bfwin);
+		project_save_and_close(bfwin, TRUE);
+		return (bfwin->documentlist != NULL); /* the last document that closes should close the window, so return TRUE */
 	} else {
 		if (bfwin->documentlist) {
 			doc_close_multiple_backend(bfwin, TRUE);
