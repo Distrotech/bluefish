@@ -93,7 +93,7 @@ static void init_prop_string(GList ** config_list, void *pointer_to_var, gchar *
 static void init_prop_string_with_escape(GList ** config_list, void *pointer_to_var, gchar * name_of_var, gchar * default_value)
 {
 	*config_list = make_config_list_item(*config_list, pointer_to_var, 'e', name_of_var, 0);
-	*(gchar **) pointer_to_var = unescapestring(default_value);
+	*(gchar **) pointer_to_var = unescape_string(default_value, FALSE);
 	DEBUG_MSG("init_prop_string, name_of_var=%s, default_value=%s\n", name_of_var, default_value);
 }
 
@@ -156,7 +156,7 @@ static gint save_config_file(GList * config_list, gchar * filename)
 			DEBUG_MSG("save_config_file, converting \"%p\"\n", tmpitem);
 			DEBUG_MSG("save_config_file, converting \"%s %s\"\n", tmpitem->identifier, (gchar *) * (void **) tmpitem->pointer);
 			if (*(void **) tmpitem->pointer) {
-				tmpstring2 = escapestring((gchar*)*(void**)tmpitem->pointer, '\0');
+				tmpstring2 = escape_string((gchar*)*(void**)tmpitem->pointer, FALSE);
 				tmpstring = g_strdup_printf("%s %s", tmpitem->identifier, tmpstring2);
 
 				DEBUG_MSG("save_config_file, adding %s\n", tmpstring);
@@ -184,7 +184,7 @@ static gint save_config_file(GList * config_list, gchar * filename)
 			tmplist2 = g_list_last((GList *) * (void **) tmpitem->pointer);
 			DEBUG_MSG("save_config_file, the tmplist2(%p)\n", tmplist2);
 			while (tmplist2 != NULL) {
-				tmpstring2 = array_to_string((char **) tmplist2->data, ':');
+				tmpstring2 = array_to_string((char **) tmplist2->data);
 				tmpstring = g_strdup_printf("%s %s", tmpitem->identifier, tmpstring2);
 				DEBUG_MSG("save_config_file, tmpstring(%p)=%s\n", tmpstring, tmpstring);
 				rclist = g_list_append(rclist, tmpstring);
@@ -272,7 +272,7 @@ static gboolean parse_config_file(GList * config_list, gchar * filename)
 						strcpy((char *) *(void **) tmpitem->pointer, tmpstring);
 						break;
 					case 'e':
-						tmpstring2 = unescapestring(tmpstring);
+						tmpstring2 = unescape_string(tmpstring, FALSE); /* I wonder if that should be TRUE */
 						*(void **) tmpitem->pointer = (char *) realloc((char *) *(void **) tmpitem->pointer, strlen(tmpstring2) + 1);
 						strcpy((char *) *(void **) tmpitem->pointer, tmpstring2);
 						g_free(tmpstring2);
@@ -283,7 +283,7 @@ static gboolean parse_config_file(GList * config_list, gchar * filename)
 						DEBUG_MSG("parse_config_file, *(void **)tmpitem->pointer=%p\n", *(void **) tmpitem->pointer);
 						break;
 					case 'a':
-						tmparray = string_to_array(tmpstring, ':');
+						tmparray = string_to_array(tmpstring);
 						if (tmpitem->len <= 0 || tmpitem->len == count_array(tmparray)) {
 							* (void **) tmpitem->pointer = g_list_prepend((GList *) * (void **) tmpitem->pointer, tmparray);
 						} else {

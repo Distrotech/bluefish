@@ -1937,7 +1937,7 @@ static void cme_lview_selection_changed(GtkTreeSelection *selection, Tcmenu_edit
 			}
 
 			DEBUG_MSG("cme_clist_select_lcb, cme->lastarray[5]=%s\n", cme->lastarray[5]);
-			gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(cme->is_case_sens), table_convert_char2int(table1, cme->lastarray[5]));
+			gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(cme->is_case_sens), table_convert_char2int(table1, cme->lastarray[5], tcc2i_full_match));
 			
 			gtk_editable_delete_text(GTK_EDITABLE(GTK_COMBO(cme->region)->entry), 0, -1);
 			converti = atoi(cme->lastarray[3]);
@@ -2068,12 +2068,12 @@ static gchar **cme_create_array(Tcmenu_editor *cme, gboolean is_update) {
 		gint converti;
 		gchar *convertc;
 		convertc = gtk_editable_get_chars(GTK_EDITABLE(GTK_COMBO(cme->region)->entry), 0, -1);
-		converti = table_convert_char2int(table2, convertc);
+		converti = table_convert_char2int(table2, convertc, tcc2i_full_match);
 		g_free(convertc);
 		newarray[3] = g_strdup_printf("%d", converti);
 
 		convertc = gtk_editable_get_chars(GTK_EDITABLE(GTK_COMBO(cme->matching)->entry), 0, -1);
-		converti = table_convert_char2int(table3, convertc);
+		converti = table_convert_char2int(table3, convertc, tcc2i_full_match);
 		g_free(convertc);
 		newarray[4] = g_strdup_printf("%d", converti);
 		

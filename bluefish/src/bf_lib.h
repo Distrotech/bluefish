@@ -25,22 +25,30 @@ typedef struct {
 	gint my_int;
 	gchar *my_char;
 } Tconvert_table;
+
+typedef enum { 
+	tcc2i_full_match = 0,
+	tcc2i_firstchar,
+	tcc2i_mycharlen
+} Ttcc2i_mode;
+
 gchar *return_root_with_protocol(const gchar *url);
 void pointer_switch_addresses(gpointer *a, gpointer *b);
 void list_switch_order(GList *first, GList *second);
 gboolean file_copy(gchar *source, gchar *dest);
 gint find_common_prefixlen_in_stringlist(GList *stringlist);
 gboolean append_string_to_file(gchar *filename, gchar *string);
-gint table_convert_char2int(Tconvert_table *table, gchar *my_char);
+gint table_convert_char2int(Tconvert_table *table, gchar *my_char, Ttcc2i_mode mode);
 gchar *table_convert_int2char(Tconvert_table *table, gint my_int);
 gchar *replace_string_printflike(const gchar *string, Tconvert_table *table);
+gchar *unescape_string(const gchar *original, gboolean escape_colon);
+gchar *escape_string(const gchar *original, gboolean escape_colon);
 
 #define utf8_byteoffset_to_charsoffset(string,byteoffset) g_utf8_pointer_to_offset(string, string+byteoffset)
 /*glong utf8_byteoffset_to_charsoffset(gchar *string, glong byteoffset);*/
 void utf8_offset_cache_reset();
 guint utf8_byteoffset_to_charsoffset_cached(gchar *string, glong byteoffset);
-gchar *escapestring(gchar *original, gchar delimiter);
-gchar *unescapestring(gchar *original);
+
 gboolean change_dir(gchar * filename);
 gchar *strip_any_whitespace(gchar *string);
 gchar *trunc_on_char(gchar * string, gchar which_char);

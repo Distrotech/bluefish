@@ -223,6 +223,8 @@ gint find_common_prefixlen_in_stringlist(GList *stringlist) {
  * 
  * opens the file filename in append mode, and appends the string
  * no newline or anything else is appended, just the string
+ *
+ * DOES NOT YET SUPPORT GNOME_VFS !!!
  * 
  * Return value: gboolean, TRUE if the function succeeds
  **/
@@ -239,6 +241,25 @@ gboolean append_string_to_file(gchar *filename, gchar *string) {
 	return TRUE;
 }
 /**
+ * countchars:
+ * @string: a gchar * to count the chars in
+ * @chars: a gchar * with the characters you are interested in
+ *
+ * this function will count every character in string that is also in chars
+ * 
+ * Return value: guint with the number of characters found
+ **/
+guint countchars(const gchar *string, const gchar *chars) {
+	guint count=0;
+	gchar *newstr = strpbrk(string, chars);
+	while(newstr) {
+		count++;
+		newstr = strpbrk(++newstr, chars);
+	}
+	DEBUG_MSG("countchars, returning %d\n",count);
+	return count;
+}
+/**
  * table_convert_char2int:
  * @table: a #tconvert_table * with strings and integers
  * @my_char: a #gchar * containing the string to convert
@@ -248,12 +269,22 @@ gboolean append_string_to_file(gchar *filename, gchar *string) {
  * 
  * Return value: gint, found in table, or -1 if not found
  **/
-gint table_convert_char2int(Tconvert_table *table, gchar *my_char) {
+gint table_convert_char2int(Tconvert_table *table, gchar *my_char, Ttcc2i_mode mode) {
 	Tconvert_table *entry;
 	entry = table;
 	while (entry->my_char) {
-		if (strcmp(entry->my_char, my_char) == 0) {
-			return entry->my_int;
+		if (mode == tcc2i_firstchar) {
+			if (my_char[0] == entry->my_char[0]) {
+				return entry->my_int;
+			}
+		} else if (mode == tcc2i_mycharlen) {
+			if (strncmp(entry->my_char, my_char, strlen(entry->my_char)) == 0) {
+				return entry->my_int;
+			}
+		} else if (mode == tcc2i_full_match) {
+			if (strcmp(entry->my_char, my_char) == 0) {
+				return entry->my_int;
+			}
 		}
 		entry++;
 	}
@@ -283,48 +314,140 @@ gchar *table_convert_int2char(Tconvert_table *table, gint my_int) {
 	return NULL;
 }
 /**
- * replace_string_printflike:
+ * expand_string:
  * @string: a formatstring #gchar * to convert
- * @table: a #Tconvert_table * to use for conversion
+ * @specialchar: a const char to use as 'delimited' or 'special character'
+ * @table: a #Tconvert_table * array to use for conversion
  * 
- * this function can convert a format string with %0, %1 etc. 
- * into the final string, where each %number entry is replaced 
+ * this function can convert a format string with %0, %1, or \n, \t 
+ * into the final string, where each %number or \char entry is replaced 
  * with the string found in table
+ *
+ * so this function is the backend for unescape_string() and 
+ * for replace_string_printflike()
+ *
+ * table is an array with last entry {0, NULL}
  * 
  * Return value: a newly allocated gchar * with the resulting string
  **/
-gchar *replace_string_printflike(const gchar *string, Tconvert_table *table) {
+gchar *expand_string(const gchar *string, const char specialchar, Tconvert_table *table) {
 	gchar *p, *prev, *stringdup;
 	gchar *tmp, *dest = g_strdup("");
 
 	stringdup = g_strdup(string); /* we make a copy so we can set some \0 chars in the string */
 	prev = stringdup;
-	DEBUG_MSG("replace_string_printflike, string='%s'\n", string);
-	p = strchr(prev, '%');
+	DEBUG_MSG("expand_string, string='%s'\n", string);
+	p = strchr(prev, specialchar);
 	while (p) {
 		gchar *converted;
 		tmp = dest;
 		*p = '\0'; /* set a \0 at this point, the pointer prev now contains everything up to the current % */
-		DEBUG_MSG("replace_string_printflike, prev='%s'\n", prev);
+		DEBUG_MSG("expand_string, prev='%s'\n", prev);
 		p++;
-		if (*p == '%') {
-			converted = "%";
-		} else {
-			converted = table_convert_int2char(table, *p);
-		}
-		DEBUG_MSG("replace_string_printflike, converted='%s'\n", converted);
+		converted = table_convert_int2char(table, *p);
+		DEBUG_MSG("expand_string, converted='%s'\n", converted);
 		dest = g_strconcat(dest, prev, converted, NULL);
 		g_free(tmp);
 		prev = ++p;
-		p = strchr(p, '%');
+		p = strchr(p, specialchar);
 	}
 	tmp = dest;
 	dest = g_strconcat(dest, prev, NULL); /* append the end to the current string */
 	g_free(tmp);
 	
 	g_free(stringdup);
-	DEBUG_MSG("replace_string_printflike, dest='%s'\n", dest);
+	DEBUG_MSG("expand_string, dest='%s'\n", dest);
 	return dest;
+}
+gchar *replace_string_printflike(const gchar *string, Tconvert_table *table) {
+	return expand_string(string,'%',table);
+}
+
+static gint tablesize(Tconvert_table *table) {
+	Tconvert_table *tmpentry = table;
+	while (tmpentry->my_char) tmpentry++;
+	return (tmpentry - table);
+}
+/* for now this function can only unexpand strings with tables that contain only
+single character strings like "\n", "\t" etc. */
+gchar *unexpand_string(const gchar *original, const char specialchar, Tconvert_table *table) {
+	gchar *tmp, *tosearchfor, *retval, *prev, *dest, *orig;
+	Tconvert_table *tmpentry;
+	
+	orig = g_strdup(original);
+	DEBUG_MSG("original='%s', strlen()=%d\n",original,strlen(original));
+	tosearchfor = g_malloc(tablesize(table)+1);
+	DEBUG_MSG("tablesize(table)=%d, alloc'ed %d bytes for tosearchfor\n",tablesize(table), tablesize(table)+1);
+	tmp = tosearchfor;
+	tmpentry = table;
+	while(tmpentry->my_char != NULL) {
+		*tmp = tmpentry->my_char[0]; /* we fill the search string with the first character */
+		tmpentry++;
+		tmp++;
+	}
+	*tmp = '\0';
+	DEBUG_MSG("unexpand_string, tosearchfor='%s'\n",tosearchfor);
+	DEBUG_MSG("alloc'ing %d bytes\n", (countchars(original, tosearchfor) + strlen(original) + 1));
+	retval = g_malloc((countchars(original, tosearchfor) + strlen(original) + 1) * sizeof(gchar));
+	dest = retval;
+	prev = orig;
+	/* now we go trough the original till we hit specialchar */
+	tmp = strpbrk(prev, tosearchfor);
+	while (tmp) {
+		gint len = tmp - prev;
+		gint mychar = table_convert_char2int(table, tmp, tcc2i_firstchar);
+		DEBUG_MSG("unexpand_string, tmp='%s', prev='%s'\n",tmp, prev);
+		if (mychar == -1) mychar = *tmp;
+		DEBUG_MSG("unexpand_string, copy %d bytes and advancing dest\n",len);
+		memcpy(dest, prev, len);
+		dest += len;
+/*		dest++;*/
+		*dest = specialchar;
+		dest++;
+		*dest = mychar;
+		dest++;
+		prev=tmp+1;
+		DEBUG_MSG("prev now is '%s'\n",prev);
+		tmp = strpbrk(prev, tosearchfor);
+	}
+	DEBUG_MSG("unexpand_string, copy the rest (%s) to dest\n",prev);
+	memcpy(dest,prev,strlen(prev)+1); /* this will also make sure there is a \0 at the end */
+	DEBUG_MSG("unexpand_string, retval='%s'\n",retval);
+	g_free(orig);
+	g_free(tosearchfor);
+	return retval;
+}
+/* if you change this table, please change escape_string and unescape_string in the same way */
+static Tconvert_table standardescape [] = {
+	{'n', "\n"},
+	{'t', "\t"},
+	{'\\', "\\"},
+	{':', ":"}, /* this double entry is there to make unescape_string and escape_string work efficient */
+	{0, NULL}
+};
+gchar *unescape_string(const gchar *original, gboolean escape_colon) {
+	gchar *string, *tmp=NULL;
+	if (!escape_colon) {
+		tmp = standardescape[3].my_char;
+		standardescape[3].my_char = NULL;
+	}
+	string = expand_string(original,'\\',standardescape);
+	if (!escape_colon) {
+		standardescape[3].my_char = tmp;
+	}
+	return string;
+}
+gchar *escape_string(const gchar *original, gboolean escape_colon) {
+	gchar *string, *tmp=NULL;
+	if (!escape_colon) {
+		tmp = standardescape[3].my_char;
+		standardescape[3].my_char = NULL;
+	}
+	string = unexpand_string(original,'\\',standardescape);
+	if (!escape_colon) {
+		standardescape[3].my_char = tmp;
+	}
+	return string;
 }
 
 /**************************************************/
@@ -407,25 +530,6 @@ guint utf8_byteoffset_to_charsoffset_cached(gchar *string, glong byteoffset) {
 }
 
 /**
- * countchars:
- * @string: a gchar * to count the chars in
- * @chars: a gchar * with the characters you are interested in
- *
- * this function will count every character in string that is also in chars
- * 
- * Return value: guint with the number of characters found
- **/
-guint countchars(gchar *string, gchar *chars) {
-	guint count=0;
-	gchar *newstr = strpbrk(string, chars);
-	while(newstr) {
-		count++;
-		newstr = strpbrk(++newstr, chars);
-	}
-	return count;
-}
-
-/**
  * escapestring:
  * @original: a gchar * to escape
  * @delimiter: a gchar that needs escaping, use '\0' if you don't need one
@@ -435,7 +539,7 @@ guint countchars(gchar *string, gchar *chars) {
  * 
  * Return value: a newly allocated gchar * that is escaped
  **/
-gchar *escapestring(gchar *original, gchar delimiter)
+gchar *old_escapestring(gchar *original, gchar delimiter)
 {
 	gchar *tmp, *newstring, *escapedchars;
 	guint newsize, pos=0;
@@ -491,7 +595,7 @@ gchar *escapestring(gchar *original, gchar delimiter)
  * 
  * Return value: a newly allocated gchar * that is unescaped
  **/
-gchar *unescapestring(gchar *original)
+gchar *old_unescapestring(gchar *original)
 {
 	gchar *tmp1, *tmp2, *newstring;
 	guint newsize;

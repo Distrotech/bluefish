@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-/* #define DEBUG */
+#define DEBUG
 
 #include <gtk/gtk.h>
 #include <string.h> /* strcmp() */
@@ -382,7 +382,7 @@ static gchar **filetype_create_strarr(Tprefdialog *pd) {
 		strarr[0] = tmp;
 		strarr[1] = gtk_editable_get_chars(GTK_EDITABLE(pd->ftd.entry[1]),0,-1);
 		escaped = gtk_editable_get_chars(GTK_EDITABLE(pd->ftd.entry[2]),0,-1);
-		strarr[2] = unescapestring(escaped);
+		strarr[2] = unescape_string(escaped, FALSE);
 		g_free(escaped);
 		strarr[3] = gtk_editable_get_chars(GTK_EDITABLE(pd->ftd.entry[3]),0,-1);
 		strarr[4] = g_strdup(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(pd->ftd.entry[4])) ? "1" : "0");
@@ -400,7 +400,9 @@ static void set_filetype_strarr_in_list(GtkTreeIter *iter, gchar **strarr, Tpref
 	gint arrcount;
 	arrcount = count_array(strarr);
 	if (arrcount==6) {
-		gchar *escaped = escapestring(strarr[2],'\0');
+		gchar *escaped;
+		DEBUG_MSG("set_filetype_strarr_in_list, escaping %s\n",strarr[2]);
+		escaped = escape_string(strarr[2],FALSE);
 		DEBUG_MSG("set_filetype_strarr_in_list, 4=%d, string was %s\n",(strarr[4][0] != '0'), strarr[4]);
 		gtk_list_store_set(GTK_LIST_STORE(pd->ftd.lstore), iter
 			,0,strarr[0]
@@ -479,7 +481,7 @@ static void filetype_selection_changed_cb(GtkTreeSelection *selection, Tprefdial
 			gchar **strarr =(gchar **)tmplist->data;
 			DEBUG_MSG("filetype_selection_changed_cb, searching for '%s'\n",filetype);
 			if (strcmp(strarr[0],filetype)==0) {
-				gchar *escaped = escapestring(strarr[2],'\0');
+				gchar *escaped = escape_string(strarr[2],FALSE);
 				gtk_entry_set_text(GTK_ENTRY(pd->ftd.entry[0]), strarr[0]);
 				gtk_entry_set_text(GTK_ENTRY(pd->ftd.entry[1]), strarr[1]);
 				gtk_entry_set_text(GTK_ENTRY(pd->ftd.entry[2]), escaped);
