@@ -1,4 +1,4 @@
-/* #define DEBUG */
+/*#define DEBUG*/
 
 #include <gtk/gtk.h>
 #include <string.h> /* strcmp() */
@@ -408,13 +408,14 @@ static void add_new_filetype_lcb(GtkWidget *wid, Tprefdialog *pd) {
 	gchar **strarr;
 	strarr = filetype_create_strarr(pd);
 	if (strarr) {
+		GtkTreeIter iter;
+		pd->ftd.curstrarr = strarr;
 		pd->lists[filetypes] = g_list_append(pd->lists[filetypes], strarr);
-		{
-			GtkTreeIter iter;
-			gtk_list_store_append(GTK_LIST_STORE(pd->ftd.lstore), &iter);
-			set_filetype_strarr_in_list(&iter,strarr,pd);
-			gtk_tree_selection_select_iter(gtk_tree_view_get_selection(GTK_TREE_VIEW(pd->ftd.lview)),&iter);
-		}
+		DEBUG_MSG("add_new_filetype_lcb, added %p to list\n",strarr);
+		gtk_list_store_append(GTK_LIST_STORE(pd->ftd.lstore), &iter);
+		set_filetype_strarr_in_list(&iter,strarr,pd);
+		DEBUG_MSG("add_new_filetype_lcb, set %p to liststore\n",strarr);
+		gtk_tree_selection_select_iter(gtk_tree_view_get_selection(GTK_TREE_VIEW(pd->ftd.lview)),&iter);
 	}
 }
 
@@ -430,19 +431,21 @@ static void filetype_apply_changes(Tprefdialog *pd) {
 				g_strfreev(pd->ftd.curstrarr);
 				tmplist->data = filetype_create_strarr(pd);
 				pd->ftd.curstrarr = tmplist->data;
-				DEBUG_MSG("filetype_apply_changes, new curstrarr=%p\n", pd->ftd.curstrarr);
+				DEBUG_MSG("filetype_apply_changes, applied changes to pd->lists new curstrarr=%p\n", pd->ftd.curstrarr);
 				break;
 			}
 			tmplist = g_list_next(tmplist);
 		}
 		
 		gtk_tree_model_get_iter_first(GTK_TREE_MODEL(pd->ftd.lstore),&iter);
+		DEBUG_MSG("filetype_apply_changes, searching for '%s' in liststore\n",pd->ftd.curstrarr[0]);
 		while (retval) {
 			gchar *curval;
 			gtk_tree_model_get(GTK_TREE_MODEL(pd->ftd.lstore),&iter,0,&curval,-1);
 			if (strcmp(curval,pd->ftd.curstrarr[0])==0) {
-				DEBUG_MSG("filetype_apply_changes, set listore 0=%s,1=%s\n", pd->ftd.curstrarr[0], pd->ftd.curstrarr[1]);
+				DEBUG_MSG("filetype_apply_changes, found it, set listore 0=%s,1=%s,...\n", pd->ftd.curstrarr[0], pd->ftd.curstrarr[1]);
 				set_filetype_strarr_in_list(&iter,pd->ftd.curstrarr,pd);
+				break;
 			}
 			retval = gtk_tree_model_iter_next(GTK_TREE_MODEL(pd->ftd.lstore),&iter);
 		}
@@ -463,6 +466,7 @@ static void filetype_selection_changed_cb(GtkTreeSelection *selection, Tprefdial
 		filetype_apply_changes(pd);
 		while (tmplist) {
 			gchar **strarr =(gchar **)tmplist->data;
+			DEBUG_MSG("filetype_selection_changed_cb, searching for '%s'\n",filetype);
 			if (strcmp(strarr[0],filetype)==0) {
 				gchar *escaped = escapestring(strarr[2],'\0');
 				gtk_entry_set_text(GTK_ENTRY(pd->ftd.entry[0]), strarr[0]);
@@ -482,6 +486,7 @@ static void filetype_selection_changed_cb(GtkTreeSelection *selection, Tprefdial
 			}
 			tmplist = g_list_next(tmplist);
 		}
+		DEBUG_MSG("filetype_selection_changed_cb, NOTHING FOUND ?!?!?\n");
 	} else {
 		DEBUG_MSG("filetype_selection_changed_cb, no selection ?!?!\n");
 	}
