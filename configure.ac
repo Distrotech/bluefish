@@ -274,7 +274,13 @@ if test "$MSGFMT" = "no" ; then
 	echo "no msfmt - NLS disabled"
 	USE_NLS=no
 fi
+
+dnl OpenBSD has gettext in -lintl
+
 if test "$USE_NLS" = "yes" ; then
+	AC_CHECK_LIB(intl, gettext,
+		LIBS="$LIBS -lintl"
+	)
 	AC_DEFINE(ENABLE_NLS)
 fi
 
