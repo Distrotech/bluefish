@@ -399,7 +399,6 @@ void doc_show_result(Tdocument *document, gint start, gint end) {
 Tsearch_all_result search_all(Tbfwin *bfwin,gchar *search_pattern, Tmatch_types matchtype, gint is_case_sens, gboolean unescape) {
 	GList *tmplist;
 	Tsearch_all_result result_all;
-	Tsearch_result result;
 
 	DEBUG_MSG("search_all, started\n");
 	result_all.start = -1;
@@ -413,9 +412,8 @@ Tsearch_all_result search_all(Tbfwin *bfwin,gchar *search_pattern, Tmatch_types 
 		tmplist = g_list_first(bfwin->documentlist);
 	}
 	while (tmplist) {
-		/* this is NOT EFFICIENT because search_doc will allocate memory, and copy the GtkTextBuffer
-		contents into a new buffer for every time this function is called, we should use the
-		search_backend function !!!! */
+		Tsearch_result result;
+
 		result = search_doc(bfwin,(Tdocument *)tmplist->data, search_pattern, matchtype, is_case_sens, LASTSNR2(bfwin->snr2)->result.end, unescape);
 		if (result.end > 0) {
 			result_all.start = result.start;
@@ -997,47 +995,53 @@ void replace_prompt_all(Tbfwin *bfwin,gchar *search_pattern, Tmatch_types matcht
 	}
 }
 
+static void search_doc_bookmark_backend(Tbfwin *bfwin,Tdocument *document, gchar *search_pattern, Tmatch_types matchtype, gint is_case_sens, gint startpos, gboolean unescape) {
+	gchar *fulltext, *realpat;
+	gint in_buf_offset=0;
+	Tsearch_result result;
+	fulltext = doc_get_chars(document, 0, -1);
+	if (unescape) {
+		realpat = unescape_string(search_pattern, FALSE);
+	} else {
+		realpat = search_pattern;
+	}
+	result = search_backend(bfwin,realpat, matchtype, is_case_sens, fulltext, FALSE);
+	while (result.end > 0) {
+		gchar *text = doc_get_chars(document, in_buf_offset +result.start, in_buf_offset +result.end);
+		DEBUG_MSG("search_bookmark, adding bookmark '%s' at %d\n", text, in_buf_offset +result.start);
+		bmark_add_extern(document, in_buf_offset +result.start, NULL, text, !main_v->props.bookmarks_default_store);
+		g_free(text);
+		if (LASTSNR2(bfwin->snr2)->overlapping_search) {
+			in_buf_offset += result.start + 1;
+		} else {
+			in_buf_offset += result.end;
+		}
+		result = search_backend(bfwin,realpat, matchtype, is_case_sens, &fulltext[in_buf_offset], FALSE);
+	}
+	if (unescape) {
+		g_free(realpat);
+	}
+	g_free(fulltext);
+}
+
 /**
  * search_bookmark:
  * @bfwin: #Tbfwin *
  * @startat: #gint
  *
  * will search, and bookmark all matches
+ * 
  */
 static void search_bookmark(Tbfwin *bfwin, gint startat) {
-	gint startpos = startat;
 	DEBUG_MSG("search_bookmark, started\n");
 	if (LASTSNR2(bfwin->snr2)->placetype_option==opened_files) {
-		Tsearch_all_result result_all;
-		result_all = search_all(bfwin,LASTSNR2(bfwin->snr2)->search_pattern, LASTSNR2(bfwin->snr2)->matchtype_option, LASTSNR2(bfwin->snr2)->is_case_sens, LASTSNR2(bfwin->snr2)->unescape);
-		while (result_all.end > 0) {
-			gchar *text = doc_get_chars(result_all.doc, result_all.start, result_all.end);
-			DEBUG_MSG("search_bookmark, adding bookmark '%s' at %d in doc %p\n", text, result_all.start, result_all.doc);
-			bmark_add_extern(result_all.doc, result_all.start, NULL, text, !main_v->props.bookmarks_default_store);
-			g_free(text);
-			if (LASTSNR2(bfwin->snr2)->overlapping_search) {
-				startpos = result_all.start + 1;
-			} else {
-				startpos = result_all.end;
-			}
-			result_all = search_all(bfwin,LASTSNR2(bfwin->snr2)->search_pattern, LASTSNR2(bfwin->snr2)->matchtype_option, LASTSNR2(bfwin->snr2)->is_case_sens, LASTSNR2(bfwin->snr2)->unescape);
+		GList *tmplist = g_list_first(bfwin->documentlist);
+		while (tmplist) {
+			search_doc_bookmark_backend(bfwin,DOCUMENT(tmplist->data), LASTSNR2(bfwin->snr2)->search_pattern, LASTSNR2(bfwin->snr2)->matchtype_option, LASTSNR2(bfwin->snr2)->is_case_sens, 0, LASTSNR2(bfwin->snr2)->unescape);
+			tmplist = g_list_next(tmplist);
 		}
 	} else {
-		Tsearch_result result;
-		Tdocument *doc = bfwin->current_document;
-		result = search_doc(bfwin,doc, LASTSNR2(bfwin->snr2)->search_pattern, LASTSNR2(bfwin->snr2)->matchtype_option, LASTSNR2(bfwin->snr2)->is_case_sens, startpos, LASTSNR2(bfwin->snr2)->unescape);
-		while (result.end > 0) {
-			gchar *text = doc_get_chars(doc, result.start, result.end);
-			DEBUG_MSG("search_bookmark, adding bookmark '%s' at %d\n", text, result.start);
-			bmark_add_extern(doc, result.start, NULL, text, !main_v->props.bookmarks_default_store);
-			g_free(text);
-			if (LASTSNR2(bfwin->snr2)->overlapping_search) {
-				startpos = result.start + 1;
-			} else {
-				startpos = result.end;
-			}
-			result = search_doc(bfwin,doc, LASTSNR2(bfwin->snr2)->search_pattern, LASTSNR2(bfwin->snr2)->matchtype_option, LASTSNR2(bfwin->snr2)->is_case_sens, startpos, LASTSNR2(bfwin->snr2)->unescape);
-		}
+		search_doc_bookmark_backend(bfwin,DOCUMENT(bfwin->current_document), LASTSNR2(bfwin->snr2)->search_pattern, LASTSNR2(bfwin->snr2)->matchtype_option, LASTSNR2(bfwin->snr2)->is_case_sens, startat, LASTSNR2(bfwin->snr2)->unescape);
 	}
 	DEBUG_MSG("search_bookmark, done\n");
 }
