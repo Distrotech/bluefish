@@ -250,7 +250,7 @@ static void menu_html_dialogs_lcb(Tbfwin *bfwin,guint callback_action, GtkWidget
 		quickstart_dialog(bfwin,NULL);
 	break;
 	case 33:
-		/* unordered list */
+		inputdialog_dialog(bfwin, NULL);
 	break;
 	case 34:
 		insert_time_dialog(bfwin);
@@ -613,6 +613,7 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/Dialogs/F_orm"), NULL, NULL, 0, "<Branch>"},
 	{N_("/Dialogs/Form/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
 	{N_("/Dialogs/Form/F_orm..."), NULL, menu_html_dialogs_lcb, 22, "<Item>"},
+	{N_("/Dialogs/Form/_Input ..."), NULL, menu_html_dialogs_lcb, 33, "<Item>"},
 	{N_("/Dialogs/Form/_Input Button..."), NULL, menu_html_dialogs_lcb, 23, "<Item>"},
 	{N_("/Dialogs/Form/_Text..."), NULL, menu_html_dialogs_lcb, 24, "<Item>"},
 	{N_("/Dialogs/Form/_Hidden..."), NULL, menu_html_dialogs_lcb, 25, "<Item>"},
@@ -685,11 +686,11 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/Go/Goto _Selection"), NULL, go_to_line_from_selection_cb, 1, "<Item>"},
 	{N_("/_Bookmarks"), NULL, NULL, 0, "<Branch>"},
 	{N_("/Bookmarks/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
-        {N_("/Bookmarks/Add _Temporary"), "<control>d", menu_bmark_operations_cb, 1, "<Item>"},	
-        {N_("/Bookmarks/Add _Permanent"), "<shift><control>d", menu_bmark_operations_cb, 2, "<Item>"},	   
+	{N_("/Bookmarks/Add _Temporary"), "<control>d", menu_bmark_operations_cb, 1, "<Item>"},	
+	{N_("/Bookmarks/Add _Permanent"), "<shift><control>d", menu_bmark_operations_cb, 2, "<Item>"},	   
 	{N_("/Bookmarks/sep2"), NULL, NULL, 0, "<Separator>"},   
-        {N_("/Bookmarks/Delete All Temporar_y"), NULL, menu_bmark_operations_cb, 4, "<Item>"},	      
-        {N_("/Bookmarks/Delete All Per_manent"), NULL, menu_bmark_operations_cb, 5, "<Item>"},	      
+	{N_("/Bookmarks/Delete All Temporar_y"), NULL, menu_bmark_operations_cb, 4, "<Item>"},	      
+	{N_("/Bookmarks/Delete All Per_manent"), NULL, menu_bmark_operations_cb, 5, "<Item>"},	      
 	{N_("/_Project"), NULL, NULL, 0, "<Branch>"},
 	{N_("/Project/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
 	{N_("/Project/_Open Project..."), NULL, project_menu_cb, 1, "<Item>"},

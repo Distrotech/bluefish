@@ -31,4 +31,5 @@ void checkdialog_dialog(Tbfwin *bfwin, Ttagpopup *data);
 void selectdialog_dialog(Tbfwin *bfwin, Ttagpopup *data);
 void optiondialog_dialog(Tbfwin *bfwin, Ttagpopup *data);
 void optgroupdialog_dialog(Tbfwin *bfwin, Ttagpopup *data);
+void inputdialog_dialog(Tbfwin *bfwin, Ttagpopup *data);
 #endif /* __HTML_FORM_H_ */

@@ -22,7 +22,7 @@
  */
 /* 
  * Changes by Antti-Juhani Kaijanaho <gaia@iki.fi> on 1999-10-20
- * $Id: html.c,v 1.36 2003-12-24 22:55:25 jimh6583 Exp $
+ * $Id: html.c,v 1.37 2004-02-11 18:56:58 oli4 Exp $
  */
 /*#define DEBUG*/
 
@@ -552,7 +552,7 @@ void quickanchor_dialog(Tbfwin *bfwin, Ttagpopup *data) {
 	gtk_box_pack_start(GTK_BOX(dg->vbox), noteb, FALSE, FALSE, 0);
 
 	frame = bf_generic_frame_new(NULL, GTK_SHADOW_NONE, 12);
-	gtk_notebook_append_page(GTK_NOTEBOOK(noteb), frame, gtk_label_new(_("Options")));
+	gtk_notebook_append_page(GTK_NOTEBOOK(noteb), frame, gtk_label_new(_("Attributes")));
 	dgtable = gtk_table_new(8, 3, FALSE);
 	gtk_table_set_col_spacings(GTK_TABLE(dgtable), 12);
 	gtk_container_add(GTK_CONTAINER(frame), dgtable);
