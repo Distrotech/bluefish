@@ -190,14 +190,16 @@ void project_open_from_file(Tbfwin *bfwin, gchar *fromfilename) {
 		/* now we need to clean the session, and reset it to the session from the project */
 		/* free_session(bfwin->session); there is no session specific to a window anymore, only a global one*/
 		bfwin->session = prj->session;
-		DEBUG_MSG("project_open_from_file, calling docs_new_from_files for existing bfwin=%p\n",prwin);
 		prwin->project = prj;
+		prwin->bookmarkstore = prj->bookmarkstore;
 		
 		gui_set_html_toolbar_visible(prwin, prj->view_html_toolbar, TRUE);
 		gui_set_main_toolbar_visible(prwin, prj->view_main_toolbar, TRUE);
 		gui_set_custom_menu_visible(prwin, prj->view_custom_menu, TRUE);
+		DEBUG_MSG("project_open_from_file, calling left_panel_show_hide_toggle bfwin=%p\n",prwin);
 		left_panel_show_hide_toggle(prwin,FALSE,prj->view_left_panel, TRUE);
 		filebrowser_set_basedir(prwin, prj->basedir);
+		DEBUG_MSG("project_open_from_file, calling docs_new_from_files for existing bfwin=%p\n",prwin);
 		docs_new_from_files(prwin, prj->files, TRUE);
 	} else {
 		/* we will open a new Bluefish window for this project */
@@ -206,7 +208,7 @@ void project_open_from_file(Tbfwin *bfwin, gchar *fromfilename) {
 		DEBUG_MSG("project_open_from_file, new window with files ready\n");
 		gui_set_title(prwin, prwin->current_document);
 	}
-	prwin->bookmarkstore = prj->bookmarkstore;
+
 	set_project_menu_widgets(prwin, TRUE);
 	recent_menu_init_project(prwin);
    bmark_reload(bfwin);
