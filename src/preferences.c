@@ -1687,7 +1687,6 @@ static void preferences_ok_clicked_lcb(GtkWidget *wid, Tprefdialog *pd) {
 			encoding_menu_rebuild(bfwin);
 			external_menu_rebuild(bfwin); /* browsers is also rebuild here! */
 			filetype_menu_rebuild(bfwin,NULL);
-			menu_outputbox_rebuild(bfwin);
 			gui_apply_settings(bfwin);
 			doc_force_activate(bfwin->current_document);
 			tmplist = g_list_next(tmplist);
