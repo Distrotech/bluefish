@@ -393,9 +393,21 @@ static void bmark_popup_menu_goto_lcb(GtkWidget * widget, gpointer user_data)
 	}
 
 	if (b->doc) {
+		GdkRectangle visirect;
+		GtkTextIter visi_so, visi_eo;
+		gtk_text_view_get_visible_rect(GTK_TEXT_VIEW(b->doc->view),&visirect);
+		gtk_text_view_get_iter_at_location(GTK_TEXT_VIEW(b->doc->view), &visi_so, visirect.x, visirect.y);
+		gtk_text_view_get_iter_at_location(GTK_TEXT_VIEW(b->doc->view), &visi_eo, visirect.x + visirect.width, visirect.y + visirect.height);
+		
 		gtk_text_buffer_get_iter_at_mark(b->doc->buffer, &it, b->mark);
 		gtk_text_buffer_place_cursor(b->doc->buffer, &it);
-		gtk_text_view_scroll_mark_onscreen(GTK_TEXT_VIEW(b->doc->view), b->mark);
+
+		if (!gtk_text_iter_in_range(&it,&visi_so,&visi_eo)) {
+			DEBUG_MSG("bmark_popup_menu_goto_lcb, cursor NOT visible!\n");
+			/* gtk_text_view_scroll_mark_onscreen(GTK_TEXT_VIEW(b->doc->view), b->mark); */
+			gtk_text_view_scroll_to_mark(GTK_TEXT_VIEW(b->doc->view),b->mark,0.0,
+                                             TRUE,0.5,0.0);
+		}
 		if (b->doc != BFWIN(user_data)->current_document)
 			switch_to_document_by_pointer(BFWIN(user_data), b->doc);
 		gtk_widget_grab_focus(b->doc->view);
@@ -979,7 +991,7 @@ void bmark_add(Tbfwin * bfwin)
 			}
 		}
 	
-		bmark_add_backend(bfwin, _("default"), offset, !main_v->props.bookmarks_default_store);
+		bmark_add_backend(bfwin, "", offset, !main_v->props.bookmarks_default_store);
 	}
 }
 
