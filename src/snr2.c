@@ -1301,7 +1301,7 @@ static void snr2dialog(Tbfwin *bfwin, gint is_replace, gint is_new_search) {
 	gtk_misc_set_alignment (GTK_MISC (snr2win->search_label), 0, 0.5);
 	/*snr2win->search_scrollbox = textview_buffer_in_scrolwin(&snr2win->search_entry, 300, 50, LASTSNR2(bfwin->snr2)->search_pattern, GTK_WRAP_NONE);*/
 	
-	snr2win->search_combo = combo_with_popdown("", NULL, TRUE);
+	snr2win->search_combo = combo_with_popdown("", bfwin->session->searchlist, TRUE);
 	gtk_table_attach (GTK_TABLE (table), snr2win->search_combo, 1, 2, 0, 1,
 					(GtkAttachOptions) (GTK_EXPAND | GTK_FILL), (GtkAttachOptions) (GTK_FILL), 0, 0);
 	/*g_signal_connect(G_OBJECT(snr2win->search_entry), "key_press_event", G_CALLBACK(search_entry_key_press_event_lcb), snr2win);*/
@@ -1314,7 +1314,7 @@ static void snr2dialog(Tbfwin *bfwin, gint is_replace, gint is_new_search) {
 		gtk_label_set_justify (GTK_LABEL (snr2win->replace_label), GTK_JUSTIFY_LEFT);
 		gtk_misc_set_alignment (GTK_MISC (snr2win->replace_label), 0, 0.5);
 		/*snr2win->replace_scrollbox = textview_buffer_in_scrolwin(&snr2win->replace_entry, 300, 50, LASTSNR2(bfwin->snr2)->replace_pattern, GTK_WRAP_NONE);*/
-		snr2win->replace_combo = combo_with_popdown("", NULL, TRUE);
+		snr2win->replace_combo = combo_with_popdown("", bfwin->session->replacelist, TRUE);
 		gtk_table_attach (GTK_TABLE (table), snr2win->replace_combo, 1, 2, 1, 2,
 						(GtkAttachOptions) (GTK_FILL), (GtkAttachOptions) (GTK_FILL), 0, 0);
 		/*g_signal_connect(G_OBJECT(snr2win->replace_entry), "key_press_event", G_CALLBACK(search_entry_key_press_event_lcb), snr2win);*/

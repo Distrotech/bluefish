@@ -189,6 +189,7 @@ int main(int argc, char *argv[])
 
 	/* create the first window */
 	firstbfwin = g_new0(Tbfwin,1);
+	firstbfwin->session = g_new0(Tsessionvars,1);
 	main_v->bfwinlist = g_list_append(NULL, firstbfwin);
 	gui_create_main(firstbfwin,filenames);
 
@@ -286,4 +287,18 @@ void bluefish_exit_request() {
 	msg_queue_cleanup();
 #endif /* WITH_MSG_QUEUE */
 	exit(0);
+}
+
+void free_session(Tsessionvars *session) {
+	free_stringlist(session->classlist);
+	free_stringlist(session->colorlist);
+	free_stringlist(session->targetlist);
+	free_stringlist(session->urllist);
+	free_stringlist(session->fontlist);
+	free_stringlist(session->dtd_cblist);
+	free_stringlist(session->headerlist);
+	free_stringlist(session->positionlist);
+	free_stringlist(session->searchlist);
+	free_stringlist(session->replacelist);
+	g_free(session);
 }

@@ -1432,7 +1432,12 @@ void gui_toggle_hidewidget_cb(Tbfwin *bfwin,guint action,GtkWidget *widget) {
 
 Tbfwin *gui_new_window(GList *filenames, Tproject *project) {
 	Tbfwin *bfwin = g_new0(Tbfwin,1);
-	bfwin->project = project;
+	if (project) {
+		bfwin->project = project;
+		bfwin->session = project->session;
+	} else {
+		bfwin->session = g_new0(Tsessionvars,1);
+	}
 	gui_create_main(bfwin,filenames);
 	main_v->bfwinlist = g_list_append(main_v->bfwinlist, bfwin);
 	gui_show_main(bfwin);

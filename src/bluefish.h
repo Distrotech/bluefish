@@ -246,6 +246,19 @@ typedef struct {
 } Tproperties;
 
 typedef struct {
+	GList *classlist;
+	GList *colorlist;
+	GList *targetlist;
+	GList *urllist;
+	GList *fontlist;
+	GList *dtd_cblist;
+	GList *headerlist;
+	GList *positionlist;
+	GList *searchlist; /* used in snr2 */
+	GList *replacelist; /* used in snr2 */
+} Tsessionvars;
+
+typedef struct {
 	gchar *filename;
 	gchar *name;
 	GList *files;
@@ -259,9 +272,11 @@ typedef struct {
 	gint view_custom_menu;
 	gint view_html_toolbar;
 	gint word_wrap;
+	Tsessionvars *session;
 } Tproject;
 
 typedef struct {
+	Tsessionvars *session;
 	Tdocument *current_document; /* one object out of the documentlist, the current visible document */
 	GList *documentlist; /* document.c and others: all Tdocument objects */
 	Tdocument *last_activated_doc;
@@ -323,4 +338,5 @@ extern Tmain *main_v;
 
 /* public functions from bluefish.c */
 void bluefish_exit_request(void);
+void free_session(Tsessionvars *session);
 #endif /* __BLUEFISH_H_ */
