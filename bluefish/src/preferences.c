@@ -1794,11 +1794,12 @@ static void preferences_dialog() {
 
 		gtk_box_pack_start(GTK_BOX(dvbox), ahbox, FALSE, FALSE, 0);
 
+		but = bf_stock_cancel_button(GTK_SIGNAL_FUNC(preferences_cancel_clicked_lcb), pd);
+		gtk_box_pack_start(GTK_BOX(ahbox), but, TRUE, TRUE, 0);
+
 		but = bf_stock_ok_button(GTK_SIGNAL_FUNC(preferences_ok_clicked_lcb), pd);
 		gtk_box_pack_start(GTK_BOX(ahbox), but, TRUE, TRUE, 0);
 		gtk_window_set_default(GTK_WINDOW(pd->win), but);
-		but = bf_stock_cancel_button(GTK_SIGNAL_FUNC(preferences_cancel_clicked_lcb), pd);
-		gtk_box_pack_start(GTK_BOX(ahbox), but, TRUE, TRUE, 0);
 	}
 	gtk_widget_show_all(pd->win);
 }

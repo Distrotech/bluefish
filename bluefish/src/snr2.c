@@ -1060,10 +1060,11 @@ static void snr2dialog(gint is_replace, gint is_new_search) {
 	gtk_button_box_set_spacing(GTK_BUTTON_BOX(hbox), 1);
 	gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, TRUE, 0);
 
+	gtk_box_pack_start(GTK_BOX(hbox), bf_stock_cancel_button(G_CALLBACK(snr2dialog_cancel_lcb), snr2win), FALSE, TRUE, 0);
 	but = bf_stock_ok_button(G_CALLBACK(snr2dialog_ok_lcb), snr2win);
 	gtk_box_pack_start(GTK_BOX(hbox), but, FALSE, TRUE, 0);
 	gtk_window_set_default(GTK_WINDOW(snr2win->window), but);
-	gtk_box_pack_start(GTK_BOX(hbox), bf_stock_cancel_button(G_CALLBACK(snr2dialog_cancel_lcb), snr2win), FALSE, TRUE, 0);
+
 	
 	/* now select all text */
 	{
