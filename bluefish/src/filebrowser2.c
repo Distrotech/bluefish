@@ -38,6 +38,7 @@ the trailing slash. So it is convenient to use directories without trailing slas
 #include <gtk/gtk.h>
 #include <string.h>
 #include "bluefish.h"
+#include "file.h"
 #include "bf_lib.h"
 #include "project.h"
 #include "document.h"
@@ -1056,7 +1057,10 @@ static void fb2rpopup_rpopup_action_lcb(Tfilebrowser2 *fb2,guint callback_action
 			fb2rpopup_refresh(fb2);
 		break;
 		case 7:
-			/* I want to rewrite the open advanced functions, so I'll do this later */
+			{
+				GnomeVFSURI *uri = fb2_uri_from_dir_selection(fb2);
+				open_advanced(fb2->bfwin, uri, FALSE, ".c", NULL, FALSE);
+			}
 		break;
 		case 8:
 			{
@@ -1094,11 +1098,7 @@ static void fb2rpopup_sbf_toggled_lcb(GtkWidget *widget, Tfilebrowser2 *fb2) {
 	gtk_tree_model_filter_refilter(GTK_TREE_MODEL_FILTER(fb2->file_lfilter));
 }
 static GtkItemFactoryEntry fb2rpopup_dirmenu_entries[] = {
-#ifdef EXTERNAL_GREP
-#ifdef EXTERNAL_FIND	
 	{ N_("/Open _Advanced..."),NULL,	fb2rpopup_rpopup_action_lcb,	7,	"<Item>" },
-#endif
-#endif
 	{ N_("/_Set as basedir"),	NULL,	fb2rpopup_rpopup_action_lcb,	8,	"<Item>" },
 	{ N_("/Show Full _Tree"),	NULL,	fb2rpopup_rpopup_action_lcb,	9,	"<Item>" }
 };
@@ -1115,6 +1115,23 @@ static GtkItemFactoryEntry fb2rpopup_bothmenu_entries[] = {
 static GtkItemFactoryEntry fb2rpopup_filemenu_entries[] = {
 	{ N_("/_Open"),		NULL,	fb2rpopup_rpopup_action_lcb,		1,	"<Item>" }
 };
+/* 
+ * what should the menu look like?
+ *
+ * /Open              (if a file is selected)
+ * /Open advanced     (if a dir is selected)
+ * /Rename            (if file or dir is selected)
+ * /Delete            (if file or dir is selected)
+ * /-----
+ * /New file
+ * /New directory
+ * /-----
+ * /Refresh
+ * /Show full tree
+ * /Set as basedir    (if dir is selected)
+ *
+ * 
+ */
 static GtkWidget *fb2_rpopup_create_menu(Tfilebrowser2 *fb2, gboolean is_directory) {
 	GtkWidget *menu, *menu_item;
 	GtkItemFactory *menumaker;
@@ -1407,14 +1424,11 @@ void fb2config_init() {
 	filename = return_first_existing_filename(main_v->props.filebrowser_unknown_icon,
 					"icon_unknown.png","../icons/icon_unknown.png",
 					"icons/icon_unknown.png",NULL);
-		
 	fb2config->unknown_icon = gdk_pixbuf_new_from_file(filename, NULL);
 	g_free(filename);
-		
 	filename = return_first_existing_filename(main_v->props.filebrowser_dir_icon,
 					"icon_dir.png","../icons/icon_dir.png",
 					"icons/icon_dir.png",NULL);
-
 	fb2config->dir_icon = gdk_pixbuf_new_from_file(filename, NULL);
 	g_free(filename);
 
