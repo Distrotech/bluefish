@@ -16,6 +16,7 @@ TOOLBAR = \
 	bluefish_icon1 bluefish_icon1.png \
 	body body.png \
 	bold bold.png \
+	bookmarks bookmarks.png \
 	brbreak brbreak.png \
 	breakall breakall.png \
 	center center.png \
