@@ -336,14 +336,15 @@ static GList *props_init_main(GList * config_rc)
 	init_prop_string    (&config_rc, &main_v->props.editor_font_string, "editor_font_string:", "courier 11");
 	init_prop_integer   (&config_rc, &main_v->props.editor_tab_width, "editor_tab_width:", 3);
 	init_prop_string    (&config_rc, &main_v->props.tab_font_string, "tab_font_string:", "");
-	init_prop_arraylist (&config_rc, &main_v->props.browsers, "browsers:", 0);
-	init_prop_arraylist (&config_rc, &main_v->props.external_commands, "external_commands:", 0);
+	init_prop_arraylist (&config_rc, &main_v->props.browsers, "browsers:", 2);
+	init_prop_arraylist (&config_rc, &main_v->props.external_commands, "external_commands:", 2);
 	init_prop_stringlist(&config_rc, &main_v->props.quickbar_items, "quickbar_items:");
 	init_prop_integer   (&config_rc, &main_v->props.highlight_num_lines_count, "highlight_num_lines_count:", 1);
 	init_prop_integer   (&config_rc, &main_v->props.defaulthighlight, "defaulthighlight:", 1);
+	/* old type filetypes have a different count, they are converted below */
 	init_prop_arraylist (&config_rc, &main_v->props.filetypes, "filetypes:", 0);
 	init_prop_integer   (&config_rc, &main_v->props.numcharsforfiletype, "numcharsforfiletype:", 200);
-	init_prop_arraylist (&config_rc, &main_v->props.filefilters, "filefilters:", 0);
+	init_prop_arraylist (&config_rc, &main_v->props.filefilters, "filefilters:", 3);
 	init_prop_string    (&config_rc, &main_v->props.last_filefilter, "last_filefilter:", "");
 	init_prop_integer   (&config_rc, &main_v->props.transient_htdialogs, "transient_htdialogs:", 1);
 	init_prop_integer   (&config_rc, &main_v->props.restore_dimensions, "restore_dimensions:", 1);	
@@ -367,14 +368,14 @@ static GList *props_init_main(GList * config_rc)
 	init_prop_integer   (&config_rc, &main_v->props.num_undo_levels,"num_undo_levels:",100);
 	init_prop_integer   (&config_rc, &main_v->props.clear_undo_on_save,"clear_undo_on_save:",0);
 	init_prop_string    (&config_rc, &main_v->props.newfile_default_encoding,"newfile_default_encoding:","UTF-8");
-	init_prop_arraylist (&config_rc, &main_v->props.encodings, "encodings:", 0);
+	init_prop_arraylist (&config_rc, &main_v->props.encodings, "encodings:", 2);
 	init_prop_integer   (&config_rc, &main_v->props.auto_set_encoding_meta,"auto_set_encoding_meta:",1);
 	init_prop_integer   (&config_rc, &main_v->props.auto_update_meta,"auto_update_meta:",1);
-	init_prop_arraylist (&config_rc, &main_v->props.outputbox, "outputbox:", 0);
+	init_prop_arraylist (&config_rc, &main_v->props.outputbox, "outputbox:", 7);
 	init_prop_integer   (&config_rc, &main_v->props.ext_browsers_in_submenu,"ext_browsers_in_submenu:",0);
 	init_prop_integer   (&config_rc, &main_v->props.ext_commands_in_submenu,"ext_commands_in_submenu:",1);
 	init_prop_integer   (&config_rc, &main_v->props.ext_outputbox_in_submenu,"ext_outputbox_in_submenu:",1);
-	init_prop_arraylist (&config_rc, &main_v->props.reference_files, "reference_files:", 0);
+	init_prop_arraylist (&config_rc, &main_v->props.reference_files, "reference_files:", 2);
 	init_prop_integer   (&config_rc, &main_v->props.fref_ldoubleclick_action,"fref_ldoubleclick_action:",0);
 	init_prop_integer   (&config_rc, &main_v->props.fref_info_type,"fref_info_type:",0);	
 	init_prop_integer   (&config_rc, &main_v->props.document_tabposition,"document_tabposition:",(gint)GTK_POS_BOTTOM);
