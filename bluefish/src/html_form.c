@@ -115,8 +115,7 @@ static void formok_lcb(GtkWidget * widget, Thtml_diag *dg)
 }
 
 
-void formdialog_cb(GtkWidget * widget, gpointer data)
-{
+void formdialog_dialog(Tbfwin *bfwin, Ttagpopup *data) {
 	GList *methodlist = NULL;
 	GList *enctypelist = NULL;
 
@@ -126,8 +125,8 @@ void formdialog_cb(GtkWidget * widget, gpointer data)
 	Thtml_diag *dg;
 	GtkWidget *dgtable;
 
-	dg = html_diag_new(_("Form"));
-	fill_dialogvalues(tagitems, tagvalues, &custom, (Ttagpopup *) data, widget, dg);
+	dg = html_diag_new(bfwin,_("Form"));
+	fill_dialogvalues(tagitems, tagvalues, &custom, (Ttagpopup *) data, dg);
 
 	dgtable = html_diag_table_in_vbox(dg, 4, 10);
 
@@ -203,16 +202,15 @@ static void textareaok_lcb(GtkWidget * widget, Thtml_diag *dg)
 	html_diag_destroy_cb(NULL, dg);
 }
 
-void textareadialog_cb(GtkWidget * widget, gpointer data)
-{
+void textareadialog_dialog(Tbfwin *bfwin, Ttagpopup *data) {
 	static gchar *tagitems[] = { "name", "value", "rows", "cols", NULL };
 	gchar *tagvalues[5];
 	gchar *custom = NULL;
 	GtkWidget *dgtable;
 	Thtml_diag *dg;
 
-	dg = html_diag_new(_("Text area"));
-	fill_dialogvalues(tagitems, tagvalues, &custom, (Ttagpopup *) data, widget, dg);
+	dg = html_diag_new(bfwin,_("Text area"));
+	fill_dialogvalues(tagitems, tagvalues, &custom, (Ttagpopup *) data, dg);
 
 	dgtable = html_diag_table_in_vbox(dg, 4, 10);
 
@@ -264,8 +262,7 @@ static void textok_lcb(GtkWidget * widget, Thtml_diag *dg)
 }
 
 
-void textdialog_cb(GtkWidget * widget, gpointer data)
-{
+void textdialog_dialog(Tbfwin *bfwin, Ttagpopup *data) {
 	GtkWidget *varbut;
 	static gchar *tagitems[] = { "name", "value", "size", "maxlength", "type", NULL };
 	gchar *tagvalues[6];
@@ -273,8 +270,8 @@ void textdialog_cb(GtkWidget * widget, gpointer data)
 	GtkWidget *dgtable;
 	Thtml_diag *dg;
 
-	dg = html_diag_new(_("Text"));
-	fill_dialogvalues(tagitems, tagvalues, &custom, (Ttagpopup *) data, widget, dg);
+	dg = html_diag_new(bfwin,_("Text"));
+	fill_dialogvalues(tagitems, tagvalues, &custom, (Ttagpopup *) data, dg);
 
 	dgtable = html_diag_table_in_vbox(dg, 5, 10);
 
@@ -332,7 +329,7 @@ static void buttondialogok_lcb(GtkWidget * widget, Thtml_diag *dg)
 	html_diag_destroy_cb(NULL, dg);
 }
 
-void buttondialog_cb(GtkWidget * widget, gpointer data) {
+void buttondialog_dialog(Tbfwin *bfwin, Ttagpopup *data) {
 	static gchar *tagitems[] = { "name", "value", "type",  NULL };
 	gchar *tagvalues[4];
 	gchar *custom = NULL;
@@ -340,8 +337,8 @@ void buttondialog_cb(GtkWidget * widget, gpointer data) {
 	Thtml_diag *dg;
 	GList *tmplist=NULL;
 
-	dg = html_diag_new(_("Button"));
-	fill_dialogvalues(tagitems, tagvalues, &custom, (Ttagpopup *) data, widget, dg);
+	dg = html_diag_new(bfwin,_("Button"));
+	fill_dialogvalues(tagitems, tagvalues, &custom, (Ttagpopup *) data, dg);
 
 	dgtable = html_diag_table_in_vbox(dg, 5, 10);
 
@@ -394,8 +391,7 @@ static void hiddenok_lcb(GtkWidget * widget, Thtml_diag *dg)
 }
 
 
-void hiddendialog_cb(GtkWidget * widget, gpointer data)
-{
+void hiddendialog_dialog(Tbfwin *bfwin, Ttagpopup *data) {
 	static gchar *tagitems[] = { "name", "value", "type", NULL };
 	gchar *tagvalues[4];
 	gchar *custom = NULL;
@@ -403,8 +399,8 @@ void hiddendialog_cb(GtkWidget * widget, gpointer data)
 	GtkWidget *dgtable;
 	Thtml_diag *dg;
 
-	dg = html_diag_new(_("Hidden"));
-	fill_dialogvalues(tagitems, tagvalues, &custom, (Ttagpopup *) data, widget, dg);
+	dg = html_diag_new(bfwin,_("Hidden"));
+	fill_dialogvalues(tagitems, tagvalues, &custom, (Ttagpopup *) data, dg);
 
 	dgtable = html_diag_table_in_vbox(dg, 5, 10);
 	dg->entry[1] = entry_with_text(tagvalues[0], 256);
@@ -450,8 +446,7 @@ static void radiodialogok_lcb(GtkWidget * widget, Thtml_diag *dg)
 }
 
 
-void radiodialog_cb(GtkWidget * widget, gpointer data)
-{
+void radiodialog_dialog(Tbfwin *bfwin, Ttagpopup *data) {
 	static gchar *tagitems[] = { "name", "value", "checked", "type", NULL };
 	gchar *tagvalues[5];
 	gchar *custom = NULL;
@@ -459,8 +454,8 @@ void radiodialog_cb(GtkWidget * widget, gpointer data)
 	GtkWidget *dgtable, *varbut;
 	Thtml_diag *dg;
 
-	dg = html_diag_new(_("Radio Button"));
-	fill_dialogvalues(tagitems, tagvalues, &custom, (Ttagpopup *) data, widget, dg);
+	dg = html_diag_new(bfwin,_("Radio Button"));
+	fill_dialogvalues(tagitems, tagvalues, &custom, (Ttagpopup *) data, dg);
 
 	dgtable = html_diag_table_in_vbox(dg, 5, 10);
 	dg->entry[1] = entry_with_text(tagvalues[0], 256);
@@ -513,16 +508,15 @@ static void checkdialogok_lcb(GtkWidget * widget,Thtml_diag *dg )
 	html_diag_destroy_cb(NULL, dg);
 }
 
-void checkdialog_cb(GtkWidget * widget, gpointer data)
-{
+void checkdialog_dialog(Tbfwin *bfwin, Ttagpopup *data) {
 	static gchar *tagitems[] = { "name", "value", "checked", "type", NULL };
 	gchar *tagvalues[5];
 	gchar *custom = NULL;
 	GtkWidget *dgtable, *varbut;
 	Thtml_diag *dg;
 
-	dg = html_diag_new(_("Check Box"));
-	fill_dialogvalues(tagitems, tagvalues, &custom, (Ttagpopup *) data, widget, dg);
+	dg = html_diag_new(bfwin,_("Check Box"));
+	fill_dialogvalues(tagitems, tagvalues, &custom, (Ttagpopup *) data, dg);
 
 	dgtable = html_diag_table_in_vbox(dg, 5, 10);
 	
@@ -572,16 +566,15 @@ static void selectdialogok_lcb(GtkWidget * widget, Thtml_diag *dg)
 	html_diag_destroy_cb(NULL, dg);
 }
 
-void selectdialog_cb(GtkWidget * widget, gpointer data)
-{
+void selectdialog_dialog(Tbfwin *bfwin, Ttagpopup *data) {
 	static gchar *tagitems[] = { "name", "size", "multiple", NULL };
 	gchar *tagvalues[4];
 	gchar *custom = NULL;
 	GtkWidget *dgtable;
 	Thtml_diag *dg;
 
-	dg = html_diag_new(_("Select"));
-	fill_dialogvalues(tagitems, tagvalues, &custom, (Ttagpopup *) data, widget, dg);
+	dg = html_diag_new(bfwin,_("Select"));
+	fill_dialogvalues(tagitems, tagvalues, &custom, (Ttagpopup *) data, dg);
 
 	dgtable = html_diag_table_in_vbox(dg, 5, 10);
 
@@ -627,16 +620,15 @@ static void optiondialogok_lcb(GtkWidget * widget,Thtml_diag *dg )
 	html_diag_destroy_cb(NULL, dg);
 }
 
-void optiondialog_cb(GtkWidget * widget, gpointer data)
-{
+void optiondialog_dialog(Tbfwin *bfwin, Ttagpopup *data) {
 	static gchar *tagitems[] = { "value", "label", "selected", NULL };
 	gchar *tagvalues[4];
 	gchar *custom = NULL;
 	GtkWidget *dgtable;
 	Thtml_diag *dg;
 
-	dg = html_diag_new(_("Option"));
-	fill_dialogvalues(tagitems, tagvalues, &custom, (Ttagpopup *) data, widget, dg);
+	dg = html_diag_new(bfwin,_("Option"));
+	fill_dialogvalues(tagitems, tagvalues, &custom, (Ttagpopup *) data, dg);
 
 	dgtable = html_diag_table_in_vbox(dg, 3, 10);
 
@@ -676,16 +668,15 @@ static void optgroupdialogok_lcb(GtkWidget * widget,Thtml_diag *dg )
 	html_diag_destroy_cb(NULL, dg);
 }
 
-void optgroupdialog_cb(GtkWidget * widget, gpointer data)
-{
+void optgroupdialog_dialog(Tbfwin *bfwin, Ttagpopup *data) {
 	static gchar *tagitems[] = { "label", NULL };
 	gchar *tagvalues[2];
 	gchar *custom = NULL;
 	GtkWidget *dgtable;
 	Thtml_diag *dg;
 
-	dg = html_diag_new(_("Option group"));
-	fill_dialogvalues(tagitems, tagvalues, &custom, (Ttagpopup *) data, widget, dg);
+	dg = html_diag_new(bfwin,_("Option group"));
+	fill_dialogvalues(tagitems, tagvalues, &custom, (Ttagpopup *) data, dg);
 
 	dgtable = html_diag_table_in_vbox(dg, 5, 10);
 	dg->entry[1] = entry_with_text(tagvalues[0], 256);

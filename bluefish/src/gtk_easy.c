@@ -1236,7 +1236,7 @@ static void fs_ok_clicked_lcb(GtkWidget * widget, Tfileselect *fileselect)
 			&& (g_list_length(fileselect->filenames_to_return) < 1)) 
 		|| (!fileselect->multipleselect 
 			&& strlen(fileselect->filename_to_return) < 1)){
-		statusbar_message(_("No file to insert."), 2000);
+/*		statusbar_message(_("No file to insert."), 2000);*/
 	}
 	
 	g_free(selected_file);	

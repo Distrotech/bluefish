@@ -67,8 +67,7 @@ static void tabledialogok_lcb(GtkWidget * widget, Thtml_diag * dg)
 }
 
 
-void tabledialog_cb(GtkWidget * widget, gpointer data)
-{
+void tabledialog_dialog(Tbfwin *bfwin, Ttagpopup *data) {
 	GList *alignlist = NULL, *popuplist;
 	GtkWidget *var_but, *dgtable;
 
@@ -79,8 +78,8 @@ void tabledialog_cb(GtkWidget * widget, gpointer data)
 	gchar *custom = NULL;
 	Thtml_diag *dg;
 
-	dg = html_diag_new(_("Table"));
-	fill_dialogvalues(tagitems, tagvalues, &custom, (Ttagpopup *) data, widget, dg);
+	dg = html_diag_new(bfwin,_("Table"));
+	fill_dialogvalues(tagitems, tagvalues, &custom, (Ttagpopup *) data, dg);
 
 	dgtable = html_diag_table_in_vbox(dg, 5, 8);
 
@@ -201,8 +200,7 @@ static void tablerowdialogok_lcb(GtkWidget * widget, Thtml_diag *dg)
 }
 
 
-void tablerowdialog_cb(GtkWidget * widget, gpointer data)
-{
+void tablerowdialog_dialog(Tbfwin *bfwin, Ttagpopup *data) {
 	GList *alignlist = NULL;
 	GtkWidget *color_but, *var_but;
 
@@ -212,8 +210,8 @@ void tablerowdialog_cb(GtkWidget * widget, gpointer data)
 	Thtml_diag *dg;
 	GtkWidget *dgtable;
 
-	dg = html_diag_new(_("Table Row"));
-	fill_dialogvalues(tagitems, tagvalues, &custom, (Ttagpopup *) data, widget, dg);
+	dg = html_diag_new(bfwin,_("Table Row"));
+	fill_dialogvalues(tagitems, tagvalues, &custom, (Ttagpopup *) data, dg);
 
 	dgtable = html_diag_table_in_vbox(dg, 4, 5);
 
@@ -308,7 +306,7 @@ static void tableheaddialogok_lcb(GtkWidget * widget, Thtml_diag *dg) {
 	table_head_and_data_dialogok_lcb(0, widget, dg);
 }
 
-static void table_head_and_data_dialog_cb(gint type, GtkWidget * widget, gpointer data) {
+static void table_head_and_data_dialog_cb(gint type, Tbfwin *bfwin, Ttagpopup *data) {
 	GList *alignlist = NULL;
 
 	static gchar *tagitems[] = { "width", "align", "colspan"
@@ -321,12 +319,12 @@ static void table_head_and_data_dialog_cb(gint type, GtkWidget * widget, gpointe
 	GtkWidget *dgtable, *var_but;
 
 	if (type == 1) {
-		dg = html_diag_new(_("Table Data"));
+		dg = html_diag_new(bfwin, _("Table Data"));
 	} else {
-		dg = html_diag_new(_("Table Header"));
+		dg = html_diag_new(bfwin,_("Table Header"));
 	}
 	
-	fill_dialogvalues(tagitems, tagvalues, &custom, (Ttagpopup *) data, widget, dg);
+	fill_dialogvalues(tagitems, tagvalues, &custom, (Ttagpopup *) data, dg);
 
 	dgtable = html_diag_table_in_vbox(dg, 5, 7);
 
@@ -408,10 +406,10 @@ static void table_head_and_data_dialog_cb(gint type, GtkWidget * widget, gpointe
 	if (custom)	g_free(custom);
 }
 
-void tabledatadialog_cb(GtkWidget * widget, gpointer data) {
-	table_head_and_data_dialog_cb(1, widget, data);
+void tabledatadialog_dialog(Tbfwin *bfwin, Ttagpopup *data) {
+	table_head_and_data_dialog_cb(1, bfwin, data);
 }
 
-void tableheaddialog_cb(GtkWidget * widget, gpointer data) {
-	table_head_and_data_dialog_cb(0, widget, data);
+void tableheaddialog_dialog(Tbfwin *bfwin, Ttagpopup *data) {
+	table_head_and_data_dialog_cb(0, bfwin, data);
 }

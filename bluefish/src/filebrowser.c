@@ -894,7 +894,7 @@ static void create_file_or_dir_win(Tfilebrowser *filebrowser, gint is_file) {
 static void row_expanded_lcb(GtkTreeView *tree,GtkTreeIter *iter,GtkTreePath *path,Tfilebrowser *filebrowser) {
 	gchar *filename = return_filename_from_path(filebrowser->store,path);
 	DEBUG_MSG("row_expanded_lcb, started on filename=%s\n", filename);
-	statusbar_message(_("Opening directory..."), 500);
+	statusbar_message(filebrowser->bfwin,_("Opening directory..."), 500);
 	flush_queue();
 	refresh_dir_by_path_and_filename(filebrowser, path, filename);
 	g_free(filename);

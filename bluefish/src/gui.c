@@ -471,7 +471,18 @@ static void thumbnail_insert_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
 static void multi_thumbnail_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
 	multi_thumbnail_dialog(bfwin,NULL);
 }
-
+static void tabledialog_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
+	tabledialog_dialog(bfwin,NULL);
+}
+static void tablerowdialog_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
+	tablerowdialog_dialog(bfwin,NULL);
+}
+static void tableheaddialog_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
+	tableheaddialog_dialog(bfwin,NULL);
+}
+static void tabledatadialog_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
+	tabledatadialog_dialog(bfwin,NULL);
+}
 static Ttoolbaritem tbi[] = {
 	{"quickstart...", quickstart_clicked_lcb,13 , N_("QuickStart...")},
 	{"body...", body_clicked_lcb, 14, N_("Body...")},
@@ -507,10 +518,10 @@ static Ttoolbaritem tbi[] = {
 	{"heading6", heading6_clicked_lcb,  44, N_("Heading 6")},
 	{"tablewizard...",tablewizard , 45, N_("Table Wizard...")},
 	{"", NULL, 0, NULL}, /* spacing */
-	{"table...",tabledialog_cb, 46, N_("Table...")},
-	{"tablerow...", tablerowdialog_cb, 47, N_("Table Row...")},
-	{"tableheader...", tableheaddialog_cb, 48, N_("Table Header...")},
-	{"tabledata...", tabledatadialog_cb, 49, N_("Table Data...")},
+	{"table...",tabledialog_clicked_lcb, 46, N_("Table...")},
+	{"tablerow...", tablerowdialog_clicked_lcb, 47, N_("Table Row...")},
+	{"tableheader...", tableheaddialog_clicked_lcb, 48, N_("Table Header...")},
+	{"tabledata...", tabledatadialog_clicked_lcb, 49, N_("Table Data...")},
 	{"", NULL, 0, NULL}, /* spacing */
 	{"table", table_clicked_lcb,  50, N_("Table")},
 	{"tablerow", tablerow_clicked_lcb,  51, N_("Table Row")},

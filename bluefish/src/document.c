@@ -425,7 +425,7 @@ void gui_change_tabsize(Tbfwin *bfwin,guint action,GtkWidget *widget) {
 	}
 	{
 		gchar *message = g_strdup_printf("Setting tabsize to %d", main_v->props.editor_tab_width);
-		statusbar_message(message, 2000);
+		statusbar_message(bfwin,message, 2000);
 		g_free(message);
 	}
 	/* this should eventually be the total documentlist, not only for this window */
@@ -606,7 +606,7 @@ void doc_set_modified(Tdocument *doc, gint value) {
 #endif
 	/* only when this is the current document we have to change these */
 	if (doc == BFWIN(doc->bfwin)->current_document) {
-		gui_set_undo_redo_widgets(doc_has_undo_list(doc), doc_has_redo_list(doc));
+		gui_set_undo_redo_widgets(BFWIN(doc->bfwin),doc_has_undo_list(doc), doc_has_redo_list(doc));
 	}
 #ifdef DEBUG
 	else {
@@ -1071,7 +1071,7 @@ gboolean doc_file_to_textbox(Tdocument * doc, gchar * filename, gboolean enable_
 		doc_unbind_signals(doc);
 	}
 	message = g_strconcat(_("Opening file "), filename, NULL);
-	statusbar_message(message, 1000);
+	statusbar_message(BFWIN(doc->bfwin),message, 1000);
 	g_free(message);
 	/* This opens the contents of a file to a textbox */
 	change_dir(filename);
@@ -1590,7 +1590,7 @@ gint doc_textbox_to_file(Tdocument * doc, gchar * filename) {
 	FILE *fd;
 	gint backup_retval;
 
-	statusbar_message(_("Saving file"), 1000);
+	statusbar_message(BFWIN(doc->bfwin),_("Saving file"), 1000);
 	if (main_v->props.auto_update_meta) {
 		const gchar *realname = g_get_real_name();
 		gchar *tmp;
@@ -1678,7 +1678,7 @@ void doc_destroy(Tdocument * doc, gboolean delay_activation) {
 	if (doc->filename) {
 		add_to_recent_list(doc->filename, 1);
 	}
-	gui_notebook_unbind_signals();
+	gui_notebook_unbind_signals(BFWIN(doc->bfwin));
 	/* to make this go really quick, we first only destroy the notebook page and run flush_queue(), 
 	after the document is gone from the GUI we complete the destroy, to destroy only the notebook
 	page we ref+ the scrolthingie, remove the page, and unref it again */
@@ -1708,7 +1708,7 @@ void doc_destroy(Tdocument * doc, gboolean delay_activation) {
 							 gtk_notebook_page_num(GTK_NOTEBOOK(bfwin->notebook),doc->view->parent));
 	DEBUG_MSG("doc_destroy, removed widget from notebook (doc=%p), delay_activation=%d\n",doc,delay_activation);
 	DEBUG_MSG("doc_destroy, (doc=%p) about to bind notebook signals...\n",doc);
-	gui_notebook_bind_signals();
+	gui_notebook_bind_signals(BFWIN(doc->bfwin));
 	if (!delay_activation) {
 		notebook_changed(BFWIN(doc->bfwin),-1);
 	}
@@ -1838,7 +1838,7 @@ gint doc_save(Tdocument * doc, gint do_save_as, gboolean do_move) {
 
 	if (do_save_as) {
 		gchar *newfilename = NULL;
-		statusbar_message(_("Save as..."), 1);
+		statusbar_message(BFWIN(doc->bfwin),_("Save as..."), 1);
 		newfilename = ask_new_filename(BFWIN(doc->bfwin), doc->filename, do_move);
 		if (!newfilename) {
 			return 3;
@@ -1879,7 +1879,7 @@ gint doc_save(Tdocument * doc, gint do_save_as, gboolean do_move) {
 	}*/
 	{
 		gchar *tmp = g_strdup_printf(_("Saving %s"), doc->filename);
-		statusbar_message(tmp, 1);
+		statusbar_message(BFWIN(doc->bfwin),tmp, 1);
 		g_free(tmp);
 	}
 	retval = doc_textbox_to_file(doc, doc->filename);
@@ -2182,7 +2182,7 @@ void doc_new_with_new_file(Tbfwin *bfwin, gchar * new_filename) {
 	Tdocument *doc;
 	Tfiletype *ft;
 	if (new_filename == NULL) {
-		statusbar_message(_("No filename"), 2);
+		statusbar_message(bfwin,_("No filename"), 2);
 		return;
 	}
 	if (!main_v->props.allow_multi_instances) {
@@ -2339,7 +2339,7 @@ void docs_new_from_files(Tbfwin *bfwin, GList * file_list) {
  **/
 void doc_reload(Tdocument *doc) {
 	if ((doc->filename == NULL) || (!file_exists_and_readable(doc->filename))) {
-		statusbar_message(_("Unable to open file"), 2000);
+		statusbar_message(BFWIN(doc->bfwin),_("Unable to open file"), 2000);
 		return;
 	}
 	{
@@ -2397,7 +2397,7 @@ void doc_activate(Tdocument *doc) {
 		}
 	}
 	DEBUG_MSG("doc_activate, calling gui_set_widgets\n");
-	gui_set_widgets(doc_has_undo_list(doc), doc_has_redo_list(doc), doc->wrapstate, doc->highlightstate, doc->hl, doc->encoding, doc->linenumberstate);
+	gui_set_widgets(BFWIN(doc->bfwin),doc_has_undo_list(doc), doc_has_redo_list(doc), doc->wrapstate, doc->highlightstate, doc->hl, doc->encoding, doc->linenumberstate);
 	doc_set_file_in_titlebar(doc);
 	doc_set_statusbar_insovr(doc);
 	doc_set_statusbar_editmode_encoding(doc);
@@ -2489,7 +2489,7 @@ command = `grep -E 'c_grep_pattern' `find c_basedir -name c_find_pattern c_recur
 	g_free(c_find_pattern);
 	g_free(c_grep_pattern);
 	DEBUG_MSG("files_advanced_win_ok_clicked, command=%s\n", command);
-	statusbar_message(_("searching files..."), 1000);
+	statusbar_message(tfs->bfwin,_("searching files..."), 1000);
 	flush_queue();
 	system(command);
 	tfs->filenames_to_return = get_stringlist(temp_file, tfs->filenames_to_return);
@@ -2666,7 +2666,7 @@ void file_open_cb(GtkWidget * widget, Tbfwin *bfwin) {
 	{
 		gint len = g_list_length(tmplist);
 		gchar *message = g_strdup_printf(_("Loading %d file(s)..."), len);
-		statusbar_message(message,2000+len*50);
+		statusbar_message(bfwin,message,2000+len*50);
 		g_free(message);
 		flush_queue();
 	}
@@ -2684,7 +2684,7 @@ void file_open_advanced_cb(GtkWidget * widget, Tbfwin *bfwin) {
 	{
 		gint len = g_list_length(tmplist);
 		gchar *message = g_strdup_printf(_("Loading %d file(s)..."), len);
-		statusbar_message(message,2000+len*50);
+		statusbar_message(bfwin,message,2000+len*50);
 		g_free(message);
 		flush_queue();
 	}
@@ -2709,7 +2709,7 @@ void file_insert_menucb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget) 
 
 	tmpfilename = return_file_w_title(NULL, _("Select file to insert"));
 	if (tmpfilename == NULL) {
-		statusbar_message(_("No file to insert"), 2000);
+		statusbar_message(bfwin,_("No file to insert"), 2000);
 		return;
 	} else {
 		/* do we need to set the insert point in some way ?? */
@@ -3018,7 +3018,7 @@ void word_count_cb (Tbfwin *bfwin,guint callback_action,GtkWidget *widget) {
 	g_free(allchars);
 	
 	wc_message = g_strdup_printf(_("Statistics: %d lines, %d words, %d characters"), lines, words, chars);
-	statusbar_message (wc_message, 5000);
+	statusbar_message (bfwin,wc_message, 5000);
 	g_free (wc_message);
 }
 
@@ -3121,7 +3121,7 @@ void doc_indent_selection(Tdocument *doc, gboolean unindent) {
 		doc_set_modified(doc, 1);
 	} else {
 		DEBUG_MSG("doc_indent_selection, put a message on the statusbar that we want a selection..\n");
-		statusbar_message(_("No selection to indent"), 2000);
+		statusbar_message(BFWIN(doc->bfwin),_("No selection to indent"), 2000);
 	}
 }
 

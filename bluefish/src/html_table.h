@@ -21,10 +21,11 @@
 #ifndef __HTML_TABLE_H_
 #define __HTML_TABLE_H_
 
-void tabledialog_cb(GtkWidget * widget, gpointer data);
-void tablerowdialog_cb(GtkWidget * widget, gpointer data);
-void tableheaddialog_cb(GtkWidget * widget, gpointer data);
-void tabledatadialog_cb(GtkWidget * widget, gpointer data);
+#include "html_diag.h"
 
+void tabledialog_dialog(Tbfwin *bfwin, Ttagpopup *data);
+void tablerowdialog_dialog(Tbfwin *bfwin, Ttagpopup *data);
+void tableheaddialog_dialog(Tbfwin *bfwin, Ttagpopup *data);
+void tabledatadialog_dialog(Tbfwin *bfwin, Ttagpopup *data);
 
 #endif /* __HTML_TABLE_H_ */
