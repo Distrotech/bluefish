@@ -660,21 +660,21 @@ GList *duplicate_arraylist(GList *arraylist) {
  * gets a stringlist from a file
  */
 GList *get_list(const gchar * filename, GList * which_list, gboolean is_arraylist) {
-	char *tempstr, *tmpbuf;
-	FILE *fd;
-
 	DEBUG_MSG("get_stringlist, started with filename=%s\n", filename);
 	if (filename == NULL) {
 		return NULL;
 	}
-	tmpbuf = g_malloc(STRING_MAX_SIZE);
 	if (file_exists_and_readable(filename)) {
+		FILE *fd;
+		gchar *tmpbuf;
 		DEBUG_MSG("get_stringlist, opening %s\n", filename);
 		fd = fopen(filename, "r");
 		if (fd == NULL) {
 			return NULL;
 		}
+		tmpbuf = g_malloc(STRING_MAX_SIZE);
 		while (fgets(tmpbuf, STRING_MAX_SIZE, fd) != NULL) {
+			gchar *tempstr;
 			tmpbuf = trunc_on_char(tmpbuf, '\n');
 			tempstr = g_strdup(tmpbuf);
 			if (is_arraylist) {
@@ -687,8 +687,8 @@ GList *get_list(const gchar * filename, GList * which_list, gboolean is_arraylis
 			}
 		}
 		fclose(fd);
+		g_free(tmpbuf);
 	}
-	g_free(tmpbuf);
 	return which_list;
 }
 #ifdef __GNUC__
