@@ -27,6 +27,7 @@
 /* #define DEBUG */
 
 #include "bluefish.h"
+#include "bfspell.h"
 #include "document.h"			/* file_open etc. */
 #include "highlight.h" /* doc_highlight_full */
 #include "menu.h" /* my own .h file */
@@ -259,6 +260,9 @@ static void menu_html_dialogs_lcb(Tbfwin *bfwin,guint callback_action, GtkWidget
 		g_print("menu_file_operations_cb, unknown action, abort!\n");
 		exit(123);
 	}
+}
+static void spell_check_menu_cb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget) {
+	spell_check_cb(NULL, bfwin);
 }
 static GtkItemFactoryEntry menu_items[] = {
 	{N_("/_File"), NULL, NULL, 0, "<Branch>"},
@@ -606,9 +610,10 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/Document/Document Type/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
 	{N_("/Document/Character _Encoding"), NULL, NULL, 0, "<Branch>"},
 	{N_("/Document/Character Encoding/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
-	{N_("/Document/sep4"), NULL, NULL, 0, "<Separator>"},	
+	{N_("/Document/sep4"), NULL, NULL, 0, "<Separator>"},
+	{N_("/Document/Check _Spelling..."), NULL, spell_check_menu_cb, 0, "<StockItem>", GTK_STOCK_SPELL_CHECK},		
+	{N_("/Document/_Floating window"), NULL, file_floatingview_menu_cb, 1, "<Item>"},			
 	{N_("/Document/Word _Count"), NULL, word_count_cb, 1, "<Item>"},
-	{N_("/Document/_Floating window"), NULL, file_floatingview_menu_cb, 1, "<Item>"},	
 	{N_("/_Project"), NULL, NULL, 0, "<Branch>"},
 	{N_("/Project/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
 	{N_("/Project/_Open Project..."), NULL, project_menu_cb, 1, "<Item>"},
@@ -627,7 +632,7 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/Go/_Next document"), NULL, gui_notebook_switch, 2, "<StockItem>", GTK_STOCK_GO_FORWARD},
 	{N_("/Go/sep1"), NULL, NULL, 0, "<Separator>"},
 	{N_("/Go/_First document"), NULL, gui_notebook_switch, 3, "<StockItem>", GTK_STOCK_GOTO_FIRST},
-	{N_("/Go/_Last document"), NULL, gui_notebook_switch, 4, "<StockItem>", GTK_STOCK_GOTO_LAST},
+	{N_("/Go/L_ast document"), NULL, gui_notebook_switch, 4, "<StockItem>", GTK_STOCK_GOTO_LAST},
 	{N_("/Go/sep1"), NULL, NULL, 0, "<Separator>"},	
 	{N_("/Go/Goto _Line"), "<control>l", go_to_line_win_cb, 1, "<StockItem>", GTK_STOCK_JUMP_TO},
 	{N_("/Go/Goto _Selection"), NULL, go_to_line_from_selection_cb, 1, "<Item>"},
