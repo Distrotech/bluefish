@@ -1537,7 +1537,7 @@ static void doc_buffer_insert_text_lcb(GtkTextBuffer *textbuffer,GtkTextIter * i
 static gboolean find_char(gunichar ch,gchar *data) {
 	return (gboolean)(strchr(data, ch));
 }
-static gchar *noclosingtag [] = {"br","input","img","hr","textarea",NULL};
+static gchar *noclosingtag [] = {"br","input","img","hr","meta","frame","map","base",NULL};
 
 static gchar *closingtagtoinsert(Tdocument *doc, const gchar *tagname, GtkTextIter *iter) {
 	/* only for XML all start tags have to end on < /> so we check for that, all other tags 
@@ -1571,32 +1571,10 @@ static gchar *closingtagtoinsert(Tdocument *doc, const gchar *tagname, GtkTextIt
 	return NULL;
 }
 static void doc_buffer_insert_text_after_lcb(GtkTextBuffer *textbuffer,GtkTextIter * iter,gchar * string,gint len, Tdocument * doc) {
-	gboolean do_highlighting = FALSE;
-	/* highlighting stuff */
 	DEBUG_MSG("doc_buffer_insert_text_after_lcb, started\n");
-	if (doc->highlightstate && string && doc->hl) {
-		if (strlen(doc->hl->update_chars)==0 ) {
-			do_highlighting = TRUE;
-		} else {
-			gint i=0;
-			while (string[i] != '\0') {
-				if (strchr(doc->hl->update_chars, string[i])) {
-					do_highlighting = TRUE;
-					break;
-				}
-				i++;
-			}
-		}
-		if (do_highlighting) {
-			doc_highlight_line(doc);
-		}
-	}
-
-	/* this function is only attached to the signal if the auto-indenting is active!!! */
 	if (main_v->props.autoindent && len == 1 && string[0] == '\n') {
-	/* indenting, this should be the last one because it changes the 
-	textbuffer --> it invalidates all GtkTextIters */
 		gchar *string, *indenting;
+		gboolean doreturn = FALSE; /* this should return since it changes the textbuffer --> it invalidates all GtkTextIters */
 		GtkTextIter itstart = *iter, itend = *iter;
 		/* set to the beginning of the previous line */
 		gtk_text_iter_backward_line (&itstart);
@@ -1614,12 +1592,12 @@ static void doc_buffer_insert_text_after_lcb(GtkTextBuffer *textbuffer,GtkTextIt
 			if (strlen(string)) {
 				DEBUG_MSG("doc_buffer_insert_text_lcb, inserting indenting\n");
 				gtk_text_buffer_insert(doc->buffer,&itend,string,-1);
+				doreturn = TRUE;
 			}
 			g_free(string);
 		}
-		return; /* we don't need autoclosing after autoindent */
+		if (doreturn) return;
 	}
-	DEBUG_MSG("before autoclosing, len=%d, string=%s\n",len,string);
 	if (doc->autoclosingtag && len == 1 && string[0] == '>') {
 		/* start the autoclosing! the code is modified from the patch sent by more <more@irpin.com> because that
 		 * patch did not work with php code (the < and > characters can be inside a php block as well with a 
@@ -1629,42 +1607,64 @@ static void doc_buffer_insert_text_after_lcb(GtkTextBuffer *textbuffer,GtkTextIt
 		 * the end of a tag. If so it will insert the closing tag for that same tag. Works for XML and HTML. For
 		 * HTML we need an exception, since <br> and such don't need a closing tag */
 		if (doc->hl && (strcmp(doc->hl->type, "html")==0 || strcmp(doc->hl->type, "xml")==0 || strcmp(doc->hl->type, "php")==0)) {
+			gboolean doreturn = FALSE;
 			GtkTextIter itstart = *iter, maxsearch = *iter;
-			DEBUG_MSG("autoclosing, started at %d\n",gtk_text_iter_get_offset(&itstart));
+			DEBUG_MSG("doc_buffer_insert_text_after_lcb, autoclosing, started at %d\n",gtk_text_iter_get_offset(&itstart));
 			gtk_text_iter_backward_chars(&maxsearch,250);
 			if (gtk_text_iter_backward_find_char(&itstart,(GtkTextCharPredicate)find_char,GINT_TO_POINTER("<"),&maxsearch)) {
-				GtkTextIter tagnameend = itstart;
-				DEBUG_MSG("autoclosing, found < char at %d\n", gtk_text_iter_get_offset(&itstart));
-				maxsearch = *iter;
-				gtk_text_iter_backward_chars(&maxsearch,2);
-				/* now we need to check if there is a > present in that string, except for the one just inserted */
-				if (gtk_text_iter_forward_find_char(&tagnameend,(GtkTextCharPredicate)find_char,">",&maxsearch)) {
-					DEBUG_MSG("can't be a HTML tag, it looks like we have another > at %d\n", gtk_text_iter_get_offset(&tagnameend));
-					return;
-				}
-				maxsearch = *iter;
-				tagnameend = itstart;
-				if (gtk_text_iter_forward_find_char(&tagnameend,(GtkTextCharPredicate)find_char," >",&maxsearch)) {
-					gchar *tagnamebuf;
-					DEBUG_MSG("autoclosing, found ' ' or '>' char\n");
-					gtk_text_iter_forward_char(&itstart);
-					tagnamebuf = gtk_text_buffer_get_text(doc->buffer,&itstart,&tagnameend,FALSE);
-					if (tagnamebuf) {
-						gchar *toinsert = closingtagtoinsert(doc, tagnamebuf, iter);
-						DEBUG_MSG("autoclosing, found tagname='%s'\n",tagnamebuf);
-						if (toinsert) {
-							/* we re-use the maxsearch iter now */
-							gtk_text_buffer_insert(doc->buffer,&maxsearch,toinsert,-1);
-							/* now we set the cursor back to its previous location, re-using itstart */
-							gtk_text_buffer_get_iter_at_mark(doc->buffer,&itstart,gtk_text_buffer_get_insert(doc->buffer));
-							gtk_text_iter_backward_chars(&itstart,strlen(toinsert));
-							gtk_text_buffer_place_cursor(doc->buffer,&itstart);
-							g_free(toinsert);
-						}
-						g_free(tagnamebuf);
+				/* we use a regular expression to check if the tag is valid, AND to parse the tagname from the string */
+				pcre *creg;
+				const char *errmsg = NULL;
+				int erroffs=0;
+				gchar *buf;
+				int ovector[30], ret;
+				maxsearch = *iter; /* re-use maxsearch */
+				buf = gtk_text_buffer_get_text(doc->buffer,&itstart,&maxsearch,FALSE);
+				creg = pcre_compile("^<([a-z][a-z0-9]*)([\n\t ][^<>]*)?>$", PCRE_CASELESS, &errmsg, &erroffs,NULL);
+				ret = pcre_exec(creg, NULL, buf, strlen(buf), 0,PCRE_ANCHORED, ovector, 30);
+				if (ret > 0) {
+					gchar *tagname, *toinsert;
+					DEBUG_MSG("doc_buffer_insert_text_after_lcb, autoclosing, we have a tag, ret=%d, starts at ovector[2]=%d, ovector[3]=%d\n",ret, ovector[2], ovector[3]);
+					tagname = g_strndup(&buf[ovector[2]], ovector[3]-ovector[2]);
+					DEBUG_MSG("doc_buffer_insert_text_after_lcb, autoclosing, tagname='%s'\n",tagname);
+					toinsert = closingtagtoinsert(doc, tagname, iter);
+					if (toinsert) {
+						/* we re-use the maxsearch iter now */
+						gtk_text_buffer_insert(doc->buffer,&maxsearch,toinsert,-1);
+						doreturn = TRUE;
+						/* now we set the cursor back to its previous location, re-using itstart */
+						gtk_text_buffer_get_iter_at_mark(doc->buffer,&itstart,gtk_text_buffer_get_insert(doc->buffer));
+						gtk_text_iter_backward_chars(&itstart,strlen(toinsert));
+						gtk_text_buffer_place_cursor(doc->buffer,&itstart);
+						g_free(toinsert);
 					}
+					g_free(tagname);
 				}
+				/* cleanup and return */
+				pcre_free(creg);
+				g_free(buf);
 			}
+			if (doreturn) return;
+		}
+	}
+
+	/* highlighting stuff */
+	if (doc->highlightstate && string && doc->hl) {
+		gboolean do_highlighting = FALSE;
+		if (strlen(doc->hl->update_chars)==0 ) {
+			do_highlighting = TRUE;
+		} else {
+			gint i=0;
+			while (string[i] != '\0') {
+				if (strchr(doc->hl->update_chars, string[i])) {
+					do_highlighting = TRUE;
+					break;
+				}
+				i++;
+			}
+		}
+		if (do_highlighting) {
+			doc_highlight_line(doc);
 		}
 	}
 }
@@ -1786,13 +1786,9 @@ void doc_bind_signals(Tdocument *doc) {
 	doc->del_txt_id = g_signal_connect(G_OBJECT(doc->buffer),
 					 "delete-range",
 					 G_CALLBACK(doc_buffer_delete_range_lcb), doc);
-	if (main_v->props.autoindent) {
-		doc->ins_aft_txt_id = g_signal_connect_after(G_OBJECT(doc->buffer),
+	doc->ins_aft_txt_id = g_signal_connect_after(G_OBJECT(doc->buffer),
 					 "insert-text",
 					 G_CALLBACK(doc_buffer_insert_text_after_lcb), doc);
-	} else {
-		doc->ins_aft_txt_id = 0;
-	}
 }
 
 /**
