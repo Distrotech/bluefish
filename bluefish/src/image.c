@@ -12,6 +12,28 @@
 #include "bf_lib.h"
 #include "stringlist.h"
 
+static GdkPixbufLoader *pbloader_from_filename(const gchar *filename) {
+	GdkPixbufLoader *pbloader;
+	GError *error=NULL;
+	gchar *ext = strrchr(filename, '.');
+	if (ext) {
+		gchar *tmp2 = g_utf8_strdown(ext+1,-1);
+		if (strcmp(tmp2, "jpg")==0) {
+			pbloader = gdk_pixbuf_loader_new_with_type("jpeg", &error);
+		} else {
+			pbloader = gdk_pixbuf_loader_new_with_type(tmp2, &error);
+		}
+		if (error) {
+			pbloader = gdk_pixbuf_loader_new(); /* try to guess from the data */
+			g_error_free(error);
+		}
+		g_free(tmp2);
+	} else {
+		pbloader = gdk_pixbuf_loader_new();
+	}
+	return pbloader;
+}
+
 static gchar *create_thumbnail_filename(gchar *filename) {
 	gchar *retval, *tmp;
 	gint len = 0, size;
@@ -276,22 +298,7 @@ static void image_filename_changed(GtkWidget * widget, Timage_diag *imdg) {
 	}
 	DEBUG_MSG("image_filename_changed: fullfilename=%s, loading!\n",gnome_vfs_uri_get_path(fullfilename));
 	if (fullfilename) {
-		GError *error=NULL;
-		gchar *ext = strrchr(filename, '.');
-		if (ext) {
-			gchar *tmp2 = g_utf8_strdown(ext+1,-1);
-			if (strcmp(tmp2, "jpg")==0) {
-				imdg->pbloader = gdk_pixbuf_loader_new_with_type("jpeg", &error);
-			} else {
-				imdg->pbloader = gdk_pixbuf_loader_new_with_type(tmp2, &error);
-			}
-			if (error) {
-				imdg->pbloader = gdk_pixbuf_loader_new(); /* try to guess from the data */
-			}
-			g_free(tmp2);
-		} else {
-			imdg->pbloader = gdk_pixbuf_loader_new();
-		}
+		imdg->pbloader = pbloader_from_filename(gnome_vfs_uri_get_path(fullfilename));
 		imdg->of = file_openfile_uri_async(fullfilename, image_loaded_lcb, imdg);
 		imdg->full_uri = fullfilename;
 	}
@@ -466,9 +473,6 @@ typedef struct {
 } Tmuthudia;
 
 typedef struct {
-	GdkPixbuf *image;
-	GdkPixbuf *thumb;
-	GdkPixbufLoader* pbloader;
 	GnomeVFSURI *imagename;
 	GnomeVFSURI *thumbname;
 	Topenfile *of; /* if != NULL, the image is loading */
@@ -485,7 +489,7 @@ static void mt_dialog_destroy(GtkWidget *wid, Tmuthudia *mtd) {
 	g_free(mtd);
 }
 /* needs both pixbufs to get the width !! */
-static void mt_fill_string(Timage2thumb *i2t) {
+static void mt_fill_string(Timage2thumb *i2t, GdkPixbuf *image, GdkPixbuf *thumb) {
 	gint tw,th,ow,oh;
 	gchar *relthumb, *tmp, *relimage;
 
@@ -500,10 +504,10 @@ static void mt_fill_string(Timage2thumb *i2t) {
 		g_free(tmp);
 	}
 
-	ow = gdk_pixbuf_get_width(i2t->image);
-	oh = gdk_pixbuf_get_height(i2t->image);
-	tw = gdk_pixbuf_get_width(i2t->thumb);
-	th = gdk_pixbuf_get_height(i2t->thumb);
+	ow = gdk_pixbuf_get_width(image);
+	oh = gdk_pixbuf_get_height(image);
+	tw = gdk_pixbuf_get_width(thumb);
+	th = gdk_pixbuf_get_height(thumb);
 	{
 		Tconvert_table *table, *tmpt;
 	
@@ -596,7 +600,6 @@ static void mt_start_next_load(Timage2thumb *i2t) {
 
 static void mt_openfile_lcb(Topenfile_status status,gint error_info, gchar *buffer,GnomeVFSFileSize buflen,gpointer callback_data) {
 	Timage2thumb *i2t = callback_data;
-	gboolean cleanup = TRUE;
 	switch (status) {
 		case OPENFILE_ERROR:
 		case OPENFILE_ERROR_NOCHANNEL:
@@ -604,64 +607,73 @@ static void mt_openfile_lcb(Topenfile_status status,gint error_info, gchar *buff
 		case OPENFILE_ERROR_CANCELLED:
 			/* should we warn the user ?? */
 			DEBUG_MSG("mt_openfile_lcb, some error! status=%d for image %s\n",status,gnome_vfs_uri_get_path(i2t->imagename));
-			gdk_pixbuf_loader_close(i2t->pbloader,NULL);
-			g_object_unref(i2t->pbloader);
 		break;
 		case OPENFILE_CHANNEL_OPENED:
 			/* do nothing */
-			cleanup = FALSE;
 		break;
 		case OPENFILE_FINISHED: {
 			GError *error=NULL;
+			GdkPixbufLoader* pbloader;
+		
 			DEBUG_MSG("mt_openfile_lcb, finished loading image %s\n",gnome_vfs_uri_get_path(i2t->imagename));
 			mt_start_next_load(i2t); /* fire up the next image load */
-			if (gdk_pixbuf_loader_write(i2t->pbloader,buffer,buflen,&error) 
-						&& gdk_pixbuf_loader_close(i2t->pbloader,&error)) {
+			pbloader = pbloader_from_filename(gnome_vfs_uri_get_path(i2t->imagename));
+			if (gdk_pixbuf_loader_write(pbloader,buffer,buflen,&error) 
+						&& gdk_pixbuf_loader_close(pbloader,&error)) {
 				gint tw,th,ow,oh;
+				GdkPixbuf *image;
+				GdkPixbuf *thumb;
 				gsize buflen;
-				i2t->image = gdk_pixbuf_loader_get_pixbuf(i2t->pbloader);
-		
-				ow = gdk_pixbuf_get_width(i2t->image);
-				oh = gdk_pixbuf_get_height(i2t->image);		
-				switch (main_v->props.image_thumbnailsizing_type) {
-				case 0:
-					tw = (1.0*ow / 100 * main_v->props.image_thumbnailsizing_val1);
-					th = (1.0*oh / 100 * main_v->props.image_thumbnailsizing_val1);
-				break;
-				case 1:
-					tw = main_v->props.image_thumbnailsizing_val1;
-					th = (1.0*tw/ow*oh);
-				break;
-				case 2:
-					th = main_v->props.image_thumbnailsizing_val1;
-					tw = (1.0*th/oh*ow);
-				break;
-				default: /* all fall back to type 3 */
-					tw = main_v->props.image_thumbnailsizing_val1;
-					th = main_v->props.image_thumbnailsizing_val2;
-				break;
-				}
-				
-				i2t->thumb = gdk_pixbuf_scale_simple(i2t->image, tw, th, GDK_INTERP_BILINEAR);
-				mt_fill_string(i2t); /* create the string */
-				mt_print_string(i2t); /* print the string and all previous string (if possible) */
-				g_object_unref(i2t->pbloader);
-				/*gdk_pixbuf_unref(i2t->image); will be unreffed with the loader! */
-				/* save the thumbnail */
-				if (strcmp(main_v->props.image_thumbnailtype, "jpeg")==0) {
-					gdk_pixbuf_save_to_buffer(i2t->thumb, &buffer, &buflen,main_v->props.image_thumbnailtype,&error, "quality", "50",NULL);
+				image = gdk_pixbuf_loader_get_pixbuf(pbloader);
+				if (image) {
+					ow = gdk_pixbuf_get_width(image);
+					oh = gdk_pixbuf_get_height(image);		
+					switch (main_v->props.image_thumbnailsizing_type) {
+					case 0:
+						tw = (1.0*ow / 100 * main_v->props.image_thumbnailsizing_val1);
+						th = (1.0*oh / 100 * main_v->props.image_thumbnailsizing_val1);
+					break;
+					case 1:
+						tw = main_v->props.image_thumbnailsizing_val1;
+						th = (1.0*tw/ow*oh);
+					break;
+					case 2:
+						th = main_v->props.image_thumbnailsizing_val1;
+						tw = (1.0*th/oh*ow);
+					break;
+					default: /* all fall back to type 3 */
+						tw = main_v->props.image_thumbnailsizing_val1;
+						th = main_v->props.image_thumbnailsizing_val2;
+					break;
+					}
+					DEBUG_MSG("mt_openfile_lcb, start scaling %s to %dx%d\n",gnome_vfs_uri_get_path(i2t->imagename),tw,th);
+					thumb = gdk_pixbuf_scale_simple(image, tw, th, GDK_INTERP_BILINEAR);
+					DEBUG_MSG("mt_openfile_lcb, done scaling %s\n",gnome_vfs_uri_get_path(i2t->imagename));
+					mt_fill_string(i2t,image,thumb); /* create the string */
+					mt_print_string(i2t); /* print the string and all previous string (if possible) */
+					g_object_unref(pbloader);
+					/*gdk_pixbuf_unref(image); will be unreffed with the loader! */
+					/* save the thumbnail */
+					if (strcmp(main_v->props.image_thumbnailtype, "jpeg")==0) {
+						gdk_pixbuf_save_to_buffer(thumb, &buffer, &buflen,main_v->props.image_thumbnailtype,&error, "quality", "50",NULL);
+					} else {
+						gdk_pixbuf_save_to_buffer(thumb, &buffer, &buflen,main_v->props.image_thumbnailtype,&error,NULL);
+					}
+					g_object_unref(thumb);
+					if (error) {
+						g_print("ERROR while saving thumbnail to buffer: %s\n", error->message);
+						g_error_free(error);
+					} else {
+						Trefcpointer *refbuf = refcpointer_new(buffer);
+						DEBUG_MSG("mt_openfile_lcb, starting thumbnail save to %s\n",gnome_vfs_uri_get_path(i2t->thumbname));
+						i2t->sf = file_savefile_uri_async(i2t->thumbname, refbuf, buflen, async_thumbsave_lcb, NULL);
+						refcpointer_unref(refbuf);
+					}
 				} else {
-					gdk_pixbuf_save_to_buffer(i2t->thumb, &buffer, &buflen,main_v->props.image_thumbnailtype,&error,NULL);
-				}
-				g_object_unref(i2t->thumb);
-				if (error) {
-					g_print("ERROR while saving thumbnail to buffer: %s\n", error->message);
-					g_error_free(error);
-				} else {
-					Trefcpointer *refbuf = refcpointer_new(buffer);
-					DEBUG_MSG("mt_openfile_lcb, starting thumbnail save to %s\n",gnome_vfs_uri_get_path(i2t->thumbname));
-					i2t->sf = file_savefile_uri_async(i2t->thumbname, refbuf, buflen, async_thumbsave_lcb, NULL);
-					refcpointer_unref(refbuf);
+					/* ok, this image is not valid, how do we continue ?? */
+					DEBUG_MSG("mt_openfile_lcb, failed to convert %s to image\n",gnome_vfs_uri_get_path(i2t->imagename));
+					i2t->string = g_strdup("");
+					mt_print_string(i2t);
 				}
 			}
 		} break;
@@ -670,22 +682,6 @@ static void mt_openfile_lcb(Topenfile_status status,gint error_info, gchar *buff
 }
 
 static void mt_start_load(Timage2thumb *i2t) {
-	GError *error=NULL;
-	gchar *ext = strrchr(gnome_vfs_uri_get_path(i2t->imagename), '.');
-	if (ext) {
-		gchar *tmp2 = g_utf8_strdown(ext+1,-1);
-		if (strcmp(tmp2, "jpg")==0) {
-			i2t->pbloader = gdk_pixbuf_loader_new_with_type("jpeg", &error);
-		} else {
-			i2t->pbloader = gdk_pixbuf_loader_new_with_type(tmp2, &error);
-		}
-		if (error) {
-			i2t->pbloader = gdk_pixbuf_loader_new(); /* try to guess from the data */
-		}
-		g_free(tmp2);
-	} else {
-		i2t->pbloader = gdk_pixbuf_loader_new();
-	}
 	DEBUG_MSG("mt_start_load, starting load for %s\n",gnome_vfs_uri_get_path(i2t->imagename));
 	i2t->of = file_openfile_uri_async(i2t->imagename, mt_openfile_lcb, i2t);
 }
