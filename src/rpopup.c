@@ -1,6 +1,10 @@
 #include <gtk/gtk.h>
 
 #include "bluefish.h"
+#include "html_diag.h"
+#include "html.h"
+#include "html2.h"
+#include "html_table.h"
 
 typedef struct {
 	guint32 findchar;
@@ -103,13 +107,194 @@ gboolean doc_bevent_in_html_tag(Tdocument *doc, GdkEventButton *bevent) {
 	return FALSE;
 }
 
+typedef struct {
+	gchar *tag;
+	void (*func) ();
+}Ttagdialog;
+
+static void parse_tagstring(gchar * tagstring, gint pos, gint end)
+{
+	GList *tmplist = NULL;
+	gchar *tmpstring, *item, *value;
+	gint count, prevtag, item_value_delimiter;
+	Ttagitem *tag_item;
+	Ttagpopup *tag_popup;
+	gboolean in_quote, has_quotes;
+	Ttagdialog tagdia[] = {
+		{"body", G_CALLBACK(body_cb)},
+		{"a", G_CALLBACK(quickanchor_cb)},
+		{"p", G_CALLBACK(p_dialog)},
+		{"div", G_CALLBACK(div_dialog)},
+		{"span", G_CALLBACK(span_dialog)},
+		{"h1", G_CALLBACK(h1_dialog)},
+		{"h2", G_CALLBACK(h2_dialog)},
+		{"h3", G_CALLBACK(h3_dialog)},
+		{"h4", G_CALLBACK(h4_dialog)},
+		{"h5", G_CALLBACK(h5_dialog)},
+		{"h6", G_CALLBACK(h6_dialog)},
+		{"hr", G_CALLBACK(quickrule_cb)},
+		{"font", G_CALLBACK(fontdialog_cb)},
+		{"basefont", G_CALLBACK(basefont_cb)},
+		{"table", G_CALLBACK(tabledialog_cb)},
+		{"tr", G_CALLBACK(tablerowdialog_cb)},
+		{"th", G_CALLBACK(tableheaddialog_cb)},
+		{"td", G_CALLBACK(tabledatadialog_cb)},
+		{"frameset", G_CALLBACK(framesetdialog_cb)},
+		{"frame",G_CALLBACK(framedialog_cb)}
+	};
+
+	DEBUG_MSG("parse_tagstring, started, tagstring=%s\n", tagstring);
+
+	/* parsing the values from this tag */
+	tmpstring = g_strdup(tagstring);
+	strip_any_whitespace(tmpstring);
+	item_value_delimiter = prevtag = count = 0;
+	has_quotes = in_quote = FALSE;
+	while (tmpstring[count] != '\0') {
+
+		/* spaces (delimiters) are allowed within quotes, so we have to keep track of quotes */
+		if (tmpstring[count] == '"') {
+			has_quotes = TRUE;
+			if (in_quote) {
+				in_quote = FALSE;
+			} else {
+				in_quote = TRUE;
+			}
+		}
+		/* to split the item and the value we have to keep track of '=' characters */
+		if (tmpstring[count] == '=') {
+			item_value_delimiter = count;
+		}
+		/* it is a delimiter if it a space (or tab, newline), outside a quote or the last character of the string */
+		if ((g_ascii_isspace((gchar)tmpstring[count]) && (in_quote == FALSE)) || (tmpstring[count + 1] == '\0')) {
+			if (prevtag == (count - 1)) {
+				DEBUG_MSG("parse_tagstring, two spaces!\n");
+				prevtag = count;
+			} else if (prevtag == 0) {
+				DEBUG_MSG("parse_tagstring, this is the name of the tag itself\n");
+				prevtag = count;
+			} else {
+				DEBUG_MSG("parse_tagstring, making split, count=%d, prevtag=%d\n", count, prevtag);
+				if (item_value_delimiter > prevtag) {
+					item = g_strndup(&tmpstring[prevtag + 1], item_value_delimiter - prevtag - 1);
+					if (has_quotes == TRUE) {
+						value = g_strndup(&tmpstring[item_value_delimiter + 2], count - item_value_delimiter - 2);
+						value = trunc_on_char(value, '"');
+					} else {
+						value = g_strndup(&tmpstring[item_value_delimiter + 1], count - item_value_delimiter);
+						g_strstrip(value);
+					}
+				} else {
+					item = g_strndup(&tmpstring[prevtag + 1], count - prevtag);
+					value = g_strdup("");
+				}
+				g_strdown(item);
+				g_strstrip(item);
+				tag_item = g_malloc(sizeof(Ttagitem));
+				tag_item->item = item;
+				tag_item->value = value;
+				tmplist = g_list_append(tmplist, tag_item);
+				DEBUG_MSG("parse_tagstring, item=%s with value=%s appended to list %p\n", item, value, tmplist);
+				prevtag = count;
+				has_quotes = FALSE;
+			}
+		}
+		count++;
+	}
+	g_free(tmpstring);
+
+	tag_popup = g_malloc(sizeof(Ttagpopup));
+	tag_popup->taglist = tmplist;
+	tag_popup->pos = pos;
+	tag_popup->end = end;
+	DEBUG_MSG("parse_tagstring, tag_popup->pos=%d, tag_popup->end=%d\n", tag_popup->pos, tag_popup->end);
+
+	tmpstring = g_strdup(tagstring);
+	tmpstring = trunc_on_char(tmpstring, ' ');
+	g_strdown(tmpstring);
+	/* identifying which tag we have */
+	DEBUG_MSG("parse_tagstring, searching for dialog for %s\n", tmpstring);
+	
+	{
+	gint i, numitems = (sizeof(tagdia)/sizeof(Ttagdialog));
+		for (i=0;i<numitems;i++) {
+			if (strcmp(tmpstring, tagdia[i].tag) == 0) {
+				tagdia[i].func(NULL, tag_popup);
+				break;
+			}
+		}
+	}
+
+/*	if (strcmp(tmpstring, "img") == 0) {
+		image_insert_dialog_cb(NULL, tag_popup);
+	} else
+	if (strcmp(tmpstring, "form") == 0) {
+		formdialog_cb(NULL, tag_popup);
+	} else
+	if (strcmp(tmpstring, "textarea") == 0) {
+		textareadialog_cb(NULL, tag_popup);
+	} else
+	if (strcmp(tmpstring, "select") == 0) {
+		selectdialog_cb(NULL, tag_popup);
+	} else
+	if (strcmp(tmpstring, "other") == 0) {
+		optiondialog_cb(NULL, tag_popup);
+	} else
+	if (strcmp(tmpstring, "meta") == 0) {
+		meta_cb(NULL, tag_popup);
+	} else
+	if (strcmp(tmpstring, "card") == 0) {
+		carddialog_cb(NULL, tag_popup);
+	} else
+	if (strcmp(tmpstring, "postfield") == 0) {
+		postfielddialog_cb(NULL, tag_popup);
+	} else
+	if (strcmp(tmpstring, "setvar") == 0) {
+		vardialog_cb(NULL, tag_popup);
+	} else
+	if (strcmp(tmpstring, "go") == 0) {
+		godialog_cb(NULL, tag_popup);
+	} else
+	if (strcmp(tmpstring, "do") == 0) {
+		dodialog_cb(NULL, tag_popup);
+	} else
+	if (strcmp(tmpstring, "anchor") == 0) {
+		anchordialog_cb(NULL, tag_popup);
+	} else
+	if (strcmp(tmpstring, "access") == 0) {
+		accessdialog_cb(NULL, tag_popup);
+	} else
+	if (strcmp(tmpstring, "script") == 0) {
+		script_cb(NULL, tag_popup);
+	} else
+	if (strcmp(tmpstring, "link") == 0) {
+		link_cb(NULL, tag_popup);
+	} else
+	if (strcmp(tmpstring, "input") == 0) {
+		DEBUG_MSG("parse_tagstring, identified as INPUT tag, splitting tag!\n");
+		input_tag_splitter(NULL, tag_popup);
+	}*/
+	tmplist = g_list_first(tmplist);
+	while (tmplist) {
+		g_free(((Ttagitem *) tmplist->data)->item);
+		g_free(((Ttagitem *) tmplist->data)->value);
+		g_free(tmplist->data);
+		tmplist = g_list_next(tmplist);
+	}
+	g_list_free(tmplist);
+	g_free(tag_popup);
+	g_free(tmpstring);
+}
+
+
 void rpopup_edit_tag_cb(GtkMenuItem *menuitem,Tdocument *doc) {
 	if (rec_tag.doc == doc && rec_tag.found_tag) {
 		gchar *text;
-		DEBUG_MSG("rpopup_edit_tag_cb, get text from %d to %d\n", rec_tag.tag_so, rec_tag.tag_eo - rec_tag.tag_so);
-		text = doc_get_chars(doc, rec_tag.tag_so, rec_tag.tag_eo - rec_tag.tag_so);
+		DEBUG_MSG("rpopup_edit_tag_cb, get text from %d to %d\n", rec_tag.tag_so, rec_tag.tag_eo);
+		/* we do not need the < and > chars so we cut those */
+		text = doc_get_chars(doc, rec_tag.tag_so+1, rec_tag.tag_eo - rec_tag.tag_so-2);
 		DEBUG_MSG("rpopup_edit_tag_cb, about to parse %s\n", text);
-		
+		parse_tagstring(text, rec_tag.tag_so, rec_tag.tag_eo);
 		g_free(text);
 	} else {
 		DEBUG_MSG("rpopup_edit_tag_cb, no tag search known!!\n");

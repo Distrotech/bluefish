@@ -209,10 +209,16 @@ void doc_set_modified(Tdocument *doc, gint value) {
 		if (doc->modified) {
 			if (doc->filename) {
 				gchar *tmpstr = g_path_get_basename(doc->filename);
-				label_string = g_strconcat(tmpstr, " *", NULL);
+				label_string = g_strdup(tmpstr);
 				g_free(tmpstr);
 			} else {
-				label_string = g_strdup(_("Untitled *"));
+				label_string = g_strdup(_("Untitled"));
+			}
+			{
+				GdkColor color = {0, 65535, 0, 0};
+				gtk_widget_modify_fg(doc->tab_menu, GTK_STATE_NORMAL, &color);
+				gtk_widget_modify_fg(doc->tab_menu, GTK_STATE_PRELIGHT, &color);
+				gtk_widget_modify_fg(doc->tab_label, GTK_STATE_NORMAL, &color);
 			}
 		} else {
 			if (doc->filename) {
@@ -222,13 +228,17 @@ void doc_set_modified(Tdocument *doc, gint value) {
 			} else {
 				label_string = g_strdup(_("Untitled"));
 			}
+			{
+				GdkColor color = {0, 0, 0, 0};
+				gtk_widget_modify_fg(doc->tab_menu, GTK_STATE_NORMAL, &color);
+				gtk_widget_modify_fg(doc->tab_menu, GTK_STATE_PRELIGHT, &color);
+				gtk_widget_modify_fg(doc->tab_label, GTK_STATE_NORMAL, &color);
+			}
 		}
-		
-		
 		if (doc->filename) {
 			if (doc->modified) {
 				gchar *tmpstr = g_path_get_basename(doc->filename);
-				label_string = g_strconcat(tmpstr, " *", NULL);
+				label_string = g_strdup(tmpstr);
 				g_free(tmpstr);
 			} else {
 				gchar *tmpstr = g_path_get_basename(doc->filename);
@@ -238,7 +248,7 @@ void doc_set_modified(Tdocument *doc, gint value) {
 			gtk_label_set(GTK_LABEL(doc->tab_menu),doc->filename);
 		} else {
 			if (doc->modified) {
-				label_string = g_strdup(_("Untitled *"));
+				label_string = g_strdup(_("Untitled"));
 			} else {
 				label_string = g_strdup(_("Untitled"));
 			}
@@ -251,6 +261,11 @@ void doc_set_modified(Tdocument *doc, gint value) {
 	if (doc == main_v->current_document) {
 		gui_set_widgets(doc_has_undo_list(doc), doc_has_redo_list(doc));
 	}
+#ifdef DEBUG
+	else {
+		DEBUG_MSG("doc_set_modified, doc != current_document, so we do not update the gui widgets\n");
+	}
+#endif
 }
 
 inline static void doc_update_mtime(Tdocument *doc) {
@@ -393,7 +408,6 @@ gint doc_get_cursor_position(Tdocument *doc) {
 
 void doc_replace_text_backend(Tdocument *doc, const gchar * newstring, gint start, gint end) {
 	doc_unbind_signals(doc);
-	
 	/* delete region, and add that to undo/redo list */
 	{
 		gchar *buf;
@@ -682,8 +696,7 @@ static void doc_update_linenumber(Tdocument *doc, GtkTextIter *iter, gint offset
 }
 
 static void doc_buffer_insert_text_lcb(GtkTextBuffer *textbuffer,GtkTextIter * iter,gchar * string,gint len, Tdocument * doc) {
-	doc_set_modified(doc, 1);
-	
+
 	DEBUG_MSG("doc_buffer_insert_text_lcb, started\n");
 
 	/* undo_redo stuff */
@@ -700,7 +713,7 @@ static void doc_buffer_insert_text_lcb(GtkTextBuffer *textbuffer,GtkTextIter * i
 		gint pos = gtk_text_iter_get_offset(iter);
 		doc_unre_add(doc, string, pos, pos+len, UndoInsert);
 	}
-	
+	doc_set_modified(doc, 1);	
 	DEBUG_MSG("doc_buffer_insert_text_lcb, done\n");
 }
 
@@ -750,7 +763,6 @@ static void doc_buffer_insert_text_after_lcb(GtkTextBuffer *textbuffer,GtkTextIt
 static void doc_buffer_delete_range_lcb(GtkTextBuffer *textbuffer,GtkTextIter * itstart,GtkTextIter * itend, Tdocument * doc) {
 	gchar *string;
 	gint i=0;
-	doc_set_modified(doc, 1);
 	string = gtk_text_buffer_get_text(doc->buffer, itstart, itend, FALSE);
 	if (string) {
 		/* highlighting stuff */
@@ -786,6 +798,7 @@ static void doc_buffer_delete_range_lcb(GtkTextBuffer *textbuffer,GtkTextIter * 
 
 		g_free(string);
 	}
+	doc_set_modified(doc, 1);
 }
 
 static gboolean doc_view_button_release_lcb(GtkWidget *widget,GdkEventButton *bevent, Tdocument *doc) {
@@ -1024,10 +1037,10 @@ gint doc_textbox_to_file(Tdocument * doc, gchar * filename) {
 		g_free(buffer);
 		fclose(fd);
 
-		doc_set_modified(doc, 0);
 		if (main_v->props.clear_undo_on_save) {
 			doc_unre_clear_all(doc);
 		}
+		doc_set_modified(doc, 0);
 		if (!backup_retval) {
 			return 2;
 		} else {
