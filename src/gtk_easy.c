@@ -430,36 +430,59 @@ GtkWidget *boxed_spinbut_with_value(gchar *value, gfloat lower, gfloat upper, gf
 }
 */
 /**
+ * optionmenu_with_value:
+ * @options: a #gchar** NULL terminated array with option strings
+ * @curval: a #gint with the current selected item
+ *
+ * Create new popupmenu from options, and set the selected index from curval
+ *
+ * Return value: #GtkWidget* pointer to the new menu widget
+ * Created by: Rubén Dorta
+ */
+
+GtkWidget *optionmenu_with_value(gchar **options, gint curval) {
+	GtkWidget *returnwidget;
+	GtkWidget *menu, *menuitem;
+	gchar **str;
+
+	returnwidget = gtk_option_menu_new();
+	menu = gtk_menu_new();
+	str = options;
+
+	while (*str) {
+		DEBUG_MSG("prefs_optionmenu, adding %s to optionmenu\n", *str);
+		menuitem = gtk_menu_item_new_with_label(_(*str));
+		gtk_menu_shell_append(GTK_MENU_SHELL(menu), menuitem);
+		str++;
+	}
+
+	gtk_option_menu_set_menu(GTK_OPTION_MENU(returnwidget), menu);
+	gtk_option_menu_set_history(GTK_OPTION_MENU(returnwidget), curval);
+	return returnwidget;
+}
+
+/**
  * boxed_optionmenu_with_value:
  * @labeltext: a #const gchar* with the text for the label
  * @curval: a #gint with the current selected item
  * @box: a #GtkWidget* with the box to add this to
  * @options: a #gchar** NULL terminated array with option strings
  *
- * 	Create new popupmenu from options, and set the selected index from curval
- * and add the menu to box
+ * Create a new horizontal box with a labeltext and a new popupmenu using the options array
+ * setting the selected index from curval
  *
  * Return value: #GtkWidget* pointer to the new menu widget
+ * Modified by: Rubén Dorta
  */
+
 GtkWidget *boxed_optionmenu_with_value(const gchar *labeltext, gint curval, GtkWidget *box, gchar **options) {
 	GtkWidget *returnwidget;
-	GtkWidget *hbox, *menu, *menuitem;
-	gchar **str;
+	GtkWidget *hbox;
 
 	hbox = gtk_hbox_new(FALSE,3);
 	gtk_box_pack_start(GTK_BOX(box), hbox, FALSE, FALSE, 3);
 	gtk_box_pack_start(GTK_BOX(hbox), gtk_label_new(labeltext), FALSE, FALSE, 3);
-	returnwidget = gtk_option_menu_new();
-	menu = gtk_menu_new();
-	str = options;
-	while (*str) {
-		DEBUG_MSG("prefs_optionmenu, adding %s to optionmenu\n",*str);
-		menuitem = gtk_menu_item_new_with_label(_(*str));
-		gtk_menu_shell_append(GTK_MENU_SHELL(menu), menuitem);
-		str++;
-	}
-	gtk_option_menu_set_menu(GTK_OPTION_MENU(returnwidget),menu);
-	gtk_option_menu_set_history(GTK_OPTION_MENU(returnwidget),curval);
+	returnwidget = optionmenu_with_value(options, curval);
 	gtk_box_pack_start(GTK_BOX(hbox), returnwidget, FALSE, FALSE, 3);
 	return returnwidget;
 }

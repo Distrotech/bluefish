@@ -41,10 +41,10 @@ void paste_cb(GtkWidget * w, gpointer data);
 void cut_cb(GtkWidget * w, gpointer data);
 void sel_all_cb(GtkWidget * w, gpointer data);
 
-void snr2_run_extern_replace(Tdocument *doc,gchar *pattern, gint region,
-							gint matchtype, gint is_case_sens, gchar *replace_string,
+void snr2_run_extern_replace(Tdocument *doc, gchar *search_pattern, gint region,
+							gint matchtype, gint is_case_sens, gchar *replace_pattern,
 							gboolean store_as_last_snr2);
-Tsearch_result doc_search_run_extern(Tdocument *doc, gchar *pattern, gint matchtype, gint is_case_sens);
+Tsearch_result doc_search_run_extern(Tdocument *doc, gchar *search_pattern, gint matchtype, gint is_case_sens);
 
 void search_cb(GtkWidget *widget, gpointer data);
 void new_search_cb(GtkWidget *widget, gpointer data);
