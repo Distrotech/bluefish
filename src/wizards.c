@@ -215,9 +215,9 @@ void framewizard_dialog(Tbfwin *bfwin) {
 		dg->clist[i] = gtk_hbox_new(FALSE, 6);
 		gtk_box_pack_start(GTK_BOX(vbox), dg->clist[i], FALSE, FALSE, 0);
 		gtk_box_pack_start(GTK_BOX(dg->clist[i]), gtk_label_new(_("Name:")), TRUE, TRUE, 0);
-		dg->combo[i] = boxed_combo_with_popdown(NULL, recent_attribs.targetlist, 1, dg->clist[i]);
+		dg->combo[i] = boxed_combo_with_popdown(NULL, bfwin->session->targetlist, 1, dg->clist[i]);
 		gtk_box_pack_start(GTK_BOX(dg->clist[i]), gtk_label_new(_("Source:")), TRUE, TRUE, 0);
-		dg->combo[i+5] = boxed_combo_with_popdown(NULL, recent_attribs.urllist, 1, dg->clist[i]);
+		dg->combo[i+5] = boxed_combo_with_popdown(NULL, bfwin->session->urllist, 1, dg->clist[i]);
 		file_but = file_but_new(GTK_WIDGET(GTK_COMBO(dg->combo[i+5])->entry), 0, bfwin);
 		gtk_box_pack_start(GTK_BOX(dg->clist[i]), file_but, FALSE, FALSE, 0);		
 		gtk_box_pack_start(GTK_BOX(dg->clist[i]), gtk_label_new(_("Size:")), TRUE, TRUE, 0);
