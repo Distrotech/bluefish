@@ -127,7 +127,6 @@ void about_dialog_create(gpointer * data, guint * callback_action, GtkWidget * w
 Developers for this release:\n\
   Jim Hayward <jimhayward@linuxexperience.com>\n\
   Oskar Świda <swida@aragorn.pb.bialystok.pl>\n\
-  Christian Tellefsen <christian@tellefsen.net>\n\
   Eugene Morenko(More) <more@irpin.com>\n\
 \n\
 Developers for previous releases:\n\
