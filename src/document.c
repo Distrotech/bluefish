@@ -1100,7 +1100,9 @@ static gchar *get_buffer_from_filename(Tbfwin *bfwin, gchar *filename, unsigned 
 	DEBUG_MSG("get_buffer_from_filename, started for %s\n",filename);
 	result = gnome_vfs_open (&handle, filename, GNOME_VFS_OPEN_READ);
 	if (result != GNOME_VFS_OK) {
-		/* error to the user */
+		gchar *errmessage = g_strconcat(_("Could not read file:\n"), filename, NULL);
+		warning_dialog(bfwin->main_window,errmessage, NULL);
+		g_free(errmessage);
 		DEBUG_MSG("get_buffer_from_filename, ERROR (result=%d), returning NULL\n",result);
 		return NULL;
 	}
@@ -1119,6 +1121,7 @@ static gchar *get_buffer_from_filename(Tbfwin *bfwin, gchar *filename, unsigned 
 			break;
 		}
 	}	
+	gnome_vfs_close(handle);
 	return buffer;
 }
 #else /* no gnome-vfs */
@@ -1616,6 +1619,36 @@ void doc_unbind_signals(Tdocument *doc) {
 		doc->ins_txt_id = 0;
 	}
 }
+#ifdef HAVE_GNOME_VFS
+gboolean buffer_to_file(Tbfwin *bfwin, gchar *buffer, gchar *filename) {
+	GnomeVFSHandle *handle;
+	GnomeVFSFileSize bytes_written;
+	GnomeVFSResult result = gnome_vfs_open(&handle, filename, GNOME_VFS_OPEN_WRITE);
+	if (result != GNOME_VFS_OK) {
+		DEBUG_MSG("buffer_to_file, result=%d, returning FALSE\n",result);
+		return FALSE;
+	}
+	result = gnome_vfs_write(handle, buffer, strlen(buffer), &bytes_written);
+	gnome_vfs_close(handle);
+	if (result != GNOME_VFS_OK) {
+		DEBUG_MSG("buffer_to_file, result=%d, returning FALSE\n",result);
+		return FALSE;
+	}
+	return TRUE;
+}
+#else /* HAVE_GNOME_VFS */
+gboolean buffer_to_file(Tbfwin *bfwin, gchar *buffer, gchar *filename) {
+	FILE *fd;
+	fd = fopen(filename, "w");
+	if (fd == NULL) {
+		DEBUG_MSG("buffer_to_file, cannot open file %s\n", filename);
+		return FALSE;
+	}
+	fputs(buffer, fd);
+	fclose(fd);
+	return TRUE;
+}
+#endif /* HAVE_GNOME_VFS */
 
 /**
  * gint doc_textbox_to_file
@@ -1630,12 +1663,14 @@ void doc_unbind_signals(Tdocument *doc) {
  * 1: on success
  * 2: on success but the backup failed
  * -1: if the backup failed and save was aborted
- * -2: if the file pointer could not be opened
+ * -2: if the file could not be opened or written
  * -3: if the backup failed and save was aborted by the user
  **/
 gint doc_textbox_to_file(Tdocument * doc, gchar * filename) {
-	FILE *fd;
 	gint backup_retval;
+	gint write_retval;
+	gchar *buffer;
+	GtkTextIter itstart, itend;
 
 	statusbar_message(BFWIN(doc->bfwin),_("Saving file"), 1000);
 	if (main_v->props.auto_update_meta) {
@@ -1670,40 +1705,36 @@ gint doc_textbox_to_file(Tdocument * doc, gchar * filename) {
 		}
 	}
 	change_dir(filename);
-	fd = fopen(filename, "w");
-	if (fd == NULL) {
-		DEBUG_MSG("textbox_to_file, cannot open file %s\n", filename);
-		return -2;
-	} else {
-		gchar *buffer;
-		GtkTextIter itstart, itend;
-		gtk_text_buffer_get_bounds(doc->buffer,&itstart,&itend);
-		buffer = gtk_text_buffer_get_text(doc->buffer,&itstart,&itend,FALSE);
-		
-		if (doc->encoding) {
-			gchar *newbuf;
-			gsize wsize;
-			newbuf = g_convert(buffer,-1,doc->encoding,"UTF-8",NULL,&wsize,NULL);
-			if (newbuf) {
-				g_free(buffer);
-				buffer = newbuf;
-			}
-		}
-		
-		fputs(buffer, fd);
-		g_free(buffer);
-		fclose(fd);
-
-		if (main_v->props.clear_undo_on_save) {
-			doc_unre_clear_all(doc);
-		}
-		doc_set_modified(doc, 0);
-		if (!backup_retval) {
-			return 2;
-		} else {
-			return 1;
+	
+	gtk_text_buffer_get_bounds(doc->buffer,&itstart,&itend);
+	buffer = gtk_text_buffer_get_text(doc->buffer,&itstart,&itend,FALSE);
+	
+	if (doc->encoding) {
+		gchar *newbuf;
+		gsize wsize;
+		newbuf = g_convert(buffer,-1,doc->encoding,"UTF-8",NULL,&wsize,NULL);
+		if (newbuf) {
+			g_free(buffer);
+			buffer = newbuf;
 		}
 	}
+	
+	write_retval = buffer_to_file(BFWIN(doc->bfwin), buffer, filename);
+	g_free(buffer);
+	if (!write_retval) {
+		return -2;
+	}
+
+	if (main_v->props.clear_undo_on_save) {
+		doc_unre_clear_all(doc);
+	}
+	doc_set_modified(doc, 0);
+	if (!backup_retval) {
+		return 2;
+	} else {
+		return 1;
+	}
+
 }
 
 /**
