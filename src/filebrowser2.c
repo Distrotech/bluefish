@@ -653,7 +653,8 @@ static gboolean tree_model_filter_func(GtkTreeModel *model,GtkTreeIter *iter,gpo
 	DEBUG_MSG("tree_model_filter_func, called for model=%p and fb2=%p\n",model,fb2);
 	gtk_tree_model_get(GTK_TREE_MODEL(model), iter, FILENAME_COLUMN, &name, URI_COLUMN, &uri, TYPE_COLUMN, &type, -1);
 	if (!name) return FALSE;
-
+	DEBUG_MSG("tree_model_filter_func, name=%s, uri=",name);
+	DEBUG_URI(uri, TRUE);
 	if (type != TYPE_DIR) {
 		if (main_v->props.filebrowser_two_pane_view) return FALSE;
 		if (!fb2->bfwin->session->filebrowser_show_backup_files) {
@@ -661,6 +662,7 @@ static gboolean tree_model_filter_func(GtkTreeModel *model,GtkTreeIter *iter,gpo
 			if (len > 1 && (name[len-1] == '~')) return FALSE;
 		}
 		if (!fb2->bfwin->session->filebrowser_show_hidden_files) {
+			DEBUG_MSG("tree_model_filter_func, show_hidden_file=%d, checking first char %c\n",fb2->bfwin->session->filebrowser_show_hidden_files,name[0]);
 			if (name[0] == '.') return FALSE;
 		}
 		return name_visible_in_filter(fb2, name);
@@ -678,6 +680,7 @@ static gboolean tree_model_filter_func(GtkTreeModel *model,GtkTreeIter *iter,gpo
 		}
 	}
 	if (!fb2->bfwin->session->filebrowser_show_hidden_files) {
+		DEBUG_MSG("tree_model_filter_func, show_hidden_file=%d, checking first char %c\n",fb2->bfwin->session->filebrowser_show_hidden_files,name[0]);
 		if (name[0] == '.') return FALSE;
 #ifdef DEBUGTEST
 		{
