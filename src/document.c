@@ -29,7 +29,7 @@
 #include <time.h>			/* ctime_r() */
 #include <pcre.h>
 
-/*#define DEBUG*/
+/* #define DEBUG */
 
 #ifdef DEBUGPROFILING
 #include <sys/times.h>
@@ -1800,10 +1800,13 @@ gint doc_textbox_to_file(Tdocument * doc, gchar * filename) {
 	if (doc->encoding) {
 		gchar *newbuf;
 		gsize wsize;
+		DEBUG_MSG("doc_textbox_to_file, converting from UTF-8 to %s\n", doc->encoding);
 		newbuf = g_convert(buffer,-1,doc->encoding,"UTF-8",NULL,&wsize,NULL);
 		if (newbuf) {
 			g_free(buffer);
 			buffer = newbuf;
+		} else {
+			DEBUG_MSG("doc_textbox_to_file, *** CONVERSION FAILED *** newbuf was NULL\n");
 		}
 	}
 	

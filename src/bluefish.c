@@ -237,7 +237,11 @@ void bluefish_exit_request() {
 	tmpb = (tmplist && test_docs_modified(tmplist));
 	g_list_free(tmplist);
 	if (tmpb) {
-		file_close_all_cb(NULL, NULL);
+		tmplist = g_list_first(main_v->bfwinlist);
+		while (tmplist) {
+			file_close_all_cb(NULL, BFWIN(tmplist->data));
+			tmplist = g_list_next(tmplist);
+		}
 		/* if we still have modified documents we don't do a thing,
 		 if we don't have them we can quit */
 		tmplist = return_allwindows_documentlist();
