@@ -39,22 +39,22 @@ typedef struct {
 static int Document_init(bluefish_DocumentObject *self, PyObject *args, PyObject *kwds) {
 	char *uri=NULL;
 	static char *kwlist[] = {"uri", NULL};
+	PyObject *PyBfwin;
+	Tbfwin *bfwin;
+
 	if (!PyArg_ParseTupleAndKeywords(args, kwds, "|s", kwlist, &uri))
 		return -1;
+
+	PyBfwin = GetObjectFromBluefishModule("bfwin");
+	bfwin = PyCObject_AsVoidPtr(PyBfwin);
+
 	if (uri) {
 		Tdocument *tmpdoc;
-		GList *tmplist;
-		tmplist = return_allwindows_documentlist();
-		tmpdoc = documentlist_return_document_from_filename(tmplist, uri);
+		tmpdoc = documentlist_return_document_from_filename(bfwin->documentlist, uri);
 		if (!tmpdoc) return -1;
 		g_print("found %p for %s\n",tmpdoc,uri);
 		self->doc = tmpdoc;
-		g_list_free(tmplist);
 	} else {
-		PyObject *PyBfwin;
-		Tbfwin *bfwin;
-		PyBfwin = GetObjectFromBluefishModule("bfwin");
-		bfwin = PyCObject_AsVoidPtr(PyBfwin);
 		self->doc = bfwin->current_document;
 	}
 	return 0;
