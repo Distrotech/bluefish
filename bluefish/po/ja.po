@@ -5,13 +5,79 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish gtk2-port\n"
-"POT-Creation-Date: 2002-12-19 23:16+0100\n"
+"POT-Creation-Date: 2003-02-23 19:31+0100\n"
 "PO-Revision-Date: 2001-10-10 19:34+0900\n"
 "Last-Translator: Iwasa Kazmi <kzmi@ca2.so-net.ne.jp>\n"
 "Language-Team: Japanese <ja@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8-bit\n"
+
+#: ../src/bfspell.c:253 ../src/bfspell.c:334
+#, fuzzy
+msgid "personal dictionary"
+msgstr "å€‹äººè¾æ›¸"
+
+#: ../src/bfspell.c:298
+#, fuzzy
+msgid "Spell checker"
+msgstr "ã‚¹ãƒšãƒ«ãƒã‚§ãƒƒã‚«"
+
+#: ../src/bfspell.c:302
+#, fuzzy
+msgid "Checking"
+msgstr "ãƒã‚§ãƒƒã‚¯ã•ã‚ŒãŸçŠ¶æ…‹"
+
+#: ../src/bfspell.c:309
+msgid "Original"
+msgstr ""
+
+#: ../src/bfspell.c:313
+#, fuzzy
+msgid "Replacement"
+msgstr "ç½®æ›æ–‡å­—åˆ—"
+
+#: ../src/bfspell.c:316 ../src/document.c:1730
+msgid "Ignore"
+msgstr "ç„¡è¦–"
+
+#: ../src/bfspell.c:317 ../src/menu.c:1878 ../src/snr2.c:1048
+#: ../src/snr2.c:1102
+msgid "Replace"
+msgstr "ç½®æ›"
+
+#: ../src/bfspell.c:328
+#, fuzzy
+msgid "In document"
+msgstr "/ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆ/ç¾åœ¨ç·¨é›†ä¸­ã®æ–‡æ›¸ã‚’è¿½åŠ "
+
+#: ../src/bfspell.c:329 ../src/snr2.c:1083
+msgid "In selection"
+msgstr "é¸æŠç¯„å›²å†…"
+
+#: ../src/bfspell.c:335
+#, fuzzy
+msgid "session dictionary"
+msgstr "å€‹äººè¾æ›¸"
+
+#: ../src/bfspell.c:337
+#, fuzzy
+msgid "Dictionary"
+msgstr "ã‚¢ã‚¯ã‚·ãƒ§ãƒ³"
+
+#: ../src/bfspell.c:339
+msgid "Add"
+msgstr "è¿½åŠ "
+
+#: ../src/bfspell.c:343 ../src/html.c:591 ../src/html.c:1180
+#: ../src/html.c:1908
+msgid "Language"
+msgstr ""
+
+#: ../src/bfspell.c:345
+#, fuzzy
+msgid "Set default"
+msgstr "è¡Œç•ªå·: "
 
 #: ../src/bluefish.c:75
 #, c-format
@@ -26,826 +92,834 @@ msgid ""
 "Currently accepted options are:\n"
 msgstr ""
 "\n"
-"¸½ºß¡¢»ØÄê¤Ç¤­¤ë¥ª¥×¥·¥ç¥ó¤Ï:\n"
+"ç¾åœ¨ã€æŒ‡å®šã§ãã‚‹ã‚ªãƒ—ã‚·ãƒ§ãƒ³ã¯:\n"
 
 #: ../src/bluefish.c:77
 msgid "-s           skip root check\n"
-msgstr "-s             root¥Á¥§¥Ã¥¯¤ò¤·¤Ê¤¤\n"
+msgstr "-s             rootãƒã‚§ãƒƒã‚¯ã‚’ã—ãªã„\n"
 
 #: ../src/bluefish.c:78
 msgid "-v           current version\n"
-msgstr "-v             ¸½ºß¤Î¥Ğ¡¼¥¸¥ç¥ó\n"
+msgstr "-v             ç¾åœ¨ã®ãƒãƒ¼ã‚¸ãƒ§ãƒ³\n"
 
 #: ../src/bluefish.c:79
 msgid "-h           this help screen\n"
-msgstr "-h             ¤³¤Î¥Ø¥ë¥×É½¼¨\n"
+msgstr "-h             ã“ã®ãƒ˜ãƒ«ãƒ—è¡¨ç¤º\n"
 
-#: ../src/bluefish.c:134
+#: ../src/bluefish.c:135
 #, fuzzy
 msgid "parsing highlighting file..."
-msgstr "/ÀßÄê/¥ê¥¹¥È/¿§Ê¬¤±..."
+msgstr "/è¨­å®š/ãƒªã‚¹ãƒˆ/è‰²åˆ†ã‘..."
 
-#: ../src/bluefish.c:145
+#: ../src/bluefish.c:146
 #, fuzzy
 msgid "compiling highlighting patterns..."
-msgstr "´Ö°ã¤Ã¤¿¿§Ê¬¤±¥Ñ¥¿¡¼¥ó¤Ç¤¹"
+msgstr "é–“é•ã£ãŸè‰²åˆ†ã‘ãƒ‘ã‚¿ãƒ¼ãƒ³ã§ã™"
 
-#: ../src/bluefish.c:149
+#: ../src/bluefish.c:150
 msgid "parsing custom menu file..."
 msgstr ""
 
-#: ../src/bluefish.c:158
+#: ../src/bluefish.c:159
 msgid "creating main gui..."
 msgstr ""
 
-#: ../src/bluefish.c:163
+#: ../src/bluefish.c:164
 msgid "showing main gui..."
 msgstr ""
 
-#: ../src/document.c:83 ../src/gui.c:543
+#: ../src/document.c:96 ../src/gui.c:560
 #, fuzzy
 msgid "/Document/Highlight syntax"
-msgstr "/É½¼¨/¿§Ê¬¤±"
+msgstr "/è¡¨ç¤º/è‰²åˆ†ã‘"
 
-#: ../src/document.c:269 ../src/document.c:283 ../src/document.c:305
-#: ../src/document.c:307
+#: ../src/document.c:283 ../src/document.c:297 ../src/document.c:319
+#: ../src/document.c:321
 msgid "Untitled"
-msgstr "ÌµÂê"
+msgstr "ç„¡é¡Œ"
 
-#: ../src/document.c:632
+#: ../src/document.c:657
 msgid "Opening file "
-msgstr "¥Õ¥¡¥¤¥ëÆÉ¤ß¹ş¤ßÃæ"
+msgstr "ãƒ•ã‚¡ã‚¤ãƒ«èª­ã¿è¾¼ã¿ä¸­"
 
-#: ../src/document.c:641
+#: ../src/document.c:666
 msgid "Could not open file:\n"
-msgstr "¥Õ¥¡¥¤¥ë¤ò³«¤¯¤³¤È¤¬¤Ç¤­¤Ş¤»¤ó¤Ç¤·¤¿:\n"
+msgstr "ãƒ•ã‚¡ã‚¤ãƒ«ã‚’é–‹ãã“ã¨ãŒã§ãã¾ã›ã‚“ã§ã—ãŸ:\n"
 
-#: ../src/document.c:642 ../src/document.c:744 ../src/document.c:1269
-#: ../src/document.c:1275
+#: ../src/document.c:667 ../src/document.c:791 ../src/document.c:1356
+#: ../src/document.c:1362
 msgid "Error"
-msgstr "¥¨¥é¡¼"
+msgstr "ã‚¨ãƒ©ãƒ¼"
 
-#: ../src/document.c:744
+#: ../src/document.c:791
 msgid "Cannot display file, unknown characters found."
 msgstr ""
 
-#: ../src/document.c:845
+#: ../src/document.c:890
 #, c-format
 msgid " line %4d "
 msgstr ""
 
-#: ../src/document.c:966
+#: ../src/document.c:1034
 #, fuzzy
 msgid "Edit tag"
-msgstr "¥¿¥°¤ÎÊÔ½¸"
+msgstr "ã‚¿ã‚°ã®ç·¨é›†"
 
-#: ../src/document.c:977
+#: ../src/document.c:1045
 msgid "Input _Methods"
 msgstr ""
 
-#: ../src/document.c:1054
+#: ../src/document.c:1122
 msgid "Saving file"
-msgstr "¥Õ¥¡¥¤¥ë¤òÊİÂ¸¤·¤Æ¤¤¤Ş¤¹"
+msgstr "ãƒ•ã‚¡ã‚¤ãƒ«ã‚’ä¿å­˜ã—ã¦ã„ã¾ã™"
 
-#: ../src/document.c:1075
+#: ../src/document.c:1143
 msgid "Abort save"
-msgstr "ÊİÂ¸Ãæ»ß"
+msgstr "ä¿å­˜ä¸­æ­¢"
 
-#: ../src/document.c:1075
+#: ../src/document.c:1143
 msgid "Continue save"
-msgstr "ÊİÂ¸·ÑÂ³"
+msgstr "ä¿å­˜ç¶™ç¶š"
 
-#: ../src/document.c:1077
+#: ../src/document.c:1145
 #, fuzzy, c-format
 msgid "Backup for %s failed"
-msgstr "%s ¤Î¥Ğ¥Ã¥¯¥¢¥Ã¥×¤Ë¼ºÇÔ¤·¤Ş¤·¤¿"
+msgstr "%s ã®ãƒãƒƒã‚¯ã‚¢ãƒƒãƒ—ã«å¤±æ•—ã—ã¾ã—ãŸ"
 
-#: ../src/document.c:1078
+#: ../src/document.c:1146
 msgid "Bluefish warning, file backup failure"
-msgstr "Bluefish ·Ù¹ğ, ¥Õ¥¡¥¤¥ë¥Ğ¥Ã¥¯¥¢¥Ã¥×¼ºÇÔ"
+msgstr "Bluefish è­¦å‘Š, ãƒ•ã‚¡ã‚¤ãƒ«ãƒãƒƒã‚¯ã‚¢ãƒƒãƒ—å¤±æ•—"
 
-#: ../src/document.c:1193
+#: ../src/document.c:1272
 msgid "Save as..."
-msgstr "ÊÌÌ¾¤ÇÊİÂ¸..."
+msgstr "åˆ¥åã§ä¿å­˜..."
 
-#: ../src/document.c:1196
+#: ../src/document.c:1275
 msgid "Save document as"
-msgstr "Ê¸½ñ¤òÊÌÌ¾¤ÇÊİÂ¸"
+msgstr "æ–‡æ›¸ã‚’åˆ¥åã§ä¿å­˜"
 
-#: ../src/document.c:1203 ../src/document.c:1244
+#: ../src/document.c:1282 ../src/document.c:1324
 msgid "Overwrite"
-msgstr "¾å½ñ¤­"
+msgstr "ä¸Šæ›¸ã"
 
-#: ../src/document.c:1203 ../src/document.c:1244
+#: ../src/document.c:1282 ../src/document.c:1324
 msgid "Cancel"
-msgstr "¥­¥ã¥ó¥»¥ë"
+msgstr "ã‚­ãƒ£ãƒ³ã‚»ãƒ«"
 
-#: ../src/document.c:1204
+#: ../src/document.c:1283
 #, c-format
 msgid "File %s is open, overwrite?"
-msgstr "¥Õ¥¡¥¤¥ë %s ¤Ï¥ª¡¼¥×¥ó¤µ¤ì¤Æ¤¤¤Ş¤¹¡£¾å½ñ¤­¤·¤Ş¤¹¤« ?"
+msgstr "ãƒ•ã‚¡ã‚¤ãƒ« %s ã¯ã‚ªãƒ¼ãƒ—ãƒ³ã•ã‚Œã¦ã„ã¾ã™ã€‚ä¸Šæ›¸ãã—ã¾ã™ã‹ ?"
 
-#: ../src/document.c:1205
+#: ../src/document.c:1284
 msgid "Bluefish: Warning, file is open"
-msgstr "Bluefish: ·Ù¹ğ, ¥Õ¥¡¥¤¥ë¥ª¡¼¥×¥óºÑ"
+msgstr "Bluefish: è­¦å‘Š, ãƒ•ã‚¡ã‚¤ãƒ«ã‚ªãƒ¼ãƒ—ãƒ³æ¸ˆ"
 
-#: ../src/document.c:1224
+#: ../src/document.c:1303
 msgid "Previously: "
-msgstr "¸µ: "
+msgstr "å…ƒ: "
 
-#: ../src/document.c:1246
-#, c-format
+#: ../src/document.c:1328
+#, fuzzy, c-format
 msgid ""
 "File %s\n"
-"is modified by another process, overwrite?"
+"is modified by another process\n"
+"new modification time is %s\n"
+"old modification time is %s\n"
+"overwrite?"
 msgstr ""
-"¥Õ¥¡¥¤¥ë %s\n"
-"¤ÏÂ¾¤Î¥×¥í¥»¥¹¤Ë¤è¤Ã¤ÆÊÑ¹¹¤µ¤ì¤Æ¤¤¤Ş¤¹¡£¾å½ñ¤­¤·¤Ş¤¹¤« ?"
+"ãƒ•ã‚¡ã‚¤ãƒ« %s\n"
+"ã¯ä»–ã®ãƒ—ãƒ­ã‚»ã‚¹ã«ã‚ˆã£ã¦å¤‰æ›´ã•ã‚Œã¦ã„ã¾ã™ã€‚ä¸Šæ›¸ãã—ã¾ã™ã‹ ?"
 
-#: ../src/document.c:1247 ../src/document.c:1631
+#: ../src/document.c:1329 ../src/document.c:1735
 msgid "Bluefish: Warning, file is modified"
-msgstr "Bluefish: ·Ù¹ğ, ¥Õ¥¡¥¤¥ë¤ÏÊÑ¹¹¤µ¤ì¤Æ¤¤¤Ş¤¹"
+msgstr "Bluefish: è­¦å‘Š, ãƒ•ã‚¡ã‚¤ãƒ«ã¯å¤‰æ›´ã•ã‚Œã¦ã„ã¾ã™"
 
-#: ../src/document.c:1261
-msgid "Save in progress"
-msgstr "ÊİÂ¸Ãæ¤Ç¤¹"
+#: ../src/document.c:1345
+#, fuzzy, c-format
+msgid "Saving %s"
+msgstr "ãƒ•ã‚¡ã‚¤ãƒ«ã‚’ä¿å­˜ã—ã¦ã„ã¾ã™"
 
-#: ../src/document.c:1268
+#: ../src/document.c:1355
 msgid "File save aborted, could not backup file:\n"
-msgstr "¥Õ¥¡¥¤¥ëÊİÂ¸Ãæ»ß¡¢¤³¤Î¥Õ¥¡¥¤¥ë¤Ï¥Ğ¥Ã¥¯¥¢¥Ã¥×¤Ç¤­¤Ş¤»¤ó¤Ç¤·¤¿:\n"
+msgstr "ãƒ•ã‚¡ã‚¤ãƒ«ä¿å­˜ä¸­æ­¢ã€ã“ã®ãƒ•ã‚¡ã‚¤ãƒ«ã¯ãƒãƒƒã‚¯ã‚¢ãƒƒãƒ—ã§ãã¾ã›ã‚“ã§ã—ãŸ:\n"
 
-#: ../src/document.c:1274
+#: ../src/document.c:1361
 msgid "File save error, could not write file:\n"
-msgstr "¥Õ¥¡¥¤¥ëÊİÂ¸¥¨¥é¡¼, ¤³¤Î¥Õ¥¡¥¤¥ë¤Ï½ñ¤­¹ş¤á¤Ş¤»¤ó¤Ç¤·¤¿:\n"
+msgstr "ãƒ•ã‚¡ã‚¤ãƒ«ä¿å­˜ã‚¨ãƒ©ãƒ¼, ã“ã®ãƒ•ã‚¡ã‚¤ãƒ«ã¯æ›¸ãè¾¼ã‚ã¾ã›ã‚“ã§ã—ãŸ:\n"
 
-#: ../src/document.c:1322
+#: ../src/document.c:1409
 #, c-format
 msgid ""
 "Are you sure you want to close\n"
 "%s ?"
 msgstr ""
-"%s ¤òÊÄ¤¸¤Æ¤è¤í¤·¤¤¤Ç¤¹¤« ?\n"
+"%s ã‚’é–‰ã˜ã¦ã‚ˆã‚ã—ã„ã§ã™ã‹ ?\n"
 " "
 
-#: ../src/document.c:1327
+#: ../src/document.c:1414
 msgid ""
 "Are you sure you want to close\n"
 "this untitled file ?"
 msgstr ""
-"¤³¤ÎÌµÂê¥Õ¥¡¥¤¥ë¤òÊÄ¤¸¤Æ¤è¤í¤·¤¤¤Ç¤¹¤« ?\n"
+"ã“ã®ç„¡é¡Œãƒ•ã‚¡ã‚¤ãƒ«ã‚’é–‰ã˜ã¦ã‚ˆã‚ã—ã„ã§ã™ã‹ ?\n"
 " "
 
-#: ../src/document.c:1332
+#: ../src/document.c:1419
 msgid "Bluefish warning: file is modified!"
-msgstr "Bluefish ·Ù¹ğ: ¥Õ¥¡¥¤¥ë¤ÏÊÑ¹¹¤µ¤ì¤Æ¤¤¤Ş¤¹!"
+msgstr "Bluefish è­¦å‘Š: ãƒ•ã‚¡ã‚¤ãƒ«ã¯å¤‰æ›´ã•ã‚Œã¦ã„ã¾ã™!"
 
-#: ../src/document.c:1522
+#: ../src/document.c:1610
 msgid "No filename"
-msgstr "¥Õ¥¡¥¤¥ëÌ¾ÉÔÌÀ"
+msgstr "ãƒ•ã‚¡ã‚¤ãƒ«åä¸æ˜"
 
-#: ../src/document.c:1593 ../src/msg_queue.c:180
+#: ../src/document.c:1684 ../src/msg_queue.c:180
 #, fuzzy
 msgid "Unable to open file(s)\n"
-msgstr "¥Õ¥¡¥¤¥ë¤ò¥ª¡¼¥×¥ó¤Ç¤­¤Ş¤»¤ó"
+msgstr "ãƒ•ã‚¡ã‚¤ãƒ«ã‚’ã‚ªãƒ¼ãƒ—ãƒ³ã§ãã¾ã›ã‚“"
 
-#: ../src/document.c:1609
+#: ../src/document.c:1700
 msgid "Unable to open file"
-msgstr "¥Õ¥¡¥¤¥ë¤ò¥ª¡¼¥×¥ó¤Ç¤­¤Ş¤»¤ó"
+msgstr "ãƒ•ã‚¡ã‚¤ãƒ«ã‚’ã‚ªãƒ¼ãƒ—ãƒ³ã§ãã¾ã›ã‚“"
 
-#: ../src/document.c:1628
+#: ../src/document.c:1730
 msgid "Reload"
-msgstr "ºÆÆÉ¹ş¤ß"
+msgstr "å†èª­è¾¼ã¿"
 
-#: ../src/document.c:1628
-msgid "Ignore"
-msgstr "Ìµ»ë"
-
-#: ../src/document.c:1630
-#, c-format
+#: ../src/document.c:1734
+#, fuzzy, c-format
 msgid ""
 "File %s\n"
-"is modified by another process"
+"is modified by another process\n"
+"new modification time is %s\n"
+"old modification time is %s"
 msgstr ""
-"¥Õ¥¡¥¤¥ë %s\n"
-"¤ÏÂ¾¤Î¥×¥í¥»¥¹¤Ë¤è¤Ã¤ÆÊÑ¹¹¤µ¤ì¤Æ¤¤¤Ş¤¹"
+"ãƒ•ã‚¡ã‚¤ãƒ« %s\n"
+"ã¯ä»–ã®ãƒ—ãƒ­ã‚»ã‚¹ã«ã‚ˆã£ã¦å¤‰æ›´ã•ã‚Œã¦ã„ã¾ã™ã€‚ä¸Šæ›¸ãã—ã¾ã™ã‹ ?"
 
-#: ../src/document.c:1718
+#: ../src/document.c:1822
 #, fuzzy
 msgid "searching files..."
-msgstr "¥Õ¥¡¥¤¥ë¤òÊİÂ¸¤·¤Æ¤¤¤Ş¤¹"
+msgstr "ãƒ•ã‚¡ã‚¤ãƒ«ã‚’ä¿å­˜ã—ã¦ã„ã¾ã™"
 
-#: ../src/document.c:1733
+#: ../src/document.c:1837
 #, fuzzy
 msgid "Select basedir"
-msgstr "ÁªÂò¤µ¤ì¤¿¾õÂÖ"
+msgstr "é¸æŠã•ã‚ŒãŸçŠ¶æ…‹"
 
-#: ../src/document.c:1743
+#: ../src/document.c:1847
 msgid "Advanced file selector"
-msgstr "¹âÅÙ¤Ê¥Õ¥¡¥¤¥ëÁªÂò"
+msgstr "é«˜åº¦ãªãƒ•ã‚¡ã‚¤ãƒ«é¸æŠ"
 
-#: ../src/document.c:1747
+#: ../src/document.c:1851
 msgid "grep {contains} `find {basedir} -name '{pattern}'`"
 msgstr ""
 
-#: ../src/document.c:1749
+#: ../src/document.c:1853
 msgid "Filename"
-msgstr "¥Õ¥¡¥¤¥ëÌ¾"
+msgstr "ãƒ•ã‚¡ã‚¤ãƒ«å"
 
-#: ../src/document.c:1756
-msgid "Browse"
-msgstr ""
-
-#: ../src/document.c:1758
+#: ../src/document.c:1862
 msgid "Basedir"
-msgstr "¥Ù¡¼¥¹¥Ç¥£¥ì¥¯¥È¥ê"
+msgstr "ãƒ™ãƒ¼ã‚¹ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒª"
 
-#: ../src/document.c:1766 ../src/document.c:1788 ../src/preferences.c:1463
+#: ../src/document.c:1870 ../src/document.c:1892 ../src/preferences.c:978
+#: ../src/preferences.c:1419 ../src/preferences.c:1468
 msgid "Pattern"
-msgstr "¥Ñ¥¿¡¼¥ó"
+msgstr "ãƒ‘ã‚¿ãƒ¼ãƒ³"
 
-#: ../src/document.c:1781
+#: ../src/document.c:1885
 msgid "recursive"
-msgstr "ºÆµ¢¸¡º÷"
+msgstr "å†å¸°æ¤œç´¢"
 
-#: ../src/document.c:1783
+#: ../src/document.c:1887
 msgid "Contains"
-msgstr "¼¡¤ÎÆâÍÆ¤ò´Ş¤à"
+msgstr "æ¬¡ã®å†…å®¹ã‚’å«ã‚€"
 
-#: ../src/document.c:1789
+#: ../src/document.c:1893
 msgid "is regex"
-msgstr "Àµµ¬É½¸½"
+msgstr "æ­£è¦è¡¨ç¾"
 
-#: ../src/document.c:1853 ../src/gtk_easy.c:794 ../src/menu.c:1254
-#: ../src/menu.c:1591 ../src/menu.c:1599
+#: ../src/document.c:1951
+#, fuzzy, c-format
+msgid "Loading %d file(s)..."
+msgstr "ãƒ•ã‚¡ã‚¤ãƒ«ã‚’ä¿å­˜ã—ã¦ã„ã¾ã™"
+
+#: ../src/document.c:1969 ../src/gtk_easy.c:803 ../src/menu.c:1303
+#: ../src/menu.c:1640 ../src/menu.c:1648
 msgid "Bluefish error"
-msgstr "Bluefish ¥¨¥é¡¼"
+msgstr "Bluefish ã‚¨ãƒ©ãƒ¼"
 
-#: ../src/document.c:1853 ../src/gtk_easy.c:794
+#: ../src/document.c:1969 ../src/gtk_easy.c:803
 msgid "No filename known"
-msgstr "¥Õ¥¡¥¤¥ëÌ¾ÉÔÌÀ"
+msgstr "ãƒ•ã‚¡ã‚¤ãƒ«åä¸æ˜"
 
-#: ../src/document.c:1887
+#: ../src/document.c:2003
 msgid "save all"
-msgstr "¤¹¤Ù¤ÆÊİÂ¸"
+msgstr "ã™ã¹ã¦ä¿å­˜"
 
-#: ../src/document.c:1887
+#: ../src/document.c:2003
 msgid "close all"
-msgstr "¤¹¤Ù¤ÆÊÄ¤¸¤ë"
+msgstr "ã™ã¹ã¦é–‰ã˜ã‚‹"
 
-#: ../src/document.c:1887
+#: ../src/document.c:2003
 msgid "choose per file"
-msgstr "¥Õ¥¡¥¤¥ëËè¤Ë»ØÄê"
+msgstr "ãƒ•ã‚¡ã‚¤ãƒ«æ¯ã«æŒ‡å®š"
 
-#: ../src/document.c:1887
+#: ../src/document.c:2003
 msgid "cancel"
-msgstr "¥­¥ã¥ó¥»¥ë"
+msgstr "ã‚­ãƒ£ãƒ³ã‚»ãƒ«"
 
-#: ../src/document.c:1888
+#: ../src/document.c:2004
 msgid "Bluefish: Warning, some file(s) are modified!"
-msgstr "Bluefish: ·Ù¹ğ, ¤¤¤¯¤Ä¤«¤Î¥Õ¥¡¥¤¥ë¤¬ÊÑ¹¹¤µ¤ì¤Æ¤¤¤Ş¤¹!"
+msgstr "Bluefish: è­¦å‘Š, ã„ãã¤ã‹ã®ãƒ•ã‚¡ã‚¤ãƒ«ãŒå¤‰æ›´ã•ã‚Œã¦ã„ã¾ã™!"
 
-#: ../src/document.c:1888
+#: ../src/document.c:2004
 msgid ""
 "Some file(s) are modified\n"
 "please choose your action"
 msgstr ""
-"¤¤¤¯¤Ä¤«¤Î¥Õ¥¡¥¤¥ë¤¬ÊÑ¹¹¤µ¤ì¤Æ¤¤¤Ş¤¹\n"
-"¤É¤Î¤è¤¦¤Ë¤¹¤ë¤«Áª¤ó¤Ç¤¯¤À¤µ¤¤"
+"ã„ãã¤ã‹ã®ãƒ•ã‚¡ã‚¤ãƒ«ãŒå¤‰æ›´ã•ã‚Œã¦ã„ã¾ã™\n"
+"ã©ã®ã‚ˆã†ã«ã™ã‚‹ã‹é¸ã‚“ã§ãã ã•ã„"
 
-#: ../src/filebrowser.c:729
+#: ../src/filebrowser.c:742
 msgid "Error creating path"
-msgstr "¥Ñ¥¹ºîÀ®¥¨¥é¡¼"
+msgstr "ãƒ‘ã‚¹ä½œæˆã‚¨ãƒ©ãƒ¼"
 
-#: ../src/filebrowser.c:729
+#: ../src/filebrowser.c:742
 msgid "Path exists already"
-msgstr "¥Ñ¥¹¤Ï´û¤ËÂ¸ºß¤·¤Æ¤¤¤Ş¤¹"
+msgstr "ãƒ‘ã‚¹ã¯æ—¢ã«å­˜åœ¨ã—ã¦ã„ã¾ã™"
 
-#: ../src/filebrowser.c:774
+#: ../src/filebrowser.c:799
 msgid "File name"
-msgstr "¥Õ¥¡¥¤¥ëÌ¾"
+msgstr "ãƒ•ã‚¡ã‚¤ãƒ«å"
 
-#: ../src/filebrowser.c:776
+#: ../src/filebrowser.c:801
 msgid "Directory name"
-msgstr "¥Ç¥£¥ì¥¯¥È¥êÌ¾"
+msgstr "ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªå"
 
-#: ../src/filebrowser.c:823
+#: ../src/filebrowser.c:845
 #, fuzzy, c-format
 msgid ""
 "Are you sure you want to\n"
 "delete \"%s\" ?"
 msgstr ""
-"%s ¤ò\n"
-"ºï½ü¤·¤Æ¤è¤í¤·¤¤¤Ç¤¹¤«?"
+"%s ã‚’\n"
+"å‰Šé™¤ã—ã¦ã‚ˆã‚ã—ã„ã§ã™ã‹?"
 
-#: ../src/filebrowser.c:824
+#: ../src/filebrowser.c:846
 msgid "delete file?"
-msgstr "¥Õ¥¡¥¤¥ëºï½ü?"
+msgstr "ãƒ•ã‚¡ã‚¤ãƒ«å‰Šé™¤?"
 
-#: ../src/filebrowser.c:885
+#: ../src/filebrowser.c:906
 #, fuzzy
 msgid "New file"
-msgstr "¿·µ¬¥¹¥¿¥¤¥ë"
+msgstr "æ–°è¦ã‚¹ã‚¿ã‚¤ãƒ«"
 
-#: ../src/filebrowser.c:888
+#: ../src/filebrowser.c:909
 #, fuzzy
 msgid "New directory"
-msgstr "¥Ç¥£¥ì¥¯¥È¥êºîÀ®"
+msgstr "ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªä½œæˆ"
 
-#: ../src/filebrowser.c:891
+#: ../src/filebrowser.c:912
 #, fuzzy
 msgid "Delete file"
-msgstr "¥Õ¥¡¥¤¥ëºï½ü?"
+msgstr "ãƒ•ã‚¡ã‚¤ãƒ«å‰Šé™¤?"
 
-#: ../src/filebrowser.c:894
+#: ../src/filebrowser.c:915
 #, fuzzy
 msgid "Refresh"
-msgstr "Ê¸½ñ¤ÎºÆÉ½¼¨"
+msgstr "æ–‡æ›¸ã®å†è¡¨ç¤º"
 
-#: ../src/filebrowser.c:897
+#: ../src/filebrowser.c:918
 #, fuzzy
 msgid "Filter"
-msgstr "¥Õ¥¡¥¤¥ë"
+msgstr "ãƒ•ã‚¡ã‚¤ãƒ«"
 
-#: ../src/filebrowser.c:1022
+#: ../src/filebrowser.c:1075
 #, fuzzy
 msgid "All files"
-msgstr "¤¹¤Ù¤Æ¤Î¥Õ¥¡¥¤¥ë"
+msgstr "ã™ã¹ã¦ã®ãƒ•ã‚¡ã‚¤ãƒ«"
 
-#: ../src/gtk_easy.c:866
+#: ../src/gtk_easy.c:876
 msgid "Select file"
-msgstr "¥Õ¥¡¥¤¥ëÁªÂò"
+msgstr "ãƒ•ã‚¡ã‚¤ãƒ«é¸æŠ"
 
-#: ../src/gtk_easy.c:878
+#: ../src/gtk_easy.c:888
 msgid "Select files"
-msgstr "¥Õ¥¡¥¤¥ëÁªÂò"
+msgstr "ãƒ•ã‚¡ã‚¤ãƒ«é¸æŠ"
 
-#: ../src/gui.c:207
+#: ../src/gui.c:222
 msgid "QuickStart..."
-msgstr "¥¯¥¤¥Ã¥¯¡¦¥¹¥¿¡¼¥È..."
+msgstr "ã‚¯ã‚¤ãƒƒã‚¯ãƒ»ã‚¹ã‚¿ãƒ¼ãƒˆ..."
 
-#: ../src/gui.c:208
+#: ../src/gui.c:223
 msgid "Body..."
 msgstr ""
 
-#: ../src/gui.c:209
+#: ../src/gui.c:224
 msgid "Bold"
-msgstr "¥Ü¡¼¥ë¥É"
-
-#: ../src/gui.c:210
-msgid "Italic"
-msgstr "¥¤¥¿¥ê¥Ã¥¯"
-
-#: ../src/gui.c:211 ../src/html.c:754
-msgid "Paragraph"
-msgstr "¥Ñ¥é¥°¥é¥Õ"
-
-#: ../src/gui.c:212
-msgid "Break"
-msgstr "¶¯À©²ş¹Ô"
-
-#: ../src/gui.c:213
-msgid "Break and clear"
-msgstr "¶¯À©²ş¹Ô(All Clear)"
-
-#: ../src/gui.c:214
-msgid "Non-breaking space"
-msgstr "²ş¹Ô¤Ê¤·¶õÇò"
-
-#: ../src/gui.c:216
-msgid "Anchor..."
-msgstr "¥¢¥ó¥«¡¼..."
-
-#: ../src/gui.c:217
-msgid "Rule..."
-msgstr "¿åÊ¿Àş..."
-
-#: ../src/gui.c:218
-msgid "Center"
-msgstr "¥»¥ó¥¿¥ê¥ó¥°"
-
-#: ../src/gui.c:219
-msgid "Right Justify"
-msgstr "±¦´ó¤»"
-
-#: ../src/gui.c:220
-msgid "Comment"
-msgstr "¥³¥á¥ó¥È"
-
-#: ../src/gui.c:221
-msgid "E-Mail..."
-msgstr "E¥á¡¼¥ë..."
-
-#: ../src/gui.c:222
-msgid "Font..."
-msgstr "¥Õ¥©¥ó¥È..."
-
-#: ../src/gui.c:223
-msgid "Base Font Size..."
-msgstr "¥Ù¡¼¥¹¥Õ¥©¥ó¥È¥µ¥¤¥º..."
+msgstr "ãƒœãƒ¼ãƒ«ãƒ‰"
 
 #: ../src/gui.c:225
-msgid "Font Size +1"
-msgstr "¥Õ¥©¥ó¥È¥µ¥¤¥º +1"
+msgid "Italic"
+msgstr "ã‚¤ã‚¿ãƒªãƒƒã‚¯"
 
-#: ../src/gui.c:226
-msgid "Font Size -1"
-msgstr "¥Õ¥©¥ó¥È¥µ¥¤¥º -1"
+#: ../src/gui.c:226 ../src/html.c:754
+msgid "Paragraph"
+msgstr "ãƒ‘ãƒ©ã‚°ãƒ©ãƒ•"
 
 #: ../src/gui.c:227
-msgid "Preformatted Text"
-msgstr "À°·ÁºÑ¤ß¥Æ¥­¥¹¥È"
+msgid "Break"
+msgstr "å¼·åˆ¶æ”¹è¡Œ"
 
 #: ../src/gui.c:228
-msgid "Subscript"
-msgstr "²¼ÉÕ¤­"
+msgid "Break and clear"
+msgstr "å¼·åˆ¶æ”¹è¡Œ(All Clear)"
 
 #: ../src/gui.c:229
-msgid "Superscript"
-msgstr "¾åÉÕ¤­"
-
-#: ../src/gui.c:230
-msgid "Strong"
-msgstr "¤è¤ê¶¯¤¤¶¯Ä´"
+msgid "Non-breaking space"
+msgstr "æ”¹è¡Œãªã—ç©ºç™½"
 
 #: ../src/gui.c:231
-msgid "Emphasis"
-msgstr "¶¯Ä´"
+msgid "Anchor..."
+msgstr "ã‚¢ãƒ³ã‚«ãƒ¼..."
 
-#: ../src/gui.c:233 ../src/html.c:763
-msgid "Heading 1"
-msgstr "¸«½Ğ¤·1"
+#: ../src/gui.c:232
+msgid "Rule..."
+msgstr "æ°´å¹³ç·š..."
 
-#: ../src/gui.c:234 ../src/html.c:766
-msgid "Heading 2"
-msgstr "¸«½Ğ¤·2"
+#: ../src/gui.c:233
+msgid "Center"
+msgstr "ã‚»ãƒ³ã‚¿ãƒªãƒ³ã‚°"
 
-#: ../src/gui.c:235 ../src/html.c:769
-msgid "Heading 3"
-msgstr "¸«½Ğ¤·3"
+#: ../src/gui.c:234
+msgid "Right Justify"
+msgstr "å³å¯„ã›"
 
-#: ../src/gui.c:236 ../src/html.c:772
-msgid "Heading 4"
-msgstr "¸«½Ğ¤·4"
+#: ../src/gui.c:235
+msgid "Comment"
+msgstr "ã‚³ãƒ¡ãƒ³ãƒˆ"
 
-#: ../src/gui.c:237 ../src/html.c:775
-msgid "Heading 5"
-msgstr "¸«½Ğ¤·5"
+#: ../src/gui.c:236
+msgid "E-Mail..."
+msgstr "Eãƒ¡ãƒ¼ãƒ«..."
 
-#: ../src/gui.c:238 ../src/html.c:778
-msgid "Heading 6"
-msgstr "¸«½Ğ¤·6"
+#: ../src/gui.c:237
+msgid "Font..."
+msgstr "ãƒ•ã‚©ãƒ³ãƒˆ..."
 
-#: ../src/gui.c:239
-msgid "Table Wizard..."
-msgstr "¥Æ¡¼¥Ö¥ë¡¦¥¦¥£¥¶¡¼¥É..."
+#: ../src/gui.c:238
+msgid "Base Font Size..."
+msgstr "ãƒ™ãƒ¼ã‚¹ãƒ•ã‚©ãƒ³ãƒˆã‚µã‚¤ã‚º..."
+
+#: ../src/gui.c:240
+msgid "Font Size +1"
+msgstr "ãƒ•ã‚©ãƒ³ãƒˆã‚µã‚¤ã‚º +1"
 
 #: ../src/gui.c:241
-msgid "Table..."
-msgstr "¥Æ¡¼¥Ö¥ë..."
+msgid "Font Size -1"
+msgstr "ãƒ•ã‚©ãƒ³ãƒˆã‚µã‚¤ã‚º -1"
 
 #: ../src/gui.c:242
-msgid "Table Row..."
-msgstr "¥Æ¡¼¥Ö¥ë¹Ô..."
+msgid "Preformatted Text"
+msgstr "æ•´å½¢æ¸ˆã¿ãƒ†ã‚­ã‚¹ãƒˆ"
 
 #: ../src/gui.c:243
-msgid "Table Header..."
-msgstr "¥Æ¡¼¥Ö¥ë¥Ø¥Ã¥À..."
+msgid "Subscript"
+msgstr "ä¸‹ä»˜ã"
 
 #: ../src/gui.c:244
-msgid "Table Data..."
-msgstr "¥Æ¡¼¥Ö¥ë¥Ç¡¼¥¿..."
+msgid "Superscript"
+msgstr "ä¸Šä»˜ã"
 
-#: ../src/gui.c:246 ../src/html_table.c:82
-msgid "Table"
-msgstr "¥Æ¡¼¥Ö¥ë"
+#: ../src/gui.c:245
+msgid "Strong"
+msgstr "ã‚ˆã‚Šå¼·ã„å¼·èª¿"
 
-#: ../src/gui.c:247 ../src/html_table.c:215
-msgid "Table Row"
-msgstr "¥Æ¡¼¥Ö¥ë¹Ô"
+#: ../src/gui.c:246
+msgid "Emphasis"
+msgstr "å¼·èª¿"
 
-#: ../src/gui.c:248 ../src/html_table.c:326
-msgid "Table Header"
-msgstr "¥Æ¡¼¥Ö¥ë¥Ø¥Ã¥À"
+#: ../src/gui.c:248 ../src/html.c:763
+msgid "Heading 1"
+msgstr "è¦‹å‡ºã—1"
 
-#: ../src/gui.c:249 ../src/html_table.c:324
-msgid "Table Data"
-msgstr "¥Æ¡¼¥Ö¥ë¥Ç¡¼¥¿"
+#: ../src/gui.c:249 ../src/html.c:766
+msgid "Heading 2"
+msgstr "è¦‹å‡ºã—2"
 
-#: ../src/gui.c:250
-msgid "Table Caption"
-msgstr "¥Æ¡¼¥Ö¥ëÉ½Âê"
+#: ../src/gui.c:250 ../src/html.c:769
+msgid "Heading 3"
+msgstr "è¦‹å‡ºã—3"
 
-#: ../src/gui.c:251
-msgid "Frame Wizard..."
-msgstr "¥Õ¥ì¡¼¥à¡¦¥¦¥£¥¶¡¼¥É..."
+#: ../src/gui.c:251 ../src/html.c:772
+msgid "Heading 4"
+msgstr "è¦‹å‡ºã—4"
 
-#: ../src/gui.c:253
-msgid "Frameset..."
-msgstr "¥Õ¥ì¡¼¥à¥»¥Ã¥È..."
+#: ../src/gui.c:252 ../src/html.c:775
+msgid "Heading 5"
+msgstr "è¦‹å‡ºã—5"
+
+#: ../src/gui.c:253 ../src/html.c:778
+msgid "Heading 6"
+msgstr "è¦‹å‡ºã—6"
 
 #: ../src/gui.c:254
-msgid "Frame..."
-msgstr "¥Õ¥ì¡¼¥à..."
+msgid "Table Wizard..."
+msgstr "ãƒ†ãƒ¼ãƒ–ãƒ«ãƒ»ã‚¦ã‚£ã‚¶ãƒ¼ãƒ‰..."
 
-#: ../src/gui.c:256 ../src/html.c:1634
-msgid "Frameset"
-msgstr "¥Õ¥ì¡¼¥à¥»¥Ã¥È"
+#: ../src/gui.c:256
+msgid "Table..."
+msgstr "ãƒ†ãƒ¼ãƒ–ãƒ«..."
 
-#: ../src/gui.c:257 ../src/html.c:1719 ../src/html_table.c:159
-msgid "Frame"
-msgstr "¥Õ¥ì¡¼¥à"
+#: ../src/gui.c:257
+msgid "Table Row..."
+msgstr "ãƒ†ãƒ¼ãƒ–ãƒ«è¡Œ..."
 
 #: ../src/gui.c:258
-msgid "Noframes"
-msgstr "¥Õ¥ì¡¼¥àÂåÂØÆâÍÆ"
+msgid "Table Header..."
+msgstr "ãƒ†ãƒ¼ãƒ–ãƒ«ãƒ˜ãƒƒãƒ€..."
 
-#: ../src/gui.c:259 ../src/html.c:568 ../src/html_form.c:171
+#: ../src/gui.c:259
+msgid "Table Data..."
+msgstr "ãƒ†ãƒ¼ãƒ–ãƒ«ãƒ‡ãƒ¼ã‚¿..."
+
+#: ../src/gui.c:261 ../src/html_table.c:82
+msgid "Table"
+msgstr "ãƒ†ãƒ¼ãƒ–ãƒ«"
+
+#: ../src/gui.c:262 ../src/html_table.c:215
+msgid "Table Row"
+msgstr "ãƒ†ãƒ¼ãƒ–ãƒ«è¡Œ"
+
+#: ../src/gui.c:263 ../src/html_table.c:326
+msgid "Table Header"
+msgstr "ãƒ†ãƒ¼ãƒ–ãƒ«ãƒ˜ãƒƒãƒ€"
+
+#: ../src/gui.c:264 ../src/html_table.c:324
+msgid "Table Data"
+msgstr "ãƒ†ãƒ¼ãƒ–ãƒ«ãƒ‡ãƒ¼ã‚¿"
+
+#: ../src/gui.c:265
+msgid "Table Caption"
+msgstr "ãƒ†ãƒ¼ãƒ–ãƒ«è¡¨é¡Œ"
+
+#: ../src/gui.c:266
+msgid "Frame Wizard..."
+msgstr "ãƒ•ãƒ¬ãƒ¼ãƒ ãƒ»ã‚¦ã‚£ã‚¶ãƒ¼ãƒ‰..."
+
+#: ../src/gui.c:268
+msgid "Frameset..."
+msgstr "ãƒ•ãƒ¬ãƒ¼ãƒ ã‚»ãƒƒãƒˆ..."
+
+#: ../src/gui.c:269
+msgid "Frame..."
+msgstr "ãƒ•ãƒ¬ãƒ¼ãƒ ..."
+
+#: ../src/gui.c:271 ../src/html.c:1634
+msgid "Frameset"
+msgstr "ãƒ•ãƒ¬ãƒ¼ãƒ ã‚»ãƒƒãƒˆ"
+
+#: ../src/gui.c:272 ../src/html.c:1719 ../src/html_table.c:159
+msgid "Frame"
+msgstr "ãƒ•ãƒ¬ãƒ¼ãƒ "
+
+#: ../src/gui.c:273
+msgid "Noframes"
+msgstr "ãƒ•ãƒ¬ãƒ¼ãƒ ä»£æ›¿å†…å®¹"
+
+#: ../src/gui.c:274 ../src/html.c:568 ../src/html_form.c:171
 msgid "Target"
 msgstr ""
 
-#: ../src/gui.c:260
-msgid "Form..."
-msgstr "¥Õ¥©¡¼¥à..."
-
-#: ../src/gui.c:261
-msgid "Input button..."
-msgstr "ÆşÎÏ¥Ü¥¿¥ó..."
-
-#: ../src/gui.c:262
-msgid "Text..."
-msgstr "°ì¹Ô¥Æ¥­¥¹¥ÈÆşÎÏÍó"
-
-#: ../src/gui.c:263
-msgid "Hidden..."
-msgstr "ÈóÉ½¼¨¥Æ¥­¥¹¥ÈÆşÎÏÍó..."
-
-#: ../src/gui.c:264
-msgid "Textarea..."
-msgstr "Ê£¿ô¹Ô¥Æ¥­¥¹¥ÈÆşÎÏÍó..."
-
-#: ../src/gui.c:265
-msgid "Radio Button..."
-msgstr "¥é¥¸¥ª¥Ü¥¿¥ó..."
-
-#: ../src/gui.c:266
-msgid "Check Box..."
-msgstr "¥Á¥§¥Ã¥¯¥Ü¥Ã¥¯¥¹..."
-
-#: ../src/gui.c:267
-msgid "Select..."
-msgstr "ÁªÂò¥á¥Ë¥å¡¼..."
-
-#: ../src/gui.c:268
-msgid "Option..."
-msgstr "ÁªÂò¥á¥Ë¥å¡¼¹àÌÜ..."
-
-#: ../src/gui.c:269
-msgid "Option group..."
-msgstr "ÁªÂò¹àÌÜ¥°¥ë¡¼¥×..."
-
-#: ../src/gui.c:270
-msgid "Quick List..."
-msgstr "¥¯¥¤¥Ã¥¯¡¦¥ê¥¹¥È..."
-
-#: ../src/gui.c:271
-msgid "Unordered List"
-msgstr "½ç½øÌµ¤·¥ê¥¹¥È"
-
-#: ../src/gui.c:272
-msgid "Ordered List"
-msgstr "½ç½ø¤Ä¤­¥ê¥¹¥È"
-
-#: ../src/gui.c:273
-msgid "List Item"
-msgstr "¥ê¥¹¥È¹àÌÜ"
-
-#: ../src/gui.c:274
-msgid "Definition List"
-msgstr "ÄêµÁ¥ê¥¹¥È"
-
 #: ../src/gui.c:275
-msgid "Definition Term"
-msgstr "ÄêµÁ¸ì"
+msgid "Form..."
+msgstr "ãƒ•ã‚©ãƒ¼ãƒ ..."
 
-#: ../src/gui.c:276 ../src/gui.c:285
-msgid "Definition"
-msgstr "ÄêµÁÀâÌÀ"
+#: ../src/gui.c:276
+msgid "Input button..."
+msgstr "å…¥åŠ›ãƒœã‚¿ãƒ³..."
 
 #: ../src/gui.c:277
-msgid "Create stylesheet..."
-msgstr "¥¹¥¿¥¤¥ë¥·¡¼¥ÈºîÀ®..."
+msgid "Text..."
+msgstr "ä¸€è¡Œãƒ†ã‚­ã‚¹ãƒˆå…¥åŠ›æ¬„"
 
 #: ../src/gui.c:278
+msgid "Hidden..."
+msgstr "éè¡¨ç¤ºãƒ†ã‚­ã‚¹ãƒˆå…¥åŠ›æ¬„..."
+
+#: ../src/gui.c:279
+msgid "Textarea..."
+msgstr "è¤‡æ•°è¡Œãƒ†ã‚­ã‚¹ãƒˆå…¥åŠ›æ¬„..."
+
+#: ../src/gui.c:280
+msgid "Radio Button..."
+msgstr "ãƒ©ã‚¸ã‚ªãƒœã‚¿ãƒ³..."
+
+#: ../src/gui.c:281
+msgid "Check Box..."
+msgstr "ãƒã‚§ãƒƒã‚¯ãƒœãƒƒã‚¯ã‚¹..."
+
+#: ../src/gui.c:282
+msgid "Select..."
+msgstr "é¸æŠãƒ¡ãƒ‹ãƒ¥ãƒ¼..."
+
+#: ../src/gui.c:283
+msgid "Option..."
+msgstr "é¸æŠãƒ¡ãƒ‹ãƒ¥ãƒ¼é …ç›®..."
+
+#: ../src/gui.c:284
+msgid "Option group..."
+msgstr "é¸æŠé …ç›®ã‚°ãƒ«ãƒ¼ãƒ—..."
+
+#: ../src/gui.c:285
+msgid "Quick List..."
+msgstr "ã‚¯ã‚¤ãƒƒã‚¯ãƒ»ãƒªã‚¹ãƒˆ..."
+
+#: ../src/gui.c:286
+msgid "Unordered List"
+msgstr "é †åºç„¡ã—ãƒªã‚¹ãƒˆ"
+
+#: ../src/gui.c:287
+msgid "Ordered List"
+msgstr "é †åºã¤ããƒªã‚¹ãƒˆ"
+
+#: ../src/gui.c:288
+msgid "List Item"
+msgstr "ãƒªã‚¹ãƒˆé …ç›®"
+
+#: ../src/gui.c:289
+msgid "Definition List"
+msgstr "å®šç¾©ãƒªã‚¹ãƒˆ"
+
+#: ../src/gui.c:290
+msgid "Definition Term"
+msgstr "å®šç¾©èª"
+
+#: ../src/gui.c:291 ../src/gui.c:300
+msgid "Definition"
+msgstr "å®šç¾©èª¬æ˜"
+
+#: ../src/gui.c:292
+msgid "Create stylesheet..."
+msgstr "ã‚¹ã‚¿ã‚¤ãƒ«ã‚·ãƒ¼ãƒˆä½œæˆ..."
+
+#: ../src/gui.c:293
 msgid "Span..."
 msgstr ""
 
-#: ../src/gui.c:279
+#: ../src/gui.c:294
 msgid "Div..."
 msgstr ""
 
-#: ../src/gui.c:280 ../src/html.c:584 ../src/html.c:803 ../src/html.c:1091
+#: ../src/gui.c:295 ../src/html.c:584 ../src/html.c:803 ../src/html.c:1091
 #: ../src/html.c:1165 ../src/html.c:1566 ../src/html2.c:916 ../src/html2.c:954
 #: ../src/html_table.c:101 ../src/html_table.c:254 ../src/html_table.c:362
 msgid "Style"
 msgstr ""
 
-#: ../src/gui.c:281
+#: ../src/gui.c:296
 msgid "Link to stylesheet..."
-msgstr "¥¹¥¿¥¤¥ë¥·¡¼¥È¤Ø¤Î¥ê¥ó¥¯..."
+msgstr "ã‚¹ã‚¿ã‚¤ãƒ«ã‚·ãƒ¼ãƒˆã¸ã®ãƒªãƒ³ã‚¯..."
 
-#: ../src/gui.c:282
+#: ../src/gui.c:297
 #, fuzzy
 msgid "Insert image..."
-msgstr "Æü»ş¤ÎÁŞÆş..."
+msgstr "æ—¥æ™‚ã®æŒ¿å…¥..."
 
-#: ../src/gui.c:283
+#: ../src/gui.c:298
 #, fuzzy
 msgid "Insert thumbnail..."
-msgstr "¥µ¥à¥Í¥¤¥ë¤Ç¥¤¥á¡¼¥¸¤òÁŞÆş"
+msgstr "ã‚µãƒ ãƒã‚¤ãƒ«ã§ã‚¤ãƒ¡ãƒ¼ã‚¸ã‚’æŒ¿å…¥"
 
-#: ../src/gui.c:284
+#: ../src/gui.c:299
 #, fuzzy
 msgid "Multi thumbnail..."
-msgstr "¥µ¥à¥Í¥¤¥ë..."
+msgstr "ã‚µãƒ ãƒã‚¤ãƒ«..."
 
-#: ../src/gui.c:286
+#: ../src/gui.c:301
 #, fuzzy
 msgid "Code"
-msgstr "ÊÄ¤¸¤ë"
+msgstr "é–‰ã˜ã‚‹"
 
-#: ../src/gui.c:287
+#: ../src/gui.c:302
 msgid "Sample"
 msgstr ""
 
-#: ../src/gui.c:288
+#: ../src/gui.c:303
 #, fuzzy
 msgid "Keyboard"
-msgstr "¥­¡¼¥ï¡¼¥É"
+msgstr "ã‚­ãƒ¼ãƒ¯ãƒ¼ãƒ‰"
 
-#: ../src/gui.c:289
+#: ../src/gui.c:304
 #, fuzzy
 msgid "Variable"
-msgstr "ÊÑ¿ô"
+msgstr "å¤‰æ•°"
 
-#: ../src/gui.c:290
+#: ../src/gui.c:305
 #, fuzzy
 msgid "Citation"
-msgstr "¼¡¤ÎÆâÍÆ¤ò´Ş¤à"
+msgstr "æ¬¡ã®å†…å®¹ã‚’å«ã‚€"
 
-#: ../src/gui.c:291
+#: ../src/gui.c:306
 msgid "Abbreviation"
 msgstr ""
 
-#: ../src/gui.c:292
+#: ../src/gui.c:307
 #, fuzzy
 msgid "Acronym"
-msgstr "¥¢¥¯¥·¥ç¥ó"
+msgstr "ã‚¢ã‚¯ã‚·ãƒ§ãƒ³"
 
-#: ../src/gui.c:325
+#: ../src/gui.c:340
 msgid "Remove from quickbar"
 msgstr ""
 
-#: ../src/gui.c:355
+#: ../src/gui.c:370
 #, fuzzy
 msgid "Add to quickbar"
-msgstr "¥¯¥¤¥Ã¥¯¡¦¥Ğ¡¼"
+msgstr "ã‚¯ã‚¤ãƒƒã‚¯ãƒ»ãƒãƒ¼"
 
-#: ../src/gui.c:444
+#: ../src/gui.c:459
 msgid " Quick bar "
-msgstr "¥¯¥¤¥Ã¥¯¡¦¥Ğ¡¼"
+msgstr "ã‚¯ã‚¤ãƒƒã‚¯ãƒ»ãƒãƒ¼"
 
-#: ../src/gui.c:448
+#: ../src/gui.c:463
 #, fuzzy
 msgid "Heading"
-msgstr "¸«½Ğ¤·"
+msgstr "è¦‹å‡ºã—"
 
-#: ../src/gui.c:450
+#: ../src/gui.c:465
 msgid " Standard bar "
 msgstr ""
 
-#: ../src/gui.c:454
+#: ../src/gui.c:469
 msgid "Context formatting"
-msgstr "¹½À®Í×ÁÇ¤Ç½ñ¼°»ØÄê"
+msgstr "æ§‹æˆè¦ç´ ã§æ›¸å¼æŒ‡å®š"
 
-#: ../src/gui.c:456
+#: ../src/gui.c:471
 msgid " Fonts "
-msgstr " ¥Õ¥©¥ó¥È "
+msgstr " ãƒ•ã‚©ãƒ³ãƒˆ "
 
-#: ../src/gui.c:460
+#: ../src/gui.c:475
 msgid " Tables "
-msgstr " ¥Æ¡¼¥Ö¥ë "
+msgstr " ãƒ†ãƒ¼ãƒ–ãƒ« "
 
-#: ../src/gui.c:464
+#: ../src/gui.c:479
 msgid " Frames "
-msgstr "¥Õ¥ì¡¼¥à"
+msgstr "ãƒ•ãƒ¬ãƒ¼ãƒ "
 
-#: ../src/gui.c:468
+#: ../src/gui.c:483
 msgid " Forms "
-msgstr " ¥Õ¥©¡¼¥à "
+msgstr " ãƒ•ã‚©ãƒ¼ãƒ  "
 
-#: ../src/gui.c:472
+#: ../src/gui.c:487
 #, fuzzy
 msgid " List "
-msgstr " ¥ê¥¹¥È "
+msgstr " ãƒªã‚¹ãƒˆ "
 
-#: ../src/gui.c:476
+#: ../src/gui.c:491
 msgid " CSS "
 msgstr ""
 
-#: ../src/gui.c:488
+#: ../src/gui.c:503
 msgid "New"
-msgstr "¿·µ¬"
+msgstr "æ–°è¦"
 
-#: ../src/gui.c:490
+#: ../src/gui.c:505
 msgid "Open..."
-msgstr "³«¤¯..."
-
-#: ../src/gui.c:493
-msgid "Save"
-msgstr "ÊİÂ¸"
-
-#: ../src/gui.c:495
-msgid "Save As..."
-msgstr "ÊÌÌ¾¤ÇÊİÂ¸..."
-
-#: ../src/gui.c:497
-msgid "Close"
-msgstr "ÊÄ¤¸¤ë"
-
-#: ../src/gui.c:500
-msgid "Copy"
-msgstr "¥³¥Ô¡¼"
-
-#: ../src/gui.c:502
-msgid "Cut"
-msgstr "¥«¥Ã¥È"
-
-#: ../src/gui.c:504
-msgid "Paste"
-msgstr "¥Ú¡¼¥¹¥È"
-
-#: ../src/gui.c:506
-msgid "Search..."
-msgstr "¸¡º÷..."
+msgstr "é–‹ã..."
 
 #: ../src/gui.c:508
-msgid "Search and Replace..."
-msgstr "¸¡º÷¤·¤ÆÃÖ´¹..."
+msgid "Save"
+msgstr "ä¿å­˜"
 
-#: ../src/gui.c:511 ../src/preferences.c:1667
+#: ../src/gui.c:510
+msgid "Save As..."
+msgstr "åˆ¥åã§ä¿å­˜..."
+
+#: ../src/gui.c:512
+msgid "Close"
+msgstr "é–‰ã˜ã‚‹"
+
+#: ../src/gui.c:515
+msgid "Copy"
+msgstr "ã‚³ãƒ”ãƒ¼"
+
+#: ../src/gui.c:517
+msgid "Cut"
+msgstr "ã‚«ãƒƒãƒˆ"
+
+#: ../src/gui.c:519
+msgid "Paste"
+msgstr "ãƒšãƒ¼ã‚¹ãƒˆ"
+
+#: ../src/gui.c:521
+msgid "Search..."
+msgstr "æ¤œç´¢..."
+
+#: ../src/gui.c:523
+msgid "Search and Replace..."
+msgstr "æ¤œç´¢ã—ã¦ç½®æ›..."
+
+#: ../src/gui.c:526 ../src/preferences.c:1689
 msgid "Undo"
 msgstr ""
 
-#: ../src/gui.c:513
+#: ../src/gui.c:528
 msgid "Redo"
 msgstr ""
 
-#: ../src/gui.c:516
+#: ../src/gui.c:531
 #, fuzzy
 msgid "Preferences..."
-msgstr "PHP¥ê¥Õ¥¡¥ì¥ó¥¹..."
-
-#: ../src/gui.c:525
-#, fuzzy
-msgid "View in browser"
-msgstr "¥Õ¥¡¥¤¥ë°ìÍ÷¤Î¥Õ¥£¥ë¥¿"
-
-#: ../src/gui.c:535
-msgid "/Edit/Undo"
-msgstr "/ÊÔ½¸/Undo"
-
-#: ../src/gui.c:536 ../src/menu.c:95
-msgid "/Edit/Undo all"
-msgstr "/ÊÔ½¸/Undo all"
+msgstr "PHPãƒªãƒ•ã‚¡ãƒ¬ãƒ³ã‚¹..."
 
 #: ../src/gui.c:537
+msgid "Spellcheck..."
+msgstr "ã‚¹ãƒšãƒ«ãƒã‚§ãƒƒã‚¯..."
+
+#: ../src/gui.c:542
+#, fuzzy
+msgid "View in browser"
+msgstr "ãƒ•ã‚¡ã‚¤ãƒ«ä¸€è¦§ã®ãƒ•ã‚£ãƒ«ã‚¿"
+
+#: ../src/gui.c:552
+msgid "/Edit/Undo"
+msgstr "/ç·¨é›†/Undo"
+
+#: ../src/gui.c:553 ../src/menu.c:96
+msgid "/Edit/Undo all"
+msgstr "/ç·¨é›†/Undo all"
+
+#: ../src/gui.c:554
 msgid "/Edit/Redo"
-msgstr "/ÊÔ½¸/Redo"
+msgstr "/ç·¨é›†/Redo"
 
-#: ../src/gui.c:538 ../src/menu.c:96
+#: ../src/gui.c:555 ../src/menu.c:97
 msgid "/Edit/Redo all"
-msgstr "/ÊÔ½¸/Redo all"
+msgstr "/ç·¨é›†/Redo all"
 
-#: ../src/gui.c:544
+#: ../src/gui.c:561
 #, fuzzy
 msgid "/Document/Wrap"
-msgstr "Ê¸½ñ¥Õ¥¡¥¤¥ë"
+msgstr "æ–‡æ›¸ãƒ•ã‚¡ã‚¤ãƒ«"
 
-#: ../src/gui.c:545
+#: ../src/gui.c:562
 #, fuzzy
 msgid "/Document/Line numbers"
-msgstr "¹ÔÈÖ¹æ: "
+msgstr "è¡Œç•ªå·: "
 
-#: ../src/gui.c:721
+#: ../src/gui.c:738
 msgid " line    1 "
 msgstr ""
 
-#: ../src/gui.c:771
+#: ../src/gui.c:788
 #, fuzzy
 msgid "Bluefish tip:"
-msgstr "Bluefish ¥×¥ì¥Ó¥å¡¼:"
+msgstr "Bluefish ãƒ—ãƒ¬ãƒ“ãƒ¥ãƒ¼:"
 
-#: ../src/gui.c:771
+#: ../src/gui.c:788
 msgid ""
 "This message is shown since you do not have any items in the Quickbar.\n"
 "\n"
@@ -853,89 +927,89 @@ msgid ""
 "Quickbar."
 msgstr ""
 
-#: ../src/gui.c:867
+#: ../src/gui.c:884
 msgid "Goto line"
-msgstr "¹Ô¥¸¥ã¥ó¥×"
+msgstr "è¡Œã‚¸ãƒ£ãƒ³ãƒ—"
 
-#: ../src/gui.c:875
+#: ../src/gui.c:892
 msgid "Line number: "
-msgstr "¹ÔÈÖ¹æ: "
+msgstr "è¡Œç•ªå·: "
 
-#: ../src/gui.c:878
+#: ../src/gui.c:895
 msgid "From selection"
-msgstr "¥»¥ì¥¯¥·¥ç¥ó¤«¤é"
+msgstr "ã‚»ãƒ¬ã‚¯ã‚·ãƒ§ãƒ³ã‹ã‚‰"
 
-#: ../src/gui.c:886
+#: ../src/gui.c:903
 msgid "Keep dialog"
-msgstr "¥À¥¤¥¢¥í¥°¤òÊÄ¤¸¤Ê¤¤"
+msgstr "ãƒ€ã‚¤ã‚¢ãƒ­ã‚°ã‚’é–‰ã˜ãªã„"
 
-#: ../src/gui.c:948
+#: ../src/gui.c:965
 msgid "starting bluefish"
 msgstr ""
 
 #: ../src/html.c:353
 msgid "Insert Time"
-msgstr "Æü»ş¤ÎÁŞÆş"
+msgstr "æ—¥æ™‚ã®æŒ¿å…¥"
 
 #: ../src/html.c:361
 #, c-format
 msgid "  Time (%i:%i:%i)"
-msgstr "  »ş¹ï (%i:%i:%i)"
+msgstr "  æ™‚åˆ» (%i:%i:%i)"
 
 #: ../src/html.c:366
 msgid "  Day of the week (Sunday)"
-msgstr "  ÍËÆü (ÆüÍËÆü)"
+msgstr "  æ›œæ—¥ (æ—¥æ›œæ—¥)"
 
 #: ../src/html.c:369
 msgid "  Day of the week (Monday)"
-msgstr "  ÍËÆü (·îÍËÆü)"
+msgstr "  æ›œæ—¥ (æœˆæ›œæ—¥)"
 
 #: ../src/html.c:372
 msgid "  Day of the week (Tuesday)"
-msgstr "  ÍËÆü (²ĞÍËÆü)"
+msgstr "  æ›œæ—¥ (ç«æ›œæ—¥)"
 
 #: ../src/html.c:375
 msgid "  Day of the week (Wednesday)"
-msgstr "  ÍËÆü (¿åÍËÆü)"
+msgstr "  æ›œæ—¥ (æ°´æ›œæ—¥)"
 
 #: ../src/html.c:378
 msgid "  Day of the week (Thursday)"
-msgstr "  ÍËÆü (ÌÚÍËÆü)"
+msgstr "  æ›œæ—¥ (æœ¨æ›œæ—¥)"
 
 #: ../src/html.c:381
 msgid "  Day of the week (Friday)"
-msgstr "  ÍËÆü (¶âÍËÆü)"
+msgstr "  æ›œæ—¥ (é‡‘æ›œæ—¥)"
 
 #: ../src/html.c:384
 msgid "  Day of the week (Saturday)"
-msgstr "  ÍËÆü (ÅÚÍËÆü)"
+msgstr "  æ›œæ—¥ (åœŸæ›œæ—¥)"
 
 #: ../src/html.c:387
 msgid "You appear to have a non existant day!\n"
-msgstr "¤¢¤Ê¤¿¤Ï¡¢¤¢¤ê¤¨¤Ê¤¤ÆüÉÕ¤òÀßÄê¤·¤Æ¤¤¤ë¤è¤¦¤Ç¤¹!\n"
+msgstr "ã‚ãªãŸã¯ã€ã‚ã‚Šãˆãªã„æ—¥ä»˜ã‚’è¨­å®šã—ã¦ã„ã‚‹ã‚ˆã†ã§ã™!\n"
 
 #: ../src/html.c:395
 #, c-format
 msgid "  Date (%i/%i/%i)"
-msgstr "  ÆüÉÕ (%3$i/%2$i/%1$i)"
+msgstr "  æ—¥ä»˜ (%3$i/%2$i/%1$i)"
 
 #: ../src/html.c:398
 #, c-format
 msgid "  Unix Time (%i)"
-msgstr "  Unix»ş´Ö (%i)"
+msgstr "  Unixæ™‚é–“ (%i)"
 
 #: ../src/html.c:401
 #, c-format
 msgid "  Unix Date String (%s"
-msgstr "  Unix¼°ÆüÉÕÊ¸»úÎó (%s"
+msgstr "  Unixå¼æ—¥ä»˜æ–‡å­—åˆ— (%s"
 
 #: ../src/html.c:541
 msgid "Quick Anchor"
-msgstr "¥¯¥¤¥Ã¥¯¡¦¥¢¥ó¥«¡¼"
+msgstr "ã‚¯ã‚¤ãƒƒã‚¯ãƒ»ã‚¢ãƒ³ã‚«ãƒ¼"
 
 #: ../src/html.c:548 ../src/html.c:1161
 msgid "Options"
-msgstr "¥ª¥×¥·¥ç¥ó"
+msgstr "ã‚ªãƒ—ã‚·ãƒ§ãƒ³"
 
 #: ../src/html.c:564
 msgid "HREF"
@@ -944,8 +1018,8 @@ msgstr ""
 #: ../src/html.c:572 ../src/html.c:810 ../src/html.c:1306 ../src/html.c:1731
 #: ../src/html_form.c:220 ../src/html_form.c:282 ../src/html_form.c:349
 #: ../src/html_form.c:411 ../src/html_form.c:467 ../src/html_form.c:530
-#: ../src/html_form.c:589 ../src/image.c:259 ../src/preferences.c:1459
-#: ../src/wizards.c:206
+#: ../src/html_form.c:589 ../src/image.c:258 ../src/preferences.c:1417
+#: ../src/preferences.c:1464 ../src/wizards.c:206
 msgid "Name"
 msgstr ""
 
@@ -958,18 +1032,14 @@ msgstr ""
 msgid "Class"
 msgstr ""
 
-#: ../src/html.c:591 ../src/html.c:1180 ../src/html.c:1908
-msgid "Language"
-msgstr ""
-
 #: ../src/html.c:595 ../src/html.c:818 ../src/html.c:954 ../src/html.c:1330
 #: ../src/html.c:1443 ../src/html.c:1666 ../src/html.c:1768 ../src/html.c:1943
 #: ../src/html_form.c:175 ../src/html_form.c:232 ../src/html_form.c:301
 #: ../src/html_form.c:365 ../src/html_form.c:419 ../src/html_form.c:480
 #: ../src/html_form.c:543 ../src/html_form.c:602 ../src/html_table.c:106
-#: ../src/html_table.c:259 ../src/html_table.c:367 ../src/image.c:267
+#: ../src/html_table.c:259 ../src/html_table.c:367 ../src/image.c:266
 msgid "Custom"
-msgstr "¥«¥¹¥¿¥àÀßÄê"
+msgstr "ã‚«ã‚¹ã‚¿ãƒ è¨­å®š"
 
 #: ../src/html.c:599 ../src/html.c:1183
 msgid "Events"
@@ -1025,7 +1095,7 @@ msgstr ""
 
 #: ../src/html.c:795 ../src/html.c:926 ../src/html.c:1829
 #: ../src/html_table.c:114 ../src/html_table.c:225 ../src/html_table.c:339
-#: ../src/image.c:279
+#: ../src/image.c:278
 msgid "Align"
 msgstr ""
 
@@ -1035,7 +1105,7 @@ msgstr ""
 
 #: ../src/html.c:916
 msgid "Horizontal Rule"
-msgstr "¿åÊ¿Àş"
+msgstr "æ°´å¹³ç·š"
 
 #: ../src/html.c:933 ../src/html.c:1426 ../src/html_form.c:294
 #: ../src/html_form.c:594 ../src/wizards.c:212
@@ -1043,21 +1113,21 @@ msgid "Size"
 msgstr ""
 
 #: ../src/html.c:940 ../src/html.c:1817 ../src/html_table.c:386
-#: ../src/image.c:243 ../src/image.c:455 ../src/image.c:463
+#: ../src/image.c:242 ../src/image.c:454 ../src/image.c:462
 msgid "Width"
 msgstr ""
 
 #: ../src/html.c:944
 msgid "Is percent?"
-msgstr "¥Ñ¡¼¥»¥ó¥È¤Ç»ØÄê?"
+msgstr "ãƒ‘ãƒ¼ã‚»ãƒ³ãƒˆã§æŒ‡å®š?"
 
 #: ../src/html.c:950
 msgid "No shading"
-msgstr "ÅÉ¤ê¤Ä¤Ö¤·"
+msgstr "å¡—ã‚Šã¤ã¶ã—"
 
 #: ../src/html.c:1021
 msgid "Quick Start"
-msgstr "¥¯¥¤¥Ã¥¯¡¦¥¹¥¿¡¼¥È"
+msgstr "ã‚¯ã‚¤ãƒƒã‚¯ãƒ»ã‚¹ã‚¿ãƒ¼ãƒˆ"
 
 #: ../src/html.c:1041
 msgid "Doctype"
@@ -1065,7 +1135,7 @@ msgstr ""
 
 #: ../src/html.c:1046
 msgid "Header tags"
-msgstr "¥Ø¥Ã¥À ¥¿¥°"
+msgstr "ãƒ˜ãƒƒãƒ€ ã‚¿ã‚°"
 
 #: ../src/html.c:1077 ../src/wizards.c:180
 msgid "Title"
@@ -1085,36 +1155,36 @@ msgstr ""
 
 #: ../src/html.c:1195
 msgid "Deprecated options"
-msgstr "Èó¿ä¾©¥ª¥×¥·¥ç¥ó"
+msgstr "éæ¨å¥¨ã‚ªãƒ—ã‚·ãƒ§ãƒ³"
 
 #: ../src/html.c:1201
 msgid "Background Image"
-msgstr "ÇØ·Ê¥¤¥á¡¼¥¸"
+msgstr "èƒŒæ™¯ã‚¤ãƒ¡ãƒ¼ã‚¸"
 
 #: ../src/html.c:1208 ../src/html_table.c:133 ../src/html_table.c:248
 #: ../src/html_table.c:398
 msgid "Background Color"
-msgstr "ÇØ·Ê¿§"
+msgstr "èƒŒæ™¯è‰²"
 
 #: ../src/html.c:1214
 msgid "Text Color"
-msgstr "¥Æ¥­¥¹¥È¤Î¿§"
+msgstr "ãƒ†ã‚­ã‚¹ãƒˆã®è‰²"
 
 #: ../src/html.c:1220
 msgid "Link Color"
-msgstr "¥ê¥ó¥¯¤Î¿§"
+msgstr "ãƒªãƒ³ã‚¯ã®è‰²"
 
 #: ../src/html.c:1226
 msgid "Visited Link Color"
-msgstr "±ÜÍ÷ºÑ¤ß¥ê¥ó¥¯¤Î¿§"
+msgstr "é–²è¦§æ¸ˆã¿ãƒªãƒ³ã‚¯ã®è‰²"
 
 #: ../src/html.c:1232
 msgid "Active Link Color"
-msgstr "ÁªÂòÃæ¤Î¥ê¥ó¥¯¤Î¿§"
+msgstr "é¸æŠä¸­ã®ãƒªãƒ³ã‚¯ã®è‰²"
 
 #: ../src/html.c:1246
 msgid "Custom values"
-msgstr "¥«¥¹¥¿¥àÀßÄê"
+msgstr "ã‚«ã‚¹ã‚¿ãƒ è¨­å®š"
 
 #: ../src/html.c:1292
 msgid "Meta"
@@ -1132,61 +1202,61 @@ msgstr ""
 msgid "Scheme"
 msgstr ""
 
-#: ../src/html.c:1408 ../src/preferences.c:1612
+#: ../src/html.c:1408 ../src/preferences.c:1633
 msgid "Font"
-msgstr "¥Õ¥©¥ó¥È"
+msgstr "ãƒ•ã‚©ãƒ³ãƒˆ"
 
 #: ../src/html.c:1411
 msgid "Base Font"
-msgstr "¥Ù¡¼¥¹¥Õ¥©¥ó¥È"
+msgstr "ãƒ™ãƒ¼ã‚¹ãƒ•ã‚©ãƒ³ãƒˆ"
 
 #: ../src/html.c:1434
 msgid "Color"
-msgstr "¿§"
+msgstr "è‰²"
 
 #: ../src/html.c:1439
 msgid "Face"
-msgstr "½ñÂÎ"
+msgstr "æ›¸ä½“"
 
 #: ../src/html.c:1495
 msgid "Email"
-msgstr "E¥á¡¼¥ë"
+msgstr "Eãƒ¡ãƒ¼ãƒ«"
 
 #: ../src/html.c:1501
 msgid "Email address:"
-msgstr "E¥á¡¼¥ë¥¢¥É¥ì¥¹:"
+msgstr "Eãƒ¡ãƒ¼ãƒ«ã‚¢ãƒ‰ãƒ¬ã‚¹:"
 
 #: ../src/html.c:1505
 msgid "UrlEncoded subject:"
-msgstr "·ïÌ¾Ëä¤á¹ş¤ß:"
+msgstr "ä»¶ååŸ‹ã‚è¾¼ã¿:"
 
 #: ../src/html.c:1509
 msgid "UrlEncoded body:"
-msgstr "ËÜÊ¸Ëä¤á¹ş¤ß:"
+msgstr "æœ¬æ–‡åŸ‹ã‚è¾¼ã¿:"
 
 #: ../src/html.c:1554
 msgid "Quick List"
-msgstr "¥¯¥¤¥Ã¥¯¡¦¥ê¥¹¥È"
+msgstr "ã‚¯ã‚¤ãƒƒã‚¯ãƒ»ãƒªã‚¹ãƒˆ"
 
 #: ../src/html.c:1559 ../src/html.c:1644 ../src/html_form.c:225
 msgid "Rows"
-msgstr "¹Ô"
+msgstr "è¡Œ"
 
 #: ../src/html.c:1562
 msgid "Ordered"
-msgstr "½ç½ø¤Ä¤­"
+msgstr "é †åºã¤ã"
 
 #: ../src/html.c:1564
 msgid "Unordered"
-msgstr "½ç½ø¤Ê¤·"
+msgstr "é †åºãªã—"
 
 #: ../src/html.c:1640 ../src/html_form.c:229
 msgid "Cols"
-msgstr "Îó"
+msgstr "åˆ—"
 
 #: ../src/html.c:1649
 msgid "Add <frame> elements"
-msgstr "<frame>Í×ÁÇ¤òÄÉ²Ã"
+msgstr "<frame>è¦ç´ ã‚’è¿½åŠ "
 
 #: ../src/html.c:1727 ../src/html.c:1813 ../src/html.c:1901
 #: ../src/wizards.c:208
@@ -1207,22 +1277,22 @@ msgstr ""
 
 #: ../src/html.c:1751
 msgid "Frameborder"
-msgstr "¥Õ¥ì¡¼¥à¥»¥Ã¥È"
+msgstr "ãƒ•ãƒ¬ãƒ¼ãƒ ã‚»ãƒƒãƒˆ"
 
 #: ../src/html.c:1756
 msgid "No Resize"
-msgstr "¥µ¥¤¥ºÊÑ¹¹¶Ø»ß"
+msgstr "ã‚µã‚¤ã‚ºå¤‰æ›´ç¦æ­¢"
 
 #: ../src/html.c:1807
 msgid "Embed"
 msgstr ""
 
-#: ../src/html.c:1821 ../src/html_table.c:393 ../src/image.c:250
-#: ../src/image.c:459 ../src/image.c:484
+#: ../src/html.c:1821 ../src/html_table.c:393 ../src/image.c:249
+#: ../src/image.c:458 ../src/image.c:483
 msgid "Height"
 msgstr ""
 
-#: ../src/html.c:1825 ../src/html_table.c:145 ../src/image.c:283
+#: ../src/html.c:1825 ../src/html_table.c:145 ../src/image.c:282
 msgid "Border"
 msgstr ""
 
@@ -1244,61 +1314,61 @@ msgstr ""
 
 #: ../src/html2.c:586
 msgid "Cascading StyleSheet dialog"
-msgstr "¥«¥¹¥±¡¼¥Ç¥£¥ó¥°¡¦¥¹¥¿¥¤¥ë¥·¡¼¥È ¥À¥¤¥¢¥í¥°"
+msgstr "ã‚«ã‚¹ã‚±ãƒ¼ãƒ‡ã‚£ãƒ³ã‚°ãƒ»ã‚¹ã‚¿ã‚¤ãƒ«ã‚·ãƒ¼ãƒˆ ãƒ€ã‚¤ã‚¢ãƒ­ã‚°"
 
 #: ../src/html2.c:604
 msgid "selector"
-msgstr "¥»¥ì¥¯¥¿"
+msgstr "ã‚»ãƒ¬ã‚¯ã‚¿"
 
 #: ../src/html2.c:623
 msgid "property"
-msgstr "¥×¥í¥Ñ¥Æ¥£"
+msgstr "ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£"
 
 #: ../src/html2.c:625
 msgid "value"
-msgstr "ÃÍ"
+msgstr "å€¤"
 
 #: ../src/html2.c:643
 msgid "Selector"
-msgstr "¥»¥ì¥¯¥¿"
+msgstr "ã‚»ãƒ¬ã‚¯ã‚¿"
 
 #: ../src/html2.c:643 ../src/html2.c:646
 msgid "Property"
-msgstr "¥×¥í¥Ñ¥Æ¥£"
+msgstr "ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£"
 
 #: ../src/html2.c:643 ../src/html2.c:646 ../src/html_form.c:286
 #: ../src/html_form.c:353 ../src/html_form.c:415 ../src/html_form.c:471
 #: ../src/html_form.c:534 ../src/html_form.c:644
 msgid "Value"
-msgstr "ÃÍ"
+msgstr "å€¤"
 
 #: ../src/html2.c:661 ../src/stringlist.c:365
 msgid " Add "
-msgstr "ÄÉ²Ã"
+msgstr "è¿½åŠ "
 
 #: ../src/html2.c:664 ../src/stringlist.c:367
 msgid " Update "
-msgstr "¹¹¿·"
+msgstr "æ›´æ–°"
 
 #: ../src/html2.c:667 ../src/stringlist.c:369
 msgid " Delete "
-msgstr "ºï½ü"
+msgstr "å‰Šé™¤"
 
 #: ../src/html2.c:1138
 msgid "Bluefish: Select color"
-msgstr "Bluefish: ¿§¤ÎÁªÂò"
+msgstr "Bluefish: è‰²ã®é¸æŠ"
 
 #: ../src/html2.c:1158
 msgid "websafe"
-msgstr "WebÍÑ"
+msgstr "Webç”¨"
 
 #: ../src/html_form.c:129
 msgid "Form"
-msgstr "¥Õ¥©¡¼¥à"
+msgstr "ãƒ•ã‚©ãƒ¼ãƒ "
 
 #: ../src/html_form.c:147
 msgid "Action"
-msgstr "¥¢¥¯¥·¥ç¥ó"
+msgstr "ã‚¢ã‚¯ã‚·ãƒ§ãƒ³"
 
 #: ../src/html_form.c:155
 msgid "Method"
@@ -1310,59 +1380,60 @@ msgstr ""
 
 #: ../src/html_form.c:214
 msgid "Text area"
-msgstr "Ê£¿ô¹Ô¥Æ¥­¥¹¥È"
+msgstr "è¤‡æ•°è¡Œãƒ†ã‚­ã‚¹ãƒˆ"
 
 #: ../src/html_form.c:276
 msgid "Text"
-msgstr "¥Æ¥­¥¹¥È"
+msgstr "ãƒ†ã‚­ã‚¹ãƒˆ"
 
 #: ../src/html_form.c:298
 msgid "Max Length"
-msgstr "ºÇÂçÆşÎÏÊ¸»ú¿ô"
+msgstr "æœ€å¤§å…¥åŠ›æ–‡å­—æ•°"
 
 #: ../src/html_form.c:343
 msgid "Button"
-msgstr "¥Ü¥¿¥ó"
+msgstr "ãƒœã‚¿ãƒ³"
 
 #: ../src/html_form.c:406
 msgid "Hidden"
-msgstr "ÈóÉ½¼¨"
+msgstr "éè¡¨ç¤º"
 
 #: ../src/html_form.c:462
 msgid "Radio Button"
-msgstr "¥é¥¸¥ª¥Ü¥¿¥ó"
+msgstr "ãƒ©ã‚¸ã‚ªãƒœã‚¿ãƒ³"
 
 #: ../src/html_form.c:476 ../src/html_form.c:539
 msgid "Checked"
-msgstr "¥Á¥§¥Ã¥¯¤µ¤ì¤¿¾õÂÖ"
+msgstr "ãƒã‚§ãƒƒã‚¯ã•ã‚ŒãŸçŠ¶æ…‹"
 
 #: ../src/html_form.c:524
 msgid "Check Box"
-msgstr "¥Á¥§¥Ã¥¯¥Ü¥Ã¥¯¥¹"
+msgstr "ãƒã‚§ãƒƒã‚¯ãƒœãƒƒã‚¯ã‚¹"
 
 #: ../src/html_form.c:583
 msgid "Select"
-msgstr "ÁªÂò¥á¥Ë¥å¡¼"
+msgstr "é¸æŠãƒ¡ãƒ‹ãƒ¥ãƒ¼"
 
 #: ../src/html_form.c:598
 msgid "Multiple selections"
-msgstr "Ê£¿ô¹àÌÜ¤ÎÁªÂò"
+msgstr "è¤‡æ•°é …ç›®ã®é¸æŠ"
 
 #: ../src/html_form.c:638
 msgid "Option"
-msgstr "ÁªÂò¥á¥Ë¥å¡¼¹àÌÜ"
+msgstr "é¸æŠãƒ¡ãƒ‹ãƒ¥ãƒ¼é …ç›®"
 
-#: ../src/html_form.c:648 ../src/html_form.c:692 ../src/preferences.c:1286
+#: ../src/html_form.c:648 ../src/html_form.c:692 ../src/preferences.c:1260
+#: ../src/preferences.c:1291
 msgid "Label"
 msgstr ""
 
 #: ../src/html_form.c:653
 msgid "Selected"
-msgstr "ÁªÂò¤µ¤ì¤¿¾õÂÖ"
+msgstr "é¸æŠã•ã‚ŒãŸçŠ¶æ…‹"
 
 #: ../src/html_form.c:687
 msgid "Option group"
-msgstr "¥ª¥×¥·¥ç¥ó¥°¥ë¡¼¥×"
+msgstr "ã‚ªãƒ—ã‚·ãƒ§ãƒ³ã‚°ãƒ«ãƒ¼ãƒ—"
 
 #: ../src/html_table.c:88
 msgid "Cell Padding"
@@ -1398,3185 +1469,3158 @@ msgstr ""
 
 #: ../src/html_table.c:380
 msgid "No Wrap"
-msgstr "¥ï¡¼¥É¥é¥Ã¥×¶Ø»ß"
+msgstr "ãƒ¯ãƒ¼ãƒ‰ãƒ©ãƒƒãƒ—ç¦æ­¢"
 
-#: ../src/image.c:206
+#: ../src/image.c:205
 msgid "Insert image"
-msgstr "¥¤¥á¡¼¥¸¤òÁŞÆş"
+msgstr "ã‚¤ãƒ¡ãƒ¼ã‚¸ã‚’æŒ¿å…¥"
 
-#: ../src/image.c:208
+#: ../src/image.c:207
 #, fuzzy
 msgid "Insert thumbnail"
-msgstr "¥µ¥à¥Í¥¤¥ë¤Ç¥¤¥á¡¼¥¸¤òÁŞÆş"
+msgstr "ã‚µãƒ ãƒã‚¤ãƒ«ã§ã‚¤ãƒ¡ãƒ¼ã‚¸ã‚’æŒ¿å…¥"
 
-#: ../src/image.c:215
+#: ../src/image.c:214
 msgid "Preview"
-msgstr "¥×¥ì¥Ó¥å¡¼"
+msgstr "ãƒ—ãƒ¬ãƒ“ãƒ¥ãƒ¼"
 
-#: ../src/image.c:235
+#: ../src/image.c:234
 msgid "Image location"
-msgstr "¥¤¥á¡¼¥¸¤Î¤¢¤ë¾ì½ê"
+msgstr "ã‚¤ãƒ¡ãƒ¼ã‚¸ã®ã‚ã‚‹å ´æ‰€"
 
-#: ../src/image.c:255
+#: ../src/image.c:254
 msgid "Usemap"
 msgstr ""
 
-#: ../src/image.c:263
+#: ../src/image.c:262
 msgid "Alternate text"
-msgstr "ÂåÂØ¥Æ¥­¥¹¥È"
+msgstr "ä»£æ›¿ãƒ†ã‚­ã‚¹ãƒˆ"
 
-#: ../src/image.c:271
+#: ../src/image.c:270
 msgid "Hspace"
 msgstr ""
 
-#: ../src/image.c:275
+#: ../src/image.c:274
 msgid "Vspace"
 msgstr ""
 
-#: ../src/image.c:341
+#: ../src/image.c:340
 msgid "Select files for thumbnail creation"
 msgstr ""
 
-#: ../src/image.c:451
+#: ../src/image.c:450
 msgid "Scaling (%)"
 msgstr ""
 
-#: ../src/image.c:474
+#: ../src/image.c:473
 msgid "Multi thumbnail"
 msgstr ""
 
-#: ../src/image.c:479
+#: ../src/image.c:478
 msgid "By scaling"
 msgstr ""
 
-#: ../src/image.c:480
+#: ../src/image.c:479
 msgid "By width, keep aspect ratio"
 msgstr ""
 
-#: ../src/image.c:481
+#: ../src/image.c:480
 msgid "By height, keep aspect ratio"
 msgstr ""
 
-#: ../src/image.c:482
+#: ../src/image.c:481
 msgid "By width and height, ignore aspect ratio"
 msgstr ""
 
-#: ../src/menu.c:55
-msgid "/_File"
-msgstr "/¥Õ¥¡¥¤¥ë(_F)"
+#: ../src/image.c:508
+msgid ""
+"%r: original filename  %t: thumbnail filename\n"
+"%w: original width  %h: original height\n"
+"%x: thumbnail width  %y: thumbnail height\n"
+"%b: original size (bytes)"
+msgstr ""
 
 #: ../src/menu.c:56
-msgid "/File/tearoff1"
-msgstr "/¥Õ¥¡¥¤¥ë/tearoff1"
+msgid "/_File"
+msgstr "/ãƒ•ã‚¡ã‚¤ãƒ«(_F)"
 
 #: ../src/menu.c:57
-msgid "/File/_New"
-msgstr "/¥Õ¥¡¥¤¥ë/¿·µ¬(_N)"
+msgid "/File/tearoff1"
+msgstr "/ãƒ•ã‚¡ã‚¤ãƒ«/tearoff1"
 
 #: ../src/menu.c:58
-msgid "/File/_Open..."
-msgstr "/¥Õ¥¡¥¤¥ë/³«¤¯(_O)..."
+msgid "/File/_New"
+msgstr "/ãƒ•ã‚¡ã‚¤ãƒ«/æ–°è¦(_N)"
 
 #: ../src/menu.c:59
-msgid "/File/Open advanced..."
-msgstr "/¥Õ¥¡¥¤¥ë/¸¡º÷¤·¤Æ³«¤¯..."
+msgid "/File/_Open..."
+msgstr "/ãƒ•ã‚¡ã‚¤ãƒ«/é–‹ã(_O)..."
 
 #: ../src/menu.c:60
-#, fuzzy
-msgid "/File/Open r_ecent"
-msgstr "/¥Õ¥¡¥¤¥ë/ºÇ¶á»È¤Ã¤¿¥Õ¥¡¥¤¥ë"
+msgid "/File/Open advanced..."
+msgstr "/ãƒ•ã‚¡ã‚¤ãƒ«/æ¤œç´¢ã—ã¦é–‹ã..."
 
 #: ../src/menu.c:61
-msgid "/File/Open recent/tearoff1"
-msgstr "/¥Õ¥¡¥¤¥ë/ºÇ¶á»È¤Ã¤¿¥Õ¥¡¥¤¥ë/tearoff1"
+#, fuzzy
+msgid "/File/Open r_ecent"
+msgstr "/ãƒ•ã‚¡ã‚¤ãƒ«/æœ€è¿‘ä½¿ã£ãŸãƒ•ã‚¡ã‚¤ãƒ«"
 
 #: ../src/menu.c:62
-#, fuzzy
-msgid "/File/_Revert to saved"
-msgstr "/¥Õ¥¡¥¤¥ë/¥»¡¼¥Ö¤µ¤ì¤Æ¤¤¤ëÆâÍÆ¤ËÌá¤¹"
+msgid "/File/Open recent/tearoff1"
+msgstr "/ãƒ•ã‚¡ã‚¤ãƒ«/æœ€è¿‘ä½¿ã£ãŸãƒ•ã‚¡ã‚¤ãƒ«/tearoff1"
 
 #: ../src/menu.c:63
 #, fuzzy
-msgid "/File/_Insert..."
-msgstr "/¥Õ¥¡¥¤¥ë/ÁŞÆş..."
+msgid "/File/_Revert to saved"
+msgstr "/ãƒ•ã‚¡ã‚¤ãƒ«/ã‚»ãƒ¼ãƒ–ã•ã‚Œã¦ã„ã‚‹å†…å®¹ã«æˆ»ã™"
 
 #: ../src/menu.c:64
-msgid "/File/sep2"
-msgstr "/¥Õ¥¡¥¤¥ë/sep2"
+#, fuzzy
+msgid "/File/_Insert..."
+msgstr "/ãƒ•ã‚¡ã‚¤ãƒ«/æŒ¿å…¥..."
 
 #: ../src/menu.c:65
-msgid "/File/_Save"
-msgstr "/¥Õ¥¡¥¤¥ë/ÊİÂ¸(_S)"
+msgid "/File/sep2"
+msgstr "/ãƒ•ã‚¡ã‚¤ãƒ«/sep2"
 
 #: ../src/menu.c:66
-msgid "/File/Save _as..."
-msgstr "/¥Õ¥¡¥¤¥ë/ÊÌÌ¾¤ÇÊİÂ¸(_a)..."
+msgid "/File/_Save"
+msgstr "/ãƒ•ã‚¡ã‚¤ãƒ«/ä¿å­˜(_S)"
 
 #: ../src/menu.c:67
-#, fuzzy
-msgid "/File/_Move to..."
-msgstr "/¥Õ¥¡¥¤¥ë/°ÜÆ°..."
+msgid "/File/Save _as..."
+msgstr "/ãƒ•ã‚¡ã‚¤ãƒ«/åˆ¥åã§ä¿å­˜(_a)..."
 
 #: ../src/menu.c:68
 #, fuzzy
-msgid "/File/Sa_ve all"
-msgstr "/¥Õ¥¡¥¤¥ë/¤¹¤Ù¤ÆÊİÂ¸"
+msgid "/File/_Move to..."
+msgstr "/ãƒ•ã‚¡ã‚¤ãƒ«/ç§»å‹•..."
 
 #: ../src/menu.c:69
-msgid "/File/sep3"
-msgstr "/¥Õ¥¡¥¤¥ë/sep3"
+#, fuzzy
+msgid "/File/Sa_ve all"
+msgstr "/ãƒ•ã‚¡ã‚¤ãƒ«/ã™ã¹ã¦ä¿å­˜"
 
 #: ../src/menu.c:70
-#, fuzzy
-msgid "/File/_Close"
-msgstr "/¥Õ¥¡¥¤¥ë/ÊÄ¤¸¤ë"
+msgid "/File/sep3"
+msgstr "/ãƒ•ã‚¡ã‚¤ãƒ«/sep3"
 
 #: ../src/menu.c:71
-msgid "/File/Close all"
-msgstr "/¥Õ¥¡¥¤¥ë/¤¹¤Ù¤ÆÊÄ¤¸¤ë"
+#, fuzzy
+msgid "/File/_Close"
+msgstr "/ãƒ•ã‚¡ã‚¤ãƒ«/é–‰ã˜ã‚‹"
 
 #: ../src/menu.c:72
-msgid "/File/sep5"
-msgstr "/¥Õ¥¡¥¤¥ë/sep5"
+msgid "/File/Close all"
+msgstr "/ãƒ•ã‚¡ã‚¤ãƒ«/ã™ã¹ã¦é–‰ã˜ã‚‹"
 
 #: ../src/menu.c:73
-#, fuzzy
-msgid "/File/_Quit"
-msgstr "/¥Õ¥¡¥¤¥ë/½ªÎ»"
+msgid "/File/sep5"
+msgstr "/ãƒ•ã‚¡ã‚¤ãƒ«/sep5"
 
 #: ../src/menu.c:74
-msgid "/_Edit"
-msgstr "/ÊÔ½¸(_E)"
+#, fuzzy
+msgid "/File/_Quit"
+msgstr "/ãƒ•ã‚¡ã‚¤ãƒ«/çµ‚äº†"
 
 #: ../src/menu.c:75
-#, fuzzy
-msgid "/Edit/Tearoff1"
-msgstr "/ÊÔ½¸/Tearoff1"
+msgid "/_Edit"
+msgstr "/ç·¨é›†(_E)"
 
 #: ../src/menu.c:76
 #, fuzzy
-msgid "/Edit/Cu_t"
-msgstr "/ÊÔ½¸/¥«¥Ã¥È"
+msgid "/Edit/Tearoff1"
+msgstr "/ç·¨é›†/Tearoff1"
 
 #: ../src/menu.c:77
 #, fuzzy
-msgid "/Edit/_Copy"
-msgstr "/ÊÔ½¸/¥³¥Ô¡¼"
+msgid "/Edit/Cu_t"
+msgstr "/ç·¨é›†/ã‚«ãƒƒãƒˆ"
 
 #: ../src/menu.c:78
 #, fuzzy
-msgid "/Edit/_Paste"
-msgstr "/ÊÔ½¸/¥Ú¡¼¥¹¥È"
+msgid "/Edit/_Copy"
+msgstr "/ç·¨é›†/ã‚³ãƒ”ãƒ¼"
 
 #: ../src/menu.c:79
 #, fuzzy
-msgid "/Edit/Select _all"
-msgstr "/ÊÔ½¸/¤¹¤Ù¤ÆÁªÂò"
+msgid "/Edit/_Paste"
+msgstr "/ç·¨é›†/ãƒšãƒ¼ã‚¹ãƒˆ"
 
 #: ../src/menu.c:80
-msgid "/Edit/sep3"
-msgstr "/ÊÔ½¸/sep3"
+#, fuzzy
+msgid "/Edit/Select _all"
+msgstr "/ç·¨é›†/ã™ã¹ã¦é¸æŠ"
 
 #: ../src/menu.c:81
-#, fuzzy
-msgid "/Edit/_Find..."
-msgstr "/ÊÔ½¸/¸¡º÷..."
+msgid "/Edit/sep3"
+msgstr "/ç·¨é›†/sep3"
 
 #: ../src/menu.c:82
 #, fuzzy
-msgid "/Edit/Ne_w find..."
-msgstr "/ÊÔ½¸/¿·µ¬¸¡º÷..."
+msgid "/Edit/_Find..."
+msgstr "/ç·¨é›†/æ¤œç´¢..."
 
 #: ../src/menu.c:83
 #, fuzzy
-msgid "/Edit/Find agai_n"
-msgstr "/ÊÔ½¸/ºÆ¸¡º÷"
+msgid "/Edit/Ne_w find..."
+msgstr "/ç·¨é›†/æ–°è¦æ¤œç´¢..."
 
 #: ../src/menu.c:84
 #, fuzzy
-msgid "/Edit/R_eplace..."
-msgstr "/ÊÔ½¸/ÃÖ´¹..."
+msgid "/Edit/Find agai_n"
+msgstr "/ç·¨é›†/å†æ¤œç´¢"
 
 #: ../src/menu.c:85
 #, fuzzy
-msgid "/Edit/New re_place..."
-msgstr "/ÊÔ½¸/¿·µ¬ÃÖ´¹..."
+msgid "/Edit/R_eplace..."
+msgstr "/ç·¨é›†/ç½®æ›..."
 
 #: ../src/menu.c:86
 #, fuzzy
-msgid "/Edit/Replace a_gain"
-msgstr "/ÊÔ½¸/ºÆÃÖ´¹"
+msgid "/Edit/New re_place..."
+msgstr "/ç·¨é›†/æ–°è¦ç½®æ›..."
 
 #: ../src/menu.c:87
 #, fuzzy
-msgid "/Edit/Replace _special"
-msgstr "/ÊÔ½¸/ÆÃ¼ìÊ¸»ú¤ÎÃÖ´¹"
+msgid "/Edit/Replace a_gain"
+msgstr "/ç·¨é›†/å†ç½®æ›"
 
 #: ../src/menu.c:88
 #, fuzzy
-msgid "/Edit/Replace special/Tearoff1"
-msgstr "/ÊÔ½¸/ÆÃ¼ìÊ¸»ú¤ÎÃÖ´¹/Tearoff1"
+msgid "/Edit/Replace _special"
+msgstr "/ç·¨é›†/ç‰¹æ®Šæ–‡å­—ã®ç½®æ›"
 
 #: ../src/menu.c:89
 #, fuzzy
-msgid "/Edit/Replace special/_ascii to HTML entities"
-msgstr "/ÊÔ½¸/ÆÃ¼ìÊ¸»ú¤ÎÃÖ´¹/Æó½Å°úÍÑÉä¤Î¥¨¥¹¥±¡¼¥×"
+msgid "/Edit/Replace special/Tearoff1"
+msgstr "/ç·¨é›†/ç‰¹æ®Šæ–‡å­—ã®ç½®æ›/Tearoff1"
 
 #: ../src/menu.c:90
 #, fuzzy
-msgid "/Edit/Replace special/_iso8859 to HTML entities"
-msgstr "/ÊÔ½¸/ÆÃ¼ìÊ¸»ú¤ÎÃÖ´¹/iso 8859-1¤ÎÊ¸»ú¤òÃÖ´¹"
+msgid "/Edit/Replace special/_ascii to HTML entities"
+msgstr "/ç·¨é›†/ç‰¹æ®Šæ–‡å­—ã®ç½®æ›/äºŒé‡å¼•ç”¨ç¬¦ã®ã‚¨ã‚¹ã‚±ãƒ¼ãƒ—"
 
 #: ../src/menu.c:91
 #, fuzzy
-msgid "/Edit/Replace special/_both types to HTML entities"
-msgstr "/ÊÔ½¸/ÆÃ¼ìÊ¸»ú¤ÎÃÖ´¹/Æó½Å°úÍÑÉä¤Î¥¨¥¹¥±¡¼¥×"
+msgid "/Edit/Replace special/_iso8859 to HTML entities"
+msgstr "/ç·¨é›†/ç‰¹æ®Šæ–‡å­—ã®ç½®æ›/iso 8859-1ã®æ–‡å­—ã‚’ç½®æ›"
 
 #: ../src/menu.c:92
-msgid "/Edit/sep4"
-msgstr "/ÊÔ½¸/sep4"
+#, fuzzy
+msgid "/Edit/Replace special/_both types to HTML entities"
+msgstr "/ç·¨é›†/ç‰¹æ®Šæ–‡å­—ã®ç½®æ›/äºŒé‡å¼•ç”¨ç¬¦ã®ã‚¨ã‚¹ã‚±ãƒ¼ãƒ—"
 
 #: ../src/menu.c:93
-#, fuzzy
-msgid "/Edit/_Undo"
-msgstr "/ÊÔ½¸/Undo"
+msgid "/Edit/sep4"
+msgstr "/ç·¨é›†/sep4"
 
 #: ../src/menu.c:94
 #, fuzzy
-msgid "/Edit/_Redo"
-msgstr "/ÊÔ½¸/Redo"
+msgid "/Edit/_Undo"
+msgstr "/ç·¨é›†/Undo"
 
-#: ../src/menu.c:97
-msgid "/Edit/sep5"
-msgstr "/ÊÔ½¸/sep5"
+#: ../src/menu.c:95
+#, fuzzy
+msgid "/Edit/_Redo"
+msgstr "/ç·¨é›†/Redo"
 
 #: ../src/menu.c:98
-#, fuzzy
-msgid "/Edit/_Goto line"
-msgstr "/ÊÔ½¸/¹Ô¥¸¥ã¥ó¥×..."
+msgid "/Edit/sep5"
+msgstr "/ç·¨é›†/sep5"
 
 #: ../src/menu.c:99
 #, fuzzy
-msgid "/Edit/G_oto selection"
-msgstr "/ÊÔ½¸/¹Ô¥¸¥ã¥ó¥×..."
+msgid "/Edit/_Goto line"
+msgstr "/ç·¨é›†/è¡Œã‚¸ãƒ£ãƒ³ãƒ—..."
 
 #: ../src/menu.c:100
-msgid "/_Tags"
-msgstr "/¥¿¥°(_T)"
+#, fuzzy
+msgid "/Edit/G_oto selection"
+msgstr "/ç·¨é›†/è¡Œã‚¸ãƒ£ãƒ³ãƒ—..."
 
 #: ../src/menu.c:101
-msgid "/Tags/Tearoff1"
-msgstr "/¥¿¥°/Tearoff1"
+msgid "/_Tags"
+msgstr "/ã‚¿ã‚°(_T)"
 
-#: ../src/menu.c:103
-#, fuzzy
-msgid "/Tags/_Headings"
-msgstr "/¥¿¥°/¸«½Ğ¤·"
+#: ../src/menu.c:102
+msgid "/Tags/Tearoff1"
+msgstr "/ã‚¿ã‚°/Tearoff1"
 
 #: ../src/menu.c:104
-msgid "/Tags/Headings/Tearoff1"
-msgstr "/¥¿¥°/¸«½Ğ¤·/Tearoff1"
+#, fuzzy
+msgid "/Tags/_Headings"
+msgstr "/ã‚¿ã‚°/è¦‹å‡ºã—"
 
 #: ../src/menu.c:105
-#, fuzzy
-msgid "/Tags/Headings/H_1"
-msgstr "/¥¿¥°/¸«½Ğ¤·/H1"
+msgid "/Tags/Headings/Tearoff1"
+msgstr "/ã‚¿ã‚°/è¦‹å‡ºã—/Tearoff1"
 
 #: ../src/menu.c:106
 #, fuzzy
-msgid "/Tags/Headings/H_2"
-msgstr "/¥¿¥°/¸«½Ğ¤·/H2"
+msgid "/Tags/Headings/H_1"
+msgstr "/ã‚¿ã‚°/è¦‹å‡ºã—/H1"
 
 #: ../src/menu.c:107
 #, fuzzy
-msgid "/Tags/Headings/H_3"
-msgstr "/¥¿¥°/¸«½Ğ¤·/H3"
+msgid "/Tags/Headings/H_2"
+msgstr "/ã‚¿ã‚°/è¦‹å‡ºã—/H2"
 
 #: ../src/menu.c:108
 #, fuzzy
-msgid "/Tags/Headings/H_4"
-msgstr "/¥¿¥°/¸«½Ğ¤·/H4"
+msgid "/Tags/Headings/H_3"
+msgstr "/ã‚¿ã‚°/è¦‹å‡ºã—/H3"
 
 #: ../src/menu.c:109
 #, fuzzy
-msgid "/Tags/Headings/H_5"
-msgstr "/¥¿¥°/¸«½Ğ¤·/H5"
+msgid "/Tags/Headings/H_4"
+msgstr "/ã‚¿ã‚°/è¦‹å‡ºã—/H4"
 
 #: ../src/menu.c:110
 #, fuzzy
-msgid "/Tags/Headings/H_6"
-msgstr "/¥¿¥°/¸«½Ğ¤·/H6"
+msgid "/Tags/Headings/H_5"
+msgstr "/ã‚¿ã‚°/è¦‹å‡ºã—/H5"
 
 #: ../src/menu.c:111
 #, fuzzy
-msgid "/Tags/_Special"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú"
+msgid "/Tags/Headings/H_6"
+msgstr "/ã‚¿ã‚°/è¦‹å‡ºã—/H6"
 
 #: ../src/menu.c:112
-msgid "/Tags/Special/tearoff1"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/tearoff1"
+#, fuzzy
+msgid "/Tags/_Special"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—"
 
 #: ../src/menu.c:113
-#, fuzzy
-msgid "/Tags/Special/_Accent"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/¥¢¥¯¥»¥ó¥È"
+msgid "/Tags/Special/tearoff1"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/tearoff1"
 
 #: ../src/menu.c:114
-msgid "/Tags/Special/Accent/tearoff1"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/¥¢¥¯¥»¥ó¥È/tearoff1"
+#, fuzzy
+msgid "/Tags/Special/_Accent"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/ã‚¢ã‚¯ã‚»ãƒ³ãƒˆ"
 
 #: ../src/menu.c:115
-#, fuzzy
-msgid "/Tags/Special/Accent/_Uppercase"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/¥¢¥¯¥»¥ó¥È/ÂçÊ¸»ú"
+msgid "/Tags/Special/Accent/tearoff1"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/ã‚¢ã‚¯ã‚»ãƒ³ãƒˆ/tearoff1"
 
 #: ../src/menu.c:116
 #, fuzzy
-msgid "/Tags/Special/Accent/Uppercase/_A-I"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/¥¢¥¯¥»¥ó¥È/ÂçÊ¸»ú/A-I"
+msgid "/Tags/Special/Accent/_Uppercase"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/ã‚¢ã‚¯ã‚»ãƒ³ãƒˆ/å¤§æ–‡å­—"
 
 #: ../src/menu.c:117
-msgid "/Tags/Special/Accent/Uppercase/A-I/tearoff1"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/¥¢¥¯¥»¥ó¥È/ÂçÊ¸»ú/A-I/tearoff1"
+#, fuzzy
+msgid "/Tags/Special/Accent/Uppercase/_A-I"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/ã‚¢ã‚¯ã‚»ãƒ³ãƒˆ/å¤§æ–‡å­—/A-I"
 
 #: ../src/menu.c:118
-#, fuzzy
-msgid "/Tags/Special/Accent/Uppercase/A-I/A grave"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/¥¢¥¯¥»¥ó¥È/ÂçÊ¸»ú/A-I/A grave"
+msgid "/Tags/Special/Accent/Uppercase/A-I/tearoff1"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/ã‚¢ã‚¯ã‚»ãƒ³ãƒˆ/å¤§æ–‡å­—/A-I/tearoff1"
 
 #: ../src/menu.c:119
 #, fuzzy
-msgid "/Tags/Special/Accent/Uppercase/A-I/A acute"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/¥¢¥¯¥»¥ó¥È/ÂçÊ¸»ú/A-I/A acute"
+msgid "/Tags/Special/Accent/Uppercase/A-I/A grave Ã€"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/ã‚¢ã‚¯ã‚»ãƒ³ãƒˆ/å¤§æ–‡å­—/A-I/A grave"
 
 #: ../src/menu.c:120
 #, fuzzy
-msgid "/Tags/Special/Accent/Uppercase/A-I/A circumflex"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/¥¢¥¯¥»¥ó¥È/ÂçÊ¸»ú/A-I/A circumflex"
+msgid "/Tags/Special/Accent/Uppercase/A-I/A acute Ã"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/ã‚¢ã‚¯ã‚»ãƒ³ãƒˆ/å¤§æ–‡å­—/A-I/A acute"
 
 #: ../src/menu.c:121
 #, fuzzy
-msgid "/Tags/Special/Accent/Uppercase/A-I/A tilde"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/¥¢¥¯¥»¥ó¥È/ÂçÊ¸»ú/A-I/A tilde"
+msgid "/Tags/Special/Accent/Uppercase/A-I/A circumflex Ã‚"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/ã‚¢ã‚¯ã‚»ãƒ³ãƒˆ/å¤§æ–‡å­—/A-I/A circumflex"
 
 #: ../src/menu.c:122
 #, fuzzy
-msgid "/Tags/Special/Accent/Uppercase/A-I/AE ligature"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/¥¢¥¯¥»¥ó¥È/ÂçÊ¸»ú/A-I/AE ligature"
+msgid "/Tags/Special/Accent/Uppercase/A-I/A tilde Ãƒ"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/ã‚¢ã‚¯ã‚»ãƒ³ãƒˆ/å¤§æ–‡å­—/A-I/A tilde"
 
 #: ../src/menu.c:123
 #, fuzzy
-msgid "/Tags/Special/Accent/Uppercase/A-I/A diaeresis"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/¥¢¥¯¥»¥ó¥È/ÂçÊ¸»ú/A-I/A diaeresis"
+msgid "/Tags/Special/Accent/Uppercase/A-I/AE ligature Ã†"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/ã‚¢ã‚¯ã‚»ãƒ³ãƒˆ/å¤§æ–‡å­—/A-I/AE ligature"
 
 #: ../src/menu.c:124
 #, fuzzy
-msgid "/Tags/Special/Accent/Uppercase/A-I/A ring"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/¥¢¥¯¥»¥ó¥È/ÂçÊ¸»ú/A-I/A ring"
+msgid "/Tags/Special/Accent/Uppercase/A-I/A diaeresis Ã„"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/ã‚¢ã‚¯ã‚»ãƒ³ãƒˆ/å¤§æ–‡å­—/A-I/A diaeresis"
 
 #: ../src/menu.c:125
 #, fuzzy
-msgid "/Tags/Special/Accent/Uppercase/A-I/C cedilla"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/¥¢¥¯¥»¥ó¥È/ÂçÊ¸»ú/A-I/C cedilla"
+msgid "/Tags/Special/Accent/Uppercase/A-I/A ring Ã…"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/ã‚¢ã‚¯ã‚»ãƒ³ãƒˆ/å¤§æ–‡å­—/A-I/A ring"
 
 #: ../src/menu.c:126
 #, fuzzy
-msgid "/Tags/Special/Accent/Uppercase/A-I/E grave"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/¥¢¥¯¥»¥ó¥È/ÂçÊ¸»ú/A-I/E grave"
+msgid "/Tags/Special/Accent/Uppercase/A-I/C cedilla Ã‡"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/ã‚¢ã‚¯ã‚»ãƒ³ãƒˆ/å¤§æ–‡å­—/A-I/C cedilla"
 
 #: ../src/menu.c:127
 #, fuzzy
-msgid "/Tags/Special/Accent/Uppercase/A-I/E acute"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/¥¢¥¯¥»¥ó¥È/ÂçÊ¸»ú/A-I/E acute"
+msgid "/Tags/Special/Accent/Uppercase/A-I/E grave Ãˆ"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/ã‚¢ã‚¯ã‚»ãƒ³ãƒˆ/å¤§æ–‡å­—/A-I/E grave"
 
 #: ../src/menu.c:128
 #, fuzzy
-msgid "/Tags/Special/Accent/Uppercase/A-I/E circumflex"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/¥¢¥¯¥»¥ó¥È/ÂçÊ¸»ú/A-I/E circumflex"
+msgid "/Tags/Special/Accent/Uppercase/A-I/E acute Ã‰"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/ã‚¢ã‚¯ã‚»ãƒ³ãƒˆ/å¤§æ–‡å­—/A-I/E acute"
 
 #: ../src/menu.c:129
 #, fuzzy
-msgid "/Tags/Special/Accent/Uppercase/A-I/E diaeresis"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/¥¢¥¯¥»¥ó¥È/ÂçÊ¸»ú/A-I/E diaeresis"
+msgid "/Tags/Special/Accent/Uppercase/A-I/E circumflex ÃŠ"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/ã‚¢ã‚¯ã‚»ãƒ³ãƒˆ/å¤§æ–‡å­—/A-I/E circumflex"
 
 #: ../src/menu.c:130
 #, fuzzy
-msgid "/Tags/Special/Accent/Uppercase/A-I/I grave"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/¥¢¥¯¥»¥ó¥È/ÂçÊ¸»ú/A-I/I grave"
+msgid "/Tags/Special/Accent/Uppercase/A-I/E diaeresis Ã‹"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/ã‚¢ã‚¯ã‚»ãƒ³ãƒˆ/å¤§æ–‡å­—/A-I/E diaeresis"
 
 #: ../src/menu.c:131
 #, fuzzy
-msgid "/Tags/Special/Accent/Uppercase/A-I/I acute"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/¥¢¥¯¥»¥ó¥È/ÂçÊ¸»ú/A-I/I acute"
+msgid "/Tags/Special/Accent/Uppercase/A-I/I grave ÃŒ"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/ã‚¢ã‚¯ã‚»ãƒ³ãƒˆ/å¤§æ–‡å­—/A-I/I grave"
 
 #: ../src/menu.c:132
 #, fuzzy
-msgid "/Tags/Special/Accent/Uppercase/A-I/I circumflex"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/¥¢¥¯¥»¥ó¥È/ÂçÊ¸»ú/A-I/I circumflex"
+msgid "/Tags/Special/Accent/Uppercase/A-I/I acute Ã"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/ã‚¢ã‚¯ã‚»ãƒ³ãƒˆ/å¤§æ–‡å­—/A-I/I acute"
 
 #: ../src/menu.c:133
 #, fuzzy
-msgid "/Tags/Special/Accent/Uppercase/A-I/I diaeresis"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/¥¢¥¯¥»¥ó¥È/ÂçÊ¸»ú/A-I/I diaeresis"
+msgid "/Tags/Special/Accent/Uppercase/A-I/I circumflex Ã"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/ã‚¢ã‚¯ã‚»ãƒ³ãƒˆ/å¤§æ–‡å­—/A-I/I circumflex"
 
 #: ../src/menu.c:134
 #, fuzzy
-msgid "/Tags/Special/Accent/Uppercase/_J-Z"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/¥¢¥¯¥»¥ó¥È/ÂçÊ¸»ú/J-Z"
+msgid "/Tags/Special/Accent/Uppercase/A-I/I diaeresis Ã"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/ã‚¢ã‚¯ã‚»ãƒ³ãƒˆ/å¤§æ–‡å­—/A-I/I diaeresis"
 
 #: ../src/menu.c:135
-msgid "/Tags/Special/Accent/Uppercase/J-Z/tearoff1"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/¥¢¥¯¥»¥ó¥È/ÂçÊ¸»ú/J-Z/tearoff1"
+#, fuzzy
+msgid "/Tags/Special/Accent/Uppercase/_J-Z"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/ã‚¢ã‚¯ã‚»ãƒ³ãƒˆ/å¤§æ–‡å­—/J-Z"
 
 #: ../src/menu.c:136
-#, fuzzy
-msgid "/Tags/Special/Accent/Uppercase/J-Z/N tilde"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/¥¢¥¯¥»¥ó¥È/ÂçÊ¸»ú/J-Z/N tilde"
+msgid "/Tags/Special/Accent/Uppercase/J-Z/tearoff1"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/ã‚¢ã‚¯ã‚»ãƒ³ãƒˆ/å¤§æ–‡å­—/J-Z/tearoff1"
 
 #: ../src/menu.c:137
 #, fuzzy
-msgid "/Tags/Special/Accent/Uppercase/J-Z/O grave"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/¥¢¥¯¥»¥ó¥È/ÂçÊ¸»ú/J-Z/O grave"
+msgid "/Tags/Special/Accent/Uppercase/J-Z/N tilde Ã‘"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/ã‚¢ã‚¯ã‚»ãƒ³ãƒˆ/å¤§æ–‡å­—/J-Z/N tilde"
 
 #: ../src/menu.c:138
 #, fuzzy
-msgid "/Tags/Special/Accent/Uppercase/J-Z/O acute"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/¥¢¥¯¥»¥ó¥È/ÂçÊ¸»ú/J-Z/O acute"
+msgid "/Tags/Special/Accent/Uppercase/J-Z/O grave Ã’"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/ã‚¢ã‚¯ã‚»ãƒ³ãƒˆ/å¤§æ–‡å­—/J-Z/O grave"
 
 #: ../src/menu.c:139
 #, fuzzy
-msgid "/Tags/Special/Accent/Uppercase/J-Z/O circumflex"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/¥¢¥¯¥»¥ó¥È/ÂçÊ¸»ú/J-Z/O circumflex"
+msgid "/Tags/Special/Accent/Uppercase/J-Z/O acute Ã“"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/ã‚¢ã‚¯ã‚»ãƒ³ãƒˆ/å¤§æ–‡å­—/J-Z/O acute"
 
 #: ../src/menu.c:140
 #, fuzzy
-msgid "/Tags/Special/Accent/Uppercase/J-Z/OE ligature"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/¥¢¥¯¥»¥ó¥È/ÂçÊ¸»ú/A-I/AE ligature"
+msgid "/Tags/Special/Accent/Uppercase/J-Z/O circumflex Ã”"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/ã‚¢ã‚¯ã‚»ãƒ³ãƒˆ/å¤§æ–‡å­—/J-Z/O circumflex"
 
 #: ../src/menu.c:141
 #, fuzzy
-msgid "/Tags/Special/Accent/Uppercase/J-Z/O tilde"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/¥¢¥¯¥»¥ó¥È/ÂçÊ¸»ú/J-Z/O tilde"
+msgid "/Tags/Special/Accent/Uppercase/J-Z/OE ligature"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/ã‚¢ã‚¯ã‚»ãƒ³ãƒˆ/å¤§æ–‡å­—/A-I/AE ligature"
 
 #: ../src/menu.c:142
 #, fuzzy
-msgid "/Tags/Special/Accent/Uppercase/J-Z/O diaeresis"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/¥¢¥¯¥»¥ó¥È/ÂçÊ¸»ú/J-Z/O diaeresis"
+msgid "/Tags/Special/Accent/Uppercase/J-Z/O tilde Ã•"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/ã‚¢ã‚¯ã‚»ãƒ³ãƒˆ/å¤§æ–‡å­—/J-Z/O tilde"
 
 #: ../src/menu.c:143
 #, fuzzy
-msgid "/Tags/Special/Accent/Uppercase/J-Z/O slash"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/¥¢¥¯¥»¥ó¥È/ÂçÊ¸»ú/J-Z/O slash"
+msgid "/Tags/Special/Accent/Uppercase/J-Z/O diaeresis Ã–"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/ã‚¢ã‚¯ã‚»ãƒ³ãƒˆ/å¤§æ–‡å­—/J-Z/O diaeresis"
 
 #: ../src/menu.c:144
 #, fuzzy
-msgid "/Tags/Special/Accent/Uppercase/J-Z/U grave"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/¥¢¥¯¥»¥ó¥È/ÂçÊ¸»ú/J-Z/U grave"
+msgid "/Tags/Special/Accent/Uppercase/J-Z/O slash Ã˜"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/ã‚¢ã‚¯ã‚»ãƒ³ãƒˆ/å¤§æ–‡å­—/J-Z/O slash"
 
 #: ../src/menu.c:145
 #, fuzzy
-msgid "/Tags/Special/Accent/Uppercase/J-Z/U acute"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/¥¢¥¯¥»¥ó¥È/ÂçÊ¸»ú/J-Z/U acute"
+msgid "/Tags/Special/Accent/Uppercase/J-Z/U grave Ã™"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/ã‚¢ã‚¯ã‚»ãƒ³ãƒˆ/å¤§æ–‡å­—/J-Z/U grave"
 
 #: ../src/menu.c:146
 #, fuzzy
-msgid "/Tags/Special/Accent/Uppercase/J-Z/U circumflex"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/¥¢¥¯¥»¥ó¥È/ÂçÊ¸»ú/J-Z/U circumflex"
+msgid "/Tags/Special/Accent/Uppercase/J-Z/U acute Ãš"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/ã‚¢ã‚¯ã‚»ãƒ³ãƒˆ/å¤§æ–‡å­—/J-Z/U acute"
 
 #: ../src/menu.c:147
 #, fuzzy
-msgid "/Tags/Special/Accent/Uppercase/J-Z/U diaeresis"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/¥¢¥¯¥»¥ó¥È/ÂçÊ¸»ú/J-Z/U diaeresis"
+msgid "/Tags/Special/Accent/Uppercase/J-Z/U circumflex Ã›"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/ã‚¢ã‚¯ã‚»ãƒ³ãƒˆ/å¤§æ–‡å­—/J-Z/U circumflex"
 
-#: ../src/menu.c:149
+#: ../src/menu.c:148
 #, fuzzy
-msgid "/Tags/Special/Accent/Uppercase/J-Z/Y acute"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/¥¢¥¯¥»¥ó¥È/ÂçÊ¸»ú/J-Z/Y acute"
+msgid "/Tags/Special/Accent/Uppercase/J-Z/U diaeresis Ãœ"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/ã‚¢ã‚¯ã‚»ãƒ³ãƒˆ/å¤§æ–‡å­—/J-Z/U diaeresis"
 
-#: ../src/menu.c:151
+#: ../src/menu.c:150
 #, fuzzy
-msgid "/Tags/Special/Accent/_Lowercase"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/¥¢¥¯¥»¥ó¥È/¾®Ê¸»ú"
+msgid "/Tags/Special/Accent/Uppercase/J-Z/Y acute Ã"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/ã‚¢ã‚¯ã‚»ãƒ³ãƒˆ/å¤§æ–‡å­—/J-Z/Y acute"
 
 #: ../src/menu.c:152
 #, fuzzy
-msgid "/Tags/Special/Accent/Lowercase/_A-I"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/¥¢¥¯¥»¥ó¥È/¾®Ê¸»ú/A-I"
+msgid "/Tags/Special/Accent/_Lowercase"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/ã‚¢ã‚¯ã‚»ãƒ³ãƒˆ/å°æ–‡å­—"
 
 #: ../src/menu.c:153
+#, fuzzy
+msgid "/Tags/Special/Accent/Lowercase/_A-I"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/ã‚¢ã‚¯ã‚»ãƒ³ãƒˆ/å°æ–‡å­—/A-I"
+
+#: ../src/menu.c:154
 msgid "/Tags/Special/Accent/Lowercase/A-I/tearoff1"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/¥¢¥¯¥»¥ó¥È/¾®Ê¸»ú/A-I/tearoff1"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/ã‚¢ã‚¯ã‚»ãƒ³ãƒˆ/å°æ–‡å­—/A-I/tearoff1"
 
-#: ../src/menu.c:155
+#: ../src/menu.c:156
 #, fuzzy
-msgid "/Tags/Special/Accent/Lowercase/A-I/a grave"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/¥¢¥¯¥»¥ó¥È/¾®Ê¸»ú/A-I/a grave"
+msgid "/Tags/Special/Accent/Lowercase/A-I/a grave Ã "
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/ã‚¢ã‚¯ã‚»ãƒ³ãƒˆ/å°æ–‡å­—/A-I/a grave"
 
-#: ../src/menu.c:157
+#: ../src/menu.c:158
 #, fuzzy
-msgid "/Tags/Special/Accent/Lowercase/A-I/a acute"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/¥¢¥¯¥»¥ó¥È/¾®Ê¸»ú/A-I/a acute"
+msgid "/Tags/Special/Accent/Lowercase/A-I/a acute Ã¡"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/ã‚¢ã‚¯ã‚»ãƒ³ãƒˆ/å°æ–‡å­—/A-I/a acute"
 
-#: ../src/menu.c:159
+#: ../src/menu.c:160
 #, fuzzy
-msgid "/Tags/Special/Accent/Lowercase/A-I/a circumflex"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/¥¢¥¯¥»¥ó¥È/¾®Ê¸»ú/A-I/a circumflex"
+msgid "/Tags/Special/Accent/Lowercase/A-I/a circumflex Ã¢"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/ã‚¢ã‚¯ã‚»ãƒ³ãƒˆ/å°æ–‡å­—/A-I/a circumflex"
 
-#: ../src/menu.c:161
+#: ../src/menu.c:162
 #, fuzzy
-msgid "/Tags/Special/Accent/Lowercase/A-I/a tilde"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/¥¢¥¯¥»¥ó¥È/¾®Ê¸»ú/A-I/a tilde"
+msgid "/Tags/Special/Accent/Lowercase/A-I/a tilde Ã£"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/ã‚¢ã‚¯ã‚»ãƒ³ãƒˆ/å°æ–‡å­—/A-I/a tilde"
 
-#: ../src/menu.c:163
+#: ../src/menu.c:164
 #, fuzzy
-msgid "/Tags/Special/Accent/Lowercase/A-I/a ring"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/¥¢¥¯¥»¥ó¥È/¾®Ê¸»ú/A-I/a ring"
+msgid "/Tags/Special/Accent/Lowercase/A-I/a ring Ã¥"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/ã‚¢ã‚¯ã‚»ãƒ³ãƒˆ/å°æ–‡å­—/A-I/a ring"
 
-#: ../src/menu.c:165
+#: ../src/menu.c:166
 #, fuzzy
-msgid "/Tags/Special/Accent/Lowercase/A-I/ae ligature"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/¥¢¥¯¥»¥ó¥È/¾®Ê¸»ú/A-I/ae ligature"
+msgid "/Tags/Special/Accent/Lowercase/A-I/ae ligature Ã¦"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/ã‚¢ã‚¯ã‚»ãƒ³ãƒˆ/å°æ–‡å­—/A-I/ae ligature"
 
-#: ../src/menu.c:167
+#: ../src/menu.c:168
 #, fuzzy
-msgid "/Tags/Special/Accent/Lowercase/A-I/a diaeresis"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/¥¢¥¯¥»¥ó¥È/¾®Ê¸»ú/A-I/a diaeresis"
+msgid "/Tags/Special/Accent/Lowercase/A-I/a diaeresis Ã¤"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/ã‚¢ã‚¯ã‚»ãƒ³ãƒˆ/å°æ–‡å­—/A-I/a diaeresis"
 
-#: ../src/menu.c:169
+#: ../src/menu.c:170
 #, fuzzy
-msgid "/Tags/Special/Accent/Lowercase/A-I/c cedilla"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/¥¢¥¯¥»¥ó¥È/¾®Ê¸»ú/A-I/c cedilla"
+msgid "/Tags/Special/Accent/Lowercase/A-I/c cedilla Ã§"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/ã‚¢ã‚¯ã‚»ãƒ³ãƒˆ/å°æ–‡å­—/A-I/c cedilla"
 
-#: ../src/menu.c:171
+#: ../src/menu.c:172
 #, fuzzy
-msgid "/Tags/Special/Accent/Lowercase/A-I/e grave"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/¥¢¥¯¥»¥ó¥È/¾®Ê¸»ú/A-I/e grave"
+msgid "/Tags/Special/Accent/Lowercase/A-I/e grave Ã¨"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/ã‚¢ã‚¯ã‚»ãƒ³ãƒˆ/å°æ–‡å­—/A-I/e grave"
 
-#: ../src/menu.c:173
+#: ../src/menu.c:174
 #, fuzzy
-msgid "/Tags/Special/Accent/Lowercase/A-I/e acute"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/¥¢¥¯¥»¥ó¥È/¾®Ê¸»ú/A-I/e acute"
+msgid "/Tags/Special/Accent/Lowercase/A-I/e acute Ã©"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/ã‚¢ã‚¯ã‚»ãƒ³ãƒˆ/å°æ–‡å­—/A-I/e acute"
 
-#: ../src/menu.c:175
+#: ../src/menu.c:176
 #, fuzzy
-msgid "/Tags/Special/Accent/Lowercase/A-I/e circumflex"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/¥¢¥¯¥»¥ó¥È/¾®Ê¸»ú/A-I/e circumflex"
+msgid "/Tags/Special/Accent/Lowercase/A-I/e circumflex Ãª"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/ã‚¢ã‚¯ã‚»ãƒ³ãƒˆ/å°æ–‡å­—/A-I/e circumflex"
 
-#: ../src/menu.c:177
+#: ../src/menu.c:178
 #, fuzzy
-msgid "/Tags/Special/Accent/Lowercase/A-I/e diaeresis"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/¥¢¥¯¥»¥ó¥È/¾®Ê¸»ú/A-I/e diaeresis"
+msgid "/Tags/Special/Accent/Lowercase/A-I/e diaeresis Ã«"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/ã‚¢ã‚¯ã‚»ãƒ³ãƒˆ/å°æ–‡å­—/A-I/e diaeresis"
 
-#: ../src/menu.c:179
+#: ../src/menu.c:180
 #, fuzzy
-msgid "/Tags/Special/Accent/Lowercase/A-I/i grave"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/¥¢¥¯¥»¥ó¥È/¾®Ê¸»ú/A-I/i grave"
+msgid "/Tags/Special/Accent/Lowercase/A-I/i grave Ã¬"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/ã‚¢ã‚¯ã‚»ãƒ³ãƒˆ/å°æ–‡å­—/A-I/i grave"
 
-#: ../src/menu.c:181
+#: ../src/menu.c:182
 #, fuzzy
-msgid "/Tags/Special/Accent/Lowercase/A-I/i acute"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/¥¢¥¯¥»¥ó¥È/¾®Ê¸»ú/A-I/i acute"
+msgid "/Tags/Special/Accent/Lowercase/A-I/i acute Ã­"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/ã‚¢ã‚¯ã‚»ãƒ³ãƒˆ/å°æ–‡å­—/A-I/i acute"
 
-#: ../src/menu.c:183
+#: ../src/menu.c:184
 #, fuzzy
-msgid "/Tags/Special/Accent/Lowercase/A-I/i circumflex"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/¥¢¥¯¥»¥ó¥È/¾®Ê¸»ú/A-I/i circumflex"
+msgid "/Tags/Special/Accent/Lowercase/A-I/i circumflex Ã®"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/ã‚¢ã‚¯ã‚»ãƒ³ãƒˆ/å°æ–‡å­—/A-I/i circumflex"
 
-#: ../src/menu.c:185
+#: ../src/menu.c:186
 #, fuzzy
-msgid "/Tags/Special/Accent/Lowercase/A-I/i diaeresis"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/¥¢¥¯¥»¥ó¥È/¾®Ê¸»ú/A-I/i diaeresis"
-
-#: ../src/menu.c:187
-#, fuzzy
-msgid "/Tags/Special/Accent/Lowercase/_J-Z"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/¥¢¥¯¥»¥ó¥È/¾®Ê¸»ú/J-Z"
+msgid "/Tags/Special/Accent/Lowercase/A-I/i diaeresis Ã¯"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/ã‚¢ã‚¯ã‚»ãƒ³ãƒˆ/å°æ–‡å­—/A-I/i diaeresis"
 
 #: ../src/menu.c:188
+#, fuzzy
+msgid "/Tags/Special/Accent/Lowercase/_J-Z"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/ã‚¢ã‚¯ã‚»ãƒ³ãƒˆ/å°æ–‡å­—/J-Z"
+
+#: ../src/menu.c:189
 msgid "/Tags/Special/Accent/Lowercase/J-Z/tearoff1"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/¥¢¥¯¥»¥ó¥È/¾®Ê¸»ú/J-Z/tearoff1"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/ã‚¢ã‚¯ã‚»ãƒ³ãƒˆ/å°æ–‡å­—/J-Z/tearoff1"
 
-#: ../src/menu.c:190
+#: ../src/menu.c:191
 #, fuzzy
-msgid "/Tags/Special/Accent/Lowercase/J-Z/n tilde"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/¥¢¥¯¥»¥ó¥È/¾®Ê¸»ú/J-Z/n tilde"
+msgid "/Tags/Special/Accent/Lowercase/J-Z/n tilde Ã±"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/ã‚¢ã‚¯ã‚»ãƒ³ãƒˆ/å°æ–‡å­—/J-Z/n tilde"
 
-#: ../src/menu.c:192
+#: ../src/menu.c:193
 #, fuzzy
-msgid "/Tags/Special/Accent/Lowercase/J-Z/o grave"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/¥¢¥¯¥»¥ó¥È/¾®Ê¸»ú/J-Z/o grave"
-
-#: ../src/menu.c:194
-#, fuzzy
-msgid "/Tags/Special/Accent/Lowercase/J-Z/o acute"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/¥¢¥¯¥»¥ó¥È/¾®Ê¸»ú/J-Z/o acute"
+msgid "/Tags/Special/Accent/Lowercase/J-Z/o grave Ã²"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/ã‚¢ã‚¯ã‚»ãƒ³ãƒˆ/å°æ–‡å­—/J-Z/o grave"
 
 #: ../src/menu.c:195
 #, fuzzy
-msgid "/Tags/Special/Accent/Lowercase/J-Z/oe ligature"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/¥¢¥¯¥»¥ó¥È/¾®Ê¸»ú/A-I/ae ligature"
+msgid "/Tags/Special/Accent/Lowercase/J-Z/o acute Ã³"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/ã‚¢ã‚¯ã‚»ãƒ³ãƒˆ/å°æ–‡å­—/J-Z/o acute"
 
 #: ../src/menu.c:196
 #, fuzzy
-msgid "/Tags/Special/Accent/Lowercase/J-Z/o circumflex"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/¥¢¥¯¥»¥ó¥È/¾®Ê¸»ú/J-Z/o circumflex"
+msgid "/Tags/Special/Accent/Lowercase/J-Z/oe ligature Ã¦"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/ã‚¢ã‚¯ã‚»ãƒ³ãƒˆ/å°æ–‡å­—/A-I/ae ligature"
 
-#: ../src/menu.c:198
+#: ../src/menu.c:197
 #, fuzzy
-msgid "/Tags/Special/Accent/Lowercase/J-Z/o tilde"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/¥¢¥¯¥»¥ó¥È/¾®Ê¸»ú/J-Z/o tilde"
+msgid "/Tags/Special/Accent/Lowercase/J-Z/o circumflex Ã´"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/ã‚¢ã‚¯ã‚»ãƒ³ãƒˆ/å°æ–‡å­—/J-Z/o circumflex"
 
-#: ../src/menu.c:200
+#: ../src/menu.c:199
 #, fuzzy
-msgid "/Tags/Special/Accent/Lowercase/J-Z/o diaeresis"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/¥¢¥¯¥»¥ó¥È/¾®Ê¸»ú/J-Z/o diaeresis"
+msgid "/Tags/Special/Accent/Lowercase/J-Z/o tilde Ãµ"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/ã‚¢ã‚¯ã‚»ãƒ³ãƒˆ/å°æ–‡å­—/J-Z/o tilde"
 
-#: ../src/menu.c:202
+#: ../src/menu.c:201
 #, fuzzy
-msgid "/Tags/Special/Accent/Lowercase/J-Z/o slash"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/¥¢¥¯¥»¥ó¥È/¾®Ê¸»ú/J-Z/o slash"
+msgid "/Tags/Special/Accent/Lowercase/J-Z/o diaeresis Ã¶"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/ã‚¢ã‚¯ã‚»ãƒ³ãƒˆ/å°æ–‡å­—/J-Z/o diaeresis"
 
-#: ../src/menu.c:204
+#: ../src/menu.c:203
 #, fuzzy
-msgid "/Tags/Special/Accent/Lowercase/J-Z/u grave"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/¥¢¥¯¥»¥ó¥È/¾®Ê¸»ú/J-Z/u grave"
+msgid "/Tags/Special/Accent/Lowercase/J-Z/o slash Ã¸"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/ã‚¢ã‚¯ã‚»ãƒ³ãƒˆ/å°æ–‡å­—/J-Z/o slash"
 
-#: ../src/menu.c:206
+#: ../src/menu.c:205
 #, fuzzy
-msgid "/Tags/Special/Accent/Lowercase/J-Z/u acute"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/¥¢¥¯¥»¥ó¥È/¾®Ê¸»ú/J-Z/u acute"
+msgid "/Tags/Special/Accent/Lowercase/J-Z/u grave Ã¹"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/ã‚¢ã‚¯ã‚»ãƒ³ãƒˆ/å°æ–‡å­—/J-Z/u grave"
 
-#: ../src/menu.c:208
+#: ../src/menu.c:207
 #, fuzzy
-msgid "/Tags/Special/Accent/Lowercase/J-Z/u circumflex"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/¥¢¥¯¥»¥ó¥È/¾®Ê¸»ú/J-Z/u circumflex"
+msgid "/Tags/Special/Accent/Lowercase/J-Z/u acute Ãº"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/ã‚¢ã‚¯ã‚»ãƒ³ãƒˆ/å°æ–‡å­—/J-Z/u acute"
 
-#: ../src/menu.c:210
+#: ../src/menu.c:209
 #, fuzzy
-msgid "/Tags/Special/Accent/Lowercase/J-Z/u diaeresis"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/¥¢¥¯¥»¥ó¥È/¾®Ê¸»ú/J-Z/u diaeresis"
+msgid "/Tags/Special/Accent/Lowercase/J-Z/u circumflex Ã»"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/ã‚¢ã‚¯ã‚»ãƒ³ãƒˆ/å°æ–‡å­—/J-Z/u circumflex"
 
-#: ../src/menu.c:212
+#: ../src/menu.c:211
 #, fuzzy
-msgid "/Tags/Special/Accent/Lowercase/J-Z/y acute"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/¥¢¥¯¥»¥ó¥È/¾®Ê¸»ú/J-Z/y acute"
+msgid "/Tags/Special/Accent/Lowercase/J-Z/u diaeresis Ã¼"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/ã‚¢ã‚¯ã‚»ãƒ³ãƒˆ/å°æ–‡å­—/J-Z/u diaeresis"
 
-#: ../src/menu.c:214
+#: ../src/menu.c:213
 #, fuzzy
-msgid "/Tags/Special/Accent/Lowercase/J-Z/y diaeresis"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/¥¢¥¯¥»¥ó¥È/¾®Ê¸»ú/J-Z/y diaeresis"
+msgid "/Tags/Special/Accent/Lowercase/J-Z/y acute Ã½"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/ã‚¢ã‚¯ã‚»ãƒ³ãƒˆ/å°æ–‡å­—/J-Z/y acute"
 
-#: ../src/menu.c:216
-msgid "/Tags/Special/Accent/separator"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/¥¢¥¯¥»¥ó¥È/separator"
+#: ../src/menu.c:215
+#, fuzzy
+msgid "/Tags/Special/Accent/Lowercase/J-Z/y diaeresis Ã¿"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/ã‚¢ã‚¯ã‚»ãƒ³ãƒˆ/å°æ–‡å­—/J-Z/y diaeresis"
 
 #: ../src/menu.c:217
-#, fuzzy
-msgid "/Tags/Special/Accent/U_mlaut"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/¥¢¥¯¥»¥ó¥È/Umlaut"
+msgid "/Tags/Special/Accent/separator"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/ã‚¢ã‚¯ã‚»ãƒ³ãƒˆ/separator"
 
 #: ../src/menu.c:218
 #, fuzzy
-msgid "/Tags/Special/Accent/_Acute"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/¥¢¥¯¥»¥ó¥È/Acute"
+msgid "/Tags/Special/Accent/U_mlaut Â¨"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/ã‚¢ã‚¯ã‚»ãƒ³ãƒˆ/Umlaut"
 
 #: ../src/menu.c:219
 #, fuzzy
-msgid "/Tags/Special/Accent/_Cedilla"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/¥¢¥¯¥»¥ó¥È/Cedilla"
+msgid "/Tags/Special/Accent/_Acute Â´"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/ã‚¢ã‚¯ã‚»ãƒ³ãƒˆ/Acute"
 
 #: ../src/menu.c:220
 #, fuzzy
-msgid "/Tags/Special/_Currency"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/ÄÌ²ßµ­¹æ"
+msgid "/Tags/Special/Accent/_Cedilla Â¸"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/ã‚¢ã‚¯ã‚»ãƒ³ãƒˆ/Cedilla"
 
 #: ../src/menu.c:221
-msgid "/Tags/Special/Currency/tearoff1"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/ÄÌ²ßµ­¹æ/tearoff1"
+#, fuzzy
+msgid "/Tags/Special/_Currency"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/é€šè²¨è¨˜å·"
 
 #: ../src/menu.c:222
-#, fuzzy
-msgid "/Tags/Special/Currency/_Cent sign"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/ÄÌ²ßµ­¹æ/¡ñ¥»¥ó¥È"
+msgid "/Tags/Special/Currency/tearoff1"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/é€šè²¨è¨˜å·/tearoff1"
 
-#: ../src/menu.c:224
+#: ../src/menu.c:223
 #, fuzzy
-msgid "/Tags/Special/Currency/_Pound sterling"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/ÄÌ²ßµ­¹æ/¡ò¥İ¥ó¥É"
+msgid "/Tags/Special/Currency/_Cent sign Â¢"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/é€šè²¨è¨˜å·/Â¢ã‚»ãƒ³ãƒˆ"
 
-#: ../src/menu.c:226
+#: ../src/menu.c:225
 #, fuzzy
-msgid "/Tags/Special/Currency/C_urrency sign"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/ÄÌ²ßµ­¹æ/Currency sign"
+msgid "/Tags/Special/Currency/_Pound sterling Â£"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/é€šè²¨è¨˜å·/Â£ãƒãƒ³ãƒ‰"
 
-#: ../src/menu.c:228
+#: ../src/menu.c:227
 #, fuzzy
-msgid "/Tags/Special/Currency/_Yen sign"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/ÄÌ²ßµ­¹æ/¡ï±ß"
+msgid "/Tags/Special/Currency/C_urrency sign Â¤"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/é€šè²¨è¨˜å·/Currency sign"
 
 #: ../src/menu.c:229
 #, fuzzy
-msgid "/Tags/Special/Currency/_Euro"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/ÄÌ²ßµ­¹æ"
+msgid "/Tags/Special/Currency/_Yen sign Â¥"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/é€šè²¨è¨˜å·/ï¿¥å††"
 
 #: ../src/menu.c:230
 #, fuzzy
-msgid "/Tags/Special/_Math-Science"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/¿ô³Ø-²Ê³Øµ­¹æ"
+msgid "/Tags/Special/Currency/_Euro "
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/é€šè²¨è¨˜å·"
 
 #: ../src/menu.c:231
-msgid "/Tags/Special/Math-Science/tearoff1"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/¿ô³Ø-²Ê³Øµ­¹æ/tearoff1"
+#, fuzzy
+msgid "/Tags/Special/_Math-Science"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/æ•°å­¦-ç§‘å­¦è¨˜å·"
 
 #: ../src/menu.c:232
-#, fuzzy
-msgid "/Tags/Special/Math-Science/Logical _not sign"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/¿ô³Ø-²Ê³Øµ­¹æ/¢ÌÈİÄê"
+msgid "/Tags/Special/Math-Science/tearoff1"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/æ•°å­¦-ç§‘å­¦è¨˜å·/tearoff1"
 
-#: ../src/menu.c:234
+#: ../src/menu.c:233
 #, fuzzy
-msgid "/Tags/Special/Math-Science/_Multiplication sign"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/¿ô³Ø-²Ê³Øµ­¹æ/¡ß¾è»»"
+msgid "/Tags/Special/Math-Science/Logical _not sign Â¬"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/æ•°å­¦-ç§‘å­¦è¨˜å·/Â¬å¦å®š"
 
-#: ../src/menu.c:236
+#: ../src/menu.c:235
 #, fuzzy
-msgid "/Tags/Special/Math-Science/_Division sign"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/¿ô³Ø-²Ê³Øµ­¹æ/¡à½ü»»"
+msgid "/Tags/Special/Math-Science/_Multiplication sign Ã—"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/æ•°å­¦-ç§‘å­¦è¨˜å·/Ã—ä¹—ç®—"
 
-#: ../src/menu.c:238
+#: ../src/menu.c:237
 #, fuzzy
-msgid "/Tags/Special/Math-Science/_Plus-minus sign"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/¿ô³Ø-²Ê³Øµ­¹æ/¡Ş¥×¥é¥¹¥Ş¥¤¥Ê¥¹"
+msgid "/Tags/Special/Math-Science/_Division sign Ã·"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/æ•°å­¦-ç§‘å­¦è¨˜å·/Ã·é™¤ç®—"
 
-#: ../src/menu.c:240
+#: ../src/menu.c:239
 #, fuzzy
-msgid "/Tags/Special/Math-Science/_Less-than sign"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/¿ô³Ø-²Ê³Øµ­¹æ/¡ã¾®¤Ê¤ê"
+msgid "/Tags/Special/Math-Science/_Plus-minus sign Â±"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/æ•°å­¦-ç§‘å­¦è¨˜å·/Â±ãƒ—ãƒ©ã‚¹ãƒã‚¤ãƒŠã‚¹"
 
-#: ../src/menu.c:242
+#: ../src/menu.c:241
 #, fuzzy
-msgid "/Tags/Special/Math-Science/_Greater-than sign"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/¿ô³Ø-²Ê³Øµ­¹æ/¡äÂç¤Ê¤ê"
+msgid "/Tags/Special/Math-Science/_Less-than sign <"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/æ•°å­¦-ç§‘å­¦è¨˜å·/ï¼œå°ãªã‚Š"
 
-#: ../src/menu.c:244
+#: ../src/menu.c:243
 #, fuzzy
-msgid "/Tags/Special/Math-Science/Superscript _1"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/¿ô³Ø-²Ê³Øµ­¹æ/¾åÉÕ¤­ 1"
+msgid "/Tags/Special/Math-Science/_Greater-than sign >"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/æ•°å­¦-ç§‘å­¦è¨˜å·/ï¼å¤§ãªã‚Š"
 
-#: ../src/menu.c:246
+#: ../src/menu.c:245
 #, fuzzy
-msgid "/Tags/Special/Math-Science/Superscript _2"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/¿ô³Ø-²Ê³Øµ­¹æ/¾åÉÕ¤­ 2"
+msgid "/Tags/Special/Math-Science/Superscript _1 Â¹"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/æ•°å­¦-ç§‘å­¦è¨˜å·/ä¸Šä»˜ã 1"
 
-#: ../src/menu.c:248
+#: ../src/menu.c:247
 #, fuzzy
-msgid "/Tags/Special/Math-Science/Superscript _3"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/¿ô³Ø-²Ê³Øµ­¹æ/¾åÉÕ¤­ 3"
+msgid "/Tags/Special/Math-Science/Superscript _2 Â²"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/æ•°å­¦-ç§‘å­¦è¨˜å·/ä¸Šä»˜ã 2"
 
-#: ../src/menu.c:250
+#: ../src/menu.c:249
 #, fuzzy
-msgid "/Tags/Special/Math-Science/One _quarter"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/¿ô³Ø-²Ê³Øµ­¹æ/1¡¿4"
+msgid "/Tags/Special/Math-Science/Superscript _3 Â³"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/æ•°å­¦-ç§‘å­¦è¨˜å·/ä¸Šä»˜ã 3"
 
-#: ../src/menu.c:252
+#: ../src/menu.c:251
 #, fuzzy
-msgid "/Tags/Special/Math-Science/One _half"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/¿ô³Ø-²Ê³Øµ­¹æ/1¡¿2"
+msgid "/Tags/Special/Math-Science/One _quarter Â¼"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/æ•°å­¦-ç§‘å­¦è¨˜å·/1ï¼4"
 
-#: ../src/menu.c:254
+#: ../src/menu.c:253
 #, fuzzy
-msgid "/Tags/Special/Math-Science/_Three quarters"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/¿ô³Ø-²Ê³Øµ­¹æ/3¡¿4"
+msgid "/Tags/Special/Math-Science/One _half Â½"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/æ•°å­¦-ç§‘å­¦è¨˜å·/1ï¼2"
 
-#: ../src/menu.c:256
+#: ../src/menu.c:255
 #, fuzzy
-msgid "/Tags/Special/Math-Science/Deg_ree sign"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/¿ô³Ø-²Ê³Øµ­¹æ/¡ëÅÙ"
+msgid "/Tags/Special/Math-Science/_Three quarters Â¾"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/æ•°å­¦-ç§‘å­¦è¨˜å·/3ï¼4"
 
-#: ../src/menu.c:258
+#: ../src/menu.c:257
 #, fuzzy
-msgid "/Tags/Special/_Non Latin"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/Èó¥é¥Æ¥óÊ¸»ú"
+msgid "/Tags/Special/Math-Science/Deg_ree sign Â°"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/æ•°å­¦-ç§‘å­¦è¨˜å·/Â°åº¦"
 
 #: ../src/menu.c:259
-msgid "/Tags/Special/Non Latin/tearoff1"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/Èó¥é¥Æ¥óÊ¸»ú/tearoff1"
+#, fuzzy
+msgid "/Tags/Special/_Non Latin"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/éãƒ©ãƒ†ãƒ³æ–‡å­—"
 
 #: ../src/menu.c:260
-#, fuzzy
-msgid "/Tags/Special/Non Latin/_ETH (Icelandic)"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/Èó¥é¥Æ¥óÊ¸»ú/ETH (¥¢¥¤¥¹¥é¥ó¥É)"
+msgid "/Tags/Special/Non Latin/tearoff1"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/éãƒ©ãƒ†ãƒ³æ–‡å­—/tearoff1"
 
-#: ../src/menu.c:262
+#: ../src/menu.c:261
 #, fuzzy
-msgid "/Tags/Special/Non Latin/_THORN (Icelandic)"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/Èó¥é¥Æ¥óÊ¸»ú/THORN (¥¢¥¤¥¹¥é¥ó¥É)"
+msgid "/Tags/Special/Non Latin/_ETH (Icelandic) Ã"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/éãƒ©ãƒ†ãƒ³æ–‡å­—/ETH (ã‚¢ã‚¤ã‚¹ãƒ©ãƒ³ãƒ‰)"
 
-#: ../src/menu.c:264
+#: ../src/menu.c:263
 #, fuzzy
-msgid "/Tags/Special/Non Latin/et_h (Icelandic)"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/Èó¥é¥Æ¥óÊ¸»ú/eth (¥¢¥¤¥¹¥é¥ó¥É)"
+msgid "/Tags/Special/Non Latin/_THORN (Icelandic) Ã"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/éãƒ©ãƒ†ãƒ³æ–‡å­—/THORN (ã‚¢ã‚¤ã‚¹ãƒ©ãƒ³ãƒ‰)"
 
-#: ../src/menu.c:266
+#: ../src/menu.c:265
 #, fuzzy
-msgid "/Tags/Special/Non Latin/th_orn"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/Èó¥é¥Æ¥óÊ¸»ú/thorn"
+msgid "/Tags/Special/Non Latin/et_h (Icelandic) Ã°"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/éãƒ©ãƒ†ãƒ³æ–‡å­—/eth (ã‚¢ã‚¤ã‚¹ãƒ©ãƒ³ãƒ‰)"
 
 #: ../src/menu.c:267
 #, fuzzy
-msgid "/Tags/Special/Non Latin/Sharp _s"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/Èó¥é¥Æ¥óÊ¸»ú/¥¨¥¹¥Ä¥§¥Ã¥È"
+msgid "/Tags/Special/Non Latin/th_orn Ã¿"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/éãƒ©ãƒ†ãƒ³æ–‡å­—/thorn"
 
 #: ../src/menu.c:268
 #, fuzzy
-msgid "/Tags/Special/Non Latin/_Micro sign"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/Èó¥é¥Æ¥óÊ¸»ú/¥Ş¥¤¥¯¥í"
+msgid "/Tags/Special/Non Latin/Sharp _s ÃŸ"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/éãƒ©ãƒ†ãƒ³æ–‡å­—/ã‚¨ã‚¹ãƒ„ã‚§ãƒƒãƒˆ"
 
-#: ../src/menu.c:270
+#: ../src/menu.c:269
 #, fuzzy
-msgid "/Tags/Special/_Other"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/¤½¤ÎÂ¾"
+msgid "/Tags/Special/Non Latin/_Micro sign Âµ"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/éãƒ©ãƒ†ãƒ³æ–‡å­—/ãƒã‚¤ã‚¯ãƒ­"
 
 #: ../src/menu.c:271
-msgid "/Tags/Special/Other/tearoff1"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/¤½¤ÎÂ¾/tearoff1"
+#, fuzzy
+msgid "/Tags/Special/_Other"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/ãã®ä»–"
 
 #: ../src/menu.c:272
+msgid "/Tags/Special/Other/tearoff1"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/ãã®ä»–/tearoff1"
+
+#: ../src/menu.c:273
 #, fuzzy
 msgid "/Tags/Special/Other/_Non-breaking space"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/¤½¤ÎÂ¾/²ş¹Ô¤Ê¤·¶õÇò"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/ãã®ä»–/æ”¹è¡Œãªã—ç©ºç™½"
 
-#: ../src/menu.c:274
+#: ../src/menu.c:275
 #, fuzzy
-msgid "/Tags/Special/Other/_Section sign"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/¤½¤ÎÂ¾/¥»¥¯¥·¥ç¥ó"
+msgid "/Tags/Special/Other/_Section sign Â§"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/ãã®ä»–/ã‚»ã‚¯ã‚·ãƒ§ãƒ³"
 
-#: ../src/menu.c:276
+#: ../src/menu.c:277
 #, fuzzy
-msgid "/Tags/Special/Other/_Copyright sign"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/¤½¤ÎÂ¾/¥³¥Ô¡¼¥é¥¤¥È"
+msgid "/Tags/Special/Other/_Copyright sign Â©"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/ãã®ä»–/ã‚³ãƒ”ãƒ¼ãƒ©ã‚¤ãƒˆ"
 
-#: ../src/menu.c:278
+#: ../src/menu.c:279
 #, fuzzy
-msgid "/Tags/Special/Other/_Left angle quotes"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/¤½¤ÎÂ¾/º¸³Ñ°úÍÑÉä"
+msgid "/Tags/Special/Other/_Left angle quotes Â«"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/ãã®ä»–/å·¦è§’å¼•ç”¨ç¬¦"
 
-#: ../src/menu.c:280
+#: ../src/menu.c:281
 #, fuzzy
-msgid "/Tags/Special/Other/_Right angle quotes"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/¤½¤ÎÂ¾/±¦³Ñ°úÍÑÉä"
+msgid "/Tags/Special/Other/_Right angle quotes Â»"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/ãã®ä»–/å³è§’å¼•ç”¨ç¬¦"
 
-#: ../src/menu.c:282
+#: ../src/menu.c:283
 #, fuzzy
-msgid "/Tags/Special/Other/Registered _trademark"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/¤½¤ÎÂ¾/ÅĞÏ¿¾¦É¸"
+msgid "/Tags/Special/Other/Registered _trademark Â®"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/ãã®ä»–/ç™»éŒ²å•†æ¨™"
 
-#: ../src/menu.c:284
+#: ../src/menu.c:285
 #, fuzzy
-msgid "/Tags/Special/Other/Inverted _exclamation"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/¤½¤ÎÂ¾/µÕ´¶Ã²Éä"
+msgid "/Tags/Special/Other/Inverted _exclamation Â¡"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/ãã®ä»–/é€†æ„Ÿå˜†ç¬¦"
 
-#: ../src/menu.c:286
+#: ../src/menu.c:287
 #, fuzzy
-msgid "/Tags/Special/Other/Inverted _question mark"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/¤½¤ÎÂ¾/µÕµ¿ÌäÉä"
+msgid "/Tags/Special/Other/Inverted _question mark Â¿"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/ãã®ä»–/é€†ç–‘å•ç¬¦"
 
-#: ../src/menu.c:288
+#: ../src/menu.c:289
 #, fuzzy
-msgid "/Tags/Special/Other/_Feminine ordinal"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/¤½¤ÎÂ¾/½÷À­·Á½ø¿ô"
+msgid "/Tags/Special/Other/_Feminine ordinal Âª"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/ãã®ä»–/å¥³æ€§å½¢åºæ•°"
 
-#: ../src/menu.c:290
+#: ../src/menu.c:291
 #, fuzzy
-msgid "/Tags/Special/Other/_Masculine ordinal"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/¤½¤ÎÂ¾/ÃËÀ­·Á½ø¿ô"
+msgid "/Tags/Special/Other/_Masculine ordinal Âº"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/ãã®ä»–/ç”·æ€§å½¢åºæ•°"
 
-#: ../src/menu.c:292
+#: ../src/menu.c:293
 #, fuzzy
-msgid "/Tags/Special/Other/_Pilcrow (paragraph sign)"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/¤½¤ÎÂ¾/¥Ô¥ë¥¯¥í(¥Ñ¥é¥°¥é¥Õ)"
-
-#: ../src/menu.c:294
-#, fuzzy
-msgid "/Tags/Special/Other/_Broken bar"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/¤½¤ÎÂ¾/ÃæÀÚ¤ì½ÄËÀ"
+msgid "/Tags/Special/Other/_Pilcrow (paragraph sign) Â¶"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/ãã®ä»–/ãƒ”ãƒ«ã‚¯ãƒ­(ãƒ‘ãƒ©ã‚°ãƒ©ãƒ•)"
 
 #: ../src/menu.c:295
 #, fuzzy
-msgid "/Tags/Special/Other/Soft _hypen"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/¤½¤ÎÂ¾/¥½¥Õ¥È¥Ï¥¤¥Õ¥ó"
+msgid "/Tags/Special/Other/_Broken bar Â¦"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/ãã®ä»–/ä¸­åˆ‡ã‚Œç¸¦æ£’"
 
 #: ../src/menu.c:296
 #, fuzzy
-msgid "/Tags/Special/Other/Spa_cing macron"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/¤½¤ÎÂ¾/¥ª¡¼¥Ğ¡¼¥é¥¤¥ó"
+msgid "/Tags/Special/Other/Soft _hypen -"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/ãã®ä»–/ã‚½ãƒ•ãƒˆãƒã‚¤ãƒ•ãƒ³"
 
-#: ../src/menu.c:298
+#: ../src/menu.c:297
 #, fuzzy
-msgid "/Tags/Special/Other/Middle _dot"
-msgstr "/¥¿¥°/ÆÃ¼ìÊ¸»ú/¤½¤ÎÂ¾/Ãæ¹õ"
+msgid "/Tags/Special/Other/Spa_cing macron Â¯"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/ãã®ä»–/ã‚ªãƒ¼ãƒãƒ¼ãƒ©ã‚¤ãƒ³"
 
-#: ../src/menu.c:300
+#: ../src/menu.c:299
 #, fuzzy
-msgid "/Tags/_Format by layout"
-msgstr "/¥¿¥°/³°´Ñ¤Ç½ñ¼°»ØÄê"
+msgid "/Tags/Special/Other/Middle _dot Â·"
+msgstr "/ã‚¿ã‚°/ç‰¹æ®Šæ–‡å­—/ãã®ä»–/ä¸­é»’"
 
 #: ../src/menu.c:301
-msgid "/Tags/Format by layout/tearoff1"
-msgstr "/¥¿¥°/³°´Ñ¤Ç½ñ¼°»ØÄê/tearoff1"
+#, fuzzy
+msgid "/Tags/_Format by layout"
+msgstr "/ã‚¿ã‚°/å¤–è¦³ã§æ›¸å¼æŒ‡å®š"
 
 #: ../src/menu.c:302
-#, fuzzy
-msgid "/Tags/Format by layout/_Bold"
-msgstr "/¥¿¥°/³°´Ñ¤Ç½ñ¼°»ØÄê/¥Ü¡¼¥ë¥É"
+msgid "/Tags/Format by layout/tearoff1"
+msgstr "/ã‚¿ã‚°/å¤–è¦³ã§æ›¸å¼æŒ‡å®š/tearoff1"
 
 #: ../src/menu.c:303
 #, fuzzy
-msgid "/Tags/Format by layout/_Italic"
-msgstr "/¥¿¥°/³°´Ñ¤Ç½ñ¼°»ØÄê/¥¤¥¿¥ê¥Ã¥¯"
+msgid "/Tags/Format by layout/_Bold"
+msgstr "/ã‚¿ã‚°/å¤–è¦³ã§æ›¸å¼æŒ‡å®š/ãƒœãƒ¼ãƒ«ãƒ‰"
 
 #: ../src/menu.c:304
 #, fuzzy
-msgid "/Tags/Format by layout/_Underline"
-msgstr "/¥¿¥°/³°´Ñ¤Ç½ñ¼°»ØÄê/²¼Àş"
+msgid "/Tags/Format by layout/_Italic"
+msgstr "/ã‚¿ã‚°/å¤–è¦³ã§æ›¸å¼æŒ‡å®š/ã‚¤ã‚¿ãƒªãƒƒã‚¯"
 
 #: ../src/menu.c:305
 #, fuzzy
-msgid "/Tags/Format by layout/_Strikeout"
-msgstr "/¥¿¥°/³°´Ñ¤Ç½ñ¼°»ØÄê/¼è¤ê¾Ã¤·Àş"
+msgid "/Tags/Format by layout/_Underline"
+msgstr "/ã‚¿ã‚°/å¤–è¦³ã§æ›¸å¼æŒ‡å®š/ä¸‹ç·š"
 
 #: ../src/menu.c:306
 #, fuzzy
-msgid "/Tags/F_ormat by context"
-msgstr "/¥¿¥°/¹½À®Í×ÁÇ¤Ç½ñ¼°»ØÄê"
+msgid "/Tags/Format by layout/_Strikeout"
+msgstr "/ã‚¿ã‚°/å¤–è¦³ã§æ›¸å¼æŒ‡å®š/å–ã‚Šæ¶ˆã—ç·š"
 
 #: ../src/menu.c:307
-msgid "/Tags/Format by context/tearoff1"
-msgstr "/¥¿¥°/¹½À®Í×ÁÇ¤Ç½ñ¼°»ØÄê/tearoff1"
+#, fuzzy
+msgid "/Tags/F_ormat by context"
+msgstr "/ã‚¿ã‚°/æ§‹æˆè¦ç´ ã§æ›¸å¼æŒ‡å®š"
 
 #: ../src/menu.c:308
-#, fuzzy
-msgid "/Tags/Format by context/_Strong"
-msgstr "/¥¿¥°/¹½À®Í×ÁÇ¤Ç½ñ¼°»ØÄê/¤è¤ê¶¯¤¤¶¯Ä´(Strong)"
+msgid "/Tags/Format by context/tearoff1"
+msgstr "/ã‚¿ã‚°/æ§‹æˆè¦ç´ ã§æ›¸å¼æŒ‡å®š/tearoff1"
 
 #: ../src/menu.c:309
 #, fuzzy
-msgid "/Tags/Format by context/_Emphasis"
-msgstr "/¥¿¥°/¹½À®Í×ÁÇ¤Ç½ñ¼°»ØÄê/¶¯Ä´(Em)"
+msgid "/Tags/Format by context/_Strong"
+msgstr "/ã‚¿ã‚°/æ§‹æˆè¦ç´ ã§æ›¸å¼æŒ‡å®š/ã‚ˆã‚Šå¼·ã„å¼·èª¿(Strong)"
 
 #: ../src/menu.c:310
 #, fuzzy
-msgid "/Tags/Format by context/_Define"
-msgstr "/¥¿¥°/¹½À®Í×ÁÇ¤Ç½ñ¼°»ØÄê/ÄêµÁ(Dfn)"
+msgid "/Tags/Format by context/_Emphasis"
+msgstr "/ã‚¿ã‚°/æ§‹æˆè¦ç´ ã§æ›¸å¼æŒ‡å®š/å¼·èª¿(Em)"
 
 #: ../src/menu.c:311
 #, fuzzy
-msgid "/Tags/Format by context/_Code"
-msgstr "/¥¿¥°/¹½À®Í×ÁÇ¤Ç½ñ¼°»ØÄê/¥³¡¼¥É(Code)"
+msgid "/Tags/Format by context/_Define"
+msgstr "/ã‚¿ã‚°/æ§‹æˆè¦ç´ ã§æ›¸å¼æŒ‡å®š/å®šç¾©(Dfn)"
 
 #: ../src/menu.c:312
 #, fuzzy
-msgid "/Tags/Format by context/Sa_mple"
-msgstr "/¥¿¥°/¹½À®Í×ÁÇ¤Ç½ñ¼°»ØÄê/¥µ¥ó¥×¥ë½ĞÎÏ(Samp)"
+msgid "/Tags/Format by context/_Code"
+msgstr "/ã‚¿ã‚°/æ§‹æˆè¦ç´ ã§æ›¸å¼æŒ‡å®š/ã‚³ãƒ¼ãƒ‰(Code)"
 
 #: ../src/menu.c:313
 #, fuzzy
-msgid "/Tags/Format by context/_Keyboard"
-msgstr "/¥¿¥°/¹½À®Í×ÁÇ¤Ç½ñ¼°»ØÄê/¥­¡¼¥Ü¡¼¥É(Kbd)"
+msgid "/Tags/Format by context/Sa_mple"
+msgstr "/ã‚¿ã‚°/æ§‹æˆè¦ç´ ã§æ›¸å¼æŒ‡å®š/ã‚µãƒ³ãƒ—ãƒ«å‡ºåŠ›(Samp)"
 
 #: ../src/menu.c:314
 #, fuzzy
-msgid "/Tags/Format by context/_Variable"
-msgstr "/¥¿¥°/¹½À®Í×ÁÇ¤Ç½ñ¼°»ØÄê/ÊÑ¿ô(Var)"
+msgid "/Tags/Format by context/_Keyboard"
+msgstr "/ã‚¿ã‚°/æ§‹æˆè¦ç´ ã§æ›¸å¼æŒ‡å®š/ã‚­ãƒ¼ãƒœãƒ¼ãƒ‰(Kbd)"
 
 #: ../src/menu.c:315
 #, fuzzy
-msgid "/Tags/Format by context/Ci_tation"
-msgstr "/¥¿¥°/¹½À®Í×ÁÇ¤Ç½ñ¼°»ØÄê/°úÍÑ(Cite)"
+msgid "/Tags/Format by context/_Variable"
+msgstr "/ã‚¿ã‚°/æ§‹æˆè¦ç´ ã§æ›¸å¼æŒ‡å®š/å¤‰æ•°(Var)"
 
 #: ../src/menu.c:316
 #, fuzzy
-msgid "/Tags/Format by context/_Abbreviation"
-msgstr "/¥¿¥°/¹½À®Í×ÁÇ¤Ç½ñ¼°»ØÄê/Î¬¸ì(Abbrev)"
+msgid "/Tags/Format by context/Ci_tation"
+msgstr "/ã‚¿ã‚°/æ§‹æˆè¦ç´ ã§æ›¸å¼æŒ‡å®š/å¼•ç”¨(Cite)"
 
 #: ../src/menu.c:317
 #, fuzzy
-msgid "/Tags/Format by context/Ac_ronym"
-msgstr "/¥¿¥°/¹½À®Í×ÁÇ¤Ç½ñ¼°»ØÄê/Æ¬Ê¸»ú(Acronym)"
+msgid "/Tags/Format by context/_Abbreviation"
+msgstr "/ã‚¿ã‚°/æ§‹æˆè¦ç´ ã§æ›¸å¼æŒ‡å®š/ç•¥èª(Abbrev)"
 
 #: ../src/menu.c:318
 #, fuzzy
-msgid "/Tags/Format _general"
-msgstr "/¥¿¥°/°ìÈÌ¤Î½ñ¼°»ØÄê"
+msgid "/Tags/Format by context/Ac_ronym"
+msgstr "/ã‚¿ã‚°/æ§‹æˆè¦ç´ ã§æ›¸å¼æŒ‡å®š/é ­æ–‡å­—(Acronym)"
 
 #: ../src/menu.c:319
-msgid "/Tags/Format general/tearoff1"
-msgstr "/¥¿¥°/°ìÈÌ¤Î½ñ¼°»ØÄê/tearoff1"
+#, fuzzy
+msgid "/Tags/Format _general"
+msgstr "/ã‚¿ã‚°/ä¸€èˆ¬ã®æ›¸å¼æŒ‡å®š"
 
 #: ../src/menu.c:320
-#, fuzzy
-msgid "/Tags/Format general/_Paragraph"
-msgstr "/¥¿¥°/°ìÈÌ¤Î½ñ¼°»ØÄê/¥Ñ¥é¥°¥é¥Õ"
+msgid "/Tags/Format general/tearoff1"
+msgstr "/ã‚¿ã‚°/ä¸€èˆ¬ã®æ›¸å¼æŒ‡å®š/tearoff1"
 
 #: ../src/menu.c:321
 #, fuzzy
-msgid "/Tags/Format general/_Break"
-msgstr "/¥¿¥°/°ìÈÌ¤Î½ñ¼°»ØÄê/¶¯À©²ş¹Ô"
+msgid "/Tags/Format general/_Paragraph"
+msgstr "/ã‚¿ã‚°/ä¸€èˆ¬ã®æ›¸å¼æŒ‡å®š/ãƒ‘ãƒ©ã‚°ãƒ©ãƒ•"
 
 #: ../src/menu.c:322
 #, fuzzy
-msgid "/Tags/Format general/Break clear _all"
-msgstr "/¥¿¥°/°ìÈÌ¤Î½ñ¼°»ØÄê/¶¯À©²ş¹Ô(Clear ALL)"
+msgid "/Tags/Format general/_Break"
+msgstr "/ã‚¿ã‚°/ä¸€èˆ¬ã®æ›¸å¼æŒ‡å®š/å¼·åˆ¶æ”¹è¡Œ"
 
 #: ../src/menu.c:323
 #, fuzzy
-msgid "/Tags/Format general/_Non-Breaking Space"
-msgstr "/¥¿¥°/°ìÈÌ¤Î½ñ¼°»ØÄê/²ş¹Ô¤Ê¤·¶õÇò"
+msgid "/Tags/Format general/Break clear _all"
+msgstr "/ã‚¿ã‚°/ä¸€èˆ¬ã®æ›¸å¼æŒ‡å®š/å¼·åˆ¶æ”¹è¡Œ(Clear ALL)"
 
-#: ../src/menu.c:324 ../src/menu.c:327 ../src/menu.c:331
-msgid "/Tags/Format general/<separator>"
-msgstr "/¥¿¥°/°ìÈÌ¤Î½ñ¼°»ØÄê/<separator>"
-
-#: ../src/menu.c:325
+#: ../src/menu.c:324
 #, fuzzy
-msgid "/Tags/Format general/Font Si_ze +1"
-msgstr "/¥¿¥°/°ìÈÌ¤Î½ñ¼°»ØÄê/¥Õ¥©¥ó¥È¥µ¥¤¥º +1"
+msgid "/Tags/Format general/_Non-Breaking Space"
+msgstr "/ã‚¿ã‚°/ä¸€èˆ¬ã®æ›¸å¼æŒ‡å®š/æ”¹è¡Œãªã—ç©ºç™½"
+
+#: ../src/menu.c:325 ../src/menu.c:328 ../src/menu.c:332
+msgid "/Tags/Format general/<separator>"
+msgstr "/ã‚¿ã‚°/ä¸€èˆ¬ã®æ›¸å¼æŒ‡å®š/<separator>"
 
 #: ../src/menu.c:326
 #, fuzzy
-msgid "/Tags/Format general/Font _Size -1"
-msgstr "/¥¿¥°/°ìÈÌ¤Î½ñ¼°»ØÄê/¥Õ¥©¥ó¥È¥µ¥¤¥º -1"
+msgid "/Tags/Format general/Font Si_ze +1"
+msgstr "/ã‚¿ã‚°/ä¸€èˆ¬ã®æ›¸å¼æŒ‡å®š/ãƒ•ã‚©ãƒ³ãƒˆã‚µã‚¤ã‚º +1"
 
-#: ../src/menu.c:328
+#: ../src/menu.c:327
 #, fuzzy
-msgid "/Tags/Format general/Preformatted _Text"
-msgstr "/¥¿¥°/°ìÈÌ¤Î½ñ¼°»ØÄê/À°·ÁºÑ¤ß¥Æ¥­¥¹¥È(Pre)"
+msgid "/Tags/Format general/Font _Size -1"
+msgstr "/ã‚¿ã‚°/ä¸€èˆ¬ã®æ›¸å¼æŒ‡å®š/ãƒ•ã‚©ãƒ³ãƒˆã‚µã‚¤ã‚º -1"
 
 #: ../src/menu.c:329
 #, fuzzy
-msgid "/Tags/Format general/Su_bscript"
-msgstr "/¥¿¥°/°ìÈÌ¤Î½ñ¼°»ØÄê/²¼ÉÕ¤­(Sub)"
+msgid "/Tags/Format general/Preformatted _Text"
+msgstr "/ã‚¿ã‚°/ä¸€èˆ¬ã®æ›¸å¼æŒ‡å®š/æ•´å½¢æ¸ˆã¿ãƒ†ã‚­ã‚¹ãƒˆ(Pre)"
 
 #: ../src/menu.c:330
 #, fuzzy
-msgid "/Tags/Format general/Su_perscript"
-msgstr "/¥¿¥°/°ìÈÌ¤Î½ñ¼°»ØÄê/¾åÉÕ¤­(Sup)"
+msgid "/Tags/Format general/Su_bscript"
+msgstr "/ã‚¿ã‚°/ä¸€èˆ¬ã®æ›¸å¼æŒ‡å®š/ä¸‹ä»˜ã(Sub)"
 
-#: ../src/menu.c:332
+#: ../src/menu.c:331
 #, fuzzy
-msgid "/Tags/Format general/_Center"
-msgstr "/¥¿¥°/°ìÈÌ¤Î½ñ¼°»ØÄê/¥»¥ó¥¿¥ê¥ó¥°"
+msgid "/Tags/Format general/Su_perscript"
+msgstr "/ã‚¿ã‚°/ä¸€èˆ¬ã®æ›¸å¼æŒ‡å®š/ä¸Šä»˜ã(Sup)"
 
 #: ../src/menu.c:333
 #, fuzzy
-msgid "/Tags/Format general/Align _right"
-msgstr "/¥¿¥°/°ìÈÌ¤Î½ñ¼°»ØÄê/±¦´ó¤»"
+msgid "/Tags/Format general/_Center"
+msgstr "/ã‚¿ã‚°/ä¸€èˆ¬ã®æ›¸å¼æŒ‡å®š/ã‚»ãƒ³ã‚¿ãƒªãƒ³ã‚°"
 
 #: ../src/menu.c:334
 #, fuzzy
-msgid "/Tags/_Table"
-msgstr "/¥¿¥°/¥Æ¡¼¥Ö¥ë"
+msgid "/Tags/Format general/Align _right"
+msgstr "/ã‚¿ã‚°/ä¸€èˆ¬ã®æ›¸å¼æŒ‡å®š/å³å¯„ã›"
 
 #: ../src/menu.c:335
-msgid "/Tags/Table/tearoff1"
-msgstr "/¥¿¥°/¥Æ¡¼¥Ö¥ë/tearoff1"
+#, fuzzy
+msgid "/Tags/_Table"
+msgstr "/ã‚¿ã‚°/ãƒ†ãƒ¼ãƒ–ãƒ«"
 
 #: ../src/menu.c:336
-#, fuzzy
-msgid "/Tags/Table/_Table"
-msgstr "/¥¿¥°/¥Æ¡¼¥Ö¥ë/¥Æ¡¼¥Ö¥ë"
+msgid "/Tags/Table/tearoff1"
+msgstr "/ã‚¿ã‚°/ãƒ†ãƒ¼ãƒ–ãƒ«/tearoff1"
 
 #: ../src/menu.c:337
 #, fuzzy
-msgid "/Tags/Table/Table_row"
-msgstr "/¥¿¥°/¥Æ¡¼¥Ö¥ë/¹Ô"
+msgid "/Tags/Table/_Table"
+msgstr "/ã‚¿ã‚°/ãƒ†ãƒ¼ãƒ–ãƒ«/ãƒ†ãƒ¼ãƒ–ãƒ«"
 
 #: ../src/menu.c:338
 #, fuzzy
-msgid "/Tags/Table/Table_header"
-msgstr "/¥¿¥°/¥Æ¡¼¥Ö¥ë/¥Ø¥Ã¥À¥»¥ë"
+msgid "/Tags/Table/Table_row"
+msgstr "/ã‚¿ã‚°/ãƒ†ãƒ¼ãƒ–ãƒ«/è¡Œ"
 
 #: ../src/menu.c:339
 #, fuzzy
-msgid "/Tags/Table/Table_data"
-msgstr "/¥¿¥°/¥Æ¡¼¥Ö¥ë/¥Ç¡¼¥¿¥»¥ë"
+msgid "/Tags/Table/Table_header"
+msgstr "/ã‚¿ã‚°/ãƒ†ãƒ¼ãƒ–ãƒ«/ãƒ˜ãƒƒãƒ€ã‚»ãƒ«"
 
 #: ../src/menu.c:340
 #, fuzzy
-msgid "/Tags/Table/Table_caption"
-msgstr "/¥¿¥°/¥Æ¡¼¥Ö¥ë/É½Âê"
+msgid "/Tags/Table/Table_data"
+msgstr "/ã‚¿ã‚°/ãƒ†ãƒ¼ãƒ–ãƒ«/ãƒ‡ãƒ¼ã‚¿ã‚»ãƒ«"
 
 #: ../src/menu.c:341
 #, fuzzy
-msgid "/Tags/_List"
-msgstr "/¥¿¥°/¥ê¥¹¥È"
+msgid "/Tags/Table/Table_caption"
+msgstr "/ã‚¿ã‚°/ãƒ†ãƒ¼ãƒ–ãƒ«/è¡¨é¡Œ"
 
 #: ../src/menu.c:342
-msgid "/Tags/List/tearoff1"
-msgstr "/¥¿¥°/¥ê¥¹¥È/tearoff1"
+#, fuzzy
+msgid "/Tags/_List"
+msgstr "/ã‚¿ã‚°/ãƒªã‚¹ãƒˆ"
 
 #: ../src/menu.c:343
-#, fuzzy
-msgid "/Tags/List/_Unordered list"
-msgstr "/¥¿¥°/¥ê¥¹¥È/½ç½ø¤Ê¤·¥ê¥¹¥È"
+msgid "/Tags/List/tearoff1"
+msgstr "/ã‚¿ã‚°/ãƒªã‚¹ãƒˆ/tearoff1"
 
 #: ../src/menu.c:344
 #, fuzzy
-msgid "/Tags/List/_Ordered list"
-msgstr "/¥¿¥°/¥ê¥¹¥È/½ç½ø¤Ä¤­¥ê¥¹¥È"
+msgid "/Tags/List/_Unordered list"
+msgstr "/ã‚¿ã‚°/ãƒªã‚¹ãƒˆ/é †åºãªã—ãƒªã‚¹ãƒˆ"
 
 #: ../src/menu.c:345
 #, fuzzy
-msgid "/Tags/List/List _item"
-msgstr "/¥¿¥°/¥ê¥¹¥È/¥ê¥¹¥È¹àÌÜ"
+msgid "/Tags/List/_Ordered list"
+msgstr "/ã‚¿ã‚°/ãƒªã‚¹ãƒˆ/é †åºã¤ããƒªã‚¹ãƒˆ"
 
 #: ../src/menu.c:346
 #, fuzzy
-msgid "/Tags/List/Definition _list"
-msgstr "/¥¿¥°/¥ê¥¹¥È/ÄêµÁ¥ê¥¹¥È"
+msgid "/Tags/List/List _item"
+msgstr "/ã‚¿ã‚°/ãƒªã‚¹ãƒˆ/ãƒªã‚¹ãƒˆé …ç›®"
 
 #: ../src/menu.c:347
 #, fuzzy
-msgid "/Tags/List/Definition _term"
-msgstr "/¥¿¥°/¥ê¥¹¥È/ÄêµÁ¸ì"
+msgid "/Tags/List/Definition _list"
+msgstr "/ã‚¿ã‚°/ãƒªã‚¹ãƒˆ/å®šç¾©ãƒªã‚¹ãƒˆ"
 
 #: ../src/menu.c:348
 #, fuzzy
-msgid "/Tags/List/_Definition"
-msgstr "/¥¿¥°/¥ê¥¹¥È/ÄêµÁÀâÌÀ"
+msgid "/Tags/List/Definition _term"
+msgstr "/ã‚¿ã‚°/ãƒªã‚¹ãƒˆ/å®šç¾©èª"
 
 #: ../src/menu.c:349
 #, fuzzy
-msgid "/Tags/List/_Menu"
-msgstr "/¥¿¥°/¥ê¥¹¥È/¥á¥Ë¥å¡¼¥ê¥¹¥È"
+msgid "/Tags/List/De_finition"
+msgstr "/ã‚¿ã‚°/ãƒªã‚¹ãƒˆ/å®šç¾©èª¬æ˜"
 
 #: ../src/menu.c:350
 #, fuzzy
-msgid "/Tags/_Insert Generator META-Tag"
-msgstr "/¥¿¥°/¡ÖGenerator¡×Meta¥¿¥°¤òÁŞÆş"
+msgid "/Tags/List/_Menu"
+msgstr "/ã‚¿ã‚°/ãƒªã‚¹ãƒˆ/ãƒ¡ãƒ‹ãƒ¥ãƒ¼ãƒªã‚¹ãƒˆ"
 
 #: ../src/menu.c:351
 #, fuzzy
-msgid "/Tags/_Comment"
-msgstr "/¥¿¥°/¥³¥á¥ó¥È"
+msgid "/Tags/_Insert Generator META-Tag"
+msgstr "/ã‚¿ã‚°/ã€ŒGeneratorã€Metaã‚¿ã‚°ã‚’æŒ¿å…¥"
 
 #: ../src/menu.c:352
 #, fuzzy
-msgid "/Dialo_gs"
-msgstr "/¥À¥¤¥¢¥í¥°(_D)"
+msgid "/Tags/_Comment"
+msgstr "/ã‚¿ã‚°/ã‚³ãƒ¡ãƒ³ãƒˆ"
 
 #: ../src/menu.c:353
-msgid "/Dialogs/tearoff1"
-msgstr "/¥À¥¤¥¢¥í¥°/tearoff1"
+#, fuzzy
+msgid "/Dialo_gs"
+msgstr "/ãƒ€ã‚¤ã‚¢ãƒ­ã‚°(_D)"
 
 #: ../src/menu.c:354
-#, fuzzy
-msgid "/Dialogs/_General"
-msgstr "/¥À¥¤¥¢¥í¥°/Á´ÈÌ"
+msgid "/Dialogs/tearoff1"
+msgstr "/ãƒ€ã‚¤ã‚¢ãƒ­ã‚°/tearoff1"
 
 #: ../src/menu.c:355
-msgid "/Dialogs/General/tearoff1"
-msgstr "/¥À¥¤¥¢¥í¥°/Á´ÈÌ/tearoff1"
+#, fuzzy
+msgid "/Dialogs/_General"
+msgstr "/ãƒ€ã‚¤ã‚¢ãƒ­ã‚°/å…¨èˆ¬"
 
 #: ../src/menu.c:356
+msgid "/Dialogs/General/tearoff1"
+msgstr "/ãƒ€ã‚¤ã‚¢ãƒ­ã‚°/å…¨èˆ¬/tearoff1"
+
+#: ../src/menu.c:357
 #, fuzzy
 msgid "/Dialogs/General/_Quickstart..."
-msgstr "/¥À¥¤¥¢¥í¥°/Á´ÈÌ/¥¯¥¤¥Ã¥¯¡¦¥¹¥¿¡¼¥È..."
-
-#: ../src/menu.c:359
-#, fuzzy
-msgid "/Dialogs/General/_Body..."
-msgstr "/¥À¥¤¥¢¥í¥°/Á´ÈÌ/Body..."
+msgstr "/ãƒ€ã‚¤ã‚¢ãƒ­ã‚°/å…¨èˆ¬/ã‚¯ã‚¤ãƒƒã‚¯ãƒ»ã‚¹ã‚¿ãƒ¼ãƒˆ..."
 
 #: ../src/menu.c:360
 #, fuzzy
-msgid "/Dialogs/General/_Anchor..."
-msgstr "/¥À¥¤¥¢¥í¥°/Á´ÈÌ/¥¢¥ó¥«¡¼..."
+msgid "/Dialogs/General/_Body..."
+msgstr "/ãƒ€ã‚¤ã‚¢ãƒ­ã‚°/å…¨èˆ¬/Body..."
 
 #: ../src/menu.c:361
 #, fuzzy
-msgid "/Dialogs/General/_Email..."
-msgstr "/¥À¥¤¥¢¥í¥°/Á´ÈÌ/E¥á¡¼¥ë..."
+msgid "/Dialogs/General/_Anchor..."
+msgstr "/ãƒ€ã‚¤ã‚¢ãƒ­ã‚°/å…¨èˆ¬/ã‚¢ãƒ³ã‚«ãƒ¼..."
 
 #: ../src/menu.c:362
 #, fuzzy
-msgid "/Dialogs/General/_Rule..."
-msgstr "/¥À¥¤¥¢¥í¥°/Á´ÈÌ/¿åÊ¿Àş..."
+msgid "/Dialogs/General/_Email..."
+msgstr "/ãƒ€ã‚¤ã‚¢ãƒ­ã‚°/å…¨èˆ¬/Eãƒ¡ãƒ¼ãƒ«..."
 
 #: ../src/menu.c:363
 #, fuzzy
-msgid "/Dialogs/General/_Font..."
-msgstr "/¥À¥¤¥¢¥í¥°/Á´ÈÌ/¥Õ¥©¥ó¥È..."
+msgid "/Dialogs/General/_Rule..."
+msgstr "/ãƒ€ã‚¤ã‚¢ãƒ­ã‚°/å…¨èˆ¬/æ°´å¹³ç·š..."
 
 #: ../src/menu.c:364
 #, fuzzy
-msgid "/Dialogs/General/Basef_ont..."
-msgstr "/¥À¥¤¥¢¥í¥°/Á´ÈÌ/´ğËÜ¥Õ¥©¥ó¥È..."
+msgid "/Dialogs/General/_Font..."
+msgstr "/ãƒ€ã‚¤ã‚¢ãƒ­ã‚°/å…¨èˆ¬/ãƒ•ã‚©ãƒ³ãƒˆ..."
 
 #: ../src/menu.c:365
 #, fuzzy
-msgid "/Dialogs/General/Quick_list..."
-msgstr "/¥À¥¤¥¢¥í¥°/Á´ÈÌ/¥¯¥¤¥Ã¥¯¡¦¥ê¥¹¥È..."
+msgid "/Dialogs/General/Basef_ont..."
+msgstr "/ãƒ€ã‚¤ã‚¢ãƒ­ã‚°/å…¨èˆ¬/åŸºæœ¬ãƒ•ã‚©ãƒ³ãƒˆ..."
 
 #: ../src/menu.c:366
 #, fuzzy
-msgid "/Dialogs/General/_Meta..."
-msgstr "/¥À¥¤¥¢¥í¥°/Á´ÈÌ/Meta..."
+msgid "/Dialogs/General/Quick_list..."
+msgstr "/ãƒ€ã‚¤ã‚¢ãƒ­ã‚°/å…¨èˆ¬/ã‚¯ã‚¤ãƒƒã‚¯ãƒ»ãƒªã‚¹ãƒˆ..."
 
 #: ../src/menu.c:367
 #, fuzzy
-msgid "/Dialogs/General/Embe_d..."
-msgstr "/¥À¥¤¥¢¥í¥°/Á´ÈÌ/Embed..."
+msgid "/Dialogs/General/_Meta..."
+msgstr "/ãƒ€ã‚¤ã‚¢ãƒ­ã‚°/å…¨èˆ¬/Meta..."
 
 #: ../src/menu.c:368
 #, fuzzy
-msgid "/Dialogs/General/Select _colour..."
-msgstr "/¥À¥¤¥¢¥í¥°/Á´ÈÌ/¿§¤ÎÁªÂò..."
+msgid "/Dialogs/General/Embe_d..."
+msgstr "/ãƒ€ã‚¤ã‚¢ãƒ­ã‚°/å…¨èˆ¬/Embed..."
 
 #: ../src/menu.c:369
 #, fuzzy
-msgid "/Dialogs/General/Insert _time..."
-msgstr "/¥À¥¤¥¢¥í¥°/Á´ÈÌ/Æü»ş¤ÎÁŞÆş..."
+msgid "/Dialogs/General/Select _colour..."
+msgstr "/ãƒ€ã‚¤ã‚¢ãƒ­ã‚°/å…¨èˆ¬/è‰²ã®é¸æŠ..."
 
 #: ../src/menu.c:370
 #, fuzzy
-msgid "/Dialogs/General/Insert _image..."
-msgstr "/¥À¥¤¥¢¥í¥°/Á´ÈÌ/¥¤¥á¡¼¥¸¤ÎÁŞÆş..."
+msgid "/Dialogs/General/Insert _time..."
+msgstr "/ãƒ€ã‚¤ã‚¢ãƒ­ã‚°/å…¨èˆ¬/æ—¥æ™‚ã®æŒ¿å…¥..."
 
 #: ../src/menu.c:371
 #, fuzzy
-msgid "/Dialogs/General/Insert t_humbnail..."
-msgstr "/¥À¥¤¥¢¥í¥°/Á´ÈÌ/¥µ¥à¥Í¥¤¥ë¤ÎÁŞÆş..."
+msgid "/Dialogs/General/Insert _image..."
+msgstr "/ãƒ€ã‚¤ã‚¢ãƒ­ã‚°/å…¨èˆ¬/ã‚¤ãƒ¡ãƒ¼ã‚¸ã®æŒ¿å…¥..."
 
 #: ../src/menu.c:372
 #, fuzzy
-msgid "/Dialogs/_Table"
-msgstr "/¥À¥¤¥¢¥í¥°/¥Æ¡¼¥Ö¥ë"
+msgid "/Dialogs/General/Insert t_humbnail..."
+msgstr "/ãƒ€ã‚¤ã‚¢ãƒ­ã‚°/å…¨èˆ¬/ã‚µãƒ ãƒã‚¤ãƒ«ã®æŒ¿å…¥..."
 
 #: ../src/menu.c:373
-msgid "/Dialogs/Table/tearoff1"
-msgstr "/¥À¥¤¥¢¥í¥°/¥Æ¡¼¥Ö¥ë/tearoff1"
+#, fuzzy
+msgid "/Dialogs/_Table"
+msgstr "/ãƒ€ã‚¤ã‚¢ãƒ­ã‚°/ãƒ†ãƒ¼ãƒ–ãƒ«"
 
 #: ../src/menu.c:374
-#, fuzzy
-msgid "/Dialogs/Table/Table _wizard..."
-msgstr "/¥À¥¤¥¢¥í¥°/¥Æ¡¼¥Ö¥ë/¥Ø¥Ã¥À¥»¥ë..."
+msgid "/Dialogs/Table/tearoff1"
+msgstr "/ãƒ€ã‚¤ã‚¢ãƒ­ã‚°/ãƒ†ãƒ¼ãƒ–ãƒ«/tearoff1"
 
 #: ../src/menu.c:375
 #, fuzzy
-msgid "/Dialogs/Table/_Table..."
-msgstr "/¥À¥¤¥¢¥í¥°/¥Æ¡¼¥Ö¥ë/¥Æ¡¼¥Ö¥ë..."
+msgid "/Dialogs/Table/Table _wizard..."
+msgstr "/ãƒ€ã‚¤ã‚¢ãƒ­ã‚°/ãƒ†ãƒ¼ãƒ–ãƒ«/ãƒ˜ãƒƒãƒ€ã‚»ãƒ«..."
 
 #: ../src/menu.c:376
 #, fuzzy
-msgid "/Dialogs/Table/Table_row..."
-msgstr "/¥À¥¤¥¢¥í¥°/¥Æ¡¼¥Ö¥ë/¹Ô..."
+msgid "/Dialogs/Table/_Table..."
+msgstr "/ãƒ€ã‚¤ã‚¢ãƒ­ã‚°/ãƒ†ãƒ¼ãƒ–ãƒ«/ãƒ†ãƒ¼ãƒ–ãƒ«..."
 
 #: ../src/menu.c:377
 #, fuzzy
-msgid "/Dialogs/Table/Table_head..."
-msgstr "/¥À¥¤¥¢¥í¥°/¥Æ¡¼¥Ö¥ë/¥Ø¥Ã¥À¥»¥ë..."
+msgid "/Dialogs/Table/Table_row..."
+msgstr "/ãƒ€ã‚¤ã‚¢ãƒ­ã‚°/ãƒ†ãƒ¼ãƒ–ãƒ«/è¡Œ..."
 
 #: ../src/menu.c:378
 #, fuzzy
-msgid "/Dialogs/Table/Table_data..."
-msgstr "/¥À¥¤¥¢¥í¥°/¥Æ¡¼¥Ö¥ë/¥Ç¡¼¥¿¥»¥ë..."
+msgid "/Dialogs/Table/Table_head..."
+msgstr "/ãƒ€ã‚¤ã‚¢ãƒ­ã‚°/ãƒ†ãƒ¼ãƒ–ãƒ«/ãƒ˜ãƒƒãƒ€ã‚»ãƒ«..."
 
 #: ../src/menu.c:379
 #, fuzzy
-msgid "/Dialogs/_CSS"
-msgstr "/¥À¥¤¥¢¥í¥°/CSS"
+msgid "/Dialogs/Table/Table_data..."
+msgstr "/ãƒ€ã‚¤ã‚¢ãƒ­ã‚°/ãƒ†ãƒ¼ãƒ–ãƒ«/ãƒ‡ãƒ¼ã‚¿ã‚»ãƒ«..."
 
 #: ../src/menu.c:380
-msgid "/Dialogs/CSS/tearoff1"
-msgstr "/¥À¥¤¥¢¥í¥°/CSS/tearoff1"
+#, fuzzy
+msgid "/Dialogs/_CSS"
+msgstr "/ãƒ€ã‚¤ã‚¢ãƒ­ã‚°/CSS"
 
 #: ../src/menu.c:381
-#, fuzzy
-msgid "/Dialogs/CSS/_Create style..."
-msgstr "/¥À¥¤¥¢¥í¥°/CSS/¥¹¥¿¥¤¥ëºîÀ®..."
+msgid "/Dialogs/CSS/tearoff1"
+msgstr "/ãƒ€ã‚¤ã‚¢ãƒ­ã‚°/CSS/tearoff1"
 
 #: ../src/menu.c:382
 #, fuzzy
-msgid "/Dialogs/CSS/S_pan..."
-msgstr "/¥À¥¤¥¢¥í¥°/CSS/Span..."
+msgid "/Dialogs/CSS/_Create style..."
+msgstr "/ãƒ€ã‚¤ã‚¢ãƒ­ã‚°/CSS/ã‚¹ã‚¿ã‚¤ãƒ«ä½œæˆ..."
 
 #: ../src/menu.c:383
 #, fuzzy
-msgid "/Dialogs/CSS/_Div..."
-msgstr "/¥À¥¤¥¢¥í¥°/CSS/Div..."
+msgid "/Dialogs/CSS/S_pan..."
+msgstr "/ãƒ€ã‚¤ã‚¢ãƒ­ã‚°/CSS/Span..."
 
 #: ../src/menu.c:384
 #, fuzzy
-msgid "/Dialogs/CSS/_Style..."
-msgstr "/¥À¥¤¥¢¥í¥°/CSS/Style..."
+msgid "/Dialogs/CSS/_Div..."
+msgstr "/ãƒ€ã‚¤ã‚¢ãƒ­ã‚°/CSS/Div..."
 
 #: ../src/menu.c:385
 #, fuzzy
-msgid "/Dialogs/CSS/_Link to stylesheet..."
-msgstr "/¥À¥¤¥¢¥í¥°/CSS/¥¹¥¿¥¤¥ë¥·¡¼¥È¤Ø¤Î¥ê¥ó¥¯..."
+msgid "/Dialogs/CSS/_Style..."
+msgstr "/ãƒ€ã‚¤ã‚¢ãƒ­ã‚°/CSS/Style..."
 
 #: ../src/menu.c:386
 #, fuzzy
-msgid "/Dialogs/_Frame"
-msgstr "/¥À¥¤¥¢¥í¥°/¥Õ¥ì¡¼¥à"
+msgid "/Dialogs/CSS/_Link to stylesheet..."
+msgstr "/ãƒ€ã‚¤ã‚¢ãƒ­ã‚°/CSS/ã‚¹ã‚¿ã‚¤ãƒ«ã‚·ãƒ¼ãƒˆã¸ã®ãƒªãƒ³ã‚¯..."
 
 #: ../src/menu.c:387
-msgid "/Dialogs/Frame/tearoff1"
-msgstr "/¥À¥¤¥¢¥í¥°/¥Õ¥ì¡¼¥à/tearoff1"
+#, fuzzy
+msgid "/Dialogs/_Frame"
+msgstr "/ãƒ€ã‚¤ã‚¢ãƒ­ã‚°/ãƒ•ãƒ¬ãƒ¼ãƒ "
 
 #: ../src/menu.c:388
-#, fuzzy
-msgid "/Dialogs/Frame/Frame _wizard..."
-msgstr "/¥À¥¤¥¢¥í¥°/¥Õ¥ì¡¼¥à/¥Õ¥ì¡¼¥à..."
+msgid "/Dialogs/Frame/tearoff1"
+msgstr "/ãƒ€ã‚¤ã‚¢ãƒ­ã‚°/ãƒ•ãƒ¬ãƒ¼ãƒ /tearoff1"
 
 #: ../src/menu.c:389
 #, fuzzy
-msgid "/Dialogs/Frame/Frame_set..."
-msgstr "/¥À¥¤¥¢¥í¥°/¥Õ¥ì¡¼¥à/¥Õ¥ì¡¼¥à¥»¥Ã¥È..."
+msgid "/Dialogs/Frame/Frame _wizard..."
+msgstr "/ãƒ€ã‚¤ã‚¢ãƒ­ã‚°/ãƒ•ãƒ¬ãƒ¼ãƒ /ãƒ•ãƒ¬ãƒ¼ãƒ ..."
 
 #: ../src/menu.c:390
 #, fuzzy
-msgid "/Dialogs/Frame/_Frame..."
-msgstr "/¥À¥¤¥¢¥í¥°/¥Õ¥ì¡¼¥à/¥Õ¥ì¡¼¥à..."
+msgid "/Dialogs/Frame/Frame_set..."
+msgstr "/ãƒ€ã‚¤ã‚¢ãƒ­ã‚°/ãƒ•ãƒ¬ãƒ¼ãƒ /ãƒ•ãƒ¬ãƒ¼ãƒ ã‚»ãƒƒãƒˆ..."
 
 #: ../src/menu.c:391
 #, fuzzy
-msgid "/Dialogs/F_orm"
-msgstr "/¥À¥¤¥¢¥í¥°/¥Õ¥©¡¼¥à"
+msgid "/Dialogs/Frame/_Frame..."
+msgstr "/ãƒ€ã‚¤ã‚¢ãƒ­ã‚°/ãƒ•ãƒ¬ãƒ¼ãƒ /ãƒ•ãƒ¬ãƒ¼ãƒ ..."
 
 #: ../src/menu.c:392
-msgid "/Dialogs/Form/tearoff1"
-msgstr "/¥À¥¤¥¢¥í¥°/¥Õ¥©¡¼¥à/tearoff1"
+#, fuzzy
+msgid "/Dialogs/F_orm"
+msgstr "/ãƒ€ã‚¤ã‚¢ãƒ­ã‚°/ãƒ•ã‚©ãƒ¼ãƒ "
 
 #: ../src/menu.c:393
-#, fuzzy
-msgid "/Dialogs/Form/F_orm..."
-msgstr "/¥À¥¤¥¢¥í¥°/¥Õ¥©¡¼¥à/¥Õ¥©¡¼¥à..."
+msgid "/Dialogs/Form/tearoff1"
+msgstr "/ãƒ€ã‚¤ã‚¢ãƒ­ã‚°/ãƒ•ã‚©ãƒ¼ãƒ /tearoff1"
 
 #: ../src/menu.c:394
 #, fuzzy
-msgid "/Dialogs/Form/_Input button..."
-msgstr "/¥À¥¤¥¢¥í¥°/¥Õ¥©¡¼¥à/ÆşÎÏ¥Ü¥¿¥ó..."
+msgid "/Dialogs/Form/F_orm..."
+msgstr "/ãƒ€ã‚¤ã‚¢ãƒ­ã‚°/ãƒ•ã‚©ãƒ¼ãƒ /ãƒ•ã‚©ãƒ¼ãƒ ..."
 
 #: ../src/menu.c:395
 #, fuzzy
-msgid "/Dialogs/Form/_Text..."
-msgstr "/¥À¥¤¥¢¥í¥°/¥Õ¥©¡¼¥à/¥Æ¥­¥¹¥ÈÆşÎÏ..."
+msgid "/Dialogs/Form/_Input button..."
+msgstr "/ãƒ€ã‚¤ã‚¢ãƒ­ã‚°/ãƒ•ã‚©ãƒ¼ãƒ /å…¥åŠ›ãƒœã‚¿ãƒ³..."
 
 #: ../src/menu.c:396
 #, fuzzy
-msgid "/Dialogs/Form/_Hidden..."
-msgstr "/¥À¥¤¥¢¥í¥°/¥Õ¥©¡¼¥à/ÈóÉ½¼¨¥Æ¥­¥¹¥ÈÆşÎÏ..."
+msgid "/Dialogs/Form/_Text..."
+msgstr "/ãƒ€ã‚¤ã‚¢ãƒ­ã‚°/ãƒ•ã‚©ãƒ¼ãƒ /ãƒ†ã‚­ã‚¹ãƒˆå…¥åŠ›..."
 
 #: ../src/menu.c:397
 #, fuzzy
-msgid "/Dialogs/Form/Text_area..."
-msgstr "/¥À¥¤¥¢¥í¥°/¥Õ¥©¡¼¥à/Ê£¿ô¹Ô¥Æ¥­¥¹¥ÈÆşÎÏ..."
+msgid "/Dialogs/Form/_Hidden..."
+msgstr "/ãƒ€ã‚¤ã‚¢ãƒ­ã‚°/ãƒ•ã‚©ãƒ¼ãƒ /éè¡¨ç¤ºãƒ†ã‚­ã‚¹ãƒˆå…¥åŠ›..."
 
 #: ../src/menu.c:398
 #, fuzzy
-msgid "/Dialogs/Form/Radio _buttons..."
-msgstr "/¥À¥¤¥¢¥í¥°/¥Õ¥©¡¼¥à/¥é¥¸¥ª¥Ü¥¿¥ó..."
+msgid "/Dialogs/Form/Text_area..."
+msgstr "/ãƒ€ã‚¤ã‚¢ãƒ­ã‚°/ãƒ•ã‚©ãƒ¼ãƒ /è¤‡æ•°è¡Œãƒ†ã‚­ã‚¹ãƒˆå…¥åŠ›..."
 
 #: ../src/menu.c:399
 #, fuzzy
-msgid "/Dialogs/Form/_Check buttons..."
-msgstr "/¥À¥¤¥¢¥í¥°/¥Õ¥©¡¼¥à/¥Á¥§¥Ã¥¯¥Ü¥¿¥ó..."
+msgid "/Dialogs/Form/Radio _buttons..."
+msgstr "/ãƒ€ã‚¤ã‚¢ãƒ­ã‚°/ãƒ•ã‚©ãƒ¼ãƒ /ãƒ©ã‚¸ã‚ªãƒœã‚¿ãƒ³..."
 
 #: ../src/menu.c:400
 #, fuzzy
-msgid "/Dialogs/Form/_Select..."
-msgstr "/¥À¥¤¥¢¥í¥°/¥Õ¥©¡¼¥à/ÁªÂò¥á¥Ë¥å¡¼..."
+msgid "/Dialogs/Form/_Check buttons..."
+msgstr "/ãƒ€ã‚¤ã‚¢ãƒ­ã‚°/ãƒ•ã‚©ãƒ¼ãƒ /ãƒã‚§ãƒƒã‚¯ãƒœã‚¿ãƒ³..."
 
 #: ../src/menu.c:401
 #, fuzzy
-msgid "/Dialogs/Form/O_ption..."
-msgstr "/¥À¥¤¥¢¥í¥°/¥Õ¥©¡¼¥à/ÁªÂò¥á¥Ë¥å¡¼¹àÌÜ..."
+msgid "/Dialogs/Form/_Select..."
+msgstr "/ãƒ€ã‚¤ã‚¢ãƒ­ã‚°/ãƒ•ã‚©ãƒ¼ãƒ /é¸æŠãƒ¡ãƒ‹ãƒ¥ãƒ¼..."
 
 #: ../src/menu.c:402
 #, fuzzy
-msgid "/Dialogs/Form/Option _group..."
-msgstr "/¥À¥¤¥¢¥í¥°/¥Õ¥©¡¼¥à/ÁªÂò¹àÌÜ¥°¥ë¡¼¥×..."
+msgid "/Dialogs/Form/O_ption..."
+msgstr "/ãƒ€ã‚¤ã‚¢ãƒ­ã‚°/ãƒ•ã‚©ãƒ¼ãƒ /é¸æŠãƒ¡ãƒ‹ãƒ¥ãƒ¼é …ç›®..."
 
-#: ../src/menu.c:429
-msgid "/E_xternal"
-msgstr "/µ¯Æ°(_X)"
+#: ../src/menu.c:403
+#, fuzzy
+msgid "/Dialogs/Form/Option _group..."
+msgstr "/ãƒ€ã‚¤ã‚¢ãƒ­ã‚°/ãƒ•ã‚©ãƒ¼ãƒ /é¸æŠé …ç›®ã‚°ãƒ«ãƒ¼ãƒ—..."
 
 #: ../src/menu.c:430
-msgid "/External/tearoff1"
-msgstr "/µ¯Æ°/tearoff1"
+msgid "/E_xternal"
+msgstr "/èµ·å‹•(_X)"
 
-#: ../src/menu.c:436
-#, fuzzy
-msgid "/_Document"
-msgstr "Ê¸½ñ¥Õ¥¡¥¤¥ë"
+#: ../src/menu.c:431
+msgid "/External/tearoff1"
+msgstr "/èµ·å‹•/tearoff1"
 
 #: ../src/menu.c:437
 #, fuzzy
-msgid "/Document/tearoff1"
-msgstr "/¥×¥í¥¸¥§¥¯¥È/tearoff1"
+msgid "/_Document"
+msgstr "æ–‡æ›¸ãƒ•ã‚¡ã‚¤ãƒ«"
 
 #: ../src/menu.c:438
+#, fuzzy
+msgid "/Document/tearoff1"
+msgstr "/ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆ/tearoff1"
+
+#: ../src/menu.c:439
 msgid "/Document/_Type"
 msgstr ""
 
-#: ../src/menu.c:439
-#, fuzzy
-msgid "/Document/Type/tearoff1"
-msgstr "/¥×¥í¥¸¥§¥¯¥È/¥Õ¥¡¥¤¥ë¥ê¥¹¥È/tearoff1"
-
 #: ../src/menu.c:440
 #, fuzzy
-msgid "/Document/_Encoding"
-msgstr "ÆşÎÏ¥¿¥¤¥×"
+msgid "/Document/Type/tearoff1"
+msgstr "/ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆ/ãƒ•ã‚¡ã‚¤ãƒ«ãƒªã‚¹ãƒˆ/tearoff1"
 
 #: ../src/menu.c:441
+#, fuzzy
+msgid "/Document/_Encoding"
+msgstr "å…¥åŠ›ã‚¿ã‚¤ãƒ—"
+
+#: ../src/menu.c:442
 msgid "/Document/Encoding/tearoff1"
 msgstr ""
 
-#: ../src/menu.c:442
+#: ../src/menu.c:443
 #, fuzzy
 msgid "/Document/_Highlight syntax"
-msgstr "/É½¼¨/¿§Ê¬¤±"
+msgstr "/è¡¨ç¤º/è‰²åˆ†ã‘"
 
-#: ../src/menu.c:443
+#: ../src/menu.c:444
 msgid "/Document/_Wrap"
 msgstr ""
 
-#: ../src/menu.c:444
+#: ../src/menu.c:445
 #, fuzzy
 msgid "/Document/_Line numbers"
-msgstr "ÆşÎÏ¥¿¥¤¥×"
+msgstr "å…¥åŠ›ã‚¿ã‚¤ãƒ—"
 
-#: ../src/menu.c:445 ../src/menu.c:449
+#: ../src/menu.c:446 ../src/menu.c:450
 #, fuzzy
 msgid "/Document/sep1"
-msgstr "Ê¸½ñ¥Õ¥¡¥¤¥ë"
-
-#: ../src/menu.c:446
-#, fuzzy
-msgid "/Document/_Update highlighting"
-msgstr "/É½¼¨/¿§Ê¬¤±¤Î¹¹¿·"
+msgstr "æ–‡æ›¸ãƒ•ã‚¡ã‚¤ãƒ«"
 
 #: ../src/menu.c:447
-msgid "/Document/_Next"
-msgstr ""
+#, fuzzy
+msgid "/Document/_Update highlighting"
+msgstr "/è¡¨ç¤º/è‰²åˆ†ã‘ã®æ›´æ–°"
 
 #: ../src/menu.c:448
 msgid "/Document/_Previous"
 msgstr ""
 
-#: ../src/menu.c:450
-#, fuzzy
-msgid "/Document/_Word Count"
-msgstr "/ÊÔ½¸/Ã±¸ì¥«¥¦¥ó¥È"
+#: ../src/menu.c:449
+msgid "/Document/_Next"
+msgstr ""
 
 #: ../src/menu.c:451
-msgid "/_Options"
-msgstr "/ÀßÄê(_O)"
+#, fuzzy
+msgid "/Document/Word _Count"
+msgstr "/ç·¨é›†/å˜èªã‚«ã‚¦ãƒ³ãƒˆ"
 
 #: ../src/menu.c:452
-msgid "/Options/tearoff1"
-msgstr "/ÀßÄê/tearoff1"
+msgid "/_Options"
+msgstr "/è¨­å®š(_O)"
 
 #: ../src/menu.c:453
-#, fuzzy
-msgid "/Options/_Preferences"
-msgstr "/ÀßÄê/´Ä¶­ÀßÄê..."
+msgid "/Options/tearoff1"
+msgstr "/è¨­å®š/tearoff1"
 
 #: ../src/menu.c:454
 #, fuzzy
-msgid "/Options/_Display"
-msgstr "/ÀßÄê/¥ê¥¹¥È(_L)"
+msgid "/Options/_Preferences"
+msgstr "/è¨­å®š/ç’°å¢ƒè¨­å®š..."
 
 #: ../src/menu.c:455
 #, fuzzy
-msgid "/Options/Display/tearoff1"
-msgstr "/ÀßÄê/¥ê¥¹¥È/tearoff1"
+msgid "/Options/_Display"
+msgstr "/è¨­å®š/ãƒªã‚¹ãƒˆ(_L)"
 
 #: ../src/menu.c:456
 #, fuzzy
-msgid "/Options/Display/View _Main toolbar"
-msgstr "/ÀßÄê/¥á¥¤¥ó¡¦¥Ä¡¼¥ë¥Ğ¡¼¤òÉ½¼¨"
+msgid "/Options/Display/tearoff1"
+msgstr "/è¨­å®š/ãƒªã‚¹ãƒˆ/tearoff1"
 
 #: ../src/menu.c:457
 #, fuzzy
-msgid "/Options/Display/View _HTML toolbar"
-msgstr "/ÀßÄê/HTML¥Ä¡¼¥ë¥Ğ¡¼¤òÉ½¼¨"
+msgid "/Options/Display/View _Main toolbar"
+msgstr "/è¨­å®š/ãƒ¡ã‚¤ãƒ³ãƒ»ãƒ„ãƒ¼ãƒ«ãƒãƒ¼ã‚’è¡¨ç¤º"
 
 #: ../src/menu.c:458
 #, fuzzy
-msgid "/Options/Display/View _Custom menu"
-msgstr "/ÀßÄê/¥«¥¹¥¿¥à¡¦¥Ä¡¼¥ë¥Ğ¡¼¤òÉ½¼¨"
+msgid "/Options/Display/View _HTML toolbar"
+msgstr "/è¨­å®š/HTMLãƒ„ãƒ¼ãƒ«ãƒãƒ¼ã‚’è¡¨ç¤º"
 
 #: ../src/menu.c:459
+#, fuzzy
+msgid "/Options/Display/View _Custom menu"
+msgstr "/è¨­å®š/ã‚«ã‚¹ã‚¿ãƒ ãƒ»ãƒ„ãƒ¼ãƒ«ãƒãƒ¼ã‚’è¡¨ç¤º"
+
+#: ../src/menu.c:460
 msgid "/Options/Display/View _Left panel"
 msgstr ""
 
-#: ../src/menu.c:461
-#, fuzzy
-msgid "/Options/_Tabsize"
-msgstr "/ÀßÄê/sep2"
-
 #: ../src/menu.c:462
 #, fuzzy
-msgid "/Options/Tabsize/tearoff1"
-msgstr "/ÀßÄê/tearoff1"
+msgid "/Options/_Tabsize"
+msgstr "/è¨­å®š/sep2"
 
 #: ../src/menu.c:463
+#, fuzzy
+msgid "/Options/Tabsize/tearoff1"
+msgstr "/è¨­å®š/tearoff1"
+
+#: ../src/menu.c:464
 msgid "/Options/Tabsize/_Increase tabsize"
 msgstr ""
 
-#: ../src/menu.c:464
+#: ../src/menu.c:465
 msgid "/Options/Tabsize/_Decrease tabsize"
 msgstr ""
 
-#: ../src/menu.c:465 ../src/menu.c:467
+#: ../src/menu.c:466 ../src/menu.c:468
 msgid "/Options/sep2"
-msgstr "/ÀßÄê/sep2"
+msgstr "/è¨­å®š/sep2"
 
-#: ../src/menu.c:466
+#: ../src/menu.c:467
 #, fuzzy
 msgid "/Options/_Auto indent"
-msgstr "/ÀßÄê/¥ê¥¹¥È(_L)"
-
-#: ../src/menu.c:468
-#, fuzzy
-msgid "/Options/_Save settings"
-msgstr "/ÀßÄê/¥·¥ç¡¼¥È¥«¥Ã¥È¥­¡¼ÀßÄê¤ÎÊİÂ¸"
+msgstr "/è¨­å®š/ãƒªã‚¹ãƒˆ(_L)"
 
 #: ../src/menu.c:469
 #, fuzzy
-msgid "/Options/Save shortcut _keys"
-msgstr "/ÀßÄê/¥·¥ç¡¼¥È¥«¥Ã¥È¥­¡¼ÀßÄê¤ÎÊİÂ¸"
+msgid "/Options/_Save settings"
+msgstr "/è¨­å®š/ã‚·ãƒ§ãƒ¼ãƒˆã‚«ãƒƒãƒˆã‚­ãƒ¼è¨­å®šã®ä¿å­˜"
 
-#: ../src/menu.c:624
+#: ../src/menu.c:470
+#, fuzzy
+msgid "/Options/Save shortcut _keys"
+msgstr "/è¨­å®š/ã‚·ãƒ§ãƒ¼ãƒˆã‚«ãƒƒãƒˆã‚­ãƒ¼è¨­å®šã®ä¿å­˜"
+
+#: ../src/menu.c:602
+#, fuzzy
+msgid "/Document/Type"
+msgstr "æ–‡æ›¸ãƒ•ã‚¡ã‚¤ãƒ«"
+
+#: ../src/menu.c:639
 #, fuzzy
 msgid "/Options/Display/View Main toolbar"
-msgstr "/ÀßÄê/¥á¥¤¥ó¡¦¥Ä¡¼¥ë¥Ğ¡¼¤òÉ½¼¨"
+msgstr "/è¨­å®š/ãƒ¡ã‚¤ãƒ³ãƒ»ãƒ„ãƒ¼ãƒ«ãƒãƒ¼ã‚’è¡¨ç¤º"
 
-#: ../src/menu.c:625
+#: ../src/menu.c:640
 #, fuzzy
 msgid "/Options/Display/View HTML toolbar"
-msgstr "/ÀßÄê/HTML¥Ä¡¼¥ë¥Ğ¡¼¤òÉ½¼¨"
+msgstr "/è¨­å®š/HTMLãƒ„ãƒ¼ãƒ«ãƒãƒ¼ã‚’è¡¨ç¤º"
 
-#: ../src/menu.c:626
+#: ../src/menu.c:641
 #, fuzzy
 msgid "/Options/Display/View Custom menu"
-msgstr "/ÀßÄê/¥«¥¹¥¿¥à¡¦¥Ä¡¼¥ë¥Ğ¡¼¤òÉ½¼¨"
+msgstr "/è¨­å®š/ã‚«ã‚¹ã‚¿ãƒ ãƒ»ãƒ„ãƒ¼ãƒ«ãƒãƒ¼ã‚’è¡¨ç¤º"
 
-#: ../src/menu.c:627
+#: ../src/menu.c:642
 msgid "/Options/Display/View Left panel"
 msgstr ""
 
-#: ../src/menu.c:628
+#: ../src/menu.c:643
 #, fuzzy
 msgid "/Options/Auto indent"
-msgstr "/ÀßÄê/¥ê¥¹¥È(_L)"
+msgstr "/è¨­å®š/ãƒªã‚¹ãƒˆ(_L)"
 
-#: ../src/menu.c:633
-#, fuzzy
-msgid "/Document/Type"
-msgstr "Ê¸½ñ¥Õ¥¡¥¤¥ë"
-
-#: ../src/menu.c:647
+#: ../src/menu.c:648
 #, fuzzy
 msgid "/External/Browsers/"
-msgstr "/µ¯Æ°/¥Õ¥£¥ë¥¿/"
+msgstr "/èµ·å‹•/ãƒ•ã‚£ãƒ«ã‚¿/"
 
-#: ../src/menu.c:650
+#: ../src/menu.c:651
 msgid "/External/Commands/"
-msgstr "/µ¯Æ°/¥³¥Ş¥ó¥É/"
+msgstr "/èµ·å‹•/ã‚³ãƒãƒ³ãƒ‰/"
 
-#: ../src/menu.c:653
+#: ../src/menu.c:654
 #, fuzzy
 msgid "/External/Outputbox/"
-msgstr "/µ¯Æ°/sep1"
+msgstr "/èµ·å‹•/sep1"
 
-#: ../src/menu.c:688 ../src/menu.c:708 ../src/menu.c:963 ../src/menu.c:975
-#: ../src/menu.c:984 ../src/menu.c:998
+#: ../src/menu.c:690 ../src/menu.c:710 ../src/menu.c:979 ../src/menu.c:992
+#: ../src/menu.c:1008 ../src/menu.c:1022
 #, fuzzy
 msgid "/External"
-msgstr "/µ¯Æ°(_X)"
+msgstr "/èµ·å‹•(_X)"
 
-#: ../src/menu.c:706
+#: ../src/menu.c:708
 #, fuzzy
 msgid "/External/Outputbox"
-msgstr "/µ¯Æ°/sep1"
+msgstr "/èµ·å‹•/sep1"
 
 #: ../src/menu.c:747
 #, fuzzy
-msgid "Could not open file\n"
-msgstr "¥Õ¥¡¥¤¥ë¤ò³«¤¯¤³¤È¤¬¤Ç¤­¤Ş¤»¤ó¤Ç¤·¤¿:\n"
+msgid "Loading file(s)..."
+msgstr "ãƒ•ã‚¡ã‚¤ãƒ«ã‚’ä¿å­˜ã—ã¦ã„ã¾ã™"
 
-#: ../src/menu.c:769
+#: ../src/menu.c:750
+#, fuzzy
+msgid "Could not open file\n"
+msgstr "ãƒ•ã‚¡ã‚¤ãƒ«ã‚’é–‹ãã“ã¨ãŒã§ãã¾ã›ã‚“ã§ã—ãŸ:\n"
+
+#: ../src/menu.c:772
 #, fuzzy
 msgid "/File/Open recent"
-msgstr "/¥Õ¥¡¥¤¥ë/ºÇ¶á»È¤Ã¤¿¥Õ¥¡¥¤¥ë"
+msgstr "/ãƒ•ã‚¡ã‚¤ãƒ«/æœ€è¿‘ä½¿ã£ãŸãƒ•ã‚¡ã‚¤ãƒ«"
 
-#: ../src/menu.c:790
+#: ../src/menu.c:793
 msgid "(none)"
 msgstr ""
 
-#: ../src/menu.c:878
+#: ../src/menu.c:881
 #, fuzzy
 msgid "Bluefish error: no filename"
-msgstr "Bluefish ¥¨¥é¡¼"
+msgstr "Bluefish ã‚¨ãƒ©ãƒ¼"
 
-#: ../src/menu.c:878
+#: ../src/menu.c:881
 msgid "Could not view file in browser, the file does not yet have a name\n"
 msgstr ""
 
-#: ../src/menu.c:973
+#: ../src/menu.c:990
 #, fuzzy
 msgid "/External/Browsers"
-msgstr "/µ¯Æ°/¥Õ¥£¥ë¥¿/"
+msgstr "/èµ·å‹•/ãƒ•ã‚£ãƒ«ã‚¿/"
 
-#: ../src/menu.c:996
+#: ../src/menu.c:1020
 #, fuzzy
 msgid "/External/Commands"
-msgstr "/µ¯Æ°/¥³¥Ş¥ó¥É/"
+msgstr "/èµ·å‹•/ã‚³ãƒãƒ³ãƒ‰/"
 
-#: ../src/menu.c:1036
+#: ../src/menu.c:1060
 #, fuzzy
 msgid "/Document/Encoding"
-msgstr "ÆşÎÏ¥¿¥¤¥×"
+msgstr "å…¥åŠ›ã‚¿ã‚¤ãƒ—"
 
-#: ../src/menu.c:1254
+#: ../src/menu.c:1303
 msgid "This custom search and replace requires a selection"
-msgstr "¤³¤Î¥«¥¹¥¿¥à¸¡º÷/ÃÖ´¹¤Ç¤ÏÈÏ°Ï»ØÄê¤¬É¬Í×¤Ç¤¹"
+msgstr "ã“ã®ã‚«ã‚¹ã‚¿ãƒ æ¤œç´¢/ç½®æ›ã§ã¯ç¯„å›²æŒ‡å®šãŒå¿…è¦ã§ã™"
 
-#: ../src/menu.c:1328
+#: ../src/menu.c:1377
 msgid "/_Custom menu"
-msgstr "/¥«¥¹¥¿¥à¡¦¥á¥Ë¥å¡¼(_C)"
+msgstr "/ã‚«ã‚¹ã‚¿ãƒ ãƒ»ãƒ¡ãƒ‹ãƒ¥ãƒ¼(_C)"
 
-#: ../src/menu.c:1329
+#: ../src/menu.c:1378
 msgid "/Custom menu/sep"
-msgstr "/¥«¥¹¥¿¥à¡¦¥á¥Ë¥å¡¼/sep"
+msgstr "/ã‚«ã‚¹ã‚¿ãƒ ãƒ»ãƒ¡ãƒ‹ãƒ¥ãƒ¼/sep"
 
-#: ../src/menu.c:1330
+#: ../src/menu.c:1379
 msgid "/Custom menu/Edit custom menu..."
-msgstr "/¥«¥¹¥¿¥à¡¦¥á¥Ë¥å¡¼/¥á¥Ë¥å¡¼ÊÔ½¸..."
+msgstr "/ã‚«ã‚¹ã‚¿ãƒ ãƒ»ãƒ¡ãƒ‹ãƒ¥ãƒ¼/ãƒ¡ãƒ‹ãƒ¥ãƒ¼ç·¨é›†..."
 
-#: ../src/menu.c:1492 ../src/menu.c:1620 ../src/menu.c:1830
+#: ../src/menu.c:1541 ../src/menu.c:1669 ../src/menu.c:1879
 #, fuzzy
 msgid "in current document"
-msgstr "/¥×¥í¥¸¥§¥¯¥È/¸½ºßÊÔ½¸Ãæ¤ÎÊ¸½ñ¤òÄÉ²Ã"
+msgstr "/ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆ/ç¾åœ¨ç·¨é›†ä¸­ã®æ–‡æ›¸ã‚’è¿½åŠ "
 
-#: ../src/menu.c:1492 ../src/menu.c:1620 ../src/menu.c:1831
+#: ../src/menu.c:1541 ../src/menu.c:1669 ../src/menu.c:1880
 msgid "from cursor"
 msgstr ""
 
-#: ../src/menu.c:1492 ../src/menu.c:1620 ../src/menu.c:1832
+#: ../src/menu.c:1541 ../src/menu.c:1669 ../src/menu.c:1881
 #, fuzzy
 msgid "in selection"
-msgstr "ÁªÂòÈÏ°ÏÆâ"
+msgstr "é¸æŠç¯„å›²å†…"
 
-#: ../src/menu.c:1492 ../src/menu.c:1620 ../src/menu.c:1833
+#: ../src/menu.c:1541 ../src/menu.c:1669 ../src/menu.c:1882
 #, fuzzy
 msgid "in all open documents"
-msgstr "/¥×¥í¥¸¥§¥¯¥È/³«¤¤¤Æ¤¤¤ëÊ¸½ñ¤ò¤¹¤Ù¤ÆÄÉ²Ã"
+msgstr "/ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆ/é–‹ã„ã¦ã„ã‚‹æ–‡æ›¸ã‚’ã™ã¹ã¦è¿½åŠ "
 
-#: ../src/menu.c:1493 ../src/menu.c:1621 ../src/menu.c:1841
+#: ../src/menu.c:1542 ../src/menu.c:1670 ../src/menu.c:1890
 msgid "normal"
 msgstr ""
 
-#: ../src/menu.c:1493 ../src/menu.c:1621 ../src/menu.c:1842
+#: ../src/menu.c:1542 ../src/menu.c:1670 ../src/menu.c:1891
 #, fuzzy
 msgid "posix regular expresions"
-msgstr "Àµµ¬É½¸½¤ò»ÈÍÑ"
+msgstr "æ­£è¦è¡¨ç¾ã‚’ä½¿ç”¨"
 
-#: ../src/menu.c:1493 ../src/menu.c:1621 ../src/menu.c:1843
+#: ../src/menu.c:1542 ../src/menu.c:1670 ../src/menu.c:1892
 #, fuzzy
 msgid "perl regular expresions"
-msgstr "Àµµ¬É½¸½¤ò»ÈÍÑ"
+msgstr "æ­£è¦è¡¨ç¾ã‚’ä½¿ç”¨"
 
-#: ../src/menu.c:1558
+#: ../src/menu.c:1607
 msgid "Search pattern"
-msgstr "¸¡º÷¥Ñ¥¿¡¼¥ó"
+msgstr "æ¤œç´¢ãƒ‘ã‚¿ãƒ¼ãƒ³"
 
-#: ../src/menu.c:1559
+#: ../src/menu.c:1608
 msgid "Replace string"
-msgstr "ÃÖ´¹Ê¸»úÎó"
+msgstr "ç½®æ›æ–‡å­—åˆ—"
 
-#: ../src/menu.c:1562
+#: ../src/menu.c:1611
 msgid "Formatstring before"
-msgstr "Á°¤ËÁŞÆş¤¹¤ë½ñ¼°Ê¸»úÎó"
+msgstr "å‰ã«æŒ¿å…¥ã™ã‚‹æ›¸å¼æ–‡å­—åˆ—"
 
-#: ../src/menu.c:1563
+#: ../src/menu.c:1612
 msgid "Formatstring after"
-msgstr "¸å¤ËÁŞÆş¤¹¤ë½ñ¼°Ê¸»úÎó"
+msgstr "å¾Œã«æŒ¿å…¥ã™ã‚‹æ›¸å¼æ–‡å­—åˆ—"
 
-#: ../src/menu.c:1591
+#: ../src/menu.c:1640
 msgid "the menupath you want to add exists already"
 msgstr ""
 
-#: ../src/menu.c:1599
+#: ../src/menu.c:1648
 msgid "the menupath should start with a / character"
 msgstr ""
 
-#: ../src/menu.c:1741
+#: ../src/menu.c:1790
 #, fuzzy
 msgid "Edit custom menu"
-msgstr "/¥«¥¹¥¿¥à¡¦¥á¥Ë¥å¡¼(_C)"
+msgstr "/ã‚«ã‚¹ã‚¿ãƒ ãƒ»ãƒ¡ãƒ‹ãƒ¥ãƒ¼(_C)"
 
-#: ../src/menu.c:1750
+#: ../src/menu.c:1799
 msgid "Menu path"
-msgstr "¥á¥Ë¥å¡¼¡¦¥Ñ¥¹"
+msgstr "ãƒ¡ãƒ‹ãƒ¥ãƒ¼ãƒ»ãƒ‘ã‚¹"
 
-#: ../src/menu.c:1784
+#: ../src/menu.c:1833
 msgid "custom dialog"
-msgstr "¥«¥¹¥¿¥à¡¦¥À¥¤¥¢¥í¥°"
+msgstr "ã‚«ã‚¹ã‚¿ãƒ ãƒ»ãƒ€ã‚¤ã‚¢ãƒ­ã‚°"
 
-#: ../src/menu.c:1786
+#: ../src/menu.c:1835
 msgid "custom search and replace"
-msgstr "¥«¥¹¥¿¥à¸¡º÷/ÃÖ´¹"
+msgstr "ã‚«ã‚¹ã‚¿ãƒ æ¤œç´¢/ç½®æ›"
 
-#: ../src/menu.c:1795
+#: ../src/menu.c:1844
 msgid "Number of variables"
-msgstr "ÊÑ¿ô¤Î¿ô"
+msgstr "å¤‰æ•°ã®æ•°"
 
-#: ../src/menu.c:1800
+#: ../src/menu.c:1849
 msgid "Variables"
-msgstr "ÊÑ¿ô"
+msgstr "å¤‰æ•°"
 
-#: ../src/menu.c:1829 ../src/snr2.c:971 ../src/snr2.c:1023
-msgid "Replace"
-msgstr "ÃÖ´¹"
-
-#: ../src/menu.c:1840 ../src/snr2.c:1007
+#: ../src/menu.c:1889 ../src/snr2.c:1086
 msgid "Matching"
 msgstr ""
 
-#: ../src/menu.c:1848
+#: ../src/menu.c:1897
 msgid "case sensitive"
-msgstr "ÂçÊ¸»ú¾®Ê¸»ú¤ò¶èÊÌ¤¹¤ë"
+msgstr "å¤§æ–‡å­—å°æ–‡å­—ã‚’åŒºåˆ¥ã™ã‚‹"
 
-#: ../src/preferences.c:195
+#: ../src/preferences.c:196
 #, fuzzy
 msgid "Select font"
-msgstr "¥»¥ì¥¯¥¿"
+msgstr "ã‚»ãƒ¬ã‚¯ã‚¿"
 
-#: ../src/preferences.c:503
+#: ../src/preferences.c:470 ../src/preferences.c:508
 #, fuzzy
 msgid "Filetype"
-msgstr "³«¤¯"
+msgstr "é–‹ã"
 
-#: ../src/preferences.c:511
-msgid "Extensions (colon separated)"
+#: ../src/preferences.c:472
+msgid "Extensions"
 msgstr ""
 
-#: ../src/preferences.c:512
-msgid "Highlight update characters"
-msgstr ""
+#: ../src/preferences.c:474
+#, fuzzy
+msgid "Update chars"
+msgstr "æ›´æ–°"
 
-#: ../src/preferences.c:513
+#: ../src/preferences.c:476 ../src/preferences.c:518
 msgid "Icon"
 msgstr ""
 
-#: ../src/preferences.c:661
+#: ../src/preferences.c:516
+msgid "Extensions (colon separated)"
+msgstr ""
+
+#: ../src/preferences.c:517
+msgid "Highlight update characters"
+msgstr ""
+
+#: ../src/preferences.c:632 ../src/preferences.c:666
 #, fuzzy
 msgid "Filefilter"
-msgstr "¥Õ¥¡¥¤¥ë¡¦¥Õ¥£¥ë¥¿"
+msgstr "ãƒ•ã‚¡ã‚¤ãƒ«ãƒ»ãƒ•ã‚£ãƒ«ã‚¿"
 
-#: ../src/preferences.c:666
+#: ../src/preferences.c:634 ../src/preferences.c:671
 #, fuzzy
 msgid "Inverse filtering"
-msgstr "¥¤¥á¡¼¥¸¡¦¥Õ¥£¥ë¥¿"
+msgstr "ã‚¤ãƒ¡ãƒ¼ã‚¸ãƒ»ãƒ•ã‚£ãƒ«ã‚¿"
 
-#: ../src/preferences.c:667
+#: ../src/preferences.c:636
+#, fuzzy
+msgid "Filetypes in filter"
+msgstr "ãƒ•ã‚¡ã‚¤ãƒ«ãƒ»ãƒ•ã‚£ãƒ«ã‚¿"
+
+#: ../src/preferences.c:672
 msgid "Filetypes (colon separated)"
 msgstr ""
 
-#: ../src/preferences.c:947
+#: ../src/preferences.c:952
 msgid "filetype"
 msgstr ""
 
-#: ../src/preferences.c:955
+#: ../src/preferences.c:960
 #, fuzzy
 msgid "Pattern name"
-msgstr "¥Ñ¥¿¡¼¥ó"
+msgstr "ãƒ‘ã‚¿ãƒ¼ãƒ³"
 
-#: ../src/preferences.c:996
+#: ../src/preferences.c:1001
 msgid "Start pattern and end pattern"
 msgstr ""
 
-#: ../src/preferences.c:998
+#: ../src/preferences.c:1003
 #, fuzzy
 msgid "Only start pattern"
-msgstr "¸¡º÷¥Ñ¥¿¡¼¥ó"
+msgstr "æ¤œç´¢ãƒ‘ã‚¿ãƒ¼ãƒ³"
 
-#: ../src/preferences.c:1000
+#: ../src/preferences.c:1005
 msgid "Subpattern from parent"
 msgstr ""
 
-#: ../src/preferences.c:1006
+#: ../src/preferences.c:1011
 #, fuzzy
 msgid "Start pattern"
-msgstr "¸¡º÷¥Ñ¥¿¡¼¥ó"
+msgstr "æ¤œç´¢ãƒ‘ã‚¿ãƒ¼ãƒ³"
 
-#: ../src/preferences.c:1007
+#: ../src/preferences.c:1012
 #, fuzzy
 msgid "End pattern"
-msgstr "¥Ñ¥¿¡¼¥ó"
+msgstr "ãƒ‘ã‚¿ãƒ¼ãƒ³"
 
-#: ../src/preferences.c:1008
+#: ../src/preferences.c:1013
 #, fuzzy
 msgid "Case sensitive matching"
-msgstr "ÂçÊ¸»ú¾®Ê¸»ú¤ò¶èÊÌ¤¹¤ë"
+msgstr "å¤§æ–‡å­—å°æ–‡å­—ã‚’åŒºåˆ¥ã™ã‚‹"
 
-#: ../src/preferences.c:1009
+#: ../src/preferences.c:1014
 msgid "Parentmatch"
 msgstr ""
 
-#: ../src/preferences.c:1010
+#: ../src/preferences.c:1015
 #, fuzzy
 msgid "Foreground color"
-msgstr "ÇØ·Ê¿§"
+msgstr "èƒŒæ™¯è‰²"
 
-#: ../src/preferences.c:1011
+#: ../src/preferences.c:1016
 #, fuzzy
 msgid "Background color"
-msgstr "ÇØ·Ê¿§"
+msgstr "èƒŒæ™¯è‰²"
 
-#: ../src/preferences.c:1019
+#: ../src/preferences.c:1024
 msgid "don't change weight"
 msgstr ""
 
-#: ../src/preferences.c:1021
+#: ../src/preferences.c:1026
 msgid "force non-bold weight"
 msgstr ""
 
-#: ../src/preferences.c:1023
+#: ../src/preferences.c:1028
 msgid "force bold weight"
 msgstr ""
 
-#: ../src/preferences.c:1029
+#: ../src/preferences.c:1034
 #, fuzzy
 msgid "don't change style"
-msgstr "¿·µ¬¥¹¥¿¥¤¥ë¤ÎÁŞÆş"
+msgstr "æ–°è¦ã‚¹ã‚¿ã‚¤ãƒ«ã®æŒ¿å…¥"
 
-#: ../src/preferences.c:1031
+#: ../src/preferences.c:1036
 msgid "force non-italic style"
 msgstr ""
 
-#: ../src/preferences.c:1033
+#: ../src/preferences.c:1038
 msgid "force italic style"
 msgstr ""
 
-#: ../src/preferences.c:1168
+#: ../src/preferences.c:1142 ../src/preferences.c:1173
 #, fuzzy
 msgid "Browser"
-msgstr "¥Ö¥é¥¦¥¶¥³¥Ş¥ó¥É"
+msgstr "ãƒ–ãƒ©ã‚¦ã‚¶ã‚³ãƒãƒ³ãƒ‰"
 
-#: ../src/preferences.c:1173
-#, fuzzy, c-format
-msgid "%s = current filename"
-msgstr "³°Éô¥Õ¥¡¥¤¥ëÌ¾"
-
-#: ../src/preferences.c:1174 ../src/preferences.c:1292
-#: ../src/preferences.c:1467
+#: ../src/preferences.c:1144 ../src/preferences.c:1179
+#: ../src/preferences.c:1262 ../src/preferences.c:1297
+#: ../src/preferences.c:1427 ../src/preferences.c:1472
 #, fuzzy
 msgid "Command"
-msgstr "¥³¥Ş¥ó¥É"
+msgstr "ã‚³ãƒãƒ³ãƒ‰"
 
-#: ../src/preferences.c:1291
+#: ../src/preferences.c:1178
+#, fuzzy, c-format
+msgid "%s = current filename"
+msgstr "å¤–éƒ¨ãƒ•ã‚¡ã‚¤ãƒ«å"
+
+#: ../src/preferences.c:1296
 #, c-format
 msgid ""
 "%s = current filename\n"
 "%f = output filename (for filters)"
 msgstr ""
 
-#: ../src/preferences.c:1464
+#: ../src/preferences.c:1421
 #, fuzzy
-msgid "File subpattern #"
-msgstr "ÊÌÌ¾¤ÇÊİÂ¸¤¹¤ë"
+msgid "File #"
+msgstr "ãƒ•ã‚¡ã‚¤ãƒ« "
 
-#: ../src/preferences.c:1465
+#: ../src/preferences.c:1423
 #, fuzzy
-msgid "Line subpattern #"
-msgstr "¹ÔÈÖ¹æ: "
+msgid "Line #"
+msgstr "è¡Œãƒ©ãƒƒãƒ—"
 
-#: ../src/preferences.c:1466
-msgid "Output subpattern #"
-msgstr ""
+#: ../src/preferences.c:1425
+#, fuzzy
+msgid "Output #"
+msgstr "htmlå½¢å¼ã§æ–‡å­—ã‚’å‡ºåŠ›"
 
-#: ../src/preferences.c:1468
+#: ../src/preferences.c:1429 ../src/preferences.c:1473
 msgid "Show all output"
 msgstr ""
 
-#: ../src/preferences.c:1594
-msgid "Edit preferences"
-msgstr "´Ä¶­ÀßÄê¤ÎÊÔ½¸"
-
-#: ../src/preferences.c:1605
-msgid "Editor"
-msgstr "¥¨¥Ç¥£¥¿"
-
-#: ../src/preferences.c:1607
-msgid "Editor options"
-msgstr "¥¨¥Ç¥£¥¿¤ÎÀßÄê"
-
-#: ../src/preferences.c:1613
-msgid "Tab width"
-msgstr "¥¿¥ÖÉı"
-
-#: ../src/preferences.c:1614
+#: ../src/preferences.c:1469
 #, fuzzy
-msgid "Word wrap default"
-msgstr "¥ï¡¼¥É¥é¥Ã¥×"
+msgid "File subpattern #"
+msgstr "åˆ¥åã§ä¿å­˜ã™ã‚‹"
+
+#: ../src/preferences.c:1470
+#, fuzzy
+msgid "Line subpattern #"
+msgstr "è¡Œç•ªå·: "
+
+#: ../src/preferences.c:1471
+msgid "Output subpattern #"
+msgstr ""
 
 #: ../src/preferences.c:1615
+msgid "Edit preferences"
+msgstr "ç’°å¢ƒè¨­å®šã®ç·¨é›†"
+
+#: ../src/preferences.c:1626
+msgid "Editor"
+msgstr "ã‚¨ãƒ‡ã‚£ã‚¿"
+
+#: ../src/preferences.c:1628
+msgid "Editor options"
+msgstr "ã‚¨ãƒ‡ã‚£ã‚¿ã®è¨­å®š"
+
+#: ../src/preferences.c:1634
+msgid "Tab width"
+msgstr "ã‚¿ãƒ–å¹…"
+
+#: ../src/preferences.c:1635
+#, fuzzy
+msgid "Word wrap default"
+msgstr "ãƒ¯ãƒ¼ãƒ‰ãƒ©ãƒƒãƒ—"
+
+#: ../src/preferences.c:1636
 #, fuzzy
 msgid "Line numbers by default"
-msgstr "¹ÔÈÖ¹æ: "
+msgstr "è¡Œç•ªå·: "
 
-#: ../src/preferences.c:1616
+#: ../src/preferences.c:1637
 #, fuzzy
 msgid "Highlight syntax by default"
-msgstr "/É½¼¨/¿§Ê¬¤±"
+msgstr "/è¡¨ç¤º/è‰²åˆ†ã‘"
 
-#: ../src/preferences.c:1617
+#: ../src/preferences.c:1638
 #, fuzzy
 msgid "Highlight # lines"
-msgstr "¥Ç¥Õ¥©¥ë¥È¤Ç¿§Ê¬¤±"
+msgstr "ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã§è‰²åˆ†ã‘"
 
-#: ../src/preferences.c:1620
+#: ../src/preferences.c:1639
+msgid "Always highlight full document"
+msgstr ""
+
+#: ../src/preferences.c:1641
 msgid "HTML"
 msgstr ""
 
-#: ../src/preferences.c:1622
+#: ../src/preferences.c:1643
 msgid "HTML options"
-msgstr "HTML¤ÎÀßÄê"
+msgstr "HTMLã®è¨­å®š"
 
-#: ../src/preferences.c:1627
+#: ../src/preferences.c:1648
 msgid "Lowercase HTML tags"
 msgstr ""
 
-#: ../src/preferences.c:1628
+#: ../src/preferences.c:1649
 msgid "Use deprecated tags (e.g. <font> and <nobr>)"
 msgstr ""
 
-#: ../src/preferences.c:1629
+#: ../src/preferences.c:1650
 #, fuzzy
 msgid "Use XHTML style tags (<br />)"
-msgstr "XHTML¤Î½ñ¤­Êı¤ò»È¤¦ (<br />¤Ê¤É)"
+msgstr "XHTMLã®æ›¸ãæ–¹ã‚’ä½¿ã† (<br />ãªã©)"
 
-#: ../src/preferences.c:1632
+#: ../src/preferences.c:1651
+msgid "Automatic update author meta"
+msgstr ""
+
+#: ../src/preferences.c:1654
 msgid "Files"
-msgstr "¥Õ¥¡¥¤¥ë"
+msgstr "ãƒ•ã‚¡ã‚¤ãƒ«"
 
-#: ../src/preferences.c:1634
+#: ../src/preferences.c:1656
 #, fuzzy
 msgid "Encoding"
-msgstr "ÆşÎÏ¥¿¥¤¥×"
+msgstr "å…¥åŠ›ã‚¿ã‚¤ãƒ—"
 
-#: ../src/preferences.c:1646
+#: ../src/preferences.c:1668
 #, fuzzy
 msgid "Default character set"
-msgstr "socket¤òºîÀ®¤Ç¤­¤Ş¤»¤ó¤Ç¤·¤¿"
+msgstr "socketã‚’ä½œæˆã§ãã¾ã›ã‚“ã§ã—ãŸ"
 
-#: ../src/preferences.c:1649
+#: ../src/preferences.c:1671
 msgid "Auto set <meta> encoding tag on change"
 msgstr ""
 
-#: ../src/preferences.c:1651
+#: ../src/preferences.c:1673
 msgid "Backup"
 msgstr ""
 
-#: ../src/preferences.c:1655
+#: ../src/preferences.c:1677
 msgid "Create backup on save"
 msgstr ""
 
-#: ../src/preferences.c:1656
+#: ../src/preferences.c:1678
 msgid "Backup file suffix"
-msgstr "¥Ğ¥Ã¥¯¥¢¥Ã¥×¡¦¥Õ¥¡¥¤¥ë¤ÎËöÈø"
+msgstr "ãƒãƒƒã‚¯ã‚¢ãƒƒãƒ—ãƒ»ãƒ•ã‚¡ã‚¤ãƒ«ã®æœ«å°¾"
 
-#: ../src/preferences.c:1661
+#: ../src/preferences.c:1683
 #, fuzzy
 msgid "Action on backup failure"
-msgstr "¥Û¥¹¥ÈÌ¾»²¾È¤Ë¼ºÇÔ"
+msgstr "ãƒ›ã‚¹ãƒˆåå‚ç…§ã«å¤±æ•—"
 
-#: ../src/preferences.c:1672
+#: ../src/preferences.c:1694
 msgid "Undo history size"
 msgstr ""
 
-#: ../src/preferences.c:1673
+#: ../src/preferences.c:1695
 #, fuzzy
 msgid "Clear undo history on save"
-msgstr "ÊİÂ¸»ş¤ËUndo¥ì¥Ù¥ë¤ò¥¯¥ê¥¢"
+msgstr "ä¿å­˜æ™‚ã«Undoãƒ¬ãƒ™ãƒ«ã‚’ã‚¯ãƒªã‚¢"
 
-#: ../src/preferences.c:1675 ../src/preferences.c:1696
+#: ../src/preferences.c:1697 ../src/preferences.c:1718
 msgid "Misc"
 msgstr ""
 
-#: ../src/preferences.c:1680
+#: ../src/preferences.c:1702
 #, fuzzy
 msgid "Allow multi instances of a file"
-msgstr "¤Ò¤È¤Ä¤Î¥Õ¥¡¥¤¥ë¤òÊ£¿ô³«¤¯¤³¤È¤¬¤Ç¤­¤ë¤è¤¦¤Ë¤¹¤ë"
+msgstr "ã²ã¨ã¤ã®ãƒ•ã‚¡ã‚¤ãƒ«ã‚’è¤‡æ•°é–‹ãã“ã¨ãŒã§ãã‚‹ã‚ˆã†ã«ã™ã‚‹"
 
-#: ../src/preferences.c:1683
+#: ../src/preferences.c:1705
 msgid "User interface"
 msgstr ""
 
-#: ../src/preferences.c:1685
+#: ../src/preferences.c:1707
 msgid "Dimensions"
 msgstr ""
 
-#: ../src/preferences.c:1689
+#: ../src/preferences.c:1711
 msgid "Restore last used dimensions"
 msgstr ""
 
-#: ../src/preferences.c:1690
+#: ../src/preferences.c:1712
 #, fuzzy
 msgid "Initial left panel width"
-msgstr "µ¯Æ°»ş¤ÎÉı"
-
-#: ../src/preferences.c:1691
-#, fuzzy
-msgid "Initial window height"
-msgstr "µ¯Æ°»ş¤Î¹â¤µ"
-
-#: ../src/preferences.c:1692
-#, fuzzy
-msgid "Initial window width"
-msgstr "µ¯Æ°»ş¤ÎÉı"
-
-#: ../src/preferences.c:1701
-#, fuzzy
-msgid "External browsers in submenu"
-msgstr "µ¯Æ°¥×¥í¥°¥é¥à¤ÎÀßÄê"
-
-#: ../src/preferences.c:1702
-#, fuzzy
-msgid "External commands in submenu"
-msgstr "/µ¯Æ°/¥³¥Ş¥ó¥É"
-
-#: ../src/preferences.c:1703
-msgid "External outputbox in submenu"
-msgstr ""
-
-#: ../src/preferences.c:1705
-msgid "Notebook tab font (leave empty for gtk default)"
-msgstr ""
-
-#: ../src/preferences.c:1706
-#, fuzzy
-msgid "Make HTML dialogs transient"
-msgstr "HTML¥À¥¤¥¢¥í¥°¤ò¾ï¤Ë¾å¤ËÉ½¼¨"
-
-#: ../src/preferences.c:1708
-#, fuzzy
-msgid "File browser"
-msgstr "¥Õ¥¡¥¤¥ë°ìÍ÷¤Î¥Õ¥£¥ë¥¿"
-
-#: ../src/preferences.c:1712
-msgid "Show hidden files"
-msgstr ""
+msgstr "èµ·å‹•æ™‚ã®å¹…"
 
 #: ../src/preferences.c:1713
 #, fuzzy
-msgid "Show other users files"
-msgstr "¥Õ¥¡¥¤¥ëËè¤Ë»ØÄê"
+msgid "Initial window height"
+msgstr "èµ·å‹•æ™‚ã®é«˜ã•"
 
 #: ../src/preferences.c:1714
 #, fuzzy
-msgid "Show backup files"
-msgstr "¥Ğ¥Ã¥¯¥¢¥Ã¥×¡¦¥Õ¥¡¥¤¥ë¤ÎËöÈø"
+msgid "Initial window width"
+msgstr "èµ·å‹•æ™‚ã®å¹…"
 
-#: ../src/preferences.c:1715
+#: ../src/preferences.c:1723
 #, fuzzy
-msgid "Unknown icon"
-msgstr "¤½¤ÎÂ¾¤Î¥¨¥é¡¼"
+msgid "External browsers in submenu"
+msgstr "èµ·å‹•ãƒ—ãƒ­ã‚°ãƒ©ãƒ ã®è¨­å®š"
 
-#: ../src/preferences.c:1716
+#: ../src/preferences.c:1724
 #, fuzzy
-msgid "Directory icon"
-msgstr "¥Ç¥£¥ì¥¯¥È¥êÌ¾"
-
-#: ../src/preferences.c:1719 ../src/rcfile.c:611
-#, fuzzy
-msgid "Images"
-msgstr "²èÁü¥Õ¥¡¥¤¥ë"
-
-#: ../src/preferences.c:1721
-#, fuzzy
-msgid "Thumbnails"
-msgstr "¥µ¥à¥Í¥¤¥ë..."
+msgid "External commands in submenu"
+msgstr "/èµ·å‹•/ã‚³ãƒãƒ³ãƒ‰"
 
 #: ../src/preferences.c:1725
+msgid "External outputbox in submenu"
+msgstr ""
+
+#: ../src/preferences.c:1727
+msgid "Notebook tab font (leave empty for gtk default)"
+msgstr ""
+
+#: ../src/preferences.c:1728
 #, fuzzy
-msgid "Thumbnail suffix"
-msgstr "¥µ¥à¥Í¥¤¥ë¤Î¥¿¥¤¥×"
+msgid "Make HTML dialogs transient"
+msgstr "HTMLãƒ€ã‚¤ã‚¢ãƒ­ã‚°ã‚’å¸¸ã«ä¸Šã«è¡¨ç¤º"
 
 #: ../src/preferences.c:1729
 #, fuzzy
-msgid "Thumbnail filetype"
-msgstr "¥µ¥à¥Í¥¤¥ë¤Î¥¿¥¤¥×"
+msgid "Advanced search and replace by default"
+msgstr "ã‚«ã‚¹ã‚¿ãƒ æ¤œç´¢/ç½®æ›"
 
-#: ../src/preferences.c:1734 ../src/preferences.c:1736
+#: ../src/preferences.c:1731
+#, fuzzy
+msgid "File browser"
+msgstr "ãƒ•ã‚¡ã‚¤ãƒ«ä¸€è¦§ã®ãƒ•ã‚£ãƒ«ã‚¿"
+
+#: ../src/preferences.c:1735
+msgid "Show hidden files"
+msgstr ""
+
+#: ../src/preferences.c:1736
+#, fuzzy
+msgid "Show other users files"
+msgstr "ãƒ•ã‚¡ã‚¤ãƒ«æ¯ã«æŒ‡å®š"
+
+#: ../src/preferences.c:1737
+#, fuzzy
+msgid "Show backup files"
+msgstr "ãƒãƒƒã‚¯ã‚¢ãƒƒãƒ—ãƒ»ãƒ•ã‚¡ã‚¤ãƒ«ã®æœ«å°¾"
+
+#: ../src/preferences.c:1738
+#, fuzzy
+msgid "Unknown icon"
+msgstr "ãã®ä»–ã®ã‚¨ãƒ©ãƒ¼"
+
+#: ../src/preferences.c:1739
+#, fuzzy
+msgid "Directory icon"
+msgstr "ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªå"
+
+#: ../src/preferences.c:1742 ../src/rcfile.c:537
+#, fuzzy
+msgid "Images"
+msgstr "ç”»åƒãƒ•ã‚¡ã‚¤ãƒ«"
+
+#: ../src/preferences.c:1744
+#, fuzzy
+msgid "Thumbnails"
+msgstr "ã‚µãƒ ãƒã‚¤ãƒ«..."
+
+#: ../src/preferences.c:1748
+#, fuzzy
+msgid "Thumbnail suffix"
+msgstr "ã‚µãƒ ãƒã‚¤ãƒ«ã®ã‚¿ã‚¤ãƒ—"
+
+#: ../src/preferences.c:1752
+#, fuzzy
+msgid "Thumbnail filetype"
+msgstr "ã‚µãƒ ãƒã‚¤ãƒ«ã®ã‚¿ã‚¤ãƒ—"
+
+#: ../src/preferences.c:1757 ../src/preferences.c:1759
 #, fuzzy
 msgid "Filetypes"
-msgstr "¥Õ¥¡¥¤¥ë"
+msgstr "ãƒ•ã‚¡ã‚¤ãƒ«"
 
-#: ../src/preferences.c:1743
+#: ../src/preferences.c:1766
 #, fuzzy
 msgid "Filefilters"
-msgstr "¥Õ¥¡¥¤¥ë¡¦¥Õ¥£¥ë¥¿"
+msgstr "ãƒ•ã‚¡ã‚¤ãƒ«ãƒ»ãƒ•ã‚£ãƒ«ã‚¿"
 
-#: ../src/preferences.c:1751
+#: ../src/preferences.c:1774
 #, fuzzy
 msgid "Syntax highlighting"
-msgstr "/ÀßÄê/¥ê¥¹¥È/¿§Ê¬¤±..."
+msgstr "/è¨­å®š/ãƒªã‚¹ãƒˆ/è‰²åˆ†ã‘..."
 
-#: ../src/preferences.c:1753
+#: ../src/preferences.c:1776
 #, fuzzy
 msgid "Patterns"
-msgstr "¥Ñ¥¿¡¼¥ó"
+msgstr "ãƒ‘ã‚¿ãƒ¼ãƒ³"
 
-#: ../src/preferences.c:1761
+#: ../src/preferences.c:1784
 #, fuzzy
 msgid "External programs"
-msgstr "µ¯Æ°¥×¥í¥°¥é¥à¤ÎÀßÄê"
+msgstr "èµ·å‹•ãƒ—ãƒ­ã‚°ãƒ©ãƒ ã®è¨­å®š"
 
-#: ../src/preferences.c:1763
+#: ../src/preferences.c:1786
 #, fuzzy
 msgid "Browsers"
-msgstr "¥Ö¥é¥¦¥¶¥³¥Ş¥ó¥É"
+msgstr "ãƒ–ãƒ©ã‚¦ã‚¶ã‚³ãƒãƒ³ãƒ‰"
 
-#: ../src/preferences.c:1770
+#: ../src/preferences.c:1793
 #, fuzzy
 msgid "Utilities and filters"
-msgstr "¥Õ¥¡¥¤¥ë¡¦¥Õ¥£¥ë¥¿"
+msgstr "ãƒ•ã‚¡ã‚¤ãƒ«ãƒ»ãƒ•ã‚£ãƒ«ã‚¿"
 
-#: ../src/preferences.c:1778
+#: ../src/preferences.c:1801
 #, fuzzy
 msgid "Output parsers"
-msgstr "html·Á¼°¤ÇÊ¸»ú¤ò½ĞÎÏ"
+msgstr "htmlå½¢å¼ã§æ–‡å­—ã‚’å‡ºåŠ›"
 
-#: ../src/preferences.c:1780
+#: ../src/preferences.c:1803
 msgid "Outputbox"
 msgstr ""
 
-#: ../src/rcfile.c:518
+#: ../src/rcfile.c:479
 msgid "Galeon"
 msgstr ""
 
-#: ../src/rcfile.c:520
+#: ../src/rcfile.c:481
 msgid "Mozilla"
 msgstr ""
 
-#: ../src/rcfile.c:522
+#: ../src/rcfile.c:483
 msgid "Opera"
 msgstr ""
 
-#: ../src/rcfile.c:524
+#: ../src/rcfile.c:485
 #, fuzzy
 msgid "Netscape"
-msgstr "Netscape¤Ç³ÎÇ§"
+msgstr "Netscapeã§ç¢ºèª"
 
-#: ../src/rcfile.c:526
+#: ../src/rcfile.c:487
 #, fuzzy
 msgid "Gnome default"
-msgstr "¹ÔÈÖ¹æ: "
+msgstr "è¡Œç•ªå·: "
 
-#: ../src/rcfile.c:531
-msgid "UTF-8"
-msgstr ""
-
-#: ../src/rcfile.c:532
-msgid "ISO-8859-1 (Latin 1, West European)"
-msgstr ""
-
-#: ../src/rcfile.c:533
-msgid "ISO-8859-2 (Latin 2, East European)"
-msgstr ""
-
-#: ../src/rcfile.c:534
-msgid "ISO-8859-3 (Latin 3, South European)"
-msgstr ""
-
-#: ../src/rcfile.c:535
-msgid "ISO-8859-4 (Latin 4, North European)"
-msgstr ""
-
-#: ../src/rcfile.c:536
-msgid "ISO-8859-5 (Cyrillic)"
-msgstr ""
-
-#: ../src/rcfile.c:537
-msgid "ISO-8859-6 (Arabic)"
-msgstr ""
-
-#: ../src/rcfile.c:538
-msgid "ISO-8859-7 (Greek)"
-msgstr ""
-
-#: ../src/rcfile.c:539
-msgid "ISO-8859-8 (Hebrew)"
-msgstr ""
-
-#: ../src/rcfile.c:540
-msgid "ISO-8859-9 (Turkish)"
-msgstr ""
-
-#: ../src/rcfile.c:541
-msgid "ISO-8859-10 (Nordic)"
-msgstr ""
-
-#: ../src/rcfile.c:542
-msgid "ISO-8859-11 (Thai)"
-msgstr ""
-
-#: ../src/rcfile.c:543
-msgid "ISO-8859-13 (Latin 7)"
-msgstr ""
-
-#: ../src/rcfile.c:544
-msgid "ISO-8859-14 (Latin 8)"
-msgstr ""
-
-#: ../src/rcfile.c:545
-msgid "ISO-8859-15 (Latin 9, West European with EURO)"
-msgstr ""
-
-#: ../src/rcfile.c:546
-msgid "GB2312 (Chinese)"
-msgstr ""
-
-#: ../src/rcfile.c:547
-msgid "BIG5 (Traditional Chinese)"
-msgstr ""
-
-#: ../src/rcfile.c:548
-msgid "SJIS (Japanese)"
-msgstr ""
-
-#: ../src/rcfile.c:549
-msgid "KSC (Korean)"
-msgstr ""
-
-#: ../src/rcfile.c:550
-msgid "KOI8-R (Russian)"
-msgstr ""
-
-#: ../src/rcfile.c:551
-msgid "EUCJP (Japanese)"
-msgstr ""
-
-#: ../src/rcfile.c:555
+#: ../src/rcfile.c:503
 #, fuzzy
 msgid "make"
-msgstr "²èÁü¥Õ¥¡¥¤¥ë"
+msgstr "ç”»åƒãƒ•ã‚¡ã‚¤ãƒ«"
 
-#: ../src/rcfile.c:556
+#: ../src/rcfile.c:504
 msgid "weblint HTML checker"
 msgstr ""
 
-#: ../src/rcfile.c:557
+#: ../src/rcfile.c:505
 msgid "tidy HTML validator"
 msgstr ""
 
-#: ../src/rcfile.c:558
+#: ../src/rcfile.c:506
 msgid "javac"
 msgstr ""
 
-#: ../src/rcfile.c:564
+#: ../src/rcfile.c:512
 msgid "Dos2Unix filter"
 msgstr ""
 
-#: ../src/rcfile.c:566
+#: ../src/rcfile.c:514
 #, fuzzy
 msgid "Tidy cleanup filter"
-msgstr "¥Õ¥¡¥¤¥ë¡¦¥Õ¥£¥ë¥¿"
+msgstr "ãƒ•ã‚¡ã‚¤ãƒ«ãƒ»ãƒ•ã‚£ãƒ«ã‚¿"
 
-#: ../src/rcfile.c:605
+#: ../src/rcfile.c:531
 msgid "C programming"
 msgstr ""
 
-#: ../src/rcfile.c:607
+#: ../src/rcfile.c:533
 #, fuzzy
 msgid "All web files"
-msgstr "¤¹¤Ù¤Æ¤ÎWeb¥Õ¥¡¥¤¥ë"
+msgstr "ã™ã¹ã¦ã®Webãƒ•ã‚¡ã‚¤ãƒ«"
 
-#: ../src/rcfile.c:609
+#: ../src/rcfile.c:535
 msgid "Java programming"
 msgstr ""
 
-#: ../src/rcfile.c:613
+#: ../src/rcfile.c:539
 #, fuzzy
 msgid "Hide objectfiles"
-msgstr "¥Õ¥¡¥¤¥ëÁªÂò"
+msgstr "ãƒ•ã‚¡ã‚¤ãƒ«é¸æŠ"
 
-#: ../src/rcfile.c:660
+#: ../src/rcfile.c:620
 msgid "/php/ibase/ibase fetch row"
 msgstr ""
 
-#: ../src/rcfile.c:660
+#: ../src/rcfile.c:620
 msgid "ibase result variable name"
 msgstr ""
 
-#: ../src/rcfile.c:660 ../src/rcfile.c:661
+#: ../src/rcfile.c:620 ../src/rcfile.c:621
 msgid "row variable name"
 msgstr ""
 
-#: ../src/rcfile.c:661
+#: ../src/rcfile.c:621
 msgid "/php/mysql/mysql fetch row"
 msgstr ""
 
-#: ../src/rcfile.c:661
+#: ../src/rcfile.c:621
 msgid "mysql result variable name"
 msgstr ""
 
-#: ../src/rcfile.c:662
+#: ../src/rcfile.c:622
 msgid "/php/mysql/mysql connect"
 msgstr ""
 
-#: ../src/rcfile.c:662
+#: ../src/rcfile.c:622
 msgid "mysql host"
 msgstr ""
 
-#: ../src/rcfile.c:662
+#: ../src/rcfile.c:622
 msgid "mysql username"
 msgstr ""
 
-#: ../src/rcfile.c:662
+#: ../src/rcfile.c:622
 msgid "mysql password"
 msgstr ""
 
-#: ../src/rcfile.c:662
+#: ../src/rcfile.c:622
 msgid "database name"
 msgstr ""
 
-#: ../src/rcfile.c:663
+#: ../src/rcfile.c:623
 msgid "/php/ibase/ibase connect"
 msgstr ""
 
-#: ../src/rcfile.c:663
+#: ../src/rcfile.c:623
 msgid "ibase host"
 msgstr ""
 
-#: ../src/rcfile.c:663
+#: ../src/rcfile.c:623
 msgid "ibase database path"
 msgstr ""
 
-#: ../src/rcfile.c:663
+#: ../src/rcfile.c:623
 msgid "ibase username"
 msgstr ""
 
-#: ../src/rcfile.c:663
+#: ../src/rcfile.c:623
 msgid "ibase password"
 msgstr ""
 
-#: ../src/rcfile.c:664
+#: ../src/rcfile.c:624
 msgid "/php/general/while each in array list"
 msgstr ""
 
-#: ../src/rcfile.c:664
+#: ../src/rcfile.c:624
 msgid "array name"
 msgstr ""
 
-#: ../src/rcfile.c:665
+#: ../src/rcfile.c:625
 msgid "/sql/select all from table"
 msgstr ""
 
-#: ../src/rcfile.c:665
+#: ../src/rcfile.c:625
 msgid "table name"
 msgstr ""
 
-#: ../src/rcfile.c:666
+#: ../src/rcfile.c:626
 msgid "/php/general/mail"
 msgstr ""
 
-#: ../src/rcfile.c:666
+#: ../src/rcfile.c:626
 msgid "email adress"
 msgstr ""
 
-#: ../src/rcfile.c:666
+#: ../src/rcfile.c:626
 msgid "subject"
 msgstr ""
 
-#: ../src/rcfile.c:666
+#: ../src/rcfile.c:626
 msgid "mail body variable name"
 msgstr ""
 
-#: ../src/rcfile.c:667
+#: ../src/rcfile.c:627
 msgid "/php/general/for loop"
 msgstr ""
 
-#: ../src/rcfile.c:667
+#: ../src/rcfile.c:627
 msgid "loop variable name"
 msgstr ""
 
-#: ../src/rcfile.c:667
+#: ../src/rcfile.c:627
 msgid "from value"
 msgstr ""
 
-#: ../src/rcfile.c:667
+#: ../src/rcfile.c:627
 msgid "to value"
 msgstr ""
 
-#: ../src/rcfile.c:668
+#: ../src/rcfile.c:628
 msgid "/php/ibase/query"
 msgstr ""
 
-#: ../src/rcfile.c:668 ../src/rcfile.c:673 ../src/rcfile.c:691
-#: ../src/rcfile.c:692
+#: ../src/rcfile.c:628 ../src/rcfile.c:633 ../src/rcfile.c:651
+#: ../src/rcfile.c:652
 msgid "result variable name"
 msgstr ""
 
-#: ../src/rcfile.c:668
+#: ../src/rcfile.c:628
 msgid "ibase connection id name"
 msgstr ""
 
-#: ../src/rcfile.c:668 ../src/rcfile.c:673 ../src/rcfile.c:691
+#: ../src/rcfile.c:628 ../src/rcfile.c:633 ../src/rcfile.c:651
 msgid "query string (quoted) or variable (including $)"
 msgstr ""
 
-#: ../src/rcfile.c:669
+#: ../src/rcfile.c:629
 msgid "/php/general/include file"
 msgstr ""
 
-#: ../src/rcfile.c:669
+#: ../src/rcfile.c:629
 msgid "filename to include"
 msgstr ""
 
-#: ../src/rcfile.c:670
+#: ../src/rcfile.c:630
 msgid "/php/general/require file"
 msgstr ""
 
-#: ../src/rcfile.c:670
+#: ../src/rcfile.c:630
 msgid "filename to require"
 msgstr ""
 
-#: ../src/rcfile.c:671
+#: ../src/rcfile.c:631
 msgid "/php/general/if isset"
 msgstr ""
 
-#: ../src/rcfile.c:671 ../src/rcfile.c:672
+#: ../src/rcfile.c:631 ../src/rcfile.c:632
 msgid "variable name to test for"
 msgstr ""
 
-#: ../src/rcfile.c:672
+#: ../src/rcfile.c:632
 msgid "/php/general/if not isset"
 msgstr ""
 
-#: ../src/rcfile.c:673
+#: ../src/rcfile.c:633
 msgid "/php/mysql/query"
 msgstr ""
 
-#: ../src/rcfile.c:673
+#: ../src/rcfile.c:633
 msgid "mysql connection id name"
 msgstr ""
 
-#: ../src/rcfile.c:674
+#: ../src/rcfile.c:634
 msgid "/html/font symbol"
 msgstr ""
 
-#: ../src/rcfile.c:675
+#: ../src/rcfile.c:635
 msgid "/html/div with class"
 msgstr ""
 
-#: ../src/rcfile.c:675 ../src/rcfile.c:676
+#: ../src/rcfile.c:635 ../src/rcfile.c:636
 msgid "CSS class name"
 msgstr ""
 
-#: ../src/rcfile.c:676
+#: ../src/rcfile.c:636
 msgid "/html/span with class"
 msgstr ""
 
-#: ../src/rcfile.c:677
+#: ../src/rcfile.c:637
 msgid "/php/php block"
 msgstr ""
 
-#: ../src/rcfile.c:678
+#: ../src/rcfile.c:638
 msgid "/html/made with bluefish"
 msgstr ""
 
-#: ../src/rcfile.c:679
+#: ../src/rcfile.c:639
 msgid "/html/meta keywords"
 msgstr ""
 
-#: ../src/rcfile.c:679
+#: ../src/rcfile.c:639
 msgid "keywords, space separated"
 msgstr ""
 
-#: ../src/rcfile.c:680
+#: ../src/rcfile.c:640
 msgid "/html/meta refresh (client pull)"
 msgstr ""
 
-#: ../src/rcfile.c:680
+#: ../src/rcfile.c:640
 msgid "refresh time, in seconds"
 msgstr ""
 
-#: ../src/rcfile.c:680
+#: ../src/rcfile.c:640
 msgid "URL to redirect to"
 msgstr ""
 
-#: ../src/rcfile.c:681
+#: ../src/rcfile.c:641
 msgid "/active html/form"
 msgstr ""
 
-#: ../src/rcfile.c:682
+#: ../src/rcfile.c:642
 msgid "/active html/form and action"
 msgstr ""
 
-#: ../src/rcfile.c:682
+#: ../src/rcfile.c:642
 msgid "Submit button text"
 msgstr ""
 
-#: ../src/rcfile.c:683
+#: ../src/rcfile.c:643
 msgid "/active html/input text"
 msgstr ""
 
-#: ../src/rcfile.c:683 ../src/rcfile.c:684 ../src/rcfile.c:685
-#: ../src/rcfile.c:686 ../src/rcfile.c:687 ../src/rcfile.c:688
+#: ../src/rcfile.c:643 ../src/rcfile.c:644 ../src/rcfile.c:645
+#: ../src/rcfile.c:646 ../src/rcfile.c:647 ../src/rcfile.c:648
 msgid "variable name"
 msgstr ""
 
-#: ../src/rcfile.c:684
+#: ../src/rcfile.c:644
 msgid "/active html/input checkbox"
 msgstr ""
 
-#: ../src/rcfile.c:684
+#: ../src/rcfile.c:644
 msgid "value when checked"
 msgstr ""
 
-#: ../src/rcfile.c:685
+#: ../src/rcfile.c:645
 msgid "/active html/textarea"
 msgstr ""
 
-#: ../src/rcfile.c:686
+#: ../src/rcfile.c:646
 msgid "/active html/select options/from array"
 msgstr ""
 
-#: ../src/rcfile.c:686
+#: ../src/rcfile.c:646
 msgid "array name containing options"
 msgstr ""
 
-#: ../src/rcfile.c:687
+#: ../src/rcfile.c:647
 msgid "/active html/select options/from mysql result"
 msgstr ""
 
-#: ../src/rcfile.c:687
+#: ../src/rcfile.c:647
 msgid "mysql query result"
 msgstr ""
 
-#: ../src/rcfile.c:687 ../src/rcfile.c:688
+#: ../src/rcfile.c:647 ../src/rcfile.c:648
 msgid "index of the value"
 msgstr ""
 
-#: ../src/rcfile.c:687 ../src/rcfile.c:688
+#: ../src/rcfile.c:647 ../src/rcfile.c:648
 msgid "index of the label"
 msgstr ""
 
-#: ../src/rcfile.c:688
+#: ../src/rcfile.c:648
 msgid "/active html/select options/from ibase result"
 msgstr ""
 
-#: ../src/rcfile.c:688
+#: ../src/rcfile.c:648
 msgid "ibase query result"
 msgstr ""
 
-#: ../src/rcfile.c:689
+#: ../src/rcfile.c:649
 msgid "/DHTML/mouseover image"
 msgstr ""
 
-#: ../src/rcfile.c:689
+#: ../src/rcfile.c:649
 msgid "unique name"
 msgstr ""
 
-#: ../src/rcfile.c:689
+#: ../src/rcfile.c:649
 msgid "onMouseOut src"
 msgstr ""
 
-#: ../src/rcfile.c:689
+#: ../src/rcfile.c:649
 msgid "onMouseOver src"
 msgstr ""
 
-#: ../src/rcfile.c:690
+#: ../src/rcfile.c:650
 msgid "/php/odbc/odbc connect"
 msgstr ""
 
-#: ../src/rcfile.c:690
+#: ../src/rcfile.c:650
 msgid "odbc data source name"
 msgstr ""
 
-#: ../src/rcfile.c:690
+#: ../src/rcfile.c:650
 msgid "username"
 msgstr ""
 
-#: ../src/rcfile.c:690
+#: ../src/rcfile.c:650
 msgid "password"
 msgstr ""
 
-#: ../src/rcfile.c:691
+#: ../src/rcfile.c:651
 msgid "/php/odbc/odbc exec query"
 msgstr ""
 
-#: ../src/rcfile.c:691
+#: ../src/rcfile.c:651
 msgid "odbc connection id name"
 msgstr ""
 
-#: ../src/rcfile.c:692
+#: ../src/rcfile.c:652
 msgid "/php/odbc/odbc fetch row"
 msgstr ""
 
-#: ../src/rcfile.c:693
+#: ../src/rcfile.c:653
 msgid "/php/general/echo date"
 msgstr ""
 
-#: ../src/rcfile.c:694
+#: ../src/rcfile.c:654
 msgid "/php/filesystem/open and echo file"
 msgstr ""
 
-#: ../src/rcfile.c:694
+#: ../src/rcfile.c:654
 msgid "file (quoted) or variable (including $)"
 msgstr ""
 
-#: ../src/rcfile.c:695
+#: ../src/rcfile.c:655
 msgid "/php/general/location header"
 msgstr ""
 
-#: ../src/rcfile.c:695
+#: ../src/rcfile.c:655
 msgid "location (URL) to redirect to (quoted) or variable (including $)"
 msgstr ""
 
-#: ../src/rcfile.c:696
+#: ../src/rcfile.c:656
 msgid "/apache/basic password required"
 msgstr ""
 
-#: ../src/rcfile.c:696
+#: ../src/rcfile.c:656
 msgid "full path to password file"
 msgstr ""
 
-#: ../src/rcfile.c:696
+#: ../src/rcfile.c:656
 msgid "security description"
 msgstr ""
 
-#: ../src/rcfile.c:697
+#: ../src/rcfile.c:657
 msgid "/apache/deny access to .inc"
 msgstr ""
 
-#: ../src/rcfile.c:698
+#: ../src/rcfile.c:658
 msgid "/replace/strip <font>"
 msgstr ""
 
-#: ../src/rcfile.c:699
+#: ../src/rcfile.c:659
 msgid "/replace/strip <any tag> in selection"
 msgstr ""
 
-#: ../src/rcfile.c:700
+#: ../src/rcfile.c:660
 msgid "/replace/convert <td> in <th> in selection"
 msgstr ""
 
-#: ../src/rcfile.c:701
+#: ../src/rcfile.c:661
 msgid "/replace/convert <any tag> in <any other tag> in selection"
 msgstr ""
 
-#: ../src/snr2.c:180
+#: ../src/snr2.c:188
 msgid "Regular expression error: "
-msgstr "Àµµ¬É½¸½¥¨¥é¡¼: "
+msgstr "æ­£è¦è¡¨ç¾ã‚¨ãƒ©ãƒ¼: "
 
-#: ../src/snr2.c:181 ../src/snr2.c:225
+#: ../src/snr2.c:189 ../src/snr2.c:233
 msgid "Bluefish warning: regular expression error"
-msgstr "Bluefish·ÙÊó: Àµµ¬É½¸½¥¨¥é¡¼"
+msgstr "Bluefishè­¦å ±: æ­£è¦è¡¨ç¾ã‚¨ãƒ©ãƒ¼"
 
-#: ../src/snr2.c:224
+#: ../src/snr2.c:232
 #, fuzzy, c-format
 msgid "Regular expression error: %s at offset %d"
-msgstr "Àµµ¬É½¸½¥¨¥é¡¼: "
-
-#: ../src/snr2.c:662
-msgid "Confirm replace"
-msgstr "ÃÖ´¹¤Î³ÎÇ§"
-
-#: ../src/snr2.c:665
-msgid "Are you sure you want to replace this?"
-msgstr "¤³¤ì¤òÃÖ´¹¤·¤Ş¤¹¤«¡©"
+msgstr "æ­£è¦è¡¨ç¾ã‚¨ãƒ©ãƒ¼: "
 
 #: ../src/snr2.c:670
-msgid "All"
-msgstr "¤¹¤Ù¤Æ"
+msgid "Confirm replace"
+msgstr "ç½®æ›ã®ç¢ºèª"
 
-#: ../src/snr2.c:804 ../src/snr2.c:811
+#: ../src/snr2.c:673
+msgid "Are you sure you want to replace this?"
+msgstr "ã“ã‚Œã‚’ç½®æ›ã—ã¾ã™ã‹ï¼Ÿ"
+
+#: ../src/snr2.c:678
+msgid "All"
+msgstr "ã™ã¹ã¦"
+
+#: ../src/snr2.c:813 ../src/snr2.c:820
 #, fuzzy
 msgid "Bluefish message"
-msgstr "Bluefish ¥×¥ì¥Ó¥å¡¼:"
+msgstr "Bluefish ãƒ—ãƒ¬ãƒ“ãƒ¥ãƒ¼:"
 
-#: ../src/snr2.c:804 ../src/snr2.c:811
+#: ../src/snr2.c:813 ../src/snr2.c:820
 msgid "Search: no match found"
 msgstr ""
 
-#: ../src/snr2.c:974
+#: ../src/snr2.c:988
+msgid "Hide advanced <<"
+msgstr ""
+
+#: ../src/snr2.c:1005 ../src/snr2.c:1144
+msgid "Show advanced >>"
+msgstr ""
+
+#: ../src/snr2.c:1051
 msgid "Search"
-msgstr "¸¡º÷"
+msgstr "æ¤œç´¢"
 
-#: ../src/snr2.c:991
+#: ../src/snr2.c:1068
 msgid "Find: "
-msgstr "¸¡º÷: "
+msgstr "æ¤œç´¢: "
 
-#: ../src/snr2.c:998
+#: ../src/snr2.c:1077
 msgid "Where"
-msgstr "¤É¤³¤Ç"
+msgstr "ã©ã“ã§"
 
-#: ../src/snr2.c:1002
+#: ../src/snr2.c:1081
 msgid "Start at beginning of document"
-msgstr "Ê¸½ñ¤ÎÀèÆ¬¤«¤é¥¹¥¿¡¼¥È"
+msgstr "æ–‡æ›¸ã®å…ˆé ­ã‹ã‚‰ã‚¹ã‚¿ãƒ¼ãƒˆ"
 
-#: ../src/snr2.c:1003
+#: ../src/snr2.c:1082
 msgid "Start at cursor position"
-msgstr "¥«¡¼¥½¥ë°ÌÃÖ¤«¤é¥¹¥¿¡¼¥È"
+msgstr "ã‚«ãƒ¼ã‚½ãƒ«ä½ç½®ã‹ã‚‰ã‚¹ã‚¿ãƒ¼ãƒˆ"
 
-#: ../src/snr2.c:1004
-msgid "In selection"
-msgstr "ÁªÂòÈÏ°ÏÆâ"
-
-#: ../src/snr2.c:1005
+#: ../src/snr2.c:1084
 msgid "In all open files"
-msgstr "³«¤¤¤Æ¤¤¤ë¤¹¤Ù¤Æ¤Î¥Õ¥¡¥¤¥ë"
+msgstr "é–‹ã„ã¦ã„ã‚‹ã™ã¹ã¦ã®ãƒ•ã‚¡ã‚¤ãƒ«"
 
-#: ../src/snr2.c:1012
+#: ../src/snr2.c:1091
 msgid "Normal matching"
 msgstr ""
 
-#: ../src/snr2.c:1013
+#: ../src/snr2.c:1092
 #, fuzzy
 msgid "Use posix regular expression matching"
-msgstr "Àµµ¬É½¸½¤ò»ÈÍÑ"
+msgstr "æ­£è¦è¡¨ç¾ã‚’ä½¿ç”¨"
 
-#: ../src/snr2.c:1014
+#: ../src/snr2.c:1093
 #, fuzzy
 msgid "Use perl compatible regular expression matching"
-msgstr "Àµµ¬É½¸½¤ò»ÈÍÑ"
+msgstr "æ­£è¦è¡¨ç¾ã‚’ä½¿ç”¨"
 
-#: ../src/snr2.c:1019
+#: ../src/snr2.c:1098
 msgid "Case sensitive"
-msgstr "ÂçÊ¸»ú¾®Ê¸»ú¤ò¶èÊÌ¤¹¤ë"
+msgstr "å¤§æ–‡å­—å°æ–‡å­—ã‚’åŒºåˆ¥ã™ã‚‹"
 
-#: ../src/snr2.c:1020
+#: ../src/snr2.c:1099
 msgid "Overlapping searches"
-msgstr "¥ª¡¼¥Ğ¡¼¥é¥Ã¥×¸¡º÷"
+msgstr "ã‚ªãƒ¼ãƒãƒ¼ãƒ©ãƒƒãƒ—æ¤œç´¢"
 
-#: ../src/snr2.c:1027
+#: ../src/snr2.c:1106
 msgid "\\0 refers to the first subpattern, \\1 to the second etc."
 msgstr ""
 
-#: ../src/snr2.c:1031
+#: ../src/snr2.c:1110
 msgid "Replace with: "
-msgstr "ÃÖ´¹Ê¸»úÎó: "
+msgstr "ç½®æ›æ–‡å­—åˆ—: "
 
-#: ../src/snr2.c:1047
+#: ../src/snr2.c:1128
 msgid "Replace text"
-msgstr "ÃÖ´¹Ê¸»úÎó"
+msgstr "ç½®æ›æ–‡å­—åˆ—"
 
-#: ../src/snr2.c:1048
+#: ../src/snr2.c:1129
 msgid "Replace uppercase"
-msgstr "ÂçÊ¸»ú¤òÃÖ´¹"
+msgstr "å¤§æ–‡å­—ã‚’ç½®æ›"
 
-#: ../src/snr2.c:1049
+#: ../src/snr2.c:1130
 msgid "Replace lowercase"
-msgstr "¾®Ê¸»ú¤òÃÖ´¹"
+msgstr "å°æ–‡å­—ã‚’ç½®æ›"
 
-#: ../src/snr2.c:1053
+#: ../src/snr2.c:1134
 msgid "Prompt before replacing"
-msgstr "ÃÖ´¹Á°¤Ë³ÎÇ§"
+msgstr "ç½®æ›å‰ã«ç¢ºèª"
 
-#: ../src/snr2.c:1054
+#: ../src/snr2.c:1135
 msgid "Replace once"
-msgstr "1²ó¤À¤±ÃÖ´¹"
+msgstr "1å›ã ã‘ç½®æ›"
 
 #: ../src/stringlist.c:371
 msgid " Up "
-msgstr " 1¤Ä¾å¤Ø "
+msgstr " 1ã¤ä¸Šã¸ "
 
 #: ../src/stringlist.c:373
 msgid " Down "
-msgstr " 1¤Ä²¼¤Ø "
+msgstr " 1ã¤ä¸‹ã¸ "
 
 #: ../src/stringlist.c:375
 msgid " Sort "
-msgstr " ¥½¡¼¥È "
+msgstr " ã‚½ãƒ¼ãƒˆ "
 
 #: ../src/wizards.c:68
 msgid "Table Wizard"
-msgstr "¥Æ¡¼¥Ö¥ë¡¦¥¦¥£¥¶¡¼¥É"
+msgstr "ãƒ†ãƒ¼ãƒ–ãƒ«ãƒ»ã‚¦ã‚£ã‚¶ãƒ¼ãƒ‰"
 
 #: ../src/wizards.c:74
 msgid "Number of rows"
-msgstr "¹Ô¿ô"
+msgstr "è¡Œæ•°"
 
 #: ../src/wizards.c:78
 msgid "Number of Columns per row"
-msgstr "1¹Ô¤ÎÎó¿ô"
+msgstr "1è¡Œã®åˆ—æ•°"
 
 #: ../src/wizards.c:82
 msgid "Tablerows on one line"
-msgstr "¥Æ¡¼¥Ö¥ë¤Î¹Ô¤ò1¹Ô¤Ëµ­½Ò"
+msgstr "ãƒ†ãƒ¼ãƒ–ãƒ«ã®è¡Œã‚’1è¡Œã«è¨˜è¿°"
 
 #: ../src/wizards.c:86
 msgid "Indent table code"
-msgstr "¥Æ¡¼¥Ö¥ë¤Î¥³¡¼¥É¤ò¥¤¥ó¥Ç¥ó¥È"
+msgstr "ãƒ†ãƒ¼ãƒ–ãƒ«ã®ã‚³ãƒ¼ãƒ‰ã‚’ã‚¤ãƒ³ãƒ‡ãƒ³ãƒˆ"
 
 #: ../src/wizards.c:174
 msgid "Frame Wizard"
-msgstr "¥Õ¥ì¡¼¥à¡¦¥¦¥£¥¶¡¼¥É"
+msgstr "ãƒ•ãƒ¬ãƒ¼ãƒ ãƒ»ã‚¦ã‚£ã‚¶ãƒ¼ãƒ‰"
 
 #: ../src/wizards.c:184
 msgid "Use DTD"
-msgstr "DTD»ÈÍÑ"
+msgstr "DTDä½¿ç”¨"
 
 #: ../src/wizards.c:187
 msgid "Horizontal"
-msgstr "¿åÊ¿"
+msgstr "æ°´å¹³"
 
 #: ../src/wizards.c:188
 msgid "Vertical"
-msgstr "¿âÄ¾"
+msgstr "å‚ç›´"
 
 #: ../src/wizards.c:193
 msgid "Number of Frames"
-msgstr "¥Õ¥ì¡¼¥à¿ô"
+msgstr "ãƒ•ãƒ¬ãƒ¼ãƒ æ•°"
 
 #: ../src/wizards.c:196
 msgid "Frame's"
-msgstr "¥Õ¥ì¡¼¥àÀßÄê"
+msgstr "ãƒ•ãƒ¬ãƒ¼ãƒ è¨­å®š"
+
+#~ msgid "Save in progress"
+#~ msgstr "ä¿å­˜ä¸­ã§ã™"
+
+#~ msgid ""
+#~ "File %s\n"
+#~ "is modified by another process"
+#~ msgstr ""
+#~ "ãƒ•ã‚¡ã‚¤ãƒ« %s\n"
+#~ "ã¯ä»–ã®ãƒ—ãƒ­ã‚»ã‚¹ã«ã‚ˆã£ã¦å¤‰æ›´ã•ã‚Œã¦ã„ã¾ã™"
 
 #, fuzzy
 #~ msgid "<main>/External"
-#~ msgstr "/µ¯Æ°(_X)"
+#~ msgstr "/èµ·å‹•(_X)"
 
 #~ msgid "<main>/File/Open recent"
-#~ msgstr "<main>/¥Õ¥¡¥¤¥ë/ºÇ¶á»È¤Ã¤¿¥Õ¥¡¥¤¥ë"
+#~ msgstr "<main>/ãƒ•ã‚¡ã‚¤ãƒ«/æœ€è¿‘ä½¿ã£ãŸãƒ•ã‚¡ã‚¤ãƒ«"
 
 #, fuzzy
 #~ msgid "<main>/External/Browsers"
-#~ msgstr "/µ¯Æ°/¥Õ¥£¥ë¥¿"
+#~ msgstr "/èµ·å‹•/ãƒ•ã‚£ãƒ«ã‚¿"
 
 #, fuzzy
 #~ msgid "<main>/External/Commands"
-#~ msgstr "/µ¯Æ°/¥³¥Ş¥ó¥É"
+#~ msgstr "/èµ·å‹•/ã‚³ãƒãƒ³ãƒ‰"
 
 #~ msgid "Error: cannot run as root (for security reasons)\n"
-#~ msgstr "¥¨¥é¡¼: root¤Ç¤Ï¼Â¹Ô¤Ç¤­¤Ş¤»¤ó (¥»¥­¥å¥ê¥Æ¥£¾å¤ÎÍıÍ³¤Ë¤è¤ê)\n"
+#~ msgstr "ã‚¨ãƒ©ãƒ¼: rootã§ã¯å®Ÿè¡Œã§ãã¾ã›ã‚“ (ã‚»ã‚­ãƒ¥ãƒªãƒ†ã‚£ä¸Šã®ç†ç”±ã«ã‚ˆã‚Š)\n"
 
 #~ msgid "use -s to override\n"
-#~ msgstr "¤³¤ì¤òÌµ»ë¤¹¤ë¤Ë¤Ï¡¢-s ¤ò»È¤Ã¤Æ¤¯¤À¤µ¤¤\n"
+#~ msgstr "ã“ã‚Œã‚’ç„¡è¦–ã™ã‚‹ã«ã¯ã€-s ã‚’ä½¿ã£ã¦ãã ã•ã„\n"
 
 #~ msgid "Bluefish is SUID root, this is a security risk!\n"
-#~ msgstr "Bluefish¤Ïroot¤ËSUID¤µ¤ì¤Æ¤¤¤Ş¤¹¡£¤³¤ì¤Ï¥»¥­¥å¥ê¥Æ¥£¾å´í¸±¤Ç¤¹!\n"
+#~ msgstr "Bluefishã¯rootã«SUIDã•ã‚Œã¦ã„ã¾ã™ã€‚ã“ã‚Œã¯ã‚»ã‚­ãƒ¥ãƒªãƒ†ã‚£ä¸Šå±é™ºã§ã™!\n"
 
 #~ msgid "Browser is not running, starting browser"
-#~ msgstr "¥Ö¥é¥¦¥¶¤Ï¼Â¹Ô¤µ¤ì¤Æ¤¤¤Ş¤»¤ó¡£¥Ö¥é¥¦¥¶¤òµ¯Æ°¤·¤Ş¤¹"
+#~ msgstr "ãƒ–ãƒ©ã‚¦ã‚¶ã¯å®Ÿè¡Œã•ã‚Œã¦ã„ã¾ã›ã‚“ã€‚ãƒ–ãƒ©ã‚¦ã‚¶ã‚’èµ·å‹•ã—ã¾ã™"
 
 #~ msgid ""
 #~ "That looks like a secure server,\n"
 #~ "Bluefish doesn't support them"
 #~ msgstr ""
-#~ "¤³¤ì¤Ï¥»¥­¥å¥¢¥µ¡¼¥Ğ¤Î¤è¤¦¤Ç¤¹¡£\n"
-#~ "Bluefish¤Ï¤³¤ì¤ò¥µ¥İ¡¼¥È¤·¤Æ¤¤¤Ş¤»¤ó¡£"
+#~ "ã“ã‚Œã¯ã‚»ã‚­ãƒ¥ã‚¢ã‚µãƒ¼ãƒã®ã‚ˆã†ã§ã™ã€‚\n"
+#~ "Bluefishã¯ã“ã‚Œã‚’ã‚µãƒãƒ¼ãƒˆã—ã¦ã„ã¾ã›ã‚“ã€‚"
 
 #~ msgid "Invalid address"
-#~ msgstr "´Ö°ã¤Ã¤¿¥¢¥É¥ì¥¹¤Ç¤¹"
+#~ msgstr "é–“é•ã£ãŸã‚¢ãƒ‰ãƒ¬ã‚¹ã§ã™"
 
 #~ msgid "The network is unreachable"
-#~ msgstr "¤³¤Î¥Í¥Ã¥È¥ï¡¼¥¯¤Ë¤ÏÅşÃ£¤Ç¤­¤Ş¤»¤ó"
+#~ msgstr "ã“ã®ãƒãƒƒãƒˆãƒ¯ãƒ¼ã‚¯ã«ã¯åˆ°é”ã§ãã¾ã›ã‚“"
 
 #~ msgid "Can't send data"
-#~ msgstr "¥Ç¡¼¥¿¤òÁ÷¿®¤Ç¤­¤Ş¤»¤ó"
+#~ msgstr "ãƒ‡ãƒ¼ã‚¿ã‚’é€ä¿¡ã§ãã¾ã›ã‚“"
 
 #~ msgid "Didn't send all the data"
-#~ msgstr "¤¹¤Ù¤Æ¤Î¥Ç¡¼¥¿¤òÁ÷¿®¤·¤Ş¤»¤ó¤Ç¤·¤¿"
+#~ msgstr "ã™ã¹ã¦ã®ãƒ‡ãƒ¼ã‚¿ã‚’é€ä¿¡ã—ã¾ã›ã‚“ã§ã—ãŸ"
 
 #~ msgid "Can't open file"
-#~ msgstr "¥Õ¥¡¥¤¥ë¤ò³«¤¯¤³¤È¤¬¤Ç¤­¤Ş¤»¤ó"
+#~ msgstr "ãƒ•ã‚¡ã‚¤ãƒ«ã‚’é–‹ãã“ã¨ãŒã§ãã¾ã›ã‚“"
 
 #~ msgid "Open from Web"
-#~ msgstr "Web¤«¤é³«¤¯"
+#~ msgstr "Webã‹ã‚‰é–‹ã"
 
 #~ msgid "Abort"
-#~ msgstr "Ãæ»ß"
-
-#~ msgid "File "
-#~ msgstr "¥Õ¥¡¥¤¥ë "
+#~ msgstr "ä¸­æ­¢"
 
 #~ msgid ""
 #~ "\n"
 #~ "is modified"
 #~ msgstr ""
 #~ "\n"
-#~ "¤ÏÊÑ¹¹¤µ¤ì¤Æ¤¤¤Ş¤¹"
+#~ "ã¯å¤‰æ›´ã•ã‚Œã¦ã„ã¾ã™"
 
 #~ msgid "File has not been saved yet"
-#~ msgstr "¥Õ¥¡¥¤¥ë¤Ï¤Ş¤ÀÊİÂ¸¤µ¤ì¤Æ¤¤¤Ş¤»¤ó"
+#~ msgstr "ãƒ•ã‚¡ã‚¤ãƒ«ã¯ã¾ã ä¿å­˜ã•ã‚Œã¦ã„ã¾ã›ã‚“"
 
 #~ msgid "Bluefish: Weblint warning"
-#~ msgstr "Bluefish: Weblint ·Ù¹ğ"
+#~ msgstr "Bluefish: Weblint è­¦å‘Š"
 
 #~ msgid "Running Weblint"
-#~ msgstr "Weblint¤ò¼Â¹ÔÃæ"
+#~ msgstr "Weblintã‚’å®Ÿè¡Œä¸­"
 
 #~ msgid "Weblint output"
-#~ msgstr "Weblint½ĞÎÏ"
+#~ msgstr "Weblintå‡ºåŠ›"
 
 #~ msgid "Recheck"
-#~ msgstr "ºÆ¥Á¥§¥Ã¥¯"
+#~ msgstr "å†ãƒã‚§ãƒƒã‚¯"
 
 #~ msgid ""
 #~ "You don't appear to have weblint installed \n"
 #~ "To use this option you will need to download weblint from:\n"
 #~ "http://www.cre.canon.co.uk/~neilb/weblint/"
 #~ msgstr ""
-#~ "Weblint¤ò¥¤¥ó¥¹¥È¡¼¥ë¤·¤Æ¤Ê¤¤¤è¤¦¤Ç¤¹¤Í¡£\n"
-#~ "¤³¤Îµ¡Ç½¤ò»È¤¦¤Ë¤Ï¡¢¼¡¤Î¾ì½ê¤«¤éweblint¤ò¥À¥¦¥ó¥í¡¼¥É¤¹¤ëÉ¬Í×¤¬¤¢¤ê¤Ş¤¹:\n"
+#~ "Weblintã‚’ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã—ã¦ãªã„ã‚ˆã†ã§ã™ã­ã€‚\n"
+#~ "ã“ã®æ©Ÿèƒ½ã‚’ä½¿ã†ã«ã¯ã€æ¬¡ã®å ´æ‰€ã‹ã‚‰weblintã‚’ãƒ€ã‚¦ãƒ³ãƒ­ãƒ¼ãƒ‰ã™ã‚‹å¿…è¦ãŒã‚ã‚Šã¾ã™:\n"
 #~ "http://www.cre.canon.co.uk/~neilb/weblint/"
 
 #~ msgid "Error stat file"
-#~ msgstr "¥Õ¥¡¥¤¥ë¾ğÊó¼èÆÀ¥¨¥é¡¼"
+#~ msgstr "ãƒ•ã‚¡ã‚¤ãƒ«æƒ…å ±å–å¾—ã‚¨ãƒ©ãƒ¼"
 
 #~ msgid "Error delete stdout temporary file"
-#~ msgstr "½ĞÎÏÍÑ°ì»ş¥Õ¥¡¥¤¥ë¤Îºï½ü¥¨¥é¡¼"
+#~ msgstr "å‡ºåŠ›ç”¨ä¸€æ™‚ãƒ•ã‚¡ã‚¤ãƒ«ã®å‰Šé™¤ã‚¨ãƒ©ãƒ¼"
 
 #~ msgid "Bluefish Preview: Untitled"
-#~ msgstr "Bluefish ¥×¥ì¥Ó¥å¡¼: ÌµÂê"
+#~ msgstr "Bluefish ãƒ—ãƒ¬ãƒ“ãƒ¥ãƒ¼: ç„¡é¡Œ"
 
 #~ msgid "Font Selection"
-#~ msgstr "¥Õ¥©¥ó¥ÈÁªÂò"
+#~ msgstr "ãƒ•ã‚©ãƒ³ãƒˆé¸æŠ"
 
 #~ msgid "Configuration saved and applied succesfully"
-#~ msgstr "ÀßÄê¤ÏÌäÂê¤Ê¤¯ÊİÂ¸¡¿È¿±Ç¤µ¤ì¤Ş¤·¤¿"
+#~ msgstr "è¨­å®šã¯å•é¡Œãªãä¿å­˜ï¼åæ˜ ã•ã‚Œã¾ã—ãŸ"
 
 #~ msgid "Saving and applying configuration"
-#~ msgstr "ÀßÄê¤òÊİÂ¸¤·¡¢È¿±Ç¤µ¤»¤Æ¤¤¤Ş¤¹"
+#~ msgstr "è¨­å®šã‚’ä¿å­˜ã—ã€åæ˜ ã•ã›ã¦ã„ã¾ã™"
 
 #~ msgid "Bluefish: Preferences"
-#~ msgstr "Bluefish: ´Ä¶­ÀßÄê"
+#~ msgstr "Bluefish: ç’°å¢ƒè¨­å®š"
 
 #~ msgid "Default font"
-#~ msgstr "¥Ç¥Õ¥©¥ë¥È¤Î¥Õ¥©¥ó¥È"
+#~ msgstr "ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã®ãƒ•ã‚©ãƒ³ãƒˆ"
 
 #~ msgid "Force white editor background"
-#~ msgstr "¥¨¥Ç¥£¥¿¤ÎÇØ·Ê¤òÇò¤Ë¤¹¤ë"
-
-#~ msgid "Line wrap"
-#~ msgstr "¹Ô¥é¥Ã¥×"
+#~ msgstr "ã‚¨ãƒ‡ã‚£ã‚¿ã®èƒŒæ™¯ã‚’ç™½ã«ã™ã‚‹"
 
 #~ msgid "Autoindent Code"
-#~ msgstr "¼«Æ°¥¤¥ó¥Ç¥ó¥È"
+#~ msgstr "è‡ªå‹•ã‚¤ãƒ³ãƒ‡ãƒ³ãƒˆ"
 
 #~ msgid "Update syntax highlighting continuous"
-#~ msgstr "¿§Ê¬¤±¤ò¾ï¤Ë¹¹¿·¤¹¤ë"
+#~ msgstr "è‰²åˆ†ã‘ã‚’å¸¸ã«æ›´æ–°ã™ã‚‹"
 
 #~ msgid "Update full widget instead of the current line (slower)"
-#~ msgstr "ÊÔ½¸¹Ô¤Î¤«¤ï¤ê¤Ë¥¦¥£¥¸¥§¥Ã¥ÈÁ´ÂÎ¤ò¹¹¿·¤¹¤ë (ÄãÂ®)"
+#~ msgstr "ç·¨é›†è¡Œã®ã‹ã‚ã‚Šã«ã‚¦ã‚£ã‚¸ã‚§ãƒƒãƒˆå…¨ä½“ã‚’æ›´æ–°ã™ã‚‹ (ä½é€Ÿ)"
 
 #~ msgid "Automatic link management"
-#~ msgstr "¼«Æ°¥ê¥ó¥¯´ÉÍı"
+#~ msgstr "è‡ªå‹•ãƒªãƒ³ã‚¯ç®¡ç†"
 
 #~ msgid "Number of undo levels"
-#~ msgstr "Undo¥ì¥Ù¥ë"
+#~ msgstr "Undoãƒ¬ãƒ™ãƒ«"
 
 #~ msgid ""
 #~ "Insert drag and drop at drop position\n"
 #~ "instead of cursor position (experimental)"
 #~ msgstr ""
-#~ "¥É¥é¥Ã¥°¡õ¥É¥í¥Ã¥×¤Ç¥«¡¼¥½¥ë°ÌÃÖ¤Ç¤Ï¤Ê¤¯\n"
-#~ "¥É¥í¥Ã¥×¤·¤¿¾ì½ê¤ËÁŞÆş (experimental)"
+#~ "ãƒ‰ãƒ©ãƒƒã‚°ï¼†ãƒ‰ãƒ­ãƒƒãƒ—ã§ã‚«ãƒ¼ã‚½ãƒ«ä½ç½®ã§ã¯ãªã\n"
+#~ "ãƒ‰ãƒ­ãƒƒãƒ—ã—ãŸå ´æ‰€ã«æŒ¿å…¥ (experimental)"
 
 #~ msgid "Insert text with Shift-Enter"
-#~ msgstr "Shift-Enter¤Ç¥Æ¥­¥¹¥ÈÁŞÆş"
+#~ msgstr "Shift-Enterã§ãƒ†ã‚­ã‚¹ãƒˆæŒ¿å…¥"
 
 #~ msgid "Insert text with Ctrl-Enter"
-#~ msgstr "Ctrl-Enter¤Ç¥Æ¥­¥¹¥ÈÁŞÆş"
+#~ msgstr "Ctrl-Enterã§ãƒ†ã‚­ã‚¹ãƒˆæŒ¿å…¥"
 
 #~ msgid ""
 #~ "Insert HTML entity with Ctrl-(special char)\n"
 #~ "(&lt; &gt; &amp; &quot;)"
 #~ msgstr ""
-#~ "Ctrl-(Ê¸»ú)¤ÇHTML¼ÂÂÎ¤òÁŞÆş\n"
+#~ "Ctrl-(æ–‡å­—)ã§HTMLå®Ÿä½“ã‚’æŒ¿å…¥\n"
 #~ "(&lt; &gt; &amp; &quot;)"
 
 #~ msgid "allow everything"
-#~ msgstr "¤¹¤Ù¤Æµö²Ä"
+#~ msgstr "ã™ã¹ã¦è¨±å¯"
 
 #~ msgid "Read from File"
-#~ msgstr "¥Õ¥¡¥¤¥ë¤«¤éÆÉ¤ß¹ş¤ß"
+#~ msgstr "ãƒ•ã‚¡ã‚¤ãƒ«ã‹ã‚‰èª­ã¿è¾¼ã¿"
 
 #~ msgid "used HTML-Version"
-#~ msgstr "HTML¤Î¥Ğ¡¼¥¸¥ç¥ó"
+#~ msgstr "HTMLã®ãƒãƒ¼ã‚¸ãƒ§ãƒ³"
 
 #~ msgid "Insert closing lists </LI>, </DT>, </DD>"
-#~ msgstr "¥ê¥¹¥È¹àÌÜ¤òÊÄ¤¸¤ë¥¿¥°</LI>,</DT>,</DD>¤òÁŞÆş¤¹¤ë"
+#~ msgstr "ãƒªã‚¹ãƒˆé …ç›®ã‚’é–‰ã˜ã‚‹ã‚¿ã‚°</LI>,</DT>,</DD>ã‚’æŒ¿å…¥ã™ã‚‹"
 
 #~ msgid "Insert closing paragraph tag </P>"
-#~ msgstr "¥Ñ¥é¥°¥é¥Õ¤òÊÄ¤¸¤ë¥¿¥°</P>¤òÁŞÆş¤¹¤ë"
+#~ msgstr "ãƒ‘ãƒ©ã‚°ãƒ©ãƒ•ã‚’é–‰ã˜ã‚‹ã‚¿ã‚°</P>ã‚’æŒ¿å…¥ã™ã‚‹"
 
 #~ msgid "Insert lowercase HTML tags (Needed for WML!)"
-#~ msgstr "¾®Ê¸»ú¤ÎHTML¥¿¥°¤òÁŞÆş¤¹¤ë (WML¤ËÉ¬Í×!)"
+#~ msgstr "å°æ–‡å­—ã®HTMLã‚¿ã‚°ã‚’æŒ¿å…¥ã™ã‚‹ (WMLã«å¿…è¦!)"
 
 #~ msgid "Allow the use of CSS"
-#~ msgstr "CSS¤ò»È¤¨¤ë¤è¤¦¤Ë¤¹¤ë"
+#~ msgstr "CSSã‚’ä½¿ãˆã‚‹ã‚ˆã†ã«ã™ã‚‹"
 
 #~ msgid "Allow deprecated tags (like <FONT>)"
-#~ msgstr "¹¥¤Ş¤·¤¯¤Ê¤¤¥¿¥°¤ò»È¤¨¤ë¤è¤¦¤Ë¤¹¤ë (<FONT>¤Ê¤É)"
+#~ msgstr "å¥½ã¾ã—ããªã„ã‚¿ã‚°ã‚’ä½¿ãˆã‚‹ã‚ˆã†ã«ã™ã‚‹ (<FONT>ãªã©)"
 
 #~ msgid "Format by context (e.g. <strong> instead of <b>)"
-#~ msgstr "¹½À®Í×ÁÇ¤Ç½ñ¼°ÀßÄê (Îã¤¨¤Ğ<b>¤Ç¤Ï¤Ê¤¯<strong>¤Ë¤¹¤ë)"
+#~ msgstr "æ§‹æˆè¦ç´ ã§æ›¸å¼è¨­å®š (ä¾‹ãˆã°<b>ã§ã¯ãªã<strong>ã«ã™ã‚‹)"
 
 #~ msgid "Use an XML-Starting-Line"
-#~ msgstr "XML-Starting-Line¤ò»È¤¦"
+#~ msgstr "XML-Starting-Lineã‚’ä½¿ã†"
 
 #~ msgid "Allow the Ruby-Tags included in XHTML 1.0"
-#~ msgstr "XHTML 1.0¤Î¥ë¥Ó(ruby)¥¿¥°¤ò»È¤¨¤ë¤è¤¦¤Ë¤¹¤ë"
+#~ msgstr "XHTML 1.0ã®ãƒ«ãƒ“(ruby)ã‚¿ã‚°ã‚’ä½¿ãˆã‚‹ã‚ˆã†ã«ã™ã‚‹"
 
 #~ msgid "Allow new tags of HTML 4.0"
-#~ msgstr "HTML 4.0¤Î¿·¤·¤¤¥¿¥°¤ò»È¤¨¤ë¤è¤¦¤Ë¤¹¤ë"
+#~ msgstr "HTML 4.0ã®æ–°ã—ã„ã‚¿ã‚°ã‚’ä½¿ãˆã‚‹ã‚ˆã†ã«ã™ã‚‹"
 
 #~ msgid "Allow the use of frames"
-#~ msgstr "¥Õ¥ì¡¼¥à¤ò»È¤¨¤ë¤è¤¦¤Ë¤¹¤ë"
+#~ msgstr "ãƒ•ãƒ¬ãƒ¼ãƒ ã‚’ä½¿ãˆã‚‹ã‚ˆã†ã«ã™ã‚‹"
 
 #~ msgid "Require an DOCTYPE on first line of document"
-#~ msgstr "Ê¸½ñ¤ÎÀèÆ¬¤ËDOCTYPE¤¬É¬Í×"
+#~ msgstr "æ–‡æ›¸ã®å…ˆé ­ã«DOCTYPEãŒå¿…è¦"
 
 #~ msgid "Set the DTD-URL in the DOCTYPE line"
-#~ msgstr "DOCTYPE¹Ô¤ËDTD¤ÎURL¤ò´Ş¤á¤ë"
+#~ msgstr "DOCTYPEè¡Œã«DTDã®URLã‚’å«ã‚ã‚‹"
 
 #~ msgid "Main GUI options"
-#~ msgstr "¥á¥¤¥óGUI¤ÎÀßÄê"
+#~ msgstr "ãƒ¡ã‚¤ãƒ³GUIã®è¨­å®š"
 
 #~ msgid "Notebook tab fontset"
-#~ msgstr "¥Î¡¼¥È¥Ö¥Ã¥¯¤Î¥¿¥Ö¤Î¥Õ¥©¥ó¥È¥»¥Ã¥È"
+#~ msgstr "ãƒãƒ¼ãƒˆãƒ–ãƒƒã‚¯ã®ã‚¿ãƒ–ã®ãƒ•ã‚©ãƒ³ãƒˆã‚»ãƒƒãƒˆ"
 
 #~ msgid "Font is a fontset"
-#~ msgstr "¥Õ¥©¥ó¥È¥»¥Ã¥È¤Ç¥Õ¥©¥ó¥È»ØÄê"
+#~ msgstr "ãƒ•ã‚©ãƒ³ãƒˆã‚»ãƒƒãƒˆã§ãƒ•ã‚©ãƒ³ãƒˆæŒ‡å®š"
 
 #~ msgid "Notebook position"
-#~ msgstr "¥Î¡¼¥È¥Ö¥Ã¥¯°ÌÃÖ"
+#~ msgstr "ãƒãƒ¼ãƒˆãƒ–ãƒƒã‚¯ä½ç½®"
 
 #~ msgid "Items in Open Recent menu"
-#~ msgstr "¡ÖºÇ¶á»È¤Ã¤¿¥Õ¥¡¥¤¥ë¡×¤Î¹àÌÜ¿ô"
+#~ msgstr "ã€Œæœ€è¿‘ä½¿ã£ãŸãƒ•ã‚¡ã‚¤ãƒ«ã€ã®é …ç›®æ•°"
 
 #~ msgid "Items in Directory history"
-#~ msgstr "¥Ç¥£¥ì¥¯¥È¥êÍúÎò¤Î¹àÌÜ¿ô"
+#~ msgstr "ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªå±¥æ­´ã®é …ç›®æ•°"
 
 #~ msgid "File browser mininum size"
-#~ msgstr "¥Õ¥¡¥¤¥ë°ìÍ÷¤ÎºÇ¾®¥µ¥¤¥º"
+#~ msgstr "ãƒ•ã‚¡ã‚¤ãƒ«ä¸€è¦§ã®æœ€å°ã‚µã‚¤ã‚º"
 
 #~ msgid "File browser default filter"
-#~ msgstr "¥Õ¥¡¥¤¥ë°ìÍ÷¤Ç¤Î¥Ç¥Õ¥©¥ë¥È¤Î¥Õ¥£¥ë¥¿"
+#~ msgstr "ãƒ•ã‚¡ã‚¤ãƒ«ä¸€è¦§ã§ã®ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã®ãƒ•ã‚£ãƒ«ã‚¿"
 
 #~ msgid "Show autocompletion window for HTML tags while editing"
-#~ msgstr "ÊÔ½¸Ãæ¤ËHTML¥¿¥°¤Î¥ª¡¼¥È¥³¥ó¥×¥ê¡¼¥È¥¦¥£¥ó¥É¥¦¤òÉ½¼¨"
+#~ msgstr "ç·¨é›†ä¸­ã«HTMLã‚¿ã‚°ã®ã‚ªãƒ¼ãƒˆã‚³ãƒ³ãƒ—ãƒªãƒ¼ãƒˆã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚’è¡¨ç¤º"
 
 #~ msgid "Delay to show the autocompletion window"
-#~ msgstr "¥ª¡¼¥È¥³¥ó¥×¥ê¡¼¥È¥¦¥£¥ó¥É¥¦¤òÉ½¼¨¤¹¤ë¤Ş¤Ç¤Î»ş´Ö"
+#~ msgstr "ã‚ªãƒ¼ãƒˆã‚³ãƒ³ãƒ—ãƒªãƒ¼ãƒˆã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚’è¡¨ç¤ºã™ã‚‹ã¾ã§ã®æ™‚é–“"
 
 #~ msgid "Files and images"
-#~ msgstr "¥Õ¥¡¥¤¥ë¤È²èÁü"
+#~ msgstr "ãƒ•ã‚¡ã‚¤ãƒ«ã¨ç”»åƒ"
 
 #~ msgid "Thumbnail extension string"
-#~ msgstr "¥µ¥à¥Í¥¤¥ë¤Î³ÈÄ¥»Ò"
+#~ msgstr "ã‚µãƒ ãƒã‚¤ãƒ«ã®æ‹¡å¼µå­"
 
 #~ msgid "Backup file before saving"
-#~ msgstr "ÊİÂ¸Á°¤Ë¥Õ¥¡¥¤¥ë¤ò¥Ğ¥Ã¥¯¥¢¥Ã¥×¤¹¤ë"
+#~ msgstr "ä¿å­˜å‰ã«ãƒ•ã‚¡ã‚¤ãƒ«ã‚’ãƒãƒƒã‚¯ã‚¢ãƒƒãƒ—ã™ã‚‹"
 
 #~ msgid "Backup file by copy instead of rename"
-#~ msgstr "¥ê¥Í¡¼¥à¤Ç¤Ï¤Ê¤¯¥³¥Ô¡¼¤Ç¥Õ¥¡¥¤¥ë¤ò¥Ğ¥Ã¥¯¥¢¥Ã¥×¤¹¤ë"
+#~ msgstr "ãƒªãƒãƒ¼ãƒ ã§ã¯ãªãã‚³ãƒ”ãƒ¼ã§ãƒ•ã‚¡ã‚¤ãƒ«ã‚’ãƒãƒƒã‚¯ã‚¢ãƒƒãƒ—ã™ã‚‹"
 
 #~ msgid "save"
-#~ msgstr "ÊİÂ¸"
+#~ msgstr "ä¿å­˜"
 
 #~ msgid "abort"
-#~ msgstr "Ãæ»ß"
+#~ msgstr "ä¸­æ­¢"
 
 #~ msgid "ask"
-#~ msgstr "¥æ¡¼¥¶³ÎÇ§"
+#~ msgstr "ãƒ¦ãƒ¼ã‚¶ç¢ºèª"
 
 #~ msgid "Backup failure action"
-#~ msgstr "¥Ğ¥Ã¥¯¥¢¥Ã¥×¤Ë¼ºÇÔ¤·¤¿¤È¤­¤ÎÆ°ºî"
+#~ msgstr "ãƒãƒƒã‚¯ã‚¢ãƒƒãƒ—ã«å¤±æ•—ã—ãŸã¨ãã®å‹•ä½œ"
 
 #~ msgid "Open commandline files in already running bluefish"
-#~ msgstr "¥³¥Ş¥ó¥É¥é¥¤¥ó¤Ç»ØÄê¤·¤¿¥Õ¥¡¥¤¥ë¤òµ¯Æ°¤·¤Æ¤¤¤ëbluefish¤Ç³«¤¯"
+#~ msgstr "ã‚³ãƒãƒ³ãƒ‰ãƒ©ã‚¤ãƒ³ã§æŒ‡å®šã—ãŸãƒ•ã‚¡ã‚¤ãƒ«ã‚’èµ·å‹•ã—ã¦ã„ã‚‹bluefishã§é–‹ã"
 
 #~ msgid "PHP filter"
-#~ msgstr "PHP¥Õ¥£¥ë¥¿"
+#~ msgstr "PHPãƒ•ã‚£ãƒ«ã‚¿"
 
 #~ msgid "HTML filter"
-#~ msgstr "HTML¥Õ¥£¥ë¥¿"
+#~ msgstr "HTMLãƒ•ã‚£ãƒ«ã‚¿"
 
 #~ msgid "JavaScript filter"
-#~ msgstr "JavaScript¥Õ¥£¥ë¥¿"
+#~ msgstr "JavaScriptãƒ•ã‚£ãƒ«ã‚¿"
 
 #~ msgid "Cascading stylesheet filter"
-#~ msgstr "Cascading stylesheet¥Õ¥£¥ë¥¿"
+#~ msgstr "Cascading stylesheetãƒ•ã‚£ãƒ«ã‚¿"
 
 #~ msgid "Other webfiles filter"
-#~ msgstr "¤½¤ÎÂ¾¤ÎWeb¥Õ¥¡¥¤¥ë¤Î¥Õ¥£¥ë¥¿"
+#~ msgstr "ãã®ä»–ã®Webãƒ•ã‚¡ã‚¤ãƒ«ã®ãƒ•ã‚£ãƒ«ã‚¿"
 
 #~ msgid "Weblint command"
-#~ msgstr "Weblint¥³¥Ş¥ó¥É"
+#~ msgstr "Weblintã‚³ãƒãƒ³ãƒ‰"
 
 #~ msgid "Image editor command"
-#~ msgstr "²èÁüÊÔ½¸¥³¥Ş¥ó¥É"
+#~ msgstr "ç”»åƒç·¨é›†ã‚³ãƒãƒ³ãƒ‰"
 
 #~ msgid "Spell checker options"
-#~ msgstr "¥¹¥Ú¥ë¥Á¥§¥Ã¥«¤Î¥ª¥×¥·¥ç¥ó"
+#~ msgstr "ã‚¹ãƒšãƒ«ãƒã‚§ãƒƒã‚«ã®ã‚ªãƒ—ã‚·ãƒ§ãƒ³"
 
 #~ msgid "Ispell command"
-#~ msgstr "Ispell¥³¥Ş¥ó¥É"
+#~ msgstr "Ispellã‚³ãƒãƒ³ãƒ‰"
 
 #~ msgid "Default language"
-#~ msgstr "¥Ç¥Õ¥©¥ë¥È¸À¸ì"
+#~ msgstr "ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆè¨€èª"
 
 #~ msgid "Accept compound words"
-#~ msgstr "¹çÀ®¸ì¤òµö²Ä¤¹¤ë"
+#~ msgstr "åˆæˆèªã‚’è¨±å¯ã™ã‚‹"
 
 #~ msgid "Specify additional characters that might form a word"
-#~ msgstr "Ã±¸ì¤Î°ìÉô¤È¤ß¤Ê¤¹Ê¸»ú¤ò»ØÄê"
+#~ msgstr "å˜èªã®ä¸€éƒ¨ã¨ã¿ãªã™æ–‡å­—ã‚’æŒ‡å®š"
 
 #~ msgid "Use personal dictionary"
-#~ msgstr "¸Ä¿Í¼­½ñ¤Î»ÈÍÑ"
-
-#~ msgid "Personal dictionary"
-#~ msgstr "¸Ä¿Í¼­½ñ"
+#~ msgstr "å€‹äººè¾æ›¸ã®ä½¿ç”¨"
 
 #~ msgid "Use input encoding"
-#~ msgstr "ÆşÎÏ¥Õ¥¡¥¤¥ë¤Î¥¿¥¤¥×¤ò»ØÄê"
+#~ msgstr "å…¥åŠ›ãƒ•ã‚¡ã‚¤ãƒ«ã®ã‚¿ã‚¤ãƒ—ã‚’æŒ‡å®š"
 
 #~ msgid "External"
-#~ msgstr "µ¯Æ°"
+#~ msgstr "èµ·å‹•"
 
 #~ msgid " Save & close "
-#~ msgstr " ÊİÂ¸¤·¤ÆÊÄ¤¸¤ë "
+#~ msgstr " ä¿å­˜ã—ã¦é–‰ã˜ã‚‹ "
 
 #~ msgid "Untitled *"
-#~ msgstr "ÌµÂê *"
+#~ msgstr "ç„¡é¡Œ *"
 
 #~ msgid "Updating Links in all Documents"
-#~ msgstr "¤¹¤Ù¤Æ¤ÎÊ¸½ñ¤Ç¥ê¥ó¥¯¤ò¹¹¿·¤·¤Æ¤¤¤Ş¤¹"
+#~ msgstr "ã™ã¹ã¦ã®æ–‡æ›¸ã§ãƒªãƒ³ã‚¯ã‚’æ›´æ–°ã—ã¦ã„ã¾ã™"
 
 #~ msgid "Charset conversion running..."
-#~ msgstr "Ê¸»ú¥»¥Ã¥ÈÊÑ´¹¼Â¹ÔÃæ..."
+#~ msgstr "æ–‡å­—ã‚»ãƒƒãƒˆå¤‰æ›å®Ÿè¡Œä¸­..."
 
 #~ msgid "No commandline set!"
-#~ msgstr "¥³¥Ş¥ó¥É¤¬»ØÄê¤µ¤ì¤Æ¤¤¤Ş¤»¤ó!"
+#~ msgstr "ã‚³ãƒãƒ³ãƒ‰ãŒæŒ‡å®šã•ã‚Œã¦ã„ã¾ã›ã‚“!"
 
 #~ msgid " doesn't exist or isn't a directory."
-#~ msgstr " ¤ÏÂ¸ºß¤·¤Ê¤¤¤«¡¢¥Ç¥£¥ì¥¯¥È¥ê¤Ç¤Ï¤¢¤ê¤Ş¤»¤ó"
+#~ msgstr " ã¯å­˜åœ¨ã—ãªã„ã‹ã€ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã§ã¯ã‚ã‚Šã¾ã›ã‚“"
 
 #~ msgid "Error in creating temporary print file."
-#~ msgstr "°ì»ş°õºş¥Õ¥¡¥¤¥ë¤ÎºîÀ®¥¨¥é¡¼"
+#~ msgstr "ä¸€æ™‚å°åˆ·ãƒ•ã‚¡ã‚¤ãƒ«ã®ä½œæˆã‚¨ãƒ©ãƒ¼"
 
 #~ msgid "System error in printing file. File not printed."
 #~ msgstr ""
-#~ "¥Õ¥¡¥¤¥ë¤Î°õºş¤Ç¥³¥Ş¥ó¥É¼Â¹Ô¥¨¥é¡¼¡£¥Õ¥¡¥¤¥ë¤Ï°õºş¤µ¤ì¤Ş¤»¤ó¤Ç¤·¤¿¡£"
+#~ "ãƒ•ã‚¡ã‚¤ãƒ«ã®å°åˆ·ã§ã‚³ãƒãƒ³ãƒ‰å®Ÿè¡Œã‚¨ãƒ©ãƒ¼ã€‚ãƒ•ã‚¡ã‚¤ãƒ«ã¯å°åˆ·ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸã€‚"
 
 #~ msgid "Unable to erase temporary file."
-#~ msgstr "°ì»ş¥Õ¥¡¥¤¥ë¤òºï½ü¤Ç¤­¤Ş¤»¤ó"
+#~ msgstr "ä¸€æ™‚ãƒ•ã‚¡ã‚¤ãƒ«ã‚’å‰Šé™¤ã§ãã¾ã›ã‚“"
 
 #~ msgid "Print Dialog"
-#~ msgstr "°õºş ¥À¥¤¥¢¥í¥°"
+#~ msgstr "å°åˆ· ãƒ€ã‚¤ã‚¢ãƒ­ã‚°"
 
 #~ msgid ""
 #~ "Enter print command-line below.\n"
@@ -4585,176 +4629,176 @@ msgstr "¥Õ¥ì¡¼¥àÀßÄê"
 #~ "\n"
 #~ "Print command:"
 #~ msgstr ""
-#~ "°õºş¤Î¥³¥Ş¥ó¥É¥é¥¤¥ó¤ò²¼¤ËÆşÎÏ¤·¤Æ¤¯¤À¤µ¤¤¡£\n"
-#~ " ¥Õ¥¡¥¤¥ëÌ¾¤ËÃÖ¤­´¹¤¨¤é¤ì¤ë¡Ö%s¡×¤ò\n"
-#~ " Æş¤ì¤Ê¤±¤ì¤Ğ¤Ê¤é¤Ê¤¤¤³¤È¤ËÃí°Õ¡£\n"
+#~ "å°åˆ·ã®ã‚³ãƒãƒ³ãƒ‰ãƒ©ã‚¤ãƒ³ã‚’ä¸‹ã«å…¥åŠ›ã—ã¦ãã ã•ã„ã€‚\n"
+#~ " ãƒ•ã‚¡ã‚¤ãƒ«åã«ç½®ãæ›ãˆã‚‰ã‚Œã‚‹ã€Œ%sã€ã‚’\n"
+#~ " å…¥ã‚Œãªã‘ã‚Œã°ãªã‚‰ãªã„ã“ã¨ã«æ³¨æ„ã€‚\n"
 #~ "\n"
-#~ "°õºş¥³¥Ş¥ó¥É:"
+#~ "å°åˆ·ã‚³ãƒãƒ³ãƒ‰:"
 
 #~ msgid "Temporary directory:"
-#~ msgstr "°ì»ş¥Ç¥£¥ì¥¯¥È¥ê"
+#~ msgstr "ä¸€æ™‚ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒª"
 
 #~ msgid " Print "
-#~ msgstr " °õºş "
+#~ msgstr " å°åˆ· "
 
 #~ msgid "Out of memory.\n"
-#~ msgstr "¥á¥â¥êÂ­¤ê¤Ê¤¤\n"
+#~ msgstr "ãƒ¡ãƒ¢ãƒªè¶³ã‚Šãªã„\n"
 
 #~ msgid "filter.c (%s): System call failed: %s.\n"
-#~ msgstr "filter.c (%s): ¥³¥Ş¥ó¥É¼Â¹Ô¼ºÇÔ: %s.\n"
+#~ msgstr "filter.c (%s): ã‚³ãƒãƒ³ãƒ‰å®Ÿè¡Œå¤±æ•—: %s.\n"
 
 #~ msgid "Subprocess standard error: %s"
-#~ msgstr "»Ò¥×¥í¥»¥¹¤ÎÉ¸½à¥¨¥é¡¼½ĞÎÏ: %s"
+#~ msgstr "å­ãƒ—ãƒ­ã‚»ã‚¹ã®æ¨™æº–ã‚¨ãƒ©ãƒ¼å‡ºåŠ›: %s"
 
 #~ msgid "subprocess unable to dup2 stdin: %s\n"
-#~ msgstr "»Ò¥×¥í¥»¥¹¤¬É¸½àÆşÎÏ¤òdup2¤Ç¤­¤Ş¤»¤ó: %s\n"
+#~ msgstr "å­ãƒ—ãƒ­ã‚»ã‚¹ãŒæ¨™æº–å…¥åŠ›ã‚’dup2ã§ãã¾ã›ã‚“: %s\n"
 
 #~ msgid "subprocess unable to dup2 stdout: %s\n"
-#~ msgstr "»Ò¥×¥í¥»¥¹¤¬É¸½à½ĞÎÏ¤òdup2¤Ç¤­¤Ş¤»¤ó: %s\n"
+#~ msgstr "å­ãƒ—ãƒ­ã‚»ã‚¹ãŒæ¨™æº–å‡ºåŠ›ã‚’dup2ã§ãã¾ã›ã‚“: %s\n"
 
 #~ msgid "subprocess unable to dup2 stderr: %s\n"
-#~ msgstr "»Ò¥×¥í¥»¥¹¤¬É¸½à¥¨¥é¡¼½ĞÎÏ¤òdup2¤Ç¤­¤Ş¤»¤ó: %s\n"
+#~ msgstr "å­ãƒ—ãƒ­ã‚»ã‚¹ãŒæ¨™æº–ã‚¨ãƒ©ãƒ¼å‡ºåŠ›ã‚’dup2ã§ãã¾ã›ã‚“: %s\n"
 
 #~ msgid "subprocess unable to exec filter: %s\n"
-#~ msgstr "»Ò¥×¥í¥»¥¹¤¬¥Õ¥£¥ë¥¿¤òexec¤Ç¤­¤Ş¤»¤ó: %s\n"
+#~ msgstr "å­ãƒ—ãƒ­ã‚»ã‚¹ãŒãƒ•ã‚£ãƒ«ã‚¿ã‚’execã§ãã¾ã›ã‚“: %s\n"
 
 #~ msgid "subprocess terminated abnormally with exit code %d\n"
-#~ msgstr "»Ò¥×¥í¥»¥¹¤Ï½ªÎ»¥³¡¼¥É %d ¤Ç°Û¾ï½ªÎ»¤·¤Ş¤·¤¿\n"
+#~ msgstr "å­ãƒ—ãƒ­ã‚»ã‚¹ã¯çµ‚äº†ã‚³ãƒ¼ãƒ‰ %d ã§ç•°å¸¸çµ‚äº†ã—ã¾ã—ãŸ\n"
 
 #~ msgid "bluefish: subprocess was killed by signal %d\n"
-#~ msgstr "bluefish: »Ò¥×¥í¥»¥¹¤Ï¥·¥°¥Ê¥ë %d ¤Çkill¤µ¤ì¤Ş¤·¤¿\n"
+#~ msgstr "bluefish: å­ãƒ—ãƒ­ã‚»ã‚¹ã¯ã‚·ã‚°ãƒŠãƒ« %d ã§killã•ã‚Œã¾ã—ãŸ\n"
 
 #~ msgid " Cancel "
-#~ msgstr " ¥­¥ã¥ó¥»¥ë "
+#~ msgstr " ã‚­ãƒ£ãƒ³ã‚»ãƒ« "
 
 #~ msgid "could not parse highlighting color: "
-#~ msgstr "¿§Ê¬¤±¤Î¿§»ØÄê¤¬²ò¼á¤Ç¤­¤Ş¤»¤ó"
+#~ msgstr "è‰²åˆ†ã‘ã®è‰²æŒ‡å®šãŒè§£é‡ˆã§ãã¾ã›ã‚“"
 
 #~ msgid "Insert class"
-#~ msgstr "Class¤ÎÁŞÆş"
+#~ msgstr "Classã®æŒ¿å…¥"
 
 #~ msgid "tag"
-#~ msgstr "¥¿¥°"
+#~ msgstr "ã‚¿ã‚°"
 
 #~ msgid "pseudo class"
-#~ msgstr "µ¿»÷ class"
+#~ msgstr "ç–‘ä¼¼ class"
 
 #~ msgid "Insert as one line"
-#~ msgstr "¹Ô¤òÁŞÆş¤¹¤ë"
+#~ msgstr "è¡Œã‚’æŒ¿å…¥ã™ã‚‹"
 
 #~ msgid "absolute size"
-#~ msgstr "ÀäÂĞ¥µ¥¤¥º"
+#~ msgstr "çµ¶å¯¾ã‚µã‚¤ã‚º"
 
 #~ msgid "relative size"
-#~ msgstr "ÁêÂĞ¥µ¥¤¥º"
+#~ msgstr "ç›¸å¯¾ã‚µã‚¤ã‚º"
 
 #~ msgid "length/percentage"
-#~ msgstr "Ä¹¤µ/ÈæÎ¨"
+#~ msgstr "é•·ã•/æ¯”ç‡"
 
 #~ msgid "Insert margin as one line"
-#~ msgstr "margin¹Ô¤òÁŞÆş¤¹¤ë"
+#~ msgstr "marginè¡Œã‚’æŒ¿å…¥ã™ã‚‹"
 
 #~ msgid "Insert padding as one line"
-#~ msgstr "padding¹Ô¤òÁŞÆş¤¹¤ë"
+#~ msgstr "paddingè¡Œã‚’æŒ¿å…¥ã™ã‚‹"
 
 #~ msgid "Margin & padding"
-#~ msgstr "¥Ş¡¼¥¸¥ó¤È¥Ñ¥Ç¥£¥ó¥°"
+#~ msgstr "ãƒãƒ¼ã‚¸ãƒ³ã¨ãƒ‘ãƒ‡ã‚£ãƒ³ã‚°"
 
 #~ msgid "color"
-#~ msgstr "Á°·Ê¿§"
+#~ msgstr "å‰æ™¯è‰²"
 
 #~ msgid "style"
-#~ msgstr "¥¹¥¿¥¤¥ë"
+#~ msgstr "ã‚¹ã‚¿ã‚¤ãƒ«"
 
 #~ msgid "Insert values per property"
-#~ msgstr "¥×¥í¥Ñ¥Æ¥£¤´¤È¤ËÁŞÆş¤¹¤ë"
+#~ msgstr "ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã”ã¨ã«æŒ¿å…¥ã™ã‚‹"
 
 #~ msgid "Insert values per border side"
-#~ msgstr "ÊÕ¤´¤È¤ËÁŞÆş¤¹¤ë"
+#~ msgstr "è¾ºã”ã¨ã«æŒ¿å…¥ã™ã‚‹"
 
 #~ msgid "Insert top-values as general value for all sides"
-#~ msgstr "top¤ÎÃÍ¤òÁ´ÊÕ¤ÎÀßÄê¤È¤·¤ÆÁŞÆş¤¹¤ë"
+#~ msgstr "topã®å€¤ã‚’å…¨è¾ºã®è¨­å®šã¨ã—ã¦æŒ¿å…¥ã™ã‚‹"
 
 #~ msgid "Size & placement"
-#~ msgstr "¥µ¥¤¥º¤ÈÇÛÃÖ"
+#~ msgstr "ã‚µã‚¤ã‚ºã¨é…ç½®"
 
 #~ msgid "background-color"
-#~ msgstr "ÇØ·Ê¿§"
+#~ msgstr "èƒŒæ™¯è‰²"
 
 #~ msgid "background-image"
-#~ msgstr "ÇØ·Ê¥¤¥á¡¼¥¸"
+#~ msgstr "èƒŒæ™¯ã‚¤ãƒ¡ãƒ¼ã‚¸"
 
 #~ msgid "background-repeat"
-#~ msgstr "ÇØ·Ê¥¤¥á¡¼¥¸¤Î·«¤êÊÖ¤·"
+#~ msgstr "èƒŒæ™¯ã‚¤ãƒ¡ãƒ¼ã‚¸ã®ç¹°ã‚Šè¿”ã—"
 
 #~ msgid "background-attachment"
-#~ msgstr "ÇØ·Ê¥¤¥á¡¼¥¸¤ÎÅ½¤êÉÕ¤±"
+#~ msgstr "èƒŒæ™¯ã‚¤ãƒ¡ãƒ¼ã‚¸ã®è²¼ã‚Šä»˜ã‘"
 
 #~ msgid "background-position"
-#~ msgstr "ÇØ·Ê¥¤¥á¡¼¥¸ÇÛÃÖ°ÌÃÖ"
+#~ msgstr "èƒŒæ™¯ã‚¤ãƒ¡ãƒ¼ã‚¸é…ç½®ä½ç½®"
 
 #~ msgid "Insert background as one line"
-#~ msgstr "background¹Ô¤òÁŞÆş¤¹¤ë"
+#~ msgstr "backgroundè¡Œã‚’æŒ¿å…¥ã™ã‚‹"
 
 #~ msgid "size unit"
-#~ msgstr "¥µ¥¤¥º¤ÎÃ±°Ì"
+#~ msgstr "ã‚µã‚¤ã‚ºã®å˜ä½"
 
 #~ msgid "percentage"
-#~ msgstr "ÈæÎ¨"
+#~ msgstr "æ¯”ç‡"
 
 #~ msgid "Color & background"
-#~ msgstr "¿§¤ÈÇØ·Ê"
+#~ msgstr "è‰²ã¨èƒŒæ™¯"
 
 #~ msgid "word-spacing"
-#~ msgstr "Ã±¸ì¤Î´Ö³Ö"
+#~ msgstr "å˜èªã®é–“éš”"
 
 #~ msgid "letter-spacing"
-#~ msgstr "Ê¸»ú¤Î´Ö³Ö"
+#~ msgstr "æ–‡å­—ã®é–“éš”"
 
 #~ msgid "vertical-align"
-#~ msgstr "¿âÄ¾Êı¸ş¤ÎÇÛÃÖ"
+#~ msgstr "å‚ç›´æ–¹å‘ã®é…ç½®"
 
 #~ msgid "text-align"
-#~ msgstr "¥Æ¥­¥¹¥ÈÇÛÃÖ"
+#~ msgstr "ãƒ†ã‚­ã‚¹ãƒˆé…ç½®"
 
 #~ msgid "text-decoration"
-#~ msgstr "¥Æ¥­¥¹¥È¤ÎÁõ¾ş"
+#~ msgstr "ãƒ†ã‚­ã‚¹ãƒˆã®è£…é£¾"
 
 #~ msgid "text-transform"
-#~ msgstr "¥Æ¥­¥¹¥ÈÊÑ´¹"
+#~ msgstr "ãƒ†ã‚­ã‚¹ãƒˆå¤‰æ›"
 
 #~ msgid "text-indent"
-#~ msgstr "¥Æ¥­¥¹¥È¤Î»ú²¼¤²"
+#~ msgstr "ãƒ†ã‚­ã‚¹ãƒˆã®å­—ä¸‹ã’"
 
 #~ msgid "white-space"
 #~ msgstr "white-space"
 
 #~ msgid "Insert list-item as one line"
-#~ msgstr "list-item¹Ô¤òÁŞÆş¤¹¤ë"
+#~ msgstr "list-itemè¡Œã‚’æŒ¿å…¥ã™ã‚‹"
 
 #~ msgid ""
 #~ "Bluefish was compiled without\n"
 #~ "Imlib support. This function is\n"
 #~ "therefore not available"
 #~ msgstr ""
-#~ "Bluefish¤¬Imlib¥µ¥İ¡¼¥È¤Ê¤·¤Ç\n"
-#~ "¥³¥ó¥Ñ¥¤¥ë¤µ¤ì¤Æ¤¤¤ë¤¿¤á¡¢\n"
-#~ "¤³¤Îµ¡Ç½¤ÏÍøÍÑ¤Ç¤­¤Ş¤»¤ó¡£"
+#~ "BluefishãŒImlibã‚µãƒãƒ¼ãƒˆãªã—ã§\n"
+#~ "ã‚³ãƒ³ãƒ‘ã‚¤ãƒ«ã•ã‚Œã¦ã„ã‚‹ãŸã‚ã€\n"
+#~ "ã“ã®æ©Ÿèƒ½ã¯åˆ©ç”¨ã§ãã¾ã›ã‚“ã€‚"
 
 #~ msgid "Image preview"
-#~ msgstr "¥¤¥á¡¼¥¸¡¦¥×¥ì¥Ó¥å¡¼"
+#~ msgstr "ã‚¤ãƒ¡ãƒ¼ã‚¸ãƒ»ãƒ—ãƒ¬ãƒ“ãƒ¥ãƒ¼"
 
 #~ msgid "Imagemap editor"
-#~ msgstr "¥¤¥á¡¼¥¸¥Ş¥Ã¥×¡¦¥¨¥Ç¥£¥¿"
+#~ msgstr "ã‚¤ãƒ¡ãƒ¼ã‚¸ãƒãƒƒãƒ—ãƒ»ã‚¨ãƒ‡ã‚£ã‚¿"
 
 #~ msgid "-p filename  load project on startup\n"
-#~ msgstr "-p ¥Õ¥¡¥¤¥ëÌ¾  µ¯Æ°»ş¤Ë¥×¥í¥¸¥§¥¯¥È¤òÆÉ¤ß¹ş¤à\n"
+#~ msgstr "-p ãƒ•ã‚¡ã‚¤ãƒ«å  èµ·å‹•æ™‚ã«ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆã‚’èª­ã¿è¾¼ã‚€\n"
 
 #~ msgid "Error creating directory"
-#~ msgstr "¥Ç¥£¥ì¥¯¥È¥êºîÀ®¥¨¥é¡¼"
+#~ msgstr "ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªä½œæˆã‚¨ãƒ©ãƒ¼"
 
 #~ msgid "Delete"
-#~ msgstr "ºï½ü"
+#~ msgstr "å‰Šé™¤"
 
 #~ msgid ""
 #~ "Size: %lu\n"
@@ -4762,76 +4806,76 @@ msgstr "¥Õ¥ì¡¼¥àÀßÄê"
 #~ "Group: %s\n"
 #~ "Mode: %s\n"
 #~ msgstr ""
-#~ "¥µ¥¤¥º: %lu\n"
-#~ "ºÇ½ª¹¹¿·: %sºÇ½ª¥¢¥¯¥»¥¹: %s¥æ¡¼¥¶: %s\n"
-#~ "¥°¥ë¡¼¥×: %s\n"
-#~ "¥â¡¼¥É: %s\n"
+#~ "ã‚µã‚¤ã‚º: %lu\n"
+#~ "æœ€çµ‚æ›´æ–°: %sæœ€çµ‚ã‚¢ã‚¯ã‚»ã‚¹: %sãƒ¦ãƒ¼ã‚¶: %s\n"
+#~ "ã‚°ãƒ«ãƒ¼ãƒ—: %s\n"
+#~ "ãƒ¢ãƒ¼ãƒ‰: %s\n"
 
 #~ msgid "Properties of %s"
-#~ msgstr "%s ¤Î¥×¥í¥Ñ¥Æ¥£"
+#~ msgstr "%s ã®ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£"
 
 #~ msgid ""
 #~ "Size: %lu\n"
 #~ "Last Modification: %sLast access: %sUser: %s\n"
 #~ "Mode: %s\n"
 #~ msgstr ""
-#~ "¥µ¥¤¥º: %lu\n"
-#~ "ºÇ½ª¹¹¿·: %sºÇ½ª¥¢¥¯¥»¥¹: %s¥æ¡¼¥¶: %s\n"
-#~ "¥â¡¼¥É: %s\n"
+#~ "ã‚µã‚¤ã‚º: %lu\n"
+#~ "æœ€çµ‚æ›´æ–°: %sæœ€çµ‚ã‚¢ã‚¯ã‚»ã‚¹: %sãƒ¦ãƒ¼ã‚¶: %s\n"
+#~ "ãƒ¢ãƒ¼ãƒ‰: %s\n"
 
 #~ msgid "Error!"
-#~ msgstr "¥¨¥é¡¼!"
+#~ msgstr "ã‚¨ãƒ©ãƒ¼!"
 
 #~ msgid "Could not stat(2) file."
-#~ msgstr "stat(2)¤Ç¤­¤Ê¤«¤Ã¤¿"
+#~ msgstr "stat(2)ã§ããªã‹ã£ãŸ"
 
 #~ msgid "Move file to"
-#~ msgstr "¥Õ¥¡¥¤¥ë¤Î°ÜÆ°"
+#~ msgstr "ãƒ•ã‚¡ã‚¤ãƒ«ã®ç§»å‹•"
 
 #~ msgid "Copy file to"
-#~ msgstr "¥Õ¥¡¥¤¥ë¤Î¥³¥Ô¡¼"
+#~ msgstr "ãƒ•ã‚¡ã‚¤ãƒ«ã®ã‚³ãƒ”ãƒ¼"
 
 #~ msgid "Move file succeeded"
-#~ msgstr "¥Õ¥¡¥¤¥ë¤ò°ÜÆ°¤·¤Ş¤·¤¿"
+#~ msgstr "ãƒ•ã‚¡ã‚¤ãƒ«ã‚’ç§»å‹•ã—ã¾ã—ãŸ"
 
 #~ msgid "Move file failed"
-#~ msgstr "¥Õ¥¡¥¤¥ë¤Î°ÜÆ°¤Ï¼ºÇÔ¤·¤Ş¤·¤¿"
+#~ msgstr "ãƒ•ã‚¡ã‚¤ãƒ«ã®ç§»å‹•ã¯å¤±æ•—ã—ã¾ã—ãŸ"
 
 #~ msgid "Copying file succeeded"
-#~ msgstr "¥Õ¥¡¥¤¥ë¤ò¥³¥Ô¡¼¤·¤Ş¤·¤¿"
+#~ msgstr "ãƒ•ã‚¡ã‚¤ãƒ«ã‚’ã‚³ãƒ”ãƒ¼ã—ã¾ã—ãŸ"
 
 #~ msgid "Copying file failed"
-#~ msgstr "¥Õ¥¡¥¤¥ë¤Î¥³¥Ô¡¼¤Ï¼ºÇÔ¤·¤Ş¤·¤¿"
+#~ msgstr "ãƒ•ã‚¡ã‚¤ãƒ«ã®ã‚³ãƒ”ãƒ¼ã¯å¤±æ•—ã—ã¾ã—ãŸ"
 
 #~ msgid "File new"
-#~ msgstr "¿·µ¬¥Õ¥¡¥¤¥ë"
+#~ msgstr "æ–°è¦ãƒ•ã‚¡ã‚¤ãƒ«"
 
 #~ msgid "File move to"
-#~ msgstr "°ÜÆ°¤¹¤ë"
+#~ msgstr "ç§»å‹•ã™ã‚‹"
 
 #~ msgid "File delete"
-#~ msgstr "ºï½ü¤¹¤ë"
+#~ msgstr "å‰Šé™¤ã™ã‚‹"
 
 #~ msgid "Properties"
-#~ msgstr "¥×¥í¥Ñ¥Æ¥£"
+#~ msgstr "ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£"
 
 #~ msgid "Preview image"
-#~ msgstr "²èÁü¤Î¥×¥ì¥Ó¥å¡¼"
+#~ msgstr "ç”»åƒã®ãƒ—ãƒ¬ãƒ“ãƒ¥ãƒ¼"
 
 #~ msgid "Edit image"
-#~ msgstr "²èÁü¤ÎÊÔ½¸"
+#~ msgstr "ç”»åƒã®ç·¨é›†"
 
 #~ msgid "Refresh file browser"
-#~ msgstr "¥Õ¥¡¥¤¥ë°ìÍ÷¤Î¹¹¿·"
+#~ msgstr "ãƒ•ã‚¡ã‚¤ãƒ«ä¸€è¦§ã®æ›´æ–°"
 
 #~ msgid "Directories"
-#~ msgstr "¥Ç¥£¥ì¥¯¥È¥ê"
+#~ msgstr "ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒª"
 
 #~ msgid "Project"
-#~ msgstr "¥×¥í¥¸¥§¥¯¥È"
+#~ msgstr "ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆ"
 
 #~ msgid "About Bluefish"
-#~ msgstr "Bluefish¤Ë¤Ä¤¤¤Æ"
+#~ msgstr "Bluefishã«ã¤ã„ã¦"
 
 #~ msgid ""
 #~ "(C) Olivier Sessink\n"
@@ -4843,143 +4887,143 @@ msgstr "¥Õ¥ì¡¼¥àÀßÄê"
 #~ "(C) Olivier Sessink\n"
 #~ "\n"
 #~ "developed by the bluefish development team\n"
-#~ "¾Ü¤·¤¯¤ÏAUTHORS¤ò¸«¤Æ¤¯¤À¤µ¤¤\n"
+#~ "è©³ã—ãã¯AUTHORSã‚’è¦‹ã¦ãã ã•ã„\n"
 #~ "http://bluefish.openoffice.nl/"
 
 #~ msgid "Dismiss"
-#~ msgstr "¤â¤É¤ë"
+#~ msgstr "ã‚‚ã©ã‚‹"
 
 #~ msgid "/File/Open from the web..."
-#~ msgstr "/¥Õ¥¡¥¤¥ë/Web¤«¤é³«¤¯..."
+#~ msgstr "/ãƒ•ã‚¡ã‚¤ãƒ«/Webã‹ã‚‰é–‹ã..."
 
 #~ msgid "/File/sep4"
-#~ msgstr "/¥Õ¥¡¥¤¥ë/sep4"
+#~ msgstr "/ãƒ•ã‚¡ã‚¤ãƒ«/sep4"
 
 #~ msgid "/File/Print..."
-#~ msgstr "/¥Õ¥¡¥¤¥ë/°õºş..."
+#~ msgstr "/ãƒ•ã‚¡ã‚¤ãƒ«/å°åˆ·..."
 
 #~ msgid "/Edit/sep2"
-#~ msgstr "/ÊÔ½¸/sep2"
+#~ msgstr "/ç·¨é›†/sep2"
 
 #~ msgid "/Edit/Replace special/Replace ascii chars"
-#~ msgstr "/ÊÔ½¸/ÆÃ¼ìÊ¸»ú¤ÎÃÖ´¹/ASCIIÊ¸»ú¤òÃÖ´¹"
+#~ msgstr "/ç·¨é›†/ç‰¹æ®Šæ–‡å­—ã®ç½®æ›/ASCIIæ–‡å­—ã‚’ç½®æ›"
 
 #~ msgid "/Edit/Selection to uppercase"
-#~ msgstr "/ÊÔ½¸/ÁªÂòÈÏ°Ï¤òÂçÊ¸»ú¤Ë¤¹¤ë"
+#~ msgstr "/ç·¨é›†/é¸æŠç¯„å›²ã‚’å¤§æ–‡å­—ã«ã™ã‚‹"
 
 #~ msgid "/Edit/Selection to lowercase"
-#~ msgstr "/ÊÔ½¸/ÁªÂòÈÏ°Ï¤ò¾®Ê¸»ú¤Ë¤¹¤ë"
+#~ msgstr "/ç·¨é›†/é¸æŠç¯„å›²ã‚’å°æ–‡å­—ã«ã™ã‚‹"
 
 #~ msgid "/Edit/sep6"
-#~ msgstr "/ÊÔ½¸/sep6"
+#~ msgstr "/ç·¨é›†/sep6"
 
 #~ msgid "/Edit/Indent region"
-#~ msgstr "/ÊÔ½¸/ÁªÂòÈÏ°Ï¤ò¥¤¥ó¥Ç¥ó¥È"
+#~ msgstr "/ç·¨é›†/é¸æŠç¯„å›²ã‚’ã‚¤ãƒ³ãƒ‡ãƒ³ãƒˆ"
 
 #~ msgid "/Edit/Unindent region"
-#~ msgstr "/ÊÔ½¸/ÁªÂòÈÏ°Ï¤òµÕ¥¤¥ó¥Ç¥ó¥È"
+#~ msgstr "/ç·¨é›†/é¸æŠç¯„å›²ã‚’é€†ã‚¤ãƒ³ãƒ‡ãƒ³ãƒˆ"
 
 #~ msgid "/Edit/sep7"
-#~ msgstr "/ÊÔ½¸/sep7"
+#~ msgstr "/ç·¨é›†/sep7"
 
 #~ msgid "/_View"
-#~ msgstr "/É½¼¨(_V)"
+#~ msgstr "/è¡¨ç¤º(_V)"
 
 #~ msgid "/_View/Tearoff1"
-#~ msgstr "/É½¼¨/Tearoff1"
+#~ msgstr "/è¡¨ç¤º/Tearoff1"
 
 #~ msgid "/View/View in _Netscape"
-#~ msgstr "/É½¼¨/Netscape¤Ç³ÎÇ§(_N)"
+#~ msgstr "/è¡¨ç¤º/Netscapeã§ç¢ºèª(_N)"
 
 #~ msgid "/View/_Drag 'n Drop Window"
-#~ msgstr "/É½¼¨/¥É¥é¥Ã¥°¡õ¥É¥í¥Ã¥×¡¦¥¦¥£¥ó¥É¥¦(_D)"
+#~ msgstr "/è¡¨ç¤º/ãƒ‰ãƒ©ãƒƒã‚°ï¼†ãƒ‰ãƒ­ãƒƒãƒ—ãƒ»ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦(_D)"
 
 #~ msgid "/View/_Preview image under cursor"
-#~ msgstr "/É½¼¨/¥«¡¼¥½¥ë°ÌÃÖ¤Î²èÁü¤ò¥×¥ì¥Ó¥å¡¼(_P)"
+#~ msgstr "/è¡¨ç¤º/ã‚«ãƒ¼ã‚½ãƒ«ä½ç½®ã®ç”»åƒã‚’ãƒ—ãƒ¬ãƒ“ãƒ¥ãƒ¼(_P)"
 
 #~ msgid "/View/_Preview "
-#~ msgstr "/É½¼¨/¥×¥ì¥Ó¥å¡¼(_P)"
+#~ msgstr "/è¡¨ç¤º/ãƒ—ãƒ¬ãƒ“ãƒ¥ãƒ¼(_P)"
 
 #~ msgid "/View/sep1"
-#~ msgstr "/É½¼¨/sep1"
+#~ msgstr "/è¡¨ç¤º/sep1"
 
 #~ msgid "/View/Next document"
-#~ msgstr "/É½¼¨/¼¡¤ÎÊ¸½ñ"
+#~ msgstr "/è¡¨ç¤º/æ¬¡ã®æ–‡æ›¸"
 
 #~ msgid "/View/Previous document"
-#~ msgstr "/É½¼¨/Á°¤ÎÊ¸½ñ"
+#~ msgstr "/è¡¨ç¤º/å‰ã®æ–‡æ›¸"
 
 #~ msgid "/View/sep3"
-#~ msgstr "/É½¼¨/sep3"
+#~ msgstr "/è¡¨ç¤º/sep3"
 
 #~ msgid "/View/sep2"
-#~ msgstr "/É½¼¨/sep2"
+#~ msgstr "/è¡¨ç¤º/sep2"
 
 #~ msgid "/View/Document status"
-#~ msgstr "/É½¼¨/Ê¸½ñ¾ğÊó"
+#~ msgstr "/è¡¨ç¤º/æ–‡æ›¸æƒ…å ±"
 
 #~ msgid "/_Project"
-#~ msgstr "/¥×¥í¥¸¥§¥¯¥È(_P)"
+#~ msgstr "/ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆ(_P)"
 
 #~ msgid "/Project/Open..."
-#~ msgstr "/¥×¥í¥¸¥§¥¯¥È/³«¤¯..."
+#~ msgstr "/ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆ/é–‹ã..."
 
 #~ msgid "/Project/Close"
-#~ msgstr "/¥×¥í¥¸¥§¥¯¥È/ÊÄ¤¸¤ë"
+#~ msgstr "/ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆ/é–‰ã˜ã‚‹"
 
 #~ msgid "/Project/Save"
-#~ msgstr "/¥×¥í¥¸¥§¥¯¥È/ÊİÂ¸"
+#~ msgstr "/ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆ/ä¿å­˜"
 
 #~ msgid "/Project/Save as..."
-#~ msgstr "/¥×¥í¥¸¥§¥¯¥È/ÊÌÌ¾¤ÇÊİÂ¸..."
+#~ msgstr "/ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆ/åˆ¥åã§ä¿å­˜..."
 
 #~ msgid "/Project/sep1"
-#~ msgstr "/¥×¥í¥¸¥§¥¯¥È/sep1"
+#~ msgstr "/ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆ/sep1"
 
 #~ msgid "/Project/Edit..."
-#~ msgstr "/¥×¥í¥¸¥§¥¯¥È/ÊÔ½¸..."
+#~ msgstr "/ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆ/ç·¨é›†..."
 
 #~ msgid "/Project/sep2"
-#~ msgstr "/¥×¥í¥¸¥§¥¯¥È/sep2"
+#~ msgstr "/ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆ/sep2"
 
 #~ msgid "/_Project/Files"
-#~ msgstr "/¥×¥í¥¸¥§¥¯¥È/¥Õ¥¡¥¤¥ë¥ê¥¹¥È"
+#~ msgstr "/ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆ/ãƒ•ã‚¡ã‚¤ãƒ«ãƒªã‚¹ãƒˆ"
 
 #~ msgid "/Tags/Repeat last"
-#~ msgstr "/¥¿¥°/Á°²ó¤Î·«¤êÊÖ¤·"
+#~ msgstr "/ã‚¿ã‚°/å‰å›ã®ç¹°ã‚Šè¿”ã—"
 
 #~ msgid "/Dialogs/CSS/Add class..."
-#~ msgstr "/¥À¥¤¥¢¥í¥°/CSS/¥¯¥é¥¹ÄÉ²Ã..."
+#~ msgstr "/ãƒ€ã‚¤ã‚¢ãƒ­ã‚°/CSS/ã‚¯ãƒ©ã‚¹è¿½åŠ ..."
 
 #~ msgid "/Dialogs/Javascript"
-#~ msgstr "/¥À¥¤¥¢¥í¥°/Javascript"
+#~ msgstr "/ãƒ€ã‚¤ã‚¢ãƒ­ã‚°/Javascript"
 
 #~ msgid "/Dialogs/Javascript/tearoff1"
-#~ msgstr "/¥À¥¤¥¢¥í¥°/Javascript/tearoff1"
+#~ msgstr "/ãƒ€ã‚¤ã‚¢ãƒ­ã‚°/Javascript/tearoff1"
 
 #~ msgid "/Dialogs/Javascript/Mouseover Script"
-#~ msgstr "/¥À¥¤¥¢¥í¥°/Javascript/Mouseover ¥¹¥¯¥ê¥×¥È"
+#~ msgstr "/ãƒ€ã‚¤ã‚¢ãƒ­ã‚°/Javascript/Mouseover ã‚¹ã‚¯ãƒªãƒ—ãƒˆ"
 
 #~ msgid "/Dialogs/Javascript/Netscape 4 Resize Bugfix Script"
-#~ msgstr "/¥À¥¤¥¢¥í¥°/Javascript/Netscape 4 ¥ê¥µ¥¤¥º¡¦¥Ğ¥°½¤Àµ¥¹¥¯¥ê¥×¥È"
+#~ msgstr "/ãƒ€ã‚¤ã‚¢ãƒ­ã‚°/Javascript/Netscape 4 ãƒªã‚µã‚¤ã‚ºãƒ»ãƒã‚°ä¿®æ­£ã‚¹ã‚¯ãƒªãƒ—ãƒˆ"
 
 #~ msgid "/Dialogs/Javascript/Image Preload Script"
-#~ msgstr "/¥À¥¤¥¢¥í¥°/Javascript/²èÁüÀè¹ÔÆÉ¤ß¹ş¤ß¥¹¥¯¥ê¥×¥È"
+#~ msgstr "/ãƒ€ã‚¤ã‚¢ãƒ­ã‚°/Javascript/ç”»åƒå…ˆè¡Œèª­ã¿è¾¼ã¿ã‚¹ã‚¯ãƒªãƒ—ãƒˆ"
 
 #~ msgid "/Dialogs/_WML"
-#~ msgstr "/¥À¥¤¥¢¥í¥°/WML(_W)"
+#~ msgstr "/ãƒ€ã‚¤ã‚¢ãƒ­ã‚°/WML(_W)"
 
 #~ msgid "/Dialogs/imagemap development..."
-#~ msgstr "/¥À¥¤¥¢¥í¥°/¥¤¥á¡¼¥¸¥Ş¥Ã¥×ºîÀ®..."
+#~ msgstr "/ãƒ€ã‚¤ã‚¢ãƒ­ã‚°/ã‚¤ãƒ¡ãƒ¼ã‚¸ãƒãƒƒãƒ—ä½œæˆ..."
 
 #~ msgid "/External/Weblint..."
-#~ msgstr "/µ¯Æ°/Weblint..."
+#~ msgstr "/èµ·å‹•/Weblint..."
 
 #~ msgid "/External/Filters/tearoff1"
-#~ msgstr "/µ¯Æ°/¥Õ¥£¥ë¥¿/tearoff1"
+#~ msgstr "/èµ·å‹•/ãƒ•ã‚£ãƒ«ã‚¿/tearoff1"
 
 #~ msgid "/External/Commands/tearoff1"
-#~ msgstr "/µ¯Æ°/¥³¥Ş¥ó¥É/tearoff1"
+#~ msgstr "/èµ·å‹•/ã‚³ãƒãƒ³ãƒ‰/tearoff1"
 
 #~ msgid "/_Perl"
 #~ msgstr "/Perl(_P)"
@@ -4988,306 +5032,300 @@ msgstr "¥Õ¥ì¡¼¥àÀßÄê"
 #~ msgstr "/Perl/tearoff1"
 
 #~ msgid "/Perl/Status..."
-#~ msgstr "/Perl/¥¹¥Æ¡¼¥¿¥¹..."
+#~ msgstr "/Perl/ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹..."
 
 #~ msgid "/Perl/Strip CR Codes"
-#~ msgstr "CR¥³¡¼¥É¤Îºï½ü"
+#~ msgstr "CRã‚³ãƒ¼ãƒ‰ã®å‰Šé™¤"
 
 #~ msgid "/Options/View Filebrowser"
-#~ msgstr "/ÀßÄê/¥Õ¥¡¥¤¥ë¡¦¥Ö¥é¥¦¥¶¤òÉ½¼¨"
+#~ msgstr "/è¨­å®š/ãƒ•ã‚¡ã‚¤ãƒ«ãƒ»ãƒ–ãƒ©ã‚¦ã‚¶ã‚’è¡¨ç¤º"
 
 #~ msgid "/Options/Lists/External filters..."
-#~ msgstr "/ÀßÄê/¥ê¥¹¥È/µ¯Æ°¥Õ¥£¥ë¥¿..."
+#~ msgstr "/è¨­å®š/ãƒªã‚¹ãƒˆ/èµ·å‹•ãƒ•ã‚£ãƒ«ã‚¿..."
 
 #~ msgid "/Options/Lists/External programs..."
-#~ msgstr "/ÀßÄê/¥ê¥¹¥È/µ¯Æ°¥×¥í¥°¥é¥à..."
+#~ msgstr "/è¨­å®š/ãƒªã‚¹ãƒˆ/èµ·å‹•ãƒ—ãƒ­ã‚°ãƒ©ãƒ ..."
 
 #~ msgid "/Options/Lists/Reset syntax highlighting"
-#~ msgstr "/ÀßÄê/¥ê¥¹¥È/¿§Ê¬¤±¤Î¥ê¥»¥Ã¥È"
+#~ msgstr "/è¨­å®š/ãƒªã‚¹ãƒˆ/è‰²åˆ†ã‘ã®ãƒªã‚»ãƒƒãƒˆ"
 
 #~ msgid "/Options/sep1"
-#~ msgstr "/ÀßÄê/sep1"
+#~ msgstr "/è¨­å®š/sep1"
 
 #~ msgid "/Options/Save config"
-#~ msgstr "/ÀßÄê/ÀßÄê¤ÎÊİÂ¸"
+#~ msgstr "/è¨­å®š/è¨­å®šã®ä¿å­˜"
 
 #~ msgid "/_Help"
-#~ msgstr "/¥Ø¥ë¥×(_H)"
+#~ msgstr "/ãƒ˜ãƒ«ãƒ—(_H)"
 
 #~ msgid "/Help/_About..."
-#~ msgstr "/¥Ø¥ë¥×/Bluefish¤Ë¤Ä¤¤¤Æ(_A)..."
+#~ msgstr "/ãƒ˜ãƒ«ãƒ—/Bluefishã«ã¤ã„ã¦(_A)..."
 
 #~ msgid "name"
-#~ msgstr "Ì¾¾Î"
+#~ msgstr "åç§°"
 
 #~ msgid "Bluefish configuration - external filters"
-#~ msgstr "Bluefish ÀßÄê - µ¯Æ°¥Õ¥£¥ë¥¿"
+#~ msgstr "Bluefish è¨­å®š - èµ·å‹•ãƒ•ã‚£ãƒ«ã‚¿"
 
 #~ msgid "Bluefish configuration - external commands"
-#~ msgstr "Bluefish ÀßÄê - µ¯Æ°¥³¥Ş¥ó¥É"
+#~ msgstr "Bluefish è¨­å®š - èµ·å‹•ã‚³ãƒãƒ³ãƒ‰"
 
 #~ msgid "regex pattern"
-#~ msgstr "Àµµ¬É½¸½¥Ñ¥¿¡¼¥ó"
+#~ msgstr "æ­£è¦è¡¨ç¾ãƒ‘ã‚¿ãƒ¼ãƒ³"
 
 #~ msgid "Bluefish configuration - syntax highlighting"
-#~ msgstr "Bluefish ÀßÄê - ¿§Ê¬¤±"
+#~ msgstr "Bluefish è¨­å®š - è‰²åˆ†ã‘"
 
 #~ msgid "Bluefish config - custom menu"
-#~ msgstr "Bluefish ÀßÄê - ¥«¥¹¥¿¥à¡¦¥á¥Ë¥å¡¼"
+#~ msgstr "Bluefish è¨­å®š - ã‚«ã‚¹ã‚¿ãƒ ãƒ»ãƒ¡ãƒ‹ãƒ¥ãƒ¼"
 
 #~ msgid "Replace where"
-#~ msgstr "¸¡º÷ÂĞ¾İ"
-
-#~ msgid "Add"
-#~ msgstr "ÄÉ²Ã"
+#~ msgstr "æ¤œç´¢å¯¾è±¡"
 
 #~ msgid "Update"
-#~ msgstr "¹¹¿·"
+#~ msgstr "æ›´æ–°"
 
 #~ msgid "/Custom menu/Reset custom menu"
-#~ msgstr "/¥«¥¹¥¿¥à¡¦¥á¥Ë¥å¡¼/¥á¥Ë¥å¡¼¤Î¥ê¥»¥Ã¥È"
+#~ msgstr "/ã‚«ã‚¹ã‚¿ãƒ ãƒ»ãƒ¡ãƒ‹ãƒ¥ãƒ¼/ãƒ¡ãƒ‹ãƒ¥ãƒ¼ã®ãƒªã‚»ãƒƒãƒˆ"
 
 #~ msgid "Resolving address"
-#~ msgstr "¥¢¥É¥ì¥¹¤òÄ´¤Ù¤Æ¤¤¤Ş¤¹"
+#~ msgstr "ã‚¢ãƒ‰ãƒ¬ã‚¹ã‚’èª¿ã¹ã¦ã„ã¾ã™"
 
 #~ msgid "Retrieving file, press ESC to cancel download"
-#~ msgstr "¥Õ¥¡¥¤¥ë¤ò¼õ¿®Ãæ¡£ESC¤Ç¥À¥¦¥ó¥í¡¼¥É¤ò¥­¥ã¥ó¥»¥ë¤·¤Ş¤¹"
+#~ msgstr "ãƒ•ã‚¡ã‚¤ãƒ«ã‚’å—ä¿¡ä¸­ã€‚ESCã§ãƒ€ã‚¦ãƒ³ãƒ­ãƒ¼ãƒ‰ã‚’ã‚­ãƒ£ãƒ³ã‚»ãƒ«ã—ã¾ã™"
 
 #~ msgid "User aborted download"
-#~ msgstr "¥æ¡¼¥¶¤¬¥À¥¦¥ó¥í¡¼¥É¤òÃæ»ß¤·¤Ş¤·¤¿"
+#~ msgstr "ãƒ¦ãƒ¼ã‚¶ãŒãƒ€ã‚¦ãƒ³ãƒ­ãƒ¼ãƒ‰ã‚’ä¸­æ­¢ã—ã¾ã—ãŸ"
 
 #~ msgid "Retrieving file, %d bytes received, press ESC to cancel"
-#~ msgstr "¥Õ¥¡¥¤¥ë¤ò¼õ¿®Ãæ¡£%d¥Ğ¥¤¥È¼õ¿®¤·¤Ş¤·¤¿¡£ESC¤Ç¥­¥ã¥ó¥»¥ë¤·¤Ş¤¹"
+#~ msgstr "ãƒ•ã‚¡ã‚¤ãƒ«ã‚’å—ä¿¡ä¸­ã€‚%dãƒã‚¤ãƒˆå—ä¿¡ã—ã¾ã—ãŸã€‚ESCã§ã‚­ãƒ£ãƒ³ã‚»ãƒ«ã—ã¾ã™"
 
 #~ msgid "Retrieving file, %d bytes of %d bytes received, press ESC to cancel"
 #~ msgstr ""
-#~ "¥Õ¥¡¥¤¥ë¤ò¼õ¿®Ãæ¡£%d¥Ğ¥¤¥È/%d¥Ğ¥¤¥È¼õ¿®¤·¤Ş¤·¤¿¡£ESC¤Ç¥­¥ã¥ó¥»¥ë¤·¤Ş¤¹"
+#~ "ãƒ•ã‚¡ã‚¤ãƒ«ã‚’å—ä¿¡ä¸­ã€‚%dãƒã‚¤ãƒˆ/%dãƒã‚¤ãƒˆå—ä¿¡ã—ã¾ã—ãŸã€‚ESCã§ã‚­ãƒ£ãƒ³ã‚»ãƒ«ã—ã¾ã™"
 
 #~ msgid "Bluefish project - files"
-#~ msgstr "Bluefish¥×¥í¥¸¥§¥¯¥È - ¥Õ¥¡¥¤¥ë¡¦¥ê¥¹¥È"
+#~ msgstr "Bluefishãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆ - ãƒ•ã‚¡ã‚¤ãƒ«ãƒ»ãƒªã‚¹ãƒˆ"
 
 #~ msgid "Bluefish project - colorlist"
-#~ msgstr "Bluefish¥×¥í¥¸¥§¥¯¥È - ¥«¥é¡¼¡¦¥ê¥¹¥È"
+#~ msgstr "Bluefishãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆ - ã‚«ãƒ©ãƒ¼ãƒ»ãƒªã‚¹ãƒˆ"
 
 #~ msgid "Bluefish project - fontlist"
-#~ msgstr "Bluefish¥×¥í¥¸¥§¥¯¥È - ¥Õ¥©¥ó¥È¡¦¥ê¥¹¥È"
+#~ msgstr "Bluefishãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆ - ãƒ•ã‚©ãƒ³ãƒˆãƒ»ãƒªã‚¹ãƒˆ"
 
 #~ msgid "Bluefish project - urllist"
-#~ msgstr "Bluefish¥×¥í¥¸¥§¥¯¥È - URL¥ê¥¹¥È"
+#~ msgstr "Bluefishãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆ - URLãƒªã‚¹ãƒˆ"
 
 #~ msgid "Bluefish project - targetlist"
-#~ msgstr "Bluefish¥×¥í¥¸¥§¥¯¥È - Target¥ê¥¹¥È"
+#~ msgstr "Bluefishãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆ - Targetãƒªã‚¹ãƒˆ"
 
 #~ msgid "Bluefish project - dtd_cblist"
-#~ msgstr "Bluefish¥×¥í¥¸¥§¥¯¥È - DTD¥ê¥¹¥È"
+#~ msgstr "Bluefishãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆ - DTDãƒªã‚¹ãƒˆ"
 
 #~ msgid "Bluefish project - classlist"
-#~ msgstr "Bluefish¥×¥í¥¸¥§¥¯¥È - Class¥ê¥¹¥È"
+#~ msgstr "Bluefishãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆ - Classãƒªã‚¹ãƒˆ"
 
 #~ msgid "Bluefish project - headers"
-#~ msgstr "Bluefish¥×¥í¥¸¥§¥¯¥È - ¥Ø¥Ã¥À"
+#~ msgstr "Bluefishãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆ - ãƒ˜ãƒƒãƒ€"
 
 #~ msgid "/_Files"
-#~ msgstr "/¥Õ¥¡¥¤¥ë(_F)"
+#~ msgstr "/ãƒ•ã‚¡ã‚¤ãƒ«(_F)"
 
 #~ msgid "/Files/Files"
-#~ msgstr "/¥Õ¥¡¥¤¥ë/¥Õ¥¡¥¤¥ë"
+#~ msgstr "/ãƒ•ã‚¡ã‚¤ãƒ«/ãƒ•ã‚¡ã‚¤ãƒ«"
 
 #~ msgid "/_Lists"
-#~ msgstr "/¥ê¥¹¥È(_L)"
+#~ msgstr "/ãƒªã‚¹ãƒˆ(_L)"
 
 #~ msgid "/Lists/Colors"
-#~ msgstr "/¥ê¥¹¥È/¿§"
+#~ msgstr "/ãƒªã‚¹ãƒˆ/è‰²"
 
 #~ msgid "/Lists/Fonts"
-#~ msgstr "/¥ê¥¹¥È/¥Õ¥©¥ó¥È"
+#~ msgstr "/ãƒªã‚¹ãƒˆ/ãƒ•ã‚©ãƒ³ãƒˆ"
 
 #~ msgid "/Lists/Url's"
-#~ msgstr "/¥ê¥¹¥È/URL"
+#~ msgstr "/ãƒªã‚¹ãƒˆ/URL"
 
 #~ msgid "/Lists/Targets"
-#~ msgstr "/¥ê¥¹¥È/Target"
+#~ msgstr "/ãƒªã‚¹ãƒˆ/Target"
 
 #~ msgid "/Lists/Document type definitions"
-#~ msgstr "/¥ê¥¹¥È/Ê¸½ñ·¿ÄêµÁ"
+#~ msgstr "/ãƒªã‚¹ãƒˆ/æ–‡æ›¸å‹å®šç¾©"
 
 #~ msgid "/Lists/CSS classes"
-#~ msgstr "/¥ê¥¹¥È/CSS class"
+#~ msgstr "/ãƒªã‚¹ãƒˆ/CSS class"
 
 #~ msgid "/Lists/headers"
-#~ msgstr "/¥ê¥¹¥È/¥Ø¥Ã¥À"
+#~ msgstr "/ãƒªã‚¹ãƒˆ/ãƒ˜ãƒƒãƒ€"
 
 #~ msgid "Webdir"
-#~ msgstr "Web¥Ç¥£¥ì¥¯¥È¥ê"
+#~ msgstr "Webãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒª"
 
 #~ msgid "Template"
-#~ msgstr "¥Æ¥ó¥×¥ì¡¼¥È"
+#~ msgstr "ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆ"
 
 #~ msgid "Bluefish warning: some file(s) are modified!"
-#~ msgstr "Bluefish·Ù¹ğ: ¤¤¤¯¤Ä¤«¤Î¥Õ¥¡¥¤¥ë¤ÏÊÑ¹¹¤µ¤ì¤Æ¤¤¤Ş¤¹!"
+#~ msgstr "Bluefishè­¦å‘Š: ã„ãã¤ã‹ã®ãƒ•ã‚¡ã‚¤ãƒ«ã¯å¤‰æ›´ã•ã‚Œã¦ã„ã¾ã™!"
 
 #~ msgid ""
 #~ "Some file(s) in your project are modified\n"
 #~ "please choose your action"
 #~ msgstr ""
-#~ "¤¢¤Ê¤¿¤Î¥×¥í¥¸¥§¥¯¥È¤Ë´Ş¤Ş¤ì¤Æ¤¤¤ë¥Õ¥¡¥¤¥ë¤¬ÊÑ¹¹¤µ¤ì¤Æ¤¤¤Ş¤¹\n"
-#~ "¤É¤Î¤è¤¦¤Ë¤·¤Ş¤¹¤«"
+#~ "ã‚ãªãŸã®ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆã«å«ã¾ã‚Œã¦ã„ã‚‹ãƒ•ã‚¡ã‚¤ãƒ«ãŒå¤‰æ›´ã•ã‚Œã¦ã„ã¾ã™\n"
+#~ "ã©ã®ã‚ˆã†ã«ã—ã¾ã™ã‹"
 
 #~ msgid "PHP Reference"
-#~ msgstr "PHP¥ê¥Õ¥¡¥ì¥ó¥¹"
+#~ msgstr "PHPãƒªãƒ•ã‚¡ãƒ¬ãƒ³ã‚¹"
 
 #~ msgid "SSI Reference"
-#~ msgstr "SSI¥ê¥Õ¥¡¥ì¥ó¥¹"
+#~ msgstr "SSIãƒªãƒ•ã‚¡ãƒ¬ãƒ³ã‚¹"
 
 #~ msgid "RXML Reference"
-#~ msgstr "RXML¥ê¥Õ¥¡¥ì¥ó¥¹"
+#~ msgstr "RXMLãƒªãƒ•ã‚¡ãƒ¬ãƒ³ã‚¹"
 
 #~ msgid "PHP4 Reference"
-#~ msgstr "PHP4¥ê¥Õ¥¡¥ì¥ó¥¹"
+#~ msgstr "PHP4ãƒªãƒ•ã‚¡ãƒ¬ãƒ³ã‚¹"
 
 #~ msgid "Insert"
-#~ msgstr "ÁŞÆş"
+#~ msgstr "æŒ¿å…¥"
 
 #~ msgid "Insert & close"
-#~ msgstr "ÁŞÆş¤·¤ÆÊÄ¤¸¤ë"
+#~ msgstr "æŒ¿å…¥ã—ã¦é–‰ã˜ã‚‹"
 
 #~ msgid "Save as"
-#~ msgstr "ÊÌÌ¾¤ÇÊİÂ¸"
+#~ msgstr "åˆ¥åã§ä¿å­˜"
 
 #~ msgid "Move to"
-#~ msgstr "°ÜÆ°"
+#~ msgstr "ç§»å‹•"
 
 #~ msgid "cut"
-#~ msgstr "¥«¥Ã¥È"
+#~ msgstr "ã‚«ãƒƒãƒˆ"
 
 #~ msgid "copy"
-#~ msgstr "¥³¥Ô¡¼"
+#~ msgstr "ã‚³ãƒ”ãƒ¼"
 
 #~ msgid "paste"
-#~ msgstr "¥Ú¡¼¥¹¥È"
+#~ msgstr "ãƒšãƒ¼ã‚¹ãƒˆ"
 
 #~ msgid "Configure..."
-#~ msgstr "¾ÜºÙÀßÄê..."
+#~ msgstr "è©³ç´°è¨­å®š..."
 
 #~ msgid "Print..."
-#~ msgstr "°õºş..."
-
-#~ msgid "Spellcheck..."
-#~ msgstr "¥¹¥Ú¥ë¥Á¥§¥Ã¥¯..."
+#~ msgstr "å°åˆ·..."
 
 #~ msgid "Underline"
-#~ msgstr "²¼Àş"
+#~ msgstr "ä¸‹ç·š"
 
 #~ msgid "Strikeout"
-#~ msgstr "¼è¤ê¾Ã¤·Àş"
+#~ msgstr "å–ã‚Šæ¶ˆã—ç·š"
 
 #~ msgid "Image..."
-#~ msgstr "¥¤¥á¡¼¥¸..."
+#~ msgstr "ã‚¤ãƒ¡ãƒ¼ã‚¸..."
 
 #~ msgid "Menu"
-#~ msgstr "¥á¥Ë¥å¡¼"
+#~ msgstr "ãƒ¡ãƒ‹ãƒ¥ãƒ¼"
 
 #~ msgid "Add class to tag..."
-#~ msgstr "¥¿¥°¤Ë¥¯¥é¥¹¤òÉÕ²Ã"
+#~ msgstr "ã‚¿ã‚°ã«ã‚¯ãƒ©ã‚¹ã‚’ä»˜åŠ "
 
 #~ msgid "Javascript for Mouseover Effects"
-#~ msgstr "Mouseover¸ú²Ì¥¹¥¯¥ê¥×¥È"
+#~ msgstr "MouseoveråŠ¹æœã‚¹ã‚¯ãƒªãƒ—ãƒˆ"
 
 #~ msgid "Javascript to work around Resize Bug in Netscape 4"
-#~ msgstr "Netscape4¥ê¥µ¥¤¥º¥Ğ¥°ÂĞ±ş¥¹¥¯¥ê¥×¥È"
+#~ msgstr "Netscape4ãƒªã‚µã‚¤ã‚ºãƒã‚°å¯¾å¿œã‚¹ã‚¯ãƒªãƒ—ãƒˆ"
 
 #~ msgid "Javascript preload images"
-#~ msgstr "Javascript ²èÁü¤ÎÀè¹ÔÆÉ¤ß¹ş¤ß"
+#~ msgstr "Javascript ç”»åƒã®å…ˆè¡Œèª­ã¿è¾¼ã¿"
 
 #~ msgid "Empty javascript block"
-#~ msgstr "¶õ¤ÎJavascript¥Ö¥í¥Ã¥¯"
+#~ msgstr "ç©ºã®Javascriptãƒ–ãƒ­ãƒƒã‚¯"
 
 #~ msgid "Link to javascript..."
-#~ msgstr "Javascript¤Ø¤Î¥ê¥ó¥¯"
+#~ msgstr "Javascriptã¸ã®ãƒªãƒ³ã‚¯"
 
 #~ msgid " Javascript "
 #~ msgstr " Javascript "
 
 #~ msgid "Standard WML Document"
-#~ msgstr "É¸½àWMLÊ¸½ñ"
+#~ msgstr "æ¨™æº–WMLæ–‡æ›¸"
 
 #~ msgid "Card Element..."
-#~ msgstr "CardÍ×ÁÇ..."
+#~ msgstr "Cardè¦ç´ ..."
 
 #~ msgid "Postfield Element..."
-#~ msgstr "PostfieldÍ×ÁÇ..."
+#~ msgstr "Postfieldè¦ç´ ..."
 
 #~ msgid "Go Element..."
-#~ msgstr "GoÍ×ÁÇ..."
+#~ msgstr "Goè¦ç´ ..."
 
 #~ msgid "Do Element..."
-#~ msgstr "DoÍ×ÁÇ..."
+#~ msgstr "Doè¦ç´ ..."
 
 #~ msgid "Anchor Element..."
-#~ msgstr "AnchorÍ×ÁÇ..."
+#~ msgstr "Anchorè¦ç´ ..."
 
 #~ msgid "Access Element..."
-#~ msgstr "AccessÍ×ÁÇ..."
+#~ msgstr "Accessè¦ç´ ..."
 
 #~ msgid "Insert a Paragraph"
-#~ msgstr "¥Ñ¥é¥°¥é¥Õ¤ÎÁŞÆş"
+#~ msgstr "ãƒ‘ãƒ©ã‚°ãƒ©ãƒ•ã®æŒ¿å…¥"
 
 #~ msgid "Line Break"
-#~ msgstr "¶¯À©²ş¹Ô"
+#~ msgstr "å¼·åˆ¶æ”¹è¡Œ"
 
 #~ msgid "Non-breaking Space"
-#~ msgstr "²ş¹Ô¤Ê¤·¶õÇò"
+#~ msgstr "æ”¹è¡Œãªã—ç©ºç™½"
 
 #~ msgid "Previous Document in History"
-#~ msgstr "Ä¾Á°¤ÎÊ¸½ñ"
+#~ msgstr "ç›´å‰ã®æ–‡æ›¸"
 
 #~ msgid "Imagemap"
-#~ msgstr "¥¤¥á¡¼¥¸¥Ş¥Ã¥×"
+#~ msgstr "ã‚¤ãƒ¡ãƒ¼ã‚¸ãƒãƒƒãƒ—"
 
 #~ msgid "Select Colour..."
-#~ msgstr "¿§¤ÎÁªÂò..."
+#~ msgstr "è‰²ã®é¸æŠ..."
 
 #~ msgid "SSI reference..."
-#~ msgstr "SSI¥ê¥Õ¥¡¥ì¥ó¥¹..."
+#~ msgstr "SSIãƒªãƒ•ã‚¡ãƒ¬ãƒ³ã‚¹..."
 
 #~ msgid "RXML reference..."
-#~ msgstr "RXML¥ê¥Õ¥¡¥ì¥ó¥¹..."
+#~ msgstr "RXMLãƒªãƒ•ã‚¡ãƒ¬ãƒ³ã‚¹..."
 
 #~ msgid "PHP4 reference..."
-#~ msgstr "PHP4¥ê¥Õ¥¡¥ì¥ó¥¹..."
+#~ msgstr "PHP4ãƒªãƒ•ã‚¡ãƒ¬ãƒ³ã‚¹..."
 
 #~ msgid "Insert Generator META-Tag"
-#~ msgstr "¡ÖGenerator¡×Meta¥¿¥°¤ÎÁŞÆş"
+#~ msgstr "ã€ŒGeneratorã€Metaã‚¿ã‚°ã®æŒ¿å…¥"
 
 #~ msgid " Other "
-#~ msgstr " ¤½¤ÎÂ¾ "
+#~ msgstr " ãã®ä»– "
 
 #~ msgid "Anchor Dialog"
-#~ msgstr "¥¢¥ó¥«¡¼ ¥À¥¤¥¢¥í¥°"
+#~ msgstr "ã‚¢ãƒ³ã‚«ãƒ¼ ãƒ€ã‚¤ã‚¢ãƒ­ã‚°"
 
 #~ msgid "WML Access Dialog"
-#~ msgstr "WML¥¢¥¯¥»¥¹¥À¥¤¥¢¥í¥°"
+#~ msgstr "WMLã‚¢ã‚¯ã‚»ã‚¹ãƒ€ã‚¤ã‚¢ãƒ­ã‚°"
 
 #~ msgid "Invalid especial character! %s\n"
-#~ msgstr "Àµ¤·¤¯¤Ê¤¤HTML¼ÂÂÎ»²¾È¤Ç¤¹! %s\n"
+#~ msgstr "æ­£ã—ããªã„HTMLå®Ÿä½“å‚ç…§ã§ã™! %s\n"
 
 #~ msgid "Bluefish: Can't create pipe for spellchecker!"
-#~ msgstr "Bluefish: ¥¹¥Ú¥ë¥Á¥§¥Ã¥«ÍÑ¤Ë¥Ñ¥¤¥×¤òºîÀ®¤Ç¤­¤Ş¤»¤ó!"
+#~ msgstr "Bluefish: ã‚¹ãƒšãƒ«ãƒã‚§ãƒƒã‚«ç”¨ã«ãƒ‘ã‚¤ãƒ—ã‚’ä½œæˆã§ãã¾ã›ã‚“!"
 
 #~ msgid "Bluefish: Can't create stream for pipe for spellchecker!"
-#~ msgstr "Bluefish: ¥¹¥Ú¥ë¥Á¥§¥Ã¥«ÍÑ¥Ñ¥¤¥×¤Ë¥¹¥È¥ê¡¼¥à¤òºîÀ®¤Ç¤­¤Ş¤»¤ó!"
+#~ msgstr "Bluefish: ã‚¹ãƒšãƒ«ãƒã‚§ãƒƒã‚«ç”¨ãƒ‘ã‚¤ãƒ—ã«ã‚¹ãƒˆãƒªãƒ¼ãƒ ã‚’ä½œæˆã§ãã¾ã›ã‚“!"
 
 #~ msgid "Bluefish: Can't create child process for spellchecker!"
-#~ msgstr "Bliefish: ¥¹¥Ú¥ë¥Á¥§¥Ã¥«¤Î¤¿¤á¤Î»Ò¥×¥í¥»¥¹¤òºîÀ®¤Ç¤­¤Ş¤»¤ó!"
+#~ msgstr "Bliefish: ã‚¹ãƒšãƒ«ãƒã‚§ãƒƒã‚«ã®ãŸã‚ã®å­ãƒ—ãƒ­ã‚»ã‚¹ã‚’ä½œæˆã§ãã¾ã›ã‚“!"
 
 #~ msgid "Bluefish: Failed to start ispell!\n"
-#~ msgstr "Bluefish: ispell ³«»Ï¤Ë¼ºÇÔ¤·¤¿!\n"
+#~ msgstr "Bluefish: ispell é–‹å§‹ã«å¤±æ•—ã—ãŸ!\n"
 
 #~ msgid "Select on ispell returned error, what now?\n"
-#~ msgstr "ispell¤Ø¤Îselect¤¬¥¨¥é¡¼¤òÊÖ¤·¤¿¡£¤É¤¦¤¹¤ë?\n"
+#~ msgstr "ispellã¸ã®selectãŒã‚¨ãƒ©ãƒ¼ã‚’è¿”ã—ãŸã€‚ã©ã†ã™ã‚‹?\n"
 
 #~ msgid "Bluefish Spell Checker Error"
-#~ msgstr "Bluefish ¥¹¥Ú¥ë¥Á¥§¥Ã¥« ¥¨¥é¡¼"
+#~ msgstr "Bluefish ã‚¹ãƒšãƒ«ãƒã‚§ãƒƒã‚« ã‚¨ãƒ©ãƒ¼"
 
 #~ msgid ""
 #~ "\n"
@@ -5300,63 +5338,60 @@ msgstr "¥Õ¥ì¡¼¥àÀßÄê"
 #~ msgstr ""
 #~ "\n"
 #~ "\n"
-#~ "ispell¥×¥í¥»¥¹¤Ï²¿¤é¤«¤ÎÍıÍ³¤Ç»à¤ó¤Ç¤·¤Ş¤¤¤Ş¤·¤¿¡£ *¤Ò¤È¤Ä*¤Î\n"
-#~ "²ÄÇ½À­¤È¤·¤Æ¤Ï¡¢¤³¤ÎÊ¸½ñ¤Î¸À¸ì¤Î¤¿¤á¤Î¼­½ñ¥Õ¥¡¥¤¥ë¤¬¥¤¥ó¥¹¥È¡¼¥ë\n"
-#~ "¤µ¤ì¤Æ¤¤¤Ê¤¤¡¢¤È¤¤¤Ã¤¿ÍıÍ³¤¬¹Í¤¨¤é¤ì¤Ş¤¹¡£\n"
-#~ "/usr/lib/ispell ¤ò³ÎÇ§¤¹¤ë¤«¡¢¥¹¥Ú¥ë¥Á¥§¥Ã¥«¤Î¥ª¥×¥·¥ç¥ó¥á¥Ë¥å¡¼\n"
-#~ "¤ÇÂ¾¤Î¼­½ñ¤ò»ØÄê¤·¤Æ¤¯¤À¤µ¤¤¡£"
-
-#~ msgid "Spell Checker"
-#~ msgstr "¥¹¥Ú¥ë¥Á¥§¥Ã¥«"
+#~ "ispellãƒ—ãƒ­ã‚»ã‚¹ã¯ä½•ã‚‰ã‹ã®ç†ç”±ã§æ­»ã‚“ã§ã—ã¾ã„ã¾ã—ãŸã€‚ *ã²ã¨ã¤*ã®\n"
+#~ "å¯èƒ½æ€§ã¨ã—ã¦ã¯ã€ã“ã®æ–‡æ›¸ã®è¨€èªã®ãŸã‚ã®è¾æ›¸ãƒ•ã‚¡ã‚¤ãƒ«ãŒã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«\n"
+#~ "ã•ã‚Œã¦ã„ãªã„ã€ã¨ã„ã£ãŸç†ç”±ãŒè€ƒãˆã‚‰ã‚Œã¾ã™ã€‚\n"
+#~ "/usr/lib/ispell ã‚’ç¢ºèªã™ã‚‹ã‹ã€ã‚¹ãƒšãƒ«ãƒã‚§ãƒƒã‚«ã®ã‚ªãƒ—ã‚·ãƒ§ãƒ³ãƒ¡ãƒ‹ãƒ¥ãƒ¼\n"
+#~ "ã§ä»–ã®è¾æ›¸ã‚’æŒ‡å®šã—ã¦ãã ã•ã„ã€‚"
 
 #~ msgid "Start"
-#~ msgstr "³«»Ï"
+#~ msgstr "é–‹å§‹"
 
 #~ msgid "Word"
-#~ msgstr "Ã±¸ì"
+#~ msgstr "å˜èª"
 
 #~ msgid "Progress"
-#~ msgstr "¼Â¹Ô¾õ¶·"
+#~ msgstr "å®Ÿè¡ŒçŠ¶æ³"
 
 #~ msgid ""
 #~ "Accept word\n"
 #~ "in this section"
 #~ msgstr ""
-#~ "¤³¤ÎÃ±¸ì¤Ï¤¹¤Ù¤Æ\n"
-#~ "¤½¤Î¤Ş¤Ş¤Ë¤¹¤ë"
+#~ "ã“ã®å˜èªã¯ã™ã¹ã¦\n"
+#~ "ãã®ã¾ã¾ã«ã™ã‚‹"
 
 #~ msgid ""
 #~ "Insert in Personal\n"
 #~ "Dictionary"
 #~ msgstr ""
-#~ "¸Ä¿Í¼­½ñ¤Ë\n"
-#~ "ÁŞÆş"
+#~ "å€‹äººè¾æ›¸ã«\n"
+#~ "æŒ¿å…¥"
 
 #~ msgid ""
 #~ "Ignore\n"
 #~ "Word"
 #~ msgstr ""
-#~ "ÊÑ¹¹¤·¤Ê¤¤\n"
+#~ "å¤‰æ›´ã—ãªã„\n"
 #~ " "
 
 #~ msgid ""
 #~ "Replace\n"
 #~ "Word"
 #~ msgstr ""
-#~ "Ã±¸ì¤ò\n"
-#~ "ÃÖ´¹"
+#~ "å˜èªã‚’\n"
+#~ "ç½®æ›"
 
 #~ msgid "checking spelling"
-#~ msgstr "¥¹¥Ú¥ë¤ò¥Á¥§¥Ã¥¯Ãæ"
+#~ msgstr "ã‚¹ãƒšãƒ«ã‚’ãƒã‚§ãƒƒã‚¯ä¸­"
 
 #~ msgid "Perl Version"
-#~ msgstr "Perl¤Î¥Ğ¡¼¥¸¥ç¥ó"
+#~ msgstr "Perlã®ãƒãƒ¼ã‚¸ãƒ§ãƒ³"
 
 #~ msgid "Could not eval() strip_cr."
-#~ msgstr "strip_cr¤òeval()¤Ç¤­¤Ê¤«¤Ã¤¿"
+#~ msgstr "strip_crã‚’eval()ã§ããªã‹ã£ãŸ"
 
 #~ msgid "Call Perlscript"
-#~ msgstr "Perl¥¹¥¯¥ê¥×¥È¤Î¼Â¹Ô"
+#~ msgstr "Perlã‚¹ã‚¯ãƒªãƒ—ãƒˆã®å®Ÿè¡Œ"
 
 #~ msgid "Scriptname"
-#~ msgstr "¥¹¥¯¥ê¥×¥ÈÌ¾"
+#~ msgstr "ã‚¹ã‚¯ãƒªãƒ—ãƒˆå"
