@@ -27,6 +27,8 @@
 #include "document.h"
 #include "file.h"
 #include "file_dialogs.h"
+#include "filebrowser2.h"
+#include "gtk_easy.h"
 #include "gui.h"
 #include "bookmark.h"
 
