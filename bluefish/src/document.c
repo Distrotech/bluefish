@@ -617,36 +617,34 @@ void doc_set_modified(Tdocument *doc, gint value) {
 #endif
 }
 
-inline static void doc_update_mtime(Tdocument *doc) {
-	if (doc->filename) {
-		struct stat statbuf;
-		if (stat(doc->filename, &statbuf) == 0) {
-			doc->mtime = statbuf.st_mtime;
-		}
-	} else {
-		doc->mtime = 0;
-	}
-}
-/* returns 1 if the time didn't change, returns 0 
+/* returns 1 if the file is modified on disk, returns 0 
 if the file is modified by another process, returns
-1 if there was no previous mtime information available 
-if newtime is not NULL, it will be filled with the new mtime from the file IF IT WAS CHANGED!!!
+0 if there was no previous mtime information available 
+if newstatbuf is not NULL, it will be filled with the new statbuf from the file IF IT WAS CHANGED!!!
 leave NULL if you do not need this information, if the file is not changed, this field will not be set!!
 */
-static gint doc_check_mtime(Tdocument *doc, time_t *newtime) {
-	if (doc->filename && 0 != doc->mtime) {
+static gboolean doc_check_modified_on_disk(Tdocument *doc, struct stat *newstatbuf) {
+	if (main_v->props.modified_check_type == 0 || !doc->filename || doc->statbuf.st_mtime == 0 || doc->statbuf.st_size == 0) {
+		return FALSE;
+	} else if (main_v->props.modified_check_type < 4) {
 		struct stat statbuf;
 		if (stat(doc->filename, &statbuf) == 0) {
-			if (doc->mtime < statbuf.st_mtime) {
-				DEBUG_MSG("doc_check_mtime, doc->mtime=%d, statbuf.st_mtime=%d\n", (int)doc->mtime, (int)statbuf.st_mtime);
-				if (newtime) {
-					*newtime = statbuf.st_mtime;
+			*newstatbuf = statbuf;
+			if (main_v->props.modified_check_type == 1 || main_v->props.modified_check_type == 2) {
+				if (doc->statbuf.st_mtime < statbuf.st_mtime) {
+					return TRUE;
 				}
-				return 0;
+			}
+			if (main_v->props.modified_check_type == 1 || main_v->props.modified_check_type == 3) {
+				if (doc->statbuf.st_size != statbuf.st_size) {
+					return TRUE;
+				}
 			}
 		}
-	} 
-	return 1;
+	} else {
+		DEBUG_MSG("doc_check_mtime, type %d checking not yet implemented\n", main_v->props.modified_check_type);
+	}
+	return FALSE;
 }
 
 /* doc_set_stat_info() includes setting the mtime field, so there is no need
@@ -661,10 +659,7 @@ static void doc_set_stat_info(Tdocument *doc) {
 			} else {
 				doc->is_symlink = 0;
 			}
-			doc->mtime = statbuf.st_mtime;
-			doc->owner_uid = statbuf.st_uid;
-			doc->owner_gid = statbuf.st_gid;
-			doc->mode = statbuf.st_mode;
+			doc->statbuf = statbuf;
 		}
 	}
 }
@@ -1302,9 +1297,9 @@ static gint doc_check_backup(Tdocument *doc) {
 		gchar *backupfilename;
 		backupfilename = g_strconcat(doc->filename, main_v->props.backup_filestring, NULL);
 		res = file_copy(doc->filename, backupfilename);
-		if (doc->owner_uid != -1 && !doc->is_symlink) {
-			chmod(backupfilename, doc->mode);
-			chown(backupfilename, doc->owner_uid, doc->owner_gid);
+		if (doc->statbuf.st_uid != -1 && !doc->is_symlink) {
+			chmod(backupfilename, doc->statbuf.st_mode);
+			chown(backupfilename, doc->statbuf.st_uid, doc->statbuf.st_gid);
 		}
 		g_free(backupfilename);
 	}
@@ -1861,14 +1856,14 @@ gint doc_save(Tdocument * doc, gint do_save_as, gboolean do_move) {
 		}
 	}
 	{
-	time_t newtime;
-	if (doc_check_mtime(doc,&newtime) == 0) {
+	struct stat statbuf;
+	if (doc_check_modified_on_disk(doc,&statbuf) == 0) {
 		gchar *tmpstr, oldtimestr[128], newtimestr[128];/* according to 'man ctime_r' this should be at least 26, so 128 should do ;-)*/
 		gint retval;
 		gchar *options[] = {N_("Cancel"), N_("Overwrite"), NULL};
 
-		ctime_r(&newtime,newtimestr);
- 			ctime_r(&doc->mtime,oldtimestr);
+		ctime_r(&statbuf.st_mtime,newtimestr);
+		ctime_r(&doc->statbuf.st_mtime,oldtimestr);
 		tmpstr = g_strdup_printf(_("File: %s\n\nNew modification time: %s\nOld modification time: %s"), doc->filename, newtimestr, oldtimestr);
 		retval = multi_warning_dialog(BFWIN(doc->bfwin)->main_window,_("The file has been modified by another process."), tmpstr, 1, 0, options);
 		g_free(tmpstr);
@@ -1904,7 +1899,7 @@ gint doc_save(Tdocument * doc, gint do_save_as, gboolean do_move) {
 			g_free(errmessage);
 		break;
 		default:
-			doc_update_mtime(doc);
+			doc_set_stat_info(doc);
 			{ 
 				gchar *tmp = path_get_dirname_with_ending_slash(doc->filename);
 				bfwin_filebrowser_refresh_dir(BFWIN(doc->bfwin),tmp);
@@ -2109,9 +2104,10 @@ Tdocument *doc_new(Tbfwin* bfwin, gboolean delay_activate) {
 	doc_set_modified(newdoc, 0);
 	newdoc->filename = NULL;
 	newdoc->need_highlighting = 0;
-	newdoc->mtime = 0;
-	newdoc->owner_uid = -1;
-	newdoc->owner_gid = -1;
+	newdoc->statbuf.st_mtime = 0;
+	newdoc->statbuf.st_size = 0;
+	newdoc->statbuf.st_uid = -1;
+	newdoc->statbuf.st_gid = -1;
 	newdoc->is_symlink = 0;
 	newdoc->encoding = g_strdup(main_v->props.newfile_default_encoding);
 	newdoc->overwrite_mode = FALSE;
@@ -2371,7 +2367,7 @@ void doc_reload(Tdocument *doc) {
  * Return value: void
  **/
 void doc_activate(Tdocument *doc) {
-	time_t newtime;
+	struct stat statbuf;
 #ifdef DEBUG
 	if (!doc) {
 		DEBUG_MSG("doc_activate, doc=NULL!!! ABORTING!!\n");
@@ -2385,13 +2381,13 @@ void doc_activate(Tdocument *doc) {
 
 	gtk_widget_show(doc->view); /* This might be the first time this document is activated. */
 	
-	if (doc_check_mtime(doc,&newtime) == 0) {
+	if (doc_check_modified_on_disk(doc,&statbuf) == 0) {
 		gchar *tmpstr, oldtimestr[128], newtimestr[128];/* according to 'man ctime_r' this should be at least 26, so 128 should do ;-)*/
 		gint retval;
 		gchar *options[] = {N_("Reload"), N_("Ignore"), NULL};
 
-		ctime_r(&newtime,newtimestr);
-		ctime_r(&doc->mtime,oldtimestr);
+		ctime_r(&statbuf.st_mtime,newtimestr);
+		ctime_r(&doc->statbuf.st_mtime,oldtimestr);
 		tmpstr = g_strdup_printf(_("File %s\nis modified by another process\nnew modification time is %s\nold modification time is %s"), doc->filename, newtimestr, oldtimestr);
 		retval = multi_warning_dialog(BFWIN(doc->bfwin)->main_window,_("Bluefish: Warning, file is modified"), tmpstr, 0, 1, options);
 		g_free(tmpstr);

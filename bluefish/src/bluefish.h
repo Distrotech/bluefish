@@ -62,6 +62,9 @@ extern void g_none(...);
 
 #include <sys/types.h>
 #include <regex.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <unistd.h>
 
 /*********************/
 /* undo/redo structs */
@@ -107,10 +110,8 @@ typedef struct {
 	gchar *filename; /* or NULL if no filename known */
 	gchar *encoding;
 	gint modified;
-	time_t mtime; /* from stat() */
-	uid_t owner_uid; /* user ID of owner */
-	gid_t owner_gid; /* group ID of owner */
-	mode_t mode; /* mode field in stat() format so any stat macro's will work*/
+/*	time_t mtime; */ /* from stat() */
+	struct stat statbuf;
 	gint is_symlink; /* file is a symbolic link */
 	gulong del_txt_id; /* text delete signal */
 	gulong ins_txt_id; /* text insert signal */
@@ -177,6 +178,7 @@ typedef struct {
 	gint image_thumbnailsizing_val2; /* height if the type=3 */
 	gchar *image_thumnailformatstring; /* like <a href="%r"><img src="%t"></a> or more advanced */
 	gint allow_multi_instances; /* allow multiple instances of the same file */
+	gint modified_check_type; /* 0=no check, 1=by mtime and size, 2=by mtime, 3=by size, 4,5,...not implemented (md5sum?) */
 	gint num_undo_levels; 	/* number of undo levels per document */
 	gint clear_undo_on_save; 	/* clear all undo information on file save */
 	gchar *newfile_default_encoding; /* if you open a new file, what encoding will it use */
@@ -195,7 +197,6 @@ typedef struct {
 #ifdef HAVE_LIBASPELL
 	gchar *spell_default_lang;
 #endif /* HAVE_LIBASPELL */
-	gint default_advanced_snr;
 	gint cont_highlight_full; 	/* if you want to highlight the full text or just the line */
 	gint lasttime_cust_menu; /* the last time the defaultfile was checked for new entries */
 	gint lasttime_highlighting; /* see above */
