@@ -33,6 +33,7 @@
 #include <gtk/gtk.h>
 #include <stdio.h>
 #include <string.h>  	/* strspn() */
+#include <strings.h>  	/* strcasecmp() */
 #include "bluefish.h"
 #include "bf_lib.h"
 
@@ -949,6 +950,7 @@ gchar *stringlist_to_string(GList *stringlist, gchar *delimiter) {
  * @arraylist: #GList*
  * @value: #gchar**
  * @testlevel: #gint
+ * @case_sensitive: #gboolean whether the test should be case sensitive
  *
  * tests for the occurence of an array with identical content as value
  * in arraylist. It will only test the first testlevel strings in the array
@@ -957,7 +959,7 @@ gchar *stringlist_to_string(GList *stringlist, gchar *delimiter) {
  *
  * Return value: #gboolean 
  */
-gboolean arraylist_value_exists(GList *arraylist, gchar **value, gint testlevel) {
+gboolean arraylist_value_exists(GList *arraylist, gchar **value, gint testlevel, gboolean case_sensitive) {
 	GList *tmplist = g_list_first(arraylist);
 	while (tmplist) {
 		gchar **tmparr = tmplist->data;
@@ -967,7 +969,9 @@ gboolean arraylist_value_exists(GList *arraylist, gchar **value, gint testlevel)
 			/*  tmparr[i]==value[i] will only happen when they are both NULL	*/
 			if (tmparr[i] == NULL && value[i] == NULL) {
 				break;
-			} else if (tmparr[i]==NULL || value[i] == NULL || strcmp(tmparr[i],value[i])!=0) {
+			} else if (tmparr[i]==NULL || value[i] == NULL 
+					|| (case_sensitive && strcmp(tmparr[i],value[i])!=0) 
+					|| (!case_sensitive && strcasecmp(tmparr[i],value[i])!=0)) {
 				equal = FALSE;
 			}
 			i++;
@@ -996,7 +1000,7 @@ GList *arraylist_load_new_identifiers_from_list(GList *mylist, GList *deflist, g
 	while (tmplist) {
 		gchar **tmparr = tmplist->data;
 		if (count_array(tmparr) >= uniquelevel) {
-			if (!arraylist_value_exists(mylist, tmparr, uniquelevel)) {
+			if (!arraylist_value_exists(mylist, tmparr, uniquelevel, TRUE)) {
 				DEBUG_MSG("arraylist_load_new_identifiers, adding %s to thelist\n",tmparr[0]);
 				mylist = g_list_append(mylist, duplicate_stringarray(tmparr));
 			}
