@@ -327,7 +327,7 @@ static GList *props_init_main(GList * config_rc)
 	init_prop_arraylist (&config_rc, &main_v->props.browsers, "browsers:", 2, TRUE);
 	init_prop_arraylist (&config_rc, &main_v->props.external_commands, "external_commands:", 2, TRUE);
 	init_prop_stringlist(&config_rc, &main_v->props.quickbar_items, "quickbar_items:", TRUE);
-	init_prop_integer   (&config_rc, &main_v->props.highlight_num_lines_count, "highlight_num_lines_count:", 1, TRUE);
+	init_prop_integer   (&config_rc, &main_v->props.highlight_num_lines_count, "highlight_num_lines_count:", 5, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.defaulthighlight, "defaulthighlight:", 1, TRUE);
 	/* old type filetypes have a different count, they are converted below */
 	init_prop_arraylist (&config_rc, &main_v->props.filetypes, "filetypes:", 0, TRUE);
@@ -344,7 +344,7 @@ static GList *props_init_main(GList * config_rc)
 	init_prop_integer   (&config_rc, &main_v->props.max_dir_history, "max_dir_history:", 10, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.backup_file,"backup_file:",1, TRUE);
 	init_prop_string    (&config_rc, &main_v->props.backup_filestring,"backup_filestring:","~");
-	init_prop_integer    (&config_rc, &main_v->props.backup_abort_action,"backup_abort_action:",DOCUMENT_BACKUP_ABORT_ASK, TRUE);
+	init_prop_integer   (&config_rc, &main_v->props.backup_abort_action,"backup_abort_action:",DOCUMENT_BACKUP_ABORT_ASK, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.backup_cleanuponclose,"backup_cleanuponclose:",0, TRUE);
 	init_prop_string    (&config_rc, &main_v->props.image_thumbnailstring, "image_thumbnailstring:", "_thumbnail");
 	init_prop_string    (&config_rc, &main_v->props.image_thumbnailtype, "image_thumbnailtype:", "png");
@@ -377,7 +377,7 @@ static GList *props_init_main(GList * config_rc)
 #ifdef HAVE_LIBASPELL
 	init_prop_string(&config_rc, &main_v->props.spell_default_lang, "spell_default_lang:", "en");
 #endif /* HAVE_LIBASPELL */
-	init_prop_integer(&config_rc, &main_v->props.cont_highlight_full, "cont_highlight_full:", 1, TRUE);
+	init_prop_integer(&config_rc, &main_v->props.cont_highlight_full, "cont_highlight_full:", 0, TRUE);
 	init_prop_integer(&config_rc, &main_v->props.lasttime_cust_menu, "lasttime_cust_menu:", 0, TRUE);
 	init_prop_integer(&config_rc, &main_v->props.lasttime_highlighting, "lasttime_highlighting:", 0, TRUE);
 	init_prop_integer(&config_rc, &main_v->props.lasttime_filetypes, "lasttime_filetypes:", 0, TRUE);
