@@ -37,7 +37,7 @@
 #include <time.h>			/* ctime_r() */
 #include <pcre.h>
 
-/* #define DEBUG */
+#define DEBUG
 
 #ifdef DEBUGPROFILING
 #include <sys/times.h>
@@ -61,10 +61,8 @@
 #include "filebrowser.h"
 #include "bookmark.h"
 #include "file.h"
-
-#ifdef FB2
 #include "filebrowser2.h"
-#endif
+
 
 typedef struct {
 	GtkWidget *textview;
@@ -776,7 +774,7 @@ static void doc_set_label_color(Tdocument *doc, GdkColor *color) {
 
 void doc_set_status(Tdocument *doc, gint status) {
 	GdkColor colorblack = {0, 0, 0, 0};
-	GdkColor colorgrey = {0, 30000, 30000, 30000};
+	GdkColor colorgrey = {0, 50000, 50000, 50000};
 	GdkColor colorred = {0, 65535, 0, 0};
 	doc->status = status;
 	switch(status) {
@@ -2810,6 +2808,7 @@ static Tdocument *doc_new_backend(Tbfwin *bfwin, gboolean force_new) {
 	newdoc = g_new0(Tdocument, 1);
 	DEBUG_MSG("doc_new_backend, main_v is at %p, bfwin at %p, newdoc at %p\n", main_v, bfwin, newdoc);
 	newdoc->bfwin = (gpointer)bfwin;
+	newdoc->status = DOC_STATUS_COMPLETE; /* if we don't set this default we will get problems for new empty files */
 	newdoc->hl = (Tfiletype *)((GList *)g_list_first(main_v->filetypelist))->data;
 	newdoc->autoclosingtag = (newdoc->hl->autoclosingtag > 0);
 	newdoc->buffer = gtk_text_buffer_new(highlight_return_tagtable());
@@ -2880,7 +2879,7 @@ static Tdocument *doc_new_backend(Tbfwin *bfwin, gboolean force_new) {
 	gtk_widget_show(newdoc->tab_label);
 	gtk_widget_show(scroll);
 
-	DEBUG_MSG("doc_new, appending doc to notebook\n");
+	DEBUG_MSG("doc_new_backend, appending doc to notebook\n");
 	{
 		GtkWidget *hbox, *but, *image;
 		hbox = gtk_hbox_new(FALSE,0);
@@ -2903,7 +2902,7 @@ static Tdocument *doc_new_backend(Tbfwin *bfwin, gboolean force_new) {
 	doc_set_tabsize(newdoc, main_v->props.editor_tab_width);
 	
 	newdoc->highlightstate = main_v->props.defaulthighlight;
-	DEBUG_MSG("doc_new, need_highlighting=%d, highlightstate=%d\n", newdoc->need_highlighting, newdoc->highlightstate);
+	DEBUG_MSG("doc_new_backend, need_highlighting=%d, highlightstate=%d\n", newdoc->need_highlighting, newdoc->highlightstate);
 	return newdoc;
 }
 
@@ -2938,7 +2937,8 @@ Tdocument *doc_new_loading_in_background(Tbfwin *bfwin, gchar *uri, GnomeVFSFile
  **/
 Tdocument *doc_new(Tbfwin* bfwin, gboolean delay_activate) {
 	Tdocument *doc = doc_new_backend(bfwin, TRUE);
-	doc->status = DOC_STATUS_COMPLETE;
+	doc_set_status(doc, DOC_STATUS_COMPLETE);
+	DEBUG_MSG("doc_new, status=%d\n",doc->status);
 	if(!delay_activate) gtk_widget_show(doc->view); /* Delay _show() if neccessary */
 	return doc;
 }
@@ -3003,6 +3003,7 @@ void doc_new_from_uri(Tbfwin *bfwin, gchar *curi, gboolean delay_activate, gbool
 	} else { /* document is not yet opened */
 		GnomeVFSURI *uri = gnome_vfs_uri_new(curi);
 		if (!delay_activate)	bfwin->focus_next_new_doc = TRUE;
+		DEBUG_MSG("doc_new_from_uri, delay_activate=%d, focus_next_new_doc=%d\n",delay_activate, bfwin->focus_next_new_doc);
 		file_doc_from_uri(bfwin, uri, NULL);
 		gnome_vfs_uri_unref(uri);
 	}
@@ -3212,6 +3213,7 @@ void doc_reload(Tdocument *doc) {
  **/
 void doc_activate(Tdocument *doc) {
 	gboolean modified;
+	GnomeVFSFileInfo *fileinfo;
 	time_t oldmtime, newmtime;
 #ifdef DEBUG
 	if (!doc) {
@@ -3222,27 +3224,34 @@ void doc_activate(Tdocument *doc) {
 	if (doc == NULL || doc == BFWIN(doc->bfwin)->last_activated_doc) {
 		return;
 	}
-	BFWIN(doc->bfwin)->last_activated_doc = doc;
-	gtk_widget_show(doc->view); /* This might be the first time this document is activated. */
-#ifdef HAVE_GNOME_VFS
-	{
-		GnomeVFSFileInfo *fileinfo;
-		fileinfo = gnome_vfs_file_info_new();
-		modified = doc_check_modified_on_disk(doc,&fileinfo);
-		newmtime = fileinfo->mtime;
-		if (doc->fileinfo) {
-			oldmtime = doc->fileinfo->mtime;
+	if (doc->status == DOC_STATUS_ERROR) {
+		gchar *options[] = {_("_Retry"), _("_Close"), NULL};
+		gchar *tmpstr;
+		gint retval;
+		DEBUG_MSG("ERROR, RETRY???\n");
+		tmpstr = g_strconcat(_("File "), doc->filename, _(" failed to load."), NULL);
+		retval = multi_warning_dialog(BFWIN(doc->bfwin)->main_window,_("File failed to load\n"), tmpstr, 0, 1, options);
+		g_free(tmpstr);
+		if (retval == 0) {
+			file_doc_retry_uri(doc);
+		} else {
+			doc_close(doc, FALSE);
 		}
-		gnome_vfs_file_info_unref(fileinfo);
+		return;
+	} else if (doc->status == DOC_STATUS_LOADING) {
+		DEBUG_MSG("STILL LOADING !\n");
+		return;
+	} else {
+		gtk_widget_show(doc->view); /* This might be the first time this document is activated. */
 	}
-#else
-	{
-		struct stat statbuf;
-		modified = doc_check_modified_on_disk(doc,&statbuf);
-		newmtime = statbuf.st_mtime;
-		oldmtime = doc->statbuf.st_mtime;
+	BFWIN(doc->bfwin)->last_activated_doc = doc;
+	fileinfo = gnome_vfs_file_info_new();
+	modified = doc_check_modified_on_disk(doc,&fileinfo);
+	newmtime = fileinfo->mtime;
+	if (doc->fileinfo) {
+		oldmtime = doc->fileinfo->mtime;
 	}
-#endif
+	gnome_vfs_file_info_unref(fileinfo);
 	if (modified) {
 		gchar *tmpstr, oldtimestr[128], newtimestr[128];/* according to 'man ctime_r' this should be at least 26, so 128 should do ;-)*/
 		gint retval;
