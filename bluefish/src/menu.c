@@ -430,6 +430,8 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/Document/Update highlighting"), "F5", doc_update_highlighting, 0, NULL},
 	{N_("/Document/Next"), "F1", gui_notebook_switch, 1, NULL},
 	{N_("/Document/Previous"), "F2", gui_notebook_switch, 0, NULL},
+	{N_("/Document/sep1"), NULL, NULL, 0, "<Separator>"},
+	{N_("/Document/Word Count"), NULL, word_count_cb, 0, NULL},
 	{N_("/_Options"), NULL, NULL, 0, "<Branch>"},
 	{N_("/Options/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
 	{N_("/Options/Preferences"), NULL, open_preferences_menu_cb, 0, NULL},
