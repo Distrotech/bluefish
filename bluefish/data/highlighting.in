@@ -1,249 +1,281 @@
-cfml:cfml:1:<((/)?cf):>:1::#AC0C0C::0:0:
-cfml:cfml-attrib:1:("[^"]*")::2:^cfml$:#4399D7::0:0:
+c:String (double quoted):0:":":1::#009900::0:0:
+c:Escape Characters:0:\\\\(n|t|v|b|r|f|a|\\\\|\\?|'|"|\\d{1,3}|x\\d+)::2:^String \\(double quoted\\)$:#990099::0:0:
+c:Preprocessor Instructions:0:#\\s*?(include|define|if|ifdef|else|endif):$:1::#990099::0:0:
+c:Comment:0:/\\*:\\*/:1:^(top|preprocessor)$:#000099::1:2:
+c:Keywords:0:\\b(return|goto|if|else|case|default|switch|break|continue|while|do|for|sizeof)\\b::2::#009999::2:0:
+c:Storage Keywords:0:\\b(const|extern|auto|register|static|unsigned|signed|volatile|char|double|float|int|long|short|void|typedef|struct|union|enum|FILE)\\b::2::#990000::0:0:
+c:GTK Storage Keywords:0:\\b(gint|guint|glong|gulong|gfloat|gdouble|gchar|guchar|gunichar|gpointer|gboolean|GList|Gtk(AccelGroup|Object|Misc|Label|AccelLabel|TipsQuery|Arrow|Image|Pixmap|Container|Bin|Alignment|Frame|AspectFrame|Button|ToggleButton|CheckButton|RadioButton|OptionMenu|Item|MenuItem|RadioMenuItem|ImageMenuItem|SeparatorMenuItem|TearoffMenuItem|ListItem|TreeItem|Window|Dialog|ColorSelectionDialog|FileSelectionDialog|FontSelectionDialog|InputDialog|MessageDialog|Plug|EventBox|HandleBox|ScrolledWindow|Viewport|Box|ButtonBox|HButtonBox|VButtonBox|VBox|ColorSelection|FontSelection|GammaCurve|HBox|GtkCombo|StatusBar|CList|CTree|Fixed|Paned|HPaned|VPaned|Layout|List|MenuShell|MenuBar|Menu|Notebook|Socket|Table|TextView|Toolbar|Tree|TreeView|Calendar|DrawingArea|Curve|Entry|SpinButton|Ruler|HRuler|VRuler|Range|Scale|HScale|VScale|Scrollbar|HScrollbar|VScrollbar|Separator|HSeparator|VSeparator|Invisible|OldEditable|Text|Preview|Progress|ProgressBar|Adjustment|CellRenderer|CellRendererPixbuf|CellRendererText|CellRendererToggle|ItemFactory|Tooltips|ViewColumn|Accessible|IconFactory|IMContext|IMContextSimple|IMMulticontext|ListStore|RcStyle|Settings|SizeGroup|Style|TextBuffer|TextChildAnchor|TextMark|TextTag|TextTagTable|TreeModelSort|TreeSelection|TreeStore|TreeModel|TreeDragSource|TreeDragDest|TreeIter|TreePath|TreeSortable|WindowGroup|Editable|CellEditable|Object|Widget))\\b::2::#990000::0:0:
+c:Braces:0:[{()}]::2::#000000::2:0:
+c:String (single quoted):0:':':1::#009900::0:0:
+c:Constants:0:\\b(NULL|TRUE|FALSE)\\b::2::#999900::0:0:
+c:Numbers:1:\\b\\d+\\b::2::#009900::0:0:
+c:Error/Comment:1:\\*/::2::#ffffff:#990000:0:0:
+c:String (single quoted escaped):0:\\\\.::2:^String \\(single quoted\\)$:#000099::0:0:
+cfml:CFML:1:<((/)?cf):>:1::#AC0C0c::0:0:
+cfml:CFML Attributes:1:("[^"]*")::2:^CFML$:#4399D7::0:0:
 cfml:html:1:<((/)?[a-z0-9]+):>:1::#0000EE::0:0:
-cfml:html-tag:1:1::3:^html$:#000077::2:0:
-cfml:html-attrib:1:([a-z]*=)("[^"]*")::2:^html$:::0:0:
-cfml:html-attrib-sub2:1:2::3:^html-attrib$:#009900::0:0:
-cfml:cfml-comment:0:<!---:--->:1::#848484::1:2:
-cfml:comment:0:<!--:-->:1::#AAAAAA::1:2:
-cfml:specialchar:1:&[^;]*;::2::#999999::2:0:
-cfml:doctype:1:<![a-z0-9]+:[^?-]>:1::#bb8800::0:0:
-c:string:0:":":1::#009900::0:0:
-c:string-escape:0:\\\\(n|t|v|b|r|f|a|\\\\|\\?|'|"|\\d{1,3}|x\\d+)::2:^string$:#990099::0:0:
-c:preprocessor:0:#(include|define|if(def|ndef)?|else|elif|endif|undef)::2::#990099::0:0:
-c:comment:0:/\\*:\\*/:1:^(top|preprocessor)$:#0000FF::1:2:
-c:keywords:0:\\b(break|case|continue|default|do|else|for|goto|if|return|sizeof|switch|while)\\b::2::#009999::2:0:
-c:storage-keywords:0:\\b(auto|char|const|double|enum|extern|FILE|float|int(8|16|32|64)?|long|register|short|signed|static|struct|typedef|union|unsigned|void|volatile)\\b::2::#000099::2:0:
-c:gtk-keywords:0:\\b(Gtk(Widget|AccelLabel|AccelGroup|AccelMap|Accessible|Action|Adjustment|Alignment|Arrow|AspectFrame|Bin|Box|Button|ButtonBox|Calendar|CellEditable|CellRenderer|CellRenderPixbuf|CellRendererText|CellRendererToggle|CheckButton|Clipboard|CList|ColorButton|ColorSelection|ColorSelectionDialog|Combo|ComboBox|ComboBoxEntry|Container|CTree|Curve|Dialog|DrawingArea|Editable|Entry|EventBox|FileChooserAction|FileFilter|FileFilterFlags|FileSelectionDialog|Fixed|FontButton|FontSelection|FontSelectionDialog|Frame|GammaCurve|HandleBox|HBox|HButtonBox|HPaned|HRuler|HScale|HScrollbar|HSeparator|IconFactory|Image|ImageMenuItem|IMContext|IMContextSimple|IMMulticontext|InputDialog|Invisible|ItemFactory|ItemFactoryEntry|Label|Layout|List|ListItem|ListStore|Menu|MenuBar|MenuItem|MenuShell|MessageDialog|Misc|Notebook|Object|OldEditable|OptionMenu|Paned|Pixmap|Plug|Preview|Progress|ProgressBar|RadioButton|RadioMenuItem|Range|RcStyle|Ruler|Scale|Scrollbar|ScrolledWindow|Separator|SeparatorMenuItem|Settings|ShadowType|SizeGroup|Socket|SpinButton|StatusBar|Style|Table|TearoffMenuItem|Text|TextBuffer|TextChildAnchor|TextIter|TextMark|TextTag|TextTagTable|TextView|TextWindowType|TipsQuery|ToggleButton|Toolbar|ToolItem|Tooltips|Tree|TreeDragDest|TreeDragSource|TreeItem|TreeIter|TreeModel|TreeModelSort|TreePath|TreeSelection|TreeSortable|TreeStore|TreeView|TreeViewColumn|UIManager|VBox|VButtonBox|Viewport|VPaned|VRuler|VScale|VScrollbar|VSeparator|Window|WindowGroup|WindowPosition|WrapMode))\\b::2::#990000::2:0:
-c:glib-basictypes:0:\\b(gu?int(8|16|32|64)?|gshort|gushort|glong|gulong|gfloat|gdouble|gchar|guchar|gunichar|gpointer|gconstpointer|gboolean|gsize|gssize)\\b::2::#990000::2:0:
-c:glib-keywords:0:\\b(GCallback|GError|GHashTable|GList|GMarkupParser|GMarkupParseContext|GObject|GObjectClass|GSList|GString|GType|GTypeInfo)\\b::2::#990000::2:0:
-c:gdk-keywords:0:\\b(Gdk(Color|Event|EventButton|EventKey|Pixbuf))\\b::2::#990000::2:0:
-c:braces:0:[{}]::2::#000000::2:0:
-c:character:0:':':1::#009900::0:0:
-c:character-escape:0:\\\\.::2:^character$:#000099::0:0:
-c:defines:0:\\b(NULL|TRUE|FALSE)\\b::2::#999900::2:0:
-c:numbers:1:\\b\\d+\\b::2::#009900::0:0:
-c:error-comment:1:\\*/::2::#ffffff:#990000:0:0:
-php:html:1:<((/)?[a-z0-9]+):>:1::#000077::0:0:
-php:html-tag:1:1::3:^html$:#550044::2:0:
-php:html-tag-table:1:^(/)?(table|td|tr|tbody)$::2:^html-tag$:#5005AA::0:0:
-php:html-tag-special:1:^(/)?(img|a)$::2:^html-tag$:#BB0540::0:0:
-php:html-attrib:1:([a-z]*=)[ \\n\\t]*("[^"]*")::2:^html$:::0:0:
-php:html-attrib-sub2:1:2::3:^html-attrib$:#009900::0:0:
-php:specialchar:1:&[^; ]*;::2::#999999::2:0:
-php:comment:0:<!--:-->:1::#AAAAAA::1:2:
-php:php:1:<\\?php:\\?>:1:^(top|html|html-attrib-sub2)$:#0000FF::0:0:
-php:php-keywords:0:\\b(foreach|return|goto|if|else|elseif|case|default|switch|break|continue|while|do|for|global|var|class|function|new)\\b::2:^php$:#000000::2:0:
-php:php-braces:0:[{()}]::2:^php$:#000000::2:0:
-php:php-brackets:1:[\\[\\]]::2:^php$:#0000CC::2:0:
-php:php-string-double:0:":":1:^php$:#009900::1:1:
-php:php-string-double-escape:0:\\\\.::2:^php-string-double$:#009900::1:1:
-php:php-var:1:\\$[a-z_][a-z0-9>_$-]*::2:^php$:#CC0000::2:0:
-php:php-var-specialchars:0:(\\[|\\]|->)::2:^php-var$:#0000CC::0:0:
-php:php-string-single:0:':':1:^php$:#009900::1:1:
-php:php-string-single-escape:0:\\\\.::2:^php-string-single$:#009900::1:1:
-php:php-comment-C:0:/\\*:\\*/:1:^php$:#7777AA::1:2:
-php:php-comment-1line:0:(//|#).*?$::2:^php$:#7777AA::1:2:
-html:html:1:<((/)?[a-z0-9]+).*?>::2::#0000EE::0:0:
-html:html-tag:1:1::3:^html$:#000077::2:0:
-html:html-attrib:1:([a-z]*=)[ \\n\\t]*("[^"]*")::2:^html$:::0:0:
-html:html-attrib-sub2:1:2::3:^html-attrib$:#009900::0:0:
-html:specialchar:1:&[^; ]*;::2::#999999::2:0:
-html:comment:0:<!--:-->:1::#AAAAAA::1:2:
-html:doctype:1:<![a-z0-9]+:[^?-]>:1::#bb8800::0:0:
-html:html-entity:1:&([a-z]*|#[0-9]+);::2::#990066::2:1:
-xml:tag:1:<((/)?[a-z0-9\:]+):[^?-]?>:1::#000000::0:0:
-xml:tag-name:1:1::3:^tag$:#000077::2:0:
-xml:tag-attrib:1:([a-z]*=)("[^"]*")::2:^tag$:::0:0:
-xml:tag-attrib-sub2:1:2::3:^tag-attrib$:#009900::0:0:
-xml:specialchar:1:&[^;]*;::2::#999999::2:0:
-xml:comment:0:<!--:-->:1::#AAAAAA::1:2:
-xml:doctype:1:<![a-z0-9]+:[^?-]>:1::#bb8800::0:0:
-java:comment-C-style:0:/\\*:\\*/:1::#AAAAAA::1:2:
-java:comment-C++-style:0://.*?$::2::#AAAAAA::1:2:
-java:string:0:":":1::#009900::0:0:
-java:string-escape:0:\\\\.::2:^string$:#009900::0:0:
-java:include:0:^(import|package).*?$::2::#000099::0:0:
-java:keywords:0:\\b(new|super|return|goto|if|else|case|default|switch|break|continue|while|do|for|catch|throw|finally|try|class)\\b::2::#000000::2:0:
-java:special_values:0:\\b(false|null|true)\\b::2::#5caeee::0:0:
-java:modifiers:0:\\b(abstract|final|native|private|protected|public|static|transient|synchronized|volatile|extends|implements)\\b::2::#990000::2:0:
+cfml:<html> tag:1:1::3:^HTML$:#000077::2:0:
+cfml:HTML Attributes:1:([a-z]*=)("[^"]*")::2:^HTML$:::0:0:
+cfml:HTML Attribute Contents:1:2::3:^HTML Attributes$:#009900::0:0:
+cfml:CFML Comment:0:<!---:--->:1::#848484::1:2:
+cfml:HTML Comment:0:<!--:-->:1::#AAAAAA::1:2:
+cfml:Special Characters:1:&[^;]*;::2::#999999::2:0:
+cfml:DocType:1:<![a-z0-9]+:[^?-]>:1::#bb8800::0:0:
+stylesheet:Selector:1:(\\*|\\b(a|body|abbr|acronym|address|applet|area|b|bdo|blockquote|br|button|caption|cite|code|col|colgroup|dd|del|dfn|div|dl|dt|em|embed|fieldset|form|h\\d+|hr|i|iframe|img|input|ins|kbd|label|legend|li|map|noframes|noscript|object|ol|optgroup|option|p|pre|q|samp|select|small|span|strong|table|tbody|td|textarea|tfoot|th|thead|tr|tt|ul|var)\\b)::2:^top$:#cc0000::2:0:
+stylesheet:Identifiers:1:(#|\\.)[a-z0-9\\-_\:( >)?]+ (?=([\\{a-z\\*]))::2::#cc3300::2:0:
+stylesheet:Attribute Identifiers:1:\\[[a-z0-9\\.\\-_\\\:]+=":"\\]:1::#cc3300::2:0:
+stylesheet:Pseudo-selectors:1:\\\:(first(\\-child|letter|line)|link|active|visited|hover|focus|lang\\(\\)|left|right|first|before|after)::2::#336633::2:0:
+stylesheet:Braces:1:[\\{\\[]:[\\}\\]]:1:^top$:#0099cc::1:1:
+stylesheet:Comment:1:\\/\\*:\\*\\/:1:^top|Braces$:#888888::0:0:
+stylesheet:Border:1:\\b(border|border\\-(top|bottom|left|right|width|color|style|collapse)*)\\b\\s*\:::2:^Braces$:#000099::2:0:
+stylesheet:Value:1:\\b(absolute|relative|small\\-caps|serif|sans\\-serif|cursive|fantasy|monospace|normal|italic|oblique|small\\-caps|bold|bolder|lighter|smaller|xx\\-small|x\\-small|small|medium|large|x\\-large|xx\\-large|transparent|none|inherit|repeat\\-(x|y)|no\\-repeat|scroll|fixed|top|center|bottom|left|center|right|underline|overline|line\\-through|blink|baseline|sub|super|text\\-top|middle|text\\-bottom|capitalize|uppercase|lowercase|justify|auto|thin|thick|dotted|dashed|solid|double|groove|ridge|inset|outset|both|block|inline|list\\-item|pre|nowrap|disc|circle|square|decimal|lower\\-roman|upper\\-roman|lower\\-alpha|upper\\-alpha|inside|outside|collapse|url)\\b::2:^Braces$:#663399::1:0:
+stylesheet:Misc:1:(\\s*|\\t*)\\b(float|clear|color|max\\-width|width|max\\-height|min\\-height|height|position|top|bottom|left|right|cursor|display|z\\-index|content|overflow)\\b\\s*\\\:::2:^Braces$:#000099::2:0:
+stylesheet:String:1:":":1:^top|Braces$:#006699::0:2:
+stylesheet:Length:1:([0-9]+\\.?[0-9]*(\\%|px|em|ex|pt|in|cm|pc|mm)?)(?![a-z\\-\:])::2:^Braces$:#009966::1:0:
+stylesheet:Color:1:#[0-9A-Fa-f]{3,6}::2:^Braces$:#cc0099::1:0:
+stylesheet:Text:1:\\b(word\\-spacing|letter\\-spacing|text\\-decoration|vertical\\-align|text\\-transform|text\\-align|text\\-ident)\\b\\s*\:::2:^Braces$:#000099::2:0:
+stylesheet:Line:1:\\b(line(\\-top|\\-bottom|\\-left|\\-width|\\-color|\\-style|\\-height)*)\\b\\s*\:::2:^Braces$:#000099::2:0:
+stylesheet:Background:1:\\b(background(\\-color|\\-image|\\-repeat|\\-attachment|\\-position)*)\\b\\s*\:::2:^Braces$:#000099::2:0:
+stylesheet:Margin:1:\\b(margin(\\-top|\\-bottom|\\-left|\\-right|\\-width|\\-color|\\-style)*)\\b\\s*\\\:::2:^Braces$:#000099::2:0:
+stylesheet:Padding:1:\\b(padding(\\-top|\\-bottom|\\-left|\\-right|\\-width|\\-color|\\-style)*)\\b\\s*\\\:::2:^Braces$:#000099::2:0:
+stylesheet:Font:1:\\b(font(\\-color|\\-family|\\-weight|\\-size|\\-variant|\\-style)*)\\b::2:^Braces$:#000099::2:0:
+stylesheet:Symbols:1:[;,]::2:^top|Braces$:#000000::2:0:
+stylesheet:Plaintext:1:[a-z]+::2:^Braces$:#000000::1:1:
+gettext po:Untranslated:1:msgstr ""\\n\\n::2::#990000:#ffffff:0:0:
+gettext po:Text:1:":":1::#009900:#ffffff:0:2:
+gettext po:Todo:1:^#,.*?$::2::#ffffff:#990000:2:0:
+gettext po:Source Ref:1:^#\:.*?$::2::#990000:#ffffff:0:0:
+gettext po:Comment:1:^#.*?$::2::#999999:#ffffff:0:2:
+gettext po:Comment (escaped):0:\\\\.::2:^Text$:#009900::1:1:
+gettext po:Message ID:1:^msgid ::2::#000099:#ffffff:2:0:
+gettext po:Message String:1:^msgstr ::2::#000099:#ffffff:2:0:
+gettext po:Domain:1:^domain::2::#000099:#ffffff:2:0:
+html:Tags:1:<((/)?[a-z0-9]+).*?>::2::#0000EE::0:0:
+html:<html> tag:1:1::3:^Tags$:#000066::2:0:
+html:Attributes:1:([a-z\\-]*=)[ \\n\\t]*("[^"]*")::2:^Tags$:::0:0:
+html:Attribute Contents:1:2::3:^Attribute Contents$:#009900::0:0:
+html:Comment:0:<!--:-->:1::#AAAAAA::1:2:
+html:DocType:1:<![a-z0-9]+:[^?-]>:1::#bb8800::0:0:
+html:Entities:1:&([a-z]*|#[0-9]*);::2::#990066::2:1:
+html:Special Characters:1:&[^;]*;::2:^Tags$:#ff0000::0:0:
+java:Comment (C):0:/\\*:\\*/:1::#AAAAAA::1:2:
+java:Comment (C++):0://.*?$::2::#AAAAAA::1:2:
+java:String (double quoted):0:":":1::#009900::0:0:
+java:String (double quoted escaped):0:\\\\.::2:^String \\(double quoted\\)$:#009900::0:0:
+java:Import/Include:0:^(import|package).*?$::2::#000099::0:0:
+java:Keywords:0:\\b(new|super|return|goto|if|else|case|default|switch|break|continue|while|do|for|catch|throw|finally|try|class)\\b::2::#000000::2:0:
+java:Constants:0:\\b(false|null|true)\\b::2::#5caeee::0:0:
+java:Modifiers:0:\\b(abstract|final|native|private|protected|public|static|transient|synchronized|volatile|extends|implements)\\b::2::#990000::2:0:
 java:this:0:\\bthis\\.::2::#000099::2:0:
-java:primitive-types:0:\\b(void|double|boolean|int)\\b::2::#880088::2:0:
-java:braces:0:[{()}]:::2::#000000::2:0:
-java:character:0:':':1::#009900::0:0:
-python:definition-keyword:1:(class|def)[\\t ]+[a-zA-Z0-9_-]+(\\([^)]+\\))?[\\t ]*\:::2::#0000AA::2:0:
-python:keywords:0:\\b(and|break|continue|del|elif|else|exec|for|if|in|is|not|or|pass|print|return|while)\\b::2::#000000::2:0:
-python:exception-keywords:0:\\b((assert|except|finally|try)[^\:]*\:|raise[^\\n]*\\n)::2::#DD0000::2:0:
-python:string-double:0:":":1::#009900::0:0:
-python:string-double-escape:0:\\\\.::2:^string-double$:#009900::0:0:
-python:string-single:0:':':1::#009900::0:0:
-python:string-single-escape:0:\\\\.::2:^string-single$:#009900::0:0:
-python:special_values:0:\\bNone\\b::2::#999900::0:0:
-python:include:0:^(import|from).*?$::2::#990099::0:0:
-python:comment:0:#.*?$::2::#AAAAAA::1:2:
-python:braces:0:[{()}\\[\\]]::2::#000000::2:0:
-python:self:1:(self\\.?)::2::#000088::0:0:
-pascal:keywords:1:\\b(text|string|longint|boolean|byte|char|word|integer|real)\\b::2::#36648B::0:0:
-pascal:procs:1:\\b(proc[a-z,0-9]*\\;$)::2::#E88707::2:0:
-pascal:program:1:\\b(program|var|procedure|uses|unit|object|type|const)\\b::2::#000000::2:0:
-pascal:flow:1:\\b(while|for|to|downto|do|with|case|of|repeat|until|if|then|else|goto|and|not|or)\\b::2::#C96EC4::2:0:
-pascal:comment:1:[{]:[}]:1::#999999::0:0:
-pascal:array:1:\\b(array)\\b::2::#A52A2A::0:0:
-pascal:data:1:\\b(text|string|longint|boolean|byte|char|word|integer|real|single|double)\\b::2::#36648B::0:0:
-pascal:output:1:\\b(append|reset|assign|close|rewrite|writeln|readln|write|read)\\b::2::#A02424::0:0:
-pascal:sqbracket:1:[\\[]:[\\]]:1::#289C02::0:0:
-pascal:begin:1:\\b(begin|end)\\b:\\b(end)\\b:2::#36648B::2:0:
-pascal:braces:0:[()]::2::#B22727::0:0:
-R:operators:0:[\\~\\%\\^\\&\\,\\.\\\:\\|\\+\\/\\*\\$\\!]::2::#8b2323::0:0:
-R:assignment:1:(->>|<<-|->|<-|=|_)::2::#FF0000::2:0:
-R:equality:1:(<[^<-]|[^->]>|<=|>=|!=|==)::2::#8b2323::0:0:
-R:number:1:[0-9]::2::#AA00AA::0:0:
-R:string-double:0:":":1::#009900::0:0:
-R:string-single:0:':':1::#009900::0:0:
-R:brackets:1:[\\[\\]]::2::#0000FF::0:0:
-R:braces:0:[{()}]::2::#0000FF::0:0:
-R:keywords2:0:\\b(FALSE|NULL|TRUE|NA)\\b::2::#00AAFF::2:0:
-R:keywords1:0:\\b(function|else|for|if|in|stop|while|which|with|next|break|by|repeat|switch)\\b::2::#000000::2:0:
-R:comments:1:#.*?$::2::#0000FF::0:2:
-perl:here-doc:1:<<EOF$":"EOF:1::#009900::0:0:
-perl:string1:0:":":1::#009900::0:0:
-perl:string2:0:':':1::#009900::0:0:
-perl:statements:0:\\b(if|until|while|elsif|else|unless|for(each)?|continue|last|goto|next|redo|do(?=\\s*\\{)|BEGIN|END)\\b::2::#000000::2:0:
-perl:modules:0:^(bless|caller|import|no|package|prototype|require|return|INIT|CHECK|BEGIN|END|use|new)::2::#990000::2:0:
-perl:pragmas:0:\\b(attrs|autouse|base|blib|constant|diagnostics|fields|integer|less|lib|locale|ops|overload|re|sigtrap|strict|subs|vars|vmsish)\\b::2::#990000::2:0:
-perl:methods:0:\\b(can|isa|VERSION)\\b::2::#900000::2:0:
-perl:filetests:0:\\b-[rwxRWXoOezsfdlSpbcugktTBMAC]\\b::2::#990000::2:0:
-perl:scalarvariables:1:\\$[a-z_][][a-z0-9>_$-]*::2::#000099::2:0:
-perl:arrayvariables:1:\\@[a-z_][][a-z0-9>_$-]*::2::#0000ff::2:0:
-perl:hashvariables:1:\\%[a-z_][][a-z0-9>_$-]*::2::#0000cc::2:0:
-perl:filefunctions:1:\\b(bind|binmode|close(?:dir)?|connect|eof|fcntl|fileno|flock|getc|getpeername|getsockname|getsockopt|ioctl|listen|open(?:dir)?|recv|read(?:dir)?|rewinddir|seek(?:dir)?|send|setsockopt|shutdown|socket|sysopen|sysread|sysseek|syswrite|tell(?:dir)?|write|accept|pipe|socketpair|print|printf|select)\\b::2::#900000::2:0:
-gettext po:untranslated:1:msgstr ""\\n\\n::2::#990000:#ffffff:0:0:
-gettext po:text:1:":":1::#009900:#ffffff:0:2:
-gettext po:todo:1:^#,.*?$::2::#ffffff:#990000:2:0:
-gettext po:sourceref:1:^#\:.*?$::2::#990000:#ffffff:0:0:
-gettext po:comment:1:^#.*?$::2::#999999:#ffffff:0:2:
-gettext po:comment-escape:0:\\\\.::2:^text$:#009900::1:1:
-gettext po:msgid:1:^msgid ::2::#000099:#ffffff:2:0:
-gettext po:msgstr:1:^msgstr ::2::#000099:#ffffff:2:0:
-gettext po:domain:1:^domain::2::#000099:#ffffff:2:0:
-stylesheet:values:1:\\b(absolute|relative|small\\-caps|serif|sans\\-serif|cursive|fantasy|monospace|normal|italic|oblique|small\\-caps|bold|bolder|lighter|smaller|xx\\-small|x\\-small|small|medium|large|x\\-large|xx\\-large|transparent|none|inherit|repeat|repeat\\-x|repeat\\-y|no\\-repeat|scroll|fixed|top|center|bottom|left|center|right|underline|overline|line\\-through|blink|baseline|sub|super|text\\-top|middle|text\\-bottom|capitalize|uppercase|lowercase|justify|auto|thin|thick|dotted|dashed|solid|double|groove|ridge|inset|outset|both|block|inline|list\\-item|pre|nowrap|disc|circle|square|decimal|lower\\-roman|upper\\-roman|lower\\-alpha|upper\\-alpha|inside|outside|collapse)\\b::2::#330066::1:0:
-stylesheet:font:1:\\b(font(\\-color|\\-family|\\-weight|\\-size|\\-variant|\\-style|))\\b\\s*\:::2::darkblue::2:0:
-stylesheet:misc:1:(\\s*|\\t*)\\b(float|clear|color|min\\-width|max\\-width|width|min\\-height|max\\-height|height|position|top|bottom|left|right|cursor|display|z\\-index|content)\\b\\s*\\\:::2::darkblue::2:0:
-stylesheet:padding:1:\\b(padding(\\-top|\\-bottom|\\-left|\\-right|\\-width|\\-color|\\-style|))\\b\\s*\\\:::2::darkblue::2:0:
-stylesheet:margins:1:\\b(margin(\\-top|\\-bottom|\\-left|\\-right|\\-width|\\-color|\\-style|))\\b\\s*\\\:::2::darkblue::2:0:
-stylesheet:background:1:\\b(background(\\-color|\\-image|\\-repeat|\\-attachment|\\-position|))\\b\\s*\:::2::darkblue::2:0:
-stylesheet:lines:1:\\b(line(\\-top|\\-bottom|\\-left|\\-width|\\-color|\\-style|\\-height|))\\b\\s*\:::2::darkblue::2:0:
-stylesheet:text:1:\\b(word\\-spacing|letter\\-spacing|text\\-decoration|vertical\\-align|text\\-transform|text\\-align|text\\-ident)\\b\\s*\:::2::darkblue::2:0:
-stylesheet:border:1:\\b(border(\\-collapse|\\-top|\\-bottom|\\-left|\\-right|\\-width|\\-color|\\-style|))\\b\\s*\:::2::darkblue::2:0:
-stylesheet:length:1:([0-9]*.?[0-9]*(\\%|px|em|ex|pt|in|cm|pc|mm))::2::#009060::1:0:
-stylesheet:selectors:1:(\\*|\\b(a|body|abbr|acronym|address|applet|area|b|bdo|blockquote|br|button|caption|cite|code|col|colgroup|dd|del|dfn|div|dl|dt|em|embed|fieldset|form|h\\d+|hr|i|iframe|img|input|ins|kbd|label|legend|li|map|noframes|noscript|object|ol|optgroup|option|p|pre|q|samp|select|small|span|strong|table|tbody|td|textarea|tfoot|th|thead|tr|tt|ul|var)\\b)::2::#660000::2:0:
-stylesheet:colors:1:#[0-9A-Fa-f]{3,6}::2::#009060::1:1:
-stylesheet:comment:1:\\/\\*:\\*\\/:1::#999999::0:0:
-stylesheet:string:1:":":1::#006090::0:2:
-stylesheet:identifiers:1:(#|\\.)[a-z0-9\\-_\:]+ (?=([\\{a-z\\*]))::2::#906000::2:0:
-stylesheet:symbol:1:(\\{|\\}|\\;|\\,)::2::#3D76AF::2:0:
-stylesheet:pseudo-selectors:1:\\\:(first(\\-child|letter|line)|link|active|visited|hover|focus|lang\\(\\)|left|right|first|before|after)::2::#660066::2:0:
-stylesheet:attribute-identifiers:1:\\[[a-z0-9\\.\\-_\\\:]+=":"\\]:1::#906000::2:0:
-javascript:object:1:([a-z]+)\\.::2::navy::0:2:
-javascript:function_identyfier:1:([a-z0-9]+)\\(::2::::2:2:
-javascript:number:1:[0-9]::2::#1B591C::2:0:
-javascript:array:1:([a-z0-9]+)\\[:\\]:1::navy::2:0:
-javascript:new:1:\\b(new)\\b::2::#DF2020::2:2:
-javascript:character:0:':':1::#009900::0:0:
-javascript:braces:1:[{()}]::2::::2:2:
-javascript:primitive-types:0:\\b(var)\\b::2::#DC8126::2:0:
-javascript:this:1:\\bthis::2::#BE3030::2:0:
-javascript:special_values:0:\\b(false|null|true)\\b::2::#AB3333::2:0:
-javascript:keywords:0:\\b(return|goto|if|else|case|default|switch|break|continue|while|do|for|catch|throw|finally|try)\\b::2::#29429B::2:0:
-javascript:string-escape:0:\\\\.::2:^string$:#009900::0:0:
-javascript:string:0:":":1::#009900::0:0:
-javascript:comment-C++-style:0://.*?$::2::#858282::1:2:
-javascript:comment-C-style:0:/\\*:\\*/:1::#858282::1:2:
-javascript:function:0:(function)\\b::2::#892E9A::2:2:
-javascript:operators:0:(\\+|\\-|\\*|\\<|\\!|\\=)::2::#F35E5E::2:0:
-sql:braces:1:[{()}]::2::::2:0:
-sql:table:1:([a-z0-9]+)\\.::2::::2:2:
-sql:row:1:\\.([a-z0-9]+)::2::::0:2:
-sql:reference:1:\\@([a-z0-9]+)::2::navy::2:2:
-sql:integer:1:\\b([0-9]+)\\b::2::#5272BB::2:2:
-sql:float:1:\\b([0-9]+)\\.([0-9]+)\\b::2::#5272BB::2:2:
-sql:string-double-quoted:1:\\":\\":1::darkred::0:2:
-sql:string-single-quoted:1:\\':\\':1::darkred::0:2:
-sql:reserved-UN_Z:1:\\b(UNDO|UNION|UNIQUE|UNKNOWN|USAGE|VIEW|WORK|WRITE|ZONE)\\b::2::::2:0:
-sql:reserved-SP_TR:1:\\b(SPECIFIC|SQL|SQLCODE|SQLERROR|SQLEXCEPTION|SQLSTATE|SQLWARNING|TABLE|TEMPORARY|TO|TRAILING|TRANSACTION|TRANSLATE|TRANSLATION)\\b::2::::2:0:
-sql:reserved-PR_SP:1:\\b(PRESERVE|PRIOR|READ|REFERENCES|RELATIVE|RESIGNAL|RESTRICT|RETURNS|ROLLBACK|ROWS|SCHEMA|SCROLL|SECTION|SIGNAL|SOME|SPACE)\\b::2::::2:0:
-sql:reserved-LO_PR:1:\\b(LOCAL|NAMES|NATIONAL|NULLIF|OCTET_LENGTH|ON|ONLY|OPEN|OPTION|OUT|OF|OUTPUT|OVERLAPS|PAD|PARTIAL|PATH|POSITION|PUBLIC|PRECISION|PREPARE)\\b::2::::2:0:
-sql:reserved-ID_LE:1:\\b(IDENTITY|IMMEDIATE|INDICATOR|INITIALLY|INOUT|INPUT|INSENSITIVE|INTERSECT|INTERVAL|ISOLATION|LANGUAGE|LEADING|LEAVE|LEVEL)\\b::2::::2:0:
-sql:reserved-DO_HA:1:\\b(DOMAIN|END|ESCAPE|EXCEPT|EXCEPTION|EXEC|EXECUTE|EXISTS|EXIT|EXTERNAL|EXTRACT|FETCH|FOREIGN|FOUND|FULL|GET|GLOBAL|GO|HANDLER)\\b::2::::2:0:
-sql:reserved-CU_DI:1:\\b(CURSOR|DEALLOCATE|DECLARE|DEFAULT|DEFERRABLE|DEFERRED|DESC|DESCRIBE|DESCRIPTOR|DETERMINISTIC|DIAGNOSTICS|DISCONNECT|DISTINCT)\\b::2::::2:0:
-sql:reserved-CO_CU:1:\\b(COMMIT|CONDITION|CONNECT|CONNECTION|CONSTRAINT|CONSTRAINTS|CONVERT|CORRESPONDING|CROSS|CURRENT|CURRENT_PATH)\\b::2::::2:0:
-sql:reserved-A_CO:1:\\b(ACTION|ADD|ALLOCATE|ASSERTION|BEGIN|BIT|BIT_LENGTH|BOTH|CASCADE|CASCADED|CAST|CATALOG|CHECK|CLOSE|COALESCE|COLLATE|COLLATION|COLUMN)\\b::2::::2:0:
-sql:math-operators:1:(\\+|\\/|\\*|\\-|\\=|\\<|\\>)::2::::2:0:
-sql:data-insertion:1:\\b(INSERT|INTO|SET|VALUE|VALUES|UPDATE|DELETE)\\b::2::#DF2231::2:0:
-sql:comparision-and-operators:1:\\b(ALL|AND|ANY|ARE|AS|BETWEEN|CONTAINS|HAVING|NOT|NO|OR|LIKE|MATCH|IS|IN|USING)\\b::2::#B3B34B::2:0:
-sql:selection-and-querying:1:\\b(SELECT|FROM|WHERE)\\b::2::blue::2:0:
-sql:db-structure:1:\\b(TABLE|COLUMN|KEY|INDEX|PRIMARY|FOREIGN)\\b::2::#5D5D5D::2:0:
-sql:function-method-related:1:\\b(CALL|PROCEDURE|PARAMETER|MODULE|FUNCTION|ROUTINE|RETURN)\\b::2::gray::2:0:
-sql:table-alter:1:\\b(ALTER|CREATE)\\b::2::#A32C99::2:0:
-sql:date-time:1:\\b(CURRENT_DATE|CURRENT_TIME|CURRENT_TIMESTAMP|CURRENT_USER|DATE|DAY|TIME|TIMESTAMP|TIMEZONE_HOUR|TIMEZONE_MINUTE|YEAR|MINUTE|MONTH|HOUR)\\b::2::pink::2:0:
-sql:common-functions:1:\\b(COUNT|ASC|AVG|FIRST|SUBSTRING|SUM|TRIM|UPPER|RIGHT|SIZE|LAST|LOWER|MIN|MAX|LEFT|AT)\\b::2::::2:0:
-sql:flow-related:1:\\b(CASE|CONTINUE|FOR|ELSEIF|ELSE|DO|GOTO|THEN|WHEN|WHENEVER|WHILE|WITH|UNTIL|NEXT|LOOP|REPEAT|IF)\\b::2::purple::2:0:
-sql:data-values:1:\\b(FALSE|TRUE|NULL)\\b::2::navy::2:0:
-sql:data-types:1:\\b(CHAR|CHAR_LENGTH|CHARACTER|CHARACTER_LENGTH|DEC|DECIMAL|DOUBLE|FLOAT|VARCHAR|VARYING|SMALLINT|REAL|NATURAL|NCHAR|NUMERIC|INT|INTEGER)\\b::2::darkgreen::2:0:
-sql:admin:1:\\b(AUTHORIZATION|DROP|GRANT|GROUP|SYSTEM_USER|USER|REVOKE|PRIVILEGES|SESSION|SESSION_USER)\\b::2::#992828::2:0:
-sql:user-and-host:1:\\b([a-z0-9]+)\\@([a-z0-9]+)\\b::2::::2:2:
-sql:grouping-joining-ordering:1:\\b(GROUP BY|INNER JOIN|OUTER JOIN|RIGHT JOIN|LEFT JOIN|ORDER BY)\\b::2::darkorange::2:0:
-sql:comment:1:--:\\n:1::#C0C0C0::0:0:
-jsp:jsp-math-operators:1:(\\/|\\*|\\*|\\-|\\+|\\=)::2:^jsp$:#90840f::2:1:
-jsp:jsp-logical-operators:1:(\\&\\&|\\!\\=|\\!|\\=\\=|\\|\\|)::2:^jsp$:navy::2:1:
-jsp:jsp-new:0:\\b(new)\\b::2:^jsp$:#700b0b::2:0:
-jsp:jsp-common-used-classes:0:\\b(String|Object|Vector|BitSet|Stack|Hashtable|Collection|Map|List|HashMap|TreeMap)\\b::2:^jsp$:purple::2:1:
-jsp:jsp-data-types:1:\\b(boolean|byte|int|char|double|float|long|short)\\b::2:^jsp$:darkgreen::2:1:
-jsp:jsp-numbers:1:\\b([0-9]+)\\b::2:^jsp$:purple::0:1:
-jsp:jsp-comment-C++:0://.*?$::2:^jsp$:#7777AA::1:0:
-jsp:jsp-comment-C:0:/\\*:\\*/:1:^jsp$:#7777AA::1:0:
-jsp:jsp-string-single:0:':':1:^jsp$:#009900::1:1:
-jsp:jsp-string-double-escape:0:\\\\.::2:^jsp-string-double$:#009900::1:1:
-jsp:jsp-string-double:0:":":1:^jsp$:#009900::1:1:
-jsp:jsp-braces:0:[{()}]::2:^jsp$:#000000::2:1:
-jsp:jsp-methods:1:([a-z0-9]+)\\(::2:^jsp$:::2:1:
-jsp:jsp-data-values:1:\\b(true|false|null)\\b::2:^jsp$:#CC0000::2:1:
-jsp:jsp-objects:1:\\b([a-z0-9]+)\\.::2:^jsp$:#957e33::2:1:
-jsp:jsp-keywords:0:\\b(return|goto|if|else|case|default|switch|break|continue|while|do|for|global|class|try|catch|finally)\\b::2:^jsp$:#000000::2:1:
-jsp:jsp:1:<\\%:\\%>:1:^(top|html|html-attrib-sub2)$:#04013d::0:2:
-jsp:comment:0:<!--:-->:1::#AAAAAA::1:2:
-jsp:specialchar:1:&[^;]*;::2::#999999::2:0:
-jsp:html-attrib-sub2:1:2::3:^html-attrib$:#009900::0:0:
-jsp:html-attrib:1:([a-z]*=)[ \\n\\t]*("[^"]*")::2:^html$:::0:0:
-jsp:html-tag-special:1:^(/)?(img|a)$::2:^html-tag$:#BB0540::0:0:
-jsp:html-tag-table:1:^(/)?(table|td|tr|tbody)$::2:^html-tag$:#5005AA::0:0:
-jsp:html-tag:1:1::3:^html$:#550044::2:0:
+java:Primitive Types:0:\\b(void|double|boolean|int)\\b::2::#880088::2:0:
+java:Braces:0:[{()}]:::2::#000000::2:0:
+java:String (single quoted):0:':':1::#009900::0:0:
+javascript:Function Identifier:1:([a-z0-9]+)\\(::2::#000099::2:1:
+javascript:Numbers:1:[0-9]::2::#1B591c::2:1:
+javascript:Array:1:([a-z0-9]+)\\[:\\]:1::navy::2:1:
+javascript:new:1:\\b(new)\\b::2::#DF2020::2:1:
+javascript:String (single quoted):0:':':1::#009900::0:1:
+javascript:Braces:1:[{()}]::2::::2:1:
+javascript:Primitive Types:0:\\b(var)\\b::2::#DC8126::2:1:
+javascript:this:1:\\bthis::2::#BE3030::2:1:
+javascript:Constants:1:\\b(false|null|true)\\b::2::#AB3333::2:1:
+javascript:Keywords:0:\\b(return|goto|if|else|case|default|switch|break|continue|while|do|for|catch|throw|finally|try)\\b::2::#990000::2:1:
+javascript:String (single quoted escaped):0:\\\\.::2:^String \\(single quoted\\)$:#006090::0:1:
+javascript:String (double quoted):0:":":1::#006090::0:1:
+javascript:Comment (C++):0://.*?$::2::#cccccc::1:1:
+javascript:Comment (C):0:/\\*:\\*/:1::#cccccc::1:1:
+javascript:Function:0:(function)\\b::2::#990000::2:1:
+javascript:Operators:0:(\\+|\\-|\\*|\\<|\\!|\\=)::2::#F35E5E::2:1:
+javascript:Objects:1:([a-z]+)(?=(\\.|;|=| ))::2::#006699::2:1:
+jsp:Math Operators:1:(\\/|\\*|\\*|\\-|\\+|\\=)::2:^JSP Tags$:#90840f::2:1:
+jsp:Logic Operators:1:(\\&\\&|\\!\\=|\\!|\\=\\=|\\|\\|)::2:^JSP Tags$:navy::2:1:
+jsp:new:0:\\b(new)\\b::2:^JSP Tags$:#700b0b::2:0:
+jsp:Common Classes:0:\\b(String|Object|Vector|BitSet|Stack|Hashtable|Collection|Map|List|HashMap|TreeMap)\\b::2:^JSP Tags$:purple::2:1:
+jsp:Data Types:1:\\b(boolean|byte|int|char|double|float|long|short)\\b::2:^JSP Tags$:darkgreen::2:1:
+jsp:Numbers:1:\\b([0-9]+)\\b::2:^JSP Tags$:purple::0:1:
+jsp:comment (C++):0://.*?$::2:^JSP Tags$:#7777AA::1:0:
+jsp:Comment (C):0:/\\*:\\*/:1:^JSP Tags$:#7777AA::1:0:
+jsp:String (single quoted):0:':':1:^JSP Tags$:#009900::1:1:
+jsp:String (double quoted escaped):0:\\\\.::2:^String \\(double quoted\\)$:#009900::1:1:
+jsp:String (double quoted):0:":":1:^JSP Tags$:#009900::1:1:
+jsp:Braces:0:[{()}]::2:^JSP Tags$:#000000::2:1:
+jsp:Methods:1:([a-z0-9]+)\\(::2:^JSP Tags$:::2:1:
+jsp:Data Values:1:\\b(true|false|null)\\b::2:^JSP Tags$:#CC0000::2:1:
+jsp:Objects:1:\\b([a-z0-9]+)\\.::2:^JSP Tags$:#957e33::2:1:
+jsp:Keywords:0:\\b(return|goto|if|else|case|default|switch|break|continue|while|do|for|global|class|try|catch|finally)\\b::2:^JSP Tags$:#000000::2:1:
+jsp:JSP Tags:1:<\\%:\\%>:1:^(top|HTML|HTML Attribute Contents)$:#04013d::0:2:
+jsp:Comment:0:<!--:-->:1::#AAAAAA::1:2:
+jsp:Special Characters:1:&[^;]*;::2::#999999::2:0:
+jsp:HTML Attribute Contents:1:2::3:^HTML Attributes$:#009900::0:0:
+jsp:HTML Attributes:1:([a-z]*=)[ \\n\\t]*("[^"]*")::2:^HTML$:::0:0:
+jsp:HTML Special Tags:1:^(/)?(img|a)$::2:^<html> Tags$:#BB0540::0:0:
+jsp:HTML Table Tags:1:^(/)?(table|td|tr|tbody)$::2:^<html> Tags$:#5005AA::0:0:
+jsp:<html> Tags:1:1::3:^HTMLl$:#550044::2:0:
 jsp:html:1:<((/)?[a-z0-9]+):>:1::#000077::0:0:
-octave:string-escape:1:\\\\[\\\\"'0abfnrtv]::2:^string$:#000099::0:0:
-octave:string:1:":":1:^(top|function)$:#009900::0:0:
-octave:braces:1:[][(){}]::2:^(top|function)$:::2:0:
-octave:comment:1:(#|%).*?$::2:^(top|function)$:#999999::0:2:
-octave:function:1:function:endfunction:1::#770000::0:0:
-octave:keywords:0:(if|else|for|endfor|endif|global|switch|while|do-until|break|continue|unwind_protect|try)::2:^(top|function)$:::2:0:
-shell:operators:1:[\\~\\%\\^\\&\\,\\.\\\:\\|\\+\\/\\*\\!]::2::#8b2323::0:0:
-shell:equality:1:(<|>|<=|>=|!=|==)::2::#ff0000::0:0:
-shell:number:1:[0-9]::2::#ff0000::0:0:
-shell:variable-sys:1:\\$[\\$\\?\\*0-9]::2::#ff0000::2:0:
-shell:variable:1:\\$[a-z][a-z0-9_]*::2::#bb00bb::0:0:
-shell:EOF-string:0:>>EOF:EOF:1::#ee00dd::0:0:
-shell:exec-string:1:`:`:1::#ff0000:#ffff00:0:0:
-shell:string-single:1:':':1::#009900::0:0:
-shell:string:1:":":1::#009900::0:0:
-shell:exec-string-escape-function:0:\\b(action|daemon|echo_failure|echo_success|failure|gprintf|killproc|printf|success)\\b::2:^exec-string$:#e96969::0:0:
-shell:exec-string-escape-command:0:\\b(awk|cat|chgrp|chmod|chown|cp|date|echo|export|egrep|exec|fgrep|grep|halt|install|kill|killall|ls|mkdir|mount|mv|perl|pidof|reboot|rm|rmdir|sed|sh|sleep|sort|test|touch|umount)\\b::2:^exec-string$:#c06000::0:0:
-shell:string-escape-variable-sys:1:\\$[\\$\\?\\*\\#0-9]::2:^string$:#ff0000::2:0:
-shell:string-escape-variable:1:\\$[a-z][a-z0-9_]*::2:^string$:#bb00bb::0:0:
-shell:assignement:1:[a-z][a-z0-9_]*=::2::#424086::0:0:
-shell:brackets:1:[\\[\\]]::2::#0000ff::0:0:
-shell:braces2:1:[{}]::2::#0000ff::2:0:
-shell:braces:1:[()]::2::#0000ff::0:0:
-shell:modifier:0:(local|-a|-d|-f|-n |-o|-x|-eq|-ge|-gt|-le|-lt|-ne)::2::#ff0000::0:0:
-shell:function:0:\\b(action|daemon|echo_failure|echo_success|failure|gprintf|killproc|printf|success)\\b::2::#e96969::0:0:
-shell:command:0:\\b(awk|cat|chgrp|chmod|chown|cp|date|echo|export|egrep|exec|fgrep|grep|halt|install|kill|killall|ls|mkdir|mount|mv|perl|pidof|reboot|rm|rmdir|sed|sleep|sort|test|touch|umount)\\b::2::#c06000::0:0:
-shell:statement:0:\\b(alias|break|case|continue|do|done|elif|else|esac|exit|export|fi|for|if|in|return|set|shift|then|unalias|unset|while)\\b::2::#0000ff::0:0:
-shell:comment:1:#.*?$::2::#994f49::0:2:
+octave:String (escaped):1:\\\\[\\\\"'0abfnrtv]::2:^String$:#000099::0:0:
+octave:String:1:":":1:^(top|Function)$:#009900::0:0:
+octave:Braces:1:[][(){}]::2:^(top|Function)$:::2:0:
+octave:Comment:1:(#|%).*?$::2:^(top|Function)$:#999999::0:2:
+octave:Function:1:function:endfunction:1::#770000::0:0:
+octave:Keywords:0:(if|else|for|endfor|endif|global|switch|while|do-until|break|continue|unwind_protect|try)::2:^(top|Function)$:::2:0:
+pascal:Keywords:1:\\b(text|string|longint|boolean|byte|char|word|integer|real)\\b::2::#36648B::0:0:
+pascal:Procedure:1:\\b(proc[a-z,0-9]*\\;$)::2::#E88707::2:0:
+pascal:Program:1:\\b(program|var|procedure|uses|unit|object|type|const)\\b::2::#000000::2:0:
+pascal:Flow Control:1:\\b(while|for|to|downto|do|with|case|of|repeat|until|if|then|else|goto|and|not|or)\\b::2::#C96EC4::2:0:
+pascal:Comment:1:[{]:[}]:1::#999999::0:0:
+pascal:Array:1:\\b(array)\\b::2::#A52A2A::0:0:
+pascal:Data:1:\\b(text|string|longint|boolean|byte|char|word|integer|real|single|double)\\b::2::#36648B::0:0:
+pascal:Output:1:\\b(append|reset|assign|close|rewrite|writeln|readln|write|read)\\b::2::#A02424::0:0:
+pascal:Brackets:1:[\\[]:[\\]]:1::#289C02::0:0:
+pascal:Begin:1:\\b(begin|end)\\b:\\b(end)\\b:2::#36648B::2:0:
+pascal:Braces:0:[()]::2::#B22727::0:0:
+perl:HEREDOc:1:<<EOF$":"EOF:1::#009900::0:0:
+perl:String (double quoted):0:":":1::#009900::0:0:
+perl:String (single quoted):0:':':1::#009900::0:0:
+perl:Statements:0:\\b(if|until|while|elsif|else|unless|for(each)?|continue|last|goto|next|redo|do(?=\\s*\\{)|BEGIN|END)\\b::2::#000000::2:0:
+perl:Modules:0:^(bless|caller|import|no|package|prototype|require|return|INIT|CHECK|BEGIN|END|use|new)::2::#990000::2:0:
+perl:Pragma:0:\\b(attrs|autouse|base|blib|constant|diagnostics|fields|integer|less|lib|locale|ops|overload|re|sigtrap|strict|subs|vars|vmsish)\\b::2::#990000::2:0:
+perl:Methods:0:\\b(can|isa|VERSION)\\b::2::#900000::2:0:
+perl:File Tests:0:\\b-[rwxRWXoOezsfdlSpbcugktTBMAC]\\b::2::#990000::2:0:
+perl:Variables (Scalar):1:\\$[a-z_][][a-z0-9>_$-]*::2::#000099::2:0:
+perl:Variables (Array):1:\\@[a-z_][][a-z0-9>_$-]*::2::#0000ff::2:0:
+perl:Variables (Hash):1:\\%[a-z_][][a-z0-9>_$-]*::2::#0000cc::2:0:
+perl:File Functions:1:\\b(bind|binmode|close(?:dir)?|connect|eof|fcntl|fileno|flock|getc|getpeername|getsockname|getsockopt|ioctl|listen|open(?:dir)?|recv|read(?:dir)?|rewinddir|seek(?:dir)?|send|setsockopt|shutdown|socket|sysopen|sysread|sysseek|syswrite|tell(?:dir)?|write|accept|pipe|socketpair|print|printf|select)\\b::2::#900000::2:0:
+php:HTML:1:<((/)?[a-z0-9]+):>:1::#000077::0:0:
+php:<html> Tags:1:1::3:^HTML$:#550044::2:0:
+php:HTML Table Tags:1:^(/)?(table|td|tr|tbody)$::2:^<html Tags>$:#5005AA::0:0:
+php:HTML Special Tags:1:^(/)?(img|a)$::2:^<html> Tags$:#BB0540::0:0:
+php:HTML Attributes:1:([a-z]*=)[ \\n\\t]*("[^"]*")::2:^HTML$:::0:0:
+php:HTML Attribute Contents:1:2::3:^HTML Attributes$:#009900::0:0:
+php:HTML Entities:1:&[^; ]*;::2::#999999::2:0:
+php:Comment:0:<!--:-->:1::#AAAAAA::1:2:
+php:PHP Block:<\?php:\\?>:1:^(top|HTML|HTML Attribute Contents)$:#0000FF::0:0:
+php:Keywords:0:\\b(return|goto|global|var|class|function|new)\\b::2:^PHP Block$:#000000::2:0:
+php:Braces:0:[{()}]::2:^PHP Block$:#000000::2:1:
+php:Brackets:1:[\\[\\]]::2:^PHP Block$:#0000cc::2:0:
+php:String (double quoted):0:":":1:^PHP Block$:#009900::1:1:
+php:String (double quote escaped):0:\\\\.::2:^String \\(single quoted\\)$:::1:1:
+php:Variables:1:\\$[a-z_][a-z0-9>_$-]*::2:^PHP Block$:#cc0000::2:0:
+php:Variables (special characters):0:(\\[|\\]|->)::2:^Variables$:#0000cc::2:0:
+php:String (single quoted):0:':':1:^PHP Block$:#009900::1:1:
+php:String (single quote escaped):0:\\\\.::2:^String \\(single quoted\\)$:::1:1:
+php:Comment (C):0:/\\*:\\*/:1:^PHP Block$:#7777aa::1:2:
+php:Comment (C++\/single line):0:(//|#).*?$::2:^PHP Block$:#7777aa::1:2:
+php:Flow Control:0:\\b(if|else|elseif|case|default|switch|break|continue|while|do|for|foreach)\\b::2:^PHP Block$:#000000::2:1:
+php:String (SQL Keywords):0:\\b(SELECT|INSERT|UPDATE|DELETE|DROP|GROUP BY|FROM|INTO|ON|AS|AND|NOT|OR|NULL|SET|VALUES|WHERE|ORDER BY|LIMIT|(LEFT|RIGHT|FULL) JOIN|ASC|DESC)\\b::2:^(String (single quoted)|String \(double quoted\))$:#996699::2:1:
+php:String (SQL Functions):0:\\b(MATCH|AGAINST|ASCII|CHAR|SOUNDEX|MAX|MIN|MD5|LCASE|UCASE|PASSWORD|ENCRYPT|RAND|LAST_INSERT_ID|COUNT|AVG|SUM|NOW|CURDATE|CURDATE|FROM_DAYS|FROM_UNIXTIME|PERIOD_ADD|PERIOD_DIFF|TO_DAYS|UNIX_TIMESTAMP|USER|WEEKDAY|CONCAT|DATE_(FORMAT|ADD|SUB))\\b\\(:\\):1:^(String (double quoted)|String \(single quoted\))$:#999966::2:1:
+php:Operators:1:[\\+\\-\\*\\/\\.<>=`!%]+::2:^PHP Block$:#cc0066::2:1:
+php:Numbers:1:(0x)?[0-9]+(?![0-9]*[a-z\\(_\\-])::2:^PHP Block$:#330099::2:1:
+python:Keywords:0:\\b(and|assert|break|continue|class|def|del|elif|else|except|exec|finally|for|if|in|is|not|or|pass|print|raise|return|try|while)\\b::2::#000000::2:0:
+python:String (double quoted):0:":":1::#009900::0:0:
+python:String (double quoted escape):0:\\\\.::2:^String \\(double quoted\\)$:#009900::0:0:
+python:String (single quoted):0:':':1::#009900::0:0:
+python:String (single quoted escaped):0:\\\\.::2:^String \\(single quoted\\)$:#009900::0:0:
+python:Special Values:0:\\b(None)\\b::2::#5caeee::0:0:
+python:Import/Include:0:^(import|from).*?$::2::#000099::0:0:
+python:Comment:0:#.*?$::2::#AAAAAA::1:2:
+python:Braces:0:[{()}\\[\\]]::2::#000000::2:0:
+R:Operators:0:[\\~\\%\\^\\&\\,\\.\\\:\\|\\+\\/\\*\\$\\!]::2::#8b2323::0:0:
+R:Assignment:1:(->>|<<-|->|<-|=|_)::2::#FF0000::2:0:
+R:Comparison:1:(<[^<-]|[^->]>|<=|>=|!=|==)::2::#8b2323::0:0:
+R:Number:1:[0-9]::2::#AA00AA::0:0:
+R:String (double quoted):0:":":1::#009900::0:0:
+R:String (single quoted):0:':':1::#009900::0:0:
+R:Brackets:1:[\\[\\]]::2::#0000FF::0:0:
+R:Braces:0:[{()}]::2::#0000FF::0:0:
+R:Keywords2:0:\\b(FALSE|NULL|TRUE|NA)\\b::2::#00AAFF::2:0:
+R:Keywords1:0:\\b(function|else|for|if|in|stop|while|which|with|next|break|by|repeat|switch)\\b::2::#000000::2:0:
+R:Comment:1:#.*?$::2::#0000FF::0:2:
+Ruby:Comment:1:#.*?$::2:^top$:#999999::0:2:
+Ruby:Keywords:1:\\b(module|class|def|end|case|when|then|raise|return|loop|do|rescue|ensure|nil|begin|yield)\\b::2::#003399::2:1:
+Ruby:Braces:1:(\\{|\\}|\\[|\\]|\\(|\\))::2::#990066::2:1:
+Ruby:Flow Control:1:\\b(foreach|if|else|elsif|while|for|sleep|retry)\\b::2::#990066::2:1:
+Ruby:String (single quoted):1:':(?<!\\\\)':1::#009966::1:2:
+Ruby:String (double quoted):1:":(?<!\\\\)":1::#009966::1:2:
+Ruby:Object:1:[a-z\\-_]+(?=\\.)::2::#999900::2:1:
+Ruby:Method:1:[a-z\\-_]+(?=\\()::2::#660099::2:1:
+Ruby:Property:1:(?<=\\.)[a-z\\-_]+(?=\\s)::2::#006699::2:1:
+Ruby:Constant:0:[A-Z]{1}[a-zA-Z0-9_]+\\[?:\\]?:1:^(top|String \\(double quoted\\))$:#1d6ad2::2:1:
+Ruby:Variable (global):1:\\$[a-z0-9_]+\\[?:\\]?:1:^(top|String \\(double quoted\\))$:#1d6a1d::2:1:
+Ruby:Variable (instance):1:@[a-z0-9_]+\\[?:\\]?:1:^(top|String \\(double quoted\\))$:#278992::2:1:
+Ruby:Variable (class):1:@@[a-z0-9_]+\\[?:\\]?:1:^(top|String \\(double quoted\\))$:#1d6a1d::2:1:
+Ruby:Variable:1:\\*?[a-z0-9_]+\\[?:\\]?:1:^(top|String \\(double quoted\\))$:#1d6a1d::2:1:
+Ruby:Numbers:1:\\-?[0-9\\.]+::2:^(top|Variable)$:#999900::2:1:
+Ruby:Special Characters:1:(\:|=|>|<|\\+|\\*|\\/|\\\\|&|!|#|%|~|\\||\\.|,|~)::2::#996600::2:1:
+shell:Operators:1:[\\~\\%\\^\\&\\,\\.\\\:\\|\\+\\/\\*\\!]::2::#8b2323::0:0:
+shell:Equality:1:(<|>|<=|>=|!=|==)::2::#ff0000::0:0:
+shell:Number:1:[0-9]::2::#ff0000::0:0:
+shell:Variable (sys):1:\\$[\\$\\?\\*0-9]::2::#ff0000::2:0:
+shell:Variable:1:\\$[a-z][a-z0-9_]*::2::#bb00bb::0:0:
+shell:String (EOF):0:>>EOF:EOF:1::#ee00dd::0:0:
+shell:String (executed):1:`:`:1::#ff0000:#ffff00:0:0:
+shell:String (single quoted):1:':':1::#009900::0:0:
+shell:String (double quoted):1:":":1::#009900::0:0:
+shell:Exec String Escape Function:0:\\b(action|daemon|echo_failure|echo_success|failure|gprintf|killproc|printf|success)\\b::2:^String \\(executed\\)$:#e96969::0:0:
+shell:Exec String Escape Command:0:\\b(awk|cat|chgrp|chmod|chown|cp|date|echo|export|egrep|exec|fgrep|grep|halt|install|kill|killall|ls|mkdir|mount|mv|perl|pidof|reboot|rm|rmdir|sed|sh|sleep|sort|test|touch|umount)\\b::2:^String \\(executed\\)$:#c06000::0:0:
+shell:String Escape Variable (sys):1:\\$[\\$\\?\\*\\#0-9]::2:^String \\(double quoted\\)$:#ff0000::2:0:
+shell:String Escape Variable:1:\\$[a-z][a-z0-9_]*::2:^String \\(double quoted\\)$:#bb00bb::0:0:
+shell:Assignment:1:[a-z][a-z0-9_]*=::2::#424086::0:0:
+shell:Brackets:1:[\\[\\]]::2::#0000ff::0:0:
+shell:Braces:1:[{}]::2::#0000ff::2:0:
+shell:Parentheses:1:[()]::2::#0000ff::0:0:
+shell:Modifier:0:(local|-a|-d|-f|-n |-o|-x|-eq|-ge|-gt|-le|-lt|-ne)::2::#ff0000::0:0:
+shell:Function:0:\\b(action|daemon|echo_failure|echo_success|failure|gprintf|killproc|printf|success)\\b::2::#e96969::0:0:
+shell:Command:0:\\b(awk|cat|chgrp|chmod|chown|cp|date|echo|export|egrep|exec|fgrep|grep|halt|install|kill|killall|ls|mkdir|mount|mv|perl|pidof|reboot|rm|rmdir|sed|sleep|sort|test|touch|umount)\\b::2::#c06000::0:0:
+shell:Statement:0:\\b(alias|break|case|continue|do|done|elif|else|esac|exit|export|fi|for|if|in|return|set|shift|then|unalias|unset|while)\\b::2::#0000ff::0:0:
+shell:Comment:1:#.*?$::2::#994f49::0:2:
+sql:Braces:1:[{()}]::2::::2:0:
+sql:Table:1:([a-z0-9]+)\\.::2::::2:2:
+sql:Row:1:\\.([a-z0-9]+)::2::::0:2:
+sql:Reference:1:\\@([a-z0-9]+)::2::navy::2:2:
+sql:Integer:1:\\b([0-9]+)\\b::2::#5272BB::2:2:
+sql:Float:1:\\b([0-9]+)\\.([0-9]+)\\b::2::#5272BB::2:2:
+sql:String (double quoted):1:\\":\\":1::darkred::0:2:
+sql:String (single quoted):1:\\':\\':1::darkred::0:2:
+sql:Reserved (UN_Z):1:\\b(UNDO|UNION|UNIQUE|UNKNOWN|USAGE|VIEW|WORK|WRITE|ZONE)\\b::2::::2:0:
+sql:Reserved (SP_TR):1:\\b(SPECIFIC|SQL|SQLCODE|SQLERROR|SQLEXCEPTION|SQLSTATE|SQLWARNING|TABLE|TEMPORARY|TO|TRAILING|TRANSACTION|TRANSLATE|TRANSLATION)\\b::2::::2:0:
+sql:Reserved (PR_SP):1:\\b(PRESERVE|PRIOR|READ|REFERENCES|RELATIVE|RESIGNAL|RESTRICT|RETURNS|ROLLBACK|ROWS|SCHEMA|SCROLL|SECTION|SIGNAL|SOME|SPACE)\\b::2::::2:0:
+sql:Reserved (LO_PR):1:\\b(LOCAL|NAMES|NATIONAL|NULLIF|OCTET_LENGTH|ON|ONLY|OPEN|OPTION|OUT|OF|OUTPUT|OVERLAPS|PAD|PARTIAL|PATH|POSITION|PUBLIC|PRECISION|PREPARE)\\b::2::::2:0:
+sql:Reserved (ID_LE):1:\\b(IDENTITY|IMMEDIATE|INDICATOR|INITIALLY|INOUT|INPUT|INSENSITIVE|INTERSECT|INTERVAL|ISOLATION|LANGUAGE|LEADING|LEAVE|LEVEL)\\b::2::::2:0:
+sql:Reserved (DO_HA):1:\\b(DOMAIN|END|ESCAPE|EXCEPT|EXCEPTION|EXEC|EXECUTE|EXISTS|EXIT|EXTERNAL|EXTRACT|FETCH|FOREIGN|FOUND|FULL|GET|GLOBAL|GO|HANDLER)\\b::2::::2:0:
+sql:Reserved (CU_DI):1:\\b(CURSOR|DEALLOCATE|DECLARE|DEFAULT|DEFERRABLE|DEFERRED|DESC|DESCRIBE|DESCRIPTOR|DETERMINISTIC|DIAGNOSTICS|DISCONNECT|DISTINCT)\\b::2::::2:0:
+sql:Reserved (CO_CU):1:\\b(COMMIT|CONDITION|CONNECT|CONNECTION|CONSTRAINT|CONSTRAINTS|CONVERT|CORRESPONDING|CROSS|CURRENT|CURRENT_PATH)\\b::2::::2:0:
+sql:Reserved (A-CO):1:\\b(ACTION|ADD|ALLOCATE|ASSERTION|BEGIN|BIT|BIT_LENGTH|BOTH|CASCADE|CASCADED|CAST|CATALOG|CHECK|CLOSE|COALESCE|COLLATE|COLLATION|COLUMN)\\b::2::::2:0:
+sql:Math Operators:1:(\\+|\\/|\\*|\\-|\\=|\\<|\\>)::2::::2:0:
+sql:Data Insertion:1:\\b(INSERT|INTO|SET|VALUE|VALUES|UPDATE|DELETE)\\b::2::#DF2231::2:0:
+sql:Comparision Operators:1:\\b(ALL|AND|ANY|ARE|AS|BETWEEN|CONTAINS|HAVING|NOT|NO|OR|LIKE|MATCH|IS|IN|USING)\\b::2::#B3B34B::2:0:
+sql:Selection\/Querying:1:\\b(SELECT|FROM|WHERE)\\b::2::blue::2:0:
+sql:DB Structure:1:\\b(TABLE|COLUMN|KEY|INDEX|PRIMARY|FOREIGN)\\b::2::#5D5D5D::2:0:
+sql:Function Methods:1:\\b(CALL|PROCEDURE|PARAMETER|MODULE|FUNCTION|ROUTINE|RETURN)\\b::2::gray::2:0:
+sql:Table Alter\/Create:1:\\b(ALTER|CREATE)\\b::2::#A32C99::2:0:
+sql:Date\/Time:1:\\b(CURRENT_DATE|CURRENT_TIME|CURRENT_TIMESTAMP|CURRENT_USER|DATE|DAY|TIME|TIMESTAMP|TIMEZONE_HOUR|TIMEZONE_MINUTE|YEAR|MINUTE|MONTH|HOUR)\\b::2::pink::2:0:
+sql:Common Functions:1:\\b(COUNT|ASC|AVG|FIRST|SUBSTRING|SUM|TRIM|UPPER|RIGHT|SIZE|LAST|LOWER|MIN|MAX|LEFT|AT)\\b::2::::2:0:
+sql:Flow Control:1:\\b(CASE|CONTINUE|FOR|ELSEIF|ELSE|DO|GOTO|THEN|WHEN|WHENEVER|WHILE|WITH|UNTIL|NEXT|LOOP|REPEAT|IF)\\b::2::purple::2:0:
+sql:Constants:1:\\b(FALSE|TRUE|NULL)\\b::2::navy::2:0:
+sql:Data Types:1:\\b(CHAR|CHAR_LENGTH|CHARACTER|CHARACTER_LENGTH|DEC|DECIMAL|DOUBLE|FLOAT|VARCHAR|VARYING|SMALLINT|REAL|NATURAL|NCHAR|NUMERIC|INT|INTEGER)\\b::2::darkgreen::2:0:
+sql:Admin:1:\\b(AUTHORIZATION|DROP|GRANT|GROUP|SYSTEM_USER|USER|REVOKE|PRIVILEGES|SESSION|SESSION_USER)\\b::2::#992828::2:0:
+sql:User/Host:1:\\b([a-z0-9]+)\\@([a-z0-9]+)\\b::2::::2:2:
+sql:Group\/Joining\/Order:1:\\b(GROUP BY|INNER JOIN|OUTER JOIN|RIGHT JOIN|LEFT JOIN|ORDER BY)\\b::2::darkorange::2:0:
+sql:Comment:1:--:\\n:1::#C0C0C0::0:0:
+Tcl:Comment:1:#.*?$::2:^top$:#999999::0:2:
+Tcl:Keywords:1:\\b(package|proc|global|return)\\b::2::#003399::2:1:
+Tcl:Import/Include:1:\\b(require|provide)\\b::2::#009999::2:1:
+Tcl:Braces:1:(\\{|\\}|\\[|\\]|\\(|\\))::2::#339933::2:1:
+Tcl:Flow Control:1:\\b(foreach|if|else|elseif|while|for|continue|next|break|exit)\\b::2::#990066::2:1:
+Tcl:Package Name:1:[a-z0-9\\-_\\.]+(?=\:\:)::2::#990066::2:1:
+Tcl:Package Procedure:1:(?<=\:\:)[a-z0-9\\-_\\.]+::2::#990066::2:1:
+Tcl:Builtin Procedures:1:\\b(append|exists|incr|length|Stderr|Stdin|Stdout|unset)\\b::2::#006600::2:1:
+Tcl:Procedure:1:(?<=proc )[a-z\\-_0-9\\/]+(?=( )? \\{)::2::#660000::2:1:
+Tcl:Special Characters:1:(\:|=|\\+|\\*|\\/|\\\\|&|!|#|%|~|@|\\.|,)::2::#009966::2:1:
+Tcl:String (double quoted):1:":(?<!\\\\)":1::#009966::1:2:
+Tcl:Variable:1:\\$[a-z0-9\\-_]+:":2:^(top|String \\(double quoted\\))$:#000066::2:1:
+Tcl:Argument:1:\\-[a-z]+::2::#009966::2:1:
+Tcl:Data Types:1:\\b(array|blob|glob|list|set|string)\\b::2::#660099::2:1:
+Tcl:Numbers:1:[0-9\\.]+::2::#999900::2:1:
+xml:Tag:1:<((/)?[a-z0-9\:]+):[^?-]?>:1::#000000::0:0:
+xml:Tag Name:1:1::3:^tag$:#000066::2:0:
+xml:Attribute:1:([a-z]*=)("[^"]*")::2:^Tag$:#009060::1:0:
+xml:Attribute Content:1:2::3:^Attribute$:#906000::1:0:
+xml:Comment:0:<!--:-->:1::#AAAAAA::1:2:
+xml:DocType:1:<![a-z0-9]+:[^?-]>:1::#bb8800::0:0:
+xml:Character Entity:1:&[^;]*;::2:^Tag$:#cccccc::0:0:
