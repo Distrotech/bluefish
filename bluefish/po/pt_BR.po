@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: bluefish gtk2\n"
-"POT-Creation-Date: 2004-03-24 19:10+0100\n"
+"POT-Creation-Date: 2004-03-29 14:55+0200\n"
 "PO-Revision-Date: 2004-02-27 11:50-0300\n"
 "Last-Translator: Anderson Rocha <anderson@ilheusnet.com.br>\n"
 "Language-Team: Português Brasileiro <pt@li.org>\n"
@@ -122,6 +122,9 @@ msgid ""
 "  Brazilian Portuguese - Anderson Rocha\n"
 "   <anderson@maxlinux.com.br>\n"
 "\n"
+"  Bulgarian - Peio Popov\n"
+"   <peio@peio.org>\n"
+"\n"
 "  Chinese - Ting Yang (Dormouse)\n"
 "   <mouselinux@163.com>\n"
 "\n"
@@ -143,6 +146,9 @@ msgid ""
 "  Italian - Stefano Canepa\n"
 "   <sc@linux.it>\n"
 "\n"
+"  Norwegian - Christian Tellefsen\n"
+"   <chris@tellefsen.net>\n"
+"\n"
 "  Polish - Oskar Swida\n"
 "   <swida@aragorn.pb.bialystok.pl>\n"
 "\n"
@@ -150,7 +156,7 @@ msgid ""
 "   <lopopizarro@netcabo.pt>\n"
 "\n"
 "  Russian - Eugene Rupakov\n"
-"   <rupakov@jet.msk.ru>\n"
+"   <rupakov@jet.msk.su>\n"
 "\n"
 "  Serbian - Marko Milenović\n"
 "   <raven@sbb.co.yu>\n"
@@ -213,21 +219,21 @@ msgstr ""
 "   <barathee@yahoo.com>\n"
 "\n"
 
-#: ../src/about.c:194
+#: ../src/about.c:198
 msgid "About Bluefish"
 msgstr "Sobre Bluefish"
 
 # src/html.c:1315
-#: ../src/about.c:226 ../src/fref.c:1416 ../src/fref.c:1700 ../src/fref.c:1787
+#: ../src/about.c:230 ../src/fref.c:1416 ../src/fref.c:1700 ../src/fref.c:1787
 #: ../src/fref.c:1822 ../src/fref.c:2296
 msgid "Info"
 msgstr "Informações"
 
-#: ../src/about.c:228
+#: ../src/about.c:232
 msgid "Authors"
 msgstr "Autores"
 
-#: ../src/about.c:229
+#: ../src/about.c:233
 msgid "Translators"
 msgstr "Tradutores"
 
@@ -455,62 +461,62 @@ msgid "This bookmark is set in a file that no longer exists."
 msgstr "Esse bookmark está configurado em um arquivo que não existe mais."
 
 # src/document.c:1465
-#: ../src/bookmark.c:442
+#: ../src/bookmark.c:443
 #, fuzzy, c-format
 msgid "Do you really want to delete %s?"
 msgstr "Você realmente deseja remover %s?"
 
-#: ../src/bookmark.c:444
+#: ../src/bookmark.c:445
 msgid "Delete permanent bookmark."
 msgstr "Apagar bookmark permanente."
 
-#: ../src/bookmark.c:461
+#: ../src/bookmark.c:462
 #, fuzzy
 msgid "Edit bookmark"
 msgstr "Ir para bookmark"
 
-#: ../src/bookmark.c:469
+#: ../src/bookmark.c:470
 msgid "Goto bookmark"
 msgstr "Ir para bookmark"
 
 # src/menu.c:88
-#: ../src/bookmark.c:477
+#: ../src/bookmark.c:478
 #, fuzzy
 msgid "Edit"
 msgstr "/_Editar"
 
 # src/stringlist.c:262
-#: ../src/bookmark.c:481
+#: ../src/bookmark.c:482
 msgid "Delete"
 msgstr "Apagar"
 
-#: ../src/bookmark.c:903 ../src/bookmark.c:938 ../src/document.c:1987
+#: ../src/bookmark.c:904 ../src/bookmark.c:939 ../src/document.c:1987
 #, fuzzy
 msgid "Add bookmark"
 msgstr "Ir para bookmark"
 
-#: ../src/bookmark.c:904
+#: ../src/bookmark.c:905
 #, fuzzy
 msgid "Cannot add bookmarks in unnamed files."
 msgstr ""
 "Não pode adicionar bookmarks em arquivo sem nome.\n"
 "Por favor, salve o arquivo primeiro."
 
-#: ../src/bookmark.c:939
+#: ../src/bookmark.c:940
 msgid "You already have a bookmark here!"
 msgstr "Você já possue um bookmark aqui!"
 
 # src/document.c:830
-#: ../src/bookmark.c:944
+#: ../src/bookmark.c:945
 #, fuzzy
 msgid "default"
 msgstr "Definir padrão"
 
-#: ../src/bookmark.c:974
+#: ../src/bookmark.c:975
 msgid "temp"
 msgstr ""
 
-#: ../src/bookmark.c:1042
+#: ../src/bookmark.c:1043
 #, c-format
 msgid ""
 "Character count changed in file\n"
@@ -519,7 +525,7 @@ msgstr ""
 "Caractere de contagem mudou no arquivo\n"
 "  %s."
 
-#: ../src/bookmark.c:1044
+#: ../src/bookmark.c:1045
 #, fuzzy
 msgid "Bookmarks positions could be incorrect."
 msgstr "As posições dos bookmarks estão incorretas."
@@ -4890,7 +4896,7 @@ msgstr "Bookmarks"
 # src/document.c:1347 src/document.c:1547
 #: ../src/preferences.c:1901
 #, fuzzy
-msgid "Sort by filename"
+msgid "Sort by line number"
 msgstr "Nenhum nome de arquivo"
 
 # src/document.c:830
