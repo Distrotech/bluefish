@@ -57,10 +57,23 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 	</sect1>
 	<sect1 id="bluefish-ch-4-sect-2">
 		<title>changing shortcut keys</title>
-		<remark>(Alastair)Also, use backspace to remove a shortcut</remark>
 		<para>
-			shortcuts = custom use, how to change it
+			Many menu entries are also accessible by a key combination, we call that a shortcut. For example 
+			pressing the ctrl+s keys together makes Bluefish save the current file to disk. You can see the 
+			shortcut key combination on the right of the menu entry.
 		</para>
+		<para>
+		What many people do not know is that they can be changed. Move the mouse over a meny entry, and press
+		the key combination you would like to use. Immediately this combination will show up on the right 
+		of the menu entry. An entry can also be removed, press the backspace key when you move the mouse 
+		over a menu entry to remove the shortcut.
+		</para>
+		<para>
+		To save the shortcut key combinations for later Bluefish sessions you can store them. In the 
+		Options menu choose Save shortcut keys. This will store the settings in file ~/.bluefish/menudump_2. 
+		If you want to restore the default combinations simply remove this file and restart Bluefish.
+		</para>
+		
 	</sect1>
 	<sect1 id="bluefish-ch-4-sect-3">
 		<title>the toolbar</title>
