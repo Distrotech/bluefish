@@ -96,18 +96,18 @@ void files_advanced_win(Tbfwin *bfwin, gchar *basedir) {
 	unsigned int i = 0;
 	
 	const gchar *fileExts[] = {
-		".html",
-		".htm",
-		".php",
-		".php3",
-		".shtml",
-		".pl",
-		".cgi",
-		".xml",
-		".c",
-		".h",
-		".py",
-		".java",
+		"*.html",
+		"*.htm",
+		"*.php",
+		"*.php3",
+		"*.shtml",
+		"*.pl",
+		"*.cgi",
+		"*.xml",
+		"*.c",
+		"*.h",
+		"*.py",
+		"*.java",
 	};
 	
 	tfs = g_new (Tfiles_advanced, 1);
@@ -143,7 +143,7 @@ void files_advanced_win(Tbfwin *bfwin, gchar *basedir) {
 	};
 	tfs->find_pattern = gtk_combo_box_entry_new_with_model (GTK_TREE_MODEL (lstore), 0);
 	g_object_unref (lstore);
-	bf_mnemonic_label_tad_with_alignment(_("_File Type:"), tfs->find_pattern, 0, 0.5, table, 1, 2, 2, 3);
+	bf_mnemonic_label_tad_with_alignment(_("_Pattern:"), tfs->find_pattern, 0, 0.5, table, 1, 2, 2, 3);
 	gtk_table_attach_defaults(GTK_TABLE(table), tfs->find_pattern, 2, 4, 2, 3);
 	g_signal_connect (G_OBJECT (tfs->find_pattern), "changed", G_CALLBACK (files_advanced_win_findpattern_changed), tfs);
 
