@@ -113,15 +113,16 @@ typedef struct {
 #define BFWIN(var) ((Tbfwin *)(var))
 #define DOCUMENT(var) ((Tdocument *)(var))
 
-enum {
+typedef enum {
 	DOC_STATUS_ERROR,
 	DOC_STATUS_LOADING,
-	DOC_STATUS_COMPLETE
-};
+	DOC_STATUS_COMPLETE,
+	DOC_CLOSING
+} Tdocstatus;
 typedef struct {
 	gchar *uri; /* slowly we should move all functions so they will use the URI, and not the filename */
 	gchar *filename; /* this is the UTF-8 encoded filename, before you use it on disk you need convert to disk-encoding! */
-	gint status; /* can be DOC_STATUS_ERROR, DOC_STATUS_LOADING, DOC_STATUS_COMPLETE */
+	Tdocstatus status; /* can be DOC_STATUS_ERROR, DOC_STATUS_LOADING, DOC_STATUS_COMPLETE, DOC_CLOSING */
 	gchar *encoding;
 	gint modified;
 	GnomeVFSFileInfo *fileinfo;

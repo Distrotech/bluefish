@@ -402,3 +402,138 @@ void file_open_url_cb(GtkWidget * widget, Tbfwin *bfwin) {
 	gtk_window_set_default(GTK_WINDOW(ou->win), but);
 	gtk_widget_show_all(ou->win);
 }
+
+/* async save code */
+
+static TcheckNsave_return doc_checkNsave_lcb(TcheckNsave_status status,gint error_info,gpointer data) {
+	Tdocument *doc = data;
+	gchar *errmessage;
+	DEBUG_MSG("doc_checkNsave_lcb, doc=%p, status=%d\n",doc,status);
+	switch (status) {
+		case CHECKANDSAVE_ERROR_NOBACKUP:
+			{
+				return CHECKNSAVE_CONT;
+			}
+		break;
+		case CHECKANDSAVE_ERROR:
+		case CHECKANDSAVE_ERROR_NOCHANNEL:
+		case CHECKANDSAVE_ERROR_NOWRITE:
+			{
+				DEBUG_MSG("doc_checkNsave_lcb, some ERROR, give user a message\n");
+				errmessage = g_strconcat(_("Could not save file:\n\""), doc->uri, "\"", NULL);
+				error_dialog(BFWIN(doc->bfwin)->main_window,_("File save aborted.\n"), errmessage);
+				g_free(errmessage);
+			}
+		break;
+		case CHECKANDSAVE_ERROR_MODIFIED:
+			{
+				return CHECKNSAVE_CONT;
+			}
+		case CHECKANDSAVE_CHECKED:
+		case CHECKANDSAVE_BACKUP:
+		case CHECKANDSAVE_CHANNEL_OPENED:
+			/* do nothing, or perhaps we could change the notebook tab color ? */
+		break;
+		case CHECKANDSAVE_FINISHED:
+			{
+			GnomeVFSURI *uri;
+			/* YES! we're done! update the fileinfo !*/
+			DEBUG_MSG("doc_checkNsave_lcb, re-set async doc->fileinfo (current=%p)\n",doc->fileinfo);
+			if (doc->fileinfo) gnome_vfs_file_info_unref(doc->fileinfo);
+			doc->fileinfo = NULL;
+			uri = gnome_vfs_uri_new(doc->uri);
+			file_doc_fill_fileinfo(doc, uri);
+			gnome_vfs_uri_unref(uri);
+			}
+		break;
+	}
+	return CHECKNSAVE_CONT;
+}
+
+static void doc_save_backend(Tdocument *doc, gboolean do_save_as, gboolean do_move, gboolean close_doc, gboolean close_window) {
+	DEBUG_MSG("doc_save_backend, started for doc %p\n",doc);
+	if (doc->filename == NULL) {
+		do_save_as = 1;
+	}
+	if (do_move) {
+		do_save_as = 1;
+	}
+/************ SHOULD BE REMOVED ************/
+	if (doc->uri == NULL) {
+		doc->uri = g_strdup(doc->filename);
+	}
+/************************/
+	if (do_save_as) {
+		gchar *newfilename;
+		newfilename = ask_new_filename(BFWIN(doc->bfwin), doc->uri, gtk_label_get_text(GTK_LABEL(doc->tab_label)), do_move);
+		if (!newfilename) {
+			return;
+		}
+		if (doc->uri) {
+			if (do_move) {
+				gnome_vfs_unlink(doc->uri);
+			}
+			g_free(doc->uri);
+		}
+		doc->uri = newfilename;
+		if (doc->filename) g_free(doc->filename);
+		doc->filename = g_strdup(doc->uri);
+	}
+	{
+		Trefcpointer *buffer;
+		GtkTextIter itstart, itend;
+		GnomeVFSURI *uri;
+		uri = gnome_vfs_uri_new(doc->uri);
+		gtk_text_buffer_get_bounds(doc->buffer,&itstart,&itend);
+
+		buffer = refcpointer_new(gtk_text_buffer_get_text(doc->buffer,&itstart,&itend,FALSE));
+
+		file_checkNsave_uri_async(uri, doc->fileinfo, buffer, strlen(buffer->data), !do_save_as, doc_checkNsave_lcb, doc);
+
+		if (do_save_as) {
+			doc_reset_filetype(doc, doc->uri, buffer->data);
+			doc_set_title(doc);
+		}
+		refcpointer_unref(buffer);
+		gnome_vfs_uri_unref(uri);
+	}
+}
+
+/**
+ * file_save_cb:
+ * @widget: unused #GtkWidget
+ * @bfwin: #Tbfwin* with the current window
+ *
+ * Save the current document.
+ *
+ * Return value: void
+ **/
+void file_save_cb(GtkWidget * widget, Tbfwin *bfwin) {
+	doc_save_backend(bfwin->current_document, FALSE, FALSE, FALSE, FALSE);
+}
+
+/**
+ * file_save_as_cb:
+ * @widget: unused #GtkWidget
+ * @bfwin: #Tbfwin* with the current window
+ *
+ * Save current document, let user choose filename.
+ *
+ * Return value: void
+ **/
+void file_save_as_cb(GtkWidget * widget, Tbfwin *bfwin) {
+	doc_save_backend(bfwin->current_document, TRUE, FALSE, FALSE, FALSE);
+}
+
+/**
+ * file_move_to_cb:
+ * @widget: unused #GtkWidget
+ * @bfwin: #Tbfwin* with the current window
+ *
+ * Move current document, let user choose filename.
+ *
+ * Return value: void
+ **/
+void file_move_to_cb(GtkWidget * widget, Tbfwin *bfwin) {
+	doc_save_backend(bfwin->current_document, TRUE, TRUE, FALSE, FALSE);
+}

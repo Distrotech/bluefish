@@ -37,7 +37,7 @@
 #include <time.h>			/* ctime_r() */
 #include <pcre.h>
 
-/*#define DEBUG*/
+#define DEBUG
 
 #ifdef DEBUGPROFILING
 #include <sys/times.h>
@@ -448,7 +448,7 @@ gboolean doc_set_filetype(Tdocument *doc, Tfiletype *ft) {
  *
  * Return value: void
  */
-static void doc_set_title(Tdocument *doc) {
+void doc_set_title(Tdocument *doc) {
 	gchar *label_string, *tabmenu_string;
 	if (doc->filename) {
 		label_string = g_path_get_basename(doc->filename);
@@ -2482,13 +2482,6 @@ gchar *ask_new_filename(Tbfwin *bfwin,gchar *oldfilename, const gchar *gui_name,
 	return newfilename;
 }
 
-static TcheckNsave_return doc_checkNsave_lcb(TcheckNsave_status status,gint error_info,gpointer data) {
-	Tdocument *doc = data;
-
-	DEBUG_MSG("doc_checkNsave_lcb, called with status=%d and doc=%p\n",status,doc);
-	return CHECKNSAVE_CONT;
-}
-
 /**
  * doc_save:
  * @doc: the #Tdocument to save
@@ -2587,17 +2580,6 @@ gint doc_save(Tdocument * doc, gboolean do_save_as, gboolean do_move, gboolean w
 	}
 	retval = doc_textbox_to_file(doc, doc->filename, window_closing);
 
-/*********** FOR DEBUGGING ************
-	{
-	Trefcpointer *buffer;
-	GtkTextIter itstart, itend;
-	GnomeVFSURI *uri = gnome_vfs_uri_new(doc->filename);
-	gtk_text_buffer_get_bounds(doc->buffer,&itstart,&itend);
-	buffer = refcpointer_new(gtk_text_buffer_get_text(doc->buffer,&itstart,&itend,FALSE));
-	file_checkNsave_uri_async(uri, doc->fileinfo, buffer, strlen(buffer->data), doc_checkNsave_lcb, doc);
-	refcpointer_unref(buffer);
-	}
-*********** FOR DEBUGGING ************/
 	switch (retval) {
 		gchar *errmessage;
 		case -1:
@@ -2808,6 +2790,7 @@ static Tdocument *doc_new_backend(Tbfwin *bfwin, gboolean force_new) {
 	/* test if the current document is empty and nameless, if so we return that */
 	if (!force_new && g_list_length(bfwin->documentlist)==1 && doc_is_empty_non_modified_and_nameless(bfwin->current_document)) {
 		newdoc = bfwin->current_document;
+		DEBUG_MSG("doc_new_backend, returning existing doc %p\n",newdoc);
 		return newdoc;
 	}
 	
@@ -3337,45 +3320,6 @@ void file_open_from_selection(Tbfwin *bfwin) {
 		}
 		g_free(string);
 	}
-}
-
-/**
- * file_save_cb:
- * @widget: unused #GtkWidget
- * @bfwin: #Tbfwin* with the current window
- *
- * Save the current document.
- *
- * Return value: void
- **/
-void file_save_cb(GtkWidget * widget, Tbfwin *bfwin) {
-	doc_save(bfwin->current_document, FALSE, FALSE, FALSE);
-}
-
-/**
- * file_save_as_cb:
- * @widget: unused #GtkWidget
- * @bfwin: #Tbfwin* with the current window
- *
- * Save current document, let user choose filename.
- *
- * Return value: void
- **/
-void file_save_as_cb(GtkWidget * widget, Tbfwin *bfwin) {
-	doc_save(bfwin->current_document, TRUE, FALSE, FALSE);
-}
-
-/**
- * file_move_to_cb:
- * @widget: unused #GtkWidget
- * @bfwin: #Tbfwin* with the current window
- *
- * Move current document, let user choose filename.
- *
- * Return value: void
- **/
-void file_move_to_cb(GtkWidget * widget, Tbfwin *bfwin) {
-	doc_save(bfwin->current_document, TRUE, TRUE, FALSE);
 }
 
 /**
