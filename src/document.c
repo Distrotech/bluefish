@@ -923,6 +923,33 @@ gint doc_get_cursor_position(Tdocument *doc) {
 	gtk_text_buffer_get_iter_at_mark(doc->buffer, &iter, mark);
 	return gtk_text_iter_get_offset(&iter);
 }
+
+/**
+ * doc_set_statusbar_lncol:
+ * @buffer: a #GtkTextBuffer
+ * @doc: a #Tdocument
+ * 
+ * Return value: void
+ **/
+void doc_set_statusbar_lncol(GtkTextBuffer *buffer, Tdocument *doc)
+{
+	gchar *msg;
+	gint line, col;
+	GtkTextIter iter;
+
+	gtk_text_buffer_get_iter_at_mark(buffer, &iter, gtk_text_buffer_get_insert(buffer));
+
+	line = gtk_text_iter_get_line(&iter);
+	col = gtk_text_iter_get_line_offset(&iter);
+  
+	msg = g_strdup_printf(_(" Ln %d, Col %d"), line + 1, col + 1);
+
+	gtk_statusbar_pop(GTK_STATUSBAR(BFWIN(doc->bfwin)->statusbar_lncol), 0);
+	gtk_statusbar_push(GTK_STATUSBAR(BFWIN(doc->bfwin)->statusbar_lncol), 0, msg);
+
+	g_free (msg);	
+}
+
 /**
  * doc_set_statusbar_insovr:
  * @doc: a #Tdocument
@@ -1440,32 +1467,6 @@ static gint doc_check_backup(Tdocument *doc) {
 	return res;
 }
 
-/* offset is used because at the time a newline is entered in
- * doc_buffer_insert_text_lcb() the cursor is not yet forwarded to the new line, so
- * we need to add 1 to the line number in that specific case
- * also: the line number starts at line 1 and not at 0 !!
- */
-static void doc_update_linenumber(Tdocument *doc, GtkTextIter *iter, gint offset) {
-	gint line;
-	gchar *string;
-	GtkTextIter itinsert;
-
-	if (iter == NULL) {
-		GtkTextMark* insert;
-		insert = gtk_text_buffer_get_insert(doc->buffer);
-		gtk_text_buffer_get_iter_at_mark(doc->buffer, &itinsert, insert);
-	} else {
-		itinsert = *iter;
-	}
-	line = gtk_text_iter_get_line(&itinsert) + 1;
-		
-	string = g_strdup_printf(_(" Line  %d"), line + offset);
-	gtk_statusbar_pop(GTK_STATUSBAR(BFWIN(doc->bfwin)->statusbar_lncol), 0);
-	gtk_statusbar_push(GTK_STATUSBAR(BFWIN(doc->bfwin)->statusbar_lncol), 0, string);
-	g_free(string);
-	DEBUG_MSG("doc_update_linenumber, line=%d\n", line);
-}
-
 static void doc_buffer_insert_text_lcb(GtkTextBuffer *textbuffer,GtkTextIter * iter,gchar * string,gint len, Tdocument * doc) {
 
 	DEBUG_MSG("doc_buffer_insert_text_lcb, started, string='%s'\n", string);
@@ -1475,10 +1476,7 @@ static void doc_buffer_insert_text_lcb(GtkTextBuffer *textbuffer,GtkTextIter * i
 		if ((string[0] == ' ' || string[0] == '\n' || string[0] == '\t') || !doc_undo_op_compare(doc,UndoInsert)) {
 			DEBUG_MSG("doc_buffer_insert_text_lcb, need a new undogroup\n");
 			doc_unre_new_group(doc);
-		}
-		if (string[0] == '\n') {
-			doc_update_linenumber(doc, iter, 1);
-		}
+		}	
 	}
 	{
 		gint pos = gtk_text_iter_get_offset(iter);
@@ -1582,10 +1580,7 @@ static void doc_buffer_delete_range_lcb(GtkTextBuffer *textbuffer,GtkTextIter * 
 				if ((string[0] == ' ' || string[0] == '\n' || string[0] == '\t') || !doc_undo_op_compare(doc,UndoDelete)) {
 					DEBUG_MSG("doc_buffer_delete_range_lcb, need a new undogroup\n");
 					doc_unre_new_group(doc);
-				}
-				if (string[0] == '\n') {
-					doc_update_linenumber(doc, NULL, 0);
-				}
+				}			
 			} else {
 				doc_unre_new_group(doc);
 			}
@@ -1638,13 +1633,12 @@ static gboolean doc_view_button_press_lcb(GtkWidget *widget,GdkEventButton *beve
 }
 
 
-static void doc_buffer_mark_set_lcb(GtkTextBuffer *buffer,GtkTextIter *iter,
-                                            GtkTextMark *set_mark,
-                                            Tdocument *doc) {
-	GtkTextMark *ins_mark = gtk_text_buffer_get_insert(buffer);
-	if (ins_mark == set_mark) {
-		doc_update_linenumber(doc, iter, 0);
-	}
+static void doc_buffer_mark_set_lcb(GtkTextBuffer *buffer,
+													   GtkTextIter *iter,
+                                            		   GtkTextMark *set_mark,
+                                            		   Tdocument *doc)
+{
+	doc_set_statusbar_lncol(buffer, doc);	
 }
 
 static void doc_view_toggle_overwrite_lcb(GtkTextView *view, Tdocument *doc)
@@ -2304,12 +2298,14 @@ Tdocument *doc_new(Tbfwin* bfwin, gboolean delay_activate) {
 	newdoc->overwrite_mode = FALSE;
 	doc_bind_signals(newdoc);
 
-	g_signal_connect(G_OBJECT(newdoc->view), "button-release-event"
-		, G_CALLBACK(doc_view_button_release_lcb), newdoc);
-	g_signal_connect(G_OBJECT(newdoc->view), "button-press-event"
-		, G_CALLBACK(doc_view_button_press_lcb), newdoc);
-	g_signal_connect(G_OBJECT(newdoc->buffer), "mark-set"
-		, G_CALLBACK(doc_buffer_mark_set_lcb), newdoc);
+	g_signal_connect(G_OBJECT(newdoc->view), "button-release-event", 
+		G_CALLBACK(doc_view_button_release_lcb), newdoc);
+	g_signal_connect(G_OBJECT(newdoc->view), "button-press-event", 
+		G_CALLBACK(doc_view_button_press_lcb), newdoc);
+	g_signal_connect(G_OBJECT(newdoc->buffer), "changed",
+		G_CALLBACK(doc_set_statusbar_lncol), newdoc);
+	g_signal_connect(G_OBJECT(newdoc->buffer), "mark-set", 
+		G_CALLBACK(doc_buffer_mark_set_lcb), newdoc);
 	g_signal_connect(G_OBJECT(newdoc->view), "toggle-overwrite",
 		G_CALLBACK(doc_view_toggle_overwrite_lcb), newdoc);
 	bfwin->documentlist = g_list_append(bfwin->documentlist, newdoc);
@@ -2329,7 +2325,7 @@ Tdocument *doc_new(Tbfwin* bfwin, gboolean delay_activate) {
 		gtk_widget_show(image);
 		gtk_container_add(GTK_CONTAINER(but), image);
 		gtk_container_set_border_width(GTK_CONTAINER(but), 0);
-		gtk_widget_set_usize(but, 12,12);
+		gtk_widget_set_size_request(but, 12,12);
 		}
 		
 		gtk_button_set_relief(GTK_BUTTON(but), GTK_RELIEF_NONE);
@@ -2620,9 +2616,9 @@ void doc_activate(Tdocument *doc) {
 	DEBUG_MSG("doc_activate, calling gui_set_widgets\n");
 	gui_set_widgets(BFWIN(doc->bfwin),doc_has_undo_list(doc), doc_has_redo_list(doc), doc->wrapstate, doc->highlightstate, doc->hl, doc->encoding, doc->linenumberstate);
 	gui_set_title(BFWIN(doc->bfwin), doc);
+	doc_set_statusbar_lncol(doc->buffer, doc);
 	doc_set_statusbar_insovr(doc);
 	doc_set_statusbar_editmode_encoding(doc);
-	doc_update_linenumber(doc, NULL, 0);
 
 	/* if highlighting is needed for this document do this now !! */
 	if (doc->need_highlighting && doc->highlightstate) {
