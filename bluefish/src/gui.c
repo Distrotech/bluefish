@@ -60,8 +60,8 @@ void notebook_changed(gint newpage)
 #endif
 			doc_activate(main_v->current_document);
 			DEBUG_MSG("notebook_changed, setting up toggle item\n");
-/*			setup_toggle_item(gtk_item_factory_from_widget(main_v->menubar), N_("/View/Highlight syntax"),
-							  main_v->current_document->highlightstate);*/
+			setup_toggle_item(gtk_item_factory_from_widget(main_v->menubar), N_("/Options/Current document/Highlight syntax"),
+							  main_v->current_document->highlightstate);
 		}
 	}
 }

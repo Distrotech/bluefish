@@ -475,7 +475,7 @@ void rcfile_parse_main(void)
 	/*Make the config_rc list ready for filling with data and set default values */
 	main_configlist = props_init_main(NULL);
 
-	filename = g_strconcat(g_get_home_dir(), "/.bluefish/rcfile", NULL);
+	filename = g_strconcat(g_get_home_dir(), "/.bluefish/rcfile_v2", NULL);
 	if (!parse_config_file(main_configlist, filename)) {
 		/* should we initialize some things ?? */
 	}

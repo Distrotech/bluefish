@@ -26,6 +26,7 @@
 
 #include "bluefish.h"
 #include "document.h"			/* file_open etc. */
+#include "highlight.h" /* hl_update_current_document_cb */
 #include "menu.h" /* my own .h file */
 #include "undo_redo.h" /* undo_cb() redo_cb() etc. */
 #include "snr2.h" /* search_cb, replace_cb */
@@ -85,7 +86,13 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/External/Filters/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
 	{N_("/External/Commands"), NULL, NULL, 0, "<Branch>"},
 	{N_("/External/Commands/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
-	{N_("/External/sep1"), NULL, NULL, 0, "<Separator>"}
+	{N_("/External/sep1"), NULL, NULL, 0, "<Separator>"},
+	{N_("/_Options"), NULL, NULL, 0, "<Branch>"},
+	{N_("/Options/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
+	{N_("/Options/Current document"), NULL, NULL, 0, "<Branch>"},
+	{N_("/Options/Current document/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
+	{N_("/Options/Current document/Highlight syntax"), NULL, doc_toggle_highlighting_cb, 0, "<ToggleItem>"},
+	{N_("/Options/Current document/Update highlighting"), "F5", doc_update_highlighting, 0, NULL}
 };
 
 

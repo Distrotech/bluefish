@@ -22,7 +22,14 @@
 #define __BLUEFISH_H_
 
 #define DEBUG
+
+#ifdef DEBUG
 #define DEBUG_MSG g_print
+#else
+#define DEBUG_MSG(format, args...)
+ /**/
+#endif /* DEBUG */
+
 #define _(String) (String)
 #define N_(String) (String)
 #define CURRENT_VERSION_NAME "bluefish-gtk2-porting"
@@ -83,6 +90,7 @@ typedef struct {
 
 typedef struct {
 	gchar *filename;
+	gchar *encoding;
 	gint modified;
 	time_t mtime; /* from stat() */
 	uid_t owner_uid; /* user ID of owner */

@@ -22,6 +22,8 @@
 #define __DOCUMENT_H_
 
 gint documentlist_return_index_from_filename(gchar *filename);
+void doc_toggle_highlighting_cb(GtkWidget * w, gpointer data);
+void doc_update_highlighting(GtkWidget *wid, gpointer data);
 void document_set_wrap(Tdocument *doc, gint wraptype);
 
 gboolean test_only_empty_doc_left();
