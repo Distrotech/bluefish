@@ -313,7 +313,7 @@ static void doc_set_stat_info(Tdocument *doc) {
 	}
 }
 
-static void doc_scroll_to_line(Tdocument *doc, gint linenum, gboolean select_line) {
+/*static void doc_scroll_to_line(Tdocument *doc, gint linenum, gboolean select_line) {
 	GtkTextIter itstart;
 
 	gtk_text_buffer_get_iter_at_line(doc->buffer,&itstart,linenum);
@@ -324,11 +324,11 @@ static void doc_scroll_to_line(Tdocument *doc, gint linenum, gboolean select_lin
 		gtk_text_buffer_place_cursor (doc->buffer, &itstart);
 		gtk_text_buffer_move_mark_by_name(doc->buffer,"selection_bound",&itend);
 	}
-}
+}*/
 
 void doc_scroll_to_cursor(Tdocument *doc) {
 	GtkTextMark *mark = gtk_text_buffer_get_insert(doc->buffer);
-	gtk_text_view_scroll_to_mark(doc->view,mark,0.25,FALSE,0.5,0.5);
+	gtk_text_view_scroll_to_mark(GTK_TEXT_VIEW(doc->view),mark,0.25,FALSE,0.5,0.5);
 }
 
 /* gchar *doc_get_chars(Tdocument *doc, gint startpos, gint len)
@@ -536,7 +536,7 @@ gboolean doc_file_to_textbox(Tdocument * doc, gchar * filename, gboolean enable_
 					doc->encoding = g_strdup("ISO-8859-1");
 				}
 			} else {
-				gchar *encoding;
+				gchar *encoding=NULL;
 				g_get_charset(&encoding);
 				g_free(doc->encoding);
 				doc->encoding = g_strdup(encoding);
@@ -575,7 +575,7 @@ gboolean doc_file_to_textbox(Tdocument * doc, gchar * filename, gboolean enable_
 		gtk_text_buffer_get_iter_at_offset(doc->buffer,&iter,cursor_offset);
 		gtk_text_buffer_place_cursor(doc->buffer,&iter);
 		if (!delay_highlighting) {
-			gtk_text_view_place_cursor_onscreen(doc->view);
+			gtk_text_view_place_cursor_onscreen(GTK_TEXT_VIEW(doc->view));
 		}
 	}
 	return TRUE;
@@ -600,6 +600,78 @@ static gint doc_check_backup(Tdocument *doc) {
 	}
 	return res;
 }
+
+/*
+returning 0 --> cancel or abort
+returning 1 --> ok, closed or saved & closed
+*/
+gint doc_close(Tdocument * doc, gint warn_only)
+{
+	gchar *text;
+	gint retval;
+
+	if (!doc) {
+		return 0;
+	}
+
+	if (doc_is_empty_non_modified_and_nameless(doc)) {
+		/* no need to close this doc, it's an Untitled empty document */
+		return 0;
+	}
+
+	if (doc->modified) {
+		if (doc->filename) {
+			text =
+				g_strdup_printf(_("Are you sure you want to close\n%s ?"),
+								doc->filename);
+		} else {
+			text =
+				g_strdup(_
+						 ("Are you sure you want to close\nthis untitled file ?"));
+		}
+	
+		{
+			gchar *buttons[] = {N_("Save"), N_("Close"), N_("Cancel"), NULL};
+			retval = multi_button_dialog(_("Bluefish warning: file is modified!"), 2, text, buttons);
+		}
+		g_free(text);
+
+		switch (retval) {
+		case 2:
+			DEBUG_MSG("doc_close, retval=2 (cancel) , returning\n");
+			return 2;
+			break;
+		case 0:
+			doc_save(doc, 0, 0);
+			if (doc->modified == 1) {
+				/* something went wrong it's still not saved */
+				return 0;
+			}
+			if (!warn_only) {
+				doc_destroy(doc, FALSE);
+			}
+			break;
+		case 1:
+			if (!warn_only) {
+				doc_destroy(doc, FALSE);
+			}
+			break;
+		default:
+			return 0;			/* something went wrong */
+			break;
+		}
+	} else {
+		DEBUG_MSG("doc_close, closing doc=%p\n", doc);
+		if (!warn_only) {
+			doc_destroy(doc, FALSE);
+		}
+	}
+
+/*	notebook_changed();*/
+	return 1;
+}
+
+
 /* offset is used because at the time a newline is entered in
 doc_buffer_insert_text_lcb() the cursor is not yet forwarded to the new line, so
 we need to add 1 to the line number in that specific case
@@ -844,7 +916,7 @@ Tdocument *doc_new(gboolean delay_activate) {
 	document_set_wrap(newdoc, -1);
 	{
 		PangoTabArray* panarr = pango_tab_array_new_with_positions(1,TRUE,PANGO_TAB_LEFT,30);
-		gtk_text_view_set_tabs(newdoc->view,panarr);
+		gtk_text_view_set_tabs(GTK_TEXT_VIEW(newdoc->view),panarr);
 		pango_tab_array_free(panarr);
 	}
 
@@ -1143,76 +1215,6 @@ gint doc_save(Tdocument * doc, gint do_save_as, gint do_move)
 		g_free(oldfilename);
 	}
 	return retval;
-}
-
-/*
-returning 0 --> cancel or abort
-returning 1 --> ok, closed or saved & closed
-*/
-gint doc_close(Tdocument * doc, gint warn_only)
-{
-	gchar *text;
-	gint retval;
-
-	if (!doc) {
-		return 0;
-	}
-
-	if (doc_is_empty_non_modified_and_nameless(doc)) {
-		/* no need to close this doc, it's an Untitled empty document */
-		return 0;
-	}
-
-	if (doc->modified) {
-		if (doc->filename) {
-			text =
-				g_strdup_printf(_("Are you sure you want to close\n%s ?"),
-								doc->filename);
-		} else {
-			text =
-				g_strdup(_
-						 ("Are you sure you want to close\nthis untitled file ?"));
-		}
-	
-		{
-			gchar *buttons[] = {N_("Save"), N_("Close"), N_("Cancel"), NULL};
-			retval = multi_button_dialog(_("Bluefish warning: file is modified!"), 2, text, buttons);
-		}
-		g_free(text);
-
-		switch (retval) {
-		case 2:
-			DEBUG_MSG("doc_close, retval=2 (cancel) , returning\n");
-			return 2;
-			break;
-		case 0:
-			doc_save(doc, 0, 0);
-			if (doc->modified == 1) {
-				/* something went wrong it's still not saved */
-				return 0;
-			}
-			if (!warn_only) {
-				doc_destroy(doc, FALSE);
-			}
-			break;
-		case 1:
-			if (!warn_only) {
-				doc_destroy(doc, FALSE);
-			}
-			break;
-		default:
-			return 0;			/* something went wrong */
-			break;
-		}
-	} else {
-		DEBUG_MSG("doc_close, closing doc=%p\n", doc);
-		if (!warn_only) {
-			doc_destroy(doc, FALSE);
-		}
-	}
-
-/*	notebook_changed();*/
-	return 1;
 }
 
 
