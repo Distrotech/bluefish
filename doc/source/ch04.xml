@@ -311,19 +311,70 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.-->
   <sect1 id="bluefish-ch-4-sect-4">
     <title>The File Editing Area</title>
 
-    <para>here you are the most time</para>
+	<sect2 id="bluefish-ch-4-sect-4.1">
 
-    <sect2 id="bluefish-ch-4-sect-4.1">
-      <title>Editing Text</title>
+    <title>Navigation trough text and documents</title>
 
-      <para>some things in editing text</para>
+    <para>The editing area is a standard gtk editing area. This means there are 
+    many keyboard shortcuts available to navigate trought the text.</para>
+        
+    <itemizedlist>
+	 <listitem><para>control+right-arrow will jump to the next word boundary</para></listitem>
+    <listitem><para>control+left-arrow will jump to the previous word boundary</para></listitem>
+    <listitem><para>end will jump to the end of line</para></listitem>
+    <listitem><para>home will jump to the beginning of the line</para></listitem>
+    <listitem><para>page-up will jump one page up</para></listitem>
+    <listitem><para>page-down will jump one page down</para></listitem>
+    <listitem><para>control+home will jump to the top of the document</para></listitem>
+    <listitem><para>control+end will jump to the end of the document</para></listitem>
+    <listitem><para>control + page-up will change to the previous document</para></listitem>
+    <listitem><para>control + page-down will change to the next document</para></listitem>
+    </itemizedlist>
+
+    <para>
+    These shortcuts are also available when selecting text. Some examples: To select the 
+    current line, press home, hold shift and press end. To select the current word, 
+    press control+left-arrow, hold shift and press control+right-arrow.
+    </para>
+    
+    <para>
+    Navigating trough a large list of documents can be difficult. But if you right
+    click the document notebook tabs, you get a list of all opened documents.
+    </para>
+    
     </sect2>
   </sect1>
 
   <sect1 id="bluefish-ch-4-sect-5">
-    <title>Statusbar</title>
+    <title>Bookmarks</title>
 
-    <para>info is here</para>
+    <para>In Bluefish you can add bookmarks to a line in the text, and you can later 
+    use the bookmark to quickly jump to this location. Bookmarks can be temporary or 
+    permanent, the default can be configured in the preferences.
+    </para>
+    
+    <para>
+    Bookmarks can be added to the current cursor location by using the 
+    menu /Edit/Add bookmark, or by using the shortcut key combination control+d. You 
+    can also add bookmarks by right-clicking in the text, and selecting add bookmark.
+    </para>
+    
+    <para>
+    A way to add many bookmarks at the same time is using the search dialog. Check the
+    'Bookmark results' option, and all search results will be added to your bookmarks.
+    For example this manual has sections, and each section is identified by a header
+    like '&lt;sect1 id=&quot;bluefish-ch-4-sect-6&quot;&gt;'. A way to automatically 
+    get a bookmark to every section is to search for the following regular expression 
+    pattern: '&lt;sect[0-9]+ id=&quot;[^&quot;]+&quot;&gt;' and bookmark all results
+    </para>
+    
+    <para>
+    Bookmarks can be found in the side panel, sorted by document and line number. If you
+    right click a bookmark, you get a popup menu with several options. Among the option is 
+    edit, which allows you to change a bookmark from temporary to permanent or the other
+    way around, and you can name bookmarks.
+    </para>
+    
   </sect1>
 
   <sect1 id="bluefish-ch-4-sect-6">
@@ -364,12 +415,6 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.-->
     different for every language. The &#34;&#60;title&#62;&#34; word for
     example means &#34;start of title&#34; in HTML, the &#34;function&#34;
     word means &#34;start of function&#34; in PHP.</para>
-
-    <sect2 id="bluefish-ch-4-sect-8.1">
-      <title>Using Syntax Highlighting</title>
-
-      <para>why using syntax highlighting?</para>
-    </sect2>
 
     <sect2 id="bluefish-ch-4-sect-8.2">
       <title>Modifying Highlight Patterns</title>
@@ -514,7 +559,7 @@ don&#39;t change style(0), non-italic(1), italic(2): </programlisting>
       in ${prefix}/share/bluefish/.</para>
       
       <para>
-      The filestypes consist first of a name (this name is also used in the file filters, and in 
+      The filetypes consist first of a name (this name is also used in the file filters, and in 
       the highlighting patterns). Second is a list of extensions, separated by a colon (:). Third 
       are the highlighting update characters. Upon a keypress of one of these characters, the highlighting 
       engine will refresh the highlighting around the cursor. If this field is empty, any character 
