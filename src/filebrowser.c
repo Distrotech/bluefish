@@ -1,5 +1,5 @@
 /* Bluefish HTML Editor
- * filebrowser->c the filebrowser
+ * filebrowser.c the filebrowser
  *
  * Copyright (C) 2002-2003 Olivier Sessink
  *
@@ -1604,6 +1604,7 @@ static void filebrowser_two_pane_notify_position_lcb(GObject *object,GParamSpec 
  * @bfwin: #Tbfwin*
  *
  * Initializer. Currently called from left_panel_build().
+ * builds the filebrowser GUI
  *
  * Return value: #void
  **/
@@ -1626,8 +1627,6 @@ GtkWidget *filebrowser_init(Tbfwin *bfwin) {
 	
 	filebrowser->store = gtk_tree_store_new (N_COLUMNS,GDK_TYPE_PIXBUF,G_TYPE_STRING);
 	filebrowser->tree = gtk_tree_view_new_with_model (GTK_TREE_MODEL(filebrowser->store));
-	/* The view now holds a reference.  We can get rid of our own reference */
-	g_object_unref(G_OBJECT(filebrowser->store));
 	gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(filebrowser->tree), FALSE);	
 
 	{
@@ -1669,8 +1668,6 @@ GtkWidget *filebrowser_init(Tbfwin *bfwin) {
 
 		filebrowser->store2 = gtk_list_store_new (N_COLUMNS,GDK_TYPE_PIXBUF,G_TYPE_STRING);
 		filebrowser->tree2 = gtk_tree_view_new_with_model(GTK_TREE_MODEL(filebrowser->store2));
-		/* The view now holds a reference.  We can get rid of our own reference */
-		g_object_unref(G_OBJECT(filebrowser->store2));
 		gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(filebrowser->tree2), FALSE);
 
 		renderer = gtk_cell_renderer_pixbuf_new();
@@ -1690,21 +1687,31 @@ GtkWidget *filebrowser_init(Tbfwin *bfwin) {
 		filebrowser->store2 = NULL;
 		filebrowser->tree2 = NULL;
 	}
-	
-	{
-		gchar curdir[1024];
-		GtkTreePath *path;
-		
-		getcwd(curdir, 1023);
-		strncat(curdir, "/", 1023);
-		DEBUG_MSG("curdir=%s\n",curdir);
-		path = build_tree_from_path(filebrowser, curdir);
-		if (path) {
-			filebrowser_expand_to_root(filebrowser,path);
-			gtk_tree_path_free(path);
+	if (bfwin->project && bfwin->project->basedir && strlen(bfwin->project->basedir)>2) {
+		filebrowser_set_basedir(bfwin, bfwin->project->basedir);
+	} else {
+		if (bfwin->current_document && bfwin->current_document->filename){
+			GtkTreePath *path;
+			DEBUG_MSG("filebrowser_init, build tree from current doc %s\n",bfwin->current_document->filename);
+			path = build_tree_from_path(filebrowser, bfwin->current_document->filename);
+			if (path) {
+				filebrowser_expand_to_root(filebrowser,path);
+				gtk_tree_path_free(path);
+			}
+		} else {
+			gchar curdir[1024];
+			GtkTreePath *path;
+			
+			getcwd(curdir, 1023);
+			strncat(curdir, "/", 1023);
+			DEBUG_MSG("filebrowser_init, build tree from curdir=%s\n",curdir);
+			path = build_tree_from_path(filebrowser, curdir);
+			if (path) {
+				filebrowser_expand_to_root(filebrowser,path);
+				gtk_tree_path_free(path);
+			}
 		}
 	}
-	
 	g_signal_connect(G_OBJECT(filebrowser->tree), "row-expanded", G_CALLBACK(row_expanded_lcb), filebrowser);
 	g_signal_connect(G_OBJECT(filebrowser->tree), "row-activated",G_CALLBACK(row_activated_lcb),filebrowser);
 	g_signal_connect(G_OBJECT(filebrowser->tree), "button_press_event",G_CALLBACK(filebrowser_button_press_lcb),filebrowser);
@@ -1756,10 +1763,33 @@ void filebrowser_scroll_initial(Tbfwin *bfwin) {
 	}
 }
 
+/**
+ * filebrowser_cleanup:
+ * @bfwin: #Tbfwin*
+ *
+ * this function is called when the filebrowser is hidden, all memory can be 
+ * free-ed here, and everything set to zero
+ *
+ * Return value: void
+ */
+
 void filebrowser_cleanup(Tbfwin *bfwin) {
 	/* is this cleanup complete ? I wonder... we need some memleak detection here.. */
-	FILEBROWSER(bfwin->filebrowser)->store = NULL;
-	FILEBROWSER(bfwin->filebrowser)->tree = NULL;
+	if (bfwin->filebrowser) {
+		DEBUG_MSG("filebrowser_cleanup, cleanup store\n");
+		gtk_tree_store_clear(GTK_TREE_STORE(FILEBROWSER(bfwin->filebrowser)->store));
+		g_object_unref(G_OBJECT(FILEBROWSER(bfwin->filebrowser)->store));
+		if (FILEBROWSER(bfwin->filebrowser)->store2) {
+			DEBUG_MSG("filebrowser_cleanup, cleanup store2\n");
+			gtk_list_store_clear(GTK_LIST_STORE(FILEBROWSER(bfwin->filebrowser)->store2));
+			g_object_unref(G_OBJECT(FILEBROWSER(bfwin->filebrowser)->store2));
+		}
+		if (FILEBROWSER(bfwin->filebrowser)->basedir) g_free(FILEBROWSER(bfwin->filebrowser)->basedir);
+		
+		DEBUG_MSG("filebrowser_cleanup, free filebrowser\n");
+		g_free(bfwin->filebrowser);
+		bfwin->filebrowser = NULL;
+	}
 }
 
 void filebrowserconfig_init() {
