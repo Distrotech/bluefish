@@ -1737,7 +1737,7 @@ The function reference browser can show an info window on the bottom. Check the 
 </para>
 </listitem>
 </itemizedlist>
-<para>You can also right-click a tag and bring up the dialog from there. The preferences have several settings on HTML style under <emphasis>HTML</emphasis>.</para> 
+<para>The preferences have several settings on HTML style under <guilabel>HTML</guilabel>.</para> 
 <para>The HTML tool bar has two types of buttons. You can recognise each type by the tool tip if you move the mouse over the button:</para>
 <itemizedlist>
 <listitem>
@@ -1760,7 +1760,7 @@ The function reference browser can show an info window on the bottom. Check the 
 <listitem>
 <para>Second, there are buttons that will directly insert text, these buttons do not have the dots in the tool tip.
 <figure id="figure-html-tooltip-simple">
-<title id="figure-html-tooltip-dot-single">A simple HTML tool tip button</title>
+<title id="figure-html-tooltip-simple-title">A simple HTML tool tip button</title>
 <screenshot>
 <mediaobject>
 <imageobject>
@@ -1776,26 +1776,67 @@ The function reference browser can show an info window on the bottom. Check the 
 </listitem>
 </itemizedlist>  
 <para>If you want to add the HTML tag around some block of text, you can select the block of text, and then use the HTML tool bar or the Tags or Dialogs menu to insert some tags. The tag open code will be inserted before the selected block, the tag close will be inserted after the selected block.</para>
-<para>An existing tag can be edited by right-clicking the tag, and select <guilabel>Edit tag</guilabel> in the context menu. You can also place the cursor in the tag and use <guilabel>/Dialogs/Edit tag under cursor</guilabel>, or the shortcut <keycap>F3</keycap>. Not all tags, however, have a dialog, so this is not always possible. Colors in the style #RRGGBB can also be edited from the right-click context menu.</para>
+<para>An existing tag can be edited by right-clicking the tag, and select <guilabel>Edit tag</guilabel> in the context menu. You can also place the cursor in the tag and use <menuchoice><shortcut><keycap>F3</keycap></shortcut><guimenu>Dialogs</guimenu><guimenuitem>Edit tag under cursor...</guimenuitem></menuchoice>. Not all tags, however, have a dialog, so this is not always possible. Colors in the style #RRGGBB can also be edited from the right-click context menu.</para>
 <para>In the reference browser on the left panel there is an HTML reference available. All possible attributes and valid values can be found in this reference. See <xref linkend="function-reference"/> for more info.</para> 
-<para>There are several special search and replace actions in the menu <menuchoice><guimenu>Edit</guimenu><guisubmenu>Replace special</guisubmenu></menuchoice>. These can be used to convert special characters (like &lt; and &amp;), or ISO characters to their HTML entities.</para>
+<para>There are several special search and replace actions in the menu <menuchoice><guimenu>Edit</guimenu><guisubmenu>Replace special</guisubmenu></menuchoice>. These can be used to convert special characters (like &lt; and &amp;), or ISO characters to their HTML entities, as well as to change the letters case.
+<figure id="figure-replace-special-menu">
+<title id="figure-replace-special-menu-title">The Replace special menu</title>
+<screenshot>
+<mediaobject>
+<imageobject>
+<imagedata fileref="figures/replace_special_menu.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>A screen shot of the Replace special menu</phrase>
+</textobject>
+</mediaobject>
+</screenshot>
+</figure>
+</para>
+<para>In all cases, when you want to replace some part of the text, you should first select the part to replace, then use the appropiated menu item.</para>
 
 <sect3 id="thumbnails">
 <title>Thumbnail generation</title>
-<para>
-Bluefish can automatically generate thumbnails for images. A thumbnail is a small 
-image, with a 
-link to the larger image. Bluefish will create the small image based on your 
-settings, and insert a
-&lt;img&gt; tag in the file, and a &lt;a&gt; tag linking the original.
+<para>Bluefish can automatically generate thumbnails for images. A thumbnail is a small image, with a link to the larger image. Bluefish will create the small image based on your settings, and insert a &lt;img&gt; tag in the file, and a &lt;a&gt; tag linking the original.
 </para>
-<para>There are actually two thumbnail dialogs in Bluefish, a single thumbnail 
-dialog, and a multi thumbnail dialog.</para>
-<para>The single thumbnail dialog is very straightforward. You select the 
-image, choose the scaling, and some attributes, and press OK. Bluefish will create 
-the thumbnail with 
-extension _thumbnail.png (can be changed in the preferences).</para>
-<para>SCREENSHOT BY ????</para>
+<para>The formats used for thumbnails may be png or jpg format. By default, the format used for thumbnails is png. You can change it in the <guilabel>Images</guilabel> panel of Preferences. For jpg images, the thumbnail extension is jpeg.</para>
+<para>There are actually two thumbnail dialogs in Bluefish, a single thumbnail dialog, and a multi thumbnail dialog. The first one is accessible from the <menuchoice><shortcut><keycombo><keycap>Shift</keycap><keycap>Alt</keycap><keycap>N</keycap></keycombo></shortcut><guimenu>Dialogs</guimenu><guisubmenu>General</guisubmenu><guimenuitem>Insert Thumbnail...</guimenuitem></menuchoice> or from the <guilabel>Standard bar</guilabel> of the HTML toolbar. The second one is only accessible from the <guilabel>Standard bar</guilabel> of the HTML toolbar.</para>
+<para>The single thumbnail dialog is very straightforward. You select the image, choose the scaling (moving the cursor under the image, the result appears immediately in the preview frame), and some attributes, and press OK. Bluefish will create the thumbnail with extension _thumbnail.png or _thumbnail.jpeg (depending of the settings for images in the preferences).
+<figure id="figure-thumbnail_simple_dialog">
+<title id="figure-thumbnail_simple_dialog-title">The Simple thumbnail dialog</title>
+<screenshot>
+<mediaobject>
+<imageobject>
+<imagedata fileref="figures/thumbnail_simple_dialog.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>A screen shot of the thumbnail simple dialog</phrase>
+</textobject>
+</mediaobject>
+</screenshot>
+</figure>
+</para>
+<variablelist>
+<varlistentry>
+<term><emphasis>Tip</emphasis></term>
+<listitem>
+<para>If the source image is not accessible, change <guilabel>webimage</guilabel> to <guilabel>image</guilabel> in the <guilabel>Select File</guilabel> window loaded after clicking on <guilabel>browse</guilabel> for choosing an image. This way you can choose whichever format you want for the original sources. Another way to do it is to change the definition of webimage (see <xref linkend="changing-filetypes"/>).</para>
+</listitem>
+</varlistentry>
+</variablelist>
+<para>The code generated for a png image looks like this:
+<programlisting><![CDATA[
+<a href="tot/343-4351_IMG_2.png">
+<img src="tot/343-4351_IMG_2_thumbnail.png" width="89" height="134"
+border="0" name="Gamboling" alt="Gamboling in the meadow" 
+align="middle"></a>
+]]></programlisting></para>
+<para>and for a jpg image:
+<programlisting><![CDATA[
+<a href="tot/343-4351_IMG_2.JPG">
+<img src="tot/343-4351_IMG_2_thumbnail.jpeg" width="212" height="320" 
+border="0" alt=""></a>
+]]></programlisting></para>
 <para>In the multi thumbnail dialog, you first setup some constraint, and 
 the HTML code to be inserted for each image.</para>
 <para>Scaling can be based on a fixed ratio, based on a fixed width, based 
