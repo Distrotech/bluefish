@@ -2165,8 +2165,8 @@ width="%x" height="%y" border="0"></a>
 </screenshot>
 </figure>
 </para>
-<para>The <menuchoice><guimenu>Custom menu</guimenu><guimenuitem>Edit custom menu...</guimenuitem></menuchoice> leads to the <guilabel>Custom Menu Editor</guilabel>. The <guilabel>Reset</guilabel> item allows you to return to the default custom menu; and the <guilabel>Load new</guilabel> item allows you to load a new menu in case you have directly changed the <filename>custom_menu</filename> file located in the <filename>.bluefish</filename> directory within your HOME directory.</para>
-<para>This file is created upon install Bluefish and corresponds to some default entries. These will give you an idea what can be done with the custom menu.</para>
+<para>The <menuchoice><guimenu>Custom menu</guimenu><guimenuitem>Edit custom menu...</guimenuitem></menuchoice> leads to the <guilabel>Custom Menu Editor</guilabel>. The <guilabel>Load new</guilabel> item allows you to load a new menu in case you have directly changed the <filename>custom_menu</filename> file located in the <filename>.bluefish</filename> directory within your HOME directory, while <guilabel>Reset</guilabel> item allows you to return to the default custom menu under the same circumstances.</para>
+<para>The <filename>custom_menu</filename> file is created upon install Bluefish and corresponds to some default entries, the ones you can see in the <guilabel>Custom menu</guilabel> tool bar. These will give you an idea what can be done with the custom menu.</para>
 <para>The custom menu operates <emphasis>only</emphasis> on elements of the <guilabel>Custom menu</guilabel> tool bar, and allows you to:</para>
 <itemizedlist>
 <listitem>
@@ -2178,7 +2178,48 @@ width="%x" height="%y" border="0"></a>
 <listitem>
 <para>create new menus</para>
 </listitem></itemizedlist>
-<para>The location for entries in the custom menu is defined by their menu path in the <guilabel>Custom Menu Editor</guilabel>. A menu path looks like <emphasis>/Main menu/submenu/item</emphasis> or <emphasis>/Main menu/item</emphasis>. Here's an extract of the default custom menu paths:
+<para>The <guilabel>Custom Menu Editor</guilabel> is the place where you make all changes to the custom menu. The location for entries in the custom menu is defined by their menu path in the <guilabel>Custom Menu Editor</guilabel>:
+<figure id="figure-custom-menu-editor">
+<title id="figure-custom-menu-editor-title">The Custom Menu Editor</title>
+<screenshot>
+<mediaobject>
+<imageobject>
+<imagedata fileref="figures/custom_menu_editor.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>A screen shot of the custom menu editor</phrase>
+</textobject>
+</mediaobject>
+</screenshot>
+</figure>
+</para>
+<para>It has four parts:</para>
+<itemizedlist>
+<listitem>
+<para>The top one with all action buttons:</para>
+<itemizedlist>
+<listitem>
+<para><guilabel>Add</guilabel> which adds new menu entries, once all necessary fields have been filled in</para>
+</listitem>
+<listitem>
+<para><guilabel>Apply</guilabel> which applies changes to an existing menu entry, once it has been edited</para>
+</listitem>
+<listitem>
+<para><guilabel>Delete</guilabel> which deletes the menu entry currently selected in the <guilabel>Menu path</guilabel> list</para>
+</listitem>
+<listitem>
+<para><guilabel>Close</guilabel> which discards changes</para>
+</listitem>
+<listitem>
+<para><guilabel>Save</guilabel> which saves the changes and exit the editor</para>
+</listitem>
+</itemizedlist>
+</listitem>
+<listitem>
+<para>The <guilabel>Menu Path</guilabel> field below the buttons, to enter either an existing or a new menu path</para>
+</listitem>
+<listitem>
+<para>The <guilabel>Menu path</guilabel> list on the left side, which lists existing menu paths. A menu path looks like <emphasis>/Main menu/submenu/item</emphasis> or <emphasis>/Main menu/item</emphasis>. Here's an extract of the default custom menu paths:
 <figure id="figure-custom-menu-default-path">
 <title id="figure-custom-menu-default-path-title">Extract of the default custom menu path</title>
 <screenshot>
@@ -2187,30 +2228,88 @@ width="%x" height="%y" border="0"></a>
 <imagedata fileref="figures/custom_menu_default_path.png" format="PNG"/>
 </imageobject>
 <textobject>
-<phrase>A screen shot showing an extract  of the default custom menu path</phrase>
+<phrase>A screen shot showing an extract of the default custom menu path</phrase>
 </textobject>
 </mediaobject>
 </screenshot>
 </figure>
 </para>
-<para>There are two types of items in the <guilabel>Custom Menu Editor</guilabel>:</para>
+</listitem>
+<listitem>
+<para>A custom part on the right side, whose contents changes depending of the type of menu. There are two types of items in the <guilabel>Custom Menu Editor</guilabel>:</para>
 <itemizedlist>
 <listitem>
 <para>the Custom dialog, which will insert a string, optionally based on values asked in a dialog</para>
 </listitem>
 <listitem>
-<para>the Custom Find and Replace, which will run a replace, also optionally based on values asked in a dialog</para>
+<para>the Custom Find and Replace, which will run a replace, also optionally based on values asked in a dialog. Here's how the <guilabel>Custom Replace</guilabel> dialog looks like:
+<figure id="figure-custom-menu-replace-dialog">
+<title id="figure-custom-menu-replace-dialog-title">The Custom Replace Dialog</title>
+<screenshot>
+<mediaobject>
+<imageobject>
+<imagedata fileref="figures/custom_menu_replace_dialog.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>A screen shot of the custom replace dialog</phrase>
+</textobject>
+</mediaobject>
+</screenshot>
+</figure>
+</para>
+</listitem>
+</itemizedlist>
 </listitem>
 </itemizedlist>
 <para>The most simple custom dialog item has a menupath, for example <emphasis>/MySite/author</emphasis>, and a Formatstring before, for example <emphasis>written by Olivier</emphasis>. If you add this item, you can add this string by selecting the menu item.</para>
 <procedure id="custom-menu-dialog">
 <title>Adding a custom menu based on custom dialog</title>
-	<step><para>
+<step>
+<para>Choose <menuchoice><guimenu>Custom menu</guimenu><guimenuitem>Edit custom menu...</guimenuitem></menuchoice> in the custom menu tool bar.</para>
+</step>
+<step>
+<para>Enter <userinput>/MySite/author</userinput> in the <guilabel>Menu Path</guilabel> field of the <guilabel>Custom Menu editor</guilabel>.</para>
+</step>
+<step>
+<para>Enter <userinput>written by Olivier</userinput> in the <guilabel>Formatstring Before</guilabel> field located on the right.</para>
+</step>
+<step>
+<para>Click on the <guilabel>Add</guilabel> button at the top.</para>
+<para>Notice that upon adding the new entry, it is listed at the bottom of the <guilabel>Menu path</guilabel> list:
+<figure id="figure-custom-menu-add-basic">
+<title id="figure-custom-menu-add-basic-title">A new custom entry in the Menu path list</title>
+<screenshot>
+<mediaobject>
+<imageobject>
+<imagedata fileref="figures/custom_menu_add_basic.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>A screen shot of a new custom entry in the Menu path list</phrase>
+</textobject>
+</mediaobject>
+</screenshot>
+</figure>
+</para>
+</step>
+<step>
+<para>Click on the <guilabel>Save</guilabel> button. This will add the menu to the Custom menu tool bar:
+<figure id="figure-custom-menu-basic-result">
+<title id="figure-custom-menu-basic-result-title">A new menu in the custom menu tool bar</title>
+<screenshot>
+<mediaobject>
+<imageobject>
+<imagedata fileref="figures/custom_menu_basic_result.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>A screen shot of a new menu in the custom menu tool bar</phrase>
+</textobject>
+</mediaobject>
+</screenshot>
+</figure>
 </para>
 </step>
 </procedure>
-
-	<para>SCREENSHOT BY ????</para>
+<para>Note that the new menu is placed at the right end of the custom menu tool bar. When closing Bluefish and relaunching it, it will be placed in alphabetical order, except that the <guilabel>Replace</guilabel> menu will always be at the far right side.</para>
 	<para>
 	In another example, you have a string you often need to set before 
 	and after some block of text. For example 
