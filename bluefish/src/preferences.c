@@ -1887,6 +1887,14 @@ static void preferences_dialog() {
 	pd->prefs[view_line_numbers] = boxed_checkbut_with_value(_("Line numbers by default"), main_v->props.view_line_numbers, vbox2);
 	pd->prefs[defaulthighlight] = boxed_checkbut_with_value(_("Highlight syntax by default"), main_v->props.defaulthighlight, vbox2);
 	pd->prefs[highlight_num_lines_count] = prefs_integer(_("Highlight # lines"), main_v->props.highlight_num_lines_count, vbox2, pd, 1, 8);
+
+	frame = gtk_frame_new(_("Undo"));
+	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
+	vbox2 = gtk_vbox_new(FALSE, 0);
+	gtk_container_add(GTK_CONTAINER(frame), vbox2);
+
+	pd->prefs[num_undo_levels] = prefs_integer(_("Undo history size"), main_v->props.num_undo_levels, vbox2, pd, 50, 10000);
+	pd->prefs[clear_undo_on_save] = boxed_checkbut_with_value(_("Clear undo history on save"), main_v->props.clear_undo_on_save, vbox2);
 	
 	frame = gtk_frame_new(_("Bookmark options"));
 	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
@@ -1947,14 +1955,6 @@ static void preferences_dialog() {
 	create_backup_toggled_lcb(GTK_TOGGLE_BUTTON(pd->prefs[backup_file]), pd);
 	g_signal_connect(G_OBJECT(pd->prefs[backup_file]), "toggled", G_CALLBACK(create_backup_toggled_lcb), pd);
 
-	frame = gtk_frame_new(_("Undo"));
-	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
-	vbox2 = gtk_vbox_new(FALSE, 0);
-	gtk_container_add(GTK_CONTAINER(frame), vbox2);
-
-	pd->prefs[num_undo_levels] = prefs_integer(_("Undo history size"), main_v->props.num_undo_levels, vbox2, pd, 50, 10000);
-	pd->prefs[clear_undo_on_save] = boxed_checkbut_with_value(_("Clear undo history on save"), main_v->props.clear_undo_on_save, vbox2);
-
 	frame = gtk_frame_new(_("Misc"));
 	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
 	vbox2 = gtk_vbox_new(FALSE, 0);
@@ -1966,6 +1966,17 @@ static void preferences_dialog() {
 #endif /* WITH_MSG_QUEUE */		
 	pd->prefs[modified_check_type] = boxed_optionmenu_with_value(_("File modified on disk check "), main_v->props.modified_check_type, vbox2, modified_check_types);
 	pd->prefs[max_recent_files] = prefs_integer(_("Number of files in 'Open recent'"), main_v->props.max_recent_files, vbox2, pd, 3, 100);
+
+	frame = gtk_frame_new(_("File browser"));
+	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
+	vbox2 = gtk_vbox_new(FALSE, 0);
+	gtk_container_add(GTK_CONTAINER(frame), vbox2);
+	pd->prefs[default_basedir] = prefs_string(_("Default basedir"), main_v->props.default_basedir, vbox2, pd, string_none);
+	pd->prefs[filebrowser_two_pane_view] = boxed_checkbut_with_value(_("Use separate file and directory view"), main_v->props.filebrowser_two_pane_view, vbox2);
+	pd->prefs[filebrowser_show_hidden_files] = boxed_checkbut_with_value(_("Show hidden files"), main_v->props.filebrowser_show_hidden_files, vbox2);
+	pd->prefs[filebrowser_show_backup_files] = boxed_checkbut_with_value(_("Show backup files"), main_v->props.filebrowser_show_backup_files, vbox2);
+	pd->prefs[filebrowser_unknown_icon] = prefs_string(_("Unknown icon"), main_v->props.filebrowser_unknown_icon, vbox2, pd, string_file);
+	pd->prefs[filebrowser_dir_icon] = prefs_string(_("Directory icon"), main_v->props.filebrowser_dir_icon, vbox2, pd, string_file);
 
 	vbox1 = gtk_vbox_new(FALSE, 5);
 	gtk_notebook_append_page(GTK_NOTEBOOK(pd->noteb), vbox1, hbox_with_pix_and_text(_("User interface"), 156,TRUE));
@@ -2000,18 +2011,6 @@ static void preferences_dialog() {
 	
 	pd->prefs[document_tabposition] = boxed_optionmenu_with_value(_("Document notebook tab position"), main_v->props.document_tabposition, vbox2, notebooktabpositions);
 	pd->prefs[leftpanel_tabposition] = boxed_optionmenu_with_value(_("Left panel notebook tab position"), main_v->props.leftpanel_tabposition, vbox2, notebooktabpositions);
-
-
-	frame = gtk_frame_new(_("File browser"));
-	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
-	vbox2 = gtk_vbox_new(FALSE, 0);
-	gtk_container_add(GTK_CONTAINER(frame), vbox2);
-	pd->prefs[default_basedir] = prefs_string(_("Default basedir"), main_v->props.default_basedir, vbox2, pd, string_none);
-	pd->prefs[filebrowser_two_pane_view] = boxed_checkbut_with_value(_("Use separate file and directory view"), main_v->props.filebrowser_two_pane_view, vbox2);
-	pd->prefs[filebrowser_show_hidden_files] = boxed_checkbut_with_value(_("Show hidden files"), main_v->props.filebrowser_show_hidden_files, vbox2);
-	pd->prefs[filebrowser_show_backup_files] = boxed_checkbut_with_value(_("Show backup files"), main_v->props.filebrowser_show_backup_files, vbox2);
-	pd->prefs[filebrowser_unknown_icon] = prefs_string(_("Unknown icon"), main_v->props.filebrowser_unknown_icon, vbox2, pd, string_file);
-	pd->prefs[filebrowser_dir_icon] = prefs_string(_("Directory icon"), main_v->props.filebrowser_dir_icon, vbox2, pd, string_file);
 
 	vbox1 = gtk_vbox_new(FALSE, 5);
 	gtk_notebook_append_page(GTK_NOTEBOOK(pd->noteb), vbox1, hbox_with_pix_and_text(_("Images"), 155,TRUE));
