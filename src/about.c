@@ -125,10 +125,16 @@ void about_dialog_create(gpointer * data, guint * callback_action, GtkWidget * w
   Olivier Sessink <olivier@bluefish.openoffice.nl>\n\
 \n\
 Developers for this release:\n\
-  Jim Hayward <jimhayward@linuxexperience.net>\n\
-  Oskar Świda <swida@aragorn.pb.bialystok.pl>\n\
-  Eugene Morenko(More) <more@irpin.com>\n\
-  Alastair Porter <alastair@linuxexperience.com>\n\
+  Olivier Sessink\n\
+   <olivier@bluefish.openoffice.nl>\n\
+  Jim Hayward\n\
+   <jimhayward@linuxexperience.net>\n\
+  Oskar Świda\n\
+   <swida@aragorn.pb.bialystok.pl>\n\
+  Eugene Morenko(More)\n\
+   <more@irpin.com>\n\
+  Alastair Porter\n\
+   <alastair@linuxexperience.com>\n\
 \n\
 Developers for previous releases:\n\
   Chris Mazuc\n\
@@ -138,24 +144,38 @@ Developers for previous releases:\n\
   David Arno\n\
   Pablo De Napoli\n\
   Santiago Capel Torres\n\
-  Rasmus Toftdahl Olesen <rto@pohldata.dk>\n\
-  Roland Steinbach <roland@netzblick.de>\n\
-  Christian Tellefsen <chris@tellefsen.net>\n\
+  Rasmus Toftdahl Olesen\n\
+   <rto@pohldata.dk>\n\
+  Roland Steinbach\n\
+   <roland@netzblick.de>\n\
+  Christian Tellefsen\n\
+   <chris@tellefsen.net>\n\
   Antti-Juhani Kaijanaho\n\
 \n\
 Documentation:\n\
-  Scott White <wwsw3@earthlink.net>\n\
-  Michèle Garoche <michele.garoche@easyconnect.fr>\n\
-  Anita Lewis <ajreiki@highstream.net>\n\
-  Alastair Porter <alastair@linuxexperience.com>\n\
-  Daniel Blair <joecamel@realcoders.org>\n\
+  Scott White\n\
+   <wwsw3@earthlink.net>\n\
+  Michèle Garoche\n\
+   <michele.garoche@easyconnect.fr>\n\
+  Anita Lewis\n\
+   <ajreiki@highstream.net>\n\
+  Alastair Porter\n\
+   <alastair@linuxexperience.com>\n\
+  Daniel Blair\n\
+   <joecamel@realcoders.org>\n\
+  Olivier Sessink\n\
+   <olivier@bluefish.openoffice.nl>\n\
   Denny Reeh\n\
 \n\
 Package Maintainers:\n\
-  Debian:   Davide Puricelli <evo@debian.org>\n\
-  Redhat:   Matthias Haase <matthias_haase@bennewitz.com>\n\
-  Mandrake: Todd Lyons <todd@mrball.net>\n\
-  Fink: Michèle Garoche <michele.garoche@easyconnect.fr>\n\
+  Debian:   Davide Puricelli\n\
+   <evo@debian.org>\n\
+  Redhat:   Matthias Haase\n\
+   <matthias_haase@bennewitz.com>\n\
+  Mandrake: Todd Lyons\n\
+   <todd@mrball.net>\n\
+  Fink: Michèle Garoche\n\
+   <michele.garoche@easyconnect.fr>\n\
 \n\
 If you know of anyone missing from this list, please let us know\n\
 <bluefish@bluefish.openoffice.nl>\n\
