@@ -37,6 +37,29 @@
 #define DIRSTR "/"
 #define DIRCHR '/'
 #endif
+
+/**
+ * pointer_switch_addresses:
+ * a: #gpointer;
+ * b: #gpointer
+ *
+ * after this call, a will contain the address previously in a
+ * and b will contain the address previously in b
+ *
+ * Return value: void
+ */
+#ifdef __GNUC__
+__inline__ 
+#endif
+void pointer_switch_addresses(gpointer *a, gpointer *b) {
+	gpointer c;
+	DEBUG_MSG("pointer_switch_addresses, before, a=%p, b=%p\n",a,b);
+	c = *a;
+	*a = *b;
+	*b = c;
+	DEBUG_MSG("pointer_switch_addresses, after, a=%p, b=%p\n",a,b);
+}
+
 /**
  * list_switch_order:
  * @first: a #GList * item

@@ -26,6 +26,7 @@ typedef struct {
 	gchar *my_char;
 } Tconvert_table;
 
+void pointer_switch_addresses(gpointer *a, gpointer *b);
 void list_switch_order(GList *first, GList *second);
 gboolean file_copy(gchar *source, gchar *dest);
 gboolean append_string_to_file(gchar *filename, gchar *string);
