@@ -11,7 +11,7 @@ webimage:.jpg\:.png\:.gif\:.jpeg::PKGDATADIRicon_image.png:1::0:
 image:.jpg\:.png\:.gif\:.jpeg\:.tif\:.tiff\:.xpm\:.xcf::PKGDATADIRicon_image.png:1::0:
 sql:.sql:(){}'[]\n" ::1::0:
 jsp:.jsp:(){}'[]\n/#" :PKGDATADIRicon_java.png:1:^#!/[a-z/]+jsp:0:
-xml:.xml:<> \n":PKGDATADIRicon_xml.png:1:<\\?xml:1:
+xml:.xml\:.sgml:<> \n":PKGDATADIRicon_xml.png:1:<\\?xml:1:
 javascript:.js:(){}'[]\n/" ::1::0:
 cfml:.cfm: <>'"/?$\\t-{}[]{}\n;:PKGDATADIRicon_cfml.png:1::2:
 pascal:.pas: (){}'[]\n;":PKGDATADIRicon_pascal.png:1::0:
