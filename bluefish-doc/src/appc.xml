@@ -60,8 +60,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 	<step>
 	<para>Checkout the directory containing the Bluefish documentation: 
 	<screen>$ cvs -z3 -d :pserver:anonymous@cvs.sourceforge.net:/cvsroot/bluefish \
-	co bluefish-gtk2/doc</screen></para>
-	<para>This will download all the files to your system in the directory <literal>bluefish-gtk2/doc/</literal>.</para>
+	co bluefish-doc</screen></para>
+	<para>This will download all the files to your system in the directory <literal>bluefish-doc/</literal>.</para>
 	</step>
 </procedure>
 <procedure id="getting-doc-tools">
@@ -95,17 +95,16 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 
 <sect1 id="bluefish-manual-guide-conventions">
 <title>Conventions for Writing this Manual</title>
-<para>We recommend to use bluefish to write the manual. It has most of the tags used in the manual in the <guilabel>DocBook</guilabel> custom menu. By unchecking the <guilabel>Use spaces to indent, not tabs</guilabel> and checking <guilabel>Word wrap default</guilabel> in the Preferences <guilabel>Editor</guilabel> panel, you will ensure that no unnecessary white space will be produced when processing the files.</para>
+<para>We recommend writing the manual with bluefish. It has most of the tags used in the manual in the <guilabel>DocBook</guilabel> custom menu. By unchecking the <guilabel>Use spaces to indent, not tabs</guilabel> and checking <guilabel>Word wrap default</guilabel> in the Preferences <guilabel>Editor</guilabel> panel, you will ensure that no unnecessary white space will be produced when processing the files.</para>
 <para>The DocBook rules are strict and must be maintained in order for the manual to build using <literal>xsltproc</literal>. Thus, you should always validate the whole book before sending or committing any change. To do it, just issue:</para>
 <screen>$ make validate-all</screen>
-<para>in the <filename>bluefish-gtk2/doc/source</filename> directory.</para>
+<para>in the <filename>bluefish-doc/src</filename> directory.</para>
 <para>However, there are some rules we like to follow to make editing the manual more efficient and organized.</para>
 <?linebreakus?>
 <sect2 id="bluefish-manual-guide-id-names">
 <title>The <literal>id</literal> Attribute</title>
 <para>We use <literal>id</literal> on chapter, appendix, section, figure, and procedure. This provides a convenient way to reference them in the text as well and to get them listed in the table of contents.</para>
 <para>If you need to reference some chunk of text embedded in a tag different from those already mentionned, you can also use an id on this tag, since DocBook allows id on all tags.</para>
-<para>All <literal>id</literal> names should begin with the name of the book. In our case the main book file is <emphasis>bluefish.xml</emphasis>, so every <literal>id</literal> should begin with <emphasis>bluefish</emphasis>.</para>
 <para>Separate words in the <literal>id</literal> with hyphens.</para>
 <para>Finally, include a word or two describing the content in the section. For example, a chapter entitled <literal>Using Bluefish</literal> would have the id <emphasis>bluefish-using</emphasis>. And, a section within that chapter called <literal>Keyboard Shortcuts</literal> could have the name <emphasis>bluefish-using-shortcuts</emphasis>.</para>
 <para>The main thing is that all id's must be unique or processing will fail. To ensure that all id's are unique, just run <command>make validate-all</command> before committing the changes.</para>
@@ -114,7 +113,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 <?linebreakus?>
 <sect2 id="bluefish-manual-guide-screenshots">
 <title>Using Screen shots</title>
-<para>All screen shots are png files. They should be placed in the <filename>bluefish-gtk2/doc/source/figures</filename> directory. They are inserted in the xml files with the following tags:
+<para>All screen shots are png files. They should be placed in the <filename>bluefish-doc/src/figures</filename> directory. They are inserted in the xml files with the following tags:
 <programlisting><![CDATA[
 <para>
 <figure id="figure-file-menu">
@@ -277,7 +276,7 @@ Run the command &lt;userinput>make&lt;/userinput>]]&#62;
 <?linebreaka4?>
 <sect2 id="bluefish-manual-guide-production">
 <title>Producing the final files</title>
-<para>You have the following options to make and remove the various files, which will be stored in the <filename>bluefish-gtk2/doc</filename> directory:</para>
+<para>Use the following options to make and remove the various files, which will be output to a newly created <filename>bluefish-doc/built-doc</filename> directory:</para>
 <variablelist><title>Options to make the Bluefish manual</title>
 <varlistentry><term>make html</term>
 <listitem><para>Produces the book in html format, with numerous html files.</para></listitem>
