@@ -509,11 +509,11 @@ void multi_thumbnail_dialog_cb(GtkWidget * widget, gpointer data) {
 	hbox = gtk_hbutton_box_new();
 	gtk_hbutton_box_set_layout_default(GTK_BUTTONBOX_END);
 	gtk_button_box_set_spacing(GTK_BUTTON_BOX(hbox), 1);
-	gtk_box_pack_start(GTK_BOX(vbox),hbox,FALSE, FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(vbox),hbox,FALSE, FALSE, 5);
 	but = bf_stock_cancel_button(G_CALLBACK(multi_thumbnail_cancel_clicked), mtd);
-	gtk_box_pack_start(GTK_BOX(hbox), but,FALSE, FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(hbox), but,FALSE, FALSE, 5);
 	but = bf_stock_ok_button(G_CALLBACK(multi_thumbnail_ok_clicked), mtd);
-	gtk_box_pack_start(GTK_BOX(hbox), but,FALSE, FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(hbox), but,FALSE, FALSE, 5);
 	gtk_window_set_default(GTK_WINDOW(mtd->win), but);
 	gtk_widget_show_all(mtd->win);
 }

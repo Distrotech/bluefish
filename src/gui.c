@@ -19,7 +19,6 @@
  */
 #include <gtk/gtk.h>
 #include <time.h> /* nanosleep() */
-
 #include "bluefish.h"
 #include "gui.h"
 #include "document.h" /* file_new_cb() */
@@ -753,7 +752,7 @@ void go_to_line_from_selection_cb(GtkWidget * widget, gpointer data) {
 #ifndef NOSPLASH
 
 void splash_screen_set_label(gchar *label) {
-	static struct timespec const req = { 0, 100000000};
+	static struct timespec const req = { 0, 20000000};
 	static struct timespec rem;
 	gtk_label_set(GTK_LABEL(splashscreen.label),label);
 	flush_queue();
@@ -761,7 +760,7 @@ void splash_screen_set_label(gchar *label) {
 }
 
 GtkWidget *start_splash_screen() {
-	static struct timespec const req = { 0, 300000000};
+	static struct timespec const req = { 0, 200000000};
 	static struct timespec rem;
 	GtkWidget *image, *vbox;
 	GdkColor color;
