@@ -29,6 +29,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 <!ENTITY appa     SYSTEM "appa.xml">
 <!ENTITY appb     SYSTEM "appb.xml">
 <!ENTITY appc     SYSTEM "appc.xml">
+<!ENTITY appd     SYSTEM "appd.xml">
 ]>
 
   <book id="bluefish">
@@ -43,6 +44,10 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
       <author>
         <firstname>Denny</firstname>
         <surname>Reeh</surname>
+      </author>
+      <author>
+        <firstname>Alastair</firstname>
+        <surname>Porter</surname>
       </author>
 
     </authorgroup>
@@ -69,5 +74,6 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
   &appa;
   &appb;
   &appc;
+  &appd;
 
   </book>
