@@ -480,7 +480,6 @@ void filetype_highlighting_rebuild() {
 		arrcount = count_array(strarr);
 		if (arrcount == 6) {
 			filetype = g_new(Tfiletype, 1);
-			filetype->menuitem = NULL;
 			filetype->editable = (strarr[4][0] != '0');
 			filetype->content_regex = g_strdup(strarr[5]);
 			filetype->type = g_strdup(strarr[0]);

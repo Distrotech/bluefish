@@ -90,8 +90,6 @@ typedef struct {
 	GdkPixbuf *icon;
 	gchar *update_chars;
 	GList *highlightlist;
-	GtkWidget *menuitem; /* the menuitem to choose this for highlighting */
-	gulong menuitem_activate_id;
 	gboolean editable; /* this a type that can be edited by Bluefish */
 	gchar *content_regex; /* a regex pattern to test the filetype using the content */
 } Tfiletype;
@@ -268,6 +266,7 @@ typedef struct {
 	GList *menu_outputbox;
 	GtkWidget *menu_cmenu;
 	GList *menu_cmenu_entries;
+	GList *menu_filetypes;
 	/* following is a new approach, that we have only a gpointer here, whioh is typecasted 
 	in the file where it is needed */
 	gpointer outputbox;

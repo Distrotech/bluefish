@@ -22,8 +22,7 @@
 #ifndef __WIZARDS_H_
 #define __WIZARDS_H_
 
-void tablewizard(GtkWidget *widget, gpointer data);
-void framewizard(GtkWidget * widget, gpointer data);
-
+void tablewizard_dialog(Tbfwin *bfwin, gpointer data);
+void framewizard_dialog(Tbfwin *bfwin, gpointer data);
 
 #endif							/* __WIZARDS_H_ */

@@ -466,10 +466,10 @@ static void image_insert_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
 	image_insert_dialog(bfwin,NULL);
 }
 static void thumbnail_insert_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
-	thumbnail_insert_dialog(bfwin,NULL);
+	thumbnail_insert_dialog(bfwin);
 }
 static void multi_thumbnail_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
-	multi_thumbnail_dialog(bfwin,NULL);
+	multi_thumbnail_dialog(bfwin);
 }
 static void tabledialog_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
 	tabledialog_dialog(bfwin,NULL);
@@ -483,6 +483,13 @@ static void tableheaddialog_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
 static void tabledatadialog_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
 	tabledatadialog_dialog(bfwin,NULL);
 }
+static void tablewizard_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
+	tablewizard_dialog(bfwin,NULL);
+}
+static void framewizard_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
+	framewizard_dialog(bfwin,NULL);
+}
+
 static Ttoolbaritem tbi[] = {
 	{"quickstart...", quickstart_clicked_lcb,13 , N_("QuickStart...")},
 	{"body...", body_clicked_lcb, 14, N_("Body...")},
@@ -516,7 +523,7 @@ static Ttoolbaritem tbi[] = {
 	{"heading4", heading4_clicked_lcb,  42, N_("Heading 4")},
 	{"heading5", heading5_clicked_lcb,  43, N_("Heading 5")},
 	{"heading6", heading6_clicked_lcb,  44, N_("Heading 6")},
-	{"tablewizard...",tablewizard , 45, N_("Table Wizard...")},
+	{"tablewizard...",tablewizard_clicked_lcb, 45, N_("Table Wizard...")},
 	{"", NULL, 0, NULL}, /* spacing */
 	{"table...",tabledialog_clicked_lcb, 46, N_("Table...")},
 	{"tablerow...", tablerowdialog_clicked_lcb, 47, N_("Table Row...")},
@@ -528,7 +535,7 @@ static Ttoolbaritem tbi[] = {
 	{"tableheader", tableheader_clicked_lcb,  52, N_("Table Header")},
 	{"tabledata", tabledata_clicked_lcb,  53, N_("Table Data")},
 	{"tablecaption", tablecaption_clicked_lcb,  54, N_("Table Caption")},
-	{"framewizard...",framewizard , 55, N_("Frame Wizard...")},
+	{"framewizard...",framewizard_clicked_lcb , 55, N_("Frame Wizard...")},
 	{"", NULL, 0, NULL}, /* spacing */
 	{"frameset...", framesetdialog_clicked_lcb,56 , N_("Frameset...")},
 	{"frame...",framedialog_clicked_lcb , 57, N_("Frame...")},
@@ -847,7 +854,7 @@ void gui_set_widgets(Tbfwin *bfwin, gboolean undo, gboolean redo, gboolean wrap,
 	setup_toggle_item(gtk_item_factory_from_widget(bfwin->menubar),N_("/Document/Highlight Syntax"), highlight);
 	setup_toggle_item(gtk_item_factory_from_widget(bfwin->menubar),N_("/Document/Wrap"), wrap);
 	setup_toggle_item(gtk_item_factory_from_widget(bfwin->menubar),N_("/Document/Line Numbers"), linenumbers);
-	menu_current_document_set_toggle_wo_activate(hl, encoding);
+	menu_current_document_set_toggle_wo_activate(bfwin,hl, encoding);
 }
 
 void gui_notebook_bind_signals(Tbfwin *bfwin) {
