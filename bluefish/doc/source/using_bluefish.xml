@@ -765,7 +765,10 @@ If you want to disable any of these items by default, you can set these options 
 <?linebreakus?>
 <sect3 id="find-matching-case">
 <title>Case sensitive search</title>
+<?linebreaka4?>
+<?linebreaka4?>
 <para>By default, the search process is case insensitive. If you want to make it case sensitive, just check the <guilabel>Match case</guilabel> box in the <guilabel>Find dialog</guilabel>.
+<?linebreaka4?>
 <figure id="figure-find-match-case">
 <title id="figure-find-match-case-title">Making the search case sensitive</title>
 <screenshot><mediaobject>
@@ -777,7 +780,9 @@ If you want to disable any of these items by default, you can set these options 
 </textobject>
 </mediaobject></screenshot>
 </figure></para>
+<?linebreaka4?>
 <para>Here's the result applied to a ruby script:
+<?linebreaka4?>
 <figure id="figure-find-match-result-case">
 <title id="figure-find-match-case-result-title">Case sensitive search result</title>
 <screenshot><mediaobject>
@@ -789,9 +794,41 @@ If you want to disable any of these items by default, you can set these options 
 </textobject>
 </mediaobject></screenshot>
 </figure></para>
+<?linebreaka4?>
 <para>Notice again that the result does not catch the XML string at line 45, since the search string was xml and case sensitive search was requested.</para>
 </sect3>
-<?linebreaka4?>
+
+<sect3 id="find-overlap">
+<title>Overlapping searches</title>
+<para>It may occur that the document contains some kind of palindrome you want to search for. The "normal" find process does not retrieve all occurrences of that kind of string.</para>
+<para>In this case, you have to check the <guilabel>Overlap searches</guilabel> box in the <guilabel>Find</guilabel> dialog to retrieve all occurences of the string.
+<?linebreak?>
+<figure id="figure-find-basic-overlap">
+<title id="figure-find-basic-overlap-title">Finding overlapping strings</title>
+<screenshot><mediaobject>
+<imageobject>
+<imagedata fileref="figures/find_basic_overlap.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>A screen shot showing how to find overlapping strings</phrase>
+</textobject>
+</mediaobject></screenshot>
+</figure></para>
+<para>Applied to a shell script, the second search (with <keycombo><keycap>Ctrl</keycap><keycap>F</keycap></keycombo>, then <keycombo><keycap>Ctrl</keycap><keycap>G</keycap></keycombo>) will give the following result:
+<?linebreak?>
+<figure id="figure-find-basic-overlap-result">
+<title id="figure-find-basic-overlap-result-title">An overlapping string retrieved with the Find dialog</title>
+<screenshot><mediaobject>
+<imageobject>
+<imagedata fileref="figures/find_basic_overlap_result.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>A screen shot showing an overlapping string retrieved by the Find process</phrase>
+</textobject>
+</mediaobject></screenshot>
+</figure></para>
+</sect3>
+
 <sect3 id="find-old-search">
 <title>Retrieving previous search strings</title>
 <para>Notice that the pop up menu to the right of the <guilabel>Search for</guilabel> field in the <guilabel>Find</guilabel> dialog allows you to retrieve previous search strings. They are listed in reverse order by search history, providing quicker access to the most recent searches.
