@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * gui.c - the main GUI
  *
- * Copyright (C) 2002 Olivier Sessink
+ * Copyright (C) 2002-2003 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -258,7 +258,7 @@ void gui_set_title(Tbfwin *bfwin, Tdocument *doc) {
 			prfilepart = g_strdup(_("Untitled"));
 		}
 	}
-	title = g_strconcat("Bluefish "VERSION" - ", prfilepart, NULL);
+	title = g_strconcat(prfilepart, " - Bluefish "VERSION,NULL);
 	gtk_window_set_title(GTK_WINDOW(bfwin->main_window),title);
 	rename_window_entry_in_all_windows(bfwin, prfilepart);
 	g_free(title);
