@@ -168,13 +168,16 @@ gboolean spell_run(Tbfspell *bfspell) {
 	return TRUE; /* not yet finished */
 }
 
-void spell_start(Tbfspell *bfspell) {	
+void spell_start(Tbfspell *bfspell) {
+	DEBUG_MSG("spell_start, started for bfspell=%p\n",bfspell);
 	bfspell->spell_config = new_aspell_config();
+	DEBUG_MSG("spell_start, created spell_config at %p\n",bfspell->spell_config);
 	/*
 	 * default language should come from config file, runtime from GUI,
 	 * should first set the default one 
 	 */
 	aspell_config_replace(bfspell->spell_config, "lang", main_v->props.spell_default_lang);
+	DEBUG_MSG("spell_start, default lang=%s\n",main_v->props.spell_default_lang);
 	/*
 	 * it is unclear from the manual if aspell supports utf-8 in the
 	 * library, the utility does not support it.. 
@@ -225,10 +228,9 @@ void spell_gui_ok_clicked_cb(GtkWidget *widget, Tbfspell *bfspell) {
 		DEBUG_MSG("spell_gui_ok_clicked_cb, indx=%d has language %s\n",indx,lang);
 	}
 	aspell_config_replace(bfspell->spell_config, "lang", lang);
-	DEBUG_MSG("spell_gui_ok_clicked_cb, set lang to %s, about to create speller\n",lang);
 
+	DEBUG_MSG("spell_gui_ok_clicked_cb, about to create speller for spell_config=%p\n",bfspell->spell_config);
 	possible_err = new_aspell_speller(bfspell->spell_config);
-	DEBUG_MSG("possible_err=%d\n",possible_err);
 	bfspell->spell_checker = 0;
 	if (aspell_error_number(possible_err) != 0) {
 		DEBUG_MSG(aspell_error_message(possible_err));
