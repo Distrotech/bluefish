@@ -1,4 +1,4 @@
-CHANGES
+** CHANGES **
 
 remove g_basename and strip_filename in favour of g_path_get_basename()
 (free the string alloc'ed by g_path_get_basename() !!!!)
@@ -11,3 +11,19 @@ for the images
 remove the GtkPixmap widget in favour of GtkImage (use 
 gtk_image_new_from_pixbuf)
 
+** FEATURES **
+
+The old reference dialogs are not to be ported, I would like to have 
+a tree (just like the tree of files) on the left side where you can 
+access all functions. We should also have python and perl support there.
+
+The preferences dialog needs to be ported, but a lot of options are 
+set by different means now (dynamically like the browsers, from the 
+menu like the wrap, or simple from the current state like the window 
+size). So in fact we need a new dialog.
+
+The build system is not yet finished, and the location of files should 
+be set
+
+The internationalisation support is not ported yet, can go together 
+with the build system.
