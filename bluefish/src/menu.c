@@ -254,6 +254,8 @@ static void menu_html_dialogs_lcb(Tbfwin *bfwin,guint callback_action, GtkWidget
 	break;
 	case 36:
 		new_css_dialog(NULL,bfwin);
+	case 37:
+		sel_colour_cb(NULL,bfwin);	
 	break;
 	default:
 		g_print("menu_file_operations_cb, unknown action, abort!\n");
@@ -586,7 +588,7 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/Dialogs/General/Quick_list..."), "<shift><alt>L", menu_html_dialogs_lcb, 7, NULL},
 	{N_("/Dialogs/General/_Meta..."), "<shift><alt>m", menu_html_dialogs_lcb, 8, NULL},
 	{N_("/Dialogs/General/Embe_d..."), "<shift><alt>d", menu_html_dialogs_lcb, 9, NULL},
-	{N_("/Dialogs/General/Select _Color..."), NULL, sel_colour_cb, 0, NULL},
+	{N_("/Dialogs/General/Select _Color..."), NULL, menu_html_dialogs_lcb, 37, NULL},
 	{N_("/Dialogs/General/Insert _Time..."), NULL, menu_html_dialogs_lcb, 34, NULL},
 	{N_("/Dialogs/General/Insert _Image..."), "<shift><alt>I", menu_html_dialogs_lcb, 10, NULL},
 	{N_("/Dialogs/General/Insert T_humbnail..."), "<shift><alt>N", menu_html_dialogs_lcb, 11, NULL},

@@ -2949,7 +2949,7 @@ static void open_url_cancel_lcb(GtkWidget *widget, Tou *ou) {
 }
 static void open_url_ok_lcb(GtkWidget *widget, Tou *ou) {
 	gchar *url = gtk_editable_get_chars(GTK_EDITABLE(ou->entry),0,-1);
-	doc_new_with_file(ou->bfwin,url,FALSE);
+	doc_new_with_file(ou->bfwin,url,FALSE,FALSE);
 	g_free(url);
 	gtk_widget_destroy(ou->win);
 }
