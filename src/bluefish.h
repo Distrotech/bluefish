@@ -149,7 +149,7 @@ typedef struct {
 	gchar *tab_font_string;		/* notebook tabs font */
 	GList *browsers; /* browsers array */
 	GList *external_commands;	/* external commands array */
-	GList *cust_menu; 		/* entries in the custom menu */
+	GList *cust_menu; 		/* DEPRECATED entries in the custom menu */
 	GList *cmenu_insert; /* custom menu inserts */
 	GList *cmenu_replace; /* custom menu replaces */
 	GList *quickbar_items; /* items in the quickbar toolbar */
