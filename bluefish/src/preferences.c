@@ -466,13 +466,13 @@ static void create_filetype_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 		GtkTreeSelection *select;
 	   GtkCellRenderer *renderer = gtk_cell_renderer_text_new ();
 
-		column = gtk_tree_view_column_new_with_attributes ("Filetype", renderer,"text",0,NULL);
+		column = gtk_tree_view_column_new_with_attributes (_("Filetype"), renderer,"text",0,NULL);
 		gtk_tree_view_append_column (GTK_TREE_VIEW(pd->ftd.lview), column);
-		column = gtk_tree_view_column_new_with_attributes ("Extensions", renderer,"text",1,NULL);
+		column = gtk_tree_view_column_new_with_attributes (_("Extensions"), renderer,"text",1,NULL);
 		gtk_tree_view_append_column (GTK_TREE_VIEW(pd->ftd.lview), column);
-		column = gtk_tree_view_column_new_with_attributes ("Update chars", renderer,"text",2,NULL);
+		column = gtk_tree_view_column_new_with_attributes (_("Update chars"), renderer,"text",2,NULL);
 		gtk_tree_view_append_column (GTK_TREE_VIEW(pd->ftd.lview), column);
-		column = gtk_tree_view_column_new_with_attributes ("Icon", renderer,"text",3,NULL);
+		column = gtk_tree_view_column_new_with_attributes (_("Icon"), renderer,"text",3,NULL);
 		gtk_tree_view_append_column (GTK_TREE_VIEW(pd->ftd.lview), column);
 		scrolwin = gtk_scrolled_window_new(NULL, NULL);
 		gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolwin),GTK_POLICY_AUTOMATIC,GTK_POLICY_AUTOMATIC);
@@ -628,11 +628,11 @@ static void create_filefilter_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 		GtkTreeSelection *select;
 	   GtkCellRenderer *renderer = gtk_cell_renderer_text_new ();
 
-		column = gtk_tree_view_column_new_with_attributes ("Filefilter", renderer,"text",0,NULL);
+		column = gtk_tree_view_column_new_with_attributes (_("Filefilter"), renderer,"text",0,NULL);
 		gtk_tree_view_append_column (GTK_TREE_VIEW(pd->ffd.lview), column);
-		column = gtk_tree_view_column_new_with_attributes ("Inverse filtering", renderer,"text",1,NULL);
+		column = gtk_tree_view_column_new_with_attributes (_("Inverse filtering"), renderer,"text",1,NULL);
 		gtk_tree_view_append_column (GTK_TREE_VIEW(pd->ffd.lview), column);
-		column = gtk_tree_view_column_new_with_attributes ("Filetypes in filter", renderer,"text",2,NULL);
+		column = gtk_tree_view_column_new_with_attributes (_("Filetypes in filter"), renderer,"text",2,NULL);
 		gtk_tree_view_append_column (GTK_TREE_VIEW(pd->ffd.lview), column);
 		scrolwin = gtk_scrolled_window_new(NULL, NULL);
 		gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolwin),GTK_POLICY_AUTOMATIC,GTK_POLICY_AUTOMATIC);
@@ -974,7 +974,7 @@ static void create_highlightpattern_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 		GtkTreeSelection *select;
 	   GtkCellRenderer *renderer = gtk_cell_renderer_text_new ();
 
-		column = gtk_tree_view_column_new_with_attributes ("Pattern", renderer,"text", 0,NULL);
+		column = gtk_tree_view_column_new_with_attributes (_("Pattern"), renderer,"text", 0,NULL);
 		gtk_tree_view_append_column (GTK_TREE_VIEW(pd->hpd.lview), column);
 		scrolwin = gtk_scrolled_window_new(NULL, NULL);
 		gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolwin), GTK_POLICY_NEVER, GTK_POLICY_AUTOMATIC);
@@ -1138,9 +1138,9 @@ static void create_browsers_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 		GtkTreeSelection *select;
 	   GtkCellRenderer *renderer = gtk_cell_renderer_text_new ();
 
-		column = gtk_tree_view_column_new_with_attributes ("Browser", renderer,"text",0,NULL);
+		column = gtk_tree_view_column_new_with_attributes (_("Browser"), renderer,"text",0,NULL);
 		gtk_tree_view_append_column (GTK_TREE_VIEW(pd->bd.lview), column);
-		column = gtk_tree_view_column_new_with_attributes ("Command", renderer,"text",1,NULL);
+		column = gtk_tree_view_column_new_with_attributes (_("Command"), renderer,"text",1,NULL);
 		gtk_tree_view_append_column (GTK_TREE_VIEW(pd->bd.lview), column);
 		scrolwin = gtk_scrolled_window_new(NULL, NULL);
 		gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolwin),GTK_POLICY_AUTOMATIC,GTK_POLICY_AUTOMATIC);
@@ -1256,9 +1256,9 @@ static void create_externals_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 		GtkTreeSelection *select;
 	   GtkCellRenderer *renderer = gtk_cell_renderer_text_new ();
 
-		column = gtk_tree_view_column_new_with_attributes ("Label", renderer,"text",0,NULL);
+		column = gtk_tree_view_column_new_with_attributes (_("Label"), renderer,"text",0,NULL);
 		gtk_tree_view_append_column (GTK_TREE_VIEW(pd->ed.lview), column);
-		column = gtk_tree_view_column_new_with_attributes ("Command", renderer,"text",1,NULL);
+		column = gtk_tree_view_column_new_with_attributes (_("Command"), renderer,"text",1,NULL);
 		gtk_tree_view_append_column (GTK_TREE_VIEW(pd->ed.lview), column);
 		scrolwin = gtk_scrolled_window_new(NULL, NULL);
 		gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolwin),GTK_POLICY_AUTOMATIC,GTK_POLICY_AUTOMATIC);
@@ -1413,19 +1413,19 @@ static void create_outputbox_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 		GtkTreeSelection *select;
 	   GtkCellRenderer *renderer = gtk_cell_renderer_text_new ();
 
-		column = gtk_tree_view_column_new_with_attributes ("Name", renderer,"text",0,NULL);
+		column = gtk_tree_view_column_new_with_attributes (_("Name"), renderer,"text",0,NULL);
 		gtk_tree_view_append_column (GTK_TREE_VIEW(pd->od.lview), column);
-		column = gtk_tree_view_column_new_with_attributes ("Pattern", renderer,"text",1,NULL);
+		column = gtk_tree_view_column_new_with_attributes (_("Pattern"), renderer,"text",1,NULL);
 		gtk_tree_view_append_column (GTK_TREE_VIEW(pd->od.lview), column);
-		column = gtk_tree_view_column_new_with_attributes ("File #", renderer,"text",2,NULL);
+		column = gtk_tree_view_column_new_with_attributes (_("File #"), renderer,"text",2,NULL);
 		gtk_tree_view_append_column (GTK_TREE_VIEW(pd->od.lview), column);
-		column = gtk_tree_view_column_new_with_attributes ("Line #", renderer,"text",3,NULL);
+		column = gtk_tree_view_column_new_with_attributes (_("Line #"), renderer,"text",3,NULL);
 		gtk_tree_view_append_column (GTK_TREE_VIEW(pd->od.lview), column);
-		column = gtk_tree_view_column_new_with_attributes ("Output #", renderer,"text",4,NULL);
+		column = gtk_tree_view_column_new_with_attributes (_("Output #"), renderer,"text",4,NULL);
 		gtk_tree_view_append_column (GTK_TREE_VIEW(pd->od.lview), column);
-		column = gtk_tree_view_column_new_with_attributes ("Command", renderer,"text",5,NULL);
+		column = gtk_tree_view_column_new_with_attributes (_("Command"), renderer,"text",5,NULL);
 		gtk_tree_view_append_column (GTK_TREE_VIEW(pd->od.lview), column);
-		column = gtk_tree_view_column_new_with_attributes ("Show all output", renderer,"text",6,NULL);
+		column = gtk_tree_view_column_new_with_attributes (_("Show all output"), renderer,"text",6,NULL);
 		gtk_tree_view_append_column (GTK_TREE_VIEW(pd->od.lview), column);
 
 		scrolwin = gtk_scrolled_window_new(NULL, NULL);
