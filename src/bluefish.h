@@ -144,6 +144,8 @@ typedef struct {
 	gboolean autoclosingtag; /* does the document use autoclosing of tags */
 	gpointer floatingview; /* a 2nd textview widget that has its own window */
 	gpointer bfwin;
+	GtkTreeIter *bmark_parent; /* if NULL this document doesn't have bookmarks, if 
+									it does have bookmarks they are children of this GtkTreeIter */
 } Tdocument;
 
 typedef struct {
