@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-/*#define DEBUG*/
+#define DEBUG
 
 #include <gtk/gtk.h>
 #include <string.h>
@@ -83,6 +83,7 @@ gboolean project_save(Tbfwin *bfwin, gboolean save_as) {
 		/* there is no project yet, we have to create one */
 		bfwin->project= create_new_project(bfwin);
 	}
+	update_project_filelist(bfwin, bfwin->project);
 	if (save_as || bfwin->project->filename == NULL) {
 		gchar *filename = return_file_w_title(NULL, _("Enter Bluefish project filename"));
 		if (!filename) {
@@ -90,6 +91,7 @@ gboolean project_save(Tbfwin *bfwin, gboolean save_as) {
 		}
 		bfwin->project->filename = filename;
 	}
+	
 	DEBUG_MSG("project_save, saving project %p to file %s\n",bfwin->project,bfwin->project->filename);
 	retval = rcfile_save_project(bfwin->project, bfwin->project->filename);
 	return retval;
@@ -167,6 +169,7 @@ gboolean project_save_and_close(Tbfwin *bfwin) {
 			DEBUG_MSG("project_save_and_close, all documents are closed\n");
 			project_destroy(bfwin);
 			gui_set_title(bfwin, bfwin->current_document);
+			filebrowser_set_basedir(bfwin, NULL);
 			DEBUG_MSG("project_save_and_close, returning TRUE\n");
 			return TRUE;
 		}
