@@ -395,6 +395,10 @@ static void compile_pattern(gboolean gui_errors, gchar *filetype, gchar *name, g
 				highlight_error(gui_errors, str1, str2);
 				g_free(str1);
 				g_free(str2);
+				pcre_free(pat->reg1.pcre);
+				g_free(pat->ovector);
+				g_free(pat);
+				return;
 			}
 			DEBUG_MSG("result: pat->reg2.pcre=%p\n", pat->reg2.pcre);
 			pat->reg2.pcre_e = pcre_study(pat->reg2.pcre,0,&err);
@@ -405,6 +409,11 @@ static void compile_pattern(gboolean gui_errors, gchar *filetype, gchar *name, g
 				highlight_error(gui_errors, str1, str2);
 				g_free(str1);
 				g_free(str2);
+				pcre_free(pat->reg1.pcre);
+				pcre_free(pat->reg2.pcre);
+				g_free(pat->ovector);
+				g_free(pat);
+				return;
 			}
 		}
 		if (mode == 3) {
