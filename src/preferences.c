@@ -845,6 +845,7 @@ static gchar **highlightpattern_create_strarr(Tprefdialog *pd) {
 	strarr = g_malloc(12*sizeof(gchar *));
 	strarr[0] = g_strdup(pd->hpd.selected_filetype);
 	strarr[1] = gtk_editable_get_chars(GTK_EDITABLE(pd->hpd.entry[0]),0,-1);
+	DEBUG_MSG("highlightpattern_create_strarr for %s-%s at %p\n",strarr[0],strarr[1],strarr);
 	if (GTK_TOGGLE_BUTTON(pd->hpd.check)->active){
 		strarr[2] = g_strdup("0");
 	} else {
@@ -892,6 +893,7 @@ static void highlightpattern_apply_changes(Tprefdialog *pd) {
 				g_strfreev(tmplist->data);
 				tmplist->data = highlightpattern_create_strarr(pd);
 				pd->hpd.curstrarr = tmplist->data;
+				DEBUG_MSG("highlightpattern_apply_changes, new strarr for %s-%s\n",pd->hpd.curstrarr[0],pd->hpd.curstrarr[1]);
 				return;
 			}
 			tmplist = g_list_next(tmplist);
@@ -920,6 +922,7 @@ static void highlightpattern_popmenu_activate(GtkMenuItem *menuitem,Tprefdialog 
 		if (strarr[0]) {
 			if (strcmp(strarr[0], pd->hpd.selected_filetype)==0) {
 				GtkTreeIter iter;
+				DEBUG_MSG("highlightpattern_popmenu_activate, appending %s\n",strarr[1]);
 				gtk_list_store_append(GTK_LIST_STORE(pd->hpd.lstore), &iter);
 				gtk_list_store_set(GTK_LIST_STORE(pd->hpd.lstore), &iter, 0, strarr[1], -1);
 			}
@@ -946,13 +949,16 @@ static void add_new_highlightpattern_lcb(GtkWidget *wid, Tprefdialog *pd) {
 		gchar **strarr = highlightpattern_create_strarr(pd);
 		DEBUG_MSG("add_new_highlightpattern_lcb, appending strarr %p to list\n", strarr);
 		pd->lists[highlight_patterns] = g_list_append(pd->lists[highlight_patterns], strarr);
+		pd->hpd.curstrarr = NULL;
 		{
 			GtkTreeIter iter;
+			GtkTreeSelection* selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(pd->hpd.lview));
 			DEBUG_MSG("add_new_highlightpattern_lcb, appending to lview\n");
 			gtk_list_store_append(GTK_LIST_STORE(pd->hpd.lstore), &iter);
 			gtk_list_store_set(GTK_LIST_STORE(pd->hpd.lstore), &iter, 0, strarr[1], -1);
+			gtk_tree_selection_select_iter(selection,&iter);
 		}
-		gtk_entry_set_text(GTK_ENTRY(pd->hpd.entry[0]), "");
+/*		gtk_entry_set_text(GTK_ENTRY(pd->hpd.entry[0]), "");*/
 	} else {
 		g_free(pattern);
 	}
@@ -967,6 +973,7 @@ static void highlightpattern_selection_changed_cb(GtkTreeSelection *selection, T
 		GList *tmplist = g_list_first(pd->lists[highlight_patterns]);
 /*		GtkWidget *menuitem = gtk_menu_get_active(GTK_MENU( gtk_option_menu_get_menu(GTK_OPTION_MENU(pd->hpd.popmenu)) ));*/
 		gtk_tree_model_get(model, &iter, 0, &pattern, -1);
+		DEBUG_MSG("highlightpattern_selection_changed_cb, selected=%s\n",pattern);
 		highlightpattern_apply_changes(pd);
 		pd->hpd.curstrarr = NULL;
 		DEBUG_MSG("changed applied, searching for the data of the new selection\n");
@@ -1034,16 +1041,23 @@ static void highlightpattern_up_clicked_lcb(GtkWidget *wid, Tprefdialog *pd) {
 
 	GtkTreeSelection* selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(pd->hpd.lview));
 	if (gtk_tree_selection_get_selected(selection, &model, &iter)) {
-		GList *tmplist = g_list_first(pd->lists[highlight_patterns]);
+		GList *previous=NULL, *tmplist = g_list_first(pd->lists[highlight_patterns]);
 		gtk_tree_model_get(model, &iter, 0, &pattern, -1);
+		DEBUG_MSG("highlightpattern_up_clicked_lcb, selected=%s\n",pattern);
 		while (tmplist) {
 			gchar **strarr =(gchar **)tmplist->data;
-			if (strcmp(strarr[1], pattern)==0 && strcmp(strarr[0], pd->hpd.selected_filetype)==0) {
-				if (tmplist->prev) {
-					list_switch_order(tmplist, tmplist->prev);
-					highlightpattern_popmenu_activate(NULL, pd);
+			if (strcmp(strarr[0], pd->hpd.selected_filetype)==0) {
+				DEBUG_MSG("highlightpattern_up_clicked_lcb, comparing %s+%s for filetype %s\n",strarr[1], pattern,pd->hpd.selected_filetype);
+				if (strcmp(strarr[1], pattern)==0) {
+					DEBUG_MSG("highlightpattern_up_clicked_lcb, found %s, previous=%p, tmplist=%p\n",strarr[1],previous,tmplist);
+					if (previous) {
+						DEBUG_MSG("highlightpattern_up_clicked_lcb, switch list order %s <-> %s\n",((gchar **)tmplist->data)[1], ((gchar **)previous->data)[1]);
+						list_switch_order(tmplist, previous);
+						highlightpattern_popmenu_activate(NULL, pd);
+					}
+					return;
 				}
-				return;
+				previous = tmplist;
 			}
 			tmplist = g_list_next(tmplist);
 		}
