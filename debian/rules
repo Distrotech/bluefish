@@ -29,11 +29,11 @@ config.status: configure
 	CFLAGS="$(CFLAGS)" ./configure \
 		--prefix=/usr \
 		--mandir=/usr/share/man \
+		--with-icon-path=/usr/share/pixmaps \
 		--with-freedesktop_org-menu=/usr/share/applications \
 		--with-freedesktop_org-mime=/usr/share/mime \
 		--without-gnome2_4-mime \
 		--without-gnome2_4-appreg \
-		--with-icon-path=\$${prefix}/share/pixmaps \
 		--disable-update-databases
 
 build: build-stamp
@@ -58,8 +58,10 @@ clean:
 		cp -f /usr/share/misc/config.sub config.sub
 	-test -r /usr/share/misc/config.guess && \
 		cp -f /usr/share/misc/config.guess config.guess
+	-test -r /usr/share/gettext/config.rpath && \
+		cp -f /usr/share/gettext/config.rpath config.rpath
 	
-	#aclocal-1.7
+	aclocal
 	autoconf
 	dh_clean
 
