@@ -171,7 +171,7 @@ if pkg-config --exists gtk+-2.0 ; then
 	echo "yes"
 else
 	echo "no"
-	AC_MSG_ERROR(libgtk2.0-dev missing, please install libgtk2.0-dev)
+	AC_MSG_ERROR(libgtk2.0-dev missing please install libgtk2.0-dev)
 fi
 
 echo -n "checking for gtk+-2.2... "
