@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bluefish gtk2-port\n"
 "POT-Creation-Date: 2003-09-17 12:39+0200\n"
-"PO-Revision-Date: 9/7/2003    \n"
+"PO-Revision-Date: 16/9/2003     \n"
 "Last-Translator: Oskar Świda (swida@aragorn.pb.bialystok.pl)\n"
 "Language-Team: None\n"
 "MIME-Version: 1.0\n"
@@ -81,13 +81,13 @@ msgid "html filter"
 msgstr "filtr HTML"
 
 #: ../src/bluefish.c:90
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "\n"
 "Usage: %s [options] [filenames ...]\n"
 msgstr ""
 "\n"
-"Wywołanie: %s [opcje] [nazwa pliku]\n"
+"Wywołanie: %s [opcje] [lista plików ...]\n"
 
 #: ../src/bluefish.c:91
 msgid ""
@@ -106,13 +106,12 @@ msgid "-v           current version\n"
 msgstr "-v           aktualna wersja\n"
 
 #: ../src/bluefish.c:94
-#, fuzzy
 msgid "-n           open new window\n"
-msgstr "-v           aktualna wersja\n"
+msgstr "-n           otwórz nowe okno\n"
 
 #: ../src/bluefish.c:95
 msgid "-p filename  open project\n"
-msgstr ""
+msgstr "-p nazwa_pliku  otwórz projekt\n"
 
 #: ../src/bluefish.c:96
 msgid "-h           this help screen\n"
@@ -160,14 +159,14 @@ msgid "/Document/Highlight Syntax"
 msgstr "/Dokument/Podświetlanie składni"
 
 #: ../src/document.c:653
-#, fuzzy, c-format
+#, c-format
 msgid "Untitled %d"
-msgstr "Bez nazwy"
+msgstr "Bez nazwy %d"
 
 #: ../src/document.c:1001
-#, fuzzy, c-format
+#, c-format
 msgid " Ln %d, Col %d"
-msgstr "%d z %d"
+msgstr " Wie %d, Kol %d"
 
 #: ../src/document.c:1034 ../src/document.c:1035
 #, c-format
@@ -175,9 +174,8 @@ msgid "  %s, %s"
 msgstr "  %s, %s"
 
 #: ../src/document.c:1274 ../src/document.c:1293
-#, fuzzy
 msgid "Could not read file:\n"
-msgstr "Nie można otworzyć pliku:\n"
+msgstr "Nie można odczytać pliku:\n"
 
 #: ../src/document.c:1324
 msgid "Opening file "
@@ -200,14 +198,12 @@ msgid "Saving file"
 msgstr "Zapisywanie pliku"
 
 #: ../src/document.c:1834
-#, fuzzy
 msgid "_Abort save"
-msgstr "Przerwij zapis"
+msgstr "_Przerwij zapis"
 
 #: ../src/document.c:1834
-#, fuzzy
 msgid "_Continue save"
-msgstr "Kontynuuj zapis"
+msgstr "_Kontynuuj zapis"
 
 #: ../src/document.c:1836
 #, c-format
@@ -236,9 +232,8 @@ msgid "_Cancel"
 msgstr "_Anuluj"
 
 #: ../src/document.c:1992 ../src/document.c:2015 ../src/document.c:2102
-#, fuzzy
 msgid "_Overwrite"
-msgstr "Nadpisz"
+msgstr "_Nadpisz"
 
 #: ../src/document.c:1993
 #, c-format
@@ -342,14 +337,12 @@ msgid "Unable to open file"
 msgstr "Nie można otworzyć pliku"
 
 #: ../src/document.c:2666
-#, fuzzy
 msgid "_Reload"
-msgstr "Przeładuj"
+msgstr "P_rzeładuj"
 
 #: ../src/document.c:2666
-#, fuzzy
 msgid "_Ignore"
-msgstr "Ignoruj"
+msgstr "_Ignoruj"
 
 #: ../src/document.c:2670
 #, c-format
@@ -418,7 +411,7 @@ msgstr "Wyrażenie re_gularne:"
 
 #: ../src/document.c:2972
 msgid "Open URL"
-msgstr ""
+msgstr "Otwórz URL"
 
 #: ../src/document.c:3005 ../src/document.c:3023 ../src/document.c:3040
 #, c-format
@@ -496,14 +489,12 @@ msgid "The file will be permanently deleted."
 msgstr "Plik zostanie nieodwracalnie skasowany."
 
 #: ../src/filebrowser.c:1195 ../src/filebrowser.c:1199
-#, fuzzy
 msgid "Could not delete \n"
-msgstr "Nie można zmienić nazwy pliku\n"
+msgstr "Nie można skasować \n"
 
 #: ../src/filebrowser.c:1312
-#, fuzzy
 msgid "/Open _Advanced"
-msgstr "/Plik/Zaawanso_wane otwieranie..."
+msgstr "/Zaawanso_wane otwieranie"
 
 #: ../src/filebrowser.c:1316
 msgid "/_Refresh"
@@ -1044,18 +1035,16 @@ msgid "/Document/Line Numbers"
 msgstr "/Dokument/Numery linii"
 
 #: ../src/gui.c:1008
-#, fuzzy
 msgid "Do_n't Save"
 msgstr "_Nie zapisuj"
 
 #: ../src/gui.c:1009
 msgid "Failed to save the current project"
-msgstr ""
+msgstr "Nie można zapisać aktualnego projektu"
 
 #: ../src/gui.c:1033
-#, fuzzy
 msgid "New Bluefish Window"
-msgstr "Podpowiedź Bluefish:"
+msgstr "Nowe okno Bluefish"
 
 #: ../src/gui.c:1080
 msgid "Stand by..."
@@ -1745,9 +1734,8 @@ msgid "/File/Open A_dvanced..."
 msgstr "/Plik/Zaawanso_wane otwieranie..."
 
 #: ../src/menu.c:276
-#, fuzzy
 msgid "/File/Open URL..."
-msgstr "/Plik/_Otwórz..."
+msgstr "/Plik/Otwórz URL..."
 
 #: ../src/menu.c:278
 msgid "/File/Open r_ecent"
@@ -1778,9 +1766,8 @@ msgid "/File/Save _As..."
 msgstr "/Plik/Zapisz j_ako..."
 
 #: ../src/menu.c:285
-#, fuzzy
 msgid "/File/_Rename..."
-msgstr "/Plik/_Otwórz..."
+msgstr "/Plik/_Zmień nazwę..."
 
 #: ../src/menu.c:286
 msgid "/File/Sa_ve All"
@@ -2919,9 +2906,8 @@ msgid "/Document/Word _Count"
 msgstr "/Dokument/_Ilość słów"
 
 #: ../src/menu.c:674
-#, fuzzy
 msgid "/Document/Floating window"
-msgstr "/Dokument/Kodowanie znaków"
+msgstr "/Dokument/Oddzielne okno"
 
 #: ../src/menu.c:675
 msgid "/_Options"
@@ -2993,87 +2979,75 @@ msgstr "/Opcje/Zapisz skróty _klawiszy"
 
 #: ../src/menu.c:694
 msgid "/TEMP"
-msgstr ""
+msgstr "/TEMP"
 
 #: ../src/menu.c:695
-#, fuzzy
 msgid "/TEMP/tearoff1"
-msgstr "/Plik/tearoff1"
+msgstr "/TEMP/tearoff1"
 
 #: ../src/menu.c:696 ../src/menu.c:1177
 msgid "/TEMP/Window"
-msgstr ""
+msgstr "/TEMP/Okno"
 
 #: ../src/menu.c:697
-#, fuzzy
 msgid "/TEMP/Window/tearoff1"
-msgstr "/Znaczniki/Lista/tearoff1"
+msgstr "/TEMP/Okno/tearoff1"
 
 #: ../src/menu.c:698
 msgid "/TEMP/Window/New"
-msgstr ""
+msgstr "/TEMP/Okno/Nowe"
 
 #: ../src/menu.c:699
-#, fuzzy
 msgid "/TEMP/Window/Close"
-msgstr "/Znaczniki/Lista/tearoff1"
+msgstr "/TEMP/Okno/Zamknij"
 
 #: ../src/menu.c:700
 msgid "/TEMP/Window/sep1"
-msgstr ""
+msgstr "/TEMP/Okno/sep1"
 
 #: ../src/menu.c:701
-#, fuzzy
 msgid "/TEMP/Project"
-msgstr "/Plik/Ostatnie pliki"
+msgstr "/TEMP/Projekt"
 
 #: ../src/menu.c:702
-#, fuzzy
 msgid "/TEMP/Project/tearoff1"
-msgstr "/Plik/tearoff1"
+msgstr "/TEMP/Projekt/tearoff1"
 
 #: ../src/menu.c:703
 msgid "/TEMP/Project/Create new"
-msgstr ""
+msgstr "/TEMP/Projekt/Utwórz nowy"
 
 #: ../src/menu.c:704
-#, fuzzy
 msgid "/TEMP/Project/Open"
-msgstr "/Plik/Ostatnie pliki"
+msgstr "/TEMP/Projekt/Otwórz"
 
 #: ../src/menu.c:705
-#, fuzzy
 msgid "/TEMP/Project/Open r_ecent"
-msgstr "/Plik/Ostatnie pliki"
+msgstr "/TEMP/Projekt/Otwó_rz ostatnie"
 
 #: ../src/menu.c:706
-#, fuzzy
 msgid "/TEMP/Project/Open recent/tearoff1"
-msgstr "/Plik/Ostatnie pliki/tearoff1"
+msgstr "/TEMP/Projekt/Otwórz ostatnie/tearoff1"
 
 #: ../src/menu.c:707
-#, fuzzy
 msgid "/TEMP/Project/sep1"
-msgstr "/Plik/Ostatnie pliki"
+msgstr "/TEMP/Projekt/sep1"
 
 #: ../src/menu.c:708 ../src/project.c:118
-#, fuzzy
 msgid "/TEMP/Project/Save"
-msgstr "/Plik/Ostatnie pliki"
+msgstr "/TEMP/Projekt/Zapisz"
 
 #: ../src/menu.c:709 ../src/project.c:119
-#, fuzzy
 msgid "/TEMP/Project/Save as"
-msgstr "/Plik/Ostatnie pliki"
+msgstr "/TEMP/Projekt/Zapisz jako"
 
 #: ../src/menu.c:710 ../src/project.c:120
 msgid "/TEMP/Project/Close & save"
-msgstr ""
+msgstr "/TEMP/Projekt/Zapisz i zamknij"
 
 #: ../src/menu.c:711 ../src/project.c:121
-#, fuzzy
 msgid "/TEMP/Project/Edit"
-msgstr "/Plik/Ostatnie pliki"
+msgstr "/TEMP/Projekt/Edytuj"
 
 #: ../src/menu.c:873
 msgid "/Document/Type"
@@ -3096,9 +3070,8 @@ msgid "Could not open file\n"
 msgstr "Nie można otworzyć pliku\n"
 
 #: ../src/menu.c:1010
-#, fuzzy
 msgid "/TEMP/Project/Open recent"
-msgstr "/Plik/Ostatnie pliki"
+msgstr "/TEMP/Projekt/Otwórz ostatnie"
 
 #: ../src/menu.c:1014
 msgid "/File/Open recent"
@@ -3493,19 +3466,19 @@ msgstr "dół"
 
 #: ../src/preferences.c:1733
 msgid "no check"
-msgstr ""
+msgstr "bez sprawdzania"
 
 #: ../src/preferences.c:1733
 msgid "check mtime and size"
-msgstr ""
+msgstr "sprawdź czas modyfikacji i rozmiar"
 
 #: ../src/preferences.c:1733
 msgid "check mtime"
-msgstr ""
+msgstr "sprawdź czas modyfikacji"
 
 #: ../src/preferences.c:1733
 msgid "check size"
-msgstr ""
+msgstr "sprawdź rozmiar"
 
 #: ../src/preferences.c:1736
 msgid "Edit preferences"
@@ -3641,7 +3614,7 @@ msgstr "Otwórz pliki w aktualnym oknie aplikacji"
 
 #: ../src/preferences.c:1826
 msgid "File modified on disk check "
-msgstr ""
+msgstr "Kryterium modyfikacji pliku "
 
 #: ../src/preferences.c:1827
 msgid "Number of files in 'Open recent'"
@@ -3672,28 +3645,24 @@ msgid "Initial window width"
 msgstr "Początkowa szerokość okna"
 
 #: ../src/preferences.c:1843
-#, fuzzy
 msgid "General"
-msgstr "<b>Ogólne</b>"
+msgstr "Ogólne"
 
 #: ../src/preferences.c:1848
-#, fuzzy
 msgid "Show main toolbar by default"
-msgstr "Domyślnie pokazuj numery linii w dokumencie"
+msgstr "Domyślnie pokazuj pasek narzędzi"
 
 #: ../src/preferences.c:1849
-#, fuzzy
 msgid "Show left panel by default"
-msgstr "Domyślnie pokazuj numery linii w dokumencie"
+msgstr "Domyślnie pokazuj lewy panel"
 
 #: ../src/preferences.c:1850
-#, fuzzy
 msgid "Show custom menu by default"
-msgstr "Domyślnie pokazuj numery linii w dokumencie"
+msgstr "Domyślnie pokazuj menu użytkownika"
 
 #: ../src/preferences.c:1851
 msgid "Show HTML toolbar by default"
-msgstr ""
+msgstr "Domyślnie pokazuj pasek HTML"
 
 #: ../src/preferences.c:1852
 msgid "Make HTML dialogs transient"
@@ -3729,7 +3698,7 @@ msgstr "Przeglądarka plików"
 
 #: ../src/preferences.c:1868
 msgid "Use separate file and directory view"
-msgstr ""
+msgstr "Pokazuj katalogi i pliki oddzielnie"
 
 #: ../src/preferences.c:1869
 msgid "Show hidden files"
@@ -3800,59 +3769,53 @@ msgid "Outputbox"
 msgstr "Okno wyników"
 
 #: ../src/project.c:60
-#, fuzzy
 msgid "New project"
-msgstr "/Nowy _folder"
+msgstr "Nowy projekt"
 
 #: ../src/project.c:102
 msgid "Enter Bluefish project filename"
-msgstr ""
+msgstr "Wprowadź nazwę projektu"
 
 #: ../src/project.c:173
 msgid "Select Bluefish project filename"
-msgstr ""
+msgstr "Wybierz nazwę projektu"
 
 #: ../src/project.c:301
-#, fuzzy
 msgid "Edit project"
-msgstr "/Nowy _folder"
+msgstr "Edytuj projekt"
 
 #: ../src/project.c:311
 #, c-format
 msgid "This project contains %d files"
-msgstr ""
+msgstr "Projekt zawiera %d plików"
 
 #: ../src/project.c:316
-#, fuzzy
 msgid "Basedir"
-msgstr "Katalog bazowy:"
+msgstr "Katalog bazowy"
 
 #: ../src/project.c:317
 msgid "Webdir"
-msgstr ""
+msgstr "Katalog WWW"
 
 #: ../src/project.c:318
-#, fuzzy
 msgid "Template"
-msgstr "Zamień"
+msgstr "Wzorzec"
 
 #: ../src/project.c:319
-#, fuzzy
 msgid "Word wrap by default"
 msgstr "Domyślne zawijanie słów"
 
 #: ../src/project.c:363
-#, fuzzy
 msgid "Create project"
-msgstr "/Nowy _folder"
+msgstr "Utwórz projekt"
 
 #: ../src/project.c:367
 msgid "Create project with currently opened documents"
-msgstr ""
+msgstr "Utwórz projekt z aktualnie otwartych plików"
 
 #: ../src/project.c:368
 msgid "Create empty project"
-msgstr ""
+msgstr "Utwórz pusty projekt"
 
 #: ../src/rcfile.c:500
 msgid "Galeon"
@@ -3915,9 +3878,8 @@ msgid "Hide objectfiles"
 msgstr "Ukryj pliki .obj"
 
 #: ../src/rcfile.c:839
-#, fuzzy
 msgid "Untitled Project"
-msgstr "Bez nazwy"
+msgstr "Projekt bez nazwy"
 
 #: ../src/snr2.c:191
 msgid "Regular expression error: "
@@ -4124,26 +4086,23 @@ msgstr "Źródło:"
 msgid "Size:"
 msgstr "Rozmiar:"
 
-#~ msgid "Show other users files"
-#~ msgstr "Pokazuj pliki innych użytkowników"
-
 #~ msgid " Line  %d"
 #~ msgstr " Linia %4d "
 
 #~ msgid "Cancel"
 #~ msgstr "Anuluj"
 
-#, fuzzy
 #~ msgid "_Continue close"
 #~ msgstr "Kontynuuj zapis"
 
-#, fuzzy
 #~ msgid "/TEMP/Open recent project/tearoff1"
 #~ msgstr "/Plik/Ostatnie pliki/tearoff1"
 
-#, fuzzy
 #~ msgid "/TEMP/Open recent project"
 #~ msgstr "/Plik/Ostatnie pliki"
+
+#~ msgid "Show other users files"
+#~ msgstr "Pokazuj pliki innych użytkowników"
 
 #~ msgid "Untitled"
 #~ msgstr "Bez nazwy"
