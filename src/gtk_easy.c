@@ -730,6 +730,30 @@ static void close_modal_window_lcb(GtkWidget * widget, gpointer window)
 	window_destroy(window);
 }
 
+static void fs_history_pulldown_activate_lcb(GtkWidget *menuitem,Tfileselect *fileselect) {
+	const gchar *filename = gtk_entry_get_text(GTK_ENTRY(GTK_FILE_SELECTION(fileselect->fs)->selection_entry));
+	const gchar *dirname = ending_slash(gtk_label_get_text(GTK_LABEL(gtk_bin_get_child(GTK_BIN(menuitem)))));
+	gchar *fullpath = g_strconcat(dirname, filename, NULL);
+	g_free(dirname);
+	gtk_file_selection_set_filename(GTK_FILE_SELECTION(fileselect->fs), fullpath);
+	g_free(fullpath);
+}
+
+static void fs_history_pulldown_changed(GtkOptionMenu *optionmenu,Tfileselect *fileselect) {
+	GtkWidget *menuitem, *menu;
+	GList *tmplist;
+	DEBUG_MSG("fs_history_pulldown_changed\n");
+	menu = gtk_option_menu_get_menu(GTK_OPTION_MENU(optionmenu));
+	tmplist = g_list_first(main_v->recent_directories);
+	while (tmplist) {
+		menuitem = gtk_menu_item_new_with_label((gchar *)tmplist->data);
+		g_signal_connect(G_OBJECT(menuitem),"activate",G_CALLBACK(fs_history_pulldown_activate_lcb),fileselect);
+		gtk_widget_show(menuitem);
+		gtk_menu_shell_append(GTK_MENU_SHELL(menu), menuitem);
+		tmplist = g_list_next(tmplist);
+	}
+}
+
 static void fileselectwin(gchar *setfile, Tfileselect *fileselect, gchar *title) {
 
 	DEBUG_MSG("fileselectwin, started\n");
@@ -739,6 +763,8 @@ static void fileselectwin(gchar *setfile, Tfileselect *fileselect, gchar *title)
 	g_signal_connect(G_OBJECT(GTK_FILE_SELECTION(fileselect->fs)->cancel_button),
 					   "clicked", G_CALLBACK(close_modal_window_lcb), fileselect->fs);
 	g_signal_connect(G_OBJECT(GTK_FILE_SELECTION(fileselect->fs)->ok_button), "clicked", G_CALLBACK(fs_ok_clicked_lcb), fileselect);
+	g_signal_connect(G_OBJECT(GTK_FILE_SELECTION(fileselect->fs)->history_pulldown), "changed", G_CALLBACK(fs_history_pulldown_changed), fileselect);
+
 	if (fileselect->multipleselect) {
 		gtk_file_selection_set_select_multiple(GTK_FILE_SELECTION(fileselect->fs), TRUE);
 	}
@@ -746,6 +772,7 @@ static void fileselectwin(gchar *setfile, Tfileselect *fileselect, gchar *title)
 		gtk_file_selection_set_filename(GTK_FILE_SELECTION(fileselect->fs), setfile);
 	}
 	gtk_window_set_wmclass(GTK_WINDOW(fileselect->fs), "Bluefish", "fileselect");
+
 	gtk_widget_show(fileselect->fs);
 	gtk_grab_add(GTK_WIDGET(fileselect->fs));
 	gtk_widget_realize(GTK_WIDGET(fileselect->fs));

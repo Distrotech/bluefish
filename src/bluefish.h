@@ -135,7 +135,7 @@ typedef struct {
 	gchar *image_editor_cline; 	/* image editor commandline */
 	gchar *cfg_weblint_cline;	/* weblint command line */
 	gchar *editor_font_string;		/* editor font */
-	gint cfg_editor_tabwidth;	/* editor tabwidth */
+	gint editor_tab_width;	/* editor tabwidth */
 	gchar *cfg_tab_pos;			/* notebook tabs positioning */
 	gchar *tab_font_string;		/* notebook tabs font */
 	gchar *cfg_thumbnailstring;	/* string to append to thumbnail filenames */
@@ -212,13 +212,13 @@ typedef struct {
 } Tproperties;
 
 typedef struct {
-	Tdocument *current_document;
+	Tdocument *current_document; /* one object out of the documentlist, the current visible document */
 	Tproperties props;
-	GList *documentlist;
-	GList *hlsetlist;
+	GList *documentlist; /* document.c and others: all Tdocument objects */
+	GList *hlsetlist; /* highlighting.c: a list of all highlighting sets */
 	GtkWidget *main_window;
 	GtkWidget *menubar;
-	gint last_notebook_page;
+	gint last_notebook_page; /* a check to see if the notebook changed to a new page */
 	gulong notebook_switch_signal;
 	GtkWidget *notebook;
 	GtkWidget *middlebox; /* we need this to show/hide the filebrowser */
@@ -226,6 +226,7 @@ typedef struct {
 	GtkTextTagTable *tagtable; /* this one should ultimately move to Thighlightset, so every set would have it's own tagtable, but there is currently no way to switch a document to a new tagtable */
 	GtkWidget *statusbar;
 	GtkWidget *statuslabel; /* where we have the line number */
+	GList *recent_directories; /* a stringlist with the most recently used directories */
 	GList *recent_files; /* menu.c: a list of menuitems for a recent file */
 	GList *browsers; /* menu.c: a list of menuitems for a recent file */
 	GtkWidget *cmenu; /* menu.c: the custom menu widget */

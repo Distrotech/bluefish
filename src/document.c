@@ -41,9 +41,9 @@ void add_filename_to_history(gchar *filename) {
 	gchar *dirname;
 
 	add_to_recent_list(filename, 0); /* the recent menu */
-/*	dirname = g_dirname(filename);
-	add_to_dir_history(dirname);
-	g_free(dirname);*/
+	dirname = g_path_get_dirname(filename);
+	main_v->recent_directories = add_to_history_stringlist(main_v->recent_directories,dirname);
+	g_free(dirname);
 }
 
 
@@ -120,6 +120,48 @@ void doc_set_font(Tdocument *doc, gchar *fontstring) {
 	} else {
 		apply_font_style(doc->view, main_v->props.editor_font_string);
 	}
+}
+
+/* This function is taken from gtksourceview
+ * Copyright (C) 2001
+ * Mikael Hermansson <tyan@linux.se>
+ * Chris Phelps <chicane@reninet.com>
+ */
+static gint textview_calculate_real_tab_width(GtkWidget *textview, gint tab_size) {
+	PangoLayout *layout;
+	gchar *tab_string;
+	gint counter = 0;
+	gint tab_width = 0;
+
+	if (tab_size <= 0)
+		return 0;
+
+	tab_string = g_malloc (tab_size + 1);
+	while (counter < tab_size) {
+		tab_string[counter] = ' ';
+		counter++;
+	}
+	tab_string[tab_size] = '\0';
+	layout = gtk_widget_create_pango_layout(textview, tab_string);
+	g_free(tab_string);
+
+	if (layout != NULL) {
+		pango_layout_get_pixel_size (layout, &tab_width, NULL);
+		g_object_unref (G_OBJECT (layout));
+	} else {
+		tab_width = 0;
+	}
+	return tab_width;
+}
+
+void doc_set_tabsize(Tdocument *doc, gint tabsize) {
+	PangoTabArray *tab_array;
+	gint pixels = textview_calculate_real_tab_width(GTK_WIDGET(doc->view), tabsize);
+	DEBUG_MSG("doc_set_tabsize, tabsize=%d, pixels=%d\n", tabsize, pixels);
+	tab_array = pango_tab_array_new (1, TRUE);
+	pango_tab_array_set_tab (tab_array, 0, PANGO_TAB_LEFT, pixels);
+	gtk_text_view_set_tabs (GTK_TEXT_VIEW (doc->view), tab_array);
+	pango_tab_array_free(tab_array);
 }
 
 
@@ -925,11 +967,7 @@ Tdocument *doc_new(gboolean delay_activate) {
 	doc_unre_init(newdoc);
 	doc_set_font(newdoc, NULL);
 	document_set_wrap(newdoc, -1);
-	{
-		PangoTabArray* panarr = pango_tab_array_new_with_positions(1,TRUE,PANGO_TAB_LEFT,30);
-		gtk_text_view_set_tabs(GTK_TEXT_VIEW(newdoc->view),panarr);
-		pango_tab_array_free(panarr);
-	}
+	doc_set_tabsize(newdoc, main_v->props.editor_tab_width);
 
 /* this will force function doc_set_modified to update the tab label*/
 	newdoc->modified = 1;

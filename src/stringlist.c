@@ -40,7 +40,7 @@
 #include "gtk_easy.h"
 
 #define STRING_MAX_SIZE 1024
-#define MAX_ARRAY_LENGTH 10
+#define MAX_ARRAY_LENGTH 20
 
 
 /************************************************************************/
@@ -571,72 +571,91 @@ GList *get_stringlist(gchar * filename, GList * which_list)
 /*****************************************************************************
  * stores a stringlist into a file
  */
-gint put_stringlist(gchar * filename, GList * which_list)
+
+gboolean put_stringlist_limited(gchar * filename, GList * which_list, gint maxentries)
 {
 	char *tmpstr;
 	FILE *fd;
 	GList *tmplist;
+	gint count;
 
-	DEBUG_MSG("put_stringlist, started with filename=%s\n", filename);
+	DEBUG_MSG("put_stringlist_limited, started with filename=%s\n", filename);
 
-	DEBUG_MSG("put_stringlist, opening %s for saving list(%p)\n", filename, which_list);
+	DEBUG_MSG("put_stringlist_limited, opening %s for saving list(%p)\n", filename, which_list);
 	fd = fopen(filename, "w");
 	if (fd == NULL) {
-		return 0;
+		return FALSE;
 	}
-
-	tmplist = g_list_first(which_list);
-	while (tmplist != NULL) {
+	if (maxentries > 0) {
+		count = g_list_length(which_list) - maxentries;
+		tmplist = g_list_nth(which_list, (count<0) ? 0 : count);
+	} else {
+		tmplist = g_list_first(which_list);
+	}
+	while (tmplist) {
 		tmpstr = g_strndup((char *) tmplist->data, STRING_MAX_SIZE - 1);
-		DEBUG_MSG("put_stringlist, tmplist(%p), adding string(%p)=%s (strlen=%d)the file\n", tmplist, tmpstr, tmpstr, strlen(tmpstr));
+		DEBUG_MSG("put_stringlist_limited, count=%d, tmplist(%p), adding string(%p)=%s (strlen=%d)the file\n", count, tmplist, tmpstr, tmpstr, strlen(tmpstr));
 		fputs(tmpstr, fd);
 		g_free(tmpstr);
 		fputs("\n", fd);
 		tmplist = g_list_next(tmplist);
 	}
 	fclose(fd);
-	DEBUG_MSG("put_stringlist, finished, filedescriptor closed\n");
-	return 1;
+	DEBUG_MSG("put_stringlist_limited, finished, filedescriptor closed\n");
+	return TRUE;
 }
+
+gboolean put_stringlist(gchar * filename, GList * which_list) {
+	return put_stringlist_limited(filename,which_list, -1);
+}
+
 GList *remove_from_stringlist(GList *which_list, gchar * string) {
 	if (string && strlen(string) ) {
 		GList *tmplist = g_list_first(which_list);
 		while (tmplist) {
 			if (strcmp((gchar *) tmplist->data, string) == 0) {
-				break;
+				DEBUG_MSG("remove_from_stringlist, removing '%s' (%p)\n", (gchar *)tmplist->data, tmplist->data);
+				g_free(tmplist->data);
+				return g_list_remove(which_list, tmplist->data);
 			}
 			tmplist = g_list_next(tmplist);
 		}
-		return g_list_remove(which_list, tmplist->data);
 	}
+	return which_list;
+}
+
+GList *add_to_history_stringlist(GList *which_list, gchar *string) {
+	if (string && strlen(string) ) {
+		GList *tmplist = g_list_first(which_list);
+		while (tmplist) {
+			if (strcmp((gchar *) tmplist->data, string) == 0) {
+				/* move this entry to the end */
+				DEBUG_MSG("add_to_history_stringlist, entry exists, moving to the end\n");
+				which_list = g_list_remove_link(which_list, tmplist);
+				return g_list_concat(which_list, tmplist);
+			}
+			tmplist = g_list_next(tmplist);
+		}
+		/* if we arrive here the string was not yet in the list */
+		DEBUG_MSG("add_to_history_stringlist, appending new entry\n");
+		which_list = g_list_append(which_list, g_strdup(string));
+	}
+	return which_list;
 }
 
 /* designed for adding strings to colorlist, urllist, fontlist and targetlist */
 GList *add_to_stringlist(GList * which_list, gchar * string) {
 	if (string && strlen(string) ) {
-		gchar *tempstr2;
-		GList *tmplist;
-		gboolean add = TRUE;
-
-		tempstr2 = g_strdup(string);
-#ifdef DEBUG
-		g_assert(tempstr2);
-#endif
-		tmplist = g_list_first(which_list);
-		while (tmplist && add) {
-			if (strcmp((gchar *) tmplist->data, tempstr2) == 0) {
-				add = FALSE;
+		GList *tmplist = g_list_first(which_list);
+		while (tmplist) {
+			if (strcmp((gchar *) tmplist->data, string) == 0) {
 				DEBUG_MSG("add_to_stringlist, strings are the same, don't add!!\n");
+				return which_list;
 			}
 			tmplist = g_list_next(tmplist);
 		}
-		if (add) {
-			DEBUG_MSG("add_to_stringlist, adding string=%s, listlenght=%d\n", string, g_list_length(which_list));
-			which_list = g_list_append(which_list, tempstr2);
-		} else {
-			DEBUG_MSG("add_to_stringlist, string is already in there, freeing\n");
-			g_free(tempstr2);
-		}
+		/* if we arrive here the string was not yet in the list */
+		which_list = g_list_append(which_list, g_strdup(string));
 	}
 	return which_list;
 }
