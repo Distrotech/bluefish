@@ -368,6 +368,7 @@ static void free_dir_entries(GList *direntrylist) {
 	GList *tmplist = g_list_first(direntrylist);
 	while (tmplist) {
 		g_free(((Tdir_entry *)(tmplist->data))->name);
+		g_free(tmplist->data);
 		tmplist = g_list_next(tmplist);
 	}
 	g_list_free(direntrylist);
