@@ -1034,7 +1034,7 @@ static void fb2rpopup_delete(Tfilebrowser2 *fb2) {
 }
 
 static void fb2rpopup_rpopup_action_lcb(Tfilebrowser2 *fb2,guint callback_action, GtkWidget *widget) {
-	DEBUG_MSG("fb2rpopup_rpopup_action_lcb, called\n");
+	DEBUG_MSG("fb2rpopup_rpopup_action_lcb, called with action %d and widget %p\n",callback_action,widget);
 	switch (callback_action) {
 		case 1:
 			{
@@ -1080,44 +1080,41 @@ static void fb2rpopup_rpopup_action_lcb(Tfilebrowser2 *fb2,guint callback_action
 			refilter_dirlist(fb2, NULL);
 			fb2_focus_document(fb2->bfwin, fb2->bfwin->current_document);
 		break;
+		case 15:
+			main_v->props.filebrowser_focus_follow = gtk_check_menu_item_get_active(widget);
+			if (main_v->props.filebrowser_focus_follow) {
+				fb2_focus_document(fb2->bfwin, fb2->bfwin->current_document);
+			}
+		break;
+		case 16:
+			main_v->props.filebrowser_show_hidden_files = gtk_check_menu_item_get_active(widget);
+			gtk_tree_model_filter_refilter(GTK_TREE_MODEL_FILTER(fb2->dir_tfilter));
+			gtk_tree_model_filter_refilter(GTK_TREE_MODEL_FILTER(fb2->file_lfilter));
+		break;
+		case 17:
+			main_v->props.filebrowser_show_backup_files = gtk_check_menu_item_get_active(widget);
+			gtk_tree_model_filter_refilter(GTK_TREE_MODEL_FILTER(fb2->dir_tfilter));
+			gtk_tree_model_filter_refilter(GTK_TREE_MODEL_FILTER(fb2->file_lfilter));
+		break;
 	}
 }
-static void fb2rpopup_fad_toggled_lcb(GtkWidget *widget, Tfilebrowser2 *fb2) {
-	DEBUG_MSG("fb2rpopup_fad_toggled_lcb, called\n");
-	main_v->props.filebrowser_focus_follow = GTK_CHECK_MENU_ITEM(widget)->active;
-	if (main_v->props.filebrowser_focus_follow) {
-		fb2_focus_document(fb2->bfwin, fb2->bfwin->current_document);
-	}
-}
-static void fb2rpopup_shf_toggled_lcb(GtkWidget *widget, Tfilebrowser2 *fb2) {
-	DEBUG_MSG("fb2rpopup_shf_toggled_lcb, called\n");
-	main_v->props.filebrowser_show_hidden_files = GTK_CHECK_MENU_ITEM(widget)->active;
-	gtk_tree_model_filter_refilter(GTK_TREE_MODEL_FILTER(fb2->dir_tfilter));
-	gtk_tree_model_filter_refilter(GTK_TREE_MODEL_FILTER(fb2->file_lfilter));
-}
-static void fb2rpopup_sbf_toggled_lcb(GtkWidget *widget, Tfilebrowser2 *fb2) {
-	DEBUG_MSG("fb2rpopup_sbf_toggled_lcb, called\n");
-	main_v->props.filebrowser_show_backup_files = GTK_CHECK_MENU_ITEM(widget)->active;
-	gtk_tree_model_filter_refilter(GTK_TREE_MODEL_FILTER(fb2->dir_tfilter));
-	gtk_tree_model_filter_refilter(GTK_TREE_MODEL_FILTER(fb2->file_lfilter));
-}
-static GtkItemFactoryEntry fb2rpopup_dirmenu_entries[] = {
-	{ N_("/Open _Advanced..."),NULL,	fb2rpopup_rpopup_action_lcb,	7,	"<Item>" },
-	{ N_("/_Set as basedir"),	NULL,	fb2rpopup_rpopup_action_lcb,	8,	"<Item>" },
-	{ N_("/Show Full _Tree"),	NULL,	fb2rpopup_rpopup_action_lcb,	9,	"<Item>" }
-};
 
-static GtkItemFactoryEntry fb2rpopup_bothmenu_entries[] = {
-	{ N_("/New _File"),			NULL,	fb2rpopup_rpopup_action_lcb,	4,	"<Item>" },
-	{ N_("/_New Directory"),	NULL,	fb2rpopup_rpopup_action_lcb,	5,	"<Item>" },
+static GtkItemFactoryEntry fb2rpopup_menu_entries[] = {
+	{ N_("/_Open"),		NULL,	fb2rpopup_rpopup_action_lcb,		1,	"<Item>" },
+	{ N_("/Open _Advanced..."),NULL,	fb2rpopup_rpopup_action_lcb,	7,	"<Item>" },
 	{ N_("/Rena_me"),		NULL,	fb2rpopup_rpopup_action_lcb,		2,	"<Item>" },
 	{ N_("/_Delete"),		NULL,	fb2rpopup_rpopup_action_lcb,		3,	"<Item>" },
+	{ "/sep1",						NULL,	NULL,									0,	"<Separator>" },
+	{ N_("/New _File"),			NULL,	fb2rpopup_rpopup_action_lcb,	4,	"<Item>" },
+	{ N_("/_New Directory"),	NULL,	fb2rpopup_rpopup_action_lcb,	5,	"<Item>" },
+	{ "/sep2",						NULL,	NULL,									0,	"<Separator>" },
 	{ N_("/_Refresh"),			NULL,	fb2rpopup_rpopup_action_lcb,	6,	"<Item>" },
-	{ "/sep",						NULL,	NULL,									0,	"<Separator>" }
-};
-
-static GtkItemFactoryEntry fb2rpopup_filemenu_entries[] = {
-	{ N_("/_Open"),		NULL,	fb2rpopup_rpopup_action_lcb,		1,	"<Item>" }
+	{ N_("/Show Full _Tree"),	NULL,	fb2rpopup_rpopup_action_lcb,	9,	"<Item>" },
+	{ N_("/_Set as basedir"),	NULL,	fb2rpopup_rpopup_action_lcb,	8,	"<Item>" },
+	{ "/sep3",						NULL,	NULL,									0,	"<Separator>" },
+	{ N_("/Follow active document"),	NULL,	fb2rpopup_rpopup_action_lcb,	15,	"<ToggleItem>" },
+	{ N_("/Show hidden files"),	NULL,	fb2rpopup_rpopup_action_lcb,	16,	"<ToggleItem>" },
+	{ N_("/Show backup files"),	NULL,	fb2rpopup_rpopup_action_lcb,	17,	"<ToggleItem>" },
 };
 /* 
  * what should the menu look like?
@@ -1136,7 +1133,7 @@ static GtkItemFactoryEntry fb2rpopup_filemenu_entries[] = {
  *
  * 
  */
-static GtkWidget *fb2_rpopup_create_menu(Tfilebrowser2 *fb2, gboolean is_directory) {
+static GtkWidget *fb2_rpopup_create_menu(Tfilebrowser2 *fb2, gboolean is_directory, gboolean is_file) {
 	GtkWidget *menu, *menu_item;
 	GtkItemFactory *menumaker;
 
@@ -1145,30 +1142,25 @@ static GtkWidget *fb2_rpopup_create_menu(Tfilebrowser2 *fb2, gboolean is_directo
 #ifdef ENABLE_NLS
 	gtk_item_factory_set_translate_func(menumaker,menu_translate,"<Filebrowser>",NULL);
 #endif
-	if (is_directory) {
-		gtk_item_factory_create_items(menumaker, sizeof(fb2rpopup_dirmenu_entries)/sizeof(GtkItemFactoryEntry), fb2rpopup_dirmenu_entries, fb2);
-	} else {
-		gtk_item_factory_create_items(menumaker, sizeof(fb2rpopup_filemenu_entries)/sizeof(GtkItemFactoryEntry), fb2rpopup_filemenu_entries, fb2);
-	}
-	gtk_item_factory_create_items(menumaker, sizeof(fb2rpopup_bothmenu_entries)/sizeof(GtkItemFactoryEntry), fb2rpopup_bothmenu_entries, fb2);
+	gtk_item_factory_create_items(menumaker, sizeof(fb2rpopup_menu_entries)/sizeof(GtkItemFactoryEntry), fb2rpopup_menu_entries, fb2);
 	menu = gtk_item_factory_get_widget(menumaker, "<Filebrowser>");
 
 	/* set toggle options */
-	menu_item = gtk_check_menu_item_new_with_label(_("Follow active document"));
-	gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(menu_item), main_v->props.filebrowser_focus_follow);
-	g_signal_connect(GTK_OBJECT(menu_item), "toggled", G_CALLBACK(fb2rpopup_fad_toggled_lcb), fb2);
-	gtk_menu_shell_append(GTK_MENU_SHELL(menu), menu_item);
-
-	menu_item = gtk_check_menu_item_new_with_label(_("Show hidden files"));
-	gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(menu_item), main_v->props.filebrowser_show_hidden_files);
-	g_signal_connect(GTK_OBJECT(menu_item), "toggled", G_CALLBACK(fb2rpopup_shf_toggled_lcb), fb2);
-	gtk_menu_shell_append(GTK_MENU_SHELL(menu), menu_item);
+	setup_toggle_item(menumaker, "/Follow active document", main_v->props.filebrowser_focus_follow);
+	setup_toggle_item(menumaker, "/Show hidden files", main_v->props.filebrowser_show_hidden_files);
+	setup_toggle_item(menumaker, "/Show backup files", main_v->props.filebrowser_show_backup_files);
+	if (!is_directory && !is_file) {
+		gtk_widget_set_sensitive(gtk_item_factory_get_widget(menumaker, "/Rename"), FALSE);
+		gtk_widget_set_sensitive(gtk_item_factory_get_widget(menumaker, "/Delete"), FALSE);
+	}
+	if (!is_directory) {
+		gtk_widget_set_sensitive(gtk_item_factory_get_widget(menumaker, "/Open Advanced..."), FALSE);
+		gtk_widget_set_sensitive(gtk_item_factory_get_widget(menumaker, "/Set as basedir"), FALSE);
+	} 
+	if (!is_file) {
+		gtk_widget_set_sensitive(gtk_item_factory_get_widget(menumaker, "/Open"), FALSE);
+	}
 	
-	menu_item = gtk_check_menu_item_new_with_label(_("Show backup files"));
-	gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(menu_item), main_v->props.filebrowser_show_backup_files);
-	g_signal_connect(GTK_OBJECT(menu_item), "toggled", G_CALLBACK(fb2rpopup_sbf_toggled_lcb), fb2);
-	gtk_menu_shell_append(GTK_MENU_SHELL(menu), menu_item);
-
 	/* Add filter submenu * /
 	menu_item = gtk_menu_item_new_with_label(_("Filter"));
 	gtk_menu_shell_append(GTK_MENU_SHELL(menu), menu_item);
@@ -1220,10 +1212,13 @@ static gboolean dir_v_button_press_lcb(GtkWidget *widget, GdkEventButton *event,
 		GtkTreePath *path;
 		gtk_tree_view_get_path_at_pos(GTK_TREE_VIEW(fb2->dir_v), event->x, event->y, &path, NULL, NULL, NULL);
 		if (path) {
-			menu = fb2_rpopup_create_menu(fb2, fb2_isdir_from_dir_sort_path(fb2, path));
-			gtk_menu_popup(GTK_MENU(menu), NULL, NULL, NULL, NULL, event->button, event->time);
+			gboolean is_dir = fb2_isdir_from_dir_sort_path(fb2, path);
+			menu = fb2_rpopup_create_menu(fb2, is_dir, !is_dir);
 			gtk_tree_path_free(path);
+		} else {
+			menu = fb2_rpopup_create_menu(fb2, FALSE, FALSE);
 		}
+		gtk_menu_popup(GTK_MENU(menu), NULL, NULL, NULL, NULL, event->button, event->time);		
 	}
 	return FALSE; /* pass the event on */
 }
@@ -1235,10 +1230,12 @@ static gboolean file_v_button_press_lcb(GtkWidget *widget, GdkEventButton *event
 		GtkTreePath *path;
 		gtk_tree_view_get_path_at_pos(GTK_TREE_VIEW(fb2->file_v), event->x, event->y, &path, NULL, NULL, NULL);
 		if (path) {
-			menu = fb2_rpopup_create_menu(fb2, FALSE);
-			gtk_menu_popup(GTK_MENU(menu), NULL, NULL, NULL, NULL, event->button, event->time);
+			menu = fb2_rpopup_create_menu(fb2, FALSE, TRUE);
 			gtk_tree_path_free(path);
+		} else {
+			menu = fb2_rpopup_create_menu(fb2, FALSE, FALSE);
 		}
+		gtk_menu_popup(GTK_MENU(menu), NULL, NULL, NULL, NULL, event->button, event->time);
 	}
 	
 	if (event->button==1 && event->type == GDK_2BUTTON_PRESS) {
