@@ -766,6 +766,7 @@ void snr2_run(void) {
 			DEBUG_MSG("snr2_run, no selection found, returning\n");
 			return;
 		}
+		DEBUG_MSG("snr2_run, from selection: startpos=%d, endpos=%d\n", startpos, endpos);
 	}
 	if (last_snr2.doc == main_v->current_document) {
 		if (last_snr2.result.end > 0) {
