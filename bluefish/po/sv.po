@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: bluefish gtk2-port\n"
-"POT-Creation-Date: 2003-04-24 22:54-0300\n"
+"POT-Creation-Date: 2003-05-14 10:54+0200\n"
 "PO-Revision-Date: 2003-01-12 14:30+0100\n"
 "Last-Translator: David Smeringe <david.smeringe@telia.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
@@ -30,12 +30,11 @@ msgstr "Original"
 msgid "Replacement"
 msgstr "Ersättning"
 
-#: ../src/bfspell.c:356 ../src/document.c:1740
+#: ../src/bfspell.c:356 ../src/document.c:1722
 msgid "Ignore"
 msgstr "Ignorera"
 
-#: ../src/bfspell.c:357 ../src/menu.c:1897 ../src/snr2.c:1059
-#: ../src/snr2.c:1114
+#: ../src/bfspell.c:357 ../src/menu.c:1897 ../src/snr2.c:1096
 msgid "Replace"
 msgstr "Ersätt"
 
@@ -136,92 +135,91 @@ msgstr "visar det grafiska huvudgränssnittet..."
 msgid "/Document/Highlight syntax"
 msgstr "/Dokument/Färgkodningssyntax"
 
-#: ../src/document.c:283 ../src/document.c:297 ../src/document.c:319
-#: ../src/document.c:321
+#: ../src/document.c:284 ../src/document.c:285
 msgid "Untitled"
 msgstr "Namnlös"
 
-#: ../src/document.c:657
+#: ../src/document.c:639
 msgid "Opening file "
 msgstr "Öppnar fil "
 
-#: ../src/document.c:666
+#: ../src/document.c:648
 msgid "Could not open file:\n"
 msgstr "Kunde inte öppna filen:\n"
 
-#: ../src/document.c:667 ../src/document.c:791 ../src/document.c:1365
-#: ../src/document.c:1371
+#: ../src/document.c:649 ../src/document.c:773 ../src/document.c:1347
+#: ../src/document.c:1353
 msgid "Error"
 msgstr "Fel"
 
-#: ../src/document.c:791
+#: ../src/document.c:773
 msgid "Cannot display file, unknown characters found."
 msgstr "Kan inte visa filen på grund av okända tecken."
 
-#: ../src/document.c:890
-#, c-format
+#: ../src/document.c:872
+#, c-format, ycp-format
 msgid " line %4d "
 msgstr " rad %4d "
 
-#: ../src/document.c:1034
+#: ../src/document.c:1016
 msgid "Edit tag"
 msgstr "Redigera tagg"
 
-#: ../src/document.c:1045
+#: ../src/document.c:1027
 msgid "Input _Methods"
 msgstr "Inmatnings_metoder"
 
-#: ../src/document.c:1122
+#: ../src/document.c:1104
 msgid "Saving file"
 msgstr "Sparar filen"
 
-#: ../src/document.c:1143
+#: ../src/document.c:1125
 msgid "Abort save"
 msgstr "Avbryt spara"
 
-#: ../src/document.c:1143
+#: ../src/document.c:1125
 msgid "Continue save"
 msgstr "Fortsätt spara"
 
-#: ../src/document.c:1145
+#: ../src/document.c:1127
 #, c-format
 msgid "Backup for %s failed"
 msgstr "Säkerhetskopieringen för %s misslyckades"
 
-#: ../src/document.c:1146
+#: ../src/document.c:1128
 msgid "Bluefish warning, file backup failure"
 msgstr "Bluefish-varning, säkerhetskopiering misslyckades"
 
-#: ../src/document.c:1279
+#: ../src/document.c:1261
 msgid "Save as..."
 msgstr "Spara som..."
 
-#: ../src/document.c:1282
+#: ../src/document.c:1264
 msgid "Save document as"
 msgstr "Spara dokumentet som"
 
-#: ../src/document.c:1289 ../src/document.c:1333
+#: ../src/document.c:1271 ../src/document.c:1315
 msgid "Overwrite"
 msgstr "Skriv över"
 
-#: ../src/document.c:1289 ../src/document.c:1333
+#: ../src/document.c:1271 ../src/document.c:1315
 msgid "Cancel"
 msgstr "Avbryt"
 
-#: ../src/document.c:1290
+#: ../src/document.c:1272
 #, c-format
 msgid "File %s is open, overwrite?"
 msgstr "Filen %s är öppen, skriv över?"
 
-#: ../src/document.c:1291
+#: ../src/document.c:1273
 msgid "Bluefish: Warning, file is open"
 msgstr "Bluefish: Varning, filen är öppen"
 
-#: ../src/document.c:1310
+#: ../src/document.c:1292
 msgid "Previously: "
 msgstr "Föregående: "
 
-#: ../src/document.c:1337
+#: ../src/document.c:1319
 #, c-format
 msgid ""
 "File %s\n"
@@ -236,24 +234,24 @@ msgstr ""
 "den gamla ändringstiden är %s\n"
 "Vill du skriva över filen?"
 
-#: ../src/document.c:1338 ../src/document.c:1745
+#: ../src/document.c:1320 ../src/document.c:1727
 msgid "Bluefish: Warning, file is modified"
 msgstr "Bluefish: Varning, filen är ändrad"
 
-#: ../src/document.c:1354
+#: ../src/document.c:1336
 #, c-format
 msgid "Saving %s"
 msgstr "Sparar %s"
 
-#: ../src/document.c:1364
+#: ../src/document.c:1346
 msgid "File save aborted, could not backup file:\n"
 msgstr "Sparande av fil är avbruten, kunde inte säkerhetskopiera filen:\n"
 
-#: ../src/document.c:1370
+#: ../src/document.c:1352
 msgid "File save error, could not write file:\n"
 msgstr "Fel vid sparande av fil, kunde inte skriva filen:\n"
 
-#: ../src/document.c:1418
+#: ../src/document.c:1400
 #, c-format
 msgid ""
 "Are you sure you want to close\n"
@@ -262,7 +260,7 @@ msgstr ""
 "Är du säker på att du vill stänga\n"
 "%s?"
 
-#: ../src/document.c:1423
+#: ../src/document.c:1405
 msgid ""
 "Are you sure you want to close\n"
 "this untitled file ?"
@@ -270,27 +268,27 @@ msgstr ""
 "Är du säker på att du vill stänga\n"
 "den här namnlösa filen?"
 
-#: ../src/document.c:1428
+#: ../src/document.c:1410
 msgid "Bluefish warning: file is modified!"
 msgstr "Bluefish-varning: Filen är ändrad!"
 
-#: ../src/document.c:1619
+#: ../src/document.c:1601
 msgid "No filename"
 msgstr "Inget filnamn"
 
-#: ../src/document.c:1694 ../src/msg_queue.c:180
+#: ../src/document.c:1676 ../src/msg_queue.c:180
 msgid "Unable to open file(s)\n"
 msgstr "Kan inte öppna fil(erna)\n"
 
-#: ../src/document.c:1710
+#: ../src/document.c:1692
 msgid "Unable to open file"
 msgstr "Kan inte öppna filen"
 
-#: ../src/document.c:1740
+#: ../src/document.c:1722
 msgid "Reload"
 msgstr "Läs om"
 
-#: ../src/document.c:1744
+#: ../src/document.c:1726
 #, c-format
 msgid ""
 "File %s\n"
@@ -303,84 +301,84 @@ msgstr ""
 "ny ändringstid är %s\n"
 "gamla ändringstiden är %s"
 
-#: ../src/document.c:1834
+#: ../src/document.c:1816
 msgid "searching files..."
 msgstr "söker filer..."
 
-#: ../src/document.c:1853
+#: ../src/document.c:1835
 msgid "Select basedir"
 msgstr "Välj startkatalog"
 
-#: ../src/document.c:1865
+#: ../src/document.c:1847
 msgid "Advanced open file selector"
 msgstr "Avancerad filöppningsväljare"
 
-#: ../src/document.c:1876
+#: ../src/document.c:1858
 msgid "grep {contains} `find {basedir} -name '{file type}'`"
 msgstr "grep {innehåller} `find {startkatalog} -name '{filtyp}'`"
 
-#: ../src/document.c:1881
+#: ../src/document.c:1863
 msgid "<b>General</b>"
 msgstr "<b>Vanlig</b>"
 
-#: ../src/document.c:1883
+#: ../src/document.c:1865
 msgid "Base_dir:"
 msgstr "Start_katalog:"
 
-#: ../src/document.c:1885 ../src/gtk_easy.c:772
+#: ../src/document.c:1867 ../src/gtk_easy.c:796
 msgid "_Browse..."
 msgstr "_Bläddra..."
 
-#: ../src/document.c:1900
+#: ../src/document.c:1882
 msgid "_File Type:"
 msgstr "_Filtyp:"
 
-#: ../src/document.c:1906
+#: ../src/document.c:1888
 msgid "_Recursive:"
 msgstr "_Rekursivt:"
 
-#: ../src/document.c:1911
+#: ../src/document.c:1893
 msgid "<b>Contains</b>"
 msgstr "<b>Innehåller</b>"
 
-#: ../src/document.c:1914
+#: ../src/document.c:1896
 msgid "Pa_ttern:"
 msgstr "Möns_ter:"
 
-#: ../src/document.c:1918
+#: ../src/document.c:1900
 msgid "Is rege_x:"
 msgstr "Är regulj_ärt uttryck:"
 
-#: ../src/document.c:1981
+#: ../src/document.c:1963
 #, c-format
 msgid "Loading %d file(s)..."
 msgstr "Läser in %d fil(er)..."
 
-#: ../src/document.c:1999
+#: ../src/document.c:1981
 msgid "No file to insert"
 msgstr "Ingen fil att sätta in"
 
-#: ../src/document.c:2033
+#: ../src/document.c:2015
 msgid "save all"
 msgstr "spara alla"
 
-#: ../src/document.c:2033
+#: ../src/document.c:2015
 msgid "close all"
 msgstr "Stäng alla"
 
-#: ../src/document.c:2033
+#: ../src/document.c:2015
 msgid "choose per file"
 msgstr "välj per fil"
 
-#: ../src/document.c:2033
+#: ../src/document.c:2015
 msgid "cancel"
 msgstr "avbryt"
 
-#: ../src/document.c:2034
+#: ../src/document.c:2016
 msgid "Bluefish: Warning, some file(s) are modified!"
 msgstr "Bluefish: Varning, en eller flera filer är ändrade!"
 
-#: ../src/document.c:2034
+#: ../src/document.c:2016
 msgid ""
 "Some file(s) are modified\n"
 "please choose your action"
@@ -388,7 +386,7 @@ msgstr ""
 "En eller flera filer är ändrade\n"
 "Välj vad du vill göra"
 
-#: ../src/document.c:2251
+#: ../src/document.c:2233
 msgid "No selection to indent"
 msgstr "Ingen markering att indentera"
 
@@ -441,48 +439,72 @@ msgstr "Uppdatera"
 msgid "All files"
 msgstr "Alla filer"
 
-#: ../src/fref.c:816 ../src/fref.c:1115 ../src/fref.c:1375 ../src/fref.c:1401
-msgid "Info"
-msgstr "Info"
+#: ../src/fref.c:661
+msgid "Show info window"
+msgstr ""
 
-#: ../src/fref.c:837 ../src/gui.c:544
-msgid "Close"
-msgstr "Stäng"
-
-#: ../src/fref.c:841 ../src/fref.c:1369 ../src/fref.c:1399
+#: ../src/fref.c:667 ../src/fref.c:914 ../src/fref.c:1453 ../src/fref.c:1484
 msgid "Dialog"
 msgstr "Dialog"
 
-#: ../src/fref.c:842 ../src/fref.c:1372 ../src/fref.c:1396
+#: ../src/fref.c:668 ../src/fref.c:889 ../src/fref.c:1188 ../src/fref.c:1459
+#: ../src/fref.c:1486
+msgid "Info"
+msgstr "Info"
+
+#: ../src/fref.c:910 ../src/gui.c:544
+msgid "Close"
+msgstr "Stäng"
+
+#: ../src/fref.c:915 ../src/fref.c:1456 ../src/fref.c:1481
 msgid "Insert"
 msgstr "Sätt in"
 
-#: ../src/fref.c:1381 ../src/html.c:552 ../src/html.c:1180
+#: ../src/fref.c:1465 ../src/html.c:552 ../src/html.c:1173
 msgid "Options"
 msgstr "Alternativ"
 
-#: ../src/fref.c:1388
+#: ../src/fref.c:1473
 msgid "Rescan reference files"
 msgstr "Sök referensfiler igen"
 
-#: ../src/fref.c:1391
+#: ../src/fref.c:1476
 msgid "Left doubleclick action"
 msgstr "Vänster dubbelklickshändelse"
 
-#: ../src/gtk_easy.c:937 ../src/menu.c:1314 ../src/menu.c:1660
+#: ../src/fref.c:1489
+#, fuzzy
+msgid "Info type"
+msgstr "Info"
+
+#: ../src/fref.c:1493
+#, fuzzy
+msgid "Description"
+msgstr "Definition"
+
+#: ../src/fref.c:1496
+msgid "Attributes/Parameters"
+msgstr ""
+
+#: ../src/fref.c:1498
+#, fuzzy
+msgid "Notes"
+msgstr "Inga ramar"
+
+#: ../src/gtk_easy.c:961 ../src/menu.c:1314 ../src/menu.c:1660
 #: ../src/menu.c:1662 ../src/menu.c:1667
 msgid "Bluefish error"
 msgstr "Bluefish-felmeddelande"
 
-#: ../src/gtk_easy.c:937
+#: ../src/gtk_easy.c:961
 msgid "No filename known"
 msgstr "Okänt filnamn"
 
-#: ../src/gtk_easy.c:1026
+#: ../src/gtk_easy.c:1050
 msgid "Select file"
 msgstr "Välj fil"
 
-#: ../src/gtk_easy.c:1038
+#: ../src/gtk_easy.c:1062
 msgid "Select files"
 msgstr "Välj filer"
 
@@ -654,11 +676,11 @@ msgstr "Ramsamling..."
 msgid "Frame..."
 msgstr "Ram..."
 
-#: ../src/gui.c:296 ../src/html.c:1681
+#: ../src/gui.c:296 ../src/html.c:1674
 msgid "Frameset"
 msgstr "Ramuppsamling"
 
-#: ../src/gui.c:297 ../src/html.c:1766
+#: ../src/gui.c:297 ../src/html.c:1759
 msgid "Frame"
 msgstr "Ram"
 
@@ -882,7 +904,7 @@ msgstr "Sök..."
 msgid "Search and Replace..."
 msgstr "Sök och ersätt..."
 
-#: ../src/gui.c:558 ../src/preferences.c:1769
+#: ../src/gui.c:558 ../src/preferences.c:1752
 msgid "Undo"
 msgstr "Ångra"
 
@@ -959,74 +981,21 @@ msgid "Goto line"
 msgstr "Gå till rad"
 
 #: ../src/gui.c:932
-msgid "_Line number: "
+#, fuzzy
+msgid "_Line number:"
 msgstr "_Radnummer: "
 
 #: ../src/gui.c:938
 msgid "From _selection"
 msgstr "Från _markering"
 
-#: ../src/gui.c:946
+#: ../src/gui.c:941
 msgid "Keep _dialog"
 msgstr "Behåll _dialogrutan"
 
-#: ../src/gui.c:1008
+#: ../src/gui.c:1010
 msgid "starting bluefish"
 msgstr "startar bluefish"
-
-#: ../src/html2.c:586
-msgid "Cascading StyleSheet dialog"
-msgstr "Stilmallsdialog"
-
-#: ../src/html2.c:606
-msgid "_Selector:"
-msgstr "V_äljare:"
-
-#: ../src/html2.c:625
-msgid "_Property:"
-msgstr "Egenskaper:"
-
-#: ../src/html2.c:627 ../src/html_form.c:286 ../src/html_form.c:353
-#: ../src/html_form.c:415 ../src/html_form.c:471 ../src/html_form.c:534
-#: ../src/html_form.c:644
-msgid "_Value:"
-msgstr "_Värde:"
-
-#: ../src/html2.c:645
-msgid "Selector"
-msgstr "Välj"
-
-#: ../src/html2.c:645 ../src/html2.c:648
-msgid "Property"
-msgstr "Egenskaper"
-
-#: ../src/html2.c:645 ../src/html2.c:648
-msgid "Value"
-msgstr "Värde"
-
-#: ../src/html2.c:663
-msgid " _Add "
-msgstr " L_ägg till "
-
-#: ../src/html2.c:666
-msgid " _Update "
-msgstr " _Uppdatera "
-
-#: ../src/html2.c:669
-msgid " _Delete "
-msgstr " _Ta bort "
-
-#: ../src/html2.c:925 ../src/html2.c:962
-msgid "_Style..."
-msgstr "_Stil..."
-
-#: ../src/html2.c:1145
-msgid "Bluefish: Select color"
-msgstr "Bluefish: Välj färg"
-
-#: ../src/html2.c:1165
-msgid "_websafe"
-msgstr "_webbsäker"
 
 #: ../src/html.c:353
 msgid "Insert Time"
@@ -1096,33 +1065,33 @@ msgstr "HREF:"
 msgid "_Target:"
 msgstr "M_ål:"
 
-#: ../src/html.c:577 ../src/html.c:817 ../src/html.c:1344 ../src/html.c:1778
+#: ../src/html.c:577 ../src/html.c:817 ../src/html.c:1337 ../src/html.c:1771
 #: ../src/html_form.c:220 ../src/html_form.c:282 ../src/html_form.c:349
 #: ../src/html_form.c:411 ../src/html_form.c:467 ../src/html_form.c:530
 #: ../src/html_form.c:589 ../src/image.c:261
 msgid "_Name:"
 msgstr "_Namn:"
 
-#: ../src/html.c:581 ../src/html.c:821 ../src/html.c:1199
+#: ../src/html.c:581 ../src/html.c:821 ../src/html.c:1192
 msgid "_ID:"
 msgstr "_ID:"
 
-#: ../src/html.c:585 ../src/html.c:806 ../src/html.c:1195
+#: ../src/html.c:585 ../src/html.c:806 ../src/html.c:1188
 #: ../src/html_table.c:96 ../src/html_table.c:243 ../src/html_table.c:357
 msgid "Cl_ass:"
 msgstr "Kl_ass:"
 
-#: ../src/html.c:589 ../src/html.c:810 ../src/html.c:1106 ../src/html.c:1188
+#: ../src/html.c:589 ../src/html.c:810 ../src/html.c:1099 ../src/html.c:1181
 #: ../src/html_table.c:101 ../src/html_table.c:254 ../src/html_table.c:362
 msgid "St_yle:"
 msgstr "St_il:"
 
-#: ../src/html.c:596 ../src/html.c:1203 ../src/html.c:1955
+#: ../src/html.c:596 ../src/html.c:1196 ../src/html.c:1948
 msgid "_Language:"
 msgstr "Språ_k:"
 
-#: ../src/html.c:600 ../src/html.c:825 ../src/html.c:960 ../src/html.c:1368
-#: ../src/html.c:1713 ../src/html.c:1815 ../src/html.c:1993
+#: ../src/html.c:600 ../src/html.c:825 ../src/html.c:960 ../src/html.c:1200
+#: ../src/html.c:1361 ../src/html.c:1706 ../src/html.c:1808 ../src/html.c:1986
 #: ../src/html_form.c:175 ../src/html_form.c:232 ../src/html_form.c:301
 #: ../src/html_form.c:365 ../src/html_form.c:419 ../src/html_form.c:480
 #: ../src/html_form.c:602 ../src/html_table.c:106 ../src/html_table.c:259
@@ -1130,7 +1099,7 @@ msgstr "Språ_k:"
 msgid "Custo_m:"
 msgstr "An_passad:"
 
-#: ../src/html.c:604 ../src/html.c:1211
+#: ../src/html.c:604 ../src/html.c:1204
 msgid "Events"
 msgstr "Händelser"
 
@@ -1191,15 +1160,15 @@ msgstr "_Justera:"
 msgid "Horizontal Rule"
 msgstr "Horisontell linje"
 
-#: ../src/html.c:934 ../src/html.c:1864 ../src/image.c:281
+#: ../src/html.c:934 ../src/html.c:1857 ../src/image.c:281
 msgid "_Align:"
 msgstr "Justera:"
 
-#: ../src/html.c:941 ../src/html.c:1872 ../src/html_table.c:393
+#: ../src/html.c:941 ../src/html.c:1865 ../src/html_table.c:393
 msgid "_Height:"
 msgstr "_Höjd:"
 
-#: ../src/html.c:947 ../src/html.c:1868 ../src/html_table.c:139
+#: ../src/html.c:947 ../src/html.c:1861 ../src/html_table.c:139
 #: ../src/html_table.c:386 ../src/image.c:245
 msgid "_Width:"
 msgstr "_Bredd:"
@@ -1220,189 +1189,239 @@ msgstr "Snabbstart"
 msgid "_Doctype:"
 msgstr "_Dokumenttyp:"
 
-#: ../src/html.c:1056
+#: ../src/html.c:1052
 msgid "Header tags:"
 msgstr "Rubriktaggar:"
 
-#: ../src/html.c:1089 ../src/wizards.c:187
+#: ../src/html.c:1085 ../src/wizards.c:187
 msgid "_Title:"
 msgstr "_Titel:"
 
-#: ../src/html.c:1172
+#: ../src/html.c:1165
 msgid "Body"
 msgstr "Kropp"
 
-#: ../src/html.c:1207
-msgid "Custom _values:"
-msgstr "Egna _värden:"
-
-#: ../src/html.c:1218
+#: ../src/html.c:1211
 msgid "On_Load:"
 msgstr "Vid laddning:"
 
-#: ../src/html.c:1226
+#: ../src/html.c:1219
 msgid "On_UnLoad:"
 msgstr "Vid urladdning:"
 
-#: ../src/html.c:1235
+#: ../src/html.c:1228
 msgid "Depreciated options"
 msgstr "Föråldrade alternativ"
 
-#: ../src/html.c:1245
+#: ../src/html.c:1238
 msgid "Background _Image:"
 msgstr "Bakgrundsb_ild:"
 
-#: ../src/html.c:1252
+#: ../src/html.c:1245
 msgid "Back_ground Color:"
 msgstr "Bak_grundsfärg:"
 
-#: ../src/html.c:1258
+#: ../src/html.c:1251
 msgid "_Text Color:"
 msgstr "_Textfärg:"
 
-#: ../src/html.c:1264
+#: ../src/html.c:1257
 msgid "_Link Color:"
 msgstr "Färg på _länk:"
 
-#: ../src/html.c:1270
+#: ../src/html.c:1263
 msgid "_Visited Link Color:"
 msgstr "Färg på besökt länk:"
 
-#: ../src/html.c:1276
+#: ../src/html.c:1269
 msgid "_Active Link Color:"
 msgstr "Färg på _aktiv länk:"
 
-#: ../src/html.c:1330
+#: ../src/html.c:1323
 msgid "Meta"
 msgstr "Meta"
 
-#: ../src/html.c:1355
+#: ../src/html.c:1348
 msgid "_HTTP-EQUIV:"
 msgstr "_HTTP-EQUIV:"
 
-#: ../src/html.c:1360
+#: ../src/html.c:1353
 msgid "Con_tent:"
 msgstr "_Innehåll:"
 
-#: ../src/html.c:1364
+#: ../src/html.c:1357
 msgid "_Scheme:"
 msgstr "_Schema:"
 
-#: ../src/html.c:1446 ../src/preferences.c:1715
+#: ../src/html.c:1439 ../src/preferences.c:1698
 msgid "Font"
 msgstr "Typsnitt"
 
-#: ../src/html.c:1449
+#: ../src/html.c:1442
 msgid "Base Font"
 msgstr "Standardtypsnitt"
 
-#: ../src/html.c:1464
+#: ../src/html.c:1457
 msgid "Size"
 msgstr "Storlek"
 
-#: ../src/html.c:1472
+#: ../src/html.c:1465
 msgid "Color"
 msgstr "Färg"
 
-#: ../src/html.c:1477
+#: ../src/html.c:1470
 msgid "Face"
 msgstr "Typsnittsfamilj"
 
-#: ../src/html.c:1481
+#: ../src/html.c:1474
 msgid "Custom"
 msgstr "Anpassad"
 
-#: ../src/html.c:1541
+#: ../src/html.c:1534
 msgid "Email"
 msgstr "E-post"
 
-#: ../src/html.c:1549
+#: ../src/html.c:1542
 msgid "_Email address:"
 msgstr "_E-postadress:"
 
-#: ../src/html.c:1554
+#: ../src/html.c:1547
 msgid "UrlEncoded _subject:"
 msgstr "Url-kodat _ämne:"
 
-#: ../src/html.c:1558
+#: ../src/html.c:1551
 msgid "UrlEncoded _body:"
 msgstr "Url-kodat _innehåll:"
 
-#: ../src/html.c:1602
+#: ../src/html.c:1595
 msgid "Quick List"
 msgstr "Snabblista"
 
-#: ../src/html.c:1607 ../src/html.c:1691 ../src/html_form.c:225
+#: ../src/html.c:1600 ../src/html.c:1684 ../src/html_form.c:225
 msgid "_Rows:"
 msgstr "Rader:"
 
-#: ../src/html.c:1610
+#: ../src/html.c:1603
 msgid "Or_dered"
 msgstr "Or_dnad"
 
-#: ../src/html.c:1611
+#: ../src/html.c:1604
 msgid "_Unordered"
 msgstr "_Oordnad"
 
-#: ../src/html.c:1613
+#: ../src/html.c:1606
 msgid "Style:"
 msgstr "Stil:"
 
-#: ../src/html.c:1687 ../src/html_form.c:229
+#: ../src/html.c:1680 ../src/html_form.c:229
 msgid "Co_ls:"
 msgstr "Ko_lumner:"
 
-#: ../src/html.c:1696
+#: ../src/html.c:1689
 msgid "_Add <frame> elements"
 msgstr "_Läggtill <frame> element"
 
-#: ../src/html.c:1774 ../src/html.c:1860 ../src/html.c:1948
+#: ../src/html.c:1767 ../src/html.c:1853 ../src/html.c:1941
 msgid "_Source:"
 msgstr "_Källkod:"
 
-#: ../src/html.c:1782
+#: ../src/html.c:1775
 msgid "Margin _Width:"
 msgstr "Marginalb_redd:"
 
-#: ../src/html.c:1786
+#: ../src/html.c:1779
 msgid "Margin _Height:"
 msgstr "Marginal_höjd:"
 
-#: ../src/html.c:1794
+#: ../src/html.c:1787
 msgid "Scrollin_g:"
 msgstr "Rullnin_g:"
 
-#: ../src/html.c:1798
+#: ../src/html.c:1791
 msgid "_Frameborder:"
 msgstr "_Ramkant:"
 
-#: ../src/html.c:1803
+#: ../src/html.c:1796
 msgid "No _Resize:"
 msgstr "Ingen sto_rleksändring:"
 
-#: ../src/html.c:1854
+#: ../src/html.c:1847
 msgid "Embed"
 msgstr "Inbäddad"
 
-#: ../src/html.c:1876 ../src/html_table.c:145
+#: ../src/html.c:1869 ../src/html_table.c:145
 msgid "Bo_rder:"
 msgstr "Kant:"
 
-#: ../src/html.c:1937
+#: ../src/html.c:1930
 msgid "Script"
 msgstr "Skript"
 
-#: ../src/html.c:1940
+#: ../src/html.c:1933
 msgid "Link"
 msgstr "Länk"
 
-#: ../src/html.c:1975
+#: ../src/html.c:1968
 msgid "_Rel:"
 msgstr "_Rel:"
 
-#: ../src/html.c:1989 ../src/html_form.c:361
+#: ../src/html.c:1982 ../src/html_form.c:361
 msgid "_Type:"
 msgstr "_Typ:"
+
+#: ../src/html2.c:586
+msgid "Cascading StyleSheet dialog"
+msgstr "Stilmallsdialog"
+
+#: ../src/html2.c:606
+msgid "_Selector:"
+msgstr "V_äljare:"
+
+#: ../src/html2.c:625
+msgid "_Property:"
+msgstr "Egenskaper:"
+
+#: ../src/html2.c:627 ../src/html_form.c:286 ../src/html_form.c:353
+#: ../src/html_form.c:415 ../src/html_form.c:471 ../src/html_form.c:534
+#: ../src/html_form.c:644
+msgid "_Value:"
+msgstr "_Värde:"
+
+#: ../src/html2.c:645
+msgid "Selector"
+msgstr "Välj"
+
+#: ../src/html2.c:645 ../src/html2.c:648
+msgid "Property"
+msgstr "Egenskaper"
+
+#: ../src/html2.c:645 ../src/html2.c:648
+msgid "Value"
+msgstr "Värde"
+
+#: ../src/html2.c:663
+msgid " _Add "
+msgstr " L_ägg till "
+
+#: ../src/html2.c:666
+msgid " _Update "
+msgstr " _Uppdatera "
+
+#: ../src/html2.c:669
+msgid " _Delete "
+msgstr " _Ta bort "
+
+#: ../src/html2.c:925 ../src/html2.c:962
+msgid "_Style..."
+msgstr "_Stil..."
+
+#: ../src/html2.c:1145
+msgid "Bluefish: Select color"
+msgstr "Bluefish: Välj färg"
+
+#: ../src/html2.c:1165
+msgid "_websafe"
+msgstr "_webbsäker"
 
 #: ../src/html_form.c:129
 msgid "Form"
@@ -3046,7 +3065,7 @@ msgstr "Antal variabler"
 msgid "Variables"
 msgstr "Variabler"
 
-#: ../src/menu.c:1908 ../src/snr2.c:1098
+#: ../src/menu.c:1908
 msgid "Matching"
 msgstr "Matchar"
 
@@ -3054,143 +3073,143 @@ msgstr "Matchar"
 msgid "case sensitive"
 msgstr "gör skillnad på versaler och gemener"
 
-#: ../src/preferences.c:197
+#: ../src/preferences.c:201
 msgid "Select font"
 msgstr "Välj typsnitt"
 
-#: ../src/preferences.c:493 ../src/preferences.c:531
+#: ../src/preferences.c:474 ../src/preferences.c:512
 msgid "Filetype"
 msgstr "Filtyp"
 
-#: ../src/preferences.c:495
+#: ../src/preferences.c:476
 msgid "Extensions"
 msgstr "Ändelser"
 
-#: ../src/preferences.c:497
+#: ../src/preferences.c:478
 msgid "Update chars"
 msgstr "Uppdatera tecken"
 
-#: ../src/preferences.c:499 ../src/preferences.c:541
+#: ../src/preferences.c:480 ../src/preferences.c:522
 msgid "Icon"
 msgstr "Ikon"
 
-#: ../src/preferences.c:539
+#: ../src/preferences.c:520
 msgid "Extensions (colon separated)"
 msgstr "Filändelser (kolonseparerade)"
 
-#: ../src/preferences.c:540
+#: ../src/preferences.c:521
 msgid "Highlight update characters"
 msgstr "Färgkoda updateringstecken"
 
-#: ../src/preferences.c:655 ../src/preferences.c:689
+#: ../src/preferences.c:636 ../src/preferences.c:670
 msgid "Filefilter"
 msgstr "Filfilter"
 
-#: ../src/preferences.c:657 ../src/preferences.c:694
+#: ../src/preferences.c:638 ../src/preferences.c:675
 msgid "Inverse filtering"
 msgstr "Inverterad filtrering"
 
-#: ../src/preferences.c:659
+#: ../src/preferences.c:640
 msgid "Filetypes in filter"
 msgstr "Filtyper och filter"
 
-#: ../src/preferences.c:695
+#: ../src/preferences.c:676
 msgid "Filetypes (colon separated)"
 msgstr "Filtyper (kolonseparerade)"
 
-#: ../src/preferences.c:975
+#: ../src/preferences.c:956
 msgid "filetype"
 msgstr "filtyp"
 
-#: ../src/preferences.c:983
+#: ../src/preferences.c:964
 msgid "Pattern name"
 msgstr "Mönsternamn"
 
-#: ../src/preferences.c:1001 ../src/preferences.c:1493
-#: ../src/preferences.c:1542
+#: ../src/preferences.c:982 ../src/preferences.c:1476
+#: ../src/preferences.c:1525
 msgid "Pattern"
 msgstr "Mönster"
 
-#: ../src/preferences.c:1024
+#: ../src/preferences.c:1005
 msgid "Start pattern and end pattern"
 msgstr "Startmönster och slutmönster"
 
-#: ../src/preferences.c:1026
+#: ../src/preferences.c:1007
 msgid "Only start pattern"
 msgstr "Endast startmönster"
 
-#: ../src/preferences.c:1028
+#: ../src/preferences.c:1009
 msgid "Subpattern from parent"
 msgstr "Extramönster från ägaren"
 
-#: ../src/preferences.c:1034
+#: ../src/preferences.c:1015
 msgid "Start pattern"
 msgstr "Startmönster"
 
-#: ../src/preferences.c:1035
+#: ../src/preferences.c:1016
 msgid "End pattern"
 msgstr "Slutmönster"
 
-#: ../src/preferences.c:1036
+#: ../src/preferences.c:1017
 msgid "Case sensitive matching"
 msgstr "Storlekskänslig matchning"
 
-#: ../src/preferences.c:1037
+#: ../src/preferences.c:1018
 msgid "Parentmatch"
 msgstr "Ägarmatchning"
 
-#: ../src/preferences.c:1038
+#: ../src/preferences.c:1019
 msgid "Foreground color"
 msgstr "Förgrundsfärg"
 
-#: ../src/preferences.c:1039
+#: ../src/preferences.c:1020
 msgid "Background color"
 msgstr "Bakgrundsfärg"
 
-#: ../src/preferences.c:1047
+#: ../src/preferences.c:1028
 msgid "don't change weight"
 msgstr "ändra inte vikten"
 
-#: ../src/preferences.c:1049
+#: ../src/preferences.c:1030
 msgid "force non-bold weight"
 msgstr "tvinga icke-fet vikt"
 
-#: ../src/preferences.c:1051
+#: ../src/preferences.c:1032
 msgid "force bold weight"
 msgstr "tvinga fet vikt"
 
-#: ../src/preferences.c:1057
+#: ../src/preferences.c:1038
 msgid "don't change style"
 msgstr "ändra inte stil"
 
-#: ../src/preferences.c:1059
+#: ../src/preferences.c:1040
 msgid "force non-italic style"
 msgstr "tvinga icke-kursiv stil"
 
-#: ../src/preferences.c:1061
+#: ../src/preferences.c:1042
 msgid "force italic style"
 msgstr "tvinga kursiv stil"
 
-#: ../src/preferences.c:1209 ../src/preferences.c:1247
+#: ../src/preferences.c:1192 ../src/preferences.c:1230
 msgid "Browser"
 msgstr "Webbläsare"
 
-#: ../src/preferences.c:1211 ../src/preferences.c:1253
-#: ../src/preferences.c:1336 ../src/preferences.c:1371
-#: ../src/preferences.c:1501 ../src/preferences.c:1546
+#: ../src/preferences.c:1194 ../src/preferences.c:1236
+#: ../src/preferences.c:1319 ../src/preferences.c:1354
+#: ../src/preferences.c:1484 ../src/preferences.c:1529
 msgid "Command"
 msgstr "Kommando"
 
-#: ../src/preferences.c:1252
+#: ../src/preferences.c:1235
 #, c-format
 msgid "%s = current filename"
 msgstr "%s = aktuellt filnamn"
 
-#: ../src/preferences.c:1334 ../src/preferences.c:1365
+#: ../src/preferences.c:1317 ../src/preferences.c:1348
 msgid "Label"
 msgstr "Etikett"
 
-#: ../src/preferences.c:1370
+#: ../src/preferences.c:1353
 #, c-format
 msgid ""
 "%s = current filename\n"
@@ -3199,375 +3218,375 @@ msgstr ""
 "%s = aktuellt filnamn\n"
 "%f = filnamn som ges som svar (för filter)"
 
-#: ../src/preferences.c:1491 ../src/preferences.c:1538
+#: ../src/preferences.c:1474 ../src/preferences.c:1521
 msgid "Name"
 msgstr "Namn"
 
-#: ../src/preferences.c:1495
+#: ../src/preferences.c:1478
 msgid "File #"
 msgstr "Filantal"
 
-#: ../src/preferences.c:1497
+#: ../src/preferences.c:1480
 msgid "Line #"
 msgstr "Radantal"
 
-#: ../src/preferences.c:1499
+#: ../src/preferences.c:1482
 msgid "Output #"
 msgstr "Utdataantal"
 
-#: ../src/preferences.c:1503 ../src/preferences.c:1547
+#: ../src/preferences.c:1486 ../src/preferences.c:1530
 msgid "Show all output"
 msgstr "Visa all utdata"
 
-#: ../src/preferences.c:1543
+#: ../src/preferences.c:1526
 msgid "File subpattern #"
 msgstr "Fil-extramönster antal"
 
-#: ../src/preferences.c:1544
+#: ../src/preferences.c:1527
 msgid "Line subpattern #"
 msgstr "Rad-extramönster antal"
 
-#: ../src/preferences.c:1545
+#: ../src/preferences.c:1528
 msgid "Output subpattern #"
 msgstr "Utdata-extramönster antal"
 
-#: ../src/preferences.c:1694
+#: ../src/preferences.c:1677
 msgid "left"
 msgstr "vänster"
 
-#: ../src/preferences.c:1694
+#: ../src/preferences.c:1677
 msgid "right"
 msgstr "höger"
 
-#: ../src/preferences.c:1694
+#: ../src/preferences.c:1677
 msgid "top"
 msgstr "topp"
 
-#: ../src/preferences.c:1694
+#: ../src/preferences.c:1677
 msgid "bottom"
 msgstr "botten"
 
-#: ../src/preferences.c:1697
+#: ../src/preferences.c:1680
 msgid "Edit preferences"
 msgstr "Redigera inställningar"
 
-#: ../src/preferences.c:1708
+#: ../src/preferences.c:1691
 msgid "Editor"
 msgstr "Redigerare"
 
-#: ../src/preferences.c:1710
+#: ../src/preferences.c:1693
 msgid "Editor options"
 msgstr "Inställningar för redigerare"
 
-#: ../src/preferences.c:1716
+#: ../src/preferences.c:1699
 msgid "Tab width"
 msgstr "Tabulatorsteg"
 
-#: ../src/preferences.c:1717
+#: ../src/preferences.c:1700
 msgid "Word wrap default"
 msgstr "Ordbrytning standard"
 
-#: ../src/preferences.c:1718
+#: ../src/preferences.c:1701
 msgid "Line numbers by default"
 msgstr "Radnummer som standard"
 
-#: ../src/preferences.c:1719
+#: ../src/preferences.c:1702
 msgid "Highlight syntax by default"
 msgstr "Färgkoda syntax som standard"
 
-#: ../src/preferences.c:1720
+#: ../src/preferences.c:1703
 msgid "Highlight # lines"
 msgstr "Färgkoda antal rader"
 
-#: ../src/preferences.c:1721
+#: ../src/preferences.c:1704
 msgid "Always highlight full document"
 msgstr "Färgkoda alltid hela dokumentet"
 
-#: ../src/preferences.c:1723
+#: ../src/preferences.c:1706
 msgid "HTML"
 msgstr "HTML"
 
-#: ../src/preferences.c:1725
+#: ../src/preferences.c:1708
 msgid "HTML options"
 msgstr "HTML-alternativ"
 
-#: ../src/preferences.c:1730
+#: ../src/preferences.c:1713
 msgid "Lowercase HTML tags"
 msgstr "HTML-taggar som gemener"
 
-#: ../src/preferences.c:1731
+#: ../src/preferences.c:1714
 msgid "Use deprecated tags (e.g. <font> and <nobr>)"
 msgstr "Använd gamla taggar (exempelvis <font> och <nobr>)"
 
-#: ../src/preferences.c:1732
+#: ../src/preferences.c:1715
 msgid "Use XHTML style tags (<br />)"
 msgstr "Använd XHTML-syntax (såsom <br />)"
 
-#: ../src/preferences.c:1733
+#: ../src/preferences.c:1716
 msgid "Automatic update author meta"
 msgstr "Uppdatera automatiskt META-taggen \"author\""
 
-#: ../src/preferences.c:1736
+#: ../src/preferences.c:1719
 msgid "Files"
 msgstr "Filer"
 
-#: ../src/preferences.c:1738
+#: ../src/preferences.c:1721
 msgid "Encoding"
 msgstr "Kodning"
 
-#: ../src/preferences.c:1750
+#: ../src/preferences.c:1733
 msgid "Default character set"
 msgstr "Standardteckenuppsättning"
 
-#: ../src/preferences.c:1753
+#: ../src/preferences.c:1736
 msgid "Auto set <meta> encoding tag on change"
 msgstr "Sätt <meta> kodningstaggen automatiskt vid ändring"
 
-#: ../src/preferences.c:1755
+#: ../src/preferences.c:1738
 msgid "Backup"
 msgstr "Säkerhetskopia"
 
-#: ../src/preferences.c:1759
+#: ../src/preferences.c:1742
 msgid "Create backup on save"
 msgstr "Skapa säkerhetskopia när filer sparas"
 
-#: ../src/preferences.c:1760
+#: ../src/preferences.c:1743
 msgid "Backup file suffix"
 msgstr "Säkerhetskopians filändelse"
 
-#: ../src/preferences.c:1762
+#: ../src/preferences.c:1745
 msgid "save"
 msgstr "spara"
 
-#: ../src/preferences.c:1762
+#: ../src/preferences.c:1745
 msgid "abort"
 msgstr "avbryt"
 
-#: ../src/preferences.c:1762
+#: ../src/preferences.c:1745
 msgid "ask"
 msgstr "fråga"
 
-#: ../src/preferences.c:1763
+#: ../src/preferences.c:1746
 msgid "Action on backup failure"
 msgstr "Åtgärd vid misslyckande att skapa säkerhetskopia"
 
-#: ../src/preferences.c:1765
+#: ../src/preferences.c:1748
 msgid "Remove backupfile on close"
 msgstr "Ta bort säkerhetskopia vid stängning"
 
-#: ../src/preferences.c:1774
+#: ../src/preferences.c:1757
 msgid "Undo history size"
 msgstr "Storlek på Ångra-lista"
 
-#: ../src/preferences.c:1775
+#: ../src/preferences.c:1758
 msgid "Clear undo history on save"
 msgstr "Töm ångralista när fil sparas"
 
-#: ../src/preferences.c:1777 ../src/preferences.c:1802
+#: ../src/preferences.c:1760 ../src/preferences.c:1785
 msgid "Misc"
 msgstr "Diverse"
 
-#: ../src/preferences.c:1782
+#: ../src/preferences.c:1765
 msgid "Allow multi instances of a file"
 msgstr "Tillåt flera instanser av en fil"
 
-#: ../src/preferences.c:1784
+#: ../src/preferences.c:1767
 msgid "Open files in already running bluefish window"
 msgstr "Öppna filer i ett redan startat bluefishfönster"
 
-#: ../src/preferences.c:1786
+#: ../src/preferences.c:1769
 msgid "Number of files in 'Open recent'"
 msgstr "Antal filer i \"Senast öppnade\""
 
-#: ../src/preferences.c:1789
+#: ../src/preferences.c:1772
 msgid "User interface"
 msgstr "Användargränssnitt"
 
-#: ../src/preferences.c:1791
+#: ../src/preferences.c:1774
 msgid "Dimensions"
 msgstr "Dimensioner"
 
-#: ../src/preferences.c:1795
+#: ../src/preferences.c:1778
 msgid "Restore last used dimensions"
 msgstr "Återställ senast använda dimensioner"
 
-#: ../src/preferences.c:1796
+#: ../src/preferences.c:1779
 msgid "Initial left panel width"
 msgstr "Initial bredd på vänstra panelen"
 
-#: ../src/preferences.c:1797
+#: ../src/preferences.c:1780
 msgid "Initial window height"
 msgstr "Initial fönsterhöjd"
 
-#: ../src/preferences.c:1798
+#: ../src/preferences.c:1781
 msgid "Initial window width"
 msgstr "Initial fönsterbredd"
 
-#: ../src/preferences.c:1807
+#: ../src/preferences.c:1790
 msgid "External browsers in submenu"
 msgstr "Externa webläsare i undermeny"
 
-#: ../src/preferences.c:1808
+#: ../src/preferences.c:1791
 msgid "External commands in submenu"
 msgstr "Externa kommandon i undermeny"
 
-#: ../src/preferences.c:1809
+#: ../src/preferences.c:1792
 msgid "External outputbox in submenu"
 msgstr "Externa utskriftsfönster i undermeny"
 
-#: ../src/preferences.c:1811
+#: ../src/preferences.c:1794
 msgid "Notebook tab font (leave empty for gtk default)"
 msgstr "Typsnitt på flikhäftets flikar (lämna tom för gtk standard)"
 
-#: ../src/preferences.c:1813
+#: ../src/preferences.c:1796
 msgid "Document notebook tab position"
 msgstr "Placering för dokumentflikar"
 
-#: ../src/preferences.c:1814
+#: ../src/preferences.c:1797
 msgid "Left panel notebook tab position"
 msgstr "Placering av Vänstra panelens flikar"
 
-#: ../src/preferences.c:1816
+#: ../src/preferences.c:1799
 msgid "Make HTML dialogs transient"
 msgstr "Gör HTML-dialoger kortvariga"
 
-#: ../src/preferences.c:1817
+#: ../src/preferences.c:1800
 msgid "Advanced search and replace by default"
 msgstr "Avancerad sök och ersätt som standard"
 
-#: ../src/preferences.c:1819
+#: ../src/preferences.c:1802
 msgid "File browser"
 msgstr "Filbläddrare"
 
-#: ../src/preferences.c:1823
+#: ../src/preferences.c:1806
 msgid "Show hidden files"
 msgstr "Visa dolda filer"
 
-#: ../src/preferences.c:1824
+#: ../src/preferences.c:1807
 msgid "Show other users files"
 msgstr "Visa andra användares filer"
 
-#: ../src/preferences.c:1825
+#: ../src/preferences.c:1808
 msgid "Show backup files"
 msgstr "Visa säkerhetskopior"
 
-#: ../src/preferences.c:1826
+#: ../src/preferences.c:1809
 msgid "Unknown icon"
 msgstr "Okänd ikon"
 
-#: ../src/preferences.c:1827
+#: ../src/preferences.c:1810
 msgid "Directory icon"
 msgstr "Katalogikon"
 
-#: ../src/preferences.c:1830 ../src/rcfile.c:608
+#: ../src/preferences.c:1813 ../src/rcfile.c:609
 msgid "Images"
 msgstr "Bilder"
 
-#: ../src/preferences.c:1832
+#: ../src/preferences.c:1815
 msgid "Thumbnails"
 msgstr "Miniatyrbilder"
 
-#: ../src/preferences.c:1836
+#: ../src/preferences.c:1819
 msgid "Thumbnail suffix"
 msgstr "Filändelse för miniatyrbild"
 
-#: ../src/preferences.c:1840
+#: ../src/preferences.c:1823
 msgid "Thumbnail filetype"
 msgstr "Filtyp för miniatybild"
 
-#: ../src/preferences.c:1845 ../src/preferences.c:1847
+#: ../src/preferences.c:1828 ../src/preferences.c:1830
 msgid "Filetypes"
 msgstr "Filtyper"
 
-#: ../src/preferences.c:1854
+#: ../src/preferences.c:1837
 msgid "Filefilters"
 msgstr "Filfilter"
 
-#: ../src/preferences.c:1862
+#: ../src/preferences.c:1845
 msgid "Syntax highlighting"
 msgstr "Syntaxfärgkodning"
 
-#: ../src/preferences.c:1864
+#: ../src/preferences.c:1847
 msgid "Patterns"
 msgstr "Mönster"
 
-#: ../src/preferences.c:1872
+#: ../src/preferences.c:1855
 msgid "External programs"
 msgstr "Externa program"
 
-#: ../src/preferences.c:1874
+#: ../src/preferences.c:1857
 msgid "Browsers"
 msgstr "Webläsare"
 
-#: ../src/preferences.c:1881
+#: ../src/preferences.c:1864
 msgid "Utilities and filters"
 msgstr "Verktyg och filter"
 
-#: ../src/preferences.c:1889
+#: ../src/preferences.c:1872
 msgid "Output parsers"
 msgstr "Tolkar för utdata"
 
-#: ../src/preferences.c:1891
+#: ../src/preferences.c:1874
 msgid "Outputbox"
 msgstr "Utdatabox"
 
-#: ../src/rcfile.c:536
+#: ../src/rcfile.c:537
 msgid "Galeon"
 msgstr "Galeon"
 
-#: ../src/rcfile.c:538
+#: ../src/rcfile.c:539
 msgid "Mozilla"
 msgstr "Mozilla"
 
-#: ../src/rcfile.c:540
+#: ../src/rcfile.c:541
 msgid "Opera"
 msgstr "Opera"
 
-#: ../src/rcfile.c:542
+#: ../src/rcfile.c:543
 msgid "Netscape"
 msgstr "Netscape"
 
-#: ../src/rcfile.c:544
+#: ../src/rcfile.c:545
 msgid "Gnome default"
 msgstr "GNOME-standardalternativ"
 
-#: ../src/rcfile.c:567
+#: ../src/rcfile.c:568
 msgid "make"
 msgstr "make"
 
-#: ../src/rcfile.c:568
+#: ../src/rcfile.c:569
 msgid "weblint HTML checker"
 msgstr "HTML-verifieraren weblint"
 
-#: ../src/rcfile.c:569
+#: ../src/rcfile.c:570
 msgid "tidy HTML validator"
 msgstr "HTML-verifieraren tidy"
 
-#: ../src/rcfile.c:570
+#: ../src/rcfile.c:571
 msgid "javac"
 msgstr "javac"
 
-#: ../src/rcfile.c:576
+#: ../src/rcfile.c:577
 msgid "Dos2Unix filter"
 msgstr "Dos2Unix-filter"
 
-#: ../src/rcfile.c:578
+#: ../src/rcfile.c:579
 msgid "Tidy cleanup filter"
 msgstr "Upprensningsfiltret tidy"
 
-#: ../src/rcfile.c:602
+#: ../src/rcfile.c:603
 msgid "C programming"
 msgstr "C-programmering"
 
-#: ../src/rcfile.c:604
+#: ../src/rcfile.c:605
 msgid "All web files"
 msgstr "Alla webbfiler"
 
-#: ../src/rcfile.c:606
+#: ../src/rcfile.c:607
 msgid "Java programming"
 msgstr "Java-programmering"
 
-#: ../src/rcfile.c:610
+#: ../src/rcfile.c:611
 msgid "Hide objectfiles"
 msgstr "Dölj objektfiler"
 
@@ -3584,109 +3603,142 @@ msgstr "Bluefish-varning: fel i reguljärt uttryck"
 msgid "Regular expression error: %s at offset %d"
 msgstr "Fel i reguljärt uttryck: %s vid avstånd %d"
 
-#: ../src/snr2.c:672
+#: ../src/snr2.c:684
 msgid "Confirm replace"
 msgstr "Bekräfta ersättning"
 
-#: ../src/snr2.c:675
-msgid "Are you sure you want to replace this?"
-msgstr "Är du säker på att du vill ersätta detta?"
+#: ../src/snr2.c:696
+msgid "This text selection will be replaced. Do you want to replace it?"
+msgstr ""
 
-#: ../src/snr2.c:680
-msgid "All"
-msgstr "Alla"
+#: ../src/snr2.c:710
+msgid "_Skip"
+msgstr ""
 
-#: ../src/snr2.c:815 ../src/snr2.c:822
+#: ../src/snr2.c:711
+#, fuzzy
+msgid "Replace _this"
+msgstr "Ersätt _text"
+
+#: ../src/snr2.c:712
+#, fuzzy
+msgid "Replace _all"
+msgstr "Ersätt"
+
+#: ../src/snr2.c:853 ../src/snr2.c:860
 msgid "Bluefish message"
 msgstr "Bluefish-meddelande"
 
-#: ../src/snr2.c:815 ../src/snr2.c:822
+#: ../src/snr2.c:853 ../src/snr2.c:860
 msgid "Search: no match found"
 msgstr "Sökning: hittade inget"
 
-#: ../src/snr2.c:990
+#: ../src/snr2.c:1028
 msgid "Hide _advanced <<"
 msgstr "Dölj _avancerat <<"
 
-#: ../src/snr2.c:1011 ../src/snr2.c:1157
+#: ../src/snr2.c:1049 ../src/snr2.c:1218
 msgid "Show _advanced >>"
 msgstr "Visa _avancerat >>"
 
-#: ../src/snr2.c:1062
+#: ../src/snr2.c:1099
 msgid "Search"
 msgstr "Sök"
 
-#: ../src/snr2.c:1078
-msgid "_Find: "
-msgstr "_Hitta: "
+#: ../src/snr2.c:1125
+#, fuzzy
+msgid "Search _for: "
+msgstr "Sök"
 
-#: ../src/snr2.c:1089
-msgid "Where"
-msgstr "Där"
-
-#: ../src/snr2.c:1093
-msgid "Start at beginning of _document"
-msgstr "Börja från början av _dokumentet"
-
-#: ../src/snr2.c:1094
-msgid "Start at cursor pos_ition"
-msgstr "Börja vid markörens pos_ition"
-
-#: ../src/snr2.c:1095
-msgid "In s_election"
-msgstr "I det mark_erade området"
-
-#: ../src/snr2.c:1096
-msgid "In all o_pen files"
-msgstr "I alla ö_ppna filer"
-
-#: ../src/snr2.c:1103
-msgid "_Normal matching"
-msgstr "_Normal matchning"
-
-#: ../src/snr2.c:1104
-msgid "Use posix _regular expression matching"
-msgstr "Använd _reguljärt posix-uttryck för matchning"
-
-#: ../src/snr2.c:1105
-msgid "Use perl compatible regular e_xpression matching"
-msgstr "Använd perlkompatibelt re_guljärt uttryck för matchning"
-
-#: ../src/snr2.c:1110
-msgid "Case _sensitive"
-msgstr "Känslig för _versaler/gemener"
-
-#: ../src/snr2.c:1111
-msgid "O_verlapping searches"
-msgstr "Ö_verlappande sökningar"
-
-#: ../src/snr2.c:1118
-msgid "\\0 refers to the first subpattern, \\1 to the second etc."
-msgstr "\\0 refererar till det första undermönstret, \\1 till det andra osv."
-
-#: ../src/snr2.c:1122
+#: ../src/snr2.c:1144
 msgid "Replace wit_h: "
 msgstr "Ersätt me_d: "
 
-#: ../src/snr2.c:1141
-msgid "Replace _text"
-msgstr "Ersätt _text"
+#: ../src/snr2.c:1160
+msgid "\\0 refers to the first subpattern, \\1 to the second etc."
+msgstr "\\0 refererar till det första undermönstret, \\1 till det andra osv."
 
-#: ../src/snr2.c:1142
-msgid "Replace _uppercase"
-msgstr "Omvandla _versaler"
+#: ../src/snr2.c:1164
+msgid "Match ca_se"
+msgstr ""
 
-#: ../src/snr2.c:1143
-msgid "Replace lo_wercase"
-msgstr "Omvandla ge_mener"
+#: ../src/snr2.c:1165
+#, fuzzy
+msgid "O_verlap matches"
+msgstr "Ö_verlappande sökningar"
 
-#: ../src/snr2.c:1147
-msgid "Prompt _before replacing"
+#: ../src/snr2.c:1167
+#, fuzzy
+msgid "Prompt _before replace"
 msgstr "Fråga _före ersättning"
 
-#: ../src/snr2.c:1148
+#: ../src/snr2.c:1168
 msgid "Rep_lace once"
 msgstr "Ers_ätt en gång"
+
+#: ../src/snr2.c:1171
+#, fuzzy
+msgid "Starts at"
+msgstr "Startmönster"
+
+#: ../src/snr2.c:1175
+#, fuzzy
+msgid "Beginning of _document"
+msgstr "Börja från början av _dokumentet"
+
+#: ../src/snr2.c:1176
+#, fuzzy
+msgid "Current pos_ition"
+msgstr "Börja vid markörens pos_ition"
+
+#: ../src/snr2.c:1177
+#, fuzzy
+msgid "Beginning of s_election"
+msgstr "i urval"
+
+#: ../src/snr2.c:1178
+#, fuzzy
+msgid "Beginning of all o_pened files"
+msgstr "I alla ö_ppna filer"
+
+#: ../src/snr2.c:1180
+#, fuzzy
+msgid "Regular expression"
+msgstr "Fel i regjulärt uttryck: "
+
+#: ../src/snr2.c:1185
+msgid "_None"
+msgstr ""
+
+#: ../src/snr2.c:1186
+#, fuzzy
+msgid "POSIX _regular expression type "
+msgstr "Fel i regjulärt uttryck: "
+
+#: ../src/snr2.c:1187
+#, fuzzy
+msgid "PERL compatible regular e_xpression type"
+msgstr "Använd perlkompatibelt re_guljärt uttryck för matchning"
+
+#: ../src/snr2.c:1193
+#, fuzzy
+msgid "Replace type"
+msgstr "Ersätt _text"
+
+#: ../src/snr2.c:1202
+#, fuzzy
+msgid "_Text"
+msgstr "Textfält"
+
+#: ../src/snr2.c:1203
+#, fuzzy
+msgid "_Uppercase"
+msgstr "Omvandla _versaler"
+
+#: ../src/snr2.c:1204
+#, fuzzy
+msgid "Lo_wercase"
+msgstr "Omvandla ge_mener"
 
 #: ../src/stringlist.c:365
 msgid " Add "
@@ -3772,3 +3824,29 @@ msgstr "Källkod:"
 msgid "Size:"
 msgstr "Storlek:"
 
+#~ msgid "Custom _values:"
+#~ msgstr "Egna _värden:"
+
+#~ msgid "Are you sure you want to replace this?"
+#~ msgstr "Är du säker på att du vill ersätta detta?"
+
+#~ msgid "All"
+#~ msgstr "Alla"
+
+#~ msgid "_Find: "
+#~ msgstr "_Hitta: "
+
+#~ msgid "Where"
+#~ msgstr "Där"
+
+#~ msgid "In s_election"
+#~ msgstr "I det mark_erade området"
+
+#~ msgid "_Normal matching"
+#~ msgstr "_Normal matchning"
+
+#~ msgid "Use posix _regular expression matching"
+#~ msgstr "Använd _reguljärt posix-uttryck för matchning"
+
+#~ msgid "Case _sensitive"
+#~ msgstr "Känslig för _versaler/gemener"
