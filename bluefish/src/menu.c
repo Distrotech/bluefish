@@ -92,7 +92,10 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/Options/Current document"), NULL, NULL, 0, "<Branch>"},
 	{N_("/Options/Current document/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
 	{N_("/Options/Current document/Highlight syntax"), NULL, doc_toggle_highlighting_cb, 0, "<ToggleItem>"},
-	{N_("/Options/Current document/Update highlighting"), "F5", doc_update_highlighting, 0, NULL}
+	{N_("/Options/Current document/Update highlighting"), "F5", doc_update_highlighting, 0, NULL},
+	{N_("/Options/View Main toolbar"), NULL, gui_toggle_hidewidget_cb, 0, "<ToggleItem>"},
+	{N_("/Options/View HTML toolbar"), NULL, gui_toggle_hidewidget_cb, 1, "<ToggleItem>"},
+	{N_("/Options/View Custom menu"), NULL, gui_toggle_hidewidget_cb, 2, "<ToggleItem>"}
 };
 
 
@@ -116,10 +119,10 @@ void menu_create_main(GtkWidget *vbox)
 	gtk_box_pack_start(GTK_BOX(vbox), main_v->menubar, FALSE, TRUE, 0);
 	gtk_widget_show(main_v->menubar);
 
-/*	setup_toggle_item(item_factory, "/Options/View Main toolbar", main_v->props.v_main_tb);
-	setup_toggle_item(item_factory, "/Options/View HTML toolbar", main_v->props.v_html_tb);
-	setup_toggle_item(item_factory, "/Options/View Custom toolbar", main_v->props.v_custom_tb);
-	setup_toggle_item(item_factory, "/Options/View Filebrowser", main_v->props.v_filebrowser);
+	setup_toggle_item(item_factory, "/Options/View Main toolbar", main_v->props.view_main_toolbar);
+	setup_toggle_item(item_factory, "/Options/View HTML toolbar", main_v->props.view_html_toolbar);
+	setup_toggle_item(item_factory, "/Options/View Custom menu", main_v->props.view_custom_menu);
+/*	setup_toggle_item(item_factory, "/Options/View Filebrowser", main_v->props.v_filebrowser);
 	setup_toggle_item(item_factory, "/View/Highlight syntax", main_v->props.cont_highlight_update);*/
 }
 /************************************************/

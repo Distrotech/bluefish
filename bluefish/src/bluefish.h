@@ -112,9 +112,9 @@ typedef struct {
 } Tdocument;
 
 typedef struct {
-	gint v_html_tb;				/* view html toolbar */
-	gint v_custom_tb;			/* view custom menubar */
-	gint v_main_tb;				/* view main toolbar */
+	gint view_html_toolbar;				/* view html toolbar */
+	gint view_custom_menu;			/* view custom menubar */
+	gint view_main_toolbar;				/* view main toolbar */
 	gint v_filebrowser;  	/* view filebrowser */
 	gint transient_htdialogs;  /* set html dialogs transient ro the main window */
 	gint main_window_h;			/* main window height */

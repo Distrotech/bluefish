@@ -27,6 +27,59 @@
 #include "menu.h" /* menu_create_main(), recent_menu_init() */
 #include "bf_lib.h" /* get_int_from_string() */
 
+typedef struct {
+	GtkWidget *main_toolbar_hb;
+	GtkWidget *html_toolbar_hb;
+	GtkWidget *custom_menu_hb; /* handle box for custom menu */
+	GtkWidget *filebrowse_box;
+} Thidegui;
+
+/******************************/
+/* global var for this module */
+/******************************/
+static Thidegui hidewidgets;
+
+
+
+/**************************/
+/* start of the functions */
+/**************************/
+void gui_toggle_hidewidget_cb(gpointer callback_data,guint action,GtkWidget *widget) {
+	GtkWidget *handlebox;
+	gint *property;
+	switch (action) {
+	case 0:
+		handlebox = hidewidgets.main_toolbar_hb;
+		property = &main_v->props.view_main_toolbar;
+		/* TODO */
+	break;
+	case 1:
+		handlebox = hidewidgets.html_toolbar_hb;
+		property = &main_v->props.view_html_toolbar;
+		/* TODO */
+	break;
+	case 2:
+		handlebox = hidewidgets.custom_menu_hb;
+		property = &main_v->props.view_custom_menu;
+		if (g_list_length(gtk_container_children(GTK_CONTAINER(handlebox))) == 0) {
+			make_cust_menubar(hidewidgets.custom_menu_hb);
+		}
+	break;
+	default:
+		g_print("gui_toggle_hidewidget_cb should NEVER be called with action %d\n", action);
+		exit(1);
+	break;
+	}
+
+	if (GTK_WIDGET_VISIBLE(handlebox)) {
+		*property = 0;
+		gtk_widget_hide(handlebox);
+	} else {
+		*property = 1;
+		gtk_widget_show(handlebox);
+	}
+
+}
 void notebook_changed(gint newpage)
 {
 	gint cur;
@@ -168,9 +221,17 @@ void gui_create_main(GList *filenames) {
 
 	/* then the toolbars */
 	{
-		GtkWidget *cmenu_handle_box = gtk_handle_box_new();
-		gtk_box_pack_start(GTK_BOX(vbox), cmenu_handle_box, FALSE, FALSE, 0);
-		make_cust_menubar(cmenu_handle_box);
+		hidewidgets.main_toolbar_hb = gtk_handle_box_new();
+		gtk_box_pack_start(GTK_BOX(vbox), hidewidgets.main_toolbar_hb, FALSE, FALSE, 0);
+		hidewidgets.html_toolbar_hb = gtk_handle_box_new();
+		gtk_box_pack_start(GTK_BOX(vbox), hidewidgets.html_toolbar_hb, FALSE, FALSE, 0);
+		hidewidgets.custom_menu_hb = gtk_handle_box_new();
+		gtk_box_pack_start(GTK_BOX(vbox), hidewidgets.custom_menu_hb, FALSE, FALSE, 0);
+		
+		if (main_v->props.view_custom_menu) {
+			make_cust_menubar(hidewidgets.custom_menu_hb);
+			gtk_widget_show(hidewidgets.custom_menu_hb);
+		}
 	}
 	
 	/* then the work area */
@@ -193,12 +254,14 @@ void gui_create_main(GList *filenames) {
 	{
 	GtkWidget *hbox;
 	hbox = gtk_hbox_new(FALSE,0);
+	gtk_widget_show(hbox);
 	gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 0);
 	main_v->statuslabel = gtk_label_new(_(" line    0 "));
+	gtk_widget_show(main_v->statuslabel);
 	gtk_box_pack_start(GTK_BOX(hbox), main_v->statuslabel, FALSE, FALSE, 0);
 	main_v->statusbar = gtk_statusbar_new();
+	gtk_widget_show(main_v->statusbar);
 	gtk_box_pack_start(GTK_BOX(hbox), main_v->statusbar, TRUE, TRUE, 0);
-
 	}
 	
 	/* everything is ready - we can start loading documents */
@@ -217,8 +280,9 @@ void gui_create_main(GList *filenames) {
 	gtk_widget_show(main_v->notebook);
 	
 	/* show all */
-	DEBUG_MSG("gui_create_main, before show_all\n");
-	gtk_widget_show_all(main_v->main_window);
+	DEBUG_MSG("gui_create_main, before show\n");
+	/* don't use show_all since some widgets are and should be hidden */
+	gtk_widget_show(main_v->main_window);
 	flush_queue();
 	doc_scroll_to_cursor(main_v->current_document);
 }
