@@ -572,19 +572,21 @@ static GtkTreePath *build_tree_from_path(GtkTreeStore *store, gchar *filepath) {
 
 /* I guess the dir must have a trailing slash in this function .. not sure */
 void filebrowser_refresh_dir(gchar *dir) {
-	/* get the path for this dir */
-	GtkTreePath *path = return_path_from_filename(filebrowser.store, dir);
-	DEBUG_DUMP_TREE_PATH(path);
-	if (!path) return;
-	/* check if the dir is expanded, return if not */	
-	if (gtk_tree_view_row_expanded(GTK_TREE_VIEW(filebrowser.tree), path)) {
-		DEBUG_MSG("refresh_dir, it IS expanded\n");
-		/* refresh it */
-		refresh_dir_by_path_and_filename(GTK_TREE_STORE(filebrowser.store), path, dir);
-	} else {
-		DEBUG_MSG("refresh_dir, it is NOT expanded\n");
+	if (filebrowser.tree) {
+		/* get the path for this dir */
+		GtkTreePath *path = return_path_from_filename(filebrowser.store, dir);
+		DEBUG_DUMP_TREE_PATH(path);
+		if (!path) return;
+		/* check if the dir is expanded, return if not */	
+		if (gtk_tree_view_row_expanded(GTK_TREE_VIEW(filebrowser.tree), path)) {
+			DEBUG_MSG("refresh_dir, it IS expanded\n");
+			/* refresh it */
+			refresh_dir_by_path_and_filename(GTK_TREE_STORE(filebrowser.store), path, dir);
+		} else {
+			DEBUG_MSG("refresh_dir, it is NOT expanded\n");
+		}
+		gtk_tree_path_free(path);
 	}
-	gtk_tree_path_free(path);
 }
 
 static GtkTreePath *filebrowser_path_up_multi(GtkTreePath *path, gint num) {
