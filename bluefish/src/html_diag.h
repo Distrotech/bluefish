@@ -75,6 +75,7 @@ typedef struct {
 	GtkWidget *check[8];
 	GtkWidget *clist[4];
 	GtkWidget *text[1];
+	GtkWidget *attrwidget[20];
 	Treplacerange range;
 	GtkTextMark *mark_ins;
 	GtkTextMark *mark_sel;
@@ -105,5 +106,7 @@ gchar *insert_attr_if_checkbox(GtkWidget * checkbox, gchar * itemname, gchar *st
 gchar *format_entry_into_string(GtkEntry * entry, gchar * formatstring);
 GList *add_entry_to_stringlist(GList *which_list, GtkWidget *entry);
 
+GtkWidget *generic_table_inside_notebookframe(GtkWidget *notebook, const gchar *title, gint rows, gint cols);
+void generic_class_id_style_section(Thtml_diag *dg, gint firstattrwidget, GtkWidget *table, gint firstrowintable, gchar **tagvalues, gint firsttagvalue);
 
 #endif /* __HTML_DIAG_H_ */

@@ -355,3 +355,30 @@ GList *add_entry_to_stringlist(GList *which_list, GtkWidget *entry) {
 	return which_list;
 }
 
+GtkWidget *generic_table_inside_notebookframe(GtkWidget *notebook, const gchar *title, gint rows, gint cols) {
+	GtkWidget *dgtable, *frame = bf_generic_frame_new(NULL, GTK_SHADOW_NONE, 12);
+	gtk_notebook_append_page(GTK_NOTEBOOK(notebook), frame, gtk_label_new(title));
+	dgtable = gtk_table_new(rows, cols, FALSE);
+	gtk_table_set_row_spacings(GTK_TABLE(dgtable), 6);
+	gtk_table_set_col_spacings(GTK_TABLE(dgtable), 12);
+	gtk_container_add(GTK_CONTAINER(frame), dgtable);
+	return dgtable;
+}
+
+void generic_class_id_style_section(Thtml_diag *dg, gint firstattrwidget, GtkWidget *dgtable, gint firstrowintable, gchar **tagvalues, gint firsttagvalue) {
+	GtkWidget *but;
+
+	dg->attrwidget[firstattrwidget] = combo_with_popdown(tagvalues[firsttagvalue], dg->bfwin->session->classlist, 1);
+	bf_mnemonic_label_tad_with_alignment(_("Cl_ass:"), dg->attrwidget[firstattrwidget], 0, 0.5, dgtable, 0, 1, firstrowintable+0, firstrowintable+1);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->attrwidget[firstattrwidget], 1, 3, firstrowintable+0, firstrowintable+1);
+
+	dg->attrwidget[firstattrwidget+1] = entry_with_text(tagvalues[firsttagvalue+1], 256);
+	bf_mnemonic_label_tad_with_alignment(_("_ID:"), dg->attrwidget[firstattrwidget+1], 0, 0.5, dgtable, 0, 1, firstrowintable+1, firstrowintable+2);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->attrwidget[firstattrwidget+1], 1, 3, firstrowintable+1, firstrowintable+2);
+
+	dg->attrwidget[firstattrwidget+2] = entry_with_text(tagvalues[firsttagvalue+2], 256);
+	bf_mnemonic_label_tad_with_alignment(_("St_yle:"), dg->attrwidget[firstattrwidget+2], 0, 0.5, dgtable, 0, 1, firstrowintable+2, firstrowintable+3);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->attrwidget[firstattrwidget+2], 1, 2, firstrowintable+2, firstrowintable+3);
+	but = style_but_new(dg->attrwidget[firstattrwidget+2], dg->dialog);
+	gtk_table_attach(GTK_TABLE(dgtable), but, 2, 3, firstrowintable+2, firstrowintable+3, GTK_SHRINK, GTK_SHRINK, 0, 0);
+}
