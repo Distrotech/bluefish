@@ -716,6 +716,7 @@ void fref_loader_unload_ref(GtkTreeStore * store,GtkTreeIter * position) {
 		if (dict) {
 			DEBUG_MSG("fref_loader_unload_ref, destroying search hashtable %p\n",dict);
 			g_hash_table_destroy(dict);
+			gtk_tree_store_set(store,&iter,PTR_COLUMN,NULL,-1);
 		}
 	}
 	gtk_tree_path_free(path);
