@@ -915,7 +915,7 @@ static GtkTreePath *filebrowser_get_path_from_selection(GtkTreeModel *model, Gtk
 
 /* is_directory is only meaningful if you have a two paned view and you want the directory name 
 */
-static gchar *get_selected_filename(Tfilebrowser *filebrowser, gboolean is_directory, gboolean ondiskname) {
+static gchar *get_selected_filename(Tfilebrowser *filebrowser, gboolean is_directory) {
 	GtkTreePath *path;
 	gchar *retval=NULL;
 	if (filebrowser->store2 && !is_directory) {
@@ -937,13 +937,6 @@ static gchar *get_selected_filename(Tfilebrowser *filebrowser, gboolean is_direc
 			gtk_tree_path_free(path);
 			retval = filename;
 		}
-	}
-	if (retval && ondiskname) {
-		GError *gerror=NULL;
-		gint b_written;
-		gchar *tmp = g_filename_from_utf8(retval,-1,NULL,&b_written,&gerror);
-		g_free(retval);
-		return tmp;
 	}
 	return retval;
 }
@@ -1022,13 +1015,18 @@ static void create_file_or_dir_ok_clicked_lcb(GtkWidget *widget, Tcfod *ws) {
 				if (ws->is_file) {
 					doc_new_with_new_file(ws->filebrowser->bfwin,newname);
 				} else {
+					gchar *ondiskencoding;
+					GError *gerror;
+					gint b_written;
+					ondiskencoding = g_filename_from_utf8(newname,-1,NULL,&b_written,&gerror);
 #ifdef HAVE_GNOME_VFS
-					gnome_vfs_make_directory(newname,0755);
+					gnome_vfs_make_directory(ondiskencoding,0755);
 #else
-					if(mkdir(newname, 0755)== -1) {
+					if(mkdir(ondiskencoding, 0755)== -1) {
 /*						error_dialog(_("Error creating directory"),strerror(errno));*/
 					}
 #endif
+					g_free(ondiskencoding);
 				}
 			}
 			g_free(newname);
@@ -1180,7 +1178,7 @@ static void row_activated_lcb(GtkTreeView *tree, GtkTreePath *path,GtkTreeViewCo
 static void filebrowser_rpopup_rename(Tfilebrowser *filebrowser) {
 	gchar *oldfilename;
 	/* this function should, together with doc_save() use a common backend.. */
-	oldfilename = get_selected_filename(filebrowser, FALSE, TRUE);
+	oldfilename = get_selected_filename(filebrowser, FALSE);
 	if (oldfilename) {
 		Tdocument *tmpdoc;
 		GList *alldocs;
@@ -1200,15 +1198,22 @@ static void filebrowser_rpopup_rename(Tfilebrowser *filebrowser) {
 			/* Promt user, "File/Move To"-style. */
 			newfilename = ask_new_filename(filebrowser->bfwin,oldfilename, 1);
 			if (newfilename) {
+				gchar *old_OnDiEn, *new_OnDiEn; /* OnDiskEncoding */
+				GError *gerror;
+				gint b_written;
+				old_OnDiEn = g_filename_from_utf8(oldfilename,-1,NULL,&b_written,&gerror);
+				new_OnDiEn = g_filename_from_utf8(newfilename,-1,NULL,&b_written,&gerror);
 #ifdef HAVE_GNOME_VFS
-				if (gnome_vfs_move(oldfilename,newfilename,TRUE) != GNOME_VFS_OK) {
+				if (gnome_vfs_move(old_OnDiEn,new_OnDiEn,TRUE) != GNOME_VFS_OK) {
 					errmessage = g_strconcat(_("Could not rename\n"), oldfilename, NULL);
 				}
 #else
-				if(rename(oldfilename, newfilename) != 0) {
+				if(rename(old_OnDiEn, new_OnDiEn) != 0) {
 					errmessage = g_strconcat(_("Could not rename\n"), oldfilename, NULL);
 				}
-	#endif
+#endif
+				g_free(old_OnDiEn);
+				g_free(new_OnDiEn);
 			}
 		} /* if(oldfilename is open) */
 	
@@ -1242,7 +1247,7 @@ static void filebrowser_rpopup_rename(Tfilebrowser *filebrowser) {
 }
 
 static void filebrowser_rpopup_delete(Tfilebrowser *filebrowser) {
-	gchar *filename = get_selected_filename(filebrowser, FALSE, TRUE);
+	gchar *filename = get_selected_filename(filebrowser, FALSE);
 	if (filename) {
 		gchar *buttons[] = {GTK_STOCK_CANCEL, GTK_STOCK_DELETE, NULL};
 		gchar *label;
@@ -1252,19 +1257,21 @@ static void filebrowser_rpopup_delete(Tfilebrowser *filebrowser) {
 		g_free(label);
 		if (retval == 1) {
 			gchar *errmessage = NULL;
-			gchar *tmp, *dir;
+			gchar *tmp, *dir, *ondiskenc;
+			gint b_written;
+			GError *gerror;
 			DEBUG_MSG("file_list_rpopup_file_delete %s\n", filename);
-
+			ondiskenc = g_filename_from_utf8(filename,-1,NULL,&b_written,&gerror);
 #ifdef HAVE_GNOME_VFS
-			if (gnome_vfs_unlink(filename) != GNOME_VFS_OK) {
+			if (gnome_vfs_unlink(ondiskenc) != GNOME_VFS_OK) {
 				errmessage = g_strconcat(_("Could not delete \n"), filename, NULL);
 			}
 #else
-			if( unlink(filename) != 0) {
+			if( unlink(ondiskenc) != 0) {
 				errmessage = g_strconcat(_("Could not delete \n"), filename, NULL);
 			}
 #endif
-
+			g_free(ondiskenc);
 			if (errmessage) {
 				error_dialog(filebrowser->bfwin->main_window,errmessage, NULL);
 				g_free(errmessage);
@@ -1317,7 +1324,7 @@ static void filebrowser_rpopup_refresh(Tfilebrowser *filebrowser) {
 static void filebrowser_rpopup_action_lcb(Tfilebrowser *filebrowser,guint callback_action, GtkWidget *widget) {
 	switch (callback_action) {
 	case 1: {
-		gchar *filename = get_selected_filename(filebrowser, FALSE, FALSE);
+		gchar *filename = get_selected_filename(filebrowser, FALSE);
 		if (filename) {
 			GdkRectangle r;
 			gtk_tree_view_get_visible_rect(GTK_TREE_VIEW(filebrowser->tree),&r);
@@ -1344,7 +1351,7 @@ static void filebrowser_rpopup_action_lcb(Tfilebrowser *filebrowser,guint callba
 #ifdef EXTERNAL_GREP
 #ifdef EXTERNAL_FIND
 	case 7: {
-		gchar *path = get_selected_filename(filebrowser, TRUE, TRUE);
+		gchar *path = get_selected_filename(filebrowser, TRUE);
 		if (path) {
 			open_advanced_from_filebrowser(filebrowser->bfwin, path);
 			g_free(path);
@@ -1353,7 +1360,7 @@ static void filebrowser_rpopup_action_lcb(Tfilebrowser *filebrowser,guint callba
 #endif
 #endif
 	case 8: {
-		gchar *path = get_selected_filename(filebrowser, TRUE, TRUE);
+		gchar *path = get_selected_filename(filebrowser, TRUE);
 		DEBUG_MSG("filebrowser_rpopup_action_lcb, path=%s\n", path);
 		if (path) {
 			filebrowser_set_basedir(filebrowser->bfwin, path);
