@@ -1286,7 +1286,11 @@ static void external_command_lcb(GtkWidget *widget, Tbfw_dynmenu *bdm) {
 		if (!bdm->bfwin->current_document->filename) {
 			return;
 		}
-		change_dir(bdm->bfwin->current_document->filename);
+		{
+			gchar *tmpstring = g_path_get_dirname(bdm->bfwin->current_document->filename);
+			chdir(tmpstring);
+			g_free(tmpstring);
+		}
 	}
 	if (need_f || need_s) {
 		gchar *command;

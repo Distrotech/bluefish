@@ -1312,6 +1312,13 @@ static void viewlocal_toggled_lcb(GtkToggleButton *togglebutton,GtkWidget *dialo
 	g_object_set(G_OBJECT(dialog), "show-hidden", togglebutton->active, NULL);
 }
 
+static void file_chooser_set_current_dir(GtkWidget *dialog, gchar *dir) {
+	if (dir) {
+		if (dir[0] == '/') gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER(dialog),dir);
+		else gtk_file_chooser_set_current_folder_uri(GTK_FILE_CHOOSER(dialog),dir);
+	}
+}
+
 GtkWidget * file_chooser_dialog(Tbfwin *bfwin, gchar *title, GtkFileChooserAction action, gchar *set, gboolean localonly, gboolean multiple) {
 	GtkWidget *vbox, *hbox, *dialog, *viewlocal;
 	dialog = gtk_file_chooser_dialog_new_with_backend(title,bfwin ? GTK_WINDOW(bfwin->main_window) : NULL,
@@ -1325,7 +1332,19 @@ GtkWidget * file_chooser_dialog(Tbfwin *bfwin, gchar *title, GtkFileChooserActio
 		} else {
 			gtk_file_chooser_set_uri(GTK_FILE_CHOOSER(dialog),set);
 		}
+	} else if (!localonly && bfwin) { /* localonly is used for the project files */
+		if (action == GTK_FILE_CHOOSER_ACTION_SAVE) {
+			DEBUG_MSG("file_chooser_dialog, opendir=%s, savedir=%s\n",bfwin->session->opendir,bfwin->session->savedir);
+			if (bfwin->session->savedir) file_chooser_set_current_dir(dialog,bfwin->session->savedir);
+			else if (bfwin->session->opendir) file_chooser_set_current_dir(dialog,bfwin->session->opendir);
+		} else {
+			DEBUG_MSG("file_chooser_dialog, opendir=%s\n",bfwin->session->opendir);
+			file_chooser_set_current_dir(dialog,bfwin->session->opendir);
+		}
 	}
+#ifdef DEBUG
+	DEBUG_MSG("current_folder_uri=%s\n", gtk_file_chooser_get_current_folder_uri(GTK_FILE_CHOOSER(dialog)));
+#endif
 	gtk_file_chooser_set_local_only(GTK_FILE_CHOOSER(dialog),localonly);
 	gtk_file_chooser_set_select_multiple(GTK_FILE_CHOOSER(dialog), multiple);
 	if (bfwin) {

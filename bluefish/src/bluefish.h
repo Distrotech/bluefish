@@ -268,6 +268,8 @@ typedef struct {
 	GList *bmarks;
 	GList *recent_files;
 	GList *recent_dirs;
+	gchar *opendir;
+	gchar *savedir;
 } Tsessionvars;
 
 typedef struct {

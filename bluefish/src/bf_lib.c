@@ -787,30 +787,6 @@ guint utf8_byteoffset_to_charsoffset_cached(gchar *string, glong byteoffset) {
 }*/
 
 /**
- * change_dir:
- * @filename: a gchar * with the path (may be a filename!!) to change to
- *
- * this function will get the directory name from the filename
- * and chdir() to that directory
- * 
- * Return value: gboolean, returning what chdir() returned
- **/
-gboolean change_dir(gchar * filename)
-{
-	gchar *tmpstring;
-	gboolean returncode;
-
-	if (!filename)
-		return FALSE;
-	tmpstring = g_path_get_dirname(filename);
-	DEBUG_MSG("change_dir, filename = %s, tmpstring = %s in %p\n", filename, tmpstring, tmpstring);
-	returncode = chdir(tmpstring) == 0 ? TRUE : FALSE;
-	g_free(tmpstring);
-	DEBUG_MSG("change_dir, after gfree(tmpstring) \n");
-	return returncode;
-}
-
-/**
  * strip_any_whitespace:
  * @string: a gchar * to strip
  *
