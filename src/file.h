@@ -62,6 +62,29 @@ typedef TcheckNsave_return (* CheckNsaveAsyncCallback) (TcheckNsave_status statu
 void checkmodified_cancel(Tcheckmodified * cm);
 Tcheckmodified *file_checkmodified_uri_async(GnomeVFSURI *uri, GnomeVFSFileInfo *curinfo, CheckmodifiedAsyncCallback callback_func, gpointer callback_data);
 gpointer file_checkNsave_uri_async(GnomeVFSURI *uri, GnomeVFSFileInfo *info, Trefcpointer *buffer, GnomeVFSFileSize buffer_size, gboolean check_modified, CheckNsaveAsyncCallback callback_func, gpointer callback_data);
+
+typedef enum {
+	OPENFILE_ERROR,
+	OPENFILE_ERROR_NOCHANNEL,
+	OPENFILE_ERROR_NOREAD,
+	OPENFILE_ERROR_CANCELLED,
+	OPENFILE_CHANNEL_OPENED,
+	OPENFILE_FINISHED
+} Topenfile_status;
+
+typedef void (* OpenfileAsyncCallback) (Topenfile_status status,gint error_info, gchar *buffer,GnomeVFSFileSize buflen,gpointer callback_data);
+
+typedef struct {
+	GnomeVFSAsyncHandle *handle;
+	gchar *buffer;
+	GnomeVFSFileSize buffer_size;
+	GnomeVFSFileSize used_size;
+	OpenfileAsyncCallback callback_func;
+	gpointer callback_data;
+} Topenfile;
+void openfile_cancel(Topenfile *of);
+Topenfile *file_openfile_uri_async(GnomeVFSURI *uri, OpenfileAsyncCallback callback_func, gpointer callback_data);
+
 void file2doc_cancel(gpointer f2d);
 void file_asyncfileinfo_cancel(gpointer fi);
 void file_doc_fill_fileinfo(Tdocument *doc, GnomeVFSURI *uri);
