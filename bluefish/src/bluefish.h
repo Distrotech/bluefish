@@ -137,6 +137,7 @@ typedef struct {
 	gboolean wrapstate; /* does this document use wrap?*/
 	gboolean linenumberstate; /* does this document use linenumbers? */
 	gboolean overwrite_mode; /* is document in overwrite mode */
+	gboolean autoclosingtag; /* does the document use autoclosing of tags */
 	gpointer floatingview; /* a 2nd textview widget that has its own window */
 	gpointer bfwin;
 } Tdocument;
@@ -196,6 +197,7 @@ typedef struct {
 	GList *encodings; /* all encodings you can choose from */
 	gint auto_set_encoding_meta; /* auto set metatag for the encoding */
 	gint auto_update_meta; /* auto update author and generator meta tags on save */
+	gint default_autoclosingtag; /* auto-append a closing tag after a start tag is inserted */
 	gint encoding_search_Nbytes; /* number of bytes to look for the encoding meta tag */
 	GList *outputbox; /* all outputbox commands */
 	gint ext_browsers_in_submenu;

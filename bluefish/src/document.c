@@ -1583,6 +1583,11 @@ static void doc_buffer_insert_text_after_lcb(GtkTextBuffer *textbuffer,GtkTextIt
 			}
 		}
 	}
+	
+	if (doc->autoclosingtag && strcmp(string,">")==0) {
+		/* start the autoclosing! */
+		
+	}
 }
 
 static void doc_buffer_delete_range_lcb(GtkTextBuffer *textbuffer,GtkTextIter * itstart,GtkTextIter * itend, Tdocument * doc) {
