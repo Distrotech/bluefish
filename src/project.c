@@ -277,7 +277,8 @@ static void project_edit_ok_clicked_lcb(GtkWidget *widget, Tprojecteditor *pred)
 if NULL is passed as bfwin, a new window will be created for this project once OK is clicked
 */
 void project_edit(Tbfwin *bfwin) {
-	GtkWidget *vbox, *but, *hbox, *label;
+	GtkWidget *vbox, *but, *hbox, *label, *table;
+	gchar *wintitle = NULL;
 	Tprojecteditor *pred;
 
 	if (bfwin && bfwin->project && bfwin->project->editor) {
@@ -293,8 +294,10 @@ void project_edit(Tbfwin *bfwin) {
 			bfwin->project = pred->project;
 		}
 		pred->project_created_by_editor = TRUE;
+		wintitle = g_strdup(_("Create New Project"));
 	} else {
 		pred->project_created_by_editor = FALSE;
+		wintitle = g_strdup(_("Edit Project"));
 		if (bfwin) {
 			pred->project = bfwin->project;
 		}
@@ -303,10 +306,14 @@ void project_edit(Tbfwin *bfwin) {
 	pred->bfwin = bfwin;
 	pred->project->editor = pred;
 	
-	pred->win = window_full2(_("Edit project"), GTK_WIN_POS_NONE, 5
+	pred->win = window_full2(wintitle, GTK_WIN_POS_CENTER_ALWAYS, 5
 			, G_CALLBACK(project_edit_destroy_lcb), pred, TRUE, NULL);
 	vbox = gtk_vbox_new(FALSE,0);
 	gtk_container_add(GTK_CONTAINER(pred->win),vbox);
+	
+	if (wintitle) {
+		g_free(wintitle);
+	}
 	
 	label = gtk_label_new(NULL);
 	gtk_box_pack_start(GTK_BOX(vbox), label, FALSE, TRUE, 0);
@@ -317,20 +324,46 @@ void project_edit(Tbfwin *bfwin) {
 		gtk_label_set_markup(GTK_LABEL(label), message);
 	}
 	
-	pred->entries[name] = boxed_full_entry(_("Name"), pred->project->name,255, vbox);
-	pred->entries[basedir] = boxed_full_entry(_("Basedir"), pred->project->basedir,255, vbox);
-	pred->entries[webdir] = boxed_full_entry(_("Webdir"), pred->project->webdir,255, vbox);
-	pred->entries[template] = boxed_full_entry(_("Template"), pred->project->template,255, vbox);
-	pred->entries[word_wrap] = boxed_checkbut_with_value(_("Word wrap by default"), pred->project->word_wrap, vbox);
+	table = gtk_table_new (5, 3, FALSE);
+	gtk_table_set_col_spacings (GTK_TABLE (table), 12);
+	gtk_table_set_row_spacings (GTK_TABLE (table), 6);	
+	gtk_box_pack_start (GTK_BOX (vbox), table, FALSE, FALSE, 12);
+	
+	pred->entries[name] = entry_with_text(pred->project->name, 255);
+	gtk_widget_set_size_request(GTK_WIDGET(pred->entries[name]), 250, -1);
+	bf_mnemonic_label_tad_with_alignment(_("Project _Name:"), pred->entries[name], 1, 0.5, table, 0, 1, 0, 1);
+	gtk_table_attach_defaults(GTK_TABLE(table), pred->entries[name], 2, 3, 0, 1);
 
+	pred->entries[basedir] = entry_with_text(pred->project->basedir, 255);
+	bf_mnemonic_label_tad_with_alignment(_("_Local Directory:"), pred->entries[basedir], 1, 0.5, table, 0, 1, 1, 2);
+	gtk_table_attach_defaults(GTK_TABLE(table), pred->entries[basedir], 2, 3, 1, 2);
+
+	pred->entries[webdir] = entry_with_text(pred->project->webdir, 255);
+	bf_mnemonic_label_tad_with_alignment(_("_Remote Directory:"), pred->entries[webdir], 1, 0.5, table, 0, 1, 2, 3);
+	gtk_table_attach_defaults(GTK_TABLE(table), pred->entries[webdir], 2, 3, 2, 3);
+	
+	pred->entries[template] = entry_with_text(pred->project->template, 255);
+	bf_mnemonic_label_tad_with_alignment(_("_Template:"), pred->entries[template], 1, 0.5, table, 0, 1, 3, 4);
+	gtk_table_attach_defaults(GTK_TABLE(table), pred->entries[template], 2, 3, 3, 4);	
+
+	gtk_table_set_row_spacing(GTK_TABLE(table), 3, 18);
+	pred->entries[word_wrap] = checkbut_with_value(_("_Word wrap by default"), pred->project->word_wrap);
+	gtk_table_attach_defaults(GTK_TABLE(table), pred->entries[word_wrap], 0, 3, 4, 5);
+		
+	gtk_box_pack_start (GTK_BOX (vbox), gtk_hseparator_new(), FALSE, FALSE, 12);
 	hbox = gtk_hbutton_box_new();
 	gtk_hbutton_box_set_layout_default(GTK_BUTTONBOX_END);
 	gtk_button_box_set_spacing(GTK_BUTTON_BOX(hbox), 6);
-	gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, TRUE, 0);
+	gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 0);
 	but = bf_stock_cancel_button(G_CALLBACK(project_edit_cancel_clicked_lcb), pred);
-	gtk_box_pack_start(GTK_BOX(hbox), but, FALSE, TRUE, 0);
-	but = bf_stock_ok_button(G_CALLBACK(project_edit_ok_clicked_lcb), pred);
-	gtk_box_pack_start(GTK_BOX(hbox), but, FALSE, TRUE, 0);
+	gtk_box_pack_start(GTK_BOX(hbox), but, FALSE, FALSE, 0);
+	if (pred->project_created_by_editor == TRUE) {
+		but = bf_generic_button_with_image(_("Create _Project"), 0, G_CALLBACK(project_edit_ok_clicked_lcb), pred);
+	} else {
+		but = bf_stock_ok_button(G_CALLBACK(project_edit_ok_clicked_lcb), pred);
+	}
+	gtk_box_pack_start(GTK_BOX(hbox), but, FALSE, FALSE, 0);
+	gtk_widget_grab_default(but);
 	gtk_widget_show_all(pred->win);
 }
 
