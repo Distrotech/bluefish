@@ -95,7 +95,7 @@ GList *return_allwindows_documentlist() {
  */
 GList *return_filenamestringlist_from_doclist(GList *doclist) {
 	GList *newlist=NULL, *tmplist;
-	DEBUG_MSG("return_filenamestringlist_from_doclist, started for doclist %p\n",doclist);
+	DEBUG_MSG("return_filenamestringlist_from_doclist, started for doclist %p, len=%d\n",doclist,g_list_length(doclist));
 	tmplist = g_list_first(doclist);
 	while(tmplist){
 		if (DOCUMENT(tmplist->data)->filename) {
