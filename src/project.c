@@ -17,10 +17,11 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-/* #define DEBUG */
+/*#define DEBUG*/
 
 #include <gtk/gtk.h>
-
+#include <string.h>
+#include <stdlib.h>
 
 #include "bluefish.h"
 #include "project.h"
@@ -63,6 +64,7 @@ static Tproject *create_new_project(Tbfwin *bfwin) {
 	Tproject *prj;
 	prj = g_new(Tproject,1);
 	prj->name = g_strdup(_("New project"));
+	prj->filename = NULL;
 	prj->files = NULL;
 	update_project_filelist(bfwin,prj);
 	prj->basedir = g_strdup("");
@@ -135,21 +137,25 @@ static void project_open(Tbfwin *bfwin) {
 	}
 }
 
-void project_save_and_close(Tbfwin *bfwin) {
+gboolean project_save_and_close(Tbfwin *bfwin) {
 	if (project_save(bfwin, FALSE)) {
+		DEBUG_MSG("project_save_and_close, save returned TRUE\n");
 		file_close_all_cb(NULL,bfwin);
 		if (test_only_empty_doc_left(bfwin->documentlist)) {
-			if (bfwin->project) {
-				free_stringlist(bfwin->project->files);
-				g_free(bfwin->project->filename);
-				g_free(bfwin->project->name);
-				g_free(bfwin->project->basedir);
-				g_free(bfwin->project->webdir);
-				g_free(bfwin->project);
-				bfwin->project = NULL;
-			}
+			DEBUG_MSG("project_save_and_close, all documents are closed\n");
+			free_stringlist(bfwin->project->files);
+			g_free(bfwin->project->filename);
+			g_free(bfwin->project->name);
+			g_free(bfwin->project->basedir);
+			g_free(bfwin->project->webdir);
+			g_free(bfwin->project);
+			bfwin->project = NULL;
+			DEBUG_MSG("project_save_and_close, returning TRUE\n");
+			return TRUE;
 		}
 	}
+	DEBUG_MSG("project_save_and_close, returning FALSE\n");
+	return FALSE;
 }
 
 typedef enum {

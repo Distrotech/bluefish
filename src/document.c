@@ -78,6 +78,25 @@ GList *return_allwindows_documentlist() {
 }
 
 /**
+ * return_num_untitled_documents:
+ * @doclist: #GList* with documents
+ *
+ * returns the number of untitled documents 
+ * opened in Bluefish
+ *
+ * Return value: #gint with number
+ */
+gint return_num_untitled_documents(GList *doclist) {
+	gint retval = 0;
+	GList *tmplist = g_list_first(doclist);
+	while (tmplist) {
+		if (DOCUMENT(tmplist->data)->filename == NULL) retval++;
+		tmplist = g_list_next(tmplist);
+	}
+	return retval;
+}
+
+/**
  * add_filename_to_history:
  * @bfwin: #Tbfwin* 
  * @filename: a #gchar
@@ -580,8 +599,12 @@ void doc_set_modified(Tdocument *doc, gint value) {
 			label_string = g_path_get_basename(doc->filename);
 			tabmenu_string = g_strdup(doc->filename);
 		} else {
-			label_string = g_strdup(_("Untitled"));
-			tabmenu_string = g_strdup(_("Untitled"));
+			gchar *message;
+			GList *alldocs = return_allwindows_documentlist();
+			message = g_strdup_printf(_("Untitled %d"),return_num_untitled_documents(alldocs));
+			g_list_free(alldocs);
+			label_string = g_strdup(message);
+			tabmenu_string = message;
 		}
 		if (doc->modified) {
 			gtk_widget_modify_fg(doc->tab_menu, GTK_STATE_NORMAL, &colorred);
