@@ -85,7 +85,7 @@ Thighlightset *hl_get_highlightset_by_filename(gchar *filename) {
 	GList *tmplist;
 	/* find set for this filetype */
 	if (filename) {
-	
+		/* DO SOMETHING */
 	
 	}
 	/* if none found return first set (is default set) */

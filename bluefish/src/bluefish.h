@@ -98,6 +98,7 @@ typedef struct {
 	GList *hlsetlist;
 	GtkWidget *main_window;
 	GtkWidget *notebook;
+	GtkWidget *middlebox; /* we need this to show/hide the filebrowser */
 	GtkTextTagTable *tagtable; /* this one should ultimately move to Thighlightset, so every set would have it's own tagtable, but there is currently no way to switch a document to a new tagtable */
 } Tmain;
 
