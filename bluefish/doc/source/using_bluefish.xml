@@ -254,7 +254,17 @@ a project file.
 	<sect2 id="creating-files">
 	<title>Creating files</title>
 	<para>
-	Apart from using <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>N</keycap></keycombo></shortcut><guimenu>File</guimenu><guimenuitem>New</guimenuitem></menuchoice> or the <guilabel>New</guilabel> icon to create a new file, you may also use <menuchoice><shortcut><keycombo><keycap>Shift</keycap><keycap>Ctrl</keycap><keycap>N</keycap></keycombo></shortcut><guimenu>File</guimenu><guimenuitem>New Window</guimenuitem></menuchoice>.
+		Apart from using 
+		<menuchoice>
+			<shortcut>
+				<keycombo>
+					<keycap>Ctrl</keycap>
+					<keycap>N</keycap>
+				</keycombo>
+			</shortcut>
+			<guimenu>File</guimenu>
+			<guimenuitem>New</guimenuitem>
+		</menuchoice> or the <guilabel>New</guilabel> icon to create a new file, you may also use <menuchoice><shortcut><keycombo><keycap>Shift</keycap><keycap>Ctrl</keycap><keycap>N</keycap></keycombo></shortcut><guimenu>File</guimenu><guimenuitem>New Window</guimenuitem></menuchoice>.
 	</para>
 	<para>Both methods create an untitled file of type text with the default character encoding defined in preferences.</para>
 	</sect2>
