@@ -398,7 +398,7 @@ gboolean project_save_and_close(Tbfwin *bfwin) {
 		}
 		add_to_recent_list(bfwin,bfwin->project->filename, TRUE, TRUE);
 	}
-	bfwin_close_all_documents(bfwin, TRUE);
+	doc_close_multiple_backend(bfwin, TRUE);
 	if (!test_only_empty_doc_left(bfwin->documentlist)) {
 		DEBUG_MSG("closing all documents failed, returning\n");
 		return FALSE;

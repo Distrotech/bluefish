@@ -586,7 +586,7 @@ void file_save_all_cb(GtkWidget * widget, Tbfwin *bfwin) {
 }
 
 void doc_close_single_backend(Tdocument *doc, gboolean close_window) {
-	if (doc_is_empty_non_modified_and_nameless(doc) && g_list_length(BFWIN(doc->bfwin)->documentlist) ==1) {
+	if (doc_is_empty_non_modified_and_nameless(doc) && g_list_length(BFWIN(doc->bfwin)->documentlist) <=1) {
 		if (close_window) {
 			gtk_widget_destroy(BFWIN(doc->bfwin)->main_window);
 		}
@@ -627,4 +627,68 @@ void doc_close_single_backend(Tdocument *doc, gboolean close_window) {
  **/
 void file_close_cb(GtkWidget * widget, Tbfwin *bfwin) {
 	doc_close_single_backend(bfwin->current_document, 0);
+}
+
+void doc_close_multiple_backend(Tbfwin *bfwin, gboolean close_window) {
+	GList *tmplist, *duplist;
+	Tdocument *tmpdoc;
+	gint retval=1; /* the defauilt value 1 means "close all" */
+
+	if (g_list_length (bfwin->documentlist) == 1) {
+		doc_close_single_backend(bfwin->current_document, close_window);
+		return;
+	}
+	/* first a warning loop */
+	if (test_docs_modified(bfwin->documentlist)) {
+		gchar *options[] = {_("_Save All"), _("Close _All"), _("Choose per _File"), _("_Cancel"), NULL};
+		retval = multi_query_dialog(bfwin->main_window,_("Multiple open files have been changed."), 
+									_("If you don't save your changes they will be lost."), 3, 3, options);
+		if (retval == 3) {
+			return;
+		}
+	}
+	
+	/* we duplicate the documentlist so we can safely walk trough the list, in 
+	our duplicate list there is no chance that the list is changed during the time
+	we walk the list */
+	duplist = g_list_copy(bfwin->documentlist);
+	tmplist = g_list_first(duplist);
+	while (tmplist) {
+		tmpdoc = (Tdocument *) tmplist->data;
+		switch (retval) {
+		case 0: /* save all */
+			doc_save_backend(tmpdoc, FALSE, FALSE, TRUE, close_window);
+		break;
+		case 1: /* close all */
+			doc_destroy(tmpdoc, TRUE);
+		break;
+		case 2: /* choose per file */
+			doc_close_single_backend(tmpdoc, close_window);
+		break;
+		}
+		tmplist = g_list_next(tmplist);
+	}
+	g_list_free(duplist);
+
+	if (close_window && doc_is_empty_non_modified_and_nameless(bfwin->current_document) && g_list_length(bfwin->documentlist) <=1) {
+		gtk_widget_destroy(bfwin->main_window);
+		return;
+	}
+	if (retval == 1) {
+		notebook_changed(bfwin,-1);
+	}
+	DEBUG_MSG("doc_close_multiple_backend, finished\n");
+}
+
+/**
+ * file_close_all_cb:
+ * @widget: unused #GtkWidget
+ * @bfwin: #Tbfwin* 
+ *
+ * Close all open files. Prompt user when neccessary.
+ *
+ * Return value: void
+ **/
+void file_close_all_cb(GtkWidget * widget, Tbfwin *bfwin) {
+	doc_close_multiple_backend(bfwin, FALSE);
 }
