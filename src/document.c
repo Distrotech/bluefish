@@ -1813,14 +1813,16 @@ gint doc_textbox_to_file(Tdocument * doc, gchar * filename) {
 	statusbar_message(BFWIN(doc->bfwin),_("Saving file"), 1000);
 	if (main_v->props.auto_update_meta) {
 		const gchar *realname = g_get_real_name();
-		gchar *tmp;
-		Tsearch_result res = doc_search_run_extern(doc,"<meta[ \t\n]name[ \t\n]*=[ \t\n]*\"generator\"[ \t\n]+content[ \t\n]*=[ \t\n]*\"[^\"]*bluefish[^\"]*\"[ \t\n]*>",1,0);
-		if (res.end > 0) {
-			snr2_run_extern_replace(doc,"<meta[ \t\n]name[ \t\n]*=[ \t\n]*\"generator\"[ \t\n]+content[ \t\n]*=[ \t\n]*\"[^\"]*\"[ \t\n]*>",0,1,0,"<meta name=\"generator\" content=\"Bluefish, see http://bluefish.openoffice.nl/\">", FALSE);
+		if (realname && strlen(realname) > 0)  {
+			gchar *tmp;
+			Tsearch_result res = doc_search_run_extern(doc,"<meta[ \t\n]name[ \t\n]*=[ \t\n]*\"generator\"[ \t\n]+content[ \t\n]*=[ \t\n]*\"[^\"]*bluefish[^\"]*\"[ \t\n]*>",1,0);
+			if (res.end > 0) {
+				snr2_run_extern_replace(doc,"<meta[ \t\n]name[ \t\n]*=[ \t\n]*\"generator\"[ \t\n]+content[ \t\n]*=[ \t\n]*\"[^\"]*\"[ \t\n]*>",0,1,0,"<meta name=\"generator\" content=\"Bluefish, see http://bluefish.openoffice.nl/\">", FALSE);
+			}
+			tmp = g_strconcat("<meta name=\"author\" content=\"",realname,"\">",NULL);
+			snr2_run_extern_replace(doc,"<meta[ \t\n]name[ \t\n]*=[ \t\n]*\"author\"[ \t\n]+content[ \t\n]*=[ \t\n]*\"[^\"]*\"[ \t\n]*>",0,1,0,tmp,FALSE);
+			g_free(tmp);
 		}
-		tmp = g_strconcat("<meta name=\"author\" content=\"",realname,"\">",NULL);
-		snr2_run_extern_replace(doc,"<meta[ \t\n]name[ \t\n]*=[ \t\n]*\"author\"[ \t\n]+content[ \t\n]*=[ \t\n]*\"[^\"]*\"[ \t\n]*>",0,1,0,tmp,FALSE);
-		g_free(tmp);
 	}
 
 	/* This writes the contents of a textbox to a file */
