@@ -669,7 +669,10 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/Options/_Auto Indent"), NULL, gui_toggle_autoindent_cb, 0, "<ToggleItem>"},
 	{N_("/Options/sep2"), NULL, NULL, 0, "<Separator>"},
 	{N_("/Options/_Save Settings"), NULL, rcfile_save_configfile_menu_cb, 0, NULL},
-	{N_("/Options/Save Shortcut _Keys"), NULL, rcfile_save_configfile_menu_cb, 3, NULL}
+	{N_("/Options/Save Shortcut _Keys"), NULL, rcfile_save_configfile_menu_cb, 3, NULL},
+	{N_("/_Windows"), NULL, NULL, 0, "<Branch>"},
+	{N_("/Windows/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
+	{N_("/Windows/New"), NULL, gui_new_window, 0, NULL}
 };
 
 #ifdef ENABLE_NLS
