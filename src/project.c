@@ -163,7 +163,9 @@ void project_open_from_file(Tbfwin *bfwin, gchar *fromfilename) {
 	}
 	set_project_menu_widgets(prwin, TRUE);
 	recent_menu_init_project(prwin);
-	/* now set the visibility of all toolbars/menubars etc. */
+	gui_set_html_toolbar_visible(prwin, prj->view_html_toolbar, TRUE);
+	gui_set_main_toolbar_visible(prwin, prj->view_main_toolbar, TRUE);
+	gui_set_custom_menu_visible(prwin, prj->view_custom_menu, TRUE);
 }
 
 static void project_open(Tbfwin *bfwin) {

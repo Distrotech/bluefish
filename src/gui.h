@@ -20,6 +20,9 @@
 #ifndef __GUI_H_
 #define __GUI_H_
 void gui_toggle_autoindent_cb(gpointer callback_data,guint action,GtkWidget *widget);
+void gui_set_html_toolbar_visible(Tbfwin *bfwin, gboolean visible, gboolean sync_menu);
+void gui_set_main_toolbar_visible(Tbfwin *bfwin, gboolean visible, gboolean sync_menu);
+void gui_set_custom_menu_visible(Tbfwin *bfwin, gboolean visible, gboolean sync_menu);
 void gui_toggle_hidewidget_cb(Tbfwin *bfwin,guint action,GtkWidget *widget);
 
 void notebook_hide(Tbfwin *bfwin);

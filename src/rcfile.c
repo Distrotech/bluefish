@@ -75,10 +75,10 @@ GList *make_config_list_item(GList * config_list, void *pointer_to_var, unsigned
 	return (GList *) g_list_append(config_list, config_list_item);
 }
 
-static void init_prop_integer(GList ** config_list, void *pointer_to_var, gchar * name_of_var, gint default_value)
+static void init_prop_integer(GList ** config_list, void *pointer_to_var, gchar * name_of_var, gint default_value, gboolean set_default)
 {
 	*config_list = make_config_list_item(*config_list, pointer_to_var, 'i', name_of_var, 0);
-	*(gint *) pointer_to_var = default_value;
+	if (set_default) *(gint *)pointer_to_var = default_value;
 }
 
 static void init_prop_string(GList ** config_list, void *pointer_to_var, gchar * name_of_var, gchar * default_value)
@@ -310,106 +310,106 @@ static gboolean parse_config_file(GList * config_list, gchar * filename)
 static GList *props_init_main(GList * config_rc)
 {
 /* these are used in the gtk-2 port already */
-	init_prop_integer   (&config_rc, &main_v->props.view_html_toolbar, "view_html_toolbar:", 1);
-	init_prop_integer   (&config_rc, &main_v->props.view_custom_menu, "view_custom_menu:", 1);
-	init_prop_integer   (&config_rc, &main_v->props.view_main_toolbar, "view_main_toolbar:", 1);
-	init_prop_integer   (&config_rc, &main_v->props.view_left_panel, "view_left_panel:", 1);
-	init_prop_integer   (&config_rc, &main_v->props.view_line_numbers, "view_line_numbers:", 1);
-	init_prop_integer   (&config_rc, &main_v->props.filebrowser_show_hidden_files, "fb_show_hidden_f:", 1);
-	init_prop_integer   (&config_rc, &main_v->props.filebrowser_show_backup_files, "fb_show_backup_f:", 0);
-	init_prop_integer   (&config_rc, &main_v->props.filebrowser_two_pane_view, "fb_two_pane_view:", 0);
+	init_prop_integer   (&config_rc, &main_v->props.view_html_toolbar, "view_html_toolbar:", 1, TRUE);
+	init_prop_integer   (&config_rc, &main_v->props.view_custom_menu, "view_custom_menu:", 1, TRUE);
+	init_prop_integer   (&config_rc, &main_v->props.view_main_toolbar, "view_main_toolbar:", 1, TRUE);
+	init_prop_integer   (&config_rc, &main_v->props.view_left_panel, "view_left_panel:", 1, TRUE);
+	init_prop_integer   (&config_rc, &main_v->props.view_line_numbers, "view_line_numbers:", 1, TRUE);
+	init_prop_integer   (&config_rc, &main_v->props.filebrowser_show_hidden_files, "fb_show_hidden_f:", 1, TRUE);
+	init_prop_integer   (&config_rc, &main_v->props.filebrowser_show_backup_files, "fb_show_backup_f:", 0, TRUE);
+	init_prop_integer   (&config_rc, &main_v->props.filebrowser_two_pane_view, "fb_two_pane_view:", 0, TRUE);
 	init_prop_string    (&config_rc, &main_v->props.filebrowser_unknown_icon, "fb_unknown_icon:", PKGDATADIR"icon_unknown.png");
 	init_prop_string    (&config_rc, &main_v->props.filebrowser_dir_icon, "fb_dir_icon:", PKGDATADIR"icon_dir.png");
 	init_prop_string    (&config_rc, &main_v->props.editor_font_string, "editor_font_string:", "courier 11");
-	init_prop_integer   (&config_rc, &main_v->props.editor_tab_width, "editor_tab_width:", 3);
+	init_prop_integer   (&config_rc, &main_v->props.editor_tab_width, "editor_tab_width:", 3, TRUE);
 	init_prop_string    (&config_rc, &main_v->props.tab_font_string, "tab_font_string:", "");
 	init_prop_arraylist (&config_rc, &main_v->props.browsers, "browsers:", 2, TRUE);
 	init_prop_arraylist (&config_rc, &main_v->props.external_commands, "external_commands:", 2, TRUE);
 	init_prop_stringlist(&config_rc, &main_v->props.quickbar_items, "quickbar_items:", TRUE);
-	init_prop_integer   (&config_rc, &main_v->props.highlight_num_lines_count, "highlight_num_lines_count:", 1);
-	init_prop_integer   (&config_rc, &main_v->props.defaulthighlight, "defaulthighlight:", 1);
+	init_prop_integer   (&config_rc, &main_v->props.highlight_num_lines_count, "highlight_num_lines_count:", 1, TRUE);
+	init_prop_integer   (&config_rc, &main_v->props.defaulthighlight, "defaulthighlight:", 1, TRUE);
 	/* old type filetypes have a different count, they are converted below */
 	init_prop_arraylist (&config_rc, &main_v->props.filetypes, "filetypes:", 0, TRUE);
-	init_prop_integer   (&config_rc, &main_v->props.numcharsforfiletype, "numcharsforfiletype:", 200);
+	init_prop_integer   (&config_rc, &main_v->props.numcharsforfiletype, "numcharsforfiletype:", 200, TRUE);
 	init_prop_arraylist (&config_rc, &main_v->props.filefilters, "filefilters:", 3, TRUE);
 	init_prop_string    (&config_rc, &main_v->props.last_filefilter, "last_filefilter:", "");
-	init_prop_integer   (&config_rc, &main_v->props.transient_htdialogs, "transient_htdialogs:", 1);
-	init_prop_integer   (&config_rc, &main_v->props.restore_dimensions, "restore_dimensions:", 1);	
-	init_prop_integer   (&config_rc, &main_v->props.left_panel_width, "left_panel_width:", 150);
-	init_prop_integer   (&config_rc, &main_v->props.two_pane_filebrowser_height, "two_pane_filebrowser_height:", 250);
-	init_prop_integer   (&config_rc, &main_v->props.main_window_h, "main_window_height:", 400);
-	init_prop_integer   (&config_rc, &main_v->props.main_window_w, "main_window_width:", 600);
-	init_prop_integer   (&config_rc, &main_v->props.max_recent_files, "max_recent_files:", 15);
-	init_prop_integer   (&config_rc, &main_v->props.max_dir_history, "max_dir_history:", 10);
-	init_prop_integer   (&config_rc, &main_v->props.backup_file,"backup_file:",1);
+	init_prop_integer   (&config_rc, &main_v->props.transient_htdialogs, "transient_htdialogs:", 1, TRUE);
+	init_prop_integer   (&config_rc, &main_v->props.restore_dimensions, "restore_dimensions:", 1, TRUE);	
+	init_prop_integer   (&config_rc, &main_v->props.left_panel_width, "left_panel_width:", 150, TRUE);
+	init_prop_integer   (&config_rc, &main_v->props.two_pane_filebrowser_height, "two_pane_filebrowser_height:", 250, TRUE);
+	init_prop_integer   (&config_rc, &main_v->props.main_window_h, "main_window_height:", 400, TRUE);
+	init_prop_integer   (&config_rc, &main_v->props.main_window_w, "main_window_width:", 600, TRUE);
+	init_prop_integer   (&config_rc, &main_v->props.max_recent_files, "max_recent_files:", 15, TRUE);
+	init_prop_integer   (&config_rc, &main_v->props.max_dir_history, "max_dir_history:", 10, TRUE);
+	init_prop_integer   (&config_rc, &main_v->props.backup_file,"backup_file:",1, TRUE);
 	init_prop_string    (&config_rc, &main_v->props.backup_filestring,"backup_filestring:","~");
-	init_prop_integer    (&config_rc, &main_v->props.backup_abort_action,"backup_abort_action:",DOCUMENT_BACKUP_ABORT_ASK);
-	init_prop_integer   (&config_rc, &main_v->props.backup_cleanuponclose,"backup_cleanuponclose:",0);
+	init_prop_integer    (&config_rc, &main_v->props.backup_abort_action,"backup_abort_action:",DOCUMENT_BACKUP_ABORT_ASK, TRUE);
+	init_prop_integer   (&config_rc, &main_v->props.backup_cleanuponclose,"backup_cleanuponclose:",0, TRUE);
 	init_prop_string    (&config_rc, &main_v->props.image_thumbnailstring, "image_thumbnailstring:", "_thumbnail");
 	init_prop_string    (&config_rc, &main_v->props.image_thumbnailtype, "image_thumbnailtype:", "png");
-	init_prop_integer   (&config_rc, &main_v->props.image_thumbnail_refresh_quality,"image_thumbnail_refresh_quality:",1);
-	init_prop_integer   (&config_rc, &main_v->props.image_thumbnailsizing_type,"image_thumbnailsizing_type:",0);
-	init_prop_integer   (&config_rc, &main_v->props.image_thumbnailsizing_val1,"image_thumbnailsizing_val1:",100);
-	init_prop_integer   (&config_rc, &main_v->props.image_thumbnailsizing_val2,"image_thumbnailsizing_val2:",100);
+	init_prop_integer   (&config_rc, &main_v->props.image_thumbnail_refresh_quality,"image_thumbnail_refresh_quality:",1, TRUE);
+	init_prop_integer   (&config_rc, &main_v->props.image_thumbnailsizing_type,"image_thumbnailsizing_type:",0, TRUE);
+	init_prop_integer   (&config_rc, &main_v->props.image_thumbnailsizing_val1,"image_thumbnailsizing_val1:",100, TRUE);
+	init_prop_integer   (&config_rc, &main_v->props.image_thumbnailsizing_val2,"image_thumbnailsizing_val2:",100, TRUE);
 	init_prop_string    (&config_rc, &main_v->props.image_thumnailformatstring,"image_thumnailformatstring:","<a href=\"%r\"><img src=\"%t\" width=\"%x\" height=\"%y\" border=\"0\"></a>");
-	init_prop_integer   (&config_rc, &main_v->props.allow_multi_instances,"allow_multi_instances:",0);
-	init_prop_integer   (&config_rc, &main_v->props.modified_check_type,"modified_check_type:",1);
-	init_prop_integer   (&config_rc, &main_v->props.num_undo_levels,"num_undo_levels:",100);
-	init_prop_integer   (&config_rc, &main_v->props.clear_undo_on_save,"clear_undo_on_save:",0);
+	init_prop_integer   (&config_rc, &main_v->props.allow_multi_instances,"allow_multi_instances:",0, TRUE);
+	init_prop_integer   (&config_rc, &main_v->props.modified_check_type,"modified_check_type:",1, TRUE);
+	init_prop_integer   (&config_rc, &main_v->props.num_undo_levels,"num_undo_levels:",100, TRUE);
+	init_prop_integer   (&config_rc, &main_v->props.clear_undo_on_save,"clear_undo_on_save:",0, TRUE);
 	init_prop_string    (&config_rc, &main_v->props.newfile_default_encoding,"newfile_default_encoding:","UTF-8");
 	init_prop_arraylist (&config_rc, &main_v->props.encodings, "encodings:", 2, TRUE);
-	init_prop_integer   (&config_rc, &main_v->props.auto_set_encoding_meta,"auto_set_encoding_meta:",1);
-	init_prop_integer   (&config_rc, &main_v->props.auto_update_meta,"auto_update_meta:",1);
+	init_prop_integer   (&config_rc, &main_v->props.auto_set_encoding_meta,"auto_set_encoding_meta:",1, TRUE);
+	init_prop_integer   (&config_rc, &main_v->props.auto_update_meta,"auto_update_meta:",1, TRUE);
 	init_prop_arraylist (&config_rc, &main_v->props.outputbox, "outputbox:", 7, TRUE);
-	init_prop_integer   (&config_rc, &main_v->props.ext_browsers_in_submenu,"ext_browsers_in_submenu:",0);
-	init_prop_integer   (&config_rc, &main_v->props.ext_commands_in_submenu,"ext_commands_in_submenu:",1);
-	init_prop_integer   (&config_rc, &main_v->props.ext_outputbox_in_submenu,"ext_outputbox_in_submenu:",1);
+	init_prop_integer   (&config_rc, &main_v->props.ext_browsers_in_submenu,"ext_browsers_in_submenu:",0, TRUE);
+	init_prop_integer   (&config_rc, &main_v->props.ext_commands_in_submenu,"ext_commands_in_submenu:",1, TRUE);
+	init_prop_integer   (&config_rc, &main_v->props.ext_outputbox_in_submenu,"ext_outputbox_in_submenu:",1, TRUE);
 	init_prop_arraylist (&config_rc, &main_v->props.reference_files, "reference_files:", 2, TRUE);
-	init_prop_integer   (&config_rc, &main_v->props.fref_ldoubleclick_action,"fref_ldoubleclick_action:",0);
-	init_prop_integer   (&config_rc, &main_v->props.fref_info_type,"fref_info_type:",0);	
-	init_prop_integer   (&config_rc, &main_v->props.document_tabposition,"document_tabposition:",(gint)GTK_POS_BOTTOM);
-	init_prop_integer   (&config_rc, &main_v->props.leftpanel_tabposition,"leftpanel_tabposition:",(gint)GTK_POS_BOTTOM);
+	init_prop_integer   (&config_rc, &main_v->props.fref_ldoubleclick_action,"fref_ldoubleclick_action:",0, TRUE);
+	init_prop_integer   (&config_rc, &main_v->props.fref_info_type,"fref_info_type:",0, TRUE);	
+	init_prop_integer   (&config_rc, &main_v->props.document_tabposition,"document_tabposition:",(gint)GTK_POS_BOTTOM, TRUE);
+	init_prop_integer   (&config_rc, &main_v->props.leftpanel_tabposition,"leftpanel_tabposition:",(gint)GTK_POS_BOTTOM, TRUE);
 #ifdef HAVE_LIBASPELL
 	init_prop_string(&config_rc, &main_v->props.spell_default_lang, "spell_default_lang:", "en");
 #endif /* HAVE_LIBASPELL */
-	init_prop_integer(&config_rc, &main_v->props.cont_highlight_full, "cont_highlight_full:", 1);
-	init_prop_integer(&config_rc, &main_v->props.lasttime_cust_menu, "lasttime_cust_menu:", 0);
-	init_prop_integer(&config_rc, &main_v->props.lasttime_highlighting, "lasttime_highlighting:", 0);
-	init_prop_integer(&config_rc, &main_v->props.lasttime_filetypes, "lasttime_filetypes:", 0);
-	init_prop_integer(&config_rc, &main_v->props.lasttime_encodings, "lasttime_encodings:", 0);
+	init_prop_integer(&config_rc, &main_v->props.cont_highlight_full, "cont_highlight_full:", 1, TRUE);
+	init_prop_integer(&config_rc, &main_v->props.lasttime_cust_menu, "lasttime_cust_menu:", 0, TRUE);
+	init_prop_integer(&config_rc, &main_v->props.lasttime_highlighting, "lasttime_highlighting:", 0, TRUE);
+	init_prop_integer(&config_rc, &main_v->props.lasttime_filetypes, "lasttime_filetypes:", 0, TRUE);
+	init_prop_integer(&config_rc, &main_v->props.lasttime_encodings, "lasttime_encodings:", 0, TRUE);
 
 	/* not yet in use */
 	init_prop_string(&config_rc, &main_v->props.image_editor_cline, "image_editor_command:", "gimp-remote -n \"%s\"&");
-	init_prop_integer(&config_rc, &main_v->props.full_p, "closing_paragraph_tag:", 1);
-	init_prop_integer(&config_rc, &main_v->props.full_li, "closing_list_item_tag:", 1);
-	init_prop_integer(&config_rc, &main_v->props.allow_css, "allow_the_use_of_css:", 1);
-	init_prop_integer(&config_rc, &main_v->props.allow_dep, "allow_the_use_of_font:", 1);
-	init_prop_integer(&config_rc, &main_v->props.format_by_context, "format_by_context:", 1);
-	init_prop_integer(&config_rc, &main_v->props.xhtml, "use_xhtml:", 0);
-	init_prop_integer(&config_rc, &main_v->props.allow_ruby, "allow_the_use_of_ruby:", 0);
-	init_prop_integer(&config_rc, &main_v->props.allow_h4, "allow_the_use_of_html4:", 1);
-	init_prop_integer(&config_rc, &main_v->props.allow_frames, "allow_the_use_of_frames:", 1);
-	init_prop_integer(&config_rc, &main_v->props.force_dtd, "force_an_dtd:", 0);
-	init_prop_integer(&config_rc, &main_v->props.dtd_url, "url_in_dtd:", 0);
-	init_prop_integer(&config_rc, &main_v->props.xml_start, "xml_starting_line:", 0);
-	init_prop_integer(&config_rc, &main_v->props.lowercase_tags, "lowercase_tags:", 1);
-	init_prop_integer(&config_rc, &main_v->props.word_wrap, "word_wrap:", 0);
-	init_prop_integer(&config_rc, &main_v->props.autoindent, "autoindent:", 1);
-	init_prop_integer(&config_rc, &main_v->props.fontset, "fontset:", 0);
-	init_prop_integer(&config_rc, &main_v->props.force_def_style, "force_white_background:", 1);
-	init_prop_integer(&config_rc, &main_v->props.drop_at_drop_pos, "drop_at_drop_position:", 0);
-	init_prop_integer(&config_rc, &main_v->props.link_management, "link_management:", 1);
+	init_prop_integer(&config_rc, &main_v->props.full_p, "closing_paragraph_tag:", 1, TRUE);
+	init_prop_integer(&config_rc, &main_v->props.full_li, "closing_list_item_tag:", 1, TRUE);
+	init_prop_integer(&config_rc, &main_v->props.allow_css, "allow_the_use_of_css:", 1, TRUE);
+	init_prop_integer(&config_rc, &main_v->props.allow_dep, "allow_the_use_of_font:", 1, TRUE);
+	init_prop_integer(&config_rc, &main_v->props.format_by_context, "format_by_context:", 1, TRUE);
+	init_prop_integer(&config_rc, &main_v->props.xhtml, "use_xhtml:", 0, TRUE);
+	init_prop_integer(&config_rc, &main_v->props.allow_ruby, "allow_the_use_of_ruby:", 0, TRUE);
+	init_prop_integer(&config_rc, &main_v->props.allow_h4, "allow_the_use_of_html4:", 1, TRUE);
+	init_prop_integer(&config_rc, &main_v->props.allow_frames, "allow_the_use_of_frames:", 1, TRUE);
+	init_prop_integer(&config_rc, &main_v->props.force_dtd, "force_an_dtd:", 0, TRUE);
+	init_prop_integer(&config_rc, &main_v->props.dtd_url, "url_in_dtd:", 0, TRUE);
+	init_prop_integer(&config_rc, &main_v->props.xml_start, "xml_starting_line:", 0, TRUE);
+	init_prop_integer(&config_rc, &main_v->props.lowercase_tags, "lowercase_tags:", 1, TRUE);
+	init_prop_integer(&config_rc, &main_v->props.word_wrap, "word_wrap:", 0, TRUE);
+	init_prop_integer(&config_rc, &main_v->props.autoindent, "autoindent:", 1, TRUE);
+	init_prop_integer(&config_rc, &main_v->props.fontset, "fontset:", 0, TRUE);
+	init_prop_integer(&config_rc, &main_v->props.force_def_style, "force_white_background:", 1, TRUE);
+	init_prop_integer(&config_rc, &main_v->props.drop_at_drop_pos, "drop_at_drop_position:", 0, TRUE);
+	init_prop_integer(&config_rc, &main_v->props.link_management, "link_management:", 1, TRUE);
 	
-	init_prop_integer(&config_rc, &main_v->props.cont_highlight_update, "continuous_highlight_update:", 1);
+	init_prop_integer(&config_rc, &main_v->props.cont_highlight_update, "continuous_highlight_update:", 1, TRUE);
 	init_prop_string(&config_rc, &main_v->props.html_ver, "used_html_version:", "HTML 4.0 Transitional");
 	/* key conversion */
-	init_prop_integer (&config_rc, &main_v->props.conv_ctrl_enter,"conv_ctrl_enter:",0);
-	init_prop_integer (&config_rc, &main_v->props.conv_shift_enter,"conv_shift_enter:",0);
+	init_prop_integer (&config_rc, &main_v->props.conv_ctrl_enter,"conv_ctrl_enter:",0, TRUE);
+	init_prop_integer (&config_rc, &main_v->props.conv_shift_enter,"conv_shift_enter:",0, TRUE);
 	init_prop_string_with_escape (&config_rc, &main_v->props.shift_enter_text,"shift_enter_text:","<br>\\n");
 	init_prop_string_with_escape (&config_rc, &main_v->props.ctrl_enter_text,"ctrl_enter_text:","\\n</p>\\n<p>");
-	init_prop_integer (&config_rc, &main_v->props.conv_special_char,"conv_special_char:",0);
+	init_prop_integer (&config_rc, &main_v->props.conv_special_char,"conv_special_char:",0, TRUE);
 #ifdef WITH_MSG_QUEUE
-	init_prop_integer (&config_rc, &main_v->props.open_in_running_bluefish,"open_in_running_bluefish:",1);
+	init_prop_integer (&config_rc, &main_v->props.open_in_running_bluefish,"open_in_running_bluefish:",1, TRUE);
 #endif
 
 	return config_rc;
@@ -842,10 +842,10 @@ static GList *return_project_configlist(Tproject *project) {
 	init_prop_string(&configlist, &project->webdir,"webdir:","");
 	init_prop_string(&configlist, &project->template,"template:","");
 	init_prop_stringlist(&configlist, &project->recentfiles, "recentfiles:", FALSE);
-	init_prop_integer (&configlist, &project->view_main_toolbar,"view_main_toolbar:",1);
-	init_prop_integer (&configlist, &project->view_left_panel,"view_left_panel:",1);
-	init_prop_integer (&configlist, &project->view_custom_menu,"view_custom_menu:",1);
-	init_prop_integer (&configlist, &project->view_html_toolbar,"view_html_toolbar:",1);
+	init_prop_integer (&configlist, &project->view_main_toolbar,"view_main_toolbar:",1,FALSE);
+	init_prop_integer (&configlist, &project->view_left_panel,"view_left_panel:",1,FALSE);
+	init_prop_integer (&configlist, &project->view_custom_menu,"view_custom_menu:",1,FALSE);
+	init_prop_integer (&configlist, &project->view_html_toolbar,"view_html_toolbar:",1,FALSE);
 	return configlist;
 }
 
