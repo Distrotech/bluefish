@@ -724,8 +724,9 @@ static void bmark_get_iter_at_tree_position(Tbfwin * bfwin, Tbmark * m) {
 		if (title == NULL) {
 			title = g_path_get_basename(m->filepath);
 		}
-		gtk_tree_store_set(bfwin->bookmarkstore, parent, NAME_COLUMN, title
-							   , PTR_COLUMN, m->doc, -1);
+		gtk_tree_store_set(bfwin->bookmarkstore, parent, NAME_COLUMN, title, PTR_COLUMN, m->doc, -1);
+		g_free (title);
+		  
 		if (m->doc != NULL) {
 			DEBUG_MSG("bmark_get_iter_at_tree_position, setting parent iter %p for doc%p\n",parent,m->doc);
 			m->doc->bmark_parent = parent;
@@ -1029,9 +1030,11 @@ GHashTable *bmark_get_bookmarked_lines(Tdocument * doc, GtkTextIter *fromit, Gtk
  */
 static void bmark_add_backend(Tdocument *doc, GtkTextIter *itoffset, gint offset, const gchar *name, const gchar *text, gboolean is_temp) {
 	Tbmark *m;
+	gchar *displaytext = NULL;
 	GtkTextIter it;
 	m = g_new0(Tbmark, 1);
 	m->doc = doc;
+	
 	if (itoffset) {
 		it = *itoffset;
 		m->offset = gtk_text_iter_get_offset(&it);
@@ -1039,16 +1042,20 @@ static void bmark_add_backend(Tdocument *doc, GtkTextIter *itoffset, gint offset
 		gtk_text_buffer_get_iter_at_offset(doc->buffer,&it,offset);
 		m->offset = offset;
 	}
+	
 	m->mark = gtk_text_buffer_create_mark(doc->buffer, NULL, &it, TRUE);
 	m->filepath = g_strdup(doc->filename);
 	m->is_temp = is_temp;
 	m->text = g_strdup(text);
 	m->name = (name) ? g_strdup(name) : g_strdup("");
 	m->description = g_strdup("");
+	
 	/* insert into tree */
 	bmark_get_iter_at_tree_position(doc->bfwin, m);
-	gtk_tree_store_set(BFWIN(doc->bfwin)->bookmarkstore, &m->iter, NAME_COLUMN,
-					   bmark_display_text(m->name, m->text), PTR_COLUMN, m, -1);
+	displaytext = bmark_display_text(m->name, m->text);
+	gtk_tree_store_set(BFWIN(doc->bfwin)->bookmarkstore, &m->iter, NAME_COLUMN, displaytext, PTR_COLUMN, m, -1);
+	g_free (displaytext);
+	
 	/* and store */
 	if (!m->is_temp) {
 		bmark_store(BFWIN(doc->bfwin), m);
