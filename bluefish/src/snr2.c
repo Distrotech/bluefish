@@ -134,7 +134,7 @@ void snr2_run(Tbfwin *bfwin,Tdocument *doc);
 void snr2_init(Tbfwin *bfwin) {
 	Tlast_snr2 *lsnr2 = g_new0(Tlast_snr2,1);
 	lsnr2->bfwin = bfwin;
-	LASTSNR2(bfwin->snr2) = lsnr2;
+	bfwin->snr2 = lsnr2;
 }
 
 static void reset_last_snr2(Tbfwin *bfwin) {
@@ -445,12 +445,12 @@ static gchar *reg_replace(gchar *replace_pattern, gint offset, Tsearch_result re
 	Tconvert_table * tct;
 	gchar *retval;
 	gint i, size;
+	DEBUG_MSG("reg_replace, started for pattern='%s',standardescape=%d\n",replace_pattern,standardescape);
 	size = (result.nmatch <= 10) ? (result.nmatch == 0 ) ? 0 : result.nmatch -1 : 10;
 	tct = new_convert_table(size, standardescape);
 	for (i=0;i<size;i++) {
 		tct[i].my_int = i+48;
 		tct[i].my_char = doc_get_chars(doc, offset+result.pmatch[i+1].rm_so, offset+result.pmatch[i+1].rm_eo);
-		DEBUG_MSG("new_reg_replace, i=%d, my_int=%c, my_char=%s\n",i,tct[i].my_int,tct[i].my_char);
 	}
 	retval = expand_string(replace_pattern, '\\', tct);
 	free_convert_table(tct);
@@ -550,11 +550,13 @@ actions, so the first char in buf is actually number offset in the text widget *
 	
 	if (unescape) {
 		realpat = unescape_string(search_pattern,FALSE);
+		DEBUG_MSG("replace_backend, realpat='%s'\n",realpat);
 	} else {
 		realpat = search_pattern;
 	}
 	result = search_backend(bfwin,realpat, matchtype, is_case_sens, buf, (matchtype != match_normal));
 	if (unescape) {
+		DEBUG_MSG("replace_backend, free-ing realpat\n");
 		g_free(realpat);
 	}
 	DEBUG_MSG("replace_backend, offset=%d, result.start=%d, result.end=%d\n", offset, result.start, result.end);
@@ -563,6 +565,7 @@ actions, so the first char in buf is actually number offset in the text widget *
 		case string:
 			if (matchtype == match_normal) {
 				if (unescape) {
+					DEBUG_MSG("replace_backend, replace_pattern='%s'\n",replace_pattern);
 					tmpstr = unescape_string(replace_pattern, FALSE);
 				} else {
 					tmpstr = g_strdup(replace_pattern);
@@ -581,7 +584,7 @@ actions, so the first char in buf is actually number offset in the text widget *
 			g_strdown(tmpstr);
 		break;
 		}
-		DEBUG_MSG("replace_backend, len=%d, offset=%d, start=%d, end=%d, document=%p\n", result.end - result.start, offset, result.start + offset, result.end + offset, doc);
+		DEBUG_MSG("replace_backend, len=%d, offset=%d, start=%d, end=%d, document=%p, tmpstr='%s'\n", result.end - result.start, offset, result.start + offset, result.end + offset, doc,tmpstr);
 		doc_replace_text_backend(doc, tmpstr, result.start + offset, result.end + offset);
 		if (*replacelen == -1) {
 			*replacelen = g_utf8_strlen(tmpstr, -1);
@@ -676,6 +679,7 @@ void replace_doc_multiple(Tbfwin *bfwin,gchar *search_pattern, Tmatch_types matc
 		if (unescape) {
 			realpats = unescape_string(search_pattern, FALSE);
 			realpatr = unescape_string(replace_pattern, FALSE);
+			DEBUG_MSG("replace_doc_multiple, unescaped patterns, realpats='%s', realpatr='%s'\n",realpats, realpatr);
 		} else {
 			realpats = search_pattern;
 			realpatr = replace_pattern;
@@ -721,6 +725,7 @@ void replace_doc_multiple(Tbfwin *bfwin,gchar *search_pattern, Tmatch_types matc
 		DEBUG_MSG("replace_doc_multiple, 1- buf_text_offset=%d, in_buf_offset=%d, result.start=%d, result.end=%d\n", buf_text_offset, in_buf_offset, result.start, result.end);
 	}
 	if (unescape && (matchtype == match_normal || replacetype != string)) {
+		DEBUG_MSG("replace_doc_multiple, free-ing realpats and realpatr\n");
 		g_free(realpats);
 		g_free(realpatr);
 	}
@@ -1117,14 +1122,14 @@ void snr2_run_extern_replace(Tdocument *doc, gchar *search_pattern, gint region,
 	search_pattern_bck = LASTSNR2(bfwin->snr2)->search_pattern;
 	replace_pattern_bck = LASTSNR2(bfwin->snr2)->replace_pattern;
 	last_snr2_bck = *LASTSNR2(bfwin->snr2);
-	DEBUG_MSG("last_snr2_bck.search_pattern=%p, replace_pattern=%p\n"
+	DEBUG_MSG("snr2..extern..: last_snr2_bck.search_pattern=%p, replace_pattern=%p\n"
 		,last_snr2_bck.search_pattern, last_snr2_bck.replace_pattern);
 
 	if (!search_pattern || !replace_pattern || !strlen(search_pattern)) {
 		DEBUG_MSG("snr2_run_extern, returning, non-valid arguments\n");
 		return;
 	}
-	DEBUG_MSG("snr2..extern..: doc=%p, search_pattern=%s, region=%d, matchtype=%d, is_case_sens=%d, replace_pattern=%s, store_as_last=%d\n"
+	DEBUG_MSG("snr2..extern..: doc=%p, search_pattern='%s', region=%d, matchtype=%d, is_case_sens=%d, replace_pattern=%s, store_as_last=%d\n"
 			,doc,search_pattern,region,matchtype,is_case_sens,replace_pattern,store_as_last_snr2);
 	LASTSNR2(bfwin->snr2)->search_pattern = g_strdup(search_pattern);
 	LASTSNR2(bfwin->snr2)->placetype_option = region;
@@ -1134,6 +1139,7 @@ void snr2_run_extern_replace(Tdocument *doc, gchar *search_pattern, gint region,
 	LASTSNR2(bfwin->snr2)->replace_pattern = g_strdup(replace_pattern);
  	LASTSNR2(bfwin->snr2)->prompt_before_replace = 0;
  	LASTSNR2(bfwin->snr2)->replace_once = 0;
+ 	LASTSNR2(bfwin->snr2)->unescape = 0;
 	LASTSNR2(bfwin->snr2)->matchtype_option = matchtype;
  	LASTSNR2(bfwin->snr2)->replacetype_option = string;
 	snr2_run(BFWIN(doc->bfwin),doc);
