@@ -2596,7 +2596,7 @@ Tdocument * doc_new_with_file(Tbfwin *bfwin, gchar * filename, gboolean delay_ac
 	}
 #ifdef BOOKMARKS
    bmark_set_for_doc(doc);
-   bmark_check_lengths(bfwin);
+   bmark_check_length(bfwin,doc);
    bmark_adjust_visible(bfwin);   
 #endif /* BOOKMARKS */
 	
