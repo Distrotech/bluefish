@@ -35,6 +35,7 @@
 #include "stringlist.h" /* count_array() */
 #include "filebrowser.h"
 #include "gui.h" /* statusbar_message() */
+#include "image.h" /* image_insert_from_filename() */
 
 /* #define DEBUG_SORTING */
 /* #define DEBUG_FILTER */
