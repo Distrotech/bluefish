@@ -29,6 +29,68 @@
 #include "gui.h"
 #include "bookmark.h"
 
+/*************************** SAVE FILE ASYNC ******************************/
+enum {
+	SAVEFILE_ERROR,
+	SAVEFILE_ERROR_NOCHANNEL,
+	SAVEFILE_ERROR_NOWRITE,
+	SAVEFILE_CHANNEL_OPENED,
+	SAVEFILE_FINISHED
+};
+
+typedef void (* SavefileAsyncCallback) (gint status,gint error_info,gpointer callback_data);
+
+typedef struct {
+	GnomeVFSFileSize buffer_size;
+	gchar *buffer;
+	SavefileAsyncCallback callback_func;
+	gpointer callback_data;
+} Tsavefile;
+
+static void savefile_cleanup(Tsavefile *sf) {
+	g_free(sf->buffer);
+	g_free(sf);
+}
+
+static void savefile_asyncwrite_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSResult result,gconstpointer buffer,GnomeVFSFileSize bytes_requested,GnomeVFSFileSize bytes_written,gpointer data) {
+	Tsavefile *sf = data;
+	if (result == GNOME_VFS_OK) {
+		sf->callback_func(SAVEFILE_FINISHED, result, sf->callback_data);
+#ifdef DEBUG
+		if (sf->buffer_size != bytes_written || bytes_written != bytes_requested) {
+			DEBUG_MSG("savefile_asyncwrite_lcb, WARNING, LESS BYTES WRITTEN THEN THE BUFFER HAS\n");
+		}
+#endif
+	} else {
+		sf->callback_func(SAVEFILE_ERROR_NOWRITE, result, sf->callback_data);
+	}
+	savefile_cleanup(sf);
+}
+
+static void savefile_asyncopenuri_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSResult result,gpointer data) {
+	Tsavefile *sf = data;
+	if (result == GNOME_VFS_OK) {
+		sf->callback_func(SAVEFILE_CHANNEL_OPENED, result, sf->callback_data);
+		gnome_vfs_async_write(handle,sf->buffer,sf->buffer_size,savefile_asyncwrite_lcb, sf);
+	} else {
+		/* error! */
+		sf->callback_func(SAVEFILE_ERROR_NOCHANNEL, result, sf->callback_data);
+		savefile_cleanup(sf);
+	}
+}
+
+void file_savefile_uri_async(GnomeVFSURI *uri, gchar *buffer, GnomeVFSFileSize buffer_size, SavefileAsyncCallback callback_func, gpointer callback_data) {
+	Tsavefile *sf;
+	GnomeVFSAsyncHandle *handle;
+	sf = g_new(Tsavefile,1);
+	sf->callback_data = callback_data;
+	sf->callback_func = callback_func;
+	sf->buffer = g_strdup(buffer);
+	sf->buffer_size = buffer_size;
+	gnome_vfs_async_open_uri(&handle,uri,GNOME_VFS_OPEN_WRITE,GNOME_VFS_PRIORITY_DEFAULT
+				,savefile_asyncopenuri_lcb,sf);
+}
+
 /*************************** OPEN FILE ASYNC ******************************/
 
 enum {
