@@ -1706,11 +1706,11 @@ void frefcb_info_show(GtkButton * button, gpointer user_data)
 	g_free(val);
 }
 
-
 static gboolean reference_file_known(gchar *path) {
 	GList *tmplist = g_list_first(main_v->props.reference_files);
 	while (tmplist) {
-		if (strcmp(tmplist->data,path)==0) {
+		gchar **arr = tmplist->data;
+		if (count_array(arr)==2 && strcmp(arr[1],path)==0) {
 			return TRUE;
 		}
 		tmplist = g_list_next(tmplist);
@@ -1730,7 +1730,7 @@ void fref_rescan_dir(const gchar *dir) {
 			gchar *path = g_strconcat(dir, filename, NULL);
 			DEBUG_MSG("filename %s has a match!\n",filename);
 			if (!reference_file_known(path)) {
-			 tofree = fref_xml_get_refname(path);
+				tofree = fref_xml_get_refname(path);
 				main_v->props.reference_files = g_list_append(main_v->props.reference_files, array_from_arglist(g_strdup(tofree),path,NULL));
 				g_free(tofree);
 			}
