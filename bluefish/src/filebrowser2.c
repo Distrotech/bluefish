@@ -379,7 +379,7 @@ static void fb2_fill_dir_async(GtkTreeIter *parent, GnomeVFSURI *uri) {
 		DEBUG_MSG("fb2_fill_dir_async, opening ");
 		DEBUG_URI(uir->p_uri, TRUE);
 		gnome_vfs_async_load_directory_uri(&uir->handle,uri,GNOME_VFS_FILE_INFO_DEFAULT|GNOME_VFS_FILE_INFO_FOLLOW_LINKS,
-									10,GNOME_VFS_PRIORITY_MIN,fb2_load_directory_lcb,uir);
+									100,GNOME_VFS_PRIORITY_MIN,fb2_load_directory_lcb,uir);
 		FB2CONFIG(main_v->fb2config)->uri_in_refresh = g_list_prepend(FB2CONFIG(main_v->fb2config)->uri_in_refresh, uir);
 	}
 #ifdef DEBUG	
