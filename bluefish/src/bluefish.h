@@ -63,26 +63,8 @@ typedef struct {
 } unre_t;
 
 /************************/
-/* highlighting structs */
+/* filetype struct      */
 /************************/
-
-typedef struct {
-	gchar *spat1;
-	gchar *spat2;
-	gchar *spat3;
-	gchar *name;
-	gchar *parentname;
-	gchar *start_boundary;
-	gchar *end_boundary;
-	regex_t rpat1;
-	regex_t rpat2;
-	regex_t rpat3;
-	gint mode;
-	gint style;
-	GList *childs;
-	gboolean need_subpatterns;
-	GtkTextTag *tag;
-} Tpattern;
 
 typedef struct {
 	gchar *type;
@@ -144,6 +126,7 @@ typedef struct {
 	GList *filefilters; /* filebrowser.c filtering */
 	gchar *last_filefilter;	/* last filelist filter type */
 	GList *highlight_patterns; /* the highlight patterns */
+	GList *highlight_styles; /* the highlight styles */
 	gint transient_htdialogs;  /* set html dialogs transient ro the main window */
 	gint main_window_h;			/* main window height */
 	gint main_window_w;			/* main window width */
