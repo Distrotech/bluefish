@@ -677,7 +677,7 @@ static void replace_prompt_dialog_all_lcb(GtkWidget *widget, gpointer data) {
 
 void replace_prompt_dialog() {
 	GtkWidget *win, *vbox, *hbox;
-	GtkWidget *butok, *butcancel, *butall, *butskip;
+	GtkWidget *butok, *butclose, *butall, *butskip;
 	GtkWidget *image, *label;
 
 	DEBUG_MSG("replace_prompt_dialog, start\n");
@@ -693,27 +693,27 @@ void replace_prompt_dialog() {
 	image = gtk_image_new_from_stock ("gtk-dialog-question", GTK_ICON_SIZE_DIALOG);
 	gtk_box_pack_start (GTK_BOX (hbox), image, FALSE, TRUE, 0);
 
-	label = gtk_label_new (_("This text selection will be replaced. Do you want to replace it?"));
+	label = gtk_label_new (_("Replace selected text?"));
 	gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, FALSE, 0);
 	gtk_label_set_justify (GTK_LABEL (label), GTK_JUSTIFY_LEFT);
 	gtk_label_set_line_wrap (GTK_LABEL (label), TRUE);
 
-	hbox = gtk_hseparator_new ();
-	gtk_box_pack_start (GTK_BOX (vbox), hbox, FALSE, TRUE, 12);
+	gtk_box_pack_start (GTK_BOX (vbox), gtk_hseparator_new (), FALSE, TRUE, 12);
 
 	hbox = gtk_hbutton_box_new ();
 	gtk_box_pack_start (GTK_BOX (vbox), hbox, FALSE, TRUE, 0);
 	gtk_button_box_set_layout (GTK_BUTTON_BOX (hbox), GTK_BUTTONBOX_END);
 	gtk_box_set_spacing (GTK_BOX (hbox), 6);
 
-	butcancel = bf_stock_cancel_button(G_CALLBACK(window_close_by_widget_cb), NULL);
-	butskip = bf_stock_button(_("_Skip"), G_CALLBACK(replace_prompt_dialog_skip_lcb), win);
-	butok = bf_stock_button(_("Replace _this"), G_CALLBACK(replace_prompt_dialog_ok_lcb), win);
+	butclose = bf_gtkstock_button(GTK_STOCK_CLOSE, G_CALLBACK(window_close_by_widget_cb), NULL);
+	butskip = bf_generic_button_with_image(_("_Skip"), 8, G_CALLBACK(replace_prompt_dialog_skip_lcb), win);
+	butok = bf_generic_button_with_image(_("_Replace"), 9, G_CALLBACK(replace_prompt_dialog_ok_lcb), win);
 	butall = bf_stock_button(_("Replace _all"), G_CALLBACK(replace_prompt_dialog_all_lcb), win);
-	gtk_box_pack_start(GTK_BOX(hbox), butcancel, FALSE, FALSE, 0);
-	gtk_box_pack_start(GTK_BOX(hbox), butskip, FALSE, TRUE, 0);
-	gtk_box_pack_start(GTK_BOX(hbox), butok, FALSE, TRUE, 0);
-	gtk_box_pack_start(GTK_BOX(hbox), butall, FALSE, TRUE, 0);
+	gtk_box_pack_start(GTK_BOX(hbox), butclose, FALSE, FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(hbox), butall, FALSE, FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(hbox), butok, FALSE, FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(hbox), butskip, FALSE, FALSE, 0);
+	gtk_widget_grab_focus(butskip);
 	gtk_widget_show_all(win);
 
 	DEBUG_MSG("replace_prompt_dialog, end\n");
