@@ -1175,7 +1175,7 @@ static void cust_con_struc_dialog_ok_lcb(GtkWidget *widget, Tcust_con_struc *ccs
 	DEBUG_MSG("cust_con_struc_dialog_ok_lcb, array[0] at %p, *array=%p\n", ccs->array[0], *ccs->array);
 	if (ccs->type == 0) {
 		gchar *before=NULL, *after=NULL;
-		num_vars = atoi(ccs->array[4]);
+		num_vars = atoi(ccs->array[3]);
 		DEBUG_MSG("cust_con_struc_dialog_ok_lcb, num_vars=%d, ccs->array[3]=%s\n", num_vars, ccs->array[3]);
 		table = tmpt = g_new(Tconvert_table, num_vars+1);
 		for (i=0; i<num_vars; i++) {
@@ -1187,12 +1187,12 @@ static void cust_con_struc_dialog_ok_lcb(GtkWidget *widget, Tcust_con_struc *ccs
 		DEBUG_MSG("cust_con_struc_dialog_ok_lcb, setting tmpt(%p) to NULL\n", tmpt);
 		tmpt->my_char = NULL;
 
-		if (strlen(ccs->array[2])) {
-			DEBUG_MSG("cust_con_struc_dialog_ok_lcb, ccs->array[2]=%s\n",ccs->array[2] );
-			before = replace_string_printflike(ccs->array[2], table);
+		if (strlen(ccs->array[1])) {
+			DEBUG_MSG("cust_con_struc_dialog_ok_lcb, ccs->array[1]=%s\n",ccs->array[1] );
+			before = replace_string_printflike(ccs->array[1], table);
 		}
-		if (strlen(ccs->array[3])) {
-			after = replace_string_printflike(ccs->array[3], table);
+		if (strlen(ccs->array[2])) {
+			after = replace_string_printflike(ccs->array[2], table);
 		}
 		doc_insert_two_strings(main_v->current_document, before, after);
 		tmpt = table;
@@ -1211,7 +1211,7 @@ static void cust_con_struc_dialog_ok_lcb(GtkWidget *widget, Tcust_con_struc *ccs
 		}
 	} else {
 		gchar *search=NULL, *replace=NULL;
-		num_vars = atoi(ccs->array[7]);
+		num_vars = atoi(ccs->array[6]);
 		table = tmpt = g_new(Tconvert_table, num_vars+1);
 		for (i=0; i<num_vars; i++) {
 			tmpt->my_int = 48 + i;
@@ -1219,17 +1219,17 @@ static void cust_con_struc_dialog_ok_lcb(GtkWidget *widget, Tcust_con_struc *ccs
 			tmpt++;
 		}
 		tmpt->my_char = NULL;
-		if (strlen(ccs->array[2])) {
-			DEBUG_MSG("cust_con_struc_dialog_ok_lcb, ccs->array[2]=%s\n",ccs->array[2] );
-			search = replace_string_printflike(ccs->array[2], table);
+		if (strlen(ccs->array[1])) {
+			DEBUG_MSG("cust_con_struc_dialog_ok_lcb, ccs->array[1]=%s\n",ccs->array[1] );
+			search = replace_string_printflike(ccs->array[1], table);
 		}
-		if (strlen(ccs->array[3])) {
-			replace = replace_string_printflike(ccs->array[3], table);
+		if (strlen(ccs->array[2])) {
+			replace = replace_string_printflike(ccs->array[2], table);
 		} else {
 			replace = g_strdup("");
 		}
-		snr2_run_extern_replace(main_v->current_document, search, atoi(ccs->array[4]),
-				atoi(ccs->array[5]), atoi(ccs->array[6]), replace, TRUE);
+		snr2_run_extern_replace(main_v->current_document, search, atoi(ccs->array[3]),
+				atoi(ccs->array[4]), atoi(ccs->array[5]), replace, TRUE);
 		
 		tmpt = table;
 		while (tmpt->my_char) {
@@ -1266,18 +1266,18 @@ static void cust_con_struc_dialog(gchar **array, gint type) {
 	DEBUG_MSG("cust_con_struc_dialog_cb, ccs->array[0]=%s\n", ccs->array[0]);
 	
 	if (type == 0) {
-		num_vars = atoi(ccs->array[4]);
+		num_vars = atoi(ccs->array[3]);
 	} else {
-		num_vars = atoi(ccs->array[7]);
+		num_vars = atoi(ccs->array[6]);
 	}
 	DEBUG_MSG("cust_con_struc_dialog_cb, num_vars=%d\n", num_vars);
 
 	for (i=0; i<num_vars; i++) {
 		hbox = gtk_hbox_new(FALSE, 0);
 		if (type ==0) {
-			gtk_box_pack_start(GTK_BOX(hbox), gtk_label_new(ccs->array[i+5]), TRUE, TRUE, 2);
+			gtk_box_pack_start(GTK_BOX(hbox), gtk_label_new(ccs->array[i+4]), TRUE, TRUE, 2);
 		} else {
-			gtk_box_pack_start(GTK_BOX(hbox), gtk_label_new(ccs->array[i+8]), TRUE, TRUE, 2);
+			gtk_box_pack_start(GTK_BOX(hbox), gtk_label_new(ccs->array[i+7]), TRUE, TRUE, 2);
 		}
 		ccs->textentry[i] = gtk_entry_new();
 		DEBUG_MSG("cust_con_struc_dialog_cb, textentry[%d]=%p\n", i, ccs->textentry[i]);
@@ -1306,24 +1306,24 @@ static void cust_menu_lcb(GtkWidget * widget, gpointer data) {
 	Tcmenu_entry *cmentry;
 
 	cmentry = (Tcmenu_entry *) g_list_nth_data(menus.cmenu_entries, GPOINTER_TO_INT(data));
-	if (strcmp(cmentry->array[1], "0") ==0) {
-		DEBUG_MSG("cust_menu_lcb, a custom dialog, array[4]=%s\n", cmentry->array[4]);
-		if (atoi(cmentry->array[4]) > 0) {
+	if (cmentry->type == 0) {
+		DEBUG_MSG("cust_menu_lcb, a custom insert, array[4]=%s\n", cmentry->array[3]);
+		if (atoi(cmentry->array[3]) > 0) {
 		     cust_con_struc_dialog(cmentry->array, 0);
 		} else {
 		     doc_insert_two_strings(main_v->current_document, cmentry->array[2],cmentry->array[3]);
 		}
 	} else {
-		DEBUG_MSG("cust_menu_lcb, a custom search and replace!, cmentry->array[7]=%s\n", cmentry->array[7]);
-		if (strcmp(cmentry->array[4], "2")==0 && !doc_has_selection(main_v->current_document)) {
+		DEBUG_MSG("cust_menu_lcb, a custom replace!, cmentry->array[6]=%s\n", cmentry->array[6]);
+		if (strcmp(cmentry->array[3], "2")==0 && !doc_has_selection(main_v->current_document)) {
 			warning_dialog(_("This custom search and replace requires a selection"), NULL);
 			return;
 		}
-		if (atoi(cmentry->array[7]) > 0) {
+		if (atoi(cmentry->array[6]) > 0) {
 			cust_con_struc_dialog(cmentry->array, 1);
 		} else {
-		     snr2_run_extern_replace(main_v->current_document,cmentry->array[2], atoi(cmentry->array[4]),
-							atoi(cmentry->array[5]), atoi(cmentry->array[6]), cmentry->array[3],TRUE);
+		     snr2_run_extern_replace(main_v->current_document,cmentry->array[1], atoi(cmentry->array[3]),
+							atoi(cmentry->array[4]), atoi(cmentry->array[5]), cmentry->array[2],TRUE);
 		}
 	}
 }
