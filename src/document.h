@@ -22,7 +22,8 @@
 #define __DOCUMENT_H_
 
 gint documentlist_return_index_from_filename(gchar *filename);
-void doc_toggle_highlighting_cb(GtkWidget * w, gpointer data);
+void doc_toggle_highlighting_cb(gpointer callback_data,guint action,GtkWidget *widget);
+void doc_toggle_wrap_cb(gpointer callback_data,guint action,GtkWidget *widget);
 void doc_update_highlighting(GtkWidget *wid, gpointer data);
 void document_set_wrap(Tdocument *doc, gint wraptype);
 
