@@ -210,6 +210,8 @@ typedef struct {
 	gint fref_ldoubleclick_action; /* left doubleclick in the function reference */
 	gint fref_info_type; /* type of info shown in a small function reference window */
 	gint bookmarks_sort; /* 0=no sort, 1=sort */
+	gint bookmarks_default_store; /* 0= temporary by default, 1= permanent by default */
+	gint bookmarks_filename_mode; /* 0=FULLPATH, 1=DIR FROM BASE 2=BASENAME */
 	gint document_tabposition;
 	gint leftpanel_tabposition;
 	gchar *default_basedir;
