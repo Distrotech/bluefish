@@ -880,7 +880,7 @@ typedef struct {
 	GtkWidget *check;
 } Tgotoline;
 
-static void tgl_destroy_lcb(GtkWidget * widget, GdkEvent *event,  Tgotoline *tgl) {
+static void tgl_destroy_lcb(GtkWidget * widget, Tgotoline *tgl) {
 	window_destroy(tgl->win);
 	g_free(tgl);
 }
@@ -909,7 +909,7 @@ static void tgl_ok_clicked_lcb(GtkWidget * widget, Tgotoline *tgl)
 			g_free(new_text);
 		}
 	} else {
-		tgl_destroy_lcb(NULL, NULL, tgl);
+		tgl_destroy_lcb(NULL, tgl);
 	}
 
 }
@@ -927,7 +927,7 @@ static void tgl_fromsel_clicked_lcb(GtkWidget * widget, Tgotoline *tgl) {
 }
 
 static void tgl_cancel_clicked_lcb(GtkWidget *widget, gpointer data) {
-	tgl_destroy_lcb(NULL, NULL, data);
+	tgl_destroy_lcb(NULL, data);
 }
 
 void tgl_enter_lcb (GtkWidget *widget, gpointer ud) {
