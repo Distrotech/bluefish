@@ -313,7 +313,7 @@ stylesheet:Values:1:\:[^;]*:;:1:^Braces$:#0099cc::0:0:
 stylesheet:Color:0:#[0-9A-Fa-f]{3,6}|rgb|aqua|black|blue|fuchsia|gray|green|lime|maroon|navy|olive|purple|red|silver|teal|transparent|white|yellow::2:^Values$:#cc0099::0:0:
 stylesheet:Misc:0:absolute|auto|baseline|blink|block|bold|bolder|both|bottom|capitalize|center|circle|collapse|cursive|dashed|decimal|disc|dotted|double|fantasy|fixed|groove|hidden|inherit|inline|inset|inside|italic|justify|large|larger|left|lighter|line\\-through|lower\\-(alpha|roman)|lowercase|medium|middle|monospace|no\\-repeat|none|normal|nowrap|oblique|outside|overline|pre|relative|repeat\\-(x|y)|repeat|ridge|right|sans\\-serif|scroll|serif|small\\-caps|small|smaller|solid|square|sub|super|static|text\\-bottom|text\\-top|thick|thin|top|underline|upper\\-(alpha|roman)|uppercase|url|visible|x\\-(large|small)|xx\\-(large|small)::2:^Values$:#663399::1:0:
 stylesheet:Length:1:([0-9]+\\.?[0-9]*(\\%|cm|em|ex|in|mm|pc|pt|px)?)(?![a-z\\-\:])::2:^Values$:#009966::1:0:
-stylesheet:Symbols:1:[;,]::2:^top|Values$:#000000::2:0:
+stylesheet:Symbols:1:[\\(\\),]::2:^top|Values$:#000000::2:0:
 stylesheet:Plaintext:1:[a-z]+::2:^Values$:#000000::1:1:
 stylesheet:String (double quoted):1:":":1:^top|Values$:#006699::0:2:
 stylesheet:String (single quoted):1:':':1:^top|Values$:#006699::0:2:
