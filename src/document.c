@@ -3285,7 +3285,7 @@ static void open_url_cancel_lcb(GtkWidget *widget, Tou *ou) {
 	gtk_widget_destroy(ou->win);
 }
 static void open_url_ok_lcb(GtkWidget *widget, Tou *ou) {
-	gchar *url = gtk_editable_get_chars(GTK_EDITABLE(ou->entry),0,-1);
+	gchar *url = gtk_editable_get_chars(GTK_EDITABLE(GTK_COMBO(ou->entry)->entry),0,-1);
 	doc_new_with_file(ou->bfwin,url,FALSE,FALSE);
 	g_free(url);
 	gtk_widget_destroy(ou->win);
@@ -3304,13 +3304,29 @@ static void open_url_ok_lcb(GtkWidget *widget, Tou *ou) {
 void file_open_url_cb(GtkWidget * widget, Tbfwin *bfwin) {
 	GtkWidget *vbox, *hbox, *but;
 	Tou *ou;
+	GList *urlhistory = NULL, *tmplist = NULL;
 	ou = g_new(Tou,1);
 	ou->bfwin = bfwin;
-	ou->win = window_full2(_("Open URL"), GTK_WIN_POS_NONE, 5
+	ou->win = window_full2(_("Open URL"), GTK_WIN_POS_NONE, 12
 			, G_CALLBACK(open_url_destroy_lcb), ou, TRUE, NULL);
-	vbox = gtk_vbox_new(FALSE,0);
+	gtk_widget_set_usize(ou->win,400,0);
+	vbox = gtk_vbox_new(FALSE,3);
 	gtk_container_add(GTK_CONTAINER(ou->win),vbox);
-	ou->entry = boxed_entry_with_text("", 255, vbox);
+	if (bfwin->project) {
+		tmplist = g_list_first(bfwin->project->recentfiles);
+	}
+	while (tmplist) {
+		if (NULL != strchr(tmplist->data, ':')) {
+			urlhistory = g_list_append(urlhistory, g_strdup(tmplist->data));
+		}
+		tmplist = g_list_next(tmplist);
+	}
+	ou->entry = boxed_combo_with_popdown("", urlhistory, TRUE, vbox);
+	free_stringlist(urlhistory);
+/*	ou->entry = boxed_entry_with_text("", 255, vbox); */
+	hbox = gtk_hbox_new(FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(hbox), gtk_hseparator_new(), TRUE, TRUE, 0);
+	gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 12);
 	hbox = gtk_hbutton_box_new();
 	gtk_hbutton_box_set_layout_default(GTK_BUTTONBOX_END);
 	gtk_button_box_set_spacing(GTK_BUTTON_BOX(hbox), 6);
