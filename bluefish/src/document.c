@@ -1559,8 +1559,8 @@ gint doc_save(Tdocument * doc, gint do_save_as, gint do_move)
 		gchar *options[] = {N_("Cancel"), N_("Overwrite"), NULL};
 
 		ctime_r(&newtime,newtimestr);
-		ctime_r(&doc->mtime,oldtimestr);
-		tmpstr = g_strdup_printf(_("File:\n %s\nNew modification time is %s\nOld modification time is %s"), doc->filename, newtimestr, oldtimestr);
+ 			ctime_r(&doc->mtime,oldtimestr);
+		tmpstr = g_strdup_printf(_("File: %s\n\nNew modification time: %s\nOld modification time: %s"), doc->filename, newtimestr, oldtimestr);
 		retval = multi_warning_dialog(_("The file has been modified by another process."), tmpstr, 1, 0, options);
 		g_free(tmpstr);
 		if (retval == 0) {
@@ -1650,8 +1650,8 @@ gint doc_close(Tdocument * doc, gint warn_only)
 		}
 	
 		{
-			gchar *buttons[] = {_("Don't save"), GTK_STOCK_CANCEL, GTK_STOCK_SAVE, NULL};
-			retval = multi_query_dialog(text, _("Changes will be lost unless the file is saved."), 2, 1, buttons);
+			gchar *buttons[] = {_("Do_n't save"), GTK_STOCK_CANCEL, GTK_STOCK_SAVE, NULL};
+			retval = multi_query_dialog(_("The file is not saved"),text, 2, 1, buttons);
 		}
 		g_free(text);
 
@@ -2289,7 +2289,7 @@ void file_close_all_cb(GtkWidget * widget, gpointer data)
 	/* first a warning loop */
 	if (test_docs_modified(NULL)) {
 		gchar *options[] = {_("_Save all"), _("Close _all"), _("Choose per _file"), _("_Cancel"), NULL};
-		retval = multi_query_dialog(_("Some file(s) have been modified"), _("If the modified files are not saved, any changes in them will be lost."), 0, 3, options);
+		retval = multi_query_dialog(_("Some file(s) have been modified"), NULL, 0, 3, options);
 		if (retval == 3) {
 			DEBUG_MSG("file_close_all_cb, cancel clicked, returning 0\n");
 			return;
