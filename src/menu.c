@@ -1869,7 +1869,7 @@ void cmenu_editor(GtkWidget *widget, gpointer data) {
 		cme->lstore = gtk_list_store_new (3, G_TYPE_STRING, G_TYPE_BOOLEAN, G_TYPE_POINTER);
 		cme->lview = gtk_tree_view_new_with_model(GTK_TREE_MODEL(cme->lstore));
 
-		column = gtk_tree_view_column_new_with_attributes ("Menu path", renderer,"text", 0,NULL);
+		column = gtk_tree_view_column_new_with_attributes (_("Menu path"), renderer,"text", 0,NULL);
 		gtk_tree_view_append_column (GTK_TREE_VIEW(cme->lview), column);
 
 		scrolwin = gtk_scrolled_window_new(NULL, NULL);
