@@ -86,7 +86,9 @@ gint table_convert_char2int(Tconvert_table *table, gchar *my_char) {
 	}
 	return -1;
 }
-
+/* 
+ * WARNING: does NOT malloc any memory, do not free!!
+ */
 gchar *table_convert_int2char(Tconvert_table *table, gint my_int) {
 	Tconvert_table *entry;
 	entry = table;
@@ -98,6 +100,41 @@ gchar *table_convert_int2char(Tconvert_table *table, gint my_int) {
 	}
 	return NULL;
 }
+
+gchar *replace_string_printflike(const gchar *string, Tconvert_table *table) {
+	gchar *p, *prev, *stringdup;
+	gchar *tmp, *dest = g_strdup("");
+
+	stringdup = g_strdup(string); /* we make a copy so we can set some \0 chars in the string */
+	prev = stringdup;
+	DEBUG_MSG("replace_string_printflike, string='%s'\n", string);
+	p = strchr(prev, '%');
+	while (p) {
+		gchar *converted;
+		tmp = dest;
+		*p = '\0'; /* set a \0 at this point, the pointer prev now contains everything up to the current % */
+		DEBUG_MSG("replace_string_printflike, prev='%s'\n", prev);
+		p++;
+		if (*p == '%') {
+			converted = "%";
+		} else {
+			converted = table_convert_int2char(table, *p);
+		}
+		DEBUG_MSG("replace_string_printflike, converted='%s'\n", converted);
+		dest = g_strconcat(dest, prev, converted, NULL);
+		g_free(tmp);
+		prev = ++p;
+		p = strchr(p, '%');
+	}
+	tmp = dest;
+	dest = g_strconcat(dest, prev, NULL); /* append the end to the current string */
+	g_free(tmp);
+	
+	g_free(stringdup);
+	DEBUG_MSG("replace_string_printflike, dest='%s'\n", dest);
+	return dest;
+}
+
 #ifdef __GNUC__
 __inline__ 
 #endif
@@ -474,19 +511,8 @@ gchar *ending_slash(gchar *dirname) {
 /* gint file_is_dir(gchar * filename)
  * returns 1 if the file pointed to by filename is a dir
  * else returns 0 */
-gint file_is_dir(gchar * filename)
-{
-	struct stat naamstat;
-
-	if (filename == NULL) {
-		return 0;
-	}
-
-	if ((stat(filename, &naamstat) == 0) && (naamstat.st_mode & S_IFDIR)) {
-		return 1;
-	} else {
-		return 0;
-	}
+gint file_is_dir(gchar * filename) {
+	return g_file_test(filename, G_FILE_TEST_IS_DIR);
 }
 
 /* gint file_exists_and_readable(gchar * filename)
