@@ -1950,16 +1950,19 @@ void cmenu_editor(GtkWidget *widget, gpointer data) {
 	gtk_box_pack_start(GTK_BOX(vbox2), but, FALSE, FALSE, 5);
 
 	/* frame for cancel/ok buttons */
-	frame = gtk_frame_new(NULL);
-	gtk_box_pack_end(GTK_BOX(vbox2), frame, FALSE, FALSE, 0);
+/*	frame = gtk_frame_new(NULL);
+	gtk_box_pack_end(GTK_BOX(vbox2), frame, FALSE, FALSE, 0);*/
 	hbox = gtk_hbox_new(TRUE, 1);
-	gtk_container_add(GTK_CONTAINER(frame), hbox);
+/*	gtk_container_add(GTK_CONTAINER(frame), hbox);*/
+	gtk_box_pack_end (GTK_BOX (vbox2), hbox, FALSE, FALSE, 0);
+
+	but = bf_stock_cancel_button(G_CALLBACK(cme_close_lcb), cme);
+	gtk_box_pack_start(GTK_BOX(hbox), but, TRUE, TRUE, 0);
+
 	but = bf_stock_ok_button(G_CALLBACK(cme_ok_lcb), cme);
 	gtk_window_set_default(GTK_WINDOW(cme->win), but);
 	gtk_box_pack_start(GTK_BOX(hbox), but, TRUE, TRUE, 0);
 	
-	but = bf_stock_cancel_button(G_CALLBACK(cme_close_lcb), cme);
-	gtk_box_pack_start(GTK_BOX(hbox), but, TRUE, TRUE, 0);
 	/* ready !! */
 	cme->worklist = duplicate_arraylist(main_v->props.cust_menu);
 	cme->worklist = g_list_sort(cme->worklist, (GCompareFunc)menu_entry_sort);
