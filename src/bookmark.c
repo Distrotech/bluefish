@@ -401,26 +401,24 @@ static void bmark_check_remove(Tbfwin *bfwin,Tbmark *b)
    gpointer ptr=NULL;
    gboolean re = FALSE;
 
-	if ( gtk_tree_store_iter_is_valid(bfwin->bookmarkstore, &(b->iter)) )
-   	gtk_tree_store_remove(bfwin->bookmarkstore, &(b->iter));  	     
-   if (bfwin->bmark_files) 
-   {
-      ptr = g_hash_table_lookup(bfwin->bmark_files,b->filepath);
-      if (ptr!=NULL) 
-       {
-          if ( !gtk_tree_model_iter_has_child(GTK_TREE_MODEL(bfwin->bookmarkstore), (GtkTreeIter*)ptr))
-            re = TRUE;
-       }   
-   }
-   if (re)       	
-   {
-   	if (gtk_tree_store_iter_is_valid(bfwin->bookmarkstore,(GtkTreeIter*)ptr))
-  	   	gtk_tree_store_remove(bfwin->bookmarkstore,(GtkTreeIter*)ptr );   
-  	   g_hash_table_remove(bfwin->bmark_files,b->filepath);
-  	   g_free(ptr);  	   
-  	   if (b->doc)
-  	      b->doc->bmark_parent = NULL;
-  	}   
+/*	according to the gtk documentation this function is slow and should be used
+	only for testing purposes
+	if ( gtk_tree_store_iter_is_valid(bfwin->bookmarkstore, &(b->iter)) )*/
+	gtk_tree_store_remove(bfwin->bookmarkstore, &(b->iter));  	     
+   if (bfwin->bmark_files) {
+		ptr = g_hash_table_lookup(bfwin->bmark_files,b->filepath);
+		if (ptr!=NULL) {
+			if (!gtk_tree_model_iter_has_child(GTK_TREE_MODEL(bfwin->bookmarkstore), (GtkTreeIter*)ptr))
+				re = TRUE;
+			}   
+		}
+		if (re) {
+   	/*if (gtk_tree_store_iter_is_valid(bfwin->bookmarkstore,(GtkTreeIter*)ptr))*/
+		gtk_tree_store_remove(bfwin->bookmarkstore,(GtkTreeIter*)ptr );   
+		g_hash_table_remove(bfwin->bmark_files,b->filepath);
+		g_free(ptr);  	   
+		if (b->doc) b->doc->bmark_parent = NULL;
+  	}
 }
 
 static void bmark_popup_menu_del_lcb(GtkWidget * widget, gpointer user_data)
