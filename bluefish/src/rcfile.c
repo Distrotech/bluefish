@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-/* #define DEBUG */
+/*#define DEBUG*/
 
 #include <gtk/gtk.h>
 #include <sys/stat.h>
@@ -211,6 +211,7 @@ static gboolean parse_config_file(GList * config_list, gchar * filename)
 	rclist = get_list(filename, rclist,FALSE);
 	
 	if (rclist == NULL) {
+		DEBUG_MSG("no rclist, returning!\n");
 		return FALSE;
 	}
 
@@ -659,7 +660,8 @@ void rcfile_parse_custom_menu(void) {
 	defaultfile = return_first_existing_filename(PKGDATADIR"custom_menu.default",
 									"data/custom_menu.default",
 									"../data/custom_menu.default",NULL);
-	if (!parse_config_file(custom_menu_configlist, filename) || (main_v->props.cust_menu==NULL && main_v->props.cmenu_insert==NULL && main_v->props.cmenu_replace==NULL )) {
+	if (!parse_config_file(custom_menu_configlist, filename) || (cust_menu==NULL && main_v->props.cmenu_insert==NULL && main_v->props.cmenu_replace==NULL )) {
+		DEBUG_MSG("error parsing the custom menu file\n");
 		/* init the custom_menu in some way? */
 		if (defaultfile) {
 			parse_config_file(custom_menu_configlist, defaultfile);
@@ -669,6 +671,7 @@ void rcfile_parse_custom_menu(void) {
 	} else {
 		if (config_file_is_newer(main_v->props.lasttime_cust_menu,defaultfile)) {
 			GList *default_insert=NULL, *default_replace=NULL, *tmp_configlist=NULL;
+			DEBUG_MSG("config_file_is_newer!\n");
 			init_prop_arraylist(&tmp_configlist, &default_insert, "cmenu_insert:", 0);
 			init_prop_arraylist(&tmp_configlist, &default_replace, "cmenu_replace:", 0);
 			parse_config_file(tmp_configlist, defaultfile);
@@ -683,11 +686,13 @@ void rcfile_parse_custom_menu(void) {
 	/* for backwards compatibility with older (before Bluefish 0.10) custom menu files we can convert those.. 
 	we will not need the 'type' anymore, since we will put them in separate lists, hence the memmove() call
 	*/
+	DEBUG_MSG("cust_menu=%p\n",cust_menu);
 	if (cust_menu) {
 		GList *tmplist= g_list_first(cust_menu);
 		while (tmplist) {
 			gchar **strarr = (gchar **)tmplist->data;
 			gint count = count_array(strarr);
+			DEBUG_MSG("converting cust_menu, found count=%d\n",count);
 			if (count >= 5 && strarr[1][0] == '0') {
 				DEBUG_MSG("rcfile_parse_custom_menu, converting insert, 0=%s, 1=%s\n", strarr[0], strarr[1]);
 				g_free(strarr[1]);
