@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: bluefish gtk2-port\n"
-"POT-Creation-Date: 2003-05-14 10:54+0200\n"
-"PO-Revision-Date: 2003-04-21 18:29+0100\n"
+"POT-Creation-Date: 2003-05-13 00:53-0300\n"
+"PO-Revision-Date: 2003-05-14 14:31+0100\n"
 "Last-Translator: Stefano Canepa <sc@linux.it>\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
 "MIME-Version: 1.0\n"
@@ -31,11 +31,14 @@ msgstr "Originale"
 msgid "Replacement"
 msgstr "Sostituzione"
 
-#: ../src/bfspell.c:356 ../src/document.c:1722
+#: ../src/bfspell.c:356
+#: ../src/document.c:1722
 msgid "Ignore"
 msgstr "Ignorare"
 
-#: ../src/bfspell.c:357 ../src/menu.c:1897 ../src/snr2.c:1096
+#: ../src/bfspell.c:357
+#: ../src/menu.c:1897
+#: ../src/snr2.c:1086
 msgid "Replace"
 msgstr "Sostituisci"
 
@@ -71,7 +74,8 @@ msgstr "Lingua"
 msgid "Set default"
 msgstr "Imposta il predefinito"
 
-#: ../src/bfspell.c:399 ../src/filebrowser.c:918
+#: ../src/bfspell.c:399
+#: ../src/filebrowser.c:918
 msgid "Filter"
 msgstr "Filtro"
 
@@ -132,11 +136,13 @@ msgstr "creazione della GUI principale in corso"
 msgid "showing main gui..."
 msgstr "costruzione della GUI in corso"
 
-#: ../src/document.c:96 ../src/gui.c:598
+#: ../src/document.c:96
+#: ../src/gui.c:598
 msgid "/Document/Highlight syntax"
 msgstr "/Documento/Evidenzia sintassi"
 
-#: ../src/document.c:284 ../src/document.c:285
+#: ../src/document.c:284
+#: ../src/document.c:285
 msgid "Untitled"
 msgstr "Senza nome"
 
@@ -148,7 +154,9 @@ msgstr "Apertura file in corso "
 msgid "Could not open file:\n"
 msgstr "Impossibile aprire il file:\n"
 
-#: ../src/document.c:649 ../src/document.c:773 ../src/document.c:1347
+#: ../src/document.c:649
+#: ../src/document.c:773
+#: ../src/document.c:1347
 #: ../src/document.c:1353
 msgid "Error"
 msgstr "Errore"
@@ -158,7 +166,7 @@ msgid "Cannot display file, unknown characters found."
 msgstr "Impossibile mostrare il file, trovati caratteri sconosciuti."
 
 #: ../src/document.c:872
-#, c-format, ycp-format
+#, c-format
 msgid " line %4d "
 msgstr " riga %4d "
 
@@ -200,11 +208,13 @@ msgstr "Salva come..."
 msgid "Save document as"
 msgstr "Salva documento come"
 
-#: ../src/document.c:1271 ../src/document.c:1315
+#: ../src/document.c:1271
+#: ../src/document.c:1315
 msgid "Overwrite"
 msgstr "Sovrascrivi"
 
-#: ../src/document.c:1271 ../src/document.c:1315
+#: ../src/document.c:1271
+#: ../src/document.c:1315
 msgid "Cancel"
 msgstr "Annulla"
 
@@ -236,7 +246,8 @@ msgstr ""
 "ora della vecchia modifica: %s\n"
 "sovrascrivere?"
 
-#: ../src/document.c:1320 ../src/document.c:1727
+#: ../src/document.c:1320
+#: ../src/document.c:1727
 msgid "Bluefish: Warning, file is modified"
 msgstr "Il è stato modificato"
 
@@ -247,8 +258,7 @@ msgstr "Salvataggio di %s in corso"
 
 #: ../src/document.c:1346
 msgid "File save aborted, could not backup file:\n"
-msgstr ""
-"Salvataggio file interrotto, impossibile eseguire il backup del file:\n"
+msgstr "Salvataggio file interrotto, impossibile eseguire il backup del file:\n"
 
 #: ../src/document.c:1352
 msgid "File save error, could not write file:\n"
@@ -277,7 +287,8 @@ msgstr "Il file è stato modificato!"
 msgid "No filename"
 msgstr "Nessun nome del file"
 
-#: ../src/document.c:1676 ../src/msg_queue.c:180
+#: ../src/document.c:1676
+#: ../src/msg_queue.c:180
 msgid "Unable to open file(s)\n"
 msgstr "Impossibile aprire il/i file\n"
 
@@ -327,7 +338,8 @@ msgstr "<b>Generale<b>"
 msgid "Base_dir:"
 msgstr "_Directory di base"
 
-#: ../src/document.c:1867 ../src/gtk_easy.c:796
+#: ../src/document.c:1867
+#: ../src/gtk_easy.c:796
 msgid "_Browse..."
 msgstr "_Sfoglia:"
 
@@ -441,26 +453,37 @@ msgstr "Tutti i file"
 
 #: ../src/fref.c:661
 msgid "Show info window"
-msgstr ""
+msgstr "Mostra la finestra di informazioni"
 
-#: ../src/fref.c:667 ../src/fref.c:914 ../src/fref.c:1453 ../src/fref.c:1484
+#: ../src/fref.c:667
+#: ../src/fref.c:914
+#: ../src/fref.c:1453
+#: ../src/fref.c:1484
 msgid "Dialog"
 msgstr "Dialogo"
 
-#: ../src/fref.c:668 ../src/fref.c:889 ../src/fref.c:1188 ../src/fref.c:1459
+#: ../src/fref.c:668
+#: ../src/fref.c:889
+#: ../src/fref.c:1188
+#: ../src/fref.c:1459
 #: ../src/fref.c:1486
 msgid "Info"
 msgstr "Informazioni"
 
-#: ../src/fref.c:910 ../src/gui.c:544
+#: ../src/fref.c:910
+#: ../src/gui.c:544
 msgid "Close"
 msgstr "Chiudi"
 
-#: ../src/fref.c:915 ../src/fref.c:1456 ../src/fref.c:1481
+#: ../src/fref.c:915
+#: ../src/fref.c:1456
+#: ../src/fref.c:1481
 msgid "Insert"
 msgstr "Inserimento"
 
-#: ../src/fref.c:1465 ../src/html.c:552 ../src/html.c:1173
+#: ../src/fref.c:1465
+#: ../src/html.c:552
+#: ../src/html.c:1173
 msgid "Options"
 msgstr "Opzioni"
 
@@ -473,26 +496,26 @@ msgid "Left doubleclick action"
 msgstr "Azione del doppio click con il tasto destro"
 
 #: ../src/fref.c:1489
-#, fuzzy
 msgid "Info type"
-msgstr "Informazioni"
+msgstr "Informazioni sui tipi"
 
 #: ../src/fref.c:1493
-#, fuzzy
 msgid "Description"
-msgstr "Definizione"
+msgstr "Descrizione"
 
 #: ../src/fref.c:1496
 msgid "Attributes/Parameters"
-msgstr ""
+msgstr "Attributi/Parametri"
 
 #: ../src/fref.c:1498
-#, fuzzy
 msgid "Notes"
-msgstr " "
+msgstr "Note"
 
-#: ../src/gtk_easy.c:961 ../src/menu.c:1314 ../src/menu.c:1660
-#: ../src/menu.c:1662 ../src/menu.c:1667
+#: ../src/gtk_easy.c:961
+#: ../src/menu.c:1314
+#: ../src/menu.c:1660
+#: ../src/menu.c:1662
+#: ../src/menu.c:1667
 msgid "Bluefish error"
 msgstr "Errore di Bluefish"
 
@@ -524,7 +547,8 @@ msgstr "Grassetto"
 msgid "Italic"
 msgstr "Corsivo"
 
-#: ../src/gui.c:251 ../src/html.c:761
+#: ../src/gui.c:251
+#: ../src/html.c:761
 msgid "Paragraph"
 msgstr "Paragrafo"
 
@@ -600,27 +624,33 @@ msgstr "Forte enfasi"
 msgid "Emphasis"
 msgstr "Enfasi"
 
-#: ../src/gui.c:273 ../src/html.c:770
+#: ../src/gui.c:273
+#: ../src/html.c:770
 msgid "Heading 1"
 msgstr "Titolo 1"
 
-#: ../src/gui.c:274 ../src/html.c:773
+#: ../src/gui.c:274
+#: ../src/html.c:773
 msgid "Heading 2"
 msgstr "Titolo 2"
 
-#: ../src/gui.c:275 ../src/html.c:776
+#: ../src/gui.c:275
+#: ../src/html.c:776
 msgid "Heading 3"
 msgstr "Titolo 3"
 
-#: ../src/gui.c:276 ../src/html.c:779
+#: ../src/gui.c:276
+#: ../src/html.c:779
 msgid "Heading 4"
 msgstr "Titolo 4"
 
-#: ../src/gui.c:277 ../src/html.c:782
+#: ../src/gui.c:277
+#: ../src/html.c:782
 msgid "Heading 5"
 msgstr "Titolo 5"
 
-#: ../src/gui.c:278 ../src/html.c:785
+#: ../src/gui.c:278
+#: ../src/html.c:785
 msgid "Heading 6"
 msgstr "Titolo 6"
 
@@ -644,19 +674,23 @@ msgstr "Intestazione tabella..."
 msgid "Table Data..."
 msgstr "Casella della tabella..."
 
-#: ../src/gui.c:286 ../src/html_table.c:82
+#: ../src/gui.c:286
+#: ../src/html_table.c:82
 msgid "Table"
 msgstr "Tabella"
 
-#: ../src/gui.c:287 ../src/html_table.c:215
+#: ../src/gui.c:287
+#: ../src/html_table.c:215
 msgid "Table Row"
 msgstr "Riga della tabella"
 
-#: ../src/gui.c:288 ../src/html_table.c:326
+#: ../src/gui.c:288
+#: ../src/html_table.c:326
 msgid "Table Header"
 msgstr "Intestazione tabella"
 
-#: ../src/gui.c:289 ../src/html_table.c:324
+#: ../src/gui.c:289
+#: ../src/html_table.c:324
 msgid "Table Data"
 msgstr "Casella della tabella"
 
@@ -676,11 +710,13 @@ msgstr "Frameset..."
 msgid "Frame..."
 msgstr "Frame..."
 
-#: ../src/gui.c:296 ../src/html.c:1674
+#: ../src/gui.c:296
+#: ../src/html.c:1674
 msgid "Frameset"
 msgstr "Frameset"
 
-#: ../src/gui.c:297 ../src/html.c:1759
+#: ../src/gui.c:297
+#: ../src/html.c:1759
 msgid "Frame"
 msgstr "Frame"
 
@@ -756,7 +792,8 @@ msgstr "Elenco di definizioni"
 msgid "Definition Term"
 msgstr "Termine di definizione"
 
-#: ../src/gui.c:316 ../src/gui.c:325
+#: ../src/gui.c:316
+#: ../src/gui.c:325
 msgid "Definition"
 msgstr "Definizione"
 
@@ -904,7 +941,8 @@ msgstr "Trova..."
 msgid "Search and Replace..."
 msgstr "Trova e sostituisci..."
 
-#: ../src/gui.c:558 ../src/preferences.c:1752
+#: ../src/gui.c:558
+#: ../src/preferences.c:1752
 msgid "Undo"
 msgstr "Annulla"
 
@@ -936,7 +974,8 @@ msgstr "Preferenze..."
 msgid "/Edit/Undo"
 msgstr "/Modifica/Annulla"
 
-#: ../src/gui.c:591 ../src/menu.c:98
+#: ../src/gui.c:591
+#: ../src/menu.c:98
 msgid "/Edit/Undo all"
 msgstr "/Modifica/Annulla tutto"
 
@@ -944,7 +983,8 @@ msgstr "/Modifica/Annulla tutto"
 msgid "/Edit/Redo"
 msgstr "/Modifica/Ripeti"
 
-#: ../src/gui.c:593 ../src/menu.c:99
+#: ../src/gui.c:593
+#: ../src/menu.c:99
 msgid "/Edit/Redo all"
 msgstr "/Modifica/Ripeti tutto"
 
@@ -968,20 +1008,17 @@ msgstr "Suggerimento di Bluefish:"
 msgid ""
 "This message is shown since you do not have any items in the Quickbar.\n"
 "\n"
-"If you right-click a button in the HTML toolbars you can add buttons to the "
-"Quickbar."
+"If you right-click a button in the HTML toolbars you can add buttons to the Quickbar."
 msgstr ""
 "Non ci sono elementi nella Quickbar.\n"
 "\n"
-"Fare click con il tasto destro sulle barre dell'HTML per aggiungere pulsanti "
-"alla Quickbar"
+"Fare click con il tasto destro sulle barre dell'HTML per aggiungere pulsanti alla Quickbar"
 
 #: ../src/gui.c:924
 msgid "Goto line"
 msgstr "Vai alla riga"
 
 #: ../src/gui.c:932
-#, fuzzy
 msgid "_Line number:"
 msgstr "_Numero di riga: "
 
@@ -996,6 +1033,67 @@ msgstr "Mantieni la _finestra aperta"
 #: ../src/gui.c:1010
 msgid "starting bluefish"
 msgstr "Bluefish sta avviandosi"
+
+#: ../src/html2.c:586
+msgid "Cascading StyleSheet dialog"
+msgstr "Fogli di stile a cascata"
+
+#: ../src/html2.c:606
+msgid "_Selector:"
+msgstr "_Selettore:"
+
+#: ../src/html2.c:625
+msgid "_Property:"
+msgstr "_Proprietà:"
+
+#: ../src/html2.c:627
+#: ../src/html_form.c:286
+#: ../src/html_form.c:353
+#: ../src/html_form.c:415
+#: ../src/html_form.c:471
+#: ../src/html_form.c:534
+#: ../src/html_form.c:644
+msgid "_Value:"
+msgstr "_Valore:"
+
+#: ../src/html2.c:645
+msgid "Selector"
+msgstr "Selettore"
+
+#: ../src/html2.c:645
+#: ../src/html2.c:648
+msgid "Property"
+msgstr "Proprietà"
+
+#: ../src/html2.c:645
+#: ../src/html2.c:648
+msgid "Value"
+msgstr "Valore"
+
+#: ../src/html2.c:663
+msgid " _Add "
+msgstr " _Aggiungi "
+
+#: ../src/html2.c:666
+msgid " _Update "
+msgstr " _Aggiorna "
+
+#: ../src/html2.c:669
+msgid " _Delete "
+msgstr " _Cancella "
+
+#: ../src/html2.c:925
+#: ../src/html2.c:962
+msgid "_Style..."
+msgstr "_Stile..."
+
+#: ../src/html2.c:1145
+msgid "Bluefish: Select color"
+msgstr "Bluefish: selezionare il colore"
+
+#: ../src/html2.c:1165
+msgid "_websafe"
+msgstr "_websafe"
 
 #: ../src/html.c:353
 msgid "Insert Time"
@@ -1061,45 +1159,81 @@ msgstr "Ancora"
 msgid "_HREF:"
 msgstr "_HREF"
 
-#: ../src/html.c:573 ../src/html_form.c:171
+#: ../src/html.c:573
+#: ../src/html_form.c:171
 msgid "_Target:"
 msgstr "_Obiettivo:"
 
-#: ../src/html.c:577 ../src/html.c:817 ../src/html.c:1337 ../src/html.c:1771
-#: ../src/html_form.c:220 ../src/html_form.c:282 ../src/html_form.c:349
-#: ../src/html_form.c:411 ../src/html_form.c:467 ../src/html_form.c:530
-#: ../src/html_form.c:589 ../src/image.c:261
+#: ../src/html.c:577
+#: ../src/html.c:817
+#: ../src/html.c:1337
+#: ../src/html.c:1771
+#: ../src/html_form.c:220
+#: ../src/html_form.c:282
+#: ../src/html_form.c:349
+#: ../src/html_form.c:411
+#: ../src/html_form.c:467
+#: ../src/html_form.c:530
+#: ../src/html_form.c:589
+#: ../src/image.c:261
 msgid "_Name:"
 msgstr "_Nome:"
 
-#: ../src/html.c:581 ../src/html.c:821 ../src/html.c:1192
+#: ../src/html.c:581
+#: ../src/html.c:821
+#: ../src/html.c:1192
 msgid "_ID:"
 msgstr "_ID:"
 
-#: ../src/html.c:585 ../src/html.c:806 ../src/html.c:1188
-#: ../src/html_table.c:96 ../src/html_table.c:243 ../src/html_table.c:357
+#: ../src/html.c:585
+#: ../src/html.c:806
+#: ../src/html.c:1188
+#: ../src/html_table.c:96
+#: ../src/html_table.c:243
+#: ../src/html_table.c:357
 msgid "Cl_ass:"
 msgstr "Cl_asse:"
 
-#: ../src/html.c:589 ../src/html.c:810 ../src/html.c:1099 ../src/html.c:1181
-#: ../src/html_table.c:101 ../src/html_table.c:254 ../src/html_table.c:362
+#: ../src/html.c:589
+#: ../src/html.c:810
+#: ../src/html.c:1099
+#: ../src/html.c:1181
+#: ../src/html_table.c:101
+#: ../src/html_table.c:254
+#: ../src/html_table.c:362
 msgid "St_yle:"
 msgstr "Sti_le:"
 
-#: ../src/html.c:596 ../src/html.c:1196 ../src/html.c:1948
+#: ../src/html.c:596
+#: ../src/html.c:1196
+#: ../src/html.c:1948
 msgid "_Language:"
 msgstr "_Lingua:"
 
-#: ../src/html.c:600 ../src/html.c:825 ../src/html.c:960 ../src/html.c:1200
-#: ../src/html.c:1361 ../src/html.c:1706 ../src/html.c:1808 ../src/html.c:1986
-#: ../src/html_form.c:175 ../src/html_form.c:232 ../src/html_form.c:301
-#: ../src/html_form.c:365 ../src/html_form.c:419 ../src/html_form.c:480
-#: ../src/html_form.c:602 ../src/html_table.c:106 ../src/html_table.c:259
-#: ../src/html_table.c:367 ../src/image.c:269
+#: ../src/html.c:600
+#: ../src/html.c:825
+#: ../src/html.c:960
+#: ../src/html.c:1200
+#: ../src/html.c:1361
+#: ../src/html.c:1706
+#: ../src/html.c:1808
+#: ../src/html.c:1986
+#: ../src/html_form.c:175
+#: ../src/html_form.c:232
+#: ../src/html_form.c:301
+#: ../src/html_form.c:365
+#: ../src/html_form.c:419
+#: ../src/html_form.c:480
+#: ../src/html_form.c:602
+#: ../src/html_table.c:106
+#: ../src/html_table.c:259
+#: ../src/html_table.c:367
+#: ../src/image.c:269
 msgid "Custo_m:"
 msgstr "Perso_nalizzato:"
 
-#: ../src/html.c:604 ../src/html.c:1204
+#: ../src/html.c:604
+#: ../src/html.c:1204
 msgid "Events"
 msgstr "Eventi"
 
@@ -1151,7 +1285,9 @@ msgstr "Div"
 msgid "Span"
 msgstr "Span"
 
-#: ../src/html.c:802 ../src/html_table.c:114 ../src/html_table.c:225
+#: ../src/html.c:802
+#: ../src/html_table.c:114
+#: ../src/html_table.c:225
 #: ../src/html_table.c:339
 msgid "Ali_gn:"
 msgstr "_Alinea:"
@@ -1160,16 +1296,23 @@ msgstr "_Alinea:"
 msgid "Horizontal Rule"
 msgstr "Linea orizzontale"
 
-#: ../src/html.c:934 ../src/html.c:1857 ../src/image.c:281
+#: ../src/html.c:934
+#: ../src/html.c:1857
+#: ../src/image.c:281
 msgid "_Align:"
 msgstr "_Alinea:"
 
-#: ../src/html.c:941 ../src/html.c:1865 ../src/html_table.c:393
+#: ../src/html.c:941
+#: ../src/html.c:1865
+#: ../src/html_table.c:393
 msgid "_Height:"
 msgstr "Altez_za:"
 
-#: ../src/html.c:947 ../src/html.c:1861 ../src/html_table.c:139
-#: ../src/html_table.c:386 ../src/image.c:245
+#: ../src/html.c:947
+#: ../src/html.c:1861
+#: ../src/html_table.c:139
+#: ../src/html_table.c:386
+#: ../src/image.c:245
 msgid "_Width:"
 msgstr "La_rghezza:"
 
@@ -1193,7 +1336,8 @@ msgstr "Tipo del _documento:"
 msgid "Header tags:"
 msgstr "Tag delle intitolazioni:"
 
-#: ../src/html.c:1085 ../src/wizards.c:187
+#: ../src/html.c:1085
+#: ../src/wizards.c:187
 msgid "_Title:"
 msgstr "_Titolo:"
 
@@ -1253,7 +1397,8 @@ msgstr "Con_tenuto:"
 msgid "_Scheme:"
 msgstr "_Schema:"
 
-#: ../src/html.c:1439 ../src/preferences.c:1698
+#: ../src/html.c:1439
+#: ../src/preferences.c:1698
 msgid "Font"
 msgstr "Carattere"
 
@@ -1297,7 +1442,9 @@ msgstr "_Testo email nell'URL:"
 msgid "Quick List"
 msgstr "Lista rapida"
 
-#: ../src/html.c:1600 ../src/html.c:1684 ../src/html_form.c:225
+#: ../src/html.c:1600
+#: ../src/html.c:1684
+#: ../src/html_form.c:225
 msgid "_Rows:"
 msgstr "_Righe:"
 
@@ -1313,7 +1460,8 @@ msgstr "_Non ordinato"
 msgid "Style:"
 msgstr "Stile:"
 
-#: ../src/html.c:1680 ../src/html_form.c:229
+#: ../src/html.c:1680
+#: ../src/html_form.c:229
 msgid "Co_ls:"
 msgstr "Co_lonne:"
 
@@ -1321,7 +1469,9 @@ msgstr "Co_lonne:"
 msgid "_Add <frame> elements"
 msgstr "_Aggiungi elementi <frame>"
 
-#: ../src/html.c:1767 ../src/html.c:1853 ../src/html.c:1941
+#: ../src/html.c:1767
+#: ../src/html.c:1853
+#: ../src/html.c:1941
 msgid "_Source:"
 msgstr "_Sorgente:"
 
@@ -1349,7 +1499,8 @@ msgstr "Non _ridimensionare:"
 msgid "Embed"
 msgstr "Embed"
 
-#: ../src/html.c:1869 ../src/html_table.c:145
+#: ../src/html.c:1869
+#: ../src/html_table.c:145
 msgid "Bo_rder:"
 msgstr "Bo_rdo:"
 
@@ -1365,63 +1516,10 @@ msgstr "Collegamento"
 msgid "_Rel:"
 msgstr "_Rel:"
 
-#: ../src/html.c:1982 ../src/html_form.c:361
+#: ../src/html.c:1982
+#: ../src/html_form.c:361
 msgid "_Type:"
 msgstr "_Tipo:"
-
-#: ../src/html2.c:586
-msgid "Cascading StyleSheet dialog"
-msgstr "Fogli di stile a cascata"
-
-#: ../src/html2.c:606
-msgid "_Selector:"
-msgstr "_Selettore:"
-
-#: ../src/html2.c:625
-msgid "_Property:"
-msgstr "_Proprietà:"
-
-#: ../src/html2.c:627 ../src/html_form.c:286 ../src/html_form.c:353
-#: ../src/html_form.c:415 ../src/html_form.c:471 ../src/html_form.c:534
-#: ../src/html_form.c:644
-msgid "_Value:"
-msgstr "_Valore:"
-
-#: ../src/html2.c:645
-msgid "Selector"
-msgstr "Selettore"
-
-#: ../src/html2.c:645 ../src/html2.c:648
-msgid "Property"
-msgstr "Proprietà"
-
-#: ../src/html2.c:645 ../src/html2.c:648
-msgid "Value"
-msgstr "Valore"
-
-#: ../src/html2.c:663
-msgid " _Add "
-msgstr " _Aggiungi "
-
-#: ../src/html2.c:666
-msgid " _Update "
-msgstr " _Aggiorna "
-
-#: ../src/html2.c:669
-msgid " _Delete "
-msgstr " _Cancella "
-
-#: ../src/html2.c:925 ../src/html2.c:962
-msgid "_Style..."
-msgstr "_Stile..."
-
-#: ../src/html2.c:1145
-msgid "Bluefish: Select color"
-msgstr "Bluefish: selezionare il colore"
-
-#: ../src/html2.c:1165
-msgid "_websafe"
-msgstr "_websafe"
 
 #: ../src/html_form.c:129
 msgid "Form"
@@ -1447,7 +1545,8 @@ msgstr "Area di testo"
 msgid "Text"
 msgstr "Testo"
 
-#: ../src/html_form.c:294 ../src/html_form.c:594
+#: ../src/html_form.c:294
+#: ../src/html_form.c:594
 msgid "Si_ze:"
 msgstr "Dimen_sione"
 
@@ -1470,7 +1569,8 @@ msgstr "Nascosto"
 msgid "Radio Button"
 msgstr "Pulsanti basculanti"
 
-#: ../src/html_form.c:476 ../src/html_form.c:539
+#: ../src/html_form.c:476
+#: ../src/html_form.c:539
 msgid "Chec_ked:"
 msgstr "Sele_zionato:"
 
@@ -1497,7 +1597,8 @@ msgstr "_Selezioni multiple"
 msgid "Option"
 msgstr "Opzione"
 
-#: ../src/html_form.c:648 ../src/html_form.c:692
+#: ../src/html_form.c:648
+#: ../src/html_form.c:692
 msgid "_Label:"
 msgstr "Etichet_ta:"
 
@@ -1517,11 +1618,14 @@ msgstr "Spaziatura _dentro le celle:"
 msgid "C_ell Spacing:"
 msgstr "Spaziatura tra una c_ella e l'altra:"
 
-#: ../src/html_table.c:128 ../src/html_table.c:239 ../src/html_table.c:353
+#: ../src/html_table.c:128
+#: ../src/html_table.c:239
+#: ../src/html_table.c:353
 msgid "_Valign:"
 msgstr "_Alineamento verticale:"
 
-#: ../src/html_table.c:133 ../src/html_table.c:398
+#: ../src/html_table.c:133
+#: ../src/html_table.c:398
 msgid "Backgrou_nd Color:"
 msgstr "Colore di _sfondo:"
 
@@ -1597,11 +1701,13 @@ msgstr "Selezionare il file per la creazione del provino"
 msgid "Scaling (%)"
 msgstr "Ingrandimento (%)"
 
-#: ../src/image.c:457 ../src/image.c:465
+#: ../src/image.c:457
+#: ../src/image.c:465
 msgid "Width"
 msgstr "Larghezza"
 
-#: ../src/image.c:461 ../src/image.c:486
+#: ../src/image.c:461
+#: ../src/image.c:486
 msgid "Height"
 msgstr "Altezza"
 
@@ -1623,8 +1729,7 @@ msgstr "Fattore di scala per l'altezza, mantiene le proporzioni"
 
 #: ../src/image.c:484
 msgid "By width and height, ignore aspect ratio"
-msgstr ""
-"Fattore di scala per la larghezza ed altezza, non mantiene le proporzioni"
+msgstr "Fattore di scala per la larghezza ed altezza, non mantiene le proporzioni"
 
 #: ../src/image.c:511
 msgid ""
@@ -1908,8 +2013,7 @@ msgstr "/Tag/Speciali/Accentate/Maiuscole/A-I/A maiuscola con accento acuto Á"
 
 #: ../src/menu.c:128
 msgid "/Tags/Special/Accent/Uppercase/A-I/A circumflex Â"
-msgstr ""
-"/Tag/Speciali/Accentate/Maiuscole/A-I/A maiuscola con accento circonflesso Â"
+msgstr "/Tag/Speciali/Accentate/Maiuscole/A-I/A maiuscola con accento circonflesso Â"
 
 #: ../src/menu.c:129
 msgid "/Tags/Special/Accent/Uppercase/A-I/A tilde Ã"
@@ -1941,8 +2045,7 @@ msgstr "/Tag/Speciali/Accentate/Maiuscole/A-I/E maiuscola con accento acuto É"
 
 #: ../src/menu.c:136
 msgid "/Tags/Special/Accent/Uppercase/A-I/E circumflex Ê"
-msgstr ""
-"/Tag/Speciali/Accentate/Maiuscole/A-I/E maiuscola con accento circonflesso Ê"
+msgstr "/Tag/Speciali/Accentate/Maiuscole/A-I/E maiuscola con accento circonflesso Ê"
 
 #: ../src/menu.c:137
 msgid "/Tags/Special/Accent/Uppercase/A-I/E diaeresis Ë"
@@ -1958,8 +2061,7 @@ msgstr "/Tag/Speciali/Accentate/Maiuscole/A-I/I maiuscola con accento acuto Í"
 
 #: ../src/menu.c:140
 msgid "/Tags/Special/Accent/Uppercase/A-I/I circumflex Î"
-msgstr ""
-"/Tag/Speciali/Accentate/Maiuscole/A-I/I maiuscola con accento circonflesso Î"
+msgstr "/Tag/Speciali/Accentate/Maiuscole/A-I/I maiuscola con accento circonflesso Î"
 
 #: ../src/menu.c:141
 msgid "/Tags/Special/Accent/Uppercase/A-I/I diaeresis Ï"
@@ -1987,8 +2089,7 @@ msgstr "/Tag/Speciali/Accentate/Maiuscole/J-Z/O maiuscola con accento acuto Ó"
 
 #: ../src/menu.c:147
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O circumflex Ô"
-msgstr ""
-"/Tag/Speciali/Accentate/Maiuscole/J-Z/O maiuscola con accento circonflesso Ô"
+msgstr "/Tag/Speciali/Accentate/Maiuscole/J-Z/O maiuscola con accento circonflesso Ô"
 
 #: ../src/menu.c:148
 msgid "/Tags/Special/Accent/Uppercase/J-Z/OE ligature"
@@ -2016,8 +2117,7 @@ msgstr "/Tag/Speciali/Accentate/Maiuscole/J-Z/U maiuscola con accento acuto Ú"
 
 #: ../src/menu.c:154
 msgid "/Tags/Special/Accent/Uppercase/J-Z/U circumflex Û"
-msgstr ""
-"/Tag/Speciali/Accentate/Maiuscole/J-Z/U maiuscola con accento circonflesso Û"
+msgstr "/Tag/Speciali/Accentate/Maiuscole/J-Z/U maiuscola con accento circonflesso Û"
 
 #: ../src/menu.c:155
 msgid "/Tags/Special/Accent/Uppercase/J-Z/U diaeresis Ü"
@@ -2049,8 +2149,7 @@ msgstr "/Tag/Speciali/Accentate/Minuscole/a-i/a minuscola con accento acuto á"
 
 #: ../src/menu.c:167
 msgid "/Tags/Special/Accent/Lowercase/A-I/a circumflex â"
-msgstr ""
-"/Tag/Speciali/Accentate/Minuscole/a-i/a minuscola con accento circonflesso â"
+msgstr "/Tag/Speciali/Accentate/Minuscole/a-i/a minuscola con accento circonflesso â"
 
 #: ../src/menu.c:169
 msgid "/Tags/Special/Accent/Lowercase/A-I/a tilde ã"
@@ -2082,8 +2181,7 @@ msgstr "/Tag/Speciali/Accentate/Minuscole/a-i/e minuscola con accento acuto é"
 
 #: ../src/menu.c:183
 msgid "/Tags/Special/Accent/Lowercase/A-I/e circumflex ê"
-msgstr ""
-"/Tag/Speciali/Accentate/Minuscole/a-i/e minuscola con accento circonflesso ê"
+msgstr "/Tag/Speciali/Accentate/Minuscole/a-i/e minuscola con accento circonflesso ê"
 
 #: ../src/menu.c:185
 msgid "/Tags/Special/Accent/Lowercase/A-I/e diaeresis ë"
@@ -2099,13 +2197,11 @@ msgstr "/Tag/Speciali/Accentate/Minuscole/a-i/i minuscola con accento acuto í"
 
 #: ../src/menu.c:191
 msgid "/Tags/Special/Accent/Lowercase/A-I/i circumflex î"
-msgstr ""
-"/Tag/Speciali/Accentate/Minuscole/a-i/i minuscola con accento circonflesso î"
+msgstr "/Tag/Speciali/Accentate/Minuscole/a-i/i minuscola con accento circonflesso î"
 
 #: ../src/menu.c:193
 msgid "/Tags/Special/Accent/Lowercase/A-I/i diaeresis ï"
-msgstr ""
-"/Tag/Speciali/Accentate/Minuscole/a-i/i minuscola con accento dieresi ï"
+msgstr "/Tag/Speciali/Accentate/Minuscole/a-i/i minuscola con accento dieresi ï"
 
 #: ../src/menu.c:195
 msgid "/Tags/Special/Accent/Lowercase/_J-Z"
@@ -2133,8 +2229,7 @@ msgstr "/Tag/Speciali/Accentate/Minuscole/j-z/oe minuscola æ"
 
 #: ../src/menu.c:204
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o circumflex ô"
-msgstr ""
-"/Tag/Speciali/Accentate/Minuscole/j-z/o minuscola con accento circonflesso ô"
+msgstr "/Tag/Speciali/Accentate/Minuscole/j-z/o minuscola con accento circonflesso ô"
 
 #: ../src/menu.c:206
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o tilde õ"
@@ -2158,8 +2253,7 @@ msgstr "/Tag/Speciali/Accentate/Minuscole/j-z/u minuscola con accento acuto ú"
 
 #: ../src/menu.c:216
 msgid "/Tags/Special/Accent/Lowercase/J-Z/u circumflex û"
-msgstr ""
-"/Tag/Speciali/Accentate/Minuscole/j-z/u minuscola con accento circonflesso û"
+msgstr "/Tag/Speciali/Accentate/Minuscole/j-z/u minuscola con accento circonflesso û"
 
 #: ../src/menu.c:218
 msgid "/Tags/Special/Accent/Lowercase/J-Z/u diaeresis ü"
@@ -2473,7 +2567,9 @@ msgstr "/Tag/Formattazione generale/_Interruzione di riga sotto immagine"
 msgid "/Tags/Format general/_Non-Breaking Space"
 msgstr "/Tag/Formattazione generale/_Spazio non interrompibile"
 
-#: ../src/menu.c:332 ../src/menu.c:335 ../src/menu.c:339
+#: ../src/menu.c:332
+#: ../src/menu.c:335
+#: ../src/menu.c:339
 msgid "/Tags/Format general/<separator>"
 msgstr "/Tags/Format general/<separator>"
 
@@ -2817,7 +2913,8 @@ msgstr "/Documento/A _capo automantico"
 msgid "/Document/_Line numbers"
 msgstr "/Documento/Numeri di _riga"
 
-#: ../src/menu.c:453 ../src/menu.c:457
+#: ../src/menu.c:453
+#: ../src/menu.c:457
 msgid "/Document/sep1"
 msgstr "/Document/sep1"
 
@@ -2889,7 +2986,8 @@ msgstr "/Opzioni/Dimensione _tabulatore/_Aumenta"
 msgid "/Options/Tabsize/_Decrease tabsize"
 msgstr "/Opzioni/Dimensione _tabulatore/_Diminusci"
 
-#: ../src/menu.c:473 ../src/menu.c:475
+#: ../src/menu.c:473
+#: ../src/menu.c:475
 msgid "/Options/sep2"
 msgstr "/Options/sep2"
 
@@ -2941,8 +3039,12 @@ msgstr "/Comandi esterni/Comandi/"
 msgid "/External/Outputbox/"
 msgstr "/Comandi esterni/Riquadro output/"
 
-#: ../src/menu.c:697 ../src/menu.c:717 ../src/menu.c:986 ../src/menu.c:999
-#: ../src/menu.c:1015 ../src/menu.c:1029
+#: ../src/menu.c:697
+#: ../src/menu.c:717
+#: ../src/menu.c:986
+#: ../src/menu.c:999
+#: ../src/menu.c:1015
+#: ../src/menu.c:1029
 msgid "/External"
 msgstr "/Comandi esterni"
 
@@ -2972,9 +3074,7 @@ msgstr "Errore di Bluefish: nessun nome file"
 
 #: ../src/menu.c:888
 msgid "Could not view file in browser, the file does not yet have a name\n"
-msgstr ""
-"Impossibile visualizzare il file nel browser, il file non ha un ancora un "
-"nome\n"
+msgstr "Impossibile visualizzare il file nel browser, il file non ha un ancora un nome\n"
 
 #: ../src/menu.c:997
 msgid "/External/Browsers"
@@ -3004,31 +3104,45 @@ msgstr "/Custom menu/sep"
 msgid "/Custom menu/Edit custom menu..."
 msgstr "/Menù personalizzato/Modifica il menù..."
 
-#: ../src/menu.c:1552 ../src/menu.c:1688 ../src/menu.c:1898
+#: ../src/menu.c:1552
+#: ../src/menu.c:1688
+#: ../src/menu.c:1898
 msgid "in current document"
 msgstr "nel documento corrente"
 
-#: ../src/menu.c:1552 ../src/menu.c:1688 ../src/menu.c:1899
+#: ../src/menu.c:1552
+#: ../src/menu.c:1688
+#: ../src/menu.c:1899
 msgid "from cursor"
 msgstr "dal cursore"
 
-#: ../src/menu.c:1552 ../src/menu.c:1688 ../src/menu.c:1900
+#: ../src/menu.c:1552
+#: ../src/menu.c:1688
+#: ../src/menu.c:1900
 msgid "in selection"
 msgstr "nella selezione"
 
-#: ../src/menu.c:1552 ../src/menu.c:1688 ../src/menu.c:1901
+#: ../src/menu.c:1552
+#: ../src/menu.c:1688
+#: ../src/menu.c:1901
 msgid "in all open documents"
 msgstr "in tutti i documenti aperti"
 
-#: ../src/menu.c:1553 ../src/menu.c:1689 ../src/menu.c:1909
+#: ../src/menu.c:1553
+#: ../src/menu.c:1689
+#: ../src/menu.c:1909
 msgid "normal"
 msgstr "normale"
 
-#: ../src/menu.c:1553 ../src/menu.c:1689 ../src/menu.c:1910
+#: ../src/menu.c:1553
+#: ../src/menu.c:1689
+#: ../src/menu.c:1910
 msgid "posix regular expresions"
 msgstr "espressione regolare posix"
 
-#: ../src/menu.c:1553 ../src/menu.c:1689 ../src/menu.c:1911
+#: ../src/menu.c:1553
+#: ../src/menu.c:1689
+#: ../src/menu.c:1911
 msgid "perl regular expresions"
 msgstr "espressione regolare perl"
 
@@ -3050,9 +3164,7 @@ msgstr "Stringa finale"
 
 #: ../src/menu.c:1660
 msgid "the menupath you want to update does not exist yet: try 'add'"
-msgstr ""
-"il percorso del menù che si vuole aggiornare non esiste ancora: provare "
-"'aggiungi'"
+msgstr "il percorso del menù che si vuole aggiornare non esiste ancora: provare 'aggiungi'"
 
 #: ../src/menu.c:1662
 msgid "the menupath you want to add exists already"
@@ -3098,7 +3210,8 @@ msgstr "Maiuscole/minuscole"
 msgid "Select font"
 msgstr "Seleziona carattere"
 
-#: ../src/preferences.c:474 ../src/preferences.c:512
+#: ../src/preferences.c:474
+#: ../src/preferences.c:512
 msgid "Filetype"
 msgstr "Tipo del file"
 
@@ -3110,7 +3223,8 @@ msgstr "Dimensioni"
 msgid "Update chars"
 msgstr " Aggiorna "
 
-#: ../src/preferences.c:480 ../src/preferences.c:522
+#: ../src/preferences.c:480
+#: ../src/preferences.c:522
 msgid "Icon"
 msgstr "Icona"
 
@@ -3122,11 +3236,13 @@ msgstr "Estensione (separate da due punti)"
 msgid "Highlight update characters"
 msgstr "Caratteri per l'aggiornamento dell'evidenziazione"
 
-#: ../src/preferences.c:636 ../src/preferences.c:670
+#: ../src/preferences.c:636
+#: ../src/preferences.c:670
 msgid "Filefilter"
 msgstr "Filtro file"
 
-#: ../src/preferences.c:638 ../src/preferences.c:675
+#: ../src/preferences.c:638
+#: ../src/preferences.c:675
 msgid "Inverse filtering"
 msgstr "Filtro inverso"
 
@@ -3146,7 +3262,8 @@ msgstr "tipo del file"
 msgid "Pattern name"
 msgstr "Nome modello"
 
-#: ../src/preferences.c:982 ../src/preferences.c:1476
+#: ../src/preferences.c:982
+#: ../src/preferences.c:1476
 #: ../src/preferences.c:1525
 msgid "Pattern"
 msgstr "Modello"
@@ -3211,13 +3328,17 @@ msgstr "obbliga stile non corsivo"
 msgid "force italic style"
 msgstr "obbliga stile corsivo"
 
-#: ../src/preferences.c:1192 ../src/preferences.c:1230
+#: ../src/preferences.c:1192
+#: ../src/preferences.c:1230
 msgid "Browser"
 msgstr "Browser"
 
-#: ../src/preferences.c:1194 ../src/preferences.c:1236
-#: ../src/preferences.c:1319 ../src/preferences.c:1354
-#: ../src/preferences.c:1484 ../src/preferences.c:1529
+#: ../src/preferences.c:1194
+#: ../src/preferences.c:1236
+#: ../src/preferences.c:1319
+#: ../src/preferences.c:1354
+#: ../src/preferences.c:1484
+#: ../src/preferences.c:1529
 msgid "Command"
 msgstr "Comando"
 
@@ -3226,7 +3347,8 @@ msgstr "Comando"
 msgid "%s = current filename"
 msgstr "%s = nome del file attuale"
 
-#: ../src/preferences.c:1317 ../src/preferences.c:1348
+#: ../src/preferences.c:1317
+#: ../src/preferences.c:1348
 msgid "Label"
 msgstr "Etichetta"
 
@@ -3239,7 +3361,8 @@ msgstr ""
 "%s = nome del file corrente\n"
 "%f = none del file output (per i filtri)"
 
-#: ../src/preferences.c:1474 ../src/preferences.c:1521
+#: ../src/preferences.c:1474
+#: ../src/preferences.c:1521
 msgid "Name"
 msgstr "Nome"
 
@@ -3255,7 +3378,8 @@ msgstr "Riga n°"
 msgid "Output #"
 msgstr "Output n°"
 
-#: ../src/preferences.c:1486 ../src/preferences.c:1530
+#: ../src/preferences.c:1486
+#: ../src/preferences.c:1530
 msgid "Show all output"
 msgstr "Mostra tutto l'output"
 
@@ -3376,26 +3500,24 @@ msgid "Backup file suffix"
 msgstr "Suffisso del file di backup"
 
 #: ../src/preferences.c:1745
-#, fuzzy
 msgid "save"
-msgstr "Salva"
+msgstr "salva"
 
 #: ../src/preferences.c:1745
 msgid "abort"
-msgstr ""
+msgstr "interrompi"
 
 #: ../src/preferences.c:1745
 msgid "ask"
-msgstr ""
+msgstr "richiedi"
 
 #: ../src/preferences.c:1746
 msgid "Action on backup failure"
 msgstr "Azione in caso di fallimento del backup"
 
 #: ../src/preferences.c:1748
-#, fuzzy
 msgid "Remove backupfile on close"
-msgstr "Creare il backup al salvataggio"
+msgstr "Rimuovi il file di backup alla chiusura"
 
 #: ../src/preferences.c:1757
 msgid "Undo history size"
@@ -3405,7 +3527,8 @@ msgstr "Dimensione della cronologia di annulla"
 msgid "Clear undo history on save"
 msgstr "Cancella la storia di annulla al salvataggio"
 
-#: ../src/preferences.c:1760 ../src/preferences.c:1785
+#: ../src/preferences.c:1760
+#: ../src/preferences.c:1785
 msgid "Misc"
 msgstr "Misc"
 
@@ -3501,7 +3624,8 @@ msgstr "Icona sconosciuta"
 msgid "Directory icon"
 msgstr "Icona della directory"
 
-#: ../src/preferences.c:1813 ../src/rcfile.c:609
+#: ../src/preferences.c:1813
+#: ../src/rcfile.c:609
 msgid "Images"
 msgstr "Immagini"
 
@@ -3517,7 +3641,8 @@ msgstr "Suffisso provino"
 msgid "Thumbnail filetype"
 msgstr "Tipo dei file dei provini"
 
-#: ../src/preferences.c:1828 ../src/preferences.c:1830
+#: ../src/preferences.c:1828
+#: ../src/preferences.c:1830
 msgid "Filetypes"
 msgstr "Tipi dei file"
 
@@ -3617,7 +3742,8 @@ msgstr "Nascondi i file oggetto"
 msgid "Regular expression error: "
 msgstr "Errore nell'espressione regolare"
 
-#: ../src/snr2.c:191 ../src/snr2.c:235
+#: ../src/snr2.c:191
+#: ../src/snr2.c:235
 msgid "Bluefish warning: regular expression error"
 msgstr "Errore nell'espressione regolare"
 
@@ -3626,142 +3752,124 @@ msgstr "Errore nell'espressione regolare"
 msgid "Regular expression error: %s at offset %d"
 msgstr "Errore nell'espressione regolare: %s all'offset %d"
 
-#: ../src/snr2.c:684
+#: ../src/snr2.c:676
 msgid "Confirm replace"
 msgstr "Confermare la sostituzione"
 
-#: ../src/snr2.c:696
+#: ../src/snr2.c:688
 msgid "This text selection will be replaced. Do you want to replace it?"
-msgstr ""
+msgstr "Questo testo selezionato sarà sostituito. Sostituirlo?"
 
-#: ../src/snr2.c:710
-msgid "_Skip"
-msgstr ""
-
-#: ../src/snr2.c:711
-#, fuzzy
-msgid "Replace _this"
-msgstr "Sostituisci _testo"
-
-#: ../src/snr2.c:712
-#, fuzzy
+#: ../src/snr2.c:702
 msgid "Replace _all"
-msgstr "Sostituisci"
+msgstr "Sostituisci _tutto"
 
-#: ../src/snr2.c:853 ../src/snr2.c:860
+#: ../src/snr2.c:703
+msgid "Replace _this"
+msgstr "Sostituisci _questo"
+
+#: ../src/snr2.c:843
+#: ../src/snr2.c:850
 msgid "Bluefish message"
 msgstr "Messaggio di Bluefish"
 
-#: ../src/snr2.c:853 ../src/snr2.c:860
+#: ../src/snr2.c:843
+#: ../src/snr2.c:850
 msgid "Search: no match found"
 msgstr "Ricerca: nessuna occorrenza trovata"
 
-#: ../src/snr2.c:1028
+#: ../src/snr2.c:1018
 msgid "Hide _advanced <<"
 msgstr "_Semplice <<"
 
-#: ../src/snr2.c:1049 ../src/snr2.c:1218
+#: ../src/snr2.c:1039
+#: ../src/snr2.c:1208
 msgid "Show _advanced >>"
 msgstr "_Avanzata >>"
 
-#: ../src/snr2.c:1099
+#: ../src/snr2.c:1089
 msgid "Search"
 msgstr "Ricerca"
 
-#: ../src/snr2.c:1125
-#, fuzzy
+#: ../src/snr2.c:1115
 msgid "Search _for: "
-msgstr "Ricerca"
+msgstr "Rice_rca:"
 
-#: ../src/snr2.c:1144
+#: ../src/snr2.c:1134
 msgid "Replace wit_h: "
 msgstr "Sostituisci _con: "
 
-#: ../src/snr2.c:1160
+#: ../src/snr2.c:1150
 msgid "\\0 refers to the first subpattern, \\1 to the second etc."
 msgstr "\\0 si riferisce alla prima parte del modello, \\1 alla seconda, ecc."
 
-#: ../src/snr2.c:1164
+#: ../src/snr2.c:1154
 msgid "Match ca_se"
-msgstr ""
+msgstr "Maiu_scolo/minuscolo"
 
-#: ../src/snr2.c:1165
-#, fuzzy
+#: ../src/snr2.c:1155
 msgid "O_verlap matches"
-msgstr "Ricerche so_vrapposte"
+msgstr "Risultati di ricerca so_vrapposti"
 
-#: ../src/snr2.c:1167
-#, fuzzy
+#: ../src/snr2.c:1157
 msgid "Prompt _before replace"
 msgstr "Chiedi conferma _prima di sostituire"
 
-#: ../src/snr2.c:1168
+#: ../src/snr2.c:1158
 msgid "Rep_lace once"
 msgstr "Sostituisci solo _una volta"
 
-#: ../src/snr2.c:1171
-#, fuzzy
+#: ../src/snr2.c:1161
 msgid "Starts at"
-msgstr "Modello iniziale"
+msgstr "Inizia a"
 
-#: ../src/snr2.c:1175
-#, fuzzy
+#: ../src/snr2.c:1165
 msgid "Beginning of _document"
 msgstr "Inizia ricerca dall'inizio del _documento"
 
-#: ../src/snr2.c:1176
-#, fuzzy
+#: ../src/snr2.c:1166
 msgid "Current pos_ition"
 msgstr "Inizia ricerca dalla pos_izione del cursore"
 
-#: ../src/snr2.c:1177
-#, fuzzy
+#: ../src/snr2.c:1167
 msgid "Beginning of s_election"
-msgstr "nella selezione"
+msgstr "All'inizo della s_elezione"
 
-#: ../src/snr2.c:1178
-#, fuzzy
+#: ../src/snr2.c:1168
 msgid "Beginning of all o_pened files"
-msgstr "In tutti i file a_perti"
+msgstr "All'inizio di tutti i file i file a_perti"
 
-#: ../src/snr2.c:1180
-#, fuzzy
+#: ../src/snr2.c:1170
 msgid "Regular expression"
-msgstr "Errore nell'espressione regolare"
+msgstr "Espressione regolare"
 
-#: ../src/snr2.c:1185
+#: ../src/snr2.c:1175
 msgid "_None"
-msgstr ""
+msgstr "_Niente"
 
-#: ../src/snr2.c:1186
-#, fuzzy
+#: ../src/snr2.c:1176
 msgid "POSIX _regular expression type "
-msgstr "Errore nell'espressione regolare"
+msgstr "Espressione regolare tipo POSIX"
 
-#: ../src/snr2.c:1187
-#, fuzzy
+#: ../src/snr2.c:1177
 msgid "PERL compatible regular e_xpression type"
-msgstr "Una le e_spression regolari del perl"
+msgstr "E_spressione regolare compatibile PERL"
+
+#: ../src/snr2.c:1183
+msgid "Replace type"
+msgstr "Tipo sostituzione"
+
+#: ../src/snr2.c:1192
+msgid "_Text"
+msgstr "_Testo"
 
 #: ../src/snr2.c:1193
-#, fuzzy
-msgid "Replace type"
-msgstr "Sostituisci _testo"
-
-#: ../src/snr2.c:1202
-#, fuzzy
-msgid "_Text"
-msgstr "Testo"
-
-#: ../src/snr2.c:1203
-#, fuzzy
 msgid "_Uppercase"
-msgstr "Sostit_uisci maiuscole"
+msgstr "Mai_uscole"
 
-#: ../src/snr2.c:1204
-#, fuzzy
+#: ../src/snr2.c:1194
 msgid "Lo_wercase"
-msgstr "Sostituisci m_inuscole"
+msgstr "M_inuscole"
 
 #: ../src/stringlist.c:365
 msgid " Add "
@@ -3847,29 +3955,3 @@ msgstr "Sorgente:"
 msgid "Size:"
 msgstr "Dimensione:"
 
-#~ msgid "Custom _values:"
-#~ msgstr "_Valori personalizzati"
-
-#~ msgid "Are you sure you want to replace this?"
-#~ msgstr "Sicuro di voler sostituire questo?"
-
-#~ msgid "All"
-#~ msgstr "Tutti"
-
-#~ msgid "_Find: "
-#~ msgstr "_Trova: "
-
-#~ msgid "Where"
-#~ msgstr "Dove"
-
-#~ msgid "In s_election"
-#~ msgstr "Nella s_elezione"
-
-#~ msgid "_Normal matching"
-#~ msgstr "Corrispondenza _normale"
-
-#~ msgid "Use posix _regular expression matching"
-#~ msgstr "Usa le espressioni _regolari posix"
-
-#~ msgid "Case _sensitive"
-#~ msgstr "M_aiuscole/minuscole"
