@@ -1136,8 +1136,32 @@ left-double-click action. This is also configurable from the context menu.
 	  with tags. You can also right-click a tag and bring up the dialog from
 	  there. The preferences have several settings on HTML style 
 	  under <emphasis>HTML</emphasis>.</para> 
-	  <para>In the reference tree on the left panel there is also
-	  HTML reference available.</para> 
+	  <para>
+	  The HTML toolbar has two types of buttons. You can recognise each type by the 
+	  tooltip if you move the mouse over the button. First there are buttons that will
+	  open a dialog for some HTML tag. These buttons have a tooltip that ends with three 
+	  dots. For example the anchor &lt;a&gt; dialog has the tooltip 'Anchor...'. Second, there 
+	  are buttons that will directly insert text, these buttons do not have the dots in
+	  the tooltip.
+	  </para>
+	  <para>SCREENSHOT OF HTML TOOLBAR AND TWO DIFFERENT TOOLTIPS</para>
+	  <para>
+	  If you want to add the HTML tag around some block of text, you can select the 
+	  block of text, and then use the HTML tool bar or the Tags or Dialogs menu to 
+	  insert some tags. The tag open code will be inserted before the selected block, 
+	  the tag close will be inserted after the selected block.
+	  </para>
+	  <para>
+	  An existing tag can be edited by right-clicking the tag, and select 'Edit tag' in 
+	  the context menu. You can also place the cursor in the tag and use 
+	  '/Dialogs/Edit tag under cursor', or the shortcut F3.  Not 
+	  all tags, however, have a dialog, so this is not always possible. Colors in the 
+	  style #RRGGBB can also be edited from the right-click context menu.
+	  </para>
+	  <para>In the reference browser on the left panel there is a
+	  HTML reference available. All possible attributes and valid values can be
+	  found in this reference.
+	  </para> 
 	  <para>There are several special search and
 	  replace actions in the menu Edit-Replace special. These can be used to
 	  convert special characters (like &lt; and &amp;), or ISO characters to their
