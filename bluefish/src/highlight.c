@@ -1101,6 +1101,17 @@ void hl_reset_to_default()
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
 	arr = array_from_arglist("java", "character", "0", "'", "'", "1", "", "#009900", "", "0", "0",  NULL);
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
+	
+	/* python support */
+	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns,array_from_arglist("python", "keywords", "0", "\\b(and|assert|break|continue|def|del|elif|else|except|exec|finally|for|if|in|is|not|or|pass|print|raise|return|try|while)\\b","",  "2", "", "#000000", "", "2", "0",  NULL));
+	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns,array_from_arglist("python", "string-double", "0", "\"", "\"", "1", "", "#009900", "", "0", "0",  NULL));
+	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns,array_from_arglist("python", "string-double-escape", "0", "\\\\.", "", "2", "^string-double$", "#009900", "", "0", "0",  NULL));
+	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns,array_from_arglist("python", "string-single", "0", "'", "'", "1", "", "#009900", "", "0", "0",  NULL));
+	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns,array_from_arglist("python", "string-single-escape", "0", "\\\\.", "", "2", "^string-single$", "#009900", "", "0", "0",  NULL));
+	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns,array_from_arglist("python", "special_values", "0", "\\b(None)\\b", "", "2", "", "#5caeee", "", "0", "0", NULL));
+	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns,array_from_arglist("python", "include", "0", "^(import|from).*$", "",  "2", "", "#000099", "", "0", "0",  NULL));
+	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns,array_from_arglist("python", "comment", "0", "#.*$", "", "2", "", "#AAAAAA", "", "1", "2",  NULL));
+	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns,array_from_arglist("python", "braces", "0", "[{()}\\[\\]]", "", "2", "", "#000000", "", "2", "0",  NULL));
 }
 
 GtkTextTagTable *highlight_return_tagtable() {

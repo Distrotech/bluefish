@@ -113,9 +113,10 @@ fi
 AC_PATH_PROG(PCRE_CONFIG, pcre-config, no)
 if test "x$PCRE_CONFIG" = "xno" ; then
 	AC_MSG_ERROR(pcre-config not found please install libpcre3-dev or similar)
+else 
+	LIBS="$LIBS `$PCRE_CONFIG --libs`"
+	CFLAGS="$CFLAGS `$PCRE_CONFIG --cflags`"
 fi
-LIBS="$LIBS `$PCRE_CONFIG --libs`"
-CFLAGS="$CFLAGS `$PCRE_CONFIG --cflags`"
 
 AC_CHECK_LIB(posix4, nanosleep, 
 	LIBS="$LIBS -lposix4"
