@@ -1133,7 +1133,7 @@ static Tcolsel *colsel_dialog(gchar *setcolor, gint modal, gint startpos, gint e
 	csd->startpos = startpos;
 	csd->endpos = endpos;
 	DEBUG_MSG("colsel_dialog, malloced at %p\n", csd);
-	csd->win = window_full(_("Bluefish: Select color"), GTK_WIN_POS_MOUSE, 5, G_CALLBACK(colsel_destroy_lcb), csd, TRUE);
+	csd->win = window_full(_("Bluefish: Select color"), GTK_WIN_POS_MOUSE, 12, G_CALLBACK(colsel_destroy_lcb), csd, TRUE);
 	vbox = gtk_vbox_new(FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(csd->win), vbox);
 	csd->csel = gtk_color_selection_new();
@@ -1149,15 +1149,19 @@ static Tcolsel *colsel_dialog(gchar *setcolor, gint modal, gint startpos, gint e
 	gtk_box_pack_start(GTK_BOX(vbox), csd->csel, TRUE, TRUE, 0);
 
 	hbox = gtk_hbox_new(FALSE, 0);
-	gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 12);
 	
 	csd->hexentry = boxed_entry_with_text(this_color, 7, hbox);
 	csd->hex_changed_id = gtk_signal_connect(GTK_OBJECT(csd->hexentry), "changed", G_CALLBACK(hexentry_color_changed), csd);
-	csd->websafe = boxed_checkbut_with_value(_("websafe"), 0, hbox);
+	csd->websafe = boxed_checkbut_with_value(N_("_websafe"), 0, hbox);
+
+	hbox = gtk_hbox_new(FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(hbox), gtk_hseparator_new(), TRUE, TRUE, 0);
+	gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 12);
 
 	hbox = gtk_hbutton_box_new();
 	gtk_hbutton_box_set_layout_default(GTK_BUTTONBOX_END);
-	gtk_button_box_set_spacing(GTK_BUTTON_BOX(hbox), 1);
+	gtk_button_box_set_spacing(GTK_BUTTON_BOX(hbox), 12);
 	gtk_box_pack_start(GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
 
 	but = bf_stock_cancel_button(G_CALLBACK(colsel_cancel_clicked_lcb), csd);

@@ -254,7 +254,7 @@ GtkWidget *boxed_entry_with_text(const gchar * setstring, gint max_lenght, GtkWi
 	GtkWidget *returnwidget;
 	
 	returnwidget = entry_with_text(setstring, max_lenght);
-	gtk_box_pack_start(GTK_BOX(box), returnwidget, TRUE, TRUE, 3);
+	gtk_box_pack_start(GTK_BOX(box), returnwidget, TRUE, TRUE, 0);
 	return returnwidget;
 
 }
@@ -284,7 +284,7 @@ GtkWidget *boxed_checkbut_with_value(gchar *labeltext, gint which_config_int, Gt
 	GtkWidget *returnwidget;
 
 	returnwidget = checkbut_with_value(labeltext, which_config_int);
-	gtk_box_pack_start(GTK_BOX(box), returnwidget, FALSE, FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(box), returnwidget, FALSE, FALSE, 3);
 	return returnwidget;
 }
 
@@ -617,7 +617,7 @@ GtkWidget *bf_generic_frame_new(const gchar *label, GtkShadowType shadowtype, gi
  * Return value:
  * 	void
  * Description:
- * 	create a label with a mnemonic, alignment it, and attach it to a table
+ * 	create a label with a mnemonic, align it, and attach it to a table
  *      using the table defaults
  */
 void bf_mnemonic_label_tad_with_alignment(const gchar *labeltext, GtkWidget *m_widget, gfloat xalign, gfloat yalign, 
@@ -629,13 +629,16 @@ void bf_mnemonic_label_tad_with_alignment(const gchar *labeltext, GtkWidget *m_w
   gtk_misc_set_alignment(GTK_MISC(label), xalign, yalign);
   gtk_table_attach_defaults(GTK_TABLE(table), label, left_attach, right_attach, top_attach, bottom_attach);  
   
-  if (GTK_IS_COMBO(m_widget))
-  {
-      gtk_label_set_mnemonic_widget(GTK_LABEL(label), (GTK_COMBO(m_widget)->entry));
-      gtk_entry_set_activates_default(GTK_ENTRY(GTK_COMBO(m_widget)->entry), TRUE);
-  }
-  else
-    gtk_label_set_mnemonic_widget(GTK_LABEL(label), m_widget);
+  if (m_widget != NULL)
+   {
+     if (GTK_IS_COMBO(m_widget))
+      {
+	gtk_label_set_mnemonic_widget(GTK_LABEL(label), (GTK_COMBO(m_widget)->entry));
+	gtk_entry_set_activates_default(GTK_ENTRY(GTK_COMBO(m_widget)->entry), TRUE);
+      }
+     else
+       gtk_label_set_mnemonic_widget(GTK_LABEL(label), m_widget);
+   }
 }
 
 /*
