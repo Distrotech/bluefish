@@ -39,6 +39,7 @@
 #include "msg_queue.h" /* msg_queue_start()*/
 #include "stringlist.h" /* put_stringlist(), get_stringlist() */
 #include "gtk_easy.h" /* flush_queue() */
+#include "filebrowser.h" /* filters_rebuild() */
 
 /*********************************************/
 /* this var is global for all bluefish files */
@@ -149,6 +150,7 @@ int main(int argc, char *argv[])
 	splash_screen_set_label(_("compiling highlighting patterns..."));
 #endif /* #ifndef NOSPLASH */
 	hl_init();
+	filebrowser_filters_rebuild();
 #ifndef NOSPLASH
 	splash_screen_set_label(_("parsing custom menu file..."));
 #endif /* #ifndef NOSPLASH */

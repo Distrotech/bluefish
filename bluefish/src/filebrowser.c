@@ -70,8 +70,6 @@ typedef struct {
 
 typedef struct {
 	Tfilter *curfilter;
-	GdkPixbuf *unknown_icon;
-	GdkPixbuf *dir_icon;
 	GtkWidget *tree;
 	GtkTreeStore *store;
 	GtkWidget *dirmenu;
@@ -80,6 +78,8 @@ typedef struct {
 } Tfilebrowser;
 
 typedef struct {
+	GdkPixbuf *unknown_icon;
+	GdkPixbuf *dir_icon;
 	GList *filters;
 	GList *filetypes_with_icon;
 } Tfilebrowserconfig;
@@ -428,9 +428,9 @@ static GtkTreeIter add_tree_item(GtkTreeIter *parent, Tfilebrowser *filebrowser,
 
 	if (!pixbuf) {
 		if (type == TYPE_DIR) {	
-			pixbuf = filebrowser->dir_icon;
+			pixbuf = FILEBROWSERCONFIG(main_v->filebrowserconfig)->dir_icon;
 		} else {
-			pixbuf = filebrowser->unknown_icon;
+			pixbuf = FILEBROWSERCONFIG(main_v->filebrowserconfig)->unknown_icon;
 		}
 	}
 
@@ -714,14 +714,15 @@ void filebrowser_open_dir(Tbfwin *bfwin,const gchar *dirarg) {
 	}
 }
 
-static void dirmenu_activate_lcb(GtkWidget *widget, gchar *dir) {
+static void dirmenu_activate_lcb(GtkMenuItem *widget, Tfilebrowser *filebrowser) {
+	const gchar *dir = gtk_label_get_text(GTK_LABEL(GTK_BIN(widget)->child));
 	if (dir) {
 		DEBUG_MSG("dirmenu_activate_lcb, dir=%s\n", dir);
-		filebrowser_open_dir(bfwin,dir);
+		filebrowser_open_dir(filebrowser->bfwin,dir);
 	}
 }
 
-static void populate_dir_history(gboolean firsttime) {
+static void populate_dir_history(Tfilebrowser *filebrowser,gboolean firsttime) {
 	GtkWidget *menu;
 	gchar *tmpchar, *tmpdir, *tmp;
 	GList *tmplist;
@@ -771,14 +772,12 @@ static void populate_dir_history(gboolean firsttime) {
 	tmplist = g_list_first(new_history_list);
 	while (tmplist) {
 		GtkWidget *menuitem;
-		/* dirname is not free-ed here, but it is added to the dirmenu_entries list
-		 so it can be freed when there is a re-populate for the dirmenu */
 		gchar *dirname = ending_slash((gchar *)tmplist->data);
 		DEBUG_MSG("populate_dir_history, adding %s to menu\n", dirname);
 		menuitem = gtk_menu_item_new_with_label(dirname);
-		g_signal_connect(G_OBJECT (menuitem), "activate",G_CALLBACK(dirmenu_activate_lcb),dirname);
+		g_signal_connect(G_OBJECT(menuitem),"activate",G_CALLBACK(dirmenu_activate_lcb),filebrowser);
+		g_free(dirname);
 		gtk_menu_append(GTK_MENU(menu), menuitem);
-		filebrowser->dirmenu_entries = g_list_append(filebrowser->dirmenu_entries, dirname);
 		gtk_widget_show(menuitem);
 		g_free(tmplist->data);
 		tmplist = g_list_next(tmplist);
@@ -793,6 +792,7 @@ typedef struct {
 	GtkWidget *entry;
 	gchar *basedir; /* must have a trailing slash */
 	gint is_file;
+	Tfilebrowser *filebrowser;
 } Tcfod;
 
 static void create_file_or_dir_destroy_lcb(GtkWidget *widget, Tcfod *ws) {
@@ -817,7 +817,7 @@ static void create_file_or_dir_ok_clicked_lcb(GtkWidget *widget, Tcfod *ws) {
 				error_dialog(_("Error creating path"),_("The specified pathname already exists."));
 			} else {
 				if (ws->is_file) {
-					doc_new_with_new_file(bfwin,newname);
+					doc_new_with_new_file(ws->filebrowser->bfwin,newname);
 				} else {
 					if(mkdir(newname, 0755)== -1) {
 /*						error_dialog(_("Error creating directory"),strerror(errno));*/
@@ -826,14 +826,14 @@ static void create_file_or_dir_ok_clicked_lcb(GtkWidget *widget, Tcfod *ws) {
 			}
 			g_free(newname);
 			DEBUG_MSG("create_file_or_dir_ok_clicked_lcb, refreshing basedir %s\n", ws->basedir);
-			filebrowser_refresh_dir(filebrowser,ws->basedir);
+			filebrowser_refresh_dir(ws->filebrowser,ws->basedir);
 		}
 		g_free(name);
 	}
 	create_file_or_dir_destroy_lcb(NULL, ws);
 }
 
-static void create_file_or_dir_win(gint is_file) {
+static void create_file_or_dir_win(Tfilebrowser *filebrowser, gint is_file) {
 	GtkTreePath *path;
 	GtkTreeIter iter;
 	path = filebrowser_get_path_from_selection(filebrowser,&iter);
@@ -844,6 +844,7 @@ static void create_file_or_dir_win(gint is_file) {
 		GtkTreePath *path;
 
 		ws = g_malloc(sizeof(Tcfod));
+		ws->filebrowser = filebrowser;
 		if (gtk_tree_model_iter_has_child(GTK_TREE_MODEL(filebrowser->store), &iter)) {
 			DEBUG_MSG("create_file_or_dir_win, a dir is selected\n");
 		} else {
@@ -917,9 +918,9 @@ static void row_activated_lcb(GtkTreeView *tree, GtkTreePath *path,GtkTreeViewCo
 		Tfiletype *ft = get_filetype_by_filename_and_content(filename, NULL);
 		DEBUG_MSG("row_activated_lcb, file %s has type %s\n",filename, ft->type);
 		if (ft == NULL || ft->editable) {
-			doc_new_with_file(filename, FALSE);
+			doc_new_with_file(filebrowser->bfwin,filename, FALSE);
 		} else if (strcmp(ft->type, "webimage")==0 || strcmp(ft->type, "image")==0) {
-			gchar *relfilename = create_relative_link_to(main_v->current_document->filename, filename);
+			gchar *relfilename = create_relative_link_to(filebrowser->bfwin->current_document->filename, filename);
 			image_insert_from_filename(relfilename);
 			g_free(relfilename);
 		} else {
@@ -930,26 +931,8 @@ static void row_activated_lcb(GtkTreeView *tree, GtkTreePath *path,GtkTreeViewCo
 	DEBUG_MSG("row_activated_lcb, finished\n");
 }
 
-static void filebrowser_rpopup_open_file_lcb(GtkWidget *widget, gpointer data) {
-	GtkTreePath *path;
-	path = filebrowser_get_path_from_selection(filebrowser,NULL);
-	if(path) {
-		row_activated_lcb(GTK_TREE_VIEW(filebrowser->tree), path, NULL, filebrowser);
-	}
-	gtk_tree_path_free(path);
-}
-
-static void filebrowser_rpopup_new_file_lcb(GtkWidget *widget, gpointer data) {
-	create_file_or_dir_win(TRUE);
-}
-
-static void filebrowser_rpopup_new_dir_lcb(GtkWidget *widget, gpointer data) {
-	create_file_or_dir_win(FALSE);
-}
-
 /*
- * filebrowser_rpopup_rename_lcb
- *
+ * filebrowser_rpopup_rename
  *
  * Called by filebrowser-> Renames the currently selected item.
  * If the selected item is an opened document, doc_save() is used.
@@ -957,25 +940,28 @@ static void filebrowser_rpopup_new_dir_lcb(GtkWidget *widget, gpointer data) {
  *
  * widget and data are not used.
  */
-static void filebrowser_rpopup_rename_lcb(GtkWidget *widget, gpointer data) {
+static void filebrowser_rpopup_rename(Tfilebrowser *filebrowser) {
+	Tdocument *tmpdoc;
+	GList *alldocs;
 	GtkTreePath *path;
 	gchar *newfilename=NULL, *oldfilename, *errmessage = NULL, *dirname;
-	gint index;
-	
+
 	/* this function should, together with doc_save() use a common backend.. */
 	
 	path = filebrowser_get_path_from_selection(filebrowser,NULL);
 	oldfilename = return_filename_from_path(GTK_TREE_STORE(filebrowser->store), path);	
 
 	/* Use doc_save(doc, 1, 1) if the file is open. */
-	if ((index = documentlist_return_index_from_filename(oldfilename)) != -1) {
-		Tdocument *doc = documentlist_return_document_from_index(index);
+	alldocs = return_allwindows_documentlist();
+	tmpdoc = documentlist_return_document_from_filename(alldocs,oldfilename);
+	g_list_free(alldocs);
+	if (tmpdoc != NULL) {
 		DEBUG_MSG("File is open. Calling doc_save().\n");
 
 		/* If an error occurs, doc_save takes care of notifying the user.
 		 * Currently, nothing is done here.
 		 */	
-		doc_save(doc, 1, 1);
+		doc_save(tmpdoc, 1, 1);
 	} else {
 		/* Promt user, "File/Move To"-style. */
 		newfilename = ask_new_filename(oldfilename, 1);
@@ -1016,7 +1002,7 @@ static void filebrowser_rpopup_rename_lcb(GtkWidget *widget, gpointer data) {
 
 }
 
-static void filebrowser_rpopup_delete_lcb(GtkWidget *widget, gpointer data) {
+static void filebrowser_rpopup_delete(Tfilebrowser *filebrowser) {
 	GtkTreePath *path;
 	path = filebrowser_get_path_from_selection(filebrowser,NULL);
 	if (path) {
@@ -1047,7 +1033,7 @@ static void filebrowser_rpopup_delete_lcb(GtkWidget *widget, gpointer data) {
 	}
 }
 
-static void filebrowser_rpopup_refresh_lcb(GtkWidget *widget, gpointer data) {
+static void filebrowser_rpopup_refresh(Tfilebrowser *filebrowser) {
 	GtkTreePath *path;
 	GtkTreeIter iter;
 	path = filebrowser_get_path_from_selection(filebrowser,&iter);
@@ -1075,37 +1061,80 @@ static void filebrowser_rpopup_refresh_lcb(GtkWidget *widget, gpointer data) {
 	gtk_tree_path_free(path);
 }
 
-static void filebrowser_rpopup_filter_toggled_lcb(GtkWidget *widget, Tfilter *filter) {
+static void filebrowser_rpopup_action_lcb(Tfilebrowser *filebrowser,guint callback_action, GtkWidget *widget) {
+	switch (callback_action) {
+	case 1: {
+		GtkTreePath *path;
+		path = filebrowser_get_path_from_selection(filebrowser,NULL);
+		if(path) {
+			row_activated_lcb(GTK_TREE_VIEW(filebrowser->tree), path, NULL, filebrowser);
+		}
+		gtk_tree_path_free(path);
+	} break;
+	case 2:
+		filebrowser_rpopup_rename(filebrowser);
+	break;
+	case 3:
+		filebrowser_rpopup_delete(filebrowser);
+	break;
+	case 4:
+		create_file_or_dir_win(filebrowser, TRUE);
+	break;
+	case 5:
+		create_file_or_dir_win(filebrowser,FALSE);
+	break;
+	case 6:
+		filebrowser_rpopup_refresh(filebrowser);
+	break;
+	}
+}
+
+static Tfilter *find_filter_by_name(const gchar *name) {
+	GList *tmplist = g_list_first(FILEBROWSERCONFIG(main_v->filebrowserconfig)->filters);
+	while(tmplist) {
+		Tfilter *filter = (Tfilter *)tmplist->data;
+		if (strcmp(filter->name, name)==0) {
+			return filter;
+		}
+		tmplist = g_list_first(tmplist);
+	}
+	return NULL;
+}
+
+static void filebrowser_rpopup_filter_toggled_lcb(GtkWidget *widget, Tfilebrowser *filebrowser) {
 	if (GTK_CHECK_MENU_ITEM(widget)->active) {
-		DEBUG_MSG("filebrowser_rpopup_filter_toggled_lcb, setting curfilter to (%p) %s\n", filter, filter->name);
+		/* loop trough the filters for a filter with this name */
+		const gchar *name = gtk_label_get_text(GTK_LABEL(GTK_BIN(widget)->child));
+		Tfilter *filter = find_filter_by_name(name);
+		DEBUG_MSG("filebrowser_rpopup_filter_toggled_lcb, setting curfilter to %p from name %s\n", filter, name);
 		filebrowser->curfilter = filter;
 		if (main_v->props.last_filefilter) g_free(main_v->props.last_filefilter);
 		main_v->props.last_filefilter = g_strdup(filter->name);
-		filebrowser_rpopup_refresh_lcb(widget, NULL);
+		filebrowser_rpopup_refresh(filebrowser);
 	}
 }
 
 static GtkItemFactoryEntry filebrowser_menu_entries[] = {
-	{ N_("/_Open"),			NULL,	filebrowser_rpopup_open_file_lcb,		0,	"<Item>" },
-	{ N_("/sep1"),				NULL,	NULL,										0, "<Separator>" },
-	{ N_("/Rena_me"),		NULL,	filebrowser_rpopup_rename_lcb,			0,	"<Item>" },
-	{ N_("/_Delete"),		NULL,	filebrowser_rpopup_delete_lcb,			0,	"<Item>" },
-	{ N_("/sep2"),				NULL,	NULL,										0, "<Separator>" },
-	{ N_("/New _File"),			NULL,	filebrowser_rpopup_new_file_lcb,		0,	"<Item>" },
-	{ N_("/_New Directory"),	NULL,	filebrowser_rpopup_new_dir_lcb,		0,	"<Item>" },
-	{ N_("/sep3"),				NULL,	NULL,										0, "<Separator>" },
-	{ N_("/_Refresh"),			NULL,	filebrowser_rpopup_refresh_lcb,		0,	"<Item>" }};
+	{ N_("/_Open"),			NULL,	filebrowser_rpopup_action_lcb,		1,	"<Item>" },
+	{ N_("/sep1"),				NULL,	NULL,								0, "<Separator>" },
+	{ N_("/Rena_me"),		NULL,	filebrowser_rpopup_action_lcb,			2,	"<Item>" },
+	{ N_("/_Delete"),		NULL,	filebrowser_rpopup_action_lcb,			3,	"<Item>" },
+	{ N_("/sep2"),				NULL,	NULL,								0, "<Separator>" },
+	{ N_("/New _File"),			NULL,	filebrowser_rpopup_action_lcb,	4,	"<Item>" },
+	{ N_("/_New Directory"),	NULL,	filebrowser_rpopup_action_lcb,		5,	"<Item>" },
+	{ N_("/sep3"),				NULL,	NULL,								0, "<Separator>" },
+	{ N_("/_Refresh"),			NULL,	filebrowser_rpopup_action_lcb,		6,	"<Item>" }};
 /*	{ N_("/Filter"),				NULL,	NULL,										0,	"<Branch>" }}*/
 
 static gint filebrowser_menu_entries_count = sizeof (filebrowser_menu_entries) / sizeof (filebrowser_menu_entries[0]);
 
-static GtkWidget *filebrowser_rpopup_create_menu() {
+static GtkWidget *filebrowser_rpopup_create_menu(Tfilebrowser *filebrowser) {
 	GtkWidget *menu, *menu_item;
 	GtkItemFactory *menumaker;
 
 	/* Create menu as defined in filebrowser_menu_entries[] */
 	menumaker = gtk_item_factory_new(GTK_TYPE_MENU, "<Filebrowser>", NULL);
-	gtk_item_factory_create_items(menumaker, filebrowser_menu_entries_count, filebrowser_menu_entries, NULL);	
+	gtk_item_factory_create_items(menumaker, filebrowser_menu_entries_count, filebrowser_menu_entries, filebrowser);
 	menu = gtk_item_factory_get_widget(menumaker, "<Filebrowser>");
 		
 	/* Add filter submenu */
@@ -1117,14 +1146,14 @@ static GtkWidget *filebrowser_rpopup_create_menu() {
 		GList *tmplist;
 		fmenu = gtk_menu_new();
 		gtk_menu_item_set_submenu(GTK_MENU_ITEM(menu_item), fmenu);
-		tmplist = g_list_first(filebrowser->filters);
+		tmplist = g_list_first(FILEBROWSERCONFIG(main_v->filebrowserconfig)->filters);
 		while (tmplist) {
 			Tfilter *filter = (Tfilter *)tmplist->data;
 			menu_item = gtk_radio_menu_item_new_with_label(group, filter->name);
 			if (filebrowser->curfilter == filter) {
 				gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(menu_item), TRUE);
 			}
-			g_signal_connect(GTK_OBJECT(menu_item), "toggled", G_CALLBACK(filebrowser_rpopup_filter_toggled_lcb), filter);
+			g_signal_connect(GTK_OBJECT(menu_item), "toggled", G_CALLBACK(filebrowser_rpopup_filter_toggled_lcb), filebrowser);
 			if (!group) {
 				group = gtk_radio_menu_item_group(GTK_RADIO_MENU_ITEM(menu_item));
 			}
@@ -1141,7 +1170,7 @@ static GtkWidget *filebrowser_rpopup_create_menu() {
 static gboolean filebrowser_button_press_lcb(GtkWidget *widget, GdkEventButton *event, Tfilebrowser *filebrowser) {
 	DEBUG_MSG("filebrowser_button_press_lcb, button=%d\n",event->button);
 	if (event->button == 3) {
-		GtkWidget *menu = filebrowser_rpopup_create_menu();
+		GtkWidget *menu = filebrowser_rpopup_create_menu(filebrowser);
 		gtk_menu_popup(GTK_MENU(menu), NULL, NULL, NULL, NULL, event->button, event->time);
 	}
 	if (event->button==1 && event->type == GDK_2BUTTON_PRESS) {
@@ -1197,35 +1226,51 @@ static void filter_destroy(Tfilter *filter) {
 void filebrowser_filters_rebuild() {
 	GList *tmplist;
 
-	tmplist = g_list_first(filebrowser->filters);
+	gchar *filename;
+	filename = return_first_existing_filename(main_v->props.filebrowser_unknown_icon,
+					"icon_unknown.png","../icons/icon_unknown.png",
+					"icons/icon_unknown.png",NULL);
+		
+	FILEBROWSERCONFIG(main_v->filebrowserconfig)->unknown_icon = gdk_pixbuf_new_from_file(filename, NULL);
+	g_free(filename);
+		
+	filename = return_first_existing_filename(main_v->props.filebrowser_dir_icon,
+					"icon_dir.png","../icons/icon_dir.png",
+					"icons/icon_dir.png",NULL);
+
+	FILEBROWSERCONFIG(main_v->filebrowserconfig)->dir_icon = gdk_pixbuf_new_from_file(filename, NULL);
+	g_free(filename);
+
+	if (!FILEBROWSERCONFIG(main_v->filebrowserconfig)->dir_icon || !FILEBROWSERCONFIG(main_v->filebrowserconfig)->unknown_icon) {
+		g_print("the dir_icon and unknown_icon items in the config file are invalid\n");
+/*		return gtk_label_new("cannot load icons");*/
+	}
+
+	tmplist = g_list_first(FILEBROWSERCONFIG(main_v->filebrowserconfig)->filters);
 	while (tmplist) {
 		filter_destroy(tmplist->data);
 		tmplist = g_list_next(tmplist);
 	}
-	g_list_free(filebrowser->filters);
-	filebrowser->filters = NULL;
+	g_list_free(FILEBROWSERCONFIG(main_v->filebrowserconfig)->filters);
+	FILEBROWSERCONFIG(main_v->filebrowserconfig)->filters = NULL;
 
-	filebrowser->filetypes_with_icon = NULL;
+	FILEBROWSERCONFIG(main_v->filebrowserconfig)->filetypes_with_icon = NULL;
 	tmplist = g_list_first(main_v->filetypelist);
 	while (tmplist) {
 		if (((Tfiletype *)tmplist->data)->icon) {
-			filebrowser->filetypes_with_icon = g_list_append(filebrowser->filetypes_with_icon, tmplist->data);
+			FILEBROWSERCONFIG(main_v->filebrowserconfig)->filetypes_with_icon = g_list_append(FILEBROWSERCONFIG(main_v->filebrowserconfig)->filetypes_with_icon, tmplist->data);
 		}
 		tmplist = g_list_next(tmplist);
 	}
 	
-	filebrowser->curfilter = new_filter(_("All files"), "0", NULL);
-	filebrowser->filters = g_list_append(NULL, filebrowser->curfilter);
+	FILEBROWSERCONFIG(main_v->filebrowserconfig)->filters = g_list_append(NULL, new_filter(_("All files"), "0", NULL));
 	
 	tmplist = g_list_first(main_v->props.filefilters);
 	while (tmplist) {
 		gchar **strarr = (gchar **) tmplist->data;
 		if (count_array(strarr) == 3) {
 			Tfilter *filter = new_filter(strarr[0], strarr[1], strarr[2]);
-			filebrowser->filters = g_list_append(filebrowser->filters, filter);
-			if (strcmp(filter->name, main_v->props.last_filefilter)==0) {
-				filebrowser->curfilter = filter;
-			}
+			FILEBROWSERCONFIG(main_v->filebrowserconfig)->filters = g_list_append(FILEBROWSERCONFIG(main_v->filebrowserconfig)->filters, filter);
 		}
 		tmplist = g_list_next(tmplist);
 	}
@@ -1241,27 +1286,8 @@ GtkWidget *filebrowser_init(Tbfwin *bfwin) {
 	filebrowser = (bfwin->filebrowser) ? (Tfilebrowser *)bfwin->filebrowser : g_new0(Tfilebrowser,1);
 	filebrowser->bfwin = bfwin;
 	if (!filebrowser->curfilter) {
-		gchar *filename;
-		filename = return_first_existing_filename(main_v->props.filebrowser_unknown_icon,
-						"icon_unknown.png","../icons/icon_unknown.png",
-						"icons/icon_unknown.png",NULL);
-		
-		filebrowser->unknown_icon = gdk_pixbuf_new_from_file(filename, NULL);
-		g_free(filename);
-		
-		filename = return_first_existing_filename(main_v->props.filebrowser_dir_icon,
-						"icon_dir.png","../icons/icon_dir.png",
-						"icons/icon_dir.png",NULL);
-
-		filebrowser->dir_icon = gdk_pixbuf_new_from_file(filename, NULL);
-		g_free(filename);
-
-		if (!filebrowser->dir_icon || !filebrowser->unknown_icon) {
-			g_print("the dir_icon and unknown_icon items in the config file are invalid\n");
-			return gtk_label_new("cannot load icons");
-		}
-
-		filebrowser_filters_rebuild();
+		/* get the default filter */
+		filebrowser->curfilter = find_filter_by_name(main_v->props.last_filefilter);
 	}
 	
 	filebrowser->store = gtk_tree_store_new (N_COLUMNS,GDK_TYPE_PIXBUF,G_TYPE_STRING);
@@ -1309,7 +1335,7 @@ GtkWidget *filebrowser_init(Tbfwin *bfwin) {
 		getcwd(curdir, 1023);
 		strncat(curdir, "/", 1023);
 		DEBUG_MSG("curdir=%s\n",curdir);
-		path = build_tree_from_path(filebrowser->store, curdir);
+		path = build_tree_from_path(filebrowser, curdir);
 		filebrowser_expand_to_root(filebrowser,path);
 		gtk_tree_path_free(path);
 	}
@@ -1325,7 +1351,7 @@ GtkWidget *filebrowser_init(Tbfwin *bfwin) {
 		
 		filebrowser->dirmenu = gtk_option_menu_new();
 		gtk_option_menu_set_menu(GTK_OPTION_MENU(filebrowser->dirmenu), gtk_menu_new());
-		populate_dir_history(TRUE);
+		populate_dir_history(filebrowser,TRUE);
 		gtk_box_pack_start(GTK_BOX(vbox),filebrowser->dirmenu, FALSE, FALSE, 0);
 		
 		scrolwin = gtk_scrolled_window_new(NULL, NULL);
@@ -1342,7 +1368,7 @@ GtkWidget *filebrowser_init(Tbfwin *bfwin) {
 }
 
 void filebrowser_scroll_initial(Tbfwin *bfwin) {
-	if ((bfwin->filebrowser)->tree) {
+	if (FILEBROWSER(bfwin->filebrowser)->tree) {
 		gtk_tree_view_scroll_to_point(GTK_TREE_VIEW(FILEBROWSER(bfwin->filebrowser)->tree), 2000, 2000);
 	}
 }
