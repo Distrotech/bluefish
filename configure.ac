@@ -97,10 +97,12 @@ dnl ************************
 LIBS="$LIBS `pkg-config --libs gtk+-2.0`"
 CFLAGS="$CFLAGS `pkg-config --cflags gtk+-2.0`"
 
-AC_CHECK_LIB(pcre, pcre_exec, 
-	LIBS="$LIBS -lpcre", 
-	AC_MSG_ERROR(libpcre not found please install libpcre3-dev or similar)
-)
+AC_PATH_PROG(PCRE_CONFIG, pcre-config, no)
+if test "x$PCRE_CONFIG" = "xno" ; then
+	AC_MSG_ERROR(pcre-config not found please install libpcre3-dev or similar)
+fi
+LIBS="$LIBS `$PCRE_CONFIG --libs`"
+CFLAGS="$CFLAGS `$PCRE_CONFIG --cflags`"
 
 AC_CHECK_LIB(posix4, nanosleep, 
 	LIBS="$LIBS -lposix4"
@@ -120,7 +122,7 @@ dnl Checks for header files.
 dnl ************************
 
 AC_HEADER_STDC
-AC_CHECK_HEADERS(stdlib.h unistd.h string.h strings.h errno.h stdio.h sys/stat.h ctype.h getopt.h math.h time.h sys/types.h fcntl.h netdb.h netinet/in.h sys/socket.h arpa/inet.h dirent.h sys/select.h sys/time.h sys/ipc.h pcre.h)
+AC_CHECK_HEADERS(stdlib.h unistd.h string.h strings.h errno.h stdio.h sys/stat.h ctype.h getopt.h math.h time.h sys/types.h fcntl.h netdb.h netinet/in.h sys/socket.h arpa/inet.h dirent.h sys/select.h sys/time.h sys/ipc.h)
 
 dnl ************************
 dnl Checks for external programs.

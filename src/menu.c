@@ -457,7 +457,7 @@ static void menu_current_document_type_change(GtkMenuItem *menuitem,Tfiletype *h
 }
 
 void menu_current_document_type_set_active_wo_activate(Tfiletype *hlset) {
-	if (!GTK_CHECK_MENU_ITEM(hlset->menuitem)->active) {
+	if (hlset && !GTK_CHECK_MENU_ITEM(hlset->menuitem)->active) {
 		DEBUG_MSG("setting widget from hlset %p active\n", main_v->current_document->hl);
 		g_signal_handler_disconnect(G_OBJECT(hlset->menuitem),hlset->menuitem_activate_id);
 		gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (hlset->menuitem), TRUE);
