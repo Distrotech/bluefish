@@ -820,6 +820,7 @@ GtkWidget *start_splash_screen() {
 	GdkColor color;
 
 	splashscreen.window = window_with_title(CURRENT_VERSION_NAME, GTK_WIN_POS_CENTER_ALWAYS, 0);
+	gtk_window_set_default_icon_list(default_icon_list());
 	gtk_window_set_decorated(GTK_WINDOW(splashscreen.window), FALSE);
 	gtk_window_set_role(GTK_WINDOW(splashscreen.window), "splash");
 	gtk_window_set_resizable(GTK_WINDOW(splashscreen.window),FALSE);
