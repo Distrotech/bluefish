@@ -140,6 +140,7 @@ void bluefish_exit_request() {
 
 	/* check for changed documents here */
 	if (test_only_empty_doc_left()) {
+		rcfile_save_main();
 		gtk_main_quit();
 	}
 }

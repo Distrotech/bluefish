@@ -22,6 +22,8 @@
 #define __BLUEFISH_H_
 
 #define DEBUG
+#define NOSPLASH
+#define BLUEFISH_SPLASH_FILENAME "/home/olivier/bluefish/cvs/bluefish-gtk2/images/bluefish_splash.png"
 
 #ifdef DEBUG
 #define DEBUG_MSG g_print
@@ -33,6 +35,7 @@
 #define _(String) (String)
 #define N_(String) (String)
 #define CURRENT_VERSION_NAME "bluefish-gtk2-porting"
+#define VERSION "pre-gtk2"
 
 #include <sys/types.h>
 #include <regex.h>
