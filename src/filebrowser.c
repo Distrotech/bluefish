@@ -173,7 +173,11 @@ static gchar *return_filename_from_path(Tfilebrowser *filebrowser, GtkTreeModel 
 	gchar *retval = NULL, *tmp;
 	gboolean showfulltree = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(filebrowser->showfulltree));
 	GtkTreePath *path = gtk_tree_path_copy(thispath);
-
+	DEBUG_MSG("return_filename_from_path, ");
+	DEBUG_DUMP_TREE_PATH(path);
+	if (!path) {
+		return NULL;
+	}
 	while (valid) {
 		gchar *name = NULL, *tmpstr;
 		GtkTreeIter iter;
@@ -817,12 +821,14 @@ static GtkTreePath *build_tree_from_path(Tfilebrowser *filebrowser, const gchar 
 		filebrowser->last_opened_dir = ending_slash(dirname);
 		populate_dir_history(filebrowser,FALSE, filebrowser->last_opened_dir);
 		DEBUG_MSG("build_tree_from_path, after ending slash\n");
-		
+
+		/* we need to add an empty item to each dir so it can be expanded */		
 		direntrylist = return_dir_entries(filebrowser,dirname);
 		DEBUG_MSG("build_tree_from_path, after return_dir_entries\n");
 		tmplist = g_list_first(direntrylist);
 		while (tmplist) {
 			Tdir_entry *entry = (Tdir_entry *)tmplist->data;
+			DEBUG_MSG("build_tree_from_path, entry=%s\n",entry->name);
 			if (entry->type == TYPE_DIR) {
 				GtkTreeIter tmp;
 				tmp = add_tree_item(&iter, filebrowser, entry->name, TYPE_DIR, NULL);
@@ -840,6 +846,10 @@ static GtkTreePath *build_tree_from_path(Tfilebrowser *filebrowser, const gchar 
 		DEBUG_MSG("build_tree_from_path, freed dirname\n");
 		free_dir_entries(direntrylist);
 		DEBUG_MSG("build_tree_from_path, cleaned direntrylist\n");
+		/* if the toplevel is an empty directory, it needs a '.' item as well */
+		if (!gtk_tree_model_iter_has_child(GTK_TREE_MODEL(filebrowser->store), &iter)) {
+			add_tree_item(&iter, filebrowser, ".", TYPE_FILE, NULL);
+		}
 	}
 	return gtk_tree_model_get_path(GTK_TREE_MODEL(filebrowser->store),&iter);
 }
@@ -1046,6 +1056,8 @@ static void create_file_or_dir_win(Tfilebrowser *filebrowser, gint is_file) {
 	GtkTreeIter iter;
 	gchar *basedir = NULL;
 	selection = filebrowser_get_path_from_selection(GTK_TREE_MODEL(filebrowser->store),GTK_TREE_VIEW(filebrowser->tree),&iter);
+	DEBUG_MSG("create_file_or_dir_win, selection ");
+	DEBUG_DUMP_TREE_PATH(selection);
 	if (filebrowser->store2 && !selection) {
 		/* there is no selection, we'll use the current last used dir */
 		if (filebrowser->last_opened_dir) {
@@ -1056,6 +1068,7 @@ static void create_file_or_dir_win(Tfilebrowser *filebrowser, gint is_file) {
 		gchar *tmp;
 		if (filebrowser->store2 || gtk_tree_model_iter_has_child(GTK_TREE_MODEL(filebrowser->store), &iter)) {
 			/* the selection does point to a directory, not a file */
+			DEBUG_MSG("create_file_or_dir_win, is a directory: filebrowser->store2=%p, tree_model_iter_has_child=%d\n",filebrowser->store2 ,gtk_tree_model_iter_has_child(GTK_TREE_MODEL(filebrowser->store), &iter));
 		} else {
 			/* the selection points to a file, get the parent */
 			GtkTreeIter parent;
