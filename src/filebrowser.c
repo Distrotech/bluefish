@@ -806,31 +806,18 @@ void bfwin_filebrowser_refresh_dir(Tbfwin *bfwin, gchar *dir) {
 	}
 }
 
-static GtkTreePath *filebrowser_path_up_multi(GtkTreePath *path, gint num) {
-	while (num > 0) {
-		gtk_tree_path_up(path);
-		num--;
-	}
-	return path;
-}
-
 static void filebrowser_expand_to_root(Tfilebrowser *filebrowser, const GtkTreePath *this_path) {
-	gint num = gtk_tree_path_get_depth((GtkTreePath *)this_path);
-	DEBUG_MSG("filebrowser_expand_to_root, num=%d, ",num);
-	DEBUG_DUMP_TREE_PATH((GtkTreePath *) this_path);
-	while (num >= 0) {
-		GtkTreePath *path = gtk_tree_path_copy(this_path);
-		path = filebrowser_path_up_multi(path, num);
-		DEBUG_MSG("filebrowser_expand_to_root, expanding ");
-		DEBUG_DUMP_TREE_PATH(path);
-		g_signal_handlers_block_matched(G_OBJECT(filebrowser->tree), G_SIGNAL_MATCH_FUNC,
+	GtkTreePath *path = gtk_tree_path_copy(this_path);
+	g_signal_handlers_block_matched(G_OBJECT(filebrowser->tree), G_SIGNAL_MATCH_FUNC,
 					0, 0, NULL, row_expanded_lcb, NULL);
-		gtk_tree_view_expand_row(GTK_TREE_VIEW(filebrowser->tree), path, FALSE);
-		g_signal_handlers_unblock_matched(G_OBJECT(filebrowser->tree), G_SIGNAL_MATCH_FUNC,
+#ifndef HAVE_ATLEAST_GTK_2_2
+	gtktreepath_expand_to_root(filebrowser->tree, path);
+#else 
+	gtk_tree_view_expand_to_path(GTK_TREE_VIEW(filebrowser->tree), path);
+#endif
+	g_signal_handlers_unblock_matched(G_OBJECT(filebrowser->tree), G_SIGNAL_MATCH_FUNC,
 					0, 0, NULL, row_expanded_lcb, NULL);
-		gtk_tree_path_free(path);
-		num--;
-	}
+	gtk_tree_path_free(path);
 }
 
 

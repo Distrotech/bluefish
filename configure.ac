@@ -169,6 +169,14 @@ else
 	AC_MSG_ERROR(libgtk2.0-dev missing, please install libgtk2.0-dev)
 fi
 
+echo -n "checking for gtk+-2.2... "
+if pkg-config gtk+-2.0 --atleast-version=2.2 ; then
+	AC_DEFINE(HAVE_ATLEAST_GTK_2_2)
+	echo "yes"
+else
+	echo "no"
+fi
+
 echo -n "checking for gnome-vfs-2.0... "
 if pkg-config --exists gnome-vfs-2.0 ; then
 	LIBS="$LIBS `pkg-config --libs gnome-vfs-2.0`"
