@@ -56,11 +56,12 @@ Thtml_diag *html_diag_new(gchar *title) {
 	dg = g_malloc(sizeof(Thtml_diag));
 	DEBUG_MSG("html_diag_new, dg=%p\n",dg);
 	dg->dialog = window_full(title, GTK_WIN_POS_MOUSE
-		, 5,G_CALLBACK(html_diag_destroy_cb), dg, TRUE);
+		, 12,G_CALLBACK(html_diag_destroy_cb), dg, TRUE);
 	gtk_window_set_type_hint(GTK_WINDOW(dg->dialog), GDK_WINDOW_TYPE_HINT_DIALOG);
 
 	gtk_window_set_role(GTK_WINDOW(dg->dialog), "html_dialog");
 	dg->vbox = gtk_vbox_new(FALSE, 1);
+	/*	gtk_container_set_border_width(GTK_CONTAINER(dg->vbox), 6); */
 	gtk_container_add(GTK_CONTAINER(dg->dialog), dg->vbox);
 #ifdef DEBUG
 	{
@@ -102,8 +103,8 @@ Thtml_diag *html_diag_new(gchar *title) {
 
 GtkWidget *html_diag_table_in_vbox(Thtml_diag *dg, gint rows, gint cols) {
 	GtkWidget *returnwidget = gtk_table_new(rows, cols, FALSE);
-	gtk_table_set_row_spacings(GTK_TABLE(returnwidget), 4);
-	gtk_table_set_col_spacings(GTK_TABLE(returnwidget), 4);
+	gtk_table_set_row_spacings(GTK_TABLE(returnwidget), 12);
+	gtk_table_set_col_spacings(GTK_TABLE(returnwidget), 12);
 	gtk_box_pack_start(GTK_BOX(dg->vbox), returnwidget, FALSE, FALSE, 0);
 	return returnwidget;
 }
@@ -111,9 +112,12 @@ GtkWidget *html_diag_table_in_vbox(Thtml_diag *dg, gint rows, gint cols) {
 void html_diag_finish(Thtml_diag *dg, GtkSignalFunc ok_func) {
 	GtkWidget *hbox;
 
+	hbox = gtk_hbox_new(FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(hbox), gtk_hseparator_new(), TRUE, TRUE, 0);
+	gtk_box_pack_start(GTK_BOX(dg->vbox), hbox, FALSE, FALSE, 12); 
 	hbox = gtk_hbutton_box_new();
 	gtk_hbutton_box_set_layout_default(GTK_BUTTONBOX_END);
-	gtk_button_box_set_spacing(GTK_BUTTON_BOX(hbox), 1);
+	gtk_button_box_set_spacing(GTK_BUTTON_BOX(hbox), 12);
 	
 	dg->obut = bf_stock_ok_button(ok_func, dg);
 	dg->cbut = bf_stock_cancel_button(G_CALLBACK(html_diag_cancel_clicked_cb), dg);
