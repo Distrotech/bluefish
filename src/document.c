@@ -684,8 +684,29 @@ gboolean doc_file_to_textbox(Tdocument * doc, gchar * filename, gboolean enable_
 						DEBUG_MSG("doc_file_to_textbox, file is not converted, trying default encoding (from configfile) %s\n", main_v->props.newfile_default_encoding);
 						newbuf = g_convert(buffer,-1,"UTF-8",main_v->props.newfile_default_encoding,NULL, &wsize, NULL);
 						if (!newbuf) {
-							DEBUG_MSG("doc_file_to_textbox, tried the most obvious encodings, nothing found.. show error\n");
-							error_dialog(_("Error"), _("Cannot display file, unknown characters found."));
+							GList *tmplist;
+							DEBUG_MSG("doc_file_to_textbox, tried the most obvious encodings, nothing found.. go trough list\n");
+							tmplist = g_list_first(main_v->props.encodings);
+							while (tmplist) {
+								gchar **enc = tmplist->data;
+								DEBUG_MSG("doc_file_to_textbox, trying encoding %s\n", enc[1]);
+								newbuf = g_convert(buffer,-1,"UTF-8",enc[1],NULL, &wsize, NULL);
+								if (newbuf) {
+									if (doc->encoding) {
+										g_free(doc->encoding);
+									}
+									doc->encoding = g_strdup(enc[1]);
+/*									g_free(buffer);
+									buffer = newbuf;*/
+									tmplist = NULL;
+								} else {
+									DEBUG_MSG("doc_file_to_textbox, no newbuf, next in list\n");
+									tmplist = g_list_next(tmplist);
+								}
+							}
+							if (!newbuf) {
+								error_dialog(_("Error"), _("Cannot display file, unknown characters found."));
+							}
 						} else {
 							DEBUG_MSG("doc_file_to_textbox, file is in %s encoding\n", main_v->props.newfile_default_encoding);
 							if (doc->encoding) {
@@ -700,6 +721,7 @@ gboolean doc_file_to_textbox(Tdocument * doc, gchar * filename, gboolean enable_
 						g_free(doc->encoding);
 						doc->encoding = g_strdup(encoding);
 					}
+					DEBUG_MSG("doc_file_to_textbox, freeing buffer, buffer=newbuf\n");
 					g_free(buffer);
 					buffer = newbuf;
 				} else {
