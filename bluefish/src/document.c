@@ -54,7 +54,13 @@ typedef struct {
 /******************************/
 static Tlocals locals = {NULL};
 
-
+/**
+ * add_filename_to_history:
+ * @filename: a #gchar
+ * 
+ * adds a filename to the recently opened files list
+ * will not add it to the menu, only to the list and the file
+ **/
 void add_filename_to_history(gchar *filename) {
 	gchar *dirname;
 
@@ -64,11 +70,16 @@ void add_filename_to_history(gchar *filename) {
 	g_free(dirname);
 }
 
-
-/* gint documentlist_return_index_from_filename(gchar *filename)
- * returns -1 if the file is not open, else returns the index where
- * the file is in the documentlist
- */
+/**
+ * documentlist_return_index_from_filename:
+ * @filename: a #gchar
+ * 
+ * if the file is open, it returns the index in the documentlist
+ * which is also the index in the notebook
+ * if the file is not open it returns -1
+ *
+ * Return value: the index number on success, -1 if the file is not open
+ **/
 gint documentlist_return_index_from_filename(gchar *filename) {
 	GList *tmplist;
 	gint count=0;
@@ -87,7 +98,17 @@ gint documentlist_return_index_from_filename(gchar *filename) {
 	}
 	return -1;
 }
-
+/**
+ * doc_update_highlighting:
+ * @wid: a #GtkWidget, ignored
+ * @data: a #gpointer, ignored
+ *
+ * this function works on the current document
+ * if highlighting is disabled, this enables the highlighting
+ * the highlighting is also refreshed for the full document
+ *
+ * Return value: void
+ **/
 void doc_update_highlighting(GtkWidget *wid, gpointer data) {
 	if (!main_v->current_document) return;
 	DEBUG_MSG("doc_update_highlighting, curdoc=%p, highlightstate=%d\n", main_v->current_document, main_v->current_document->highlightstate);
@@ -101,10 +122,16 @@ void doc_update_highlighting(GtkWidget *wid, gpointer data) {
 	}
 }
 
-/* void doc_set_wrap(Tdocument * document, gint wraptype)
- * type=0 = none, type=1=word wrap
- */
-
+/**
+ * doc_set_wrap:
+ * @doc: a #Tdocument
+ *
+ * this function will synchronise doc->wrapstate with the textview widget
+ * if doc->wrapstate TRUE it will set the textview to GTK_WRAP_WORD
+ * else (FALSE) it will set the textview to GTK_WRAP_NONE
+ *
+ * Return value: void
+ **/
 void doc_set_wrap(Tdocument * doc) {
 	if (doc->wrapstate) {
 		gtk_text_view_set_wrap_mode(GTK_TEXT_VIEW(doc->view),GTK_WRAP_WORD);
@@ -112,6 +139,17 @@ void doc_set_wrap(Tdocument * doc) {
 		gtk_text_view_set_wrap_mode(GTK_TEXT_VIEW(doc->view),GTK_WRAP_NONE);
 	}
 }
+
+/**
+ * doc_set_font:
+ * @doc: a #Tdocument
+ * @fontstring: a #gchar describing the font
+ *
+ * this function will set the textview from doc to use the font
+ * described by fontstring
+ *
+ * Return value: void
+ **/
 
 #ifdef __GNUC__
 __inline__ 
@@ -156,6 +194,16 @@ static gint textview_calculate_real_tab_width(GtkWidget *textview, gint tab_size
 	return tab_width;
 }
 
+/**
+ * doc_set_tabsize:
+ * @doc: a #Tdocument
+ * @tabsize: a #gint with the tab size
+ *
+ * this function will set the textview from doc to use the tabsize
+ * described by tabsize
+ *
+ * Return value: void
+ **/
 void doc_set_tabsize(Tdocument *doc, gint tabsize) {
 	PangoTabArray *tab_array;
 	gint pixels = textview_calculate_real_tab_width(GTK_WIDGET(doc->view), tabsize);
@@ -166,6 +214,19 @@ void doc_set_tabsize(Tdocument *doc, gint tabsize) {
 	pango_tab_array_free(tab_array);
 }
 
+/**
+ * gui_change_tabsize:
+ * @callback_data: a #gpointer, ignored
+ * @action: a #guint, if 1 increase the tabsize, if 0 decrease
+ * @widget: a #GtkWidget, ignored
+ *
+ * this function is the callback for the menu, based on action
+ * it will increase or decrease the tabsize by one 
+ * for ALL DOCUMENTS
+ *
+ * Return value: void
+ **/
+ 
 void gui_change_tabsize(gpointer callback_data,guint action,GtkWidget *widget) {
 	GList *tmplist;
 	PangoTabArray *tab_array;
@@ -190,7 +251,15 @@ void gui_change_tabsize(gpointer callback_data,guint action,GtkWidget *widget) {
 	}
 	pango_tab_array_free(tab_array);
 }
-
+/**
+ * doc_is_empty_non_modified_and_nameless:
+ * @doc: a #Tdocument
+ *
+ * this function returns TRUE if the document pointer to by doc
+ * is an empty, nameless and non-modified document
+ *
+ * Return value: gboolean, TRUE if doc is empty, non-modified and nameless
+ **/
 gboolean doc_is_empty_non_modified_and_nameless(Tdocument *doc) {
 	if (!doc) {
 		return FALSE;
@@ -210,6 +279,16 @@ gboolean doc_is_empty_non_modified_and_nameless(Tdocument *doc) {
  * returns TRUE if there are any modified documents in doclist
  * returns FALSE if there are no modified documents in doclist
  */
+
+/**
+ * test_docs_modified:
+ * @doclist: a #GList with documents
+ *
+ * this function will test if any documents in doclist are modified
+ *
+ * Return value: gboolean
+ **/
+ 
 gboolean test_docs_modified(GList *doclist) {
 
 	GList *tmplist;
