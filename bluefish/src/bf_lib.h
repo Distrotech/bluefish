@@ -32,6 +32,8 @@ typedef enum {
 	tcc2i_mycharlen,
 	tcc2i_full_match_gettext
 } Ttcc2i_mode;
+
+gboolean string_is_color(const gchar *color);
 gchar *filemode_to_string(mode_t statmode);
 gchar *return_root_with_protocol(const gchar *url);
 void pointer_switch_addresses(gpointer *a, gpointer *b);

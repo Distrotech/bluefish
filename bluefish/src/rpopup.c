@@ -41,6 +41,7 @@ typedef struct {
 	gint tag_so;
 	gint tag_eo;
 	gboolean found_tag;
+	gboolean found_color;
 } Trecent_tag;
 
 /********************************/
@@ -62,11 +63,46 @@ static gboolean iter_char_search_lcb(gunichar ch,Tin_html_tag *iht){
 	return FALSE;
 }
 
-static gboolean locate_current_tag(Tdocument *doc, GtkTextIter *iter) {
+static gboolean locate_color(Tdocument *doc, const GtkTextIter *iter) {
+	Tin_html_tag iht;
+	gboolean retval=FALSE;
+	GtkTextIter leftiter=*iter, rightiter, maxiter = *iter;
+	DEBUG_MSG("locate_color, started\n");
+	rec_tag.found_color = FALSE;
+	gtk_text_iter_backward_chars(&maxiter, 8);
+	/* first we look to the left for a #, and we look back at max. 8 chars (7 would be good enough) */
+	iht.findchar = '#';
+	iht.prevchar = '\n';
+	iht.ignore_if_prevchar = '\0';
+	if (gtk_text_iter_backward_find_char(&leftiter,
+					(GtkTextCharPredicate)iter_char_search_lcb,&iht,&maxiter)) 
+					{
+		gchar *text;
+		rightiter = leftiter;
+		gtk_text_iter_forward_chars(&rightiter, 7);
+		text = gtk_text_buffer_get_text(doc->buffer,&leftiter,&rightiter,FALSE);
+		DEBUG_MSG("locate_color,is '%s' a color?\n",text);
+		if (text) {
+			retval = string_is_color(text);
+			if (retval) {
+				rec_tag.tag_so = gtk_text_iter_get_offset(&leftiter);
+				rec_tag.tag_eo = gtk_text_iter_get_offset(&rightiter);
+				rec_tag.found_color = TRUE;
+				rec_tag.doc = doc;
+			}
+			g_free(text);
+		}
+	}
+	return retval;
+}
+
+static gboolean locate_current_tag(Tdocument *doc, const GtkTextIter *iter) {
 	GtkTextIter gtiter, ltiter;
 	gboolean ltfound, gtfound;
 	Tin_html_tag iht;
 	gtiter = ltiter = *iter;
+
+	rec_tag.found_tag = FALSE;
 
 	/* backward search for tag start */
 	iht.findchar = '>';
@@ -117,7 +153,7 @@ static gboolean locate_current_tag(Tdocument *doc, GtkTextIter *iter) {
 }
 
 /* TODO: a </tag> should not count as editable tag!!! */
-gboolean doc_bevent_in_html_tag(Tdocument *doc, GdkEventButton *bevent) {
+void doc_bevent_in_html_code(Tdocument *doc, GdkEventButton *bevent) {
 	gint xpos, ypos;
 	GtkTextWindowType wintype;
 	GtkTextIter iter;
@@ -127,8 +163,10 @@ gboolean doc_bevent_in_html_tag(Tdocument *doc, GdkEventButton *bevent) {
 					  &xpos, &ypos);
 	xpos += gtk_text_view_get_border_window_size(GTK_TEXT_VIEW(doc->view),GTK_TEXT_WINDOW_LEFT);
 	gtk_text_view_get_iter_at_location(GTK_TEXT_VIEW(doc->view), &iter, xpos, ypos);
-	DEBUG_MSG("doc_bevent_in_html_tag, buffer coord's x=%d,y=%d, offset=%d\n", xpos, ypos,gtk_text_iter_get_offset(&iter));
-	return locate_current_tag(doc, &iter);
+	DEBUG_MSG("doc_bevent_in_html_code, buffer coord's x=%d,y=%d, offset=%d\n", xpos, ypos,gtk_text_iter_get_offset(&iter));
+	if (!locate_current_tag(doc, &iter)) {
+		locate_color(doc, &iter);
+	}
 }
 
 static void input_tag_splitter(Tbfwin *bfwin, gpointer data)
@@ -370,6 +408,10 @@ static void parse_tagstring(Tbfwin *bfwin, gchar * tagstring, gint pos, gint end
 
 gboolean rpopup_doc_located_tag(Tdocument *doc) {
 	return (rec_tag.doc == doc && rec_tag.found_tag);
+}
+
+gboolean rpopup_doc_located_color(Tdocument *doc) {
+	return (rec_tag.doc == doc && rec_tag.found_color);
 }
 
 void rpopup_edit_tag_cb(GtkMenuItem *menuitem,Tdocument *doc) {
