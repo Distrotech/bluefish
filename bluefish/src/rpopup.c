@@ -1,3 +1,20 @@
+/*
+ * Copyright (C) 2003-2004 Olivier Sessink
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ */
 #include <gtk/gtk.h>
 #include <string.h> /* strcasecmp() */
 
@@ -45,7 +62,7 @@ static gboolean iter_char_search_lcb(gunichar ch,Tin_html_tag *iht){
 	return FALSE;
 }
 
-void edit_tag(Tdocument *doc, GtkTextIter *iter) {
+static gboolean locate_current_tag(Tdocument *doc, GtkTextIter *iter) {
 	GtkTextIter gtiter, ltiter;
 	gboolean ltfound, gtfound;
 	Tin_html_tag iht;
@@ -96,6 +113,7 @@ void edit_tag(Tdocument *doc, GtkTextIter *iter) {
 			DEBUG_MSG("no tag end found on the right side\n");
 		}
 	}
+	return FALSE;
 }
 
 /* TODO: a </tag> should not count as editable tag!!! */
@@ -110,8 +128,7 @@ gboolean doc_bevent_in_html_tag(Tdocument *doc, GdkEventButton *bevent) {
 	xpos += gtk_text_view_get_border_window_size(GTK_TEXT_VIEW(doc->view),GTK_TEXT_WINDOW_LEFT);
 	gtk_text_view_get_iter_at_location(GTK_TEXT_VIEW(doc->view), &iter, xpos, ypos);
 	DEBUG_MSG("doc_bevent_in_html_tag, buffer coord's x=%d,y=%d, offset=%d\n", xpos, ypos,gtk_text_iter_get_offset(&iter));
-	edit_tag(doc, &iter);
-	return FALSE;
+	return locate_current_tag(doc, &iter);
 }
 
 static void input_tag_splitter(Tbfwin *bfwin, gpointer data)
@@ -363,5 +380,15 @@ void rpopup_edit_tag_cb(GtkMenuItem *menuitem,Tdocument *doc) {
 		g_free(text);
 	} else {
 		DEBUG_MSG("rpopup_edit_tag_cb, no tag search known!!\n");
+	}
+}
+
+void edit_tag_under_cursor_cb(Tbfwin *bfwin) {
+	GtkTextIter iter;
+	Tdocument *doc = bfwin->current_document;
+	GtkTextMark* imark = gtk_text_buffer_get_insert(doc->buffer);
+	gtk_text_buffer_get_iter_at_mark(doc->buffer,&iter,imark);
+	if (locate_current_tag(doc, &iter)) {
+		rpopup_edit_tag_cb(NULL, doc);
 	}
 }
