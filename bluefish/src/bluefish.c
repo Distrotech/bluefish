@@ -131,6 +131,7 @@ int main(int argc, char *argv[])
 #endif    
 	gtk_init(&argc, &argv);
 #ifdef HAVE_GNOME_VFS
+	DEBUG_MSG("main, we have gnome_vfs, so we init it\n");
 	gnome_vfs_init();
 #endif
 	main_v = g_new0(Tmain, 1);

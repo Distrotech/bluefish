@@ -87,6 +87,7 @@ void list_switch_order(GList *first, GList *second) {
  * @dest: a #gchar * containing the destination filename
  * 
  * copies the contents of the file source to dest
+ * this function is Gnome-VFS aware, so it will work on URI's
  * 
  * Return value: gboolean, TRUE if the function succeeds
  **/
@@ -833,9 +834,11 @@ gchar *path_get_dirname_with_ending_slash(const gchar *filename) {
  * file_exists_and_readable:
  * @filename: a #const gchar * with a file path
  *
- * tests if the file exists, using stat(), and is readable, the last
+ * tests if the file exists, and  if it is readable, the last
  * check is not reliable, it does not check all the groups you are
  * in, so change this function before you rely on that check!
+ *
+ * this function is Gnome-VFS aware, so it will work on URI's
  *
  * Return value: gboolean, TRUE if readable, else FALSE
  **/
@@ -1104,4 +1107,3 @@ void wordcount(gchar *text, guint *chars, guint *lines, guint *words)
 	/* We start counting line numbers from 1 */
 	if(*chars > 0) (*lines)++;
 }
-
