@@ -971,6 +971,31 @@ gint doc_get_max_offset(Tdocument *doc) {
 	return gtk_text_buffer_get_char_count(doc->buffer);
 }
 
+static void doc_select_and_scroll(Tdocument *doc
+				, GtkTextIter *it1, GtkTextIter *it2
+				, gboolean select_it1_line, gboolean do_scroll) {
+	GtkTextIter sit1=*it1, sit2=*it2;
+	GdkRectangle visirect;
+	GtkTextIter visi_so, visi_eo;
+
+	if (select_it1_line) {
+		sit2 = sit1;
+		gtk_text_iter_set_line_offset(&sit1,0);
+		gtk_text_iter_forward_to_line_end(&sit2);
+	}
+	gtk_text_buffer_move_mark_by_name(doc->buffer, "insert", &sit1);
+	gtk_text_buffer_move_mark_by_name(doc->buffer, "selection_bound", &sit2);
+
+	gtk_text_view_get_visible_rect(GTK_TEXT_VIEW(doc->view),&visirect);
+	gtk_text_view_get_iter_at_location(GTK_TEXT_VIEW(doc->view), &visi_so, visirect.x, visirect.y);
+	gtk_text_view_get_iter_at_location(GTK_TEXT_VIEW(doc->view), &visi_eo, visirect.x + visirect.width, visirect.y + visirect.height);
+
+	if (do_scroll && !gtk_text_iter_in_range(&sit1,&visi_so,&visi_eo)) {
+		gtk_text_view_scroll_to_iter(GTK_TEXT_VIEW(doc->view),&sit1,0.0,TRUE,0.5,0.5);
+		gtk_widget_grab_focus(doc->view);
+	}
+}
+
 /**
  * doc_select_region:
  * @doc: a #Tdocument
@@ -987,11 +1012,7 @@ void doc_select_region(Tdocument *doc, gint start, gint end, gboolean do_scroll)
 	GtkTextIter itstart, itend;
 	gtk_text_buffer_get_iter_at_offset(doc->buffer, &itstart,start);
 	gtk_text_buffer_get_iter_at_offset(doc->buffer, &itend,end);
-	gtk_text_buffer_move_mark_by_name(doc->buffer, "insert", &itstart);
-	gtk_text_buffer_move_mark_by_name(doc->buffer, "selection_bound", &itend);
-	if (do_scroll) {
-		gtk_text_view_scroll_to_iter(GTK_TEXT_VIEW(doc->view),&itstart,0.25,FALSE,0.5,0.5);
-	}
+	doc_select_and_scroll(doc, &itstart, &itend,FALSE, do_scroll);
 }
 
 /**
@@ -1007,15 +1028,26 @@ void doc_select_region(Tdocument *doc, gint start, gint end, gboolean do_scroll)
  * Return value: void
  **/
 void doc_select_line(Tdocument *doc, gint line, gboolean do_scroll) {
-	GtkTextIter itstart, itend;
+	GtkTextIter itstart;
 	gtk_text_buffer_get_iter_at_line(doc->buffer,&itstart,line-1);
-	itend = itstart;
-	gtk_text_iter_forward_to_line_end(&itend);
-	gtk_text_buffer_move_mark_by_name(doc->buffer, "insert", &itstart);
-	gtk_text_buffer_move_mark_by_name(doc->buffer, "selection_bound", &itend);
-	if (do_scroll) {
-		gtk_text_view_scroll_to_iter(GTK_TEXT_VIEW(doc->view),&itstart,0.25,FALSE,0.5,0.5);	
-	}
+	doc_select_and_scroll(doc, &itstart, &itstart,TRUE, do_scroll);
+}
+
+/**
+ * doc_select_line_by_offset:
+ * @doc: a #Tdocument
+ * @offset: a #gint with the offset of the line number to select
+ * @do_scroll: a #gboolean, if we should scroll to the selection
+ * 
+ * selects the line in doc, and if do_scroll is set it will make
+ * sure the selection is visible to the user
+ *
+ * Return value: void
+ **/
+void doc_select_line_by_offset(Tdocument *doc, gint offset, gboolean do_scroll) {
+	GtkTextIter itstart;
+	gtk_text_buffer_get_iter_at_offset(doc->buffer, &itstart,offset);
+	doc_select_and_scroll(doc, &itstart, &itstart,TRUE, do_scroll);
 }
 
 /**
@@ -2904,8 +2936,9 @@ void doc_new_with_new_file(Tbfwin *bfwin, gchar *new_curi) {
  *
  * OR curi OR uri should be set !
  *
+ * and goto_line and goto_offset should not BOTH be >= 0 (if so, offset is ignored)
  */
-void doc_new_from_uri(Tbfwin *bfwin, gchar *curi, GnomeVFSURI *uri, GnomeVFSFileInfo *finfo, gboolean delay_activate, gboolean move_to_this_win, gint goto_line) {
+void doc_new_from_uri(Tbfwin *bfwin, gchar *curi, GnomeVFSURI *uri, GnomeVFSFileInfo *finfo, gboolean delay_activate, gboolean move_to_this_win, gint goto_line, gint goto_offset) {
 	GList *alldocs;
 	Tdocument *tmpdoc;
 	gchar *tmpcuri;
@@ -2929,7 +2962,10 @@ void doc_new_from_uri(Tbfwin *bfwin, gchar *curi, GnomeVFSURI *uri, GnomeVFSFile
 			switch_to_document_by_pointer(BFWIN(tmpdoc->bfwin),tmpdoc);
 			if (bfwin != tmpdoc->bfwin) gtk_window_present(GTK_WINDOW(BFWIN(tmpdoc->bfwin)->main_window));
 		}
-		if (tmpdoc >= 0 && goto_line >= 0) doc_select_line(tmpdoc, goto_line, TRUE);
+		if (tmpdoc != NULL) {
+			if (goto_line >= 0) doc_select_line(tmpdoc, goto_line, TRUE);
+			else if (goto_offset >= 0) doc_select_line_by_offset(tmpdoc, goto_offset, TRUE);
+		}
 	} else { /* document is not yet opened */
 		GnomeVFSURI *tmpuri = uri;
 		if (tmpuri) {
@@ -2944,7 +2980,7 @@ void doc_new_from_uri(Tbfwin *bfwin, gchar *curi, GnomeVFSURI *uri, GnomeVFSFile
 		}
 		if (!delay_activate)	bfwin->focus_next_new_doc = TRUE;
 		DEBUG_MSG("doc_new_from_uri, uri=%p, delay_activate=%d, focus_next_new_doc=%d\n",tmpuri,delay_activate, bfwin->focus_next_new_doc);
-		file_doc_from_uri(bfwin, tmpuri, finfo, goto_line);
+		file_doc_from_uri(bfwin, tmpuri, finfo, goto_line, goto_offset);
 		gnome_vfs_uri_unref(tmpuri);
 	}
 	g_free(tmpcuri);
@@ -2974,7 +3010,7 @@ void doc_new_from_input(Tbfwin *bfwin, gchar *input, gboolean delay_activate, gb
 		curi = gnome_vfs_make_uri_from_input(input);
 	}
 	if (curi) {
-		doc_new_from_uri(bfwin, curi, NULL, NULL, delay_activate, move_to_this_win, goto_line);
+		doc_new_from_uri(bfwin, curi, NULL, NULL, delay_activate, move_to_this_win, goto_line, -1);
 	}
 }
 
@@ -2984,7 +3020,7 @@ void docs_new_from_uris(Tbfwin *bfwin, GSList *urislist, gboolean move_to_this_w
 	bfwin->focus_next_new_doc = TRUE;
 	tmpslist = urislist;
 	while (tmpslist) {
-		doc_new_from_uri(bfwin, tmpslist->data, NULL, NULL, TRUE, move_to_this_win, -1);
+		doc_new_from_uri(bfwin, tmpslist->data, NULL, NULL, TRUE, move_to_this_win, -1, -1);
 		tmpslist = g_slist_next(tmpslist);
 	}
 }

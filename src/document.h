@@ -57,6 +57,7 @@ gchar *doc_get_chars(Tdocument *doc, gint start, gint end);
 gint doc_get_max_offset(Tdocument *doc);
 void doc_select_region(Tdocument *doc, gint start, gint end, gboolean do_scroll);
 void doc_select_line(Tdocument *doc, gint line, gboolean do_scroll);
+void doc_select_line_by_offset(Tdocument *doc, gint offset, gboolean do_scroll);
 gboolean doc_get_selection(Tdocument *doc, gint *start, gint *end);
 gint doc_get_cursor_position(Tdocument *doc);
 void doc_set_statusbar_insovr(Tdocument *doc);
@@ -81,7 +82,7 @@ void document_set_line_numbers(Tdocument *doc, gboolean value);
 Tdocument *doc_new(Tbfwin* bfwin, gboolean delay_activate);
 void doc_new_with_new_file(Tbfwin *bfwin, gchar * new_filename);
 Tdocument *doc_new_loading_in_background(Tbfwin *bfwin, gchar *uri, GnomeVFSFileInfo *finfo);
-void doc_new_from_uri(Tbfwin *bfwin, gchar *curi, GnomeVFSURI *uri, GnomeVFSFileInfo *finfo, gboolean delay_activate, gboolean move_to_this_win, gint goto_line);
+void doc_new_from_uri(Tbfwin *bfwin, gchar *curi, GnomeVFSURI *uri, GnomeVFSFileInfo *finfo, gboolean delay_activate, gboolean move_to_this_win, gint goto_line, gint goto_offset);
 void doc_new_from_input(Tbfwin *bfwin, gchar *input, gboolean delay_activate, gboolean move_to_this_win, gint goto_line);
 void docs_new_from_uris(Tbfwin *bfwin, GSList *urislist, gboolean move_to_this_win);
 

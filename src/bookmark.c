@@ -455,55 +455,17 @@ void bmark_add_rename_dialog(Tbfwin * bfwin, gchar * dialogtitle)
 static void bmark_popup_menu_goto_lcb(GtkWidget * widget, gpointer user_data)
 {
 	Tbmark *b;
-	GtkTextIter it;
-
-	if (!user_data)
-		return;
-	b = get_current_bmark(BFWIN(user_data));
+	Tbfwin *bfwin = BFWIN(user_data);
+#ifdef DEVELOPMENT
+	if (!bfwin)
+		exit(1);
+#endif
+	b = get_current_bmark(bfwin);
+#ifdef DEVELOPMENT
 	if (!b)
-		return;
-	if (b->filepath && !b->doc) {
-		/* check if that document _is_ open */
-		Tdocument *tmpdoc;
-		GList *doclist = return_allwindows_documentlist();
-		tmpdoc = documentlist_return_document_from_filename(doclist, b->filepath);
-		g_list_free(doclist);
-		if (tmpdoc == NULL) {
-/*			if (!g_file_test(b->filepath, G_FILE_TEST_EXISTS)) {
-				gchar *string = g_strdup_printf(_("Could not find the file \"%s\"."), b->filepath);
-				error_dialog(BFWIN(user_data)->main_window, string,
-							 _("This bookmark is set in a file that no longer exists."));
-				g_free(string);
-				return;
-			}
-			tmpdoc = doc_new_with_file(BFWIN(user_data), b->filepath, FALSE, TRUE); */
-			doc_new_from_uri(BFWIN(user_data), b->filepath, NULL, NULL, FALSE, FALSE, b->offset);
-			return;
-		}
-		/* now I have to check all bookmarks */
-		bmark_set_for_doc(tmpdoc);
-	}
-
-	if (b->doc) {
-		GdkRectangle visirect;
-		GtkTextIter visi_so, visi_eo;
-		gtk_text_view_get_visible_rect(GTK_TEXT_VIEW(b->doc->view),&visirect);
-		gtk_text_view_get_iter_at_location(GTK_TEXT_VIEW(b->doc->view), &visi_so, visirect.x, visirect.y);
-		gtk_text_view_get_iter_at_location(GTK_TEXT_VIEW(b->doc->view), &visi_eo, visirect.x + visirect.width, visirect.y + visirect.height);
-		
-		gtk_text_buffer_get_iter_at_mark(b->doc->buffer, &it, b->mark);
-		gtk_text_buffer_place_cursor(b->doc->buffer, &it);
-
-		if (!gtk_text_iter_in_range(&it,&visi_so,&visi_eo)) {
-			DEBUG_MSG("bmark_popup_menu_goto_lcb, cursor NOT visible!\n");
-			/* gtk_text_view_scroll_mark_onscreen(GTK_TEXT_VIEW(b->doc->view), b->mark); */
-			gtk_text_view_scroll_to_mark(GTK_TEXT_VIEW(b->doc->view),b->mark,0.0,
-                                             TRUE,0.5,0.5);
-		}
-		if (b->doc != BFWIN(user_data)->current_document)
-			switch_to_document_by_pointer(BFWIN(user_data), b->doc);
-		gtk_widget_grab_focus(b->doc->view);
-	}
+		exit(2);
+#endif
+	doc_new_from_uri(bfwin, b->filepath, NULL, NULL, FALSE, FALSE, -1, b->offset);
 }
 /* 
  * removes the bookmark from the treestore, and if it is the last remaining bookmark
