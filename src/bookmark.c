@@ -21,6 +21,7 @@ typedef struct {
    gint offset;   
    Tdocument *doc; 
    GtkTreeIter iter;  /* for tree view */
+   gchar *description;
 } Tbmark;
 
 #define BMARK(var) ((Tbmark *)(var))
@@ -295,11 +296,28 @@ void bmark_add_temp(Tbfwin *bfwin)
    GtkTextMark *im;
    GtkTextIter it,eit,sit;
    gint ret,ffree,i;
+   GSList *lst;
    gchar *btns[]={GTK_STOCK_NO,GTK_STOCK_YES,NULL};
    gchar *pomstr;
    Tbmark_data *data = BMARKDATA(main_v->bmarkdata);
    Tbmark_gui *gui = BMARKGUI(bfwin->bmark);
 
+   
+   /* check for existing bookmark in this place */
+   im = gtk_text_buffer_get_insert(DOCUMENT(bfwin->current_document)->buffer);
+   gtk_text_buffer_get_iter_at_mark(DOCUMENT(bfwin->current_document)->buffer,&it,im);   
+   if (gtk_text_buffer_get_selection_bounds(DOCUMENT(bfwin->current_document)->buffer,NULL,NULL))
+      i=1;
+   else 
+      i=2;   
+   lst = gtk_text_iter_get_marks(&it);
+   if (g_slist_length(lst)>i)
+   {
+      info_dialog(bfwin->main_window,_("Add temporary bookmark"),_("You have already bookmark here!"));
+      g_slist_free(lst);
+      return;
+   }
+   g_slist_free(lst);
    /* find free number */
    ffree = -1;
    for(i=0;i<10;i++)
@@ -310,7 +328,7 @@ void bmark_add_temp(Tbfwin *bfwin)
          }
    if (ffree==-1)
    {       
-       pomstr = g_strdup_printf(_("You can overwrite next temp bookmark (number %d). Overwrite?"),data->lasttemp);
+       pomstr = g_strdup_printf(_("You can overwrite next temp bookmark (number %d). Overwrite?"),data->lasttemp+1);
        ret = multi_query_dialog(bfwin->main_window,_("Maximum number of temp bookmarks assigned"), pomstr, 0, 0, btns);
        g_free(pomstr);
        if (ret==0) return;
@@ -339,7 +357,7 @@ void bmark_add_temp(Tbfwin *bfwin)
       if (!gtk_text_iter_in_range(&sit,&it,&eit)) 
          sit = eit;
 		gtk_tree_store_insert(data->store, &m->iter, &(gui->temp_branch),ffree);
-		gtk_tree_store_set(data->store, &m->iter, NAME_COLUMN,g_strdup_printf("[%d] --> %s",ffree,
+		gtk_tree_store_set(data->store, &m->iter, NAME_COLUMN,g_strdup_printf("[%d] --> %s",ffree+1,
 							   gtk_text_iter_get_slice(&it,&sit)),PTR_COLUMN, m, -1);      
 		gtk_tree_view_expand_all(GTK_TREE_VIEW(gui->tree));
 }
@@ -362,6 +380,39 @@ void bmark_del_all_temp(Tbfwin *bfwin)
      } 
       data->lasttemp=0;
    }
+}
+
+void bmark_add_perm(Tbfwin *bfwin)
+{
+   GtkWidget *dlg,*name,*desc,*lab1,*lab2,*hbox1,*hbox2;
+   gint result;
+   
+   dlg = gtk_dialog_new_with_buttons(_("Add permanent bookmark "),GTK_WINDOW(bfwin->main_window),GTK_DIALOG_MODAL,
+				                             GTK_STOCK_OK,
+				                             GTK_RESPONSE_ACCEPT,
+				                             GTK_STOCK_CANCEL,
+				                             GTK_RESPONSE_REJECT,
+				                             NULL);
+ 	name = gtk_entry_new();
+ 	lab1 = gtk_label_new(_("Name:"));
+ 	gtk_misc_set_alignment(GTK_MISC(lab1),0,0);
+ 	gtk_misc_set_padding(GTK_MISC(lab1),3,3);
+	desc = gtk_entry_new();
+ 	lab2 = gtk_label_new(_("Description:"));	
+ 	gtk_misc_set_alignment(GTK_MISC(lab2),0,0); 	
+ 	gtk_misc_set_padding(GTK_MISC(lab2),3,3);
+ 	hbox1 = gtk_hbox_new(FALSE,1);
+ 	hbox2 = gtk_hbox_new(FALSE,1);
+ 	gtk_box_pack_start(GTK_BOX(hbox1),lab1,FALSE,TRUE,0); 
+	gtk_box_pack_start(GTK_BOX(hbox1),name,TRUE,TRUE,0); 
+	gtk_box_pack_start(GTK_BOX(GTK_DIALOG(dlg)->vbox),hbox1,FALSE,TRUE,0); 
+	gtk_box_pack_start(GTK_BOX(hbox2),lab2,FALSE,TRUE,0); 
+	gtk_box_pack_start(GTK_BOX(hbox2),desc,TRUE,TRUE,0); 
+	gtk_box_pack_start(GTK_BOX(GTK_DIALOG(dlg)->vbox),hbox2,FALSE,TRUE,0); 
+	gtk_entry_set_width_chars(GTK_ENTRY(name),25);
+	gtk_widget_show_all(dlg);
+	result = gtk_dialog_run(GTK_DIALOG(dlg));     
+   gtk_widget_destroy(dlg);
 }
 
 

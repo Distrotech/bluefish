@@ -17,7 +17,7 @@ void bmark_clean_for_doc(Tdocument *doc); /* set bookmark's doc to NULL when clo
 void bmark_add_temp(Tbfwin *bfwin);
 void bmark_del_all_temp(Tbfwin *bfwin);
 
-
+void bmark_add_perm(Tbfwin *bfwin);
 
 
 #endif /* BOOKMARKS */
