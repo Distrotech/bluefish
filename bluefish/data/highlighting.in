@@ -192,7 +192,7 @@ Ruby:Numbers:1:\\-?[0-9\\.]+::2:^(top|Variable)$:#999900::2:1:
 Ruby:Special Characters:1:(\:|=|>|<|\\+|\\*|\\/|\\\\|&|!|#|%|~|\\||\\.|,|~)::2::#996600::2:1:
 shell:Operators:1:[\\~\\%\\^\\&\\,\\.\\\:\\|\\+\\/\\*\\!]::2::#8b2323::0:0:
 shell:Equality:1:(<|>|<=|>=|!=|==)::2::#ff0000::0:0:
-shell:Number:1:[0-9]::2::#ff0000::0:0:
+shell:Number:1:\\b[0-9]\\b::2::#ff0000::0:0:
 shell:String (EOF):0:>>EOF:EOF:1::#ee00dd::0:0:
 shell:String (executed):1:`:`:1::#990000:#ffff44:0:0:
 shell:String (single quoted):1:':':1::#009900::0:0:
@@ -201,12 +201,13 @@ shell:Exec String Escape Function:0:\\b(action|daemon|echo_failure|echo_success|
 shell:Exec String Escape Command:0:\\b(awk|cat|chgrp|chmod|chown|cp|date|echo|export|egrep|exec|fgrep|grep|halt|install|kill|killall|ls|mkdir|mount|mv|perl|pidof|reboot|rm|rmdir|sed|sh|sleep|sort|test|touch|umount)\\b::2:^String \\(executed\\)$:#c06000::0:0:
 shell:String escape:1:\\\\.::2:^String \\([^)]+\\)$:#000099::0:0:
 shell:Variable:1:\\$[a-z][a-z0-9_]*::2:^(top|String \\([^)]+\\))$:#bb00bb::0:0:
+shell:Variable2:1:\\$(\\([^)]+\\)|{[^}]+})::2:^(top|String \\([^)]+\\))$:#bb00bb::0:0:
 shell:Variable (sys):1:\\$[\\$\\?\\*0-9]::2:^(top|String \\([^)]+\\))$:#ff0000::2:0:
 shell:Assignment:1:[a-z][a-z0-9_]*=::2::#424086::0:0:
 shell:Brackets:1:[\\[\\]]::2::#0000ff::2:0:
 shell:Braces:1:[{}]::2::#0000ff::2:0:
 shell:Parentheses:1:[()]::2::#0000ff::2:0:
-shell:Modifier:0:(local|-a|-d|-f|-n |-o|-x|-eq|-ge|-gt|-le|-lt|-ne)::2::#ff0000::0:0:
+shell:Modifier:0:\\b(local|-a|-d|-f|-n |-o|-x|-eq|-ge|-gt|-le|-lt|-ne)\\b::2::#ff0000::0:0:
 shell:Function:0:\\b(action|daemon|echo_failure|echo_success|failure|gprintf|killproc|printf|success)\\b::2::#e96969::0:0:
 shell:Command:0:\\b(awk|cat|chgrp|chmod|chown|cp|date|echo|export|egrep|exec|fgrep|grep|halt|install|kill|killall|ls|mkdir|mount|mv|perl|pidof|reboot|rm|rmdir|sed|sleep|sort|test|touch|umount)\\b::2::#c06000::0:0:
 shell:Statement:0:\\b(alias|break|case|continue|do|done|elif|else|esac|exit|export|fi|for|if|in|return|set|shift|then|unalias|unset|while)\\b::2::#0000ff::0:0:
