@@ -1158,13 +1158,13 @@ Tcust_con_struc->array[7] = number of variables from the dialog
 Tcust_con_struc->array[8..] = the description of those variables
 */
 
-static void cust_con_struc_dialog_destroy_lcb(GtkWidget *widget, GdkEvent *event,  Tcust_con_struc *ccs) {
+static void cust_con_struc_dialog_destroy_lcb(GtkWidget *widget, Tcust_con_struc *ccs) {
 	window_destroy(ccs->dialog);
 	g_free(ccs);
 }
 
 static void cust_con_struc_dialog_cancel_lcb(GtkWidget *widget, gpointer data) {
-	cust_con_struc_dialog_destroy_lcb(NULL, NULL, data);
+	cust_con_struc_dialog_destroy_lcb(NULL, data);
 }
 
 static void cust_con_struc_dialog_ok_lcb(GtkWidget *widget, Tcust_con_struc *ccs) {
@@ -1260,8 +1260,8 @@ static void cust_con_struc_dialog(gchar **array, gint type) {
 	ccs->array = array;
 	DEBUG_MSG("cust_con_struc_dialog_cb, array at %p, &array[0]=%p\n", ccs->array, &ccs->array[0]);
 	DEBUG_MSG("cust_con_struc_dialog_cb, array[0] at %p, *array=%p\n", ccs->array[0], *ccs->array);
-	ccs->dialog = window_full(ccs->array[0], GTK_WIN_POS_MOUSE,  
-			5, G_CALLBACK(cust_con_struc_dialog_cancel_lcb), ccs, TRUE);
+	ccs->dialog = window_full2(ccs->array[0], GTK_WIN_POS_MOUSE,  
+			5, G_CALLBACK(cust_con_struc_dialog_destroy_lcb), ccs, TRUE, NULL);
 	vbox = gtk_vbox_new(TRUE, 0);
 	gtk_container_add(GTK_CONTAINER(ccs->dialog), vbox);
 	DEBUG_MSG("cust_con_struc_dialog_cb, ccs->array[0]=%s\n", ccs->array[0]);

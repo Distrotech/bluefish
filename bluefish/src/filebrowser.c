@@ -790,14 +790,14 @@ typedef struct {
 	gint is_file;
 } Tcfod;
 
-static void create_file_or_dir_destroy_lcb(GtkWidget *widget, GdkEvent *event,Tcfod *ws) {
+static void create_file_or_dir_destroy_lcb(GtkWidget *widget, Tcfod *ws) {
 	window_destroy(ws->win);
 	g_free(ws->basedir);
 	g_free(ws);
 }
 
 static void create_file_or_dir_cancel_clicked_lcb(GtkWidget *widget, Tcfod *ws) {
-	create_file_or_dir_destroy_lcb(NULL, NULL, ws);
+	create_file_or_dir_destroy_lcb(NULL, ws);
 }
 
 static void create_file_or_dir_ok_clicked_lcb(GtkWidget *widget, Tcfod *ws) {
@@ -825,7 +825,7 @@ static void create_file_or_dir_ok_clicked_lcb(GtkWidget *widget, Tcfod *ws) {
 		}
 		g_free(name);
 	}
-	create_file_or_dir_destroy_lcb(NULL, NULL, ws);
+	create_file_or_dir_destroy_lcb(NULL, ws);
 }
 
 static void create_file_or_dir_win(gint is_file) {
@@ -860,7 +860,7 @@ static void create_file_or_dir_win(gint is_file) {
 		}
 		ws->is_file = is_file;
 
-		ws->win = window_full(title, GTK_WIN_POS_MOUSE, 5,G_CALLBACK(create_file_or_dir_destroy_lcb), ws, TRUE);
+		ws->win = window_full2(title, GTK_WIN_POS_MOUSE, 5,G_CALLBACK(create_file_or_dir_destroy_lcb), ws, TRUE, NULL);
 		vbox = gtk_vbox_new(FALSE, 12);
 		gtk_container_add(GTK_CONTAINER(ws->win), vbox);
 		ws->entry = boxed_entry_with_text(NULL, 250, vbox);

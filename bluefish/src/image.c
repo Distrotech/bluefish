@@ -41,7 +41,7 @@ typedef struct {
 	guint adj_changed_id;
 } Timage_diag;
 
-void image_diag_destroy_cb(GtkWidget * widget, GdkEvent *event,  Timage_diag *imdg) {
+void image_diag_destroy_cb(GtkWidget * widget, Timage_diag *imdg) {
 	html_diag_destroy_cb(widget,imdg->dg);
 	g_free(imdg);
 }
@@ -101,11 +101,11 @@ static void image_insert_dialogok_lcb(GtkWidget * widget, Timage_diag *imdg) {
 	}
 
 	g_free(finalstring);
-	image_diag_destroy_cb(NULL, NULL, imdg);	
+	image_diag_destroy_cb(NULL, imdg);	
 }
 
 void image_diag_cancel_clicked_cb(GtkWidget *widget, gpointer data) {
-	image_diag_destroy_cb(NULL, NULL, data);
+	image_diag_destroy_cb(NULL, data);
 }
 
 static void image_diag_finish(Timage_diag *imdg, GtkSignalFunc ok_func) {
