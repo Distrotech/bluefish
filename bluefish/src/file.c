@@ -483,7 +483,7 @@ static void file2doc_lcb(Topenfile_status status,gint error_info,gchar *buffer,G
 			bmark_set_for_doc(f2d->doc);
 			bmark_check_length(f2d->bfwin,f2d->doc);
 			DEBUG_MSG("file2doc_lcb, focus_next_new_doc=%d\n",f2d->bfwin->focus_next_new_doc);
-			if (f2d->bfwin->focus_next_new_doc || f2d->doc->action.goto_line >= 0) {
+			if (f2d->bfwin->focus_next_new_doc || f2d->doc->action.goto_line >= 0 || f2d->doc->action.goto_offset) {
 				f2d->bfwin->focus_next_new_doc = FALSE;
 				if (f2d->bfwin->current_document == f2d->doc) {
 					doc_force_activate(f2d->doc);
@@ -493,8 +493,11 @@ static void file2doc_lcb(Topenfile_status status,gint error_info,gchar *buffer,G
 			}
 			if (f2d->doc->action.goto_line >= 0) {
 				doc_select_line(f2d->doc, f2d->doc->action.goto_line, TRUE);
-				f2d->doc->action.goto_line = -1;
+			} else if (f2d->doc->action.goto_offset >= 0) {
+				doc_select_line_by_offset(f2d->doc, f2d->doc->action.goto_offset, TRUE);
 			}
+			f2d->doc->action.goto_line = -1;
+			f2d->doc->action.goto_offset = -1;
 			f2d->doc->action.load = NULL;
 			file2doc_cleanup(data);
 		break;
@@ -570,7 +573,7 @@ void file_doc_fill_from_uri(Tdocument *doc, GnomeVFSURI *uri, GnomeVFSFileInfo *
 	file_openfile_uri_async(f2d->uri,file2doc_lcb,f2d);
 }
 
-void file_doc_from_uri(Tbfwin *bfwin, GnomeVFSURI *uri, GnomeVFSFileInfo *finfo, gint goto_line) {
+void file_doc_from_uri(Tbfwin *bfwin, GnomeVFSURI *uri, GnomeVFSFileInfo *finfo, gint goto_line, gint goto_offset) {
 	Tfile2doc *f2d;
 	gchar *curi;
 	f2d = g_new(Tfile2doc,1);
@@ -581,6 +584,7 @@ void file_doc_from_uri(Tbfwin *bfwin, GnomeVFSURI *uri, GnomeVFSFileInfo *finfo,
 	f2d->doc = doc_new_loading_in_background(bfwin, curi, finfo);
 	f2d->doc->action.load = f2d;
 	f2d->doc->action.goto_line = goto_line;
+	f2d->doc->action.goto_offset = goto_offset;
 	DEBUG_MSG("file_doc_from_uri, got doc %p\n",f2d->doc);
 	if (finfo == NULL) {
 		/* get the fileinfo also async */
@@ -713,13 +717,13 @@ static void open_adv_load_directory_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSResu
 								openadv_content_filter_file(oa->bfwin, child_uri, finfo, oa->content_filter, oa->use_regex);
 							} else { /* open this file as document */
 								DEBUG_MSG("open_adv_load_directory_lcb, open %s\n", gnome_vfs_uri_get_path(child_uri));
-								doc_new_from_uri(oa->bfwin, NULL, child_uri, finfo, TRUE, FALSE, -1);
+								doc_new_from_uri(oa->bfwin, NULL, child_uri, finfo, TRUE, FALSE, -1, -1);
 							}
 						}
 					} else if (oa->content_filter) {
 						openadv_content_filter_file(oa->bfwin, child_uri, finfo, oa->content_filter, oa->use_regex);
 					} else {
-						doc_new_from_uri(oa->bfwin, NULL, child_uri, finfo, TRUE, FALSE, -1);
+						doc_new_from_uri(oa->bfwin, NULL, child_uri, finfo, TRUE, FALSE, -1, -1);
 					}
 				}
 				g_free(curi);

@@ -122,6 +122,7 @@ typedef enum {
 
 typedef struct {
 	gint goto_line;
+	gint goto_offset;
 	gboolean close_doc;
 	gboolean close_window;
 	gpointer save; /* during document save */
