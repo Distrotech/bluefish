@@ -26,38 +26,32 @@ typedef struct {
 	GtkWidget *suggestions;
 	Tdocument *doc;
 	gint offset;
+	GtkTextMark* so;
+	GtkTextMark* eo;
 } Tbfspell;
 
-Tbfspell bfspell = { NULL, NULL, NULL,NULL, NULL, NULL,NULL,NULL, NULL,NULL, NULL,0};
+Tbfspell bfspell = { NULL, NULL, NULL,NULL, NULL, NULL,NULL,NULL, NULL,NULL, NULL,0,NULL,NULL};
 
 /* return value should be freed by the calling function */
-gchar *doc_get_next_word() {
-	GtkTextIter itstart,itend;
+gchar *doc_get_next_word(GtkTextIter *itstart, GtkTextIter *itend) {
 	gboolean havestart=FALSE;
 	gchar *retval;
 	
-	gtk_text_buffer_get_iter_at_offset(bfspell.doc->buffer,&itstart,bfspell.offset);
-	havestart = gtk_text_iter_starts_word(&itstart);
+	gtk_text_buffer_get_iter_at_offset(bfspell.doc->buffer,itstart,bfspell.offset);
+	havestart = gtk_text_iter_starts_word(itstart);
 	while (!havestart) {
-		if (!gtk_text_iter_forward_char(&itstart)) {
+		if (!gtk_text_iter_forward_char(itstart)) {
 			return NULL;
 		}
-		havestart = gtk_text_iter_starts_word(&itstart);
+		havestart = gtk_text_iter_starts_word(itstart);
 	}
-	itend = itstart;
-	gtk_text_iter_forward_word_end(&itend);
+	*itend = *itstart;
+	gtk_text_iter_forward_word_end(itend);
 	
-	retval = gtk_text_buffer_get_text(bfspell.doc->buffer,&itstart,&itend,FALSE);
-	bfspell.offset = gtk_text_iter_get_offset(&itend);
+	retval = gtk_text_buffer_get_text(bfspell.doc->buffer,itstart,itend,FALSE);
+	bfspell.offset = gtk_text_iter_get_offset(itend);
 	return retval;
 }
-
-void spell_train_aspell(gchar * original, gchar * replacement)
-{
-	aspell_speller_store_replacement(bfspell.spell_checker,
-							  original, -1,replacement, -1);
-}
-
 
 void spell_add_to_session(gboolean to_session, gchar * word)
 {
@@ -69,12 +63,19 @@ void spell_add_to_session(gboolean to_session, gchar * word)
 
 }
 
-gboolean spell_check_word(gchar * tocheck)
+gboolean spell_check_word(gchar * tocheck, GtkTextIter *itstart, GtkTextIter *itend)
 {
 	int correct = aspell_speller_check(bfspell.spell_checker, tocheck, -1);
 	g_print("word '%s' has correct=%d\n",tocheck,correct);
 	if (!correct) {
 		AspellWordList *awl = aspell_speller_suggest(bfspell.spell_checker, tocheck,-1);
+		if (!bfspell.so || !bfspell.eo) {
+			bfspell.so = gtk_text_buffer_create_mark(bfspell.doc->buffer,NULL,itstart,TRUE);
+			bfspell.eo = gtk_text_buffer_create_mark(bfspell.doc->buffer,NULL,itend,FALSE);
+		} else {
+			gtk_text_buffer_move_mark(bfspell.doc->buffer,bfspell.so,itstart);
+			gtk_text_buffer_move_mark(bfspell.doc->buffer,bfspell.eo,itend);
+		}
 		gtk_entry_set_text(GTK_ENTRY(bfspell.incorrectword), tocheck);
 		gtk_entry_set_text(GTK_ENTRY(GTK_COMBO(bfspell.suggestions)->entry), "");
 		if (awl == 0) {
@@ -98,7 +99,8 @@ gboolean spell_check_word(gchar * tocheck)
 }
 
 gboolean spell_run() {
-	gchar *word = doc_get_next_word();
+	GtkTextIter itstart,itend;
+	gchar *word = doc_get_next_word(&itstart,&itend);
 	if (!word) {
 		GList *poplist = NULL;
 		g_print("spell_run: finished\n");
@@ -114,9 +116,11 @@ gboolean spell_run() {
 	}
 	while (word) {
 		g_print("spell_run: word '%s'\n", word);
-		if (spell_check_word(word)) {
-			word = doc_get_next_word();
+		if (spell_check_word(word,&itstart,&itend)) {
+			g_free(word);
+			word = doc_get_next_word(&itstart,&itend);
 		} else {
+			g_free(word);
 			word = NULL;
 		}
 	}
@@ -148,10 +152,15 @@ static void spell_gui_destroy(GtkWidget * widget, GdkEvent *event, gpointer data
 	window_destroy(bfspell.win);
 	if (bfspell.spell_checker) {
 		delete_aspell_speller(bfspell.spell_checker);
-		bfspell.spell_checker = NULL;
 	}
 	delete_aspell_config(bfspell.spell_config);
-	bfspell.spell_config = NULL;
+	if (bfspell.so) {
+		gtk_text_buffer_delete_mark(bfspell.doc->buffer, bfspell.so);
+	}
+	if (bfspell.eo) {
+		gtk_text_buffer_delete_mark(bfspell.doc->buffer, bfspell.eo);
+	}
+	memset(&bfspell,0,sizeof(bfspell));
 }
 
 void spell_gui_cancel_clicked_cb(GtkWidget *widget, gpointer data) {
@@ -218,7 +227,19 @@ void spell_gui_ignore_clicked(GtkWidget *widget, gpointer data) {
 	}
 }
 void spell_gui_replace_clicked(GtkWidget *widget, gpointer data) {
-	g_print("replace\n");
+	gint start, end;
+	GtkTextIter iter;
+	const gchar *original = gtk_entry_get_text(GTK_ENTRY(GTK_COMBO(bfspell.incorrectword)->entry));
+	const gchar *newstring = gtk_entry_get_text(GTK_ENTRY(GTK_COMBO(bfspell.suggestions)->entry));
+
+	aspell_speller_store_replacement(bfspell.spell_checker,original,-1,newstring,-1);
+
+	gtk_text_buffer_get_iter_at_mark(bfspell.doc->buffer,&iter,bfspell.so);
+	start = gtk_text_iter_get_offset(&iter);
+	gtk_text_buffer_get_iter_at_mark(bfspell.doc->buffer,&iter,bfspell.eo);
+	end = gtk_text_iter_get_offset(&iter);
+	g_print("set %s from %d to %d\n",newstring,start,end);
+	doc_replace_text(bfspell.doc, newstring, start, end);
 	if (spell_run()) {
 		spell_gui_set_button_status(TRUE);
 	} else {
@@ -228,6 +249,7 @@ void spell_gui_replace_clicked(GtkWidget *widget, gpointer data) {
 
 void spell_gui() {
 	GtkWidget *vbox, *hbox, *but, *frame, *table;
+	GList *poplist=NULL;
 	bfspell.win = window_full(_("Spell checker"), GTK_WIN_POS_MOUSE, 3, G_CALLBACK(spell_gui_destroy),NULL, TRUE);
 	vbox = gtk_vbox_new(FALSE, 2);
 	gtk_container_add(GTK_CONTAINER(bfspell.win), vbox);
@@ -238,18 +260,18 @@ void spell_gui() {
 	gtk_container_add(GTK_CONTAINER(frame), table);
 	
 	bfspell.incorrectword = gtk_entry_new();
+	gtk_entry_set_editable(GTK_ENTRY(bfspell.incorrectword),FALSE);
 	gtk_table_attach_defaults(GTK_TABLE(table), gtk_label_new(_("Original")),0,1,0,1);
 	gtk_table_attach_defaults(GTK_TABLE(table), bfspell.incorrectword,1,2,0,1);
 	
 	bfspell.suggestions = gtk_combo_new();
 	gtk_table_attach_defaults(GTK_TABLE(table), gtk_label_new(_("Replacement")),0,1,1,2);
 	gtk_table_attach_defaults(GTK_TABLE(table), bfspell.suggestions,1,2,1,2);
-	
-	bfspell.repbut = bf_stock_button(_("Replace"), G_CALLBACK(spell_gui_replace_clicked), NULL);
-	gtk_table_attach_defaults(GTK_TABLE(table), bfspell.repbut,2,3,0,1);
-	
+
 	bfspell.ignbut = bf_stock_button(_("Ignore"), G_CALLBACK(spell_gui_ignore_clicked), NULL);
-	gtk_table_attach_defaults(GTK_TABLE(table), bfspell.ignbut,2,3,1,2);
+	bfspell.repbut = bf_stock_button(_("Replace"), G_CALLBACK(spell_gui_replace_clicked), NULL);
+	gtk_table_attach_defaults(GTK_TABLE(table), bfspell.ignbut,2,3,0,1);
+	gtk_table_attach_defaults(GTK_TABLE(table), bfspell.repbut,2,3,1,2);
 	
 	gtk_widget_set_sensitive(bfspell.repbut,FALSE);
 	gtk_widget_set_sensitive(bfspell.ignbut,FALSE);
@@ -259,6 +281,9 @@ void spell_gui() {
 	gtk_box_pack_start(GTK_BOX(vbox), table, TRUE, TRUE, 0);
 
 	bfspell.dict = gtk_combo_new();
+	poplist = g_list_append(poplist,_("personal dictionary"));
+	poplist = g_list_append(poplist,_("session dictionary"));
+	gtk_combo_set_popdown_strings(GTK_COMBO(bfspell.dict), poplist);
 	gtk_table_attach_defaults(GTK_TABLE(table), gtk_label_new(_("Dictionary")),0,1,0,1);
 	gtk_table_attach_defaults(GTK_TABLE(table), bfspell.dict,1,2,0,1);
 
