@@ -238,9 +238,9 @@ static GtkWidget *prefs_integer(const gchar *title, const gint curval, GtkWidget
 }
 
 
-/**********************************************************/
-/* FILETYPE, FILTERS AND HIGHLIGHT PATTERNS FUNCTIONS     */
-/**********************************************************/
+/*************************/
+/* GENERAL FUNCTIONS     */
+/*************************/
 static GList *general_poplist(GList *arraylist, gint required_items, gint poplist_label_index) {
 	GList *tmplist, *poplist=NULL;
 	
@@ -253,9 +253,67 @@ static GList *general_poplist(GList *arraylist, gint required_items, gint poplis
 	return poplist;
 }
 
+static void generic_selection_changed_cb(GtkTreeSelection *selection
+	, GtkWidget **entry, void (*apply_func)(), Tprefdialog *pd,gint whichlist, gint numentries, gchar ***newcurstrarr){
+	GtkTreeIter iter;
+	GtkTreeModel *model;
+	DEBUG_MSG("generic_selection_changed_cb, started\n");
+	if (gtk_tree_selection_get_selected(selection, &model, &iter)) {
+		gchar *value;
+		GList *tmplist = g_list_first(pd->lists[whichlist]);
+		gtk_tree_model_get(model, &iter, 0, &value, -1);
+		apply_func(pd);
+		while (tmplist) {
+			gchar **strarr =(gchar **)tmplist->data;
+			if (strcmp(strarr[0],value)==0) {
+				gint i;
+				for (i=0;i<numentries;i++) {
+					gtk_entry_set_text(GTK_ENTRY(entry[i]), strarr[i]);
+				}
+				DEBUG_MSG("generic_selection_changed_cb, newcurstrarr(%p) is now %p\n", newcurstrarr, *newcurstrarr);
+				*newcurstrarr = strarr;
+				DEBUG_MSG("generic_selection_changed_cb, newcurstrarr(%p) set to %p (check %p)\n", newcurstrarr, strarr, *newcurstrarr);
+				return;
+			}
+			tmplist = g_list_next(tmplist);
+		}
+	} else {
+		DEBUG_MSG("generic_selection_changed_cb, no selection ?!?!\n");
+	}
+}
+
+/**********************************************************/
+/* FILETYPE, FILTERS AND HIGHLIGHT PATTERNS FUNCTIONS     */
+/**********************************************************/
+
+static void add_new_general_lcb(Tprefdialog *pd, GtkWidget *entry, gint numentries, gint whichlist, GtkListStore *lstore) {
+	gchar *newtype = gtk_editable_get_chars(GTK_EDITABLE(entry),0,-1);
+	DEBUG_MSG("add_new_general_lcb, newtype=%s\n", newtype);
+	if (strlen(newtype)) {
+		gint i;
+		gchar **strarr = g_malloc((numentries+1)*sizeof(gchar *));
+		strarr[0] = newtype;
+		for (i=1;i<numentries;i++) {
+			strarr[i] = g_strdup("");
+		}
+		strarr[i] = NULL;
+		pd->lists[whichlist] = g_list_append(pd->lists[whichlist], strarr);
+		{
+			GtkTreeIter iter;
+			gtk_list_store_append(GTK_LIST_STORE(lstore), &iter);
+			for (i=0;i<numentries;i++) {
+				gtk_list_store_set(GTK_LIST_STORE(lstore),&iter,i,strarr[i],-1);
+			}
+		}
+	} else {
+		g_free(newtype);
+	}
+}
+
 
 static void add_new_filetype_lcb(GtkWidget *wid, Tprefdialog *pd) {
-	gchar *newtype = gtk_editable_get_chars(GTK_EDITABLE(pd->ftd.entry[0]),0,-1);
+	add_new_general_lcb(pd, pd->ftd.entry[0],4,filetypes,GTK_LIST_STORE(pd->ftd.lstore));
+/*	gchar *newtype = gtk_editable_get_chars(GTK_EDITABLE(pd->ftd.entry[0]),0,-1);
 	DEBUG_MSG("add_new_filetype_lcb, newtype=%s\n", newtype);
 	if (strlen(newtype)) {
 		gchar **strarr = g_malloc(5*sizeof(gchar *));
@@ -279,7 +337,7 @@ static void add_new_filetype_lcb(GtkWidget *wid, Tprefdialog *pd) {
 		}
 	} else {
 		g_free(newtype);
-	}
+	}*/
 }
 
 static void filetype_apply_changes(Tprefdialog *pd) {
@@ -313,35 +371,6 @@ static void filetype_apply_changes(Tprefdialog *pd) {
 			}
 			retval = gtk_tree_model_iter_next(GTK_TREE_MODEL(pd->ftd.lstore),&iter);
 		}
-	}
-}
-
-static void generic_selection_changed_cb(GtkTreeSelection *selection
-	, GtkWidget **entry, void (*apply_func)(), Tprefdialog *pd,gint whichlist, gint numentries, gchar ***newcurstrarr){
-	GtkTreeIter iter;
-	GtkTreeModel *model;
-	DEBUG_MSG("generic_selection_changed_cb, started\n");
-	if (gtk_tree_selection_get_selected(selection, &model, &iter)) {
-		gchar *value;
-		GList *tmplist = g_list_first(pd->lists[whichlist]);
-		gtk_tree_model_get(model, &iter, 0, &value, -1);
-		apply_func(pd);
-		while (tmplist) {
-			gchar **strarr =(gchar **)tmplist->data;
-			if (strcmp(strarr[0],value)==0) {
-				gint i;
-				for (i=0;i<numentries;i++) {
-					gtk_entry_set_text(GTK_ENTRY(entry[i]), strarr[i]);
-				}
-				DEBUG_MSG("generic_selection_changed_cb, newcurstrarr(%p) is now %p\n", newcurstrarr, *newcurstrarr);
-				*newcurstrarr = strarr;
-				DEBUG_MSG("generic_selection_changed_cb, newcurstrarr(%p) set to %p (check %p)\n", newcurstrarr, strarr, *newcurstrarr);
-				return;
-			}
-			tmplist = g_list_next(tmplist);
-		}
-	} else {
-		DEBUG_MSG("generic_selection_changed_cb, no selection ?!?!\n");
 	}
 }
 
@@ -900,7 +929,8 @@ static void browsers_apply_changes(Tprefdialog *pd) {
 }
 
 static void add_new_browser_lcb(GtkWidget *wid, Tprefdialog *pd) {
-	gchar *newtype = gtk_editable_get_chars(GTK_EDITABLE(pd->bd.entry[0]),0,-1);
+	add_new_general_lcb(pd, pd->bd.entry[0],2,browsers,GTK_LIST_STORE(pd->bd.lstore));
+/*	gchar *newtype = gtk_editable_get_chars(GTK_EDITABLE(pd->bd.entry[0]),0,-1);
 	DEBUG_MSG("add_new_browser_lcb, newtype=%s\n", newtype);
 	if (strlen(newtype)) {
 		gchar **strarr = g_malloc(3*sizeof(gchar *));
@@ -918,7 +948,7 @@ static void add_new_browser_lcb(GtkWidget *wid, Tprefdialog *pd) {
 		}
 	} else {
 		g_free(newtype);
-	}
+	}*/
 }
 
 static void browser_selection_changed_cb(GtkTreeSelection *selection, Tprefdialog *pd) {

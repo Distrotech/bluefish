@@ -676,12 +676,15 @@ gboolean doc_file_to_textbox(Tdocument * doc, gchar * filename, gboolean enable_
 				g_free(encoding);
 			}
 			if (!newbuf) {
+				DEBUG_MSG("doc_file_to_textbox, file is converted yet, trying UTF-8 encoding\n");
 				if(!g_utf8_validate(buffer, -1, NULL)) {
-					DEBUG_MSG("doc_file_to_textbox, file is not in UTF-8\n");
+					DEBUG_MSG("doc_file_to_textbox, file is not in UTF-8, trying encoding from locale\n");
 					newbuf = g_locale_to_utf8(buffer,-1,NULL,&wsize,NULL);
 					if (!newbuf) {
+						DEBUG_MSG("doc_file_to_textbox, file is not converted, trying default encoding (from configfile) %s\n", main_v->props.newfile_default_encoding);
 						newbuf = g_convert(buffer,-1,"UTF-8",main_v->props.newfile_default_encoding,NULL, &wsize, NULL);
 						if (!newbuf) {
+							DEBUG_MSG("doc_file_to_textbox, tried the most obvious encodings, nothing found.. show error\n");
 							error_dialog(_("Error"), _("Cannot display file, unknown characters found."));
 						} else {
 							DEBUG_MSG("doc_file_to_textbox, file is in %s encoding\n", main_v->props.newfile_default_encoding);
