@@ -250,7 +250,7 @@ static void menu_html_dialogs_lcb(Tbfwin *bfwin,guint callback_action, GtkWidget
 		insert_time_dialog(bfwin);
 	break;
 	case 35:
-		link_dialog(bfwin,NULL);
+		linkdialog_dialog(bfwin,NULL);
 	break;
 	case 36:
 		new_css_dialog(NULL,bfwin);

@@ -259,7 +259,8 @@ static void parse_tagstring(Tbfwin *bfwin, gchar * tagstring, gint pos, gint end
 		{"meta",G_CALLBACK(meta_dialog)},
 		{"img",G_CALLBACK(image_insert_dialog)},
 		{"input",G_CALLBACK(inputdialog_rpopup)},
-		{"button",G_CALLBACK(buttondialog_dialog)}
+		{"button",G_CALLBACK(buttondialog_dialog)},
+		{"link",G_CALLBACK(linkdialog_dialog)}
 	};
 
 	DEBUG_MSG("parse_tagstring, started, tagstring=%s\n", tagstring);

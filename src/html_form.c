@@ -733,11 +733,7 @@ static void inputdialogok_lcb(GtkWidget * widget,Thtml_diag *dg) {
 	thestring = insert_string_if_entry(GTK_WIDGET(dg->entry[5]), cap("ONSELECT"), thestring, NULL);
 	thestring = insert_string_if_entry(GTK_WIDGET(dg->entry[6]), cap("ONCHANGE"), thestring, NULL);
 	thestring = insert_string_if_entry(GTK_WIDGET(dg->entry[7]), NULL, thestring, NULL);
-	if (main_v->props.xhtml == 1) {
-		finalstring = g_strconcat(thestring," />", NULL);
-	} else {
-		finalstring = g_strconcat(thestring,">", NULL);
-	}
+	finalstring = g_strconcat(thestring, (main_v->props.xhtml == 1) ? " />" : ">", NULL);
 	g_free(thestring);
 
 	if (dg->range.end == -1) {
@@ -898,6 +894,5 @@ void buttondialog_dialog(Tbfwin *bfwin, Ttagpopup *data) {
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[3], 1, 9, 3, 4);
 
 	html_diag_finish(dg, G_CALLBACK(buttondialogok_lcb));
-
 	if (custom)	g_free(custom);
 }
