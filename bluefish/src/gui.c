@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-/* #define DEBUG */
+/*#define DEBUG*/
 
 #include <gtk/gtk.h>
 #include <time.h> /* nanosleep() */
@@ -406,6 +406,7 @@ static void body_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
 	body_dialog(bfwin,NULL);
 }
 static void quickanchor_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
+	DEBUG_MSG("quickanchor_clicked_lcb, calling quickanchor_dialog with bfwin=%p and data=NULL\n",bfwin);
 	quickanchor_dialog(bfwin, NULL);
 }
 static void quickrule_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
@@ -489,6 +490,13 @@ static void tablewizard_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
 static void framewizard_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
 	framewizard_dialog(bfwin);
 }
+static void span_dialog_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
+	span_dialog(bfwin,NULL);
+}
+static void div_dialog_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
+	div_dialog(bfwin,NULL);
+}
+
 
 static Ttoolbaritem tbi[] = {
 	{"quickstart...", quickstart_clicked_lcb,13 , N_("QuickStart...")},
@@ -562,9 +570,9 @@ static Ttoolbaritem tbi[] = {
 	{"definitionterm", definitionterm_clicked_lcb,  78, N_("Definition Term")},
 	{"definition", definition_clicked_lcb,  79, N_("Definition")},
 	{"createstylesheet...", new_css_dialog, 85, N_("Create stylesheet...")},
-	{"span...", span_dialog,86 , N_("Span...")},
-	{"div...",div_dialog ,87 , N_("Div...")},
-	{"style", style_clicked_lcb,  89, N_("Style")},
+	{"span...", span_dialog_clicked_lcb,86 , N_("Span...")},
+	{"div...",div_dialog_clicked_lcb,87 , N_("Div...")},
+	{"style", style_clicked_lcb, 89, N_("Style")},
 	{"linkstylesheet...", link_clicked_lcb,90 , N_("Link to stylesheet...")},
 	{"image...", image_insert_clicked_lcb, 25, N_("Insert image...")},
 	{"thumbnail...", thumbnail_insert_clicked_lcb, 26, N_("Insert thumbnail...")},

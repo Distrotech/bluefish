@@ -1,7 +1,7 @@
 #include <gtk/gtk.h>
 #include <string.h>
 
-/* #define DEBUG */
+/*#define DEBUG*/
 
 #include "bluefish.h"
 #include "html_diag.h"
@@ -339,7 +339,8 @@ typedef struct {
 	Tbfwin *bfwin;
 } Tmuthudia;
 
-static void multi_thumbnail_dialog_destroy(GtkWidget *wid, GdkEvent *event, Tmuthudia *mtd) {
+static void multi_thumbnail_dialog_destroy(GtkWidget *wid, Tmuthudia *mtd) {
+	DEBUG_MSG("multi_thumbnail_dialog_destroy, called for mtd=%p\n",mtd);
 	window_destroy(mtd->win);
 	g_free(mtd);
 }
@@ -468,15 +469,15 @@ static void multi_thumbnail_ok_clicked(GtkWidget *widget, Tmuthudia *mtd) {
 		tmplist = g_list_next(tmplist);
 	}
 	DEBUG_MSG("done with all the files, inserting totalstring %s\n", string2insert);
-	doc_insert_two_strings(mtd->bfwin, string2insert, NULL);
+	doc_insert_two_strings(mtd->bfwin->current_document, string2insert, NULL);
 	g_free(string2insert);
 	DEBUG_MSG("ready, cleanup time!\n");
 	free_stringlist(files);
-	multi_thumbnail_dialog_destroy(NULL, NULL, mtd);
+	multi_thumbnail_dialog_destroy(NULL, mtd);
 }
 
 static void multi_thumbnail_cancel_clicked(GtkWidget *widget, Tmuthudia *mtd) {
-	multi_thumbnail_dialog_destroy(NULL, NULL, mtd);
+	multi_thumbnail_dialog_destroy(NULL, mtd);
 }
 
 static void multi_thumbnail_radio_toggled_lcb(GtkToggleButton *togglebutton,Tmuthudia *mtd) {
@@ -509,7 +510,8 @@ void multi_thumbnail_dialog(Tbfwin *bfwin) {
 	
 	mtd = g_new(Tmuthudia, 1);
 	mtd->bfwin = bfwin;
-	mtd->win = window_full(_("Multi thumbnail"), GTK_WIN_POS_MOUSE, 5, G_CALLBACK(multi_thumbnail_dialog_destroy), mtd, TRUE);
+	mtd->win = window_full2(_("Multi thumbnail"), GTK_WIN_POS_MOUSE, 5
+		, G_CALLBACK(multi_thumbnail_dialog_destroy), mtd, TRUE, NULL);
 	vbox = gtk_vbox_new(FALSE,5);
 	gtk_container_add(GTK_CONTAINER(mtd->win), vbox);
 	

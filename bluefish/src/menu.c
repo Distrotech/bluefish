@@ -21,7 +21,7 @@
 #include <stdlib.h> /* atoi */
 #include <string.h> /* strchr() */
 
-/* #define DEBUG*/
+/*#define DEBUG*/
 
 #include "bluefish.h"
 #include "document.h"			/* file_open etc. */
@@ -142,6 +142,7 @@ static void menu_html_dialogs_lcb(Tbfwin *bfwin,guint callback_action, GtkWidget
 		body_dialog(bfwin,NULL);
 	break;
 	case 2:
+		DEBUG_MSG("menu_html_dialogs_lcb,calling quickanchor_dialog with bfwin=%p and data=NULL\n",bfwin);
 		quickanchor_dialog(bfwin,NULL);
 	break;
 	case 3:
