@@ -66,6 +66,9 @@ static void files_advanced_win_ok_clicked(GtkWidget * widget, Tfiles_advanced *t
 	g_free(content_filter);
 	g_free(extension_filter);
 	gnome_vfs_uri_unref(baseuri);
+	
+	tfs->bfwin->session->adv_open_recursive = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(tfs->recursive));
+	
 	files_advanced_win_destroy(widget, tfs);
 }
 
@@ -176,7 +179,7 @@ static void files_advanced_win(Tfiles_advanced *tfs) {
 	gtk_table_set_col_spacings(GTK_TABLE(table), 12);
 	gtk_box_pack_start(GTK_BOX(vbox), table, FALSE, FALSE, 0);
 	
-	gtk_table_attach_defaults(GTK_TABLE(table), gtk_label_new(_("grep {contains} `find {basedir} -name '{file type}'`")), 0, 5, 0, 1);
+	/*gtk_table_attach_defaults(GTK_TABLE(table), gtk_label_new(_("grep {contains} `find {basedir} -name '{file type}'`")), 0, 5, 0, 1);*/
 	gtk_table_attach_defaults(GTK_TABLE(table), gtk_hseparator_new(), 0, 5, 1, 2);
 
 	/* filename part */
@@ -208,7 +211,7 @@ static void files_advanced_win(Tfiles_advanced *tfs) {
 
 	g_list_free(list);
 
-	tfs->recursive = checkbut_with_value(NULL, 1);
+	tfs->recursive = checkbut_with_value(NULL, tfs->bfwin ? tfs->bfwin->session->adv_open_recursive : TRUE);
 	bf_mnemonic_label_tad_with_alignment(_("_Recursive:"), tfs->recursive, 0, 0.5, table, 1, 2, 5, 6);
 	gtk_table_attach_defaults(GTK_TABLE(table), tfs->recursive, 2, 3, 5, 6);	
 	

@@ -273,6 +273,7 @@ typedef struct {
 	GList *recent_dirs;
 	gchar *opendir;
 	gchar *savedir;
+	gint   adv_open_recursive;
 } Tsessionvars;
 
 typedef struct {
