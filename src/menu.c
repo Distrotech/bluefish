@@ -683,6 +683,9 @@ static GtkItemFactoryEntry menu_items[] = {
 #endif /* HAVE_LIBASPELL */
 	{N_("/Document/_Floating window"), NULL, file_floatingview_menu_cb, 1, "<Item>"},			
 	{N_("/Document/Word _Count"), NULL, word_count_cb, 1, "<Item>"},
+	{N_("/Document/sep5"), NULL, NULL, 0, "<Separator>"},
+	{N_("/Document/Move left"), NULL, gui_notebook_switch, 5, "<Item>"},
+	{N_("/Document/Move right"), NULL, gui_notebook_switch, 6, "<Item>"},
 	{N_("/_Go"), NULL, NULL, 0, "<Branch>"},
 	{N_("/Go/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
 	{N_("/Go/_Previous document"), NULL, gui_notebook_switch, 1, "<StockItem>", GTK_STOCK_GO_BACK},

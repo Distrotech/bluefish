@@ -614,7 +614,7 @@ static gboolean tree_model_filter_func(GtkTreeModel *model,GtkTreeIter *iter,gpo
 	}
 	if (!fb2->bfwin->session->filebrowser_show_hidden_files) {
 		if (name[0] == '.') return FALSE;
-#ifdef DEBUG
+#ifdef DEBUGTEST
 		{
 			GnomeVFSURI *tmp1, *tmp2;
 			tmp1 = gnome_vfs_uri_dup(uri);
