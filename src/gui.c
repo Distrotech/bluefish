@@ -147,7 +147,7 @@ void notebook_changed(Tbfwin *bfwin, gint newpage) {
 	flush_queue();
 
 	doc_activate(bfwin->current_document);
-	bmark_adjust_visible(bfwin);
+/*	bmark_adjust_visible(bfwin);*/
 }
 
 gboolean switch_to_document_by_index(Tbfwin *bfwin,gint index) {
