@@ -1398,6 +1398,19 @@ static gchar *get_buffer_from_filename(Tbfwin *bfwin, gchar *filename, int *retu
 	return buffer;
 }*/
 
+/**
+ * doc_buffer_to_textbox:
+ * @doc: #Tdocument*
+ * @buffer: #gchar*
+ * @buflen: #gsize
+ * @enable_undo: #gboolean, if the buffer insert should be undo-able
+ * @delay: #gboolean
+ *
+ * inserts buffer at the current cursor position, tries to find the encoding of the document
+ * using the contents of the buffer (<meta encoding)
+ * and places the cursor back at this position
+ *
+ */
 gboolean doc_buffer_to_textbox(Tdocument * doc, gchar * buffer, gsize buflen, gboolean enable_undo, gboolean delay) {
 	gint cursor_offset;
 
@@ -1725,6 +1738,18 @@ static gboolean doc_view_key_press_lcb(GtkWidget *widget,GdkEventKey *kevent,Tdo
 	DEBUG_MSG("doc_view_key_press_lcb, keyval=%d, hardware_keycode=%d\n",kevent->keyval, kevent->hardware_keycode);
 	main_v->lastkp_keyval = kevent->keyval;
 	main_v->lastkp_hardware_keycode = kevent->hardware_keycode;
+	if (kevent->keyval == GDK_Tab && main_v->props.editor_indent_wspaces) {
+		GtkTextMark* imark;
+		GtkTextIter iter;
+		gchar *string;
+		/* replace the tab with spaces if the user wants that */
+		string = bf_str_repeat(" ", main_v->props.editor_tab_width);
+		imark = gtk_text_buffer_get_insert(doc->buffer);
+		gtk_text_buffer_get_iter_at_mark(doc->buffer,&iter,imark);
+		gtk_text_buffer_insert(doc->buffer,&iter,string,main_v->props.editor_tab_width);
+		g_free(string);
+		return TRUE; /* we handled the event, stop the event from cascading further */
+	}
 	return FALSE; /* we didn't handle all of the event */
 }
 
@@ -1816,7 +1841,7 @@ static gboolean doc_view_key_release_lcb(GtkWidget *widget,GdkEventKey *kevent,T
 				/* ending search, non-whitespace found, so terminate at this position */
 				*indenting = '\0';
 				if (strlen(string)) {
-					DEBUG_MSG("doc_buffer_insert_text_lcb, inserting indenting\n");
+					DEBUG_MSG("doc_view_key_release_lcb, inserting indenting\n");
 					gtk_text_buffer_insert(doc->buffer,&itend,string,-1);
 				}
 				g_free(string);
@@ -2852,7 +2877,7 @@ void doc_new_with_new_file(Tbfwin *bfwin, gchar *new_curi) {
 			return;
 		}
 	} 
-	DEBUG_MSG("doc_new_with_new_file, new_filename=%s\n", new_filename);
+	DEBUG_MSG("doc_new_with_new_file, new_curi=%s\n", new_curi);
 	add_filename_to_history(bfwin,new_curi);
 	doc = doc_new(bfwin, FALSE);
 	doc->uri = g_strdup(new_curi);
