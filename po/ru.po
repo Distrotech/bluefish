@@ -1,18 +1,21 @@
+# translation of ru.po to Russian
+# translation of ru.po to
 # Russian language file for Bluefish.
-# Copyright (C) 2000 Free Software Foundation, Inc.
+# Copyright (C) 2000,2003 Free Software Foundation, Inc.
 # Eugene Rupakov <rupakov@jet.msk.su>, 2003
+#  <taurus@localhost.localdomain>, 2003
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: bluefish gtk2-port\n"
-"POT-Creation-Date: 2003-03-09 23:16-0300\n"
-"PO-Revision-Date: 2003-02-28 08:31+0300\n"
+"Project-Id-Version: ru\n"
+"POT-Creation-Date: 2003-04-11 23:08-0300\n"
+"PO-Revision-Date: 2003-04-09 09:30+0400\n"
 "Last-Translator: Eugene Rupakov <rupakov@jet.msk.su>\n"
 "Language-Team: Russian <ru@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 0.9.6\n"
+"X-Generator: KBabel 1.0\n"
 
 #: ../src/bfspell.c:338
 msgid "Spell checker"
@@ -30,12 +33,12 @@ msgstr "Оригинал"
 msgid "Replacement"
 msgstr "Замена"
 
-#: ../src/bfspell.c:356 ../src/document.c:1730
+#: ../src/bfspell.c:356 ../src/document.c:1733
 msgid "Ignore"
 msgstr "Игнорировать"
 
-#: ../src/bfspell.c:357 ../src/menu.c:1878 ../src/snr2.c:1048
-#: ../src/snr2.c:1102
+#: ../src/bfspell.c:357 ../src/menu.c:1897 ../src/snr2.c:1059
+#: ../src/snr2.c:1114
 msgid "Replace"
 msgstr "Заменить"
 
@@ -43,7 +46,7 @@ msgstr "Заменить"
 msgid "In document"
 msgstr "в документе"
 
-#: ../src/bfspell.c:369 ../src/snr2.c:1083
+#: ../src/bfspell.c:369
 msgid "In selection"
 msgstr "В выбранном"
 
@@ -63,7 +66,7 @@ msgstr "Словарь"
 msgid "Add"
 msgstr "Добавить "
 
-#: ../src/bfspell.c:393 ../src/html.c:1947
+#: ../src/bfspell.c:393
 msgid "Language"
 msgstr "Язык"
 
@@ -76,16 +79,14 @@ msgid "Filter"
 msgstr "Фильтр"
 
 #: ../src/bfspell.c:405
-#, fuzzy
 msgid "no filter"
-msgstr "/Tags/Special/Other/tearoff1"
+msgstr "без фильтра"
 
 #: ../src/bfspell.c:407
-#, fuzzy
 msgid "html filter"
-msgstr "/Tags/Special/Other/tearoff1"
+msgstr "фильтр HTML"
 
-#: ../src/bluefish.c:75
+#: ../src/bluefish.c:77
 #, c-format
 msgid ""
 "\n"
@@ -94,7 +95,7 @@ msgstr ""
 "\n"
 "Использование: %s [опции] [имя файла]\n"
 
-#: ../src/bluefish.c:76
+#: ../src/bluefish.c:78
 msgid ""
 "\n"
 "Currently accepted options are:\n"
@@ -102,39 +103,39 @@ msgstr ""
 "\n"
 "Приемлимые опции: \n"
 
-#: ../src/bluefish.c:77
+#: ../src/bluefish.c:79
 msgid "-s           skip root check\n"
 msgstr "-s           не проверять на наличие права доступа root\n"
 
-#: ../src/bluefish.c:78
+#: ../src/bluefish.c:80
 msgid "-v           current version\n"
 msgstr "-v           текущая версия\n"
 
-#: ../src/bluefish.c:79
+#: ../src/bluefish.c:81
 msgid "-h           this help screen\n"
 msgstr "-h           экран помощи (этот)\n"
 
-#: ../src/bluefish.c:135
+#: ../src/bluefish.c:137
 msgid "parsing highlighting file..."
 msgstr "обработка файла подсветки синтаксиса..."
 
-#: ../src/bluefish.c:146
+#: ../src/bluefish.c:148
 msgid "compiling highlighting patterns..."
 msgstr "компиляция шаблонов подсветки синтаксиса..."
 
-#: ../src/bluefish.c:150
+#: ../src/bluefish.c:152
 msgid "parsing custom menu file..."
 msgstr "обработка файла пользовательского меню..."
 
-#: ../src/bluefish.c:159
+#: ../src/bluefish.c:161
 msgid "creating main gui..."
 msgstr "создание основного окна..."
 
-#: ../src/bluefish.c:164
+#: ../src/bluefish.c:166
 msgid "showing main gui..."
 msgstr "открытие основного окна..."
 
-#: ../src/document.c:96 ../src/gui.c:585
+#: ../src/document.c:96 ../src/gui.c:598
 msgid "/Document/Highlight syntax"
 msgstr "/Документ/Подсветка синтаксиса"
 
@@ -151,8 +152,8 @@ msgstr "Открытие файла"
 msgid "Could not open file:\n"
 msgstr "Не удается открыть файл:\n"
 
-#: ../src/document.c:667 ../src/document.c:791 ../src/document.c:1356
-#: ../src/document.c:1362
+#: ../src/document.c:667 ../src/document.c:791 ../src/document.c:1358
+#: ../src/document.c:1364
 msgid "Error"
 msgstr "Ошибка"
 
@@ -202,11 +203,11 @@ msgstr "Сохранить как..."
 msgid "Save document as"
 msgstr "Сохранить документ как"
 
-#: ../src/document.c:1282 ../src/document.c:1324
+#: ../src/document.c:1282 ../src/document.c:1326
 msgid "Overwrite"
 msgstr "Перезаписать"
 
-#: ../src/document.c:1282 ../src/document.c:1324
+#: ../src/document.c:1282 ../src/document.c:1326
 msgid "Cancel"
 msgstr "Отменить"
 
@@ -223,7 +224,7 @@ msgstr "Предупреждение Bluefish: файл открыт"
 msgid "Previously: "
 msgstr "Предварительно:"
 
-#: ../src/document.c:1328
+#: ../src/document.c:1330
 #, c-format
 msgid ""
 "File %s\n"
@@ -238,24 +239,24 @@ msgstr ""
 "старое время модификацйи %s\n"
 "перезаписать?"
 
-#: ../src/document.c:1329 ../src/document.c:1735
+#: ../src/document.c:1331 ../src/document.c:1738
 msgid "Bluefish: Warning, file is modified"
 msgstr "Предупреждение Bluefish: файл модифицирован"
 
-#: ../src/document.c:1345
+#: ../src/document.c:1347
 #, c-format
 msgid "Saving %s"
 msgstr "Сохранение %s"
 
-#: ../src/document.c:1355
+#: ../src/document.c:1357
 msgid "File save aborted, could not backup file:\n"
 msgstr "Сохранение файла прекращено, невозможно создать резервную копию:\n"
 
-#: ../src/document.c:1361
+#: ../src/document.c:1363
 msgid "File save error, could not write file:\n"
 msgstr "Ошибка при сохранении файла, невозможно записать файл:\n"
 
-#: ../src/document.c:1409
+#: ../src/document.c:1411
 #, c-format
 msgid ""
 "Are you sure you want to close\n"
@@ -264,7 +265,7 @@ msgstr ""
 "Вы уверены, что хотите закрыть\n"
 "%s?"
 
-#: ../src/document.c:1414
+#: ../src/document.c:1416
 msgid ""
 "Are you sure you want to close\n"
 "this untitled file ?"
@@ -272,27 +273,27 @@ msgstr ""
 "Вы уверены, что хотите закрыть\n"
 "этот безымянный файл?"
 
-#: ../src/document.c:1419
+#: ../src/document.c:1421
 msgid "Bluefish warning: file is modified!"
 msgstr "Предупреждение Bluefish: файл модифицирован!"
 
-#: ../src/document.c:1610
+#: ../src/document.c:1612
 msgid "No filename"
 msgstr "Нет имени файла"
 
-#: ../src/document.c:1684 ../src/msg_queue.c:180
+#: ../src/document.c:1687 ../src/msg_queue.c:180
 msgid "Unable to open file(s)\n"
 msgstr "Невозможно открыть файл(ы)\n"
 
-#: ../src/document.c:1700
+#: ../src/document.c:1703
 msgid "Unable to open file"
 msgstr "Невозможно открыть файл"
 
-#: ../src/document.c:1730
+#: ../src/document.c:1733
 msgid "Reload"
 msgstr "Перезагрузить"
 
-#: ../src/document.c:1734
+#: ../src/document.c:1737
 #, c-format
 msgid ""
 "File %s\n"
@@ -305,93 +306,84 @@ msgstr ""
 "новое время модификации %s\n"
 "старое время модификацйи %s"
 
-#: ../src/document.c:1822
+#: ../src/document.c:1827
 msgid "searching files..."
 msgstr "поиск файлов..."
 
-#: ../src/document.c:1841
+#: ../src/document.c:1846
 msgid "Select basedir"
 msgstr "Выберите базовый каталог"
 
-#: ../src/document.c:1851
+#: ../src/document.c:1858
 msgid "Advanced open file selector"
 msgstr "Улучшенный диалог выбора файлов"
 
-#: ../src/document.c:1856
-msgid "grep {contains} `find {basedir} -name '{pattern}'`"
-msgstr "grep {содержимое} `find {стартовая директория} -name '{шаблон}'`"
+#: ../src/document.c:1869
+msgid "grep {contains} `find {basedir} -name '{file type}'`"
+msgstr "grep {содержимое} `find {стартовая директория} -name '{тип файла}'`"
 
-#: ../src/document.c:1858
-msgid "Filename"
-msgstr "Имя файла"
+#: ../src/document.c:1874
+msgid "<b>General</b>"
+msgstr "<b>Общие</b>"
 
-#: ../src/document.c:1865 ../src/gtk_easy.c:731
-#, fuzzy
-msgid "_Browse..."
-msgstr "Просмотр _B"
-
-#: ../src/document.c:1867
-#, fuzzy
+#: ../src/document.c:1876
 msgid "Base_dir:"
-msgstr "Базовая директория _d"
+msgstr "Базовая _директория:"
 
-#: ../src/document.c:1877
-#, fuzzy
-msgid "_Pattern:"
-msgstr "Шаблон _P"
+#: ../src/document.c:1878 ../src/gtk_easy.c:771
+msgid "_Browse..."
+msgstr "П_росмотр..."
 
-#: ../src/document.c:1895
-msgid "_recursive"
-msgstr "просматривать поддиректории _r"
+#: ../src/document.c:1893
+msgid "_File Type:"
+msgstr "_Тип файла:"
 
-#: ../src/document.c:1897
-msgid "Contains"
-msgstr "Содержит"
+#: ../src/document.c:1899
+msgid "_Recursive:"
+msgstr "П_росматривать поддиректории:"
 
-#: ../src/document.c:1902
-#, fuzzy
+#: ../src/document.c:1904
+msgid "<b>Contains</b>"
+msgstr "<b>Содержит</b>"
+
+#: ../src/document.c:1907
 msgid "Pa_ttern:"
-msgstr "Шаблон _t"
+msgstr "_Шаблон:"
 
-#: ../src/document.c:1903
-msgid "is rege_x"
-msgstr "регулярное выражение _x"
+#: ../src/document.c:1911
+msgid "Is rege_x:"
+msgstr "ре_гулярное выражение:"
 
-#: ../src/document.c:1961
+#: ../src/document.c:1974
 #, c-format
 msgid "Loading %d file(s)..."
 msgstr "Загрузка %d файл(а,ов)..."
 
-#: ../src/document.c:1979 ../src/gtk_easy.c:896 ../src/menu.c:1303
-#: ../src/menu.c:1640 ../src/menu.c:1648
-msgid "Bluefish error"
-msgstr "Ошибка Bluefish"
+#: ../src/document.c:1992
+msgid "No file to insert"
+msgstr "Файл для вставки не найден"
 
-#: ../src/document.c:1979 ../src/gtk_easy.c:896
-msgid "No filename known"
-msgstr "Неизвестное имя файла"
-
-#: ../src/document.c:2013
+#: ../src/document.c:2026
 msgid "save all"
 msgstr "сохранить все"
 
-#: ../src/document.c:2013
+#: ../src/document.c:2026
 msgid "close all"
 msgstr "закрыть все"
 
-#: ../src/document.c:2013
+#: ../src/document.c:2026
 msgid "choose per file"
 msgstr "выбрать для каждого файла"
 
-#: ../src/document.c:2013
+#: ../src/document.c:2026
 msgid "cancel"
 msgstr "отменить"
 
-#: ../src/document.c:2014
+#: ../src/document.c:2027
 msgid "Bluefish: Warning, some file(s) are modified!"
 msgstr "Предупреждение Bluefish: некоторые файлы были изменены!"
 
-#: ../src/document.c:2014
+#: ../src/document.c:2027
 msgid ""
 "Some file(s) are modified\n"
 "please choose your action"
@@ -399,10 +391,9 @@ msgstr ""
 "Некоторые файлы были изменены\n"
 "выберите ваше действие"
 
-#: ../src/document.c:2213
-#, fuzzy
+#: ../src/document.c:2244
 msgid "No selection to indent"
-msgstr "/Параметры/Ставить отступы автоматически"
+msgstr "Нет выделения для форматирования"
 
 #: ../src/filebrowser.c:742
 msgid "Error creating path"
@@ -453,477 +444,496 @@ msgstr "Обновить"
 msgid "All files"
 msgstr "Все файлы"
 
-#: ../src/gtk_easy.c:979
-msgid "Select file"
-msgstr "Выберите файл"
-
-#: ../src/gtk_easy.c:991
-msgid "Select files"
-msgstr "Выберите файлы"
-
-#: ../src/gui.c:235
-msgid "QuickStart..."
-msgstr "Быстрый старт..."
-
-#: ../src/gui.c:236
-msgid "Body..."
-msgstr "Тело документа..."
-
-#: ../src/gui.c:237
-msgid "Bold"
-msgstr "Жирный"
-
-#: ../src/gui.c:238
-msgid "Italic"
-msgstr "Наклонный"
-
-#: ../src/gui.c:239 ../src/html.c:761
-msgid "Paragraph"
-msgstr "Параграф"
-
-#: ../src/gui.c:240
-msgid "Break"
-msgstr "Перенос строки"
-
-#: ../src/gui.c:241
-msgid "Break and clear"
-msgstr "Перенос строки с очисткой"
-
-#: ../src/gui.c:242
-msgid "Non-breaking space"
-msgstr "Неразрывный пробел"
-
-#: ../src/gui.c:244
-msgid "Anchor..."
-msgstr "Ссылка..."
-
-#: ../src/gui.c:245
-msgid "Rule..."
-msgstr "Разделитель..."
-
-#: ../src/gui.c:246
-msgid "Center"
-msgstr "Выровнять по центру"
-
-#: ../src/gui.c:247
-msgid "Right Justify"
-msgstr "Выровнять по правому полю"
-
-#: ../src/gui.c:248
-msgid "Comment"
-msgstr "Комментарий"
-
-#: ../src/gui.c:249
-msgid "E-Mail..."
-msgstr "E-Mail..."
-
-#: ../src/gui.c:250
-msgid "Font..."
-msgstr "Шрифт..."
-
-#: ../src/gui.c:251
-msgid "Base Font Size..."
-msgstr "Базовый размер шрифта..."
-
-#: ../src/gui.c:253
-msgid "Font Size +1"
-msgstr "Размер шрифта+1"
-
-#: ../src/gui.c:254
-msgid "Font Size -1"
-msgstr "Размер шрифта-1"
-
-#: ../src/gui.c:255
-msgid "Preformatted Text"
-msgstr "Отформатированный текст"
-
-#: ../src/gui.c:256
-msgid "Subscript"
-msgstr "Нижний индекс"
-
-#: ../src/gui.c:257
-msgid "Superscript"
-msgstr "Верхний индекс"
-
-#: ../src/gui.c:258
-msgid "Strong"
-msgstr "Выделенный шрифт"
-
-#: ../src/gui.c:259
-msgid "Emphasis"
-msgstr "Шрифт акцента"
-
-#: ../src/gui.c:261 ../src/html.c:770
-msgid "Heading 1"
-msgstr "Заголовок 1"
-
-#: ../src/gui.c:262 ../src/html.c:773
-msgid "Heading 2"
-msgstr "Заголовок 2"
-
-#: ../src/gui.c:263 ../src/html.c:776
-msgid "Heading 3"
-msgstr "Заголовок 3"
-
-#: ../src/gui.c:264 ../src/html.c:779
-msgid "Heading 4"
-msgstr "Заголовок 4"
-
-#: ../src/gui.c:265 ../src/html.c:782
-msgid "Heading 5"
-msgstr "Заголовок 5"
-
-#: ../src/gui.c:266 ../src/html.c:785
-msgid "Heading 6"
-msgstr "Заголовок 6"
-
-#: ../src/gui.c:267
-msgid "Table Wizard..."
-msgstr "Мастер таблиц..."
-
-#: ../src/gui.c:269
-msgid "Table..."
-msgstr "Таблица..."
-
-#: ../src/gui.c:270
-msgid "Table Row..."
-msgstr "Строка таблицы..."
-
-#: ../src/gui.c:271
-msgid "Table Header..."
-msgstr "Заголовок таблицы..."
-
-#: ../src/gui.c:272
-msgid "Table Data..."
-msgstr "Ячейка таблицы..."
-
-#: ../src/gui.c:274 ../src/html_table.c:82
-msgid "Table"
-msgstr "Таблица"
-
-#: ../src/gui.c:275 ../src/html_table.c:215
-msgid "Table Row"
-msgstr "Строка таблицы"
-
-#: ../src/gui.c:276 ../src/html_table.c:326
-msgid "Table Header"
-msgstr "Заголовок таблицы"
-
-#: ../src/gui.c:277 ../src/html_table.c:324
-msgid "Table Data"
-msgstr "Ячейка таблицы"
-
-#: ../src/gui.c:278
-msgid "Table Caption"
-msgstr "Название таблицы"
-
-#: ../src/gui.c:279
-msgid "Frame Wizard..."
-msgstr "Мастер врезок..."
-
-#: ../src/gui.c:281
-msgid "Frameset..."
-msgstr "Набор врезок..."
-
-#: ../src/gui.c:282
-msgid "Frame..."
-msgstr "Врезка..."
-
-#: ../src/gui.c:284 ../src/html.c:1673
-msgid "Frameset"
-msgstr "Набор врезок"
-
-#: ../src/gui.c:285 ../src/html.c:1758 ../src/html_table.c:159
-msgid "Frame"
-msgstr "Врезка"
-
-#: ../src/gui.c:286
-msgid "Noframes"
-msgstr "Код для браузера без врезок"
-
-#: ../src/gui.c:287 ../src/html_form.c:171
-msgid "Target"
-msgstr "Цель"
-
-#: ../src/gui.c:288
-msgid "Form..."
-msgstr "Форма..."
-
-#: ../src/gui.c:289
-msgid "Input button..."
-msgstr "Кнопка..."
-
-#: ../src/gui.c:290
-msgid "Text..."
-msgstr "Текст..."
-
-#: ../src/gui.c:291
-msgid "Hidden..."
-msgstr "Скрытое поле..."
-
-#: ../src/gui.c:292
-msgid "Textarea..."
-msgstr "Поле ввода..."
-
-#: ../src/gui.c:293
-msgid "Radio Button..."
-msgstr "Переключатель..."
-
-#: ../src/gui.c:294
-msgid "Check Box..."
-msgstr "Флажок..."
-
-#: ../src/gui.c:295
-msgid "Select..."
-msgstr "Поле выбора..."
-
-#: ../src/gui.c:296
-msgid "Option..."
-msgstr "Вариант выбора..."
-
-#: ../src/gui.c:297
-msgid "Option group..."
-msgstr "Группа вариантов выбора..."
-
-#: ../src/gui.c:298
-msgid "Quick List..."
-msgstr "Заготовка списка..."
-
-#: ../src/gui.c:299
-msgid "Unordered List"
-msgstr "Неупорядоченный список"
-
-#: ../src/gui.c:300
-msgid "Ordered List"
-msgstr "Упорядоченный список"
-
-#: ../src/gui.c:301
-msgid "List Item"
-msgstr "Элемент списка"
-
-#: ../src/gui.c:302
-msgid "Definition List"
-msgstr "Список определений"
-
-#: ../src/gui.c:303
-msgid "Definition Term"
-msgstr "Термин"
-
-#: ../src/gui.c:304 ../src/gui.c:313
-msgid "Definition"
-msgstr "Определение термина"
-
-#: ../src/gui.c:305
-msgid "Create stylesheet..."
-msgstr "Создать таблицу стилей..."
-
-#: ../src/gui.c:306
-msgid "Span..."
-msgstr "Span..."
-
-#: ../src/gui.c:307
-msgid "Div..."
-msgstr "Div..."
-
-#: ../src/gui.c:308 ../src/html.c:810 ../src/html_table.c:101
-#: ../src/html_table.c:254 ../src/html_table.c:362
-msgid "Style"
-msgstr "Стиль"
-
-#: ../src/gui.c:309
-msgid "Link to stylesheet..."
-msgstr "Ссылка на таблицу стилей..."
-
-#: ../src/gui.c:310
-msgid "Insert image..."
-msgstr "Вставить картинку..."
-
-#: ../src/gui.c:311
-msgid "Insert thumbnail..."
-msgstr "Вставить эскиз..."
-
-#: ../src/gui.c:312
-msgid "Multi thumbnail..."
-msgstr "Альбом эскизов..."
-
-#: ../src/gui.c:314
-msgid "Code"
-msgstr "Код"
-
-#: ../src/gui.c:315
-msgid "Sample"
-msgstr "Пример"
-
-#: ../src/gui.c:316
-msgid "Keyboard"
-msgstr "Клавиатура"
-
-#: ../src/gui.c:317
-msgid "Variable"
-msgstr "Переменная"
-
-#: ../src/gui.c:318
-msgid "Citation"
-msgstr "Цитата"
-
-#: ../src/gui.c:319
-msgid "Abbreviation"
-msgstr "Аббревиатура"
-
-#: ../src/gui.c:320
-msgid "Acronym"
-msgstr "Акроним"
-
-#: ../src/gui.c:353
-msgid "Remove from quickbar"
-msgstr "Убрать с панели быстрого доступа"
-
-#: ../src/gui.c:383
-msgid "Add to quickbar"
-msgstr "Добавить на панель быстрого доступа"
-
-#: ../src/gui.c:472
-msgid " Quick bar "
-msgstr " Панель быстрого доступа "
-
-#: ../src/gui.c:476
-msgid "Heading"
-msgstr "Заголовок"
-
-#: ../src/gui.c:478
-msgid " Standard bar "
-msgstr " Стандартная панель "
-
-#: ../src/gui.c:482
-msgid "Context formatting"
-msgstr "Контекстное форматирование"
-
-#: ../src/gui.c:484
-msgid " Fonts "
-msgstr " Шрифты "
-
-#: ../src/gui.c:488
-msgid " Tables "
-msgstr " Таблицы  "
-
-#: ../src/gui.c:492
-msgid " Frames "
-msgstr " Врезки "
-
-#: ../src/gui.c:496
-msgid " Forms "
-msgstr " Формы "
-
-#: ../src/gui.c:500
-msgid " List "
-msgstr " Список "
-
-#: ../src/gui.c:504
-msgid " CSS "
-msgstr " CSS "
-
-#: ../src/gui.c:523
-msgid "New"
-msgstr "Новый"
-
-#: ../src/gui.c:525
-msgid "Open..."
-msgstr "Открыть..."
-
-#: ../src/gui.c:528
-msgid "Save"
-msgstr "Сохранить"
-
-#: ../src/gui.c:530
-msgid "Save As..."
-msgstr "Сохранить как..."
-
-#: ../src/gui.c:532
+#: ../src/fref.c:694 ../src/gui.c:544
 msgid "Close"
 msgstr "Закрыть"
 
+#: ../src/fref.c:699
+msgid "Dialog"
+msgstr "_Диалоги"
+
+#: ../src/fref.c:701
+msgid "Insert"
+msgstr "Вставить"
+
+#: ../src/fref.c:979
+msgid "Info"
+msgstr "Информация"
+
+#: ../src/gtk_easy.c:936 ../src/menu.c:1314 ../src/menu.c:1660
+#: ../src/menu.c:1662 ../src/menu.c:1667
+msgid "Bluefish error"
+msgstr "Ошибка Bluefish"
+
+#: ../src/gtk_easy.c:936
+msgid "No filename known"
+msgstr "Неизвестное имя файла"
+
+#: ../src/gtk_easy.c:1025
+msgid "Select file"
+msgstr "Выберите файл"
+
+#: ../src/gtk_easy.c:1037
+msgid "Select files"
+msgstr "Выберите файлы"
+
+#: ../src/gui.c:247
+msgid "QuickStart..."
+msgstr "Быстрый старт..."
+
+#: ../src/gui.c:248
+msgid "Body..."
+msgstr "Тело документа..."
+
+#: ../src/gui.c:249
+msgid "Bold"
+msgstr "Жирный"
+
+#: ../src/gui.c:250
+msgid "Italic"
+msgstr "Наклонный"
+
+#: ../src/gui.c:251 ../src/html.c:761
+msgid "Paragraph"
+msgstr "Параграф"
+
+#: ../src/gui.c:252
+msgid "Break"
+msgstr "Перенос строки"
+
+#: ../src/gui.c:253
+msgid "Break and clear"
+msgstr "Перенос строки с очисткой"
+
+#: ../src/gui.c:254
+msgid "Non-breaking space"
+msgstr "Неразрывный пробел"
+
+#: ../src/gui.c:256
+msgid "Anchor..."
+msgstr "Ссылка..."
+
+#: ../src/gui.c:257
+msgid "Rule..."
+msgstr "Разделитель..."
+
+#: ../src/gui.c:258
+msgid "Center"
+msgstr "Выровнять по центру"
+
+#: ../src/gui.c:259
+msgid "Right Justify"
+msgstr "Выровнять по правому полю"
+
+#: ../src/gui.c:260
+msgid "Comment"
+msgstr "Комментарий"
+
+#: ../src/gui.c:261
+msgid "E-Mail..."
+msgstr "E-Mail..."
+
+#: ../src/gui.c:262
+msgid "Font..."
+msgstr "Шрифт..."
+
+#: ../src/gui.c:263
+msgid "Base Font Size..."
+msgstr "Базовый размер шрифта..."
+
+#: ../src/gui.c:265
+msgid "Font Size +1"
+msgstr "Размер шрифта+1"
+
+#: ../src/gui.c:266
+msgid "Font Size -1"
+msgstr "Размер шрифта-1"
+
+#: ../src/gui.c:267
+msgid "Preformatted Text"
+msgstr "Отформатированный текст"
+
+#: ../src/gui.c:268
+msgid "Subscript"
+msgstr "Нижний индекс"
+
+#: ../src/gui.c:269
+msgid "Superscript"
+msgstr "Верхний индекс"
+
+#: ../src/gui.c:270
+msgid "Strong"
+msgstr "Выделенный шрифт"
+
+#: ../src/gui.c:271
+msgid "Emphasis"
+msgstr "Шрифт акцента"
+
+#: ../src/gui.c:273 ../src/html.c:770
+msgid "Heading 1"
+msgstr "Заголовок 1"
+
+#: ../src/gui.c:274 ../src/html.c:773
+msgid "Heading 2"
+msgstr "Заголовок 2"
+
+#: ../src/gui.c:275 ../src/html.c:776
+msgid "Heading 3"
+msgstr "Заголовок 3"
+
+#: ../src/gui.c:276 ../src/html.c:779
+msgid "Heading 4"
+msgstr "Заголовок 4"
+
+#: ../src/gui.c:277 ../src/html.c:782
+msgid "Heading 5"
+msgstr "Заголовок 5"
+
+#: ../src/gui.c:278 ../src/html.c:785
+msgid "Heading 6"
+msgstr "Заголовок 6"
+
+#: ../src/gui.c:279
+msgid "Table Wizard..."
+msgstr "Мастер таблиц..."
+
+#: ../src/gui.c:281
+msgid "Table..."
+msgstr "Таблица..."
+
+#: ../src/gui.c:282
+msgid "Table Row..."
+msgstr "Строка таблицы..."
+
+#: ../src/gui.c:283
+msgid "Table Header..."
+msgstr "Заголовок таблицы..."
+
+#: ../src/gui.c:284
+msgid "Table Data..."
+msgstr "Ячейка таблицы..."
+
+#: ../src/gui.c:286 ../src/html_table.c:82
+msgid "Table"
+msgstr "Таблица"
+
+#: ../src/gui.c:287 ../src/html_table.c:215
+msgid "Table Row"
+msgstr "Строка таблицы"
+
+#: ../src/gui.c:288 ../src/html_table.c:326
+msgid "Table Header"
+msgstr "Заголовок таблицы"
+
+#: ../src/gui.c:289 ../src/html_table.c:324
+msgid "Table Data"
+msgstr "Ячейка таблицы"
+
+#: ../src/gui.c:290
+msgid "Table Caption"
+msgstr "Название таблицы"
+
+#: ../src/gui.c:291
+msgid "Frame Wizard..."
+msgstr "Мастер врезок..."
+
+#: ../src/gui.c:293
+msgid "Frameset..."
+msgstr "Набор врезок..."
+
+#: ../src/gui.c:294
+msgid "Frame..."
+msgstr "Врезка..."
+
+#: ../src/gui.c:296 ../src/html.c:1681
+msgid "Frameset"
+msgstr "Набор врезок"
+
+#: ../src/gui.c:297 ../src/html.c:1766
+msgid "Frame"
+msgstr "Врезка"
+
+#: ../src/gui.c:298
+msgid "Noframes"
+msgstr "Код для браузера без врезок"
+
+#: ../src/gui.c:299
+msgid "Target"
+msgstr "Цель"
+
+#: ../src/gui.c:300
+msgid "Form..."
+msgstr "Форма..."
+
+#: ../src/gui.c:301
+msgid "Input button..."
+msgstr "Кнопка..."
+
+#: ../src/gui.c:302
+msgid "Text..."
+msgstr "Текст..."
+
+#: ../src/gui.c:303
+msgid "Hidden..."
+msgstr "Скрытое поле..."
+
+#: ../src/gui.c:304
+msgid "Textarea..."
+msgstr "Поле ввода..."
+
+#: ../src/gui.c:305
+msgid "Radio Button..."
+msgstr "Переключатель..."
+
+#: ../src/gui.c:306
+msgid "Check Box..."
+msgstr "Флажок..."
+
+#: ../src/gui.c:307
+msgid "Select..."
+msgstr "Поле выбора..."
+
+#: ../src/gui.c:308
+msgid "Option..."
+msgstr "Вариант выбора..."
+
+#: ../src/gui.c:309
+msgid "Option group..."
+msgstr "Группа вариантов выбора..."
+
+#: ../src/gui.c:310
+msgid "Quick List..."
+msgstr "Заготовка списка..."
+
+#: ../src/gui.c:311
+msgid "Unordered List"
+msgstr "Неупорядоченный список"
+
+#: ../src/gui.c:312
+msgid "Ordered List"
+msgstr "Упорядоченный список"
+
+#: ../src/gui.c:313
+msgid "List Item"
+msgstr "Элемент списка"
+
+#: ../src/gui.c:314
+msgid "Definition List"
+msgstr "Список определений"
+
+#: ../src/gui.c:315
+msgid "Definition Term"
+msgstr "Термин"
+
+#: ../src/gui.c:316 ../src/gui.c:325
+msgid "Definition"
+msgstr "Определение термина"
+
+#: ../src/gui.c:317
+msgid "Create stylesheet..."
+msgstr "Создать таблицу стилей..."
+
+#: ../src/gui.c:318
+msgid "Span..."
+msgstr "Span..."
+
+#: ../src/gui.c:319
+msgid "Div..."
+msgstr "Div..."
+
+#: ../src/gui.c:320
+msgid "Style"
+msgstr "Стиль"
+
+#: ../src/gui.c:321
+msgid "Link to stylesheet..."
+msgstr "Ссылка на таблицу стилей..."
+
+#: ../src/gui.c:322
+msgid "Insert image..."
+msgstr "Вставить картинку..."
+
+#: ../src/gui.c:323
+msgid "Insert thumbnail..."
+msgstr "Вставить эскиз..."
+
+#: ../src/gui.c:324
+msgid "Multi thumbnail..."
+msgstr "Альбом эскизов..."
+
+#: ../src/gui.c:326
+msgid "Code"
+msgstr "Код"
+
+#: ../src/gui.c:327
+msgid "Sample"
+msgstr "Пример"
+
+#: ../src/gui.c:328
+msgid "Keyboard"
+msgstr "Клавиатура"
+
+#: ../src/gui.c:329
+msgid "Variable"
+msgstr "Переменная"
+
+#: ../src/gui.c:330
+msgid "Citation"
+msgstr "Цитата"
+
+#: ../src/gui.c:331
+msgid "Abbreviation"
+msgstr "Аббревиатура"
+
+#: ../src/gui.c:332
+msgid "Acronym"
+msgstr "Акроним"
+
+#: ../src/gui.c:365
+msgid "Remove from quickbar"
+msgstr "Убрать с панели быстрого доступа"
+
+#: ../src/gui.c:395
+msgid "Add to quickbar"
+msgstr "Добавить на панель быстрого доступа"
+
+#: ../src/gui.c:484
+msgid " Quick bar "
+msgstr " Панель быстрого доступа "
+
+#: ../src/gui.c:488
+msgid "Heading"
+msgstr "Заголовок"
+
+#: ../src/gui.c:490
+msgid " Standard bar "
+msgstr " Стандартная панель "
+
+#: ../src/gui.c:494
+msgid "Context formatting"
+msgstr "Контекстное форматирование"
+
+#: ../src/gui.c:496
+msgid " Fonts "
+msgstr " Шрифты "
+
+#: ../src/gui.c:500
+msgid " Tables "
+msgstr " Таблицы  "
+
+#: ../src/gui.c:504
+msgid " Frames "
+msgstr " Врезки "
+
+#: ../src/gui.c:508
+msgid " Forms "
+msgstr " Формы "
+
+#: ../src/gui.c:512
+msgid " List "
+msgstr " Список "
+
+#: ../src/gui.c:516
+msgid " CSS "
+msgstr " CSS "
+
 #: ../src/gui.c:535
+msgid "New"
+msgstr "Новый"
+
+#: ../src/gui.c:537
+msgid "Open..."
+msgstr "Открыть..."
+
+#: ../src/gui.c:540
+msgid "Save"
+msgstr "Сохранить"
+
+#: ../src/gui.c:542
+msgid "Save As..."
+msgstr "Сохранить как..."
+
+#: ../src/gui.c:547
 msgid "Copy"
 msgstr "Копировать"
 
-#: ../src/gui.c:537
+#: ../src/gui.c:549
 msgid "Cut"
 msgstr "Вырезать"
 
-#: ../src/gui.c:539
+#: ../src/gui.c:551
 msgid "Paste"
 msgstr "Вставить"
 
-#: ../src/gui.c:541
+#: ../src/gui.c:553
 msgid "Search..."
 msgstr "Поиск..."
 
-#: ../src/gui.c:543
+#: ../src/gui.c:555
 msgid "Search and Replace..."
 msgstr "Поиск и замена..."
 
-#: ../src/gui.c:546 ../src/preferences.c:1692
+#: ../src/gui.c:558 ../src/preferences.c:1718
 msgid "Undo"
 msgstr "Отменить действие"
 
-#: ../src/gui.c:548
+#: ../src/gui.c:560
 msgid "Redo"
 msgstr "Повторить действие"
 
-#: ../src/gui.c:551
-#, fuzzy
-msgid "Indent"
-msgstr "в документе"
-
-#: ../src/gui.c:553
+#: ../src/gui.c:563
 msgid "Unindent"
-msgstr ""
+msgstr "Удалить отступы"
 
-#: ../src/gui.c:559
+#: ../src/gui.c:565
+msgid "Indent"
+msgstr "Отформатировать"
+
+#: ../src/gui.c:572
 msgid "Spellcheck..."
 msgstr "Проверка синтаксиса..."
 
-#: ../src/gui.c:564
+#: ../src/gui.c:577
 msgid "View in browser"
 msgstr "Просмотр в браузере"
 
-#: ../src/gui.c:567
+#: ../src/gui.c:580
 msgid "Preferences..."
 msgstr "Настройки..."
 
-#: ../src/gui.c:577
+#: ../src/gui.c:590
 msgid "/Edit/Undo"
 msgstr "/Редактирование/Отменить действие"
 
-#: ../src/gui.c:578 ../src/menu.c:96
+#: ../src/gui.c:591 ../src/menu.c:98
 msgid "/Edit/Undo all"
 msgstr "/Редактирование/Отменить все действия"
 
-#: ../src/gui.c:579
+#: ../src/gui.c:592
 msgid "/Edit/Redo"
 msgstr "/Редактирование/Повторить действие"
 
-#: ../src/gui.c:580 ../src/menu.c:97
+#: ../src/gui.c:593 ../src/menu.c:99
 msgid "/Edit/Redo all"
 msgstr "/Редактирование/Повторить все действия"
 
-#: ../src/gui.c:586
+#: ../src/gui.c:599
 msgid "/Document/Wrap"
 msgstr "/Документ/Перенос слов"
 
-#: ../src/gui.c:587
+#: ../src/gui.c:600
 msgid "/Document/Line numbers"
 msgstr "/Документ/Номера строк"
 
-#: ../src/gui.c:763
+#: ../src/gui.c:778
 msgid " line    1 "
 msgstr " строка    1 "
 
-#: ../src/gui.c:813
+#: ../src/gui.c:828
 msgid "Bluefish tip:"
 msgstr "Подсказка Bluefish:"
 
-#: ../src/gui.c:813
+#: ../src/gui.c:828
 msgid ""
 "This message is shown since you do not have any items in the Quickbar.\n"
 "\n"
@@ -935,23 +945,23 @@ msgstr ""
 "Щелкнув правой кнопкой мыши на панели инструментов HTML, вы можете добавить "
 "кнопки на панель быстрого доступа."
 
-#: ../src/gui.c:909
+#: ../src/gui.c:924
 msgid "Goto line"
 msgstr "Перейти к строке"
 
-#: ../src/gui.c:917
-msgid "Line number: "
-msgstr "Номер строки:"
+#: ../src/gui.c:932
+msgid "_Line number: "
+msgstr "Номер _строки: "
 
-#: ../src/gui.c:920
-msgid "From selection"
-msgstr "От начала выделения"
+#: ../src/gui.c:938
+msgid "From _selection"
+msgstr "От _выделения"
 
-#: ../src/gui.c:928
-msgid "Keep dialog"
-msgstr "Оставить диалог открытым"
+#: ../src/gui.c:946
+msgid "Keep _dialog"
+msgstr "Оставить _диалог открытым"
 
-#: ../src/gui.c:990
+#: ../src/gui.c:1010
 msgid "starting bluefish"
 msgstr "запуск Bluefish"
 
@@ -959,120 +969,111 @@ msgstr "запуск Bluefish"
 msgid "Cascading StyleSheet dialog"
 msgstr "диалог Cascading Style Sheet"
 
-#: ../src/html2.c:604
-msgid "selector"
-msgstr "панель выбора"
-
-#: ../src/html2.c:623
-msgid "property"
-msgstr "свойство"
+#: ../src/html2.c:606
+msgid "_Selector:"
+msgstr "Панель в_ыбора:"
 
 #: ../src/html2.c:625
-msgid "value"
-msgstr "значение"
+msgid "_Property:"
+msgstr "_Свойство:"
 
-#: ../src/html2.c:643
+#: ../src/html2.c:627 ../src/html_form.c:286 ../src/html_form.c:353
+#: ../src/html_form.c:415 ../src/html_form.c:471 ../src/html_form.c:534
+#: ../src/html_form.c:644
+msgid "_Value:"
+msgstr "_Значение:"
+
+#: ../src/html2.c:645
 msgid "Selector"
 msgstr "Панель выбора"
 
-#: ../src/html2.c:643 ../src/html2.c:646
+#: ../src/html2.c:645 ../src/html2.c:648
 msgid "Property"
 msgstr "Свойство"
 
-#: ../src/html2.c:643 ../src/html2.c:646 ../src/html_form.c:286
-#: ../src/html_form.c:353 ../src/html_form.c:415 ../src/html_form.c:471
-#: ../src/html_form.c:534 ../src/html_form.c:644
+#: ../src/html2.c:645 ../src/html2.c:648
 msgid "Value"
 msgstr "Значение"
 
-#: ../src/html2.c:661 ../src/stringlist.c:365
-msgid " Add "
-msgstr " Добавить "
+#: ../src/html2.c:663
+msgid " _Add "
+msgstr " _Добавить "
 
-#: ../src/html2.c:664 ../src/stringlist.c:367
-msgid " Update "
-msgstr " Обновить  "
+#: ../src/html2.c:666
+msgid " _Update "
+msgstr " О_бновить  "
 
-#: ../src/html2.c:667 ../src/stringlist.c:369
-msgid " Delete "
-msgstr " Удалить "
+#: ../src/html2.c:669
+msgid " _Delete "
+msgstr " _Удалить "
 
-#: ../src/html2.c:916 ../src/html2.c:953
-#, fuzzy
+#: ../src/html2.c:925 ../src/html2.c:962
 msgid "_Style..."
-msgstr "Стиль _S"
+msgstr "_Стиль..."
 
-#: ../src/html2.c:1136
+#: ../src/html2.c:1145
 msgid "Bluefish: Select color"
 msgstr "Bluefish: Выберите цвет"
 
-#: ../src/html2.c:1156
-#, fuzzy
+#: ../src/html2.c:1165
 msgid "_websafe"
-msgstr "websafe"
+msgstr "_websafe"
 
 #: ../src/html.c:353
 msgid "Insert Time"
 msgstr "Вставить время"
 
 #: ../src/html.c:361
-#, fuzzy, c-format
+#, c-format
 msgid "  _Time (%i:%i:%i)"
-msgstr "  Время (%i.%i.%i)"
+msgstr "  _Время (%i.%i.%i)"
 
 #: ../src/html.c:366
-#, fuzzy
 msgid "  Day of the _week (Sunday)"
-msgstr "  День недели (Воскресенье)"
+msgstr "  День _недели (Воскресенье)"
 
 #: ../src/html.c:369
-#, fuzzy
 msgid "  Day of the _week (Monday)"
-msgstr "  День недели (Понедельник)"
+msgstr "  День _недели (Понедельник)"
 
 #: ../src/html.c:372
-#, fuzzy
 msgid "  Day of the _week (Tuesday)"
-msgstr "  День недели (Вторник) "
+msgstr "  День _недели (Вторник) "
 
 #: ../src/html.c:375
-#, fuzzy
 msgid "  Day of the _week (Wednesday)"
-msgstr "  День недели (Среда) "
+msgstr "  День _недели (Среда) "
 
 #: ../src/html.c:378
-#, fuzzy
 msgid "  Day of the _week (Thursday)"
-msgstr "  День недели (Четверг)"
+msgstr "  День _недели (Четверг)"
 
 #: ../src/html.c:381
-#, fuzzy
 msgid "  Day of the _week (Friday)"
-msgstr "  День недели (Пятница) "
+msgstr "  День _недели (Пятница) "
 
 #: ../src/html.c:384
-#, fuzzy
 msgid "  Day of the _week (Saturday)"
-msgstr "  День недели (Суббота) "
+msgstr "  День _недели (Суббота) "
 
 #: ../src/html.c:387
 msgid "You appear to have a non existant day!\n"
 msgstr "Похоже, Вы указали несуществующий день!\n"
 
 #: ../src/html.c:395
-#, fuzzy, c-format
+#, c-format
 msgid "  _Date (%i/%i/%i)"
-msgstr "  Дата (%i/%i/%i)"
+msgstr "  _Дата (%i/%i/%i)"
 
 #: ../src/html.c:398
-#, fuzzy, c-format
+#, c-format
 msgid "  _Unix Time (%i)"
-msgstr "  Время UNIX (%i)"
+msgstr "  Время _UNIX (%i)"
 
 #: ../src/html.c:401
-#, fuzzy, c-format
+#, c-format
 msgid "  Unix Date _String (%s"
-msgstr "  Дата в формате UNIX (%s"
+msgstr "  Дата в _формате UNIX (%s"
 
 #: ../src/html.c:545
 msgid "Quick Anchor"
@@ -1083,97 +1084,90 @@ msgid "Options"
 msgstr "Параметры"
 
 #: ../src/html.c:569
-#, fuzzy
 msgid "_HREF:"
-msgstr "HREF"
+msgstr "_HREF:"
 
-#: ../src/html.c:573
-#, fuzzy
+#: ../src/html.c:573 ../src/html_form.c:171
 msgid "_Target:"
-msgstr "Цель"
+msgstr "_Цель:"
 
-#: ../src/html.c:577 ../src/html.c:1344
-#, fuzzy
+#: ../src/html.c:577 ../src/html.c:817 ../src/html.c:1344 ../src/html.c:1778
+#: ../src/html_form.c:220 ../src/html_form.c:282 ../src/html_form.c:349
+#: ../src/html_form.c:411 ../src/html_form.c:467 ../src/html_form.c:530
+#: ../src/html_form.c:589 ../src/image.c:261
 msgid "_Name:"
-msgstr "Имя"
+msgstr "_Имя:"
 
-#: ../src/html.c:581 ../src/html.c:1199
-#, fuzzy
+#: ../src/html.c:581 ../src/html.c:821 ../src/html.c:1199
 msgid "_ID:"
-msgstr "ID"
+msgstr "_ID:"
 
-#: ../src/html.c:585 ../src/html.c:1195
-#, fuzzy
+#: ../src/html.c:585 ../src/html.c:806 ../src/html.c:1195
+#: ../src/html_table.c:96 ../src/html_table.c:243 ../src/html_table.c:357
 msgid "Cl_ass:"
-msgstr "Класс"
+msgstr "_Класс:"
 
-#: ../src/html.c:589 ../src/html.c:1106 ../src/html.c:1188
+#: ../src/html.c:589 ../src/html.c:810 ../src/html.c:1106 ../src/html.c:1188
+#: ../src/html_table.c:101 ../src/html_table.c:254 ../src/html_table.c:362
 msgid "St_yle:"
-msgstr "Стиль _y"
+msgstr "Ст_иль:"
 
-#: ../src/html.c:596 ../src/html.c:1203
-#, fuzzy
+#: ../src/html.c:596 ../src/html.c:1203 ../src/html.c:1955
 msgid "_Language:"
-msgstr "Язык"
+msgstr "_Язык:"
 
-#: ../src/html.c:600 ../src/html.c:960 ../src/html.c:1368
-#, fuzzy
+#: ../src/html.c:600 ../src/html.c:825 ../src/html.c:960 ../src/html.c:1368
+#: ../src/html.c:1713 ../src/html.c:1815 ../src/html.c:1993
+#: ../src/html_form.c:175 ../src/html_form.c:232 ../src/html_form.c:301
+#: ../src/html_form.c:365 ../src/html_form.c:419 ../src/html_form.c:480
+#: ../src/html_form.c:602 ../src/html_table.c:106 ../src/html_table.c:259
+#: ../src/html_table.c:367 ../src/image.c:269
 msgid "Custo_m:"
-msgstr "Прочее"
+msgstr "Про_чее:"
 
 #: ../src/html.c:604 ../src/html.c:1211
 msgid "Events"
 msgstr "События"
 
 #: ../src/html.c:611
-#, fuzzy
 msgid "OnClic_k:"
-msgstr "OnClick"
+msgstr "OnClic_k:"
 
 #: ../src/html.c:615
-#, fuzzy
 msgid "OnD_blClick:"
-msgstr "OnDblClick"
+msgstr "OnD_blClick:"
 
 #: ../src/html.c:619
-#, fuzzy
 msgid "OnMouseO_ver:"
-msgstr "OnMouseOver"
+msgstr "OnMouseO_ver:"
 
 #: ../src/html.c:623
-#, fuzzy
 msgid "OnMouse_Down:"
-msgstr "OnMouseDown"
+msgstr "OnMouse_Down:"
 
 #: ../src/html.c:627
-#, fuzzy
 msgid "OnMouse_Move:"
-msgstr "OnMouseMove"
+msgstr "OnMouse_Move:"
 
 #: ../src/html.c:631
-#, fuzzy
 msgid "OnMouseOu_t:"
-msgstr "OnMouseOut"
+msgstr "OnMouseOu_t:"
 
 #: ../src/html.c:635
-#, fuzzy
 msgid "OnMouse_Up:"
-msgstr "OnMouseUp"
+msgstr "OnMouse_Up:"
 
 #: ../src/html.c:639
-#, fuzzy
 msgid "OnKeyDo_wn:"
-msgstr "OnKeyDown"
+msgstr "OnKeyDo_wn:"
 
 #: ../src/html.c:643
-#, fuzzy
 msgid "OnKey_Press:"
-msgstr "OnKeyPress"
+msgstr "OnKey_Press:"
 
 #: ../src/html.c:647
-#, fuzzy
 msgid "OnKe_yUp:"
-msgstr "OnKeyUp"
+msgstr "OnKe_yUp:"
 
 #: ../src/html.c:764
 msgid "Div"
@@ -1184,64 +1178,34 @@ msgid "Span"
 msgstr "Span"
 
 #: ../src/html.c:802 ../src/html_table.c:114 ../src/html_table.c:225
-#: ../src/html_table.c:339 ../src/image.c:278
-msgid "Align"
-msgstr "Выравнивание"
-
-#: ../src/html.c:806 ../src/html_table.c:96 ../src/html_table.c:243
-#: ../src/html_table.c:357
-msgid "Class"
-msgstr "Класс"
-
-#: ../src/html.c:817 ../src/html.c:1770 ../src/html_form.c:220
-#: ../src/html_form.c:282 ../src/html_form.c:349 ../src/html_form.c:411
-#: ../src/html_form.c:467 ../src/html_form.c:530 ../src/html_form.c:589
-#: ../src/image.c:258 ../src/preferences.c:1417 ../src/preferences.c:1464
-#: ../src/wizards.c:206
-msgid "Name"
-msgstr "Имя"
-
-#: ../src/html.c:821
-msgid "Id"
-msgstr "Id"
-
-#: ../src/html.c:825 ../src/html.c:1481 ../src/html.c:1705 ../src/html.c:1807
-#: ../src/html.c:1982 ../src/html_form.c:175 ../src/html_form.c:232
-#: ../src/html_form.c:301 ../src/html_form.c:365 ../src/html_form.c:419
-#: ../src/html_form.c:480 ../src/html_form.c:543 ../src/html_form.c:602
-#: ../src/html_table.c:106 ../src/html_table.c:259 ../src/html_table.c:367
-#: ../src/image.c:266
-msgid "Custom"
-msgstr "Прочее"
+#: ../src/html_table.c:339
+msgid "Ali_gn:"
+msgstr "_Выравнивание:"
 
 #: ../src/html.c:923
 msgid "Horizontal Rule"
 msgstr "Горизонтальный разделитель"
 
-#: ../src/html.c:934 ../src/html.c:1856
-#, fuzzy
+#: ../src/html.c:934 ../src/html.c:1864 ../src/image.c:281
 msgid "_Align:"
-msgstr "Выравнивание"
+msgstr "В_ыравнивание"
 
-#: ../src/html.c:941 ../src/html.c:1864
-#, fuzzy
+#: ../src/html.c:941 ../src/html.c:1872 ../src/html_table.c:393
 msgid "_Height:"
-msgstr "Высота"
+msgstr "Вы_сота:"
 
-#: ../src/html.c:947 ../src/html.c:1860
-#, fuzzy
+#: ../src/html.c:947 ../src/html.c:1868 ../src/html_table.c:139
+#: ../src/html_table.c:386 ../src/image.c:245
 msgid "_Width:"
-msgstr "Ширина"
+msgstr "_Ширина:"
 
 #: ../src/html.c:950
-#, fuzzy
 msgid "Is _percent"
-msgstr "В процентах?"
+msgstr "В _процентах"
 
 #: ../src/html.c:955
-#, fuzzy
 msgid "No _shading"
-msgstr "Без тени"
+msgstr "Без _тени"
 
 #: ../src/html.c:1027
 msgid "Quick Start"
@@ -1255,7 +1219,7 @@ msgstr "Тип документа _D"
 msgid "Header tags:"
 msgstr "Тэги заголовков:"
 
-#: ../src/html.c:1089
+#: ../src/html.c:1089 ../src/wizards.c:187
 msgid "_Title:"
 msgstr "Название _T"
 
@@ -1264,75 +1228,62 @@ msgid "Body"
 msgstr "Тело документа"
 
 #: ../src/html.c:1207
-#, fuzzy
 msgid "Custom _values:"
-msgstr "Прочие значения"
+msgstr "Прочие _значения:"
 
 #: ../src/html.c:1218
-#, fuzzy
 msgid "On_Load:"
-msgstr "OnLoad"
+msgstr "On_Load:"
 
 #: ../src/html.c:1226
-#, fuzzy
 msgid "On_UnLoad:"
-msgstr "OnUnLoad"
+msgstr "On_UnLoad:"
 
 #: ../src/html.c:1235
-#, fuzzy
 msgid "Depreciated options"
 msgstr "Устаревшие опции"
 
 #: ../src/html.c:1245
-#, fuzzy
 msgid "Background _Image:"
-msgstr "Фоновый рисунок"
+msgstr "Фоновый _рисунок:"
 
 #: ../src/html.c:1252
-#, fuzzy
 msgid "Back_ground Color:"
-msgstr "Цвет фона"
+msgstr "Цвет _фона:"
 
 #: ../src/html.c:1258
-#, fuzzy
 msgid "_Text Color:"
-msgstr "Цвет текста"
+msgstr "Цвет _текста:"
 
 #: ../src/html.c:1264
-#, fuzzy
 msgid "_Link Color:"
-msgstr "Цвет ссылки"
+msgstr "Цвет _ссылки:"
 
 #: ../src/html.c:1270
-#, fuzzy
 msgid "_Visited Link Color:"
-msgstr "Цвет посещенной ссылки"
+msgstr "Цвет _посещенной ссылки:"
 
 #: ../src/html.c:1276
-#, fuzzy
 msgid "_Active Link Color:"
-msgstr "Цвет ссылки под указателем"
+msgstr "Цвет ссылки под _указателем:"
 
 #: ../src/html.c:1330
 msgid "Meta"
 msgstr "Meta"
 
 #: ../src/html.c:1355
-#, fuzzy
 msgid "_HTTP-EQUIV:"
-msgstr "HTTP-EQUIV"
+msgstr "_HTTP-EQUIV"
 
 #: ../src/html.c:1360
-#, fuzzy
 msgid "Con_tent:"
-msgstr "Содержимое"
+msgstr "Содер_жимое:"
 
 #: ../src/html.c:1364
-#, fuzzy
 msgid "_Scheme:"
-msgstr "Схема"
+msgstr "_Схема:"
 
-#: ../src/html.c:1446 ../src/preferences.c:1636
+#: ../src/html.c:1446 ../src/preferences.c:1662
 msgid "Font"
 msgstr "Font"
 
@@ -1340,8 +1291,7 @@ msgstr "Font"
 msgid "Base Font"
 msgstr "Базовый шрифт"
 
-#: ../src/html.c:1464 ../src/html_form.c:294 ../src/html_form.c:594
-#: ../src/wizards.c:212
+#: ../src/html.c:1464
 msgid "Size"
 msgstr "Размер"
 
@@ -1353,130 +1303,117 @@ msgstr "Цвет"
 msgid "Face"
 msgstr "Гарнитура шрифта"
 
-#: ../src/html.c:1533
+#: ../src/html.c:1481
+msgid "Custom"
+msgstr "Прочее"
+
+#: ../src/html.c:1541
 msgid "Email"
 msgstr "Email"
 
-#: ../src/html.c:1541
-#, fuzzy
+#: ../src/html.c:1549
 msgid "_Email address:"
-msgstr "Адрес email:"
+msgstr "Адрес _email:"
 
-#: ../src/html.c:1546
-#, fuzzy
+#: ../src/html.c:1554
 msgid "UrlEncoded _subject:"
-msgstr "Тема в формате UrlEncoded: "
+msgstr "_Тема в формате UrlEncoded:"
 
-#: ../src/html.c:1550
-#, fuzzy
+#: ../src/html.c:1558
 msgid "UrlEncoded _body:"
-msgstr "Тело в формате UrlEncoded:"
+msgstr "Те_ло в формате UrlEncoded:"
 
-#: ../src/html.c:1594
+#: ../src/html.c:1602
 msgid "Quick List"
 msgstr "Заготовка списка"
 
-#: ../src/html.c:1599
-#, fuzzy
+#: ../src/html.c:1607 ../src/html.c:1691 ../src/html_form.c:225
 msgid "_Rows:"
-msgstr "Строк"
+msgstr "Ст_рок"
 
-#: ../src/html.c:1602
-#, fuzzy
+#: ../src/html.c:1610
 msgid "Or_dered"
-msgstr "Упорядоченный"
+msgstr "_Упорядоченный"
 
-#: ../src/html.c:1603
-#, fuzzy
+#: ../src/html.c:1611
 msgid "_Unordered"
-msgstr "Неупорядоченный"
+msgstr "_Неупорядоченный"
 
-#: ../src/html.c:1605
-#, fuzzy
+#: ../src/html.c:1613
 msgid "Style:"
-msgstr "Стиль _y"
+msgstr "Стиль:"
 
-#: ../src/html.c:1679 ../src/html_form.c:229
-msgid "Cols"
-msgstr "Столбцов"
+#: ../src/html.c:1687 ../src/html_form.c:229
+msgid "Co_ls:"
+msgstr "С_толбцов"
 
-#: ../src/html.c:1683 ../src/html_form.c:225
-msgid "Rows"
-msgstr "Строк"
+#: ../src/html.c:1696
+msgid "_Add <frame> elements"
+msgstr "_Добавить элементы <frame>"
 
-#: ../src/html.c:1688
-msgid "Add <frame> elements"
-msgstr "Добавить элементы <frame>"
+#: ../src/html.c:1774 ../src/html.c:1860 ../src/html.c:1948
+msgid "_Source:"
+msgstr "_Источник:"
 
-#: ../src/html.c:1766 ../src/html.c:1940 ../src/wizards.c:208
-msgid "Source"
-msgstr "Источник"
-
-#: ../src/html.c:1774
-msgid " Margin Width "
-msgstr " Ширина отступа "
-
-#: ../src/html.c:1778
-msgid " Margin Height "
-msgstr " Высота Отступа "
+#: ../src/html.c:1782
+msgid "Margin _Width:"
+msgstr "_Ширина отступа:"
 
 #: ../src/html.c:1786
-msgid "Scrolling "
-msgstr "Скроллинг"
+msgid "Margin _Height:"
+msgstr "_Высота Отступа:"
 
-#: ../src/html.c:1790
-msgid "Frameborder"
-msgstr "Рамка врезки"
+#: ../src/html.c:1794
+msgid "Scrollin_g:"
+msgstr "Скро_ллинг:"
 
-#: ../src/html.c:1795
-msgid "No Resize"
-msgstr "Не позволять менять размер"
+#: ../src/html.c:1798
+msgid "_Frameborder:"
+msgstr "_Рамка врезки:"
 
-#: ../src/html.c:1846
+#: ../src/html.c:1803
+msgid "No _Resize:"
+msgstr "Не позволять _менять размер:"
+
+#: ../src/html.c:1854
 msgid "Embed"
-msgstr "Внедрить"
+msgstr "В_недрить"
 
-#: ../src/html.c:1852
-#, fuzzy
-msgid "_Source:"
-msgstr "Источник"
-
-#: ../src/html.c:1868
-#, fuzzy
+#: ../src/html.c:1876 ../src/html_table.c:145
 msgid "Bo_rder:"
-msgstr "Рамка"
+msgstr "_Рамка"
 
-#: ../src/html.c:1929
+#: ../src/html.c:1937
 msgid "Script"
 msgstr "Скрипт"
 
-#: ../src/html.c:1932
+#: ../src/html.c:1940
 msgid "Link"
 msgstr "Ссылка"
 
-#: ../src/html.c:1967
-msgid "Rel"
-msgstr "Относительная ссылка"
+#: ../src/html.c:1975
+msgid "_Rel:"
+msgstr "_Относительная ссылка:"
 
-#: ../src/html.c:1978 ../src/html_form.c:361
-msgid "Type"
-msgstr "Тип"
+#: ../src/html.c:1989 ../src/html_form.c:361
+msgid "_Type:"
+msgstr "_Тип:"
 
 #: ../src/html_form.c:129
 msgid "Form"
 msgstr "Форма"
 
 #: ../src/html_form.c:147
-msgid "Action"
-msgstr "Действие"
+msgid "_Action:"
+msgstr "_Действие:"
 
 #: ../src/html_form.c:155
-msgid "Method"
-msgstr "Метод"
+msgid "Metho_d:"
+msgstr "_Метод:"
 
 #: ../src/html_form.c:164
-msgid "Enctype"
-msgstr "Тип кодирования"
+msgid "_Enctype:"
+msgstr "Тип _кодирования:"
 
 #: ../src/html_form.c:214
 msgid "Text area"
@@ -1486,9 +1423,13 @@ msgstr "Область ввода текста"
 msgid "Text"
 msgstr "Текст"
 
+#: ../src/html_form.c:294 ../src/html_form.c:594
+msgid "Si_ze:"
+msgstr "Ра_змер:"
+
 #: ../src/html_form.c:298
-msgid "Max Length"
-msgstr "Максимальная длина"
+msgid "Max _Length:"
+msgstr "Максимальная _длина:"
 
 #: ../src/html_form.c:343
 msgid "Button"
@@ -1503,153 +1444,158 @@ msgid "Radio Button"
 msgstr "Переключатель"
 
 #: ../src/html_form.c:476 ../src/html_form.c:539
-msgid "Checked"
-msgstr "Включен"
+msgid "Chec_ked:"
+msgstr "В_ключен:"
 
 #: ../src/html_form.c:524
 msgid "Check Box"
 msgstr "Флажок"
+
+#: ../src/html_form.c:543
+msgid "_Custo_m:"
+msgstr "Про_чее:"
 
 #: ../src/html_form.c:583
 msgid "Select"
 msgstr "Поле выбора"
 
 #: ../src/html_form.c:598
-msgid "Multiple selections"
-msgstr "Многократный выбор"
+msgid "Multiple _Selections:"
+msgstr "Многократный в_ыбор:"
 
 #: ../src/html_form.c:638
 msgid "Option"
 msgstr "Параметр"
 
-#: ../src/html_form.c:648 ../src/html_form.c:692 ../src/preferences.c:1260
-#: ../src/preferences.c:1291
-msgid "Label"
-msgstr "Ярлык"
+#: ../src/html_form.c:648 ../src/html_form.c:692
+msgid "_Label:"
+msgstr "_Ярлык:"
 
 #: ../src/html_form.c:653
-msgid "Selected"
-msgstr "Значение, выбранное по умолчанию"
+msgid "_Selected:"
+msgstr "В_ыбранное значение:"
 
 #: ../src/html_form.c:687
 msgid "Option group"
 msgstr "Группа параметров"
 
 #: ../src/html_table.c:88
-msgid "Cell Padding"
-msgstr "Заполнение ячейки"
+msgid "Cell _Padding:"
+msgstr "_Заполнение ячейки:"
 
 #: ../src/html_table.c:92
-msgid "Cell Spacing"
-msgstr "Просвет между ячейками"
+msgid "C_ell Spacing:"
+msgstr "_Просвет между ячейками:"
 
-#: ../src/html_table.c:128
-msgid "Vertical Align"
-msgstr "Вертикальное выравнивание"
+#: ../src/html_table.c:128 ../src/html_table.c:239 ../src/html_table.c:353
+msgid "_Valign:"
+msgstr "Выравнивание по _вертикали:"
 
-#: ../src/html_table.c:133 ../src/html_table.c:248 ../src/html_table.c:398
-msgid "Background Color"
-msgstr "Цвет фона"
+#: ../src/html_table.c:133 ../src/html_table.c:398
+msgid "Backgrou_nd Color:"
+msgstr "Цвет _фона:"
 
-#: ../src/html_table.c:139
-msgid " Width "
-msgstr " Ширина "
-
-#: ../src/html_table.c:145 ../src/image.c:282
-msgid "Border"
-msgstr "Рамка"
+#: ../src/html_table.c:159
+msgid "_Frame:"
+msgstr "В_резка:"
 
 #: ../src/html_table.c:170
-msgid "Rules"
-msgstr "Скроллеры"
+msgid "R_ules:"
+msgstr "С_кроллеры:"
 
-#: ../src/html_table.c:239 ../src/html_table.c:353
-msgid "VAlign"
-msgstr "VAlign"
+#: ../src/html_table.c:248
+msgid "Backgou_nd Color:"
+msgstr "Цвет _фона:"
 
 #: ../src/html_table.c:371
-msgid "Col Span"
-msgstr "Расстояние между столбцами"
+msgid "Co_l Span:"
+msgstr "Расстояние между с_толбцами:"
 
 #: ../src/html_table.c:375
-msgid "Row Span"
-msgstr "Расстояние между строками"
+msgid "_Row Span:"
+msgstr "Расстояние между ст_роками:"
 
 #: ../src/html_table.c:380
-msgid "No Wrap"
-msgstr "Не переносить слова"
+msgid "No Wra_p:"
+msgstr "Не _переносить слова:"
 
-#: ../src/html_table.c:386 ../src/image.c:242 ../src/image.c:454
-#: ../src/image.c:462
-msgid "Width"
-msgstr "Ширина"
-
-#: ../src/html_table.c:393 ../src/image.c:249 ../src/image.c:458
-#: ../src/image.c:483
-msgid "Height"
-msgstr "Высота"
-
-#: ../src/image.c:205
-msgid "Insert image"
-msgstr "Вставить изображение"
-
-#: ../src/image.c:207
+#: ../src/image.c:208
 msgid "Insert thumbnail"
 msgstr "Вставить эскиз"
 
-#: ../src/image.c:214
+#: ../src/image.c:210
+msgid "Insert image"
+msgstr "Вставить изображение"
+
+#: ../src/image.c:217
 msgid "Preview"
 msgstr "Просмотр"
 
-#: ../src/image.c:234
-msgid "Image location"
-msgstr "Ссылка на изображение"
+#: ../src/image.c:237
+msgid "_Image location:"
+msgstr "Ссылка на _изображение:"
 
-#: ../src/image.c:254
-msgid "Usemap"
-msgstr "Usemap"
+#: ../src/image.c:252
+msgid "Hei_ght:"
+msgstr "В_ысота:"
 
-#: ../src/image.c:262
-msgid "Alternate text"
-msgstr "Альтернативный текст"
+#: ../src/image.c:257
+msgid "_Usemap:"
+msgstr "_Usemap:"
 
-#: ../src/image.c:270
-msgid "Hspace"
-msgstr "Hspace"
+#: ../src/image.c:265
+msgid "Alternate _text:"
+msgstr "Альтернативный _текст:"
 
-#: ../src/image.c:274
-msgid "Vspace"
-msgstr "Vspace"
+#: ../src/image.c:273
+msgid "_Hspace:"
+msgstr "_Hspace:"
 
-#: ../src/image.c:340
+#: ../src/image.c:277
+msgid "_Vspace:"
+msgstr "_Vspace:"
+
+#: ../src/image.c:285
+msgid "Borde_r:"
+msgstr "_Рамка:"
+
+#: ../src/image.c:343
 msgid "Select files for thumbnail creation"
 msgstr "Выберите файлы для которых следует создать эскизы"
 
-#: ../src/image.c:450
+#: ../src/image.c:453
 msgid "Scaling (%)"
 msgstr "Масштабирование (%)"
 
-#: ../src/image.c:473
+#: ../src/image.c:457 ../src/image.c:465
+msgid "Width"
+msgstr "Ширина"
+
+#: ../src/image.c:461 ../src/image.c:486
+msgid "Height"
+msgstr "Высота"
+
+#: ../src/image.c:476
 msgid "Multi thumbnail"
 msgstr "Альбом эскизов"
 
-#: ../src/image.c:478
+#: ../src/image.c:481
 msgid "By scaling"
 msgstr "По масштабу"
 
-#: ../src/image.c:479
+#: ../src/image.c:482
 msgid "By width, keep aspect ratio"
 msgstr "По ширине, сохранять пропорции"
 
-#: ../src/image.c:480
+#: ../src/image.c:483
 msgid "By height, keep aspect ratio"
 msgstr "По высоте, сохранять пропорции"
 
-#: ../src/image.c:481
+#: ../src/image.c:484
 msgid "By width and height, ignore aspect ratio"
 msgstr "По ширине и высоте, игнорировать пропорцию"
 
-#: ../src/image.c:508
+#: ../src/image.c:511
 msgid ""
 "%r: original filename  %t: thumbnail filename\n"
 "%w: original width  %h: original height\n"
@@ -1661,1425 +1607,1448 @@ msgstr ""
 "%x: ширина эскиза  %y: высота эскиза\n"
 "%b: размер исходного файла (в байтах)"
 
-#: ../src/menu.c:56
+#: ../src/menu.c:58
 msgid "/_File"
 msgstr "/Файл _F"
 
-#: ../src/menu.c:57
+#: ../src/menu.c:59
 msgid "/File/tearoff1"
 msgstr "/Файл/tearoff1"
 
-#: ../src/menu.c:58
+#: ../src/menu.c:60
 msgid "/File/_New"
 msgstr "/Файл/Новый _N"
 
-#: ../src/menu.c:59
+#: ../src/menu.c:61
 msgid "/File/_Open..."
 msgstr "/Файл/Открыть... _O"
 
-#: ../src/menu.c:60
+#: ../src/menu.c:62
 msgid "/File/Open advanced..."
 msgstr "/Файл/Открыть улучшенный диалог..."
 
-#: ../src/menu.c:61
+#: ../src/menu.c:63
 msgid "/File/Open r_ecent"
 msgstr "/Файл/Открыть недавние _e"
 
-#: ../src/menu.c:62
+#: ../src/menu.c:64
 msgid "/File/Open recent/tearoff1"
 msgstr "/Файл/Открыть недавние/tearoff1"
 
-#: ../src/menu.c:63
+#: ../src/menu.c:65
 msgid "/File/_Revert to saved"
 msgstr "/Файл/Вернуть к сохраненному варианту"
 
-#: ../src/menu.c:64
+#: ../src/menu.c:66
 msgid "/File/_Insert..."
 msgstr "/Файл/Вставить _I"
 
-#: ../src/menu.c:65
+#: ../src/menu.c:67
 msgid "/File/sep2"
 msgstr "/Файл/sep2"
 
-#: ../src/menu.c:66
+#: ../src/menu.c:68
 msgid "/File/_Save"
 msgstr "/Файл/Сохранить _S"
 
-#: ../src/menu.c:67
+#: ../src/menu.c:69
 msgid "/File/Save _as..."
 msgstr "/Файл/Сохранить как _a"
 
-#: ../src/menu.c:68
+#: ../src/menu.c:70
 msgid "/File/_Move to..."
 msgstr "/Файл/Переместить в... _M"
 
-#: ../src/menu.c:69
+#: ../src/menu.c:71
 msgid "/File/Sa_ve all"
 msgstr "/Файл/Сохранить все _v"
 
-#: ../src/menu.c:70
+#: ../src/menu.c:72
 msgid "/File/sep3"
 msgstr "/Файл/sep3"
 
-#: ../src/menu.c:71
+#: ../src/menu.c:73
 msgid "/File/_Close"
 msgstr "/Файл/Закрыть _C"
 
-#: ../src/menu.c:72
+#: ../src/menu.c:74
 msgid "/File/Close all"
 msgstr "/Файл/Закрыть все"
 
-#: ../src/menu.c:73
+#: ../src/menu.c:75
 msgid "/File/sep5"
 msgstr "/Файл/sep5"
 
-#: ../src/menu.c:74
+#: ../src/menu.c:76
 msgid "/File/_Quit"
 msgstr "/Файл/Выход _Q"
 
-#: ../src/menu.c:75
+#: ../src/menu.c:77
 msgid "/_Edit"
 msgstr "/Редактирование _E"
 
-#: ../src/menu.c:76
+#: ../src/menu.c:78
 msgid "/Edit/Tearoff1"
 msgstr "/Редактировать/Tearoff1"
 
-#: ../src/menu.c:77
+#: ../src/menu.c:79
 msgid "/Edit/Cu_t"
 msgstr "/Редактирование/Вырезать _t"
 
-#: ../src/menu.c:78
+#: ../src/menu.c:80
 msgid "/Edit/_Copy"
 msgstr "/Редактирование/Копировать _C"
 
-#: ../src/menu.c:79
+#: ../src/menu.c:81
 msgid "/Edit/_Paste"
 msgstr "/Редактирование/Вставить _P"
 
-#: ../src/menu.c:80
+#: ../src/menu.c:82
 msgid "/Edit/Select _all"
 msgstr "/Редактирование/Выбрать все _a"
 
-#: ../src/menu.c:81
+#: ../src/menu.c:83
 msgid "/Edit/sep3"
 msgstr "/Редактирование/sep3"
 
-#: ../src/menu.c:82
+#: ../src/menu.c:84
 msgid "/Edit/_Find..."
 msgstr "/Редактирование/Поиск _F"
 
-#: ../src/menu.c:83
+#: ../src/menu.c:85
 msgid "/Edit/Ne_w find..."
 msgstr "/Редактирование/Новый поиск... _w"
 
-#: ../src/menu.c:84
+#: ../src/menu.c:86
 msgid "/Edit/Find agai_n"
 msgstr "/Редактирование/Найти далее... _n"
 
-#: ../src/menu.c:85
+#: ../src/menu.c:87
 msgid "/Edit/R_eplace..."
 msgstr "/Редактирование/Заменить _e"
 
-#: ../src/menu.c:86
+#: ../src/menu.c:88
 msgid "/Edit/New re_place..."
 msgstr "/Редактирование/Новая замена _p"
 
-#: ../src/menu.c:87
+#: ../src/menu.c:89
 msgid "/Edit/Replace a_gain"
 msgstr "/Редактирование/Заменить далее _g"
 
-#: ../src/menu.c:88
+#: ../src/menu.c:90
 msgid "/Edit/Replace _special"
 msgstr "/Редактирование/Особая замена _s"
 
-#: ../src/menu.c:89
+#: ../src/menu.c:91
 msgid "/Edit/Replace special/Tearoff1"
 msgstr "/Редактирование/Особая замена/Tearoff1"
 
-#: ../src/menu.c:90
+#: ../src/menu.c:92
 msgid "/Edit/Replace special/_ascii to HTML entities"
 msgstr "/Редактирование/Особая замена/_ascii в спецсимволы HTML"
 
-#: ../src/menu.c:91
+#: ../src/menu.c:93
 msgid "/Edit/Replace special/_iso8859 to HTML entities"
 msgstr "/Редактирование/Особая замена/_iso8859 в спецсимволы HTML"
 
-#: ../src/menu.c:92
+#: ../src/menu.c:94
 msgid "/Edit/Replace special/_both types to HTML entities"
 msgstr "/Редактирование/Особая замена/оба типа в спецсимволы HTMLK_b"
 
-#: ../src/menu.c:93
+#: ../src/menu.c:95
 msgid "/Edit/sep4"
 msgstr "/Редактирование/sep4"
 
-#: ../src/menu.c:94
+#: ../src/menu.c:96
 msgid "/Edit/_Undo"
 msgstr "/Редактирование/Отмена действия_U"
 
-#: ../src/menu.c:95
+#: ../src/menu.c:97
 msgid "/Edit/_Redo"
 msgstr "/Редактирование/Повтор действия _R"
 
-#: ../src/menu.c:98
+#: ../src/menu.c:100
 msgid "/Edit/sep5"
 msgstr "/Редактирование/sep5"
 
-#: ../src/menu.c:99
+#: ../src/menu.c:101
+msgid "/Edit/Block operations"
+msgstr "/Редактирование/Операции с блоками"
+
+#: ../src/menu.c:102
+msgid "/Edit/Block operations/Tearoff1"
+msgstr "/Редактирование/Операции с блоками/Tearoff1"
+
+#: ../src/menu.c:103
+msgid "/Edit/Block operations/Indent block"
+msgstr "/Редактирование/Операции с блоками/Отформатировать блок"
+
+#: ../src/menu.c:104
+msgid "/Edit/Block operations/Unindent block"
+msgstr "/Редактирование/Операции с блоками/Убрать отступы в блоке"
+
+#: ../src/menu.c:105
+msgid "/Edit/sep6"
+msgstr "/Редактирование/sep6"
+
+#: ../src/menu.c:106
 msgid "/Edit/_Goto line"
 msgstr "/Редактирование/Перейти к строке _G"
 
-#: ../src/menu.c:100
+#: ../src/menu.c:107
 msgid "/Edit/G_oto selection"
 msgstr "/Редактирование/Перейти к выбранному _o"
 
-#: ../src/menu.c:101
+#: ../src/menu.c:108
 msgid "/_Tags"
 msgstr "/_Тэги"
 
-#: ../src/menu.c:102
+#: ../src/menu.c:109
 msgid "/Tags/Tearoff1"
 msgstr "/Тэги/Tearoff1"
 
-#: ../src/menu.c:104
+#: ../src/menu.c:111
 msgid "/Tags/_Headings"
 msgstr "/Тэги/Заголовки _H"
 
-#: ../src/menu.c:105
+#: ../src/menu.c:112
 msgid "/Tags/Headings/Tearoff1"
 msgstr "/Тэги/Заголовки/Tearoff1"
 
-#: ../src/menu.c:106
+#: ../src/menu.c:113
 msgid "/Tags/Headings/H_1"
 msgstr "/Тэги/Заголовки/H_1"
 
-#: ../src/menu.c:107
+#: ../src/menu.c:114
 msgid "/Tags/Headings/H_2"
 msgstr "/Тэги/Заголовки/H_2"
 
-#: ../src/menu.c:108
+#: ../src/menu.c:115
 msgid "/Tags/Headings/H_3"
 msgstr "/Тэги/Заголовки/H_3"
 
-#: ../src/menu.c:109
+#: ../src/menu.c:116
 msgid "/Tags/Headings/H_4"
 msgstr "/Тэги/Заголовки/H_4"
 
-#: ../src/menu.c:110
+#: ../src/menu.c:117
 msgid "/Tags/Headings/H_5"
 msgstr "/Тэги/Заголовки/H_5"
 
-#: ../src/menu.c:111
+#: ../src/menu.c:118
 msgid "/Tags/Headings/H_6"
 msgstr "/Тэги/Заголовки/H_6"
 
-#: ../src/menu.c:112
+#: ../src/menu.c:119
 msgid "/Tags/_Special"
 msgstr "/Тэги/Особые _S"
 
-#: ../src/menu.c:113
+#: ../src/menu.c:120
 msgid "/Tags/Special/tearoff1"
 msgstr "/Тэги/Особые/tearoff1"
 
-#: ../src/menu.c:114
+#: ../src/menu.c:121
 msgid "/Tags/Special/_Accent"
 msgstr "/Тэги/Особые/_Accent"
 
-#: ../src/menu.c:115
+#: ../src/menu.c:122
 msgid "/Tags/Special/Accent/tearoff1"
 msgstr "/Тэги/Особые/Accent/tearoff1"
 
-#: ../src/menu.c:116
+#: ../src/menu.c:123
 msgid "/Tags/Special/Accent/_Uppercase"
 msgstr "/Тэги/Особые/Accent/Прописные _U"
 
-#: ../src/menu.c:117
+#: ../src/menu.c:124
 msgid "/Tags/Special/Accent/Uppercase/_A-I"
 msgstr "/Тэги/Особые/Accent/Прописные/_A-I"
 
-#: ../src/menu.c:118
+#: ../src/menu.c:125
 msgid "/Tags/Special/Accent/Uppercase/A-I/tearoff1"
 msgstr "/Тэги/Особые/Accent/Прописные/A-I/tearoff1"
 
-#: ../src/menu.c:119
+#: ../src/menu.c:126
 msgid "/Tags/Special/Accent/Uppercase/A-I/A grave À"
 msgstr "/Тэги/Особые/Accent/Прописные/A-I/A штрих влево À"
 
-#: ../src/menu.c:120
+#: ../src/menu.c:127
 msgid "/Tags/Special/Accent/Uppercase/A-I/A acute Á"
 msgstr "/Тэги/Особые/Accent/Прописные/A-I/A штрих вправо Á"
 
-#: ../src/menu.c:121
+#: ../src/menu.c:128
 msgid "/Tags/Special/Accent/Uppercase/A-I/A circumflex Â"
 msgstr "/Тэги/Особые/Accent/Прописные/A-I/A с крышкой Â"
 
-#: ../src/menu.c:122
+#: ../src/menu.c:129
 msgid "/Tags/Special/Accent/Uppercase/A-I/A tilde Ã"
 msgstr "/Тэги/Особые/Accent/Прописные/A-I/A с тильдой Ã"
 
-#: ../src/menu.c:123
+#: ../src/menu.c:130
 msgid "/Tags/Special/Accent/Uppercase/A-I/AE ligature Æ"
 msgstr "/Тэги/Особые/Accent/Прописные/A-I/Лигатура AE Æ"
 
-#: ../src/menu.c:124
+#: ../src/menu.c:131
 msgid "/Tags/Special/Accent/Uppercase/A-I/A diaeresis Ä"
 msgstr "/Тэги/Особые/Accent/Прописные/A-I/A с двумя точками Ä"
 
-#: ../src/menu.c:125
+#: ../src/menu.c:132
 msgid "/Tags/Special/Accent/Uppercase/A-I/A ring Å"
 msgstr "/Тэги/Особые/Accent/Прописные/A-I/A с кольцом Å"
 
-#: ../src/menu.c:126
+#: ../src/menu.c:133
 msgid "/Tags/Special/Accent/Uppercase/A-I/C cedilla Ç"
 msgstr "/Тэги/Особые/Accent/Прописные/A-I/C cedilla Ç"
 
-#: ../src/menu.c:127
+#: ../src/menu.c:134
 msgid "/Tags/Special/Accent/Uppercase/A-I/E grave È"
 msgstr "/Тэги/Особые/Accent/Прописные/A-I/E штрих влево È"
 
-#: ../src/menu.c:128
+#: ../src/menu.c:135
 msgid "/Tags/Special/Accent/Uppercase/A-I/E acute É"
 msgstr "/Тэги/Особые/Accent/Прописные/A-I/E штрих вправо É"
 
-#: ../src/menu.c:129
+#: ../src/menu.c:136
 msgid "/Tags/Special/Accent/Uppercase/A-I/E circumflex Ê"
 msgstr "/Тэги/Особые/Accent/Прописные/A-I/E с крышкой Ê"
 
-#: ../src/menu.c:130
+#: ../src/menu.c:137
 msgid "/Tags/Special/Accent/Uppercase/A-I/E diaeresis Ë"
 msgstr "/Тэги/Особые/Accent/Прописные/A-I/E с двумя точками Ë"
 
-#: ../src/menu.c:131
+#: ../src/menu.c:138
 msgid "/Tags/Special/Accent/Uppercase/A-I/I grave Ì"
 msgstr "/Тэги/Особые/Accent/Прописные/A-I/I штрих влево Ì"
 
-#: ../src/menu.c:132
+#: ../src/menu.c:139
 msgid "/Tags/Special/Accent/Uppercase/A-I/I acute Í"
 msgstr "/Тэги/Особые/Accent/Прописные/A-I/I штрих вправо Í"
 
-#: ../src/menu.c:133
+#: ../src/menu.c:140
 msgid "/Tags/Special/Accent/Uppercase/A-I/I circumflex Î"
 msgstr "/Тэги/Особые/Accent/Прописные/A-I/I с крышкой Î"
 
-#: ../src/menu.c:134
+#: ../src/menu.c:141
 msgid "/Tags/Special/Accent/Uppercase/A-I/I diaeresis Ï"
 msgstr "/Тэги/Особые/Accent/Прописные/A-I/I с двумя точками Ï"
 
-#: ../src/menu.c:135
+#: ../src/menu.c:142
 msgid "/Tags/Special/Accent/Uppercase/_J-Z"
 msgstr "/Тэги/Особые/Accent/Прописные/_J-Z"
 
-#: ../src/menu.c:136
+#: ../src/menu.c:143
 msgid "/Tags/Special/Accent/Uppercase/J-Z/tearoff1"
 msgstr "/Тэги/Особые/Accent/Прописные/J-Z/tearoff1"
 
-#: ../src/menu.c:137
+#: ../src/menu.c:144
 msgid "/Tags/Special/Accent/Uppercase/J-Z/N tilde Ñ"
 msgstr "/Тэги/Особые/Accent/Прописные/J-Z/N с тильдой Ñ"
 
-#: ../src/menu.c:138
+#: ../src/menu.c:145
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O grave Ò"
 msgstr "/Тэги/Особые/Accent/Прописные/J-Z/O штрих влево Ò"
 
-#: ../src/menu.c:139
+#: ../src/menu.c:146
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O acute Ó"
 msgstr "/Тэги/Особые/Accent/Прописные/J-Z/O штрих вправо Ó"
 
-#: ../src/menu.c:140
+#: ../src/menu.c:147
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O circumflex Ô"
 msgstr "/Тэги/Особые/Accent/Прописные/J-Z/O с крышкой Ô"
 
-#: ../src/menu.c:141
+#: ../src/menu.c:148
 #, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/J-Z/OE ligature"
 msgstr "/Тэги/Особые/Accent/Прописные/J-Z/Лигатура OE Œ"
 
-#: ../src/menu.c:142
+#: ../src/menu.c:149
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O tilde Õ"
 msgstr "/Тэги/Особые/Accent/Прописные/J-Z/O с тильдой Õ"
 
-#: ../src/menu.c:143
+#: ../src/menu.c:150
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O diaeresis Ö"
 msgstr "/Тэги/Особые/Accent/Прописные/J-Z/O с двумя точками Ö"
 
-#: ../src/menu.c:144
+#: ../src/menu.c:151
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O slash Ø"
 msgstr "/Тэги/Особые/Accent/Прописные/J-Z/O перечеркнутое Ø"
 
-#: ../src/menu.c:145
+#: ../src/menu.c:152
 msgid "/Tags/Special/Accent/Uppercase/J-Z/U grave Ù"
 msgstr "/Тэги/Особые/Accent/Прописные/J-Z/U штрих влево Ù"
 
-#: ../src/menu.c:146
+#: ../src/menu.c:153
 msgid "/Tags/Special/Accent/Uppercase/J-Z/U acute Ú"
 msgstr "/Тэги/Особые/Accent/Прописные/J-Z/U штрих вправо Ú"
 
-#: ../src/menu.c:147
+#: ../src/menu.c:154
 msgid "/Tags/Special/Accent/Uppercase/J-Z/U circumflex Û"
 msgstr "/Тэги/Особые/Accent/Прописные/J-Z/U с крышкой Û"
 
-#: ../src/menu.c:148
+#: ../src/menu.c:155
 msgid "/Tags/Special/Accent/Uppercase/J-Z/U diaeresis Ü"
 msgstr "/Тэги/Особые/Accent/Прописные/J-Z/U с двумя точками Ü"
 
-#: ../src/menu.c:150
+#: ../src/menu.c:157
 msgid "/Tags/Special/Accent/Uppercase/J-Z/Y acute Ý"
 msgstr "/Тэги/Особые/Accent/Прописные/J-Z/Y штрих вправо Ý"
 
-#: ../src/menu.c:152
+#: ../src/menu.c:159
 msgid "/Tags/Special/Accent/_Lowercase"
 msgstr "/Тэги/Особые/Accent/Строчные _L"
 
-#: ../src/menu.c:153
+#: ../src/menu.c:160
 msgid "/Tags/Special/Accent/Lowercase/_A-I"
 msgstr "/Тэги/Особые/Accent/Строчные/_A-I"
 
-#: ../src/menu.c:154
+#: ../src/menu.c:161
 msgid "/Tags/Special/Accent/Lowercase/A-I/tearoff1"
 msgstr "/Тэги/Особые/Accent/Строчные/A-I/tearoff1"
 
-#: ../src/menu.c:156
+#: ../src/menu.c:163
 msgid "/Tags/Special/Accent/Lowercase/A-I/a grave à"
 msgstr "/Тэги/Особые/Accent/Строчные/A-I/a штрих влево à"
 
-#: ../src/menu.c:158
+#: ../src/menu.c:165
 msgid "/Tags/Special/Accent/Lowercase/A-I/a acute á"
 msgstr "/Тэги/Особые/Accent/Строчные/A-I/a штрих вправо á"
 
-#: ../src/menu.c:160
+#: ../src/menu.c:167
 msgid "/Tags/Special/Accent/Lowercase/A-I/a circumflex â"
 msgstr "/Тэги/Особые/Accent/Строчные/A-I/a с крышкой â"
 
-#: ../src/menu.c:162
+#: ../src/menu.c:169
 msgid "/Tags/Special/Accent/Lowercase/A-I/a tilde ã"
 msgstr "/Тэги/Особые/Accent/Строчные/A-I/a с тильдой ã"
 
-#: ../src/menu.c:164
+#: ../src/menu.c:171
 msgid "/Tags/Special/Accent/Lowercase/A-I/a ring å"
 msgstr "/Тэги/Особые/Accent/Строчные/A-I/a с кольцом å"
 
-#: ../src/menu.c:166
+#: ../src/menu.c:173
 msgid "/Tags/Special/Accent/Lowercase/A-I/ae ligature æ"
 msgstr "/Тэги/Особые/Accent/Строчные/A-I/Лигатура ae æ"
 
-#: ../src/menu.c:168
+#: ../src/menu.c:175
 msgid "/Tags/Special/Accent/Lowercase/A-I/a diaeresis ä"
 msgstr "/Тэги/Особые/Accent/Строчные/A-I/a с двумя точками ä"
 
-#: ../src/menu.c:170
+#: ../src/menu.c:177
 msgid "/Tags/Special/Accent/Lowercase/A-I/c cedilla ç"
 msgstr "/Тэги/Особые/Accent/Строчные/A-I/c cedilla ç"
 
-#: ../src/menu.c:172
+#: ../src/menu.c:179
 msgid "/Tags/Special/Accent/Lowercase/A-I/e grave è"
 msgstr "/Тэги/Особые/Accent/Строчные/A-I/e штрих влево è"
 
-#: ../src/menu.c:174
+#: ../src/menu.c:181
 msgid "/Tags/Special/Accent/Lowercase/A-I/e acute é"
 msgstr "/Тэги/Особые/Accent/Строчные/A-I/e штрих вправо é"
 
-#: ../src/menu.c:176
+#: ../src/menu.c:183
 msgid "/Tags/Special/Accent/Lowercase/A-I/e circumflex ê"
 msgstr "/Тэги/Особые/Accent/Строчные/A-I/e с крышкой ê"
 
-#: ../src/menu.c:178
+#: ../src/menu.c:185
 msgid "/Tags/Special/Accent/Lowercase/A-I/e diaeresis ë"
 msgstr "/Тэги/Особые/Accent/Строчные/A-I/e с двумя точками ë"
 
-#: ../src/menu.c:180
+#: ../src/menu.c:187
 msgid "/Tags/Special/Accent/Lowercase/A-I/i grave ì"
 msgstr "/Тэги/Особые/Accent/Строчные/A-I/i штрих влево ì"
 
-#: ../src/menu.c:182
+#: ../src/menu.c:189
 msgid "/Tags/Special/Accent/Lowercase/A-I/i acute í"
 msgstr "/Тэги/Особые/Accent/Строчные/A-I/i штрих вправо í"
 
-#: ../src/menu.c:184
+#: ../src/menu.c:191
 msgid "/Tags/Special/Accent/Lowercase/A-I/i circumflex î"
 msgstr "/Тэги/Особые/Accent/Строчные/A-I/i с крышкой î"
 
-#: ../src/menu.c:186
+#: ../src/menu.c:193
 msgid "/Tags/Special/Accent/Lowercase/A-I/i diaeresis ï"
 msgstr "/Тэги/Особые/Accent/Строчные/A-I/i с двумя точками ï"
 
-#: ../src/menu.c:188
+#: ../src/menu.c:195
 msgid "/Tags/Special/Accent/Lowercase/_J-Z"
 msgstr "/Тэги/Особые/Accent/Строчные/_J-Z"
 
-#: ../src/menu.c:189
+#: ../src/menu.c:196
 msgid "/Tags/Special/Accent/Lowercase/J-Z/tearoff1"
 msgstr "/Тэги/Особые/Accent/Строчные/J-Z/tearoff1"
 
-#: ../src/menu.c:191
+#: ../src/menu.c:198
 msgid "/Tags/Special/Accent/Lowercase/J-Z/n tilde ñ"
 msgstr "/Тэги/Особые/Accent/Строчные/J-Z/n с тильдой ñ"
 
-#: ../src/menu.c:193
+#: ../src/menu.c:200
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o grave ò"
 msgstr "/Тэги/Особые/Accent/Строчные/J-Z/o штрих влево ò"
 
-#: ../src/menu.c:195
+#: ../src/menu.c:202
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o acute ó"
 msgstr "/Тэги/Особые/Accent/Строчные/J-Z/o штрих вправо ó"
 
-#: ../src/menu.c:196
+#: ../src/menu.c:203
 #, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/J-Z/oe ligature æ"
 msgstr "/Тэги/Особые/Accent/Строчные/J-Z/Лигатура oe œ"
 
-#: ../src/menu.c:197
+#: ../src/menu.c:204
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o circumflex ô"
 msgstr "/Тэги/Особые/Accent/Строчные/J-Z/o с крышкой ô"
 
-#: ../src/menu.c:199
+#: ../src/menu.c:206
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o tilde õ"
 msgstr "/Тэги/Особые/Accent/Строчные/J-Z/o с тильдой õ"
 
-#: ../src/menu.c:201
+#: ../src/menu.c:208
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o diaeresis ö"
 msgstr "/Тэги/Особые/Accent/Строчные/J-Z/o с двумя точками ö"
 
-#: ../src/menu.c:203
+#: ../src/menu.c:210
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o slash ø"
 msgstr "/Тэги/Особые/Accent/Строчные/J-Z/o перечеркнутое ø"
 
-#: ../src/menu.c:205
+#: ../src/menu.c:212
 msgid "/Tags/Special/Accent/Lowercase/J-Z/u grave ù"
 msgstr "/Тэги/Особые/Accent/Строчные/J-Z/u штрих влево ù"
 
-#: ../src/menu.c:207
+#: ../src/menu.c:214
 msgid "/Tags/Special/Accent/Lowercase/J-Z/u acute ú"
 msgstr "/Тэги/Особые/Accent/Строчные/J-Z/u штрих вправо ú"
 
-#: ../src/menu.c:209
+#: ../src/menu.c:216
 msgid "/Tags/Special/Accent/Lowercase/J-Z/u circumflex û"
 msgstr "/Тэги/Особые/Accent/Строчные/J-Z/u с крышкой û"
 
-#: ../src/menu.c:211
+#: ../src/menu.c:218
 msgid "/Tags/Special/Accent/Lowercase/J-Z/u diaeresis ü"
 msgstr "/Тэги/Особые/Accent/Строчные/J-Z/u с двумя точками ü"
 
-#: ../src/menu.c:213
+#: ../src/menu.c:220
 msgid "/Tags/Special/Accent/Lowercase/J-Z/y acute ý"
 msgstr "/Тэги/Особые/Accent/Строчные/J-Z/y штрих вправо ý"
 
-#: ../src/menu.c:215
+#: ../src/menu.c:222
 msgid "/Tags/Special/Accent/Lowercase/J-Z/y diaeresis ÿ"
 msgstr "/Тэги/Особые/Accent/Строчные/J-Z/y с двумя точками ÿ"
 
-#: ../src/menu.c:217
+#: ../src/menu.c:224
 msgid "/Tags/Special/Accent/separator"
 msgstr "/Тэги/Особые/Accent/Разделитель"
 
-#: ../src/menu.c:218
+#: ../src/menu.c:225
 msgid "/Tags/Special/Accent/U_mlaut ¨"
 msgstr "/Тэги/Особые/Accent/U_mlaut ¨"
 
-#: ../src/menu.c:219
+#: ../src/menu.c:226
 msgid "/Tags/Special/Accent/_Acute ´"
 msgstr "/Тэги/Особые/Accent/Штрих впр_аво ´"
 
-#: ../src/menu.c:220
-#, fuzzy
+#: ../src/menu.c:227
 msgid "/Tags/Special/Accent/_Cedilla ¸"
 msgstr "/Тэги/Особые/Accent/Засечка _снизу ¸"
 
-#: ../src/menu.c:221
+#: ../src/menu.c:228
 msgid "/Tags/Special/_Currency"
 msgstr "/Тэги/Особые/Денежные единицы _C"
 
-#: ../src/menu.c:222
+#: ../src/menu.c:229
 msgid "/Tags/Special/Currency/tearoff1"
 msgstr "/Тэги/Особые/Денежные единицы/tearoff1"
 
-#: ../src/menu.c:223
+#: ../src/menu.c:230
 msgid "/Tags/Special/Currency/_Cent sign ¢"
 msgstr "/Тэги/Особые/Денежные единицы/Цент _C ¢"
 
-#: ../src/menu.c:225
+#: ../src/menu.c:232
 msgid "/Tags/Special/Currency/_Pound sterling £"
 msgstr "/Тэги/Особые/Денежные единицы/Фунт стерлингов _P £"
 
-#: ../src/menu.c:227
+#: ../src/menu.c:234
 msgid "/Tags/Special/Currency/C_urrency sign ¤"
 msgstr "/Тэги/Особые/Денежные единицы/Знак валюты _u ¤"
 
-#: ../src/menu.c:229
+#: ../src/menu.c:236
 msgid "/Tags/Special/Currency/_Yen sign ¥"
 msgstr "/Тэги/Особые/Денежные единицы/Иена _Y ¥"
 
-#: ../src/menu.c:230
+#: ../src/menu.c:237
 msgid "/Tags/Special/Currency/_Euro "
 msgstr "/Тэги/Особые/Денежные единицы/Евро _E"
 
-#: ../src/menu.c:231
+#: ../src/menu.c:238
 msgid "/Tags/Special/_Math-Science"
 msgstr "/Тэги/Особые/Математика и наука"
 
-#: ../src/menu.c:232
+#: ../src/menu.c:239
 msgid "/Tags/Special/Math-Science/tearoff1"
 msgstr "/Тэги/Особые/Математика и наука/tearoff1"
 
-#: ../src/menu.c:233
+#: ../src/menu.c:240
 msgid "/Tags/Special/Math-Science/Logical _not sign ¬"
 msgstr "/Тэги/Особые/Математика и наука/Знак 'логическое НЕТ'_n ¬"
 
-#: ../src/menu.c:235
+#: ../src/menu.c:242
 msgid "/Tags/Special/Math-Science/_Multiplication sign ×"
 msgstr "/Тэги/Особые/Математика и наука/Знак умножения _M ×"
 
-#: ../src/menu.c:237
+#: ../src/menu.c:244
 msgid "/Tags/Special/Math-Science/_Division sign ÷"
 msgstr "/Тэги/Особые/Математика и наука/Знак деления _D ÷"
 
-#: ../src/menu.c:239
+#: ../src/menu.c:246
 msgid "/Tags/Special/Math-Science/_Plus-minus sign ±"
 msgstr "/Тэги/Особые/Математика и наука/Знак 'плюс-минус' ±"
 
-#: ../src/menu.c:241
+#: ../src/menu.c:248
 msgid "/Tags/Special/Math-Science/_Less-than sign <"
 msgstr "/Тэги/Особые/Математика и наука/Знак 'меньше' <"
 
-#: ../src/menu.c:243
+#: ../src/menu.c:250
 msgid "/Tags/Special/Math-Science/_Greater-than sign >"
 msgstr "/Тэги/Особые/Математика и наука/Знак 'больше' >"
 
-#: ../src/menu.c:245
+#: ../src/menu.c:252
 msgid "/Tags/Special/Math-Science/Superscript _1 ¹"
 msgstr "/Тэги/Особые/Математика и наука/Верхний индекс _1 ¹"
 
-#: ../src/menu.c:247
+#: ../src/menu.c:254
 msgid "/Tags/Special/Math-Science/Superscript _2 ²"
 msgstr "/Тэги/Особые/Математика и наука/Верхний индекс _2 ²"
 
-#: ../src/menu.c:249
+#: ../src/menu.c:256
 msgid "/Tags/Special/Math-Science/Superscript _3 ³"
 msgstr "/Тэги/Особые/Математика и наука/Верхний индекс _3 ³"
 
-#: ../src/menu.c:251
+#: ../src/menu.c:258
 msgid "/Tags/Special/Math-Science/One _quarter ¼"
 msgstr "/Тэги/Особые/Математика и наука/Четверть _q ¼"
 
-#: ../src/menu.c:253
+#: ../src/menu.c:260
 msgid "/Tags/Special/Math-Science/One _half ½"
 msgstr "/Тэги/Особые/Математика и наука/Одна вторая _h ½"
 
-#: ../src/menu.c:255
+#: ../src/menu.c:262
 msgid "/Tags/Special/Math-Science/_Three quarters ¾"
 msgstr "/Тэги/Особые/Математика и наука/Три четверти _T ¾"
 
-#: ../src/menu.c:257
+#: ../src/menu.c:264
 msgid "/Tags/Special/Math-Science/Deg_ree sign °"
 msgstr "/Тэги/Особые/Математика и наука/Знак 'градус' _r °"
 
-#: ../src/menu.c:259
+#: ../src/menu.c:266
 msgid "/Tags/Special/_Non Latin"
 msgstr "/Тэги/Особые/Нелатинские символы _N"
 
-#: ../src/menu.c:260
+#: ../src/menu.c:267
 msgid "/Tags/Special/Non Latin/tearoff1"
 msgstr "/Тэги/Особые/Нелатинские символы/tearoff1"
 
-#: ../src/menu.c:261
+#: ../src/menu.c:268
 msgid "/Tags/Special/Non Latin/_ETH (Icelandic) Ð"
 msgstr "/Тэги/Особые/Нелатинские символы/_ETH (Исландия) Ð"
 
-#: ../src/menu.c:263
+#: ../src/menu.c:270
 msgid "/Tags/Special/Non Latin/_THORN (Icelandic) Þ"
 msgstr "/Тэги/Особые/Нелатинские символы/_THORN (Исландия) Þ"
 
-#: ../src/menu.c:265
-#, fuzzy
+#: ../src/menu.c:272
 msgid "/Tags/Special/Non Latin/et_h (Icelandic) ð"
 msgstr "/Тэги/Особые/Нелатинские символы/et_h (Icelandic) ð"
 
-#: ../src/menu.c:267
+#: ../src/menu.c:274
 msgid "/Tags/Special/Non Latin/th_orn ÿ"
 msgstr "/Тэги/Особые/Нелатинские символы/th_orn ÿ"
 
-#: ../src/menu.c:268
+#: ../src/menu.c:275
 msgid "/Tags/Special/Non Latin/Sharp _s ß"
 msgstr "/Тэги/Особые/Нелатинские символы/Sharp _s ß"
 
-#: ../src/menu.c:269
+#: ../src/menu.c:276
 msgid "/Tags/Special/Non Latin/_Micro sign µ"
 msgstr "/Тэги/Особые/Нелатинские символы/Знак '_микро' µ"
 
-#: ../src/menu.c:271
+#: ../src/menu.c:278
 msgid "/Tags/Special/_Other"
 msgstr "/Тэги/Особые/Прочие _O"
 
-#: ../src/menu.c:272
+#: ../src/menu.c:279
 msgid "/Tags/Special/Other/tearoff1"
 msgstr "/Тэги/Особые/Прочие/tearoff1"
 
-#: ../src/menu.c:273
+#: ../src/menu.c:280
 msgid "/Tags/Special/Other/_Non-breaking space"
 msgstr "/Тэги/Особые/Прочие/Неразделяемый пробел"
 
-#: ../src/menu.c:275
+#: ../src/menu.c:282
 msgid "/Tags/Special/Other/_Section sign §"
 msgstr "/Тэги/Особые/Прочие/Знак параграфа §"
 
-#: ../src/menu.c:277
+#: ../src/menu.c:284
 msgid "/Tags/Special/Other/_Copyright sign ©"
 msgstr "/Тэги/Особые/Прочие/Знак Copyright ©"
 
-#: ../src/menu.c:279
+#: ../src/menu.c:286
 msgid "/Tags/Special/Other/_Left angle quotes «"
 msgstr "/Тэги/Особые/Прочие/Левые угловые скобки «"
 
-#: ../src/menu.c:281
+#: ../src/menu.c:288
 msgid "/Tags/Special/Other/_Right angle quotes »"
 msgstr "/Тэги/Особые/Прочие/Правые угловые скобки »"
 
-#: ../src/menu.c:283
+#: ../src/menu.c:290
 msgid "/Tags/Special/Other/Registered _trademark ®"
 msgstr "/Тэги/Особые/Прочие/Знак TM ®"
 
-#: ../src/menu.c:285
-#, fuzzy
+#: ../src/menu.c:292
 msgid "/Tags/Special/Other/Inverted _exclamation ¡"
-msgstr "/Тэги/Особые/Прочие/Перевернутый восклицательные знак !"
+msgstr "/Тэги/Особые/Прочие/Перевернутый восклицательные знак ¡"
 
-#: ../src/menu.c:287
+#: ../src/menu.c:294
 msgid "/Tags/Special/Other/Inverted _question mark ¿"
 msgstr "/Тэги/Особые/Прочие/Перевернутый вопросительный знак ¿"
 
-#: ../src/menu.c:289
+#: ../src/menu.c:296
 msgid "/Tags/Special/Other/_Feminine ordinal ª"
 msgstr "/Тэги/Особые/Прочие/_Feminine ordinal ª"
 
-#: ../src/menu.c:291
+#: ../src/menu.c:298
 msgid "/Tags/Special/Other/_Masculine ordinal º"
 msgstr "/Тэги/Особые/Прочие/_Masculine ordinal º"
 
-#: ../src/menu.c:293
+#: ../src/menu.c:300
 msgid "/Tags/Special/Other/_Pilcrow (paragraph sign) ¶"
 msgstr "/Тэги/Особые/Прочие/_Pilcrow (знак параграфа) ¶"
 
-#: ../src/menu.c:295
+#: ../src/menu.c:302
 msgid "/Tags/Special/Other/_Broken bar ¦"
 msgstr "/Тэги/Особые/Прочие/Черта с разрывом ¦"
 
-#: ../src/menu.c:296
+#: ../src/menu.c:303
 msgid "/Tags/Special/Other/Soft _hypen -"
 msgstr "/Тэги/Особые/Прочие/Мягкий перенос -"
 
-#: ../src/menu.c:297
+#: ../src/menu.c:304
 msgid "/Tags/Special/Other/Spa_cing macron ¯"
 msgstr "/Тэги/Особые/Прочие/Spa_cing macron ¯"
 
-#: ../src/menu.c:299
+#: ../src/menu.c:306
 msgid "/Tags/Special/Other/Middle _dot ·"
 msgstr "/Тэги/Особые/Прочие/Точка посередине ·"
 
-#: ../src/menu.c:301
+#: ../src/menu.c:308
 msgid "/Tags/_Format by layout"
 msgstr "/Теги/Форматирование _F"
 
-#: ../src/menu.c:302
+#: ../src/menu.c:309
 msgid "/Tags/Format by layout/tearoff1"
 msgstr "/Теги/Форматирование/tearoff1"
 
-#: ../src/menu.c:303
+#: ../src/menu.c:310
 msgid "/Tags/Format by layout/_Bold"
 msgstr "/Теги/Форматирование/Жирный шрифт _B"
 
-#: ../src/menu.c:304
+#: ../src/menu.c:311
 msgid "/Tags/Format by layout/_Italic"
 msgstr "/Теги/Форматирование/Наклонный шрифт _I"
 
-#: ../src/menu.c:305
+#: ../src/menu.c:312
 msgid "/Tags/Format by layout/_Underline"
 msgstr "/Теги/Форматирование/Подчеркнутый шрифт _U"
 
-#: ../src/menu.c:306
+#: ../src/menu.c:313
 msgid "/Tags/Format by layout/_Strikeout"
 msgstr "/Теги/Форматирование/Перечеркнутый шрифт _S"
 
-#: ../src/menu.c:307
+#: ../src/menu.c:314
 msgid "/Tags/F_ormat by context"
 msgstr "/Теги/Контекстное форматирование _o"
 
-#: ../src/menu.c:308
+#: ../src/menu.c:315
 msgid "/Tags/Format by context/tearoff1"
 msgstr "/Теги/Контекстное форматирование/tearoff1"
 
-#: ../src/menu.c:309
+#: ../src/menu.c:316
 msgid "/Tags/Format by context/_Strong"
 msgstr "/Теги/Контекстное форматирование/Усиление _S"
 
-#: ../src/menu.c:310
+#: ../src/menu.c:317
 msgid "/Tags/Format by context/_Emphasis"
 msgstr "/Теги/Контекстное форматирование/Выделение _E"
 
-#: ../src/menu.c:311
+#: ../src/menu.c:318
 msgid "/Tags/Format by context/_Define"
 msgstr "/Теги/Контекстное форматирование/Определение _D"
 
-#: ../src/menu.c:312
+#: ../src/menu.c:319
 msgid "/Tags/Format by context/_Code"
 msgstr "/Теги/Контекстное форматирование/Код _C"
 
-#: ../src/menu.c:313
+#: ../src/menu.c:320
 msgid "/Tags/Format by context/Sa_mple"
 msgstr "/Теги/Контекстное форматирование/Пример _m"
 
-#: ../src/menu.c:314
+#: ../src/menu.c:321
 msgid "/Tags/Format by context/_Keyboard"
 msgstr "/Теги/Контекстное форматирование/Ввод с клавиатуры _K"
 
-#: ../src/menu.c:315
+#: ../src/menu.c:322
 msgid "/Tags/Format by context/_Variable"
 msgstr "/Теги/Контекстное форматирование/Переменная _V"
 
-#: ../src/menu.c:316
+#: ../src/menu.c:323
 msgid "/Tags/Format by context/Ci_tation"
 msgstr "/Теги/Контекстное форматирование/Цитата _t"
 
-#: ../src/menu.c:317
+#: ../src/menu.c:324
 msgid "/Tags/Format by context/_Abbreviation"
 msgstr "/Теги/Контекстное форматирование/Аббревиатура _A"
 
-#: ../src/menu.c:318
+#: ../src/menu.c:325
 msgid "/Tags/Format by context/Ac_ronym"
 msgstr "/Теги/Контекстное форматирование/Акроним _r"
 
-#: ../src/menu.c:319
+#: ../src/menu.c:326
 msgid "/Tags/Format _general"
 msgstr "/Теги/Общее форматирование _g"
 
-#: ../src/menu.c:320
+#: ../src/menu.c:327
 msgid "/Tags/Format general/tearoff1"
 msgstr "/Теги/Общее форматирование/tearoff1"
 
-#: ../src/menu.c:321
+#: ../src/menu.c:328
 msgid "/Tags/Format general/_Paragraph"
 msgstr "/Теги/Общее форматирование/Параграф _P"
 
-#: ../src/menu.c:322
+#: ../src/menu.c:329
 msgid "/Tags/Format general/_Break"
 msgstr "/Теги/Общее форматирование/Абзац _B"
 
-#: ../src/menu.c:323
+#: ../src/menu.c:330
 msgid "/Tags/Format general/Break clear _all"
 msgstr "/Теги/Общее форматирование/Абзац с очисткой _a"
 
-#: ../src/menu.c:324
+#: ../src/menu.c:331
 msgid "/Tags/Format general/_Non-Breaking Space"
 msgstr "/Теги/Общее форматирование/Неразрывний пробел _N"
 
-#: ../src/menu.c:325 ../src/menu.c:328 ../src/menu.c:332
+#: ../src/menu.c:332 ../src/menu.c:335 ../src/menu.c:339
 msgid "/Tags/Format general/<separator>"
 msgstr "/Теги/Общее форматирование/<разделитель>"
 
-#: ../src/menu.c:326
+#: ../src/menu.c:333
 msgid "/Tags/Format general/Font Si_ze +1"
 msgstr "/Теги/Общее форматирование/Размер шрифта+1"
 
-#: ../src/menu.c:327
+#: ../src/menu.c:334
 msgid "/Tags/Format general/Font _Size -1"
 msgstr "/Теги/Общее форматирование/Размер шрифта-1"
 
-#: ../src/menu.c:329
+#: ../src/menu.c:336
 msgid "/Tags/Format general/Preformatted _Text"
 msgstr "/Теги/Общее форматирование/Отформатированный текст"
 
-#: ../src/menu.c:330
+#: ../src/menu.c:337
 msgid "/Tags/Format general/Su_bscript"
 msgstr "/Теги/Общее форматирование/Нижний индекс"
 
-#: ../src/menu.c:331
+#: ../src/menu.c:338
 msgid "/Tags/Format general/Su_perscript"
 msgstr "/Теги/Общее форматирование/Верхний индекс"
 
-#: ../src/menu.c:333
+#: ../src/menu.c:340
 msgid "/Tags/Format general/_Center"
 msgstr "/Теги/Общее форматирование/Выровнять По центру"
 
-#: ../src/menu.c:334
+#: ../src/menu.c:341
 msgid "/Tags/Format general/Align _right"
 msgstr "/Теги/Общее форматирование/Выровнять по правому краю"
 
-#: ../src/menu.c:335
+#: ../src/menu.c:342
 msgid "/Tags/_Table"
 msgstr "/Теги/Таблица _T"
 
-#: ../src/menu.c:336
+#: ../src/menu.c:343
 msgid "/Tags/Table/tearoff1"
 msgstr "/Теги/Таблица/tearoff1"
 
-#: ../src/menu.c:337
+#: ../src/menu.c:344
 msgid "/Tags/Table/_Table"
 msgstr "/Теги/Таблица/Таблица _T"
 
-#: ../src/menu.c:338
+#: ../src/menu.c:345
 msgid "/Tags/Table/Table_row"
 msgstr "/Теги/Таблица/Строка таблицы _r"
 
-#: ../src/menu.c:339
+#: ../src/menu.c:346
 msgid "/Tags/Table/Table_header"
 msgstr "/Теги/Таблица/Заголовок заблицы _h"
 
-#: ../src/menu.c:340
+#: ../src/menu.c:347
 msgid "/Tags/Table/Table_data"
 msgstr "/Теги/Таблица/Ячейка таблицы _d"
 
-#: ../src/menu.c:341
+#: ../src/menu.c:348
 msgid "/Tags/Table/Table_caption"
 msgstr "/Теги/Таблица/Название таблицы _c"
 
-#: ../src/menu.c:342
+#: ../src/menu.c:349
 msgid "/Tags/_List"
 msgstr "/Теги/Список _L"
 
-#: ../src/menu.c:343
+#: ../src/menu.c:350
 msgid "/Tags/List/tearoff1"
 msgstr "/Теги/Список/tearoff1"
 
-#: ../src/menu.c:344
+#: ../src/menu.c:351
 msgid "/Tags/List/_Unordered list"
 msgstr "/Теги/Список/Неупорядоченный список _U"
 
-#: ../src/menu.c:345
+#: ../src/menu.c:352
 msgid "/Tags/List/_Ordered list"
 msgstr "/Теги/Список/Упорядоченный список _O"
 
-#: ../src/menu.c:346
+#: ../src/menu.c:353
 msgid "/Tags/List/List _item"
 msgstr "/Теги/Список/Элемент списка _i"
 
-#: ../src/menu.c:347
+#: ../src/menu.c:354
 msgid "/Tags/List/Definition _list"
 msgstr "/Теги/Список/Список определений _l"
 
-#: ../src/menu.c:348
+#: ../src/menu.c:355
 msgid "/Tags/List/Definition _term"
 msgstr "/Теги/Список/Термин определения _t"
 
-#: ../src/menu.c:349
+#: ../src/menu.c:356
 msgid "/Tags/List/De_finition"
 msgstr "/Теги/Список/Определение термина _f"
 
-#: ../src/menu.c:350
+#: ../src/menu.c:357
 msgid "/Tags/List/_Menu"
 msgstr "/Теги/Список/Меню _M"
 
-#: ../src/menu.c:351
+#: ../src/menu.c:358
 msgid "/Tags/_Insert Generator META-Tag"
 msgstr "/Теги/Вставить МЕТА-тэг <Generator>"
 
-#: ../src/menu.c:352
+#: ../src/menu.c:359
 msgid "/Tags/_Comment"
 msgstr "/Теги/Комментарий _C"
 
-#: ../src/menu.c:353
+#: ../src/menu.c:360
 msgid "/Dialo_gs"
 msgstr "/Диалоги _g"
 
-#: ../src/menu.c:354
+#: ../src/menu.c:361
 msgid "/Dialogs/tearoff1"
 msgstr "/Диалоги/tearoff1"
 
-#: ../src/menu.c:355
+#: ../src/menu.c:362
 msgid "/Dialogs/_General"
 msgstr "/Диалоги/Общие _G"
 
-#: ../src/menu.c:356
+#: ../src/menu.c:363
 msgid "/Dialogs/General/tearoff1"
 msgstr "/Диалоги/Общие/tearoff1"
 
-#: ../src/menu.c:357
+#: ../src/menu.c:364
 msgid "/Dialogs/General/_Quickstart..."
 msgstr "/Диалоги/Общие/Заготовка документа... _Q"
 
-#: ../src/menu.c:360
+#: ../src/menu.c:367
 msgid "/Dialogs/General/_Body..."
 msgstr "/Диалоги/Общие/Тело документа... _B"
 
-#: ../src/menu.c:361
+#: ../src/menu.c:368
 msgid "/Dialogs/General/_Anchor..."
 msgstr "/Диалоги/Общие/Ссылка... _A"
 
-#: ../src/menu.c:362
+#: ../src/menu.c:369
 msgid "/Dialogs/General/_Email..."
 msgstr "/Диалоги/Общие/_EMail..."
 
-#: ../src/menu.c:363
+#: ../src/menu.c:370
 msgid "/Dialogs/General/_Rule..."
 msgstr "/Диалоги/Общие/Разделитель _R"
 
-#: ../src/menu.c:364
+#: ../src/menu.c:371
 msgid "/Dialogs/General/_Font..."
 msgstr "/Диалоги/Общие/Шрифт... _F"
 
-#: ../src/menu.c:365
+#: ../src/menu.c:372
 msgid "/Dialogs/General/Basef_ont..."
 msgstr "/Диалоги/Общие/Базовый шрифт... _o"
 
-#: ../src/menu.c:366
+#: ../src/menu.c:373
 msgid "/Dialogs/General/Quick_list..."
 msgstr "/Диалоги/Общие/Заготовка списка... _l"
 
-#: ../src/menu.c:367
+#: ../src/menu.c:374
 msgid "/Dialogs/General/_Meta..."
 msgstr "/Диалоги/Общие/Мета тэг... _M"
 
-#: ../src/menu.c:368
+#: ../src/menu.c:375
 msgid "/Dialogs/General/Embe_d..."
 msgstr "/Диалоги/Общие/Внедрить... _d"
 
-#: ../src/menu.c:369
+#: ../src/menu.c:376
 msgid "/Dialogs/General/Select _colour..."
 msgstr "/Диалоги/Общие/Выбор цвета... _c"
 
-#: ../src/menu.c:370
+#: ../src/menu.c:377
 msgid "/Dialogs/General/Insert _time..."
 msgstr "/Диалоги/Общие/Вставить время... _t"
 
-#: ../src/menu.c:371
+#: ../src/menu.c:378
 msgid "/Dialogs/General/Insert _image..."
 msgstr "/Диалоги/Общие/Вставить картинку... _i"
 
-#: ../src/menu.c:372
+#: ../src/menu.c:379
 msgid "/Dialogs/General/Insert t_humbnail..."
 msgstr "/Диалоги/Общие/Вставить эскиз... _h"
 
-#: ../src/menu.c:373
+#: ../src/menu.c:380
 msgid "/Dialogs/_Table"
 msgstr "/Диалоги/Таблица _T"
 
-#: ../src/menu.c:374
+#: ../src/menu.c:381
 msgid "/Dialogs/Table/tearoff1"
 msgstr "/Диалоги/Таблица/tearoff1"
 
-#: ../src/menu.c:375
+#: ../src/menu.c:382
 msgid "/Dialogs/Table/Table _wizard..."
 msgstr "/Диалоги/Таблица/Мастер Таблиц... _w"
 
-#: ../src/menu.c:376
+#: ../src/menu.c:383
 msgid "/Dialogs/Table/_Table..."
 msgstr "/Диалоги/Таблица/Таблица... _T"
 
-#: ../src/menu.c:377
+#: ../src/menu.c:384
 msgid "/Dialogs/Table/Table_row..."
 msgstr "/Диалоги/Таблица/Строка таблицы... _r"
 
-#: ../src/menu.c:378
+#: ../src/menu.c:385
 msgid "/Dialogs/Table/Table_head..."
 msgstr "/Диалоги/Таблица/Заголовок таблицы... _h"
 
-#: ../src/menu.c:379
+#: ../src/menu.c:386
 msgid "/Dialogs/Table/Table_data..."
 msgstr "/Диалоги/Таблица/Ячейка таблицы... _d"
 
-#: ../src/menu.c:380
+#: ../src/menu.c:387
 msgid "/Dialogs/_CSS"
 msgstr "/Диалоги/_CSS"
 
-#: ../src/menu.c:381
+#: ../src/menu.c:388
 msgid "/Dialogs/CSS/tearoff1"
 msgstr "/Диалоги/CSS/tearoff1"
 
-#: ../src/menu.c:382
+#: ../src/menu.c:389
 msgid "/Dialogs/CSS/_Create style..."
 msgstr "/Диалоги/CSS/Создать стиль... _C"
 
-#: ../src/menu.c:383
+#: ../src/menu.c:390
 msgid "/Dialogs/CSS/S_pan..."
 msgstr "/Диалоги/CSS/S_pan..."
 
-#: ../src/menu.c:384
+#: ../src/menu.c:391
 msgid "/Dialogs/CSS/_Div..."
 msgstr "/Диалоги/CSS/_Div..."
 
-#: ../src/menu.c:385
+#: ../src/menu.c:392
 msgid "/Dialogs/CSS/_Style..."
 msgstr "/Диалоги/CSS/Стиль... _S"
 
-#: ../src/menu.c:386
+#: ../src/menu.c:393
 msgid "/Dialogs/CSS/_Link to stylesheet..."
 msgstr "/Диалоги/CSS/Ссылка на таблицу стилей... _L"
 
-#: ../src/menu.c:387
+#: ../src/menu.c:394
 msgid "/Dialogs/_Frame"
 msgstr "/Диалоги/Врезка... _F"
 
-#: ../src/menu.c:388
+#: ../src/menu.c:395
 msgid "/Dialogs/Frame/tearoff1"
 msgstr "/Диалоги/Врезка/tearoff1"
 
-#: ../src/menu.c:389
+#: ../src/menu.c:396
 msgid "/Dialogs/Frame/Frame _wizard..."
 msgstr "/Диалоги/Врезка/Мастер врезок... _w"
 
-#: ../src/menu.c:390
+#: ../src/menu.c:397
 msgid "/Dialogs/Frame/Frame_set..."
 msgstr "/Диалоги/Врезка/Набор врезок... _s"
 
-#: ../src/menu.c:391
+#: ../src/menu.c:398
 msgid "/Dialogs/Frame/_Frame..."
 msgstr "/Диалоги/Врезка/Врезка... _F"
 
-#: ../src/menu.c:392
+#: ../src/menu.c:399
 msgid "/Dialogs/F_orm"
 msgstr "/Диалоги/Форма _o"
 
-#: ../src/menu.c:393
+#: ../src/menu.c:400
 msgid "/Dialogs/Form/tearoff1"
 msgstr "/Диалоги/Форма/tearoff1"
 
-#: ../src/menu.c:394
+#: ../src/menu.c:401
 msgid "/Dialogs/Form/F_orm..."
 msgstr "/Диалоги/Форма/Форма... _o"
 
-#: ../src/menu.c:395
+#: ../src/menu.c:402
 msgid "/Dialogs/Form/_Input button..."
 msgstr "/Диалоги/Форма/Кнопка... _I"
 
-#: ../src/menu.c:396
+#: ../src/menu.c:403
 msgid "/Dialogs/Form/_Text..."
 msgstr "/Диалоги/Форма/Текст... _T"
 
-#: ../src/menu.c:397
+#: ../src/menu.c:404
 msgid "/Dialogs/Form/_Hidden..."
 msgstr "/Диалоги/Форма/Скрытое поле... _H"
 
-#: ../src/menu.c:398
+#: ../src/menu.c:405
 msgid "/Dialogs/Form/Text_area..."
 msgstr "/Диалоги/Форма/Область ввода... _a"
 
-#: ../src/menu.c:399
+#: ../src/menu.c:406
 msgid "/Dialogs/Form/Radio _buttons..."
 msgstr "/Диалоги/Форма/Радиокнопки... _b"
 
-#: ../src/menu.c:400
+#: ../src/menu.c:407
 msgid "/Dialogs/Form/_Check buttons..."
 msgstr "/Диалоги/Форма/Флажки... _C"
 
-#: ../src/menu.c:401
+#: ../src/menu.c:408
 msgid "/Dialogs/Form/_Select..."
 msgstr "/Диалоги/Форма/Поле выбора... _S"
 
-#: ../src/menu.c:402
+#: ../src/menu.c:409
 msgid "/Dialogs/Form/O_ption..."
 msgstr "/Диалоги/Форма/Вариант выбора... _p"
 
-#: ../src/menu.c:403
+#: ../src/menu.c:410
 msgid "/Dialogs/Form/Option _group..."
 msgstr "/Диалоги/Форма/Группа вариантов выбора... _g"
 
-#: ../src/menu.c:430
+#: ../src/menu.c:437
 msgid "/E_xternal"
 msgstr "/Внешние _x"
 
-#: ../src/menu.c:431
+#: ../src/menu.c:438
 msgid "/External/tearoff1"
 msgstr "/Внешние/tearoff1"
 
-#: ../src/menu.c:437
+#: ../src/menu.c:444
 msgid "/_Document"
 msgstr "/_Документ"
 
-#: ../src/menu.c:438
+#: ../src/menu.c:445
 msgid "/Document/tearoff1"
 msgstr "/Документ/tearoff1"
 
-#: ../src/menu.c:439
+#: ../src/menu.c:446
 msgid "/Document/_Type"
 msgstr "/Документ/Тип документа _T"
 
-#: ../src/menu.c:440
+#: ../src/menu.c:447
 msgid "/Document/Type/tearoff1"
 msgstr "/Документ/Тип документа/tearoff1"
 
-#: ../src/menu.c:441
+#: ../src/menu.c:448
 msgid "/Document/_Encoding"
 msgstr "/Документ/Кодировка _E"
 
-#: ../src/menu.c:442
+#: ../src/menu.c:449
 msgid "/Document/Encoding/tearoff1"
 msgstr "/Документ/Кодировка/tearoff1"
 
-#: ../src/menu.c:443
+#: ../src/menu.c:450
 msgid "/Document/_Highlight syntax"
 msgstr "/Документ/Подсветка синтаксиса _H"
 
-#: ../src/menu.c:444
+#: ../src/menu.c:451
 msgid "/Document/_Wrap"
 msgstr "/Документ/Перенос слов _W"
 
-#: ../src/menu.c:445
+#: ../src/menu.c:452
 msgid "/Document/_Line numbers"
 msgstr "/Документ/Номера строк _L"
 
-#: ../src/menu.c:446 ../src/menu.c:450
+#: ../src/menu.c:453 ../src/menu.c:457
 msgid "/Document/sep1"
 msgstr "/Документ/sep1"
 
-#: ../src/menu.c:447
+#: ../src/menu.c:454
 msgid "/Document/_Update highlighting"
 msgstr "/Документ/Обновить подсветку синтаксиса _U"
 
-#: ../src/menu.c:448
+#: ../src/menu.c:455
 msgid "/Document/_Previous"
 msgstr "/Документ/Предыдущий _P"
 
-#: ../src/menu.c:449
+#: ../src/menu.c:456
 msgid "/Document/_Next"
 msgstr "/Документ/Следующий _N"
 
-#: ../src/menu.c:451
+#: ../src/menu.c:458
 msgid "/Document/Word _Count"
 msgstr "/Документ/Число слов _C"
 
-#: ../src/menu.c:452
+#: ../src/menu.c:459
 msgid "/_Options"
 msgstr "/Параметры _O"
 
-#: ../src/menu.c:453
+#: ../src/menu.c:460
 msgid "/Options/tearoff1"
 msgstr "/Параметры/tearoff1"
 
-#: ../src/menu.c:454
+#: ../src/menu.c:461
 msgid "/Options/_Preferences"
 msgstr "/Параметры/Настройки... P"
 
-#: ../src/menu.c:455
+#: ../src/menu.c:462
 msgid "/Options/_Display"
 msgstr "/Параметры/Интерфейс _D"
 
-#: ../src/menu.c:456
+#: ../src/menu.c:463
 msgid "/Options/Display/tearoff1"
 msgstr "/Параметры/Интерфейс/tearoff1"
 
-#: ../src/menu.c:457
+#: ../src/menu.c:464
 msgid "/Options/Display/View _Main toolbar"
 msgstr "/Параметры/Интерфейс/Показывать основную панель инструментов _M"
 
-#: ../src/menu.c:458
+#: ../src/menu.c:465
 msgid "/Options/Display/View _HTML toolbar"
 msgstr "/Параметры/Интерфейс/Показывать панель инструментов _HTML"
 
-#: ../src/menu.c:459
+#: ../src/menu.c:466
 msgid "/Options/Display/View _Custom menu"
 msgstr "/Параметры/Интерфейс/Показывать меню пользователя _C"
 
-#: ../src/menu.c:460
+#: ../src/menu.c:467
 msgid "/Options/Display/View _Left panel"
 msgstr "/Параметры/Интерфейс/Показывать панель слева _L"
 
-#: ../src/menu.c:462
+#: ../src/menu.c:469
 msgid "/Options/_Tabsize"
 msgstr "/Параметры/Ширина табуляции _T"
 
-#: ../src/menu.c:463
+#: ../src/menu.c:470
 msgid "/Options/Tabsize/tearoff1"
 msgstr "/Параметры/Ширина табуляции/tearoff1"
 
-#: ../src/menu.c:464
+#: ../src/menu.c:471
 msgid "/Options/Tabsize/_Increase tabsize"
 msgstr "/Параметры/Ширина табуляции/Увеличить ширину табуляции _I"
 
-#: ../src/menu.c:465
+#: ../src/menu.c:472
 msgid "/Options/Tabsize/_Decrease tabsize"
 msgstr "/Параметры/Ширина табуляции/Уменьшить ширину табуляции _D"
 
-#: ../src/menu.c:466 ../src/menu.c:468
+#: ../src/menu.c:473 ../src/menu.c:475
 msgid "/Options/sep2"
 msgstr "/Параметры/sep2"
 
-#: ../src/menu.c:467
+#: ../src/menu.c:474
 msgid "/Options/_Auto indent"
 msgstr "/Параметры/Ставить отступы автоматически _A"
 
-#: ../src/menu.c:469
+#: ../src/menu.c:476
 msgid "/Options/_Save settings"
 msgstr "/Параметры/Сохранить настройки _S"
 
-#: ../src/menu.c:470
+#: ../src/menu.c:477
 msgid "/Options/Save shortcut _keys"
 msgstr "/Параметры/Сохранить клавиши быстрого доступа _k"
 
-#: ../src/menu.c:602
+#: ../src/menu.c:609
 msgid "/Document/Type"
 msgstr "/Документ/Тип документа"
 
-#: ../src/menu.c:639
+#: ../src/menu.c:646
 msgid "/Options/Display/View Main toolbar"
 msgstr "/Параметры/Интерфейс/Показывать основную панель инструментов"
 
-#: ../src/menu.c:640
+#: ../src/menu.c:647
 msgid "/Options/Display/View HTML toolbar"
 msgstr "/Параметры/Интерфейс/Показывать панель инструментов HTML"
 
-#: ../src/menu.c:641
+#: ../src/menu.c:648
 msgid "/Options/Display/View Custom menu"
 msgstr "/Параметры/Интерфейс/Показывать меню пользователя"
 
-#: ../src/menu.c:642
+#: ../src/menu.c:649
 msgid "/Options/Display/View Left panel"
 msgstr "/Параметры/Интерфейс/Показывать панель слева"
 
-#: ../src/menu.c:643
+#: ../src/menu.c:650
 msgid "/Options/Auto indent"
 msgstr "/Параметры/Ставить отступы автоматически"
 
-#: ../src/menu.c:648
+#: ../src/menu.c:655
 msgid "/External/Browsers/"
 msgstr "/Внешние/Браузеры/"
 
-#: ../src/menu.c:651
+#: ../src/menu.c:658
 msgid "/External/Commands/"
 msgstr "/Внешние/Команды/"
 
-#: ../src/menu.c:654
+#: ../src/menu.c:661
 msgid "/External/Outputbox/"
 msgstr "/Внешние/Окно вывода/"
 
-#: ../src/menu.c:690 ../src/menu.c:710 ../src/menu.c:979 ../src/menu.c:992
-#: ../src/menu.c:1008 ../src/menu.c:1022
+#: ../src/menu.c:697 ../src/menu.c:717 ../src/menu.c:986 ../src/menu.c:999
+#: ../src/menu.c:1015 ../src/menu.c:1029
 msgid "/External"
 msgstr "/Внешние"
 
-#: ../src/menu.c:708
+#: ../src/menu.c:715
 msgid "/External/Outputbox"
 msgstr "/Внешние/Окно вывода"
 
-#: ../src/menu.c:747
+#: ../src/menu.c:754
 msgid "Loading file(s)..."
 msgstr "Загрузка файл(а,ов)..."
 
-#: ../src/menu.c:750
+#: ../src/menu.c:757
 msgid "Could not open file\n"
 msgstr "Не удается открыть файл\n"
 
-#: ../src/menu.c:772
+#: ../src/menu.c:779
 msgid "/File/Open recent"
 msgstr "/Файл/Открыть недавние"
 
-#: ../src/menu.c:793
+#: ../src/menu.c:800
 msgid "(none)"
 msgstr "(нет)"
 
-#: ../src/menu.c:881
+#: ../src/menu.c:888
 msgid "Bluefish error: no filename"
 msgstr "Ошибка Bluefish: нет имени файла"
 
-#: ../src/menu.c:881
+#: ../src/menu.c:888
 msgid "Could not view file in browser, the file does not yet have a name\n"
 msgstr "Не удается просмотреть файл в браузере -- у файла нет имени\n"
 
-#: ../src/menu.c:990
+#: ../src/menu.c:997
 msgid "/External/Browsers"
 msgstr "/Внешние/Браузеры"
 
-#: ../src/menu.c:1020
+#: ../src/menu.c:1027
 msgid "/External/Commands"
 msgstr "/Внешние/Команды"
 
-#: ../src/menu.c:1060
+#: ../src/menu.c:1067
 msgid "/Document/Encoding"
 msgstr "/Документ/Кодировка"
 
-#: ../src/menu.c:1303
+#: ../src/menu.c:1314
 msgid "This custom search and replace requires a selection"
 msgstr "Этот инструмент поиска и замены требует наличия выделения"
 
-#: ../src/menu.c:1377
+#: ../src/menu.c:1388
 msgid "/_Custom menu"
 msgstr "/Меню пользователя _C"
 
-#: ../src/menu.c:1378
+#: ../src/menu.c:1389
 msgid "/Custom menu/sep"
 msgstr "/Меню пользователя/sep"
 
-#: ../src/menu.c:1379
+#: ../src/menu.c:1390
 msgid "/Custom menu/Edit custom menu..."
 msgstr "/Меню пользователя/Редактировать меню"
 
-#: ../src/menu.c:1541 ../src/menu.c:1669 ../src/menu.c:1879
+#: ../src/menu.c:1552 ../src/menu.c:1688 ../src/menu.c:1898
 msgid "in current document"
 msgstr "в текущем документе"
 
-#: ../src/menu.c:1541 ../src/menu.c:1669 ../src/menu.c:1880
+#: ../src/menu.c:1552 ../src/menu.c:1688 ../src/menu.c:1899
 msgid "from cursor"
 msgstr "от позиции курсора"
 
-#: ../src/menu.c:1541 ../src/menu.c:1669 ../src/menu.c:1881
+#: ../src/menu.c:1552 ../src/menu.c:1688 ../src/menu.c:1900
 msgid "in selection"
 msgstr "в выделенном"
 
-#: ../src/menu.c:1541 ../src/menu.c:1669 ../src/menu.c:1882
+#: ../src/menu.c:1552 ../src/menu.c:1688 ../src/menu.c:1901
 msgid "in all open documents"
 msgstr "во всех открытых документах"
 
-#: ../src/menu.c:1542 ../src/menu.c:1670 ../src/menu.c:1890
+#: ../src/menu.c:1553 ../src/menu.c:1689 ../src/menu.c:1909
 msgid "normal"
 msgstr "обычный"
 
-#: ../src/menu.c:1542 ../src/menu.c:1670 ../src/menu.c:1891
+#: ../src/menu.c:1553 ../src/menu.c:1689 ../src/menu.c:1910
 msgid "posix regular expresions"
 msgstr "регулярное выражение POSIX"
 
-#: ../src/menu.c:1542 ../src/menu.c:1670 ../src/menu.c:1892
+#: ../src/menu.c:1553 ../src/menu.c:1689 ../src/menu.c:1911
 msgid "perl regular expresions"
 msgstr "регулярное выражение Perl"
 
-#: ../src/menu.c:1607
+#: ../src/menu.c:1618
 msgid "Search pattern"
 msgstr "Шаблон поиска"
 
-#: ../src/menu.c:1608
+#: ../src/menu.c:1619
 msgid "Replace string"
 msgstr "Заменить строкой"
 
-#: ../src/menu.c:1611
+#: ../src/menu.c:1622
 msgid "Formatstring before"
 msgstr "Строка формата до"
 
-#: ../src/menu.c:1612
+#: ../src/menu.c:1623
 msgid "Formatstring after"
 msgstr "Строка формата после"
 
-#: ../src/menu.c:1640
+#: ../src/menu.c:1660
+msgid "the menupath you want to update does not exist yet: try 'add'"
+msgstr ""
+"Путь к меню, которое вы хотите обновить, не существует: попробуйте "
+"'добавить' его"
+
+#: ../src/menu.c:1662
 msgid "the menupath you want to add exists already"
 msgstr "Путь к меню уже существует"
 
-#: ../src/menu.c:1648
+#: ../src/menu.c:1667
 msgid "the menupath should start with a / character"
 msgstr "Путь к меню должен начинаться с символа /"
 
-#: ../src/menu.c:1790
+#: ../src/menu.c:1809
 msgid "Edit custom menu"
 msgstr "Редактировать меню пользователя"
 
-#: ../src/menu.c:1799
+#: ../src/menu.c:1818
 msgid "Menu path"
 msgstr "Путь к меню"
 
-#: ../src/menu.c:1833
+#: ../src/menu.c:1852
 msgid "custom dialog"
 msgstr "диалог пользователя"
 
-#: ../src/menu.c:1835
+#: ../src/menu.c:1854
 msgid "custom search and replace"
 msgstr "пользовательский поиск и замена"
 
-#: ../src/menu.c:1844
+#: ../src/menu.c:1863
 msgid "Number of variables"
 msgstr "Число переменных"
 
-#: ../src/menu.c:1849
+#: ../src/menu.c:1868
 msgid "Variables"
 msgstr "Переменные"
 
-#: ../src/menu.c:1889 ../src/snr2.c:1086
+#: ../src/menu.c:1908 ../src/snr2.c:1098
 msgid "Matching"
 msgstr "Соответсвует"
 
-#: ../src/menu.c:1897
+#: ../src/menu.c:1916
 msgid "case sensitive"
 msgstr "учитывать размер букв"
 
@@ -3087,135 +3056,139 @@ msgstr "учитывать размер букв"
 msgid "Select font"
 msgstr "Выбор шрифта"
 
-#: ../src/preferences.c:470 ../src/preferences.c:508
+#: ../src/preferences.c:492 ../src/preferences.c:530
 msgid "Filetype"
 msgstr "Тип файла"
 
-#: ../src/preferences.c:472
+#: ../src/preferences.c:494
 msgid "Extensions"
 msgstr "Расширения"
 
-#: ../src/preferences.c:474
+#: ../src/preferences.c:496
 msgid "Update chars"
 msgstr "Обновить символы"
 
-#: ../src/preferences.c:476 ../src/preferences.c:518
+#: ../src/preferences.c:498 ../src/preferences.c:540
 msgid "Icon"
 msgstr "Иконка"
 
-#: ../src/preferences.c:516
+#: ../src/preferences.c:538
 msgid "Extensions (colon separated)"
 msgstr "Расширения (разделенные двоеточием)"
 
-#: ../src/preferences.c:517
+#: ../src/preferences.c:539
 msgid "Highlight update characters"
 msgstr "Highlight update characters"
 
-#: ../src/preferences.c:632 ../src/preferences.c:666
+#: ../src/preferences.c:654 ../src/preferences.c:688
 msgid "Filefilter"
 msgstr "Фильтр файла"
 
-#: ../src/preferences.c:634 ../src/preferences.c:671
+#: ../src/preferences.c:656 ../src/preferences.c:693
 msgid "Inverse filtering"
 msgstr "Инверсная фильтрация"
 
-#: ../src/preferences.c:636
+#: ../src/preferences.c:658
 msgid "Filetypes in filter"
 msgstr "Типы файлов в фильтре"
 
-#: ../src/preferences.c:672
+#: ../src/preferences.c:694
 msgid "Filetypes (colon separated)"
 msgstr "Типы файлов (разделенные двоеточием)"
 
-#: ../src/preferences.c:952
+#: ../src/preferences.c:974
 msgid "filetype"
 msgstr "тип файла"
 
-#: ../src/preferences.c:960
+#: ../src/preferences.c:982
 msgid "Pattern name"
 msgstr "Имя шаблона"
 
-#: ../src/preferences.c:978 ../src/preferences.c:1419
-#: ../src/preferences.c:1468
+#: ../src/preferences.c:1000 ../src/preferences.c:1441
+#: ../src/preferences.c:1490
 msgid "Pattern"
 msgstr "Шаблон"
 
-#: ../src/preferences.c:1001
+#: ../src/preferences.c:1023
 msgid "Start pattern and end pattern"
 msgstr "Начальный и конечный шаблоны"
 
-#: ../src/preferences.c:1003
+#: ../src/preferences.c:1025
 msgid "Only start pattern"
 msgstr "Только начальный шаблон"
 
-#: ../src/preferences.c:1005
+#: ../src/preferences.c:1027
 msgid "Subpattern from parent"
 msgstr "Родительский подшаблон"
 
-#: ../src/preferences.c:1011
+#: ../src/preferences.c:1033
 msgid "Start pattern"
 msgstr "Начальный шаблон"
 
-#: ../src/preferences.c:1012
+#: ../src/preferences.c:1034
 msgid "End pattern"
 msgstr "Конечный шаблон"
 
-#: ../src/preferences.c:1013
+#: ../src/preferences.c:1035
 msgid "Case sensitive matching"
 msgstr "Соответствие без учета размера букв"
 
-#: ../src/preferences.c:1014
+#: ../src/preferences.c:1036
 msgid "Parentmatch"
 msgstr "Соответствие родительскому"
 
-#: ../src/preferences.c:1015
+#: ../src/preferences.c:1037
 msgid "Foreground color"
 msgstr "Цвет символов"
 
-#: ../src/preferences.c:1016
+#: ../src/preferences.c:1038
 msgid "Background color"
 msgstr "Цвет фона"
 
-#: ../src/preferences.c:1024
+#: ../src/preferences.c:1046
 msgid "don't change weight"
 msgstr "не менять толщину символа"
 
-#: ../src/preferences.c:1026
+#: ../src/preferences.c:1048
 msgid "force non-bold weight"
 msgstr "использовать не жирный"
 
-#: ../src/preferences.c:1028
+#: ../src/preferences.c:1050
 msgid "force bold weight"
 msgstr "использовать жирный"
 
-#: ../src/preferences.c:1034
+#: ../src/preferences.c:1056
 msgid "don't change style"
 msgstr "не изменять стиль"
 
-#: ../src/preferences.c:1036
+#: ../src/preferences.c:1058
 msgid "force non-italic style"
 msgstr "использовать не наклонный стиль"
 
-#: ../src/preferences.c:1038
+#: ../src/preferences.c:1060
 msgid "force italic style"
 msgstr "использовать наклонный стиль"
 
-#: ../src/preferences.c:1142 ../src/preferences.c:1173
+#: ../src/preferences.c:1164 ../src/preferences.c:1195
 msgid "Browser"
 msgstr "Браузер"
 
-#: ../src/preferences.c:1144 ../src/preferences.c:1179
-#: ../src/preferences.c:1262 ../src/preferences.c:1297
-#: ../src/preferences.c:1427 ../src/preferences.c:1472
+#: ../src/preferences.c:1166 ../src/preferences.c:1201
+#: ../src/preferences.c:1284 ../src/preferences.c:1319
+#: ../src/preferences.c:1449 ../src/preferences.c:1494
 msgid "Command"
 msgstr "Команда"
 
-#: ../src/preferences.c:1178
+#: ../src/preferences.c:1200
 #, c-format
 msgid "%s = current filename"
 msgstr "%s = текущее имя файла"
 
-#: ../src/preferences.c:1296
+#: ../src/preferences.c:1282 ../src/preferences.c:1313
+msgid "Label"
+msgstr "Ярлык"
+
+#: ../src/preferences.c:1318
 #, c-format
 msgid ""
 "%s = current filename\n"
@@ -3224,814 +3197,858 @@ msgstr ""
 "%s = текущее имя файла\n"
 "%f = выходное имя файла (для фильтров)"
 
-#: ../src/preferences.c:1421
+#: ../src/preferences.c:1439 ../src/preferences.c:1486
+msgid "Name"
+msgstr "Имя"
+
+#: ../src/preferences.c:1443
 msgid "File #"
 msgstr "Файл #"
 
-#: ../src/preferences.c:1423
+#: ../src/preferences.c:1445
 msgid "Line #"
 msgstr "Строка #"
 
-#: ../src/preferences.c:1425
+#: ../src/preferences.c:1447
 msgid "Output #"
 msgstr "Окно вывода #"
 
-#: ../src/preferences.c:1429 ../src/preferences.c:1473
+#: ../src/preferences.c:1451 ../src/preferences.c:1495
 msgid "Show all output"
 msgstr "Показывать весь вывод"
 
-#: ../src/preferences.c:1469
+#: ../src/preferences.c:1491
 msgid "File subpattern #"
 msgstr "Файл подшаблона #"
 
-#: ../src/preferences.c:1470
+#: ../src/preferences.c:1492
 msgid "Line subpattern #"
 msgstr "Строка подшаблона #"
 
-#: ../src/preferences.c:1471
+#: ../src/preferences.c:1493
 msgid "Output subpattern #"
 msgstr "Вывести подшаблон #"
 
-#: ../src/preferences.c:1618
+#: ../src/preferences.c:1641
+msgid "left"
+msgstr "слева"
+
+#: ../src/preferences.c:1641
+msgid "right"
+msgstr "справа"
+
+#: ../src/preferences.c:1641
+msgid "top"
+msgstr "сверху"
+
+#: ../src/preferences.c:1641
+msgid "bottom"
+msgstr "снизу"
+
+#: ../src/preferences.c:1644
 msgid "Edit preferences"
 msgstr "Редактирование настроек"
 
-#: ../src/preferences.c:1629
+#: ../src/preferences.c:1655
 msgid "Editor"
 msgstr "Редактор"
 
-#: ../src/preferences.c:1631
+#: ../src/preferences.c:1657
 msgid "Editor options"
 msgstr "Параметры редактора"
 
-#: ../src/preferences.c:1637
+#: ../src/preferences.c:1663
 msgid "Tab width"
 msgstr "Ширина табуляции"
 
-#: ../src/preferences.c:1638
+#: ../src/preferences.c:1664
 msgid "Word wrap default"
 msgstr "Перенос строк по умолчанию"
 
-#: ../src/preferences.c:1639
+#: ../src/preferences.c:1665
 msgid "Line numbers by default"
 msgstr "Номера строк по умолчанию"
 
-#: ../src/preferences.c:1640
+#: ../src/preferences.c:1666
 msgid "Highlight syntax by default"
 msgstr "Подсвечивать синтаксис по умолчанию"
 
-#: ../src/preferences.c:1641
+#: ../src/preferences.c:1667
 msgid "Highlight # lines"
 msgstr "Подсвечивать строк"
 
-#: ../src/preferences.c:1642
+#: ../src/preferences.c:1668
 msgid "Always highlight full document"
 msgstr "Всегда подсвечивать синтаксис целого документа"
 
-#: ../src/preferences.c:1644
+#: ../src/preferences.c:1670
 msgid "HTML"
 msgstr "HTML"
 
-#: ../src/preferences.c:1646
+#: ../src/preferences.c:1672
 msgid "HTML options"
 msgstr "Параметры HTML"
 
-#: ../src/preferences.c:1651
+#: ../src/preferences.c:1677
 msgid "Lowercase HTML tags"
 msgstr "Тэги HTML строчными буквами"
 
-#: ../src/preferences.c:1652
+#: ../src/preferences.c:1678
 msgid "Use deprecated tags (e.g. <font> and <nobr>)"
 msgstr "Использовать устаревшии тэги (например, <font> и <nobr>)"
 
-#: ../src/preferences.c:1653
+#: ../src/preferences.c:1679
 msgid "Use XHTML style tags (<br />)"
 msgstr "Использовать тэги как в XHTML (<br />)"
 
-#: ../src/preferences.c:1654
+#: ../src/preferences.c:1680
 msgid "Automatic update author meta"
 msgstr "Автоматически обновлять метатэг автора"
 
-#: ../src/preferences.c:1657
+#: ../src/preferences.c:1683
 msgid "Files"
 msgstr "Файлы"
 
-#: ../src/preferences.c:1659
+#: ../src/preferences.c:1685
 msgid "Encoding"
 msgstr "Кодировка"
 
-#: ../src/preferences.c:1671
+#: ../src/preferences.c:1697
 msgid "Default character set"
 msgstr "Таблица символов по умолчанию"
 
-#: ../src/preferences.c:1674
+#: ../src/preferences.c:1700
 msgid "Auto set <meta> encoding tag on change"
 msgstr "Автоматически ставить тэг <meta> при изменении"
 
-#: ../src/preferences.c:1676
+#: ../src/preferences.c:1702
 msgid "Backup"
 msgstr "Резервное копирование"
 
-#: ../src/preferences.c:1680
+#: ../src/preferences.c:1706
 msgid "Create backup on save"
 msgstr "Создавать резервную копию при сохранении"
 
-#: ../src/preferences.c:1681
+#: ../src/preferences.c:1707
 msgid "Backup file suffix"
 msgstr "Суффикс файла резервной копии"
 
-#: ../src/preferences.c:1686
+#: ../src/preferences.c:1712
 msgid "Action on backup failure"
 msgstr "Действие при ошибке резервного копирования"
 
-#: ../src/preferences.c:1697
+#: ../src/preferences.c:1723
 msgid "Undo history size"
 msgstr "Размер хранилища истории отмены действия"
 
-#: ../src/preferences.c:1698
+#: ../src/preferences.c:1724
 msgid "Clear undo history on save"
 msgstr "Очищать историю отмены действий при сохранении файла"
 
-#: ../src/preferences.c:1700 ../src/preferences.c:1725
+#: ../src/preferences.c:1726 ../src/preferences.c:1751
 msgid "Misc"
 msgstr "Прочее"
 
-#: ../src/preferences.c:1705
+#: ../src/preferences.c:1731
 msgid "Allow multi instances of a file"
 msgstr "Разрешить несколько окон с одним файлом"
 
-#: ../src/preferences.c:1707
+#: ../src/preferences.c:1733
 msgid "Open files in already running bluefish window"
-msgstr ""
+msgstr "Открывать файлы в уже открытом окне Bluefish"
 
-#: ../src/preferences.c:1709
+#: ../src/preferences.c:1735
 msgid "Number of files in 'Open recent'"
-msgstr ""
+msgstr "Количество файлов в 'Открыть недавние'"
 
-#: ../src/preferences.c:1712
+#: ../src/preferences.c:1738
 msgid "User interface"
 msgstr "Интерфейс пользователя"
 
-#: ../src/preferences.c:1714
+#: ../src/preferences.c:1740
 msgid "Dimensions"
 msgstr "Размеры"
 
-#: ../src/preferences.c:1718
+#: ../src/preferences.c:1744
 msgid "Restore last used dimensions"
 msgstr "Восстановить размеры, использовавшиеся в прошлый раз"
 
-#: ../src/preferences.c:1719
+#: ../src/preferences.c:1745
 msgid "Initial left panel width"
 msgstr "Начальная ширина левой панели"
 
-#: ../src/preferences.c:1720
+#: ../src/preferences.c:1746
 msgid "Initial window height"
 msgstr "Начальная высота окна"
 
-#: ../src/preferences.c:1721
+#: ../src/preferences.c:1747
 msgid "Initial window width"
 msgstr "Начальная ширина окна"
 
-#: ../src/preferences.c:1730
+#: ../src/preferences.c:1756
 msgid "External browsers in submenu"
 msgstr "Внешние браузеры в подменю"
 
-#: ../src/preferences.c:1731
+#: ../src/preferences.c:1757
 msgid "External commands in submenu"
 msgstr "Внешние команды в подменю"
 
-#: ../src/preferences.c:1732
+#: ../src/preferences.c:1758
 msgid "External outputbox in submenu"
 msgstr "Внешнее окно вывода в подменю"
 
-#: ../src/preferences.c:1734
+#: ../src/preferences.c:1760
 msgid "Notebook tab font (leave empty for gtk default)"
 msgstr ""
 "Шрифт вкладки блокнота (оставьте незаполненным для использование "
 "стандартного GTK)"
 
-#: ../src/preferences.c:1735
+#: ../src/preferences.c:1762
+msgid "Document notebook tab position"
+msgstr "Позиция табуляции в блокноте докумета"
+
+#: ../src/preferences.c:1763
+msgid "Left panel notebook tab position"
+msgstr "Позиция табуляции в левой панели блокнота"
+
+#: ../src/preferences.c:1765
 msgid "Make HTML dialogs transient"
 msgstr "Сделать диалоги HTML постоянными"
 
-#: ../src/preferences.c:1736
+#: ../src/preferences.c:1766
 msgid "Advanced search and replace by default"
 msgstr "Улучшенный поиск и замена по умолчанию"
 
-#: ../src/preferences.c:1738
+#: ../src/preferences.c:1768
 msgid "File browser"
 msgstr "Просмотр файлов"
 
-#: ../src/preferences.c:1742
+#: ../src/preferences.c:1772
 msgid "Show hidden files"
 msgstr "Показывать скрытые файлы"
 
-#: ../src/preferences.c:1743
+#: ../src/preferences.c:1773
 msgid "Show other users files"
 msgstr "Показывать прочие файлы пользователя"
 
-#: ../src/preferences.c:1744
+#: ../src/preferences.c:1774
 msgid "Show backup files"
 msgstr "Показывать файлы резервного копирования"
 
-#: ../src/preferences.c:1745
+#: ../src/preferences.c:1775
 msgid "Unknown icon"
 msgstr "Иконка неизвестного"
 
-#: ../src/preferences.c:1746
+#: ../src/preferences.c:1776
 msgid "Directory icon"
 msgstr "Иконка директории"
 
-#: ../src/preferences.c:1749 ../src/rcfile.c:537
+#: ../src/preferences.c:1779 ../src/rcfile.c:539
 msgid "Images"
 msgstr "Изображения"
 
-#: ../src/preferences.c:1751
+#: ../src/preferences.c:1781
 msgid "Thumbnails"
 msgstr "Эскизы"
 
-#: ../src/preferences.c:1755
+#: ../src/preferences.c:1785
 msgid "Thumbnail suffix"
 msgstr "Суффикс эскизов"
 
-#: ../src/preferences.c:1759
+#: ../src/preferences.c:1789
 msgid "Thumbnail filetype"
 msgstr "Типы файлов эскизов"
 
-#: ../src/preferences.c:1764 ../src/preferences.c:1766
+#: ../src/preferences.c:1794 ../src/preferences.c:1796
 msgid "Filetypes"
 msgstr "Типы файлов"
 
-#: ../src/preferences.c:1773
+#: ../src/preferences.c:1803
 msgid "Filefilters"
 msgstr "Фильтры файлов"
 
-#: ../src/preferences.c:1781
+#: ../src/preferences.c:1811
 msgid "Syntax highlighting"
 msgstr "Подсветка синтаксиса"
 
-#: ../src/preferences.c:1783
+#: ../src/preferences.c:1813
 msgid "Patterns"
 msgstr "Шаблоны"
 
-#: ../src/preferences.c:1791
+#: ../src/preferences.c:1821
 msgid "External programs"
 msgstr "Внешние программы"
 
-#: ../src/preferences.c:1793
+#: ../src/preferences.c:1823
 msgid "Browsers"
 msgstr "Браузеры"
 
-#: ../src/preferences.c:1800
+#: ../src/preferences.c:1830
 msgid "Utilities and filters"
 msgstr "Утилиты и фильтры"
 
-#: ../src/preferences.c:1808
+#: ../src/preferences.c:1838
 msgid "Output parsers"
 msgstr "Обработчики вывода"
 
-#: ../src/preferences.c:1810
+#: ../src/preferences.c:1840
 msgid "Outputbox"
 msgstr "Окно вывода"
 
-#: ../src/rcfile.c:479
+#: ../src/rcfile.c:481
 msgid "Galeon"
 msgstr "Galeon"
 
-#: ../src/rcfile.c:481
+#: ../src/rcfile.c:483
 msgid "Mozilla"
 msgstr "Mozilla"
 
-#: ../src/rcfile.c:483
+#: ../src/rcfile.c:485
 msgid "Opera"
 msgstr "Opera"
 
-#: ../src/rcfile.c:485
+#: ../src/rcfile.c:487
 msgid "Netscape"
 msgstr "Netscape"
 
-#: ../src/rcfile.c:487
+#: ../src/rcfile.c:489
 msgid "Gnome default"
 msgstr "Стандартная GNOME"
 
-#: ../src/rcfile.c:503
+#: ../src/rcfile.c:505
 msgid "make"
 msgstr "make"
 
-#: ../src/rcfile.c:504
+#: ../src/rcfile.c:506
 msgid "weblint HTML checker"
 msgstr "программа проверки HTML WebLint"
 
-#: ../src/rcfile.c:505
+#: ../src/rcfile.c:507
 msgid "tidy HTML validator"
 msgstr "программа проверки синтаксиса HTML"
 
-#: ../src/rcfile.c:506
+#: ../src/rcfile.c:508
 msgid "javac"
 msgstr "javac"
 
-#: ../src/rcfile.c:512
+#: ../src/rcfile.c:514
 msgid "Dos2Unix filter"
 msgstr "Фильтр DOS2UNIX"
 
-#: ../src/rcfile.c:514
+#: ../src/rcfile.c:516
 msgid "Tidy cleanup filter"
 msgstr "Фильтр тонкой очистки"
 
-#: ../src/rcfile.c:531
+#: ../src/rcfile.c:533
 msgid "C programming"
 msgstr "Программирование C"
 
-#: ../src/rcfile.c:533
+#: ../src/rcfile.c:535
 msgid "All web files"
 msgstr "Все Web-файлы"
 
-#: ../src/rcfile.c:535
+#: ../src/rcfile.c:537
 msgid "Java programming"
 msgstr "Программирование Java"
 
-#: ../src/rcfile.c:539
+#: ../src/rcfile.c:541
 msgid "Hide objectfiles"
 msgstr "Спрятать объектные файлы"
 
-#: ../src/rcfile.c:620
+#: ../src/rcfile.c:631
 msgid "/php/ibase/ibase fetch row"
 msgstr "/php/ibase/ibase fetch row"
 
-#: ../src/rcfile.c:620
+#: ../src/rcfile.c:631
 msgid "ibase result variable name"
 msgstr "имя переменной, хранящей результат iBase"
 
-#: ../src/rcfile.c:620 ../src/rcfile.c:621
+#: ../src/rcfile.c:631 ../src/rcfile.c:632
 msgid "row variable name"
 msgstr "имя переменной, хранящей строку запроса"
 
-#: ../src/rcfile.c:621
+#: ../src/rcfile.c:632
 msgid "/php/mysql/mysql fetch row"
 msgstr "/php/mysql/mysql fetch row"
 
-#: ../src/rcfile.c:621
+#: ../src/rcfile.c:632
 msgid "mysql result variable name"
 msgstr "имя переменной, хранящей результат MySQL"
 
-#: ../src/rcfile.c:622
+#: ../src/rcfile.c:633
 msgid "/php/mysql/mysql connect"
 msgstr "/php/mysql/mysql connect"
 
-#: ../src/rcfile.c:622
+#: ../src/rcfile.c:633
 msgid "mysql host"
 msgstr "сервер MySQL"
 
-#: ../src/rcfile.c:622
+#: ../src/rcfile.c:633
 msgid "mysql username"
 msgstr "имя пользователя MySQL"
 
-#: ../src/rcfile.c:622
+#: ../src/rcfile.c:633
 msgid "mysql password"
 msgstr "пароль MySQL"
 
-#: ../src/rcfile.c:622
+#: ../src/rcfile.c:633
 msgid "database name"
 msgstr "имя базы данных"
 
-#: ../src/rcfile.c:623
+#: ../src/rcfile.c:634
 msgid "/php/ibase/ibase connect"
 msgstr "/php/ibase/ibase connect"
 
-#: ../src/rcfile.c:623
+#: ../src/rcfile.c:634
 msgid "ibase host"
 msgstr "сервер iBase"
 
-#: ../src/rcfile.c:623
+#: ../src/rcfile.c:634
 msgid "ibase database path"
 msgstr "путь к БД iBase"
 
-#: ../src/rcfile.c:623
+#: ../src/rcfile.c:634
 msgid "ibase username"
 msgstr "имя пользователя iBase"
 
-#: ../src/rcfile.c:623
+#: ../src/rcfile.c:634
 msgid "ibase password"
 msgstr "пароль iBase"
 
-#: ../src/rcfile.c:624
+#: ../src/rcfile.c:635
 msgid "/php/general/while each in array list"
 msgstr "/php/general/while each in array list"
 
-#: ../src/rcfile.c:624
+#: ../src/rcfile.c:635
 msgid "array name"
 msgstr "имя массива"
 
-#: ../src/rcfile.c:625
+#: ../src/rcfile.c:636
 msgid "/sql/select all from table"
 msgstr "/sql/select all from table"
 
-#: ../src/rcfile.c:625
+#: ../src/rcfile.c:636
 msgid "table name"
 msgstr "имя таблицы"
 
-#: ../src/rcfile.c:626
+#: ../src/rcfile.c:637
 msgid "/php/general/mail"
 msgstr "/php/general/mail"
 
-#: ../src/rcfile.c:626
+#: ../src/rcfile.c:637
 msgid "email adress"
 msgstr "Адрес EMail"
 
-#: ../src/rcfile.c:626
+#: ../src/rcfile.c:637
 msgid "subject"
 msgstr "Тема"
 
-#: ../src/rcfile.c:626
+#: ../src/rcfile.c:637
 msgid "mail body variable name"
 msgstr "имя переменной, хранящей тело письма"
 
-#: ../src/rcfile.c:627
+#: ../src/rcfile.c:638
 msgid "/php/general/for loop"
 msgstr "/php/general/for loop"
 
-#: ../src/rcfile.c:627
+#: ../src/rcfile.c:638
 msgid "loop variable name"
 msgstr "имя переменной цикла"
 
-#: ../src/rcfile.c:627
+#: ../src/rcfile.c:638
 msgid "from value"
 msgstr "от значения"
 
-#: ../src/rcfile.c:627
+#: ../src/rcfile.c:638
 msgid "to value"
 msgstr "до значения"
 
-#: ../src/rcfile.c:628
+#: ../src/rcfile.c:639
 msgid "/php/ibase/query"
 msgstr "/php/ibase/query"
 
-#: ../src/rcfile.c:628 ../src/rcfile.c:633 ../src/rcfile.c:651
-#: ../src/rcfile.c:652
+#: ../src/rcfile.c:639 ../src/rcfile.c:644 ../src/rcfile.c:662
+#: ../src/rcfile.c:663
 msgid "result variable name"
 msgstr "имя переменной для хранения результата"
 
-#: ../src/rcfile.c:628
+#: ../src/rcfile.c:639
 msgid "ibase connection id name"
 msgstr "Имя идентификатора соединения к iBase"
 
-#: ../src/rcfile.c:628 ../src/rcfile.c:633 ../src/rcfile.c:651
+#: ../src/rcfile.c:639 ../src/rcfile.c:644 ../src/rcfile.c:662
 msgid "query string (quoted) or variable (including $)"
 msgstr "строка запроса (quoted) или переменная (с символом $)"
 
-#: ../src/rcfile.c:629
+#: ../src/rcfile.c:640
 msgid "/php/general/include file"
 msgstr "/php/general/include file"
 
-#: ../src/rcfile.c:629
+#: ../src/rcfile.c:640
 msgid "filename to include"
 msgstr "имя подключаемого файла"
 
-#: ../src/rcfile.c:630
+#: ../src/rcfile.c:641
 msgid "/php/general/require file"
 msgstr "/php/general/require file"
 
-#: ../src/rcfile.c:630
+#: ../src/rcfile.c:641
 msgid "filename to require"
 msgstr "требуемое имя файла"
 
-#: ../src/rcfile.c:631
+#: ../src/rcfile.c:642
 msgid "/php/general/if isset"
 msgstr "/php/general/if isset"
 
-#: ../src/rcfile.c:631 ../src/rcfile.c:632
+#: ../src/rcfile.c:642 ../src/rcfile.c:643
 msgid "variable name to test for"
 msgstr "имя проверяемой переменной"
 
-#: ../src/rcfile.c:632
+#: ../src/rcfile.c:643
 msgid "/php/general/if not isset"
 msgstr "/php/general/if not isset"
 
-#: ../src/rcfile.c:633
+#: ../src/rcfile.c:644
 msgid "/php/mysql/query"
 msgstr "/php/mysql/query"
 
-#: ../src/rcfile.c:633
+#: ../src/rcfile.c:644
 msgid "mysql connection id name"
 msgstr "Имя идентификатора соединения с MySQL"
 
-#: ../src/rcfile.c:634
+#: ../src/rcfile.c:645
 msgid "/html/font symbol"
 msgstr "/html/font symbol"
 
-#: ../src/rcfile.c:635
+#: ../src/rcfile.c:646
 msgid "/html/div with class"
 msgstr "/html/div with class"
 
-#: ../src/rcfile.c:635 ../src/rcfile.c:636
+#: ../src/rcfile.c:646 ../src/rcfile.c:647
 msgid "CSS class name"
 msgstr "Имя класса CSS"
 
-#: ../src/rcfile.c:636
+#: ../src/rcfile.c:647
 msgid "/html/span with class"
 msgstr "/html/span with class"
 
-#: ../src/rcfile.c:637
+#: ../src/rcfile.c:648
 msgid "/php/php block"
 msgstr "/php/php block"
 
-#: ../src/rcfile.c:638
+#: ../src/rcfile.c:649
 msgid "/html/made with bluefish"
 msgstr "/html/made with bluefish"
 
-#: ../src/rcfile.c:639
+#: ../src/rcfile.c:650
 msgid "/html/meta keywords"
 msgstr "/html/meta keywords"
 
-#: ../src/rcfile.c:639
+#: ../src/rcfile.c:650
 msgid "keywords, space separated"
 msgstr "клчевые слова, разделенные пробелом"
 
-#: ../src/rcfile.c:640
+#: ../src/rcfile.c:651
 msgid "/html/meta refresh (client pull)"
 msgstr "/html/meta refresh (client pull)"
 
-#: ../src/rcfile.c:640
+#: ../src/rcfile.c:651
 msgid "refresh time, in seconds"
 msgstr "время обновления, в секундах"
 
-#: ../src/rcfile.c:640
+#: ../src/rcfile.c:651
 msgid "URL to redirect to"
 msgstr "На какой URL перенаправить"
 
-#: ../src/rcfile.c:641
+#: ../src/rcfile.c:652
 msgid "/active html/form"
 msgstr "/active html/form"
 
-#: ../src/rcfile.c:642
+#: ../src/rcfile.c:653
 msgid "/active html/form and action"
 msgstr "/active html/form and action"
 
-#: ../src/rcfile.c:642
+#: ../src/rcfile.c:653
 msgid "Submit button text"
 msgstr "Текст кнопки отсылки формы"
 
-#: ../src/rcfile.c:643
+#: ../src/rcfile.c:654
 msgid "/active html/input text"
 msgstr "/active html/input text"
 
-#: ../src/rcfile.c:643 ../src/rcfile.c:644 ../src/rcfile.c:645
-#: ../src/rcfile.c:646 ../src/rcfile.c:647 ../src/rcfile.c:648
+#: ../src/rcfile.c:654 ../src/rcfile.c:655 ../src/rcfile.c:656
+#: ../src/rcfile.c:657 ../src/rcfile.c:658 ../src/rcfile.c:659
 msgid "variable name"
 msgstr "имя переменной"
 
-#: ../src/rcfile.c:644
+#: ../src/rcfile.c:655
 msgid "/active html/input checkbox"
 msgstr "/active html/input checkbox"
 
-#: ../src/rcfile.c:644
+#: ../src/rcfile.c:655
 msgid "value when checked"
 msgstr "значение, присваиваемое при установке флажка"
 
-#: ../src/rcfile.c:645
+#: ../src/rcfile.c:656
 msgid "/active html/textarea"
 msgstr "/active html/textarea"
 
-#: ../src/rcfile.c:646
+#: ../src/rcfile.c:657
 msgid "/active html/select options/from array"
 msgstr "/active html/select options/from array"
 
-#: ../src/rcfile.c:646
+#: ../src/rcfile.c:657
 msgid "array name containing options"
 msgstr "имя массива, содержащего параметры"
 
-#: ../src/rcfile.c:647
+#: ../src/rcfile.c:658
 msgid "/active html/select options/from mysql result"
 msgstr "/active html/select options/from mysql result"
 
-#: ../src/rcfile.c:647
+#: ../src/rcfile.c:658
 msgid "mysql query result"
 msgstr "результат запроса к MySQL"
 
-#: ../src/rcfile.c:647 ../src/rcfile.c:648
+#: ../src/rcfile.c:658 ../src/rcfile.c:659
 msgid "index of the value"
 msgstr "индекс значения"
 
-#: ../src/rcfile.c:647 ../src/rcfile.c:648
+#: ../src/rcfile.c:658 ../src/rcfile.c:659
 msgid "index of the label"
 msgstr "индекс метки"
 
-#: ../src/rcfile.c:648
+#: ../src/rcfile.c:659
 msgid "/active html/select options/from ibase result"
 msgstr "/active html/select options/from ibase result"
 
-#: ../src/rcfile.c:648
+#: ../src/rcfile.c:659
 msgid "ibase query result"
 msgstr "результат запроса iBase"
 
-#: ../src/rcfile.c:649
+#: ../src/rcfile.c:660
 msgid "/DHTML/mouseover image"
 msgstr "/DHTML/mouseover image"
 
-#: ../src/rcfile.c:649
+#: ../src/rcfile.c:660
 msgid "unique name"
 msgstr "уникальное имя"
 
-#: ../src/rcfile.c:649
+#: ../src/rcfile.c:660
 msgid "onMouseOut src"
 msgstr "onMouseOut src"
 
-#: ../src/rcfile.c:649
+#: ../src/rcfile.c:660
 msgid "onMouseOver src"
 msgstr "onMouseOver src"
 
-#: ../src/rcfile.c:650
+#: ../src/rcfile.c:661
 msgid "/php/odbc/odbc connect"
 msgstr "/php/odbc/odbc connect"
 
-#: ../src/rcfile.c:650
+#: ../src/rcfile.c:661
 msgid "odbc data source name"
 msgstr "имя источника данных ODBC"
 
-#: ../src/rcfile.c:650
+#: ../src/rcfile.c:661
 msgid "username"
 msgstr "имя пользователя"
 
-#: ../src/rcfile.c:650
+#: ../src/rcfile.c:661
 msgid "password"
 msgstr "пароль"
 
-#: ../src/rcfile.c:651
+#: ../src/rcfile.c:662
 msgid "/php/odbc/odbc exec query"
 msgstr "/php/odbc/odbc exec query"
 
-#: ../src/rcfile.c:651
+#: ../src/rcfile.c:662
 msgid "odbc connection id name"
 msgstr "Имя идентификатора соединения ODBC"
 
-#: ../src/rcfile.c:652
+#: ../src/rcfile.c:663
 msgid "/php/odbc/odbc fetch row"
 msgstr "/php/odbc/odbc fetch row"
 
-#: ../src/rcfile.c:653
+#: ../src/rcfile.c:664
 msgid "/php/general/echo date"
 msgstr "/php/general/echo date"
 
-#: ../src/rcfile.c:654
+#: ../src/rcfile.c:665
 msgid "/php/filesystem/open and echo file"
 msgstr "/php/filesystem/open and echo file"
 
-#: ../src/rcfile.c:654
+#: ../src/rcfile.c:665
 msgid "file (quoted) or variable (including $)"
 msgstr "file (quoted) or variable (including $)"
 
-#: ../src/rcfile.c:655
+#: ../src/rcfile.c:666
 msgid "/php/general/location header"
 msgstr "/php/general/location header"
 
-#: ../src/rcfile.c:655
+#: ../src/rcfile.c:666
 msgid "location (URL) to redirect to (quoted) or variable (including $)"
 msgstr "location (URL) to redirect to (quoted) or variable (including $)"
 
-#: ../src/rcfile.c:656
+#: ../src/rcfile.c:667
 msgid "/apache/basic password required"
 msgstr "/apache/basic password required"
 
-#: ../src/rcfile.c:656
+#: ../src/rcfile.c:667
 msgid "full path to password file"
 msgstr "полный путь к файлу паролей"
 
-#: ../src/rcfile.c:656
+#: ../src/rcfile.c:667
 msgid "security description"
 msgstr "описание правила безопасности"
 
-#: ../src/rcfile.c:657
+#: ../src/rcfile.c:668
 msgid "/apache/deny access to .inc"
 msgstr "/apache/запретить доступ к .inc"
 
-#: ../src/rcfile.c:658
+#: ../src/rcfile.c:669
 msgid "/replace/strip <font>"
 msgstr "/replace/обрезать <font>"
 
-#: ../src/rcfile.c:659
+#: ../src/rcfile.c:670
 msgid "/replace/strip <any tag> in selection"
 msgstr "/replace/обрезать <любой тэг> в выделенном"
 
-#: ../src/rcfile.c:660
+#: ../src/rcfile.c:671
 msgid "/replace/convert <td> in <th> in selection"
 msgstr "/replace/конвертировать <td> в <th> в выделенном"
 
-#: ../src/rcfile.c:661
+#: ../src/rcfile.c:672
 msgid "/replace/convert <any tag> in <any other tag> in selection"
 msgstr "/replace/конвертировать <тэг> в <любой другой тэг> в выделении"
 
-#: ../src/snr2.c:188
+#: ../src/snr2.c:190
 msgid "Regular expression error: "
 msgstr "Ошибка регулярного выражения:"
 
-#: ../src/snr2.c:189 ../src/snr2.c:233
+#: ../src/snr2.c:191 ../src/snr2.c:235
 msgid "Bluefish warning: regular expression error"
 msgstr "Предупреждение Bluefish: ошибка регулярного выражения"
 
-#: ../src/snr2.c:232
+#: ../src/snr2.c:234
 #, c-format
 msgid "Regular expression error: %s at offset %d"
 msgstr "Ошибка в регулярном выражении: %s по смещению %d"
 
-#: ../src/snr2.c:670
+#: ../src/snr2.c:672
 msgid "Confirm replace"
 msgstr "Подтвердите замену"
 
-#: ../src/snr2.c:673
+#: ../src/snr2.c:675
 msgid "Are you sure you want to replace this?"
 msgstr "Вы уверены, что хотите заменить это?"
 
-#: ../src/snr2.c:678
+#: ../src/snr2.c:680
 msgid "All"
 msgstr "Все"
 
-#: ../src/snr2.c:813 ../src/snr2.c:820
+#: ../src/snr2.c:815 ../src/snr2.c:822
 msgid "Bluefish message"
 msgstr "Сообщение Bluefish"
 
-#: ../src/snr2.c:813 ../src/snr2.c:820
+#: ../src/snr2.c:815 ../src/snr2.c:822
 msgid "Search: no match found"
 msgstr "Поиск: вхождений не найдено"
 
-#: ../src/snr2.c:988
-msgid "Hide advanced <<"
-msgstr "Убрать расширенные <<"
+#: ../src/snr2.c:990
+msgid "Hide _advanced <<"
+msgstr "Убрать _подробности <<"
 
-#: ../src/snr2.c:1005 ../src/snr2.c:1144
-msgid "Show advanced >>"
-msgstr "Показать расширенные >>"
+#: ../src/snr2.c:1011 ../src/snr2.c:1157
+msgid "Show _advanced >>"
+msgstr "Показать _подробности >>"
 
-#: ../src/snr2.c:1051
+#: ../src/snr2.c:1062
 msgid "Search"
-msgstr "Поиск"
+msgstr "_Поиск"
 
-#: ../src/snr2.c:1068
-msgid "Find: "
-msgstr "Найти:"
+#: ../src/snr2.c:1078
+msgid "_Find: "
+msgstr "_Найти:"
 
-#: ../src/snr2.c:1077
+#: ../src/snr2.c:1089
 msgid "Where"
 msgstr "Где"
 
-#: ../src/snr2.c:1081
-msgid "Start at beginning of document"
-msgstr "Начать с начала документа"
-
-#: ../src/snr2.c:1082
-msgid "Start at cursor position"
-msgstr "Начать с позиции курсора"
-
-#: ../src/snr2.c:1084
-msgid "In all open files"
-msgstr "Во всех открытых файлах"
-
-#: ../src/snr2.c:1091
-msgid "Normal matching"
-msgstr "Обычное соответствие"
-
-#: ../src/snr2.c:1092
-msgid "Use posix regular expression matching"
-msgstr "Использовать регулярные выражения в стиле POSIX"
-
 #: ../src/snr2.c:1093
-msgid "Use perl compatible regular expression matching"
-msgstr "Использовать регулярные выражения, совместимые с Perl"
+msgid "Start at beginning of _document"
+msgstr "Начать с начала _документа"
 
-#: ../src/snr2.c:1098
-msgid "Case sensitive"
-msgstr "Учитывать размер букв"
+#: ../src/snr2.c:1094
+msgid "Start at cursor pos_ition"
+msgstr "Начать с позиции _курсора"
 
-#: ../src/snr2.c:1099
-msgid "Overlapping searches"
-msgstr "Пересекающийся поиск"
+#: ../src/snr2.c:1095
+msgid "In s_election"
+msgstr "В в_ыбранном"
 
-#: ../src/snr2.c:1106
+#: ../src/snr2.c:1096
+msgid "In all o_pen files"
+msgstr "Во всех о_ткрытых файлах"
+
+#: ../src/snr2.c:1103
+msgid "_Normal matching"
+msgstr "_Обычное соответствие"
+
+#: ../src/snr2.c:1104
+msgid "Use posix _regular expression matching"
+msgstr "Использовать регулярные выражения в стиле POSI_X"
+
+#: ../src/snr2.c:1105
+msgid "Use perl compatible regular e_xpression matching"
+msgstr "Использовать регулярные выражения, совместимые с _Perl"
+
+#: ../src/snr2.c:1110
+msgid "Case _sensitive"
+msgstr "У_читывать размер букв"
+
+#: ../src/snr2.c:1111
+msgid "O_verlapping searches"
+msgstr "Пере_секающийся поиск"
+
+#: ../src/snr2.c:1118
 msgid "\\0 refers to the first subpattern, \\1 to the second etc."
 msgstr "\\0 указывает на первый подшаблон, \\1 на второй, и т.д."
 
-#: ../src/snr2.c:1110
-msgid "Replace with: "
-msgstr "Заменить на:"
+#: ../src/snr2.c:1122
+msgid "Replace wit_h: "
+msgstr "Заменить _на: "
 
-#: ../src/snr2.c:1128
-msgid "Replace text"
-msgstr "Заменить текст"
+#: ../src/snr2.c:1141
+msgid "Replace _text"
+msgstr "Заменить _текст"
 
-#: ../src/snr2.c:1129
-msgid "Replace uppercase"
-msgstr "Заменить прописные"
+#: ../src/snr2.c:1142
+msgid "Replace _uppercase"
+msgstr "Заменить пр_описные"
 
-#: ../src/snr2.c:1130
-msgid "Replace lowercase"
-msgstr "Заменить строчные"
+#: ../src/snr2.c:1143
+msgid "Replace lo_wercase"
+msgstr "Заменить ст_рочные"
 
-#: ../src/snr2.c:1134
-msgid "Prompt before replacing"
-msgstr "Спросить подтверждение перед заменой"
+#: ../src/snr2.c:1147
+msgid "Prompt _before replacing"
+msgstr "Спросить подтверждение _перед заменой"
 
-#: ../src/snr2.c:1135
-msgid "Replace once"
-msgstr "Заменить "
+#: ../src/snr2.c:1148
+msgid "Rep_lace once"
+msgstr "За_менить "
+
+#: ../src/stringlist.c:365
+msgid " Add "
+msgstr " Добавить "
+
+#: ../src/stringlist.c:367
+msgid " Update "
+msgstr " Обновить  "
+
+#: ../src/stringlist.c:369
+msgid " Delete "
+msgstr " Удалить "
 
 #: ../src/stringlist.c:371
 msgid " Up "
@@ -4049,49 +4066,112 @@ msgstr " Сортировать "
 msgid "Table Wizard"
 msgstr "Мастер Таблиц"
 
-#: ../src/wizards.c:74
-msgid "Number of rows"
-msgstr "Число строк"
+#: ../src/wizards.c:76
+msgid "Number of _rows:"
+msgstr "Число ст_рок:"
 
-#: ../src/wizards.c:78
-msgid "Number of Columns per row"
-msgstr "Число столбцов в строке"
+#: ../src/wizards.c:80
+msgid "Number of colu_mns:"
+msgstr "Число сто_лбцов:"
 
-#: ../src/wizards.c:82
-msgid "Tablerows on one line"
-msgstr "Строк таблицы на строке файла"
+#: ../src/wizards.c:84
+msgid "Table rows on one _line:"
+msgstr "Число строк таблицы в одной ст_роке файла:"
 
-#: ../src/wizards.c:86
-msgid "Indent table code"
-msgstr "выровнять код таблицы"
+#: ../src/wizards.c:88
+msgid "_Indent table code:"
+msgstr "От_форматировать код таблицы"
 
-#: ../src/wizards.c:174
+#: ../src/wizards.c:176
 msgid "Frame Wizard"
 msgstr "Мастер Врезок"
 
-#: ../src/wizards.c:180
-msgid "Title"
-msgstr "Название"
+#: ../src/wizards.c:191
+msgid "Use _DTD:"
+msgstr "Использовать _DTD:"
 
-#: ../src/wizards.c:184
-msgid "Use DTD"
-msgstr "Использовать DTD"
+#: ../src/wizards.c:194
+msgid "Orientation:"
+msgstr "Ориентация:"
 
-#: ../src/wizards.c:187
-msgid "Horizontal"
-msgstr "Горизонтально"
+#: ../src/wizards.c:197
+msgid "_Horizontal"
+msgstr "_Горизонтально"
 
-#: ../src/wizards.c:188
-msgid "Vertical"
-msgstr "Вертикально"
+#: ../src/wizards.c:198
+msgid "_Vertical"
+msgstr "_Вертикально"
 
-#: ../src/wizards.c:193
-msgid "Number of Frames"
-msgstr "Число Врезок"
+#: ../src/wizards.c:203
+msgid "Number of _Frames:"
+msgstr "Число В_резок:"
 
-#: ../src/wizards.c:196
+#: ../src/wizards.c:206
 msgid "Frame's"
 msgstr "Врезка"
+
+#: ../src/wizards.c:218
+msgid "Name:"
+msgstr "Имя:"
+
+#: ../src/wizards.c:220
+msgid "Source:"
+msgstr "Источник:"
+
+#: ../src/wizards.c:224
+msgid "Size:"
+msgstr "Размер:"
+
+#~ msgid "Filename"
+#~ msgstr "Имя файла"
+
+#~ msgid "_Pattern:"
+#~ msgstr "Шаблон _P"
+
+#~ msgid "selector"
+#~ msgstr "панель выбора"
+
+#~ msgid "property"
+#~ msgstr "свойство"
+
+#~ msgid "value"
+#~ msgstr "значение"
+
+#~ msgid "Align"
+#~ msgstr "Выравнивание"
+
+#~ msgid "Class"
+#~ msgstr "Класс"
+
+#~ msgid "Id"
+#~ msgstr "Id"
+
+#~ msgid "Rows"
+#~ msgstr "Строк"
+
+#~ msgid "Source"
+#~ msgstr "Источник"
+
+#~ msgid "Vertical Align"
+#~ msgstr "Вертикальное выравнивание"
+
+#~ msgid "Background Color"
+#~ msgstr "Цвет фона"
+
+#~ msgid " Width "
+#~ msgstr " Ширина "
+
+#~ msgid "Border"
+#~ msgstr "Рамка"
+
+#~ msgid "VAlign"
+#~ msgstr "VAlign"
+
+#~ msgid "Number of Columns per row"
+#~ msgstr "Число столбцов в строке"
+
+#~ msgid "Title"
+#~ msgstr "Название"
 
 #~ msgid "Save in progress"
 #~ msgstr "Идет сохранение"
@@ -4166,90 +4246,4 @@ msgstr "Врезка"
 #~ msgid "EUCJP (Japanese)"
 #~ msgstr "EUCJP (Япония)"
 
-#, fuzzy
-#~ msgid "/Tags/Repeat last"
-#~ msgstr "/Tags/Special/Other"
 
-#, fuzzy
-#~ msgid "/Dialogs/CSS/Add class..."
-#~ msgstr "/Tags/Special/Other/Leerzeichen ohne Umbruch"
-
-#, fuzzy
-#~ msgid "/Dialogs/Javascript/tearoff1"
-#~ msgstr "/Tags/Special/Other/tearoff1"
-
-#, fuzzy
-#~ msgid "/Dialogs/Javascript/Mouseover Script"
-#~ msgstr "/Tags/Special/Other/tearoff1"
-
-#, fuzzy
-#~ msgid "/Dialogs/Javascript/Netscape 4 Resize Bugfix Script"
-#~ msgstr "/Tags/Special/Other/tearoff1"
-
-#, fuzzy
-#~ msgid "/Dialogs/Javascript/Image Preload Script"
-#~ msgstr "/Tags/Special/Other/tearoff1"
-
-#, fuzzy
-#~ msgid "/Dialogs/WML/Standard Document"
-#~ msgstr "/Tags/Special/Other/Leerzeichen ohne Umbruch"
-
-#, fuzzy
-#~ msgid "/Dialogs/WML/Card..."
-#~ msgstr "/Tags/Special/Other/Leerzeichen ohne Umbruch"
-
-#, fuzzy
-#~ msgid "/Dialogs/WML/Postfield..."
-#~ msgstr "/Tags/Special/Other/Leerzeichen ohne Umbruch"
-
-#, fuzzy
-#~ msgid "/Dialogs/WML/Go..."
-#~ msgstr "/Tags/Special/Other/Leerzeichen ohne Umbruch"
-
-#, fuzzy
-#~ msgid "/Dialogs/WML/Do..."
-#~ msgstr "/Tags/Special/Other/Leerzeichen ohne Umbruch"
-
-#, fuzzy
-#~ msgid "/Dialogs/WML/Anchor..."
-#~ msgstr "/Tags/Special/Other/Leerzeichen ohne Umbruch"
-
-#, fuzzy
-#~ msgid "/Dialogs/WML/Access..."
-#~ msgstr "/Tags/Special/Other/Leerzeichen ohne Umbruch"
-
-#, fuzzy
-#~ msgid "/Dialogs/WML/Non-Breaking Space"
-#~ msgstr "/Tags/Special/Other/Leerzeichen ohne Umbruch"
-
-#, fuzzy
-#~ msgid "/Dialogs/WML/sep12"
-#~ msgstr "/Tags/Special/Other/Leerzeichen ohne Umbruch"
-
-#, fuzzy
-#~ msgid "/Dialogs/WML/Refresh"
-#~ msgstr "/Tags/Special/Other/Leerzeichen ohne Umbruch"
-
-#, fuzzy
-#~ msgid "/Dialogs/WML/Noop"
-#~ msgstr "/Tags/Special/Other/Leerzeichen ohne Umbruch"
-
-#, fuzzy
-#~ msgid "/Dialogs/WML/sep13"
-#~ msgstr "/Tags/Special/Other/Leerzeichen ohne Umbruch"
-
-#, fuzzy
-#~ msgid "/Dialogs/WML/Set Variable..."
-#~ msgstr "/Tags/Special/Other/Leerzeichen ohne Umbruch"
-
-#, fuzzy
-#~ msgid "PHP Reference"
-#~ msgstr "/Tags/Special/Other/tearoff1"
-
-#, fuzzy
-#~ msgid "Non-breaking Space"
-#~ msgstr "/Tags/Special/Other/Leerzeichen ohne Umbruch"
-
-#, fuzzy
-#~ msgid "Set variable.."
-#~ msgstr "/Tags/Special/Other/tearoff1"
