@@ -1,3 +1,13 @@
+# this script can help to find files that are actually not in use, run it from the basedir:
+#
+#for file in inline_images/*.png; do
+#	BASE=`echo $file | sed -e 's/.png//' -e 's?inline_images/??'`
+#	if ! grep -q $BASE src/pixmap.c ; then
+#		echo $BASE
+#	fi
+#done
+#
+
 TOOLBAR = \
 	abbr abbr.png \
 	acronym acronym.png \
@@ -21,7 +31,6 @@ TOOLBAR = \
 	cssspan cssspan.png \
 	cssstyle cssstyle.png \
 	dfn dfn.png \
-	dtd dtd.png \
 	email email.png \
 	embed embed.png \
 	filetree filetree.png \
@@ -60,18 +69,11 @@ TOOLBAR = \
 	frinfo frinfo.png \
 	frsearch frsearch.png \
 	headings headings.png \
-	help help.png \
 	hrule hrule.png \
 	image image.png \
-	image_map image_map.png \
 	indent indent.png \
 	italic italic.png \
-	javascript_mouseover javascript_mouseover.png \
-	javascript_netscape javascript_netscape.png \
-	javascript_preload javascript_preload.png \
-	jscript jscript.png \
 	kbd kbd.png \
-	linkjscript linkjscript.png \
 	linkstylesheet linkstylesheet.png \
 	list list.png \
 	list_dd list_dd.png \
@@ -83,11 +85,9 @@ TOOLBAR = \
 	meta meta.png \
 	multithumbs multithumbs.png \
 	nbsp nbsp.png \
-	netscape netscape.png \
 	new new.png \
 	no no.png \
 	nothing nothing.png \
-	ok ok.png \
 	open_small open_small.png \
 	paragraph paragraph.png \
 	php3 php3.png \
@@ -103,9 +103,7 @@ TOOLBAR = \
 	print print.png \
 	quick_start quick_start.png \
 	right right.png \
-	rxml rxml.png \
 	samp samp.png \
-	ssi ssi.png \
 	table table.png \
 	table2 table2.png \
 	table_capt table_capt.png \
@@ -124,11 +122,23 @@ TOOLBAR = \
 #	copy copy.png \
 #	cssclass cssclass.png \
 #	cut cut.png \
+#	dtd dtd.png \
+#	help help.png \
+#	image_map image_map.png \
+#	javascript_mouseover javascript_mouseover.png \
+#	javascript_netscape javascript_netscape.png \
+#	javascript_preload javascript_preload.png \
+#	jscript jscript.png \
+#	linkjscript linkjscript.png \
 #	list_menu list_menu.png \
+#	netscape netscape.png \
+#	ok ok.png \
 #	open open.png \
 #	paste paste.png \
 #	preferences preferences.png \
 #	redo redo.png \
+#	rxml rxml.png \
+#	ssi ssi.png \
 #	save save.png \
 #	save_as save_as.png \
 #	search search.png \
