@@ -955,28 +955,28 @@ void hl_reset_to_default()
 	main_v->props.filetypes = g_list_append(main_v->props.filetypes, arr);
 	arr = array_from_arglist("html", ".html:.htm:.shtml:.shtm", "<> \n\"", "iconlocation", NULL);
 	main_v->props.filetypes = g_list_append(main_v->props.filetypes, arr);
-	arr = array_from_arglist("javascript", ".js", "\n'\"", "iconlocation", NULL);
+	arr = array_from_arglist("javascript", ".js", "\n'\" ", "iconlocation", NULL);
 	main_v->props.filetypes = g_list_append(main_v->props.filetypes, arr);
 	arr = array_from_arglist("xml", ".xml", "<> \n\"", "iconlocation", NULL);
 	main_v->props.filetypes = g_list_append(main_v->props.filetypes, arr);
-	arr = array_from_arglist("java", ".java", "(){}'[]\n\"", "iconlocation", NULL);
+	arr = array_from_arglist("java", ".java", "(){}'[]\n\" ", "iconlocation", NULL);
 	main_v->props.filetypes = g_list_append(main_v->props.filetypes, arr);
-	arr = array_from_arglist("sql", ".sql", "(){}'[]\n\"", "iconlocation", NULL);
+	arr = array_from_arglist("sql", ".sql", "(){}'[]\n\" ", "iconlocation", NULL);
 	main_v->props.filetypes = g_list_append(main_v->props.filetypes, arr);
 #ifdef MAKE_BLUEFISH_WITH_BLUEFISH
-	arr = array_from_arglist("c", ".c:.h", "(){}'[]\n\"", "iconlocation", NULL);
+	arr = array_from_arglist("c", ".c:.h", "(){}'[]\n\" ", "iconlocation", NULL);
 	main_v->props.filetypes = g_list_append(main_v->props.filetypes, arr);
 #endif 
 
 
 #ifdef MAKE_BLUEFISH_WITH_BLUEFISH
-	arr = array_from_arglist("c", "comment", "0", "/\\*", "\\*/", "", "1", "", "#AAAAAA", "", "1", "2", "", "", NULL);
-	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
 	arr = array_from_arglist("c", "string", "0", "\"", "\"", "", "1", "", "#009900", "", "0", "0", "", "", NULL);
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
 	arr =
 		array_from_arglist("c", "preprocessor", "0", "#(include|define|if|ifdef|else|endif)[^\n]*\n", "", "", "2", "",
 						   "#000099", "", "0", "0", "", "", NULL);
+	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
+	arr = array_from_arglist("c", "comment", "0", "/\\*", "\\*/", "", "1", "^(top|preprocessor)$", "#AAAAAA", "", "1", "2", "", "", NULL);
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
 	arr =
 		array_from_arglist("c", "keywords", "0",

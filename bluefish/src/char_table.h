@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * char_table.h - character convertion functions and data structures
  *
- * Copyright (C) 2000 Olivier Sessink & Pablo De Napoli (for this module)
+ * Copyright (C) 2002 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,24 +19,4 @@
  *
  */
 
-#include <glib.h>
-
-typedef struct {
-	            unsigned char id;
-               char *entity;
-         } Tchar_entity;
-
-extern Tchar_entity ascii_charset[];
-
-extern Tchar_entity iso8859_1_charset[];
-
-gchar convert_from_html_chars (gchar* character,Tchar_entity charset[]);
-
-#define ANY_CHAR_SET NULL
-
-gboolean isalpha_iso(unsigned char c);
-
-gchar* convert_string_iso_to_html (gchar* string);
-
-gchar* convert_char_iso_to_html (unsigned char c);
-
+gchar *convert_string_utf8_to_html(gchar *utf8string, gboolean ascii, gboolean iso);

@@ -35,6 +35,7 @@
 #include "gtk_easy.h" /* error_dialog() */
 #include "undo_redo.h" /* doc_unre_init() */
 #include "rpopup.h" /* doc_bevent_in_html_tag(), rpopup_edit_tag_cb() */
+#include "char_table.h" /* convert_utf8...() */
 
 
 void add_filename_to_history(gchar *filename) {
@@ -82,7 +83,7 @@ void doc_toggle_highlighting_cb(gpointer callback_data,guint action,GtkWidget *w
 }
 void doc_toggle_wrap_cb(gpointer callback_data,guint action,GtkWidget *widget) {
 	main_v->current_document->wrapstate = 1 - main_v->current_document->wrapstate;
-	doc_set_wrap(main_v->current_document, main_v->current_document->wrapstate);
+	doc_set_wrap(main_v->current_document);
 }
 
 void doc_update_highlighting(GtkWidget *wid, gpointer data) {
@@ -99,8 +100,8 @@ void doc_update_highlighting(GtkWidget *wid, gpointer data) {
  * type=0 = none, type=1=word wrap
  */
 
-void doc_set_wrap(Tdocument * doc, gint wraptype) {
-	if (wraptype) {
+void doc_set_wrap(Tdocument * doc) {
+	if (doc->wrapstate) {
 		gtk_text_view_set_wrap_mode(GTK_TEXT_VIEW(doc->view),GTK_WRAP_WORD);
 	} else {
 		gtk_text_view_set_wrap_mode(GTK_TEXT_VIEW(doc->view),GTK_WRAP_NONE);
@@ -297,7 +298,7 @@ void doc_set_modified(Tdocument *doc, gint value) {
 	}
 	/* only when this is the current document we have to change these */
 	if (doc == main_v->current_document) {
-		gui_set_widgets(doc_has_undo_list(doc), doc_has_redo_list(doc));
+		gui_set_undo_redo_widgets(doc_has_undo_list(doc), doc_has_redo_list(doc));
 	}
 #ifdef DEBUG
 	else {
@@ -370,23 +371,26 @@ void doc_scroll_to_cursor(Tdocument *doc) {
 	gtk_text_view_scroll_to_mark(GTK_TEXT_VIEW(doc->view),mark,0.25,FALSE,0.5,0.5);
 }
 
-/* gchar *doc_get_chars(Tdocument *doc, gint startpos, gint len)
+/* gchar *doc_get_chars(Tdocument *doc, gint start, gint end)
  * returns len characters from startpos
  * if len == -1 it will return everrything to the end
  */
-gchar *doc_get_chars(Tdocument *doc, gint start, gint len) {
+gchar *doc_get_chars(Tdocument *doc, gint start, gint end) {
 	GtkTextIter itstart, itend;
 	gchar *string;
 
 	gtk_text_buffer_get_iter_at_offset(doc->buffer, &itstart,start);
-	if (len > 0) {
-		gtk_text_buffer_get_iter_at_offset(doc->buffer, &itend, start + len);
-	} else if (len == -1) {
+	if (end >= 0) {
+		gtk_text_buffer_get_iter_at_offset(doc->buffer, &itend, end);
+	} else if (end == -1) {
 		gtk_text_buffer_get_end_iter(doc->buffer, &itend);
 	} else {
+		DEBUG_MSG("doc_get_chars, end < -1, returning NULL\n");
 		return NULL;
 	}
+	DEBUG_MSG("doc_get_chars, retrieving string, start=%d, end=%d\n", start, end);
 	string = gtk_text_buffer_get_text(doc->buffer, &itstart, &itend,FALSE);
+	DEBUG_MSG("doc_get_chars, retrieved string (%p)\n", string);
 	return string;
 }
 
@@ -406,9 +410,13 @@ void doc_select_region(Tdocument *doc, gint start, gint end, gboolean do_scroll)
 	}
 }
 
+/*void doc_select_line(Tdocument *doc, gint line, gboolean do_scroll)
+ * the line starts at 1, not at 0 !!
+ */
+
 void doc_select_line(Tdocument *doc, gint line, gboolean do_scroll) {
 	GtkTextIter itstart, itend;
-	gtk_text_buffer_get_iter_at_line(doc->buffer,&itstart,line);
+	gtk_text_buffer_get_iter_at_line(doc->buffer,&itstart,line-1);
 	itend = itstart;
 	gtk_text_iter_forward_to_line_end(&itend);
 	gtk_text_buffer_move_mark_by_name(doc->buffer, "insert", &itstart);
@@ -431,6 +439,7 @@ gboolean doc_get_selection(Tdocument *doc, gint *start, gint *end) {
 	gtk_text_buffer_get_iter_at_mark(doc->buffer,&itend,mark);
 	*start = gtk_text_iter_get_offset(&itstart);
 	*end = gtk_text_iter_get_offset(&itend);
+	DEBUG_MSG("doc_get_selection, start=%d, end=%d\n", *start, *end);
 	if (*start == *end) {
 		return FALSE;
 	}
@@ -450,6 +459,7 @@ void doc_replace_text_backend(Tdocument *doc, const gchar * newstring, gint star
 	{
 		gchar *buf;
 		GtkTextIter itstart, itend;
+		DEBUG_MSG("doc_replace_text_backend, get iters at start %d and end %d\n", start, end);
 		gtk_text_buffer_get_iter_at_offset(doc->buffer, &itstart,start);
 		gtk_text_buffer_get_iter_at_offset(doc->buffer, &itend,end);
 		buf = gtk_text_buffer_get_text(doc->buffer, &itstart, &itend,FALSE);
@@ -463,10 +473,12 @@ void doc_replace_text_backend(Tdocument *doc, const gchar * newstring, gint star
 	/* add new text to this region, the buffer is changed so re-calculate itstart */
 	{
 		GtkTextIter itstart;
-		gtk_text_buffer_get_iter_at_offset(doc->buffer, &itstart,start);
+		gint insert = (end > start) ? start : end;
+		DEBUG_MSG("doc_replace_text_backend, set insert pos to %d\n", insert);
+		gtk_text_buffer_get_iter_at_offset(doc->buffer, &itstart,insert);
 		gtk_text_buffer_insert(doc->buffer,&itstart,newstring,-1);
+		doc_unre_add(doc, newstring, insert, insert + strlen(newstring), UndoInsert);
 	}
-	doc_unre_add(doc, newstring, start, start + strlen(newstring), UndoInsert);
 	doc_bind_signals(doc);
 	doc_set_modified(doc, 1);
 	doc->need_highlighting=TRUE;
@@ -480,6 +492,38 @@ void doc_replace_text(Tdocument * doc, const gchar * newstring, gint start, gint
 	doc_set_modified(doc, 1);
 	doc_unre_new_group(doc);
 /*	doc_need_highlighting(doc);*/
+}
+
+static void doc_convert_chars_to_entities(Tdocument *doc, gint start, gint end, gboolean ascii, gboolean iso) {
+	gchar *string;
+	DEBUG_MSG("doc_convert_chars_to_entities, start=%d, end=%d\n", start,end);
+	string = doc_get_chars(doc, start, end);
+	if (string) {
+		gchar *newstring = convert_string_utf8_to_html(string, ascii, iso);
+		g_free(string);
+		if (newstring) {
+			doc_replace_text(doc, newstring, start, end);
+			g_free(newstring);
+		}
+#ifdef DEBUG
+		 else {
+		 	DEBUG_MSG("doc_convert_chars_to_entities, newstring=NULL\n");
+		 }
+#endif
+	}
+#ifdef DEBUG
+		 else {
+		 	DEBUG_MSG("doc_convert_chars_to_entities, string=NULL\n");
+		 }
+#endif		 
+}
+
+static void doc_convert_chars_to_entities_in_selection(Tdocument *doc, gboolean ascii, gboolean iso) {
+	gint start, end;
+	if (doc_get_selection(doc, &start, &end)) {
+		DEBUG_MSG("doc_convert_chars_to_entities_in_selection, start=%d, end=%d\n", start, end);
+		doc_convert_chars_to_entities(doc, start, end, ascii, iso);
+	}
 }
 
 void doc_insert_two_strings(Tdocument *doc, const gchar *before_str, const gchar *after_str) {
@@ -723,9 +767,10 @@ gint doc_close(Tdocument * doc, gint warn_only)
 
 
 /* offset is used because at the time a newline is entered in
-doc_buffer_insert_text_lcb() the cursor is not yet forwarded to the new line, so
-we need to add 1 to the line number in that specific case
-*/
+ * doc_buffer_insert_text_lcb() the cursor is not yet forwarded to the new line, so
+ * we need to add 1 to the line number in that specific case
+ * also: the line number starts at line 1 and not at 0 !!
+ */
 static void doc_update_linenumber(Tdocument *doc, GtkTextIter *iter, gint offset) {
 	gint line;
 	gchar *string;
@@ -738,7 +783,7 @@ static void doc_update_linenumber(Tdocument *doc, GtkTextIter *iter, gint offset
 	} else {
 		itinsert = *iter;
 	}
-	line = gtk_text_iter_get_line(&itinsert);
+	line = gtk_text_iter_get_line(&itinsert)+1;
 	string = g_strdup_printf(_(" line %4d "), line + offset); 
 	gtk_label_set(GTK_LABEL(main_v->statuslabel),string);	
 	g_free(string);
@@ -962,7 +1007,8 @@ Tdocument *doc_new(gboolean delay_activate) {
 
 	doc_unre_init(newdoc);
 	doc_set_font(newdoc, NULL);
-	doc_set_wrap(newdoc, main_v->props.word_wrap);
+	newdoc->wrapstate = main_v->props.word_wrap;
+	doc_set_wrap(newdoc);
 	doc_set_tabsize(newdoc, main_v->props.editor_tab_width);
 
 /* this will force function doc_set_modified to update the tab label*/
@@ -1364,13 +1410,8 @@ void doc_activate(Tdocument *doc) {
 			doc_reload(doc);
 		}
 	}
-
-	gui_set_widgets(doc_has_undo_list(doc), doc_has_redo_list(doc));
-
-	setup_toggle_item(gtk_item_factory_from_widget(main_v->menubar),
-					  N_("/Options/Current document/Highlight syntax"), main_v->current_document->highlightstate);
-	setup_toggle_item(gtk_item_factory_from_widget(main_v->menubar),
-					  N_("/Options/Current document/Wrap"), main_v->current_document->wrapstate);
+	DEBUG_MSG("doc_activate, calling gui_set_widgets\n");
+	gui_set_widgets(doc_has_undo_list(doc), doc_has_redo_list(doc), doc->wrapstate, doc->highlightstate, doc->hl);
 
 	/* if highlighting is needed for this document do this now !! */
 	if (doc->need_highlighting && doc->highlightstate) {
@@ -1551,4 +1592,8 @@ void edit_select_all_cb(GtkWidget * widget, gpointer data) {
 	gtk_text_buffer_move_mark_by_name(main_v->current_document->buffer,"selection_bound",&itend);
 }
 
-
+/* callback_action: 1 only ascii, 2 only iso, 3 both
+ */
+void doc_convert_asciichars_in_selection(gpointer callback_data,guint callback_action,GtkWidget *widget) {
+	doc_convert_chars_to_entities_in_selection(main_v->current_document, (callback_action != 2), (callback_action != 1));
+}

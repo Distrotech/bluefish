@@ -1,8 +1,8 @@
 /* Bluefish HTML Editor
  * char_table.h - character convertion prototypes
  *
- * Copyright (C) 2000 Pablo De Napoli
- * Updates Copyright (C) 2002 Olivier Sessink
+ * Complete rewrite for UTF8 Copyright (C) 2002 Olivier Sessink
+ * some ideas from original version Copyright (C) 2000 Pablo De Napoli
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -24,6 +24,10 @@
 #include "char_table.h"
 #include "bluefish.h"
 
+typedef struct {
+	gunichar id;
+	char *entity;
+} Tchar_entity;
 
 Tchar_entity ascii_charset[] = {
 	{34, "&quot;"}
@@ -33,8 +37,9 @@ Tchar_entity ascii_charset[] = {
 	, {0, NULL}
 };
 
-/* Do not modify this table */
-/* For convert iso to html to work properly */
+/* Do not modify this table
+ * for convert_unichar_to_htmlstring to work properly 
+ */
 
 Tchar_entity iso8859_1_charset[] = {
 	{160, "&nbsp;"}
@@ -173,99 +178,50 @@ Tchar_entity iso8859_1_charset[] = {
 	, {0, NULL}
 };
 
-gboolean isalpha_iso(unsigned char c)
-/* test for iso-8859-1 alphabetical characters  */
-{
-	/* Fixme: is character 223 non alpha ? */
-	DEBUG_MSG("Testing if %c(code %i) is alpha iso \n", c, c);
-	return ((c >= 192) && (c != 215) && (c != 222) && (c != 223) && (c != 247) && (c != 254));
-}
-
-/* Convert a speciall character from html to iso_8859_1 or ascii */
-/* If charset = ANY_CHAR_SET look up in both tables */
-/* If convertion fails, returns '\0' */
-
-gchar convert_from_html_chars(char *character, Tchar_entity charset[])
-{
-	gint j;
-	gchar c;
-	DEBUG_MSG("running convert_form_html_chars\n");
-	DEBUG_MSG("character=\" %s \" \n", character);
-	j = 0;
-	if (charset == ANY_CHAR_SET) {
-		c = convert_from_html_chars(character, iso8859_1_charset);
-		if (c != '\0')
-			return c;
-		else
-			return (convert_from_html_chars(character, ascii_charset));
-	} else {
-		DEBUG_MSG("Character to convert= \" %s \" \n", character);
-		while (charset[j].entity != NULL) {
-			if (strcmp(charset[j].entity, character) == 0) {
-				DEBUG_MSG("match \"%s\"\n", charset[j].entity);
-				DEBUG_MSG("converted character='%c' \n", charset[j].id);
-				return (charset[j].id);
-			} else
-				j++;
-		}
-		return ('\0');			/* if could not be converted */
-	}
-}
-
-gchar *convert_char_iso_to_html(unsigned char c)
-/*  also converts ascii chars */
-{
-	gint i;
-	DEBUG_MSG("Converting iso char '%c' to html \n", c);
-	if (c >= 160)
-		return (iso8859_1_charset[c - 160].entity);
-	else
-		for (i = 0; i < 3; i++)
-			if (ascii_charset[i].id == c)
-				return (ascii_charset[i].entity);
-	DEBUG_MSG("Unconverted\n");
-	return (NULL);				/* if cannot be converted */
-}
-
-gchar *convert_string_iso_to_html(gchar * isostring)
-{
-	gchar *converted_string;
-	gchar *converted_char;
-	gchar *p;
-	DEBUG_MSG("Converting string \"%s\" from iso to html\n", isostring);
-	converted_string = g_malloc(8 * strlen(isostring)*sizeof(gchar));
-	/* for the converted string we need at most 8 times the original length
-	   This function is designed to save time , not memory */
-	p = converted_string;
-	while (*isostring != '\0') {
-		converted_char = convert_char_iso_to_html(*isostring);
-		if (converted_char == NULL) {
-			*p = *isostring;
-			p++;
-		} else {
-			DEBUG_MSG("Converted char: %s\n", converted_char);
-			while (*converted_char != '\0') {
-				*p = *converted_char;
-				p++;
-				converted_char++;
+static void convert_unichar_to_htmlstring(gunichar unichar, gchar *deststring, gboolean ascii, gboolean iso) {
+	if (ascii) {
+		gint j=0;
+		while (ascii_charset[j].id != 0) {
+			if (ascii_charset[j].id == unichar) {
+				deststring[0]='\0';
+				strncat(deststring, ascii_charset[j].entity, 8);
+				return;
 			}
-		};
-		isostring++;
+			j++;
+		}
 	}
-	*p = '\0';
-	DEBUG_MSG("Converted string:\"%s\" \n", converted_string);
-	/* now we save some memory */
-	converted_string = g_realloc(converted_string, strlen(converted_string) + 1);
-	return (converted_string);
+	if (iso) {
+		if (unichar >= 160 && unichar < 256) {
+			deststring[0]='\0';
+			strncat(deststring, iso8859_1_charset[unichar - 160].entity, 8);
+			return;
+		}
+	}
+	{
+		gint len= g_unichar_to_utf8(unichar, deststring);
+		deststring[len] = '\0';
+	}
 }
 
 /* utf8string MUST BE VALIDATED UTF8 otherwise this function is broken!!
 so text from the TextBuffer is OK to use */
-gchar *convert_string_utf8_to_html(gchar *utf8string) {
-	gchar *p = utf8string;
-	while (p) {
-		gunichar unichar = g_utf8_get_char (utf8string);
-		DEBUG_MSG("convert_string_utf8_to_html, unichar=%d\n", unichar);
-		p = g_utf8_next_char(p);
+gchar *convert_string_utf8_to_html(gchar *utf8string, gboolean ascii, gboolean iso) {
+	if (!ascii && !iso) {
+		return g_strdup(utf8string);
+	} else {
+		/* optimize for speed, not for memory usage because that is very temporary */
+		gchar *converted_string = g_malloc0(8 * strlen(utf8string)*sizeof(gchar));
+		gchar *srcp = utf8string;
+		gunichar unichar = g_utf8_get_char(srcp);
+		DEBUG_MSG("convert_string_utf8_to_html, utf8string='%s'\n", utf8string);
+		while (unichar) {
+			gchar converted[9];
+			convert_unichar_to_htmlstring(unichar, converted, ascii, iso);
+			converted_string = strncat(converted_string, converted, 8);
+			srcp = g_utf8_next_char(srcp);
+			unichar = g_utf8_get_char (srcp);
+		}
+		DEBUG_MSG("convert_string_utf8_to_html, converted string='%s'\n", converted_string);
+		return converted_string;
 	}
 }

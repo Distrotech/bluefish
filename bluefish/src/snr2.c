@@ -398,7 +398,7 @@ static gchar *reg_replace(gchar *replace_string, gint offset, Tsearch_result res
 				DEBUG_MSG("reg_replace, from=%d, to=%d, tmpstr2='%s'\n", from, to, tmpstr2);
 				if (result.nmatch >= num+1) {
 					DEBUG_MSG("reg_replace, wanted: sub pattern %d, offset=%d, so=%d, eo=%d\n", num, offset, result.pmatch[num+1].rm_so, result.pmatch[num+1].rm_eo);
-					tmpstr3 = doc_get_chars(doc, offset+result.pmatch[num+1].rm_so, result.pmatch[num+1].rm_eo - result.pmatch[num+1].rm_so);
+					tmpstr3 = doc_get_chars(doc, offset+result.pmatch[num+1].rm_so, result.pmatch[num+1].rm_eo);
 					DEBUG_MSG("reg_replace, subpattern %d = '%s'\n", num, tmpstr3);
 				} else {
 					DEBUG_MSG("reg_replace, subpattern %d does not exist\n", num);
@@ -491,7 +491,7 @@ Tsearch_result replace_doc_once(gchar *pattern, gint is_regex, gint is_case_sens
 	Tsearch_result result;
 
 	doc_unre_new_group(doc);
-	fulltext = doc_get_chars(doc, startpos, endpos-startpos);
+	fulltext = doc_get_chars(doc, startpos, endpos);
 	result = replace_backend(pattern, is_regex, is_case_sens, fulltext, replace_string, doc, startpos, replacetype, FALSE, &replacelen);
 	if ( result.end > 0) {
 		last_snr2.result.start = result.start + startpos;
@@ -532,7 +532,7 @@ void replace_doc_multiple(gchar *pattern, gint is_regex, gint is_case_sens, gint
 			replacelen = strlen(replace_string);
 /*		}*/
 	}
-	fulltext = doc_get_chars(doc, startpos, endpos-startpos);
+	fulltext = doc_get_chars(doc, startpos, endpos);
 	result = replace_backend(pattern, is_regex, is_case_sens, fulltext, replace_string, doc, buf_text_offset, replacetype, FALSE, &replacelen);
 	while (result.end > 0) {
 		if (replacetype == string) {
@@ -603,10 +603,10 @@ static void replace_prompt_dialog_ok_lcb(GtkWidget *widget, gpointer data) {
 				tmpstr = reg_replace(tmpstr, 0, last_snr2.result, main_v->current_document);
 				
 			} else if (last_snr2.replacetype_upcase) {
-				tmpstr = doc_get_chars(main_v->current_document, last_snr2.result.start ,last_snr2.result.end - last_snr2.result.start);
+				tmpstr = doc_get_chars(main_v->current_document, last_snr2.result.start ,last_snr2.result.end);
 				g_strup(tmpstr);
 			} else {
-				tmpstr = doc_get_chars(main_v->current_document, last_snr2.result.start ,last_snr2.result.end - last_snr2.result.start);
+				tmpstr = doc_get_chars(main_v->current_document, last_snr2.result.start ,last_snr2.result.end);
 				g_strdown(tmpstr);
 			}
 			/* avoid new highlighting at this stage, so call the backend directly instead of the frontend function
@@ -678,7 +678,7 @@ gint replace_prompt_doc(gchar *pattern, gint is_regex, gint is_case_sens, gint s
 		g_free(last_snr2.result.pmatch);
 		last_snr2.result.pmatch = NULL;
 	}
-	fulltext = doc_get_chars(doc, startpos, endpos-startpos);
+	fulltext = doc_get_chars(doc, startpos, endpos);
 	result = search_backend(pattern, is_regex, is_case_sens, fulltext, FALSE, 1);
 	last_snr2.doc = doc;
 	g_free(fulltext);
