@@ -732,35 +732,42 @@ environment to make Gnome and GTK programs detect this encoding.
 	many keyboard shortcuts available to navigate through the text.</para>
 	<itemizedlist>
 		<listitem>
-			<para>control+right-arrow will jump to the next word boundary</para>
+			<para><keycombo><keycap>Ctrl</keycap><keycap>Right-Arrow</keycap></keycombo> will jump to the next word boundary</para>
 		</listitem>
 		<listitem>
-			<para>control+left-arrow will jump to the previous word boundary</para>
+			<para><keycombo><keycap>Ctrl</keycap><keycap>Left-Arrow</keycap></keycombo> will jump to the previous word boundary</para>
 		</listitem>
 		<listitem>
-			<para>end will jump to the end of line</para>
+			<para><keycap>End</keycap> will jump to the end of line</para>
 		</listitem>
 		<listitem>
-			<para>home will jump to the beginning of the line</para>
+			<para><keycap>Home</keycap> will jump to the beginning of the line</para>
 		</listitem>
 		<listitem>
-			<para>page-up will jump one page up</para>
+			<para><keycap>Page-Up</keycap> will jump one page up</para>
 		</listitem>
 		<listitem>
-			<para>page-down will jump one page down</para>
+			<para><keycap>Page-Down</keycap> will jump one page down</para>
 		</listitem>
 		<listitem>
-			<para>control+home will jump to the top of the document</para>
+			<para><keycombo><keycap>Ctrl</keycap><keycap>Home</keycap></keycombo> will jump to the top of the document</para>
 		</listitem>
 		<listitem>
-			<para>control+end will jump to the end of the document</para>
+			<para><keycombo><keycap>Ctrl</keycap><keycap>End</keycap></keycombo> will jump to the end of the document</para>
 		</listitem>
 	</itemizedlist>
 	<para>
-	These shortcuts are also available when selecting text. Some examples: To select 
-	the current line, press home, hold shift and press end. To select the current word, 
-	press control+left-arrow, hold shift and press control+right-arrow.
-	</para>
+	These shortcuts are also available when selecting text. Some examples:</para>
+	<itemizedlist>
+	<listitem>
+	<para>To select 
+	the current line, press <keycap>Home</keycap>, hold <keycap>Shift</keycap> and press <keycap>End</keycap>.</para>
+	</listitem>
+	<listitem>
+	<para>To select the current word, 
+	press <keycombo><keycap>Ctrl</keycap><keycap>Left-Arrow</keycap></keycombo>, hold <keycap>Shift</keycap> and press <keycombo><keycap>Ctrl</keycap><keycap>Right-Arrow</keycap></keycombo>.</para>
+	</listitem>
+	</itemizedlist>
 </sect2>
 <sect2 id="navigation-multiple">
 <title>Navigating through many documents</title>
@@ -769,7 +776,7 @@ environment to make Gnome and GTK programs detect this encoding.
 	the document notebook tabs, you get a list of all opened documents.
 	</para>
 	<para>
-	Navigation between documents can also be done using the <guimenu>Go</guimenu> menu.
+	Navigation between documents can also be done using the <guimenu>Go</guimenu> menu, or its shortcuts.
 	<figure id="figure-go-menu">
 				<title id="figure-go-menu-title">Bluefish Go Menu</title>
 				<screenshot>
@@ -784,14 +791,46 @@ environment to make Gnome and GTK programs detect this encoding.
 				</screenshot>
 			</figure>
 	</para>
+	<para>The shortcuts are the following:</para>
 	<itemizedlist>
 		<listitem>
-			<para>control + page-up will change to the previous document</para>
+			<para><keycombo><keycap>Ctrl</keycap><keycap>Page-Up</keycap></keycombo> will change to the previous document</para>
 		</listitem>
 		<listitem>
-			<para>control + page-down will change to the next document</para>
+			<para><keycombo><keycap>Ctrl</keycap><keycap>Page-Down</keycap></keycombo> will change to the next document</para>
+		</listitem>
+			<para><keycombo><keycap>Shift</keycap><keycap>Ctrl</keycap><keycap>Page-Up</keycap></keycombo> will change to the first document</para>
+		</listitem>
+		<listitem>
+			<para><keycombo><keycap>Shift</keycap><keycap>Ctrl</keycap><keycap>Page-Down</keycap></keycombo> will change to the last document</para>
 		</listitem>
 	</itemizedlist>
+	<para>The <menuchoice><shortcut><keycap>Ctrl</keycap><keycap>L</keycap></shortcut><guimenu>Go</guimenu><guimenuitem>Goto Line</guimenuitem></menuchoice> offers an interesting feature.</para>
+	<para>If there is some number in the document, you may select it, then click the <guilabel>From selection</guilabel> label in the Goto line dialog. Bluefish will fill in the <guilabel>Line number</guilabel> field with that number and go directly to it.
+	<figure id="figure-goto-line">
+				<title id="figure-goto-line-title">Using the Goto Line dialog</title>
+				<screenshot>
+					<mediaobject>12
+						<imageobject>
+							<imagedata fileref="figures/goto_line.png" format="PNG"/>
+						</imageobject>
+						<textobject>
+							<phrase>A screenshot showing the Goto Line dialog</phrase>
+						</textobject>
+					</mediaobject>
+				</screenshot>
+			</figure>
+</para>
+	
+	<para>The same feature is available from the <menuchoice><guimenu>Go</guimenu><guimenuitem>Goto Selection</guimenuitem></menuchoice>.</para>
+	<variablelist>10
+	<varlistentry>
+          <term><emphasis>Tip</emphasis></term>
+          <listitem>
+            <para>You may want to check the <guilabel>Keep dialog</guilabel> box to keep the dialog open, when you plan to access several parts of the document by line numbers.</para>
+            </listitem>
+     </varlistentry>
+     </variablelist>
 </sect2>
 <sect2 id="projects">
 <title>Projects</title>
