@@ -44,11 +44,22 @@
 #define MSQ_QUEUE_SIZE 1024
 #define MSQ_QUEUE_SMALL_SIZE 7
 #define MSQ_QUEUE_CHECK_TIME 300	/* miliseconds for gtk_timeout*/
+
+/* send alive must have the highest number, because it is the only type that 
+ * should not be read by the master process. The sending processes reads this
+ * to check if the queue is alive
+ */
 #define MSG_QUEUE_SEND_ALIVE 46064
 #define MSG_QUEUE_OPENFILE 46063
-#define MSG_QUEUE_ASK_ALIVE 46062
+#define MSG_QUEUE_OPENPROJECT 46062
 #define MSG_QUEUE_OPENNEWWIN 46061
-#define MSG_QUEUE_OPENPROJECT 46060
+/* from man msgrcv: 'the first message on the queue with the lowest type less 
+ * than or equal to the absolute value of msgtyp will be read'
+ * that means the requestalive should have the lowest number, because
+ * it has the highest priority
+ */
+#define MSG_QUEUE_ASK_ALIVE 46010
+
 #define MSG_QUEUE_PER_DOCUMENT_TIMEOUT 20000000	/* nanoseconds */
 
 /* 
@@ -81,6 +92,13 @@ typedef struct {
 /******************************/
 Tmsg_queue msg_queue = { TRUE, FALSE, -1, NULL};
 
+/**
+ * msg_queue_check_alive:
+ *
+ * checks the message queue for messages of type MSG_QUEUE_SEND_ALIVE
+ * if we receive such a message, there must be another process 
+ * active on this message queue
+ */
 static gboolean msg_queue_check_alive(gboolean wait_first)
 {
 	struct small_msgbuf {
@@ -113,7 +131,9 @@ static gboolean msg_queue_check_alive(gboolean wait_first)
 	return FALSE;
 }
 
-/*  gint msg_queue_open(void)
+/**
+ * msg_queue_open:
+ *
  *  returns 1 if another process has the queue open already
  *  returns 0 if we opened the queue
  */
@@ -158,7 +178,17 @@ static gboolean msg_queue_open(void)
 	}
 	return FALSE;
 }
-
+/**
+ * msg_queue_check:
+ *
+ * checks the queue for any messages
+ * this is called by the master program, usually by gtk_timeout_add()
+ * the messages it will listen to are the types:
+ * - MSG_QUEUE_ASK_ALIVE - we should respond with a type MSG_QUEUE_SEND_ALIVE
+ * - MSG_QUEUE_OPENFILE - open a filename
+ * - MSG_QUEUE_OPENPROJECT - open a filename as project
+ * - MSG_QUEUE_OPENNEWWIN - open a new window
+ */
 static gboolean msg_queue_check(gint started_by_gtk_timeout)
 {
 	struct msgbuf {
@@ -218,7 +248,9 @@ static gboolean msg_queue_check(gint started_by_gtk_timeout)
 			if the message queue was dead during the startup of this process,
 			it might be started by this very process */
 			int otherpid = atoi(msgp.mtext);
+			DEBUG_MSG("msg_queue_check, a new window is requested by PID=%d\n",otherpid);
 			if (otherpid != (int) getpid()) {
+				DEBUG_MSG("msg_queue_check, the PID is not ours, opening new window\n");
 				gui_new_window(NULL, NULL);
 			}
 		}
@@ -248,9 +280,11 @@ static gboolean msg_queue_check(gint started_by_gtk_timeout)
 	return TRUE;
 }
 
-/* static gboolean msg_queue_send_names(gint send_with_id, GList *names, gboolean received_keepalive)
+/**
+ * msg_queue_send_names:
+ *
+ *
  * returns FALSE if we never received a keepalive, so the server process seems to be non-responsive
- * does not return (it calls exit()) after all files are sent to the server
  */
 static gboolean msg_queue_send_names(gint send_with_id, GList * names, gboolean received_keepalive)
 {
@@ -326,17 +360,18 @@ static gboolean msg_queue_send_names(gint send_with_id, GList * names, gboolean 
 		DEBUG_MSG
 			("msg_queue_send_files, sending filenames complete and successfull, received_keepalive=%d\n",
 			 received_keepalive);
-		/* all filenames send to other process, test if it is alive */
+/*		/ * all filenames send to other process, test if it is alive * /
 		if (received_keepalive) {
 			exit(0);
 		} else {
-			/* the other process should have enough time to check the queue */
-			/* the macro is in milliseconds, usleep is microseconds */
+			/ * the other process should have enough time to check the queue * /
+			/ * the macro is in milliseconds, usleep is microseconds * /
 			if (msg_queue_check_alive(TRUE)) {
-				/* we did receive a keep alive message! */
+				/ * we did receive a keep alive message! * /
 				exit(0);
 			}
-		}
+		}*/
+		return received_keepalive;
 	}
 	return FALSE;
 }
@@ -349,7 +384,12 @@ static gboolean msg_queue_send_projects(GList * filenames, gboolean received_kee
 	return msg_queue_send_names(MSG_QUEUE_OPENPROJECT, filenames, received_keepalive);
 }
 
-
+/**
+ * msg_queue_request_alive:
+ *
+ * sends a message of type MSG_QUEUE_ASK_ALIVE to the already existing queue
+ * to check if the queue is alive
+ */
 static void msg_queue_request_alive(void)
 {
 	gboolean ask_alive;
@@ -394,6 +434,7 @@ static void msg_queue_send_new_window(void) {
 	} small_msgp;
 	/* perhaps we should first check if the queue is alive */
 	gchar *pid_string = g_strdup_printf("%d", (int) getpid());
+	DEBUG_MSG("msg_queue_send_new_window, requesting new window using our PID %s!\n",pid_string);
 	small_msgp.mtype = MSG_QUEUE_OPENNEWWIN;
 	strncpy(small_msgp.mtext, pid_string, MSQ_QUEUE_SMALL_SIZE - 1);
 	retval = msgsnd(msg_queue.msgid,(void *) &small_msgp, MSQ_QUEUE_SMALL_SIZE * sizeof(char),IPC_NOWAIT);
@@ -427,20 +468,26 @@ void msg_queue_start(GList * filenames, GList *projectfiles, gboolean open_new_w
 				received_keepalive = msg_queue_send_projects(projectfiles, received_keepalive);
 			}
 			DEBUG_MSG("msg_queue_start, after sending files and projects, keepalive=%d\n",received_keepalive);
-		} else {
+		}
+		
+		if (!received_keepalive) {
 			gint check_keepalive_cnt = 0;
 			/* if the message queue is still open and the process listening is killed
 			   we should be the server process --> we have to check if the process is still running */
-			while (!received_keepalive && check_keepalive_cnt < 5) {
+			while (!received_keepalive && check_keepalive_cnt < 10) {
+				DEBUG_MSG("msg_queue_start, no keepalive yet, check_keepalive_cnt=%d\n", check_keepalive_cnt);
 				if (msg_queue_check_alive(TRUE)) {
 					received_keepalive = TRUE;
 				}
 				check_keepalive_cnt++;
-				DEBUG_MSG("msg_queue_start, no keepalive yet, check %d\n", check_keepalive_cnt);
 			}
-			if (open_new_window && received_keepalive) {
+			if ((filenames || projectfiles || open_new_window) && received_keepalive) {
+				DEBUG_MSG("msg_queue_start, we did send all our messages to an active queue, exiting!\n");
 				exit(0);
 			}
+		} else {
+			DEBUG_MSG("msg_queue_start, we did send all our messages to an active queue, exiting!\n");
+			exit(0);
 		}
 	}
 
@@ -452,6 +499,8 @@ void msg_queue_start(GList * filenames, GList *projectfiles, gboolean open_new_w
 		DEBUG_MSG
 			("msg_queue_start, we opened the queue, or we didn't get a keepalive, we will be server!\n");
 		gtk_timeout_add(MSQ_QUEUE_CHECK_TIME, (GtkFunction)msg_queue_check, GINT_TO_POINTER(1));
+	} else {
+		DEBUG_MSG("msg_queue_start, we didn't open the queue, and we received a keepalive, further ignoring the mssage queue\n");
 	}
 }
 
