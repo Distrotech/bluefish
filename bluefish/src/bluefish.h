@@ -340,6 +340,8 @@ typedef struct {
 	gpointer frefdata;
 	gpointer bmarkdata;
 	gint num_untitled_documents;
+	guint16 lastkp_hardware_keycode; /* for the autoclosing, we need to know the last pressed key, in the key release callback, */
+	guint lastkp_keyval;             /* this is different if the modifier key is not pressed anymore during the key-release */
 	GtkTooltips *tooltips;
 	pcre *autoclosingtag_regc; /* the regular expression to check for a valid tag in tag autoclosing*/
 } Tmain;
