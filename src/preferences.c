@@ -1634,9 +1634,14 @@ static void preferences_ok_clicked_lcb(GtkWidget *wid, Tprefdialog *pd) {
 	integer_apply(&main_v->props.defaulthighlight, pd->prefs[defaulthighlight], TRUE);
 	integer_apply(&main_v->props.highlight_num_lines_count, pd->prefs[highlight_num_lines_count], FALSE);
 
-	integer_apply(&main_v->props.lowercase_tags, pd->prefs[lowercase_tags], TRUE);
-	integer_apply(&main_v->props.allow_dep, pd->prefs[allow_dep], TRUE);
 	integer_apply(&main_v->props.xhtml, pd->prefs[xhtml], TRUE);
+	if (main_v->props.xhtml) {
+		main_v->props.lowercase_tags = 1;
+		main_v->props.allow_dep = 0;
+	} else {
+		integer_apply(&main_v->props.lowercase_tags, pd->prefs[lowercase_tags], TRUE);
+		integer_apply(&main_v->props.allow_dep, pd->prefs[allow_dep], TRUE);
+	}
 	integer_apply(&main_v->props.default_autoclosingtag, pd->prefs[default_autoclosingtag], TRUE);
 	integer_apply(&main_v->props.auto_update_meta, pd->prefs[auto_update_meta], TRUE);
 	
