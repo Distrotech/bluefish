@@ -32,6 +32,8 @@ datadir=@datadir@
 pkgdatadir=$(datadir)/$(PACKAGE)
 pixmapsdir=@prefix@/share/pixmaps
 
+iconpath=@ICONPATH@
+
 INSTALL = @INSTALL@
 INSTALL_DIR = $(INSTALL) -d -m 755 
 INSTALL_DATA = $(INSTALL) -m 644
@@ -68,8 +70,8 @@ install: src/bluefish
 	$(INSTALL_DIR) $(pkgdatadir)
 	$(INSTALL_DATA) images/bluefish_splash.png $(pkgdatadir)
 	@cd icons/ && $(MAKE) install
-	if [ -d /usr/share/pixmaps ]; then \
-		$(INSTALL_DATA) inline_images/bluefish_icon1.png /usr/share/pixmaps/bluefish-icon.png ;\
+	if [ -d $(iconpath) ]; then \
+		$(INSTALL_DATA) inline_images/bluefish_icon1.png $(iconpath)/bluefish-icon.png ;\
 	fi
 	@cd src/ && $(MAKE) install
 	@cd po/ && $(MAKE) install

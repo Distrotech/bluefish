@@ -228,6 +228,27 @@ AC_HEADER_TIME
 dnl ************************
 dnl Program locations
 dnl ************************
+AC_ARG_WITH(icon-path,
+[  --with-icon-path=/path if the icon should not be installed in /usr/share/pixmaps/],[
+	ICONPATH=$withval
+], [
+	ICONPATH=/usr/share/pixmaps/
+])
+AC_ARG_WITH(gnome1-menu,
+[  --with-gnome1-menu=/path if the gnome1 menu is not /usr/share/gnome/apps/],[
+	GNOME1MENUPATH=$withval
+], [
+	GNOME1MENUPATH=/usr/share/gnome/apps/
+])
+AC_ARG_WITH(gnome2-menu,
+[  --with-gnome2-menu=/path if the gnome2 menu is not /usr/share/applications/],[
+	GNOME2MENUPATH=$withval
+], [
+	GNOME2MENUPATH=/usr/share/applications/
+])
+AC_SUBST(ICONPATH)
+AC_SUBST(GNOME1MENUPATH)
+AC_SUBST(GNOME2MENUPATH)
 
 AC_PREFIX_DEFAULT("/usr/local")
 
