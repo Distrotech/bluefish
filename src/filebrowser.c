@@ -938,8 +938,8 @@ static GtkWidget *filebrowser_rpopup_create_menu() {
 			tmplist = g_list_next(tmplist);
 		}
 	}
-
 	gtk_widget_show_all(menu);
+	g_signal_connect_after(G_OBJECT(menu), "hide", G_CALLBACK(destroy_disposable_menu_hide_cb), menu);
 	return menu;
 }
 
