@@ -545,6 +545,7 @@ static Tconvert_table standardescapetable [] = {
 };
 gchar *unescape_string(const gchar *original, gboolean escape_colon) {
 	gchar *string, *tmp=NULL;
+	DEBUG_MSG("unescape_string, started\n");
 	if (!escape_colon) {
 		tmp = standardescapetable[9].my_char;
 		standardescapetable[9].my_char = NULL;
@@ -557,6 +558,7 @@ gchar *unescape_string(const gchar *original, gboolean escape_colon) {
 }
 gchar *escape_string(const gchar *original, gboolean escape_colon) {
 	gchar *string, *tmp=NULL;
+	DEBUG_MSG("escape_string, started\n");
 	if (!escape_colon) {
 		tmp = standardescapetable[9].my_char;
 		standardescapetable[9].my_char = NULL;
@@ -568,17 +570,19 @@ gchar *escape_string(const gchar *original, gboolean escape_colon) {
 	return string;
 }
 Tconvert_table *new_convert_table(gint size, gboolean fill_standardescape) {
-	gint realsize = (fill_standardescape) ? size + 10 : size +1;
-	Tconvert_table * tct = g_new(Tconvert_table, realsize);
-	DEBUG_MSG("new_convert_table, size=%d, realsize=%d\n",size,realsize);
+	gint realsize = (fill_standardescape) ? size + 10 : size;
+	Tconvert_table * tct = g_new(Tconvert_table, realsize+1);
+	DEBUG_MSG("new_convert_table, size=%d, realsize=%d,alloced=%d\n",size,realsize,realsize+1);
 	if (fill_standardescape) {
 		gint i;
 		for (i=size;i<realsize;i++) {
 			tct[i].my_int = standardescapetable[i-size].my_int;
 			tct[i].my_char = g_strdup(standardescapetable[i-size].my_char);
 		}
+		DEBUG_MSG("new_convert_table, setting tct[%d] (i) to NULL\n",i);
 		tct[i].my_char = NULL;
 	} else {
+		DEBUG_MSG("new_convert_table, setting tct[%d] (size) to NULL\n",size);
 		tct[size].my_char = NULL;
 	}
 	return tct;
