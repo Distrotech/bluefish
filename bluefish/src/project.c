@@ -115,10 +115,10 @@ gboolean project_save(Tbfwin *bfwin, gboolean save_as) {
 void set_project_menu_widgets(Tbfwin *bfwin, gboolean win_has_project) {
 	GtkItemFactory * ifactory;
 	ifactory = gtk_item_factory_from_widget(bfwin->menubar);
-	gtk_widget_set_sensitive(gtk_item_factory_get_widget(ifactory, _("/File/Project/Save")), win_has_project);
-	gtk_widget_set_sensitive(gtk_item_factory_get_widget(ifactory, _("/File/Project/Save as")), win_has_project);
-	gtk_widget_set_sensitive(gtk_item_factory_get_widget(ifactory, _("/File/Project/Close & save")), win_has_project);
-	gtk_widget_set_sensitive(gtk_item_factory_get_widget(ifactory, _("/File/Project/Edit")), win_has_project);
+	gtk_widget_set_sensitive(gtk_item_factory_get_widget(ifactory, _("/Project/Save")), win_has_project);
+	gtk_widget_set_sensitive(gtk_item_factory_get_widget(ifactory, _("/Project/Save as...")), win_has_project);
+	gtk_widget_set_sensitive(gtk_item_factory_get_widget(ifactory, _("/Project/Close & save")), win_has_project);
+	gtk_widget_set_sensitive(gtk_item_factory_get_widget(ifactory, _("/Project/Edit Project Options...")), win_has_project);
 }
 
 void project_open_from_file(Tbfwin *bfwin, gchar *fromfilename) {
