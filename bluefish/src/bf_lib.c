@@ -1060,7 +1060,7 @@ gchar *create_relative_link_to(gchar * current_filepath, gchar * link_to_filepat
  *
  * Return value: a newly allocated gchar * with the full path
  **/
-gchar *create_full_path(gchar * filename, gchar *basedir) {
+gchar *create_full_path(const gchar * filename, const gchar *basedir) {
 	gchar *absolute_filename;
 	gchar *tmpcdir;
 

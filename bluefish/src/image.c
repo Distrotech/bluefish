@@ -155,8 +155,28 @@ static void image_filename_changed(GtkWidget * widget, Timage_diag *imdg) {
 		g_object_unref(imdg->pb);
 	}
 	DEBUG_MSG("image_filename_changed: filename=%s\n",gtk_entry_get_text(GTK_ENTRY(imdg->dg->entry[0])));
-	imdg->pb = gdk_pixbuf_new_from_file(gtk_entry_get_text(GTK_ENTRY(imdg->dg->entry[0])), NULL);
 	
+	/* the entry usually has a relative filename, so we should make it absolute 
+	using the basedir of the document */
+	{
+		const gchar *filename;
+		gchar *fullfilename = NULL;
+
+		filename = gtk_entry_get_text(GTK_ENTRY(imdg->dg->entry[0]));
+		/* we should use the full path to create the thumbnail filename */
+		if (filename[0] != '/' && imdg->dg->doc->filename && strlen(imdg->dg->doc->filename)) {
+			gchar *basedir = path_get_dirname_with_ending_slash(imdg->dg->doc->filename);
+			fullfilename = create_full_path(filename, basedir);
+			g_free(basedir);
+		} else if (filename[0] == '/') {
+			fullfilename = g_strdup(filename);
+		} else {
+			return;
+		}
+		DEBUG_MSG("image_filename_changed: fullfilename=%s, loading!\n",fullfilename);
+		imdg->pb = gdk_pixbuf_new_from_file(fullfilename, NULL);
+		g_free(fullfilename);
+	}
 	if (!imdg->pb) {
 		return;
 	}
