@@ -54,6 +54,8 @@ well. The best way is to have the project functions create/destroy the
 gtktreestore when they convert a window (Tbfwin) into a project window.
 */
 
+#define BMARK_SHOW_NUM_TEXT_CHARS 15
+
 enum {
 	NAME_COLUMN,				/* bookmark name */
 	PTR_COLUMN,					/* bookmark pointer */
@@ -339,7 +341,11 @@ void bmark_add_rename_dialog(Tbfwin * bfwin, gchar * dialogtitle)
 			g_free(m->description);
 			m->description = g_strdup(gtk_entry_get_text(GTK_ENTRY(desc)));
 			m->is_temp = GTK_TOGGLE_BUTTON(istemp)->active;
-			tmpstr = g_strdup_printf("[%s] --> %s", m->name, m->text);
+			if (m->name && strlen(m->name) > 0) {
+				tmpstr = g_strconcat(m->name, " - ", m->text,NULL);
+			} else {
+				tmpstr = g_strdup(m->text);
+			}
 			gtk_tree_store_set(bfwin->bookmarkstore, &m->iter, NAME_COLUMN,
 							   tmpstr,-1);
 			g_free(tmpstr);
@@ -546,7 +552,7 @@ GtkWidget *bmark_gui(Tbfwin * bfwin)
 	gtk_widget_show_all(bfwin->bmark);
 	gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(bfwin->bmark), FALSE);
 	scroll = gtk_scrolled_window_new(NULL, NULL);
-	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scroll), GTK_POLICY_NEVER,GTK_POLICY_AUTOMATIC);
+	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scroll), GTK_POLICY_AUTOMATIC,GTK_POLICY_AUTOMATIC);
 	gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(scroll), bfwin->bmark);
 	gtk_box_pack_start(GTK_BOX(vbox), scroll, TRUE, TRUE, 0);
 	g_signal_connect(G_OBJECT(bfwin->bmark), "button-press-event",
@@ -704,7 +710,11 @@ void bmark_reload(Tbfwin * bfwin)
 			b->len = atoi(items[5]);
 			b->strarr = items;
 			bmark_get_iter_at_position(bfwin, b);
-			ptr = g_strdup_printf("[%s] --> %s", b->name, b->text);
+			if (b->name && strlen(b->name)>0) {
+				ptr = g_strconcat(b->name, " - ", b->text, NULL);
+			} else {
+				ptr = g_strdup(b->text);
+			}
 			gtk_tree_store_set(bfwin->bookmarkstore, &(b->iter), NAME_COLUMN, ptr, PTR_COLUMN, b,
 							   -1);
 			g_free(ptr);
@@ -878,27 +888,40 @@ GHashTable *bmark_get_bookmarked_lines(Tdocument * doc, GtkTextIter *fromit, Gtk
 void bmark_add_backend(Tbfwin *bfwin, const gchar *name, gint offset, gboolean is_temp) {
 	Tbmark *m;
 	GtkTextIter it, eit, sit;
+	gchar *tmp;
 	DEBUG_MSG("bmark_add_backend, adding bookmark at offset=%d for bfwin=%p\n",offset,bfwin);
 	/* create bookmark */
 	m = g_new0(Tbmark, 1);
 	m->doc = DOCUMENT(bfwin->current_document);
 	m->offset = offset;
 	gtk_text_buffer_get_iter_at_offset(m->doc->buffer,&it,offset);
-	m->mark = gtk_text_buffer_create_mark(m->doc->buffer, NULL, &it, TRUE);
+	/* if there is a selection, and the offset is within the selection, we'll use it as text content */
+	if (gtk_text_buffer_get_selection_bounds(m->doc->buffer,&sit,&eit) 
+				&& gtk_text_iter_in_range(&it,&sit,&eit)) {
+		m->mark = gtk_text_buffer_create_mark(m->doc->buffer, NULL, &sit, TRUE);
+		m->text = gtk_text_iter_get_text(&sit, &eit);
+	} else {
+		m->mark = gtk_text_buffer_create_mark(m->doc->buffer, NULL, &it, TRUE);
+			sit = eit = it;
+		gtk_text_iter_forward_to_line_end(&eit);
+		gtk_text_iter_forward_chars(&sit, BMARK_SHOW_NUM_TEXT_CHARS);
+		if (!gtk_text_iter_in_range(&sit, &it, &eit))
+			sit = eit;
+		m->text = gtk_text_iter_get_text(&it, &sit);
+	}
 	m->filepath = g_strdup(m->doc->filename);
 	m->is_temp = is_temp;
 	m->name = g_strdup(name);
 	m->description = g_strdup("");
-	sit = eit = it;
-	gtk_text_iter_forward_to_line_end(&eit);
-	gtk_text_iter_forward_chars(&sit, 10);
-	if (!gtk_text_iter_in_range(&sit, &it, &eit))
-		sit = eit;
-	m->text = gtk_text_iter_get_text(&it, &sit);
 	/* insert into tree */
 	bmark_get_iter_at_position(bfwin, m);
+	if (m->name && strlen(m->name)>0) {
+		tmp = g_strconcat(m->name, " - ", m->text, NULL);
+	} else {
+		tmp = g_strdup(m->text);
+	}
 	gtk_tree_store_set(bfwin->bookmarkstore, &m->iter, NAME_COLUMN,
-					   g_strdup_printf("[%s] --> %s", m->name, m->text), PTR_COLUMN, m, -1);
+					   tmp, PTR_COLUMN, m, -1);
 	gtk_tree_view_expand_all(bfwin->bmark);
 	gtk_widget_grab_focus(bfwin->current_document->view);
 	/* and store */
@@ -982,7 +1005,7 @@ void bmark_add_at_bevent(Tdocument *doc)
 		if (BFWIN(doc->bfwin)->bmark == NULL) {
 			DEBUG_MSG("adding bookmarks without left panel is not implemented yet\n");
 		} else {
-			bmark_add_backend(doc->bfwin, _("temp"), offset, !main_v->props.bookmarks_default_store);
+			bmark_add_backend(doc->bfwin, "", offset, !main_v->props.bookmarks_default_store);
 		}
 	}
 }
