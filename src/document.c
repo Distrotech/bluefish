@@ -28,7 +28,7 @@
 #include <stdlib.h> /* system() */
 #include <time.h> /* ctime_r() */
 
-/* #define DEBUG */
+/*#define DEBUG*/
 
 #include "bluefish.h"
 #include "document.h"
@@ -667,7 +667,7 @@ gboolean doc_file_to_textbox(Tdocument * doc, gchar * filename, gboolean enable_
 		cursor_offset = gtk_text_iter_get_offset(&iter);
 	}
 	{
-		gchar chunk[STARTING_BUFFER_SIZE+1];
+/*		gchar chunk[STARTING_BUFFER_SIZE+1];
 		gint buffer_size = STARTING_BUFFER_SIZE + 1;
 		gchar *buffer = g_malloc(buffer_size * sizeof(gchar));
 		buffer[0] = '\0';
@@ -675,7 +675,29 @@ gboolean doc_file_to_textbox(Tdocument * doc, gchar * filename, gboolean enable_
 			strcat(buffer, chunk);
 			buffer_size += STARTING_BUFFER_SIZE;
 			buffer = g_realloc(buffer, buffer_size);
+			DEBUG_MSG("doc_file_to_textbox, buffer_size=%d, strlen(buffer)=%d\n",buffer_size, strlen(buffer));
 		}
+		DEBUG_MSG("doc_file_to_textbox, final buffer_size=%d, strlen(buffer)=%d\n", buffer_size, strlen(buffer));*/
+		gchar chunk[STARTING_BUFFER_SIZE];
+		gint buffer_size = STARTING_BUFFER_SIZE;
+		size_t size = STARTING_BUFFER_SIZE;
+		gchar *buffer = g_malloc(1+(buffer_size * sizeof(gchar)));
+		while (TRUE) {
+			size = fread(chunk,sizeof(gchar),STARTING_BUFFER_SIZE,fd);
+			memcpy(&buffer[buffer_size-STARTING_BUFFER_SIZE], chunk, STARTING_BUFFER_SIZE);
+			DEBUG_MSG("doc_file_to_textbox, copy %d bytes to position %d, size=%d\n",STARTING_BUFFER_SIZE, buffer_size-STARTING_BUFFER_SIZE, size);
+			if (size == STARTING_BUFFER_SIZE) {
+				buffer_size += STARTING_BUFFER_SIZE;
+				buffer = g_realloc(buffer, 1+(buffer_size * sizeof(gchar)));
+			} else {
+				DEBUG_MSG("size=%d, terminating buffer at %d\n",size,buffer_size-STARTING_BUFFER_SIZE+size);
+				buffer[buffer_size-STARTING_BUFFER_SIZE+size] = '\0';
+				break;
+			}
+		}
+		DEBUG_MSG("doc_file_to_textbox, final buffer_size=%d, strlen(buffer)=%d\n", buffer_size, strlen(buffer));
+		fclose(fd);
+		
 		/* the first try is if the encoding is set in the file */
 		{
 			regex_t preg;
@@ -785,7 +807,6 @@ gboolean doc_file_to_textbox(Tdocument * doc, gchar * filename, gboolean enable_
 			g_free(buffer);
 		}
 	}
-	fclose(fd);
 	if (doc->highlightstate) {
 		doc->need_highlighting=TRUE;
 		DEBUG_MSG("doc_file_to_textbox, highlightstate=%d, need_highlighting=%d, delay_highlighting=%d\n",doc->highlightstate,doc->need_highlighting,delay_highlighting);

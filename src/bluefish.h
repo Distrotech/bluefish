@@ -177,6 +177,7 @@ typedef struct {
 #ifdef HAVE_LIBASPELL
 	gchar *spell_default_lang;
 #endif /* HAVE_LIBASPELL */
+	gint default_advanced_snr;
 	/* not yet in use */
 	gchar *image_editor_cline; 	/* image editor commandline */
 	gchar *cfg_weblint_cline;	/* weblint command line */

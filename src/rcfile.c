@@ -362,6 +362,10 @@ static GList *props_init_main(GList * config_rc)
 	init_prop_integer   (&config_rc, &main_v->props.ext_browsers_in_submenu,"ext_browsers_in_submenu:",0);
 	init_prop_integer   (&config_rc, &main_v->props.ext_commands_in_submenu,"ext_commands_in_submenu:",1);
 	init_prop_integer   (&config_rc, &main_v->props.ext_outputbox_in_submenu,"ext_outputbox_in_submenu:",1);
+#ifdef HAVE_LIBASPELL
+	init_prop_string(&config_rc, &main_v->props.spell_default_lang, "spell_default_lang:", "en");
+#endif /* HAVE_LIBASPELL */
+	init_prop_integer   (&config_rc, &main_v->props.default_advanced_snr,"default_advanced_snr:",0);
 
 	/* not yet in use */
 	init_prop_string(&config_rc, &main_v->props.image_editor_cline, "image_editor_command:", "gimp-remote -n \"%s\"&");
@@ -398,9 +402,7 @@ static GList *props_init_main(GList * config_rc)
 #ifdef WITH_MSG_QUEUE
 	init_prop_integer (&config_rc, &main_v->props.open_in_running_bluefish,"open_in_running_bluefish:",1);
 #endif
-#ifdef HAVE_LIBASPELL
-	init_prop_string(&config_rc, &main_v->props.spell_default_lang, "spell_default_lang:", "en");
-#endif /* HAVE_LIBASPELL */
+
 	return config_rc;
 }
 

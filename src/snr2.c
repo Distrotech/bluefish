@@ -1043,7 +1043,7 @@ static void snr2dialog(gint is_replace, gint is_new_search) {
 	gchar *tmptext;
 
 	snr2win = g_malloc(sizeof(Tsnr2_win));
-	snr2win->is_advanced = 0;
+	snr2win->is_advanced = main_v->props.default_advanced_snr;
 	if (is_replace) {
 		tmptext = _("Replace");
 		snr2win->replace = 1;
@@ -1158,8 +1158,10 @@ static void snr2dialog(gint is_replace, gint is_new_search) {
 		gtk_text_buffer_get_bounds(buffer,&start,&end);
 		gtk_text_buffer_move_mark_by_name(buffer,"insert",&start);
 		gtk_text_buffer_move_mark_by_name(buffer,"selection_bound",&end);
+		gtk_widget_grab_focus(snr2win->patternv);
+	} else {
+		gtk_widget_grab_focus(snr2win->patterne);
 	}
-	gtk_widget_grab_focus(snr2win->patternv);
 	gtk_widget_show_all(vbox);
 
 	snr2dialog_advanced_button_clicked(NULL, snr2win);

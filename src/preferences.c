@@ -45,7 +45,7 @@ enum {
 	ext_browsers_in_submenu,
 	ext_commands_in_submenu,
 	ext_outputbox_in_submenu,
-
+	default_advanced_snr,
 	/* not yet in use */
 	image_editor_cline, 	/* image editor commandline */
 	cfg_weblint_cline,	/* weblint command line */
@@ -1527,7 +1527,7 @@ static void preferences_ok_clicked_lcb(GtkWidget *wid, Tprefdialog *pd) {
 	integer_apply(&main_v->props.ext_commands_in_submenu, pd->prefs[ext_commands_in_submenu], TRUE);
 	integer_apply(&main_v->props.ext_outputbox_in_submenu, pd->prefs[ext_outputbox_in_submenu], TRUE);
 	integer_apply(&main_v->props.transient_htdialogs, pd->prefs[transient_htdialogs], TRUE);
-	
+	integer_apply(&main_v->props.default_advanced_snr, pd->prefs[default_advanced_snr], TRUE);
 	
 	integer_apply(&main_v->props.filebrowser_show_hidden_files, pd->prefs[filebrowser_show_hidden_files], TRUE);
 	integer_apply(&main_v->props.filebrowser_show_others_files, pd->prefs[filebrowser_show_others_files], TRUE);
@@ -1721,6 +1721,7 @@ static void preferences_dialog() {
 	
 	pd->prefs[tab_font_string] = prefs_string(_("Notebook tab font (leave empty for gtk default)"), main_v->props.tab_font_string, vbox2, pd, string_font);
 	pd->prefs[transient_htdialogs] = boxed_checkbut_with_value(_("Make HTML dialogs transient"), main_v->props.transient_htdialogs, vbox2);
+	pd->prefs[default_advanced_snr] = boxed_checkbut_with_value(_("Advanced search and replace by default"), main_v->props.default_advanced_snr, vbox2);
 
 	frame = gtk_frame_new(_("File browser"));
 	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
