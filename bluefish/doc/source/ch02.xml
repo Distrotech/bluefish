@@ -208,62 +208,9 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 		<sect2 id="bluefish-ch-2-sect-4.2">
 			<title>Installing from Development Source Tree</title>
 			<para>
-				So, you want the bleeding edge? This guide will help you 
-				download and install the latest source from our CVS repository.
-			</para>
-			<para>
-				CVS
-				<footnote><para>Concurrent Versions System</para></footnote>
-				, a version control system, is a much used software development 
-				tool. It keeps track of all changes to the sourcecode, who did 
-				what and why they did it. If you want to read more about CVS, 
-				have a look at the CVS-book by Karl Fogel, available at
-				<systemitem class="url">
-					http://cvsbook.red-bean.com/cvsbook.html
-				</systemitem>.
-			</para>
-			<para>
-				The Bluefish project's CVS is generously hosted by 
-				SourceForge.net
-				<footnote>
-					<systemitem class="url">
-						http://sourceforge.net
-					</systemitem>
-				</footnote>.
-				For more information about them, see their site. The project 
-				homepage is 
-				<systemitem class="url">
-					http://sourceforge.net/projects/bluefish
-				</systemitem>.
-				Our CVS repository contains the current Bluefish sourcecode, 
-				and even this manual. The repository is accessible by anyone, 
-				and is updated almost daily by the developers.
-			</para>
-			<para>
-				To access the repository, you need a few small utilities. You 
-				may have to install them. They are likely to be available 
-				through your favourite source of software (ports, apt etc). The 
-				above mentioned CVS-book is a great source for information.
-			</para>
-			<para>
-				The first step is to cd to the directory you want to put the 
-				sources in, and then log in. The latter is accomplished with 
-				this command:
-				<screen>$ cvs -d :pserver:anonymous@cvs.bluefish.sourceforge.net:/cvsroot/bluefish login</screen>
-				(just hit <action>Enter</action> at the password prompt)
-				The next step is to <emphasis>check out</emphasis> the 
-				sourcecode. You can check out single modules, and the one you 
-				want is called <literal>bluefish-gtk2</literal>. The command 
-				is:
-				<screen>$ cvs -z3 -d :pserver:anonymous@cvs.bluefish.sourceforge.net:/cvsroot/bluefish co bluefish-gtk2</screen>
-				A lot of files will be downloaded, and listed one by one. If 
-				you're on dialup, this might take a bit of time. Be patient ;-)
-			</para>
-			<para>
-				When the download has completed, you'll find the bluefish 
-				sources in the subdirectory	
-				<literal>bluefish-gtk2</literal>. 
-				Enter that directory now: 
+				You can get the latest Bluefish version via CVS using the instructions in
+				<xref linkend="bluefish-ch-1-sect-3" />
+				Enter the directory containing the bluefish source files: 
 				<screen>$ cd bluefish-gtk</screen>
 				Next, you need to generate the configure script. That's 
 				accomplished by running
