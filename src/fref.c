@@ -762,7 +762,7 @@ void fref_loader_unload_all(GtkWidget * tree, GtkTreeStore * store)
 			gtk_tree_store_remove(store, &iter);
 		} /* do_unload */	
 	}							/* while */
-	gtk_tree_store_clear(store);
+	/* gtk_tree_store_clear(store); */
 }
 
 /* END OF CONFIG PARSER */
@@ -789,7 +789,7 @@ static void fill_toplevels(Tfref_data *fdata, gboolean empty_first) {
 							   tmparray[1], -1);
 				cnt = g_new0(gint,1);
 				*cnt = 0;
-				g_hash_table_insert(fdata->refcount,tmparray[0],cnt);			   
+				g_hash_table_replace(fdata->refcount,g_strdup(tmparray[0]),cnt);			   
 
 				/* dummy node for er display */
 				gtk_tree_store_append(fdata->store, &iter2, &iter);
@@ -1994,7 +1994,8 @@ GtkWidget *fref_gui(Tbfwin *bfwin) {
 	GtkCellRenderer *cell;
 	GtkTreeViewColumn *column;
 	Tfref_data *fdata = FREFDATA(main_v->frefdata);
-
+	GtkTreeIter it;
+	
 	bfwin->fref = g_new0(Tfref_gui,1);
 
 	pane = gtk_vpaned_new();
@@ -2066,6 +2067,9 @@ GtkWidget *fref_gui(Tbfwin *bfwin) {
 	gtk_paned_pack1(GTK_PANED(pane),box,TRUE,FALSE);  
 	gtk_paned_pack2(GTK_PANED(pane),FREFGUI(bfwin->fref)->infoscroll,TRUE,TRUE);
 	gtk_widget_show_all(pane); 
+	
+	if (!gtk_tree_model_iter_nth_child(GTK_TREE_MODEL(fdata->store), &it, NULL, 0))
+	   fill_toplevels(fdata,FALSE);
 	return pane;
 }
 
