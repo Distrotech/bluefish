@@ -468,7 +468,7 @@ static void bmark_get_iter_at_position(Tbfwin * bfwin, Tbmark * m)
 {
 	GtkTreeIter *parent;
 	gpointer ptr;
-
+	DEBUG_MSG("bmark_get_iter_at_position, started for filepath=%s\n",m->filepath);
 	ptr = g_hash_table_lookup(bfwin->bmark_files, m->filepath);
 	if (ptr == NULL) {			/* closed document or bookmarks never set */
 		parent = g_new0(GtkTreeIter, 1);
@@ -496,6 +496,7 @@ static void bmark_get_iter_at_position(Tbfwin * bfwin, Tbmark * m)
 		}
 		if (m->doc != NULL)
 			m->doc->bmark_parent = parent;
+		DEBUG_MSG("bmark_get_iter_at_position, appending parent in hashtable for filepath=%s\n",m->filepath);
 		g_hash_table_insert(bfwin->bmark_files, m->filepath, parent);
 	} else
 		parent = (GtkTreeIter *) ptr;
@@ -512,7 +513,7 @@ static void bmark_get_iter_at_position(Tbfwin * bfwin, Tbmark * m)
 			if (tmpm) {
 				gint val = strcmp(m->filepath, tmpm->filepath);
 				if (val == 0) {
-					DEBUG_MSG("bmark_get_iter_at_position, comparing two iters\n");
+					DEBUG_MSG("bmark_get_iter_at_position, there is already a bookmark for this file, comparing two iters\n");
 					if (m->offset > tmpm->offset) {
 						gtk_tree_store_insert_before(bfwin->bookmarkstore, &m->iter, parent,
 													 &tmpiter);
@@ -520,6 +521,7 @@ static void bmark_get_iter_at_position(Tbfwin * bfwin, Tbmark * m)
 					}
 				} else if (val < 0) {
 					/* different file */
+					DEBUG_MSG("bmark_get_iter_at_position, no bookmark for this file yet, creating\n");
 					gtk_tree_store_insert_before(bfwin->bookmarkstore, &m->iter, parent, &tmpiter);
 					return;
 				}
