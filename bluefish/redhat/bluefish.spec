@@ -2,7 +2,7 @@
 %define name  		bluefish
 %define version		gtk2
 %define release 	1
-%define source		bluefish-gtk2port-2002-12-08
+%define source		bluefish-gtk2port-2002-12-19
 %define prefix		/usr
 	
 
@@ -41,7 +41,7 @@ rm -rf %{buildroot}
 
 %makeinstall pkgdatadir=%{buildroot}%{_datadir}/%{name}
 
-# %find_lang %{name}
+%find_lang %{name}
 install -D -m644 inline_images/bluefish_icon1.png \
 	%{buildroot}%{_datadir}/pixmaps/%{name}.png
 
@@ -66,8 +66,7 @@ desktop-file-install --vendor %{desktop_vendor} --delete-original \
 %clean
 rm -rf %{buildroot}
 
-# %files -f %{name}.lang
-%files
+%files -f %{name}.lang
 %defattr(-,root, root)
 %doc PORTING
 %{_bindir}/*
@@ -78,7 +77,6 @@ rm -rf %{buildroot}
 
 
 %changelog
-* Tue Dec 10 2002 Matthias Haase <matthias_haase@bennewitz.com>
-- Rebuild for snapshot 2002-12-08
-- Based of the template for auto-builds now
+* Fri Dec 20 2002 Matthias Haase <matthias_haase@bennewitz.com>
+- Automatic build - snapshot of 2002-12-19
 
