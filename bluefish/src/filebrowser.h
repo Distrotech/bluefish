@@ -27,4 +27,5 @@ GtkWidget *filebrowser_init(Tbfwin *bfwin);
 void filebrowser_cleanup(Tbfwin *bfwin);
 void filebrowser_scroll_initial(Tbfwin *bfwin);
 void filebrowserconfig_init(void);
+void filebrowser_set_basedir(Tbfwin *bfwin, const gchar *basedir);
 #endif /* __FILEBROWSER_H_ */

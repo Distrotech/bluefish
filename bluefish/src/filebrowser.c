@@ -17,8 +17,8 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-/*#define DEBUG*/
-/*#define DEBUG_ADDING_TO_TREE*/
+/* #define DEBUG
+#define DEBUG_ADDING_TO_TREE */
 
 #include <gtk/gtk.h>
 #include <sys/types.h> /* stat() getuid */
@@ -83,6 +83,7 @@ typedef struct {
 	GList *dirmenu_entries;
 	gchar *last_opened_dir;
 	Tbfwin *bfwin;
+	gchar *basedir;
 } Tfilebrowser;
 
 typedef struct {
@@ -133,7 +134,7 @@ static gboolean get_iter_by_filename_from_parent(GtkTreeStore *store, GtkTreeIte
 	return FALSE;
 }
 
-static gchar *return_filename_from_path(GtkTreeModel *store,const GtkTreePath *thispath) {
+static gchar *return_filename_from_path(Tfilebrowser *filebrowser, GtkTreeModel *store,const GtkTreePath *thispath) {
 	gboolean valid = TRUE;
 	gchar *retval = NULL, *tmp;
 	GtkTreePath *path = gtk_tree_path_copy(thispath);
@@ -148,18 +149,23 @@ static gchar *return_filename_from_path(GtkTreeModel *store,const GtkTreePath *t
 
 		gtk_tree_model_get_iter(GTK_TREE_MODEL(store),&iter,path);
 		gtk_tree_model_get (GTK_TREE_MODEL(store), &iter, FILENAME_COLUMN, &name, -1);
-		if (strcmp(name, "/") !=0) {
+		if (filebrowser->basedir && strcmp(name, filebrowser->basedir) == 0) {
 			tmp = retval;
-			retval = g_strconcat("/", name, retval,NULL);
+			retval = g_strconcat(name, retval,NULL);
 			g_free(tmp);
-			valid = gtk_tree_path_up(path);
-		} else {
+			valid = FALSE;
+		} else if (filebrowser->basedir == NULL && strcmp(name, "/") ==0) {
 			/* found the root */
 			if (!retval) {
 				retval = g_strdup("/");
 			}
-			DEBUG_MSG("return_filename_from_path, found the root, retval=%s\n", retval);
+			DEBUG_MSG("return_filename_from_path, found the root (%s ??), retval=%s\n", name,retval);
 			valid = FALSE;
+		} else {
+			tmp = retval;
+			retval = g_strconcat("/", name, retval,NULL);
+			g_free(tmp);
+			valid = gtk_tree_path_up(path);
 		}
 		g_free(name);
 	}
@@ -335,20 +341,26 @@ static void free_dir_entries(GList *direntrylist) {
 	g_list_free(tmplist);
 }
 
-static GtkTreePath *return_path_from_filename(GtkTreeStore *store,gchar *this_filename) {
+static GtkTreePath *return_path_from_filename(Tfilebrowser *filebrowser,gchar *this_filename) {
 	gchar *tmpstr, *p, *filepath;
 	gint totlen, curlen, prevlen=1;
 	gboolean found=TRUE;
+	GtkTreeStore *store = filebrowser->store;
 	GtkTreeIter iter,parent;
 
 	gtk_tree_model_get_iter_first(GTK_TREE_MODEL(store), &iter);
 	parent = iter;
 
-	filepath=g_strdup(this_filename);
+	filepath = g_strdup(this_filename);
+	
+	if (filebrowser->basedir) {
+		prevlen = strlen(filebrowser->basedir)+1;
+	}
 	
 	totlen = strlen(filepath);
 	curlen = strlen(strchr(&filepath[prevlen], '/'));
 	p = strchr(&filepath[prevlen], '/');
+	DEBUG_MSG("return_path_from_filename, filepath=%s\n",filepath);
 	while (p && found) {
 		gboolean valid;
 		
@@ -614,22 +626,39 @@ static void refresh_dir_by_path_and_filename(Tfilebrowser *filebrowser, GtkTreeP
 	gtk_tree_view_columns_autosize(GTK_TREE_VIEW(filebrowser->tree));
 }
 
-static GtkTreePath *build_tree_from_path(Tfilebrowser *filebrowser, gchar *filepath) {
+/* can return NULL if the filepath is outside the basedir !! */
+static GtkTreePath *build_tree_from_path(Tfilebrowser *filebrowser, const gchar *filepath) {
 	GtkTreeIter iter;
+	
+	if (filebrowser->basedir && strncmp(filepath, filebrowser->basedir, strlen(filebrowser->basedir))!=0) {
+		DEBUG_MSG("build_tree_from_path, filepath %s outside basedir %s, returning NULL\n",filepath, filebrowser->basedir);
+		return NULL;
+	}
+	
 	/* first build path from root to here */
-
 	{
 		gchar *tmpstr, *p;
 		gint totlen, curlen, prevlen=1;
 		
 		if (!gtk_tree_model_get_iter_first(GTK_TREE_MODEL(filebrowser->store), &iter)) {
-			iter = add_tree_item(NULL, filebrowser, "/", TYPE_DIR, NULL);
+			if (filebrowser->basedir) {
+				DEBUG_MSG("build_tree_from_path, creating root %s\n",filebrowser->basedir);
+				iter = add_tree_item(NULL, filebrowser, filebrowser->basedir, TYPE_DIR, NULL);
+			} else {
+				DEBUG_MSG("build_tree_from_path, creating root /\n");
+				iter = add_tree_item(NULL, filebrowser, "/", TYPE_DIR, NULL);
+			}
 		}
 		
 		totlen = strlen(filepath);
 		DEBUG_MSG("build_tree_from_path, totlen=%d\n", totlen);
 		curlen = strlen(strchr(&filepath[prevlen], '/'));
 		DEBUG_MSG("build_tree_from_path, curlen=%d\n", curlen);
+		if (filebrowser->basedir) {
+			/* +1 because the basedir does not have a slash / appended, and we want to continue searching after the slash */
+			prevlen = strlen(filebrowser->basedir)+1;
+		}
+		DEBUG_MSG("build_tree_from_path, initial prevlen=%d\n", prevlen);
 		p = strchr(&filepath[prevlen], '/');
 		while (p) {
 			curlen = strlen(p);
@@ -684,7 +713,7 @@ static GtkTreePath *build_tree_from_path(Tfilebrowser *filebrowser, gchar *filep
 void filebrowser_refresh_dir(Tfilebrowser *filebrowser, gchar *dir) {
 	if (filebrowser->tree) {
 		/* get the path for this dir */
-		GtkTreePath *path = return_path_from_filename(filebrowser->store, dir);
+		GtkTreePath *path = return_path_from_filename(filebrowser, dir);
 		DEBUG_DUMP_TREE_PATH(path);
 		if (!path) return;
 		/* check if the dir is expanded, return if not */	
@@ -776,14 +805,14 @@ void filebrowser_open_dir(Tbfwin *bfwin,const gchar *dirarg) {
 		} else {
 			dir = g_strdup(dirarg);
 		}
-		path = return_path_from_filename(filebrowser->store, dir);
+		path = return_path_from_filename(filebrowser, dir);
 		DEBUG_MSG("filebrowser_open_dir, called for %s, dir=%s\n", dirarg, dir);
 		DEBUG_DUMP_TREE_PATH(path);
 
 		/* Get currently selected item. */
 		selpath = filebrowser_get_path_from_selection(GTK_TREE_MODEL(filebrowser->store), GTK_TREE_VIEW(filebrowser->tree),NULL);
 		if(selpath) {
-			selfile = return_filename_from_path(GTK_TREE_MODEL(filebrowser->store), selpath);
+			selfile = return_filename_from_path(filebrowser,GTK_TREE_MODEL(filebrowser->store), selpath);
 			seldir = path_get_dirname_with_ending_slash(selfile);
 			gtk_tree_path_free(selpath);
 		}
@@ -951,7 +980,7 @@ static void create_file_or_dir_win(Tfilebrowser *filebrowser, gint is_file) {
 			iter = parent;
 		}
 		path = gtk_tree_model_get_path(GTK_TREE_MODEL(filebrowser->store),&iter);
-		tmp = return_filename_from_path(GTK_TREE_MODEL(filebrowser->store),path);
+		tmp = return_filename_from_path(filebrowser,GTK_TREE_MODEL(filebrowser->store),path);
 		ws->basedir = ending_slash(tmp);
 		g_free(tmp);
 		gtk_tree_path_free(path);
@@ -989,7 +1018,7 @@ static void create_file_or_dir_win(Tfilebrowser *filebrowser, gint is_file) {
 
 
 static void row_expanded_lcb(GtkTreeView *tree,GtkTreeIter *iter,GtkTreePath *path,Tfilebrowser *filebrowser) {
-	gchar *filename = return_filename_from_path(GTK_TREE_MODEL(filebrowser->store),path);
+	gchar *filename = return_filename_from_path(filebrowser,GTK_TREE_MODEL(filebrowser->store),path);
 	DEBUG_MSG("row_expanded_lcb, started on filename=%s\n", filename);
 	statusbar_message(filebrowser->bfwin,_("Opening directory..."), 500);
 	flush_queue();
@@ -1015,7 +1044,7 @@ static void handle_activate_on_file(Tfilebrowser *filebrowser, gchar *filename) 
 /* Called both by the filebrowser "activate"-signal and filebrowser_rpopup_open_lcb */
 static void row_activated_lcb(GtkTreeView *tree, GtkTreePath *path,GtkTreeViewColumn *column, Tfilebrowser *filebrowser) {
 	GtkTreeIter iter;
-	gchar *filename = return_filename_from_path(GTK_TREE_MODEL(filebrowser->store),path);
+	gchar *filename = return_filename_from_path(filebrowser,GTK_TREE_MODEL(filebrowser->store),path);
 	DEBUG_MSG("row_activated_lcb, filename=%s\n", filename);
 	/* test if this is a dir */
 	gtk_tree_model_get_iter(GTK_TREE_MODEL(filebrowser->store),&iter,path);
@@ -1050,7 +1079,7 @@ static void filebrowser_rpopup_rename(Tfilebrowser *filebrowser) {
 	/* this function should, together with doc_save() use a common backend.. */
 	
 	path = filebrowser_get_path_from_selection(GTK_TREE_MODEL(filebrowser->store),GTK_TREE_VIEW(filebrowser->tree),NULL);
-	oldfilename = return_filename_from_path(GTK_TREE_MODEL(filebrowser->store), path);	
+	oldfilename = return_filename_from_path(filebrowser,GTK_TREE_MODEL(filebrowser->store), path);	
 
 	/* Use doc_save(doc, 1, 1) if the file is open. */
 	alldocs = return_allwindows_documentlist();
@@ -1108,7 +1137,7 @@ static void filebrowser_rpopup_delete(Tfilebrowser *filebrowser) {
 	path = filebrowser_get_path_from_selection(GTK_TREE_MODEL(filebrowser->store),GTK_TREE_VIEW(filebrowser->tree),NULL);
 	if (path) {
 		gchar *filename;
-		filename = return_filename_from_path(GTK_TREE_MODEL(filebrowser->store),path);
+		filename = return_filename_from_path(filebrowser,GTK_TREE_MODEL(filebrowser->store),path);
 		gtk_tree_path_free(path);
 		if (filename) {
 			gchar *buttons[] = {GTK_STOCK_CANCEL, GTK_STOCK_DELETE, NULL};
@@ -1150,7 +1179,7 @@ static void filebrowser_rpopup_refresh(Tfilebrowser *filebrowser) {
 			iter = parent;
 		}
 		path = gtk_tree_model_get_path(GTK_TREE_MODEL(filebrowser->store),&iter);
-		tmp = return_filename_from_path(GTK_TREE_MODEL(filebrowser->store),path);
+		tmp = return_filename_from_path(filebrowser,GTK_TREE_MODEL(filebrowser->store),path);
 		DEBUG_MSG("filebrowser_rpopup_refresh_lcb, return_filename_from_path returned %s\n", tmp);
 		dir = ending_slash(tmp);
 		DEBUG_MSG("filebrowser_rpopup_refresh_lcb, ending_slash returned %s\n", dir);
@@ -1169,8 +1198,8 @@ static void filebrowser_rpopup_action_lcb(Tfilebrowser *filebrowser,guint callba
 		path = filebrowser_get_path_from_selection(GTK_TREE_MODEL(filebrowser->store),GTK_TREE_VIEW(filebrowser->tree),NULL);
 		if(path) {
 			row_activated_lcb(GTK_TREE_VIEW(filebrowser->tree), path, NULL, filebrowser);
+			gtk_tree_path_free(path);
 		}
-		gtk_tree_path_free(path);
 	} break;
 	case 2:
 		filebrowser_rpopup_rename(filebrowser);
@@ -1193,7 +1222,7 @@ static void filebrowser_rpopup_action_lcb(Tfilebrowser *filebrowser,guint callba
 		GtkTreePath *tmppath;
 		gchar *path;
 		tmppath = filebrowser_get_path_from_selection(GTK_TREE_MODEL(filebrowser->store),GTK_TREE_VIEW(filebrowser->tree),NULL);
-		path = return_filename_from_path(GTK_TREE_MODEL(filebrowser->store), tmppath);
+		path = return_filename_from_path(filebrowser,GTK_TREE_MODEL(filebrowser->store), tmppath);
 		open_advanced_from_filebrowser(filebrowser->bfwin, path);
 		gtk_tree_path_free(tmppath);
 		g_free(path);
@@ -1497,8 +1526,10 @@ GtkWidget *filebrowser_init(Tbfwin *bfwin) {
 		strncat(curdir, "/", 1023);
 		DEBUG_MSG("curdir=%s\n",curdir);
 		path = build_tree_from_path(filebrowser, curdir);
-		filebrowser_expand_to_root(filebrowser,path);
-		gtk_tree_path_free(path);
+		if (path) {
+			filebrowser_expand_to_root(filebrowser,path);
+			gtk_tree_path_free(path);
+		}
 	}
 	
 	g_signal_connect(G_OBJECT(filebrowser->tree), "row-expanded", G_CALLBACK(row_expanded_lcb), filebrowser);
@@ -1551,6 +1582,7 @@ void filebrowser_scroll_initial(Tbfwin *bfwin) {
 }
 
 void filebrowser_cleanup(Tbfwin *bfwin) {
+	/* is this cleanup complete ? I wonder... we need some memleak detection here.. */
 	FILEBROWSER(bfwin->filebrowser)->store = NULL;
 	FILEBROWSER(bfwin->filebrowser)->tree = NULL;
 }
@@ -1573,4 +1605,28 @@ void filebrowserconfig_init() {
 
 	fc->dir_icon = gdk_pixbuf_new_from_file(filename, NULL);
 	g_free(filename);
+}
+
+void filebrowser_set_basedir(Tbfwin *bfwin, const gchar *basedir) {
+	GtkTreePath *path;
+	DEBUG_MSG("filebrowser_set_basedir, basedir=%s\n",basedir);
+	if (FILEBROWSER(bfwin->filebrowser)->basedir) {
+		g_free(FILEBROWSER(bfwin->filebrowser)->basedir);
+	}
+	FILEBROWSER(bfwin->filebrowser)->basedir = g_strdup(basedir);
+	/* we do not want a slash / in the end of the basedir */
+	if (FILEBROWSER(bfwin->filebrowser)->basedir[strlen(FILEBROWSER(bfwin->filebrowser)->basedir)-1] == '/') {
+		FILEBROWSER(bfwin->filebrowser)->basedir[strlen(FILEBROWSER(bfwin->filebrowser)->basedir)-1] = '\0';
+	}
+	DEBUG_MSG("filebrowser_set_basedir, set basedir to %s\n",FILEBROWSER(bfwin->filebrowser)->basedir);
+	/* now rebuild the tree */
+	gtk_tree_store_clear(FILEBROWSER(bfwin->filebrowser)->store);
+	if (FILEBROWSER(bfwin->filebrowser)->store2) {
+		gtk_list_store_clear(FILEBROWSER(bfwin->filebrowser)->store2);
+	}
+	path = build_tree_from_path(FILEBROWSER(bfwin->filebrowser), basedir);
+	if (path) {
+		filebrowser_expand_to_root(FILEBROWSER(bfwin->filebrowser),path);
+		gtk_tree_path_free(path);
+	}
 }

@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-/* #define DEBUG */
+/*#define DEBUG*/
 
 #include <gtk/gtk.h>
 #include <sys/stat.h>
@@ -84,8 +84,10 @@ static void init_prop_integer(GList ** config_list, void *pointer_to_var, gchar 
 static void init_prop_string(GList ** config_list, void *pointer_to_var, gchar * name_of_var, gchar * default_value)
 {
 	*config_list = make_config_list_item(*config_list, pointer_to_var, 's', name_of_var, 0);
-	*(gchar **) pointer_to_var = g_strdup(default_value);
-	DEBUG_MSG("init_prop_string, name_of_var=%s, default_value=%s\n", name_of_var, default_value);
+	if (*(gchar **) pointer_to_var == NULL) {
+		*(gchar **) pointer_to_var = g_strdup(default_value);
+	}
+	DEBUG_MSG("init_prop_string, name_of_var=%s, default_value=%s, current value=%s\n", name_of_var, default_value, *(gchar **) pointer_to_var);
 }
 
 static void init_prop_string_with_escape(GList ** config_list, void *pointer_to_var, gchar * name_of_var, gchar * default_value)
@@ -833,7 +835,7 @@ static GList *return_project_configlist(Tproject *project) {
 	init_prop_string(&configlist, &project->basedir,"basedir:","");
 	init_prop_string(&configlist, &project->webdir,"webdir:","");
 	return configlist;
-} 
+}
 
 gboolean rcfile_parse_project(Tproject *project, gchar *filename) {
 	gboolean retval;
@@ -846,6 +848,7 @@ gboolean rcfile_parse_project(Tproject *project, gchar *filename) {
 gboolean rcfile_save_project(Tproject *project, gchar *filename) {
 	gboolean retval;
 	GList *configlist = return_project_configlist(project);
+	DEBUG_MSG("rcfile_save_project, project %p, name='%s', basedir='%s', webdir='%s'\n",project, project->name, project->basedir, project->webdir);
 	retval = save_config_file(configlist, filename);
 	free_configlist(configlist);
 	return retval;
