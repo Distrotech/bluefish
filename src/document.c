@@ -1217,24 +1217,20 @@ void doc_insert_two_strings(Tdocument *doc, const gchar *before_str, const gchar
 }
 
 static void add_encoding_to_list(gchar *encoding) {
-	gchar **enc;
-	GList *tmplist = g_list_first(main_v->props.encodings);
-	while (tmplist) {
-		gchar **arr = tmplist->data;
-		if (strcmp(arr[0], encoding)==0) {
-			return;
-		}
-		tmplist = g_list_next(tmplist);	
-	}
-	/* it is not yet in the list */
-	enc = g_malloc0(sizeof(gchar *)*3);
+	gchar **enc = g_new0(gchar *,3);
 	enc[0] = g_strdup(encoding);
-	enc[1] = g_strdup(encoding);
-	main_v->props.encodings = g_list_append(main_v->props.encodings, enc);
-	tmplist = g_list_first(main_v->bfwinlist);
-	while (tmplist) {
-		encoding_menu_rebuild(BFWIN(tmplist->data));
-		tmplist = g_list_next(tmplist);
+	if (!arraylist_value_exists(main_v->props.encodings, enc, 1)) {
+		GList *tmplist;
+		enc[1] = g_strdup(encoding);
+		main_v->props.encodings = g_list_insert(main_v->props.encodings, enc, 1);
+		tmplist = g_list_first(main_v->bfwinlist);
+		while (tmplist) {
+			encoding_menu_rebuild(BFWIN(tmplist->data));
+			tmplist = g_list_next(tmplist);
+		}
+	} else {
+		g_free(enc[0]);
+		g_free(enc);
 	}
 }
 
@@ -1364,12 +1360,12 @@ gboolean doc_file_to_textbox(Tdocument * doc, gchar * filename, gboolean enable_
 				g_print("regcomp error!\n");
 			}
 #endif
-			/* we do a nasty trick to make regexec search only in the first 300 bytes */
-			if (document_size > 500) {
-				gchar tmp = buffer[500];
-				buffer[500] = '\0';
+			/* we do a nasty trick to make regexec search only in the first N bytes */
+			if (document_size > main_v->props.encoding_search_Nbytes) {
+				gchar tmp = buffer[main_v->props.encoding_search_Nbytes];
+				buffer[main_v->props.encoding_search_Nbytes] = '\0';
 				retval = regexec(&preg,buffer,10,pmatch,0);
-				buffer[500] = tmp;
+				buffer[main_v->props.encoding_search_Nbytes] = tmp;
 			} else {
 				retval = regexec(&preg,buffer,10,pmatch,0);
 			}

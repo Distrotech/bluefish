@@ -361,6 +361,7 @@ static GList *props_init_main(GList * config_rc)
 	init_prop_arraylist (&config_rc, &main_v->props.encodings, "encodings:", 2, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.auto_set_encoding_meta,"auto_set_encoding_meta:",1, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.auto_update_meta,"auto_update_meta:",1, TRUE);
+	init_prop_integer   (&config_rc, &main_v->props.encoding_search_Nbytes, "encoding_search_Nbytes:", 500, TRUE);
 	init_prop_arraylist (&config_rc, &main_v->props.outputbox, "outputbox:", 7, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.ext_browsers_in_submenu,"ext_browsers_in_submenu:",0, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.ext_commands_in_submenu,"ext_commands_in_submenu:",1, TRUE);
@@ -380,7 +381,6 @@ static GList *props_init_main(GList * config_rc)
 	init_prop_integer(&config_rc, &main_v->props.lasttime_highlighting, "lasttime_highlighting:", 0, TRUE);
 	init_prop_integer(&config_rc, &main_v->props.lasttime_filetypes, "lasttime_filetypes:", 0, TRUE);
 	init_prop_integer(&config_rc, &main_v->props.lasttime_encodings, "lasttime_encodings:", 0, TRUE);
-
 	/* not yet in use */
 	init_prop_string(&config_rc, &main_v->props.image_editor_cline, "image_editor_command:", "gimp-remote -n \"%s\"&");
 	init_prop_integer(&config_rc, &main_v->props.full_p, "closing_paragraph_tag:", 1, TRUE);
