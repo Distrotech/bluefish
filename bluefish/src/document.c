@@ -717,8 +717,8 @@ void doc_activate(Tdocument *doc) {
 	doc_set_undo_redo_widget_state(doc);
 
 	/* if highlighting is needed for this document do this now !! */
-	if (doc->need_highlighting && doc->highlightstate) {
-/*		doc_highlight_full(doc);*/
+	if (TRUE || doc->need_highlighting && doc->highlightstate) {
+		doc_highlight_full(doc);
 	}
 
 	gtk_widget_grab_focus(GTK_WIDGET(doc->view));
