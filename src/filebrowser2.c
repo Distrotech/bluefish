@@ -1305,9 +1305,9 @@ void fb2_set_basedir(Tbfwin *bfwin, gchar *curi) {
 }
 
 static gboolean dirmenu_filter_func(GtkTreeModel *model,GtkTreeIter *iter,gpointer data) {
-	Tfilebrowser2 *fb2 = data;
+/*	Tfilebrowser2 *fb2 = data;*/
 	gchar *name;
-	gint len, type;
+	gint type;
 	GnomeVFSURI *uri;
 	gtk_tree_model_get(GTK_TREE_MODEL(model), iter, FILENAME_COLUMN, &name, URI_COLUMN, &uri, TYPE_COLUMN, &type, -1);
 	if (type != TYPE_DIR) return FALSE;
