@@ -452,7 +452,7 @@ if test "${FDMIME}" != "no" ; then
 		AC_SUBST(FDMIME)
 		AC_PATH_PROG(UPDATE_MIME, update-mime-database, "no")
 		if test "${UPDATEDATABASES}" != "no" -a "${UPDATE_MIME}" != "no"; then
-			INSTALLDATA="$INSTALLDATA install-update-mime"
+			INSTALLDATA="install-update-mime $INSTALLDATA"
 			AC_SUBST(UPDATE_MIME)
 		fi
 	fi
