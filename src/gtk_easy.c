@@ -1225,10 +1225,25 @@ typedef struct {
 } Tfilebut;
 
 static void file_but_clicked_lcb(GtkWidget * widget, Tfilebut *fb) {
-	gchar *tmpstring, *tmp2string, *setfile;
+	gchar *tmpstring=NULL, *tmp2string, *setfile;
 	DEBUG_MSG("file_but_clicked_lcb, started, which_entry=%p\n",fb->entry);
 	setfile = gtk_editable_get_chars(GTK_EDITABLE(GTK_ENTRY(fb->entry)),0,-1);
+#ifdef HAVE_ATLEAST_GTK_2_4
+	{
+		GtkWidget *dialog;
+		dialog = gtk_file_chooser_dialog_new(_("Select File"),NULL,
+				GTK_FILE_CHOOSER_ACTION_OPEN,
+				GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+				GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT,
+				NULL);
+		gtk_file_chooser_set_filename(GTK_FILE_CHOOSER(dialog),setfile);
+		if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_ACCEPT) {
+			tmpstring = gtk_file_chooser_get_uri(GTK_FILE_CHOOSER(dialog));
+		}
+	}
+#else
 	tmpstring = return_file(setfile);
+#endif
 	g_free(setfile);
 	DEBUG_MSG("file_but_clicked_lcb, return_file returned %s\n",tmpstring);
 	if (tmpstring) {
@@ -1283,6 +1298,28 @@ GtkWidget *file_but_new(GtkWidget * which_entry, gint full_pathname, Tbfwin *bfw
 /************************************************************************/
 /************    FILE SELECTION FUNCTIONS  ******************************/
 /************************************************************************/
+
+#ifdef HAVE_ATLEAST_GTK_2_4
+static GList *file_dialog_backend(gchar *setfile, gchar *title, GtkFileChooserAction action, gboolean multiple) { 
+	GtkWidget *dialog;
+	dialog = gtk_file_chooser_dialog_new (title ? title : "Select File",NULL,
+			GTK_FILE_CHOOSER_ACTION_OPEN,
+			GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+			GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT,
+			NULL);
+	if (setfile) {
+		gtk_file_chooser_set_filename(GTK_FILE_CHOOSER(dialog),setfile);
+	}
+	gtk_file_chooser_set_select_multiple(GTK_FILE_CHOOSER(dialog), multiple);
+	if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_ACCEPT) {
+		if (multiple) {
+			return gtk_file_chooser_get_filenames(GTK_FILE_CHOOSER(dialog));
+		} else {
+			return g_list_append(NULL, gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog)));
+		}
+	}
+}
+#else 
 typedef struct {
 	gboolean select_dir;
 	gint multipleselect;
@@ -1488,6 +1525,7 @@ gchar *return_dir(gchar *setdir, gchar *title) {
 	gtk_main();
 	return fileselect.filename_to_return;
 }
+#endif /* HAVE_ATLEAST_GTK_2_4 */
 
 /************************************************************************/
 

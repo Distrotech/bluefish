@@ -346,7 +346,7 @@ static void multi_thumbnail_dialog_destroy(GtkWidget *wid, Tmuthudia *mtd) {
 }
 
 static void multi_thumbnail_ok_clicked(GtkWidget *widget, Tmuthudia *mtd) {
-	GList *files, *tmplist;
+	GList *files=NULL, *tmplist;
 	gchar *string2insert=g_strdup("");
 
 	gtk_widget_hide(mtd->win);
@@ -370,7 +370,24 @@ static void multi_thumbnail_ok_clicked(GtkWidget *widget, Tmuthudia *mtd) {
 			main_v->props.image_thumnailformatstring = tmp;
 		}
 	}
+#ifdef HAVE_ATLEAST_GTK_2_4
+	{
+		GtkWidget *dialog;
+		dialog = gtk_file_chooser_dialog_new (_("Select files for thumbnail creation"),NULL,
+				GTK_FILE_CHOOSER_ACTION_OPEN,
+				GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+				GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT,
+				NULL);
+		gtk_file_chooser_set_select_multiple(GTK_FILE_CHOOSER(dialog), TRUE);
+		if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_ACCEPT) {
+			GSList *slist = gtk_file_chooser_get_uris(GTK_FILE_CHOOSER(dialog));
+			files = glist_from_gslist(slist);
+			g_slist_free(slist);
+		}
+	}
+#else
 	files = return_files_w_title(NULL, _("Select files for thumbnail creation"));
+#endif
 	tmplist = g_list_first(files);
 	while (tmplist) {
 		GdkPixbuf *tmp_im1, *tmp_im2;

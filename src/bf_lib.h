@@ -76,4 +76,5 @@ gchar *create_secure_dir_return_filename();
 void remove_secure_dir_and_filename(gchar *filename);
 /*gchar *buf_replace_char(gchar *buf, gint len, gchar srcchar, gchar destchar);*/
 void wordcount(gchar *text, guint *chars, guint *lines, guint *words);
+GList *glist_from_gslist(GSList *src);
 #endif /* __BF_LIB_H_ */

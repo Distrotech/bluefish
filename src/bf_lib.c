@@ -1393,3 +1393,23 @@ void wordcount(gchar *text, guint *chars, guint *lines, guint *words)
 	/* We start counting line numbers from 1 */
 	if(*chars > 0) (*lines)++;
 }
+
+GSList *gslist_from_glist(GList *src) {
+	GSList *target=NULL;
+	GList *tmplist = g_list_first(src);
+	while (tmplist) {
+		target = g_slist_append(target, tmplist->data);
+		tmplist = g_list_next(tmplist);
+	}
+	return target;
+}
+
+GList *glist_from_gslist(GSList *src) {
+	GList *target=NULL;
+	GSList *tmplist = src;
+	while (tmplist) {
+		target = g_list_append(target, tmplist->data);
+		tmplist = g_slist_next(tmplist);
+	}
+	return target;
+}
