@@ -262,7 +262,10 @@ static void project_edit_cancel_clicked_lcb(GtkWidget *widget, Tprojecteditor *p
 	if (pred->project_created_by_editor) {
 		DEBUG_MSG("project_edit_cancel_clicked_lcb, destroy project\n");
 		project_destroy(pred->project);
-		if (pred->bfwin) pred->bfwin->project = NULL;
+		if (pred->bfwin) {
+			pred->bfwin->project = NULL;
+			pred->bfwin->session = g_new0(Tsessionvars,1);
+		}
 	}
 	gtk_widget_destroy(pred->win);
 }
