@@ -1216,7 +1216,7 @@ msgstr "Bezie in browser"
 
 #: ../src/gui.c:916
 msgid "Preferences..."
-msgstr "Voorkeuren"
+msgstr "Voorkeuren..."
 
 #: ../src/gui.c:927
 msgid "/Edit/Undo"
@@ -2033,9 +2033,8 @@ msgid "/File/_New"
 msgstr "/Bestand/_Nieuw"
 
 #: ../src/menu.c:298
-#, fuzzy
 msgid "/File/New _Window"
-msgstr "/Bestand/_Nieuw"
+msgstr "/Bestand/Nieuwe _Window"
 
 #: ../src/menu.c:299
 msgid "/File/_Open..."
@@ -2050,22 +2049,18 @@ msgid "/File/Open recent/tearoff1"
 msgstr "/Bestand/Recent Geopend/tearoff1"
 
 #: ../src/menu.c:304
-#, fuzzy
 msgid "/File/Open Ad_vanced..."
 msgstr "/Bestand/Geavanceerd Openen..."
 
 #: ../src/menu.c:308
-#, fuzzy
 msgid "/File/Open _URL..."
-msgstr "/Bestand/_Openen..."
+msgstr "/Bestand/Openen _URL..."
 
 #: ../src/menu.c:310
-#, fuzzy
 msgid "/File/Open _from selection"
-msgstr "/Bestand/Recent Geopend"
+msgstr "/Bestand/Open selectie"
 
 #: ../src/menu.c:311
-#, fuzzy
 msgid "/File/sep1"
 msgstr "/Bestand/sep2"
 
@@ -2074,17 +2069,14 @@ msgid "/File/_Save"
 msgstr "/Bestand/Op_slaan"
 
 #: ../src/menu.c:313
-#, fuzzy
 msgid "/File/Save _As..."
 msgstr "/Bestand/Opslaan _als"
 
 #: ../src/menu.c:314
-#, fuzzy
 msgid "/File/Sa_ve All"
-msgstr "/Bestand/Alles opslaan"
+msgstr "/Bestand/Alle opslaan"
 
 #: ../src/menu.c:315
-#, fuzzy
 msgid "/File/_Revert to Saved"
 msgstr "/Bestand/terug naar opgeslagen"
 
@@ -2097,31 +2089,27 @@ msgid "/File/_Insert..."
 msgstr "/Bestand/_Invoegen..."
 
 #: ../src/menu.c:318
-#, fuzzy
+
 msgid "/File/Rena_me..."
-msgstr "/Bestand/_Openen..."
+msgstr "/Bestand/Hernoe_men..."
 
 #: ../src/menu.c:319
 msgid "/File/sep3"
 msgstr "/Bestand/sep3"
 
 #: ../src/menu.c:320
-#, fuzzy
 msgid "/File/_Close"
 msgstr "/Bestand/Sluiten"
 
 #: ../src/menu.c:321
-#, fuzzy
 msgid "/File/Close A_ll"
-msgstr "/Bestand/Alles sluiten"
+msgstr "/Bestand/A_lles sluiten"
 
 #: ../src/menu.c:322
-#, fuzzy
 msgid "/File/Close Win_dow"
-msgstr "/Bestand/Sluiten"
+msgstr "/Bestand/Sluit window"
 
 #: ../src/menu.c:323
-#, fuzzy
 msgid "/File/sep4"
 msgstr "/Bestand/sep2"
 
@@ -2134,47 +2122,38 @@ msgid "/_Edit"
 msgstr "/_Bewerken"
 
 #: ../src/menu.c:326
-#, fuzzy
 msgid "/Edit/Tearoff1"
-msgstr "/_Bewerken/Tearoff1"
+msgstr "/Bewerken/Tearoff1"
 
 #: ../src/menu.c:327
-#, fuzzy
 msgid "/Edit/_Undo"
 msgstr "/Bewerken/Herstel"
 
 #: ../src/menu.c:328
-#, fuzzy
 msgid "/Edit/_Redo"
 msgstr "/Bewerken/Herhaal"
 
 #: ../src/menu.c:331
-#, fuzzy
 msgid "/Edit/sep1"
 msgstr "/Bewerken/sep3"
 
 #: ../src/menu.c:332
-#, fuzzy
 msgid "/Edit/Cu_t"
 msgstr "/Bewerken/Knippen"
 
 #: ../src/menu.c:333
-#, fuzzy
 msgid "/Edit/_Copy"
 msgstr "/Bewerken/Kopieren"
 
 #: ../src/menu.c:334
-#, fuzzy
 msgid "/Edit/_Paste"
 msgstr "/Bewerken/Plakken"
 
 #: ../src/menu.c:335
-#, fuzzy
 msgid "/Edit/sep2"
 msgstr "/Bewerken/sep3"
 
 #: ../src/menu.c:336
-#, fuzzy
 msgid "/Edit/Select _All"
 msgstr "/Bewerken/Alles selecteren"
 
@@ -2183,54 +2162,44 @@ msgid "/Edit/sep3"
 msgstr "/Bewerken/sep3"
 
 #: ../src/menu.c:338
-#, fuzzy
 msgid "/Edit/_Find..."
 msgstr "/Bewerken/Zoeken"
 
 #: ../src/menu.c:339
-#, fuzzy
 msgid "/Edit/Find A_gain"
 msgstr "/Bewerken/Herhaal zoeken"
 
 #: ../src/menu.c:340
-#, fuzzy
 msgid "/Edit/Find from selection"
-msgstr "/Bewerken/Regelnummer..."
+msgstr "/Bewerken/Zoek selectie"
 
 #: ../src/menu.c:341
-#, fuzzy
 msgid "/Edit/R_eplace..."
-msgstr "/Bewerken/Vervangen..."
+msgstr "/Bewerken/V_ervangen..."
 
 #: ../src/menu.c:342
-#, fuzzy
 msgid "/Edit/Replace Agai_n"
 msgstr "/Bewerken/Herhaal vervangen"
 
 #: ../src/menu.c:343
-#, fuzzy
 msgid "/Edit/Replace _special"
-msgstr "/_Bewerken/Vervangen speciaal"
+msgstr "/Bewerken/Vervangen _speciaal"
 
 #: ../src/menu.c:344
-#, fuzzy
 msgid "/Edit/Replace special/Tearoff1"
 msgstr "/Bewerken/Vervangen speciaal/Tearoff1"
 
 #: ../src/menu.c:345
-#, fuzzy
 msgid "/Edit/Replace special/_ASCII to HTML Entities"
-msgstr "/Bewerken/Vervangen speciaal/Vervang:  \"  met:  \\\""
+msgstr "/Bewerken/Vervangen speciaal/ASCII naar HTML elementen"
 
 #: ../src/menu.c:346
-#, fuzzy
 msgid "/Edit/Replace special/_ISO8859 to HTML Entities"
-msgstr "/Bewerken/Vervangen speciaal/Vervang iso 8859-1 karakters"
+msgstr "/Bewerken/Vervangen speciaal/iso8859 naar HTML elementen"
 
 #: ../src/menu.c:347
-#, fuzzy
 msgid "/Edit/Replace special/_Both Types to HTML Entities"
-msgstr "/Bewerken/Vervangen speciaal/Vervang:  \"  met:  \\\""
+msgstr "/Bewerken/Vervangen speciaal/beiden naar HTML elementen"
 
 #: ../src/menu.c:348
 msgid "/Edit/sep4"
@@ -2238,61 +2207,51 @@ msgstr "/Bewerken/sep4"
 
 #: ../src/menu.c:349
 msgid "/Edit/Sh_ift Right"
-msgstr ""
+msgstr "/Bewerken/Verschuif naar rechts"
 
 #: ../src/menu.c:350
-#, fuzzy
 msgid "/Edit/S_hift Left"
-msgstr "/Bewerken/Plakken"
+msgstr "/Bewerken/Verschuif naar links"
 
 #: ../src/menu.c:351
 msgid "/Edit/sep5"
 msgstr "/Bewerken/sep5"
 
 #: ../src/menu.c:352
-#, fuzzy
 msgid "/Edit/_Save Settings"
-msgstr "/Opties/_Instellingen opslaan"
+msgstr "/Bewerken/_Instellingen opslaan"
 
 #: ../src/menu.c:353
-#, fuzzy
 msgid "/Edit/Save Shortcut _Keys"
-msgstr "/Opties/_Sneltoets instellingen opslaan"
+msgstr "/Bewerken/_Sneltoets instellingen opslaan"
 
 #: ../src/menu.c:354
-#, fuzzy
 msgid "/Edit/_Preferences"
-msgstr "Instellingen aanpassen"
+msgstr "/Bewerken/Instellingen"
 
 #: ../src/menu.c:355
-#, fuzzy
 msgid "/_View"
-msgstr "/_Bestand"
+msgstr "/_Bekijk"
 
 #: ../src/menu.c:356
-#, fuzzy
 msgid "/View/tearoff1"
-msgstr "/Bestand/tearoff1"
+msgstr "/Bekijk/tearoff1"
 
 #: ../src/menu.c:357
-#, fuzzy
 msgid "/View/View _Main Toolbar"
-msgstr "/Opties/Beeld/Toon Hoofd-_werkbalk"
+msgstr "/Bekijk/Toon Hoofd-_werkbalk"
 
 #: ../src/menu.c:358
-#, fuzzy
 msgid "/View/View _HTML Toolbar"
-msgstr "/Opties/Beeld/Toon _HTML-werkbalk"
+msgstr "/Bekijk/Toon _HTML-werkbalk"
 
 #: ../src/menu.c:359
-#, fuzzy
 msgid "/View/View _Custom Menu"
-msgstr "/_Aangepast menu"
+msgstr "/Bekijk/Toon _Aanpasbaar menu"
 
 #: ../src/menu.c:360
-#, fuzzy
 msgid "/View/View _Left Panel"
-msgstr "/Opties/Beeld/Toon _Linker paneel"
+msgstr "/Bekijk/Toon _Linker paneel"
 
 #: ../src/menu.c:361
 msgid "/_Tags"
@@ -2303,7 +2262,6 @@ msgid "/Tags/Tearoff1"
 msgstr "/Elementen/Tearoff1"
 
 #: ../src/menu.c:364
-#, fuzzy
 msgid "/Tags/_Headings"
 msgstr "/Elementen/_Koppen"
 
@@ -2312,9 +2270,8 @@ msgid "/Tags/Headings/Tearoff1"
 msgstr "/Elementen/Koppen/Tearoff1"
 
 #: ../src/menu.c:366
-#, fuzzy
 msgid "/Tags/Headings/H_1"
-msgstr "/Elementen/Koppen/H1"
+msgstr "/Elementen/Koppen/H_1"
 
 #: ../src/menu.c:367
 #, fuzzy
@@ -3784,12 +3741,12 @@ msgstr "normaal"
 #: ../src/menu.c:1967
 #, fuzzy
 msgid "posix regular expressions"
-msgstr "posix regular expresion"
+msgstr "posix regular expression"
 
 #: ../src/menu.c:1967
 #, fuzzy
 msgid "perl regular expressions"
-msgstr "perl regular expresions"
+msgstr "perl regular expressions"
 
 #: ../src/menu.c:2032
 #, fuzzy
