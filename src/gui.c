@@ -1488,8 +1488,10 @@ Tbfwin *gui_new_window(GList *filenames, Tproject *project) {
 	if (project) {
 		bfwin->project = project;
 		bfwin->session = project->session;
+		bfwin->bookmarkstore = project->bookmarkstore;
 	} else {
-		bfwin->session = g_new0(Tsessionvars,1);
+		bfwin->session = main_v->session;
+		bfwin->bookmarkstore = main_v->bookmarkstore;
 	}
 	gui_create_main(bfwin,filenames);
 	/* never comment this out again Jim! */
