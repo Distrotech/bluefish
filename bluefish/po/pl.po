@@ -18,7 +18,7 @@ msgstr ""
 msgid ""
 "\n"
 "Usage: %s [options] [filename]\n"
-msgstr ""
+msgstr "\nWywołanie: %s [opcje] [nazwa pliku]\n"
 
 #: ../src/bluefish.c:76
 msgid ""
@@ -238,7 +238,7 @@ msgstr "Zaawansowany wybór plików"
 
 #: ../src/document.c:1747
 msgid "grep {contains} `find {basedir} -name '{pattern}'`"
-msgstr ""
+msgstr "grep {zawiera} `find {katalog bazowy} -name '{wzorzec}'`"
 
 #: ../src/document.c:1749
 msgid "Filename"
@@ -1027,7 +1027,7 @@ msgstr "Szerokość"
 
 #: ../src/html.c:944
 msgid "Is percent?"
-msgstr ""
+msgstr "Procentowo?"
 
 #: ../src/html.c:950
 msgid "No shading"
@@ -1047,11 +1047,11 @@ msgstr "Znaczniki nagłówków"
 
 #: ../src/html.c:1077 ../src/wizards.c:180
 msgid "Title"
-msgstr ""
+msgstr "Tytuł"
 
 #: ../src/html.c:1154
 msgid "Body"
-msgstr ""
+msgstr "Treść"
 
 #: ../src/html.c:1186
 msgid "OnLoad"
@@ -3043,14 +3043,16 @@ msgid ""
 "%s = current filename\n"
 "%f = output filename (for filters)"
 msgstr ""
+"%s = aktualny plik\n"
+"%f = plik wyjściowy (dla filtrów)"
 
 #: ../src/preferences.c:1464
 msgid "File subpattern #"
-msgstr ""
+msgstr "Podwzorzec pliku #"
 
 #: ../src/preferences.c:1465
 msgid "Line subpattern #"
-msgstr ""
+msgstr "Podwzorzec linii #"
 
 #: ../src/preferences.c:1466
 msgid "Output subpattern #"
@@ -3309,47 +3311,47 @@ msgstr ""
 
 #: ../src/rcfile.c:532
 msgid "ISO-8859-1 (Latin 1, West European)"
-msgstr ""
+msgstr "ISO-8859-1 (Latin 1, Europa Zachodnia)"
 
 #: ../src/rcfile.c:533
 msgid "ISO-8859-2 (Latin 2, East European)"
-msgstr ""
+msgstr "ISO-8859-2 (Latin 2, Europa Wschodnia)"
 
 #: ../src/rcfile.c:534
 msgid "ISO-8859-3 (Latin 3, South European)"
-msgstr ""
+msgstr "ISO-8859-3 (Latin 3, Europa Południowa)"
 
 #: ../src/rcfile.c:535
 msgid "ISO-8859-4 (Latin 4, North European)"
-msgstr ""
+msgstr "ISO-8859-4 (Latin 4, Europa Północna)"
 
 #: ../src/rcfile.c:536
 msgid "ISO-8859-5 (Cyrillic)"
-msgstr ""
+msgstr "ISO-8859-5 (Cyrilica)"
 
 #: ../src/rcfile.c:537
 msgid "ISO-8859-6 (Arabic)"
-msgstr ""
+msgstr "ISO-8859-6 (Arabski)"
 
 #: ../src/rcfile.c:538
 msgid "ISO-8859-7 (Greek)"
-msgstr ""
+msgstr "ISO-8859-7 (Grecki)"
 
 #: ../src/rcfile.c:539
 msgid "ISO-8859-8 (Hebrew)"
-msgstr ""
+msgstr "ISO-8859-8 (Hebrajski)"
 
 #: ../src/rcfile.c:540
 msgid "ISO-8859-9 (Turkish)"
-msgstr ""
+msgstr "ISO-8859-9 (Turecki)"
 
 #: ../src/rcfile.c:541
 msgid "ISO-8859-10 (Nordic)"
-msgstr ""
+msgstr "ISO-8859-10 (Nordycki)"
 
 #: ../src/rcfile.c:542
 msgid "ISO-8859-11 (Thai)"
-msgstr ""
+msgstr "ISO-8859-11 (Tajski)"
 
 #: ../src/rcfile.c:543
 msgid "ISO-8859-13 (Latin 7)"
@@ -3361,31 +3363,31 @@ msgstr ""
 
 #: ../src/rcfile.c:545
 msgid "ISO-8859-15 (Latin 9, West European with EURO)"
-msgstr ""
+msgstr "ISO-8859-15 (Latin 9, Europa Zachodnia EURO)"
 
 #: ../src/rcfile.c:546
 msgid "GB2312 (Chinese)"
-msgstr ""
+msgstr "GB2312 (Chiński)"
 
 #: ../src/rcfile.c:547
 msgid "BIG5 (Traditional Chinese)"
-msgstr ""
+msgstr "BIG5 (Tradycyjny chiński)"
 
 #: ../src/rcfile.c:548
 msgid "SJIS (Japanese)"
-msgstr ""
+msgstr "SJIS (Japoński)"
 
 #: ../src/rcfile.c:549
 msgid "KSC (Korean)"
-msgstr ""
+msgstr "KSC (Koreański)"
 
 #: ../src/rcfile.c:550
 msgid "KOI8-R (Russian)"
-msgstr ""
+msgstr "KOI8-R (Rosyjski)"
 
 #: ../src/rcfile.c:551
 msgid "EUCJP (Japanese)"
-msgstr ""
+msgstr "EUCJP (Japoński)"
 
 #: ../src/rcfile.c:555
 #, fuzzy
@@ -3394,11 +3396,11 @@ msgstr "Obrazki"
 
 #: ../src/rcfile.c:556
 msgid "weblint HTML checker"
-msgstr ""
+msgstr "Sprawdzanie HTML za pomocą 'weblint'"
 
 #: ../src/rcfile.c:557
 msgid "tidy HTML validator"
-msgstr ""
+msgstr "sprawdzanie poprawności HTML za pomocą 'tidy'"
 
 #: ../src/rcfile.c:558
 msgid "javac"
@@ -3406,7 +3408,7 @@ msgstr ""
 
 #: ../src/rcfile.c:564
 msgid "Dos2Unix filter"
-msgstr ""
+msgstr "Filtr Dos2Unix"
 
 #: ../src/rcfile.c:566
 #, fuzzy
@@ -3435,11 +3437,11 @@ msgstr ""
 
 #: ../src/rcfile.c:660
 msgid "ibase result variable name"
-msgstr ""
+msgstr "nazwa zmiennej wynikowej ibase"
 
 #: ../src/rcfile.c:660 ../src/rcfile.c:661
 msgid "row variable name"
-msgstr ""
+msgstr "nazwa zmiennej wiersza"
 
 #: ../src/rcfile.c:661
 msgid "/php/mysql/mysql fetch row"
@@ -3447,7 +3449,7 @@ msgstr ""
 
 #: ../src/rcfile.c:661
 msgid "mysql result variable name"
-msgstr ""
+msgstr "nazwa zmiennej wynikowej mysql"
 
 #: ../src/rcfile.c:662
 msgid "/php/mysql/mysql connect"
@@ -3495,7 +3497,7 @@ msgstr ""
 
 #: ../src/rcfile.c:664
 msgid "array name"
-msgstr ""
+msgstr "nazwa tablicy"
 
 #: ../src/rcfile.c:665
 msgid "/sql/select all from table"
@@ -3503,7 +3505,7 @@ msgstr ""
 
 #: ../src/rcfile.c:665
 msgid "table name"
-msgstr ""
+msgstr "nazwa tabeli"
 
 #: ../src/rcfile.c:666
 msgid "/php/general/mail"
@@ -3511,31 +3513,31 @@ msgstr ""
 
 #: ../src/rcfile.c:666
 msgid "email adress"
-msgstr ""
+msgstr "adres email"
 
 #: ../src/rcfile.c:666
 msgid "subject"
-msgstr ""
+msgstr "temat"
 
 #: ../src/rcfile.c:666
 msgid "mail body variable name"
-msgstr ""
+msgstr "nazwa zmiennej treści wiadomości"
 
 #: ../src/rcfile.c:667
 msgid "/php/general/for loop"
-msgstr ""
+msgstr "pętla for"
 
 #: ../src/rcfile.c:667
 msgid "loop variable name"
-msgstr ""
+msgstr "zmienna pętli for"
 
 #: ../src/rcfile.c:667
 msgid "from value"
-msgstr ""
+msgstr "od wartości"
 
 #: ../src/rcfile.c:667
 msgid "to value"
-msgstr ""
+msgstr "do wartości"
 
 #: ../src/rcfile.c:668
 msgid "/php/ibase/query"
@@ -3544,15 +3546,15 @@ msgstr ""
 #: ../src/rcfile.c:668 ../src/rcfile.c:673 ../src/rcfile.c:691
 #: ../src/rcfile.c:692
 msgid "result variable name"
-msgstr ""
+msgstr "nazwa zmiennej wynikowej"
 
 #: ../src/rcfile.c:668
 msgid "ibase connection id name"
-msgstr ""
+msgstr "nazwa połączenia ibase"
 
 #: ../src/rcfile.c:668 ../src/rcfile.c:673 ../src/rcfile.c:691
 msgid "query string (quoted) or variable (including $)"
-msgstr ""
+msgstr "zapytanie (w cudzysłowach) lub zmienna (raze ze znakiem $)"
 
 #: ../src/rcfile.c:669
 msgid "/php/general/include file"
@@ -3560,7 +3562,7 @@ msgstr ""
 
 #: ../src/rcfile.c:669
 msgid "filename to include"
-msgstr ""
+msgstr "nazwa pliku"
 
 #: ../src/rcfile.c:670
 msgid "/php/general/require file"
@@ -3568,7 +3570,7 @@ msgstr ""
 
 #: ../src/rcfile.c:670
 msgid "filename to require"
-msgstr ""
+msgstr "nazwa pliku"
 
 #: ../src/rcfile.c:671
 msgid "/php/general/if isset"
@@ -3576,7 +3578,7 @@ msgstr ""
 
 #: ../src/rcfile.c:671 ../src/rcfile.c:672
 msgid "variable name to test for"
-msgstr ""
+msgstr "nazwa zmiennej do testowania"
 
 #: ../src/rcfile.c:672
 msgid "/php/general/if not isset"
@@ -3588,7 +3590,7 @@ msgstr ""
 
 #: ../src/rcfile.c:673
 msgid "mysql connection id name"
-msgstr ""
+msgstr "nazwa połączenia mysql"
 
 #: ../src/rcfile.c:674
 msgid "/html/font symbol"
@@ -3600,7 +3602,7 @@ msgstr ""
 
 #: ../src/rcfile.c:675 ../src/rcfile.c:676
 msgid "CSS class name"
-msgstr ""
+msgstr "nazwa klasy CSS"
 
 #: ../src/rcfile.c:676
 msgid "/html/span with class"
@@ -3612,7 +3614,7 @@ msgstr ""
 
 #: ../src/rcfile.c:678
 msgid "/html/made with bluefish"
-msgstr ""
+msgstr "zrobione za pomocą bluefish"
 
 #: ../src/rcfile.c:679
 msgid "/html/meta keywords"
@@ -3620,7 +3622,7 @@ msgstr ""
 
 #: ../src/rcfile.c:679
 msgid "keywords, space separated"
-msgstr ""
+msgstr "słowa kluczowe, oddzielone spacją"
 
 #: ../src/rcfile.c:680
 msgid "/html/meta refresh (client pull)"
@@ -3628,11 +3630,11 @@ msgstr ""
 
 #: ../src/rcfile.c:680
 msgid "refresh time, in seconds"
-msgstr ""
+msgstr "czas odświeżania, w sekundach"
 
 #: ../src/rcfile.c:680
 msgid "URL to redirect to"
-msgstr ""
+msgstr "URL, do którego przekierować"
 
 #: ../src/rcfile.c:681
 msgid "/active html/form"
@@ -3644,7 +3646,7 @@ msgstr ""
 
 #: ../src/rcfile.c:682
 msgid "Submit button text"
-msgstr ""
+msgstr "Tekst przycisku 'submit'"
 
 #: ../src/rcfile.c:683
 msgid "/active html/input text"
@@ -3653,7 +3655,7 @@ msgstr ""
 #: ../src/rcfile.c:683 ../src/rcfile.c:684 ../src/rcfile.c:685
 #: ../src/rcfile.c:686 ../src/rcfile.c:687 ../src/rcfile.c:688
 msgid "variable name"
-msgstr ""
+msgstr "nazwa zmiennej"
 
 #: ../src/rcfile.c:684
 msgid "/active html/input checkbox"
@@ -3661,7 +3663,7 @@ msgstr ""
 
 #: ../src/rcfile.c:684
 msgid "value when checked"
-msgstr ""
+msgstr "wartość, kiedy zaznaczony"
 
 #: ../src/rcfile.c:685
 msgid "/active html/textarea"
@@ -3669,35 +3671,35 @@ msgstr ""
 
 #: ../src/rcfile.c:686
 msgid "/active html/select options/from array"
-msgstr ""
+msgstr "z tablicy"
 
 #: ../src/rcfile.c:686
 msgid "array name containing options"
-msgstr ""
+msgstr "nazwa tablicy zawierającej opcje"
 
 #: ../src/rcfile.c:687
 msgid "/active html/select options/from mysql result"
-msgstr ""
+msgstr "z wyniku zapytania mysql"
 
 #: ../src/rcfile.c:687
 msgid "mysql query result"
-msgstr ""
+msgstr "wynik zapytania mysql"
 
 #: ../src/rcfile.c:687 ../src/rcfile.c:688
 msgid "index of the value"
-msgstr ""
+msgstr "indeks wartości"
 
 #: ../src/rcfile.c:687 ../src/rcfile.c:688
 msgid "index of the label"
-msgstr ""
+msgstr "indeks etykiety"
 
 #: ../src/rcfile.c:688
 msgid "/active html/select options/from ibase result"
-msgstr ""
+msgstr "z wyniku zapytania ibase"
 
 #: ../src/rcfile.c:688
 msgid "ibase query result"
-msgstr ""
+msgstr "wynik zapytania ibase"
 
 #: ../src/rcfile.c:689
 msgid "/DHTML/mouseover image"
@@ -3705,7 +3707,7 @@ msgstr ""
 
 #: ../src/rcfile.c:689
 msgid "unique name"
-msgstr ""
+msgstr "unikalna nazwa"
 
 #: ../src/rcfile.c:689
 msgid "onMouseOut src"
