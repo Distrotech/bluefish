@@ -5,16 +5,16 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: bluefish gtk2-port\n"
-"POT-Creation-Date: 2004-02-25 16:08+0100\n"
-"PO-Revision-Date: 2003-11-17 16:04+0100\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-02-25 21:08-0300\n"
+"PO-Revision-Date: 2004-02-27 01:17+0100\n"
 "Last-Translator: Rasmus Toftdahl Olesen <rto@pohldata.dk>\n"
 "Language-Team: None\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8 bit\n"
-"Report-Msgid-Bugs-To: \n"
 
-#: ../src/about.c:121
+#: ../src/about.c:123
 msgid ""
 "Bluefish is an editor for experienced web designers and programmers. It "
 "supports many programming and markup languages, but focuses on editing "
@@ -26,19 +26,20 @@ msgid ""
 "\n"
 "This version of bluefish was compiled with the following options:\n"
 msgstr ""
+"Bluefish er en editor for erfarne web designere of programmører. Programmet har support for mange programmerings- og opmærkningssprog, men fokuserer på redigering af dynamiske og interaktive websider. Bluefish er et udviklings projekt med åben kildekode, udgivet under GPL licensen.\n"
+"\n"
+"For mere information, besøg Bluefish websiden på http://bluefish.openoffice.nl/\n"
+"\n"
+"Denne version af bluefish blev kompileret med følgende valg:\n"
 
-#: ../src/about.c:121
-msgid "\n"
-msgstr ""
-
-#: ../src/about.c:122
+#: ../src/about.c:124
 msgid ""
 "Project leader:\n"
 "  Olivier Sessink <olivier@bluefish.openoffice.nl>\n"
 "\n"
 "Developers for this release:\n"
 "  Jim Hayward <jimhayward@linuxexperience.com>\n"
-"  Oskar ¿wida <swida@aragorn.pb.bialystok.pl>\n"
+"  Oskar Świda <swida@aragorn.pb.bialystok.pl>\n"
 "  Christian Tellefsen <christian@tellefsen.net>\n"
 "  Eugene Morenko(More) <more@irpin.com>\n"
 "\n"
@@ -70,8 +71,44 @@ msgid ""
 "\n"
 "Thanks to all who helped making this software available.\n"
 msgstr ""
+"Projekt leder:\n"
+"  Olivier Sessink <olivier@bluefish.openoffice.nl>\n"
+"\n"
+"Udviklere ved denne udgivelse:\n"
+"  Jim Hayward <jimhayward@linuxexperience.com>\n"
+"  Oskar Świda <swida@aragorn.pb.bialystok.pl>\n"
+"  Christian Tellefsen <christian@tellefsen.net>\n"
+"  Eugene Morenko(More) <more@irpin.com>\n"
+"\n"
+"Udviklere ved tidligere udgivelser:\n"
+"  Chris Mazuc\n"
+"  Neil Millar\n"
+"  Gero Takke\n"
+"  Bo Forslund\n"
+"  David Arno\n"
+"  Pablo De Napoli\n"
+"  Santiago Capel Torres\n"
+"  Rasmus Toftdahl Olesen <rto@pohldata.dk>\n"
+"  Roland Steinbach <roland@netzblick.de>\n"
+"  Christian Tellefsen <chris@tellefsen.net>\n"
+"  Antti-Juhani Kaijanaho\n"
+"\n"
+"Dokumentation:\n"
+"  Alastair Porter <alastair@linuxexperience.com>\n"
+"  Daniel Blair <joecamel@realcoders.org>\n"
+"  Denny Reeh\n"
+"\n"
+"Pakke Veligeholdere\n"
+"  Debian:   Davide Puricelli <evo@debian.org>\n"
+"  Redhat:   Matthias Haase <matthias_haase@bennewitz.com>\n"
+"  Mandrake: Todd Lyons <todd@mrball.net>\n"
+"\n"
+"Hvis du kender nogen der mangler fra denne liste, så vil vi meget gerne vide det\n"
+"<bluefish@bluefish.openoffice.nl>\n"
+"\n"
+"Tak til alle som har hjulpet med at gøre dette program til virkelighed.\n"
 
-#: ../src/about.c:159
+#: ../src/about.c:161
 msgid ""
 "Current translators:\n"
 "\n"
@@ -108,7 +145,7 @@ msgid ""
 "  Russian - Eugene Rupakov\n"
 "   <rupakov@jet.msk.ru>\n"
 "\n"
-"  Serbian - Marko Milenovic\n"
+"  Serbian - Marko Milenović\n"
 "   <raven@sbb.co.yu>\n"
 "\n"
 "  Spanish - Walter Oscar Echarri\n"
@@ -121,27 +158,74 @@ msgid ""
 "   <barathee@yahoo.com>\n"
 "\n"
 msgstr ""
+"Nuværende oversættere:\n"
+"\n"
+"  Brasiliansk Portugisisk - Anderson Rocha\n"
+"   <anderson@maxlinux.com.br>\n"
+"\n"
+"  Dansk - Rasmus Toftdahl Olesen\n"
+"   <rto@pohldata.dk>\n"
+"\n"
+"  Finsk - Juho Roukala\n"
+"   <j.mr@luukku.com>\n"
+"\n"
+"  Fransk - Roméo Viu-Berges\n"
+"   <apostledemencia@free.fr>\n"
+"\n"
+"  Italiensk - Stefano Canepa\n"
+"   <sc@linux.it>\n"
+"\n"
+"  Kinesisk - Ting Yang (Dormouse)\n"
+"   <mouselinux@163.com>\n"
+"\n"
+"  Polsk - Oskar Swida\n"
+"   <swida@aragorn.pb.bialystok.pl>\n"
+"\n"
+"  Portugisisk - Lopo Pizarro\n"
+"   <lopopizarro@netcabo.pt>\n"
+"\n"
+"  Russisk - Eugene Rupakov\n"
+"   <rupakov@jet.msk.ru>\n"
+"\n"
+"  Serbisk - Marko Milenović\n"
+"   <raven@sbb.co.yu>\n"
+"\n"
+"  Spansk - Walter Oscar Echarri\n"
+"   <wecharri@infovia.com.ar>\n"
+"\n"
+"  Svensk - David Smeringe\n"
+"   <david.smeringe@telia.com>\n"
+"\n"
+"  Tamilsk - Murugapandian Barathee\n"
+"   <barathee@yahoo.com>\n"
+"\n"
+"  Tysk - Roland Steinbach\n"
+"   <roland@netzblick.de>\n"
+"\n"
+"  Ungarsk - Péter Sáska\n"
+"   <sasek@ccsystem.hu>\n"
+"\n"
 
-#: ../src/about.c:192
+#: ../src/about.c:194
 msgid "About Bluefish"
-msgstr ""
+msgstr "Om Bluefish"
 
-#: ../src/about.c:223 ../src/fref.c:1309 ../src/fref.c:1603 ../src/fref.c:1688
+#: ../src/about.c:226 ../src/fref.c:1309 ../src/fref.c:1603 ../src/fref.c:1688
 #: ../src/fref.c:1715 ../src/fref.c:2129
 msgid "Info"
 msgstr "Info"
 
-#: ../src/about.c:224
+#: ../src/about.c:228
 msgid "Authors"
-msgstr ""
+msgstr "Forfattere"
 
-#: ../src/about.c:225
+#: ../src/about.c:229
 msgid "Translators"
-msgstr ""
+msgstr "Oversættere"
 
 #: ../src/authen.c:73
 msgid "Authentication required"
-msgstr ""
+msgstr "Autentificering krævet"
 
 #: ../src/authen.c:84
 #, c-format
@@ -150,15 +234,17 @@ msgid ""
 "\n"
 "Realm is %s"
 msgstr ""
+"Autentificering krævet for %s\n"
+"\n"
+"Området er %s"
 
 #: ../src/authen.c:90
-#, fuzzy
 msgid "Username:"
-msgstr "Omdøb"
+msgstr "Brugernavn:"
 
 #: ../src/authen.c:95
 msgid "Password:"
-msgstr ""
+msgstr "Kodeord:"
 
 #: ../src/bfspell.c:346
 msgid "Check Spelling"
@@ -265,31 +351,31 @@ msgstr "-p filnavn  åben projekt\n"
 msgid "-h           this help screen\n"
 msgstr "-h            denne hjælpe skærm\n"
 
-#: ../src/bluefish.c:166
+#: ../src/bluefish.c:167
 msgid "parsing highlighting file..."
 msgstr "læser syntaks-farvnings fil..."
 
-#: ../src/bluefish.c:177
+#: ../src/bluefish.c:178
 msgid "compiling highlighting patterns..."
 msgstr "oversætter syntaks-farvnigs fil..."
 
-#: ../src/bluefish.c:184
+#: ../src/bluefish.c:185
 msgid "parsing custom menu file..."
 msgstr "parser bruger menu fil..."
 
-#: ../src/bluefish.c:196
+#: ../src/bluefish.c:197
 msgid "creating main gui..."
 msgstr "opretter hoved grafisk brugerinterface..."
 
-#: ../src/bluefish.c:206
+#: ../src/bluefish.c:207
 msgid "showing main gui..."
 msgstr "viser hoved grafisk brugerflade..."
 
-#: ../src/bluefish.c:220
+#: ../src/bluefish.c:221
 msgid "Bluefish tip:"
 msgstr "Bluefish tip:"
 
-#: ../src/bluefish.c:220
+#: ../src/bluefish.c:221
 msgid ""
 "This message is shown since you do not have any items in the Quickbar.\n"
 "\n"
@@ -302,173 +388,166 @@ msgstr ""
 "Hvis du højre-klikker på en kanp i HTML værktøjslinjerne kan du tilføje "
 "knapper til din quickbar."
 
-#: ../src/bookmark.c:440 ../src/html.c:576 ../src/html.c:796
+#: ../src/bookmark.c:459 ../src/html.c:576 ../src/html.c:796
 #: ../src/html.c:1389 ../src/html.c:1817 ../src/html_form.c:231
 #: ../src/html_form.c:596 ../src/html_form.c:795 ../src/html_form.c:890
 #: ../src/image.c:280
 msgid "_Name:"
 msgstr "_Navn:"
 
-#: ../src/bookmark.c:445
+#: ../src/bookmark.c:464
 msgid "_Description:"
 msgstr "_Beskrivelse:"
 
-#: ../src/bookmark.c:461
-#, fuzzy, c-format
+#: ../src/bookmark.c:480
+#, c-format
 msgid "You already have a bookmark named %s!"
-msgstr "Du har allerede et bogmærke her!"
+msgstr "Du har allerede et bogmærke med navnet %s!"
 
-#: ../src/bookmark.c:537
-#, fuzzy, c-format
+#: ../src/bookmark.c:556
+#, c-format
 msgid "Could not find the file \"%s\"."
-msgstr ""
-"Kunne ikke læse fil:\n"
-"\""
+msgstr "Kunne ikke læse filen \"%s\"."
 
-#: ../src/bookmark.c:538
+#: ../src/bookmark.c:557
 msgid "This bookmark is set in a file that no longer exists."
-msgstr ""
+msgstr "Dette bogmærke er sat i en fil der ikke længere eksisterer."
 
-#: ../src/bookmark.c:542
+#: ../src/bookmark.c:561
 msgid "Bookmarked file is closed"
 msgstr "Bogmærket fil er lukket"
 
-#: ../src/bookmark.c:542
+#: ../src/bookmark.c:561
 msgid "Do you want to open it?"
 msgstr "Vil du åben den?"
 
-#: ../src/bookmark.c:584
-#, fuzzy, c-format
+#: ../src/bookmark.c:603
+#, c-format
 msgid "Do you really want to remove %s?"
-msgstr "Vil du åben den?"
-
-#: ../src/bookmark.c:585
-#, fuzzy
-msgid "Delete permanent bookmark."
-msgstr "Tilføj permanent bogmærke "
+msgstr "Vil du virkelig slette %s?"
 
 #: ../src/bookmark.c:604
-#, fuzzy
+msgid "Delete permanent bookmark."
+msgstr "Slet permanent bogmærke."
+
+#: ../src/bookmark.c:623
 msgid "Rename permanent bookmark"
-msgstr "Tilføj permanent bogmærke "
+msgstr "Omdøb permanent bogmærke"
 
-#: ../src/bookmark.c:606
-#, fuzzy
+#: ../src/bookmark.c:625
 msgid "Rename temporary bookmark"
-msgstr "Tilføj midlertidigt bormærke"
+msgstr "Omdøb midlertidigt bormærke"
 
-#: ../src/bookmark.c:620
+#: ../src/bookmark.c:639
 msgid "Goto bookmark"
 msgstr "Gå til bormærke"
 
-#: ../src/bookmark.c:627
+#: ../src/bookmark.c:646
 msgid "Rename"
 msgstr "Omdøb"
 
-#: ../src/bookmark.c:630
+#: ../src/bookmark.c:649
 msgid "Delete"
 msgstr "Slet"
 
-#: ../src/bookmark.c:796
+#: ../src/bookmark.c:815
 msgid "Temporary"
 msgstr "Midlertidig"
 
-#: ../src/bookmark.c:798
+#: ../src/bookmark.c:817
 msgid "Permanent"
 msgstr "Permanent"
 
-#: ../src/bookmark.c:937 ../src/bookmark.c:959 ../src/document.c:1941
+#: ../src/bookmark.c:956 ../src/bookmark.c:978 ../src/document.c:1941
 msgid "Add temporary bookmark"
 msgstr "Tilføj midlertidigt bormærke"
 
-#: ../src/bookmark.c:937 ../src/bookmark.c:1049
+#: ../src/bookmark.c:956 ../src/bookmark.c:1068
 msgid ""
 "Cannot add bookmarks in nameless files.\n"
 "Please, save the file first."
 msgstr ""
+"Kan ikke tilføje bogmærker til ikke navngivne filer.\n"
+"Gem venligst filen først."
 
-#: ../src/bookmark.c:959
+#: ../src/bookmark.c:978
 msgid "You already have a bookmark here!"
 msgstr "Du har allerede et bogmærke her!"
 
-#: ../src/bookmark.c:1027
+#: ../src/bookmark.c:1046
 msgid "Delete all temporary bookmarks."
 msgstr "Slet alle midlertidige bogmærker."
 
-#: ../src/bookmark.c:1027
+#: ../src/bookmark.c:1046
 msgid "Are you sure?"
 msgstr "Er du sikker?"
 
-#: ../src/bookmark.c:1038
-#, fuzzy
+#: ../src/bookmark.c:1057
 msgid "Delete all permanent bookmarks."
-msgstr "Slet alle midlertidige bogmærker."
+msgstr "Slet alle permanente bogmærker."
 
-#: ../src/bookmark.c:1038
-#, fuzzy
+#: ../src/bookmark.c:1057
 msgid "Are you REALLY sure?"
-msgstr "Er du sikker?"
+msgstr "Er du HELT sikker?"
 
-#: ../src/bookmark.c:1049 ../src/bookmark.c:1052 ../src/document.c:1937
-#, fuzzy
+#: ../src/bookmark.c:1068 ../src/bookmark.c:1071 ../src/document.c:1937
 msgid "Add permanent bookmark"
-msgstr "Tilføj permanent bogmærke "
+msgstr "Tilføj permanent bogmærke"
 
-#: ../src/bookmark.c:1083
+#: ../src/bookmark.c:1102
 #, c-format
 msgid ""
 "Character count changed in file\n"
 " %s."
 msgstr ""
+"Karakter optælling i fil\n"
+" %s."
 
-#: ../src/bookmark.c:1084
+#: ../src/bookmark.c:1103
 msgid "Bookmarks positions can be incorrect."
-msgstr ""
+msgstr "Bogmærkers positioner kan være forkerte."
 
 #: ../src/document.c:253 ../src/gui.c:928 ../src/gui.c:929
 msgid "/Document/Highlight Syntax"
 msgstr "/Dokument/Farvelæg Syntaks"
 
 #: ../src/document.c:693
-#, fuzzy
 msgid "Name: "
-msgstr "Navn:"
+msgstr "Navn: "
 
 #: ../src/document.c:694
-#, fuzzy
 msgid ""
 "\n"
 "Type: "
-msgstr "_Type:"
+msgstr "\nType: "
 
 #: ../src/document.c:695
-#, fuzzy
 msgid ""
 "\n"
 "Encoding: "
-msgstr "Kodning"
+msgstr "\nKodning:"
 
 #: ../src/document.c:698
 msgid ""
 "\n"
 "Size (on disk): "
-msgstr ""
+msgstr "\nStørrelse (på disk): "
 
 #: ../src/document.c:698
 msgid " bytes"
-msgstr ""
+msgstr " bytes"
 
 #: ../src/document.c:703
 msgid ""
 "\n"
 "Permissions: "
-msgstr ""
+msgstr "\nTilladelser: "
 
 #: ../src/document.c:709
 msgid ""
 "\n"
 "Last modified: "
-msgstr ""
+msgstr "\nSidst ændret: "
 
 #: ../src/document.c:735
 #, c-format
@@ -503,12 +582,11 @@ msgstr "Erstat"
 
 #: ../src/document.c:1930
 msgid "Find"
-msgstr ""
+msgstr "Søg"
 
 #: ../src/document.c:1947
-#, fuzzy
 msgid "Edit color"
-msgstr "Editor"
+msgstr "Rediger farve"
 
 #: ../src/document.c:1955
 msgid "Edit tag"
@@ -540,9 +618,8 @@ msgid "File backup failure"
 msgstr "Backupfil fejl"
 
 #: ../src/document.c:2138
-#, fuzzy
 msgid "_Continue save in UTF-8"
-msgstr "_Fortsæt gem"
+msgstr "_Fortsæt med at gemme i UTF-8"
 
 #: ../src/document.c:2149
 #, c-format
@@ -552,10 +629,13 @@ msgid ""
 "\n"
 "Continue saving in UTF-8 encoding?"
 msgstr ""
+"Kunne ikke konvertere %s til karakter kodning %s. Kodning gik i stå ved karakter '%s' på linje %d række %d\n"
+"\n"
+"Vil du fortsat gemme i UTF-8 kodning?"
 
 #: ../src/document.c:2150
 msgid "File encoding conversion failure"
-msgstr ""
+msgstr "Fejl ved fil kodnings konvertering"
 
 #: ../src/document.c:2285
 msgid "Previously: "
@@ -570,7 +650,7 @@ msgid "Save document as"
 msgstr "Gem dokument som"
 
 #: ../src/document.c:2325 ../src/document.c:2339 ../src/document.c:2426
-#: ../src/document.c:3548 ../src/gui.c:1065
+#: ../src/document.c:3548 ../src/gui.c:1064
 msgid "_Cancel"
 msgstr "A_nnullér"
 
@@ -971,19 +1051,16 @@ msgid "Select files"
 msgstr "Vælg fil"
 
 #: ../src/gui.c:217
-#, fuzzy
 msgid "Filebrowser"
-msgstr "Fil browser"
+msgstr "Fil-browser"
 
 #: ../src/gui.c:218
-#, fuzzy
 msgid "Function reference"
-msgstr "Redigér præferencer"
+msgstr "Funktions reference"
 
 #: ../src/gui.c:219
-#, fuzzy
 msgid "Bookmarks"
-msgstr "/_Bogmærker"
+msgstr "Bogmærker"
 
 #: ../src/gui.c:244 ../src/menu.c:914
 msgid "/View/View Left Panel"
@@ -1178,33 +1255,28 @@ msgid "Form..."
 msgstr "Formular..."
 
 #: ../src/gui.c:614
-#, fuzzy
 msgid "Input Button..."
-msgstr "Input knap..."
+msgstr "Input Knap..."
 
 #: ../src/gui.c:615
-#, fuzzy
 msgid "Input Text..."
-msgstr "Input knap..."
+msgstr "Input Tekst..."
 
 #: ../src/gui.c:616
-#, fuzzy
 msgid "Input Hidden..."
-msgstr "Gemt..."
+msgstr "Input Gemt..."
 
 #: ../src/gui.c:617
 msgid "Textarea..."
 msgstr "Tekstfelt..."
 
 #: ../src/gui.c:618
-#, fuzzy
 msgid "Input Radio Button..."
-msgstr "Radio knap..."
+msgstr "Input Radio Knap..."
 
 #: ../src/gui.c:619
-#, fuzzy
 msgid "Input Check Box..."
-msgstr "Tjeck boks..."
+msgstr "Input Tjeck Boks..."
 
 #: ../src/gui.c:620
 msgid "Select..."
@@ -1219,9 +1291,8 @@ msgid "Option group..."
 msgstr "Indstillings gruppe..."
 
 #: ../src/gui.c:623
-#, fuzzy
 msgid "Button..."
-msgstr "Knap"
+msgstr "Knap..."
 
 #: ../src/gui.c:624
 msgid "Quick List..."
@@ -1448,57 +1519,105 @@ msgid "/Document/Line Numbers"
 msgstr "/Dokument/Linje Numre"
 
 #: ../src/gui.c:933
-#, fuzzy
 msgid "/Document/Auto Close HTML tags"
-msgstr "/Dokument/Automatisk Indrykning"
+msgstr "/Dokument/Automatisk Lukning af HTML tags"
 
-#: ../src/gui.c:1065
+#: ../src/gui.c:1064
 msgid "Do_n't Save"
 msgstr "Gem i_kke"
 
-#: ../src/gui.c:1066
+#: ../src/gui.c:1065
 msgid "Failed to save the current project"
 msgstr "Kunne ikke gamme nuværende projekt"
 
-#: ../src/gui.c:1090
+#: ../src/gui.c:1089
 msgid "New Bluefish Window"
 msgstr "Nyt Bluefish Vindue"
 
-#: ../src/gui.c:1143
+#: ../src/gui.c:1142
 msgid "Stand by..."
 msgstr "Vent venligst..."
 
-#: ../src/gui.c:1327
+#: ../src/gui.c:1326
 msgid "Goto line"
 msgstr "Gå til linje"
 
-#: ../src/gui.c:1335
+#: ../src/gui.c:1334
 msgid "_Line number:"
 msgstr "_Linje nummer:"
 
-#: ../src/gui.c:1341
+#: ../src/gui.c:1340
 msgid "From _selection"
 msgstr "Fra _valg"
 
-#: ../src/gui.c:1344
+#: ../src/gui.c:1343
 msgid "Keep _dialog"
 msgstr "Behold _dialog"
 
-#: ../src/gui.c:1413
+#: ../src/gui.c:1412
 msgid "starting bluefish"
 msgstr "starter bluefish"
 
-#: ../src/gui.c:1439 ../src/menu.c:912
+#: ../src/gui.c:1438 ../src/menu.c:912
 msgid "/View/View HTML Toolbar"
 msgstr "/Vis/HTML Toolbar"
 
-#: ../src/gui.c:1446 ../src/menu.c:911
+#: ../src/gui.c:1445 ../src/menu.c:911
 msgid "/View/View Main Toolbar"
 msgstr "/Vis/Hoved Toolbar"
 
-#: ../src/gui.c:1453 ../src/menu.c:913
+#: ../src/gui.c:1452 ../src/menu.c:913
 msgid "/View/View Custom Menu"
 msgstr "/Vis/Brugerdefineret Menu"
+
+#: ../src/html2.c:588
+msgid "Cascading StyleSheet dialog"
+msgstr "Cascading StyleSheet dialog"
+
+#: ../src/html2.c:608
+msgid "_Selector:"
+msgstr "_Vælger:"
+
+#: ../src/html2.c:627
+msgid "_Property:"
+msgstr "_Egenskab:"
+
+#: ../src/html2.c:629 ../src/html_form.c:650 ../src/html_form.c:799
+#: ../src/html_form.c:894
+msgid "_Value:"
+msgstr "_Værdi:"
+
+#: ../src/html2.c:647
+msgid "Selector"
+msgstr "Vælger"
+
+#: ../src/html2.c:647 ../src/html2.c:650
+msgid "Property"
+msgstr "Egenskab"
+
+#: ../src/html2.c:647 ../src/html2.c:650
+msgid "Value"
+msgstr "Værdi"
+
+#: ../src/html2.c:665
+msgid " _Add "
+msgstr " _Tilføj "
+
+#: ../src/html2.c:668
+msgid " _Update "
+msgstr " _Opdatér "
+
+#: ../src/html2.c:671
+msgid " _Delete "
+msgstr " _Slet "
+
+#: ../src/html2.c:927 ../src/html2.c:964
+msgid "_Style..."
+msgstr "_Stil"
+
+#: ../src/html2.c:1121
+msgid "Bluefish: Select color"
+msgstr "Bluefish: Vælg farve"
 
 #: ../src/html.c:356
 msgid "Insert Time"
@@ -1561,9 +1680,8 @@ msgid "Quick Anchor"
 msgstr "Hurtigt link"
 
 #: ../src/html.c:554 ../src/html_form.c:780
-#, fuzzy
 msgid "Attributes"
-msgstr "Attributer/Parametre"
+msgstr "Attributter"
 
 #: ../src/html.c:568
 msgid "_HREF:"
@@ -1868,85 +1986,32 @@ msgid "Link"
 msgstr "Lænke"
 
 #: ../src/html.c:2032
-#, fuzzy
 msgid "_Href:"
-msgstr "_Ramme:"
+msgstr "_Href:"
 
 #: ../src/html.c:2038
 msgid "Href_lang:"
-msgstr ""
+msgstr "Href_sprog:"
 
 #: ../src/html.c:2052
 msgid "_Forward Relation:"
-msgstr ""
+msgstr "_Fremad-rettet Relation:"
 
 #: ../src/html.c:2056
 msgid "_Reverse Relation:"
-msgstr ""
+msgstr "Bagud-_rettet Relation:"
 
 #: ../src/html.c:2067
-#, fuzzy
 msgid "Media:"
-msgstr "META"
+msgstr "Medie:"
 
 #: ../src/html.c:2071
-#, fuzzy
 msgid "L_ang:"
-msgstr "Sprog:"
+msgstr "_Sprog:"
 
 #: ../src/html.c:2075
-#, fuzzy
 msgid "_Custom:"
 msgstr "_Bruger:"
-
-#: ../src/html2.c:588
-msgid "Cascading StyleSheet dialog"
-msgstr "Cascading StyleSheet dialog"
-
-#: ../src/html2.c:608
-msgid "_Selector:"
-msgstr "_Vælger:"
-
-#: ../src/html2.c:627
-msgid "_Property:"
-msgstr "_Egenskab:"
-
-#: ../src/html2.c:629 ../src/html_form.c:650 ../src/html_form.c:799
-#: ../src/html_form.c:894
-msgid "_Value:"
-msgstr "_Værdi:"
-
-#: ../src/html2.c:647
-msgid "Selector"
-msgstr "Vælger"
-
-#: ../src/html2.c:647 ../src/html2.c:650
-msgid "Property"
-msgstr "Egenskab"
-
-#: ../src/html2.c:647 ../src/html2.c:650
-msgid "Value"
-msgstr "Værdi"
-
-#: ../src/html2.c:665
-msgid " _Add "
-msgstr " _Tilføj "
-
-#: ../src/html2.c:668
-msgid " _Update "
-msgstr " _Opdatér "
-
-#: ../src/html2.c:671
-msgid " _Delete "
-msgstr " _Slet "
-
-#: ../src/html2.c:927 ../src/html2.c:964
-msgid "_Style..."
-msgstr "_Stil"
-
-#: ../src/html2.c:1121
-msgid "Bluefish: Select color"
-msgstr "Bluefish: Vælg farve"
 
 #: ../src/html_form.c:141
 msgid "Form"
@@ -1998,45 +2063,39 @@ msgstr "Indstillings gruppe"
 
 #: ../src/html_form.c:775
 msgid "Input"
-msgstr ""
+msgstr "Input"
 
 #: ../src/html_form.c:803
-#, fuzzy
 msgid "_Checked:"
-msgstr "Chec_ked:"
+msgstr "_Valgt:"
 
 #: ../src/html_form.c:812
 msgid "Max _Length:"
 msgstr "Maksimal _Længde:"
 
 #: ../src/html_form.c:816
-#, fuzzy
 msgid "_Accept:"
-msgstr "\"_Action\""
+msgstr "_Accepter:"
 
 #: ../src/html_form.c:820
-#, fuzzy
 msgid "C_ustom:"
-msgstr "_Bruger"
+msgstr "Br_uger:"
 
 #: ../src/html_form.c:832
-#, fuzzy
 msgid "On_Focus:"
-msgstr "OnMouse_Up:"
+msgstr "On_Focus:"
 
 #: ../src/html_form.c:836
 msgid "On_Blur:"
-msgstr ""
+msgstr "On_Blur:"
 
 #: ../src/html_form.c:840
-#, fuzzy
 msgid "On_Select:"
-msgstr "_Vælger:"
+msgstr "On_Select:"
 
 #: ../src/html_form.c:844
-#, fuzzy
 msgid "On_Change:"
-msgstr "Skift _til:"
+msgstr "On_Change:"
 
 #: ../src/html_form.c:884
 msgid "Button"
@@ -2187,9 +2246,8 @@ msgid "/File/_Open..."
 msgstr "/Filer/_Åbn..."
 
 #: ../src/menu.c:320
-#, fuzzy
 msgid "/File/Open recen_t"
-msgstr "/Filer/Hent seneste"
+msgstr "/Filer/Hent senes_te"
 
 #: ../src/menu.c:321
 msgid "/File/Open recent/tearoff1"
@@ -2220,9 +2278,8 @@ msgid "/File/Save _As..."
 msgstr "/Filer/Gem _Som..."
 
 #: ../src/menu.c:334
-#, fuzzy
 msgid "/File/Sav_e All"
-msgstr "/Filer/Gem A_lle"
+msgstr "/Filer/G_em Alle"
 
 #: ../src/menu.c:335
 msgid "/File/_Revert to Saved"
@@ -2329,9 +2386,8 @@ msgid "/Edit/Replace Agai_n"
 msgstr "/Redigér/Erstat Ige_n"
 
 #: ../src/menu.c:363
-#, fuzzy
 msgid "/Edit/Replace special"
-msgstr "/Redigér/Erstat _speciel"
+msgstr "/Redigér/Erstat speciel"
 
 #: ../src/menu.c:364
 msgid "/Edit/Replace special/Tearoff1"
@@ -3102,21 +3158,18 @@ msgid "/Tags/List/tearoff1"
 msgstr "/Tags/Liste/tearoff1"
 
 #: ../src/menu.c:559
-#, fuzzy
 msgid "/Tags/List/Unordered _List"
-msgstr "/Tags/Liste/_Uordnet Liste"
+msgstr "/Tags/Liste/Uordnet _Liste"
 
 #: ../src/menu.c:560
 msgid "/Tags/List/_Ordered List"
 msgstr "/Tags/Liste/_Ordnet Liste"
 
 #: ../src/menu.c:561
-#, fuzzy
 msgid "/Tags/List/List Ite_m"
-msgstr "/Tags/Liste/L_iste Element"
+msgstr "/Tags/Liste/Liste Ele_ment"
 
 #: ../src/menu.c:562
-#, fuzzy
 msgid "/Tags/List/De_finition List"
 msgstr "/Tags/Liste/Definitions _Liste"
 
@@ -3125,14 +3178,12 @@ msgid "/Tags/List/Definition _Term"
 msgstr "/Tags/Liste/Definitions _Term"
 
 #: ../src/menu.c:564
-#, fuzzy
 msgid "/Tags/List/_Definition"
-msgstr "/Tags/Liste/De_finition"
+msgstr "/Tags/Liste/_Definition"
 
 #: ../src/menu.c:565
-#, fuzzy
 msgid "/Tags/List/Men_u"
-msgstr "/Tags/Liste/_Menu"
+msgstr "/Tags/Liste/Men_u"
 
 #: ../src/menu.c:566
 msgid "/Tags/Insert Generator _META-Tag"
@@ -3303,19 +3354,16 @@ msgid "/Dialogs/Form/F_orm..."
 msgstr "/Dialoger/Form/F_orm..."
 
 #: ../src/menu.c:610
-#, fuzzy
 msgid "/Dialogs/Form/_Input..."
-msgstr "/Dialoger/Form/_Input Knap..."
+msgstr "/Dialoger/Form/_Input..."
 
 #: ../src/menu.c:611
-#, fuzzy
 msgid "/Dialogs/Form/Input Buttons..."
-msgstr "/Dialoger/Form/_Input Knap..."
+msgstr "/Dialoger/Form/Input Knapper..."
 
 #: ../src/menu.c:612
-#, fuzzy
 msgid "/Dialogs/Form/Input Text..."
-msgstr "/Dialoger/Form/_Tekst..."
+msgstr "/Dialoger/Form/Input Tekst..."
 
 #: ../src/menu.c:613
 msgid "/Dialogs/Form/Text_area..."
@@ -3334,18 +3382,16 @@ msgid "/Dialogs/Form/Option _Group..."
 msgstr "/Dialoger/Form/Option _Gruppe..."
 
 #: ../src/menu.c:617
-#, fuzzy
 msgid "/Dialogs/Form/_Button..."
-msgstr "/Dialoger/Form/_Input Knap..."
+msgstr "/Dialoger/Form/_Knap..."
 
 #: ../src/menu.c:644
-#, fuzzy
 msgid "/Dialogs/sep1"
-msgstr "/Dialoger/tearoff1"
+msgstr "/Dialoger/sep1"
 
 #: ../src/menu.c:645
 msgid "/Dialogs/_Edit tag under cursor..."
-msgstr ""
+msgstr "/Dialoger/_Rediger tag under markør..."
 
 #: ../src/menu.c:646
 msgid "/_Document"
@@ -3372,9 +3418,8 @@ msgid "/Document/sep1"
 msgstr "/Dokument/sep1"
 
 #: ../src/menu.c:652
-#, fuzzy
 msgid "/Document/Auto Close H_TML tags"
-msgstr "/Dokument/Automatisk Indrykning"
+msgstr "/Dokument/Automatisk Lukning af H_TML tags"
 
 #: ../src/menu.c:653
 msgid "/Document/_Wrap"
@@ -3401,9 +3446,8 @@ msgid "/Document/sep3"
 msgstr "/Dokument/sep3"
 
 #: ../src/menu.c:659
-#, fuzzy
 msgid "/Document/Document Ty_pe"
-msgstr "/Dokument/Document Type"
+msgstr "/Dokument/Dokument Ty_pe"
 
 #: ../src/menu.c:660
 msgid "/Document/Document Type/tearoff1"
@@ -3555,11 +3599,11 @@ msgstr "/Eksterne/tearoff1"
 
 #: ../src/menu.c:705
 msgid "/_Help"
-msgstr ""
+msgstr "/_Hjælp"
 
 #: ../src/menu.c:706
 msgid "/Help/_About..."
-msgstr ""
+msgstr "/Hjælp/_Om..."
 
 #: ../src/menu.c:868
 msgid "/Document/Document Type"
@@ -3800,7 +3844,7 @@ msgstr "Kontekst regex"
 
 #: ../src/preferences.c:591
 msgid "Auto close tags mode"
-msgstr ""
+msgstr "Automatisk tag-luknings tilstand"
 
 #: ../src/preferences.c:739 ../src/preferences.c:773
 msgid "Filefilter"
@@ -4219,7 +4263,7 @@ msgstr "Ukendt ikon"
 msgid "Directory icon"
 msgstr "Biblioteks ikon"
 
-#: ../src/preferences.c:1977 ../src/rcfile.c:576
+#: ../src/preferences.c:1977 ../src/rcfile.c:589
 msgid "Images"
 msgstr "Billeder"
 
@@ -4273,157 +4317,154 @@ msgstr "Uddata boks"
 
 #: ../src/preferences.c:2047
 msgid "Servers"
-msgstr ""
+msgstr "Servere"
 
 #: ../src/preferences.c:2049
-#, fuzzy
 msgid "Remote servers"
-msgstr "_Ekstern Bibliotek:"
+msgstr "Eksterne servere"
 
 #: ../src/preferences.c:2054
 msgid "Zope compatibility mode"
-msgstr ""
+msgstr "Zope kompatibilitets tilstand"
 
-#: ../src/project.c:62
+#: ../src/project.c:76
 msgid "New project"
 msgstr "Nyt projekt"
 
-#: ../src/project.c:112
+#: ../src/project.c:126
 msgid "Enter Bluefish project filename"
 msgstr "Indtast Bluefish projekt filnavn"
 
-#: ../src/project.c:136
+#: ../src/project.c:150
 msgid "/Project/Save"
 msgstr "/Projekt/Gem"
 
-#: ../src/project.c:137
+#: ../src/project.c:151
 msgid "/Project/Save as..."
 msgstr "/Projekt/Gem som..."
 
-#: ../src/project.c:138
+#: ../src/project.c:152
 msgid "/Project/Close & save"
 msgstr "/Projekt/Luk & gem"
 
-#: ../src/project.c:139
+#: ../src/project.c:153
 msgid "/Project/Edit Project Options..."
 msgstr "/Projekt/Redigér Projekt Indstillinger..."
 
-#: ../src/project.c:194
+#: ../src/project.c:208
 msgid "Select Bluefish project filename"
 msgstr "Vælg Bluefish projekt filnavn"
 
-#: ../src/project.c:327
+#: ../src/project.c:341
 msgid "Create New Project"
 msgstr "Opret Nyt Projekt"
 
-#: ../src/project.c:330
+#: ../src/project.c:344
 msgid "Edit Project"
 msgstr "Redigér Projekt"
 
-#: ../src/project.c:353
+#: ../src/project.c:367
 #, c-format
 msgid "This project contains %d files"
 msgstr "Dette projekt indeholder %d filer"
 
-#: ../src/project.c:365
+#: ../src/project.c:379
 msgid "Project _Name:"
 msgstr "Projekt _Navn:"
 
-#: ../src/project.c:369
-#, fuzzy
+#: ../src/project.c:383
 msgid "_Basedir:"
-msgstr "Grun_dbibliotek:"
+msgstr "Grund_bibliotek:"
 
-#: ../src/project.c:373
-#, fuzzy
+#: ../src/project.c:387
 msgid "_Preview URL:"
-msgstr "Preview"
+msgstr "_Preview URL:"
 
-#: ../src/project.c:377
+#: ../src/project.c:391
 msgid "_Template:"
 msgstr "_Skabelon:"
 
-#: ../src/project.c:383
+#: ../src/project.c:397
 msgid "_Word wrap by default"
 msgstr "_Ord-ombrydning som standard"
 
-#: ../src/project.c:394
+#: ../src/project.c:408
 msgid "Create _Project"
 msgstr "Opret _Projekt"
 
-#: ../src/project.c:434
+#: ../src/project.c:448
 msgid "Create project"
 msgstr "Opret projekt"
 
-#: ../src/project.c:438
+#: ../src/project.c:452
 msgid "Create project with currently opened documents"
 msgstr "Opret projekt med nuværende åbne dokumenter"
 
-#: ../src/project.c:439
+#: ../src/project.c:453
 msgid "Create empty project"
 msgstr "Opret tomt projekt"
 
-#: ../src/rcfile.c:502
+#: ../src/rcfile.c:515
 msgid "Galeon"
 msgstr "Galeon"
 
-#: ../src/rcfile.c:504
+#: ../src/rcfile.c:517
 msgid "Mozilla"
 msgstr "Mozilla"
 
-#: ../src/rcfile.c:506
+#: ../src/rcfile.c:519
 msgid "Opera"
 msgstr "Opera"
 
-#: ../src/rcfile.c:508
+#: ../src/rcfile.c:521
 msgid "Netscape"
 msgstr "Netscape"
 
-#: ../src/rcfile.c:510
+#: ../src/rcfile.c:523
 msgid "Gnome default"
 msgstr "Gnome default"
 
-#: ../src/rcfile.c:534
+#: ../src/rcfile.c:547
 msgid "make"
 msgstr "make"
 
-#: ../src/rcfile.c:535
+#: ../src/rcfile.c:548
 msgid "weblint HTML checker"
 msgstr "weblint HTML check"
 
-#: ../src/rcfile.c:536
+#: ../src/rcfile.c:549
 msgid "tidy HTML validator"
 msgstr "tidy HTML validator"
 
-#: ../src/rcfile.c:537
+#: ../src/rcfile.c:550
 msgid "javac"
 msgstr "javac"
 
-#: ../src/rcfile.c:543
+#: ../src/rcfile.c:556
 msgid "Dos2Unix filter"
 msgstr "Dos2Unix filter"
 
-#: ../src/rcfile.c:545
+#: ../src/rcfile.c:558
 msgid "Tidy cleanup filter"
 msgstr "Tidy udrensnings filter"
 
-#: ../src/rcfile.c:570
+#: ../src/rcfile.c:583
 msgid "C programming"
 msgstr "C programmering"
 
-#: ../src/rcfile.c:572
+#: ../src/rcfile.c:585
 msgid "All web files"
 msgstr "Alle web filer"
 
-#: ../src/rcfile.c:574
+#: ../src/rcfile.c:587
 msgid "Java programming"
 msgstr "Java programmering"
 
-#: ../src/rcfile.c:578
+#: ../src/rcfile.c:591
 msgid "Hide objectfiles"
 msgstr "Skjul objektfiler"
 
-#: ../src/rcfile.c:853
+#: ../src/rcfile.c:882
 msgid "Untitled Project"
 msgstr "Unavngivet Project"
 
@@ -4627,95 +4668,3 @@ msgstr "Kilde:"
 #: ../src/wizards.c:223
 msgid "Size:"
 msgstr "Størrelse:"
-
-#~ msgid "Show all bookmarks"
-#~ msgstr "Vis alle bogmærker"
-
-#~ msgid "Show bookmarks for opened files"
-#~ msgstr "Vis bogmærer for åbnede filer"
-
-#~ msgid "Show bookmarks for active file"
-#~ msgstr "Vis bogmærker for aktiv fil"
-
-#~ msgid "You can overwrite next temp bookmark (number %d). Overwrite?"
-#~ msgstr "Du kan overskrive det næste midl. bogmærke (nummer %d). Overskriv?"
-
-#~ msgid "Maximum number of temp bookmarks assigned"
-#~ msgstr "Maksimalt antal midlertidige bogmærker sat"
-
-#~ msgid "Text..."
-#~ msgstr "Tekst..."
-
-#~ msgid "_Rel:"
-#~ msgstr "_Rel:"
-
-#~ msgid "_websafe"
-#~ msgstr "_web-sikker"
-
-#~ msgid "Text"
-#~ msgstr "Tekst"
-
-#~ msgid "Hidden"
-#~ msgstr "Gemt"
-
-#~ msgid "Radio Button"
-#~ msgstr "\"Radio\" knap"
-
-#~ msgid "Check Box"
-#~ msgstr "Tjeck boks"
-
-#~ msgid "/File/Open r_ecent"
-#~ msgstr "/Filer/Åbn s_eneste"
-
-#~ msgid "/Dialogs/Form/_Hidden..."
-#~ msgstr "/Dialoger/Form/_Skjult..."
-
-#~ msgid "/Dialogs/Form/Radio _Buttons..."
-#~ msgstr "/Dialoger/Form/Radio _Knapper..."
-
-#~ msgid "/Dialogs/Form/_Check Buttons..."
-#~ msgstr "/Dialoger/Form/_Check Bokse..."
-
-#~ msgid "Extensions (colon separated)"
-#~ msgstr "Udvidelser (colon separerede)"
-
-#~ msgid "Highlight update characters"
-#~ msgstr "Highlight opdatér karakterer"
-
-#~ msgid "Content regex pattern"
-#~ msgstr "Kontekst regex mønster"
-
-#, fuzzy
-#~ msgid "Rename temporary"
-#~ msgstr "Midlertidig"
-
-#, fuzzy
-#~ msgid "Rename permanent"
-#~ msgstr "Permanent"
-
-#~ msgid "Add permanent bookmark "
-#~ msgstr "Tilføj permanent bogmærke "
-
-#~ msgid "/Document/Document _Type"
-#~ msgstr "/Dokument/Dokument _Type"
-
-#~ msgid "_Local Directory:"
-#~ msgstr "_Lokalt Bibliotek:"
-
-#~ msgid "Show bookmarks for project files"
-#~ msgstr "Vis bogmærker for projekt filer"
-
-#~ msgid "Input _Methods"
-#~ msgstr "Intastnings _metoder"
-
-#~ msgid "/Bookmarks/Delete _All"
-#~ msgstr "/Bogmærker/Slet _Alle"
-
-#~ msgid "posix regular expressions"
-#~ msgstr "posix regulære udtryk"
-
-#~ msgid "perl regular expressions"
-#~ msgstr "perl regulære udtryk"
-
-#~ msgid "Always highlight full document"
-#~ msgstr "Highlight altid hele dokumentet"

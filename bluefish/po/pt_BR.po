@@ -1,25 +1,25 @@
+# translation of 25-02-04_pt_BR.po to Português Brasileiro
 # translation of 16-09-03_right_pt_BR.po to Português Brasileiro
 # translation of 04-11-03_pt_BR.po to Portguês Brasileiro
 # translation of 28-06-03_pt_BR.po to Português Brasileiro
 # Brazilian Portuguese language file for Bluefish.
-# Copyright (C) 2000,2003 Free Software Foundation, Inc.
-# Anderson Rocha, 2003
-# Anderson Rocha <anderson@maxlinux.com.br>, 2003
+# Copyright (C) 2000,2003, 2004 Free Software Foundation, Inc.
+# Anderson Rocha <anderson@maxlinux.com.br>, 2003, 2004.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 16-09-03_right_pt_BR\n"
-"POT-Creation-Date: 2004-02-25 16:08+0100\n"
-"PO-Revision-Date: 2003-11-16 19:44-0200\n"
-"Last-Translator: Anderson Rocha\n"
+"Project-Id-Version: bluefish gtk2\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-02-25 21:08-0300\n"
+"PO-Revision-Date: 2004-02-27 11:50-0300\n"
+"Last-Translator: Anderson Rocha <anderson@maxlinux.com.br>\n"
 "Language-Team: Português Brasileiro <pt@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Report-Msgid-Bugs-To: \n"
-"X-Generator: KBabel 1.0\n"
+"X-Generator: KBabel 1.3\n"
 
-#: ../src/about.c:121
+#: ../src/about.c:123
 msgid ""
 "Bluefish is an editor for experienced web designers and programmers. It "
 "supports many programming and markup languages, but focuses on editing "
@@ -31,19 +31,22 @@ msgid ""
 "\n"
 "This version of bluefish was compiled with the following options:\n"
 msgstr ""
+"Bluefish é um editor para web designers experientes e programadores. Ele suporta várias "
+"linguaguens de programação e markup, mas foca a edição dinâmica e interativa de "
+"websites. Bluefish é um projeto de desenvolvimento open source, liberado sob a licença GPL.\n"
+"\n"
+"Para maiores informações, visite o website do Bluefish em http://bluefish.openoffice.nl/\n"
+"\n"
+"Essa versão do bluefish foi compilada com as seguintes opções:\n"
 
-#: ../src/about.c:121
-msgid "\n"
-msgstr ""
-
-#: ../src/about.c:122
+#: ../src/about.c:124
 msgid ""
 "Project leader:\n"
 "  Olivier Sessink <olivier@bluefish.openoffice.nl>\n"
 "\n"
 "Developers for this release:\n"
 "  Jim Hayward <jimhayward@linuxexperience.com>\n"
-"  Oskar ¿wida <swida@aragorn.pb.bialystok.pl>\n"
+"  Oskar Świda <swida@aragorn.pb.bialystok.pl>\n"
 "  Christian Tellefsen <christian@tellefsen.net>\n"
 "  Eugene Morenko(More) <more@irpin.com>\n"
 "\n"
@@ -75,8 +78,44 @@ msgid ""
 "\n"
 "Thanks to all who helped making this software available.\n"
 msgstr ""
+"Líder do projeto:\n"
+"  Olivier Sessink <olivier@bluefish.openoffice.nl>\n"
+"\n"
+"Desenvolvedores desta versão::\n"
+"  Jim Hayward <jimhayward@linuxexperience.com>\n"
+"  Oskar Świda <swida@aragorn.pb.bialystok.pl>\n"
+"  Christian Tellefsen <christian@tellefsen.net>\n"
+"  Eugene Morenko(More) <more@irpin.com>\n"
+"\n"
+"Desenvolvedores de versões antigas:\n"
+"  Chris Mazuc\n"
+"  Neil Millar\n"
+"  Gero Takke\n"
+"  Bo Forslund\n"
+"  David Arno\n"
+"  Pablo De Napoli\n"
+"  Santiago Capel Torres\n"
+"  Rasmus Toftdahl Olesen <rto@pohldata.dk>\n"
+"  Roland Steinbach <roland@netzblick.de>\n"
+"  Christian Tellefsen <chris@tellefsen.net>\n"
+"  Antti-Juhani Kaijanaho\n"
+"\n"
+"Documentação:\n"
+"  Alastair Porter <alastair@linuxexperience.com>\n"
+"  Daniel Blair <joecamel@realcoders.org>\n"
+"  Denny Reeh\n"
+"\n"
+"Mantenedores de pacotes :\n"
+"  Debian:   Davide Puricelli <evo@debian.org>\n"
+"  Redhat:   Matthias Haase <matthias_haase@bennewitz.com>\n"
+"  Mandrake: Todd Lyons <todd@mrball.net>\n"
+"\n"
+"Se você conhece alguém que está faltando na lista, por favor nos deixe saber\n"
+"<bluefish@bluefish.openoffice.nl>\n"
+"\n"
+"Obrigado por todos que ajudaram a fazer este software disponível.\n"
 
-#: ../src/about.c:159
+#: ../src/about.c:161
 msgid ""
 "Current translators:\n"
 "\n"
@@ -113,7 +152,7 @@ msgid ""
 "  Russian - Eugene Rupakov\n"
 "   <rupakov@jet.msk.ru>\n"
 "\n"
-"  Serbian - Marko Milenovic\n"
+"  Serbian - Marko Milenović\n"
 "   <raven@sbb.co.yu>\n"
 "\n"
 "  Spanish - Walter Oscar Echarri\n"
@@ -126,28 +165,75 @@ msgid ""
 "   <barathee@yahoo.com>\n"
 "\n"
 msgstr ""
+"Atuais tradutores:\n"
+"\n"
+"  Português Brasileiro - Anderson Rocha\n"
+"   <anderson@maxlinux.com.br>\n"
+"\n"
+"  Chinês - Ting Yang (Dormouse)\n"
+"   <mouselinux@163.com>\n"
+"\n"
+"  Dinamarquês - Rasmus Toftdahl Olesen\n"
+"   <rto@pohldata.dk>\n"
+"\n"
+"  Filandês - Juho Roukala\n"
+"   <j.mr@luukku.com>\n"
+"\n"
+"  Francês - Roméo Viu-Berges\n"
+"   <apostledemencia@free.fr>\n"
+"\n"
+"  Alemão - Roland Steinbach\n"
+"   <roland@netzblick.de>\n"
+"\n"
+"  Húngaro - Péter Sáska\n"
+"   <sasek@ccsystem.hu>\n"
+"\n"
+"  Italiano - Stefano Canepa\n"
+"   <sc@linux.it>\n"
+"\n"
+"  Polonês - Oskar Swida\n"
+"   <swida@aragorn.pb.bialystok.pl>\n"
+"\n"
+"  Português - Lopo Pizarro\n"
+"   <lopopizarro@netcabo.pt>\n"
+"\n"
+"  Russo - Eugene Rupakov\n"
+"   <rupakov@jet.msk.ru>\n"
+"\n"
+"  Sérvio - Marko Milenović\n"
+"   <raven@sbb.co.yu>\n"
+"\n"
+"  Espanhol - Walter Oscar Echarri\n"
+"   <wecharri@infovia.com.ar>\n"
+"\n"
+"  Sueco - David Smeringe\n"
+"   <david.smeringe@telia.com>\n"
+"\n"
+"  Tamil - Murugapandian Barathee\n"
+"   <barathee@yahoo.com>\n"
+"\n"
 
-#: ../src/about.c:192
+#: ../src/about.c:194
 msgid "About Bluefish"
-msgstr ""
+msgstr "Sobre Bluefish"
 
 # src/html.c:1315
-#: ../src/about.c:223 ../src/fref.c:1309 ../src/fref.c:1603 ../src/fref.c:1688
+#: ../src/about.c:226 ../src/fref.c:1309 ../src/fref.c:1603 ../src/fref.c:1688
 #: ../src/fref.c:1715 ../src/fref.c:2129
 msgid "Info"
 msgstr "Informações"
 
-#: ../src/about.c:224
+#: ../src/about.c:228
 msgid "Authors"
-msgstr ""
+msgstr "Autores"
 
-#: ../src/about.c:225
+#: ../src/about.c:229
 msgid "Translators"
-msgstr ""
+msgstr "Tradutores"
 
 #: ../src/authen.c:73
 msgid "Authentication required"
-msgstr ""
+msgstr "Autenticação requerida"
 
 #: ../src/authen.c:84
 #, c-format
@@ -156,15 +242,17 @@ msgid ""
 "\n"
 "Realm is %s"
 msgstr ""
+"Authentication is required for %s\n"
+"\n"
+"Realm is %s"
 
 #: ../src/authen.c:90
-#, fuzzy
 msgid "Username:"
-msgstr "Renomear"
+msgstr "Nome do usuário:"
 
 #: ../src/authen.c:95
 msgid "Password:"
-msgstr ""
+msgstr "Senha:"
 
 # src/html_form.c:351 src/html_form.c:396
 #: ../src/bfspell.c:346
@@ -292,32 +380,32 @@ msgid "-h           this help screen\n"
 msgstr "-h           esta tela de ajuda\n"
 
 # src/menu.c:469
-#: ../src/bluefish.c:166
+#: ../src/bluefish.c:167
 msgid "parsing highlighting file..."
 msgstr "analizando destaque do arquivo..."
 
-#: ../src/bluefish.c:177
+#: ../src/bluefish.c:178
 msgid "compiling highlighting patterns..."
 msgstr "compilando padrões para destaque..."
 
-#: ../src/bluefish.c:184
+#: ../src/bluefish.c:185
 msgid "parsing custom menu file..."
 msgstr "analizando arquivo do menu personalizado"
 
-#: ../src/bluefish.c:196
+#: ../src/bluefish.c:197
 msgid "creating main gui..."
 msgstr "criando interface gráfica principal..."
 
-#: ../src/bluefish.c:206
+#: ../src/bluefish.c:207
 msgid "showing main gui..."
 msgstr "mostrando interface gráfica principal"
 
 # src/callbacks.c:433
-#: ../src/bluefish.c:220
+#: ../src/bluefish.c:221
 msgid "Bluefish tip:"
 msgstr "Dica do Bluefish:"
 
-#: ../src/bluefish.c:220
+#: ../src/bluefish.c:221
 msgid ""
 "This message is shown since you do not have any items in the Quickbar.\n"
 "\n"
@@ -327,14 +415,14 @@ msgstr ""
 "Essa mensagem é mostrada porque você não tem nenhum item na Barra Rápida.\n"
 "\n"
 "Se você clicar com o botão direito na barra de ferramentas HTML você pode "
-"adicionar butões na Barra Rápida."
+"adicionar botões na Barra Rápida."
 
 # src/html.c:893 src/html.c:1244 src/html.c:1358 src/html_form.c:156
 # src/html_form.c:175 src/html_form.c:208 src/html_form.c:252
 # src/html_form.c:291 src/html_form.c:342 src/html_form.c:387
 # src/html_form.c:432 src/images.c:247 src/wml.c:167 src/wml.c:207
 # src/wml.c:323
-#: ../src/bookmark.c:440 ../src/html.c:576 ../src/html.c:796
+#: ../src/bookmark.c:459 ../src/html.c:576 ../src/html.c:796
 #: ../src/html.c:1389 ../src/html.c:1817 ../src/html_form.c:231
 #: ../src/html_form.c:596 ../src/html_form.c:795 ../src/html_form.c:890
 #: ../src/image.c:280
@@ -342,125 +430,121 @@ msgid "_Name:"
 msgstr "Nome:"
 
 # src/toolbars.c:427
-#: ../src/bookmark.c:445
+#: ../src/bookmark.c:464
 msgid "_Description:"
 msgstr "_Descrição:"
 
-#: ../src/bookmark.c:461
-#, fuzzy, c-format
+#: ../src/bookmark.c:480
+#, c-format
 msgid "You already have a bookmark named %s!"
-msgstr "Você já possue um bookmark aqui!"
+msgstr "Você já possue um bookmark nomeado %s!"
 
 # src/document.c:1004
-#: ../src/bookmark.c:537
-#, fuzzy, c-format
+#: ../src/bookmark.c:556
+#, c-format
 msgid "Could not find the file \"%s\"."
-msgstr ""
-"Não foi possível escrever o arquivo:\n"
-"\""
+msgstr "Não foi possível encontrar o arquivo \"%s\"."
 
-#: ../src/bookmark.c:538
+#: ../src/bookmark.c:557
 msgid "This bookmark is set in a file that no longer exists."
-msgstr ""
+msgstr "Esse bookmark está configurado em um arquivo que não existe mais."
 
-#: ../src/bookmark.c:542
+#: ../src/bookmark.c:561
 msgid "Bookmarked file is closed"
 msgstr "Arquivo de bookmark está fechado"
 
 # src/document.c:1465
-#: ../src/bookmark.c:542
+#: ../src/bookmark.c:561
 msgid "Do you want to open it?"
 msgstr "Você deseja abrir isso?"
 
 # src/document.c:1465
-#: ../src/bookmark.c:584
-#, fuzzy, c-format
+#: ../src/bookmark.c:603
+#, c-format
 msgid "Do you really want to remove %s?"
-msgstr "Você deseja abrir isso?"
-
-#: ../src/bookmark.c:585
-#, fuzzy
-msgid "Delete permanent bookmark."
-msgstr "Adicionar bookmark permanente "
+msgstr "Você realmente deseja remover %s?"
 
 #: ../src/bookmark.c:604
-#, fuzzy
+msgid "Delete permanent bookmark."
+msgstr "Apagar bookmark permanente."
+
+#: ../src/bookmark.c:623
 msgid "Rename permanent bookmark"
-msgstr "Adicionar bookmark permanente "
+msgstr "Renomear bookmark permanente"
 
-#: ../src/bookmark.c:606
-#, fuzzy
+#: ../src/bookmark.c:625
 msgid "Rename temporary bookmark"
-msgstr "Adicionar bookmark temporário"
+msgstr "Renomear bookmark temporário"
 
-#: ../src/bookmark.c:620
+#: ../src/bookmark.c:639
 msgid "Goto bookmark"
 msgstr "Ir para bookmark"
 
-#: ../src/bookmark.c:627
+#: ../src/bookmark.c:646
 msgid "Rename"
 msgstr "Renomear"
 
 # src/stringlist.c:262
-#: ../src/bookmark.c:630
+#: ../src/bookmark.c:649
 msgid "Delete"
 msgstr "Apagar"
 
-#: ../src/bookmark.c:796
+#: ../src/bookmark.c:815
 msgid "Temporary"
 msgstr "Temporário"
 
-#: ../src/bookmark.c:798
+#: ../src/bookmark.c:817
 msgid "Permanent"
 msgstr "Permanente"
 
-#: ../src/bookmark.c:937 ../src/bookmark.c:959 ../src/document.c:1941
+#: ../src/bookmark.c:956 ../src/bookmark.c:978 ../src/document.c:1941
 msgid "Add temporary bookmark"
 msgstr "Adicionar bookmark temporário"
 
-#: ../src/bookmark.c:937 ../src/bookmark.c:1049
+#: ../src/bookmark.c:956 ../src/bookmark.c:1068
 msgid ""
 "Cannot add bookmarks in nameless files.\n"
 "Please, save the file first."
 msgstr ""
+"Não pode adicionar bookmarks em arquivo sem nome.\n"
+"Por favor, salve o arquivo primeiro."
 
-#: ../src/bookmark.c:959
+#: ../src/bookmark.c:978
 msgid "You already have a bookmark here!"
 msgstr "Você já possue um bookmark aqui!"
 
-#: ../src/bookmark.c:1027
+#: ../src/bookmark.c:1046
 msgid "Delete all temporary bookmarks."
 msgstr "Apagar todos bookmarks temporários."
 
-#: ../src/bookmark.c:1027
+#: ../src/bookmark.c:1046
 msgid "Are you sure?"
 msgstr "Você tem certeza?"
 
-#: ../src/bookmark.c:1038
-#, fuzzy
+#: ../src/bookmark.c:1057
 msgid "Delete all permanent bookmarks."
-msgstr "Apagar todos bookmarks temporários."
+msgstr "Apagar todos bookmarks permanentes."
 
-#: ../src/bookmark.c:1038
-#, fuzzy
+#: ../src/bookmark.c:1057
 msgid "Are you REALLY sure?"
-msgstr "Você tem certeza?"
+msgstr "Você REALMENTE tem certeza?"
 
-#: ../src/bookmark.c:1049 ../src/bookmark.c:1052 ../src/document.c:1937
-#, fuzzy
+#: ../src/bookmark.c:1068 ../src/bookmark.c:1071 ../src/document.c:1937
 msgid "Add permanent bookmark"
-msgstr "Adicionar bookmark permanente "
+msgstr "Adicionar bookmark permanente"
 
-#: ../src/bookmark.c:1083
+#: ../src/bookmark.c:1102
 #, c-format
 msgid ""
 "Character count changed in file\n"
 " %s."
 msgstr ""
+"Caractere de contagem mudou no arquivo\n "
+" %s."
 
-#: ../src/bookmark.c:1084
+#: ../src/bookmark.c:1103
 msgid "Bookmarks positions can be incorrect."
-msgstr ""
+msgstr "As posições dos bookmarks estão incorretas."
 
 # src/highlight.c:429 src/interface.c:213 src/menu.c:122
 #: ../src/document.c:253 ../src/gui.c:928 ../src/gui.c:929
@@ -473,47 +557,54 @@ msgstr "/Documento/Destacar sintaxe"
 # src/html_form.c:432 src/images.c:247 src/wml.c:167 src/wml.c:207
 # src/wml.c:323
 #: ../src/document.c:693
-#, fuzzy
 msgid "Name: "
-msgstr "Nome:"
+msgstr "Nome: "
 
 # src/wml.c:315
 #: ../src/document.c:694
-#, fuzzy
 msgid ""
 "\n"
 "Type: "
-msgstr "_Tipo:"
+msgstr ""
+"\n"
+"Tipo: "
 
 # src/configure.c:474
 #: ../src/document.c:695
-#, fuzzy
 msgid ""
 "\n"
 "Encoding: "
-msgstr "Codificação"
+msgstr ""
+"\n"
+"Codificação: "
 
 #: ../src/document.c:698
 msgid ""
 "\n"
 "Size (on disk): "
 msgstr ""
+"\n"
+"Tamanho (no disco): "
 
 #: ../src/document.c:698
 msgid " bytes"
-msgstr ""
+msgstr " bytes"
 
 #: ../src/document.c:703
 msgid ""
 "\n"
 "Permissions: "
 msgstr ""
+"\n"
+"Permissões: "
 
 #: ../src/document.c:709
 msgid ""
 "\n"
 "Last modified: "
 msgstr ""
+"\n"
+"Última modificação: "
 
 # src/document.c:1166
 #: ../src/document.c:735
@@ -543,8 +634,7 @@ msgstr "Abrindo arquivo "
 
 #: ../src/document.c:1549
 msgid "Cannot display file, unknown characters found."
-msgstr ""
-"Não foi possível mostrar o arquivo, caracteres desconhecidos encontrados."
+msgstr "Não foi possível mostrar o arquivo, caracteres desconhecidos encontrados."
 
 # src/snr2.c:651 src/snr2.c:688
 #: ../src/document.c:1925 ../src/snr2.c:1275
@@ -553,13 +643,12 @@ msgstr "Substituir"
 
 #: ../src/document.c:1930
 msgid "Find"
-msgstr ""
+msgstr "Procurar"
 
 # src/configure.c:363
 #: ../src/document.c:1947
-#, fuzzy
 msgid "Edit color"
-msgstr "Editor"
+msgstr "Editar cor"
 
 # src/rpopup.c:328
 #: ../src/document.c:1955
@@ -594,9 +683,8 @@ msgid "File backup failure"
 msgstr "Falha no arquivo de cópia de segurança"
 
 #: ../src/document.c:2138
-#, fuzzy
 msgid "_Continue save in UTF-8"
-msgstr "_Continuar salvamento"
+msgstr "_Continuar salvamento em UTF-8"
 
 #: ../src/document.c:2149
 #, c-format
@@ -606,10 +694,13 @@ msgid ""
 "\n"
 "Continue saving in UTF-8 encoding?"
 msgstr ""
+"Falhou ao converter %s para codificação de caractere %s. Codificação falhou no caractere %s na linha %d coluna %d\n"
+"\n"
+"Continua salvando na codificação UTF-8?"
 
 #: ../src/document.c:2150
 msgid "File encoding conversion failure"
-msgstr ""
+msgstr "Falha na conversão da codificação do arquivo"
 
 # src/document.c:1337
 #: ../src/document.c:2285
@@ -628,7 +719,7 @@ msgstr "Salvar documento como"
 
 # src/document.c:1318 src/document.c:1419 src/interface.c:702
 #: ../src/document.c:2325 ../src/document.c:2339 ../src/document.c:2426
-#: ../src/document.c:3548 ../src/gui.c:1065
+#: ../src/document.c:3548 ../src/gui.c:1064
 msgid "_Cancel"
 msgstr "_Cancelar"
 
@@ -1092,20 +1183,17 @@ msgstr "Selecionar arquivos"
 
 # src/interface.c:758
 #: ../src/gui.c:217
-#, fuzzy
 msgid "Filebrowser"
 msgstr "Navegador de arquivos"
 
 # src/toolbars.c:523
 #: ../src/gui.c:218
-#, fuzzy
 msgid "Function reference"
-msgstr "Editar preferências"
+msgstr "Referência de funções"
 
 #: ../src/gui.c:219
-#, fuzzy
 msgid "Bookmarks"
-msgstr "/_Bookmarks"
+msgstr "Bookmarks"
 
 # src/menu.c:464
 #: ../src/gui.c:244 ../src/menu.c:914
@@ -1349,21 +1437,18 @@ msgstr "Formulário..."
 
 # src/toolbars.c:390
 #: ../src/gui.c:614
-#, fuzzy
 msgid "Input Button..."
 msgstr "Botão de entrada..."
 
 # src/toolbars.c:390
 #: ../src/gui.c:615
-#, fuzzy
 msgid "Input Text..."
-msgstr "Botão de entrada..."
+msgstr "Caixa de texto..."
 
 # src/toolbars.c:383
 #: ../src/gui.c:616
-#, fuzzy
 msgid "Input Hidden..."
-msgstr "Oculto..."
+msgstr "Entrada oculta..."
 
 # src/toolbars.c:386
 #: ../src/gui.c:617
@@ -1372,13 +1457,11 @@ msgstr "Área de Texto..."
 
 # src/toolbars.c:390
 #: ../src/gui.c:618
-#, fuzzy
 msgid "Input Radio Button..."
 msgstr "Botão de opção..."
 
 # src/toolbars.c:393
 #: ../src/gui.c:619
-#, fuzzy
 msgid "Input Check Box..."
 msgstr "Caixa de verificação..."
 
@@ -1399,9 +1482,8 @@ msgstr "Grupo de opção..."
 
 # src/html_form.c:337
 #: ../src/gui.c:623
-#, fuzzy
 msgid "Button..."
-msgstr "Botão"
+msgstr "Botão..."
 
 # src/toolbars.c:405
 #: ../src/gui.c:624
@@ -1679,66 +1761,130 @@ msgstr "/Documento/Número de Linhas"
 
 # src/menu.c:466
 #: ../src/gui.c:933
-#, fuzzy
 msgid "/Document/Auto Close HTML tags"
-msgstr "/Documento/Auto-Indentar"
+msgstr "/Documento/Auto fechamento de tags HTML"
 
-#: ../src/gui.c:1065
+#: ../src/gui.c:1064
 msgid "Do_n't Save"
 msgstr "_Não salvar"
 
-#: ../src/gui.c:1066
+#: ../src/gui.c:1065
 msgid "Failed to save the current project"
 msgstr "Falhou ao salvar o projeto atual"
 
 # src/callbacks.c:433
-#: ../src/gui.c:1090
+#: ../src/gui.c:1089
 msgid "New Bluefish Window"
 msgstr "Nova Janela do bluefish"
 
 # src/toolbars.c:444
-#: ../src/gui.c:1143
+#: ../src/gui.c:1142
 msgid "Stand by..."
 msgstr "Esperar por..."
 
 # src/document.c:822
-#: ../src/gui.c:1327
+#: ../src/gui.c:1326
 msgid "Goto line"
 msgstr "Ir para linha"
 
 # src/document.c:830
-#: ../src/gui.c:1335
+#: ../src/gui.c:1334
 msgid "_Line number:"
 msgstr "Número da _linha:"
 
 # src/configure.c:183
-#: ../src/gui.c:1341
+#: ../src/gui.c:1340
 msgid "From _selection"
 msgstr "Da _seleção"
 
 # src/configure.c:456
-#: ../src/gui.c:1344
+#: ../src/gui.c:1343
 msgid "Keep _dialog"
 msgstr "Manter _diálogo"
 
-#: ../src/gui.c:1413
+#: ../src/gui.c:1412
 msgid "starting bluefish"
 msgstr "iniciando bluefish"
 
 # src/menu.c:463
-#: ../src/gui.c:1439 ../src/menu.c:912
+#: ../src/gui.c:1438 ../src/menu.c:912
 msgid "/View/View HTML Toolbar"
 msgstr "/Exibir/Exibir Barra de Ferramentas HTML"
 
 # src/menu.c:462
-#: ../src/gui.c:1446 ../src/menu.c:911
+#: ../src/gui.c:1445 ../src/menu.c:911
 msgid "/View/View Main Toolbar"
 msgstr "/Exibir/Exibir Barra de Ferramentas Principal"
 
 # src/menu.c:464
-#: ../src/gui.c:1453 ../src/menu.c:913
+#: ../src/gui.c:1452 ../src/menu.c:913
 msgid "/View/View Custom Menu"
 msgstr "/Exibir/Exibir Barra de Ferramentas Personalizada"
+
+# src/configure.c:437
+#: ../src/html2.c:588
+msgid "Cascading StyleSheet dialog"
+msgstr "Diálogo de Cascading StyleSheet"
+
+# src/html_form.c:427
+#: ../src/html2.c:608
+msgid "_Selector:"
+msgstr "_Seletor:"
+
+# src/menu.c:135
+#: ../src/html2.c:627
+msgid "_Property:"
+msgstr "_Propriedade:"
+
+# src/html_form.c:160 src/html_form.c:179 src/html_form.c:256
+# src/html_form.c:295 src/html_form.c:346 src/html_form.c:391
+# src/html_form.c:476 src/wml.c:171 src/wml.c:211
+#: ../src/html2.c:629 ../src/html_form.c:650 ../src/html_form.c:799
+#: ../src/html_form.c:894
+msgid "_Value:"
+msgstr "_Valor:"
+
+# src/html_form.c:427
+#: ../src/html2.c:647
+msgid "Selector"
+msgstr "Seletor"
+
+# src/menu.c:135
+#: ../src/html2.c:647 ../src/html2.c:650
+msgid "Property"
+msgstr "Propriedade"
+
+# src/html_form.c:160 src/html_form.c:179 src/html_form.c:256
+# src/html_form.c:295 src/html_form.c:346 src/html_form.c:391
+# src/html_form.c:476 src/wml.c:171 src/wml.c:211
+#: ../src/html2.c:647 ../src/html2.c:650
+msgid "Value"
+msgstr "Valor"
+
+# src/stringlist.c:258
+#: ../src/html2.c:665
+msgid " _Add "
+msgstr " _Adicionar "
+
+# src/stringlist.c:260
+#: ../src/html2.c:668
+msgid " _Update "
+msgstr " Atualizar "
+
+# src/stringlist.c:262
+#: ../src/html2.c:671
+msgid " _Delete "
+msgstr " Apagar "
+
+# src/html.c:905 src/html.c:1317 src/toolbars.c:452
+#: ../src/html2.c:927 ../src/html2.c:964
+msgid "_Style..."
+msgstr "E_stilo..."
+
+# src/project.c:56
+#: ../src/html2.c:1121
+msgid "Bluefish: Select color"
+msgstr "Bluefish: Selecionar cor"
 
 # src/toolbars.c:519
 #: ../src/html.c:356
@@ -1815,9 +1961,8 @@ msgid "Quick Anchor"
 msgstr "Âncora Rápida"
 
 #: ../src/html.c:554 ../src/html_form.c:780
-#, fuzzy
 msgid "Attributes"
-msgstr "Atributos/Parâmetros"
+msgstr "Atributos"
 
 # src/html.c:885 src/wml.c:250
 #: ../src/html.c:568
@@ -2207,33 +2352,30 @@ msgstr "Link"
 
 # src/html.c:1235 src/toolbars.c:361
 #: ../src/html.c:2032
-#, fuzzy
 msgid "_Href:"
-msgstr "_Frame:"
+msgstr "_Href:"
 
 #: ../src/html.c:2038
 msgid "Href_lang:"
-msgstr ""
+msgstr "Href_lang:"
 
 #: ../src/html.c:2052
 msgid "_Forward Relation:"
-msgstr ""
+msgstr "Relação adiante:"
 
 #: ../src/html.c:2056
 msgid "_Reverse Relation:"
-msgstr ""
+msgstr "_Relação reversa:"
 
 # src/html.c:1345
 #: ../src/html.c:2067
-#, fuzzy
 msgid "Media:"
-msgstr "Meta"
+msgstr "Mídia:"
 
 # src/html.c:909
 #: ../src/html.c:2071
-#, fuzzy
 msgid "L_ang:"
-msgstr "Idioma:"
+msgstr "Idiom_a:"
 
 # src/html.c:913 src/html.c:1021 src/html.c:1097 src/html.c:1154
 # src/html.c:1206 src/html.c:1288 src/html.c:1377 src/html_form.c:140
@@ -2242,74 +2384,8 @@ msgstr "Idioma:"
 # src/html_table.c:108 src/html_table.c:159 src/html_table.c:232
 # src/html_table.c:306 src/images.c:256
 #: ../src/html.c:2075
-#, fuzzy
 msgid "_Custom:"
 msgstr "Personalizado:"
-
-# src/configure.c:437
-#: ../src/html2.c:588
-msgid "Cascading StyleSheet dialog"
-msgstr "Diálogo de Cascading StyleSheet"
-
-# src/html_form.c:427
-#: ../src/html2.c:608
-msgid "_Selector:"
-msgstr "_Seletor:"
-
-# src/menu.c:135
-#: ../src/html2.c:627
-msgid "_Property:"
-msgstr "_Propriedade:"
-
-# src/html_form.c:160 src/html_form.c:179 src/html_form.c:256
-# src/html_form.c:295 src/html_form.c:346 src/html_form.c:391
-# src/html_form.c:476 src/wml.c:171 src/wml.c:211
-#: ../src/html2.c:629 ../src/html_form.c:650 ../src/html_form.c:799
-#: ../src/html_form.c:894
-msgid "_Value:"
-msgstr "_Valor:"
-
-# src/html_form.c:427
-#: ../src/html2.c:647
-msgid "Selector"
-msgstr "Seletor"
-
-# src/menu.c:135
-#: ../src/html2.c:647 ../src/html2.c:650
-msgid "Property"
-msgstr "Propriedade"
-
-# src/html_form.c:160 src/html_form.c:179 src/html_form.c:256
-# src/html_form.c:295 src/html_form.c:346 src/html_form.c:391
-# src/html_form.c:476 src/wml.c:171 src/wml.c:211
-#: ../src/html2.c:647 ../src/html2.c:650
-msgid "Value"
-msgstr "Valor"
-
-# src/stringlist.c:258
-#: ../src/html2.c:665
-msgid " _Add "
-msgstr " _Adicionar "
-
-# src/stringlist.c:260
-#: ../src/html2.c:668
-msgid " _Update "
-msgstr " Atualizar "
-
-# src/stringlist.c:262
-#: ../src/html2.c:671
-msgid " _Delete "
-msgstr " Apagar "
-
-# src/html.c:905 src/html.c:1317 src/toolbars.c:452
-#: ../src/html2.c:927 ../src/html2.c:964
-msgid "_Style..."
-msgstr "E_stilo..."
-
-# src/project.c:56
-#: ../src/html2.c:1121
-msgid "Bluefish: Select color"
-msgstr "Bluefish: Selecionar cor"
 
 # src/html_form.c:110
 #: ../src/html_form.c:141
@@ -2374,13 +2450,12 @@ msgstr "Grupo de Opções"
 
 #: ../src/html_form.c:775
 msgid "Input"
-msgstr ""
+msgstr "Entrada"
 
 # src/html_form.c:351 src/html_form.c:396
 #: ../src/html_form.c:803
-#, fuzzy
 msgid "_Checked:"
-msgstr "Verificado:"
+msgstr "Verifi_cado:"
 
 # src/html_form.c:307
 #: ../src/html_form.c:812
@@ -2389,9 +2464,8 @@ msgstr "Comprimento Máximo:"
 
 # src/html_form.c:115
 #: ../src/html_form.c:816
-#, fuzzy
 msgid "_Accept:"
-msgstr "_Ação:"
+msgstr "_Aceitar:"
 
 # src/html.c:913 src/html.c:1021 src/html.c:1097 src/html.c:1154
 # src/html.c:1206 src/html.c:1288 src/html.c:1377 src/html_form.c:140
@@ -2400,30 +2474,26 @@ msgstr "_Ação:"
 # src/html_table.c:108 src/html_table.c:159 src/html_table.c:232
 # src/html_table.c:306 src/images.c:256
 #: ../src/html_form.c:820
-#, fuzzy
 msgid "C_ustom:"
 msgstr "Personalizado:"
 
 # src/html.c:946
 #: ../src/html_form.c:832
-#, fuzzy
 msgid "On_Focus:"
-msgstr "OnMouse_Up:"
+msgstr "On_Focus:"
 
 #: ../src/html_form.c:836
 msgid "On_Blur:"
-msgstr ""
+msgstr "On_Blur:"
 
 # src/html_form.c:427
 #: ../src/html_form.c:840
-#, fuzzy
 msgid "On_Select:"
-msgstr "_Seletor:"
+msgstr "On_Select:"
 
 #: ../src/html_form.c:844
-#, fuzzy
 msgid "On_Change:"
-msgstr "Mudar para:"
+msgstr "On_Change:"
 
 # src/html_form.c:337
 #: ../src/html_form.c:884
@@ -2607,9 +2677,8 @@ msgstr "/Arquivo/Abrir..."
 
 # src/menu.c:74
 #: ../src/menu.c:320
-#, fuzzy
 msgid "/File/Open recen_t"
-msgstr "/Arquivo/Abrir recente"
+msgstr "/Arquivo/Abrir recen_te"
 
 # src/menu.c:74
 #: ../src/menu.c:321
@@ -2648,9 +2717,8 @@ msgstr "/Arquivo/S_alvar Como..."
 
 # src/menu.c:80
 #: ../src/menu.c:334
-#, fuzzy
 msgid "/File/Sav_e All"
-msgstr "/Arquivo/Sal_var Todos"
+msgstr "/Arquivo/Salvar Todos"
 
 # src/menu.c:79
 #: ../src/menu.c:335
@@ -2784,9 +2852,8 @@ msgstr "/Editar/Substituir Novamente"
 
 # src/menu.c:100
 #: ../src/menu.c:363
-#, fuzzy
 msgid "/Edit/Replace special"
-msgstr "/Editar/Substituir e_special"
+msgstr "/Editar/Substituir especial"
 
 # src/menu.c:102
 #: ../src/menu.c:364
@@ -3749,9 +3816,8 @@ msgstr "/Tags/Lista/tearoff1"
 
 # src/menu.c:367
 #: ../src/menu.c:559
-#, fuzzy
 msgid "/Tags/List/Unordered _List"
-msgstr "/Tags/Lista/Lista Desordenada"
+msgstr "/Tags/Lista/_Lista Desordenada"
 
 # src/menu.c:368
 #: ../src/menu.c:560
@@ -3760,15 +3826,13 @@ msgstr "/Tags/Lista/Lista Ordenada"
 
 # src/menu.c:369
 #: ../src/menu.c:561
-#, fuzzy
 msgid "/Tags/List/List Ite_m"
-msgstr "/Tags/Lista/Item da Lista"
+msgstr "/Tags/Lista/Ite_m da Lista"
 
 # src/menu.c:370
 #: ../src/menu.c:562
-#, fuzzy
 msgid "/Tags/List/De_finition List"
-msgstr "/Tags/Lista/_Lista de Definição"
+msgstr "/Tags/Lista/Lista de De_finição"
 
 # src/menu.c:371
 #: ../src/menu.c:563
@@ -3777,15 +3841,13 @@ msgstr "/Tags/Lista/_Termo de Definição"
 
 # src/menu.c:372
 #: ../src/menu.c:564
-#, fuzzy
 msgid "/Tags/List/_Definition"
-msgstr "/Tags/Lista/Definição"
+msgstr "/Tags/Lista/_Definição"
 
 # src/menu.c:373
 #: ../src/menu.c:565
-#, fuzzy
 msgid "/Tags/List/Men_u"
-msgstr "/Tags/Lista/_Menu"
+msgstr "/Tags/Lista/Men_u"
 
 # src/menu.c:376
 #: ../src/menu.c:566
@@ -3999,21 +4061,18 @@ msgstr "/Diálogos/Formulário/F_ormulário..."
 
 # src/menu.c:423
 #: ../src/menu.c:610
-#, fuzzy
 msgid "/Dialogs/Form/_Input..."
-msgstr "/Diálogos/Formulário/Botão de entrada"
+msgstr "/Diálogos/Formulário/Botão de entrada..."
 
 # src/menu.c:423
 #: ../src/menu.c:611
-#, fuzzy
 msgid "/Dialogs/Form/Input Buttons..."
-msgstr "/Diálogos/Formulário/Botão de entrada"
+msgstr "/Diálogos/Formulário/Botão de entrada..."
 
 # src/menu.c:420
 #: ../src/menu.c:612
-#, fuzzy
 msgid "/Dialogs/Form/Input Text..."
-msgstr "/Diálogos/Formulário/_Texto..."
+msgstr "/Diálogos/Formulário/Caixa de entrada..."
 
 # src/menu.c:422
 #: ../src/menu.c:613
@@ -4037,19 +4096,17 @@ msgstr "/Diálogos/Formulário/_Grupo de opção"
 
 # src/menu.c:423
 #: ../src/menu.c:617
-#, fuzzy
 msgid "/Dialogs/Form/_Button..."
-msgstr "/Diálogos/Formulário/Botão de entrada"
+msgstr "/Diálogos/Formulário/_Botão..."
 
 # src/menu.c:378
 #: ../src/menu.c:644
-#, fuzzy
 msgid "/Dialogs/sep1"
-msgstr "/Diálogos/tearoff1"
+msgstr "/Diálogos/sep1"
 
 #: ../src/menu.c:645
 msgid "/Dialogs/_Edit tag under cursor..."
-msgstr ""
+msgstr "/Diálogos//_Editar tag sob o cursor..."
 
 # src/configure.c:428 src/interface.c:783 src/interface.c:936
 #: ../src/menu.c:646
@@ -4083,9 +4140,8 @@ msgstr "/Documento/sep1"
 
 # src/menu.c:466
 #: ../src/menu.c:652
-#, fuzzy
 msgid "/Document/Auto Close H_TML tags"
-msgstr "/Documento/Auto-Indentar"
+msgstr "/Documento/Auto fechamento de tags H_TML"
 
 #: ../src/menu.c:653
 msgid "/Document/_Wrap"
@@ -4118,9 +4174,8 @@ msgstr "/Documento/sep3"
 
 # src/html_form.c:132 src/wml.c:271
 #: ../src/menu.c:659
-#, fuzzy
 msgid "/Document/Document Ty_pe"
-msgstr "/Documento/Tipo do Documento"
+msgstr "/Documento/Ti_po do Documento"
 
 # src/menu.c:136
 #: ../src/menu.c:660
@@ -4291,11 +4346,11 @@ msgstr "/Externo/tearoff1"
 
 #: ../src/menu.c:705
 msgid "/_Help"
-msgstr ""
+msgstr "/Ajuda"
 
 #: ../src/menu.c:706
 msgid "/Help/_About..."
-msgstr ""
+msgstr "/Ajuda/Sobre..."
 
 # src/html_form.c:132 src/wml.c:271
 #: ../src/menu.c:868
@@ -4574,7 +4629,7 @@ msgstr "Conteúdo"
 
 #: ../src/preferences.c:591
 msgid "Auto close tags mode"
-msgstr ""
+msgstr "Modo de auto fechamento de tags"
 
 # src/interface.c:758
 #: ../src/preferences.c:739 ../src/preferences.c:773
@@ -5062,7 +5117,7 @@ msgid "Directory icon"
 msgstr "Icone de diretório"
 
 # src/configure.c:427 src/interface.c:777 src/interface.c:934
-#: ../src/preferences.c:1977 ../src/rcfile.c:576
+#: ../src/preferences.c:1977 ../src/rcfile.c:589
 msgid "Images"
 msgstr "imagens"
 
@@ -5127,59 +5182,58 @@ msgstr "Caixa de Saída"
 
 #: ../src/preferences.c:2047
 msgid "Servers"
-msgstr ""
+msgstr "Servidores"
 
 # src/document.c:1798
 #: ../src/preferences.c:2049
-#, fuzzy
 msgid "Remote servers"
-msgstr "Diretório _Remoto:"
+msgstr "Servidores remotos"
 
 #: ../src/preferences.c:2054
 msgid "Zope compatibility mode"
-msgstr ""
+msgstr "Modo de compatibilidade com Zope"
 
 # src/document.c:1798
-#: ../src/project.c:62
+#: ../src/project.c:76
 msgid "New project"
 msgstr "Novo projeto"
 
 # src/document.c:1347 src/document.c:1547
-#: ../src/project.c:112
+#: ../src/project.c:126
 msgid "Enter Bluefish project filename"
 msgstr "Digitar nome do projeto Bluefish"
 
-#: ../src/project.c:136
+#: ../src/project.c:150
 msgid "/Project/Save"
 msgstr "/Projeto/Salvar"
 
-#: ../src/project.c:137
+#: ../src/project.c:151
 msgid "/Project/Save as..."
 msgstr "/Projeto/Salvar como..."
 
-#: ../src/project.c:138
+#: ../src/project.c:152
 msgid "/Project/Close & save"
 msgstr "/Projeto/Fechar & Salvar"
 
-#: ../src/project.c:139
+#: ../src/project.c:153
 msgid "/Project/Edit Project Options..."
 msgstr "/Projeto/Editar Opções do Projeto..."
 
 # src/document.c:1347 src/document.c:1547
-#: ../src/project.c:194
+#: ../src/project.c:208
 msgid "Select Bluefish project filename"
 msgstr "Selecionar nome do projeto Bluefish"
 
-#: ../src/project.c:327
+#: ../src/project.c:341
 msgid "Create New Project"
 msgstr "Criar Novo Projeto"
 
 # src/toolbars.c:523
-#: ../src/project.c:330
+#: ../src/project.c:344
 msgid "Edit Project"
 msgstr "Editar Projeto"
 
-#: ../src/project.c:353
+#: ../src/project.c:367
 #, c-format
 msgid "This project contains %d files"
 msgstr "Este projeto contém %d arquivos"
@@ -5189,117 +5243,115 @@ msgstr "Este projeto contém %d arquivos"
 # src/html_form.c:291 src/html_form.c:342 src/html_form.c:387
 # src/html_form.c:432 src/images.c:247 src/wml.c:167 src/wml.c:207
 # src/wml.c:323
-#: ../src/project.c:365
+#: ../src/project.c:379
 msgid "Project _Name:"
 msgstr "_Nome do Projeto:"
 
 # src/project.c:202
-#: ../src/project.c:369
-#, fuzzy
+#: ../src/project.c:383
 msgid "_Basedir:"
-msgstr "Diretóriobase:"
+msgstr "Diretório_base:"
 
 # src/images.c:188
-#: ../src/project.c:373
-#, fuzzy
+#: ../src/project.c:387
 msgid "_Preview URL:"
-msgstr "Previsualizar"
+msgstr "_Pré-visualizar URL:"
 
 # src/snr2.c:651 src/snr2.c:688
-#: ../src/project.c:377
+#: ../src/project.c:391
 msgid "_Template:"
 msgstr "Modelo:"
 
 # src/configure.c:350
-#: ../src/project.c:383
+#: ../src/project.c:397
 msgid "_Word wrap by default"
 msgstr "Justificar palavras por padrão"
 
-#: ../src/project.c:394
+#: ../src/project.c:408
 msgid "Create _Project"
 msgstr "Criar _Projeto"
 
-#: ../src/project.c:434
+#: ../src/project.c:448
 msgid "Create project"
 msgstr "Criar Projeto"
 
-#: ../src/project.c:438
+#: ../src/project.c:452
 msgid "Create project with currently opened documents"
 msgstr "Criar projeto com os documentos atualmente abertos"
 
-#: ../src/project.c:439
+#: ../src/project.c:453
 msgid "Create empty project"
 msgstr "Criar projeto vazio"
 
-#: ../src/rcfile.c:502
+#: ../src/rcfile.c:515
 msgid "Galeon"
 msgstr "Galeon"
 
-#: ../src/rcfile.c:504
+#: ../src/rcfile.c:517
 msgid "Mozilla"
 msgstr "Mozilla"
 
 # src/toolbars.c:96
-#: ../src/rcfile.c:506
+#: ../src/rcfile.c:519
 msgid "Opera"
 msgstr "Opera"
 
 # src/toolbars.c:512
-#: ../src/rcfile.c:508
+#: ../src/rcfile.c:521
 msgid "Netscape"
 msgstr "Netscape"
 
 # src/document.c:830
-#: ../src/rcfile.c:510
+#: ../src/rcfile.c:523
 msgid "Gnome default"
 msgstr "Padrão Gnome"
 
 # src/configure.c:427 src/interface.c:777 src/interface.c:934
-#: ../src/rcfile.c:534
+#: ../src/rcfile.c:547
 msgid "make"
 msgstr "make"
 
-#: ../src/rcfile.c:535
+#: ../src/rcfile.c:548
 msgid "weblint HTML checker"
 msgstr "verificador HTML weblint"
 
-#: ../src/rcfile.c:536
+#: ../src/rcfile.c:549
 msgid "tidy HTML validator"
 msgstr "validador HTML tidy"
 
-#: ../src/rcfile.c:537
+#: ../src/rcfile.c:550
 msgid "javac"
 msgstr "javac"
 
-#: ../src/rcfile.c:543
+#: ../src/rcfile.c:556
 msgid "Dos2Unix filter"
 msgstr "Filtro Dos2Unix"
 
 # src/interface.c:758
-#: ../src/rcfile.c:545
+#: ../src/rcfile.c:558
 msgid "Tidy cleanup filter"
 msgstr "Filtro de limpeza Tidy"
 
-#: ../src/rcfile.c:570
+#: ../src/rcfile.c:583
 msgid "C programming"
 msgstr "Programação C"
 
 # src/configure.c:426 src/init.c:710 src/interface.c:771 src/interface.c:932
-#: ../src/rcfile.c:572
+#: ../src/rcfile.c:585
 msgid "All web files"
 msgstr "Todos os arquivos web"
 
-#: ../src/rcfile.c:574
+#: ../src/rcfile.c:587
 msgid "Java programming"
 msgstr "Programação Java"
 
 # src/bluefish.c:617
-#: ../src/rcfile.c:578
+#: ../src/rcfile.c:591
 msgid "Hide objectfiles"
 msgstr "Ocultar arquivos objeto"
 
 # src/document.c:1166
-#: ../src/rcfile.c:853
+#: ../src/rcfile.c:882
 msgid "Untitled Project"
 msgstr "Projeto Sem título"
 
@@ -5549,114 +5601,3 @@ msgstr "Código Fonte:"
 msgid "Size:"
 msgstr "Tamanho:"
 
-#~ msgid "Show all bookmarks"
-#~ msgstr "Mostrar todos bookmarks"
-
-# src/configure.c:360
-#~ msgid "Show bookmarks for opened files"
-#~ msgstr "Mostrar bookmarks para arquivos abertos"
-
-#~ msgid "Show bookmarks for active file"
-#~ msgstr "Mostrar bookmarks para arquivos ativos"
-
-#~ msgid "You can overwrite next temp bookmark (number %d). Overwrite?"
-#~ msgstr ""
-#~ "Você pode sobrescrever o próximo bookmark temporário (número %d). "
-#~ "Sobrescrever?"
-
-#~ msgid "Maximum number of temp bookmarks assigned"
-#~ msgstr "Número máximo de bookmarks temporários atribuídos"
-
-# src/toolbars.c:381
-#~ msgid "Text..."
-#~ msgstr "Texto..."
-
-# src/snr2.c:651 src/snr2.c:688
-#~ msgid "_Rel:"
-#~ msgstr "_Relacionar:"
-
-# src/coloursel.c:202
-#~ msgid "_websafe"
-#~ msgstr "_websegura"
-
-# src/html_form.c:286 src/html_form.c:480
-#~ msgid "Text"
-#~ msgstr "Texto"
-
-# src/html_form.c:247
-#~ msgid "Hidden"
-#~ msgstr "Oculto"
-
-# src/html_form.c:337
-#~ msgid "Radio Button"
-#~ msgstr "Botão de Opção"
-
-# src/html_form.c:382
-#~ msgid "Check Box"
-#~ msgstr "Caixa de Verificação"
-
-# src/menu.c:74
-#~ msgid "/File/Open r_ecent"
-#~ msgstr "/Arquivo/Abrir r_ecente"
-
-# src/menu.c:421
-#~ msgid "/Dialogs/Form/_Hidden..."
-#~ msgstr "/Diálogos/Formulário/Oculto..."
-
-# src/menu.c:423
-#~ msgid "/Dialogs/Form/Radio _Buttons..."
-#~ msgstr "/Diálogos/Formulário/Botão de opção..."
-
-# src/menu.c:424
-#~ msgid "/Dialogs/Form/_Check Buttons..."
-#~ msgstr "/Diálogos/Formulário/Botão de Verifi_cação..."
-
-#~ msgid "Extensions (colon separated)"
-#~ msgstr "Extensões (seperado por dois pontos)"
-
-#~ msgid "Highlight update characters"
-#~ msgstr "Destacar caracteres atualizados"
-
-# src/html2.c:809
-#~ msgid "Content regex pattern"
-#~ msgstr "Padrão do conteúdo"
-
-#, fuzzy
-#~ msgid "Rename temporary"
-#~ msgstr "Temporário"
-
-#, fuzzy
-#~ msgid "Rename permanent"
-#~ msgstr "Permanente"
-
-#~ msgid "Add permanent bookmark "
-#~ msgstr "Adicionar bookmark permanente "
-
-# src/html_form.c:132 src/wml.c:271
-#~ msgid "/Document/Document _Type"
-#~ msgstr "/Documento/_Tipo do Documento"
-
-# src/document.c:1798
-#~ msgid "_Local Directory:"
-#~ msgstr "Diretório _Local:"
-
-# src/configure.c:360
-#~ msgid "Show bookmarks for project files"
-#~ msgstr "Mostrar bookmarks para arquivos de projeto"
-
-#~ msgid "Input _Methods"
-#~ msgstr "_Métodos de entrada"
-
-#~ msgid "/Bookmarks/Delete _All"
-#~ msgstr "/Bookmarks/Apagar Todos"
-
-# src/snr2.c:685
-#~ msgid "posix regular expressions"
-#~ msgstr "expressões regulares posix"
-
-# src/snr2.c:685
-#~ msgid "perl regular expressions"
-#~ msgstr "expressões regulares perl"
-
-#~ msgid "Always highlight full document"
-#~ msgstr "Sempre destacar todo o documento"
