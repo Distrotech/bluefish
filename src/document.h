@@ -44,7 +44,7 @@ void gui_change_tabsize(Tbfwin *bfwin,guint action,GtkWidget *widget);
 
 gboolean doc_is_empty_non_modified_and_nameless(Tdocument *doc);
 gboolean test_docs_modified(GList *doclist);
-gboolean test_only_empty_doc_left();
+gboolean test_only_empty_doc_left(GList *doclist);
 
 gboolean doc_has_selection(Tdocument *doc);
 void doc_set_modified(Tdocument *doc, gint value);

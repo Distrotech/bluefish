@@ -236,6 +236,7 @@ typedef struct {
 } Tproperties;
 
 typedef struct {
+	gchar *filename;
 	gchar *name;
 	GList *files;
 	gchar *basedir;
