@@ -37,8 +37,22 @@
 #define DIRSTR "/"
 #define DIRCHR '/'
 #endif
+
 /**
- * get_filename_on_disk_encoding
+ * uri_to_document_filename:
+ *
+ */
+gchar *uri_to_document_filename(GnomeVFSURI *uri) {
+	if (gnome_vfs_uri_is_local(uri)) {
+		return gnome_vfs_uri_to_string(uri, GNOME_VFS_URI_HIDE_TOPLEVEL_METHOD);
+	} else {
+		return gnome_vfs_uri_to_string(uri, GNOME_VFS_URI_HIDE_PASSWORD);
+	}
+}
+
+
+/**
+ * get_filename_on_disk_encoding:
  *
  * if gnome_vfs is defined, this function will also escape local paths
  * to make sure we can open files with a # in their name
