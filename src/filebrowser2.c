@@ -887,7 +887,8 @@ static void handle_activate_on_file(Tfilebrowser2 *fb2, GnomeVFSURI *uri) {
 	ft = get_filetype_by_filename_and_content(filename, NULL);
 	DEBUG_MSG("handle_activate_on_file, file %s has type %p\n",filename, ft);
 	if (ft == NULL || ft->editable) {
-		doc_new_with_file(fb2->bfwin,filename, FALSE, FALSE);
+		/* doc_new_with_file(fb2->bfwin,filename, FALSE, FALSE); */
+		file_doc_from_uri(fb2->bfwin, uri, NULL);
 	} else if (strcmp(ft->type, "webimage")==0 || strcmp(ft->type, "image")==0) {
 		gchar *relfilename = create_relative_link_to(fb2->bfwin->current_document->filename, filename);
 		image_insert_from_filename(fb2->bfwin,relfilename);
