@@ -21,9 +21,9 @@
  * indenting is done with
  * indent --line-length 100 --k-and-r-style --tab-size 4 -bbo --ignore-newlines highlight.c
  */
-#define HL_TIMING
+/*#define HL_TIMING
 #define HL_DEBUG
-#define DEBUG
+#define DEBUG*/
 
 #ifdef HL_TIMING
 #include <sys/times.h>
