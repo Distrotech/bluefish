@@ -128,6 +128,7 @@ typedef struct {
 	gboolean wrapstate; /* does this document use wrap?*/
 	gboolean linenumberstate; /* does this document use linenumbers? */
 	gboolean overwrite_mode; /* is document in overwrite mode */
+	gpointer floatingview; /* a 2nd textview widget that has its own window */
 	gpointer bfwin;
 } Tdocument;
 

@@ -50,6 +50,12 @@
 #include "snr2.h" /* snr2_run_extern_replace */
 #include "filebrowser.h"
 
+typedef struct {
+	GtkWidget *textview;
+	GtkWidget *window;
+} Tfloatingview;
+#define FLOATINGVIEW(var) ((Tfloatingview *)(var))
+
 /**
  * return_allwindows_documentlist:
  *
@@ -1695,6 +1701,10 @@ void doc_destroy(Tdocument * doc, gboolean delay_activation) {
 		main_v->documentlist = NULL;
 		DEBUG_MSG("doc_destroy, documentlist = NULL\n");
 	}*/
+	if (doc->floatingview) {
+		gtk_widget_destroy(FLOATINGVIEW(doc->floatingview)->window);
+		doc->floatingview = NULL;
+	}
 	bfwin->documentlist = g_list_remove(bfwin->documentlist, doc);
 	DEBUG_MSG("removed %p from documentlist, list %p length=%d\n",doc
 			, bfwin->documentlist
@@ -3155,4 +3165,43 @@ GList *list_relative_document_filenames(Tdocument *curdoc) {
 		tmplist = g_list_next(tmplist);
 	}
 	return retlist;
+}
+
+static void floatingview_destroy_lcb(GtkWidget *widget, Tdocument *doc) {
+	DEBUG_MSG("floatingview_destroy_lcb, called for doc=%p, doc->floatingview=%p\n",doc,doc->floatingview);
+	if (doc->floatingview) {
+		gtk_widget_destroy(FLOATINGVIEW(doc->floatingview)->window);
+		g_free(doc->floatingview);
+		doc->floatingview = NULL;
+	}
+}
+
+static void new_floatingview(Tdocument *doc) {
+	Tfloatingview *fv;
+	gchar *title;
+	GtkWidget *scrolwin;
+	if (doc->floatingview) {
+		fv = FLOATINGVIEW(doc->floatingview);
+		gtk_window_present(GTK_WINDOW(fv->window));
+		return;
+	} 
+	fv = g_new(Tfloatingview,1);
+	doc->floatingview = fv;
+	DEBUG_MSG("new_floatingview for doc=%p is at %p\n",doc,doc->floatingview);
+	title = (doc->filename) ? doc->filename : "Untitled";
+	fv->window = window_full2(title, GTK_WIN_POS_NONE, 5, G_CALLBACK(floatingview_destroy_lcb), doc, TRUE, NULL);
+
+	fv->textview = gtk_text_view_new_with_buffer(doc->buffer);
+	apply_font_style(fv->textview, main_v->props.editor_font_string);
+	gtk_text_view_set_wrap_mode(GTK_TEXT_VIEW(fv->textview), GTK_WRAP_WORD);
+	scrolwin = gtk_scrolled_window_new(NULL, NULL);
+	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolwin), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
+	gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(scrolwin), fv->textview);
+	gtk_container_add(GTK_CONTAINER(fv->window),scrolwin);
+	gtk_widget_set_size_request(scrolwin, 800, 600);
+	gtk_widget_show_all(fv->window);
+}
+
+void file_floatingview_menu_cb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget) {
+	new_floatingview(bfwin->current_document);
 }
