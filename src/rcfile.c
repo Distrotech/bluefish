@@ -515,15 +515,15 @@ void rcfile_parse_main(void)
 	if (main_v->props.browsers == NULL) {
 		/* if the user does not have browsers --> set them to defaults values */
 		gchar **arr;
-		arr = array_from_arglist("Galeon", "galeon -x %s&",NULL);
+		arr = array_from_arglist(_("Galeon"), "galeon -x %s&",NULL);
 		main_v->props.browsers = g_list_append(main_v->props.browsers,arr);
-		arr = array_from_arglist("Mozilla", "mozilla -remote 'openURL(%s, new-window)' || mozilla %s&",NULL);
+		arr = array_from_arglist(_("Mozilla"), "mozilla -remote 'openURL(%s, new-window)' || mozilla %s&",NULL);
 		main_v->props.browsers = g_list_append(main_v->props.browsers,arr);
-		arr = array_from_arglist("Opera", "opera -remote 'openURL(%s,new-window)' || opera %s&",NULL);
+		arr = array_from_arglist(_("Opera"), "opera -remote 'openURL(%s,new-window)' || opera %s&",NULL);
 		main_v->props.browsers = g_list_append(main_v->props.browsers,arr);
-		arr = array_from_arglist("Netscape", "/usr/lib/netscape/477/communicator/communicator-smotif %s&",NULL);
+		arr = array_from_arglist(_("Netscape"), "/usr/lib/netscape/477/communicator/communicator-smotif %s&",NULL);
 		main_v->props.browsers = g_list_append(main_v->props.browsers,arr);
-		arr = array_from_arglist("Gnome default", "gnome-moz-remote --newwin %s&",NULL);
+		arr = array_from_arglist(_("Gnome default"), "gnome-moz-remote --newwin %s&",NULL);
 		main_v->props.browsers = g_list_append(main_v->props.browsers,arr);
 	}
 	if (main_v->props.encodings == NULL) {
@@ -552,18 +552,18 @@ void rcfile_parse_main(void)
 	}
 	if (main_v->props.outputbox==NULL) {
 		/* if the user does not have outputbox settings --> set them to defaults values */
-		main_v->props.outputbox = g_list_append(main_v->props.outputbox,array_from_arglist("make","([a-zA-Z0-9/_.-]+):([0-9]+):(.*)","1","2","3","make","1",NULL));
-		main_v->props.outputbox = g_list_append(main_v->props.outputbox,array_from_arglist("weblint HTML checker","([a-zA-Z0-9/_.-]+)\\(([0-9]+)\\): (.*)","1","2","3","weblint %s","1",NULL));
-		main_v->props.outputbox = g_list_append(main_v->props.outputbox,array_from_arglist("tidy HTML validator","line ([0-9]+) column [0-9]+ - (.*)","-1","1","2","tidy -qe %s","0",NULL));
-		main_v->props.outputbox = g_list_append(main_v->props.outputbox,array_from_arglist("javac","([a-zA-Z0-9/_.-]+):([0-9]+):(.*)","1","2","3","javac %s","0",NULL));
+		main_v->props.outputbox = g_list_append(main_v->props.outputbox,array_from_arglist(_("make"),"([a-zA-Z0-9/_.-]+):([0-9]+):(.*)","1","2","3","make","1",NULL));
+		main_v->props.outputbox = g_list_append(main_v->props.outputbox,array_from_arglist(_("weblint HTML checker"),"([a-zA-Z0-9/_.-]+)\\(([0-9]+)\\): (.*)","1","2","3","weblint %s","1",NULL));
+		main_v->props.outputbox = g_list_append(main_v->props.outputbox,array_from_arglist(_("tidy HTML validator"),"line ([0-9]+) column [0-9]+ - (.*)","-1","1","2","tidy -qe %s","0",NULL));
+		main_v->props.outputbox = g_list_append(main_v->props.outputbox,array_from_arglist(_("javac"),"([a-zA-Z0-9/_.-]+):([0-9]+):(.*)","1","2","3","javac %s","0",NULL));
 /*		main_v->props.outputbox = g_list_append(main_v->props.outputbox,array_from_arglist(,NULL)); */
 	}
 	if (main_v->props.external_commands == NULL) {
 		/* if the user does not have external commands --> set them to defaults values */
 		gchar **arr;
-		arr = array_from_arglist("Dos2Unix filter", "cat %s | dos2unix > %f",NULL);
+		arr = array_from_arglist(_("Dos2Unix filter"), "cat %s | dos2unix > %f",NULL);
 		main_v->props.external_commands = g_list_append(main_v->props.external_commands,arr);
-		arr = array_from_arglist("Tidy cleanup filter", "cat %s | tidy -utf8 -q >%f 2>/dev/null",NULL);
+		arr = array_from_arglist(_("Tidy cleanup filter"), "cat %s | tidy -utf8 -q >%f 2>/dev/null",NULL);
 		main_v->props.external_commands = g_list_append(main_v->props.external_commands,arr);
 	}
 	if (main_v->props.filetypes == NULL) {
@@ -602,15 +602,15 @@ void rcfile_parse_main(void)
 	if (main_v->props.filefilters == NULL) {
 		/* if the user does not have file filters --> set them to defaults values */
 		gchar **arr;
-		arr = array_from_arglist("C programming","1","c:image", NULL);
+		arr = array_from_arglist(_("C programming"),"1","c:image", NULL);
 		main_v->props.filefilters = g_list_append(main_v->props.filefilters, arr);
-		arr = array_from_arglist("All web files","1", "html:php:webimage:xml:javascript:stylesheet:jsp", NULL);
+		arr = array_from_arglist(_("All web files"),"1", "html:php:webimage:xml:javascript:stylesheet:jsp", NULL);
 		main_v->props.filefilters = g_list_append(main_v->props.filefilters, arr);
-		arr = array_from_arglist("Java programming","1", "java:image:jsp", NULL);
+		arr = array_from_arglist(_("Java programming"),"1", "java:image:jsp", NULL);
 		main_v->props.filefilters = g_list_append(main_v->props.filefilters, arr);
-		arr = array_from_arglist("Images","1", "image", NULL);
+		arr = array_from_arglist(_("Images"),"1", "image", NULL);
 		main_v->props.filefilters = g_list_append(main_v->props.filefilters, arr);
-		arr = array_from_arglist("Hide objectfiles","0", "objectfile", NULL);
+		arr = array_from_arglist(_("Hide objectfiles"),"0", "objectfile", NULL);
 		main_v->props.filefilters = g_list_append(main_v->props.filefilters, arr);
 	}
 }

@@ -22,11 +22,12 @@
 #include <unistd.h> /* getopt() */
 #include <stdlib.h> /* getopt() exit() and abort() on Solaris */
 
+#include "bluefish.h"
+
 #ifdef ENABLE_NLS
-#include <localesss.h>
+#include <locale.h>
 #endif
 
-#include "bluefish.h"
 #include "document.h" /*  */
 #include "gui.h" /* gui_create_main() */
 #include "rcfile.h" /* rcfile_parse_main() */
