@@ -30,11 +30,36 @@ cmenu_insert: /html/meta keywords:<meta name="keywords" value="%0">::1:keywords,
 cmenu_insert: /html/made with bluefish:<a href="http\://bluefish.openoffice.nl/">Made with the Bluefish HTML editor</a>::0:
 cmenu_insert: /html/font symbol:<font face="Symbol">:</font>:0:
 cmenu_insert: /html/div with class:<div class="%0">:</div>:1:CSS class name:
+cmenu_insert: /docbook/filename:<filename>\n:</filename>:0:
+cmenu_insert: /docbook/code:<code>\n:</code>:0:
+cmenu_insert: /docbook/xref:<xref linkend="%0">\n::1:reference:
+cmenu_insert: /docbook/ulink:<ulink url="%0">%1\n:</ulink>:2:url:text:
 cmenu_insert: /docbook/title:<title>:</tile>:0:
-cmenu_insert: /docbook/programlisting:<programlisting>:</programlisting>:0:
+cmenu_insert: /docbook/thead:<thead>\n<row>:</row>\n</thead>\n:0:
+cmenu_insert: /docbook/tbody:<tbody>\n:</tbody>\n:0:
+cmenu_insert: /docbook/quote:&quot;:&quot;:0:
+cmenu_insert: /docbook/programlisting:<programlisting><![CDATA[:]]></programlisting>:0:
 cmenu_insert: /docbook/paragraph:<para>:</para>:0:
-cmenu_insert: /docbook/itemizedlist:<itemizedlist>\n\t  <listitem><para>:</para></listitem>\n</itemizedlist>:0:
+cmenu_insert: /docbook/orderedlist:<orderedlist>\n\t<listitem>\n\t\t<para>:\t\t</para>\n\t</listitem>\n</orderedlist>:0:
+cmenu_insert: /docbook/literal:<literal>\n:</literal>:0:
+cmenu_insert: /docbook/listitem:<listitem>\n\t<para>:\t</para>\n</listitem>:0:
+cmenu_insert: /docbook/legalnotice:<legalnotice>\n:</legalnotice>:0:
+cmenu_insert: /docbook/keycap:<keycap>\n:</keycap>:0:
+cmenu_insert: /docbook/itemizedlist:<itemizedlist>\n\t<listitem>\n\t\t<para>:\t\t</para>\n\t</listitem>\n</itemizedlist>:0:
+cmenu_insert: /docbook/informaltable:<informaltable><tgroup cols="%0" colsep="%1" rowsep="%2">:</tgroup>\n</informaltable>:3:cols:colsep:rowsep:
+cmenu_insert: /docbook/image:<para>\n<mediaobject>\n<imagedate fileref="%0">\n</imageobject>\n<textobject>\n<phrase>%1</phrase>:</textobject>\n</mediaobject>\n</para>:2:fileref:phrase:
+cmenu_insert: /docbook/holder:<holder>%0\n:</holder>:1:holder:
+cmenu_insert: /docbook/figure:<para>\n<figure float="%0>\n<title>%1</title>\n<screenshot>\n<mediaobject>\n<imagedate fileref="%2">\n</imageobject>\n<textobject>\n<phrase>%3</phrase>:</textobject>\n</mediaobject>\n<screenshot>\n</figure>\n</para>:4:float:title:fileref:phrase:
+cmenu_insert: /docbook/entry:<entry align="%0" valign="%1"><para>\n:</para></entry>\n:2:align:valign:
+cmenu_insert: /docbook/emphasis:<emphasis>\n:</emphasis>:0:
 cmenu_insert: /docbook/define entity:<!ENTITY %0 '%0'>::1:entity name:
+cmenu_insert: /docbook/date:<date>%0\n:</date>:1:date:
+cmenu_insert: /docbook/copyright:<copyright>\n\t<year>%0</year>\n\t<holder>%1</holder>\n:</copyright>:2:year:holder:
+cmenu_insert: /docbook/computeroutput:<computeroutput>\n:</computeroutput>:0:
+cmenu_insert: /docbook/colspec:<colspec colname="%0" align="%1">::2:colname:align:
+cmenu_insert: /docbook/author:<author>\n\t<firstname>%0</firstname>\n\t<surname>%1</surname>:</author>:2:firstname:surname:
+cmenu_insert: /docbook/articleinfo:<articleinfo>\n\t<authorgroup>:\t</authorgroup>\n</articleinfo>:0:
+cmenu_insert: /docbook/anchor:<anchor id="%0">\n::1:id:
 cmenu_insert: /apache/deny access to .inc:<FilesMatch "\\.inc$">\n\tOrder allow,deny\n\tDeny from all\n</FilesMatch>::0:
 cmenu_insert: /apache/basic password required:AuthName "%1"\nAuthType Basic\nrequire valid-user\nAuthUserFile %0\n::2:full path to password file:security description:
 cmenu_insert: /active html/textarea:<textarea name="%0" rows="20" cols="40"><?php if (isset($%0)) { echo $%0; } ?></textarea>::1:variable name:
