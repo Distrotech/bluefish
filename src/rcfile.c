@@ -97,17 +97,21 @@ static void init_prop_string_with_escape(GList ** config_list, void *pointer_to_
 	DEBUG_MSG("init_prop_string, name_of_var=%s, default_value=%s\n", name_of_var, default_value);
 }
 
-static void init_prop_stringlist(GList ** config_list, void *pointer_to_var, gchar * name_of_var)
+static void init_prop_stringlist(GList ** config_list, void *pointer_to_var, gchar * name_of_var, gboolean setNULL)
 {
 	*config_list = make_config_list_item(*config_list, pointer_to_var, 'l', name_of_var, 0);
-	pointer_to_var = NULL;
+	if (setNULL) {
+	 	pointer_to_var = NULL;
+	}
 }
 
 
-static void init_prop_arraylist(GList ** config_list, void *pointer_to_var, gchar * name_of_var, gint len)
+static void init_prop_arraylist(GList ** config_list, void *pointer_to_var, gchar * name_of_var, gint len, gboolean setNULL)
 {
 	*config_list = make_config_list_item(*config_list, pointer_to_var, 'a', name_of_var, len);
-	pointer_to_var = NULL;
+	if (setNULL) {
+	 	pointer_to_var = NULL;
+	}
 }
 
 static gint save_config_file(GList * config_list, gchar * filename)
@@ -320,15 +324,15 @@ static GList *props_init_main(GList * config_rc)
 	init_prop_string    (&config_rc, &main_v->props.editor_font_string, "editor_font_string:", "courier 11");
 	init_prop_integer   (&config_rc, &main_v->props.editor_tab_width, "editor_tab_width:", 3);
 	init_prop_string    (&config_rc, &main_v->props.tab_font_string, "tab_font_string:", "");
-	init_prop_arraylist (&config_rc, &main_v->props.browsers, "browsers:", 2);
-	init_prop_arraylist (&config_rc, &main_v->props.external_commands, "external_commands:", 2);
-	init_prop_stringlist(&config_rc, &main_v->props.quickbar_items, "quickbar_items:");
+	init_prop_arraylist (&config_rc, &main_v->props.browsers, "browsers:", 2, TRUE);
+	init_prop_arraylist (&config_rc, &main_v->props.external_commands, "external_commands:", 2, TRUE);
+	init_prop_stringlist(&config_rc, &main_v->props.quickbar_items, "quickbar_items:", TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.highlight_num_lines_count, "highlight_num_lines_count:", 1);
 	init_prop_integer   (&config_rc, &main_v->props.defaulthighlight, "defaulthighlight:", 1);
 	/* old type filetypes have a different count, they are converted below */
-	init_prop_arraylist (&config_rc, &main_v->props.filetypes, "filetypes:", 0);
+	init_prop_arraylist (&config_rc, &main_v->props.filetypes, "filetypes:", 0, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.numcharsforfiletype, "numcharsforfiletype:", 200);
-	init_prop_arraylist (&config_rc, &main_v->props.filefilters, "filefilters:", 3);
+	init_prop_arraylist (&config_rc, &main_v->props.filefilters, "filefilters:", 3, TRUE);
 	init_prop_string    (&config_rc, &main_v->props.last_filefilter, "last_filefilter:", "");
 	init_prop_integer   (&config_rc, &main_v->props.transient_htdialogs, "transient_htdialogs:", 1);
 	init_prop_integer   (&config_rc, &main_v->props.restore_dimensions, "restore_dimensions:", 1);	
@@ -353,14 +357,14 @@ static GList *props_init_main(GList * config_rc)
 	init_prop_integer   (&config_rc, &main_v->props.num_undo_levels,"num_undo_levels:",100);
 	init_prop_integer   (&config_rc, &main_v->props.clear_undo_on_save,"clear_undo_on_save:",0);
 	init_prop_string    (&config_rc, &main_v->props.newfile_default_encoding,"newfile_default_encoding:","UTF-8");
-	init_prop_arraylist (&config_rc, &main_v->props.encodings, "encodings:", 2);
+	init_prop_arraylist (&config_rc, &main_v->props.encodings, "encodings:", 2, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.auto_set_encoding_meta,"auto_set_encoding_meta:",1);
 	init_prop_integer   (&config_rc, &main_v->props.auto_update_meta,"auto_update_meta:",1);
-	init_prop_arraylist (&config_rc, &main_v->props.outputbox, "outputbox:", 7);
+	init_prop_arraylist (&config_rc, &main_v->props.outputbox, "outputbox:", 7, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.ext_browsers_in_submenu,"ext_browsers_in_submenu:",0);
 	init_prop_integer   (&config_rc, &main_v->props.ext_commands_in_submenu,"ext_commands_in_submenu:",1);
 	init_prop_integer   (&config_rc, &main_v->props.ext_outputbox_in_submenu,"ext_outputbox_in_submenu:",1);
-	init_prop_arraylist (&config_rc, &main_v->props.reference_files, "reference_files:", 2);
+	init_prop_arraylist (&config_rc, &main_v->props.reference_files, "reference_files:", 2, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.fref_ldoubleclick_action,"fref_ldoubleclick_action:",0);
 	init_prop_integer   (&config_rc, &main_v->props.fref_info_type,"fref_info_type:",0);	
 	init_prop_integer   (&config_rc, &main_v->props.document_tabposition,"document_tabposition:",(gint)GTK_POS_BOTTOM);
@@ -617,7 +621,7 @@ void rcfile_parse_highlighting(void) {
 	DEBUG_MSG("rcfile_parse_highlighting, started\n");
 
 	highlighting_configlist = NULL;
-	init_prop_arraylist(&highlighting_configlist, &main_v->props.highlight_patterns, "patterns:", 0);
+	init_prop_arraylist(&highlighting_configlist, &main_v->props.highlight_patterns, "patterns:", 0, TRUE);
 
 	filename = g_strconcat(g_get_home_dir(), "/.bluefish/highlighting", NULL);
 	defaultfile = return_first_existing_filename(PKGDATADIR"highlighting.default",
@@ -656,9 +660,9 @@ void rcfile_parse_custom_menu(void) {
 	DEBUG_MSG("rcfile_parse_custom_menu, started\n");
 
 	custom_menu_configlist = NULL;
-	init_prop_arraylist(&custom_menu_configlist, &main_v->props.cust_menu, "custom_menu:", 0);
-	init_prop_arraylist(&custom_menu_configlist, &main_v->props.cmenu_insert, "cmenu_insert:", 0);
-	init_prop_arraylist(&custom_menu_configlist, &main_v->props.cmenu_replace, "cmenu_replace:", 0);
+	init_prop_arraylist(&custom_menu_configlist, &main_v->props.cust_menu, "custom_menu:", 0, TRUE);
+	init_prop_arraylist(&custom_menu_configlist, &main_v->props.cmenu_insert, "cmenu_insert:", 0, TRUE);
+	init_prop_arraylist(&custom_menu_configlist, &main_v->props.cmenu_replace, "cmenu_replace:", 0, TRUE);
 
 	filename = g_strconcat(g_get_home_dir(), "/.bluefish/custom_menu", NULL);
 	defaultfile = return_first_existing_filename(PKGDATADIR"custom_menu.default",
@@ -676,8 +680,8 @@ void rcfile_parse_custom_menu(void) {
 		if (config_file_is_newer(main_v->props.lasttime_cust_menu,defaultfile)) {
 			GList *default_insert=NULL, *default_replace=NULL, *tmp_configlist=NULL;
 			DEBUG_MSG("config_file_is_newer!\n");
-			init_prop_arraylist(&tmp_configlist, &default_insert, "cmenu_insert:", 0);
-			init_prop_arraylist(&tmp_configlist, &default_replace, "cmenu_replace:", 0);
+			init_prop_arraylist(&tmp_configlist, &default_insert, "cmenu_insert:", 0, TRUE);
+			init_prop_arraylist(&tmp_configlist, &default_replace, "cmenu_replace:", 0, TRUE);
 			parse_config_file(tmp_configlist, defaultfile);
 			main_v->props.cmenu_insert = arraylist_load_new_identifiers_from_list(main_v->props.cmenu_insert, default_insert, 1);
 			main_v->props.cmenu_replace = arraylist_load_new_identifiers_from_list(main_v->props.cmenu_replace, default_replace, 1);
@@ -833,7 +837,7 @@ void rcfile_save_all(void) {
 static GList *return_project_configlist(Tproject *project) {
 	GList *configlist = NULL;
 	init_prop_string(&configlist, &project->name,"name:",_("Untitled Project"));
-	init_prop_stringlist(&configlist, &project->files, "files:");
+	init_prop_stringlist(&configlist, &project->files, "files:", FALSE);
 	init_prop_string(&configlist, &project->basedir,"basedir:","");
 	init_prop_string(&configlist, &project->webdir,"webdir:","");
 	return configlist;
