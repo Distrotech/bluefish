@@ -24,7 +24,8 @@ MSGFMT = @MSGFMT@
 XGETTEXT = @XGETTEXT@
 MSGMERGE = @MSGMERGE@
 
-CATALOGS = de.gmo da.gmo fr.gmo ro.gmo cs.gmo es.gmo el.gmo en.gmo ja.gmo it.gmo sv.gmo pt_BR.gmo hu.gmo pl.gmo nl.gmo no.gmo
+#en.gmo should not be installed anymore!!
+CATALOGS = de.gmo da.gmo fr.gmo ro.gmo cs.gmo es.gmo el.gmo ja.gmo it.gmo sv.gmo pt_BR.gmo hu.gmo pl.gmo nl.gmo no.gmo
 
 %.gmo : %.po
 	$(MSGFMT) $< -o $@
