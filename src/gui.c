@@ -507,6 +507,13 @@ void make_html_toolbar(GtkWidget *handlebox) {
 	gtk_widget_show_all(html_notebook);
 }
 
+static void doc_indent_lcb(GtkWidget *wid,gpointer data) {
+	if (main_v->current_document) {
+		doc_indent_selection(main_v->current_document, FALSE);
+	}
+}
+
+
 void make_main_toolbar(GtkWidget *handlebox) {
 	GtkWidget *toolbar = gtk_toolbar_new ();
 	DEBUG_MSG("make_main_toolbar, started\n");
@@ -554,6 +561,9 @@ void make_main_toolbar(GtkWidget *handlebox) {
 	gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), NULL,
 							_("View in browser"), "",
 							new_pixmap(102), G_CALLBACK(browser_toolbar_cb), NULL);
+	gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), NULL, _("Indent"),
+							"", new_pixmap(106), G_CALLBACK(doc_indent_lcb), NULL);
+
 	gtk_widget_show_all(toolbar);
 }
 
