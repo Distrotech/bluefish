@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish gtk2-port\n"
-"POT-Creation-Date: 2004-07-08 08:37+0200\n"
+"POT-Creation-Date: 2004-07-23 14:35+0200\n"
 "PO-Revision-Date: 2004-01-14 f03:59+0000\n"
 "Last-Translator: Murugapandian Barathee <barathee@users.sourceforge.net>\n"
 "Language-Team: Not a member <LL@li.org>\n"
@@ -112,6 +112,7 @@ msgstr ""
 "இந்த மென்பொருளை சமைக்க உதவிய அனைவருக்கும் எங்கள் மனமார்ந்த நன்றிகளும் வாழ்த்துக்களும்.\n"
 
 #: ../src/about.c:160
+#, fuzzy
 msgid ""
 "Current translators:\n"
 "\n"
@@ -130,8 +131,8 @@ msgid ""
 "  Finnish - Juho Roukala\n"
 "   <j.mr@luukku.com>\n"
 "\n"
-"  French - Roméo Viu-Berges\n"
-"   <apostledemencia@free.fr>\n"
+"  French - Michèle Garoche\n"
+"   <michele.garoche@easyconnect.fr>\n"
 "\n"
 "  German - Roland Steinbach\n"
 "   <roland@netzblick.de>\n"
@@ -158,7 +159,7 @@ msgid ""
 "   <raven@sbb.co.yu>\n"
 "\n"
 "  Spanish - Walter Oscar Echarri\n"
-"   <wecharri@infovia.com.ar>\n"
+"   <wecharri@arnet.com.ar>\n"
 "\n"
 "  Swedish - David Smeringe\n"
 "   <david.smeringe@telia.com>\n"
@@ -238,16 +239,13 @@ msgstr "ஆசிரியர்கள்"
 msgid "Translators"
 msgstr "மொழிபெயர்ப்பாளர்கள்"
 
-#: ../src/authen.c:74
+#: ../src/authen.c:75
 msgid "Authentication required"
 msgstr "அனுமதி தேவை"
 
 #: ../src/authen.c:85
-#, c-format
-msgid ""
-"Authentication is required for %s\n"
-"\n"
-"Realm is %s"
+#, fuzzy, c-format
+msgid "Authentication is required for %s."
 msgstr ""
 "%sக்கு அனுமதி தேவை\n"
 "\n"
@@ -289,7 +287,7 @@ msgstr "_மாற்றவேண்டிய சொல்"
 msgid "I_gnore"
 msgstr "_புறக்கணி"
 
-#: ../src/bfspell.c:367 ../src/snr2.c:893
+#: ../src/bfspell.c:367 ../src/snr2.c:899
 msgid "_Replace"
 msgstr "_மாற்று"
 
@@ -337,7 +335,7 @@ msgstr "வடிகட்டி இல்லை"
 msgid "html filter"
 msgstr "html வடிகட்டி"
 
-#: ../src/bluefish.c:93
+#: ../src/bluefish.c:96
 #, c-format
 msgid ""
 "\n"
@@ -346,7 +344,7 @@ msgstr ""
 "\n"
 "உபயோகம்: %s [விருப்பங்கள்] [கோப்பின் பெயர்கள் ...]\n"
 
-#: ../src/bluefish.c:94
+#: ../src/bluefish.c:97
 msgid ""
 "\n"
 "Currently accepted options are:\n"
@@ -354,51 +352,51 @@ msgstr ""
 "\n"
 "தற்போது ஏற்றுக்கொள்ளப்படும் விருப்பங்களாவன:\n"
 
-#: ../src/bluefish.c:95
+#: ../src/bluefish.c:98
 msgid "-s           skip root check\n"
 msgstr "-s           root சோதனையைத் தவிர்\n"
 
-#: ../src/bluefish.c:96
+#: ../src/bluefish.c:99
 msgid "-v           current version\n"
 msgstr "-v           தற்போதைய பதிப்பு\n"
 
-#: ../src/bluefish.c:97
+#: ../src/bluefish.c:100
 msgid "-n           open new window\n"
 msgstr "-n           புதிய சாளரத்தைத் திற\n"
 
-#: ../src/bluefish.c:98
+#: ../src/bluefish.c:101
 msgid "-p filename  open project\n"
 msgstr "-p கோப்பின் பெயர்  செயல்திட்டத்தைத் திற\n"
 
-#: ../src/bluefish.c:99
+#: ../src/bluefish.c:102
 msgid "-h           this help screen\n"
 msgstr "-h           இந்த உதவித் திரை\n"
 
-#: ../src/bluefish.c:167
+#: ../src/bluefish.c:179
 msgid "parsing highlighting file..."
 msgstr "உயர்த்திக் காட்டப்பட்ட கோப்பினை அலகிடல்"
 
-#: ../src/bluefish.c:178
+#: ../src/bluefish.c:190
 msgid "compiling highlighting patterns..."
 msgstr "உயர்த்திக்காட்டப்பட்ட உருவகைகளைத் தொகு"
 
-#: ../src/bluefish.c:185
+#: ../src/bluefish.c:197
 msgid "parsing custom menu file..."
 msgstr "தனிப்பயனாக்கப்பட்ட மெனு கோப்பினை அலகிடு"
 
-#: ../src/bluefish.c:197
+#: ../src/bluefish.c:209
 msgid "creating main gui..."
 msgstr "பிரதான guiஐ உருவாக்குதல்..."
 
-#: ../src/bluefish.c:208
+#: ../src/bluefish.c:220
 msgid "showing main gui..."
 msgstr "பிரதான guiஐக் காட்டுதல்..."
 
-#: ../src/bluefish.c:222
+#: ../src/bluefish.c:234
 msgid "Bluefish tip:"
 msgstr "நீலமீன் டிப்ஸ்:"
 
-#: ../src/bluefish.c:222
+#: ../src/bluefish.c:234
 msgid ""
 "This message is shown since you do not have any items in the Quickbar.\n"
 "\n"
@@ -458,11 +456,12 @@ msgstr "_தொகு"
 msgid "Delete"
 msgstr "நீக்கு"
 
-#: ../src/bookmark.c:904 ../src/bookmark.c:939 ../src/document.c:1987
+#: ../src/bookmark.c:904 ../src/bookmark.c:939 ../src/bookmark.c:971
+#: ../src/document.c:1988
 msgid "Add bookmark"
 msgstr "புத்தகக்குறியைச் சேர்"
 
-#: ../src/bookmark.c:905
+#: ../src/bookmark.c:905 ../src/bookmark.c:972
 msgid "Cannot add bookmarks in unnamed files."
 msgstr "பெயரில்லாத கோப்புகளுக்கு புத்தகக்குறி வைக்க இயலாது."
 
@@ -474,11 +473,11 @@ msgstr "இங்கே ஏற்கனவே ஒரு புத்தகக்
 msgid "default"
 msgstr "கொடாநிலை"
 
-#: ../src/bookmark.c:975
+#: ../src/bookmark.c:981
 msgid "temp"
 msgstr "தற்காலிகம்"
 
-#: ../src/bookmark.c:1043
+#: ../src/bookmark.c:1049
 #, c-format
 msgid ""
 "Character count changed in file\n"
@@ -487,7 +486,7 @@ msgstr ""
 "குறியீடு எண்ணிக்கை பின்வரும் கோப்பில் மாற்றப்பட்டது\n"
 " %s."
 
-#: ../src/bookmark.c:1045
+#: ../src/bookmark.c:1051
 msgid "Bookmarks positions could be incorrect."
 msgstr "புத்தகக்குறிகளின்  அமைவிடம் தவறாக இருக்கும்.."
 
@@ -558,47 +557,47 @@ msgstr " வரி %d, பத்தி %d"
 msgid "  %s, %s"
 msgstr "  %s, %s"
 
-#: ../src/document.c:1409 ../src/document.c:1430
+#: ../src/document.c:1411 ../src/document.c:1432
 msgid "Could not read file:\n"
 msgstr "கோப்பினைப் படிக்க இயலவில்லை:\n"
 
-#: ../src/document.c:1461
+#: ../src/document.c:1463
 msgid "Opening file "
 msgstr "கோப்பு திறக்கப்படுகிறது "
 
-#: ../src/document.c:1577
+#: ../src/document.c:1578
 msgid "Cannot display file, unknown characters found."
 msgstr "கோப்பினைக் காட்ட முடியவில்லை, அறியமுடியாத குறியீடுகள் உள்ளன."
 
-#: ../src/document.c:1975 ../src/snr2.c:1282
+#: ../src/document.c:1976 ../src/snr2.c:1288
 msgid "Replace"
 msgstr "மாற்று"
 
-#: ../src/document.c:1980
+#: ../src/document.c:1981
 msgid "Find"
 msgstr "தேடு"
 
-#: ../src/document.c:2002
+#: ../src/document.c:2003
 msgid "Edit color"
 msgstr "வர்ணத்தை மாற்று"
 
-#: ../src/document.c:2010
+#: ../src/document.c:2011
 msgid "Edit tag"
 msgstr "ஒட்டு மாற்று"
 
-#: ../src/document.c:2152
+#: ../src/document.c:2153
 msgid "Saving file"
 msgstr "கோப்பு சேமிக்கப்படுகிறது"
 
-#: ../src/document.c:2175 ../src/document.c:2200
+#: ../src/document.c:2176 ../src/document.c:2200
 msgid "_Abort save"
 msgstr "_சேமித்தலை முறி"
 
-#: ../src/document.c:2175
+#: ../src/document.c:2176
 msgid "_Continue save"
 msgstr "சேமிப்பைத் _தொடர்"
 
-#: ../src/document.c:2177
+#: ../src/document.c:2178
 #, c-format
 msgid ""
 "A backupfile for %s could not be created. If you continue, this file will be "
@@ -607,7 +606,7 @@ msgstr ""
 "%sக்காக காப்புக்கோப்பினை உருவாக்க இயலவில்லை. நீங்கள் மேலும் தொடர்ந்தால் இந்தக் கோப்பு "
 "மேலெழுதப்படும்"
 
-#: ../src/document.c:2178
+#: ../src/document.c:2179
 msgid "File backup failure"
 msgstr "கோப்பினைக் காப்பெடுத்தல் தோல்வியடைந்தது"
 
@@ -636,46 +635,46 @@ msgstr "கோப்பின் குறியீட்டுமுறை ம�
 msgid "Previously: "
 msgstr "கடந்தமுறை: "
 
-#: ../src/document.c:2376 ../src/document.c:2391
+#: ../src/document.c:2385 ../src/document.c:2393
 msgid "Move/rename document to"
 msgstr "நகர்த்து/ஆவணத்தை மறுபெயரிடு:"
 
-#: ../src/document.c:2376 ../src/document.c:2391
+#: ../src/document.c:2385 ../src/document.c:2393
 msgid "Save document as"
 msgstr "ஆவணத்தைப் பின்வருமாறு சேமி"
 
-#: ../src/document.c:2405 ../src/document.c:2420 ../src/document.c:2517
-#: ../src/document.c:3686 ../src/gui.c:1087
+#: ../src/document.c:2415 ../src/document.c:2430 ../src/document.c:2527
+#: ../src/document.c:3707 ../src/gui.c:1087
 msgid "_Cancel"
 msgstr "_இரத்து"
 
-#: ../src/document.c:2405 ../src/document.c:2420 ../src/document.c:2517
+#: ../src/document.c:2415 ../src/document.c:2430 ../src/document.c:2527
 msgid "_Overwrite"
 msgstr "_மேல் எழுது"
 
-#: ../src/document.c:2406
+#: ../src/document.c:2416
 #, c-format
 msgid "File %s exists and is opened, overwrite?"
 msgstr "%s கோப்பு ஏற்கனவே இருக்கிறது மேலும் திறந்திருக்கிறது. மேலெழுதவா?"
 
-#: ../src/document.c:2407
+#: ../src/document.c:2417
 msgid "The file you have selected is being edited in Bluefish."
 msgstr "தேர்ந்தெடுத்துள்ள கோப்பு நீலமீனில் தொகுக்கப்பட்டுக்கொண்டிருக்கிறது."
 
-#: ../src/document.c:2421
+#: ../src/document.c:2431
 #, c-format
 msgid "A file named \"%s\" already exists."
 msgstr "\"%s\" பெயருள்ள கோப்பு எற்கனவே இருக்கிறது."
 
-#: ../src/document.c:2423
+#: ../src/document.c:2433
 msgid "Do you want to replace the existing file?"
 msgstr "இருக்கும் கோப்பினை மாற்றி எழுதவிரும்புகிறீர்களா?"
 
-#: ../src/document.c:2472
+#: ../src/document.c:2482
 msgid "Save as..."
 msgstr "புதிதாகச் சேமி"
 
-#: ../src/document.c:2521
+#: ../src/document.c:2531
 #, c-format
 msgid ""
 "File: %s\n"
@@ -688,16 +687,16 @@ msgstr ""
 "புதிதாக மாற்றப்பட்ட காலம்: %s\n"
 "முன்பு மாற்றப்பட்ட காலம்: %s"
 
-#: ../src/document.c:2522
+#: ../src/document.c:2532
 msgid "File has been modified by another process."
 msgstr "மற்றொரு செயலியால் இந்தக் கோப்பு மாற்றப்படுகிறது."
 
-#: ../src/document.c:2535
+#: ../src/document.c:2545
 #, c-format
 msgid "Saving %s"
 msgstr "%sஐச் சேமித்தல்"
 
-#: ../src/document.c:2545
+#: ../src/document.c:2559
 msgid ""
 "Could not backup file:\n"
 "\""
@@ -705,11 +704,11 @@ msgstr ""
 "கோப்பினைக் காப்பெடுக்க இயலவில்லை:\n"
 "\""
 
-#: ../src/document.c:2546
+#: ../src/document.c:2560
 msgid "File save aborted.\n"
 msgstr "கோப்பினைச் சேமித்தல் முறிக்கப்பட்டது\n"
 
-#: ../src/document.c:2551
+#: ../src/document.c:2565
 msgid ""
 "Could not write file:\n"
 "\""
@@ -717,37 +716,37 @@ msgstr ""
 "பின்வரும் கோப்பினை எழுதஇயலவில்லை:\n"
 "\""
 
-#: ../src/document.c:2552
+#: ../src/document.c:2566
 msgid "File save error"
 msgstr "கோப்பினைச் சேமிப்பதில் பிழை"
 
-#: ../src/document.c:2602
+#: ../src/document.c:2616
 #, c-format
 msgid "Save changes to \"%s\" before closing?."
 msgstr ""
 
-#: ../src/document.c:2605
+#: ../src/document.c:2619
 #, fuzzy
 msgid "Save changes to this untitled file before closing?"
 msgstr "பெயரிடப்படாத இந்தக் கோப்பின் மாறுதல்களைச் சேமிக்கவிரும்புகிறீர்களா?"
 
-#: ../src/document.c:2609
+#: ../src/document.c:2623
 msgid "Do_n't save"
 msgstr "சேமி_க்காதே"
 
-#: ../src/document.c:2611 ../src/document.c:3688
+#: ../src/document.c:2625 ../src/document.c:3709
 msgid "If you don't save your changes they will be lost."
 msgstr ""
 
-#: ../src/document.c:2880
+#: ../src/document.c:2895
 msgid "No filename"
 msgstr "கோப்பின் பெயர் இல்லை"
 
-#: ../src/document.c:3012
+#: ../src/document.c:3032
 msgid "Loading files..."
 msgstr "கோப்புகள் ஏற்றப்படுகின்றன"
 
-#: ../src/document.c:3030
+#: ../src/document.c:3050
 msgid ""
 "These files could not opened:\n"
 "\n"
@@ -755,23 +754,23 @@ msgstr ""
 "இந்தக் கோப்புகளைத் திறக்க இயலாது:\n"
 "\n"
 
-#: ../src/document.c:3032 ../src/msg_queue.c:235
+#: ../src/document.c:3052 ../src/msg_queue.c:235
 msgid "Unable to open file(s)\n"
 msgstr "கோப்பு(கள்)ஐத் திறக்க இயலவில்லை\n"
 
-#: ../src/document.c:3063
+#: ../src/document.c:3083
 msgid "Unable to open file"
 msgstr "கோப்பினைத் திறக்க இயலவில்லை"
 
-#: ../src/document.c:3125
+#: ../src/document.c:3145
 msgid "_Reload"
 msgstr "_மீளேற்று"
 
-#: ../src/document.c:3125
+#: ../src/document.c:3145
 msgid "_Ignore"
 msgstr "_புறக்கணி"
 
-#: ../src/document.c:3129
+#: ../src/document.c:3149
 #, c-format
 msgid ""
 "Filename: %s\n"
@@ -784,96 +783,101 @@ msgstr ""
 "புதிதாக மாற்றப்பட்ட காலம்: %s\n"
 "முன்பு மாற்றப்பட்ட காலம்: %s"
 
-#: ../src/document.c:3130
+#: ../src/document.c:3150
 msgid "File has been modified by another process\n"
 msgstr "கோப்பு மற்றதொரு செயலியால் மாற்றப்பட்டது\n"
 
-#: ../src/document.c:3233
+#: ../src/document.c:3253
 msgid "searching files..."
 msgstr "கோப்புகள் தேடப்படுகின்றன"
 
-#: ../src/document.c:3257 ../src/document.c:3270
+#: ../src/document.c:3284 ../src/document.c:3291
 msgid "Select basedir"
 msgstr "அடித்தள அடைவைத் தேர்ந்தெடு"
 
-#: ../src/document.c:3288
+#: ../src/document.c:3309
 msgid "Advanced open file selector"
 msgstr "உயர்வகை கோப்புத் திறப்பாளன்"
 
-#: ../src/document.c:3299
+#: ../src/document.c:3320
 msgid "grep {contains} `find {basedir} -name '{file type}'`"
 msgstr "grep {contains} `find {basedir} -name '{file type}'`"
 
-#: ../src/document.c:3304
+#: ../src/document.c:3325
 msgid "<b>General</b>"
 msgstr "<b>பொது</b>"
 
-#: ../src/document.c:3306
+#: ../src/document.c:3327
 msgid "Base_dir:"
 msgstr "அடித்தள _அடைவு"
 
-#: ../src/document.c:3308 ../src/gtk_easy.c:1292
+#: ../src/document.c:3329 ../src/gtk_easy.c:1299
 msgid "_Browse..."
 msgstr "_உலாவு..."
 
-#: ../src/document.c:3324
+#: ../src/document.c:3345
 msgid "_File Type:"
 msgstr "_கோப்பு வகை:"
 
-#: ../src/document.c:3330
+#: ../src/document.c:3351
 msgid "_Recursive:"
 msgstr "_மறுசுழல்வு:"
 
-#: ../src/document.c:3335
+#: ../src/document.c:3356
 msgid "<b>Contains</b>"
 msgstr "<b>Contains</b>"
 
-#: ../src/document.c:3338
+#: ../src/document.c:3359
 msgid "Pa_ttern:"
 msgstr "உரு_வகை:"
 
-#: ../src/document.c:3342
+#: ../src/document.c:3363
 msgid "Is rege_x:"
 msgstr "Is rege_x:"
 
-#: ../src/document.c:3477
+#: ../src/document.c:3498
 msgid "Open URL"
 msgstr "URLஐத் திற"
 
-#: ../src/document.c:3524 ../src/gtk_easy.c:1490
+#: ../src/document.c:3502
+#, fuzzy
+msgid "<b>Open URL</b>"
+msgstr "URLஐத் திற"
+
+#: ../src/document.c:3551 ../src/gtk_easy.c:1595
 msgid "Select files"
 msgstr "கோப்புகளைத் தேர்ந்தெடு"
 
-#: ../src/document.c:3547 ../src/document.c:3566 ../src/document.c:3583
+#: ../src/document.c:3567 ../src/document.c:3586 ../src/document.c:3603
 #, c-format
 msgid "Loading %d file(s)..."
 msgstr "%d கோப்பு(கள்) திறக்கப்படுகின்றன..."
 
-#: ../src/document.c:3609 ../src/document.c:3622
+#: ../src/document.c:3636 ../src/document.c:3643
 msgid "Select file to insert"
 msgstr "செருகுவதற்கான கோப்பினைத் தேர்ந்தெடு"
 
-#: ../src/document.c:3625
+#: ../src/document.c:3646
 msgid "No file to insert"
 msgstr "செருகுவதற்கு யாதொரு கோப்புமில்லை"
 
-#: ../src/document.c:3686
+#: ../src/document.c:3707
 msgid "_Save All"
 msgstr "_அனைத்தையும் சேமி"
 
-#: ../src/document.c:3686
+#: ../src/document.c:3707
 msgid "Close _All"
 msgstr "அனைத்தையும் _மூடு"
 
-#: ../src/document.c:3686
+#: ../src/document.c:3707
 msgid "Choose per _File"
 msgstr "Choose per _File"
 
-#: ../src/document.c:3687
+#: ../src/document.c:3708
 msgid "Multiple open files have been changed."
 msgstr "பலகோப்புகள் திறப்பு மாற்றப்பட்டது."
 
-#: ../src/document.c:3912
+#: ../src/document.c:3933
 #, c-format
 msgid "Statistics: %d lines, %d words, %d characters"
 msgstr "புள்ளிவிபரம்: %d வரிகள், %d சொற்கள், %d எழுத்துக்கள்"
@@ -962,7 +966,7 @@ msgstr "காப்பு ஆவணங்களைக் காட்டு"
 msgid "Filter"
 msgstr "வடிகட்டி"
 
-#: ../src/filebrowser.c:1651
+#: ../src/filebrowser.c:1651 ../src/gtk_easy.c:1377
 msgid "All files"
 msgstr "அனைத்துக் கோப்புகள்"
 
@@ -1032,21 +1036,26 @@ msgstr "நீங்கள் ஆலோசனையை ஏற்றவில்�
 msgid "Show info window"
 msgstr "தகவல் சாளரத்தைக் காட்டு"
 
-#: ../src/fref.c:2305 ../src/snr2.c:1285
+#: ../src/fref.c:2305 ../src/snr2.c:1291
 msgid "Search"
 msgstr "தேடு"
 
-#: ../src/gtk_easy.c:1148
+#: ../src/gtk_easy.c:1155
 #, c-format
 msgid "%d of %d"
 msgstr "%d - %dக்கு"
 
-#: ../src/gtk_easy.c:1234
+#: ../src/gtk_easy.c:1241
 #, fuzzy
 msgid "Select File"
 msgstr "கோப்பினைத் தேர்ந்தெடு"
 
-#: ../src/gtk_easy.c:1463
+#: ../src/gtk_easy.c:1370
+#, fuzzy
+msgid "Show hidden"
+msgstr "ஒளித்துவைக்கப்பட்ட கோப்புகளையும் காட்டு"
+
+#: ../src/gtk_easy.c:1568
 msgid "Select file"
 msgstr "கோப்பினைத் தேர்ந்தெடு"
 
@@ -1711,18 +1720,18 @@ msgstr "Span"
 msgid "Ali_gn:"
 msgstr "இசைவு:"
 
-#: ../src/html.c:785 ../src/html.c:1246 ../src/html_diag.c:373
+#: ../src/html.c:785 ../src/html.c:1246 ../src/html_diag.c:372
 #: ../src/html_table.c:95 ../src/html_table.c:241 ../src/html_table.c:355
 msgid "Cl_ass:"
 msgstr "Cl_ass:"
 
 #: ../src/html.c:789 ../src/html.c:1148 ../src/html.c:1239
-#: ../src/html_diag.c:381 ../src/html_table.c:100 ../src/html_table.c:252
+#: ../src/html_diag.c:380 ../src/html_table.c:100 ../src/html_table.c:252
 #: ../src/html_table.c:360
 msgid "St_yle:"
 msgstr "ஸ்டை_ல்:"
 
-#: ../src/html.c:800 ../src/html.c:1250 ../src/html_diag.c:377
+#: ../src/html.c:800 ../src/html.c:1250 ../src/html_diag.c:376
 msgid "_ID:"
 msgstr "_ID:"
 
@@ -2177,43 +2186,43 @@ msgstr "_Vspace:"
 msgid "Borde_r:"
 msgstr "பார்ட_ர்"
 
-#: ../src/image.c:376 ../src/image.c:389
+#: ../src/image.c:382 ../src/image.c:390
 msgid "Select files for thumbnail creation"
 msgstr "நகக்கண் சித்திர உருவாக்கத்திற்கான கோப்புகளைத் தேர்ந்தெடு"
 
-#: ../src/image.c:506
+#: ../src/image.c:507
 msgid "Scaling (%)"
 msgstr "அளவீடு (%)"
 
-#: ../src/image.c:510 ../src/image.c:518
+#: ../src/image.c:511 ../src/image.c:519
 msgid "Width"
 msgstr "அகலம்"
 
-#: ../src/image.c:514 ../src/image.c:541
+#: ../src/image.c:515 ../src/image.c:542
 msgid "Height"
 msgstr "உயரம்"
 
-#: ../src/image.c:530
+#: ../src/image.c:531
 msgid "Multi thumbnail"
 msgstr "பலமுனை நகக்கண் சித்திரம்"
 
-#: ../src/image.c:536
+#: ../src/image.c:537
 msgid "By scaling"
 msgstr "அளவீட்டால்"
 
-#: ../src/image.c:537
+#: ../src/image.c:538
 msgid "By width, keep aspect ratio"
 msgstr "அகலத்தால், வடிவவிகிதத்தை மாற்றாதே"
 
-#: ../src/image.c:538
+#: ../src/image.c:539
 msgid "By height, keep aspect ratio"
 msgstr "உயரத்தால், வடிவவிகிதத்தை மாற்றாதே"
 
-#: ../src/image.c:539
+#: ../src/image.c:540
 msgid "By width and height, ignore aspect ratio"
 msgstr "அகலம் மற்றும் உயரத்தால், வடிவவிகிதத்தை மாற்றாதே"
 
-#: ../src/image.c:563
+#: ../src/image.c:564
 msgid ""
 "%r: original filename  %t: thumbnail filename\n"
 "%w: original width  %h: original height\n"
@@ -2246,8 +2255,9 @@ msgid "/File/_Open..."
 msgstr "/கோப்பு/_திற"
 
 #: ../src/menu.c:314
-msgid "/File/Open recen_t"
-msgstr "/கோப்பு/சமீபத்திய கோப்புகள்"
+#, fuzzy
+msgid "/File/Open _recent"
+msgstr "/கோப்பு/சமீபத்தைத் திற"
 
 #: ../src/menu.c:315
 msgid "/File/Open recent/tearoff1"
@@ -2282,7 +2292,8 @@ msgid "/File/Sav_e All"
 msgstr "/கோப்பு/அ_னைத்தையும் சேமி"
 
 #: ../src/menu.c:329
-msgid "/File/_Revert to Saved"
+#, fuzzy
+msgid "/File/Rever_t to Saved"
 msgstr "/கோப்பு/_முந்தைய சேமிப்புக்குத் திரும்பு"
 
 #: ../src/menu.c:330
@@ -3546,8 +3557,9 @@ msgid "/Project/_Open Project..."
 msgstr "/செயல்திட்டம்/_செயல்திட்டத்தைத் திற..."
 
 #: ../src/menu.c:680
-msgid "/Project/Open r_ecent"
-msgstr "/செயல்திட்டம்/_சமீபத்தைத் திற"
+#, fuzzy
+msgid "/Project/Open _recent"
+msgstr "/செயல்திட்டம்/சமீபத்தைத் திற"
 
 #: ../src/menu.c:681
 msgid "/Project/Open recent/tearoff1"
@@ -3633,172 +3645,172 @@ msgstr "/சாளரங்கள்"
 msgid "Could not view file in browser, the file does not yet have a name\n"
 msgstr "கோப்பினை மேலோடியில் காட்ட முடியவில்லை. கோப்பிற்குப் பெயரிடவில்லை\n"
 
-#: ../src/menu.c:1366
+#: ../src/menu.c:1370
 msgid "/External/Outputbox/"
 msgstr "/வெளியுறவு/வெளியீட்டுப்பெட்டி/"
 
-#: ../src/menu.c:1369
+#: ../src/menu.c:1373
 msgid "/External/Commands/"
 msgstr "/வெளியுறவு/கட்டளைகள்/"
 
-#: ../src/menu.c:1372
+#: ../src/menu.c:1376
 msgid "/External/Browsers/"
 msgstr "/வெளியுறவு/மேலோடிகள்/"
 
-#: ../src/menu.c:1377 ../src/menu.c:1392 ../src/menu.c:1411 ../src/menu.c:1427
-#: ../src/menu.c:1440 ../src/menu.c:1462
+#: ../src/menu.c:1381 ../src/menu.c:1396 ../src/menu.c:1415 ../src/menu.c:1431
+#: ../src/menu.c:1444 ../src/menu.c:1466
 msgid "/External"
 msgstr "/வெளியுறவு"
 
-#: ../src/menu.c:1390
+#: ../src/menu.c:1394
 msgid "/External/Browsers"
 msgstr "/வெளியுறவு/மேலோடிகள்"
 
-#: ../src/menu.c:1425
+#: ../src/menu.c:1429
 msgid "/External/Commands"
 msgstr "/வெளியுறவு/கட்டளைகள்"
 
-#: ../src/menu.c:1460
+#: ../src/menu.c:1464
 msgid "/External/Outputbox"
 msgstr "/வெளியுறவு/கட்டளைப்பெட்டி"
 
-#: ../src/menu.c:1506
+#: ../src/menu.c:1510
 msgid "/Document/Character Encoding"
 msgstr "/ஆவணம்/குறியீட்டு முறை"
 
-#: ../src/menu.c:1772
+#: ../src/menu.c:1776
 msgid "This custom search and replace requires a selection"
 msgstr "இந்தத் தனிப்பயன் தேடி மாற்றுதலுக்கு எதையாவது தேர்ந்தெடுத்திருக்க வேண்டும்."
 
-#: ../src/menu.c:1850
+#: ../src/menu.c:1854
 msgid "/_Custom menu"
 msgstr "/_தனிப்பயன் மெனு"
 
-#: ../src/menu.c:1851
+#: ../src/menu.c:1855
 msgid "/Custom menu/sep"
 msgstr "/தனிப்பயன் மெனு/sep"
 
-#: ../src/menu.c:1852
+#: ../src/menu.c:1856
 msgid "/Custom menu/Edit custom menu..."
 msgstr "/தனிப்பயன் மெனு/தனிப்பயன் மெனுவை மாற்று..."
 
-#: ../src/menu.c:2069
+#: ../src/menu.c:2073
 msgid "Search Pattern"
 msgstr "உருவகை தேடல்"
 
-#: ../src/menu.c:2070
+#: ../src/menu.c:2074
 msgid "Replace String"
 msgstr "சொல்லை மாற்று"
 
-#: ../src/menu.c:2073
+#: ../src/menu.c:2077
 msgid "Formatstring Before"
 msgstr "Formatstring Before"
 
-#: ../src/menu.c:2074
+#: ../src/menu.c:2078
 msgid "Formatstring After"
 msgstr "Formatstring After"
 
-#: ../src/menu.c:2121
+#: ../src/menu.c:2125
 msgid "The menupath you want to update does not exist yet"
 msgstr "நீங்கள் புதுப்பிக்கும் மெனுவழி இன்னும் உருவாக்கப்படவில்லை"
 
-#: ../src/menu.c:2121
+#: ../src/menu.c:2125
 msgid "Try 'add' instead."
 msgstr "இதை விடுத்து 'சேர்' என்பதை முயலவும்"
 
-#: ../src/menu.c:2123
+#: ../src/menu.c:2127
 msgid "The menupath you want to add already exists."
 msgstr "நீங்கள் சேர்க்கும் மெனுவழி ஏற்கனவே உள்ளது."
 
-#: ../src/menu.c:2128
+#: ../src/menu.c:2132
 msgid "The menupath should start with a / character"
 msgstr "மெனுவழி கண்டிப்பாக / குறியுடன் துவங்க வேண்டும்"
 
-#: ../src/menu.c:2290
+#: ../src/menu.c:2294
 msgid "Custom Menu Editor"
 msgstr "தனிப்பயன் மெனு எடிட்டர்"
 
-#: ../src/menu.c:2301
+#: ../src/menu.c:2305
 msgid "Add New Menu Entry"
 msgstr "புதிய மெனு பதிவினைச் சேர்"
 
-#: ../src/menu.c:2303
+#: ../src/menu.c:2307
 msgid "Apply Changes"
 msgstr "மாற்றங்களை அமல்படுத்து"
 
-#: ../src/menu.c:2305
+#: ../src/menu.c:2309
 msgid "Delete Menu Entry"
 msgstr "மெனுப் பதிவை நீக்கு"
 
-#: ../src/menu.c:2308
+#: ../src/menu.c:2312
 msgid "Close Discards Changes"
 msgstr "மூடுதல் மாறுதல்களை கவனத்தில் கொள்ளாது"
 
-#: ../src/menu.c:2310
+#: ../src/menu.c:2314
 msgid "Save Changes and Exit"
 msgstr "சேமித்து வெளியேறு"
 
-#: ../src/menu.c:2320
+#: ../src/menu.c:2324
 msgid "_Menu Path:"
 msgstr "_மெனு வழி:"
 
-#: ../src/menu.c:2341
+#: ../src/menu.c:2345
 msgid "Menu path"
 msgstr "_மெனு வழி"
 
-#: ../src/menu.c:2361
+#: ../src/menu.c:2365
 msgid "Number of _Variables:"
 msgstr "_மாறிகளின் எண்ணிக்கை:"
 
-#: ../src/menu.c:2369
+#: ../src/menu.c:2373
 msgid "Variables"
 msgstr "மாறிகள்"
 
-#: ../src/menu.c:2388
+#: ../src/menu.c:2392
 msgid "Custom Dialo_g"
 msgstr "தனிப்பயன் வசன_ம்"
 
-#: ../src/menu.c:2390
+#: ../src/menu.c:2394
 msgid "Custom _Search and Replace"
 msgstr "தனிப்பயன் _தேடி மாற்றுதல்"
 
-#: ../src/menu.c:2402
+#: ../src/menu.c:2406
 msgid "_Replace:"
 msgstr "_மாற்று"
 
-#: ../src/menu.c:2405
+#: ../src/menu.c:2409
 msgid "in current document"
 msgstr "நடப்பு ஆவணத்தில் உள்ளது"
 
-#: ../src/menu.c:2405
+#: ../src/menu.c:2409
 msgid "from cursor"
 msgstr "கர்ஸரிலிருந்து"
 
-#: ../src/menu.c:2405
+#: ../src/menu.c:2409
 msgid "in selection"
 msgstr "தேர்வில் உள்ளது"
 
-#: ../src/menu.c:2405
+#: ../src/menu.c:2409
 msgid "in all open documents"
 msgstr "திறந்திருக்கும் அனைத்து ஆவணங்களிலும்"
 
-#: ../src/menu.c:2413
+#: ../src/menu.c:2417
 msgid "Matc_hing:"
 msgstr "_பொறுத்துதல்:"
 
-#: ../src/menu.c:2416
+#: ../src/menu.c:2420
 msgid "normal"
 msgstr "பொதுவானது"
 
-#: ../src/menu.c:2416
+#: ../src/menu.c:2420
 msgid "posix regular expresions"
 msgstr "posix பொதுவான கோவைகள்"
 
-#: ../src/menu.c:2416
+#: ../src/menu.c:2420
 msgid "perl regular expresions"
 msgstr "perl பொதுவான கோவைகள்"
 
-#: ../src/menu.c:2422
+#: ../src/menu.c:2426
 msgid "Case Se_nsitive"
 msgstr "Case Se_nsitive"
 
@@ -4238,7 +4250,7 @@ msgstr "ஆவணத்தில் நோட்டுப்புத்தக �
 msgid "Left panel notebook tab position"
 msgstr "இடது சட்டத்தில் நோட்டுப்புத்தக நிலைநிறுத்தத்தின் அமைவிடம்"
 
-#: ../src/preferences.c:2072 ../src/rcfile.c:567
+#: ../src/preferences.c:2072 ../src/rcfile.c:569
 msgid "Images"
 msgstr "சித்திரங்கள்"
 
@@ -4306,140 +4318,140 @@ msgstr "Zope ஏற்பு முறை"
 msgid "New project"
 msgstr "புதிய செயல்திட்டம்"
 
-#: ../src/project.c:149 ../src/project.c:160
+#: ../src/project.c:154 ../src/project.c:161
 msgid "Enter Bluefish project filename"
 msgstr "நீலமீன் செயல்திட்ட கோப்பின் பெயரை அளிக்கவும்"
 
-#: ../src/project.c:184
+#: ../src/project.c:185
 msgid "/Project/Save"
 msgstr "/செயல்திட்டம்/சேமி"
 
-#: ../src/project.c:185
+#: ../src/project.c:186
 msgid "/Project/Save as..."
 msgstr "/செயல்திட்டம்/புதிதாகச் சேமி..."
 
-#: ../src/project.c:186
+#: ../src/project.c:187
 msgid "/Project/Save & close"
 msgstr "/செயல்திட்டம்/சேமி & மூடு"
 
-#: ../src/project.c:187
+#: ../src/project.c:188
 msgid "/Project/Edit Project Options..."
 msgstr "/செயல்திட்டம்/செயல்திட்ட விருப்பங்களை மாற்றுக"
 
-#: ../src/project.c:252 ../src/project.c:263
+#: ../src/project.c:258 ../src/project.c:265
 msgid "Select Bluefish project filename"
 msgstr "நீலமீன் செயல்திட்ட கோப்பின் பெயர்களைத் தேர்ந்தெடு"
 
-#: ../src/project.c:402
+#: ../src/project.c:404
 msgid "Create New Project"
 msgstr "புதிய செயல்திட்டத்தை உருவாக்கு"
 
-#: ../src/project.c:405
+#: ../src/project.c:407
 msgid "Edit Project"
 msgstr "செயல்திட்டத்தை மாற்றியமை"
 
-#: ../src/project.c:428
+#: ../src/project.c:430
 #, c-format
 msgid "This project contains %d files"
 msgstr "இந்த செயல்திட்டம் %d கோப்புக்களை உள்ளடக்கியது"
 
-#: ../src/project.c:440
+#: ../src/project.c:442
 msgid "Project _Name:"
 msgstr "செயல்திட்டத்தின் _பெயர்:"
 
-#: ../src/project.c:444
+#: ../src/project.c:446
 msgid "_Basedir:"
 msgstr "_Basedir:"
 
-#: ../src/project.c:448
+#: ../src/project.c:450
 msgid "_Preview URL:"
 msgstr "_URL முன்னோட்டம்"
 
-#: ../src/project.c:452
+#: ../src/project.c:454
 msgid "_Template:"
 msgstr "_படிமஅச்சு:"
 
-#: ../src/project.c:458
+#: ../src/project.c:460
 msgid "_Word wrap by default"
 msgstr "கொடாநிலையாக _உரையை மடி"
 
-#: ../src/project.c:469
+#: ../src/project.c:471
 msgid "Create _Project"
 msgstr "_செயல்திட்டத்தை உருவாக்கு"
 
-#: ../src/project.c:509
+#: ../src/project.c:511
 msgid "Create project"
 msgstr "செயல்திட்டத்தை உருவாக்கு"
 
-#: ../src/project.c:513
+#: ../src/project.c:515
 msgid "Create project with currently opened documents"
 msgstr "நடப்பு ஆவணங்களை வைத்து செயல்திட்டத்தை உருவாக்கு"
 
-#: ../src/project.c:514
+#: ../src/project.c:516
 msgid "Create empty project"
 msgstr "வெற்று செயல்திட்டத்தை உருவாக்கு"
 
-#: ../src/rcfile.c:493
+#: ../src/rcfile.c:495
 msgid "Galeon"
 msgstr "கேலியன்"
 
-#: ../src/rcfile.c:495
+#: ../src/rcfile.c:497
 msgid "Mozilla"
 msgstr "மோஸில்லா"
 
-#: ../src/rcfile.c:497
+#: ../src/rcfile.c:499
 msgid "Opera"
 msgstr "ஓபெரா"
 
-#: ../src/rcfile.c:499
+#: ../src/rcfile.c:501
 msgid "Netscape"
 msgstr "நெட்ஸ்கேப்"
 
-#: ../src/rcfile.c:501
+#: ../src/rcfile.c:503
 msgid "Gnome default"
 msgstr "க்னோமின் கொடாநிலை"
 
-#: ../src/rcfile.c:525
+#: ../src/rcfile.c:527
 msgid "make"
 msgstr "make"
 
-#: ../src/rcfile.c:526
+#: ../src/rcfile.c:528
 msgid "weblint HTML checker"
 msgstr "வெப்லிண்ட் HTML சோதிப்பான்"
 
-#: ../src/rcfile.c:527
+#: ../src/rcfile.c:529
 msgid "tidy HTML validator"
 msgstr "டைடி HTML மதிப்பீட்டாளன்"
 
-#: ../src/rcfile.c:528
+#: ../src/rcfile.c:530
 msgid "javac"
 msgstr "javac"
 
-#: ../src/rcfile.c:534
+#: ../src/rcfile.c:536
 msgid "Dos2Unix filter"
 msgstr "Dos2Unix வடிகட்டி"
 
-#: ../src/rcfile.c:536
+#: ../src/rcfile.c:538
 msgid "Tidy cleanup filter"
 msgstr "டைடி cleanup வடிகட்டி"
 
-#: ../src/rcfile.c:561
+#: ../src/rcfile.c:563
 msgid "C programming"
 msgstr "C நிரலாக்கம்"
 
-#: ../src/rcfile.c:563
+#: ../src/rcfile.c:565
 msgid "All web files"
 msgstr "அனைத்து இணையக் கோப்புகள்"
 
-#: ../src/rcfile.c:565
+#: ../src/rcfile.c:567
 msgid "Java programming"
 msgstr "ஜாவா நிரலாக்கம்"
 
-#: ../src/rcfile.c:569
+#: ../src/rcfile.c:571
 msgid "Hide objectfiles"
 msgstr "ஆப்ஜெக்ட் கோப்புக்களை மறை"
 
-#: ../src/rcfile.c:875
+#: ../src/rcfile.c:879
 msgid "Untitled Project"
 msgstr "பெயரிடப்படா ஆவணம்"
 
@@ -4456,108 +4468,113 @@ msgstr "தேடுதல் தோல்வியடைந்தது"
 msgid "Regular expression error: %s at offset %d"
 msgstr "பொதுவான பொதி பிழை: %s at offser %d"
 
-#: ../src/snr2.c:867
+#: ../src/snr2.c:873
 msgid "Confirm replace"
 msgstr "மாற்றத்தை உறுதிப்படுத்து"
 
-#: ../src/snr2.c:879
+#: ../src/snr2.c:885
 msgid "Replace selected text?"
 msgstr "தேர்ந்தெடுத்த உரையினை மாற்றவா?"
 
-#: ../src/snr2.c:892
+#: ../src/snr2.c:898
 msgid "_Skip"
 msgstr "_தவிர்"
 
-#: ../src/snr2.c:894
+#: ../src/snr2.c:900
 msgid "Replace _all"
 msgstr "_அனைத்தையும் மாற்று"
 
-#: ../src/snr2.c:1083 ../src/snr2.c:1090
+#: ../src/snr2.c:1089 ../src/snr2.c:1096
 msgid "Search: no match found"
 msgstr "தேடு: பொறுத்தம் கிடைக்கவில்லை"
 
-#: ../src/snr2.c:1311
-msgid "Search _for: "
+#: ../src/snr2.c:1317
+#, fuzzy
+msgid "_Search for: "
 msgstr "தேடல் _சொல்:"
 
-#: ../src/snr2.c:1324
-msgid "Replace wit_h: "
+#: ../src/snr2.c:1330
+#, fuzzy
+msgid "_Replace with: "
 msgstr "மாற்றவேண்டியது:"
 
-#: ../src/snr2.c:1334
+#: ../src/snr2.c:1340
 msgid "\\0 refers to the first subsearch_pattern, \\1 to the second etc."
 msgstr "\\0 முதல் துணைதேடல்உருவகையைக் குறிக்கிறது, \\1 என்பது இரண்டாவது இன்னும்பல."
 
-#: ../src/snr2.c:1349
+#: ../src/snr2.c:1355
 msgid "Beginning of document till end"
 msgstr "ஆவணத்தின் ஆரம்பம் முதல் இறுதி வரை"
 
-#: ../src/snr2.c:1349
+#: ../src/snr2.c:1355
 msgid "Current position till end"
 msgstr "தற்போதைய இடத்திலிருந்து இறுதி வரை"
 
-#: ../src/snr2.c:1349
+#: ../src/snr2.c:1355
 msgid "Beginning of selection till end of selection"
 msgstr "தேர்வின் தொடக்கத்திலிருந்து தேர்வின் இறுதிவரை"
 
-#: ../src/snr2.c:1349
+#: ../src/snr2.c:1355
 msgid "All opened files begin till end"
 msgstr "திறந்த கோப்புகளில் கடைசிவரை தொடங்கு"
 
-#: ../src/snr2.c:1350
+#: ../src/snr2.c:1356
 msgid "Disabled"
 msgstr "முடக்கப்பட்டது"
 
-#: ../src/snr2.c:1350
+#: ../src/snr2.c:1356
 msgid "POSIX type"
 msgstr "POSIX வகை"
 
-#: ../src/snr2.c:1350
+#: ../src/snr2.c:1356
 msgid "PERL type"
 msgstr "PERL வகை"
 
-#: ../src/snr2.c:1351
+#: ../src/snr2.c:1357
 msgid "Starts at:"
 msgstr "தொடக்கம்:"
 
-#: ../src/snr2.c:1363
+#: ../src/snr2.c:1369
 msgid "Regular expression:"
 msgstr "வழக்கமான கோவை:"
 
-#: ../src/snr2.c:1377
+#: ../src/snr2.c:1383
 msgid "Normal"
 msgstr "சாதாரணம்"
 
-#: ../src/snr2.c:1377
+#: ../src/snr2.c:1383
 msgid "Uppercase"
 msgstr "Uppercase"
 
-#: ../src/snr2.c:1377
+#: ../src/snr2.c:1383
 msgid "Lowercase"
 msgstr "Lowercase"
 
-#: ../src/snr2.c:1378
+#: ../src/snr2.c:1384
 msgid "Replace type:"
 msgstr "மாறுதல் வகை:"
 
-#: ../src/snr2.c:1391
-msgid "Patterns contain backslash escape sequences (\\n, \\t)"
+#: ../src/snr2.c:1397
+#, fuzzy
+msgid "_Patterns contain backslash escape sequences (\\n, \\t)"
 msgstr "உருவகைகள் பின்சாய்வு தப்பித்தல் தொடர்களை உள்ளடக்கியுள்ளன (\\n, \\t)"
 
-#: ../src/snr2.c:1392
-msgid "Match ca_se"
+#: ../src/snr2.c:1398
+#, fuzzy
+msgid "_Match case"
 msgstr "Match ca_se"
 
-#: ../src/snr2.c:1393
+#: ../src/snr2.c:1399
 msgid "O_verlap searches"
 msgstr "தேடுதல்களை _உடன்நிகழ்த்து"
 
-#: ../src/snr2.c:1395
+#: ../src/snr2.c:1401
 msgid "Prompt _before replace"
 msgstr "மாற்றுவதற்கு _முன் அனுமதிபெறு"
 
-#: ../src/snr2.c:1396
-msgid "Rep_lace once"
+#: ../src/snr2.c:1402
+#, fuzzy
+msgid "Replace o_nce"
 msgstr "ஒருமுறை _மாற்று"
 
 #: ../src/stringlist.c:366
@@ -4643,6 +4660,12 @@ msgstr "மூலநிரல்:"
 #: ../src/wizards.c:223
 msgid "Size:"
 msgstr "அளவு:"
+
+#~ msgid "/File/Open recen_t"
+#~ msgstr "/கோப்பு/சமீபத்திய கோப்புகள்"
+
+#~ msgid "/Project/Open r_ecent"
+#~ msgstr "/செயல்திட்டம்/_சமீபத்தைத் திற"
 
 #~ msgid ""
 #~ "Do you want to save the changes made to\n"
