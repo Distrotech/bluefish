@@ -27,18 +27,23 @@ typedef struct {
 	GtkWidget *suggestions;
 	Tdocument *doc;
 	gint offset;
+	gint stop_position;
 	GtkTextMark* so;
 	GtkTextMark* eo;
 } Tbfspell;
 
-Tbfspell bfspell = { NULL, NULL, NULL,NULL, NULL, NULL,NULL, NULL,NULL,NULL, NULL,NULL, NULL,0,NULL,NULL};
+Tbfspell bfspell = { NULL, NULL, NULL,NULL, NULL, NULL,NULL, NULL,NULL,NULL, NULL,NULL, NULL,0,-1,NULL,NULL};
 
 /* return value should be freed by the calling function */
 gchar *doc_get_next_word(GtkTextIter *itstart, GtkTextIter *itend) {
 	gboolean havestart=FALSE;
 	gchar *retval;
 	
-	gtk_text_buffer_get_iter_at_offset(bfspell.doc->buffer,itstart,bfspell.offset);
+	if (bfspell.eo && bfspell.offset ==-1) {
+		gtk_text_buffer_get_iter_at_mark(bfspell.doc->buffer,itstart,bfspell.eo);
+	} else {
+		gtk_text_buffer_get_iter_at_offset(bfspell.doc->buffer,itstart,bfspell.offset);
+	}
 	havestart = gtk_text_iter_starts_word(itstart);
 	while (!havestart) {
 		if (!gtk_text_iter_forward_char(itstart)) {
@@ -48,9 +53,16 @@ gchar *doc_get_next_word(GtkTextIter *itstart, GtkTextIter *itend) {
 	}
 	*itend = *itstart;
 	gtk_text_iter_forward_word_end(itend);
-	
-	retval = gtk_text_buffer_get_text(bfspell.doc->buffer,itstart,itend,FALSE);
+
 	bfspell.offset = gtk_text_iter_get_offset(itend);
+	if (bfspell.offset > bfspell.stop_position) {
+		return NULL;
+	}
+	retval = gtk_text_buffer_get_text(bfspell.doc->buffer,itstart,itend,FALSE);
+	if (strlen(retval)<1) {
+		g_free(retval);
+		return NULL;
+	}
 	return retval;
 }
 
@@ -72,12 +84,14 @@ gboolean spell_check_word(gchar * tocheck, GtkTextIter *itstart, GtkTextIter *it
 	if (!correct) {
 		AspellWordList *awl = aspell_speller_suggest(bfspell.spell_checker, tocheck,-1);
 		if (!bfspell.so || !bfspell.eo) {
-			bfspell.so = gtk_text_buffer_create_mark(bfspell.doc->buffer,NULL,itstart,TRUE);
-			bfspell.eo = gtk_text_buffer_create_mark(bfspell.doc->buffer,NULL,itend,FALSE);
+			bfspell.so = gtk_text_buffer_create_mark(bfspell.doc->buffer,NULL,itstart,FALSE);
+			bfspell.eo = gtk_text_buffer_create_mark(bfspell.doc->buffer,NULL,itend,TRUE);
 		} else {
 			gtk_text_buffer_move_mark(bfspell.doc->buffer,bfspell.so,itstart);
 			gtk_text_buffer_move_mark(bfspell.doc->buffer,bfspell.eo,itend);
 		}
+		doc_select_region(bfspell.doc, gtk_text_iter_get_offset(itstart),gtk_text_iter_get_offset(itend) , TRUE);
+		bfspell.offset = -1;
 		gtk_entry_set_text(GTK_ENTRY(bfspell.incorrectword), tocheck);
 		gtk_entry_set_text(GTK_ENTRY(GTK_COMBO(bfspell.suggestions)->entry), "");
 		if (awl == 0) {
@@ -191,6 +205,15 @@ void spell_gui_ok_clicked_cb(GtkWidget *widget, gpointer data) {
 		return;
 	} else {
 		bfspell.spell_checker = to_aspell_speller(possible_err);
+	}
+
+	if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(bfspell.in_doc))) {
+		bfspell.stop_position = gtk_text_buffer_get_char_count(bfspell.doc->buffer);
+	} else {
+		GtkTextIter start, end;
+		gtk_text_buffer_get_selection_bounds(bfspell.doc->buffer,&start,&end);
+		bfspell.offset = gtk_text_iter_get_offset(&start);
+		bfspell.stop_position = gtk_text_iter_get_offset(&end);
 	}
 
 	if (spell_run()) {
