@@ -21,6 +21,8 @@
 #define __GUI_H_
 
 void notebook_changed(gint newpage);
+void gui_notebook_bind_signals();
+void gui_notebook_unbind_signals();
 void gui_create_main();
 void statusbar_message(gchar *message, gint time);
 gboolean switch_to_document_by_index(gint index);

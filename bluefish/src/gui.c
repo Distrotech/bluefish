@@ -136,6 +136,17 @@ void filebrowser_show(gint first_time) {
 	}*/
 }
 
+void gui_notebook_bind_signals() {
+	main_v->notebook_switch_signal = g_signal_connect_after(G_OBJECT(main_v->notebook),"switch-page",G_CALLBACK(notebook_switch_page_lcb), NULL);
+}
+
+void gui_notebook_unbind_signals() {
+if (main_v->notebook_switch_signal != 0) {
+		g_signal_handler_disconnect(G_OBJECT(main_v->notebook),main_v->notebook_switch_signal);
+		main_v->notebook_switch_signal = 0;
+	}
+}
+
 void gui_create_main(GList *filenames) {
 	GtkWidget *vbox;
 	main_v->main_window = window_full(CURRENT_VERSION_NAME, GTK_WIN_POS_CENTER, 0, G_CALLBACK(main_window_delete_lcb), NULL);
@@ -175,7 +186,7 @@ void gui_create_main(GList *filenames) {
 	}
 
 	/* We have to know when the notebook changes */
-	g_signal_connect_after(G_OBJECT(main_v->notebook),"switch-page",G_CALLBACK(notebook_switch_page_lcb), NULL);
+	gui_notebook_bind_signals();
 
 	gtk_notebook_set_page(GTK_NOTEBOOK(main_v->notebook), 0);
 	gtk_notebook_set_scrollable(GTK_NOTEBOOK(main_v->notebook), TRUE);
