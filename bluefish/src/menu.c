@@ -21,7 +21,7 @@
 #include <stdlib.h> /* atoi */
 #include <string.h> /* strchr() */
 
-/*#define DEBUG*/
+/* #define DEBUG*/
 
 #include "bluefish.h"
 #include "document.h"			/* file_open etc. */
@@ -1309,7 +1309,7 @@ static void cust_menu_lcb(GtkWidget * widget, gpointer data) {
 
 	cmentry = (Tcmenu_entry *) g_list_nth_data(menus.cmenu_entries, GPOINTER_TO_INT(data));
 	if (cmentry->type == 0) {
-		DEBUG_MSG("cust_menu_lcb, a custom insert, array[4]=%s\n", cmentry->array[3]);
+		DEBUG_MSG("cust_menu_lcb, a custom insert, array[3]=%s\n", cmentry->array[3]);
 		if (atoi(cmentry->array[3]) > 0) {
 		     cust_con_struc_dialog(cmentry->array, 0);
 		} else {
@@ -1725,7 +1725,8 @@ static void cme_add_lcb(GtkWidget *widget, Tcmenu_editor *cme) {
 		GtkTreeIter iter;
 		GtkTreeSelection *gtsel;
 		gint type = GTK_TOGGLE_BUTTON(cme->type[1])->active;
-		if (type) {
+		DEBUG_MSG("cme_add_lcb, adding %p with type %d\n",newarray,type);
+		if (type == 0) {
 			cme->worklist_insert = g_list_append(cme->worklist_insert, newarray);
 		} else {
 			cme->worklist_replace = g_list_append(cme->worklist_replace, newarray);
