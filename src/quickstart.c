@@ -91,7 +91,6 @@ static struct {
 
 static void
 quickstart_head_selection_changed(GtkTreeSelection *tselection, TQuickStart *qstart) {
-	DEBUG_MSG("quickstart_head_selection_changed() started\n");
 	GtkTreeModel *tmodel;
 	GtkTreeIter iter;
 	guint page = -1;
@@ -165,7 +164,6 @@ quickstart_load_metatags(GtkListStore *lstore) {
 
 static void
 quickstart_meta_selection_changed(GtkTreeSelection *tselection, TQuickStart *qstart) {
-	DEBUG_MSG("quickstart_meta_selection_changed() started\n");
 	GtkTreeModel *tmodel;
 	GtkTreeIter iter;
 	
@@ -179,9 +177,9 @@ quickstart_meta_selection_changed(GtkTreeSelection *tselection, TQuickStart *qst
 
 static void
 quickstart_meta_add_clicked(GtkWidget *widget, TQuickStart *qstart) {
-	DEBUG_MSG("quickstart_meta_add_clicked() started\n");
+	GtkWidget *dialog;
 	/* FIXME: We can't add any new tags yet */
-	GtkWidget *dialog = gtk_message_dialog_new (GTK_WINDOW (qstart->bfwin->main_window),
+	dialog = gtk_message_dialog_new (GTK_WINDOW (qstart->bfwin->main_window),
 															  GTK_DIALOG_DESTROY_WITH_PARENT,
 															  GTK_MESSAGE_INFO,
 															  GTK_BUTTONS_CLOSE,
