@@ -1057,7 +1057,7 @@ static void snr2dialog(gint is_replace, gint is_new_search) {
 	gtk_table_set_row_spacings (GTK_TABLE (table), 12);
 	gtk_table_set_col_spacings (GTK_TABLE (table), 6);
 	{
-		gchar *placeactions[] = {N_("Beginning of document"), N_("Current position"),	N_("Beginning of selection"), N_("All opened files"), NULL};
+		gchar *placeactions[] = {N_("Beginning of document till end"), N_("Current position till end"),	N_("Beginning of selection till end of selection"), N_("All opened files begin till end"), NULL};
 		gchar *matchactions[] = {N_("Disabled"), N_("POSIX type"),	N_("PERL type"), NULL};
 		GtkWidget *matchlabel, *placelabel = gtk_label_new("Starts at:");
 		DEBUG_MSG("snr2dialog, last_snr2.placetype_option=%d\n", last_snr2.placetype_option);
