@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-/* #define DEBUG */
+/*#define DEBUG*/
 
 #include <gtk/gtk.h>
 #include <sys/stat.h>
@@ -116,6 +116,7 @@ static void init_prop_arraylist(GList ** config_list, void *pointer_to_var, gcha
 	}
 }
 
+/* limited lists should have the most recent on top, the last entries will be cut if there are too many entries */
 static void init_prop_limitedstringlist(GList ** config_list, void *pointer_to_var, gchar * name_of_var, gint len, gboolean setNULL)
 {
 	*config_list = make_config_list_item(*config_list, pointer_to_var, 'm', name_of_var, len);
@@ -183,12 +184,14 @@ static gint save_config_file(GList * config_list, gchar * filename)
 			tmplist2 = g_list_last((GList *) * (void **) tmpitem->pointer);
 			while (tmplist2 != NULL && max != 0) {
 				tmpstring2 = (char *) tmplist2->data;
-				DEBUG_MSG("save_config_file, tmpstring2(%p)=%s\n", tmpstring2, tmpstring2);
 				tmpstring = g_strdup_printf("%s %s", tmpitem->identifier, tmpstring2);
 				DEBUG_MSG("save_config_file, tmpstring(%p)=%s\n", tmpstring, tmpstring);
 				rclist = g_list_append(rclist, tmpstring);
 				tmplist2 = g_list_previous(tmplist2);
 				max--;
+#ifdef DEBUG
+				if (max ==0 && tmplist2 != NULL) DEBUG_MSG("save_config_file, limit reached!, next item would have been %s\n",tmplist2->data);
+#endif
 			}
 			} break;
 		case 'a':

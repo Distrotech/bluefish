@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-#define DEBUG
+/*#define DEBUG*/
 
 /* ******* FILEBROWSER DESIGN ********
 there is only one treestore left for all bluefish windows. This treestore has all files 
@@ -1251,7 +1251,6 @@ static void fb2rpopup_filter_toggled_lcb(GtkWidget *widget, Tfilebrowser2 *fb2) 
 	}
 }
 
-
 static GtkItemFactoryEntry fb2rpopup_menu_entries[] = {
 	{ N_("/_Open"),		NULL,	fb2rpopup_rpopup_action_lcb,		1,	"<Item>" },
 	{ N_("/Open _Advanced..."),NULL,	fb2rpopup_rpopup_action_lcb,	7,	"<Item>" },
@@ -1648,6 +1647,13 @@ static void fb2_dir_v_drag_data_received(GtkWidget * widget, GdkDragContext * co
 	g_free(stringdata);
 }
 
+void fb2_set_filter_from_session(Tbfwin *bfwin) {
+	Tfilebrowser2 *fb2 = bfwin->fb2;
+	if (bfwin->session->last_filefilter) {
+		fb2->curfilter = find_filter_by_name(bfwin->session->last_filefilter);
+	}
+}
+
 GtkWidget *fb2_init(Tbfwin *bfwin) {
 	Tfilebrowser2 *fb2;
 	GtkWidget *vbox;
@@ -1662,9 +1668,7 @@ GtkWidget *fb2_init(Tbfwin *bfwin) {
 	bfwin->fb2 = fb2;
 	fb2->bfwin = bfwin;
 
-	if (bfwin->session->last_filefilter) {
-		fb2->curfilter = find_filter_by_name(bfwin->session->last_filefilter);
-	}
+	fb2_set_filter_from_session(bfwin);
 
 	vbox = gtk_vbox_new(FALSE, 0);
 

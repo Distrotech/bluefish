@@ -398,7 +398,9 @@ static void doc_set_tooltip(Tdocument *doc) {
 	DEBUG_MSG("doc_set_tooltip, fileinfo=%p for uri %s and filename %s\n", doc->fileinfo, doc->uri, doc->uri);
 	if (doc->fileinfo) {
 		if (doc->fileinfo->valid_fields & GNOME_VFS_FILE_INFO_FIELDS_PERMISSIONS) {
-			modestr = filemode_to_string(doc->fileinfo->permissions);
+			tmp = filemode_to_string(doc->fileinfo->permissions);
+			modestr = g_strdup_printf("%s\nUid: %u Gid: %u",tmp,doc->fileinfo->uid,doc->fileinfo->gid);
+			g_free(tmp);
 		}
 		if (doc->fileinfo->valid_fields & GNOME_VFS_FILE_INFO_FIELDS_MTIME) {
 			ctime_r(&doc->fileinfo->mtime,mtimestr);
@@ -2934,9 +2936,6 @@ void doc_new_from_uri(Tbfwin *bfwin, gchar *curi, GnomeVFSURI *uri, GnomeVFSFile
 	tmpcuri = (curi) ? g_strdup(curi) : gnome_vfs_uri_to_string(uri,0);
 	DEBUG_MSG("doc_new_from_uri, started for %s\n",tmpcuri);
 	
-	add_filename_to_history(bfwin, tmpcuri);
-	session_set_opendir(bfwin, tmpcuri);
-	
 	/* check if the document already is opened */
 	alldocs = return_allwindows_documentlist();
 	tmpdoc = documentlist_return_document_from_filename(alldocs, tmpcuri);
@@ -2969,6 +2968,8 @@ void doc_new_from_uri(Tbfwin *bfwin, gchar *curi, GnomeVFSURI *uri, GnomeVFSFile
 		file_doc_from_uri(bfwin, tmpuri, finfo, goto_line, goto_offset);
 		gnome_vfs_uri_unref(tmpuri);
 	}
+	add_filename_to_history(bfwin, tmpcuri);
+	session_set_opendir(bfwin, tmpcuri);
 	g_free(tmpcuri);
 }
 
