@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * project.c - project functionality
  *
- * Copyright (C) 2003 Olivier Sessink
+ * Copyright (C) 2003-2004 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -122,7 +122,7 @@ gboolean project_save(Tbfwin *bfwin, gboolean save_as) {
 	}
 	DEBUG_MSG("project_save, project=%p, num files was %d\n", bfwin->project, g_list_length(bfwin->project->files));
 	update_project_filelist(bfwin, bfwin->project);
-	bfwin->project->recentfiles = limit_stringlist(bfwin->project->recentfiles, main_v->props.max_recent_files, TRUE);
+/*	bfwin->project->recentfiles = limit_stringlist(bfwin->project->recentfiles, main_v->props.max_recent_files, TRUE);*/
 	
 	bfwin->project->session->searchlist = limit_stringlist(bfwin->project->session->searchlist, 10, TRUE);
 	bfwin->project->session->replacelist = limit_stringlist(bfwin->project->session->replacelist, 10, TRUE);
@@ -254,7 +254,7 @@ gboolean project_save_and_close(Tbfwin *bfwin) {
 			bmark_set_store(bfwin);
 			gui_set_title(bfwin, bfwin->current_document);
 			filebrowser_set_basedir(bfwin, NULL);
-			recent_menu_from_file(bfwin, "/.bluefish/recentlist", FALSE);
+			recent_menu_from_list(bfwin, main_v->session->recent_files, FALSE);
 			set_project_menu_widgets(bfwin, FALSE);
 			DEBUG_MSG("project_save_and_close, returning TRUE\n");
 			return TRUE;

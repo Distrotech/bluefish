@@ -3419,7 +3419,7 @@ void file_open_url_cb(GtkWidget * widget, Tbfwin *bfwin) {
 	vbox = gtk_vbox_new(FALSE,3);
 	gtk_container_add(GTK_CONTAINER(ou->win),vbox);
 	if (bfwin->project) {
-		tmplist = g_list_first(bfwin->project->recentfiles);
+		tmplist = g_list_first(bfwin->session->recent_files);
 	}
 	while (tmplist) {
 		if (NULL != strchr(tmplist->data, ':')) {
