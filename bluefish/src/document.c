@@ -3351,8 +3351,9 @@ static void files_advanced_win(Tfiles_advanced *tfs) {
 	GtkWidget *vbox, *hbox, *but, *table;
 	GList *list;
 	if (!tfs->basedir) {
-		gchar *curdir=g_get_current_dir();
+		gchar *curdir = g_get_current_dir();
 		tfs->basedir = entry_with_text(curdir, 255);
+		g_free (curdir);
 	}
 	
 	tfs->win = window_full2(_("Advanced open file selector"), GTK_WIN_POS_MOUSE, 12, G_CALLBACK(files_advanced_win_destroy),tfs, TRUE, tfs->bfwin->main_window);
