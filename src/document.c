@@ -1984,7 +1984,7 @@ void file_insert_cb(GtkWidget * widget, gpointer data) {
 
 	tmpfilename = return_file(NULL);
 	if (tmpfilename == NULL) {
-		error_dialog(_("Bluefish error"), _("No filename known"));
+		statusbar_message(_("No file to insert"), 2000);
 		return;
 	} else {
 		/* do we need to set the insert point in some way ?? */
