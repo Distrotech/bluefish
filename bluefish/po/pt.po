@@ -1,4 +1,4 @@
-# translation of 07_11_2004_pt.po to Portuguese
+# translation of last_pt.po to Portuguese
 # translation of pt.po to
 # translation of bluefish to Portuguese
 # Copyright (C) 2000,2003, 2004 Free Software Foundation, Inc.
@@ -6,15 +6,15 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 07_11_2004_pt\n"
-"POT-Creation-Date: 2004-11-25 10:39+0100\n"
-"PO-Revision-Date: 2004-11-08 11:13+0000\n"
+"Project-Id-Version: last_pt\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-12-09 01:11-0300\n"
+"PO-Revision-Date: 2004-12-04 21:45+0000\n"
 "Last-Translator: Lopo Pizarro <lopo-pizarro@netcabo.pt>\n"
 "Language-Team: Portuguese <translation-team-pt@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Report-Msgid-Bugs-To: \n"
 "X-Generator: KBabel 1.3.1\n"
 
 #: ../src/about.c:123
@@ -39,7 +39,6 @@ msgstr ""
 "Esta versão do Bluefish foi compilada com as seguintes opções:\n"
 
 #: ../src/about.c:124
-#, fuzzy
 msgid ""
 "Project leader:\n"
 "  Olivier Sessink <olivier@bluefish.openoffice.nl>\n"
@@ -534,33 +533,33 @@ msgstr "Apagar tudo no documento"
 msgid "Delete all"
 msgstr "Apagar tudo"
 
-#: ../src/bookmark.c:1277 ../src/bookmark.c:1294 ../src/bookmark.c:1330
+#: ../src/bookmark.c:1278 ../src/bookmark.c:1295 ../src/bookmark.c:1331
 #: ../src/document.c:2022
 msgid "Add bookmark"
 msgstr "Adicionar marcador"
 
 # src/configure.c:360
-#: ../src/bookmark.c:1278 ../src/bookmark.c:1331
+#: ../src/bookmark.c:1279 ../src/bookmark.c:1332
 msgid "Cannot add bookmarks in unnamed files."
 msgstr "Não é possível adicionar marcadores em ficheiros sem nome."
 
-#: ../src/bookmark.c:1295
+#: ../src/bookmark.c:1296
 msgid "You already have a bookmark here!"
 msgstr "Já possui um marcador aqui!"
 
-#: ../src/bookmark.c:1368
+#: ../src/bookmark.c:1369
 msgid "Delete all bookmarks."
 msgstr "Apagar todos os marcadores"
 
-#: ../src/bookmark.c:1368
+#: ../src/bookmark.c:1369
 msgid "Are you sure?"
 msgstr "Tem a certeza?"
 
-#: ../src/bookmark.c:1411
+#: ../src/bookmark.c:1412
 msgid "File size changed in file\n"
 msgstr "O tamanho do ficheiro mudou noficheiro\n"
 
-#: ../src/bookmark.c:1412
+#: ../src/bookmark.c:1413
 msgid "Bookmarks positions could be incorrect. Delete bookmarks?"
 msgstr "As posições dos marcadores podem estar incorrectas. Apagar marcadores?"
 
@@ -733,55 +732,55 @@ msgstr "Previamente: "
 
 # src/configure.c:428 src/interface.c:783 src/interface.c:936
 #: ../src/document.c:2412
-#, fuzzy, c-format
+#, c-format
 msgid "Move/rename %s to"
-msgstr "Mover/Mudar o nome o documento para"
+msgstr "Mover/Mudar o nome %s para"
 
 # src/document.c:1304
 #: ../src/document.c:2412
-#, fuzzy, c-format
+#, c-format
 msgid "Save %s as"
-msgstr "Gravar Como..."
+msgstr "Gravar %s como"
 
 # src/document.c:1318 src/document.c:1419 src/interface.c:702
-#: ../src/document.c:2456 ../src/document.c:2471 ../src/document.c:2569
-#: ../src/document.c:3759 ../src/project.c:171
+#: ../src/document.c:2455 ../src/document.c:2470 ../src/document.c:2568
+#: ../src/document.c:3759 ../src/project.c:172
 msgid "_Cancel"
 msgstr "_Cancelar"
 
 # src/document.c:1318
-#: ../src/document.c:2456 ../src/document.c:2471 ../src/document.c:2569
-#: ../src/project.c:171
+#: ../src/document.c:2455 ../src/document.c:2470 ../src/document.c:2568
+#: ../src/project.c:172
 msgid "_Overwrite"
 msgstr "S_ubstituir"
 
 # src/document.c:1319
-#: ../src/document.c:2457
+#: ../src/document.c:2456
 #, c-format
 msgid "File %s exists and is opened, overwrite?"
 msgstr "O ficheiro %s está aberto, substituir?"
 
-#: ../src/document.c:2458
+#: ../src/document.c:2457
 msgid "The file you have selected is being edited in Bluefish."
 msgstr "O ficheiro que selecionou está a ser editado no Bluefish."
 
-#: ../src/document.c:2472 ../src/project.c:172
+#: ../src/document.c:2471 ../src/project.c:173
 #, c-format
 msgid "A file named \"%s\" already exists."
 msgstr "Já existe um ficheiro com o nome \"%s\"."
 
 # src/document.c:1465
-#: ../src/document.c:2474 ../src/project.c:174
+#: ../src/document.c:2473 ../src/project.c:175
 msgid "Do you want to replace the existing file?"
 msgstr "Deseja gravar as mudanças feitas neste ficheiro Sem título?"
 
 # src/document.c:1304
-#: ../src/document.c:2524
+#: ../src/document.c:2523
 msgid "Save as..."
 msgstr "Gravar Como..."
 
 # src/document.c:1319
-#: ../src/document.c:2573
+#: ../src/document.c:2572
 #, c-format
 msgid ""
 "File: %s\n"
@@ -794,18 +793,18 @@ msgstr ""
 "Hora da nova modificação: %s\n"
 "Hora da velha modificação: %s"
 
-#: ../src/document.c:2574
+#: ../src/document.c:2573
 msgid "File has been modified by another process."
 msgstr "O ficheiro foi modificado por outro processo."
 
 # src/html.c:1258
-#: ../src/document.c:2587
+#: ../src/document.c:2586
 #, c-format
 msgid "Saving %s"
 msgstr "A gravar %s"
 
 # src/document.c:1004
-#: ../src/document.c:2601
+#: ../src/document.c:2600
 msgid ""
 "Could not backup file:\n"
 "\""
@@ -814,12 +813,12 @@ msgstr ""
 "\""
 
 # src/document.c:1103
-#: ../src/document.c:2602
+#: ../src/document.c:2601
 msgid "File save aborted.\n"
 msgstr "Gravação do ficheiro abortado.\n"
 
 # src/document.c:1004
-#: ../src/document.c:2607
+#: ../src/document.c:2606
 msgid ""
 "Could not write file:\n"
 "\""
@@ -827,34 +826,34 @@ msgstr ""
 "Não foi possível escrever o ficheiro:\n"
 "\""
 
-#: ../src/document.c:2608
+#: ../src/document.c:2607
 msgid "File save error"
 msgstr "Erro ao gravar ficheiro"
 
-#: ../src/document.c:2658
+#: ../src/document.c:2657
 #, c-format
 msgid "Save changes to \"%s\" before closing?."
 msgstr "Gravar alterações para \"%s\" antes de fechar?."
 
-#: ../src/document.c:2665 ../src/project.c:324
+#: ../src/document.c:2664 ../src/project.c:325
 msgid "Do_n't save"
 msgstr "Não gravar"
 
-#: ../src/document.c:2667 ../src/document.c:3761 ../src/project.c:333
+#: ../src/document.c:2666 ../src/document.c:3761 ../src/project.c:334
 msgid "If you don't save your changes they will be lost."
 msgstr "Se não gravar as alterações, estas perder-se-ão."
 
 # src/document.c:1347 src/document.c:1547
-#: ../src/document.c:2947
+#: ../src/document.c:2946
 msgid "No filename"
 msgstr "Nenhum nome de ficheiro"
 
 # src/document.c:1091
-#: ../src/document.c:3084
+#: ../src/document.c:3083
 msgid "Loading files..."
 msgstr "A carregar ficheiros..."
 
-#: ../src/document.c:3102
+#: ../src/document.c:3101
 msgid ""
 "These files could not opened:\n"
 "\n"
@@ -863,7 +862,7 @@ msgstr ""
 "\n"
 
 # src/document.c:1374
-#: ../src/document.c:3104 ../src/msg_queue.c:235
+#: ../src/document.c:3103 ../src/msg_queue.c:235
 msgid "Unable to open file(s)\n"
 msgstr "Não foi possível abrir o(s) ficheiro(s)\n"
 
@@ -965,7 +964,7 @@ msgid "<b>Open URL</b>"
 msgstr "<b>Abrir URL</b>"
 
 # src/bluefish.c:617
-#: ../src/document.c:3607 ../src/gtk_easy.c:1601
+#: ../src/document.c:3607 ../src/gtk_easy.c:1604
 msgid "Select files"
 msgstr "Selecionar ficheiros"
 
@@ -1112,7 +1111,7 @@ msgid "Filter"
 msgstr "Filtro"
 
 # src/configure.c:425 src/interface.c:763
-#: ../src/filebrowser.c:1699 ../src/gtk_easy.c:1383
+#: ../src/filebrowser.c:1699 ../src/gtk_easy.c:1385
 msgid "All files"
 msgstr "Todos os ficheiros"
 
@@ -1212,12 +1211,12 @@ msgstr "%d de %d"
 msgid "Select File"
 msgstr "Selecionar ficheiro"
 
-#: ../src/gtk_easy.c:1376
+#: ../src/gtk_easy.c:1378
 msgid "Show hidden"
 msgstr "Mostrar ficheiros ocultos"
 
 # src/bluefish.c:617
-#: ../src/gtk_easy.c:1574
+#: ../src/gtk_easy.c:1577
 msgid "Select file"
 msgstr "Selecionar ficheiro"
 
@@ -1731,15 +1730,13 @@ msgid "Paste"
 msgstr "Colar"
 
 #: ../src/gui.c:1090
-#, fuzzy
 msgid "Find..."
-msgstr "Procurar"
+msgstr "Procurar..."
 
 # src/snr2.c:651 src/snr2.c:688
 #: ../src/gui.c:1092
-#, fuzzy
 msgid "Replace..."
-msgstr "Substituir"
+msgstr "Substituir..."
 
 # src/toolbars.c:118
 #: ../src/gui.c:1095 ../src/preferences.c:1992
@@ -1833,6 +1830,71 @@ msgstr "a compilar o segundo padrão '%s': %s no offset %d"
 #, c-format
 msgid "studying 2nd pattern '%s': %s"
 msgstr "a estudar segundo padrão '%s': %s"
+
+# src/configure.c:437
+#: ../src/html2.c:554
+msgid "Cascading StyleSheet dialog"
+msgstr "Diálogo de CSS"
+
+# src/html_form.c:427
+#: ../src/html2.c:574
+msgid "_Selector:"
+msgstr "_Selecionador"
+
+# src/menu.c:135
+#: ../src/html2.c:593
+msgid "_Property:"
+msgstr "_Propriedade:"
+
+# src/html_form.c:160 src/html_form.c:179 src/html_form.c:256
+# src/html_form.c:295 src/html_form.c:346 src/html_form.c:391
+# src/html_form.c:476 src/wml.c:171 src/wml.c:211
+#: ../src/html2.c:595 ../src/html_form.c:650 ../src/html_form.c:799
+#: ../src/html_form.c:894
+msgid "_Value:"
+msgstr "_Valor:"
+
+# src/html_form.c:427
+#: ../src/html2.c:613
+msgid "Selector"
+msgstr "Seleccionador"
+
+# src/menu.c:135
+#: ../src/html2.c:613 ../src/html2.c:616
+msgid "Property"
+msgstr "Propriedade"
+
+# src/html_form.c:160 src/html_form.c:179 src/html_form.c:256
+# src/html_form.c:295 src/html_form.c:346 src/html_form.c:391
+# src/html_form.c:476 src/wml.c:171 src/wml.c:211
+#: ../src/html2.c:613 ../src/html2.c:616
+msgid "Value"
+msgstr "Valor"
+
+# src/stringlist.c:258
+#: ../src/html2.c:631
+msgid " _Add "
+msgstr " _Adicionar "
+
+# src/stringlist.c:260
+#: ../src/html2.c:634
+msgid " _Update "
+msgstr " Actualizar "
+
+# src/stringlist.c:262
+#: ../src/html2.c:637
+msgid " _Delete "
+msgstr " Apagar "
+
+# src/html.c:905 src/html.c:1317 src/toolbars.c:452
+#: ../src/html2.c:893 ../src/html2.c:930
+msgid "_Style..."
+msgstr "E_stilo..."
+
+# src/project.c:56
+#: ../src/html2.c:1087
+msgid "Bluefish: Select color"
+msgstr "Bluefish: Selecionar cor"
 
 # src/toolbars.c:519
 #: ../src/html.c:392
@@ -2335,71 +2397,6 @@ msgstr "I_dioma:"
 msgid "_Custom:"
 msgstr "_Personalizado:"
 
-# src/configure.c:437
-#: ../src/html2.c:554
-msgid "Cascading StyleSheet dialog"
-msgstr "Diálogo de CSS"
-
-# src/html_form.c:427
-#: ../src/html2.c:574
-msgid "_Selector:"
-msgstr "_Selecionador"
-
-# src/menu.c:135
-#: ../src/html2.c:593
-msgid "_Property:"
-msgstr "_Propriedade:"
-
-# src/html_form.c:160 src/html_form.c:179 src/html_form.c:256
-# src/html_form.c:295 src/html_form.c:346 src/html_form.c:391
-# src/html_form.c:476 src/wml.c:171 src/wml.c:211
-#: ../src/html2.c:595 ../src/html_form.c:650 ../src/html_form.c:799
-#: ../src/html_form.c:894
-msgid "_Value:"
-msgstr "_Valor:"
-
-# src/html_form.c:427
-#: ../src/html2.c:613
-msgid "Selector"
-msgstr "Seleccionador"
-
-# src/menu.c:135
-#: ../src/html2.c:613 ../src/html2.c:616
-msgid "Property"
-msgstr "Propriedade"
-
-# src/html_form.c:160 src/html_form.c:179 src/html_form.c:256
-# src/html_form.c:295 src/html_form.c:346 src/html_form.c:391
-# src/html_form.c:476 src/wml.c:171 src/wml.c:211
-#: ../src/html2.c:613 ../src/html2.c:616
-msgid "Value"
-msgstr "Valor"
-
-# src/stringlist.c:258
-#: ../src/html2.c:631
-msgid " _Add "
-msgstr " _Adicionar "
-
-# src/stringlist.c:260
-#: ../src/html2.c:634
-msgid " _Update "
-msgstr " Actualizar "
-
-# src/stringlist.c:262
-#: ../src/html2.c:637
-msgid " _Delete "
-msgstr " Apagar "
-
-# src/html.c:905 src/html.c:1317 src/toolbars.c:452
-#: ../src/html2.c:893 ../src/html2.c:930
-msgid "_Style..."
-msgstr "E_stilo..."
-
-# src/project.c:56
-#: ../src/html2.c:1087
-msgid "Bluefish: Select color"
-msgstr "Bluefish: Selecionar cor"
-
 # src/html_form.c:110
 #: ../src/html_form.c:141
 msgid "Form"
@@ -2611,47 +2608,47 @@ msgstr "Espaço _Vertical:"
 msgid "Borde_r:"
 msgstr "Borda:"
 
-#: ../src/image.c:383 ../src/image.c:391
+#: ../src/image.c:383 ../src/image.c:392
 msgid "Select files for thumbnail creation"
 msgstr "Selecione os ficheiros para criação de miniaturas"
 
 # src/html.c:1258
-#: ../src/image.c:508
+#: ../src/image.c:510
 msgid "Scaling (%)"
 msgstr "Escala (%)"
 
 # src/html.c:1008 src/html.c:1404 src/html_table.c:192 src/html_table.c:266
 # src/images.c:208
-#: ../src/image.c:512 ../src/image.c:520
+#: ../src/image.c:514 ../src/image.c:522
 msgid "Width"
 msgstr "Largura"
 
 # src/html.c:1411 src/html_table.c:210 src/html_table.c:284 src/images.c:216
-#: ../src/image.c:516 ../src/image.c:543
+#: ../src/image.c:518 ../src/image.c:545
 msgid "Height"
 msgstr "Altura"
 
-#: ../src/image.c:532
+#: ../src/image.c:534
 msgid "Multi thumbnail"
 msgstr "Miniaturas multiplas"
 
-#: ../src/image.c:538
+#: ../src/image.c:540
 msgid "By scaling"
 msgstr "Por escala"
 
-#: ../src/image.c:539
+#: ../src/image.c:541
 msgid "By width, keep aspect ratio"
 msgstr "Por largura, manter proporção"
 
-#: ../src/image.c:540
+#: ../src/image.c:542
 msgid "By height, keep aspect ratio"
 msgstr "Por altura, manter proporção"
 
-#: ../src/image.c:541
+#: ../src/image.c:543
 msgid "By width and height, ignore aspect ratio"
 msgstr "Por largura e altura, ignorar proporção"
 
-#: ../src/image.c:565
+#: ../src/image.c:567
 msgid ""
 "%r: original filename  %t: thumbnail filename\n"
 "%w: original width  %h: original height\n"
@@ -4637,9 +4634,8 @@ msgstr "Diálo_go personalizado"
 
 # src/toolbars.c:114
 #: ../src/menu.c:2449
-#, fuzzy
 msgid "Custom Replace"
-msgstr "Procurar e _Substituir personalizado"
+msgstr "Substituição personalizada"
 
 # src/snr2.c:651 src/snr2.c:688
 #: ../src/menu.c:2461
@@ -5293,30 +5289,30 @@ msgid "New project"
 msgstr "Novo projecto"
 
 # src/document.c:1347 src/document.c:1547
-#: ../src/project.c:154 ../src/project.c:161
+#: ../src/project.c:155 ../src/project.c:162
 msgid "Enter Bluefish project filename"
 msgstr "Introduzir o nome do projecto Bluefish"
 
 # src/document.c:1347 src/document.c:1547
-#: ../src/project.c:274 ../src/project.c:281
+#: ../src/project.c:275 ../src/project.c:282
 msgid "Select Bluefish project filename"
 msgstr "Selecionar nome do projecto Bluefish"
 
 # src/document.c:1465
-#: ../src/project.c:331
+#: ../src/project.c:332
 msgid "Do you want to save the project?"
 msgstr "Deseja gravar o projecto?"
 
-#: ../src/project.c:460
+#: ../src/project.c:461
 msgid "Create New Project"
 msgstr "Criar Novo Projecto"
 
 # src/toolbars.c:523
-#: ../src/project.c:463
+#: ../src/project.c:464
 msgid "Edit Project"
 msgstr "Editar Projecto"
 
-#: ../src/project.c:486
+#: ../src/project.c:487
 #, c-format
 msgid "This project contains %d files"
 msgstr "Este projecto contém %d ficheiros"
@@ -5326,43 +5322,43 @@ msgstr "Este projecto contém %d ficheiros"
 # src/html_form.c:291 src/html_form.c:342 src/html_form.c:387
 # src/html_form.c:432 src/images.c:247 src/wml.c:167 src/wml.c:207
 # src/wml.c:323
-#: ../src/project.c:498
+#: ../src/project.c:499
 msgid "Project _Name:"
 msgstr "_Nome do Projecto:"
 
 # src/project.c:202
-#: ../src/project.c:502
+#: ../src/project.c:503
 msgid "_Basedir:"
 msgstr "Directoria_base:"
 
 # src/images.c:188
-#: ../src/project.c:506
+#: ../src/project.c:507
 msgid "_Preview URL:"
 msgstr "_Pré-visualizar URL:"
 
 # src/snr2.c:651 src/snr2.c:688
-#: ../src/project.c:510
+#: ../src/project.c:511
 msgid "_Template:"
 msgstr "Modelo:"
 
 # src/configure.c:350
-#: ../src/project.c:516
+#: ../src/project.c:517
 msgid "_Word wrap by default"
 msgstr "Justificar palavras por defeito"
 
-#: ../src/project.c:527
+#: ../src/project.c:528
 msgid "Create _Project"
 msgstr "Criar _Projecto"
 
-#: ../src/project.c:567
+#: ../src/project.c:568
 msgid "Create project"
 msgstr "Criar Projecto"
 
-#: ../src/project.c:571
+#: ../src/project.c:572
 msgid "Create project with currently opened documents"
 msgstr "Criar projecto com os documentos actualmente abertos"
 
-#: ../src/project.c:572
+#: ../src/project.c:573
 msgid "Create empty project"
 msgstr "Criar projecto vazio"
 
@@ -5696,21 +5692,3 @@ msgstr "Código Fonte:"
 #: ../src/wizards.c:224
 msgid "Size:"
 msgstr "Tamanho:"
-
-# src/configure.c:428 src/interface.c:783 src/interface.c:936
-#~ msgid "Save document as"
-#~ msgstr "Gravar documento como"
-
-# src/document.c:1465
-#~ msgid "Save changes to this untitled file before closing?"
-#~ msgstr ""
-#~ "Deseja gravar as alterações feitas neste ficheiro Sem Título, antes de "
-#~ "fechar?"
-
-# src/snr2.c:654 src/toolbars.c:111
-#~ msgid "Search..."
-#~ msgstr "Procurar..."
-
-# src/toolbars.c:114
-#~ msgid "Search and Replace..."
-#~ msgstr "Procurar e Substituir..."
