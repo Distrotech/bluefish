@@ -321,7 +321,7 @@ Tfiletype *get_filetype_by_name(gchar * name) {
  **/
 Tfiletype *get_filetype_by_filename_and_content(gchar *filename, gchar *buf) {
 	GList *tmplist;
-	DEBUG_MSG("get_filetype_by_filename_and_content, filename=%s, strlen(buf)=%d\n",filename,strlen(buf));
+	DEBUG_MSG("get_filetype_by_filename_and_content, filename=%s, buf=%p\n",filename,buf);
 	if (filename) {
 		tmplist = g_list_first(main_v->filetypelist);
 		while (tmplist) {
