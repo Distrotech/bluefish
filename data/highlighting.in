@@ -31,9 +31,10 @@ php:comment:0:<!--:-->:1::#AAAAAA::1:2:
 php:php:1:<\\?php:\\?>:1:^(top|html|html-attrib-sub2)$:#0000FF::0:0:
 php:php-keywords:0:\\b(foreach|return|goto|if|else|elseif|case|default|switch|break|continue|while|do|for|global|var|class|function|new)\\b::2:^php$:#000000::2:0:
 php:php-braces:0:[{()}]::2:^php$:#000000::2:0:
+php:php-brackets:1:[\\[\\]]::2:^php$:#0000CC::2:0:
 php:php-string-double:0:":":1:^php$:#009900::1:1:
 php:php-string-double-escape:0:\\\\.::2:^php-string-double$:#009900::1:1:
-php:php-var:1:\\$[a-z_][][a-z0-9>_$-]*::2:^php$:#CC0000::2:0:
+php:php-var:1:\\$[a-z_][a-z0-9>_$-]*::2:^php$:#CC0000::2:0:
 php:php-var-specialchars:0:(\\[|\\]|->)::2:^php-var$:#0000CC::0:0:
 php:php-string-single:0:':':1:^php$:#009900::1:1:
 php:php-string-single-escape:0:\\\\.::2:^php-string-single$:#009900::1:1:
