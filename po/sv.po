@@ -6,14 +6,14 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: bluefish gtk2-port\n"
-"POT-Creation-Date: 2004-03-24 19:10+0100\n"
-"PO-Revision-Date: 2004-02-26 23:08+0100\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-03-26 01:19-0300\n"
+"PO-Revision-Date: 2004-03-26 21:00+0100\n"
 "Last-Translator: David Smeringe <david.smeringe@telia.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Report-Msgid-Bugs-To: \n"
 
 #: ../src/about.c:123
 msgid ""
@@ -121,6 +121,9 @@ msgid ""
 "  Brazilian Portuguese - Anderson Rocha\n"
 "   <anderson@maxlinux.com.br>\n"
 "\n"
+"  Bulgarian - Peio Popov\n"
+"   <peio@peio.org>\n"
+"\n"
 "  Chinese - Ting Yang (Dormouse)\n"
 "   <mouselinux@163.com>\n"
 "\n"
@@ -142,6 +145,9 @@ msgid ""
 "  Italian - Stefano Canepa\n"
 "   <sc@linux.it>\n"
 "\n"
+"  Norwegian - Christian Tellefsen\n"
+"   <chris@tellefsen.net>\n"
+"\n"
 "  Polish - Oskar Swida\n"
 "   <swida@aragorn.pb.bialystok.pl>\n"
 "\n"
@@ -149,7 +155,7 @@ msgid ""
 "   <lopopizarro@netcabo.pt>\n"
 "\n"
 "  Russian - Eugene Rupakov\n"
-"   <rupakov@jet.msk.ru>\n"
+"   <rupakov@jet.msk.su>\n"
 "\n"
 "  Serbian - Marko Milenović\n"
 "   <raven@sbb.co.yu>\n"
@@ -169,11 +175,17 @@ msgstr ""
 "  Braziliansk portugisiska - Anderson Rocha\n"
 "   <anderson@maxlinux.com.br>\n"
 "\n"
+"  Bulgariska - Peio Popov\n"
+"   <peio@peio.org>\n"
+"\n"
 "  Danska - Rasmus Toftdahl Olesen\n"
 "   <rto@pohldata.dk>\n"
 "\n"
 "  Finska - Juho Roukala\n"
 "   <j.mr@luukku.com>\n"
+"\n"
+"  Franska - Roméo Viu-Berges\n"
+"   <apostledemencia@free.fr>\n"
 "\n"
 "  Italienska - Stefano Canepa\n"
 "   <sc@linux.it>\n"
@@ -184,32 +196,44 @@ msgstr ""
 "  Polska - Oskar Swida\n"
 "   <swida@aragorn.pb.bialystok.pl>\n"
 "\n"
+"  Portugisiska - Lopo Pizarro\n"
+"   <lopopizarro@netcabo.pt>\n"
+"\n"
+"  Ryska - Eugene Rupakov\n"
+"   <rupakov@jet.msk.su>\n"
+"\n"
+"  Serbiska - Marko Milenović\n"
+"   <raven@sbb.co.yu>\n"
+"\n"
+"  Svenska - David Smeringe\n"
+"   <david.smeringe@telia.com>\n"
+"\n"
+"  Spanska - Walter Oscar Echarri\n"
+"   <wecharri@infovia.com.ar>\n"
+"\n"
+"  Tamil - Murugapandian Barathee\n"
+"   <barathee@yahoo.com>\n"
+"\n"
 "  Tyska - Roland Steinbach\n"
 "   <roland@netzblick.de>\n"
 "\n"
 "  Ungerska - Péter Sáska\n"
 "   <sasek@ccsystem.hu>\n"
-"\n"
-"  Svenska - David Smeringe\n"
-"   david.smeringe@telia.com\n"
-"\n"
-"  Tamil - Murugapandian Barathee\n"
-"   <barathee@yahoo.com>\n"
 
-#: ../src/about.c:194
+#: ../src/about.c:198
 msgid "About Bluefish"
 msgstr "Om Bluefish"
 
-#: ../src/about.c:226 ../src/fref.c:1416 ../src/fref.c:1700 ../src/fref.c:1787
+#: ../src/about.c:230 ../src/fref.c:1416 ../src/fref.c:1700 ../src/fref.c:1787
 #: ../src/fref.c:1822 ../src/fref.c:2296
 msgid "Info"
 msgstr "Info"
 
-#: ../src/about.c:228
+#: ../src/about.c:232
 msgid "Authors"
 msgstr "Upphovsmän"
 
-#: ../src/about.c:229
+#: ../src/about.c:233
 msgid "Translators"
 msgstr "Översättare"
 
@@ -239,7 +263,7 @@ msgstr "Lösenord:"
 msgid ""
 "Bluefish has trouble reading the filenames. Try to set the environment "
 "variable G_BROKEN_FILENAMES=1\n"
-msgstr ""
+msgstr "Bluefish har problem med att lösa filnamnen. Försök att sätta miljövariabeln G_BROKEN_FILENAMES=1\n"
 
 #: ../src/bfspell.c:346
 msgid "Check Spelling"
@@ -407,7 +431,7 @@ msgid "This bookmark is set in a file that no longer exists."
 msgstr "Det här bokmärket är satt i en fil som inte längre finns."
 
 #: ../src/bookmark.c:442
-#, fuzzy, c-format
+#, c-format
 msgid "Do you really want to delete %s?"
 msgstr "Vill du verkligen ta bort %s?"
 
@@ -416,47 +440,40 @@ msgid "Delete permanent bookmark."
 msgstr "Ta bort fast bokmärke."
 
 #: ../src/bookmark.c:461
-#, fuzzy
 msgid "Edit bookmark"
-msgstr "Gå till bokmärke"
+msgstr "Redigera bokmärke"
 
 #: ../src/bookmark.c:469
 msgid "Goto bookmark"
 msgstr "Gå till bokmärke"
 
 #: ../src/bookmark.c:477
-#, fuzzy
 msgid "Edit"
-msgstr "/_Redigera"
+msgstr "Redigera"
 
 #: ../src/bookmark.c:481
 msgid "Delete"
 msgstr "Ta bort"
 
 #: ../src/bookmark.c:903 ../src/bookmark.c:938 ../src/document.c:1987
-#, fuzzy
 msgid "Add bookmark"
-msgstr "Gå till bokmärke"
+msgstr "Lägg till bokmärke"
 
 #: ../src/bookmark.c:904
-#, fuzzy
 msgid "Cannot add bookmarks in unnamed files."
-msgstr ""
-"Kan inte lägga till bokmärken i namnlösa filer\n"
-"Spara först filen."
+msgstr "Kan inte lägga till bokmärken i namnlösa filer"
 
 #: ../src/bookmark.c:939
 msgid "You already have a bookmark here!"
 msgstr "Du har redan ett bokmärke här!"
 
 #: ../src/bookmark.c:944
-#, fuzzy
 msgid "default"
-msgstr "Använd standa_rd"
+msgstr "standard"
 
 #: ../src/bookmark.c:974
 msgid "temp"
-msgstr ""
+msgstr "temp"
 
 #: ../src/bookmark.c:1042
 #, c-format
@@ -468,7 +485,6 @@ msgstr ""
 "%s"
 
 #: ../src/bookmark.c:1044
-#, fuzzy
 msgid "Bookmarks positions could be incorrect."
 msgstr "Bokmärkenas positioner kan vara felaktiga."
 
@@ -1556,6 +1572,55 @@ msgstr "/Visa/Visa huvudverktygsraden"
 msgid "/View/View Custom Menu"
 msgstr "/Visa/Visa specialmenyn"
 
+#: ../src/html2.c:554
+msgid "Cascading StyleSheet dialog"
+msgstr "Stilmallsdialog"
+
+#: ../src/html2.c:574
+msgid "_Selector:"
+msgstr "V_äljare:"
+
+#: ../src/html2.c:593
+msgid "_Property:"
+msgstr "Egenskaper:"
+
+#: ../src/html2.c:595 ../src/html_form.c:650 ../src/html_form.c:799
+#: ../src/html_form.c:894
+msgid "_Value:"
+msgstr "_Värde:"
+
+#: ../src/html2.c:613
+msgid "Selector"
+msgstr "Välj"
+
+#: ../src/html2.c:613 ../src/html2.c:616
+msgid "Property"
+msgstr "Egenskaper"
+
+#: ../src/html2.c:613 ../src/html2.c:616
+msgid "Value"
+msgstr "Värde"
+
+#: ../src/html2.c:631
+msgid " _Add "
+msgstr " L_ägg till "
+
+#: ../src/html2.c:634
+msgid " _Update "
+msgstr " _Uppdatera "
+
+#: ../src/html2.c:637
+msgid " _Delete "
+msgstr " _Ta bort "
+
+#: ../src/html2.c:893 ../src/html2.c:930
+msgid "_Style..."
+msgstr "_Stil..."
+
+#: ../src/html2.c:1087
+msgid "Bluefish: Select color"
+msgstr "Bluefish: Välj färg"
+
 #: ../src/html.c:356
 msgid "Insert Time"
 msgstr "Sätt in tid"
@@ -1950,55 +2015,6 @@ msgstr "Spr_åk:"
 msgid "_Custom:"
 msgstr "A_npassad:"
 
-#: ../src/html2.c:554
-msgid "Cascading StyleSheet dialog"
-msgstr "Stilmallsdialog"
-
-#: ../src/html2.c:574
-msgid "_Selector:"
-msgstr "V_äljare:"
-
-#: ../src/html2.c:593
-msgid "_Property:"
-msgstr "Egenskaper:"
-
-#: ../src/html2.c:595 ../src/html_form.c:650 ../src/html_form.c:799
-#: ../src/html_form.c:894
-msgid "_Value:"
-msgstr "_Värde:"
-
-#: ../src/html2.c:613
-msgid "Selector"
-msgstr "Välj"
-
-#: ../src/html2.c:613 ../src/html2.c:616
-msgid "Property"
-msgstr "Egenskaper"
-
-#: ../src/html2.c:613 ../src/html2.c:616
-msgid "Value"
-msgstr "Värde"
-
-#: ../src/html2.c:631
-msgid " _Add "
-msgstr " L_ägg till "
-
-#: ../src/html2.c:634
-msgid " _Update "
-msgstr " _Uppdatera "
-
-#: ../src/html2.c:637
-msgid " _Delete "
-msgstr " _Ta bort "
-
-#: ../src/html2.c:893 ../src/html2.c:930
-msgid "_Style..."
-msgstr "_Stil..."
-
-#: ../src/html2.c:1087
-msgid "Bluefish: Select color"
-msgstr "Bluefish: Välj färg"
-
 #: ../src/html_form.c:141
 msgid "Form"
 msgstr "Formulär"
@@ -2392,14 +2408,12 @@ msgid "/Edit/Replace special/_Both Types to HTML Entities"
 msgstr "/Redigera/Ersätt special/_Båda typerna till HTML-entiteter"
 
 #: ../src/menu.c:362
-#, fuzzy
 msgid "/Edit/Replace special/To _Uppercase"
-msgstr "/Redigera/Ersätt special/Tearoff1"
+msgstr "/Redigera/Ersätt special/Till _Versaler"
 
 #: ../src/menu.c:363
-#, fuzzy
 msgid "/Edit/Replace special/To _Lowercase"
-msgstr "/Redigera/Ersätt special/Tearoff1"
+msgstr "/Redigera/Ersätt special/Till _Gemener"
 
 #: ../src/menu.c:364
 msgid "/Edit/sep4"
@@ -2418,14 +2432,12 @@ msgid "/Edit/sep5"
 msgstr "/Redigera/sep5"
 
 #: ../src/menu.c:368
-#, fuzzy
 msgid "/Edit/Add _Bookmark"
-msgstr "/_Bokmärken"
+msgstr "/Redigera/Lägg till _Bokmärke"
 
 #: ../src/menu.c:369
-#, fuzzy
 msgid "/Edit/sep6"
-msgstr "/Redigera/sep1"
+msgstr "/Redigera/sep6"
 
 #: ../src/menu.c:370
 msgid "/Edit/_Save Settings"
@@ -3556,9 +3568,8 @@ msgid "/Project/Save _as..."
 msgstr "/Projekt/Sp_ara _som..."
 
 #: ../src/menu.c:686
-#, fuzzy
 msgid "/Project/Save & _close"
-msgstr "/Projekt/Sp_ara _som..."
+msgstr "/Projekt/Sp_ara & stäng"
 
 #: ../src/menu.c:687
 msgid "/Project/sep2"
@@ -4051,39 +4062,32 @@ msgid "Clear undo history on save"
 msgstr "Töm ångralista när fil sparas"
 
 #: ../src/preferences.c:1896
-#, fuzzy
 msgid "Bookmark options"
-msgstr "Bokmärken"
+msgstr "Bokmärkealternativ"
 
 #: ../src/preferences.c:1901
-#, fuzzy
-msgid "Sort by filename"
-msgstr "Inget filnamn"
+msgid "Sort by line number"
+msgstr "Sortera efter radnummer"
 
 #: ../src/preferences.c:1902
-#, fuzzy
 msgid "Make permanent by default"
-msgstr "Visa vänsterpanelen som standard"
+msgstr "Gör permanent som standard"
 
 #: ../src/preferences.c:1904
-#, fuzzy
 msgid "full path"
-msgstr "Menysökväg"
+msgstr "hel sökväg"
 
 #: ../src/preferences.c:1904
-#, fuzzy
 msgid "path from basedir"
-msgstr "Standardstartkatalog"
+msgstr "sökväg från startkatalog"
 
 #: ../src/preferences.c:1904
-#, fuzzy
 msgid "filename"
-msgstr "Inget filnamn"
+msgstr "filnamn"
 
 #: ../src/preferences.c:1905
-#, fuzzy
 msgid "Bookmarks filename display"
-msgstr "Bokmärkt fil är stängd"
+msgstr "Bokmärkens filnamnsvisning"
 
 #: ../src/preferences.c:1909
 msgid "HTML"
@@ -4350,9 +4354,8 @@ msgid "/Project/Save as..."
 msgstr "/Projekt/Spara som..."
 
 #: ../src/project.c:170
-#, fuzzy
 msgid "/Project/Save & close"
-msgstr "/Projekt/Spara"
+msgstr "/Projekt/Spara & stäng"
 
 #: ../src/project.c:171
 msgid "/Project/Edit Project Options..."
@@ -4676,155 +4679,4 @@ msgstr "Källkod:"
 msgid "Size:"
 msgstr "Storlek:"
 
-#~ msgid "You already have a bookmark named %s!"
-#~ msgstr "Du har redan ett bokmärke namngivet %s!"
 
-#~ msgid "Do you want to open it?"
-#~ msgstr "Vill du öppna den?"
-
-#~ msgid "Rename permanent bookmark"
-#~ msgstr "Byt namn på fast bokmärke"
-
-#~ msgid "Rename temporary bookmark"
-#~ msgstr "Byt namn på tillfälligt bokmärke"
-
-#~ msgid "Rename"
-#~ msgstr "Byt namn"
-
-#~ msgid "Permanent"
-#~ msgstr "Fast"
-
-#~ msgid "Add temporary bookmark"
-#~ msgstr "Lägg till tillfälligt bokmärke"
-
-#~ msgid "Delete all temporary bookmarks."
-#~ msgstr "Ta bort alla tillfälliga bokmärken."
-
-#~ msgid "Are you sure?"
-#~ msgstr "Är du säker?"
-
-#~ msgid "Delete all permanent bookmarks."
-#~ msgstr "Ta bort alla fasta bokmärken."
-
-#~ msgid "Are you REALLY sure?"
-#~ msgstr "Är du VERKLIGEN säker?"
-
-#~ msgid "Add permanent bookmark"
-#~ msgstr "Lägg till fast bokmärke "
-
-#~ msgid "/Bookmarks/tearoff1"
-#~ msgstr "/Bokmärken/tearoff1"
-
-#~ msgid "/Bookmarks/Add _Temporary"
-#~ msgstr "/Bokmärken/Lägg till _tillfällig"
-
-#~ msgid "/Bookmarks/Add _Permanent"
-#~ msgstr "/Bokmärken/Lägg till _Fast"
-
-#~ msgid "/Bookmarks/sep2"
-#~ msgstr "/Bokmärken/sep2"
-
-#~ msgid "/Bookmarks/Delete All Temporar_y"
-#~ msgstr "/Bokmärken/Ta bort alla tillf_älliga"
-
-#~ msgid "/Bookmarks/Delete All Per_manent"
-#~ msgstr "/Bokmärken/Ta bort alla f_asta"
-
-#~ msgid "/Project/_Close & save"
-#~ msgstr "/Projekt/_Stäng & spara"
-
-#~ msgid "/Project/Close & save"
-#~ msgstr "/Projekt/Stäng & spara"
-
-#~ msgid "Show all bookmarks"
-#~ msgstr "Visa alla bokmärken"
-
-#~ msgid "Show bookmarks for opened files"
-#~ msgstr "Visa bokmärken för öppnade filer"
-
-#~ msgid "Show bookmarks for active file"
-#~ msgstr "Visa bokmärken för aktiv fil"
-
-#~ msgid "You can overwrite next temp bookmark (number %d). Overwrite?"
-#~ msgstr ""
-#~ "Du kan skriva över nästa tillfälliga bokmärke (number %d). Skriv över?"
-
-#~ msgid "Maximum number of temp bookmarks assigned"
-#~ msgstr "Maximalt antal tillfälliga bokmärken angivna"
-
-#~ msgid "Text..."
-#~ msgstr "Textfält..."
-
-#~ msgid "_Rel:"
-#~ msgstr "_Rel:"
-
-#~ msgid "_websafe"
-#~ msgstr "_webbsäker"
-
-#~ msgid "Text"
-#~ msgstr "Textfält"
-
-#~ msgid "Hidden"
-#~ msgstr "Dold"
-
-#~ msgid "Radio Button"
-#~ msgstr "Radioknapp"
-
-#~ msgid "Check Box"
-#~ msgstr "Kryssruta"
-
-#~ msgid "/File/Open r_ecent"
-#~ msgstr "/Arkiv/Öppna s_enaste"
-
-#~ msgid "/Dialogs/Form/_Hidden..."
-#~ msgstr "/Dialoger/Formulär/_Dold..."
-
-#~ msgid "/Dialogs/Form/Radio _Buttons..."
-#~ msgstr "/Dialoger/Formulär/Radio_knappar..."
-
-#~ msgid "/Dialogs/Form/_Check Buttons..."
-#~ msgstr "/Dialoger/Formulär/Kr_yssrutor..."
-
-#~ msgid "Extensions (colon separated)"
-#~ msgstr "Filändelser (kolonseparerade)"
-
-#~ msgid "Highlight update characters"
-#~ msgstr "Färgkoda updateringstecken"
-
-#~ msgid "Content regex pattern"
-#~ msgstr "Regex-mönster för innehåll"
-
-#, fuzzy
-#~ msgid "Rename temporary"
-#~ msgstr "Tillfällig"
-
-#, fuzzy
-#~ msgid "Rename permanent"
-#~ msgstr "Fast"
-
-#~ msgid "Add permanent bookmark "
-#~ msgstr "Lägg till fast bokmärke "
-
-#~ msgid "/Document/Document _Type"
-#~ msgstr "/Dokument/Dokument_typ"
-
-#~ msgid "_Local Directory:"
-#~ msgstr "_Lokal katalog:"
-
-#~ msgid "Show bookmarks for project files"
-#~ msgstr "Visa bokmärken för projektfiler"
-
-#~ msgid "Input _Methods"
-#~ msgstr "Inmatnings_metoder"
-
-#~ msgid "/Bookmarks/Delete _All"
-#~ msgstr "/Bokmärken/Ta bort _alla"
-
-#~ msgid "posix regular expressions"
-#~ msgstr "posix reguljärt uttryck"
-
-#~ msgid "perl regular expressions"
-#~ msgstr "perl reguljärt uttryck"
-
-#~ msgid "Always highlight full document"
-#~ msgstr "Färgkoda alltid hela dokumentet"
