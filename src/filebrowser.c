@@ -1385,8 +1385,8 @@ static gboolean filebrowser_button_press_lcb(GtkWidget *widget, GdkEventButton *
 					g_free(tmp);
 					g_free(dir);
 				}
-				gtk_tree_path_free(path);
-				return FALSE;
+/*				gtk_tree_path_free(path);
+				return FALSE;*/
 			} else if (event->type == GDK_2BUTTON_PRESS) {
 				gchar *filename = return_filename_from_path(filebrowser,GTK_TREE_MODEL(filebrowser->store),path);
 				DEBUG_MSG("filebrowser_button_press_lcb, doubleclick!! open the file %s\n", filename);
@@ -1394,7 +1394,7 @@ static gboolean filebrowser_button_press_lcb(GtkWidget *widget, GdkEventButton *
 				g_free(filename);
 			}
 			gtk_tree_path_free(path);
-			return TRUE;
+/*			return TRUE;*/
 		}
 	}
 	return FALSE; /* pass the event on */
