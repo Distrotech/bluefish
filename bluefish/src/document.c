@@ -1547,11 +1547,7 @@ static void doc_buffer_insert_text_after_lcb(GtkTextBuffer *textbuffer,GtkTextIt
 			}
 		}
 		if (do_highlighting) {
-			if (main_v->props.cont_highlight_full) {
-				doc_highlight_full(doc);
-			} else {
-				doc_highlight_line(doc);
-			}
+			doc_highlight_line(doc);
 		}
 	}
 
@@ -1611,11 +1607,7 @@ static void doc_buffer_delete_range_lcb(GtkTextBuffer *textbuffer,GtkTextIter * 
 				}
 			}
 			if (do_highlighting) {
-				if (main_v->props.cont_highlight_full) {
-					doc_highlight_full(doc);
-				} else {
-					doc_highlight_line(doc);
-				}
+				doc_highlight_line(doc);
 			}
 		}
 		/* undo_redo stuff */
@@ -1801,6 +1793,7 @@ gboolean buffer_to_file(Tbfwin *bfwin, gchar *buffer, gchar *filename) {
  * -1: if the backup failed and save was aborted
  * -2: if the file could not be opened or written
  * -3: if the backup failed and save was aborted by the user
+ * -4: if the charset encoding conversion failed and the save was aborted by the user
  **/
 gint doc_textbox_to_file(Tdocument * doc, gchar * filename) {
 	gint backup_retval;
@@ -1859,12 +1852,11 @@ gint doc_textbox_to_file(Tdocument * doc, gchar * filename) {
 			gchar *options[] = {_("_Abort save"), _("_Continue save"), NULL};
 			gint retval;
 			gchar *tmpstr = g_strdup_printf(_("Failed to convert %s to character encoding %s.\nContinue saving in UTF-8 encoding?"), filename, doc->encoding);
-			DEBUG_MSG("doc_textbox_to_file, *** CONVERSION FAILED *** newbuf was NULL\n");
 			retval = multi_warning_dialog(BFWIN(doc->bfwin)->main_window,_("File encoding conversion failure"), tmpstr, 1, 0, options);
 			g_free(tmpstr);
 			if (retval == 0) {
 				DEBUG_MSG("doc_textbox_to_file, character set conversion failed, user aborted!\n");
-				return -3;
+				return -4;
 			}
 		}
 	}
@@ -2172,6 +2164,10 @@ gint doc_save(Tdocument * doc, gint do_save_as, gboolean do_move) {
 			errmessage = g_strconcat(_("Could not write file:\n\""), doc->filename, "\"", NULL);
 			error_dialog(BFWIN(doc->bfwin)->main_window,_("File save error"), errmessage);
 			g_free(errmessage);
+		break;
+		case -3:
+		case -4:
+			/* do nothing, the save is aborted by the user */
 		break;
 		default:
 			doc_set_stat_info(doc);
