@@ -22,7 +22,7 @@
  */
 /* 
  * Changes by Antti-Juhani Kaijanaho <gaia@iki.fi> on 1999-10-20
- * $Id: html.c,v 1.43 2004-08-29 10:48:27 oli4 Exp $
+ * $Id: html.c,v 1.44 2004-10-17 17:22:59 jimh6583 Exp $
  */
 /*#define DEBUG*/
 
@@ -1669,6 +1669,7 @@ static void quicklistok_lcb(GtkWidget * widget, Thtml_diag *dg)
 		} else {
 			doc_insert_two_strings(dg->doc, finalstring, cap("</UL>"));
 		}
+		g_free (finalstring);
 	}
 	html_diag_destroy_cb(NULL, dg);
 }
