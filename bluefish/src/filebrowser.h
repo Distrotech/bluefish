@@ -20,10 +20,10 @@
 #ifndef __FILEBROWSER_H_
 #define __FILEBROWSER_H_
 
-void filebrowser_refresh_dir(gchar *dir);
-void filebrowser_open_dir(const gchar *dirarg);
+void bfwin_filebrowser_refresh_dir(Tbfwin *bfwin, gchar *dir);
+void filebrowser_open_dir(Tbfwin *bfwin, const gchar *dirarg);
 void filebrowser_filters_rebuild();
-GtkWidget *filebrowser_init();
-void filebrowser_cleanup();
-void filebrowser_scroll_initial();
+GtkWidget *filebrowser_init(Tbfwin *bfwin);
+void filebrowser_cleanup(Tbfwin *bfwin);
+void filebrowser_scroll_initial(Tbfwin *bfwin);
 #endif /* __FILEBROWSER_H_ */
