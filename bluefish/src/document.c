@@ -169,6 +169,16 @@ gboolean test_only_empty_doc_left() {
 	return TRUE;
 }
 
+gboolean doc_has_selection(Tdocument *doc) {
+	GtkTextMark* tmp;
+	GtkTextIter itinsert, itselect;
+	tmp = gtk_text_buffer_get_insert(doc->buffer);
+	gtk_text_buffer_get_iter_at_mark(doc->buffer,&itinsert,tmp);
+	tmp = gtk_text_buffer_get_selection_bound(doc->buffer);
+	gtk_text_buffer_get_iter_at_mark(doc->buffer,&itselect,tmp);
+	return (!gtk_text_iter_equal(&itinsert, &itselect));
+}
+
 static void doc_set_undo_redo_widget_state(Tdocument *doc) {
 	gint redo, undo;
 	redo = doc_has_redo_list(doc);
@@ -294,6 +304,11 @@ static void doc_scroll_to_line(Tdocument *doc, gint linenum, gboolean select_lin
 	}
 }
 
+void doc_scroll_to_cursor(Tdocument *doc) {
+	GtkTextMark *mark = gtk_text_buffer_get_insert(doc->buffer);
+	gtk_text_view_scroll_to_mark(doc->view,mark,0.25,FALSE,0.5,0.5);
+}
+
 /* gchar *doc_get_chars(Tdocument *doc, gint startpos, gint len)
  * returns len characters from startpos
  * if len == -1 it will return everrything to the end
@@ -405,6 +420,11 @@ void doc_replace_text(Tdocument * doc, const gchar * newstring, gint start, gint
 	doc_set_modified(doc, 1);
 	doc_unre_new_group(doc);
 /*	doc_need_highlighting(doc);*/
+}
+
+void doc_insert_two_strings(Tdocument *doc, const gchar *before_str, const gchar *after_str) {
+	DEBUG_MSG("doc_insert_two_strings, not finished yet!!\n");
+
 }
 
 
@@ -1179,7 +1199,7 @@ void doc_activate(Tdocument *doc) {
 		DEBUG_MSG("doc_activate, after doc_highlight_full, need_highlighting=%d\n",doc->need_highlighting);
 	}
 
-	gtk_text_view_place_cursor_onscreen(doc->view);
+	doc_scroll_to_cursor(doc);
 	gtk_widget_grab_focus(GTK_WIDGET(doc->view));
 }
 
@@ -1336,5 +1356,20 @@ void file_save_all_cb(GtkWidget * widget, gpointer data)
 	}
 }
 
+void edit_cut_cb(GtkWidget * widget, gpointer data) {
+	gtk_text_buffer_cut_clipboard(main_v->current_document->buffer,gtk_clipboard_get(GDK_SELECTION_CLIPBOARD),TRUE);
+}
+void edit_copy_cb(GtkWidget * widget, gpointer data) {
+	gtk_text_buffer_copy_clipboard  (main_v->current_document->buffer,gtk_clipboard_get(GDK_SELECTION_CLIPBOARD));
+}
+void edit_paste_cb(GtkWidget * widget, gpointer data) {
+	gtk_text_buffer_paste_clipboard (main_v->current_document->buffer,gtk_clipboard_get(GDK_SELECTION_CLIPBOARD),NULL,TRUE);
+}
+void edit_select_all_cb(GtkWidget * widget, gpointer data) {
+	GtkTextIter itstart, itend;
+	gtk_text_buffer_get_bounds(main_v->current_document->buffer,&itstart,&itend);
+	gtk_text_buffer_move_mark_by_name(main_v->current_document->buffer,"insert",&itstart);
+	gtk_text_buffer_move_mark_by_name(main_v->current_document->buffer,"selection_bound",&itend);
+}
 
 

@@ -186,8 +186,10 @@ typedef struct {
 #ifdef PARSEDTD
 	GList *doctypes;	 /* The list of doctypes recognized by bluefish */
 #endif
+	/* new since gtk-2 port */
 	GList *filetypes;
 	GList *highlight_patterns;
+	GList *browsers;
 } Tproperties;
 
 typedef struct {
@@ -205,7 +207,10 @@ typedef struct {
 	GtkTextTagTable *tagtable; /* this one should ultimately move to Thighlightset, so every set would have it's own tagtable, but there is currently no way to switch a document to a new tagtable */
 	GtkWidget *statusbar;
 	GtkWidget *statuslabel; /* where we have the line number */
-	GList *recent_files; /* a list of structs??? with the menu-widget for a recent file */
+	GList *recent_files; /* menu.c: a list of menuitems for a recent file */
+	GList *browsers; /* menu.c: a list of menuitems for a recent file */
+	GtkWidget *cmenu; /* menu.c: the custom menu widget */
+	GList *cmenu_entries; /* menu.c: the list of menuitems for the custom menu */
 } Tmain;
 
 extern Tmain *main_v;
