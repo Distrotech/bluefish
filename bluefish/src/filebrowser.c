@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-/*#define DEBUG*/
+/* #define DEBUG */
 
 #include <gtk/gtk.h>
 #include <sys/types.h> /* stat() getuid */
@@ -745,11 +745,23 @@ static void create_file_or_dir_ok_clicked_lcb(GtkWidget *widget, Tcfod *ws) {
 	create_file_or_dir_destroy_lcb(NULL, NULL, ws);
 }
 
-static void create_file_or_dir_win(gint is_file) {
+static GtkTreePath * filebrowser_get_path_from_selection(GtkTreeIter *iter) {
 	GtkTreeModel *model = GTK_TREE_MODEL(filebrowser.store);
 	GtkTreeSelection *selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(filebrowser.tree));
+	GtkTreeIter localiter;
+	GtkTreeIter *usethisiter = (iter != NULL) ? iter : &localiter;
+	if (gtk_tree_selection_get_selected(selection,&model,usethisiter)) {
+		return gtk_tree_model_get_path(GTK_TREE_MODEL(filebrowser.store),usethisiter);
+	}
+	return NULL;
+}
+
+
+static void create_file_or_dir_win(gint is_file) {
+	GtkTreePath *path;
 	GtkTreeIter iter;
-	if (gtk_tree_selection_get_selected(selection,&model,&iter)) {
+	path = filebrowser_get_path_from_selection(&iter);
+	if (path) {
 		Tcfod *ws;
 		gchar *title, *tmp;
 		GtkWidget *vbox, *but, *hbox;
@@ -807,13 +819,10 @@ static void filebrowser_rpopup_new_dir_lcb(GtkWidget *widget, gpointer data) {
 }
 
 static void filebrowser_rpopup_delete_lcb(GtkWidget *widget, gpointer data) {
-	GtkTreeModel *model = GTK_TREE_MODEL(filebrowser.store);
-	GtkTreeSelection *selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(filebrowser.tree));
-	GtkTreeIter iter;
-	if (gtk_tree_selection_get_selected(selection,&model,&iter)) {
-		GtkTreePath *path;
+	GtkTreePath *path;
+	path = filebrowser_get_path_from_selection(NULL);
+	if (path) {
 		gchar *filename;
-		path = gtk_tree_model_get_path(GTK_TREE_MODEL(filebrowser.store),&iter);
 		filename = return_filename_from_path(filebrowser.store,path);
 		gtk_tree_path_free(path);
 		if (filename) {
@@ -841,11 +850,10 @@ static void filebrowser_rpopup_delete_lcb(GtkWidget *widget, gpointer data) {
 }
 
 static void filebrowser_rpopup_refresh_lcb(GtkWidget *widget, gpointer data) {
-	GtkTreeModel *model = GTK_TREE_MODEL(filebrowser.store);
-	GtkTreeSelection *selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(filebrowser.tree));
+	GtkTreePath *path;
 	GtkTreeIter iter;
-	if (gtk_tree_selection_get_selected(selection,&model,&iter)) {
-		GtkTreePath *path;
+	path = filebrowser_get_path_from_selection(&iter);
+	if (path) {
 		gchar *tmp, *dir;
 		if (gtk_tree_model_iter_has_child(GTK_TREE_MODEL(filebrowser.store), &iter)) {
 			DEBUG_MSG("create_file_or_dir_win, a dir is selected\n");
@@ -981,9 +989,19 @@ static void row_activated_lcb(GtkTreeView *tree, GtkTreePath *path,GtkTreeViewCo
 }
 
 static gboolean filebrowser_button_press_lcb(GtkWidget *widget, GdkEventButton *event, gpointer data) {
+	DEBUG_MSG("filebrowser_button_press_lcb, button=%d\n",event->button);
 	if (event->button == 3) {
 		GtkWidget *menu = filebrowser_rpopup_create_menu();
 		gtk_menu_popup(GTK_MENU(menu), NULL, NULL, NULL, NULL, event->button, event->time);
+	}
+	if (event->button==1 && event->type == GDK_2BUTTON_PRESS) {
+		GtkTreePath *path = filebrowser_get_path_from_selection(NULL);
+		DEBUG_MSG("doubleclick!! open the file!!\n");
+		if (path) {
+			row_activated_lcb(GTK_TREE_VIEW(filebrowser.tree), path,NULL,GTK_TREE_STORE(filebrowser.store));
+		}
+		gtk_tree_path_free(path);
+		return TRUE;
 	}
 	return FALSE; /* pass the event on */
 }
@@ -1060,7 +1078,6 @@ void filebrowser_filters_rebuild() {
 
 GtkWidget *filebrowser_init() {
 	if (!filebrowser.curfilter) {
-		GList *tmplist;
 		gchar *filename;
 		filebrowser.uid = getuid();
 
@@ -1096,20 +1113,32 @@ GtkWidget *filebrowser_init() {
 		GtkCellRenderer *renderer;
 		GtkTreeViewColumn *column;
 		renderer = gtk_cell_renderer_pixbuf_new();
-		column = gtk_tree_view_column_new_with_attributes("",renderer,"pixbuf", PIXMAP_COLUMN,NULL);
-		g_object_set(G_OBJECT(renderer), "xpad", 0, NULL);
-		g_object_set(G_OBJECT(renderer), "ypad", 0, NULL);
-		gtk_tree_view_column_set_sizing(column, 0);
+		column = gtk_tree_view_column_new ();
+		gtk_tree_view_column_pack_start (column, renderer, FALSE);
+		
+		gtk_tree_view_column_set_attributes(column,renderer
+			,"pixbuf",PIXMAP_COLUMN
+			,"pixbuf_expander_closed",PIXMAP_COLUMN
+			,"pixbuf_expander_open",PIXMAP_COLUMN
+			,NULL);
+/*		g_object_set(G_OBJECT(renderer), "xpad", 1, NULL);
+		g_object_set(G_OBJECT(renderer), "ypad", 1, NULL);
+		gtk_tree_view_column_set_spacing(column, 1);
+		gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);*/
 		gtk_tree_view_append_column (GTK_TREE_VIEW(filebrowser.tree), column);
 		
 		renderer = gtk_cell_renderer_text_new();
+/*		column = gtk_tree_view_column_new ();*/
 		g_object_set(G_OBJECT(renderer), "editable", TRUE, NULL);
-		g_object_set(G_OBJECT(renderer), "xpad", 0, NULL);
-		g_object_set(G_OBJECT(renderer), "ypad", 0, NULL);
+/*		g_object_set(G_OBJECT(renderer), "xpad", 1, NULL);
+		g_object_set(G_OBJECT(renderer), "ypad", 1, NULL);*/
 		g_signal_connect(G_OBJECT(renderer), "edited", G_CALLBACK(renderer_edited_lcb), filebrowser.store);	
-		column = gtk_tree_view_column_new_with_attributes("",renderer,"text", FILENAME_COLUMN,NULL);
-		gtk_tree_view_column_set_spacing(column, 0);
-		gtk_tree_view_append_column(GTK_TREE_VIEW(filebrowser.tree), column);
+		gtk_tree_view_column_pack_start (column, renderer, TRUE);
+		gtk_tree_view_column_set_attributes(column,renderer
+			,"text", FILENAME_COLUMN,NULL);
+/*		gtk_tree_view_column_set_spacing(column, 1);
+		gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);*/
+/*		gtk_tree_view_append_column(GTK_TREE_VIEW(filebrowser.tree), column);*/
 	}
 	{
 		gchar curdir[1024];
