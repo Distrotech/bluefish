@@ -33,6 +33,8 @@ some filter applied).
 #1) the hash for file:///home/ is different from file:///home so we should choose which hash is
 to be stored in the hashtable. The method gnome_vfs_uri_get_parent() returns directories without
 the trailing slash. So it is convenient to use directories without trailing slashes all the way.
+
+alex: g_hash_table_new(gnome_vfs_uri_hash, gnome_vfs_uri_hequal) is what you're supposed to do
 */
 
 #include <gtk/gtk.h>
@@ -129,21 +131,22 @@ static GnomeVFSURI *fb2_uri_from_fspath(Tfilebrowser2 *fb2, GtkTreePath *fs_path
 
 /**************/
 
-static void DEBUG_DIRITER(Tfilebrowser2 *fb2, GtkTreeIter *diriter) {
-	gchar *name;
-	gtk_tree_model_get(GTK_TREE_MODEL(FB2CONFIG(main_v->fb2config)->filesystem_tstore), diriter, FILENAME_COLUMN, &name, -1);
-	DEBUG_MSG("DEBUG_DIRITER, iter(%p) has filename %s\n",diriter,name);
-}
 void DEBUG_URI(const GnomeVFSURI *uri, gboolean newline) {
-	guint hash;
 	gchar *name = gnome_vfs_uri_to_string(uri, GNOME_VFS_URI_HIDE_PASSWORD);
-	hash = gnome_vfs_uri_hash(uri);
-	DEBUG_MSG("%u->%s", hash, name);
+	DEBUG_MSG("%s", name);
 	if (newline) {
 		DEBUG_MSG("\n");
 	}
 	g_free(name);
 }
+static void DEBUG_DIRITER(GtkTreeIter *diriter) {
+	gchar *name;
+	GnomeVFSURI *uri;
+	gtk_tree_model_get(GTK_TREE_MODEL(FB2CONFIG(main_v->fb2config)->filesystem_tstore), diriter, FILENAME_COLUMN, &name, URI_COLUMN, &uri, -1);
+	DEBUG_MSG("DEBUG_DIRITER, iter(%p) has filename %s, uri ",diriter,name);
+	DEBUG_URI(uri, TRUE);
+}
+
 static void DEBUG_TPATH(GtkTreeModel *model, GtkTreePath *path, gboolean newline) {
 	gchar *tname, *filename;
 	GtkTreeIter iter;
@@ -211,11 +214,8 @@ static void fb2_uri_in_refresh_cleanup(Turi_in_refresh *uir) {
  */
 static GtkTreeIter *fb2_add_filesystem_entry(GtkTreeIter *parent, GnomeVFSURI *child_uri, gint type, gboolean load_subdirs) {
 	GtkTreeIter *newiter;
-	guint *hashkey;
 	
-	hashkey = g_new(guint,1);
-	*hashkey = gnome_vfs_uri_hash(child_uri);
-	newiter = g_hash_table_lookup(FB2CONFIG(main_v->fb2config)->filesystem_itable, hashkey);
+	newiter = g_hash_table_lookup(FB2CONFIG(main_v->fb2config)->filesystem_itable, child_uri);
 	if (newiter != NULL) {
 		gint refresh;
 		DEBUG_MSG("fb2_add_filesystem_entry, set refresh to 0 for iter %p, uri exists ",newiter);
@@ -225,7 +225,6 @@ static GtkTreeIter *fb2_add_filesystem_entry(GtkTreeIter *parent, GnomeVFSURI *c
 		if (refresh != 0) {
 			gtk_tree_store_set(GTK_TREE_STORE(FB2CONFIG(main_v->fb2config)->filesystem_tstore),newiter,REFRESH_COLUMN, 0,-1);
 		}
-		g_free(hashkey);
 	} else {
 		gchar *tmp, *tmp2, *display_name;
 		GnomeVFSURI *uri_dup;
@@ -255,8 +254,9 @@ static GtkTreeIter *fb2_add_filesystem_entry(GtkTreeIter *parent, GnomeVFSURI *c
 				REFRESH_COLUMN, 0,
 				TYPE_COLUMN, type,
 				-1);
-		DEBUG_MSG("fb2_add_filesystem_entry adding iter %p to hashkey %u\n",newiter,*hashkey);
-		g_hash_table_insert(FB2CONFIG(main_v->fb2config)->filesystem_itable,hashkey,newiter);
+		DEBUG_MSG("fb2_add_filesystem_entry adding iter %p to hashtable\n",newiter);
+		gnome_vfs_uri_ref(child_uri);
+		g_hash_table_insert(FB2CONFIG(main_v->fb2config)->filesystem_itable,child_uri,newiter);
 		if (load_subdirs && type == TYPE_DIR) {
 			GnomeVFSURI *dummy_uri;
 			/* add a dummy item so the expander will be shown */
@@ -285,15 +285,13 @@ static void fb2_treestore_delete_children_refresh1(GtkTreeStore *tstore, GtkTree
 			if (refresh == 1) {
 				GnomeVFSURI *d_uri;
 				gchar *d_name;
-				guint hashkey;
 				/* delete 'this' ! */
 				gtk_tree_model_get(GTK_TREE_MODEL(tstore), &this, FILENAME_COLUMN, &d_name, URI_COLUMN, &d_uri, -1);
 				DEBUG_MSG("fb2_treestore_delete_children_refresh1, delete %s ",d_name);
 				DEBUG_URI(d_uri, TRUE);
 				gtk_tree_store_remove(tstore,&this);
 				
-				hashkey = gnome_vfs_uri_hash(d_uri);
-				g_hash_table_remove(FB2CONFIG(main_v->fb2config)->filesystem_itable, &hashkey);
+				g_hash_table_remove(FB2CONFIG(main_v->fb2config)->filesystem_itable, d_uri);
 				
 				gnome_vfs_uri_unref(d_uri);
 				g_free(d_name);
@@ -424,11 +422,9 @@ static void fb2_refresh_dir(GnomeVFSURI *uri, GtkTreeIter *dir) {
 	have finished reading the directory, all items that still have refresh=1 can be 
 	deleted */
 	if (uri != NULL && dir == NULL) {
-		guint hashkey;
 		DEBUG_MSG("fb2_refresh_dir, request iter from uri ");
 		DEBUG_URI(uri, TRUE);
-		hashkey = gnome_vfs_uri_hash(uri);
-		dir = g_hash_table_lookup(FB2CONFIG(main_v->fb2config)->filesystem_itable, &hashkey);
+		dir = g_hash_table_lookup(FB2CONFIG(main_v->fb2config)->filesystem_itable, uri);
 	}
 	if (dir != NULL && uri == NULL) {
 		DEBUG_MSG("fb2_refresh_dir, request the uri from iter: ");
@@ -479,17 +475,19 @@ static GtkTreeIter *fb2_build_dir(GnomeVFSURI *uri) {
 	tmp = uri;
 	gnome_vfs_uri_ref(tmp);
 	while (!parent && gnome_vfs_uri_has_parent(tmp)) {
-		guint hashkey;
 		GnomeVFSURI* tmp2 = gnome_vfs_uri_get_parent(tmp);
 #ifdef DEVELOPMENT
 		if (!tmp2) exit(456);
 #endif
 		gnome_vfs_uri_unref(tmp);
 		tmp = tmp2;
-		hashkey = gnome_vfs_uri_hash(tmp);
-		parent = g_hash_table_lookup(FB2CONFIG(main_v->fb2config)->filesystem_itable, &hashkey);
-		DEBUG_MSG("fb2_build_dir, found parent=%p for hashkey=%u for uri ",parent,hashkey);
+		parent = g_hash_table_lookup(FB2CONFIG(main_v->fb2config)->filesystem_itable, tmp);
+		DEBUG_MSG("fb2_build_dir, found treeiter %p for uri ",parent);
 		DEBUG_URI(tmp, TRUE);
+		if (parent) {
+			DEBUG_MSG("treeiter %p points to ", parent);
+			DEBUG_DIRITER(parent);
+		}
 	}/* after this loop 'tmp' is newly allocated */
 	if (!parent) {
 		DEBUG_MSG("adding toplevel ");
@@ -548,21 +546,19 @@ static GtkTreeIter *fb2_build_dir(GnomeVFSURI *uri) {
  *
  */
 static void fb2_focus_dir(Tfilebrowser2 *fb2, GnomeVFSURI *uri, gboolean noselect) {
-	guint hashkey;
 	GtkTreeIter *dir;
 	if (!uri) {
 		DEBUG_MSG("fb2_focus_dir, WARNING, CANNOT FOCUS WITHOUT URI\n");
 		return;
 	}
-	hashkey = gnome_vfs_uri_hash(uri);
-	dir = g_hash_table_lookup(FB2CONFIG(main_v->fb2config)->filesystem_itable, &hashkey);
+	dir = g_hash_table_lookup(FB2CONFIG(main_v->fb2config)->filesystem_itable, uri);
 	DEBUG_MSG("fb2_focus_dir, fb2=%p\n",fb2);
 	if (!dir) {
 		dir = fb2_build_dir(uri);
 	}
 	if (dir) {
 		GtkTreePath *fs_path;
-		DEBUG_DIRITER(fb2, dir);
+		DEBUG_DIRITER(dir);
 		/* set this directory as the top tree for the file widget */
 		fs_path = gtk_tree_model_get_path(GTK_TREE_MODEL(FB2CONFIG(main_v->fb2config)->filesystem_tstore),dir);
 		if (fs_path) {
@@ -803,10 +799,8 @@ static void refilter_filelist(Tfilebrowser2 *fb2, GtkTreePath *newroot) {
  */
 static GtkTreePath *fb2_fspath_from_uri(Tfilebrowser2 *fb2, GnomeVFSURI *uri) {
 	GtkTreeIter *iter;
-	guint hashkey;
 
-	hashkey = gnome_vfs_uri_hash(uri);
-	iter = g_hash_table_lookup(FB2CONFIG(main_v->fb2config)->filesystem_itable, &hashkey);
+	iter = g_hash_table_lookup(FB2CONFIG(main_v->fb2config)->filesystem_itable, uri);
 	if (iter) {
 		return gtk_tree_model_get_path(GTK_TREE_MODEL(FB2CONFIG(main_v->fb2config)->filesystem_tstore), iter);
 	}
@@ -963,10 +957,8 @@ static void fb2rpopup_refresh(Tfilebrowser2 *fb2) {
 		free_baseuri = TRUE;
 	}
 	if (baseuri) {
-		guint hashkey;
 		GtkTreeIter *iter;
-		hashkey = gnome_vfs_uri_hash(baseuri);
-		iter = g_hash_table_lookup(FB2CONFIG(main_v->fb2config)->filesystem_itable, &hashkey);
+		iter = g_hash_table_lookup(FB2CONFIG(main_v->fb2config)->filesystem_itable, baseuri);
 		fb2_refresh_dir(NULL, iter);
 		if (free_baseuri) gnome_vfs_uri_unref(baseuri);
 	}
@@ -1466,7 +1458,6 @@ void fb2_set_basedir(Tbfwin *bfwin, gchar *curi) {
 			path before we create the new treemodelfilter */
 			if (uri) {
 				GtkTreePath *basepath;
-				guint hashkey;
 				GtkTreeIter *iter;
 				
 				if (gnome_vfs_uri_equal(fb2->basedir, uri)) {
@@ -1479,11 +1470,10 @@ void fb2_set_basedir(Tbfwin *bfwin, gchar *curi) {
 				fb2->file_lfilter = NULL; /* this is required, because the refilter_filelist function tries to check id the virtual root did change for the file filter */
 				DEBUG_MSG("fb2_set_basedir, disconnected current filter/sort models, lfilter=%p\n",fb2->file_lfilter);
 				
-				hashkey = gnome_vfs_uri_hash(uri);
-				iter = g_hash_table_lookup(FB2CONFIG(main_v->fb2config)->filesystem_itable, &hashkey);
+				iter = g_hash_table_lookup(FB2CONFIG(main_v->fb2config)->filesystem_itable, uri);
 				if (!iter) {
 					fb2_build_dir(uri);
-					iter = g_hash_table_lookup(FB2CONFIG(main_v->fb2config)->filesystem_itable, &hashkey);
+					iter = g_hash_table_lookup(FB2CONFIG(main_v->fb2config)->filesystem_itable, uri);
 #ifdef DEVELOPMENT
 					if (!iter) {
 						g_print("fb2_set_basedir, uri should have been added, but does not exist in hashtable???\n");
@@ -1868,6 +1858,10 @@ void fb2_filters_rebuild(void) {
 	}
 }
 
+static void gnome_vfs_uri_hash_destroy(gpointer data) {
+	gnome_vfs_uri_unref((GnomeVFSURI *)data);
+}
+
 void fb2config_init(void) {
 	Tfilebrowser2config *fb2config;
 	gchar *filename;
@@ -1878,7 +1872,7 @@ void fb2config_init(void) {
 	fb2config = g_new0(Tfilebrowser2config,1);
 	main_v->fb2config = fb2config;
 
-	fb2config->filesystem_itable = g_hash_table_new_full(g_int_hash,g_int_equal,g_free,g_free);
+	fb2config->filesystem_itable = g_hash_table_new_full(gnome_vfs_uri_hash, gnome_vfs_uri_hequal,gnome_vfs_uri_hash_destroy,g_free);
 	fb2config->filesystem_tstore = gtk_tree_store_new(N_COLUMNS,GDK_TYPE_PIXBUF,G_TYPE_STRING,G_TYPE_POINTER,G_TYPE_BOOLEAN,G_TYPE_INT);
 	filename = return_first_existing_filename(main_v->props.filebrowser_unknown_icon,
 					"icon_unknown.png","../icons/icon_unknown.png",
