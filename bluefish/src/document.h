@@ -28,6 +28,7 @@ void doc_update_highlighting(GtkWidget *wid, gpointer data);
 void document_set_wrap(Tdocument *doc, gint wraptype);
 void doc_set_font(Tdocument *doc, gchar *fontstring);
 void doc_set_tabsize(Tdocument *doc, gint tabsize);
+void gui_change_tabsize(gpointer callback_data,guint action,GtkWidget *widget);
 
 gboolean doc_is_empty_non_modified_and_nameless(Tdocument *doc);
 gboolean test_docs_modified(GList *doclist);

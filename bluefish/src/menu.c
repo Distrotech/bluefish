@@ -416,22 +416,32 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/External/Commands"), NULL, NULL, 0, "<Branch>"},
 	{N_("/External/Commands/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
 	{N_("/External/sep1"), NULL, NULL, 0, "<Separator>"},
+	{N_("/_Document"), NULL, NULL, 0, "<Branch>"},
+	{N_("/Document/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
+	{N_("/Document/Type"), NULL, NULL, 0, "<Branch>"},
+	{N_("/Document/Type/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
+	{N_("/Document/Highlight syntax"), NULL, doc_toggle_highlighting_cb, 0, "<ToggleItem>"},
+	{N_("/Document/Wrap"), NULL, doc_toggle_wrap_cb, 0, "<ToggleItem>"},
+	{N_("/Document/sep1"), NULL, NULL, 0, "<Separator>"},
+	{N_("/Document/Update highlighting"), "F5", doc_update_highlighting, 0, NULL},
+	{N_("/Document/Next"), "F1", gui_notebook_switch, 1, NULL},
+	{N_("/Document/Previous"), "F2", gui_notebook_switch, 0, NULL},
 	{N_("/_Options"), NULL, NULL, 0, "<Branch>"},
 	{N_("/Options/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
-	{N_("/Options/Current document"), NULL, NULL, 0, "<Branch>"},
-	{N_("/Options/Current document/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
-	{N_("/Options/Current document/Type"), NULL, NULL, 0, "<Branch>"},
-	{N_("/Options/Current document/Type/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
-	{N_("/Options/Current document/Highlight syntax"), NULL, doc_toggle_highlighting_cb, 0, "<ToggleItem>"},
-	{N_("/Options/Current document/Update highlighting"), "F5", doc_update_highlighting, 0, NULL},
-	{N_("/Options/Current document/Wrap"), NULL, doc_toggle_wrap_cb, 0, "<ToggleItem>"},
+	{N_("/Options/Display"), NULL, NULL, 0, "<Branch>"},
+	{N_("/Options/Display/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
+	{N_("/Options/Display/View Main toolbar"), NULL, gui_toggle_hidewidget_cb, 0, "<ToggleItem>"},
+	{N_("/Options/Display/View HTML toolbar"), NULL, gui_toggle_hidewidget_cb, 1, "<ToggleItem>"},
+	{N_("/Options/Display/View Custom menu"), NULL, gui_toggle_hidewidget_cb, 2, "<ToggleItem>"},
+	{N_("/Options/Display/View Left panel"), NULL, gui_toggle_hidewidget_cb, 3, "<ToggleItem>"},
 /*	{N_("/Options/sep1"), NULL, NULL, 0, "<Separator>"},*/
-	{N_("/Options/Auto indent"), NULL, gui_toggle_autoindent_cb, 0, "<ToggleItem>"},
+	{N_("/Options/Tabsize"), NULL, NULL, 0, "<Branch>"},
+	{N_("/Options/Tabsize/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
+	{N_("/Options/Tabsize/Increase tabsize"), NULL, gui_change_tabsize, 1, NULL},
+	{N_("/Options/Tabsize/Decrease tabsize"), NULL, gui_change_tabsize, 0, NULL},
 	{N_("/Options/sep2"), NULL, NULL, 0, "<Separator>"},
-	{N_("/Options/View Main toolbar"), NULL, gui_toggle_hidewidget_cb, 0, "<ToggleItem>"},
-	{N_("/Options/View HTML toolbar"), NULL, gui_toggle_hidewidget_cb, 1, "<ToggleItem>"},
-	{N_("/Options/View Custom menu"), NULL, gui_toggle_hidewidget_cb, 2, "<ToggleItem>"},
-	{N_("/Options/View Left panel"), NULL, gui_toggle_hidewidget_cb, 3, "<ToggleItem>"}
+	{N_("/Options/Auto indent"), NULL, gui_toggle_autoindent_cb, 0, "<ToggleItem>"},
+	{N_("/Options/sep2"), NULL, NULL, 0, "<Separator>"}
 };
 
 static void menu_current_document_type_change(GtkMenuItem *menuitem,Tfiletype *hlset) {
@@ -480,17 +490,16 @@ void menu_create_main(GtkWidget *vbox)
 	gtk_box_pack_start(GTK_BOX(vbox), main_v->menubar, FALSE, TRUE, 0);
 	gtk_widget_show(main_v->menubar);
 
-	setup_toggle_item(item_factory, _("/Options/View Main toolbar"), main_v->props.view_main_toolbar);
-	setup_toggle_item(item_factory, _("/Options/View HTML toolbar"), main_v->props.view_html_toolbar);
-	setup_toggle_item(item_factory, _("/Options/View Custom menu"), main_v->props.view_custom_menu);
-	setup_toggle_item(item_factory, _("/Options/View Left panel"), main_v->props.view_left_panel);
+	setup_toggle_item(item_factory, _("/Options/Display/View Main toolbar"), main_v->props.view_main_toolbar);
+	setup_toggle_item(item_factory, _("/Options/Display/View HTML toolbar"), main_v->props.view_html_toolbar);
+	setup_toggle_item(item_factory, _("/Options/Display/View Custom menu"), main_v->props.view_custom_menu);
+	setup_toggle_item(item_factory, _("/Options/Display/View Left panel"), main_v->props.view_left_panel);
 	setup_toggle_item(item_factory, _("/Options/Auto indent"), main_v->props.autoindent);
-/*	setup_toggle_item(item_factory, "/Options/View Filebrowser", main_v->props.v_filebrowser);*/
 	{
 		GSList *group=NULL;
 		GtkWidget *parent_menu;
 		GList *tmplist = g_list_first(main_v->filetypelist);
-		parent_menu = gtk_item_factory_get_widget(item_factory, _("/Options/Current document/Type"));
+		parent_menu = gtk_item_factory_get_widget(item_factory, _("/Document/Type"));
 		while (tmplist) {
 			Tfiletype *filetype = (Tfiletype *)tmplist->data;
 			if (filetype->highlightlist) {

@@ -134,6 +134,14 @@ static void notebook_switch_page_lcb(GtkWidget *notebook,GtkNotebookPage *page,g
 	notebook_changed(page_num);
 }
 
+void gui_notebook_switch(gpointer callback_data,guint action,GtkWidget *widget) {
+	if (action) {
+		gtk_notebook_next_page(GTK_NOTEBOOK(main_v->notebook));
+	} else {
+	gtk_notebook_prev_page(GTK_NOTEBOOK(main_v->notebook));
+	}
+}
+
 static void main_window_delete_lcb(GtkWidget *wid, gpointer data) {
 	bluefish_exit_request();
 }
@@ -483,8 +491,8 @@ void gui_set_undo_redo_widgets(gboolean undo, gboolean redo) {
 
 void gui_set_widgets(gboolean undo, gboolean redo, gboolean wrap, gboolean highlight, Tfiletype *hl) {
 	gui_set_undo_redo_widgets(undo, redo);
-	setup_toggle_item(gtk_item_factory_from_widget(main_v->menubar),N_("/Options/Current document/Highlight syntax"), highlight);
-	setup_toggle_item(gtk_item_factory_from_widget(main_v->menubar),N_("/Options/Current document/Wrap"), wrap);
+	setup_toggle_item(gtk_item_factory_from_widget(main_v->menubar),N_("/Document/Highlight syntax"), highlight);
+	setup_toggle_item(gtk_item_factory_from_widget(main_v->menubar),N_("/Document/Wrap"), wrap);
 	menu_current_document_type_set_active_wo_activate(hl);
 }
 
