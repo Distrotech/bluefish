@@ -183,39 +183,43 @@ If you know of anyone missing from this list, please let us know\n\
 Thanks to all who helped making this software available.\n\
 ");
 	gchar *TRANSLATORS = _("Current translators:\n\n\
-  Brazilian Portuguese - Anderson Rocha\n\
+  Brazilian Portuguese: Anderson Rocha\n\
    <anderson@maxlinux.com.br>\n\n\
-  Bulgarian - Peio Popov\n\
+  Bulgarian: Peio Popov\n\
    <peio@peio.org>\n\n\
-  Chinese - Ting Yang (Dormouse)\n\
+  Chinese: Ting Yang (Dormouse)\n\
    <mouselinux@163.com>\n\n\
-  Danish - Rasmus Toftdahl Olesen\n\
+  Chinese, Traditional: OLS3\n\
+   <ols3@lxer.idv.tw>\n\n\
+  Danish: Rasmus Toftdahl Olesen\n\
    <rto@pohldata.dk>\n\n\
-  Finnish - Juho Roukala\n\
+  Finnish: Juho Roukala\n\
    <j.mr@luukku.com>\n\n\
-  French - Michèle Garoche\n\
+  French: Michèle Garoche\n\
    <michele.garoche@easyconnect.fr>\n\n\
-  German - Roland Steinbach\n\
+  German: Roland Steinbach\n\
    <roland@netzblick.de>\n\n\
-  Hungarian - Péter Sáska\n\
+  Hungarian: Péter Sáska\n\
    <sasek@ccsystem.hu>\n\n\
-  Italian - Stefano Canepa\n\
+  Italian: Stefano Canepa\n\
    <sc@linux.it>\n\n\
-  Norwegian - Christian Tellefsen\n\
+  Japanese: Takeshi Hamasaki\n\
+   <hma@syd.odn.ne.jp>\n\n\
+  Norwegian: Christian Tellefsen\n\
    <chris@tellefsen.net>\n\n\
-  Polish - Oskar Swida\n\
+  Polish: Oskar Swida\n\
    <swida@aragorn.pb.bialystok.pl>\n\n\
-  Portuguese - Lopo Pizarro\n\
+  Portuguese: Lopo Pizarro\n\
    <lopopizarro@netcabo.pt>\n\n\
-  Russian - Eugene Rupakov\n\
+  Russian: Eugene Rupakov\n\
    <rupakov@jet.msk.su>\n\n\
-  Serbian - Marko Milenović\n\
+  Serbian: Marko Milenović\n\
    <raven@sbb.co.yu>\n\n\
-  Spanish - Walter Oscar Echarri\n\
+  Spanish: Walter Oscar Echarri\n\
    <wecharri@arnet.com.ar>\n\n\
-  Swedish - David Smeringe\n\
+  Swedish: David Smeringe\n\
    <david.smeringe@telia.com>\n\n\
-  Tamil - Murugapandian Barathee\n\
+  Tamil: Murugapandian Barathee\n\
    <barathee@yahoo.com>\n\n\
 ");
 
