@@ -1646,7 +1646,7 @@ void filebrowser_filters_rebuild() {
 static void showfulltree_toggled_lcb(GtkToggleButton *togglebutton, Tbfwin *bfwin) {
 	GtkTreePath *path;
 	gchar *to_open;
-	g_assert(FILEBROWSER(bfwin->filebrowser)->basedir);
+
 	/* now rebuild the tree */
 	DEBUG_MSG("showfulltree_toggled_lcb, clearing the tree\n");
 	gtk_tree_store_clear(FILEBROWSER(bfwin->filebrowser)->store);
@@ -1656,6 +1656,7 @@ static void showfulltree_toggled_lcb(GtkToggleButton *togglebutton, Tbfwin *bfwi
 	if (togglebutton->active) {
 		to_open = FILEBROWSER(bfwin->filebrowser)->last_opened_dir ? FILEBROWSER(bfwin->filebrowser)->last_opened_dir : "/";
 	} else {
+		g_assert(FILEBROWSER(bfwin->filebrowser)->basedir);
 		to_open = FILEBROWSER(bfwin->filebrowser)->basedir;
 	}
 	DEBUG_MSG("showfulltree_toggled_lcb, build tree for %s\n", to_open);
