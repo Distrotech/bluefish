@@ -95,11 +95,11 @@ distclean: patchclean
 	rm -f config.h Makefile *~ *.bak core
 
 install: all
-	$(INSTALL_DIR) $(bindir)
-	$(INSTALL_PROGRAM) ./bluefish $(bindir)/bluefish
+	$(INSTALL_DIR) $(DESTDIR)$(bindir)
+	$(INSTALL_PROGRAM) ./bluefish $(DESTDIR)$(bindir)/bluefish
 
 uninstall:
-	/bin/rm -f $(bindir)/bluefish
+	/bin/rm -f $(DESTDIR)$(bindir)/bluefish
 
 
 

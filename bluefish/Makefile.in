@@ -72,8 +72,8 @@ distclean:
 
 install: src/bluefish
 	pkgdatadir=@pkgdatadir@
-	$(INSTALL_DIR) $(pkgdatadir)
-	$(INSTALL_DATA) images/bluefish_splash.png $(pkgdatadir)
+	$(INSTALL_DIR) $(DESTDIR)$(pkgdatadir)
+	$(INSTALL_DATA) images/bluefish_splash.png $(DESTDIR)$(pkgdatadir)
 	@cd icons/ && $(MAKE) install
 	if [ -d $(iconpath) ]; then \
 		$(INSTALL_DATA) inline_images/bluefish_icon1.png $(iconpath)/bluefish-icon.png ;\
@@ -89,4 +89,4 @@ uninstall:
 	@cd src/ && $(MAKE) uninstall
 	@cd po/ && $(MAKE) uninstall
 	@cd data/ && $(MAKE) uninstall
-	/bin/rmdir $(pkgdatadir)
+	/bin/rmdir $(DESTDIR)$(pkgdatadir)
