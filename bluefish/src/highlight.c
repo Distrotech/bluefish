@@ -888,6 +888,8 @@ void hl_reset_to_default()
 	main_v->props.filetypes = g_list_append(main_v->props.filetypes, arr);
 	arr = array_from_arglist("java", ".java", "(){}'[]\n\"", "iconlocation", NULL);
 	main_v->props.filetypes = g_list_append(main_v->props.filetypes, arr);
+	arr = array_from_arglist("sql", ".sql", "(){}'[]\n\"", "iconlocation", NULL);
+	main_v->props.filetypes = g_list_append(main_v->props.filetypes, arr);
 
 #ifdef MAKE_BLUEFISH_WITH_BLUEFISH
 	arr = array_from_arglist("c", ".c:.h", "(){}'[]\n\"", "iconlocation", NULL);
@@ -1020,5 +1022,12 @@ void hl_reset_to_default()
 	arr = array_from_arglist("java", "braces", "0", "[{()}]", "", "", "2", "", "#000000", "", "2", "0", NULL);
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
 	arr = array_from_arglist("java", "character", "0", "'", "'", "", "1", "", "#009900", "", "0", "0", NULL);
+	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
+
+	arr = array_from_arglist("sql", "braces", "0", "[{()}]", "", "", "2", "", "#000000", "", "2", "0", NULL);
+	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
+	arr = array_from_arglist("sql", "keywords", "0","[ \t\n*](table|user|foreign key|index|unique|primary key|constraint|del|alter|values|insert|update|delete)[ \t\n*]","", "", "2", "", "#990000", "", "2", "0", NULL);
+	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
+	arr = array_from_arglist("sql", "storage", "0", "(integer|varchar|char|blob|double)", "", "", "2", "", "#880088", "", "2","0", NULL);
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
 }
