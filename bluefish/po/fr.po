@@ -9,8 +9,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 21-11-03_fr\n"
-"POT-Creation-Date: 2004-09-30 10:57+0200\n"
-"PO-Revision-Date: 2004-09-07 06:05+0200\n"
+"POT-Creation-Date: 2004-09-30 08:52+0200\n"
+"PO-Revision-Date: 2004-09-30 11:19+0200\n"
 "Last-Translator: Michèle Garoche <michele.garoche@easyconnect.fr>\n"
 "Language-Team: français <fr@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -282,7 +282,7 @@ msgstr "_Mot mal orthographié :"
 
 #: ../src/bfspell.c:363
 msgid "Change _to:"
-msgstr "Remplacer par :"
+msgstr "Remplacer _par :"
 
 #: ../src/bfspell.c:366
 msgid "I_gnore"
@@ -306,7 +306,7 @@ msgstr "Dictionnaire personnel"
 
 #: ../src/bfspell.c:393
 msgid "session dictionary"
-msgstr "session dictionnaire"
+msgstr "Session dictionnaire"
 
 #: ../src/bfspell.c:399
 msgid "Dictionary:"
@@ -318,7 +318,7 @@ msgstr "_Ajouter"
 
 #: ../src/bfspell.c:407
 msgid "Language:"
-msgstr "_Langue :"
+msgstr "Langue :"
 
 #: ../src/bfspell.c:411
 msgid "Set defa_ult"
@@ -330,7 +330,7 @@ msgstr "Filtre :"
 
 #: ../src/bfspell.c:423
 msgid "no filter"
-msgstr "aucun filtre"
+msgstr "Aucun filtre"
 
 #: ../src/bfspell.c:425
 msgid "html filter"
@@ -404,10 +404,11 @@ msgid ""
 "If you right-click a button in the HTML toolbars you can add buttons to the "
 "Quickbar."
 msgstr ""
-"Ce message s'affiche car vous n'avez aucun élément dans la QuickBar.\n"
+"Ce message s'affiche car vous n'avez placé aucun élément dans la barre "
+"rapide.\n"
 "\n"
-"Avec un clic droit sur les barres d'outils HTML, vous pouvez ajouter des "
-"boutons à la QuickBar."
+"Vous pouvez ajouter un bouton à la barre rapide en appuyant sur le clic droit "
+"lorque la souris se trouve sur l'un des boutons des barres HTML."
 
 #: ../src/bookmark.c:274 ../src/html.c:612 ../src/html.c:832
 #: ../src/html.c:1425 ../src/html.c:1853 ../src/html_form.c:231
@@ -452,7 +453,7 @@ msgstr "Aller au signet"
 
 #: ../src/bookmark.c:486
 msgid "Edit"
-msgstr "/_Éditer"
+msgstr "Éditer"
 
 #: ../src/bookmark.c:490
 msgid "Delete"
@@ -489,7 +490,7 @@ msgstr "Supprimer tous les signets"
 
 #: ../src/bookmark.c:1003
 msgid "Are you sure?"
-msgstr "En êtes-vous sûr ?"
+msgstr "En êtes-vous sûr(e) ?"
 
 #: ../src/bookmark.c:1049
 #, c-format
@@ -562,12 +563,12 @@ msgstr "Sans titre %d"
 #: ../src/document.c:1086
 #, c-format
 msgid " Ln %d, Col %d"
-msgstr "Lig %d, Col %d"
+msgstr " Lig %d, Col %d"
 
 #: ../src/document.c:1119 ../src/document.c:1120
 #, c-format
 msgid "  %s, %s"
-msgstr "%s, %s"
+msgstr "  %s, %s"
 
 #: ../src/document.c:1411 ../src/document.c:1432
 msgid "Could not read file:\n"
@@ -654,7 +655,7 @@ msgstr "Déplacer/renommer le document sous"
 
 #: ../src/document.c:2385 ../src/document.c:2393
 msgid "Save document as"
-msgstr "Enregistrer document sous"
+msgstr "Enregistrer le document sous"
 
 #: ../src/document.c:2415 ../src/document.c:2430 ../src/document.c:2527
 #: ../src/document.c:3709 ../src/gui.c:1109
@@ -663,12 +664,12 @@ msgstr "Annuler"
 
 #: ../src/document.c:2415 ../src/document.c:2430 ../src/document.c:2527
 msgid "_Overwrite"
-msgstr "Remplacer"
+msgstr "_Écraser"
 
 #: ../src/document.c:2416
 #, c-format
 msgid "File %s exists and is opened, overwrite?"
-msgstr "Le fichier %s est déjà ouvert, l'écraser ?"
+msgstr "Le fichier %s est déjà ouvert, voulez-vous vraiment l'écraser ?"
 
 #: ../src/document.c:2417
 msgid "The file you have selected is being edited in Bluefish."
@@ -726,7 +727,7 @@ msgid ""
 "Could not write file:\n"
 "\""
 msgstr ""
-"Impossible d'écrire le fichier :\n"
+"Impossible d'écrire le fichier sur le disque :\n"
 "\""
 
 #: ../src/document.c:2566
@@ -737,7 +738,7 @@ msgstr "Erreur d'enregistrement de fichier"
 #, c-format
 msgid "Save changes to \"%s\" before closing?."
 msgstr ""
-"Voulez-vous enregistrer les modifications apportées à  \"%s\" avant de le "
+"Voulez-vous enregistrer les modifications apportées à \"%s\" avant de le "
 "fermer ?"
 
 #: ../src/document.c:2619
@@ -747,7 +748,7 @@ msgstr ""
 
 #: ../src/document.c:2623
 msgid "Do_n't save"
-msgstr "Ne pas e_nregistrer"
+msgstr "Ne pas enre_gistrer"
 
 #: ../src/document.c:2625 ../src/document.c:3711
 msgid "If you don't save your changes they will be lost."
@@ -808,7 +809,7 @@ msgstr "Recherche des fichiers..."
 
 #: ../src/document.c:3284 ../src/document.c:3291
 msgid "Select basedir"
-msgstr "Sélectionnez le répertoire de travail"
+msgstr "Sélectionner le répertoire de travail"
 
 #: ../src/document.c:3309
 msgid "Advanced open file selector"
@@ -844,7 +845,7 @@ msgstr "<b>Contient</b>"
 
 #: ../src/document.c:3360
 msgid "Pa_ttern:"
-msgstr "Modèle :"
+msgstr "_Modèle :"
 
 #: ../src/document.c:3364
 msgid "Is rege_x:"
@@ -924,7 +925,7 @@ msgstr "Impossible de renommer le fichier\n"
 #, c-format
 msgid "Are you sure you want to delete \"%s\" ?"
 msgstr ""
-"Êtes-vous certain de vouloir\n"
+"Êtes-vous certain(e) de vouloir\n"
 "supprimer \"%s\" ?"
 
 #: ../src/filebrowser.c:1248
@@ -945,7 +946,7 @@ msgstr "/Actualise_r"
 
 #: ../src/filebrowser.c:1405
 msgid "/_Set as basedir"
-msgstr "/_Sélectionnez comme répertoire de travail"
+msgstr "/_Sélectionner comme répertoire de travail"
 
 #: ../src/filebrowser.c:1409
 msgid "/New _File"
@@ -965,7 +966,7 @@ msgstr "/Reno_mmer"
 
 #: ../src/filebrowser.c:1417
 msgid "/_Delete"
-msgstr "/Supprimer "
+msgstr "/_Supprimer "
 
 #: ../src/filebrowser.c:1439
 msgid "Show hidden files"
@@ -1406,15 +1407,15 @@ msgstr "Acronyme"
 
 #: ../src/gui.c:699
 msgid "Remove from quickbar"
-msgstr "Supprimer de la QuickBar"
+msgstr "Supprimer de la barre rapide"
 
 #: ../src/gui.c:733
 msgid "Add to quickbar"
-msgstr "Ajouter à la QuickBar"
+msgstr "Ajouter à la barre rapide"
 
 #: ../src/gui.c:829
 msgid " Quick bar "
-msgstr " QuickBar "
+msgstr " Barre rapide "
 
 #: ../src/gui.c:834
 msgid "Heading"
@@ -1546,7 +1547,7 @@ msgstr "/Document/Fermeture automatique des balises HTML"
 
 #: ../src/gui.c:1109
 msgid "Do_n't Save"
-msgstr "Ne pas e_nregistrer"
+msgstr "Ne pas enre_gistrer"
 
 #: ../src/gui.c:1110
 msgid "Failed to save the current project"
@@ -1570,11 +1571,11 @@ msgstr "Numéro de _ligne : "
 
 #: ../src/gui.c:1389
 msgid "From _selection"
-msgstr "Depuis la _sélection"
+msgstr "Á partir de la _sélection"
 
 #: ../src/gui.c:1392
 msgid "Keep _dialog"
-msgstr "Garder la boîte de _dialogue"
+msgstr "Laisser la boîte de _dialogue ouverte"
 
 #: ../src/gui.c:1458
 msgid "starting bluefish"
@@ -1603,50 +1604,50 @@ msgstr "  _Heure (%i:%i:%i)"
 
 #: ../src/html.c:405
 msgid "  Day of the _week (Sunday)"
-msgstr " Jour de la _semaine (Dimanche)"
+msgstr "  Jour de la _semaine (Dimanche)"
 
 #: ../src/html.c:408
 msgid "  Day of the _week (Monday)"
-msgstr " Jour de la _semaine (Lundi)"
+msgstr "  Jour de la _semaine (Lundi)"
 
 #: ../src/html.c:411
 msgid "  Day of the _week (Tuesday)"
-msgstr " Jour de la _semaine (Mardi)"
+msgstr "  Jour de la _semaine (Mardi)"
 
 #: ../src/html.c:414
 msgid "  Day of the _week (Wednesday)"
-msgstr " Jour de la _semaine (Mercredi)"
+msgstr "  Jour de la _semaine (Mercredi)"
 
 #: ../src/html.c:417
 msgid "  Day of the _week (Thursday)"
-msgstr " Jour de la _semaine (Jeudi)"
+msgstr "  Jour de la _semaine (Jeudi)"
 
 #: ../src/html.c:420
 msgid "  Day of the _week (Friday)"
-msgstr " Jour de la _semaine (Vendredi)"
+msgstr "  Jour de la _semaine (Vendredi)"
 
 #: ../src/html.c:423
 msgid "  Day of the _week (Saturday)"
-msgstr " Jour de la _semaine (Samedi)"
+msgstr "  Jour de la _semaine (Samedi)"
 
 #: ../src/html.c:426
 msgid "You appear to have a non existant day!\n"
-msgstr " Il semble que la date fournie n'existe pas !\n"
+msgstr "Il semble que la date fournie n'existe pas !\n"
 
 #: ../src/html.c:434
 #, c-format
 msgid "  _Date (%i/%i/%i)"
-msgstr " _Date (%i/%i/%i)"
+msgstr "  _Date (%i/%i/%i)"
 
 #: ../src/html.c:437
 #, c-format
 msgid "  _Unix Time (%i)"
-msgstr " Heure au format _Unix (%i)"
+msgstr "  Heure au format _Unix (%i)"
 
 #: ../src/html.c:440
 #, c-format
 msgid "  Unix Date _String (%s"
-msgstr " Date au _format Unix (%s"
+msgstr "  Date au _format Unix (%s"
 
 #: ../src/html.c:584
 msgid "Quick Anchor"
@@ -1883,7 +1884,7 @@ msgstr "_Sujet encodé :"
 
 #: ../src/html.c:1637
 msgid "UrlEncoded _body:"
-msgstr "Corps encodé :"
+msgstr "_Corps encodé :"
 
 #: ../src/html.c:1680
 msgid "Quick List"
@@ -1968,11 +1969,11 @@ msgstr "Href_lang :"
 
 #: ../src/html.c:2088
 msgid "_Forward Relation:"
-msgstr "Lien progressif :"
+msgstr "Lien pro_gressif :"
 
 #: ../src/html.c:2092
 msgid "_Reverse Relation:"
-msgstr "Lien inverse :"
+msgstr "Lien _inverse :"
 
 #: ../src/html.c:2103
 msgid "Media:"
@@ -1984,7 +1985,7 @@ msgstr "L_angue :"
 
 #: ../src/html.c:2111
 msgid "_Custom:"
-msgstr "Personnalisé :"
+msgstr "_Personnalisé :"
 
 #: ../src/html2.c:554
 msgid "Cascading StyleSheet dialog"
@@ -2033,7 +2034,7 @@ msgstr "_Style..."
 
 #: ../src/html2.c:1087
 msgid "Bluefish: Select color"
-msgstr "Bluefish: Sélection de couleurs"
+msgstr "Bluefish : Sélection de couleurs"
 
 #: ../src/html_form.c:141
 msgid "Form"
@@ -2049,7 +2050,7 @@ msgstr "Métho_de :"
 
 #: ../src/html_form.c:176
 msgid "_Enctype:"
-msgstr "Transcodage :"
+msgstr "_Transcodage :"
 
 #: ../src/html_form.c:225
 msgid "Text area"
@@ -2085,7 +2086,7 @@ msgstr "Groupe d'options"
 
 #: ../src/html_form.c:775
 msgid "Input"
-msgstr "Entrée"
+msgstr "Saisie"
 
 #: ../src/html_form.c:803
 msgid "_Checked:"
@@ -2101,7 +2102,7 @@ msgstr "_Accepter :"
 
 #: ../src/html_form.c:820
 msgid "C_ustom:"
-msgstr "Personnaliser :"
+msgstr "Pers_onnaliser :"
 
 #: ../src/html_form.c:832
 msgid "On_Focus:"
@@ -2141,11 +2142,11 @@ msgstr "Couleur de fo_nd :"
 
 #: ../src/html_table.c:158
 msgid "_Frame:"
-msgstr "Cadre :"
+msgstr "_Cadre :"
 
 #: ../src/html_table.c:169
 msgid "R_ules:"
-msgstr "Traits :"
+msgstr "_Traits :"
 
 #: ../src/html_table.c:369
 msgid "Co_l Span:"
@@ -2157,7 +2158,7 @@ msgstr "_Rowspan :"
 
 #: ../src/html_table.c:378
 msgid "No Wra_p:"
-msgstr "Sans césure :"
+msgstr "Sans _césure :"
 
 #: ../src/image.c:229
 msgid "Insert thumbnail"
@@ -2177,7 +2178,7 @@ msgstr "Emplacement de l'_image :"
 
 #: ../src/image.c:272
 msgid "Hei_ght:"
-msgstr "Hauteur :"
+msgstr "Ha_uteur :"
 
 #: ../src/image.c:277
 msgid "_Usemap:"
@@ -2397,7 +2398,7 @@ msgstr "/Éditer/Rec_ommencer la recherche"
 
 #: ../src/menu.c:352
 msgid "/Edit/Find from selection"
-msgstr "/Fichier/Rechercher depuis la sélection"
+msgstr "/Fichier/Rechercher à partir de la sélection"
 
 #: ../src/menu.c:353
 msgid "/Edit/R_eplace..."
@@ -4067,15 +4068,15 @@ msgstr "Aucune correspondance"
 
 #: ../src/preferences.c:1963
 msgid "check mtime and size"
-msgstr "Vérifier mtime et taille"
+msgstr "Vérifier la date de modification et la taille du fichier"
 
 #: ../src/preferences.c:1963
 msgid "check mtime"
-msgstr "Vérifier mtime"
+msgstr "Vérifier la date de modification"
 
 #: ../src/preferences.c:1963
 msgid "check size"
-msgstr "Vérifier taille"
+msgstr "Vérifier la taille"
 
 #: ../src/preferences.c:1966
 msgid "Edit preferences"
@@ -4111,11 +4112,11 @@ msgstr "Coloration syntaxique par défaut"
 
 #: ../src/preferences.c:1990
 msgid "Highlight # lines"
-msgstr "Coloration # lignes"
+msgstr "Coloration nombre de lignes"
 
 #: ../src/preferences.c:1997
 msgid "Undo history size"
-msgstr "Taille de l'historique"
+msgstr "Nombre de niveaux d'annulation"
 
 #: ../src/preferences.c:1998
 msgid "Clear undo history on save"
@@ -4135,19 +4136,19 @@ msgstr "Rendre permanent par défaut"
 
 #: ../src/preferences.c:2008
 msgid "full path"
-msgstr "chemin complet"
+msgstr "Chemin complet"
 
 #: ../src/preferences.c:2008
 msgid "path from basedir"
-msgstr "chemin du répertoire de travail"
+msgstr "Chemin à partir du répertoire de travail"
 
 #: ../src/preferences.c:2008
 msgid "filename"
-msgstr "nom de fichier"
+msgstr "Nom de fichier"
 
 #: ../src/preferences.c:2009
 msgid "Bookmarks filename display"
-msgstr "affichage du nom de fichier du signet"
+msgstr "Affichage du nom de fichier du signet"
 
 #: ../src/preferences.c:2013
 msgid "HTML"
@@ -4163,11 +4164,11 @@ msgstr "Balises HTML en minuscules"
 
 #: ../src/preferences.c:2021
 msgid "Use deprecated tags (e.g. <font> and <nobr>)"
-msgstr "Utiliser les balises obsolètes (comme <font> ou <nobr>)"
+msgstr "Utiliser les balises obsolètes (tel <font> ou <nobr>)"
 
 #: ../src/preferences.c:2022
 msgid "Use XHTML style tags (<br />)"
-msgstr "Utiliser la syntaxe XHTML (comme <br />)"
+msgstr "Utiliser la syntaxe XHTML (tel <br />)"
 
 #: ../src/preferences.c:2023
 msgid "Automatic update author meta"
@@ -4221,7 +4222,7 @@ msgstr "Action en cas d'échec de la sauvegarde"
 
 #: ../src/preferences.c:2055
 msgid "Remove backupfile on close"
-msgstr "Effacer la sauvegarde à l'enregistrement"
+msgstr "Supprimer la sauvegarde à la fermeture"
 
 #: ../src/preferences.c:2059
 msgid "Misc"
@@ -4233,7 +4234,7 @@ msgstr "Autoriser plusieurs instances d'un même fichier"
 
 #: ../src/preferences.c:2066
 msgid "Open files in already running bluefish window"
-msgstr "Ouvrir les fichiers dans la fenêtre active"
+msgstr "Ouvrir les fichiers dans la fenêtre active de Bluefish"
 
 #: ../src/preferences.c:2068
 msgid "File modified on disk check "
@@ -4257,7 +4258,7 @@ msgstr "Utiliser une vue scindée répertoires/fichiers"
 
 #: ../src/preferences.c:2077
 msgid "Unknown icon"
-msgstr "Icône type inconnu"
+msgstr "Icône de type inconnu"
 
 #: ../src/preferences.c:2078
 msgid "Directory icon"
@@ -4293,7 +4294,7 @@ msgstr "Général"
 
 #: ../src/preferences.c:2099
 msgid "Show main toolbar by default"
-msgstr "Montrer la barre d'outils principale par défaut"
+msgstr "Afficher la barre d'outils principale par défaut"
 
 #: ../src/preferences.c:2100
 msgid "Show sidebar by default"
@@ -4301,11 +4302,11 @@ msgstr "Afficher le panneau latéral par défaut"
 
 #: ../src/preferences.c:2101
 msgid "Show custom menu by default"
-msgstr "Montrer le menu personnalisé par défaut"
+msgstr "Afficher le menu personnalisé par défaut"
 
 #: ../src/preferences.c:2102
 msgid "Show HTML toolbar by default"
-msgstr "Montrer la barre HTML par défaut"
+msgstr "Afficher la barre HTML par défaut"
 
 #: ../src/preferences.c:2103
 msgid "Make HTML dialogs transient"
@@ -4409,7 +4410,7 @@ msgstr "Créer un Projet"
 
 #: ../src/project.c:154 ../src/project.c:161
 msgid "Enter Bluefish project filename"
-msgstr "Entrez le nom du projet "
+msgstr "Saisir le nom du projet Bluefish"
 
 #: ../src/project.c:185
 msgid "/Project/Save"
@@ -4429,7 +4430,7 @@ msgstr "/Projet/Options du projet..."
 
 #: ../src/project.c:258 ../src/project.c:265
 msgid "Select Bluefish project filename"
-msgstr "Sélectionnez le nom de fichier du projet"
+msgstr "Sélectionner le nom de fichier du projet Bluefish"
 
 #: ../src/project.c:404
 msgid "Create New Project"
@@ -4458,11 +4459,11 @@ msgstr "_Prévisualiser l'URL :"
 
 #: ../src/project.c:454
 msgid "_Template:"
-msgstr "Modèle :"
+msgstr "_Modèle :"
 
 #: ../src/project.c:460
 msgid "_Word wrap by default"
-msgstr "Césure par défaut"
+msgstr "_Césure par défaut"
 
 #: ../src/project.c:471
 msgid "Create _Project"
@@ -4571,7 +4572,7 @@ msgstr "Remplacer le texte sélectionné ?"
 
 #: ../src/snr2.c:898
 msgid "_Skip"
-msgstr "Ignorer"
+msgstr "_Ignorer"
 
 #: ../src/snr2.c:900
 msgid "Replace _all"
@@ -4583,11 +4584,11 @@ msgstr "Recherche : aucun résultat trouvé"
 
 #: ../src/snr2.c:1317
 msgid "_Search for: "
-msgstr "Rechercher : "
+msgstr "_Rechercher : "
 
 #: ../src/snr2.c:1330
 msgid "_Replace with: "
-msgstr "Remplacer par : "
+msgstr "Remplacer _par : "
 
 #: ../src/snr2.c:1340
 msgid "\\0 refers to the first subsearch_pattern, \\1 to the second etc."
@@ -4607,7 +4608,7 @@ msgstr "Du début à la fin de la sélection"
 
 #: ../src/snr2.c:1355
 msgid "All opened files begin till end"
-msgstr "Tous les fichiers ouverts jusqu'à la fin"
+msgstr "Du début à la fin de tous les fichiers ouverts"
 
 #: ../src/snr2.c:1356
 msgid "Disabled"
@@ -4623,7 +4624,7 @@ msgstr "De type PERL"
 
 #: ../src/snr2.c:1357
 msgid "Starts at:"
-msgstr "Débuter à : "
+msgstr "Zone de recherche : "
 
 #: ../src/snr2.c:1369
 msgid "Regular expression:"
@@ -4643,11 +4644,11 @@ msgstr "Mettre en minuscules"
 
 #: ../src/snr2.c:1384
 msgid "Replace type:"
-msgstr "Remplacer :"
+msgstr "Type de remplacement :"
 
 #: ../src/snr2.c:1397
 msgid "_Patterns contain backslash escape sequences (\\n, \\t)"
-msgstr "Les modèles contiennent des séquences d'échappement (\\n, \\t)"
+msgstr "Les _modèles contiennent des séquences d'échappement (\\n, \\t)"
 
 #: ../src/snr2.c:1398
 msgid "_Match case"
@@ -4655,15 +4656,15 @@ msgstr "Respecter la ca_sse"
 
 #: ../src/snr2.c:1399
 msgid "O_verlap searches"
-msgstr "Recherches en parallèle"
+msgstr "Recherches en _parallèle"
 
 #: ../src/snr2.c:1401
 msgid "Prompt _before replace"
-msgstr "Demander avant de remplacer"
+msgstr "_Demander avant de remplacer"
 
 #: ../src/snr2.c:1402
 msgid "Replace o_nce"
-msgstr "Remplacer une seule fois"
+msgstr "Remplacer _une seule fois"
 
 #: ../src/stringlist.c:366
 msgid " Add "
@@ -4703,7 +4704,7 @@ msgstr "No_mbre de colonnes :"
 
 #: ../src/wizards.c:85
 msgid "Table rows on one _line:"
-msgstr "Balises sur une ligne :"
+msgstr "_Balises de lignes sur une seule ligne :"
 
 #: ../src/wizards.c:89
 msgid "_Indent table code:"
@@ -4731,7 +4732,7 @@ msgstr "_Vertical"
 
 #: ../src/wizards.c:203
 msgid "Number of _Frames:"
-msgstr "Nombre de cadres :"
+msgstr "Nombre de _cadres :"
 
 #: ../src/wizards.c:206
 msgid "Frame's"
@@ -4748,3 +4749,4 @@ msgstr "Source :"
 #: ../src/wizards.c:224
 msgid "Size:"
 msgstr "Taille :"
+
