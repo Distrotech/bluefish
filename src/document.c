@@ -1541,6 +1541,15 @@ void doc_activate(Tdocument *doc) {
 
 	doc_scroll_to_cursor(doc);
 	gtk_widget_grab_focus(GTK_WIDGET(doc->view));
+	flush_queue();
+	if (doc->filename) {
+		gchar *dir1 = g_path_get_dirname(doc->filename);
+		gchar *dir2 = ending_slash(dir1);
+		chdir(dir2);
+		filebrowser_open_dir(dir2);
+		g_free(dir1);
+		g_free(dir2);
+	}
 }
 
 

@@ -27,7 +27,10 @@
 #include "bluefish.h"
 #include "outputbox.h" /* myself */
 #include "bf_lib.h"
+#include "document.h"
+#include "gtk_easy.h"
 #include "stringlist.h"
+#include "pixmap.h"
 
 #define NUM_MATCH 30
 
@@ -37,6 +40,7 @@ typedef struct {
 	gint file_subpat;
 	gint line_subpat;
 	gint output_subpat;
+	gboolean show_all_output;
 	regmatch_t pmatch[NUM_MATCH];
 	regex_t preg;
 } Toutput_def;
@@ -114,42 +118,54 @@ void init_output_box(GtkWidget *vbox) {
 }
 
 static void fill_output_box(GList *source) {
-		GList *tmplist = g_list_first(source);
-		while (tmplist) {
-			gchar *string = (gchar *)tmplist->data;
-			GtkTreeIter iter;
-			if (regexec(&ob.def->preg,string,NUM_MATCH,ob.def->pmatch,0)==0) {
-				/* we have a valid line */
-				gchar *filename,*line,*output;
-				filename=line=output=NULL;
-				gtk_list_store_append(GTK_LIST_STORE(ob.lstore), &iter);
-				if (ob.def->file_subpat >= 0 && ob.def->pmatch[ob.def->file_subpat].rm_so >=0) {
-					DEBUG_MSG("fill_output_box, filename from %d to %d\n", ob.def->pmatch[ob.def->file_subpat].rm_so ,ob.def->pmatch[ob.def->file_subpat].rm_eo);
-					filename=g_strndup(&string[ob.def->pmatch[ob.def->file_subpat].rm_so], ob.def->pmatch[ob.def->file_subpat].rm_eo - ob.def->pmatch[ob.def->file_subpat].rm_so);
-				}
-				if (ob.def->line_subpat >= 0&& ob.def->pmatch[ob.def->line_subpat].rm_so >=0) {
-					DEBUG_MSG("fill_output_box, line from %d to %d\n", ob.def->pmatch[ob.def->line_subpat].rm_so ,ob.def->pmatch[ob.def->line_subpat].rm_eo);
-					line=g_strndup(&string[ob.def->pmatch[ob.def->line_subpat].rm_so], ob.def->pmatch[ob.def->line_subpat].rm_eo - ob.def->pmatch[ob.def->line_subpat].rm_so);
-				}
-				if (ob.def->output_subpat >= 0&& ob.def->pmatch[ob.def->output_subpat].rm_so >=0) {
-					DEBUG_MSG("fill_output_box, output from %d to %d\n", ob.def->pmatch[ob.def->output_subpat].rm_so ,ob.def->pmatch[ob.def->output_subpat].rm_eo);
-					output=g_strndup(&string[ob.def->pmatch[ob.def->output_subpat].rm_so], ob.def->pmatch[ob.def->output_subpat].rm_eo - ob.def->pmatch[ob.def->output_subpat].rm_so);
-				}
-				if (filename) {
-					gtk_list_store_set(GTK_LIST_STORE(ob.lstore), &iter,0,filename, -1);
-					g_free(filename);
-				}
-				if (line) {
-					gtk_list_store_set(GTK_LIST_STORE(ob.lstore), &iter,1,line, -1);
-					g_free(line);
-				}
-				if (output) {
-					gtk_list_store_set(GTK_LIST_STORE(ob.lstore), &iter,2,output, -1);
-					g_free(output);
-				}
+	GList *tmplist;
+	
+	gtk_list_store_clear(GTK_LIST_STORE(ob.lstore));
+	
+	tmplist = g_list_first(source);
+	while (tmplist) {
+		gchar *string = (gchar *)tmplist->data;
+		GtkTreeIter iter;
+		if (regexec(&ob.def->preg,string,NUM_MATCH,ob.def->pmatch,0)==0) {
+			/* we have a valid line */
+			gchar *filename,*line,*output;
+			filename=line=output=NULL;
+			gtk_list_store_append(GTK_LIST_STORE(ob.lstore), &iter);
+			if (ob.def->file_subpat >= 0 && ob.def->pmatch[ob.def->file_subpat].rm_so >=0) {
+				DEBUG_MSG("fill_output_box, filename from %d to %d\n", ob.def->pmatch[ob.def->file_subpat].rm_so ,ob.def->pmatch[ob.def->file_subpat].rm_eo);
+				filename=g_strndup(&string[ob.def->pmatch[ob.def->file_subpat].rm_so], ob.def->pmatch[ob.def->file_subpat].rm_eo - ob.def->pmatch[ob.def->file_subpat].rm_so);
 			}
-			tmplist = g_list_next(tmplist);
+			if (ob.def->line_subpat >= 0&& ob.def->pmatch[ob.def->line_subpat].rm_so >=0) {
+				DEBUG_MSG("fill_output_box, line from %d to %d\n", ob.def->pmatch[ob.def->line_subpat].rm_so ,ob.def->pmatch[ob.def->line_subpat].rm_eo);
+				line=g_strndup(&string[ob.def->pmatch[ob.def->line_subpat].rm_so], ob.def->pmatch[ob.def->line_subpat].rm_eo - ob.def->pmatch[ob.def->line_subpat].rm_so);
+			}
+			if (ob.def->output_subpat >= 0&& ob.def->pmatch[ob.def->output_subpat].rm_so >=0) {
+				DEBUG_MSG("fill_output_box, output from %d to %d\n", ob.def->pmatch[ob.def->output_subpat].rm_so ,ob.def->pmatch[ob.def->output_subpat].rm_eo);
+				output=g_strndup(&string[ob.def->pmatch[ob.def->output_subpat].rm_so], ob.def->pmatch[ob.def->output_subpat].rm_eo - ob.def->pmatch[ob.def->output_subpat].rm_so);
+			}
+			if (filename) {
+				gchar *fullpath, *curdir;
+				curdir = g_get_current_dir();
+				fullpath = create_full_path(filename, curdir);
+				gtk_list_store_set(GTK_LIST_STORE(ob.lstore), &iter,0,fullpath,-1);
+				g_free(filename);
+				g_free(curdir);
+				g_free(fullpath);
+			}
+			if (line) {
+				gtk_list_store_set(GTK_LIST_STORE(ob.lstore), &iter,1,line, -1);
+				g_free(line);
+			}
+			if (output) {
+				gtk_list_store_set(GTK_LIST_STORE(ob.lstore), &iter,2,output, -1);
+				g_free(output);
+			}
+		} else if (ob.def->show_all_output) {
+			gtk_list_store_append(GTK_LIST_STORE(ob.lstore), &iter);
+			gtk_list_store_set(GTK_LIST_STORE(ob.lstore), &iter,2,string, -1);
 		}
+		tmplist = g_list_next(tmplist);
+	}
 }
 
 static GList *run_command() {
@@ -175,15 +191,15 @@ static GList *run_command() {
 	return retlist;
 }
 
-void outputbox_make() {
+static void outputbox(gchar *pattern, gint file_subpat, gint line_subpat, gint output_subpat, gchar *command, gboolean show_all_output) {
 	GList *olist;
 	ob.def = g_new(Toutput_def,1);
-	ob.def->pattern = "([a-zA-Z0-9/_.-]+):([0-9]+):(.*)";
-	ob.def->file_subpat = 1;
-	ob.def->line_subpat = 2;
-	ob.def->output_subpat = 3;
+	ob.def->pattern = pattern;
+	ob.def->file_subpat = file_subpat;
+	ob.def->line_subpat = line_subpat;
+	ob.def->output_subpat = output_subpat;
 	regcomp(&ob.def->preg,ob.def->pattern, REG_EXTENDED);
-	ob.def->command = "make";
+	ob.def->command = command;
 	olist = run_command();
 	fill_output_box(olist);
 	gtk_widget_show_all(ob.hbox);
@@ -192,19 +208,11 @@ void outputbox_make() {
 	ob.def = NULL;
 }
 
-void outputbox_weblint() {
-	GList *olist;
-	ob.def = g_new(Toutput_def,1);
-	ob.def->pattern = "([a-zA-Z0-9/_.-]+)\\(([0-9]+)\\): (.*)";
-	ob.def->file_subpat = 1;
-	ob.def->line_subpat = 2;
-	ob.def->output_subpat = 3;
-	regcomp(&ob.def->preg,ob.def->pattern, REG_EXTENDED);
-	ob.def->command = "weblint %s";
-	olist = run_command();
-	fill_output_box(olist);
-	gtk_widget_show_all(ob.hbox);
-	free_stringlist(olist);
-	g_free(ob.def);
-	ob.def = NULL;
+void outputbox_make() {
+	outputbox("([a-zA-Z0-9/_.-]+):([0-9]+):(.*)",1,2,3,"make", TRUE);
 }
+
+void outputbox_weblint() {
+	outputbox("([a-zA-Z0-9/_.-]+)\\(([0-9]+)\\): (.*)",1,2,3,"weblint", TRUE);
+}
+
