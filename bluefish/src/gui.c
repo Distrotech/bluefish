@@ -79,23 +79,23 @@ static Tsplashscreen splashscreen;
  * slowing things down. Shows a "Stand by..." label instead..
  *
  * Return value: void
- **/
+ ** /
 void notebook_hide(Tbfwin *bfwin) {
 	gtk_widget_hide (bfwin->notebook);
 	gtk_widget_show (bfwin->notebook_fake);
 }
 
-/**
+/ **
  * notebook_show:
  *
  * Shows the notebook, after a notebook_hide() has been called.
  *
  * Return value: void
- **/
+ ** /
 void notebook_show(Tbfwin *bfwin) {
 	gtk_widget_hide (bfwin->notebook_fake);
 	gtk_widget_show (bfwin->notebook);	
-}
+}*/
 
 void notebook_changed(Tbfwin *bfwin, gint newpage) {
 	gint cur = newpage;
@@ -182,6 +182,33 @@ static void notebook_switch_page_lcb(GtkWidget *notebook,GtkNotebookPage *page,g
 	notebook_changed(bfwin,page_num);
 }
 
+void gui_notebook_move(Tbfwin *bfwin, gboolean move_left) {
+	GtkWidget *tmp;
+	
+	tmp = gtk_widget_get_parent(bfwin->current_document->view);
+	DEBUG_MSG("gui_notebook_move, found parent %p\n",tmp);
+	if (tmp) {
+		gint curpos, newpos;
+		GList *cur;
+		curpos = gtk_notebook_page_num(GTK_NOTEBOOK(bfwin->notebook),tmp);
+		cur = g_list_nth(bfwin->documentlist, curpos);
+#ifdef DEVELOPMENT
+		if (!cur) exit(1);
+#endif
+		newpos = curpos + ((move_left) ? -1 : 1);
+		DEBUG_MSG("gui_notebook_move, cur=%d, new=%d (num_pages=%d)\n",curpos,newpos,gtk_notebook_get_n_pages(GTK_NOTEBOOK(bfwin->notebook)));
+		if (newpos >= 0 && newpos < gtk_notebook_get_n_pages(GTK_NOTEBOOK(bfwin->notebook))) {
+			GList *moveto;
+			gtk_notebook_reorder_child(GTK_NOTEBOOK(bfwin->notebook),tmp,newpos);
+			moveto = (move_left) ? g_list_previous(cur) : g_list_next(cur);
+#ifdef DEVELOPMENT
+			if (!moveto) exit(1);
+#endif
+			pointer_switch_addresses(&cur->data, &moveto->data);
+		}
+	}
+}
+
 void gui_notebook_switch(Tbfwin *bfwin,guint action,GtkWidget *widget) {
 	switch (action) {
 		case 1: gtk_notebook_prev_page(GTK_NOTEBOOK(bfwin->notebook));
@@ -191,6 +218,11 @@ void gui_notebook_switch(Tbfwin *bfwin,guint action,GtkWidget *widget) {
 		case 3: gtk_notebook_set_page(GTK_NOTEBOOK(bfwin->notebook), 0);
 		break;
 		case 4: gtk_notebook_set_page(GTK_NOTEBOOK(bfwin->notebook), -1);
+		break;
+		case 5: gui_notebook_move(bfwin, TRUE);
+		break;
+		case 6: gui_notebook_move(bfwin, FALSE);
+		break;
 	}
 }
 
