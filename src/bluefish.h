@@ -67,6 +67,7 @@ typedef struct {
 	gint style;
 	GList *childs;
 	gboolean need_subpatterns;
+	gboolean submatch_children_only;
 	GtkTextTag *tag;
 } Tpattern;
 
@@ -75,6 +76,7 @@ typedef struct {
 	gchar **extensions;
 	gchar *update_chars;
 	GList *highlightlist;
+	GList *nosubmatch_tags; /* this list contains all tags from patterns that have submatch_children_only set */
 } Thighlightset;
 
 /*******************/
