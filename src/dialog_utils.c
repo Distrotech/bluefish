@@ -1,0 +1,77 @@
+/* Bluefish HTML Editor
+ * dialog_utils.c --> dialog utility functions
+ *
+ * Copyright (C) 2005 James Hayward and Olivier Sessink
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ */
+ 
+#define DEBUG
+
+#include <gtk/gtk.h>
+
+#include "bluefish.h"
+#include "dialog_utils.h"
+
+
+GtkWidget *
+dialog_label_with_alignment(const gchar *labeltext, GtkWidget *box) {
+	GtkWidget *label, *alignment, *vbox;
+
+	label = gtk_label_new (NULL);
+	gtk_label_set_markup (GTK_LABEL (label), labeltext);
+	gtk_misc_set_alignment (GTK_MISC (label), 0, 0);	
+	gtk_box_pack_start (GTK_BOX (box), label, FALSE, FALSE, 0);
+	
+	alignment = gtk_alignment_new (0, 0, 1, 1);
+	gtk_alignment_set_padding (GTK_ALIGNMENT (alignment), 0, 0, 12, 6);
+	gtk_box_pack_start (GTK_BOX (box), alignment, FALSE, FALSE, 0);	
+	vbox = gtk_vbox_new (FALSE, 12);
+	gtk_container_add (GTK_CONTAINER (alignment), vbox);
+	
+	return vbox;
+}
+
+static GtkWidget *
+dialog_table_new(gint rows, gint cols, gint borderWidth) {
+	GtkWidget *table = gtk_table_new (rows, cols, FALSE);
+	
+	gtk_table_set_row_spacings (GTK_TABLE (table), 12);
+	gtk_table_set_col_spacings (GTK_TABLE (table), 12);
+	
+	if (borderWidth > 0) {
+		gtk_container_set_border_width (GTK_CONTAINER (table), borderWidth);
+	}
+
+	return table;
+}
+
+GtkWidget *
+dialog_table_in_vbox(gint rows, gint cols, gint borderWidth, GtkWidget *box, gboolean expand, gboolean fill, guint padding) {
+	GtkWidget *table = dialog_table_new (rows, cols, borderWidth);
+		
+	gtk_box_pack_start (GTK_BOX (box), table, expand, fill, padding);
+	
+	return table;
+}
+
+GtkWidget *
+dialog_table_in_vbox_defaults(gint rows, gint cols, gint borderWidth, GtkWidget *box) {
+	GtkWidget *table = dialog_table_new (rows, cols, borderWidth);
+		
+	gtk_box_pack_start_defaults (GTK_BOX (box), table);
+	
+	return table;
+}
