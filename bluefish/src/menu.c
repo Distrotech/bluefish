@@ -32,6 +32,7 @@
 #include "stringlist.h" 	/* free_stringlist() */
 #include "bf_lib.h"  /* append_string_to_file() */
 #include "gtk_easy.h" /* window_full, bf_stock_ok_button */
+#include "preferences.h" /* open_preferences_menu_cb */
 #include "html.h"
 #include "html2.h"
 #include "html_table.h"
@@ -429,6 +430,7 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/Document/Previous"), "F2", gui_notebook_switch, 0, NULL},
 	{N_("/_Options"), NULL, NULL, 0, "<Branch>"},
 	{N_("/Options/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
+	{N_("/Options/Preferences"), NULL, open_preferences_menu_cb, 0, NULL},
 	{N_("/Options/Display"), NULL, NULL, 0, "<Branch>"},
 	{N_("/Options/Display/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
 	{N_("/Options/Display/View Main toolbar"), NULL, gui_toggle_hidewidget_cb, 0, "<ToggleItem>"},

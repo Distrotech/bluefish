@@ -1,7 +1,7 @@
 #include <gtk/gtk.h>
 #include <string.h>
 
-#define DEBUG
+/* #define DEBUG */
 
 #include "bluefish.h"
 #include "html_diag.h"

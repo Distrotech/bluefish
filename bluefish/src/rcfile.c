@@ -505,7 +505,7 @@ void rcfile_parse_main(void)
 	/* do some default configuration for the lists */
 	if (main_v->props.browsers == NULL) {
 		gchar **arr;
-		arr = array_from_arglist("Galeon", "galeon %s&",NULL);
+		arr = array_from_arglist("Galeon", "galeon -x %s&",NULL);
 		main_v->props.browsers = g_list_append(main_v->props.browsers,arr);
 		arr = array_from_arglist("Mozilla", "mozilla -remote 'openURL(%s, new-window)' || mozilla %s&",NULL);
 		main_v->props.browsers = g_list_append(main_v->props.browsers,arr);
