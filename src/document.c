@@ -1631,17 +1631,21 @@ static gint doc_check_backup(Tdocument *doc) {
 	if (main_v->props.backup_file && doc->filename && file_exists_and_readable(doc->filename)) {
 		gchar *backupfilename;
 		backupfilename = g_strconcat(doc->filename, main_v->props.backup_filestring, NULL);
+		GError *gerror;
+		gint b_written;
+		gchar *ondiskencoding = g_filename_from_utf8(backupfilename, -1, NULL,&b_written,&gerror);
 		res = file_copy(doc->filename, backupfilename);
 #ifdef HAVE_GNOME_VFS
 		if (doc->fileinfo) {
-			gnome_vfs_set_file_info(backupfilename, doc->fileinfo, GNOME_VFS_SET_FILE_INFO_PERMISSIONS|GNOME_VFS_SET_FILE_INFO_OWNER);
+			gnome_vfs_set_file_info(ondiskencoding, doc->fileinfo, GNOME_VFS_SET_FILE_INFO_PERMISSIONS|GNOME_VFS_SET_FILE_INFO_OWNER);
 		}
 #else
 		if (doc->statbuf.st_uid != -1 && !doc->is_symlink) {
-			chmod(backupfilename, doc->statbuf.st_mode);
-			chown(backupfilename, doc->statbuf.st_uid, doc->statbuf.st_gid);
+			chmod(ondiskencoding, doc->statbuf.st_mode);
+			chown(ondiskencoding, doc->statbuf.st_uid, doc->statbuf.st_gid);
 		}
 #endif
+		g_free(ondiskencoding);
 		g_free(backupfilename);
 	}
 	return res;
@@ -2053,10 +2057,14 @@ gboolean buffer_to_file(Tbfwin *bfwin, gchar *buffer, gchar *filename) {
 	GnomeVFSHandle *handle;
 	GnomeVFSFileSize bytes_written;
 	GnomeVFSResult result;
+	GError *gerror;
+	gint b_written;
+	gchar *ondiskencoding = g_filename_from_utf8(filename, -1, NULL,&b_written,&gerror);
 	/* we use create instead of open, because open will not create the file if it does
       not already exist. The last argument is the permissions to use if the file is created,
       the second to last tells GnomeVFS that its ok if the file already exists, and just open it */
-	result = gnome_vfs_create(&handle, filename, GNOME_VFS_OPEN_WRITE, FALSE, 0644);
+	result = gnome_vfs_create(&handle, ondiskencoding, GNOME_VFS_OPEN_WRITE, FALSE, 0644);
+	g_free(ondiskencoding);
 	if (result != GNOME_VFS_OK) {
 		DEBUG_MSG("buffer_to_file, opening, result=%d, error=%s\n",result, gnome_vfs_result_to_string(result));
 		return FALSE;
@@ -2078,7 +2086,11 @@ gboolean buffer_to_file(Tbfwin *bfwin, gchar *buffer, gchar *filename) {
 #else /* HAVE_GNOME_VFS */
 gboolean buffer_to_file(Tbfwin *bfwin, gchar *buffer, gchar *filename) {
 	FILE *fd;
-	fd = fopen(filename, "w");
+	GError *gerror;
+	gint b_written;
+	gchar *ondiskencoding = g_filename_from_utf8(filename, -1, NULL,&b_written,&gerror);
+	fd = fopen(ondiskencoding, "w");
+	g_free(ondiskencoding);
 	if (fd == NULL) {
 		DEBUG_MSG("buffer_to_file, cannot open file %s\n", filename);
 		return FALSE;
@@ -2361,7 +2373,10 @@ gchar *ask_new_filename(Tbfwin *bfwin,gchar *oldfilename, gint is_move) {
 			document_unset_filename(exdoc);
 		}
 	} else {
-		if (g_file_test(newfilename, G_FILE_TEST_EXISTS)) {
+		GError *gerror;
+		gint b_written;
+		gchar *ondiskencoding = g_filename_from_utf8(newfilename, -1, NULL,&b_written,&gerror);
+		if (g_file_test(ondiskencoding, G_FILE_TEST_EXISTS)) {
 			gchar *tmpstr;
 			gint retval;
 			gchar *options[] = {_("_Cancel"), _("_Overwrite"), NULL};
@@ -2371,9 +2386,11 @@ gchar *ask_new_filename(Tbfwin *bfwin,gchar *oldfilename, gint is_move) {
 			g_free(tmpstr);
 			if (retval == 0) {
 				g_free(newfilename);
+				g_free(ondiskencoding);
 				return NULL;
 			}
 		}
+		g_free(ondiskencoding);
 	}
 	return newfilename;
 }
@@ -2420,7 +2437,17 @@ gint doc_save(Tdocument * doc, gint do_save_as, gboolean do_move) {
 			return 3;
 		}
 		if (doc->filename) {
-			if (do_move) unlink(doc->filename);
+			if (do_move) {
+				GError *gerror;
+				gint b_written;
+				gchar *ondiskencoding = g_filename_from_utf8(doc->filename, -1, NULL,&b_written,&gerror);
+#ifdef HAVE_GNOME_VFS
+				gnome_vfs_unlink(ondiskencoding);
+#else
+				unlink(ondiskencoding);
+#endif
+				g_free(ondiskencoding);
+			}
 			g_free(doc->filename);
 		}
 		doc->filename = newfilename;
