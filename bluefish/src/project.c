@@ -49,6 +49,7 @@ Tbfwin *project_is_open(gchar *filename) {
 }
 
 static void update_project_filelist(Tbfwin *bfwin, Tproject *prj) {
+	DEBUG_MSG("update_project_filelist, started, bfwin=%p, prj=%p\n",bfwin,prj);
 	free_stringlist(prj->files);
 	prj->files = return_filenamestringlist_from_doclist(bfwin->documentlist);
 }
@@ -59,9 +60,11 @@ static Tproject *create_new_project(Tbfwin *bfwin) {
 	prj = g_new0(Tproject,1);
 	prj->name = g_strdup(_("New project"));
 	if (bfwin) {
+		DEBUG_MSG("create_new_project, new project for bfwin %p\n",bfwin);
 		update_project_filelist(bfwin,prj);
 		prj->session = bfwin->session;
 	} else {
+		DEBUG_MSG("create_new_project, new project, no bfwin\n");
 		prj->session = g_new0(Tsessionvars,1);
 	}
 	if (prj->files) {
