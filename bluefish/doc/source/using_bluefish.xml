@@ -847,7 +847,9 @@ If you want to disable any of these items by default, you can set these options 
 
 <sect3 id="more-on-find">
 <title>More on find</title>
-<para>For an explanation of the <guilabel>Bookmark results</guilabel> box of the <guilabel>Find</guilabel> dialog, see <link linkend="generate-bookmark">here</link>.</para>
+<para>For an explanation of the <guilabel>Bookmark results</guilabel> box of the <guilabel>Find</guilabel> dialog, see <xref linkend="generate-bookmark"/>.</para>
+<para>You will find details on <guilabel>Find Again</guilabel> and <guilabel>Find from Selection</guilabel> in <xref linkend="find-replace"/>.</para>
+<para>For a quick way of switching from HTML entities to other types of encoding and changing letter cases, see <xref linkend="find-replace-special"/>.</para>
 </sect3>
 
 </sect2>
@@ -1346,23 +1348,63 @@ The projects are a sort of <emphasis>saved state</emphasis> of Bluefish. Thus, t
 		</screenshot>
 </figure>
 </para>
-<para id="generate-bookmark">To add many bookmarks at once, use the <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>F</keycap></keycombo></shortcut><guimenu>Edit</guimenu><guimenuitem>Find</guimenuitem></menuchoice> dialog. Check the <guilabel>Bookmark result</guilabel> option, and all search results will be added to your bookmarks. For example, the XML for this manual has sections, each identified by a header like <literal>&lt;sect1 id="bluefish-ch-4-sect-6"&gt;</literal>. A way to automatically get a bookmark to every section is to search for the following regular expression pattern: <literal>&lt;sect[0-9]+ id="[^"]+"&gt;</literal> and bookmark all results.</para>
-<para>Here is an example which bookmarks all functions in an Objective-C file:</para>
+
+<sect3 id="generate-bookmark">
+<title>Generating several bookmarks at once</title>
+<para>To add many bookmarks at once, use the <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>F</keycap></keycombo></shortcut><guimenu>Edit</guimenu><guimenuitem>Find</guimenuitem></menuchoice> dialog. Check the <guilabel>Bookmark result</guilabel> option, and all search results will be added to your bookmarks.</para>
+<para>For example, the XML files for this manual have sections, each identified by a header like <literal>&lt;sect1 id="nameofthesection"&gt;</literal>. A way to automatically get a bookmark to every section is to search for the following posix regular expression pattern: <literal>&lt;sect[0-9]+ id="[^"]+"&gt;</literal> and bookmark all results.
+<figure id="figure-bookmark-find-posix">
+<title id="figure-bookmark-find-posix-title">Bookmarking with Posix regular expression</title>
+<screenshot><mediaobject>
+<imageobject>
+<imagedata fileref="figures/bookmark_find_posix.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>A screen shot showing how to bookmark with Posix regular expression</phrase>
+</textobject>
+</mediaobject></screenshot>
+</figure></para>
+<para>Here is the result:
+<figure id="figure-bookmark-find-posix-result">
+<title id="figure-bookmark-find-posix-result-title">Bookmarks with Posix regular expression</title>
+<screenshot><mediaobject>
+<imageobject>
+<imagedata fileref="figures/bookmark_find_posix_result.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>A screen shot showing the bookmarks with Posix regular expression</phrase>
+</textobject>
+</mediaobject></screenshot>
+</figure></para>
+<para>Here is an example which bookmarks all functions in an Objective-C file:
+</para>
 <para>
 <figure id="figure-bookmark-find-cm">
-	<title id="figure-bookmark-find-title">Bookmarking via the Find menu</title>
-		<screenshot>
-			<mediaobject>
-				<imageobject>
-					<imagedata fileref="figures/bookmark_find.png" format="PNG"/>
-				</imageobject>
-				<textobject>
-					<phrase>A screen shot showing how to bookmark via the Find menu</phrase>
-				</textobject>
-			</mediaobject>
-		</screenshot>
-</figure>
-</para>
+<title id="figure-bookmark-find-title">Bookmarking Objective C functions via the Find menu</title>
+<screenshot><mediaobject>
+<imageobject>
+<imagedata fileref="figures/bookmark_find.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>A screen shot showing how to bookmark Objective C functions via the Find menu</phrase>
+</textobject>
+</mediaobject></screenshot>
+</figure></para>
+<para>Here is another example which bookmarks all functions in a php file with Perl regular expression.
+<figure id="figure-bookmark-find-perl">
+<title id="figure-bookmark-find-perl-title">Bookmarking PHP functions via the Find menu</title>
+<screenshot><mediaobject>
+<imageobject>
+<imagedata fileref="figures/bookmark_find_perl.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>A screen shot showing another use of regular expressions in the find dialog</phrase>
+</textobject>
+</mediaobject></screenshot>
+</figure></para>
+<para>Check <xref linkend="find-replace-regex"/> for more information on finding and replacing with regular expression in Bluefish.</para>
+</sect3>
+
 </sect2>
 
 <sect2 id="find-replace">
@@ -1471,62 +1513,8 @@ The projects are a sort of <emphasis>saved state</emphasis> of Bluefish. Thus, t
   </note>
   </para>
   </sect3>
-  <sect3 id="find-bookmark-results">
-<title>Bookmarking Search Results from the Find Dialog</title>
-  <para>
-  Another useful option in the <guilabel>Find</guilabel> dialog is the <guilabel>Bookmark results</guilabel> option. For example, in a PHP document you could search for the word <emphasis>function</emphasis>, and add a bookmark to every function. This results in a list of bookmarks that are all named 'function'.
-  </para>
-  <para>
-    <figure id="figure-find-bookmark-results-good">
-	<title id="figure-find-bookmark-results-good-title">Find and Bookmark Results</title>
-		<screenshot>
-			<mediaobject>
-				<imageobject>
-					<imagedata fileref="figures/find_bookmark_results_good.png" format="PNG"/>
-				</imageobject>
-				<textobject>
-					<phrase>A screen shot showing bookmarked results from the find dialog</phrase>
-				</textobject>
-			</mediaobject>
-		</screenshot>
-  </figure>
-  </para>
-  <para>
-  However, we can once again make use of regular expressions. The expression 'function\s+\w+' will result in all functions and their name. Much more useful!
-  </para>
-  <para>
-  <figure id="figure-find-dialog-bookmark-results">
-	<title id="figure-find-dialog-bookmark-results-title">Find and Bookmark Results Dialog</title>
-		<screenshot>
-			<mediaobject>
-				<imageobject>
-					<imagedata fileref="figures/find_dialog_bookmark_results.png" format="PNG"/>
-				</imageobject>
-				<textobject>
-					<phrase>A screen shot showing another use of regular expressions in the find dialog</phrase>
-				</textobject>
-			</mediaobject>
-		</screenshot>
-  </figure>
-  </para>
-    <para>
-  <figure id="figure-find-bookmark-results-better">
-	<title id="figure-find-bookmark-results-better-title">Find Better Results to Bookmark</title>
-		<screenshot>
-			<mediaobject>
-				<imageobject>
-					<imagedata fileref="figures/find_bookmark_results_better.png" format="PNG"/>
-				</imageobject>
-				<textobject>
-					<phrase>A screen shot showing more useful bookmarked results from the find dialog</phrase>
-				</textobject>
-			</mediaobject>
-		</screenshot>
-  </figure>
-  </para>
-  <para>Check <xref linkend="bookmarks" /> for more information on bookmarking in Bluefish.
-  </para>
-</sect3>
+
+
 
 </sect2>
 
@@ -1746,6 +1734,9 @@ choose <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>+</keycap></
 <para>If you want to add the HTML tag around some block of text, you can select the block of text, and then use the HTML tool bar or the Tags or Dialogs menu to insert some tags. The tag open code will be inserted before the selected block, the tag close will be inserted after the selected block.</para>
 <para>An existing tag can be edited by right-clicking the tag, and select <guilabel>Edit tag</guilabel> in the context menu. You can also place the cursor in the tag and use <menuchoice><shortcut><keycap>F3</keycap></shortcut><guimenu>Dialogs</guimenu><guimenuitem>Edit tag under cursor...</guimenuitem></menuchoice>. Not all tags, however, have a dialog, so this is not always possible. Colors in the style #RRGGBB can also be edited from the right-click context menu.</para>
 <para>In the reference browser on the left panel there is an HTML reference available. All possible attributes and valid values can be found in this reference. See <xref linkend="function-reference"/> for more info.</para> 
+
+<sect3 id="find-replace-special">
+<title>Special find an replace features</title>
 <para>There are several special search and replace actions in the menu <menuchoice><guimenu>Edit</guimenu><guisubmenu>Replace special</guisubmenu></menuchoice>. These can be used to convert special characters (like &lt; and &amp;), or ISO characters to their HTML entities, as well as to change the letters case.
 <figure id="figure-replace-special-menu">
 <title id="figure-replace-special-menu-title">The Replace special menu</title>
@@ -1762,6 +1753,7 @@ choose <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>+</keycap></
 </figure>
 </para>
 <para>In all cases, when you want to replace some part of the text, you should first select the part to replace, then use the appropiated menu item.</para>
+</sect3>
 
 <sect3 id="thumbnails">
 <title>Thumbnail generation</title>
