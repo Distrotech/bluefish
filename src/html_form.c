@@ -80,11 +80,10 @@ static void php_var_insert_cb(GtkWidget *widget, Thtml_diag *dg) {
 	g_free(tmp);
 }
 
-GtkWidget *php_var_but(Thtml_diag *dg, GtkWidget *name, GtkWidget *val, GtkWidget *dest) {
+GtkWidget *php_var_but(Thtml_diag *dg, GtkWidget *name, GtkWidget *val) {
  	GtkWidget *pixmap,*returnwid;
 	dg->php_var_ins.name = name;
 	dg->php_var_ins.val = val;
-	dg->php_var_ins.dest = dest;
 	returnwid = gtk_button_new();
 	pixmap = new_pixmap(84);
 	gtk_widget_show(pixmap);
@@ -752,11 +751,15 @@ static void inputdialog_typecombo_activate_lcb(GtkList *list, Thtml_diag *dg) {
 		gtk_widget_set_sensitive(dg->spin[0], (strcmp(text, "hidden")!=0));
 		gtk_widget_set_sensitive(dg->spin[1], (strcmp(text, "text")==0 || strcmp(text, "passwd")==0));
 		gtk_widget_set_sensitive(dg->entry[2], (strcmp(text, "file")==0));
+		gtk_widget_set_sensitive(dg->phpbutton, (strcmp(text, "radio")==0 || strcmp(text, "checkbox")==0) || (strcmp(text, "text")==0));
 		if (strcmp(text, "text")==0) {
+			dg->php_var_ins.dest = dg->entry[1];
 			dg->php_var_ins.type = PHPFORM_TYPE_TEXT;
 		} else if (strcmp(text, "radio")==0) {
+			dg->php_var_ins.dest = dg->entry[7];
 			dg->php_var_ins.type = PHPFORM_TYPE_RADIO;
 		} else if (strcmp(text, "checkbox")==0) {
+			dg->php_var_ins.dest = dg->entry[7];
 			dg->php_var_ins.type = PHPFORM_TYPE_CHECK;
 		}
 	}
@@ -816,7 +819,7 @@ void inputdialog_dialog(Tbfwin *bfwin, Ttagpopup *data, const gchar *type) {
 	dg->entry[7] = entry_with_text(custom, 256);
 	bf_mnemonic_label_tad_with_alignment(_("C_ustom:"), dg->entry[7], 0, 0.5, dgtable, 0, 1, 7, 8);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[7], 1, 2, 7, 8);
-	dg->phpbutton = php_var_but(dg, dg->entry[0], dg->entry[1], dg->entry[7]);
+	dg->phpbutton = php_var_but(dg, dg->entry[0], dg->entry[1]);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->phpbutton, 2, 3, 7, 8);
 
 	dgtable = generic_table_inside_notebookframe(noteb, _("Style"), 4, 3);
