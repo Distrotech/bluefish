@@ -1238,15 +1238,15 @@ static void file_but_clicked_lcb(GtkWidget * widget, Tfilebut *fb) {
 #ifdef HAVE_ATLEAST_GTK_2_4
 	{
 		GtkWidget *dialog;
-		dialog = gtk_file_chooser_dialog_new(_("Select File"),NULL,
-				GTK_FILE_CHOOSER_ACTION_OPEN,
-				GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
-				GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT,
-				NULL);
+		dialog = file_chooser_dialog(NULL, _("Select File"), GTK_FILE_CHOOSER_ACTION_OPEN, setfile, FALSE, FALSE);
+		gtk_window_set_transient_for(GTK_WINDOW(dialog),GTK_WINDOW(gtk_widget_get_toplevel(fb->entry)));
 		gtk_file_chooser_set_filename(GTK_FILE_CHOOSER(dialog),setfile);
 		if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_ACCEPT) {
-			tmpstring = gtk_file_chooser_get_uri(GTK_FILE_CHOOSER(dialog));
+			tmp2string = gtk_file_chooser_get_uri(GTK_FILE_CHOOSER(dialog));
+			tmpstring = create_full_path(tmp2string, NULL);
+			g_free(tmp2string);
 		}
+		gtk_widget_destroy(dialog);
 	}
 #else
 	tmpstring = return_file(setfile);

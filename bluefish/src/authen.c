@@ -77,7 +77,7 @@ static gint authen_ask_user(gchar const *uri, gchar const *object, gchar const *
 									GTK_STOCK_CANCEL, GTK_RESPONSE_REJECT,
 									GTK_STOCK_OK, GTK_RESPONSE_ACCEPT, NULL);
 	gtk_window_set_position(GTK_WINDOW(dialog), GTK_WIN_POS_CENTER);
-
+	gtk_dialog_set_default_response(GTK_DIALOG(dialog), GTK_RESPONSE_ACCEPT);
 	box = gtk_vbox_new(FALSE, 5);
 	gtk_container_add(GTK_CONTAINER(GTK_DIALOG(dialog)->vbox), box);
 	gtk_container_set_border_width(GTK_CONTAINER(box), 12);
