@@ -2929,7 +2929,7 @@ void doc_new_from_uri(Tbfwin *bfwin, gchar *curi, GnomeVFSURI *uri, GnomeVFSFile
 			switch_to_document_by_pointer(BFWIN(tmpdoc->bfwin),tmpdoc);
 			if (bfwin != tmpdoc->bfwin) gtk_window_present(GTK_WINDOW(BFWIN(tmpdoc->bfwin)->main_window));
 		}
-		if (tmpdoc >= 0) doc_select_line(tmpdoc, goto_line, TRUE);
+		if (tmpdoc >= 0 && goto_line >= 0) doc_select_line(tmpdoc, goto_line, TRUE);
 	} else { /* document is not yet opened */
 		GnomeVFSURI *tmpuri = uri;
 		if (tmpuri) {
