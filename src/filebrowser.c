@@ -1084,18 +1084,25 @@ static void row_activated_lcb(GtkTreeView *tree, GtkTreePath *path,GtkTreeViewCo
 	GtkTreeIter iter;
 	gchar *filename = return_filename_from_path(filebrowser,GTK_TREE_MODEL(filebrowser->store),path);
 	DEBUG_MSG("row_activated_lcb, filename=%s\n", filename);
-	/* test if this is a dir */
-	gtk_tree_model_get_iter(GTK_TREE_MODEL(filebrowser->store),&iter,path);
-	if (gtk_tree_model_iter_has_child(GTK_TREE_MODEL(filebrowser->store),&iter)) {
-		if (gtk_tree_view_row_expanded(tree, path)) {
-			gtk_tree_view_collapse_row(tree,path);
-		} else {
+	if (main_v->props.filebrowser_two_pane_view) {
+		/* it is a dir, expand it */
+		if (!gtk_tree_view_row_expanded(tree, path)) {
 			gtk_tree_view_expand_row(tree,path,FALSE);
 		}
 	} else {
-		handle_activate_on_file(filebrowser,filename);
+		/* test if this is a dir */
+		gtk_tree_model_get_iter(GTK_TREE_MODEL(filebrowser->store),&iter,path);
+		if (gtk_tree_model_iter_has_child(GTK_TREE_MODEL(filebrowser->store),&iter)) {
+			if (gtk_tree_view_row_expanded(tree, path)) {
+				gtk_tree_view_collapse_row(tree,path);
+			} else {
+				gtk_tree_view_expand_row(tree,path,FALSE);
+			}
+		} else {
+			handle_activate_on_file(filebrowser,filename);
+		}
+		g_free(filename);
 	}
-	g_free(filename);
 	DEBUG_MSG("row_activated_lcb, finished\n");
 }
 
@@ -1223,7 +1230,7 @@ static void filebrowser_rpopup_refresh(Tfilebrowser *filebrowser) {
 	if (path) {
 		gchar *tmp, *dir;
 		GtkTreePath *path;
-		if (gtk_tree_model_iter_has_child(GTK_TREE_MODEL(filebrowser->store), &iter)) {
+		if (main_v->props.filebrowser_two_pane_view || gtk_tree_model_iter_has_child(GTK_TREE_MODEL(filebrowser->store), &iter)) {
 			DEBUG_MSG("create_file_or_dir_win, a dir is selected\n");
 		} else {
 			GtkTreeIter parent;
@@ -1406,10 +1413,12 @@ static gboolean filebrowser_button_press_lcb(GtkWidget *widget, GdkEventButton *
 				gchar *tmp, *dir;
 				tmp = return_filename_from_path(filebrowser,GTK_TREE_MODEL(filebrowser->store),path);
 				dir = ending_slash(tmp);
+				DEBUG_MSG("two paned view, refresh the directory %s\n", dir);
 				filebrowser_refresh_dir(filebrowser,dir);
 				g_free(tmp);
 				g_free(dir);
 			} else {
+				DEBUG_MSG("one paned view (props.filebrowser_two_pane_view=%d), check if it is a file or directory\n", main_v->props.filebrowser_two_pane_view);
 				gtk_tree_model_get_iter(GTK_TREE_MODEL(filebrowser->store),&iter,path);
 				if (gtk_tree_model_iter_has_child(GTK_TREE_MODEL(filebrowser->store),&iter)) {
 					DEBUG_MSG("filebrowser_button_press_lcb, clicked a directory, refresh!\n");
