@@ -1878,12 +1878,14 @@ static void frefcb_search(GtkButton *button,Tbfwin *bfwin) {
 			if (dict != NULL) {
 				gpointer ret=NULL;
 				dlg = gtk_dialog_new_with_buttons(_("Reference search"),NULL,GTK_DIALOG_MODAL,
-				                             GTK_STOCK_OK,
-				                             GTK_RESPONSE_ACCEPT,
 				                             GTK_STOCK_CANCEL,
 				                             GTK_RESPONSE_REJECT,
+				                             GTK_STOCK_OK,
+				                             GTK_RESPONSE_ACCEPT,				                             
 				                             NULL);
+				gtk_dialog_set_default_response(GTK_DIALOG(dlg),GTK_RESPONSE_ACCEPT);                             
 				entry = gtk_entry_new();
+				gtk_entry_set_activates_default(GTK_ENTRY(entry),TRUE);
 				gtk_box_pack_start(GTK_BOX(GTK_DIALOG(dlg)->vbox),entry,TRUE,TRUE,0); 
 				gtk_widget_show(entry);
 				result = gtk_dialog_run(GTK_DIALOG(dlg));  
