@@ -241,7 +241,7 @@ void left_panel_rebuild(Tbfwin *bfwin) {
 }
 
 void left_panel_show_hide_toggle(Tbfwin *bfwin,gboolean first_time, gboolean show, gboolean sync_menu) {
-	if (sync_menu) setup_toggle_item(gtk_item_factory_from_widget(bfwin->menubar), N_("/View/View Left Panel"), show);
+	if (sync_menu) setup_toggle_item(gtk_item_factory_from_widget(bfwin->menubar), _("/View/View Left Panel"), show);
 	if (!first_time && ((show && bfwin->hpane) || (!show && bfwin->hpane == NULL))) {
 		DEBUG_MSG("left_panel_show_hide_toggle, retrurning!!, show=%d, bfwin->hpane=%p, first_time=%d\n",show,bfwin->hpane,first_time);
 		return;
@@ -1462,21 +1462,21 @@ GtkWidget *start_splash_screen() {
 #endif /* #ifndef NOSPLASH */
 
 void gui_set_html_toolbar_visible(Tbfwin *bfwin, gboolean visible, gboolean sync_menu) {
-	if (sync_menu) setup_toggle_item(gtk_item_factory_from_widget(bfwin->menubar), N_("/View/View HTML Toolbar"), visible);
+	if (sync_menu) setup_toggle_item(gtk_item_factory_from_widget(bfwin->menubar), _("/View/View HTML Toolbar"), visible);
 	if (gtk_container_children(GTK_CONTAINER(bfwin->html_toolbar_hb)) == NULL) {
 		make_html_toolbar(bfwin);
 	}
 	widget_set_visible(bfwin->html_toolbar_hb,visible);
 }
 void gui_set_main_toolbar_visible(Tbfwin *bfwin, gboolean visible, gboolean sync_menu) {
-	if (sync_menu) setup_toggle_item(gtk_item_factory_from_widget(bfwin->menubar), N_("/View/View Main Toolbar"), visible);
+	if (sync_menu) setup_toggle_item(gtk_item_factory_from_widget(bfwin->menubar), _("/View/View Main Toolbar"), visible);
 	if (gtk_container_children(GTK_CONTAINER(bfwin->main_toolbar_hb)) == NULL) {
 		make_main_toolbar(bfwin);
 	}
 	widget_set_visible(bfwin->main_toolbar_hb,visible);
 }
 void gui_set_custom_menu_visible(Tbfwin *bfwin, gboolean visible, gboolean sync_menu) {
-	if (sync_menu) setup_toggle_item(gtk_item_factory_from_widget(bfwin->menubar), N_("/View/View Custom Menu"), visible);
+	if (sync_menu) setup_toggle_item(gtk_item_factory_from_widget(bfwin->menubar), _("/View/View Custom Menu"), visible);
 	if (gtk_container_children(GTK_CONTAINER(bfwin->custom_menu_hb)) == NULL) {
 		make_cust_menubar(bfwin,bfwin->custom_menu_hb);
 	}
