@@ -426,6 +426,7 @@ GtkWidget *window_full2(gchar * title, GtkWindowPosition position
 	returnwidget = window_with_title(title, position, borderwidth);
 /*	g_signal_connect(G_OBJECT(returnwidget), "delete_event", close_func, close_data);*/
 	/* use "destroy" and not "destroy_event", 'cause that doesn't work */
+	if (close_data == NULL) close_data = returnwidget;
 	g_signal_connect(G_OBJECT(returnwidget), "destroy", close_func, close_data);
 	DEBUG_MSG("window_full, close_data=%p\n",close_data);
 	if (transientforparent) {
