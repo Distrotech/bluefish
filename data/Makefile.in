@@ -35,27 +35,28 @@ all: $(DEFAULTFILES)
 	sed -e 's!ICONDIR!$(iconpath)!' < bluefish.desktop.in > bluefish.desktop
 
 install: all
-	$(INSTALL_DIR) $(pkgdatadir)
+	$(INSTALL_DIR) $(DESTDIR)$(pkgdatadir)
 	@for file in $(DEFAULTFILES) ; do \
-		$(INSTALL_DATA) $$file $(pkgdatadir)/$$file ;\
+		$(INSTALL_DATA) $$file $(DESTDIR)$(pkgdatadir)/$$file ;\
 	done
 	@for file in $(FUNCREFFILES) ; do \
-		$(INSTALL_DATA) $$file $(pkgdatadir)/$$file ;\
+		$(INSTALL_DATA) $$file $(DESTDIR)$(pkgdatadir)/$$file ;\
 	done
 	if [ -d $(gnome2menupath) ] ; then \
-		$(INSTALL_DATA) bluefish.desktop $(gnome2menupath) ;\
+		$(INSTALL_DIR) $(DESTDIR)$(gnome2menupath) ;\
+		$(INSTALL_DATA) bluefish.desktop $(DESTDIR)$(gnome2menupath) ;\
 	fi
 	if [ -d $(gnome1menupath) ] ; then \
-		$(INSTALL_DIR) $(gnome1menupath)/Applications ;\
-		$(INSTALL_DATA) bluefish.desktop $(gnome1menupath)/Applications ;\
+		$(INSTALL_DIR) $(DESTDIR)$(gnome1menupath)/Applications ;\
+		$(INSTALL_DATA) bluefish.desktop $(DESTDIR)$(gnome1menupath)/Applications ;\
 	fi
 
 uninstall:
 	@for file in $(DEFAULTFILES) ; do \
-		rm -r $(pkgdatadir)/$$file ;\
+		rm -r $(DESTDIR)$(pkgdatadir)/$$file ;\
 	done
-	rm -r $(gnome2menupath)/bluefish.desktop
-	rm -r $(gnome1menupath)/Applications/bluefish.desktop
+	rm -r $(DESTDIR)$(gnome2menupath)/bluefish.desktop
+	rm -r $(DESTDIR)$(gnome1menupath)/Applications/bluefish.desktop
 
 clean:
 	rm -f *.default

@@ -52,13 +52,13 @@ all: bluefish
 bluefish:
 
 install: all
-	$(INSTALL_DIR) $(pkgdatadir)
+	$(INSTALL_DIR) $(DESTDIR)$(pkgdatadir)
 	for file in $(OBJS) ; \
-		do $(INSTALL_DATA) $$file $(pkgdatadir) ; \
+		do $(INSTALL_DATA) $$file $(DESTDIR)$(pkgdatadir) ; \
 	done
 
 uninstall:
-	/bin/rm -f $(pkgdatadir)/icon_*.png
+	/bin/rm -f $(DESTDIR)$(pkgdatadir)/icon_*.png
 
 
 
