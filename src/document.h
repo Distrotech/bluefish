@@ -70,7 +70,7 @@ void doc_unbind_signals(Tdocument *doc);
 gboolean buffer_to_file(Tbfwin *bfwin, gchar *buffer, gchar *filename);
 void doc_destroy(Tdocument * doc, gboolean delay_activation);
 void document_unset_filename(Tdocument *doc);
-gchar *ask_new_filename(Tbfwin *bfwin,gchar *oldfilename, gboolean is_move);
+gchar *ask_new_filename(Tbfwin *bfwin,gchar *oldfilename, const gchar *gui_name, gboolean is_move);
 gint doc_save(Tdocument * doc, gint do_save_as, gint do_move, gboolean window_closing);
 void document_set_line_numbers(Tdocument *doc, gboolean value);
 Tdocument *doc_new(Tbfwin* bfwin, gboolean delay_activate);

@@ -2390,6 +2390,7 @@ void document_unset_filename(Tdocument *doc) {
  * ask_new_filename:
  * @bfwin: #Tbfwin* mainly used to set the dialog transient
  * @oldfilename: #gchar* with the old filename
+ * @gui_name: #const gchar* with the name of the file used in the GUI
  * @is_move: #gboolean if the title should be move or save as
  *
  * returns a newly allocated string with a new filename
@@ -2401,11 +2402,14 @@ void document_unset_filename(Tdocument *doc) {
  *
  * Return value: gchar* with newly allocated string, or NULL on failure or abort
  **/
-gchar *ask_new_filename(Tbfwin *bfwin,gchar *oldfilename, gint is_move) {
+gchar *ask_new_filename(Tbfwin *bfwin,gchar *oldfilename, const gchar *gui_name, gint is_move) {
 	Tdocument *exdoc;
 	GList *alldocs;
 	gchar *ondisk = get_filename_on_disk_encoding(oldfilename);
 	gchar *newfilename = NULL;
+	gchar *dialogtext;
+	
+	dialogtext = g_strdup_printf((is_move) ? _("Move/rename %s to"): _("Save %s as"), gui_name);
 #ifdef HAVE_ATLEAST_GTK_2_4
 	{
 		GtkWidget *dialog;
@@ -2418,7 +2422,7 @@ gchar *ask_new_filename(Tbfwin *bfwin,gchar *oldfilename, gint is_move) {
 		gtk_file_chooser_set_local_only(GTK_FILE_CHOOSER(dialog),FALSE);
 		FILE_CHOOSER_USE_VFS(dialog);
 		gtk_file_chooser_set_select_multiple(GTK_FILE_CHOOSER(dialog), FALSE);*/
-		dialog = file_chooser_dialog(bfwin, (is_move) ? _("Move/rename document to") : _("Save document as"),
+		dialog = file_chooser_dialog(bfwin, dialogtext,
 				 GTK_FILE_CHOOSER_ACTION_SAVE, oldfilename, FALSE, FALSE);
 		if (gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_ACCEPT) {
 			newfilename = gtk_file_chooser_get_uri(GTK_FILE_CHOOSER(dialog));
@@ -2426,9 +2430,10 @@ gchar *ask_new_filename(Tbfwin *bfwin,gchar *oldfilename, gint is_move) {
 		gtk_widget_destroy(dialog);
 	}
 #else
-	newfilename = return_file_w_title(ondisk,(is_move) ? _("Move/rename document to") : _("Save document as"));
+	newfilename = return_file_w_title(ondisk,dialogtext);
 #endif
 	g_free(ondisk);
+	g_free(dialogtext);
 	
 	if (!newfilename || (oldfilename && strcmp(oldfilename,newfilename)==0)) {
 		if (newfilename) g_free(newfilename);
@@ -2517,7 +2522,7 @@ gint doc_save(Tdocument * doc, gint do_save_as, gboolean do_move, gboolean windo
 	if (do_save_as) {
 		gchar *newfilename = NULL;
 		if (!window_closing) statusbar_message(BFWIN(doc->bfwin),_("Save as..."), 1);
-		newfilename = ask_new_filename(BFWIN(doc->bfwin), doc->filename, do_move);
+		newfilename = ask_new_filename(BFWIN(doc->bfwin), doc->filename, gtk_label_get_text(GTK_LABEL(doc->tab_label)), do_move);
 		if (!newfilename) {
 			return 3;
 		}
@@ -2649,12 +2654,12 @@ gint doc_close(Tdocument * doc, gint warn_only)
 	}
 
 	if (doc->modified) {
-		if (doc->tab_label) {
+		/*if (doc->tab_label) {*/
 			text = g_strdup_printf(_("Save changes to \"%s\" before closing?."),
 									gtk_label_get_text (GTK_LABEL (doc->tab_label)));
-		} else {
+		/*} else {
 			text = g_strdup(_("Save changes to this untitled file before closing?"));
-		}
+		}*/
 	
 		{
 			gchar *buttons[] = {_("Do_n't save"), GTK_STOCK_CANCEL, GTK_STOCK_SAVE, NULL};

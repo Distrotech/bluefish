@@ -1194,7 +1194,7 @@ static void filebrowser_rpopup_rename(Tfilebrowser *filebrowser) {
 			doc_save(tmpdoc, 1, 1, FALSE);
 		} else {
 			/* Promt user, "File/Move To"-style. */
-			newfilename = ask_new_filename(filebrowser->bfwin,oldfilename, 1);
+			newfilename = ask_new_filename(filebrowser->bfwin,oldfilename, oldfilename,1);
 			if (newfilename) {
 				gchar *old_OnDiEn, *new_OnDiEn; /* OnDiskEncoding */
 				old_OnDiEn = get_filename_on_disk_encoding(oldfilename);

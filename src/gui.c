@@ -1087,9 +1087,9 @@ void make_main_toolbar(Tbfwin *bfwin) {
 	gtk_toolbar_insert_stock (GTK_TOOLBAR (toolbar), GTK_STOCK_PASTE, _("Paste"),	
 								"", G_CALLBACK(edit_paste_cb), bfwin, -1);
 	gtk_toolbar_append_space (GTK_TOOLBAR (toolbar));								
-	gtk_toolbar_insert_stock (GTK_TOOLBAR (toolbar), GTK_STOCK_FIND, _("Search..."),	
+	gtk_toolbar_insert_stock (GTK_TOOLBAR (toolbar), GTK_STOCK_FIND, _("Find..."),	
 								"", G_CALLBACK(search_cb), bfwin, -1);
-	gtk_toolbar_insert_stock (GTK_TOOLBAR (toolbar), GTK_STOCK_FIND_AND_REPLACE, _("Search and Replace..."),	
+	gtk_toolbar_insert_stock (GTK_TOOLBAR (toolbar), GTK_STOCK_FIND_AND_REPLACE, _("Replace..."),	
 								"", G_CALLBACK(replace_cb), bfwin, -1);
 	gtk_toolbar_append_space (GTK_TOOLBAR (toolbar));								
 	bfwin->toolbar_undo = gtk_toolbar_insert_stock (GTK_TOOLBAR (toolbar), GTK_STOCK_UNDO, _("Undo"),	
