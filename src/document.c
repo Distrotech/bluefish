@@ -1510,7 +1510,7 @@ gchar *ask_new_filename(gchar *oldfilename, gint is_move) {
 		gchar *tmpstr;
 		gint retval;
 		gchar *options[] = {N_("Cancel"), N_("Overwrite"), NULL};
-		tmpstr = g_strdup_printf(_("File %s is open, overwrite?"), newfilename);
+		tmpstr = g_strdup_printf(_("File %s exists and is opened, overwrite?"), newfilename);
 		retval = multi_warning_dialog(tmpstr, _("The file you have selected is being edited in Bluefish."), 1, 0, options);
 		g_free(tmpstr);
 		if (retval == 0) {
@@ -1530,6 +1530,19 @@ gchar *ask_new_filename(gchar *oldfilename, gint is_move) {
 			}
 			gtk_label_set(GTK_LABEL(tmpdoc->tab_label),tmpstr);
 			g_free(tmpstr);
+		}
+	} else {
+		if (g_file_test(newfilename, G_FILE_TEST_EXISTS)) {
+			gchar *tmpstr;
+			gint retval;
+			gchar *options[] = {N_("Cancel"), N_("Overwrite"), NULL};
+			tmpstr = g_strdup_printf(_("File %s exists, overwrite?"), newfilename);
+			retval = multi_warning_dialog(tmpstr, _("The file you have selected exists."), 1, 0, options);
+			g_free(tmpstr);
+			if (retval == 0) {
+				g_free(newfilename);
+				return NULL;
+			}
 		}
 	}
 	return newfilename;
