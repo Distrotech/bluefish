@@ -590,6 +590,45 @@ gchar **string_to_array(gchar *string, gchar delimiter) {
 	return array;
 }		
 
+/**
+ * array_from_arglist:
+ * @...: #gchar* with the first string, NULL terminated
+ *
+ * builds a NULL terminated array from the argumentlist to this function
+ *
+ * Return value: #gchar** with the array
+ */
+gchar **array_from_arglist(const gchar *string1, ...) {
+	gint numargs=1;
+	va_list args;
+	gchar *s;
+	gchar **retval, **index;
+
+	va_start (args, string1);
+	s = va_arg (args, gchar*);
+	while (s) {
+		numargs++;
+		s = va_arg (args, gchar*);
+	}
+	va_end (args);
+	DEBUG_MSG("array_from_arglist, numargs=%d\n", numargs);
+
+	index = retval = g_new(gchar *, numargs + 1);
+	*index = g_strdup(string1);
+
+	va_start (args, string1);
+	s = va_arg (args, gchar*);
+	while (s) {
+		index++;
+		*index = g_strdup(s);
+		s = va_arg (args, gchar*);
+	}
+	va_end (args);
+	index++;
+	*index = NULL;
+	return retval;
+}
+
 GList *duplicate_stringlist(GList *list, gint dup_data) {
 	GList *retlist=NULL;
 	if (list) {
@@ -934,3 +973,5 @@ GList *arraylist_load_new_identifiers_from_file(GList *mylist, const gchar *from
 	free_arraylist(deflist);
 	return mylist;	
 }
+
+	

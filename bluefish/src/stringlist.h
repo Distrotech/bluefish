@@ -2,6 +2,7 @@
  * stringlist.h - functions that deal with stringlists
  *
  * Copyright (C) 1999 Olivier Sessink and Hylke van der Schaaf
+ * Copyright (C) 2000-2003 Olivier Sessink
  * 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -29,7 +30,7 @@
 gint count_array(gchar **array);
 gchar *array_to_string(gchar **array, gchar delimiter);
 gchar **string_to_array(gchar *string, gchar delimiter);
-
+gchar **array_from_arglist(const gchar *string1, ...);
 
 GList *duplicate_stringlist(GList *list, gint dup_data);
 gint free_stringlist(GList * which_list);

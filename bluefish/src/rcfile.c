@@ -49,37 +49,6 @@ static GList *main_configlist=NULL;
 static GList *highlighting_configlist=NULL;
 static GList *custom_menu_configlist=NULL;
 
-gchar **array_from_arglist(const gchar *string1, ...) {
-	gint numargs=1;
-	va_list args;
-	gchar *s;
-	gchar **retval, **index;
-
-	va_start (args, string1);
-	s = va_arg (args, gchar*);
-	while (s) {
-		numargs++;
-		s = va_arg (args, gchar*);
-	}
-	va_end (args);
-	DEBUG_MSG("array_from_arglist, numargs=%d\n", numargs);
-
-	index = retval = g_new(gchar *, numargs + 1);
-	*index = g_strdup(string1);
-
-	va_start (args, string1);
-	s = va_arg (args, gchar*);
-	while (s) {
-		index++;
-		*index = g_strdup(s);
-		s = va_arg (args, gchar*);
-	}
-	va_end (args);
-	index++;
-	*index = NULL;
-	return retval;
-}
-
 static void free_configlist(GList *configlist) {
 	GList *tmplist = g_list_first(configlist);
 	while(tmplist) {
