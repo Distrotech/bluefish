@@ -131,6 +131,17 @@ static void print_meta_for_pattern(Tpattern *pat) {
 	}
 }
 
+static void print_meta_for_tag(GtkTextTag *tag) {
+	GList *tmplist = g_list_first(highlight.all_highlight_patterns);
+	while (tmplist) {
+		if (((Tmetapattern *)tmplist->data)->pat->tag == tag) {
+			g_print("tag %p: filetype=%s, name=%s, num_childs=%d\n", tag, ((Tmetapattern *)tmplist->data)->filetype, ((Tmetapattern *)tmplist->data)->name, g_list_length(((Tmetapattern *)tmplist->data)->pat->childs));
+			return;
+		}
+		tmplist = g_list_next(tmplist);
+	}
+}
+
 #endif /* DEBUG */
 #ifdef HL_TIMING
 typedef struct {
@@ -146,7 +157,8 @@ typedef struct {
 #define TIMING_UTF8_INV 4
 #define TIMING_TEXTBUF_ITER 5
 #define TIMING_TEXTBUF_TAG 6
-#define TIMING_NUM 7
+#define TIMING_LINE_HIGHLIGHTING 7
+#define TIMING_NUM 8
 static Ttiming timing[TIMING_NUM];
 static void timing_init() {
 	gint i;
@@ -493,7 +505,7 @@ typedef struct {
 
 static Tutf8_offset_cache utf8_offset_cache;
 
-static void utf8_offset_cache_init() {
+static void utf8_offset_cache_reset() {
 	gint i;
 	for (i=0;i<UTF8_OFFSET_CACHE_SIZE;i++) {
 		utf8_offset_cache.last_byteoffset[i] = 0;
@@ -531,7 +543,7 @@ static guint utf8_byteoffset_to_charsoffset_cached(gchar *string, glong byteoffs
 	return retval;
 }
 
-static void applystyle(Tdocument *doc, gchar *buf, gint so, gint eo, Tpattern *pat) {
+static void applystyle(Tdocument *doc, gchar *buf, guint buf_char_offset, gint so, gint eo, Tpattern *pat) {
 	GtkTextIter itstart, itend;
 	gint istart, iend;
 	guint char_start, char_end, byte_char_diff_start;
@@ -547,8 +559,8 @@ static void applystyle(Tdocument *doc, gchar *buf, gint so, gint eo, Tpattern *p
 #ifdef HL_TIMING
 	timing_stop(TIMING_UTF8);
 #endif
-	istart = char_start;
-	iend = char_end;
+	istart = char_start+buf_char_offset;
+	iend = char_end+buf_char_offset;
 #ifdef HL_DEBUG
 	DEBUG_MSG("applystyle, byte_char_diff=%d\n", byte_char_diff_start);
 	DEBUG_MSG("applystyle, coloring from %d to %d\n", istart, iend);
@@ -577,7 +589,16 @@ static void applystyle(Tdocument *doc, gchar *buf, gint so, gint eo, Tpattern *p
 #endif
 }
 
-static void applylevel(Tdocument * doc, gchar * buf, gint offset, gint length, Tpatmatch *parentmatch, GList *childs_list) {
+/* applylevel(Tdocument * doc, gchar * buf, guint buf_char_offset, gint offset, gint length, Tpatmatch *parentmatch, GList *childs_list)
+ * doc: the document
+ * buf: the buffer with all characters to apply the highlighting to
+ * buf_char_offset: the character offset of the first char of the buffer 
+ * offset: the byte offset where we start in the buffer
+ * length: the length we apply the highlighting on in bytes
+ * parentmatch: if there is a parent with mode 1 we have to search for the end together with it's children
+ * childs_list: a list of Tpattern that needs to be applied in this region
+ */
+static void applylevel(Tdocument * doc, gchar * buf, guint buf_char_offset, gint offset, gint length, Tpatmatch *parentmatch, GList *childs_list) {
 	gint parent_mode1_start=offset;
 	gint parent_mode1_offset=offset;
 	if (parentmatch && parentmatch->pat->mode == 1) {
@@ -594,7 +615,7 @@ static void applylevel(Tdocument * doc, gchar * buf, gint offset, gint length, T
 				parentmatch->ovector[1] = length;
 				parentmatch->is_match = 1;
 			}
-			applystyle(doc, buf, offset, parentmatch->ovector[1], parentmatch->pat);
+			applystyle(doc, buf,buf_char_offset, offset, parentmatch->ovector[1], parentmatch->pat);
 			DEBUG_MSG("no childs list, mode 1 parent is applied, returning\n");
 		} else {
 			DEBUG_MSG("no childs list, no mode 1 parent, returning\n");
@@ -617,7 +638,10 @@ static void applylevel(Tdocument * doc, gchar * buf, gint offset, gint length, T
 				if ((patmatch[i].is_match > 0) && (lowest_pm == -2 || (patmatch[lowest_pm].ovector[0] > patmatch[i].ovector[0]))) {
 					lowest_pm = i;
 				}
-				DEBUG_MSG("lowest_pm=%d, patmatch[%d].is_match=%d, start=%d\n",lowest_pm,i,patmatch[i].is_match, patmatch[i].ovector[0]);
+#ifdef DEBUG
+				DEBUG_MSG("lowest_pm=%d, patmatch[%d].is_match=%d, start=%d, pattern=",lowest_pm,i,patmatch[i].is_match, patmatch[i].ovector[0]);
+				print_meta_for_pattern(patmatch[i].pat);
+#endif
 				tmplist = g_list_next(tmplist);
 				i++;
 			}
@@ -646,7 +670,7 @@ static void applylevel(Tdocument * doc, gchar * buf, gint offset, gint length, T
 					DEBUG_MSG("offset=%d, lowest_pm=%d with ovector[0]=%d, ovector[1]=%d\n", offset, lowest_pm, parentmatch->ovector[0],parentmatch->ovector[1]);
 #endif
 					/* apply the parent, and return from this level */
-					applystyle(doc, buf, parent_mode1_start, parentmatch->ovector[1], parentmatch->pat);
+					applystyle(doc, buf,buf_char_offset, parent_mode1_start, parentmatch->ovector[1], parentmatch->pat);
 					lowest_pm = -2; /* makes us return */
 				} else {
 #ifdef DEBUG
@@ -657,17 +681,17 @@ static void applylevel(Tdocument * doc, gchar * buf, gint offset, gint length, T
 					case 1:
 						/* if mode==1 the style is applied within the applylevel for the children because the end is not yet 
 						known, the end is set in ovector[1] after applylevel for the children is finished */
-						applylevel(doc, buf, patmatch[lowest_pm].ovector[0], length, &patmatch[lowest_pm], patmatch[lowest_pm].pat->childs);
+						applylevel(doc, buf,buf_char_offset, patmatch[lowest_pm].ovector[0], length, &patmatch[lowest_pm], patmatch[lowest_pm].pat->childs);
 						offset = patmatch[lowest_pm].ovector[1];
 					break;
 					case 2:
-						applystyle(doc, buf, patmatch[lowest_pm].ovector[0], patmatch[lowest_pm].ovector[1], patmatch[lowest_pm].pat);
-						applylevel(doc, buf, patmatch[lowest_pm].ovector[0], patmatch[lowest_pm].ovector[1], &patmatch[lowest_pm], patmatch[lowest_pm].pat->childs);
+						applystyle(doc, buf,buf_char_offset, patmatch[lowest_pm].ovector[0], patmatch[lowest_pm].ovector[1], patmatch[lowest_pm].pat);
+						applylevel(doc, buf,buf_char_offset, patmatch[lowest_pm].ovector[0], patmatch[lowest_pm].ovector[1], &patmatch[lowest_pm], patmatch[lowest_pm].pat->childs);
 						offset = patmatch[lowest_pm].ovector[1];
 					break;
 					case 3:
-						applystyle(doc, buf, patmatch[lowest_pm].ovector[0], patmatch[lowest_pm].ovector[1], patmatch[lowest_pm].pat);
-						applylevel(doc, buf, patmatch[lowest_pm].ovector[0], patmatch[lowest_pm].ovector[1], &patmatch[lowest_pm], patmatch[lowest_pm].pat->childs);
+						applystyle(doc, buf,buf_char_offset, patmatch[lowest_pm].ovector[0], patmatch[lowest_pm].ovector[1], patmatch[lowest_pm].pat);
+						applylevel(doc, buf,buf_char_offset, patmatch[lowest_pm].ovector[0], patmatch[lowest_pm].ovector[1], &patmatch[lowest_pm], patmatch[lowest_pm].pat->childs);
 						offset = patmatch[lowest_pm].ovector[1];
 					break;
 					default:
@@ -756,14 +780,10 @@ gboolean hl_set_highlighting_type(Tdocument * doc, Tfiletype *filetype) {
 	}
 }
 
-void doc_highlight_full(Tdocument * doc)
-{
-	gint so = 0, eo = gtk_text_buffer_get_char_count(doc->buffer);
+void doc_highlight_full(Tdocument * doc) {
+	gchar *buf;
+	guint charcount = gtk_text_buffer_get_char_count(doc->buffer);
 	doc_remove_highlighting(doc);
-#ifdef DEBUG
-	g_assert(doc);
-	g_assert(doc->hl);
-#endif
 #ifdef HL_TIMING
 	timing_init();
 #endif
@@ -771,8 +791,15 @@ void doc_highlight_full(Tdocument * doc)
 #ifdef HL_TIMING
 	timing_start(TIMING_TOTAL);
 #endif
-	utf8_offset_cache_init();
-	applylevel(doc, doc_get_chars(doc, so, eo), so, eo, NULL, doc->hl->highlightlist);
+	utf8_offset_cache_reset();
+	buf = doc_get_chars(doc, 0, charcount);
+#ifdef DEBUG
+	g_assert(doc);
+	g_assert(doc->hl);
+	g_assert(buf);
+#endif
+	applylevel(doc,buf,0,0,strlen(buf),NULL,doc->hl->highlightlist);
+	g_free(buf);
 #ifdef HL_TIMING
 	timing_stop(TIMING_TOTAL);
 	g_print("doc_highlight_full done, %ld ms total, %ld ms tagging (%dX), %ld ms matching (%dX)\n",timing[TIMING_TOTAL].total_ms, timing[TIMING_TEXTBUF].total_ms, timing[TIMING_TEXTBUF].numtimes, timing[TIMING_PCRE_EXEC].total_ms, timing[TIMING_PCRE_EXEC].numtimes);
@@ -813,12 +840,13 @@ static Tpattern *find_pattern_by_tag(GList * parentlist, GtkTextTag * tag)
 
 void doc_highlight_line(Tdocument * doc)
 {
-#ifdef HL_TIMING
-	struct tms tms1, tms2;
-#endif
 	gint so, eo;
 	Tpattern *pat = NULL;
 	GList *patternlist = doc->hl->highlightlist;
+#ifdef HL_TIMING
+	timing_init();
+	timing_start(TIMING_LINE_HIGHLIGHTING);
+#endif
 	{
 		GtkTextIter itstart, itend, itsearch;
 		GSList *taglist = NULL, *slist;
@@ -859,18 +887,18 @@ void doc_highlight_line(Tdocument * doc)
 #ifdef DEBUG
 			{
 				Tpattern *testpat;
+				gchar *test;
 				testpat = find_pattern_by_tag(patternlist, GTK_TEXT_TAG(slist->data));
 				if (testpat) {
-					DEBUG_MSG("doc_highlight_line, testpat %p has tag %p\n", testpat, testpat->tag);
+					DEBUG_MSG("doc_highlight_line, tag %p goes with ", testpat->tag);
+					print_meta_for_pattern(testpat);
 				} else {
-					DEBUG_MSG("doc_highlight_line, tag %p doesn't have a pattern ?!?!\n", slist->data);
+					DEBUG_MSG("doc_highlight_line, tag doesn't have parent?? ");
+					print_meta_for_tag(GTK_TEXT_TAG(slist->data));
 					exit(9);
 				}
-			}
-			{
-				gchar *test = gtk_text_buffer_get_text(doc->buffer, &itstart, &itend,
-													   FALSE);
-				DEBUG_MSG("doc_highlight_line, current string=%s\n", test);
+				test = gtk_text_buffer_get_text(doc->buffer, &itstart, &itend,FALSE);
+				DEBUG_MSG("doc_highlight_line, current string='%s'\n", test);
 				g_free(test);
 			}
 #endif
@@ -879,58 +907,52 @@ void doc_highlight_line(Tdocument * doc)
 				DEBUG_MSG("doc_highlight_line, looking for tag %p from so=%d to eo=%d\n", slist->data,
 						  gtk_text_iter_get_offset(&itstart), gtk_text_iter_get_offset(&itend));
 				tag_found = gtk_text_iter_forward_to_tag_toggle(&itsearch, GTK_TEXT_TAG(slist->data));
-				if (!tag_found) {
-					DEBUG_MSG("doc_highlight_line, very weird situation, the tag is started but it doesn't end ??\n");
-					exit(1);
-				} else {
-					DEBUG_MSG("doc_highlight_line, tag %p found at itsearch=%d\n", slist->data,
-							  gtk_text_iter_get_offset(&itsearch));
-					if (gtk_text_iter_compare(&itsearch, &itend) > 0) {
-						/* both the start and endpoint are within this 
-						   tag --> pattern matching can start with this
-						   subpattern */
-
+				DEBUG_MSG("doc_highlight_line, tag %p ends at itsearch=%d\n", slist->data,gtk_text_iter_get_offset(&itsearch));
+				if (gtk_text_iter_compare(&itsearch, &itend) > 0) {
+					/* both the start and endpoint are within this 
+					   tag --> pattern matching can start with this
+					   subpattern */
 						pat = find_pattern_by_tag(patternlist, GTK_TEXT_TAG(slist->data));
-						DEBUG_MSG("found pattern %p with tag %p and childs %p\n", pat, pat->tag,
-								  pat->childs);
-						if (pat && (pat->mode == 1 || pat->mode == 0)) {
-							gchar *string;
-							int ovector[NUM_SUBMATCHES];
-							/* but first we do a quick test if the parent-pattern is indeed still valid */
-							string = gtk_text_buffer_get_text(doc->buffer, &itstart, &itend, FALSE);
-							if (0 < pcre_exec(pat->reg2.pcre, pat->reg2.pcre_e, string, strlen(string), 0, 0, ovector, NUM_SUBMATCHES)) {
-								/* the current line does not have the start of the tag or the end of the tag, but now 
-								   it does have a match on the end pattern --> so the pattern should be invalidated */
-								pat = NULL;
-								DEBUG_MSG
-									("doc_highlight_line, a match of the endpattern is found on this line '%s', the pattern is invalidated\n",
-									 string);
-								itend = itsearch;
-								gtk_text_iter_backward_to_tag_toggle(&itstart, slist->data);
-							}
-							g_free(string);
+					DEBUG_MSG("found pattern %p with tag %p and childs %p\n", pat, pat->tag,pat->childs);
+					if (pat && (pat->mode == 1)) {
+						gchar *string;
+						int ovector[NUM_SUBMATCHES];
+						/* but first we do a quick test if the parent-pattern is indeed still valid */
+						string = gtk_text_buffer_get_text(doc->buffer, &itstart, &itend, FALSE);
+						if (0 < pcre_exec(pat->reg2.pcre, pat->reg2.pcre_e, string, strlen(string), 0, 0, ovector, NUM_SUBMATCHES)) {
+							/* the current line does not have the start of the tag or the end of the tag, but now 
+							   it does have a match on the end pattern --> so the pattern should be invalidated */
+							pat = NULL;
+							DEBUG_MSG("doc_highlight_line, a match of the endpattern is found on this line '%s', the pattern is invalidated\n",string);
+							itend = itsearch;
+							gtk_text_iter_backward_to_tag_toggle(&itstart, slist->data);
 						}
-						if (pat) {
-							/* what happens if patternlist = NULL ?
-							   that means we are inside a match without any subpatterns, but 
-							   perhaps the subpattern should be invalidated... hmm..
-							 */
-							patternlist = pat->childs;
-							DEBUG_MSG("doc_highlight_line, patternlist to use is %p\n", patternlist);
-						}
-					} else {
-						/* this tag stops somewhere in the middle of the line, move 
-						   itstart to the beginning of this tag */
-						if (gtk_text_iter_begins_tag(&itstart, GTK_TEXT_TAG(slist->data))) {
-							DEBUG_MSG("doc_highlight_line, itstart at %d is already at the beginning of tag %p\n",
-									  gtk_text_iter_get_offset(&itstart), slist->data);
-						} else {
-							DEBUG_MSG("doc_highlight_line, move itstart from %d to beginning of tag %p\n",
-									  gtk_text_iter_get_offset(&itstart), slist->data);
-							gtk_text_iter_backward_to_tag_toggle(&itstart, GTK_TEXT_TAG(slist->data));
-							DEBUG_MSG("doc_highlight_line, itstart is set back to %d\n", gtk_text_iter_get_offset(&itstart));
-						}
+						g_free(string);
 					}
+					if (pat) {
+						/* what happens if patternlist = NULL ?
+						   that means we are inside a match without any subpatterns, but 
+						   perhaps the subpattern should be invalidated... hmm..
+						 */
+						patternlist = pat->childs;
+#ifdef DEBUG
+						DEBUG_MSG("doc_highlight_line, going to use patternlist %p from pattern ", patternlist);
+						print_meta_for_pattern(pat);
+#endif
+					}
+				} else {
+					/* this tag stops somewhere in the middle of the line, move 
+					   itstart to the beginning of this tag, 
+						there is also no need anymore to look further in slist, we have to start with this patternlist */
+					if (gtk_text_iter_begins_tag(&itstart, GTK_TEXT_TAG(slist->data))) {
+						DEBUG_MSG("doc_highlight_line, itstart at %d is already at the beginning of tag %p\n",gtk_text_iter_get_offset(&itstart), slist->data);
+					} else {
+						DEBUG_MSG("doc_highlight_line, move itstart from %d to beginning of tag %p\n",
+								  gtk_text_iter_get_offset(&itstart), slist->data);
+						gtk_text_iter_backward_to_tag_toggle(&itstart, GTK_TEXT_TAG(slist->data));
+						DEBUG_MSG("doc_highlight_line, itstart is set back to %d\n", gtk_text_iter_get_offset(&itstart));
+					}
+					slist = g_slist_last(slist);
 				}
 			}
 			itsearch = itstart;
@@ -947,14 +969,14 @@ void doc_highlight_line(Tdocument * doc)
 			gboolean tag_found;
 					/* if the tags starts at itend there is no need to search backward to the start */
 			if (!gtk_text_iter_begins_tag(&itend, GTK_TEXT_TAG(slist->data))) {
-				DEBUG_MSG("doc_highlight_line, looking for tag %p from so=%d to eo=%d\n", slist->data,
+				DEBUG_MSG("doc_highlight_line, (2) looking for tag %p from so=%d to eo=%d\n", slist->data,
 						  gtk_text_iter_get_offset(&itstart), gtk_text_iter_get_offset(&itend));
 				tag_found = gtk_text_iter_backward_to_tag_toggle(&itsearch, GTK_TEXT_TAG(slist->data));
 				if (!tag_found) {
 					DEBUG_MSG("doc_highlight_line, very weird situation, the tag is started but it doesn't end ??\n");
 					exit(1);
 				} else {
-					DEBUG_MSG("doc_highlight_line, tag %p found at itsearch=%d\n", slist->data,
+					DEBUG_MSG("doc_highlight_line, tag %p starts at itsearch=%d\n", slist->data,
 							  gtk_text_iter_get_offset(&itsearch));
 					if (gtk_text_iter_compare(&itsearch, &itstart) <= 0) {
 						/* both the start and endpoint are within this 
@@ -985,17 +1007,21 @@ void doc_highlight_line(Tdocument * doc)
 		so = gtk_text_iter_get_offset(&itstart);
 		eo = gtk_text_iter_get_offset(&itend);
 	}
-
+#ifdef HL_TIMING
+		timing_stop(TIMING_LINE_HIGHLIGHTING);
+#endif
 	if (patternlist) {
+		gchar *buf;
 		DEBUG_MSG("doc_highlight_line from so=%d to eo=%d\n", so, eo);
 #ifdef HL_TIMING
-		times(&tms1);
+		timing_start(TIMING_TOTAL);
 #endif
-		applylevel(doc, doc_get_chars(doc, so, eo), so, eo, NULL, doc->hl->highlightlist);
+		buf = doc_get_chars(doc, so, eo);
+		applylevel(doc,buf,so,0,strlen(buf),NULL,patternlist);
+		g_free(buf);
 #ifdef HL_TIMING
-		times(&tms2);
-		g_print("doc_highlight_line done, %d ms user-time needed for highlighting\n",
-				(int) (double) ((tms2.tms_utime - tms1.tms_utime) * 1000 / sysconf(_SC_CLK_TCK)));
+		timing_stop(TIMING_TOTAL);
+		g_print("doc_highlight_line done, %ld ms total, %ld ms line_highlighting\n",timing[TIMING_TOTAL].total_ms, timing[TIMING_LINE_HIGHLIGHTING].total_ms);
 #endif
 	} else {
 		DEBUG_MSG("doc_highlight_line, patternlist=NULL so we don't need highlighting\n");
