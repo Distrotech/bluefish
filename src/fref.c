@@ -274,7 +274,8 @@ void fref_loader_start_element(GMarkupParseContext * context,
      gtk_tree_store_append(aux->store, &iter, &aux->parent);
      gtk_tree_store_set(aux->store, &iter, STR_COLUMN, 
  			                   g_strdup(g_hash_table_lookup(attrs, "name")),
- 			                   FILE_COLUMN,NULL,PTR_COLUMN,NULL,-1);
+ 			                   FILE_COLUMN,g_strdup(g_hash_table_lookup(attrs, "description")),
+ 			                   PTR_COLUMN,NULL,-1);
      aux->grp_parent[aux->nest_level] = aux->parent;							             
      aux->parent = iter;
     } else g_warning("Maximum nesting level reached!");       
