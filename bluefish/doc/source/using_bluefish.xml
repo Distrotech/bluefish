@@ -195,7 +195,7 @@ Cut or copy and then paste can also be done by selecting some text and
 dragging it to the destination. If the text is dragged to another 
 document (or another application), it is copied. If the text is 
 dragged within one document it is moved. Dragging to other applications 
-is not possible to every application, but most gnome and gtk programs
+is not possible to every application, but most Gnome and GTK programs
 are supported.
 </para>
 
@@ -235,7 +235,7 @@ Document/Type menu.
 <sect3 id="remote-files">
 <title>Remote files</title>
 	<para>
-		Assuming a working internet connection, files can also be opened from the web using 
+		Assuming a working Internet connection, files can also be opened from the web using 
 	<emphasis>File &gt; Open URL</emphasis>(make sure to type the http:// or it 
 	doesn't work...bug, maybe???). 
 	</para>
@@ -269,10 +269,10 @@ If these steps fail, Bluefish will simply try every encoding defined in the Blue
 config file. 
 </para>
 <para>
-Filenames on disk can also contain more then ASCII characters. All Gnome and Gtk programs 
+Filenames on disk can also contain more then ASCII characters. All Gnome and GTK programs 
 (including Bluefish) assume that filenames are in UTF-8 encoding. If you have filenames
 in the encoding of your locale on your disk, you have to set G_BROKEN_FILENAMES=1 in the 
-environment to make Gnome and Gtk programs detect this encoding.
+environment to make Gnome and GTK programs detect this encoding.
 </para>
 
 </sect3>
@@ -303,10 +303,10 @@ environment to make Gnome and Gtk programs detect this encoding.
 <sect1 id="navigation-managing-documents">
 <title>Navigation and Managing documents</title>
 <sect2 id="navigation-one">
-<title>Navigating trough a document</title>
+<title>Navigating through a document</title>
 
-	<para>The editing area is a standard gtk editing area. This means there are 
-	many keyboard shortcuts available to navigate trough the text.</para>
+	<para>The editing area is a standard GTK editing area. This means there are 
+	many keyboard shortcuts available to navigate through the text.</para>
 	<itemizedlist>
 		<listitem>
 			<para>control+right-arrow will jump to the next word boundary</para>
@@ -340,9 +340,9 @@ environment to make Gnome and Gtk programs detect this encoding.
 	</para>
 </sect2>
 <sect2 id="navigation-multiple">
-<title>Navigating trough many documents</title>
+<title>Navigating through many documents</title>
 	<para>
-	Navigating trough a large list of documents can be difficult. But if you right-click 
+	Navigating through a large list of documents can be difficult. But if you right-click 
 	the document notebook tabs, you get a list of all opened documents.
 	</para>
 	<para>
@@ -462,7 +462,7 @@ The
   </para> <para>we can also do one replace using regular expressions: find
   (&lt;|&lt;/)?td&gt; and replace with \0th&gt; For more information about
   regular expressions you might want to read man 7 regex, or read any of the
-  great internet sites about regular expressions. The \0 in the replace string
+  great Internet sites about regular expressions. The \0 in the replace string
   refers to the first subpattern match in the search pattern, the \1 to the
   second etc.</para> <para> if you understand the above example, you will
   realize that you can do much more. Suppose you also want to match a table
@@ -483,7 +483,7 @@ The
   
   <para>
   Another useful option in the search dialog is the <emphasis>bookmark results
-  </emphasis> option. For example in a php document, you could search for the
+  </emphasis> option. For example in a PHP document, you could search for the
   word 'function', and add a bookmark to every function. This results, however,
   in a list of bookmarks that are all named 'function'. Not so useful. But also
   now we can make use of a regular expression. The expression 
@@ -544,7 +544,7 @@ The
 	The spell checker will launch in a separate window, which you can keep open as you 
 	edit files. You have the option to check a whole document or just a selection. Click 
 	on <emphasis>Spell Check</emphasis> to start spell checking the current document. As 
-	you run across mispelled words you want included in the dictionary, click on the 
+	you run across misspelled words you want included in the dictionary, click on the 
 	<emphasis>Add</emphasis> button in the spell checker window. This will add words to 
 	a personal dictionary.	
 	</para>
@@ -569,11 +569,11 @@ The
 	  HTML entities.</para> 
 </sect2>
 <sect2 id="quickbar">
-<title>Customising the quickbar</title>
-	<para>The quickbar is a user defined tool bar. All HTML tool bar buttons can
-	be added to the quickbar by simply right-clicking them and selecting
-	"Add to quickbar". If you want to remove items from the Quickbar,
-	right-click them and select "Remove from Quickbar"</para>
+<title>Customising the quick bar</title>
+	<para>The quick bar is a user defined tool bar. All HTML tool bar buttons can
+	be added to the quick bar by simply right-clicking them and selecting
+	"Add to quick bar". If you want to remove items from the Quick bar,
+	right-click them and select "Remove from Quick bar"</para>
 </sect2>
 <sect2 id="custom-menu">
 <title>Custom menu</title>
@@ -630,7 +630,7 @@ The
   message</para></listitem><listitem><para>Double-click on the "Command" field
   and the command to execute, %s is the current
   filename</para></listitem><listitem><para>Toggle the "Show all output"
-  checkbox to show output NOT matching the regular
+  check box to show output NOT matching the regular
   expression.</para></listitem></orderedlist></para><remark>Note: Of course,
   it is also possible to add these items by editing the file named "rcfile_v2"
   found in the user's home directory (~/.bluefish/rcfile_v2). The fields are
@@ -645,7 +645,7 @@ The
 <title>Editor preferences</title>
 	<para>
 	A frequently asked question is how to change the background color of the editor in Bluefish.
-	Bluefish uses the default editor background color as set in your gtk theme. If you want to 
+	Bluefish uses the default editor background color as set in your GTK theme. If you want to 
 	override the color of the theme, edit ~/.gtkrc-2.0 and add this section:
 <programlisting>
 style "EditorStyle" {

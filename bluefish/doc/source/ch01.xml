@@ -60,7 +60,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 			If you want the latest and greatest, read 
 			<xref linkend="bluefish-ch-1-sect-3"/> below. If you simply want to 
 			use Bluefish, read <xref linkend="bluefish-ch-1-sect-2"/> for how 
-			to get the latest stable package that fit your system.
+			to get the latest stable package that fits your system.
 		</para>
 
 		<sect2 id="bluefish-ch-1-sect-1.1">
@@ -129,7 +129,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 			However, the main source is the Bluefish website, where the 
 			software and a few contributions are available. The download 
 			page is reachable at 
-			<systemitem class="url">http://bluefish.openoffice.nl/download.html	</systemitem>.
+			<systemitem class="url">http://bluefish.openoffice.nl/download.html</systemitem>.
 			Here, you may download the source code and binary packages for 
 			Debian, Red Hat/Fedora, and Mandrake.
 		</para>
@@ -144,7 +144,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 				CVS
 				<footnote><para>Concurrent Versions System</para></footnote>
 				, a version control system, is a much used software development 
-				tool. It keeps track of all changes to the sourcecode, who did 
+				tool. It keeps track of all changes to the source code, who did 
 				what and why they did it. If you want to read more about CVS, 
 				have a look at the CVS-book by Karl Fogel, available at
 				<systemitem class="url">http://cvsbook.red-bean.com/cvsbook.html</systemitem>.
@@ -158,7 +158,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 				For more information about them, see their site. The project 
 				homepage is 
 				<systemitem class="url">http://sourceforge.net/projects/bluefish</systemitem>.
-				Our CVS repository contains the current Bluefish sourcecode, 
+				Our CVS repository contains the current Bluefish source code, 
 				and even this manual. The repository is accessible by anyone, 
 				and is updated almost daily by the developers.
 			</para>
@@ -175,12 +175,12 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 				<screen>$ cvs -d :pserver:anonymous@cvs.bluefish.sourceforge.net:/cvsroot/bluefish login</screen>
 				(just hit <action>Enter</action> at the password prompt)
 				The next step is to <emphasis>check out</emphasis> the 
-				sourcecode. You can check out single modules, and the one you 
+				source code. You can check out single modules, and the one you 
 				want is called <literal>bluefish-gtk2</literal>. The command 
 				is:
 				<screen>$ cvs -z3 -d :pserver:anonymous@cvs.bluefish.sourceforge.net:/cvsroot/bluefish co bluefish-gtk2</screen>
 				A lot of files will be downloaded, and listed one by one. If 
-				you're on dialup, this might take a bit of time. Be patient ;-)
+				you're on dial-up, this might take a bit of time. Be patient ;-)
 			</para>
 			<para>
 				When the download has completed, you'll find the bluefish 
