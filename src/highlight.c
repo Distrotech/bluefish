@@ -781,32 +781,36 @@ gboolean hl_set_highlighting_type(Tdocument * doc, Tfiletype *filetype) {
 }
 
 void doc_highlight_full(Tdocument * doc) {
-	gchar *buf;
-	guint charcount = gtk_text_buffer_get_char_count(doc->buffer);
-	doc_remove_highlighting(doc);
+	if (!doc->hl) {
+		return;
+	} else {
+		gchar *buf;
+		guint charcount = gtk_text_buffer_get_char_count(doc->buffer);
+		doc_remove_highlighting(doc);
 #ifdef HL_TIMING
-	timing_init();
+		timing_init();
 #endif
 
 #ifdef HL_TIMING
-	timing_start(TIMING_TOTAL);
+		timing_start(TIMING_TOTAL);
 #endif
-	utf8_offset_cache_reset();
-	buf = doc_get_chars(doc, 0, charcount);
+		utf8_offset_cache_reset();
+		buf = doc_get_chars(doc, 0, charcount);
 #ifdef DEBUG
-	g_assert(doc);
-	g_assert(doc->hl);
-	g_assert(buf);
+		g_assert(doc);
+		g_assert(doc->hl);
+		g_assert(buf);
 #endif
-	applylevel(doc,buf,0,0,strlen(buf),NULL,doc->hl->highlightlist);
-	g_free(buf);
+		applylevel(doc,buf,0,0,strlen(buf),NULL,doc->hl->highlightlist);
+		g_free(buf);
 #ifdef HL_TIMING
-	timing_stop(TIMING_TOTAL);
-	g_print("doc_highlight_full done, %ld ms total, %ld ms tagging (%dX), %ld ms matching (%dX)\n",timing[TIMING_TOTAL].total_ms, timing[TIMING_TEXTBUF].total_ms, timing[TIMING_TEXTBUF].numtimes, timing[TIMING_PCRE_EXEC].total_ms, timing[TIMING_PCRE_EXEC].numtimes);
-	g_print("%ld ms utf8-shit (%dX), %ld ms utf8-invalidate (%dX)\n", timing[TIMING_UTF8].total_ms, timing[TIMING_UTF8].numtimes, timing[TIMING_UTF8_INV].total_ms, timing[TIMING_UTF8_INV].numtimes);
-	g_print("%ld ms setting iters, %ld ms setting tags\n", timing[TIMING_TEXTBUF_ITER].total_ms, timing[TIMING_TEXTBUF_TAG].total_ms);
+		timing_stop(TIMING_TOTAL);
+		g_print("doc_highlight_full done, %ld ms total, %ld ms tagging (%dX), %ld ms matching (%dX)\n",timing[TIMING_TOTAL].total_ms, timing[TIMING_TEXTBUF].total_ms, timing[TIMING_TEXTBUF].numtimes, timing[TIMING_PCRE_EXEC].total_ms, timing[TIMING_PCRE_EXEC].numtimes);
+		g_print("%ld ms utf8-shit (%dX), %ld ms utf8-invalidate (%dX)\n", timing[TIMING_UTF8].total_ms, timing[TIMING_UTF8].numtimes, timing[TIMING_UTF8_INV].total_ms, timing[TIMING_UTF8_INV].numtimes);
+		g_print("%ld ms setting iters, %ld ms setting tags\n", timing[TIMING_TEXTBUF_ITER].total_ms, timing[TIMING_TEXTBUF_TAG].total_ms);
 #endif
-	doc->need_highlighting = FALSE;
+		doc->need_highlighting = FALSE;
+	}
 }
 
 static void remove_tag_by_list_in_region(Tdocument * doc, GList * patlist, GtkTextIter * itstart, GtkTextIter * itend)
