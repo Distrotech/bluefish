@@ -18,7 +18,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 -->
 <chapter id="bluefish-ch-7">
 
-  <title>development guidelines</title>
+  <title>Development guidelines</title>
 	<simplesect>    
 		<para>
 	      Work hard but have fun!
@@ -46,9 +46,9 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 	</para>
 	</sect1>
 	<sect1 id="bluefish-ch-7-sect-2">
-		<title>naming</title>
+		<title>Naming</title>
 		<para>
-			for non-local functions, the name should prefferably include a prefix that shows 
+			for non-local functions, the name should preferably include a prefix that shows 
 			the part of bluefish it is used for. There are, furthermore, many often used 
 			abbreviations in the bluefish code, such as:
 		</para>
@@ -77,12 +77,12 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 		</para>
 
 		<para>
-				for gtk callback functions, use the name of the signal in the name
+				for GTK callback functions, use the name of the signal in the name
 		</para>
 		
 	</sect1>
 	<sect1 id="bluefish-ch-7-sect-4">
-		<title>header files</title>
+		<title>Header files</title>
 		<para>
 			Only functions that are used from outside the file itself 
 			should be in the header file, in the order in which they
@@ -91,19 +91,19 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 		</para>
 	</sect1>
 	<sect1 id="bluefish-ch-7-sect-5">
-		<title>new files</title>
+		<title>New files</title>
 		<para>
-			about new files
+			About new files
 		</para>
 	</sect1>
 	<sect1 id="bluefish-ch-7-sect-6">
-		<title>file reference</title>
+		<title>File reference</title>
 		<para>
-			references
+			References
 		</para>
 	</sect1>
 	<sect1 id="bluefish-ch-7-sect-7">
-		<title>patches</title>
+		<title>Patches</title>
 		
 <para>Before starting to code:</para>
 <itemizedlist>
@@ -113,13 +113,13 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 <para>Before creating the patch:</para>
 <itemizedlist>
-<listitem><para>run make distclean &amp;&amp; ./configure &amp;&amp; make and test if it runs successfull</para></listitem>
+<listitem><para>run make distclean &amp;&amp; ./configure &amp;&amp; make and test if it runs successfully</para></listitem>
 <listitem><para>if you have the possibility do this both with gcc-2.95 and gcc-3. as compiler</para></listitem>
 </itemizedlist>
 <para>Now create the patch. Suppose you have two directories, original-tree and my-tree</para>
 <itemizedlist>
 <listitem><para>run make distclean in both trees</para></listitem>
-<listitem><para>cd to the parent dir of the two trees</para></listitem>
+<listitem><para>cd to the parent dir of both trees</para></listitem>
 <listitem><para>run diff -Naur original-tree my-tree | bzip2 -9c > patchbla.diff.bz2</para></listitem>
 </itemizedlist>
 		
@@ -129,27 +129,27 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 	</sect1>
 
 	<sect1 id="bluefish-ch-7-sect-8">
-		<title>translations</title>
+		<title>Translations</title>
 		<para>
-			users all over the world will use bluefish
+			Users all over the world will use bluefish
 		</para>
 	</sect1>
 	<sect1 id="bluefish-ch-7-sect-9">
-		<title>some tips</title>
+		<title>Some tips</title>
 		<para>
-			development tipps
+			Development tips
 		</para>
 	</sect1>
 	<sect1 id="bluefish-ch-7-sect-10">
-		<title>making releases</title>
+		<title>Making releases</title>
 		<para>
-			what is to do
+			What is to do
 		</para>
 	</sect1>
 	<sect1 id="bluefish-ch-7-sect-11">
-		<title>useful stuff</title>
+		<title>Useful stuff</title>
 		<para>
-			links and so
+			Links and so
 		</para>
 	</sect1>
 

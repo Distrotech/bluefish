@@ -24,7 +24,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
     <title>Requirements</title>
 
     <para>Bluefish aims to be portable, that is, wherever GTK is ported. A
-    comparatively small set of external libraries are neccessary for it to
+    comparatively small set of external libraries are necessary for it to
     work. Any recent GNU/Linux distribution or other *NIX with GTK2 installed
     should be sufficient. In addition to the list of requirements below, you
     may also want to look at <xref linkend="bluefish-ch-2-sect-3" />. Note:
@@ -182,11 +182,11 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
     <itemizedlist>
       <listitem>
-         Debian Woody (the current Stable) has an old gtk-2 version, that contains several known bugs, but they are not serious. 
+         Debian Woody (the current Stable) has an old GTK-2 version, that contains several known bugs, but they are not serious. 
       </listitem>
 
       <listitem>
-         Debian Sarge (currently in Testing) has Bluefish 0.13, and a very recent gtk version. 
+         Debian Sarge (currently in Testing) has Bluefish 0.13, and a very recent GTK version. 
       </listitem>
 
       <listitem>
@@ -251,12 +251,12 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
       <para>The <literal>configure</literal> script is used to automatically
       find the appropriate settings for your system. Because of differences
-      between systems, this compile-time configuration is neccessary, and
+      between systems, this compile-time configuration is necessary, and
       configure solves this challenge easily -- with an added bonus of telling
       whether you have everything you need to compile.</para>
 
       <para>The configure-script can be, um, configured. This is something you
-      most likely won't need to do, but it's easy to do if neccessary. For a
+      most likely won't need to do, but it's easy to do if necessary. For a
       complete list of configure options, see <xref
       linkend="bluefish-ch-2-sect-5" /></para>
     </sect2>
@@ -272,7 +272,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
       <literal>configure</literal> with whatever options you might want. This
       example will cause <literal>make install</literal> to install Bluefish
       with the specified directory as prefix (i.e. the binary is installed in
-      <literal>/usr/locar/bf-cvs/bin/bluefish</literal>). This is most likely
+      <literal>/usr/local/bf-cvs/bin/bluefish</literal>). This is most likely
       not what you want -- just run configure without parameters instead.
       <screen>$ ./configure --prefix=/usr/local/bf-cvs</screen></para>
 
@@ -281,7 +281,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
       to compile Bluefish. To do this, run <screen>$ make</screen> . When
       <literal>make</literal> has completed, you can install Bluefish:
       (<literal>su</literal> to root first, unless you specified a user
-      writeable prefix to configure) <screen># make install</screen></para>
+      writable prefix to configure) <screen># make install</screen></para>
 
       <para>To update the sources at a later time, you run the command
       <userinput>cvs -z3 -q update</userinput> from within the
@@ -292,7 +292,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
       <title>Problems Compiling?</title>
 
       <para>Can't compile? Well, your first step is to make sure you have the
-      neccessary utilities and libraries. See <xref
+      necessary utilities and libraries. See <xref
       linkend="bluefish-ch-2-sect-1" />. Next, see if your system is mentioned
       in <xref linkend="bluefish-ch-2-sect-3" />. Below is list of well known
       problems that's been mentioned on the bluefish-dev list. If you're
@@ -689,7 +689,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
             <option>--enable-feature=no</option> disables the feature.</para>
 
             <para>By default, the <option>--enable-feature</option> option is
-            not unabled, you should pass it if you want to get it, the
+            not enabled, you should pass it if you want to get it, the
             <option>--disable-xxx</option> option is not disabled, you should
             pass it if you want to disable it.</para>
           </listitem>
@@ -777,9 +777,9 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
           <listitem>
             <para>outputs statistics on where the program spends most of its
-            time when hightlighting patterns.</para>
+            time when highlighting patterns.</para>
 
-            <para>Usage: for debugging hightlight patterns or trying to
+            <para>Usage: for debugging highlight patterns or trying to
             optimize the program</para>
           </listitem>
         </varlistentry>
@@ -806,8 +806,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
           <term><option>--enable-gcoc-coverage</option></term>
 
           <listitem>
-            <para>Purpose: to be able to collect statistics on whow many times
-            each branch is executed and how many times it has taken. Creates
+            <para>Purpose: to be able to collect statistics on how many times
+            each branch is executed and how long it has lasted. Creates
             data files for the gcov code-coverage utility. (slows down the
             program)</para>
           </listitem>
@@ -922,7 +922,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
     <para>For rpm based distributions, first check if your distribution has a
     recent Bluefish version. If it does not, download the rpm for your
     distribution from any of the Bluefish mirrors. Next, installing a
-    downloaded rpm is as simple as pointing and clicking in your favourite gui
+    downloaded rpm is as simple as pointing and clicking in your favourite GUI
     package manager, or issuing the following command from the command line:
     (as root) <screen># rpm -Uvh bluefish-ver.rpm</screen></para>
 
@@ -941,8 +941,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
     <para>Bluefish will work right out of the box, but you can and should take
     advantage of the many customizations you are able to do. Change the font
-    in the main textview if you don't like it, remove unused toolbars, add
-    shortcuts to the customizeable menu and edit the list of browsers and
+    in the main text view if you don't like it, remove unused toolbars, add
+    shortcuts to the customizable menu and edit the list of browsers and
     external programs.</para>
 
     <para>If you are upgrading from a previous version, perhaps CVS, you
