@@ -386,7 +386,7 @@ static GList *props_init_main(GList * config_rc)
 	init_prop_integer(&config_rc, &main_v->props.full_p, "closing_paragraph_tag:", 1, TRUE);
 	init_prop_integer(&config_rc, &main_v->props.full_li, "closing_list_item_tag:", 1, TRUE);
 	init_prop_integer(&config_rc, &main_v->props.allow_css, "allow_the_use_of_css:", 1, TRUE);
-	init_prop_integer(&config_rc, &main_v->props.allow_dep, "allow_the_use_of_font:", 1, TRUE);
+	init_prop_integer(&config_rc, &main_v->props.allow_dep, "allow_the_use_of_font:", 0, TRUE);
 	init_prop_integer(&config_rc, &main_v->props.format_by_context, "format_by_context:", 1, TRUE);
 	init_prop_integer(&config_rc, &main_v->props.xhtml, "use_xhtml:", 0, TRUE);
 	init_prop_integer(&config_rc, &main_v->props.allow_ruby, "allow_the_use_of_ruby:", 0, TRUE);
