@@ -912,29 +912,25 @@ static void external_command_lcb(GtkWidget *widget, gchar **arr) {
 	gchar *secure_tempname = NULL;
 	gboolean need_s=FALSE, need_f=FALSE;
 
-	file_save_cb(NULL, NULL);
-	if (!main_v->current_document->filename) {
-		return;
-	}
-	change_dir(main_v->current_document->filename);
 	/* now check if
 	 * %s - we need a filename 
 	 * %f - output filename that we need to read after the command has finished (filter)
 	 */
 	need_f = (int)strstr(arr[1], "%f");
 	need_s = (int)strstr(arr[1], "%s");
+
+	if (need_s) {
+		file_save_cb(NULL, NULL);
+		if (!main_v->current_document->filename) {
+			return;
+		}
+		change_dir(main_v->current_document->filename);
+	}
 	if (need_f || need_s) {
 		gchar *command;
 		Tconvert_table *table, *tmpt;
 		table = tmpt = g_new(Tconvert_table, 3);
 		if (need_s) {
-			if (!main_v->current_document->filename) {
-				file_save_cb(NULL, NULL);
-				if (!main_v->current_document->filename) {
-					g_free(table);
-					return;
-				}
-			}
 			DEBUG_MSG("adding 's' to table\n");
 			tmpt->my_int = 's';
 			tmpt->my_char = main_v->current_document->filename;
