@@ -58,8 +58,17 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 	<sect1 id="bluefish-ch-5-sect-3">
 		<title>search and replace (regex patterns)</title>
 		<para>
-			search, replace and regular patterns
+with the search and replace you can do increadible things. We'll start with a simple example. In some HTML table we have several table data tags where we actually want table header tags. Table data is &lt;td&gt;&lt;/td&gt; and we want &lt;th&gt;&lt;/th&gt;.
 		</para>
+		<para>
+		we can do two normal replaces: one where we replace &lt;td&gt; with &lt;th&gt; and then another where we replace &lt;/td&gt; with &lt;/th&gt;
+		</para>
+		<para>we can also do one replace using regular expressions: find (&lt;|&lt;/)?td&gt; and replace with \0th&gt; For more information about regular expressions you might want to read man 7 regex, or read any of the great internet sites about regular expressions.</para>
+		<para>
+		if you understand the above example, you will realize that you can do much more. Suppose you also want to match a table data tag that does have some attributes like &lt;td class=&quot;myclass&quot;&gt;, and you want to keep the option while converting to table header. The following pattern will do this: find (<|</)td([^>]*)> and replace with \0th\1>
+		</para>
+		
+		
 	</sect1>
 	<sect1 id="bluefish-ch-5-sect-4">
 		<title>... and some more</title>
