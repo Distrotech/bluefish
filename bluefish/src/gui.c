@@ -598,16 +598,16 @@ void gui_set_undo_redo_widgets(gboolean undo, gboolean redo) {
 		gtk_widget_set_sensitive(toolbarwidgets.undo, undo);
 	}
 	gtk_widget_set_sensitive(gtk_item_factory_get_widget(gtk_item_factory_from_widget(main_v->menubar), N_("/Edit/Undo")), undo);
-	gtk_widget_set_sensitive(gtk_item_factory_get_widget(gtk_item_factory_from_widget(main_v->menubar), N_("/Edit/Undo all")), undo);
+	gtk_widget_set_sensitive(gtk_item_factory_get_widget(gtk_item_factory_from_widget(main_v->menubar), N_("/Edit/Undo All")), undo);
 	gtk_widget_set_sensitive(gtk_item_factory_get_widget(gtk_item_factory_from_widget(main_v->menubar), N_("/Edit/Redo")), redo);
-	gtk_widget_set_sensitive(gtk_item_factory_get_widget(gtk_item_factory_from_widget(main_v->menubar), N_("/Edit/Redo all")), redo);
+	gtk_widget_set_sensitive(gtk_item_factory_get_widget(gtk_item_factory_from_widget(main_v->menubar), N_("/Edit/Redo All")), redo);
 }
 
 void gui_set_widgets(gboolean undo, gboolean redo, gboolean wrap, gboolean highlight, Tfiletype *hl, gchar *encoding, gboolean linenumbers) {
 	gui_set_undo_redo_widgets(undo, redo);
-	setup_toggle_item(gtk_item_factory_from_widget(main_v->menubar),N_("/Document/Highlight syntax"), highlight);
+	setup_toggle_item(gtk_item_factory_from_widget(main_v->menubar),N_("/Document/Highlight Syntax"), highlight);
 	setup_toggle_item(gtk_item_factory_from_widget(main_v->menubar),N_("/Document/Wrap"), wrap);
-	setup_toggle_item(gtk_item_factory_from_widget(main_v->menubar),N_("/Document/Line numbers"), linenumbers);
+	setup_toggle_item(gtk_item_factory_from_widget(main_v->menubar),N_("/Document/Line Numbers"), linenumbers);
 	menu_current_document_set_toggle_wo_activate(hl, encoding);
 }
 
