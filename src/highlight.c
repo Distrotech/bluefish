@@ -31,6 +31,7 @@
 #include <stdlib.h> /* atoi() */
 
 #include "bluefish.h"
+#include "bf_lib.h" /* filename_test_extensions() */
 #include "rcfile.h" /* array_from_arglist() */
 #include "highlight.h"
 
@@ -322,6 +323,7 @@ Thighlightset *hl_get_highlightset_by_type(gchar *type) {
 		if (strcmp(((Thighlightset *)tmplist->data)->type, type)==0) {
 			return (Thighlightset *)tmplist->data;
 		}
+		tmplist = g_list_next(tmplist);
 	}
 	return NULL;
 }
@@ -339,17 +341,18 @@ void hl_init() {
 		gchar **strarr;
 		Thighlightset *hlset;
 		strarr = (gchar **)tmplist->data;
-#ifdef DEBUG
-		if (!strarr || !strarr[0] || !strarr[1] || !strarr[2]) {
-			g_print("hl_init is perhaps not yet finished??\n");
-			exit(1);
+		if (count_array(strarr) == 4) {
+			hlset = g_new0(Thighlightset, 1);
+			hlset->type = g_strdup(strarr[0]);
+			hlset->extensions = g_strsplit(strarr[1], ":", 20);
+			hlset->update_chars = g_strdup(strarr[2]);
+			main_v->hlsetlist = g_list_append(main_v->hlsetlist, hlset);
 		}
-#endif /* DEBUG */
-		hlset = g_new0(Thighlightset, 1);
-		hlset->type = g_strdup(strarr[0]);
-		hlset->extensions = g_strsplit(strarr[1], ":", 20);
-		hlset->update_chars = g_strdup(strarr[2]);
-		main_v->hlsetlist = g_list_append(main_v->hlsetlist, hlset);
+#ifdef DEBUG
+		 else {
+			g_print("hl_init, filetype needs 4 params in array\n");
+		}
+#endif
 		tmplist = g_list_next(tmplist);
 	}
 	
@@ -361,10 +364,17 @@ void hl_init() {
 		gchar **strarr;
 		strarr = (gchar **)tmplist->data;
 
-		hlset = hl_get_highlightset_by_type(strarr[0]);
-		hl_compile_pattern(hlset, strarr[1], atoi(strarr[2]), strarr[3]
-			, strarr[4], strarr[5], atoi(strarr[6]), strarr[7], strarr[8]
-			, strarr[9], atoi(strarr[10]), atoi(strarr[11]));
+		if (count_array(strarr) == 12) {
+			hlset = hl_get_highlightset_by_type(strarr[0]);
+			hl_compile_pattern(hlset, strarr[1], atoi(strarr[2]), strarr[3]
+					, strarr[4], strarr[5], atoi(strarr[6]), strarr[7], strarr[8]
+					, strarr[9], atoi(strarr[10]), atoi(strarr[11]));
+		}
+#ifdef DEBUG
+		 else {
+			g_print("hl_init, hl pattern needs 12 params in array\n");
+		}
+#endif
 		tmplist = g_list_next(tmplist);
 	}
 
@@ -374,8 +384,13 @@ Thighlightset *hl_get_highlightset_by_filename(gchar *filename) {
 	GList *tmplist;
 	/* find set for this filetype */
 	if (filename) {
-		/* DO SOMETHING */
-	
+		tmplist = g_list_first(main_v->hlsetlist);
+		while (tmplist) {
+			if (filename_test_extensions(((Thighlightset *)tmplist->data)->extensions, filename)) {
+				return (Thighlightset *)tmplist->data;
+			}
+			tmplist = g_list_next(tmplist);
+		}
 	}
 	/* if none found return first set (is default set) */
 	tmplist = g_list_first(main_v->hlsetlist);
@@ -386,10 +401,6 @@ Thighlightset *hl_get_highlightset_by_filename(gchar *filename) {
 		return (Thighlightset *)tmplist->data;
 	}
 }
-
-
-
-
 
 /*****************************/
 /* applying the highlighting */
@@ -586,8 +597,15 @@ static void doc_remove_highlighting(Tdocument *doc) {
 }
 
 void hl_reset_highlighting_type(Tdocument *doc, gchar *newfilename) {
+	Thighlightset *hlset = hl_get_highlightset_by_filename(newfilename);
 
-
+	if (hlset != doc->hl) {
+		GtkTextIter itstart, itend;
+		gtk_text_buffer_get_bounds(doc->buffer, &itstart, &itend);
+		gtk_text_buffer_remove_all_tags(doc->buffer, &itstart, &itend);
+		doc->hl = hlset;
+		doc->need_highlighting = TRUE;
+	}
 }
 
 void doc_highlight_full(Tdocument *doc) {
@@ -814,7 +832,7 @@ void doc_highlight_line(Tdocument * doc) {
 	}
 }
 
-
+#define MAKE_BLUEFISH_WITH_BLUEFISH
 
 void hl_reset_to_default() {
 	gchar **arr;
@@ -828,6 +846,25 @@ void hl_reset_to_default() {
 	main_v->props.filetypes = g_list_append(main_v->props.filetypes, arr);
 	arr = array_from_arglist("xml", ".xml", "<> \n\"", "iconlocation", NULL);
 	main_v->props.filetypes = g_list_append(main_v->props.filetypes, arr);
+
+#ifdef MAKE_BLUEFISH_WITH_BLUEFISH
+	arr = array_from_arglist("c", ".c:.h", "(){}'[]\n\"", "iconlocation", NULL);
+	main_v->props.filetypes = g_list_append(main_v->props.filetypes, arr);
+	arr = array_from_arglist("c", "comment", "0", "/\\*", "\\*/", "", "1", "", "#AAAAAA", "", "1", "2", NULL);
+	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);	
+	arr = array_from_arglist("c", "string", "0", "\"", "\"", "", "1", "", "#009900", "", "0", "0", NULL);
+	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
+	arr = array_from_arglist("c", "preprocessor", "0", "#(include|define|if|ifdef|else|endif)[^\n]*\n", "", "", "2", "", "#000099", "", "0", "0", NULL);
+	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
+	arr = array_from_arglist("c", "keywords", "0", "[ \t\n*](return|goto|if|else|case|default|switch|break|continue|while|do|for|sizeof)[ \t\n*]", "", "", "2", "", "#000000", "", "2", "0", NULL);
+	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
+	arr = array_from_arglist("c", "storage-keywords", "0", "[ \t\n*](const|extern|auto|register|static|unsigned|signed|volatile|char|double|float|int|long|short|void|typedef|struct|union|enum|FILE|gint|gchar|GList|GtkWidget|gpointer|guint|gboolean)[ \t\n*]", "", "", "2", "", "#990000", "", "2", "0", NULL);
+	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
+	arr = array_from_arglist("c", "braces", "0", "[{()}]", "", "", "2", "", "#000000", "", "2", "0", NULL);
+	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
+	arr = array_from_arglist("c", "character", "0", "'", "'", "", "1", "", "#009900", "", "0", "0", NULL);
+	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
+#endif
 
 	/* the default php pattern */
 	arr = array_from_arglist("php", "html", "1", "<((/)?[a-z0-9]+)", "[^?-]>", "", "1", "", "#000077", "", "0", "0", NULL);
@@ -864,4 +901,14 @@ void hl_reset_to_default() {
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
 	arr = array_from_arglist("php", "php-comment-C++", "0", "//[^\n]*\n", "", "", "2", "^php$", "#7777AA", "", "1", "2", NULL);
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);	DEBUG_MSG("hl_reset_to_default, done\n");
+
+	/* the default HTML pattern */
+	arr = array_from_arglist("html", "html", "1", "<((/)?[a-z0-9]+)", "[^?-]>", "", "1", "", "#DD0000", "", "0", "0", NULL);
+	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
+	arr = array_from_arglist("html", "specialchar", "1", "&[^;]*;", "", "", "2", "", "#999999", "", "2", "0", NULL);
+	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
+	arr = array_from_arglist("html", "comment", "0", "<!--", "-->", "", "1", "", "#AAAAAA", "", "1", "2", NULL);
+	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
+	arr = array_from_arglist("html", "doctype", "1", "<![a-z0-9]", "[^?-]>", "", "1", "", "#00BB00", "", "0", "0", NULL);
+	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
 }

@@ -22,6 +22,8 @@
 #define __DOCUMENT_H_
 
 gint documentlist_return_index_from_filename(gchar *filename);
+void document_set_wrap(Tdocument *doc, gint wraptype);
+
 gboolean test_only_empty_doc_left();
 void doc_set_modified(Tdocument *doc, gint value);
 gchar *doc_get_chars(Tdocument *doc, gint start, gint len);

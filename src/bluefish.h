@@ -137,7 +137,6 @@ typedef struct {
 	gint lowercase_tags;		/* use lowercase tags */
 	gint word_wrap;				/* use wordwrap */
 	gint autoindent;			/* autoindent code */
-	gint line_wrap;				/* use line wrap */
 	gint fontset;				/* load fontset (0 = load font) */
 	gint force_def_style;  /* force white editor background */
 	gint drop_at_drop_pos; 	/* drop at drop position instead of cursor position */

@@ -513,6 +513,24 @@ gint file_exists_and_readable(gchar * filename)
 #endif
 }
 
+/*  gboolean filename_test_extensions(gchar **extensions, gchar *filename)
+ *  give a NULL terminated array of strings with all extensions
+ *  returns TRUE if the filename has one of those extensions
+ *  returns FALSE if not
+ */
+gboolean filename_test_extensions(gchar **extensions, gchar *filename) {
+	if (!extensions) {
+		return FALSE;
+	}
+	while (*extensions) {
+		if (strncmp(&filename[strlen(filename)-strlen(*extensions)], *extensions, strlen(*extensions)) == 0 ) {
+			return TRUE;
+		}
+		extensions++;
+	}
+	return FALSE;
+}
+
 /*
  * gchar *bf_str_repeat(const gchar * str, gint number_of)
  *      str - pointer to string

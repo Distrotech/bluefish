@@ -424,7 +424,6 @@ static GList *props_init_main(GList * config_rc)
 	init_prop_integer(&config_rc, &main_v->props.lowercase_tags, "lowercase_tags:", 1);
 	init_prop_integer(&config_rc, &main_v->props.word_wrap, "word_wrap:", 0);
 	init_prop_integer(&config_rc, &main_v->props.autoindent, "autoindent:", 1);
-	init_prop_integer(&config_rc, &main_v->props.line_wrap, "line_wrap:", 1);
 	init_prop_integer(&config_rc, &main_v->props.fontset, "fontset:", 0);
 	init_prop_integer(&config_rc, &main_v->props.force_def_style, "force_white_background:", 1);
 	init_prop_integer(&config_rc, &main_v->props.drop_at_drop_pos, "drop_at_drop_position:", 0);
