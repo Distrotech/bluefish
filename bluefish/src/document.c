@@ -2297,7 +2297,7 @@ Tdocument *doc_new(Tbfwin* bfwin, gboolean delay_activate) {
 
 	doc_unre_init(newdoc);
 	doc_set_font(newdoc, NULL);
-	newdoc->wrapstate = main_v->props.word_wrap;
+	newdoc->wrapstate = (bfwin->project) ? bfwin->project->word_wrap : main_v->props.word_wrap;
 	doc_set_wrap(newdoc);
 	/* newdoc->modified = 0; */
 	doc_set_title(newdoc);
