@@ -95,6 +95,7 @@ patchclean: clean
 
 distclean: patchclean
 	rm -f config.h Makefile *~ *.bak core
+	rm -f *.bb *.bbg *.c.gcov *.da
 
 install: all
 	$(INSTALL_DIR) $(DESTDIR)$(bindir)

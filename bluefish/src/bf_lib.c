@@ -602,12 +602,27 @@ void free_convert_table(Tconvert_table *tct) {
 /* byte offset to UTF8 character offset functions */
 /**************************************************/
 
-#define UTF8_OFFSET_CACHE_SIZE 32
+/*
+          %   cumulative   self              self     total
+         time   seconds   seconds    calls  ms/call  ms/call  name
+
+size 4: 11.54      0.16     0.03   120356     0.00     0.00  utf8_byteoffset_to_charsoffset_cached
+size 4:  6.06      0.31     0.02   120356     0.00     0.00  utf8_byteoffset_to_charsoffset_cached
+size 4: 14.29      0.31     0.05   120356     0.00     0.00  utf8_byteoffset_to_charsoffset_cached
+*/
+#define UTF8_OFFSET_CACHE_SIZE 4
+/* #define UTF8_BYTECHARDEBUG */
 
 typedef struct {
 	gchar *last_buf;
 	guint  last_byteoffset[UTF8_OFFSET_CACHE_SIZE];
 	guint  last_charoffset[UTF8_OFFSET_CACHE_SIZE];
+#ifdef UTF8_BYTECHARDEBUG
+	guint numcalls_since_reset;
+	unsigned long long int numbytes_parsed;
+	guint numcalls_cached_since_reset;
+	unsigned long long int numbytes_cached_parsed;
+#endif
 } Tutf8_offset_cache;
 
 static Tutf8_offset_cache utf8_offset_cache;
@@ -629,6 +644,10 @@ static Tutf8_offset_cache utf8_offset_cache;
 __inline__ 
 #endif
 void utf8_offset_cache_reset() {
+#ifdef UTF8_BYTECHARDEBUG
+	g_print("UTF8_BYTECHARDEBUG: called %d times for total %llu bytes\n",utf8_offset_cache.numcalls_since_reset,utf8_offset_cache.numbytes_parsed);
+	g_print("UTF8_BYTECHARDEBUG: cache HIT %d times, reduced to %llu bytes, cache size %d\n",utf8_offset_cache.numcalls_cached_since_reset,utf8_offset_cache.numbytes_cached_parsed,UTF8_OFFSET_CACHE_SIZE);
+#endif
 	memset(&utf8_offset_cache, 0, sizeof(Tutf8_offset_cache));
 }
 /**
@@ -663,8 +682,16 @@ guint utf8_byteoffset_to_charsoffset_cached(gchar *string, glong byteoffset) {
 	
 	if (i > 0) {
 		retval = g_utf8_pointer_to_offset(string+utf8_offset_cache.last_byteoffset[i], string+byteoffset)+utf8_offset_cache.last_charoffset[i];
+#ifdef UTF8_BYTECHARDEBUG
+		utf8_offset_cache.numbytes_parsed += (byteoffset - utf8_offset_cache.last_byteoffset[i]);
+		utf8_offset_cache.numbytes_cached_parsed += (byteoffset - utf8_offset_cache.last_byteoffset[i]);
+		utf8_offset_cache.numcalls_cached_since_reset++;
+#endif
 	} else {
 		retval = g_utf8_pointer_to_offset(string, string+byteoffset);
+#ifdef UTF8_BYTECHARDEBUG
+		utf8_offset_cache.numbytes_parsed += byteoffset;
+#endif
 	}
 	if (i == (UTF8_OFFSET_CACHE_SIZE-1)) {
 		/* add this new calculation to the cache */
@@ -674,6 +701,9 @@ guint utf8_byteoffset_to_charsoffset_cached(gchar *string, glong byteoffset) {
 		utf8_offset_cache.last_byteoffset[UTF8_OFFSET_CACHE_SIZE-1] = byteoffset;
 		utf8_offset_cache.last_charoffset[UTF8_OFFSET_CACHE_SIZE-1] = retval;
 	}
+#ifdef UTF8_BYTECHARDEBUG
+	utf8_offset_cache.numcalls_since_reset++;
+#endif
 	return retval;
 }
 
