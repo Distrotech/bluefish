@@ -470,6 +470,7 @@ static void highlightpattern_popmenu_activate(GtkMenuItem *menuitem,Tprefdialog 
 		tmplist = g_list_next(tmplist);
 	}
 	pd->hpd.curstrarr = NULL;
+	gtk_entry_set_text(GTK_ENTRY(pd->hpd.entry[0]), "");
 	gtk_entry_set_text(GTK_ENTRY(pd->hpd.entry[1]), "");
 	gtk_entry_set_text(GTK_ENTRY(pd->hpd.entry[2]), "");
 	gtk_entry_set_text(GTK_ENTRY(pd->hpd.entry[3]), "");
@@ -528,6 +529,7 @@ static void highlightpattern_selection_changed_cb(GtkTreeSelection *selection, T
 			gchar **strarr =(gchar **)tmplist->data;
 			if (strcmp(strarr[1], pattern)==0 && strcmp(strarr[0], pd->hpd.selected_filetype)==0) {
 				gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(pd->hpd.check), (strarr[2][0] == '0'));
+				gtk_entry_set_text(GTK_ENTRY(pd->hpd.entry[0]), strarr[1]);
 				gtk_entry_set_text(GTK_ENTRY(pd->hpd.entry[1]), strarr[3]);
 				gtk_entry_set_text(GTK_ENTRY(pd->hpd.entry[2]), strarr[4]);
 				if (strarr[5][0] == '3') {
@@ -661,19 +663,23 @@ static void create_highlightpattern_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 	pd->lists[highlight_patterns] = duplicate_arraylist(main_v->props.highlight_patterns);
 	
 	DEBUG_MSG("create_highlightpattern_gui, pd=%p, pd->lists[highlight_patterns]=%p\n", pd, pd->lists[highlight_patterns]);
+	hbox = gtk_hbox_new(FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(vbox1), hbox, FALSE, FALSE, 3);
 
+	gtk_box_pack_start(GTK_BOX(hbox),gtk_label_new(_("filetype")),FALSE, FALSE, 3);
 	pd->hpd.popmenu = gtk_option_menu_new();
 	gtk_option_menu_set_menu(GTK_OPTION_MENU(pd->hpd.popmenu), gtk_menu_new());
 	highlightpattern_gui_rebuild_filetype_popup(pd);
-	gtk_box_pack_start(GTK_BOX(vbox1),pd->hpd.popmenu,FALSE, FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(hbox),pd->hpd.popmenu,TRUE, TRUE, 3);
 
 	hbox = gtk_hbox_new(FALSE, 0);
-	gtk_box_pack_start(GTK_BOX(vbox1), hbox, TRUE, TRUE, 0);
-	pd->hpd.entry[0] = boxed_entry_with_text(NULL, 1023, hbox);
+	gtk_box_pack_start(GTK_BOX(vbox1), hbox, TRUE, TRUE, 3);
+	pd->hpd.entry[0] = boxed_full_entry(_("Pattern name"), NULL, 500, hbox);
+
 	but = bf_gtkstock_button(GTK_STOCK_ADD, G_CALLBACK(add_new_highlightpattern_lcb), pd);
 	gtk_box_pack_start(GTK_BOX(hbox), but, FALSE, TRUE, 3);
-
-	gtk_box_pack_start(GTK_BOX(vbox1), gtk_hseparator_new(), FALSE, FALSE, 3);
+	but = bf_gtkstock_button(GTK_STOCK_DELETE, G_CALLBACK(highlightpattern_delete_clicked_lcb), pd);
+	gtk_box_pack_start(GTK_BOX(hbox), but, FALSE, FALSE, 1);
 	
 	hbox = gtk_hbox_new(FALSE, 0);
 	gtk_box_pack_start(GTK_BOX(vbox1), hbox, TRUE, TRUE, 0);
@@ -691,7 +697,7 @@ static void create_highlightpattern_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 		scrolwin = gtk_scrolled_window_new(NULL, NULL);
 		gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolwin), GTK_POLICY_NEVER, GTK_POLICY_AUTOMATIC);
 		gtk_container_add(GTK_CONTAINER(scrolwin), pd->hpd.lview);
-		gtk_box_pack_start(GTK_BOX(hbox), scrolwin, TRUE, TRUE, 2);
+		gtk_box_pack_start(GTK_BOX(hbox), scrolwin, FALSE, TRUE, 2);
 		
 		select = gtk_tree_view_get_selection(GTK_TREE_VIEW(pd->hpd.lview));
 		g_signal_connect(G_OBJECT(select), "changed",G_CALLBACK(highlightpattern_selection_changed_cb),pd);
@@ -700,15 +706,11 @@ static void create_highlightpattern_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 	vbox3 = gtk_vbox_new(FALSE, 2);
 	gtk_box_pack_start(GTK_BOX(hbox), vbox3, FALSE, FALSE, 2);
 	/* pack up and down buttons here */
-	{
-		GtkWidget *but;
-		but = bf_gtkstock_button(GTK_STOCK_GO_UP, G_CALLBACK(highlightpattern_up_clicked_lcb), pd);
-		gtk_box_pack_start(GTK_BOX(vbox3), but, FALSE, FALSE, 1);
-		but = bf_gtkstock_button(GTK_STOCK_DELETE, G_CALLBACK(highlightpattern_delete_clicked_lcb), pd);
-		gtk_box_pack_start(GTK_BOX(vbox3), but, FALSE, FALSE, 1);
-		but = bf_gtkstock_button(GTK_STOCK_GO_DOWN, G_CALLBACK(highlightpattern_down_clicked_lcb), pd);
-		gtk_box_pack_start(GTK_BOX(vbox3), but, FALSE, FALSE, 1);
-	}
+
+	but = bf_gtkstock_button(GTK_STOCK_GO_UP, G_CALLBACK(highlightpattern_up_clicked_lcb), pd);
+	gtk_box_pack_start(GTK_BOX(vbox3), but, FALSE, FALSE, 1);
+	but = bf_gtkstock_button(GTK_STOCK_GO_DOWN, G_CALLBACK(highlightpattern_down_clicked_lcb), pd);
+	gtk_box_pack_start(GTK_BOX(vbox3), but, FALSE, FALSE, 1);
 	
 	vbox3 = gtk_vbox_new(FALSE, 0);
 	gtk_box_pack_start(GTK_BOX(hbox), vbox3, TRUE, TRUE, 2);
