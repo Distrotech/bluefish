@@ -1019,7 +1019,9 @@ gchar *create_relative_link_to(gchar * current_filepath, gchar * link_to_filepat
  * to add to the filename to form the full path
  *
  * for URL's it will simply return a strdup(), except for file:// URL's, 
- * there the file:// bit is stripped
+ * there the file:// bit is stripped and 
+ * IF YOU HAVE GNOME_VFS any %XX sequenves are converted
+ * so if you DON'T have gnome_vfs, you should not feed file:// uri's!!
  *
  * it does use most_efficient_filename() to remote unwanted dir/../ entries
  *
@@ -1035,7 +1037,13 @@ gchar *create_full_path(gchar * filename, gchar *basedir) {
 	if (strchr(filename, ':') != NULL) { /* it is an URI!! */
 		DEBUG_MSG("create_full_path, %s is an URI\n",filename);
 		if (strncmp(filename, "file://", 7)==0) {
+#ifdef HAVE_GNOME_VFS
+			return gnome_vfs_get_local_path_from_uri(filename);
+#else
+			/* THIS IS A BUG, IF YOU DON'T HAVE GNOME_VFS BUT YOU DO HAVE 
+			GTK-2.4 A %21 OR SOMETHING LIKE THAT IS NOW NOT CONVERTED !!!!!!!!! */
 			return g_strdup(filename+7); /* file:// URI's are never relative paths */
+#endif
 		}
 		return g_strdup(filename); /* cannot do this on remote paths */
 	}
