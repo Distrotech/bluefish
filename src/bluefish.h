@@ -272,6 +272,7 @@ typedef struct {
 	in the file where it is needed */
 	gpointer outputbox;
 	gpointer bfspell;
+	gpointer filebrowser;
 } Tbfwin;
 
 typedef struct {
@@ -280,6 +281,7 @@ typedef struct {
 	GList *filetypelist; /* highlighting.c: a list of all filetypes with their icons and highlighting sets */
 	GList *bfwinlist;
 	GList *recent_directories; /* a stringlist with the most recently used directories */
+	gpointer filebrowserconfig;
 } Tmain;
 
 extern Tmain *main_v;
