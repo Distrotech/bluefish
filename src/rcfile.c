@@ -383,6 +383,8 @@ static GList *props_init_main(GList * config_rc)
 	init_prop_integer   (&config_rc, &main_v->props.fref_ldoubleclick_action,"fref_ldoubleclick_action:",0, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.fref_info_type,"fref_info_type:",0, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.bookmarks_sort,"bookmarks_sort:",1, TRUE);
+	init_prop_integer   (&config_rc, &main_v->props.bookmarks_default_store,"bookmarks_default_store:",1, TRUE);
+	init_prop_integer   (&config_rc, &main_v->props.bookmarks_filename_mode,"bookmarks_filename_mode:",1, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.document_tabposition,"document_tabposition:",(gint)GTK_POS_BOTTOM, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.leftpanel_tabposition,"leftpanel_tabposition:",(gint)GTK_POS_BOTTOM, TRUE);
 	init_prop_string    (&config_rc, &main_v->props.default_basedir,"default_basedir:",g_get_home_dir());
@@ -905,6 +907,7 @@ gboolean rcfile_save_project(Tproject *project, gchar *filename) {
 	gboolean retval;
 	GList *configlist = return_project_configlist(project);
 	DEBUG_MSG("rcfile_save_project, project %p, name='%s', basedir='%s', webdir='%s'\n",project, project->name, project->basedir, project->webdir);
+	DEBUG_MSG("rcfile_save_project, bmarks=%p, list length=%d\n",project->session->bmarks, g_list_length(project->session->bmarks));
 	retval = save_config_file(configlist, filename);
 	free_configlist(configlist);
 	return retval;

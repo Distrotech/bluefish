@@ -186,7 +186,7 @@ static void load_bmarks_from_list(GList *sourcelist, GHashTable **tab) {
 static void store_bmark_proc(gpointer key,gpointer value,gpointer user_data) {
 	Tbmark *b = BMARK(value);
    GList **slist = (GList**)user_data;
-   gchar **strarr = g_malloc0(sizeof(gchar*)*6);  
+   gchar **strarr = g_malloc0(sizeof(gchar*)*7);
 
 #ifdef HAVE_GNOME_VFS	
    if (b->doc)	b->len = b->doc->fileinfo->size;
@@ -201,16 +201,14 @@ static void store_bmark_proc(gpointer key,gpointer value,gpointer user_data) {
    strarr[4] = g_strdup(b->text);
    strarr[5] = g_strdup_printf("%d",b->len);
    *slist = g_list_append(*slist,strarr);
+   DEBUG_MSG("store_bmark_proc, list=%p\n",*slist);
 }
 
-
-static void store_bmarks_in_list(GHashTable *tab, GList **sourcelist ) {
-   free_arraylist(*sourcelist);
-	*sourcelist = NULL;  
-	g_hash_table_foreach(tab,store_bmark_proc,sourcelist);
+static void store_bmarks_in_list(GHashTable *tab, Tbfwin *bfwin) {
+	DEBUG_MSG("store_bmarks_in_list, before, list=%p, hash size=%d\n",bfwin->session->bmarks,g_hash_table_size(tab));
+	g_hash_table_foreach(tab,store_bmark_proc,&bfwin->session->bmarks);
+	DEBUG_MSG("store_bmarks_in_list, after, list=%p\n",bfwin->session->bmarks);
 }
-
-
 
 static void store_mark(Tbmark *mark,gchar *oldname,Tbfwin *bfwin) {
 	Tbmark_data *data = BMARKDATA(main_v->bmarkdata);
@@ -221,13 +219,14 @@ static void store_mark(Tbmark *mark,gchar *oldname,Tbfwin *bfwin) {
 	gtk_text_buffer_get_iter_at_mark(mark->doc->buffer,&it,mark->mark);
 	mark->offset =  gtk_text_iter_get_offset(&it);			 
 	g_hash_table_insert(data->bmark_table,g_strdup(mark->name),mark); 
-	store_bmarks_in_list(data->bmark_table,&(bfwin->session->bmarks));
+	DEBUG_MSG("store_mark, hash size=%d\n",g_hash_table_size(data->bmark_table));
+	store_bmarks_in_list(data->bmark_table,bfwin);
 }
 
 
 void bmark_save_all(Tbfwin *bfwin) {
-  Tbmark_data *data = BMARKDATA(main_v->bmarkdata); 
-	store_bmarks_in_list(data->bmark_table,&(bfwin->session->bmarks));    
+	Tbmark_data *data = BMARKDATA(main_v->bmarkdata); 
+	store_bmarks_in_list(data->bmark_table,bfwin);
 }
 
 
