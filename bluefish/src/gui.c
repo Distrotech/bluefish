@@ -1163,7 +1163,7 @@ void gui_show_main(Tbfwin *bfwin) {
 	gtk_widget_show(bfwin->main_window);
 	flush_queue();
 	doc_scroll_to_cursor(bfwin->current_document);
-	if (main_v->props.view_left_panel) {
+	if ((bfwin->project && bfwin->project->view_left_panel) || (!bfwin->project && main_v->props.view_left_panel)) {
 		filebrowser_scroll_initial(bfwin);
 	}
 }
