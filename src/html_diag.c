@@ -21,7 +21,7 @@
 #include <gtk/gtk.h>
 #include <string.h>	/* strrchr */
 #include <stdlib.h> /* strtod */
-/*#define DEBUG*/
+#define DEBUG
 
 #include "bluefish.h"
 #include "html_diag.h" /* myself */
@@ -37,6 +37,10 @@ Trecent_attribs recent_attribs;
 
 void html_diag_destroy_cb(GtkWidget * widget, GdkEvent *event,  Thtml_diag *dg) {
 	DEBUG_MSG("html_diag_destroy_cb, widget=%p, dg->dialog=%p\n",widget,dg->dialog);
+	if (dg->mark_ins) {
+		gtk_text_buffer_delete_mark(dg->doc->buffer,dg->mark_ins);
+		gtk_text_buffer_delete_mark(dg->doc->buffer,dg->mark_sel);
+	}
 	window_destroy(dg->dialog);
 	DEBUG_MSG("html_diag_destroy_cb, about to free dg=%p\n",dg);
 	g_free(dg);
@@ -58,7 +62,31 @@ Thtml_diag *html_diag_new(gchar *title) {
 	gtk_window_set_role(GTK_WINDOW(dg->dialog), "html_dialog");
 	dg->vbox = gtk_vbox_new(FALSE, 1);
 	gtk_container_add(GTK_CONTAINER(dg->dialog), dg->vbox);
-
+#ifdef DEBUG
+	{
+		Tdocument *doc = main_v->current_document;
+		GtkTextIter iter1, iter2;
+		GtkTextMark* mark;
+		mark = gtk_text_buffer_get_mark(doc->buffer,"insert");
+		gtk_text_buffer_get_iter_at_mark(doc->buffer,&iter1,mark);
+		mark = gtk_text_buffer_get_mark(doc->buffer,"selection_bound");
+		gtk_text_buffer_get_iter_at_mark(doc->buffer,&iter2,mark);
+		g_print("html_diag_new, current marks: insert=%d, selection=%d\n",gtk_text_iter_get_offset(&iter1),gtk_text_iter_get_offset(&iter2));
+	}
+#endif
+	{
+		if (!gtk_text_buffer_get_mark(main_v->current_document->buffer,"diag_ins")) {
+			GtkTextIter iter;
+			GtkTextMark* mark = gtk_text_buffer_get_mark(main_v->current_document->buffer,"insert");
+			gtk_text_buffer_get_iter_at_mark(main_v->current_document->buffer,&iter,mark);
+			dg->mark_ins = gtk_text_buffer_create_mark(main_v->current_document->buffer,"diag_ins",&iter,TRUE);
+			mark = gtk_text_buffer_get_mark(main_v->current_document->buffer,"selection_bound");
+			gtk_text_buffer_get_iter_at_mark(main_v->current_document->buffer,&iter,mark);
+			dg->mark_sel = gtk_text_buffer_create_mark(main_v->current_document->buffer,"diag_sel",&iter,TRUE);
+		} else {
+			dg->mark_ins = dg->mark_sel = NULL;
+		}
+	}
 	dg->range.pos = -1;
 	dg->range.end = -1;
 	if (main_v->props.transient_htdialogs) {

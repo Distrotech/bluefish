@@ -27,7 +27,7 @@
 #include <regex.h> 				/* regcomp() */
 #include <stdlib.h> /* system() */
 
-/* #define DEBUG */
+#define DEBUG
 
 #include "bluefish.h"
 #include "document.h"
@@ -544,13 +544,27 @@ static void doc_convert_chars_to_entities_in_selection(Tdocument *doc, gboolean 
 	}
 }
 
+/* inserts the first string at pos1 and the second at pos2 in doc
+ * if the marks 'diag_ins' and 'diag_sel' exist, they will be used
+ * if not, insert and selection_bound will be used
+ */
+
 void doc_insert_two_strings(Tdocument *doc, const gchar *before_str, const gchar *after_str) {
 	GtkTextIter itinsert, itselect;
 	GtkTextMark *insert, *select;
-	insert = gtk_text_buffer_get_insert(doc->buffer);
-	select = gtk_text_buffer_get_selection_bound(doc->buffer);
+	insert = gtk_text_buffer_get_mark(doc->buffer,"diag_ins");
+	if (insert) {
+		select = gtk_text_buffer_get_mark(doc->buffer,"diag_sel");
+	} else {
+		insert = gtk_text_buffer_get_insert(doc->buffer);
+		select = gtk_text_buffer_get_selection_bound(doc->buffer);
+	}
 	gtk_text_buffer_get_iter_at_mark(doc->buffer,&itinsert,insert);
 	gtk_text_buffer_get_iter_at_mark(doc->buffer,&itselect,select);
+#ifdef DEBUG
+	g_print("doc_insert_two_strings, current marks: insert=%d, selection=%d\n",gtk_text_iter_get_offset(&itinsert),gtk_text_iter_get_offset(&itselect));
+#endif	
+
 	if (gtk_text_iter_equal(&itinsert, &itselect)) {
 		/* no selection */
 		gchar *double_str = g_strconcat(before_str, after_str, NULL);
