@@ -295,7 +295,7 @@ GtkWidget *radiobut_with_value(gchar *labeltext, gint enabled, GtkRadioButton *p
 	if (prevbut) {
 		group = gtk_radio_button_group(prevbut);
 	}	
-	returnwidget = gtk_radio_button_new_with_label(group, labeltext);
+	returnwidget = gtk_radio_button_new_with_mnemonic(group, labeltext);
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(returnwidget), enabled);
 	return returnwidget;
 }
