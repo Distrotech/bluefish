@@ -916,7 +916,7 @@ void encoding_menu_rebuild() {
 		g_list_free(main_v->encodings);
 		main_v->encodings = NULL;
 	}
-	tmplist = g_list_first(main_v->props.encodings);
+	tmplist = g_list_last(main_v->props.encodings);
 	parent_menu = gtk_item_factory_get_widget(gtk_item_factory_from_widget(main_v->menubar), _("/Document/Encoding"));
 	while (tmplist) {
 		gchar **strarr = (gchar **)tmplist->data;
@@ -930,7 +930,7 @@ void encoding_menu_rebuild() {
 			group = gtk_radio_menu_item_get_group (GTK_RADIO_MENU_ITEM(enc->menuitem));
 			main_v->encodings = g_list_append(main_v->encodings, enc);
 		}
-		tmplist = g_list_next(tmplist);
+		tmplist = g_list_previous(tmplist);
 	}
 }
 

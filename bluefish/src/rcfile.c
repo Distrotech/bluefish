@@ -520,26 +520,27 @@ void rcfile_parse_main(void)
 		main_v->props.browsers = g_list_append(main_v->props.browsers,arr);
 	}
 	if (main_v->props.encodings == NULL) {
+		main_v->props.encodings = g_list_append(main_v->props.encodings,array_from_arglist(_("UTF-8"), "UTF-8",NULL));
+		main_v->props.encodings = g_list_append(main_v->props.encodings,array_from_arglist(_("ISO-8859-1 (Latin 1, West European)"),"ISO-8859-1",NULL));
+		main_v->props.encodings = g_list_append(main_v->props.encodings,array_from_arglist(_("ISO-8859-2 (Latin 2, East European)"),"ISO-8859-2",NULL));
+		main_v->props.encodings = g_list_append(main_v->props.encodings,array_from_arglist(_("ISO-8859-3 (Latin 3, South European)"),"ISO-8859-3",NULL));
+		main_v->props.encodings = g_list_append(main_v->props.encodings,array_from_arglist(_("ISO-8859-4 (Latin 4, North European)"),"ISO-8859-4",NULL));
+		main_v->props.encodings = g_list_append(main_v->props.encodings,array_from_arglist(_("ISO-8859-5 (Cyrillic)"),"ISO-8859-5",NULL));
+		main_v->props.encodings = g_list_append(main_v->props.encodings,array_from_arglist(_("ISO-8859-6 (Arabic)"),"ISO-8859-6",NULL));
+		main_v->props.encodings = g_list_append(main_v->props.encodings,array_from_arglist(_("ISO-8859-7 (Greek)"),"ISO-8859-7",NULL));
+		main_v->props.encodings = g_list_append(main_v->props.encodings,array_from_arglist(_("ISO-8859-8 (Hebrew)"),"ISO-8859-8",NULL));
+		main_v->props.encodings = g_list_append(main_v->props.encodings,array_from_arglist(_("ISO-8859-9 (Turkish)"),"ISO-8859-9",NULL));
+		main_v->props.encodings = g_list_append(main_v->props.encodings,array_from_arglist(_("ISO-8859-10 (Nordic)"),"ISO-8859-10",NULL));
+		main_v->props.encodings = g_list_append(main_v->props.encodings,array_from_arglist(_("ISO-8859-11 (Thai)"),"ISO-8859-11",NULL));
+		main_v->props.encodings = g_list_append(main_v->props.encodings,array_from_arglist(_("ISO-8859-13 (Latin 7)"),"ISO-8859-13",NULL));
+		main_v->props.encodings = g_list_append(main_v->props.encodings,array_from_arglist(_("ISO-8859-14 (Latin 8)"),"ISO-8859-14",NULL));
+		main_v->props.encodings = g_list_append(main_v->props.encodings,array_from_arglist(_("ISO-8859-15 (Latin 9)"),"ISO-8859-15",NULL));
 		main_v->props.encodings = g_list_append(main_v->props.encodings,array_from_arglist(_("BIG5 (Chinese)"),"BIG5",NULL));
 		main_v->props.encodings = g_list_append(main_v->props.encodings,array_from_arglist(_("SJIS (Japanese)"),"SJIS",NULL));
 		main_v->props.encodings = g_list_append(main_v->props.encodings,array_from_arglist(_("KSC (Korean)"),"KSC",NULL));
 		main_v->props.encodings = g_list_append(main_v->props.encodings,array_from_arglist(_("KOI8-R (Russian)"),"KOI8-R",NULL));
 		main_v->props.encodings = g_list_append(main_v->props.encodings,array_from_arglist(_("EUCJP (Japanese)"),"EUCJP",NULL));
-		main_v->props.encodings = g_list_append(main_v->props.encodings,array_from_arglist(_("ISO-8859-15 (Latin 9)"),"ISO-8859-15",NULL));
-		main_v->props.encodings = g_list_append(main_v->props.encodings,array_from_arglist(_("ISO-8859-14 (Latin 8)"),"ISO-8859-14",NULL));
-		main_v->props.encodings = g_list_append(main_v->props.encodings,array_from_arglist(_("ISO-8859-13 (Latin 7)"),"ISO-8859-13",NULL));
-		main_v->props.encodings = g_list_append(main_v->props.encodings,array_from_arglist(_("ISO-8859-11 (Thai)"),"ISO-8859-11",NULL));
-		main_v->props.encodings = g_list_append(main_v->props.encodings,array_from_arglist(_("ISO-8859-10 (Nordic)"),"ISO-8859-10",NULL));
-		main_v->props.encodings = g_list_append(main_v->props.encodings,array_from_arglist(_("ISO-8859-9 (Turkish)"),"ISO-8859-9",NULL));
-		main_v->props.encodings = g_list_append(main_v->props.encodings,array_from_arglist(_("ISO-8859-8 (Hebrew)"),"ISO-8859-8",NULL));
-		main_v->props.encodings = g_list_append(main_v->props.encodings,array_from_arglist(_("ISO-8859-7 (Greek)"),"ISO-8859-7",NULL));
-		main_v->props.encodings = g_list_append(main_v->props.encodings,array_from_arglist(_("ISO-8859-6 (Arabic)"),"ISO-8859-6",NULL));
-		main_v->props.encodings = g_list_append(main_v->props.encodings,array_from_arglist(_("ISO-8859-5 (Cyrillic)"),"ISO-8859-5",NULL));
-		main_v->props.encodings = g_list_append(main_v->props.encodings,array_from_arglist(_("ISO-8859-4 (Latin 4, North European)"),"ISO-8859-4",NULL));
-		main_v->props.encodings = g_list_append(main_v->props.encodings,array_from_arglist(_("ISO-8859-3 (Latin 3, South European)"),"ISO-8859-3",NULL));
-		main_v->props.encodings = g_list_append(main_v->props.encodings,array_from_arglist(_("ISO-8859-2 (Latin 2, East European)"),"ISO-8859-2",NULL));
-		main_v->props.encodings = g_list_append(main_v->props.encodings,array_from_arglist(_("ISO-8859-1 (Latin 1, West European)"),"ISO-8859-1",NULL));
-		main_v->props.encodings = g_list_append(main_v->props.encodings,array_from_arglist(_("UTF-8"), "UTF-8",NULL));
+
 	}
 	if (main_v->props.external_commands == NULL) {
 		gchar **arr;
