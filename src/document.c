@@ -140,7 +140,7 @@ gboolean test_docs_modified(GList *doclist) {
  * a modified document is open, or a > 0 bytes document is open
  * or a document with filename is open
  */
-gboolean test_only_empty_doc_left(Tdocument *doc) {
+gboolean test_only_empty_doc_left() {
 	if (g_list_length(main_v->documentlist) > 1) {
 		return FALSE;
 	} else {
@@ -598,3 +598,211 @@ gint doc_close(Tdocument * doc, gint warn_only)
 	notebook_changed();
 	return 1;
 }
+
+
+void doc_new_with_file(gchar * filename) {
+
+	Tdocument *doc;
+	
+	if ((filename == NULL) || (!file_exists_and_readable(filename))) {
+        error_dialog("Error",filename);
+		statusbar_message(_("Unable to open file"), 2000);
+		return;
+	}
+	if (!main_v->props.allow_multi_instances) {
+		gboolean res;
+		res = switch_to_document_by_filename(filename);
+		if (res){
+			return;
+		}
+	}
+	DEBUG_MSG("doc_new_with_file, filename=%s exists\n", filename);
+	file_and_dir_history_add(filename);
+	doc = doc_new();
+	doc->filename = g_strdup(filename);
+	doc_file_to_textbox(doc, doc->filename);
+	doc->modified = 1; /* force doc_set_modified() to update the tab-label */
+	doc_set_modified(doc, 0);
+	doc_set_stat_info(doc); /* also sets mtime field */
+	notebook_changed();
+}
+
+void docs_new_from_files(GList * file_list) {
+
+	GList *tmplist;
+
+	tmplist = g_list_first(file_list);
+	while (tmplist) {
+		doc_new_with_file((gchar *) tmplist->data);
+		tmplist = g_list_next(tmplist);
+	}
+}
+
+void doc_reload(Tdocument *doc) {
+	if ((doc->filename == NULL) || (!file_exists_and_readable(doc->filename))) {
+		statusbar_message(_("Unable to open file"), 2000);
+		return;
+	}
+	{
+		GtkTextIter itstart, itend;
+		gtk_text_buffer_get_bounds(doc->buffer,&itstart,&itend);
+		gtk_text_buffer_delete(doc->buffer,&itstart,&itend);
+	}
+	
+	doc_file_to_textbox(doc, doc->filename);
+	doc_set_modified(doc, 0);
+	doc_set_stat_info(doc); /* also sets mtime field */
+}
+
+/**************************************************************************/
+/* the start of the callback functions for the menu, acting on a document */
+/**************************************************************************/
+
+void file_save_cb(GtkWidget * widget, gpointer data) {
+	doc_save(main_v->current_document, 0, 0);
+}
+
+
+void file_save_as_cb(GtkWidget * widget, gpointer data) {
+	doc_save(main_v->current_document, 1, 0);
+}
+
+void file_move_to_cb(GtkWidget * widget, gpointer data) {
+	doc_save(main_v->current_document, 1, 1);
+}
+
+void file_open_cb(GtkWidget * widget, gpointer data) {
+	GList *tmplist;
+	if (GPOINTER_TO_INT(data) == 1) {
+		tmplist = return_files_advanced();
+	} else {
+		tmplist = return_files(NULL);
+	}
+	if (!tmplist) {
+		return;
+	}
+	docs_new_from_files(tmplist);
+	free_stringlist(tmplist);
+}
+
+void revert_to_saved_cb(GtkWidget * widget, gpointer data) {
+	doc_reload(main_v->current_document);
+}
+
+void file_insert_cb(GtkWidget * widget, gpointer data) {
+	gchar *tmpfilename;
+	gint currentp;
+
+	tmpfilename = return_file(NULL);
+	if (tmpfilename == NULL) {
+		error_dialog(_("Bluefish error"), _("No filename known"));
+		return;
+	} else {
+		/* do we need to set the insert point in some way ?? */
+		doc_file_to_textbox(main_v->current_document, tmpfilename);
+		g_free(tmpfilename);
+		doc_set_modified(main_v->current_document, 1);
+	}
+}
+
+void file_new_cb(GtkWidget * widget, gpointer data) {
+	Tdocument *doc;
+
+	doc = doc_new();
+/*	project management needs a rewite so this is not included yet */
+/* 	if ((main_v->current_project.template) && (file_exists_and_readable(main_v->current_project.template) == 1)) {
+             doc_file_to_textbox(doc, main_v->current_project.template);
+ 	}*/
+}
+
+void file_close_cb(GtkWidget * widget, gpointer data) {
+	doc_close(main_v->current_document, 0);
+}
+
+void file_close_all_cb(GtkWidget * widget, gpointer data)
+{
+	GList *tmplist;
+	Tdocument *tmpdoc;
+	gint retval = -1;
+
+	DEBUG_MSG("file_close_all_cb, started\n");
+
+	/* first a warning loop */
+	if (test_docs_modified(NULL)) {
+		gchar *options[] = {N_("save all"), N_("close all"), N_("choose per file"), N_("cancel"), NULL};
+		retval =	multi_button_dialog(_("Bluefish: Warning, some file(s) are modified!"), 3, _("Some file(s) are modified\nplease choose your action"), options);
+		if (retval == 3) {
+			DEBUG_MSG("file_close_all_cb, cancel clicked, returning 0\n");
+			return;
+		}
+	} else {
+		retval = 1;
+	}
+	DEBUG_MSG("file_close_all_cb, after the warnings, retval=%d, now close all the windows\n", retval);
+
+	tmplist = g_list_first(main_v->documentlist);
+	while (tmplist) {
+		tmpdoc = (Tdocument *) tmplist->data;
+		if (test_only_empty_doc_left()) {
+			return;
+		}
+		
+		switch (retval) {
+		case 0:
+			doc_save(tmpdoc, 0, 0);
+			if (!tmpdoc->modified) {
+				doc_destroy(tmpdoc);
+			} else {
+				return;
+			}
+			tmplist = g_list_first(main_v->documentlist);
+		break;
+		case 1:
+			doc_destroy(tmpdoc);
+			tmplist = g_list_first(main_v->documentlist);
+		break;
+		case 2:
+			if (doc_close(tmpdoc, 0)) {
+				tmplist = g_list_first(main_v->documentlist);
+			} else {
+				notebook_changed();
+				return;
+			}
+		break;
+		default:
+			notebook_changed();
+			return;
+		break;
+		}
+	}
+	notebook_changed();
+	DEBUG_MSG("file_close_all_cb, finished\n");
+}
+
+
+/*
+ * Function: file_save_all_cb
+ * Arguments:
+ * 	widget	- callback widget
+ * 	data	- data for callback function
+ * Return value:
+ * 	void
+ * Description:
+ * 	Save all editor notebooks
+ */
+void file_save_all_cb(GtkWidget * widget, gpointer data)
+{
+
+	GList *tmplist;
+	Tdocument *tmpdoc;
+
+	tmplist = g_list_first(main_v->documentlist);
+	while (tmplist) {
+		tmpdoc = (Tdocument *) tmplist->data;
+		if (tmpdoc->modified) {
+			doc_save(tmpdoc, 0, 0);
+		}
+		tmplist = g_list_next(tmplist);
+	}
+}
+
