@@ -66,36 +66,36 @@ If you know of anyone missing from this list, please let us know\n\
 Thanks to all who helped making this software available.\n\
 ";
 
-static const gchar *TRANSLATORS = "Current translators:\n\
-  Brazilian Portuguese (PT_BR) -  Anderson Rocha\n\
+static const gchar *TRANSLATORS = "Current translators:\n\n\
+  Brazilian Portuguese - Anderson Rocha\n\
    <anderson@maxlinux.com.br>\n\n\
-  Chinese (zh_CN) -  Ting Yang (Dormouse)\n\
+  Chinese - Ting Yang (Dormouse)\n\
    <mouselinux@163.com>\n\n\
-  Danish (DA) -  Rasmus Toftdahl Olesen\n\
+  Danish - Rasmus Toftdahl Olesen\n\
    <rto@pohldata.dk>\n\n\
-  Finnish (FI) -  Juho Roukala\n\
+  Finnish - Juho Roukala\n\
    <j.mr@luukku.com>\n\n\
-  French (FR) -  Roméo Viu-Berges\n\
+  French - Roméo Viu-Berges\n\
    <apostledemencia@free.fr>\n\n\
-  German (DE) -  Roland Steinbach\n\
+  German - Roland Steinbach\n\
    <roland@netzblick.de>\n\n\
-  Hungarian (HU) -  Péter Sáska\n\
+  Hungarian - Péter Sáska\n\
    <sasek@ccsystem.hu>\n\n\
-  Italian (IT) -  Stefano Canepa\n\
+  Italian - Stefano Canepa\n\
    <sc@linux.it>\n\n\
-  Polish (PL) -  Oskar Swida\n\
+  Polish - Oskar Swida\n\
    <swida@aragorn.pb.bialystok.pl>\n\n\
-  Portuguese (PT) - Lopo Pizarro\n\
+  Portuguese - Lopo Pizarro\n\
    <lopopizarro@netcabo.pt>\n\n\
-  Russian (RU) -  Eugene Rupakov\n\
+  Russian - Eugene Rupakov\n\
    <rupakov@jet.msk.ru>\n\n\
-  Serbian (SR) - Marko Milenović\n\
+  Serbian - Marko Milenović\n\
    <raven@sbb.co.yu>\n\n\ 
-  Spanish (ES) -  Walter Oscar Echarri\n\
+  Spanish - Walter Oscar Echarri\n\
    <wecharri@infovia.com.ar>\n\n\
-  Swedish (SV) -  David Smeringe\n\
+  Swedish - David Smeringe\n\
    <david.smeringe@telia.com>\n\n\
-  Tamil (TA) -  Murugapandian Barathee\n\
+  Tamil - Murugapandian Barathee\n\
    <barathee@yahoo.com>\n\n\
 ";
 
