@@ -38,6 +38,9 @@
 #include "document.h" /*  */
 #include "gui.h" /* gui_create_main() */
 #include "fref.h" /* fref_init() */
+#ifdef BOOKMARKS
+#include "bookmark.h"  /* bmark_init() */
+#endif /* BOOKMARKS */
 #include "rcfile.h" /* rcfile_parse_main() */
 #include "bf_lib.h" /* create_full_path() */
 #include "highlight.h" /* hl_init() */
@@ -175,6 +178,9 @@ int main(int argc, char *argv[])
 	filebrowserconfig_init();
 	filebrowser_filters_rebuild();
 	fref_init();
+#ifdef BOOKMARKS
+   bmark_init();
+#endif /* BOOKMARKS */	
 #ifndef NOSPLASH
 	splash_screen_set_label(_("parsing custom menu file..."));
 #endif /* #ifndef NOSPLASH */
