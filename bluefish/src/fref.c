@@ -1240,7 +1240,7 @@ gboolean frefcb_event_mouseclick(GtkWidget * widget,
 
 	if (event->button == 3 && event->type == GDK_BUTTON_PRESS) {	/* right mouse click - insert */
 		doc_insert_two_strings(main_v->current_document,
-							   entry->insert_text, "");
+							   entry->insert_text, NULL);
 	} else if (event->button == 1 && event->type == GDK_2BUTTON_PRESS) {	/* double click  - dialog */
 		dialog = fref_prepare_dialog(entry);
 		if (dialog) {
@@ -1248,8 +1248,7 @@ gboolean frefcb_event_mouseclick(GtkWidget * widget,
 			if (resp == GTK_RESPONSE_OK) {
 				pomstr = fref_prepare_text(entry, dialog);
 				gtk_widget_destroy(dialog);
-				doc_insert_two_strings(main_v->current_document, pomstr,
-									   "");
+				doc_insert_two_strings(main_v->current_document, pomstr,NULL);
 				g_free(pomstr);
 			} else
 				gtk_widget_destroy(dialog);
@@ -1346,7 +1345,7 @@ void frefcb_info_dialog(GtkButton * button, gpointer user_data)
 		if (resp == GTK_RESPONSE_OK) {
 			pomstr = fref_prepare_text(entry, dialog);
 			gtk_widget_destroy(dialog);
-			doc_insert_two_strings(main_v->current_document, pomstr, "");
+			doc_insert_two_strings(main_v->current_document, pomstr, NULL);
 			g_free(pomstr);
 		} else
 			gtk_widget_destroy(dialog);
@@ -1375,7 +1374,7 @@ void frefcb_info_insert(GtkButton * button, gpointer user_data)
 			return;
 	} else
 		return;
-	doc_insert_two_strings(main_v->current_document, entry->insert_text,"");
+	doc_insert_two_strings(main_v->current_document, entry->insert_text,NULL);
 
 }
 
@@ -1450,8 +1449,7 @@ void fref_ac_position(GtkMenu * menu, gint * x, gint * y,
 void frefcb_autocomplete_activate(GtkMenuItem * menuitem,
 								  gpointer user_data)
 {
-	doc_insert_two_strings(main_v->current_document, (gchar *) user_data,
-						   "");
+	doc_insert_two_strings(main_v->current_document, (gchar *) user_data,NULL);
 }
 
 void frefcb_info_show(GtkButton * button, gpointer user_data)

@@ -410,9 +410,11 @@ void spell_gui() {
 	g_signal_connect(G_OBJECT(bfspell.filter),"changed",G_CALLBACK(filter_changed_lcb),NULL);
 	gtk_option_menu_set_history(GTK_OPTION_MENU(bfspell.filter),0);
 
+	gtk_box_pack_start(GTK_BOX(vbox), gtk_hseparator_new(), FALSE, FALSE, 12);
+
 	hbox = gtk_hbutton_box_new();
 	gtk_hbutton_box_set_layout_default(GTK_BUTTONBOX_END);
-	gtk_button_box_set_spacing(GTK_BUTTON_BOX(hbox), 6);
+	gtk_button_box_set_spacing(GTK_BUTTON_BOX(hbox), 12);
 	
 	but = bf_stock_cancel_button(G_CALLBACK(spell_gui_cancel_clicked_cb), NULL);
 	gtk_box_pack_start(GTK_BOX(hbox),but,FALSE, FALSE, 6);
