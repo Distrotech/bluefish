@@ -169,13 +169,15 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 			<para>
 				The first step is to cd to the directory in which you want to put the 
 				sources. Next, log in using the command:
-				<screen>$ cvs -d :pserver:anonymous@cvs.sourceforge.net:/cvsroot/bluefish login</screen>
+				<screen>$ cvs -d :pserver:anonymous@cvs.sourceforge.net:/cvsroot/bluefish \
+				login</screen>
 				<note>Hit <action>Enter</action> at the password prompt</note>
 			</para>
 			<para>
 				The next step is to <emphasis>check out</emphasis> the CVS module 
 				containing the source code files:
-				<screen>$ cvs -z3 -d :pserver:anonymous@cvs.sourceforge.net:/cvsroot/bluefish co bluefish-gtk2</screen>
+				<screen>$ cvs -z3 -d :pserver:anonymous@cvs.sourceforge.net:/cvsroot/bluefish \
+				co bluefish-gtk2</screen>
 				A lot of files will be downloaded, and listed one by one. If 
 				you're on dial-up, this might take a bit of time.
 			</para>

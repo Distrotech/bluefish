@@ -65,21 +65,24 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 			</para>
 			<para>
 				To get the Bluefish XML source, we use cvs. To login:
-				<screen>$ cvs -d :pserver:anonymous@cvs.sourceforge.net:/cvsroot/bluefish login</screen>
+				<screen>$ cvs -d :pserver:anonymous@cvs.sourceforge.net:/cvsroot/bluefish \ 
+				login</screen>
 			</para>
 			<para>
 				You will be prompted for a password. Since we are 
 				logging in anonymously, you can just hit enter without 
 				providing any password. Next we will checkout the directory 
 				containing the Bluefish documentation:
-				<screen>$ cvs -z3 -d :pserver:anonymous@cvs.sourceforge.net:/cvsroot/bluefish co bluefish-gtk2/doc</screen>
+				<screen>$ cvs -z3 -d :pserver:anonymous@cvs.sourceforge.net:/cvsroot/bluefish \
+				co bluefish-gtk2/doc</screen>
 			</para>
 			<para>
 				This will download all the files to your system in the 
 				directory <literal>bluefish-gtk2/doc/</literal>. Next, 
 				we will get the DTD and the stylesheets, which are in 
 				CVS under <literal>bluefish-doctools</literal>:
-				<screen>$ cvs -z3 -d :pserver:anonymous@cvs.sourceforge.net:/cvsroot/bluefish co bluefish-gtk2/doc</screen>
+				<screen>$ cvs -z3 -d :pserver:anonymous@cvs.sourceforge.net:/cvsroot/bluefish \
+				co bluefish-gtk2/doc</screen>
 			</para>
 			<para>
 				Finally, you need the 
