@@ -2,7 +2,7 @@ TOOLBAR = \
 	abbr abbr.png \
 	acronym acronym.png \
 	anchor anchor.png \
-	bluefish_icon bluefish_icon.png \
+	bluefish_icon1 bluefish_icon1.png \
 	body body.png \
 	bold bold.png \
 	brbreak brbreak.png \

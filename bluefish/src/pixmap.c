@@ -348,3 +348,9 @@ GtkWidget *new_pixmap(gint type) {
 		return widget;
 	}
 }
+
+GList *default_icon_list() {
+	GList *retlist = NULL;
+	retlist = g_list_append(retlist, gdk_pixbuf_new_from_inline(-1,bluefish_icon1,FALSE,NULL));
+	return retlist;
+}
