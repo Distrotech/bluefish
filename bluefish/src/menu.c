@@ -903,6 +903,7 @@ void browser_toolbar_cb(GtkWidget *widget, gpointer data) {
 	GList *tmplist = g_list_first(main_v->props.browsers);
 	if (tmplist && tmplist->data) {
 		gchar **arr = tmplist->data;
+		DEBUG_MSG("first browser in main_v->props.browsers(%p) is %s with command %s\n", main_v->props.browsers, arr[0], arr[1]);
 		view_in_browser(arr[1]);
 	}
 }
@@ -1007,9 +1008,15 @@ void external_menu_rebuild() {
 			} else {
 				tmp1 = N_("/External");
 			}
+			DEBUG_MSG("Adding browser %s with command %s to the menu\n", arr[0], arr[1]);
 			menus.external_menu = g_list_append(menus.external_menu
 					, create_dynamic_menuitem(tmp1,arr[0],G_CALLBACK(browser_lcb),arr,-1));
 		}
+#ifdef DEBUG
+		else {
+			DEBUG_MSG("need count=2 for browser menu!\n");
+		}
+#endif
 		tmplist = g_list_next(tmplist);
 	}
 	
