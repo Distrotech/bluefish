@@ -444,7 +444,7 @@ if test "x$WITHGNOME2" != "xno" ; then
 			fi
 		fi
 	fi
-	if test "x$UPDATE_MIME" != "xno" -a "x$UPDATE_MIME" != "xno" ; then
+	if test "x$UPDATE_MIME" != "xno" -a "x$UPDATE_DESKTOP" != "xno" ; then
 		echo -n "checking for gnome2.8 mime directory... "
 		if test -d ${GNOME2PREFIX}/share/mime/ ; then
 			echo "${GNOME2PREFIX}/share/mime/"
