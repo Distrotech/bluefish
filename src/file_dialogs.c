@@ -660,3 +660,26 @@ void doc_close_multiple_backend(Tbfwin *bfwin, gboolean close_window) {
 void file_close_all_cb(GtkWidget * widget, Tbfwin *bfwin) {
 	doc_close_multiple_backend(bfwin, FALSE);
 }
+
+/**
+ * file_new_cb:
+ * @windget: #GtkWidget* ignored
+ * @bfwin: Tbfwin* where to open the new document
+ *
+ * Create a new, empty file in window bfwin
+ *
+ * Return value: void
+ **/
+void file_new_cb(GtkWidget *widget, Tbfwin *bfwin) {
+	Tdocument *doc;
+	doc = doc_new(bfwin, FALSE);
+	switch_to_document_by_pointer(bfwin,doc);
+ 	if (bfwin->project && bfwin->project->template && strlen(bfwin->project->template) > 2) {
+			GnomeVFSURI *uri;
+		uri = gnome_vfs_uri_new(bfwin->project->template);
+		file_into_doc(bfwin->current_document, uri);
+		gnome_vfs_uri_unref(uri);
+		/*doc_file_to_textbox(doc, bfwin->project->template, FALSE, FALSE);
+		doc_activate(doc);*/
+ 	}
+}

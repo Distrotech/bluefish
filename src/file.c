@@ -412,6 +412,51 @@ static void file_openfile_uri_async(GnomeVFSURI *uri, OpenfileAsyncCallback call
 	gnome_vfs_async_open_uri(&handle,uri,GNOME_VFS_OPEN_READ,GNOME_VFS_PRIORITY_DEFAULT
 				,openfile_asyncopenuri_lcb,of);
 }
+/************ LOAD A FILE ASYNC INTO A DOCUMENT ************************/
+typedef struct {
+	Tbfwin *bfwin;
+	Tdocument *doc;
+	GnomeVFSURI *uri;
+} Tfileintodoc;
+
+static void fileintodoc_cleanup(Tfileintodoc *fid) {
+	gnome_vfs_uri_unref(fid->uri);
+	g_free(fid);
+}
+
+static void fileintodoc_lcb(Topenfile_status status,gint error_info,gchar *buffer,GnomeVFSFileSize buflen ,gpointer data) {
+	Tfileintodoc *fid = data;
+	switch (status) {
+		case OPENFILE_FINISHED:
+			doc_buffer_to_textbox(fid->doc, buffer, buflen, FALSE, TRUE);
+			doc_set_status(fid->doc, DOC_STATUS_COMPLETE);
+			fileintodoc_cleanup(data);
+		break;
+		case OPENFILE_CHANNEL_OPENED:
+			/* do nothing */
+		break;
+		case OPENFILE_ERROR:
+		case OPENFILE_ERROR_NOCHANNEL:
+		case OPENFILE_ERROR_NOREAD:
+			DEBUG_MSG("file2doc_lcb, status=%d, cleanup!!!!!\n",status);
+			doc_set_status(fid->doc, DOC_STATUS_ERROR);
+			fileintodoc_cleanup(data);
+		break;
+	}
+}
+
+void file_into_doc(Tdocument *doc, GnomeVFSURI *uri) {
+	Tfileintodoc *fid;
+	fid = g_new(Tfileintodoc,1);
+	fid->bfwin = doc->bfwin;
+	fid->doc = doc;
+	doc_set_status(doc, DOC_STATUS_LOADING);
+	fid->uri = uri;
+	gnome_vfs_uri_ref(uri);
+	file_openfile_uri_async(fid->uri,fileintodoc_lcb,fid);
+}
+
+
 
 /************ MAKE DOCUMENT FROM ASYNC OPENED FILE ************************/
 typedef struct {

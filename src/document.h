@@ -92,7 +92,6 @@ void doc_force_activate(Tdocument *doc);
 void file_open_from_selection(Tbfwin *bfwin);
 
 void file_insert_menucb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget);
-void file_new_cb(GtkWidget * widget, Tbfwin *bfwin);
 
 void edit_cut_cb(GtkWidget * widget, Tbfwin *bfwin);
 void edit_copy_cb(GtkWidget * widget, Tbfwin *bfwin);
