@@ -2,7 +2,7 @@
  * document.h - global function for document handling
  *
  * Copyright (C) 1998 Olivier Sessink and Chris Mazuc
- * Copyright (C) 1999-2002 Olivier Sessink
+ * Copyright (C) 1999-2004 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
