@@ -89,7 +89,7 @@ static const gchar *TRANSLATORS = "Current translators:\n\n\
    <lopopizarro@netcabo.pt>\n\n\
   Russian - Eugene Rupakov\n\
    <rupakov@jet.msk.ru>\n\n\
-  Serbian - Marko Milenović\n\
+  Serbian - Marko Milenovic\n\
    <raven@sbb.co.yu>\n\n\ 
   Spanish - Walter Oscar Echarri\n\
    <wecharri@infovia.com.ar>\n\n\
