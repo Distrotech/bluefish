@@ -82,12 +82,18 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 	<sect1 id="bluefish-ch-2-sect-5">
 		<title>installing a bluefish binary distribution</title>
-		<para>rpm is the magic thing</para>
+		<para>For Debian users this is very simple. Just run the 
+		command "apt-get install bluefish" and bluefish will be downloaded,
+		installed and configured.</para>
+		<para>For rpm based distributions, first check if your distribution does 
+		have a recent Bluefish version. If it does not, download the rpm for your 
+		distribution from any of the bluefish mirrors. to be finished......</para>
 	</sect1>
 
 	<sect1 id="bluefish-ch-2-sect-6">
 		<title>post-installation setup</title>
-		<para>what is to do after the installation</para>
+		<para>The first time you run bluefish it will create a directory ~/.bluefish 
+		where all configuration is stored.</para>
 	</sect1>
 
 </chapter>
