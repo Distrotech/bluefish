@@ -52,7 +52,7 @@ void window_close_by_widget_cb(GtkWidget * widget, gpointer data);
 void window_close_by_data_cb(GtkWidget * widget, gpointer data);
 GtkWidget *apply_font_style(GtkWidget * this_widget, gchar * fontstring);
 GtkWidget *hbox_with_pix_and_text(const gchar *label, gint pixmap_type);
-GtkWidget *bf_generic_button(const gchar *label, gint pixmap_type, GCallback func, gpointer func_data);
+GtkWidget *bf_generic_button_with_image(const gchar *label, gint pixmap_type, GCallback func, gpointer func_data);
 GtkWidget *bf_stock_button(const gchar * Text, GCallback func, gpointer func_data);
 GtkWidget *bf_gtkstock_button(const gchar * stock_id, GCallback func, gpointer func_data);
 GtkWidget *bf_stock_ok_button(GCallback func, gpointer func_data);

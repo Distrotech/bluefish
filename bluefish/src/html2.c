@@ -913,9 +913,8 @@ GtkWidget *style_but_new(GtkWidget * which_entry, GtkWidget * win)
 	style_but = gtk_button_new();
 	hbox = gtk_hbox_new(FALSE, 0);
 	gtk_box_pack_start(GTK_BOX(hbox), new_pixmap(92),FALSE, FALSE, 3);
-	gtk_box_pack_start(GTK_BOX(hbox), gtk_label_new(_("Style")),TRUE, TRUE, 3);
+	gtk_box_pack_start(GTK_BOX(hbox), gtk_label_new_with_mnemonic(N_("_Style...")), TRUE, TRUE, 3);
 	gtk_container_add(GTK_CONTAINER(style_but), hbox);
-
 	gtk_signal_connect(GTK_OBJECT(style_but), "clicked", G_CALLBACK(style_but_clicked_lcb), which_entry);
 	gtk_widget_show_all(style_but);
 	return style_but;
@@ -951,7 +950,7 @@ GtkWidget *style_but_new_for_wizard(GtkWidget * textview) {
 	style_but = gtk_button_new();
 	hbox = gtk_hbox_new(FALSE, 0);
 	gtk_box_pack_start(GTK_BOX(hbox), new_pixmap(92),FALSE, FALSE, 6);
-	gtk_box_pack_start(GTK_BOX(hbox), gtk_label_new_with_mnemonic(N_("_Style")),TRUE, TRUE, 6);
+	gtk_box_pack_start(GTK_BOX(hbox), gtk_label_new_with_mnemonic(N_("_Style...")), TRUE, TRUE, 6);
 	gtk_container_add(GTK_CONTAINER(style_but), hbox);
 	gtk_signal_connect(GTK_OBJECT(style_but), "clicked", G_CALLBACK(style_but_for_wizard_clicked_lcb), textview);
 	gtk_widget_show_all(style_but);

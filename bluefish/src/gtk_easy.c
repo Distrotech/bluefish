@@ -245,6 +245,7 @@ GtkWidget *entry_with_text(const gchar * setstring, gint max_lenght)
 	if (setstring) {
 		gtk_entry_set_text(GTK_ENTRY(returnwidget), setstring);
 	}
+	gtk_entry_set_activates_default(GTK_ENTRY(returnwidget), TRUE);
 	return returnwidget;
 
 }
@@ -488,14 +489,28 @@ GtkWidget *hbox_with_pix_and_text(const gchar *label, gint pixmap_type) {
 	return hbox;
 }
 
-/* add a generic function for non GTK stock buttons */
-GtkWidget *bf_generic_button(const gchar *label, gint pixmap_type, GCallback func, gpointer func_data)
+
+
+/*
+ * Function: bf_generic_button_with_image
+ * Arguments:
+ * 	label - label string
+ *      pixmap_type - image to display on button
+ * 	func - pointer to signal handler
+ * 	func_data - data for signal handler
+ * Return value:
+ * 	Pointer to create button
+ * Description:
+ * 	Create new button with an image and link button with "clicked" signal handler
+ */
+GtkWidget *bf_generic_button_with_image(const gchar *label, gint pixmap_type, GCallback func, gpointer func_data)
 {
         GtkWidget *button;
 
 	button = gtk_button_new();
 	gtk_container_set_border_width(GTK_CONTAINER(button), 3);
 	gtk_container_add(GTK_CONTAINER(button), hbox_with_pix_and_text(label, pixmap_type));
+	GTK_WIDGET_SET_FLAGS(button, GTK_CAN_DEFAULT);
 	g_return_val_if_fail(button, NULL);
 	g_signal_connect(G_OBJECT(button), "clicked", func, func_data);
 	DEBUG_MSG("bf_browse_button, func_data=%p\n", func_data);
@@ -517,7 +532,7 @@ GtkWidget *bf_stock_button(const gchar * Text, GCallback func, gpointer func_dat
 {
 	GtkWidget *button;
 
-	button = gtk_button_new_with_label(Text);
+	button = gtk_button_new_with_mnemonic(Text);
 	g_return_val_if_fail(button, NULL);
 	GTK_WIDGET_SET_FLAGS(button, GTK_CAN_DEFAULT);
 	g_signal_connect(G_OBJECT(button), "clicked", func, func_data);
@@ -651,7 +666,10 @@ GtkWidget *file_but_new(GtkWidget * which_entry, GtkWidget * win, gint full_path
 	gtk_widget_show(pixmap);
 	gtk_container_add(GTK_CONTAINER(file_but), pixmap);
 	file_but = gtk_button_new_with_label("file..");*/
-	file_but = gtk_button_new_from_stock(GTK_STOCK_OPEN);
+/*	file_but = gtk_button_new_from_stock(GTK_STOCK_OPEN); */
+
+	file_but = gtk_button_new();
+	gtk_container_add(GTK_CONTAINER(file_but), hbox_with_pix_and_text(_("_Browse..."), 1));
 	if (full_pathname == 1) {
 		g_signal_connect(G_OBJECT(file_but), "clicked", G_CALLBACK(file_but_clicked_full_lcb), which_entry);
 	} else {

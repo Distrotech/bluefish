@@ -1851,6 +1851,7 @@ static void files_advanced_win(Tfiles_advanced *tfs) {
 	tfs->win = window_full(_("Advanced open file selector"), GTK_WIN_POS_MOUSE, 5, G_CALLBACK(files_advanced_win_destroy),tfs, TRUE);
 	tfs->filenames_to_return = NULL;
 	vbox = gtk_vbox_new(FALSE, 0);
+	gtk_container_set_border_width(GTK_CONTAINER(vbox), 6);
 	gtk_container_add(GTK_CONTAINER(tfs->win), vbox);
 	gtk_box_pack_start(GTK_BOX(vbox), gtk_label_new(_("grep {contains} `find {basedir} -name '{pattern}'`")), FALSE, FALSE, 5);
 	
@@ -1861,14 +1862,11 @@ static void files_advanced_win(Tfiles_advanced *tfs) {
 	/* filename part */
 	/* curdir should get a value */
 	{
-	        /* use the new bf_generic_button function to add a "Browse" button */
-	        GtkWidget *but = bf_generic_button(_("_Browse"), 1, G_CALLBACK(files_advanced_win_select_basedir_lcb), tfs);
+	        GtkWidget *but = bf_generic_button_with_image(_("_Browse..."), 1, G_CALLBACK(files_advanced_win_select_basedir_lcb), tfs);
 		hbox = gtk_hbox_new(FALSE,3);
-		/* use gtk_label_new_with_mnemonic to add a keyboard shortcut to the tfs->basedir text entry */
-		label = gtk_label_new_with_mnemonic(N_("Base_dir"));
+		label = gtk_label_new_with_mnemonic(N_("Base_dir:"));
 		gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 2);
 		tfs->basedir = boxed_entry_with_text(curdir, 255, hbox);
-		/* associate the "Basedir" label to set focus to the tfs->basedir text entry */
 		gtk_label_set_mnemonic_widget(GTK_LABEL(label), tfs->basedir);
 		gtk_box_pack_start(GTK_BOX(hbox), but, FALSE, FALSE , 2);
 		gtk_box_pack_start(GTK_BOX(vbox2), hbox, FALSE, FALSE, 2);
@@ -1876,8 +1874,8 @@ static void files_advanced_win(Tfiles_advanced *tfs) {
 	g_free(curdir);
 	hbox2 = gtk_hbox_new(FALSE, 0);
 	gtk_box_pack_start(GTK_BOX(vbox2), hbox2, TRUE, TRUE, 5);
-	label = gtk_label_new_with_mnemonic(N_("_Pattern"));
-	gtk_box_pack_start(GTK_BOX(hbox2), label, TRUE, TRUE, 5);
+	label = gtk_label_new_with_mnemonic(N_("_Pattern:"));
+	gtk_box_pack_start(GTK_BOX(hbox2), label, FALSE, FALSE, 5);
 
 	list = g_list_append(NULL, "*.php");
 	list = g_list_append(list, "*.php3");
@@ -1890,8 +1888,8 @@ static void files_advanced_win(Tfiles_advanced *tfs) {
 	list = g_list_append(list, "*.c");
 	list = g_list_append(list, "*.py");
 	tfs->find_pattern = combo_with_popdown_sized("", list, 1, 300);
-	/* fixme this does not work. gtk_label_set_mnemonic_widget apparently does not work with gtk combo boxes */
-	gtk_label_set_mnemonic_widget(GTK_LABEL(label), tfs->find_pattern);
+	gtk_label_set_mnemonic_widget(GTK_LABEL(label), (GTK_COMBO(tfs->find_pattern)->entry));
+	gtk_entry_set_activates_default(GTK_ENTRY(GTK_COMBO(tfs->find_pattern)->entry), TRUE);
 	gtk_box_pack_start(GTK_BOX(hbox2), tfs->find_pattern, TRUE, TRUE, 5);
 	g_list_free(list);
 	tfs->recursive = boxed_checkbut_with_value(_("_recursive"), 1, vbox2);
@@ -1901,13 +1899,13 @@ static void files_advanced_win(Tfiles_advanced *tfs) {
 	vbox2 = gtk_vbox_new(FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(frame), vbox2);
 	/* content */
-	tfs->grep_pattern = boxed_full_entry(_("Pa_ttern"), NULL, 255, vbox2);
+	tfs->grep_pattern = boxed_full_entry(_("Pa_ttern:"), NULL, 255, vbox2);
 	tfs->is_regex = boxed_checkbut_with_value(_("is rege_x"), 0, vbox2);
 	
 	/* buttons */
 	hbox = gtk_hbutton_box_new();
 	gtk_hbutton_box_set_layout_default(GTK_BUTTONBOX_END);
-	gtk_button_box_set_spacing(GTK_BUTTON_BOX(hbox), 1);
+	gtk_button_box_set_spacing(GTK_BUTTON_BOX(hbox), 12);
 	but = bf_stock_cancel_button(G_CALLBACK(files_advanced_win_cancel_clicked), tfs);
 	gtk_box_pack_start(GTK_BOX(hbox),but , FALSE, FALSE, 0);
 	but = bf_stock_ok_button(G_CALLBACK(files_advanced_win_ok_clicked), tfs);
