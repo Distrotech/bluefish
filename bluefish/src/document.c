@@ -1760,7 +1760,7 @@ void doc_unbind_signals(Tdocument *doc) {
 gboolean buffer_to_file(Tbfwin *bfwin, gchar *buffer, gchar *filename) {
 	GnomeVFSHandle *handle;
 	GnomeVFSFileSize bytes_written;
-	GnomeVFSResult result;
+	GnomeVFSResult result, result2;
 	/* we use create instead of open, because open will not create the file if it does
       not already exist. The last argument is the permissions to use if the file is created,
       the second to last tells GnomeVFS that its ok if the file already exists, and just open it */
@@ -1770,9 +1770,10 @@ gboolean buffer_to_file(Tbfwin *bfwin, gchar *buffer, gchar *filename) {
 		return FALSE;
 	}
 	result = gnome_vfs_write(handle, buffer, strlen(buffer), &bytes_written);
+	result2 = gnome_vfs_truncate_handle(handle, bytes_written);
 	gnome_vfs_close(handle);
-	if (result != GNOME_VFS_OK) {
-		DEBUG_MSG("buffer_to_file, result=%d, returning FALSE\n",result);
+	if (result != GNOME_VFS_OK || result2 != GNOME_VFS_OK) {
+		DEBUG_MSG("buffer_to_file, result=%d, result2=%d returning FALSE\n",result, result2);
 		return FALSE;
 	}
 	return TRUE;
