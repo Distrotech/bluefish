@@ -71,15 +71,18 @@ java:this:0:\\bthis\\.::2::#000099::2:0:
 java:primitive-types:0:\\b(void|double|boolean|int)\\b::2::#880088::2:0:
 java:braces:0:[{()}]:::2::#000000::2:0:
 java:character:0:':':1::#009900::0:0:
-python:keywords:0:\\b(and|assert|break|continue|class|def|del|elif|else|except|exec|finally|for|if|in|is|not|or|pass|print|raise|return|try|while)\\b::2::#000000::2:0:
-python:string-double:0:":":1::#009900::0:0:
-python:string-double-escape:0:\\\\.::2:^string-double$:#009900::0:0:
-python:string-single:0:':':1::#009900::0:0:
-python:string-single-escape:0:\\\\.::2:^string-single$:#009900::0:0:
-python:special_values:0:\\b(None)\\b::2::#5caeee::0:0:
-python:include:0:^(import|from).*?$::2::#000099::0:0:
-python:comment:0:#.*?$::2::#AAAAAA::1:2:
+python:self:1:(self\\.?)::2::#000088::0:0:
 python:braces:0:[{()}\\[\\]]::2::#000000::2:0:
+python:comment:0:#.*?$::2::#AAAAAA::1:2:
+python:include:0:^(import|from).*?$::2::#990099::0:0:
+python:special_values:0:\\bNone\\b::2::#999900::0:0:
+python:string-single-escape:0:\\\\.::2:^string-single$:#009900::0:0:
+python:string-single:0:':':1::#009900::0:0:
+python:string-double-escape:0:\\\\.::2:^string-double$:#009900::0:0:
+python:string-double:0:":":1::#009900::0:0:
+python:exception-keywords:0:\\b(assert|except|finally|raise|try)[^\:]*\:::2::#DD0000::2:0:
+python:keywords:0:\\b(and|break|continue|del|elif|else|exec|for|if|in|is|not|or|pass|print|return|while)\\b::2::#000000::2:0:
+python:definition-keyword:1:(class|def)[\\t ]+[a-zA-Z0-9_-]+(\\([^)]+\\))?[\\t ]*\:::2::#0000AA::2:0:
 pascal:keywords:1:\\b(text|string|longint|boolean|byte|char|word|integer|real)\\b::2::#36648B::0:0:
 pascal:procs:1:\\b(proc[a-z,0-9]*\\;$)::2::#E88707::2:0:
 pascal:program:1:\\b(program|var|procedure|uses|unit|object|type|const)\\b::2::#000000::2:0:
