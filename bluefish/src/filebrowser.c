@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-/* #define DEBUG */
+/*#define DEBUG*/
 
 #include <gtk/gtk.h>
 #include <sys/types.h> /* stat() getuid */
@@ -499,11 +499,11 @@ static int comparefunc(GtkTreeModel *store, gchar *name, GtkTreeIter *iter, cons
 	}
 }
 
-static gboolean get_iter_at_correct_position(GtkTreeModel *store, GtkTreeIter *parent, GtkTreeIter *iter, const gchar *text, gint type) {
+static gboolean get_iter_at_correct_position(GtkTreeModel *store, GtkTreeIter *parent, GtkTreeIter *iter, const gchar *text, gint type, gboolean two_paned) {
 	gint num_children, jumpsize, child, possible_positions;
 	gchar *name;
 
-	DEBUG_MSG("get_iter_at_correct_position, started, parent=%p\n",parent);
+	DEBUG_MSG("get_iter_at_correct_position, started, parent=%p, two_paned=%d\n",parent,two_paned);
 	/* if parent=NULL it will return the top level, which is correct for the liststore */
 	num_children = gtk_tree_model_iter_n_children(GTK_TREE_MODEL(store), parent);
 	if (num_children == 0) {
@@ -522,7 +522,7 @@ static gboolean get_iter_at_correct_position(GtkTreeModel *store, GtkTreeIter *p
 		/* if parent=NULL it will return the child from the toplevel which is correct for the liststore */
 		gtk_tree_model_iter_nth_child(GTK_TREE_MODEL(store), iter, parent, 0);
 		gtk_tree_model_get(GTK_TREE_MODEL(store),iter,FILENAME_COLUMN,&name, -1);
-		if (parent == NULL) {
+		if (parent == NULL || two_paned) {
 			compare = strcmp(name,text);
 		} else {
 			compare = comparefunc(store, name, iter, text, type);
@@ -545,7 +545,11 @@ static gboolean get_iter_at_correct_position(GtkTreeModel *store, GtkTreeIter *p
 #endif
 		gtk_tree_model_iter_nth_child(GTK_TREE_MODEL(store), iter, parent, child-1);
 		gtk_tree_model_get(GTK_TREE_MODEL(store),iter,FILENAME_COLUMN,&name, -1);
-		compare = comparefunc(store, name, iter, text, type);
+		if (parent == NULL || two_paned) {
+			compare = strcmp(name,text);
+		} else {
+			compare = comparefunc(store, name, iter, text, type);
+		}
 		g_free(name);
 		if (compare == 0) {
 			return TRUE;
@@ -581,7 +585,7 @@ static GtkTreeIter add_tree_item(GtkTreeIter *parent, Tfilebrowser *filebrowser,
 	}
 
 	if (type == TYPE_FILE && filebrowser->store2 && parent==NULL) {
-		if (get_iter_at_correct_position(GTK_TREE_MODEL(filebrowser->store2),parent,&iter2,text,type)) {
+		if (get_iter_at_correct_position(GTK_TREE_MODEL(filebrowser->store2),parent,&iter2,text,type,TRUE)) {
 			DEBUG_MSG("add_tree_item, inserting %s in store2\n", text);
 			gtk_list_store_insert_before(GTK_LIST_STORE(filebrowser->store2),&iter1,&iter2);
 		} else {
@@ -593,7 +597,7 @@ static GtkTreeIter add_tree_item(GtkTreeIter *parent, Tfilebrowser *filebrowser,
 					FILENAME_COLUMN, text,
 					-1);
 	} else {
-		if (get_iter_at_correct_position(GTK_TREE_MODEL(filebrowser->store),parent,&iter2,text,type)) {
+		if (get_iter_at_correct_position(GTK_TREE_MODEL(filebrowser->store),parent,&iter2,text,type,(filebrowser->store2 != NULL))) {
 	#ifdef DEBUG
 			DEBUG_MSG("add_tree_item, inserting %s in store1\n", text);
 	#endif
