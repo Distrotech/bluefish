@@ -22,7 +22,7 @@
  */
 /* 
  * Changes by Antti-Juhani Kaijanaho <gaia@iki.fi> on 1999-10-20
- * $Id: html.c,v 1.25 2003-07-05 08:21:45 jimh6583 Exp $
+ * $Id: html.c,v 1.26 2003-07-07 07:10:39 jimh6583 Exp $
  */
 
 #include <gtk/gtk.h>
@@ -976,14 +976,14 @@ static void quickstart_ok_lcb(GtkWidget * widget, Thtml_diag * dg) {
 
 	if(strstr(gtk_entry_get_text(GTK_ENTRY(GTK_COMBO(dg->combo[1])->entry)), "XHTML")) {
 		if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dg->check[0])))
-			tmpchar = g_strconcat("<?xml version=\"1.0\" encoding=\"", main_v->props.newfile_default_encoding, "\"?>", NULL);
+			tmpchar = g_strconcat("<?xml version=\"1.0\" encoding=\"", main_v->props.newfile_default_encoding, "\"?>\n", NULL);
 		else
 			tmpchar = g_strdup("");
 				
 		if (strcmp(gtk_entry_get_text(GTK_ENTRY(GTK_COMBO(dg->combo[1])->entry)), "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.1//EN\" \"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd\">") == 0 )
-			tmpchar1 = g_strdup_printf("%s\n%s\n%shttp://www.w3.org/1999/xhtml%sen\">\n%s\n", tmpchar, gtk_entry_get_text(GTK_ENTRY(GTK_COMBO(dg->combo[1])->entry)), cap("<HTML XMLNS=\""), cap("\" XML:LANG=\""),  cap("<HEAD>"));
+			tmpchar1 = g_strdup_printf("%s%s\n%shttp://www.w3.org/1999/xhtml%sen\">\n%s\n", tmpchar, gtk_entry_get_text(GTK_ENTRY(GTK_COMBO(dg->combo[1])->entry)), cap("<HTML XMLNS=\""), cap("\" XML:LANG=\""),  cap("<HEAD>"));
 		else
-			tmpchar1 = g_strdup_printf("%s\n%s\n%shttp://www.w3.org/1999/xhtml%sen%sen\">\n%s\n", tmpchar, gtk_entry_get_text(GTK_ENTRY(GTK_COMBO(dg->combo[1])->entry)), cap("<HTML XMLNS=\""), cap("\" XML:LANG=\""), cap("\" LANG=\""), cap("<HEAD>"));
+			tmpchar1 = g_strdup_printf("%s%s\n%shttp://www.w3.org/1999/xhtml%sen%sen\">\n%s\n", tmpchar, gtk_entry_get_text(GTK_ENTRY(GTK_COMBO(dg->combo[1])->entry)), cap("<HTML XMLNS=\""), cap("\" XML:LANG=\""), cap("\" LANG=\""), cap("<HEAD>"));
 			
 		g_free(tmpchar);	
 	} 
