@@ -45,7 +45,9 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 		</sect2>
 		<sect2 id="bluefish-ch-2-sect-3.2">
 			<title>operating systems supported by bluefish</title>
-			<para>know operating systems, on which bluefish is running (is there everywhere a windows? NO!)</para>
+			<para>Mandrake</para>
+			<para>Red Hat</para>
+			<para>Debian</para>
 		</sect2>
 		<sect2 id="bluefish-ch-2-sect-3.3">
 			<title>which bluefish version to use</title>
@@ -55,7 +57,11 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 			<title>how and when updates are released</title>
 			<para>the development is always a deep black hole, but sometimes there is an new release :-)</para>
 		</sect2>
-
+		<sect2 id="bluefish-ch-2-sect-3.5">
+			<title>Operating Specific Notes:</title>
+			<para>Mandrake: Breaks pcre into 3 different peices, make sure pcre-devel is installed if compiling from source. ($rpm -ql pcre-devel)</para>
+		</sect2>
+		
 	</sect1>
 
 	<sect1 id="bluefish-ch-2-sect-4">
