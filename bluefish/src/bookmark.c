@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-#define DEBUG
+/* #define DEBUG */
 
 #include <gtk/gtk.h>
 #include <sys/types.h>
@@ -139,10 +139,71 @@ static void bmark_update_offset_from_textmark(Tbmark *b) {
  * bookmark should be added, but the same function can be used to
  * find the bookmarks we have to check to detect double bookmarks
  * at the same line.
+ *
+ * returns the bookmark closest before 'offset', or the bookmark exactly at 'offset'
+ * 
+ * returns NULL if we have to append this as first child to the parent
+ * 
  */
-static gboolean bmark_get_closest_iter_before_offset(Tbfwin *bfwin, guint offset, GtkTreeIter *iter) {
-	return FALSE;
+static Tbmark *bmark_find_bookmark_before_offset(Tbfwin *bfwin, guint offset, GtkTreeIter *parent) {
+	gint jumpsize, num_children, child;
+	GtkTreeIter iter;
+	
+	num_children = gtk_tree_model_iter_n_children(GTK_TREE_MODEL(bfwin->bookmarkstore), parent);
+	if (num_children == 0) {
+		return NULL;
+	}
+	
+	if (num_children == 1) {
+		gint compare;
+		Tbmark *b;
+		gtk_tree_model_iter_nth_child(GTK_TREE_MODEL(bfwin->bookmarkstore), &iter, parent, 0);
+		gtk_tree_model_get(GTK_TREE_MODEL(bfwin->bookmarkstore),&iter,PTR_COLUMN,&b, -1);
+		
+		bmark_update_offset_from_textmark(b);
+		DEBUG_MSG("bmark_find_bookmark_before_offset, num_children=%d\n",num_children);
+		compare = (offset - b->offset);
 
+		if (compare <= 0) {
+			return b;
+		} else {
+			return NULL;
+		}
+	}
+	jumpsize = (num_children+2)/2;
+	child = num_children + 1 - jumpsize;
+	DEBUG_MSG("bmark_find_bookmark_before_offset, num_children=%d,jumpsize=%d,child=%d\n",num_children,jumpsize,child);
+	while (jumpsize > 0) {
+		gint compare;
+		Tbmark *b;
+		
+		if (child > num_children) child = num_children;
+		if (child < 1) child = 1;
+		DEBUG_MSG("bmark_find_bookmark_before_offset, in_loop jumpsize=%d,child=%d\n",jumpsize,child);
+		gtk_tree_model_iter_nth_child(GTK_TREE_MODEL(bfwin->bookmarkstore), &iter, parent, child-1);
+		gtk_tree_model_get(GTK_TREE_MODEL(bfwin->bookmarkstore),&iter,PTR_COLUMN,&b, -1);
+		
+		bmark_update_offset_from_textmark(b);
+		compare = (offset - b->offset);
+		
+		if (compare == 0) {
+			return b;
+		} else if (compare < 0) {
+			jumpsize = (jumpsize > 3) ? (jumpsize+1)/2 : jumpsize-1;
+			if (jumpsize <= 0) {
+				return b;
+			}
+			child = child - jumpsize;
+		} else {
+			jumpsize = (jumpsize > 3) ? (jumpsize+1)/2 : jumpsize-1;
+			if (jumpsize <= 0) {
+				return b;
+			}
+			child = child + jumpsize;
+		}
+	}
+	DEBUG_MSG("bmark_find_bookmark_before_offset, end-of-function, return NULL\n");
+	return NULL;
 }
 
 /* this function re-uses the b->strarr if possible, otherwise it will create a new one and
@@ -680,7 +741,16 @@ static void bmark_get_iter_at_tree_position(Tbfwin * bfwin, Tbmark * m) {
 	project loading this function takes a lot of time and it is mainly due to the sorting! */
 	DEBUG_MSG("bmark_get_iter_at_tree_position, sorting=%d, parent has %d children\n", main_v->props.bookmarks_sort, gtk_tree_model_iter_n_children(GTK_TREE_MODEL(bfwin->bookmarkstore),parent));
 	if (main_v->props.bookmarks_sort) {
-		gboolean cont;
+		Tbmark *bef = bmark_find_bookmark_before_offset(bfwin, m->offset, parent);
+		if (bef == NULL) {
+			gtk_tree_store_append(bfwin->bookmarkstore, &m->iter, parent);
+			return;
+		} else {
+			gtk_tree_store_insert_before(GTK_TREE_STORE(bfwin->bookmarkstore),&m->iter,parent,&bef->iter);
+			return;
+		}
+		
+/*		gboolean cont;
 		GtkTreeIter tmpiter;
 		cont = gtk_tree_model_iter_children(GTK_TREE_MODEL(bfwin->bookmarkstore), &tmpiter, parent);
 		while (cont) {
@@ -694,7 +764,7 @@ static void bmark_get_iter_at_tree_position(Tbfwin * bfwin, Tbmark * m) {
 				}
 			}
 			cont = gtk_tree_model_iter_next(GTK_TREE_MODEL(bfwin->bookmarkstore), &tmpiter);
-		}
+		}*/
 	}
 	gtk_tree_store_append(bfwin->bookmarkstore, &m->iter, parent);
 }
@@ -1046,36 +1116,70 @@ a lot of time, perhaps that can be improved
 static Tbmark *bmark_get_bmark_at_line(Tdocument *doc, gint offset) {
 	GtkTextIter sit, eit;
 	GtkTreeIter tmpiter;
+	gint linenum;
 	gtk_text_buffer_get_iter_at_offset(doc->buffer,&sit,offset);
+	linenum = gtk_text_iter_get_line(&sit);
 	eit = sit;
 	gtk_text_iter_set_line_offset(&sit, 0);
 	gtk_text_iter_forward_to_line_end(&eit);
 #ifdef DEBUG
 	{
 		gchar *tmp = gtk_text_buffer_get_text(doc->buffer, &sit,&eit,FALSE);
-		DEBUG_MSG("bmark_get_bmark_at_line, searching bookmarks between offsets %d - %d --> '%s'\n",gtk_text_iter_get_offset(&sit),gtk_text_iter_get_offset(&eit),tmp);
+		DEBUG_MSG("bmark_get_bmark_at_line, searching bookmarks at line %d between offsets %d - %d --> '%s'\n",linenum,gtk_text_iter_get_offset(&sit),gtk_text_iter_get_offset(&eit),tmp);
 		g_free(tmp);
 	}
 #endif
 	/* check for existing bookmark in this place */
 	if (DOCUMENT(doc)->bmark_parent) {
-		gboolean cont;
-		DEBUG_MSG("bmark_get_bmark_at_line, doc has %d bookmarks\n",gtk_tree_model_iter_n_children(GTK_TREE_MODEL(BFWIN(doc->bfwin)->bookmarkstore),doc->bmark_parent));
-		cont = gtk_tree_model_iter_children(GTK_TREE_MODEL(BFWIN(doc->bfwin)->bookmarkstore), &tmpiter,
-										 doc->bmark_parent);
-		while (cont) {
-			Tbmark *m = NULL;
-			gtk_tree_model_get(GTK_TREE_MODEL(BFWIN(doc->bfwin)->bookmarkstore), &tmpiter, PTR_COLUMN, &m, -1);
-			if (m && m->mark) {
-				GtkTextIter testit;
+		if (main_v->props.bookmarks_sort) {
+			GtkTextIter testit;
+			Tbmark *m, *m2;
+			m = bmark_find_bookmark_before_offset(BFWIN(doc->bfwin), offset, doc->bmark_parent);
+			if (m == NULL) {
+				DEBUG_MSG("bmark_get_bmark_at_line, m=NULL, get first child\n");
+				if (gtk_tree_model_iter_children(GTK_TREE_MODEL(BFWIN(doc->bfwin)->bookmarkstore), &tmpiter,doc->bmark_parent)) {
+					gtk_tree_model_get(GTK_TREE_MODEL(BFWIN(doc->bfwin)->bookmarkstore), &tmpiter, PTR_COLUMN, &m2, -1);
+					gtk_text_buffer_get_iter_at_mark(doc->buffer, &testit,m2->mark);
+					if (gtk_text_iter_get_line(&testit) == linenum) {
+						return m2;
+					}
+				}
+			} else {
 				gtk_text_buffer_get_iter_at_mark(doc->buffer, &testit,m->mark);
-				if (gtk_text_iter_in_range(&testit,&sit,&eit)) {
-					DEBUG_MSG("bmark_get_bmark_at_line, there exists a bookmark already, returning TRUE\n");
+				DEBUG_MSG("bmark_get_bmark_at_line, m=%p, has linenum=%d\n",m,gtk_text_iter_get_line(&testit));
+				if (gtk_text_iter_get_line(&testit) == linenum) {
 					return m;
 				}
+				tmpiter = m->iter;
+				if (gtk_tree_model_iter_next(GTK_TREE_MODEL(BFWIN(doc->bfwin)->bookmarkstore),&tmpiter)) {
+					gtk_tree_model_get(GTK_TREE_MODEL(BFWIN(doc->bfwin)->bookmarkstore), &tmpiter, PTR_COLUMN, &m2, -1);
+					gtk_text_buffer_get_iter_at_mark(doc->buffer, &testit,m2->mark);
+					if (gtk_text_iter_get_line(&testit) == linenum) {
+							return m2;
+					}
+				}
 			}
-			cont = gtk_tree_model_iter_next(GTK_TREE_MODEL(BFWIN(doc->bfwin)->bookmarkstore), &tmpiter);
-		}							/* cont */
+			DEBUG_MSG("bmark_get_bmark_at_line, nothing found at this line, return NULL\n");
+			return NULL;
+		} else {
+			gboolean cont;
+			DEBUG_MSG("bmark_get_bmark_at_line, doc has %d bookmarks\n",gtk_tree_model_iter_n_children(GTK_TREE_MODEL(BFWIN(doc->bfwin)->bookmarkstore),doc->bmark_parent));
+			cont = gtk_tree_model_iter_children(GTK_TREE_MODEL(BFWIN(doc->bfwin)->bookmarkstore), &tmpiter,
+											 doc->bmark_parent);
+			while (cont) {
+				Tbmark *m = NULL;
+				gtk_tree_model_get(GTK_TREE_MODEL(BFWIN(doc->bfwin)->bookmarkstore), &tmpiter, PTR_COLUMN, &m, -1);
+				if (m && m->mark) {
+					GtkTextIter testit;
+					gtk_text_buffer_get_iter_at_mark(doc->buffer, &testit,m->mark);
+					if (gtk_text_iter_in_range(&testit,&sit,&eit)) {
+						DEBUG_MSG("bmark_get_bmark_at_line, there exists a bookmark already, returning TRUE\n");
+						return m;
+					}
+				}
+				cont = gtk_tree_model_iter_next(GTK_TREE_MODEL(BFWIN(doc->bfwin)->bookmarkstore), &tmpiter);
+			}							/* cont */
+		}
 	}
 	DEBUG_MSG("bmark_get_bmark_at_line, no existing bookmark found, return NULL\n");
 	return NULL;
