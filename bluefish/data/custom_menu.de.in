@@ -105,8 +105,8 @@ cmenu_insert: /DocBook/Headers/History/Revision:<revision>\n\t<revnumber>%0</rev
 cmenu_insert: /DocBook/Headers/Entity/System Entity:<!ENTITY %0 SYSTEM "%0">::1:Entity Name:
 cmenu_insert: /DocBook/Headers/Entity/Simple Entity:<!ENTITY %0 "%0">::1:Entity Name:
 cmenu_insert: /DocBook/Headers/Entity/Complex Entity:<!ENTITY %0 "%1">::2:Entity Name:Entity Definition:
-cmenu_insert: /DocBook/Headers/DocTypes/Book:<!DOCTYPE BOOK PUBLIC "-//OASIS//DTD DocBook V%0//EN" [\n:]>:1:Version:
-cmenu_insert: /DocBook/Headers/DocTypes/Article:<!DOCTYPE ARTICLE PUBLIC "-//OASIS//DTD DocBook V%0//EN" [\n:]>:1:Version:
+cmenu_insert: /DocBook/Headers/DocTypes/Book:<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook V%0//EN" [\n:]>:1:Version:
+cmenu_insert: /DocBook/Headers/DocTypes/Article:<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook V%0//EN" [\n:]>:1:Version:
 cmenu_insert: /DocBook/Headers/Copyright:<copyright>\n\t<year>%0</year>\n\t<holder>%1</holder>\n</copyright>::2:Year:Holder:
 cmenu_insert: /DocBook/Headers/Authors/Author Group:<authorgroup>\n:\n</authorgroup>:0:
 cmenu_insert: /DocBook/Headers/Authors/Author:<author>\n\t<firstname>%0</firstname>\n\t<surname>%1</surname>\n</author>::2:First Name:Surname:
