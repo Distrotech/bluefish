@@ -89,7 +89,10 @@ void DEBUG_DUMP_TREE_PATH(GtkTreePath *path) {
 		DEBUG_MSG("path=NULL\n");
 	}
 }
-#endif
+#else
+#define DEBUG_DUMP_TREE_PATH(path)
+ /**/
+#endif /* DEBUG */
 
 
 /* MODIFIES THE ITER POINTER TO BY PARENT !!!!!!!! */

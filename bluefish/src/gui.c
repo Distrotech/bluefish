@@ -495,19 +495,24 @@ if (main_v->notebook_switch_signal != 0) {
 	}
 }
 
+static gboolean gui_main_window_configure_event_lcb(GtkWidget *widget,GdkEventConfigure *event,gpointer user_data) {
+	if (event->type == GDK_CONFIGURE) {
+		if (main_v->props.main_window_w != event->width) main_v->props.main_window_w = event->width;
+		if (main_v->props.main_window_h != event->height) main_v->props.main_window_h = event->height;
+	}
+	return FALSE;
+}
+
 void gui_create_main(GList *filenames) {
 	GtkWidget *vbox;
 	main_v->main_window = window_full(CURRENT_VERSION_NAME, GTK_WIN_POS_CENTER, 0, G_CALLBACK(main_window_delete_lcb), NULL);
-	gtk_window_set_wmclass(GTK_WINDOW(main_v->main_window), "Bluefish", "bluefish");
+	gtk_window_set_role(GTK_WINDOW(main_v->main_window), "bluefish");
 	gtk_window_set_default_size(GTK_WINDOW(main_v->main_window), main_v->props.main_window_w, main_v->props.main_window_h);
+	g_signal_connect(G_OBJECT(main_v->main_window), "configure-event", G_CALLBACK(gui_main_window_configure_event_lcb), NULL);
 
 	vbox = gtk_vbox_new(FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(main_v->main_window), vbox);
 	gtk_widget_show(vbox);
-
-	gtk_window_set_policy(GTK_WINDOW(main_v->main_window), FALSE, FALSE, FALSE);
-	gtk_widget_set_usize(GTK_WIDGET(main_v->main_window), 600, 600);
-	gtk_window_set_policy(GTK_WINDOW(main_v->main_window), TRUE, TRUE, FALSE);
 
 	/* first a menubar */
 	menu_create_main(vbox);
@@ -750,7 +755,7 @@ GtkWidget *start_splash_screen() {
 
 	splashscreen.window = window_with_title(CURRENT_VERSION_NAME, GTK_WIN_POS_CENTER_ALWAYS, 0);
 	gtk_window_set_decorated(GTK_WINDOW(splashscreen.window), FALSE);
-	gtk_window_set_wmclass(GTK_WINDOW(splashscreen.window), "Bluefish", "splash");
+	gtk_window_set_role(GTK_WINDOW(splashscreen.window), "splash");
 	gtk_window_set_resizable(GTK_WINDOW(splashscreen.window),FALSE);
 	gtk_widget_set_usize(splashscreen.window, 340, 400);
 	color.red = 65535;

@@ -8,5 +8,6 @@ void doc_highlight_line(Tdocument *doc);
 void doc_remove_highlighting(Tdocument *doc);
 void hl_reset_to_default();
 
+GtkTextTagTable *highlight_return_tagtable();
 
 

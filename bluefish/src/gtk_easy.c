@@ -500,7 +500,7 @@ void error_dialog(gchar * window_title, gchar * error_string)
 	gtk_window_set_title(GTK_WINDOW(dialog), window_title);
 	gtk_window_position(GTK_WINDOW(dialog), GTK_WIN_POS_MOUSE);
 	gtk_container_border_width(GTK_CONTAINER(dialog), 10);
-	gtk_window_set_wmclass(GTK_WINDOW(dialog), "Bluefish", "error_dialog");
+	gtk_window_set_role(GTK_WINDOW(dialog), "error_dialog");
 	okbutton = bf_stock_ok_button(G_CALLBACK(window_close_by_data_cb), dialog);
 	gtk_box_pack_start(GTK_BOX(GTK_DIALOG(dialog)->action_area), okbutton, TRUE, TRUE, 0);
 	GTK_WIDGET_SET_FLAGS(okbutton, GTK_CAN_DEFAULT);
@@ -771,7 +771,7 @@ static void fileselectwin(gchar *setfile, Tfileselect *fileselect, gchar *title)
 	if (setfile) {
 		gtk_file_selection_set_filename(GTK_FILE_SELECTION(fileselect->fs), setfile);
 	}
-	gtk_window_set_wmclass(GTK_WINDOW(fileselect->fs), "Bluefish", "fileselect");
+	gtk_window_set_role(GTK_WINDOW(fileselect->fs), "fileselect");
 
 	gtk_widget_show(fileselect->fs);
 	gtk_grab_add(GTK_WIDGET(fileselect->fs));

@@ -21,7 +21,6 @@
 #ifndef __BLUEFISH_H_
 #define __BLUEFISH_H_
 
-#define DEBUG
 #define BLUEFISH_SPLASH_FILENAME "/home/olivier/bluefish/cvs/bluefish-gtk2/images/bluefish_splash.png"
 
 #define WITH_MSG_QUEUE
@@ -92,7 +91,7 @@ typedef struct {
 	GdkPixbuf *icon;
 	gchar *update_chars;
 	GList *highlightlist;
-	GtkWidget *menuitem;
+	GtkWidget *menuitem; /* the menuitem to choose this for highlighting */
 	gulong menuitem_activate_id;
 } Tfiletype;
 
@@ -224,7 +223,7 @@ typedef struct {
 	Tdocument *current_document; /* one object out of the documentlist, the current visible document */
 	Tproperties props;
 	GList *documentlist; /* document.c and others: all Tdocument objects */
-	GList *filetypelist; /* highlighting.c: a list of all filetypes with their highlighting sets */
+	GList *filetypelist; /* highlighting.c: a list of all filetypes with their icons and highlighting sets */
 	GtkWidget *main_window;
 	GtkWidget *menubar;
 	gint last_notebook_page; /* a check to see if the notebook changed to a new page */
@@ -232,7 +231,6 @@ typedef struct {
 	GtkWidget *notebook;
 	GtkWidget *middlebox; /* we need this to show/hide the filebrowser */
 	GtkWidget *hpane; /* we need this to show/hide the filebrowser */
-	GtkTextTagTable *tagtable; /* this one should ultimately move to Tfiletype, so every set would have it's own tagtable, but there is currently no way to switch a document to a new tagtable */
 	GtkWidget *statusbar;
 	GtkWidget *statuslabel; /* where we have the line number */
 	GList *recent_directories; /* a stringlist with the most recently used directories */
