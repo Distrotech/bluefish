@@ -24,7 +24,7 @@ GNOME2MIME=@GNOME2MIME@
 UPDATE_MIME_PATH=@UPDATE_MIME_PATH@
 UPDATE_DESKTOP_PATH=@UPDATE_DESKTOP_PATH@
 ICONPATH=@ICONPATH@
-
+INSTALLDATA=@INSTALLDATA@
 HAVE_GNOME_VFS=@HAVE_GNOME_VFS@
 
 INSTALL = @INSTALL@
@@ -46,29 +46,26 @@ else
 	sed -e 's!EXPECT_URIS!false!' -e 's!SUPPORTED_URI_SCHEMES!!' < bluefish.applications.in > bluefish.applications
 endif
 
-install: all
-ifdef GNOME1MENU
+install-gnome1-menu:
 	$(INSTALL_DATA) bluefish.desktop $(DESTDIR)$(GNOME1MENU)
-endif
-ifdef GNOME2MENU
+
+install-gnome2-menu:
 	$(INSTALL_DATA) bluefish.desktop $(DESTDIR)$(GNOME2MENU)
-ifdef UPDATE_DESKTOP
-	$(UPDATE_DESKTOP)
-endif
-endif
-ifdef GNOME2MIMEINFO
+
+install-icon:
+	$(INSTALL_DATA) gnome-application-bluefish.png $(DESTDIR)$(ICONPATH)/gnome-application-bluefish-project.png
+
+install-gnome2.8: install-gnome2-menu install-icon
+	$(INSTALL_DATA) bluefish.xml $(DESTDIR)$(GNOME2MIME)/packages/
+	$(UPDATE_MIME_PATH) $(GNOME2MIME)
+	$(UPDATE_DESKTOP_PATH)
+
+install-gnome2.6: install-gnome2-menu install-icon
 	$(INSTALL_DATA) bluefish.mime $(DESTDIR)$(GNOME2MIMEINFO)
 	$(INSTALL_DATA) bluefish.keys $(DESTDIR)$(GNOME2MIMEINFO)
-endif
-ifdef GNOME2APPLICATIONREGISTRY
 	$(INSTALL_DATA) bluefish.applications $(DESTDIR)$(GNOME2APPLICATIONREGISTRY)
-endif
-ifdef GNOME2MIME
-	$(INSTALL_DATA) bluefish.xml $(DESTDIR)$(GNOME2MIME)
-ifdef UPDATE_MIME
-	$(UPDATE_MIME) $(GNOME2MIME)
-endif
-endif
+
+install: all $(INSTALLDATA)
 	$(INSTALL_DIR) $(DESTDIR)$(pkgdatadir)
 	for file in $(DEFAULTFILES) ; do \
 		$(INSTALL_DATA) $$file $(DESTDIR)$(pkgdatadir)/$$file ;\
@@ -76,13 +73,20 @@ endif
 	for file in $(FUNCREFFILES) ; do \
 		$(INSTALL_DATA) $$file $(DESTDIR)$(pkgdatadir)/$$file ;\
 	done
-ifdef ICONPATH
-	$(INSTALL_DATA) gnome-application-bluefish.png $(DESTDIR)$(ICONPATH)/gnome-application-bluefish-project.png
-endif
 
 uninstall:
+	rm -rf $(DESTDIR)$(GNOME2MIME)/bluefish.xml
+	rm -rf $(GNOME2MIMEINFO)/bluefish.mime
+	rm -rf $(GNOME2MIMEINFO)/bluefish.keys
+	rm -rf $(GNOME2APPLICATIONREGISTRY)/bluefish.applications
+	rm -rf $(GNOME1MENU)/bluefish.desktop
+	rm -rf $(GNOME2MENU)/bluefish.desktop
+	rm -rf $(ICONPATH)/gnome-application-bluefish-project.png
 	@for file in $(DEFAULTFILES) ; do \
-		rm -f $(DESTDIR)$(pkgdatadir)/$$file ;\
+		rm -f $(pkgdatadir)/$$file ;\
+	done
+	for file in $(FUNCREFFILES) ; do \
+		rm -rf $(pkgdatadir)/$$file ;\
 	done
 
 clean:
@@ -91,4 +95,4 @@ clean:
 	rm -f bluefish.applications
 
 distclean: clean
-	rm -f Makefile *.rej *.orig
+	rm -f Makefile *.rej *.orig *~
