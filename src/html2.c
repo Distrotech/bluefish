@@ -196,6 +196,8 @@ static gchar *cs3_visibilities[] = {"visible", "hidden", "collapse", NULL};
 static gchar *cs3_none[] = {"none", NULL};
 static gchar *cs3_caption_sides[] = {"top", "bottom", "left", "right", NULL};
 static gchar *cs3_table_layouts[] = {"auto", "fixed", NULL};
+static gchar *cs3_border_collapses[] = {"collapse", "separate", NULL};
+static gchar *cs3_empty_cells[] = {"show", "hide", NULL};
 
 static Tcs3_arr cs3_arr[] = {
 {"font-family", cs3_fonts, 0, but_none},
@@ -280,6 +282,9 @@ static Tcs3_arr cs3_arr[] = {
 {"visibility", cs3_visibilities, 0, but_none},
 {"caption-side", cs3_caption_sides, 1, but_none},
 {"table-layout", cs3_table_layouts, 1, but_none},
+{"border-collapse", cs3_border_collapses, 1, but_none},
+{"border-spacing", NULL, 0, but_none},
+{"empty-cells", cs3_empty_cells, 1, but_none},
 {NULL, NULL, 0, but_none}
 };
 
@@ -522,9 +527,6 @@ static void cs3d_prop_activate_lcb(GtkWidget * widget, Tcs3_diag *diag) {
 			if (tmpstr2) {
 				gtk_entry_set_text(GTK_ENTRY(GTK_COMBO(diag->value)->entry), tmpstr2);
 				g_free(tmpstr2);
-				gtk_entry_set_editable(GTK_ENTRY(GTK_COMBO(diag->value)->entry), TRUE);
-			} else {
-				gtk_entry_set_editable(GTK_ENTRY(GTK_COMBO(diag->value)->entry), FALSE);
 			}
 			switch(tmp->buttype) {
 			case but_color:
@@ -537,6 +539,7 @@ static void cs3d_prop_activate_lcb(GtkWidget * widget, Tcs3_diag *diag) {
 		} else {
 				gtk_widget_set_sensitive(diag->extra_but, FALSE);
 		}
+		gtk_entry_set_editable(GTK_ENTRY(GTK_COMBO(diag->value)->entry), !tmp->force_pos);
 	} else {
 		gtk_widget_set_sensitive(diag->extra_but, FALSE);
 	}
