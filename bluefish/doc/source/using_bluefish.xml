@@ -640,6 +640,190 @@ are supported.
 </sect3>
 </sect2>
 
+<sect2 id="basic-find-replace">
+<title>Basic Find and Replace</title>
+<para>Bluefish offers a wide range of find and replace methods in the <guimenu>Edit</guimenu> menu. Here we will explore the most basic ones. For advanced find and replace methods, see <xref linkend="find-replace" />.
+</para>
+<sect3 id="basic-find">
+<title>Searching for a word within a whole document</title>
+<para>Let's start with the most basic example: searching a word in a document, from the beginning of the document till the end of the document.</para>
+<para>Choose the <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>F</keycap></keycombo></shortcut><guimenu>Edit</guimenu><guimenuitem>Find...</guimenuitem></menuchoice> menu item. A <guilabel>Find</guilabel> dialog will show up. Enter the word to search for in the <guilabel>Search for:</guilabel> field. Then click <guibutton>OK</guibutton>.</para>
+<para>
+	<figure id="figure-find-word-whole">
+	<title id="figure-find-word-whole-title">Finding a word in a document, from start to end</title>
+		<screenshot>
+			<mediaobject>
+				<imageobject>
+				<imagedata fileref="figures/find_word_whole.png" format="PNG"/>
+				</imageobject>
+				<textobject>
+					<phrase>A screen shot showing how to search a string within a document, from start to end.</phrase>
+				</textobject>
+			</mediaobject>
+		</screenshot>
+	</figure>
+</para>
+<para>If the word does not exist in the document, a small window pops up.</para>
+<para>
+	<figure id="figure-search-not-found">
+	<title id="figure-search-not-found-title">Unsuccessful search window</title>
+		<screenshot>
+			<mediaobject>
+				<imageobject>
+				<imagedata fileref="figures/search_not_found.png" format="PNG"/>
+				</imageobject>
+				<textobject>
+					<phrase>A screen shot showing the unsuccessful search window.</phrase>
+				</textobject>
+			</mediaobject>
+		</screenshot>
+	</figure>
+</para>
+<para>If the search is successful, the document window scrolls up to the first occurrence of the string in the document and highlights it. Here's the search was applied to a shell script.</para>
+<para>
+	<figure id="figure-search-found">
+	<title id="figure-search-found-title">Highlighted search result in the document window</title>
+		<screenshot>
+			<mediaobject>
+				<imageobject>
+				<imagedata fileref="figures/search_found.png" format="PNG"/>
+				</imageobject>
+				<textobject>
+					<phrase>A screen shot showing the search result highlighted in the document window.</phrase>
+				</textobject>
+			</mediaobject>
+		</screenshot>
+	</figure>
+</para>
+<para>To retrieve next occurrences of the string, if any, you will use the <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>G</keycap></keycombo></shortcut><guimenu>Edit</guimenu><guimenuitem>Find again</guimenuitem></menuchoice> menu item repeatedly. Again, when none occurrence is found any more, you will be warned with the above mentioned search not found dialog.</para>
+</sect3>
+<sect3 id="basic-find-selection">
+<title>Setting limits to the search scope</title>
+<para>You may want to search for a string from the cursor location till the end of the document. Here's an example to search all 'name == ' occurrences within a python script from a given location.</para>
+<procedure><title>Searching from selection</title>
+	<step>
+	<para>Put the cursor where you want to start the search from in the document window</para>
+ <para>
+	<figure id="figure-find-limited-cursor">
+	<title id="figure-find-limited-cursor-title">Setting the cursor location</title>
+		<screenshot>
+			<mediaobject>
+				<imageobject>
+				<imagedata fileref="figures/find_limited_cursor.png" format="PNG"/>
+				</imageobject>
+				<textobject>
+					<phrase>A screen shot showing how to set the cursor location for a limited search.</phrase>
+				</textobject>
+			</mediaobject>
+		</screenshot>
+	</figure>
+</para>
+</step>
+	<step>
+	<para>Open the <guilabel>Find...</guilabel> dialog</para>
+</step>
+	<step>
+	<para>Enter your search string in the <guilabel>Search for:</guilabel> field</para>
+</step>
+	<step>
+	<para>Choose <guilabel>Current position till end</guilabel> from the <guilabel>Starts at:</guilabel> pop up menu</para>
+ <para>
+	<figure id="figure-find-limited-dialog">
+	<title id="figure-find-limited-dialog-title">Choosing a limited search method</title>
+		<screenshot>
+			<mediaobject>
+				<imageobject>
+				<imagedata fileref="figures/find_limited_dialog.png" format="PNG"/>
+				</imageobject>
+				<textobject>
+					<phrase>A screen shot showing how to search from the cursor's location.</phrase>
+				</textobject>
+			</mediaobject>
+		</screenshot>
+	</figure>
+</para>
+</step>
+	<step>
+	<para>Click OK.</para>
+</step>
+</procedure>
+<para>Here's the result.</para>
+ <para>
+	<figure id="figure-find-limited-result">
+	<title id="figure-find-limited-result-title">Limited search result</title>
+		<screenshot>
+			<mediaobject>
+				<imageobject>
+				<imagedata fileref="figures/find_limited_result.png" format="PNG"/>
+				</imageobject>
+				<textobject>
+					<phrase>A screen shot showing the result of a limited search.</phrase>
+				</textobject>
+			</mediaobject>
+		</screenshot>
+	</figure>
+</para>
+<para>Notice that the search does not take into account the occurrence of the same string at line 50, since it is outside the search scope.</para>
+<para>You can also limit the search scope to a selection range. In that case, highlight the selection before the search, and choose <guilabel>Beginning of selection till end of selection</guilabel> from the <guilabel>Starts at:</guilabel> pop up menu in the <guilabel>Find</guilabel> dialog.</para>
+</sect3>
+<sect3 id="find-matching-case">
+<title>Case sensitive search</title>
+<para>By default, the search process is case insensitive. If you want to make it case sensitive, just check the <guilabel>Match case</guilabel> box in the <guilabel>Find dialog</guilabel>.</para>
+<para>
+	<figure id="figure-find-match-case">
+	<title id="figure-find-match-case-title">Making the search case sensitive</title>
+		<screenshot>
+			<mediaobject>
+				<imageobject>
+				<imagedata fileref="figures/find_match_case.png" format="PNG"/>
+				</imageobject>
+				<textobject>
+					<phrase>A screen shot showing how to make the search case sensitive</phrase>
+				</textobject>
+			</mediaobject>
+		</screenshot>
+	</figure>
+</para>
+<para>Here's the result applied to a ruby script.</para>
+<para>
+	<figure id="figure-find-match-result-case">
+	<title id="figure-find-match-case-result-title">Case sensitive search result</title>
+		<screenshot>
+			<mediaobject>
+				<imageobject>
+				<imagedata fileref="figures/find_match_case_result.png" format="PNG"/>
+				</imageobject>
+				<textobject>
+					<phrase>A screen shot showing a case sensitive search</phrase>
+				</textobject>
+			</mediaobject>
+		</screenshot>
+	</figure>
+</para>
+<para>Notice again that the result does not catch the XML string at line 45, since the search string was xml and case sensitive search was requested.</para>
+</sect3>
+<sect3 id="find-old-search">
+<title>Retrieving previous search strings</title>
+<para>Notice that the pop up menu at the right side of the <guilabel>Search for</guilabel> field in the <guilabel>Find</guilabel> dialog allows you to retrieve older search strings. They are listed by reverse order of searches, so that you access quickly the most recent ones.</para>
+<para>
+	<figure id="figure-find-recent">
+	<title id="figure-find-recent-title">Retrieving recent searches</title>
+		<screenshot>
+			<mediaobject>
+				<imageobject>
+				<imagedata fileref="figures/find_recent.png" format="PNG"/>
+				</imageobject>
+				<textobject>
+					<phrase>A screen shot showing the search for popup menu to retrieve recent search string</phrase>
+				</textobject>
+			</mediaobject>
+		</screenshot>
+	</figure>
+</para>
+</sect3>
+<para>For an explanation of the <guilabel>Bookmark results</guilabel> box of the <guilabel>Find</guilabel> dialog, see <link linkend="generate-bookmark">here</link>.
+</para></sect2>
+
 <sect2 id="file-types">
 <title>File types</title>
 <para>
@@ -685,14 +869,14 @@ If the type of a file is not properly detected, you can change the type using th
 	version, some of these protocols are not fully stable yet, which can crash Bluefish!
 	</para>
 	<figure id="figure-open-url">
-				<title id="figure-open-url-title">Opening an url from the web</title>
+				<title id="figure-open-url-title">Opening an URL from the web</title>
 				<screenshot>
 					<mediaobject>
 						<imageobject>
 							<imagedata fileref="figures/open_url.png" format="PNG"/>
 						</imageobject>
 						<textobject>
-							<phrase>Opening an url from the web</phrase>
+							<phrase>Opening an URL from the web</phrase>
 						</textobject>
 					</mediaobject>
 				</screenshot>
@@ -775,7 +959,7 @@ environment to make Gnome and GTK programs detect this encoding.
 	The open advanced functionality runs the find and grep utilities to get a list of filenames. If these 
 	utilities are not available on your system the functionality is not available.
 	</para>
-	<para>You may also combine both methods. Here we open recursively all Chinese xml files in a given tree, whose contents contain the word packaging.
+	<para>You may also combine both methods. Here we open recursively all Chinese XML files in a given tree, whose contents contain the word packaging.
 		<figure id="figure-open-advanced">
 				<title id="figure-open-advanced-title">Using the Open Advanced dialog</title>
 				<screenshot>
@@ -886,7 +1070,7 @@ environment to make Gnome and GTK programs detect this encoding.
 							<imagedata fileref="figures/goto_line.png" format="PNG"/>
 						</imageobject>
 						<textobject>
-							<phrase>A screenshot showing the Goto Line dialog</phrase>
+							<phrase>A screen shot showing the Goto Line dialog</phrase>
 						</textobject>
 					</mediaobject>
 				</screenshot>
@@ -1143,7 +1327,7 @@ The projects are a sort of <emphasis>saved state</emphasis> of Bluefish. Thus, t
 		</screenshot>
 </figure>
 </para>
-	<para>
+	<para id="generate-bookmark">
 	A way to add many bookmarks at the same time is using the <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>F</keycap></keycombo></shortcut><guimenu>Edit</guimenu><guimenuitem>Find</guimenuitem></menuchoice> dialog. Check the 
 	<guilabel>Bookmark result</guilabel> option, and all search results will be added to your bookmarks. 
 	For example this manual has sections, and each section is identified by a header 
@@ -1171,16 +1355,16 @@ The projects are a sort of <emphasis>saved state</emphasis> of Bluefish. Thus, t
 <sect2 id="find-replace">
 <title>Find and Replace</title>
 	<para>
-	The edit menu features several options for Find and Replace. The Find... (Ctrl+F)
-	and Replace... (Ctrl+H) menu items will simply start the dialogs described elsewhere in
-	this manual. The Find again (Ctrl+G) item will repeat the last used search. It will 
+	The <guimenu>Edit</guimenu> menu features several options for Find and Replace. The <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>F</keycap></keycombo></shortcut><guimenu>Edit</guimenu><guimenuitem>Find</guimenuitem></menuchoice> and <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>H</keycap></keycombo><guimenu>Edit</guimenu><guimenuitem>Replace...</guimenuitem></shortcut></menuchoice> menu items will simply start the dialogs described elsewhere in this manual.</para>
+	<para>
+	The <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>G</keycap></keycombo></shortcut><guimenu>Edit</guimenu><guimenuitem>Find again</guimenuitem></menuchoice> menu item will repeat the last used search. It will 
 	continue the search after the position where the previous search was stopped. If the 
 	end of file is reached, it will restart at the beginning or continue with the next file, 
 	depending on the search options used.
 	</para>
 	<para>SCREENSHOT BY ????</para>
 	<para>
-	The Find from selection item will search for the currently selected text. If you select
+	The <menuchoice><guimenu>Edit</guimenu><guimenuitem>Find from selection</guimenuitem></menuchoice> menu item will search for the currently selected text. If you select
 	for example the name of a function, in bluefish, or in any other program, and you choose
 	find from selection Bluefish will start a new search for this selected string.
 	</para>
@@ -1192,19 +1376,24 @@ The projects are a sort of <emphasis>saved state</emphasis> of Bluefish. Thus, t
   is &lt;td&gt;&lt;/td&gt; and we want &lt;th&gt;&lt;/th&gt;. </para> 
   <para>SCREENSHOT BY ????</para>
   <para>
-  we can do two normal replaces: one where we replace &lt;td&gt; with
+  We can do two normal replaces: one where we replace &lt;td&gt; with
   &lt;th&gt; and then another where we replace &lt;/td&gt; with &lt;/th&gt;
-  </para> <para>we can also do one replace using regular expressions: find
-  (&lt;|&lt;/)?td&gt; and replace with \0th&gt; For more information about
+  </para> 
+  <para>we can also do one replace using regular expressions: find
+  (&lt;|&lt;/)?td&gt; and replace with \0th&gt;</para>
+  <para> For more information about
   regular expressions you might want to read man 7 regex, or read any of the
   great Internet sites about regular expressions. The \0 in the replace string
   refers to the first subpattern match in the search pattern, the \1 to the
-  second etc.</para> <para> if you understand the above example, you will
-  realize that you can do much more. Suppose you also want to match a table
+  second etc.</para>
+  <para> if you understand the above example, you will
+  realize that you can do much more.</para>
+  <para>Suppose you also want to match a table
   data tag that does have some attributes like &lt;td class="myclass"&gt;, and
   you want to keep the option while converting to table header. The following
   pattern will do this: find (&lt;|&lt;/)td([^&gt;]*)&gt; and replace with
-  \0th\1&gt; </para> <para> if you have any search and replace patterns you
+  \0th\1&gt; </para> 
+<para> if you have any search and replace patterns you
   use often, you can also add them to the Custom Menu. Check the Custom Menu
   section of this manual for more information. </para>
   
@@ -1387,7 +1576,7 @@ height, and finally %b for the original file size (in bytes). The default string
 &lt;a href=&quot;%r&quot;&gt;&lt;img src=&quot;%t&quot; width=&quot;%x&quot; height=&quot;%y&quot; border=&quot;0&quot;&gt;&lt;/a&gt;
 </para>
 <para>
-Agter you have set up the scaling and the HTML code, you can select multiple images, and 
+After you have set up the scaling and the HTML code, you can select multiple images, and 
 Bluefish will create the thumbnails and insert the code.
 </para>
 </sect2>
