@@ -855,7 +855,7 @@ static gchar *get_selected_filename(Tfilebrowser *filebrowser, gboolean is_direc
  **/
 void filebrowser_open_dir(Tbfwin *bfwin,const gchar *dirarg) {
 	Tfilebrowser *filebrowser = FILEBROWSER(bfwin->filebrowser);
-	if (filebrowser->tree) {
+	if (filebrowser && filebrowser->tree) {
 		gchar *dir;
 		GtkTreePath *path;
 		
