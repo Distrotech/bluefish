@@ -310,18 +310,25 @@ static void compile_pattern(gchar *filetype, gchar *name, gint case_insens
 					&err,&erroffset,NULL);
 			if (err) {
 				g_print("error compiling pattern %s offset %d\n", err, erroffset);
+				g_free(pat);
+				return;
+			} else {
+				DEBUG_MSG("result: pat->reg1.pcre=%p\n", pat->reg1.pcre);
+				pat->reg1.pcre_e = pcre_study(pat->reg1.pcre,0,&err);
+				if (err) {
+					g_print("error studying pattern %s\n", err);
+					pcre_free(pat->reg1.pcre);
+					g_free(pat);
+					return;
+				} else {
+					if (pcre_fullinfo(pat->reg1.pcre,pat->reg1.pcre_e,PCRE_INFO_CAPTURECOUNT,&pat->ovector_size)!=0) {
+						g_print("error gettting info for pattern %s\n", pat1);
+					}
+					if (pat->ovector_size > MAX_OVECTOR) pat->ovector_size = MAX_OVECTOR;
+					if (pat->ovector_size < MIN_OVECTOR) pat->ovector_size = MIN_OVECTOR;
+					pat->ovector = g_malloc((pat->ovector_size+1)*3*sizeof(int));
+				}
 			}
-			DEBUG_MSG("result: pat->reg1.pcre=%p\n", pat->reg1.pcre);
-			pat->reg1.pcre_e = pcre_study(pat->reg1.pcre,0,&err);
-			if (err) {
-				g_print("error studying pattern %s\n", err);
-			}
-			if (pcre_fullinfo(pat->reg1.pcre,pat->reg1.pcre_e,PCRE_INFO_CAPTURECOUNT,&pat->ovector_size)!=0) {
-				g_print("error gettting info for pattern %s\n", pat1);
-			}
-			if (pat->ovector_size > MAX_OVECTOR) pat->ovector_size = MAX_OVECTOR;
-			if (pat->ovector_size < MIN_OVECTOR) pat->ovector_size = MIN_OVECTOR;
-			pat->ovector = g_malloc((pat->ovector_size+1)*3*sizeof(int));
 		}
 		if (mode == 1) {
 			const char *err=NULL;
