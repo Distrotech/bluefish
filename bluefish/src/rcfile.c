@@ -492,6 +492,9 @@ void rcfile_parse_highlighting(void) {
 	if (!parse_config_file(highlighting_configlist, filename)) {
 		/* init the highlighting in some way? */
 		hl_reset_to_default();
+		DEBUG_MSG("rcfile_parse_highlighting, about to save highlighting configlist\n");
+		save_config_file(highlighting_configlist, filename);
+		DEBUG_MSG("rcfile_parse_highlighting, done saving\n");
 	}
 	g_free(filename);
 }

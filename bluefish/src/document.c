@@ -847,7 +847,7 @@ void file_close_all_cb(GtkWidget * widget, gpointer data)
 		break;
 		}
 	}
-/*	notebook_changed();*/
+	notebook_changed(-1);
 	DEBUG_MSG("file_close_all_cb, finished\n");
 }
 

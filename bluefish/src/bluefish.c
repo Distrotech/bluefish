@@ -19,16 +19,68 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 #include <gtk/gtk.h>
+#include <unistd.h> /* getopt() */
 
 #include "bluefish.h"
-#include "document.h"
-#include "gui.h"
-#include "rcfile.h"
+#include "document.h" /*  */
+#include "gui.h" /* gui_create_main() */
+#include "rcfile.h" /* rcfile_parse_main() */
+#include "bf_lib.h" /* create_full_path() */
+
 
 /*********************************************/
 /* this var is global for all bluefish files */
 /*********************************************/
 Tmain *main_v;
+
+/********************************/
+/* functions used in bluefish.c */
+/********************************/
+
+static gint parse_commandline(int argc, char **argv
+		, gboolean *root_override
+		, GList **load_filenames) {
+	int c;
+	gchar *tmpname;
+
+	opterr = 0;
+	DEBUG_MSG("parse_commandline, started\n");
+	while ((c = getopt(argc, argv, "hsv?")) != -1) {
+		switch (c) {
+		case 's':
+			*root_override = 1;
+			break;
+		case 'v':
+			g_print(CURRENT_VERSION_NAME);
+			g_print("\n");
+			exit(1);
+			break;
+		case 'h':
+		case '?':
+			g_print(CURRENT_VERSION_NAME);
+			g_print("\nUsage: %s [options] [filename]\n", argv[0]);
+			g_print(_("\nCurrently accepted options are:\n"));
+			g_print(_("-s           skip root check\n"));
+			g_print(_("-v           current version\n"));
+			g_print(_("-h           this help screen\n"));
+			exit(1);
+			break;
+		default:
+			DEBUG_MSG("parse_commandline, abort ?!?\n");
+			abort();
+		}
+	}
+	DEBUG_MSG("parse_commandline, optind=%d, argc=%d\n", optind, argc);
+	while (optind < argc) {
+		tmpname = create_full_path(argv[optind], NULL);
+		DEBUG_MSG("parse_commandline, argv[%d]=%s, tmpname=%s\n", optind, argv[optind], tmpname);
+		*load_filenames = g_list_append(*load_filenames, tmpname);
+		optind++;
+	}
+	DEBUG_MSG("parse_commandline, finished\n");
+	return 0;
+}
+
 
 /*********************/
 /* the main function */
@@ -36,21 +88,20 @@ Tmain *main_v;
 
 int main(int argc, char *argv[])
 {
+	gboolean root_override;
+	GList *filenames = NULL;
+	
 	gtk_init(&argc, &argv);
 	
 	main_v = g_new0(Tmain, 1);
 	DEBUG_MSG("main, main_v is at %p\n", main_v);
 	
 	rcfile_parse_main();
+	
+	parse_commandline(argc, argv, &root_override, &filenames);
 	rcfile_parse_highlighting();
 	hl_init();
-	{
-		GList *filenames=NULL;
-		
-		/* get filesnames from commandline and from message queue */
-		
-		gui_create_main(filenames);
-	}
+	gui_create_main(filenames);
 
 	gtk_main();
 	return 0;
