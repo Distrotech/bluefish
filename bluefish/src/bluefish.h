@@ -130,6 +130,8 @@ typedef struct {
 	gint filebrowser_show_hidden_files;
 	gint filebrowser_show_others_files;
 	gint filebrowser_show_backup_files;
+	gchar *filebrowser_unknown_icon;
+	gchar *filebrowser_dir_icon;	
 	gint transient_htdialogs;  /* set html dialogs transient ro the main window */
 	gint main_window_h;			/* main window height */
 	gint main_window_w;			/* main window width */
