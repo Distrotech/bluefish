@@ -102,6 +102,17 @@ gboolean project_save(Tbfwin *bfwin, gboolean save_as) {
 	return retval;
 }
 
+void set_project_menu_widgets(Tbfwin *bfwin, gboolean win_has_project) {
+	GtkItemFactory * ifactory;
+	ifactory = gtk_item_factory_from_widget(bfwin->menubar);
+
+	gtk_widget_set_sensitive(gtk_item_factory_get_widget(ifactory, _("/TEMP/Project/Create new")), !win_has_project);
+	gtk_widget_set_sensitive(gtk_item_factory_get_widget(ifactory, _("/TEMP/Project/Save")), win_has_project);
+	gtk_widget_set_sensitive(gtk_item_factory_get_widget(ifactory, _("/TEMP/Project/Save as")), win_has_project);
+	gtk_widget_set_sensitive(gtk_item_factory_get_widget(ifactory, _("/TEMP/Project/Close & save")), win_has_project);
+	gtk_widget_set_sensitive(gtk_item_factory_get_widget(ifactory, _("/TEMP/Project/Edit")), win_has_project);
+}
+
 void project_open_from_file(Tbfwin *bfwin, gchar *fromfilename) {
 	Tbfwin *prwin;
 	Tproject *prj;
@@ -143,6 +154,7 @@ void project_open_from_file(Tbfwin *bfwin, gchar *fromfilename) {
 		prwin->project = prj;
 		gui_set_title(prwin, prwin->current_document);
 	}
+	set_project_menu_widgets(prwin, TRUE);
 }
 
 static void project_open(Tbfwin *bfwin) {
@@ -233,6 +245,7 @@ static void project_edit_ok_clicked_lcb(GtkWidget *widget, Tprojecteditor *pred)
 	}
 	g_free(oldbasedir);
 	gui_set_title(pred->bfwin, pred->bfwin->current_document);
+	set_project_menu_widgets(pred->bfwin, TRUE);
 	gtk_widget_destroy(pred->win);
 }
 
@@ -303,6 +316,9 @@ void project_menu_cb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget) {
 		project_save_and_close(bfwin);
 	break;
 	case 5:
+		project_edit(bfwin);
+	break;
+	case 6:
 		project_edit(bfwin);
 	break;
 	default:
