@@ -79,8 +79,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 				When referring to user input, like issuing commands to the 
 				command prompt, a monotype font is used:
 				<screen>$ foo -bar | bang -l</screen>
-				Note: Do not write the <literal>$</literal> character - it's 
-				simply identifying	the command prompt. For commands requiring 
+				Note: Do not write the <literal>$</literal> character - it 
+				simply identifies the command prompt. For commands requiring 
 				root access, the prompt is shown as a <literal>#</literal>.
 		</listitem>
     </itemizedlist>
@@ -101,7 +101,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
     <para>
 			Bluefish is not a WYSIWYG<footnote><para>What You See Is What You 
 			Get</para></footnote> text editor. This is deliberate, allowing the 
-			programmer to stay in full control. To alleviate the editing 
+			programmer to stay in full control. To facilitate the editing 
 			process, a large number of features are at your disposal. For 
 			inserting markup and code, there are tool bars, dialogs, and 
 			predefined/user-customized menus. Syntax highlighting, advanced 
@@ -121,7 +121,7 @@ merging the code this was for a while known as the Thtml editor.
 </para><para>
 After a while Neil Millar joined the project to add weblint integration and a color dialog. 
 Because the project became larger and more mature, a logo was wanted. After many discussions
-about boring logo's, Neil Millar came up with a cute blue fish. Because this logo was
+about boring logos, Neil Millar came up with a cute blue fish. Because this logo was
 appreciated by all, the name changed into the final name Bluefish.
 </para>
 <para>After this initial stage, many developers, translators, testers and users joined
@@ -192,6 +192,9 @@ the project. </para>
         <listitem>
 					Line numbers along the document
 				</listitem>
+		<listitem>
+					Bookmarks for lines across multiple documents, with bookmark browser
+				</listitem>
         <listitem>
 					A custom menu, specify your own tags or sets of code, and 
 					define your own dialogs
@@ -210,6 +213,9 @@ the project. </para>
         <listitem>
 					Configurable recent documents and recent directories 
 					functionality
+				</listitem>
+		<listitem>
+					Spell checking
 				</listitem>
         <listitem>
 					Translations in 
@@ -231,7 +237,7 @@ the project. </para>
       </itemizedlist>
       <para>
 				As Bluefish is a part of a larger desktop environment, 
-				we've focused on making the GUI consistent with the Gnome HIG
+				we have focused on making the GUI consistent with the Gnome HIG
 					<footnote><para>GNOME Human Interface Guidelines, accessible at
 							<ulink url="http://developer.gnome.org/projects/gup/hig/">
 								http://developer.gnome.org/projects/gup/hig/
@@ -258,9 +264,9 @@ the project. </para>
       <title>How Stable is Bluefish?</title>
       <para>
 				Quite stable! The Bluefish developers aim to produce code that 
-				neither crashes nor leaks memory. Of course, that's not always 
+				neither crashes nor leaks memory. Of course, that is not always 
 				easy to do. Leaks and crashes are often fixed in CVS as soon as 
-				they're discovered and hunted down. In addition to Bluefish's 
+				they are discovered and hunted down. In addition to Bluefish's 
 				large user base, the developers use Bluefish for their daily 
 				work. So, fixing bugs and preventing crashes is always a major 
 				priority. However, some nags still exist. One example being the 
@@ -291,7 +297,7 @@ the project. </para>
         <listitem><ulink url="http://bluefish.openoffice.nl/">
 						http://bluefish.openoffice.nl/
 					</ulink>
-					- The main website where you'll find news, updates and more 
+					- The main website where you will find news, updates and more 
 					information.
 				</listitem>
         <listitem><ulink url="http://bfwiki.tellefsen.net/">
@@ -299,7 +305,7 @@ the project. </para>
 						</ulink>
 					- The Bluefish WiKi is the notebook for the developers,
 					containing a lot of information. This includes, but is not 
-					limited to: updated project roadmaps, status of 
+					limited to: updated project road maps, status of 
 					translations, feature requests, and open bugs.
 				</listitem>
         <listitem>
@@ -319,7 +325,7 @@ the project. </para>
 					, our friendly translation maintainer.
 				</listitem>
         <listitem>
-					If you've got a general question, you can also drop an email
+					If you have a general question, drop an email
 					to
 						<email>
 							bluefish(at)bluefish.openoffice.nl
