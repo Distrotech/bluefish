@@ -1064,14 +1064,18 @@ static void fb2rpopup_delete(Tfilebrowser2 *fb2) {
 		uri = fb2_uri_from_file_selection(fb2);
 	}
 	if (uri) {
-		gchar *buttons[] = {GTK_STOCK_CANCEL, GTK_STOCK_DELETE, NULL};
-		gchar *label;
+		const gchar *buttons[] = {GTK_STOCK_CANCEL, GTK_STOCK_DELETE, NULL};
+		gchar *text;
 		gint retval;
 		gchar *filename;
 		filename = gnome_vfs_uri_to_string(uri,0);
-		label = g_strdup_printf(_("Are you sure you want to delete \"%s\" ?"), filename);
-		retval = multi_query_dialog(fb2->bfwin->main_window,label, _("If you delete this file, it will be permanently lost."), 0, 0, buttons);
-		g_free(label);
+		text = g_strdup_printf(_("Are you sure you want to delete \"%s\" ?"), filename);
+		retval = message_dialog_new_multi(fb2->bfwin->main_window,
+													 GTK_MESSAGE_QUESTION,
+													 buttons,
+													 text,
+													 _("If you delete this file, it will be permanently lost."));
+		g_free(text);
 		if (retval == 1) {
 			GnomeVFSResult res;
 			gchar *errmessage = NULL;

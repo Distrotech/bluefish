@@ -95,7 +95,8 @@ static struct {
 };
 
 static void
-quickstart_head_selection_changed(GtkTreeSelection *tselection, TQuickStart *qstart) {
+quickstart_head_selection_changed(GtkTreeSelection *tselection, TQuickStart *qstart)
+{
 	GtkTreeModel *tmodel;
 	GtkTreeIter iter;
 	guint page = -1;
@@ -129,7 +130,8 @@ quickstart_stylelinktype_changed(GtkComboBox *combobox, TQuickStart *qstart)
 }
 
 static void
-quickstart_load_metatags(GtkListStore *lstore) {
+quickstart_load_metatags(GtkListStore *lstore)
+{
 	GtkTreeIter iter;
 	unsigned int i = 0;
 
@@ -168,7 +170,8 @@ quickstart_load_metatags(GtkListStore *lstore) {
 }
 
 static void
-quickstart_meta_selection_changed(GtkTreeSelection *tselection, TQuickStart *qstart) {
+quickstart_meta_selection_changed(GtkTreeSelection *tselection, TQuickStart *qstart)
+{
 	GtkTreeModel *tmodel;
 	GtkTreeIter iter;
 	
@@ -181,7 +184,8 @@ quickstart_meta_selection_changed(GtkTreeSelection *tselection, TQuickStart *qst
 }
 
 static void
-quickstart_meta_add_clicked(GtkWidget *widget, TQuickStart *qstart) {
+quickstart_meta_add_clicked(GtkWidget *widget, TQuickStart *qstart)
+{
 	GtkTreeModel *tmodel;
 	GtkTreeIter iter;
 	GtkTreePath *tpath;
@@ -199,7 +203,8 @@ quickstart_meta_add_clicked(GtkWidget *widget, TQuickStart *qstart) {
 }
 
 static void
-quickstart_meta_remove_clicked(GtkWidget *widget, TQuickStart *qstart) {
+quickstart_meta_remove_clicked(GtkWidget *widget, TQuickStart *qstart)
+{
 	GtkTreeModel *tmodel;
 	GtkTreeIter iter;
 	GtkTreeSelection *tselection;
@@ -212,7 +217,8 @@ quickstart_meta_remove_clicked(GtkWidget *widget, TQuickStart *qstart) {
 }
 
 static void
-quickstart_meta_cell_edited(GtkCellRendererText *cell, const gchar *path_string, const gchar *new_text, TQuickStart *qstart) {
+quickstart_meta_cell_edited(GtkCellRendererText *cell, const gchar *path_string, const gchar *new_text, TQuickStart *qstart)
+{
 	GtkTreeModel *tmodel;
 	GtkTreeIter iter;
 	GtkTreePath *path;
@@ -228,7 +234,8 @@ quickstart_meta_cell_edited(GtkCellRendererText *cell, const gchar *path_string,
 }
 
 static void 
-quickstart_response_lcb(GtkDialog *dialog, gint response, TQuickStart *qstart) {
+quickstart_response_lcb(GtkDialog *dialog, gint response, TQuickStart *qstart)
+{
 	DEBUG_MSG("quickstart_response_lcb() started\n");
 	if (response == GTK_RESPONSE_ACCEPT) {
 		GtkTreeModel *model;
@@ -523,7 +530,8 @@ quickstart_script_page_create(TQuickStart *qstart)
 }
 
 void 
-quickstart_dialog_new(Tbfwin *bfwin) {
+quickstart_dialog_new(Tbfwin *bfwin)
+{
 	TQuickStart *qstart;
 	GtkWidget *dialog, *table, *frame, *page;
 	GtkListStore *headStore;

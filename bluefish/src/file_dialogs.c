@@ -599,12 +599,15 @@ void doc_close_single_backend(Tdocument *doc, gboolean delay_activate, gboolean 
 		return;
 	}
 	if (doc->modified) {
-		gchar *buttons[] = {_("Do_n't save"), GTK_STOCK_CANCEL, GTK_STOCK_SAVE, NULL};
+		const gchar *buttons[] = {_("Do_n't save"), GTK_STOCK_CANCEL, GTK_STOCK_SAVE, NULL};
 		gchar *text;
 		gint retval;
 		text = g_strdup_printf(_("Save changes to \"%s\" before closing?."),gtk_label_get_text (GTK_LABEL (doc->tab_label)));
-		retval = multi_query_dialog(BFWIN(doc->bfwin)->main_window, text, 
-						_("If you don't save your changes they will be lost."), 2, 1, buttons);
+		retval = message_dialog_new_multi(BFWIN(doc->bfwin)->main_window,
+													 GTK_MESSAGE_QUESTION,
+													 buttons,
+													 text,
+													 _("If you don't save your changes they will be lost."));
 		g_free(text);
 		switch (retval) {
 		case 0:
@@ -650,10 +653,13 @@ void doc_close_multiple_backend(Tbfwin *bfwin, gboolean close_window) {
 	}
 	/* first a warning loop */
 	if (test_docs_modified(bfwin->documentlist)) {
-		gchar *options[] = {_("_Save All"), _("Close _All"), _("Choose per _File"), _("_Cancel"), NULL};
-		retval = multi_query_dialog(bfwin->main_window,_("Multiple open files have been changed."), 
-									_("If you don't save your changes they will be lost."), 3, 3, options);
-		if (retval == 3) {
+		const gchar *buttons[] = {_("Choose per _File"), _("Close _All"), _("_Cancel"), _("_Save All"), NULL};
+		retval = message_dialog_new_multi(bfwin->main_window,
+													 GTK_MESSAGE_QUESTION,
+													 buttons,
+													 _("Multiple open files have been changed."),
+													 _("If you don't save your changes they will be lost."));
+		if (retval == 2) {
 			return;
 		}
 	}
@@ -666,16 +672,16 @@ void doc_close_multiple_backend(Tbfwin *bfwin, gboolean close_window) {
 	while (tmplist) {
 		tmpdoc = (Tdocument *) tmplist->data;
 		switch (retval) {
-		case 0: /* save all */
-			doc_save_backend(tmpdoc, FALSE, FALSE, TRUE, close_window);
+		case 0: /* choose per file */
+			doc_close_single_backend(tmpdoc, TRUE, close_window);
 		break;
 		case 1: /* close all */
 		   /* fake that this document was not modified */
 			tmpdoc->modified = FALSE;
   			doc_close_single_backend(tmpdoc, TRUE, close_window);
 		break;
-		case 2: /* choose per file */
-			doc_close_single_backend(tmpdoc, TRUE, close_window);
+		case 3: /* save all */
+			doc_save_backend(tmpdoc, FALSE, FALSE, TRUE, close_window);
 		break;
 		}
 		tmplist = g_list_next(tmplist);

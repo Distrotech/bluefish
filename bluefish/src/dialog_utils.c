@@ -27,7 +27,8 @@
 
 
 GtkWidget *
-dialog_label_with_alignment(const gchar *labeltext, GtkWidget *box) {
+dialog_label_with_alignment(const gchar *labeltext, GtkWidget *box)
+{
 	GtkWidget *label, *alignment, *vbox;
 
 	label = gtk_label_new (NULL);
@@ -45,7 +46,8 @@ dialog_label_with_alignment(const gchar *labeltext, GtkWidget *box) {
 }
 
 static GtkWidget *
-dialog_table_new(gint rows, gint cols, gint borderWidth) {
+dialog_table_new(gint rows, gint cols, gint borderWidth)
+{
 	GtkWidget *table = gtk_table_new (rows, cols, FALSE);
 	
 	gtk_table_set_row_spacings (GTK_TABLE (table), 12);
@@ -59,7 +61,8 @@ dialog_table_new(gint rows, gint cols, gint borderWidth) {
 }
 
 GtkWidget *
-dialog_table_in_vbox(gint rows, gint cols, gint borderWidth, GtkWidget *box, gboolean expand, gboolean fill, guint padding) {
+dialog_table_in_vbox(gint rows, gint cols, gint borderWidth, GtkWidget *box, gboolean expand, gboolean fill, guint padding)
+{
 	GtkWidget *table = dialog_table_new (rows, cols, borderWidth);
 		
 	gtk_box_pack_start (GTK_BOX (box), table, expand, fill, padding);
@@ -68,7 +71,8 @@ dialog_table_in_vbox(gint rows, gint cols, gint borderWidth, GtkWidget *box, gbo
 }
 
 GtkWidget *
-dialog_table_in_vbox_defaults(gint rows, gint cols, gint borderWidth, GtkWidget *box) {
+dialog_table_in_vbox_defaults(gint rows, gint cols, gint borderWidth, GtkWidget *box)
+{
 	GtkWidget *table = dialog_table_new (rows, cols, borderWidth);
 		
 	gtk_box_pack_start_defaults (GTK_BOX (box), table);
@@ -76,9 +80,9 @@ dialog_table_in_vbox_defaults(gint rows, gint cols, gint borderWidth, GtkWidget 
 	return table;
 }
 
-void
-message_dialog_new(GtkWidget *parent, GtkMessageType type, GtkButtonsType button, const gchar *primaryText, const gchar *secondaryText) {
-	GtkWidget *dialog;
+static gchar *
+message_dialog_set_text(const gchar *primaryText, const gchar *secondaryText)
+{
 	gchar *text;
 	
 	if (!secondaryText) {
@@ -87,13 +91,52 @@ message_dialog_new(GtkWidget *parent, GtkMessageType type, GtkButtonsType button
 		text = g_strconcat ("<span weight=\"bold\" size=\"larger\">", primaryText, "</span>\n\n", secondaryText, "\n", NULL);
 	}
 	
+	return text;
+}
+
+void
+message_dialog_new(GtkWidget *parent, GtkMessageType type, GtkButtonsType button, const gchar *primaryText, const gchar *secondaryText)
+{
+	GtkWidget *dialog;
+	gchar *text;
+	
+	text = message_dialog_set_text(primaryText, secondaryText);
+	
 	dialog = gtk_message_dialog_new_with_markup (GTK_WINDOW (parent),
 																GTK_DIALOG_DESTROY_WITH_PARENT,
 																type,
 																button,
 																text);	
-
 	g_free (text);
 	gtk_dialog_run (GTK_DIALOG (dialog));
 	gtk_widget_destroy (dialog);
+}
+
+gint
+message_dialog_new_multi(GtkWidget *parent, GtkMessageType type, const gchar *buttons[], const gchar *primaryText, const gchar *secondaryText)
+{
+	GtkWidget *dialog;
+	gchar *text;
+	gint response;
+	int i = 0;
+	
+	text = message_dialog_set_text(primaryText, secondaryText);
+	
+	dialog = gtk_message_dialog_new_with_markup (GTK_WINDOW (parent),
+																GTK_DIALOG_DESTROY_WITH_PARENT,
+																type,
+																GTK_BUTTONS_NONE,
+																text);
+	g_free (text);
+
+	for (i = 0; *buttons; i++) {
+		gtk_dialog_add_button (GTK_DIALOG (dialog), *buttons++, i);
+	}
+	/* the Gnome HIG specficies that the default response should always be the far right button) */
+	gtk_dialog_set_default_response (GTK_DIALOG (dialog), i-1);
+
+	response = gtk_dialog_run (GTK_DIALOG (dialog));
+	gtk_widget_destroy (dialog);
+	
+	return response;
 }

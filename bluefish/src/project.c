@@ -27,6 +27,7 @@
 #include "project.h"
 #include "stringlist.h"
 #include "gui.h"
+#include "dialog_utils.h"
 #include "document.h"
 #include "gtk_easy.h"
 #include "rcfile.h"
@@ -355,16 +356,19 @@ gboolean project_save_and_close(Tbfwin *bfwin, gboolean close_win) {
 	while (!bfwin->project->filename) {
 		gchar *text;
 		gint retval;
-		gchar *buttons[] = {_("Do_n't save"), GTK_STOCK_CANCEL, GTK_STOCK_SAVE, NULL};
+		const gchar *buttons[] = {_("Do_n't save"), GTK_STOCK_CANCEL, GTK_STOCK_SAVE, NULL};
 		if (dont_save) {
 			break;
 		}
 		DEBUG_MSG("project_save_and_close, project not named, getting action\n");
 		/* dialog */
 
-		text = g_strdup(_("Do you want to save the project?"));
-		retval = multi_query_dialog(bfwin->main_window, text, 
-			_("If you don't save your changes they will be lost."), 2, 1, buttons);
+		text = g_strdup(_("Save current project?"));
+		retval = message_dialog_new_multi(bfwin->main_window,
+													 GTK_MESSAGE_QUESTION,
+													 buttons,
+													 text,
+													 _("If you don't save your changes they will be lost."));
 		switch (retval) {
 		case 0:
 			/* don't save proj. save files, though */
