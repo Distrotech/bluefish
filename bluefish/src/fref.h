@@ -168,6 +168,16 @@ typedef struct
 #define FR_LOADER_STATE_VALLIST         12
 #define FR_LOADER_STATE_RETURN          13
 
+#define FR_INFO_TITLE			1
+#define FR_INFO_DESC			  2
+#define FR_INFO_ATTRS			3
+#define FR_INFO_NOTES			4
+
+#define FR_COL_1 			"#4B6983"
+#define FR_COL_2 			"#7590AE"
+#define FR_COL_3 			"#666666"
+#define FR_COL_4 			"#FFFFFF"
+
 
 /* CONFIG PARSER FUNCTIONS */
 
@@ -195,8 +205,8 @@ void fref_free_info(FRInfo *info);
 GtkWidget    *fref_init();
 void         fref_cleanup();
 
-gchar        *fref_prepare_info(FRInfo *entry);
-void         fref_show_info(gchar *txt, gboolean modal,GtkWidget *parent);
+gchar        *fref_prepare_info(FRInfo *entry, gint infotype);
+void         fref_show_info(FRInfo *entry, gboolean modal,GtkWidget *parent);
 GList        *fref_string_to_list(gchar *string,gchar *delimiter);
 gchar        *fref_prepare_text(FRInfo *entry,GtkWidget *dialog);
 GtkWidget    *fref_prepare_dialog(FRInfo *entry);
