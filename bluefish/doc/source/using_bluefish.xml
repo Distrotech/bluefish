@@ -594,8 +594,7 @@ selected text.
 Cut or copy and then paste can also be done by selecting some text and 
 dragging it to the destination. If the text is dragged to another 
 document (or another application), it is copied. If the text is 
-dragged within one document it is moved. Dragging highlighted text from one applications 
-to another may or may not work. However, most GNOME and GTK programs support this feature.
+dragged within one document it is moved. Dragging highlighted text from one application to another may or may not work. However, most GNOME and GTK programs support this feature.
 </para>
 </sect3>
 
@@ -1121,7 +1120,7 @@ environment to make GNOME and GTK programs detect this encoding.
 			<para><keycombo><keycap>Shift</keycap><keycap>Ctrl</keycap><keycap>Page-Down</keycap></keycombo> will change to the last document</para>
 		</listitem>
 	</itemizedlist>
-	<para>The <menuchoice><shortcut><keycap>Ctrl</keycap><keycap>L</keycap></shortcut><guimenu>Go</guimenu><guimenuitem>Goto Line</guimenuitem></menuchoice> offers an interesting feature.</para>
+	<para>The <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>L</keycap></keycombo></shortcut><guimenu>Go</guimenu><guimenuitem>Goto Line</guimenuitem></menuchoice> offers an interesting feature.</para>
 	<para>If there is some number in the document, you may select it, then click the <guilabel>From selection</guilabel> label in the Goto line dialog. Bluefish will fill in the <guilabel>Line number</guilabel> field with that number and go directly to it.
 	<figure id="figure-goto-line">
 				<title id="figure-goto-line-title">Using the Goto Line dialog</title>
@@ -1466,38 +1465,28 @@ The projects are a sort of <emphasis>saved state</emphasis> of Bluefish. Thus, t
 
 <sect2 id="indenting">
 <title>Indenting</title>
-	<para>
-	The shift-right and shift-left items in the menu, or the buttons in the tool bar, will indent or unindent the currently selected text. It will normally use
-	tabs for indenting, or spaces if you have 
-	'indent with spaces' selected in the preferences. The number of spaces used is the same 
-	as the 'tabsize' option in the preferences.
-	</para>
-	<para>SCREENSHOT BY ????</para>
+<para>The <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>+</keycap></keycombo></shortcut><guimenu>Edit</guimenu><guimenuitem>Shift Right</guimenuitem></menuchoice> and <guimenuitem>Shift Right</guimenuitem> and <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>,</keycap></keycombo></shortcut><guimenu>Edit</guimenu><guimenuitem>Shift Right</guimenuitem></menuchoice>
+<guimenuitem>Shift Left</guimenuitem> menu items, or the corresponding buttons in the tool bar, will indent or unindent the currently selected text. It will normally use tabs for indenting, or spaces if you have <guilabel>Use spaces to indent, not tabs</guilabel> selected in the Editor preferences panel. The number of spaces used is the same as the <guilabel>Tab width</guilabel> option in the same preferences panel.</para>
+<para>Here's an extract of Dante's work indented with the <guilabel>Shift Right</guilabel> button in the main tool bar:
+<figure id="figure-indenting_right">
+<title id="figure-indenting_right-title">Indenting part of a text</title>
+<screenshot><mediaobject>
+<imageobject>
+<imagedata fileref="figures/indenting_right.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>A screen shot of a text indented with the shift right button</phrase>
+</textobject>
+</mediaobject></screenshot>
+</figure>
+</para>
 </sect2>
 
 <sect2 id="auto-tag-closing">
 <title>Auto tag closing</title>
-	<para>
-	By default, Bluefish will automatically produce closing tags for HTML and XML 
-	documents. For example, if you type <literal>&lt;p&gt;</literal>
-	within an HTML document, bluefish will produce 
-	<literal>&lt;/p&gt;</literal>. So, as soon as you finish typing a 
-	non-empty HTML tag, meaning the tag is supposed to have a closing tag, Bluefish 
-	will help you out and close the tag automatically. For empty tags, like 
-	<literal>&lt;br&gt;</literal>, Bluefish correctly does nothing. 
-	This feature can be turned off by unchecking the menu option 
-	<emphasis>Document &gt; Auto Close HTML Tags</emphasis>.
-	</para>
-	<para>
-	Bluefish has two modes for tag closing, an XML mode and an HTML mode. In XML mode, 
-	Bluefish will add a closing tag to any tag that is not closed itself with /&gt;. In 
-	HTML mode, Bluefish excludes all known tags that do not need a closing tag, such 
-	as &lt;br&gt; and &lt;img&gt;.
-	</para>
-	<para>
-	Bluefish will choose the mode based on the file type of the document. In the filetype 
-	preferences the default mode for each file type can be set.
-	</para>
+<para>By default, Bluefish will automatically produce closing tags for HTML and XML documents. For example, if you type <literal>&lt;p&gt;</literal> within an HTML document, bluefish will produce <literal>&lt;/p&gt;</literal>. So, as soon as you finish typing a non-empty HTML tag, meaning the tag is supposed to have a closing tag, Bluefish will help you out and close the tag automatically. For empty tags, like <literal>&lt;br&gt;</literal>, Bluefish correctly does nothing. This feature can be turned off by unchecking the <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>T</keycap></keycombo></shortcut><guimenu>Document</guimenu><guimenuitem>Auto Close HTML Tags</guimenuitem></menuchoice> menu option.</para>
+<para>Bluefish has two modes for tag closing, an XML mode and an HTML mode. In XML mode, Bluefish will add a closing tag to any tag that is not closed itself with /&gt;. In HTML mode, Bluefish excludes all known tags that do not need a closing tag, such as &lt;br&gt; and &lt;img&gt;.</para>
+<para>Bluefish will choose the mode based on the file type of the document. In the filetype preferences panel, the default mode for each file type can be set. See <xref linkend="changing-filetypes"/> for more info.</para>
 </sect2>
 
 <sect2 id="spell-checker">
@@ -1515,25 +1504,12 @@ The projects are a sort of <emphasis>saved state</emphasis> of Bluefish. Thus, t
 					</mediaobject>
 				</screenshot>
 			</figure>
-	<para>
-	Bluefish uses <ulink url="http://aspell.sourceforge.net/">aspell</ulink> for spell 
-	checking. If the aspell libraries are not installed on your system, then the spell 
-	checking feature will not be available. To launch the spell checker, select 
-	<emphasis>Document &gt; Check Spelling...</emphasis>
-	</para>
-	<para>
-	The spell checker will launch in a separate window, which you can keep open as you 
-	edit files. You have the option to check a whole document or just a selection. Click 
-	on <emphasis>Spell Check</emphasis> to start spell checking the current document. As 
-	you run across misspelled words you want included in the dictionary, click on the 
-	<emphasis>Add</emphasis> button in the spell checker window. This will add words to 
-	a personal dictionary.	
-	</para>
-	<para>
-	Key words for different languages can be ignored using filters. Currently, the only
-	filter is for HTML. If you want to help write more filters, join the 
-	<link linkend="bluefish-contact">mailing list</link>.
-	</para>
+	<para>Bluefish uses <ulink url="http://aspell.sourceforge.net/">aspell</ulink> for spell checking. If the aspell libraries are not installed on your system, then the spell checking feature will not be available. You may want to install some dictionary too; they are available at the same URL.</para>
+<para>To launch the spell checker, select <menuchoice><guimenu>Document</guimenu><guimenuitem>Check Spelling...</guimenuitem></menuchoice>. The spell checker will launch in a separate window, which you can keep open as you edit files.</para>
+<para>You have the option to check a whole document or just a selection, to use a personal or a session dictionary, and to choose the language depending on the installed dictionaries.</para>
+<para> Click on <guilabel>Spell Check</guilabel> to start spell checking the current document. As you run across misspelled words you want included in the dictionary, click on the <guilabel>Add</guilabel> button in the spell checker window. This will add words to a personal dictionary.</para>
+<para>You may want to set a default dictionary by first choosing the language in the <guilabel>Language</guilabel> popup menu, then clicking on <guilabel>Set default</guilabel>.</para>
+<para>Key words for different languages can be ignored using filters. Currently, the only filter is for HTML. If you want to help write more filters, join the <link linkend="bluefish-contact">mailing list</link>.</para>
 </sect2>
 
 <sect2 id="function-reference">
@@ -1746,11 +1722,11 @@ Bluefish will create the thumbnails and insert the code.
 
 <sect1 id="bluefish-preferences">
 <title>Customising Bluefish</title>
-
+<para>Most of customization can be made through the <guilabel>Edit preferences</guilabel> panel, which is divided into several tabs.</para>
 <sect2 id="changing-shortcut-keys">
 <title>Modifying shortcut keys</title>
 		<para>Many menu entries are accessible via key combination; also called a
-		shortcut. For example, pressing the Ctrl+S keys saves the current file to
+		shortcut. For example, pressing the <keycombo><keycap>Ctrl</keycap><keycap>S</keycap></keycombo> keys saves the current file to
 		disk. If available, shortcut key combinations are shown on the right of
 		the menu entry.</para>
 		<para>What many people do not know is that they can be changed. Move the
@@ -1758,11 +1734,7 @@ Bluefish will create the thumbnails and insert the code.
 		use. Immediately this combination will show up on the right of the menu
 		entry. An entry can also be removed, press the backspace key when you move
 		the mouse over a menu entry to remove the shortcut.</para>
-		<para>To save the shortcut key combinations for later Bluefish sessions
-		you can store them. In the Edit menu choose Save shortcut keys. This
-		will store the settings in file ~/.bluefish/menudump_2. If you want to
-		restore the default combinations simply remove this file and restart
-		Bluefish.</para>
+		<para>To save the shortcut key combinations for later Bluefish sessions, use <menuchoice><guimenu>Edit</guimenu><guimenuitem>Save Shortcut Keys</guimenuitem></menuchoice>. This will store the settings in the <filename>~/.bluefish/menudump_2</filename>. If you want to restore the default combinations simply remove this file and restart Bluefish.</para>
 </sect2>
 
 <sect2 id="editor-preferences">
