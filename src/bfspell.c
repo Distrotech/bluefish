@@ -15,12 +15,15 @@
 /*
  * indent -ts4 -kr
  */
+typedef enum {filtnone,filthtml} Tspellfilter;
 
 typedef struct {
 	AspellConfig *spell_config;
 	AspellSpeller *spell_checker;
+	Tspellfilter filtert;
 	GtkWidget *win;
 	GtkWidget *lang;
+	GtkWidget *filter;
 	GList *langs;
 	GtkWidget *dict;
 	GtkWidget *runbut;
@@ -38,7 +41,15 @@ typedef struct {
 	GtkTextMark* eo;
 } Tbfspell;
 
-Tbfspell bfspell = {NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,-1,NULL,NULL};
+static Tbfspell bfspell = {NULL,NULL,filtnone,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,-1,NULL,NULL};
+
+static gboolean test_unichar(gunichar ch,gpointer data) {
+	if (ch == GPOINTER_TO_INT(data)) {
+		return TRUE;
+	} else {
+		return FALSE;
+	}
+}
 
 /* return value should be freed by the calling function */
 gchar *doc_get_next_word(GtkTextIter *itstart, GtkTextIter *itend) {
@@ -52,6 +63,12 @@ gchar *doc_get_next_word(GtkTextIter *itstart, GtkTextIter *itend) {
 	}
 	havestart = gtk_text_iter_starts_word(itstart);
 	while (!havestart) {
+		if (bfspell.filtert == filthtml)  {
+			/* 60 is the ascii code for <, 62 for > */
+			if (gtk_text_iter_get_char(itstart) == 60) {
+				gtk_text_iter_forward_find_char(itstart, test_unichar,GINT_TO_POINTER(62), NULL);
+			}
+		}
 		if (!gtk_text_iter_forward_char(itstart)) {
 			return NULL;
 		}
@@ -312,6 +329,9 @@ static void defaultlang_clicked_lcb(GtkWidget *widget,gpointer user_data) {
 	DEBUG_MSG("defaultlang_clicked_lcb, default lang is now %s\n",lang);
 	main_v->props.spell_default_lang = g_strdup(lang);
 }
+void filter_changed_lcb(GtkOptionMenu *optionmenu,gpointer user_data) {
+	bfspell.filtert = gtk_option_menu_get_history(GTK_OPTION_MENU(bfspell.filter));
+}
 
 void spell_gui() {
 	GtkWidget *vbox, *hbox, *but, *frame, *table;
@@ -342,7 +362,7 @@ void spell_gui() {
 	gtk_widget_set_sensitive(bfspell.ignbut,FALSE);
 	
 	/* lower GUI part */
-	table = gtk_table_new(4,3,FALSE);
+	table = gtk_table_new(5,3,FALSE);
 	gtk_box_pack_start(GTK_BOX(vbox), table, TRUE, TRUE, 0);
 
 	bfspell.in_doc = gtk_radio_button_new_with_label(NULL, _("In document"));
@@ -375,17 +395,32 @@ void spell_gui() {
 	but = bf_stock_button(_("Set default"), G_CALLBACK(defaultlang_clicked_lcb), NULL);
 	gtk_table_attach_defaults(GTK_TABLE(table), but,2,3,3,4);
 
+	bfspell.filter = gtk_option_menu_new();
+	gtk_table_attach_defaults(GTK_TABLE(table), gtk_label_new(_("Filter")),0,1,4,5);
+	gtk_table_attach_defaults(GTK_TABLE(table), bfspell.filter,1,2,4,5);
+	{
+		GtkWidget *menu, *menuitem;
+		menu = gtk_menu_new();
+		gtk_option_menu_set_menu(GTK_OPTION_MENU(bfspell.filter), menu);
+		menuitem = gtk_menu_item_new_with_label(_("no filter"));
+		gtk_menu_shell_append(GTK_MENU_SHELL(menu), menuitem);
+		menuitem = gtk_menu_item_new_with_label(_("html filter"));
+		gtk_menu_shell_append(GTK_MENU_SHELL(menu), menuitem);
+	}
+	g_signal_connect(G_OBJECT(bfspell.filter),"changed",G_CALLBACK(filter_changed_lcb),NULL);
+	gtk_option_menu_set_history(GTK_OPTION_MENU(bfspell.filter),0);
+
 	hbox = gtk_hbutton_box_new();
 	gtk_hbutton_box_set_layout_default(GTK_BUTTONBOX_END);
-	gtk_button_box_set_spacing(GTK_BUTTON_BOX(hbox), 1);
+	gtk_button_box_set_spacing(GTK_BUTTON_BOX(hbox), 6);
 	
 	but = bf_stock_cancel_button(G_CALLBACK(spell_gui_cancel_clicked_cb), NULL);
-	gtk_box_pack_start(GTK_BOX(hbox),but,FALSE, FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(hbox),but,FALSE, FALSE, 6);
 	bfspell.runbut = bf_gtkstock_button(GTK_STOCK_SPELL_CHECK,G_CALLBACK(spell_gui_ok_clicked_cb),NULL);
-	gtk_box_pack_start(GTK_BOX(hbox),bfspell.runbut,FALSE, FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(hbox),bfspell.runbut,FALSE, FALSE, 6);
 	
 	gtk_window_set_default(GTK_WINDOW(bfspell.win), bfspell.runbut);
-	gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 6);
 
 	gtk_widget_show_all(bfspell.win);
 }
