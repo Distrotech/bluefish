@@ -437,6 +437,7 @@ static GList *props_init_main(GList * config_rc)
 	init_prop_string    (&config_rc, &main_v->props.backup_abort_style,"backup_abort_style:","ask");
 	init_prop_string    (&config_rc, &main_v->props.image_thumbnailstring, "image_thumbnailstring:", "_thumbnail");
 	init_prop_string    (&config_rc, &main_v->props.image_thumbnailtype, "image_thumbnailtype:", "png");
+	init_prop_integer   (&config_rc, &main_v->props.image_thumbnail_refresh_quality,"image_thumbnail_refresh_quality:",1);
 	init_prop_integer   (&config_rc, &main_v->props.image_thumbnailsizing_type,"image_thumbnailsizing_type:",0);
 	init_prop_integer   (&config_rc, &main_v->props.image_thumbnailsizing_val1,"image_thumbnailsizing_val1:",100);
 	init_prop_integer   (&config_rc, &main_v->props.image_thumbnailsizing_val2,"image_thumbnailsizing_val2:",100);
@@ -538,6 +539,8 @@ void rcfile_parse_main(void)
 		main_v->props.filetypes = g_list_append(main_v->props.filetypes, arr);
 		arr = array_from_arglist("java", ".java:.jar:.class", "(){}'[]\n\" ", PKGDATADIR"icon_java.png", NULL);
 		main_v->props.filetypes = g_list_append(main_v->props.filetypes, arr);
+		arr = array_from_arglist("jsp", ".jsp", "(){}'[]\n\" ", PKGDATADIR"icon_java.png", NULL);
+		main_v->props.filetypes = g_list_append(main_v->props.filetypes, arr);
 		arr = array_from_arglist("sql", ".sql", "(){}'[]\n\" ", "", NULL);
 		main_v->props.filetypes = g_list_append(main_v->props.filetypes, arr);
 		arr = array_from_arglist("c", ".c:.h", "(){}'[]\n\" ", PKGDATADIR"icon_c.png", NULL);
@@ -559,9 +562,9 @@ void rcfile_parse_main(void)
 		gchar **arr;
 		arr = array_from_arglist("C programming","1","c:image", NULL);
 		main_v->props.filefilters = g_list_append(main_v->props.filefilters, arr);
-		arr = array_from_arglist("All web files","1", "html:php:webimage:xml:javascript:stylesheet", NULL);
+		arr = array_from_arglist("All web files","1", "html:php:webimage:xml:javascript:stylesheet:jsp", NULL);
 		main_v->props.filefilters = g_list_append(main_v->props.filefilters, arr);
-		arr = array_from_arglist("Java programming","1", "java:image", NULL);
+		arr = array_from_arglist("Java programming","1", "java:image:jsp", NULL);
 		main_v->props.filefilters = g_list_append(main_v->props.filefilters, arr);
 		arr = array_from_arglist("Images","1", "image", NULL);
 		main_v->props.filefilters = g_list_append(main_v->props.filefilters, arr);

@@ -22,7 +22,7 @@
  */
 /* 
  * Changes by Antti-Juhani Kaijanaho <gaia@iki.fi> on 1999-10-20
- * $Id: html.c,v 1.6 2002-09-21 19:22:44 oli4 Exp $
+ * $Id: html.c,v 1.7 2002-09-22 21:00:38 oli4 Exp $
  */
 
 #include <gtk/gtk.h>
@@ -1044,6 +1044,7 @@ void quickstart_cb(GtkWidget * widget, gpointer data)
 	scrolwin = gtk_scrolled_window_new(NULL, NULL);
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolwin), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Header tags")), 0, 1, 2, 3);
+	gtk_widget_set_usize(scrolwin, 300, 100);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), scrolwin, 1, 4, 1, 4);
 
 	dg->clist[1] = gtk_clist_new(1);
@@ -1051,7 +1052,15 @@ void quickstart_cb(GtkWidget * widget, gpointer data)
 	gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(scrolwin), dg->clist[1]);
 	gtk_clist_freeze(GTK_CLIST(dg->clist[1]));
 
-	recent_attribs.headerlist = add_to_stringlist(recent_attribs.headerlist, "<meta name=\"generator\" value=\"Bluefish\">");
+	recent_attribs.headerlist = add_to_stringlist(recent_attribs.headerlist, "<meta name=\"generator\" content=\"Bluefish\">");
+	recent_attribs.headerlist = add_to_stringlist(recent_attribs.headerlist, "<meta name=\"author\" content=\"\">");
+	recent_attribs.headerlist = add_to_stringlist(recent_attribs.headerlist, "<meta name=\"copyright\" content=\"\">");
+	recent_attribs.headerlist = add_to_stringlist(recent_attribs.headerlist, "<meta name=\"keywords\" content=\"\">");
+	recent_attribs.headerlist = add_to_stringlist(recent_attribs.headerlist, "<meta name=\"description\" content=\"\">");
+	recent_attribs.headerlist = add_to_stringlist(recent_attribs.headerlist, "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=ISO-8859-1\">");
+	recent_attribs.headerlist = add_to_stringlist(recent_attribs.headerlist, "<meta http-equiv=\"Expires\" content=\"Tue, 20 Aug 1996 14:25:27 GMT\">");
+	recent_attribs.headerlist = add_to_stringlist(recent_attribs.headerlist, "<meta http-equiv=\"refresh\" content=\"5; URL=http://\">");
+	recent_attribs.headerlist = add_to_stringlist(recent_attribs.headerlist, "<meta name=\"ROBOTS\" content=\"NOINDEX, NOFOLLOW\">");
 
 	tmplist = g_list_first(recent_attribs.headerlist);
 	while (tmplist) {
