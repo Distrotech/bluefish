@@ -543,6 +543,7 @@ void rcfile_parse_main(void)
 	if (main_v->props.reference_files == NULL) {
 		/* if the user does not yet have any function reference files, set them to default values */
 		main_v->props.reference_files = g_list_append(main_v->props.reference_files, array_from_arglist("HTML",PKGDATADIR"funcref_html.xml",NULL));
+		main_v->props.reference_files = g_list_append(main_v->props.reference_files, array_from_arglist("PHP",PKGDATADIR"funcref_php.xml",NULL));
 	}
 }
 
