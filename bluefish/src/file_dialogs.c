@@ -449,9 +449,10 @@ static TcheckNsave_return doc_checkNsave_lcb(TcheckNsave_status status,gint erro
 		case CHECKANDSAVE_CHECKED:
 		case CHECKANDSAVE_BACKUP:
 		case CHECKANDSAVE_CHANNEL_OPENED:
-			/* do nothing, or perhaps we could change the notebook tab color ? */
+			/* do nothing, or perhaps we could change the notebook tab color or a statusbar message? */
 		break;
 		case CHECKANDSAVE_FINISHED:
+			/* if the user wanted to close the doc we should do very diffferent things here !! */
 			{
 			GnomeVFSURI *uri;
 			/* YES! we're done! update the fileinfo !*/
@@ -582,4 +583,48 @@ void file_save_all_cb(GtkWidget * widget, Tbfwin *bfwin) {
 		}
 		tmplist = g_list_next(tmplist);
 	}
+}
+
+void doc_close_single_backend(Tdocument *doc, gboolean close_window) {
+	if (doc_is_empty_non_modified_and_nameless(doc) && g_list_length(BFWIN(doc->bfwin)->documentlist) ==1) {
+		if (close_window) {
+			gtk_widget_destroy(BFWIN(doc->bfwin)->main_window);
+		}
+		return;
+	}
+	if (doc->modified) {
+		gchar *buttons[] = {_("Do_n't save"), GTK_STOCK_CANCEL, GTK_STOCK_SAVE, NULL};
+		gchar *text;
+		gint retval;
+		text = g_strdup_printf(_("Save changes to \"%s\" before closing?."),gtk_label_get_text (GTK_LABEL (doc->tab_label)));
+		retval = multi_query_dialog(BFWIN(doc->bfwin)->main_window, text, 
+						_("If you don't save your changes they will be lost."), 2, 1, buttons);
+		g_free(text);
+		switch (retval) {
+		case 0:
+			doc_destroy(doc, close_window);
+		break;
+		case 1:
+			return;
+		break;
+		case 2:
+			doc_save_backend(doc, FALSE, FALSE, TRUE, close_window);
+		break;
+		}
+	} else {
+		doc_destroy(doc, close_window);
+	}
+}
+
+/**
+ * file_close_cb:
+ * @widget: unused #GtkWidget
+ * @data: unused #gpointer
+ *
+ * Close the current document.
+ *
+ * Return value: void
+ **/
+void file_close_cb(GtkWidget * widget, Tbfwin *bfwin) {
+	doc_close_single_backend(bfwin->current_document, 0);
 }
