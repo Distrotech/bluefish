@@ -81,6 +81,8 @@ bluefish: $(SRCS) $(OBJS)
 .c.o: $(SRCS)
 	$(CC) $(DEFS) $(CFLAGS) -c -o $@ $<
 
+$(OBJS): bluefish.h
+
 clean:
 	rm -f $(OBJS) bluefish
 
