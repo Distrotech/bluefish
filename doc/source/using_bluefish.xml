@@ -116,14 +116,15 @@ There are several useful command line options.
 <sect2 id="opening-files">
 <title>Opening files</title>
 	<para>
-	Through <emphasis>File &gt; Open</emphasis> 
+	Through <emphasis>File/Open</emphasis> 
 	one or more files can be opened. Recently opened files (up to 15?) can be 
-	opened by selecting from the list within <emphasis>File &gt; Open recent. </emphasis>
+	opened by selecting from the list within <emphasis>File/Open recent. </emphasis>
 	</para><para>
 	An interesting feature of Bluefish is the 
 	ability to open files by selecting the text of a currently opened file. 
-	For example, if a file has the text "/path/to/file", you can highlight 
-	that text and select <emphasis>File &gt; Open from Selection</emphasis>. 
+	For example, if a filename is shown in for example a terminal application, 
+	you can select the filename, and use <emphasis>File/Open from Selection</emphasis> 
+	from the menu to open that file. 
 	The file, if it exists, will be opened in another tab within Bluefish. 
 	Finally, files can be opened via the command line by feeding filenames to 
 	Bluefish as arguments. This can even be done while Bluefish is running and 
@@ -132,13 +133,32 @@ There are several useful command line options.
 </sect2>
 <sect2 id="saving-files">
 <title>Saving files</title>
+	<para>
+	If a document is modified, the filename is shown in red in the document tabs, and also 
+	if you right click on the tabs, the full path is shown in red in the list that will pop 
+	up.
+	</para>
+	<para>
+	To save a document, you can use the <emphasis>File</emphasis> menu, use the save button in the toolbar, or you can 
+	press the shortcut key combination (Ctrl+S).
+	</para>
+	<para>
+	You can also save a document under a different name, using the <emphasis>Save as</emphasis> menu
+	entry, the save as button in the toolbar, or the shortcut (Shift+Ctrl+S). The 
+	original file will still exist. It is also possible to move or rename a document, using the 
+	<emphasis>Rename</emphasis> option in the menu, or shortcut (F2).
+	</para>
+	<para>
+	To save all modified files, you can use the <emphasis>Save all</emphasis> menu entry. This will
+	save all documents that have been modified.
+	</para>
 </sect2>
 <sect2 id="editing">
 <title>Editing</title>
 <sect3 id="undo-redo">
 <title>Undo and Redo</title>
 <para>
-The undo and redo functionality is available from the Edit menu, 
+The undo and redo functionality is available from the <emphasis>Edit</emphasis> menu, 
 from the main tool bar, and from the keyboard shortcuts. 
 </para>
 <itemizedlist>
@@ -146,7 +166,7 @@ from the main tool bar, and from the keyboard shortcuts.
 	  <listitem><para>Redo (Shift+Ctrl+Z)</para></listitem>
 </itemizedlist>
 <para>
-The functions Undo all and Redo all in the Edit menu will undo or redo all 
+The functions <emphasis>Undo all</emphasis> and <emphasis>Redo all</emphasis> in the <emphasis>Edit</emphasis> menu will undo or redo all 
 of the stored changes. The maximum number of changes can be configured in
 the preferences, by default Bluefish will remember the last 100 changes per 
 document. It is possible to clear the changes after the document is saved, 
@@ -156,7 +176,7 @@ an option in the preferences which is disabled by default.
 <sect3 id="cut-copy-paste">
 <title>Cut, Copy, and Paste</title>
 <para>
-The functions Cut, Copy, and Paste are available from the Edit menu, from the 
+The functions <emphasis>Cut</emphasis>, <emphasis>Copy</emphasis>, and <emphasis>Paste</emphasis> are available from the <emphasis>Edit</emphasis> menu, from the 
 main tool bar, and from the keyboard shortcuts.
 </para>
 <itemizedlist>
@@ -207,7 +227,7 @@ Document/Type menu.
 	adjusted in the preferences.
 	</para>
 	<para>The syntax highlighting for the total document can be refreshed
-	using the Document/Update highlighting menu, or the shortcut (F5)</para>
+	using the <emphasis>Document/Update highlighting</emphasis> menu, or the shortcut (F5)</para>
 </sect3>
 </sect2>
 <sect2 id="more-files">
@@ -260,7 +280,22 @@ environment to make Gnome and Gtk programs detect this encoding.
 <title>Open advanced</title>
 	<para>
 		In the <emphasis>File &gt; Open Advanced</emphasis> dialog, multiple files 
-	can be opened from a directory based on their extension or by their content. 
+	can be opened from a directory based on their extension or by their content. The
+	same functionality is available from the filebrowser in the side panel. If you right
+	click a directory, you can also there select <emphasis>Open advanced</emphasis>.
+	</para>
+	<para>
+	To open all files by extension, enter the extension in the dialog, and leave the search 
+	pattern empty. Check the <emphasis>recursive</emphasis> option if you want to include
+	all subdirectories in the search.
+	</para>
+	<para>
+	To open files by content, leave the extension at *, and enter a search pattern in the dialog. You can 
+	use regular expression patterns if you check the <emphasis>Is regex</emphasis> option.
+	</para>
+	<para>
+	The open advanced functionality runs the find and grep utilities to get a list of filenames. If these 
+	utilities are not available on your system the functionality is not available.
 	</para>
 </sect3>
 </sect2>
