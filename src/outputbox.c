@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * output_box.c the output box
  *
- * Copyright (C) 2002 Olivier Sessink
+ * Copyright (C) 2002-2005 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -67,7 +67,7 @@ static void ob_lview_row_activated_lcb(GtkTreeView *tree, GtkTreePath *path,GtkT
 		lineval = atoi(line);
 	}
 	if (file && strlen(file)) {
-		doc_new_from_uri(ob->bfwin, file, NULL, NULL, FALSE, FALSE, lineval);
+		doc_new_from_input(ob->bfwin, file, FALSE,FALSE, lineval);
 	} else {
 		doc_select_line(ob->bfwin->current_document, lineval, TRUE);
 	}
@@ -178,14 +178,18 @@ static GList *run_command(Toutputbox *ob) {
 	GList *retlist;
 	Tconvert_table *table, *tmpt;
 	gchar *command1, *command2, *tmpfile;
+	gchar *localfilename;
 	file_save_cb(NULL, ob->bfwin);
 	if (!ob->bfwin->current_document->uri) {
-		/* if the usder clicked cancel at file_save -> return */
+		/* if the usder clicked cancel at file_save -> return 
+		BUG: that function now is async, so this check will not help very much */
 		return NULL;
 	}
+	localfilename = gnome_vfs_get_local_path_from_uri(ob->bfwin->current_document->uri);
+	
 	table = tmpt = g_new(Tconvert_table, 2);
 	tmpt->my_int = 's';
-	tmpt->my_char = ob->bfwin->current_document->uri;
+	tmpt->my_char = localfilename ? localfilename : ob->bfwin->current_document->uri;
 	tmpt++;
 	tmpt->my_char = NULL;
 	command1 = replace_string_printflike(ob->def->command, table);
@@ -194,7 +198,7 @@ static GList *run_command(Toutputbox *ob) {
 	command2 = g_strconcat(command1, " > ", tmpfile, " 2>&1", NULL);
 	DEBUG_MSG("run_command, should run %s now\n", command2);
 	{
-		gchar *tmpstring = g_path_get_dirname(ob->bfwin->current_document->uri);
+		gchar *tmpstring = g_path_get_dirname(localfilename ? localfilename : ob->bfwin->current_document->uri);
 		chdir(tmpstring);
 		g_free(tmpstring);
 	}
@@ -204,6 +208,7 @@ static GList *run_command(Toutputbox *ob) {
 	g_free(command1);
 	g_free(command2);
 	g_free(tmpfile);
+	g_free(localfilename);
 	return retlist;
 }
 
