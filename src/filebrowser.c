@@ -50,6 +50,12 @@ A possibility to do this is to have a hashtable with TreeIters to each directory
 in the tree. If you then want to open some directory, you check the full path in the hashtable, 
 if not exists you remove the last directory component, check again etc. until you have found a
 position in the tree where you can add things.
+
+USER INTERFACE NOTES:
+
+each directory should be expandable by default (so have a dummy item) unless we know there are 
+no subdirectories (and not the other way around like it is right now)
+
 */
 #include <gtk/gtk.h>
 #include <sys/types.h>	/* stat() getuid */
