@@ -102,6 +102,12 @@ int main(int argc, char *argv[])
 #ifndef NOSPLASH
 	GtkWidget *splash_window;
 #endif /* #ifndef NOSPLASH */
+
+#ifdef ENABLE_NLS                                                               
+	setlocale(LC_ALL,"");                                                   
+	bindtextdomain(PACKAGE,LOCALEDIR);                                      
+	textdomain(PACKAGE);                                                    
+#endif    
 	gtk_init(&argc, &argv);
 	
 	main_v = g_new0(Tmain, 1);

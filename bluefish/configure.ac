@@ -177,6 +177,7 @@ dnl *******************************
 dnl   GETTEXT
 dnl *******************************
 AM_GNU_GETTEXT
+AC_PATH_PROG(MSGMERGE, msgmerge, /usr/bin/msgmerge)
 
 if test "$GMSGFMT" = "no"; then
 	echo "no gmsgfmt - NLS disabled"
@@ -192,7 +193,7 @@ fi
 
 
 
-AC_CONFIG_FILES(Makefile icons/Makefile src/Makefile po/Makefile.in)
+AC_CONFIG_FILES(Makefile icons/Makefile src/Makefile po/Makefile)
 AC_OUTPUT
 
 echo "-----------"

@@ -1,0 +1,67 @@
+# Makefile for gettext support
+# Copyright (C) 2002 Olivier Sessink <olivier@bluefish.openoffice.nl>
+
+PACKAGE = @PACKAGE@
+VERSION = @VERSION@
+
+SHELL = /bin/sh
+
+top_srcdir = @top_srcdir@
+top_builddir = @top_srcdir@
+srcdir = @srcdir@
+prefix = @prefix@
+exec_prefix = @exec_prefix@
+bindir = @bindir@
+pkgdatadir = @pkgdatadir@
+datadir = @datadir@
+localedir = $(datadir)/locale
+
+INSTALL = @INSTALL@
+INSTALL_DIR = $(INSTALL) -d -m 755 
+INSTALL_DATA = ${INSTALL} -m 644
+
+MSGFMT = @MSGFMT@
+XGETTEXT = @XGETTEXT@
+MSGMERGE = @MSGMERGE@
+
+CATALOGS = de.gmo da.gmo fr.gmo ro.gmo cs.gmo es.gmo el.gmo en.gmo ja.gmo it.gmo sv.gmo pt_BR.gmo hu.gmo pl.gmo nl.gmo
+
+%.gmo : %.po
+	$(MSGFMT) $< -o $@
+
+all: all-@USE_NLS@
+
+all-yes: $(CATALOGS)
+all-no:
+
+install:
+	@for file in $(CATALOGS) ; do \
+		lang=`echo $${file} | sed -e 's/\.gmo$$//'`;\
+		$(INSTALL_DIR) $${lang}.gmo $(localedir)/$${lang}/
+		$(INSTALL_DIR) $${lang}.gmo $(localedir)/$${lang}/LC_MESSAGES/
+		$(INSTALL_DATA) $${lang}.gmo $(localedir)/$${lang}/LC_MESSAGES/${PACKAGE}.mo;\
+	done
+
+uninstall:
+	@for file in $(CATALOGS) ; do \
+		lang=`echo $${file} | sed -e 's/\.gmo$$//'`;\
+		rm -f $(localedir)/$${lang}/LC_MESSAGES/${PACKAGE}.mo;\
+	done
+
+clean:
+	rm -f *.gmo
+
+distclean: clean
+	rm -f Makefile tmp.po ${PACKAGE}.po *.rej *.orig
+
+${PACKAGE}.po:
+	$(XGETTEXT) --default-domain=${PACKAGE} --keyword=_ --keyword=N_ ../src/*.c
+
+update-po: ${PACKAGE}.po
+	@for file in $(CATALOGS) ; do \
+		lang=`echo $${file} | sed -e 's/\.gmo$$//'`;\
+		echo -n "updating $${lang}.po...";\
+		$(MSGMERGE) -q --output-file=tmp.po $${lang}.po bluefish.po && mv tmp.po $${lang}.po;\
+		$(MSGFMT) --statistics $${lang}.po -o $${lang}.gmo ;\
+	done
+
