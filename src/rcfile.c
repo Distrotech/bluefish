@@ -577,7 +577,8 @@ void rcfile_parse_highlighting(void) {
 	DEBUG_MSG("rcfile_parse_highlighting, started\n");
 
 	highlighting_configlist = NULL;
-	init_prop_arraylist(&highlighting_configlist, &main_v->props.highlight_patterns, "highlight_patterns:");
+	init_prop_arraylist(&highlighting_configlist, &main_v->props.highlight_patterns, "patterns:");
+	init_prop_arraylist(&highlighting_configlist, &main_v->props.highlight_styles, "styles:");
 	
 	filename = g_strconcat(g_get_home_dir(), "/.bluefish/highlighting", NULL);
 	if (!parse_config_file(highlighting_configlist, filename)) {

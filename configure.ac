@@ -97,6 +97,8 @@ dnl ************************
 LIBS="$LIBS `pkg-config --libs gtk+-2.0`"
 CFLAGS="$CFLAGS `pkg-config --cflags gtk+-2.0`"
 
+AC_CHECK_LIB(pcre, pcre_exec, LIBS="$LIBS -lpcre")
+
 AC_CHECK_LIB(posix4, nanosleep, 
 	LIBS="$LIBS -lposix4"
 	AC_DEFINE(HAVE_NANOSLEEP),

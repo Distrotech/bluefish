@@ -1,5 +1,5 @@
 /* Bluefish HTML Editor
- * highlight.c - the syntax highlighting
+ * highlight2.c - the syntax highlighting with perl compatible regular expressions
  *
  * Copyright (C) 2002 Olivier Sessink
  *
@@ -22,7 +22,8 @@
  * indent --line-length 100 --k-and-r-style --tab-size 4 -bbo --ignore-newlines highlight.c
  */
 #define HL_TIMING
-/* #define HL_DEBUG */
+#define HL_DEBUG
+#define DEBUG
 
 #ifdef HL_TIMING
 #include <sys/times.h>
@@ -31,7 +32,7 @@
 
 #include <gtk/gtk.h>
 #include <sys/types.h>			/* _before_ regex.h for freeBSD */
-#include <regex.h>				/* regexec() */
+#include <pcre.h>				/* pcre_*() */
 #include <string.h>				/* strerror() */
 #include <stdlib.h>				/* atoi() */
 
@@ -40,21 +41,75 @@
 #include "rcfile.h"				/* array_from_arglist() */
 #include "stringlist.h" 	/* count_array() */
 #include "menu.h" 			/* menu_current_document_type_set_active_wo_activate */
+#include "document.h" /* doc_get_chars() */
 #include "highlight.h"
 
-#define NUM_SUBMATCHES 20
+
+#define NUM_SUBMATCHES 30 /* should be a multiple of three for pcre_exec(), and at maximum 2/3 of this size can really be used for substrings */
 
 typedef struct {
-	regmatch_t pmatch[NUM_SUBMATCHES];
-	gint pmatch_offset;
+	pcre *pcre;
+	pcre_extra *pcre_e;
+} Treg;
+
+typedef struct {
+	gchar *name;
+	GtkTextTag *tag;
+} Thlstyle;
+
+typedef struct {
+	Treg reg1;
+	Treg reg2;
+	gint numsub;
+	gint mode;
+	GList *childs;
+	GtkTextTag *tag;
+} Tpattern;
+
+typedef struct {
+	gchar *filetype;
+	gchar *name;
+	gchar *parentmatch;
+	pcre *pcre;
+	Tpattern *pat;
+} Tmetapattern; /* mostly used during compiling since it contains some more meta-info about the pattern */
+
+typedef struct {
+	GtkTextTagTable *tagtable; /* this one should ultimately move to Tfiletype, so every set would have it's own tagtable, but there is currently no way to switch a document to a new tagtable */
+	GList *highlight_styles;
+	GList *highlight_filetypes; /* contains all filetypes that have a highlight pattern */
+	GList *all_highlight_patterns; /* contains Tmetapattern, not Tpattern !! */
+} Thighlight;
+
+typedef struct {
+	int ovector[NUM_SUBMATCHES];
 	gboolean is_match;
 	Tpattern *pat;
 } Tpatmatch;
 
-typedef struct {
-	GtkTextTagTable *tagtable; /* this one should ultimately move to Tfiletype, so every set would have it's own tagtable, but there is currently no way to switch a document to a new tagtable */
-	GList *highlight_filetypes;
-} Thighlight;
+/***************************************************************
+how it works:
+
+-types:
+	1 - a start pattern and an end pattern
+	2 - a pattern that defines the complete match
+	3 - a sub-pattern , this must be a child pattern for type 2
+
+-matching
+   all top-level patterns are matched, a matching table is formed
+	with all the start positions for every type, the lowest start 
+	position is the pattern where we start.
+	for this pattern we crate a new matching table with all the start 
+	values AND the end value for the parent pattern. If the parent 
+	pattern is type 2 or 3 this value is fixed, and no pattern or 
+	child-pattern can go beyond that value, if the parent is type 1 
+	the end value is re-evaluated once another pattern has gone beyond
+	it's value.
+	Once a match is found, the text is tagged with the right style, and
+	
+
+
+***************************************************************/
 
 /*********************************/
 /* global vars for this module   */
@@ -65,281 +120,176 @@ static Thighlight highlight;
 /* initializing the highlighting */
 /*********************************/
 
-static void pattern_free(Tpattern * pat)
-{
-	g_free(pat->name);
-	g_free(pat->spat1);
-	regfree(&pat->rpat1);
-	if (pat->spat2) {
-		g_free(pat->spat2);
-		regfree(&pat->rpat2);
-	}
-	if (pat->spat3) {
-		g_free(pat->spat3);
-		regfree(&pat->rpat3);
-	}
-	g_free(pat);
-}
-
-static gboolean add_pattern_to_name(GList * patternlist, regex_t * parentmatch, Tpattern * pat)
-{
-	Tpattern *parpat;
-	gboolean resval = FALSE;
-	GList *tmplist;
-
-#ifdef DEBUG
-	g_assert(pat);
-	g_assert(patternlist);
-#endif
-	tmplist = g_list_first(patternlist);
-	while (tmplist) {
-		if (tmplist->data != pat) {
-			if (((Tpattern *) tmplist->data)->childs) {
-				gboolean tmpresval;
-
-				tmpresval = add_pattern_to_name(((Tpattern *) tmplist->data)->childs, parentmatch, pat);
-				if (!resval && tmpresval)
-					resval = TRUE;
+static Thlstyle *find_hlstyle(gchar *name) {
+	if (name && strlen(name)) {
+		GList *tmplist = g_list_first(highlight.highlight_styles);
+		while (tmplist) {
+			if (strcmp(name, ((Thlstyle *)tmplist->data)->name)==0) {
+				return (Thlstyle *)tmplist->data;
 			}
-			if (regexec(parentmatch, (gchar *) ((Tpattern *) tmplist->data)->name, 0, NULL, 0) == 0) {
-				parpat = (Tpattern *) tmplist->data;
-				parpat->childs = g_list_append(parpat->childs, pat);
-				resval = TRUE;
-				if (pat->mode == 3) {
-					parpat->need_subpatterns = TRUE;
-				}
-			}
+			tmplist = g_list_next(tmplist);
 		}
-		tmplist = g_list_next(tmplist);
 	}
-	return resval;
+	return NULL;
 }
 
-static void hl_compile_pattern(Tfiletype * hlset, gchar * name, gint case_insens, gchar * pat1, gchar * pat2,
-							   gchar * pat3, gint mode, gchar * parent, gchar * fgcolor, gchar * bgcolor, gint weight,
-							   gint style, gchar *start_boundary, gchar *end_boundary)
-{
+static void compile_hlstyle(gchar *name, gchar *fgcolor, gchar *bgcolor, gint weight, gint style) {
+	Thlstyle *hlstyle = g_new(Thlstyle, 1);
+
+	if (find_hlstyle(name)) {
+		g_print("error compiling style %s, name does exist already\n", name);
+		return;
+	}
+
+	hlstyle->name = g_strdup(name);
+	hlstyle->tag = gtk_text_tag_new(NULL);
+	if (strlen(fgcolor)) {
+		g_object_set(hlstyle->tag, "foreground", fgcolor, NULL);
+	}
+	if (strlen(bgcolor)) {
+		g_object_set(hlstyle->tag, "background", bgcolor, NULL);
+	}
+	if (weight > 0) {
+		if (1 == weight) {
+			g_object_set(hlstyle->tag, "weight", PANGO_WEIGHT_NORMAL, NULL);
+		} else {
+			g_object_set(hlstyle->tag, "weight", PANGO_WEIGHT_BOLD, NULL);
+		}
+	}
+	if (style > 0) {
+		if (1 == style) {
+			g_object_set(hlstyle->tag, "style", PANGO_STYLE_NORMAL, NULL);
+		} else {
+			g_object_set(hlstyle->tag, "style", PANGO_STYLE_ITALIC, NULL);
+		}
+	}
+	gtk_text_tag_table_add(highlight.tagtable, hlstyle->tag);
+	/* from the documentation:
+			When adding a tag to a tag table, it will be assigned the highest priority in the table by 
+			default; so normally the precedence of a set of tags is the order in which they were added 
+			to the table.
+		so the order of the styles in the list will be the order in the tagtable */
+	highlight.highlight_styles = g_list_append(highlight.highlight_styles, hlstyle);
+}
+
+static int pcre_compile_options(gint case_insens) {
+	if (case_insens) {
+		return PCRE_CASELESS;
+	} else {
+		return 0;
+	}
+}
+
+static void compile_pattern(gchar *filetype, gchar *name, gint case_insens, gchar *pat1, gchar *pat2, gint mode, gchar *parentmatch, gchar *hlstyle_name) {
 	/*
 	 * test if the pattern is correct 
 	 */
-	DEBUG_MSG("compile_patterns, testing name=%s\n", name);
 	if (!name || strlen(name) == 0) {
 		g_print("error compiling nameless pattern: name is not set\n");
+		return;
+	}
+	if (!find_hlstyle(hlstyle_name)) {
+		g_print("error compiling patterns '%s', style '%s' unknown or corrupt\n", name, hlstyle_name);
+		return;
 	}
 	switch (mode) {
-	case 0:
-		if (!(pat1 && pat2 && pat3 && strlen(pat1) && strlen(pat2)
-			  && strlen(pat3))) {
-			g_print("error compiling pattern %s for mode 0: some pattern(s) missing\n", name);
-			return;
-		}
-		break;
 	case 1:
 		if (!(pat1 && pat2 && strlen(pat1) && strlen(pat2))) {
-			g_print("error compiling pattern %s for mode 1: some pattern(s) missing\n", name);
+			g_print("error compiling pattern '%s' for mode 1: some pattern(s) missing\n", name);
 			return;
 		}
 		break;
 	case 2:
 		if (!(pat1 && strlen(pat1))) {
-			g_print("error compiling pattern %s for mode 2: pattern missing\n", name);
+			g_print("error compiling pattern '%s' for mode 2: pattern missing\n", name);
 			return;
 		}
 		break;
 	case 3:
 		if (!(pat1 && strlen(pat1) && atoi(pat1) > 0 && atoi(pat1) < NUM_SUBMATCHES)) {
-			g_print("error compiling pattern %s for mode 3: sub-pattern number missing or incorrect\n", name);
+			g_print("error compiling pattern '%s' for mode 3: sub-pattern number missing, too large or incorrect\n", name);
 			return;
 		}
 		break;
 	default:
-		g_print("error compiling pattern %s: mode %d unknown\n", name, mode);
+		g_print("error compiling pattern '%s', mode %d unknown\n", name, mode);
 		return;
 		break;
 	}
 
 	{
-		Tpattern *pat;
-		gint res;
+		Thlstyle *hlstyle;
+		Tmetapattern *mpat;
+		Tpattern *pat = g_new0(Tpattern, 1);
+		pat->mode = mode;
+		if (mode == 1 || mode ==2) {
+			const char *err=NULL;
+			int erroffset=0;
+			DEBUG_MSG("compiling pat1 '%s'\n", pat1);
+			pat->reg1.pcre = pcre_compile(pat1, pcre_compile_options(case_insens),&err,&erroffset,NULL);
+			if (err) {
+				g_print("error compiling pattern %s offset %d\n", err, erroffset);
+			}
+			DEBUG_MSG("result: pat->reg1.pcre=%p\n", pat->reg1.pcre);
+			pat->reg1.pcre_e = pcre_study(pat->reg1.pcre,0,&err);
+			if (err) {
+				g_print("error studying pattern %s\n", err);
+			}
+		}
+		if (mode == 1) {
+			const char *err=NULL;
+			int erroffset=0;
+			DEBUG_MSG("compiling pat2 '%s'\n", pat2);
+			pat->reg2.pcre = pcre_compile(pat2, pcre_compile_options(case_insens),&err,&erroffset,NULL);
+			if (err) {
+				g_print("error compiling pattern %s offset %d\n", err, erroffset);
+			}
+			DEBUG_MSG("result: pat->reg2.pcre=%p\n", pat->reg2.pcre);
+			pat->reg2.pcre_e = pcre_study(pat->reg2.pcre,0,&err);
+			if (err) {
+				g_print("error studying pattern %s\n", err);
+			}
+		}
+		if (mode == 3) {
+			pat->numsub = atoi(pat1);
+		}
 
-		DEBUG_MSG("compile_patterns, compiling name=%s\n", name);
-
-		pat = g_malloc0(sizeof(Tpattern));
-		switch (mode) {
-		case 0:
-			pat->spat3 = g_strdup(pat3);
-		case 1:
-			pat->spat2 = g_strdup(pat2);
-		case 2:
-		case 3:
-			pat->spat1 = g_strdup(pat1);
-		default:
-			pat->name = g_strdup(name);
-			pat->mode = mode;
-			DEBUG_MSG("compile_patterns, done copying\n");
-			break;
-		}
-		switch (mode) {
-		case 0:
-			if (!case_insens) {
-				res = regcomp(&pat->rpat3, pat3, REG_EXTENDED);
-			} else {
-				res = regcomp(&pat->rpat3, pat3, REG_EXTENDED | REG_ICASE);
-			}
-			if (0 != res) {
-				g_print("error compiling 3rd pattern %s: %s because %s\n", name, pat3, strerror(res));
-				g_free(pat->spat1);
-				g_free(pat->spat2);
-				g_free(pat->spat3);
-				g_free(pat->name);
-				g_free(pat);
-				return;
-			}
-		case 1:
-			if (!case_insens) {
-				res = regcomp(&pat->rpat2, pat2, REG_EXTENDED);
-			} else {
-				res = regcomp(&pat->rpat2, pat2, REG_EXTENDED | REG_ICASE);
-			}
-			if (0 != res) {
-				g_print("error compiling 2nd pattern %s: %s because %s\n", name, pat2, strerror(res));
-				if (mode == 0) {
-					g_free(pat->spat3);
-					regfree(&pat->rpat3);
-				}
-				g_free(pat->spat1);
-				g_free(pat->spat2);
-				g_free(pat->name);
-				g_free(pat);
-				return;
-			}
-		case 2:
-			if (!case_insens) {
-				res = regcomp(&pat->rpat1, pat1, REG_EXTENDED);
-			} else {
-				res = regcomp(&pat->rpat1, pat1, REG_EXTENDED | REG_ICASE);
-			}
-			if (0 != res) {
-				g_print("error compiling 1st pattern %s: %s because %s\\n", name, pat1, strerror(res));
-				switch (mode) {
-				case 0:
-					regfree(&pat->rpat3);
-					g_free(pat->spat3);
-				case 1:
-					regfree(&pat->rpat2);
-					g_free(pat->spat2);
-				default:
-					break;
-				}
-				g_free(pat->spat1);
-				g_free(pat->name);
-				g_free(pat);
-				return;
-			}
-			break;
-		case 3:
-			{
-				gint num;
-
-				num = atoi(pat1);
-				if (num <= 0 || num > NUM_SUBMATCHES) {
-					g_free(pat->spat1);
-					g_free(pat->name);
-					g_free(pat);
-					return;
-				}
-			}
-			break;
-		default:
-			break;
-		}
-		if (start_boundary && strlen(start_boundary)) {
-			pat->start_boundary = g_strdup(start_boundary);
-		} else {
-			pat->start_boundary = NULL;
-		}
-		if (end_boundary && strlen(end_boundary)) {
-			pat->end_boundary = g_strdup(end_boundary);
-		} else {
-			pat->end_boundary = NULL;
-		}
+		hlstyle = find_hlstyle(hlstyle_name);
+		pat->tag = hlstyle->tag;
 		
-		pat->tag = gtk_text_tag_new(NULL);
-
-		if (strlen(fgcolor)) {
-			g_object_set(pat->tag, "foreground", fgcolor, NULL);
+		mpat = g_new(Tmetapattern, 1);
+		mpat->pat = pat;
+		mpat->name = g_strdup(name);
+		if (strlen(parentmatch)) {
+			mpat->parentmatch = g_strdup(parentmatch);
+		} else {
+			mpat->parentmatch = g_strdup("^top$");
 		}
-		if (strlen(bgcolor)) {
-			g_object_set(pat->tag, "background", bgcolor, NULL);
-		}
-		if (weight > 0) {
-			if (1 == weight) {
-				g_object_set(pat->tag, "weight", PANGO_WEIGHT_NORMAL, NULL);
-			} else {
-				g_object_set(pat->tag, "weight", PANGO_WEIGHT_BOLD, NULL);
-			}
-		}
-		if (style > 0) {
-			if (1 == style) {
-				g_object_set(pat->tag, "style", PANGO_STYLE_NORMAL, NULL);
-			} else {
-				g_object_set(pat->tag, "style", PANGO_STYLE_ITALIC, NULL);
-			}
-		}
-		gtk_text_tag_table_add(highlight.tagtable, pat->tag);
-		/*
-		 * now add the pattern to the hierarchy 
-		 */
-		{
-			regex_t parentmatch;
-			gboolean retval1 = FALSE, retval2;
-			if (parent && strlen(parent)) {
-				regcomp(&parentmatch, parent, REG_EXTENDED | REG_NOSUB);
-			} else {
-				regcomp(&parentmatch, "^top$", REG_EXTENDED | REG_NOSUB);
-			}
-			if (regexec(&parentmatch, "top", 0, NULL, 0) == 0) {
-				hlset->highlightlist = g_list_append(hlset->highlightlist, pat);
-				retval1 = TRUE;
-			}
-			retval2 = add_pattern_to_name(hlset->highlightlist, &parentmatch, pat);
-			if (!retval1 && !retval2) {
-				DEBUG_MSG("could NOT add child %s to parent %s\n", name, parent);
-				pattern_free(pat);
-			}
-			regfree(&parentmatch);
-		}
-
+		mpat->filetype = g_strdup(filetype);
+		highlight.all_highlight_patterns = g_list_append(highlight.all_highlight_patterns, mpat);
 	}
 }
 
-
-Tfiletype *hl_get_highlightset_by_type(gchar * type)
-{
-	GList *tmplist;
-	tmplist = g_list_first(main_v->filetypelist);
+static void add_patterns_to_parent(GList **list, gchar *filetype, gchar *name) {
+	GList *tmplist = g_list_first(highlight.all_highlight_patterns);
 	while (tmplist) {
-#ifdef DEBUG
-		if (!tmplist || !tmplist->data || !((Tfiletype *) tmplist->data)->type) {
-			DEBUG_MSG("hl_get_highlightset_by_type is perhaps not yet finished??\n");
-			exit(1);
-		}
-#endif							/* DEBUG */
-		if (strcmp(((Tfiletype *) tmplist->data)->type, type) == 0) {
-			return (Tfiletype *) tmplist->data;
+		Tmetapattern *mpat = (Tmetapattern *)tmplist->data;
+		if (strcmp(filetype, mpat->filetype)==0) {
+			int ovector[9];
+			if (pcre_exec(mpat->pcre,NULL, name,strlen(name),0,0,ovector,9) > 0) {
+				*list = g_list_append(*list, mpat->pat);
+			}
 		}
 		tmplist = g_list_next(tmplist);
 	}
-	return NULL;
 }
 
-
-void hl_init()
-{
+void hl_init() {
 	GList *tmplist;
 	/* init main_v->filetypelist, the first set is the defaultset */
-
+	highlight.highlight_styles = NULL;
 	highlight.highlight_filetypes = NULL;
+	highlight.all_highlight_patterns = NULL; 
 	highlight.tagtable = gtk_text_tag_table_new();
 
 	/* start by initializing the types, they should come from the configfile */
@@ -375,30 +325,76 @@ void hl_init()
 #endif
 		tmplist = g_list_next(tmplist);
 	}
-
-	/* now start adding all the patterns */
-
-	tmplist = g_list_first(main_v->props.highlight_patterns);
+	
+	/* now compile the styles, they should come from the configfile */
+	tmplist = g_list_first(main_v->props.highlight_styles);
 	while (tmplist) {
-		Tfiletype *hlset;
 		gchar **strarr;
 		strarr = (gchar **) tmplist->data;
-
-		if (count_array(strarr) == 14) {
-			hlset = hl_get_highlightset_by_type(strarr[0]);
-			hl_compile_pattern(hlset, strarr[1], atoi(strarr[2]), strarr[3]
-							   , strarr[4], strarr[5], atoi(strarr[6]), strarr[7], strarr[8]
-							   , strarr[9], atoi(strarr[10]), atoi(strarr[11]), strarr[12], strarr[13]);
-		}
-#ifdef DEBUG
+		if (count_array(strarr) == 5) {
+			compile_hlstyle(strarr[0], strarr[1], strarr[2], atoi(strarr[3]), atoi(strarr[4]));
+		} 
+#ifdef DEBUG		
 		else {
-			DEBUG_MSG("hl_init, hl pattern needs 14 params in array, this one has %d\n", count_array(strarr));
+			g_print("hl_init, style needs 5 parameters in array\n");
 		}
 #endif
 		tmplist = g_list_next(tmplist);
 	}
+
+	/* now compile the patterns in metapatterns, they should come from the configfile */
+	tmplist = g_list_first(main_v->props.highlight_patterns);
+	while (tmplist) {
+		gchar **strarr;
+		strarr = (gchar **) tmplist->data;
+		if (count_array(strarr) == 8) {
+			compile_pattern(strarr[0], strarr[1], atoi(strarr[2]), strarr[3], strarr[4], atoi(strarr[5]), strarr[6], strarr[7]);
+		}
+#ifdef DEBUG		
+		else {
+			g_print("hl_init, pattern needs 8 parameters in array\n");
+		}
+#endif
+		tmplist = g_list_next(tmplist);
+	}
+
+	/* now start adding the patterns to the right filetype and the right pattern using the meta-info */
 	
-	/* now link the types with highlight patterns from a new list*/
+	/* first compile the parentmatch pattern */
+	tmplist = g_list_first(highlight.all_highlight_patterns);
+	while (tmplist) {
+		const char *err=NULL;
+		int erroffset=0;
+		Tmetapattern *mpat = (Tmetapattern *)tmplist->data;
+		mpat->pcre = pcre_compile(mpat->parentmatch, 0, &err, &erroffset,NULL);
+		if (err) {
+			g_print("error compiling parentmatch %s at %d\n", err, erroffset);
+		}
+		tmplist = g_list_next(tmplist);
+	}
+	/* now match the top-level patterns */
+	tmplist = g_list_first(main_v->filetypelist);
+	while (tmplist) {
+		Tfiletype *filetype = (Tfiletype *)tmplist->data;
+		add_patterns_to_parent(&filetype->highlightlist, filetype->type, "top");
+		tmplist = g_list_next(tmplist);
+	}
+	/* now match the rest of the patterns */
+	tmplist = g_list_first(highlight.all_highlight_patterns);
+	while (tmplist) {
+		Tmetapattern *mpat = (Tmetapattern *)tmplist->data;
+		add_patterns_to_parent(&mpat->pat->childs, mpat->filetype, mpat->name);
+		tmplist = g_list_next(tmplist);
+	}
+	/* free the parentmatch pattern now */
+	tmplist = g_list_first(highlight.all_highlight_patterns);
+	while (tmplist) {
+		Tmetapattern *mpat = (Tmetapattern *)tmplist->data;
+		pcre_free(mpat->pcre);
+		tmplist = g_list_next(tmplist);
+	}
+	
+	/* now link the filetypes with highlight patterns to a new list */
 	tmplist = g_list_first(main_v->filetypelist);
 	while (tmplist) {
 		if (((Tfiletype *)tmplist->data)->highlightlist) {
@@ -406,6 +402,29 @@ void hl_init()
 		}
 		tmplist = g_list_next(tmplist);
 	}
+}
+
+/**************************************/
+/* end of initialisation code         */
+/**************************************/
+
+Tfiletype *hl_get_highlightset_by_type(gchar * type)
+{
+	GList *tmplist;
+	tmplist = g_list_first(main_v->filetypelist);
+	while (tmplist) {
+#ifdef DEBUG
+		if (!tmplist || !tmplist->data || !((Tfiletype *) tmplist->data)->type) {
+			DEBUG_MSG("hl_get_highlightset_by_type is perhaps not yet finished??\n");
+			exit(1);
+		}
+#endif							/* DEBUG */
+		if (strcmp(((Tfiletype *) tmplist->data)->type, type) == 0) {
+			return (Tfiletype *) tmplist->data;
+		}
+		tmplist = g_list_next(tmplist);
+	}
+	return NULL;
 }
 
 Tfiletype *hl_get_highlightset_by_filename(gchar * filename)
@@ -435,275 +454,145 @@ Tfiletype *hl_get_highlightset_by_filename(gchar * filename)
 /* applying the highlighting */
 /*****************************/
 
-static void patmatch_rematch(Tpatmatch *patmatch, gint offset, regmatch_t par_pmatch[], gchar *string) {
-	gboolean done = FALSE;
-	gint localoffset=0;
-#ifdef HL_DEBUG
-	g_print("patmatch(%p), offset=%d, string(%p)\n", patmatch, offset, string);
-	if (offset < 0) {
-		g_print("patmatch_rematch, offset=%d, ABORTING\n", offset);
-		exit(2);
-	}
-	if (offset > strlen(string)) {
-		g_print("patmatch_rematch, offset=%d, strlen(string)=%d, ABORTING\n", offset, strlen(string));
-		exit(3);
-	}
-#endif
-
-	while (!done) {
+static void patmatch_rematch(gboolean is_parentmatch, Tpatmatch *patmatch, gint offset, gchar *buf, gint length, Tpatmatch *parentmatch) {
+	if (is_parentmatch) {
+		patmatch->is_match = pcre_exec(patmatch->pat->reg2.pcre, patmatch->pat->reg2.pcre_e, buf, length, offset, 0, patmatch->ovector, NUM_SUBMATCHES);
+	} else {
 		if (patmatch->pat->mode == 3) {
-			gint num = atoi(patmatch->pat->spat1);
-			patmatch->pmatch_offset = 0;
-			patmatch->pmatch[0].rm_so = par_pmatch[num].rm_so;
-			patmatch->pmatch[0].rm_eo = par_pmatch[num].rm_eo;
-			patmatch->pmatch[1].rm_so = -1;
-			done = TRUE;
+			patmatch->ovector[0] = parentmatch->ovector[patmatch->pat->numsub*2];
+			patmatch->ovector[1] = parentmatch->ovector[patmatch->pat->numsub*2+1];
+			patmatch->is_match = TRUE;
 		} else {
-			gint res, nummatches;
-			nummatches = (patmatch->pat->need_subpatterns) ? NUM_SUBMATCHES : 1;
-			res = regexec(&patmatch->pat->rpat1, &string[offset+localoffset], nummatches, patmatch->pmatch, 0);
-			if (res != 0) {
-				patmatch->pmatch[0].rm_so = -1;
-				done = TRUE;
-			} else {
-				gboolean start_ok = TRUE, end_ok = TRUE;
-#ifdef HL_DEBUG
-				gchar *debugstr = g_strndup(&string[offset+localoffset+patmatch->pmatch[0].rm_so-1], (patmatch->pmatch[0].rm_eo - patmatch->pmatch[0].rm_so + 2));
-				g_print("patmatch_rematch, '%s', rm_so=%d, rm_eo=%d, offset=%d, localoffset=%d\n", debugstr, patmatch->pmatch[0].rm_so, patmatch->pmatch[0].rm_eo, offset, localoffset);
-				g_free(debugstr);
-#endif
-				if (patmatch->pat->start_boundary && ((patmatch->pmatch[0].rm_so + localoffset + offset) > 0)) { /* a start at position 0 does not have any characters in front */
-					gchar c = string[offset+localoffset+patmatch->pmatch[0].rm_so-1];
-					start_ok = (strchr(patmatch->pat->start_boundary, c) != NULL);
-#ifdef HL_DEBUG
-					g_print("patmatch_rematch, start_boundary='%c', test in '%s', result=%d\n", c, patmatch->pat->start_boundary, start_ok);
-#endif
-				}
-				if (patmatch->pat->end_boundary && patmatch->pat->mode == 2) {
-					gchar c = string[offset+localoffset+patmatch->pmatch[0].rm_eo];
-#ifdef HL_DEBUG
-					g_print("patmatch_rematch, end_boundary='%c' (at %d), test in '%s', result=%d\n", c, offset+localoffset+patmatch->pmatch[0].rm_eo+1,patmatch->pat->end_boundary, start_ok);
-#endif
-					end_ok = (strchr(patmatch->pat->end_boundary, c) != NULL);
-				}
-				if (start_ok && end_ok) {
-					done = TRUE;
-#ifdef HL_DEBUG
-					g_print("patmatch_rematch, start_ok&&end_ok, setting pmatch_offset to offset(%d)+localoffset(%d)=%d\n",offset, localoffset, offset+localoffset);
-#endif
-					patmatch->pmatch_offset = offset+localoffset;
-				} else {
-					/* we have to increase the offset for this pattern to the found start + 1 */
-#ifdef HL_DEBUG
-					g_print("patmatch_rematch, setting localoffset from %d to %d\n", localoffset, (localoffset + patmatch->pmatch[0].rm_so+1));
-#endif
-					localoffset += patmatch->pmatch[0].rm_so+1;
-				}
-			}
+			patmatch->is_match = pcre_exec(patmatch->pat->reg1.pcre, patmatch->pat->reg1.pcre_e, buf, length, offset, 0, patmatch->ovector, NUM_SUBMATCHES);
 		}
 	}
-#ifdef HL_DEBUG
-	g_print("patmatch_rematch, patmatch %s now starts at %d (offset=%d)\n", patmatch->pat->name,patmatch->pmatch[0].rm_so, patmatch->pmatch_offset);
-#endif
 }
 
-static void applylevel(Tdocument * doc, GList * level_list, gint start, gint end, regmatch_t par_pmatch[], gchar * buf)
-{
+static void applystyle(Tdocument *doc, gchar *buf, gint so, gint eo, Tpattern *pat) {
+	GtkTextIter itstart, itend;
+	gint istart, iend;
+	glong char_start, char_end, byte_char_diff_start;
+
+	DEBUG_MSG("applystyle, coloring from so=%d to eo=%d\n", so, eo);
+
+	char_start = utf8_byteoffset_to_charsoffset(buf, so);
+	char_end = utf8_byteoffset_to_charsoffset(buf, eo);
+	byte_char_diff_start = so-char_start;
+
+	istart = so;
+	iend = eo;
 #ifdef HL_DEBUG
-	DEBUG_MSG("applylevel, started on doc %p from %d to %d\n", doc, start, end);
-	if (buf) {
-		if (strlen(buf) < 50) {
-			DEBUG_MSG("applylevel, buf='%s'\n", buf);
-		} else {
-			DEBUG_MSG("applylevel, strlen(buf)='%d'\n", strlen(buf));
-		}
-	}
+	DEBUG_MSG("applystyle, byte_char_diff=%ld\n", byte_char_diff_start);
+	DEBUG_MSG("applystyle, coloring from %d to %d\n", istart, iend);
 #endif
-	if (!level_list || (start == end)) {
-		DEBUG_MSG("applylevel, no list or start==end\n");
+	gtk_text_buffer_get_iter_at_offset(doc->buffer, &itstart, istart);
+	gtk_text_buffer_get_iter_at_offset(doc->buffer, &itend, iend);
+	gtk_text_buffer_apply_tag(doc->buffer, pat->tag, &itstart, &itend);
+}
+
+
+static void applylevel(Tdocument * doc, gchar * buf, gint offset, gint length, Tpatmatch *parentmatch, GList *childs_list) {
+	DEBUG_MSG("applylevel, started with offset=%d, length=%d\n", offset, length);
+	if (!childs_list) {
+		/* if the parent is mode 1 we still need to find the end for the parent */
+		if (parentmatch && parentmatch->pat->mode == 1) {
+			patmatch_rematch(TRUE, parentmatch, offset, buf, length, parentmatch);
+			if (parentmatch->is_match>0) {
+				applystyle(doc, buf, offset-1, parentmatch->ovector[1], parentmatch->pat);
+			}
+		} else {
+			DEBUG_MSG("no childs list, no mode 1 parent\n");
+		}
 		return;
 	} else {
-		gchar *string;
-		gint offset = 0;
+		gint numpats, i;
 		Tpatmatch *patmatch;
-		gint numpats;
-		/* first get the buffer we will work on this level */
-		if (buf) {
-			string = buf;
-		} else {
-			GtkTextIter itstart, itend;
-
-			gtk_text_buffer_get_iter_at_offset(doc->buffer, &itstart, start);
-			gtk_text_buffer_get_iter_at_offset(doc->buffer, &itend, end);
-
-			string = gtk_text_buffer_get_text(doc->buffer, &itstart, &itend, FALSE);
-#ifdef HL_DEBUG
-			DEBUG_MSG("len van string =%d\n", strlen(string));
-#endif
-		}
-		{
-			GList *tmplist;
-			gint i = 0;
-			numpats = g_list_length(level_list);
+		/* create the patmatch structures for this level */
+		GList *tmplist;
+		gint lowest_pm = -2; /* -2 means no lowest match, -1 means the parents ending is the lowest match, 0... means some pattern is the lowest match */
+			i = 0;
+			numpats = g_list_length(childs_list);
 			patmatch = g_new(Tpatmatch, numpats + 1);
-			tmplist = g_list_first(level_list);
+			tmplist = g_list_first(childs_list);
 			while (tmplist) {
 				patmatch[i].pat = (Tpattern *) tmplist->data;
+				/* match all patmatches for the first time and directly search for the lowest match */
+				patmatch_rematch(FALSE, &patmatch[i], offset, buf, length, parentmatch);
+				DEBUG_MSG("lowest_pm=%d, patmatch[%d].is_match=%d\n",lowest_pm,i,patmatch[i].is_match);
+				if ((patmatch[i].is_match > 0) && (lowest_pm == -2 || (patmatch[lowest_pm].ovector[0] > patmatch[i].ovector[0]))) {
+					lowest_pm = i;
+				}
 				tmplist = g_list_next(tmplist);
 				i++;
 			}
-		}
-		/* search for the first match on all patterns */
-		{
-			gint i;
-			for (i = 0; i < numpats; i++) {
-				patmatch_rematch(&patmatch[i], offset, par_pmatch, string);
-			}
-		}
-
-		/* loop trough the text */
-		while (TRUE) {			/* the break is done automatically when lowest_match_pat == NULL */
-			gint lowest_patmatch = -1;
-			{
-				gint i, lowest = end - start + 1;
-				for (i = 0; i < numpats; i++) {
-					if (patmatch[i].pmatch[0].rm_so >= 0
-						&& (patmatch[i].pmatch[0].rm_so + patmatch[i].pmatch_offset) < lowest) {
-						lowest_patmatch = i;
-						lowest = patmatch[i].pmatch[0].rm_so + patmatch[i].pmatch_offset;
-					}
+			if (parentmatch && parentmatch->pat->mode == 1) {
+				/* the end of the parent pattern needs matching too */
+				patmatch_rematch(TRUE, parentmatch, offset, buf, length, parentmatch);
+				if (parentmatch->is_match && (lowest_pm == -2 || (patmatch[lowest_pm].ovector[0] > parentmatch->ovector[1]))) {
+					lowest_pm = -1;
 				}
 			}
-			if (lowest_patmatch == -1) {
-#ifdef HL_DEBUG
-				DEBUG_MSG("applylevel, no lowest match anymore on this level, return!!\n");
-#endif
-				break;
-			}
-#ifdef HL_DEBUG
-			DEBUG_MSG("applylevel, pat(%d) %s has the lowest start %d (so=%d+offset=%d)\n", lowest_patmatch,
-					  patmatch[lowest_patmatch].pat->name,
-					  patmatch[lowest_patmatch].pmatch[0].rm_so + patmatch[lowest_patmatch].pmatch_offset,
-					  patmatch[lowest_patmatch].pmatch[0].rm_so, patmatch[lowest_patmatch].pmatch_offset);
-#endif
-			/* apply this match, if we can't find a ending match or so, we just set
-			 * the start to -1 so we will not use it anymore, and we set the start 
-			 * back to the current start */
-			if (patmatch[lowest_patmatch].pat->mode == 0 || patmatch[lowest_patmatch].pat->mode == 1) {
-					regmatch_t pmatch[1];
-					gint res2;
-#ifdef HL_DEBUG
-					DEBUG_MSG("applylevel, %s has mode==1, we need a 2nd match starting at %d\n", patmatch[lowest_patmatch].pat->name,
-							  patmatch[lowest_patmatch].pmatch[0].rm_so + patmatch[lowest_patmatch].pmatch_offset + 1);
-#endif
-					res2=regexec(&patmatch[lowest_patmatch].pat->rpat2,&string[patmatch[lowest_patmatch].pmatch[0].rm_so + patmatch[lowest_patmatch].pmatch_offset +1], 1, pmatch, 0);
-					if (res2 == 0) {
-						gboolean boundary_ok = TRUE;
-						if (patmatch[lowest_patmatch].pat->end_boundary) {
-							gchar c = string[pmatch[0].rm_eo + patmatch[lowest_patmatch].pmatch[0].rm_so + patmatch[lowest_patmatch].pmatch_offset +1];
-#ifdef HL_DEBUG
-							g_print("applylevel, end_boundary='%c' (at %d), test in '%s', result=%d\n", c,pmatch[0].rm_eo + patmatch[lowest_patmatch].pmatch[0].rm_so + patmatch[lowest_patmatch].pmatch_offset +1 ,patmatch[lowest_patmatch].pat->end_boundary, boundary_ok);
-#endif
-							if(c != '\0' && strchr(patmatch[lowest_patmatch].pat->end_boundary, c) == NULL) {
-								boundary_ok = FALSE;
-							}
-						}
-						if (patmatch[lowest_patmatch].pat->mode == 0) {
-							/* invalidating a mode 0 pattern should go here */
-							g_print("the pattern invalidating part for mode 0 is not yet implemented\n");
-						}
-						
-						if (boundary_ok) {
-							patmatch[lowest_patmatch].pmatch[0].rm_eo =
-									pmatch[0].rm_eo + patmatch[lowest_patmatch].pmatch[0].rm_so + 1;
-#ifdef HL_DEBUG
-							DEBUG_MSG("found match at %d, adding offset in string minus pmatch_offset %d to that\n",
-									  pmatch[0].rm_eo, patmatch[lowest_patmatch].pmatch[0].rm_so + 1);
-#endif
-							patmatch[lowest_patmatch].is_match = TRUE;
-						} else {
-							patmatch[lowest_patmatch].is_match = FALSE;
-						}
-					} else {
-						patmatch[lowest_patmatch].is_match = FALSE;
-					}
+			
+			/* apply the lowest match */
+			while (lowest_pm > -2) {
+				DEBUG_MSG("offset=%d, lowest_pm=%d\n", offset, lowest_pm);
+				if (lowest_pm == -1) {
+					/* apply the parent, and return from this level */
+					applystyle(doc, buf, offset-1, parentmatch->ovector[1], parentmatch->pat);
+					lowest_pm = -2; /* makes us return */
 				} else {
-					patmatch[lowest_patmatch].is_match = TRUE;
-				}
-			if (patmatch[lowest_patmatch].is_match) {
-				GtkTextIter itstart, itend;
-				gint istart, iend;
-				glong char_start, char_end, byte_char_diff_start;
-				char_start = utf8_byteoffset_to_charsoffset(string, patmatch[lowest_patmatch].pmatch[0].rm_so + patmatch[lowest_patmatch].pmatch_offset);
-				char_end = utf8_byteoffset_to_charsoffset(string, patmatch[lowest_patmatch].pmatch[0].rm_eo + patmatch[lowest_patmatch].pmatch_offset);
-				byte_char_diff_start = (patmatch[lowest_patmatch].pmatch[0].rm_so + patmatch[lowest_patmatch].pmatch_offset)-char_start;
-				
-/*				istart = start + patmatch[lowest_patmatch].pmatch[0].rm_so + patmatch[lowest_patmatch].pmatch_offset;
-				iend = start + patmatch[lowest_patmatch].pmatch[0].rm_eo + patmatch[lowest_patmatch].pmatch_offset;*/
-				istart = start + char_start;
-				iend = start + char_end;
-#ifdef HL_DEBUG
-				DEBUG_MSG("applylevel, byte_char_diff=%d\n", byte_char_diff_start);
-				DEBUG_MSG("applylevel, coloring from %d to %d\n", istart, iend);
+					switch (patmatch[lowest_pm].pat->mode) {
+					case 1:
+						/* if mode==1 the style is applied within the applylevel for the children because the end is not yet 
+						known, the end is set in ovector[1] after applylevel for the children is finished */
+						applylevel(doc, buf, patmatch[lowest_pm].ovector[0]+1, length, &patmatch[lowest_pm], patmatch[lowest_pm].pat->childs);
+						offset = patmatch[lowest_pm].ovector[1];
+					break;
+					case 2:
+						applystyle(doc, buf, patmatch[lowest_pm].ovector[0], patmatch[lowest_pm].ovector[1], patmatch[lowest_pm].pat);
+						applylevel(doc, buf, patmatch[lowest_pm].ovector[0]+1, patmatch[lowest_pm].ovector[1], &patmatch[lowest_pm], patmatch[lowest_pm].pat->childs);
+						offset = patmatch[lowest_pm].ovector[1];
+					break;
+					case 3:
+						applystyle(doc, buf, patmatch[lowest_pm].ovector[0], patmatch[lowest_pm].ovector[1], patmatch[lowest_pm].pat);
+						applylevel(doc, buf, patmatch[lowest_pm].ovector[0]+1, patmatch[lowest_pm].ovector[1], &patmatch[lowest_pm], patmatch[lowest_pm].pat->childs);
+						offset = patmatch[lowest_pm].ovector[1];
+					break;
+					default:
+						/* unknown mode, cannot pass the pattern-compile-stage??? */
+#ifdef DEBUG
+						g_print("applylevel, unknown mode, cannot pass the pattern-compile-stage???\n");
+						exit(2);
 #endif
-				gtk_text_buffer_get_iter_at_offset(doc->buffer, &itstart, istart);
-				gtk_text_buffer_get_iter_at_offset(doc->buffer, &itend, iend);
-				gtk_text_buffer_apply_tag(doc->buffer, patmatch[lowest_patmatch].pat->tag, &itstart, &itend);
-				if (patmatch[lowest_patmatch].pat->childs) {
-					if (patmatch[lowest_patmatch].pat->need_subpatterns) {
-						gint i = 1;
-						while (patmatch[lowest_patmatch].pmatch[i].rm_so > 0) {
-#ifdef HL_DEBUG
-							DEBUG_MSG("before: subpattern i=%d has so=%d and eo=%d\n", i,
-									  patmatch[lowest_patmatch].pmatch[i].rm_so, patmatch[lowest_patmatch].pmatch[i].rm_eo);
-#endif
-							patmatch[lowest_patmatch].pmatch[i].rm_so -= (patmatch[lowest_patmatch].pmatch[0].rm_so);
-							patmatch[lowest_patmatch].pmatch[i].rm_eo -= (patmatch[lowest_patmatch].pmatch[0].rm_so);
-#ifdef HL_DEBUG
-							DEBUG_MSG("after: subpattern i=%d has so=%d and eo=%d\n", i,
-									  patmatch[lowest_patmatch].pmatch[i].rm_so, patmatch[lowest_patmatch].pmatch[i].rm_eo);
-#endif
-							i++;
-						}
+					break;
 					}
-					applylevel(doc, patmatch[lowest_patmatch].pat->childs, istart, iend, patmatch[lowest_patmatch].pmatch,
-							   g_strndup(&string[istart - start + byte_char_diff_start], iend - istart));
-				}
-#ifdef HL_DEBUG
-				DEBUG_MSG("applylevel, offset was %d, and will be %d\n", offset,
-						  patmatch[lowest_patmatch].pmatch_offset + patmatch[lowest_patmatch].pmatch[0].rm_eo);
-#endif
-				offset = patmatch[lowest_patmatch].pmatch_offset + patmatch[lowest_patmatch].pmatch[0].rm_eo;
-
-			} else {
-				/* so there is no match at all eh? invalidate this pattern ??
-				this part is perhaps NOT CORRECT YET
-				 */
-#ifdef HL_DEBUG
-				DEBUG_MSG("applylevel, no match, so settings offset(%d) to %d\n", offset, offset+patmatch[lowest_patmatch].pmatch[0].rm_so +1);
-#endif
-				offset += patmatch[lowest_patmatch].pmatch[0].rm_so +1;
-			}
-			
-				/* search for the next match for all patterns that did start < offset, 
-				we do not need to  check type 3 because it can only run once in every level, so we set it to -1 */
-				{
-					gint i;
+					
+					/* rematch the patterns that have a startpoint < offset */
+					lowest_pm = -2;
 					for (i = 0; i < numpats; i++) {
-						if (patmatch[i].pat->mode == 3) {
-							patmatch[i].pmatch[0].rm_so = -1;
-						} else {
-							if (patmatch[i].pmatch[0].rm_so >= 0 && patmatch[i].pmatch[0].rm_so + patmatch[i].pmatch_offset < offset) {
-								/* re-search this pattern */
-								patmatch_rematch(&patmatch[i], offset, par_pmatch, string);
+						if (patmatch[i].ovector[0] < offset) {
+							if (patmatch[i].pat->mode == 3) {
+								patmatch[i].is_match = FALSE; /* mode 3 types can only match once */
+							} else {
+								patmatch_rematch(FALSE, &patmatch[i], offset, buf, length, parentmatch);
+								DEBUG_MSG("rematch: lowest_pm=%d, patmatch[%d].is_match=%d\n",lowest_pm,i,patmatch[i].is_match);
 							}
 						}
+						if ((patmatch[i].is_match>0) && (lowest_pm == -2 || (patmatch[lowest_pm].ovector[0] > patmatch[i].ovector[0]))) {
+							lowest_pm = i;
+						}
 					}
+					if (parentmatch && parentmatch->pat->mode == 1) {
+						/* the end of the parent pattern needs matching too */
+						patmatch_rematch(TRUE, parentmatch, offset, buf, length, parentmatch);
+						if ((parentmatch->is_match>0) && (lowest_pm == -2 || (patmatch[lowest_pm].ovector[0] > parentmatch->ovector[1]))) {
+							lowest_pm = -1;
+						}
+					}
+					
+					DEBUG_MSG("lowest_match %d has start %d\n", lowest_pm, patmatch[lowest_pm].ovector[0]);
 				}
-			
-			
 		}
-		g_free(string);
 		g_free(patmatch);
 	}
 }
@@ -756,7 +645,7 @@ void doc_highlight_full(Tdocument * doc)
 #ifdef HL_TIMING
 	times(&tms1);
 #endif
-	applylevel(doc, doc->hl->highlightlist, so, eo, NULL, NULL);
+	applylevel(doc, doc_get_chars(doc, so, eo), so, eo, NULL, doc->hl->highlightlist);
 #ifdef HL_TIMING
 	times(&tms2);
 	g_print("doc_highlight_full done, %d ms user-time needed for highlighting\n",
@@ -842,7 +731,7 @@ void doc_highlight_line(Tdocument * doc)
 				Tpattern *testpat;
 				testpat = find_pattern_by_tag(patternlist, GTK_TEXT_TAG(slist->data));
 				if (testpat) {
-					DEBUG_MSG("doc_highlight_line, testpat %p (%s) has tag %p\n", testpat, testpat->name, testpat->tag);
+					DEBUG_MSG("doc_highlight_line, testpat %p has tag %p\n", testpat, testpat->tag);
 				}
 			}
 			{
@@ -869,14 +758,14 @@ void doc_highlight_line(Tdocument * doc)
 						   subpattern */
 
 						pat = find_pattern_by_tag(patternlist, GTK_TEXT_TAG(slist->data));
-						DEBUG_MSG("found pattern %p (%s) with tag %p and childs %p\n", pat, pat->name, pat->tag,
+						DEBUG_MSG("found pattern %p with tag %p and childs %p\n", pat, pat->tag,
 								  pat->childs);
 						if (pat && (pat->mode == 1 || pat->mode == 0)) {
 							gchar *string;
-							regmatch_t pmatch[1];
+							int ovector[NUM_SUBMATCHES];
 							/* but first we do a quick test if the parent-pattern is indeed still valid */
 							string = gtk_text_buffer_get_text(doc->buffer, &itstart, &itend, FALSE);
-							if (0 == regexec(&pat->rpat2, string, 1, pmatch, 0)) {
+							if (0 < pcre_exec(pat->reg2.pcre, pat->reg2.pcre_e, string, strlen(string), 0, 0, ovector, NUM_SUBMATCHES)) {
 								/* the current line does not have the start of the tag or the end of the tag, but now 
 								   it does have a match on the end pattern --> so the pattern should be invalidated */
 								pat = NULL;
@@ -969,7 +858,7 @@ void doc_highlight_line(Tdocument * doc)
 #ifdef HL_TIMING
 		times(&tms1);
 #endif
-		applylevel(doc, patternlist, so, eo, NULL, NULL);
+		applylevel(doc, doc_get_chars(doc, so, eo), so, eo, NULL, doc->hl->highlightlist);
 #ifdef HL_TIMING
 		times(&tms2);
 		g_print("doc_highlight_line done, %d ms user-time needed for highlighting\n",
@@ -986,7 +875,22 @@ void doc_highlight_line(Tdocument * doc)
 void hl_reset_to_default()
 {
 	gchar **arr;
-
+	
+	arr = array_from_arglist("hp_green", "#009900", "", "0", "0", NULL);
+	main_v->props.highlight_styles = g_list_append(main_v->props.highlight_styles, arr);
+	arr = array_from_arglist("comment", "#AAAAAA", "", "1", "2", NULL);
+	main_v->props.highlight_styles = g_list_append(main_v->props.highlight_styles, arr);
+	arr = array_from_arglist("keyword", "#000000", "", "2", "0", NULL);
+	main_v->props.highlight_styles = g_list_append(main_v->props.highlight_styles, arr);
+	
+	arr = array_from_arglist("c", "string", "0", "\"", "\"", "1", "", "hp_green", NULL);
+	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
+	arr = array_from_arglist("c", "comment", "0", "/\\*", "\\*/", "1", "", "comment", NULL);
+	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
+	arr = array_from_arglist("c", "keyword", "0", "\\b(return|goto|if|else|case|default|switch|break|continue|while|do|for|sizeof)\\b", "", "2", "", "keyword", NULL);
+	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
+	
+#ifdef POSIX_REGEX
 #ifdef MAKE_BLUEFISH_WITH_BLUEFISH
 	arr = array_from_arglist("c", "string", "0", "\"", "\"", "", "1", "", "#009900", "", "0", "0", "", "", NULL);
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
@@ -1142,6 +1046,7 @@ void hl_reset_to_default()
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
 	arr = array_from_arglist("sql", "storage", "1", "(integer|varchar|char|blob|double|timestamp)", "", "", "2", "", "#880088", "", "2","0", " \t\n", " \t\n", NULL);
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns, arr);
+#endif /* POSIX_REGEX */
 }
 
 GtkTextTagTable *highlight_return_tagtable() {
