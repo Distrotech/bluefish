@@ -684,15 +684,12 @@ static void fill_cust_menubar() {
 		splittedstring = (gchar **) tmplist->data;
 		count2 = count_array(splittedstring);
 		
-		/* this is for backwards compatibility with bluefish < 0.7 */
-		if (count2 < 4) {
-			tmplist = g_list_next(tmplist);
-			continue;
-		}
-		DEBUG_MSG("fill_cust_menubar, splittedstring[1]='%s'\n", splittedstring[1]);
-
+		DEBUG_MSG("fill_cust_menubar, splittedstring[0]='%s', splittedstring[1]='%s'\n", splittedstring[0], splittedstring[1]);
 		if (count2 < 5) {
-			DEBUG_MSG("fill_cust_menubar, array count < 4, this is invalid\n");
+			DEBUG_MSG("fill_cust_menubar, array count < 5, (count2=%d) this is invalid\n", count2);
+#ifdef DEBUG
+			debug_array(splittedstring);
+#endif
 			tmplist = g_list_next(tmplist);
 			continue;
 		}
