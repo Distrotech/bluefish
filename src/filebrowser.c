@@ -699,6 +699,8 @@ static void filebrowser_rpopup_filter_toggled_lcb(GtkWidget *widget, Tfilter *fi
 	if (GTK_CHECK_MENU_ITEM(widget)->active) {
 		DEBUG_MSG("filebrowser_rpopup_filter_toggled_lcb, setting curfilter to (%p) %s\n", filter, filter->name);
 		filebrowser.curfilter = filter;
+		if (main_v->props.last_filefilter) g_free(main_v->props.last_filefilter);
+		main_v->props.last_filefilter = g_strdup(filter->name);
 	}
 }
 
@@ -1062,7 +1064,11 @@ GtkWidget *filebrowser_init() {
 		while (tmplist) {
 			gchar **strarr = (gchar **) tmplist->data;
 			if (count_array(strarr) == 3) {
-				filebrowser.filters = g_list_append(filebrowser.filters, new_filter(strarr[0], strarr[1], strarr[2]));
+				Tfilter *filter = new_filter(strarr[0], strarr[1], strarr[2]);
+				filebrowser.filters = g_list_append(filebrowser.filters, filter);
+				if (strcmp(filter->name, main_v->props.last_filefilter)==0) {
+					filebrowser.curfilter = filter;
+				}
 			}
 			tmplist = g_list_next(tmplist);
 		}

@@ -74,7 +74,7 @@ gint documentlist_return_index_from_filename(gchar *filename) {
 void doc_update_highlighting(GtkWidget *wid, gpointer data) {
 	if (main_v->current_document->highlightstate == 0) {
 		setup_toggle_item(gtk_item_factory_from_widget(main_v->menubar),
-			  N_("/Options/Current document/Highlight syntax"), TRUE);
+			  N_("/Document/Highlight syntax"), TRUE);
 		doc_toggle_highlighting_cb(NULL, 0, NULL);
 	} else {
 		doc_highlight_full(main_v->current_document);
@@ -146,6 +146,30 @@ void doc_set_tabsize(Tdocument *doc, gint tabsize) {
 	pango_tab_array_free(tab_array);
 }
 
+void gui_change_tabsize(gpointer callback_data,guint action,GtkWidget *widget) {
+	GList *tmplist;
+	PangoTabArray *tab_array;
+	gint pixels;
+	if (action) {
+		main_v->props.editor_tab_width++;
+	} else {
+		main_v->props.editor_tab_width--;
+	}
+	{
+		gchar *message = g_strdup_printf("Setting tabsize to %d", main_v->props.editor_tab_width);
+		statusbar_message(message, 2000);
+		g_free(message);
+	}
+	tmplist = g_list_first(main_v->documentlist);
+	pixels = textview_calculate_real_tab_width(GTK_WIDGET(((Tdocument *)tmplist->data)->view), main_v->props.editor_tab_width);
+	tab_array = pango_tab_array_new (1, TRUE);
+	pango_tab_array_set_tab (tab_array, 0, PANGO_TAB_LEFT, pixels);
+	while (tmplist) {
+		gtk_text_view_set_tabs (GTK_TEXT_VIEW(((Tdocument *)tmplist->data)->view), tab_array);
+		tmplist = g_list_next(tmplist);
+	}
+	pango_tab_array_free(tab_array);
+}
 
 gboolean doc_is_empty_non_modified_and_nameless(Tdocument *doc) {
 #ifdef DEBUG
