@@ -3190,21 +3190,19 @@ void edit_copy_cb(GtkWidget * widget, Tbfwin *bfwin) {
  **/
 void edit_paste_cb(GtkWidget * widget, Tbfwin *bfwin) {
 	gboolean wasHighlighted = FALSE;
+	GtkTextMark *mark;
 	
-	if (bfwin->current_document->highlightstate == 1)
-	{
+	if (bfwin->current_document->highlightstate == 1) {
 		 bfwin->current_document->highlightstate = 0;
 		 wasHighlighted = TRUE;
 	}
 	
 	gtk_text_buffer_paste_clipboard (bfwin->current_document->buffer,gtk_clipboard_get(GDK_SELECTION_CLIPBOARD),NULL,TRUE);
 	
-	GtkTextMark *mark = gtk_text_buffer_get_insert(bfwin->current_document->buffer);
-	gtk_text_view_scroll_mark_onscreen (GTK_TEXT_VIEW(bfwin->current_document->view), mark); 
+	mark = gtk_text_buffer_get_insert(bfwin->current_document->buffer);
+	gtk_text_view_scroll_mark_onscreen(GTK_TEXT_VIEW(bfwin->current_document->view), mark); 
 	
-	
-	if (wasHighlighted)
-	{
+	if (wasHighlighted) {
 		bfwin->current_document->highlightstate = 1;
 		doc_highlight_full(bfwin->current_document);
 	}
