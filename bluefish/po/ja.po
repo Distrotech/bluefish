@@ -6,14 +6,14 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish gtk2-port\n"
-"POT-Creation-Date: 2003-11-19 10:53+0100\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2003-11-20 19:23+0100\n"
 "PO-Revision-Date: 2003-07-10 01:30+0900\n"
 "Last-Translator: Ryoichi INAGAKI <ryo1@bc,wakwak.com>\n"
 "Language-Team: Japanese <ja@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Report-Msgid-Bugs-To: \n"
 
 #: ../src/bfspell.c:340
 #, fuzzy
@@ -37,7 +37,7 @@ msgstr ""
 msgid "I_gnore"
 msgstr "無視"
 
-#: ../src/bfspell.c:361 ../src/snr2.c:836
+#: ../src/bfspell.c:361 ../src/snr2.c:886
 msgid "_Replace"
 msgstr "置換(_R)"
 
@@ -528,7 +528,7 @@ msgstr "再帰検索(_R):"
 
 #: ../src/document.c:2942
 msgid "<b>Contains</b>"
-msgstr "<b>Contains<\b>"
+msgstr "<b>Contains</b>"
 
 #: ../src/document.c:2945
 msgid "Pa_ttern:"
@@ -743,7 +743,7 @@ msgstr ""
 msgid "Show info window"
 msgstr "情報ウィンドウを表示"
 
-#: ../src/fref.c:2059 ../src/snr2.c:1228
+#: ../src/fref.c:2059 ../src/snr2.c:1278
 msgid "Search"
 msgstr "検索"
 
@@ -4058,95 +4058,95 @@ msgstr "出力パーサ"
 msgid "Outputbox"
 msgstr ""
 
-#: ../src/project.c:61
+#: ../src/project.c:62
 #, fuzzy
 msgid "New project"
 msgstr "プロジェクト"
 
-#: ../src/project.c:110
+#: ../src/project.c:112
 #, fuzzy
 msgid "Enter Bluefish project filename"
 msgstr "Bluefishプロジェクト - ファイル・リスト"
 
-#: ../src/project.c:134
+#: ../src/project.c:136
 #, fuzzy
 msgid "/Project/Save"
 msgstr "/プロジェクト/保存"
 
-#: ../src/project.c:135
+#: ../src/project.c:137
 #, fuzzy
 msgid "/Project/Save as..."
 msgstr "/プロジェクト/別名で保存..."
 
-#: ../src/project.c:136
+#: ../src/project.c:138
 #, fuzzy
 msgid "/Project/Close & save"
 msgstr "/プロジェクト/閉じる"
 
-#: ../src/project.c:137
+#: ../src/project.c:139
 msgid "/Project/Edit Project Options..."
 msgstr ""
 
-#: ../src/project.c:192
+#: ../src/project.c:194
 #, fuzzy
 msgid "Select Bluefish project filename"
 msgstr "Bluefishプロジェクト - ファイル・リスト"
 
-#: ../src/project.c:323
+#: ../src/project.c:327
 #, fuzzy
 msgid "Create New Project"
 msgstr "プロジェクト"
 
-#: ../src/project.c:326
+#: ../src/project.c:330
 #, fuzzy
 msgid "Edit Project"
 msgstr "環境設定"
 
-#: ../src/project.c:349
+#: ../src/project.c:353
 #, fuzzy, c-format
 msgid "This project contains %d files"
 msgstr "Bluefishプロジェクト - ファイル・リスト"
 
-#: ../src/project.c:361
+#: ../src/project.c:365
 #, fuzzy
 msgid "Project _Name:"
 msgstr "/プロジェクト(_P)"
 
-#: ../src/project.c:365
+#: ../src/project.c:369
 #, fuzzy
 msgid "_Local Directory:"
 msgstr "/新規ディレクトリ(_D)"
 
-#: ../src/project.c:369
+#: ../src/project.c:373
 #, fuzzy
 msgid "_Remote Directory:"
 msgstr "/新規ディレクトリ(_D)"
 
-#: ../src/project.c:373
+#: ../src/project.c:377
 #, fuzzy
 msgid "_Template:"
 msgstr "テンプレート"
 
-#: ../src/project.c:377
+#: ../src/project.c:381
 #, fuzzy
 msgid "_Word wrap by default"
 msgstr "デフォルトでテキストを折り返す"
 
-#: ../src/project.c:388
+#: ../src/project.c:392
 #, fuzzy
 msgid "Create _Project"
 msgstr "プロジェクト"
 
-#: ../src/project.c:428
+#: ../src/project.c:432
 #, fuzzy
 msgid "Create project"
 msgstr "プロジェクト"
 
-#: ../src/project.c:432
+#: ../src/project.c:436
 msgid "Create project with currently opened documents"
 msgstr ""
 
-#: ../src/project.c:433
+#: ../src/project.c:437
 msgid "Create empty project"
 msgstr ""
 
@@ -4215,126 +4215,131 @@ msgstr "オブジェクトファイルを隠す"
 msgid "Untitled Project"
 msgstr "無題 *"
 
-#: ../src/snr2.c:145
+#: ../src/snr2.c:195
 msgid "Regular expression error: "
 msgstr "正規表現エラー: "
 
-#: ../src/snr2.c:146 ../src/snr2.c:190
+#: ../src/snr2.c:196 ../src/snr2.c:240
 msgid "Search failed"
 msgstr "検索に失敗"
 
-#: ../src/snr2.c:189
+#: ../src/snr2.c:239
 #, c-format
 msgid "Regular expression error: %s at offset %d"
 msgstr "正規表現エラー: %s at offset %d"
 
-#: ../src/snr2.c:810
+#: ../src/snr2.c:860
 msgid "Confirm replace"
 msgstr "置換の確認"
 
-#: ../src/snr2.c:822
+#: ../src/snr2.c:872
 msgid "Replace selected text?"
 msgstr "選択したテキストを置換しますか?"
 
-#: ../src/snr2.c:835
+#: ../src/snr2.c:885
 msgid "_Skip"
 msgstr "スキップ(_S)"
 
-#: ../src/snr2.c:837
+#: ../src/snr2.c:887
 msgid "Replace _all"
 msgstr "すべて置換(_A)"
 
-#: ../src/snr2.c:1023 ../src/snr2.c:1030
+#: ../src/snr2.c:1073 ../src/snr2.c:1080
 msgid "Search: no match found"
 msgstr "検索: マッチするものは見つかりませんでした"
 
-#: ../src/snr2.c:1225
+#: ../src/snr2.c:1275
 msgid "Replace"
 msgstr "置換"
 
-#: ../src/snr2.c:1254
+#: ../src/snr2.c:1304
 msgid "Search _for: "
 msgstr "検索対象(_F):"
 
-#: ../src/snr2.c:1268
+#: ../src/snr2.c:1318
 msgid "Replace wit_h: "
 msgstr "置換文字列(_H): "
 
-#: ../src/snr2.c:1279
+#: ../src/snr2.c:1329
 msgid "\\0 refers to the first subsearch_pattern, \\1 to the second etc."
 msgstr ""
 
-#: ../src/snr2.c:1294
+#: ../src/snr2.c:1344
 msgid "Beginning of document till end"
 msgstr "文書の最初から最後まで"
 
-#: ../src/snr2.c:1294
+#: ../src/snr2.c:1344
 msgid "Current position till end"
 msgstr "現在位置から最後まで"
 
-#: ../src/snr2.c:1294
+#: ../src/snr2.c:1344
 msgid "Beginning of selection till end of selection"
 msgstr "セクションの最初からセクションの最後まで"
 
-#: ../src/snr2.c:1294
+#: ../src/snr2.c:1344
 msgid "All opened files begin till end"
 msgstr "開いている全ファイルの先頭から最後まで"
 
-#: ../src/snr2.c:1295
+#: ../src/snr2.c:1345
 msgid "Disabled"
 msgstr "無効"
 
-#: ../src/snr2.c:1295
+#: ../src/snr2.c:1345
 msgid "POSIX type"
 msgstr "POSIX 形式"
 
-#: ../src/snr2.c:1295
+#: ../src/snr2.c:1345
 msgid "PERL type"
 msgstr "PERL 形式"
 
-#: ../src/snr2.c:1296
+#: ../src/snr2.c:1346
 msgid "Starts at:"
 msgstr ""
 
-#: ../src/snr2.c:1308
+#: ../src/snr2.c:1358
 msgid "Regular expression:"
 msgstr "正規表現: "
 
-#: ../src/snr2.c:1322
+#: ../src/snr2.c:1372
 msgid "Normal"
 msgstr "通常"
 
-#: ../src/snr2.c:1322
+#: ../src/snr2.c:1372
 msgid "Uppercase"
 msgstr "大文字"
 
-#: ../src/snr2.c:1322
+#: ../src/snr2.c:1372
 msgid "Lowercase"
 msgstr "小文字"
 
-#: ../src/snr2.c:1323
+#: ../src/snr2.c:1373
 msgid "Replace type:"
 msgstr "置換の種類:"
 
-#: ../src/snr2.c:1336
+#: ../src/snr2.c:1386
 msgid "Patterns contain backslash escape sequences (\\n, \\t)"
 msgstr ""
 
-#: ../src/snr2.c:1337
+#: ../src/snr2.c:1387
 msgid "Match ca_se"
 msgstr "大文字小文字を区別する(_S)"
 
-#: ../src/snr2.c:1338
+#: ../src/snr2.c:1388
 msgid "O_verlap searches"
 msgstr "折り返して検索(_V)"
 
-#: ../src/snr2.c:1340
+#: ../src/snr2.c:1390
 msgid "Prompt _before replace"
 msgstr "置換前に確認(_B)"
 
-#: ../src/snr2.c:1341
+#: ../src/snr2.c:1391
 msgid "Rep_lace once"
 msgstr "一度に置換(_L)"
+
+#: ../src/specialchar.c:18
+#, fuzzy
+msgid "Insert special character"
+msgstr "正しくないHTML実体参照です! %s\n"
 
 #: ../src/stringlist.c:365
 msgid " Add "
@@ -4419,10 +4424,6 @@ msgstr "ソース:"
 #: ../src/wizards.c:223
 msgid "Size:"
 msgstr "サイズ:"
-
-#, fuzzy
-#~ msgid "Insert special character"
-#~ msgstr "正しくないHTML実体参照です! %s\n"
 
 #~ msgid "Spell checker"
 #~ msgstr "スペルチェッカー"

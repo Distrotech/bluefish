@@ -13,14 +13,14 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ru\n"
-"POT-Creation-Date: 2003-11-19 10:53+0100\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2003-11-20 19:23+0100\n"
 "PO-Revision-Date: 2003-11-19 22:53+0300\n"
 "Last-Translator: Eugene Rupakov <taurus@croco.net>\n"
 "Language-Team: Русский <ru@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Report-Msgid-Bugs-To: \n"
 "X-Generator: KBabel 1.0\n"
 
 #: ../src/bfspell.c:340
@@ -43,7 +43,7 @@ msgstr "_Изменить на:"
 msgid "I_gnore"
 msgstr "И_гнорировать"
 
-#: ../src/bfspell.c:361 ../src/snr2.c:836
+#: ../src/bfspell.c:361 ../src/snr2.c:886
 msgid "_Replace"
 msgstr "_Заменить"
 
@@ -219,7 +219,8 @@ msgstr "У Вас здесь уже есть закладка!"
 #: ../src/bookmark.c:387
 #, c-format
 msgid "You can overwrite next temp bookmark (number %d). Overwrite?"
-msgstr "Вы можете перезаписать следующую временную закладку (номер %d). Перезаписать?"
+msgstr ""
+"Вы можете перезаписать следующую временную закладку (номер %d). Перезаписать?"
 
 #: ../src/bookmark.c:388
 msgid "Maximum number of temp bookmarks assigned"
@@ -413,7 +414,8 @@ msgstr ""
 
 #: ../src/document.c:2231
 msgid "Do you want to save the changes made to this untitled file?"
-msgstr "Вы уверены, что хотите сохранить изменения, внесенные в этот безымянный файл?"
+msgstr ""
+"Вы уверены, что хотите сохранить изменения, внесенные в этот безымянный файл?"
 
 #: ../src/document.c:2235
 msgid "Do_n't save"
@@ -708,13 +710,14 @@ msgstr "Ошибка"
 msgid ""
 "Perhaps you didn't load a reference, or you did not select a reference to "
 "search in."
-msgstr "Возможно, вы не загрузили справочник, или не выбрали справочник для поиска"
+msgstr ""
+"Возможно, вы не загрузили справочник, или не выбрали справочник для поиска"
 
 #: ../src/fref.c:2045
 msgid "Show info window"
 msgstr "Показать окно информации"
 
-#: ../src/fref.c:2059 ../src/snr2.c:1228
+#: ../src/fref.c:2059 ../src/snr2.c:1278
 msgid "Search"
 msgstr "_Поиск"
 
@@ -3954,80 +3957,80 @@ msgstr "Обработчики вывода"
 msgid "Outputbox"
 msgstr "Окно вывода"
 
-#: ../src/project.c:61
+#: ../src/project.c:62
 msgid "New project"
 msgstr "Новый проект"
 
-#: ../src/project.c:110
+#: ../src/project.c:112
 msgid "Enter Bluefish project filename"
 msgstr "Введите имя проекта Bluefish"
 
-#: ../src/project.c:134
+#: ../src/project.c:136
 msgid "/Project/Save"
 msgstr "/Проект/Сохранить"
 
-#: ../src/project.c:135
+#: ../src/project.c:137
 msgid "/Project/Save as..."
 msgstr "/Проект/Сохранить как..."
 
-#: ../src/project.c:136
+#: ../src/project.c:138
 msgid "/Project/Close & save"
 msgstr "/Проект/Сохранить и закрыть"
 
-#: ../src/project.c:137
+#: ../src/project.c:139
 msgid "/Project/Edit Project Options..."
 msgstr "/Проект/Редактировать параметры проекта..."
 
-#: ../src/project.c:192
+#: ../src/project.c:194
 msgid "Select Bluefish project filename"
 msgstr "Выберите имя файла проекта Bluefish"
 
-#: ../src/project.c:323
+#: ../src/project.c:327
 msgid "Create New Project"
 msgstr "Создать новый проект"
 
-#: ../src/project.c:326
+#: ../src/project.c:330
 msgid "Edit Project"
 msgstr "Редактировать проект"
 
-#: ../src/project.c:349
+#: ../src/project.c:353
 #, c-format
 msgid "This project contains %d files"
 msgstr "В этом проекте %d файлов"
 
-#: ../src/project.c:361
+#: ../src/project.c:365
 msgid "Project _Name:"
 msgstr "_Имя проекта:"
 
-#: ../src/project.c:365
+#: ../src/project.c:369
 msgid "_Local Directory:"
 msgstr "_Локальная директория:"
 
-#: ../src/project.c:369
+#: ../src/project.c:373
 msgid "_Remote Directory:"
 msgstr "У_даленная директория:"
 
-#: ../src/project.c:373
+#: ../src/project.c:377
 msgid "_Template:"
 msgstr "_Шаблон:"
 
-#: ../src/project.c:377
+#: ../src/project.c:381
 msgid "_Word wrap by default"
 msgstr "П_еренос строк по умолчанию"
 
-#: ../src/project.c:388
+#: ../src/project.c:392
 msgid "Create _Project"
 msgstr "Создать _проект"
 
-#: ../src/project.c:428
+#: ../src/project.c:432
 msgid "Create project"
 msgstr "Создать проект"
 
-#: ../src/project.c:432
+#: ../src/project.c:436
 msgid "Create project with currently opened documents"
 msgstr "Создать проект из текущих открытых документов"
 
-#: ../src/project.c:433
+#: ../src/project.c:437
 msgid "Create empty project"
 msgstr "Создать пустой проект"
 
@@ -4095,126 +4098,132 @@ msgstr "Спрятать объектные файлы"
 msgid "Untitled Project"
 msgstr "Безымянный Проект"
 
-#: ../src/snr2.c:145
+#: ../src/snr2.c:195
 msgid "Regular expression error: "
 msgstr "Ошибка регулярного выражения:"
 
-#: ../src/snr2.c:146 ../src/snr2.c:190
+#: ../src/snr2.c:196 ../src/snr2.c:240
 msgid "Search failed"
 msgstr "Поиск не удался"
 
-#: ../src/snr2.c:189
+#: ../src/snr2.c:239
 #, c-format
 msgid "Regular expression error: %s at offset %d"
 msgstr "Ошибка в регулярном выражении: %s по смещению %d"
 
-#: ../src/snr2.c:810
+#: ../src/snr2.c:860
 msgid "Confirm replace"
 msgstr "Подтвердите замену"
 
-#: ../src/snr2.c:822
+#: ../src/snr2.c:872
 msgid "Replace selected text?"
 msgstr "Заменить выделенный текст?"
 
-#: ../src/snr2.c:835
+#: ../src/snr2.c:885
 msgid "_Skip"
 msgstr "_Пропустить"
 
-#: ../src/snr2.c:837
+#: ../src/snr2.c:887
 msgid "Replace _all"
 msgstr "Заменить вс_е"
 
-#: ../src/snr2.c:1023 ../src/snr2.c:1030
+#: ../src/snr2.c:1073 ../src/snr2.c:1080
 msgid "Search: no match found"
 msgstr "Поиск: вхождений не найдено"
 
-#: ../src/snr2.c:1225
+#: ../src/snr2.c:1275
 msgid "Replace"
 msgstr "Заменить"
 
-#: ../src/snr2.c:1254
+#: ../src/snr2.c:1304
 msgid "Search _for: "
 msgstr "_Искать: "
 
-#: ../src/snr2.c:1268
+#: ../src/snr2.c:1318
 msgid "Replace wit_h: "
 msgstr "Заменить _на: "
 
-#: ../src/snr2.c:1279
+#: ../src/snr2.c:1329
 msgid "\\0 refers to the first subsearch_pattern, \\1 to the second etc."
-msgstr "\\0 указывает на первый шаблон вложенного поиска, \\1 на второй, и т.д."
+msgstr ""
+"\\0 указывает на первый шаблон вложенного поиска, \\1 на второй, и т.д."
 
-#: ../src/snr2.c:1294
+#: ../src/snr2.c:1344
 msgid "Beginning of document till end"
 msgstr "От начала до конца документа"
 
-#: ../src/snr2.c:1294
+#: ../src/snr2.c:1344
 msgid "Current position till end"
 msgstr "С текущей позиции курсора до конца"
 
-#: ../src/snr2.c:1294
+#: ../src/snr2.c:1344
 msgid "Beginning of selection till end of selection"
 msgstr "От начала до конца выделения"
 
-#: ../src/snr2.c:1294
+#: ../src/snr2.c:1344
 msgid "All opened files begin till end"
 msgstr "Все открытые-файлы с начала до конца"
 
-#: ../src/snr2.c:1295
+#: ../src/snr2.c:1345
 msgid "Disabled"
 msgstr "Отключен"
 
-#: ../src/snr2.c:1295
+#: ../src/snr2.c:1345
 msgid "POSIX type"
 msgstr "Тип POSIX"
 
-#: ../src/snr2.c:1295
+#: ../src/snr2.c:1345
 msgid "PERL type"
 msgstr "тип PERL"
 
-#: ../src/snr2.c:1296
+#: ../src/snr2.c:1346
 msgid "Starts at:"
 msgstr "Начинать с:"
 
-#: ../src/snr2.c:1308
+#: ../src/snr2.c:1358
 msgid "Regular expression:"
 msgstr "Регулярное выражение:"
 
-#: ../src/snr2.c:1322
+#: ../src/snr2.c:1372
 msgid "Normal"
 msgstr "Обычный"
 
-#: ../src/snr2.c:1322
+#: ../src/snr2.c:1372
 msgid "Uppercase"
 msgstr "Прописные буквы"
 
-#: ../src/snr2.c:1322
+#: ../src/snr2.c:1372
 msgid "Lowercase"
 msgstr "Строчные буквы"
 
-#: ../src/snr2.c:1323
+#: ../src/snr2.c:1373
 msgid "Replace type:"
 msgstr "Тип замены:"
 
-#: ../src/snr2.c:1336
+#: ../src/snr2.c:1386
 msgid "Patterns contain backslash escape sequences (\\n, \\t)"
-msgstr "Шаблоны содержат escape-последовательности с обратной дробью (\\n, \\t)"
+msgstr ""
+"Шаблоны содержат escape-последовательности с обратной дробью (\\n, \\t)"
 
-#: ../src/snr2.c:1337
+#: ../src/snr2.c:1387
 msgid "Match ca_se"
 msgstr "Размер _букв должен совпадать"
 
-#: ../src/snr2.c:1338
+#: ../src/snr2.c:1388
 msgid "O_verlap searches"
 msgstr "Пере_секающийся поиск"
 
-#: ../src/snr2.c:1340
+#: ../src/snr2.c:1390
 msgid "Prompt _before replace"
 msgstr "Спросить подтверждение _перед заменой"
 
-#: ../src/snr2.c:1341
+#: ../src/snr2.c:1391
 msgid "Rep_lace once"
 msgstr "За_менить единожды"
+
+#: ../src/specialchar.c:18
+msgid "Insert special character"
+msgstr ""
 
 #: ../src/stringlist.c:365
 msgid " Add "
@@ -4299,4 +4308,3 @@ msgstr "Источник:"
 #: ../src/wizards.c:223
 msgid "Size:"
 msgstr "Размер:"
-
