@@ -818,6 +818,9 @@ static gboolean doc_check_modified_on_disk(Tdocument *doc, GnomeVFSFileInfo **ne
 	} else if (main_v->props.modified_check_type < 4) {
 		GnomeVFSFileInfo *fileinfo;
 		gboolean unref_fileinfo = FALSE;
+		GError *gerror;
+		gint b_written;
+		gchar *ondiskencoding = g_filename_from_utf8(doc->filename,-1,NULL,&b_written,&gerror);
 		if (*newfileinfo == NULL) {
 			fileinfo = gnome_vfs_file_info_new();
 			unref_fileinfo = TRUE;
@@ -826,8 +829,9 @@ static gboolean doc_check_modified_on_disk(Tdocument *doc, GnomeVFSFileInfo **ne
 			fileinfo = *newfileinfo;
 			DEBUG_MSG("doc_check_modified_on_disk, using existing fileinfo at %p\n", fileinfo);
 		}
-		if (gnome_vfs_get_file_info(doc->filename, fileinfo
-				, GNOME_VFS_FILE_INFO_DEFAULT|GNOME_VFS_FILE_INFO_FOLLOW_LINKS) == GNOME_VFS_OK) {
+		if (gnome_vfs_get_file_info(ondiskencoding, fileinfo
+					, GNOME_VFS_FILE_INFO_DEFAULT|GNOME_VFS_FILE_INFO_FOLLOW_LINKS) == GNOME_VFS_OK) {
+			g_free(ondiskencoding);
 			if (main_v->props.modified_check_type == 1 || main_v->props.modified_check_type == 2) {
 				if (doc->fileinfo->mtime < fileinfo->mtime) {
 					if (unref_fileinfo) gnome_vfs_file_info_unref(fileinfo);
@@ -840,7 +844,7 @@ static gboolean doc_check_modified_on_disk(Tdocument *doc, GnomeVFSFileInfo **ne
 					return TRUE;
 				}
 			}
-		}
+		} else g_free(ondiskencoding);
 		if (unref_fileinfo) gnome_vfs_file_info_unref(fileinfo);
 	} else {
 		DEBUG_MSG("doc_check_mtime, type %d checking not yet implemented\n", main_v->props.modified_check_type);
@@ -859,7 +863,11 @@ static gboolean doc_check_modified_on_disk(Tdocument *doc, struct stat *newstatb
 		return FALSE;
 	} else if (main_v->props.modified_check_type < 4) {
 		struct stat statbuf;
-		if (stat(doc->filename, &statbuf) == 0) {
+		GError *gerror;
+		gint b_written;
+		gchar *ondiskencoding = g_filename_from_utf8(doc->filename,-1,NULL,&b_written,&gerror);
+		if (stat(ondiskencoding, &statbuf) == 0) {
+			g_free(ondiskencoding);
 			*newstatbuf = statbuf;
 			if (main_v->props.modified_check_type == 1 || main_v->props.modified_check_type == 2) {
 				if (doc->statbuf.st_mtime < statbuf.st_mtime) {
@@ -871,7 +879,7 @@ static gboolean doc_check_modified_on_disk(Tdocument *doc, struct stat *newstatb
 					return TRUE;
 				}
 			}
-		}
+		} else g_free(ondiskencoding);
 	} else {
 		DEBUG_MSG("doc_check_mtime, type %d checking not yet implemented\n", main_v->props.modified_check_type);
 	}
@@ -883,25 +891,29 @@ static gboolean doc_check_modified_on_disk(Tdocument *doc, struct stat *newstatb
 to call doc_update_mtime() as well */
 static void doc_set_stat_info(Tdocument *doc) {
 	if (doc->filename) {
+		GError *gerror;
+		gint b_written;
+		gchar *ondiskencoding = g_filename_from_utf8(doc->filename,-1,NULL,&b_written,&gerror);
 #ifdef HAVE_GNOME_VFS
 		if (doc->fileinfo == NULL) {
 			doc->fileinfo = gnome_vfs_file_info_new();
 		}
-		gnome_vfs_get_file_info(doc->filename, doc->fileinfo
+		gnome_vfs_get_file_info(ondiskencoding, doc->fileinfo
 				,GNOME_VFS_FILE_INFO_DEFAULT|GNOME_VFS_FILE_INFO_FOLLOW_LINKS);
 		doc->is_symlink = GNOME_VFS_FILE_INFO_SYMLINK(doc->fileinfo);
 #else
 		struct stat statbuf;
-		if (lstat(doc->filename, &statbuf) == 0) {
+		if (lstat(ondiskencoding, &statbuf) == 0) {
 			if (S_ISLNK(statbuf.st_mode)) {
 				doc->is_symlink = 1;
-				stat(doc->filename, &statbuf);
+				stat(ondiskencoding, &statbuf);
 			} else {
 				doc->is_symlink = 0;
 			}
 			doc->statbuf = statbuf;
 		}
 #endif
+		g_free(ondiskencoding);
 		doc_set_tooltip(doc);
 	}
 }
@@ -1382,7 +1394,11 @@ static gchar *get_buffer_from_filename(Tbfwin *bfwin, gchar *filename, int *retu
 		}
 	}
 	if (GNOME_VFS_OK != result) {
-		result = gnome_vfs_read_entire_file(filename,returnsize,&buffer);
+		GError *gerror;
+		gint b_written;
+		gchar *ondiskencoding = g_filename_from_utf8(filename, -1, NULL,&b_written,&gerror);
+		result = gnome_vfs_read_entire_file(ondiskencoding,returnsize,&buffer);
+		g_free(ondiskencoding);
 	}
 	if (GNOME_VFS_OK != result) {
 		gchar *errmessage = g_strconcat(_("Could not read file:\n"), filename, NULL);
@@ -1402,7 +1418,11 @@ static gchar *get_buffer_from_filename(Tbfwin *bfwin, gchar *filename, int *retu
 	gchar *buffer;
 	GError *error=NULL;
 	gsize length;
-	result = g_file_get_contents(filename,&buffer,&length,&error);
+	GError *gerror;
+	gint b_written;
+	gchar *ondiskencoding = g_filename_from_utf8(filename, -1, NULL,&b_written,&gerror);
+	result = g_file_get_contents(ondiskencoding,&buffer,&length,&error);
+	g_free(ondiskencoding);
 	if (result == FALSE) {
 		gchar *errmessage = g_strconcat(_("Could not read file:\n"), filename, NULL);
 		warning_dialog(bfwin->main_window,errmessage, NULL);

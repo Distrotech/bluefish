@@ -970,13 +970,10 @@ static GtkWidget *remove_recent_entry(Tbfwin *bfwin, const gchar *filename, gboo
 static void open_recent_project_cb(GtkWidget *widget, Tbfwin *bfwin) {
 	gint b_written;
 	GError *gerror=NULL;
-	gchar *ondiskname, *filename = GTK_LABEL(GTK_BIN(widget)->child)->label;
-	ondiskname = g_filename_from_utf8(filename,-1,NULL,&b_written,&gerror);
+	gchar *filename = GTK_LABEL(GTK_BIN(widget)->child)->label;
 	DEBUG_MSG("open_recent_project_cb, started, filename is %s\n", filename);
-	
-	project_open_from_file(bfwin, ondiskname);
+	project_open_from_file(bfwin, filename);
 	add_to_recent_list(bfwin,filename, 0, TRUE);
-	g_free(ondiskname);
 }
 
 /* open_recent_file
@@ -986,14 +983,12 @@ static void open_recent_file_cb(GtkWidget *widget, Tbfwin *bfwin) {
 	gint b_written;
 	gboolean success;
 	GError *gerror=NULL;
-	gchar *ondiskname, *filename = GTK_LABEL(GTK_BIN(widget)->child)->label;
-	ondiskname = g_filename_from_utf8(filename,-1,NULL,&b_written,&gerror);
+	gchar *filename = GTK_LABEL(GTK_BIN(widget)->child)->label;
 	DEBUG_MSG("open_recent_file_cb, started, filename is %s\n", filename);
 
 	statusbar_message(bfwin,_("Loading file(s)..."),2000);
 	flush_queue();
-	success = (doc_new_with_file(bfwin,ondiskname, FALSE, FALSE) != NULL);
-	g_free(ondiskname);
+	success = (doc_new_with_file(bfwin,filename, FALSE, FALSE) != NULL);
 	if (!success) {
 		gchar *message = g_strconcat(_("The filename was:\n"), filename, NULL);
 		warning_dialog(bfwin->main_window,_("Could not open file\n"), message);
