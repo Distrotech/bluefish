@@ -71,6 +71,9 @@ TOOLBAR = \
 	pixmap_frhide frhide.png \
 	pixmap_frinfo frinfo.png \
 	pixmap_frsearch frsearch.png \
+	pixmap_frlibrary frlibrary.png \
+	pixmap_frgroup frgroup.png \
+	pixmap_frnote frnote.png \
 	pixmap_headings headings.png \
 	pixmap_hrule hrule.png \
 	pixmap_image image.png \
