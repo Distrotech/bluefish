@@ -50,6 +50,8 @@ typedef struct {
 	GHashTable *filesystem_itable; /* iter to known files and directories */
 	GdkPixbuf *unknown_icon;
 	GdkPixbuf *dir_icon;
+	GList *uri_in_refresh; /* all uris currently in refresh are stored here, because 
+									two refreshes on the same uri should not happen */
 } Tfilebrowser2config;
 #define FILEBROWSER2CONFIG(var) ((Tfilebrowser2config *)(var))
 
@@ -238,6 +240,7 @@ static void fb2_load_directory_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSResult re
 	if (result == GNOME_VFS_ERROR_EOF) {
 		DEBUG_MSG("fb2_load_directory_lcb, EOF, list=%p\n",list);
 		fb2_treestore_delete_children_refresh1(FILEBROWSER2CONFIG(main_v->fb2config)->filesystem_tstore, cdata->parent);
+		FILEBROWSER2CONFIG(main_v->fb2config)->uri_in_refresh = g_list_remove(FILEBROWSER2CONFIG(main_v->fb2config)->uri_in_refresh, cdata->p_uri);
 		g_free(cdata);
 	}
 }
@@ -255,16 +258,24 @@ static void fb2_load_directory_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSResult re
  *
  */
 static void fb2_fill_dir_async(GtkTreeIter *parent, GnomeVFSURI *uri) {
-	GnomeVFSAsyncHandle *handle;
-	Tdirectoryloaddata *cdata;
-	
-	cdata = g_new(Tdirectoryloaddata,1);
-	cdata->parent = parent;
-	cdata->p_uri = uri;
-	DEBUG_MSG("fb2_fill_dir_async, opening ");
-	DEBUG_URI(cdata->p_uri, TRUE);
-	gnome_vfs_async_load_directory_uri(&handle,uri,GNOME_VFS_FILE_INFO_DEFAULT,
-								10,GNOME_VFS_PRIORITY_DEFAULT,fb2_load_directory_lcb,cdata);
+	if (g_list_find(FILEBROWSER2CONFIG(main_v->fb2config)->uri_in_refresh, uri) == NULL) {
+		GnomeVFSAsyncHandle *handle;
+		Tdirectoryloaddata *cdata;
+		
+		cdata = g_new(Tdirectoryloaddata,1);
+		cdata->parent = parent;
+		cdata->p_uri = uri;
+		FILEBROWSER2CONFIG(main_v->fb2config)->uri_in_refresh = g_list_append(FILEBROWSER2CONFIG(main_v->fb2config)->uri_in_refresh, uri);
+		DEBUG_MSG("fb2_fill_dir_async, opening ");
+		DEBUG_URI(cdata->p_uri, TRUE);
+		gnome_vfs_async_load_directory_uri(&handle,uri,GNOME_VFS_FILE_INFO_DEFAULT,
+									10,GNOME_VFS_PRIORITY_DEFAULT,fb2_load_directory_lcb,cdata);
+	}
+#ifdef DEBUG	
+	 else {
+		DEBUG_MSG("fb2_fill_dir_async, uri is already refreshing!!!!!!!!!!!!!!!!!!!!!!!!!!!\n");
+	}
+#endif
 }
 
 /**
@@ -328,6 +339,20 @@ static void fb2_refresh_dir(GnomeVFSURI *uri, GtkTreeIter *dir) {
 		fb2_treestore_mark_children_refresh1(FILEBROWSER2CONFIG(main_v->fb2config)->filesystem_tstore, dir);
 		fb2_fill_dir_async(dir, uri);
 	}
+}
+/**
+ * fb2_refresh_parent_of_uri:
+ *
+ * convenience function, will refresh the parent directory of child_uri
+ */
+static void fb2_refresh_parent_of_uri(GnomeVFSURI *child_uri) {
+	guint hashkey;
+	GtkTreeIter *iter;
+	GnomeVFSURI *parent_uri = gnome_vfs_uri_get_parent(child_uri);
+	hashkey = gnome_vfs_uri_hash(parent_uri);
+	iter = g_hash_table_lookup(FILEBROWSER2CONFIG(main_v->fb2config)->filesystem_itable, &hashkey);
+	fb2_refresh_dir(NULL, iter);
+	gnome_vfs_uri_unref(parent_uri);
 }
 /**
  * fb2_build_dir:
@@ -765,6 +790,54 @@ static void handle_activate_on_file(Tfilebrowser2 *fb2, GnomeVFSURI *uri) {
 	DEBUG_MSG("handle_activate_on_file, finished\n");
 }
 
+static void fb2rpopup_rename(Tfilebrowser2 *fb2) {
+	GnomeVFSURI *olduri;
+	if (fb2->last_popup_on_dir) {
+		olduri = fb2_uri_from_dir_selection(fb2);
+	} else {
+		olduri = fb2_uri_from_file_selection(fb2);
+	}
+	if (olduri) {
+		Tdocument *tmpdoc;
+		GList *alldocs;
+		gchar *oldfilename;
+		GnomeVFSURI *newuri=NULL;
+		/* Use doc_save(doc, 1, 1) if the file is open. */
+		oldfilename = uri_to_document_filename(olduri);
+		alldocs = return_allwindows_documentlist();
+		tmpdoc = documentlist_return_document_from_filename(alldocs,oldfilename);
+		g_list_free(alldocs);
+		if (tmpdoc != NULL) {
+			DEBUG_MSG("File is open. Calling doc_save().\n");
+			/* If an error occurs, doc_save takes care of notifying the user.
+			 * Currently, nothing is done here. */	
+			doc_save(tmpdoc, TRUE, TRUE, FALSE);
+		} else { /* olduri is not open */
+			gchar *newfilename=NULL;
+			/* Promt user, "File/Move To"-style. */
+			newfilename = ask_new_filename(fb2->bfwin, oldfilename, oldfilename, TRUE);
+			if (newfilename) {
+				GnomeVFSResult res;
+				newuri = gnome_vfs_uri_new(newfilename);
+				res = gnome_vfs_move_uri(olduri,newuri,TRUE);
+				if (res != GNOME_VFS_OK) {
+					gchar *errmessage = g_strconcat(_("Could not rename\n"), oldfilename, NULL);
+					error_dialog(fb2->bfwin->main_window,errmessage, NULL);
+					g_free(errmessage);
+				}
+				g_free(newfilename);
+			}
+		}
+		/* Refresh the appropriate parts of the filebrowser */
+		fb2_refresh_parent_of_uri(olduri);
+		if (newuri) {
+			fb2_refresh_parent_of_uri(newuri);
+		}
+		g_free(oldfilename);
+		gnome_vfs_uri_unref(newuri);
+	}
+}
+
 static void fb2rpopup_delete(Tfilebrowser2 *fb2) {
 	GnomeVFSURI *uri;
 	
@@ -778,20 +851,13 @@ static void fb2rpopup_delete(Tfilebrowser2 *fb2) {
 		gchar *label;
 		gint retval;
 		gchar *filename;
-		if (gnome_vfs_uri_is_local(uri)) {
-			filename = gnome_vfs_uri_to_string(uri, GNOME_VFS_URI_HIDE_TOPLEVEL_METHOD);
-		} else {
-			filename = gnome_vfs_uri_to_string(uri, GNOME_VFS_URI_HIDE_PASSWORD);
-		}
+		filename = uri_to_document_filename(uri);
 		label = g_strdup_printf(_("Are you sure you want to delete \"%s\" ?"), filename);
 		retval = multi_query_dialog(fb2->bfwin->main_window,label, _("If you delete this file, it will be permanently lost."), 0, 0, buttons);
 		g_free(label);
 		if (retval == 1) {
 			GnomeVFSResult res;
 			gchar *errmessage = NULL;
-			GnomeVFSURI *parent_uri;
-			GtkTreeIter *iter;
-			guint hashkey;
 			if (fb2->last_popup_on_dir) {
 				res = gnome_vfs_remove_directory_from_uri(uri);
 			} else {
@@ -807,16 +873,11 @@ static void fb2rpopup_delete(Tfilebrowser2 *fb2) {
 				if (exdoc) document_unset_filename(exdoc);
 				g_list_free(alldocs);
 			}
-			parent_uri = gnome_vfs_uri_get_parent(uri);
-			hashkey = gnome_vfs_uri_hash(parent_uri);
-			iter = g_hash_table_lookup(FILEBROWSER2CONFIG(main_v->fb2config)->filesystem_itable, &hashkey);
-			fb2_refresh_dir(NULL, iter);
-			gnome_vfs_uri_unref(parent_uri);
+			fb2_refresh_parent_of_uri(uri);
 		}
 		g_free(filename);
 	}
 }
-
 
 static void fb2rpopup_rpopup_action_lcb(Tfilebrowser2 *fb2,guint callback_action, GtkWidget *widget) {
 	DEBUG_MSG("fb2rpopup_rpopup_action_lcb, called\n");
@@ -828,6 +889,7 @@ static void fb2rpopup_rpopup_action_lcb(Tfilebrowser2 *fb2,guint callback_action
 			}
 		break;
 		case 2:
+			fb2rpopup_rename(fb2);
 		break;
 		case 3:
 			fb2rpopup_delete(fb2);
@@ -1162,7 +1224,7 @@ void fb2config_init() {
 	/* a lot of things can be the same for all windows, such as the hashtable and the treestore with
 	all the files, and the pixmaps to use. All stored in Tfilebrowser2config;
 	This will be initialized in this function */
-	fb2config = g_new(Tfilebrowser2config,1);
+	fb2config = g_new0(Tfilebrowser2config,1);
 	main_v->fb2config = fb2config;
 
 	fb2config->filesystem_itable = g_hash_table_new_full(g_int_hash,g_int_equal,g_free,g_free);
