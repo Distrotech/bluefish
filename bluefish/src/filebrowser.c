@@ -292,7 +292,11 @@ static GList *return_dir_entries(Tfilebrowser *filebrowser,const gchar *dirname)
 	GnomeVFSDirectoryHandle *handle=NULL;
 	GnomeVFSFileInfo *gvfi=NULL;
 	DEBUG_MSG("return_dir_entries, started for %s\n",dirname);
-	result = gnome_vfs_directory_open(&handle,dirname,GNOME_VFS_FILE_INFO_DEFAULT|GNOME_VFS_FILE_INFO_FOLLOW_LINKS);
+	gint bytes_w;
+	GError *gerror=NULL;
+	gchar *ondiskname = g_filename_to_utf8(dirname, -1, NULL, &bytes_w, &gerror);
+	result = gnome_vfs_directory_open(&handle,ondiskname,GNOME_VFS_FILE_INFO_DEFAULT|GNOME_VFS_FILE_INFO_FOLLOW_LINKS);
+	g_free(ondiskname);
 	if (result != GNOME_VFS_OK) {
 		return NULL;
 	}
@@ -301,8 +305,6 @@ static GList *return_dir_entries(Tfilebrowser *filebrowser,const gchar *dirname)
 	while (GNOME_VFS_OK == gnome_vfs_directory_read_next(handle, gvfi)) {
 		Tdir_entry *entry;
 		if (strcmp(gvfi->name,".")!=0 && strcmp(gvfi->name,"..")!=0) {
-			gint bytes_w;
-			GError *gerror=NULL;
 			entry = g_new(Tdir_entry,1);
 			entry->icon = NULL;
 			entry->name = g_filename_to_utf8(gvfi->name, -1, NULL, &bytes_w, &gerror);
@@ -334,12 +336,13 @@ static GList *return_dir_entries(Tfilebrowser *filebrowser,gchar *dirname) {
 	GList *tmplist=NULL;
 	Tdir_entry *entry;
 	const gchar *name;
-	
-	dir = g_dir_open(dirname, 0, NULL);
+	gint bytes_w;
+	GError *error=NULL;
+	gchar *ondiskname = g_filename_to_utf8(dirname, -1, NULL, &bytes_w, &gerror);
+	dir = g_dir_open(ondiskname, 0, NULL);
+	g_free(ondiskname);
 	while ((name = g_dir_read_name(dir))) {
 		gchar *fullpath;
-		gint bytes_w;
-		GError *error=NULL;
 		entry = g_new(Tdir_entry,1);
 		entry->icon = NULL;
 		entry->name = g_filename_to_utf8(gvfi->name, -1, NULL, &bytes_w, &gerror);
