@@ -1731,7 +1731,7 @@ GtkWidget *filebrowser_init(Tbfwin *bfwin) {
 		filebrowser->bfwin = bfwin;
 		if (bfwin->project && bfwin->project->basedir && strlen(bfwin->project->basedir)>2) {
 			filebrowser->basedir = ending_slash(bfwin->project->basedir);
-		} else {
+		} else if (main_v->props.default_basedir && strlen(main_v->props.default_basedir)>2) {
 			filebrowser->basedir = ending_slash(main_v->props.default_basedir);
 		}
 		DEBUG_MSG("filebrowser_init, the basedir is set to %s\n",filebrowser->basedir);
@@ -1808,18 +1808,15 @@ GtkWidget *filebrowser_init(Tbfwin *bfwin) {
 		GtkTreePath *path = NULL;
 		gchar *buildfrom = NULL;
 		
+		filebrowser->showfulltree = checkbut_with_value(_("Show full tree"), FALSE);
 		if (bfwin->project && bfwin->project->basedir && strlen(bfwin->project->basedir)>2) {
-			filebrowser->showfulltree = checkbut_with_value(_("Show full tree"), FALSE);
-			filebrowser_set_basedir(bfwin, bfwin->project->basedir);
 			buildfrom = bfwin->project->basedir;
 		} else {
-			filebrowser->showfulltree = checkbut_with_value(_("Show full tree"), TRUE);
 			if (bfwin->current_document && bfwin->current_document->filename){
 				DEBUG_MSG("filebrowser_init, build tree from current doc %s\n",bfwin->current_document->filename);
 				buildfrom = bfwin->current_document->filename; 
 			} else {
 				gchar curdir[1024];
-				
 				getcwd(curdir, 1023);
 				strncat(curdir, "/", 1023);
 				DEBUG_MSG("filebrowser_init, build tree from curdir=%s\n",curdir);
@@ -1877,6 +1874,7 @@ GtkWidget *filebrowser_init(Tbfwin *bfwin) {
 		gtk_box_pack_start(GTK_BOX(vbox), filebrowser->showfulltree, FALSE, FALSE, 0);
 		g_signal_connect(G_OBJECT(filebrowser->showfulltree), "toggled", G_CALLBACK(showfulltree_toggled_lcb), bfwin);
 		if (filebrowser->basedir == NULL) {
+			gtk_toggle_button_set_state(GTK_TOGGLE_BUTTON(filebrowser->showfulltree), TRUE);
 			gtk_widget_set_sensitive(GTK_WIDGET(filebrowser->showfulltree), FALSE);
 		}
 		return vbox;
