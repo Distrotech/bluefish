@@ -107,7 +107,7 @@ typedef struct {
 	GtkWidget *advanced_button;
 	GtkWidget *whereframe;
 	GtkWidget *matchingframe;
-	GtkWidget *repoptbox;
+	GtkWidget *replaceframe;
 	GtkWidget *patscrolbox;
 	GtkWidget *repscrolbox;
 	
@@ -667,21 +667,45 @@ static void replace_prompt_dialog_all_lcb(GtkWidget *widget, gpointer data) {
 void replace_prompt_dialog() {
 	GtkWidget *win, *vbox, *hbox;
 	GtkWidget *butok, *butcancel, *butall;
+	GtkWidget *image, *label;
 
 	DEBUG_MSG("replace_prompt_dialog, start\n");
-	win = window_full(_("Confirm replace"), GTK_WIN_POS_MOUSE, 5, G_CALLBACK(window_close_by_widget_cb), NULL, TRUE);
-	vbox = gtk_vbox_new(FALSE, 3);
-	gtk_container_add(GTK_CONTAINER(win), vbox);
-	gtk_box_pack_start(GTK_BOX(vbox), gtk_label_new(_("Are you sure you want to replace this?")), FALSE, FALSE,3);
-	hbox = gtk_hbox_new(TRUE, 3);
-	gtk_box_pack_start(GTK_BOX(vbox), hbox, TRUE, TRUE,3);
-	butok = bf_stock_ok_button(G_CALLBACK(replace_prompt_dialog_ok_lcb), win);
+/*	win = gtk_window_new (GTK_WINDOW_TOPLEVEL);
+	gtk_container_set_border_width (GTK_CONTAINER (win), 12);
+	gtk_window_set_title (GTK_WINDOW (win), _("window1"));*/
+	win = window_full(_("Confirm replace"), GTK_WIN_POS_MOUSE, 12, G_CALLBACK(window_close_by_widget_cb), NULL, TRUE);
+	gtk_window_set_resizable (GTK_WINDOW (win), FALSE);	
+
+	vbox = gtk_vbox_new (FALSE, 0);
+	gtk_container_add (GTK_CONTAINER (win), vbox);
+
+	hbox = gtk_hbox_new (FALSE, 12);
+	gtk_box_pack_start (GTK_BOX (vbox), hbox, TRUE, TRUE, 0);
+
+	image = gtk_image_new_from_stock ("gtk-dialog-question", GTK_ICON_SIZE_DIALOG);
+	gtk_box_pack_start (GTK_BOX (hbox), image, FALSE, TRUE, 0);
+
+	label = gtk_label_new (_("This text selection will be replaced. Do you want to replace it?"));
+	gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, FALSE, 0);
+	gtk_label_set_justify (GTK_LABEL (label), GTK_JUSTIFY_LEFT);
+	gtk_label_set_line_wrap (GTK_LABEL (label), TRUE);
+
+	hbox = gtk_hseparator_new ();
+	gtk_box_pack_start (GTK_BOX (vbox), hbox, FALSE, TRUE, 12);
+
+	hbox = gtk_hbutton_box_new ();
+	gtk_box_pack_start (GTK_BOX (vbox), hbox, FALSE, TRUE, 0);
+	gtk_button_box_set_layout (GTK_BUTTON_BOX (hbox), GTK_BUTTONBOX_END);
+	gtk_box_set_spacing (GTK_BOX (hbox), 6);
+
 	butcancel = bf_stock_cancel_button(G_CALLBACK(window_close_by_widget_cb), NULL);
-	butall = bf_stock_button(_("All"), G_CALLBACK(replace_prompt_dialog_all_lcb), win);
-	gtk_box_pack_start(GTK_BOX(hbox), butok, TRUE, TRUE,3);
-	gtk_box_pack_start(GTK_BOX(hbox), butcancel, TRUE, TRUE,3);
-	gtk_box_pack_start(GTK_BOX(hbox), butall, TRUE, TRUE,3);
+	butall = bf_stock_button(_("Replace _all"), G_CALLBACK(replace_prompt_dialog_all_lcb), win);
+	butok = bf_stock_button(_("Replace _this"), G_CALLBACK(replace_prompt_dialog_ok_lcb), win);
+	gtk_box_pack_start(GTK_BOX(hbox), butcancel, FALSE, FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(hbox), butall, FALSE, TRUE, 0);
+	gtk_box_pack_start(GTK_BOX(hbox), butok, FALSE, TRUE, 0);
 	gtk_widget_show_all(win);
+
 	DEBUG_MSG("replace_prompt_dialog, end\n");
 }
 
@@ -999,7 +1023,7 @@ static void snr2dialog_advanced_button_clicked(GtkWidget *button, Tsnr2_win *snr
 		gtk_text_buffer_set_text(gtk_text_view_get_buffer(GTK_TEXT_VIEW(snr2win->patternv)), tmp, -1);
 		gtk_widget_grab_focus(GTK_WIDGET(snr2win->patternv));
 		if (snr2win->replace) {
-			gtk_widget_show(snr2win->repoptbox);
+			gtk_widget_show(snr2win->replaceframe);
 			gtk_widget_show(snr2win->repscrolbox);
 			gtk_widget_hide(snr2win->replacee);
 			tmp = gtk_entry_get_text(GTK_ENTRY(snr2win->replacee));
@@ -1027,7 +1051,7 @@ static void snr2dialog_advanced_button_clicked(GtkWidget *button, Tsnr2_win *snr
 		}
 		gtk_editable_select_region(GTK_EDITABLE(snr2win->patterne),0,-1); /* Selects entire text */
 		if (snr2win->replace) {
-			gtk_widget_hide(snr2win->repoptbox);
+			gtk_widget_hide(snr2win->replaceframe);
 			gtk_widget_hide(snr2win->repscrolbox);
 			gtk_widget_show(snr2win->replacee);
 			gtk_label_set_mnemonic_widget(GTK_LABEL(snr2win->lblReplace), GTK_WIDGET(snr2win->replacee));
@@ -1048,9 +1072,8 @@ static void snr2dialog_advanced_button_clicked(GtkWidget *button, Tsnr2_win *snr
 }
 
 static void snr2dialog(gint is_replace, gint is_new_search) {
-
 	Tsnr2_win *snr2win;
-	GtkWidget *vbox, *hbox, *vbox2, *vbox3, *frame, *but;
+	GtkWidget *vbox, *hbox, *vbox2, *button, *table;
 	gchar *tmptext;
 
 	snr2win = g_malloc(sizeof(Tsnr2_win));
@@ -1069,89 +1092,113 @@ static void snr2dialog(gint is_replace, gint is_new_search) {
 		last_snr2.result.end = -1;
 		last_snr2.doc = NULL;
 	}
-	snr2win->window = window_full(tmptext, GTK_WIN_POS_MOUSE, 5, G_CALLBACK(snr2dialog_destroy_lcb), snr2win, TRUE);
+	snr2win->window = window_full(tmptext, GTK_WIN_POS_MOUSE, 12, G_CALLBACK(snr2dialog_destroy_lcb), snr2win, TRUE);
 	gtk_window_set_role(GTK_WINDOW(snr2win->window), "snr");
-	vbox = gtk_vbox_new(FALSE, 1);
+	vbox = gtk_vbox_new(FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(snr2win->window), vbox);
-	hbox = gtk_hbox_new(FALSE,0);
-	gtk_box_pack_start(GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-	snr2win->lblPattern = gtk_label_new_with_mnemonic(N_("_Find: "));
-	gtk_box_pack_start(GTK_BOX(hbox), snr2win->lblPattern, FALSE, FALSE, 0);
+
+	if (is_replace) {
+		table = gtk_table_new (2, 2, FALSE);
+	}
+	else {
+		table = gtk_table_new (1, 2, FALSE);
+	}
+	gtk_widget_show (table);
+	gtk_box_pack_start (GTK_BOX (vbox), table, TRUE, TRUE, 0);
+	gtk_table_set_row_spacings (GTK_TABLE (table), 12);
+	gtk_table_set_col_spacings (GTK_TABLE (table), 6);
+
+	snr2win->lblPattern = gtk_label_new_with_mnemonic(N_("Search _for: "));
+	gtk_table_attach (GTK_TABLE (table), snr2win->lblPattern, 0, 1, 0, 1,
+									(GtkAttachOptions) (GTK_FILL),
+									(GtkAttachOptions) (0), 2, 0);
+	gtk_label_set_justify (GTK_LABEL (snr2win->lblPattern), GTK_JUSTIFY_LEFT);
 
 	snr2win->patterne = gtk_entry_new();
-	gtk_box_pack_start(GTK_BOX(hbox), snr2win->patterne, TRUE, TRUE, 0);
+	gtk_table_attach (GTK_TABLE (table), snr2win->patterne, 1, 2, 0, 1,
+									(GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
+									(GtkAttachOptions) (GTK_FILL), 0, 0);
 	{
 		snr2win->patscrolbox = textview_buffer_in_scrolwin(&snr2win->patternv, 300, 50, last_snr2.pattern, GTK_WRAP_NONE);
-		gtk_box_pack_start(GTK_BOX(hbox), snr2win->patscrolbox, TRUE, TRUE, 0);
+		gtk_table_attach (GTK_TABLE (table), snr2win->patscrolbox, 1, 2, 0, 1,
+										(GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
+										(GtkAttachOptions) (GTK_FILL), 0, 0);
 		g_signal_connect(G_OBJECT(snr2win->patternv), "key_press_event", G_CALLBACK(patternv_key_press_event_lcb), snr2win);
 	}
 
-	snr2win->whereframe = gtk_frame_new(_("Where"));
+	if (is_replace) {
+		snr2win->lblReplace = gtk_label_new_with_mnemonic(N_("Replace wit_h: "));
+		gtk_table_attach (GTK_TABLE (table), snr2win->lblReplace, 0, 1, 1, 2,
+										(GtkAttachOptions) (GTK_FILL),
+										(GtkAttachOptions) (0), 2, 0);
+		gtk_label_set_justify (GTK_LABEL (snr2win->lblReplace), GTK_JUSTIFY_LEFT);
+		snr2win->replacee = gtk_entry_new();
+		gtk_table_attach (GTK_TABLE (table), snr2win->replacee, 1, 2, 1, 2,
+										(GtkAttachOptions) (GTK_FILL),
+										(GtkAttachOptions) (GTK_FILL), 0, 0);
+		{
+			snr2win->repscrolbox = textview_buffer_in_scrolwin(&snr2win->replacev, 300, 50, last_snr2.replace_string, GTK_WRAP_NONE);
+			gtk_table_attach (GTK_TABLE (table), snr2win->repscrolbox, 1, 2, 1, 2,
+											(GtkAttachOptions) (GTK_FILL),
+											(GtkAttachOptions) (GTK_FILL), 0, 0);
+			g_signal_connect(G_OBJECT(snr2win->replacev), "key_press_event", G_CALLBACK(patternv_key_press_event_lcb), snr2win);
+		}
+		snr2win->subpat_help = gtk_label_new(_("\\0 refers to the first subpattern, \\1 to the second etc."));
+		gtk_box_pack_start(GTK_BOX(vbox), snr2win->subpat_help, FALSE, TRUE, 0);
+	}
+	
+	snr2win->is_case_sens = boxed_checkbut_with_value(_("Match ca_se"), last_snr2.is_case_sens, vbox);
+	snr2win->overlapping_search = boxed_checkbut_with_value(_("O_verlap matches"), last_snr2.overlapping_search, vbox);
+	if (is_replace) {
+		snr2win->prompt_before_replacing = boxed_checkbut_with_value(_("Prompt _before replace"), last_snr2.prompt_before_replacing, vbox);
+		snr2win->replace_once = boxed_checkbut_with_value(_("Rep_lace once"), last_snr2.replace_once, vbox);
+	}
+
+	snr2win->whereframe = gtk_frame_new(_("Starts at"));
 	gtk_box_pack_start(GTK_BOX(vbox), snr2win->whereframe, FALSE, FALSE, 0);
 	vbox2 = gtk_vbox_new(TRUE, 0);
 	gtk_container_add(GTK_CONTAINER(snr2win->whereframe), vbox2);
-	snr2win->region_from_beginning = boxed_radiobut_with_value(_("Start at beginning of _document"), last_snr2.region_from_beginning, NULL, vbox2);
-	snr2win->region_from_cursor = boxed_radiobut_with_value(_("Start at cursor pos_ition"), last_snr2.region_from_cursor, GTK_RADIO_BUTTON(snr2win->region_from_beginning),  vbox2);
-	snr2win->region_selection = boxed_radiobut_with_value(_("In s_election"), last_snr2.region_selection, GTK_RADIO_BUTTON(snr2win->region_from_cursor), vbox2);
-	snr2win->region_all_open_files = boxed_radiobut_with_value(_("In all o_pen files"), last_snr2.region_all_open_files, GTK_RADIO_BUTTON(snr2win->region_selection), vbox2);
+	snr2win->region_from_beginning = boxed_radiobut_with_value(_("Beginning of _document"), last_snr2.region_from_beginning, NULL, vbox2);
+	snr2win->region_from_cursor = boxed_radiobut_with_value(_("Current pos_ition"), last_snr2.region_from_cursor, GTK_RADIO_BUTTON(snr2win->region_from_beginning),  vbox2);
+	snr2win->region_selection = boxed_radiobut_with_value(_("Beginning of s_election"), last_snr2.region_selection, GTK_RADIO_BUTTON(snr2win->region_from_cursor), vbox2);
+	snr2win->region_all_open_files = boxed_radiobut_with_value(_("Beginning of all o_pened files"), last_snr2.region_all_open_files, GTK_RADIO_BUTTON(snr2win->region_selection), vbox2);
 	
-	snr2win->matchingframe = gtk_frame_new(_("Matching"));
+	snr2win->matchingframe = gtk_frame_new(_("Regular expression"));
 	gtk_box_pack_start(GTK_BOX(vbox), snr2win->matchingframe, FALSE, FALSE, 0);
 	vbox2 = gtk_vbox_new(TRUE, 0);
 	gtk_container_add(GTK_CONTAINER(snr2win->matchingframe), vbox2);
 	
-	snr2win->is_normal = boxed_radiobut_with_value(_("_Normal matching"), (last_snr2.matchtype == match_normal), NULL, vbox2);
-	snr2win->is_regex = boxed_radiobut_with_value(_("Use posix _regular expression matching"),(last_snr2.matchtype == match_regex),GTK_RADIO_BUTTON(snr2win->is_normal), vbox2);
-	snr2win->is_pcre = boxed_radiobut_with_value(_("Use perl compatible regular e_xpression matching"),(last_snr2.matchtype == match_pcre),GTK_RADIO_BUTTON(snr2win->is_normal),vbox2);
+	snr2win->is_normal = boxed_radiobut_with_value(_("_None"), (last_snr2.matchtype == match_normal), NULL, vbox2);
+	snr2win->is_regex = boxed_radiobut_with_value(_("POSIX _regular expression type "),(last_snr2.matchtype == match_regex),GTK_RADIO_BUTTON(snr2win->is_normal), vbox2);
+	snr2win->is_pcre = boxed_radiobut_with_value(_("PERL compatible regular e_xpression type"),(last_snr2.matchtype == match_pcre),GTK_RADIO_BUTTON(snr2win->is_normal),vbox2);
 	if (is_replace) {
 		g_signal_connect(G_OBJECT(snr2win->is_normal), "toggled", G_CALLBACK(matchingtype_toggled_lcb), snr2win);
 	}
 	
-	snr2win->is_case_sens = boxed_checkbut_with_value(_("Case _sensitive"), last_snr2.is_case_sens, vbox);
-	snr2win->overlapping_search = boxed_checkbut_with_value(_("O_verlapping searches"), last_snr2.overlapping_search, vbox);
-	
 	if (is_replace) {
-		frame = gtk_frame_new(_("Replace"));
-		gtk_box_pack_start(GTK_BOX(vbox), frame, TRUE, TRUE, 0);
-		vbox2 = gtk_vbox_new(FALSE, 3);
-		gtk_container_add(GTK_CONTAINER(frame), vbox2);
-		snr2win->subpat_help = gtk_label_new(_("\\0 refers to the first subpattern, \\1 to the second etc."));
-		gtk_box_pack_start(GTK_BOX(vbox2), snr2win->subpat_help, FALSE, TRUE, 0);
-		hbox = gtk_hbox_new(FALSE,0);
-		gtk_box_pack_start(GTK_BOX(vbox2), hbox, TRUE, TRUE, 0);
-		snr2win->lblReplace = gtk_label_new_with_mnemonic(N_("Replace wit_h: "));
-		gtk_box_pack_start(GTK_BOX(hbox), snr2win->lblReplace, FALSE, FALSE, 0);
-		snr2win->replacee = gtk_entry_new();
-		gtk_box_pack_start(GTK_BOX(hbox), snr2win->replacee, TRUE, TRUE, 0);
-		{
-			snr2win->repscrolbox = textview_buffer_in_scrolwin(&snr2win->replacev, 300, 50, last_snr2.replace_string, GTK_WRAP_NONE);
-			gtk_box_pack_start(GTK_BOX(hbox), snr2win->repscrolbox, TRUE, TRUE, 0);
-			g_signal_connect(G_OBJECT(snr2win->replacev), "key_press_event", G_CALLBACK(patternv_key_press_event_lcb), snr2win);
-		}
+		snr2win->replaceframe = gtk_frame_new(_("Replace type"));
+		gtk_box_pack_start(GTK_BOX(vbox), snr2win->replaceframe, TRUE, TRUE, 0);
 		if (last_snr2.replacetype_upcase || last_snr2.replacetype_lowcase) {
 /*			gtk_text_view_set_editable(GTK_TEXT_VIEW(snr2win->replacev), FALSE);*/
 			gtk_widget_set_sensitive(snr2win->replacev, FALSE);
 		}
-		snr2win->repoptbox = gtk_hbox_new(TRUE,3);
-		gtk_box_pack_start(GTK_BOX(vbox2), snr2win->repoptbox, FALSE, TRUE, 3);
+		vbox2 = gtk_vbox_new(TRUE, 0);
+		gtk_container_add(GTK_CONTAINER(snr2win->replaceframe), vbox2);
+	
+		snr2win->replacetype_string = boxed_radiobut_with_value(_("_Text"), last_snr2.replacetype_string, NULL, vbox2);
+		snr2win->replacetype_upcase = boxed_radiobut_with_value(_("_Uppercase"), last_snr2.replacetype_upcase, GTK_RADIO_BUTTON(snr2win->replacetype_string), vbox2);
+		snr2win->replacetype_lowcase = boxed_radiobut_with_value(_("Lo_wercase"), last_snr2.replacetype_lowcase, GTK_RADIO_BUTTON(snr2win->replacetype_string), vbox2);
 
-		vbox3 = gtk_vbox_new(TRUE,3);
-		gtk_box_pack_start(GTK_BOX(snr2win->repoptbox), vbox3, FALSE, TRUE, 3);	
-		
-		snr2win->replacetype_string = boxed_radiobut_with_value(_("Replace _text"), last_snr2.replacetype_string, NULL, vbox3);
-		snr2win->replacetype_upcase = boxed_radiobut_with_value(_("Replace _uppercase"), last_snr2.replacetype_upcase, GTK_RADIO_BUTTON(snr2win->replacetype_string), vbox3);
-		snr2win->replacetype_lowcase = boxed_radiobut_with_value(_("Replace lo_wercase"), last_snr2.replacetype_lowcase, GTK_RADIO_BUTTON(snr2win->replacetype_string), vbox3);
-
-		vbox3 = gtk_vbox_new(TRUE,3);
-		gtk_box_pack_start(GTK_BOX(snr2win->repoptbox), vbox3, FALSE, TRUE, 3);	
-		snr2win->prompt_before_replacing = boxed_checkbut_with_value(_("Prompt _before replacing"), last_snr2.prompt_before_replacing, vbox3);
-		snr2win->replace_once = boxed_checkbut_with_value(_("Rep_lace once"), last_snr2.replace_once, vbox3);
 		g_signal_connect(G_OBJECT(snr2win->replacetype_string), "toggled", 
 				G_CALLBACK(snr2dialog_replacetype_toggled), snr2win);
 	}
+	hbox = gtk_hseparator_new ();
+	gtk_widget_show (hbox);
+	gtk_box_pack_start (GTK_BOX (vbox), hbox, FALSE, TRUE, 12);
+
 	hbox = gtk_hbutton_box_new();
 	gtk_hbutton_box_set_layout_default(GTK_BUTTONBOX_END);
-	gtk_button_box_set_spacing(GTK_BUTTON_BOX(hbox), 1);
+	gtk_button_box_set_spacing(GTK_BUTTON_BOX(hbox), 6);
 	gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, TRUE, 0);
 
 	snr2win->advanced_button = gtk_button_new_with_mnemonic(_("Show _advanced >>"));
@@ -1160,9 +1207,9 @@ static void snr2dialog(gint is_replace, gint is_new_search) {
 
 	gtk_box_pack_start(GTK_BOX(hbox), bf_stock_cancel_button(G_CALLBACK(snr2dialog_cancel_lcb), snr2win), FALSE, TRUE, 0);
 
-	but = bf_stock_ok_button(G_CALLBACK(snr2dialog_ok_lcb), snr2win);
-	gtk_box_pack_start(GTK_BOX(hbox), but, FALSE, TRUE, 0);
-	gtk_window_set_default(GTK_WINDOW(snr2win->window), but);
+	button = bf_stock_ok_button(G_CALLBACK(snr2dialog_ok_lcb), snr2win);
+	gtk_box_pack_start(GTK_BOX(hbox), button, FALSE, TRUE, 0);
+	gtk_window_set_default(GTK_WINDOW(snr2win->window), button);
 
 	g_signal_connect (G_OBJECT (snr2win->patterne), "activate", G_CALLBACK(snr2dialog_ok_lcb),
                             (gpointer *) snr2win);
