@@ -365,7 +365,7 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/Edit/Sh_ift Right"), NULL, menu_indent_cb, 2, "<Item>"},
 	{N_("/Edit/S_hift Left"), NULL, menu_indent_cb, 1, "<Item>"},
 	{N_("/Edit/sep5"), NULL, NULL, 0, "<Separator>"},
-	{N_("/Edit/Add _Bookmarks"), "<control>d", menu_bmark_operations_cb, 1, "<Item>"},	
+	{N_("/Edit/Add _Bookmark"), "<control>d", menu_bmark_operations_cb, 1, "<Item>"},	
 	{N_("/Edit/sep6"), NULL, NULL, 0, "<Separator>"},
 	{N_("/Edit/_Save Settings"), NULL, rcfile_save_configfile_menu_cb, 0, "<Item>"},
 	{N_("/Edit/Save Shortcut _Keys"), NULL, rcfile_save_configfile_menu_cb, 3, "<Item>"},	
