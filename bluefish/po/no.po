@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bluefish gtk2-port\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-03-27 16:01+0100\n"
+"POT-Creation-Date: 2004-03-27 13:15-0300\n"
 "PO-Revision-Date: 2002-12-22 12:00+0100\n"
 "Last-Translator: Christian Tellefsen <chris@tellefsen.net>\n"
 "Language-Team: Not a member <LL@li.org>\n"
@@ -207,7 +207,7 @@ msgstr ""
 "   <lopopizarro@netcabo.pt>\n"
 "\n"
 "  Russisk - Eugene Rupakov\n"
-"   <rupakov@jet.msk.ru>\n"
+"   <rupakov@jet.msk.su>\n"
 "\n"
 "  Serbisk - Marko Milenović\n"
 "   <raven@sbb.co.yu>\n"
@@ -1577,6 +1577,55 @@ msgstr "/Vis/Vis Hoved-_verktøylinje"
 msgid "/View/View Custom Menu"
 msgstr "/Vis/Vis Brukerdefinert verktøylinje"
 
+#: ../src/html2.c:554
+msgid "Cascading StyleSheet dialog"
+msgstr "Cascading StyleSheet dialog"
+
+#: ../src/html2.c:574
+msgid "_Selector:"
+msgstr "_Velger:"
+
+#: ../src/html2.c:593
+msgid "_Property:"
+msgstr "_Egenska_p:"
+
+#: ../src/html2.c:595 ../src/html_form.c:650 ../src/html_form.c:799
+#: ../src/html_form.c:894
+msgid "_Value:"
+msgstr "_Verdi:"
+
+#: ../src/html2.c:613
+msgid "Selector"
+msgstr "Velger"
+
+#: ../src/html2.c:613 ../src/html2.c:616
+msgid "Property"
+msgstr "Egenskap"
+
+#: ../src/html2.c:613 ../src/html2.c:616
+msgid "Value"
+msgstr "Verdi"
+
+#: ../src/html2.c:631
+msgid " _Add "
+msgstr " Tilføy "
+
+#: ../src/html2.c:634
+msgid " _Update "
+msgstr " Oppdatér "
+
+#: ../src/html2.c:637
+msgid " _Delete "
+msgstr " Slett "
+
+#: ../src/html2.c:893 ../src/html2.c:930
+msgid "_Style..."
+msgstr "_Stil..."
+
+#: ../src/html2.c:1087
+msgid "Bluefish: Select color"
+msgstr "Bluefish: Velg farge"
+
 #: ../src/html.c:356
 msgid "Insert Time"
 msgstr "Sett inn tid"
@@ -1970,55 +2019,6 @@ msgstr "Språk:"
 #: ../src/html.c:2075
 msgid "_Custom:"
 msgstr "Brukerdefinert"
-
-#: ../src/html2.c:554
-msgid "Cascading StyleSheet dialog"
-msgstr "Cascading StyleSheet dialog"
-
-#: ../src/html2.c:574
-msgid "_Selector:"
-msgstr "_Velger:"
-
-#: ../src/html2.c:593
-msgid "_Property:"
-msgstr "_Egenska_p:"
-
-#: ../src/html2.c:595 ../src/html_form.c:650 ../src/html_form.c:799
-#: ../src/html_form.c:894
-msgid "_Value:"
-msgstr "_Verdi:"
-
-#: ../src/html2.c:613
-msgid "Selector"
-msgstr "Velger"
-
-#: ../src/html2.c:613 ../src/html2.c:616
-msgid "Property"
-msgstr "Egenskap"
-
-#: ../src/html2.c:613 ../src/html2.c:616
-msgid "Value"
-msgstr "Verdi"
-
-#: ../src/html2.c:631
-msgid " _Add "
-msgstr " Tilføy "
-
-#: ../src/html2.c:634
-msgid " _Update "
-msgstr " Oppdatér "
-
-#: ../src/html2.c:637
-msgid " _Delete "
-msgstr " Slett "
-
-#: ../src/html2.c:893 ../src/html2.c:930
-msgid "_Style..."
-msgstr "_Stil..."
-
-#: ../src/html2.c:1087
-msgid "Bluefish: Select color"
-msgstr "Bluefish: Velg farge"
 
 #: ../src/html_form.c:141
 msgid "Form"
