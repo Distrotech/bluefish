@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * filebrowser.h the filebrowser
  *
- * Copyright (C) 2002 Olivier Sessink
+ * Copyright (C) 2002-2003 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,9 +22,9 @@
 
 void bfwin_filebrowser_refresh_dir(Tbfwin *bfwin, gchar *dir);
 void filebrowser_open_dir(Tbfwin *bfwin, const gchar *dirarg);
-void filebrowser_filters_rebuild();
+void filebrowser_filters_rebuild(void);
 GtkWidget *filebrowser_init(Tbfwin *bfwin);
 void filebrowser_cleanup(Tbfwin *bfwin);
 void filebrowser_scroll_initial(Tbfwin *bfwin);
-void filebrowserconfig_init();
+void filebrowserconfig_init(void);
 #endif /* __FILEBROWSER_H_ */

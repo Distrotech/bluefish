@@ -1046,7 +1046,11 @@ static void add_encoding_to_list(gchar *encoding) {
 	enc[0] = g_strdup(encoding);
 	enc[1] = g_strdup(encoding);
 	main_v->props.encodings = g_list_append(main_v->props.encodings, enc);
-	encoding_menu_rebuild();
+	tmplist = g_list_first(main_v->bfwinlist);
+	while (tmplist) {
+		encoding_menu_rebuild(BFWIN(tmplist->data));
+		tmplist = g_list_next(tmplist);
+	}
 }
 
 

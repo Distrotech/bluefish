@@ -21,7 +21,7 @@
 #include <stdlib.h> /* atoi */
 #include <string.h> /* strchr() */
 
-/*#define DEBUG*/
+/* #define DEBUG */
 
 #include "bluefish.h"
 #include "document.h"			/* file_open etc. */
@@ -53,7 +53,7 @@ callback_data is a pointer to an arbitrary piece of data and is set during the c
 
 we want to pass the Tbfwin* so we should never use a callback_action of zero
 */
-void menu_file_operations_cb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget) {
+static void menu_file_operations_cb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget) {
 	switch(callback_action) {
 	case 1:
 		file_new_cb(NULL,bfwin);
@@ -1206,17 +1206,16 @@ static void external_command_lcb(GtkWidget *widget, Tbfw_dynmenu *bdm) {
 }
 void external_menu_rebuild(Tbfwin *bfwin) {
 	GList *tmplist;
-	if (bfwin->menu_external) {
-		tmplist = g_list_first(bfwin->menu_external);
-		while (tmplist) {
-			Tbfw_dynmenu *bdm = (Tbfw_dynmenu *)tmplist->data;
-			gtk_widget_destroy(bdm->menuitem);
-			g_free(bdm);
-			tmplist = g_list_next(tmplist);
-		}
-		g_list_free(bfwin->menu_external);
-		bfwin->menu_external = NULL;
+	tmplist = g_list_first(bfwin->menu_external);
+	while (tmplist) {
+		Tbfw_dynmenu *bdm = (Tbfw_dynmenu *)tmplist->data;
+		DEBUG_MSG("external_menu_rebuild,destroying,bfwin=%p,bdm=%p,menuitem=%p\n",bfwin,bdm,bdm->menuitem);
+		gtk_widget_destroy(bdm->menuitem);
+		g_free(bdm);
+		tmplist = g_list_next(tmplist);
 	}
+	g_list_free(bfwin->menu_external);
+	bfwin->menu_external = NULL;
 
 	if (!main_v->props.ext_browsers_in_submenu) {
 		Tbfw_dynmenu *bdm = g_new(Tbfw_dynmenu,1);
@@ -1239,8 +1238,9 @@ void external_menu_rebuild(Tbfwin *bfwin) {
 			}
 			bdm->bfwin = bfwin;
 			bdm->data = arr;
-			DEBUG_MSG("Adding browser %s with command %s to the menu\n", arr[0], arr[1]);
+			DEBUG_MSG("external_menu_rebuild,Adding browser %s with command %s to the menu\n", arr[0], arr[1]);
 			bdm->menuitem = create_dynamic_menuitem(bfwin,tmp1,arr[0],G_CALLBACK(browser_lcb),bdm,-1);
+			DEBUG_MSG("external_menu_rebuild,creating,bfwin=%p,bdm=%p,menuitem=%p\n",bfwin,bdm,bdm->menuitem);
 			bfwin->menu_external = g_list_append(bfwin->menu_external, bdm);
 		}
 #ifdef DEBUG
@@ -1302,17 +1302,16 @@ void encoding_menu_rebuild(Tbfwin *bfwin) {
 	GSList *group=NULL;
 	GtkWidget *parent_menu;
 	GList *tmplist;
-	if (bfwin->menu_encodings) {
-		tmplist = g_list_first(bfwin->menu_encodings);
-		while (tmplist) {
-			Tbfw_dynmenu *bdm = tmplist->data;
-			gtk_widget_destroy(GTK_WIDGET(bdm->menuitem));
-			g_free(bdm);
-			tmplist = g_list_next(tmplist);
-		}
-		g_list_free(bfwin->menu_encodings);
-		bfwin->menu_encodings = NULL;
+	tmplist = g_list_first(bfwin->menu_encodings);
+	while (tmplist) {
+		Tbfw_dynmenu *bdm = tmplist->data;
+		gtk_widget_destroy(GTK_WIDGET(bdm->menuitem));
+		g_free(bdm);
+		tmplist = g_list_next(tmplist);
 	}
+	g_list_free(bfwin->menu_encodings);
+	bfwin->menu_encodings = NULL;
+
 	tmplist = g_list_last(main_v->props.encodings);
 	parent_menu = gtk_item_factory_get_widget(gtk_item_factory_from_widget(bfwin->menubar), N_("/Document/Encoding"));
 	while (tmplist) {

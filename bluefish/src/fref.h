@@ -74,7 +74,7 @@
 
 GtkWidget *fref_gui(Tbfwin *bfwin); /* used in gui.c */
 
-void fref_init(); /* only used once */
+void fref_init(void); /* only used once */
 void fref_cleanup(Tbfwin *bfwin);
 void fref_rescan_dir(const gchar *dir); /* used by rcfile.c */
 
