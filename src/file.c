@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-#define DEBUG
+/*#define DEBUG*/
 
 #include <gtk/gtk.h>
 #include <string.h> /* memcpy */
@@ -501,7 +501,7 @@ static void fileintodoc_lcb(Topenfile_status status,gint error_info,gchar *buffe
 		case OPENFILE_ERROR:
 		case OPENFILE_ERROR_NOCHANNEL:
 		case OPENFILE_ERROR_NOREAD:
-			DEBUG_MSG("file2doc_lcb, ERROR status=%d, cleanup!!!!!\n",status);
+			DEBUG_MSG("fileitodoc_lcb, ERROR status=%d, cleanup!!!!!\n",status);
 			fid->doc->action.load = NULL;
 			fileintodoc_cleanup(data);
 		break;
@@ -528,6 +528,7 @@ typedef struct {
 } Tfile2doc;
 
 static void file2doc_cleanup(Tfile2doc *f2d) {
+	DEBUG_MSG("file2doc_cleanup, %p\n",f2d);
 	gnome_vfs_uri_unref(f2d->uri);
 	g_free(f2d);
 }
@@ -562,7 +563,7 @@ static void file2doc_lcb(Topenfile_status status,gint error_info,gchar *buffer,G
 			   DEBUG_MSG("file2doc_lcb, goto_line=%d\n",f2d->doc->action.goto_line);
 				doc_select_line(f2d->doc, f2d->doc->action.goto_line, TRUE);
 			} else if (f2d->doc->action.goto_offset >= 0) {
-   			DEBUG_MSG("file2doc_lcb, goto_offset=%d\n",f2d->doc->action.goto_offset);
+				DEBUG_MSG("file2doc_lcb, goto_offset=%d\n",f2d->doc->action.goto_offset);
 				doc_select_line_by_offset(f2d->doc, f2d->doc->action.goto_offset, TRUE);
 			}
 			f2d->doc->action.goto_line = -1;
@@ -574,11 +575,11 @@ static void file2doc_lcb(Topenfile_status status,gint error_info,gchar *buffer,G
 			/* do nothing */
 		break;
    	case OPENFILE_ERROR_CANCELLED:
-   	   /* lets close the document */
-   	   f2d->doc->action.load = NULL;
-   	   DEBUG_MSG("file2doc_lcb, calling doc_close_single_backend\n");
-   	   doc_close_single_backend(f2d->doc, f2d->doc->action.close_window);
-			file2doc_cleanup(f2d);
+		/* lets close the document */
+		f2d->doc->action.load = NULL;
+		DEBUG_MSG("file2doc_lcb, calling doc_close_single_backend\n");
+		doc_close_single_backend(f2d->doc, f2d->doc->action.close_window);
+		file2doc_cleanup(f2d);
    	break;
 		case OPENFILE_ERROR:
 		case OPENFILE_ERROR_NOCHANNEL:

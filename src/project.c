@@ -168,8 +168,8 @@ gboolean project_save(Tbfwin *bfwin, gboolean save_as) {
 	update_project_filelist(bfwin, bfwin->project);
 /*	bfwin->project->recentfiles = limit_stringlist(bfwin->project->recentfiles, main_v->props.max_recent_files, TRUE);*/
 	
-	bfwin->project->session->searchlist = limit_stringlist(bfwin->project->session->searchlist, 10, TRUE);
-	bfwin->project->session->replacelist = limit_stringlist(bfwin->project->session->replacelist, 10, TRUE);
+	bfwin->project->session->searchlist = limit_stringlist(bfwin->project->session->searchlist, 10, FALSE);
+	bfwin->project->session->replacelist = limit_stringlist(bfwin->project->session->replacelist, 10, FALSE);
 	bfwin->project->session->urllist = limit_stringlist(bfwin->project->session->urllist, 10, TRUE);
 	bmark_store_all(bfwin);
 
@@ -278,6 +278,7 @@ void project_open_from_file(Tbfwin *bfwin, gchar *fromfilename) {
 		DEBUG_MSG("project_open_from_file, calling left_panel_show_hide_toggle bfwin=%p\n",prwin);
 		left_panel_show_hide_toggle(prwin,FALSE,prj->view_left_panel, TRUE);
 		/*filebrowser_set_basedir(prwin, prj->basedir);*/
+		fb2_set_filter_from_session(prwin);
 		fb2_set_basedir(prwin, prj->basedir);
 		/* we should set these before we actually open any files, so every file can update 
 		their bookmarks after the loading of the data is finished */

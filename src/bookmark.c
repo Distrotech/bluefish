@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-/* #define DEBUG */
+#define DEBUG
 
 #include <gtk/gtk.h>
 #include <sys/types.h>
@@ -244,17 +244,13 @@ static void bmark_store(Tbfwin * bfwin, Tbmark * b) {
 	}
 	strarr[0] = g_strdup(b->name);
 	strarr[1] = g_strdup(b->description);
-#ifdef HAVE_GNOME_VFS
-	if (b->doc)
-		b->len = b->doc->fileinfo->size;
-#else
-	if (b->doc)
-		b->len = b->doc->statbuf.st_size;
-#endif
+
+	if (b->doc) b->len = b->doc->fileinfo->size;
+	
 	strarr[3] = g_strdup_printf("%d", b->offset);
 	DEBUG_MSG("bmark_store, offset string=%s, offset int=%d\n",strarr[3],b->offset);
 	strarr[5] = g_strdup_printf("%d", b->len);
-	DEBUG_MSG("bmark_store, arracount=%d\n",count_array(strarr));
+	DEBUG_MSG("bmark_store, stored size=%d\n",b->len);
 	if (b->strarr == NULL) {
 		bfwin->session->bmarks = g_list_append(bfwin->session->bmarks, strarr);
 		DEBUG_MSG("added new (previously unstored) bookmark to session list, list length=%d\n",
@@ -910,6 +906,7 @@ void bmark_clean_for_doc(Tdocument * doc) {
 			bmark_update_offset_from_textmark(b);
 			DEBUG_MSG("bmark_clean_for_doc, bookmark=%p, new offset=%d, now deleting GtkTextMark from TextBuffer\n",b,b->offset);
 			gtk_text_buffer_delete_mark(doc->buffer, b->mark);
+			if (doc->fileinfo) b->len = doc->fileinfo->size;
 			b->mark = NULL;
 			b->doc = NULL;
 			if (!b->is_temp) {
