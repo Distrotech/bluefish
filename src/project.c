@@ -276,6 +276,7 @@ static void project_edit_cancel_clicked_lcb(GtkWidget *widget, Tprojecteditor *p
 static void project_edit_ok_clicked_lcb(GtkWidget *widget, Tprojecteditor *pred) {
 	gchar *oldbasedir;
 	Tproject *prj = pred->project;
+	gtk_widget_hide(pred->win);
 	if (pred->bfwin == NULL) {
 		pred->bfwin = gui_new_window(NULL, pred->project);
 	}
@@ -298,8 +299,8 @@ static void project_edit_ok_clicked_lcb(GtkWidget *widget, Tprojecteditor *pred)
 	g_free(oldbasedir);
 	gui_set_title(pred->bfwin, pred->bfwin->current_document);
 	set_project_menu_widgets(pred->bfwin, TRUE);
-	gtk_widget_destroy(pred->win);
 	project_save(pred->bfwin,FALSE);
+	gtk_widget_destroy(pred->win);
 }
 
 /*
