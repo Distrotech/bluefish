@@ -208,7 +208,7 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/Tags/Special/Currency/Currency sign"), NULL, insert_char_cb,
 	 62, NULL},
 	{N_("/Tags/Special/Currency/Yen sign"), NULL, insert_char_cb, 63, NULL},
-	{N_("/Tags/Special/Currency/Euro"), "EuroSign", insert_char_cb, 98, NULL},
+	{N_("/Tags/Special/Currency/Euro"), NULL, insert_char_cb, 98, NULL},
 	{N_("/Tags/Special/Math-Science"), NULL, NULL, 0, "<Branch>"},
 	{N_("/Tags/Special/Math-Science/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
 	{N_("/Tags/Special/Math-Science/Logical not sign"), "<alt>1", insert_char_cb,

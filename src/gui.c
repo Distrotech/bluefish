@@ -609,13 +609,11 @@ void gui_create_main(GList *filenames) {
 	}
 	
 	/* everything is ready - we can start loading documents */
+	/* start to open an empty doc */
+	file_new_cb(NULL, NULL);
 	if (filenames) {
 		docs_new_from_files(filenames);
-	} else {
-		/* no files to open, open an empty doc */
-		file_new_cb(NULL, NULL);	
 	}
-
 	/* We have to know when the notebook changes */
 	gui_notebook_bind_signals();
 
