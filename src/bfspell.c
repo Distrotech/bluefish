@@ -1,4 +1,4 @@
-#define DEBUG
+/* #define DEBUG */
 
 #include "config.h"
 
@@ -21,6 +21,7 @@ typedef struct {
 	AspellSpeller *spell_checker;
 	GtkWidget *win;
 	GtkWidget *lang;
+	GList *langs;
 	GtkWidget *dict;
 	GtkWidget *runbut;
 	GtkWidget *repbut;
@@ -37,7 +38,7 @@ typedef struct {
 	GtkTextMark* eo;
 } Tbfspell;
 
-Tbfspell bfspell = { NULL, NULL, NULL,NULL, NULL, NULL,NULL, NULL,NULL,NULL, NULL,NULL, NULL,0,-1,NULL,NULL};
+Tbfspell bfspell = {NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,-1,NULL,NULL};
 
 /* return value should be freed by the calling function */
 gchar *doc_get_next_word(GtkTextIter *itstart, GtkTextIter *itend) {
@@ -201,17 +202,9 @@ void spell_gui_ok_clicked_cb(GtkWidget *widget, gpointer data) {
 	const gchar *lang;
 	bfspell.doc = main_v->current_document;
 	{
-		GtkWidget *menuitem, *menu, *label;
-		menu = gtk_option_menu_get_menu(GTK_OPTION_MENU(bfspell.lang));
-		menuitem = gtk_menu_get_active(GTK_MENU(menu));
-/*		g_list_nth_data(GTK_MENU_SHELL(menu)->children,gtk_option_menu_get_history(GTK_OPTION_MENU(bfspell.lang)));*/
-		DEBUG_MSG("menuitem=%p\n",menuitem);
-/*		list = gtk_container_get_children(GTK_CONTAINER(menuitem));
-		DEBUG_MSG("list=%p\n",list);
-		label = list->data;*/
-		label = gtk_bin_get_child(GTK_BIN(menuitem));
-		DEBUG_MSG("label=%p\n",label);
-		lang = gtk_label_get_label(GTK_LABEL( label ));
+		gint indx;
+		indx = gtk_option_menu_get_history(GTK_OPTION_MENU(bfspell.lang));
+		lang = g_list_nth_data(bfspell.langs, indx);
 	}
 	aspell_config_replace(bfspell.spell_config, "lang", lang);
 	DEBUG_MSG("spell_gui_ok_clicked_cb, set lang to %s\n",lang);
@@ -250,12 +243,15 @@ void spell_gui_fill_dicts() {
 
 	dlist = get_aspell_dict_info_list(bfspell.spell_config);
 	dels = aspell_dict_info_list_elements(dlist);
+	free_stringlist(bfspell.langs);
+	bfspell.langs = NULL;
 	menu = gtk_menu_new();	
 	gtk_option_menu_set_menu(GTK_OPTION_MENU(bfspell.lang), menu);
 	while ( (entry = aspell_dict_info_enumeration_next(dels)) != 0) {
 		GtkWidget *label;
 		menuitem = gtk_menu_item_new();
 		label = gtk_label_new(entry->name);
+		bfspell.langs = g_list_append(bfspell.langs,g_strdup(entry->name));
 		gtk_misc_set_alignment(GTK_MISC(label),0,0.5);
 		gtk_container_add(GTK_CONTAINER(menuitem), label);
 		DEBUG_MSG("adding language %s to menuitem %p using label %p\n",entry->name,menuitem,label);
@@ -307,11 +303,9 @@ void spell_gui_replace_clicked(GtkWidget *widget, gpointer data) {
 
 static void defaultlang_clicked_lcb(GtkWidget *widget,gpointer user_data) {
 	const gchar *lang;
-	GtkWidget *menuitem, *menu, *label;
-	menu = gtk_option_menu_get_menu(GTK_OPTION_MENU(bfspell.lang));
-	menuitem = gtk_menu_get_active(GTK_MENU(menu));
-	label = gtk_bin_get_child(GTK_BIN(menuitem));
-	lang = gtk_label_get_label(GTK_LABEL( label ));
+	gint indx;
+	indx = gtk_option_menu_get_history(GTK_OPTION_MENU(bfspell.lang));
+	lang = g_list_nth_data(bfspell.langs, indx);
 	g_free(main_v->props.spell_default_lang);
 	DEBUG_MSG("defaultlang_clicked_lcb, default lang is now %s\n",lang);
 	main_v->props.spell_default_lang = g_strdup(lang);
