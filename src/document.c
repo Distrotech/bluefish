@@ -68,8 +68,8 @@ typedef struct {
 #define FLOATINGVIEW(var) ((Tfloatingview *)(var))
 
 typedef struct {
-	guint so;
-	guint eo;
+	gint so;
+	gint eo;
 } Tpasteoperation;
 #define PASTEOPERATION(var) ((Tpasteoperation *)(var))
 
@@ -1750,6 +1750,11 @@ static void doc_buffer_insert_text_after_lcb(GtkTextBuffer *textbuffer,GtkTextIt
 			}
 		}
 	}
+#ifdef DEBUG
+	else {
+		DEBUG_MSG("doc_buffer_insert_text_after_lcb, paste_operation, NOT DOING ANYTHING\n");
+	}
+#endif
 }
 
 static gboolean doc_view_key_press_lcb(GtkWidget *widget,GdkEventKey *kevent,Tdocument *doc) {
@@ -1909,6 +1914,7 @@ static gboolean doc_view_button_release_lcb(GtkWidget *widget,GdkEventButton *be
 		/* end of paste */
 		if (doc->paste_operation) {
 			if (PASTEOPERATION(doc->paste_operation)->eo > PASTEOPERATION(doc->paste_operation)->so) {
+				DEBUG_MSG("doc_view_button_release_lcb, start doc-highlight_region for so=%d, eo=%d\n",PASTEOPERATION(doc->paste_operation)->so,PASTEOPERATION(doc->paste_operation)->eo);
 				doc_highlight_region(doc, PASTEOPERATION(doc->paste_operation)->so, PASTEOPERATION(doc->paste_operation)->eo);
 			}
 			g_free(doc->paste_operation);
@@ -3871,6 +3877,7 @@ void edit_paste_cb(GtkWidget * widget, Tbfwin *bfwin) {
 
 	doc_unre_new_group(doc);
 	if (PASTEOPERATION(doc->paste_operation)->eo > PASTEOPERATION(doc->paste_operation)->so) {
+		DEBUG_MSG("edit_paste_cb, start doc_highlight_region for so=%d, eo=%d\n",PASTEOPERATION(doc->paste_operation)->so,PASTEOPERATION(doc->paste_operation)->eo);
 		doc_highlight_region(doc, PASTEOPERATION(doc->paste_operation)->so, PASTEOPERATION(doc->paste_operation)->eo);
 	}
 	g_free(doc->paste_operation);
