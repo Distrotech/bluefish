@@ -24,8 +24,7 @@
 #include <glib.h>
 
 void estrl_dialog(GList **which_list, gchar *title, gint what_list
-				, gint column_num, gchar **column_titles, void *post_dialog_func);
-
+				, gint column_num, gchar **column_titles, void (*post_dialog_func)());
 GList *duplicate_stringlist(GList *list, gint dup_data);
 gint free_stringlist(GList * which_list);
 GList *get_stringlist(gchar * filename, GList * which_list);

@@ -53,22 +53,30 @@ esac
  
 if test "$CYGWIN" = "yes"; then
 	AC_DEFINE(WIN32)
-  CFLAGS="$CFLAGS -fnative-struct"
+	CFLAGS="$CFLAGS -fnative-struct"
 	LIBS="$LIBS -lintl.dll"
 fi  
 
 AC_ARG_ENABLE(gcc3-optimization, 
 		AC_HELP_STRING([--enable-gcc3-optimization=type],
 				[gcc3 can optimize for: i386, i486, pentium, pentium-mmx, pentiumpro, pentium2, pentium3, pentium4, k6, k6-2, k6-3, athlon, athlon-tbird, athlon-4, athlon-xp, athlon-mp, winchip-c6, winchip2, c3]),
-		CFLAGS="-O3 -march=$enableval -fomit-frame-pointer -fno-exceptions -fno-rtti -pipe -s -ffast-math -fexpensive-optimizations -floop-optimize -falign-functions -falign-loops"
-		echo "Using $CC $CFLAGS"
+		if gcc -dumpversion|egrep -q "^3\..*"; then
+			CFLAGS="-O3 -march=$enableval -fomit-frame-pointer -fno-exceptions -fno-rtti -pipe -s -ffast-math -fexpensive-optimizations -floop-optimize -falign-functions -falign-loops"
+			echo "using $CC $CFLAGS"
+		else
+			echo "warning: compiler is not gcc3: not optimizing!"
+		fi
 )
 
 AC_ARG_ENABLE(gcc2-optimization, 
 		AC_HELP_STRING([--enable-gcc2-optimization=type],
 				[gcc2 can optimize for: i386, i486, pentium, pentiumpro, k6]),
-		CFLAGS="-O3 -march=$enableval -fomit-frame-pointer -fno-exceptions -fno-rtti -pipe -s -ffast-math -fexpensive-optimizations"
-		echo "Using $CC $CFLAGS"
+		if gcc -dumpversion | egrep -q "^2\..*" ; then
+			CFLAGS="-O3 -march=$enableval -fomit-frame-pointer -fno-exceptions -fno-rtti -pipe -s -ffast-math -fexpensive-optimizations"
+			echo "using $CC $CFLAGS"
+		else 
+			echo "warning: compiler is not gcc2: not optimizing!"
+		fi
 )
 
 AC_PROG_INSTALL
