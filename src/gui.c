@@ -248,6 +248,9 @@ void left_panel_rebuild(Tbfwin *bfwin) {
 		filebrowser_cleanup(bfwin);
 		fref_cleanup(bfwin);
 		bmark_cleanup(bfwin);
+#ifdef FB2
+		fb2_cleanup(bfwin);
+#endif
 		DEBUG_MSG("left_panel_rebuild, re-init\n");
 		bfwin->leftpanel_notebook = left_panel_build(bfwin);
 		if (main_v->props.left_panel_left) {
