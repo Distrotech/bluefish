@@ -52,8 +52,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 <title>The user interface</title>
 <para>The biggest part of the user interface is the editor area. Because Bluefish has a so-called "Multiple Document Interface", there are actually many editor areas in Bluefish, accessible via the tabs. By default the tabs are on the bottom.
 <?linebreaka4?>
-<figure id="editor_array">
-<title id="bf-figure-editor-array">Bluefish Editor Array</title>
+<figure id="figure-editor-array">
+<title id="figure-editor-array-title">Bluefish Editor Array</title>
 <screenshot><mediaobject>
 <imageobject>
 <imagedata fileref="figures/editor_array.png" format="PNG"/>
@@ -66,8 +66,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 <?pagebreaka4?>
 <para>The top of the Bluefish interface consists of a menu, a main tool bar, an HTML tool bar, and a Custom menu.
 <?linebreaka4?>
-<figure id="main_menu">
-<title id="bf-figure-main-menu">Bluefish Main Menu</title>
+<figure id="figure-main-menu">
+<title id="figure-main-menu-title">Bluefish Main Menu</title>
 <screenshot><mediaobject>
 <imageobject>
 <imagedata fileref="figures/main_menu.png" format="PNG"/>
@@ -79,8 +79,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 </figure></para>
 <para>The main tool bar gives you quick access to the basic functionalities of a text editor.
 <?linebreaka4?>
-<figure id="main_toolbar">
-<title id="bf-figure-main-toolbar">Bluefish Main Tool Bar</title>
+<figure id="figure-main-toolbar">
+<title id="figure-main-toolbar-title">Bluefish Main Tool Bar</title>
 <screenshot><mediaobject>
 <imageobject>
 <imagedata fileref="figures/main_toolbar.png" format="PNG"/>
@@ -92,8 +92,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 </figure></para>
 <para>The HTML tool bar provides access to the most commonly used HTML functionalities.
 <?linebreaka4?>
-<figure id="html_toolbar">
-<title id="bf-figure-html-toolbar">Bluefish HTML Tool Bar</title>
+<figure id="figure-html-toolbar">
+<title id="figure-html-toolbar-title">Bluefish HTML Tool Bar</title>
 <screenshot><mediaobject>
 <imageobject>
 <imagedata fileref="figures/html_toolbar.png" format="PNG"/>
@@ -105,8 +105,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 </figure></para>
 <para>The custom tool bar provides access to languages and replacement functions. It is fully customizable through the preferences panel. 
 <?linebreaka4?>
-<figure id="custom_toolbar">
-<title id="bf-figure-custom-toolbar">Bluefish Custom Tool Bar</title>
+<figure id="figure-custom-toolbar">
+<title id="figure-custom-toolbar-title">Bluefish Custom Tool Bar</title>
 <screenshot><mediaobject>
 <imageobject>
 <imagedata fileref="figures/custom_toolbar.png" format="PNG"/>
@@ -119,8 +119,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 <para>To the left of the editor area is the side panel. If you would prefer that the side bar be on the right side, simply change the setting in the <guilabel>User Interface</guilabel> tab found in the <menuchoice><guimenu>Edit</guimenu><guimenuitem>Preferences</guimenuitem></menuchoice> menu option. The side panel consists of a file browser, a function reference browser, and a bookmark browser.</para>
 <para>The file browser provides quick access to files and directories.
 <?linebreaka4?>
-<figure id="file_browser">
-<title id="bf-figure-file-browser">Bluefish File Browser</title>
+<figure id="figure-file-browser">
+<title id="figure-file-browser-title">Bluefish File Browser</title>
 <screenshot><mediaobject>
 <imageobject>
 <imagedata fileref="figures/file_browser.png" format="PNG"/>
@@ -133,8 +133,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 <?pagebreaka4?>
 <para>The function reference browser references CSS2, HTML, PHP, and Python functions with their syntax. Some of them provide dialogs to help you inserting them , 
 <?linebreakus?>
-<figure id="function_reference_browser">
-<title id="bf-figure-function-reference-browser">Bluefish Function Reference Browser</title>
+<figure id="figure-function-reference-browser">
+<title id="figure-function-reference-browser-title">Bluefish Function Reference Browser</title>
 <screenshot><mediaobject>
 <imageobject>
 <imagedata fileref="figures/function_reference_browser.png" format="PNG"/>
@@ -147,8 +147,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 <?linebreakus?>
 <para>The bookmark browser provides access to previously marked positions in a file.
 <?linebreakus?>
-<figure id="bookmark_browser">
-<title id="bf-figure-bookmark-browser">Bluefish Bookmark Browser</title>
+<figure id="figure-bookmark-browser">
+<title id="figure-bookmark-browser-title">Bluefish Bookmark Browser</title>
 <screenshot><mediaobject>
 <imageobject>
 <imagedata fileref="figures/bookmark_browser.png" format="PNG"/>
@@ -169,8 +169,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 <?linebreakus?>
 <?linebreakus?>
 <?linebreakus?>
-<figure id="status_bar">
-<title id="bf-figure-status-bar">Bluefish Status Bar</title>
+<figure id="figure-status-bar">
+<title id="figure-status-bar-title">Bluefish Status Bar</title>
 <screenshot><mediaobject>
 <imageobject>
 <imagedata fileref="figures/status_bar.png" format="PNG"/>
@@ -2907,7 +2907,7 @@ width="80" height="53" border="0"&gt;&lt;/a&gt;
 <para>As those parameters are used internally to create temporary files, you cannot use them to modify the name of the final document for example. But you can redirect the standard output to a named file, if you do not want to override the current document, as in:</para>
 <para><userinput>sed -e 'somesedcommand' &lt; '%s' 1 &gt; 'namedfile'</userinput></para>
 <para>Here is an example to get rid of hard-coded <literal>/usr</literal> in a source file:</para>
-<procedure id="utitilities-add">
+<procedure id="utilities-add">
 <title>Adding a Commands menu item</title>
 <step>
 <para>Click on the <guilabel>Preferences...</guilabel> icon in the main tool bar to access the <guilabel>Edit preferences</guilabel> panel.</para>
@@ -2941,42 +2941,112 @@ width="80" height="53" border="0"&gt;&lt;/a&gt;
 
 <sect3 id="external-outputbox">
 <title>Customizing Ouputbox menu</title>
-<para>Items within External &gt; Outputbox allow for programs to give feedback by opening an output box within Bluefish's main window.</para>
-<para>To create an Outputbox menu item:</para>
-<orderedlist>
+<para>Items within the <menuchoice><guimenu>External</guimenu><guisubmenu>Outputbox</guisubmenu></menuchoice> submenu allow for programs to give feedback by opening an output box at the bottom of Bluefish's main window.</para>
+<para>Here is an example showing the output box after using the <menuchoice><guimenu>External</guimenu><guisubmenu>Outputbox</guisubmenu><guimenuitem>tidy HTML validator</guimenuitem></menuchoice> item on an html file with an on purpose error:
+<figure id="figure-external-outputbox-example">
+<title id="figure-external-outputbox-example-title">The tidy output box in Bluefish 1.0</title>
+<screenshot><mediaobject>
+<imageobject>
+<imagedata fileref="figures/external_outputbox_example.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>A screen shot of the tidy output box in bluefish 1.0</phrase>
+</textobject>
+</mediaobject></screenshot>
+</figure></para>
+<para>The contents of the resulting output box are based upon scanning the output of the supplied command, as it appears in an xterm, with a given regular expression and  filling in the various fields of the output box with the desired parts of that regular expression. The <guilabel>Output parsers</guilabel> tab of the <guilabel>Edit preferences</guilabel> panel provides you with a model to do that:
+<figure id="figure-external-outputbox-preferences">
+<title id="figure-external-outputbox-preferences-title">The Output parsers tab in Preferences panel</title>
+<screenshot><mediaobject>
+<imageobject>
+<imagedata fileref="figures/external_outputbox_preferences.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>A screen shot of the output parsers tab in preferences panel</phrase>
+</textobject>
+</mediaobject></screenshot>
+</figure></para>
+<para>The <guilabel>Outputbox</guilabel> panel comprises 7 fields:</para>
+<itemizedlist>
 <listitem>
-<para>Edit &gt; Preferences</para>
+<para>The <guilabel>Name</guilabel> field, a character string which will appear as the item in the <guimenu>Outputbox</guimenu> menu.</para>
 </listitem>
 <listitem>
-<para>Choose the "Output parsers" tab.</para>
+<para>The <guilabel>Pattern</guilabel> field, a Perl regular expression which describes the command output, so that some of its parts could be used in the following fields.</para>
+<?linebreakus?>
+<para>Let's use an example: say you have a ruby script named foo.rb with the following line in it: <programlisting>put Hello Word</programlisting></para>
+<para>When executing <command>ruby -d foo.rb</command> in an xterm, the output is: 
+<programlisting><![CDATA[Exception `NoMethodError' at foo.rb:1 - undefined method `put' for main:Object
+foo.rb:1: undefined method `put' for main:Object (NoMethodError)]]></programlisting></para>
+<para>The second line can be parsed with the following Perl regular expression:
+<programlisting><![CDATA[([a-zA-Z0-9/_.-]+):([0-9]+):(.*)]]></programlisting>
+The first part embedded into parentheses will match the script name, i.e. foo.rb; the second part will match the line, i.e. 1: the third part will match the remaining. See <xref linkend="find-replace-regex" /> for some explaination on using regular expressions within bluefish.</para>
 </listitem>
 <listitem>
-<para>Click "Add" to add a new item</para>
+<para>The <guilabel>File #</guilabel> field, a part number matching the filename in the Perl regular expression given in the <guilabel>Pattern</guilabel> field. Note that the first part is numbered 1, the second 2, etc. If you do not want that the part be shown, put -1 in it.</para>
 </listitem>
 <listitem>
-<para>Double-click on the name field to give the command a name (this name will become an option in the "External" menu).</para>
+<para>The <guilabel>Line #</guilabel>, a part number matching the line number in the regular expression, here it will be 2, as same rules apply as in the <guilabel>Filename #</guilabel> field.</para>
 </listitem>
 <listitem>
-<para>Double-click on the pattern field and give a regular expression pattern with subpatterns, such as line ([0-9]+) column [0-9]+ - (.*).</para>
+<para>The <guilabel>Output #</guilabel> field, a part number matching the desired part in the regular expression, typically the remaining of the line, here it will be the third and last part. Again, same rules apply as in the <guilabel>Filename #</guilabel> field.</para>
 </listitem>
 <listitem>
-<para>Double-click on the "File #" field and give the number for the subpattern matching the filename (-1 for none)</para></listitem><listitem><para>Double-click on the "Line #" field and give the number for the subpattern matching the line number</para>
+<para>The <guilabel>Command</guilabel> field, the command to execute on the current document, internally named %s. Here it will be: <userinput>ruby -d '%s'</userinput>. Notice that you should embed the reference to the current document, if any, within parentheses to avoid interpretation at run time.</para>
 </listitem>
 <listitem>
-<para>Double-click on the "Output #" field and give the number for the subpattern matching the actual error message</para>
+<para>The <guilabel>Show all output</guilabel> checkbox, which can be checked to show all output not matching the Perl regular expression. Here it is not needed, since the regular expression matches all output.</para>
 </listitem>
-<listitem>
-<para>Double-click on the "Command" field and the command to execute, %s is the current filename</para>
-</listitem>
-<listitem>
-<para>Toggle the "Show all output" check box to show output NOT matching the regular expression.</para>
-</listitem>
-</orderedlist>
+</itemizedlist>
+<para>You add, modify, delete, move outputboxes the same way as described in <xref linkend="external-browsers"/>.</para>
+<?linebreakus?>
+<procedure id="outputbox-add">
+<title>Adding an Outputbox menu item</title>
+<step>
+<para>Execute the desired command in an xterm with some error either in the command or in the file which it is applied on, in order to know how the errors are outputting.</para>
+</step>
+<step>
+<para>Build a Perl regular expression based on the ouput, so that the filename, the line number and the error message be retrieved.</para>
+</step>
+<step>
+<para>Click on the <guilabel>Preferences...</guilabel> icon in the main tool bar to access the <guilabel>Edit preferences</guilabel> panel.</para>
+</step>
+<step>
+<para>Click on the <guilabel>Output parsers</guilabel> tab to display the <guilabel>Outputbox</guilabel> panel.</para>
+</step>
+<step>
+<para>Click on the <guibutton>Add</guibutton> button. A new line will be shown, with an <guilabel>Untitled</guilabel> label.</para>
+</step>
+<step>
+<para>Click "Add" to add a new item.</para>
+</step>
+<step>
+<para>Double-click on the <guilabel>Name</guilabel> field to give the command a name.</para>
+</step>
+<step>
+<para>Double-click on the <guilabel>Pattern</guilabel> field and fill it in with the Perl regular expression you have built previously.</para>
+</step>
+<step>
+<para>Double-click on the <guilabel>File #</guilabel> field and give the number for the subpattern matching the filename (-1 for none).</para>
+</step>
+<step>
+<para>Double-click on the <guilabel>Line #</guilabel> field and give the number for the subpattern matching the line number (-1 for none).</para>
+</step>
+<step>
+<para>Double-click on the <guilabel>Output #</guilabel> field and give the number for the subpattern matching the actual error message (-1 for none).</para>
+</step>
+<step>
+<para>Double-click on the <guilabel>Command</guilabel> field and enter the command to execute in the form <command>command options '%s'</command>, %s being the current filename.</para>
+</step>
+<step>
+<para>Toggle the "Show all output" check box to show output NOT matching the regular expression, if needed.</para>
+</step>
+</procedure>
 <variablelist>
 <varlistentry>
  <term><emphasis>Note</emphasis></term>
  <listitem>
-<para>Of course, it is also possible to add these items by editing the file named "rcfile_v2" found in the user's home directory (~/.bluefish/rcfile_v2). The fields are delimited by colons and correspond to those found in the GUI.</para>
+<para>Of course, it is also possible to add these items by editing the file named <filename>~/.bluefish/rcfile_v2</filename> found in the user's home directory. The fields are delimited by colons and correspond to those found in the GUI.</para>
 </listitem>
 </varlistentry>
 </variablelist>
@@ -3041,8 +3111,8 @@ class "GtkTextView" style "EditorStyle"</programlisting></para>
 <para>Now a pattern named <literal>php</literal> has the lowest match. This is a type 0 pattern, so the highlight engine continues with all the remaining code, but it will not only search for the lowest match of the child patterns of <literal>php</literal>, but it will also use for the end pattern of <literal>php</literal>. The lowest match in this example is a pattern named <literal>php-comment-C++</literal> As you can see the ?&gt; within the comment does not end the <literal>php</literal> pattern, because it lies within a subpattern of <literal>php</literal>: <programlisting>// this is a comment ?&gt;</programlisting></para>
 <para>The pattern <literal>php-comment-C++</literal> does not have any child patterns, so the remaining code for the <literal>php</literal> subpatterns is: <programlisting>?&gt;</programlisting></para>
 <para>It is very obvious now, the lowest match will be the end pattern of the <literal>php</literal> pattern, so we're back on the main level, and we have matched all of the code!
-<figure id="syntax_highlighting_example">
-<title id="figure-desc">Syntax highlighting example</title>
+<figure id="figure-syntax-highlighting-example">
+<title id="figure-syntax-highlighting-example-title">Syntax highlighting example</title>
 <screenshot><mediaobject>
 <imageobject>
 <imagedata fileref="figures/syntax_highlighting_example.png" format="PNG"/>
