@@ -418,25 +418,6 @@ gpointer file_checkNsave_uri_async(GnomeVFSURI *uri, GnomeVFSFileInfo *info, Tre
 
 /*************************** OPEN FILE ASYNC ******************************/
 
-typedef enum {
-	OPENFILE_ERROR,
-	OPENFILE_ERROR_NOCHANNEL,
-	OPENFILE_ERROR_NOREAD,
-	OPENFILE_ERROR_CANCELLED,
-	OPENFILE_CHANNEL_OPENED,
-	OPENFILE_FINISHED
-} Topenfile_status;
-
-typedef void (* OpenfileAsyncCallback) (Topenfile_status status,gint error_info, gchar *buffer,GnomeVFSFileSize buflen,gpointer callback_data);
-
-typedef struct {
-	GnomeVFSAsyncHandle *handle;
-	gchar *buffer;
-	GnomeVFSFileSize buffer_size;
-	GnomeVFSFileSize used_size;
-	OpenfileAsyncCallback callback_func;
-	gpointer callback_data;
-} Topenfile;
 #define CHUNK_SIZE 4096
 #define BUFFER_INCR_SIZE 40960
 
@@ -445,7 +426,7 @@ static void openfile_cleanup(Topenfile *of) {
 	g_free(of->buffer);
 	g_free(of);
 }
-static void openfile_cancel(Topenfile *of) {
+void openfile_cancel(Topenfile *of) {
 	DEBUG_MSG("openfile_cancel, of=%p\n",of);
 	gnome_vfs_async_cancel(of->handle);
 	of->callback_func(OPENFILE_ERROR_CANCELLED,0,of->buffer,of->used_size,of->callback_data);
@@ -490,7 +471,7 @@ static void openfile_asyncopenuri_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSResult
 	}
 }
 
-static Topenfile *file_openfile_uri_async(GnomeVFSURI *uri, OpenfileAsyncCallback callback_func, gpointer callback_data) {
+Topenfile *file_openfile_uri_async(GnomeVFSURI *uri, OpenfileAsyncCallback callback_func, gpointer callback_data) {
 	Topenfile *of;
 	of = g_new(Topenfile,1);
 	DEBUG_MSG("file_open_uri_async, %s, of=%p\n",gnome_vfs_uri_get_path(uri), of);

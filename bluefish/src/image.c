@@ -1,12 +1,13 @@
 #include <gtk/gtk.h>
 #include <string.h>
 
-/*#define DEBUG*/
+#define DEBUG
 
 #include "bluefish.h"
 #include "html_diag.h"
 #include "cap.h"
 #include "document.h"
+#include "file.h"
 #include "gtk_easy.h"
 #include "bf_lib.h"
 #include "stringlist.h"
@@ -34,6 +35,9 @@ typedef struct {
 	GtkWidget *frame;
 	GdkPixbuf *pb;
 	GtkWidget *im;
+
+	GdkPixbufLoader* pbloader;
+	Topenfile *of;
 
 	/* and some options for the thumbnails */
 	gboolean is_thumbnail;
@@ -147,36 +151,9 @@ static void image_diag_finish(Timage_diag *imdg, GtkSignalFunc ok_func) {
 	gtk_widget_show_all(GTK_WIDGET(imdg->dg->dialog));
 }
 
-static void image_filename_changed(GtkWidget * widget, Timage_diag *imdg) {
+static void image_dialog_set_pixbuf(Timage_diag *imdg) {
 	gint pb_width, pd_height, toobig;
 	GdkPixbuf *tmp_pb;
-	DEBUG_MSG("image_filename_changed() started. GTK_IS_WIDGET(imdg->im) == %d\n", GTK_IS_WIDGET(imdg->im));
-	if (imdg->pb) {
-		g_object_unref(imdg->pb);
-	}
-	DEBUG_MSG("image_filename_changed: filename=%s\n",gtk_entry_get_text(GTK_ENTRY(imdg->dg->entry[0])));
-	
-	/* the entry usually has a relative filename, so we should make it absolute 
-	using the basedir of the document */
-	{
-		const gchar *filename;
-		gchar *fullfilename = NULL;
-
-		filename = gtk_entry_get_text(GTK_ENTRY(imdg->dg->entry[0]));
-		/* we should use the full path to create the thumbnail filename */
-		if (filename[0] != '/' && imdg->dg->doc->uri && strlen(imdg->dg->doc->uri)) {
-			gchar *basedir = path_get_dirname_with_ending_slash(imdg->dg->doc->uri);
-			fullfilename = create_full_path(filename, basedir);
-			g_free(basedir);
-		} else if (filename[0] == '/') {
-			fullfilename = g_strdup(filename);
-		} else {
-			return;
-		}
-		DEBUG_MSG("image_filename_changed: fullfilename=%s, loading!\n",fullfilename);
-		imdg->pb = gdk_pixbuf_new_from_file(fullfilename, NULL);
-		g_free(fullfilename);
-	}
 	if (!imdg->pb) {
 		return;
 	}
@@ -217,6 +194,96 @@ static void image_filename_changed(GtkWidget * widget, Timage_diag *imdg) {
 	DEBUG_MSG("image_filename_changed() finished. GTK_IS_WIDGET(imdg->im) == %d\n", GTK_IS_WIDGET(imdg->im));
 }
 
+static void image_loaded_lcb(Topenfile_status status,gint error_info, gchar *buffer,GnomeVFSFileSize buflen,gpointer callback_data) {
+	Timage_diag *imdg = callback_data;
+	gboolean cleanup = TRUE;
+	switch (status) {
+		case OPENFILE_ERROR:
+		case OPENFILE_ERROR_NOCHANNEL:
+		case OPENFILE_ERROR_NOREAD:
+		case OPENFILE_ERROR_CANCELLED:
+			/* should we warn the user ?? */
+			gdk_pixbuf_loader_close(imdg->pbloader,NULL);
+		break;
+		case OPENFILE_CHANNEL_OPENED:
+			/* do nothing */
+			cleanup = FALSE;
+		break;
+		case OPENFILE_FINISHED: {
+			GError *error=NULL;
+			if (gdk_pixbuf_loader_write(imdg->pbloader,buffer,buflen,&error) 
+						&& gdk_pixbuf_loader_close(imdg->pbloader,&error)) {
+				imdg->pb = gdk_pixbuf_loader_get_pixbuf(imdg->pbloader);
+				if (imdg->pb) {
+					g_object_ref(imdg->pb);
+					image_dialog_set_pixbuf(imdg);
+				}
+			}
+		} break;
+	}
+	if (cleanup) {
+		g_object_unref(imdg->pbloader);
+		imdg->pbloader = NULL;
+		imdg->of = NULL;
+	}
+}
+
+static void image_filename_changed(GtkWidget * widget, Timage_diag *imdg) {
+	const gchar *filename;
+	gchar *fullfilename = NULL, *tmp;
+	GnomeVFSURI *uri;
+
+	DEBUG_MSG("image_filename_changed() started. GTK_IS_WIDGET(imdg->im) == %d\n", GTK_IS_WIDGET(imdg->im));
+	if (imdg->pb) {
+		g_object_unref(imdg->pb);
+	}
+	if (imdg->of) {
+		openfile_cancel(imdg->of);
+	}
+	DEBUG_MSG("image_filename_changed: filename=%s\n",gtk_entry_get_text(GTK_ENTRY(imdg->dg->entry[0])));
+	
+	/* the entry usually has a relative filename, so we should make it absolute 
+	using the basedir of the document */
+	filename = gtk_entry_get_text(GTK_ENTRY(imdg->dg->entry[0]));
+	/* we should use the full path to create the thumbnail filename */
+	tmp = strstr(filename, "://");
+	if (tmp == NULL && imdg->dg->doc->uri && strlen(imdg->dg->doc->uri)) {
+		gchar *basedir = path_get_dirname_with_ending_slash(imdg->dg->doc->uri);
+		fullfilename = create_full_path(filename, basedir);
+		g_free(basedir);
+	} else if (tmp != NULL) {
+		fullfilename = g_strdup(filename);
+	} else if (filename[0]=='/'){
+		fullfilename = g_strconcat("file://",filename,NULL);
+	} else {
+		return;
+	}
+	DEBUG_MSG("image_filename_changed: fullfilename=%s, loading!\n",fullfilename);
+	uri = gnome_vfs_uri_new(fullfilename);
+	if (uri) {
+		GError *error=NULL;
+		gchar *ext = strrchr(fullfilename, '.');
+		if (ext) {
+			gchar *tmp2 = g_strdown(ext+1);
+			if (strcmp(tmp2, "jpg")==0) {
+				imdg->pbloader = gdk_pixbuf_loader_new_with_type("jpeg", &error);
+			} else {
+				imdg->pbloader = gdk_pixbuf_loader_new_with_type(tmp2, &error);
+			}
+			g_free(tmp2);
+		} else {
+			imdg->pbloader = gdk_pixbuf_loader_new();
+		}
+		if (error) {
+			DEBUG_MSG("failed to open loader for ext=%s because %s\n", ext, error->message);
+		} else {
+			imdg->of = file_openfile_uri_async(uri, image_loaded_lcb, imdg);
+		}
+		gnome_vfs_uri_unref(uri);
+	}
+	g_free(fullfilename);
+}
+
 static void image_adjust_changed(GtkAdjustment * adj, Timage_diag *imdg) {
 	GdkPixbuf *tmp_pb;
 	gint tn_width, tn_height;
@@ -254,9 +321,7 @@ void image_insert_dialog_backend(gchar *filename,Tbfwin *bfwin, Ttagpopup *data,
 	GList *popuplist = NULL;
 	GtkWidget *dgtable;
 
-	imdg = g_new(Timage_diag, 1);
-	imdg->pb = NULL;
-	imdg->im = NULL;
+	imdg = g_new0(Timage_diag, 1);
 	imdg->is_thumbnail = is_thumbnail;
 	if (is_thumbnail) {
 		imdg->dg = html_diag_new(bfwin,_("Insert thumbnail"));
