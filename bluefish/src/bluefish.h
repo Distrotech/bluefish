@@ -18,7 +18,8 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-#define DEBUG
+/* if you define DEBUG here you will get debug output from all Bluefish parts */
+/* #define DEBUG */
 
 #ifndef __BLUEFISH_H_
 #define __BLUEFISH_H_
