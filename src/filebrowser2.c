@@ -1017,7 +1017,7 @@ static void fb2rpopup_delete(Tfilebrowser2 *fb2) {
 		gchar *label;
 		gint retval;
 		gchar *filename;
-		filename = uri_to_document_filename(uri);
+		filename = gnome_vfs_uri_to_string(uri,0);
 		label = g_strdup_printf(_("Are you sure you want to delete \"%s\" ?"), filename);
 		retval = multi_query_dialog(fb2->bfwin->main_window,label, _("If you delete this file, it will be permanently lost."), 0, 0, buttons);
 		g_free(label);
