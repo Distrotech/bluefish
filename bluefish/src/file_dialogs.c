@@ -283,6 +283,7 @@ static TcheckNsave_return doc_checkNsave_lcb(TcheckNsave_status status,gint erro
 				return CHECKNSAVE_CONT;
 			} else if (main_v->props.backup_abort_action == 1) {
 				doc->action.save = NULL;
+				gtk_text_view_set_editable(GTK_TEXT_VIEW(doc->view),TRUE);
 				return CHECKNSAVE_STOP;
 			} else /* if (main_v->props.backup_abort_action == 2) */{
 				/* we have to ask the user */
@@ -294,6 +295,7 @@ static TcheckNsave_return doc_checkNsave_lcb(TcheckNsave_status status,gint erro
 				DEBUG_MSG("doc_checkNsave_lcb, retval=%d, returning %d\n", retval,(retval == 0) ? CHECKNSAVE_STOP : CHECKNSAVE_CONT);
 				if (retval == 0) {
 					doc->action.save = NULL;
+					gtk_text_view_set_editable(GTK_TEXT_VIEW(doc->view),TRUE);
 					return CHECKNSAVE_STOP;
 				}
 				return CHECKNSAVE_CONT;
@@ -309,6 +311,7 @@ static TcheckNsave_return doc_checkNsave_lcb(TcheckNsave_status status,gint erro
 				error_dialog(BFWIN(doc->bfwin)->main_window,_("File save failed!\n"), errmessage);
 				g_free(errmessage);
 				doc->action.save = NULL;
+				gtk_text_view_set_editable(GTK_TEXT_VIEW(doc->view),TRUE);
 			}
 		break;
 		case CHECKANDSAVE_ERROR_MODIFIED:
@@ -327,6 +330,7 @@ static TcheckNsave_return doc_checkNsave_lcb(TcheckNsave_status status,gint erro
 				g_free(tmpstr);
 				if (retval == 0) {
 					doc->action.save = NULL;
+					gtk_text_view_set_editable(GTK_TEXT_VIEW(doc->view),TRUE);
 					return CHECKNSAVE_STOP;
 				}
 				return CHECKNSAVE_CONT;
@@ -339,6 +343,7 @@ static TcheckNsave_return doc_checkNsave_lcb(TcheckNsave_status status,gint erro
 		case CHECKANDSAVE_FINISHED:
 			/* if the user wanted to close the doc we should do very diffferent things here !! */
 			doc->action.save = NULL;
+			gtk_text_view_set_editable(GTK_TEXT_VIEW(doc->view),TRUE);
 			if (doc->action.close_doc) {
 				Tbfwin *bfwin = doc->bfwin;
 				gboolean close_window = doc->action.close_window;
@@ -488,6 +493,7 @@ void doc_save_backend(Tdocument *doc, gboolean do_save_as, gboolean do_move, gbo
 		uri = gnome_vfs_uri_new(doc->uri);
 		doc->action.close_doc = close_doc;
 		doc->action.close_window = close_window;
+		gtk_text_view_set_editable(GTK_TEXT_VIEW(doc->view),FALSE);
 		doc->action.save = file_checkNsave_uri_async(uri, doc->fileinfo, buffer, strlen(buffer->data), !do_save_as, doc_checkNsave_lcb, doc);
 
 		if (do_save_as) {
