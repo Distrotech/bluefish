@@ -1,7 +1,7 @@
 text/html
 	short_list_application_ids_for_novice_user_level=epiphany,galeon,mozilla,bluefish
 	short_list_application_ids_for_intermediate_user_level=epiphany,galeon,mozilla,bluefish
-	short_list_application_ids_for_advanced_user_level=epiphany,galeon,mozilla,bluefish
+	short_list_application_ids_for_advanced_user_level=galeon,bluefish,mozilla,epiphany
 
 text/x-javascript
 	short_list_application_ids_for_novice_user_level=bluefish
@@ -39,6 +39,12 @@ text/x-perl
 	short_list_application_ids_for_advanced_user_level=bluefish
 
 text/x-java
+	short_list_application_ids_for_novice_user_level=bluefish
+	short_list_application_ids_for_intermediate_user_level=bluefish
+	short_list_application_ids_for_advanced_user_level=bluefish
+
+application/bluefish-project
+	default_action=application
 	short_list_application_ids_for_novice_user_level=bluefish
 	short_list_application_ids_for_intermediate_user_level=bluefish
 	short_list_application_ids_for_advanced_user_level=bluefish

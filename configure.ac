@@ -1,6 +1,6 @@
 # Bluefish HTML Editor
 # configure.ac - the autoconf file
-# Copyright (C) 2002 Olivier Sessink
+# Copyright (C) 2002-2004 Olivier Sessink
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -290,22 +290,15 @@ AC_ARG_WITH(gnome1-menu,
 ], [
 	GNOME1MENUPATH=/usr/share/gnome/apps/
 ])
-AC_ARG_WITH(gnome2-menu,
-[  --with-gnome2-menu=/path if the gnome2 menu is not /usr/share/applications/],[
-	GNOME2MENUPATH=$withval
+AC_ARG_WITH(gnome2-prefix,
+[  --with-gnome2-prefix=/path if the gnome2 menu & mime-types are not in /usr/share/],[
+	GNOME2PREFIX=$withval
 ], [
-	GNOME2MENUPATH=/usr/share/applications/
-])
-AC_ARG_WITH(gnome2-appregistry,
-[  --with-gnome2-appregistry=/path if the app. registry is not /usr/share/application--registry/],[
-	GNOME2APPREGISTRY=$withval
-], [
-	GNOME2APPREGISTRY=/usr/share/application-registry/
+	GNOME2PREFIX=/usr/share/
 ])
 AC_SUBST(ICONPATH)
 AC_SUBST(GNOME1MENUPATH)
-AC_SUBST(GNOME2MENUPATH)
-AC_SUBST(GNOME2APPREGISTRY)
+AC_SUBST(GNOME2PREFIX)
 AC_SUBST(HAVE_GNOME_VFS)
 AC_PREFIX_DEFAULT("/usr/local")
 

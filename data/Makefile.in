@@ -1,5 +1,5 @@
 # Makefile for data files
-# Copyright (C) 2002 Olivier Sessink <olivier@bluefish.openoffice.nl>
+# Copyright (C) 2002-2004 Olivier Sessink <olivier@bluefish.openoffice.nl>
 
 PACKAGE = @PACKAGE@
 VERSION = @VERSION@
@@ -18,9 +18,11 @@ localedir = $(datadir)/locale
 
 iconpath=@ICONPATH@
 gnome1menupath=@GNOME1MENUPATH@
-gnome2menupath=@GNOME2MENUPATH@
-gnome2appregistry=@GNOME2APPREGISTRY@
+gnome2prefix=@GNOME2PREFIX@
 have_gnome_vfs=@HAVE_GNOME_VFS@
+gnome2applications=${gnome2prefix}/applications/
+gnome2mime-info=${gnome2prefix}/mime-info/
+gnome2appreg=${gnome2prefix}/application-registry/
 
 INSTALL = @INSTALL@
 INSTALL_DIR = $(INSTALL) -d -m 755 
@@ -49,16 +51,19 @@ install: all
 	@for file in $(FUNCREFFILES) ; do \
 		$(INSTALL_DATA) $$file $(DESTDIR)$(pkgdatadir)/$$file ;\
 	done
-	if [ -d $(gnome2menupath) ] ; then \
-		$(INSTALL_DIR) $(DESTDIR)$(gnome2menupath) ;\
-		$(INSTALL_DATA) bluefish.desktop $(DESTDIR)$(gnome2menupath) ;\
+	if [ -d $(gnome2applications) ] ; then \
+		$(INSTALL_DATA) bluefish.desktop $(DESTDIR)$(gnome2applications) ;\
 	fi
 	if [ -d $(gnome1menupath) ] ; then \
 		$(INSTALL_DIR) $(DESTDIR)$(gnome1menupath)/Applications ;\
 		$(INSTALL_DATA) bluefish.desktop $(DESTDIR)$(gnome1menupath)/Applications ;\
 	fi
-	if [ -d $(gnome2appregistry) ] ; then \
-		$(INSTALL_DATA) bluefish.applications $(gnome2appregistry) ;\
+	if [ -d $(gnome2appreg) ] ; then \
+		$(INSTALL_DATA) bluefish.applications $(gnome2appreg) ;\
+	fi
+	if [ -d $(gnome2mime-info) ] ; then \
+		$(INSTALL_DATA) bluefish.mime $(gnome2mime-info) ;\
+		$(INSTALL_DATA) bluefish.keys $(gnome2mime-info) ;\
 	fi
 
 uninstall:
