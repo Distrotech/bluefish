@@ -17,8 +17,8 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-/*#define DEBUG
-#define DEBUG_ADDING_TO_TREE*/
+#define DEBUG
+#define DEBUG_ADDING_TO_TREE
 
 #include <gtk/gtk.h>
 #include <sys/types.h> /* stat() getuid */
@@ -832,8 +832,10 @@ void filebrowser_open_dir(Tbfwin *bfwin,const gchar *dirarg) {
 				path = build_tree_from_path(filebrowser, dir);
 /*				path = return_path_from_filename(GTK_TREE_STORE(filebrowser->store), dir);*/
 /*				gtk_tree_view_expand_row(GTK_TREE_VIEW(filebrowser->tree),path,FALSE);*/
-				filebrowser_expand_to_root(filebrowser,path);
-				gtk_tree_view_scroll_to_cell(GTK_TREE_VIEW(filebrowser->tree),path,0,TRUE,0.5,1.0);
+				if (path) {
+					filebrowser_expand_to_root(filebrowser,path);
+					gtk_tree_view_scroll_to_cell(GTK_TREE_VIEW(filebrowser->tree),path,0,TRUE,0.5,1.0);
+				}
 			}
 		}
 		gtk_tree_path_free(path);
@@ -1479,7 +1481,7 @@ void filebrowser_set_basedir(Tbfwin *bfwin, const gchar *basedir) {
 		if (FILEBROWSER(bfwin->filebrowser)->store2) {
 			gtk_list_store_clear(FILEBROWSER(bfwin->filebrowser)->store2);
 		}
-		path = build_tree_from_path(FILEBROWSER(bfwin->filebrowser), basedir);
+		path = build_tree_from_path(FILEBROWSER(bfwin->filebrowser), FILEBROWSER(bfwin->filebrowser)->basedir);
 		if (path) {
 			filebrowser_expand_to_root(FILEBROWSER(bfwin->filebrowser),path);
 			gtk_tree_path_free(path);
