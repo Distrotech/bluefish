@@ -412,7 +412,7 @@ if test "x$WITHGNOME2" != "xno" ; then
 			echo "no"
 		fi
 	fi	
-	if test "x$UPDATE_MIME" = "xno" -a "x$UPDATE_MIME" = "xno" ; then
+	if test "x$UPDATE_MIME" = "xno" -a "x$UPDATE_DESKTOP" = "xno" ; then
 		echo -n "checking for gnome2.6 mime-info directory... "
 		if test -d ${GNOME2PREFIX}/share/mime-info ; then
 			echo "${GNOME2PREFIX}/share/mime-info"
