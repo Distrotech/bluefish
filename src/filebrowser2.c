@@ -737,7 +737,7 @@ static void refilter_filelist(Tfilebrowser2 *fb2, GtkTreePath *newroot) {
  *
  * return a newly allocated treepath for the filesystem_tstore based on a 'sort_path' from the 
  * directory sort model
- */
+ * /
 static GtkTreePath *fb2_fspath_from_dir_sortpath(Tfilebrowser2 *fb2, GtkTreePath *sort_path) {
 	if (sort_path) {
 		GtkTreePath *filter_path;
@@ -760,13 +760,13 @@ static GtkTreePath *fb2_fspath_from_dir_sortpath(Tfilebrowser2 *fb2, GtkTreePath
 		}
 	}
 	return NULL;
-}
+}*/
 /**
  * fb2_fspath_from_file_sortpath:
  *
  * return a newly allocated treepath for the filesystem_tstore based on a 'sort_path' from the 
  * file sort model
- */
+ * /
 static GtkTreePath *fb2_fspath_from_file_sortpath(Tfilebrowser2 *fb2, GtkTreePath *sort_path) {
 	if (sort_path) {
 		GtkTreePath *filter_path;
@@ -779,7 +779,7 @@ static GtkTreePath *fb2_fspath_from_file_sortpath(Tfilebrowser2 *fb2, GtkTreePat
 		}
 	}
 	return NULL;
-}
+}*/
 /**
  * fb2_fspath_from_uri:
  *
@@ -819,17 +819,22 @@ static GnomeVFSURI *fb2_uri_from_fspath(Tfilebrowser2 *fb2, GtkTreePath *fs_path
  * returns the uri stored in the treestore based on the 'sort_path' from the file sort
  */
 static GnomeVFSURI *fb2_uri_from_file_sort_path(Tfilebrowser2 *fb2, GtkTreePath *sort_path) {
-	GnomeVFSURI *uri;
+	GnomeVFSURI *uri=NULL;
+	GtkTreeIter iter;
+	/* because of the buggy behaviour of the GtkTreeModelFilter we don't use this code
 	GtkTreePath *fs_path = fb2_fspath_from_file_sortpath(fb2, sort_path);
 	uri = fb2_uri_from_fspath(fb2, fs_path);
-	gtk_tree_path_free(fs_path);
+	gtk_tree_path_free(fs_path);*/
+	if (gtk_tree_model_get_iter(fb2->file_lsort,&iter,sort_path)) {
+		gtk_tree_model_get(fb2->file_lsort, &iter, URI_COLUMN, &uri, -1);
+	}
 	return uri;
 }
 /**
  * fb2_uri_from_dir_sort_path:
  *
  * returns the uri stored in the treestore based on the 'sort_path' from the dir sort
- */
+ * /
 static GnomeVFSURI *fb2_uri_from_dir_sort_path(Tfilebrowser2 *fb2, GtkTreePath *sort_path) {
 	GnomeVFSURI *uri;
 	GtkTreePath *fs_path = fb2_fspath_from_dir_sortpath(fb2, sort_path);
@@ -837,7 +842,7 @@ static GnomeVFSURI *fb2_uri_from_dir_sort_path(Tfilebrowser2 *fb2, GtkTreePath *
 	uri = fb2_uri_from_fspath(fb2, fs_path);
 	gtk_tree_path_free(fs_path);
 	return uri;
-}
+}*/
 /**
  * fb2_isdir_from_dir_sort_path:
  *
@@ -877,7 +882,10 @@ static GtkTreePath *fb2_fspath_from_dir_selection(Tfilebrowser2 *fb2) {
 	GtkTreeIter sort_iter;
 	GtkTreeSelection *selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(fb2->dir_v));
 	if (gtk_tree_selection_get_selected(selection,&sort_model,&sort_iter)) {
-		GtkTreePath *sort_path;
+		/* the treemodelfilter seems to be very buggy when trying to retrieve data from the lower level 
+		model, so instead of converting the path, we retrieve the uri, and then find the uri in the 
+		hashtable, and convert that to a path */
+		/*GtkTreePath *sort_path;
 		sort_path = gtk_tree_model_get_path(sort_model,&sort_iter);
 		if (sort_path) {
 			GtkTreePath *fs_path;
@@ -885,7 +893,12 @@ static GtkTreePath *fb2_fspath_from_dir_selection(Tfilebrowser2 *fb2) {
 			gtk_tree_path_free(sort_path);
 			return fs_path;
 		}
-		DEBUG_MSG("fb2_fspath_from_dir_selection, a selection, but no sort_path?\n");
+		DEBUG_MSG("fb2_fspath_from_dir_selection, a selection, but no sort_path?\n");*/
+		GnomeVFSURI *uri;
+		gtk_tree_model_get(sort_model, &sort_iter, URI_COLUMN, &uri, -1);
+		if (uri) {
+			return fb2_fspath_from_uri(fb2, uri);
+		}
 	}
 	DEBUG_MSG("fb2_fspath_from_dir_selection, returning NULL\n");
 	return NULL;
@@ -898,16 +911,10 @@ static GtkTreePath *fb2_fspath_from_dir_selection(Tfilebrowser2 *fb2) {
 static GnomeVFSURI *fb2_uri_from_file_selection(Tfilebrowser2 *fb2) {
 	GtkTreeModel *sort_model;
 	GtkTreeIter sort_iter;
-	GtkTreeSelection *selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(fb2->file_v));
-	if (gtk_tree_selection_get_selected(selection,&sort_model,&sort_iter)) {
-		GtkTreePath *sort_path;
-		sort_path = gtk_tree_model_get_path(sort_model,&sort_iter);
-		if (sort_path) {
-			GnomeVFSURI *uri;
-			uri = fb2_uri_from_file_sort_path(fb2,sort_path);
-			gtk_tree_path_free(sort_path);
-			return uri;
-		}
+	if (gtk_tree_selection_get_selected(gtk_tree_view_get_selection(GTK_TREE_VIEW(fb2->file_v)),&sort_model,&sort_iter)) {
+		GnomeVFSURI *uri=NULL;
+		gtk_tree_model_get(sort_model, &sort_iter, URI_COLUMN, &uri, -1);
+		return uri;
 	}
 	return NULL;
 }
@@ -919,16 +926,10 @@ static GnomeVFSURI *fb2_uri_from_file_selection(Tfilebrowser2 *fb2) {
 static GnomeVFSURI *fb2_uri_from_dir_selection(Tfilebrowser2 *fb2) {
 	GtkTreeModel *sort_model;
 	GtkTreeIter sort_iter;
-	GtkTreeSelection *selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(fb2->dir_v));
-	if (gtk_tree_selection_get_selected(selection,&sort_model,&sort_iter)) {
-		GtkTreePath *sort_path;
-		sort_path = gtk_tree_model_get_path(sort_model,&sort_iter);
-		if (sort_path) {
-			GnomeVFSURI *uri;
-			uri = fb2_uri_from_dir_sort_path(fb2,sort_path);
-			gtk_tree_path_free(sort_path);
-			return uri;
-		}
+	if (gtk_tree_selection_get_selected(gtk_tree_view_get_selection(GTK_TREE_VIEW(fb2->dir_v)),&sort_model,&sort_iter)) {
+		GnomeVFSURI *uri=NULL;
+		gtk_tree_model_get(sort_model, &sort_iter, URI_COLUMN, &uri, -1);
+		return uri;
 	}
 	return NULL;
 }
