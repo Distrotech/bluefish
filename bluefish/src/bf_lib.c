@@ -37,6 +37,46 @@
 #define DIRSTR "/"
 #define DIRCHR '/'
 #endif
+
+static void fill_rwx(short unsigned int bits, char *chars) {
+	chars[0] = (bits & S_IRUSR) ? 'r' : '-';
+	chars[1] = (bits & S_IWUSR) ? 'w' : '-';
+	chars[2] = (bits & S_IXUSR) ? 'x' : '-';
+}
+static void fill_setid(short unsigned int bits, char *chars) {
+#ifdef S_ISUID
+	if (bits & S_ISUID) {
+		/* Set-uid, but not executable by owner.  */
+		if (chars[3] != 'x') chars[3] = 'S';
+		else chars[3] = 's';
+	}
+#endif
+#ifdef S_ISGID
+	if (bits & S_ISGID) {
+		/* Set-gid, but not executable by group.  */
+		if (chars[6] != 'x') chars[6] = 'S';
+		else chars[6] = 's';
+	}
+#endif
+#ifdef S_ISVTX
+	if (bits & S_ISVTX) {
+		/* Sticky, but not executable by others.  */
+		if (chars[9] != 'x') chars[9] = 'T';
+		else chars[9] = 't';
+	}
+#endif
+}
+gchar *filemode_to_string(mode_t statmode) {
+	gchar *str = g_malloc0(10);
+ 	/* following code "adapted" from GNU filemode.c program */
+	fill_rwx((statmode & 0700) << 0, &str[0]);
+	fill_rwx((statmode & 0070) << 3, &str[3]);
+	fill_rwx((statmode & 0007) << 6, &str[6]);
+	fill_setid(statmode, str);
+	return str;
+}
+
+
 /**
  * return_root_with_protocol:
  * @url: #const gchar* with the url 

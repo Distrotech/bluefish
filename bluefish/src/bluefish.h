@@ -130,6 +130,7 @@ typedef struct {
 	unre_t unre;
 	GtkWidget *view;
 	GtkWidget *tab_label;
+	GtkWidget *tab_eventbox;
 	GtkWidget *tab_menu;
 	GtkTextBuffer *buffer;
 	gboolean in_paste_operation;
@@ -339,6 +340,7 @@ typedef struct {
 	gpointer frefdata;
 	gpointer bmarkdata;
 	gint num_untitled_documents;
+	GtkTooltips *tooltips;
 	pcre *autoclosingtag_regc; /* the regular expression to check for a valid tag in tag autoclosing*/
 } Tmain;
 

@@ -3,7 +3,7 @@
  *
  * Copyright (C) 1998-2004 Olivier Sessink
  * Copyright (C) 1998 Chris Mazuc
- * Copyright (C) 2004 Eugene Morenko(More)
+ * some additions Copyright (C) 2004 Eugene Morenko(More)
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -658,12 +658,45 @@ gboolean doc_has_selection(Tdocument *doc) {
 }
 
 /**
+ * doc_set_tooltip:
+ * @doc: #Tdocument*
+ *
+ * will set the tooltip on the notebook tab eventbox
+ *
+ * Return value: void
+ */
+static void doc_set_tooltip(Tdocument *doc) {
+	gchar *text;
+	gchar mtimestr[128], *modestr=NULL;
+	mtimestr[0] = '\n';
+	mtimestr[1] = '\0';
+#ifdef HAVE_GNOME_VFS
+	DEBUG_MSG("doc_set_tooltip, fileinfo=%p\n", doc->fileinfo);
+	if (doc->fileinfo) {
+		modestr = filemode_to_string(doc->fileinfo->permissions);
+		ctime_r(&doc->fileinfo->mtime,mtimestr);
+	}
+#else
+	if (doc->statbuf.st_uid != -1) {
+		modestr = filemode_to_string(doc->statbuf.st_mode);
+		ctime_r(&doc->statbuf.st_mtime,mtimestr);
+	}
+#endif
+	text = g_strdup_printf("Name: %s\nType: %s\nEncoding: %s\nLast modified: %sPermissions: %s", 
+			       gtk_label_get_text(GTK_LABEL(doc->tab_menu)), doc->hl->type, doc->encoding, mtimestr, modestr);
+	
+	gtk_tooltips_set_tip(main_v->tooltips, doc->tab_eventbox, text, "");
+	g_free(text);
+	g_free(modestr);
+}
+/**
  * doc_set_title:
  * @doc: #Tdocument*
  *
  * will set the notebook tab label and the notebook tab menu label
  * and if this document->bfwin == document->bfwin->current_document
  * it will update the bfwin title
+ * it will also call doc_set_tooltip() to reflect the changes in the tooltip
  *
  * Return value: void
  */
@@ -679,6 +712,7 @@ static void doc_set_title(Tdocument *doc) {
 	}
 	gtk_label_set(GTK_LABEL(doc->tab_menu),tabmenu_string);
 	gtk_label_set(GTK_LABEL(doc->tab_label),label_string);
+	doc_set_tooltip(doc);
 	g_free(label_string);
 	g_free(tabmenu_string);
 	if (doc->bfwin == BFWIN(doc->bfwin)->current_document) {
@@ -2574,6 +2608,7 @@ Tdocument *doc_new(Tbfwin* bfwin, gboolean delay_activate) {
 		apply_font_style(newdoc->tab_label, main_v->props.tab_font_string);
 	}
 	newdoc->tab_menu = gtk_label_new(NULL);
+	newdoc->tab_eventbox = gtk_event_box_new();
 	gtk_misc_set_alignment(GTK_MISC(newdoc->tab_menu), 0,0);
 	newdoc->autoclosingtag = main_v->props.default_autoclosingtag;
 
@@ -2630,23 +2665,20 @@ Tdocument *doc_new(Tbfwin* bfwin, gboolean delay_activate) {
 
 	DEBUG_MSG("doc_new, appending doc to notebook\n");
 	{
-		GtkWidget *hbox, *but;
+		GtkWidget *hbox, *but, *image;
 		hbox = gtk_hbox_new(FALSE,0);
 		but = gtk_button_new();
-		{
-		GtkWidget *image = new_pixmap(101);
-		gtk_widget_show(image);
+		image = new_pixmap(101);
 		gtk_container_add(GTK_CONTAINER(but), image);
 		gtk_container_set_border_width(GTK_CONTAINER(but), 0);
 		gtk_widget_set_size_request(but, 12,12);
-		}
-		
+
 		gtk_button_set_relief(GTK_BUTTON(but), GTK_RELIEF_NONE);
 		g_signal_connect(G_OBJECT(but), "clicked", G_CALLBACK(doc_close_but_clicked_lcb), newdoc);
-		gtk_box_pack_start(GTK_BOX(hbox), newdoc->tab_label, FALSE, FALSE, 0);
+		gtk_container_add(GTK_CONTAINER(newdoc->tab_eventbox), newdoc->tab_label);
+		gtk_box_pack_start(GTK_BOX(hbox), newdoc->tab_eventbox, FALSE, FALSE, 0);
 		gtk_box_pack_start(GTK_BOX(hbox), but, FALSE, FALSE, 0);
-		gtk_widget_show(hbox);
-		gtk_widget_show(but);
+		gtk_widget_show_all(hbox);
 		gtk_notebook_append_page_menu(GTK_NOTEBOOK(bfwin->notebook), scroll ,hbox, newdoc->tab_menu);
 	}
 	/* for some reason it only works after the document is appended to the notebook */
@@ -2774,8 +2806,8 @@ Tdocument * doc_new_with_file(Tbfwin *bfwin, gchar * filename, gboolean delay_ac
 
 	/* hey, this should be done by doc_activate 
 	menu_current_document_set_toggle_wo_activate(NULL, doc->encoding);*/
-	doc_set_title(doc);
 	doc_set_stat_info(doc); /* also sets mtime field */
+	doc_set_title(doc); /* sets the tooltip as well, so it should be called *after* doc_set_stat_info() */
 	if (!delay_activate) {
 		if (opening_in_existing_doc) {
 			doc_activate(doc);
@@ -3108,6 +3140,7 @@ static void files_advanced_win(Tfiles_advanced *tfs) {
 	list = g_list_append(list, "*.xml");
 	list = g_list_append(list, "*.c");
 	list = g_list_append(list, "*.py");
+	list = g_list_append(list, "*.java");
 	tfs->find_pattern = combo_with_popdown("", list, 1);
 	bf_mnemonic_label_tad_with_alignment(_("_File Type:"), tfs->find_pattern, 0, 0.5, table, 1, 2, 4, 5);
 	gtk_table_attach_defaults(GTK_TABLE(table), tfs->find_pattern, 2, 4, 4, 5);
