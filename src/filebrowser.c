@@ -1749,7 +1749,6 @@ void filebrowser_set_basedir(Tbfwin *bfwin, const gchar *basedir) {
 				DEBUG_MSG("filebrowser_set_basedir, calling gtk_toggle_button_set_active()\n");
 				gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(FILEBROWSER(bfwin->filebrowser)->showfulltree), FALSE);
 			}
-			g_free (newbasedir);
 		}
 	}
 }
