@@ -18,6 +18,7 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
+#include <gdk/gdk.h>
 #include <gtk/gtk.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -27,77 +28,6 @@
 #include "about.h"
 #include "bluefish.h"
 #include "gtk_easy.h"
-
-static const gchar *AUTHORS = "Project leader:\n\
-  Olivier Sessink <olivier@bluefish.openoffice.nl>\n\
-\n\
-Developers for this release:\n\
-  Jim Hayward <jimhayward@linuxexperience.com>\n\
-  Oskar Świda <swida@aragorn.pb.bialystok.pl>\n\
-  Christian Tellefsen <christian@tellefsen.net>\n\
-  Eugene Morenko(More) <more@irpin.com>\n\
-\n\
-Developers for previous releases:\n\
-  Chris Mazuc\n\
-  Neil Millar\n\
-  Gero Takke\n\
-  Bo Forslund\n\
-  David Arno\n\
-  Pablo De Napoli\n\
-  Santiago Capel Torres\n\
-  Rasmus Toftdahl Olesen <rto@pohldata.dk>\n\
-  Roland Steinbach <roland@netzblick.de>\n\
-  Christian Tellefsen <chris@tellefsen.net>\n\
-  Antti-Juhani Kaijanaho\n\
-\n\
-Documentation:\n\
-  Alastair Porter <alastair@linuxexperience.com>\n\
-  Daniel Blair <joecamel@realcoders.org>\n\
-  Denny Reeh\n\
-\n\
-Package Maintainers:\n\
-  Debian:   Davide Puricelli <evo@debian.org>\n\
-  Redhat:   Matthias Haase <matthias_haase@bennewitz.com>\n\
-  Mandrake: Todd Lyons <todd@mrball.net>\n\
-\n\
-If you know of anyone missing from this list, please let us know\n\
-<bluefish@bluefish.openoffice.nl>\n\
-\n\
-Thanks to all who helped making this software available.\n\
-";
-
-static const gchar *TRANSLATORS = "Current translators:\n\n\
-  Brazilian Portuguese - Anderson Rocha\n\
-   <anderson@maxlinux.com.br>\n\n\
-  Chinese - Ting Yang (Dormouse)\n\
-   <mouselinux@163.com>\n\n\
-  Danish - Rasmus Toftdahl Olesen\n\
-   <rto@pohldata.dk>\n\n\
-  Finnish - Juho Roukala\n\
-   <j.mr@luukku.com>\n\n\
-  French - Roméo Viu-Berges\n\
-   <apostledemencia@free.fr>\n\n\
-  German - Roland Steinbach\n\
-   <roland@netzblick.de>\n\n\
-  Hungarian - Péter Sáska\n\
-   <sasek@ccsystem.hu>\n\n\
-  Italian - Stefano Canepa\n\
-   <sc@linux.it>\n\n\
-  Polish - Oskar Swida\n\
-   <swida@aragorn.pb.bialystok.pl>\n\n\
-  Portuguese - Lopo Pizarro\n\
-   <lopopizarro@netcabo.pt>\n\n\
-  Russian - Eugene Rupakov\n\
-   <rupakov@jet.msk.ru>\n\n\
-  Serbian - Marko Milenovic\n\
-   <raven@sbb.co.yu>\n\n\ 
-  Spanish - Walter Oscar Echarri\n\
-   <wecharri@infovia.com.ar>\n\n\
-  Swedish - David Smeringe\n\
-   <david.smeringe@telia.com>\n\n\
-  Tamil - Murugapandian Barathee\n\
-   <barathee@yahoo.com>\n\n\
-";
 
 static GtkWidget *info;
 /*
@@ -189,8 +119,80 @@ void about_dialog_create(gpointer * data, guint * callback_action, GtkWidget * w
 	GtkWidget *notebook;
 	GtkWidget *info_ok_button;
 	GdkColor color;
-	const gchar *INFO = _("Bluefish is an editor for experienced web designers and programmers. It supports many programming and markup languages, but focuses on editing dynamic and interactive websites. Bluefish is an open source development project, released under the GPL license.\n\nFor more information, visit the Bluefish Website at http://bluefish.openoffice.nl/\n\nThis version of bluefish was compiled with the following options:\n"CONFIGURE_OPTIONS"\n");
+	gchar *I1;
+	gchar *INFO = _("Bluefish is an editor for experienced web designers and programmers. It supports many programming and markup languages, but focuses on editing dynamic and interactive websites. Bluefish is an open source development project, released under the GPL license.\n\nFor more information, visit the Bluefish Website at http://bluefish.openoffice.nl/\n\nThis version of bluefish was compiled with the following options:\n");
+	gchar *AUTHORS = _("Project leader:\n\
+  Olivier Sessink <olivier@bluefish.openoffice.nl>\n\
+\n\
+Developers for this release:\n\
+  Jim Hayward <jimhayward@linuxexperience.com>\n\
+  Oskar ¿wida <swida@aragorn.pb.bialystok.pl>\n\
+  Christian Tellefsen <christian@tellefsen.net>\n\
+  Eugene Morenko(More) <more@irpin.com>\n\
+\n\
+Developers for previous releases:\n\
+  Chris Mazuc\n\
+  Neil Millar\n\
+  Gero Takke\n\
+  Bo Forslund\n\
+  David Arno\n\
+  Pablo De Napoli\n\
+  Santiago Capel Torres\n\
+  Rasmus Toftdahl Olesen <rto@pohldata.dk>\n\
+  Roland Steinbach <roland@netzblick.de>\n\
+  Christian Tellefsen <chris@tellefsen.net>\n\
+  Antti-Juhani Kaijanaho\n\
+\n\
+Documentation:\n\
+  Alastair Porter <alastair@linuxexperience.com>\n\
+  Daniel Blair <joecamel@realcoders.org>\n\
+  Denny Reeh\n\
+\n\
+Package Maintainers:\n\
+  Debian:   Davide Puricelli <evo@debian.org>\n\
+  Redhat:   Matthias Haase <matthias_haase@bennewitz.com>\n\
+  Mandrake: Todd Lyons <todd@mrball.net>\n\
+\n\
+If you know of anyone missing from this list, please let us know\n\
+<bluefish@bluefish.openoffice.nl>\n\
+\n\
+Thanks to all who helped making this software available.\n\
+");
+	gchar *TRANSLATORS = _("Current translators:\n\n\
+  Brazilian Portuguese - Anderson Rocha\n\
+   <anderson@maxlinux.com.br>\n\n\
+  Chinese - Ting Yang (Dormouse)\n\
+   <mouselinux@163.com>\n\n\
+  Danish - Rasmus Toftdahl Olesen\n\
+   <rto@pohldata.dk>\n\n\
+  Finnish - Juho Roukala\n\
+   <j.mr@luukku.com>\n\n\
+  French - Roméo Viu-Berges\n\
+   <apostledemencia@free.fr>\n\n\
+  German - Roland Steinbach\n\
+   <roland@netzblick.de>\n\n\
+  Hungarian - Péter Sáska\n\
+   <sasek@ccsystem.hu>\n\n\
+  Italian - Stefano Canepa\n\
+   <sc@linux.it>\n\n\
+  Polish - Oskar Swida\n\
+   <swida@aragorn.pb.bialystok.pl>\n\n\
+  Portuguese - Lopo Pizarro\n\
+   <lopopizarro@netcabo.pt>\n\n\
+  Russian - Eugene Rupakov\n\
+   <rupakov@jet.msk.ru>\n\n\
+  Serbian - Marko Milenovic\n\
+   <raven@sbb.co.yu>\n\n\
+  Spanish - Walter Oscar Echarri\n\
+   <wecharri@infovia.com.ar>\n\n\
+  Swedish - David Smeringe\n\
+   <david.smeringe@telia.com>\n\n\
+  Tamil - Murugapandian Barathee\n\
+   <barathee@yahoo.com>\n\n\
+");
 
+	I1 = g_strdup(INFO);
+	g_strlcat(I1, CONFIGURE_OPTIONS,50000);
 	info = window_full2(_("About Bluefish"), GTK_WIN_POS_CENTER, 6
 			,G_CALLBACK(about_dialog_close_lcb),NULL, TRUE, NULL);
 	gtk_window_set_resizable(GTK_WINDOW(info), FALSE);
@@ -222,8 +224,8 @@ void about_dialog_create(gpointer * data, guint * callback_action, GtkWidget * w
 	notebook = gtk_notebook_new();
 
 	/* add pages */
-	add_page(GTK_NOTEBOOK(notebook), _("Info"), INFO, FALSE);
-	add_page(GTK_NOTEBOOK(notebook), _("Authors"), AUTHORS, FALSE);
+	add_page(GTK_NOTEBOOK(notebook), _("Info"), I1, TRUE);
+	add_page(GTK_NOTEBOOK(notebook), _("Authors"), AUTHORS, TRUE);
 	add_page(GTK_NOTEBOOK(notebook), _("Translators"), TRANSLATORS, TRUE);
 
 	gtk_box_pack_start(GTK_BOX(vbox), notebook, TRUE, TRUE, 0);
