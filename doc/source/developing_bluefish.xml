@@ -54,8 +54,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 		</para>
 		
 		<itemizedlist>
-		<listitem><para>doc - a function handling on a specific document</para></listitem>
-		<listitem><para>bfwin - a function handing on a specific Bluefish window</para></listitem>
+		<listitem><para>doc - a function for handling a specific document</para></listitem>
+		<listitem><para>bfwin - a function for handling a specific Bluefish window</para></listitem>
 		<listitem><para>cb - callback, a function called after a button click or some other event</para></listitem>
 		<listitem><para>lcb - local callback, a function called after an event, only used in this .c file</para></listitem>
 		</itemizedlist>
