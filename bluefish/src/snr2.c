@@ -197,8 +197,11 @@ Tsearch_result search_backend(Tbfwin *bfwin, gchar *search_pattern, Tmatch_types
 		retval = regexec(&reg_pat, buf+byte_offset, nmatch, pmatch, 0);
 		DEBUG_MSG("search_backend, regexec retval=%d\n", retval);
 		if (retval != 0) {
-			pmatch[0].rm_so = -1;
-			pmatch[0].rm_eo = -1;
+			returnvalue.bstart = -1;
+			returnvalue.bend = -1;
+		} else {
+			returnvalue.bstart = pmatch[0].rm_so + byte_offset;
+			returnvalue.bend = pmatch[0].rm_eo + byte_offset;
 		}
 #ifdef DEBUG
 		{	int i;
@@ -207,8 +210,6 @@ Tsearch_result search_backend(Tbfwin *bfwin, gchar *search_pattern, Tmatch_types
 			}
 		}
 #endif
-		returnvalue.bstart = pmatch[0].rm_so + byte_offset;
-		returnvalue.bend = pmatch[0].rm_eo + byte_offset;
 		regfree(&reg_pat);
 		if (want_submatches) {
 			returnvalue.pmatch = pmatch;
