@@ -35,7 +35,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 	<para>the Bluefish doc tools via CVS</para>
 	</listitem>
 	<listitem>
-	<para>DocBook 4.2.0</para>
+	<para>DocBook 4.3.0</para>
 	</listitem>
 	<listitem>
 	<para>DocBook XSL style sheets</para>
@@ -280,7 +280,13 @@ Run the command &lt;userinput>make&lt;/userinput>]]&#62;
 <para>You have the following options to make and remove the various files, which will be stored in the <filename>bluefish-gtk2/doc</filename> directory:</para>
 <variablelist><title>Options to make the Bluefish manual</title>
 <varlistentry><term>make html</term>
-<listitem><para>Produces the book in html format.</para></listitem>
+<listitem><para>Produces the book in html format, with numerous html files.</para></listitem>
+</varlistentry>
+<varlistentry><term>make html-one-big</term>
+<listitem><para>Produces the book in html format, with a unique html file.</para></listitem>
+</varlistentry>
+<varlistentry><term>make html-all</term>
+<listitem><para>Produces the book in html format, both outputs.</para></listitem>
 </varlistentry>
 <varlistentry><term>make pdf-a4</term>
 <listitem><para>Produces the book in PDF format suitable for A4 paper.</para></listitem>
@@ -304,7 +310,7 @@ Run the command &lt;userinput>make&lt;/userinput>]]&#62;
 <listitem><para>Produces all versions of the book.</para></listitem>
 </varlistentry>
 <varlistentry><term>clean html</term>
-<listitem><para>Produces the book in html format.</para></listitem>
+<listitem><para>Removes the book in html format (both outputs).</para></listitem>
 </varlistentry>
 <varlistentry><term>clean pdf-a4</term>
 <listitem><para>Removes the book in PostScript format suitable for A4 paper.</para></listitem>
@@ -329,6 +335,9 @@ Run the command &lt;userinput>make&lt;/userinput>]]&#62;
 </varlistentry>
 <varlistentry><term>make validate-all</term>
 <listitem><para>Validate the whole book.</para></listitem>
+</varlistentry>
+<varlistentry><term>make tarball-all</term>
+<listitem><para>Produces tarballs suitable to put on the Bluefish web site or for individual use.</para></listitem>
 </varlistentry>
 </variablelist>
 <para>If you want to create a new format, you will have to make a copy of the <filename>titlepage-a4.xml</filename> and <filename>pdf-ps-a4.xsl</filename> files in the <filename>bluefish-doctools</filename> directory, rename them according to the new format, and modify them.</para>
