@@ -520,8 +520,9 @@ Document/Type menu.
 	<para>
 		Assuming a working Internet connection, files can also be opened from the web using 
 	<menuchoice><guimenu>File</guimenu><guimenuitem>File &gt; Open URL</guimenuitem></menuchoice> (make sure to type the http:// or it 
-	doesn't work... bug, maybe???). 
+	doesn't work... bug, maybe???). TO BE WRITTEN BY ???
 	</para>
+	<para>SCREENSHOT BY ????</para>
 </sect3>
 <sect3 id="character-encoding">
 <title>Character encoding</title>
@@ -568,6 +569,7 @@ environment to make Gnome and GTK programs detect this encoding.
 	same functionality is available from the filebrowser in the side panel. If you right
 	click a directory, you can also there select <guimenuitem>Open advanced...</guimenuitem>.
 	</para>
+	<para>SCREENSHOT BY ????</para>
 	<para>
 	To open all files by extension, enter the extension in the dialog, and leave the search 
 	pattern empty. Check the <guilabel>recursive</guilabel> option if you want to include
@@ -711,6 +713,7 @@ The
 	under <emphasis>Editor</emphasis>. If you right click a bookmark and 
 	select <emphasis>Edit</emphasis> you can change this setting for a bookmark.
 	</para>
+	<para>SCREENSHOT BY ????</para>
 	<para>
 	A way to add many bookmarks at the same time is using the <emphasis>Find</emphasis> dialog. Check the 
 	'Bookmark results' option, and all search results will be added to your bookmarks. 
@@ -736,6 +739,7 @@ The
 	end of file is reached, it will restart at the beginning or continue with the next file, 
 	depending on the search options used.
 	</para>
+	<para>SCREENSHOT BY ????</para>
 	<para>
 	The Find from selection item will search for the currently selected text. If you select
 	for example the name of a function, in bluefish, or in any other program, and you choose
@@ -746,7 +750,9 @@ The
   <para> With the find and replace you can do incredible
   things. We'll start with a simple example. In some HTML table we have
   several table data tags where we actually want table header tags. Table data
-  is &lt;td&gt;&lt;/td&gt; and we want &lt;th&gt;&lt;/th&gt;. </para> <para>
+  is &lt;td&gt;&lt;/td&gt; and we want &lt;th&gt;&lt;/th&gt;. </para> 
+  <para>SCREENSHOT BY ????</para>
+  <para>
   we can do two normal replaces: one where we replace &lt;td&gt; with
   &lt;th&gt; and then another where we replace &lt;/td&gt; with &lt;/th&gt;
   </para> <para>we can also do one replace using regular expressions: find
@@ -780,6 +786,7 @@ The
   'function[ \t\n]+[&amp;a-zA-Z0-9_]+' will result in all functions and their name.
   Much more useful!
   </para>
+  <para>SCREENSHOT BY ????</para>
 
 </sect3>
 </sect2>
@@ -794,6 +801,7 @@ The
 	'indent with spaces' selected in the preferences. The number of spaces used is the same 
 	as the 'tabsize' option in the preferences.
 	</para>
+	<para>SCREENSHOT BY ????</para>
 </sect2>
 <sect2 id="auto-tag-closing">
 <title>Auto tag closing</title>
@@ -807,6 +815,16 @@ The
 	<literal>&lt;br&gt;</literal>, Bluefish correctly does nothing. 
 	This feature can be turned off by unchecking the menu option 
 	<emphasis>Document &gt; Auto Close HTML Tags</emphasis>.
+	</para>
+	<para>
+	Bluefish has two modes for tag closing, an XML mode and an HTML mode. In XML mode, 
+	Bluefish will add a closing tag to any tag that is not closed itself with /&gt;. In 
+	HTML mode, Bluefish excludes all known tags that do not need a closing tag, such 
+	as &lt;br&gt; and &lt;img&gt;.
+	</para>
+	<para>
+	Bluefish will choose the mode based on the filetype of the document. In the filetype 
+	preferences the default mode for each filetype can be set.
 	</para>
 </sect2>
 <sect2 id="spell-checker">
@@ -846,6 +864,23 @@ The
 </sect2>
 <sect2 id="function-reference">
 <title>Function reference</title>
+<para>
+The function reference browser is a place where reference information about a 
+certain language can be found. Currently Bluefish comes with a PHP reference, a 
+CSS 2.0 reference, an HTML reference and a Python reference. The functions are 
+grouped depending on the language, by type, module, object, etc.
+</para>
+<para>
+The function reference browser can show a info window on the bottom. Check the 'Show 
+info window' checkbox. In this window some information about the currently selected 
+item can be shown. What exactly is shown can be chosen in the right-click context menu.
+</para>
+<para>SCREENSHOT BY ????</para>
+<para>Every item in the function reference can simply insert text, show an info window, 
+or show a dialog that can be used to insert text. In the right-click context menu each of
+these functions are accessible. One of these functions can be bound to a 
+left-double-click action. This is also configurable from the context menu.
+</para>
 </sect2>
 <sect2 id="HTML">
 <title>HTML</title>
@@ -864,8 +899,9 @@ The
 <title>Thumbnail generation</title>
 </sect3>
 <para>
-Bluefish can automatically generate thumbnails for images. ..... 
+Bluefish can automatically generate thumbnails for images. ..... TO BE WRITTEN BY ???
 </para>
+<para>SCREENSHOT BY ????</para>
 
 </sect2>
 <sect2 id="quickbar">
@@ -874,6 +910,7 @@ Bluefish can automatically generate thumbnails for images. .....
 	be added to the quick bar by simply right-clicking them and selecting
 	"Add to quick bar". If you want to remove items from the Quick bar,
 	right-click them and select "Remove from Quick bar"</para>
+	<para>SCREENSHOT BY ????</para>
 </sect2>
 <sect2 id="custom-menu">
 <title>Custom menu</title>
@@ -881,6 +918,11 @@ Bluefish can automatically generate thumbnails for images. .....
 	search and replace patterns to a menu. Upon install Bluefish will create
 	some default entries, these will give you an idea what can be done with
 	the custom menu.</para>
+	
+	<para>
+	To add your own entries to the custom menu .... TO BE WRITTEN BY ???
+	</para>
+	<para>SCREENSHOT BY ????</para>
 </sect2>
 <sect2 id="external-programs-filters">
 <title>External programs, filters</title>
@@ -1093,6 +1135,8 @@ foreground-color:
 background-color:
 don't change weight(0), non-bold(1), bold(2):
 don't change style(0), non-italic(1), italic(2): </programlisting>
+<para>The same options are found in the syntax highlighting preferences.</para>
+<para>SCREENSHOT BY ????</para>
 </sect2>
 </sect1>
 
