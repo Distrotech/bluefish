@@ -57,15 +57,15 @@ static void table_wizard_ok_lcb(GtkWidget * widget, Thtml_diag *dg) {
 	finalstring = g_strconcat(cap("<TABLE>\n"), tablecontent, cap("</TABLE>"), NULL);
 	g_free(tablecontent);
 
-	doc_insert_two_strings(main_v->current_document, finalstring, NULL);
+	doc_insert_two_strings(dg->bfwin->current_document, finalstring, NULL);
 	g_free(finalstring);
 	html_diag_destroy_cb(NULL, dg);
 }
 
-void tablewizard(GtkWidget *widget, gpointer data) {
+void tablewizard(Tbfwin *bfwin) {
 	GtkWidget *dgtable;
 	Thtml_diag *dg;
-	dg = html_diag_new(_("Table Wizard"));
+	dg = html_diag_new(bfwin,_("Table Wizard"));
 
 	dgtable = gtk_table_new(4, 5, 0);
 	gtk_table_set_row_spacings(GTK_TABLE(dgtable), 6);
@@ -150,7 +150,7 @@ static void frame_wizard_ok_lcb(GtkWidget * widget, Thtml_diag *dg) {
 	g_free(frameset);
 	g_free(frames);
 	g_free(thestring);
-	doc_insert_two_strings(main_v->current_document, finalstring, NULL);
+	doc_insert_two_strings(dg->bfwin->current_document, finalstring, NULL);
 	g_free(finalstring);
 	html_diag_destroy_cb(NULL, dg);
 }
@@ -167,13 +167,12 @@ static void frame_wizard_num_changed(GtkWidget *widget, Thtml_diag *dg) {
 	}
 }
 
-void framewizard(GtkWidget * widget, gpointer data) {
-
+void framewizard(Tbfwin *bfwin) {
 	GtkWidget *dgtable, *frame, *vbox, *label;
 	Thtml_diag *dg;
 	gint i;
 
-	dg = html_diag_new(_("Frame Wizard"));
+	dg = html_diag_new(bfwin,_("Frame Wizard"));
 
 	dgtable = gtk_table_new(4, 12, FALSE);
 	gtk_table_set_row_spacings(GTK_TABLE(dgtable), 6);

@@ -22,7 +22,7 @@
 #ifndef __WIZARDS_H_
 #define __WIZARDS_H_
 
-void tablewizard_dialog(Tbfwin *bfwin, gpointer data);
-void framewizard_dialog(Tbfwin *bfwin, gpointer data);
+void tablewizard_dialog(Tbfwin *bfwin);
+void framewizard_dialog(Tbfwin *bfwin);
 
 #endif							/* __WIZARDS_H_ */

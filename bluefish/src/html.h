@@ -26,7 +26,6 @@
 void insert_char_cb(Tbfwin* bfwin,guint callback_action, GtkWidget *widget);
 void general_html_menu_cb(Tbfwin* bfwin,guint callback_action, GtkWidget *widget);
 
-void general_html_dialog(Tbfwin *bfwin, Ttagpopup *data);
 void insert_time_dialog(Tbfwin *bfwin, Ttagpopup *data);
 void quickanchor_dialog(Tbfwin *bfwin, Ttagpopup *data);
 void block_tag_edit_cb(gint type, GtkWidget *widget, Tbfwin *bfwin);

@@ -484,10 +484,10 @@ static void tabledatadialog_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
 	tabledatadialog_dialog(bfwin,NULL);
 }
 static void tablewizard_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
-	tablewizard_dialog(bfwin,NULL);
+	tablewizard_dialog(bfwin);
 }
 static void framewizard_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
-	framewizard_dialog(bfwin,NULL);
+	framewizard_dialog(bfwin);
 }
 
 static Ttoolbaritem tbi[] = {
