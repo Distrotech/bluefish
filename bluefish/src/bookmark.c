@@ -54,7 +54,7 @@ well. The best way is to have the project functions create/destroy the
 gtktreestore when they convert a window (Tbfwin) into a project window.
 */
 
-#define BMARK_SHOW_NUM_TEXT_CHARS 15
+#define BMARK_SHOW_NUM_TEXT_CHARS 20
 
 enum {
 	NAME_COLUMN,				/* bookmark name */

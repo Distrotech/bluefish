@@ -603,14 +603,15 @@ void free_convert_table(Tconvert_table *tct) {
 /**************************************************/
 
 /*
-          %   cumulative   self              self     total
-         time   seconds   seconds    calls  ms/call  ms/call  name
-
-size 4: 11.54      0.16     0.03   120356     0.00     0.00  utf8_byteoffset_to_charsoffset_cached
-size 4:  6.06      0.31     0.02   120356     0.00     0.00  utf8_byteoffset_to_charsoffset_cached
-size 4: 14.29      0.31     0.05   120356     0.00     0.00  utf8_byteoffset_to_charsoffset_cached
+html files usually have enough cache at size 4
+large php files, a cache of 
+	10 resulted in 160% of the buffer to be parsed
+	12 resulted in 152% of the buffer to be parsed
+	14 resulted in 152% of the buffer to be parsed
+	16 resulted in 152% of the buffer to be parsed
+so we keep it at 10 for the moment
 */
-#define UTF8_OFFSET_CACHE_SIZE 4
+#define UTF8_OFFSET_CACHE_SIZE 10
 /* #define UTF8_BYTECHARDEBUG */
 
 typedef struct {
