@@ -154,7 +154,7 @@ static void image_filename_changed(GtkWidget * widget, Timage_diag *imdg) {
 	if (imdg->pb) {
 		g_object_unref(imdg->pb);
 	}
-	
+	DEBUG_MSG("image_filename_changed: filename=%s\n",gtk_entry_get_text(GTK_ENTRY(imdg->dg->entry[0])));
 	imdg->pb = gdk_pixbuf_new_from_file(gtk_entry_get_text(GTK_ENTRY(imdg->dg->entry[0])), NULL);
 	
 	if (!imdg->pb) {

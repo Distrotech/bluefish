@@ -1264,7 +1264,7 @@ static void file_but_clicked_lcb(GtkWidget * widget, Tfilebut *fb) {
 			if (fb->bfwin->current_document->filename != NULL) {
 				tmp2string = create_relative_link_to(fb->bfwin->current_document->filename, tmpstring);
 			} else {
-				tmp2string = g_path_get_basename(tmpstring);
+				tmp2string = g_strdup(tmpstring);
 			}
 			g_free(tmpstring);
 			tmpstring = tmp2string;
