@@ -47,7 +47,7 @@ static void tabledialogok_lcb(GtkWidget * widget, Thtml_diag * dg)
 	thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(GTK_COMBO(dg->combo[1])->entry)), cap("ALIGN"), thestring, NULL);
 	thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(GTK_COMBO(dg->combo[2])->entry)), cap("VALIGN"), thestring, NULL);
 	thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(GTK_COMBO(dg->combo[3])->entry)), cap("BGCOLOR"), thestring, NULL);
-	thestring = insert_integer_if_spin(dg->spin[2], cap("WIDTH"), thestring, dg->check[1]);
+	thestring = insert_integer_if_spin(dg->spin[2], cap("WIDTH"), thestring, GTK_TOGGLE_BUTTON(dg->check[1])->active, 0);
 	thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(GTK_COMBO(dg->combo[4])->entry)), cap("CLASS"), thestring, NULL);
 	thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(dg->entry[2])), cap("STYLE"), thestring, NULL);
 	thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(GTK_COMBO(dg->combo[5])->entry)), cap("frame"), thestring, NULL);
@@ -271,10 +271,10 @@ static void table_head_and_data_dialogok_lcb(gint type, GtkWidget * widget, Thtm
 	} else {
 		thestring = g_strdup(cap("<TH"));
 	}
-	thestring = insert_integer_if_spin(dg->spin[1], cap("WIDTH"), thestring, dg->check[2]);
-	thestring = insert_integer_if_spin(dg->spin[3], cap("HEIGHT"), thestring, dg->check[3]);
-	thestring = insert_string_if_entry(dg->spin[5], cap("COLSPAN"), thestring, NULL);
-	thestring = insert_string_if_entry(dg->spin[4], cap("ROWSPAN"), thestring, NULL);
+	thestring = insert_integer_if_spin(dg->spin[1], cap("WIDTH"), thestring, GTK_TOGGLE_BUTTON(dg->check[2])->active,0);
+	thestring = insert_integer_if_spin(dg->spin[3], cap("HEIGHT"), thestring, GTK_TOGGLE_BUTTON(dg->check[3])->active,0);
+	thestring = insert_integer_if_spin(dg->spin[5], cap("COLSPAN"), thestring, FALSE, 0);
+	thestring = insert_integer_if_spin(dg->spin[4], cap("ROWSPAN"), thestring, FALSE, 0);
 	thestring = insert_string_if_entry(GTK_WIDGET(GTK_COMBO(dg->combo[1])->entry), cap("ALIGN"), thestring, NULL);
 	thestring = insert_string_if_entry(GTK_WIDGET(GTK_COMBO(dg->combo[2])->entry), cap("VALIGN"), thestring, NULL);
 	thestring = insert_string_if_entry(GTK_WIDGET(GTK_COMBO(dg->combo[3])->entry), cap("BGCOLOR"), thestring, NULL);
@@ -337,7 +337,7 @@ static void table_head_and_data_dialog_cb(gint type, Tbfwin *bfwin, Ttagpopup *d
 	bf_mnemonic_label_tad_with_alignment(_("Ali_gn:"), dg->combo[1], 0, 0.5, dgtable, 0, 1, 0, 1);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(GTK_COMBO(dg->combo[1])), 1, 2, 0, 1);
 
-  alignlist = NULL;
+	alignlist = NULL;
 	alignlist = g_list_insert(alignlist, "top", 0);
 	alignlist = g_list_insert(alignlist, "middle", 1);
 	alignlist = g_list_insert(alignlist, "bottom", 2);
