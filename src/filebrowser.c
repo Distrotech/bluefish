@@ -965,7 +965,7 @@ static void filebrowser_rpopup_rename_lcb(GtkWidget *widget, gpointer data) {
 		}
 	} /* if(oldfilename is open) */
 
-	if(errmessage) {
+	if (errmessage) {
 		error_dialog(errmessage, NULL);
 		g_free(errmessage);
 	} else {
