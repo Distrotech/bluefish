@@ -24,18 +24,18 @@ MSGFMT = @MSGFMT@
 XGETTEXT = @XGETTEXT@
 MSGMERGE = @MSGMERGE@
 
-#en.gmo should not be installed anymore!!
-FINISHED_CATALOGS = da.gmo fr.gmo es.gmo it.gmo hu.gmo pl.gmo no.gmo ru.gmo sv.gmo de.gmo
-NONFINISHED_CATALOGS = ro.gmo cs.gmo el.gmo ja.gmo pt_BR.gmo nl.gmo
-CATALOGS = ${FINISHED_CATALOGS} ${NONFINISHED_CATALOGS}
+SRCS = da.po fr.po es.po it.po hu.po pl.po no.po ru.po sv.po de.po
+.SUFFIXES: .po .gmo
+OBJS = $(SRCS:.po=.gmo)
 
-%.gmo : %.po
-	$(MSGFMT) $< -o $@
+all: all-yes
 
-all: all-@USE_NLS@
+all-yes: $(SRCS) $(OBJS)
 
-all-yes: $(FINISHED_CATALOGS)
 all-no:
+
+.po.gmo: $(SRCS)
+	$(MSGFMT) $< -o $@
 
 install:
 	@for file in $(FINISHED_CATALOGS) ; do \
