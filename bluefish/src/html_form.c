@@ -781,17 +781,8 @@ void inputdialog_dialog(Tbfwin *bfwin, Ttagpopup *data, const gchar *type) {
 	gtk_container_add(GTK_CONTAINER(frame), dgtable);
 	
 	{
-		GList *poplist=NULL;
-		poplist = g_list_append(poplist, "text");
-		poplist = g_list_append(poplist, "password");
-		poplist = g_list_append(poplist, "checkbox");
-		poplist = g_list_append(poplist, "radio");
-		poplist = g_list_append(poplist, "submit");
-		poplist = g_list_append(poplist, "reset");
-		poplist = g_list_append(poplist, "file");
-		poplist = g_list_append(poplist, "hidden");
-		poplist = g_list_append(poplist, "image");
-		poplist = g_list_append(poplist, "button");
+		GList *poplist = list_from_arglist(FALSE, "text", "password", "checkbox", "radio", "submit", "reset", "file", "hidden", "image", "button", NULL);
+		
 		dg->combo[0] = combo_with_popdown(tagvalues[0] ? tagvalues[0] : type, poplist, 0);
 		g_list_free(poplist);
 	}
@@ -922,10 +913,7 @@ void buttondialog_dialog(Tbfwin *bfwin, Ttagpopup *data) {
 	dg->entry[2] = entry_with_text(tagvalues[1], 256);
 	bf_mnemonic_label_tad_with_alignment(_("_Value:"), dg->entry[2], 0, 0.5, dgtable, 0, 1, 1, 2);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[2], 1, 9, 1, 2);
-	tmplist = g_list_append(tmplist, "");
-	tmplist = g_list_append(tmplist, "submit");
-	tmplist = g_list_append(tmplist, "reset");
-	tmplist = g_list_append(tmplist, "button");
+	tmplist = list_from_arglist(FALSE, "", "submit", "reset", "button", NULL);
 	dg->combo[1] = combo_with_popdown(tagvalues[2], tmplist, 0);
 	g_list_free(tmplist);
 	bf_mnemonic_label_tad_with_alignment(_("_Type:"), dg->combo[1], 0, 0.5, dgtable, 0, 1, 2, 3);
