@@ -54,6 +54,7 @@
 #include "char_table.h" /* convert_utf8...() */
 #include "pixmap.h"
 #include "snr2.h" /* snr2_run_extern_replace */
+#include "cap.h"
 #include "filebrowser.h"
 #include "bookmark.h"
 
@@ -1533,7 +1534,42 @@ static void doc_buffer_insert_text_lcb(GtkTextBuffer *textbuffer,GtkTextIter * i
 	doc_set_modified(doc, 1);	
 	DEBUG_MSG("doc_buffer_insert_text_lcb, done\n");
 }
+static gboolean find_char(gunichar ch,gchar *data) {
+	return (gboolean)(strchr(data, ch));
+}
+static gchar *noclosingtag [] = {"br","input","img","hr","textarea",NULL};
 
+static gchar *closingtagtoinsert(Tdocument *doc, const gchar *tagname, GtkTextIter *iter) {
+	/* only for XML all start tags have to end on < /> so we check for that, all other tags 
+	 * will be treated like HTML tags */
+	if (tagname[0] != '/') {
+		if (strcmp(doc->hl->type,"xml")==0) {
+			gchar *tmp;
+			GtkTextIter itstart = *iter, itend=*iter;
+			gtk_text_iter_backward_chars(&itstart,2);
+			tmp = gtk_text_buffer_get_text(doc->buffer,&itstart,&itend,FALSE);
+			DEBUG_MSG("closingtagtoinsert, while testing for XML < />, tmp=%s\n",tmp);
+			if (tmp[0] == '/') {
+				g_free(tmp);
+				return NULL;
+			}
+			g_free(tmp);
+			return g_strconcat("</",tagname,">", NULL);
+		} else {
+			/* HTML, test if this tag needs closing */
+			gchar **tmp=noclosingtag;
+			DEBUG_MSG("closingtagtoinsert, test if %s needs closing in HTML\n",tagname);
+			while (*tmp) {
+				if (strcmp(*tmp,tagname)==0) {
+					return NULL;
+				}
+				tmp++;
+			}
+			return g_strconcat("</",cap(tagname),">", NULL);
+		}
+	}
+	return NULL;
+}
 static void doc_buffer_insert_text_after_lcb(GtkTextBuffer *textbuffer,GtkTextIter * iter,gchar * string,gint len, Tdocument * doc) {
 	gboolean do_highlighting = FALSE;
 	/* highlighting stuff */
@@ -1557,37 +1593,79 @@ static void doc_buffer_insert_text_after_lcb(GtkTextBuffer *textbuffer,GtkTextIt
 	}
 
 	/* this function is only attached to the signal if the auto-indenting is active!!! */
-	if (main_v->props.autoindent) {
-		/* indenting, this should be the last one because it changes the 
-		textbuffer --> it invalidates all GtkTextIters */
-		if (len == 1 && string[0] == '\n') {
-			gchar *string, *indenting;
-			GtkTextIter itstart = *iter, itend = *iter;
-			/* set to the beginning of the previous line */
-			gtk_text_iter_backward_line (&itstart);
-			gtk_text_iter_set_line_index(&itstart, 0);
-		
-			string = gtk_text_buffer_get_text(doc->buffer,&itstart,&itend,FALSE);
-			if (string) {
-				/* now count the indenting in this string */
-				indenting = string;
-				while (*indenting == '\t' || *indenting == ' ') {
-					indenting++;
+	if (main_v->props.autoindent && len == 1 && string[0] == '\n') {
+	/* indenting, this should be the last one because it changes the 
+	textbuffer --> it invalidates all GtkTextIters */
+		gchar *string, *indenting;
+		GtkTextIter itstart = *iter, itend = *iter;
+		/* set to the beginning of the previous line */
+		gtk_text_iter_backward_line (&itstart);
+		gtk_text_iter_set_line_index(&itstart, 0);
+	
+		string = gtk_text_buffer_get_text(doc->buffer,&itstart,&itend,FALSE);
+		if (string) {
+			/* now count the indenting in this string */
+			indenting = string;
+			while (*indenting == '\t' || *indenting == ' ') {
+				indenting++;
+			}
+			/* ending search, non-whitespace found, so terminate at this position */
+			*indenting = '\0';
+			if (strlen(string)) {
+				DEBUG_MSG("doc_buffer_insert_text_lcb, inserting indenting\n");
+				gtk_text_buffer_insert(doc->buffer,&itend,string,-1);
+			}
+			g_free(string);
+		}
+		return; /* we don't need autoclosing after autoindent */
+	}
+	DEBUG_MSG("before autoclosing, len=%d, string=%s\n",len,string);
+	if (doc->autoclosingtag && len == 1 && string[0] == '>') {
+		/* start the autoclosing! the code is modified from the patch sent by more <more@irpin.com> because that
+		 * patch did not work with php code (the < and > characters can be inside a php block as well with a 
+		 * different meaning then a tag), it could not do closing of XML tags and it was limited to a buffer 
+		 * in Tdocument to hold the current tag name.
+		 * This code will simply look back in the buffer once a '>' character is pressed, and look if that was
+		 * the end of a tag. If so it will insert the closing tag for that same tag. Works for XML and HTML. For
+		 * HTML we need an exception, since <br> and such don't need a closing tag */
+		if (doc->hl && (strcmp(doc->hl->type, "html")==0 || strcmp(doc->hl->type, "xml")==0 || strcmp(doc->hl->type, "php")==0)) {
+			GtkTextIter itstart = *iter, maxsearch = *iter;
+			DEBUG_MSG("autoclosing, started at %d\n",gtk_text_iter_get_offset(&itstart));
+			gtk_text_iter_backward_chars(&maxsearch,250);
+			if (gtk_text_iter_backward_find_char(&itstart,(GtkTextCharPredicate)find_char,GINT_TO_POINTER("<"),&maxsearch)) {
+				GtkTextIter tagnameend = itstart;
+				DEBUG_MSG("autoclosing, found < char at %d\n", gtk_text_iter_get_offset(&itstart));
+				maxsearch = *iter;
+				gtk_text_iter_backward_chars(&maxsearch,2);
+				/* now we need to check if there is a > present in that string, except for the one just inserted */
+				if (gtk_text_iter_forward_find_char(&tagnameend,(GtkTextCharPredicate)find_char,">",&maxsearch)) {
+					DEBUG_MSG("can't be a HTML tag, it looks like we have another > at %d\n", gtk_text_iter_get_offset(&tagnameend));
+					return;
 				}
-				/* ending search, non-whitespace found, so terminate at this position */
-				*indenting = '\0';
-				if (strlen(string)) {
-					DEBUG_MSG("doc_buffer_insert_text_lcb, inserting indenting\n");
-					gtk_text_buffer_insert(doc->buffer,&itend,string,-1);
+				maxsearch = *iter;
+				tagnameend = itstart;
+				if (gtk_text_iter_forward_find_char(&tagnameend,(GtkTextCharPredicate)find_char," >",&maxsearch)) {
+					gchar *tagnamebuf;
+					DEBUG_MSG("autoclosing, found ' ' or '>' char\n");
+					gtk_text_iter_forward_char(&itstart);
+					tagnamebuf = gtk_text_buffer_get_text(doc->buffer,&itstart,&tagnameend,FALSE);
+					if (tagnamebuf) {
+						gchar *toinsert = closingtagtoinsert(doc, tagnamebuf, iter);
+						DEBUG_MSG("autoclosing, found tagname='%s'\n",tagnamebuf);
+						if (toinsert) {
+							/* we re-use the maxsearch iter now */
+							gtk_text_buffer_insert(doc->buffer,&maxsearch,toinsert,-1);
+							/* now we set the cursor back to its previous location, re-using itstart */
+							gtk_text_buffer_get_iter_at_mark(doc->buffer,&itstart,gtk_text_buffer_get_insert(doc->buffer));
+							gtk_text_iter_backward_chars(&itstart,strlen(toinsert));
+							gtk_text_buffer_place_cursor(doc->buffer,&itstart);
+							g_free(toinsert);
+						}
+						g_free(tagnamebuf);
+					}
 				}
-				g_free(string);
 			}
 		}
-	}
-	
-	if (doc->autoclosingtag && strcmp(string,">")==0) {
-		/* start the autoclosing! */
-		
 	}
 }
 
@@ -2397,6 +2475,8 @@ Tdocument *doc_new(Tbfwin* bfwin, gboolean delay_activate) {
 	}
 	newdoc->tab_menu = gtk_label_new(NULL);
 
+	newdoc->autoclosingtag = main_v->props.default_autoclosingtag;
+
 	doc_unre_init(newdoc);
 	doc_set_font(newdoc, NULL);
 	newdoc->wrapstate = (bfwin->project) ? bfwin->project->word_wrap : main_v->props.word_wrap;
@@ -2750,7 +2830,7 @@ void doc_activate(Tdocument *doc) {
 		}
 	}
 	DEBUG_MSG("doc_activate, calling gui_set_widgets\n");
-	gui_set_widgets(BFWIN(doc->bfwin),doc_has_undo_list(doc), doc_has_redo_list(doc), doc->wrapstate, doc->highlightstate, doc->hl, doc->encoding, doc->linenumberstate);
+	gui_set_widgets(BFWIN(doc->bfwin),doc_has_undo_list(doc), doc_has_redo_list(doc), doc->wrapstate, doc->highlightstate, doc->hl, doc->encoding, doc->linenumberstate, doc->autoclosingtag);
 	gui_set_title(BFWIN(doc->bfwin), doc);
 	doc_set_statusbar_lncol(doc);
 	doc_set_statusbar_insovr(doc);
@@ -3386,35 +3466,6 @@ void doc_toggle_highlighting_cb(Tbfwin *bfwin,guint action,GtkWidget *widget) {
 	}
 }
 
-/**
- * doc_toggle_wrap_cb:
- * @callback_data: unused #gpointer
- * @action: unused #guint
- * @widget: unused #GtkWidget*
- *
- * Toggle text wrapping on/off for current document.
- *
- * Return value: void
- **/
-void doc_toggle_wrap_cb(Tbfwin *bfwin,guint action,GtkWidget *widget) {
-	bfwin->current_document->wrapstate = 1 - bfwin->current_document->wrapstate;
-	doc_set_wrap(bfwin->current_document);
-}
-
-/**
- * doc_toggle_linenumbers_cb:
- * @callback_data: unused #gpointer
- * @action: unused #guint
- * @widget: unused #GtkWidget*
- *
- * Toggle line numbers on/off for current document.
- *
- * Return value: void
- **/
-void doc_toggle_linenumbers_cb(Tbfwin *bfwin,guint action,GtkWidget *widget) {
-	bfwin->current_document->linenumberstate = 1 - bfwin->current_document->linenumberstate;
-	document_set_line_numbers(bfwin->current_document, bfwin->current_document->linenumberstate);
-}
 /**
  * all_documents_apply_settings:
  *

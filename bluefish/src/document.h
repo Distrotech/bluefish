@@ -34,7 +34,7 @@ Tdocument *documentlist_return_document_from_filename(GList *doclist, gchar *fil
 Tdocument *documentlist_return_document_from_index(GList *doclist, gint index);
 
 void doc_update_highlighting(Tbfwin *bfwin,guint callback_action, GtkWidget *widget);
-void document_set_wrap(Tdocument *doc, gint wraptype);
+void doc_set_wrap(Tdocument *doc);
 gboolean doc_set_filetype(Tdocument *doc, Tfiletype *ft);
 Tfiletype *get_filetype_by_name(gchar * name);
 Tfiletype *get_filetype_by_filename_and_content(gchar *filename, gchar *buf);
@@ -71,7 +71,7 @@ void doc_unbind_signals(Tdocument *doc);
 void document_unset_filename(Tdocument *doc);
 gchar *ask_new_filename(Tbfwin *bfwin,gchar *oldfilename, gboolean is_move);
 gint doc_save(Tdocument * doc, gint do_save_as, gint do_move);
-
+void document_set_line_numbers(Tdocument *doc, gboolean value);
 Tdocument *doc_new(Tbfwin* bfwin, gboolean delay_activate);
 void doc_new_with_new_file(Tbfwin *bfwin, gchar * new_filename);
 Tdocument *doc_new_with_file(Tbfwin *bfwin, gchar * filename, gboolean delay_activate, gboolean move_to_this_win);

@@ -35,7 +35,7 @@ void left_panel_show_hide_toggle(Tbfwin *bfwin,gboolean first_time, gboolean sho
 void gui_set_title(Tbfwin *bfwin, Tdocument *doc);
 void gui_apply_settings(Tbfwin *bfwin);
 void gui_set_undo_redo_widgets(Tbfwin *bfwin,gboolean undo, gboolean redo);
-void gui_set_widgets(Tbfwin *bfwin,gboolean undo, gboolean redo, gboolean wrap, gboolean highlight, Tfiletype *hl, gchar *encoding, gboolean linenumbers);
+void gui_set_widgets(Tbfwin *bfwin, gboolean undo, gboolean redo, gboolean wrap, gboolean highlight, Tfiletype *hl, gchar *encoding, gboolean linenumbers,gboolean autoclosingtag);
 
 void gui_notebook_bind_signals(Tbfwin *bfwin);
 void gui_notebook_unbind_signals(Tbfwin *bfwin);

@@ -920,11 +920,12 @@ void gui_set_undo_redo_widgets(Tbfwin *bfwin, gboolean undo, gboolean redo) {
 	gtk_widget_set_sensitive(gtk_item_factory_get_widget(gtk_item_factory_from_widget(bfwin->menubar), N_("/Edit/Redo All")), redo);
 }
 
-void gui_set_widgets(Tbfwin *bfwin, gboolean undo, gboolean redo, gboolean wrap, gboolean highlight, Tfiletype *hl, gchar *encoding, gboolean linenumbers) {
+void gui_set_widgets(Tbfwin *bfwin, gboolean undo, gboolean redo, gboolean wrap, gboolean highlight, Tfiletype *hl, gchar *encoding, gboolean linenumbers,gboolean autoclosingtag) {
 	gui_set_undo_redo_widgets(bfwin, undo, redo);
 	setup_toggle_item(gtk_item_factory_from_widget(bfwin->menubar),N_("/Document/Highlight Syntax"), highlight);
 	setup_toggle_item(gtk_item_factory_from_widget(bfwin->menubar),N_("/Document/Wrap"), wrap);
 	setup_toggle_item(gtk_item_factory_from_widget(bfwin->menubar),N_("/Document/Line Numbers"), linenumbers);
+	setup_toggle_item(gtk_item_factory_from_widget(bfwin->menubar),N_("/Document/Auto Close HTML tags"), autoclosingtag);
 	menu_current_document_set_toggle_wo_activate(bfwin,hl, encoding);
 }
 
