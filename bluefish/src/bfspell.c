@@ -25,6 +25,7 @@
 #include <aspell.h>
 #include <gtk/gtk.h>
 #include <string.h>
+#include <ctype.h> /* isdigit() */
 
 #include "bluefish.h"
 #include "gtk_easy.h"
@@ -125,42 +126,43 @@ void spell_add_to_session(Tbfspell *bfspell, gboolean to_session, const gchar * 
 }
 
 gboolean spell_check_word(Tbfspell *bfspell, gchar * tocheck, GtkTextIter *itstart, GtkTextIter *itend) {
-	int correct = aspell_speller_check(bfspell->spell_checker, tocheck, -1);
-	DEBUG_MSG("word '%s' has correct=%d\n",tocheck,correct);
-	if (!correct) {
-		AspellWordList *awl = (AspellWordList *)aspell_speller_suggest(bfspell->spell_checker, tocheck,-1);
-		if (!bfspell->so || !bfspell->eo) {
-			bfspell->so = gtk_text_buffer_create_mark(bfspell->doc->buffer,NULL,itstart,FALSE);
-			bfspell->eo = gtk_text_buffer_create_mark(bfspell->doc->buffer,NULL,itend,TRUE);
-		} else {
-			gtk_text_buffer_move_mark(bfspell->doc->buffer,bfspell->so,itstart);
-			gtk_text_buffer_move_mark(bfspell->doc->buffer,bfspell->eo,itend);
-		}
-		doc_select_region(bfspell->doc, gtk_text_iter_get_offset(itstart),gtk_text_iter_get_offset(itend) , TRUE);
-		bfspell->offset = -1;
-		gtk_entry_set_text(GTK_ENTRY(bfspell->incorrectword), tocheck);
-		gtk_entry_set_text(GTK_ENTRY(GTK_COMBO(bfspell->suggestions)->entry), "");
-		if (awl == 0) {
-			DEBUG_MSG("spell_check_word error: %s\n", aspell_speller_error_message(bfspell->spell_checker));
-		} else {
-			GList *poplist=NULL;
-			AspellStringEnumeration *els = aspell_word_list_elements(awl);
-			const char *word;
-			while ((word = aspell_string_enumeration_next(els)) != 0) {
-				poplist = g_list_append(poplist,g_strdup(word));
+	if (tocheck && !isdigit(tocheck[0])) {
+		int correct = aspell_speller_check(bfspell->spell_checker, tocheck, -1);
+		DEBUG_MSG("word '%s' has correct=%d\n",tocheck,correct);
+		if (!correct) {
+			AspellWordList *awl = (AspellWordList *)aspell_speller_suggest(bfspell->spell_checker, tocheck,-1);
+			if (!bfspell->so || !bfspell->eo) {
+				bfspell->so = gtk_text_buffer_create_mark(bfspell->doc->buffer,NULL,itstart,FALSE);
+				bfspell->eo = gtk_text_buffer_create_mark(bfspell->doc->buffer,NULL,itend,TRUE);
+			} else {
+				gtk_text_buffer_move_mark(bfspell->doc->buffer,bfspell->so,itstart);
+				gtk_text_buffer_move_mark(bfspell->doc->buffer,bfspell->eo,itend);
 			}
-			if (!poplist) {
-				poplist = g_list_append(poplist, g_strdup("(no suggested words)"));
-			}
+			doc_select_region(bfspell->doc, gtk_text_iter_get_offset(itstart),gtk_text_iter_get_offset(itend) , TRUE);
+			bfspell->offset = -1;
+			gtk_entry_set_text(GTK_ENTRY(bfspell->incorrectword), tocheck);
 			gtk_entry_set_text(GTK_ENTRY(GTK_COMBO(bfspell->suggestions)->entry), "");
-			gtk_combo_set_popdown_strings(GTK_COMBO(bfspell->suggestions), poplist);
-			free_stringlist(poplist);
-			delete_aspell_string_enumeration(els);
+			if (awl == 0) {
+				DEBUG_MSG("spell_check_word error: %s\n", aspell_speller_error_message(bfspell->spell_checker));
+			} else {
+				GList *poplist=NULL;
+				AspellStringEnumeration *els = aspell_word_list_elements(awl);
+				const char *word;
+				while ((word = aspell_string_enumeration_next(els)) != 0) {
+					poplist = g_list_append(poplist,g_strdup(word));
+				}
+				if (!poplist) {
+					poplist = g_list_append(poplist, g_strdup("(no suggested words)"));
+				}
+				gtk_entry_set_text(GTK_ENTRY(GTK_COMBO(bfspell->suggestions)->entry), "");
+				gtk_combo_set_popdown_strings(GTK_COMBO(bfspell->suggestions), poplist);
+				free_stringlist(poplist);
+				delete_aspell_string_enumeration(els);
+			}
+			return FALSE;
 		}
-		return FALSE;
-	} else {
-		return TRUE;
 	}
+	return TRUE;
 }
 
 static void spell_run_finished(Tbfspell *bfspell) {
