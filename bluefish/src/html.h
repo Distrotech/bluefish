@@ -22,6 +22,7 @@
 #define __HTML_H_
 void insert_char_cb(Tbfwin* bfwin,guint callback_action, GtkWidget *widget);
 void general_html_menu_cb(Tbfwin* bfwin,guint callback_action, GtkWidget *widget);
+void general_html_cb(GtkWidget * widget, gpointer data);
 void insert_time_cb(GtkWidget * widget, gpointer data);
 void quickanchor_cb(GtkWidget * widget, gpointer data);
 void block_tag_edit_cb(gint type, GtkWidget *widget, gpointer data);
