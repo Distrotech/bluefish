@@ -963,15 +963,8 @@ void gui_bfwin_cleanup(Tbfwin *bfwin) {
 	
 }
 
-gboolean main_window_destroy_lcb(GtkWidget *widget,Tbfwin *bfwin) {
-	DEBUG_MSG("main_window_destroy_event_lcb, started\n");
-	if (bfwin->documentlist && test_docs_modified(bfwin->documentlist)) {
-		file_close_all_cb(NULL, bfwin);
-		if (bfwin->documentlist && test_docs_modified(bfwin->documentlist)) {
-			/* if there are still documents modified we should cancel the closing */
-			return TRUE;
-		}
-	}
+void main_window_destroy_lcb(GtkWidget *widget,Tbfwin *bfwin) {
+	DEBUG_MSG("main_window_destroy_lcb, started\n");
 	DEBUG_MSG("main_window_destroy_lcb, will hide the window now\n");
 	gtk_widget_hide(bfwin->main_window);
 	main_v->bfwinlist = g_list_remove(main_v->bfwinlist, bfwin);
@@ -984,12 +977,24 @@ gboolean main_window_destroy_lcb(GtkWidget *widget,Tbfwin *bfwin) {
 	if (NULL == main_v->bfwinlist) {
 		bluefish_exit_request();
 	}
-	return TRUE;
 }
-gboolean main_window_delete_lcb(GtkWidget *widget,GdkEvent *event,Tbfwin *bfwin) {
-	DEBUG_MSG("main_window_delete_lcb, started\n");
-	main_window_destroy_lcb(widget,bfwin);
-	return TRUE;
+gboolean main_window_delete_event_lcb(GtkWidget *widget,GdkEvent *event,Tbfwin *bfwin) {
+	/* If you return FALSE in the "delete_event" signal handler,
+	 * GTK will emit the "destroy" signal. Returning TRUE means
+	 * you don't want the window to be destroyed.
+	 * This is useful for popping up 'are you sure you want to quit?'
+	 * type dialogs. */
+	DEBUG_MSG("main_window_delete_event_lcb, started\n");
+	if (bfwin->documentlist && test_docs_modified(bfwin->documentlist)) {
+		DEBUG_MSG("main_window_delete_event_lcb, we have changed documents!\n");
+		file_close_all_cb(NULL, bfwin);
+		if (bfwin->documentlist && test_docs_modified(bfwin->documentlist)) {
+			DEBUG_MSG("main_window_delete_event_lcb, we STILL have changed documents!?!\n");
+			/* if there are still documents modified we should cancel the closing */
+			return TRUE;
+		}
+	}
+	return FALSE;
 }
 
 
@@ -998,7 +1003,7 @@ void gui_create_main(Tbfwin *bfwin, GList *filenames) {
 	bfwin->main_window = window_full2(_("Bluefish"), GTK_WIN_POS_CENTER, 0, G_CALLBACK(main_window_destroy_lcb), bfwin, FALSE, NULL);
 	gtk_window_set_role(GTK_WINDOW(bfwin->main_window), "bluefish");
 	gtk_window_set_default_size(GTK_WINDOW(bfwin->main_window), main_v->props.main_window_w, main_v->props.main_window_h);
-/*	g_signal_connect(G_OBJECT(bfwin->main_window), "delete_event", G_CALLBACK(main_window_delete_lcb), bfwin);*/
+	g_signal_connect(G_OBJECT(bfwin->main_window), "delete_event", G_CALLBACK(main_window_delete_event_lcb), bfwin);
 	g_signal_connect(G_OBJECT(bfwin->main_window), "configure-event", G_CALLBACK(gui_main_window_configure_event_lcb), bfwin);
 
 	vbox = gtk_vbox_new(FALSE, 0);
