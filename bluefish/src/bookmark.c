@@ -280,7 +280,7 @@ void bmark_store_all(Tbfwin *bfwin) {
 			/* the document is open, so the offsets could be changed, store all permanent */
 			GtkTreeIter bmit;
 			gboolean cont2 = gtk_tree_model_iter_children(GTK_TREE_MODEL(BFWIN(bfwin)->bookmarkstore), &bmit,&fileit);
-			DEBUG_MSG("bmark_store_all, storing bookmarks for %s\n",doc->filename);
+			DEBUG_MSG("bmark_store_all, storing bookmarks for %s\n",doc->uri);
 			while (cont2) {
 				Tbmark *bmark;
 				gtk_tree_model_get(GTK_TREE_MODEL(BFWIN(bfwin)->bookmarkstore), &bmit, PTR_COLUMN,&bmark, -1);
@@ -407,7 +407,7 @@ void bmark_add_rename_dialog(Tbfwin * bfwin, gchar * dialogtitle)
 				gtk_text_buffer_create_mark(m->doc->buffer,
 											g_strdup(gtk_entry_get_text(GTK_ENTRY(name))), &it,
 											TRUE);
-			m->filepath = g_strdup(m->doc->filename);
+			m->filepath = g_strdup(m->doc->uri);
 			m->is_temp = FALSE;
 			m->name = g_strdup(gtk_entry_get_text(GTK_ENTRY(name)));
 			m->description = g_strdup(gtk_entry_get_text(GTK_ENTRY(desc)));
@@ -958,7 +958,7 @@ void bmark_clean_for_doc(Tdocument * doc) {
 	DEBUG_MSG("bmark_clean_for_doc, unsetting and freeing parent_iter %p for doc %p\n",doc->bmark_parent,doc);
 	gtk_tree_store_set(GTK_TREE_STORE(BFWIN(doc->bfwin)->bookmarkstore), doc->bmark_parent, PTR_COLUMN, NULL, -1);
 	/* remove the pointer from the hastable */
-	g_hash_table_remove(BFWIN(doc->bfwin)->bmark_files,doc->filename);
+	g_hash_table_remove(BFWIN(doc->bfwin)->bmark_files,doc->uri);
 	g_free(doc->bmark_parent);
 	doc->bmark_parent = NULL;
 }
@@ -971,11 +971,11 @@ void bmark_set_for_doc(Tdocument * doc) {
 	GtkTreeIter tmpiter;
 	GtkTextIter it;
 	gboolean cont;
-	if (!doc->filename) {
+	if (!doc->uri) {
 		DEBUG_MSG("bmark_set_for_doc, document %p does not have a filename, returning\n", doc);
 		return;
 	}
-	DEBUG_MSG("bmark_set_for_doc, doc=%p, filename=%s\n",doc,doc->filename);
+	DEBUG_MSG("bmark_set_for_doc, doc=%p, filename=%s\n",doc,doc->uri);
 /*	if (!BFWIN(doc->bfwin)->bmark) {
 		DEBUG_MSG("bmark_set_for_doc, no leftpanel, not implemented yet!!\n");
 		return;
@@ -996,9 +996,9 @@ void bmark_set_for_doc(Tdocument * doc) {
 			gtk_tree_model_get(GTK_TREE_MODEL(BFWIN(doc->bfwin)->bookmarkstore), &child, PTR_COLUMN,
 							   &mark, -1);
 			if (mark) {
-				if (strcmp(mark->filepath, doc->filename) == 0) {	/* this is it */
+				if (strcmp(mark->filepath, doc->uri) == 0) {	/* this is it */
 					gboolean cont2;
-					DEBUG_MSG("bmark_set_for_doc, we found a bookmark for document %s at offset=%d!\n",doc->filename,mark->offset);
+					DEBUG_MSG("bmark_set_for_doc, we found a bookmark for document %s at offset=%d!\n",doc->uri,mark->offset);
 					/* we will now first set the Tdocument * into the second column of the parent */
 					gtk_tree_store_set(GTK_TREE_STORE(BFWIN(doc->bfwin)->bookmarkstore), &tmpiter, PTR_COLUMN, doc, -1);
 					
@@ -1031,7 +1031,7 @@ void bmark_set_for_doc(Tdocument * doc) {
 		}
 		cont = gtk_tree_model_iter_next(GTK_TREE_MODEL(BFWIN(doc->bfwin)->bookmarkstore), &tmpiter);
 	}							/* cont */
-	DEBUG_MSG("bmark_set_for_doc, no bookmarks found for document %s\n", doc->filename);
+	DEBUG_MSG("bmark_set_for_doc, no bookmarks found for document %s\n", doc->uri);
 }
 
 /**
@@ -1116,7 +1116,7 @@ static void bmark_add_backend(Tdocument *doc, GtkTextIter *itoffset, gint offset
 	}
 	
 	m->mark = gtk_text_buffer_create_mark(doc->buffer, NULL, &it, TRUE);
-	m->filepath = g_strdup(doc->filename);
+	m->filepath = g_strdup(doc->uri);
 	m->is_temp = is_temp;
 	m->text = g_strdup(text);
 	m->name = (name) ? g_strdup(name) : g_strdup("");
@@ -1274,7 +1274,7 @@ void bmark_add(Tbfwin * bfwin) {
 	GtkTextIter it;
 	gint offset;
 	/* check for unnamed document */
-	if (!DOCUMENT(bfwin->current_document)->filename) {
+	if (!DOCUMENT(bfwin->current_document)->uri) {
 		error_dialog(bfwin->main_window, _("Add bookmark"),
 					 _("Cannot add bookmarks in unnamed files."));
 					 /*\nPlease save the file first. A Save button in this dialog would be cool -- Alastair*/
@@ -1327,7 +1327,7 @@ void bmark_del_at_bevent(Tdocument *doc) {
 
 void bmark_add_at_bevent(Tdocument *doc) {
 		/* check for unnamed document */
-	if (!doc->filename) {
+	if (!doc->uri) {
 		error_dialog(BFWIN(doc->bfwin)->main_window, _("Add bookmark"),
 					 _("Cannot add bookmarks in unnamed files."));
 		return;
@@ -1388,7 +1388,7 @@ void bmark_check_length(Tbfwin * bfwin, Tdocument * doc) {
 		DEBUG_MSG("bmark_check_length, no bmark_parent iter => no bookmarks, returning\n");
 		return;
 	}
-	DEBUG_MSG("bmark_check_length, doc %p, filename %s\n\n", doc, doc->filename);
+	DEBUG_MSG("bmark_check_length, doc %p, filename %s\n\n", doc, doc->uri);
 
 	cont =
 		gtk_tree_model_iter_children(GTK_TREE_MODEL(bfwin->bookmarkstore), &tmpiter,
@@ -1409,7 +1409,7 @@ void bmark_check_length(Tbfwin * bfwin, Tdocument * doc) {
 				gint ret;
 				gchar *btns[]={GTK_STOCK_NO,GTK_STOCK_YES,NULL};
 				gchar *str;
-				str = g_strconcat(_("File size changed in file\n"),doc->filename,NULL);
+				str = g_strconcat(_("File size changed in file\n"),doc->uri,NULL);
 				ret = multi_query_dialog(bfwin->main_window,_("Bookmarks positions could be incorrect. Delete bookmarks?"), str, 0, 0, btns);
 				if (ret==1) {
 					bmark_del_for_document(bfwin, doc);

@@ -178,13 +178,13 @@ static GList *run_command(Toutputbox *ob) {
 	Tconvert_table *table, *tmpt;
 	gchar *command1, *command2, *tmpfile;
 	file_save_cb(NULL, ob->bfwin);
-	if (!ob->bfwin->current_document->filename) {
+	if (!ob->bfwin->current_document->uri) {
 		/* if the usder clicked cancel at file_save -> return */
 		return NULL;
 	}
 	table = tmpt = g_new(Tconvert_table, 2);
 	tmpt->my_int = 's';
-	tmpt->my_char = ob->bfwin->current_document->filename;
+	tmpt->my_char = ob->bfwin->current_document->uri;
 	tmpt++;
 	tmpt->my_char = NULL;
 	command1 = replace_string_printflike(ob->def->command, table);
@@ -193,7 +193,7 @@ static GList *run_command(Toutputbox *ob) {
 	command2 = g_strconcat(command1, " > ", tmpfile, " 2>&1", NULL);
 	DEBUG_MSG("run_command, should run %s now\n", command2);
 	{
-		gchar *tmpstring = g_path_get_dirname(ob->bfwin->current_document->filename);
+		gchar *tmpstring = g_path_get_dirname(ob->bfwin->current_document->uri);
 		chdir(tmpstring);
 		g_free(tmpstring);
 	}

@@ -1243,16 +1243,16 @@ static void file_but_clicked_lcb(GtkWidget * widget, Tfilebut *fb) {
 	setfile = gtk_editable_get_chars(GTK_EDITABLE(GTK_ENTRY(fb->entry)),0,-1);
 	/* if setfile is empty we should probably use the current document basedir ? right? */
 	if (!setfile || strlen(setfile)==0) {
-		if (fb->bfwin && fb->bfwin->current_document->filename && strlen(fb->bfwin->current_document->filename)) {
+		if (fb->bfwin && fb->bfwin->current_document->uri && strlen(fb->bfwin->current_document->uri)) {
 			if (setfile) g_free(setfile);
-			setfile = path_get_dirname_with_ending_slash(fb->bfwin->current_document->filename);
+			setfile = path_get_dirname_with_ending_slash(fb->bfwin->current_document->uri);
 		}
-	} else if (setfile && strchr(setfile, '/') == NULL && fb->bfwin && fb->bfwin->current_document->filename) {
+	} else if (setfile && strchr(setfile, '/') == NULL && fb->bfwin && fb->bfwin->current_document->uri) {
 		/* if setfile is a relative name, we should try to make it a full path. relative names have 
 		no slashes in the name */
 		gchar *basedir, *oldsetfile;
 		oldsetfile = setfile;
-		basedir = path_get_dirname_with_ending_slash(fb->bfwin->current_document->filename);
+		basedir = path_get_dirname_with_ending_slash(fb->bfwin->current_document->uri);
 		setfile = create_full_path(oldsetfile, basedir);
 		g_free(oldsetfile);
 		g_free(basedir);
@@ -1278,8 +1278,8 @@ static void file_but_clicked_lcb(GtkWidget * widget, Tfilebut *fb) {
 	DEBUG_MSG("file_but_clicked_lcb, return_file returned %s\n",tmpstring);
 	if (tmpstring) {
 		if (!fb->fullpath && fb->bfwin) {
-			if (fb->bfwin->current_document->filename != NULL) {
-				tmp2string = create_relative_link_to(fb->bfwin->current_document->filename, tmpstring);
+			if (fb->bfwin->current_document->uri != NULL) {
+				tmp2string = create_relative_link_to(fb->bfwin->current_document->uri, tmpstring);
 			} else {
 				tmp2string = g_strdup(tmpstring);
 			}

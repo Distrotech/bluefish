@@ -1245,7 +1245,7 @@ void rename_window_entry_in_all_windows(Tbfwin *tobfwin, gchar *newtitle) {
 /*****************/
 
 static void view_in_browser(Tbfwin *bfwin, gchar *browser) {
-	if (bfwin->current_document->filename) {
+	if (bfwin->current_document->uri) {
 		Tconvert_table *table, *tmpt;
 		gchar *command;
 		table = tmpt = g_new(Tconvert_table, 2);
@@ -1253,11 +1253,11 @@ static void view_in_browser(Tbfwin *bfwin, gchar *browser) {
 		if (bfwin->project && bfwin->project->webdir 
 				&& bfwin->project->basedir && strlen(bfwin->project->webdir)>2
 				&& strlen(bfwin->project->basedir)>2 
-				&& strncmp(bfwin->current_document->filename, bfwin->project->basedir, strlen(bfwin->project->basedir))==0
+				&& strncmp(bfwin->current_document->uri, bfwin->project->basedir, strlen(bfwin->project->basedir))==0
 				) {
-			tmpt->my_char = g_strconcat(bfwin->project->webdir, &bfwin->current_document->filename[strlen(bfwin->project->basedir)], NULL);
+			tmpt->my_char = g_strconcat(bfwin->project->webdir, &bfwin->current_document->uri[strlen(bfwin->project->basedir)], NULL);
 		} else {
-			tmpt->my_char = g_strdup(bfwin->current_document->filename);
+			tmpt->my_char = g_strdup(bfwin->current_document->uri);
 		}
 		tmpt++;
 		tmpt->my_char = NULL;
@@ -1283,7 +1283,7 @@ void browser_toolbar_cb(GtkWidget *widget, Tbfwin *bfwin) {
 
 static void browser_lcb(GtkWidget *widget, Tbfw_dynmenu *bdm) {
 	gchar **arr = (gchar **)bdm->data;
-	if (!bdm->bfwin->current_document->filename || bdm->bfwin->current_document->modified) {
+	if (!bdm->bfwin->current_document->uri || bdm->bfwin->current_document->modified) {
 		file_save_cb(NULL, bdm->bfwin);
 	}
 	view_in_browser(bdm->bfwin,arr[1]);
@@ -1303,12 +1303,12 @@ static void external_command_lcb(GtkWidget *widget, Tbfw_dynmenu *bdm) {
 
 	if (need_s) {
 		file_save_cb(NULL, bdm->bfwin);
-		if (!bdm->bfwin->current_document->filename) {
+		if (!bdm->bfwin->current_document->uri) {
 			return;
 		}
-		if (bdm->bfwin->current_document->filename[0] == '/'){
+		if (bdm->bfwin->current_document->uri[0] == '/'){
 			/* for local files we chdir() to their directory */
-			gchar *tmpstring = g_path_get_dirname(bdm->bfwin->current_document->filename);
+			gchar *tmpstring = g_path_get_dirname(bdm->bfwin->current_document->uri);
 			chdir(tmpstring);
 			g_free(tmpstring);
 		}
@@ -1320,7 +1320,7 @@ static void external_command_lcb(GtkWidget *widget, Tbfw_dynmenu *bdm) {
 		if (need_s) {
 			DEBUG_MSG("adding 's' to table\n");
 			tmpt->my_int = 's';
-			tmpt->my_char = bdm->bfwin->current_document->filename;
+			tmpt->my_char = bdm->bfwin->current_document->uri;
 			tmpt++;
 		}
 		if (need_f) {

@@ -119,9 +119,20 @@ typedef enum {
 	DOC_STATUS_COMPLETE,
 	DOC_CLOSING
 } Tdocstatus;
+
+typedef struct {
+	gint go_to_line;
+	gboolean close_doc;
+	gboolean close_window;
+	gpointer save; /* during document save */
+	gpointer info; /* during update of the fileinfo */
+	gpointer load; /* during load */
+} Tdoc_action;
+
 typedef struct {
 	gchar *uri; /* slowly we should move all functions so they will use the URI, and not the filename */
-	gchar *filename; /* this is the UTF-8 encoded filename, before you use it on disk you need convert to disk-encoding! */
+	Tdoc_action action;
+/*	gchar *filename;  this is the UTF-8 encoded filename, before you use it on disk you need convert to disk-encoding! */
 	Tdocstatus status; /* can be DOC_STATUS_ERROR, DOC_STATUS_LOADING, DOC_STATUS_COMPLETE, DOC_CLOSING */
 	gchar *encoding;
 	gint modified;
