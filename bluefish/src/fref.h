@@ -84,6 +84,7 @@ enum {
 #define FR_TYPE_FUNCTION			2
 #define FR_TYPE_CLASS					3
 
+#define MAX_NEST_LEVEL		20
 
 typedef struct
 {
@@ -139,11 +140,13 @@ typedef struct
   FRParamInfo *act_param;
   GtkWidget *tree;
   GtkTreeStore *store;
-  GtkTreeIter *parent;
+  GtkTreeIter grp_parent[MAX_NEST_LEVEL];
+  gint nest_level;
+  GtkTreeIter parent;
   gint state;
   gint pstate;
   gint vstate;
-  GList *autoitems;
+  GList *autoitems;  
 } FRParseAux;
 
 #define FR_LOADER_STATE_NONE            1
@@ -159,6 +162,7 @@ typedef struct
 #define FR_LOADER_STATE_INSERT          11
 #define FR_LOADER_STATE_VALLIST         12
 #define FR_LOADER_STATE_RETURN          13
+
 
 /* CONFIG PARSER FUNCTIONS */
 
