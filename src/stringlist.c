@@ -964,9 +964,8 @@ gboolean arraylist_value_exists(GList *arraylist, gchar **value, gint testlevel)
 		gint i=0;
 		gboolean equal = TRUE;
 		while (i<testlevel && equal) {
-			if (tmparr[i]==NULL && value[i] == NULL) {
-				return TRUE;
-			} else if (tmparr[i]==NULL || value[i] == NULL || strcmp(tmparr[i],value[i])!=0) {
+			/*  tmparr[i]==value[i] will only happen when they are both NULL	*/
+			if ( (tmparr[i]!=value[i]) && (tmparr[i]==NULL || value[i] == NULL || strcmp(tmparr[i],value[i])!=0)) {
 				equal = FALSE;
 			}
 			i++;
