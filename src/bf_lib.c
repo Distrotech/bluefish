@@ -110,6 +110,45 @@ gboolean file_copy(gchar *source, gchar *dest) {
 	fclose(out);
 	return TRUE;
 }
+
+static gint length_common_prefix(gchar *first, gchar *second) {
+	gint i=0;
+	while (first[i] == second[i] && first[i] != '\0') {
+		i++;
+	}
+	return i;
+}
+/**
+ * find_common_prefix_in_stringlist:
+ * @stringlist: a #GList* with strings
+ * 
+ * tests every string in stringlist, and returns the length of the 
+ * common prefix all these strings have
+ *
+ * This is for example useful to find out if a list of filenames
+ * share the same base directory
+ * 
+ * Return value: #gint with number of common characters
+ **/
+gint find_common_prefixlen_in_stringlist(GList *stringlist) {
+	gchar *firststring;
+	gint commonlen;
+	GList *tmplist;
+	tmplist = g_list_first(stringlist);
+	firststring = (gchar *)tmplist->data;
+	commonlen = strlen(firststring);
+	tmplist = g_list_next(tmplist);
+	while(tmplist){
+		gint testlen;
+		gchar *secondstring = (gchar *)tmplist->data;
+		testlen = length_common_prefix(firststring, secondstring);
+		if (testlen < commonlen) {
+			commonlen = testlen;
+		}
+		tmplist = g_list_next(tmplist);
+	}
+	return commonlen;
+}
 /**
  * append_string_to_file:
  * @filename: a #gchar * containing the destination filename

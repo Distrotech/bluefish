@@ -28,6 +28,7 @@ enum {
 };
 
 GList *return_allwindows_documentlist(void);
+GList *return_filenamestringlist_from_doclist(GList *doclist);
 gint documentlist_return_index_from_filename(GList *doclist, gchar *filename);
 Tdocument *documentlist_return_document_from_filename(GList *doclist, gchar *filename);
 Tdocument *documentlist_return_document_from_index(GList *doclist, gint index);

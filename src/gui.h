@@ -27,6 +27,7 @@ void notebook_show(Tbfwin *bfwin);
 void notebook_changed(Tbfwin *bfwin,gint newpage);
 
 void gui_notebook_switch(Tbfwin *bfwin,guint action,GtkWidget *widget);
+void gui_set_title(Tbfwin *bfwin, Tdocument *doc);
 void gui_apply_settings(Tbfwin *bfwin);
 void gui_set_undo_redo_widgets(Tbfwin *bfwin,gboolean undo, gboolean redo);
 void gui_set_widgets(Tbfwin *bfwin,gboolean undo, gboolean redo, gboolean wrap, gboolean highlight, Tfiletype *hl, gchar *encoding, gboolean linenumbers);
