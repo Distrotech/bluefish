@@ -40,7 +40,7 @@
 #include "bf_lib.h"				/* filename_test_extensions() */
 #include "rcfile.h"				/* array_from_arglist() */
 #include "stringlist.h" 	/* count_array() */
-#include "menu.h" 			/* menu_current_document_type_set_active_wo_activate */
+#include "menu.h" 			/* menu_current_document_set_toggle_wo_activate */
 #include "document.h" /* doc_get_chars() */
 #include "highlight.h"
 
@@ -714,7 +714,7 @@ void hl_reset_highlighting_type(Tdocument * doc, gchar * newfilename)
 			doc_remove_highlighting(doc);
 			doc->hl = filetype;
 			doc->need_highlighting = TRUE;
-			menu_current_document_type_set_active_wo_activate(filetype);
+			menu_current_document_set_toggle_wo_activate(filetype, NULL);
 		}
 	}
 }
@@ -725,7 +725,7 @@ gboolean hl_set_highlighting_type(Tdocument * doc, Tfiletype *filetype) {
 			doc_remove_highlighting(doc);
 			doc->hl = filetype;
 			doc->need_highlighting = TRUE;
-			menu_current_document_type_set_active_wo_activate(filetype);
+			menu_current_document_set_toggle_wo_activate(filetype, NULL);
 		}
 		return TRUE;
 	} else {

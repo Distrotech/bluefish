@@ -445,9 +445,11 @@ static GList *props_init_main(GList * config_rc)
 	init_prop_integer   (&config_rc, &main_v->props.allow_multi_instances,"allow_multi_instances:",0);
 	init_prop_integer   (&config_rc, &main_v->props.num_undo_levels,"num_undo_levels:",100);
 	init_prop_integer   (&config_rc, &main_v->props.clear_undo_on_save,"clear_undo_on_save:",0);
+	init_prop_string    (&config_rc, &main_v->props.newfile_default_encoding,"newfile_default_encoding:","UTF-8");
+	init_prop_arraylist (&config_rc, &main_v->props.encodings, "encodings:");
+	init_prop_integer   (&config_rc, &main_v->props.auto_set_encoding_meta,"auto_set_encoding_meta:",1);
 
 	/* not yet in use */
-
 	init_prop_string(&config_rc, &main_v->props.image_editor_cline, "image_editor_command:", "gimp-remote -n \"%s\"&");
 	init_prop_string(&config_rc, &main_v->props.cfg_tab_pos, "notebook_tab_position:", "bottom");
 /*	init_prop_string(&config_rc, &main_v->props.cfg_weblint_cline, "weblint_command:", WEBLINT_COMMAND);*/
@@ -516,6 +518,28 @@ void rcfile_parse_main(void)
 		main_v->props.browsers = g_list_append(main_v->props.browsers,arr);
 		arr = array_from_arglist("Gnome default", "gnome-moz-remote --newwin %s&",NULL);
 		main_v->props.browsers = g_list_append(main_v->props.browsers,arr);
+	}
+	if (main_v->props.encodings == NULL) {
+		main_v->props.encodings = g_list_append(main_v->props.encodings,array_from_arglist(_("BIG5 (Chinese)"),"BIG5",NULL));
+		main_v->props.encodings = g_list_append(main_v->props.encodings,array_from_arglist(_("SJIS (Japanese)"),"SJIS",NULL));
+		main_v->props.encodings = g_list_append(main_v->props.encodings,array_from_arglist(_("KSC (Korean)"),"KSC",NULL));
+		main_v->props.encodings = g_list_append(main_v->props.encodings,array_from_arglist(_("KOI8-R (Russian)"),"KOI8-R",NULL));
+		main_v->props.encodings = g_list_append(main_v->props.encodings,array_from_arglist(_("EUCJP (Japanese)"),"EUCJP",NULL));
+		main_v->props.encodings = g_list_append(main_v->props.encodings,array_from_arglist(_("ISO-8859-15 (Latin 9)"),"ISO-8859-15",NULL));
+		main_v->props.encodings = g_list_append(main_v->props.encodings,array_from_arglist(_("ISO-8859-14 (Latin 8)"),"ISO-8859-14",NULL));
+		main_v->props.encodings = g_list_append(main_v->props.encodings,array_from_arglist(_("ISO-8859-13 (Latin 7)"),"ISO-8859-13",NULL));
+		main_v->props.encodings = g_list_append(main_v->props.encodings,array_from_arglist(_("ISO-8859-11 (Thai)"),"ISO-8859-11",NULL));
+		main_v->props.encodings = g_list_append(main_v->props.encodings,array_from_arglist(_("ISO-8859-10 (Nordic)"),"ISO-8859-10",NULL));
+		main_v->props.encodings = g_list_append(main_v->props.encodings,array_from_arglist(_("ISO-8859-9 (Turkish)"),"ISO-8859-9",NULL));
+		main_v->props.encodings = g_list_append(main_v->props.encodings,array_from_arglist(_("ISO-8859-8 (Hebrew)"),"ISO-8859-8",NULL));
+		main_v->props.encodings = g_list_append(main_v->props.encodings,array_from_arglist(_("ISO-8859-7 (Greek)"),"ISO-8859-7",NULL));
+		main_v->props.encodings = g_list_append(main_v->props.encodings,array_from_arglist(_("ISO-8859-6 (Arabic)"),"ISO-8859-6",NULL));
+		main_v->props.encodings = g_list_append(main_v->props.encodings,array_from_arglist(_("ISO-8859-5 (Cyrillic)"),"ISO-8859-5",NULL));
+		main_v->props.encodings = g_list_append(main_v->props.encodings,array_from_arglist(_("ISO-8859-4 (Latin 4, North European)"),"ISO-8859-4",NULL));
+		main_v->props.encodings = g_list_append(main_v->props.encodings,array_from_arglist(_("ISO-8859-3 (Latin 3, South European)"),"ISO-8859-3",NULL));
+		main_v->props.encodings = g_list_append(main_v->props.encodings,array_from_arglist(_("ISO-8859-2 (Latin 2, East European)"),"ISO-8859-2",NULL));
+		main_v->props.encodings = g_list_append(main_v->props.encodings,array_from_arglist(_("ISO-8859-1 (Latin 1, West European)"),"ISO-8859-1",NULL));
+		main_v->props.encodings = g_list_append(main_v->props.encodings,array_from_arglist(_("UTF-8"), "UTF-8",NULL));
 	}
 	if (main_v->props.external_commands == NULL) {
 		gchar **arr;

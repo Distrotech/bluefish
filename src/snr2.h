@@ -35,6 +35,6 @@ void search_again_cb(GtkWidget *widget, gpointer data);
 void replace_cb(GtkWidget *widget, gpointer data);
 void new_replace_cb(GtkWidget *widget, gpointer data);
 void update_filenames_in_file(Tdocument *doc, gchar *oldfilename, gchar *newfilename, gint doc_has_newfilename);
+void update_encoding_meta_in_file(Tdocument *doc, gchar *encoding);
 
-gint wchar_len(gchar *src, gint src_len);
 #endif							/* __SNR_H_ */

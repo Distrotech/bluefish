@@ -540,11 +540,11 @@ void gui_set_undo_redo_widgets(gboolean undo, gboolean redo) {
 	gtk_widget_set_sensitive(gtk_item_factory_get_widget(gtk_item_factory_from_widget(main_v->menubar), N_("/Edit/Redo all")), redo);
 }
 
-void gui_set_widgets(gboolean undo, gboolean redo, gboolean wrap, gboolean highlight, Tfiletype *hl) {
+void gui_set_widgets(gboolean undo, gboolean redo, gboolean wrap, gboolean highlight, Tfiletype *hl, gchar *encoding) {
 	gui_set_undo_redo_widgets(undo, redo);
 	setup_toggle_item(gtk_item_factory_from_widget(main_v->menubar),N_("/Document/Highlight syntax"), highlight);
 	setup_toggle_item(gtk_item_factory_from_widget(main_v->menubar),N_("/Document/Wrap"), wrap);
-	menu_current_document_type_set_active_wo_activate(hl);
+	menu_current_document_set_toggle_wo_activate(hl, encoding);
 }
 
 void gui_notebook_bind_signals() {
@@ -655,6 +655,7 @@ void gui_create_main(GList *filenames) {
 	menu_create_main(vbox);
 	recent_menu_init();
 	external_menu_init();
+	encoding_menu_rebuild();
 
 	/* then the toolbars */
 	{
@@ -683,7 +684,6 @@ void gui_create_main(GList *filenames) {
 	main_v->middlebox = gtk_hbox_new(TRUE, 0);
 	gtk_box_pack_start(GTK_BOX(vbox), main_v->middlebox, TRUE, TRUE, 0);
 	gtk_widget_show(main_v->middlebox);
-
 
 	/* notebook with the text widget in there */
 	main_v->notebook = gtk_notebook_new();

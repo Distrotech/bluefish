@@ -25,7 +25,7 @@
 #include <stdio.h> /* fopen() */
 #include <string.h> /* strchr() */
 
-/*#define DEBUG*/
+#define DEBUG
 
 #include "bluefish.h"
 #include "document.h"
@@ -628,29 +628,82 @@ gboolean doc_file_to_textbox(Tdocument * doc, gchar * filename, gboolean enable_
 			buffer_size += STARTING_BUFFER_SIZE;
 			buffer = g_realloc(buffer, buffer_size);
 		}
-		if(!g_utf8_validate(buffer, -1, NULL)) {
-			gchar *newbuf;
+		/* the first try is if the encoding is set in the file */
+		{
+			regex_t preg;
+			regmatch_t pmatch[10];
+			gint retval;
+			gchar *encoding=NULL;
+			gchar *newbuf=NULL;
 			gsize wsize;
-			newbuf = g_locale_to_utf8(buffer,-1,NULL,&wsize,NULL);
-			if (!newbuf) {
-				newbuf = g_convert(buffer,-1,"UTF-8","ISO-8859-1",NULL, &wsize, NULL);
-				if (!newbuf) {
-					error_dialog(_("Error"), _("Cannot display file, unknown characters found."));
-				} else {
-					g_free(doc->encoding);
-					doc->encoding = g_strdup("ISO-8859-1");
-				}
-			} else {
-				const gchar *encoding=NULL;
-				g_get_charset(&encoding);
-				g_free(doc->encoding);
-				doc->encoding = g_strdup(encoding);
+			GError *error=NULL;
+			gchar *pattern = "<meta[ \t\n]http-equiv[ \t\n]*=[ \t\n]*\"content-type\"[ \t\n]+content[ \t\n]*=[ \t\n]*\"text/html;[ \t\n]*charset=([a-z0-9-]+)\"[ \t\n]*>";
+			retval = regcomp(&preg,pattern,REG_EXTENDED|REG_ICASE);
+#ifdef DEBUG
+			if (retval) {
+				g_print("regcomp error!\n");
 			}
-			g_free(buffer);
-			buffer = newbuf;
-		} else {
-			g_free(doc->encoding);
-			doc->encoding = NULL;
+#endif
+			retval = regexec(&preg,buffer,10,pmatch,0);
+#ifdef DEBUG
+			if (retval) {
+				gchar errbuf[1024];
+				regerror(retval, &preg, errbuf, 1024);
+				g_print("regexec error! %s\n", errbuf);
+			}
+#endif
+			if (retval==0 && pmatch[0].rm_so != -1 && pmatch[1].rm_so != -1) {
+				/* we have a match */
+				DEBUG_MSG("doc_file_to_textbox, match so=%d,eo=%d\n", pmatch[1].rm_so,pmatch[1].rm_eo);
+				encoding = g_strndup(&buffer[pmatch[1].rm_so], pmatch[1].rm_eo-pmatch[1].rm_so);
+				DEBUG_MSG("doc_file_to_textbox, detected encoding %s\n", encoding);
+			}
+			regfree(&preg);
+			if (encoding) {
+				g_print("doc_file_to_textbox, try encoding %s\n", encoding);
+				newbuf = g_convert(buffer,-1,"UTF-8",encoding,NULL, &wsize, &error);
+				if (!newbuf || error) {
+					g_print("doc_file_to_textbox, cound not convert to UTF-8: \n");
+				} else {
+					if (doc->encoding) {
+						g_free(doc->encoding);
+					}
+					doc->encoding = g_strdup(encoding);
+					g_free(buffer);
+					buffer = newbuf;
+				}
+				g_free(encoding);
+			}
+			if (!newbuf) {
+				if(!g_utf8_validate(buffer, -1, NULL)) {
+					DEBUG_MSG("doc_file_to_textbox, file is not in UTF-8\n");
+					newbuf = g_locale_to_utf8(buffer,-1,NULL,&wsize,NULL);
+					if (!newbuf) {
+						newbuf = g_convert(buffer,-1,"UTF-8",main_v->props.newfile_default_encoding,NULL, &wsize, NULL);
+						if (!newbuf) {
+							error_dialog(_("Error"), _("Cannot display file, unknown characters found."));
+						} else {
+							DEBUG_MSG("doc_file_to_textbox, file is in %s encoding\n", main_v->props.newfile_default_encoding);
+							if (doc->encoding) {
+								g_free(doc->encoding);
+							}
+							doc->encoding = g_strdup(main_v->props.newfile_default_encoding);
+						}
+					} else {
+						const gchar *encoding=NULL;
+						g_get_charset(&encoding);
+						DEBUG_MSG("doc_file_to_textbox, file is in locale encoding: %s\n", encoding);
+						g_free(doc->encoding);
+						doc->encoding = g_strdup(encoding);
+					}
+					g_free(buffer);
+					buffer = newbuf;
+				} else {
+					DEBUG_MSG("doc_file_to_textbox, file contains valid UTF-8\n");
+					g_free(doc->encoding);
+					doc->encoding = g_strdup("UTF-8");
+				}
+			}
 		}
 		if (buffer) {
 			gtk_text_buffer_insert_at_cursor(doc->buffer,buffer,-1);
@@ -1281,6 +1334,7 @@ Tdocument *doc_new(gboolean delay_activate) {
 	newdoc->owner_uid = -1;
 	newdoc->owner_gid = -1;
 	newdoc->is_symlink = 0;
+	newdoc->encoding = g_strdup(main_v->props.newfile_default_encoding);
 	doc_bind_signals(newdoc);
 
 	g_signal_connect(G_OBJECT(newdoc->view), "button-release-event"
@@ -1382,6 +1436,7 @@ gboolean doc_new_with_file(gchar * filename, gboolean delay_activate) {
 	hl_reset_highlighting_type(doc, doc->filename);	
 	DEBUG_MSG("doc_new_with_file, hl is resetted to filename, about to load file\n");
 	doc_file_to_textbox(doc, doc->filename, FALSE, delay_activate);
+	menu_current_document_set_toggle_wo_activate(NULL, doc->encoding);
 	doc->modified = 1; /* force doc_set_modified() to update the tab-label */
 	doc_set_modified(doc, 0);
 	doc_set_stat_info(doc); /* also sets mtime field */
@@ -1450,7 +1505,7 @@ void doc_activate(Tdocument *doc) {
 		}
 	}
 	DEBUG_MSG("doc_activate, calling gui_set_widgets\n");
-	gui_set_widgets(doc_has_undo_list(doc), doc_has_redo_list(doc), doc->wrapstate, doc->highlightstate, doc->hl);
+	gui_set_widgets(doc_has_undo_list(doc), doc_has_redo_list(doc), doc->wrapstate, doc->highlightstate, doc->hl, doc->encoding);
 
 	/* if highlighting is needed for this document do this now !! */
 	if (doc->need_highlighting && doc->highlightstate) {
