@@ -302,7 +302,7 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/Edit/_Copy"), "<control>c", menu_file_operations_cb, 11, "<StockItem>", GTK_STOCK_COPY},
 	{N_("/Edit/_Paste"), "<control>v", menu_file_operations_cb, 12, "<StockItem>", GTK_STOCK_PASTE},
 	{N_("/Edit/sep2"), NULL, NULL, 0, "<Separator>"},
-	{N_("/Edit/Select _All"), "<control>a", menu_file_operations_cb, 13, "<Item>"},
+	{N_("/Edit/Select _All"), NULL, menu_file_operations_cb, 13, "<Item>"},
 	{N_("/Edit/sep3"), NULL, NULL, 0, "<Separator>"},
 	{N_("/Edit/_Find..."), "<control>f", menu_file_operations_cb, 14, "<StockItem>", GTK_STOCK_FIND},
 	{N_("/Edit/Find A_gain"), "<control>g", menu_file_operations_cb, 16, "<Item>"},
