@@ -380,12 +380,13 @@ static void multi_thumbnail_ok_clicked(GtkWidget *widget, Tmuthudia *mtd) {
 				GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT,
 				NULL);
 		gtk_file_chooser_set_select_multiple(GTK_FILE_CHOOSER(dialog), TRUE);*/
-		dialog = file_chooser_dialog(mtd->bfwin, _("Select files for thumbnail creation"), GTK_FILE_CHOOSER_ACTION_OPEN, NULL, FALSE, TRUE);
+		dialog = file_chooser_dialog(mtd->bfwin, _("Select files for thumbnail creation"), GTK_FILE_CHOOSER_ACTION_OPEN, NULL, TRUE, TRUE, "webimage");
 		if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_ACCEPT) {
-			GSList *slist = gtk_file_chooser_get_uris(GTK_FILE_CHOOSER(dialog));
+			GSList *slist = gtk_file_chooser_get_filenames(GTK_FILE_CHOOSER(dialog));
 			files = glist_from_gslist(slist);
 			g_slist_free(slist);
 		}
+		gtk_widget_destroy (dialog);
 	}
 #else
 	files = return_files_w_title(NULL, _("Select files for thumbnail creation"));
@@ -399,8 +400,9 @@ static void multi_thumbnail_ok_clicked(GtkWidget *widget, Tmuthudia *mtd) {
 	
 		if (mtd->bfwin->current_document->filename) {
 			relfilename = create_relative_link_to(mtd->bfwin->current_document->filename, filename);
+			DEBUG_MSG("create_relative_link_to, filename=%s relfilename=%s \n", filename, relfilename);
 		} else {
-			relfilename = g_path_get_basename(filename);
+			relfilename = g_strdup (filename);
 		}
 		thumbfilename = create_thumbnail_filename(relfilename);
 		g_free(relfilename);
@@ -478,7 +480,7 @@ static void multi_thumbnail_ok_clicked(GtkWidget *widget, Tmuthudia *mtd) {
 			}
 			g_free(table);
 			tmp = string2insert;
-			string2insert = g_strconcat(string2insert, str, NULL);
+			string2insert = g_strconcat(string2insert, str, "\n", NULL);
 			g_free(tmp);
 			g_free(str);
 		}

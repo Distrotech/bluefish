@@ -151,7 +151,7 @@ gboolean project_save(Tbfwin *bfwin, gboolean save_as) {
 					GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
 					GTK_STOCK_SAVE, GTK_RESPONSE_ACCEPT,
 					NULL);*/
-			dialog = file_chooser_dialog(bfwin,_("Enter Bluefish project filename"),GTK_FILE_CHOOSER_ACTION_SAVE, NULL, TRUE, FALSE);
+			dialog = file_chooser_dialog(bfwin,_("Enter Bluefish project filename"),GTK_FILE_CHOOSER_ACTION_SAVE, NULL, TRUE, FALSE, "bfproject");
 			if (gtk_dialog_run(GTK_DIALOG (dialog)) == GTK_RESPONSE_ACCEPT) {
 				filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog));
 			}
@@ -271,7 +271,7 @@ static void project_open(Tbfwin *bfwin) {
 				GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
 				GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT,
 				NULL);*/
-		dialog = file_chooser_dialog(bfwin, _("Select Bluefish project filename"), GTK_FILE_CHOOSER_ACTION_OPEN, NULL, TRUE, FALSE);
+		dialog = file_chooser_dialog(bfwin, _("Select Bluefish project filename"), GTK_FILE_CHOOSER_ACTION_OPEN, NULL, TRUE, FALSE, "bfproject");
 		if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_ACCEPT) {
 			filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog));
 		}

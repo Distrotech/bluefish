@@ -1244,7 +1244,7 @@ static void file_but_clicked_lcb(GtkWidget * widget, Tfilebut *fb) {
 #ifdef HAVE_ATLEAST_GTK_2_4
 	{
 		GtkWidget *dialog;
-		dialog = file_chooser_dialog(NULL, _("Select File"), GTK_FILE_CHOOSER_ACTION_OPEN, setfile, FALSE, FALSE);
+		dialog = file_chooser_dialog(NULL, _("Select File"), GTK_FILE_CHOOSER_ACTION_OPEN, setfile, FALSE, FALSE, NULL);
 		gtk_window_set_transient_for(GTK_WINDOW(dialog),GTK_WINDOW(gtk_widget_get_toplevel(fb->entry)));
 		gtk_file_chooser_set_filename(GTK_FILE_CHOOSER(dialog),setfile);
 		if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_ACCEPT) {
@@ -1325,7 +1325,8 @@ static void file_chooser_set_current_dir(GtkWidget *dialog, gchar *dir) {
 	}
 }
 
-GtkWidget * file_chooser_dialog(Tbfwin *bfwin, gchar *title, GtkFileChooserAction action, gchar *set, gboolean localonly, gboolean multiple) {
+GtkWidget * file_chooser_dialog(Tbfwin *bfwin, gchar *title, GtkFileChooserAction action, 
+											gchar *set, gboolean localonly, gboolean multiple, const gchar *filter) {
 	GtkWidget *vbox, *hbox, *dialog, *viewlocal;
 	dialog = gtk_file_chooser_dialog_new_with_backend(title,bfwin ? GTK_WINDOW(bfwin->main_window) : NULL,
 			action,"gnome-vfs",
@@ -1383,12 +1384,12 @@ GtkWidget * file_chooser_dialog(Tbfwin *bfwin, gchar *title, GtkFileChooserActio
 		gtk_file_filter_set_name(ff,_("All files"));
 		gtk_file_filter_add_pattern(ff, "*");
 		gtk_file_chooser_add_filter(GTK_FILE_CHOOSER(dialog), ff);
-		gtk_file_chooser_set_filter(GTK_FILE_CHOOSER(dialog), ff);
+		if (filter == NULL)	gtk_file_chooser_set_filter(GTK_FILE_CHOOSER(dialog), ff);
 		tmplist = g_list_first(main_v->filetypelist);
 		while (tmplist) {
 			gchar **tmp;
 			Tfiletype *ft = (Tfiletype *)tmplist->data;
-			if (ft->extensions && *ft->extensions) {
+			if ((strcmp(ft->type, "objectfile") != 0) && ft->extensions && *ft->extensions) {
 				ff = gtk_file_filter_new();
 				gtk_file_filter_set_name(ff,ft->type);
 				DEBUG_MSG("file_chooser_dialog, adding filter '%s'\n", ft->type);
@@ -1402,6 +1403,7 @@ GtkWidget * file_chooser_dialog(Tbfwin *bfwin, gchar *title, GtkFileChooserActio
 					tmp++;
 				}
 				gtk_file_chooser_add_filter(GTK_FILE_CHOOSER(dialog), ff);
+				if (filter && strcmp(filter, ft->type) == 0)	gtk_file_chooser_set_filter (GTK_FILE_CHOOSER (dialog), ff);
 			}
 			tmplist = g_list_next(tmplist);
 		}
