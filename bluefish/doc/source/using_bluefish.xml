@@ -1521,16 +1521,96 @@ CSS 2.0 reference, an HTML reference and a Python reference. The functions are
 grouped depending on the language, by type, module, object, etc.
 </para>
 <para>
-The function reference browser can show an info window on the bottom. Check the 'Show 
-info window' check box. In this window some information about the currently selected 
-item can be shown. What exactly is shown can be chosen in the right-click context menu.
+The function reference browser can show an info window on the bottom. Check the <guilabel>Show info window</guilabel> check box. In this window some information about the currently selected item can be shown. What exactly is shown can be chosen in the right-click context menu.
 </para>
-<para>SCREENSHOT BY ????</para>
-<para>Every item in the function reference can simply insert text, show an info window, 
-or show a dialog that can be used to insert text. In the right-click context menu each of
-these functions is accessible. One of these functions can be bound to a 
-left-double-click action. This is also configurable from the context menu.
-</para>
+<para>Every item in the function reference can simply insert text, show an info window, or show a dialog that can be used to insert text. In the right-click context menu each of these functions is accessible.</para>
+<para>The contextual menu is also accessible on a group of functions and at the top level of a reference.
+<figure id="figure-browser-reference-right-click">
+<title id="figure-browser-reference-right-click-title">The reference browser contextual menu</title>
+<screenshot>
+<mediaobject>
+<imageobject>
+	<imagedata fileref="figures/browse_reference_right_click.png" format="PNG"/>
+</imageobject>
+<textobject>
+	<phrase>A screen shot of the reference browser contextual menu</phrase>
+</textobject>
+</mediaobject>
+</screenshot>
+</figure></para>
+<para>The <guilabel>Options</guilabel> menu accessible via the contextual menu offers tree actions:
+<figure id="figure-browser-reference-options">
+<title id="figure-browser-reference-options-title">The reference browser options menu</title>
+<screenshot>
+<mediaobject>
+<imageobject>
+	<imagedata fileref="figures/browser_reference_options.png" format="PNG"/>
+</imageobject>
+<textobject>
+	<phrase>A screen shot of the reference browser options menu</phrase>
+</textobject>
+</mediaobject>
+</screenshot>
+</figure></para>
+<itemizedlist>
+<listitem>
+<para><guilabel>Rescan reference files</guilabel> in case you have customized one of them, so that the new items be available.</para>
+</listitem>
+<listitem>
+<para><guilabel>Left doubleclick action</guilabel>, which can be:</para>
+<itemizedlist>
+<listitem>
+<para><guilabel>Insert</guilabel> to insert the function in the document for latter parametrizing if needed</para>
+</listitem>
+<listitem>
+<para><guilabel>Dialog</guilabel> to insert the function in the document while filling in the parameters in a dialog window
+<figure id="figure-browser-reference-dialog">
+<title id="figure-browser-reference-dialog-title">A function reference dialog window</title>
+<screenshot>
+<mediaobject>
+<imageobject>
+<imagedata fileref="figures/browser_reference_dialog.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>A screen shot of a function reference dialog window</phrase>
+</textobject>
+</mediaobject>
+</screenshot>
+</figure></para>
+</listitem>
+<listitem>
+<para><guilabel>Info</guilabel> to display a window with all available info about the function:
+<figure id="figure-browser-reference-info-window">
+<title id="figure-browser-reference-info-window-title">Info available for a function</title>
+<screenshot>
+<mediaobject>
+<imageobject>
+<imagedata fileref="figures/browser_reference_info_window.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>A screen shot of all info available for a function</phrase>
+</textobject>
+</mediaobject>
+</screenshot>
+</figure></para>
+</listitem>
+</itemizedlist> 
+</listitem>
+<listitem>
+<para><guilabel>Info Type</guilabel>; this is where you can customize what appears in the info window. It can be:</para>
+<itemizedlist>
+<listitem>
+<para>the function <guilabel>Description</guilabel> (this is the default)</para>
+</listitem>
+<listitem>
+<para>the <guilabel>Attributes/Parameters</guilabel> of the function</para>
+</listitem>
+<listitem>
+<para>some <guilabel>Notes</guilabel> about the function</para>
+</listitem>
+</itemizedlist> 
+</listitem>
+</itemizedlist>
 </sect2>
 
 <sect2 id="HTML">
