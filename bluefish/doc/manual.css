@@ -205,7 +205,7 @@ div.book div.toc .chapter a {
 	min-width: 90%;
 }
 
-.guilabel, .guimenu, .guisubmenu, .guimenuitem {
+/* .guilabel, .guimenu, .guisubmenu, .guimenuitem {
 	background-color: #eeeee6;
 	padding: 2px 5px;
 }
@@ -215,9 +215,13 @@ b.keycap, .keycap {
 	padding: 1px 5px;
 	border: 1px solid #999999;
 	margin: 0 2px;
+} */
+
+.guimenu, .guimenuitem .guilabel
+{
+	font-family:Courrier;
+	font-size: small;
 }
-
-
 
 .title {
 	clear: both;
