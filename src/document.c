@@ -559,12 +559,42 @@ static gboolean doc_view_key_release_lcb(GtkWidget *widget,
 /*	doc_update_linenumber(doc);*/
 	return FALSE;
 }
-static gboolean doc_view_button_release_lcb(GtkWidget *widget,
-                                            GdkEventButton *event,
-                                            Tdocument *doc) {
-/*	doc_update_linenumber(doc);*/
+static gboolean doc_view_button_release_lcb(GtkWidget *widget,GdkEventButton *bevent, Tdocument *doc) {
+	DEBUG_MSG("doc_view_button_release_lcb, button %d\n", bevent->button);
+	if (bevent->button == 3) {
+		GtkWidget *menuitem;
+		GtkWidget *submenu;
+		GtkWidget *menu = gtk_menu_new ();
+
+		menuitem = gtk_menu_item_new_with_label(_("Edit tag"));
+      gtk_widget_show (menuitem);
+		gtk_menu_append(GTK_MENU(menu), menuitem);
+		menuitem = gtk_menu_item_new();
+      gtk_widget_show (menuitem);
+		gtk_menu_append(GTK_MENU(menu), menuitem);
+
+		menuitem = gtk_menu_item_new_with_mnemonic (_("Input _Methods"));
+      gtk_widget_show (menuitem);
+		submenu = gtk_menu_new ();
+      gtk_menu_item_set_submenu (GTK_MENU_ITEM (menuitem), submenu);
+      gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
+      gtk_im_multicontext_append_menuitems (GTK_IM_MULTICONTEXT (GTK_TEXT_VIEW(doc->view)->im_context),
+					    GTK_MENU_SHELL (submenu));
+		gtk_widget_show_all (menu);
+		gtk_menu_popup (GTK_MENU (menu), NULL, NULL,
+			  NULL, doc->view, 0, gtk_get_current_event_time ());
+	}
 	return FALSE;
 }
+
+static gboolean doc_view_button_press_lcb(GtkWidget *widget,GdkEventButton *bevent, Tdocument *doc) {
+	DEBUG_MSG("doc_view_button_press_lcb, button %d\n", bevent->button);
+	if (bevent->button == 3) {
+		return TRUE;
+	}
+	return FALSE;
+}
+
 
 static void doc_buffer_mark_set_lcb(GtkTextBuffer *buffer,GtkTextIter *iter,
                                             GtkTextMark *set_mark,
@@ -640,6 +670,8 @@ Tdocument *doc_new(gboolean delay_activate) {
 		, G_CALLBACK(doc_view_key_release_lcb), newdoc);
 	g_signal_connect(G_OBJECT(newdoc->view), "button-release-event"
 		, G_CALLBACK(doc_view_button_release_lcb), newdoc);
+	g_signal_connect(G_OBJECT(newdoc->view), "button-press-event"
+		, G_CALLBACK(doc_view_button_press_lcb), newdoc);
 	g_signal_connect(G_OBJECT(newdoc->buffer), "mark-set"
 		, G_CALLBACK(doc_buffer_mark_set_lcb), newdoc);
 	main_v->documentlist = g_list_append(main_v->documentlist, newdoc);

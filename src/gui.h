@@ -29,4 +29,5 @@ gboolean switch_to_document_by_index(gint index);
 gboolean switch_to_document_by_pointer(Tdocument *document);
 gboolean switch_to_document_by_filename(gchar *filename);
 void go_to_line_win_cb(GtkWidget * widget, gpointer data);
+void go_to_line_from_selection_cb(GtkWidget * widget, gpointer data);
 #endif /* __GUI_H_ */
