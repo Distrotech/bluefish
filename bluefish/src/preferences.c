@@ -252,16 +252,20 @@ static GList *general_poplist(GList *arraylist, gint required_items, gint poplis
 static void add_new_filetype_lcb(GtkWidget *wid, Tprefdialog *pd) {
 	GList *poplist;
 	gchar *newtype = gtk_editable_get_chars(GTK_EDITABLE(pd->ftd.entry[0]),0,-1);
-	gchar **strarr = g_malloc(5*sizeof(gchar *));
-	strarr[0] = newtype;
-	strarr[1] = g_strdup("");
-	strarr[2] = g_strdup("");
-	strarr[3] = g_strdup("");
-	strarr[4] = NULL;
-	pd->lists[filetypes] = g_list_append(pd->lists[filetypes], strarr);
-	poplist = general_poplist(pd->lists[filetypes], 4, 0);
-	gtk_combo_set_popdown_strings(GTK_COMBO(pd->ftd.combo), poplist);
-	g_list_free(poplist);
+	if (strlen(newtype)) {
+		gchar **strarr = g_malloc(5*sizeof(gchar *));
+		strarr[0] = newtype;
+		strarr[1] = g_strdup("");
+		strarr[2] = g_strdup("");
+		strarr[3] = g_strdup("");
+		strarr[4] = NULL;
+		pd->lists[filetypes] = g_list_append(pd->lists[filetypes], strarr);
+		poplist = general_poplist(pd->lists[filetypes], 4, 0);
+		gtk_combo_set_popdown_strings(GTK_COMBO(pd->ftd.combo), poplist);
+		g_list_free(poplist);
+	} else {
+		g_free(newtype);
+	}
 }
 
 static void filetype_apply_changes(Tprefdialog *pd) {
@@ -322,15 +326,19 @@ static void create_filetype_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 static void add_new_filefilter_lcb(GtkWidget *wid, Tprefdialog *pd) {
 	GList *poplist;
 	gchar *newtype = gtk_editable_get_chars(GTK_EDITABLE(pd->ffd.entry[0]),0,-1);
-	gchar **strarr = (gchar **)g_new(gpointer, 4);
-	strarr[0] = newtype;
-	strarr[1] = g_strdup("1");
-	strarr[2] = g_strdup("");
-	strarr[3] = NULL;
-	pd->lists[filefilters] = g_list_append(pd->lists[filefilters], strarr);
-	poplist = general_poplist(pd->lists[filefilters], 3, 0);
-	gtk_combo_set_popdown_strings(GTK_COMBO(pd->ffd.combo), poplist);
-	g_list_free(poplist);
+	if (strlen(newtype)) {
+		gchar **strarr = (gchar **)g_new(gpointer, 4);
+		strarr[0] = newtype;
+		strarr[1] = g_strdup("1");
+		strarr[2] = g_strdup("");
+		strarr[3] = NULL;
+		pd->lists[filefilters] = g_list_append(pd->lists[filefilters], strarr);
+		poplist = general_poplist(pd->lists[filefilters], 3, 0);
+		gtk_combo_set_popdown_strings(GTK_COMBO(pd->ffd.combo), poplist);
+		g_list_free(poplist);
+	} else {
+		g_free(newtype);
+	}
 }
 
 static void filefilter_apply_changes(Tprefdialog *pd) {
