@@ -1,8 +1,7 @@
 /* Bluefish HTML Editor
- * bluefish.c - the main function
+ * gui.c - the main GUI
  *
- * Copyright (C) 1998 Olivier Sessink and Chris Mazuc
- * Copyright (C) 1999-2002 Olivier Sessink
+ * Copyright (C) 2002 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,21 +22,13 @@
 
 #include "bluefish.h"
 
-/*********************************************/
-/* this var is global for all bluefish files */
-/*********************************************/
-Tmain *main_v;
 
+void gui_create_main() {
+	main_v->window = ();
 
+	main_v->notebook = ();
+}
 
-int main(int argc, char *argv[])
-{
-	gtk_init(&argc, &argv);
-	
-	main_v = g_new0(Tmain, 1);
-	
-	gui_create_main();
-
-	gtk_main();
-	return 0;
+void statusbar_message(gchar *message, gint time) {
+	/* show the message on the statusbar */
 }
