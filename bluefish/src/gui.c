@@ -192,7 +192,7 @@ void left_panel_show_hide_toggle(gboolean first_time, gboolean show) {
 	}
 	if (show) {
 		main_v->hpane = gtk_hpaned_new();
-		fileb = filebrowser_init();
+		fileb = filebrowser_init(first_time);
 		gtk_widget_show_all(fileb);
 		gtk_paned_add1(GTK_PANED(main_v->hpane), fileb);
 		gtk_paned_add2(GTK_PANED(main_v->hpane), main_v->notebook);

@@ -706,21 +706,36 @@ static Tfilter *new_filter(gchar *name, gchar *filetypes) {
 	return filter;
 }
 
-GtkWidget *filebrowser_init() {
-	GList *tmplist;
-	filebrowser.uid = getuid();
-	filebrowser.curfilter = new_filter("All files", NULL);
-	filebrowser.filters = g_list_append(NULL, filebrowser.curfilter);
-	filebrowser.unknown_icon = gdk_pixbuf_new_from_file(main_v->props.filebrowser_unknown_icon, NULL);
-	filebrowser.dir_icon = gdk_pixbuf_new_from_file(main_v->props.filebrowser_dir_icon, NULL);
-
-	tmplist = g_list_first(main_v->props.filefilters);
-	while (tmplist) {
-		gchar **strarr = (gchar **) tmplist->data;
-		if (count_array(strarr) == 2) {
-			filebrowser.filters = g_list_append(filebrowser.filters, new_filter(strarr[0], strarr[1]));
+GtkWidget *filebrowser_init(gboolean firsttime) {
+	if (firsttime) {
+		GList *tmplist;
+		filebrowser.uid = getuid();
+		filebrowser.curfilter = new_filter("All files", NULL);
+		filebrowser.filters = g_list_append(NULL, filebrowser.curfilter);
+		filebrowser.unknown_icon = gdk_pixbuf_new_from_file(main_v->props.filebrowser_unknown_icon, NULL);
+		filebrowser.dir_icon = gdk_pixbuf_new_from_file(main_v->props.filebrowser_dir_icon, NULL);
+		/* try the current directory */
+		if (!filebrowser.unknown_icon) {
+			filebrowser.unknown_icon = gdk_pixbuf_new_from_file("icon_unknown.png", NULL);
+			if (!filebrowser.unknown_icon) {
+				gchar *tmpstr;
+				tmpstr = g_get_home_dir();
+				
+			
+			}
 		}
-		tmplist = g_list_next(tmplist);
+		if (!filebrowser.dir_icon) {
+			filebrowser.dir_icon = gdk_pixbuf_new_from_file("icon_dir.png", NULL);
+		}
+
+		tmplist = g_list_first(main_v->props.filefilters);
+		while (tmplist) {
+			gchar **strarr = (gchar **) tmplist->data;
+			if (count_array(strarr) == 2) {
+				filebrowser.filters = g_list_append(filebrowser.filters, new_filter(strarr[0], strarr[1]));
+			}
+			tmplist = g_list_next(tmplist);
+		}
 	}
 	
 	filebrowser.store = gtk_tree_store_new (N_COLUMNS,GDK_TYPE_PIXBUF,G_TYPE_STRING);
