@@ -42,14 +42,18 @@
 #include "image.h"
 #include "rcfile.h" /* rcfile_save_configfile_menu_cb */
 
+#include "outputbox.h" /* temporary */
+
 typedef struct {
 	GtkWidget *menuitem;
 	gchar **strarr; /* pointer to config value 0=label, 1=value */
 } Tencoding;
 
+
 static GtkItemFactoryEntry menu_items[] = {
 	{N_("/_File"), NULL, NULL, 0, "<Branch>"},
 	{N_("/File/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
+	{N_("/_File/Makeoutput TEMPORARY FOR TESTING"), NULL, outputbox_make, 0, NULL},
 	{N_("/File/_New"), "F8", file_new_cb, 0, NULL},
 	{N_("/File/_Open..."), "<control>O", file_open_cb, 0, NULL},
 	{N_("/File/Open advanced..."), NULL, file_open_cb, 1, NULL},
