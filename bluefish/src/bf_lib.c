@@ -1081,7 +1081,7 @@ gchar *path_get_dirname_with_ending_slash(const gchar *filename) {
  * Return value: gboolean, TRUE if readable, else FALSE
  **/
 gboolean file_exists_and_readable(const gchar * filename) {
-	GError *gerror;
+	GError *gerror=NULL;
 	gint b_written;
 	gchar *ondiskencoding;
 	gboolean retval=TRUE;
@@ -1094,15 +1094,14 @@ gboolean file_exists_and_readable(const gchar * filename) {
 	}
 	DEBUG_MSG("file_exists_and_readable, filename(%p)=\"%s\", strlen(filename)=%d\n", filename, filename, strlen(filename));
 	ondiskencoding = g_filename_from_utf8(filename, -1, NULL,&b_written,&gerror);
+	DEBUG_MSG("ondiskencoding=%s\n",ondiskencoding);
 #ifndef WIN32
 #ifdef HAVE_GNOME_VFS
 	{
-		gboolean result;
 		GnomeVFSURI* uri = gnome_vfs_uri_new(filename);
-		result = gnome_vfs_uri_exists(uri);
+		retval = gnome_vfs_uri_exists(uri);
 		gnome_vfs_uri_unref(uri);
-		DEBUG_MSG("file_exists_and_readable, return %d for %s\n",result,filename);
-		retval = (result == GNOME_VFS_OK);
+		DEBUG_MSG("file_exists_and_readable, return %d for %s\n",retval,filename);
 	}
 #else /* HAVE_GNOME_VFS */
 	{
