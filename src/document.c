@@ -600,6 +600,24 @@ void doc_insert_two_strings(Tdocument *doc, const gchar *before_str, const gchar
 	DEBUG_MSG("doc_insert_two_strings, finished\n");
 }
 
+static void add_encoding_to_list(gchar *encoding) {
+	gchar **enc;
+	GList *tmplist = g_list_first(main_v->props.encodings);
+	while (tmplist) {
+		gchar **arr = tmplist->data;
+		if (strcmp(arr[0], encoding)==0) {
+			return;
+		}
+		tmplist = g_list_next(tmplist);	
+	}
+	/* it is not yet in the list */
+	enc = g_malloc0(sizeof(gchar *)*3);
+	enc[0] = g_strdup(encoding);
+	enc[1] = g_strdup(encoding);
+	main_v->props.encodings = g_list_append(main_v->props.encodings, enc);
+	encoding_menu_rebuild();
+}
+
 
 #define STARTING_BUFFER_SIZE 4096
 gboolean doc_file_to_textbox(Tdocument * doc, gchar * filename, gboolean enable_undo, gboolean delay_highlighting)
@@ -686,6 +704,7 @@ gboolean doc_file_to_textbox(Tdocument * doc, gchar * filename, gboolean enable_
 					if (doc->encoding) {
 						g_free(doc->encoding);
 					}
+					add_encoding_to_list(encoding);
 					doc->encoding = g_strdup(encoding);
 					g_free(buffer);
 					buffer = newbuf;
@@ -737,6 +756,7 @@ gboolean doc_file_to_textbox(Tdocument * doc, gchar * filename, gboolean enable_
 						DEBUG_MSG("doc_file_to_textbox, file is in locale encoding: %s\n", encoding);
 						g_free(doc->encoding);
 						doc->encoding = g_strdup(encoding);
+						add_encoding_to_list(doc->encoding);
 					}
 					DEBUG_MSG("doc_file_to_textbox, freeing buffer, buffer=newbuf\n");
 					g_free(buffer);
