@@ -56,6 +56,9 @@ gint documentlist_return_index_from_filename(gchar *filename) {
 }
 
 gboolean doc_is_empty_non_modified_and_nameless(Tdocument *doc) {
+#ifdef DEBUG
+	g_assert(doc);
+#endif
 	if (doc->modified || doc->filename) {
 		return FALSE;
 	}
@@ -107,13 +110,14 @@ gboolean test_only_empty_doc_left() {
 	} else {
 		Tdocument *tmpdoc;
 		GList *tmplist = g_list_first(main_v->documentlist);
+		if (tmplist) {
 #ifdef DEBUG
-		g_assert(tmplist);
-		g_assert(tmplist->data);
+			g_assert(tmplist->data);
 #endif
-		tmpdoc = tmplist->data;
-		if (!doc_is_empty_non_modified_and_nameless(tmpdoc)) {
-			return FALSE;
+			tmpdoc = tmplist->data;
+			if (!doc_is_empty_non_modified_and_nameless(tmpdoc)) {
+				return FALSE;
+			}
 		}
 	}
 	return TRUE;
@@ -135,27 +139,48 @@ static void doc_set_undo_redo_widget_state(Tdocument *doc) {
 
 void doc_set_modified(Tdocument *doc, gint value) {
 	if (doc->modified != value) {
-		gchar *temp_string;
+		gchar *label_string;
 		doc->modified = value;
 		if (doc->modified) {
 			if (doc->filename) {
 				gchar *tmpstr = g_path_get_basename(doc->filename);
-				temp_string = g_strconcat(tmpstr, " *", NULL);
+				label_string = g_strconcat(tmpstr, " *", NULL);
 				g_free(tmpstr);
 			} else {
-				temp_string = g_strdup(_("Untitled *"));
+				label_string = g_strdup(_("Untitled *"));
 			}
 		} else {
 			if (doc->filename) {
 				gchar *tmpstr = g_path_get_basename(doc->filename);
-				temp_string = g_strdup(tmpstr);
+				label_string = g_strdup(tmpstr);
 				g_free(tmpstr);
 			} else {
-				temp_string = g_strdup(_("Untitled"));
+				label_string = g_strdup(_("Untitled"));
 			}
 		}
-		gtk_label_set(GTK_LABEL(doc->tab_label),temp_string);
-		g_free(temp_string);
+		
+		
+		if (doc->filename) {
+			if (doc->modified) {
+				gchar *tmpstr = g_path_get_basename(doc->filename);
+				label_string = g_strconcat(tmpstr, " *", NULL);
+				g_free(tmpstr);
+			} else {
+				gchar *tmpstr = g_path_get_basename(doc->filename);
+				label_string = g_strdup(tmpstr);
+				g_free(tmpstr);
+			}
+			gtk_label_set(GTK_LABEL(doc->tab_menu),doc->filename);
+		} else {
+			if (doc->modified) {
+				label_string = g_strdup(_("Untitled *"));
+			} else {
+				label_string = g_strdup(_("Untitled"));
+			}
+			gtk_label_set(GTK_LABEL(doc->tab_menu),label_string);
+		}
+		gtk_label_set(GTK_LABEL(doc->tab_label),label_string);
+		g_free(label_string);
 	}
 	/* only when this is the current document we have to change these */
 	if (doc == main_v->current_document) {
@@ -275,6 +300,7 @@ static gint doc_check_backup(Tdocument *doc) {
 Tdocument *doc_new() {
 	GtkWidget *scroll;
 	Tdocument *newdoc = g_new0(Tdocument, 1);
+	DEBUG_MSG("doc_new, main_v is at %p, newdoc at %p\n", main_v, newdoc);
 
 	newdoc->hl = hl_get_highlightset_by_filename(NULL);
 	newdoc->buffer = gtk_text_buffer_new(main_v->tagtable);
@@ -289,6 +315,7 @@ Tdocument *doc_new() {
 
 	newdoc->tab_label = gtk_label_new(NULL);
 	GTK_WIDGET_UNSET_FLAGS(newdoc->tab_label, GTK_CAN_FOCUS);
+	newdoc->tab_menu = gtk_label_new(NULL);
 
 /*	doc_unre_init(newdoc);*/
 
@@ -304,17 +331,17 @@ Tdocument *doc_new() {
 /*	newdoc->highlightstate = main_v->props.defaulthighlight;*/
 
 	main_v->documentlist = g_list_append(main_v->documentlist, newdoc);
-	gtk_notebook_append_page(GTK_NOTEBOOK(main_v->notebook), scroll ,newdoc->tab_label);
-
-
-	main_v->documentlist = g_list_append(main_v->documentlist, newdoc);
 
 	gtk_widget_show(newdoc->view);
 	gtk_widget_show(newdoc->tab_label);
 	gtk_widget_show(scroll);
 
+	DEBUG_MSG("doc_new, appending doc to notebook\n");
+	gtk_notebook_append_page_menu(GTK_NOTEBOOK(main_v->notebook), scroll ,newdoc->tab_label, newdoc->tab_menu);
+
+	DEBUG_MSG("doc_new, set notebook page to %d\n", g_list_length(main_v->documentlist) - 1);
 	gtk_notebook_set_page(GTK_NOTEBOOK(main_v->notebook),g_list_length(main_v->documentlist) - 1);
-	notebook_changed();
+/*	notebook_changed(-1);*/
 
 	gtk_widget_grab_focus(newdoc->view);	
 	return newdoc;
@@ -410,7 +437,7 @@ void doc_destroy(Tdocument * doc)
 /*	doc_unre_destroy(doc);*/
 	g_free(doc);
 
-	notebook_changed();
+/*	notebook_changed();*/
 }
 
 /* gint doc_save(Tdocument * doc, gint do_save_as, gint do_move)
@@ -613,7 +640,7 @@ gint doc_close(Tdocument * doc, gint warn_only)
 		}
 	}
 
-	notebook_changed();
+/*	notebook_changed();*/
 	return 1;
 }
 
@@ -642,7 +669,7 @@ void doc_new_with_file(gchar * filename) {
 	doc->modified = 1; /* force doc_set_modified() to update the tab-label */
 	doc_set_modified(doc, 0);
 	doc_set_stat_info(doc); /* also sets mtime field */
-	notebook_changed();
+/*	notebook_changed();*/
 }
 
 void docs_new_from_files(GList * file_list) {
@@ -810,17 +837,17 @@ void file_close_all_cb(GtkWidget * widget, gpointer data)
 			if (doc_close(tmpdoc, 0)) {
 				tmplist = g_list_first(main_v->documentlist);
 			} else {
-				notebook_changed();
+/*				notebook_changed();*/
 				return;
 			}
 		break;
 		default:
-			notebook_changed();
+/*			notebook_changed();*/
 			return;
 		break;
 		}
 	}
-	notebook_changed();
+/*	notebook_changed();*/
 	DEBUG_MSG("file_close_all_cb, finished\n");
 }
 
