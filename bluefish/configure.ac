@@ -185,7 +185,7 @@ AC_ARG_ENABLE(highlight-profiling,
 AC_DEFINE(HL_PROFILING)],)
 
 AC_ARG_ENABLE(development,
-	AC_HELP_STRING[--enable-development],[Enables development checks, will slow down the program!]),[
+	AC_HELP_STRING([--enable-development],[Enables development checks, will slow down the program!]),[
    echo "With development checks"
 	AC_DEFINE(DEVELOPMENT)],)
 
