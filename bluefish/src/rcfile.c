@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-/* #define DEBUG */
+#define DEBUG
 
 #include <gtk/gtk.h>
 #include <sys/stat.h>
@@ -917,8 +917,8 @@ gboolean rcfile_save_global_session(void) {
 	gboolean retval;
 	gchar *filename = g_strconcat(g_get_home_dir(), "/.bluefish/session", NULL);
 	GList *configlist = return_session_configlist(NULL, main_v->session);
-	g_print("saving global session to %s\n",filename);
-	g_print("length bookmarks=%d\n",g_list_length(main_v->session->bmarks));
+	g_print("rcfile_save_global_session, saving global session to %s\n",filename);
+	g_print("rcfile_save_global_session, length bookmarks=%d\n",g_list_length(main_v->session->bmarks));
 	retval = save_config_file(configlist, filename);
 	free_configlist(configlist);
 	g_free(filename);
