@@ -53,7 +53,7 @@ esac
  
 if test "$CYGWIN" = "yes"; then
 	AC_DEFINE(WIN32)
-	CFLAGS="$CFLAGS -fnative-struct"
+	CFLAGS="$CFLAGS"
 	LIBS="$LIBS -lintl.dll"
 fi  
 
