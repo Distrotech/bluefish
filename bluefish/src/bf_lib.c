@@ -59,11 +59,7 @@ void refcpointer_unref(Trefcpointer *rp) {
  */
 gchar *uri_to_document_filename(GnomeVFSURI *uri) {
 	gchar *tmpuri, *utf8uri;
-	if (gnome_vfs_uri_is_local(uri)) {
-		tmpuri = gnome_vfs_uri_to_string(uri, GNOME_VFS_URI_HIDE_TOPLEVEL_METHOD);
-	} else {
-		tmpuri = gnome_vfs_uri_to_string(uri, GNOME_VFS_URI_HIDE_PASSWORD);
-	}
+	tmpuri = gnome_vfs_uri_to_string(uri, GNOME_VFS_URI_HIDE_PASSWORD); /* this function automatically hides the toplevel method for local files */
 	utf8uri = gnome_vfs_format_uri_for_display(tmpuri);
 	g_free(tmpuri);
 	return utf8uri;

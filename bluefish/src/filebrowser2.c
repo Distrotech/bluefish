@@ -231,14 +231,15 @@ static GtkTreeIter *fb2_add_filesystem_entry(GtkTreeIter *parent, GnomeVFSURI *c
 		tmp = uri_to_document_filename(child_uri);
 		tmp2 = strrchr(tmp, '/');
 		DEBUG_MSG("fb2_add_filesystem_entry, tmp2=%s for tmp=%s\n",tmp2,tmp);
-		display_name = tmp2 && strlen(tmp2)>2 ? g_strdup(tmp2+1) : gnome_vfs_uri_to_string(child_uri,GNOME_VFS_URI_HIDE_PASSWORD);
+		if (tmp2 && strlen(tmp2)>2) display_name = gnome_vfs_unescape_string(tmp2+1, "");
+		else display_name = gnome_vfs_uri_to_string(child_uri,GNOME_VFS_URI_HIDE_PASSWORD);
+		g_free(tmp);
 		pixmap = FILEBROWSER2CONFIG(main_v->fb2config)->dir_icon;
 		if (type != TYPE_DIR) {
 			Tfiletype *ft = get_filetype_by_filename_and_content(display_name, NULL);
 			if (ft && ft->icon) pixmap = ft->icon;
 			else pixmap = FILEBROWSER2CONFIG(main_v->fb2config)->unknown_icon;
 		}
-		g_free(tmp);
 		gtk_tree_store_append(GTK_TREE_STORE(FILEBROWSER2CONFIG(main_v->fb2config)->filesystem_tstore),newiter,parent);
 		DEBUG_MSG("fb2_add_filesystem_entry, will add ");
 		DEBUG_URI(uri_dup, TRUE);
