@@ -129,10 +129,11 @@ static void file2doc_lcb(gint status,gint error_info,gchar *buffer,GnomeVFSFileS
 		case OPENFILE_FINISHED:
 			DEBUG_MSG("file2doc_lcb, status=%d, now we should convert %s data into a GtkTextBuffer and such\n",status, gnome_vfs_uri_get_path(f2d->uri));
 			doc_buffer_to_textbox(f2d->doc, buffer, buflen, FALSE, TRUE);
+			doc_set_status(f2d->doc, DOC_STATUS_COMPLETE);
+			bmark_set_for_doc(f2d->doc);
+			bmark_check_length(f2d->bfwin,f2d->doc);
 			if (f2d->bfwin->focus_next_new_doc) {
 				switch_to_document_by_pointer(f2d->bfwin,f2d->doc);
-				bmark_set_for_doc(f2d->doc);
-				bmark_check_length(f2d->bfwin,f2d->doc);
 				f2d->bfwin->focus_next_new_doc = FALSE;
 			}
 			file2doc_cleanup(data);
@@ -141,6 +142,7 @@ static void file2doc_lcb(gint status,gint error_info,gchar *buffer,GnomeVFSFileS
 		case OPENFILE_ERROR_NOCHANNEL:
 		case OPENFILE_ERROR_NOREAD:
 			DEBUG_MSG("file2doc_lcb, status=%d, cleanup!!!!!\n",status);
+			doc_set_status(f2d->doc, DOC_STATUS_ERROR);
 			file2doc_cleanup(data);
 		break;
 	}

@@ -633,7 +633,7 @@ gboolean doc_is_empty_non_modified_and_nameless(Tdocument *doc) {
 	if (!doc) {
 		return FALSE;
 	}
-	if (doc->modified || doc->filename) {
+	if (doc->modified || doc->filename || doc->uri) {
 		return FALSE;
 	}
 	if (gtk_text_buffer_get_char_count(doc->buffer) > 0) {
@@ -766,6 +766,32 @@ gboolean doc_has_selection(Tdocument *doc) {
 	return gtk_text_buffer_get_selection_bounds(doc->buffer,NULL,NULL);
 }
 
+static void doc_set_label_color(Tdocument *doc, GdkColor *color) {
+	gtk_widget_modify_fg(doc->tab_menu, GTK_STATE_NORMAL, color);
+	gtk_widget_modify_fg(doc->tab_menu, GTK_STATE_PRELIGHT, color);
+	gtk_widget_modify_fg(doc->tab_label, GTK_STATE_NORMAL, color);
+	gtk_widget_modify_fg(doc->tab_label, GTK_STATE_PRELIGHT, color);
+	gtk_widget_modify_fg(doc->tab_label, GTK_STATE_ACTIVE, color);
+}
+
+void doc_set_status(Tdocument *doc, gint status) {
+	GdkColor colorblack = {0, 0, 0, 0};
+	GdkColor colorgrey = {0, 30000, 30000, 30000};
+	GdkColor colorred = {0, 65535, 0, 0};
+	doc->status = status;
+	switch(status) {
+		case DOC_STATUS_COMPLETE:
+			doc_set_label_color(doc, &colorblack);
+		break;
+		case DOC_STATUS_ERROR:
+			doc_set_label_color(doc, &colorred);
+		break;
+		case DOC_STATUS_LOADING:
+			doc_set_label_color(doc, &colorgrey);
+		break;
+	}
+}
+
 /**
  * doc_set_modified:
  * @doc: a #Tdocument
@@ -786,22 +812,14 @@ gboolean doc_has_selection(Tdocument *doc) {
 void doc_set_modified(Tdocument *doc, gint value) {
 	DEBUG_MSG("doc_set_modified, started, doc=%p, value=%d\n", doc, value);
 	if (doc->modified != value) {
-		GdkColor colorred = {0, 65535, 0, 0};
+		GdkColor colorblue = {0, 0, 0, 65535};
 		GdkColor colorblack = {0, 0, 0, 0};
 
 		doc->modified = value;
 		if (doc->modified) {
-			gtk_widget_modify_fg(doc->tab_menu, GTK_STATE_NORMAL, &colorred);
-			gtk_widget_modify_fg(doc->tab_menu, GTK_STATE_PRELIGHT, &colorred);
-			gtk_widget_modify_fg(doc->tab_label, GTK_STATE_NORMAL, &colorred);
-			gtk_widget_modify_fg(doc->tab_label, GTK_STATE_PRELIGHT, &colorred);
-			gtk_widget_modify_fg(doc->tab_label, GTK_STATE_ACTIVE, &colorred);
+			doc_set_label_color(doc, &colorblue);
 		} else {
-			gtk_widget_modify_fg(doc->tab_menu, GTK_STATE_NORMAL, &colorblack);
-			gtk_widget_modify_fg(doc->tab_menu, GTK_STATE_PRELIGHT, &colorblack);
-			gtk_widget_modify_fg(doc->tab_label, GTK_STATE_NORMAL, &colorblack);
-			gtk_widget_modify_fg(doc->tab_label, GTK_STATE_PRELIGHT, &colorblack);
-			gtk_widget_modify_fg(doc->tab_label, GTK_STATE_ACTIVE, &colorblack);
+			doc_set_label_color(doc, &colorblack);
 		}
 	}
 #ifdef DEBUG
@@ -2903,8 +2921,7 @@ Tdocument *doc_new_loading_in_background(Tbfwin *bfwin, gchar *uri, GnomeVFSFile
 		doc->fileinfo = NULL;
 	}
 	doc_set_filename(doc,uri);
-	
-	doc->status = DOC_STATUS_LOADING;
+	doc_set_status(doc, DOC_STATUS_LOADING);
 	return doc;
 }
 
