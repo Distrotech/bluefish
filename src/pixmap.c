@@ -139,7 +139,10 @@ static Tpixmap tp[] = {
 	{158,pixmap_prefssyntax},
 	{159, pixmap_nothing},
 	{160, pixmap_frhide},
-	{161, pixmap_frdialog2}
+	{161, pixmap_frdialog2},
+	{162, pixmap_frlibrary},
+	{163, pixmap_frgroup},
+	{164, pixmap_frnote}
 };
 
 static Tstockpixmap tsp[] = {
