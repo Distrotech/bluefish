@@ -62,10 +62,8 @@ static void update_project_filelist(Tbfwin *bfwin, Tproject *prj) {
 
 static Tproject *create_new_project(Tbfwin *bfwin) {
 	Tproject *prj;
-	prj = g_new(Tproject,1);
+	prj = g_new0(Tproject,1);
 	prj->name = g_strdup(_("New project"));
-	prj->filename = NULL;
-	prj->files = NULL;
 	update_project_filelist(bfwin,prj);
 	prj->basedir = g_strdup("");
 	prj->webdir = g_strdup("");
