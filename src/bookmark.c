@@ -358,7 +358,6 @@ static void bmark_get_iter_at_position(GtkTreeStore *store, Tbmark *m,GtkTreeIte
    gpointer ptr;
    GtkTreeIter *it;
    
-	DEBUG_MSG("bmark_get_iter_at_position, determining parent %p %s\n",data->bmark_file_iters,m->filepath);
 	if (m->is_temp)
 	   ptr = g_hash_table_lookup(data->file_iters_temp,m->filepath);
 	else
