@@ -990,7 +990,7 @@ typedef struct {
 	Tbfwin *bfwin;
 } Tcolsel;
 
-static gint string_is_color(gchar *color) {
+static gint string_is_color(const gchar *color) {
 	gint i;
 
 	if (!color) {
@@ -1047,8 +1047,7 @@ static gchar *gdouble_arr_to_hex(gdouble *color, gint websafe)
 	return tmpstr;
 }
 
-static gdouble *hex_to_gdouble_arr(gchar *color)
-{
+static gdouble *hex_to_gdouble_arr(const gchar *color) {
 	static gdouble tmpcol[4];
 	gchar tmpstr[8];
 	long tmpl;

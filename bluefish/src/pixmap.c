@@ -37,7 +37,7 @@ static Tpixmap tp[] = {
 	{24, hrule},
 	{25, image},
 	{26, thumbnail},
-/*	{27, multi_thumbnail},  multi thumbnail image ?? */
+	{27, multithumbs}, /*  multi thumbnail image ?? */
 	{28, center},
 	{29, right},
 	{30, comment},
