@@ -75,7 +75,7 @@ install: all $(INSTALLDATA)
 	done
 
 uninstall:
-	rm -rf $(DESTDIR)$(GNOME2MIME)/bluefish.xml
+	rm -rf $(DESTDIR)$(GNOME2MIME)/packages/bluefish.xml
 	rm -rf $(GNOME2MIMEINFO)/bluefish.mime
 	rm -rf $(GNOME2MIMEINFO)/bluefish.keys
 	rm -rf $(GNOME2APPLICATIONREGISTRY)/bluefish.applications
