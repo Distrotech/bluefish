@@ -129,7 +129,7 @@ static void DEBUG_DIRITER(Tfilebrowser2 *fb2, GtkTreeIter *diriter) {
 	gtk_tree_model_get(GTK_TREE_MODEL(FILEBROWSER2CONFIG(main_v->fb2config)->filesystem_tstore), diriter, FILENAME_COLUMN, &name, -1);
 	DEBUG_MSG("DEBUG_DIRITER, iter(%p) has filename %s\n",diriter,name);
 }
-static void DEBUG_URI(const GnomeVFSURI *uri, gboolean newline) {
+void DEBUG_URI(const GnomeVFSURI *uri, gboolean newline) {
 	guint hash;
 	gchar *name = gnome_vfs_uri_to_string(uri, GNOME_VFS_URI_HIDE_PASSWORD);
 	hash = gnome_vfs_uri_hash(uri);
@@ -431,6 +431,20 @@ static void fb2_refresh_dir(GnomeVFSURI *uri, GtkTreeIter *dir) {
 		fb2_fill_dir_async(dir, uri);
 	}
 }
+
+/**
+ * fb2_refresh_dir_from_uri:
+ * @dir: the uri to refresh
+ *
+ * can be used to make the filebrowser refresh a certain directory
+ * from external (other then filebrowser) code.
+ *
+ * will not refresh if this directory does not yet exist in the filebrowser !!
+ */
+void fb2_refresh_dir_from_uri(GnomeVFSURI *dir) {
+	fb2_refresh_dir(dir, NULL);
+}
+
 /**
  * fb2_refresh_parent_of_uri:
  *
@@ -1525,10 +1539,44 @@ enum {
 	TARGET_STRING
 };
 
+static void fb2_file_v_drag_data_received(GtkWidget * widget, GdkDragContext * context
+			, gint x, gint y, GtkSelectionData * data
+			, guint info, guint time, Tfilebrowser2 *fb2) {
+
+	gchar *stringdata;
+	GnomeVFSURI *destdir=fb2->currentdir;
+	gnome_vfs_uri_ref(destdir);
+	
+	g_signal_stop_emission_by_name(widget, "drag_data_received");
+	if ((data->length == 0) || (data->format != 8) || ((info != TARGET_STRING) && (info != TARGET_URI_LIST))) {
+		gtk_drag_finish(context, FALSE, TRUE, time);
+		return;
+	}
+	stringdata = g_strndup((gchar *)data->data, data->length);
+	DEBUG_MSG("fb2_file_v_drag_data_received, stringdata='%s', len=%d\n",stringdata,data->length);
+	if (destdir) {
+		if (strchr(stringdata, '\n') == NULL) { /* no newlines, probably a single file */
+			gchar *curi;
+			curi = gnome_vfs_make_uri_from_input(stringdata);
+			copy_files_async(fb2->bfwin, destdir, curi);
+			g_free(curi);
+		} else { /* there are newlines, probably this is a list of uri's */
+			copy_files_async(fb2->bfwin, destdir, stringdata);
+		}
+		gnome_vfs_uri_unref(destdir);
+		gtk_drag_finish(context, TRUE, TRUE, time);
+	} else {
+		gtk_drag_finish(context, FALSE, TRUE, time);
+	}
+	g_free(stringdata);
+}
+
 static void fb2_dir_v_drag_data_received(GtkWidget * widget, GdkDragContext * context
 			, gint x, gint y, GtkSelectionData * data
 			, guint info, guint time, Tfilebrowser2 *fb2) {
-	gchar *stringdata, *curi;
+	gchar *stringdata;
+	GnomeVFSURI *destdir=NULL;
+	GtkTreePath *path;
 	/* if we don't do this, we get this text: Gtk-WARNING **: You must override the default 
 	'drag_data_received' handler on GtkTreeView when using models that don't support the 
 	GtkTreeDragDest interface and enabling drag-and-drop. The simplest way to do this is to 
@@ -1542,34 +1590,38 @@ static void fb2_dir_v_drag_data_received(GtkWidget * widget, GdkDragContext * co
 		return;
 	}
 	stringdata = g_strndup((gchar *)data->data, data->length);
-	/* now we check if it is a uri, and if so we copy it to the destination */
-	curi = gnome_vfs_make_uri_from_input(stringdata);
-	if (curi) {
-		GnomeVFSURI *srcuri;
-		srcuri = gnome_vfs_uri_new(stringdata);
-		if (srcuri) {
-			/* now find the dest. uri */
-			GnomeVFSURI *desturi = NULL;
-			GtkTreePath *path;
-			gtk_tree_view_get_path_at_pos(GTK_TREE_VIEW(fb2->dir_v), x, y, &path, NULL, NULL, NULL);
-			if (path) {
-				if (fb2_isdir_from_dir_sort_path(fb2, path)) {
-					GnomeVFSURI *diruri;
-					diruri = fb2_uri_from_dir_sort_path(fb2,path);
-					desturi = gnome_vfs_uri_append_string(diruri,gnome_vfs_uri_extract_short_path_name(srcuri));
-				} else {
-					/* what do we do else ?? find the parent of the thing ?*/
-				}
-				if (desturi) {
-					DEBUG_MSG("fb2_dir_v_drag_data_received, copy %s to %s\n",gnome_vfs_uri_get_path(srcuri),gnome_vfs_uri_get_path(desturi));
-					copy_file_async(fb2->bfwin, srcuri, desturi);
-/*					gnome_vfs_uri_unref(desturi);*/
-				}
+	DEBUG_MSG("fb2_dir_v_drag_data_received, stringdata='%s', len=%d\n",stringdata,data->length);
+	/* first find the destination directory */
+	gtk_tree_view_get_path_at_pos(GTK_TREE_VIEW(fb2->dir_v), x, y, &path, NULL, NULL, NULL);
+	if (path) {
+		GtkTreeIter iter;
+		if (gtk_tree_model_get_iter(fb2->dir_tsort,&iter,path)) {
+			GnomeVFSURI *uri;
+			gint type;
+			gtk_tree_model_get(fb2->dir_tsort, &iter, TYPE_COLUMN, &type, URI_COLUMN, &uri, -1);
+			if (type == TYPE_DIR || type == TYPE_HIDDEN_DIR) {
+				destdir = uri;
+				gnome_vfs_uri_ref(destdir);
+			} else {
+				destdir = gnome_vfs_uri_get_parent(uri);
 			}
-/*			gnome_vfs_uri_unref(srcuri);*/
 		}
 	}
-	gtk_drag_finish(context, TRUE, TRUE, time);
+	if (destdir) {
+		if (strchr(stringdata, '\n') == NULL) { /* no newlines, probably a single file */
+			gchar *curi;
+			curi = gnome_vfs_make_uri_from_input(stringdata);
+			copy_files_async(fb2->bfwin, destdir, curi);
+			g_free(curi);
+		} else { /* there are newlines, probably this is a list of uri's */
+			copy_files_async(fb2->bfwin, destdir, stringdata);
+		}
+		gnome_vfs_uri_unref(destdir);
+		gtk_drag_finish(context, TRUE, TRUE, time);
+	} else {
+		gtk_drag_finish(context, FALSE, TRUE, time);
+	}
+	g_free(stringdata);
 }
 
 GtkWidget *fb2_init(Tbfwin *bfwin) {
@@ -1577,6 +1629,10 @@ GtkWidget *fb2_init(Tbfwin *bfwin) {
 	GtkWidget *vbox;
 	GtkWidget *scrolwin;
 	GtkCellRenderer *renderer;	
+	const GtkTargetEntry drag_dest_types[] = {
+		{"text/uri-list", 0, TARGET_URI_LIST },
+		{"STRING", 0, TARGET_STRING},
+	};
 
 	fb2 = g_new0(Tfilebrowser2,1);
 	bfwin->fb2 = fb2;
@@ -1621,10 +1677,6 @@ GtkWidget *fb2_init(Tbfwin *bfwin) {
 	{	
 		GtkTreeViewColumn *column;
 		GtkTreeSelection* dirselection;	
-		const GtkTargetEntry drag_dest_types[] = {
-			{"text/uri-list", 0, TARGET_URI_LIST },
-			{"STRING", 0, TARGET_STRING},
-		};
 
 		fb2->dir_tfilter = gtk_tree_model_filter_new(GTK_TREE_MODEL(FILEBROWSER2CONFIG(main_v->fb2config)->filesystem_tstore),NULL);
 		gtk_tree_model_filter_set_visible_func(GTK_TREE_MODEL_FILTER(fb2->dir_tfilter),tree_model_filter_func,fb2,NULL);
@@ -1655,7 +1707,6 @@ GtkWidget *fb2_init(Tbfwin *bfwin) {
 		gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolwin), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
 		gtk_container_add(GTK_CONTAINER(scrolwin), fb2->dir_v);
 
-		/* drag n drop support */
 		gtk_drag_dest_set(fb2->dir_v,(GTK_DEST_DEFAULT_ALL),drag_dest_types, 2
 				,(GDK_ACTION_DEFAULT | GDK_ACTION_COPY));
 		g_signal_connect(G_OBJECT(fb2->dir_v), "drag_data_received", G_CALLBACK(fb2_dir_v_drag_data_received), fb2);
@@ -1698,6 +1749,10 @@ GtkWidget *fb2_init(Tbfwin *bfwin) {
 
 		gtk_box_pack_start(GTK_BOX(vbox), vpaned, TRUE, TRUE, 0);
 		g_signal_connect(G_OBJECT(fb2->file_v), "button_press_event",G_CALLBACK(file_v_button_press_lcb),fb2);
+		gtk_drag_dest_set(fb2->file_v,(GTK_DEST_DEFAULT_ALL),drag_dest_types, 2
+				,(GDK_ACTION_DEFAULT | GDK_ACTION_COPY));
+		g_signal_connect(G_OBJECT(fb2->file_v), "drag_data_received", G_CALLBACK(fb2_file_v_drag_data_received), fb2);
+
 	} else {
 		gtk_box_pack_start(GTK_BOX(vbox), scrolwin, TRUE, TRUE, 0);
 	}

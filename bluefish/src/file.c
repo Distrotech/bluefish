@@ -57,7 +57,7 @@ static gboolean checkmodified_is_modified(GnomeVFSFileInfo *orig, GnomeVFSFileIn
 		if (orig->mtime != new->mtime) return TRUE;
 	}
 	if (main_v->props.modified_check_type == 1 || main_v->props.modified_check_type == 3) {
-		DEBUG_MSG("checkmodified_is_modified, 1validfields=%d, 2validfields=%d, size1=%d, size2=%d\n",orig->valid_fields,new->valid_fields,orig->size, new->size);
+		/* DEBUG_MSG("checkmodified_is_modified, 1validfields=%d, 2validfields=%d, size1=%d, size2=%d\n",orig->valid_fields,new->valid_fields,orig->size, new->size);*/
 		DEBUG_MSG("checkmodified_is_modified, matches=%d\n",gnome_vfs_file_info_matches(orig,new));
 		if (orig->size != new->size) return TRUE;
 	}
@@ -245,7 +245,7 @@ static void checkNsave_savefile_lcb(Tsavefile_status status,gint error_info,gpoi
 	}
 }
 
-gint checkNsave_progress_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSXferProgressInfo *info,gpointer data) {
+static gint checkNsave_progress_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSXferProgressInfo *info,gpointer data) {
 	TcheckNsave *cns = data;
 	DEBUG_MSG("checkNsave_progress_lcb, started with status %d and phase %d for source %s and target %s, index=%ld, total=%ld, thread=%p\n"
 			,info->status,info->phase,info->source_name,info->target_name,info->file_index,info->files_total, g_thread_self());
@@ -286,7 +286,7 @@ gint checkNsave_progress_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSXferProgressInf
  <Oli4> ok
  <gicmo> Oli4, nautilus/libnautilus-private/nautilus-file-operations.c could be a place you should look at
 */
-gint checkNsave_sync_lcb(GnomeVFSXferProgressInfo *info,gpointer data) {
+static gint checkNsave_sync_lcb(GnomeVFSXferProgressInfo *info,gpointer data) {
    DEBUG_MSG("checkNsave_sync_lcb, started with status %d and phase %d for source %s and target %s, index=%ld, total=%ld, thread=%p\n"
 			,info->status,info->phase,info->source_name,info->target_name,info->file_index,info->files_total, g_thread_self());
 	/* Christian Kellner (gicmo on #nautilus on irc.gimp.ca) found 
@@ -864,6 +864,7 @@ void open_advanced(Tbfwin *bfwin, GnomeVFSURI *basedir, gboolean recursive, gcha
 /************************/
 typedef struct {
 	GnomeVFSAsyncHandle *handle;
+	GnomeVFSURI *destdir;
 	GList *sourcelist;
 	GList *destlist;
 } Tcopyfile;
@@ -872,6 +873,7 @@ static void copyfile_cleanup(Tcopyfile *cf) {
 	DEBUG_MSG("copyfile_cleanup %p\n",cf);
 	gnome_vfs_uri_list_free(cf->sourcelist);
 	gnome_vfs_uri_list_free(cf->destlist);
+	gnome_vfs_uri_unref(cf->destdir);
 	g_free(cf);
 }
 
@@ -889,6 +891,8 @@ static gint copyfile_progress_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSXferProgre
 		return GNOME_VFS_XFER_ERROR_ACTION_SKIP;
 	} else if (info->status == GNOME_VFS_XFER_PROGRESS_STATUS_OK) {
 		if (info->phase == GNOME_VFS_XFER_PHASE_COMPLETED) {
+			/* lets tell the filebrowser to refresh this dir */
+			fb2_refresh_dir_from_uri(cf->destdir);
 			/* hey! we're finished!! */
 			copyfile_cleanup(cf);
 		}
@@ -902,20 +906,36 @@ static gint copyfile_sync_lcb(GnomeVFSXferProgressInfo *info,gpointer data) {
 	return 1;
 }
 
-void copy_file_async(Tbfwin *bfwin, GnomeVFSURI *srcuri, GnomeVFSURI *desturi) {
+void copy_files_async(Tbfwin *bfwin, GnomeVFSURI *destdir, gchar *sources) {
 	Tcopyfile *cf;
 	GnomeVFSResult ret;
-	cf = g_new(Tcopyfile,1);
-	cf->sourcelist = g_list_append(NULL, srcuri);
-	cf->destlist = g_list_append(NULL, desturi);
-	gnome_vfs_uri_ref(srcuri);
-	gnome_vfs_uri_ref(desturi);
+	gchar **splitted, **tmp;
+	cf = g_new0(Tcopyfile,1);
+	cf->destdir = destdir;
+	gnome_vfs_uri_ref(cf->destdir);
+	/* create the source and destlist ! */
+	tmp = splitted = g_strsplit(sources, "\n",0);
+	while (*tmp) {
+		trunc_on_char(trunc_on_char(*tmp, '\r'), '\n');
+		DEBUG_MSG("copy_files_async, *tmp='%s', len=%d\n",*tmp,strlen(*tmp));
+		if (strlen(*tmp) > 1) {
+			GnomeVFSURI *src, *dest;
+			gchar *tmpstring;
+			src = gnome_vfs_uri_new(*tmp);
+			tmpstring = gnome_vfs_uri_extract_short_path_name(src);
+			dest = gnome_vfs_uri_append_string(destdir, tmpstring);
+			g_free(tmpstring);
+			cf->sourcelist = g_list_append(cf->sourcelist, src);
+			cf->destlist = g_list_append(cf->destlist, dest);
+		}
+		tmp++;
+	}
 	ret = gnome_vfs_async_xfer(&cf->handle,cf->sourcelist,cf->destlist
 			,GNOME_VFS_XFER_FOLLOW_LINKS,GNOME_VFS_XFER_ERROR_MODE_QUERY
 			,GNOME_VFS_XFER_OVERWRITE_MODE_QUERY,GNOME_VFS_PRIORITY_DEFAULT
 			,copyfile_progress_lcb, cf ,copyfile_sync_lcb, cf);
-	DEBUG_MSG("copy_file_async, start backup, source=%s, dest=%s (len=%d,%d) in thread %p, ret=%d\n"
-			,gnome_vfs_uri_get_path(srcuri),gnome_vfs_uri_get_path(desturi)
-			,g_list_length(cf->sourcelist),g_list_length(cf->destlist),g_thread_self(),ret);
+	DEBUG_MSG("copy_file_async, start backup, srclen=%d,destlen=%d, ret=%d\n"
+			,g_list_length(cf->sourcelist),g_list_length(cf->destlist),ret);
+	g_strfreev(splitted);
 }
 
