@@ -2566,7 +2566,10 @@ static void files_advanced_win_select_basedir_lcb(GtkWidget * widget, Tfiles_adv
 static void files_advanced_win(Tfiles_advanced *tfs) {
 	GtkWidget *vbox, *hbox, *but, *table;
 	GList *list;
-	gchar *curdir=g_get_current_dir();
+	if (!tfs->basedir) {
+		gchar *curdir=g_get_current_dir();
+		tfs->basedir = entry_with_text(curdir, 255);
+	}
 	
 	tfs->win = window_full2(_("Advanced open file selector"), GTK_WIN_POS_MOUSE, 12, G_CALLBACK(files_advanced_win_destroy),tfs, TRUE, tfs->bfwin->main_window);
 	DEBUG_MSG("files_advanced_win, tfs->win=%p\n",tfs->win);
@@ -2585,12 +2588,12 @@ static void files_advanced_win(Tfiles_advanced *tfs) {
 	/* filename part */
 	/* curdir should get a value */
 	bf_label_tad_with_markup(_("<b>General</b>"), 0, 0.5, table, 0, 3, 2, 3);
-	tfs->basedir = entry_with_text(curdir, 255);
+
 	bf_mnemonic_label_tad_with_alignment(_("Base_dir:"), tfs->basedir, 0, 0.5, table, 1, 2, 3, 4);
 	gtk_table_attach_defaults(GTK_TABLE(table), tfs->basedir, 2, 4, 3, 4);
 	gtk_table_attach(GTK_TABLE(table), bf_generic_button_with_image(_("_Browse..."), 112, G_CALLBACK(files_advanced_win_select_basedir_lcb), tfs), 4, 5, 3, 4, GTK_SHRINK, GTK_SHRINK, 0, 0);
 
-	g_free(curdir);
+/*	g_free(curdir);*/
 	
 	list = g_list_append(NULL, "*.php");
 	list = g_list_append(list, "*.php3");
@@ -2643,9 +2646,13 @@ static void files_advanced_win(Tfiles_advanced *tfs) {
 	gtk_window_set_transient_for(GTK_WINDOW(tfs->win), GTK_WINDOW(tfs->bfwin->main_window));
 }
 
-GList *return_files_advanced(Tbfwin *bfwin) {
-	Tfiles_advanced tfs = {NULL, NULL, NULL, NULL, NULL, NULL, NULL, bfwin};
-
+GList *return_files_advanced(Tbfwin *bfwin, gchar *tmppath) {
+  Tfiles_advanced tfs = {NULL, NULL, NULL, NULL, NULL, NULL, NULL, bfwin};
+	if (tmppath) {
+		GtkWidget *curdir = entry_with_text(tmppath, 255);
+		tfs.basedir = curdir;
+	}
+		/* this is probably called different!! */
 	files_advanced_win(&tfs);
 	DEBUG_MSG("return_files_advanced, calling gtk_main()\n");
 	gtk_main();
@@ -2722,7 +2729,24 @@ void file_open_cb(GtkWidget * widget, Tbfwin *bfwin) {
 #ifdef EXTERNAL_FIND
 void file_open_advanced_cb(GtkWidget * widget, Tbfwin *bfwin) {
 	GList *tmplist;
-	tmplist = return_files_advanced(bfwin);
+	tmplist = return_files_advanced(bfwin, NULL);
+	if (!tmplist) {
+		return;
+	}
+	{
+		gint len = g_list_length(tmplist);
+		gchar *message = g_strdup_printf(_("Loading %d file(s)..."), len);
+		statusbar_message(bfwin,message,2000+len*50);
+		g_free(message);
+		flush_queue();
+	}
+	docs_new_from_files(bfwin,tmplist);
+	free_stringlist(tmplist);
+}
+
+void open_advanced_from_filebrowser(Tbfwin *bfwin, gchar *path) {
+	GList *tmplist;
+	tmplist = return_files_advanced(bfwin, path);
 	if (!tmplist) {
 		return;
 	}

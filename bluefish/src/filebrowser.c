@@ -1142,6 +1142,17 @@ static void filebrowser_rpopup_action_lcb(Tfilebrowser *filebrowser,guint callba
 	case 6:
 		filebrowser_rpopup_refresh(filebrowser);
 	break;
+#ifdef EXTERNAL_GREP
+#ifdef EXTERNAL_FIND
+	case 7: {
+		GtkTreePath *tmppath;
+		gchar *path;
+		tmppath = filebrowser_get_path_from_selection(GTK_TREE_MODEL(filebrowser->store),GTK_TREE_VIEW(filebrowser->tree),NULL);
+		path = return_filename_from_path(GTK_TREE_MODEL(filebrowser->store), tmppath);
+		open_advanced_from_filebrowser(filebrowser->bfwin, path);
+	} break;	
+#endif
+#endif	
 	}
 }
 
@@ -1172,6 +1183,11 @@ static void filebrowser_rpopup_filter_toggled_lcb(GtkWidget *widget, Tfilebrowse
 
 static GtkItemFactoryEntry filebrowser_menu_entries[] = {
 	{ N_("/_Open"),			NULL,	filebrowser_rpopup_action_lcb,		1,	"<Item>" },
+#ifdef EXTERNAL_GREP
+#ifdef EXTERNAL_FIND	
+	{ N_("/Open _Advanced"),			NULL,	filebrowser_rpopup_action_lcb,		7,	"<Item>" },
+#endif
+#endif
 	{ N_("/sep1"),				NULL,	NULL,								0, "<Separator>" },
 	{ N_("/Rena_me"),		NULL,	filebrowser_rpopup_action_lcb,			2,	"<Item>" },
 	{ N_("/_Delete"),		NULL,	filebrowser_rpopup_action_lcb,			3,	"<Item>" },
