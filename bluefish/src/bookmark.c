@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-#define DEBUG
+/* #define DEBUG */
 
 #include <gtk/gtk.h>
 #include <sys/types.h>
@@ -496,7 +496,7 @@ static void bmark_get_iter_at_position(Tbfwin * bfwin, Tbmark * m)
 		}
 		if (m->doc != NULL)
 			m->doc->bmark_parent = parent;
-		DEBUG_MSG("bmark_get_iter_at_position, appending parent in hashtable for filepath=%s\n",m->filepath);
+		DEBUG_MSG("bmark_get_iter_at_position, appending parent %p in hashtable for filepath=%s\n",parent, m->filepath);
 		g_hash_table_insert(bfwin->bmark_files, m->filepath, parent);
 	} else
 		parent = (GtkTreeIter *) ptr;
@@ -724,35 +724,38 @@ void bmark_set_for_doc(Tdocument * doc)
 	}							/* cont */
 }
 
-/* called VERY OFTEN (might be 20X per second!!!!) by document.c
-so we obviously need to add some caching to this function  */
-GHashTable *bmark_get_lines(Tdocument * doc, gboolean temp)
-{
-	GHashTable *ret;
-	GtkTreeIter tmpiter;
-	GtkTextIter it;
-	gboolean cont;
-	int *iaux;
-/*	DEBUG_MSG("bmark_get_lines, started\n");*/
-	ret = g_hash_table_new_full(g_int_hash, g_int_equal, g_free, g_free);
-	if (doc->bmark_parent == NULL)
+/* this function is called VERY OFTEN (might be 20X per second!!!!) by document.c
+so we obviously need to keep this function VERY FAST 
+
+the function will return NULL if no bookmarks for this document are 
+known (this is faster then looking in an empty hash table)
+*/
+GHashTable *bmark_get_bookmarked_lines(Tdocument * doc, GtkTextIter *fromit, GtkTextIter *toit) {
+	if (doc->bmark_parent) {
+		gboolean cont;
+		GtkTreeIter tmpiter;
+		GHashTable *ret = g_hash_table_new_full(g_int_hash, g_int_equal, g_free, g_free);
+		cont = gtk_tree_model_iter_children(GTK_TREE_MODEL(BFWIN(doc->bfwin)->bookmarkstore), 
+									&tmpiter, doc->bmark_parent);
+		while (cont) {
+			Tbmark *mark;
+			gtk_tree_model_get(GTK_TREE_MODEL(BFWIN(doc->bfwin)->bookmarkstore), &tmpiter, PTR_COLUMN,
+							   &mark, -1);
+			if (mark && mark->mark) {
+				GtkTextIter it;
+				gint *iaux;
+				gtk_text_buffer_get_iter_at_mark(doc->buffer, &it, mark->mark);
+				if (gtk_text_iter_in_range(&it,fromit,toit)) {
+					iaux = g_new(gint, 1);
+					*iaux = gtk_text_iter_get_line(&it);
+					g_hash_table_insert(ret, iaux, g_strdup(mark->is_temp ? "1" : "0"));
+				}
+			}
+			cont = gtk_tree_model_iter_next(GTK_TREE_MODEL(BFWIN(doc->bfwin)->bookmarkstore), &tmpiter);
+		} /* cont */
 		return ret;
-	cont =
-		gtk_tree_model_iter_children(GTK_TREE_MODEL(BFWIN(doc->bfwin)->bookmarkstore), &tmpiter,
-									 doc->bmark_parent);
-	while (cont) {
-		Tbmark *mark = NULL;
-		gtk_tree_model_get(GTK_TREE_MODEL(BFWIN(doc->bfwin)->bookmarkstore), &tmpiter, PTR_COLUMN,
-						   &mark, -1);
-		if (mark && mark->mark && mark->doc == doc && mark->is_temp == temp) {
-			iaux = g_new0(gint, 1);
-			gtk_text_buffer_get_iter_at_mark(doc->buffer, &it, mark->mark);
-			*iaux = gtk_text_iter_get_line(&it);
-			g_hash_table_insert(ret, iaux, g_strdup("+"));
-		}
-		cont = gtk_tree_model_iter_next(GTK_TREE_MODEL(BFWIN(doc->bfwin)->bookmarkstore), &tmpiter);
-	}							/* cont */
-	return ret;
+	}
+	return NULL;
 }
 
 void bmark_add_backend(Tbfwin *bfwin, const gchar *name, gint offset, gboolean is_temp) {

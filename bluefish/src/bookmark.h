@@ -26,7 +26,6 @@ GtkWidget *bmark_gui(Tbfwin *bfwin); /* used in gui.c */
 void bmark_init(void); /* only used once */
 void bmark_cleanup(Tbfwin *bfwin);
 
-GHashTable *bmark_get_lines(Tdocument *doc,gboolean temp);
 void bmark_clean_for_doc(Tdocument *doc); /* set bookmark's doc to NULL when closing file */ 
 void bmark_set_for_doc(Tdocument *doc); /* set bookmark's doc to proper doc when opening file */ 
 void bmark_set_store(Tbfwin *bfwin);
@@ -39,5 +38,7 @@ void bmark_del_all(Tbfwin *bfwin,gboolean ask);
 /*void bmark_save_all(Tbfwin *bfwin);*/
 void bmark_check_length(Tbfwin *bfwin,Tdocument *doc);
 void bmark_reload(Tbfwin *bfwin);
+
+GHashTable *bmark_get_bookmarked_lines(Tdocument * doc, GtkTextIter *fromit, GtkTextIter *toit);
 
 #endif /* __BOOKMARK_H__ */

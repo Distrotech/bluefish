@@ -2620,17 +2620,16 @@ static void doc_close_but_clicked_lcb(GtkWidget *wid, gpointer data) {
 }
 
 /* contributed by Oskar Swida <swida@aragorn.pb.bialystok.pl>, with help from the gedit source */
-static gboolean doc_textview_expose_event_lcb(GtkWidget * widget, GdkEventExpose * event, gpointer data) {
+static gboolean doc_textview_expose_event_lcb(GtkWidget * widget, GdkEventExpose * event, gpointer doc) {
 	GtkTextView *view = (GtkTextView*)widget;
 	GdkRectangle rect;
 	GdkWindow *win;
-	GtkTextIter l_start,l_end,it;
+	GtkTextIter l_start,l_end, it;
 	gint l_top1,l_top2;
 	PangoLayout *l;
 	gchar *pomstr;
 	gint numlines,w,i;
-	GHashTable *temp_tab,*temp_tab2;
-	gpointer ptr;
+	GHashTable *temp_tab;
 
 	win = gtk_text_view_get_window(view,GTK_TEXT_WINDOW_LEFT);
 	if (win!=event->window) return FALSE;
@@ -2647,38 +2646,28 @@ static gboolean doc_textview_expose_event_lcb(GtkWidget * widget, GdkEventExpose
 	pango_layout_get_pixel_size(l,&w,NULL);
 	gtk_text_view_set_border_window_size(view,GTK_TEXT_WINDOW_LEFT,w+4);   
 	it = l_start;
-	temp_tab = bmark_get_lines(DOCUMENT(data),TRUE);
-	temp_tab2 = bmark_get_lines(DOCUMENT(data),FALSE);
+	temp_tab = bmark_get_bookmarked_lines(DOCUMENT(doc),&l_start,&l_end);
 	for(i=gtk_text_iter_get_line(&l_start);i<=gtk_text_iter_get_line(&l_end);i++) {
+		gchar* val;
 		gtk_text_iter_set_line(&it,i);
 		gtk_text_view_get_line_yrange(view,&it,&w,NULL);      
 		gtk_text_view_buffer_to_window_coords(view,GTK_TEXT_WINDOW_LEFT,0,w,NULL,&w);
-		ptr = g_hash_table_lookup(temp_tab,&i);      		
-		if (ptr) {
-			pomstr = g_strdup_printf("<span background=\"#768BEA\" >%d</span>",i+1);
-			pango_layout_set_markup(l,pomstr,-1);
-			ptr = NULL;
-		} else {
-			ptr = g_hash_table_lookup(temp_tab2,&i);      		
-			if (ptr) {
-				pomstr = g_strdup_printf("<span background=\"#62CB7F\" >%d</span>",i+1);
-				pango_layout_set_markup(l,pomstr,-1);
-				ptr = NULL;
-			} else {
-				pomstr = g_strdup_printf("<span>%d</span>",i+1);
-				pango_layout_set_markup(l,pomstr,-1);
+		pomstr = NULL;
+		if (temp_tab) {
+			val = g_hash_table_lookup(temp_tab,&i);      		
+			if (val) {
+				pomstr = g_strdup_printf("<span background=\"%s\" >%d</span>",val[0] == '0' ? "#768BEA" : "#62CB7F",i+1);
 			}
+		}
+		if (pomstr == NULL) {
+			pomstr = g_strdup_printf("<span>%d</span>",i+1);
 		} 
-/*		
-		pomstr = g_strdup_printf("%d",i+1);
-		pango_layout_set_text(l,pomstr,-1);
-*/		
+		pango_layout_set_markup(l,pomstr,-1);
 		gtk_paint_layout(widget->style,win,GTK_WIDGET_STATE(widget),FALSE,NULL,widget,NULL,2,w,l);
 		g_free(pomstr);
 	}
 	g_object_unref(G_OBJECT(l));
-	g_hash_table_destroy(temp_tab);
-	g_hash_table_destroy(temp_tab2);
+	if (temp_tab) g_hash_table_destroy(temp_tab);
 	return TRUE;
 }
 
