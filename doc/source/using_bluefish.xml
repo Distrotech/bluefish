@@ -26,9 +26,9 @@ In this chapter most of the functionality of Bluefish is described. What you can
 <title>Starting Bluefish</title>
 <para>In GNOME Bluefish is started from the Applications/Programming menu.</para>
 <sect2 id="commandline-options">
-<title>Commandline options</title>
+<title>Command line options</title>
 <para>
-There are several useful commandline options.
+There are several useful command line options.
 <itemizedlist>
 	  <listitem><para>-s           skip root check</para></listitem>
 	  <listitem><para>-v           current version</para></listitem>
@@ -46,8 +46,8 @@ There are several useful commandline options.
 	has a so called "Multiple Document Interface", there are actually many editor areas
 	in Bluefish, accessible via the tabs. By default the tabs are on the bottom.
 	</para>
-	<para>The top of the Bluefish interface consist of a menu, a main toolbar, a 
-	HTML toolbar, and a Custom menu.
+	<para>The top of the Bluefish interface consist of a menu, a main tool bar, a 
+	HTML tool bar, and a Custom menu.
 				<figure id="main_menu">
 				<title id="bf-figure-main-menu">Bluefish Main Menu</title>
 				<screenshot>
@@ -57,7 +57,7 @@ There are several useful commandline options.
 						</imageobject>
 						<textobject>
 							<phrase>
-								A screenshot of the Bluefish 0.13 main menu
+								A screen shot of the Bluefish 0.13 main menu
 							</phrase>
 						</textobject>
 					</mediaobject>
@@ -69,9 +69,9 @@ There are several useful commandline options.
 	consist of a file browser, a function reference browser and a bookmark browser.
 	</para>
 	<para>
-	On the bottom of Bluefish is the statusbar. Here messages are shown, the current line
+	On the bottom of Bluefish is the status bar. Here messages are shown, the current line
 	and column number are shown, the insert (INS) or overwrite (OVR) mode for the cursor,
-	and the filetype and character encoding.
+	and the file type and character encoding.
 	</para>
 	<para>
 	The visibility of these items can be toggled via the View menu.
@@ -83,7 +83,7 @@ There are several useful commandline options.
 							<imagedata fileref="figures/view_menu.png" format="PNG"/>
 						</imageobject>
 						<textobject>
-							<phrase>A screenshot of the Bluefish 0.13 view menu</phrase>
+							<phrase>A screen shot of the Bluefish 0.13 view menu</phrase>
 						</textobject>
 					</mediaobject>
 				</screenshot>
@@ -139,7 +139,7 @@ There are several useful commandline options.
 <title>Undo and Redo</title>
 <para>
 The undo and redo functionality is available from the Edit menu, 
-from the main toolbar, and from the keyboard shortcuts. 
+from the main tool bar, and from the keyboard shortcuts. 
 </para>
 <itemizedlist>
 	  <listitem><para>Undo (Ctrl+Z)</para></listitem>
@@ -150,14 +150,14 @@ The functions Undo all and Redo all in the Edit menu will undo or redo all
 of the stored changes. The maximum number of changes can be configured in
 the preferences, by default Bluefish will remember the last 100 changes per 
 document. It is possible to clear the changes after the document is saved, 
-this optionin the preferences is disabled by default.
+an option in the preferences which is disabled by default.
 </para>
 </sect3>
 <sect3 id="cut-copy-paste">
 <title>Cut, Copy, and Paste</title>
 <para>
 The functions Cut, Copy, and Paste are available from the Edit menu, from the 
-main toolbar, and from the keyboard shortcuts.
+main tool bar, and from the keyboard shortcuts.
 </para>
 <itemizedlist>
 	  <listitem><para>Cut (Ctrl+X)</para></listitem>
@@ -186,7 +186,7 @@ are supported.
 <para>
 The file type of a file changes the behaviour of Bluefish. File types are recognised 
 by their extension, or by the beginning of the content of the file. The current
-document type is shown in the far right of the statusbar. How these extensions
+document type is shown in the far right of the status bar. How these extensions
 and patterns can be changed is
 described in the "Customising Bluefish" section.
 </para>
@@ -207,7 +207,7 @@ Document/Type menu.
 	adjusted in the preferences.
 	</para>
 	<para>The syntax highlighting for the total document can be refreshed
-	using the Document/Update highlighting menu, ot the shortcut (F5)</para>
+	using the Document/Update highlighting menu, or the shortcut (F5)</para>
 </sect3>
 </sect2>
 <sect2 id="more-files">
@@ -320,7 +320,7 @@ environment to make Gnome and Gtk programs detect this encoding.
 							<imagedata fileref="figures/go_menu.png" format="PNG"/>
 						</imageobject>
 						<textobject>
-							<phrase>A screenshot of the Bluefish 0.13 go menu</phrase>
+							<phrase>A screen shot of the Bluefish 0.13 go menu</phrase>
 						</textobject>
 					</mediaobject>
 				</screenshot>
@@ -346,7 +346,7 @@ environment to make Gnome and Gtk programs detect this encoding.
 							<imagedata fileref="figures/project_menu.png" format="PNG"/>
 						</imageobject>
 						<textobject>
-							<phrase>A screenshot of the Bluefish 0.13 project menu</phrase>
+							<phrase>A screen shot of the Bluefish 0.13 project menu</phrase>
 						</textobject>
 					</mediaobject>
 				</screenshot>
@@ -355,7 +355,7 @@ The
   projects are a sort of 'saved state' of Bluefish. All files open when the
   project is saved, are automatically opened the next time you open the
   project. Also the recently used files in that project are shown in the
-  recent menu. Furthermore, a basedir can be set, so the filebrowser in the
+  recent menu. Furthermore, a basedir can be set, so the file browser in the
   left panel will only show the files in the basedir and its subdirectories.
   If Bluefish is installed with gnome-vfs support the basedir might be remote,
   for example sftp://someserver/somedir or
@@ -369,8 +369,8 @@ The
   contents of this file will be automatically loaded into the edit
   window.</para> <para>The projects will be expanded to have more Bluefish
   settings, so a project can be a bit of customized Bluefish setup. Currently
-  the state of various toolbars and menubars is saved in a project
-  file.</para> <para>The project file itself is simply a textfile in the
+  the state of various tool bars and menu bars is saved in a project
+  file.</para> <para>The project file itself is simply a text file in the
   standard Bluefish format (same format as the config file). This format is
   'key: value'.</para>
 </sect2>
@@ -396,7 +396,7 @@ The
 	</para>
 	<para>
 	Bookmarks can be found in the side panel, sorted by document and line number. If you 
-	right click a bookmark, you get a popup menu with several options. Among the option 
+	right click a bookmark, you get a pop up menu with several options. Among the option 
 	is edit, which allows you to change a bookmark from temporary to permanent or the 
 	other way around, and you can name bookmarks.
 	</para>
@@ -464,7 +464,7 @@ The
 <sect2 id="indenting">
 <title>Indenting</title>
 	<para>
-	The shift-right and shift-left items in the menu, or the buttons in the toolbar, will indent or unindent the currently selected text. It will normally use
+	The shift-right and shift-left items in the menu, or the buttons in the tool bar, will indent or unindent the currently selected text. It will normally use
 	tabs for indenting, or spaces if you have 
 	'indent with spaces' selected in the preferences. The number of spaces used is the same 
 	as the 'tabsize' option in the preferences.
@@ -481,11 +481,43 @@ The
 	will help you out and close the tag automatically. For empty tags, like 
 	<literal>&lt;br&gt;</literal>, Bluefish correctly does nothing. 
 	This feature can be turned off by unchecking the menu option 
-	<literal>Document &gt; Auto Close HTML Tags</literal>.
+	<emphasis>Document &gt; Auto Close HTML Tags</emphasis>.
 	</para>
 </sect2>
 <sect2 id="spell-checker">
 <title>Spell checker</title>
+<figure id="figure-spell-checker">
+				<title id="figure-spell-checker-title">Bluefish Spell Checker</title>
+				<screenshot>
+					<mediaobject>
+						<imageobject>
+							<imagedata fileref="figures/spell_checker.png" format="PNG"/>
+						</imageobject>
+						<textobject>
+							<phrase>A screen shot of the Bluefish 0.13 spell checker</phrase>
+						</textobject>
+					</mediaobject>
+				</screenshot>
+			</figure>
+	<para>
+	Bluefish uses <ulink url="http://aspell.sourceforge.net/">aspell</ulink> for spell 
+	checking. If the aspell libraries are not installed on your system, then the spell 
+	checking feature will not be available. To launch the spell checker, select 
+	<emphasis>Document &gt; Check Spelling...</emphasis>
+	</para>
+	<para>
+	The spell checker will launch in a separate window, which you can keep open as you 
+	edit files. You have the option to check a whole document or just a selection. Click 
+	on <emphasis>Spell Check</emphasis> to start spell checking the current document. As 
+	you run across mispelled words you want included in the dictionary, click on the 
+	<emphasis>Add</emphasis> button in the spell checker window. This will add words to 
+	a personal dictionary.	
+	</para>
+	<para>
+	Key words for different languages can be ignored using filters. Currently, the only
+	filter is for HTML. If you want to help write more filters, join the 
+	<link linkend="bluefish-contact">mailing list</link>.
+	</para>
 </sect2>
 <sect2 id="function-reference">
 <title>Function reference</title>
@@ -493,17 +525,17 @@ The
 <sect2 id="HTML">
 <title>HTML</title>
 	  <para> HTML is obviously the most supported language in Bluefish. There is a
-	  special HTML toolbar with many dialogs, and several menu sections to work
+	  special HTML tool bar with many dialogs, and several menu sections to work
 	  with tags. You can also right-click a tag and bring up the dialog from
 	  there.</para> <para> In the reference tree on the left panel there is also
 	  HTML reference available.</para> <para>There are several special search and
 	  replace actions in the menu Edit-Replace special. These can be used to
-	  convert special characters (like &lt; and &amp;), or iso characters to their
+	  convert special characters (like &lt; and &amp;), or ISO characters to their
 	  HTML entities.</para> 
 </sect2>
 <sect2 id="quickbar">
 <title>Customising the quickbar</title>
-	<para>The quickbar is a user defined toolbar. All HTML toolbar buttons can
+	<para>The quickbar is a user defined tool bar. All HTML tool bar buttons can
 	be added to the quickbar by simply right-clicking them and selecting
 	"Add to quickbar". If you want to remove items from the Quickbar,
 	right-click them and select "Remove from Quickbar"</para>
@@ -530,7 +562,7 @@ The
 							<imagedata fileref="figures/external_menu.png" format="PNG"/>
 						</imageobject>
 						<textobject>
-							<phrase>A screenshot of the Bluefish 0.13 external menu</phrase>
+							<phrase>A screen shot of the Bluefish 0.13 external menu</phrase>
 						</textobject>
 					</mediaobject>
 				</screenshot>
@@ -607,24 +639,24 @@ class "GtkTextView" style "EditorStyle"
 </sect3>
 </sect2>
 <sect2 id="changing-filetypes">
-<title>Modifying filetypes</title>
+<title>Modifying file types</title>
 			<para>
-			Here you can define all filetypes that should be recognised by Bluefish. 
-			The defaults for these filetypes are retrieved from a file called filetypes.default 
+			Here you can define all file types that should be recognised by Bluefish. 
+			The defaults for these file types are retrieved from a file called file types.default 
 			in ${prefix}/share/bluefish/.
 			</para>
 			<para>
-			The filetypes consist first of a name (this name is also used in the file filters, and in 
+			The file types consist first of a name (this name is also used in the file filters, and in 
 			the highlighting patterns). Second is a list of extensions, separated by a colon (:). Third 
 			are the highlighting update characters. Upon a key press of one of these characters, 
 			the highlighting 
 			engine will refresh the highlighting around the cursor. If this field is empty, any character 
 			will force the highlighting engine to refresh. Special characters like the tab and the newline 
 			can be entered as \t and \n, the backslash itself is entered as \\. Fifth is the icon location
-			for this filetype. Sixth is whether this filetype is editable by Bluefish (whether or 
+			for this file type. Sixth is whether this file type is editable by Bluefish (whether or 
 			not Bluefish
 			should try to open it after a double click). Seventh is a regular expression that can be used to
-			detect the filetype if a file without extension is loaded. Eight is the auto-tag-closing 
+			detect the file type if a file without extension is loaded. Eight is the auto-tag-closing 
 			mode. A 
 			value of 0 means that Bluefish should not close XML/HTML tags, a value of 1 means it 
 			should close 
@@ -634,7 +666,7 @@ class "GtkTextView" style "EditorStyle"
 <sect2 id="changing-highlighting-patterns">
 <title>Modifying the highlighting patterns</title>
 
-			<para>The highlight patterns are build from perl compatible regular
+			<para>The highlight patterns are build from Perl compatible regular
 			expressions. A pattern has options for coloring and style of the text it
 			matches. Within a match other patterns can be used to color parts of
 			that match. There are three types of patterns:
@@ -649,7 +681,7 @@ class "GtkTextView" style "EditorStyle"
 			all parents for a certain pattern. If empty it will default to ^top$, so
 			basically it will be on the top level.</para>
 			<para>So how does it work? Lets take a look at a little example text, a
-			piece of PHP code within some html code:</para>
+			piece of PHP code within some HTML code:</para>
 			<programlisting>&lt;p align="center"&gt;
 &lt;?php
 // this is a comment ?&gt;
