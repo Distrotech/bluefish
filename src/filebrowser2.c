@@ -469,11 +469,17 @@ static void fb2_refresh_parent_of_uri(GnomeVFSURI *child_uri) {
 static GtkTreeIter *fb2_build_dir(GnomeVFSURI *uri) {
 	GnomeVFSURI* tmp, *parent_uri;
 	GtkTreeIter *parent = NULL;
-
-	tmp = gnome_vfs_uri_dup(uri);
+#ifdef DEVELOPMENT
+	if (!uri) exit(234);
+#endif
+	tmp = uri;
+	gnome_vfs_uri_ref(tmp);
 	while (!parent && gnome_vfs_uri_has_parent(tmp)) {
 		guint hashkey;
 		GnomeVFSURI* tmp2 = gnome_vfs_uri_get_parent(tmp);
+#ifdef DEVELOPMENT
+		if (!tmp2) exit(456);
+#endif
 		gnome_vfs_uri_unref(tmp);
 		tmp = tmp2;
 		hashkey = gnome_vfs_uri_hash(tmp);
@@ -489,15 +495,27 @@ static GtkTreeIter *fb2_build_dir(GnomeVFSURI *uri) {
 	} else {
 		parent_uri = tmp;
 	}/* after this loop 'parent_uri'='tmp' is newly allocated */
+#ifdef DEVELOPMENT
+	if (!parent_uri) exit(456);
+#endif
 	DEBUG_MSG("we should have a parent here!! parent(%p), and the uri for that parent is ",parent);
 	DEBUG_URI(parent_uri, TRUE);
 	{
-		gboolean done=FALSE;
-		
+		gboolean done=gnome_vfs_uri_equal(parent_uri, uri);
 		while (!done) {
-			GnomeVFSURI* tmp2 = gnome_vfs_uri_dup(uri); /* both 'parent_uri'='tmp' and 'tmp2' are newly allocated */
+			GnomeVFSURI* tmp2 = uri;
+			gnome_vfs_uri_ref(tmp2); /* both 'parent_uri'='tmp' and 'tmp2' are newly allocated */
 			while (!gnome_vfs_uri_is_parent(parent_uri,tmp2,FALSE)) {
 				GnomeVFSURI* tmp3 = gnome_vfs_uri_get_parent(tmp2);
+				DEBUG_MSG("parent_uri ");
+				DEBUG_URI(parent_uri, FALSE);
+				DEBUG_MSG(" is not the parent of tmp2 ");
+				DEBUG_URI(tmp2, FALSE);
+				DEBUG_MSG(" , so next to try is tmp3 ");
+				DEBUG_URI(tmp3, TRUE);
+#ifdef DEVELOPMENT
+				if (!tmp3) exit(455);
+#endif
 				gnome_vfs_uri_unref(tmp2);
 				tmp2 = tmp3;
 			} /* after this loop both 'parent_uri'='tmp' and 'tmp2' are newly allocated */
@@ -589,7 +607,13 @@ void fb2_focus_document(Tbfwin *bfwin, Tdocument *doc) {
 		we could select the document, but if the directory *was* open already, this
 		could disturb the user... hmmm... */
 		file_uri = gnome_vfs_uri_new(doc->uri);
+#ifdef DEVELOPMENT
+		if (!file_uri) exit(333);
+#endif
 		dir_uri = gnome_vfs_uri_get_parent(file_uri);
+#ifdef DEVELOPMENT
+		if (!dir_uri) exit(334);
+#endif
 		fb2_focus_dir(FILEBROWSER2(bfwin->fb2), dir_uri, FALSE);
 		gnome_vfs_uri_unref(file_uri);
 		gnome_vfs_uri_unref(dir_uri);
