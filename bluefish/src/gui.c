@@ -63,6 +63,10 @@ static Tsplashscreen splashscreen;
 /**************************/
 /* start of the functions */
 /**************************/
+void gui_toggle_autoindent_cb(gpointer callback_data,guint action,GtkWidget *widget) {
+	main_v->props.autoindent = 1 - main_v->props.autoindent;
+}
+
 void gui_toggle_hidewidget_cb(gpointer callback_data,guint action,GtkWidget *widget) {
 	GtkWidget *handlebox;
 	gint *property;
@@ -775,7 +779,7 @@ void go_to_line_from_selection_cb(GtkWidget * widget, gpointer data) {
 #ifndef NOSPLASH
 
 void splash_screen_set_label(gchar *label) {
-	static struct timespec const req = { 0, 200000000};
+	static struct timespec const req = { 0, 100000000};
 	static struct timespec rem;
 	gtk_label_set(GTK_LABEL(splashscreen.label),label);
 	flush_queue();

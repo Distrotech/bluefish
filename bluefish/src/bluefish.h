@@ -117,7 +117,8 @@ typedef struct {
 	gint last_rbutton_event; /* index of last 3rd button click */
 	Thighlightset *hl; /* highlighting set to use for this document */
 	gint need_highlighting; /* if you open 10+ documents you don't need immediate highlighting, just set this var, and notebook_switch() will trigger the actual highlighting when needed */
-	gint highlightstate;
+	gboolean highlightstate;
+	gboolean wrapstate;
 } Tdocument;
 
 typedef struct {

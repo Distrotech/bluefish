@@ -421,6 +421,10 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/Options/Current document/Type/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
 	{N_("/Options/Current document/Highlight syntax"), NULL, doc_toggle_highlighting_cb, 0, "<ToggleItem>"},
 	{N_("/Options/Current document/Update highlighting"), "F5", doc_update_highlighting, 0, NULL},
+	{N_("/Options/Current document/Wrap"), NULL, doc_toggle_wrap_cb, 0, "<ToggleItem>"},
+/*	{N_("/Options/sep1"), NULL, NULL, 0, "<Separator>"},*/
+	{N_("/Options/Auto indent"), NULL, gui_toggle_autoindent_cb, 0, "<ToggleItem>"},
+	{N_("/Options/sep2"), NULL, NULL, 0, "<Separator>"},
 	{N_("/Options/View Main toolbar"), NULL, gui_toggle_hidewidget_cb, 0, "<ToggleItem>"},
 	{N_("/Options/View HTML toolbar"), NULL, gui_toggle_hidewidget_cb, 1, "<ToggleItem>"},
 	{N_("/Options/View Custom menu"), NULL, gui_toggle_hidewidget_cb, 2, "<ToggleItem>"}
@@ -469,11 +473,11 @@ void menu_create_main(GtkWidget *vbox)
 	gtk_box_pack_start(GTK_BOX(vbox), main_v->menubar, FALSE, TRUE, 0);
 	gtk_widget_show(main_v->menubar);
 
-	setup_toggle_item(item_factory, "/Options/View Main toolbar", main_v->props.view_main_toolbar);
-	setup_toggle_item(item_factory, "/Options/View HTML toolbar", main_v->props.view_html_toolbar);
-	setup_toggle_item(item_factory, "/Options/View Custom menu", main_v->props.view_custom_menu);
-/*	setup_toggle_item(item_factory, "/Options/View Filebrowser", main_v->props.v_filebrowser);
-	setup_toggle_item(item_factory, "/View/Highlight syntax", main_v->props.cont_highlight_update);*/
+	setup_toggle_item(item_factory, _("/Options/View Main toolbar"), main_v->props.view_main_toolbar);
+	setup_toggle_item(item_factory, _("/Options/View HTML toolbar"), main_v->props.view_html_toolbar);
+	setup_toggle_item(item_factory, _("/Options/View Custom menu"), main_v->props.view_custom_menu);
+	setup_toggle_item(item_factory, _("/Options/Auto indent"), main_v->props.autoindent);
+/*	setup_toggle_item(item_factory, "/Options/View Filebrowser", main_v->props.v_filebrowser);*/
 	{
 		GList *group=NULL;
 		GtkWidget *parent_menu;

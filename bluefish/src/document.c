@@ -70,7 +70,7 @@ gint documentlist_return_index_from_filename(gchar *filename) {
 	return -1;
 }
 
-void doc_toggle_highlighting_cb(GtkWidget * w, gpointer data)
+void doc_toggle_highlighting_cb(gpointer callback_data,guint action,GtkWidget *widget)
 {
 	DEBUG_MSG("doc_toggle_highlighting_cb, started\n");
 	main_v->current_document->highlightstate = 1 - main_v->current_document->highlightstate;
@@ -79,32 +79,28 @@ void doc_toggle_highlighting_cb(GtkWidget * w, gpointer data)
 	} else {
 		doc_highlight_full(main_v->current_document);
 	}
-	setup_toggle_item(gtk_item_factory_from_widget(main_v->menubar),
-					  N_("/Options/Current document/Highlight syntax"), main_v->current_document->highlightstate);
+}
+void doc_toggle_wrap_cb(gpointer callback_data,guint action,GtkWidget *widget) {
+	main_v->current_document->wrapstate = 1 - main_v->current_document->wrapstate;
+	doc_set_wrap(main_v->current_document, main_v->current_document->wrapstate);
 }
 
 void doc_update_highlighting(GtkWidget *wid, gpointer data) {
 	if (main_v->current_document->highlightstate == 0) {
-		doc_toggle_highlighting_cb(NULL, NULL);
+		setup_toggle_item(gtk_item_factory_from_widget(main_v->menubar),
+			  N_("/Options/Current document/Highlight syntax"), TRUE);
+		doc_toggle_highlighting_cb(NULL, 0, NULL);
 	} else {
 		doc_highlight_full(main_v->current_document);
 	}
 }
 
-/* void document_set_wrap(Tdocument * document, gint wraptype)
+/* void doc_set_wrap(Tdocument * document, gint wraptype)
  * type=0 = none, type=1=word wrap
- * type=-1 means get type from main_v->props.word_wrap
  */
 
-void document_set_wrap(Tdocument * doc, gint wraptype) {
-	gint type;
-
-	if (wraptype == -1) {
-		type = main_v->props.word_wrap;
-	} else {
-		type = wraptype;
-	}
-	if (type) {
+void doc_set_wrap(Tdocument * doc, gint wraptype) {
+	if (wraptype) {
 		gtk_text_view_set_wrap_mode(GTK_TEXT_VIEW(doc->view),GTK_WRAP_WORD);
 	} else {
 		gtk_text_view_set_wrap_mode(GTK_TEXT_VIEW(doc->view),GTK_WRAP_NONE);
@@ -966,7 +962,7 @@ Tdocument *doc_new(gboolean delay_activate) {
 
 	doc_unre_init(newdoc);
 	doc_set_font(newdoc, NULL);
-	document_set_wrap(newdoc, -1);
+	doc_set_wrap(newdoc, main_v->props.word_wrap);
 	doc_set_tabsize(newdoc, main_v->props.editor_tab_width);
 
 /* this will force function doc_set_modified to update the tab label*/
@@ -1370,6 +1366,11 @@ void doc_activate(Tdocument *doc) {
 	}
 
 	gui_set_widgets(doc_has_undo_list(doc), doc_has_redo_list(doc));
+
+	setup_toggle_item(gtk_item_factory_from_widget(main_v->menubar),
+					  N_("/Options/Current document/Highlight syntax"), main_v->current_document->highlightstate);
+	setup_toggle_item(gtk_item_factory_from_widget(main_v->menubar),
+					  N_("/Options/Current document/Wrap"), main_v->current_document->wrapstate);
 
 	/* if highlighting is needed for this document do this now !! */
 	if (doc->need_highlighting && doc->highlightstate) {
