@@ -880,6 +880,7 @@ static gchar *get_selected_filename(Tfilebrowser *filebrowser, gboolean is_direc
  **/
 void filebrowser_open_dir(Tbfwin *bfwin,const gchar *dirarg) {
 	Tfilebrowser *filebrowser = FILEBROWSER(bfwin->filebrowser);
+	DEBUG_MSG("filebrowser_open_dir, filebrowser=%p\n",filebrowser);
 	if (filebrowser && filebrowser->tree) {
 		gchar *dir;
 		GtkTreePath *path;
@@ -1681,6 +1682,9 @@ GtkWidget *filebrowser_init(Tbfwin *bfwin) {
 		filebrowser->bfwin = bfwin;
 		if (bfwin->project && bfwin->project->basedir && strlen(bfwin->project->basedir)>2) {
 			filebrowser->basedir = ending_slash(bfwin->project->basedir);
+			DEBUG_MSG("filebrowser_init, the basedir is set to %s\n",filebrowser->basedir);
+		} else {
+			DEBUG_MSG("filebrowser_init, NO BASEDIR\n");
 		}
 	}
 	if (!filebrowser->curfilter) {

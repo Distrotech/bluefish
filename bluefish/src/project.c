@@ -158,24 +158,27 @@ void project_open_from_file(Tbfwin *bfwin, gchar *fromfilename) {
 		bfwin->session = prj->session;
 		DEBUG_MSG("project_open_from_file, calling docs_new_from_files for existing bfwin=%p\n",prwin);
 		prwin->project = prj;
+		
+		gui_set_html_toolbar_visible(prwin, prj->view_html_toolbar, TRUE);
+		gui_set_main_toolbar_visible(prwin, prj->view_main_toolbar, TRUE);
+		gui_set_custom_menu_visible(prwin, prj->view_custom_menu, TRUE);
+		left_panel_show_hide_toggle(prwin,FALSE,prj->view_left_panel, TRUE);
 		if (prj->basedir && strlen(prj->basedir) > 2) {
 			filebrowser_set_basedir(prwin, prj->basedir);
 		}
 		docs_new_from_files(prwin, prj->files, TRUE);
 	} else {
 		/* we will open a new Bluefish window for this project */
+		DEBUG_MSG("project_open_from_file, we need a new window\n");
 		prwin = gui_new_window(prj->files, prj);
-		if (prj->basedir && strlen(prj->basedir) > 2) {
+		DEBUG_MSG("project_open_from_file, new window with files ready\n");
+/*		if (prj->basedir && strlen(prj->basedir) > 2) {
 			filebrowser_set_basedir(prwin, prj->basedir);
-		}
+		}*/
 		gui_set_title(prwin, prwin->current_document);
 	}
 	set_project_menu_widgets(prwin, TRUE);
 	recent_menu_init_project(prwin);
-	gui_set_html_toolbar_visible(prwin, prj->view_html_toolbar, TRUE);
-	gui_set_main_toolbar_visible(prwin, prj->view_main_toolbar, TRUE);
-	gui_set_custom_menu_visible(prwin, prj->view_custom_menu, TRUE);
-	left_panel_show_hide_toggle(prwin,FALSE,prj->view_left_panel, TRUE);
 }
 
 static void project_open(Tbfwin *bfwin) {
