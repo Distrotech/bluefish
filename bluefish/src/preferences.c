@@ -23,15 +23,15 @@
 #include <string.h> /* strcmp() */
 
 #include "bluefish.h"
-#include "stringlist.h" /* duplicate_arraylist*/
-#include "bf_lib.h" /* list_switch_order() */
-#include "gtk_easy.h"
+#include "bf_lib.h"		/* list_switch_order() */
 #include "document.h"
-#include "pixmap.h"
-#include "highlight.h"
-#include "filebrowser.h"
-#include "menu.h"
+#include "filebrowser2.h"
+#include "gtk_easy.h"
 #include "gui.h"
+#include "highlight.h"
+#include "menu.h"
+#include "pixmap.h"
+#include "stringlist.h"	/* duplicate_arraylist*/
 
 enum {
 	view_html_toolbar,
