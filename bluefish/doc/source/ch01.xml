@@ -21,22 +21,65 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
   <title>general information</title>
 	<simplesect>    
 		<para>
-	      general informations about bluefish, a little summery, what bluefish is.
 		</para>
 	</simplesect>
 
 	<sect1 id="bluefish-ch-1-sect-1">
 		<title>about this manual</title>
-		<para>why this manual was written, what the manual will aim to</para>
+		<para>
+			Bluefish has a large feature set, allowing the user to customize the
+			editing experience in different ways. This manual aim to present the novice user
+			with a starting point for mastering Bluefish. The advanced user will
+			find the more advanced features thoroughly documented in this manual.
+		</para>
+		<para>
+			The manual starts off by describing how to install Bluefish, along with requirements and
+			supported platforms.
+		</para>
+		<para>
+			The next chapter, the tutorial, is highly recommended for the novice user.
+			It will present a step-by-step introduction to the main features of Bluefish,
+			aiming to supply a short description of the most used features.
+		</para>
+		<para>
+			The rest of the manual contains a complete feature reference, from basic to advanced features.
+		</para>
+		<para>
+			As a reference to the Bluefish developers and anyone interested in contributing code, the manual
+			also contains guidelines for the Bluefish source.
+		</para>
 
 		<sect2 id="bluefish-ch-1-sect-1.1">
 			<title>conventions used in this manual</title>
-			<para>what things you have to know, to understand the manual</para>
+			<para>
+				The manual is targeted the <emphasis>end user</emphasis>. Thus, we have tried
+				to use a simple, well-explained approach for the large part of the manual. Some
+				typographic conventions are denoted below.
+			</para>
+			<itemizedlist>
+       		<listitem><para>
+					Any urls are denoted like this: <systemitem class="url">http://bluefish.openoffice.nl</systemitem>
+				</para></listitem>
+				<listitem><para>
+					Shortcuts you can use, look like this: <accel>Ctrl-S</accel>
+				</para></listitem>
+				<listitem><para>
+					The menus in Bluefish are comprehensive, and when discussing them, you may see the <guimenu>File</guimenu>
+					mentioned, and perhaps a member of it, <guimenuitem>Open Advanced</guimenuitem>.
+				</para></listitem>
+				<listitem><para>
+					When you can type in something, it might be an example of the input, like this:
+				</para><para>
+					<userinput>foo -bar | bang -l</userinput>
+				</para></listitem>
+			</itemizedlist>
 		</sect2>
 
 		<sect2 id="bluefish-ch-1-sect-1.2">
 			<title>requirements for maintain the manual</title>
 			<para>technical things you need, if you will generate html out of xml</para>
+			<remark>(Christian) Doesn't this (and "conventions" below) belong with coding style etc?
+			Putting it here will only scare a novice.</remark>
 		</sect2>
 
 		<sect2 id="bluefish-ch-1-sect-1.3">
@@ -48,7 +91,19 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 	<sect1 id="bluefish-ch-1-sect-2">
 		<title>what is bluefish?</title>
-		<para>why bluefish was written and what exactly bluefish is</para>
+		<para>
+			Bluefish is a powerful editor for experienced web designers and programmers. Bluefish
+			supports many programming and markup languages, but it focuses on editing dynamic and
+			interactive websites.
+		</para>
+		<para>
+			Bluefish is a WYSIWYM<footnote><para>What You See Is What You Mean</para></footnote> text editor,
+			letting you, the programmer, stay in full control over the code by editing it by hand.
+			To alleviate the editing process, a large number of features are at your disposal. Numerous methods for
+			inserting markup and code exists, through toolbars, dialogs and predefined and user customized menus.
+			Syntax highlighting, advanced search and replace functionality, scalability and language function
+			references make Bluefish a powerful tool.
+		</para>
 
 		<sect2 id="bluefish-ch-1-sect-2.1">
 			<title>history of bluefish</title>
@@ -59,20 +114,91 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 					about the development
 				</para>
 				<para>
-					why is bluefish so popular
+					Several years has passed since the first Bluefish release. In that time, the fish has
+					gained a reputation for being an excellent editor,
+					with qualities like stability, usability and numerous features. Also, Bluefish is small
+					and needs only GTK2 to function, making it usable even on slow machines.
 				</para>
 		</sect2>
 		
 		<sect2 id="bluefish-ch-1-sect-2.2">
 			<title>main features of bluefish</title>
-			<para>what bluefish can</para>
+			<para>
+				Bluefish has many features, this list will give you an overview of the most important or outstanding features.
+			</para>
+			<itemizedlist>
+				<listitem><para>A What You See Is What You Need interface</para></listitem>
+				<listitem><para>Multiple document interface, will easily open 500+ documents (tested 3500 with documents simultaneously).</para></listitem>
+				<listitem>
+					<para>
+						Customizable syntax highlighting based on Perl compatible regular expressions,
+						with subpattern support. Default patterns are included for</para>
+					<itemizedlist>
+						<listitem><para>C</para></listitem>
+						<listitem><para>cfml</para></listitem>
+						<listitem><para>ColdFusion</para></listitem>
+						<listitem><para>Gettext's po</para></listitem>
+						<listitem><para>HTML</para></listitem>
+						<listitem><para>Java</para></listitem>
+						<listitem><para>Pascal</para></listitem>
+						<listitem><para>Perl</para></listitem>
+						<listitem><para>PHP</para></listitem>
+						<listitem><para>Python</para></listitem>
+						<listitem><para>R</para></listitem>
+						<listitem><para>XML</para></listitem>
+					</itemizedlist>
+				</listitem>
+				<listitem><para>Anti-aliased text window</para></listitem>
+				<listitem><para>Multiple encodings support, can convert between different character sets, supports multibyte characters, unicode, UTF8 etc.</para></listitem>
+				<listitem><para>Nice wizards for startup, tables, frames, and others</para></listitem>
+				<listitem><para>Dialogs for many HTML tags, with all their attributes</para></listitem>
+				<listitem><para>HTML toolbar and tearable menus </para></listitem>
+				<listitem><para>User-customizable toolbar for quick access to often used functions</para></listitem>
+				<listitem><para>Open files based on filename patterns and/or content</para></listitem>
+				<listitem><para>Fully featured image insert dialog</para></listitem>
+				<listitem><para>Thumbnail creation and automatically linking of the thumbnail with the original image</para></listitem>
+				<listitem><para>Multi thumbnail generation for easy creation of photo albums or screenshot pages</para></listitem>
+				<listitem><para>Line numbers along the document</para></listitem>
+				<listitem><para>A custom menu, specify your own tags or sets of code, and define your own dialogs</para></listitem>
+				<listitem><para>Custom search and replace pattern support for the Custom menu</para></listitem>
+				<listitem><para>Very powerful search and replace, allowing POSIX and Perl Compatible regular expressions and sub-pattern replacing</para></listitem>
+				<listitem><para>Excellent undo/redo functionality</para></listitem>
+				<listitem><para>Configurable recent documents and recent directories functionality</para></listitem>
+				<listitem><para>Translations in da fr es it hu pl no ru sv</para></listitem>
+				<listitem><para>User customizable integration of many programs, including weblint, tidy, make, javac etc. etc.</para></listitem>
+				<listitem><para>XML based function reference. Currently, references exist for HTML and PHP. Additions like GTK, Perl and Python will be added. You may also create your own function reference. The XML-format is described later in the manual.</para></listitem>
+			</itemizedlist>
+			<para>
+				As Bluefish is a part of a larger desktop enviroment, we have begun to focus on keeping the GUI
+				consistent with the Gnome HIG<footnote>
+					<para>GNOME Human Interface Guidelines, accessible at
+						<systemitem class="url">http://developer.gnome.org/projects/gup/hig/</systemitem>
+					</para></footnote>. However, we prefer not following it in every detail,
+					as some parts are noticeably <emphasis>for the end user</emphasis>, while
+					Bluefish is <emphasis>for the programmer</emphasis>.
+			</para>
+			<para>
+				Some features from v0.7 are not yet implemented. The main missing piece 
+			</para>
 		</sect2>
 		
 		<sect2 id="bluefish-ch-1-sect-2.3">
-			<title>how stable is bluefish</title>
-			<para>Bluefish is quite stable for most of the program. However, several issues do exist. The cut and paste with highlighting can sometimes be very slow, and can generate error output in the terminal.</para>
+			<title>how stable is bluefish?</title>
+			<para>
+				The Bluefish developers aim to produce code that neither crash nor leak memory. Of course, that's
+				not always easy to do, but we do try to minimize the damage. Leaks and crashes
+				are often fixed in CVS as soon as they're discovered and hunted down. The developers use the
+				Bluefish for their daily work, in addition to a large amount of users. Some nags do still exist,
+				one problem is slightly slow copy/pasting.
+			</para>
+			<para>
+				For an updated list of open bugs, please visit the todo-list on the Bluefish WiKi, at
+				<systemitem class="url">http://bfwiki.tellefsen.net/?pagename=ToDoList</systemitem>.
+			</para>
+			<para>
+				We appreciate any and all contributions! Please do tell us if Bluefish crashes on you :-).
+			</para>
 		</sect2>
-		
 	</sect1>
 
 </chapter>
