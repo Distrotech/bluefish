@@ -672,7 +672,9 @@ void doc_close_multiple_backend(Tbfwin *bfwin, gboolean close_window) {
 		tmplist = g_list_next(tmplist);
 	}
 	g_list_free(duplist);
-	DEBUG_MSG("doc_close_multiple_backend, after the loop, len(documentlist)=%d\n",g_list_length(bfwin->documentlist));
+	if (!close_window && retval != 2) {
+		notebook_changed(bfwin, -1);
+	}
 /*	if (retval == 1) {
 		if (close_window
 			&& (bfwin->documentlist == NULL 

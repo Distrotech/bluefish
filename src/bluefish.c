@@ -256,6 +256,7 @@ int main(int argc, char *argv[])
 	/* do the cleanup */
 	msg_queue_cleanup();
 #endif /* WITH_MSG_QUEUE */
+	DEBUG_MSG("calling fb2config_cleanup()\n");
 	fb2config_cleanup();
 	DEBUG_MSG("Bluefish: exiting cleanly\n");
 	return 0;
