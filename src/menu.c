@@ -1,4 +1,6 @@
-/* Copyright (C) 1998-2002 Olivier Sessink, Chris Mazuc and Roland Steinbach
+/* Copyright (C) 1998-2000 Olivier Sessink, Chris Mazuc and Roland Steinbach
+ * Copyright (C) 2000-2002 Olivier Sessink and Roland Steinbach
+ * Copyright (C) 2002-2003 Olivier Sessink
  * this file has 
  * content-type: UTF8 
  * and it is important you keep it UTF-8 !!!
@@ -21,7 +23,7 @@
 #include <stdlib.h> /* atoi */
 #include <string.h> /* strchr() */
 
-/*#define DEBUG*/
+/* #define DEBUG */
 
 #include "bluefish.h"
 #include "document.h"			/* file_open etc. */
@@ -683,6 +685,8 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/TEMP/Window/New"), NULL, gui_new_window_menu_cb, 1, NULL},
 	{N_("/TEMP/Window/sep1"), NULL, NULL, 0, "<Separator>"},
 	{N_("/TEMP/Open project"), NULL, project_menu_cb, 1, NULL},
+	{N_("/TEMP/Open r_ecent project"), NULL, NULL, 0, "<Branch>"},
+	{N_("/TEMP/Open recent project/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
 	{N_("/TEMP/Save project"), NULL, project_menu_cb, 2, NULL},
 	{N_("/TEMP/Save project as"), NULL, project_menu_cb, 3, NULL},
 	{N_("/TEMP/Close & save project"), NULL, project_menu_cb, 4, NULL},
@@ -702,7 +706,6 @@ gchar *menu_translate(const gchar * path, gpointer data) {
 		return menupath;
 	}*/
 	retval = gettext(path);
-	DEBUG_MSG("menu_translate, returning %s for %s\n", retval, path);
 	return retval;
 }
 #endif       
@@ -741,7 +744,7 @@ static Tbfw_dynmenu *find_bfw_dynmenu_by_label_in_list(GList *itemlist, gchar *l
 	return NULL;
 }
 
-static GtkWidget *remove_menuitem_in_list_by_label(gchar *labelstring, GList **menuitemlist) {
+static GtkWidget *remove_menuitem_in_list_by_label(const gchar *labelstring, GList **menuitemlist) {
 	GList *tmplist;
 	gpointer tmp;
 
@@ -916,22 +919,32 @@ static void menu_outputbox_lcb(GtkMenuItem *menuitem,Tbfw_dynmenu *bdm) {
 /*               Open Recent menu handling                         */
 /*******************************************************************/
 /* the only required header */
-static GtkWidget *create_recent_entry(Tbfwin *bfwin,char *filename);
+static GtkWidget *create_recent_entry(Tbfwin *bfwin, const gchar *filename, gboolean is_project, gboolean check_for_duplicates);
 /*******************************************************************/
 
-static GtkWidget *remove_recent_entry(Tbfwin *bfwin, gchar *filename) {
+static GtkWidget *remove_recent_entry(Tbfwin *bfwin, const gchar *filename, gboolean is_project) {
 	GList *tmplist;
+	GList **worklist;
 	gpointer tmp;
 
+	worklist = (is_project) ? &bfwin->menu_recent_projects : &bfwin->menu_recent_files;
+
 	if(strcmp(filename, "last") ==0) {
-		tmplist = g_list_first(bfwin->menu_recent_files);
+		tmplist = g_list_first(*worklist);
 		tmp = tmplist->data;
 		DEBUG_MSG("remove_recent_entry, remove last entry\n");
-		bfwin->menu_recent_files = g_list_remove(bfwin->menu_recent_files, tmplist->data);
+		*worklist = g_list_remove(*worklist, tmplist->data);
 		return tmp;
 	}	else {
-		return remove_menuitem_in_list_by_label(filename, &bfwin->menu_recent_files);
+		return remove_menuitem_in_list_by_label(filename, worklist);
 	}
+}
+
+static void open_recent_project_cb(GtkWidget *widget, Tbfwin *bfwin) {
+	gchar *filename = GTK_LABEL(GTK_BIN(widget)->child)->label;
+	DEBUG_MSG("open_recent_project_cb, started, filename is %s\n", filename);
+	project_open_from_file(bfwin, filename);
+	add_to_recent_list(filename, 0, TRUE);
 }
 
 /* open_recent_file
@@ -950,98 +963,111 @@ static void open_recent_file_cb(GtkWidget *widget, Tbfwin *bfwin) {
 		return;
 	}
 	DEBUG_MSG("open_recent_file_cb, document %s opened\n", filename);
-	add_to_recent_list(filename, 0);
-	return;
+	add_to_recent_list(filename, 0, FALSE);
 }
 
 /* create_recent_entry
  * This function builds the gtkitemfactoryentry and inserts it at the
  * bfwin->menubar. Furthermore, it returns a pointer to it, so that
  * this pointer can be added in the main_v->recent_files list */
-static GtkWidget *create_recent_entry(Tbfwin *bfwin,gchar *filename) {
+static GtkWidget *create_recent_entry(Tbfwin *bfwin, const gchar *filename, gboolean is_project, gboolean check_for_duplicates) {
 	GtkWidget *tmp;
 
-	tmp = remove_recent_entry(bfwin,filename);
-	if (tmp) {
-		gtk_widget_hide(tmp);
-		gtk_widget_destroy(tmp);
+	if (check_for_duplicates) {
+		tmp = remove_recent_entry(bfwin,filename,is_project);
+		if (tmp) {
+			gtk_widget_hide(tmp);
+			gtk_widget_destroy(tmp);
+		}
 	}
-	return  create_dynamic_menuitem(bfwin,N_("/File/Open recent")
-		, filename, G_CALLBACK(open_recent_file_cb), bfwin
-		, 1);
+	if (is_project) {
+		return  create_dynamic_menuitem(bfwin,N_("/TEMP/Open recent project")
+			, filename, G_CALLBACK(open_recent_project_cb), bfwin
+			, 1);
+	} else {
+		return  create_dynamic_menuitem(bfwin,N_("/File/Open recent")
+			, filename, G_CALLBACK(open_recent_file_cb), bfwin
+			, 1);
+	}
 }
-
 
 /* recent_menu_init()
  * Gets the list of documents from .bluefish/recentlist and inserts
  * it at the File-->Open Recent menu. If the file doesn't exist (probably
  * because this is the first time Bluefish is running) then a menu
  * item telling that no recent files exist will appear */
-
 void recent_menu_init(Tbfwin *bfwin) {
-	gchar *recentfile;
-	GList *filenames=NULL, *tmp, *tmp2, *newlist=NULL;
-	gint recent_file_count=0;
+	gchar *filename;
 
-	DEBUG_MSG("open_recent_list, started\n");
-	recentfile = g_strconcat(g_get_home_dir(), "/.bluefish/recentlist", NULL);
-	filenames = get_stringlist(recentfile, filenames);
-	if (!filenames) {
-		filenames = add_to_stringlist(NULL, _("(none)"));
+	GList *recentfiles=NULL;
+	GList *inputlist, *tmplist;
+	
+	filename = g_strconcat(g_get_home_dir(), "/.bluefish/recentlist", NULL);
+	inputlist = get_stringlist(filename, NULL);
+	/* the last entry in inputlist is the most recent file */
+	tmplist = g_list_first(inputlist);
+	while (tmplist) {
+		recentfiles = add_to_history_stringlist(recentfiles, (gchar *)tmplist->data, TRUE);
+		tmplist = g_list_next(tmplist);
 	}
-
-	tmp = g_list_last(filenames);
-	while (tmp && recent_file_count <= main_v->props.max_recent_files) {
-		gint already_found=0;
-		tmp2 = g_list_first(newlist);
-		while (tmp2) {
-			if (strcmp(tmp->data, tmp2->data)==0) {
-				already_found=1;
-			}
-			tmp2 = g_list_next(tmp2);
-		}
-		if (!already_found) {
-			recent_file_count++;
-			DEBUG_MSG("open_recent_list, added %s to top of list\n", (gchar *)tmp->data);
-			newlist = g_list_prepend(newlist, tmp->data);
-		}
-		already_found = 0;
-		tmp = g_list_previous(tmp);
+	free_stringlist(inputlist);
+	/* the last entry in recentfiles now is the most recent file */
+	tmplist = g_list_nth(recentfiles, g_list_length(recentfiles) - main_v->props.max_recent_files);
+	while (tmplist) {
+		DEBUG_MSG("recent_menu_init, adding recent file %s\n",(gchar *)tmplist->data);
+		bfwin->menu_recent_files  = g_list_append(bfwin->menu_recent_files, create_recent_entry(bfwin,tmplist->data, FALSE, FALSE));
+		tmplist = g_list_next(tmplist);
 	}
-
-	tmp2 = g_list_first(newlist);
-	while (tmp2) {
-		bfwin->menu_recent_files  = g_list_append(bfwin->menu_recent_files, create_recent_entry(bfwin,tmp2->data));
-		tmp2 = g_list_next(tmp2);
+	put_stringlist_limited(filename, recentfiles, main_v->props.max_recent_files);
+	free_stringlist(recentfiles);
+	g_free(filename);
+	
+	recentfiles = NULL;
+	filename = g_strconcat(g_get_home_dir(), "/.bluefish/recentprojects", NULL);
+	inputlist = get_stringlist(filename, NULL);
+	tmplist = g_list_first(inputlist);
+	while (tmplist) {
+		DEBUG_MSG("found recent project %s\n",(gchar *)tmplist->data);
+		recentfiles = add_to_history_stringlist(recentfiles, (gchar *)tmplist->data, TRUE);
+		tmplist = g_list_next(tmplist);
 	}
-
-	put_stringlist(recentfile, newlist);
-	g_list_free(newlist);
-	free_stringlist(filenames);
-
-	g_free(recentfile);
+	free_stringlist(inputlist);
+	tmplist = g_list_nth(recentfiles, g_list_length(recentfiles) - main_v->props.max_recent_files);
+	while (tmplist) {
+		DEBUG_MSG("recent_menu_init, adding recent project %s\n",(gchar *)tmplist->data);
+		bfwin->menu_recent_projects  = g_list_append(bfwin->menu_recent_projects, create_recent_entry(bfwin,tmplist->data,TRUE, FALSE));
+		tmplist = g_list_previous(tmplist);
+	}
+	put_stringlist_limited(filename, recentfiles, main_v->props.max_recent_files);
+	free_stringlist(recentfiles);
+	g_free(filename);
 }
 
 /* Add_to_recent_list
  * This should be called when a new file is opened, i.e. from
  * file_open_cb, it adds a new entry which also appears in the
  * menu bar, and (if nessecary) deletes the last entry */
-void add_to_recent_list(gchar *filename, gint closed_file) {
+void add_to_recent_list(gchar *filename, gint closed_file, gboolean is_project) {
 	DEBUG_MSG("add_to_recent_list, started for %s\n", filename);
 	if (closed_file) {
 		GList *tmplist = g_list_first(main_v->bfwinlist);
 		while (tmplist) {
 			GtkWidget *tmp;
-			Tbfwin *bfwin;
-			bfwin = BFWIN(tmplist->data);
+			GList **worklist;
+			Tbfwin *bfwin = BFWIN(tmplist->data);
+			
+			if (is_project) {
+				worklist = &bfwin->menu_recent_projects;
+			} else {
+				worklist = &bfwin->menu_recent_files;
+			}
 			
 			/* First of all, create the entry and insert it at the list*/
-			bfwin->menu_recent_files = g_list_append(bfwin->menu_recent_files,
-									create_recent_entry(bfwin,filename));
+			*worklist = g_list_append(*worklist,create_recent_entry(bfwin,filename,is_project,TRUE));
 
 			DEBUG_MSG("add_to_recent_list, inserted item in menu\n");
-			if(g_list_length(bfwin->menu_recent_files) > main_v->props.max_recent_files) {
-				tmp = remove_recent_entry(bfwin,"last");
+			if(g_list_length(*worklist) > main_v->props.max_recent_files) {
+				tmp = remove_recent_entry(bfwin,"last",is_project);
 				DEBUG_MSG("add_to_recent_list, list too long, entry %s to be deleted\n", GTK_LABEL(GTK_BIN(tmp)->child)->label);
 				gtk_widget_hide(tmp);
 				gtk_widget_destroy(tmp);
@@ -1052,7 +1078,11 @@ void add_to_recent_list(gchar *filename, gint closed_file) {
 
 	} else {
 		gchar *tmpfilename, *recentfile;
-		recentfile = g_strconcat(g_get_home_dir(), "/.bluefish/recentlist", NULL);
+		if (is_project) {
+			recentfile = g_strconcat(g_get_home_dir(), "/.bluefish/recentprojects", NULL);
+		} else {
+			recentfile = g_strconcat(g_get_home_dir(), "/.bluefish/recentlist", NULL);
+		}
 		/* save the new list */
 		tmpfilename = g_strconcat(filename, "\n", NULL);
 		DEBUG_MSG("add_to_recent_list, trying to append to %s\n", recentfile);

@@ -767,10 +767,17 @@ GList *get_stringlist(const gchar * filename, GList * which_list) {
 	return get_list(filename,which_list,FALSE);
 }
 
-/*****************************************************************************
- * stores a stringlist into a file
+/**
+ * put_stringlist_limited:
+ * @filename: #gchar* with the filename to store the list
+ * @which_list: #GList* with the list to store
+ * @maxentries: #gint only the LAST maxentries of the list will be stored
+ *
+ * stores the LAST maxentries entries of list which_list in file filename
+ * if maxentries is 0 all entries will be stored
+ *
+ * Return value: #gboolean TRUE on success, FALSE on failure
  */
-
 gboolean put_stringlist_limited(gchar * filename, GList * which_list, gint maxentries) {
 	FILE *fd;
 	GList *tmplist;
@@ -826,20 +833,37 @@ GList *remove_from_stringlist(GList *which_list, const gchar * string) {
 	return which_list;
 }
 
-GList *add_to_history_stringlist(GList *which_list, const gchar *string) {
+/**
+ * add_to_history_stringlist:
+ * @which_list: #GList* the list to add to
+ * @string: #const gchar* with the string to add
+ * @move_to_end: #gboolean, if TRUE do move existing entries to the end
+ *
+ * adds string to the stringlist which_list
+ *
+ * if string exists in this list already and move_to_end is TRUE, 
+ * it will be moved to the end of the list
+ *
+ * Return value: GList* with the modified list
+ */
+GList *add_to_history_stringlist(GList *which_list, const gchar *string, gboolean move_to_end) {
 	if (string && strlen(string) ) {
 		GList *tmplist = g_list_first(which_list);
 		while (tmplist) {
 			if (strcmp((gchar *) tmplist->data, string) == 0) {
 				/* move this entry to the end */
-				DEBUG_MSG("add_to_history_stringlist, entry exists, moving to the end\n");
-				which_list = g_list_remove_link(which_list, tmplist);
-				return g_list_concat(which_list, tmplist);
+				if (move_to_end) {
+					DEBUG_MSG("add_to_history_stringlist, entry %s exists, moving to the end\n", string);
+					which_list = g_list_remove_link(which_list, tmplist);
+					return g_list_concat(which_list, tmplist);
+				} else {
+					return which_list;
+				}
 			}
 			tmplist = g_list_next(tmplist);
 		}
 		/* if we arrive here the string was not yet in the list */
-		DEBUG_MSG("add_to_history_stringlist, appending new entry\n");
+		DEBUG_MSG("add_to_history_stringlist, appending new entry %s\n",string);
 		which_list = g_list_append(which_list, g_strdup(string));
 	}
 	return which_list;

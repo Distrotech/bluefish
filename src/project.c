@@ -117,6 +117,7 @@ void project_open_from_file(Tbfwin *bfwin, gchar *fromfilename) {
 		g_free(prj);
 		return;
 	}
+	add_to_recent_list(fromfilename, FALSE, TRUE);
 	prj->filename = g_strdup(fromfilename);
 	DEBUG_MSG("project_open_from_file, basedir=%s\n",prj->basedir);
 	if (bfwin->project == NULL && test_only_empty_doc_left(bfwin->documentlist)) {
@@ -167,6 +168,7 @@ gboolean project_save_and_close(Tbfwin *bfwin) {
 		file_close_all_cb(NULL,bfwin);
 		if (test_only_empty_doc_left(bfwin->documentlist)) {
 			DEBUG_MSG("project_save_and_close, all documents are closed\n");
+			add_to_recent_list(bfwin->project->filename, TRUE, TRUE);
 			project_destroy(bfwin);
 			gui_set_title(bfwin, bfwin->current_document);
 			filebrowser_set_basedir(bfwin, NULL);

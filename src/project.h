@@ -22,6 +22,7 @@
 
 /* #define DEBUG */
 gboolean project_save_and_close(Tbfwin *bfwin);
+void project_open_from_file(Tbfwin *bfwin, gchar *fromfilename);
 void project_menu_cb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget);
 
 #endif /* __PROJECT_H_  */
