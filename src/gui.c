@@ -20,35 +20,36 @@
 /* #define DEBUG */
 
 #include <gtk/gtk.h>
-#include <time.h> /* nanosleep() */
-#include <string.h> /* strchr() */
-#include <unistd.h> /* exit() */
-#include <stdlib.h> /* exit() on Solaris */
+#include <time.h>		/* nanosleep() */
+#include <string.h>	/* strchr() */
+#include <unistd.h>	/* exit() */
+#include <stdlib.h>	/* exit() on Solaris */
 
 #include "config.h"
 
 #include "bluefish.h"
-#include "gui.h"
-#include "document.h" /* file_new_cb() */
+#include "bf_lib.h"			/* get_int_from_string() */
+#include "bookmark.h"
+#include "document.h"		/* file_new_cb() */
+#include "filebrowser.h"
+#include "file_dialogs.h"
+#include "fref.h"
 #include "gtk_easy.h"
-#include "menu.h" /* menu_create_main(), recent_menu_init() */
-#include "bf_lib.h" /* get_int_from_string() */
-#include "pixmap.h"  /* new_pixmap(); */
-#include "undo_redo.h" /* undo_cb() redo_cb() etc. */
-#include "snr2.h" /* search_cb, replace_cb */
-#include "html_table.h"
+#include "gui.h"
 #include "html.h"
 #include "html2.h"
-#include "wizards.h"
-#include "image.h"
 #include "html_form.h"
-#include "filebrowser.h"
-#include "stringlist.h"
-#include "preferences.h" /* open_preferences_cb */
-#include "outputbox.h" /* init_outputbox() */
-#include "fref.h"
-#include "bookmark.h"
+#include "html_table.h"
+#include "image.h"
+#include "menu.h"				/* menu_create_main(), recent_menu_init() */
+#include "outputbox.h"		/* init_outputbox() */
+#include "pixmap.h"			/* new_pixmap(); */
+#include "preferences.h"	/* open_preferences_cb */
 #include "project.h"
+#include "snr2.h"				/* search_cb, replace_cb */
+#include "stringlist.h"
+#include "undo_redo.h"		/* undo_cb() redo_cb() etc. */
+#include "wizards.h"
 
 #ifdef FB2
 #include "filebrowser2.h"
