@@ -15,9 +15,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8 bit\n"
 
 #: ../src/bfspell.c:340
-#, fuzzy
 msgid "Check Spelling"
-msgstr "Prüfe"
+msgstr "Rechtschreibprüfung"
 
 #: ../src/bfspell.c:344
 msgid "Checking"
@@ -25,30 +24,27 @@ msgstr "Prüfe"
 
 #: ../src/bfspell.c:353
 msgid "_Misspelled word:"
-msgstr ""
+msgstr "_Falschgeschriebenes Wort:"
 
 #: ../src/bfspell.c:357
 msgid "Change _to:"
-msgstr ""
+msgstr "Ändern _zu:"
 
 #: ../src/bfspell.c:360
-#, fuzzy
 msgid "I_gnore"
-msgstr "ignorieren"
+msgstr "i_gnorieren"
 
 #: ../src/bfspell.c:361 ../src/snr2.c:886
 msgid "_Replace"
 msgstr "E_rsetzen"
 
 #: ../src/bfspell.c:374
-#, fuzzy
 msgid "In _document"
-msgstr "Im Dokument"
+msgstr "Im _Dokument"
 
 #: ../src/bfspell.c:375
-#, fuzzy
 msgid "I_n selection"
-msgstr "In der Auswahl"
+msgstr "I_n der Auswahl"
 
 #: ../src/bfspell.c:384
 msgid "personal dictionary"
@@ -59,29 +55,24 @@ msgid "session dictionary"
 msgstr "Sessionwörterbuch"
 
 #: ../src/bfspell.c:393
-#, fuzzy
 msgid "Dictionary:"
-msgstr "Wörterbuch"
+msgstr "Wörterbuch:"
 
 #: ../src/bfspell.c:397
-#, fuzzy
 msgid "_Add"
-msgstr "Hinzufügen"
+msgstr "Hin_zufügen"
 
 #: ../src/bfspell.c:401
-#, fuzzy
 msgid "Language:"
-msgstr "_Sprache:"
+msgstr "Sprache:"
 
 #: ../src/bfspell.c:405
-#, fuzzy
 msgid "Set defa_ult"
-msgstr "Standard"
+msgstr "Stan_dard"
 
 #: ../src/bfspell.c:409
-#, fuzzy
 msgid "Filter:"
-msgstr "Filter"
+msgstr "Filter:"
 
 #: ../src/bfspell.c:417
 msgid "no filter"
@@ -260,14 +251,13 @@ msgid "The file you have selected is being edited in Bluefish."
 msgstr "Die Datei wird bereits in Bluefish bearbeitet"
 
 #: ../src/document.c:2049
-#, fuzzy, c-format
+#, c-format
 msgid "A file named \"%s\" already exists."
-msgstr "Das Verzeichnis existiert bereits."
+msgstr "Die Datei \"%s\" existiert bereits."
 
 #: ../src/document.c:2051
-#, fuzzy
 msgid "Do you want to replace the existing file?"
-msgstr "Änderungen an unbenannter Datei speichern?"
+msgstr "Vorhandene Datei ersetzen?"
 
 #: ../src/document.c:2098
 msgid "Save as..."
@@ -287,9 +277,8 @@ msgstr ""
 "Alte Änderungszeit:  %s"
 
 #: ../src/document.c:2141
-#, fuzzy
 msgid "File has been modified by another process."
-msgstr "Datei von einem anderen Prozeß geändert."
+msgstr "Datei wurde von einem anderen Prozeß geändert."
 
 #: ../src/document.c:2154
 #, c-format
@@ -297,40 +286,39 @@ msgid "Saving %s"
 msgstr "Speichere %s"
 
 #: ../src/document.c:2164
-#, fuzzy
 msgid ""
 "Could not backup file:\n"
 "\""
-msgstr "Kann Datei nicht lesen:\n"
+msgstr ""
+"Kann Datei nicht sichern:\n"
+"\""
 
 #: ../src/document.c:2165
-#, fuzzy
 msgid "File save aborted.\n"
-msgstr "Speichern abgebrochen, konnte Backup nicht speichern\n"
+msgstr "Speichern abgebrochen.\n"
 
 #: ../src/document.c:2170
-#, fuzzy
 msgid ""
 "Could not write file:\n"
 "\""
-msgstr "Kann Datei nicht lesen:\n"
+msgstr ""
+"Kann Datei nicht schreiben:\n"
+"\""
 
 #: ../src/document.c:2171
-#, fuzzy
 msgid "File save error"
-msgstr "Bluefish Fehler"
+msgstr "Fehler beim Speichern"
 
 #: ../src/document.c:2217
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Do you want to save the changes made to\n"
 "\"%s\"?."
 msgstr ""
 "Die Änderungen an\n"
-"%s speichern?"
+"\"%s\" speichern?"
 
 #: ../src/document.c:2220
-#, fuzzy
 msgid "Do you want to save the changes made to this untitled file?"
 msgstr "Änderungen an unbenannter Datei speichern?"
 
@@ -339,9 +327,8 @@ msgid "Do_n't save"
 msgstr "_Nicht Speichern"
 
 #: ../src/document.c:2225
-#, fuzzy
 msgid "This file has not been saved."
-msgstr "Datei nicht gespeichert"
+msgstr "Datei wurde nicht gespeichert."
 
 #: ../src/document.c:2461
 msgid "No filename"
@@ -352,11 +339,12 @@ msgid "Loading files..."
 msgstr "Lade Dateien..."
 
 #: ../src/document.c:2607
-#, fuzzy
 msgid ""
 "These files could not opened:\n"
 "\n"
-msgstr "Diese Dateien wurden nicht geöffnet:\n"
+msgstr ""
+"Diese Dateien konnten nicht geöffnet werden:\n"
+"\n"
 
 #: ../src/document.c:2609 ../src/msg_queue.c:205
 msgid "Unable to open file(s)\n"
@@ -375,7 +363,7 @@ msgid "_Ignore"
 msgstr "_Ignorieren"
 
 #: ../src/document.c:2706
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Filename: %s\n"
 "\n"
@@ -388,9 +376,8 @@ msgstr ""
 "Alte Änderungszeit:  %s"
 
 #: ../src/document.c:2707
-#, fuzzy
 msgid "File has been modified by another process\n"
-msgstr "Datei von einem anderen Prozeß geändert."
+msgstr "Datei wurde von einem anderen Prozeß geändert."
 
 #: ../src/document.c:2810
 msgid "searching files..."
@@ -458,29 +445,24 @@ msgid "No file to insert"
 msgstr "Keine Datei zum einfügen"
 
 #: ../src/document.c:3178
-#, fuzzy
 msgid "_Save All"
 msgstr "_Alle Speichern"
 
 #: ../src/document.c:3178
-#, fuzzy
 msgid "Close _All"
 msgstr "Alle s_chließen"
 
 #: ../src/document.c:3178
-#, fuzzy
 msgid "Choose per _File"
 msgstr "_Pro Datei auswählen"
 
 #: ../src/document.c:3179
-#, fuzzy
 msgid "Multiple open files have been changed."
-msgstr "Datei(en) geändert"
+msgstr "Mehrere geöffnete Dateien wurden geändert."
 
 #: ../src/document.c:3180
-#, fuzzy
 msgid "Your changes will be lost if you don't save them."
-msgstr "Änderungen gehen bis zum Sichern der Datei verloren"
+msgstr "Änderungen gehen ohne Sichern der Datei verloren."
 
 #: ../src/document.c:3434
 #, c-format
@@ -634,6 +616,8 @@ msgid ""
 "Perhaps you didn't load a reference, or you did not select a reference to "
 "search in."
 msgstr ""
+"Keine Referenz geladen oder keine Referenz zum Suchen ausgewählt"
+"."
 
 #: ../src/fref.c:2042
 msgid "Show info window"
@@ -657,9 +641,8 @@ msgid "Select files"
 msgstr "Dateien wählen"
 
 #: ../src/gui.c:238 ../src/menu.c:862
-#, fuzzy
 msgid "/View/View Left Panel"
-msgstr "/Optionen/Anzeige/Linkes Panel"
+msgstr "/Ansicht/Linkes Panel anzeigen"
 
 #: ../src/gui.c:550
 msgid "QuickStart..."
@@ -1026,7 +1009,6 @@ msgid "New"
 msgstr "Neu"
 
 #: ../src/gui.c:855
-#, fuzzy
 msgid "Open.."
 msgstr "Öffnen..."
 
@@ -1068,11 +1050,11 @@ msgstr "Wiederholen"
 
 #: ../src/gui.c:881
 msgid "Shift Left"
-msgstr ""
+msgstr "Links ausrücken"
 
 #: ../src/gui.c:883
 msgid "Shift Right"
-msgstr ""
+msgstr "Rechts einrücken"
 
 #: ../src/gui.c:890
 msgid "Spellcheck..."
@@ -1147,19 +1129,16 @@ msgid "starting bluefish"
 msgstr "Starte bluefish..."
 
 #: ../src/gui.c:1429 ../src/menu.c:860
-#, fuzzy
 msgid "/View/View HTML Toolbar"
-msgstr "/Optionen/Anzeige/HTML Werkzeugleiste"
+msgstr "/Anzeige/HTML Werkzeugleiste anzeigen"
 
 #: ../src/gui.c:1436 ../src/menu.c:859
-#, fuzzy
 msgid "/View/View Main Toolbar"
-msgstr "/Optionen/Anzeige/Hauptwerkzeugleiste"
+msgstr "/Ansicht/Hauptwerkzeugleiste anzeigen"
 
 #: ../src/gui.c:1443 ../src/menu.c:861
-#, fuzzy
 msgid "/View/View Custom Menu"
-msgstr "/Optionen/Anzeige/Benutzerdefinierte Werkzeugleiste"
+msgstr "/Ansicht/Benutzerdefinierte Werkzeugleiste anzeigen"
 
 #: ../src/html.c:356
 msgid "Insert Time"
@@ -1804,9 +1783,8 @@ msgid "/File/_New"
 msgstr "/Datei/_Neu"
 
 #: ../src/menu.c:277
-#, fuzzy
 msgid "/File/New _Window"
-msgstr "/Datei/_Neu"
+msgstr "/Datei/Neues _Fenster"
 
 #: ../src/menu.c:278
 msgid "/File/_Open..."
@@ -1821,24 +1799,20 @@ msgid "/File/Open recent/tearoff1"
 msgstr "/Datei/Letzte öffnen/tearoff1"
 
 #: ../src/menu.c:283
-#, fuzzy
 msgid "/File/Open Ad_vanced..."
 msgstr "/Datei/Er_weitertes Öffnen..."
 
 #: ../src/menu.c:287
-#, fuzzy
 msgid "/File/Open _URL..."
-msgstr "/Datei/URL Öffnen..."
+msgstr "/Datei/_URL Öffnen..."
 
 #: ../src/menu.c:289
-#, fuzzy
 msgid "/File/Open _from selection"
-msgstr "/Datei/Aus Auswahl öffnen"
+msgstr "/Datei/Aus A_uswahl öffnen"
 
 #: ../src/menu.c:290
-#, fuzzy
 msgid "/File/sep1"
-msgstr "/Datei/sep2"
+msgstr "/Datei/sep1"
 
 #: ../src/menu.c:291
 msgid "/File/_Save"
@@ -1865,9 +1839,8 @@ msgid "/File/_Insert..."
 msgstr "/Datei/E_infügen..."
 
 #: ../src/menu.c:297
-#, fuzzy
 msgid "/File/Rena_me..."
-msgstr "/Datei/_Umbenennen..."
+msgstr "/Datei/U_mbenennen..."
 
 #: ../src/menu.c:298
 msgid "/File/sep3"
@@ -1882,14 +1855,12 @@ msgid "/File/Close A_ll"
 msgstr "/Datei/A_lle schließen"
 
 #: ../src/menu.c:301
-#, fuzzy
 msgid "/File/Close Win_dow"
-msgstr "/Datei/A_lle schließen"
+msgstr "/Datei/Fe_nster schließen"
 
 #: ../src/menu.c:302
-#, fuzzy
 msgid "/File/sep4"
-msgstr "/Datei/sep2"
+msgstr "/Datei/sep4"
 
 #: ../src/menu.c:303
 msgid "/File/_Quit"
@@ -1912,9 +1883,8 @@ msgid "/Edit/_Redo"
 msgstr "/Bearbeiten/Wiede_rherstellen"
 
 #: ../src/menu.c:310
-#, fuzzy
 msgid "/Edit/sep1"
-msgstr "/Bearbeiten/sep3"
+msgstr "/Bearbeiten/sep1"
 
 #: ../src/menu.c:311
 msgid "/Edit/Cu_t"
@@ -1929,9 +1899,8 @@ msgid "/Edit/_Paste"
 msgstr "/Bearbeiten/E_infügen"
 
 #: ../src/menu.c:314
-#, fuzzy
 msgid "/Edit/sep2"
-msgstr "/Bearbeiten/sep3"
+msgstr "/Bearbeiten/sep2"
 
 #: ../src/menu.c:315
 msgid "/Edit/Select _All"
@@ -1950,9 +1919,8 @@ msgid "/Edit/Find A_gain"
 msgstr "/Bearbeiten/Weitersuche_n"
 
 #: ../src/menu.c:319
-#, fuzzy
 msgid "/Edit/Find from selection"
-msgstr "/Datei/Aus Auswahl öffnen"
+msgstr "/Bearbeiten/In Auswahl suchen"
 
 #: ../src/menu.c:320
 msgid "/Edit/R_eplace..."
@@ -1988,61 +1956,51 @@ msgstr "/Bearbeiten/sep4"
 
 #: ../src/menu.c:328
 msgid "/Edit/Sh_ift Right"
-msgstr ""
+msgstr "/Bearbeiten/Nach rechts einrücken"
 
 #: ../src/menu.c:329
-#, fuzzy
 msgid "/Edit/S_hift Left"
-msgstr "/Bearbeiten/E_infügen"
+msgstr "/Bearbeiten/Nac_h links ausrücken"
 
 #: ../src/menu.c:330
 msgid "/Edit/sep5"
 msgstr "/Bearbeiten/sep5"
 
 #: ../src/menu.c:331
-#, fuzzy
 msgid "/Edit/_Save Settings"
-msgstr "/Optionen/Einstellungen _Speichern"
+msgstr "/Bearbeiten/Einstellungen _Speichern"
 
 #: ../src/menu.c:332
-#, fuzzy
 msgid "/Edit/Save Shortcut _Keys"
-msgstr "/Optionen/Short_cuts Speichern"
+msgstr "/Bearbeiten/Short_cuts Speichern"
 
 #: ../src/menu.c:333
-#, fuzzy
 msgid "/Edit/_Preferences"
-msgstr "Einstellungen bearbeiten"
+msgstr "/Bearbeiten/Einstellungen"
 
 #: ../src/menu.c:334
-#, fuzzy
 msgid "/_View"
-msgstr "/_Datei"
+msgstr "/_Ansicht"
 
 #: ../src/menu.c:335
-#, fuzzy
 msgid "/View/tearoff1"
-msgstr "/Datei/tearoff1"
+msgstr "/Ansicht/tearoff1"
 
 #: ../src/menu.c:336
-#, fuzzy
 msgid "/View/View _Main Toolbar"
-msgstr "/Optionen/Anzeige/_Hauptwerkzeugleiste"
+msgstr "/Ansicht/_Hauptwerkzeugleiste anzeigen"
 
 #: ../src/menu.c:337
-#, fuzzy
 msgid "/View/View _HTML Toolbar"
-msgstr "/Optionen/Anzeige/H_TML Werkzeugleiste"
+msgstr "/Ansicht/H_TML Werkzeugleiste anzeigen"
 
 #: ../src/menu.c:338
-#, fuzzy
 msgid "/View/View _Custom Menu"
-msgstr "/Optionen/Anzeige/_Benutzerdefinierte Werkzeugleiste"
+msgstr "/Ansicht/_Benutzerdefinierte Werkzeugleiste anzeigen"
 
 #: ../src/menu.c:339
-#, fuzzy
 msgid "/View/View _Left Panel"
-msgstr "/Optionen/Anzeige/_Linkes Panel"
+msgstr "/Ansicht/_Linkes Panel anzeigen"
 
 #: ../src/menu.c:340
 msgid "/_Tags"
@@ -2781,7 +2739,6 @@ msgid "/Tags/_Comment"
 msgstr "/Tags/_Kommentar"
 
 #: ../src/menu.c:527
-#, fuzzy
 msgid "/Dial_ogs"
 msgstr "/Dialo_ge"
 
@@ -2986,23 +2943,20 @@ msgid "/Document/tearoff1"
 msgstr "/Dokument/tearoff1"
 
 #: ../src/menu.c:606
-#, fuzzy
 msgid "/Document/_Increase Tabsize"
-msgstr "/Optionen/Tabulatorweite/Ver_größern"
+msgstr "/Dokument/Tabulatorweite ver_größern"
 
 #: ../src/menu.c:607
-#, fuzzy
 msgid "/Document/_Decrease Tabsize"
-msgstr "/Optionen/Tabulatorweite/Ver_kleinern"
+msgstr "/Dokument/Tabulatorweite ver_kleinern"
 
 #: ../src/menu.c:608
 msgid "/Document/sep1"
 msgstr "/Dokument/sep1"
 
 #: ../src/menu.c:609
-#, fuzzy
 msgid "/Document/_Auto Indent"
-msgstr "/Optionen/_Automatisches Einrücken"
+msgstr "/Dokument/_Automatisches Einrücken"
 
 #: ../src/menu.c:610
 msgid "/Document/_Wrap"
@@ -3013,9 +2967,8 @@ msgid "/Document/_Line Numbers"
 msgstr "/Dokument/_Zeilennummern"
 
 #: ../src/menu.c:612
-#, fuzzy
 msgid "/Document/sep2"
-msgstr "/Dokument/sep1"
+msgstr "/Dokument/sep2"
 
 #: ../src/menu.c:613
 msgid "/Document/_Highlight Syntax"
@@ -3026,42 +2979,34 @@ msgid "/Document/_Update Highlighting"
 msgstr "/Dokument/Highlighting a_ktualisieren"
 
 #: ../src/menu.c:615
-#, fuzzy
 msgid "/Document/sep3"
-msgstr "/Dokument/sep1"
+msgstr "/Dokument/sep3"
 
 #: ../src/menu.c:616
-#, fuzzy
 msgid "/Document/Document _Type"
 msgstr "/Dokument/_Typ"
 
 #: ../src/menu.c:617
-#, fuzzy
 msgid "/Document/Document Type/tearoff1"
 msgstr "/Dokument/Typ/tearoff1"
 
 #: ../src/menu.c:618
-#, fuzzy
 msgid "/Document/Character _Encoding"
-msgstr "/Dokument/_Encoding"
+msgstr "/Dokument/Zeichenkodierung"
 
 #: ../src/menu.c:619
-#, fuzzy
 msgid "/Document/Character Encoding/tearoff1"
-msgstr "/Dokument/Encoding/tearoff1"
+msgstr "/Dokument/Zeichenkodierung/tearoff1"
 
 #: ../src/menu.c:620
-#, fuzzy
 msgid "/Document/sep4"
-msgstr "/Dokument/sep1"
+msgstr "/Dokument/sep4"
 
 #: ../src/menu.c:622
-#, fuzzy
 msgid "/Document/Check _Spelling..."
-msgstr "/Dokument/Encoding"
+msgstr "/Dokument/Rechtschreibprüfung..."
 
 #: ../src/menu.c:624
-#, fuzzy
 msgid "/Document/_Floating window"
 msgstr "/Dokument/Freie Fenster"
 
@@ -3070,106 +3015,88 @@ msgid "/Document/Word _Count"
 msgstr "/Dokument/Wörter _zählen"
 
 #: ../src/menu.c:626
-#, fuzzy
 msgid "/_Project"
-msgstr "/TEMP/Projekt"
+msgstr "/_Projekt"
 
 #: ../src/menu.c:627
-#, fuzzy
 msgid "/Project/tearoff1"
-msgstr "/TEMP/Projekt/tearoff1"
+msgstr "/Projekt/tearoff1"
 
 #: ../src/menu.c:628
-#, fuzzy
 msgid "/Project/_Open Project..."
-msgstr "/TEMP/Projekt/Letzte öffnen"
+msgstr "/Projekt/Ö_ffnen"
 
 #: ../src/menu.c:629
-#, fuzzy
 msgid "/Project/Open r_ecent"
-msgstr "/TEMP/Projekt/Letztes öffnen"
+msgstr "/Projekt/Letzte öffnen"
 
 #: ../src/menu.c:630
-#, fuzzy
 msgid "/Project/Open recent/tearoff1"
-msgstr "/TEMP/Projekt/Letzte öffnen/tearoff1"
+msgstr "/Projekt/Letzte öffnen/tearoff1"
 
 #: ../src/menu.c:631
-#, fuzzy
 msgid "/Project/_New Project"
-msgstr "/TEMP/Projekt/Letzte öffnen"
+msgstr "/Projekt/_Neu"
 
 #: ../src/menu.c:632
-#, fuzzy
 msgid "/Project/sep1"
-msgstr "/TEMP/Projekt/sep1"
+msgstr "/Projekt/sep1"
 
 #: ../src/menu.c:633
-#, fuzzy
 msgid "/Project/_Save"
-msgstr "/TEMP/Projekt/Speichern"
+msgstr "/Projekt/_Speichern"
 
 #: ../src/menu.c:634
-#, fuzzy
 msgid "/Project/Save _as..."
-msgstr "/TEMP/Projekt/Speichern unter"
+msgstr "/Projekt/Speichern _unter..."
 
 #: ../src/menu.c:635
-#, fuzzy
 msgid "/Project/_Close & save"
-msgstr "/TEMP/Projekt/Speichern & Schließen"
+msgstr "/Projekt/Speichern & S_chließen"
 
 #: ../src/menu.c:636
-#, fuzzy
 msgid "/Project/sep2"
-msgstr "/TEMP/Projekt/sep1"
+msgstr "/Projekt/sep2"
 
 #: ../src/menu.c:637
 msgid "/Project/E_dit Project Options..."
-msgstr ""
+msgstr "/Projekt/Projekte_instellungen..."
 
 #: ../src/menu.c:638
 msgid "/_Go"
-msgstr ""
+msgstr "/_Gehe"
 
 #: ../src/menu.c:639
-#, fuzzy
 msgid "/Go/tearoff1"
-msgstr "/Datei/tearoff1"
+msgstr "/Gehe/tearoff1"
 
 #: ../src/menu.c:640
 msgid "/Go/_Previous document"
-msgstr ""
+msgstr "/Gehe/_Vorheriges Dokument"
 
 #: ../src/menu.c:641
-#, fuzzy
 msgid "/Go/_Next document"
-msgstr "/_Dokument"
+msgstr "/Gehe/_Nächstes Dokument"
 
 #: ../src/menu.c:642 ../src/menu.c:645
-#, fuzzy
 msgid "/Go/sep1"
-msgstr "/sep1"
+msgstr "/Gehe/sep1"
 
 #: ../src/menu.c:643
-#, fuzzy
 msgid "/Go/_First document"
-msgstr "im aktuellen Dokument"
+msgstr "/Gehe/_Erstes Dokument"
 
 #: ../src/menu.c:644
-#, fuzzy
 msgid "/Go/L_ast document"
-msgstr "/_Dokument"
+msgstr "/Gehe/_Letztes Dokument"
 
 #: ../src/menu.c:646
-#, fuzzy
 msgid "/Go/Goto _Line"
-msgstr "/Bearbeiten/Gehe zu _Zeile..."
+msgstr "/Gehe/Gehe zu Zeile..."
 
 #: ../src/menu.c:647
-#, fuzzy
 msgid "/Go/Goto _Selection"
-msgstr "/Bearbeiten/_Gehe zu Auswahl..."
+msgstr "/Gehe/_Gehe zu Auswahl"
 
 #: ../src/menu.c:648
 msgid "/E_xternal"
@@ -3180,14 +3107,12 @@ msgid "/External/tearoff1"
 msgstr "/Extern/tearoff1"
 
 #: ../src/menu.c:816
-#, fuzzy
 msgid "/Document/Document Type"
 msgstr "/Dokument/Typ"
 
 #: ../src/menu.c:863
-#, fuzzy
 msgid "/Document/Auto Indent"
-msgstr "/Optionen/_Automatisch einrücken"
+msgstr "/Dokument/_Automatisch einrücken"
 
 #: ../src/menu.c:932
 msgid "Loading file(s)..."
@@ -3202,18 +3127,16 @@ msgid "Could not open file\n"
 msgstr "Datei konnte nicht geöffnet werden:\n"
 
 #: ../src/menu.c:959
-#, fuzzy
 msgid "/Project/Open recent"
-msgstr "/TEMP/Projekt/Letzte öffnen"
+msgstr "/Projekt/Letzte öffnen"
 
 #: ../src/menu.c:963
 msgid "/File/Open recent"
 msgstr "/Datei/Letzte öffnen"
 
 #: ../src/menu.c:1126
-#, fuzzy
 msgid "/Windows"
-msgstr "TEMP/Fenster"
+msgstr "/Fenster"
 
 #: ../src/menu.c:1192
 msgid "Could not view file in browser, the file does not yet have a name\n"
@@ -3249,9 +3172,8 @@ msgid "/External/Outputbox"
 msgstr "/Extern/Outputbox"
 
 #: ../src/menu.c:1445
-#, fuzzy
 msgid "/Document/Character Encoding"
-msgstr "/Dokument/Encoding"
+msgstr "/Dokument/Zeichenkodierung"
 
 #: ../src/menu.c:1708
 msgid "This custom search and replace requires a selection"
@@ -3839,9 +3761,8 @@ msgid "File browser"
 msgstr "Dateibrowser"
 
 #: ../src/preferences.c:1878
-#, fuzzy
 msgid "Default basedir"
-msgstr "Basisverzeichnis auswählen"
+msgstr "Standard-Basisverzeichnis"
 
 #: ../src/preferences.c:1879
 msgid "Use separate file and directory view"
@@ -3924,35 +3845,30 @@ msgid "Enter Bluefish project filename"
 msgstr "Bluefish Projektdateinamen eingeben"
 
 #: ../src/project.c:131
-#, fuzzy
 msgid "/Project/Save"
-msgstr "/TEMP/Projekt/Speichern"
+msgstr "/Projekt/Speichern"
 
 #: ../src/project.c:132
-#, fuzzy
 msgid "/Project/Save as..."
-msgstr "/TEMP/Projekt/Speichern unter"
+msgstr "/Projekt/Speichern unter..."
 
 #: ../src/project.c:133
-#, fuzzy
 msgid "/Project/Close & save"
-msgstr "/TEMP/Projekt/Speichern & Schließen"
+msgstr "/Projekt/Speichern & Schließen"
 
 #: ../src/project.c:134
 msgid "/Project/Edit Project Options..."
-msgstr ""
+msgstr "/Projekt/Projekt_optionen bearbeiten..."
 
 #: ../src/project.c:189
 msgid "Select Bluefish project filename"
 msgstr "Bluefish Projektdateinamen wählen"
 
 #: ../src/project.c:316
-#, fuzzy
 msgid "Create New Project"
-msgstr "Neues Projekt"
+msgstr "Neues Projekt erzeugen"
 
 #: ../src/project.c:319
-#, fuzzy
 msgid "Edit Project"
 msgstr "Projekt bearbeiten"
 
@@ -3962,34 +3878,28 @@ msgid "This project contains %d files"
 msgstr "Deiese Projekt enthält %d Dateien"
 
 #: ../src/project.c:353
-#, fuzzy
 msgid "Project _Name:"
-msgstr "_Name:"
+msgstr "Projekt_name:"
 
 #: ../src/project.c:357
-#, fuzzy
 msgid "_Local Directory:"
-msgstr "/Neues _Verzeichnis"
+msgstr "_Lokales Verzeichnis:"
 
 #: ../src/project.c:361
-#, fuzzy
 msgid "_Remote Directory:"
-msgstr "/Neues _Verzeichnis"
+msgstr "_Entferntes Verzeichnis"
 
 #: ../src/project.c:365
-#, fuzzy
 msgid "_Template:"
-msgstr "Vorlage"
+msgstr "_Vorlage:"
 
 #: ../src/project.c:369
-#, fuzzy
 msgid "_Word wrap by default"
 msgstr "Wortumbruch standardmäßig"
 
 #: ../src/project.c:380
-#, fuzzy
 msgid "Create _Project"
-msgstr "Neues Projekt"
+msgstr "_Neues Projekt"
 
 #: ../src/project.c:420
 msgid "Create project"
@@ -4170,7 +4080,7 @@ msgstr "Ersetzeungstyp:"
 
 #: ../src/snr2.c:1386
 msgid "Patterns contain backslash escape sequences (\\n, \\t)"
-msgstr ""
+msgstr "Muster enthalten Escapesequenzen (\\n, \\t)"
 
 #: ../src/snr2.c:1387
 msgid "Match ca_se"
@@ -4190,7 +4100,7 @@ msgstr "_Ersetze einmal"
 
 #: ../src/specialchar.c:18
 msgid "Insert special character"
-msgstr ""
+msgstr "Spezialzeichen einfügen"
 
 #: ../src/stringlist.c:365
 msgid " Add "
