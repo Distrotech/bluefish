@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * filebrowser->c the filebrowser
  *
- * Copyright (C) 2002 Olivier Sessink
+ * Copyright (C) 2002-2003 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -791,6 +791,16 @@ static GtkTreePath *filebrowser_get_path_from_selection(GtkTreeModel *model, Gtk
 	return NULL;
 }
 
+static gchar *get_selected_filename(Tfilebrowser *filebrowser) {
+	GtkTreePath *path;
+	path = filebrowser_get_path_from_selection(GTK_TREE_MODEL(filebrowser->store),GTK_TREE_VIEW(filebrowser->tree),NULL);
+	if (path) {
+		gchar *filename = return_filename_from_path(filebrowser,GTK_TREE_MODEL(filebrowser->store), path);
+		gtk_tree_path_free(path);
+		return filename;
+	}
+	return NULL;
+}
 
 /**
  * filebrowser_open_dir:
@@ -994,6 +1004,7 @@ static void create_file_or_dir_win(Tfilebrowser *filebrowser, gint is_file) {
 			gtk_tree_model_iter_parent(GTK_TREE_MODEL(filebrowser->store), &parent, &iter);
 			iter = parent;
 		}
+		/* hmm, I have the feeling that we should free path here first, before we use it again */
 		path = gtk_tree_model_get_path(GTK_TREE_MODEL(filebrowser->store),&iter);
 		tmp = return_filename_from_path(filebrowser,GTK_TREE_MODEL(filebrowser->store),path);
 		ws->basedir = ending_slash(tmp);
@@ -1154,39 +1165,33 @@ static void filebrowser_rpopup_rename(Tfilebrowser *filebrowser) {
 }
 
 static void filebrowser_rpopup_delete(Tfilebrowser *filebrowser) {
-	GtkTreePath *path;
-	path = filebrowser_get_path_from_selection(GTK_TREE_MODEL(filebrowser->store),GTK_TREE_VIEW(filebrowser->tree),NULL);
-	if (path) {
-		gchar *filename;
-		filename = return_filename_from_path(filebrowser,GTK_TREE_MODEL(filebrowser->store),path);
-		gtk_tree_path_free(path);
-		if (filename) {
-			gchar *buttons[] = {GTK_STOCK_CANCEL, GTK_STOCK_DELETE, NULL};
-			gchar *label;
-			gint retval;
-			label = g_strdup_printf(_("Are you sure you want to\ndelete \"%s\" ?"), filename);
-			retval = multi_query_dialog(filebrowser->bfwin->main_window,label, _("The file will be permanently deleted."), 0, 0, buttons);
-			g_free(label);
-			if (retval == 1) {
-				gchar *tmp, *dir;
-				DEBUG_MSG("file_list_rpopup_file_delete %s\n", filename);
+	gchar *filename = get_selected_filename(filebrowser);
+	if (filename) {
+		gchar *buttons[] = {GTK_STOCK_CANCEL, GTK_STOCK_DELETE, NULL};
+		gchar *label;
+		gint retval;
+		label = g_strdup_printf(_("Are you sure you want to\ndelete \"%s\" ?"), filename);
+		retval = multi_query_dialog(filebrowser->bfwin->main_window,label, _("The file will be permanently deleted."), 0, 0, buttons);
+		g_free(label);
+		if (retval == 1) {
+			gchar *tmp, *dir;
+			DEBUG_MSG("file_list_rpopup_file_delete %s\n", filename);
 #ifdef HAVE_GNOME_VFS
-				gnome_vfs_unlink(filename);
+			gnome_vfs_unlink(filename);
 #else
-				unlink(filename);
+			unlink(filename);
 #endif
-				tmp = g_path_get_dirname(filename);
-				dir = ending_slash(tmp);
-				g_free(tmp);
-				filebrowser_refresh_dir(filebrowser,dir);
-				g_free(dir);
-				
-			}
-			g_free(filename);
+			tmp = g_path_get_dirname(filename);
+			dir = ending_slash(tmp);
+			g_free(tmp);
+			filebrowser_refresh_dir(filebrowser,dir);
+			g_free(dir);
+			
 		}
-		
+		g_free(filename);
 	}
 }
+
 
 static void filebrowser_rpopup_refresh(Tfilebrowser *filebrowser) {
 	GtkTreePath *path;
@@ -1217,6 +1222,7 @@ static void filebrowser_rpopup_refresh(Tfilebrowser *filebrowser) {
 }
 
 static void filebrowser_rpopup_action_lcb(Tfilebrowser *filebrowser,guint callback_action, GtkWidget *widget) {
+	DEBUG_MSG("filebrowser_rpopup_action_lcb, widget=%p, filebrowser->tree=%p, filebrowser->tree2=%p\n",widget,filebrowser->tree,filebrowser->tree2);
 	switch (callback_action) {
 	case 1: {
 		GtkTreePath *path;
@@ -1244,13 +1250,11 @@ static void filebrowser_rpopup_action_lcb(Tfilebrowser *filebrowser,guint callba
 #ifdef EXTERNAL_GREP
 #ifdef EXTERNAL_FIND
 	case 7: {
-		GtkTreePath *tmppath;
-		gchar *path;
-		tmppath = filebrowser_get_path_from_selection(GTK_TREE_MODEL(filebrowser->store),GTK_TREE_VIEW(filebrowser->tree),NULL);
-		path = return_filename_from_path(filebrowser,GTK_TREE_MODEL(filebrowser->store), tmppath);
-		open_advanced_from_filebrowser(filebrowser->bfwin, path);
-		gtk_tree_path_free(tmppath);
-		g_free(path);
+		gchar *path = get_selected_filename(filebrowser);
+		if (path) {
+			open_advanced_from_filebrowser(filebrowser->bfwin, path);
+			g_free(path);
+		}
 	} break;	
 #endif
 #endif	
@@ -1377,6 +1381,10 @@ static gboolean filebrowser_tree2_button_press_lcb(GtkWidget *widget, GdkEventBu
 			g_free(tmp3);
 			return TRUE;
 		}
+	}
+	if (event->button == 3) {
+		GtkWidget *menu = filebrowser_rpopup_create_menu(filebrowser);
+		gtk_menu_popup(GTK_MENU(menu), NULL, NULL, NULL, NULL, event->button, event->time);
 	}
 	return FALSE; /* pass the event on */
 }
