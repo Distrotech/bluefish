@@ -443,35 +443,36 @@ void bmark_del_all_temp(Tbfwin *bfwin)
 
 void bmark_add_perm(Tbfwin *bfwin)
 {
-   GtkWidget *dlg,*name,*desc,*lab1,*lab2,*hbox1,*hbox2;
+   GtkWidget *dlg,*name,*desc,*button,*table;
    gint result;
    
-   dlg = gtk_dialog_new_with_buttons(_("Add permanent bookmark "),GTK_WINDOW(bfwin->main_window),GTK_DIALOG_MODAL,
-				                             GTK_STOCK_OK,
-				                             GTK_RESPONSE_ACCEPT,
-				                             GTK_STOCK_CANCEL,
-				                             GTK_RESPONSE_REJECT,
-				                             NULL);
+   dlg = gtk_dialog_new_with_buttons(_("Add permanent bookmark "),
+   										GTK_WINDOW(bfwin->main_window),
+										GTK_DIALOG_MODAL,
+										GTK_STOCK_OK,
+				                        GTK_RESPONSE_OK,
+				                        NULL);
+	
+	button = gtk_button_new_from_stock(GTK_STOCK_CANCEL);
+	GTK_WIDGET_SET_FLAGS(button, GTK_CAN_DEFAULT);
+	gtk_dialog_add_action_widget(GTK_DIALOG(dlg), button, GTK_RESPONSE_CANCEL);									
+	table = gtk_table_new(2, 2, FALSE);
+	gtk_table_set_col_spacings(GTK_TABLE (table), 12);
+	gtk_table_set_row_spacings(GTK_TABLE (table), 6);		
+	gtk_box_pack_start (GTK_BOX(GTK_DIALOG(dlg)->vbox), table, FALSE, FALSE, 12);
+	
  	name = gtk_entry_new();
- 	lab1 = gtk_label_new(_("Name:"));
- 	gtk_misc_set_alignment(GTK_MISC(lab1),0,0);
- 	gtk_misc_set_padding(GTK_MISC(lab1),3,3);
+	gtk_entry_set_activates_default(GTK_ENTRY(name), TRUE);
+	bf_mnemonic_label_tad_with_alignment(_("_Name:"), name, 0, 0.5, table, 0, 1, 0, 1);
+	gtk_table_attach_defaults (GTK_TABLE(table), name, 1, 2, 0, 1);
 	desc = gtk_entry_new();
- 	lab2 = gtk_label_new(_("Description:"));	
- 	gtk_misc_set_alignment(GTK_MISC(lab2),0,0); 	
- 	gtk_misc_set_padding(GTK_MISC(lab2),3,3);
- 	hbox1 = gtk_hbox_new(FALSE,1);
- 	hbox2 = gtk_hbox_new(FALSE,1);
- 	gtk_box_pack_start(GTK_BOX(hbox1),lab1,FALSE,TRUE,0); 
-	gtk_box_pack_start(GTK_BOX(hbox1),name,TRUE,TRUE,0); 
-	gtk_box_pack_start(GTK_BOX(GTK_DIALOG(dlg)->vbox),hbox1,FALSE,TRUE,0); 
-	gtk_box_pack_start(GTK_BOX(hbox2),lab2,FALSE,TRUE,0); 
-	gtk_box_pack_start(GTK_BOX(hbox2),desc,TRUE,TRUE,0); 
-	gtk_box_pack_start(GTK_BOX(GTK_DIALOG(dlg)->vbox),hbox2,FALSE,TRUE,0); 
-	gtk_entry_set_width_chars(GTK_ENTRY(name),25);
+	gtk_entry_set_activates_default(GTK_ENTRY(desc), TRUE);
+ 	bf_mnemonic_label_tad_with_alignment(_("_Description:"), desc, 0, 0.5, table, 0, 1, 1, 2);
+	gtk_table_attach_defaults(GTK_TABLE(table), desc, 1, 2, 1, 2);
+	gtk_window_set_default(GTK_WINDOW(dlg), button);
 	gtk_widget_show_all(dlg);
 	result = gtk_dialog_run(GTK_DIALOG(dlg));     
-   gtk_widget_destroy(dlg);
+    gtk_widget_destroy(dlg);
 }
 
 
