@@ -21,7 +21,7 @@
 #include <stdlib.h> /* atoi */
 #include <string.h> /* strchr() */
 
-/* #define DEBUG*/
+/*#define DEBUG*/
 
 #include "bluefish.h"
 #include "document.h"			/* file_open etc. */
@@ -1097,6 +1097,7 @@ void menu_current_document_set_toggle_wo_activate(Tfiletype *hlset, gchar *encod
 #endif
 	if (encoding) {
 		GtkWidget *menuitem = find_menuitem_in_list_by_label(menus.encodings, encoding);
+		DEBUG_MSG("menu_current_doc..., menuitem=%p for encoding=%s\n",menuitem,encoding);
 		if (menuitem) {
 			g_signal_handlers_block_matched(G_OBJECT(menuitem), G_SIGNAL_MATCH_FUNC,
 					0, 0, NULL, menu_current_document_encoding_change, NULL);
