@@ -566,6 +566,8 @@ static gboolean doc_view_button_release_lcb(GtkWidget *widget,GdkEventButton *be
 		GtkWidget *submenu;
 		GtkWidget *menu = gtk_menu_new ();
 
+		doc_bevent_in_html_tag(doc, bevent);
+
 		menuitem = gtk_menu_item_new_with_label(_("Edit tag"));
       gtk_widget_show (menuitem);
 		gtk_menu_append(GTK_MENU(menu), menuitem);
