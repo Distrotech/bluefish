@@ -129,7 +129,7 @@ void filebrowser_show(gint first_time) {
 
 void gui_create_main(GList *filenames) {
 	GtkWidget *vbox;
-	main_v->main_window = window_full(CURRENT_VERSION_NAME, GTK_WIN_POS_CENTER, GTK_WINDOW_TOPLEVEL, 0, G_CALLBACK(main_window_delete_lcb), NULL);
+	main_v->main_window = window_full(CURRENT_VERSION_NAME, GTK_WIN_POS_CENTER, 0, G_CALLBACK(main_window_delete_lcb), NULL);
 	gtk_window_set_wmclass(GTK_WINDOW(main_v->main_window), "Bluefish", "bluefish");
 
 	vbox = gtk_vbox_new(FALSE, 0);

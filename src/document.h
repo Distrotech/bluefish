@@ -20,7 +20,7 @@
  */
 #ifndef __DOCUMENT_H_
 #define __DOCUMENT_H_
-
+gint documentlist_return_index_from_filename(gchar *filename);
 void doc_new_with_file(gchar * filename);
 void docs_new_from_files(GList * file_list);
 void doc_activate(Tdocument *doc);

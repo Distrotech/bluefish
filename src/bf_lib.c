@@ -17,9 +17,8 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-#include "default_include.h"
 
-
+#include <gtk/gtk.h>
 #include <unistd.h> /* chdir() */
 #include <stdio.h> /* fopen() */
 #include <ctype.h> /* toupper */
@@ -27,6 +26,7 @@
 #include <sys/stat.h> /* S_IFDIR */
 #include <errno.h> 	/* errno */
 
+#include "bluefish.h"  /* for DEBUG_MSG and stuff like that */
 #include "bf_lib.h"  /* myself */
 
 #ifdef WIN32
@@ -270,16 +270,6 @@ gchar *trunc_on_char(gchar * string, gchar which_char)
 	}
 	return string;
 };
-
-/* gchar *strip_filename(gchar * string)
- *      string - file name with full path
- * Returns a pointer WITHIN this string (NO new allocation) where 
- * the filename starts 
- *
- * USAGE SHOULD BE REPLACED BY g_basename() */
-gchar *strip_filename(gchar * string) {
-	return g_basename(string);
-}
 
 /* gchar *strip_common_path(char *image_fn, char *html_fn)
  * returns a newly allocated string containing the the to_filename

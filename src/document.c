@@ -29,7 +29,7 @@
 #include "highlight.h" /* all highlight functions */
 #include "gui.h" /* statusbar_message() */
 #include "bf_lib.h"
-#include "stringlist.h"
+#include "stringlist.h" /* free_stringlist() */
 #include "gtk_easy.h" /* error_dialog() */
 
 /* gint documentlist_return_index_from_filename(gchar *filename)
@@ -139,13 +139,17 @@ void doc_set_modified(Tdocument *doc, gint value) {
 		doc->modified = value;
 		if (doc->modified) {
 			if (doc->filename) {
-				temp_string = g_strconcat(g_basename(doc->filename), " *", NULL);			
+				gchar *tmpstr = g_path_get_basename(doc->filename);
+				temp_string = g_strconcat(tmpstr, " *", NULL);
+				g_free(tmpstr);
 			} else {
 				temp_string = g_strdup(_("Untitled *"));
 			}
 		} else {
 			if (doc->filename) {
-				temp_string = g_strdup(g_basename(doc->filename));
+				gchar *tmpstr = g_path_get_basename(doc->filename);
+				temp_string = g_strdup(tmpstr);
+				g_free(tmpstr);
 			} else {
 				temp_string = g_strdup(_("Untitled"));
 			}
@@ -468,7 +472,11 @@ gint doc_save(Tdocument * doc, gint do_save_as, gint do_move)
 				g_free(tmpdoc->filename);
 				tmpdoc->filename = NULL;
 				doc_set_modified(tmpdoc, 1);
-				tmpstr = g_strconcat(_("Previously: "), strip_filename(newfilename), NULL);
+				{
+					gchar *tmpstr2 = g_path_get_basename (newfilename);
+					tmpstr = g_strconcat(_("Previously: "), tmpstr2, NULL);
+					g_free(tmpstr2);
+				}
 				gtk_label_set(GTK_LABEL(tmpdoc->tab_label),tmpstr);
 				g_free(tmpstr);
 			}
@@ -712,6 +720,7 @@ void file_open_cb(GtkWidget * widget, gpointer data) {
 	GList *tmplist;
 	if (GPOINTER_TO_INT(data) == 1) {
 /*		tmplist = return_files_advanced();*/
+		tmplist = NULL;
 	} else {
 		tmplist = return_files(NULL);
 	}
