@@ -142,6 +142,19 @@ static void reset_last_snr2(void) {
 
 /***********************************************************/
 
+/**
+ * search_backend:
+ * @search_pattern: #gchar* to search pattern
+ * @matchtype: see #Tmatch_types
+ * @is_case_sens: If the search is case sensitive, #gint
+ * @buf: #gchar* to the document buffer
+ * @want_submatches: #gint
+ * 
+ * Performs an actual search in a supplied buffer (#gchar*, aka string).
+ * NOTE: If want_submatches is set, tsearch_result->pmatch should be free`ed by the calling function!
+ *
+ * Return value: #Tsearch_result, contains both character and byte offsets, for wide-char-compatibility. Note values for start/end are set to -1 on error.
+ **/
 Tsearch_result search_backend(gchar *search_pattern, Tmatch_types matchtype, gint is_case_sens, gchar *buf, gboolean want_submatches) {
 	Tsearch_result returnvalue;
 	int (*f) ();
@@ -301,6 +314,19 @@ Tsearch_result search_backend(gchar *search_pattern, Tmatch_types matchtype, gin
 
 /*****************************************************/
 
+/**
+ * search_doc:
+ * @document: a #Tdocument to search
+ * @search_pattern: a #gchar* to the search pattern.
+ * @matchtype: see #Tmatch_types
+ * @is_case_sens: #gint
+ * @startpos: #gint offset in document buffer
+ *
+ * Perform search by calling search_backend.
+ * Updates last_snr2-values, but doesn't use them -- that is the callers duty.
+ *
+ * Return value: #Tsearch_result
+ **/
 Tsearch_result search_doc(Tdocument *document, gchar *search_pattern, Tmatch_types matchtype, gint is_case_sens, gint startpos) {
 	gchar *fulltext;
 	Tsearch_result result;
@@ -328,6 +354,16 @@ Tsearch_result search_doc(Tdocument *document, gchar *search_pattern, Tmatch_typ
 
 /*****************************************************/
 
+/**
+ * doc_show_result:
+ * @document: a #Tdocument
+ * @start: Selection start.
+ * @end: Selection end.
+ *
+ * Focus a document and select the supplied range.
+ *
+ * Return value: void
+ **/
 void doc_show_result(Tdocument *document, gint start, gint end) {
 	DEBUG_MSG("doc_show_result, select from start=%d to end=%d\n",start, end);
 	if (document != main_v->current_document) {
@@ -338,6 +374,19 @@ void doc_show_result(Tdocument *document, gint start, gint end) {
 
 /*****************************************************/
 
+/**
+ * search_all:
+ * @search_pattern: #gchar to search pattern
+ * @matchtype: see #Tmatch_types
+ * is_case_sens: #gint set to 0 or 1.
+ *
+ * Perform a specified search, spanning all open documents.
+ *
+ * When called several times, the search continues from where it left off last time.
+ * The current 'search-position' is stored in the internal last_snr2 structure.
+ *
+ * Return value: #Tsearch_all_result
+ **/
 Tsearch_all_result search_all(gchar *search_pattern, Tmatch_types matchtype, gint is_case_sens) {
 	GList *tmplist;
 	Tsearch_all_result result_all;
@@ -373,10 +422,11 @@ Tsearch_all_result search_all(gchar *search_pattern, Tmatch_types matchtype, gin
 }
 
 /*****************************************************/
+
 /*
-this function will parse the replace string and substitute the \0, \1 etc. with 
-the subsearch_pattern matches from regexec()
-*/
+ * this function will parse the replace string and substitute the \0, \1 etc. with 
+ * the subsearch_pattern matches from regexec()
+ */
 static gchar *reg_replace(gchar *replace_pattern, gint offset, Tsearch_result result, Tdocument *doc) {
 	gchar *tmp1, *newstring;
 	gchar *tmpstr1, *tmpstr2, *tmpstr3;
@@ -438,6 +488,23 @@ static gchar *reg_replace(gchar *replace_pattern, gint offset, Tsearch_result re
 	return newstring;
 }
 
+/**
+ * replace_backend:
+ * @search_pattern: #gchar* to search pattern
+ * @matchtype: See #Tmatch_types
+ * @is_case_sens: #gint
+ * @buf: #ghar* to buffer
+ * @replace_pattern: The replace pattern.
+ * @doc: the #Tdocument
+ * @offset: The difference between the buffer and the text widget because of previous replace actions, so the first char in buf is actually number offset in the text widget.
+ * @replacetype: see #Treplace_types
+ * @replacelen: #gint*, set to -1 to calculate this automatically.
+ * 
+ * This will perform a search and the actual replacement of data in the buffer.
+ * Note that *buf is probably an offset in the documents buffer.
+ * 
+ * Return value: #Tsearch_result
+ **/
 Tsearch_result replace_backend(gchar *search_pattern, Tmatch_types matchtype, gint is_case_sens
 			, gchar *buf, gchar *replace_pattern, Tdocument *doc, gint offset, Treplace_types replacetype
 			, gint *replacelen) {
@@ -484,6 +551,23 @@ actions, so the first char in buf is actually number offset in the text widget *
 
 /*****************************************************/
 
+/**
+ * replace_doc_once:
+ * @search_pattern: #gchar* to search pattern
+ * @matchtype: see #Tmatch_types
+ * @is_case_sens: #gint
+ * @startpos: #gint offset in document.
+ * @endpos: #gint where to stop replacing. Set to -1 to cover the entire buffer.
+ * @replace_pattern: #gchar* to replace pattern
+ * @doc: a #Tdocument* to work on
+ * @replacetype: see #Treplace_types
+ *
+ * Performs a single replace with the selected parameters, by calling replace_backend().
+ * Calls doc_unre_new_group(doc) to make this action undoable.
+ * Updates the internal last_snr2 struct, but the _caller_ is responsible for honouring this data.
+ * 
+ * Return value: #Tsearch_result
+ **/
 Tsearch_result replace_doc_once(gchar *search_pattern, Tmatch_types matchtype, gint is_case_sens, gint startpos, gint endpos, gchar *replace_pattern, Tdocument *doc, Treplace_types replacetype) {
 /* endpos -1 means do till end */
 	gchar *fulltext;
@@ -512,6 +596,23 @@ Tsearch_result replace_doc_once(gchar *search_pattern, Tmatch_types matchtype, g
  
 /*****************************************************/
 
+/**
+ * replace_doc_multiple:
+ * @search_pattern: #gchar* to search pattern
+ * @matchtype: see #Tmatch_types
+ * @is_case_sens: #gint
+ * @endpos: #gint where to stop replacing. Set to -1 to cover the entire buffer.
+ * @replace_pattern: #gchar* to replace pattern
+ * @doc: a #Tdocument* to work on
+ * @replacetype: see #Treplace_types
+ * 
+ * Performs a replace on all occurences of the pattern in the supplied document.
+ * The doc's buffer will be modified.
+ *
+ * last_snr2 is reset with .start = .end = -1, and .doc = doc.
+ * 
+ * Return value: void
+ **/
 void replace_doc_multiple(gchar *search_pattern, Tmatch_types matchtype, gint is_case_sens, gint startpos, gint endpos, gchar *replace_pattern, Tdocument *doc, Treplace_types replacetype) {
 /* endpos -1 means do till end */
 	gchar *fulltext;
@@ -575,6 +676,19 @@ void replace_doc_multiple(gchar *search_pattern, Tmatch_types matchtype, gint is
 
 /*****************************************************/
 
+/**
+ * replace_all:
+ * @search_pattern: #gchar* to search pattern
+ * @matchtype: see #Tmatch_types
+ * @is_case_sens: #gint
+ * @replace_pattern: #gchar* to replace pattern
+ * @replacetype: see #Treplace_types
+ * 
+ * Perform a replace_doc_multiple() with supplied data on all open documents.
+ * This will replace all occurences of search_pattern in all documents.
+ * 
+ * Return value: void
+ **/
 void replace_all(gchar *search_pattern, Tmatch_types matchtype, gint is_case_sens, gchar *replace_pattern, Treplace_types replacetype) {
 	GList *tmplist;
 
@@ -586,7 +700,15 @@ void replace_all(gchar *search_pattern, Tmatch_types matchtype, gint is_case_sen
 }
 
 /*****************************************************/
+/*             Replace prompt callbacks              */
+/*****************************************************/
 
+/*
+ *
+ * Performs the actual replace-surgery by calls to doc_replace_text_backend() !
+ * Continues the replace cycle by calling snr2_run(), unless this is a single replace.
+ *
+ */
 static void replace_prompt_dialog_ok_lcb(GtkWidget *widget, gpointer data) {
 	gchar *tmpstr;
 	gint sel_start_pos, sel_end_pos;
@@ -647,6 +769,8 @@ static void replace_prompt_dialog_skip_lcb(GtkWidget *widget, gpointer data) {
 	}
 }
 
+/* Alters last_snr2, setting no-prompt-mode, backtracking one step on the startpoint and .end = .start
+ * continues by running snr2_run(). This will replace all occurrences of the string.. */
 static void replace_prompt_dialog_all_lcb(GtkWidget *widget, gpointer data) {
 	window_close_by_widget_cb(widget, data);
 	last_snr2.prompt_before_replace = 0;
@@ -659,6 +783,15 @@ static void replace_prompt_dialog_all_lcb(GtkWidget *widget, gpointer data) {
 	snr2_run(NULL);
 }
 
+
+/**
+ * replace_prompt_dialog:
+ * 
+ * Prompt the user for a replace action. Simply creates and shows GUI.
+ * Used by replace_prompt_doc().
+ * 
+ * Return value: void
+ **/
 void replace_prompt_dialog() {
 	GtkWidget *win, *vbox, *hbox;
 	GtkWidget *butok, *butclose, *butall, *butskip;
@@ -699,10 +832,26 @@ void replace_prompt_dialog() {
 	gtk_box_pack_start(GTK_BOX(hbox), butskip, FALSE, FALSE, 0);
 	gtk_widget_grab_focus(butskip);
 	gtk_widget_show_all(win);
-
 	DEBUG_MSG("replace_prompt_dialog, end\n");
 }
 
+/**
+ * replace_prompt_doc:
+ * @search_pattern: #gchar* to search pattern
+ * @matchtype: see #Tmatch_types
+ * @is_case_sens: #gint
+ * @startpos: Start offset in document buffer.
+ * @endpos: End offset of search area. Set to -1 to cover entire buffer.
+ * @replace_pattern: #gchar to replace pattern
+ * @doc: a #Tdocument
+ * 
+ * Finds the next occurence of search_pattern in *doc, shows and selects it in the document,
+ * and finally shows a replace_prompt_dialog to the user.
+ *
+ * last_snr2 is updated if an occurrence of search_pattern is found.
+ * 
+ * Return value: #gint, 1 if a new occurence of the search_pattern was found and a dialog is shown. 0 else.
+ **/
 gint replace_prompt_doc(gchar *search_pattern, Tmatch_types matchtype, gint is_case_sens, gint startpos, gint endpos, gchar *replace_pattern, Tdocument *doc) {
 /* endpos -1 means do till end , returns if the document still had a match*/
 	gchar *fulltext;
@@ -737,6 +886,17 @@ gint replace_prompt_doc(gchar *search_pattern, Tmatch_types matchtype, gint is_c
 	}
 }
 
+/**
+ * replace_prompt_all:
+ * @search_pattern: #gchar* to search pattern
+ * @matchtype: see #Tmatch_types
+ * @is_case_sens: #gint
+ * @replace_pattern: #gchar to replace pattern
+ * 
+ * Performs a replace_prompt_doc for all open documents.
+ * 
+ * Return value: void
+ **/
 void replace_prompt_all(gchar *search_pattern, Tmatch_types matchtype, gint is_case_sens, gchar *replace_pattern) {
 	GList *tmplist;
 	gint retvalue;
@@ -762,6 +922,14 @@ void replace_prompt_all(gchar *search_pattern, Tmatch_types matchtype, gint is_c
 
 /*****************************************************/
 
+/**
+ * snr2_run:
+ * @doc: a #Tdocument. If set to NULL, use main_v->current_document
+ *
+ * Continues a search or replace action as specified by the last_snr2 struct.
+ * 
+ * Return value: void
+ **/
 void snr2_run(Tdocument *doc) {
 	gint startpos, endpos;
 	Tsearch_result result;
@@ -851,21 +1019,26 @@ void snr2_run(Tdocument *doc) {
 	}
 }
 
-/* void snr2_run_extern_replace
-arguments are translated to last_snr2 like this:
-search_pattern = patten
-region,  0 = region_from_beginning, 
-			1 = region_from_cursor, 
-			2 = region_selection,
-			3 = region_all_open_files
-matchtype = matchtype, 0=normal, 1=posix, 2=perl
-is_case_sens = is_case_sens
-overlapping_search is off
-replace = 1
-replace_pattern = replace_pattern
-prompt_before_replace = off
-replace_once = off
-*/
+/**
+ * snr2_run_extern_replace:
+ * @doc: a #Tdocument
+ * @search_pattern: #gchar* to search pattern
+ * @region: #gint, 0 = region_from_beginning, 1 = region_from_cursor, 2 = region_selection, 3 = region_all_open_files
+ * @matchtype: #gint, 0 = normal, 1 = posix, 2 = perl
+ * @is_case_sens: #gint
+ * @replace_pattern: #gchar* to replace pattern.
+ * @store_as_last_snr2: Set to FALSE to keep the old last_snr2 after the snr has been completed.
+ * 
+ * Performs the specified replace action on the document by setting
+ * a last_snr2 and calling snr2_run().
+ *
+ * Additional non-configureable arguments passed to snr2_run() via last_snr2:
+ * replace = 1
+ * prompt_before_replace = off
+ * replace_once = off
+ *
+ * Return value: void
+ **/
 void snr2_run_extern_replace(Tdocument *doc, gchar *search_pattern, gint region,
 							gint matchtype, gint is_case_sens, gchar *replace_pattern,
 							gboolean store_as_last_snr2) {
@@ -897,11 +1070,24 @@ void snr2_run_extern_replace(Tdocument *doc, gchar *search_pattern, gint region,
 	}
 }
 
+/**
+ * doc_search_run_extern:
+ * @doc: a #Tdocument
+ * @search_pattern: #gchar search pattern
+ * @matchtype: #gint, 0 = normal, 1 = posix, 2 = perl
+ * @is_case_sens: #gint, case sensitive pattern?
+ *
+ * Frontend for search_doc, calling it with supplied arguments and startpos = 0.
+ * 
+ * Return value: #Tsearch_result_doc
+ **/
 Tsearch_result doc_search_run_extern(Tdocument *doc, gchar *search_pattern, gint matchtype, gint is_case_sens) {
 	return search_doc(doc, search_pattern, matchtype, is_case_sens, 0);
 } 
 
-/*****************************************************/
+/******************************************************/
+/*        Search and replace dialogs callbacks        */
+/******************************************************/
 
 static void snr2dialog_destroy_lcb(GtkWidget *widget, gpointer data) {
 	DEBUG_MSG("snr2dialog_destroy_lcb, started, about to call window_destroy\n");
@@ -917,6 +1103,9 @@ static void snr2dialog_cancel_lcb(GtkWidget *widget, gpointer data) {
 
 /*****************************************************/
 
+/*
+ * Sets the last_snr2 as specified by the user and calls snr2_run(NULL) (aka, run on current document)
+ */
 static void snr2dialog_ok_lcb(GtkWidget *widget, Tsnr2_win *data) {
 	GtkTextIter itstart, itend;
 	GtkTextBuffer *buf;
@@ -1137,34 +1326,90 @@ static void snr2dialog(gint is_replace, gint is_new_search) {
 
 /*****************************************************/
 
+/**
+ * search_cb:
+ * @widget: unused #GtkWidget*
+ * @data: unused #gpointer
+ * 
+ * Show the search-dialog.
+ * 
+ * Return value: void
+ **/
 void search_cb(GtkWidget *widget, gpointer data) {
 	snr2dialog(0, 0);
 }
 
+/**
+ * new_search_cb:
+ * @widget: unused #GtkWidget*
+ * @data: unused #gpointer
+ * 
+ * Show the search-dialog, new search.
+ * 
+ * Return value: void
+ **/
 void new_search_cb(GtkWidget *widget, gpointer data) {
 	snr2dialog(0, 1);
 }
 
+/**
+ * search_again_cb:
+ * @widget: unused #GtkWidget*
+ * @data: unused #gpointer
+ * 
+ * Repeat last search, if any.
+ * 
+ * Return value: void
+ **/ 
 void search_again_cb(GtkWidget *widget, gpointer data) {
 	snr2_run(NULL);	
 }
 
+/**
+ * replace_again_cb:
+ * @widget: unused #GtkWidget*
+ * @data: unused #gpointer
+ * 
+ * Repeat last replace, if any.
+ * 
+ * Return value: void
+ **/ 
 void replace_again_cb(GtkWidget *widget, gpointer data) {
 	snr2_run(NULL);
 }
 
+/**
+ * replace_cb:
+ * @widget: unused #GtkWidget*
+ * @data: unused #gpointer
+ * 
+ * Show replace dialog.
+ * 
+ * Return value: void
+ **/ 
 void replace_cb(GtkWidget *widget, gpointer data) {
 	snr2dialog(1, 0);
 }
 
+/**
+ * search_again_cb:
+ * @widget: unused #GtkWidget*
+ * @data: unused #gpointer
+ * 
+ * Show replace dialog, new replace.
+ * 
+ * Return value: void
+ **/ 
 void new_replace_cb(GtkWidget *widget, gpointer data) {
 	snr2dialog(1, 1);
 }
 
 /*****************************************************/
 
+/* UNUSED! Was used by update_filenames_in_file() previously.
+
 static gint do_filename_curfile_replace(gchar *fulltext, Tsearch_result result, gint offset, gchar *olddirname, gchar *newfilename, gint changelen, Tdocument *doc) {
-/* returns the change in the lenght of the buffer compared to the actual document text */
+/* returns the change in the lenght of the buffer compared to the actual document text 
 	gchar *possible_filename;
 	gchar *olddirfile;
 	gint len;
@@ -1176,22 +1421,22 @@ static gint do_filename_curfile_replace(gchar *fulltext, Tsearch_result result, 
 	len = strlen(possible_filename) + strlen(olddirname) + 2;
 	olddirfile = strncat(strncat(strncpy(g_malloc(len), olddirname, len), "/", len), possible_filename, len);
 
-	/* code to check if this is a file */
+	/* code to check if this is a file 
 	if (file_exists_and_readable(olddirfile)) {
 		DEBUG_MSG("do_filename_change_replace, olddirfile=%s does exist!!\n", olddirfile);
-		/* code to create replace_pattern */
+		/* code to create replace_pattern 
 		olddirfile = most_efficient_filename(olddirfile);
 		DEBUG_MSG("do_filename_change_replace, updated olddirfile=%s \n", olddirfile);
 		replacestring = create_relative_link_to(newfilename, olddirfile);
 		DEBUG_MSG("do_filename_change_replace, replacestring=%s, newfilename=%s\n", replacestring, newfilename);
-		/* code to actual replace it */
+		/* code to actual replace it 
 		doc_replace_text(doc, replacestring, result.start + offset + 1 + changelen, result.end + offset + changelen -1);	
 		change_lenght = strlen(replacestring) - strlen(possible_filename) + changelen;
 		DEBUG_MSG("do_filename_change_replace, replacestring=%s, possible_filename=%s\n", replacestring, possible_filename);
 		DEBUG_MSG("do_filename_change_replace, change_lenght=%d\n",change_lenght );		
 		g_free(replacestring); 
 	} else {
-/*		DEBUG_MSG("do_filename_change_replace, olddirfile=%s does NOT exist\n", olddirfile);  */
+/*		DEBUG_MSG("do_filename_change_replace, olddirfile=%s does NOT exist\n", olddirfile);  
 	}
 	g_free(possible_filename);
 	g_free(olddirfile);
@@ -1218,8 +1463,19 @@ static gint do_filename_otherfile_replace(gchar *fulltext, Tsearch_result result
 	}
 	g_free(possible_filename);
 	return change_length;
-}
+}*/
 
+/** UPDATE: UNUSED!
+ * update_filenames_in_file:
+ * @doc: a #Tdocument
+ * @oldfilename: Filename to change from.
+ * @newfilename: Filename to change to.
+ * @doc_has_newfilename: If *doc (blabla?)
+ * 
+ * 
+ *
+ * Return value: void
+ **
 void update_filenames_in_file(Tdocument *doc, gchar *oldfilename, gchar *newfilename, gint doc_has_newfilename) {
 	gchar *fulltext;
 	Tsearch_result result;
@@ -1238,7 +1494,7 @@ void update_filenames_in_file(Tdocument *doc, gchar *oldfilename, gchar *newfile
 	cur_offset = 0;
 
 	if (doc_has_newfilename) {
-			olddirname = g_dirname(oldfilename);
+			olddirname = g_path_get_dirname(oldfilename);
 	}
 
 	fulltext = doc_get_chars(doc, 0, -1);
@@ -1256,8 +1512,17 @@ void update_filenames_in_file(Tdocument *doc, gchar *oldfilename, gchar *newfile
 	if (doc_has_newfilename) {
 		g_free(olddirname);
 	}
-}
+}*/
 
+/**
+ * update_encoding_meta_in_file:
+ * @doc: a #Tdocument*
+ * @encoding: #gchar*, The documents character encoding
+ *
+ * Update the HTML meta encoding tags for the supplied document.
+ *
+ * Return value: void
+ **/
 void update_encoding_meta_in_file(Tdocument *doc, gchar *encoding) {
 	if (encoding) {
 		Tlast_snr2 last_snr2_bck = last_snr2;
