@@ -328,8 +328,6 @@ static GList *props_init_main(GList * config_rc)
 	init_prop_integer   (&config_rc, &main_v->props.view_main_toolbar, "view_main_toolbar:", 1, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.view_left_panel, "view_left_panel:", 1, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.view_line_numbers, "view_line_numbers:", 1, TRUE);
-	init_prop_integer   (&config_rc, &main_v->props.filebrowser_show_hidden_files, "fb_show_hidden_f:", 0, TRUE);
-	init_prop_integer   (&config_rc, &main_v->props.filebrowser_show_backup_files, "fb_show_backup_f:", 0, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.filebrowser_two_pane_view, "fb_two_pane_view:", 1, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.filebrowser_focus_follow, "fb_focus_follow:", 1, TRUE);
 	init_prop_string    (&config_rc, &main_v->props.filebrowser_unknown_icon, "fb_unknown_icon:", PKGDATADIR"icon_unknown.png");
@@ -346,7 +344,6 @@ static GList *props_init_main(GList * config_rc)
 	init_prop_arraylist (&config_rc, &main_v->props.filetypes, "filetypes:", 0, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.numcharsforfiletype, "numcharsforfiletype:", 200, TRUE);
 	init_prop_arraylist (&config_rc, &main_v->props.filefilters, "filefilters:", 3, TRUE);
-	init_prop_string    (&config_rc, &main_v->props.last_filefilter, "last_filefilter:", "");
 	init_prop_integer   (&config_rc, &main_v->props.transient_htdialogs, "transient_htdialogs:", 1, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.restore_dimensions, "restore_dimensions:", 1, TRUE);	
 	init_prop_integer   (&config_rc, &main_v->props.left_panel_width, "left_panel_width:", 150, TRUE);
@@ -875,6 +872,9 @@ static GList *return_session_configlist(GList *configlist, Tsessionvars *session
 	init_prop_string_with_escape(&configlist, &session->opendir, "opendir:", NULL);
 	init_prop_string_with_escape(&configlist, &session->savedir, "savedir:", NULL);
 	init_prop_integer   (&configlist, &session->adv_open_recursive, "adv_open_recursive:", 0, FALSE);
+	init_prop_string    (&configlist, &session->last_filefilter, "last_filefilter:", "");
+	init_prop_integer   (&configlist, &session->filebrowser_show_hidden_files, "fb_show_hidden_f:", 0, FALSE);
+	init_prop_integer   (&configlist, &session->filebrowser_show_backup_files, "fb_show_backup_f:", 0, FALSE);
 	return configlist;
 }
 

@@ -40,6 +40,7 @@ the trailing slash. So it is convenient to use directories without trailing slas
 #include "bluefish.h"
 #include "file.h"
 #include "bf_lib.h"
+#include "stringlist.h" /* count_array() */
 #include "project.h"
 #include "document.h"
 #include "file_dialogs.h"
@@ -48,6 +49,15 @@ the trailing slash. So it is convenient to use directories without trailing slas
 #include "gtk_easy.h" /* destroy_disposable_menu_cb() */
 
 typedef struct {
+	gchar *name;
+	gboolean mode; /* 0= hide matching files, 1=show matching files */
+	GList *filetypes; /* if NULL all files are OK */
+} Tfilter;
+
+typedef struct {
+	GList *filters; /* the compiled filters */
+	GList *filetypes_with_icon; /* name says it all! */
+	
 	GtkTreeStore *filesystem_tstore; /* the directory tree */	
 	GHashTable *filesystem_itable; /* iter to known files and directories */
 	GdkPixbuf *unknown_icon;
@@ -89,6 +99,7 @@ typedef struct {
 	gulong expand_signal;
 	
 	GnomeVFSURI *basedir;
+	Tfilter *curfilter;
 
 	GtkTreeModel *dir_tfilter;
 	GtkTreeModel *dir_tsort;
@@ -336,7 +347,7 @@ static void fb2_fill_dir_async(GtkTreeIter *parent, GnomeVFSURI *uri) {
 		cdata = g_new(Tdirectoryloaddata,1);
 		cdata->parent = parent;
 		cdata->p_uri = uri;
-		FILEBROWSER2CONFIG(main_v->fb2config)->uri_in_refresh = g_list_append(FILEBROWSER2CONFIG(main_v->fb2config)->uri_in_refresh, uri);
+		FILEBROWSER2CONFIG(main_v->fb2config)->uri_in_refresh = g_list_prepend(FILEBROWSER2CONFIG(main_v->fb2config)->uri_in_refresh, uri);
 		DEBUG_MSG("fb2_fill_dir_async, opening ");
 		DEBUG_URI(cdata->p_uri, TRUE);
 		gnome_vfs_async_load_directory_uri(&handle,uri,GNOME_VFS_FILE_INFO_DEFAULT|GNOME_VFS_FILE_INFO_FOLLOW_LINKS,
@@ -543,6 +554,26 @@ void fb2_focus_document(Tbfwin *bfwin, Tdocument *doc) {
 		gnome_vfs_uri_unref(dir_uri);
 	}
 }
+
+static gboolean name_visible_in_filter(Tfilebrowser2 *fb2, gchar *name) {
+	GList *tmplist;
+	
+	if (!fb2->curfilter) {
+		return TRUE;
+	}
+	if (!fb2->curfilter->filetypes) {
+		return !fb2->curfilter->mode;
+	}
+	tmplist = g_list_first(fb2->curfilter->filetypes);
+	while (tmplist) {
+		if (filename_test_extensions(((Tfiletype *)tmplist->data)->extensions, name)) {
+			return fb2->curfilter->mode;
+		}
+		tmplist = g_list_next(tmplist);
+	}
+	return !fb2->curfilter->mode;
+}
+
 /**
  * tree_model_filter_func
  *
@@ -572,11 +603,11 @@ static gboolean tree_model_filter_func(GtkTreeModel *model,GtkTreeIter *iter,gpo
 		}
 	}
 	
-	if (!main_v->props.filebrowser_show_backup_files) {
+	if (!fb2->bfwin->session->filebrowser_show_backup_files) {
 		len = strlen(name);
 		if (len > 1 && (name[len-1] == '~')) return FALSE;
 	}
-	if (!main_v->props.filebrowser_show_hidden_files) {
+	if (!fb2->bfwin->session->filebrowser_show_hidden_files) {
 		if (name[0] == '.') return FALSE;
 #ifdef DEBUG
 		{
@@ -608,7 +639,7 @@ static gboolean tree_model_filter_func(GtkTreeModel *model,GtkTreeIter *iter,gpo
  * will return TRUE if this file should be visible in the file list
  */
 static gboolean file_list_filter_func(GtkTreeModel *model,GtkTreeIter *iter,gpointer data) {
-/*	Tfilebrowser2 *fb2 = data;*/
+	Tfilebrowser2 *fb2 = data;
 	gchar *name;
 	gint len, type;
 #ifdef DEBUG
@@ -619,14 +650,14 @@ static gboolean file_list_filter_func(GtkTreeModel *model,GtkTreeIter *iter,gpoi
 	gtk_tree_model_get(GTK_TREE_MODEL(model), iter, FILENAME_COLUMN, &name, TYPE_COLUMN, &type, -1);
 	if (type != TYPE_FILE) return FALSE;
 	if (!name) return FALSE;
-	if (!main_v->props.filebrowser_show_backup_files) {
+	if (!fb2->bfwin->session->filebrowser_show_backup_files) {
 		len = strlen(name);
 		if (len > 1 && (name[len-1] == '~')) return FALSE;
 	}
-	if (!main_v->props.filebrowser_show_hidden_files) {
+	if (!fb2->bfwin->session->filebrowser_show_hidden_files) {
 		if (name[0] == '.') return FALSE;
 	}
-	return TRUE;
+	return name_visible_in_filter(fb2, name);
 }
 /**
  * refilter_dirlist:
@@ -1115,17 +1146,44 @@ static void fb2rpopup_rpopup_action_lcb(Tfilebrowser2 *fb2,guint callback_action
 			}
 		break;
 		case 16:
-			main_v->props.filebrowser_show_hidden_files = gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(widget));
+			fb2->bfwin->session->filebrowser_show_hidden_files = gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(widget));
 			gtk_tree_model_filter_refilter(GTK_TREE_MODEL_FILTER(fb2->dir_tfilter));
 			gtk_tree_model_filter_refilter(GTK_TREE_MODEL_FILTER(fb2->file_lfilter));
 		break;
 		case 17:
-			main_v->props.filebrowser_show_backup_files = gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(widget));
+			fb2->bfwin->session->filebrowser_show_backup_files = gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(widget));
 			gtk_tree_model_filter_refilter(GTK_TREE_MODEL_FILTER(fb2->dir_tfilter));
 			gtk_tree_model_filter_refilter(GTK_TREE_MODEL_FILTER(fb2->file_lfilter));
 		break;
 	}
 }
+
+static Tfilter *find_filter_by_name(const gchar *name) {
+	GList *tmplist = g_list_first(FILEBROWSER2CONFIG(main_v->fb2config)->filters);
+	while(tmplist) {
+		Tfilter *filter = (Tfilter *)tmplist->data;
+		if (strcmp(filter->name, name)==0) {
+			return filter;
+		}
+		tmplist = g_list_next(tmplist);
+	}
+	return NULL;
+}
+
+static void fb2rpopup_filter_toggled_lcb(GtkWidget *widget, Tfilebrowser2 *fb2) {
+	if (GTK_CHECK_MENU_ITEM(widget)->active) {
+		/* loop trough the filters for a filter with this name */
+		const gchar *name = gtk_label_get_text(GTK_LABEL(GTK_BIN(widget)->child));
+		Tfilter *filter = find_filter_by_name(name);
+		DEBUG_MSG("fb2rpopup_filter_toggled_lcb, setting curfilter to %p from name %s\n", filter, name);
+		fb2->curfilter = filter;
+		if (fb2->bfwin->session->last_filefilter) g_free(fb2->bfwin->session->last_filefilter);
+		fb2->bfwin->session->last_filefilter = g_strdup(filter->name);
+		gtk_tree_model_filter_refilter(GTK_TREE_MODEL_FILTER(fb2->dir_tfilter));
+		gtk_tree_model_filter_refilter(GTK_TREE_MODEL_FILTER(fb2->file_lfilter));
+	}
+}
+
 
 static GtkItemFactoryEntry fb2rpopup_menu_entries[] = {
 	{ N_("/_Open"),		NULL,	fb2rpopup_rpopup_action_lcb,		1,	"<Item>" },
@@ -1175,8 +1233,8 @@ static GtkWidget *fb2_rpopup_create_menu(Tfilebrowser2 *fb2, gboolean is_directo
 
 	/* set toggle options */
 	setup_toggle_item(menumaker, "/Follow active document", main_v->props.filebrowser_focus_follow);
-	setup_toggle_item(menumaker, "/Show hidden files", main_v->props.filebrowser_show_hidden_files);
-	setup_toggle_item(menumaker, "/Show backup files", main_v->props.filebrowser_show_backup_files);
+	setup_toggle_item(menumaker, "/Show hidden files", fb2->bfwin->session->filebrowser_show_hidden_files);
+	setup_toggle_item(menumaker, "/Show backup files", fb2->bfwin->session->filebrowser_show_backup_files);
 	if (!is_directory && !is_file) {
 		gtk_widget_set_sensitive(gtk_item_factory_get_widget(menumaker, "/Rename"), FALSE);
 		gtk_widget_set_sensitive(gtk_item_factory_get_widget(menumaker, "/Delete"), FALSE);
@@ -1189,7 +1247,7 @@ static GtkWidget *fb2_rpopup_create_menu(Tfilebrowser2 *fb2, gboolean is_directo
 		gtk_widget_set_sensitive(gtk_item_factory_get_widget(menumaker, "/Open"), FALSE);
 	}
 	
-	/* Add filter submenu * /
+	/* Add filter submenu */
 	menu_item = gtk_menu_item_new_with_label(_("Filter"));
 	gtk_menu_shell_append(GTK_MENU_SHELL(menu), menu_item);
 	{
@@ -1198,11 +1256,11 @@ static GtkWidget *fb2_rpopup_create_menu(Tfilebrowser2 *fb2, gboolean is_directo
 		GList *tmplist;
 		fmenu = gtk_menu_new();
 		gtk_menu_item_set_submenu(GTK_MENU_ITEM(menu_item), fmenu);
-		tmplist = g_list_first(FILEBROWSERCONFIG(main_v->filebrowserconfig)->filters);
+		tmplist = g_list_last(FILEBROWSER2CONFIG(main_v->fb2config)->filters);
 		while (tmplist) {
 			Tfilter *filter = (Tfilter *)tmplist->data;
 			menu_item = gtk_radio_menu_item_new_with_label(group, filter->name);
-			if (filebrowser->curfilter == filter) {
+			if (fb2->curfilter == filter) {
 				gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(menu_item), TRUE);
 			}
 			g_signal_connect(GTK_OBJECT(menu_item), "toggled", G_CALLBACK(fb2rpopup_filter_toggled_lcb), fb2);
@@ -1210,9 +1268,9 @@ static GtkWidget *fb2_rpopup_create_menu(Tfilebrowser2 *fb2, gboolean is_directo
 				group = gtk_radio_menu_item_group(GTK_RADIO_MENU_ITEM(menu_item));
 			}
 			gtk_menu_shell_append(GTK_MENU_SHELL(fmenu), menu_item);
-			tmplist = g_list_next(tmplist);
+			tmplist = g_list_previous(tmplist);
 		}
-	}*/
+	}
 
 	gtk_widget_show_all(menu);
 	g_signal_connect_after(G_OBJECT(menu), "destroy", G_CALLBACK(destroy_disposable_menu_cb), menu);
@@ -1552,11 +1610,74 @@ void fb2_cleanup(Tbfwin *bfwin) {
 	bfwin->fb2 = NULL;
 }
 
-void fb2_filters_rebuild() {
-
+static Tfilter *new_filter(gchar *name, gchar *mode, gchar *filetypes) {
+	Tfilter *filter = g_new(Tfilter,1);
+	filter->name = g_strdup(name);
+	filter->mode = atoi(mode);
+	filter->filetypes = NULL;
+	if (filetypes){
+		GList *tmplist;
+		gchar **types = g_strsplit(filetypes, ":", 127);
+		
+		tmplist = g_list_first(main_v->filetypelist);
+		while (tmplist) {
+			Tfiletype *filetype = (Tfiletype *)tmplist->data;
+			gchar **type = types;
+			while (*type) {
+				if (strcmp(*type, filetype->type)==0) {
+					filter->filetypes = g_list_prepend(filter->filetypes, filetype);
+					break;
+				}
+				type++;
+			}
+			tmplist = g_list_next(tmplist);
+		}
+		g_strfreev(types);
+	}
+	return filter;
 }
 
-void fb2config_init() {
+static void filter_destroy(Tfilter *filter) {
+	g_free(filter->name);
+	g_list_free(filter->filetypes);
+	g_free(filter);
+}
+
+void fb2_filters_rebuild(void) {
+	GList *tmplist;
+	/* free any existing filters */
+	tmplist = g_list_first(FILEBROWSER2CONFIG(main_v->fb2config)->filters);
+	while (tmplist) {
+		filter_destroy(tmplist->data);
+		tmplist = g_list_next(tmplist);
+	}
+	g_list_free(FILEBROWSER2CONFIG(main_v->fb2config)->filters);
+	FILEBROWSER2CONFIG(main_v->fb2config)->filters = NULL;
+	g_list_free(FILEBROWSER2CONFIG(main_v->fb2config)->filetypes_with_icon);
+	FILEBROWSER2CONFIG(main_v->fb2config)->filetypes_with_icon = NULL;
+	
+	/* build a list of filetypes with icon */
+	tmplist = g_list_first(main_v->filetypelist);
+	while (tmplist) {
+		if (((Tfiletype *)tmplist->data)->icon) {
+			FILEBROWSER2CONFIG(main_v->fb2config)->filetypes_with_icon = g_list_prepend(FILEBROWSER2CONFIG(main_v->fb2config)->filetypes_with_icon, tmplist->data);
+		}
+		tmplist = g_list_next(tmplist);
+	}
+	/* build a list of filters */
+	FILEBROWSER2CONFIG(main_v->fb2config)->filters = g_list_prepend(NULL, new_filter(_("All files"), "0", NULL));
+	tmplist = g_list_first(main_v->props.filefilters);
+	while (tmplist) {
+		gchar **strarr = (gchar **) tmplist->data;
+		if (count_array(strarr) == 3) {
+			Tfilter *filter = new_filter(strarr[0], strarr[1], strarr[2]);
+			FILEBROWSER2CONFIG(main_v->fb2config)->filters = g_list_prepend(FILEBROWSER2CONFIG(main_v->fb2config)->filters, filter);
+		}
+		tmplist = g_list_next(tmplist);
+	}
+}
+
+void fb2config_init(void) {
 	Tfilebrowser2config *fb2config;
 	gchar *filename;
 	DEBUG_MSG("fb2config_init, started\n");
@@ -1586,5 +1707,6 @@ void fb2config_init() {
 		iter = fb2_build_dir(uri);
 		gnome_vfs_uri_unref(uri);
 	}
+	fb2_filters_rebuild();	
 	DEBUG_MSG("fb2config_init, finished\n");
 }

@@ -168,8 +168,6 @@ typedef struct {
 	gint view_main_toolbar;				/* view main toolbar */
 	gint view_left_panel;  	/* view filebrowser/functionbrowser etc. */
 	gint view_line_numbers; /* view line numbers on the left side by default */
-	gint filebrowser_show_hidden_files;
-	gint filebrowser_show_backup_files;
 	gint filebrowser_two_pane_view; /* have one or two panes in the filebrowser */
 	gint filebrowser_focus_follow; /* have the directory of the current document in focus */
 	gchar *filebrowser_unknown_icon;
@@ -188,7 +186,6 @@ typedef struct {
 	GList *filetypes; /* filetypes for highlighting and filtering */
 	gint numcharsforfiletype; /* maximum number of characters in the file to use to find the filetype */
 	GList *filefilters; /* filebrowser.c filtering */
-	gchar *last_filefilter;	/* last filelist filter type */
 	GList *highlight_patterns; /* the highlight patterns */
 	gint transient_htdialogs;  /* set html dialogs transient ro the main window */
 	gint restore_dimensions; /* use the dimensions as used the previous run */
@@ -286,6 +283,9 @@ typedef struct {
 	gchar *opendir;
 	gchar *savedir;
 	gint   adv_open_recursive;
+	gchar *last_filefilter;	/* last filelist filter type */
+	gint filebrowser_show_hidden_files;
+	gint filebrowser_show_backup_files;
 } Tsessionvars;
 
 typedef struct {
