@@ -1,20 +1,21 @@
-# translation of 07_11_2004_sr.po to 
+# translation of last_sr.po to 
+# translation of 07_11_2004_sr.po to
 # Serbian language file for Bluefish.
 # Copyright (C)  2000, 2004 Free Software Foundation, Inc.
 # Marko Milenović <raven@sbb.co.yu>, 2004.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 07_11_2004_sr\n"
-"POT-Creation-Date: 2004-11-25 10:39+0100\n"
-"PO-Revision-Date: 2004-11-14 12:45+0100\n"
+"Project-Id-Version: last_sr\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-11-25 12:34-0300\n"
+"PO-Revision-Date: 2004-11-27 11:08+0100\n"
 "Last-Translator: \n"
 "Language-Team:  <en@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Report-Msgid-Bugs-To: \n"
-"X-Generator: KBabel 1.9\n"
+"X-Generator: KBabel 1.9.1\n"
 
 #: ../src/about.c:123
 msgid ""
@@ -39,7 +40,6 @@ msgstr ""
 "Ova verzija Bluefish-a je kompilirana sa sledećim mogućnostima:\n"
 
 #: ../src/about.c:124
-#, fuzzy
 msgid ""
 "Project leader:\n"
 "  Olivier Sessink <olivier@bluefish.openoffice.nl>\n"
@@ -106,10 +106,13 @@ msgstr ""
 "  Olivier Sessink <olivier@bluefish.openoffice.nl>\n"
 "\n"
 "Razvoj ovog izdanja:\n"
+"  Olivier Sessink\n"
+"   <olivier@bluefish.openoffice.nl>\n"
 "  Jim Hayward <jimhayward@linuxexperience.com>\n"
 "  Oskar Świda <swida@aragorn.pb.bialystok.pl>\n"
-"  Christian Tellefsen <christian@tellefsen.net>\n"
 "  Eugene Morenko(More) <more@irpin.com>\n"
+"  Alastair Porter\n"
+"   <alastair@linuxexperience.com>\n"
 "\n"
 "Razvoj prethodnih izdanja:\n"
 "  Chris Mazuc\n"
@@ -125,14 +128,29 @@ msgstr ""
 "  Antti-Juhani Kaijanaho\n"
 "\n"
 "Dokumentacija:\n"
-"  Alastair Porter <alastair@linuxexperience.com>\n"
-"  Daniel Blair <joecamel@realcoders.org>\n"
+"  Scott White\n"
+"   <wwsw3@earthlink.net>\n"
+"  Michèle Garoche\n"
+"   <michele.garoche@easyconnect.fr>\n"
+"  Anita Lewis\n"
+"   <ajreiki@highstream.net>\n"
+"  Alastair Porter\n"
+"   <alastair@linuxexperience.com>\n"
+"  Daniel Blair\n"
+"   <joecamel@realcoders.org>\n"
+"  Olivier Sessink\n"
+"   <olivier@bluefish.openoffice.nl>\n"
 "  Denny Reeh\n"
 "\n"
 "Održavanje paketa:\n"
-"  Debian:   Davide Puricelli <evo@debian.org>\n"
-"  Redhat:   Matthias Haase <matthias_haase@bennewitz.com>\n"
-"  Mandrake: Todd Lyons <todd@mrball.net>\n"
+"  Debian:   Davide Puricelli\n"
+"   <evo@debian.org>\n"
+"  Redhat:   Matthias Haase\n"
+"   <matthias_haase@bennewitz.com>\n"
+"  Mandrake: Todd Lyons\n"
+"   <todd@mrball.net>\n"
+"  Fink: Michèle Garoche\n"
+"   <michele.garoche@easyconnect.fr>\n"
 "\n"
 "Ako znate bilo koga ko je izostavljen sa ove liste javite nam na\n"
 "<bluefish@bluefish.openoffice.nl>\n"
@@ -676,14 +694,14 @@ msgid "Previously: "
 msgstr "Prethodni: "
 
 #: ../src/document.c:2412
-#, fuzzy, c-format
+#, c-format
 msgid "Move/rename %s to"
-msgstr "Pomeri/preimenuj dokument u"
+msgstr "Pomeri/preimenuj %s u"
 
 #: ../src/document.c:2412
-#, fuzzy, c-format
+#, c-format
 msgid "Save %s as"
-msgstr "Sačuvaj kao..."
+msgstr "Sačuvaj %s kao..."
 
 #: ../src/document.c:2456 ../src/document.c:2471 ../src/document.c:2569
 #: ../src/document.c:3759 ../src/project.c:171
@@ -1072,8 +1090,7 @@ msgstr "Greška"
 msgid ""
 "Perhaps you didn't load a reference, or you did not select a reference to "
 "search in."
-msgstr ""
-"Možda niste učitali reference ili niste izabrali referencu za pretragu."
+msgstr "Možda niste učitali reference ili niste izabrali referencu za pretragu."
 
 #: ../src/fref.c:2295
 msgid "Show info window"
@@ -1513,14 +1530,12 @@ msgid "Paste"
 msgstr "Zalepi"
 
 #: ../src/gui.c:1090
-#, fuzzy
 msgid "Find..."
-msgstr "Nađi"
+msgstr "Nađi..."
 
 #: ../src/gui.c:1092
-#, fuzzy
 msgid "Replace..."
-msgstr "Zameni"
+msgstr "Zameni..."
 
 #: ../src/gui.c:1095 ../src/preferences.c:1992
 msgid "Undo"
@@ -1602,6 +1617,55 @@ msgstr "raščlanjujem drugi šablon '%s': %s  pri ofsetu %d"
 #, c-format
 msgid "studying 2nd pattern '%s': %s"
 msgstr "proučavam drugi šablon  '%s': %s"
+
+#: ../src/html2.c:554
+msgid "Cascading StyleSheet dialog"
+msgstr "CSS meni"
+
+#: ../src/html2.c:574
+msgid "_Selector:"
+msgstr "_Birač:"
+
+#: ../src/html2.c:593
+msgid "_Property:"
+msgstr "_Osobine:"
+
+#: ../src/html2.c:595 ../src/html_form.c:650 ../src/html_form.c:799
+#: ../src/html_form.c:894
+msgid "_Value:"
+msgstr "_Vrednost:"
+
+#: ../src/html2.c:613
+msgid "Selector"
+msgstr "Birač"
+
+#: ../src/html2.c:613 ../src/html2.c:616
+msgid "Property"
+msgstr "Osobine"
+
+#: ../src/html2.c:613 ../src/html2.c:616
+msgid "Value"
+msgstr "Vrednost"
+
+#: ../src/html2.c:631
+msgid " _Add "
+msgstr " _Dodaj "
+
+#: ../src/html2.c:634
+msgid " _Update "
+msgstr " _Ažuriraj "
+
+#: ../src/html2.c:637
+msgid " _Delete "
+msgstr " _Obriši "
+
+#: ../src/html2.c:893 ../src/html2.c:930
+msgid "_Style..."
+msgstr " _Stil..."
+
+#: ../src/html2.c:1087
+msgid "Bluefish: Select color"
+msgstr "Bluefish birač boja"
 
 #: ../src/html.c:392
 msgid "Insert Time"
@@ -1996,55 +2060,6 @@ msgstr "Jezik:"
 #: ../src/html.c:2112
 msgid "_Custom:"
 msgstr "_Lični:"
-
-#: ../src/html2.c:554
-msgid "Cascading StyleSheet dialog"
-msgstr "CSS meni"
-
-#: ../src/html2.c:574
-msgid "_Selector:"
-msgstr "_Birač:"
-
-#: ../src/html2.c:593
-msgid "_Property:"
-msgstr "_Osobine:"
-
-#: ../src/html2.c:595 ../src/html_form.c:650 ../src/html_form.c:799
-#: ../src/html_form.c:894
-msgid "_Value:"
-msgstr "_Vrednost:"
-
-#: ../src/html2.c:613
-msgid "Selector"
-msgstr "Birač"
-
-#: ../src/html2.c:613 ../src/html2.c:616
-msgid "Property"
-msgstr "Osobine"
-
-#: ../src/html2.c:613 ../src/html2.c:616
-msgid "Value"
-msgstr "Vrednost"
-
-#: ../src/html2.c:631
-msgid " _Add "
-msgstr " _Dodaj "
-
-#: ../src/html2.c:634
-msgid " _Update "
-msgstr " _Ažuriraj "
-
-#: ../src/html2.c:637
-msgid " _Delete "
-msgstr " _Obriši "
-
-#: ../src/html2.c:893 ../src/html2.c:930
-msgid "_Style..."
-msgstr " _Stil..."
-
-#: ../src/html2.c:1087
-msgid "Bluefish: Select color"
-msgstr "Bluefish birač boja"
 
 #: ../src/html_form.c:141
 msgid "Form"
@@ -3728,8 +3743,7 @@ msgstr "/Prozori"
 
 #: ../src/menu.c:1270
 msgid "Could not view file in browser, the file does not yet have a name\n"
-msgstr ""
-"Nemoguće je pogledati datoteku u pretraživaču, datoteka još uvek nema ime\n"
+msgstr "Nemoguće je pogledati datoteku u pretraživaču, datoteka još uvek nema ime\n"
 
 #: ../src/menu.c:1405
 msgid "/External/Outputbox/"
@@ -3865,9 +3879,8 @@ msgid "Custom Dialo_g"
 msgstr "Lična Opcija"
 
 #: ../src/menu.c:2449
-#, fuzzy
 msgid "Custom Replace"
-msgstr "Lični traži i zameni"
+msgstr "Zameni"
 
 #: ../src/menu.c:2461
 msgid "_Replace:"
@@ -4762,16 +4775,3 @@ msgstr "Kod:"
 msgid "Size:"
 msgstr "Veličina:"
 
-#~ msgid "Save document as"
-#~ msgstr "Sačuvaj dokument kao"
-
-#~ msgid "Save changes to this untitled file before closing?"
-#~ msgstr ""
-#~ "Žeite li da sačuvate prepravke načinjene na ovoj neimenovanoj datoteci "
-#~ "pre zatvaranja?"
-
-#~ msgid "Search..."
-#~ msgstr "Traži..."
-
-#~ msgid "Search and Replace..."
-#~ msgstr "Traži i zameni..."

@@ -4,14 +4,14 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: bluefish gtk2-port\n"
-"POT-Creation-Date: 2004-11-25 10:39+0100\n"
-"PO-Revision-Date: 15/11/2004    \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-11-25 12:34-0300\n"
+"PO-Revision-Date: 26/11/2004    \n"
 "Last-Translator: Oskar Świda (swida@aragorn.pb.bialystok.pl)\n"
 "Language-Team: None\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8 bit\n"
-"Report-Msgid-Bugs-To: \n"
 
 #: ../src/about.c:123
 msgid ""
@@ -36,7 +36,6 @@ msgstr ""
 "Ta wersja bluefish została skompilowana z następującymi opcjami:\n"
 
 #: ../src/about.c:124
-#, fuzzy
 msgid ""
 "Project leader:\n"
 "  Olivier Sessink <olivier@bluefish.openoffice.nl>\n"
@@ -103,9 +102,16 @@ msgstr ""
 "  Olivier Sessink <olivier@bluefish.openoffice.nl>\n"
 "\n"
 "Programiści obecnej wersji:\n"
-"  Jim Hayward <jimhayward@linuxexperience.net>\n"
-"  Oskar Świda <swida@aragorn.pb.bialystok.pl>\n"
-"  Eugene Morenko(More) <more@irpin.com>\n"
+"  Olivier Sessink\n"
+"   <olivier@bluefish.openoffice.nl>\n"
+"  Jim Hayward\n"
+"   <jimhayward@linuxexperience.net>\n"
+"  Oskar Świda\n"
+"   <swida@aragorn.pb.bialystok.pl>\n"
+"  Eugene Morenko(More)\n"
+"   <more@irpin.com>\n"
+"  Alastair Porter\n"
+"   <alastair@linuxexperience.com>\n"
 "\n"
 "Programiści wersji poprzednich:\n"
 "  Chris Mazuc\n"
@@ -115,22 +121,40 @@ msgstr ""
 "  David Arno\n"
 "  Pablo De Napoli\n"
 "  Santiago Capel Torres\n"
-"  Rasmus Toftdahl Olesen <rto@pohldata.dk>\n"
-"  Roland Steinbach <roland@netzblick.de>\n"
-"  Christian Tellefsen <chris@tellefsen.net>\n"
+"  Rasmus Toftdahl Olesen\n"
+"   <rto@pohldata.dk>\n"
+"  Roland Steinbach\n"
+"   <roland@netzblick.de>\n"
+"  Christian Tellefsen\n"
+"   <chris@tellefsen.net>\n"
 "  Antti-Juhani Kaijanaho\n"
 "\n"
 "Dokumentacja:\n"
-"  Alastair Porter <alastair@linuxexperience.com>\n"
-"  Daniel Blair <joecamel@realcoders.org>\n"
+"  Scott White\n"
+"   <wwsw3@earthlink.net>\n"
+"  Michèle Garoche\n"
+"   <michele.garoche@easyconnect.fr>\n"
+"  Anita Lewis\n"
+"   <ajreiki@highstream.net>\n"
+"  Alastair Porter\n"
+"   <alastair@linuxexperience.com>\n"
+"  Daniel Blair\n"
+"   <joecamel@realcoders.org>\n"
+"  Olivier Sessink\n"
+"   <olivier@bluefish.openoffice.nl>\n"
 "  Denny Reeh\n"
 "\n"
-"Pakiety binarne:\n"
-"  Debian:   Davide Puricelli <evo@debian.org>\n"
-"  Redhat:   Matthias Haase <matthias_haase@bennewitz.com>\n"
-"  Mandrake: Todd Lyons <todd@mrball.net>\n"
+"Pakiety:\n"
+"  Debian:   Davide Puricelli\n"
+"   <evo@debian.org>\n"
+"  Redhat:   Matthias Haase\n"
+"   <matthias_haase@bennewitz.com>\n"
+"  Mandrake: Todd Lyons\n"
+"   <todd@mrball.net>\n"
+"  Fink: Michèle Garoche\n"
+"   <michele.garoche@easyconnect.fr>\n"
 "\n"
-"Jeżeli znasz kogoś, kto powinien znaleźć się na tej liście, daj nam znać na\n"
+"Jeżeli znasz kogoś, kto jeszcze powinien znaleźć się na tej liście, daj nam znać\n"
 "<bluefish@bluefish.openoffice.nl>\n"
 "\n"
 "Dziękujemy wszystkim, którzy pomogli w udostępnianiu tego oprogramowania.\n"
@@ -169,7 +193,7 @@ msgid ""
 "  Norwegian - Christian Tellefsen\n"
 "   <chris@tellefsen.net>\n"
 "\n"
-"  Polish - Oskar Swida\n"
+"  Polish - Oskar Świda\n"
 "   <swida@aragorn.pb.bialystok.pl>\n"
 "\n"
 "  Portuguese - Lopo Pizarro\n"
@@ -674,14 +698,14 @@ msgid "Previously: "
 msgstr "Poprzednio: "
 
 #: ../src/document.c:2412
-#, fuzzy, c-format
+#, c-format
 msgid "Move/rename %s to"
-msgstr "Przesuń/zmień nazwę dokumentu"
+msgstr "Przesuń/zmień %s do"
 
 #: ../src/document.c:2412
-#, fuzzy, c-format
+#, c-format
 msgid "Save %s as"
-msgstr "Zapisz jako..."
+msgstr "Zapisz %s jako"
 
 #: ../src/document.c:2456 ../src/document.c:2471 ../src/document.c:2569
 #: ../src/document.c:3759 ../src/project.c:171
@@ -1512,14 +1536,12 @@ msgid "Paste"
 msgstr "Wklej"
 
 #: ../src/gui.c:1090
-#, fuzzy
 msgid "Find..."
-msgstr "Szukaj"
+msgstr "Znajdź..."
 
 #: ../src/gui.c:1092
-#, fuzzy
 msgid "Replace..."
-msgstr "Zamień"
+msgstr "Zamień..."
 
 #: ../src/gui.c:1095 ../src/preferences.c:1992
 msgid "Undo"
@@ -1602,6 +1624,55 @@ msgstr "kompiluję drugi wzorzec '%s': %s na pozycji %d"
 #, c-format
 msgid "studying 2nd pattern '%s': %s"
 msgstr "analizuję drugi wzorzec '%s': %s"
+
+#: ../src/html2.c:554
+msgid "Cascading StyleSheet dialog"
+msgstr "Okno dialogowe CSS"
+
+#: ../src/html2.c:574
+msgid "_Selector:"
+msgstr "_Selektor"
+
+#: ../src/html2.c:593
+msgid "_Property:"
+msgstr "Wła_sność"
+
+#: ../src/html2.c:595 ../src/html_form.c:650 ../src/html_form.c:799
+#: ../src/html_form.c:894
+msgid "_Value:"
+msgstr "_Wartość"
+
+#: ../src/html2.c:613
+msgid "Selector"
+msgstr "Selektor"
+
+#: ../src/html2.c:613 ../src/html2.c:616
+msgid "Property"
+msgstr "Własność"
+
+#: ../src/html2.c:613 ../src/html2.c:616
+msgid "Value"
+msgstr "Wartość"
+
+#: ../src/html2.c:631
+msgid " _Add "
+msgstr " _Dodaj "
+
+#: ../src/html2.c:634
+msgid " _Update "
+msgstr " _Odśwież "
+
+#: ../src/html2.c:637
+msgid " _Delete "
+msgstr " _Kasuj "
+
+#: ../src/html2.c:893 ../src/html2.c:930
+msgid "_Style..."
+msgstr "_Styl..."
+
+#: ../src/html2.c:1087
+msgid "Bluefish: Select color"
+msgstr "Bluefish: Wybierz kolor"
 
 #: ../src/html.c:392
 msgid "Insert Time"
@@ -1996,55 +2067,6 @@ msgstr "_Język:"
 #: ../src/html.c:2112
 msgid "_Custom:"
 msgstr "_Własne:"
-
-#: ../src/html2.c:554
-msgid "Cascading StyleSheet dialog"
-msgstr "Okno dialogowe CSS"
-
-#: ../src/html2.c:574
-msgid "_Selector:"
-msgstr "_Selektor"
-
-#: ../src/html2.c:593
-msgid "_Property:"
-msgstr "Wła_sność"
-
-#: ../src/html2.c:595 ../src/html_form.c:650 ../src/html_form.c:799
-#: ../src/html_form.c:894
-msgid "_Value:"
-msgstr "_Wartość"
-
-#: ../src/html2.c:613
-msgid "Selector"
-msgstr "Selektor"
-
-#: ../src/html2.c:613 ../src/html2.c:616
-msgid "Property"
-msgstr "Własność"
-
-#: ../src/html2.c:613 ../src/html2.c:616
-msgid "Value"
-msgstr "Wartość"
-
-#: ../src/html2.c:631
-msgid " _Add "
-msgstr " _Dodaj "
-
-#: ../src/html2.c:634
-msgid " _Update "
-msgstr " _Odśwież "
-
-#: ../src/html2.c:637
-msgid " _Delete "
-msgstr " _Kasuj "
-
-#: ../src/html2.c:893 ../src/html2.c:930
-msgid "_Style..."
-msgstr "_Styl..."
-
-#: ../src/html2.c:1087
-msgid "Bluefish: Select color"
-msgstr "Bluefish: Wybierz kolor"
 
 #: ../src/html_form.c:141
 msgid "Form"
@@ -3728,8 +3750,7 @@ msgstr "/Okna"
 
 #: ../src/menu.c:1270
 msgid "Could not view file in browser, the file does not yet have a name\n"
-msgstr ""
-"Nie można pokazać pliku w przeglądarce, plik nie posiada jeszcze nazwy\n"
+msgstr "Nie można pokazać pliku w przeglądarce, plik nie posiada jeszcze nazwy\n"
 
 #: ../src/menu.c:1405
 msgid "/External/Outputbox/"
@@ -3865,9 +3886,8 @@ msgid "Custom Dialo_g"
 msgstr "Własne okno dialo_gowe"
 
 #: ../src/menu.c:2449
-#, fuzzy
 msgid "Custom Replace"
-msgstr "Własne wy_szukiwanie i zamiana"
+msgstr "Własna zamiana"
 
 #: ../src/menu.c:2461
 msgid "_Replace:"
@@ -4762,121 +4782,4 @@ msgstr "Źródło:"
 msgid "Size:"
 msgstr "Rozmiar:"
 
-#~ msgid "Save document as"
-#~ msgstr "Zapisz dokument jako"
 
-#~ msgid "Save changes to this untitled file before closing?"
-#~ msgstr ""
-#~ "Czy chcesz zapisać zmiany wprowadzone w tym pliku zanim zostanie "
-#~ "zamknięty?"
-
-#~ msgid "Search..."
-#~ msgstr "Szukaj..."
-
-#~ msgid "Search and Replace..."
-#~ msgstr "Szukaj i zamień..."
-
-#~ msgid "Do_n't Save"
-#~ msgstr "_Nie zapisuj"
-
-#~ msgid "Failed to save the current project"
-#~ msgstr "Nie można zapisać aktualnego projektu"
-
-#~ msgid "default"
-#~ msgstr "domyślnie"
-
-#~ msgid "temp"
-#~ msgstr "temp"
-
-#~ msgid "/View/View Sidebar"
-#~ msgstr "/Widok/Pokaż pasek główny"
-
-#~ msgid "/Edit/Undo"
-#~ msgstr "/Edycja/Cofnij"
-
-#~ msgid "/Edit/Redo"
-#~ msgstr "/Edycja/Ponów"
-
-#~ msgid "/Document/Wrap"
-#~ msgstr "/Dokument/Zawijaj"
-
-#~ msgid "/Document/Line Numbers"
-#~ msgstr "/Dokument/Numery linii"
-
-#~ msgid "/Document/Auto Close HTML tags"
-#~ msgstr "/Dokument/Automatyczne zamykanie znaczników HTML"
-
-#~ msgid "/View/View HTML Toolbar"
-#~ msgstr "/Widok/Pokaż pasek HTML"
-
-#~ msgid "/View/View Main Toolbar"
-#~ msgstr "/Widok/Pokaż pasek główny"
-
-#~ msgid "/View/View Custom Menu"
-#~ msgstr "/Widok/Pokaż menu podręczne"
-
-#~ msgid "/Document/Auto Indent"
-#~ msgstr "/Dokument/Automatyczne wcięcie"
-
-#~ msgid "Sort by line number"
-#~ msgstr "Sortuj wg numeru linii"
-
-#~ msgid "/Project/Save"
-#~ msgstr "/Projekt/Zapisz"
-
-#~ msgid "/Project/Save as..."
-#~ msgstr "/Projekt/Zapisz jako..."
-
-#~ msgid "/Project/Save & close"
-#~ msgstr "/Projekt/Zapisz i zamknij"
-
-#~ msgid "/Project/Edit Project Options..."
-#~ msgstr "/Projekt/Opcje projektu..."
-
-#~ msgid "/View/View Left Panel"
-#~ msgstr "/Widok/Pokaż lewy panel"
-
-#~ msgid "/View/View _Left Panel"
-#~ msgstr "/Widok/Pokaż _lewy panel"
-
-#~ msgid "Initial left panel width"
-#~ msgstr "Początkowa szerokość lewego panelu"
-
-#~ msgid "Show left panel by default"
-#~ msgstr "Domyślnie pokazuj lewy panel"
-
-#~ msgid "/File/Open recen_t"
-#~ msgstr "/Plik/Ostatnie p_liki"
-
-#~ msgid "/Project/Open r_ecent"
-#~ msgstr "/Projekt/Otwó_rz ostatni"
-
-#~ msgid "This file has not been saved."
-#~ msgstr "Plik nie został zapisany."
-
-#~ msgid "Your changes will be lost if you don't save them."
-#~ msgstr "Jeżeli nie zapiszesz pliku, wszystkie zmiany zostaną stracone."
-
-#~ msgid "Filetype"
-#~ msgstr "Typ pliku"
-
-#~ msgid "Filefilter"
-#~ msgstr "Filtr plików"
-
-#~ msgid "Filetypes (colon separated)"
-#~ msgstr "Typy plików (odzielone dwukropkiem)"
-
-#~ msgid "Browser"
-#~ msgstr "Przeglądarka"
-
-#~ msgid "%s = current filename"
-#~ msgstr "%s = aktualna nazwa pliku"
-
-#~ msgid "File subpattern #"
-#~ msgstr "Podwzorzec pliku #"
-
-#~ msgid "Line subpattern #"
-#~ msgstr "Podwzorzec linii #"
-
-#~ msgid "Output subpattern #"
-#~ msgstr "Wypisz podwzorzec #"

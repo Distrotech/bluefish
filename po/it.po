@@ -7,14 +7,14 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: bluefish gtk2-port\n"
-"POT-Creation-Date: 2004-11-25 10:39+0100\n"
-"PO-Revision-Date: 2004-11-09 22:40+0100\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-11-25 12:34-0300\n"
+"PO-Revision-Date: 2004-11-26 10:05+0100\n"
 "Last-Translator: Stefano Canepa <sc@linux.it>\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Report-Msgid-Bugs-To: \n"
 
 #: ../src/about.c:123
 msgid ""
@@ -38,7 +38,6 @@ msgstr ""
 "\n"
 
 #: ../src/about.c:124
-#, fuzzy
 msgid ""
 "Project leader:\n"
 "  Olivier Sessink <olivier@bluefish.openoffice.nl>\n"
@@ -105,9 +104,16 @@ msgstr ""
 "  Olivier Sessink <olivier@bluefish.openoffice.nl>\n"
 "\n"
 "Sviluppatori di questa versione:\n"
-"  Jim Hayward <jimhayward@linuxexperience.net>\n"
-"  Oskar Świda <swida@aragorn.pb.bialystok.pl>\n"
-"  Eugene Morenko(More) <more@irpin.com>\n"
+"  Oliver Sessink\n"
+"   <olivier@bluefish.openoffice.nl>\n"
+"  Jim Hayward \n"
+"   <jimhayward@linuxexperience.net>\n"
+"  Oskar Świda\n"
+"   <swida@aragorn.pb.bialystok.pl>\n"
+"  Eugene Morenko(More) \n"
+"   <more@irpin.com>\n"
+"  Alastair Porter\n"
+"\"  <alastair@linuxexperience.com>\n"
 "\n"
 "Sviluppatori delle precedenti versioni:\n"
 "  Chris Mazuc\n"
@@ -117,27 +123,43 @@ msgstr ""
 "  David Arno\n"
 "  Pablo De Napoli\n"
 "  Santiago Capel Torres\n"
-"  Rasmus Toftdahl Olesen <rto@pohldata.dk>\n"
-"  Roland Steinbach <roland@netzblick.de>\n"
-"  Christian Tellefsen <chris@tellefsen.net>\n"
+"  Rasmus Toftdahl Olesen \n"
+"   <rto@pohldata.dk>\n"
+"  Roland Steinbach \n"
+"   <roland@netzblick.de>\n"
+"  Christian Tellefsen \n"
+"   <chris@tellefsen.net>\n"
 "  Antti-Juhani Kaijanaho\n"
-"  Christian Tellefsen <christian@tellefsen.net>\n"
 "\n"
 "Documentazione:\n"
-"  Alastair Porter <alastair@linuxexperience.com>\n"
-"  Daniel Blair <joecamel@realcoders.org>\n"
+"  Scott White\n"
+"   <wwsw3@earthlink.net>\n"
+"  Michèle Garoche\n"
+"   <michele.garoche@easyconnect.fr>\n"
+"  Anita Lewis\n"
+"   <ajreiki@highstream.net>\n"
+"  Alastair Porter\n"
+"   <alastair@linuxexperience.com>\n"
+"  Daniel Blair\n"
+"   <joecamel@realcoders.org>\n"
+"  Olivier Sessink\n"
+"   <olivier@bluefish.openoffice.nl>\n"
 "  Denny Reeh\n"
 "\n"
 "Manutentori dei pacchetti:\n"
-"  Debian:   Davide Puricelli <evo@debian.org>\n"
-"  Redhat:   Matthias Haase <matthias_haase@bennewitz.com>\n"
-"  Mandrake: Todd Lyons <todd@mrball.net>\n"
+"  Debian:   Davide Puricelli\n"
+"   <evo@debian.org>\n"
+"  Redhat:   Matthias Haase\n"
+"   <matthias_haase@bennewitz.com>\n"
+"  Mandrake: Todd Lyons\n"
+"   <todd@mrball.net>\n"
+"  Fink: Michèle Garoche\n"
+"   <michele.garoche@easyconnect.fr>\n"
 "\n"
 "Se conoscete qualcuno che manca in questa lista scrivete a\n"
 "<bluefish@bluefish.openoffice.nl>\n"
 "\n"
-"Grazie a tutti quelli che hanno aiutato per rendere questo software "
-"disponibile.\n"
+"Grazie a tutti quelli che hanno aiutato per rendere questo software disponibile.\n"
 
 #: ../src/about.c:185
 msgid ""
@@ -679,14 +701,14 @@ msgid "Previously: "
 msgstr "Precedentemente: "
 
 #: ../src/document.c:2412
-#, fuzzy, c-format
+#, c-format
 msgid "Move/rename %s to"
-msgstr "Sposta/rinomina il documento"
+msgstr "Sposta/rinomina %s in"
 
 #: ../src/document.c:2412
-#, fuzzy, c-format
+#, c-format
 msgid "Save %s as"
-msgstr "Salva con nome..."
+msgstr "Salva %s con"
 
 #: ../src/document.c:2456 ../src/document.c:2471 ../src/document.c:2569
 #: ../src/document.c:3759 ../src/project.c:171
@@ -894,7 +916,6 @@ msgid "Loading %d file(s)..."
 msgstr "Caricamento di %d file in corso"
 
 #: ../src/document.c:3642
-#, fuzzy
 msgid "No matching files found"
 msgstr "Nessun file soddisfa il confronto"
 
@@ -1518,14 +1539,12 @@ msgid "Paste"
 msgstr "Incolla"
 
 #: ../src/gui.c:1090
-#, fuzzy
 msgid "Find..."
-msgstr "Cerca"
+msgstr "Cerca..."
 
 #: ../src/gui.c:1092
-#, fuzzy
 msgid "Replace..."
-msgstr "Sostituisci"
+msgstr "Sostituisci..."
 
 #: ../src/gui.c:1095 ../src/preferences.c:1992
 msgid "Undo"
@@ -1607,6 +1626,55 @@ msgstr "compilazione della seconda espressione '%s': %s alla posizione %d"
 #, c-format
 msgid "studying 2nd pattern '%s': %s"
 msgstr "%2$s studiando la seconda espressione '%1$s'"
+
+#: ../src/html2.c:554
+msgid "Cascading StyleSheet dialog"
+msgstr "Fogli di stile a cascata"
+
+#: ../src/html2.c:574
+msgid "_Selector:"
+msgstr "_Selettore:"
+
+#: ../src/html2.c:593
+msgid "_Property:"
+msgstr "_Proprietà:"
+
+#: ../src/html2.c:595 ../src/html_form.c:650 ../src/html_form.c:799
+#: ../src/html_form.c:894
+msgid "_Value:"
+msgstr "_Valore:"
+
+#: ../src/html2.c:613
+msgid "Selector"
+msgstr "Selettore"
+
+#: ../src/html2.c:613 ../src/html2.c:616
+msgid "Property"
+msgstr "Proprietà"
+
+#: ../src/html2.c:613 ../src/html2.c:616
+msgid "Value"
+msgstr "Valore"
+
+#: ../src/html2.c:631
+msgid " _Add "
+msgstr " _Aggiungi "
+
+#: ../src/html2.c:634
+msgid " _Update "
+msgstr " _Aggiorna "
+
+#: ../src/html2.c:637
+msgid " _Delete "
+msgstr " _Cancella "
+
+#: ../src/html2.c:893 ../src/html2.c:930
+msgid "_Style..."
+msgstr "_Stile..."
+
+#: ../src/html2.c:1087
+msgid "Bluefish: Select color"
+msgstr "Bluefish: selezionare colore"
 
 #: ../src/html.c:392
 msgid "Insert Time"
@@ -2001,55 +2069,6 @@ msgstr "Lingu_a:"
 #: ../src/html.c:2112
 msgid "_Custom:"
 msgstr "Perso_nalizzato:"
-
-#: ../src/html2.c:554
-msgid "Cascading StyleSheet dialog"
-msgstr "Fogli di stile a cascata"
-
-#: ../src/html2.c:574
-msgid "_Selector:"
-msgstr "_Selettore:"
-
-#: ../src/html2.c:593
-msgid "_Property:"
-msgstr "_Proprietà:"
-
-#: ../src/html2.c:595 ../src/html_form.c:650 ../src/html_form.c:799
-#: ../src/html_form.c:894
-msgid "_Value:"
-msgstr "_Valore:"
-
-#: ../src/html2.c:613
-msgid "Selector"
-msgstr "Selettore"
-
-#: ../src/html2.c:613 ../src/html2.c:616
-msgid "Property"
-msgstr "Proprietà"
-
-#: ../src/html2.c:613 ../src/html2.c:616
-msgid "Value"
-msgstr "Valore"
-
-#: ../src/html2.c:631
-msgid " _Add "
-msgstr " _Aggiungi "
-
-#: ../src/html2.c:634
-msgid " _Update "
-msgstr " _Aggiorna "
-
-#: ../src/html2.c:637
-msgid " _Delete "
-msgstr " _Cancella "
-
-#: ../src/html2.c:893 ../src/html2.c:930
-msgid "_Style..."
-msgstr "_Stile..."
-
-#: ../src/html2.c:1087
-msgid "Bluefish: Select color"
-msgstr "Bluefish: selezionare colore"
 
 #: ../src/html_form.c:141
 msgid "Form"
@@ -3882,9 +3901,8 @@ msgid "Custom Dialo_g"
 msgstr "Finestra _personalizzato"
 
 #: ../src/menu.c:2449
-#, fuzzy
 msgid "Custom Replace"
-msgstr "Comando _Sostituisci Personalizzato"
+msgstr "Comando Sostituisci Personalizzato"
 
 #: ../src/menu.c:2461
 msgid "_Replace:"
@@ -4782,195 +4800,3 @@ msgstr "Sorgente:"
 #: ../src/wizards.c:224
 msgid "Size:"
 msgstr "Dimensione:"
-
-#~ msgid "Save document as"
-#~ msgstr "Salva documento come"
-
-#~ msgid "Save changes to this untitled file before closing?"
-#~ msgstr "Salvare i cambiamenti a questo file senza nome prima di chiuderlo?"
-
-#~ msgid "Search..."
-#~ msgstr "Trova..."
-
-#~ msgid "Search and Replace..."
-#~ msgstr "Trova e sostituisci..."
-
-#~ msgid "Do_n't Save"
-#~ msgstr "_Non salvare"
-
-#~ msgid "Failed to save the current project"
-#~ msgstr "Salvataggio del progetto corrente fallito"
-
-#~ msgid "default"
-#~ msgstr "predefinito"
-
-#~ msgid "temp"
-#~ msgstr "temp"
-
-#, fuzzy
-#~ msgid "/View/View Sidebar"
-#~ msgstr "/Visualizza/Barra principale"
-
-#~ msgid "/Edit/Undo"
-#~ msgstr "/Modifica/Annulla"
-
-#~ msgid "/Edit/Redo"
-#~ msgstr "/Modifica/Ripeti"
-
-#~ msgid "/Document/Wrap"
-#~ msgstr "/Documento/A capo automatico"
-
-#~ msgid "/Document/Line Numbers"
-#~ msgstr "/Documento/Numeri di riga"
-
-#~ msgid "/Document/Auto Close HTML tags"
-#~ msgstr "/Documento/Chiusura automatica tag HTML"
-
-#~ msgid "/View/View HTML Toolbar"
-#~ msgstr "/Visualizza/Barra HTML"
-
-#~ msgid "/View/View Main Toolbar"
-#~ msgstr "/Visualizza/Barra principale"
-
-#~ msgid "/View/View Custom Menu"
-#~ msgstr "/Visualizza/Barra personalizzata"
-
-#~ msgid "/Document/Auto Indent"
-#~ msgstr "/Documento/Indenta automaticamente"
-
-#~ msgid "Sort by line number"
-#~ msgstr "Ordina per numero di riga"
-
-#~ msgid "/Project/Save"
-#~ msgstr "/Progetto/Salva"
-
-#~ msgid "/Project/Save as..."
-#~ msgstr "/Progetto/Salva con nome..."
-
-#~ msgid "/Project/Save & close"
-#~ msgstr "/Progetto/Salva e chiudi"
-
-#~ msgid "/Project/Edit Project Options..."
-#~ msgstr "/Progetto/Modifica le opzioni del pregetto"
-
-#~ msgid "/View/View Left Panel"
-#~ msgstr "/Visualizza/Pannello laterale"
-
-#~ msgid "/View/View _Left Panel"
-#~ msgstr "/Visualizza/Panne_llo Laterale"
-
-#~ msgid "Initial left panel width"
-#~ msgstr "Dimensione iniziale del pannello di sinistra"
-
-#~ msgid "Show left panel by default"
-#~ msgstr "Mostra il pannello laterale in modo predefinito"
-
-#~ msgid "/File/Open recen_t"
-#~ msgstr "/File/Apri recen_ti"
-
-#~ msgid "/Project/Open r_ecent"
-#~ msgstr "/Progetto/Apri progetto r_ecente"
-
-#~ msgid "This file has not been saved."
-#~ msgstr "Il file non è stato salvato"
-
-#~ msgid "Your changes will be lost if you don't save them."
-#~ msgstr "Le modifiche saranno perse se non salvate."
-
-#~ msgid "Filetype"
-#~ msgstr "Tipo di file"
-
-#~ msgid "Filefilter"
-#~ msgstr "Filtro file"
-
-#~ msgid "Filetypes (colon separated)"
-#~ msgstr "Tipi dei file (separati da due punti)"
-
-#~ msgid "Browser"
-#~ msgstr "Browser"
-
-#~ msgid "%s = current filename"
-#~ msgstr "%s = nome del file attuale"
-
-#~ msgid "File subpattern #"
-#~ msgstr "File: sotto modello n°"
-
-#~ msgid "Line subpattern #"
-#~ msgstr "\"Riga: sotto modello n°"
-
-#~ msgid "Output subpattern #"
-#~ msgstr "Output: sotto modello n°"
-
-#~ msgid ""
-#~ "Bluefish is an editor for experienced web designers and programmers. It "
-#~ "supports many programming and markup languages, but focuses on editing "
-#~ "dynamic and interactive websites. Bluefish is an open source development "
-#~ "project, released under the GPL license.\n"
-#~ "\n"
-#~ "For more information, visit the Bluefish Website at http://bluefish."
-#~ "openoffice.nl/\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Bluefish è un editor per disegnatori di sitii web esperti e "
-#~ "programmatori. Supporta molti linguaggi di programmazione e linguaggi con "
-#~ "markup ma è orientato alla scrittura dinamica e interattiva di siti web. "
-#~ "Bluefish è un progetto di sviluppo open source rilasciato sotto la "
-#~ "licenza GPL.\n"
-#~ "\n"
-#~ "Per maggiori informazioni, visitate il sito web di Bluefish: http://"
-#~ "bluefish.openoffice.nl/\n"
-#~ "\n"
-
-#~ msgid "You already have a bookmark named %s!"
-#~ msgstr "Segnalibro con nome %s già presente"
-
-#~ msgid "Do you want to open it?"
-#~ msgstr "Aprire il file?"
-
-#~ msgid "Rename permanent bookmark"
-#~ msgstr "Rinomina segnalibro permanente"
-
-#~ msgid "Rename temporary bookmark"
-#~ msgstr "Rinomina segnalibro permanente"
-
-#~ msgid "Rename"
-#~ msgstr "Rinomina"
-
-#~ msgid "Permanent"
-#~ msgstr "Permanente"
-
-#~ msgid "Add temporary bookmark"
-#~ msgstr "Aggiungi un segnalibro temporaneo"
-
-#~ msgid "Delete all permanent bookmarks."
-#~ msgstr "Cancella tutti i segnalibri persistenti."
-
-#~ msgid "Are you REALLY sure?"
-#~ msgstr "Sicuri?"
-
-#~ msgid "Add permanent bookmark"
-#~ msgstr "Aggiungi segnalibro persistente"
-
-#~ msgid "/Bookmarks/tearoff1"
-#~ msgstr "/Segnalibri/tearoff1"
-
-#~ msgid "/Bookmarks/Add _Temporary"
-#~ msgstr "/_Segnalibri/Aggiungi _temporaneo"
-
-#~ msgid "/Bookmarks/Add _Permanent"
-#~ msgstr "/_Segnalibri/Aggiungi _permanente"
-
-#~ msgid "/Bookmarks/sep2"
-#~ msgstr "/_Segnalibri/sep2"
-
-#~ msgid "/Bookmarks/Delete All Temporar_y"
-#~ msgstr "/_Segnalibri/Cancella tutti i temporanei"
-
-#~ msgid "/Bookmarks/Delete All Per_manent"
-#~ msgstr "/Segnalibri/Cancella tutti i per_manenti"
-
-#~ msgid "/Project/_Close & save"
-#~ msgstr "/Progetto/Chiudi e salva progetto"
-
-#~ msgid "/Project/Close & save"
-#~ msgstr "/Progetto/Chiudi e salva"

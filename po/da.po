@@ -5,14 +5,14 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: bluefish gtk2-port\n"
-"POT-Creation-Date: 2004-11-25 10:39+0100\n"
-"PO-Revision-Date: 2004-11-09 00:20+0100\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-11-25 12:34-0300\n"
+"PO-Revision-Date: 2004-11-26 22:30+0100\n"
 "Last-Translator: Rasmus Toftdahl Olesen <rto@pohldata.dk>\n"
 "Language-Team: None\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8 bit\n"
-"Report-Msgid-Bugs-To: \n"
 
 #: ../src/about.c:123
 msgid ""
@@ -37,7 +37,6 @@ msgstr ""
 "Denne version af bluefish blev kompileret med følgende valg:\n"
 
 #: ../src/about.c:124
-#, fuzzy
 msgid ""
 "Project leader:\n"
 "  Olivier Sessink <olivier@bluefish.openoffice.nl>\n"
@@ -104,9 +103,16 @@ msgstr ""
 "  Olivier Sessink <olivier@bluefish.openoffice.nl>\n"
 "\n"
 "Udviklere ved denne udgivelse:\n"
-"  Jim Hayward <jimhayward@linuxexperience.net>\n"
-"  Oskar Świda <swida@aragorn.pb.bialystok.pl>\n"
-"  Eugene Morenko(More) <more@irpin.com>\n"
+"  Olivier Sessink\n"
+"   <olivier@bluefish.openoffice.nl>\n"
+"  Jim Hayward\n"
+"   <jimhayward@linuxexperience.net>\n"
+"  Oskar Świda\n"
+"   <swida@aragorn.pb.bialystok.pl>\n"
+"  Eugene Morenko(More)\n"
+"   <more@irpin.com>\n"
+"  Alastair Porter\n"
+"   <alastair@linuxexperience.com>\n"
 "\n"
 "Udviklere ved tidligere udgivelser:\n"
 "  Chris Mazuc\n"
@@ -116,23 +122,40 @@ msgstr ""
 "  David Arno\n"
 "  Pablo De Napoli\n"
 "  Santiago Capel Torres\n"
-"  Rasmus Toftdahl Olesen <rto@pohldata.dk>\n"
-"  Roland Steinbach <roland@netzblick.de>\n"
-"  Christian Tellefsen <chris@tellefsen.net>\n"
+"  Rasmus Toftdahl Olesen\n"
+"   <rto@pohldata.dk>\n"
+"  Roland Steinbach\n"
+"   <roland@netzblick.de>\n"
+"  Christian Tellefsen\n"
+"   <chris@tellefsen.net>\n"
 "  Antti-Juhani Kaijanaho\n"
 "\n"
 "Dokumentation:\n"
-"  Alastair Porter <alastair@linuxexperience.com>\n"
-"  Daniel Blair <joecamel@realcoders.org>\n"
+"  Scott White\n"
+"   <wwsw3@earthlink.net>\n"
+"  Michèle Garoche\n"
+"   <michele.garoche@easyconnect.fr>\n"
+"  Anita Lewis\n"
+"   <ajreiki@highstream.net>\n"
+"  Alastair Porter\n"
+"   <alastair@linuxexperience.com>\n"
+"  Daniel Blair\n"
+"   <joecamel@realcoders.org>\n"
+"  Olivier Sessink\n"
+"   <olivier@bluefish.openoffice.nl>\n"
 "  Denny Reeh\n"
 "\n"
 "Pakke Vedligeholdere:\n"
-"  Debian:   Davide Puricelli <evo@debian.org>\n"
-"  Redhat:   Matthias Haase <matthias_haase@bennewitz.com>\n"
-"  Mandrake: Todd Lyons <todd@mrball.net>\n"
+"  Debian:   Davide Puricelli\n"
+"   <evo@debian.org>\n"
+"  Redhat:   Matthias Haase\n"
+"   <matthias_haase@bennewitz.com>\n"
+"  Mandrake: Todd Lyons\n"
+"   <todd@mrball.net>\n"
+"  Fink: Michèle Garoche\n"
+"   <michele.garoche@easyconnect.fr>\n"
 "\n"
-"Hvis du kender nogen der mangler fra denne liste, så vil vi meget gerne vide "
-"det\n"
+"Hvis du kender nogen der mangler fra denne liste, så vil vi meget gerne vide det\n"
 "<bluefish@bluefish.openoffice.nl>\n"
 "\n"
 "Tak til alle som har hjulpet med at gøre dette program til virkelighed.\n"
@@ -676,14 +699,14 @@ msgid "Previously: "
 msgstr "Forrige: "
 
 #: ../src/document.c:2412
-#, fuzzy, c-format
+#, c-format
 msgid "Move/rename %s to"
-msgstr "Flyt/Omdøb dokument til"
+msgstr "Flyt/Omdøb %s til"
 
 #: ../src/document.c:2412
-#, fuzzy, c-format
+#, c-format
 msgid "Save %s as"
-msgstr "Gem Som..."
+msgstr "Gem %s som"
 
 #: ../src/document.c:2456 ../src/document.c:2471 ../src/document.c:2569
 #: ../src/document.c:3759 ../src/project.c:171
@@ -1512,14 +1535,12 @@ msgid "Paste"
 msgstr "Indsæt"
 
 #: ../src/gui.c:1090
-#, fuzzy
 msgid "Find..."
-msgstr "Søg"
+msgstr "Søg..."
 
 #: ../src/gui.c:1092
-#, fuzzy
 msgid "Replace..."
-msgstr "Erstat"
+msgstr "Erstat..."
 
 #: ../src/gui.c:1095 ../src/preferences.c:1992
 msgid "Undo"
@@ -1601,6 +1622,55 @@ msgstr "kompilerer 2. mønster '%s': %s ved position %d"
 #, c-format
 msgid "studying 2nd pattern '%s': %s"
 msgstr "studerer 2. mænster '%s': %s"
+
+#: ../src/html2.c:554
+msgid "Cascading StyleSheet dialog"
+msgstr "Cascading StyleSheet dialog"
+
+#: ../src/html2.c:574
+msgid "_Selector:"
+msgstr "_Vælger:"
+
+#: ../src/html2.c:593
+msgid "_Property:"
+msgstr "_Egenskab:"
+
+#: ../src/html2.c:595 ../src/html_form.c:650 ../src/html_form.c:799
+#: ../src/html_form.c:894
+msgid "_Value:"
+msgstr "_Værdi:"
+
+#: ../src/html2.c:613
+msgid "Selector"
+msgstr "Vælger"
+
+#: ../src/html2.c:613 ../src/html2.c:616
+msgid "Property"
+msgstr "Egenskab"
+
+#: ../src/html2.c:613 ../src/html2.c:616
+msgid "Value"
+msgstr "Værdi"
+
+#: ../src/html2.c:631
+msgid " _Add "
+msgstr " _Tilføj "
+
+#: ../src/html2.c:634
+msgid " _Update "
+msgstr " _Opdatér "
+
+#: ../src/html2.c:637
+msgid " _Delete "
+msgstr " _Slet "
+
+#: ../src/html2.c:893 ../src/html2.c:930
+msgid "_Style..."
+msgstr "_Stil"
+
+#: ../src/html2.c:1087
+msgid "Bluefish: Select color"
+msgstr "Bluefish: Vælg farve"
 
 #: ../src/html.c:392
 msgid "Insert Time"
@@ -1995,55 +2065,6 @@ msgstr "_Sprog:"
 #: ../src/html.c:2112
 msgid "_Custom:"
 msgstr "_Bruger:"
-
-#: ../src/html2.c:554
-msgid "Cascading StyleSheet dialog"
-msgstr "Cascading StyleSheet dialog"
-
-#: ../src/html2.c:574
-msgid "_Selector:"
-msgstr "_Vælger:"
-
-#: ../src/html2.c:593
-msgid "_Property:"
-msgstr "_Egenskab:"
-
-#: ../src/html2.c:595 ../src/html_form.c:650 ../src/html_form.c:799
-#: ../src/html_form.c:894
-msgid "_Value:"
-msgstr "_Værdi:"
-
-#: ../src/html2.c:613
-msgid "Selector"
-msgstr "Vælger"
-
-#: ../src/html2.c:613 ../src/html2.c:616
-msgid "Property"
-msgstr "Egenskab"
-
-#: ../src/html2.c:613 ../src/html2.c:616
-msgid "Value"
-msgstr "Værdi"
-
-#: ../src/html2.c:631
-msgid " _Add "
-msgstr " _Tilføj "
-
-#: ../src/html2.c:634
-msgid " _Update "
-msgstr " _Opdatér "
-
-#: ../src/html2.c:637
-msgid " _Delete "
-msgstr " _Slet "
-
-#: ../src/html2.c:893 ../src/html2.c:930
-msgid "_Style..."
-msgstr "_Stil"
-
-#: ../src/html2.c:1087
-msgid "Bluefish: Select color"
-msgstr "Bluefish: Vælg farve"
 
 #: ../src/html_form.c:141
 msgid "Form"
@@ -3863,9 +3884,8 @@ msgid "Custom Dialo_g"
 msgstr "Brugerdefineret Dialo_g"
 
 #: ../src/menu.c:2449
-#, fuzzy
 msgid "Custom Replace"
-msgstr "Brugerdefineret _Søg or Erstat"
+msgstr "Brugerdefineret Søg or Erstat"
 
 #: ../src/menu.c:2461
 msgid "_Replace:"
@@ -4760,14 +4780,4 @@ msgstr "Kilde:"
 msgid "Size:"
 msgstr "Størrelse:"
 
-#~ msgid "Save document as"
-#~ msgstr "Gem dokument som"
 
-#~ msgid "Save changes to this untitled file before closing?"
-#~ msgstr "Gem ændringer til denne unavngivne fil inden den lukkes?"
-
-#~ msgid "Search..."
-#~ msgstr "Søg..."
-
-#~ msgid "Search and Replace..."
-#~ msgstr "Søg og Erstat..."
