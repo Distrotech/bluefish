@@ -60,6 +60,9 @@ static Tproject *create_new_project(Tbfwin *bfwin) {
 	prj->name = g_strdup(_("New project"));
 	if (bfwin) {
 		update_project_filelist(bfwin,prj);
+		prj->session = bfwin->session;
+	} else {
+		prj->session = g_new0(Tsessionvars,1);
 	}
 	if (prj->files) {
 		gint len;
@@ -135,6 +138,7 @@ void project_open_from_file(Tbfwin *bfwin, gchar *fromfilename) {
 	}
 
 	prj = g_new0(Tproject,1);
+	prj->session = g_new0(Tsessionvars,1);
 	retval = rcfile_parse_project(prj, fromfilename);
 	if (!retval) {
 		DEBUG_MSG("project_open_from_file, failed parsing the project at file %s\n",fromfilename);
@@ -147,6 +151,9 @@ void project_open_from_file(Tbfwin *bfwin, gchar *fromfilename) {
 	if (bfwin->project == NULL && test_only_empty_doc_left(bfwin->documentlist)) {
 		/* we will use this Bluefish window to open the project */
 		prwin = bfwin;
+		/* now we need to clean the session, and reset it to the session from the project */
+		free_session(bfwin->session);
+		bfwin->session = prj->session;
 		DEBUG_MSG("project_open_from_file, calling docs_new_from_files for existing bfwin=%p\n",prwin);
 		prwin->project = prj;
 		if (prj->basedir && strlen(prj->basedir) > 2) {
@@ -183,6 +190,7 @@ static void project_open(Tbfwin *bfwin) {
 
 static void project_destroy(Tproject *project) {
 	free_stringlist(project->files);
+	free_session(project->session);
 	g_free(project->filename);
 	g_free(project->name);
 	g_free(project->basedir);
@@ -199,6 +207,8 @@ gboolean project_save_and_close(Tbfwin *bfwin) {
 			DEBUG_MSG("project_save_and_close, all documents are closed\n");
 			add_to_recent_list(bfwin,bfwin->project->filename, TRUE, TRUE);
 			project_destroy(bfwin->project);
+			/* the window gets a new fresh session */
+			bfwin->session = g_new0(Tsessionvars,1);
 			bfwin->project = NULL;
 			gui_set_title(bfwin, bfwin->current_document);
 			filebrowser_set_basedir(bfwin, NULL);

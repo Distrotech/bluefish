@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * html_diag.h - general functions to create HTML dialogs
  *
- * Copyright (C) 2000 Olivier Sessink
+ * Copyright (C) 2000-2003 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,15 +21,16 @@
 #ifndef __HTML_DIAG_H_
 #define __HTML_DIAG_H_
 
+/* these will slowly be replaced by vars in bfwin->session */
 typedef struct {
-	GList *classlist;
-	GList *colorlist;
-	GList *targetlist;
-	GList *urllist;
-	GList *fontlist;
-	GList *dtd_cblist;
-	GList *headerlist;
-	GList *positionlist;
+        GList *classlist;
+        GList *colorlist;
+        GList *targetlist;
+        GList *urllist;
+        GList *fontlist;
+        GList *dtd_cblist;
+        GList *headerlist;
+        GList *positionlist;
 } Trecent_attribs;
 extern Trecent_attribs recent_attribs;
 
