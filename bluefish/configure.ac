@@ -249,6 +249,7 @@ if pkg-config --exists gnome-vfs-2.0 ; then
 	echo "yes"
 	HAVE_GNOME_VFS=1
 	AC_DEFINE(HAVE_GNOME_VFS)
+	AC_SUBST(HAVE_GNOME_VFS)
 else
 	echo "no"
 	echo "gnome-vfs-2.0 not found, opening remote files will be disabled"
@@ -280,7 +281,6 @@ if pkg-config libgnomeui-2.0 --atleast-version=2.6 ; then
 else
 	echo "no"
 fi
-
 
 AC_PATH_PROG(PCRE_CONFIG, pcre-config, no)
 if test "x$PCRE_CONFIG" = "xno" ; then
@@ -348,41 +348,128 @@ AC_HEADER_TIME
 dnl ************************
 dnl Program locations
 dnl ************************
-AC_ARG_WITH(icon-path,
-	AC_HELP_STRING([--with-icon-path=/path],[if the icon should not be installed in /usr/share/pixmaps/]),[
-	ICONPATH=$withval
-], [
-	ICONPATH=/usr/share/pixmaps/
-])
-AC_ARG_WITH(gnome1-menu,
-	AC_HELP_STRING([--with-gnome1-menu=/path],[gnome1 menu path (default=no)]),[
-	GNOME1MENUPATH=$withval
-], [
-	GNOME1MENUPATH=none
-])
-AC_ARG_WITH(gnome2-prefix,
-	AC_HELP_STRING([--with-gnome2-prefix=/path],[if the gnome2 menu & mime-types are not in /usr/share/]),[
-	GNOME2PREFIX=$withval
-], [
-	GNOME2PREFIX=/usr/share/
-])
 
-AC_ARG_ENABLE(update_mime,
-		AC_HELP_STRING([--disable-update-mime],[do not run update-mime-database during install]), UPDATE_MIME=$enableval,UPDATE_MIME=yes)
-AM_CONDITIONAL(UPDATE_MIME, test x"$UPDATE_MIME" = x"yes")
-
-AC_ARG_ENABLE(update_desktop,
-		AC_HELP_STRING([--disable-update-desktop],[do not run update-desktop-database during install]), UPDATE_DESKTOP=$enableval,UPDATE_DESKTOP=yes)
-update_desktop_database=`which update-desktop-database`
-if test -z "$update_desktop_database" ; then
-	UPDATE_DESKTOP=no
+dnl ************************
+dnl do we have a gnome1 menu path ?
+dnl ************************
+AC_ARG_WITH(gnome1-menu, 
+	AC_HELP_STRING([--with-gnome1-menu],[enable gnome1 menu]),[
+	WITHGNOME1=$withval
+	],[
+	WITHGNOME1=no]
+)
+if test "x$WITHGNOME1" = "xyes" ; then
+	echo -n "checking for gnome1 menu directory... "
+	if test -d /usr/share/gnome/apps ; then
+		GNOME1MENU=/usr/share/gnome/apps
+		AC_SUBST(GNOME1MENU)
+		echo "/usr/share/gnome/apps"
+	else
+		echo "no"
+	fi
 fi
-AM_CONDITIONAL(UPDATE_DESKTOP, test x"$UPDATE_DESKTOP" = x"yes")
 
-AC_SUBST(ICONPATH)
-AC_SUBST(GNOME1MENUPATH)
-AC_SUBST(GNOME2PREFIX)
-AC_SUBST(HAVE_GNOME_VFS)
+AC_ARG_WITH(gnome2-menu, 
+	AC_HELP_STRING([--without-gnome2-menu],[disable gnome1 menu]),[
+	WITHGNOME2=$withval
+	],[
+	WITHGNOME2=yes]
+)
+if test "x$WITHGNOME2" = "xyes" ; then
+	AC_PATH_PROG(UPDATE_MIME, update-mime-database, "no")
+	AC_PATH_PROG(UPDATE_DESKTOP, update-desktop-database, "no")
+	if test "x$UPDATE_MIME" = "xno" -a "x$UPDATE_MIME" = "xno" ; then
+		echo -n "checking for gnome2 menu directory... "
+		if test -d /usr/share/applications ; then
+			echo "/usr/share/applications"
+			GNOME2MENU=/usr/share/applications
+			AC_SUBST(GNOME2MENU)
+		else
+			echo "no"
+		fi
+		echo -n "checking for gnome2 mime-info directory... "
+		if test -d /usr/share/mime-info ; then
+			echo "/usr/share/mime-info"
+			GNOME2MIMEINFO=/usr/share/mime-info
+			AC_SUBST(GNOME2MIMEINFO)
+		else
+			echo "no"
+		fi
+		echo -n "checking for gnome2 application-registry directory... "
+		if test -d /usr/share/application-registry ; then
+			echo "/usr/share/application-registry"
+			GNOME2APPLICATIONREGISTRY=/usr/share/application-registry
+			AC_SUBST(GNOME2APPLICATIONREGISTRY)
+		else
+			echo "no"
+		fi
+	else
+		echo -n "checking for gnome2 menu directory... "
+		if test -d /usr/share/applications ; then
+			echo "/usr/share/applications"
+			GNOME2MENU=/usr/share/applications
+			AC_SUBST(GNOME2MENU)
+		else
+			echo "no"
+		fi
+		echo -n "checking for gnome2 mime directory... "
+		if test -d /usr/share/mime ; then
+			echo "/usr/share/mime"
+			GNOME2MIME=/usr/share/mime
+			AC_SUBST(GNOME2MIME)
+		else
+			echo "no"
+		fi
+	fi
+fi
+
+AC_ARG_WITH(icon-path,
+	AC_HELP_STRING([--without-icon],[do not install icon in /usr/share/pixmaps/]),[
+	WITHICON=$withval
+], [
+	WITHICON=yes
+])
+if test "x$WITHICON" = "xyes" ; then
+	echo -n "checking for icon directory... "
+	if test -d /usr/share/pixmaps ; then
+		ICONPATH=/usr/share/pixmaps
+		AC_SUBST(ICONPATH)
+		echo "/usr/share/pixmaps"
+	else
+		echo "no"
+	fi
+fi
+
+dnl AC_ARG_WITH(gnome1-menu,
+dnl 	AC_HELP_STRING([--with-gnome1-menu=/path],[gnome1 menu path (default=no)]),[
+dnl 	GNOME1MENUPATH=$withval
+dnl ], [
+dnl 	GNOME1MENUPATH=none
+dnl ])
+dnl AC_ARG_WITH(gnome2-prefix,
+dnl 	AC_HELP_STRING([--with-gnome2-prefix=/path],[if the gnome2 menu & mime-types are not in /usr/share/]),[
+dnl 	GNOME2PREFIX=$withval
+dnl ], [
+dnl 	GNOME2PREFIX=/usr/share/
+dnl ])
+dnl 
+dnl AC_ARG_ENABLE(update_mime,
+dnl 		AC_HELP_STRING([--disable-update-mime],[do not run update-mime-database during install]), UPDATE_MIME=$enableval,UPDATE_MIME=yes)
+dnl AM_CONDITIONAL(UPDATE_MIME, test x"$UPDATE_MIME" = x"yes")
+dnl 
+dnl AC_ARG_ENABLE(update_desktop,
+dnl 		AC_HELP_STRING([--disable-update-desktop],[do not run update-desktop-database during install]), UPDATE_DESKTOP=$enableval,UPDATE_DESKTOP=yes)
+dnl update_desktop_database=`which update-desktop-database`
+dnl if test -z "$update_desktop_database" ; then
+dnl 	UPDATE_DESKTOP=no
+dnl fi
+dnl AM_CONDITIONAL(UPDATE_DESKTOP, test x"$UPDATE_DESKTOP" = x"yes")
+dnl 
+dnl AC_SUBST(ICONPATH)
+dnl AC_SUBST(GNOME1MENUPATH)
+dnl AC_SUBST(GNOME2PREFIX)
+dnl AC_SUBST(HAVE_GNOME_VFS)
+
 AC_PREFIX_DEFAULT("/usr/local")
 
 if test "${prefix}" == "NONE"; then

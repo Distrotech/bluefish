@@ -16,14 +16,15 @@ pkgdatadir = @pkgdatadir@
 datadir = @datadir@
 localedir = $(datadir)/locale
 
-iconpath=@ICONPATH@
-gnome1menupath=@GNOME1MENUPATH@
-gnome2prefix=@GNOME2PREFIX@
-have_gnome_vfs=@HAVE_GNOME_VFS@
-gnome2applications=${gnome2prefix}/applications/
-gnome2mime-info=${gnome2prefix}/mime-info/
-gnome2appreg=${gnome2prefix}/application-registry/
-gnome2icons=${gnome2prefix}/pixmaps/
+GNOME1MENU=@GNOME1MENU@
+GNOME2MENU=@GNOME2MENU@
+GNOME2MIMEINFO=@GNOME2MIMEINFO@
+GNOME2APPLICATIONREGISTRY=@GNOME2APPLICATIONREGISTRY@
+GNOME2MIME=@GNOME2MIME@
+UPDATE_MIME=@UPDATE_MIME@
+UPDATE_DESKTOP=@UPDATE_DESKTOP@
+
+HAVE_GNOME_VFS=@HAVE_GNOME_VFS@
 
 INSTALL = @INSTALL@
 INSTALL_DIR = $(INSTALL) -d -m 755 
@@ -38,50 +39,50 @@ FUNCREFFILES = funcref_html.xml funcref_php.xml funcref_css.xml funcref_python.x
 
 all: $(DEFAULTFILES)
 	sed -e 's!ICONDIR!$(iconpath)!' < bluefish.desktop.in > bluefish.desktop
-	if [ ${have_gnome_vfs} = "1" ] ; then \
-		sed -e 's!EXPECT_URIS!true!' -e 's!SUPPORTED_URI_SCHEMES!file,http,ftp,sftp,smb!' < bluefish.applications.in > bluefish.applications ;\
-	else \
-		sed -e 's!EXPECT_URIS!false!' -e 's!SUPPORTED_URI_SCHEMES!!' < bluefish.applications.in > bluefish.applications ;\
-	fi
+ifdef HAVE_GNOME_VFS
+	sed -e 's!EXPECT_URIS!true!' -e 's!SUPPORTED_URI_SCHEMES!file,http,ftp,sftp,smb!' < bluefish.applications.in > bluefish.applications
+else
+	sed -e 's!EXPECT_URIS!false!' -e 's!SUPPORTED_URI_SCHEMES!!' < bluefish.applications.in > bluefish.applications
+endif
 
 install: all
+ifdef GNOME1MENU
+	$(INSTALL_DATA) bluefish.desktop $(DESTDIR)$(GNOME1MENU)
+endif
+ifdef GNOME2MENU
+	$(INSTALL_DATA) bluefish.desktop $(DESTDIR)$(GNOME2MENU)
+ifdef UPDATE_DESKTOP
+	$(UPDATE_DESKTOP)
+endif
+endif
+ifdef GNOME2MIMEINFO
+	$(INSTALL_DATA) bluefish.mime $(DESTDIR)$(GNOME2MIMEINFO)
+	$(INSTALL_DATA) bluefish.keys $(DESTDIR)$(GNOME2MIMEINFO)
+endif
+ifdef GNOME2APPLICATIONREGISTRY
+	$(INSTALL_DATA) bluefish.applications $(DESTDIR)$(GNOME2APPLICATIONREGISTRY)
+endif
+ifdef GNOME2MIME
+	$(INSTALL_DATA) bluefish.xml $(DESTDIR)$(GNOME2MIME)
+ifdef UPDATE_MIME
+	$(UPDATE_MIME) $(GNOME2MIME)
+endif
+endif
 	$(INSTALL_DIR) $(DESTDIR)$(pkgdatadir)
-	@for file in $(DEFAULTFILES) ; do \
+	for file in $(DEFAULTFILES) ; do \
 		$(INSTALL_DATA) $$file $(DESTDIR)$(pkgdatadir)/$$file ;\
 	done
-	@for file in $(FUNCREFFILES) ; do \
+	for file in $(FUNCREFFILES) ; do \
 		$(INSTALL_DATA) $$file $(DESTDIR)$(pkgdatadir)/$$file ;\
 	done
-	if [ -d $(gnome2applications) ] ; then \
-		$(INSTALL_DATA) bluefish.desktop $(DESTDIR)$(gnome2applications) ;\
-	fi
-	if [ -d $(gnome1menupath) ] ; then \
-		$(INSTALL_DIR) $(DESTDIR)$(gnome1menupath)/Applications ;\
-		$(INSTALL_DATA) bluefish.desktop $(DESTDIR)$(gnome1menupath)/Applications ;\
-	else \
-		if [ ! "x$(gnome1menupath)" = "xnone" ]; then \
-			echo "The gnome1 menu directory $(gnome1menupath) does not exist" ;\
-		fi \
-	fi
-	if [ -d $(gnome2appreg) ] ; then \
-		$(INSTALL_DATA) bluefish.applications $(DESTDIR)$(gnome2appreg) ;\
-	fi
-	if [ -d $(gnome2mime-info) ] ; then \
-		$(INSTALL_DATA) bluefish.mime $(DESTDIR)$(gnome2mime-info) ;\
-		$(INSTALL_DATA) bluefish.keys $(DESTDIR)$(gnome2mime-info) ;\
-	fi
-	if [ -d $(gnome2icons) ] ; then \
-		$(INSTALL_DATA) gnome-application-bluefish.png $(DESTDIR)$(gnome2icons) ;\
-	fi
+ifdef ICONPATH
+	$(INSTALL_DATA) gnome-application-bluefish.png $(DESTDIR)$(ICONPATH)
+endif
 
 uninstall:
 	@for file in $(DEFAULTFILES) ; do \
 		rm -f $(DESTDIR)$(pkgdatadir)/$$file ;\
 	done
-	rm -f $(DESTDIR)$(gnome2menupath)/bluefish.desktop
-	rm -f $(DESTDIR)$(gnome1menupath)/Applications/bluefish.desktop
-	rm -r $(DESTDIR)$(gnome2appregistry)/bluefish.applications
-	rm -f $(DESTDIR)$(gnome2icons)
 
 clean:
 	rm -f *.default
