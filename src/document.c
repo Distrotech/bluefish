@@ -251,7 +251,7 @@ void doc_update_highlighting(Tbfwin *bfwin,guint callback_action, GtkWidget *wid
 	DEBUG_MSG("doc_update_highlighting, curdoc=%p, highlightstate=%d\n", bfwin->current_document, bfwin->current_document->highlightstate);
 	if (bfwin->current_document->highlightstate == 0) {
 		setup_toggle_item(gtk_item_factory_from_widget(bfwin->menubar),
-			  N_("/Document/Highlight Syntax"), TRUE);
+			  _("/Document/Highlight Syntax"), TRUE);
 		DEBUG_MSG("doc_update_highlighting, calling doc_toggle_highlighting_cb\n");
 		doc_toggle_highlighting_cb(bfwin, 0, NULL);
 	} else {
