@@ -51,6 +51,7 @@ Tbfwin *project_is_open(gchar *filename) {
 static void update_project_filelist(Tbfwin *bfwin, Tproject *prj) {
 	DEBUG_MSG("update_project_filelist, started, bfwin=%p, prj=%p\n",bfwin,prj);
 	free_stringlist(prj->files);
+	DEBUG_MSG("update_project_filelist, old list free'd, creating new list from documentlist %p (len=%d)\n",bfwin->documentlist,g_list_length(bfwin->documentlist));
 	prj->files = return_filenamestringlist_from_doclist(bfwin->documentlist);
 }
 
