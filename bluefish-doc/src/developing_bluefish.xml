@@ -107,22 +107,22 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 <orderedlist spacing="compact">
 <listitem><para>Run <userinput>make distclean</userinput> in both trees</para></listitem>
 <listitem><para>cd to the parent directory of both trees</para></listitem>
-<listitem><para>Run <userinput>diff -Naur original-tree my-tree | bzip2 -9c > patchbla.diff.bz2</userinput></para></listitem>
+<listitem><para>Run <userinput>diff -Naur original-tree my-tree | bzip2 -9c &gt; patchbla.diff.bz2</userinput></para></listitem>
 </orderedlist>
 </sect1>
 
 <?linebreakus?>
 <sect1 id="developing-bluefish-translations">
 <title>Translations</title>
- 
+
 <sect2>
 <title>Introduction</title>
 <para>Bluefish has been translated into more than 15 different languages and this is only the beginning.</para>
-<para>Translation process is not a difficult task but you will need some time because there are more than one thousand strings to be translated. The good news are you don't need to be a programmer to make Bluefish speak your language and the only tool you need is a text editor (<application>Vim</application>, <application>Emacs</application>, <application>bluefish</application>, etc.)</para> 
+<para>Translation process is not a difficult task but you will need some time because there are more than one thousand strings to be translated. The good news are you don't need to be a programmer to make Bluefish speak your language and the only tool you need is a text editor (<application>Vim</application>, <application>Emacs</application>, <application>bluefish</application>, etc.)</para>
 <para>Bluefish uses po (Portable Object) files. A po file is just a plain text file that you can edit with your favorite text editor.</para>
 </sect2>
 
-<sect2> 
+<sect2>
 <title>PO files basics</title>
 <para>In a typical po file there are five major types of entries:</para>
 <orderedlist>
@@ -170,8 +170,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #: ../src/filebrowser.c:1453
 msgid "/_Refresh"
 msgstr "/_Actualizar"
-</screen>	
-<para>That it means that in the English locale the user have to press <keycombo><keycap>Alt</keycap><keycap>R</keycap></keycombo> to activate this particular GUI element. On the other hand if your locale is Spanish your shortcut key will be <keycombo><keycap>Alt</keycap><keycap>A</keycap></keycombo>.</para>
+</screen>
+<para>It means that in the English locale the user have to press <keycombo><keycap>Alt</keycap><keycap>R</keycap></keycombo> to activate this particular GUI element. On the other hand if your locale is Spanish your shortcut key will be <keycombo><keycap>Alt</keycap><keycap>A</keycap></keycombo>.</para>
 <variablelist><varlistentry>
 <term><emphasis>Warning</emphasis></term>
 <listitem>
@@ -180,7 +180,7 @@ msgstr "/_Actualizar"
 </sect2>
 
 <sect2>
-<title>How to contribute</title>  
+<title>How to contribute</title>
 <para>It is really easy. Just drop me a line at <email>wecharri(at)arnet.com.ar</email> and I will send you your po file ready to be translated. When you have finished the translation work, just send it me back (use <application>gzip</application> or <application>bzip2</application> if possible, please). Then I will check it and if everything is right I will add it into <application>CVS</application>.</para>
 <para>About ten days before a new release I will send a new fresh po copy to each translator to repeat this process.</para>
 <para>All po files will be named as follows:</para>
@@ -194,8 +194,8 @@ msgstr "/_Actualizar"
 <listitem><para>Do not mix it without any local copy you have.</para></listitem>
 <listitem><para>Remember they are in UTF-8 format</para></listitem>
 <listitem><para>Subject in my mail will be ***New Bluefish PO File !***</para></listitem>
- </itemizedlist>
- <para>And at last, do not start a new translation before contacting me or contact Olivier and do not post your po file at the list, please.</para>
+</itemizedlist>
+<para>And at last, do not start a new translation before contacting me or contact Olivier and do not post your po file at the list, please.</para>
 <para>If you have some doubts, do not hesitate contact me at <email>wecharri(at)arnet.com.ar</email>.</para>
 </sect2>
 </sect1>
@@ -204,6 +204,7 @@ msgstr "/_Actualizar"
 <title>Some tips</title>
 <para>Development tips</para>
 </sect1>
+
 <sect1 id="developing-bluefish-making-releases">
 <title>Making releases</title>
 <para>What is to do</para>
@@ -215,4 +216,3 @@ msgstr "/_Actualizar"
 </sect1>
 
 </chapter>
-
