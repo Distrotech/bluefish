@@ -27,6 +27,7 @@
 #include "bf_lib.h"
 #include "pixmap.h"
 #include "gui.h" /* statusbar_message() */
+#include "char_table.h" /* xml_escape() */
 
 #ifdef WIN32
 #define DIRSTR "\\"
@@ -949,11 +950,17 @@ static void hig_dialog_backend (GtkDialog *dialog, gchar *primary, gchar *second
 		gtk_box_pack_start (GTK_BOX (hbox), image, FALSE, FALSE, 0);
 		gtk_misc_set_alignment (GTK_MISC (image), 0, 0);
 	}
-
-	if(secondary) /* Creates label-content. */
-		message = g_strconcat(spanstart, primary, spanend, secondary, msgend, NULL);
-	else
-		message = g_strconcat(spanstart, primary, spanend, NULL);
+	
+	if(secondary) { /* Creates label-content. */
+		gchar *str1, *str2;
+		str1 = xml_escape(primary);
+		str2 = xml_escape(secondary);
+		message = g_strconcat(spanstart, str1, spanend, str2, msgend, NULL);
+	} else {
+		gchar *str1;
+		str1 = xml_escape(primary);
+		message = g_strconcat(spanstart, str1, spanend, NULL);
+	}
 			
 	label = gtk_label_new (message);
 	g_free(message);
