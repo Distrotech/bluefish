@@ -23,7 +23,7 @@
 #include <stdlib.h> /* atoi */
 #include <string.h> /* strchr() */
 
-/* #define DEBUG */
+/*#define DEBUG*/
 
 #include "bluefish.h"
 #include "document.h"			/* file_open etc. */
@@ -998,7 +998,7 @@ static GtkWidget *create_recent_entry(Tbfwin *bfwin, const gchar *filename, gboo
  * item telling that no recent files exist will appear */
 void recent_menu_init(Tbfwin *bfwin) {
 	gchar *filename;
-
+	gint num;
 	GList *recentfiles=NULL;
 	GList *inputlist, *tmplist;
 	
@@ -1012,7 +1012,8 @@ void recent_menu_init(Tbfwin *bfwin) {
 	}
 	free_stringlist(inputlist);
 	/* the last entry in recentfiles now is the most recent file */
-	tmplist = g_list_nth(recentfiles, g_list_length(recentfiles) - main_v->props.max_recent_files);
+	num = g_list_length(recentfiles) - main_v->props.max_recent_files;
+	tmplist = g_list_nth(recentfiles, (num > 0)?num:0);
 	while (tmplist) {
 		DEBUG_MSG("recent_menu_init, adding recent file %s\n",(gchar *)tmplist->data);
 		bfwin->menu_recent_files  = g_list_append(bfwin->menu_recent_files, create_recent_entry(bfwin,tmplist->data, FALSE, FALSE));
@@ -1032,11 +1033,13 @@ void recent_menu_init(Tbfwin *bfwin) {
 		tmplist = g_list_next(tmplist);
 	}
 	free_stringlist(inputlist);
-	tmplist = g_list_nth(recentfiles, g_list_length(recentfiles) - main_v->props.max_recent_files);
+	num = g_list_length(recentfiles) - main_v->props.max_recent_files;
+	DEBUG_MSG("recent_menu_init, starting list (length=%d) at position %d\n",g_list_length(recentfiles), (num > 0)?num:0);
+	tmplist = g_list_nth(recentfiles, (num > 0)?num:0);
 	while (tmplist) {
 		DEBUG_MSG("recent_menu_init, adding recent project %s\n",(gchar *)tmplist->data);
 		bfwin->menu_recent_projects  = g_list_append(bfwin->menu_recent_projects, create_recent_entry(bfwin,tmplist->data,TRUE, FALSE));
-		tmplist = g_list_previous(tmplist);
+		tmplist = g_list_next(tmplist);
 	}
 	put_stringlist_limited(filename, recentfiles, main_v->props.max_recent_files);
 	free_stringlist(recentfiles);

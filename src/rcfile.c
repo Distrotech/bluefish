@@ -202,6 +202,7 @@ static gint save_config_file(GList * config_list, gchar * filename)
 
 static gboolean parse_config_file(GList * config_list, gchar * filename)
 {
+	gboolean retval = FALSE;
 	gchar *tmpstring = NULL, *tmpstring2;
 	gchar **tmparray;
 	GList *rclist, *tmplist, *tmplist2;
@@ -214,7 +215,7 @@ static gboolean parse_config_file(GList * config_list, gchar * filename)
 	
 	if (rclist == NULL) {
 		DEBUG_MSG("no rclist, returning!\n");
-		return FALSE;
+		return retval;
 	}
 
 	/* empty all variables that have type GList ('l') */
@@ -251,6 +252,7 @@ static gboolean parse_config_file(GList * config_list, gchar * filename)
 #endif
 				if (g_strncasecmp(tmpitem->identifier, tmpstring, strlen(tmpitem->identifier)) == 0) {
 					/* we have found the correct identifier */
+					retval = TRUE;
 					DEBUG_MSG("parse_config_file, identifier=%s, string=%s\n", tmpitem->identifier, tmpstring);
 					/* move pointer past the identifier */
 					tmpstring += strlen(tmpitem->identifier);
@@ -298,7 +300,7 @@ static gboolean parse_config_file(GList * config_list, gchar * filename)
 	}
 	DEBUG_MSG("parse_config_file, parsed all entries, freeing list read from file\n");	
 	free_stringlist(rclist);
-	return TRUE;
+	return retval;
 }
 
 static GList *props_init_main(GList * config_rc)
