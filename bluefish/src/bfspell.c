@@ -357,8 +357,8 @@ void spell_gui(Tbfspell *bfspell) {
 	bf_mnemonic_label_tad_with_alignment(_("Change _to:"), bfspell->suggestions, 1, 0.5, table, 1, 2, 1, 2);
 	gtk_table_attach_defaults(GTK_TABLE(table), bfspell->suggestions,2,3,1,2);
 
-	bfspell->ignbut = bf_stock_button(_("I_gnore"), G_CALLBACK(spell_gui_ignore_clicked), bfspell);
-	bfspell->repbut = bf_stock_button(_("_Replace"), G_CALLBACK(spell_gui_replace_clicked), bfspell);
+	bfspell->ignbut = bf_generic_mnemonic_button(_("I_gnore"), G_CALLBACK(spell_gui_ignore_clicked), bfspell);
+	bfspell->repbut = bf_generic_mnemonic_button(_("_Replace"), G_CALLBACK(spell_gui_replace_clicked), bfspell);
 	gtk_table_attach_defaults(GTK_TABLE(table), bfspell->ignbut,3,4,0,1);
 	gtk_table_attach_defaults(GTK_TABLE(table), bfspell->repbut,3,4,1,2);
 	
@@ -394,7 +394,7 @@ void spell_gui(Tbfspell *bfspell) {
 	gtk_table_attach_defaults(GTK_TABLE(table), label,0,1,2,3);
 	gtk_misc_set_alignment(GTK_MISC(label), 1, 0.5);
 	gtk_table_attach_defaults(GTK_TABLE(table), bfspell->dict,1,2,2,3);
-	but = bf_stock_button(_("_Add"), G_CALLBACK(spell_gui_add_clicked), bfspell);
+	but = bf_generic_mnemonic_button(_("_Add"), G_CALLBACK(spell_gui_add_clicked), bfspell);
 	gtk_table_attach_defaults(GTK_TABLE(table), but,2,3,2,3);
 
 	bfspell->lang = gtk_option_menu_new();
@@ -402,7 +402,7 @@ void spell_gui(Tbfspell *bfspell) {
 	gtk_table_attach_defaults(GTK_TABLE(table), label,0,1,3,4);
 	gtk_misc_set_alignment(GTK_MISC(label), 1, 0.5);
 	gtk_table_attach_defaults(GTK_TABLE(table), bfspell->lang,1,2,3,4);
-	but = bf_stock_button(_("Set defa_ult"), G_CALLBACK(defaultlang_clicked_lcb), bfspell);
+	but = bf_generic_mnemonic_button(_("Set defa_ult"), G_CALLBACK(defaultlang_clicked_lcb), bfspell);
 	gtk_table_attach_defaults(GTK_TABLE(table), but,2,3,3,4);
 
 	bfspell->filter = gtk_option_menu_new();

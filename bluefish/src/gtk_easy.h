@@ -71,11 +71,15 @@ void window_destroy(GtkWidget * windowname);
 void window_close_by_widget_cb(GtkWidget * widget, gpointer data);
 void window_close_by_data_cb(GtkWidget * widget, gpointer data);
 GtkWidget *apply_font_style(GtkWidget * this_widget, gchar * fontstring);
-GtkWidget *hbox_with_pix_and_text(const gchar *label, gint pixmap_type);
-GtkWidget *bf_generic_button_with_image(const gchar *label, gint pixmap_type, GCallback func, gpointer func_data);
-GtkWidget *bf_stock_button(const gchar * Text, GCallback func, gpointer func_data);
-GtkWidget *bf_gtkstock_button(const gchar * stock_id, GCallback func, gpointer func_data);
 
+GtkWidget *hbox_with_pix_and_text(const gchar *label, gint bf_pixmaptype, const char *stock_pixmaptype);
+
+GtkWidget *bf_allbuttons_backend(const gchar *label, gboolean w_mnemonic, gint bf_pixmaptype
+		, const gchar *stock_pixmaptype, GCallback func, gpointer func_data );
+#define bf_generic_button_with_image(label,pixmap_type,func,func_data) bf_allbuttons_backend(label,FALSE,pixmap_type,NULL,func,func_data)
+#define bf_generic_mnemonic_button(label,func,func_data) bf_allbuttons_backend(label,TRUE,-1,NULL,func,func_data)
+
+GtkWidget *bf_gtkstock_button(const gchar * stock_id, GCallback func, gpointer func_data);
 #define bf_stock_ok_button(func, data) bf_gtkstock_button(GTK_STOCK_OK, func, data)
 #define bf_stock_cancel_button(func, data) bf_gtkstock_button(GTK_STOCK_CANCEL, func, data)
 

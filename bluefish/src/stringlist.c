@@ -362,17 +362,17 @@ void estrl_dialog(GList **which_list, gchar *title, gint what_list
 	}
 	gtk_clist_thaw(GTK_CLIST(estrl->clist));
 
-	but = bf_stock_button(_(" Add "), G_CALLBACK(estrl_add_clicked_lcb), estrl);
+	but = bf_generic_mnemonic_button(_(" Add "), G_CALLBACK(estrl_add_clicked_lcb), estrl);
 	gtk_box_pack_start(GTK_BOX(vbox2),but , TRUE, TRUE, 0);
-	but = bf_stock_button(_(" Update "), G_CALLBACK(estrl_update_clicked_lcb), estrl);
+	but = bf_generic_mnemonic_button(_(" Update "), G_CALLBACK(estrl_update_clicked_lcb), estrl);
 	gtk_box_pack_start(GTK_BOX(vbox2),but , TRUE, TRUE, 0);
-	but = bf_stock_button(_(" Delete "), G_CALLBACK(estrl_delete_clicked_lcb), estrl);
+	but = bf_generic_mnemonic_button(_(" Delete "), G_CALLBACK(estrl_delete_clicked_lcb), estrl);
 	gtk_box_pack_start(GTK_BOX(vbox2),but , TRUE, TRUE, 0);
-	but = bf_stock_button(_(" Up "), G_CALLBACK(estrl_up_clicked_lcb), estrl);
+	but = bf_generic_mnemonic_button(_(" Up "), G_CALLBACK(estrl_up_clicked_lcb), estrl);
 	gtk_box_pack_start(GTK_BOX(vbox2),but , TRUE, TRUE, 0);
-	but = bf_stock_button(_(" Down "), G_CALLBACK(estrl_down_clicked_lcb), estrl);
+	but = bf_generic_mnemonic_button(_(" Down "), G_CALLBACK(estrl_down_clicked_lcb), estrl);
 	gtk_box_pack_start(GTK_BOX(vbox2),but , TRUE, TRUE, 0);
-	but = bf_stock_button(_(" Sort "), G_CALLBACK(estrl_sort_clicked_lcb), estrl);
+	but = bf_generic_mnemonic_button(_(" Sort "), G_CALLBACK(estrl_sort_clicked_lcb), estrl);
 	gtk_box_pack_start(GTK_BOX(vbox2),but , TRUE, TRUE, 0);
 
 	hbox = gtk_hbutton_box_new();

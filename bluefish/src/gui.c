@@ -1342,7 +1342,7 @@ void go_to_line_win_cb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget) {
 	tgl->entry = boxed_entry_with_text(NULL, 20, hbox);
 	gtk_label_set_mnemonic_widget(GTK_LABEL(label), tgl->entry); /* mnemonic for label */
 
-	but1 = bf_stock_button(_("From _selection"), G_CALLBACK(tgl_fromsel_clicked_lcb), tgl);
+	but1 = bf_generic_mnemonic_button(_("From _selection"), G_CALLBACK(tgl_fromsel_clicked_lcb), tgl);
 	gtk_box_pack_start(GTK_BOX(hbox), but1, FALSE, FALSE, 0);
 
 	tgl->check = boxed_checkbut_with_value(_("Keep _dialog"), 0, vbox);

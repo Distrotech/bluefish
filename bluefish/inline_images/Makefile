@@ -102,8 +102,6 @@ TOOLBAR = \
 	quick_start quick_start.png \
 	right right.png \
 	samp samp.png \
-	search search.png \
-	search_replace search_replace.png \
 	table table.png \
 	table2 table2.png \
 	table_capt table_capt.png \
@@ -144,6 +142,8 @@ TOOLBAR = \
 #	ssi ssi.png \
 #	save save.png \
 #	save_as save_as.png \
+#	search search.png \
+#	search_replace search_replace.png \
 #	spellcheck spellcheck.png \
 #	strikeout strikeout.png \
 #	undo undo.png \

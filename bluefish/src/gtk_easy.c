@@ -669,13 +669,49 @@ GtkWidget *apply_font_style(GtkWidget * this_widget, gchar * fontstring) {
  *
  * Return value: #GtkWidget* to the hbox
  */
-GtkWidget *hbox_with_pix_and_text(const gchar *label, gint pixmap_type) {
+GtkWidget *hbox_with_pix_and_text(const gchar *label, gint bf_pixmaptype, const char *stock_pixmaptype) {
 	GtkWidget *hbox = gtk_hbox_new(FALSE, 0);
-	gtk_box_pack_start(GTK_BOX(hbox), new_pixmap(pixmap_type), FALSE, FALSE, 1);
+	if (stock_pixmaptype) {
+		gtk_box_pack_start(GTK_BOX(hbox), gtk_image_new_from_stock(stock_pixmaptype,GTK_ICON_SIZE_BUTTON), FALSE, FALSE, 1);
+	} else {
+		gtk_box_pack_start(GTK_BOX(hbox), new_pixmap(bf_pixmaptype), FALSE, FALSE, 1);
+	}
 	gtk_box_pack_start(GTK_BOX(hbox), gtk_label_new_with_mnemonic(label), TRUE, TRUE, 1);
 	gtk_widget_show_all(hbox);
 	return hbox;
 }
+
+GtkWidget *bf_allbuttons_backend(const gchar *label, gboolean w_mnemonic, gint bf_pixmaptype
+		, const gchar *stock_pixmaptype, GCallback func, gpointer func_data ) {
+	GtkWidget *button;
+	if (bf_pixmaptype == -1 && stock_pixmaptype == NULL) {
+		/* there is no image needed, only text */
+		if (w_mnemonic) {
+			button = gtk_button_new_with_mnemonic(label);
+		} else {
+			button = gtk_button_new_with_label(label);
+		}
+	} else {
+		/* there is an image needed */
+		button = gtk_button_new();
+		if (label) {
+			/* both a pixmap and text */
+			gtk_container_set_border_width(GTK_CONTAINER(button), 0);
+			gtk_container_add(GTK_CONTAINER(button), hbox_with_pix_and_text(label, bf_pixmaptype, stock_pixmaptype));
+		} else {
+			/* only pixmap */
+			if (stock_pixmaptype) {
+				gtk_container_add(GTK_CONTAINER(button), gtk_image_new_from_stock(stock_pixmaptype,GTK_ICON_SIZE_BUTTON));
+			} else {
+				gtk_container_add(GTK_CONTAINER(button), new_pixmap(bf_pixmaptype));
+			}
+		}
+	}
+	GTK_WIDGET_SET_FLAGS(button, GTK_CAN_DEFAULT);
+	g_signal_connect(G_OBJECT(button), "clicked", func, func_data);
+	return button;
+}
+
 /**
  * bf_generic_button_with_image:
  * @label: #const gchar* button string with '_' for the mnemonic, or NULL
@@ -688,7 +724,7 @@ GtkWidget *hbox_with_pix_and_text(const gchar *label, gint pixmap_type) {
  *
  * Return value: #GtkWidget* pointer to created button
  */
-GtkWidget *bf_generic_button_with_image(const gchar *label, gint pixmap_type, GCallback func, gpointer func_data) {
+/* GtkWidget *bf_generic_button_with_image(const gchar *label, gint pixmap_type, GCallback func, gpointer func_data) {
         GtkWidget *button;
 
 	button = gtk_button_new();
@@ -702,10 +738,10 @@ GtkWidget *bf_generic_button_with_image(const gchar *label, gint pixmap_type, GC
 	g_return_val_if_fail(button, NULL);
 	g_signal_connect(G_OBJECT(button), "clicked", func, func_data);
 	return button;
-}
+} */
 
 /**
- * bf_stock_button:
+ * bf_generic_mnemonic_button:
  * @Text: #const gchar* button string, using '_' for the mnemonic
  * @func: #GCallback pointer to signal handler
  * @func_data: #gpointer data for signal handler
@@ -714,16 +750,16 @@ GtkWidget *bf_generic_button_with_image(const gchar *label, gint pixmap_type, GC
  *
  * Return value: pointer to created button
  */
-GtkWidget *bf_stock_button(const gchar * Text, GCallback func, gpointer func_data) {
+/* GtkWidget *bf_generic_mnemonic_button(const gchar * Text, GCallback func, gpointer func_data) {
 	GtkWidget *button;
 
 	button = gtk_button_new_with_mnemonic(Text);
 	g_return_val_if_fail(button, NULL);
 	GTK_WIDGET_SET_FLAGS(button, GTK_CAN_DEFAULT);
 	g_signal_connect(G_OBJECT(button), "clicked", func, func_data);
-	DEBUG_MSG("bf_stock_button, func_data=%p\n", func_data);
+	DEBUG_MSG("bf_generic_mnemonic_button, func_data=%p\n", func_data);
 	return button;
-}
+} */
 /**
  * bf_gtkstock_button:
  * @stock_id: #const gchar* wioth the GTK stock icon ID
@@ -735,10 +771,7 @@ GtkWidget *bf_stock_button(const gchar * Text, GCallback func, gpointer func_dat
  * Return value: pointer to created button
  */
 GtkWidget *bf_gtkstock_button(const gchar * stock_id, GCallback func, gpointer func_data) {
-	GtkWidget *button;
-
-	button = gtk_button_new_from_stock(stock_id);
-	g_return_val_if_fail(button, NULL);
+	GtkWidget *button = gtk_button_new_from_stock(stock_id);
 	GTK_WIDGET_SET_FLAGS(button, GTK_CAN_DEFAULT);
 	g_signal_connect(G_OBJECT(button), "clicked", func, func_data);
 	return button;
@@ -1247,7 +1280,7 @@ GtkWidget *file_but_new(GtkWidget * which_entry, gint full_pathname, Tbfwin *bfw
 	file_but = gtk_button_new();
 	g_signal_connect(G_OBJECT(file_but), "destroy", G_CALLBACK(file_but_destroy), fb);
 	DEBUG_MSG("file_but_new, entry=%p, button=%p\n",which_entry,file_but);
-	gtk_container_add(GTK_CONTAINER(file_but), hbox_with_pix_and_text(_("_Browse..."), 112));
+	gtk_container_add(GTK_CONTAINER(file_but), hbox_with_pix_and_text(_("_Browse..."), 112,NULL));
 	g_signal_connect(G_OBJECT(file_but), "clicked", G_CALLBACK(file_but_clicked_lcb), fb);
 	gtk_widget_show(file_but);
 	return file_but;
