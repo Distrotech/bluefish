@@ -336,7 +336,8 @@ static GList *props_init_main(GList * config_rc)
 	init_prop_string    (&config_rc, &main_v->props.last_filefilter, "last_filefilter:", "");
 	init_prop_integer   (&config_rc, &main_v->props.transient_htdialogs, "transient_htdialogs:", 1);
 	init_prop_integer   (&config_rc, &main_v->props.restore_dimensions, "restore_dimensions:", 1);	
-	init_prop_integer   (&config_rc, &main_v->props.left_panel_width, "left_panel_width:", 150);	
+	init_prop_integer   (&config_rc, &main_v->props.left_panel_width, "left_panel_width:", 150);
+	init_prop_integer   (&config_rc, &main_v->props.two_pane_filebrowser_height, "two_pane_filebrowser_height:", 250);
 	init_prop_integer   (&config_rc, &main_v->props.main_window_h, "main_window_height:", 400);
 	init_prop_integer   (&config_rc, &main_v->props.main_window_w, "main_window_width:", 600);
 	init_prop_integer   (&config_rc, &main_v->props.max_recent_files, "max_recent_files:", 15);
