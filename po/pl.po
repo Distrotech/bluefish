@@ -4,8 +4,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: bluefish gtk2-port\n"
-"POT-Creation-Date: 2003-05-14 10:54+0200\n"
-"PO-Revision-Date: 25/4/2003 \n"
+"POT-Creation-Date: 2003-05-13 00:53-0300\n"
+"PO-Revision-Date: 15/5/2003  \n"
 "Last-Translator: Oskar Świda (swida@aragorn.pb.bialystok.pl)\n"
 "Language-Team: None\n"
 "MIME-Version: 1.0\n"
@@ -32,7 +32,7 @@ msgstr "Zamiennik"
 msgid "Ignore"
 msgstr "Ignoruj"
 
-#: ../src/bfspell.c:357 ../src/menu.c:1897 ../src/snr2.c:1096
+#: ../src/bfspell.c:357 ../src/menu.c:1897 ../src/snr2.c:1086
 msgid "Replace"
 msgstr "Zamień"
 
@@ -155,7 +155,7 @@ msgid "Cannot display file, unknown characters found."
 msgstr "Nie można wyświetlić pliku, znaleziono nieznane znaki."
 
 #: ../src/document.c:872
-#, c-format, ycp-format
+#, c-format
 msgid " line %4d "
 msgstr " linia %4d "
 
@@ -439,7 +439,7 @@ msgstr "Wszystkie pliki"
 
 #: ../src/fref.c:661
 msgid "Show info window"
-msgstr ""
+msgstr "Pokaż okno informacji"
 
 #: ../src/fref.c:667 ../src/fref.c:914 ../src/fref.c:1453 ../src/fref.c:1484
 msgid "Dialog"
@@ -471,23 +471,20 @@ msgid "Left doubleclick action"
 msgstr "Lewy przycisk myszy"
 
 #: ../src/fref.c:1489
-#, fuzzy
 msgid "Info type"
-msgstr "Informacja"
+msgstr "Typ informacji"
 
 #: ../src/fref.c:1493
-#, fuzzy
 msgid "Description"
-msgstr "Definicja"
+msgstr "Opis"
 
 #: ../src/fref.c:1496
 msgid "Attributes/Parameters"
-msgstr ""
+msgstr "Atrybuty/Parametry"
 
 #: ../src/fref.c:1498
-#, fuzzy
 msgid "Notes"
-msgstr "Bez ramek"
+msgstr "Uwagi"
 
 #: ../src/gtk_easy.c:961 ../src/menu.c:1314 ../src/menu.c:1660
 #: ../src/menu.c:1662 ../src/menu.c:1667
@@ -980,9 +977,8 @@ msgid "Goto line"
 msgstr "Idź do linii"
 
 #: ../src/gui.c:932
-#, fuzzy
 msgid "_Line number:"
-msgstr "_Numer linii: "
+msgstr "_Numer linii:"
 
 # src/gui.c:877    1 
 #: ../src/gui.c:938
@@ -996,6 +992,60 @@ msgstr "Nie zamykaj _okna"
 #: ../src/gui.c:1010
 msgid "starting bluefish"
 msgstr "uruchamiam Bluefish"
+
+#: ../src/html2.c:586
+msgid "Cascading StyleSheet dialog"
+msgstr "Okno dialogowe CSS"
+
+#: ../src/html2.c:606
+msgid "_Selector:"
+msgstr "_Selektor"
+
+#: ../src/html2.c:625
+msgid "_Property:"
+msgstr "Wła_sność"
+
+#: ../src/html2.c:627 ../src/html_form.c:286 ../src/html_form.c:353
+#: ../src/html_form.c:415 ../src/html_form.c:471 ../src/html_form.c:534
+#: ../src/html_form.c:644
+msgid "_Value:"
+msgstr "_Wartość"
+
+#: ../src/html2.c:645
+msgid "Selector"
+msgstr "Selektor"
+
+#: ../src/html2.c:645 ../src/html2.c:648
+msgid "Property"
+msgstr "Własność"
+
+#: ../src/html2.c:645 ../src/html2.c:648
+msgid "Value"
+msgstr "Wartość"
+
+#: ../src/html2.c:663
+msgid " _Add "
+msgstr " _Dodaj "
+
+#: ../src/html2.c:666
+msgid " _Update "
+msgstr " _Odśwież "
+
+#: ../src/html2.c:669
+msgid " _Delete "
+msgstr " _Kasuj "
+
+#: ../src/html2.c:925 ../src/html2.c:962
+msgid "_Style..."
+msgstr "_Styl..."
+
+#: ../src/html2.c:1145
+msgid "Bluefish: Select color"
+msgstr "Bluefish: Wybierz kolor"
+
+#: ../src/html2.c:1165
+msgid "_websafe"
+msgstr "_bezpieczny sieciowo"
 
 #: ../src/html.c:353
 msgid "Insert Time"
@@ -1368,60 +1418,6 @@ msgstr "_Rel:"
 #: ../src/html.c:1982 ../src/html_form.c:361
 msgid "_Type:"
 msgstr "_Typ:"
-
-#: ../src/html2.c:586
-msgid "Cascading StyleSheet dialog"
-msgstr "Okno dialogowe CSS"
-
-#: ../src/html2.c:606
-msgid "_Selector:"
-msgstr "_Selektor"
-
-#: ../src/html2.c:625
-msgid "_Property:"
-msgstr "Wła_sność"
-
-#: ../src/html2.c:627 ../src/html_form.c:286 ../src/html_form.c:353
-#: ../src/html_form.c:415 ../src/html_form.c:471 ../src/html_form.c:534
-#: ../src/html_form.c:644
-msgid "_Value:"
-msgstr "_Wartość"
-
-#: ../src/html2.c:645
-msgid "Selector"
-msgstr "Selektor"
-
-#: ../src/html2.c:645 ../src/html2.c:648
-msgid "Property"
-msgstr "Własność"
-
-#: ../src/html2.c:645 ../src/html2.c:648
-msgid "Value"
-msgstr "Wartość"
-
-#: ../src/html2.c:663
-msgid " _Add "
-msgstr " _Dodaj "
-
-#: ../src/html2.c:666
-msgid " _Update "
-msgstr " _Odśwież "
-
-#: ../src/html2.c:669
-msgid " _Delete "
-msgstr " _Kasuj "
-
-#: ../src/html2.c:925 ../src/html2.c:962
-msgid "_Style..."
-msgstr "_Styl..."
-
-#: ../src/html2.c:1145
-msgid "Bluefish: Select color"
-msgstr "Bluefish: Wybierz kolor"
-
-#: ../src/html2.c:1165
-msgid "_websafe"
-msgstr "_bezpieczny sieciowo"
 
 #: ../src/html_form.c:129
 msgid "Form"
@@ -2954,8 +2950,7 @@ msgstr "Błąd: brak nazwy pliku"
 
 #: ../src/menu.c:888
 msgid "Could not view file in browser, the file does not yet have a name\n"
-msgstr ""
-"Nie można pokazać pliku w przeglądarce, plik nie posiada jeszcze nazwy\n"
+msgstr "Nie można pokazać pliku w przeglądarce, plik nie posiada jeszcze nazwy\n"
 
 #: ../src/menu.c:997
 msgid "/External/Browsers"
@@ -3355,26 +3350,24 @@ msgid "Backup file suffix"
 msgstr "Przyrostek kopii zapasowej pliku"
 
 #: ../src/preferences.c:1745
-#, fuzzy
 msgid "save"
-msgstr "Zapisz"
+msgstr "zapisz"
 
 #: ../src/preferences.c:1745
 msgid "abort"
-msgstr ""
+msgstr "przerwij"
 
 #: ../src/preferences.c:1745
 msgid "ask"
-msgstr ""
+msgstr "zapytaj"
 
 #: ../src/preferences.c:1746
 msgid "Action on backup failure"
 msgstr "Reakcja na błąd tworzenia kopii zapasowej"
 
 #: ../src/preferences.c:1748
-#, fuzzy
 msgid "Remove backupfile on close"
-msgstr "Utwórz kopię zapasową podczas zapisu"
+msgstr "Usuń kopię zapasową przy zamknięciu"
 
 #: ../src/preferences.c:1757
 msgid "Undo history size"
@@ -3605,140 +3598,119 @@ msgstr "Ostrzeżenie: błąd wyrażenia regularnego"
 msgid "Regular expression error: %s at offset %d"
 msgstr "Błąd wyrażenia regularnego: %s na pozycji %d"
 
-#: ../src/snr2.c:684
+#: ../src/snr2.c:676
 msgid "Confirm replace"
 msgstr "Potwierdź zamianę"
 
-#: ../src/snr2.c:696
+#: ../src/snr2.c:688
 msgid "This text selection will be replaced. Do you want to replace it?"
-msgstr ""
+msgstr "Zaznaczony tekst zostanie zastąpiony. Czy na pewno chcesz go zamienić?"
 
-#: ../src/snr2.c:710
-msgid "_Skip"
-msgstr ""
+#: ../src/snr2.c:702
+msgid "Replace _all"
+msgstr "Zamień _wszystko"
 
-#: ../src/snr2.c:711
-#, fuzzy
+#: ../src/snr2.c:703
 msgid "Replace _this"
 msgstr "Zamień _tekst"
 
-#: ../src/snr2.c:712
-#, fuzzy
-msgid "Replace _all"
-msgstr "Zamień"
-
-#: ../src/snr2.c:853 ../src/snr2.c:860
+#: ../src/snr2.c:843 ../src/snr2.c:850
 msgid "Bluefish message"
 msgstr "Komunikat Bluefish"
 
-#: ../src/snr2.c:853 ../src/snr2.c:860
+#: ../src/snr2.c:843 ../src/snr2.c:850
 msgid "Search: no match found"
 msgstr "Szukanie: nie znaleziono wzorca"
 
-#: ../src/snr2.c:1028
+#: ../src/snr2.c:1018
 msgid "Hide _advanced <<"
 msgstr "Schowaj z_aawansowane <<"
 
-#: ../src/snr2.c:1049 ../src/snr2.c:1218
+#: ../src/snr2.c:1039 ../src/snr2.c:1208
 msgid "Show _advanced >>"
 msgstr "Pokaż z_aawansowane >>"
 
-#: ../src/snr2.c:1099
+#: ../src/snr2.c:1089
 msgid "Search"
 msgstr "Szukanie"
 
-#: ../src/snr2.c:1125
-#, fuzzy
+#: ../src/snr2.c:1115
 msgid "Search _for: "
-msgstr "Szukanie"
+msgstr "Szu_kaj: "
 
-#: ../src/snr2.c:1144
+#: ../src/snr2.c:1134
 msgid "Replace wit_h: "
 msgstr "Za_mień na: "
 
-#: ../src/snr2.c:1160
+#: ../src/snr2.c:1150
 msgid "\\0 refers to the first subpattern, \\1 to the second etc."
 msgstr "\\0 odpowiada pierwszemu wzorcowi, \\1 drugiemu itd."
 
-#: ../src/snr2.c:1164
+#: ../src/snr2.c:1154
 msgid "Match ca_se"
-msgstr ""
+msgstr "Rozróżniaj wielkie i małe _litery"
 
-#: ../src/snr2.c:1165
-#, fuzzy
+#: ../src/snr2.c:1155
 msgid "O_verlap matches"
-msgstr "Wyszuki_wanie nakładane"
+msgstr "Nakładaj w_yniki"
 
-#: ../src/snr2.c:1167
-#, fuzzy
+#: ../src/snr2.c:1157
 msgid "Prompt _before replace"
 msgstr "Potwierdzaj _przed zamianą"
 
-#: ../src/snr2.c:1168
+#: ../src/snr2.c:1158
 msgid "Rep_lace once"
 msgstr "Zamień tylko _raz"
 
-#: ../src/snr2.c:1171
-#, fuzzy
+#: ../src/snr2.c:1161
 msgid "Starts at"
-msgstr "Wzorzec początkowy"
+msgstr "Wyszukiwanie rozpocznij od"
+
+#: ../src/snr2.c:1165
+msgid "Beginning of _document"
+msgstr "Początku _dokumentu"
+
+#: ../src/snr2.c:1166
+msgid "Current pos_ition"
+msgstr "Pozycji kur_sora"
+
+#: ../src/snr2.c:1167
+msgid "Beginning of s_election"
+msgstr "Początku _zaznaczenia"
+
+#: ../src/snr2.c:1168
+msgid "Beginning of all o_pened files"
+msgstr "Początku wszystkich otwartych _plików"
+
+#: ../src/snr2.c:1170
+msgid "Regular expression"
+msgstr "Wyrażenie regularne"
 
 #: ../src/snr2.c:1175
-#, fuzzy
-msgid "Beginning of _document"
-msgstr "Zacznij od początku _dokumentu"
+msgid "_None"
+msgstr "_Brak"
 
 #: ../src/snr2.c:1176
-#, fuzzy
-msgid "Current pos_ition"
-msgstr "Zacznij od pozycji kur_sora"
+msgid "POSIX _regular expression type "
+msgstr "Wyrażenie _regularne POSIX "
 
 #: ../src/snr2.c:1177
-#, fuzzy
-msgid "Beginning of s_election"
-msgstr "wewnątrz zaznaczenia"
-
-#: ../src/snr2.c:1178
-#, fuzzy
-msgid "Beginning of all o_pened files"
-msgstr "We wszystkich otwartych _plikach"
-
-#: ../src/snr2.c:1180
-#, fuzzy
-msgid "Regular expression"
-msgstr "Błąd wyrażenia regularnego: "
-
-#: ../src/snr2.c:1185
-msgid "_None"
-msgstr ""
-
-#: ../src/snr2.c:1186
-#, fuzzy
-msgid "POSIX _regular expression type "
-msgstr "Błąd wyrażenia regularnego: "
-
-#: ../src/snr2.c:1187
-#, fuzzy
 msgid "PERL compatible regular e_xpression type"
-msgstr "Używaj wyrażeń regularnych _Perla"
+msgstr "Wyrażenie regularne _Perla"
+
+#: ../src/snr2.c:1183
+msgid "Replace type"
+msgstr "Rodzaj zastąpienia"
+
+#: ../src/snr2.c:1192
+msgid "_Text"
+msgstr "_Tekst"
 
 #: ../src/snr2.c:1193
-#, fuzzy
-msgid "Replace type"
-msgstr "Zamień _tekst"
-
-#: ../src/snr2.c:1202
-#, fuzzy
-msgid "_Text"
-msgstr "Tekst"
-
-#: ../src/snr2.c:1203
-#, fuzzy
 msgid "_Uppercase"
 msgstr "Zamień _wielkie litery"
 
-#: ../src/snr2.c:1204
-#, fuzzy
+#: ../src/snr2.c:1194
 msgid "Lo_wercase"
 msgstr "Zamień _małe litery"
 
