@@ -328,7 +328,7 @@ static GList *props_init_main(GList * config_rc)
 	init_prop_integer   (&config_rc, &main_v->props.view_main_toolbar, "view_main_toolbar:", 1, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.view_left_panel, "view_left_panel:", 1, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.view_line_numbers, "view_line_numbers:", 1, TRUE);
-	init_prop_integer   (&config_rc, &main_v->props.filebrowser_show_hidden_files, "fb_show_hidden_f:", 1, TRUE);
+	init_prop_integer   (&config_rc, &main_v->props.filebrowser_show_hidden_files, "fb_show_hidden_f:", 0, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.filebrowser_show_backup_files, "fb_show_backup_f:", 0, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.filebrowser_two_pane_view, "fb_two_pane_view:", 1, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.filebrowser_focus_follow, "fb_focus_follow:", 1, TRUE);
