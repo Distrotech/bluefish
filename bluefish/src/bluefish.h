@@ -32,7 +32,7 @@
 #define DEBUG_MSG g_print
 #else /* not DEBUG */
 #ifdef __GNUC__
-#define DEBUG_MSG(format, args...)
+#define DEBUG_MSG(args...)
  /**/
 #else/* notdef __GNUC__ */
 extern void g_none(...);
