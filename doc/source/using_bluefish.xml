@@ -136,10 +136,16 @@ a project file.
 			</figure>
 	</para>
 	<para>
-	On the side, by default the left side, there is the side panel. The side panel 
-	consists of a file browser, a function reference browser and a bookmark browser.
+	To the left of the editor area is the side panel. If you would prefer that the side 
+	bar be on the right side, simply change the setting in the <emphasis>User Interface</emphasis>
+	tab found in the 
+	<menuchoice>
+		<guimenu>Edit</guimenu>
+		<guimenuitem>Preferences</guimenuitem>
+	</menuchoice> menu option.  The side panel 
+	consists of a file browser, a function reference browser, and a bookmark browser.
 	</para>
-	<para>This is where you may get quick access to files, switching directories in the upper part.
+	<para>The file browser provides quick access to files and directories.
 			<figure id="file_browser">
 				<title id="bf-figure-file-browser">Bluefish File Browser</title>
 				<screenshot>
@@ -173,7 +179,7 @@ a project file.
 				</screenshot>
 			</figure>
 			</para>
-			<para>The bookmark browser allows you to access directly a marked position in a file.
+			<para>The bookmark browser provides access to previously marked positions in a file.
 			<figure id="bookmark_browser">
 				<title id="bf-figure-bookmark-browser">Bluefish Bookmark Browser</title>
 				<screenshot>
@@ -191,9 +197,9 @@ a project file.
 			</figure>
 	</para>
 	<para>
-	On the bottom of Bluefish is the status bar. Here messages are shown, the current line
-	and column number are shown, the insert (INS) or overwrite (OVR) mode for the cursor,
-	and the file type and character encoding.
+	On the bottom of the Bluefish window is the status bar. Shown here are messages, the current line
+	&amp; column number, the insert (INS) or overwrite (OVR) mode for the cursor,
+	and the file type &amp; character encoding.
 			<figure id="status_bar">
 				<title id="bf-figure-status-bar">Bluefish Status Bar</title>
 				<screenshot>
@@ -234,7 +240,7 @@ a project file.
 <title>Working with files</title>
 	<para>
 	Most of the file operations are accessible from the <guimenu>File</guimenu> menu. 
-	Through it, a new file can be created, existing files opened, and opened files saved or renamed.</para>
+	Using this menu, a new file can be created, existing files opened, and opened files saved or renamed.</para>
 	<para>It is also possible to insert a file into another one, and to revert a modified file to its previously saved state.
 	
 				<figure id="figure-file-menu">
@@ -267,12 +273,25 @@ a project file.
 			<guimenuitem>New</guimenuitem>
 		</menuchoice> or the <guilabel>New</guilabel> icon to create a new file, you may also use <menuchoice><shortcut><keycombo><keycap>Shift</keycap><keycap>Ctrl</keycap><keycap>N</keycap></keycombo></shortcut><guimenu>File</guimenu><guimenuitem>New Window</guimenuitem></menuchoice>.
 	</para>
-	<para>Both methods create an untitled file of type text with the default character encoding defined in preferences.</para>
+	<para>Both methods create an untitled file of type <literal>text</literal> 
+	with the default character encoding defined in the <emphasis>Files</emphasis> tab 
+	in the <menuchoice>
+		<guimenu>Edit</guimenu>
+		<guimenuitem>Preferences</guimenuitem>
+	</menuchoice> menu option.</para>
 	</sect2>
 <sect2 id="opening-files">
 <title>Opening files</title>
-	<para>
-	Through <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>O</keycap></keycombo></shortcut><guimenu>File</guimenu><guimenuitem>Open...</guimenuitem></menuchoice> one or more files can be opened. As for creating files, you may want to open the files in a new window. In this case, use <menuchoice><guimenu>File</guimenu><guimenuitem>New Window</guimenuitem></menuchoice> to first open the new window and then open the desired files as usual.
+	<para>Through 
+		<menuchoice>
+			<shortcut><keycombo><keycap>Ctrl</keycap><keycap>O</keycap></keycombo></shortcut>
+			<guimenu>File</guimenu><guimenuitem>Open...</guimenuitem>
+		</menuchoice>, one or more files can be opened. When creating new files, you may 
+		want to open the files in a new window. In this case, use 
+		<menuchoice>
+			<guimenu>File</guimenu><guimenuitem>New Window</guimenuitem>
+		</menuchoice> to first open the new window and then open the desired files 
+		as usual.
 				<figure id="figure-open-file">
 				<title id="figure-open-file-title">Bluefish Open File Dialog</title>
 				<screenshot>
@@ -291,9 +310,16 @@ a project file.
 		<varlistentry>
           <term><emphasis>Note</emphasis></term>
           <listitem>
-          <para>
-The latest opened directories appear in the upper part of the left side panel, while you have the possibility to add the most often accessed directories to the lower part. You may also filter the files to be opened with the pop menu located on the right side, whose contents mirror the file types defined in preferences.
-	</para>
+          <para>The most recently opened directories appear in the upper part of the 
+          left side panel, while the lower part contains user-defined locations. To add 
+          a new directory to the list, click on <emphasis>Add</emphasis>. You can 
+          also filter the file list by file type using the pop menu located on the right side.
+          The list of file types in the filter menu is provided through the 
+          <emphasis>Filetypes</emphasis> tab found in Bluefish's
+		<menuchoice>
+			<guimenu>Edit</guimenu><guimenuitem>Preferences</guimenuitem>
+		</menuchoice>
+          menu option.</para>
 	</listitem>
 	</varlistentry>
 	</variablelist>
@@ -696,7 +722,13 @@ are supported.
 		</screenshot>
 	</figure>
 </para>
-<para>To retrieve next occurrences of the string, if any, you will use the <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>G</keycap></keycombo></shortcut><guimenu>Edit</guimenu><guimenuitem>Find again</guimenuitem></menuchoice> menu item repeatedly. Again, when no further occurrence is found, you will be warned with the above mentioned search not found dialog.</para>
+<para>To retrieve next occurrences of the string, if any, you will use the 
+<menuchoice>
+	<shortcut><keycombo><keycap>Ctrl</keycap><keycap>G</keycap></keycombo></shortcut>
+	<guimenu>Edit</guimenu><guimenuitem>Find again</guimenuitem>
+</menuchoice> menu item repeatedly. Again, when no further occurrence 
+is found, you will be warned with the above mentioned search not found 
+dialog.</para>
 </sect3>
 <sect3 id="basic-find-selection">
 <title>Setting limits to the search scope</title>
