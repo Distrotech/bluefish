@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 13-05-03_fr\n"
-"POT-Creation-Date: 2003-05-20 15:26+0200\n"
+"POT-Creation-Date: 2003-05-27 11:40+0200\n"
 "PO-Revision-Date: 2003-05-13 10:46+0200\n"
 "Last-Translator: romeo viuberges <apostledemencia@free.fr>\n"
 "Language-Team: fr_FR <fr@li.org>\n"
@@ -35,7 +35,7 @@ msgstr "Original"
 msgid "Replacement"
 msgstr "Remplacer le texte"
 
-#: ../src/bfspell.c:356 ../src/document.c:1911
+#: ../src/bfspell.c:356 ../src/document.c:1920
 msgid "Ignore"
 msgstr "Ignorer"
 
@@ -152,80 +152,80 @@ msgstr "Ouverture du fichier"
 msgid "Could not open file:\n"
 msgstr "Ne peut ouvrir le fichier:\n"
 
-#: ../src/document.c:838 ../src/document.c:962 ../src/document.c:1536
-#: ../src/document.c:1542
+#: ../src/document.c:838 ../src/document.c:971 ../src/document.c:1545
+#: ../src/document.c:1551
 msgid "Error"
 msgstr "Erreur"
 
-#: ../src/document.c:962
+#: ../src/document.c:971
 msgid "Cannot display file, unknown characters found."
 msgstr ""
 "Impossible d'afficher le fichier, des caractères inconnus ont été trouvés."
 
-#: ../src/document.c:1061
+#: ../src/document.c:1070
 #, c-format, ycp-format
 msgid " line %4d "
 msgstr "Ligne %4d"
 
-#: ../src/document.c:1205
+#: ../src/document.c:1214
 msgid "Edit tag"
 msgstr "Editer la balise"
 
-#: ../src/document.c:1216
+#: ../src/document.c:1225
 msgid "Input _Methods"
 msgstr "_Méthodes d'entrée"
 
-#: ../src/document.c:1293
+#: ../src/document.c:1302
 msgid "Saving file"
 msgstr "Sauvegarde du fichier"
 
-#: ../src/document.c:1314
+#: ../src/document.c:1323
 msgid "Abort save"
 msgstr "Annuler sauvegarde"
 
-#: ../src/document.c:1314
+#: ../src/document.c:1323
 msgid "Continue save"
 msgstr "Continuer sauvegarde"
 
-#: ../src/document.c:1316
+#: ../src/document.c:1325
 #, c-format
 msgid "Backup for %s failed"
 msgstr "Echec de la sauvegarde de %s"
 
-#: ../src/document.c:1317
+#: ../src/document.c:1326
 msgid "Bluefish warning, file backup failure"
 msgstr "Avertissement de Bluefish : Echec de la sauvegarde du fichier !"
 
-#: ../src/document.c:1450
+#: ../src/document.c:1459
 msgid "Save as..."
 msgstr "Enregistrer sous..."
 
-#: ../src/document.c:1453
+#: ../src/document.c:1462
 msgid "Save document as"
 msgstr "Enregistrer document sous"
 
-#: ../src/document.c:1460 ../src/document.c:1504
+#: ../src/document.c:1469 ../src/document.c:1513
 msgid "Overwrite"
 msgstr "Ecraser"
 
-#: ../src/document.c:1460 ../src/document.c:1504
+#: ../src/document.c:1469 ../src/document.c:1513
 msgid "Cancel"
 msgstr "Annuler"
 
-#: ../src/document.c:1461
+#: ../src/document.c:1470
 #, c-format
 msgid "File %s is open, overwrite?"
 msgstr "Le fichier %s est ouvert, Ecraser?"
 
-#: ../src/document.c:1462
+#: ../src/document.c:1471
 msgid "Bluefish: Warning, file is open"
 msgstr "Avertissement de Bluefish : le fichier est ouvert !"
 
-#: ../src/document.c:1481
+#: ../src/document.c:1490
 msgid "Previously: "
 msgstr "Précédemment"
 
-#: ../src/document.c:1508
+#: ../src/document.c:1517
 #, c-format
 msgid ""
 "File %s\n"
@@ -240,24 +240,24 @@ msgstr ""
 "heure de l'ancienne modification : %s\n"
 "Ecraser ?"
 
-#: ../src/document.c:1509 ../src/document.c:1916
+#: ../src/document.c:1518 ../src/document.c:1925
 msgid "Bluefish: Warning, file is modified"
 msgstr "Avertissement de Bluefish : le fichier est modifié !"
 
-#: ../src/document.c:1525
+#: ../src/document.c:1534
 #, c-format
 msgid "Saving %s"
 msgstr "Enregistrement de %"
 
-#: ../src/document.c:1535
+#: ../src/document.c:1544
 msgid "File save aborted, could not backup file:\n"
 msgstr "Enregistrement du fichier annulé, sauvegarde impossible :\n"
 
-#: ../src/document.c:1541
+#: ../src/document.c:1550
 msgid "File save error, could not write file:\n"
 msgstr "Erreur d'enregistrement, écriture impossible dans le fichier :\n"
 
-#: ../src/document.c:1589
+#: ../src/document.c:1598
 #, c-format
 msgid ""
 "Are you sure you want to close\n"
@@ -266,7 +266,7 @@ msgstr ""
 "Etes-vous certain de vouloir fermer\n"
 "%s ?"
 
-#: ../src/document.c:1594
+#: ../src/document.c:1603
 msgid ""
 "Are you sure you want to close\n"
 "this untitled file ?"
@@ -274,27 +274,27 @@ msgstr ""
 "Etes-vous certain de vouloir fermer\n"
 "ce fichier sans nom ?"
 
-#: ../src/document.c:1599
+#: ../src/document.c:1608
 msgid "Bluefish warning: file is modified!"
 msgstr "Avertissement de Bluefish : le fichier est modifié !"
 
-#: ../src/document.c:1790
+#: ../src/document.c:1799
 msgid "No filename"
 msgstr "Nom de fichier inconnu"
 
-#: ../src/document.c:1865 ../src/msg_queue.c:180
+#: ../src/document.c:1874 ../src/msg_queue.c:180
 msgid "Unable to open file(s)\n"
 msgstr "Impossible d'ouvrir le(s) fichier(s)\n"
 
-#: ../src/document.c:1881
+#: ../src/document.c:1890
 msgid "Unable to open file"
 msgstr "Impossible d'ouvrir le fichier"
 
-#: ../src/document.c:1911
+#: ../src/document.c:1920
 msgid "Reload"
 msgstr "Recharger"
 
-#: ../src/document.c:1915
+#: ../src/document.c:1924
 #, c-format
 msgid ""
 "File %s\n"
@@ -307,84 +307,84 @@ msgstr ""
 "heure de la nouvelle modification : %s\n"
 "heure de l'ancienne modification : %s"
 
-#: ../src/document.c:2005
+#: ../src/document.c:2014
 msgid "searching files..."
 msgstr "Recherche des fichiers..."
 
-#: ../src/document.c:2024
+#: ../src/document.c:2033
 msgid "Select basedir"
 msgstr "Sélectionnez le répertoire de travail"
 
-#: ../src/document.c:2036
+#: ../src/document.c:2045
 msgid "Advanced open file selector"
 msgstr "Sélecteur avancé de fichiers"
 
-#: ../src/document.c:2047
+#: ../src/document.c:2056
 msgid "grep {contains} `find {basedir} -name '{file type}'`"
 msgstr "grep {contenu} `find {répertoire} -name '{pattern}'`"
 
-#: ../src/document.c:2052
+#: ../src/document.c:2061
 msgid "<b>General</b>"
 msgstr "<b>Général</b>"
 
-#: ../src/document.c:2054
+#: ../src/document.c:2063
 msgid "Base_dir:"
 msgstr "Répertoire _de base :"
 
-#: ../src/document.c:2056 ../src/gtk_easy.c:861
+#: ../src/document.c:2065 ../src/gtk_easy.c:842
 msgid "_Browse..."
 msgstr "Parcourir..."
 
-#: ../src/document.c:2071
+#: ../src/document.c:2080
 msgid "_File Type:"
 msgstr "Type de _fichier :"
 
-#: ../src/document.c:2077
+#: ../src/document.c:2086
 msgid "_Recursive:"
 msgstr "_récursif :"
 
-#: ../src/document.c:2082
+#: ../src/document.c:2091
 msgid "<b>Contains</b>"
 msgstr "<b>Contient</b>"
 
-#: ../src/document.c:2085
+#: ../src/document.c:2094
 msgid "Pa_ttern:"
 msgstr "Modèle"
 
-#: ../src/document.c:2089
+#: ../src/document.c:2098
 msgid "Is rege_x:"
 msgstr "est rege_x :"
 
-#: ../src/document.c:2152
+#: ../src/document.c:2161
 #, c-format
 msgid "Loading %d file(s)..."
 msgstr "Chargement de %d fichier(s)..."
 
-#: ../src/document.c:2170
+#: ../src/document.c:2179
 msgid "No file to insert"
 msgstr "Aucun fichier à insérer"
 
-#: ../src/document.c:2204
+#: ../src/document.c:2213
 msgid "save all"
 msgstr "Tout enregistrer"
 
-#: ../src/document.c:2204
+#: ../src/document.c:2213
 msgid "close all"
 msgstr "Tout fermer"
 
-#: ../src/document.c:2204
+#: ../src/document.c:2213
 msgid "choose per file"
 msgstr "choisir par fichier"
 
-#: ../src/document.c:2204
+#: ../src/document.c:2213
 msgid "cancel"
 msgstr "Annuler"
 
-#: ../src/document.c:2205
+#: ../src/document.c:2214
 msgid "Bluefish: Warning, some file(s) are modified!"
 msgstr "Avertissement de Bluefish : certains fichiers ont été modifiés!"
 
-#: ../src/document.c:2205
+#: ../src/document.c:2214
 msgid ""
 "Some file(s) are modified\n"
 "please choose your action"
@@ -392,7 +392,7 @@ msgstr ""
 "Certains fichiers ont été modifiés\n"
 "veuillez choisir une action"
 
-#: ../src/document.c:2422
+#: ../src/document.c:2431
 msgid "No selection to indent"
 msgstr "Aucune sélection à indenter"
 
@@ -445,69 +445,69 @@ msgstr "Rafraîchir/Actualiser"
 msgid "All files"
 msgstr "Tous les fichiers"
 
-#: ../src/fref.c:661
+#: ../src/fref.c:700
 msgid "Show info window"
 msgstr "Afficher les informations"
 
-#: ../src/fref.c:667 ../src/fref.c:914 ../src/fref.c:1453 ../src/fref.c:1484
+#: ../src/fref.c:706 ../src/fref.c:950 ../src/fref.c:1474 ../src/fref.c:1505
 msgid "Dialog"
 msgstr "Dialogue"
 
-#: ../src/fref.c:668 ../src/fref.c:889 ../src/fref.c:1188 ../src/fref.c:1459
-#: ../src/fref.c:1486
+#: ../src/fref.c:707 ../src/fref.c:926 ../src/fref.c:1209 ../src/fref.c:1480
+#: ../src/fref.c:1507
 msgid "Info"
 msgstr "Infos"
 
-#: ../src/fref.c:910 ../src/gui.c:544
+#: ../src/fref.c:946 ../src/gui.c:544
 msgid "Close"
 msgstr "Fermer"
 
-#: ../src/fref.c:915 ../src/fref.c:1456 ../src/fref.c:1481
+#: ../src/fref.c:951 ../src/fref.c:1477 ../src/fref.c:1502
 msgid "Insert"
 msgstr "Insérer"
 
-#: ../src/fref.c:1465 ../src/html.c:552 ../src/html.c:1190
+#: ../src/fref.c:1486 ../src/html.c:552 ../src/html.c:1190
 msgid "Options"
 msgstr "Options"
 
-#: ../src/fref.c:1473
+#: ../src/fref.c:1494
 msgid "Rescan reference files"
 msgstr "Rescanner les fichiers référence"
 
-#: ../src/fref.c:1476
+#: ../src/fref.c:1497
 msgid "Left doubleclick action"
 msgstr "Action du double clic gauche"
 
-#: ../src/fref.c:1489
+#: ../src/fref.c:1510
 msgid "Info type"
 msgstr "Type d'informations"
 
-#: ../src/fref.c:1493
+#: ../src/fref.c:1514
 msgid "Description"
 msgstr "Description"
 
-#: ../src/fref.c:1496
+#: ../src/fref.c:1517
 msgid "Attributes/Parameters"
 msgstr "Attriubuts/Paramètres"
 
-#: ../src/fref.c:1498
+#: ../src/fref.c:1519
 msgid "Notes"
 msgstr "Notes"
 
-#: ../src/gtk_easy.c:1026 ../src/menu.c:1314 ../src/menu.c:1660
+#: ../src/gtk_easy.c:1024 ../src/menu.c:1314 ../src/menu.c:1660
 #: ../src/menu.c:1662 ../src/menu.c:1667
 msgid "Bluefish error"
 msgstr "Erreur de Bluefish"
 
-#: ../src/gtk_easy.c:1026
+#: ../src/gtk_easy.c:1024
 msgid "No filename known"
 msgstr "Nom de fichier inconnu"
 
-#: ../src/gtk_easy.c:1115
+#: ../src/gtk_easy.c:1128
 msgid "Select file"
 msgstr "Sélectionner fichier"
 
-#: ../src/gtk_easy.c:1127
+#: ../src/gtk_easy.c:1155
 msgid "Select files"
 msgstr "Sélectionner des fichiers"
 
@@ -3008,12 +3008,14 @@ msgstr "dans tous les documents ouverts"
 msgid "normal"
 msgstr "normal"
 
-#: ../src/menu.c:1553 ../src/menu.c:1689 ../src/menu.c:1910
-msgid "posix regular expresions"
+#: ../src/menu.c:1553
+#, fuzzy
+msgid "posix regular expressions"
 msgstr "expressions régulières POSIX"
 
-#: ../src/menu.c:1553 ../src/menu.c:1689 ../src/menu.c:1911
-msgid "perl regular expresions"
+#: ../src/menu.c:1553
+#, fuzzy
+msgid "perl regular expressions"
 msgstr "expressions régulières Perl"
 
 #: ../src/menu.c:1618
@@ -3045,6 +3047,14 @@ msgstr "Le chemin du menu que vous voulez ajouter existe déjà"
 #: ../src/menu.c:1667
 msgid "the menupath should start with a / character"
 msgstr "Le chemin du menu doit commencer par le caractère /"
+
+#: ../src/menu.c:1689 ../src/menu.c:1910
+msgid "posix regular expresions"
+msgstr "expressions régulières POSIX"
+
+#: ../src/menu.c:1689 ../src/menu.c:1911
+msgid "perl regular expresions"
+msgstr "expressions régulières Perl"
 
 #: ../src/menu.c:1809
 msgid "Edit custom menu"
