@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: bluefish gtk2-port\n"
-"POT-Creation-Date: 2003-06-03 14:46+0200\n"
+"POT-Creation-Date: 2003-06-04 10:21+0200\n"
 "PO-Revision-Date: 2002-12-22 12:00+0100\n"
 "Last-Translator: Christian Tellefsen <chris@tellefsen.net>\n"
 "Language-Team: Not a member <LL@li.org>\n"
@@ -30,7 +30,7 @@ msgstr "Original"
 msgid "Replacement"
 msgstr "Erstatning"
 
-#: ../src/bfspell.c:356 ../src/document.c:1955
+#: ../src/bfspell.c:356 ../src/document.c:1969
 msgid "Ignore"
 msgstr "Ignorer"
 
@@ -70,7 +70,7 @@ msgstr "Språk"
 msgid "Set default"
 msgstr "Sett standardinnstillinger"
 
-#: ../src/bfspell.c:399 ../src/filebrowser.c:936
+#: ../src/bfspell.c:399 ../src/filebrowser.c:1071
 msgid "Filter"
 msgstr "Filter"
 
@@ -131,95 +131,95 @@ msgstr "oppretter gui..."
 msgid "showing main gui..."
 msgstr "viser gui..."
 
-#: ../src/document.c:133 ../src/gui.c:606
+#: ../src/document.c:147 ../src/gui.c:606
 msgid "/Document/Highlight syntax"
 msgstr "/Vis/Fargelegg syntaks"
 
-#: ../src/document.c:407 ../src/document.c:408 ../src/document.c:1974
+#: ../src/document.c:421 ../src/document.c:422 ../src/document.c:1988
 msgid "Untitled"
 msgstr "Uten navn"
 
-#: ../src/document.c:843
+#: ../src/document.c:857
 msgid "Opening file "
 msgstr "Henter fil "
 
-#: ../src/document.c:852
+#: ../src/document.c:866
 msgid "Could not open file:\n"
 msgstr "Kunne ikke hente fil:\n"
 
-#: ../src/document.c:853 ../src/document.c:996 ../src/document.c:1576
-#: ../src/document.c:1582
+#: ../src/document.c:867 ../src/document.c:1010 ../src/document.c:1590
+#: ../src/document.c:1596 ../src/filebrowser.c:962
 msgid "Error"
 msgstr "Feil"
 
-#: ../src/document.c:996
+#: ../src/document.c:1010
 msgid "Cannot display file, unknown characters found."
 msgstr "Filen kan ikke vises, ukjente tegn funnet"
 
-#: ../src/document.c:1097
+#: ../src/document.c:1111
 #, c-format, ycp-format
 msgid " line %4d "
 msgstr " linje %4d "
 
-#: ../src/document.c:1241
+#: ../src/document.c:1255
 msgid "Edit tag"
 msgstr "Rediger tag"
 
-#: ../src/document.c:1252
+#: ../src/document.c:1266
 msgid "Input _Methods"
 msgstr "Input_metoder"
 
-#: ../src/document.c:1329
+#: ../src/document.c:1343
 msgid "Saving file"
 msgstr "Lagrer fil"
 
-#: ../src/document.c:1350
+#: ../src/document.c:1364
 msgid "Abort save"
 msgstr "Avbryt lagring"
 
-#: ../src/document.c:1350
+#: ../src/document.c:1364
 msgid "Continue save"
 msgstr "Fortsett lagring"
 
-#: ../src/document.c:1352
+#: ../src/document.c:1366
 #, c-format
 msgid "Backup for %s failed"
 msgstr "Backup %s mislyktes"
 
-#: ../src/document.c:1353
+#: ../src/document.c:1367
 msgid "Bluefish warning, file backup failure"
 msgstr "Bluefish advarsel, feil ved backup"
 
-#: ../src/document.c:1490
+#: ../src/document.c:1504
 msgid "Save as..."
 msgstr "Lagre som..."
 
-#: ../src/document.c:1493
+#: ../src/document.c:1507 ../src/filebrowser.c:951
 msgid "Save document as"
 msgstr "Lagre dokument som"
 
-#: ../src/document.c:1500 ../src/document.c:1544
+#: ../src/document.c:1514 ../src/document.c:1558
 msgid "Overwrite"
 msgstr "Overskriv"
 
-#: ../src/document.c:1500 ../src/document.c:1544
+#: ../src/document.c:1514 ../src/document.c:1558
 msgid "Cancel"
 msgstr "Avbryt"
 
-#: ../src/document.c:1501
+#: ../src/document.c:1515
 #, c-format
 msgid "File %s is open, overwrite?"
 msgstr "Filen %s er åpen, overskriv?"
 
-#: ../src/document.c:1502
+#: ../src/document.c:1516
 msgid "Bluefish: Warning, file is open"
 msgstr "Bluefish: Advarsel: filen er åpen"
 
-#: ../src/document.c:1521
+#: ../src/document.c:1535
 msgid "Previously: "
 msgstr "Forrige: "
 
-#: ../src/document.c:1548
+#: ../src/document.c:1562
 #, c-format
 msgid ""
 "File %s\n"
@@ -234,24 +234,24 @@ msgstr ""
 "Bluefish var sist i kontakt med filen %s\n"
 "Overskriv?"
 
-#: ../src/document.c:1549 ../src/document.c:1960
+#: ../src/document.c:1563 ../src/document.c:1974
 msgid "Bluefish: Warning, file is modified"
 msgstr "Bluefish: Advarsel: Filen er endret"
 
-#: ../src/document.c:1565
+#: ../src/document.c:1579
 #, c-format
 msgid "Saving %s"
 msgstr "Lagrer %s"
 
-#: ../src/document.c:1575
+#: ../src/document.c:1589
 msgid "File save aborted, could not backup file:\n"
 msgstr "Lagring avbrutt, kunne ikke opprette backup:\n"
 
-#: ../src/document.c:1581
+#: ../src/document.c:1595
 msgid "File save error, could not write file:\n"
 msgstr "Kunne ikke lagre filen:\n"
 
-#: ../src/document.c:1629
+#: ../src/document.c:1643
 #, c-format
 msgid ""
 "Are you sure you want to close\n"
@@ -260,7 +260,7 @@ msgstr ""
 "Er du sikker på at du vil lukke\n"
 "%s ?"
 
-#: ../src/document.c:1634
+#: ../src/document.c:1648
 msgid ""
 "Are you sure you want to close\n"
 "this untitled file ?"
@@ -268,27 +268,27 @@ msgstr ""
 "Er du sikker på at du vil lukke\n"
 "uten navn ?"
 
-#: ../src/document.c:1639
+#: ../src/document.c:1653
 msgid "Bluefish warning: file is modified!"
 msgstr "Bluefish advarsel: filen er endret!"
 
-#: ../src/document.c:1829
+#: ../src/document.c:1843
 msgid "No filename"
 msgstr "Uten filnavn"
 
-#: ../src/document.c:1905 ../src/msg_queue.c:180
+#: ../src/document.c:1919 ../src/msg_queue.c:180
 msgid "Unable to open file(s)\n"
 msgstr "Kunne ikke åpne filen(e)\n"
 
-#: ../src/document.c:1924
+#: ../src/document.c:1938
 msgid "Unable to open file"
 msgstr "Kunne ikke åpne filen"
 
-#: ../src/document.c:1955
+#: ../src/document.c:1969
 msgid "Reload"
 msgstr "Les inn"
 
-#: ../src/document.c:1959
+#: ../src/document.c:1973
 #, c-format
 msgid ""
 "File %s\n"
@@ -301,84 +301,84 @@ msgstr ""
 "Filen ble sist endret %s\n"
 "Bluefish var sist i kontakt med filen %s"
 
-#: ../src/document.c:2057
+#: ../src/document.c:2071
 msgid "searching files..."
 msgstr "søker..."
 
-#: ../src/document.c:2076
+#: ../src/document.c:2090
 msgid "Select basedir"
 msgstr "Valg"
 
-#: ../src/document.c:2088
+#: ../src/document.c:2102
 msgid "Advanced open file selector"
 msgstr "Åpne (avansert)"
 
-#: ../src/document.c:2099
+#: ../src/document.c:2113
 msgid "grep {contains} `find {basedir} -name '{file type}'`"
 msgstr "grep {inneholder} `finn {katalog} -name '{søkeuttrykk}'`"
 
-#: ../src/document.c:2104
+#: ../src/document.c:2118
 msgid "<b>General</b>"
 msgstr "<b>Kilde</b>"
 
-#: ../src/document.c:2106
+#: ../src/document.c:2120
 msgid "Base_dir:"
 msgstr "Startkatalog"
 
-#: ../src/document.c:2108 ../src/gtk_easy.c:865
+#: ../src/document.c:2122 ../src/gtk_easy.c:865
 msgid "_Browse..."
 msgstr "_Bla gjennom"
 
-#: ../src/document.c:2123
+#: ../src/document.c:2137
 msgid "_File Type:"
 msgstr "_Filtype:"
 
-#: ../src/document.c:2129
+#: ../src/document.c:2143
 msgid "_Recursive:"
 msgstr "_Rekursivt:"
 
-#: ../src/document.c:2134
+#: ../src/document.c:2148
 msgid "<b>Contains</b>"
 msgstr "<b>Inneholder</b>"
 
-#: ../src/document.c:2137
+#: ../src/document.c:2151
 msgid "Pa_ttern:"
 msgstr "Møns_ter"
 
-#: ../src/document.c:2141
+#: ../src/document.c:2155
 msgid "Is rege_x:"
 msgstr "Bruker rege_xp:"
 
-#: ../src/document.c:2204
+#: ../src/document.c:2218
 #, c-format
 msgid "Loading %d file(s)..."
 msgstr "Leser inn %d fil(er)..."
 
-#: ../src/document.c:2222
+#: ../src/document.c:2236
 msgid "No file to insert"
 msgstr "Du må velge en fil"
 
-#: ../src/document.c:2256
+#: ../src/document.c:2270
 msgid "save all"
 msgstr "lagre alle"
 
-#: ../src/document.c:2256
+#: ../src/document.c:2270
 msgid "close all"
 msgstr "lukk alle"
 
-#: ../src/document.c:2256
+#: ../src/document.c:2270
 msgid "choose per file"
 msgstr "velg per fil"
 
-#: ../src/document.c:2256
+#: ../src/document.c:2270
 msgid "cancel"
 msgstr "avbryt"
 
-#: ../src/document.c:2257
+#: ../src/document.c:2271
 msgid "Bluefish: Warning, some file(s) are modified!"
 msgstr "Bluefish: Advarsel: noen fil(er) er endret!"
 
-#: ../src/document.c:2257
+#: ../src/document.c:2271
 msgid ""
 "Some file(s) are modified\n"
 "please choose your action"
@@ -386,27 +386,32 @@ msgstr ""
 "Noen filer er endret\n"
 "hva skal gjøres"
 
-#: ../src/document.c:2474
+#: ../src/document.c:2488
 msgid "No selection to indent"
 msgstr "Det er ikke valgt noe for innrykk"
 
-#: ../src/filebrowser.c:760
+#: ../src/filebrowser.c:805
 msgid "Error creating path"
 msgstr "Feil ved opprettelse av sti"
 
-#: ../src/filebrowser.c:760
+#: ../src/filebrowser.c:805
 msgid "Path exists already"
 msgstr "Stien eksisterer allerede"
 
-#: ../src/filebrowser.c:817
+#: ../src/filebrowser.c:850
 msgid "File name"
 msgstr "Filnavn"
 
-#: ../src/filebrowser.c:819
+#: ../src/filebrowser.c:852
 msgid "Directory name"
 msgstr "Katalognavn"
 
-#: ../src/filebrowser.c:863
+#: ../src/filebrowser.c:955
+#, fuzzy
+msgid "Could not rename\n"
+msgstr "Kunne ikke hente fil:\n"
+
+#: ../src/filebrowser.c:991
 #, c-format
 msgid ""
 "Are you sure you want to\n"
@@ -415,27 +420,54 @@ msgstr ""
 "Er du sikker på at du vil\n"
 "slette %s ?"
 
-#: ../src/filebrowser.c:864
+#: ../src/filebrowser.c:992
 msgid "delete file?"
 msgstr "slett fil?"
 
-#: ../src/filebrowser.c:924
-msgid "New file"
-msgstr "Ny fil"
+#: ../src/filebrowser.c:1048
+#, fuzzy
+msgid "/_Open file"
+msgstr "Henter fil "
 
-#: ../src/filebrowser.c:927
-msgid "New directory"
-msgstr "Opprett katalog"
+#: ../src/filebrowser.c:1049
+msgid "/sep1"
+msgstr ""
 
-#: ../src/filebrowser.c:930
-msgid "Delete file"
+#: ../src/filebrowser.c:1050
+msgid "/Rena_me file"
+msgstr ""
+
+#: ../src/filebrowser.c:1051
+#, fuzzy
+msgid "/_Delete file"
 msgstr "Slett filen?"
 
-#: ../src/filebrowser.c:933
-msgid "Refresh"
+#: ../src/filebrowser.c:1052
+#, fuzzy
+msgid "/sep2"
+msgstr "/Fil/sep2"
+
+#: ../src/filebrowser.c:1053
+#, fuzzy
+msgid "/New _File"
+msgstr "Ny fil"
+
+#: ../src/filebrowser.c:1054
+#, fuzzy
+msgid "/_New Directory"
+msgstr "Opprett katalog"
+
+#: ../src/filebrowser.c:1055
+#, fuzzy
+msgid "/sep3"
+msgstr "/Rediger/sep3"
+
+#: ../src/filebrowser.c:1056
+#, fuzzy
+msgid "/_Refresh"
 msgstr "Oppdater dokumentet"
 
-#: ../src/filebrowser.c:1093
+#: ../src/filebrowser.c:1176
 msgid "All files"
 msgstr "Alle filer"
 

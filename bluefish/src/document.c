@@ -114,6 +114,20 @@ gint documentlist_return_index_from_filename(gchar *filename) {
 	}
 	return -1;
 }
+
+/**
+ * documentlist_return_document_from_index:
+ * index: a #gint, index in the documentlist.
+ *
+ * If the index is valid, it returns the appropriate Tdocument.
+ *
+ * Return value: Pointer to Tdocument on success, NULL on invalid index.
+ **/
+Tdocument *documentlist_return_document_from_index(gint index)
+{
+	return (Tdocument *) g_list_nth_data(main_v->documentlist, index);
+}
+
 /**
  * doc_update_highlighting:
  * @wid: a #GtkWidget, ignored
