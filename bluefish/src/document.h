@@ -48,6 +48,7 @@ gboolean test_docs_modified(GList *doclist);
 gboolean test_only_empty_doc_left(GList *doclist);
 
 gboolean doc_has_selection(Tdocument *doc);
+void doc_set_status(Tdocument *doc, gint status);
 void doc_set_modified(Tdocument *doc, gint value);
 void doc_scroll_to_cursor(Tdocument *doc);
 gchar *doc_get_chars(Tdocument *doc, gint start, gint end);
