@@ -326,10 +326,15 @@ void spell_gui_add_clicked(GtkWidget *widget, Tbfspell *bfspell) {
 	const gchar *original = gtk_entry_get_text(GTK_ENTRY(bfspell->incorrectword));
 	if (strlen(original)) {
 		if (gtk_option_menu_get_history(GTK_OPTION_MENU(bfspell->dict))) {
-			spell_add_to_session(bfspell, FALSE,original);
-		} else {
 			spell_add_to_session(bfspell, TRUE,original);
+		} else {
+			spell_add_to_session(bfspell, FALSE,original);
 		}
+		}
+	if (spell_run(bfspell)) {
+		spell_gui_set_button_status(bfspell,TRUE);
+	} else {
+		spell_gui_set_button_status(bfspell,FALSE);
 	}
 }
 void spell_gui_ignore_clicked(GtkWidget *widget, Tbfspell *bfspell) {
