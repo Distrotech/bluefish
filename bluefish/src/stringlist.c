@@ -833,6 +833,32 @@ GList *remove_from_stringlist(GList *which_list, const gchar * string) {
 	return which_list;
 }
 
+static void unlink_before(GList *tmplist) {
+	GList *prev = tmplist->prev;
+	if (prev) {
+		prev->next = NULL;
+	}
+	tmplist->prev = NULL;
+}
+
+GList *limit_stringlist(GList *which_list, gint num_entries, gboolean keep_end) {
+	GList *retlist, *freelist;
+	if (keep_end) {
+		gint len;
+		freelist = g_list_first(which_list);
+		len = g_list_length(freelist);
+		if (len <= num_entries) return which_list;
+		retlist = g_list_nth(freelist, len - num_entries);
+		unlink_before(retlist);
+	} else {
+		retlist = g_list_first(which_list);
+		freelist = g_list_nth(retlist, num_entries);
+		if (freelist) unlink_before(freelist);
+	}
+	if (freelist) free_stringlist(freelist);
+	return retlist;
+}
+
 /**
  * add_to_history_stringlist:
  * @which_list: #GList* the list to add to

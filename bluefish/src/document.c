@@ -126,10 +126,10 @@ gint return_num_untitled_documents(GList *doclist) {
  * adds a filename to the recently opened files list
  * will not add it to the menu, only to the list and the file
  **/
-void add_filename_to_history(gchar *filename) {
+void add_filename_to_history(Tbfwin *bfwin, gchar *filename) {
 	gchar *dirname;
 
-	add_to_recent_list(filename, 0, FALSE); /* the recent menu */
+	add_to_recent_list(bfwin, filename, 0, FALSE); /* the recent menu */
 	dirname = g_path_get_dirname(filename);
 	main_v->recent_directories = add_to_history_stringlist(main_v->recent_directories,dirname,TRUE);
 	g_free(dirname);
@@ -1857,7 +1857,7 @@ gint doc_textbox_to_file(Tdocument * doc, gchar * filename) {
 void doc_destroy(Tdocument * doc, gboolean delay_activation) {
 	Tbfwin *bfwin = BFWIN(doc->bfwin);
 	if (doc->filename) {
-		add_to_recent_list(doc->filename, 1, FALSE);
+		add_to_recent_list(doc->bfwin,doc->filename, 1, FALSE);
 	}
 	gui_notebook_unbind_signals(BFWIN(doc->bfwin));
 	/* to make this go really quick, we first only destroy the notebook page and run flush_queue(), 
@@ -2400,7 +2400,7 @@ void doc_new_with_new_file(Tbfwin *bfwin, gchar * new_filename) {
 		}
 	} 
 	DEBUG_MSG("doc_new_with_new_file, new_filename=%s\n", new_filename);
-	add_filename_to_history(new_filename);
+	add_filename_to_history(bfwin,new_filename);
 	doc = doc_new(bfwin, FALSE);
 	doc->filename = g_strdup(new_filename);
 	if (bfwin->project && bfwin->project->template && strlen(bfwin->project->template) > 2) {
@@ -2451,7 +2451,7 @@ gboolean doc_new_with_file(Tbfwin *bfwin, gchar * filename, gboolean delay_activ
 		}
 	}
 	DEBUG_MSG("doc_new_with_file, filename=%s exists\n", filename);
-	add_filename_to_history(filename);
+	add_filename_to_history(bfwin,filename);
 
 	if (g_list_length(bfwin->documentlist)==1 && doc_is_empty_non_modified_and_nameless(bfwin->current_document)) {
 		doc = bfwin->current_document;
