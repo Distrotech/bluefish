@@ -1795,6 +1795,8 @@ void cmenu_editor(GtkWidget *widget, gpointer data) {
 			DEBUG_MSG("cmenu_editor, adding '%s'\n", splittedstring[0]);
 			gtk_list_store_append(GTK_LIST_STORE(cme->lstore), &iter);
 			gtk_list_store_set(GTK_LIST_STORE(cme->lstore), &iter, 0, splittedstring[0], -1);
+		} else {
+			DEBUG_MSG("cmenu_editor, NOT adding '%s', not a valid array_count (%d)\n", splittedstring[0], count_array(splittedstring));
 		}
 		tmplist = g_list_next(tmplist);
 	}
