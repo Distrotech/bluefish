@@ -1463,11 +1463,11 @@ void wordcount(gchar *text, guint *chars, guint *lines, guint *words)
 	if(*chars > 0) (*lines)++;
 }
 
-GSList *gslist_from_glist(GList *src) {
+GSList *gslist_from_glist_reversed(GList *src) {
 	GSList *target=NULL;
 	GList *tmplist = g_list_first(src);
 	while (tmplist) {
-		target = g_slist_append(target, tmplist->data);
+		target = g_slist_prepend(target, tmplist->data);
 		tmplist = g_list_next(tmplist);
 	}
 	return target;
