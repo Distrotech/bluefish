@@ -775,7 +775,7 @@ static void refilter_filelist(Tfilebrowser2 *fb2, GtkTreePath *newroot) {
 		if (fb2->file_lfilter) {
 			GtkTreePath *curpath;
 			g_object_get(fb2->file_lfilter, "virtual-root", &curpath, NULL);
-			if ((curpath == NULL && newroot == NULL) || (curpath != NULL && newroot != NULL && gtk_tree_path_compare(curpath, newroot) != 0)) {
+			if ((curpath == NULL && newroot == NULL) || (curpath != NULL && newroot != NULL && gtk_tree_path_compare(curpath, newroot) == 0)) {
 #ifdef DEBUG
 				DEBUG_MSG("refilter_filelist, root did not change!\n");
 #endif
