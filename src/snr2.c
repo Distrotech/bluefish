@@ -524,6 +524,7 @@ static gchar *reg_replace(gchar *replace_pattern, gint offset, Tsearch_result re
 
 /**
  * replace_backend:
+ * @bfwin: #Tbfwin with the window from this/these documents
  * @search_pattern: #gchar* to search pattern
  * @matchtype: See #Tmatch_types
  * @is_case_sens: #gint
@@ -742,6 +743,7 @@ void replace_doc_multiple(Tbfwin *bfwin,gchar *search_pattern, Tmatch_types matc
 
 /**
  * replace_all:
+ * @bfwin: #Tbfwin* the window with the documents to act upon
  * @search_pattern: #gchar* to search pattern
  * @matchtype: see #Tmatch_types
  * @is_case_sens: #gint
