@@ -57,7 +57,7 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/File/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
 	{N_("/File/_New"), "<control>n", file_new_cb, 0, NULL},
 	{N_("/File/_Open..."), "<control>O", file_open_cb, 0, NULL},
-	{N_("/File/Open advanced..."), NULL, file_open_cb, 1, NULL},
+	{N_("/File/Open advanced..."), "<shift><control>O", file_open_cb, 1, NULL},
 	{N_("/File/Open r_ecent"), NULL, NULL, 0, "<Branch>"},
 	{N_("/File/Open recent/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
 	{N_("/File/_Revert to saved"), NULL, file_revert_to_saved_cb, 0, NULL},

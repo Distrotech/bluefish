@@ -287,7 +287,7 @@ Tsearch_result search_backend(gchar *pattern, gint matchtype, gint is_case_sens,
 	}
 	
 	/* for multibyte characters */
-	if (returnvalue.start >= 0 && returnvalue.end >= 0) {
+	if (returnvalue.bstart >= 0 && returnvalue.bend >= 0) {
 		utf8_offset_cache_reset();
 		if (returnvalue.bstart >= 0) {
 			returnvalue.start = utf8_byteoffset_to_charsoffset_cached(buf, returnvalue.bstart);

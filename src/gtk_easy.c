@@ -259,11 +259,13 @@ GtkWidget *boxed_entry_with_text(const gchar * setstring, gint max_lenght, GtkWi
 }
 
 GtkWidget *boxed_full_entry(const gchar * labeltext, gchar * setstring,gint max_lenght, GtkWidget * box) {
-	GtkWidget *hbox, *return_widget;
+	GtkWidget *hbox, *return_widget, *label;
 
 	hbox = gtk_hbox_new(FALSE,3);
-	gtk_box_pack_start(GTK_BOX(hbox), gtk_label_new(labeltext), FALSE, FALSE, 3);
+	label = gtk_label_new_with_mnemonic(labeltext);
+	gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 3);
 	return_widget = boxed_entry_with_text(setstring, max_lenght, hbox);
+	gtk_label_set_mnemonic_widget(GTK_LABEL(label), return_widget);
 	gtk_box_pack_start(GTK_BOX(box), hbox, FALSE, FALSE, 3);
 
 	return return_widget;
@@ -272,7 +274,7 @@ GtkWidget *boxed_full_entry(const gchar * labeltext, gchar * setstring,gint max_
 GtkWidget *checkbut_with_value(gchar *labeltext, gint which_config_int) {
 	GtkWidget *returnwidget;
 
-	returnwidget = gtk_check_button_new_with_label(labeltext);
+	returnwidget = gtk_check_button_new_with_mnemonic(labeltext);
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(returnwidget), which_config_int);
 	return returnwidget;
 }
@@ -481,9 +483,23 @@ GtkWidget *apply_font_style(GtkWidget * this_widget, gchar * fontstring)
 GtkWidget *hbox_with_pix_and_text(const gchar *label, gint pixmap_type) {
 	GtkWidget *hbox = gtk_hbox_new(FALSE, 0);
 	gtk_box_pack_start(GTK_BOX(hbox), new_pixmap(pixmap_type), FALSE, FALSE, 1);
-	gtk_box_pack_start(GTK_BOX(hbox), gtk_label_new(label), TRUE, TRUE, 1);
-	gtk_widget_show_all(hbox);
+        gtk_box_pack_start(GTK_BOX(hbox), gtk_label_new_with_mnemonic(label), TRUE, TRUE, 1);
+       	gtk_widget_show_all(hbox);
 	return hbox;
+}
+
+/* add a generic function for non GTK stock buttons */
+GtkWidget *bf_generic_button(const gchar *label, gint pixmap_type, GCallback func, gpointer func_data)
+{
+        GtkWidget *button;
+
+	button = gtk_button_new();
+	gtk_container_set_border_width(GTK_CONTAINER(button), 3);
+	gtk_container_add(GTK_CONTAINER(button), hbox_with_pix_and_text(label, pixmap_type));
+	g_return_val_if_fail(button, NULL);
+	g_signal_connect(G_OBJECT(button), "clicked", func, func_data);
+	DEBUG_MSG("bf_browse_button, func_data=%p\n", func_data);
+	return button;
 }
 
 /*
@@ -861,7 +877,10 @@ static void fileselectwin(gchar *setfile, Tfileselect *fileselect, gchar *title)
 	gtk_widget_show(fileselect->fs);
 /*	gtk_grab_add(GTK_WIDGET(fileselect->fs));*/
 	gtk_widget_realize(GTK_WIDGET(fileselect->fs));
-	gtk_window_set_transient_for(GTK_WINDOW(fileselect->fs), GTK_WINDOW(main_v->main_window));
+	/* When you closed the the file selector dialog focus always returned to the bluefish main window
+	   changed to use gtk_widget_get_parent so focus returns to the dialog that opened the file selector
+	*/
+	gtk_window_set_transient_for(GTK_WINDOW(fileselect->fs), GTK_WINDOW(gtk_widget_get_parent(fileselect->fs)));
 }
 
 gchar *return_file_w_title(gchar * setfile, gchar *title) {
