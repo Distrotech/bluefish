@@ -91,6 +91,7 @@ typedef struct {
 	gint is_symlink; /* file is a symbolic link */
 	gulong del_txt_id;
 	gulong ins_txt_id;
+	gulong ins_aft_txt_id;
 	unre_t unre;
 	GtkWidget *view;
 	GtkWidget *tab_label;

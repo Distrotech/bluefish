@@ -33,6 +33,7 @@
 #include "stringlist.h" /* free_stringlist() */
 #include "gtk_easy.h" /* error_dialog() */
 #include "undo_redo.h" /* doc_unre_init() */
+#include "rpopup.h" /* doc_bevent_in_html_tag(), rpopup_edit_tag_cb() */
 
 /* gint documentlist_return_index_from_filename(gchar *filename)
  * returns -1 if the file is not open, else returns the index where
@@ -462,8 +463,11 @@ static gint doc_check_backup(Tdocument *doc) {
 	}
 	return res;
 }
-
-static void doc_update_linenumber(Tdocument *doc, GtkTextIter *iter) {
+/* offset is used because at the time a newline is entered in
+doc_buffer_insert_text_lcb() the cursor is not yet forwarded to the new line, so
+we need to add 1 to the line number in that specific case
+*/
+static void doc_update_linenumber(Tdocument *doc, GtkTextIter *iter, gint offset) {
 	gint line;
 	gchar *string;
 	GtkTextIter itinsert;
@@ -476,7 +480,7 @@ static void doc_update_linenumber(Tdocument *doc, GtkTextIter *iter) {
 		itinsert = *iter;
 	}
 	line = gtk_text_iter_get_line(&itinsert);
-	string = g_strdup_printf(_(" line %4d "), line); 
+	string = g_strdup_printf(_(" line %4d "), line + offset); 
 	gtk_label_set(GTK_LABEL(main_v->statuslabel),string);	
 	g_free(string);
 	g_print("doc_update_linenumber, line=%d\n", line);
@@ -486,6 +490,7 @@ static void doc_buffer_insert_text_lcb(GtkTextBuffer *textbuffer,GtkTextIter * i
 	gint i = 0;
 	doc_set_modified(doc, 1);
 	
+	DEBUG_MSG("doc_buffer_insert_text_lcb, started\n");
 	/* highlighting stuff */
 	if (string && doc->hl->update_chars) {
 		while (string[i] != '\0') {
@@ -504,7 +509,7 @@ static void doc_buffer_insert_text_lcb(GtkTextBuffer *textbuffer,GtkTextIter * i
 			doc_unre_new_group(doc);
 		}
 		if (string[0] == '\n') {
-			doc_update_linenumber(doc, NULL);
+			doc_update_linenumber(doc, iter, 1);
 		}
 	}
 	{
@@ -512,6 +517,36 @@ static void doc_buffer_insert_text_lcb(GtkTextBuffer *textbuffer,GtkTextIter * i
 		doc_unre_add(doc, string, pos, pos+len, UndoInsert);
 	}
 	
+	DEBUG_MSG("doc_buffer_insert_text_lcb, done\n");
+}
+
+static void doc_buffer_insert_text_after_lcb(GtkTextBuffer *textbuffer,GtkTextIter * iter,gchar * string,gint len, Tdocument * doc) {
+	/* indenting, this should be the last one because it changes the 
+	textbuffer --> it invalidates all GtkTextIters */
+	if (len == 1 && string[0] == '\n') {
+		gchar *string, *indenting;
+		GtkTextIter itstart = *iter, itend = *iter;
+		/* set to the beginning of the previous line */
+		gtk_text_iter_backward_line (&itstart);
+		gtk_text_iter_set_line_index(&itstart, 0);
+		
+		string = gtk_text_buffer_get_text(doc->buffer,&itstart,&itend,FALSE);
+		if (string) {
+			/* now count the indenting in this string */
+			indenting = string;
+			while (*indenting == '\t' || *indenting == ' ') {
+				indenting++;
+			}
+			/* ending search, non-whitespace found, so terminate at this position */
+			*indenting = '\0';
+			if (strlen(string)) {
+				DEBUG_MSG("doc_buffer_insert_text_lcb, inserting indenting\n");
+				gtk_text_buffer_insert(doc->buffer,&itend,string,-1);
+			}
+			g_free(string);
+		}
+	}
+
 }
 
 static void doc_buffer_delete_range_lcb(GtkTextBuffer *textbuffer,GtkTextIter * itstart,GtkTextIter * itend, Tdocument * doc) {
@@ -544,7 +579,7 @@ static void doc_buffer_delete_range_lcb(GtkTextBuffer *textbuffer,GtkTextIter * 
 				}
 				doc_unre_add(doc, string, start, end, UndoDelete);
 				if (string[0] == '\n') {
-					doc_update_linenumber(doc, NULL);
+					doc_update_linenumber(doc, NULL, 0);
 				}
 			}
 		}
@@ -553,22 +588,19 @@ static void doc_buffer_delete_range_lcb(GtkTextBuffer *textbuffer,GtkTextIter * 
 	}
 }
 
-static gboolean doc_view_key_release_lcb(GtkWidget *widget,
-                                            GdkEventKey *event,
-                                            Tdocument *doc) {
-/*	doc_update_linenumber(doc);*/
-	return FALSE;
-}
 static gboolean doc_view_button_release_lcb(GtkWidget *widget,GdkEventButton *bevent, Tdocument *doc) {
 	DEBUG_MSG("doc_view_button_release_lcb, button %d\n", bevent->button);
 	if (bevent->button == 3) {
 		GtkWidget *menuitem;
 		GtkWidget *submenu;
 		GtkWidget *menu = gtk_menu_new ();
-		gint tag_so,tag_eo;
-		doc_bevent_in_html_tag(doc, bevent, &tag_so, &tag_eo);
-		DEBUG_MSG("doc_view_button_release_lcb, clicked on a tag from %d to %d\n", tag_so, tag_eo);
+		gboolean tag_found;
+		tag_found = doc_bevent_in_html_tag(doc, bevent);
 		menuitem = gtk_menu_item_new_with_label(_("Edit tag"));
+		g_signal_connect(G_OBJECT(menuitem), "activate", G_CALLBACK(rpopup_edit_tag_cb), doc);
+		if (!tag_found) {
+			gtk_widget_set_sensitive(menuitem, FALSE);
+		}
       gtk_widget_show (menuitem);
 		gtk_menu_append(GTK_MENU(menu), menuitem);
 		menuitem = gtk_menu_item_new();
@@ -603,7 +635,7 @@ static void doc_buffer_mark_set_lcb(GtkTextBuffer *buffer,GtkTextIter *iter,
                                             Tdocument *doc) {
 	GtkTextMark *ins_mark = gtk_text_buffer_get_insert(buffer);
 	if (ins_mark == set_mark) {
-		doc_update_linenumber(doc, iter);
+		doc_update_linenumber(doc, iter, 0);
 	}
 }
 
@@ -614,6 +646,9 @@ void doc_bind_signals(Tdocument *doc) {
 	doc->del_txt_id = g_signal_connect(G_OBJECT(doc->buffer),
 					 "delete-range",
 					 G_CALLBACK(doc_buffer_delete_range_lcb), doc);
+	doc->ins_aft_txt_id = g_signal_connect_after(G_OBJECT(doc->buffer),
+					 "insert-text",
+					 G_CALLBACK(doc_buffer_insert_text_after_lcb), doc);
 }
 
 void doc_unbind_signals(Tdocument *doc) {
@@ -625,6 +660,10 @@ void doc_unbind_signals(Tdocument *doc) {
 	if (doc->del_txt_id != 0) {
 		g_signal_handler_disconnect(G_OBJECT(doc->buffer),doc->del_txt_id);
 		doc->del_txt_id = 0;
+	}
+	if (doc->ins_aft_txt_id != 0) {
+		g_signal_handler_disconnect(G_OBJECT(doc->buffer),doc->ins_aft_txt_id);
+		doc->ins_txt_id = 0;
 	}
 }
 
@@ -668,8 +707,7 @@ Tdocument *doc_new(gboolean delay_activate) {
 	newdoc->owner_gid = -1;
 	newdoc->is_symlink = 0;
 	doc_bind_signals(newdoc);
-	g_signal_connect(G_OBJECT(newdoc->view), "key-release-event"
-		, G_CALLBACK(doc_view_key_release_lcb), newdoc);
+
 	g_signal_connect(G_OBJECT(newdoc->view), "button-release-event"
 		, G_CALLBACK(doc_view_button_release_lcb), newdoc);
 	g_signal_connect(G_OBJECT(newdoc->view), "button-press-event"
