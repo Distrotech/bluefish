@@ -1901,6 +1901,7 @@ void doc_destroy(Tdocument * doc, gboolean delay_activation) {
 
 #ifdef BOOKMARKS
    bmark_clean_for_doc(doc);
+   bmark_adjust_visible(bfwin);   
 #endif /* BOOKMARKS */
 
 	if (doc->filename) {
@@ -2596,6 +2597,7 @@ Tdocument * doc_new_with_file(Tbfwin *bfwin, gchar * filename, gboolean delay_ac
 #ifdef BOOKMARKS
    bmark_set_for_doc(doc);
    bmark_check_lengths(bfwin);
+   bmark_adjust_visible(bfwin);   
 #endif /* BOOKMARKS */
 	
 	return doc;

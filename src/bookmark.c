@@ -58,9 +58,14 @@ typedef struct {
 	GHashTable *temporary;  /* changed to GHashTable - will be faster ? */
 	GHashTable *permanent;
 	gint lasttemp;
+	guchar visible_bmarks;
 } Tbmark_data;
 
 #define BMARKDATA(var) ((Tbmark_data *)(var))
+
+#define BM_VIS_ALL	   1
+#define BM_VIS_FILES	   2
+#define BM_VIS_ACTUAL	3
 
 /* Hmm, I have to use this structure for data exchange in foreach function */
 typedef struct {
@@ -97,9 +102,12 @@ void clean_proc(gpointer key,gpointer value,gpointer user_data)
 {
   Tbmark *b = BMARK(value);
   Tbmark_data *data = BMARKDATA(main_v->bmarkdata);
-  
-  if (b)
-     gtk_tree_store_remove(data->store,&(b->iter));       
+   
+  if (b  &&  (b->iter.stamp != 0) )
+    {
+       gtk_tree_store_remove(data->store,&(b->iter));       
+       b->iter.stamp = 0;
+    }   
 }
 
 gboolean delmark_proc(gpointer key,gpointer value,gpointer user_data)
@@ -236,6 +244,7 @@ void bmark_init(void)
 	data->permanent = g_hash_table_new_full(g_str_hash,g_str_equal,g_free,NULL);
 	data->temporary = g_hash_table_new_full(g_int_hash,g_int_equal,g_free,NULL);
 	data->lasttemp = 0;
+	data->visible_bmarks = BM_VIS_ALL;
 	main_v->bmarkdata = data;   
 	load_bmarks_from_file(fname,&data->permanent);
 	g_free(fname);
@@ -298,6 +307,7 @@ static void bmark_popup_menu_goto_lcb(GtkWidget *widget,gpointer user_data)
 	Tbmark_data *data = BMARKDATA(main_v->bmarkdata);
    gchar *btns[]={GTK_STOCK_NO,GTK_STOCK_YES,NULL};
    
+
 	if (!user_data) return;
    b = get_current_bmark(BFWIN(user_data));
    if (!b) return;
@@ -325,6 +335,7 @@ static void bmark_popup_menu_goto_lcb(GtkWidget *widget,gpointer user_data)
    }  
 
 }
+
 
 
 static void bmark_popup_menu_del_lcb(GtkWidget *widget,gpointer user_data) 
@@ -435,11 +446,17 @@ static void bmark_popup_menu_rename_lcb(GtkWidget *widget,gpointer user_data)
 }
 
 
+static void popup_menu_out(GtkWidget *widget,gpointer user_data)
+{
+  Tbmark_gui *gui = BMARKGUI(BFWIN(user_data)->bmark);   	
+  tree_tips_set_enabled(gui->tips,TRUE);   	  
+}
 
-
+   
 static GtkWidget *bmark_popup_menu(Tbfwin *bfwin, gpointer data) {
 	GtkWidget *menu, *menu_item;
-
+   
+   tree_tips_set_enabled(BMARKGUI(bfwin->bmark)->tips,FALSE);
 	menu = gtk_menu_new();
 	menu_item = gtk_menu_item_new_with_label(_("Goto bookmark"));
    g_signal_connect(GTK_OBJECT(menu_item), "activate", G_CALLBACK(bmark_popup_menu_goto_lcb), bfwin);		
@@ -456,6 +473,7 @@ static GtkWidget *bmark_popup_menu(Tbfwin *bfwin, gpointer data) {
 	
 	gtk_widget_show_all(menu);
 	g_signal_connect_after(G_OBJECT(menu), "destroy", G_CALLBACK(destroy_disposable_menu_cb), menu);
+	g_signal_connect(G_OBJECT(menu), "hide", G_CALLBACK(popup_menu_out), bfwin);
 
 	return menu;
 }
@@ -537,6 +555,76 @@ gchar* aa(gconstpointer win,gconstpointer tree,gint x, gint y)
 }
 
 
+void adjust_proc(gpointer key,gpointer value,gpointer user_data)
+{
+   Tbmark *b = BMARK(value);
+   Tbmark_data *data = BMARKDATA(main_v->bmarkdata);
+   Tbfwin *bfwin = BFWIN(user_data);
+   gboolean add=FALSE;
+   
+   switch(data->visible_bmarks)
+   {
+     case BM_VIS_ALL:
+       add = TRUE;
+     break;
+     case BM_VIS_FILES:
+       if (b->doc)
+         add = TRUE;        
+     break;
+     case BM_VIS_ACTUAL:
+       if (b->doc && b->doc==bfwin->current_document)
+          add = TRUE;
+     break;     
+   }
+   
+   if (add)
+   {
+       if (b->is_temp) 
+           gtk_tree_store_append(data->store, &(b->iter), &(BMARKGUI(bfwin->bmark)->temp_branch));
+       else   
+          gtk_tree_store_append(data->store, &(b->iter), &(BMARKGUI(bfwin->bmark)->perm_branch)); 
+       gtk_tree_store_set(data->store, &(b->iter), NAME_COLUMN,g_strdup_printf("[%s] --> %s",b->name,
+							   b->text),PTR_COLUMN, b, -1);         
+   }   
+}
+
+
+void bmark_adjust_visible(Tbfwin *win)
+{
+   Tbmark_data *data = BMARKDATA(main_v->bmarkdata);
+   
+   
+   g_hash_table_foreach(data->temporary,clean_proc,win);
+   g_hash_table_foreach(data->permanent,clean_proc,win);
+   g_hash_table_foreach(data->temporary,adjust_proc,win);   
+   g_hash_table_foreach(data->permanent,adjust_proc,win);   
+   gtk_tree_view_expand_all(GTK_TREE_VIEW(BMARKGUI(win->bmark)->tree));
+}
+
+
+
+void bmark_visible_1(GtkWidget *widget,gpointer user_data)
+{
+   Tbmark_data *data = BMARKDATA(main_v->bmarkdata);
+   data->visible_bmarks = BM_VIS_ALL;
+   bmark_adjust_visible(user_data);  
+}
+
+void bmark_visible_2(GtkWidget *widget,gpointer user_data)
+{
+   Tbmark_data *data = BMARKDATA(main_v->bmarkdata);
+   data->visible_bmarks = BM_VIS_FILES;
+   bmark_adjust_visible(user_data);  
+}
+
+void bmark_visible_3(GtkWidget *widget,gpointer user_data)
+{
+   Tbmark_data *data = BMARKDATA(main_v->bmarkdata);
+   data->visible_bmarks = BM_VIS_ACTUAL;
+   bmark_adjust_visible(user_data);  
+}
+
+
 GtkWidget *bmark_gui(Tbfwin *bfwin)
 {
    GtkWidget *vbox,*mi,*menu;
@@ -550,12 +638,13 @@ GtkWidget *bmark_gui(Tbfwin *bfwin)
    BMARKGUI(bfwin->bmark)->viewmenu = gtk_option_menu_new();
    menu = gtk_menu_new();
    mi = gtk_menu_item_new_with_label(_("Show all bookmarks"));
-   gtk_menu_append(GTK_MENU(menu), mi);   
-   mi = gtk_menu_item_new_with_label(_("Show bookmarks for project files"));
+   g_signal_connect(GTK_OBJECT(mi), "activate", G_CALLBACK(bmark_visible_1), bfwin);		   
    gtk_menu_append(GTK_MENU(menu), mi);   
    mi = gtk_menu_item_new_with_label(_("Show bookmarks for opened files"));
+   g_signal_connect(GTK_OBJECT(mi), "activate", G_CALLBACK(bmark_visible_2), bfwin);
    gtk_menu_append(GTK_MENU(menu), mi);   
    mi = gtk_menu_item_new_with_label(_("Show bookmarks for active file"));
+   g_signal_connect(GTK_OBJECT(mi), "activate", G_CALLBACK(bmark_visible_3), bfwin);
    gtk_menu_append(GTK_MENU(menu), mi);   
    gtk_option_menu_set_menu(GTK_OPTION_MENU(BMARKGUI(bfwin->bmark)->viewmenu),menu);
 
@@ -906,6 +995,8 @@ void bmark_check_lengths(Tbfwin *bfwin)
   
   g_hash_table_foreach(data->permanent,check_len_proc,bfwin);
 }
+
+
 
 
 
