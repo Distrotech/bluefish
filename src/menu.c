@@ -1419,13 +1419,29 @@ static gchar **cme_create_array(Tcmenu_editor *cme) {
 		newarray = g_malloc0((num+9) * sizeof(char *));
 	}
 	newarray[0] = gtk_editable_get_chars(GTK_EDITABLE(cme->menupath), 0, -1);
-	if (newarray[0][0] != '/') {
-		DEBUG_MSG("cme_create_array, menupath does not start with slash, returning NULL\n");
-		g_free(newarray[0]);
-		g_free(newarray);
-		return (NULL);
+	{
+		gboolean invalid=FALSE;
+		GList *tmplist = g_list_first(cme->worklist);
+		while (tmplist) {
+			gchar **tmparr = (gchar **)tmplist->data;
+			if (strcmp(tmparr[0],newarray[0])==0) {
+				error_dialog(_("Bluefish error"), _("the menupath you want to add exists already"));
+				invalid = TRUE;
+				break;
+			}
+			tmplist = g_list_next(tmplist);
+		}
+		if (newarray[0][0] != '/') {
+			DEBUG_MSG("cme_create_array, menupath does not start with slash, returning NULL\n");
+			error_dialog(_("Bluefish error"), _("the menupath should start with a / character"));
+			invalid = TRUE;
+		}
+		if (invalid) {
+			g_free(newarray[0]);
+			g_free(newarray);
+			return (NULL);
+		}
 	}
-	
 	if (type == 0) {
 		newarray[1] = g_strdup("0");
 
