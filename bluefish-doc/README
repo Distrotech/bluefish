@@ -1,0 +1,234 @@
+HOW-TO:  Compiling the Bluefish Book
+======================================
+
+This Bluefish Book is written in Docbook XML 4.3.
+
+The goal of this document is to give simple instructions to anyone who
+wants to compile this book into a useful format, like HTML or PDF.  It
+should state *exactly* which tools to use, and how to invoke them, in
+simplest terms.
+
+Table of Contents:
+
+  I. PRIMER
+ II. REQUIREMENTS
+III. PRODUCING OUTPUT VERSIONS OF THE DOCS
+ IV. HACKING ON THE DOCS
+
+
+I. PRIMER
+
+  For a good introduction to DocBook, you may want to read:
+  Docbook Frequently Asked Questions available at:
+  
+  		http://www.dpawson.co.uk/docbook/index.html
+
+
+II. REQUIREMENTS
+
+
+1. Fetch XSL stylesheets for Docbook and place them in xsl
+
+   The "Docbook Open Repository" on Sourceforge has a large collection
+   of XSL stylesheets that specifically operate on Docbook.  Download
+   and install the latest 'docbook-xsl' package from this page:
+  
+      http://sourceforge.net/project/showfiles.php?group_id=21935
+
+   Download docbook-xsl-1.56.1.tar.gz (or later), unpack it, then
+   rename the unpacked directory to xsl, something like this:
+
+   The default build process expects to the stylesheets to be in
+   xsl/.  If you already have them installed elsewhere on your
+   system, you can change the variable XSL_DIR in Makefile.
+
+
+2. Use XSLT to transform the book.
+
+   XSLT applies an .xsl stylesheet to an .xml file, and produces some
+   new markup document.
+
+   * Get libxslt, a C library for XSLT, from http://xmlsoft.org/XSLT/.
+     (If you're having trouble finding a source package to compile,
+     try ftp://archive.progeny.com/GNOME/sources/libxslt/1.0/.)
+     Install it:
+
+     (Note: you may discover that you need to install libxml2 first.
+     Find it at ftp://archive.progeny.com/GNOME/sources/libxml2/)
+
+     If you don't want to compile libxslt, you can just fetch the
+     appropriate OS binary package. 
+     
+    
+3. Use xmllint to validate the xml files
+
+	It should be available on all systems, presumably on SourceForge.
+	
+	Install it, it is used before all xml files are processed. 
+	
+	
+4. Use FOP to produce PS and PDF files
+
+	This is optional, unless you run make all, or want to produce
+	PDF, or PS version of the book.
+
+   Formatting Objects (FO) is a layout language, kind of like
+   postscript, dvi or css.  People are quickly standardizing on it.
+
+   * Fetch FOP, a java program which converts .fo files into PDF:
+
+        http://xml.apache.org/fop/index.html
+
+     There are approximately 17576 ways to install FOP.  Rather than
+     describe them all, we will recommend one way.  If you've already
+     installed FOP some other way, that's fine, then you can ignore
+     the following recipe:
+
+        1. Download the latest from http://xml.apache.org/dist/fop/,
+           for example, fop-0.20.4-bin.tar.gz.  Just get a binary
+           distribution, there's no need for the Java source.
+
+        2. Unpack it into fop/
+
+     That should be enough. The Makefile will actually invoke
+     find-fop.sh. That script attempts to find FOP already
+     installed on your system, but falls back to the FOP unpacked into
+     fop/ if there's no other FOP available.
+
+     Of course, to run FOP at all, you also need a Java runtime
+     environment.  Try java.sun.com or www.blackdown.org if you don't
+     already have that. 
+
+   * This may not be relevant any more...
+     If you want images to be included in the PDF, you'll need to use
+     the JIMI image processing library.  Grab the latest release from
+     http://java.sun.com/products/jimi/, then cp the jar file into the
+     same place as the FOP jar files. Or JAI for Mac Users.
+
+     Poof!  You now have PNG support.
+
+
+III. PRODUCING OUTPUT VERSIONS OF THE DOCS
+     
+You have the following options to produce the documentation 
+from the  doc/src directory:
+	
+	make html 
+	
+		Produces the book in html format, with numerous html files.
+		
+	make html-one-big 
+	
+		Produces the book in html format, with a unique html file. 
+	
+	make html-all 
+	
+		Produces the book in html format, both outputs.
+		
+	make pdf-a4 
+	
+		Produces the book in PDF format suitable for A4 paper. 
+		
+	make ps-a4 
+	
+		Produces the book in PostScript format suitable for A4 paper. 
+		
+	make pspdf-a4 
+	
+		Produces the PDF and PostScript versions for A4 paper. 
+		
+	make pdf-us 
+	
+		Produces the book in PDF format suitable for USLetter paper. 
+		
+	make ps-us 
+	
+		Produces the book in PostScript format suitable for USLetter paper. 
+		
+	make pspdf-us 
+	
+		Produces the PDF and PostScript versions for USLetter paper. 
+		
+	make all 
+		Produces all versions of the book. 
+		
+		
+The following options apply to the doc directory cleaning:
+	
+	clean html 
+	
+		Removes the book in html format (both outputs). 
+		
+	clean pdf-a4 
+	
+		Removes the book in PostScript format suitable for A4 paper. 
+		
+	clean ps-a4 
+	
+		Removes the book in PDF format suitable for A4 paper. 
+		
+	clean pdfps-a4 
+	
+		Removes the PDF and PostScript versions for A4 paper. 
+		
+	clean pdf-us 
+	
+		Removes the book in PDF format suitable for USLetter paper. 
+		
+	clean ps-us 
+	
+		Removes the book in PostScript format suitable for USLetter paper. 
+		
+	clean pspdf-us 
+	
+		Removes the PDF and PostScript versions for USLetter paper. 
+		
+	clean all 
+	
+		Removes all versions of the book. 
+		
+		
+The following option validates all xml files producing the doc:
+	
+	make validate-all 
+		Validate the whole book. 
+		
+		
+The following option produces tarballs:
+	
+	make tarball-all 
+	
+		Produces tarballs suitable to put on the Bluefish web site or for 
+		individual use. 
+		
+
+III. HACKING ON THE DOCS
+
+In addition to everything in section II:
+
+
+1. Use bluefish to modify the docs.
+
+   Using the DocBook menu in the custom toolbar, you'll find 
+   already most of the features you need to write the book.
+   
+   Validation is already performed when compiling the docs, 
+   hence you don't need to validate it via bluefish, but you 
+   can of course :-)
+
+
+2. Read about the DocBook tags.
+
+   Read DocBook, the Definitive Guide. An online version is available at:
+   
+   	http://www.docbook.org/tdg/en/html/docbook.html
+   
+   Read DocBook XSL: The Complete Guide available on line at:
+   
+   	http://www.sagehill.net/docbookxsl/index.html
+   
+   
+4. Any Questions?
+
+   Write to the bluefish mailing list.
+
