@@ -23,7 +23,7 @@
 #include <sys/stat.h> /* stat() */
 #include <unistd.h> /* stat() */
 #include <stdio.h> /* fopen() */
-
+#include <string.h> /* strchr() */
 #include "bluefish.h"
 #include "document.h"
 #include "highlight.h" /* all highlight functions */
@@ -296,6 +296,43 @@ static gint doc_check_backup(Tdocument *doc) {
 	return res;
 }
 
+static void doc_buffer_insert_text_lcb(GtkTextBuffer *textbuffer,GtkTextIter * iter,gchar * string,gint len, Tdocument * doc) {
+	gint i = 0;
+	if (string && doc->hl->update_chars) {
+		while (string[i] != '\0') {
+			if (strchr(doc->hl->update_chars, string[i])) {
+				doc_highlight_line(doc);
+				break;
+			}
+			i++;
+		}
+	}
+}
+
+static void doc_buffer_delete_range_lcb(GtkTextBuffer *textbuffer,GtkTextIter * start,GtkTextIter * end, Tdocument * doc) {
+	gchar *string;
+	gint i=0;
+	string = gtk_text_buffer_get_text(doc->buffer, start, end, FALSE);
+	if (string && doc->hl->update_chars) {
+		while (string[i] != '\0') {
+			if (strchr(doc->hl->update_chars, string[i])) {
+				doc_highlight_line(doc);
+				break;
+			}
+			i++;
+		}
+		g_free(string);
+	}
+}
+
+static void doc_bind_signals(Tdocument *doc) {
+	doc->ins_txt_id = g_signal_connect(G_OBJECT(doc->buffer),
+					 "insert-text",
+					 G_CALLBACK(doc_buffer_insert_text_lcb), doc);
+	doc->del_txt_id = g_signal_connect(G_OBJECT(doc->buffer),
+					 "delete-range",
+					 G_CALLBACK(doc_buffer_delete_range_lcb), doc);
+}
 
 Tdocument *doc_new() {
 	GtkWidget *scroll;
@@ -328,6 +365,7 @@ Tdocument *doc_new() {
 	newdoc->owner_uid = -1;
 	newdoc->owner_gid = -1;
 	newdoc->is_symlink = 0;
+	doc_bind_signals(newdoc);
 /*	newdoc->highlightstate = main_v->props.defaulthighlight;*/
 
 	main_v->documentlist = g_list_append(main_v->documentlist, newdoc);
