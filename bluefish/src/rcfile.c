@@ -872,7 +872,7 @@ static GList *return_session_configlist(GList *configlist, Tsessionvars *session
 	init_prop_stringlist(&configlist, &session->urllist, "urllist:", FALSE);
 	init_prop_stringlist(&configlist, &session->fontlist, "fontlist:", FALSE);
 	init_prop_stringlist(&configlist, &session->dtd_cblist, "dtd_cblist:", FALSE);
-	init_prop_arraylist (&configlist, &session->bmarks, "bmarks:", 0, FALSE); /* what is the lenght for a bookmark array? */
+	init_prop_arraylist (&configlist, &session->bmarks, "bmarks:", 6, FALSE); /* what is the lenght for a bookmark array? */
 	init_prop_limitedstringlist(&configlist, &session->recent_files, "recent_files:", main_v->props.max_recent_files, FALSE);
 	init_prop_limitedstringlist(&configlist, &session->recent_dirs, "recent_dirs:", main_v->props.max_dir_history, FALSE);
 	return configlist;
@@ -917,6 +917,8 @@ gboolean rcfile_save_global_session(void) {
 	gboolean retval;
 	gchar *filename = g_strconcat(g_get_home_dir(), "/.bluefish/session", NULL);
 	GList *configlist = return_session_configlist(NULL, main_v->session);
+	g_print("saving global session to %s\n",filename);
+	g_print("length bookmarks=%d\n",g_list_length(main_v->session->bmarks));
 	retval = save_config_file(configlist, filename);
 	free_configlist(configlist);
 	g_free(filename);

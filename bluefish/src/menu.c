@@ -274,14 +274,11 @@ static void spell_check_menu_cb(Tbfwin *bfwin,guint callback_action, GtkWidget *
 static void menu_bmark_operations_cb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget) {
 	switch(callback_action) {
 	case 1:
-	   bmark_add_temp(bfwin);
+	   bmark_add(bfwin);
 	break;
-	case 2:
+/*	case 2:
 	   bmark_add_perm(bfwin);
-	break;
-	case 4:
-	   bmark_del_all(bfwin,TRUE);
-	break;
+	break;*/
 	default:
 			g_print("Bmark action no. %d\n",callback_action);
 	}
@@ -675,10 +672,10 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/Go/Goto _Selection"), NULL, go_to_line_from_selection_cb, 1, "<Item>"},
 	{N_("/_Bookmarks"), NULL, NULL, 0, "<Branch>"},
 	{N_("/Bookmarks/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
-	{N_("/Bookmarks/Add _Temporary"), "<control>d", menu_bmark_operations_cb, 1, "<Item>"},	
-	{N_("/Bookmarks/Add _Permanent"), "<shift><control>d", menu_bmark_operations_cb, 2, "<Item>"},	   
+	{N_("/Bookmarks/_Add"), "<control>d", menu_bmark_operations_cb, 1, "<Item>"},	
+/*	{N_("/Bookmarks/Add _Permanent"), "<shift><control>d", menu_bmark_operations_cb, 2, "<Item>"},	   
 	{N_("/Bookmarks/sep2"), NULL, NULL, 0, "<Separator>"},   
-	{N_("/Bookmarks/Delete All"), NULL, menu_bmark_operations_cb, 4, "<Item>"},	      
+	{N_("/Bookmarks/Delete All"), NULL, menu_bmark_operations_cb, 4, "<Item>"},*/
 	{N_("/_Project"), NULL, NULL, 0, "<Branch>"},
 	{N_("/Project/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
 	{N_("/Project/_Open Project..."), NULL, project_menu_cb, 1, "<Item>"},
