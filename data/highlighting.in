@@ -116,3 +116,20 @@ gettext po:comment-escape:0:\\\\.::2:^text$:#009900::1:1:
 gettext po:msgid:1:^msgid ::2::#000099:#ffffff:2:0:
 gettext po:msgstr:1:^msgstr ::2::#000099:#ffffff:2:0:
 gettext po:domain:1:^domain::2::#000099:#ffffff:2:0:
+stylesheet:Symbol:1:(\\{|\\}|\\;|\\,)::2::#3D76AF::2:0:
+stylesheet:String:1:":":1::#40B381::0:2:
+stylesheet:Length:1:\\d+(\\%|px|em|ex|pt|in|cm|pc|mm)::2::darkgreen::0:0:
+stylesheet:Comment:1:\\/\\*:\\*\\/:1::#AE7112::0:0:
+stylesheet:Color:1:#[0-9A-Fa-f]{3,6}::2::#358139::2:0:
+stylesheet:Border:1:\\b(border(\\-top|\\-bottom|\\-left|\\-right)*(\\-width|\\-color|\\-style)*)\\b\\s*\:::2::darkblue::2:0:
+stylesheet:Text:1:\\b(word\\-spacing|letter\\-spacing|text\\-decoration|vertical\\-align|text\\-transform|text\\-align|text\\-ident)\\b\\s*\:::2::darkblue::2:0:
+stylesheet:Line:1:\\b(line(\\-top|\\-bottom|\\-left|\\-width|\\-color|\\-style|\\-height)*)\\b\\s*\:::2::darkblue::2:0:
+stylesheet:Background:1:\\b(background(\\-color|\\-image|\\-repeat|\\-attachment|\\-position)*)\\b\\s*\:::2::darkblue::2:0:
+stylesheet:Margin:1:\\b(margin(\\-top|\\-bottom|\\-left|\\-right|\\-width|\\-color|\\-style)*)\\b\\s*\\\:::2::darkblue::2:0:
+stylesheet:Padding:1:\\b(padding(\\-top|\\-bottom|\\-left|\\-right|\\-width|\\-color|\\-style)*)\\b\\s*\\\:::2::darkblue::2:0:
+stylesheet:Misc:1:(\\s*|\\t*)\\b(float|color|width|height|position|top|bottom|left|right|cursor|display|z\\-index|content)\\b\\s*\\\:::2::darkblue::2:0:
+stylesheet:Font:1:\\b(font(\\-color|\\-family|\\-weight|\\-size|\\-variant|\\-style)*)\\b::2::darkblue::2:0:
+stylesheet:Selector:1:\\b(a\\\:link|a\\\:visited|a\\\:active|a\\\:hover|body|abbr|acronym|address|applet|area|b|bdo|blockquote|br|button|caption|cite|code|col|colgroup|dd|del|dfn|div|dl|dt|em|embed|fieldset|form|h\\d+|hr|i|iframe|img|input|ins|kbd|label|legend|li|map|noframes|noscript|object|ol|optgroup|option|p|pre|q|samp|select|small|span|strong|table|tbody|td|textarea|tfoot|th|thead|tr|tt|ul|var)\\b::2::#772020::0:0:
+stylesheet:Value:1:\\b(relative|serif|sans\\-serif|cursive|fantasy|monospace|normal|italic|oblique|small\\-caps|bold|bolder|lighter|smaller|xx\\-small|x\\-small|small|medium|large|x\\-large|xx\\-large|transparent|none|repeat|repeat\\-x|repeat\\-y|no\\-repeat|scroll|fixed|top|center|bottom|left|center|right|underline|overline|line\\-through|blink|baseline|sub|super|text\\-top|middle|text\\-bottom|capitalize|uppercase|lowercase|justify|auto|thin|thick|dotted|dashed|solid|double|groove|ridge|inset|outset|both|block|inline|list\\-item|pre|nowrap|disc|circle|square|decimal|lower\\-roman|upper\\-roman|lower\\-alpha|upper\\-alpha|inside|outside)\\b::2::::2:0:
+
+
