@@ -212,6 +212,7 @@ GtkWidget *combo_with_popdown(const gchar * setstring, GList * which_list, gint 
 	GtkWidget *returnwidget;
 
 	returnwidget = gtk_combo_new();
+	gtk_combo_set_case_sensitive(GTK_COMBO(returnwidget),TRUE);
 	if (which_list != NULL) {
 		gtk_combo_set_popdown_strings(GTK_COMBO(returnwidget), which_list);
 	}
