@@ -191,10 +191,13 @@ gboolean project_save(Tbfwin *bfwin, gboolean save_as) {
 			if (g_file_test(ondiskencoding, G_FILE_TEST_EXISTS)) {
 				gchar *tmpstr;
 				gint retval;
-				gchar *options[] = {_("_Cancel"), _("_Overwrite"), NULL};
+				const gchar *buttons[] = {_("_Cancel"), _("_Overwrite"), NULL};
 				tmpstr = g_strdup_printf(_("A file named \"%s\" already exists."), filename);
-				retval = multi_warning_dialog(bfwin->main_window,tmpstr, 
-												_("Do you want to replace the existing file?"), 1, 0, options);
+				retval = message_dialog_new_multi(bfwin->main_window,
+															 GTK_MESSAGE_WARNING,
+															 buttons,
+															 tmpstr,
+															 _("Do you want to replace the existing file?"));
 				g_free(tmpstr);
 				if (retval == 0) {
 					g_free(filename);

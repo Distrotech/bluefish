@@ -288,10 +288,14 @@ static TcheckNsave_return doc_checkNsave_lcb(TcheckNsave_status status,gint erro
 				return CHECKNSAVE_STOP;
 			} else /* if (main_v->props.backup_abort_action == 2) */{
 				/* we have to ask the user */
-				gchar *options[] = {_("_Abort save"), _("_Continue save"), NULL};
+				const gchar *buttons[] = {_("_Abort save"), _("_Continue save"), NULL};
 				gint retval;
 				gchar *tmpstr = g_strdup_printf(_("A backupfile for %s could not be created. If you continue, this file will be overwritten."), gtk_label_get_text(GTK_LABEL(doc->tab_label)));
-				retval = multi_warning_dialog(BFWIN(doc->bfwin)->main_window,_("File backup failure"), tmpstr, 1, 0, options);
+				retval = message_dialog_new_multi(BFWIN(doc->bfwin)->main_window,
+															 GTK_MESSAGE_WARNING,
+															 buttons,
+															 _("File backup failure"),
+															 tmpstr);
 				g_free(tmpstr);
 				DEBUG_MSG("doc_checkNsave_lcb, retval=%d, returning %d\n", retval,(retval == 0) ? CHECKNSAVE_STOP : CHECKNSAVE_CONT);
 				if (retval == 0) {
@@ -323,7 +327,7 @@ static TcheckNsave_return doc_checkNsave_lcb(TcheckNsave_status status,gint erro
 		case CHECKANDSAVE_ERROR_MODIFIED_FAILED:
 			{
 				/* we have to ask the user what to do */
-				gchar *options[] = {_("_Abort save"), _("_Continue save"), NULL};
+				const gchar *buttons[] = {_("_Abort save"), _("_Continue save"), NULL};
 				gint retval;
 				gchar *tmpstr;
 				if (status == CHECKANDSAVE_ERROR_MODIFIED) {
@@ -331,7 +335,11 @@ static TcheckNsave_return doc_checkNsave_lcb(TcheckNsave_status status,gint erro
 				} else {
 					tmpstr = g_strdup_printf(_("Failed to check if %s is modified on disk"), doc->uri);
 				}
-				retval = multi_warning_dialog(BFWIN(doc->bfwin)->main_window,_("File modified on disk"), tmpstr, 1, 0, options);
+				retval = message_dialog_new_multi(BFWIN(doc->bfwin)->main_window,
+															 GTK_MESSAGE_WARNING,
+															 buttons,
+															 _("File modified on disk"),
+															 tmpstr);
 				g_free(tmpstr);
 				if (retval == 0) {
 					doc->action.save = NULL;
@@ -421,9 +429,13 @@ gchar *ask_new_filename(Tbfwin *bfwin,gchar *old_curi, const gchar *gui_name, gb
 	if (exdoc) {
 		gchar *tmpstr;
 		gint retval;
-		gchar *options[] = {_("_Cancel"), _("_Overwrite"), NULL};
+		const gchar *buttons[] = {_("_Cancel"), _("_Overwrite"), NULL};
 		tmpstr = g_strdup_printf(_("File %s exists and is opened, overwrite?"), new_curi);
-		retval = multi_warning_dialog(bfwin->main_window,tmpstr, _("The file you have selected is being edited in Bluefish."), 1, 0, options);
+		retval = message_dialog_new_multi(bfwin->main_window,
+													 GTK_MESSAGE_WARNING,
+													 buttons,
+													 tmpstr,
+													 _("The file you have selected is being edited in Bluefish."));
 		g_free(tmpstr);
 		if (retval == 0) {
 			g_free(new_curi);
@@ -440,10 +452,13 @@ gchar *ask_new_filename(Tbfwin *bfwin,gchar *old_curi, const gchar *gui_name, gb
 		if (exists) {
 			gchar *tmpstr;
 			gint retval;
-			gchar *options[] = {_("_Cancel"), _("_Overwrite"), NULL};
+			const gchar *buttons[] = {_("_Cancel"), _("_Overwrite"), NULL};
 			tmpstr = g_strdup_printf(_("A file named \"%s\" already exists."), new_curi);
-			retval = multi_warning_dialog(bfwin->main_window,tmpstr, 
-											_("Do you want to replace the existing file?"), 1, 0, options);
+			retval = message_dialog_new_multi(bfwin->main_window,
+														 GTK_MESSAGE_WARNING,
+														 buttons,
+														 tmpstr,
+														 _("Do you want to replace the existing file?"));
 			g_free(tmpstr);
 			if (retval == 0) {
 				g_free(new_curi);

@@ -2193,7 +2193,7 @@ gchar *doc_get_buffer_in_encoding(Tdocument *doc) {
 			g_free(buffer);
 			buffer = newbuf;
 		} else {
-			gchar *options[] = {_("_Abort save"), _("_Continue save in UTF-8"), NULL};
+			const gchar *buttons[] = {_("_Abort save"), _("_Continue save in UTF-8"), NULL};
 			gint retval, line, column;
 			glong position;
 			gchar *tmpstr, failed[6];
@@ -2205,7 +2205,11 @@ gchar *doc_get_buffer_in_encoding(Tdocument *doc) {
 			failed[0]='\0';
 			g_utf8_strncpy(failed,buffer+bytes_read,1);
 			tmpstr = g_strdup_printf(_("Failed to convert %s to character encoding %s. Encoding failed on character '%s' at line %d column %d\n\nContinue saving in UTF-8 encoding?"), doc->uri, doc->encoding, failed, line+1, column+1);
-			retval = multi_warning_dialog(BFWIN(doc->bfwin)->main_window,_("File encoding conversion failure"), tmpstr, 1, 0, options);
+			retval = message_dialog_new_multi(BFWIN(doc->bfwin)->main_window,
+														 GTK_MESSAGE_WARNING,
+														 buttons,
+														 _("File encoding conversion failure"),
+														 tmpstr);
 			g_free(tmpstr);
 			if (retval == 0) {
 				DEBUG_MSG("doc_get_buffer_in_encoding, character set conversion failed, user aborted!\n");
@@ -3227,12 +3231,16 @@ static void doc_activate_modified_lcb(Tcheckmodified_status status,gint error_in
 		{
 		gchar *tmpstr, oldtimestr[128], newtimestr[128];/* according to 'man ctime_r' this should be at least 26, so 128 should do ;-)*/
 		gint retval;
-		gchar *options[] = {_("_Reload"), _("_Ignore"), NULL};
+		const gchar *buttons[] = {_("_Reload"), _("_Ignore"), NULL};
 
 		ctime_r(&new->mtime,newtimestr);
 		ctime_r(&orig->mtime,oldtimestr);
 		tmpstr = g_strdup_printf(_("Filename: %s\n\nNew modification time is: %s\nOld modification time is: %s"), gtk_label_get_text(GTK_LABEL(doc->tab_menu)), newtimestr, oldtimestr);
-		retval = multi_warning_dialog(BFWIN(doc->bfwin)->main_window,_("File has been modified by another process\n"), tmpstr, 0, 1, options);
+		retval = message_dialog_new_multi(BFWIN(doc->bfwin)->main_window,
+													 GTK_MESSAGE_WARNING,
+													 buttons,
+													 _("File has been modified by another process\n"),
+													 tmpstr);
 		g_free(tmpstr);
 		if (retval == 1) {
 			if (doc->fileinfo) {
@@ -3281,12 +3289,16 @@ void doc_activate(Tdocument *doc) {
 		return;
 	}
 	if (doc->status == DOC_STATUS_ERROR) {
-		gchar *options[] = {_("_Retry"), _("_Close"), NULL};
+		const gchar *buttons[] = {_("_Retry"), _("_Close"), NULL};
 		gchar *tmpstr;
 		gint retval;
 		DEBUG_MSG("doc_activate, DOC_STATUS_ERROR, retry???\n");
 		tmpstr = g_strconcat(_("File "), gtk_label_get_text(GTK_LABEL(doc->tab_menu)), _(" failed to load."), NULL);
-		retval = multi_warning_dialog(BFWIN(doc->bfwin)->main_window,_("File failed to load\n"), tmpstr, 0, 1, options);
+		retval = message_dialog_new_multi(BFWIN(doc->bfwin)->main_window,
+													 GTK_MESSAGE_WARNING,
+													 buttons,
+													 _("File failed to load\n"),
+													 tmpstr);
 		g_free(tmpstr);
 		if (retval == 0) {
 			file_doc_retry_uri(doc);

@@ -870,8 +870,11 @@ void fref_load_from_file(gchar * filename, GtkWidget * tree, GtkTreeStore * stor
 
 	tmps = xmlGetProp(cur,fref_names[FID_VERSION]);
 	if (xmlStrcmp(tmps, (const xmlChar *) "2") != 0 ) {
-		warning_dialog(bfwin->main_window,_("Bad reference"),
-									 _("This is probably old reference file. \nPlease update it to the new format."));
+		message_dialog_new(bfwin->main_window, 
+						 		 GTK_MESSAGE_WARNING, 
+						 		 GTK_BUTTONS_CLOSE, 
+						 		 _("Bad reference"), 
+						 		 _("This is probably old reference file. \nPlease update it to the new format."));
 		g_hash_table_destroy(info->dictionary);
 		g_hash_table_destroy(info->commons);		
 		g_hash_table_destroy(info->elements);
@@ -1630,9 +1633,12 @@ typedef struct {
 
 static void frefcb_inserthelp_clicked(GtkButton *button, GtkWidget *w) 
 {
-  info_dialog(w,_("Insert syntax"),_("All elements:\n%0,%1,... - value of parameter number 0,1,...\n\
-%* - values of all parameters\nTag element:\n%_ - only non-empty attributes\n\
-%! - only required attributes\n%~ only non-empty OR required attributes."));
+	message_dialog_new(w,
+							 GTK_MESSAGE_INFO,
+							 GTK_BUTTONS_OK,
+							 _("Insert syntax"), 
+							 _("All elements:\n%0,%1,... - value of parameter number 0,1,...%* - values of all parameters\n\
+Tag element:\n%_ - only non-empty attributes\n%! - only required attributes\n%~ only non-empty OR required attributes."));
 }
 
 /* dialog for element */
