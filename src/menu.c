@@ -736,6 +736,8 @@ static Tbfw_dynmenu *find_bfw_dynmenu_by_data_in_list(GList *thelist, gpointer d
 	return NULL;
 }
 
+/*
+NOT IN USE
 static Tbfw_dynmenu *find_bfw_dynmenu_by_label_in_list(GList *itemlist, gchar *label) {
 	GList *tmplist;
 
@@ -748,6 +750,7 @@ static Tbfw_dynmenu *find_bfw_dynmenu_by_label_in_list(GList *itemlist, gchar *l
 	}
 	return NULL;
 }
+*/
 
 static GtkWidget *remove_menuitem_in_list_by_label(const gchar *labelstring, GList **menuitemlist) {
 	GList *tmplist;
@@ -1490,13 +1493,22 @@ void menu_current_document_set_toggle_wo_activate(Tbfwin *bfwin, Tfiletype *file
 	 }
 #endif
 	if (encoding) {
-		Tbfw_dynmenu *bdm = find_bfw_dynmenu_by_label_in_list(bfwin->menu_encodings, encoding);
-		if (bdm) {
-			g_signal_handlers_block_matched(G_OBJECT(bdm->menuitem), G_SIGNAL_MATCH_FUNC,
-					0, 0, NULL, menu_current_document_encoding_change, NULL);
-			gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(bdm->menuitem),TRUE);
-			g_signal_handlers_unblock_matched(G_OBJECT(bdm->menuitem), G_SIGNAL_MATCH_FUNC,
-					0, 0, NULL, menu_current_document_encoding_change, NULL);
+		GList *tmplist;
+		tmplist = g_list_first(main_v->props.encodings);
+		while (tmplist) {
+			gchar **tmparr = (gchar **)tmplist->data;
+			if (strcmp(tmparr[1], encoding)==0) {
+				Tbfw_dynmenu *bdm = find_bfw_dynmenu_by_data_in_list(bfwin->menu_encodings, tmparr[1]);
+				if (bdm) {
+					g_signal_handlers_block_matched(G_OBJECT(bdm->menuitem), G_SIGNAL_MATCH_FUNC,
+							0, 0, NULL, menu_current_document_encoding_change, NULL);
+					gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(bdm->menuitem),TRUE);
+					g_signal_handlers_unblock_matched(G_OBJECT(bdm->menuitem), G_SIGNAL_MATCH_FUNC,
+							0, 0, NULL, menu_current_document_encoding_change, NULL);
+				}
+				break;
+			}
+			tmplist = g_list_next(tmplist);	
 		}
 	}
 }
