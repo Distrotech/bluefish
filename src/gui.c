@@ -43,6 +43,7 @@
 #include "filebrowser.h"
 #include "stringlist.h"
 #include "preferences.h" /* open_preferences_cb */
+#include "outputbox.h" /* init_outputbox() */
 
 typedef struct {
 	GtkWidget *main_toolbar_hb;

@@ -257,7 +257,7 @@ static GtkWidget *prefs_integer(const gchar *title, const gint curval, GtkWidget
 /*************************/
 /* GENERAL FUNCTIONS     */
 /*************************/
-static GList *general_poplist(GList *arraylist, gint required_items, gint poplist_label_index) {
+/* static GList *general_poplist(GList *arraylist, gint required_items, gint poplist_label_index) {
 	GList *tmplist, *poplist=NULL;
 	
 	tmplist = g_list_first(arraylist);
@@ -267,7 +267,7 @@ static GList *general_poplist(GList *arraylist, gint required_items, gint poplis
 		tmplist = g_list_next(tmplist);
 	}
 	return poplist;
-}
+}*/
 
 static void generic_selection_changed_cb(GtkTreeSelection *selection
 	, GtkWidget **entry, void (*apply_func)(), Tprefdialog *pd,gint whichlist, gint numentries, gchar ***newcurstrarr){
@@ -317,7 +317,7 @@ static gchar **generic_create_strarr(gint numitems, GtkWidget **entries, gboolea
 /* FILETYPE, FILTERS AND HIGHLIGHT PATTERNS FUNCTIONS     */
 /**********************************************************/
 
-static void add_new_general_lcb(Tprefdialog *pd, GtkWidget *entry, gint numentries, gint whichlist, GtkListStore *lstore) {
+/* static void add_new_general_lcb(Tprefdialog *pd, GtkWidget *entry, gint numentries, gint whichlist, GtkListStore *lstore) {
 	gchar *newtype = gtk_editable_get_chars(GTK_EDITABLE(entry),0,-1);
 	DEBUG_MSG("add_new_general_lcb, newtype=%s\n", newtype);
 	if (strlen(newtype)) {
@@ -339,7 +339,7 @@ static void add_new_general_lcb(Tprefdialog *pd, GtkWidget *entry, gint numentri
 	} else {
 		g_free(newtype);
 	}
-}
+} */
 
 static gchar **filetype_create_strarr(Tprefdialog *pd) {
 	gchar **strarr;
@@ -767,7 +767,6 @@ static void highlightpattern_popmenu_activate(GtkMenuItem *menuitem,Tprefdialog 
 
 static void add_new_highlightpattern_lcb(GtkWidget *wid, Tprefdialog *pd) {
 	gchar *pattern = gtk_editable_get_chars(GTK_EDITABLE(pd->hpd.entry[0]),0,-1);
-	GtkWidget *menuitem = gtk_menu_get_active(GTK_MENU( gtk_option_menu_get_menu(GTK_OPTION_MENU(pd->hpd.popmenu)) ));
 	if (strlen(pattern) && strlen(pd->hpd.selected_filetype)) {
 		gchar **strarr = highlightpattern_create_strarr(pd);
 		DEBUG_MSG("add_new_highlightpattern_lcb, appending strarr %p to list\n", strarr);
@@ -1286,7 +1285,7 @@ static void create_externals_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 	gtk_box_pack_start(GTK_BOX(vbox1), hbox, TRUE, TRUE, 0);
 	gtk_box_pack_start(GTK_BOX(hbox), gtk_label_new(_("Label")), FALSE, TRUE, 3);
 	pd->ed.entry[0] = boxed_entry_with_text(NULL, 1023, hbox);
-	but = bf_gtkstock_button(GTK_STOCK_ADD, G_CALLBACK(add_new_browser_lcb), pd);
+	but = bf_gtkstock_button(GTK_STOCK_ADD, G_CALLBACK(add_new_external_lcb), pd);
 	gtk_box_pack_start(GTK_BOX(hbox), but, FALSE, TRUE, 3);
 
 	gtk_box_pack_start(GTK_BOX(vbox1), gtk_label_new(_("%s = current filename\n%f = output filename (for filters)")), TRUE, TRUE, 0);
@@ -1376,7 +1375,7 @@ static void outputbox_selection_changed_cb(GtkTreeSelection *selection, Tprefdia
 		gchar *name;
 		GList *tmplist = g_list_first(pd->lists[outputbox]);
 		gtk_tree_model_get(model, &iter, 0, &name, -1);
-		filefilter_apply_changes(pd);
+		outputbox_apply_changes(pd);
 		while (tmplist) {
 			gchar **strarr =(gchar **)tmplist->data;
 			if (strcmp(strarr[0],name)==0) {
