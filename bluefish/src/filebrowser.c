@@ -37,9 +37,9 @@
 #include "gui.h" /* statusbar_message() */
 #include "image.h" /* image_insert_from_filename() */
 
-/* #define DEBUG_SORTING */
-/* #define DEBUG_FILTER */
-/* #define DEBUG_ADDING_TO_TREE */
+/*#define DEBUG_SORTING
+#define DEBUG_FILTER
+#define DEBUG_ADDING_TO_TREE*/
 
 #define FILEBROWSER(var) ((Tfilebrowser *)(var))
 #define FILEBROWSERCONFIG(var) ((Tfilebrowserconfig *)(var))
@@ -464,23 +464,19 @@ static int comparefunc(GtkTreeModel *store, gchar *name, GtkTreeIter *iter, cons
 #ifdef DEBUG_SORTING
 	DEBUG_MSG("comparefunc, comparing %s and %s\n", name, text);
 #endif
-	if (main_v->props.filebrowser_two_pane_view) {
-		return strcmp(name, text);
-	} else {
-		gboolean iter_is_dir;
-		iter_is_dir = gtk_tree_model_iter_has_child(GTK_TREE_MODEL(store), iter);
-		if (type == TYPE_DIR) {
-			if (iter_is_dir) {
-				return strcmp(name, text);
-			} else {
-				return 1;
-			}
+	gboolean iter_is_dir;
+	iter_is_dir = gtk_tree_model_iter_has_child(GTK_TREE_MODEL(store), iter);
+	if (type == TYPE_DIR) {
+		if (iter_is_dir) {
+			return strcmp(name, text);
 		} else {
-			if (iter_is_dir) {		
-				return -1;
-			} else {
-				return strcmp(name, text);
-			}
+			return 1;
+		}
+	} else {
+		if (iter_is_dir) {		
+			return -1;
+		} else {
+			return strcmp(name, text);
 		}
 	}
 }
@@ -508,7 +504,11 @@ static gboolean get_iter_at_correct_position(GtkTreeModel *store, GtkTreeIter *p
 		/* if parent=NULL it will return the child from the toplevel which is correct for the liststore */
 		gtk_tree_model_iter_nth_child(GTK_TREE_MODEL(store), iter, parent, 0);
 		gtk_tree_model_get(GTK_TREE_MODEL(store),iter,FILENAME_COLUMN,&name, -1);
-		compare = comparefunc(store, name, iter, text, type);
+		if (parent == NULL) {
+			compare = strcmp(name,text);
+		} else {
+			compare = comparefunc(store, name, iter, text, type);
+		}
 		g_free(name);
 		if (compare == 0) {
 			return FALSE;
@@ -561,7 +561,7 @@ static GtkTreeIter add_tree_item(GtkTreeIter *parent, Tfilebrowser *filebrowser,
 		}
 	}
 
-	if (type == TYPE_FILE && main_v->props.filebrowser_two_pane_view && parent==NULL) {
+	if (type == TYPE_FILE && filebrowser->store2 && parent==NULL) {
 		if (get_iter_at_correct_position(GTK_TREE_MODEL(filebrowser->store2),parent,&iter2,text,type)) {
 			DEBUG_MSG("add_tree_item, inserting %s in store2\n", text);
 			gtk_list_store_insert_before(GTK_LIST_STORE(filebrowser->store2),&iter1,&iter2);
@@ -640,7 +640,7 @@ static void refresh_dir_by_path_and_filename(Tfilebrowser *filebrowser, GtkTreeP
 		g_free(name);
 	}
 	/* we should also check the entries in the listtore, if they have to be refreshed as well */
-	if (main_v->props.filebrowser_two_pane_view) {
+	if (filebrowser->store2) {
 		valid = gtk_tree_model_get_iter_first(GTK_TREE_MODEL(filebrowser->store2),&myiter);
 		while (valid) {
 			gchar *name;
@@ -671,12 +671,12 @@ static void refresh_dir_by_path_and_filename(Tfilebrowser *filebrowser, GtkTreeP
 #ifdef DEBUG_ADDING_TO_TREE
 				DEBUG_MSG("refresh_dir_by_path_and_filename, adding row for name=%s\n", entry->name);
 #endif
-				if (entry->type == TYPE_FILE && main_v->props.filebrowser_two_pane_view) {
+				if (entry->type == TYPE_FILE && filebrowser->store2) {
 					myiter2 = add_tree_item(NULL, filebrowser, entry->name, entry->type, entry->icon);
 				} else {
 					myiter2 = add_tree_item(&myiter, filebrowser, entry->name, entry->type, entry->icon);
 				}
-				if (entry->type == TYPE_DIR && !main_v->props.filebrowser_two_pane_view) {
+				if (entry->type == TYPE_DIR && !filebrowser->store2) {
 #ifdef DEBUG_ADDING_TO_TREE
 					DEBUG_MSG("refresh_dir_by_path_and_filename, %s is TYPE_DIR so we setup the fake item\n", entry->name);
 #endif
@@ -776,7 +776,7 @@ static GtkTreePath *build_tree_from_path(Tfilebrowser *filebrowser, const gchar 
 				tmp = add_tree_item(&iter, filebrowser, entry->name, TYPE_DIR, NULL);
 				add_tree_item(&tmp, filebrowser, ".", TYPE_FILE, NULL);
 			} else {
-				if (main_v->props.filebrowser_two_pane_view) {
+				if (filebrowser->store2) {
 					add_tree_item(NULL, filebrowser, entry->name, TYPE_FILE, entry->icon);
 				} else {
 					add_tree_item(&iter, filebrowser, entry->name, TYPE_FILE, entry->icon);
@@ -801,7 +801,7 @@ void filebrowser_refresh_dir(Tfilebrowser *filebrowser, gchar *dir) {
 		DEBUG_DUMP_TREE_PATH(path);
 		if (!path) return;
 		/* check if the dir is expanded, or if we have a two paned view, return if not */	
-		if (main_v->props.filebrowser_two_pane_view || gtk_tree_view_row_expanded(GTK_TREE_VIEW(filebrowser->tree), path)) {
+		if (filebrowser->store2 || gtk_tree_view_row_expanded(GTK_TREE_VIEW(filebrowser->tree), path)) {
 			DEBUG_MSG("refresh_dir, it IS expanded, or we have a two paned view\n");
 			/* refresh it */
 			refresh_dir_by_path_and_filename(filebrowser, path, dir);
@@ -864,7 +864,7 @@ static GtkTreePath *filebrowser_get_path_from_selection(GtkTreeModel *model, Gtk
 /* is_directory is only meaningful if you have a two paned view and you want the directory name */
 static gchar *get_selected_filename(Tfilebrowser *filebrowser, gboolean is_directory) {
 	GtkTreePath *path;
-	if (main_v->props.filebrowser_two_pane_view && !is_directory) {
+	if (filebrowser->store2 && !is_directory) {
 		path = filebrowser_get_path_from_selection(GTK_TREE_MODEL(filebrowser->store2),GTK_TREE_VIEW(filebrowser->tree2),NULL);
 		if (path) {
 			gchar *tmp2, *name;
@@ -1064,7 +1064,7 @@ static void create_file_or_dir_win(Tfilebrowser *filebrowser, gint is_file) {
 	GtkTreeIter iter;
 	gchar *basedir = NULL;
 	selection = filebrowser_get_path_from_selection(GTK_TREE_MODEL(filebrowser->store),GTK_TREE_VIEW(filebrowser->tree),&iter);
-	if (main_v->props.filebrowser_two_pane_view && !selection) {
+	if (filebrowser->store2 && !selection) {
 		/* there is no selection, we'll use the current last used dir */
 		if (filebrowser->last_opened_dir) {
 			basedir = ending_slash(filebrowser->last_opened_dir);
@@ -1072,7 +1072,7 @@ static void create_file_or_dir_win(Tfilebrowser *filebrowser, gint is_file) {
 	} else {
 		GtkTreePath *path;
 		gchar *tmp;
-		if (main_v->props.filebrowser_two_pane_view || gtk_tree_model_iter_has_child(GTK_TREE_MODEL(filebrowser->store), &iter)) {
+		if (filebrowser->store2 || gtk_tree_model_iter_has_child(GTK_TREE_MODEL(filebrowser->store), &iter)) {
 			/* the selection does point to a directory, not a file */
 		} else {
 			/* the selection points to a file, get the parent */
@@ -1154,7 +1154,7 @@ static void handle_activate_on_file(Tfilebrowser *filebrowser, gchar *filename) 
 
 /* Called both by the filebrowser "activate"-signal and filebrowser_rpopup_open_lcb */
 static void row_activated_lcb(GtkTreeView *tree, GtkTreePath *path,GtkTreeViewColumn *column, Tfilebrowser *filebrowser) {
-	if (main_v->props.filebrowser_two_pane_view) {
+	if (filebrowser->store2) {
 		/* it is a dir, expand it */
 		if (!gtk_tree_view_row_expanded(tree, path)) {
 			gtk_tree_view_expand_row(tree,path,FALSE);
@@ -1303,7 +1303,7 @@ static void filebrowser_rpopup_refresh(Tfilebrowser *filebrowser) {
 	if (path) {
 		gchar *tmp, *dir;
 		GtkTreePath *path;
-		if (main_v->props.filebrowser_two_pane_view || gtk_tree_model_iter_has_child(GTK_TREE_MODEL(filebrowser->store), &iter)) {
+		if (filebrowser->store2 || gtk_tree_model_iter_has_child(GTK_TREE_MODEL(filebrowser->store), &iter)) {
 			DEBUG_MSG("create_file_or_dir_win, a dir is selected\n");
 		} else {
 			GtkTreeIter parent;
@@ -1467,7 +1467,7 @@ static gboolean filebrowser_button_press_lcb(GtkWidget *widget, GdkEventButton *
 	DEBUG_MSG("filebrowser_button_press_lcb, button=%d\n",event->button);
 	if (event->button == 3) {
 		GtkWidget *menu = NULL;;
-		if (main_v->props.filebrowser_two_pane_view) {
+		if (filebrowser->store2) {
 			menu = filebrowser_rpopup_create_menu(filebrowser, TRUE);
 		} else {
 			GtkTreePath *path;
@@ -1495,7 +1495,7 @@ static gboolean filebrowser_button_press_lcb(GtkWidget *widget, GdkEventButton *
 		if (path) {
 			/* now we have two things: for the two paned, we know it is a directory, so we should refresh it, for the 
 			one paned we need to know if it is a directory or a file and handle appropriately */
-			if (main_v->props.filebrowser_two_pane_view) {
+			if (filebrowser->store2) {
 				gchar *tmp, *dir;
 				tmp = return_filename_from_path(filebrowser,GTK_TREE_MODEL(filebrowser->store),path);
 				dir = ending_slash(tmp);
@@ -1505,11 +1505,11 @@ static gboolean filebrowser_button_press_lcb(GtkWidget *widget, GdkEventButton *
 				g_free(tmp);
 				g_free(dir);
 			} else {
-				DEBUG_MSG("one paned view (props.filebrowser_two_pane_view=%d), check if it is a file or directory\n", main_v->props.filebrowser_two_pane_view);
+				DEBUG_MSG("one paned view (store2=%p), check if it is a file or directory\n", filebrowser->store2);
 				gtk_tree_model_get_iter(GTK_TREE_MODEL(filebrowser->store),&iter,path);
 				if (gtk_tree_model_iter_has_child(GTK_TREE_MODEL(filebrowser->store),&iter)) {
 					DEBUG_MSG("filebrowser_button_press_lcb, clicked a directory, refresh!\n");
-					if (!main_v->props.filebrowser_two_pane_view && !gtk_tree_view_row_expanded(GTK_TREE_VIEW(filebrowser->tree), path)) {
+					if (!filebrowser->store2 && !gtk_tree_view_row_expanded(GTK_TREE_VIEW(filebrowser->tree), path)) {
 						DEBUG_MSG("filebrowser_button_press_lcb, was not yet explanded, in single paned view, refresh makes no sense\n");
 					} else {
 						gchar *tmp, *dir;
@@ -1783,7 +1783,6 @@ GtkWidget *filebrowser_init(Tbfwin *bfwin) {
 /*		gtk_tree_view_append_column(GTK_TREE_VIEW(filebrowser->tree), column);*/
 	}
 	
-	
 	if (main_v->props.filebrowser_two_pane_view) {
 		GtkCellRenderer *renderer;
 		GtkTreeViewColumn *column;
@@ -1841,7 +1840,7 @@ GtkWidget *filebrowser_init(Tbfwin *bfwin) {
 	g_signal_connect(G_OBJECT(filebrowser->tree), "row-expanded", G_CALLBACK(row_expanded_lcb), filebrowser);
 	g_signal_connect(G_OBJECT(filebrowser->tree), "row-activated",G_CALLBACK(row_activated_lcb),filebrowser);
 	g_signal_connect(G_OBJECT(filebrowser->tree), "button_press_event",G_CALLBACK(filebrowser_button_press_lcb),filebrowser);
-	if (main_v->props.filebrowser_two_pane_view) {
+	if (filebrowser->store2) {
 		g_signal_connect(G_OBJECT(filebrowser->tree2), "button_press_event",G_CALLBACK(filebrowser_tree2_button_press_lcb),filebrowser);
 	}
 
@@ -1858,7 +1857,7 @@ GtkWidget *filebrowser_init(Tbfwin *bfwin) {
 		scrolwin = gtk_scrolled_window_new(NULL, NULL);
 		gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolwin), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
 		gtk_container_add(GTK_CONTAINER(scrolwin), filebrowser->tree);
-		if (main_v->props.filebrowser_two_pane_view) {
+		if (filebrowser->store2) {
 			GtkWidget *vpaned, *scrolwin2;
 			vpaned = gtk_vpaned_new();
 			gtk_paned_add1(GTK_PANED(vpaned), scrolwin);
