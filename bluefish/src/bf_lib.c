@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * bf_lib.c - non-GUI general functions
  *
- * Copyright (C) 2000 Olivier Sessink
+ * Copyright (C) 2000-2004 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -1027,7 +1027,12 @@ gchar *create_relative_link_to(gchar * current_filepath, gchar * link_to_filepat
 	g_free(eff_link_to_filepath);
 	return returnstring;
 }
-
+#ifdef HAVE_GNOME_VFS
+#define STRIP_FILE_URI
+#endif
+#ifdef HAVE_ATLEAST_GTK_2_4
+#define STRIP_FILE_URI
+#endif
 /**
  * create_full_path:
  * @filename: a gchar * with the (relative or not) filename
@@ -1049,13 +1054,13 @@ gchar *create_full_path(gchar * filename, gchar *basedir) {
 	gchar *tmpcdir;
 
 	DEBUG_MSG("create_full_path, filename=%s, basedir=%s\n", filename, basedir);
-#ifdef HAVE_GNOME_VFS
-	if (strchr(filename, ':') != NULL) {
+#ifdef STRIP_FILE_URI
+	if (strchr(filename, ':') != NULL) { /* it is an URI!! */
 		DEBUG_MSG("create_full_path, %s is an URI\n",filename);
-		if (strlen(filename)>7 && strncmp(filename, "file://", 7)==0) {
-			return g_strdup(filename+7);
+		if (strncmp(filename, "file://", 7)==0) {
+			return g_strdup(filename+7); /* file:// URI's are never relative paths */
 		}
-		return g_strdup(filename);
+		return g_strdup(filename); /* cannot do this on remote paths */
 	}
 #endif /* HAVE_GNOME_VFS */
 	if (g_path_is_absolute(filename)) {
