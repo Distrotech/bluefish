@@ -910,7 +910,7 @@ static void row_activated_lcb(GtkTreeView *tree, GtkTreePath *path,GtkTreeViewCo
 	} else {
 		Tfiletype *ft = get_filetype_by_filename_and_content(filename, NULL);
 		DEBUG_MSG("row_activated_lcb, file %s has type %s\n",filename, ft->type);
-		if (ft->editable) {
+		if (ft == NULL || ft->editable) {
 			doc_new_with_file(filename, FALSE);
 		} else if (strcmp(ft->type, "webimage")==0 || strcmp(ft->type, "image")==0) {
 			gchar *relfilename = create_relative_link_to(main_v->current_document->filename, filename);
