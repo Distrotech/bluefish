@@ -599,7 +599,7 @@ static Ttoolbaritem tbi[] = {
 	{"linkstylesheet...", link_clicked_lcb,90 , N_("Link to stylesheet...")},
 	{"image...", image_insert_clicked_lcb, 25, N_("Insert image...")},
 	{"thumbnail...", thumbnail_insert_clicked_lcb, 26, N_("Insert thumbnail...")},
-	{"mthumbnail...", multi_thumbnail_clicked_lcb, 26, N_("Multi thumbnail...")},
+	{"mthumbnail...", multi_thumbnail_clicked_lcb, 27, N_("Multi thumbnail...")},
 	{"dfn", dfn_clicked_lcb,  93, N_("Definition")},
 	{"code", code_clicked_lcb,  94, N_("Code")},
 	{"samp", samp_clicked_lcb,  95, N_("Sample")},
