@@ -350,42 +350,21 @@ gboolean project_save_and_close(Tbfwin *bfwin) {
 		break;
 		}		
 	}
-	/* need to save the files regardless of if the project is to be saved or not */
-	if (bfwin->documentlist && test_docs_modified(bfwin->documentlist)) {
-		DEBUG_MSG("project_save_and_close, we have changed documents!\n");
-		bfwin_close_all_documents(bfwin, TRUE);
-		if (bfwin->documentlist && test_docs_modified(bfwin->documentlist)) {
-			DEBUG_MSG("project_save_and_close, we STILL have changed documents!?!\n");
-			/* if there are still documents modified we should cancel the closing */
+	/* test if we should save */
+	if (!dont_save) {
+		if (!project_save(bfwin, FALSE)) {
+			DEBUG_MSG("project_save failed, returning\n");
 			return FALSE;
 		}
+		add_to_recent_list(bfwin,bfwin->project->filename, TRUE, TRUE);
 	}
-	/* files are saved and we are not saving the project, destroy window */
-	DEBUG_MSG("project_save_and_close, final cleanups\n");
-	if (dont_save) {
-		DEBUG_MSG("project_save_and_close, don't save, but destroy project\n");
-		file_close_all_cb(NULL,bfwin);
-		if (test_only_empty_doc_left(bfwin->documentlist)) {
-			DEBUG_MSG("project_save_and_close, all documents are closed\n");
-			project_destroy(bfwin->project);
-			setup_bfwin_for_nonproject(bfwin);
-			DEBUG_MSG("project_save_and_close, returning TRUE\n");
-			return TRUE;
-		}
+	bfwin_close_all_documents(bfwin, TRUE);
+	if (!test_only_empty_doc_left(bfwin->documentlist)) {
+		DEBUG_MSG("closing all documents failed, returning\n");
 		return FALSE;
 	}
-	/* if the project has been saved, close it up, otherwise (not saved) close the window */
-	if (bfwin->project->filename) {
-		file_close_all_cb(NULL,bfwin);
-		if (test_only_empty_doc_left(bfwin->documentlist)) {
-			DEBUG_MSG("project_save_and_close, all documents are closed\n");
-			add_to_recent_list(bfwin,bfwin->project->filename, TRUE, TRUE);
-			project_destroy(bfwin->project);
-			setup_bfwin_for_nonproject(bfwin);
-			DEBUG_MSG("project_save_and_close, returning TRUE\n");
-			return TRUE;
-		}
-	}
+	project_destroy(bfwin->project);
+	setup_bfwin_for_nonproject(bfwin);
 	DEBUG_MSG("project_save_and_close, returning TRUE\n");
 	return TRUE;
 }
