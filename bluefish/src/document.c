@@ -764,6 +764,7 @@ gint doc_get_cursor_position(Tdocument *doc) {
  **/
 void doc_set_statusbar_insovr(Tdocument *doc)
 {
+	gtk_statusbar_pop(GTK_STATUSBAR(main_v->statusbar_insovr), 0);
 	gtk_statusbar_push(GTK_STATUSBAR(main_v->statusbar_insovr), 0, (doc->overwrite_mode ? " OVR" : " INS"));
 }
 /**
@@ -778,15 +779,9 @@ void doc_set_statusbar_insovr(Tdocument *doc)
 void doc_set_statusbar_editmode_encoding(Tdocument *doc)
 {
 	gchar *msg;
-	Tfiletype *filetype = NULL;
-
-	filetype = get_filetype_by_filename_and_content(doc->filename, NULL);
-	
-	if (filetype == NULL)
-		msg = g_strdup_printf(_("  %s, %s"), "unknown", doc->encoding);
-	else 
-		msg = g_strdup_printf(_("  %s, %s"), doc->hl->type, doc->encoding);
-	
+	if (doc->hl == NULL) msg = g_strdup_printf(_("  %s, %s"), "unknown", doc->encoding);
+	else msg = g_strdup_printf(_("  %s, %s"), doc->hl->type, doc->encoding);
+	gtk_statusbar_pop(GTK_STATUSBAR(main_v->statusbar_editmode), 0);
 	gtk_statusbar_push(GTK_STATUSBAR(main_v->statusbar_editmode), 0, msg);
 	g_free(msg);		
 }
@@ -1246,6 +1241,7 @@ static void doc_update_linenumber(Tdocument *doc, GtkTextIter *iter, gint offset
 	line = gtk_text_iter_get_line(&itinsert) + 1;
 		
 	string = g_strdup_printf(_(" Line  %d"), line + offset);
+	gtk_statusbar_pop(GTK_STATUSBAR(main_v->statusbar_lncol), 0);
 	gtk_statusbar_push(GTK_STATUSBAR(main_v->statusbar_lncol), 0, string);
 	g_free(string);
 	DEBUG_MSG("doc_update_linenumber, line=%d\n", line);
