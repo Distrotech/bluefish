@@ -893,6 +893,7 @@ typedef struct {
 	GtkWidget *win;
 	GtkWidget *entry;
 	GtkWidget *check;
+	Tbfwin *bfwin;
 } Tgotoline;
 
 static void tgl_destroy_lcb(GtkWidget * widget, Tgotoline *tgl) {
@@ -911,7 +912,7 @@ static void tgl_ok_clicked_lcb(GtkWidget * widget, Tgotoline *tgl)
 	g_free(linestr);
 	
 	if (linenum > 0) {
-		doc_select_line(main_v->current_document, linenum, TRUE);
+		doc_select_line(tgl->bfwin->current_document, linenum, TRUE);
 	}
 
 	if (GTK_TOGGLE_BUTTON(tgl->check)->active) {
@@ -936,7 +937,7 @@ static void tgl_fromsel_clicked_lcb(GtkWidget * widget, Tgotoline *tgl) {
 	cb = gtk_clipboard_get(GDK_SELECTION_PRIMARY);
 	string = gtk_clipboard_wait_for_text(cb);
 	if (string) {
-		gtk_entry_set_text (GTK_ENTRY(tgl->entry), string);
+		gtk_entry_set_text(GTK_ENTRY(tgl->entry), string);
 	}
 	tgl_ok_clicked_lcb(widget, tgl);
 }
@@ -951,12 +952,12 @@ void tgl_enter_lcb (GtkWidget *widget, gpointer ud) {
      tgl_ok_clicked_lcb (widget, tgl);
 }
 
-void go_to_line_win_cb(GtkWidget * widget, gpointer data)
-{
+void go_to_line_win_cb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget) {
 	Tgotoline *tgl;
 	GtkWidget *but1, *vbox, *hbox, *label;
 	
 	tgl = g_new(Tgotoline, 1);
+	tgl->bfwin = bfwin;
 	tgl->win = window_full(_("Goto line"), GTK_WIN_POS_MOUSE
 						  ,12, G_CALLBACK(tgl_destroy_lcb), tgl, TRUE);
 	vbox = gtk_vbox_new(FALSE, 12);
@@ -991,13 +992,13 @@ void go_to_line_win_cb(GtkWidget * widget, gpointer data)
 	gtk_box_pack_start(GTK_BOX(hbox), but1, FALSE, FALSE, 0);
 	gtk_window_set_default(GTK_WINDOW(tgl->win), but1);
 
-	g_signal_connect (G_OBJECT (tgl->entry), "activate", G_CALLBACK(tgl_enter_lcb),
+	g_signal_connect(G_OBJECT (tgl->entry), "activate", G_CALLBACK(tgl_enter_lcb),
                             (gpointer *) tgl);
 
 	gtk_widget_show_all(tgl->win);
 }
 
-void go_to_line_from_selection_cb(GtkWidget * widget, gpointer data) {
+void go_to_line_from_selection_cb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget) {
 	gchar *string;
 	GtkClipboard* cb;
 	gint linenum;
@@ -1007,7 +1008,7 @@ void go_to_line_from_selection_cb(GtkWidget * widget, gpointer data) {
 	if (string) {
 		linenum = get_int_from_string(string);
 		if (linenum > 0) {
-			doc_select_line(main_v->current_document, linenum, TRUE);
+			doc_select_line(bfwin->current_document, linenum, TRUE);
 		}
 	}
 }

@@ -2965,8 +2965,8 @@ void all_documents_apply_settings() {
  *
  * Return value: void
  **/
-void doc_convert_asciichars_in_selection(gpointer callback_data,guint callback_action,GtkWidget *widget) {
-	doc_convert_chars_to_entities_in_selection(main_v->current_document, (callback_action != 2), (callback_action != 1));
+void doc_convert_asciichars_in_selection(Tbfwin *bfwin,guint callback_action,GtkWidget *widget) {
+	doc_convert_chars_to_entities_in_selection(bfwin->current_document, (callback_action != 2), (callback_action != 1));
 }
 
 /**
@@ -3096,9 +3096,9 @@ void doc_indent_selection(Tdocument *doc, gboolean unindent) {
 	}
 }
 
-void menu_indent_cb(gpointer callback_data,guint callback_action, GtkWidget  *widget) {
-	if (main_v->current_document) {
-		doc_indent_selection(main_v->current_document, (callback_action == 1));
+void menu_indent_cb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget) {
+	if (bfwin->current_document) {
+		doc_indent_selection(bfwin->current_document, (callback_action == 1));
 	}
 }
 
