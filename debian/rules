@@ -28,10 +28,10 @@ config.status: configure
 	# Add here commands to configure the package.
 	CFLAGS="$(CFLAGS)" ./configure \
 		--prefix=/usr \
-		--mandir=/usr/share/man \
-		--with-icon-path=/usr/share/pixmaps \
-		--with-freedesktop_org-menu=/usr/share/applications \
-		--with-freedesktop_org-mime=/usr/share/mime \
+		--mandir=\$${prefix}/share/man \
+		--with-icon-path=\$${prefix}/share/pixmaps \
+		--with-freedesktop_org-menu=\$${prefix}/share/applications \
+		--with-freedesktop_org-mime=\$${prefix}/share/mime \
 		--without-gnome2_4-mime \
 		--without-gnome2_4-appreg \
 		--disable-update-databases
@@ -61,7 +61,7 @@ clean:
 	-test -r /usr/share/gettext/config.rpath && \
 		cp -f /usr/share/gettext/config.rpath config.rpath
 	
-	aclocal
+	aclocal-1.7
 	autoconf
 	dh_clean
 
