@@ -21,7 +21,7 @@
 #include <stdlib.h> /* atoi */
 #include <string.h> /* strchr() */
 
-/* #define DEBUG */
+/*#define DEBUG*/
 
 #include "bluefish.h"
 #include "document.h"			/* file_open etc. */
@@ -1449,12 +1449,15 @@ typedef struct {
 	GtkWidget *region;
 	GtkWidget *matching;
 	GtkWidget *is_case_sens;
-	GList *worklist;
+/*	GList *worklist;*/
+	GList *worklist_insert;
+	GList *worklist_replace;
 } Tcmenu_editor;
 
 static void cme_destroy_lcb(GtkWidget *widget, Tcmenu_editor* cme) {
 	window_destroy(cme->win);
-	free_arraylist(cme->worklist);
+	free_arraylist(cme->worklist_insert);
+	free_arraylist(cme->worklist_replace);
 	g_free(cme);
 }
 
@@ -1463,11 +1466,10 @@ static void cme_close_lcb(GtkWidget *widget, gpointer data) {
 }
 
 static void cme_ok_lcb(GtkWidget *widget, Tcmenu_editor *cme) {
-	GList *tmplist;
-
-	tmplist = main_v->props.cust_menu;
-	main_v->props.cust_menu = cme->worklist;
-	cme->worklist = tmplist;
+	DEBUG_MSG("cme_ok_lcb, start cmenu_insert=%p, worklist_insert=%p\n",main_v->props.cmenu_insert, cme->worklist_insert);
+	pointer_switch_addresses((gpointer)&main_v->props.cmenu_insert, (gpointer)&cme->worklist_insert);
+	DEBUG_MSG("cme_ok_lcb, after cmenu_insert=%p, worklist_insert=%p\n",main_v->props.cmenu_insert, cme->worklist_insert);
+	pointer_switch_addresses((gpointer)&main_v->props.cmenu_replace, (gpointer)&cme->worklist_replace);
 	cme_destroy_lcb(NULL, cme);
 	fill_cust_menubar();
 }
@@ -1484,82 +1486,58 @@ static void cme_create_entries(Tcmenu_editor *cme, gint num) {
 	}
 }
 
+static gboolean cme_iter_at_pointer(GtkTreeIter *iter, gpointer pointer, Tcmenu_editor *cme) {
+	gpointer tmp;
+	gboolean cont;
+	cont = gtk_tree_model_get_iter_first(GTK_TREE_MODEL(cme->lstore),iter);
+	while (cont) {
+		gtk_tree_model_get(GTK_TREE_MODEL(cme->lstore),iter,2,&tmp,-1);
+		if (pointer == tmp) {
+			return TRUE;
+		}
+		cont = gtk_tree_model_iter_next(GTK_TREE_MODEL(cme->lstore),iter);
+	}
+	return FALSE;
+}
+
 static void cme_lview_selection_changed(GtkTreeSelection *selection, Tcmenu_editor *cme) {
 	GtkTreeIter iter;
 	GtkTreeModel *model;
 	if (gtk_tree_selection_get_selected (selection,&model,&iter)) {
-		GList *tmplist;
-		gchar *selected_value;
-		gchar **tmparr;
 		gint num=0, i;
 		gint type=0;
 
-		gtk_tree_model_get(model, &iter, 0, &selected_value, -1);
-		tmplist = g_list_first(cme->worklist);
-		while(tmplist) {
-			tmparr = (gchar **)tmplist->data;
-			if (strcmp(tmparr[0], selected_value)==0) {
-				cme->lastarray = (gchar **)tmplist->data;
-			}
-			tmplist = g_list_next(tmplist);
-		}
-		g_free(selected_value);
-		DEBUG_MSG("cme_clist_select_lcb, lastarray=%p, lastarray[0]=%s\n", cme->lastarray, cme->lastarray[0]);
-
-		i = count_array(cme->lastarray);
-		if (i<5) {
-			DEBUG_MSG("cme_clist_select_lcb, invalid array count! (<5)\n");
-			cme->lastarray = NULL;
-			return;
-		}
-		if (strcmp(cme->lastarray[1], "0")==0) {
-			type = 0;
-			DEBUG_MSG("cme_clist_select_lcb, type=%d\n", type);
-		}
-		if (strcmp(cme->lastarray[1], "1")==0) {
-			type = 1;
-			if (i < 8) {
-				DEBUG_MSG("cme_clist_select_lcb, invalid array count (<8 type=1)!\n");
-				cme->lastarray = NULL;
-				return;
-			}
-			DEBUG_MSG("cme_clist_select_lcb, type=%d\n", type);
-		}
-		if (type > 1) {
-			DEBUG_MSG("cme_clist_select_lcb, invalid type! (type=%d)\n", type);
-			cme->lastarray = NULL;
-			return;
-		}
+		gtk_tree_model_get(model, &iter, 1, &type, 2, &cme->lastarray, -1);
+		
+		DEBUG_MSG("cme_clist_select_lcb, lastarray=%p, lastarray[0]=%s, type=%d\n", cme->lastarray, cme->lastarray[0], type);
 
 		DEBUG_MSG("cme_clist_select_lcb, cme->lastarray[0]=%s, [i]='%s'\n", cme->lastarray[0], cme->lastarray[1]);
 		gtk_entry_set_text(GTK_ENTRY(cme->menupath), cme->lastarray[0]);
 
+		DEBUG_MSG("cme_clist_select_lcb, cme->lastarray[1]='%s'\n", cme->lastarray[1]);
+		gtk_text_buffer_set_text(cme->befb, cme->lastarray[1], -1);
+
 		DEBUG_MSG("cme_clist_select_lcb, cme->lastarray[2]='%s'\n", cme->lastarray[2]);
-		gtk_text_buffer_set_text(cme->befb, cme->lastarray[2], -1);
+		gtk_text_buffer_set_text(cme->aftb, cme->lastarray[2], -1);
 
-		DEBUG_MSG("cme_clist_select_lcb, cme->lastarray[3]='%s'\n", cme->lastarray[3]);
-		gtk_text_buffer_set_text(cme->aftb, cme->lastarray[3], -1);
-
-		DEBUG_MSG("cme_clist_select_lcb, type=%d\n", type);
 		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(cme->type[type]), TRUE);
 		if (type == 0) {
 			DEBUG_MSG("cme_clist_select_lcb, type=0, custom dialog\n");
 			gtk_widget_hide(cme->csnr_box);
 		
-			num = atoi(cme->lastarray[4]);
+			num = atoi(cme->lastarray[3]);
 			DEBUG_MSG("cme_clist_select_lcb, num=%d\n", num);
 			gtk_spin_button_set_value(GTK_SPIN_BUTTON(cme->num), num);
 	
 			cme_create_entries(cme, num);
 			DEBUG_MSG("cme_clist_select_lcb, %d entries created\n", num);
 			for (i = 0 ; i < num; i++) {
-				gtk_entry_set_text(GTK_ENTRY(cme->descriptions[i]), cme->lastarray[i+5]);
+				gtk_entry_set_text(GTK_ENTRY(cme->descriptions[i]), cme->lastarray[i+4]);
 			}
 			for (i = num ; i < MAX_TEXT_ENTRY; i++) {
 				gtk_entry_set_text(GTK_ENTRY(cme->descriptions[i]), "");
 			}
-		}
-		if (type == 1) {
+		} else if (type == 1) {
 			static Tconvert_table table1[] = {{0, "0"}, {1, "1"}, {0, NULL}};
 			static Tconvert_table table2[] = {{0, N_("in current document")}, {1, N_("from cursor")}, {2, N_("in selection")}, {3, N_("in all open documents")}, {0,NULL}};
 			static Tconvert_table table3[] = {{0, N_("normal")}, {1, N_("posix regular expressions")}, {2, N_("perl regular expressions")}, {0, NULL}};
@@ -1567,33 +1545,33 @@ static void cme_lview_selection_changed(GtkTreeSelection *selection, Tcmenu_edit
 			gchar *convertc;
 			DEBUG_MSG("cme_clist_select_lcb, type=1, custom search and replace\n");
 			gtk_widget_show(cme->csnr_box);
-			DEBUG_MSG("cme_clist_select_lcb, cme->lastarray[5]=%s\n", cme->lastarray[5]);
+			DEBUG_MSG("cme_clist_select_lcb, cme->lastarray[4]=%s\n", cme->lastarray[4]);
 			
 			gtk_editable_delete_text(GTK_EDITABLE(GTK_COMBO(cme->matching)->entry), 0, -1);
-			converti = atoi(cme->lastarray[5]);
+			converti = atoi(cme->lastarray[4]);
 			convertc = table_convert_int2char(table3, converti);
 			if (convertc) {
 				gint pos=0;
 				gtk_editable_insert_text(GTK_EDITABLE(GTK_COMBO(cme->matching)->entry), convertc, strlen(convertc), &pos);
 			}
 
-			DEBUG_MSG("cme_clist_select_lcb, cme->lastarray[6]=%s\n", cme->lastarray[6]);
-			gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(cme->is_case_sens), table_convert_char2int(table1, cme->lastarray[6]));
+			DEBUG_MSG("cme_clist_select_lcb, cme->lastarray[5]=%s\n", cme->lastarray[5]);
+			gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(cme->is_case_sens), table_convert_char2int(table1, cme->lastarray[5]));
 			
 			gtk_editable_delete_text(GTK_EDITABLE(GTK_COMBO(cme->region)->entry), 0, -1);
-			converti = atoi(cme->lastarray[4]);
+			converti = atoi(cme->lastarray[3]);
 			convertc = table_convert_int2char(table2, converti);
 			if (convertc) {
 				gint pos=0;
 				gtk_editable_insert_text(GTK_EDITABLE(GTK_COMBO(cme->region)->entry), convertc, strlen(convertc), &pos);
 			}
 
-			num = atoi(cme->lastarray[7]);
+			num = atoi(cme->lastarray[6]);
 			gtk_spin_button_set_value(GTK_SPIN_BUTTON(cme->num), num);
 	
 			cme_create_entries(cme, num);
 			for (i = 0 ; i < num; i++) {
-				gtk_entry_set_text(GTK_ENTRY(cme->descriptions[i]), cme->lastarray[i+8]);
+				gtk_entry_set_text(GTK_ENTRY(cme->descriptions[i]), cme->lastarray[i+7]);
 			}
 			for (i = num ; i < MAX_TEXT_ENTRY; i++) {
 				gtk_entry_set_text(GTK_ENTRY(cme->descriptions[i]), "");
@@ -1649,15 +1627,25 @@ static gchar **cme_create_array(Tcmenu_editor *cme, gboolean is_update) {
 		type = 0;
 	}
 	if (type == 0) {
-		newarray = g_malloc0((num+6) * sizeof(char *));
+		newarray = g_malloc0((num+5) * sizeof(char *));
 	} else {
-		newarray = g_malloc0((num+9) * sizeof(char *));
+		newarray = g_malloc0((num+8) * sizeof(char *));
 	}
 	DEBUG_MSG("cme_create_array, newarray at %p\n",newarray);
 	newarray[0] = gtk_editable_get_chars(GTK_EDITABLE(cme->menupath), 0, -1);
 	{
 		gboolean invalid=is_update;
-		GList *tmplist = g_list_first(cme->worklist);
+		GList *tmplist = g_list_first(cme->worklist_insert);
+		while (tmplist) {
+			gchar **tmparr = (gchar **)tmplist->data;
+			if (strcmp(tmparr[0],newarray[0])==0) {
+				/* if it is an update they path should exist already, else is should not */
+				invalid = (!is_update);
+				break;
+			}
+			tmplist = g_list_next(tmplist);
+		}
+		tmplist = g_list_first(cme->worklist_replace);
 		while (tmplist) {
 			gchar **tmparr = (gchar **)tmplist->data;
 			if (strcmp(tmparr[0],newarray[0])==0) {
@@ -1686,49 +1674,45 @@ static gchar **cme_create_array(Tcmenu_editor *cme, gboolean is_update) {
 		}
 	}
 	if (type == 0) {
-		newarray[1] = g_strdup("0");
-
-		newarray[4] = gtk_editable_get_chars(GTK_EDITABLE(cme->num), 0, -1);
-		DEBUG_MSG("cme_create_array, newarray[4]=%s\n", newarray[4]);
+		newarray[3] = gtk_editable_get_chars(GTK_EDITABLE(cme->num), 0, -1);
 		for (i = 0 ; i < num; i++) {
-			DEBUG_MSG("cme_create_array, adding descriptions[%d] to newarray[%d]\n", i, i+5);
-			newarray[5+i] = gtk_editable_get_chars(GTK_EDITABLE(cme->descriptions[i]), 0, -1);
+			DEBUG_MSG("cme_create_array, adding descriptions[%d] to newarray[%d]\n", i, i+4);
+			newarray[4+i] = gtk_editable_get_chars(GTK_EDITABLE(cme->descriptions[i]), 0, -1);
 		}
-		DEBUG_MSG("cme_create_array, setting newarray[%d] to NULL\n",i+5);
-		newarray[5+i] = NULL;
+		DEBUG_MSG("cme_create_array, setting newarray[%d] to NULL\n",i+4);
+		newarray[4+i] = NULL;
 	} else {
 		static Tconvert_table table2[] = {{0, N_("in current document")}, {1, N_("from cursor")}, {2, N_("in selection")}, {3, N_("in all open documents")}, {0,NULL}};
 		static Tconvert_table table3[] = {{0, N_("normal")}, {1, N_("posix regular expresions")}, {2, N_("perl regular expresions")}, {0, NULL}};
 		gint converti;
 		gchar *convertc;
-		newarray[1] = g_strdup("1");
 		convertc = gtk_editable_get_chars(GTK_EDITABLE(GTK_COMBO(cme->region)->entry), 0, -1);
 		converti = table_convert_char2int(table2, convertc);
 		g_free(convertc);
-		newarray[4] = g_strdup_printf("%d", converti);
+		newarray[3] = g_strdup_printf("%d", converti);
 
 		convertc = gtk_editable_get_chars(GTK_EDITABLE(GTK_COMBO(cme->matching)->entry), 0, -1);
 		converti = table_convert_char2int(table3, convertc);
 		g_free(convertc);
-		newarray[5] = g_strdup_printf("%d", converti);
+		newarray[4] = g_strdup_printf("%d", converti);
 		
-		newarray[6] = g_strdup_printf("%d", GTK_TOGGLE_BUTTON(cme->is_case_sens)->active);
+		newarray[5] = g_strdup_printf("%d", GTK_TOGGLE_BUTTON(cme->is_case_sens)->active);
 	
-		newarray[7] = gtk_editable_get_chars(GTK_EDITABLE(cme->num), 0, -1);
-		DEBUG_MSG("cme_create_array, newarray[7]=%s\n", newarray[7]);
+		newarray[6] = gtk_editable_get_chars(GTK_EDITABLE(cme->num), 0, -1);
+		DEBUG_MSG("cme_create_array, newarray[6]=%s\n", newarray[6]);
 		for (i = 0 ; i < num; i++) {
-			DEBUG_MSG("cme_create_array, adding descriptions[%d] to newarray[%d]\n", i, i+8);
-			newarray[8+i] = gtk_editable_get_chars(GTK_EDITABLE(cme->descriptions[i]), 0, -1);
+			DEBUG_MSG("cme_create_array, adding descriptions[%d] to newarray[%d]\n", i, i+7);
+			newarray[7+i] = gtk_editable_get_chars(GTK_EDITABLE(cme->descriptions[i]), 0, -1);
 		}
-		DEBUG_MSG("cme_create_array, setting newarray[%d] to NULL\n",i+8);
-		newarray[8+i] = NULL;
+		DEBUG_MSG("cme_create_array, setting newarray[%d] to NULL\n",i+7);
+		newarray[7+i] = NULL;
 	}
 	{
 		GtkTextIter itstart, itend;
 		gtk_text_buffer_get_bounds(cme->befb,&itstart,&itend);
-		newarray[2] = gtk_text_buffer_get_text(cme->befb,&itstart,&itend, FALSE);
+		newarray[1] = gtk_text_buffer_get_text(cme->befb,&itstart,&itend, FALSE);
 		gtk_text_buffer_get_bounds(cme->aftb,&itstart,&itend);
-		newarray[3] = gtk_text_buffer_get_text(cme->aftb,&itstart,&itend, FALSE);
+		newarray[2] = gtk_text_buffer_get_text(cme->aftb,&itstart,&itend, FALSE);
 	}
 
 	return newarray;
@@ -1738,11 +1722,16 @@ static void cme_add_lcb(GtkWidget *widget, Tcmenu_editor *cme) {
 	gchar **newarray;
 	newarray = cme_create_array(cme, FALSE);
 	if (newarray != NULL){
-	   GtkTreeIter iter;
+		GtkTreeIter iter;
 		GtkTreeSelection *gtsel;
-		cme->worklist = g_list_append(cme->worklist, newarray);
-	   gtk_list_store_append(GTK_LIST_STORE(cme->lstore),&iter);
-		gtk_list_store_set(GTK_LIST_STORE(cme->lstore),&iter,0,newarray[0], -1);
+		gint type = GTK_TOGGLE_BUTTON(cme->type[1])->active;
+		if (type) {
+			cme->worklist_insert = g_list_append(cme->worklist_insert, newarray);
+		} else {
+			cme->worklist_replace = g_list_append(cme->worklist_replace, newarray);
+		}
+		gtk_list_store_append(GTK_LIST_STORE(cme->lstore),&iter);
+		gtk_list_store_set(GTK_LIST_STORE(cme->lstore),&iter,0,newarray[0],1,type,2,newarray,-1);
 		cme->lastarray = newarray;
 		gtsel = gtk_tree_view_get_selection(GTK_TREE_VIEW(cme->lview));
 		gtk_tree_selection_select_iter(gtsel,&iter);
@@ -1750,31 +1739,41 @@ static void cme_add_lcb(GtkWidget *widget, Tcmenu_editor *cme) {
 }
 
 static void cme_update_lcb(GtkWidget *widget, Tcmenu_editor *cme) {
-	GList *tmplist;
 	gchar **newarray;
-	gint row;
-
 	if (cme->lastarray == NULL) {
 		cme_add_lcb(NULL, cme);
 		return;
 	}
-
 	newarray = cme_create_array(cme, TRUE);
 	if (newarray) {
-
-		row = g_list_index(cme->worklist, cme->lastarray);
-		tmplist = g_list_nth(cme->worklist, row);
-		g_strfreev(cme->lastarray);
-		DEBUG_MSG ("cme_update_lcb, row=%d\n", row);
-
-		tmplist->data = newarray;
-		{
-			GtkTreeIter iter;
-			gtk_tree_model_iter_nth_child(GTK_TREE_MODEL(cme->lstore),&iter,NULL,row);
-			gtk_list_store_set(GTK_LIST_STORE(cme->lstore),&iter,0,newarray[0], -1);
+		GtkTreeIter iter;
+		if (cme_iter_at_pointer(&iter, cme->lastarray, cme)) {
+			gint newtype, oldtype;
+			gtk_tree_model_get(GTK_TREE_MODEL(cme->lstore),&iter,1,&oldtype,-1);
+			newtype = GTK_TOGGLE_BUTTON(cme->type[1])->active;
+			gtk_list_store_set(GTK_LIST_STORE(cme->lstore),&iter,0,newarray[0],1,newtype,2,newarray,-1);
+			if (oldtype == 0) {
+				if (newtype == 1) {
+					cme->worklist_insert = g_list_remove(cme->worklist_insert, cme->lastarray);
+					cme->worklist_replace = g_list_append(cme->worklist_replace, newarray);
+				} else {
+					GList *tmplist = g_list_find(cme->worklist_insert,cme->lastarray);
+					tmplist->data = newarray;
+				}
+			} else if (oldtype == 1) {
+				if (newtype == 0) {
+					cme->worklist_replace = g_list_remove(cme->worklist_replace, cme->lastarray);
+					cme->worklist_insert = g_list_append(cme->worklist_insert, newarray);
+				} else {
+					GList *tmplist = g_list_find(cme->worklist_replace,cme->lastarray);
+					tmplist->data = newarray;
+				}
+			}
+		} else {
+			DEBUG_MSG("cme_update_lcb, cannot find iter for pointer %p\n",cme->lastarray);
 		}
-
-		cme->lastarray = g_list_nth_data(cme->worklist, row);
+		g_strfreev(cme->lastarray);
+		cme->lastarray = newarray;
 	} else {
 		DEBUG_MSG ("cme_update_lcb, no new array, cancelled\n");
 	}
@@ -1782,22 +1781,23 @@ static void cme_update_lcb(GtkWidget *widget, Tcmenu_editor *cme) {
 }
 
 static void cme_delete_lcb(GtkWidget *widget, Tcmenu_editor *cme) {
-	gint row;
-	gchar **array;
-	
 	if (cme->lastarray) {
-		array = cme->lastarray;
-		DEBUG_MSG("cme_delete_lcb, delete lastarray %p\n", array);
-		row = g_list_index(cme->worklist, array);
-		DEBUG_MSG("cme_delete_lcb, g_list_length=%d\n", g_list_length(cme->worklist));
-		cme->worklist = g_list_remove(cme->worklist, array);
-		DEBUG_MSG("cme_delete_lcb, row=%d, g_list_length=%d\n", row, g_list_length(cme->worklist));
-		{
-			GtkTreeIter iter;
-			gtk_tree_model_iter_nth_child(GTK_TREE_MODEL(cme->lstore),&iter,NULL,row);
+		GtkTreeIter iter;
+		if (cme_iter_at_pointer(&iter, cme->lastarray, cme)) {
+			gint type;
+			gtk_tree_model_get(GTK_TREE_MODEL(cme->lstore),&iter,1,&type,-1);
 			gtk_list_store_remove(GTK_LIST_STORE(cme->lstore),&iter);
+			if (type == 0) {
+				cme->worklist_insert = g_list_remove(cme->worklist_insert, cme->lastarray);
+			} else if (type == 1) {
+				cme->worklist_replace = g_list_remove(cme->worklist_replace, cme->lastarray);
+			} else {
+				DEBUG_MSG("type=%d ???\n",type);
+			}
+		} else {
+			DEBUG_MSG("no iter can be found for pointer %p?!?\n",cme->lastarray);
 		}
-		g_strfreev(array);
+		g_strfreev(cme->lastarray);
 		cme->lastarray = NULL;
 	} else {
 		DEBUG_MSG("cme_delete_lcb, lastarray=NULL, nothing to delete\n");
@@ -1812,7 +1812,6 @@ void cmenu_editor(GtkWidget *widget, gpointer data) {
 	Tcmenu_editor *cme;
 	GtkWidget *hbox, *vbox, *frame, *vbox2, *vbox3, *hbox2, *label, *toolbar;
 	GList *tmplist, *popuplist;
-	gchar **splittedstring;
 	gint i;
 	gchar *tmpstr;
 	
@@ -1864,9 +1863,9 @@ void cmenu_editor(GtkWidget *widget, gpointer data) {
 		GtkWidget *scrolwin;
 		GtkTreeViewColumn *column;
 		GtkTreeSelection *select;
-	   GtkCellRenderer *renderer = gtk_cell_renderer_text_new ();
+		GtkCellRenderer *renderer = gtk_cell_renderer_text_new ();
 
-		cme->lstore = gtk_list_store_new (1, G_TYPE_STRING);
+		cme->lstore = gtk_list_store_new (3, G_TYPE_STRING, G_TYPE_BOOLEAN, G_TYPE_POINTER);
 		cme->lview = gtk_tree_view_new_with_model(GTK_TREE_MODEL(cme->lstore));
 
 		column = gtk_tree_view_column_new_with_attributes ("Menu path", renderer,"text", 0,NULL);
@@ -1973,22 +1972,27 @@ void cmenu_editor(GtkWidget *widget, gpointer data) {
 	}
 	
 	/* ready !! */
-	cme->worklist = duplicate_arraylist(main_v->props.cust_menu);
-	cme->worklist = g_list_sort(cme->worklist, (GCompareFunc)menu_entry_sort);
-	tmplist = g_list_first(cme->worklist);
-	while (tmplist) {
+	cme->worklist_insert = duplicate_arraylist(main_v->props.cmenu_insert);
+	cme->worklist_replace = duplicate_arraylist(main_v->props.cmenu_replace);
+	cme->worklist_insert = g_list_sort(cme->worklist_insert, (GCompareFunc)menu_entry_sort);
+	cme->worklist_replace = g_list_sort(cme->worklist_replace, (GCompareFunc)menu_entry_sort);
+	{
 		GtkTreeIter iter;
-		splittedstring = (gchar **) tmplist->data;
-		if (count_array(splittedstring) >= 5) {
-			DEBUG_MSG("cmenu_editor, adding '%s'\n", splittedstring[0]);
+		tmplist = g_list_first(cme->worklist_insert);
+		while (tmplist) {
+			DEBUG_MSG("cmenu_editor, adding type 0 '%s'\n", *(gchar **)tmplist->data);
 			gtk_list_store_append(GTK_LIST_STORE(cme->lstore), &iter);
-			gtk_list_store_set(GTK_LIST_STORE(cme->lstore), &iter, 0, splittedstring[0], -1);
-		} else {
-			DEBUG_MSG("cmenu_editor, NOT adding '%s', not a valid array_count (%d)\n", splittedstring[0], count_array(splittedstring));
+			gtk_list_store_set(GTK_LIST_STORE(cme->lstore), &iter, 0, *(gchar **)tmplist->data, 1, 0, 2, tmplist->data, -1); /* the name , the type, the pointer */
+			tmplist = g_list_next(tmplist);
 		}
-		tmplist = g_list_next(tmplist);
+		tmplist = g_list_first(cme->worklist_replace);
+		while (tmplist) {
+			DEBUG_MSG("cmenu_editor, adding type 1 '%s'\n", *(gchar **)tmplist->data);
+			gtk_list_store_append(GTK_LIST_STORE(cme->lstore), &iter);
+			gtk_list_store_set(GTK_LIST_STORE(cme->lstore), &iter, 0, *(gchar **)tmplist->data, 1, 1, 2, tmplist->data, -1); /* the name , the type, the pointer */
+			tmplist = g_list_next(tmplist);
+		}
 	}
-	DEBUG_MSG("cmenu_editor, worklist length=%d\n", g_list_length(cme->worklist));
 	gtk_widget_show_all(cme->win);
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(cme->type[0]), TRUE);
 	cme_type_changed_lcb(NULL, cme);
