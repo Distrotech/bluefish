@@ -1,9 +1,9 @@
 %define	desktop_vendor 	endur
 %define name  		bluefish
 %define version		gtk2
-%define release 	20041228
+%define release 	20050105
 %define epoch 		1
-%define source		bluefish-2004-12-28
+%define source		bluefish-2005-01-05
 
 
 Summary:	A GTK2 web development application for experienced users.
@@ -40,8 +40,6 @@ support.
 
 %install
 %{__rm} -rf %{buildroot}
-mkdir -p %{buildroot}%{_datadir}/{applications,mime,pixmaps}
-mkdir -p %{buildroot}%{_datadir}/mime/packages
 make install DESTDIR=%{buildroot}
 
 %find_lang %{name}
@@ -74,10 +72,12 @@ update-desktop-database -q || :
 %{_bindir}/bluefish
 %{_datadir}/bluefish
 %{_datadir}/applications/*.desktop
-%{_datadir}/mime/packages/*
+%{_datadir}/application-registry/*
+%{_datadir}/mime/*
+%{_datadir}/mime-info/*
 %{_datadir}/pixmaps/*.png
 
 
 %changelog
-* Wed Dec 29 2004 Matthias Haase <matthias_haase@bennewitz.com>
-- Automatic build - snapshot of 2004-12-28
+* Thu Jan 06 2005 Matthias Haase <matthias_haase@bennewitz.com>
+- Automatic build - snapshot of 2005-01-05
