@@ -820,7 +820,7 @@ gboolean doc_file_to_textbox(Tdocument * doc, gchar * filename, gboolean enable_
 {
 	FILE *fd;
 	gchar *errmessage, *message;
-	gint cursor_offset;
+	gint cursor_offset, document_size=0;
 
 	if (!enable_undo) {
 		doc_unbind_signals(doc);
@@ -876,6 +876,7 @@ gboolean doc_file_to_textbox(Tdocument * doc, gchar * filename, gboolean enable_
 			} else {
 				DEBUG_MSG("size=%d, terminating buffer at %d\n",size,buffer_size-STARTING_BUFFER_SIZE+size);
 				buffer[buffer_size-STARTING_BUFFER_SIZE+size] = '\0';
+				document_size= buffer_size-STARTING_BUFFER_SIZE+size;
 				break;
 			}
 		}
@@ -898,7 +899,15 @@ gboolean doc_file_to_textbox(Tdocument * doc, gchar * filename, gboolean enable_
 				g_print("regcomp error!\n");
 			}
 #endif
-			retval = regexec(&preg,buffer,10,pmatch,0);
+			/* we do a nasty trick to make regexec search only in the first 300 bytes */
+			if (document_size > 300) {
+				gchar tmp = buffer[300];
+				buffer[300] = '\0';
+				retval = regexec(&preg,buffer,10,pmatch,0);
+				buffer[300] = tmp;
+			} else {
+				retval = regexec(&preg,buffer,10,pmatch,0);
+			}
 #ifdef DEBUG
 			if (retval) {
 				gchar errbuf[1024];
