@@ -287,22 +287,22 @@ Tsearch_result search_backend(gchar *pattern, gint matchtype, gint is_case_sens,
 	}
 	
 	/* for multibyte characters */
-	utf8_offset_cache_reset();
-	if (returnvalue.bstart >= 0) {
-		returnvalue.start = utf8_byteoffset_to_charsoffset_cached(buf, returnvalue.bstart);
-	}
-	if (returnvalue.bend >= 0) {
-		returnvalue.end = utf8_byteoffset_to_charsoffset_cached(buf, returnvalue.bend);
-	}
-	if (want_submatches) {
-		int i;
-		for (i=0;i<returnvalue.nmatch;i++) {
-			returnvalue.pmatch[i].rm_so = utf8_byteoffset_to_charsoffset_cached(buf, returnvalue.pmatch[i].rm_so);
-			returnvalue.pmatch[i].rm_eo = utf8_byteoffset_to_charsoffset_cached(buf, returnvalue.pmatch[i].rm_eo);
+	if (returnvalue.start >= 0 && returnvalue.end >= 0) {
+		utf8_offset_cache_reset();
+		if (returnvalue.bstart >= 0) {
+			returnvalue.start = utf8_byteoffset_to_charsoffset_cached(buf, returnvalue.bstart);
 		}
-	}
-
-	if (returnvalue.start < 0 || returnvalue.end < 0) {
+		if (returnvalue.bend >= 0) {
+			returnvalue.end = utf8_byteoffset_to_charsoffset_cached(buf, returnvalue.bend);
+		}
+		if (want_submatches) {
+			int i;
+			for (i=0;i<returnvalue.nmatch;i++) {
+				returnvalue.pmatch[i].rm_so = utf8_byteoffset_to_charsoffset_cached(buf, returnvalue.pmatch[i].rm_so);
+				returnvalue.pmatch[i].rm_eo = utf8_byteoffset_to_charsoffset_cached(buf, returnvalue.pmatch[i].rm_eo);
+			}
+		}
+	} else {
 		returnvalue.start = -1;
 		returnvalue.end = -1;
 		returnvalue.bstart = -1;
