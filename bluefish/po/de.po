@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: bluefish gtk2-port\n"
-"POT-Creation-Date: 2004-10-19 14:29+0200\n"
+"POT-Creation-Date: 2004-10-21 09:36+0200\n"
 "PO-Revision-Date: 2002-12-13 23:02+0100\n"
 "Last-Translator: Roland Steinbach <roland@netzblick.de>\n"
 "Language-Team: Not a member <LL@li.org>\n"
@@ -429,68 +429,76 @@ msgstr "Kann Datei \"%s\" nicht finden."
 msgid "This bookmark is set in a file that no longer exists."
 msgstr "Die Datei dieses Bookmarks gibt es nicht mehr."
 
-#: ../src/bookmark.c:585
+#: ../src/bookmark.c:610
+#, c-format
+msgid "Do you really want to delete all bookmarks for %s?"
+msgstr "Wirklich alle Lesezeichen von %s löschen?"
+
+#: ../src/bookmark.c:611
+msgid "Delete bookmarks?"
+msgstr "Lesezeichen löschen?"
+
+#: ../src/bookmark.c:640
 #, c-format
 msgid "Do you really want to delete %s?"
 msgstr "Datei %s wirklich löschen?"
 
-#: ../src/bookmark.c:587
+#: ../src/bookmark.c:642
 msgid "Delete permanent bookmark."
 msgstr "Permanentes Lesezeichen löschen "
 
-#: ../src/bookmark.c:604
+#: ../src/bookmark.c:659
 msgid "Edit bookmark"
 msgstr "Bearbeite Lesezeichen"
 
-#: ../src/bookmark.c:618
+#: ../src/bookmark.c:673
 msgid "Goto bookmark"
 msgstr "Gehe zu Lesezeichen"
 
-#: ../src/bookmark.c:626
+#: ../src/bookmark.c:681
 msgid "Edit"
 msgstr "Bearbeiten"
 
-#: ../src/bookmark.c:630
+#: ../src/bookmark.c:685
 msgid "Delete"
 msgstr "Löschen"
 
-#: ../src/bookmark.c:635
+#: ../src/bookmark.c:691
+msgid "Delete all in document"
+msgstr "Alle im Dokument löschen"
+
+#: ../src/bookmark.c:696
 msgid "Delete all"
 msgstr "Alle Löschen"
 
-#: ../src/bookmark.c:1211 ../src/bookmark.c:1228 ../src/bookmark.c:1264
+#: ../src/bookmark.c:1276 ../src/bookmark.c:1293 ../src/bookmark.c:1329
 #: ../src/document.c:2022
 msgid "Add bookmark"
 msgstr "Lesezeichen hinzufügen"
 
-#: ../src/bookmark.c:1212 ../src/bookmark.c:1265
+#: ../src/bookmark.c:1277 ../src/bookmark.c:1330
 msgid "Cannot add bookmarks in unnamed files."
 msgstr "Kann Lesezeichen nicht in namenlose Dateien einfügen."
 
-#: ../src/bookmark.c:1229
+#: ../src/bookmark.c:1294
 msgid "You already have a bookmark here!"
 msgstr "Hier ist bereits ein Lesezeichen!"
 
-#: ../src/bookmark.c:1287
+#: ../src/bookmark.c:1367
 msgid "Delete all bookmarks."
 msgstr "Alle Lesezeichen löschen."
 
-#: ../src/bookmark.c:1287
+#: ../src/bookmark.c:1367
 msgid "Are you sure?"
 msgstr "Sind Sie sicher?"
 
-#: ../src/bookmark.c:1337
-#, c-format
-msgid ""
-"Character count changed in file\n"
-" %s."
-msgstr ""
-"Zeichenzahl in Datei geändert\n"
-" %s."
+#: ../src/bookmark.c:1409
+msgid "File size changed in file\n"
+msgstr "Dateigröße geändert\n"
 
-#: ../src/bookmark.c:1339
-msgid "Bookmarks positions could be incorrect."
-msgstr "Lesezeichenpositionen könnten fehlerhaft sein."
+#: ../src/bookmark.c:1410
+msgid "Bookmarks positions could be incorrect. Delete bookmarks?"
+msgstr "Lesezeichenpositionen könnten fehlerhaft sein. Lesezeichen löschen?"
 
 #: ../src/document.c:260
 msgid "/Document/Highlight Syntax"
@@ -816,7 +824,7 @@ msgstr "<b>Allgemein</b>"
 msgid "Base_dir:"
 msgstr "Hauptverzeichnis:"
 
-#: ../src/document.c:3381 ../src/gtk_easy.c:1298
+#: ../src/document.c:3381 ../src/gtk_easy.c:1305
 msgid "_Browse..."
 msgstr "_Browsen..."
 
@@ -848,7 +856,7 @@ msgstr "URL Öffnen"
 msgid "<b>Open URL</b>"
 msgstr "<b>URL Öffnen</b>"
 
-#: ../src/document.c:3601 ../src/gtk_easy.c:1594
+#: ../src/document.c:3601 ../src/gtk_easy.c:1601
 msgid "Select files"
 msgstr "Dateien wählen"
 
@@ -967,7 +975,7 @@ msgstr "Sicherungsdateien anzeigen"
 msgid "Filter"
 msgstr "Filter"
 
-#: ../src/filebrowser.c:1651 ../src/gtk_easy.c:1376
+#: ../src/filebrowser.c:1651 ../src/gtk_easy.c:1383
 msgid "All files"
 msgstr "Alle Dateien"
 
@@ -1045,20 +1053,20 @@ msgstr "Zeige Info-Fenster"
 msgid "Search"
 msgstr "Suchen"
 
-#: ../src/gtk_easy.c:1154
+#: ../src/gtk_easy.c:1161
 #, c-format
 msgid "%d of %d"
 msgstr "%d von %d"
 
-#: ../src/gtk_easy.c:1240
+#: ../src/gtk_easy.c:1247
 msgid "Select File"
 msgstr "Datei wählen"
 
-#: ../src/gtk_easy.c:1369
+#: ../src/gtk_easy.c:1376
 msgid "Show hidden"
 msgstr "Versteckte anzeigen"
 
-#: ../src/gtk_easy.c:1567
+#: ../src/gtk_easy.c:1574
 msgid "Select file"
 msgstr "Datei wählen"
 
@@ -1537,6 +1545,31 @@ msgstr "_Dialog erhalten"
 #: ../src/gui.c:1466
 msgid "starting bluefish"
 msgstr "Starte bluefish..."
+
+#: ../src/highlight.c:354 ../src/highlight.c:366 ../src/highlight.c:393
+#: ../src/highlight.c:403
+msgid "Syntax highlighting error for "
+msgstr "Syntaxhighlightingfehler bei "
+
+#: ../src/highlight.c:355
+#, c-format
+msgid "compiling pattern '%s': %s at offset %d"
+msgstr "Kompiliere Muster '%s': %s bei Offset %d"
+
+#: ../src/highlight.c:367
+#, c-format
+msgid "studying pattern '%s': %s"
+msgstr "Prüfe Muster '%s': %s"
+
+#: ../src/highlight.c:394
+#, c-format
+msgid "compiling 2nd pattern '%s': %s at offset %d"
+msgstr "Kompiliere 2. Muster '%s': %s bei Offset %d"
+
+#: ../src/highlight.c:404
+#, c-format
+msgid "studying 2nd pattern '%s': %s"
+msgstr "Prüfe 2. Muster '%s': %s"
 
 #: ../src/html.c:392
 msgid "Insert Time"
