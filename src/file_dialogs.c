@@ -534,11 +534,29 @@ void file_save_all_cb(GtkWidget * widget, Tbfwin *bfwin) {
 	}
 }
 
+static void doc_cancel_fileaction(gpointer action) {
+	if (action) {
+		DEBUG_MSG("doc_cancel_fileaction, really cancel async operation!\n");
+		gnome_vfs_async_cancel(((Tfileaction *)action)->handle);
+	}
+}
+
 void doc_close_single_backend(Tdocument *doc, gboolean close_window) {
 	if (doc_is_empty_non_modified_and_nameless(doc) && g_list_length(BFWIN(doc->bfwin)->documentlist) <=1) {
 		if (close_window) {
 			gtk_widget_destroy(BFWIN(doc->bfwin)->main_window);
 		}
+		return;
+	}
+	if (doc->action.load != NULL || doc->action.info != NULL) {
+		/* we should cancel the action now..., and then let the callbacks close it... 	*/
+		DEBUG_MSG("doc_close_single_backend, cancel any running load/info operations\n");
+		doc_cancel_fileaction(doc->action.load);
+		doc_cancel_fileaction(doc->action.info);
+		/* we will not cancel save operations, because it might corrupt the file, let 
+		them just timeout */
+		doc->action.close_doc = TRUE;
+		doc->action.close_window = close_window;
 		return;
 	}
 	if (doc->modified) {

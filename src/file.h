@@ -45,6 +45,10 @@ typedef enum {
 	CHECKMODIFIED_OK
 } Tcheckmodified_status;
 
+typedef struct {
+	GnomeVFSAsyncHandle *handle;
+} Tfileaction; /* we can typecast all different actions that start with a GnomeVFSAsyncHandle * as Tfileaction */
+
 typedef void (* CheckmodifiedAsyncCallback) (Tcheckmodified_status status,gint error_info,GnomeVFSFileInfo *orig, GnomeVFSFileInfo *new, gpointer callback_data);
 typedef TcheckNsave_return (* CheckNsaveAsyncCallback) (TcheckNsave_status status,gint error_info,gpointer callback_data);
 

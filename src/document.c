@@ -656,13 +656,6 @@ gboolean doc_is_empty_non_modified_and_nameless(Tdocument *doc) {
 	return TRUE;
 }
 
-
-/* gboolean test_docs_modified(GList *doclist)
- * if doclist is NULL it will use main_v->documentlist as doclist
- * returns TRUE if there are any modified documents in doclist
- * returns FALSE if there are no modified documents in doclist
- */
-
 /**
  * test_docs_modified:
  * @doclist: a #GList with documents
@@ -673,17 +666,10 @@ gboolean doc_is_empty_non_modified_and_nameless(Tdocument *doc) {
  **/
  
 gboolean test_docs_modified(GList *doclist) {
-
 	GList *tmplist;
 	Tdocument *tmpdoc;
 
-	if (doclist) {
-		tmplist = g_list_first(doclist);
-	} else {
-		g_print("test_docs_modified, calling without a doclist is deprecated, aborting\n");
-		exit(144);
-	}
-	
+	tmplist = g_list_first(doclist);
 	while (tmplist) {
 		tmpdoc = (Tdocument *) tmplist->data;
 #ifdef DEBUG
