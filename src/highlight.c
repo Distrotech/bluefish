@@ -426,25 +426,23 @@ void filetype_highlighting_rebuild() {
 
 	/* first remove the menu widgets, and delete the filetype structs */
 	DEBUG_MSG("filetype_highlighting_rebuild, testing for filetypelist existance\n");
-	if (main_v->filetypelist) {
-		tmplist = g_list_first(main_v->filetypelist);
-		while (tmplist) {
-			Tfiletype *filetype = (Tfiletype *)tmplist->data;
-			filetype_menu_destroy(filetype);
-			g_free(filetype->type);
-			g_strfreev(filetype->extensions);
-			g_free(filetype->update_chars);
-			if (filetype->icon) {
-				g_object_unref(filetype->icon);
-			}
-			g_free(filetype->content_regex);
-			/* the highlightpatterns are freed separately, see below */
-			g_free(filetype);
-			tmplist = g_list_next(tmplist);
+	filetype_menus_empty();
+	tmplist = g_list_first(main_v->filetypelist);
+	while (tmplist) {
+		Tfiletype *filetype = (Tfiletype *)tmplist->data;
+		g_free(filetype->type);
+		g_strfreev(filetype->extensions);
+		g_free(filetype->update_chars);
+		if (filetype->icon) {
+			g_object_unref(filetype->icon);
 		}
-		g_list_free(main_v->filetypelist);
-		main_v->filetypelist = NULL;
+		g_free(filetype->content_regex);
+		/* the highlightpatterns are freed separately, see below */
+		g_free(filetype);
+		tmplist = g_list_next(tmplist);
 	}
+	g_list_free(main_v->filetypelist);
+	main_v->filetypelist = NULL;
 
 	DEBUG_MSG("filetype_highlighting_rebuild, testing for metapattern existence\n");
 	if (highlight.all_highlight_patterns) {

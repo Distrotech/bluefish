@@ -22,7 +22,7 @@
  */
 /* 
  * Changes by Antti-Juhani Kaijanaho <gaia@iki.fi> on 1999-10-20
- * $Id: html.c,v 1.29 2003-07-22 11:32:01 oli4 Exp $
+ * $Id: html.c,v 1.30 2003-07-23 12:19:37 oli4 Exp $
  */
 
 #include <gtk/gtk.h>
@@ -338,7 +338,7 @@ static void insert_time_cancel(GtkWidget * widget, TimeInsert * data)
 }
 
 /************************************************************************/
-void insert_time_cb(GtkWidget * widget, Tbfwin *bfwin) {
+void insert_time_dialog(Tbfwin *bfwin) {
 
 	gint month, year, count;
 	time_t time_var;
@@ -747,7 +747,7 @@ static void h6_editok_lcb(GtkWidget *widget, gpointer data) {
 	block_tag_editok_lcb(9, data);
 }
 
-void block_tag_edit_dialog(Tbfwin *bfwin, gint type, GtkWidget *widget, Ttagpopup *data) {
+void block_tag_edit_dialog(Tbfwin *bfwin, gint type, Ttagpopup *data) {
 	gchar *labeltext;
 	GList *popuplist=NULL;
 	GtkWidget *dgtable, *but;
@@ -858,6 +858,35 @@ void block_tag_edit_dialog(Tbfwin *bfwin, gint type, GtkWidget *widget, Ttagpopu
 	if (custom)
 		g_free(custom);
 }
+void p_dialog(Tbfwin *bfwin, Ttagpopup *data) {
+	block_tag_edit_dialog(bfwin, 1, data);
+}
+void div_dialog(Tbfwin *bfwin, Ttagpopup *data) {
+	block_tag_edit_dialog(bfwin, 2, data);
+}
+void span_dialog(Tbfwin *bfwin, Ttagpopup *data) {
+	block_tag_edit_dialog(bfwin, 3, data);
+}
+void h1_dialog(Tbfwin *bfwin, Ttagpopup *data) {
+	block_tag_edit_dialog(bfwin, 4, data);
+}
+void h2_dialog(Tbfwin *bfwin, Ttagpopup *data) {
+	block_tag_edit_dialog(bfwin, 5, data);
+}
+void h3_dialog(Tbfwin *bfwin, Ttagpopup *data) {
+	block_tag_edit_dialog(bfwin, 6, data);
+}
+void h4_dialog(Tbfwin *bfwin, Ttagpopup *data) {
+	block_tag_edit_dialog(bfwin, 7, data);
+}
+void h5_dialog(Tbfwin *bfwin, Ttagpopup *data) {
+	block_tag_edit_dialog(bfwin, 8, data);
+}
+void h6_dialog(Tbfwin *bfwin, Ttagpopup *data) {
+	block_tag_edit_dialog(bfwin, 9, data);
+}
+
+
 
 static void quickruleok_lcb(GtkWidget * widget, Thtml_diag * dg)
 {
