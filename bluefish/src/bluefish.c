@@ -45,6 +45,7 @@
 #include "stringlist.h" /* put_stringlist(), get_stringlist() */
 #include "gtk_easy.h" /* flush_queue() */
 #include "filebrowser.h" /* filters_rebuild() */
+#include "project.h"
 
 /*********************************************/
 /* this var is global for all bluefish files */
@@ -210,6 +211,14 @@ int main(int argc, char *argv[])
 	if (main_v->props.view_html_toolbar && main_v->props.quickbar_items == NULL) {
 		info_dialog(firstbfwin->main_window, _("Bluefish tip:"), _("This message is shown since you do not have any items in the Quickbar.\n\nIf you right-click a button in the HTML toolbars you can add buttons to the Quickbar."));
 	}
+	if (projectfiles) {
+		GList *tmplist = g_list_first(projectfiles);
+		while (tmplist) {
+			project_open_from_file(firstbfwin, tmplist->data);
+			tmplist = g_list_next(tmplist);
+		}
+	}
+	
 #ifndef NOSPLASH
 	flush_queue();
 	{
