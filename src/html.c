@@ -22,7 +22,7 @@
  */
 /* 
  * Changes by Antti-Juhani Kaijanaho <gaia@iki.fi> on 1999-10-20
- * $Id: html.c,v 1.17 2003-03-03 08:56:03 oli4 Exp $
+ * $Id: html.c,v 1.18 2003-03-04 18:55:53 oli4 Exp $
  */
 
 #include <gtk/gtk.h>
@@ -351,37 +351,37 @@ void insert_time_cb(GtkWidget * widget, gpointer data)
 	time_struct = localtime(&time_var);
 	DEBUG_MSG("insert_time_cb, timeinsert=%p\n", timeinsert);
 	timeinsert->dialog = window_full(_("Insert Time"), GTK_WIN_POS_MOUSE
-			, 5, G_CALLBACK(insert_time_destroy_lcb), timeinsert, TRUE);
+			, 12, G_CALLBACK(insert_time_destroy_lcb), timeinsert, TRUE);
 	vbox = gtk_vbox_new(FALSE, 1);
 	gtk_container_add(GTK_CONTAINER(timeinsert->dialog), vbox);
 
 	for (count = 1; count < 6; count++) {
 		switch (count) {
 		case 1:
-			temp = g_strdup_printf(_("  Time (%i:%i:%i)"), time_struct->tm_hour, time_struct->tm_min, time_struct->tm_sec);
+			temp = g_strdup_printf(_("  _Time (%i:%i:%i)"), time_struct->tm_hour, time_struct->tm_min, time_struct->tm_sec);
 			break;
 		case 2:
 			switch (time_struct->tm_wday) {
 			case 0:
-				temp = g_strdup(_("  Day of the week (Sunday)"));
+				temp = g_strdup(_("  Day of the _week (Sunday)"));
 				break;
 			case 1:
-				temp = g_strdup(_("  Day of the week (Monday)"));
+				temp = g_strdup(_("  Day of the _week (Monday)"));
 				break;
 			case 2:
-				temp = g_strdup(_("  Day of the week (Tuesday)"));
+				temp = g_strdup(_("  Day of the _week (Tuesday)"));
 				break;
 			case 3:
-				temp = g_strdup(_("  Day of the week (Wednesday)"));
+				temp = g_strdup(_("  Day of the _week (Wednesday)"));
 				break;
 			case 4:
-				temp = g_strdup(_("  Day of the week (Thursday)"));
+				temp = g_strdup(_("  Day of the _week (Thursday)"));
 				break;
 			case 5:
-				temp = g_strdup(_("  Day of the week (Friday)"));
+				temp = g_strdup(_("  Day of the _week (Friday)"));
 				break;
 			case 6:
-				temp = g_strdup(_("  Day of the week (Saturday)"));
+				temp = g_strdup(_("  Day of the _week (Saturday)"));
 				break;
 			default:
 				g_message(_("You appear to have a non existant day!\n"));
@@ -392,13 +392,13 @@ void insert_time_cb(GtkWidget * widget, gpointer data)
 			month = time_struct->tm_mon + 1;
 			year = time_struct->tm_year;
 			year = 1900 + year;
-			temp = g_strdup_printf(_("  Date (%i/%i/%i)"), time_struct->tm_mday, month, year);
+			temp = g_strdup_printf(_("  _Date (%i/%i/%i)"), time_struct->tm_mday, month, year);
 			break;
 		case 4:
-			temp = g_strdup_printf(_("  Unix Time (%i)"), (int) time_var);
+			temp = g_strdup_printf(_("  _Unix Time (%i)"), (int) time_var);
 			break;
 		case 5:
-			temp = g_strdup_printf(_("  Unix Date String (%s"), ctime(&time_var));
+			temp = g_strdup_printf(_("  Unix Date _String (%s"), ctime(&time_var));
 			/* Replace \n on ')' */
 			temp[strlen(temp) - 1] = ')';
 			break;
@@ -406,15 +406,19 @@ void insert_time_cb(GtkWidget * widget, gpointer data)
 			break;
 		}						/* end of switch count */
 		timeinsert->check[count] = gtk_check_button_new();
-		timeinsert->label[count] = gtk_label_new(temp);
+		timeinsert->label[count] = gtk_label_new_with_mnemonic(temp);
+		gtk_label_set_mnemonic_widget(GTK_LABEL(timeinsert->label[count]), timeinsert->check[count]);
 		g_free(temp);
 		gtk_container_add(GTK_CONTAINER(timeinsert->check[count]), GTK_WIDGET(timeinsert->label[count]));
 		gtk_box_pack_start(GTK_BOX(vbox), GTK_WIDGET(timeinsert->check[count]), TRUE, TRUE, 0);
 	}							/* end of for loop */
 
+	hbox = gtk_hbox_new(FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(hbox), gtk_hseparator_new(), TRUE, TRUE, 0);
+	gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 10);
 	hbox = gtk_hbutton_box_new();
 	gtk_hbutton_box_set_layout_default(GTK_BUTTONBOX_END);
-	gtk_button_box_set_spacing(GTK_BUTTON_BOX(hbox), 1);
+	gtk_button_box_set_spacing(GTK_BUTTON_BOX(hbox), 12);
 	gtk_box_pack_start(GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
 
 	ok_b = bf_stock_ok_button(GTK_SIGNAL_FUNC(insert_time_callback), (gpointer) timeinsert);
@@ -920,42 +924,41 @@ void quickrule_cb(GtkWidget * widget, gpointer data)
 	fill_dialogvalues(hritems, hrvalues, &custom, (Ttagpopup *) data, widget, dg);
 
 	dgtable = html_diag_table_in_vbox(dg, 5, 10);
+	gtk_table_set_row_spacings(GTK_TABLE(dgtable), 12);
 
 	popdownlist = g_list_insert(popdownlist, "center", 0);
 	popdownlist = g_list_insert(popdownlist, "left", 1);
 	popdownlist = g_list_insert(popdownlist, "right", 2);
 	dg->combo[1] = combo_with_popdown(hrvalues[0], popdownlist, 1);
 	g_list_free(popdownlist);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Align")), 0, 1, 0, 1);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(dg->combo[1]), 1, 10, 0, 1);
+	bf_mnemonic_label_tad_with_alignment(N_("_Align:"), dg->combo[1], 0, 0.5, dgtable, 0, 1, 0, 1);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(dg->combo[1]), 1, 4, 0, 1);
 
 	dgadj = (GtkAdjustment *) gtk_adjustment_new((gfloat) 1, 0.0, 200.0, 1.0, 5.0, 0.0);
 	dg->spin[1] = gtk_spin_button_new(dgadj, 1, 0);
 	/* gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (spin1), 1); */
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->spin[1], 1, 2, 1, 2);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Size")), 0, 1, 1, 2);
+	bf_mnemonic_label_tad_with_alignment(N_("_Height:"), dg->spin[1], 0, 0.5, dgtable, 0, 1, 1, 2);
 	parse_integer_for_dialog(hrvalues[1], dg->spin[1], NULL, NULL);
 
 	dgadj = (GtkAdjustment *) gtk_adjustment_new((gfloat) 50, 0.0, 600.0, 1.0, 5.0, 0.0);
 	dg->spin[2] = gtk_spin_button_new(dgadj, 1, 0);
 	/*   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (spin2), 1); */
+	bf_mnemonic_label_tad_with_alignment(N_("_Width:"), dg->spin[2], 0, 0.5, dgtable, 0, 1, 2, 3);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->spin[2], 1, 2, 2, 3);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Width")), 0, 1, 2, 3);
 
-	dg->check[1] = gtk_check_button_new();
+	dg->check[1] = gtk_check_button_new_with_mnemonic(N_("Is _percent"));
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->check[1], 3, 4, 2, 3);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Is percent?")), 2, 3, 2, 3);
 
 	parse_integer_for_dialog(hrvalues[2], dg->spin[2] , NULL, dg->check[1]);
 
-	dg->check[2] = gtk_check_button_new();
+	dg->check[2] = gtk_check_button_new_with_mnemonic(N_("No _shading"));
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->check[2], 1, 2, 3, 4);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("No shading")), 0, 1, 3, 4);
 	parse_existence_for_dialog(hrvalues[3], dg->check[2]);
 
 	dg->entry[1] = entry_with_text(custom, 1024);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Custom")), 1, 2, 4, 5);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[1], 2, 10, 4, 5);
+	bf_mnemonic_label_tad_with_alignment(N_("Custo_m:"), dg->entry[1], 0, 0.5, dgtable, 0, 1, 4, 5);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[1], 1, 10, 4, 5);
 
 	html_diag_finish(dg, G_CALLBACK(quickruleok_lcb));
 
@@ -1338,7 +1341,7 @@ void meta_cb(GtkWidget * widget, gpointer data)
 	popuplist = g_list_append(popuplist, "PICS-label"); /* name or equiv? */
 	popuplist = g_list_append(popuplist, "Refresh");
 	dg->combo[2] = combo_with_popdown(tagvalues[1], popuplist, 1);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Name")), 0, 1, 0, 1);
+	bf_mnemonic_label_tad_with_alignment(N_("_Name:"), dg->combo[2], 0, 0.5, dgtable, 0, 1, 0, 1);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(GTK_COMBO(dg->combo[2])), 1, 10, 0, 1);
 	g_list_free(popuplist);
 
@@ -1349,20 +1352,20 @@ void meta_cb(GtkWidget * widget, gpointer data)
 	popuplist = g_list_append(popuplist, "Content-Encoding");
 	popuplist = g_list_append(popuplist, "Pragma");
 	dg->combo[1] = combo_with_popdown(tagvalues[0], popuplist, 1);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("HTTP-EQUIV")), 0, 1, 1, 2);
+	bf_mnemonic_label_tad_with_alignment(N_("_HTTP-EQUIV:"), dg->combo[1], 0, 0.5, dgtable, 0, 1, 1, 2);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(GTK_COMBO(dg->combo[1])), 1, 10, 1, 2);
 	g_list_free(popuplist);
 
 	dg->entry[1] = entry_with_text(tagvalues[2], 512);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Content")), 0, 1, 2, 3);
+	bf_mnemonic_label_tad_with_alignment(N_("Con_tent:"), dg->entry[1], 0, 0.5, dgtable, 0, 1, 2, 3);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[1], 1, 10, 2, 3);
 
 	dg->entry[2] = entry_with_text(tagvalues[3], 256);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Scheme")), 0, 1, 3, 4);
+	bf_mnemonic_label_tad_with_alignment(N_("_Scheme:"), dg->entry[2], 0, 0.5, dgtable, 0, 1, 3, 4);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[2], 1, 10, 3, 4);
 
 	dg->entry[3] = entry_with_text(custom, 1024);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Custom")), 0, 1, 4, 5);
+	bf_mnemonic_label_tad_with_alignment(N_("Custo_m:"), dg->entry[3], 0, 0.5, dgtable, 0, 1, 4, 5);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[3], 1, 10, 4, 5);
 
 	html_diag_finish(dg, G_CALLBACK(metaok_lcb));
@@ -1524,25 +1527,28 @@ static void emailok_lcb(GtkWidget * widget, Thtml_diag *dg)
 
 void email_cb(GtkWidget * widget, gpointer data)
 {
-	GtkWidget *hbox;
+        GtkWidget *dgtable;
 	Thtml_diag *dg;
 	
 	dg = html_diag_new(_("Email"));
-	
-	hbox = gtk_vbox_new(FALSE, 5);
-	gtk_box_pack_start(GTK_BOX(dg->vbox), hbox, FALSE, FALSE, 0);
+
+	dgtable = gtk_table_new(3, 2, FALSE);
+	gtk_table_set_col_spacings(GTK_TABLE(dgtable), 12);
+	gtk_table_set_row_spacings(GTK_TABLE(dgtable), 12);
+	gtk_box_pack_start(GTK_BOX(dg->vbox), dgtable, FALSE, FALSE, 0);
 
 	dg->entry[1] = gtk_entry_new_with_max_length(256);
-	gtk_box_pack_start(GTK_BOX(hbox), gtk_label_new(_("Email address:")), FALSE, FALSE, 0);
-	gtk_box_pack_start(GTK_BOX(hbox), dg->entry[1], FALSE, FALSE, 0);
+	bf_mnemonic_label_tad_with_alignment(N_("_Email address:"), dg->entry[1], 0, 0.5, dgtable, 0, 1, 0, 1);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[1], 1, 2, 0, 1);
 
+	
 	dg->entry[2] = gtk_entry_new_with_max_length(256);
-	gtk_box_pack_start(GTK_BOX(hbox), gtk_label_new(_("UrlEncoded subject:")), FALSE, FALSE, 0);
-	gtk_box_pack_start(GTK_BOX(hbox), dg->entry[2], FALSE, FALSE, 0);
+	bf_mnemonic_label_tad_with_alignment(N_("UrlEncoded _subject:"), dg->entry[2], 0, 0.5, dgtable, 0, 1, 1, 2);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[2], 1, 2, 1, 2);
 
 	dg->entry[3] = gtk_entry_new_with_max_length(256);
-	gtk_box_pack_start(GTK_BOX(hbox), gtk_label_new(_("UrlEncoded body:")), FALSE, FALSE, 0);
-	gtk_box_pack_start(GTK_BOX(hbox), dg->entry[3], FALSE, FALSE, 0);
+	bf_mnemonic_label_tad_with_alignment(N_("UrlEncoded _body:"), dg->entry[3], 0, 0.5, dgtable, 0, 1, 2, 3);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[3], 1, 2, 2, 3);
 
 	html_diag_finish(dg, G_CALLBACK(emailok_lcb));
 }
@@ -1582,7 +1588,6 @@ static void quicklistok_lcb(GtkWidget * widget, Thtml_diag *dg)
 
 void quicklist_cb(GtkWidget * widget, gpointer data)
 {
-	GSList *group;
 	Thtml_diag *dg;
 	GtkWidget *dgtable;
 
@@ -1591,14 +1596,13 @@ void quicklist_cb(GtkWidget * widget, gpointer data)
 	dgtable = html_diag_table_in_vbox(dg, 2, 10);
 	dg->spin[1] = spinbut_with_value("3", 0, 500, 1.0, 5.0);
 	gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(dg->spin[1]), 1);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Rows")), 0, 1, 0, 1);
+	bf_mnemonic_label_tad_with_alignment(N_("_Rows:"), dg->spin[1], 0, 0.5, dgtable, 0, 1, 0, 1);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->spin[1], 1, 2, 0, 1);
 
-	dg->radio[1] = gtk_radio_button_new_with_label(NULL, _("Ordered"));
-	group = gtk_radio_button_group(GTK_RADIO_BUTTON(dg->radio[1]));
-	dg->radio[2] = gtk_radio_button_new_with_label(group, _("Unordered"));
-	gtk_toggle_button_set_state(GTK_TOGGLE_BUTTON(dg->radio[1]), TRUE);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Style")), 0, 1, 1, 2);
+	dg->radio[1] = gtk_radio_button_new_with_mnemonic(NULL, N_("Or_dered"));
+	dg->radio[2] = gtk_radio_button_new_with_mnemonic(gtk_radio_button_get_group(GTK_RADIO_BUTTON(dg->radio[1])), N_("_Unordered"));
+	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(dg->radio[1]), TRUE);
+	bf_mnemonic_label_tad_with_alignment(N_("Style:"), NULL, 0, 0.5, dgtable, 0, 1, 1, 2);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->radio[1], 1, 5, 1, 2);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->radio[2], 5, 10, 1, 2);
 
@@ -1841,28 +1845,28 @@ void embed_cb(GtkWidget * widget, gpointer data)
 
 	dg = html_diag_new(_("Embed"));
 
-	dgtable = html_diag_table_in_vbox(dg, 3, 12);
+	dgtable = html_diag_table_in_vbox(dg, 5, 4);
 	dg->entry[1] = gtk_entry_new_with_max_length(256);
 	file_but = file_but_new(dg->entry[1], dg->dialog, 0);
-	gtk_table_attach(GTK_TABLE(dgtable), file_but, 10, 12, 0, 1, GTK_FILL, GTK_FILL, 0, 0);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Source")), 0, 2, 0, 1);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[1], 2, 10, 0, 1);
-
-	dg->spin[1] = spinbut_with_value("", 0, 500, 1.0, 5.0);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Width")), 0, 2, 1, 2);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->spin[1], 2, 4, 1, 2);
-
-	dg->spin[2] = spinbut_with_value("", 0, 500, 1.0, 5.0);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Height")), 4, 6, 1, 2);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->spin[2], 6, 8, 1, 2);
-
-	dg->spin[3] = spinbut_with_value("", 0, 500, 1.0, 5.0);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Border")), 8, 10, 1, 2);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->spin[3], 10, 12, 1, 2);
+	gtk_table_attach(GTK_TABLE(dgtable), file_but, 3, 4, 0, 1, GTK_EXPAND, GTK_EXPAND, 0, 0);
+	bf_mnemonic_label_tad_with_alignment(N_("_Source:"), dg->entry[1], 0, 0.5, dgtable, 0, 1, 0, 1);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[1], 1, 3, 0, 1);
 
 	dg->combo[1] = combo_with_popdown("", recent_attribs.positionlist, 1);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Align")), 0, 2, 2, 3);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(dg->combo[1]), 2, 12, 2, 3);
+	bf_mnemonic_label_tad_with_alignment(N_("_Align:"), dg->combo[1], 0, 0.5, dgtable, 0, 1, 1, 2);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(dg->combo[1]), 1, 2, 1, 2);
+
+	dg->spin[1] = spinbut_with_value("", 0, 500, 1.0, 5.0);
+	bf_mnemonic_label_tad_with_alignment(N_("_Width:"), dg->spin[1], 0, 0.5, dgtable, 0, 1, 2, 3);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->spin[1], 1, 2, 2, 3);
+
+	dg->spin[2] = spinbut_with_value("", 0, 500, 1.0, 5.0);
+	bf_mnemonic_label_tad_with_alignment(N_("_Height:"), dg->spin[2], 0, 0.5, dgtable, 0, 1, 3, 4);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->spin[2], 1, 2, 3, 4);
+
+	dg->spin[3] = spinbut_with_value("", 0, 500, 1.0, 5.0);
+	bf_mnemonic_label_tad_with_alignment(N_("Bo_rder:"), dg->spin[3], 0, 0.5, dgtable, 0, 1, 4, 5);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->spin[3], 1, 2, 4, 5);
 
 	html_diag_finish(dg, G_CALLBACK(embedok_lcb));	
 }
