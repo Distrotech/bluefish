@@ -581,7 +581,7 @@ void doc_insert_two_strings(Tdocument *doc, const gchar *before_str, const gchar
 			/* the buffer has changed, but gtk_text_buffer_insert makes sure */
 			/* that itinsert points to the end of the inserted text. */
 			/* thus, no need to get a new one. */
-g_print("EEP\n");
+			
 			/* now set it between the two strings, this is definately not multibyte-char 
 			safe, since strlen() returns bytes, and the functions wants chars */
 			gtk_text_iter_backward_chars(&itinsert, strlen(after_str));
