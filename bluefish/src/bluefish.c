@@ -112,9 +112,7 @@ int main(int argc, char *argv[])
 	setlocale(LC_ALL,"");                                                   
 	bindtextdomain(PACKAGE,LOCALEDIR);
 	DEBUG_MSG("set bindtextdomain for %s to %s\n",PACKAGE,LOCALEDIR);
-	/* in the near future we should convert all .po files to their original encoding
-	, and set this function so gtk2 will get all strings as UTF-8 */
-/*	bind_textdomain_codeset(PACKAGE, "UTF-8");*/
+	bind_textdomain_codeset(PACKAGE, "UTF-8");
 	textdomain(PACKAGE);                                                    
 #endif    
 	gtk_init(&argc, &argv);
