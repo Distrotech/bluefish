@@ -1575,17 +1575,9 @@ choose <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>+</keycap></
 
 <sect2 id="function-reference">
 <title>Function reference</title>
-<para>
-The function reference browser is a place where reference information about a 
-certain language can be found. Currently Bluefish comes with a PHP reference, a 
-CSS 2.0 reference, an HTML reference and a Python reference. The functions are 
-grouped depending on the language, by type, module, object, etc.
-</para>
-<para>
-The function reference browser can show an info window on the bottom. Check the <guilabel>Show info window</guilabel> check box. In this window some information about the currently selected item can be shown. What exactly is shown can be chosen in the right-click context menu.
-</para>
-<para>Every item in the function reference can simply insert text, show an info window, or show a dialog that can be used to insert text. In the right-click context menu each of these functions is accessible.</para>
-<para>The contextual menu is also accessible on a group of functions and at the top level of a reference.
+<para>The function reference browser contains reference information for   different programming and markup languages. Currently, Bluefish comes with a PHP reference, a CSS 2.0 reference, an HTML reference, and a Python reference. The functions are grouped, depending on the language, by type, module, object, etc.</para>
+<para>The function reference browser will display an info window on the bottom by checking the <guilabel>Show info window</guilabel> check box. In this window, information about the currently selected item is shown. The type of information shown can be configured in the right-click context menu (see Info Type below).</para>
+<para>In the reference browser's contextual menu, you can simply insert the text for the selected item by choosing <guilabel>Insert</guilabel>. Or, you can get a little help using <guilabel>Dialog</guilabel>, which launches a dialog window containing fields for the currently selected item's attributes or parameters. For a summary of an item's usage, choose <guilabel>Info</guilabel>. The contextual menu is also accessible on a group of functions and at the top level of a reference.
 <figure id="figure-browser-reference-right-click">
 <title id="figure-browser-reference-right-click-title">The reference browser contextual menu</title>
 <screenshot>
@@ -1599,7 +1591,7 @@ The function reference browser can show an info window on the bottom. Check the 
 </mediaobject>
 </screenshot>
 </figure></para>
-<para>The <guilabel>Options</guilabel> menu accessible via the contextual menu offers tree actions:
+<para>The <guilabel>Options</guilabel> menu accessible via the contextual menu offers three actions:
 <figure id="figure-browser-reference-options">
 <title id="figure-browser-reference-options-title">The reference browser options menu</title>
 <screenshot>
@@ -1811,7 +1803,7 @@ The function reference browser can show an info window on the bottom. Check the 
 </para>
 </listitem>
 </itemizedlist>
-<para>The Insert thumbnail dialog is very straightforward. You select the image, choose the scaling (moving the cursor under the image, the result appears immediately in the preview frame), and some attributes, and press OK. Bluefish will create the thumbnail with extension _thumbnail.png or _thumbnail.jpeg (depending of the settings for images in the preferences).
+<para>The Insert thumbnail dialog is very straightforward. You select the image file, provide some &lt;img&gt; tag attributes, choose the scaling, and press OK. The scaling factor is chosen by moving the slider directly under the image. The resulting image is previewed in the preview frame. Bluefish will create the thumbnail with extension _thumbnail.png or _thumbnail.jpeg (depending of the settings for images in the preferences).
 <figure id="figure-thumbnail-simple-dialog">
 <title id="figure-thumbnail-simple-dialog-title">The Insert thumbnail dialog</title>
 <screenshot>
@@ -1855,44 +1847,39 @@ alt="Gamboling in the meadow" align="middle"></a>
 <term><emphasis>Note</emphasis></term>
 <listitem>
 <para>You can perfectly mix jpg images with png thumbnails or the other way around.</para>
-<para>If the html file exists beforehand, the paths to image and thumbnail are inserted relative to the location of the html file. On the contrary, if the html file does not exist beforehand, the full path to image and thumbnail is inserted in the code.</para>
+<para>If the html file exists beforehand, the paths to image and thumbnail are inserted relative to the location of the html file. On the contrary, if the html file does not exist beforehand, the full paths to the image and thumbnail are inserted in the code.</para>
 </listitem>
 </varlistentry>
 </variablelist>
-<para>In the multi thumbnail dialog, you first choose the scaling method, then you set the corresponding width and/or height parameters, finally you may want to adjust the HTML code to be inserted for each image.</para>
-<para>Scaling can be based on a fixed ratio, based on a fixed width, based 
-on a fixed height, or based on a fixed width and fixed height (this last 
-option does not keep the original aspect ratio!).</para>
+<para>In the multi thumbnail dialog, you first choose the scaling method, then you set the corresponding width and/or height parameters. Finally, you may want to adjust the HTML code to be inserted for each image.</para>
+<para>Scaling can be based on a fixed ratio, a fixed width, a fixed height, or a fixed width and fixed height (this last option does not keep the original aspect ratio!).</para>
 <para>In the HTML code for each image, you can use several placeholders, such as:</para>
 <itemizedlist spacing="compact">
-<listitem>
-<para>%r for the original filename</para>
-</listitem>
-<listitem>
-<para>%t for the thumbnail filename</para>
-</listitem>
-<listitem>
-<para>%w for the original width</para>
-</listitem>
-<listitem>
-<para>%h for the original height</para>
-</listitem>
-<listitem>
-<para>%x for the thumbnail width</para>
-</listitem>
-<listitem>
-<para>%y for the thumbnail height</para>
-</listitem>
-<listitem>
-<para>%b for the original file size (in bytes)</para>
-</listitem>
+  <listitem>
+    <para>%r for the original filename</para>
+  </listitem>
+  <listitem>
+    <para>%t for the thumbnail filename</para>
+  </listitem>
+  <listitem>
+    <para>%w for the original width</para>
+  </listitem>
+  <listitem>
+    <para>%h for the original height</para>
+  </listitem>
+  <listitem>
+    <para>%x for the thumbnail width</para>
+  </listitem>
+  <listitem>
+    <para>%y for the thumbnail height</para>
+  </listitem>
+  <listitem>
+    <para>%b for the original file size (in bytes)</para>
+  </listitem>
 </itemizedlist>
-<para>The default string is:
-<programlisting><![CDATA[
-<a href="%r"><img src="%t" width="%x" height="%y" border="0"></a>
-]]></programlisting></para>
-<para>After you have set up the scaling method and parameters, as well as the HTML code, you can select multiple images, and Bluefish will create the thumbnails and insert the code.</para>
-<para>Here is an example of two thumbnails created with a non nul border width and middle-aligned, with a fixed height and width, disregarding the aspect ration.</para>
+<para>The default string is: <programlisting>&lt;a href="%r"&gt;&lt;img src="%t" width="%x" height="%y" border="0"&gt;&lt;/a&gt;</programlisting></para>
+<para>After you have set up the scaling method and parameters, as well as the HTML code, you can select multiple images. Bluefish will create the thumbnails and insert the code.</para>
+<para>Here is an example of two thumbnails created with a non nul border width and middle-aligned, with a fixed height and width, disregarding the aspect ratio.</para>
 <para>The <guilabel>Multi thumbnail</guilabel> window is the following:
 <figure id="figure-thumbnail_multi_dialog">
 <title id="figure-thumbnail-multi-dialog-title">The Multi thumbnail dialog</title>
@@ -1921,14 +1908,15 @@ height="50" border="5" align="middle"></a>
 <varlistentry>
 <term><emphasis>Note</emphasis></term>
 <listitem>
-<para>The path to original sources are always full paths. The paths to thumbnails are relative to the html file path if the html file exists beforehand, while they are inserted as full paths when the html file does not exist beforehand.</para>
+<para>Full pathnames are always used to reference original image sources. The paths to thumbnails are relative to the html file path if the html file already exists, while they are inserted as full paths when the html file does not exist.</para>
 </listitem>
 </varlistentry>
 </variablelist>
-<para>Here's a full procedure to generate quickly a photos album with thumbnails. This example is purposedly made with deprecated tags, so that you have an idea of what can be made with the variables. Feel free to adjust it when using CSS style sheets.</para>
-<procedure id="photo-album"><title>Generating a photos album with multi thumbnails</title>
+<para>Below is a full procedure to quickly generate thumbnails from a directory of image files. This example is purposedly made with deprecated tags, so that you have an idea of what can be made with the variables. Feel free to adjust it when using CSS style sheets.</para>
+<procedure id="photo-album">
+<title>Generating a photos album with multi thumbnails</title>
 <step>
-<para>Put the photos in a folder on its own</para>
+<para>Put the image files in a folder of their own</para>
 </step>
 <step>
 <para>Open a new file in bluefish, click on the <guilabel>Multi thumbnail...</guilabel> icon in the <guilabel>Standard bar</guilabel> tab of the html tool bar.</para>
@@ -1937,72 +1925,68 @@ height="50" border="5" align="middle"></a>
 <para>Enter the scaling percentage in the <guilabel>Scaling (%)</guilabel> field</para>
 </step>
 <step>
-<para>Change the html code as follows:
-<programlisting><![CDATA[
-<tr><td><a href="%r">
-<img src="%t" 
-width="%x" height="%y" border="0"></a>
-</td>
-</tr>
-<tr><td>Original: %w x %h</td></tr>
-]]></programlisting>
-and click <guilabel>OK</guilabel>.</para>
+<para>Change the html code as follows: <programlisting>
+&lt;tr&gt;&lt;td&gt;&lt;a href="%r"&gt;
+&lt;img src="%t" 
+width="%x" height="%y" border="0"&gt;&lt;/a&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Original: %w x %h&lt;/td&gt;&lt;/tr&gt;
+</programlisting> and click <guilabel>OK</guilabel>.</para>
 </step>
 <step>
-<para>Choose the photos folder in the <guilabel>Select files for thumbnail creation</guilabel> window, click <keycombo><keycap>Ctrl</keycap><keycap>A</keycap></keycombo> to select all files, then click <guilabel>OK</guilabel>. The code generated by bluefish will look like this:</para>
-<programlisting><![CDATA[
-<tr><td><a href="/Users/michga/Desktop/photos/343-4344_IMG.JPG">
-<img src="/Users/michga/Desktop/photos/343-4344_IMG_thumbnail.png" 
-width="80" height="53" border="0"></a>
-</td>
-</tr>
-<tr><td>Original: 1600 x 1065</td></tr>
-<tr><td><a href="/Users/michga/Desktop/photos/343-4347_IMG.JPG">
-<img src="/Users/michga/Desktop/photos/343-4347_IMG_thumbnail.png" 
-width="80" height="53" border="0"></a>
-</td>
-</tr>
-<tr><td>Original: 1600 x 1065</td></tr>
-]]></programlisting>
+<para>Choose the folder containing the images from the <guilabel>Select files for thumbnail creation</guilabel> window, click <keycombo><keycap>Ctrl</keycap><keycap>A</keycap></keycombo> to select all files, then click <guilabel>OK</guilabel>. The code generated by Bluefish will look like the following:</para>
+<programlisting>
+&lt;tr&gt;&lt;td&gt;&lt;a href="/Users/michga/Desktop/photos/343-4344_IMG.JPG"&gt;
+&lt;img src="/Users/michga/Desktop/photos/343-4344_IMG_thumbnail.png" 
+width="80" height="53" border="0"&gt;&lt;/a&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Original: 1600 x 1065&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;a href="/Users/michga/Desktop/photos/343-4347_IMG.JPG"&gt;
+&lt;img src="/Users/michga/Desktop/photos/343-4347_IMG_thumbnail.png" 
+width="80" height="53" border="0"&gt;&lt;/a&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Original: 1600 x 1065&lt;/td&gt;&lt;/tr&gt;
+</programlisting>
 </step>
 <step>
-<para>Use <keycombo><keycap>Ctrl</keycap><keycap>A</keycap></keycombo> to select the file's contents and click on the <guilabel>Tab</guilabel> icon located in the <guilabel>Tables</guilabel> tab of the html tool bar to embed the code into table tags.
+<para>Use <keycombo><keycap>Ctrl</keycap><keycap>A</keycap></keycombo> to select the file's contents and click on the <guilabel>Table</guilabel> icon located in the <guilabel>Tables</guilabel> tab of the HTML tool bar to embed the code into table tags. 
 <figure id="figure-table-icon">
 <title id="figure-table-icon-title">The Table icon in the html tool bar</title>
 <screenshot>
 <mediaobject>
 <imageobject>
-<imagedata fileref="figures/table_icon.png" format="PNG"/>
+<imagedata fileref="figures/table_icon.png" format="PNG" />
 </imageobject>
 <textobject>
 <phrase>A screen shot of the table icon in the html tool bar</phrase>
 </textobject>
 </mediaobject>
 </screenshot>
-</figure>
-</para>
+</figure></para>
 </step>
 <step>
-<para>Save the file where you want.</para>
+<para>Save the file wherever you want.</para>
 </step>
 </procedure>
-<para>If you want to add the file names and the file size in bytes, use this code:
-<programlisting><![CDATA[
-<tr><td><a href="%r">
-<img src="%t" 
-width="%x" height="%y" border="0"></a>
-</td>
-</tr>
-<tr><td>%r:  %w x %h (%b bytes)</td></tr>
-]]></programlisting>
-</para>
+<para>If you want to add the file name and the file size in bytes, use this code: 
+<programlisting>
+&lt;tr&gt;&lt;td&gt;&lt;a href="%r"&gt;
+&lt;img src="%t" 
+width="%x" height="%y" border="0"&gt;&lt;/a&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;%r:  %w x %h (%b bytes)&lt;/td&gt;&lt;/tr&gt;
+</programlisting></para>
 </sect3>
 
 </sect2>
 
 <sect2 id="quickbar">
-<title>Customising the Quick bar</title>
-<para>The <guilabel>Quick bar</guilabel> is a user defined tool bar. All HTML tool bar buttons can be added to the Quick bar by simply right-clicking them and selecting <guilabel>Add to quickbar</guilabel>.
+<title>Customizing the Quick bar</title>
+<para>The <guilabel>Quick bar</guilabel> is a user defined tool bar. All HTML tool bar buttons can be added to the Quick bar by simply right-clicking the button and selecting <guilabel>Add to quickbar</guilabel>.
 <figure id="figure-quickbar-add">
 <title id="figure-quickbar-add-title">Adding an element to the Quick bar</title>
 <screenshot>
