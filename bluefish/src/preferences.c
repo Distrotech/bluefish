@@ -243,7 +243,7 @@ static GtkWidget *prefs_string(const gchar *title, const gchar *curval, GtkWidge
 	gtk_box_pack_start(GTK_BOX(hbox), gtk_label_new(title), FALSE, FALSE, 3);
 	return_widget = boxed_entry_with_text(curval, 1023, hbox);
 	if (prefstringtype == file) {
-		gtk_box_pack_start(GTK_BOX(hbox), file_but_new(return_widget, pd->win, 1), FALSE, FALSE, 3);
+		gtk_box_pack_start(GTK_BOX(hbox), file_but_new(return_widget, 1, NULL), FALSE, FALSE, 3);
 	} else if (prefstringtype == font) {
 		GtkWidget *but = bf_gtkstock_button(GTK_STOCK_SELECT_FONT, G_CALLBACK(font_button_lcb), return_widget);
 		gtk_box_pack_start(GTK_BOX(hbox), but, FALSE, FALSE, 3);

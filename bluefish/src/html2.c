@@ -23,9 +23,9 @@
 #include <string.h>  	/* strlen() */
 #include <stdlib.h>	/* strtol() */
 
+#include "bluefish.h"
 #include "gtk_easy.h"
 #include "bf_lib.h"  /* strip_any_whitespace() */
-#include "bluefish.h"
 #include "stringlist.h"
 #include "document.h"
 #include "html2.h"

@@ -1123,21 +1123,30 @@ gpointer progress_popup(GtkWidget *win,gchar *title, guint maxvalue) {
 /************************ file_but_* FUNCTIONS **************************/
 /************************************************************************/
 
-static void file_but_clicked_lcb(GtkWidget * widget, GtkWidget * which_entry)
-{
-	gchar *tmpstring/*, *tmp2string*/;
-	DEBUG_MSG("file_but_clicked_lcb, started, which_entry=%p\n",which_entry);
-	tmpstring = return_file(NULL);
+typedef struct {
+	GtkWidget *entry;
+	Tbfwin *bfwin;
+	gboolean fullpath;
+} Tfilebut;
+
+static void file_but_clicked_lcb(GtkWidget * widget, Tfilebut *fb) {
+	gchar *tmpstring, *tmp2string, *setfile;
+	DEBUG_MSG("file_but_clicked_lcb, started, which_entry=%p\n",fb->entry);
+	setfile = gtk_editable_get_chars(GTK_EDITABLE(GTK_ENTRY(fb->entry)),0,-1);
+	tmpstring = return_file(setfile);
+	g_free(setfile);
 	DEBUG_MSG("file_but_clicked_lcb, return_file returned %s\n",tmpstring);
-	if (tmpstring != NULL) {
-	/* I don't know how to get this function to create a relative link again.. */
-/*		if (main_v->current_document->filename != NULL) {
-			tmp2string = create_relative_link_to(main_v->current_document->filename, tmpstring);
-		} else {
-			tmp2string = g_path_get_basename(tmpstring);
+	if (tmpstring) {
+		if (!fb->fullpath && fb->bfwin) {
+			if (fb->bfwin->current_document->filename != NULL) {
+				tmp2string = create_relative_link_to(fb->bfwin->current_document->filename, tmpstring);
+			} else {
+				tmp2string = g_path_get_basename(tmpstring);
+			}
+			g_free(tmpstring);
+			tmpstring = tmp2string;
 		}
-		g_free(tmpstring);*/
-		gtk_entry_set_text(GTK_ENTRY(which_entry), tmpstring);
+		gtk_entry_set_text(GTK_ENTRY(fb->entry), tmpstring);
 /*	perhaps I break something by commenting-out this call, but otherwise the dialog is sometimes started
 	again after the signal is emmitted
 		gtk_signal_emit_by_name(GTK_OBJECT(which_entry), "activate");
@@ -1145,18 +1154,8 @@ static void file_but_clicked_lcb(GtkWidget * widget, GtkWidget * which_entry)
 	}
 }
 
-static void file_but_clicked_full_lcb(GtkWidget * widget, GtkWidget * which_entry)
-{
-	gchar *tmpstring, *setfile;
-	DEBUG_MSG("file_but_clicked_full_lcb, started, entry=%p\n",which_entry);
-	setfile = gtk_editable_get_chars(GTK_EDITABLE(GTK_ENTRY(which_entry)),0,-1);
-	tmpstring = return_file(setfile);
-	DEBUG_MSG("file_but_clicked_full_lcb, return_file returned %s\n",tmpstring);
-	g_free(setfile);
-	if (tmpstring != NULL) {
-		gtk_entry_set_text(GTK_ENTRY(which_entry), tmpstring);
-		g_free(tmpstring);
-	}
+static void file_but_destroy(GtkObject *object, Tfilebut *fb) {
+	g_free(fb);
 }
 /**
  * file_but_new:
@@ -1168,17 +1167,19 @@ static void file_but_clicked_full_lcb(GtkWidget * widget, GtkWidget * which_entr
  *
  * Return value: #GtkWidget* pointer to file button
  */
-GtkWidget *file_but_new(GtkWidget * which_entry, GtkWidget * win, gint full_pathname) {
+GtkWidget *file_but_new(GtkWidget * which_entry, gint full_pathname, Tbfwin *bfwin) {
 	GtkWidget *file_but;
+	Tfilebut *fb;
 
+	fb = g_new(Tfilebut,1);
+	fb->entry = which_entry;
+	fb->bfwin = bfwin;
+	fb->fullpath = full_pathname;
 	file_but = gtk_button_new();
+	g_signal_connect(G_OBJECT(file_but), "destroy", G_CALLBACK(file_but_destroy), fb);
 	DEBUG_MSG("file_but_new, entry=%p, button=%p\n",which_entry,file_but);
 	gtk_container_add(GTK_CONTAINER(file_but), hbox_with_pix_and_text(_("_Browse..."), 112));
-	if (full_pathname == 1) {
-		g_signal_connect(G_OBJECT(file_but), "clicked", G_CALLBACK(file_but_clicked_full_lcb), which_entry);
-	} else {
-		g_signal_connect(G_OBJECT(file_but), "clicked", G_CALLBACK(file_but_clicked_lcb), which_entry);
-	}
+	g_signal_connect(G_OBJECT(file_but), "clicked", G_CALLBACK(file_but_clicked_lcb), fb);
 	gtk_widget_show(file_but);
 	return file_but;
 }

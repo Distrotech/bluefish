@@ -255,7 +255,7 @@ void image_insert_dialog_backend(gchar *filename,Tbfwin *bfwin, Ttagpopup *data,
 	}
 	bf_mnemonic_label_tad_with_alignment(_("_Image location:"), imdg->dg->entry[0], 0, 0.5, dgtable, 0, 1, 0, 1); 
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), imdg->dg->entry[0], 1, 7, 0, 1);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), file_but_new(imdg->dg->entry[0], imdg->dg->dialog, 0), 7, 9, 0, 1);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), file_but_new(imdg->dg->entry[0], 0, bfwin), 7, 9, 0, 1);
 	g_signal_connect(G_OBJECT(imdg->dg->entry[0]), "changed", G_CALLBACK(image_filename_changed), imdg);
 
 	imdg->dg->spin[0] = spinbut_with_value(NULL, 0, 5000, 1.0, 10.0);
