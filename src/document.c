@@ -144,7 +144,7 @@ void doc_update_highlighting(GtkWidget *wid, gpointer data) {
 	DEBUG_MSG("doc_update_highlighting, curdoc=%p, highlightstate=%d\n", main_v->current_document, main_v->current_document->highlightstate);
 	if (main_v->current_document->highlightstate == 0) {
 		setup_toggle_item(gtk_item_factory_from_widget(main_v->menubar),
-			  N_("/Document/Highlight syntax"), TRUE);
+			  N_("/Document/Highlight Syntax"), TRUE);
 		DEBUG_MSG("doc_update_highlighting, calling doc_toggle_highlighting_cb\n");
 		doc_toggle_highlighting_cb(NULL, 0, NULL);
 	} else {

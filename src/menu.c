@@ -647,11 +647,11 @@ void menu_create_main(GtkWidget *vbox)
 	gtk_box_pack_start(GTK_BOX(vbox), main_v->menubar, FALSE, TRUE, 0);
 	gtk_widget_show(main_v->menubar);
 
-	setup_toggle_item(item_factory, N_("/Options/Display/View Main toolbar"), main_v->props.view_main_toolbar);
-	setup_toggle_item(item_factory, N_("/Options/Display/View HTML toolbar"), main_v->props.view_html_toolbar);
-	setup_toggle_item(item_factory, N_("/Options/Display/View Custom menu"), main_v->props.view_custom_menu);
-	setup_toggle_item(item_factory, N_("/Options/Display/View Left panel"), main_v->props.view_left_panel);
-	setup_toggle_item(item_factory, N_("/Options/Auto indent"), main_v->props.autoindent);
+	setup_toggle_item(item_factory, N_("/Options/Display/View Main Toolbar"), main_v->props.view_main_toolbar);
+	setup_toggle_item(item_factory, N_("/Options/Display/View HTML Toolbar"), main_v->props.view_html_toolbar);
+	setup_toggle_item(item_factory, N_("/Options/Display/View Custom Menu"), main_v->props.view_custom_menu);
+	setup_toggle_item(item_factory, N_("/Options/Display/View Left Panel"), main_v->props.view_left_panel);
+	setup_toggle_item(item_factory, N_("/Options/Auto Indent"), main_v->props.autoindent);
 
 	filetype_menu_rebuild(item_factory);
 	
