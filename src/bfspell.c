@@ -1,3 +1,22 @@
+/* Bluefish HTML Editor
+ * bfspell.c - aspell spell checker
+ *
+ * Copyright (C) 2002-2004 Olivier Sessink
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ */
 /* #define DEBUG */
 
 #include "config.h"
@@ -272,20 +291,23 @@ void spell_gui_fill_dicts(Tbfspell *bfspell) {
 		GtkWidget *label;
 		menuitem = gtk_menu_item_new();
 		label = gtk_label_new(entry->name);
-		bfspell->langs = g_list_append(bfspell->langs,g_strdup(entry->name));
 		gtk_misc_set_alignment(GTK_MISC(label),0,0.5);
 		gtk_container_add(GTK_CONTAINER(menuitem), label);
-		DEBUG_MSG("adding language %s to menuitem %p using label %p\n",entry->name,menuitem,label);
 /*		g_signal_connect(G_OBJECT (menuitem), "activate",G_CALLBACK(),GINT_TO_POINTER(0));*/
 		if (strcmp(entry->name, main_v->props.spell_default_lang) == 0) {
+			DEBUG_MSG("spell_gui_fill_dicts, lang %s is the default language, inserting menuitem %p at position 0\n",entry->name,menuitem);
 			gtk_menu_shell_insert(GTK_MENU_SHELL(menu), menuitem, 0);
+			bfspell->langs = g_list_prepend(bfspell->langs,g_strdup(entry->name));
 		} else {
+			DEBUG_MSG("spell_gui_fill_dicts, lang %s is not the default language, appending menuitem %p\n",entry->name,menuitem);
 			gtk_menu_shell_append(GTK_MENU_SHELL(menu), menuitem);
+			bfspell->langs = g_list_append(bfspell->langs,g_strdup(entry->name));
 		}
 	}
 	delete_aspell_dict_info_enumeration(dels);
 	gtk_widget_show_all(menu);
 	gtk_option_menu_set_menu(GTK_OPTION_MENU(bfspell->lang), menu);
+	DEBUG_MSG("spell_gui_fill_dicts, set item 0 as selected item\n");
 	gtk_option_menu_set_history(GTK_OPTION_MENU(bfspell->lang),0);
 }
 
@@ -334,7 +356,7 @@ static void defaultlang_clicked_lcb(GtkWidget *widget,Tbfspell *bfspell) {
 	indx = gtk_option_menu_get_history(GTK_OPTION_MENU(bfspell->lang));
 	lang = g_list_nth_data(bfspell->langs, indx);
 	g_free(main_v->props.spell_default_lang);
-	DEBUG_MSG("defaultlang_clicked_lcb, default lang is now %s\n",lang);
+	DEBUG_MSG("defaultlang_clicked_lcb, index=%d, default lang is now %s\n",indx, lang);
 	main_v->props.spell_default_lang = g_strdup(lang);
 }
 void filter_changed_lcb(GtkOptionMenu *optionmenu,Tbfspell *bfspell) {
