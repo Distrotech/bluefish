@@ -602,7 +602,7 @@ void filetype_menu_destroy(Tfiletype *filetype) {
 void filetype_menu_rebuild(GtkItemFactory *item_factory) {
 	GSList *group=NULL;
 	GtkWidget *parent_menu;
-	GList *tmplist = g_list_first(main_v->filetypelist);
+	GList *tmplist = g_list_last(main_v->filetypelist);
 	if (!item_factory) {
 		item_factory = gtk_item_factory_from_widget(main_v->menubar);
 	}
@@ -620,7 +620,7 @@ void filetype_menu_rebuild(GtkItemFactory *item_factory) {
 		gtk_widget_show(filetype->menuitem);
 		gtk_menu_insert(GTK_MENU(parent_menu), filetype->menuitem, 1);
 		group = gtk_radio_menu_item_get_group (GTK_RADIO_MENU_ITEM(filetype->menuitem));
-		tmplist = g_list_next(tmplist);
+		tmplist = g_list_previous(tmplist);
 	}
 }
 
