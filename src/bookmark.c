@@ -849,7 +849,8 @@ void bmark_reload(Tbfwin * bfwin)
 			b = g_new0(Tbmark, 1);
 			b->name = g_strdup(items[0]);
 			b->description = g_strdup(items[1]);
-			b->filepath = g_strdup(items[2]);
+			/* convert old (Bf 1.0) bookmarks to new bookmarks with uri's */
+			b->filepath = (strchr(items[2], ':')==NULL) ? g_strconcat("file://", items[2], NULL) : g_strdup(items[2]);
 			b->offset = atoi(items[3]);
 			b->text = g_strdup(items[4]);
 			b->len = atoi(items[5]);
