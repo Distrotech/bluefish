@@ -1720,7 +1720,7 @@ static void doc_buffer_delete_range_lcb(GtkTextBuffer *textbuffer,GtkTextIter * 
 
 static gboolean doc_view_button_release_lcb(GtkWidget *widget,GdkEventButton *bevent, Tdocument *doc) {
 	DEBUG_MSG("doc_view_button_release_lcb, button %d\n", bevent->button);
-	if (bevent->button ==2) {
+	if (bevent->button==2) {
 		/* end of paste */
 		doc->in_paste_operation = FALSE;
 	}
@@ -1757,7 +1757,7 @@ static gboolean doc_view_button_release_lcb(GtkWidget *widget,GdkEventButton *be
 
 static gboolean doc_view_button_press_lcb(GtkWidget *widget,GdkEventButton *bevent, Tdocument *doc) {
 	DEBUG_MSG("doc_view_button_press_lcb, button %d\n", bevent->button);
-	if (bevent->button == 2) {
+	if (bevent->button==2) {
 		doc->in_paste_operation = TRUE;
 	}
 	if (bevent->button == 3) {
@@ -2444,6 +2444,13 @@ void document_set_line_numbers(Tdocument *doc, gboolean value) {
 	}
 }
 
+static void doc_view_drag_end_lcb(GtkWidget *widget,GdkDragContext *drag_context,Tdocument *doc) {
+	doc->in_paste_operation = FALSE;
+}
+static void doc_view_drag_begin_lcb(GtkWidget *widget,GdkDragContext *drag_context,Tdocument *doc) {
+	doc->in_paste_operation = TRUE;
+}
+
 /**
  * doc_new:
  * @bfwin: #Tbfwin* with the window to open the document in
@@ -2514,6 +2521,15 @@ Tdocument *doc_new(Tbfwin* bfwin, gboolean delay_activate) {
 		G_CALLBACK(doc_buffer_mark_set_lcb), newdoc);
 	g_signal_connect(G_OBJECT(newdoc->view), "toggle-overwrite",
 		G_CALLBACK(doc_view_toggle_overwrite_lcb), newdoc);
+/*	g_signal_connect(G_OBJECT(newdoc->view), "paste-clipboard",
+		G_CALLBACK(doc_paste_clipboard_lcb), newdoc);
+	g_signal_connect_after(G_OBJECT(newdoc->view), "button-release-event", 
+		G_CALLBACK(doc_view_button_release_after_lcb), newdoc);*/
+	g_signal_connect_after(G_OBJECT(newdoc->view), "drag-end", 
+		G_CALLBACK(doc_view_drag_end_lcb), newdoc);
+	g_signal_connect_after(G_OBJECT(newdoc->view), "drag-begin", 
+		G_CALLBACK(doc_view_drag_begin_lcb), newdoc);
+
 	bfwin->documentlist = g_list_append(bfwin->documentlist, newdoc);
 
 	if(!delay_activate) gtk_widget_show(newdoc->view); /* Delay _show() if neccessary */
