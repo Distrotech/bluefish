@@ -429,6 +429,10 @@ gchar *ask_new_filename(Tbfwin *bfwin,gchar *old_curi, const gchar *gui_name, gb
 
 void doc_save_backend(Tdocument *doc, gboolean do_save_as, gboolean do_move, gboolean close_doc, gboolean close_window) {
 	DEBUG_MSG("doc_save_backend, started for doc %p\n",doc);
+	if(doc->action.save) {
+		/* already saving... BUG: set statusbar message, or give user a message ? */
+		return;
+	}
 	if (doc->uri == NULL) {
 		do_save_as = 1;
 	}
