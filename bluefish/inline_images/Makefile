@@ -15,14 +15,11 @@ TOOLBAR = \
 	color_select color_select.png \
 	comment comment.png \
 	context context.png \
-	copy copy.png \
 	css_small css_small.png \
-	cssclass cssclass.png \
 	cssdiv cssdiv.png \
 	cssnewstyle cssnewstyle.png \
 	cssspan cssspan.png \
 	cssstyle cssstyle.png \
-	cut cut.png \
 	dfn dfn.png \
 	dtd dtd.png \
 	email email.png \
@@ -61,6 +58,7 @@ TOOLBAR = \
 	fref fref.png \
 	frdialog frdialog.png \
 	frinfo frinfo.png \
+	frsearch frsearch.png \
 	headings headings.png \
 	help help.png \
 	hrule hrule.png \
@@ -80,23 +78,18 @@ TOOLBAR = \
 	list_dl list_dl.png \
 	list_dt list_dt.png \
 	list_li list_li.png \
-	list_menu list_menu.png \
 	list_ol list_ol.png \
 	list_ul list_ul.png \
 	meta meta.png \
 	multithumbs multithumbs.png \
 	nbsp nbsp.png \
 	netscape netscape.png \
-	new new.png \
 	no no.png \
 	nothing nothing.png \
 	ok ok.png \
-	open open.png \
 	open_small open_small.png \
 	paragraph paragraph.png \
-	paste paste.png \
 	php3 php3.png \
-	preferences preferences.png \
 	prefseditor prefs-editor.png \
 	prefsfiletypes prefs-filetypes.png \
 	prefsinterface prefs-interface.png \
@@ -108,17 +101,10 @@ TOOLBAR = \
  	prefssyntax prefs-syntax.png \
 	print print.png \
 	quick_start quick_start.png \
-	redo redo.png \
 	right right.png \
 	rxml rxml.png \
 	samp samp.png \
-	save save.png \
-	save_as save_as.png \
-	search search.png \
-	search_replace search_replace.png \
-	spellcheck spellcheck.png \
 	ssi ssi.png \
-	strikeout strikeout.png \
 	table table.png \
 	table2 table2.png \
 	table_capt table_capt.png \
@@ -131,10 +117,25 @@ TOOLBAR = \
 	tablewhiz tablewhiz.png \
 	thumbnail thumbnail.png \
 	underline underline.png \
-	undo undo.png \
 	unindent unindent.png \
 	var var.png \
 	view_in_browser view_in_browser.png
+#	copy copy.png \
+#	cssclass cssclass.png \
+#	cut cut.png \
+#	list_menu list_menu.png \
+#	new new.png \
+#	open open.png \
+#	paste paste.png \
+#	preferences preferences.png \
+#	redo redo.png \
+#	save save.png \
+#	save_as save_as.png \
+#	search search.png \
+#	search_replace search_replace.png \
+#	spellcheck spellcheck.png \
+#	strikeout strikeout.png \
+#	undo undo.png \
 #	wml_a wml_a.png \
 #	wml_access wml_access.png \
 #	wml_bold wml_bold.png \
