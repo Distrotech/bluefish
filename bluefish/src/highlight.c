@@ -262,14 +262,6 @@ static void timing_stop(gint id) {
 /* initializing the highlighting */
 /*********************************/
 
-static int pcre_compile_options(gint case_insens) {
-	if (case_insens) {
-		return PCRE_CASELESS|PCRE_MULTILINE;
-	} else {
-		return PCRE_MULTILINE;
-	}
-}
-
 static void compile_pattern(gchar *filetype, gchar *name, gint case_insens
 			, gchar *pat1, gchar *pat2, gint mode, gchar *parentmatch
 			, gchar *fgcolor, gchar *bgcolor, gint weight, gint style) {
@@ -313,7 +305,9 @@ static void compile_pattern(gchar *filetype, gchar *name, gint case_insens
 			const char *err=NULL;
 			int erroffset=0;
 			DEBUG_MSG("compiling pat1 '%s'\n", pat1);
-			pat->reg1.pcre = pcre_compile(pat1, pcre_compile_options(case_insens),&err,&erroffset,NULL);
+			pat->reg1.pcre = pcre_compile(pat1,
+					(case_insens) ? PCRE_CASELESS|PCRE_MULTILINE|PCRE_DOTALL : PCRE_MULTILINE|PCRE_DOTALL,
+					&err,&erroffset,NULL);
 			if (err) {
 				g_print("error compiling pattern %s offset %d\n", err, erroffset);
 			}
@@ -333,7 +327,9 @@ static void compile_pattern(gchar *filetype, gchar *name, gint case_insens
 			const char *err=NULL;
 			int erroffset=0;
 			DEBUG_MSG("compiling pat2 '%s'\n", pat2);
-			pat->reg2.pcre = pcre_compile(pat2, pcre_compile_options(case_insens),&err,&erroffset,NULL);
+			pat->reg2.pcre = pcre_compile(pat2,
+					(case_insens) ? PCRE_CASELESS|PCRE_MULTILINE|PCRE_DOTALL : PCRE_MULTILINE|PCRE_DOTALL,
+					&err,&erroffset,NULL);
 			if (err) {
 				g_print("error compiling pattern %s offset %d\n", err, erroffset);
 			}
@@ -1244,6 +1240,9 @@ void doc_highlight_line(Tdocument * doc)
 	if (patternlist) {
 		gchar *buf;
 		DEBUG_MSG("doc_highlight_line from so=%d to eo=%d\n", so, eo);
+		
+		patmatch_init_run(doc->hl->highlightlist);
+		
 #ifdef HL_TIMING
 		timing_start(TIMING_TOTAL);
 #endif
