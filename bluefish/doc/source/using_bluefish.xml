@@ -687,12 +687,11 @@ environment to make Gnome and GTK programs detect this encoding.
 <sect3 id="open-advanced">
 <title>Open advanced</title>
 	<para>
-		In the <emphasis>File &gt; Open Advanced</emphasis> dialog, accessible from the <menuchoice><shortcut><keycombo><keycap>Shift</keycap><keycap>Ctrl</keycap><keycap>O</keycap></keycombo></shortcut><guimenu>File</guimenu><guimenuitem>File &gt; Open Advanced...</guimenuitem></menuchoice> menu item, multiple files 
-	can be opened from a directory based on their extension or their content. The
+		In the <emphasis>Open Advanced</emphasis> dialog, accessible from the <menuchoice><shortcut><keycombo><keycap>Shift</keycap><keycap>Ctrl</keycap><keycap>O</keycap></keycombo></shortcut><guimenu>File</guimenu><guimenuitem>Open Advanced...</guimenuitem></menuchoice> menu item, multiple files 
+	can be opened from a directory based on their extension or their contents. The
 	same functionality is available from the filebrowser in the side panel. If you right
 	click a directory, you can also there select <guimenuitem>Open advanced...</guimenuitem>.
 	</para>
-	<para>SCREENSHOT BY ????</para>
 	<para>
 	To open all files by extension, enter the extension in the dialog, and leave the search 
 	pattern empty. Check the <guilabel>recursive</guilabel> option if you want to include
@@ -706,6 +705,21 @@ environment to make Gnome and GTK programs detect this encoding.
 	The open advanced functionality runs the find and grep utilities to get a list of filenames. If these 
 	utilities are not available on your system the functionality is not available.
 	</para>
+	<para>You may also combine both methods. Here we open recursively all Chinese xml files in a given tree, whose contents contain the word packaging.
+		<figure id="figure-open-advanced">
+				<title id="figure-open-advanced-title">Using the Open Advanced dialog</title>
+				<screenshot>
+					<mediaobject>
+						<imageobject>
+							<imagedata fileref="figures/open_advanced.png" format="PNG"/>
+						</imageobject>
+						<textobject>
+							<phrase>Using the Open Advanced dialog</phrase>
+						</textobject>
+					</mediaobject>
+				</screenshot>
+			</figure>
+</para>
 </sect3>
 </sect2>
 </sect1>
