@@ -414,9 +414,9 @@ if test "x$WITHGNOME2" = "xyes" ; then
 			echo "no"
 		fi
 		echo -n "checking for gnome2 mime directory... "
-		if test -d /usr/share/mime ; then
-			echo "/usr/share/mime"
-			GNOME2MIME=/usr/share/mime
+		if test -d /usr/share/mime/packages ; then
+			echo "/usr/share/mime/packages"
+			GNOME2MIME=/usr/share/mime/packages
 			AC_SUBST(GNOME2MIME)
 		else
 			echo "no"
@@ -436,9 +436,9 @@ AC_ARG_WITH(icon-path,
 if test "x$WITHICON" = "xyes" ; then
 	echo -n "checking for icon directory... "
 	if test -d /usr/share/pixmaps ; then
+		echo "/usr/share/pixmaps"
 		ICONPATH=/usr/share/pixmaps
 		AC_SUBST(ICONPATH)
-		echo "/usr/share/pixmaps"
 	else
 		echo "no"
 	fi
