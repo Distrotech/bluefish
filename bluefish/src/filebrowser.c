@@ -1487,6 +1487,7 @@ static gboolean filebrowser_button_press_lcb(GtkWidget *widget, GdkEventButton *
 			gtk_tree_view_get_path_at_pos(GTK_TREE_VIEW(filebrowser->tree), event->x, event->y, &path, NULL, NULL, NULL);
 			if (path) {
 				gtk_tree_model_get_iter(GTK_TREE_MODEL(filebrowser->store),&iter,path);
+				gtk_tree_path_free(path);
 				if (gtk_tree_model_iter_has_child(GTK_TREE_MODEL(filebrowser->store),&iter)) {
 					/* it is a directory */
 					menu = filebrowser_rpopup_create_menu(filebrowser, TRUE);
@@ -1533,8 +1534,6 @@ static gboolean filebrowser_button_press_lcb(GtkWidget *widget, GdkEventButton *
 						g_free(tmp);
 						g_free(dir);
 					}
-	/*				gtk_tree_path_free(path);
-					return FALSE;*/
 				} else if (event->type == GDK_2BUTTON_PRESS) {
 					GdkRectangle r;
 					gchar *filename = return_filename_from_path(filebrowser,GTK_TREE_MODEL(filebrowser->store),path);
@@ -1543,11 +1542,11 @@ static gboolean filebrowser_button_press_lcb(GtkWidget *widget, GdkEventButton *
 					handle_activate_on_file(filebrowser,filename);
 					g_free(filename);
 					gtk_tree_view_scroll_to_point(GTK_TREE_VIEW(filebrowser->tree),-1,r.y);
+					gtk_tree_path_free (path);
 					return TRUE;
 				}
 			}
 			gtk_tree_path_free(path);
-/*			return TRUE;*/
 		}
 	}
 	return FALSE; /* pass the event on */
