@@ -61,11 +61,6 @@ p a[id] {
 	background-image: none;
 }
 
-p .guiicon {
-	position: relative;
-	top: 12px;
-}
-
 dd {
 	margin: 5px 40px;
 	margin-right: 0;
@@ -222,13 +217,7 @@ b.keycap, .keycap {
 	margin: 0 2px;
 }
 
-.acronym { text-transform: uppercase; }
 
-.informaltable { 
-	width: 70%;
-	min-width: 50%;
-	margin: 5em 0;
-	}
 
 .title {
 	clear: both;
@@ -246,16 +235,6 @@ div.caption {
 	border: 1px solid #bbb;
 	background-color: #eee;
 	width: auto;
-}
-
-.segmentedlist {
-	margin: 10px;
-	padding: 10px;
-}
-
-td.seg {
-	padding-right: 15px;
-	vertical-align: top;
 }
 
 /* For variable lists, indentation of the term element */
