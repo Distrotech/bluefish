@@ -128,6 +128,7 @@ Developers for this release:\n\
   Jim Hayward <jimhayward@linuxexperience.net>\n\
   Oskar Świda <swida@aragorn.pb.bialystok.pl>\n\
   Eugene Morenko(More) <more@irpin.com>\n\
+  Alastair Porter <alastair@linuxexperience.com>\n\
 \n\
 Developers for previous releases:\n\
   Chris Mazuc\n\
@@ -143,6 +144,9 @@ Developers for previous releases:\n\
   Antti-Juhani Kaijanaho\n\
 \n\
 Documentation:\n\
+  Scott White <wwsw3@earthlink.net>\n\
+  Michèle Garoche <michele.garoche@easyconnect.fr>\n\
+  Anita Lewis <ajreiki@highstream.net>\n\
   Alastair Porter <alastair@linuxexperience.com>\n\
   Daniel Blair <joecamel@realcoders.org>\n\
   Denny Reeh\n\
@@ -151,6 +155,7 @@ Package Maintainers:\n\
   Debian:   Davide Puricelli <evo@debian.org>\n\
   Redhat:   Matthias Haase <matthias_haase@bennewitz.com>\n\
   Mandrake: Todd Lyons <todd@mrball.net>\n\
+  Fink: Michèle Garoche <michele.garoche@easyconnect.fr>\n\
 \n\
 If you know of anyone missing from this list, please let us know\n\
 <bluefish@bluefish.openoffice.nl>\n\
