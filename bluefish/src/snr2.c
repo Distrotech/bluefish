@@ -1690,15 +1690,27 @@ void update_encoding_meta_in_file(Tdocument *doc, gchar *encoding) {
 		gchar *search_pattern, *fulltext;
 		Tsearch_result result;
 		/* first find if there is a meta encoding tag already */
-		search_pattern = "<meta[ \t\n]http-equiv[ \t\n]*=[ \t\n]*\"content-type\"[ \t\n]+content[ \t\n]*=[ \t\n]*\"text/html;[ \t\n]*charset=[a-z0-9-]+\"[ \t\n]*>";
+		search_pattern = "<meta[ \t\n]http-equiv[ \t\n]*=[ \t\n]*\"content-type\"[ \t\n]+content[ \t\n]*=[ \t\n]*\"([^;]*);[ \t\n]*charset=[a-z0-9-]*\"[ \t\n]*(/?)>";
 		fulltext = doc_get_chars(doc, 0, -1);
 		utf8_offset_cache_reset();
-		result = search_backend(bfwin,search_pattern, match_posix, 0, fulltext, 0, 0);
+		result = search_backend(bfwin,search_pattern, match_posix, 0, fulltext, 0, 1);
 		if (result.end > 0) {
-			gchar *replacestring = g_strconcat("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=",encoding,"\">", NULL);
+			gchar *replacestring, *type, *xhtmlend;
+			DEBUG_MSG("update_encoding_meta_in_file, we have a match, nmatch=%d\n",result.nmatch);
+			if (result.nmatch > 2) {
+				type = g_strndup(fulltext+result.pmatch[1].rm_so, result.pmatch[1].rm_eo - result.pmatch[1].rm_so);
+				xhtmlend = g_strndup(fulltext+result.pmatch[2].rm_so, result.pmatch[2].rm_eo - result.pmatch[2].rm_so);
+				DEBUG_MSG("update_encoding_meta_in_file, type=%s (bstart=%d, bend=%d, so[1]=%d, eo[1]=%d)\n",type,result.bstart,result.bend,result.pmatch[1].rm_so,result.pmatch[1].rm_eo);
+			} else {
+				type = g_strdup("text/html");
+				xhtmlend = g_strdup( main_v->props.xhtml ? "/" : "");
+			}
+			replacestring = g_strconcat("<meta http-equiv=\"Content-Type\" content=\"",type,"; charset=",encoding,"\" ",xhtmlend,">", NULL);
 			DEBUG_MSG("update_encoding_meta_in_file, 1: we have a match\n");
 			doc_replace_text(doc, replacestring, result.start, result.end);
 			g_free(replacestring);
+			g_free(type);
+			g_free(xhtmlend);
 		} else {
 			DEBUG_MSG("update_encoding_meta_in_file, 1: NO match\n");
 			/* now search for <head>, we can append it to this tag */
