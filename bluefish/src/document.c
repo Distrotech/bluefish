@@ -67,6 +67,12 @@ typedef struct {
 } Tfloatingview;
 #define FLOATINGVIEW(var) ((Tfloatingview *)(var))
 
+typedef struct {
+	guint so;
+	guint eo;
+} Tpasteoperation;
+#define PASTEOPERATION(var) ((Tpasteoperation *)(var))
+
 void autoclosing_init(void) {
 	const char *error;
 	int erroffset;
@@ -1658,8 +1664,12 @@ static void doc_buffer_insert_text_lcb(GtkTextBuffer *textbuffer,GtkTextIter * i
 	gint clen = g_utf8_strlen(string, len);
 	DEBUG_MSG("doc_buffer_insert_text_lcb, started, string='%s', len=%d, clen=%d\n", string, len, clen);
 	/* the 'len' seems to be the number of bytes and not the number of characters.. */
-	/* undo_redo stuff */
-	if (len == 1 && !doc->in_paste_operation) {
+
+	if (doc->paste_operation) {
+		if ((pos + clen) > PASTEOPERATION(doc->paste_operation)->eo) PASTEOPERATION(doc->paste_operation)->eo = pos + clen;
+		if (pos < PASTEOPERATION(doc->paste_operation)->so || PASTEOPERATION(doc->paste_operation)->so == -1) PASTEOPERATION(doc->paste_operation)->so = pos;
+	} else if (len == 1) {
+		/* undo_redo stuff */
 		if ((string[0] == ' ' || string[0] == '\n' || string[0] == '\t') || !doc_undo_op_compare(doc,UndoInsert,pos)) {
 			DEBUG_MSG("doc_buffer_insert_text_lcb, need a new undogroup\n");
 			doc_unre_new_group(doc);
@@ -1719,7 +1729,7 @@ static gchar *closingtagtoinsert(Tdocument *doc, const gchar *tagname, GtkTextIt
 }
 static void doc_buffer_insert_text_after_lcb(GtkTextBuffer *textbuffer,GtkTextIter * iter,gchar * string,gint len, Tdocument * doc) {
 	DEBUG_MSG("doc_buffer_insert_text_after_lcb, started for string '%s'\n",string);
-	if (!doc->in_paste_operation) {
+	if (!doc->paste_operation) {
 		/* highlighting stuff */
 		if (doc->highlightstate && string && doc->hl) {
 			gboolean do_highlighting = FALSE;
@@ -1897,7 +1907,14 @@ static gboolean doc_view_button_release_lcb(GtkWidget *widget,GdkEventButton *be
 	DEBUG_MSG("doc_view_button_release_lcb, button %d\n", bevent->button);
 	if (bevent->button==2) {
 		/* end of paste */
-		doc->in_paste_operation = FALSE;
+		if (doc->paste_operation) {
+			if (PASTEOPERATION(doc->paste_operation)->eo > PASTEOPERATION(doc->paste_operation)->so) {
+				doc_highlight_region(doc, PASTEOPERATION(doc->paste_operation)->so, PASTEOPERATION(doc->paste_operation)->eo);
+			}
+			g_free(doc->paste_operation);
+			doc->paste_operation = NULL;
+		}
+		/* now we should update the highlighting for the pasted text, but how long is the pasted text ?? */
 	}
 /*	if (bevent->button == 3) {
 		GtkWidget *menuitem;
@@ -1943,8 +1960,10 @@ static void doc_get_iter_at_bevent(Tdocument *doc, GdkEventButton *bevent, GtkTe
 
 static gboolean doc_view_button_press_lcb(GtkWidget *widget,GdkEventButton *bevent, Tdocument *doc) {
 	DEBUG_MSG("doc_view_button_press_lcb, button %d\n", bevent->button);
-	if (bevent->button==2) {
-		doc->in_paste_operation = TRUE;
+	if (bevent->button==2 && !doc->paste_operation) {
+		doc->paste_operation = g_new(Tpasteoperation,1);
+		PASTEOPERATION(doc->paste_operation)->so = -1;
+		PASTEOPERATION(doc->paste_operation)->eo = -1;
 	}
 	if (bevent->button == 3) {
 		GtkTextIter iter;
@@ -2739,10 +2758,20 @@ void document_set_line_numbers(Tdocument *doc, gboolean value) {
 }
 
 static void doc_view_drag_end_lcb(GtkWidget *widget,GdkDragContext *drag_context,Tdocument *doc) {
-	doc->in_paste_operation = FALSE;
+	if (doc->paste_operation) {
+		if (PASTEOPERATION(doc->paste_operation)->eo > PASTEOPERATION(doc->paste_operation)->so) {
+			doc_highlight_region(doc, PASTEOPERATION(doc->paste_operation)->so, PASTEOPERATION(doc->paste_operation)->eo);
+		}
+		g_free(doc->paste_operation);
+		doc->paste_operation = NULL;
+	}
 }
 static void doc_view_drag_begin_lcb(GtkWidget *widget,GdkDragContext *drag_context,Tdocument *doc) {
-	doc->in_paste_operation = TRUE;
+	if (!doc->paste_operation) {
+		doc->paste_operation = g_new(Tpasteoperation,1);
+		PASTEOPERATION(doc->paste_operation)->so = -1;
+		PASTEOPERATION(doc->paste_operation)->eo = -1;
+	}
 }
 
 /**
@@ -3828,15 +3857,24 @@ void edit_copy_cb(GtkWidget * widget, Tbfwin *bfwin) {
  **/
 void edit_paste_cb(GtkWidget * widget, Tbfwin *bfwin) {
 	GtkTextMark *mark;
+	Tdocument *doc = bfwin->current_document;
 	DEBUG_MSG("edit_paste_cb, started\n");
-	bfwin->current_document->in_paste_operation = TRUE;
-	doc_unre_new_group(bfwin->current_document);
+	if (!doc->paste_operation) {
+		doc->paste_operation = g_new(Tpasteoperation,1);
+		PASTEOPERATION(doc->paste_operation)->so = -1;
+		PASTEOPERATION(doc->paste_operation)->eo = -1;
+	}
+	doc_unre_new_group(doc);
 
 	DEBUG_MSG("edit_paste_cb, pasting clipboard\n");
-	gtk_text_buffer_paste_clipboard (bfwin->current_document->buffer,gtk_clipboard_get(GDK_SELECTION_CLIPBOARD),NULL,TRUE);
+	gtk_text_buffer_paste_clipboard (doc->buffer,gtk_clipboard_get(GDK_SELECTION_CLIPBOARD),NULL,TRUE);
 
-	doc_unre_new_group(bfwin->current_document);
-	bfwin->current_document->in_paste_operation = FALSE;
+	doc_unre_new_group(doc);
+	if (PASTEOPERATION(doc->paste_operation)->eo > PASTEOPERATION(doc->paste_operation)->so) {
+		doc_highlight_region(doc, PASTEOPERATION(doc->paste_operation)->so, PASTEOPERATION(doc->paste_operation)->eo);
+	}
+	g_free(doc->paste_operation);
+	doc->paste_operation = NULL;
 	
 	mark = gtk_text_buffer_get_insert(bfwin->current_document->buffer);
 	gtk_text_view_scroll_mark_onscreen(GTK_TEXT_VIEW(bfwin->current_document->view), mark); 
