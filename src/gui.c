@@ -254,7 +254,7 @@ void gui_set_title(Tbfwin *bfwin, Tdocument *doc) {
 	}
 	title = g_strconcat(prfilepart, " - Bluefish "VERSION,NULL);
 	gtk_window_set_title(GTK_WINDOW(bfwin->main_window),title);
-	rename_window_entry_in_all_windows(bfwin, prfilepart);
+	rename_window_entry_in_all_windows(bfwin, title);
 	g_free(title);
 	g_free(prfilepart);
 }
