@@ -30,7 +30,7 @@ all: $(DEFAULTFILES)
 install: all
 	$(INSTALL_DIR) $(pkgdatadir)
 	@for file in $(DEFAULTFILES) ; do \
-		$(INSTALL_PROGRAM) $$file $(pkgdatadir)/$$file ;\
+		$(INSTALL_DATA) $$file $(pkgdatadir)/$$file ;\
 	done
 
 uninstall:
