@@ -1,0 +1,65 @@
+<!--
+this file belongs to bluefish, a web development environment
+Copyright (C) 2002  Denny Reeh
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+-->
+<chapter id="debugging-bluefish">
+<title>Debugging Bluefish</title>
+<sect1 id="using-debugger">
+<title>Using the Debugger</title>
+<para>Here are the detailed steps for sending a useful backtrace to the Bluefish Developer Team.</para>
+<procedure><title>Running bluefish under gdb</title>
+<step>
+<para>Get the latest CVS release (see <xref linkend="getting-bluefish-cvs" /> for info)</para>
+</step>
+<step>
+<para>From <filename>bluefish-gtk2</filename>, the top directory of the bluefish source, run: <userinput>autoconf</userinput></para>
+<para>You may have to set some environment variables before running <command>autoconf</command>, as well as providing autoconf with some flags. Also, some patches may need to be applied, depending on your system.</para>
+</step>
+<step>
+<para>Then, run <userinput>./configure --with-debugging-output</userinput></para>
+<para>Again, you may have to add some flags, depending on your system.</para>
+</step>
+<step>
+<para>Once you succeed in configuring bluefish, run: <userinput>make clean</userinput> in order to remove all unnecessary files.</para>
+</step>
+<step>
+<para>Then, run <userinput>make</userinput> to compile bluefish.</para>
+<para>Do not run make install since it strips the debugging symbols from the executable.</para>
+</step>
+<step>
+<para>Execute bluefish under gdb with: <userinput>gdb src/bluefish</userinput>. This way, you will get access to a non stripped version of bluefish, which is not the case if you run  <userinput>gdb bluefish</userinput> or <command>gdb /usr/local/bin/bluefish</command>, since those binaries do not have any debugging symbols anymore.</para>
+</step>
+<step>
+<para>Once <command>gdb</command> has started, type <userinput>r</userinput> to start the debugging session.</para>
+</step>
+<step>
+<para>Try to reproduce the crash in bluefish.</para>
+</step>
+<step>
+<para>Copy and paste the last 50 lines of debugging output to an email.</para>
+</step>
+<step>
+<para>Type <userinput>bt</userinput> in gdb to get the backtrace, and copy it to the email too. If the backtrace is huge, copy only the first 50 lines.</para>
+</step>
+<step>
+<para>Send the email to the general address, the mailing list, or a specific developer (see <xref linkend="bluefish-contact" /> for info).</para>
+</step>
+<step>
+<para>Quit gdb with <userinput>q</userinput></para></step>
+</procedure>
+</sect1>
+</chapter>
