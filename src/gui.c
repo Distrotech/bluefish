@@ -260,6 +260,49 @@ typedef struct {
 	GtkWidget *button;
 }Tquickbaritem;
 
+static void bold_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
+
+}
+static void italic_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
+
+}
+static void paragraph_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
+
+}
+static void break_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
+
+}
+static void breakclear_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
+
+}
+static void nbps_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
+
+}
+static void center_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
+
+}
+static void rightjustify_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
+
+}
+static void comment_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
+
+}
+static void fontsizeplus1_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
+
+}
+static void fontsizeminus1_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
+
+}
+static void preformatted_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
+
+}
+static void subscript_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
+
+}
+static void superscript_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
+
+}
+
 static Ttoolbaritem tbi[] = {
 	{"quickstart...", quickstart_cb, NULL,13 , N_("QuickStart...")},
 	{"body...", body_cb, NULL, 14, N_("Body...")},
