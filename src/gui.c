@@ -380,7 +380,7 @@ static gboolean html_toolbar_item_button_press_lcb(GtkWidget *widget,GdkEventBut
 static void html_toolbar_add_items(GtkWidget *html_toolbar, Ttoolbaritem *tbi, gint from, gint to) {
 	gint i;
 	GtkWidget *item;
-	for (i=from;i<to;i++) {
+	for (i=from;i<=to;i++) {
 		if (tbi[i].func == NULL) {
 			gtk_toolbar_append_space(GTK_TOOLBAR(html_toolbar));
 		} else {
@@ -440,7 +440,7 @@ void make_html_toolbar(GtkWidget *handlebox) {
 	gtk_notebook_append_page(GTK_NOTEBOOK(html_notebook), html_toolbar, gtk_label_new(_(" Standard bar ")));
 
 	html_toolbar = gtk_toolbar_new();
-	html_toolbar_add_items(html_toolbar, tbi, 15, 32);
+	html_toolbar_add_items(html_toolbar, tbi, 15, 31);
 	gtk_notebook_append_page(GTK_NOTEBOOK(html_notebook), html_toolbar, gtk_label_new(_(" Fonts ")));
 
 	html_toolbar = gtk_toolbar_new();
@@ -448,15 +448,15 @@ void make_html_toolbar(GtkWidget *handlebox) {
 	gtk_notebook_append_page(GTK_NOTEBOOK(html_notebook), html_toolbar, gtk_label_new(_(" Tables ")));
 
 	html_toolbar = gtk_toolbar_new();
-	html_toolbar_add_items(html_toolbar, tbi, 43, 51);
+	html_toolbar_add_items(html_toolbar, tbi, 43, 50);
 	gtk_notebook_append_page(GTK_NOTEBOOK(html_notebook), html_toolbar, gtk_label_new(_(" Frames ")));
 
 	html_toolbar = gtk_toolbar_new();
-	html_toolbar_add_items(html_toolbar, tbi, 52, 60);
+	html_toolbar_add_items(html_toolbar, tbi, 51, 60);
 	gtk_notebook_append_page(GTK_NOTEBOOK(html_notebook), html_toolbar, gtk_label_new(_(" Forms ")));
 
 	html_toolbar = gtk_toolbar_new();
-	html_toolbar_add_items(html_toolbar, tbi, 61, 68);
+	html_toolbar_add_items(html_toolbar, tbi, 61, 67);
 	gtk_notebook_append_page(GTK_NOTEBOOK(html_notebook), html_toolbar, gtk_label_new(_(" List ")));
 
 	html_toolbar = gtk_toolbar_new();

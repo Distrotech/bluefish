@@ -5,6 +5,7 @@
 #include "html.h"
 #include "html2.h"
 #include "html_table.h"
+#include "html_form.h"
 
 typedef struct {
 	guint32 findchar;
@@ -107,6 +108,55 @@ gboolean doc_bevent_in_html_tag(Tdocument *doc, GdkEventButton *bevent) {
 	return FALSE;
 }
 
+static void input_tag_splitter(gpointer nothing, gpointer data)
+{
+	Ttagpopup *tag_popup;
+	GList *tmplist;
+	gint counter = 0;
+	gchar *itemvalue = NULL;
+
+	tag_popup = (Ttagpopup *) data;
+	DEBUG_MSG("input_tag_splitter, started\n");
+
+	tmplist = g_list_first(tag_popup->taglist);
+	while (tmplist) {
+		if (strcasecmp((gchar *) ((Ttagitem *) (tmplist->data))->item, "type") == 0) {
+			DEBUG_MSG("input_tag_splitter, found!! tmplist->data->item=%s, counter=%d\n", (gchar *) ((Ttagitem *) (tmplist->data))->item,
+					  counter);
+			itemvalue = g_strdup((gchar *) ((Ttagitem *) (tmplist->data))->value);
+			break;
+		} else {
+			DEBUG_MSG("input_tag_splitter, nope.., tmplist->data->item=%s, counter=%d\n", (gchar *) ((Ttagitem *) (tmplist->data))->item,
+					  counter);
+		}
+		counter++;
+		tmplist = g_list_next(tmplist);
+	}
+	if (tmplist) {
+		g_strdown(itemvalue);
+		DEBUG_MSG("input_tag_splitter, itemvalue=%s, counter=%d\n", itemvalue, counter);
+		if (strcmp(itemvalue, "submit") == 0) {
+			buttondialog_cb(NULL, data);
+		} else if (strcmp(itemvalue, "reset") == 0) {
+			buttondialog_cb(NULL, data);
+		} else if (strcmp(itemvalue, "button") == 0) {
+			buttondialog_cb(NULL, data);
+		} else if (strcmp(itemvalue, "text") == 0) {
+			textdialog_cb(NULL, data);
+		} else if (strcmp(itemvalue, "hidden") == 0) {
+			hiddendialog_cb(NULL, data);
+		} else if (strcmp(itemvalue, "radio") == 0) {
+			radiodialog_cb(NULL, data);
+		} else if (strcmp(itemvalue, "checkbox") == 0) {
+			checkdialog_cb(NULL, data);
+		}
+		g_free(itemvalue);
+	} else {
+		DEBUG_MSG("input_tag_splitter, not found ?\n");
+	}
+}
+
+
 typedef struct {
 	gchar *tag;
 	void (*func) ();
@@ -140,7 +190,12 @@ static void parse_tagstring(gchar * tagstring, gint pos, gint end)
 		{"th", G_CALLBACK(tableheaddialog_cb)},
 		{"td", G_CALLBACK(tabledatadialog_cb)},
 		{"frameset", G_CALLBACK(framesetdialog_cb)},
-		{"frame",G_CALLBACK(framedialog_cb)}
+		{"frame",G_CALLBACK(framedialog_cb)},
+		{"form",G_CALLBACK(formdialog_cb)},
+		{"textarea",G_CALLBACK(textareadialog_cb)},
+		{"select",G_CALLBACK(selectdialog_cb)},
+		{"option",G_CALLBACK(optiondialog_cb)},
+		{"meta",G_CALLBACK(meta_cb)}
 	};
 
 	DEBUG_MSG("parse_tagstring, started, tagstring=%s\n", tagstring);
@@ -224,26 +279,7 @@ static void parse_tagstring(gchar * tagstring, gint pos, gint end)
 			}
 		}
 	}
-
-/*	if (strcmp(tmpstring, "img") == 0) {
-		image_insert_dialog_cb(NULL, tag_popup);
-	} else
-	if (strcmp(tmpstring, "form") == 0) {
-		formdialog_cb(NULL, tag_popup);
-	} else
-	if (strcmp(tmpstring, "textarea") == 0) {
-		textareadialog_cb(NULL, tag_popup);
-	} else
-	if (strcmp(tmpstring, "select") == 0) {
-		selectdialog_cb(NULL, tag_popup);
-	} else
-	if (strcmp(tmpstring, "other") == 0) {
-		optiondialog_cb(NULL, tag_popup);
-	} else
-	if (strcmp(tmpstring, "meta") == 0) {
-		meta_cb(NULL, tag_popup);
-	} else
-	if (strcmp(tmpstring, "card") == 0) {
+/*	if (strcmp(tmpstring, "card") == 0) {
 		carddialog_cb(NULL, tag_popup);
 	} else
 	if (strcmp(tmpstring, "postfield") == 0) {
@@ -269,11 +305,11 @@ static void parse_tagstring(gchar * tagstring, gint pos, gint end)
 	} else
 	if (strcmp(tmpstring, "link") == 0) {
 		link_cb(NULL, tag_popup);
-	} else
+	} else*/
 	if (strcmp(tmpstring, "input") == 0) {
 		DEBUG_MSG("parse_tagstring, identified as INPUT tag, splitting tag!\n");
 		input_tag_splitter(NULL, tag_popup);
-	}*/
+	}
 	tmplist = g_list_first(tmplist);
 	while (tmplist) {
 		g_free(((Ttagitem *) tmplist->data)->item);

@@ -709,9 +709,12 @@ void doc_highlight_line(Tdocument * doc)
 		gtk_text_buffer_get_iter_at_mark(doc->buffer, &itend, mark);
 /*		gtk_text_iter_forward_to_line_end(&itend);
 		gtk_text_iter_set_line_offset(&itend, 0);*/
-		gtk_text_iter_forward_lines(&itend, 1 + main_v->props.highlight_num_lines_count);
-
-		gtk_text_iter_set_line_offset(&itend, 0);
+		if (main_v->props.highlight_num_lines_count) {
+			gtk_text_iter_forward_lines(&itend, main_v->props.highlight_num_lines_count);
+		}
+		if (gtk_text_iter_forward_to_line_end(&itend)) {
+			gtk_text_iter_forward_char(&itend);
+		}
 #ifdef DEBUG
 		DEBUG_MSG("doc_highlight_line, itend is at %d\n", gtk_text_iter_get_offset(&itend));
 #endif

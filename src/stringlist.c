@@ -420,7 +420,6 @@ void debug_array(gchar **array) {
 }
 #endif
 
-
 gint count_array(gchar **array) {
 	gint count=0;
 	gchar **tmpchar=array;

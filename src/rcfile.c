@@ -417,7 +417,7 @@ static GList *props_init_main(GList * config_rc)
 /* not yet in use */
 
 	init_prop_integer(&config_rc, &main_v->props.v_filebrowser, "view_filebrowser:", 1);
-	init_prop_integer(&config_rc, &main_v->props.transient_htdialogs, "transient_htdialogs:", 0);
+	init_prop_integer(&config_rc, &main_v->props.transient_htdialogs, "transient_htdialogs:", 1);
 	init_prop_string(&config_rc, &main_v->props.image_editor_cline, "image_editor_command:", "gimp-remote -n \"%s\"&");
 
 

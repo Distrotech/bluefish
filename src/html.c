@@ -22,7 +22,7 @@
  */
 /* 
  * Changes by Antti-Juhani Kaijanaho <gaia@iki.fi> on 1999-10-20
- * $Id: html.c,v 1.2 2002-05-30 09:13:37 oli4 Exp $
+ * $Id: html.c,v 1.3 2002-05-31 14:36:03 oli4 Exp $
  */
 
  #include <gtk/gtk.h>
@@ -55,6 +55,31 @@ typedef struct {
 } TimeInsert;
 
 /*****************************************************************************/
+
+void insert_char_cb(GtkWidget * widget, gint data) {
+	gchar *sp_chars[] = {
+	"&Agrave;", "&Aacute;", "&Acirc;", "&Atilde;", "&AElig;",
+	"&Auml;", "&Aring;", "&Ccedil;", "&Egrave;", "&Eacute;",
+	"&Ecirc;", "&Euml;", "&Igrave;", "&Iacute;", "&Icirc;",
+	"&Iuml;", "&Ntilde;", "&Ograve;", "&Oacute;", "&Ocirc;",
+	"&Otilde;", "&Ouml;", "&Oslash;", "&Ugrave;", "&Uacute;",
+	"&Ucirc;", "&Uuml;", "&Yacute;", "&agrave;", "&aacute;",
+	"&acirc;", "&atilde;", "&aring;", "&aelig;", "&auml;",
+	"&ccedil;", "&egrave;", "&eacute;", "&ecirc;", "&euml;",
+	"&igrave;", "&iacute;", "&icirc;", "&iuml;", "&ntilde;",
+	"&ograve;", "&oacute;", "&ocirc;", "&otilde;", "&ouml;",
+	"&oslash;", "&ugrave;", "&uacute;", "&ucirc;", "&uuml;",
+	"&yacute;", "&yuml;", "&uml;", "&acute;", "&cedil;", "&cent;",
+	"&pound;", "&curren;", "&yen;", "&not;", "&mult;", "&divide;",
+	"&plusmn;", "&lt;", "&gt;", "&sup1;", "&sup2;", "&sup3;",
+	"&frac14;", "&frac12;", "&frac34;", "&deg;", "&ETH;", "&THORN;",
+	"&eth;", "&thorn;", "&szlig;", "&micro;", "&nbsp;", "&sect;",
+	"&copy;", "&laquo;", "&raquo;", "&reg;", "&iexcl;", "&iquest;",
+	"&ordf;", "&ordm;", "&para;", "&brvbar;", "&shy;", "&macr;",
+	"&middot;","&euro;"
+	};
+	doc_insert_two_strings(main_v->current_document, sp_chars[data], NULL);
+}
 
 void general_html_cb(GtkWidget * widget, gpointer data)
 {
@@ -521,7 +546,7 @@ void quickanchor_cb(GtkWidget * widget, gpointer data)
 
 	lvbox = gtk_vbox_new(FALSE, 0);
 	gtk_notebook_append_page(GTK_NOTEBOOK(noteb), lvbox, gtk_label_new(_("Options")));
-	dgtable = gtk_table_new(4, 10, 0);
+	dgtable = gtk_table_new(4, 10, FALSE);
 	gtk_box_pack_start(GTK_BOX(lvbox), dgtable, FALSE, FALSE, 0);
 
 	{
@@ -535,7 +560,7 @@ void quickanchor_cb(GtkWidget * widget, gpointer data)
 	free_stringlist(rel_link_list);
 	}
 	file_but = file_but_new(GTK_WIDGET(GTK_COMBO(dg->combo[2])->entry), dg->dialog, 0);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(file_but), 9, 10, 0, 1);
+	gtk_table_attach(GTK_TABLE(dgtable), GTK_WIDGET(file_but), 9, 10, 0, 1, GTK_FILL, GTK_FILL, 0, 0);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("HREF")), 0, 1, 0, 1);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(GTK_COMBO(dg->combo[2])), 1, 9, 0, 1);
 
@@ -558,10 +583,10 @@ void quickanchor_cb(GtkWidget * widget, gpointer data)
 	dg->entry[16] = entry_with_text(avalues[15], 256);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Style")), 0, 1, 15, 16);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[16], 1, 9, 15, 16);
-#ifdef NEW_CS3
+
 	but = style_but_new(dg->entry[16], dg->dialog);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), but, 9, 10, 15, 16);
-#endif /* #ifdef NEW_CS3 */
+	gtk_table_attach(GTK_TABLE(dgtable), but, 9, 10, 15, 16, GTK_FILL, GTK_FILL, 0, 0);
+
 	dg->entry[17] = entry_with_text(avalues[16], 256);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Language")), 0, 1, 16, 17);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[17], 1, 10, 16, 17);
@@ -760,7 +785,7 @@ void block_tag_edit_cb(gint type, GtkWidget *widget, gpointer data)
 	g_free(labeltext);
 	fill_dialogvalues(tagitems, tagvalues, &custom, (Ttagpopup *) data, widget, dg);
 
-	dgtable = html_diag_table_in_vbox(dg, 5, 12);
+	dgtable = html_diag_table_in_vbox(dg, 5, 4);
 	
 	popuplist = g_list_append(NULL, "left");
 	popuplist = g_list_append(popuplist, "center");
@@ -768,30 +793,30 @@ void block_tag_edit_cb(gint type, GtkWidget *widget, gpointer data)
 	dg->combo[1] = combo_with_popdown(tagvalues[0], popuplist, 1);
 	g_list_free(popuplist);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Align")), 0, 1, 0, 1);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(GTK_COMBO(dg->combo[1])), 1, 5, 0, 1);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(GTK_COMBO(dg->combo[1])), 1, 2, 0, 1);
 
 	dg->combo[2] = combo_with_popdown(tagvalues[1], recent_attribs.classlist, 1);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Class")), 0, 1, 1, 2);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(GTK_COMBO(dg->combo[2])), 1, 5, 1, 2);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(GTK_COMBO(dg->combo[2])), 1, 2, 1, 2);
 
 	dg->entry[1] = entry_with_text(tagvalues[2], 1024);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Style")), 0, 1, 2, 3);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[1], 1, 5, 2, 3);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[1], 1, 2, 2, 3);
 
 	but = style_but_new(dg->entry[1], dg->dialog);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), but, 5, 6, 2, 3);
+	gtk_table_attach(GTK_TABLE(dgtable), but, 2, 3, 2, 3, GTK_FILL, GTK_FILL, 0, 0);
 
 	dg->entry[2] = entry_with_text(tagvalues[3], 1024);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Name")), 5, 6, 0, 1);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[2], 6, 10, 0, 1);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Name")), 2, 3, 0, 1);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[2], 3, 4, 0, 1);
 	
 	dg->entry[3] = entry_with_text(tagvalues[4], 1024);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Id")), 5, 6, 1, 2);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[3], 6, 10, 1, 2);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Id")), 2, 3, 1, 2);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[3], 3, 4, 1, 2);
 
 	dg->entry[4] = entry_with_text(custom, 1024);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Custom")), 0, 1, 3, 4);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[4], 1, 10, 3, 4);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[4], 1, 4, 3, 4);
 	
 	switch (type) {
 	case 1:
@@ -1091,7 +1116,7 @@ void body_cb(GtkWidget * widget, gpointer data)
 		gtk_table_attach_defaults(GTK_TABLE(dgtable[1]), gtk_label_new(_("Style")), 0, 1, 0, 1);
 
 		stylebut = style_but_new(dg->entry[3], dg->dialog);
-		gtk_table_attach_defaults(GTK_TABLE(dgtable[1]), stylebut, 9, 10, 0, 1);
+		gtk_table_attach(GTK_TABLE(dgtable[1]), stylebut, 9, 10, 0, 1, GTK_FILL, GTK_FILL, 0, 0);
 
 		dg->combo[6] = combo_with_popdown(bodyvalues[7], recent_attribs.classlist, 1);
 		gtk_table_attach_defaults(GTK_TABLE(dgtable[1]), dg->combo[6], 1, 10, 1, 2);
@@ -1123,37 +1148,37 @@ void body_cb(GtkWidget * widget, gpointer data)
 		dg->entry[1] = entry_with_text(bodyvalues[0], 256);
 		file_but = file_but_new(dg->entry[1], dg->dialog, 0);
 
-		gtk_table_attach_defaults(GTK_TABLE(dgtable[0]), GTK_WIDGET(file_but), 9, 10, 0, 1);
+		gtk_table_attach(GTK_TABLE(dgtable[0]), GTK_WIDGET(file_but), 9, 10, 0, 1, GTK_FILL, GTK_FILL, 0, 0);
 		gtk_table_attach_defaults(GTK_TABLE(dgtable[0]), gtk_label_new(_("Background Image")), 0, 1, 0, 1);
 		gtk_table_attach_defaults(GTK_TABLE(dgtable[0]), dg->entry[1], 1, 9, 0, 1);
 
 		dg->combo[1] = combo_with_popdown(bodyvalues[1], recent_attribs.colorlist, 1);
 		color_but = color_but_new(GTK_COMBO(dg->combo[1])->entry, dg->dialog);
-		gtk_table_attach_defaults(GTK_TABLE(dgtable[0]), color_but, 9, 10, 1, 2);
+		gtk_table_attach(GTK_TABLE(dgtable[0]), color_but, 9, 10, 1, 2, GTK_FILL, GTK_FILL, 0, 0);
 		gtk_table_attach_defaults(GTK_TABLE(dgtable[0]), dg->combo[1], 1, 9, 1, 2);
 		gtk_table_attach_defaults(GTK_TABLE(dgtable[0]), gtk_label_new(_("Background Color")), 0, 1, 1, 2);
 
 		dg->combo[2] = combo_with_popdown(bodyvalues[2], recent_attribs.colorlist, 1);
 		color_but = color_but_new(GTK_COMBO(dg->combo[2])->entry, dg->dialog);
-		gtk_table_attach_defaults(GTK_TABLE(dgtable[0]), color_but, 9, 10, 2, 3);
+		gtk_table_attach(GTK_TABLE(dgtable[0]), color_but, 9, 10, 2, 3, GTK_FILL, GTK_FILL, 0, 0);
 		gtk_table_attach_defaults(GTK_TABLE(dgtable[0]), dg->combo[2], 1, 9, 2, 3);
 		gtk_table_attach_defaults(GTK_TABLE(dgtable[0]), gtk_label_new(_("Text Color")), 0, 1, 2, 3);
 
 		dg->combo[3] = combo_with_popdown(bodyvalues[3], recent_attribs.colorlist, 1);
 		color_but = color_but_new(GTK_COMBO(dg->combo[3])->entry, dg->dialog);
-		gtk_table_attach_defaults(GTK_TABLE(dgtable[0]), color_but, 9, 10, 3, 4);
+		gtk_table_attach(GTK_TABLE(dgtable[0]), color_but, 9, 10, 3, 4, GTK_FILL, GTK_FILL, 0, 0);
 		gtk_table_attach_defaults(GTK_TABLE(dgtable[0]), dg->combo[3], 1, 9, 3, 4);
 		gtk_table_attach_defaults(GTK_TABLE(dgtable[0]), gtk_label_new(_("Link Color")), 0, 1, 3, 4);
 
 		dg->combo[4] = combo_with_popdown(bodyvalues[4], recent_attribs.colorlist, 1);
 		color_but = color_but_new(GTK_COMBO(dg->combo[4])->entry, dg->dialog);
-		gtk_table_attach_defaults(GTK_TABLE(dgtable[0]), color_but, 9, 10, 4, 5);
+		gtk_table_attach(GTK_TABLE(dgtable[0]), color_but, 9, 10, 4, 5, GTK_FILL, GTK_FILL, 0, 0);
 		gtk_table_attach_defaults(GTK_TABLE(dgtable[0]), dg->combo[4], 1, 9, 4, 5);
 		gtk_table_attach_defaults(GTK_TABLE(dgtable[0]), gtk_label_new(_("Visited Link Color")), 0, 1, 4, 5);
 
 		dg->combo[5] = combo_with_popdown(bodyvalues[5], recent_attribs.colorlist, 1);
 		color_but = color_but_new(GTK_COMBO(dg->combo[5])->entry, dg->dialog);
-		gtk_table_attach_defaults(GTK_TABLE(dgtable[0]), color_but, 9, 10, 5, 6);
+		gtk_table_attach(GTK_TABLE(dgtable[0]), color_but, 9, 10, 5, 6, GTK_FILL, GTK_FILL, 0, 0);
 		gtk_table_attach_defaults(GTK_TABLE(dgtable[0]), dg->combo[5], 1, 9, 5, 6);
 		gtk_table_attach_defaults(GTK_TABLE(dgtable[0]), gtk_label_new(_("Active Link Color")), 0, 1, 5, 6);
 
@@ -1735,7 +1760,7 @@ void embed_cb(GtkWidget * widget, gpointer data)
 	dgtable = html_diag_table_in_vbox(dg, 3, 12);
 	dg->entry[1] = gtk_entry_new_with_max_length(256);
 	file_but = file_but_new(dg->entry[1], dg->dialog, 0);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(file_but), 10, 12, 0, 1);
+	gtk_table_attach(GTK_TABLE(dgtable), file_but, 10, 12, 0, 1, GTK_FILL, GTK_FILL, 0, 0);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Source")), 0, 2, 0, 1);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[1], 2, 10, 0, 1);
 
@@ -1823,7 +1848,7 @@ static void script_link_cb(gint type, GtkWidget * widget, gpointer data) {
 	dgtable = html_diag_table_in_vbox(dg, 3, 12);
 	dg->entry[0] = entry_with_text(tagvalues[0], 1024);
 	file_but = file_but_new(dg->entry[0], dg->dialog, 0);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(file_but), 10, 12, 0, 1);
+	gtk_table_attach(GTK_TABLE(dgtable), file_but, 10, 12, 0, 1, GTK_FILL, GTK_FILL, 0, 0);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Source")), 0, 2, 0, 1);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[0], 2, 10, 0, 1);
 

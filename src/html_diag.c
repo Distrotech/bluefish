@@ -65,7 +65,7 @@ Thtml_diag *html_diag_new(gchar *title) {
 }
 
 GtkWidget *html_diag_table_in_vbox(Thtml_diag *dg, gint rows, gint cols) {
-	GtkWidget *returnwidget = gtk_table_new(rows, cols, 0);
+	GtkWidget *returnwidget = gtk_table_new(rows, cols, FALSE);
 	gtk_table_set_row_spacings(GTK_TABLE(returnwidget), 4);
 	gtk_table_set_col_spacings(GTK_TABLE(returnwidget), 4);
 	gtk_box_pack_start(GTK_BOX(dg->vbox), returnwidget, FALSE, FALSE, 0);
@@ -90,6 +90,7 @@ void html_diag_finish(Thtml_diag *dg, GtkSignalFunc ok_func) {
 	gtk_widget_show_all(GTK_WIDGET(dg->dialog));
 	if (main_v->props.transient_htdialogs) {
 		DEBUG_MSG("html_diag_finish, setting transient!\n");
+/*		gtk_window_set_modal(GTK_WINDOW(dg->dialog), TRUE);*/
 		gtk_window_set_transient_for(GTK_WINDOW(dg->dialog), GTK_WINDOW(main_v->main_window));
 	}
 }

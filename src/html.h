@@ -20,6 +20,7 @@
 
 #ifndef __HTML_H_
 #define __HTML_H_
+void insert_char_cb(GtkWidget * widget, gint data);
 void general_html_cb(GtkWidget * widget, gpointer data);
 void insert_time_cb(GtkWidget * widget, gpointer data);
 void quickanchor_cb(GtkWidget * widget, gpointer data);
