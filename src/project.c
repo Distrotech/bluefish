@@ -90,6 +90,8 @@ gboolean project_save(Tbfwin *bfwin, gboolean save_as) {
 	}
 	DEBUG_MSG("project_save, num files was %d\n", g_list_length(bfwin->project->files));
 	update_project_filelist(bfwin, bfwin->project);
+	bfwin->project->recentfiles = limit_stringlist(bfwin->project->recentfiles, main_v->props.max_recent_files, TRUE);
+	
 	DEBUG_MSG("project_save, num files now is %d\n", g_list_length(bfwin->project->files));
 	if (save_as || bfwin->project->filename == NULL) {
 		gchar *filename = return_file_w_title(NULL, _("Enter Bluefish project filename"));
@@ -101,7 +103,7 @@ gboolean project_save(Tbfwin *bfwin, gboolean save_as) {
 	
 	DEBUG_MSG("project_save, saving project %p to file %s\n",bfwin->project,bfwin->project->filename);
 	retval = rcfile_save_project(bfwin->project, bfwin->project->filename);
-	add_to_recent_list(bfwin->project->filename, FALSE, TRUE);
+	add_to_recent_list(bfwin,bfwin->project->filename, FALSE, TRUE);
 	return retval;
 }
 
@@ -134,7 +136,7 @@ void project_open_from_file(Tbfwin *bfwin, gchar *fromfilename) {
 		g_free(prj);
 		return;
 	}
-	add_to_recent_list(fromfilename, FALSE, TRUE);
+	add_to_recent_list(bfwin,fromfilename, FALSE, TRUE);
 	prj->filename = g_strdup(fromfilename);
 	DEBUG_MSG("project_open_from_file, basedir=%s\n",prj->basedir);
 	if (bfwin->project == NULL && test_only_empty_doc_left(bfwin->documentlist)) {
@@ -156,6 +158,7 @@ void project_open_from_file(Tbfwin *bfwin, gchar *fromfilename) {
 		gui_set_title(prwin, prwin->current_document);
 	}
 	set_project_menu_widgets(prwin, TRUE);
+	recent_menu_init_project(prwin);
 }
 
 static void project_open(Tbfwin *bfwin) {
@@ -186,11 +189,12 @@ gboolean project_save_and_close(Tbfwin *bfwin) {
 		file_close_all_cb(NULL,bfwin);
 		if (test_only_empty_doc_left(bfwin->documentlist)) {
 			DEBUG_MSG("project_save_and_close, all documents are closed\n");
-			add_to_recent_list(bfwin->project->filename, TRUE, TRUE);
+			add_to_recent_list(bfwin,bfwin->project->filename, TRUE, TRUE);
 			project_destroy(bfwin->project);
 			bfwin->project = NULL;
 			gui_set_title(bfwin, bfwin->current_document);
 			filebrowser_set_basedir(bfwin, NULL);
+			recent_menu_from_file(bfwin, "/.bluefish/recentlist", FALSE);
 			DEBUG_MSG("project_save_and_close, returning TRUE\n");
 			return TRUE;
 		}
