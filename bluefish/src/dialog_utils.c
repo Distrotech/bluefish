@@ -26,8 +26,22 @@
 #include "dialog_utils.h"
 
 
+void
+dialog_mnemonic_label_in_table(const gchar *labeltext,
+										 GtkWidget *m_widget,
+										 GtkWidget *table,
+										 guint left_attach, guint right_attach, guint top_attach, guint bottom_attach)
+{
+	GtkWidget *label;
+	
+	label = gtk_label_new_with_mnemonic (labeltext);
+	gtk_misc_set_alignment (GTK_MISC (label), 0, 0.5);
+	gtk_table_attach (GTK_TABLE (table), label, left_attach, right_attach, top_attach, bottom_attach, GTK_FILL, GTK_FILL, 0, 0);
+	gtk_label_set_mnemonic_widget (GTK_LABEL(label), m_widget);
+}
+
 GtkWidget *
-dialog_label_with_alignment(const gchar *labeltext, GtkWidget *box)
+dialog_vbox_labeled(const gchar *labeltext, GtkWidget *box)
 {
 	GtkWidget *label, *alignment, *vbox;
 
@@ -61,7 +75,10 @@ dialog_table_new(gint rows, gint cols, gint borderWidth)
 }
 
 GtkWidget *
-dialog_table_in_vbox(gint rows, gint cols, gint borderWidth, GtkWidget *box, gboolean expand, gboolean fill, guint padding)
+dialog_table_in_vbox(gint rows, gint cols, 
+							gint borderWidth, 
+							GtkWidget *box, 
+							gboolean expand, gboolean fill, guint padding)
 {
 	GtkWidget *table = dialog_table_new (rows, cols, borderWidth);
 		
@@ -95,7 +112,10 @@ message_dialog_set_text(const gchar *primaryText, const gchar *secondaryText)
 }
 
 void
-message_dialog_new(GtkWidget *parent, GtkMessageType type, GtkButtonsType button, const gchar *primaryText, const gchar *secondaryText)
+message_dialog_new(GtkWidget *parent, 
+						 GtkMessageType type, 
+						 GtkButtonsType button, 
+						 const gchar *primaryText, const gchar *secondaryText)
 {
 	GtkWidget *dialog;
 	gchar *text;
@@ -113,7 +133,10 @@ message_dialog_new(GtkWidget *parent, GtkMessageType type, GtkButtonsType button
 }
 
 gint
-message_dialog_new_multi(GtkWidget *parent, GtkMessageType type, const gchar *buttons[], const gchar *primaryText, const gchar *secondaryText)
+message_dialog_new_multi(GtkWidget *parent, 
+								 GtkMessageType type, 
+								 const gchar *buttons[], 
+								 const gchar *primaryText, const gchar *secondaryText)
 {
 	GtkWidget *dialog;
 	gchar *text;

@@ -445,7 +445,7 @@ quickstart_style_page_create(TQuickStart *qstart)
 	gtk_container_set_border_width (GTK_CONTAINER (vbox), 6);
 	gtk_container_add (GTK_CONTAINER (frame), vbox);
 
-	vbox2 = dialog_label_with_alignment(_("<b>External Style Sheet</b>"), vbox);	
+	vbox2 = dialog_vbox_labeled(_("<b>External Style Sheet</b>"), vbox);	
 	
 	hbox = gtk_hbox_new (FALSE, 12);
 	gtk_box_pack_start (GTK_BOX (vbox2), hbox, FALSE, FALSE, 0);
@@ -468,17 +468,17 @@ quickstart_style_page_create(TQuickStart *qstart)
 	
 	qstart->stylehref = gtk_combo_box_entry_new_with_model (GTK_TREE_MODEL (history), 0);
 	g_object_unref (history);
-	bf_mnemonic_label_tad_with_alignment(_("Hre_f:"), qstart->stylehref, 0, 0.5, table, 0, 1, 0, 1);
+	dialog_mnemonic_label_in_table(_("Hre_f:"), qstart->stylehref, table, 0, 1, 0, 1);
 	gtk_table_attach (GTK_TABLE (table), qstart->stylehref, 1, 2, 0, 1, GTK_EXPAND|GTK_FILL, GTK_SHRINK, 0, 0);
 	
 	qstart->stylemedia = gtk_entry_new ();
-	bf_mnemonic_label_tad_with_alignment(_("_Media:"), qstart->stylemedia, 0, 0.5, table, 0, 1, 1, 2);
+	dialog_mnemonic_label_in_table(_("_Media:"), qstart->stylemedia, table, 0, 1, 1, 2);
 	gtk_table_attach (GTK_TABLE (table), qstart->stylemedia, 1, 2, 1, 2, GTK_EXPAND|GTK_FILL, GTK_SHRINK, 0, 0);	
 
 	/* TODO: add an option to place content in the style area
 	 * Possibly from a code snippet library
 	 */
-	vbox2 = dialog_label_with_alignment(_("<b>Style Area</b>"), vbox);
+	vbox2 = dialog_vbox_labeled(_("<b>Style Area</b>"), vbox);
 	
 	hbox = gtk_hbox_new (FALSE, 12);
 	gtk_box_pack_start (GTK_BOX (vbox2), hbox, FALSE, FALSE, 0);
@@ -502,7 +502,7 @@ quickstart_script_page_create(TQuickStart *qstart)
 	gtk_container_set_border_width (GTK_CONTAINER (vbox), 6);
 	gtk_container_add (GTK_CONTAINER (frame), vbox);
 
-	vbox2 = dialog_label_with_alignment(_("<b>Attributes</b>"), vbox);
+	vbox2 = dialog_vbox_labeled(_("<b>Attributes</b>"), vbox);
 	
 	hbox = gtk_hbox_new (FALSE, 12);
 	gtk_box_pack_start (GTK_BOX (vbox2), hbox, FALSE, FALSE, 0);
@@ -519,7 +519,7 @@ quickstart_script_page_create(TQuickStart *qstart)
 	gtk_box_pack_start (GTK_BOX (hbox), qstart->scriptsrc, FALSE, FALSE, 0);	
 
 	/* TODO: add an option to place content in the script area */
-	vbox2 = dialog_label_with_alignment(_("<b>Script Area</b>"), vbox);
+	vbox2 = dialog_vbox_labeled(_("<b>Script Area</b>"), vbox);
 	
 	hbox = gtk_hbox_new (FALSE, 12);
 	gtk_box_pack_start (GTK_BOX (vbox2), hbox, FALSE, FALSE, 0);
@@ -564,11 +564,11 @@ quickstart_dialog_new(Tbfwin *bfwin)
 		gtk_combo_box_append_text (GTK_COMBO_BOX (qstart->dtd), dtds[i].name);
 	}
 	gtk_combo_box_set_active (GTK_COMBO_BOX (qstart->dtd), 0);
-	bf_mnemonic_label_tad_with_alignment(_("_DTD:"), qstart->dtd, 0, 0.5, table, 0, 1, 0, 1);
+	dialog_mnemonic_label_in_table(_("_DTD:"), qstart->dtd, table, 0, 1, 0, 1);
 	gtk_table_attach (GTK_TABLE (table), qstart->dtd, 1, 2, 0, 1, GTK_FILL, GTK_SHRINK, 0, 0);
 	
 	qstart->title = gtk_entry_new ();
-	bf_mnemonic_label_tad_with_alignment(_("_Title:"), qstart->title, 0, 0.5, table, 0, 1, 1, 2);
+	dialog_mnemonic_label_in_table(_("_Title:"), qstart->title, table, 0, 1, 1, 2);
 	gtk_table_attach (GTK_TABLE (table), qstart->title, 1, 2, 1, 2, GTK_FILL, GTK_SHRINK, 0, 0);
 
 	headStore = gtk_list_store_new (2, G_TYPE_STRING, G_TYPE_UINT);
@@ -591,7 +591,7 @@ quickstart_dialog_new(Tbfwin *bfwin)
 	gtk_tree_view_append_column (GTK_TREE_VIEW (qstart->headView), column);
 	gtk_tree_view_set_model (GTK_TREE_VIEW (qstart->headView), GTK_TREE_MODEL (headStore));
 	g_object_unref (headStore);
-	bf_mnemonic_label_tad_with_alignment(_("_Head:"), qstart->headView, 0, 0, table, 0, 1, 2, 3);
+	dialog_mnemonic_label_in_table(_("_Head:"), qstart->headView, table, 0, 1, 2, 3);
 	
 	qstart->notebook = gtk_notebook_new ();
 	gtk_notebook_set_show_tabs (GTK_NOTEBOOK (qstart->notebook), FALSE);
