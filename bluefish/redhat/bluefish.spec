@@ -32,13 +32,14 @@ support.
 %setup -q -n %{name}-%{version}
 
 %build
-%configure
+%configure --with-gnome2-appregistry=%{buildroot}/usr/share/application-registry/
 make %{?_smp_mflags}
 
 %install
 rm -rf %{buildroot}
 mkdir -p %{buildroot}%{_datadir}/pixmaps
 mkdir -p %{buildroot}%{_datadir}/applications
+mkdir -p %{buildroot}%{_datadir}/application-registry
 make install                                            \
     bindir=%{buildroot}%{_bindir}                       \
     pkgdatadir=%{buildroot}%{_datadir}/%{name}          \
@@ -84,6 +85,7 @@ rm -rf %{buildroot}
 %dir %{_datadir}/%{name}
 %{_datadir}/bluefish/*
 %{_datadir}/applications/%{desktop_vendor}-%{name}.desktop
+%{_datadir}/application-registry/%{name}.applications
 %{_datadir}/pixmaps/%{name}-icon.png
 
 
