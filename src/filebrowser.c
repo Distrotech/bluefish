@@ -938,31 +938,31 @@ static void filebrowser_rpopup_new_dir_lcb(GtkWidget *widget, gpointer data) {
  */
 static void filebrowser_rpopup_rename_lcb(GtkWidget *widget, gpointer data) {
 	GtkTreePath *path;
-	gchar *newfilename = NULL, *oldfilename, *errmessage = NULL;
+	gchar *newfilename=NULL, *oldfilename, *errmessage = NULL;
 	gint index;
+	
+	/* this function should, together with doc_save() use a common backend.. */
 	
 	path = filebrowser_get_path_from_selection(NULL);
 	oldfilename = return_filename_from_path(GTK_TREE_STORE(filebrowser.store), path);	
 
 	/* Use doc_save(doc, 1, 1) if the file is open. */
 	if ((index = documentlist_return_index_from_filename(oldfilename)) != -1) {
+		Tdocument *doc = documentlist_return_document_from_index(index);
 		DEBUG_MSG("File is open. Calling doc_save().\n");
 
 		/* If an error occurs, doc_save takes care of notifying the user.
 		 * Currently, nothing is done here.
 		 */	
-		doc_save(documentlist_return_document_from_index(index), 1, 1);
-
+		doc_save(doc, 1, 1);
 	} else {
 		/* Promt user, "File/Move To"-style. */
-		newfilename = return_file_w_title(oldfilename, _("Save document as"));
-
-		if(newfilename != NULL && strcmp(oldfilename, newfilename) != 0) {
+		newfilename = ask_new_filename(oldfilename, 1);
+		if(newfilename) {
 			if(rename(oldfilename, newfilename) != 0) {
 				errmessage = g_strconcat(_("Could not rename\n"), oldfilename, NULL);
 			}
 		}
-		g_free(newfilename);
 	} /* if(oldfilename is open) */
 
 	if(errmessage) {
@@ -977,14 +977,17 @@ static void filebrowser_rpopup_rename_lcb(GtkWidget *widget, gpointer data) {
 		filebrowser_refresh_dir(ending_slash(tmp));
 		g_free(tmp);
 		
-		if ((tmp = g_path_get_dirname(newfilename))) { /* Don't refresh the NULL-directory.. */
+		if (newfilename && (tmp = path_get_dirname_with_ending_slash(newfilename))) { /* Don't refresh the NULL-directory.. */
 			DEBUG_MSG("Got newdirname %s\n", tmp);
 			filebrowser_refresh_dir(ending_slash(tmp));
 			g_free(tmp);
 		}
 	} /* if(error) */
-	
+	if (newfilename) {
+		g_free(newfilename);
+	}
 	g_free(oldfilename);
+
 }
 
 static void filebrowser_rpopup_delete_lcb(GtkWidget *widget, gpointer data) {

@@ -585,6 +585,17 @@ void doc_select_region(Tdocument *doc, gint start, gint end, gboolean do_scroll)
 	}
 }
 
+static void doc_set_file_in_titlebar(Tdocument *doc) {
+	gchar *title;
+	if (doc->filename) {
+		title = g_strconcat("Bluefish ",VERSION," - ",doc->filename,NULL);
+	} else {
+		title = g_strconcat("Bluefish ",VERSION," -",_("Untitled"),NULL);
+	}
+	gtk_window_set_title(GTK_WINDOW(main_v->main_window),title);
+	g_free(title);
+}
+
 /**
  * doc_select_line:
  * @doc: a #Tdocument
@@ -1471,6 +1482,60 @@ void doc_destroy(Tdocument * doc, gboolean delay_activation)
 	g_free(doc);
 }
 
+/**
+ * ask_new_filename:
+ * @oldfilename: #gchar* with the old filename
+ * @is_move: #gboolean if the title should be move or save as
+ *
+ * returns a newly allocated string with a new filename
+ *
+ * if a file with the selected name name was
+ * open already it will ask the user what to do, return NULL if
+ * the user wants to abort, or will remove the name of the other file if the user wants
+ * to continue
+ *
+ * Return value: gchar* with newly allocated string, or NULL on failure or abort
+ */
+gchar *ask_new_filename(gchar *oldfilename, gint is_move) {
+	gint index;
+	gchar *newfilename = return_file_w_title(oldfilename,
+												(is_move) ? _("Move/rename document to") : _("Save document as"));
+	if (!newfilename || (oldfilename && strcmp(oldfilename,newfilename)==0)) {
+		if (newfilename) g_free(newfilename);
+		return NULL;
+	}
+	index = documentlist_return_index_from_filename(newfilename);
+	DEBUG_MSG("ask_new_filename, index=%d, newfilename=%s\n", index, newfilename);
+	if (index != -1) {
+		gchar *tmpstr;
+		gint retval;
+		gchar *options[] = {N_("Cancel"), N_("Overwrite"), NULL};
+		tmpstr = g_strdup_printf(_("File %s is open, overwrite?"), newfilename);
+		retval = multi_warning_dialog(tmpstr, _("The file you have selected is being edited in Bluefish."), 1, 0, options);
+		g_free(tmpstr);
+		if (retval == 0) {
+			g_free(newfilename);
+			return NULL;
+		} else {
+			Tdocument *tmpdoc;
+			tmpdoc = (Tdocument *)g_list_nth_data(main_v->documentlist, index);
+			DEBUG_MSG("ask_new_filename, tmpdoc=%p\n", tmpdoc);
+			g_free(tmpdoc->filename);
+			tmpdoc->filename = NULL;
+			doc_set_modified(tmpdoc, 1);
+			{
+				gchar *tmpstr2 = g_path_get_basename (newfilename);
+				tmpstr = g_strconcat(_("Previously: "), tmpstr2, NULL);
+				g_free(tmpstr2);
+			}
+			gtk_label_set(GTK_LABEL(tmpdoc->tab_label),tmpstr);
+			g_free(tmpstr);
+		}
+	}
+	return newfilename;
+}
+
+
 /* gint doc_save(Tdocument * doc, gint do_save_as, gint do_move)
  * returns 1 on success
  * returns 2 on success but the backup failed
@@ -1482,9 +1547,7 @@ void doc_destroy(Tdocument * doc, gboolean delay_activation)
  * returns -5 if another process modified the file, and the user chose cancel
  */
 
-gint doc_save(Tdocument * doc, gint do_save_as, gint do_move)
-{
-	gchar *oldfilename = NULL;
+gint doc_save(Tdocument * doc, gint do_save_as, gboolean do_move) {
 	gint retval;
 #ifdef DEBUG
 	g_assert(doc);
@@ -1500,56 +1563,21 @@ gint doc_save(Tdocument * doc, gint do_save_as, gint do_move)
 
 	if (do_save_as) {
 		gchar *newfilename = NULL;
-		gint index;
 		statusbar_message(_("Save as..."), 1);
-		oldfilename = doc->filename;
-		doc->filename = NULL;
-		newfilename = return_file_w_title(oldfilename,
-												(do_move) ? _("Move document to") : _("Save document as"));
-		index = documentlist_return_index_from_filename(newfilename);
-		DEBUG_MSG("doc_save, index=%d, filename=%p\n", index, newfilename);
-
-		if (index != -1) {
-			gchar *tmpstr;
-			gint retval;
-			gchar *options[] = {N_("Cancel"), N_("Overwrite"), NULL};
-			tmpstr = g_strdup_printf(_("File %s is open, overwrite?"), newfilename);
-			retval = multi_warning_dialog(tmpstr, _("The file you have selected is being edited in Bluefish."), 1, 0, options);
-			g_free(tmpstr);
-			if (retval == 0) {
-				g_free(newfilename);
-				doc->filename = oldfilename;
-				return 3;
-			} else {
-				Tdocument *tmpdoc;
-				tmpdoc = (Tdocument *)g_list_nth_data(main_v->documentlist, index);
-				DEBUG_MSG("doc_save, tmpdoc=%p\n", tmpdoc);
-#ifdef DEBUG
-				g_assert(tmpdoc);
-				g_assert(tmpdoc->filename);
-#endif
-				g_free(tmpdoc->filename);
-				tmpdoc->filename = NULL;
-				doc_set_modified(tmpdoc, 1);
-				{
-					gchar *tmpstr2 = g_path_get_basename (newfilename);
-					tmpstr = g_strconcat(_("Previously: "), tmpstr2, NULL);
-					g_free(tmpstr2);
-				}
-				gtk_label_set(GTK_LABEL(tmpdoc->tab_label),tmpstr);
-				g_free(tmpstr);
-			}
+		newfilename = ask_new_filename(doc->filename, do_move);
+		if (!newfilename) {
+			return 3;
+		}
+		if (doc->filename) {
+			if (do_move) unlink(doc->filename);
+			g_free(doc->filename);
 		}
 		doc->filename = newfilename;
-		if (newfilename) {
-			hl_reset_highlighting_type(doc, doc->filename);
-			doc->modified = 1;
+		hl_reset_highlighting_type(doc, doc->filename);
+		doc_set_modified(doc, 1);
+		if (doc == main_v->current_document) {
+			doc_set_file_in_titlebar(doc);
 		}
-	}
-
-	if (doc->filename == NULL) {
-		doc->filename = oldfilename;
-		return -4;
 	}
 	{
 	time_t newtime;
@@ -1564,18 +1592,15 @@ gint doc_save(Tdocument * doc, gint do_save_as, gint do_move)
 		retval = multi_warning_dialog(_("The file has been modified by another process."), tmpstr, 1, 0, options);
 		g_free(tmpstr);
 		if (retval == 0) {
-			if (oldfilename) {
-				g_free(oldfilename);
-			}
 			return -5;
 		}
 	}
 	}
 	
 	DEBUG_MSG("doc_save, returned file %s\n", doc->filename);
-	if (do_save_as && oldfilename && main_v->props.link_management) {
-/*		update_filenames_in_file(doc, oldfilename, doc->filename, 1);*/
-	}
+/*	if (do_save_as && oldfilename && main_v->props.link_management) {
+		update_filenames_in_file(doc, oldfilename, doc->filename, 1);
+	}*/
 	{
 		gchar *tmp = g_strdup_printf(_("Saving %s"), doc->filename);
 		statusbar_message(tmp, 1);
@@ -1599,20 +1624,14 @@ gint doc_save(Tdocument * doc, gint do_save_as, gint do_move)
 		break;
 		default:
 			doc_update_mtime(doc);
+			{ 
+				gchar *tmp = path_get_dirname_with_ending_slash(doc->filename);
+				filebrowser_refresh_dir(tmp);
+				g_free(tmp);
+			}
+
 			DEBUG_MSG("doc_save, received return value %d from doc_textbox_to_file\n", retval);
 		break;
-	}
-	if (oldfilename) {
-/*		populate_dir_file_list();*/
-		if (do_move && (retval > 0)) {
-			if (main_v->props.link_management) {
-/*				all_documents_update_links(doc, oldfilename,
-							   doc->filename);*/
-			}
-			unlink(oldfilename);
-		}
-
-		g_free(oldfilename);
 	}
 	return retval;
 }
@@ -1963,17 +1982,6 @@ void doc_reload(Tdocument *doc) {
 	doc_unre_clear_all(doc);
 	doc_set_modified(doc, 0);
 	doc_set_stat_info(doc); /* also sets mtime field */
-}
-
-static void doc_set_file_in_titlebar(Tdocument *doc) {
-	gchar *title;
-	if (doc->filename) {
-		title = g_strconcat("Bluefish ",VERSION," - ",doc->filename,NULL);
-	} else {
-		title = g_strconcat("Bluefish ",VERSION," -",_("Untitled"),NULL);
-	}
-	gtk_window_set_title(GTK_WINDOW(main_v->main_window),title);
-	g_free(title);
 }
 
 void doc_activate(Tdocument *doc) {

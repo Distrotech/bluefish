@@ -59,6 +59,7 @@ void doc_insert_two_strings(Tdocument *doc, const gchar *before_str, const gchar
 void doc_bind_signals(Tdocument *doc);
 void doc_unbind_signals(Tdocument *doc);
 
+gchar *ask_new_filename(gchar *oldfilename, gboolean is_move);
 gint doc_save(Tdocument * doc, gint do_save_as, gint do_move);
 
 void doc_new_with_new_file(gchar * new_filename);
