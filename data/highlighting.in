@@ -303,9 +303,9 @@ xml:Entity:1:[\\[]:[\\]]:1:^DocType$:#777777::2:0:
 xml:Character Data:1:<!\\[CDATA\\[:\\]\\]>:1::#a2b300::0:0:
 xml:Character Entity:1:&[^;]+;::2::#9b0054::0:0:
 stylesheet:Selector:1:(\\*|\\b(a|body|abbr|acronym|address|applet|area|b|big|bdo|blockquote|br|button|caption|cite|code|col|colgroup|dd|del|dfn|div|dl|dt|em|embed|fieldset|form|h\\d+|hr|html|i|iframe|img|input|ins|kbd|label|legend|li|map|noframes|noscript|object|ol|optgroup|option|p|pre|q|samp|select|small|span|strong|table|tbody|td|textarea|tfoot|th|thead|tr|tt|ul|var)\\b)::2:^top$:#cc0000::2:0:
-stylesheet:Identifiers:1:(#|\\.)[a-z0-9\\-_\:( >)?]+(?=[, \\{a-z\\**\\s])::2::#cc0000::1:2:
+stylesheet:Identifiers:1:[#.][A-Za-z0-9\-_]+::2::#cc0000::1:2:
 stylesheet:Attribute Identifiers:1:\\[[a-z0-9\\.\\-_\\\:]+=":"\\]:1::#cc3300::2:0:
-stylesheet:Pseudo-selectors:1:\\\:(first(\\-child|letter|line)|link|active|visited|hover|focus|lang\\(\\)|left|right|first|before|after)::2::#336633::2:0:
+stylesheet:Pseudo-selectors:1:\\\:(active|after|before|first(\\-child|\\-letter|\\-line)|first|focus|hover|lang|left|link|right|visited)::2::#990000::2:1:
 stylesheet:Braces:1:[\\{\\[]:[\\}\\]]:1:^top$:#0099cc::1:1:
 stylesheet:Comment:1:\\/\\*:\\*\\/:1:^top|Braces$:#888888::0:0:
 stylesheet:Declaration:0:(azimuth|background|border|bottom|caption|clear|clip|color|content|counter|cue|cursor|direction|display|elevation|empty|float|font|height|left|letter|line|list|margin|marker|marks|max|min|orphans|outline|overflow|padding|page|pause|pitch|play|position|quotes|richness|right|size|speak|speech|stress|table|text|top|unicode|vertical|visibility|voice|volume|white|widows|width|word|z)[a-z\\-]*[^;\:]*:;:2:^Braces$:#000099::2:0:
