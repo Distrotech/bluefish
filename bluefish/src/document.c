@@ -24,6 +24,7 @@
 #include <unistd.h> /* stat() */
 #include <stdio.h> /* fopen() */
 #include <string.h> /* strchr() */
+
 #include "bluefish.h"
 #include "document.h"
 #include "highlight.h" /* all highlight functions */
@@ -31,6 +32,7 @@
 #include "bf_lib.h"
 #include "stringlist.h" /* free_stringlist() */
 #include "gtk_easy.h" /* error_dialog() */
+#include "undo_redo.h" /* doc_unre_init() */
 
 /* gint documentlist_return_index_from_filename(gchar *filename)
  * returns -1 if the file is not open, else returns the index where
@@ -298,6 +300,9 @@ static gint doc_check_backup(Tdocument *doc) {
 
 static void doc_buffer_insert_text_lcb(GtkTextBuffer *textbuffer,GtkTextIter * iter,gchar * string,gint len, Tdocument * doc) {
 	gint i = 0;
+	doc_set_modified(doc, 1);
+	
+	/* highlighting stuff */
 	if (string && doc->hl->update_chars) {
 		while (string[i] != '\0') {
 			if (strchr(doc->hl->update_chars, string[i])) {
@@ -307,25 +312,54 @@ static void doc_buffer_insert_text_lcb(GtkTextBuffer *textbuffer,GtkTextIter * i
 			i++;
 		}
 	}
+	
+	/* undo_redo stuff */
+	if ((len == 1 && (string[0] == ' ' || string[0] == '\n' || string[0] == '\t')) || !doc_undo_op_compare(doc,UndoInsert)) {
+		DEBUG_MSG("doc_buffer_insert_text_lcb, need a new undogroup\n");
+		doc_unre_new_group(doc);
+	}
+	{
+		gint pos = gtk_text_iter_get_offset(iter);
+		doc_unre_add(doc, string, pos, pos+len, UndoInsert);
+	}
+
 }
 
-static void doc_buffer_delete_range_lcb(GtkTextBuffer *textbuffer,GtkTextIter * start,GtkTextIter * end, Tdocument * doc) {
+static void doc_buffer_delete_range_lcb(GtkTextBuffer *textbuffer,GtkTextIter * itstart,GtkTextIter * itend, Tdocument * doc) {
 	gchar *string;
 	gint i=0;
-	string = gtk_text_buffer_get_text(doc->buffer, start, end, FALSE);
-	if (string && doc->hl->update_chars) {
-		while (string[i] != '\0') {
-			if (strchr(doc->hl->update_chars, string[i])) {
-				doc_highlight_line(doc);
-				break;
+	doc_set_modified(doc, 1);
+	string = gtk_text_buffer_get_text(doc->buffer, itstart, itend, FALSE);
+	if (string) {
+		/* highlighting stuff */
+		if (doc->hl->update_chars) {
+			while (string[i] != '\0') {
+				if (strchr(doc->hl->update_chars, string[i])) {
+					doc_highlight_line(doc);
+					break;
+				}
+				i++;
 			}
-			i++;
 		}
+
+		/* undo_redo stuff */
+		{
+			gint start, end, len;
+			start = gtk_text_iter_get_offset(itstart);
+			end = gtk_text_iter_get_offset(itend);	
+			len = end - start;
+			if ((len == 1 && (string[0] == ' ' || string[0] == '\n' || string[0] == '\t')) || !doc_undo_op_compare(doc,UndoDelete)) {
+				DEBUG_MSG("doc_buffer_delete_range_lcb, need a new undogroup\n");
+				doc_unre_new_group(doc);
+			}
+			doc_unre_add(doc, string, start, end, UndoDelete);
+		}
+
 		g_free(string);
 	}
 }
 
-static void doc_bind_signals(Tdocument *doc) {
+void doc_bind_signals(Tdocument *doc) {
 	doc->ins_txt_id = g_signal_connect(G_OBJECT(doc->buffer),
 					 "insert-text",
 					 G_CALLBACK(doc_buffer_insert_text_lcb), doc);
@@ -333,6 +367,19 @@ static void doc_bind_signals(Tdocument *doc) {
 					 "delete-range",
 					 G_CALLBACK(doc_buffer_delete_range_lcb), doc);
 }
+
+void doc_unbind_signals(Tdocument *doc) {
+/*	g_print("doc_unbind_signals, before unbind ins=%lu, del=%lu\n", doc->ins_txt_id, doc->del_txt_id);*/
+	if (doc->ins_txt_id != 0) {
+		g_signal_handler_disconnect(G_OBJECT(doc->buffer),doc->ins_txt_id);
+		doc->ins_txt_id = 0;
+	}
+	if (doc->del_txt_id != 0) {
+		g_signal_handler_disconnect(G_OBJECT(doc->buffer),doc->del_txt_id);
+		doc->del_txt_id = 0;
+	}
+}
+
 
 Tdocument *doc_new() {
 	GtkWidget *scroll;
@@ -354,7 +401,7 @@ Tdocument *doc_new() {
 	GTK_WIDGET_UNSET_FLAGS(newdoc->tab_label, GTK_CAN_FOCUS);
 	newdoc->tab_menu = gtk_label_new(NULL);
 
-/*	doc_unre_init(newdoc);*/
+	doc_unre_init(newdoc);
 
 /* this will force function doc_set_modified to update the tab label*/
 	newdoc->modified = 1;
@@ -379,7 +426,10 @@ Tdocument *doc_new() {
 
 	DEBUG_MSG("doc_new, set notebook page to %d\n", g_list_length(main_v->documentlist) - 1);
 	gtk_notebook_set_page(GTK_NOTEBOOK(main_v->notebook),g_list_length(main_v->documentlist) - 1);
-/*	notebook_changed(-1);*/
+
+	if (main_v->current_document == NULL) {
+		notebook_changed(-1);
+	}
 
 	gtk_widget_grab_focus(newdoc->view);	
 	return newdoc;
@@ -435,7 +485,7 @@ gint doc_textbox_to_file(Tdocument * doc, gchar * filename) {
 
 		doc_set_modified(doc, 0);
 		if (main_v->props.clear_undo_on_save) {
-/*			doc_unre_clear_all(doc);*/
+			doc_unre_clear_all(doc);
 		}
 		if (!backup_retval) {
 			return 2;
@@ -472,7 +522,7 @@ void doc_destroy(Tdocument * doc)
 	g_object_unref(doc->buffer);
 	DEBUG_MSG("doc_destroy, if this line shows up well I guess we needed to unref the buffer\n");
 	
-/*	doc_unre_destroy(doc);*/
+	doc_unre_destroy(doc);
 	g_free(doc);
 
 /*	notebook_changed();*/
