@@ -33,6 +33,7 @@
 #include "html_table.h"
 #include "html.h"
 #include "html2.h"
+#include "wizards.h"
 #include "image.h"
 #include "html_form.h"
 #include "filebrowser.h"
@@ -233,6 +234,7 @@ static Ttoolbaritem tbi[] = {
 	{"heading4", general_html_cb, GINT_TO_POINTER(21), 130, N_("Heading 4")},
 	{"heading5", general_html_cb, GINT_TO_POINTER(22), 131, N_("Heading 5")},
 	{"heading6", general_html_cb, GINT_TO_POINTER(23), 132, N_("Heading 6")},
+	{"tablewizard...",tablewizard , NULL, 143, N_("Table Wizard...")},
 	{"", NULL, NULL, 0, NULL}, /* spacing */
 	{"table...",tabledialog_cb, NULL, 134, N_("Table...")},
 	{"tablerow...", tablerowdialog_cb, NULL, 135, N_("Table Row...")},
@@ -244,8 +246,8 @@ static Ttoolbaritem tbi[] = {
 	{"tableheader", general_html_cb, GINT_TO_POINTER(26), 140, N_("Table Header")},
 	{"tabledata", general_html_cb, GINT_TO_POINTER(27), 141, N_("Table Data")},
 	{"tablecaption", general_html_cb, GINT_TO_POINTER(28), 142, N_("Table Caption")},
+	{"framewizard...",framewizard , NULL, 143, N_("Frame Wizard...")},
 	{"", NULL, NULL, 0, NULL}, /* spacing */
-/*	{"framewizard...",framewizard , NULL, 143, N_("Frame Wizard...")},*/
 	{"frameset...", framesetdialog_cb, NULL,144 , N_("Frameset...")},
 	{"frame...",framedialog_cb , NULL, 145, N_("Frame...")},
 	{"", NULL, NULL, 0, NULL}, /* spacing */
@@ -442,33 +444,33 @@ void make_html_toolbar(GtkWidget *handlebox) {
 	html_toolbar = gtk_toolbar_new();
 	html_toolbar_add_items(html_toolbar, tbi, 0, 14);
 	html_toolbar_add_items_to_submenu(html_toolbar, tbi, 26, 31, _("Heading"), 191);
-	html_toolbar_add_items(html_toolbar, tbi, 73, 75);
+	html_toolbar_add_items(html_toolbar, tbi, 75, 77);
 	gtk_notebook_append_page(GTK_NOTEBOOK(html_notebook), html_toolbar, gtk_label_new(_(" Standard bar ")));
 
 	html_toolbar = gtk_toolbar_new();
 	html_toolbar_add_items(html_toolbar, tbi, 15, 25);
-	html_toolbar_add_items_to_submenu(html_toolbar, tbi, 76, 83, _("Context formatting"), 300);
+	html_toolbar_add_items_to_submenu(html_toolbar, tbi, 78, 85, _("Context formatting"), 300);
 	html_toolbar_add_items(html_toolbar, tbi, 25, 31);
 	gtk_notebook_append_page(GTK_NOTEBOOK(html_notebook), html_toolbar, gtk_label_new(_(" Fonts ")));
 
 	html_toolbar = gtk_toolbar_new();
-	html_toolbar_add_items(html_toolbar, tbi, 32, 42);
+	html_toolbar_add_items(html_toolbar, tbi, 32, 43);
 	gtk_notebook_append_page(GTK_NOTEBOOK(html_notebook), html_toolbar, gtk_label_new(_(" Tables ")));
 
 	html_toolbar = gtk_toolbar_new();
-	html_toolbar_add_items(html_toolbar, tbi, 43, 50);
+	html_toolbar_add_items(html_toolbar, tbi, 44, 52);
 	gtk_notebook_append_page(GTK_NOTEBOOK(html_notebook), html_toolbar, gtk_label_new(_(" Frames ")));
 
 	html_toolbar = gtk_toolbar_new();
-	html_toolbar_add_items(html_toolbar, tbi, 51, 60);
+	html_toolbar_add_items(html_toolbar, tbi, 53, 62);
 	gtk_notebook_append_page(GTK_NOTEBOOK(html_notebook), html_toolbar, gtk_label_new(_(" Forms ")));
 
 	html_toolbar = gtk_toolbar_new();
-	html_toolbar_add_items(html_toolbar, tbi, 61, 67);
+	html_toolbar_add_items(html_toolbar, tbi, 62, 69);
 	gtk_notebook_append_page(GTK_NOTEBOOK(html_notebook), html_toolbar, gtk_label_new(_(" List ")));
 
 	html_toolbar = gtk_toolbar_new();
-	html_toolbar_add_items(html_toolbar, tbi, 68, 72);
+	html_toolbar_add_items(html_toolbar, tbi, 70, 72);
 	gtk_notebook_append_page(GTK_NOTEBOOK(html_notebook), html_toolbar, gtk_label_new(_(" CSS ")));
 
 

@@ -37,6 +37,8 @@
 #include "html2.h"
 #include "html_table.h"
 #include "html_form.h"
+#include "wizards.h"
+#include "image.h"
 #include "rcfile.h" /* rcfile_save_configfile_menu_cb */
 
 static GtkItemFactoryEntry menu_items[] = {
@@ -354,12 +356,11 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/Dialogs/General/Embed..."), NULL, embed_cb, 0, NULL},
 	{N_("/Dialogs/General/Select colour..."), NULL, sel_colour_cb, 0, NULL},
 	{N_("/Dialogs/General/Insert time..."), NULL, insert_time_cb, 0, NULL},
-/*	{N_("/Dialogs/General/Insert image..."), "<control>i", image_insert_dialog_cb, 0, NULL},*/
-/*#if HAVE_LIBGDK_IMLIB
-	{N_("/Dialogs/General/Insert thumbnail..."), "<control>t", image_thumbnail_dialog_cb, 0, NULL},
- #endif*/
+	{N_("/Dialogs/General/Insert image..."), "<control>i", image_insert_dialog_cb, 0, NULL},
+	{N_("/Dialogs/General/Insert thumbnail..."), "<control>t", thumbnail_insert_dialog_cb, 0, NULL},
 	{N_("/Dialogs/Table"), NULL, NULL, 0, "<Branch>"},
 	{N_("/Dialogs/Table/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
+	{N_("/Dialogs/Table/Table wizard..."), NULL, tablewizard, 0, NULL},
 	{N_("/Dialogs/Table/Table..."), NULL, tabledialog_cb, 0, NULL},
 	{N_("/Dialogs/Table/Tablerow..."), NULL, tablerowdialog_cb, 0, NULL},
 	{N_("/Dialogs/Table/Tablehead..."), NULL, tableheaddialog_cb, 0, NULL},
@@ -373,6 +374,7 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/Dialogs/CSS/Link to stylesheet..."), NULL, link_cb, 0, NULL},
 	{N_("/Dialogs/Frame"), NULL, NULL, 0, "<Branch>"},
 	{N_("/Dialogs/Frame/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
+	{N_("/Dialogs/Frame/Frame wizard..."), NULL, framewizard, 0, NULL},
 	{N_("/Dialogs/Frame/Frameset..."), NULL, framesetdialog_cb, 0, NULL},
 	{N_("/Dialogs/Frame/Frame..."), NULL, framedialog_cb, 0, NULL},
 	{N_("/Dialogs/Form"), NULL, NULL, 0, "<Branch>"},

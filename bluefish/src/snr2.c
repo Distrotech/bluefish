@@ -129,6 +129,7 @@ typedef struct {
 	GtkWidget *is_case_sens;
 	GtkWidget *overlapping_search;
 	gint replace;
+	GtkWidget *subpat_help;
 	GtkWidget *replace_string;
 	GtkWidget *prompt_before_replacing;
 	GtkWidget *replace_once;
@@ -834,10 +835,6 @@ static void snr2dialog_cancel_lcb(GtkWidget *widget, gpointer data) {
 	snr2dialog_destroy_lcb(NULL, NULL, data);
 }
 
-static void snr2dialog_replacetype_toggled(GtkWidget *widget, Tsnr2_win *data) {
-	gtk_entry_set_editable(GTK_ENTRY(data->replace_string), gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(data->replacetype_string)));
-}
-
 /*****************************************************/
 
 static void snr2dialog_ok_lcb(GtkWidget *widget, Tsnr2_win *data) {
@@ -931,6 +928,17 @@ void snr2_run_extern_replace(gchar *pattern, gint region,
 	snr2_run();
 }
 
+static void matchingtype_toggled_lcb(GtkToggleButton *togglebutton,Tsnr2_win *snr2win){
+	if (GTK_TOGGLE_BUTTON(snr2win->is_normal)->active) {
+		gtk_widget_hide(snr2win->subpat_help);
+	} else {
+		gtk_widget_show(snr2win->subpat_help);
+	}
+}
+static void snr2dialog_replacetype_toggled(GtkWidget *widget, Tsnr2_win *snr2win) {
+	gtk_widget_set_sensitive(snr2win->replace_string, GTK_TOGGLE_BUTTON(snr2win->replacetype_string)->active);
+}
+
 static void snr2dialog(gint is_replace, gint is_new_search) {
 
 	Tsnr2_win *snr2win;
@@ -980,6 +988,9 @@ static void snr2dialog(gint is_replace, gint is_new_search) {
 	snr2win->is_normal = boxed_radiobut_with_value(_("Normal matching"), (last_snr2.matchtype == match_normal), NULL, vbox2);
 	snr2win->is_regex = boxed_radiobut_with_value(_("Use posix regular expression matching"),(last_snr2.matchtype == match_regex),GTK_RADIO_BUTTON(snr2win->is_normal), vbox2);
 	snr2win->is_pcre = boxed_radiobut_with_value(_("Use perl compatible regular expression matching"),(last_snr2.matchtype == match_pcre),GTK_RADIO_BUTTON(snr2win->is_normal),vbox2);
+	if (is_replace) {
+		g_signal_connect(G_OBJECT(snr2win->is_normal), "toggled", G_CALLBACK(matchingtype_toggled_lcb), snr2win);
+	}
 	
 	snr2win->is_case_sens = boxed_checkbut_with_value(_("Case sensitive"), last_snr2.is_case_sens, vbox);
 	snr2win->overlapping_search = boxed_checkbut_with_value(_("Overlapping searches"), last_snr2.overlapping_search, vbox);
@@ -989,7 +1000,8 @@ static void snr2dialog(gint is_replace, gint is_new_search) {
 		gtk_box_pack_start(GTK_BOX(vbox), frame, FALSE, FALSE, 0);
 		vbox2 = gtk_vbox_new(FALSE, 3);
 		gtk_container_add(GTK_CONTAINER(frame), vbox2);
-		
+		snr2win->subpat_help = gtk_label_new(_("\\0 refers to the first subpattern, \\1 to the second etc."));
+		gtk_box_pack_start(GTK_BOX(vbox2), snr2win->subpat_help, TRUE, TRUE, 0);
 		hbox = gtk_hbox_new(FALSE,0);
 		gtk_box_pack_start(GTK_BOX(vbox2), hbox, FALSE, FALSE, 0);
 		gtk_box_pack_start(GTK_BOX(hbox), gtk_label_new(_("Replace with: ")), FALSE, FALSE, 0);
@@ -1026,7 +1038,7 @@ static void snr2dialog(gint is_replace, gint is_new_search) {
 	
 	gtk_widget_grab_focus(snr2win->pattern);
 	gtk_widget_show_all(snr2win->window);
-	
+	matchingtype_toggled_lcb(NULL, snr2win);
 }
 
 /*****************************************************/
