@@ -72,6 +72,7 @@ uninstall:
 clean:
 	rm -f *.default
 	rm -f bluefish.desktop
+	rm -f bluefish.applications
 
 distclean: clean
 	rm -f Makefile *.rej *.orig
