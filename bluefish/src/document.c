@@ -24,6 +24,7 @@
 #include <unistd.h> /* stat() */
 #include <stdio.h> /* fopen() */
 #include <string.h> /* strchr() */
+#include <regex.h> 				/* regcomp() */
 
 /* #define DEBUG */
 
@@ -660,7 +661,7 @@ gboolean doc_file_to_textbox(Tdocument * doc, gchar * filename, gboolean enable_
 			}
 			regfree(&preg);
 			if (encoding) {
-				g_print("doc_file_to_textbox, try encoding %s\n", encoding);
+				DEBUG_MSG("doc_file_to_textbox, try encoding %s\n", encoding);
 				newbuf = g_convert(buffer,-1,"UTF-8",encoding,NULL, &wsize, &error);
 				if (!newbuf || error) {
 					DEBUG_MSG("doc_file_to_textbox, cound not convert to UTF-8: \n");
