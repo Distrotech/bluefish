@@ -1118,7 +1118,7 @@ gpointer progress_popup(GtkWidget *win,gchar *title, guint maxvalue) {
 
 static void file_but_clicked_lcb(GtkWidget * widget, GtkWidget * which_entry)
 {
-	gchar *tmpstring, *tmp2string;
+	gchar *tmpstring/*, *tmp2string*/;
 	DEBUG_MSG("file_but_clicked_lcb, started, which_entry=%p\n",which_entry);
 	tmpstring = return_file(NULL);
 	DEBUG_MSG("file_but_clicked_lcb, return_file returned %s\n",tmpstring);
@@ -1133,8 +1133,8 @@ static void file_but_clicked_lcb(GtkWidget * widget, GtkWidget * which_entry)
 		gtk_entry_set_text(GTK_ENTRY(which_entry), tmpstring);
 /*	perhaps I break something by commenting-out this call, but otherwise the dialog is sometimes started
 	again after the signal is emmitted
-		gtk_signal_emit_by_name(GTK_OBJECT(which_entry), "activate"); */
-		g_free(tmp2string);
+		gtk_signal_emit_by_name(GTK_OBJECT(which_entry), "activate");
+		g_free(tmp2string); */
 	}
 }
 

@@ -30,6 +30,7 @@
 #include "document.h"
 #include "gtk_easy.h"
 #include "rcfile.h"
+#include "bf_lib.h"
 
 Tbfwin *project_is_open(gchar *filename) {
 	GList *tmplist;
