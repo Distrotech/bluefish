@@ -25,7 +25,7 @@
 #define HL_DEBUG
 #define DEBUG */
 
-#ifdef HL_TIMING
+#ifdef HL_TIMING /* some overall profiling information, not per pattern, but per type of code , interesting to bluefish programmers*/
 #include <sys/times.h>
 #include <unistd.h>
 #endif
@@ -36,6 +36,13 @@
 #include <string.h>				/* strerror() */
 #include <stdlib.h>				/* atoi() */
 
+#include "config.h" /* HL_PROFILING might be defined there */
+
+#ifdef HL_PROFILING /* per pattern profiling information, interesting for users making a new pattern */
+#include <sys/times.h>
+#include <unistd.h>
+#endif
+
 #include "bluefish.h"
 #include "bf_lib.h"				/* filename_test_extensions() */
 #include "rcfile.h"				/* array_from_arglist() */
@@ -43,7 +50,6 @@
 #include "menu.h" 			/* menu_current_document_set_toggle_wo_activate */
 #include "document.h" /* doc_get_chars() */
 #include "highlight.h"
-
 
 #define NUM_SUBMATCHES 30 /* should be a multiple of three for pcre_exec(), and at maximum 2/3 of this size can really be used for substrings */
 
@@ -64,6 +70,12 @@ typedef struct {
 	gint mode;
 	GList *childs;
 	GtkTextTag *tag;
+#ifdef HL_PROFILING
+	gint runcount;
+	struct tms tms1;
+	struct tms tms2;
+	glong total_ms;
+#endif
 } Tpattern;
 
 typedef struct {
@@ -143,6 +155,46 @@ static void print_meta_for_tag(GtkTextTag *tag) {
 }
 
 #endif /* DEBUG */
+
+#ifdef HL_PROFILING
+static void hl_profiling_reset(Tdocument *doc) {
+	/* reset all patterns for the current filetype */
+	GList *tmplist = g_list_first(highlight.all_highlight_patterns);
+	while (tmplist){
+		Tmetapattern *mpat = (Tmetapattern *)tmplist->data;
+		if (strcmp(mpat->filetype, doc->hl->type)==0) {
+			mpat->pat->runcount = 0;
+			mpat->pat->total_ms = 0;
+		}
+		tmplist = g_list_next(tmplist);
+	}
+}
+
+static void hl_profiling_tagstart(Tpattern *pat) {
+	times(&pat->tms1);
+	pat->runcount++;
+}
+
+static void hl_profiling_tagstop(Tpattern *pat) {
+	times(&pat->tms2);
+	pat->total_ms += (glong) (double) ((pat->tms2.tms_utime - pat->tms1.tms_utime) * 1000 / sysconf(_SC_CLK_TCK));
+}
+
+static void hl_profiling_print(Tdocument *doc) {
+	/* print results for all patterns for the current filetype */
+	GList *tmplist = g_list_first(highlight.all_highlight_patterns);
+	while (tmplist){
+		Tmetapattern *mpat = (Tmetapattern *)tmplist->data;
+		if (strcmp(mpat->filetype, doc->hl->type)==0) {
+			g_print("PROFILING: patterns %s ran %d times and was matching %ld ms\n", mpat->name, mpat->pat->runcount, mpat->pat->total_ms);
+		}
+		tmplist = g_list_next(tmplist);
+	}
+
+}
+
+#endif /* HL_PROFILING */
+
 #ifdef HL_TIMING
 typedef struct {
 	struct tms tms1;
@@ -573,12 +625,19 @@ static void patmatch_rematch(gboolean is_parentmatch, Tpatmatch *patmatch, gint 
 	print_meta_for_pattern(patmatch->pat);
 #endif
 	if (is_parentmatch) {
+#ifdef HL_PROFILING
+		hl_profiling_tagstart(patmatch->pat);
+#endif
+	
 #ifdef HL_TIMING
 		timing_start(TIMING_PCRE_EXEC);
 #endif
 		patmatch->is_match = pcre_exec(patmatch->pat->reg2.pcre, patmatch->pat->reg2.pcre_e, buf, length, offset, 0, patmatch->ovector, NUM_SUBMATCHES);
 #ifdef HL_TIMING
 		timing_stop(TIMING_PCRE_EXEC);
+#endif
+#ifdef HL_PROFILING
+		hl_profiling_tagstop(patmatch->pat);
 #endif
 	} else {
 		if (patmatch->pat->mode == 3) {
@@ -594,12 +653,18 @@ static void patmatch_rematch(gboolean is_parentmatch, Tpatmatch *patmatch, gint 
 			patmatch->ovector[1] = parentmatch->ovector[patmatch->pat->numsub*2+1];
 			patmatch->is_match = TRUE;
 		} else {
+#ifdef HL_PROFILING
+			hl_profiling_tagstart(patmatch->pat);
+#endif
 #ifdef HL_TIMING
 			timing_start(TIMING_PCRE_EXEC);
 #endif
 			patmatch->is_match = pcre_exec(patmatch->pat->reg1.pcre, patmatch->pat->reg1.pcre_e, buf, length, offset, 0, patmatch->ovector, NUM_SUBMATCHES);
 #ifdef HL_TIMING
 			timing_stop(TIMING_PCRE_EXEC);
+#endif
+#ifdef HL_PROFILING
+			hl_profiling_tagstop(patmatch->pat);
 #endif
 		}
 	}
@@ -859,7 +924,9 @@ void doc_highlight_full(Tdocument * doc) {
 #ifdef HL_TIMING
 		timing_init();
 #endif
-
+#ifdef HL_PROFILING
+		hl_profiling_reset(doc);
+#endif
 #ifdef HL_TIMING
 		timing_start(TIMING_TOTAL);
 #endif
@@ -877,6 +944,9 @@ void doc_highlight_full(Tdocument * doc) {
 		g_print("doc_highlight_full done, %ld ms total, %ld ms tagging (%dX), %ld ms matching (%dX)\n",timing[TIMING_TOTAL].total_ms, timing[TIMING_TEXTBUF].total_ms, timing[TIMING_TEXTBUF].numtimes, timing[TIMING_PCRE_EXEC].total_ms, timing[TIMING_PCRE_EXEC].numtimes);
 		g_print("%ld ms utf8-shit (%dX), %ld ms utf8-invalidate (%dX)\n", timing[TIMING_UTF8].total_ms, timing[TIMING_UTF8].numtimes, timing[TIMING_UTF8_INV].total_ms, timing[TIMING_UTF8_INV].numtimes);
 		g_print("%ld ms setting iters, %ld ms setting tags\n", timing[TIMING_TEXTBUF_ITER].total_ms, timing[TIMING_TEXTBUF_TAG].total_ms);
+#endif
+#ifdef HL_PROFILING
+		hl_profiling_print(doc);
 #endif
 		doc->need_highlighting = FALSE;
 	}
