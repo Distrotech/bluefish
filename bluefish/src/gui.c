@@ -35,6 +35,7 @@
 #include "html_form.h"
 #include "filebrowser.h"
 #include "stringlist.h"
+#include "preferences.h" /* open_preferences_cb */
 
 typedef struct {
 	GtkWidget *main_toolbar_hb;
@@ -465,8 +466,9 @@ void make_main_toolbar(GtkWidget *handlebox) {
 	toolbarwidgets.redo = gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), NULL, _("Redo"), "",
 							new_pixmap(013), G_CALLBACK(redo_cb), NULL);
 	gtk_toolbar_append_space(GTK_TOOLBAR(toolbar));
-/*	gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), NULL, _("Configure..."),
-							"", new_pixmap(014), G_CALLBACK(configure_cb), NULL);
+	gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), NULL, _("Preferences..."),
+							"", new_pixmap(014), G_CALLBACK(open_preferences_cb), NULL);
+/*
 	gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), NULL, _("Print..."), "",
 							new_pixmap(015), G_CALLBACK(file_print_cb), NULL);
 	gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), NULL, _("Spellcheck..."),

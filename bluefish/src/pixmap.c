@@ -44,6 +44,9 @@ GtkWidget *new_pixmap(gint type) {
 	case 013:
 		data = redo;
 		break;
+	case 014:
+		data = preferences;
+		break;
 	case 100:
 		data = quick_start;
 		break;
