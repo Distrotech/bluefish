@@ -280,11 +280,8 @@ static void menu_bmark_operations_cb(Tbfwin *bfwin,guint callback_action, GtkWid
 	   bmark_add_perm(bfwin);
 	break;
 	case 4:
-	   bmark_del_all_temp(bfwin,TRUE);
+	   bmark_del_all(bfwin,TRUE);
 	break;
-	case 5:
-	   bmark_del_all_perm(bfwin,TRUE);
-	break;	
 	default:
 			g_print("Bmark action no. %d\n",callback_action);
 	}
@@ -681,8 +678,7 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/Bookmarks/Add _Temporary"), "<control>d", menu_bmark_operations_cb, 1, "<Item>"},	
 	{N_("/Bookmarks/Add _Permanent"), "<shift><control>d", menu_bmark_operations_cb, 2, "<Item>"},	   
 	{N_("/Bookmarks/sep2"), NULL, NULL, 0, "<Separator>"},   
-	{N_("/Bookmarks/Delete All Temporar_y"), NULL, menu_bmark_operations_cb, 4, "<Item>"},	      
-	{N_("/Bookmarks/Delete All Per_manent"), NULL, menu_bmark_operations_cb, 5, "<Item>"},	      
+	{N_("/Bookmarks/Delete All"), NULL, menu_bmark_operations_cb, 4, "<Item>"},	      
 	{N_("/_Project"), NULL, NULL, 0, "<Branch>"},
 	{N_("/Project/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
 	{N_("/Project/_Open Project..."), NULL, project_menu_cb, 1, "<Item>"},
