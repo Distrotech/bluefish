@@ -89,9 +89,12 @@ gint documentlist_return_index_from_filename(gchar *filename) {
 }
 
 void doc_update_highlighting(GtkWidget *wid, gpointer data) {
+	if (!main_v->current_document) return;
+	DEBUG_MSG("doc_update_highlighting, curdoc=%p, highlightstate=%d\n", main_v->current_document, main_v->current_document->highlightstate);
 	if (main_v->current_document->highlightstate == 0) {
 		setup_toggle_item(gtk_item_factory_from_widget(main_v->menubar),
 			  N_("/Document/Highlight syntax"), TRUE);
+		DEBUG_MSG("doc_update_highlighting, calling doc_toggle_highlighting_cb\n");
 		doc_toggle_highlighting_cb(NULL, 0, NULL);
 	} else {
 		doc_highlight_full(main_v->current_document);
@@ -2064,8 +2067,9 @@ void edit_select_all_cb(GtkWidget * widget, gpointer data) {
 }
 
 void doc_toggle_highlighting_cb(gpointer callback_data,guint action,GtkWidget *widget) {
-	DEBUG_MSG("doc_toggle_highlighting_cb, started\n");
+
 	main_v->current_document->highlightstate = 1 - main_v->current_document->highlightstate;
+	DEBUG_MSG("doc_toggle_highlighting_cb, started, highlightstate now is %d\n", main_v->current_document->highlightstate);
 	if (main_v->current_document->highlightstate == 0) {
 		doc_remove_highlighting(main_v->current_document);
 	} else {
