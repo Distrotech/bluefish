@@ -27,6 +27,7 @@
 #include "document.h"
 #include "file.h"
 #include "stringlist.h"
+#include "undo_redo.h"
 
 /**************************************************************************/
 /* the start of the callback functions for the menu, acting on a document */
@@ -558,4 +559,27 @@ void file_save_as_cb(GtkWidget * widget, Tbfwin *bfwin) {
  **/
 void file_move_to_cb(GtkWidget * widget, Tbfwin *bfwin) {
 	doc_save_backend(bfwin->current_document, TRUE, TRUE, FALSE, FALSE);
+}
+
+/**
+ * file_save_all_cb:
+ * @widget: unused #GtkWidget
+ * @bfwin: the #Tbfwin* window pointer
+ *
+ *	Save all editor notebooks
+ *
+ * Return value: void
+ **/
+void file_save_all_cb(GtkWidget * widget, Tbfwin *bfwin) {
+	GList *tmplist;
+	Tdocument *tmpdoc;
+
+	tmplist = g_list_first(bfwin->documentlist);
+	while (tmplist) {
+		tmpdoc = (Tdocument *) tmplist->data;
+		if (tmpdoc->modified) {
+			doc_save_backend(tmpdoc, FALSE, FALSE, FALSE, FALSE);
+		}
+		tmplist = g_list_next(tmplist);
+	}
 }

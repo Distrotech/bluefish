@@ -69,6 +69,7 @@ void doc_insert_two_strings(Tdocument *doc, const gchar *before_str, const gchar
 gboolean doc_buffer_to_textbox(Tdocument * doc, gchar * buffer, gsize buflen, gboolean enable_undo, gboolean delay);
 void doc_bind_signals(Tdocument *doc);
 void doc_unbind_signals(Tdocument *doc);
+gchar *doc_get_buffer_in_encoding(Tdocument *doc);
 gboolean buffer_to_file(Tbfwin *bfwin, gchar *buffer, gchar *filename);
 void doc_set_fileinfo(Tdocument *doc, GnomeVFSFileInfo *finfo);
 void doc_destroy(Tdocument * doc, gboolean delay_activation);
@@ -95,7 +96,6 @@ void file_new_cb(GtkWidget * widget, Tbfwin *bfwin);
 void file_close_cb(GtkWidget * widget, Tbfwin *bfwin);
 void bfwin_close_all_documents(Tbfwin *bfwin, gboolean window_closing);
 void file_close_all_cb(GtkWidget * widget, Tbfwin *bfwin);
-void file_save_all_cb(GtkWidget * widget, Tbfwin *bfwin);
 
 void edit_cut_cb(GtkWidget * widget, Tbfwin *bfwin);
 void edit_copy_cb(GtkWidget * widget, Tbfwin *bfwin);
