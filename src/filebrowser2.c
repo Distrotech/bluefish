@@ -69,7 +69,7 @@ enum {
 enum {
 	DIR_NAME_COLUMN,
 	DIR_IN_HISTORY_COLUMN,
-	DIR_URI
+	DIR_URI_COLUMN
 };
 #define TYPE_HIDDEN -1
 #define TYPE_HIDDEN_DIR -2
@@ -80,6 +80,7 @@ enum {
 typedef struct {
 	GtkWidget *dirmenu_v;
 	GtkTreeModel *dirmenu_m;
+	GnomeVFSURI *currentdir;
 	
 	GtkWidget *dir_v; /* treeview widget */
 	GtkWidget *file_v; /* listview widget */
@@ -1285,6 +1286,61 @@ static gboolean file_v_button_press_lcb(GtkWidget *widget, GdkEventButton *event
 	return FALSE; /* pass the event on */
 }
 
+static void dirmenu_set_curdir(Tfilebrowser2 *fb2, GnomeVFSURI *newcurdir) {
+	/* first we remove all non-histroy items */
+	GtkTreeIter iter, setiter;
+	GnomeVFSURI *tmp;
+	gboolean cont, havesetiter=FALSE;
+	if (fb2->currentdir) {
+		if (gnome_vfs_uri_equal(fb2->currentdir, newcurdir)) return;
+		gnome_vfs_uri_unref(fb2->currentdir);
+	}
+	fb2->currentdir = newcurdir;
+	gnome_vfs_uri_ref(fb2->currentdir);
+	
+	cont = gtk_tree_model_get_iter_first(GTK_TREE_MODEL(fb2->dirmenu_m), &iter);
+	while (cont) {
+		gboolean inhis;
+		DEBUG_MSG("dirmenu_set_curdir, getting in_his\n");
+		gtk_tree_model_get(GTK_TREE_MODEL(fb2->dirmenu_m), &iter, DIR_IN_HISTORY_COLUMN, &inhis, -1);
+		if (!inhis) {
+			GtkTreeIter iter2;
+			GnomeVFSURI *uri;
+			gchar *name;
+			iter2 = iter;
+			cont = gtk_tree_model_iter_next(GTK_TREE_MODEL(fb2->dirmenu_m), &iter);
+			/* now remove iter2 */
+			gtk_tree_model_get(GTK_TREE_MODEL(fb2->dirmenu_m), &iter2, DIR_NAME_COLUMN, &name, DIR_URI_COLUMN, &uri, -1);
+			g_free(name);
+			gnome_vfs_uri_unref(uri);
+			gtk_list_store_remove(GTK_LIST_STORE(fb2->dirmenu_m),&iter2);
+		} else {
+			cont = gtk_tree_model_iter_next(GTK_TREE_MODEL(fb2->dirmenu_m), &iter);
+		}
+	}
+	/* then we rebuild the current uri */
+	tmp = gnome_vfs_uri_dup(newcurdir);
+	cont = gnome_vfs_uri_has_parent(tmp);
+	while (cont) {
+		gchar *name = uri_to_document_filename(tmp);
+		gtk_list_store_append(GTK_LIST_STORE(fb2->dirmenu_m),&iter);
+		if (!havesetiter) {
+			setiter = iter;
+			havesetiter = TRUE;
+		}
+		gtk_list_store_set(GTK_LIST_STORE(fb2->dirmenu_m),&iter
+					,DIR_NAME_COLUMN,name
+					,DIR_IN_HISTORY_COLUMN,FALSE
+					,DIR_URI_COLUMN,tmp /* don't unref tmp at this point, because there is a reference from the model */
+					,-1);
+		cont = gnome_vfs_uri_has_parent(tmp);
+		if (cont) {
+			tmp = gnome_vfs_uri_get_parent(tmp);
+		}
+	}
+	gtk_combo_box_set_active_iter(fb2->dirmenu_v,&setiter);
+}
+
 static void dir_v_selection_changed_lcb(GtkTreeSelection *treeselection,Tfilebrowser2 *fb2) {
 	GtkTreeModel *sort_model = NULL;
 	GtkTreeIter sort_iter;
@@ -1294,6 +1350,7 @@ static void dir_v_selection_changed_lcb(GtkTreeSelection *treeselection,Tfilebro
 		GnomeVFSURI *uri;
 		gtk_tree_model_get(sort_model, &sort_iter, URI_COLUMN, &uri, -1);
 		if (uri) {
+			dirmenu_set_curdir(fb2, uri);
 			fb2_focus_dir(fb2, uri, TRUE);
 		}
 /*		GtkTreePath *sort_path;
@@ -1324,6 +1381,16 @@ void fb2_set_basedir(Tbfwin *bfwin, gchar *curi) {
 			gtk_tree_path_free(basedir);
 		}
 		fb2_focus_dir(fb2, fb2->basedir, FALSE);		
+	}
+}
+
+static void dirmenu_changed_lcb(GtkComboBox *widget,gpointer data) {
+	Tfilebrowser2 *fb2 = data;
+	GtkTreeIter iter;
+	if (gtk_combo_box_get_active_iter(widget,&iter)) {
+		GnomeVFSURI *uri;
+		gtk_tree_model_get(GTK_TREE_MODEL(fb2->dirmenu_m), &iter, DIR_URI_COLUMN, &uri, -1);
+		fb2_focus_dir(FILEBROWSER2(fb2), uri, FALSE);
 	}
 }
 
@@ -1361,11 +1428,12 @@ GtkWidget *fb2_init(Tbfwin *bfwin) {
 			gtk_list_store_set(GTK_LIST_STORE(fb2->dirmenu_m),&iter
 					,DIR_NAME_COLUMN,name
 					,DIR_IN_HISTORY_COLUMN,TRUE
-					,DIR_URI,uri
+					,DIR_URI_COLUMN	,uri
 					,-1);
 			tmplist = g_list_next(tmplist);
 		}
 	}
+	g_signal_connect(fb2->dirmenu_v, "changed", dirmenu_changed_lcb, fb2);
 
 	{
 		GtkWidget *scrolwin;
