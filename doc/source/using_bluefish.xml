@@ -20,11 +20,12 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 <title>Using Bluefish</title>
 <para>
-In this chapter most of the functionalities of Bluefish are described. What you can do, how you do it, and how you can customise the default behaviour.
+In this chapter, most of the functionalities of Bluefish are described. What you can do, how you do it, and how you can customize the default behaviour.
 </para>
 <sect1 id="starting-bluefish">
 <title>Starting Bluefish</title>
-<para>In GNOME Bluefish is started from the Applications/Programming menu.</para>
+<para>In GNOME, Bluefish can be started from the Applications/Programming menu. From a 
+terminal, simply launch bluefish using the command <emphasis>bluefish</emphasis>.</para>
 <sect2 id="commandline-options">
 <title>Command line options</title>
 <para>
@@ -38,16 +39,16 @@ There are several useful command line options.
 	  <listitem><para>--display</para></listitem>
 </itemizedlist>
 Many programs like browsers, email clients and file managers can be configured to 
-open files in Bluefish. For example <emphasis>bluefish '%s'</emphasis> will open
+open files in Bluefish. For example, <emphasis>bluefish '%s'</emphasis> will open
 a file in the current window, <emphasis>bluefish -n '%s'</emphasis> will open a
 file in a new window, and <emphasis>bluefish -p '%s'</emphasis> will open
 a project file.
 </para>
 </sect2>
-<sect2 id="user-interface">
+</sect1>
+<sect1 id="user-interface">
 <title>The user interface</title>
-</sect2>
-	<para>The biggest part of the user interface is the editor area. Because Bluefish has a so called "Multiple Document Interface", there are actually many editor areas
+	<para>The biggest part of the user interface is the editor area. Because Bluefish has a so-called "Multiple Document Interface", there are actually many editor areas
 	in Bluefish, accessible via the tabs. By default the tabs are on the bottom.
 			<figure id="editor_array">
 				<title id="bf-figure-editor-array">Bluefish Editor Array</title>
@@ -65,7 +66,7 @@ a project file.
 				</screenshot>
 			</figure>
 	</para>
-	<para>The top of the Bluefish interface consists of a menu, a main tool bar, a 
+	<para>The top of the Bluefish interface consists of a menu, a main tool bar, an 
 	HTML tool bar, and a Custom menu.
 			<figure id="main_menu">
 				<title id="bf-figure-main-menu">Bluefish Main Menu</title>
@@ -100,7 +101,7 @@ a project file.
 				</screenshot>
 			</figure>
 			</para>
-			<para>The HTML tool bar deals with most used HTML functionalities.
+			<para>The HTML tool bar provides access to the most commonly used HTML functionalities.
 			<figure id="html_toolbar">
 				<title id="bf-figure-html-toolbar">Bluefish HTML Tool Bar</title>
 				<screenshot>
