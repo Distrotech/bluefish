@@ -684,7 +684,7 @@ static void doc_set_tooltip(Tdocument *doc) {
 		}
 	}
 #else
-	if (doc->statbuf.st_uid != -1) {
+	if (doc->statbuf.st_uid > -1) {
 		modestr = filemode_to_string(doc->statbuf.st_mode);
 		ctime_r(&doc->statbuf.st_mtime,mtimestr);
 		sizestr = g_strdup_printf("%ld", doc->statbuf.st_size);
