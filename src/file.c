@@ -866,6 +866,7 @@ void open_advanced(Tbfwin *bfwin, GnomeVFSURI *basedir, gboolean recursive, gcha
 
 /************************/
 typedef struct {
+	Tbfwin *bfwin;
 	GnomeVFSAsyncHandle *handle;
 	GnomeVFSURI *destdir;
 	GList *sourcelist;
@@ -887,8 +888,15 @@ static gint copyfile_progress_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSXferProgre
 
 	if (info->status == GNOME_VFS_XFER_PROGRESS_STATUS_OVERWRITE) {
 		/* BUG: we should ask the user what to do ? */
+		gchar *options[] = {_("_Skip"), _("_Overwrite"), NULL};
+		gint retval;
+		gchar *tmpstr, *dispname;
 		DEBUG_MSG("copyfile_progress_lcb, overwrite? skip for the moment\n");
-		return GNOME_VFS_XFER_OVERWRITE_ACTION_SKIP;
+		dispname = gnome_vfs_format_uri_for_display(info->target_name);
+		tmpstr = g_strdup_printf(_("%s already exists, overwrite?"),dispname);
+		retval = multi_warning_dialog(BFWIN(cf->bfwin)->main_window,_("Overwrite file?"), tmpstr, 1, 0, options);
+		g_free(tmpstr);
+		return (retval == 0) ? GNOME_VFS_XFER_OVERWRITE_ACTION_SKIP : GNOME_VFS_XFER_OVERWRITE_ACTION_REPLACE;
 	} else if (info->status == GNOME_VFS_XFER_PROGRESS_STATUS_VFSERROR) {
 		DEBUG_MSG("copyfile_progress_lcb, vfs error! skip for the moment\n");
 		return GNOME_VFS_XFER_ERROR_ACTION_SKIP;
@@ -914,6 +922,7 @@ void copy_files_async(Tbfwin *bfwin, GnomeVFSURI *destdir, gchar *sources) {
 	GnomeVFSResult ret;
 	gchar **splitted, **tmp;
 	cf = g_new0(Tcopyfile,1);
+	cf->bfwin = bfwin;
 	cf->destdir = destdir;
 	gnome_vfs_uri_ref(cf->destdir);
 	/* create the source and destlist ! */
