@@ -413,10 +413,12 @@ static gboolean window_full_key_press_event_lcb(GtkWidget *widget,GdkEventKey *e
  * Description:
  * 	Create new window with title, callback functions and some more settings
  */
-GtkWidget *window_full(gchar * title, GtkWindowPosition position
+
+GtkWidget *window_full2(gchar * title, GtkWindowPosition position
 			, gint borderwidth, GCallback close_func
 			, gpointer close_data
-			, gboolean delete_on_escape)
+			, gboolean delete_on_escape,
+			GtkWidget *transientforparent)
 {
 
 	GtkWidget *returnwidget;
@@ -426,8 +428,13 @@ GtkWidget *window_full(gchar * title, GtkWindowPosition position
 	/* use "destroy" and not "destroy_event", 'cause that doesn't work */
 	g_signal_connect(G_OBJECT(returnwidget), "destroy", close_func, close_data);
 	DEBUG_MSG("window_full, close_data=%p\n",close_data);
+	if (transientforparent) {
+		gtk_window_set_transient_for(GTK_WINDOW(returnwidget),transientforparent);
+	}
 	if (delete_on_escape) {
 		g_signal_connect(G_OBJECT(returnwidget), "key_press_event", G_CALLBACK(window_full_key_press_event_lcb), returnwidget);
+		/* for these windows it is also convenient if they destroy when their parent is destroyed */
+		gtk_window_set_destroy_with_parent(GTK_WINDOW(returnwidget), TRUE);
 	}
 	DEBUG_MSG("window_full, return %p\n", returnwidget);
 	return returnwidget;
@@ -909,6 +916,7 @@ static void fs_ok_clicked_lcb(GtkWidget * widget, Tfileselect *fileselect)
 
 static void close_modal_window_lcb(GtkWidget * widget, gpointer window)
 {
+	DEBUG_MSG("close_modal_window_lcb, widget=%p, window=%p\n", widget, window);
 	gtk_main_quit();
 	window_destroy(window);
 }
@@ -939,8 +947,8 @@ static void fs_history_pulldown_changed(GtkOptionMenu *optionmenu,Tfileselect *f
 
 static void fileselectwin(gchar *setfile, Tfileselect *fileselect, gchar *title) {
 
-	DEBUG_MSG("fileselectwin, started\n");
 	fileselect->fs = gtk_file_selection_new(title);
+		DEBUG_MSG("fileselectwin, started, fileselect->fs=%p\n", fileselect->fs);
 	gtk_file_selection_show_fileop_buttons(GTK_FILE_SELECTION(fileselect->fs));
 	/*gtk_file_selection_hide_fileop_buttons(GTK_FILE_SELECTION(fileselect->fs));*/
 	g_signal_connect(G_OBJECT(fileselect->fs), "destroy", G_CALLBACK(close_modal_window_lcb), fileselect->fs);
