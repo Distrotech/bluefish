@@ -72,11 +72,11 @@ void tablewizard(GtkWidget *widget, gpointer data) {
 	gtk_table_set_col_spacings(GTK_TABLE(dgtable), 12);
 	gtk_box_pack_start(GTK_BOX(dg->vbox), dgtable, FALSE, FALSE, 0);
 
-	dg->spin[1] = spinbut_with_value(NULL, 1, 100, 1.0, 5.0);
+	dg->spin[1] = spinbut_with_value("1", 1, 100, 1.0, 5.0);
 	bf_mnemonic_label_tad_with_alignment(_("Number of _rows:"), dg->spin[1], 0, 0.5, dgtable, 0, 1, 0, 1);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->spin[1], 1, 5, 0, 1);
 
-	dg->spin[2] = spinbut_with_value(NULL, 1, 100, 1.0, 5.0);
+	dg->spin[2] = spinbut_with_value("1", 1, 100, 1.0, 5.0);
 	bf_mnemonic_label_tad_with_alignment(_("Number of colu_mns:"), dg->spin[2], 0, 0.5, dgtable, 0, 1, 1, 2);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->spin[2], 1, 5, 1, 2);
 
