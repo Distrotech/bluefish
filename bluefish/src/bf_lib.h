@@ -32,6 +32,16 @@ typedef enum {
 	tcc2i_mycharlen,
 	tcc2i_full_match_gettext
 } Ttcc2i_mode;
+
+typedef struct {
+	gpointer data;
+	gint count;
+} Trefcpointer;
+
+Trefcpointer *refcpointer_new(gpointer data);
+#define refcpointer_ref(rp) rp->count++
+void refcpointer_unref(Trefcpointer *rp);
+
 gchar *uri_to_document_filename(GnomeVFSURI *uri);
 gchar *uri_to_document_filename2(gchar *uri);
 

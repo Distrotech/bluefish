@@ -38,6 +38,21 @@
 #define DIRCHR '/'
 #endif
 
+Trefcpointer *refcpointer_new(gpointer data) {
+	Trefcpointer *rp = g_new(Trefcpointer,1);
+	rp->data = data;
+	rp->count = 1;
+	return rp;
+}
+
+void refcpointer_unref(Trefcpointer *rp) {
+	rp->count--;
+	if (rp->count <= 0) {
+		g_free(rp->data);
+		g_free(rp);
+	}
+}
+
 /**
  * uri_to_document_filename:
  *

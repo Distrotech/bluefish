@@ -104,13 +104,13 @@ typedef void (* SavefileAsyncCallback) (gint status,gint error_info,gpointer cal
 
 typedef struct {
 	GnomeVFSFileSize buffer_size;
-	gchar *buffer;
+	Trefcpointer *buffer;
 	SavefileAsyncCallback callback_func;
 	gpointer callback_data;
 } Tsavefile;
 
 static void savefile_cleanup(Tsavefile *sf) {
-	g_free(sf->buffer);
+	refcpointer_unref(sf->buffer);
 	g_free(sf);
 }
 
@@ -133,7 +133,7 @@ static void savefile_asyncopenuri_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSResult
 	Tsavefile *sf = data;
 	if (result == GNOME_VFS_OK) {
 		sf->callback_func(SAVEFILE_CHANNEL_OPENED, result, sf->callback_data);
-		gnome_vfs_async_write(handle,sf->buffer,sf->buffer_size,savefile_asyncwrite_lcb, sf);
+		gnome_vfs_async_write(handle,sf->buffer->data,sf->buffer_size,savefile_asyncwrite_lcb, sf);
 	} else {
 		/* error! */
 		sf->callback_func(SAVEFILE_ERROR_NOCHANNEL, result, sf->callback_data);
@@ -141,17 +141,157 @@ static void savefile_asyncopenuri_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSResult
 	}
 }
 
-void file_savefile_uri_async(GnomeVFSURI *uri, gchar *buffer, GnomeVFSFileSize buffer_size, SavefileAsyncCallback callback_func, gpointer callback_data) {
+void file_savefile_uri_async(GnomeVFSURI *uri, Trefcpointer *buffer, GnomeVFSFileSize buffer_size, SavefileAsyncCallback callback_func, gpointer callback_data) {
 	Tsavefile *sf;
 	GnomeVFSAsyncHandle *handle;
 	sf = g_new(Tsavefile,1);
 	sf->callback_data = callback_data;
 	sf->callback_func = callback_func;
-	sf->buffer = g_strdup(buffer);
+	sf->buffer = buffer;
+	refcpointer_ref(buffer);
 	sf->buffer_size = buffer_size;
 	gnome_vfs_async_open_uri(&handle,uri,GNOME_VFS_OPEN_WRITE,GNOME_VFS_PRIORITY_DEFAULT
 				,savefile_asyncopenuri_lcb,sf);
 }
+
+/*************************** CHECK MODIFIED AND SAVE ASYNC ******************************/
+enum {
+	CHECKANDSAVE_ERROR,
+	CHECKANDSAVE_ERROR_NOBACKUP,
+	CHECKANDSAVE_ERROR_NOCHANNEL,
+	CHECKANDSAVE_ERROR_NOWRITE,
+	CHECKANDSAVE_ERROR_MODIFIED,
+	CHECKANDSAVE_CHECKED,
+	CHECKANDSAVE_BACKUP,
+	CHECKANDSAVE_CHANNEL_OPENED,
+	CHECKANDSAVE_FINISHED
+} ;
+
+typedef void (* CheckNsaveAsyncCallback) (gint status,gint error_info,gpointer callback_data);
+
+typedef struct {
+	GnomeVFSFileSize buffer_size;
+	Trefcpointer *buffer;
+	GnomeVFSURI *uri;
+	GnomeVFSFileInfo *finfo;
+	CheckNsaveAsyncCallback callback_func;
+	gpointer callback_data;
+} TcheckNsave;
+
+static void checkNsave_cleanup(TcheckNsave *cns) {
+	refcpointer_unref(cns->buffer);
+	gnome_vfs_uri_unref(cns->uri);
+	g_free(cns);
+}
+
+static void checkNsave_savefile_lcb(gint status,gint error_info,gpointer data) {
+	TcheckNsave *cns = data;
+	switch (status) {
+	case SAVEFILE_FINISHED:
+
+	break;
+	case SAVEFILE_CHANNEL_OPENED:
+	
+	break;
+	case SAVEFILE_ERROR_NOWRITE:
+	
+	break;
+	case SAVEFILE_ERROR_NOCHANNEL:
+	
+	break;
+	case SAVEFILE_ERROR:
+	
+	break;
+	}
+	checkNsave_cleanup(cns);
+}
+
+gint checkNsave_progress_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSXferProgressInfo *info,gpointer data) {
+	TcheckNsave *cns = data;
+	if (info->status == GNOME_VFS_XFER_PROGRESS_STATUS_OVERWRITE) {
+		return GNOME_VFS_XFER_OVERWRITE_ACTION_REPLACE;
+	} else if (info->status == GNOME_VFS_XFER_PROGRESS_STATUS_VFSERROR) {
+	/*	cns->callback_func(); */
+		return GNOME_VFS_XFER_ERROR_ACTION_ABORT;
+	} else if (info->status == GNOME_VFS_XFER_PROGRESS_STATUS_OK) {
+		if (info->phase == GNOME_VFS_XFER_PHASE_COMPLETED) {
+			/* backup == ok, we start the actual file save */
+			DEBUG_MSG("checkNsave_progress_lcb, starting the actual save\n");
+			file_savefile_uri_async(cns->uri, cns->buffer, cns->buffer_size, checkNsave_savefile_lcb, cns);
+		}
+	}
+	return 0;
+}
+
+gint checkNsave_sync_lcb(GnomeVFSXferProgressInfo *info,gpointer data) {
+	TcheckNsave *cns = data;
+	if (info->status == GNOME_VFS_XFER_PROGRESS_STATUS_OVERWRITE) {
+		return GNOME_VFS_XFER_OVERWRITE_ACTION_REPLACE;
+	} else if (info->status == GNOME_VFS_XFER_PROGRESS_STATUS_VFSERROR) {
+	/*	cns->callback_func(); */
+		return GNOME_VFS_XFER_ERROR_ACTION_ABORT;
+	} else if (info->status == GNOME_VFS_XFER_PROGRESS_STATUS_OK) {
+		if (info->phase == GNOME_VFS_XFER_PHASE_COMPLETED) {
+			/* backup == ok, we start the actual file save */
+			DEBUG_MSG("checkNsave_sync_lcb, starting the actual save\n");
+			file_savefile_uri_async(cns->uri, cns->buffer, cns->buffer_size, checkNsave_savefile_lcb, cns);
+		}
+	}
+	return 0;
+}
+static void checkNsave_checkmodified_lcb(gint status,gint error_info,gpointer data) {
+	TcheckNsave *cns = data;
+	switch (status) {
+	case CHECKMODIFIED_OK:
+		/* the file is not modified on disk, now first create the backup, then start save */
+		{
+		GnomeVFSAsyncHandle *handle;
+		GList *sourcelist;
+		GList *destlist;
+		gchar *sourceuri;
+		gchar *desturi;
+		
+		sourceuri = gnome_vfs_uri_to_string(cns->uri,0);
+		desturi = g_strconcat(sourceuri, main_v->props.backup_filestring, NULL);
+		sourcelist = g_list_append(NULL, sourceuri);
+		destlist = g_list_append(NULL, desturi);
+		gnome_vfs_async_xfer(&handle,sourcelist,destlist
+					,GNOME_VFS_XFER_FOLLOW_LINKS,GNOME_VFS_XFER_ERROR_MODE_ABORT
+					,GNOME_VFS_XFER_OVERWRITE_MODE_REPLACE,GNOME_VFS_PRIORITY_DEFAULT
+					,checkNsave_progress_lcb, cns
+					,checkNsave_sync_lcb, cns);
+		}
+	break;
+	case CHECKMODIFIED_MODIFIED:
+	
+	break;
+	case CHECKMODIFIED_ERROR:
+
+	break;
+	}
+}
+
+/* 
+checks if the target uri is modified, if not creates a backup, then writes the buffer
+all done async
+*/
+void file_checkNsave_uri_async(GnomeVFSURI *uri, GnomeVFSFileInfo *info, Trefcpointer *buffer, GnomeVFSFileSize buffer_size, CheckNsaveAsyncCallback callback_func, gpointer callback_data) {
+	TcheckNsave *cns;
+	
+	cns = g_new(TcheckNsave,1);
+	cns->callback_data = callback_data;
+	cns->callback_func = callback_func;
+	cns->buffer = buffer;
+	refcpointer_ref(buffer);
+	cns->buffer_size = buffer_size;
+	cns->uri = uri;
+	gnome_vfs_uri_ref(uri);
+	cns->finfo = info;
+	gnome_vfs_file_info_ref(info);
+	/* first check if the file is modified on disk */
+	file_checkmodified_uri_async(uri, info, checkNsave_checkmodified_lcb, cns);
+}
+
 
 /*************************** OPEN FILE ASYNC ******************************/
 
