@@ -572,12 +572,9 @@ GList *get_stringlist(gchar * filename, GList * which_list)
  * stores a stringlist into a file
  */
 
-gboolean put_stringlist_limited(gchar * filename, GList * which_list, gint maxentries)
-{
-	char *tmpstr;
+gboolean put_stringlist_limited(gchar * filename, GList * which_list, gint maxentries) {
 	FILE *fd;
 	GList *tmplist;
-	gint count;
 
 	DEBUG_MSG("put_stringlist_limited, started with filename=%s\n", filename);
 
@@ -587,14 +584,15 @@ gboolean put_stringlist_limited(gchar * filename, GList * which_list, gint maxen
 		return FALSE;
 	}
 	if (maxentries > 0) {
+		gint count;
 		count = g_list_length(which_list) - maxentries;
 		tmplist = g_list_nth(which_list, (count<0) ? 0 : count);
 	} else {
 		tmplist = g_list_first(which_list);
 	}
 	while (tmplist) {
-		tmpstr = g_strndup((char *) tmplist->data, STRING_MAX_SIZE - 1);
-		DEBUG_MSG("put_stringlist_limited, count=%d, tmplist(%p), adding string(%p)=%s (strlen=%d)the file\n", count, tmplist, tmpstr, tmpstr, strlen(tmpstr));
+		gchar *tmpstr = g_strndup((char *) tmplist->data, STRING_MAX_SIZE - 1);
+		DEBUG_MSG("put_stringlist_limited, tmplist(%p), adding string(%p)=%s (strlen=%d)the file\n", tmplist, tmpstr, tmpstr, strlen(tmpstr));
 		fputs(tmpstr, fd);
 		g_free(tmpstr);
 		fputs("\n", fd);
