@@ -25,6 +25,7 @@
 #include <stdlib.h>	/* strtol() */
 
 #include "bluefish.h"
+#include "bf_lib.h" /* string_is_color*/
 #include "gtk_easy.h"
 #include "bf_lib.h"  /* strip_any_whitespace() */
 #include "stringlist.h"
@@ -989,35 +990,6 @@ typedef struct {
 	gint endpos;
 	Tbfwin *bfwin;
 } Tcolsel;
-
-static gint string_is_color(const gchar *color) {
-	gint i;
-
-	if (!color) {
-		DEBUG_MSG("string_is_color, pointer NULL\n");
-		return 0;
-	}
-	if (strlen(color) != 7) {
-		DEBUG_MSG("string_is_color, strlen(%s) != 7\n", color);
-		return 0;
-	}
-	if (color[0] != '#') {
-		DEBUG_MSG("string_is_color, 0 in %s is not #\n", color);
-		return 0;
-	}
-	for (i = 1; i <7 ; i++) {
-		if ((color[i] > 102) 
-				|| (color[i] < 48) 
-				|| ((color[i] > 57) && (color[i] < 65))
-				|| ((color[i] > 70) && (color[i] < 97))) {
-			DEBUG_MSG("string_is_color, %d in %s is not from a color, it is %d\n", i, color, color[i]);
-			return 0;
-		}
-	}
-	DEBUG_MSG("string_is_color, %s is color\n", color);
-	return 1;
-
-}
 
 static gchar *gdouble_arr_to_hex(gdouble *color, gint websafe)
 {

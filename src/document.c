@@ -667,25 +667,50 @@ gboolean doc_has_selection(Tdocument *doc) {
  * Return value: void
  */
 static void doc_set_tooltip(Tdocument *doc) {
-	gchar *text;
-	gchar mtimestr[128], *modestr=NULL;
-	mtimestr[0] = '\n';
-	mtimestr[1] = '\0';
+	gchar *text, *tmp;
+	gchar mtimestr[128], *modestr=NULL, *sizestr=NULL;
+	mtimestr[0] = '\0';
 #ifdef HAVE_GNOME_VFS
 	DEBUG_MSG("doc_set_tooltip, fileinfo=%p\n", doc->fileinfo);
 	if (doc->fileinfo) {
-		modestr = filemode_to_string(doc->fileinfo->permissions);
-		ctime_r(&doc->fileinfo->mtime,mtimestr);
+		if (doc->fileinfo->valid_fields & GNOME_VFS_FILE_INFO_FIELDS_PERMISSIONS) {
+			modestr = filemode_to_string(doc->fileinfo->permissions);
+		}
+		if (doc->fileinfo->valid_fields & GNOME_VFS_FILE_INFO_FIELDS_MTIME) {
+			ctime_r(&doc->fileinfo->mtime,mtimestr);
+		}
+		if (doc->fileinfo->valid_fields & GNOME_VFS_FILE_INFO_FIELDS_SIZE) {
+			sizestr = g_strdup_printf("%"GNOME_VFS_SIZE_FORMAT_STR, doc->fileinfo->size);
+		}
 	}
 #else
 	if (doc->statbuf.st_uid != -1) {
 		modestr = filemode_to_string(doc->statbuf.st_mode);
 		ctime_r(&doc->statbuf.st_mtime,mtimestr);
+		sizestr = _strdup_printf("%d", doc->statbuf.st_size);
 	}
 #endif
-	text = g_strdup_printf("Name: %s\nType: %s\nEncoding: %s\nLast modified: %sPermissions: %s", 
-			       gtk_label_get_text(GTK_LABEL(doc->tab_menu)), doc->hl->type, doc->encoding, mtimestr, modestr);
-	
+	tmp = text = g_strconcat(_("Name: "),gtk_label_get_text(GTK_LABEL(doc->tab_menu))
+							,_("\nType: "),doc->hl->type
+							,_("\nEncoding: "), (doc->encoding != NULL) ? doc->encoding : main_v->props.newfile_default_encoding
+							,NULL);
+	if (sizestr) {
+		text = g_strconcat(text, _("\nSize (on disk): "), sizestr, _(" bytes"), NULL);
+		g_free(tmp);
+		tmp = text;
+	}
+	if (modestr) {
+		text = g_strconcat(text, _("\nPermissions: "), modestr, NULL);
+		g_free(tmp);
+		tmp = text;
+	}
+	if (mtimestr[0] != '\0') {
+		trunc_on_char(mtimestr, '\n');
+		text = g_strconcat(text, _("\nLast modified: "), mtimestr, NULL);
+		g_free(tmp);
+		tmp = text;
+	}
+
 	gtk_tooltips_set_tip(main_v->tooltips, doc->tab_eventbox, text, "");
 	g_free(text);
 	g_free(modestr);
@@ -1880,7 +1905,7 @@ static gboolean doc_view_button_press_lcb(GtkWidget *widget,GdkEventButton *beve
 		doc->in_paste_operation = TRUE;
 	}
 	if (bevent->button == 3) {
-		doc_bevent_in_html_tag(doc, bevent);
+		doc_bevent_in_html_code(doc, bevent);
 	}
 	return FALSE;
 }
@@ -1919,13 +1944,17 @@ static void doc_view_populate_popup_lcb(GtkTextView *textview,GtkMenu *menu,Tdoc
 
 	gtk_menu_shell_prepend(GTK_MENU_SHELL(menu), GTK_WIDGET(gtk_menu_item_new()));
 
-	menuitem = gtk_image_menu_item_new_with_label(_("Edit tag"));
-	gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(menuitem),new_pixmap(113));
-	gtk_menu_shell_prepend(GTK_MENU_SHELL(menu), GTK_WIDGET(menuitem));
 	if (rpopup_doc_located_tag(doc)) {
-		g_signal_connect(G_OBJECT(menuitem), "activate", G_CALLBACK(rpopup_edit_tag_cb), doc);
+		menuitem = gtk_image_menu_item_new_with_label(_("Edit tag"));
+	} else if (rpopup_doc_located_color(doc)) {
+		menuitem = gtk_image_menu_item_new_with_label(_("Edit color"));
 	} else {
-		gtk_widget_set_sensitive(menuitem, FALSE);
+		menuitem = NULL;
+	}
+	if (menuitem) {
+		gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(menuitem),new_pixmap(113));
+		gtk_menu_shell_prepend(GTK_MENU_SHELL(menu), GTK_WIDGET(menuitem));
+		g_signal_connect(G_OBJECT(menuitem), "activate", G_CALLBACK(rpopup_edit_tag_cb), doc);
 	}
 	gtk_widget_show_all(GTK_WIDGET(menu));
 }
