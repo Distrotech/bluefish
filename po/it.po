@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: bluefish gtk2-port\n"
-"POT-Creation-Date: 2003-04-22 15:59+0200\n"
+"POT-Creation-Date: 2003-04-25 11:19+0200\n"
 "PO-Revision-Date: 2003-04-21 18:29+0100\n"
 "Last-Translator: Stefano Canepa <sc@linux.it>\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
@@ -84,7 +84,7 @@ msgstr "nessun filtro"
 msgid "html filter"
 msgstr "Filtro html"
 
-#: ../src/bluefish.c:77
+#: ../src/bluefish.c:78
 #, c-format
 msgid ""
 "\n"
@@ -93,7 +93,7 @@ msgstr ""
 "\n"
 "Uso: %s [opzioni] [file]\n"
 
-#: ../src/bluefish.c:78
+#: ../src/bluefish.c:79
 msgid ""
 "\n"
 "Currently accepted options are:\n"
@@ -101,35 +101,35 @@ msgstr ""
 "\n"
 "Le opzioni valide sono:\n"
 
-#: ../src/bluefish.c:79
+#: ../src/bluefish.c:80
 msgid "-s           skip root check\n"
 msgstr "-s           salta il controllo di root\n"
 
-#: ../src/bluefish.c:80
+#: ../src/bluefish.c:81
 msgid "-v           current version\n"
 msgstr "-v           versione corrente\n"
 
-#: ../src/bluefish.c:81
+#: ../src/bluefish.c:82
 msgid "-h           this help screen\n"
 msgstr "-h           questo messaggio di aiuto\n"
 
-#: ../src/bluefish.c:137
+#: ../src/bluefish.c:138
 msgid "parsing highlighting file..."
 msgstr "analisi del file di evidenziazione in corso"
 
-#: ../src/bluefish.c:148
+#: ../src/bluefish.c:149
 msgid "compiling highlighting patterns..."
 msgstr "compilazione degli schemi di evidenziazione in corso"
 
-#: ../src/bluefish.c:152
+#: ../src/bluefish.c:153
 msgid "parsing custom menu file..."
 msgstr "analisi del file del menu personalizzato in corso"
 
-#: ../src/bluefish.c:161
+#: ../src/bluefish.c:162
 msgid "creating main gui..."
 msgstr "creazione della GUI principale in corso"
 
-#: ../src/bluefish.c:166
+#: ../src/bluefish.c:167
 msgid "showing main gui..."
 msgstr "costruzione della GUI in corso"
 
@@ -175,14 +175,6 @@ msgstr "_Metodi di inserimento"
 #: ../src/document.c:1122
 msgid "Saving file"
 msgstr "Salvataggio file in corso"
-
-#: ../src/document.c:1139 ../src/preferences.c:1763
-msgid "abort"
-msgstr ""
-
-#: ../src/document.c:1142 ../src/preferences.c:1764
-msgid "ask"
-msgstr ""
 
 #: ../src/document.c:1143
 msgid "Abort save"
@@ -890,7 +882,7 @@ msgstr "Trova..."
 msgid "Search and Replace..."
 msgstr "Trova e sostituisci..."
 
-#: ../src/gui.c:558 ../src/preferences.c:1772
+#: ../src/gui.c:558 ../src/preferences.c:1775
 msgid "Undo"
 msgstr "Annulla"
 
@@ -978,7 +970,7 @@ msgstr "Dalla _selezione"
 msgid "Keep _dialog"
 msgstr "Mantieni la _finestra aperta"
 
-#: ../src/gui.c:1010
+#: ../src/gui.c:1008
 msgid "starting bluefish"
 msgstr "Bluefish sta avviandosi"
 
@@ -1242,7 +1234,7 @@ msgstr "Con_tenuto:"
 msgid "_Scheme:"
 msgstr "_Schema:"
 
-#: ../src/html.c:1446 ../src/preferences.c:1715
+#: ../src/html.c:1446 ../src/preferences.c:1721
 msgid "Font"
 msgstr "Carattere"
 
@@ -3083,143 +3075,143 @@ msgstr "Come"
 msgid "case sensitive"
 msgstr "Maiuscole/minuscole"
 
-#: ../src/preferences.c:197
+#: ../src/preferences.c:201
 msgid "Select font"
 msgstr "Seleziona carattere"
 
-#: ../src/preferences.c:493 ../src/preferences.c:531
+#: ../src/preferences.c:497 ../src/preferences.c:535
 msgid "Filetype"
 msgstr "Tipo del file"
 
-#: ../src/preferences.c:495
+#: ../src/preferences.c:499
 msgid "Extensions"
 msgstr "Dimensioni"
 
-#: ../src/preferences.c:497
+#: ../src/preferences.c:501
 msgid "Update chars"
 msgstr " Aggiorna "
 
-#: ../src/preferences.c:499 ../src/preferences.c:541
+#: ../src/preferences.c:503 ../src/preferences.c:545
 msgid "Icon"
 msgstr "Icona"
 
-#: ../src/preferences.c:539
+#: ../src/preferences.c:543
 msgid "Extensions (colon separated)"
 msgstr "Estensione (separate da due punti)"
 
-#: ../src/preferences.c:540
+#: ../src/preferences.c:544
 msgid "Highlight update characters"
 msgstr "Caratteri per l'aggiornamento dell'evidenziazione"
 
-#: ../src/preferences.c:655 ../src/preferences.c:689
+#: ../src/preferences.c:659 ../src/preferences.c:693
 msgid "Filefilter"
 msgstr "Filtro file"
 
-#: ../src/preferences.c:657 ../src/preferences.c:694
+#: ../src/preferences.c:661 ../src/preferences.c:698
 msgid "Inverse filtering"
 msgstr "Filtro inverso"
 
-#: ../src/preferences.c:659
+#: ../src/preferences.c:663
 msgid "Filetypes in filter"
 msgstr "Utilità e filtri"
 
-#: ../src/preferences.c:695
+#: ../src/preferences.c:699
 msgid "Filetypes (colon separated)"
 msgstr "Tipi dei file (separati dal due punti)"
 
-#: ../src/preferences.c:975
+#: ../src/preferences.c:979
 msgid "filetype"
 msgstr "tipo del file"
 
-#: ../src/preferences.c:983
+#: ../src/preferences.c:987
 msgid "Pattern name"
 msgstr "Nome modello"
 
-#: ../src/preferences.c:1001 ../src/preferences.c:1493
-#: ../src/preferences.c:1542
+#: ../src/preferences.c:1005 ../src/preferences.c:1499
+#: ../src/preferences.c:1548
 msgid "Pattern"
 msgstr "Modello"
 
-#: ../src/preferences.c:1024
+#: ../src/preferences.c:1028
 msgid "Start pattern and end pattern"
 msgstr "Modello iniziale e finale"
 
-#: ../src/preferences.c:1026
+#: ../src/preferences.c:1030
 msgid "Only start pattern"
 msgstr "Solo modello iniziale"
 
-#: ../src/preferences.c:1028
+#: ../src/preferences.c:1032
 msgid "Subpattern from parent"
 msgstr "Sottomodello dal padre"
 
-#: ../src/preferences.c:1034
+#: ../src/preferences.c:1038
 msgid "Start pattern"
 msgstr "Modello iniziale"
 
-#: ../src/preferences.c:1035
+#: ../src/preferences.c:1039
 msgid "End pattern"
 msgstr "Modello finale"
 
-#: ../src/preferences.c:1036
+#: ../src/preferences.c:1040
 msgid "Case sensitive matching"
 msgstr "Maiscole/minuscole"
 
-#: ../src/preferences.c:1037
+#: ../src/preferences.c:1041
 msgid "Parentmatch"
 msgstr "Discende da"
 
-#: ../src/preferences.c:1038
+#: ../src/preferences.c:1042
 msgid "Foreground color"
 msgstr "Colore primo piano"
 
-#: ../src/preferences.c:1039
+#: ../src/preferences.c:1043
 msgid "Background color"
 msgstr "Colore sfondo"
 
-#: ../src/preferences.c:1047
+#: ../src/preferences.c:1051
 msgid "don't change weight"
 msgstr "non cambiare il peso"
 
-#: ../src/preferences.c:1049
+#: ../src/preferences.c:1053
 msgid "force non-bold weight"
 msgstr "obbliga peso non grassetto"
 
-#: ../src/preferences.c:1051
+#: ../src/preferences.c:1055
 msgid "force bold weight"
 msgstr "obbliga peso grassetto"
 
-#: ../src/preferences.c:1057
+#: ../src/preferences.c:1061
 msgid "don't change style"
 msgstr "non cambiare lo stile"
 
-#: ../src/preferences.c:1059
+#: ../src/preferences.c:1063
 msgid "force non-italic style"
 msgstr "obbliga stile non corsivo"
 
-#: ../src/preferences.c:1061
+#: ../src/preferences.c:1065
 msgid "force italic style"
 msgstr "obbliga stile corsivo"
 
-#: ../src/preferences.c:1209 ../src/preferences.c:1247
+#: ../src/preferences.c:1215 ../src/preferences.c:1253
 msgid "Browser"
 msgstr "Browser"
 
-#: ../src/preferences.c:1211 ../src/preferences.c:1253
-#: ../src/preferences.c:1336 ../src/preferences.c:1371
-#: ../src/preferences.c:1501 ../src/preferences.c:1546
+#: ../src/preferences.c:1217 ../src/preferences.c:1259
+#: ../src/preferences.c:1342 ../src/preferences.c:1377
+#: ../src/preferences.c:1507 ../src/preferences.c:1552
 msgid "Command"
 msgstr "Comando"
 
-#: ../src/preferences.c:1252
+#: ../src/preferences.c:1258
 #, c-format
 msgid "%s = current filename"
 msgstr "%s = nome del file attuale"
 
-#: ../src/preferences.c:1334 ../src/preferences.c:1365
+#: ../src/preferences.c:1340 ../src/preferences.c:1371
 msgid "Label"
 msgstr "Etichetta"
 
-#: ../src/preferences.c:1370
+#: ../src/preferences.c:1376
 #, c-format
 msgid ""
 "%s = current filename\n"
@@ -3228,369 +3220,377 @@ msgstr ""
 "%s = nome del file corrente\n"
 "%f = none del file output (per i filtri)"
 
-#: ../src/preferences.c:1491 ../src/preferences.c:1538
+#: ../src/preferences.c:1497 ../src/preferences.c:1544
 msgid "Name"
 msgstr "Nome"
 
-#: ../src/preferences.c:1495
+#: ../src/preferences.c:1501
 msgid "File #"
 msgstr "File n°"
 
-#: ../src/preferences.c:1497
+#: ../src/preferences.c:1503
 msgid "Line #"
 msgstr "Riga n°"
 
-#: ../src/preferences.c:1499
+#: ../src/preferences.c:1505
 msgid "Output #"
 msgstr "Output n°"
 
-#: ../src/preferences.c:1503 ../src/preferences.c:1547
+#: ../src/preferences.c:1509 ../src/preferences.c:1553
 msgid "Show all output"
 msgstr "Mostra tutto l'output"
 
-#: ../src/preferences.c:1543
+#: ../src/preferences.c:1549
 msgid "File subpattern #"
 msgstr "File: sotto modello n°"
 
-#: ../src/preferences.c:1544
+#: ../src/preferences.c:1550
 msgid "Line subpattern #"
 msgstr "\"Riga: sotto modello n°"
 
-#: ../src/preferences.c:1545
+#: ../src/preferences.c:1551
 msgid "Output subpattern #"
 msgstr "Output: sotto modello n°"
 
-#: ../src/preferences.c:1694
+#: ../src/preferences.c:1700
 msgid "left"
 msgstr "sinistra"
 
-#: ../src/preferences.c:1694
+#: ../src/preferences.c:1700
 msgid "right"
 msgstr "destra"
 
-#: ../src/preferences.c:1694
+#: ../src/preferences.c:1700
 msgid "top"
 msgstr "cima"
 
-#: ../src/preferences.c:1694
+#: ../src/preferences.c:1700
 msgid "bottom"
 msgstr "fondo"
 
-#: ../src/preferences.c:1697
+#: ../src/preferences.c:1703
 msgid "Edit preferences"
 msgstr "Preferenze di modifica"
 
-#: ../src/preferences.c:1708
+#: ../src/preferences.c:1714
 msgid "Editor"
 msgstr "Editor"
 
-#: ../src/preferences.c:1710
+#: ../src/preferences.c:1716
 msgid "Editor options"
 msgstr "Opzioni dell'editor"
 
-#: ../src/preferences.c:1716
+#: ../src/preferences.c:1722
 msgid "Tab width"
 msgstr "Ampliezza tabulatore"
 
-#: ../src/preferences.c:1717
+#: ../src/preferences.c:1723
 msgid "Word wrap default"
 msgstr "Vai a capo automaticamente"
 
-#: ../src/preferences.c:1718
+#: ../src/preferences.c:1724
 msgid "Line numbers by default"
 msgstr "Numeri di riga"
 
-#: ../src/preferences.c:1719
+#: ../src/preferences.c:1725
 msgid "Highlight syntax by default"
 msgstr "Evidenzia la sintazzi"
 
-#: ../src/preferences.c:1720
+#: ../src/preferences.c:1726
 msgid "Highlight # lines"
 msgstr "Evidenzia n righe"
 
-#: ../src/preferences.c:1721
+#: ../src/preferences.c:1727
 msgid "Always highlight full document"
 msgstr "Evidenzia sempre l'intero documento"
 
-#: ../src/preferences.c:1723
+#: ../src/preferences.c:1729
 msgid "HTML"
 msgstr "HTML"
 
-#: ../src/preferences.c:1725
+#: ../src/preferences.c:1731
 msgid "HTML options"
 msgstr "Opzioni HTML"
 
-#: ../src/preferences.c:1730
+#: ../src/preferences.c:1736
 msgid "Lowercase HTML tags"
 msgstr "Tag HTML minuscoli"
 
-#: ../src/preferences.c:1731
+#: ../src/preferences.c:1737
 msgid "Use deprecated tags (e.g. <font> and <nobr>)"
 msgstr "Usa tag disapprovati (ad es.: <font> e <nobr>)"
 
-#: ../src/preferences.c:1732
+#: ../src/preferences.c:1738
 msgid "Use XHTML style tags (<br />)"
 msgstr "Usa i tag in stile XHTML (<br />)"
 
-#: ../src/preferences.c:1733
+#: ../src/preferences.c:1739
 msgid "Automatic update author meta"
 msgstr "Aggiorna automaticamente il meta tag autore"
 
-#: ../src/preferences.c:1736
+#: ../src/preferences.c:1742
 msgid "Files"
 msgstr "File"
 
-#: ../src/preferences.c:1738
+#: ../src/preferences.c:1744
 msgid "Encoding"
 msgstr "Codifica"
 
-#: ../src/preferences.c:1750
+#: ../src/preferences.c:1756
 msgid "Default character set"
 msgstr "Set di caratteri predefiniti"
 
-#: ../src/preferences.c:1753
+#: ../src/preferences.c:1759
 msgid "Auto set <meta> encoding tag on change"
 msgstr "Imposta automaticamente i <meta> tag dell'encoding ad ogni cambiamento"
 
-#: ../src/preferences.c:1755
+#: ../src/preferences.c:1761
 msgid "Backup"
 msgstr "Backup"
 
-#: ../src/preferences.c:1759
+#: ../src/preferences.c:1765
 msgid "Create backup on save"
 msgstr "Creare il backup al salvataggio"
 
-#: ../src/preferences.c:1760
+#: ../src/preferences.c:1766
 msgid "Backup file suffix"
 msgstr "Suffisso del file di backup"
 
-#: ../src/preferences.c:1762
+#: ../src/preferences.c:1768
 #, fuzzy
 msgid "save"
 msgstr "Salva"
 
-#: ../src/preferences.c:1765
+#: ../src/preferences.c:1768
+msgid "abort"
+msgstr ""
+
+#: ../src/preferences.c:1768
+msgid "ask"
+msgstr ""
+
+#: ../src/preferences.c:1769
 msgid "Action on backup failure"
 msgstr "Azione in caso di fallimento del backup"
 
-#: ../src/preferences.c:1768
+#: ../src/preferences.c:1771
 #, fuzzy
 msgid "Remove backupfile on close"
 msgstr "Creare il backup al salvataggio"
 
-#: ../src/preferences.c:1777
+#: ../src/preferences.c:1780
 msgid "Undo history size"
 msgstr "Dimensione della cronologia di annulla"
 
-#: ../src/preferences.c:1778
+#: ../src/preferences.c:1781
 msgid "Clear undo history on save"
 msgstr "Cancella la storia di annulla al salvataggio"
 
-#: ../src/preferences.c:1780 ../src/preferences.c:1805
+#: ../src/preferences.c:1783 ../src/preferences.c:1808
 msgid "Misc"
 msgstr "Misc"
 
-#: ../src/preferences.c:1785
+#: ../src/preferences.c:1788
 msgid "Allow multi instances of a file"
 msgstr "Permetti più di una istanza del file"
 
-#: ../src/preferences.c:1787
+#: ../src/preferences.c:1790
 msgid "Open files in already running bluefish window"
 msgstr "Apri i file nella finestra di bluefish in esecuzione"
 
-#: ../src/preferences.c:1789
+#: ../src/preferences.c:1792
 msgid "Number of files in 'Open recent'"
 msgstr "Numero di file in 'Apri recenti'"
 
-#: ../src/preferences.c:1792
+#: ../src/preferences.c:1795
 msgid "User interface"
 msgstr "Interfaccia utente"
 
-#: ../src/preferences.c:1794
+#: ../src/preferences.c:1797
 msgid "Dimensions"
 msgstr "Dimensioni"
 
-#: ../src/preferences.c:1798
+#: ../src/preferences.c:1801
 msgid "Restore last used dimensions"
 msgstr "Ripristina le dimensioni usate l'ultima volta"
 
-#: ../src/preferences.c:1799
+#: ../src/preferences.c:1802
 msgid "Initial left panel width"
 msgstr "Dimensione iniziale del pannello di sinistra"
 
-#: ../src/preferences.c:1800
+#: ../src/preferences.c:1803
 msgid "Initial window height"
 msgstr "Altezza iniziale della finestra"
 
-#: ../src/preferences.c:1801
+#: ../src/preferences.c:1804
 msgid "Initial window width"
 msgstr "Larghezza iniziale della finestra"
 
-#: ../src/preferences.c:1810
+#: ../src/preferences.c:1813
 msgid "External browsers in submenu"
 msgstr "Browser esterni raccolti in un sottomenù"
 
-#: ../src/preferences.c:1811
+#: ../src/preferences.c:1814
 msgid "External commands in submenu"
 msgstr "Comandi esterni raccolti in un sottomenù"
 
-#: ../src/preferences.c:1812
+#: ../src/preferences.c:1815
 msgid "External outputbox in submenu"
 msgstr "Comandi esterni con output raccolti in un sottomenù"
 
-#: ../src/preferences.c:1814
+#: ../src/preferences.c:1817
 msgid "Notebook tab font (leave empty for gtk default)"
 msgstr "Carattere della linguetta (lasciare vuoto per predefinito delle GTK)"
 
-#: ../src/preferences.c:1816
+#: ../src/preferences.c:1819
 msgid "Document notebook tab position"
 msgstr "Posizione dei tab del documento"
 
-#: ../src/preferences.c:1817
+#: ../src/preferences.c:1820
 msgid "Left panel notebook tab position"
 msgstr "Posizione dei tab del pannello laterale"
 
-#: ../src/preferences.c:1819
+#: ../src/preferences.c:1822
 msgid "Make HTML dialogs transient"
 msgstr "Finestra HTML sempre in primo piano"
 
-#: ../src/preferences.c:1820
+#: ../src/preferences.c:1823
 msgid "Advanced search and replace by default"
 msgstr "Sostituzione avanzata"
 
-#: ../src/preferences.c:1822
+#: ../src/preferences.c:1825
 msgid "File browser"
 msgstr "Browser dei file"
 
-#: ../src/preferences.c:1826
+#: ../src/preferences.c:1829
 msgid "Show hidden files"
 msgstr "Mostra i file nascosti"
 
-#: ../src/preferences.c:1827
+#: ../src/preferences.c:1830
 msgid "Show other users files"
 msgstr "Mostra i file degli altri utenti"
 
-#: ../src/preferences.c:1828
+#: ../src/preferences.c:1831
 msgid "Show backup files"
 msgstr "Mostra i file di backup"
 
-#: ../src/preferences.c:1829
+#: ../src/preferences.c:1832
 msgid "Unknown icon"
 msgstr "Icona sconosciuta"
 
-#: ../src/preferences.c:1830
+#: ../src/preferences.c:1833
 msgid "Directory icon"
 msgstr "Icona della directory"
 
-#: ../src/preferences.c:1833 ../src/rcfile.c:607
+#: ../src/preferences.c:1836 ../src/rcfile.c:608
 msgid "Images"
 msgstr "Immagini"
 
-#: ../src/preferences.c:1835
+#: ../src/preferences.c:1838
 msgid "Thumbnails"
 msgstr "Provini"
 
-#: ../src/preferences.c:1839
+#: ../src/preferences.c:1842
 msgid "Thumbnail suffix"
 msgstr "Suffisso provino"
 
-#: ../src/preferences.c:1843
+#: ../src/preferences.c:1846
 msgid "Thumbnail filetype"
 msgstr "Tipo dei file dei provini"
 
-#: ../src/preferences.c:1848 ../src/preferences.c:1850
+#: ../src/preferences.c:1851 ../src/preferences.c:1853
 msgid "Filetypes"
 msgstr "Tipi dei file"
 
-#: ../src/preferences.c:1857
+#: ../src/preferences.c:1860
 msgid "Filefilters"
 msgstr "Filtri dei file"
 
-#: ../src/preferences.c:1865
+#: ../src/preferences.c:1868
 msgid "Syntax highlighting"
 msgstr "Sintassi evidenziata"
 
-#: ../src/preferences.c:1867
+#: ../src/preferences.c:1870
 msgid "Patterns"
 msgstr "Modelli"
 
-#: ../src/preferences.c:1875
+#: ../src/preferences.c:1878
 msgid "External programs"
 msgstr "Programmi esterni"
 
-#: ../src/preferences.c:1877
+#: ../src/preferences.c:1880
 msgid "Browsers"
 msgstr "Browser"
 
-#: ../src/preferences.c:1884
+#: ../src/preferences.c:1887
 msgid "Utilities and filters"
 msgstr "Utilità e filtri"
 
-#: ../src/preferences.c:1892
+#: ../src/preferences.c:1895
 msgid "Output parsers"
 msgstr "Parser dell'output"
 
-#: ../src/preferences.c:1894
+#: ../src/preferences.c:1897
 msgid "Outputbox"
 msgstr "Finestra di output"
 
-#: ../src/rcfile.c:535
+#: ../src/rcfile.c:536
 msgid "Galeon"
 msgstr "Galeon"
 
-#: ../src/rcfile.c:537
+#: ../src/rcfile.c:538
 msgid "Mozilla"
 msgstr "Mozilla"
 
-#: ../src/rcfile.c:539
+#: ../src/rcfile.c:540
 msgid "Opera"
 msgstr "Opera"
 
-#: ../src/rcfile.c:541
+#: ../src/rcfile.c:542
 msgid "Netscape"
 msgstr "Netscape"
 
-#: ../src/rcfile.c:543
+#: ../src/rcfile.c:544
 msgid "Gnome default"
 msgstr "Predefinito di GNOME"
 
-#: ../src/rcfile.c:566
+#: ../src/rcfile.c:567
 msgid "make"
 msgstr "make"
 
-#: ../src/rcfile.c:567
+#: ../src/rcfile.c:568
 msgid "weblint HTML checker"
 msgstr "weblint verificatore HTML"
 
-#: ../src/rcfile.c:568
+#: ../src/rcfile.c:569
 msgid "tidy HTML validator"
 msgstr "tidy validatore HTML"
 
-#: ../src/rcfile.c:569
+#: ../src/rcfile.c:570
 msgid "javac"
 msgstr "javac"
 
-#: ../src/rcfile.c:575
+#: ../src/rcfile.c:576
 msgid "Dos2Unix filter"
 msgstr "Filtro Dos2Unix"
 
-#: ../src/rcfile.c:577
+#: ../src/rcfile.c:578
 msgid "Tidy cleanup filter"
 msgstr "Filtro di pulizia tidy"
 
-#: ../src/rcfile.c:601
+#: ../src/rcfile.c:602
 msgid "C programming"
 msgstr "Programmazione C"
 
-#: ../src/rcfile.c:603
+#: ../src/rcfile.c:604
 msgid "All web files"
 msgstr "Tutti i file web"
 
-#: ../src/rcfile.c:605
+#: ../src/rcfile.c:606
 msgid "Java programming"
 msgstr "Programmazione Java"
 
-#: ../src/rcfile.c:609
+#: ../src/rcfile.c:610
 msgid "Hide objectfiles"
 msgstr "Nascondi i file oggetto"
 
@@ -3794,4 +3794,3 @@ msgstr "Sorgente:"
 #: ../src/wizards.c:224
 msgid "Size:"
 msgstr "Dimensione:"
-

@@ -8,6 +8,10 @@
 #include "bf_lib.h" /* list_switch_order() */
 #include "gtk_easy.h"
 #include "pixmap.h"
+#include "highlight.h"
+#include "filebrowser.h"
+#include "menu.h"
+#include "gui.h"
 
 enum {
 	view_line_numbers,
@@ -1150,13 +1154,15 @@ static void set_default_browser_lcb(GtkWidget *wid, Tprefdialog *pd) {
 		while (retval) {
 			gchar *curval;
 			gtk_tree_model_get(GTK_TREE_MODEL(pd->bd.lstore),&iter,0,&curval,-1);
-			if (strcmp(curval,pd->bd.curstrarr[0])==0) {
-				gtk_list_store_remove(GTK_TREE_MODEL(pd->bd.lstore),&iter);
+			if (strcmp((char *)curval,pd->bd.curstrarr[0])==0) {
+/*				gtk_list_store_remove(GTK_TREE_MODEL(pd->bd.lstore),&iter); */
+                                gtk_list_store_remove((pd->bd.lstore),&iter);
 				break;
 			}
 			retval = gtk_tree_model_iter_next(GTK_TREE_MODEL(pd->bd.lstore),&iter);
 		}
-		gtk_list_store_insert(GTK_TREE_MODEL(pd->bd.lstore),&iter,0);
+/*		gtk_list_store_insert(GTK_TREE_MODEL(pd->bd.lstore),&iter,0);*/
+                gtk_list_store_insert((pd->bd.lstore),&iter,0); 
 		gtk_list_store_set(GTK_LIST_STORE(pd->bd.lstore), &iter
 						,0,pd->bd.curstrarr[0]
 						,1,pd->bd.curstrarr[1]

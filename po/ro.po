@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: bluefish gtk2-port\n"
-"POT-Creation-Date: 2003-04-22 15:59+0200\n"
+"POT-Creation-Date: 2003-04-25 11:19+0200\n"
 "PO-Revision-Date: 2001-11-17 15:24+0100\n"
 "Last-Translator: Unknown <unk@unk.org>\n"
 "Language-Team: no team <LL@li.org>\n"
@@ -95,14 +95,14 @@ msgstr "/_Fisier"
 msgid "html filter"
 msgstr "/_Fisier"
 
-#: ../src/bluefish.c:77
+#: ../src/bluefish.c:78
 #, c-format
 msgid ""
 "\n"
 "Usage: %s [options] [filename]\n"
 msgstr ""
 
-#: ../src/bluefish.c:78
+#: ../src/bluefish.c:79
 msgid ""
 "\n"
 "Currently accepted options are:\n"
@@ -110,37 +110,37 @@ msgstr ""
 "\n"
 "Optiunile acceptate curent :\n"
 
-#: ../src/bluefish.c:79
+#: ../src/bluefish.c:80
 #, fuzzy
 msgid "-s           skip root check\n"
 msgstr "-s    nu verifica root\n"
 
-#: ../src/bluefish.c:80
+#: ../src/bluefish.c:81
 #, fuzzy
 msgid "-v           current version\n"
 msgstr "-v    versiunea curenta\n"
 
-#: ../src/bluefish.c:81
+#: ../src/bluefish.c:82
 msgid "-h           this help screen\n"
 msgstr ""
 
-#: ../src/bluefish.c:137
+#: ../src/bluefish.c:138
 msgid "parsing highlighting file..."
 msgstr ""
 
-#: ../src/bluefish.c:148
+#: ../src/bluefish.c:149
 msgid "compiling highlighting patterns..."
 msgstr ""
 
-#: ../src/bluefish.c:152
+#: ../src/bluefish.c:153
 msgid "parsing custom menu file..."
 msgstr ""
 
-#: ../src/bluefish.c:161
+#: ../src/bluefish.c:162
 msgid "creating main gui..."
 msgstr ""
 
-#: ../src/bluefish.c:166
+#: ../src/bluefish.c:167
 msgid "showing main gui..."
 msgstr ""
 
@@ -188,15 +188,6 @@ msgstr ""
 #: ../src/document.c:1122
 msgid "Saving file"
 msgstr "Salvez fisierul"
-
-#: ../src/document.c:1139 ../src/preferences.c:1763
-#, fuzzy
-msgid "abort"
-msgstr "Cauta"
-
-#: ../src/document.c:1142 ../src/preferences.c:1764
-msgid "ask"
-msgstr ""
 
 #: ../src/document.c:1143
 msgid "Abort save"
@@ -945,7 +936,7 @@ msgstr "Cauta"
 msgid "Search and Replace..."
 msgstr "Cauta si inlocuieste"
 
-#: ../src/gui.c:558 ../src/preferences.c:1772
+#: ../src/gui.c:558 ../src/preferences.c:1775
 msgid "Undo"
 msgstr "Refa"
 
@@ -1040,7 +1031,7 @@ msgstr "Selectarea fontului"
 msgid "Keep _dialog"
 msgstr "Dialog imagine"
 
-#: ../src/gui.c:1010
+#: ../src/gui.c:1008
 msgid "starting bluefish"
 msgstr ""
 
@@ -1339,7 +1330,7 @@ msgstr "Continut"
 msgid "_Scheme:"
 msgstr ""
 
-#: ../src/html.c:1446 ../src/preferences.c:1715
+#: ../src/html.c:1446 ../src/preferences.c:1721
 msgid "Font"
 msgstr "Font"
 
@@ -3464,568 +3455,577 @@ msgstr "Spatiere"
 msgid "case sensitive"
 msgstr "Diferenta intre litere mari si mici"
 
-#: ../src/preferences.c:197
+#: ../src/preferences.c:201
 #, fuzzy
 msgid "Select font"
 msgstr "Selectie"
 
-#: ../src/preferences.c:493 ../src/preferences.c:531
+#: ../src/preferences.c:497 ../src/preferences.c:535
 #, fuzzy
 msgid "Filetype"
 msgstr "/Fisier/_Deschide"
 
-#: ../src/preferences.c:495
+#: ../src/preferences.c:499
 msgid "Extensions"
 msgstr ""
 
-#: ../src/preferences.c:497
+#: ../src/preferences.c:501
 #, fuzzy
 msgid "Update chars"
 msgstr " Actualizeaza "
 
-#: ../src/preferences.c:499 ../src/preferences.c:541
+#: ../src/preferences.c:503 ../src/preferences.c:545
 msgid "Icon"
 msgstr ""
 
-#: ../src/preferences.c:539
+#: ../src/preferences.c:543
 msgid "Extensions (colon separated)"
 msgstr ""
 
-#: ../src/preferences.c:540
+#: ../src/preferences.c:544
 msgid "Highlight update characters"
 msgstr ""
 
-#: ../src/preferences.c:655 ../src/preferences.c:689
+#: ../src/preferences.c:659 ../src/preferences.c:693
 #, fuzzy
 msgid "Filefilter"
 msgstr " Sterge "
 
-#: ../src/preferences.c:657 ../src/preferences.c:694
+#: ../src/preferences.c:661 ../src/preferences.c:698
 #, fuzzy
 msgid "Inverse filtering"
 msgstr "Dialog imagine"
 
-#: ../src/preferences.c:659
+#: ../src/preferences.c:663
 #, fuzzy
 msgid "Filetypes in filter"
 msgstr " Sterge "
 
-#: ../src/preferences.c:695
+#: ../src/preferences.c:699
 msgid "Filetypes (colon separated)"
 msgstr ""
 
-#: ../src/preferences.c:975
+#: ../src/preferences.c:979
 #, fuzzy
 msgid "filetype"
 msgstr "/_Fisier"
 
-#: ../src/preferences.c:983
+#: ../src/preferences.c:987
 #, fuzzy
 msgid "Pattern name"
 msgstr "Paste"
 
-#: ../src/preferences.c:1001 ../src/preferences.c:1493
-#: ../src/preferences.c:1542
+#: ../src/preferences.c:1005 ../src/preferences.c:1499
+#: ../src/preferences.c:1548
 #, fuzzy
 msgid "Pattern"
 msgstr "Paste"
 
-#: ../src/preferences.c:1024
+#: ../src/preferences.c:1028
 msgid "Start pattern and end pattern"
 msgstr ""
 
-#: ../src/preferences.c:1026
+#: ../src/preferences.c:1030
 #, fuzzy
 msgid "Only start pattern"
 msgstr "Cauta"
 
-#: ../src/preferences.c:1028
+#: ../src/preferences.c:1032
 msgid "Subpattern from parent"
-msgstr ""
-
-#: ../src/preferences.c:1034
-#, fuzzy
-msgid "Start pattern"
-msgstr "Cauta"
-
-#: ../src/preferences.c:1035
-#, fuzzy
-msgid "End pattern"
-msgstr "Paste"
-
-#: ../src/preferences.c:1036
-#, fuzzy
-msgid "Case sensitive matching"
-msgstr "Diferenta intre litere mari si mici"
-
-#: ../src/preferences.c:1037
-msgid "Parentmatch"
 msgstr ""
 
 #: ../src/preferences.c:1038
 #, fuzzy
+msgid "Start pattern"
+msgstr "Cauta"
+
+#: ../src/preferences.c:1039
+#, fuzzy
+msgid "End pattern"
+msgstr "Paste"
+
+#: ../src/preferences.c:1040
+#, fuzzy
+msgid "Case sensitive matching"
+msgstr "Diferenta intre litere mari si mici"
+
+#: ../src/preferences.c:1041
+msgid "Parentmatch"
+msgstr ""
+
+#: ../src/preferences.c:1042
+#, fuzzy
 msgid "Foreground color"
 msgstr "Culoare background"
 
-#: ../src/preferences.c:1039
+#: ../src/preferences.c:1043
 #, fuzzy
 msgid "Background color"
 msgstr "Culoare background"
 
-#: ../src/preferences.c:1047
+#: ../src/preferences.c:1051
 msgid "don't change weight"
 msgstr ""
 
-#: ../src/preferences.c:1049
+#: ../src/preferences.c:1053
 #, fuzzy
 msgid "force non-bold weight"
 msgstr "greutate font"
 
-#: ../src/preferences.c:1051
+#: ../src/preferences.c:1055
 msgid "force bold weight"
 msgstr ""
 
-#: ../src/preferences.c:1057
+#: ../src/preferences.c:1061
 #, fuzzy
 msgid "don't change style"
 msgstr "Introduceti stil nou"
 
-#: ../src/preferences.c:1059
+#: ../src/preferences.c:1063
 msgid "force non-italic style"
 msgstr ""
 
-#: ../src/preferences.c:1061
+#: ../src/preferences.c:1065
 msgid "force italic style"
 msgstr ""
 
-#: ../src/preferences.c:1209 ../src/preferences.c:1247
+#: ../src/preferences.c:1215 ../src/preferences.c:1253
 #, fuzzy
 msgid "Browser"
 msgstr "Comanda browser"
 
-#: ../src/preferences.c:1211 ../src/preferences.c:1253
-#: ../src/preferences.c:1336 ../src/preferences.c:1371
-#: ../src/preferences.c:1501 ../src/preferences.c:1546
+#: ../src/preferences.c:1217 ../src/preferences.c:1259
+#: ../src/preferences.c:1342 ../src/preferences.c:1377
+#: ../src/preferences.c:1507 ../src/preferences.c:1552
 #, fuzzy
 msgid "Command"
 msgstr "Comanda browser"
 
-#: ../src/preferences.c:1252
+#: ../src/preferences.c:1258
 #, fuzzy, c-format
 msgid "%s = current filename"
 msgstr "Numele fisierului este necunoscut"
 
-#: ../src/preferences.c:1334 ../src/preferences.c:1365
+#: ../src/preferences.c:1340 ../src/preferences.c:1371
 #, fuzzy
 msgid "Label"
 msgstr "Tabel"
 
-#: ../src/preferences.c:1370
+#: ../src/preferences.c:1376
 #, c-format
 msgid ""
 "%s = current filename\n"
 "%f = output filename (for filters)"
 msgstr ""
 
-#: ../src/preferences.c:1491 ../src/preferences.c:1538
+#: ../src/preferences.c:1497 ../src/preferences.c:1544
 msgid "Name"
 msgstr "Nume"
 
-#: ../src/preferences.c:1495
+#: ../src/preferences.c:1501
 #, fuzzy
 msgid "File #"
 msgstr "/_Fisier"
 
-#: ../src/preferences.c:1497
+#: ../src/preferences.c:1503
 #, fuzzy
 msgid "Line #"
 msgstr "Numar linie"
 
-#: ../src/preferences.c:1499
+#: ../src/preferences.c:1505
 msgid "Output #"
 msgstr ""
 
-#: ../src/preferences.c:1503 ../src/preferences.c:1547
+#: ../src/preferences.c:1509 ../src/preferences.c:1553
 msgid "Show all output"
 msgstr ""
 
-#: ../src/preferences.c:1543
+#: ../src/preferences.c:1549
 #, fuzzy
 msgid "File subpattern #"
 msgstr "/Fisier/Salveaza _ca"
 
-#: ../src/preferences.c:1544
+#: ../src/preferences.c:1550
 #, fuzzy
 msgid "Line subpattern #"
 msgstr "Numarul liniei:"
 
-#: ../src/preferences.c:1545
+#: ../src/preferences.c:1551
 msgid "Output subpattern #"
 msgstr ""
 
-#: ../src/preferences.c:1694
+#: ../src/preferences.c:1700
 msgid "left"
 msgstr "stanga"
 
-#: ../src/preferences.c:1694
+#: ../src/preferences.c:1700
 msgid "right"
 msgstr "dreapta"
 
-#: ../src/preferences.c:1694
+#: ../src/preferences.c:1700
 msgid "top"
 msgstr "inceput"
 
-#: ../src/preferences.c:1694
+#: ../src/preferences.c:1700
 msgid "bottom"
 msgstr "sfarsit"
 
-#: ../src/preferences.c:1697
+#: ../src/preferences.c:1703
 #, fuzzy
 msgid "Edit preferences"
 msgstr "Referinta PHP3 ..."
 
-#: ../src/preferences.c:1708
+#: ../src/preferences.c:1714
 msgid "Editor"
 msgstr "Editor"
 
-#: ../src/preferences.c:1710
+#: ../src/preferences.c:1716
 msgid "Editor options"
 msgstr "Optiuni editor"
 
-#: ../src/preferences.c:1716
+#: ../src/preferences.c:1722
 msgid "Tab width"
 msgstr "Lungime tab"
 
-#: ../src/preferences.c:1717
+#: ../src/preferences.c:1723
 #, fuzzy
 msgid "Word wrap default"
 msgstr "Fara wrap"
 
-#: ../src/preferences.c:1718
+#: ../src/preferences.c:1724
 #, fuzzy
 msgid "Line numbers by default"
 msgstr "Numarul liniei:"
 
-#: ../src/preferences.c:1719
+#: ../src/preferences.c:1725
 msgid "Highlight syntax by default"
 msgstr ""
 
-#: ../src/preferences.c:1720
+#: ../src/preferences.c:1726
 msgid "Highlight # lines"
 msgstr ""
 
-#: ../src/preferences.c:1721
+#: ../src/preferences.c:1727
 msgid "Always highlight full document"
 msgstr ""
 
-#: ../src/preferences.c:1723
+#: ../src/preferences.c:1729
 msgid "HTML"
 msgstr ""
 
-#: ../src/preferences.c:1725
+#: ../src/preferences.c:1731
 #, fuzzy
 msgid "HTML options"
 msgstr "Principalele optiuni ale interfetei grafice"
 
-#: ../src/preferences.c:1730
+#: ../src/preferences.c:1736
 msgid "Lowercase HTML tags"
 msgstr ""
 
-#: ../src/preferences.c:1731
+#: ../src/preferences.c:1737
 msgid "Use deprecated tags (e.g. <font> and <nobr>)"
 msgstr ""
 
-#: ../src/preferences.c:1732
+#: ../src/preferences.c:1738
 msgid "Use XHTML style tags (<br />)"
 msgstr ""
 
-#: ../src/preferences.c:1733
+#: ../src/preferences.c:1739
 msgid "Automatic update author meta"
 msgstr ""
 
-#: ../src/preferences.c:1736
+#: ../src/preferences.c:1742
 #, fuzzy
 msgid "Files"
 msgstr "/_Fisier"
 
-#: ../src/preferences.c:1738
+#: ../src/preferences.c:1744
 msgid "Encoding"
 msgstr ""
 
-#: ../src/preferences.c:1750
+#: ../src/preferences.c:1756
 #, fuzzy
 msgid "Default character set"
 msgstr "Fontul standard"
 
-#: ../src/preferences.c:1753
+#: ../src/preferences.c:1759
 msgid "Auto set <meta> encoding tag on change"
 msgstr ""
 
-#: ../src/preferences.c:1755
+#: ../src/preferences.c:1761
 msgid "Backup"
 msgstr ""
 
-#: ../src/preferences.c:1759
+#: ../src/preferences.c:1765
 msgid "Create backup on save"
 msgstr ""
 
-#: ../src/preferences.c:1760
+#: ../src/preferences.c:1766
 msgid "Backup file suffix"
 msgstr ""
 
-#: ../src/preferences.c:1762
+#: ../src/preferences.c:1768
 #, fuzzy
 msgid "save"
 msgstr "Salveaza"
 
-#: ../src/preferences.c:1765
+#: ../src/preferences.c:1768
+#, fuzzy
+msgid "abort"
+msgstr "Cauta"
+
+#: ../src/preferences.c:1768
+msgid "ask"
+msgstr ""
+
+#: ../src/preferences.c:1769
 #, fuzzy
 msgid "Action on backup failure"
 msgstr "Numele serverului nu a fost gasit"
 
-#: ../src/preferences.c:1768
+#: ../src/preferences.c:1771
 msgid "Remove backupfile on close"
 msgstr ""
 
-#: ../src/preferences.c:1777
+#: ../src/preferences.c:1780
 msgid "Undo history size"
 msgstr ""
 
-#: ../src/preferences.c:1778
+#: ../src/preferences.c:1781
 msgid "Clear undo history on save"
 msgstr ""
 
-#: ../src/preferences.c:1780 ../src/preferences.c:1805
+#: ../src/preferences.c:1783 ../src/preferences.c:1808
 msgid "Misc"
 msgstr ""
 
-#: ../src/preferences.c:1785
+#: ../src/preferences.c:1788
 msgid "Allow multi instances of a file"
 msgstr ""
 
-#: ../src/preferences.c:1787
+#: ../src/preferences.c:1790
 msgid "Open files in already running bluefish window"
 msgstr ""
 
-#: ../src/preferences.c:1789
+#: ../src/preferences.c:1792
 msgid "Number of files in 'Open recent'"
 msgstr ""
 
-#: ../src/preferences.c:1792
+#: ../src/preferences.c:1795
 msgid "User interface"
 msgstr ""
 
-#: ../src/preferences.c:1794
+#: ../src/preferences.c:1797
 msgid "Dimensions"
 msgstr ""
 
-#: ../src/preferences.c:1798
+#: ../src/preferences.c:1801
 msgid "Restore last used dimensions"
 msgstr ""
 
-#: ../src/preferences.c:1799
+#: ../src/preferences.c:1802
 #, fuzzy
 msgid "Initial left panel width"
 msgstr "Lungimea initiala"
 
-#: ../src/preferences.c:1800
+#: ../src/preferences.c:1803
 #, fuzzy
 msgid "Initial window height"
 msgstr "Inaltimea initiala"
 
-#: ../src/preferences.c:1801
+#: ../src/preferences.c:1804
 #, fuzzy
 msgid "Initial window width"
 msgstr "Lungimea initiala"
 
-#: ../src/preferences.c:1810
+#: ../src/preferences.c:1813
 #, fuzzy
 msgid "External browsers in submenu"
 msgstr "Optiuni program extern"
 
-#: ../src/preferences.c:1811
+#: ../src/preferences.c:1814
 #, fuzzy
 msgid "External commands in submenu"
 msgstr "Extern"
 
-#: ../src/preferences.c:1812
+#: ../src/preferences.c:1815
 msgid "External outputbox in submenu"
 msgstr ""
 
-#: ../src/preferences.c:1814
+#: ../src/preferences.c:1817
 msgid "Notebook tab font (leave empty for gtk default)"
 msgstr ""
 
-#: ../src/preferences.c:1816
+#: ../src/preferences.c:1819
 #, fuzzy
 msgid "Document notebook tab position"
 msgstr "Notebook position"
 
-#: ../src/preferences.c:1817
+#: ../src/preferences.c:1820
 #, fuzzy
 msgid "Left panel notebook tab position"
 msgstr "Notebook position"
 
-#: ../src/preferences.c:1819
+#: ../src/preferences.c:1822
 #, fuzzy
 msgid "Make HTML dialogs transient"
 msgstr "Dialog imagine"
 
-#: ../src/preferences.c:1820
+#: ../src/preferences.c:1823
 #, fuzzy
 msgid "Advanced search and replace by default"
 msgstr "Cauta si inlocuieste"
 
-#: ../src/preferences.c:1822
+#: ../src/preferences.c:1825
 #, fuzzy
 msgid "File browser"
 msgstr "/Fisier/_Deschide"
 
-#: ../src/preferences.c:1826
+#: ../src/preferences.c:1829
 msgid "Show hidden files"
 msgstr ""
 
-#: ../src/preferences.c:1827
+#: ../src/preferences.c:1830
 msgid "Show other users files"
 msgstr ""
 
-#: ../src/preferences.c:1828
+#: ../src/preferences.c:1831
 msgid "Show backup files"
 msgstr ""
 
-#: ../src/preferences.c:1829
+#: ../src/preferences.c:1832
 #, fuzzy
 msgid "Unknown icon"
 msgstr "Eroare necunoscuta"
 
-#: ../src/preferences.c:1830
+#: ../src/preferences.c:1833
 msgid "Directory icon"
 msgstr ""
 
-#: ../src/preferences.c:1833 ../src/rcfile.c:607
+#: ../src/preferences.c:1836 ../src/rcfile.c:608
 #, fuzzy
 msgid "Images"
 msgstr "Imagine..."
 
-#: ../src/preferences.c:1835
+#: ../src/preferences.c:1838
 #, fuzzy
 msgid "Thumbnails"
 msgstr "Tip thumbnail"
 
-#: ../src/preferences.c:1839
+#: ../src/preferences.c:1842
 #, fuzzy
 msgid "Thumbnail suffix"
 msgstr "Tip thumbnail"
 
-#: ../src/preferences.c:1843
+#: ../src/preferences.c:1846
 #, fuzzy
 msgid "Thumbnail filetype"
 msgstr "Tip thumbnail"
 
-#: ../src/preferences.c:1848 ../src/preferences.c:1850
+#: ../src/preferences.c:1851 ../src/preferences.c:1853
 #, fuzzy
 msgid "Filetypes"
 msgstr "/_Fisier"
 
-#: ../src/preferences.c:1857
+#: ../src/preferences.c:1860
 #, fuzzy
 msgid "Filefilters"
 msgstr " Sterge "
 
-#: ../src/preferences.c:1865
+#: ../src/preferences.c:1868
 msgid "Syntax highlighting"
 msgstr ""
 
-#: ../src/preferences.c:1867
+#: ../src/preferences.c:1870
 #, fuzzy
 msgid "Patterns"
 msgstr "Paste"
 
-#: ../src/preferences.c:1875
+#: ../src/preferences.c:1878
 #, fuzzy
 msgid "External programs"
 msgstr "Optiuni program extern"
 
-#: ../src/preferences.c:1877
+#: ../src/preferences.c:1880
 #, fuzzy
 msgid "Browsers"
 msgstr "Comanda browser"
 
-#: ../src/preferences.c:1884
+#: ../src/preferences.c:1887
 #, fuzzy
 msgid "Utilities and filters"
 msgstr " Sterge "
 
-#: ../src/preferences.c:1892
+#: ../src/preferences.c:1895
 msgid "Output parsers"
 msgstr ""
 
-#: ../src/preferences.c:1894
+#: ../src/preferences.c:1897
 msgid "Outputbox"
 msgstr ""
 
-#: ../src/rcfile.c:535
+#: ../src/rcfile.c:536
 msgid "Galeon"
 msgstr ""
 
-#: ../src/rcfile.c:537
+#: ../src/rcfile.c:538
 msgid "Mozilla"
 msgstr ""
 
-#: ../src/rcfile.c:539
+#: ../src/rcfile.c:540
 #, fuzzy
 msgid "Opera"
 msgstr "Deschide"
 
-#: ../src/rcfile.c:541
+#: ../src/rcfile.c:542
 msgid "Netscape"
 msgstr ""
 
-#: ../src/rcfile.c:543
+#: ../src/rcfile.c:544
 #, fuzzy
 msgid "Gnome default"
 msgstr "Numarul liniei:"
 
-#: ../src/rcfile.c:566
+#: ../src/rcfile.c:567
 #, fuzzy
 msgid "make"
 msgstr "Imagine..."
 
-#: ../src/rcfile.c:567
+#: ../src/rcfile.c:568
 msgid "weblint HTML checker"
 msgstr ""
 
-#: ../src/rcfile.c:568
+#: ../src/rcfile.c:569
 msgid "tidy HTML validator"
 msgstr ""
 
-#: ../src/rcfile.c:569
+#: ../src/rcfile.c:570
 msgid "javac"
 msgstr ""
 
-#: ../src/rcfile.c:575
+#: ../src/rcfile.c:576
 msgid "Dos2Unix filter"
 msgstr ""
 
-#: ../src/rcfile.c:577
+#: ../src/rcfile.c:578
 #, fuzzy
 msgid "Tidy cleanup filter"
 msgstr " Sterge "
 
-#: ../src/rcfile.c:601
+#: ../src/rcfile.c:602
 msgid "C programming"
 msgstr ""
 
-#: ../src/rcfile.c:603
+#: ../src/rcfile.c:604
 #, fuzzy
 msgid "All web files"
 msgstr "Fisierul nu poate fi deschis"
 
-#: ../src/rcfile.c:605
+#: ../src/rcfile.c:606
 msgid "Java programming"
 msgstr ""
 
-#: ../src/rcfile.c:609
+#: ../src/rcfile.c:610
 #, fuzzy
 msgid "Hide objectfiles"
 msgstr "Selecteaza fisierul"

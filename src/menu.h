@@ -30,4 +30,6 @@ void browser_toolbar_cb(GtkWidget *widget, gpointer data);
 void external_menu_rebuild();
 void encoding_menu_rebuild();
 void make_cust_menubar(GtkWidget *cust_handle_box);
+void filetype_menu_rebuild(GtkItemFactory *item_factory);
+void filetype_menu_destroy(Tfiletype *filetype);
 #endif							/* __MENU_H_ */
