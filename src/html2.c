@@ -991,34 +991,18 @@ typedef struct {
 	Tbfwin *bfwin;
 } Tcolsel;
 
-static gchar *gdouble_arr_to_hex(gdouble *color, gint websafe)
-{
+static gchar *GdkColor_to_hexstring(GdkColor *color, gboolean websafe) {
 	gchar *tmpstr;
-	unsigned int red_int;
-	unsigned int green_int;
-	unsigned int blue_int;
-	gdouble red;
-	gdouble green;
-	gdouble blue;
-	
-	red = color[0];
-	green = color[1];
-	blue = color[2];
 
-	if (websafe) {
-		red_int = 0x33*((unsigned int) (red * 255 / 0x33));
-		green_int = 0x33*((unsigned int) (green * 255/0x33));
-		blue_int = 0x33*((unsigned int) (blue * 255/0x33));
-	} else {
-		red_int = (unsigned int) (red * 255);
-		green_int = (unsigned int) (green * 255);
-		blue_int = (unsigned int) (blue * 255);
-	}
 	tmpstr = g_malloc(8*sizeof(char));
-	g_snprintf (tmpstr, 8,"#%.2X%.2X%.2X", red_int, green_int, blue_int);
+	if (websafe) {
+		g_snprintf (tmpstr, 8,"#%.2X%.2X%.2X", (0x33 * color->red/(256*0x33)), (0x33 * color->green/(256*0x33)), (0x33 * color->blue/(256*0x33)) );
+	} else {
+		g_snprintf (tmpstr, 8,"#%.2X%.2X%.2X", color->red/256, color->green/256, color->blue/256);
+	}
 	return tmpstr;
 }
-
+/*
 static gdouble *hex_to_gdouble_arr(const gchar *color) {
 	static gdouble tmpcol[4];
 	gchar tmpstr[8];
@@ -1045,7 +1029,7 @@ static gdouble *hex_to_gdouble_arr(const gchar *color) {
 	tmpcol[3] = 0;
 	return tmpcol;
 }
- 
+*/ 
 static void colsel_destroy_lcb(GtkWidget *widget, Tcolsel *csd) {
 	DEBUG_MSG("colsel_destroy_lcb, started for csd=%p\n",csd);
 	g_free(csd->returnval);
@@ -1054,8 +1038,11 @@ static void colsel_destroy_lcb(GtkWidget *widget, Tcolsel *csd) {
 
 static void colsel_ok_clicked_lcb(GtkWidget *widget, Tcolsel *csd) { 
 	gchar *tmpstr;
+	GdkColor gcolor;
 	/* only on a OK click we do the setcolor thing */
-	tmpstr = gtk_editable_get_chars(GTK_EDITABLE(csd->hexentry), 0, -1);
+	gtk_color_selection_get_current_color(GTK_COLOR_SELECTION(csd->csel), &gcolor);
+
+	tmpstr = GdkColor_to_hexstring(&gcolor, FALSE);
 	if (csd->bfwin) {
 		csd->bfwin->session->colorlist = add_to_stringlist(csd->bfwin->session->colorlist, tmpstr);
 	}
@@ -1083,7 +1070,7 @@ static void colsel_cancel_clicked_lcb(GtkWidget *widget, Tcolsel *csd) {
 	window_destroy(csd->win);
 }
 /* declaration needed to connect/disconnect callback */
-static void colsel_color_changed(GtkWidget *widget, Tcolsel *csd);
+/*static void colsel_color_changed(GtkWidget *widget, Tcolsel *csd);
 
 static void hexentry_color_changed(GtkWidget *widget, Tcolsel *csd) {
 	gdouble *color;
@@ -1100,9 +1087,9 @@ static void hexentry_color_changed(GtkWidget *widget, Tcolsel *csd) {
 		}
 	}
 	g_free(tmpstr);
-}
+}*/
 
-
+/*
 static void colsel_color_changed(GtkWidget *widget, Tcolsel *csd) {
 	gdouble color[4];
 	gchar *tmpstr;
@@ -1114,7 +1101,7 @@ static void colsel_color_changed(GtkWidget *widget, Tcolsel *csd) {
 	gtk_entry_set_text(GTK_ENTRY(csd->hexentry), tmpstr);
 	csd->hex_changed_id = gtk_signal_connect(GTK_OBJECT(csd->hexentry), "changed", G_CALLBACK(hexentry_color_changed), csd);
 	g_free(tmpstr);
-}
+}*/
 
 static Tcolsel *colsel_dialog(Tbfwin *bfwin,const gchar *setcolor, gint modal, gint startpos, gint endpos) {
 	Tcolsel *csd;
@@ -1161,10 +1148,10 @@ static Tcolsel *colsel_dialog(Tbfwin *bfwin,const gchar *setcolor, gint modal, g
 		g_free(strings);
 	}
 	gtk_color_selection_set_has_palette(GTK_COLOR_SELECTION(csd->csel), TRUE);
-	
-	
-	csd->csel_changed_id = gtk_signal_connect(GTK_OBJECT(csd->csel), "color-changed", G_CALLBACK(colsel_color_changed), csd);
 	gtk_box_pack_start(GTK_BOX(vbox), csd->csel, TRUE, TRUE, 0);
+/*	
+	csd->csel_changed_id = gtk_signal_connect(GTK_OBJECT(csd->csel), "color-changed", G_CALLBACK(colsel_color_changed), csd);
+	
 
 	hbox = gtk_hbox_new(FALSE, 0);
 	gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 12);
@@ -1172,7 +1159,7 @@ static Tcolsel *colsel_dialog(Tbfwin *bfwin,const gchar *setcolor, gint modal, g
 	csd->hexentry = boxed_entry_with_text(this_color, 7, hbox);
 	csd->hex_changed_id = gtk_signal_connect(GTK_OBJECT(csd->hexentry), "changed", G_CALLBACK(hexentry_color_changed), csd);
 	csd->websafe = boxed_checkbut_with_value(_("_websafe"), 0, hbox);
-
+*/
 	hbox = gtk_hbox_new(FALSE, 0);
 	gtk_box_pack_start(GTK_BOX(hbox), gtk_hseparator_new(), TRUE, TRUE, 0);
 	gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 12);
