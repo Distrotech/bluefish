@@ -1,15 +1,16 @@
 %define	desktop_vendor 	endur
 %define name  		bluefish
-%define version 	gtk2
-%define snap    	gtk2port-2002-11-17
-%define release 	snap
+%define snap		0.0.0.20021117
+%define release 	snap.1
+%define source		bluefish-gtk2port-2002-11-17
 %define prefix		/usr
+	
 
 Summary:	A WYSIWYG GPLized HTML editor
 Name:		%{name}
-Version:	%{version}
+Version:	%{snap}
 Release:	%{release}
-Source:		ftp://ftp.ratisbona.com/pub/bluefish/snapshots/%{name}-%{snap}.tgz
+Source:		ftp://ftp.ratisbona.com/pub/bluefish/snapshots/%{source}.tgz
 URL:		http://bluefish.openoffice.nl
 License:	GPL
 Distribution: 	RedHat 8.*
@@ -18,7 +19,7 @@ Group:          Development/Tools
 Requires:	gtk2 >= 2.0.6 pcre >= 3.9
 BuildRequires:  gtk2-devel >= 2.0.6 pcre-devel >= 3.9
 
-BuildRoot: %{_tmppath}/%{name}-%{version}
+BuildRoot: %{_tmppath}/%{name}-%{snap}
 
 %description
 Bluefish is a GTK+ HTML editor for the experienced web designer or
@@ -28,7 +29,7 @@ dynamic and interactive websites, there is for example a lot of PHP
 support.
 
 %prep
-%setup -q
+%setup -n bluefish-gtk2
 
 %build
 %configure --prefix=%{prefix}
@@ -69,15 +70,19 @@ rm -rf %{buildroot}
 %defattr(-,root, root)
 %doc PORTING
 %{_bindir}/*
-%{_datadir}/%{name}
+%dir %{_datadir}/%{name}
+%{_datadir}/%{name}/*
 %{_datadir}/applications/%{desktop_vendor}-%{name}.desktop
 %{_datadir}/pixmaps/%{name}.png
 
+
 %changelog
-* Sat Nov 18 2002 Matthias Haase <matthias_haase@bennewitz.com> gtk2port-2002-11-17
+* Mon Nov 18 2002 Matthias Haase <matthias_haase@bennewitz.com> gtk2port-2002-11-17
 - Change the desktop_vendor
 - Rebuild for snap 2002-11-17
-- Fix for release (if rpm -Uv)
+- Fix for future releases (if rpm -Uv): Version defined
+- Overwritten unpacked name
+- Cleanup for the files section
 
 * Sat Nov 16 2002 Matthias Haase <matthias_haase@bennewitz.com> gtk2port-2002-11-08
 - Change the desktop_vendor
