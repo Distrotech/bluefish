@@ -1834,17 +1834,21 @@ static void files_advanced_win_cancel_clicked(GtkWidget * widget, Tfiles_advance
 
 static void files_advanced_win_select_basedir_lcb(GtkWidget * widget, Tfiles_advanced *tfs) {
 	gchar *olddir = gtk_editable_get_chars(GTK_EDITABLE(tfs->basedir),0,-1);
-	gchar *newdir =return_dir(olddir, _("Select basedir"));
+	/* concat a "/" to the end of the current directory. This fixes a bug where your 
+	   current working directory was being parsed as /directory/file when you opened 
+	   the dialog to browse for a directory
+	*/
+	gchar *newdir = return_dir(g_strconcat(olddir, "/", NULL), _("Select basedir"));
 	gtk_entry_set_text(GTK_ENTRY(tfs->basedir),newdir);
 	g_free(newdir);
 }
 
 static void files_advanced_win(Tfiles_advanced *tfs) {
-	GtkWidget *vbox, *hbox, *frame, *vbox2, *but, *hbox2;
+	GtkWidget *vbox, *hbox, *frame, *vbox2, *but, *hbox2, *label;
 	GList *list;
 	gchar *curdir=g_get_current_dir();
 	
-	tfs->win = window_full(_("Advanced file selector"), GTK_WIN_POS_MOUSE, 5, G_CALLBACK(files_advanced_win_destroy),tfs, TRUE);
+	tfs->win = window_full(_("Advanced open file selector"), GTK_WIN_POS_MOUSE, 5, G_CALLBACK(files_advanced_win_destroy),tfs, TRUE);
 	tfs->filenames_to_return = NULL;
 	vbox = gtk_vbox_new(FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(tfs->win), vbox);
@@ -1857,17 +1861,23 @@ static void files_advanced_win(Tfiles_advanced *tfs) {
 	/* filename part */
 	/* curdir should get a value */
 	{
-		GtkWidget *but = bf_gtkstock_button(GTK_STOCK_OPEN, G_CALLBACK(files_advanced_win_select_basedir_lcb), tfs);
+	        /* use the new bf_generic_button function to add a "Browse" button */
+	        GtkWidget *but = bf_generic_button(_("_Browse"), 1, G_CALLBACK(files_advanced_win_select_basedir_lcb), tfs);
 		hbox = gtk_hbox_new(FALSE,3);
-		gtk_box_pack_start(GTK_BOX(hbox), gtk_label_new(_("Basedir")), FALSE, FALSE, 2);
+		/* use gtk_label_new_with_mnemonic to add a keyboard shortcut to the tfs->basedir text entry */
+		label = gtk_label_new_with_mnemonic(N_("Base_dir"));
+		gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 2);
 		tfs->basedir = boxed_entry_with_text(curdir, 255, hbox);
-		gtk_box_pack_start(GTK_BOX(hbox), but, TRUE, TRUE, 2);
+		/* associate the "Basedir" label to set focus to the tfs->basedir text entry */
+		gtk_label_set_mnemonic_widget(GTK_LABEL(label), tfs->basedir);
+		gtk_box_pack_start(GTK_BOX(hbox), but, FALSE, FALSE , 2);
 		gtk_box_pack_start(GTK_BOX(vbox2), hbox, FALSE, FALSE, 2);
 	}
 	g_free(curdir);
 	hbox2 = gtk_hbox_new(FALSE, 0);
 	gtk_box_pack_start(GTK_BOX(vbox2), hbox2, TRUE, TRUE, 5);
-	gtk_box_pack_start(GTK_BOX(hbox2), gtk_label_new(_("Pattern")), TRUE, TRUE, 5);
+	label = gtk_label_new_with_mnemonic(N_("_Pattern"));
+	gtk_box_pack_start(GTK_BOX(hbox2), label, TRUE, TRUE, 5);
 
 	list = g_list_append(NULL, "*.php");
 	list = g_list_append(list, "*.php3");
@@ -1880,28 +1890,30 @@ static void files_advanced_win(Tfiles_advanced *tfs) {
 	list = g_list_append(list, "*.c");
 	list = g_list_append(list, "*.py");
 	tfs->find_pattern = combo_with_popdown_sized("", list, 1, 300);
+	/* fixme this does not work. gtk_label_set_mnemonic_widget apparently does not work with gtk combo boxes */
+	gtk_label_set_mnemonic_widget(GTK_LABEL(label), tfs->find_pattern);
 	gtk_box_pack_start(GTK_BOX(hbox2), tfs->find_pattern, TRUE, TRUE, 5);
 	g_list_free(list);
-	tfs->recursive = boxed_checkbut_with_value(_("recursive"), 1, vbox2);
+	tfs->recursive = boxed_checkbut_with_value(_("_recursive"), 1, vbox2);
 
 	frame = gtk_frame_new(_("Contains"));
 	gtk_box_pack_start(GTK_BOX(vbox), frame, TRUE, TRUE, 5);
 	vbox2 = gtk_vbox_new(FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(frame), vbox2);
 	/* content */
-	tfs->grep_pattern = boxed_full_entry(_("Pattern"), NULL, 255, vbox2);
-	tfs->is_regex = boxed_checkbut_with_value(_("is regex"), 0, vbox2);
+	tfs->grep_pattern = boxed_full_entry(_("Pa_ttern"), NULL, 255, vbox2);
+	tfs->is_regex = boxed_checkbut_with_value(_("is rege_x"), 0, vbox2);
 	
 	/* buttons */
 	hbox = gtk_hbutton_box_new();
 	gtk_hbutton_box_set_layout_default(GTK_BUTTONBOX_END);
 	gtk_button_box_set_spacing(GTK_BUTTON_BOX(hbox), 1);
-	but = bf_stock_ok_button(G_CALLBACK(files_advanced_win_ok_clicked), tfs);
-	gtk_box_pack_start(GTK_BOX(hbox),but , FALSE, FALSE, 0);
-	gtk_window_set_default(GTK_WINDOW(tfs->win), but);
 	but = bf_stock_cancel_button(G_CALLBACK(files_advanced_win_cancel_clicked), tfs);
 	gtk_box_pack_start(GTK_BOX(hbox),but , FALSE, FALSE, 0);
-	gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 0);
+	but = bf_stock_ok_button(G_CALLBACK(files_advanced_win_ok_clicked), tfs);
+	gtk_box_pack_start(GTK_BOX(hbox),but , FALSE, FALSE, 2);
+	gtk_window_set_default(GTK_WINDOW(tfs->win), but);
+	gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 2);
 	gtk_widget_show_all(GTK_WIDGET(tfs->win));
 /*	gtk_grab_add(GTK_WIDGET(tfs->win));
 	gtk_widget_realize(GTK_WIDGET(tfs->win));*/
