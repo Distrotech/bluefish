@@ -198,19 +198,6 @@ static gboolean view_filter(Tfilebrowser *filebrowser, Tdir_entry *entry) {
 			return FALSE;
 		}
 	}
-#ifdef HAVE_GNOME_VFS
-	DEBUG_MSG("view_filter, I don't know my uid() for a possibly remote file..\n");
-#else  /* HAVE_GNOME_VFS */
-	if (!main_v->props.filebrowser_show_others_files) {
-		if (!S_ISDIR(entry->stat.st_mode)
-		&& (entry->stat.st_uid != getuid())) {
-#ifdef DEBUG_FILTER
-			DEBUG_MSG("view_filter, we';re not the owner of %s\n", entry->name);
-#endif
-			return FALSE;
-		}
-	}
-#endif /* HAVE_GNOME_VFS */
 	
 	{
 		gboolean default_retval;

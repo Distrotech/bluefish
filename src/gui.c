@@ -1380,34 +1380,33 @@ void gui_toggle_autoindent_cb(gpointer callback_data,guint action,GtkWidget *wid
 }
 
 void gui_toggle_hidewidget_cb(Tbfwin *bfwin,guint action,GtkWidget *widget) {
-	GtkWidget *handlebox;
-	gint *property;
+	GtkWidget *handlebox=NULL;
+	gint *property=NULL;
 	switch (action) {
 	case 1:
 		handlebox = bfwin->main_toolbar_hb;
-		property = &main_v->props.view_main_toolbar;
+		if (bfwin->project) property = &bfwin->project->view_main_toolbar;
 		if (g_list_length(gtk_container_children(GTK_CONTAINER(handlebox))) == 0) {
 			make_main_toolbar(bfwin);
 		}
 	break;
 	case 2:
 		handlebox = bfwin->html_toolbar_hb;
-		property = &main_v->props.view_html_toolbar;
+		if (bfwin->project) property = &bfwin->project->view_html_toolbar;
 		if (g_list_length(gtk_container_children(GTK_CONTAINER(handlebox))) == 0) {
 			make_html_toolbar(bfwin);
 		}
 	break;
 	case 3:
 		handlebox = bfwin->custom_menu_hb;
-		property = &main_v->props.view_custom_menu;
+		if (bfwin->project) property = &bfwin->project->view_custom_menu;
 		if (g_list_length(gtk_container_children(GTK_CONTAINER(handlebox))) == 0) {
 			make_cust_menubar(bfwin,bfwin->custom_menu_hb);
 		}
 	break;
 	case 4:
-		DEBUG_MSG("gui_toggle_hidewidget_cb, setting vlp from %d to %d\n", main_v->props.view_left_panel, 1 - main_v->props.view_left_panel);
-		main_v->props.view_left_panel = 1 - main_v->props.view_left_panel;
-		left_panel_show_hide_toggle(bfwin,FALSE, main_v->props.view_left_panel);
+		bfwin->project->view_left_panel = (GTK_CHECK_MENU_ITEM(widget)->active);
+		left_panel_show_hide_toggle(bfwin,FALSE, GTK_CHECK_MENU_ITEM(widget)->active);
 		return;
 	break;
 	default:
@@ -1417,10 +1416,10 @@ void gui_toggle_hidewidget_cb(Tbfwin *bfwin,guint action,GtkWidget *widget) {
 	}
 
 	if (GTK_WIDGET_VISIBLE(handlebox)) {
-		*property = 0;
+		if (property) *property = 0;
 		gtk_widget_hide(handlebox);
 	} else {
-		*property = 1;
+		if (property) *property = 1;
 		gtk_widget_show(handlebox);
 	}
 }

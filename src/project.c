@@ -78,6 +78,10 @@ static Tproject *create_new_project(Tbfwin *bfwin) {
 	}
 	prj->webdir = g_strdup("");
 	prj->template = g_strdup("");
+	prj->view_main_toolbar = main_v->props.view_main_toolbar;
+	prj->view_left_panel = main_v->props.view_left_panel;
+	prj->view_custom_menu = main_v->props.view_custom_menu;
+	prj->view_html_toolbar = main_v->props.view_html_toolbar;
 	return prj;
 }
 
@@ -159,6 +163,7 @@ void project_open_from_file(Tbfwin *bfwin, gchar *fromfilename) {
 	}
 	set_project_menu_widgets(prwin, TRUE);
 	recent_menu_init_project(prwin);
+	/* now set the visibility of all toolbars/menubars etc. */
 }
 
 static void project_open(Tbfwin *bfwin) {
