@@ -465,11 +465,20 @@ void doc_insert_two_strings(Tdocument *doc, const gchar *before_str, const gchar
 			gtk_text_buffer_place_cursor(doc->buffer, &itinsert);
 		}
 	} else {
+		GtkTextMark *marktoresetto;
+		GtkTextIter firstiter;
+		if (gtk_text_iter_compare(&itinsert,&itselect) < 0) {
+			firstiter = itinsert;
+			marktoresetto = select;
+		} else {
+			firstiter = itselect;
+			marktoresetto = insert;
+		}
 		/* there is a selection */
-		gtk_text_buffer_insert(doc->buffer,&itinsert,before_str,-1);
+		gtk_text_buffer_insert(doc->buffer,&firstiter,before_str,-1);
 		if (after_str && strlen(after_str)) {
 			/* the buffer is changed, reset the select iterator */
-			gtk_text_buffer_get_iter_at_mark(doc->buffer,&itselect,select);
+			gtk_text_buffer_get_iter_at_mark(doc->buffer,&itselect,marktoresetto);
 			gtk_text_buffer_insert(doc->buffer,&itselect,after_str,-1);
 		}
 	}
