@@ -24,7 +24,7 @@
 #include "gui.h"
 #include "document.h" /* file_new_cb() */
 #include "gtk_easy.h"
-#include "menu.h" /* menu_create_main() */
+#include "menu.h" /* menu_create_main(), recent_menu_init() */
 #include "bf_lib.h" /* get_int_from_string() */
 
 void notebook_changed(gint newpage)
@@ -163,6 +163,7 @@ void gui_create_main(GList *filenames) {
 
 	/* first a menubar */
 	menu_create_main(vbox);
+	recent_menu_init();
 
 	/* then the toolbars */
 	
@@ -179,19 +180,6 @@ void gui_create_main(GList *filenames) {
 	gtk_notebook_set_show_border(GTK_NOTEBOOK(main_v->notebook), TRUE);
 	gtk_notebook_set_tab_border(GTK_NOTEBOOK(main_v->notebook), 1);
 	gtk_notebook_popup_enable(GTK_NOTEBOOK(main_v->notebook));
-	if (filenames) {
-		docs_new_from_files(filenames);
-	} else {
-		/* no files to open, open an empty doc */
-		file_new_cb(NULL, NULL);	
-	}
-
-	/* We have to know when the notebook changes */
-	gui_notebook_bind_signals();
-
-	gtk_notebook_set_page(GTK_NOTEBOOK(main_v->notebook), 0);
-	gtk_notebook_set_scrollable(GTK_NOTEBOOK(main_v->notebook), TRUE);
-	gtk_widget_show(main_v->notebook);
 
 	filebrowser_hide(1);
 
@@ -206,6 +194,22 @@ void gui_create_main(GList *filenames) {
 	gtk_box_pack_start(GTK_BOX(hbox), main_v->statusbar, TRUE, TRUE, 0);
 
 	}
+	
+	/* everything is ready - we can start loading documents */
+	if (filenames) {
+		docs_new_from_files(filenames);
+	} else {
+		/* no files to open, open an empty doc */
+		file_new_cb(NULL, NULL);	
+	}
+
+	/* We have to know when the notebook changes */
+	gui_notebook_bind_signals();
+
+	gtk_notebook_set_page(GTK_NOTEBOOK(main_v->notebook), 0);
+	gtk_notebook_set_scrollable(GTK_NOTEBOOK(main_v->notebook), TRUE);
+	gtk_widget_show(main_v->notebook);
+	
 	/* show all */
 	DEBUG_MSG("gui_create_main, before show_all\n");
 	gtk_widget_show_all(main_v->main_window);

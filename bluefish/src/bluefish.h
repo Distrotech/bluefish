@@ -204,7 +204,8 @@ typedef struct {
 	GtkWidget *hpane; /* we need this to show/hide the filebrowser */
 	GtkTextTagTable *tagtable; /* this one should ultimately move to Thighlightset, so every set would have it's own tagtable, but there is currently no way to switch a document to a new tagtable */
 	GtkWidget *statusbar;
-	GtkWidget *statuslabel;
+	GtkWidget *statuslabel; /* where we have the line number */
+	GList *recent_files; /* a list of structs??? with the menu-widget for a recent file */
 } Tmain;
 
 extern Tmain *main_v;

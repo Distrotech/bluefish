@@ -39,7 +39,7 @@ void doc_replace_text(Tdocument *doc, const gchar * newstring, gint start, gint 
 void doc_bind_signals(Tdocument *doc);
 void doc_unbind_signals(Tdocument *doc);
 
-/* void doc_new_with_file(gchar * filename,gboolean delay_highlighting );*/
+void doc_new_with_file(gchar * filename,gboolean delay_highlighting );
 void docs_new_from_files(GList * file_list);
 void doc_activate(Tdocument *doc);
 

@@ -62,7 +62,7 @@ gboolean file_copy(gchar *source, gchar *dest) {
 	return TRUE;
 }
 
-gboolean append_to_file(gchar *filename, gchar *string) {
+gboolean append_string_to_file(gchar *filename, gchar *string) {
 	FILE *out;
 
 	out = fopen(filename, "a");
