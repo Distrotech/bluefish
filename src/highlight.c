@@ -476,16 +476,11 @@ void filetype_highlighting_rebuild() {
 		Tfiletype *filetype;
 		strarr = (gchar **) tmplist->data;
 		arrcount = count_array(strarr);
-		if (arrcount >= 4) {
+		if (arrcount == 6) {
 			filetype = g_new(Tfiletype, 1);
 			filetype->menuitem = NULL;
-			if (arrcount == 6) {
-				filetype->editable = (strarr[4][0] != '0');
-				filetype->content_regex = g_strdup(strarr[5]);
-			} else {
-				filetype->editable = TRUE;
-				filetype->content_regex = NULL;
-			}
+			filetype->editable = (strarr[4][0] != '0');
+			filetype->content_regex = g_strdup(strarr[5]);
 			filetype->type = g_strdup(strarr[0]);
 			DEBUG_MSG("extensions for %s loaded from %s\n", strarr[0], strarr[1]);
 			filetype->extensions = g_strsplit(strarr[1], ":", 127);
