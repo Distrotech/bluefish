@@ -204,7 +204,7 @@ else
 	HAVE_GNOME_VFS=0
 fi
 
-echo -n "checking for gnome-vfs-2.2... "
+echo -n "checking for gnome-vfs >= 2.2... "
 if pkg-config gnome-vfs-2.0 --atleast-version=2.2 ; then
 	AC_DEFINE(HAVE_ATLEAST_GNOMEVFS_2_2)
 	echo "yes"
@@ -212,13 +212,24 @@ else
 	echo "no"
 fi
 
-echo -n "checking for gnome-vfs-2.5... "
+echo -n "checking for gnome-vfs >= 2.5... "
 if pkg-config gnome-vfs-2.0 --atleast-version=2.5 ; then
 	AC_DEFINE(HAVE_ATLEAST_GNOMEVFS_2_5)
 	echo "yes"
 else
 	echo "no"
 fi
+
+echo -n "checking for libgnomeui >= 2.6... "
+if pkg-config libgnomeui-2.0 --atleast-version=2.6 ; then
+	AC_DEFINE(HAVE_ATLEAST_GNOMEUI_2_6)
+	LIBS="$LIBS `pkg-config --libs libgnomeui-2.0`"
+	CFLAGS="$CFLAGS `pkg-config --cflags libgnomeui-2.0`"
+	echo "yes"
+else
+	echo "no"
+fi
+
 
 AC_PATH_PROG(PCRE_CONFIG, pcre-config, no)
 if test "x$PCRE_CONFIG" = "xno" ; then
