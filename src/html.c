@@ -22,7 +22,7 @@
  */
 /* 
  * Changes by Antti-Juhani Kaijanaho <gaia@iki.fi> on 1999-10-20
- * $Id: html.c,v 1.7 2002-09-22 21:00:38 oli4 Exp $
+ * $Id: html.c,v 1.8 2002-10-23 19:37:02 oli4 Exp $
  */
 
 #include <gtk/gtk.h>
@@ -1057,7 +1057,10 @@ void quickstart_cb(GtkWidget * widget, gpointer data)
 	recent_attribs.headerlist = add_to_stringlist(recent_attribs.headerlist, "<meta name=\"copyright\" content=\"\">");
 	recent_attribs.headerlist = add_to_stringlist(recent_attribs.headerlist, "<meta name=\"keywords\" content=\"\">");
 	recent_attribs.headerlist = add_to_stringlist(recent_attribs.headerlist, "<meta name=\"description\" content=\"\">");
-	recent_attribs.headerlist = add_to_stringlist(recent_attribs.headerlist, "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=ISO-8859-1\">");
+	{
+		gchar *tmpstr = g_strconcat("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=",main_v->props.newfile_default_encoding,"\">",NULL);
+		recent_attribs.headerlist = add_to_stringlist(recent_attribs.headerlist, tmpstr);
+	}
 	recent_attribs.headerlist = add_to_stringlist(recent_attribs.headerlist, "<meta http-equiv=\"Expires\" content=\"Tue, 20 Aug 1996 14:25:27 GMT\">");
 	recent_attribs.headerlist = add_to_stringlist(recent_attribs.headerlist, "<meta http-equiv=\"refresh\" content=\"5; URL=http://\">");
 	recent_attribs.headerlist = add_to_stringlist(recent_attribs.headerlist, "<meta name=\"ROBOTS\" content=\"NOINDEX, NOFOLLOW\">");
