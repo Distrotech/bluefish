@@ -75,9 +75,11 @@ with the search and replace you can do increadible things. We'll start with a si
 	</sect1>
 	<sect1 id="bluefish-ch-5-sect-4">
 		<title>project management</title>
-		<para>The projects are a sort of 'saved state' of Bluefish. All files open when the project is saved, are automatically opened the next time you open the project. Also the recently used files in that project are shown in the recent menu. Furthermore, a basedir can be set, so the filebrowser in the left panel will only show the files in the basedir and its subdirectories. If Bluefish is installed with gnome-vfs support the basedir might be remote, for example sftp://someserver/somefdir or smb://user:password@server/someshare/.</para>
-		<para>If the webdir is also entered in the project settings, Bluefish will launch the browser to the appropriate URL. If your basedir for example is /var/www/ and your webdir http://localhost/ Bluefish will use this information to launch the browser to the correct URL. This can be very convenient for server side scripting languages like PHP, JSP or other.</para>
-		<para>The projects will be expanded to have more Bluefish settings, so a project can be a bit of customized Bluefish setup.</para>
+		<para>The projects are a sort of 'saved state' of Bluefish. All files open when the project is saved, are automatically opened the next time you open the project. Also the recently used files in that project are shown in the recent menu. Furthermore, a basedir can be set, so the filebrowser in the left panel will only show the files in the basedir and its subdirectories. If Bluefish is installed with gnome-vfs support the basedir might be remote, for example sftp://someserver/somedir or smb://user:password@server/someshare/.</para>
+		<para>If the webdir is entered in the project settings, Bluefish will launch the browser to the appropriate URL. If your basedir for example is /var/www/ and your webdir http://localhost/ Bluefish will use this information to launch the browser to the correct URL. This can be very convenient for testing server side scripting languages like PHP, JSP or other.</para>
+		<para>The template field can point to a template file. If the 'new file' button is clicked, the contents of this file will be automatically loaded into the edit window.</para>
+		<para>The projects will be expanded to have more Bluefish settings, so a project can be a bit of customized Bluefish setup. Currently the state of various toolbars and menubars is saved in a project file.</para>
+		<para>The project file itself is simply a textfile in the standard Bluefish format (same format as the config file). This format is 'key: value'.</para>
 	</sect1>
 
 	<sect1 id="bluefish-ch-5-sect-5">
