@@ -28,6 +28,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <time.h>
 
 #include "bluefish.h"
 #include "rcfile.h"
@@ -373,6 +374,10 @@ static GList *props_init_main(GList * config_rc)
 #endif /* HAVE_LIBASPELL */
 	init_prop_integer   (&config_rc, &main_v->props.default_advanced_snr,"default_advanced_snr:",0);
 	init_prop_integer(&config_rc, &main_v->props.cont_highlight_full, "cont_highlight_full:", 1);
+	init_prop_integer(&config_rc, &main_v->props.lasttime_cust_menu, "lasttime_cust_menu:", 0);
+	init_prop_integer(&config_rc, &main_v->props.lasttime_highlighting, "lasttime_highlighting:", 0);
+	init_prop_integer(&config_rc, &main_v->props.lasttime_filetypes, "lasttime_filetypes:", 0);
+	init_prop_integer(&config_rc, &main_v->props.lasttime_encodings, "lasttime_encodings:", 0);
 
 	/* not yet in use */
 	init_prop_string(&config_rc, &main_v->props.image_editor_cline, "image_editor_command:", "gimp-remote -n \"%s\"&");
@@ -411,6 +416,53 @@ static GList *props_init_main(GList * config_rc)
 	return config_rc;
 }
 
+/* we save the value in 'days' precision, so we can divide seconds by 24*60*60
+, this way we can store it in a gint (which is the config file precision) */
+#define TIME_T_TO_GINT(time) ((gint)(time / (24*60*60)))
+
+static gboolean config_file_is_newer(gint lasttime, const gchar *configfile) {
+	struct stat statbuf;
+	if(stat(configfile, &statbuf)==0) {
+		if (TIME_T_TO_GINT(statbuf.st_mtime) >= lasttime) return TRUE;
+	}
+	return FALSE;
+}
+
+static gboolean arraylist_value_exists(GList *arraylist, gchar **value, gint testlevel) {
+	GList *tmplist = g_list_first(arraylist);
+	while (tmplist) {
+		gchar **tmparr = tmplist->data;
+		gint i=0;
+		gboolean equal = TRUE;
+		while (i<testlevel && equal) {
+			if (strcmp(tmparr[i],value[i])!=0) {
+				equal = FALSE;
+			}
+			i++;
+		}
+		if (equal) return TRUE;
+		tmplist = g_list_next(tmplist);
+	}
+	return FALSE;
+}
+
+static GList *arraylist_load_new_identifiers(GList *mylist, const gchar *fromfilename, gint uniquelevel) {
+	GList *deflist = get_list(fromfilename,NULL,TRUE);
+	GList *tmplist = g_list_first(deflist);
+	while (tmplist) {
+		gchar **tmparr = tmplist->data;
+		if (count_array(tmparr) >= uniquelevel) {
+			if (!arraylist_value_exists(mylist, tmparr, uniquelevel)) {
+				DEBUG_MSG("arraylist_load_new_identifiers, adding %s to thelist\n",tmparr[0]);
+				mylist = g_list_append(mylist, duplicate_stringarray(tmparr));
+			}
+		}
+		tmplist = g_list_next(tmplist);
+	}
+	free_arraylist(deflist);
+	return mylist;
+}
+/*
 static GList *arraylist_load_defaults(GList *thelist, const gchar *filename, const gchar *name) {
 	GList *deflist,*tmplist = g_list_first(thelist);
 	if (name) {
@@ -458,7 +510,7 @@ static GList *arraylist_load_defaults(GList *thelist, const gchar *filename, con
 	}
 	return thelist;
 }
-
+*/
 void rcfile_parse_main(void)
 {
 	gchar *filename;
@@ -491,15 +543,22 @@ void rcfile_parse_main(void)
 		arr = array_from_arglist(_("Gnome default"), "gnome-moz-remote --newwin %s&",NULL);
 		main_v->props.browsers = g_list_append(main_v->props.browsers,arr);
 	}
-	if (main_v->props.encodings == NULL) {
-		/* if the user does not have encodings --> set them to defaults values */
-		gchar *filename = return_first_existing_filename(PKGDATADIR"encodings.default",
-										"data/encodings.default",
-									"../data/encodings.default",NULL);
-		if (filename) {
-			main_v->props.encodings = arraylist_load_defaults(main_v->props.encodings,filename,NULL);
+	{
+		gchar *defaultfile = return_first_existing_filename(PKGDATADIR"encodings.default",
+											"data/encodings.default",
+										"../data/encodings.default",NULL);
+		if (main_v->props.encodings == NULL) {
+			/* if the user does not have encodings --> set them to defaults values */
+			if (defaultfile) {
+				main_v->props.encodings = get_list(defaultfile,NULL,TRUE);
+			} else {
+				g_print("Unable to find '"PKGDATADIR"encodings.default'\n");
+			}
 		} else {
-			g_print("Unable to find '"PKGDATADIR"encodings.default'\n");
+			if (config_file_is_newer(main_v->props.lasttime_encodings,defaultfile)) {
+				main_v->props.encodings = arraylist_load_new_identifiers(main_v->props.encodings,defaultfile,1);
+				main_v->props.lasttime_encodings = TIME_T_TO_GINT(time(NULL));
+			}
 		}
 	}
 	if (main_v->props.outputbox==NULL) {
@@ -518,15 +577,22 @@ void rcfile_parse_main(void)
 		arr = array_from_arglist(_("Tidy cleanup filter"), "cat '%s' | tidy -utf8 -q >'%f' 2>/dev/null",NULL);
 		main_v->props.external_commands = g_list_append(main_v->props.external_commands,arr);
 	}
-	if (main_v->props.filetypes == NULL) {
-		/* if the user does not have file-types --> set them to defaults values */
-		gchar *filename = return_first_existing_filename(PKGDATADIR"filetypes.default",
+	{
+	gchar *defaultfile = return_first_existing_filename(PKGDATADIR"filetypes.default",
 										"data/filetypes.default",
 									"../data/filetypes.default",NULL);
-		if (filename) {
-			main_v->props.filetypes = arraylist_load_defaults(main_v->props.filetypes,filename,NULL);
+		if (main_v->props.filetypes == NULL) {
+			/* if the user does not have file-types --> set them to defaults values */
+			if (defaultfile) {
+				main_v->props.filetypes = get_list(defaultfile,NULL,TRUE);
+			} else {
+				g_print("Unable to find '"PKGDATADIR"filetypes.default'\n");
+			}
 		} else {
-			g_print("Unable to find '"PKGDATADIR"filetypes.default'\n");
+			if (config_file_is_newer(main_v->props.lasttime_filetypes,defaultfile)) {
+				main_v->props.filetypes = arraylist_load_new_identifiers(main_v->props.filetypes,defaultfile,1);
+				main_v->props.lasttime_filetypes = TIME_T_TO_GINT(time(NULL));
+			}
 		}
 	}
 	if (main_v->props.filefilters == NULL) {
@@ -546,8 +612,6 @@ void rcfile_parse_main(void)
 	if (main_v->props.reference_files == NULL) {
 		gchar *userdir = g_strconcat(g_get_home_dir(), "/.bluefish/", NULL);
 		/* if the user does not yet have any function reference files, set them to default values */
-/*		main_v->props.reference_files = g_list_append(main_v->props.reference_files, array_from_arglist("HTML",PKGDATADIR"funcref_html.xml",NULL));
-		main_v->props.reference_files = g_list_append(main_v->props.reference_files, array_from_arglist("PHP",PKGDATADIR"funcref_php.xml",NULL));*/
 		fref_rescan_dir(PKGDATADIR);
 		fref_rescan_dir(userdir);
 		g_free(userdir);
@@ -558,18 +622,7 @@ static gint rcfile_save_main(void) {
 	gchar *filename = g_strconcat(g_get_home_dir(), "/.bluefish/rcfile_v2", NULL);
 	return save_config_file(main_configlist, filename);
 }
-
-static void load_default_highlightingpatterns(gchar *name) {
-	gchar *filename = return_first_existing_filename(PKGDATADIR"highlighting.default",
-									"data/highlighting.default",
-									"../data/highlighting.default",NULL);
-	if (filename) {
-		main_v->props.highlight_patterns = arraylist_load_defaults(main_v->props.highlight_patterns,filename,name);
-	} else {
-		g_print("Unable to find '"PKGDATADIR"highlighting.default'\n");
-	}
-}
-
+/*
 static gboolean arraylist_test_identifier_exists(GList *arrlist, const gchar *name) {
 	GList *tmplist = g_list_first(arrlist);
 	while(tmplist) {
@@ -580,9 +633,10 @@ static gboolean arraylist_test_identifier_exists(GList *arrlist, const gchar *na
 	}
 	return FALSE;
 }
-
+*/
 void rcfile_parse_highlighting(void) {
 	gchar *filename;
+	gchar *defaultfile;
 
 	DEBUG_MSG("rcfile_parse_highlighting, started\n");
 
@@ -590,27 +644,26 @@ void rcfile_parse_highlighting(void) {
 	init_prop_arraylist(&highlighting_configlist, &main_v->props.highlight_patterns, "patterns:");
 
 	filename = g_strconcat(g_get_home_dir(), "/.bluefish/highlighting", NULL);
+	defaultfile = return_first_existing_filename(PKGDATADIR"highlighting.default",
+									"data/highlighting.default",
+									"../data/highlighting.default",NULL);
 	if (!parse_config_file(highlighting_configlist, filename)) {
 		/* init the highlighting in some way? */
-		load_default_highlightingpatterns(NULL);
+		if (defaultfile) {
+			main_v->props.highlight_patterns = get_list(defaultfile,NULL,TRUE);
+		} else {
+			g_print("Unable to find '"PKGDATADIR"highlighting.default'\n");
+		}
 		save_config_file(highlighting_configlist, filename);
 		DEBUG_MSG("rcfile_parse_highlighting, done saving\n");
 	} else {
-		gchar *types[] = {"php", "html", "c", "java", "xml","cfml","python", NULL};
-		gint i = 0;
-		while (types[i]) {
-			DEBUG_MSG("rcfile_parse_highlighting, testing for type %s\n", types[i]);
-			if (!arraylist_test_identifier_exists(main_v->props.highlight_patterns,types[i])) {
-				DEBUG_MSG("rcfile_parse_highlighting, type %s not found, reloading from default\n", types[i]);
-				load_default_highlightingpatterns(types[i]);
-			}
-			i++;
+		if (config_file_is_newer(main_v->props.lasttime_highlighting,defaultfile)) {
+			main_v->props.highlight_patterns = arraylist_load_new_identifiers(main_v->props.highlight_patterns,defaultfile,2);
+			main_v->props.lasttime_highlighting = TIME_T_TO_GINT(time(NULL));
 		}
 	}
 	g_free(filename);
 }
-
-
 
 static gint rcfile_save_highlighting(void) {
 	gint retval;
@@ -619,18 +672,33 @@ static gint rcfile_save_highlighting(void) {
 	g_free(filename);
 	return retval;
 }
+
 void rcfile_parse_custom_menu(void) {
 	gchar *filename;
-
+	gchar *defaultfile;
 	DEBUG_MSG("rcfile_parse_custom_menu, started\n");
 
 	custom_menu_configlist = NULL;
 	init_prop_arraylist(&custom_menu_configlist, &main_v->props.cust_menu, "custom_menu:");
 
 	filename = g_strconcat(g_get_home_dir(), "/.bluefish/custom_menu", NULL);
+	defaultfile = return_first_existing_filename(PKGDATADIR"custom_menu.default",
+									"data/custom_menu.default",
+									"../data/custom_menu.default",NULL);
 	if (!parse_config_file(custom_menu_configlist, filename) || main_v->props.cust_menu==NULL) {
 		/* init the custom_menu in some way? */
-		main_v->props.cust_menu = g_list_append(main_v->props.cust_menu, array_from_arglist(N_("/php/ibase/ibase fetch row"), "0", "while ($%1 = ibase_fetch_row($%0)) {\n	echo $%1[0];\n", "\n}\nibase_free_result($%0);\n", "2", _("ibase result variable name"), _("row variable name"), NULL));
+		if (defaultfile) {
+			main_v->props.cust_menu = get_list(defaultfile,NULL,TRUE);
+		} else {
+			g_print("Unable to find '"PKGDATADIR"custom_menu.default'\n");
+		}
+	} else {
+		if (config_file_is_newer(main_v->props.lasttime_cust_menu,defaultfile)) {
+			main_v->props.cust_menu = arraylist_load_new_identifiers(main_v->props.cust_menu,defaultfile,1);
+			main_v->props.lasttime_cust_menu = TIME_T_TO_GINT(time(NULL));
+		}
+	}
+/*		main_v->props.cust_menu = g_list_append(main_v->props.cust_menu, array_from_arglist(N_("/php/ibase/ibase fetch row"), "0", "while ($%1 = ibase_fetch_row($%0)) {\n	echo $%1[0];\n", "\n}\nibase_free_result($%0);\n", "2", _("ibase result variable name"), _("row variable name"), NULL));
 		main_v->props.cust_menu = g_list_append(main_v->props.cust_menu, array_from_arglist(N_("/php/mysql/mysql fetch row"), "0", "while ($%1 = mysql_fetch_row($%0)) {\n	echo $%1[0];\n", "\n}\nmysql_free_result($%0);\n", "2", _("mysql result variable name"), _("row variable name"), NULL));
 		main_v->props.cust_menu = g_list_append(main_v->props.cust_menu, array_from_arglist(N_("/php/mysql/mysql connect"), "0", "$mysql_id = mysql_connect('%0', '%1', '%2');\nmysql_select_db('%3', $mysql_id);\n", "", "4", _("mysql host"), _("mysql username"), _("mysql password"), _("database name"), NULL));
 		main_v->props.cust_menu = g_list_append(main_v->props.cust_menu, array_from_arglist(N_("/php/ibase/ibase connect"), "0", "$ibase_id = ibase_connect('%0:%1', '%2', '%3');\n", "", "4", _("ibase host"), _("ibase database path"), _("ibase username"), _("ibase password"), NULL));
@@ -673,6 +741,8 @@ void rcfile_parse_custom_menu(void) {
 		main_v->props.cust_menu = g_list_append(main_v->props.cust_menu, array_from_arglist(N_("/replace/convert <td> in <th> in selection"), "1", "(<|</)(td)([^>]*)(>)", "\\0th\\2>", "2", "1", "0", "0", NULL));
 		main_v->props.cust_menu = g_list_append(main_v->props.cust_menu, array_from_arglist(N_("/replace/convert <any tag> in <any other tag> in selection"), "1", "(<|</)(%0)([^>]*)(>)", "\\0%1\\2>", "2", "1", "0", "2", "any tag name", "any other tag name", NULL));
 	}
+	*/
+
 	g_free(filename);
 }
 static gint rcfile_save_custom_menu(void) {
