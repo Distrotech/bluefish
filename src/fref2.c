@@ -691,6 +691,21 @@ static void fref_parse_node(xmlNodePtr node,GtkWidget * tree, GtkTreeStore * sto
 								gtk_tree_store_append(store, &auxit, parent);
 								gtk_tree_store_set(store, &auxit, STR_COLUMN,el->name, FILE_COLUMN, NULL, 
 								                               PTR_COLUMN,rec,VISIBLE_COLUMN,TRUE, -1);			
+								switch (el->etype)
+								{
+									case FREF_EL_FUNCTION:gtk_tree_store_set(store, &auxit, PIXMAP_COLUMN,
+									gtk_image_get_pixbuf(GTK_IMAGE(new_pixmap(165))), -1);break;
+									case FREF_EL_TAG:gtk_tree_store_set(store, &auxit, PIXMAP_COLUMN,
+									gtk_image_get_pixbuf(GTK_IMAGE(new_pixmap(166))), -1);break;
+									case FREF_EL_VAR:gtk_tree_store_set(store, &auxit, PIXMAP_COLUMN,
+									gtk_image_get_pixbuf(GTK_IMAGE(new_pixmap(167))), -1);break;
+									case FREF_EL_CSSPROP:
+									case FREF_EL_CSSSELECT:
+									gtk_tree_store_set(store, &auxit, PIXMAP_COLUMN,
+									gtk_image_get_pixbuf(GTK_IMAGE(new_pixmap(168))), -1);break;
+									case FREF_EL_SNIPPET:gtk_tree_store_set(store, &auxit, PIXMAP_COLUMN,
+									gtk_image_get_pixbuf(GTK_IMAGE(new_pixmap(169))), -1);break;																					
+								}                               
 								path = gtk_tree_model_get_path(GTK_TREE_MODEL(store), &auxit);
 								GtkTreeRowReference *rref = gtk_tree_row_reference_new(GTK_TREE_MODEL(store), path);
 								g_hash_table_replace(info->dictionary, el->name, rref);
@@ -3879,7 +3894,14 @@ static void frefcb_new_element(GtkWidget * widget, Tbfwin *bfwin)
 	GtkTreeIter iter,auxit;
 	GtkTreePath *path;
 	Tfref_record *rec=NULL;
-		
+	
+	 rec = get_current_entry(bfwin);		
+	 if ( !rec ) return;
+	 if (rec->etype != FREF_EL_REF && rec->etype != FREF_EL_GROUP )
+	 {
+	 	error_dialog(bfwin->main_window,_("Bad element"),_("Please select library or group."));
+	 	return;
+	 }
 	 dlg = fref_editor_elemdialog(_("New element"),data,bfwin);
 	 gtk_window_resize(GTK_WINDOW(dlg), 500,400);
 	 if ( dlg )
@@ -3950,8 +3972,22 @@ static void frefcb_new_element(GtkWidget * widget, Tbfwin *bfwin)
 				gtk_tree_model_get_iter(GTK_TREE_MODEL(FREFDATA(main_v->frefdata)->store),&iter, path);			
 				gtk_tree_store_append(GTK_TREE_STORE(FREFDATA(main_v->frefdata)->store), &auxit, &iter);				
 				gtk_tree_store_set(GTK_TREE_STORE(FREFDATA(main_v->frefdata)->store), &auxit, 
-					PIXMAP_COLUMN,NULL,
 					STR_COLUMN,el->name, FILE_COLUMN, NULL, PTR_COLUMN,rec,VISIBLE_COLUMN,TRUE, -1);	
+				switch (el->etype)
+				{
+					case FREF_EL_FUNCTION:gtk_tree_store_set(GTK_TREE_STORE(FREFDATA(main_v->frefdata)->store), &auxit, PIXMAP_COLUMN,
+								gtk_image_get_pixbuf(GTK_IMAGE(new_pixmap(165))), -1);break;
+					case FREF_EL_TAG:gtk_tree_store_set(GTK_TREE_STORE(FREFDATA(main_v->frefdata)->store), &auxit, PIXMAP_COLUMN,
+								gtk_image_get_pixbuf(GTK_IMAGE(new_pixmap(166))), -1);break;
+					case FREF_EL_VAR:gtk_tree_store_set(GTK_TREE_STORE(FREFDATA(main_v->frefdata)->store), &auxit, PIXMAP_COLUMN,
+								gtk_image_get_pixbuf(GTK_IMAGE(new_pixmap(167))), -1);break;
+					case FREF_EL_CSSPROP:
+					case FREF_EL_CSSSELECT:
+					gtk_tree_store_set(GTK_TREE_STORE(FREFDATA(main_v->frefdata)->store), &auxit, PIXMAP_COLUMN,
+								gtk_image_get_pixbuf(GTK_IMAGE(new_pixmap(168))), -1);break;
+					case FREF_EL_SNIPPET:gtk_tree_store_set(GTK_TREE_STORE(FREFDATA(main_v->frefdata)->store), &auxit, PIXMAP_COLUMN,
+								gtk_image_get_pixbuf(GTK_IMAGE(new_pixmap(169))), -1);break;				
+				}	
 				fref_save_ref(bfwin);
 				frefcb_cursor_changed(GTK_TREE_VIEW(FREFGUI(bfwin->fref)->tree), bfwin);
 			} else 

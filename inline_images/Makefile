@@ -74,6 +74,11 @@ TOOLBAR = \
 	pixmap_frlibrary frlibrary.png \
 	pixmap_frgroup frgroup.png \
 	pixmap_frnote frnote.png \
+	pixmap_frfunction frfunction.png \
+	pixmap_frtag frtag.png \
+	pixmap_frvar frvar.png \
+	pixmap_frcss frcss.png \
+	pixmap_frsnippet frsnippet.png \
 	pixmap_headings headings.png \
 	pixmap_hrule hrule.png \
 	pixmap_image image.png \
