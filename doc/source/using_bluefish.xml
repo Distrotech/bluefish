@@ -19,7 +19,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 <chapter id="using-bluefish">
 
 <title>Using Bluefish</title>
-<para>In this chapter, most of the functionalities of Bluefish are described. What you can do, how you do it, and how you can customize the default behaviour.</para>
+<para>In this chapter, most of the functionalities of Bluefish are described. What you can do, how you do it, and how you can customize the default behavior.</para>
 
 <sect1 id="starting-bluefish">
 <title>Starting Bluefish</title>
@@ -454,7 +454,7 @@ a project file.
 			</figure>
 	</para>
 	<para>
-	To save all modified files, you can use the <menuchoice><guimenu>File</guimenu><guimenuitem>Save All</guimenuitem></menuchoice> menu entry. This will save all documents that have been modified and bring you a save dialog if some files are new files.
+	To save all modified files, you can use the <menuchoice><guimenu>File</guimenu><guimenuitem>Save All</guimenuitem></menuchoice> menu entry. This will save all documents that have been modified and present you with a save dialog if some files are new files.
 	</para>
 </sect2>
 
@@ -594,15 +594,14 @@ selected text.
 Cut or copy and then paste can also be done by selecting some text and 
 dragging it to the destination. If the text is dragged to another 
 document (or another application), it is copied. If the text is 
-dragged within one document it is moved. Dragging to other applications 
-is not possible to every application, but most Gnome and GTK programs
-are supported.
+dragged within one document it is moved. Dragging highlighted text from one applications 
+to another may or may not work. However, most GNOME and GTK programs support this feature.
 </para>
 </sect3>
 
 <sect3 id="input-methods">
 <title>Input methods</title>
-<para>Bluefish is able to deal with a number of input methods, available from the contextual menu within a given document.
+<para>Bluefish handles a number of input methods, available from the contextual menu within a given document.
 	<figure id="figure-input-methods-cm">
 				<title id="figure-input-methods-cm-title">The Input Methods Contextual menu</title>
 				<screenshot>
@@ -641,7 +640,7 @@ are supported.
 </listitem>
 </itemizedlist>
 <para>The X Input method relies on a client-server input system, and an input server.</para>
-<para>For Japanese, Chinese, and Corean documents, you may have to install and launch the right input system, such as canna, and the right input server, such as kinput2.</para>
+<para>For Japanese, Chinese, and Korean documents, you may have to install and launch the correct input system, such as canna, and the appropriate input server, such as kinput2.</para>
 <para>Here is how to write a Japanese document on a non-Japanese system.</para>
 <procedure id="japanese-writing"><title>Writing in Japanese with Bluefish on a non-Japanese system</title>
 	<step>
@@ -691,7 +690,7 @@ are supported.
 <sect3 id="basic-find">
 <title>Searching for a word within a whole document</title>
 <para>Let's start with the most basic example: searching a word in a document, from the beginning of the document till the end of the document.</para>
-<para>Choose the <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>F</keycap></keycombo></shortcut><guimenu>Edit</guimenu><guimenuitem>Find...</guimenuitem></menuchoice> menu item. A <guilabel>Find</guilabel> dialog will show up. Enter the word to search for in the <guilabel>Search for:</guilabel> field. Then click <guibutton>OK</guibutton>.</para>
+<para>Choose the <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>F</keycap></keycombo></shortcut><guimenu>Edit</guimenu><guimenuitem>Find...</guimenuitem></menuchoice> menu item. A <guilabel>Find</guilabel> dialog will be displayed. Enter the word to search for in the <guilabel>Search for:</guilabel> field. Then click <guibutton>OK</guibutton>.</para>
 <para>
 	<figure id="figure-find-word-whole">
 	<title id="figure-find-word-whole-title">Finding a word in a document, from start to end</title>
@@ -723,7 +722,7 @@ are supported.
 		</screenshot>
 	</figure>
 </para>
-<para>If the search is successful, the document window scrolls up to the first occurrence of the string in the document and highlights it. Here's the search was applied to a shell script.</para>
+<para>If the search is successful, the document window scrolls up to the first occurrence of the string in the document and highlights it. Below is an example of a search applied to a shell script.</para>
 <para>
 	<figure id="figure-search-found">
 	<title id="figure-search-found-title">Highlighted search result in the document window</title>
@@ -744,7 +743,7 @@ are supported.
 	<shortcut><keycombo><keycap>Ctrl</keycap><keycap>G</keycap></keycombo></shortcut>
 	<guimenu>Edit</guimenu><guimenuitem>Find again</guimenuitem>
 </menuchoice> menu item repeatedly. Again, when no further occurrence 
-is found, you will be warned with the above mentioned search not found 
+is found, a dialog will be displayed notifying you that no match was found.
 dialog.</para>
 </sect3>
 
@@ -857,7 +856,7 @@ dialog.</para>
 
 <sect3 id="find-old-search">
 <title>Retrieving previous search strings</title>
-<para>Notice that the pop up menu at the right side of the <guilabel>Search for</guilabel> field in the <guilabel>Find</guilabel> dialog allows you to retrieve older search strings. They are listed by reverse order of searches, so that you access quickly the most recent ones.</para>
+<para>Notice that the pop up menu to the right of the <guilabel>Search for</guilabel> field in the <guilabel>Find</guilabel> dialog allows you to retrieve previous search strings. They are listed in reverse order by search history, providing quicker access to the most recent searches.</para>
 <para>
 	<figure id="figure-find-recent">
 	<title id="figure-find-recent-title">Retrieving recent searches</title>
@@ -885,8 +884,8 @@ dialog.</para>
 <sect2 id="file-types">
 <title>File types</title>
 <para>
-The file type of a file changes the behaviour of Bluefish. File types are recognised 
-by their extension, or by the beginning of the content of the file. The current
+Different file types can change the behaviour of Bluefish. File types are recognized 
+by their extension, or by the beginning of the file's contents. The current
 document type is shown in the far right of the status bar. How these extensions
 can be changed is
 described in <xref linkend="bluefish-preferences" />.
@@ -898,13 +897,13 @@ If the type of a file is not properly detected, you can change the type using th
 
 <sect3 id="syntax-highlighting">
 <title>Syntax highlighting</title>
-	<para>Syntax highlighting is the coloring of words that have a special
-	meaning in the language you are writing. Obviously the patterns are
-	different for every language. The "&lt;title&gt;" word for
+	<para>Syntax highlighting is the coloring of words that have special
+	meaning within a given programming (or markup) language. Obviously, the patterns can vary
+	among different languages. The "&lt;title&gt;" word for
 	example means "start of title" in HTML, the "function"
 	word means "start of function" in PHP.</para>
 	<para>
-	During the editing, Bluefish will only update the highlighting patterns in the
+	While editing, Bluefish will only update the highlighting patterns in the
 	block of text around the cursor. The number of lines (the size) of this block can be
 	adjusted in the preferences under <emphasis>Editor</emphasis>.
 	</para>
@@ -927,7 +926,7 @@ If the type of a file is not properly detected, you can change the type using th
 	<para>
 		Assuming a working Internet connection, files can also be opened from the web using 
 	<menuchoice><guimenu>File</guimenu><guimenuitem>Open URL</guimenuitem></menuchoice>. This feature depends on your gnome_vfs setup. If it is installed and working, http://, sftp://, smb:// and possibly more types of remote services should be supported by Bluefish. Depending on your gnome_vfs 
-	version, some of these protocols are not fully stable yet, which can crash Bluefish!
+	version, some of these protocols are not yet fully stable, which can crash Bluefish!
 	</para>
 	<figure id="figure-open-url">
 				<title id="figure-open-url-title">Opening an URL from the web</title>
@@ -967,7 +966,7 @@ The most common standard nowadays is UTF-8, which
 describes thousands of characters, and is backwards compatible with ASCII. 
 </para>
 <para>Internally, Bluefish will always work with UTF-8. When opening
-a file, Bluefish has to detect the correct encoding for the file. For HTML files the encoding should
+a file, Bluefish has to detect the correct encoding for the file. For HTML files, the encoding should
 be present in a &lt;meta name=&quot;encoding&quot;&gt; tag. Bluefish will always use this tag if it is 
 available in the file. If this tag has an encoding that is not present in the Bluefish config file, 
 this encoding is automatically added to the Bluefish config file.
@@ -987,10 +986,10 @@ If these steps fail, Bluefish will simply try every encoding defined in the Blue
 config file. 
 </para>
 <para>
-Filenames on disk can also contain non ASCII characters. All Gnome and GTK programs 
+Filenames on disk can also contain non ASCII characters. All GNOME and GTK programs 
 (including Bluefish) assume that filenames are in UTF-8 encoding. If you have filenames
 in the encoding of your locale on your disk, you have to set <userinput>G_BROKEN_FILENAMES=1</userinput> in the 
-environment to make Gnome and GTK programs detect this encoding.
+environment to make GNOME and GTK programs detect this encoding.
 </para>
 <para>For information about writing documents in 16-bits encoded languages, such as Japanese, see <xref linkend="input-methods" />.
 </para>
