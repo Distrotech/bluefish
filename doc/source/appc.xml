@@ -17,22 +17,140 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 -->
 <appendix id="bluefish-APP-manual">
-  <title>Manual writing tutorial</title>
+  <title>Guidelines for Writing this Manual</title>
 
-	<simplesect>    
+	<sect1 id="bluefish-APP-manual-intro">
+		<title>Introduction to DocBook</title>
 		<para>
-	      History
+			The Bluefish manual is written in 
+			<ulink url="http://www.docbook.org">DocBook</ulink> XML, which is 
+			a set of standards for writing documentation. Originally, DocBook 
+			was intended for computer software documentation, but is now used 
+			for many other document types. 
 		</para>
-	</simplesect>
-
-	<sect1 id="bluefish-APP-manual-requirements">
-		<title>Requirements for maintaining the manual</title>
-			<para>Technical things you need, if you will generate HTML out of XML</para>
+	</sect1>
+	<sect1 id="bluefish-APP-manual-building">
+		<title>Building the Manual</title>
+			<para>
+				To generate HTML or PDF files out of the source XML, you 
+				will need the following:
+				<itemizedlist>
+					<listitem>
+						<para>
+							Bluefish Manual Source Files
+						</para>
+					</listitem>
+				</itemizedlist>
+				<itemizedlist>
+					<listitem>
+						<para>
+							DocBook Document Type Definition (DTD)
+						</para>
+					</listitem>
+				</itemizedlist>
+				<itemizedlist>
+					<listitem>
+						<para>
+							DocBook XSL stylesheets
+						</para>
+					</listitem>
+				</itemizedlist>
+				<itemizedlist>
+					<listitem>
+						<para>
+							XSLT Processor
+						</para>
+					</listitem>
+				</itemizedlist>
+			</para>
+			<para>
+				To get the Bluefish XML source, we use cvs. To login:
+				<screen>$ cvs -d :pserver:anonymous@cvs.bluefish.sourceforge.net:/cvsroot/bluefish login</screen>
+			</para>
+			<para>
+				You will be prompted for a password. Since we are 
+				logging in anonymously, you can just hit enter without 
+				providing any password. Next we will checkout the directory 
+				containing the Bluefish documentation:
+				<screen>$ cvs -z3 -d :pserver:anonymous@cvs.bluefish.sourceforge.net:/cvsroot/bluefish co bluefish-gtk2/doc</screen>
+			</para>
+			<para>
+				This will download all the files to your system in the 
+				directory <literal>bluefish-gtk2/doc/</literal>. Next, 
+				we will get the DTD and the stylesheets, which are in 
+				CVS under <literal>bluefish-doctools</literal>:
+				<screen>$ cvs -z3 -d :pserver:anonymous@cvs.bluefish.sourceforge.net:/cvsroot/bluefish co bluefish-gtk2/doc</screen>
+			</para>
+			<para>
+				Finally, you need the 
+				<ulink url="http://xmlsoft.org/XSLT/">libxslt</ulink> 
+				libraries installed on your system. libxslt is distributed 
+				as part of the GNOME desktop environment and is packaged 
+				for most Linux distributions. 
+				<ulink url="http://fink.sourceforge.net/">Fink</ulink> 
+				provides the packages for Mac OS X. The XSLT processor 
+				<literal>xsltproc</literal> is provided by the libxslt
+				library and is the command which will convert the DocBook
+				source into HTML files. 
+			</para>
+			<para>
+				The files must be in the right place.
+			</para>
+			<para>
+				To create a one-page HTML file:
+				
+				To break the sections into multiple pages with navigation
+				links (a process known as chunking):
+			</para>
 	</sect1>
 
 	<sect1 id="bluefish-APP-manual-conventions">
- 	<title>Conventions for writing in this manual</title>
- 		<para>Good taste in writing manuals :-)</para>
+ 		<title>Conventions for Writing this Manual</title>
+ 			<para>
+ 				The DocBook rules are strict and must be maintained in 
+ 				order to for the manual to build using 
+ 				<literal>xsltproc</literal>. However, there are some
+ 				rules we like to follow to make editing the manual 
+ 				more efficient and organized. 
+ 			</para>
+ 			<para>
+ 				Let's establish rules for <literal>id</literal> names.
+ 				All <literal>id</literal> names should begin with the 
+ 				name of the book. In our case the main book file is 
+ 				<emphasis>bluefish.xml</emphasis>, so every <literal>id</literal>
+ 				should beging with <emphasis>bluefish</emphasis>.
+ 			</para>
+ 			<para>
+ 				Separate words in the <literal>id</literal> with hyphens.
+ 			</para>
+ 			<para>
+ 				After the book name, use a capitalized abbreviation of the 
+ 				type of XML tag to which the <literal>id</literal> belongs.
+ 				For example, use <emphasis>bluefish-SECT1</emphasis> for a 
+ 				<literal>&lt;sect1&gt;</literal> section <literal>id</literal>.
+ 			</para>
+ 			<para>
+ 				List of abbr. should go here after we agree as to what they are.
+ 				<variablelist>
+ 					<title>Bluefish DocBook Tag Abbreviations</title>
+					<varlistentry>
+						<term><abbrev>SECT1</abbrev></term>
+						<listitem>
+							<para>
+								sect1 - change 1 to 2 for sect2, etc 
+							</para>
+						</listitem>
+					</varlistentry>
+				</variablelist>
+ 			</para>
+ 			<para>
+ 				Finally, include a word or two describing the content in the 
+ 				section. Using our example, a top-level section titled <literal>Introduction to Bluefish</literal>
+				would have the id <emphasis>bluefish-SECT1-intro</emphasis>
+ 			</para>
+ 			<para>
+ 				The main thing is that all id's must be unique.
+ 			</para>
 	</sect1>
 
 </appendix>
