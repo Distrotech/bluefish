@@ -583,6 +583,14 @@ gchar *ending_slash(const gchar *dirname) {
 		return g_strconcat(dirname, DIRSTR, NULL);
 	}
 }
+/* searches for the last / character, and cuts the string after that */
+gchar *path_get_dirname_with_ending_slash(const gchar *filename) {
+	gchar *tmp, *retval = g_strdup(filename);
+	tmp = strrchr(retval, DIRCHR);
+	tmp++;
+	*tmp = '\0';
+	return retval;
+}
 
 /* gint file_is_dir(gchar * filename)
  * returns 1 if the file pointed to by filename is a dir
