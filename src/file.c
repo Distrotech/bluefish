@@ -112,6 +112,7 @@ typedef enum {
 typedef void (* SavefileAsyncCallback) (Tsavefile_status status,gint error_info,gpointer callback_data);
 
 typedef struct {
+   GnomeVFSAsyncHandle *handle;
 	GnomeVFSFileSize buffer_size;
 	Trefcpointer *buffer;
 	SavefileAsyncCallback callback_func;
@@ -156,16 +157,13 @@ static void savefile_asyncopenuri_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSResult
 
 void file_savefile_uri_async(GnomeVFSURI *uri, Trefcpointer *buffer, GnomeVFSFileSize buffer_size, SavefileAsyncCallback callback_func, gpointer callback_data) {
 	Tsavefile *sf;
-	GnomeVFSAsyncHandle *handle;
 	sf = g_new(Tsavefile,1);
 	sf->callback_data = callback_data;
 	sf->callback_func = callback_func;
 	sf->buffer = buffer;
 	refcpointer_ref(buffer);
 	sf->buffer_size = buffer_size;
-	/*gnome_vfs_async_open_uri(&handle,uri,GNOME_VFS_OPEN_WRITE,GNOME_VFS_PRIORITY_DEFAULT
-				,savefile_asyncopenuri_lcb,sf);*/
-	gnome_vfs_async_create_uri(&handle,uri,GNOME_VFS_OPEN_WRITE, FALSE,0644,GNOME_VFS_PRIORITY_DEFAULT
+	gnome_vfs_async_create_uri(&sf->handle,uri,GNOME_VFS_OPEN_WRITE, FALSE,0644,GNOME_VFS_PRIORITY_DEFAULT
 				,savefile_asyncopenuri_lcb,sf);
 }
 

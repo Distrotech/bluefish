@@ -67,6 +67,13 @@ typedef struct {
 } Tfilebrowser2config;
 #define FILEBROWSER2CONFIG(var) ((Tfilebrowser2config *)(var))
 
+typedef struct {
+	GnomeVFSAsyncHandle *handle;
+	GnomeVFSURI *uri;
+	GtkTreeIter *parent;
+	GnomeVFSURI *p_uri;
+} Turi_in_refresh;
+
 enum {
 	PIXMAP_COLUMN,
 	FILENAME_COLUMN,
@@ -173,6 +180,25 @@ static void DEBUG_CHILD_ITERS(Tfilebrowser2* fb2, GtkTreeIter *sorted_iter) {
 /**************/
 
 /**
+ * fb2_get_uri_in_refresh:
+ *
+ */
+static Turi_in_refresh *fb2_get_uri_in_refresh(GnomeVFSURI *uri) {
+	GList *tmplist = g_list_first(FILEBROWSER2CONFIG(main_v->fb2config)->uri_in_refresh);
+	while (tmplist) {
+		if (tmplist->data == uri || gnome_vfs_uri_equal(((Turi_in_refresh *)tmplist->data)->uri, uri)) return tmplist->data;
+		tmplist = g_list_next(tmplist);
+	}
+	return NULL;
+}
+
+static void fb2_uri_in_refresh_cleanup(Turi_in_refresh *uir) {
+	gnome_vfs_uri_unref(uir->uri);
+	
+	g_free(uir);
+}
+
+/**
  * fb2_add_filesystem_entry:
  *
  * returns the GtkTreeIter* that is stored in the hashtable. This can be a new iter pointer
@@ -236,10 +262,6 @@ static GtkTreeIter *fb2_add_filesystem_entry(GtkTreeIter *parent, GnomeVFSURI *c
 	return newiter;
 }
 
-typedef struct {
-	GtkTreeIter *parent;
-	GnomeVFSURI *p_uri;
-} Tdirectoryloaddata;
 /**
  * fb2_treestore_delete_children_refresh1
  *
@@ -291,7 +313,6 @@ static void fb2_treestore_mark_children_refresh1(GtkTreeStore *tstore, GtkTreeIt
 	DEBUG_MSG("fb2_treestore_mark_children_refresh1, finished\n");
 }
 
-
 /**
  * fb2_load_directory_lcb
  *
@@ -300,9 +321,9 @@ static void fb2_treestore_mark_children_refresh1(GtkTreeStore *tstore, GtkTreeIt
  */
 static void fb2_load_directory_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSResult result,GList *list,guint entries_read,gpointer data) {
 	GList *tmplist;
-	Tdirectoryloaddata *cdata = data;
+	Turi_in_refresh *uir = data;
 	DEBUG_MSG("fb2_load_directory_lcb, result=%d, appending %d childs to ",result,entries_read);
-	DEBUG_URI(cdata->p_uri, TRUE);
+	DEBUG_URI(uir->p_uri, TRUE);
 	tmplist = g_list_first(list);
 	while (tmplist) {
 		GnomeVFSFileInfo *finfo = tmplist->data;
@@ -316,17 +337,17 @@ static void fb2_load_directory_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSResult re
 			} else {
 				type = TYPE_FILE;
 			}
-			child_uri = gnome_vfs_uri_append_file_name(cdata->p_uri,finfo->name);
-			fb2_add_filesystem_entry(cdata->parent, child_uri, type, TRUE);
+			child_uri = gnome_vfs_uri_append_file_name(uir->p_uri,finfo->name);
+			fb2_add_filesystem_entry(uir->parent, child_uri, type, TRUE);
 			gnome_vfs_uri_unref(child_uri);
 		}
 		tmplist = g_list_next(tmplist);
 	}
 	if (result == GNOME_VFS_ERROR_EOF || result == GNOME_VFS_ERROR_NOT_FOUND) {
 		DEBUG_MSG("fb2_load_directory_lcb, cleanup!\n");
-		fb2_treestore_delete_children_refresh1(FILEBROWSER2CONFIG(main_v->fb2config)->filesystem_tstore, cdata->parent);
-		FILEBROWSER2CONFIG(main_v->fb2config)->uri_in_refresh = g_list_remove(FILEBROWSER2CONFIG(main_v->fb2config)->uri_in_refresh, cdata->p_uri);
-		g_free(cdata);
+		fb2_treestore_delete_children_refresh1(FILEBROWSER2CONFIG(main_v->fb2config)->filesystem_tstore, uir->parent);
+		FILEBROWSER2CONFIG(main_v->fb2config)->uri_in_refresh = g_list_remove(FILEBROWSER2CONFIG(main_v->fb2config)->uri_in_refresh, uir);
+		fb2_uri_in_refresh_cleanup(uir);
 	} 
 }
 
@@ -343,20 +364,21 @@ static void fb2_load_directory_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSResult re
  *
  */
 static void fb2_fill_dir_async(GtkTreeIter *parent, GnomeVFSURI *uri) {
-	if (g_list_find(FILEBROWSER2CONFIG(main_v->fb2config)->uri_in_refresh, uri) == NULL) {
-		GnomeVFSAsyncHandle *handle;
-		Tdirectoryloaddata *cdata;
+	if (fb2_get_uri_in_refresh(uri) == NULL) {
+		Turi_in_refresh *uir;
 
 		fb2_treestore_mark_children_refresh1(FILEBROWSER2CONFIG(main_v->fb2config)->filesystem_tstore, parent);
 		
-		cdata = g_new(Tdirectoryloaddata,1);
-		cdata->parent = parent;
-		cdata->p_uri = uri;
-		FILEBROWSER2CONFIG(main_v->fb2config)->uri_in_refresh = g_list_prepend(FILEBROWSER2CONFIG(main_v->fb2config)->uri_in_refresh, uri);
+		uir = g_new(Turi_in_refresh,1);
+		uir->parent = parent;
+		uir->p_uri = uri;
+		uir->uri = uri;
+		gnome_vfs_uri_ref(uir->uri);
 		DEBUG_MSG("fb2_fill_dir_async, opening ");
-		DEBUG_URI(cdata->p_uri, TRUE);
-		gnome_vfs_async_load_directory_uri(&handle,uri,GNOME_VFS_FILE_INFO_DEFAULT|GNOME_VFS_FILE_INFO_FOLLOW_LINKS,
-									10,GNOME_VFS_PRIORITY_DEFAULT,fb2_load_directory_lcb,cdata);
+		DEBUG_URI(uir->p_uri, TRUE);
+		gnome_vfs_async_load_directory_uri(&uir->handle,uri,GNOME_VFS_FILE_INFO_DEFAULT|GNOME_VFS_FILE_INFO_FOLLOW_LINKS,
+									10,GNOME_VFS_PRIORITY_MIN,fb2_load_directory_lcb,uir);
+		FILEBROWSER2CONFIG(main_v->fb2config)->uri_in_refresh = g_list_prepend(FILEBROWSER2CONFIG(main_v->fb2config)->uri_in_refresh, uir);
 	}
 #ifdef DEBUG	
 	 else {
