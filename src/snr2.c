@@ -652,6 +652,17 @@ static void replace_prompt_dialog_ok_lcb(GtkWidget *widget, gpointer data) {
 #endif /* DEBUG */
 }
 
+static void replace_prompt_dialog_skip_lcb(GtkWidget *widget, gpointer data) {
+	window_close_by_widget_cb(widget, data);
+	if (last_snr2.result.pmatch) {
+		g_free(last_snr2.result.pmatch);
+		last_snr2.result.pmatch = NULL;
+	}
+	if (!last_snr2.replace_once) {
+		snr2_run(NULL);
+	}
+}
+
 static void replace_prompt_dialog_all_lcb(GtkWidget *widget, gpointer data) {
 	window_close_by_widget_cb(widget, data);
 	last_snr2.prompt_before_replacing = 0;
@@ -666,13 +677,10 @@ static void replace_prompt_dialog_all_lcb(GtkWidget *widget, gpointer data) {
 
 void replace_prompt_dialog() {
 	GtkWidget *win, *vbox, *hbox;
-	GtkWidget *butok, *butcancel, *butall;
+	GtkWidget *butok, *butcancel, *butall, *butskip;
 	GtkWidget *image, *label;
 
 	DEBUG_MSG("replace_prompt_dialog, start\n");
-/*	win = gtk_window_new (GTK_WINDOW_TOPLEVEL);
-	gtk_container_set_border_width (GTK_CONTAINER (win), 12);
-	gtk_window_set_title (GTK_WINDOW (win), _("window1"));*/
 	win = window_full(_("Confirm replace"), GTK_WIN_POS_MOUSE, 12, G_CALLBACK(window_close_by_widget_cb), NULL, TRUE);
 	gtk_window_set_resizable (GTK_WINDOW (win), FALSE);	
 
@@ -699,11 +707,13 @@ void replace_prompt_dialog() {
 	gtk_box_set_spacing (GTK_BOX (hbox), 6);
 
 	butcancel = bf_stock_cancel_button(G_CALLBACK(window_close_by_widget_cb), NULL);
-	butall = bf_stock_button(_("Replace _all"), G_CALLBACK(replace_prompt_dialog_all_lcb), win);
+	butskip = bf_stock_button(_("_Skip"), G_CALLBACK(replace_prompt_dialog_skip_lcb), win);
 	butok = bf_stock_button(_("Replace _this"), G_CALLBACK(replace_prompt_dialog_ok_lcb), win);
+	butall = bf_stock_button(_("Replace _all"), G_CALLBACK(replace_prompt_dialog_all_lcb), win);
 	gtk_box_pack_start(GTK_BOX(hbox), butcancel, FALSE, FALSE, 0);
-	gtk_box_pack_start(GTK_BOX(hbox), butall, FALSE, TRUE, 0);
+	gtk_box_pack_start(GTK_BOX(hbox), butskip, FALSE, TRUE, 0);
 	gtk_box_pack_start(GTK_BOX(hbox), butok, FALSE, TRUE, 0);
+	gtk_box_pack_start(GTK_BOX(hbox), butall, FALSE, TRUE, 0);
 	gtk_widget_show_all(win);
 
 	DEBUG_MSG("replace_prompt_dialog, end\n");
@@ -807,7 +817,7 @@ void snr2_run(Tdocument *doc) {
 			}
 		}
 		DEBUG_MSG("snr2_run, last_snr2.result.end=%d, startpos=%d\n", last_snr2.result.end, startpos);
-	}	
+	}
 	if (last_snr2.replace) {
 		if (last_snr2.replacetype_string) {
 			replacetype = string;
