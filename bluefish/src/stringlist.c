@@ -973,5 +973,3 @@ GList *arraylist_load_new_identifiers_from_file(GList *mylist, const gchar *from
 	free_arraylist(deflist);
 	return mylist;	
 }
-
-	
