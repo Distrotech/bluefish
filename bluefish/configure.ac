@@ -371,7 +371,7 @@ if test "x$WITHGNOME1" = "xyes" ; then
 fi
 
 AC_ARG_WITH(gnome2-menu, 
-	AC_HELP_STRING([--without-gnome2-menu],[disable gnome1 menu]),[
+	AC_HELP_STRING([--without-gnome2-menu],[disable gnome2 menu]),[
 	WITHGNOME2=$withval
 	],[
 	WITHGNOME2=yes]
