@@ -505,7 +505,7 @@ void multi_thumbnail_dialog_cb(GtkWidget * widget, gpointer data) {
 	
 	gtk_box_pack_start(GTK_BOX(vbox),table,FALSE,FALSE,0);
 	
-	label = gtk_label_new("%r: original filename  %t: thumbnail filename\n%w: original width  %h: original height\n%x: thumbnail width  %y: thumbnail height\n%b: original size (bytes)");
+	label = gtk_label_new(_("%r: original filename  %t: thumbnail filename\n%w: original width  %h: original height\n%x: thumbnail width  %y: thumbnail height\n%b: original size (bytes)"));
 	gtk_box_pack_start(GTK_BOX(vbox),label,FALSE,FALSE,0);
 
 	scrolwin = textview_buffer_in_scrolwin(&textview, -1, -1, main_v->props.image_thumnailformatstring, GTK_WRAP_CHAR);
