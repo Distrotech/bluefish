@@ -21,6 +21,8 @@
 #include <stdlib.h> /* atoi */
 #include <string.h> /* strchr() */
 
+/* #define DEBUG */
+
 #include "bluefish.h"
 #include "document.h"			/* file_open etc. */
 #include "highlight.h" /* doc_highlight_full */
@@ -1618,7 +1620,7 @@ static void cme_type_changed_lcb(GtkWidget *widget, Tcmenu_editor *cme) {
 	}
 }
 
-static gchar **cme_create_array(Tcmenu_editor *cme) {
+static gchar **cme_create_array(Tcmenu_editor *cme, gboolean is_update) {
 	gchar **newarray;
 	gint num, i, type;
 	
@@ -1635,18 +1637,26 @@ static gchar **cme_create_array(Tcmenu_editor *cme) {
 	} else {
 		newarray = g_malloc0((num+9) * sizeof(char *));
 	}
+	DEBUG_MSG("cme_create_array, newarray at %p\n",newarray);
 	newarray[0] = gtk_editable_get_chars(GTK_EDITABLE(cme->menupath), 0, -1);
 	{
-		gboolean invalid=FALSE;
+		gboolean invalid=is_update;
 		GList *tmplist = g_list_first(cme->worklist);
 		while (tmplist) {
 			gchar **tmparr = (gchar **)tmplist->data;
 			if (strcmp(tmparr[0],newarray[0])==0) {
-				error_dialog(_("Bluefish error"), _("the menupath you want to add exists already"));
-				invalid = TRUE;
+				/* if it is an update they path should exist already, else is should not */
+				invalid = (!is_update);
 				break;
 			}
 			tmplist = g_list_next(tmplist);
+		}
+		if (invalid) {
+			if (is_update) {
+				error_dialog(_("Bluefish error"), _("the menupath you want to update does not exist yet: try 'add'"));
+			} else {
+				error_dialog(_("Bluefish error"), _("the menupath you want to add exists already"));
+			}
 		}
 		if (newarray[0][0] != '/') {
 			DEBUG_MSG("cme_create_array, menupath does not start with slash, returning NULL\n");
@@ -1710,7 +1720,7 @@ static gchar **cme_create_array(Tcmenu_editor *cme) {
 
 static void cme_add_lcb(GtkWidget *widget, Tcmenu_editor *cme) {
 	gchar **newarray;
-	newarray = cme_create_array(cme);
+	newarray = cme_create_array(cme, FALSE);
 	if (newarray != NULL){
 	   GtkTreeIter iter;
 		GtkTreeSelection *gtsel;
@@ -1733,7 +1743,7 @@ static void cme_update_lcb(GtkWidget *widget, Tcmenu_editor *cme) {
 		return;
 	}
 
-	newarray = cme_create_array(cme);
+	newarray = cme_create_array(cme, TRUE);
 	if (newarray) {
 
 		row = g_list_index(cme->worklist, cme->lastarray);
