@@ -190,7 +190,7 @@ void framewizard_dialog(Tbfwin *bfwin) {
 	bf_mnemonic_label_tad_with_alignment(_("Use _DTD:"), dg->check[0], 0, 0.5, dgtable, 0, 1, 1, 2);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->check[0], 1, 2, 1, 2);
 
-	label = gtk_label_new(N_("Orientation:"));
+	label = gtk_label_new(_("Orientation:"));
 	gtk_misc_set_alignment(GTK_MISC(label), 0, 0.5);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), label, 0, 1, 2, 3);
 	dg->radio[1] = radiobut_with_value(_("_Horizontal"), 0, NULL);
