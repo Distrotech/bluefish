@@ -405,7 +405,6 @@ void doc_set_font(Tdocument *doc, gchar *fontstring) {
  * Chris Phelps <chicane@reninet.com>
  */
 static gint textview_calculate_real_tab_width(GtkWidget *textview, gint tab_size) {
-	PangoLayout *layout;
 	gchar *tab_string;
 	gint counter = 0;
 	gint tab_width = 0;
@@ -419,15 +418,9 @@ static gint textview_calculate_real_tab_width(GtkWidget *textview, gint tab_size
 		counter++;
 	}
 	tab_string[tab_size] = '\0';
-	layout = gtk_widget_create_pango_layout(textview, tab_string);
+	tab_width =  widget_get_string_size(textview, tab_string);
 	g_free(tab_string);
-
-	if (layout != NULL) {
-		pango_layout_get_pixel_size (layout, &tab_width, NULL);
-		g_object_unref (G_OBJECT (layout));
-	} else {
-		tab_width = 0;
-	}
+/*	if (tab_width < 0) tab_width = 0;*/
 	return tab_width;
 }
 

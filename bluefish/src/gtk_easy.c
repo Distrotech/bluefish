@@ -48,6 +48,26 @@ void flush_queue(void) {
 		g_main_context_iteration (NULL, TRUE);
 	}
 }
+/**
+ * widget_get_string_size:
+ * @widget: #GtkWidget* to put the string on
+ * @string: #ghcar* with the string
+ *
+ * This function will calculate the width in pixels from the
+ * string passed to it in string, using the font from widget
+ *
+ * Return value: #gint pixels
+ */
+gint widget_get_string_size(GtkWidget *widget, gchar *string) {
+	PangoLayout *layout;
+	gint retval = -1;
+	layout = gtk_widget_create_pango_layout(widget,string);
+	if (layout != NULL) {
+		pango_layout_get_pixel_size(layout, &retval, NULL);
+		g_object_unref(G_OBJECT (layout));
+	}
+	return retval;
+}
 
 void widget_set_visible(GtkWidget *widget, gboolean visible) {
 	if (visible) {
