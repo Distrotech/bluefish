@@ -44,10 +44,18 @@
 #include "quickstart.h"
 
 
+enum {
+	META_PAGE = 0,
+	STYLE_PAGE,
+	SCRIPT_PAGE
+};
+
 typedef struct {
 	GtkWidget *dtd;
 	GtkWidget *title;
-	GtkWidget *metaTagsView;
+	GtkWidget *headView;
+	GtkWidget *metaView;
+	GtkWidget *notebook;
 	GtkWidget *removeButton;
 	Tbfwin *bfwin;
 } TQuickStart;
@@ -76,6 +84,20 @@ static struct {
 	{ "XHTML 1.0 Transitional", "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">" },
 	{ "XHTML 1.0 Frameset", "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Frameset//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd\">" },
 };
+
+static void
+quickstart_head_selection_changed(GtkTreeSelection *tselection, TQuickStart *qstart) {
+	DEBUG_MSG("quickstart_head_selection_changed() started\n");
+	GtkTreeModel *tmodel;
+	GtkTreeIter iter;
+	guint page = -1;
+
+	tmodel = gtk_tree_view_get_model (GTK_TREE_VIEW (qstart->headView));
+	if (gtk_tree_selection_get_selected (tselection, &tmodel, &iter)) {
+		gtk_tree_model_get (tmodel, &iter, 1, &page, -1);
+		gtk_notebook_set_current_page (GTK_NOTEBOOK (qstart->notebook), page);
+	}
+}
 
 static void
 quickstart_load_metatags(GtkListStore *lstore) {
@@ -117,12 +139,12 @@ quickstart_load_metatags(GtkListStore *lstore) {
 }
 
 static void
-quickstart_metatags_selection_changed(GtkTreeSelection *tselection, TQuickStart *qstart) {
-	DEBUG_MSG("quickstart_metatags_selection_changed() started\n");
+quickstart_meta_selection_changed(GtkTreeSelection *tselection, TQuickStart *qstart) {
+	DEBUG_MSG("quickstart_meta_selection_changed() started\n");
 	GtkTreeModel *tmodel;
 	GtkTreeIter iter;
 	
-	tmodel = gtk_tree_view_get_model (GTK_TREE_VIEW (qstart->metaTagsView));
+	tmodel = gtk_tree_view_get_model (GTK_TREE_VIEW (qstart->metaView));
 	if (gtk_tree_selection_get_selected (tselection, &tmodel, &iter)) {
 		gtk_widget_set_sensitive (qstart->removeButton, TRUE);	
 	} else {
@@ -131,7 +153,7 @@ quickstart_metatags_selection_changed(GtkTreeSelection *tselection, TQuickStart 
 }
 
 static void
-quickstart_metatags_add_clicked(GtkWidget *widget, TQuickStart *qstart) {
+quickstart_meta_add_clicked(GtkWidget *widget, TQuickStart *qstart) {
 	DEBUG_MSG("quickstart_metatags_add_clicked() started\n");
 	/* FIXME: We can't add any new tags yet */
 	GtkWidget *dialog = gtk_message_dialog_new (GTK_WINDOW (qstart->bfwin->main_window),
@@ -145,25 +167,25 @@ quickstart_metatags_add_clicked(GtkWidget *widget, TQuickStart *qstart) {
 }
 
 static void
-quickstart_metatags_remove_clicked(GtkWidget *widget, TQuickStart *qstart) {
+quickstart_meta_remove_clicked(GtkWidget *widget, TQuickStart *qstart) {
 	GtkTreeModel *tmodel;
 	GtkTreeIter iter;
 	GtkTreeSelection *tselection;
 
-	tselection = gtk_tree_view_get_selection (GTK_TREE_VIEW (qstart->metaTagsView));
-	tmodel = gtk_tree_view_get_model (GTK_TREE_VIEW (qstart->metaTagsView));
+	tselection = gtk_tree_view_get_selection (GTK_TREE_VIEW (qstart->metaView));
+	tmodel = gtk_tree_view_get_model (GTK_TREE_VIEW (qstart->metaView));
 	if (gtk_tree_selection_get_selected (tselection, &tmodel, &iter)) {
 		gtk_list_store_remove (GTK_LIST_STORE (tmodel), &iter);
 	}
 }
 
 static void
-quickstart_metatags_cell_edited(GtkCellRendererText *cell, const gchar *path_string, const gchar *new_text, TQuickStart *qstart) {
+quickstart_meta_cell_edited(GtkCellRendererText *cell, const gchar *path_string, const gchar *new_text, TQuickStart *qstart) {
 	GtkTreeModel *tmodel;
 	GtkTreeIter iter;
 	GtkTreePath *path;
 
-	tmodel = gtk_tree_view_get_model (GTK_TREE_VIEW (qstart->metaTagsView));
+	tmodel = gtk_tree_view_get_model (GTK_TREE_VIEW (qstart->metaView));
 	path = gtk_tree_path_new_from_string (path_string);
 	
 	if (gtk_tree_model_get_iter (tmodel, &iter, path)) {
@@ -186,7 +208,7 @@ quickstart_response_lcb(GtkDialog *dialog, gint response, TQuickStart *qstart) {
 		
 		gtk_combo_box_get_active_iter (GTK_COMBO_BOX (qstart->dtd), &iter);
 		dtdmodel = gtk_combo_box_get_model (GTK_COMBO_BOX (qstart->dtd));
-		gtk_tree_model_get (GTK_TREE_MODEL (dtdmodel), &iter, 0, &name, -1);
+		gtk_tree_model_get (dtdmodel, &iter, 0, &name, -1);
 			
 		if (strstr(name, "XHTML")) {
 			xmlstr = g_strconcat ("<?xml version=\"1.0\" encoding=\"", main_v->props.newfile_default_encoding, "\"?>\n", NULL);
@@ -205,15 +227,15 @@ quickstart_response_lcb(GtkDialog *dialog, gint response, TQuickStart *qstart) {
 		g_free (name);
 		
 		metastr = g_string_new ("");
-		metamodel = gtk_tree_view_get_model (GTK_TREE_VIEW (qstart->metaTagsView));
-		if (gtk_tree_model_get_iter_first (GTK_TREE_MODEL (metamodel), &iter)) {
+		metamodel = gtk_tree_view_get_model (GTK_TREE_VIEW (qstart->metaView));
+		if (gtk_tree_model_get_iter_first (metamodel, &iter)) {
 			do {
-				gtk_tree_model_get (GTK_TREE_MODEL (metamodel), &iter, 0, &metatag, -1);
+				gtk_tree_model_get (metamodel, &iter, 0, &metatag, -1);
 				tmpstr2 = g_strconcat ("<", metatag, endstr, NULL);
 				g_free (metatag);				
 				metastr = g_string_append (metastr, tmpstr2);
 				g_free (tmpstr2);
-			} while (gtk_tree_model_iter_next (GTK_TREE_MODEL (metamodel), &iter));
+			} while (gtk_tree_model_iter_next (metamodel, &iter));
 		}
 		
 		titlestr = g_strconcat (cap("<TITLE>"), gtk_entry_get_text (GTK_ENTRY (qstart->title)), cap("</TITLE>\n"), cap("</HEAD>\n<BODY>\n"), NULL);
@@ -238,15 +260,91 @@ quickstart_response_lcb(GtkDialog *dialog, gint response, TQuickStart *qstart) {
 	DEBUG_MSG("quickstart_response_lcb() finished\n");
 }
 
-void 
-quickstart_dialog_new(Tbfwin *bfwin) {
-	TQuickStart *qstart;
-	GtkWidget *dialog, *table, *scrolwin, *button, *bbox;
-	GtkListStore *lstore;
+static GtkWidget *
+quickstart_meta_page_create(TQuickStart *qstart)
+{
+	GtkWidget *hbox, *scrolwin, *button, *bbox;
+	GtkListStore  *metaStore;
 	GtkCellRenderer *renderer;
 	GtkTreeViewColumn *column;
 	GtkTreeSelection *selection;
+
+	hbox = gtk_hbox_new (FALSE, 6);
+	
+	scrolwin = gtk_scrolled_window_new (NULL, NULL);
+	gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (scrolwin), GTK_SHADOW_IN);
+	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolwin), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
+	gtk_widget_set_size_request (scrolwin, 350, 150);
+	gtk_box_pack_start (GTK_BOX (hbox), scrolwin, TRUE, TRUE, 0);
+	
+	metaStore = gtk_list_store_new (1, G_TYPE_STRING);
+	quickstart_load_metatags(metaStore);
+
+	qstart->metaView = gtk_tree_view_new ();
+	gtk_tree_view_set_headers_visible (GTK_TREE_VIEW (qstart->metaView), FALSE);
+	selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (qstart->metaView));
+	g_signal_connect (G_OBJECT (selection), "changed", G_CALLBACK (quickstart_meta_selection_changed), qstart);
+	gtk_tree_selection_set_mode (selection, GTK_SELECTION_SINGLE);
+	gtk_container_add (GTK_CONTAINER (scrolwin), qstart->metaView);
+	renderer = gtk_cell_renderer_text_new ();
+	g_object_set (renderer, "editable", TRUE, NULL);
+	g_signal_connect (renderer, "edited", G_CALLBACK (quickstart_meta_cell_edited), qstart);
+	column = gtk_tree_view_column_new_with_attributes ("Meta Tag", renderer, "text", 0, NULL);
+	gtk_tree_view_append_column (GTK_TREE_VIEW (qstart->metaView), column);
+	gtk_tree_view_set_model (GTK_TREE_VIEW (qstart->metaView), GTK_TREE_MODEL (metaStore));
+	g_object_unref (metaStore);
+
+	bbox = gtk_vbutton_box_new ();
+	gtk_box_set_spacing (GTK_BOX (bbox), 6);
+	gtk_button_box_set_layout (GTK_BUTTON_BOX (bbox), GTK_BUTTONBOX_START);
+	button = gtk_button_new_from_stock (GTK_STOCK_ADD);
+	g_signal_connect (G_OBJECT (button), "clicked", G_CALLBACK (quickstart_meta_add_clicked), qstart);
+	gtk_box_pack_start (GTK_BOX (bbox), button, FALSE, FALSE, 0);
+	qstart->removeButton = gtk_button_new_from_stock (GTK_STOCK_REMOVE);
+	g_signal_connect (G_OBJECT (qstart->removeButton), "clicked", G_CALLBACK (quickstart_meta_remove_clicked), qstart);
+	gtk_box_pack_start (GTK_BOX (bbox), qstart->removeButton, FALSE, FALSE, 0);
+	gtk_widget_set_sensitive (qstart->removeButton, FALSE);
+	gtk_box_pack_start (GTK_BOX (hbox), bbox, FALSE, FALSE, 0);
+	
+	return hbox;
+}
+
+static GtkWidget *
+quickstart_style_page_create(TQuickStart *qstart)
+{
+	GtkWidget *hbox;
+
+	hbox = gtk_hbox_new (FALSE, 6);
+	gtk_box_pack_start (GTK_BOX (hbox), gtk_label_new ("style page"), TRUE, TRUE, 0);
+	return hbox;
+}
+
+static GtkWidget *
+quickstart_script_page_create(TQuickStart *qstart)
+{
+	GtkWidget *hbox;
+
+	hbox = gtk_hbox_new (FALSE, 6);
+	gtk_box_pack_start (GTK_BOX (hbox), gtk_label_new ("script page"), TRUE, TRUE, 0);
+	return hbox;
+}
+
+void 
+quickstart_dialog_new(Tbfwin *bfwin) {
+	TQuickStart *qstart;
+	GtkWidget *dialog, *table, *label, *frame, *page;
+	GtkListStore *headStore;
+	GtkCellRenderer *renderer;
+	GtkTreeViewColumn *column;
+	GtkTreeSelection *selection;
+	GtkTreeIter iter;
 	unsigned int i = 0;
+	
+	const gchar *headstr[] = {
+		"Meta",
+		"Style",
+		"Script",
+	};
 	
 	qstart = g_new (TQuickStart, 1);
 	qstart->bfwin = bfwin;
@@ -258,7 +356,7 @@ quickstart_dialog_new(Tbfwin *bfwin) {
 													  NULL);	  
 	g_signal_connect (G_OBJECT (dialog), "response", G_CALLBACK (quickstart_response_lcb), qstart);
 
-	table = gtk_table_new (4, 3, FALSE);
+	table = gtk_table_new (5, 3, FALSE);
 	gtk_container_set_border_width (GTK_CONTAINER (table), 6);
 	gtk_table_set_row_spacings (GTK_TABLE (table), 12);
 	gtk_table_set_col_spacings (GTK_TABLE (table), 12);
@@ -276,41 +374,42 @@ quickstart_dialog_new(Tbfwin *bfwin) {
 	bf_mnemonic_label_tad_with_alignment(_("_Title:"), qstart->title, 0, 0.5, table, 0, 1, 1, 2);
 	gtk_table_attach (GTK_TABLE (table), qstart->title, 1, 2, 1, 2, GTK_FILL, GTK_SHRINK, 0, 0);
 
-	scrolwin = gtk_scrolled_window_new (NULL, NULL);
-	gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (scrolwin), GTK_SHADOW_IN);
-	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolwin), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
-	gtk_widget_set_size_request (scrolwin, 350, 150);
-	gtk_table_attach_defaults (GTK_TABLE (table), scrolwin, 1, 2, 2, 3);
-	
-	lstore = gtk_list_store_new (1, G_TYPE_STRING);
-	quickstart_load_metatags(lstore);
+	headStore = gtk_list_store_new (2, G_TYPE_STRING, G_TYPE_UINT);
+	for (i = 0; i < G_N_ELEMENTS (headstr); i++) {
+		gtk_list_store_append (headStore, &iter);
+		gtk_list_store_set (headStore, &iter, 0, headstr[i], 1, i, -1);
+	}
 
-	qstart->metaTagsView = gtk_tree_view_new ();
-	gtk_tree_view_set_headers_visible (GTK_TREE_VIEW (qstart->metaTagsView), FALSE);
-	selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (qstart->metaTagsView));
-	g_signal_connect (G_OBJECT (selection), "changed", G_CALLBACK (quickstart_metatags_selection_changed), qstart);
+	frame = gtk_frame_new (NULL);
+	gtk_frame_set_shadow_type (GTK_FRAME (frame), GTK_SHADOW_IN);
+	qstart->headView = gtk_tree_view_new ();
+	gtk_tree_view_set_headers_visible (GTK_TREE_VIEW (qstart->headView), FALSE);
+	selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (qstart->headView));
+	g_signal_connect (G_OBJECT (selection), "changed", G_CALLBACK (quickstart_head_selection_changed), qstart);
 	gtk_tree_selection_set_mode (selection, GTK_SELECTION_SINGLE);
-	gtk_container_add (GTK_CONTAINER (scrolwin), qstart->metaTagsView);
+	gtk_container_add (GTK_CONTAINER (frame), qstart->headView);
+	gtk_table_attach (GTK_TABLE (table), frame, 0, 1, 3, 4, GTK_SHRINK, GTK_FILL, 0, 0);	
 	renderer = gtk_cell_renderer_text_new ();
-	g_object_set (renderer, "editable", TRUE, NULL);
-	g_signal_connect (renderer, "edited", G_CALLBACK (quickstart_metatags_cell_edited), qstart);
-	column = gtk_tree_view_column_new_with_attributes ("Meta Tag", renderer, "text", 0, NULL);
-	gtk_tree_view_append_column (GTK_TREE_VIEW (qstart->metaTagsView), column);
-	gtk_tree_view_set_model (GTK_TREE_VIEW (qstart->metaTagsView), GTK_TREE_MODEL (lstore));
-	g_object_unref (lstore);
-	bf_mnemonic_label_tad_with_alignment(_("_Meta Tags:"), qstart->metaTagsView, 0, 0, table, 0, 1, 2, 3);
-
-	bbox = gtk_vbutton_box_new ();
-	gtk_box_set_spacing (GTK_BOX (bbox), 6);
-	gtk_button_box_set_layout (GTK_BUTTON_BOX (bbox), GTK_BUTTONBOX_START);
-	button = gtk_button_new_from_stock (GTK_STOCK_ADD);
-	g_signal_connect (G_OBJECT (button), "clicked", G_CALLBACK (quickstart_metatags_add_clicked), qstart);
-	gtk_box_pack_start (GTK_BOX (bbox), button, FALSE, FALSE, 0);
-	qstart->removeButton = gtk_button_new_from_stock (GTK_STOCK_REMOVE);
-	g_signal_connect (G_OBJECT (qstart->removeButton), "clicked", G_CALLBACK (quickstart_metatags_remove_clicked), qstart);
-	gtk_box_pack_start (GTK_BOX (bbox), qstart->removeButton, FALSE, FALSE, 0);
-	gtk_widget_set_sensitive (qstart->removeButton, FALSE);
-	gtk_table_attach (GTK_TABLE (table), bbox, 2, 3, 2, 3, GTK_SHRINK, GTK_SHRINK, 0, 0);
+	column = gtk_tree_view_column_new_with_attributes ("Head", renderer, "text", 0, NULL);
+	gtk_tree_view_append_column (GTK_TREE_VIEW (qstart->headView), column);
+	gtk_tree_view_set_model (GTK_TREE_VIEW (qstart->headView), GTK_TREE_MODEL (headStore));
+	g_object_unref (headStore);
+	bf_mnemonic_label_tad_with_alignment(_("_Head:"), qstart->headView, 0, 0, table, 0, 1, 2, 3);
+	
+	qstart->notebook = gtk_notebook_new ();
+	gtk_notebook_set_show_tabs (GTK_NOTEBOOK (qstart->notebook), FALSE);
+	gtk_notebook_set_show_border (GTK_NOTEBOOK (qstart->notebook), FALSE);
+	gtk_table_attach_defaults (GTK_TABLE (table), qstart->notebook, 1, 3, 3, 4); 
+	
+	page = quickstart_meta_page_create(qstart);
+	label = gtk_label_new (_("Meta Tags"));
+	gtk_notebook_append_page (GTK_NOTEBOOK (qstart->notebook), page, label);
+	page = quickstart_style_page_create(qstart);
+	label = gtk_label_new (_("Style"));
+	gtk_notebook_append_page (GTK_NOTEBOOK (qstart->notebook), page, label);
+	page = quickstart_script_page_create(qstart);
+	label = gtk_label_new (_("Script"));
+	gtk_notebook_append_page (GTK_NOTEBOOK (qstart->notebook), page, label);	
 	
 	gtk_widget_show_all (dialog);
 }
