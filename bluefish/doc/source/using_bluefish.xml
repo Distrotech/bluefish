@@ -17,14 +17,13 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 -->
 <chapter id="using-bluefish">
-
 <title>Using Bluefish</title>
+<?linebreaka4?>
 <para>In this chapter, most of the functionalities of Bluefish are described. What you can do, how you do it, and how you can customize the default behavior.</para>
-
+<?linebreaka4?>
 <sect1 id="starting-bluefish">
 <title>Starting Bluefish</title>
-<para>In GNOME, Bluefish can be started from the Applications/Programming menu. From a 
-terminal, simply launch bluefish using the command <application>bluefish</application>.</para>
+<para>In GNOME, Bluefish can be started from the Applications/Programming menu. From a terminal, simply launch bluefish using the command <application>bluefish</application>.</para>
 
 <sect2 id="commandline-options">
 <title>Command line options</title>
@@ -44,222 +43,232 @@ terminal, simply launch bluefish using the command <application>bluefish</applic
 <varlistentry><term>-h</term>
 <listitem><para>display this help screen</para></listitem>
 </varlistentry></variablelist>
-<para>Many programs like browsers, email clients and file managers can be configured to 
-open files in Bluefish. For example, <command>bluefish '%s'</command> will open
-a file in the current window, <command>bluefish -n '%s'</command> will open a
-file in a new window, and <command>bluefish -p '%s'</command> will open
-a project file.
-</para>
+<para>Many programs like browsers, email clients and file managers can be configured to open files in Bluefish. For example, <command>bluefish '%s'</command> will open a file in the current window, <command>bluefish -n '%s'</command> will open a file in a new window, and <command>bluefish -p '%s'</command> will open a project file.</para>
 </sect2>
 
 </sect1>
-
+<?linebreaka4?>
 <sect1 id="user-interface">
 <title>The user interface</title>
 <para>The biggest part of the user interface is the editor area. Because Bluefish has a so-called "Multiple Document Interface", there are actually many editor areas in Bluefish, accessible via the tabs. By default the tabs are on the bottom.
-			<figure id="editor_array">
-				<title id="bf-figure-editor-array">Bluefish Editor Array</title>
-				<screenshot>
-					<mediaobject>
-						<imageobject>
-							<imagedata fileref="figures/editor_array.png" format="PNG"/>
-						</imageobject>
-						<textobject>
-							<phrase>
-								A screen shot of the Bluefish 1.0 editor array
-							</phrase>
-						</textobject>
-					</mediaobject>
-				</screenshot>
-			</figure>
-	</para>
+<?linebreaka4?>
+<figure id="editor_array">
+<title id="bf-figure-editor-array">Bluefish Editor Array</title>
+<screenshot><mediaobject>
+<imageobject>
+<imagedata fileref="figures/editor_array.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>A screen shot of the Bluefish 1.0 editor array</phrase>
+</textobject>
+</mediaobject></screenshot>
+</figure></para>
 <?pagebreaka4?>
-<para>The top of the Bluefish interface consists of a menu, a main tool bar, an 
-	HTML tool bar, and a Custom menu.
-			<figure id="main_menu">
-				<title id="bf-figure-main-menu">Bluefish Main Menu</title>
-				<screenshot>
-					<mediaobject>
-						<imageobject>
-							<imagedata fileref="figures/main_menu.png" format="PNG"/>
-						</imageobject>
-						<textobject>
-							<phrase>
-								A screen shot of the Bluefish 1.0 main menu
-							</phrase>
-						</textobject>
-					</mediaobject>
-				</screenshot>
-			</figure>
-			</para>
-			<para>The main tool bar gives you quick access to the basic functionalities of a text editor.
-			<figure id="main_toolbar">
-				<title id="bf-figure-main-toolbar">Bluefish Main Tool Bar</title>
-				<screenshot>
-					<mediaobject>
-						<imageobject>
-							<imagedata fileref="figures/main_toolbar.png" format="PNG"/>
-						</imageobject>
-						<textobject>
-							<phrase>
-								A screen shot of the Bluefish 1.0 main tool bar
-							</phrase>
-						</textobject>
-					</mediaobject>
-				</screenshot>
-			</figure>
-			</para>
-			<para>The HTML tool bar provides access to the most commonly used HTML functionalities.
-			<figure id="html_toolbar">
-				<title id="bf-figure-html-toolbar">Bluefish HTML Tool Bar</title>
-				<screenshot>
-					<mediaobject>
-						<imageobject>
-							<imagedata fileref="figures/html_toolbar.png" format="PNG"/>
-						</imageobject>
-						<textobject>
-							<phrase>
-								A screen shot of the Bluefish 1.0 HTML tool bar
-							</phrase>
-						</textobject>
-					</mediaobject>
-				</screenshot>
-			</figure>
-			</para>
-			<para>The custom tool bar provides access to languages and replacement functions. It is fully customizable through the preferences panel. 
-			<figure id="custom_toolbar">
-				<title id="bf-figure-custom-toolbar">Bluefish Custom Tool Bar</title>
-				<screenshot>
-					<mediaobject>
-						<imageobject>
-							<imagedata fileref="figures/custom_toolbar.png" format="PNG"/>
-						</imageobject>
-						<textobject>
-							<phrase>
-								A screen shot of the Bluefish 1.0 custom tool bar
-							</phrase>
-						</textobject>
-					</mediaobject>
-				</screenshot>
-			</figure>
-	</para>
-	<para>
-	To the left of the editor area is the side panel. If you would prefer that the side 
-	bar be on the right side, simply change the setting in the <guilabel>User Interface</guilabel>
-	tab found in the 
-	<menuchoice>
-		<guimenu>Edit</guimenu>
-		<guimenuitem>Preferences</guimenuitem>
-	</menuchoice> menu option. The side panel 
-	consists of a file browser, a function reference browser, and a bookmark browser.
-	</para>
-	<para>The file browser provides quick access to files and directories.
-			<figure id="file_browser">
-				<title id="bf-figure-file-browser">Bluefish File Browser</title>
-				<screenshot>
-					<mediaobject>
-						<imageobject>
-							<imagedata fileref="figures/file_browser.png" format="PNG"/>
-						</imageobject>
-						<textobject>
-							<phrase>
-								A screen shot of the Bluefish 1.0 file browser
-							</phrase>
-						</textobject>
-					</mediaobject>
-				</screenshot>
-			</figure>
-			</para>
-			<?pagebreaka4?>
-			<para>The function reference browser references CSS2, HTML, PHP, and Python functions with their syntax. Some of them provide dialogs to help you inserting them , 
-			<figure id="function_reference_browser">
-				<title id="bf-figure-function-reference-browser">Bluefish Function Reference Browser</title>
-				<screenshot>
-					<mediaobject>
-						<imageobject>
-							<imagedata fileref="figures/function_reference_browser.png" format="PNG"/>
-						</imageobject>
-						<textobject>
-							<phrase>
-								A screen shot of the Bluefish 1.0 function reference browser
-							</phrase>
-						</textobject>
-					</mediaobject>
-				</screenshot>
-			</figure>
-			</para>
-			<para>The bookmark browser provides access to previously marked positions in a file.
-			<figure id="bookmark_browser">
-				<title id="bf-figure-bookmark-browser">Bluefish Bookmark Browser</title>
-				<screenshot>
-					<mediaobject>
-						<imageobject>
-							<imagedata fileref="figures/bookmark_browser.png" format="PNG"/>
-						</imageobject>
-						<textobject>
-							<phrase>
-								A screen shot of the Bluefish 1.0 bookmark browser
-							</phrase>
-						</textobject>
-					</mediaobject>
-				</screenshot>
-			</figure>
-	</para>
-	<?pagebreakus?>
-	<para>
-	On the bottom of the Bluefish window is the status bar. Shown here are messages, the current line
-	&amp; column number, the insert (INS) or overwrite (OVR) mode for the cursor,
-	and the file type &amp; character encoding.
-			<figure id="status_bar">
-				<title id="bf-figure-status-bar">Bluefish Status Bar</title>
-				<screenshot>
-					<mediaobject>
-						<imageobject>
-							<imagedata fileref="figures/status_bar.png" format="PNG"/>
-						</imageobject>
-						<textobject>
-							<phrase>
-								A screen shot of the Bluefish 1.0 status bar
-							</phrase>
-						</textobject>
-					</mediaobject>
-				</screenshot>
-			</figure>
-	</para>
-	<para>
-	The visibility of these items can be toggled via the <guimenu>View</guimenu> menu.
-		<figure id="figure-view-menu">
-				<title id="figure-view-menu-title">Bluefish View Menu</title>
-				<screenshot>
-					<mediaobject>
-						<imageobject>
-							<imagedata fileref="figures/view_menu.png" format="PNG"/>
-						</imageobject>
-						<textobject>
-							<phrase>A screen shot of the Bluefish 1.0 view menu</phrase>
-						</textobject>
-					</mediaobject>
-				</screenshot>
-			</figure>
-	If you want to disable any of these items by default, you can set these options in
-	the preferences under <guilabel>User interface</guilabel>.
-	</para>
-	<para>The <guimenu>Help</guimenu> menu contains the typical About box. As usual, you will find in it developers', maintainers', and translators' details. Plus the configure flags used to compile Bluefish on your system.
-	<figure id="figure-about-window">
-				<title id="figure-about-window-title">Bluefish About Window</title>
-				<screenshot>
-					<mediaobject>
-						<imageobject>
-							<imagedata fileref="figures/about_window.png" format="PNG"/>
-						</imageobject>
-						<textobject>
-							<phrase>A screen shot of the Bluefish 1.0 about window</phrase>
-						</textobject>
-					</mediaobject>
-				</screenshot>
-			</figure>
-</para>
+<para>The top of the Bluefish interface consists of a menu, a main tool bar, an HTML tool bar, and a Custom menu.
+<?linebreaka4?>
+<figure id="main_menu">
+<title id="bf-figure-main-menu">Bluefish Main Menu</title>
+<screenshot><mediaobject>
+<imageobject>
+<imagedata fileref="figures/main_menu.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>A screen shot of the Bluefish 1.0 main menu</phrase>
+</textobject>
+</mediaobject></screenshot>
+</figure></para>
+<para>The main tool bar gives you quick access to the basic functionalities of a text editor.
+<?linebreaka4?>
+<figure id="main_toolbar">
+<title id="bf-figure-main-toolbar">Bluefish Main Tool Bar</title>
+<screenshot><mediaobject>
+<imageobject>
+<imagedata fileref="figures/main_toolbar.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>A screen shot of the Bluefish 1.0 main tool bar</phrase>
+</textobject>
+</mediaobject></screenshot>
+</figure></para>
+<para>The HTML tool bar provides access to the most commonly used HTML functionalities.
+<?linebreaka4?>
+<figure id="html_toolbar">
+<title id="bf-figure-html-toolbar">Bluefish HTML Tool Bar</title>
+<screenshot><mediaobject>
+<imageobject>
+<imagedata fileref="figures/html_toolbar.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>A screen shot of the Bluefish 1.0 HTML tool bar</phrase>
+</textobject>
+</mediaobject></screenshot>
+</figure></para>
+<para>The custom tool bar provides access to languages and replacement functions. It is fully customizable through the preferences panel. 
+<?linebreaka4?>
+<figure id="custom_toolbar">
+<title id="bf-figure-custom-toolbar">Bluefish Custom Tool Bar</title>
+<screenshot><mediaobject>
+<imageobject>
+<imagedata fileref="figures/custom_toolbar.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>A screen shot of the Bluefish 1.0 custom tool bar</phrase>
+</textobject>
+</mediaobject></screenshot>
+</figure></para>
+<para>To the left of the editor area is the side panel. If you would prefer that the side bar be on the right side, simply change the setting in the <guilabel>User Interface</guilabel> tab found in the <menuchoice><guimenu>Edit</guimenu><guimenuitem>Preferences</guimenuitem></menuchoice> menu option. The side panel consists of a file browser, a function reference browser, and a bookmark browser.</para>
+<para>The file browser provides quick access to files and directories.
+<?linebreaka4?>
+<figure id="file_browser">
+<title id="bf-figure-file-browser">Bluefish File Browser</title>
+<screenshot><mediaobject>
+<imageobject>
+<imagedata fileref="figures/file_browser.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>A screen shot of the Bluefish 1.0 file browser</phrase>
+</textobject>
+</mediaobject></screenshot>
+</figure></para>
+<?pagebreaka4?>
+<para>The function reference browser references CSS2, HTML, PHP, and Python functions with their syntax. Some of them provide dialogs to help you inserting them , 
+<?linebreakus?>
+<figure id="function_reference_browser">
+<title id="bf-figure-function-reference-browser">Bluefish Function Reference Browser</title>
+<screenshot><mediaobject>
+<imageobject>
+<imagedata fileref="figures/function_reference_browser.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>A screen shot of the Bluefish 1.0 function reference browser</phrase>
+</textobject>
+</mediaobject></screenshot>
+</figure></para>
+<?linebreakus?>
+<para>The bookmark browser provides access to previously marked positions in a file.
+<?linebreakus?>
+<figure id="bookmark_browser">
+<title id="bf-figure-bookmark-browser">Bluefish Bookmark Browser</title>
+<screenshot><mediaobject>
+<imageobject>
+<imagedata fileref="figures/bookmark_browser.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>A screen shot of the Bluefish 1.0 bookmark browser</phrase>
+</textobject>
+</mediaobject></screenshot>
+</figure></para>
+<?pagebreakus?>
+<para>On the bottom of the Bluefish window is the status bar. Shown here are messages, the current line &amp; column number, the insert (INS) or overwrite (OVR) mode for the cursor, and the file type &amp; character encoding.
+<?linebreakus?>
+<?linebreakus?>
+<?linebreakus?>
+<?linebreakus?>
+<?linebreakus?>
+<?linebreakus?>
+<?linebreakus?>
+<?linebreakus?>
+<?linebreakus?>
+<figure id="status_bar">
+<title id="bf-figure-status-bar">Bluefish Status Bar</title>
+<screenshot><mediaobject>
+<imageobject>
+<imagedata fileref="figures/status_bar.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>A screen shot of the Bluefish 1.0 status bar</phrase>
+</textobject>
+</mediaobject></screenshot>
+</figure></para>
+<?linebreakus?>
+<?linebreakus?>
+<?linebreakus?>
+<?linebreakus?>
+<?linebreakus?>
+<?linebreakus?>
+<?linebreakus?>
+<?linebreakus?>
+<?linebreakus?>
+<para>The visibility of these items can be toggled via the <guimenu>View</guimenu> menu.
+<?linebreak?>
+<?linebreak?>
+<?linebreak?>
+<?linebreak?>
+<?linebreak?>
+<?linebreak?>
+<?linebreak?>
+<?linebreak?>
+<?linebreak?>
+<?linebreaka4?>
+<?linebreaka4?>
+<?linebreaka4?>
+<?linebreaka4?>
+<?linebreaka4?>
+<?linebreaka4?>
+<?linebreaka4?>
+<?linebreaka4?>
+<?linebreaka4?>
+<?linebreaka4?>
+<?linebreaka4?>
+<?linebreaka4?>
+<?linebreaka4?>
+<?linebreaka4?>
+<?linebreaka4?>
+<figure id="figure-view-menu">
+<title id="figure-view-menu-title">Bluefish View Menu</title>
+<screenshot><mediaobject>
+<imageobject>
+<imagedata fileref="figures/view_menu.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>A screen shot of the Bluefish 1.0 view menu</phrase>
+</textobject>
+</mediaobject></screenshot>
+</figure>
+<?linebreak?>
+<?linebreak?>
+<?linebreak?>
+<?linebreak?>
+<?linebreak?>
+<?linebreak?>
+<?linebreak?>
+<?linebreak?>
+<?linebreak?>
+<?linebreaka4?>
+<?linebreaka4?>
+<?linebreaka4?>
+<?linebreaka4?>
+<?linebreaka4?>
+<?linebreaka4?>
+<?linebreaka4?>
+<?linebreaka4?>
+<?linebreaka4?>
+<?linebreaka4?>
+<?linebreaka4?>
+<?linebreaka4?>
+<?linebreaka4?>
+<?linebreaka4?>
+<?linebreaka4?>
+If you want to disable any of these items by default, you can set these options in the preferences under <guilabel>User interface</guilabel>.</para>
+<?pagebreak?>
+<para>The <guimenu>Help</guimenu> menu contains the typical About box. As usual, you will find in it developers', maintainers', and translators' details. Plus the configure flags used to compile Bluefish on your system.
+<?linebreaka4?>
+<?linebreaka4?>
+<figure id="figure-about-window">
+<title id="figure-about-window-title">Bluefish About Window</title>
+<screenshot><mediaobject>
+<imageobject>
+<imagedata fileref="figures/about_window.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>A screen shot of the Bluefish 1.0 about window</phrase>
+</textobject>
+</mediaobject></screenshot>
+</figure></para>
+<?linebreaka4?>
+<?linebreaka4?>
 <para>The other menus are described in the following sections:</para>
+<?linebreaka4?>
 <itemizedlist>
 <listitem>
 <para>the <guimenu>Tags</guimenu> and <guimenu>Dialogs</guimenu> menu in <xref linkend="HTML"/></para>
@@ -278,47 +287,30 @@ a project file.
 
 <sect1 id="working-with-files">
 <title>Working with files</title>
-	<para>
-	Most of the file operations are accessible from the <guimenu>File</guimenu> menu. 
-	Using this menu, a new file can be created, existing files opened, and opened files saved or renamed.</para>
-	<para>It is also possible to insert a file into another one, and to revert a modified file to its previously saved state.	
-				<figure id="figure-file-menu">
-				<title id="figure-file-menu-title">Bluefish File Menu</title>
-				<screenshot>
-					<mediaobject>
-						<imageobject>
-							<imagedata fileref="figures/file_menu.png" format="PNG"/>
-						</imageobject>
-						<textobject>
-							<phrase>A screen shot of the Bluefish File Menu</phrase>
-						</textobject>
-					</mediaobject>
-				</screenshot>
-			</figure>
-	</para>
+<?linebreak?>
+<para>Most of the file operations are accessible from the <guimenu>File</guimenu> menu. Using this menu, a new file can be created, existing files opened, and opened files saved or renamed.</para>
+<?linebreak?>
+<para>It is also possible to insert a file into another one, and to revert a modified file to its previously saved state.	
+<?linebreak?>
+<figure id="figure-file-menu">
+<title id="figure-file-menu-title">Bluefish File Menu</title>
+<screenshot><mediaobject>
+<imageobject>
+<imagedata fileref="figures/file_menu.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>A screen shot of the Bluefish File Menu</phrase>
+</textobject>
+</mediaobject></screenshot>
+</figure></para>
 
 <sect2 id="creating-files">
-	<title>Creating files</title>
-	<para>
-		Apart from using 
-		<menuchoice>
-			<shortcut>
-				<keycombo>
-					<keycap>Ctrl</keycap>
-					<keycap>N</keycap>
-				</keycombo>
-			</shortcut>
-			<guimenu>File</guimenu>
-			<guimenuitem>New</guimenuitem>
-		</menuchoice> or the <guilabel>New</guilabel> icon to create a new file, you may also use <menuchoice><shortcut><keycombo><keycap>Shift</keycap><keycap>Ctrl</keycap><keycap>N</keycap></keycombo></shortcut><guimenu>File</guimenu><guimenuitem>New Window</guimenuitem></menuchoice>.
-	</para>
-	<para>Both methods create an untitled file of type <literal>text</literal> 
-	with the default character encoding defined in the <guilabel>Files</guilabel> tab 
-	in the <menuchoice>
-		<guimenu>Edit</guimenu>
-		<guimenuitem>Preferences</guimenuitem>
-	</menuchoice> menu option.</para>
-	</sect2>
+<title>Creating files</title>
+<?linebreakus?>
+<para>Apart from using <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>N</keycap></keycombo></shortcut><guimenu>File</guimenu><guimenuitem>New</guimenuitem></menuchoice> or the <guilabel>New</guilabel> icon to create a new file, you may also use <menuchoice><shortcut><keycombo><keycap>Shift</keycap><keycap>Ctrl</keycap><keycap>N</keycap></keycombo></shortcut><guimenu>File</guimenu><guimenuitem>New Window</guimenuitem></menuchoice>.</para>
+<?linebreakus?>
+<para>Both methods create an untitled file of type <literal>text</literal> with the default character encoding defined in the <guilabel>Files</guilabel> tab in the <menuchoice><guimenu>Edit</guimenu><guimenuitem>Preferences</guimenuitem></menuchoice> menu option.</para>
+</sect2>
 	
 <sect2 id="opening-files">
 <title>Opening files</title>
