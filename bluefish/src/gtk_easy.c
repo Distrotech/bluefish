@@ -835,7 +835,8 @@ static void fileselectwin(gchar *setfile, Tfileselect *fileselect, gchar *title)
 
 	DEBUG_MSG("fileselectwin, started\n");
 	fileselect->fs = gtk_file_selection_new(title);
-	gtk_file_selection_hide_fileop_buttons(GTK_FILE_SELECTION(fileselect->fs));
+	gtk_file_selection_show_fileop_buttons(GTK_FILE_SELECTION(fileselect->fs));
+	/*gtk_file_selection_hide_fileop_buttons(GTK_FILE_SELECTION(fileselect->fs));*/
 	g_signal_connect(G_OBJECT(fileselect->fs), "destroy", G_CALLBACK(close_modal_window_lcb), fileselect->fs);
 	g_signal_connect(G_OBJECT(GTK_FILE_SELECTION(fileselect->fs)->cancel_button),
 					   "clicked", G_CALLBACK(close_modal_window_lcb), fileselect->fs);
@@ -851,7 +852,7 @@ static void fileselectwin(gchar *setfile, Tfileselect *fileselect, gchar *title)
 	gtk_window_set_role(GTK_WINDOW(fileselect->fs), "fileselect");
 
 	gtk_widget_show(fileselect->fs);
-	gtk_grab_add(GTK_WIDGET(fileselect->fs));
+/*	gtk_grab_add(GTK_WIDGET(fileselect->fs));*/
 	gtk_widget_realize(GTK_WIDGET(fileselect->fs));
 	gtk_window_set_transient_for(GTK_WINDOW(fileselect->fs), GTK_WINDOW(main_v->main_window));
 }
