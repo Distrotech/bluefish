@@ -31,6 +31,7 @@
 #include "gtk_easy.h"
 #include "rcfile.h"
 #include "bf_lib.h"
+#include "filebrowser.h"
 
 Tbfwin *project_is_open(gchar *filename) {
 	GList *tmplist;
@@ -107,8 +108,7 @@ void project_open_from_file(Tbfwin *bfwin, gchar *fromfilename) {
 		return;
 	}
 
-	prj = g_new(Tproject,1);
-	prj->files = NULL;
+	prj = g_new0(Tproject,1);
 	retval = rcfile_parse_project(prj, fromfilename);
 	if (!retval) {
 		DEBUG_MSG("project_open_from_file, failed parsing the project at file %s\n",fromfilename);
@@ -116,19 +116,25 @@ void project_open_from_file(Tbfwin *bfwin, gchar *fromfilename) {
 		return;
 	}
 	prj->filename = g_strdup(fromfilename);
+	DEBUG_MSG("project_open_from_file, basedir=%s\n",prj->basedir);
 	if (bfwin->project == NULL && test_only_empty_doc_left(bfwin->documentlist)) {
 		/* we will use this Bluefish window to open the project */
 		prwin = bfwin;
 		DEBUG_MSG("project_open_from_file, calling docs_new_from_files for existing bfwin=%p\n",prwin);
 		prwin->project = prj;
+		if (prj->basedir && strlen(prj->basedir) > 2) {
+			filebrowser_set_basedir(prwin, prj->basedir);
+		}
 		docs_new_from_files(prwin, prj->files);
 	} else {
 		/* we will open a new Bluefish window for this project */
 		prwin = gui_new_window(prj->files);
+		if (prj->basedir && strlen(prj->basedir) > 2) {
+			filebrowser_set_basedir(prwin, prj->basedir);
+		}
 		prwin->project = prj;
 		gui_set_title(prwin, prwin->current_document);
 	}
-	
 }
 
 static void project_open(Tbfwin *bfwin) {
@@ -143,19 +149,23 @@ static void project_open(Tbfwin *bfwin) {
 	}
 }
 
+static void project_destroy(Tbfwin *bfwin) {
+	free_stringlist(bfwin->project->files);
+	g_free(bfwin->project->filename);
+	g_free(bfwin->project->name);
+	g_free(bfwin->project->basedir);
+	g_free(bfwin->project->webdir);
+	g_free(bfwin->project);
+	bfwin->project = NULL;
+}
+
 gboolean project_save_and_close(Tbfwin *bfwin) {
 	if (project_save(bfwin, FALSE)) {
 		DEBUG_MSG("project_save_and_close, save returned TRUE\n");
 		file_close_all_cb(NULL,bfwin);
 		if (test_only_empty_doc_left(bfwin->documentlist)) {
 			DEBUG_MSG("project_save_and_close, all documents are closed\n");
-			free_stringlist(bfwin->project->files);
-			g_free(bfwin->project->filename);
-			g_free(bfwin->project->name);
-			g_free(bfwin->project->basedir);
-			g_free(bfwin->project->webdir);
-			g_free(bfwin->project);
-			bfwin->project = NULL;
+			project_destroy(bfwin);
 			gui_set_title(bfwin, bfwin->current_document);
 			DEBUG_MSG("project_save_and_close, returning TRUE\n");
 			return TRUE;
@@ -175,41 +185,55 @@ typedef struct {
 	GtkWidget *win;
 	Tbfwin *bfwin;
 	GtkWidget *entries[3];
+	gboolean project_created_by_editor;
 } Tprojecteditor;
 
 static void project_edit_destroy_lcb(GtkWidget *widget, Tprojecteditor *pred) {
 	DEBUG_MSG("project_edit_destroy_lcb, called for pred=%p\n",pred);
 /*	gtk_widget_destroy(pred->win);*/
-	pred->bfwin->project->editor = NULL;
+	if (pred->bfwin->project) {
+		pred->bfwin->project->editor = NULL;
+	}
 	g_free(pred);
 }
 
 static void project_edit_cancel_clicked_lcb(GtkWidget *widget, Tprojecteditor *pred) {
+	if (pred->project_created_by_editor) {
+		DEBUG_MSG("project_edit_cancel_clicked_lcb, destroy project\n");
+		project_destroy(pred->bfwin);
+	}
 	gtk_widget_destroy(pred->win);
 }
 
 static void project_edit_ok_clicked_lcb(GtkWidget *widget, Tprojecteditor *pred) {
 	Tproject *prj = pred->bfwin->project;
+	DEBUG_MSG("project_edit_ok_clicked_lcb, Tproject at %p\n",prj);
 	string_apply(&prj->name, pred->entries[name]);
 	string_apply(&prj->basedir, pred->entries[basedir]);
 	string_apply(&prj->webdir, pred->entries[webdir]);
+	DEBUG_MSG("project_edit_ok_clicked_lcb, name=%s, basedir=%s, webdir=%s\n",prj->name,prj->basedir,prj->webdir);
+	gui_set_title(pred->bfwin, pred->bfwin->current_document);
 	gtk_widget_destroy(pred->win);
 }
 
 void project_edit(Tbfwin *bfwin) {
 	GtkWidget *vbox, *but, *hbox, *label;
 	Tprojecteditor *pred;
-	
-	if (!bfwin->project) {
-		/* there is no project yet, we have to create one */
-		bfwin->project= create_new_project(bfwin);
-	} else {
-		if (bfwin->project->editor) {
-			gtk_window_present(GTK_WINDOW(((Tprojecteditor *)bfwin->project->editor)->win));
-			return;
-		}
+
+	if (bfwin->project && bfwin->project->editor) {
+		gtk_window_present(GTK_WINDOW(((Tprojecteditor *)bfwin->project->editor)->win));
+		return;
 	}
 	pred = g_new(Tprojecteditor,1);
+	if (!bfwin->project) {
+		/* there is no project yet, we have to create one */
+		DEBUG_MSG("project_edit, no project yet, create one\n");
+		bfwin->project= create_new_project(bfwin);
+		pred->project_created_by_editor = TRUE;
+	} else {
+		pred->project_created_by_editor = FALSE;
+	}
+	DEBUG_MSG("project_edit, Tproject at %p\n",bfwin->project);
 	pred->bfwin = bfwin;
 	bfwin->project->editor = pred;
 	
