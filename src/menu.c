@@ -1550,7 +1550,7 @@ static void cme_lview_selection_changed(GtkTreeSelection *selection, Tcmenu_edit
 		if (type == 1) {
 			static Tconvert_table table1[] = {{0, "0"}, {1, "1"}, {0, NULL}};
 			static Tconvert_table table2[] = {{0, N_("in current document")}, {1, N_("from cursor")}, {2, N_("in selection")}, {3, N_("in all open documents")}, {0,NULL}};
-			static Tconvert_table table3[] = {{0, N_("normal")}, {1, N_("posix regular expresions")}, {2, N_("perl regular expresions")}, {0, NULL}};
+			static Tconvert_table table3[] = {{0, N_("normal")}, {1, N_("posix regular expressions")}, {2, N_("perl regular expressions")}, {0, NULL}};
 			gint converti;
 			gchar *convertc;
 			DEBUG_MSG("cme_clist_select_lcb, type=1, custom search and replace\n");
