@@ -1828,7 +1828,7 @@ GtkWidget *filebrowser_init(Tbfwin *bfwin) {
 
 void filebrowser_scroll_initial(Tbfwin *bfwin) {
 	DEBUG_MSG("filebrowser_scroll_initial, bfwin=%p, filebrowser=%p\n",bfwin,bfwin->filebrowser);
-	if (FILEBROWSER(bfwin->filebrowser)->tree) {
+	if (FILEBROWSER(bfwin->filebrowser) && FILEBROWSER(bfwin->filebrowser)->tree) {
 		gtk_tree_view_scroll_to_point(GTK_TREE_VIEW(FILEBROWSER(bfwin->filebrowser)->tree), 2000, 2000);
 	}
 }
