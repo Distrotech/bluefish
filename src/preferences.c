@@ -1123,6 +1123,50 @@ static void add_new_browser_lcb(GtkWidget *wid, Tprefdialog *pd) {
 				,-1);
 	}
 }
+
+static void delete_browser_lcb(GtkWidget *wid, Tprefdialog *pd) {
+	if (pd->bd.curstrarr) {
+		GtkTreeIter iter;
+		gboolean retval=TRUE;
+		gtk_tree_model_get_iter_first(GTK_TREE_MODEL(pd->bd.lstore),&iter);
+		while (retval) {
+			gchar *curval;
+			gtk_tree_model_get(GTK_TREE_MODEL(pd->bd.lstore),&iter,0,&curval,-1);
+			if (strcmp(curval,pd->bd.curstrarr[0])==0) {
+				gtk_list_store_remove(GTK_LIST_STORE(pd->bd.lstore),&iter);
+				break;
+			}
+			retval = gtk_tree_model_iter_next(GTK_TREE_MODEL(pd->bd.lstore),&iter);
+		}
+		pd->lists[browsers] = g_list_remove(pd->lists[browsers],pd->bd.curstrarr);
+	}
+}
+
+static void set_default_browser_lcb(GtkWidget *wid, Tprefdialog *pd) {
+	if (pd->bd.curstrarr) {
+		GtkTreeIter iter;
+		gboolean retval=TRUE;
+		gtk_tree_model_get_iter_first(GTK_TREE_MODEL(pd->bd.lstore),&iter);
+		while (retval) {
+			gchar *curval;
+			gtk_tree_model_get(GTK_TREE_MODEL(pd->bd.lstore),&iter,0,&curval,-1);
+			if (strcmp(curval,pd->bd.curstrarr[0])==0) {
+				gtk_list_store_remove(GTK_TREE_MODEL(pd->bd.lstore),&iter);
+				break;
+			}
+			retval = gtk_tree_model_iter_next(GTK_TREE_MODEL(pd->bd.lstore),&iter);
+		}
+		gtk_list_store_insert(GTK_TREE_MODEL(pd->bd.lstore),&iter,0);
+		gtk_list_store_set(GTK_LIST_STORE(pd->bd.lstore), &iter
+						,0,pd->bd.curstrarr[0]
+						,1,pd->bd.curstrarr[1]
+						,-1);
+		pd->lists[browsers] = g_list_remove(pd->lists[browsers],pd->bd.curstrarr);
+		pd->lists[browsers] = g_list_insert(pd->lists[browsers],pd->bd.curstrarr,0);
+	}
+}
+
+
 static void browser_selection_changed_cb(GtkTreeSelection *selection, Tprefdialog *pd) {
 	DEBUG_MSG("browser_selection_changed_cb, curstrarr=%p, &curstrarr=%p\n", pd->ftd.curstrarr, &pd->bd.curstrarr);
 	generic_selection_changed_cb(selection,pd->bd.entry,browsers_apply_changes,pd,browsers,2,&pd->bd.curstrarr);
@@ -1190,7 +1234,14 @@ static void create_browsers_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 			tmplist = g_list_next(tmplist);
 		}
 	}
+	hbox = gtk_hbox_new(FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(vbox1), hbox, TRUE, TRUE, 0);
+	but = bf_gtkstock_button(GTK_STOCK_DELETE, G_CALLBACK(delete_browser_lcb), pd);
+	gtk_box_pack_start(GTK_BOX(hbox), but, FALSE, TRUE, 3);
+	but = bf_gtkstock_button(GTK_STOCK_GOTO_TOP, G_CALLBACK(set_default_browser_lcb), pd);
+	gtk_box_pack_start(GTK_BOX(hbox), but, FALSE, TRUE, 3);
 	
+	gtk_box_pack_start(GTK_BOX(vbox1), gtk_hseparator_new(), TRUE, TRUE, 0);
 	hbox = gtk_hbox_new(FALSE, 0);
 	gtk_box_pack_start(GTK_BOX(vbox1), hbox, TRUE, TRUE, 0);
 	gtk_box_pack_start(GTK_BOX(hbox), gtk_label_new(_("Browser")), FALSE, TRUE, 3);
