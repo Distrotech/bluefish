@@ -62,7 +62,7 @@
 #include "bookmark.h"
 #include "file.h"
 #include "filebrowser2.h"
-
+#include "file_dialogs.h"
 
 typedef struct {
 	GtkWidget *textview;
@@ -93,6 +93,7 @@ static void session_set_opendir(Tbfwin *bfwin, gchar *curi) {
 		if (pos!=NULL) {
 			if (bfwin->session->opendir) g_free(bfwin->session->opendir);
 			bfwin->session->opendir = g_strndup(curi, pos-curi);
+			DEBUG_MSG("session_set_opendir, opendir=%s\n",bfwin->session->opendir);
 		}
 	}
 }
@@ -356,7 +357,6 @@ Tfiletype *get_filetype_by_filename_and_content(gchar *filename, gchar *buf) {
 				if (pcreg) {
 					int ovector[30];
 					int retval = pcre_exec(pcreg,NULL,buf,strlen(buf),0,0,ovector,30);
-					DEBUG_MSG("get_filetype_by_filename_and_content, buf='%s'\n",buf);
 					DEBUG_MSG("get_filetype_by_filename_and_content, pcre_exec retval=%d\n",retval);
 					if (retval > 0) {
 						/* we have a match!! */
@@ -2511,7 +2511,7 @@ gint doc_save(Tdocument * doc, gboolean do_save_as, gboolean do_move, gboolean w
 		break;
 		case -3:
 		case -4:
-			/*  do nothing, the save is aborted by the user * /
+			/ *  do nothing, the save is aborted by the user * /
 		break;
 		default:
 			doc_set_stat_info(doc);
@@ -2903,6 +2903,7 @@ void doc_new_from_uri(Tbfwin *bfwin, gchar *curi, GnomeVFSURI *uri, GnomeVFSFile
 	tmpcuri = (curi) ? g_strdup(curi) : gnome_vfs_uri_to_string(uri,0);
 	DEBUG_MSG("doc_new_from_uri, started for %s\n",tmpcuri);
 	
+	add_filename_to_history(bfwin, tmpcuri);
 	session_set_opendir(bfwin, tmpcuri);
 	
 	/* check if the document already is opened */
@@ -3140,6 +3141,7 @@ Tdocument * doc_new_with_file(Tbfwin *bfwin, gchar * filename, gboolean delay_ac
  * Return value: void
  **/
 void doc_reload(Tdocument *doc) {
+	GnomeVFSURI *uri;
 	if ((doc->uri == NULL) || (!file_exists_and_readable(doc->uri))) {
 		statusbar_message(BFWIN(doc->bfwin),_("Unable to open file"), 2000);
 		return;
@@ -3149,11 +3151,10 @@ void doc_reload(Tdocument *doc) {
 		gtk_text_buffer_get_bounds(doc->buffer,&itstart,&itend);
 		gtk_text_buffer_delete(doc->buffer,&itstart,&itend);
 	}
-	
-	doc_file_to_textbox(doc, doc->uri, FALSE, FALSE);
-	doc_unre_clear_all(doc);
-	doc_set_modified(doc, 0);
-	doc_set_stat_info(doc); /* also sets mtime field */
+	uri = gnome_vfs_uri_new(doc->uri);
+	doc_set_status(doc, DOC_STATUS_LOADING);
+	file_doc_fill_from_uri(doc, uri, NULL, -1);
+	gnome_vfs_uri_unref(uri);
 }
 
 /**

@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * filebrowser.c the filebrowser
  *
- * Copyright (C) 2002-2003 Olivier Sessink
+ * Copyright (C) 2002-2005 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -1253,15 +1253,9 @@ static void filebrowser_rpopup_rename(Tfilebrowser *filebrowser) {
 				gchar *old_OnDiEn, *new_OnDiEn; /* OnDiskEncoding */
 				old_OnDiEn = get_filename_on_disk_encoding(oldfilename);
 				new_OnDiEn = get_filename_on_disk_encoding(newfilename);
-#ifdef HAVE_GNOME_VFS
 				if (gnome_vfs_move(old_OnDiEn,new_OnDiEn,TRUE) != GNOME_VFS_OK) {
 					errmessage = g_strconcat(_("Could not rename\n"), oldfilename, NULL);
 				}
-#else
-				if(rename(old_OnDiEn, new_OnDiEn) != 0) {
-					errmessage = g_strconcat(_("Could not rename\n"), oldfilename, NULL);
-				}
-#endif
 				g_free(old_OnDiEn);
 				g_free(new_OnDiEn);
 			}

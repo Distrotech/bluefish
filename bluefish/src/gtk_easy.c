@@ -1,6 +1,6 @@
 /* Bluefish HTML Editor
  *
- * Copyright (C) 1999-2004 Olivier Sessink
+ * Copyright (C) 1999-2005 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -1336,6 +1336,7 @@ GtkWidget * file_chooser_dialog(Tbfwin *bfwin, gchar *title, GtkFileChooserActio
 			(action == GTK_FILE_CHOOSER_ACTION_SAVE) ? GTK_STOCK_SAVE : GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT,
 			NULL);
 	gtk_dialog_set_default_response (GTK_DIALOG(dialog), GTK_RESPONSE_ACCEPT);
+	gtk_file_chooser_set_local_only(GTK_FILE_CHOOSER(dialog),localonly);
 	if (set && strlen(set)) {
 		DEBUG_MSG("file_chooser_dialog, set=%s,localonly=%d\n",set,localonly);
 		gtk_file_chooser_set_uri(GTK_FILE_CHOOSER(dialog),set);
@@ -1345,14 +1346,14 @@ GtkWidget * file_chooser_dialog(Tbfwin *bfwin, gchar *title, GtkFileChooserActio
 			if (bfwin->session->savedir) gtk_file_chooser_set_current_folder_uri(GTK_FILE_CHOOSER(dialog),bfwin->session->savedir);
 			else if (bfwin->session->opendir) gtk_file_chooser_set_current_folder_uri(GTK_FILE_CHOOSER(dialog),bfwin->session->opendir);
 		} else {
-			DEBUG_MSG("file_chooser_dialog, opendir=%s\n",bfwin->session->opendir);
+			DEBUG_MSG("file_chooser_dialog, opendir=%s, localonly=%d\n",bfwin->session->opendir,localonly);
 			gtk_file_chooser_set_current_folder_uri(GTK_FILE_CHOOSER(dialog),bfwin->session->opendir);
 		}
 	}
 #ifdef DEBUG
 	DEBUG_MSG("file_chooser_dialog, current_folder_uri=%s\n", gtk_file_chooser_get_current_folder_uri(GTK_FILE_CHOOSER(dialog)));
 #endif
-	gtk_file_chooser_set_local_only(GTK_FILE_CHOOSER(dialog),localonly);
+	
 	gtk_file_chooser_set_select_multiple(GTK_FILE_CHOOSER(dialog), multiple);
 /*	if (bfwin) {
 		GList *tmplist;
