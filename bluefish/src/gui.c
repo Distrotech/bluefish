@@ -825,36 +825,37 @@ void make_main_toolbar(Tbfwin *bfwin) {
 	GtkWidget *toolbar = gtk_toolbar_new ();
 	DEBUG_MSG("make_main_toolbar, started\n");
 	gtk_toolbar_set_orientation (GTK_TOOLBAR (toolbar), GTK_ORIENTATION_HORIZONTAL);
+	gtk_toolbar_set_style (GTK_TOOLBAR (toolbar), GTK_TOOLBAR_ICONS);
+	gtk_toolbar_set_icon_size (GTK_TOOLBAR (toolbar), GTK_ICON_SIZE_LARGE_TOOLBAR);
 	gtk_container_add (GTK_CONTAINER(bfwin->main_toolbar_hb), toolbar);
 
-	gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), NULL, _("New"), "",
-							new_pixmap(0), G_CALLBACK(file_new_cb), bfwin);
-	gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), NULL, _("Open..."), "",
-							new_pixmap(1), G_CALLBACK(file_open_cb), bfwin);
-
-	gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), NULL, _("Save"), "",
-							new_pixmap(2), G_CALLBACK(file_save_cb), bfwin);
-	gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), NULL, _("Save As..."), "",
-							new_pixmap(3), G_CALLBACK(file_save_as_cb), bfwin);
-	gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), NULL, _("Close"), "",
-							new_pixmap(4), G_CALLBACK(file_close_cb), bfwin);
-	gtk_toolbar_append_space(GTK_TOOLBAR(toolbar));
-	gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), NULL, _("Cut"), "",
-							new_pixmap(6), G_CALLBACK(edit_cut_cb), bfwin);	
-	gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), NULL, _("Copy"), "",
-							new_pixmap(5), G_CALLBACK(edit_copy_cb), bfwin);
-	gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), NULL, _("Paste"), "",
-							new_pixmap(7), G_CALLBACK(edit_paste_cb), bfwin);
-	gtk_toolbar_append_space(GTK_TOOLBAR(toolbar));							
-	gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), NULL, _("Search..."), "",
-							new_pixmap(8), G_CALLBACK(search_cb), bfwin);
-	gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), NULL,_("Search and Replace..."), "", 
-							new_pixmap(9), G_CALLBACK(replace_cb), bfwin);
-	gtk_toolbar_append_space(GTK_TOOLBAR(toolbar));
-	bfwin->toolbar_undo = gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), NULL, _("Undo"), "",
-							new_pixmap(10), G_CALLBACK(undo_cb), bfwin);
-	bfwin->toolbar_redo = gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), NULL, _("Redo"), "",
-							new_pixmap(11), G_CALLBACK(redo_cb), bfwin);
+	gtk_toolbar_insert_stock (GTK_TOOLBAR (toolbar), GTK_STOCK_NEW, _("New"),
+								"", G_CALLBACK(file_new_cb), bfwin, -1);
+	gtk_toolbar_insert_stock (GTK_TOOLBAR (toolbar), GTK_STOCK_OPEN, _("Open.."),
+								"", G_CALLBACK(file_open_cb), bfwin, -1);
+	gtk_toolbar_insert_stock (GTK_TOOLBAR (toolbar), GTK_STOCK_SAVE, _("Save"),
+								"", G_CALLBACK(file_save_cb), bfwin, -1);
+	gtk_toolbar_insert_stock (GTK_TOOLBAR (toolbar), GTK_STOCK_SAVE_AS, _("Save As..."),	
+								"", G_CALLBACK(file_save_as_cb), bfwin, -1);
+	gtk_toolbar_insert_stock (GTK_TOOLBAR (toolbar), GTK_STOCK_CLOSE, _("Close"),	
+								"", G_CALLBACK(file_close_cb), bfwin, -1);		
+	gtk_toolbar_append_space (GTK_TOOLBAR (toolbar));
+	gtk_toolbar_insert_stock (GTK_TOOLBAR (toolbar), GTK_STOCK_CUT, _("Cut"),	
+								"", G_CALLBACK(edit_cut_cb), bfwin, -1);
+	gtk_toolbar_insert_stock (GTK_TOOLBAR (toolbar), GTK_STOCK_COPY, _("Copy"),	
+								"", G_CALLBACK(edit_copy_cb), bfwin, -1);
+	gtk_toolbar_insert_stock (GTK_TOOLBAR (toolbar), GTK_STOCK_PASTE, _("Paste"),	
+								"", G_CALLBACK(edit_paste_cb), bfwin, -1);
+	gtk_toolbar_append_space (GTK_TOOLBAR (toolbar));								
+	gtk_toolbar_insert_stock (GTK_TOOLBAR (toolbar), GTK_STOCK_FIND, _("Search..."),	
+								"", G_CALLBACK(search_cb), bfwin, -1);
+	gtk_toolbar_insert_stock (GTK_TOOLBAR (toolbar), GTK_STOCK_FIND_AND_REPLACE, _("Search and Replace..."),	
+								"", G_CALLBACK(replace_cb), bfwin, -1);
+	gtk_toolbar_append_space (GTK_TOOLBAR (toolbar));								
+	bfwin->toolbar_undo = gtk_toolbar_insert_stock (GTK_TOOLBAR (toolbar), GTK_STOCK_UNDO, _("Undo"),	
+								"", G_CALLBACK(undo_cb), bfwin, -1);
+	bfwin->toolbar_redo = gtk_toolbar_insert_stock (GTK_TOOLBAR (toolbar), GTK_STOCK_REDO, _("Redo"),	
+								"", G_CALLBACK(redo_cb), bfwin, -1);
 	gtk_toolbar_append_space(GTK_TOOLBAR(toolbar));
 	gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), NULL, _("Shift Left"),
 							"", new_pixmap(111), G_CALLBACK(doc_unindent_lcb), bfwin);
@@ -865,16 +866,17 @@ void make_main_toolbar(Tbfwin *bfwin) {
 	gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), NULL, _("Print..."), "",
 							new_pixmap(015), G_CALLBACK(file_print_cb), NULL);*/
 #ifdef HAVE_LIBASPELL
-	gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), NULL, _("Spellcheck..."),
-							"", new_pixmap(104), G_CALLBACK(spell_check_cb), bfwin);
+	gtk_toolbar_insert_stock (GTK_TOOLBAR (toolbar), GTK_STOCK_SPELL_CHECK, _("Spellcheck..."),
+							"", G_CALLBACK(spell_check_cb), bfwin, -1);
 #endif /* HAVE_LIBASPELL */
 
 	gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), NULL,
 							_("View in browser"), "",
 							new_pixmap(102), G_CALLBACK(browser_toolbar_cb), bfwin);
 	gtk_toolbar_append_space(GTK_TOOLBAR(toolbar));
-	gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), NULL, _("Preferences..."),
-							"", new_pixmap(12), G_CALLBACK(open_preferences_cb), NULL);
+	gtk_toolbar_insert_stock (GTK_TOOLBAR (toolbar), GTK_STOCK_PREFERENCES, _("Preferences..."),	
+								"", G_CALLBACK(open_preferences_cb), NULL, -1);	
+
 	gtk_widget_show_all(toolbar);
 }
 
