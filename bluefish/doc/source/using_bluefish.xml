@@ -1057,9 +1057,45 @@ Bluefish can automatically generate thumbnails for images. ..... TO BE WRITTEN B
 	the custom menu.</para>
 	
 	<para>
-	To add your own entries to the custom menu .... TO BE WRITTEN BY ???
+	The location for entries in the custom menu is defined by their menu path. A menu path
+	looks like /Main menu/submenu/item or /Main menu/item. 
+	</para>
+	<para>There are two types of items in the custom menu. First is the Custom dialog, which will 
+	insert a string, optionally based on values asked in a dialog. Second is 
+	the Custom Find and Replace, which will run a replace, also optionally based
+	on values asked in a dialog.</para>
+	<para>
+	The most simple custom dialog item has a menupath, for example /MySite/author, and a Formatstring 
+	before, for example 'written by Olivier'. If you add this item, you can add this string
+	by selecting the menu item.
 	</para>
 	<para>SCREENSHOT BY ????</para>
+	<para>
+	In another example, you have a string you often need to set before 
+	and after some block of text. For example 
+	&lt;div class=&quot;MyClass&quot;&gt;&lt;/div&gt;. Now you choose menupath /MySite/div with class
+	and you choose &lt;div class=&quot;MyClass&quot;&gt; as formatstring before, and you 
+	choose &lt;/div&gt; as formatstring after. Click add, and the item is in the menu. 
+	If you now select some text, and activate this menu item, you will see that the
+	first bit of text is added before the selection, and the second bit is added after
+	the selection.
+	</para>
+	<para>
+	Suppose you want to improve this last example. You have both MyClass1 and MyClass2. 
+	Now use 'Number of variables' 1 in the custom menu editor. As you see a new entry 
+	appears where you can enter the name for variable %0. As name we enter 'MyClass number', 
+	and now we change the formatstring before to &lt;div class=&quot;MyClass%0&quot;&gt;.
+	If you now activate this menu, it will ask you for a value for 'MyClass number', and then
+	insert the strings, using the value you provided.
+	</para>
+	<para>SCREENSHOT BY ????</para>
+	<para>
+	Find and replace items are no different. The dialog has some more options, each of these
+	options correspond to the regular replace dialog. Again you can use variables like %0, %1 etc. 
+	to make a certain menu item more flexible.
+	</para>
+	<para>SCREENSHOT BY ????</para>
+
 </sect2>
 <sect2 id="external-programs-filters">
 <title>External programs, filters</title>
