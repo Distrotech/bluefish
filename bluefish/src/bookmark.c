@@ -50,8 +50,11 @@ void bmark_free(gpointer ptr)
 	
 	if (ptr==NULL) return;
 	m = BMARK(ptr);
-	gtk_text_buffer_delete_mark(m->doc->buffer,m->mark);
-	m->doc = NULL;
+	if (m->doc)
+	{
+	   gtk_text_buffer_delete_mark(m->doc->buffer,m->mark);
+	   m->doc = NULL;
+	}   
 	g_free(m);
 }
 
