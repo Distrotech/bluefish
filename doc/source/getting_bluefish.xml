@@ -16,9 +16,9 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 -->
-<chapter id="bluefish-get">
+<chapter id="getting-bluefish">
   <title>Getting Bluefish</title>
-	<sect1 id="bluefish-get-versions">
+	<sect1 id="getting-bluefish-versions">
 		<title>Choosing a Version</title>
 		<para>
 			Currently, four versions of bluefish are available:
@@ -51,18 +51,18 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 			</listitem>
 		</itemizedlist>
 		<para>
-			As commented in <xref linkend="bluefish-get-updates"/>, the 
+			As commented in <xref linkend="getting-bluefish-updates"/>, the 
 			long time between stable releases makes the CVS snapshots and 
 			current CVS an enticing choice.
 		</para>
 		<para>
 			If you want the latest and greatest, read 
-			<xref linkend="bluefish-get-cvs"/> below. If you simply want to 
-			use Bluefish, read <xref linkend="bluefish-get-stable"/> for how 
+			<xref linkend="getting-bluefish-cvs"/> below. If you simply want to 
+			use Bluefish, read <xref linkend="getting-bluefish-stable"/> for how 
 			to get the latest stable package for your system.
 		</para>
 
-		<sect2 id="bluefish-get-updates">
+		<sect2 id="getting-bluefish-updates">
 			<title>How and When Updates are Released</title>
 			<para>
 				Due to the small number of volunteer developers, the progression of 
@@ -80,7 +80,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 			</para>
 		</sect2>
 
-		<sect2 id="bluefish-get-os">
+		<sect2 id="getting-bluefish-os">
 			<title>Operating Systems Supported by Bluefish</title>
 			<para>
 				Bluefish has been reported to work on a number of systems. The 
@@ -115,7 +115,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 			</itemizedlist>			
 		</sect2>
 	</sect1>
-	<sect1 id="bluefish-get-stable">
+	<sect1 id="getting-bluefish-stable">
 		<title>Latest Stable Version</title>
 		<para>
 			Many Linux distributions ship a version of Bluefish or make it 
@@ -133,7 +133,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 			Debian, Red Hat/Fedora, and Mandrake.
 		</para>
 	</sect1>
-	<sect1 id="bluefish-get-cvs">
+	<sect1 id="getting-bluefish-cvs">
 		<title>Latest Developmental Version</title>
 			<para>
 				To get the latest version of Bluefish you will need to 
@@ -185,7 +185,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 				When the downloads have completed, you will find the bluefish 
 				sources in the subdirectory	
 				<literal>bluefish-gtk2</literal>. You can now enter that directory 
-				and install bluefish using the instructions in <xref linkend="bluefish-install-devel-source" />
+				and install bluefish using the instructions in <xref linkend="installing-bluefish-devel-source" />
 			</para>
 
 

@@ -27,19 +27,19 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 			and advanced users, providing a full resource for everyone.
 	</para>
 	<para>
-			Chapters 1-3 are highly recommended for anyone new to Bluefish.
+			Chapters <xref linkend="getting-bluefish" role="template:%n" />, <xref linkend="installing-bluefish" role="template:%n" />, and <xref linkend="using-bluefish" role="template:%n" /> are highly recommended for anyone new to Bluefish.
 			They present general information, installation instructions, and an
 			introduction to the main features of Bluefish.
 	</para>
 	<para>
-			Chapter 4 explains how to debug Bluefish.
+			Chapter <xref linkend="debugging-bluefish" role="template:%n" /> explains how to debug Bluefish.
 	</para>
 	<para>
-			Chapters 5 contains a nearly complete feature reference, useful
+			Chapter <xref linkend="reference-bluefish" role="template:%n" /> contains a nearly complete feature reference, useful
 			for advanced users interested in customizing Bluefish. 
 	</para>
 	<para>
-			Chapters 6 provides guidance for developers, including code formatting
+			Chapter <xref linkend="developing-bluefish" role="template:%n" /> provides guidance for developers, including code formatting
 			styles and a reference for all the source files.
 	</para>
     <para>
@@ -187,7 +187,7 @@ the project. </para>
 				</listitem>
         <listitem>
 					Multi-thumbnail generation for easy creation of photo albums
-					or screenshot pages
+					or screen shot pages
 				</listitem>
         <listitem>
 					Line numbers along the document

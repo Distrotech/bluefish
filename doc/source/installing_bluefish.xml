@@ -17,17 +17,17 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 -->
-<chapter id="bluefish-ch-2">
+<chapter id="installing-bluefish">
   <title>Installing Bluefish</title>
 
-  <sect1 id="bluefish-ch-2-sect-1">
+  <sect1 id="installing-bluefish-requirements">
     <title>Requirements</title>
 
     <para>Bluefish aims to be portable; that is, wherever GTK is ported. A
     comparatively small set of external libraries are necessary for it to
     work. Any recent GNU/Linux distribution or other *NIX with GTK2 installed
     should be sufficient. In addition to the list of requirements below, you
-    may also want to look at <xref linkend="bluefish-ch-2-sect-3" />. Note that
+    may also want to look at <xref linkend="installing-bluefish-specific-issues" />. Note that
     these requirements fit the GTK2 version. If you only have GTK1, you want
     the last GTK1-version, v0.7.</para>
 
@@ -114,7 +114,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
     </itemizedlist>
   </sect1>
 
-  <sect1 id="bluefish-ch-2-sect-2">
+  <sect1 id="installing-bluefish-quick-start">
     <title>Quick Standard Installation</title>
 
     <para>There are two main methods for installing Bluefish: Compile from
@@ -149,14 +149,14 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
       <listitem>
          To compile, or install on another platform, see 
 
-        <xref linkend="bluefish-ch-2-sect-4"></xref>
+        <xref linkend="installing-bluefish-source"></xref>
 
         . 
       </listitem>
     </itemizedlist>
   </sect1>
 
-  <sect1 id="bluefish-ch-2-sect-3">
+  <sect1 id="installing-bluefish-specific-issues">
     <title>System Specific Installation Issues</title>
 
     <para>Different systems have different approaches to solutions and
@@ -195,7 +195,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
     </itemizedlist>
   </sect1>
 
-  <sect1 id="bluefish-ch-2-sect-4">
+  <sect1 id="installing-bluefish-source">
     <title>Installing a Bluefish Source Distribution</title>
 
     <para>By installing Bluefish from source, you may be able to get a newer
@@ -203,7 +203,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
     to compile from source if there is no available binary for your
     system.</para>
 
-    <sect2 id="bluefish-ch-2-sect-4.1">
+    <sect2 id="installing-bluefish-quick-overview">
       <title>Quick Installation Overview</title>
 
       <para>This is the short installation description. Consult the other
@@ -258,14 +258,14 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
       <para>The configure-script can be, um, configured. This is something you
       most likely won't need to do, but it's easy to do if necessary. For a
       complete list of configure options, see <xref
-      linkend="bluefish-ch-2-sect-5" /></para>
+      linkend="installing-bluefish-configure" /></para>
     </sect2>
 
-    <sect2 id="bluefish-install-devel-source">
+    <sect2 id="installing-bluefish-devel-source">
       <title>Installing from Development Source Tree</title>
 
       <para>You can get the latest Bluefish version via CVS using the
-      instructions in <xref linkend="bluefish-get-cvs" /> Enter the
+      instructions in <xref linkend="getting-bluefish-cvs" /> Enter the
       directory containing the bluefish source files: <screen>$ cd bluefish-gtk</screen>
       Next, you need to generate the configure script. That's accomplished by
       running <screen>$ autoconf</screen> Then, you run
@@ -288,13 +288,13 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
       <literal>bluefish-gtk2</literal> directory.</para>
     </sect2>
 
-    <sect2 id="bluefish-ch-2-sect-4.3">
+    <sect2 id="installing-bluefish-problems">
       <title>Problems Compiling?</title>
 
       <para>Can't compile? Well, your first step is to make sure you have the
       necessary utilities and libraries. See <xref
-      linkend="bluefish-ch-2-sect-1" />. Next, see if your system is mentioned
-      in <xref linkend="bluefish-ch-2-sect-3" />. Below is list of well known
+      linkend="installing-bluefish-requirements" />. Next, see if your system is mentioned
+      in <xref linkend="installing-bluefish-specific-issues" />. Below is list of well known
       problems that have been mentioned on the bluefish-dev list. If you're
       unable to find a solution (or if you think you have a solution others
       might want), feel free to contact us on the
@@ -330,13 +330,13 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
     </sect2>
   </sect1>
 
-  <sect1 id="bluefish-ch-2-sect-5">
+  <sect1 id="installing-bluefish-configure">
     <title>Configure Options</title>
 
     <para>This section describes all the configure options available for
     bluefish.</para>
 
-    <sect2 id="bluefish-ch-2-sect-5.1">
+    <sect2 id="installing-bluefish-standard-flags">
       <title>Standard configuration flags</title>
 
       <variablelist>
@@ -674,7 +674,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
       </variablelist>
     </sect2>
 
-    <sect2 id="bluefish-ch-2-sect-5.2">
+    <sect2 id="installing-bluefish-personal-flags">
       <title>Flags personal to bluefish</title>
 
       <variablelist>
@@ -901,7 +901,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
     </sect2>
   </sect1>
 
-  <sect1 id="install-binary">
+  <sect1 id="installing-bluefish-binary">
     <title>Installing a Binary Distribution</title>
 
     <para>Different packages -- different installation. We'll cover only a few
@@ -931,7 +931,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
     ;-)</para>
   </sect1>
 
-  <sect1 id="bluefish-ch-2-sect-6">
+  <sect1 id="installing-bluefish-post-setup">
     <title>Post-installation Setup</title>
 
     <para>The first time you run Bluefish it will create a directory
