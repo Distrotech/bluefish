@@ -350,13 +350,13 @@ static GList *pointer_arr2glist(gchar **arr) {
 	return retlist;
 }
 
-static void cs3d_destroy_lcb(GtkWidget * widget, GdkEvent *event, Tcs3_diag *diag) {
+static void cs3d_destroy_lcb(GtkWidget * widget, Tcs3_diag *diag) {
 	window_destroy(diag->win);
 	g_free(diag);
 }
 
 static void cs3d_cancel_clicked_lcb(GtkWidget * widget, Tcs3_diag *diag) {
-	cs3d_destroy_lcb(NULL, NULL, diag);
+	cs3d_destroy_lcb(NULL, diag);
 }
 
 static void cs3d_ok_clicked_lcb(GtkWidget * widget, Tcs3_diag *diag) {
@@ -441,7 +441,7 @@ static void cs3d_ok_clicked_lcb(GtkWidget * widget, Tcs3_diag *diag) {
 		}
 		g_free(stylebuf);
 	}
-	cs3d_destroy_lcb(NULL, NULL, diag);
+	cs3d_destroy_lcb(NULL, diag);
 }
 
 static void cs3d_select_row_lcb(GtkWidget *clist, gint row, gint column, GdkEventButton *event, Tcs3_diag *diag) {
