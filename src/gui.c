@@ -398,9 +398,83 @@ static void abbr_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
 static void acronym_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
 	general_html_menu_cb(bfwin, 55, NULL);
 }
+
+static void quickstart_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
+	quickstart_dialog(bfwin,NULL);
+}
+static void body_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
+	body_dialog(bfwin,NULL);
+}
+static void quickanchor_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
+	quickanchor_dialog(bfwin, NULL);
+}
+static void quickrule_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
+	quickrule_dialog(bfwin,NULL);
+}
+static void email_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
+	email_dialog(bfwin,NULL);
+}
+static void fontdialog_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
+	font_dialog(bfwin,NULL);
+}
+static void basefont_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
+	basefont_dialog(bfwin,NULL);
+}
+static void framesetdialog_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
+	frameset_dialog(bfwin,NULL);
+}
+static void framedialog_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
+	frame_dialog(bfwin,NULL);
+}
+static void quicklist_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
+	quicklist_dialog(bfwin,NULL);
+}
+static void link_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
+	link_dialog(bfwin,NULL);
+}
+static void formdialog_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
+	formdialog_dialog(bfwin,NULL);
+}
+static void buttondialog_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
+	buttondialog_dialog(bfwin,NULL);
+}
+static void textdialog_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
+	textdialog_dialog(bfwin,NULL);
+}
+static void hiddendialog_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
+	hiddendialog_dialog(bfwin,NULL);
+}
+static void textareadialog_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
+	textareadialog_dialog(bfwin,NULL);
+}
+static void radiodialog_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
+	radiodialog_dialog(bfwin,NULL);
+}
+static void checkdialog_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
+	checkdialog_dialog(bfwin,NULL);
+}
+static void selectdialog_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
+	selectdialog_dialog(bfwin,NULL);
+}
+static void optiondialog_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
+	optiondialog_dialog(bfwin,NULL);
+}
+static void optgroupdialog_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
+	optgroupdialog_dialog(bfwin,NULL);
+}
+static void image_insert_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
+	image_insert_dialog(bfwin,NULL);
+}
+static void thumbnail_insert_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
+	thumbnail_insert_dialog(bfwin,NULL);
+}
+static void multi_thumbnail_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
+	multi_thumbnail_dialog(bfwin,NULL);
+}
+
 static Ttoolbaritem tbi[] = {
-	{"quickstart...", quickstart_cb,13 , N_("QuickStart...")},
-	{"body...", body_cb, 14, N_("Body...")},
+	{"quickstart...", quickstart_clicked_lcb,13 , N_("QuickStart...")},
+	{"body...", body_clicked_lcb, 14, N_("Body...")},
 	{"bold", bold_clicked_lcb,  15, N_("Bold")},
 	{"italic", italic_clicked_lcb,  16, N_("Italic")},
 	{"paragraph", paragraph_clicked_lcb,  19, N_("Paragraph")},
@@ -408,14 +482,14 @@ static Ttoolbaritem tbi[] = {
 	{"breakclear", breakclear_clicked_lcb,  21, N_("Break and clear")},
 	{"nbsp", nbsp_clicked_lcb,  22, N_("Non-breaking space")},
 	{"", NULL, 0, NULL}, /* spacing */
-	{"anchor...", quickanchor_cb,23 , N_("Anchor...")},
-	{"rule...", quickrule_cb, 24, N_("Rule...")},
+	{"anchor...", quickanchor_clicked_lcb,23 , N_("Anchor...")},
+	{"rule...", quickrule_clicked_lcb, 24, N_("Rule...")},
 	{"center", center_clicked_lcb,  28, N_("Center")},
 	{"rightjustify", rightjustify_clicked_lcb,  29, N_("Right Justify")},
 	{"comment", comment_clicked_lcb, 30 , N_("Comment")},
-	{"email...", email_cb, 31, N_("E-Mail...")},
-	{"font...",fontdialog_cb , 32, N_("Font...")},
-	{"basefont...", basefont_cb, 33, N_("Base Font Size...")},
+	{"email...", email_clicked_lcb, 31, N_("E-Mail...")},
+	{"font...",fontdialog_clicked_lcb , 32, N_("Font...")},
+	{"basefont...", basefont_clicked_lcb, 33, N_("Base Font Size...")},
 	{"", NULL, 0, NULL}, /* spacing */
 	{"fontsize+1", fontsizeplus1_clicked_lcb, 34 , N_("Font Size +1")},
 	{"fontsize-1", fontsizeminus1_clicked_lcb,  35, N_("Font Size -1")},
@@ -445,24 +519,24 @@ static Ttoolbaritem tbi[] = {
 	{"tablecaption", tablecaption_clicked_lcb,  54, N_("Table Caption")},
 	{"framewizard...",framewizard , 55, N_("Frame Wizard...")},
 	{"", NULL, 0, NULL}, /* spacing */
-	{"frameset...", framesetdialog_cb,56 , N_("Frameset...")},
-	{"frame...",framedialog_cb , 57, N_("Frame...")},
+	{"frameset...", framesetdialog_clicked_lcb,56 , N_("Frameset...")},
+	{"frame...",framedialog_clicked_lcb , 57, N_("Frame...")},
 	{"", NULL, 0, NULL}, /* spacing */
 	{"frameset", frameset_clicked_lcb, 58 , N_("Frameset")},
 	{"frame", frame_clicked_lcb,  59, N_("Frame")},
 	{"noframes", noframes_clicked_lcb,  60, N_("Noframes")},
 	{"target", target_clicked_lcb,  61, N_("Target")},
-	{"form...",formdialog_cb , 62, N_("Form...")},
-	{"inputbutton...", buttondialog_cb, 63, N_("Input button...")},
-	{"text...",textdialog_cb , 65, N_("Text...")},
-	{"hidden...", hiddendialog_cb, 66, N_("Hidden...")},
-	{"textarea...",textareadialog_cb , 67, N_("Textarea...")},
-	{"radiobutton...", radiodialog_cb, 68, N_("Radio Button...")},
-	{"checkbox...", checkdialog_cb, 69, N_("Check Box...")},
-	{"select...", selectdialog_cb, 70, N_("Select...")},
-	{"option...",optiondialog_cb , 71, N_("Option...")},
-	{"optiongroup...", optgroupdialog_cb, 72, N_("Option group...")},
-	{"quicklist...", quicklist_cb, 73, N_("Quick List...")},
+	{"form...",formdialog_clicked_lcb , 62, N_("Form...")},
+	{"inputbutton...", buttondialog_clicked_lcb, 63, N_("Input button...")},
+	{"text...",textdialog_clicked_lcb , 65, N_("Text...")},
+	{"hidden...", hiddendialog_clicked_lcb, 66, N_("Hidden...")},
+	{"textarea...",textareadialog_clicked_lcb , 67, N_("Textarea...")},
+	{"radiobutton...", radiodialog_clicked_lcb, 68, N_("Radio Button...")},
+	{"checkbox...", checkdialog_clicked_lcb, 69, N_("Check Box...")},
+	{"select...", selectdialog_clicked_lcb, 70, N_("Select...")},
+	{"option...",optiondialog_clicked_lcb , 71, N_("Option...")},
+	{"optiongroup...", optgroupdialog_clicked_lcb, 72, N_("Option group...")},
+	{"quicklist...", quicklist_clicked_lcb, 73, N_("Quick List...")},
 	{"unorderedlist", unorderedlist_clicked_lcb,  74, N_("Unordered List")},
 	{"orderedlist", orderedlist_clicked_lcb,  75, N_("Ordered List")},
 	{"listitem", listitem_clicked_lcb,  76, N_("List Item")},
@@ -473,10 +547,10 @@ static Ttoolbaritem tbi[] = {
 	{"span...", span_dialog,86 , N_("Span...")},
 	{"div...",div_dialog ,87 , N_("Div...")},
 	{"style", style_clicked_lcb,  89, N_("Style")},
-	{"linkstylesheet...", link_cb,90 , N_("Link to stylesheet...")},
-	{"image...", image_insert_dialog_cb, 25, N_("Insert image...")},
-	{"thumbnail...", thumbnail_insert_dialog_cb, 26, N_("Insert thumbnail...")},
-	{"mthumbnail...", multi_thumbnail_dialog_cb, 26, N_("Multi thumbnail...")},
+	{"linkstylesheet...", link_clicked_lcb,90 , N_("Link to stylesheet...")},
+	{"image...", image_insert_clicked_lcb, 25, N_("Insert image...")},
+	{"thumbnail...", thumbnail_insert_clicked_lcb, 26, N_("Insert thumbnail...")},
+	{"mthumbnail...", multi_thumbnail_clicked_lcb, 26, N_("Multi thumbnail...")},
 	{"dfn", dfn_clicked_lcb,  93, N_("Definition")},
 	{"code", code_clicked_lcb,  94, N_("Code")},
 	{"samp", samp_clicked_lcb,  95, N_("Sample")},

@@ -22,7 +22,7 @@
  */
 /* 
  * Changes by Antti-Juhani Kaijanaho <gaia@iki.fi> on 1999-10-20
- * $Id: html.c,v 1.28 2003-07-18 13:30:36 oli4 Exp $
+ * $Id: html.c,v 1.29 2003-07-22 11:32:01 oli4 Exp $
  */
 
 #include <gtk/gtk.h>
@@ -32,11 +32,11 @@
 #include <stdlib.h> /* strtod() */
 #include <time.h>
 
+#include "bluefish.h"	/* main_v */
 #include "html.h" 	/* myself */
 #include "html_diag.h" 	/* the new html dialog stuff  */
 #include "html2.h" /* style_but_new*/
 #include "cap.h"	/* cap() */
-#include "bluefish.h"	/* main_v */
 #include "bf_lib.h"	/* main_v */
 #include "pixmap.h"  /* new_pixmap() */
 #include "gtk_easy.h"
@@ -46,13 +46,6 @@
 #include "callbacks.h"
 #include "wizards.h"*/
 #include "stringlist.h"
-
-/* time insert struct */
-typedef struct {
-	GtkWidget *check[6];
-	GtkWidget *label[6];
-	GtkWidget *dialog;
-} TimeInsert;
 
 /*****************************************************************************/
 
@@ -292,6 +285,16 @@ static gchar *extract_time_string(char *original_string)
 }
 
 /************************************************************************/
+
+/* time insert struct */
+typedef struct {
+	GtkWidget *check[6];
+	GtkWidget *label[6];
+	GtkWidget *dialog;
+	Tbfwin *bfwin;
+} TimeInsert;
+
+
 static void insert_time_destroy_lcb(GtkWidget * widget, GdkEvent *event, TimeInsert * data) {
 	DEBUG_MSG("insert_time_destroy_lcb, data=%p\n", data);
 	window_destroy(data->dialog);
@@ -318,7 +321,7 @@ static void insert_time_callback(GtkWidget * widget, TimeInsert * timeinsert)
 	}
 	
 	DEBUG_MSG("insert_time_callback, final_string=%s\n", final_string);
-	doc_insert_two_strings(main_v->current_document, final_string, "");
+	doc_insert_two_strings(timeinsert->bfwin->current_document, final_string, "");
 	DEBUG_MSG("insert_time_callback, text inserted\n");
 	g_free(insert_string);
 	g_free(final_string);
@@ -335,8 +338,7 @@ static void insert_time_cancel(GtkWidget * widget, TimeInsert * data)
 }
 
 /************************************************************************/
-void insert_time_cb(GtkWidget * widget, gpointer data)
-{
+void insert_time_cb(GtkWidget * widget, Tbfwin *bfwin) {
 
 	gint month, year, count;
 	time_t time_var;
@@ -346,6 +348,7 @@ void insert_time_cb(GtkWidget * widget, gpointer data)
 	GtkWidget *ok_b, *cancel_b, *vbox, *hbox;
 
 	timeinsert = g_malloc(sizeof(TimeInsert));
+	timeinsert->bfwin = bfwin;
 	time_var = time(NULL);
 	time_struct = localtime(&time_var);
 	DEBUG_MSG("insert_time_cb, timeinsert=%p\n", timeinsert);
@@ -532,8 +535,7 @@ static void quickanchorok_lcb(GtkWidget * widget, Thtml_diag * dg)
 	html_diag_destroy_cb(NULL, dg);
 }
 
-void quickanchor_cb(GtkWidget * widget, gpointer data)
-{
+void quickanchor_dialog(Tbfwin *bfwin, Ttagpopup *data) {
 	static gchar *aitems[] = { "href", "target", "name", "id", "onclick", "ondblclick", "onmouseover", "onmousedown", "onmousemove", "onmouseout", "onmouseup", "onkeydown", "onkeypress", "onkeyup", "class", "style", "lang", NULL };
 	gchar *custom = NULL;
 	gchar *avalues[18];
@@ -541,8 +543,10 @@ void quickanchor_cb(GtkWidget * widget, gpointer data)
 
 	GtkWidget *noteb, *but, *dgtable, *file_but, *frame;
 
-	dg = html_diag_new(_("Quick Anchor"));
-	fill_dialogvalues(aitems, avalues, &custom, (Ttagpopup *) data, widget, dg);
+	dg = html_diag_new(bfwin,_("Quick Anchor"));
+	if (data) {
+		fill_dialogvalues(aitems, avalues, &custom, (Ttagpopup *) data, dg);
+	}
 
 	noteb = gtk_notebook_new();
 	gtk_box_pack_start(GTK_BOX(dg->vbox), noteb, FALSE, FALSE, 0);
@@ -555,7 +559,7 @@ void quickanchor_cb(GtkWidget * widget, gpointer data)
 
 	{
 		GList *rel_link_list=NULL, *tmplist;
-		rel_link_list = list_relative_document_filenames(main_v->current_document);
+		rel_link_list = list_relative_document_filenames(bfwin->current_document);
 		tmplist = duplicate_stringlist(recent_attribs.urllist, 1);
 		rel_link_list = g_list_concat(tmplist, rel_link_list);
 	
@@ -743,9 +747,7 @@ static void h6_editok_lcb(GtkWidget *widget, gpointer data) {
 	block_tag_editok_lcb(9, data);
 }
 
-
-void block_tag_edit_cb(gint type, GtkWidget *widget, gpointer data)
-{
+void block_tag_edit_dialog(Tbfwin *bfwin, gint type, GtkWidget *widget, Ttagpopup *data) {
 	gchar *labeltext;
 	GList *popuplist=NULL;
 	GtkWidget *dgtable, *but;
@@ -787,9 +789,9 @@ void block_tag_edit_cb(gint type, GtkWidget *widget, gpointer data)
 		labeltext = g_strdup("");
 	break;
 	}
-	dg = html_diag_new(labeltext);
+	dg = html_diag_new(bfwin,labeltext);
 	g_free(labeltext);
-	fill_dialogvalues(tagitems, tagvalues, &custom, (Ttagpopup *) data, widget, dg);
+	fill_dialogvalues(tagitems, tagvalues, &custom, (Ttagpopup *) data, dg);
 
 	dgtable = html_diag_table_in_vbox(dg, 5, 4);
 	
@@ -857,34 +859,6 @@ void block_tag_edit_cb(gint type, GtkWidget *widget, gpointer data)
 		g_free(custom);
 }
 
-void p_dialog(GtkWidget * widget, gpointer data) {
-	block_tag_edit_cb(1, widget,data);
-}
-void div_dialog(GtkWidget * widget, gpointer data) {
-	block_tag_edit_cb(2, widget,data);
-}
-void span_dialog(GtkWidget * widget, gpointer data) {
-	block_tag_edit_cb(3, widget,data);
-}
-void h1_dialog(GtkWidget * widget, gpointer data) {
-	block_tag_edit_cb(4, widget,data);
-}
-void h2_dialog(GtkWidget * widget, gpointer data) {
-	block_tag_edit_cb(5, widget,data);
-}
-void h3_dialog(GtkWidget * widget, gpointer data) {
-	block_tag_edit_cb(6, widget,data);
-}
-void h4_dialog(GtkWidget * widget, gpointer data) {
-	block_tag_edit_cb(7, widget,data);
-}
-void h5_dialog(GtkWidget * widget, gpointer data) {
-	block_tag_edit_cb(8, widget,data);
-}
-void h6_dialog(GtkWidget * widget, gpointer data) {
-	block_tag_edit_cb(9, widget,data);
-}
-
 static void quickruleok_lcb(GtkWidget * widget, Thtml_diag * dg)
 {
 	gchar *thestring, *finalstring;
@@ -908,8 +882,7 @@ static void quickruleok_lcb(GtkWidget * widget, Thtml_diag * dg)
 	html_diag_destroy_cb(NULL, dg);
 }
 
-void quickrule_cb(GtkWidget * widget, gpointer data)
-{
+void quickrule_dialog(Tbfwin *bfwin, Ttagpopup *data) {
 	GList *popdownlist = NULL;
 
 	static gchar *hritems[] = { "align", "size", "width", "noshade", NULL };
@@ -919,8 +892,8 @@ void quickrule_cb(GtkWidget * widget, gpointer data)
 	GtkWidget *dgtable;
 	GtkAdjustment *dgadj;
 	
-	dg = html_diag_new(_("Horizontal Rule"));
-	fill_dialogvalues(hritems, hrvalues, &custom, (Ttagpopup *) data, widget, dg);
+	dg = html_diag_new(bfwin, _("Horizontal Rule"));
+	fill_dialogvalues(hritems, hrvalues, &custom, (Ttagpopup *) data, dg);
 
 	dgtable = html_diag_table_in_vbox(dg, 5, 10);
 	gtk_table_set_row_spacings(GTK_TABLE(dgtable), 12);
@@ -1036,14 +1009,13 @@ void quickstart_doctype_changed_cb(GtkWidget* widget, Thtml_diag *dg) {
 	}				
 }
 
-void quickstart_cb(GtkWidget * widget, gpointer data)
-{
+void quickstart_dialog(Tbfwin *bfwin, Ttagpopup *data) {
 	GList *tmplist;
 	gchar *text[1];
 	GtkWidget *scrolwin, *dgtable, *label;
 	Thtml_diag *dg;
 	
-	dg = html_diag_new(_("Quick Start"));
+	dg = html_diag_new(bfwin,_("Quick Start"));
 
 	dgtable = html_diag_table_in_vbox(dg, 10, 4);
 
@@ -1233,8 +1205,7 @@ static void bodyok_lcb(GtkWidget * widget, Thtml_diag *dg)
 	html_diag_destroy_cb(NULL, dg);
 }
 
-void body_cb(GtkWidget * widget, gpointer data)
-{
+void body_dialog(Tbfwin *bfwin, Ttagpopup *data) {
 	static gchar *bodyitems[] = { "background", "bgcolor", "text", "link", "vlink", "alink"
 									, "style", "class", "id", "language", "onload", "onunload", NULL };
 
@@ -1243,8 +1214,8 @@ void body_cb(GtkWidget * widget, gpointer data)
 	gchar *custom = NULL;
 	Thtml_diag *dg;
 
-	dg = html_diag_new(_("Body"));
-	fill_dialogvalues(bodyitems, bodyvalues, &custom, (Ttagpopup *) data, widget, dg);
+	dg = html_diag_new(bfwin,_("Body"));
+	fill_dialogvalues(bodyitems, bodyvalues, &custom, (Ttagpopup *) data, dg);
 
 	noteb = gtk_notebook_new();
 	gtk_box_pack_start(GTK_BOX(dg->vbox), noteb, FALSE, FALSE, 0);
@@ -1304,7 +1275,7 @@ void body_cb(GtkWidget * widget, gpointer data)
 		gtk_box_pack_start(GTK_BOX(vbox2), hbox, FALSE, FALSE, 0);
 		
 		/* Depreciated options tab */
-	if (!(!main_v->props.allow_dep && widget && !data)){
+	if (!(!main_v->props.allow_dep && !data)){
 	        frame = bf_generic_frame_new(NULL, GTK_SHADOW_NONE, 12);
 		gtk_notebook_append_page(GTK_NOTEBOOK(noteb), frame, gtk_label_new(_("Depreciated options")));
 		dgtable[0] = gtk_table_new(6, 3, FALSE);
@@ -1386,8 +1357,7 @@ static void metaok_lcb(GtkWidget * widget, Thtml_diag *dg)
 }
 
 
-void meta_cb(GtkWidget * widget, gpointer data)
-{
+void meta_dialog(Tbfwin *bfwin, Ttagpopup *data) {
 	GList *popuplist = NULL;
 
 	static gchar *tagitems[] = { "http-equiv", "name", "content", "scheme", NULL };
@@ -1396,8 +1366,8 @@ void meta_cb(GtkWidget * widget, gpointer data)
 	Thtml_diag *dg;
 	GtkWidget *dgtable;
 	
-	dg = html_diag_new(_("Meta"));
-	fill_dialogvalues(tagitems, tagvalues, &custom, (Ttagpopup *) data, widget, dg);
+	dg = html_diag_new(bfwin,_("Meta"));
+	fill_dialogvalues(tagitems, tagvalues, &custom, (Ttagpopup *) data, dg);
 
 	dgtable = html_diag_table_in_vbox(dg, 5, 10);
 
@@ -1499,8 +1469,7 @@ static void basefontok_lcb(GtkWidget * widget, Thtml_diag *dg) {
 	generalfontdialog_lcb(2, widget, dg);
 }
 
-static void generalfontdialog_cb(gint type, GtkWidget * widget, gpointer data)
-{
+static void generalfontdialog_cb(gint type, Tbfwin *bfwin, Ttagpopup *data) {
 	GList *popdownlist = NULL;
 	GtkWidget *color_but;
 
@@ -1512,16 +1481,16 @@ static void generalfontdialog_cb(gint type, GtkWidget * widget, gpointer data)
 
 	switch(type) {
 		case 1:
-			dg = html_diag_new(_("Font"));
+			dg = html_diag_new(bfwin,_("Font"));
 		break;
 		case 2:
-			dg = html_diag_new(_("Base Font"));
+			dg = html_diag_new(bfwin,_("Base Font"));
 		break;
 		default:
 			return;
 		break;
 	}
-	fill_dialogvalues(tagitems, tagvalues, &custom, (Ttagpopup *) data, widget, dg);		
+	fill_dialogvalues(tagitems, tagvalues, &custom, (Ttagpopup *) data, dg);
 
 	dgtable = html_diag_table_in_vbox(dg, 3, 10);
 
@@ -1561,12 +1530,12 @@ static void generalfontdialog_cb(gint type, GtkWidget * widget, gpointer data)
 	if (custom)	g_free(custom);
 }
 
-void fontdialog_cb(GtkWidget *widget, gpointer data) {
-	generalfontdialog_cb(1, widget,data);
+void font_dialog(Tbfwin *bfwin, Ttagpopup *data) {
+	generalfontdialog_cb(1, bfwin,data);
 }
 
-void basefont_cb(GtkWidget *widget, gpointer data) {
-	generalfontdialog_cb(2, widget,data);
+void basefont_dialog(Tbfwin *bfwin, Ttagpopup *data) {
+	generalfontdialog_cb(2, bfwin,data);
 }
 
 static void emailok_lcb(GtkWidget * widget, Thtml_diag *dg)
@@ -1602,12 +1571,11 @@ static void emailok_lcb(GtkWidget * widget, Thtml_diag *dg)
 	html_diag_destroy_cb(NULL, dg);
 }
 
-void email_cb(GtkWidget * widget, gpointer data)
-{
-        GtkWidget *dgtable;
+void email_dialog(Tbfwin *bfwin, Ttagpopup *data) {
+	GtkWidget *dgtable;
 	Thtml_diag *dg;
 	
-	dg = html_diag_new(_("Email"));
+	dg = html_diag_new(bfwin,_("Email"));
 
 	dgtable = gtk_table_new(3, 2, FALSE);
 	gtk_table_set_col_spacings(GTK_TABLE(dgtable), 12);
@@ -1663,12 +1631,11 @@ static void quicklistok_lcb(GtkWidget * widget, Thtml_diag *dg)
 	html_diag_destroy_cb(NULL, dg);
 }
 
-void quicklist_cb(GtkWidget * widget, gpointer data)
-{
+void quicklist_dialog(Tbfwin *bfwin, Ttagpopup *data) {
 	Thtml_diag *dg;
 	GtkWidget *dgtable;
 
-	dg = html_diag_new(_("Quick List"));
+	dg = html_diag_new(bfwin,_("Quick List"));
 
 	dgtable = html_diag_table_in_vbox(dg, 2, 10);
 	dg->spin[1] = spinbut_with_value("3", 0, 500, 1.0, 5.0);
@@ -1738,17 +1705,15 @@ static void framesetdialogok_lcb(GtkWidget * widget, Thtml_diag *dg) {
 }
 
 
-void framesetdialog_cb(GtkWidget * widget, gpointer data)
-{
-
+void frameset_dialog(Tbfwin *bfwin, Ttagpopup *data) {
 	static gchar *tagitems[] = { "cols", "rows", "border", "spacing", NULL };
 	gchar *tagvalues[5];
 	gchar *custom = NULL;
 	Thtml_diag *dg;
 	GtkWidget *dgtable;
 
-	dg = html_diag_new(_("Frameset"));
-	fill_dialogvalues(tagitems, tagvalues, &custom, (Ttagpopup *) data, widget, dg);
+	dg = html_diag_new(bfwin,_("Frameset"));
+	fill_dialogvalues(tagitems, tagvalues, &custom, (Ttagpopup *) data, dg);
 
 	dgtable = html_diag_table_in_vbox(dg, 5, 10);
 
@@ -1820,10 +1785,8 @@ static void framedialogok_lcb(GtkWidget * widget, Thtml_diag *dg) {
 }
 
 
-void framedialog_cb(GtkWidget * widget, gpointer data)
-{
+void frame_dialog(Tbfwin *bfwin, Ttagpopup *data) {
 	GList *popuplist = NULL;
-
 	static gchar *tagitems[] =
 		{ "src", "name", "frameborder", "scrolling", "marginwidth", "marginheight", "noresize", NULL };
 	gchar *tagvalues[9];
@@ -1832,8 +1795,8 @@ void framedialog_cb(GtkWidget * widget, gpointer data)
 	GtkWidget *dgtable, *file_but;
 	Thtml_diag *dg;
 
-	dg = html_diag_new(_("Frame"));
-	fill_dialogvalues(tagitems, tagvalues, &custom, (Ttagpopup *) data, widget, dg);
+	dg = html_diag_new(bfwin,_("Frame"));
+	fill_dialogvalues(tagitems, tagvalues, &custom, (Ttagpopup *) data, dg);
 
 	dgtable = html_diag_table_in_vbox(dg, 5, 10);
 
@@ -1914,13 +1877,12 @@ static void embedok_lcb(GtkWidget * widget,Thtml_diag *dg )
 	html_diag_destroy_cb(NULL, dg);
 }
 
-void embed_cb(GtkWidget * widget, gpointer data)
-{
+void embed_dialog(Tbfwin *bfwin, Ttagpopup *data) {
 	GtkWidget *file_but;
 	GtkWidget *dgtable;
 	Thtml_diag *dg;
 
-	dg = html_diag_new(_("Embed"));
+	dg = html_diag_new(bfwin,_("Embed"));
 
 	dgtable = html_diag_table_in_vbox(dg, 5, 4);
 	dg->entry[1] = gtk_entry_new_with_max_length(256);
@@ -1992,7 +1954,7 @@ static void scriptok_lcb(GtkWidget * widget,Thtml_diag *dg ) {
 	script_linkok_lcb(0, widget, dg);
 }
 
-static void script_link_cb(gint type, GtkWidget * widget, gpointer data) {
+static void script_link_cb(gint type, Tbfwin *bfwin, Ttagpopup *data) {
 	GtkWidget *file_but;
 	GList *tmplist, *tmplist2;
 	GtkWidget *dgtable, *label;
@@ -2003,11 +1965,11 @@ static void script_link_cb(gint type, GtkWidget * widget, gpointer data) {
 	gchar *custom = NULL;
 
 	if (type == 0) {
-		dg = html_diag_new(_("Script"));
-		fill_dialogvalues(scriptitems, tagvalues, &custom, (Ttagpopup *) data, widget, dg);
+		dg = html_diag_new(bfwin,_("Script"));
+		fill_dialogvalues(scriptitems, tagvalues, &custom, (Ttagpopup *) data, dg);
 	} else {
-		dg = html_diag_new(_("Link"));
-		fill_dialogvalues(linkitems, tagvalues, &custom, (Ttagpopup *) data, widget, dg);
+		dg = html_diag_new(bfwin,_("Link"));
+		fill_dialogvalues(linkitems, tagvalues, &custom, (Ttagpopup *) data, dg);
 	}
 
 	dgtable = html_diag_table_in_vbox(dg, 4, 12);
@@ -2071,10 +2033,10 @@ static void script_link_cb(gint type, GtkWidget * widget, gpointer data) {
 	g_list_free(tmplist2);
 }
 
-void script_cb(GtkWidget * widget, gpointer data) {
-	script_link_cb(0, widget, data);
+void script_dialog(Tbfwin *bfwin, Ttagpopup *data) {
+	script_link_cb(0, bfwin, data);
 }
 
-void link_cb(GtkWidget * widget, gpointer data) {
-	script_link_cb(1, widget, data);
+void link_dialog(Tbfwin *bfwin, Ttagpopup *data) {
+	script_link_cb(1, bfwin, data);
 }

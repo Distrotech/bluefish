@@ -20,32 +20,36 @@
 
 #ifndef __HTML_H_
 #define __HTML_H_
+
+#include "html_diag.h" /* Ttagpopup */
+
 void insert_char_cb(Tbfwin* bfwin,guint callback_action, GtkWidget *widget);
 void general_html_menu_cb(Tbfwin* bfwin,guint callback_action, GtkWidget *widget);
-void general_html_cb(GtkWidget * widget, gpointer data);
-void insert_time_cb(GtkWidget * widget, gpointer data);
-void quickanchor_cb(GtkWidget * widget, gpointer data);
-void block_tag_edit_cb(gint type, GtkWidget *widget, gpointer data);
-void p_dialog(GtkWidget * widget, gpointer data);
-void div_dialog(GtkWidget *widget, gpointer data);
-void span_dialog(GtkWidget * widget, gpointer data);
-void h1_dialog(GtkWidget * widget, gpointer data);
-void h2_dialog(GtkWidget * widget, gpointer data);
-void h3_dialog(GtkWidget * widget, gpointer data);
-void h4_dialog(GtkWidget * widget, gpointer data);
-void h5_dialog(GtkWidget * widget, gpointer data);
-void h6_dialog(GtkWidget * widget, gpointer data);
-void quickrule_cb(GtkWidget * widget, gpointer data);
-void quickstart_cb(GtkWidget * widget, gpointer data);
-void body_cb(GtkWidget * widget, gpointer data);
-void meta_cb(GtkWidget * widget, gpointer data);
-void fontdialog_cb(GtkWidget *widget, gpointer data);
-void basefont_cb(GtkWidget *widget, gpointer data);
-void email_cb(GtkWidget * widget, gpointer data);
-void quicklist_cb(GtkWidget * widget, gpointer data);
-void framesetdialog_cb(GtkWidget * widget, gpointer data);
-void framedialog_cb(GtkWidget * widget, gpointer data);
-void embed_cb(GtkWidget * widget, gpointer data);
-void script_cb(GtkWidget * widget, gpointer data);
-void link_cb(GtkWidget * widget, gpointer data);
+
+void general_html_dialog(Tbfwin *bfwin, Ttagpopup *data);
+void insert_time_dialog(Tbfwin *bfwin, Ttagpopup *data);
+void quickanchor_dialog(Tbfwin *bfwin, Ttagpopup *data);
+void block_tag_edit_cb(gint type, GtkWidget *widget, Tbfwin *bfwin);
+void p_dialog(Tbfwin *bfwin, Ttagpopup *data);
+void div_dialog(Tbfwin *bfwin, Ttagpopup *data);
+void span_dialog(Tbfwin *bfwin, Ttagpopup *data);
+void h1_dialog(Tbfwin *bfwin, Ttagpopup *data);
+void h2_dialog(Tbfwin *bfwin, Ttagpopup *data);
+void h3_dialog(Tbfwin *bfwin, Ttagpopup *data);
+void h4_dialog(Tbfwin *bfwin, Ttagpopup *data);
+void h5_dialog(Tbfwin *bfwin, Ttagpopup *data);
+void h6_dialog(Tbfwin *bfwin, Ttagpopup *data);
+void quickrule_dialog(Tbfwin *bfwin, Ttagpopup *data);
+void quickstart_dialog(Tbfwin *bfwin, Ttagpopup *data);
+void body_dialog(Tbfwin *bfwin, Ttagpopup *data);
+void meta_dialog(Tbfwin *bfwin, Ttagpopup *data);
+void font_dialog(Tbfwin *bfwin, Ttagpopup *data);
+void basefont_dialog(Tbfwin *bfwin, Ttagpopup *data);
+void email_dialog(Tbfwin *bfwin, Ttagpopup *data);
+void quicklist_dialog(Tbfwin *bfwin, Ttagpopup *data);
+void frameset_dialog(Tbfwin *bfwin, Ttagpopup *data);
+void frame_dialog(Tbfwin *bfwin, Ttagpopup *data);
+void embed_dialog(Tbfwin *bfwin, Ttagpopup *data);
+void script_dialog(Tbfwin *bfwin, Ttagpopup *data);
+void link_dialog(Tbfwin *bfwin, Ttagpopup *data);
 #endif							/* __HTML_H_ */

@@ -21,14 +21,14 @@
 #ifndef __HTML_FORM_H_
 #define __HTML_FORM_H_
 
-void formdialog_cb(GtkWidget * widget, gpointer data);
-void textareadialog_cb(GtkWidget * widget, gpointer data);
-void textdialog_cb(GtkWidget * widget, gpointer data);
-void buttondialog_cb(GtkWidget * widget, gpointer data);
-void hiddendialog_cb(GtkWidget * widget, gpointer data);
-void radiodialog_cb(GtkWidget * widget, gpointer data);
-void checkdialog_cb(GtkWidget * widget, gpointer data);
-void selectdialog_cb(GtkWidget * widget, gpointer data);
-void optiondialog_cb(GtkWidget * widget, gpointer data);
-void optgroupdialog_cb(GtkWidget * widget, gpointer data);
+void formdialog_dialog(Tbfwin *bfwin, Ttagpopup *data);
+void textareadialog_dialog(Tbfwin *bfwin, Ttagpopup *data);
+void textdialog_dialog(Tbfwin *bfwin, Ttagpopup *data);
+void buttondialog_dialog(Tbfwin *bfwin, Ttagpopup *data);
+void hiddendialog_dialog(Tbfwin *bfwin, Ttagpopup *data);
+void radiodialog_dialog(Tbfwin *bfwin, Ttagpopup *data);
+void checkdialog_dialog(Tbfwin *bfwin, Ttagpopup *data);
+void selectdialog_dialog(Tbfwin *bfwin, Ttagpopup *data);
+void optiondialog_dialog(Tbfwin *bfwin, Ttagpopup *data);
+void optgroupdialog_dialog(Tbfwin *bfwin, Ttagpopup *data);
 #endif /* __HTML_FORM_H_ */

@@ -51,7 +51,7 @@ void html_diag_cancel_clicked_cb(GtkWidget *widget, gpointer data) {
 	html_diag_destroy_cb(NULL, data);
 }
 
-Thtml_diag *html_diag_new(gchar *title) {
+Thtml_diag *html_diag_new(Tbfwin *bfwin, gchar *title) {
 	Thtml_diag *dg;
 	
 	dg = g_malloc(sizeof(Thtml_diag));
@@ -97,7 +97,8 @@ Thtml_diag *html_diag_new(gchar *title) {
 	}
 
 	gtk_widget_realize(dg->dialog);
-	dg->doc = main_v->current_document;
+	dg->bfwin = bfwin;
+	dg->doc = bfwin->current_document;
 	return dg;
 }
 

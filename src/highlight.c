@@ -405,12 +405,14 @@ static void add_patterns_to_parent(GList **list, gchar *filetype, gchar *name) {
 
 void filetype_highlighting_rebuild() {
 	GList *tmplist;
-
+	GList *alldoclist;
+	
+	alldoclist = return_allwindows_documentlist();
 	/* remove filetypes from documents, but to reconnect them 
 	again after the rebuild, we temporary put a string with 
 	the filetype on that pointer */
-	if (main_v->documentlist) {
-		tmplist = g_list_first(main_v->documentlist);
+	if (alldoclist) {
+		tmplist = g_list_first(alldoclist);
 		while (tmplist) {
 			Tdocument *thisdoc = (Tdocument *)tmplist->data;
 			if (thisdoc->hl) {
@@ -571,8 +573,8 @@ void filetype_highlighting_rebuild() {
 	have to connect all the documents with their filetypes again, we 
 	stored the name of the filetype temporary in the place of the Tfiletype,
 	undo that now */
-	if (main_v->documentlist) {
-		tmplist = g_list_first(main_v->documentlist);
+	if (alldoclist) {
+		tmplist = g_list_first(alldoclist);
 		while (tmplist) {
 			if (((Tdocument *)tmplist->data)->hl) {
 				gchar *tmpstr = (gchar *)((Tdocument *)tmplist->data)->hl;
@@ -584,6 +586,7 @@ void filetype_highlighting_rebuild() {
 			tmplist = g_list_next(tmplist);
 		}
 	}
+	g_list_free(alldoclist);
 }
 
 void hl_init() {
