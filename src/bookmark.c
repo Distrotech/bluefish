@@ -94,6 +94,13 @@ typedef struct {
 #define BM_FMODE_HOME     1
 #define BM_FMODE_FILE     2
 
+static gchar *bmark_display_text(gchar *name, gchar *text) {
+	if (name && strlen(name) > 0) {
+		return g_strconcat(name, " - ", text,NULL);
+	} 
+	return g_strdup(text);
+}
+
 /* Free bookmark structure */
 static void bmark_free(gpointer ptr)
 {
@@ -406,7 +413,7 @@ static void bmark_popup_menu_goto_lcb(GtkWidget * widget, gpointer user_data)
 			DEBUG_MSG("bmark_popup_menu_goto_lcb, cursor NOT visible!\n");
 			/* gtk_text_view_scroll_mark_onscreen(GTK_TEXT_VIEW(b->doc->view), b->mark); */
 			gtk_text_view_scroll_to_mark(GTK_TEXT_VIEW(b->doc->view),b->mark,0.0,
-                                             TRUE,0.5,0.0);
+                                             TRUE,0.5,0.5);
 		}
 		if (b->doc != BFWIN(user_data)->current_document)
 			switch_to_document_by_pointer(BFWIN(user_data), b->doc);
@@ -634,7 +641,7 @@ static void bmark_get_iter_at_position(Tbfwin * bfwin, Tbmark * m)
 			if (tmpm) {
 				gint val = strcmp(m->filepath, tmpm->filepath);
 				if (val == 0) {
-					DEBUG_MSG("bmark_get_iter_at_position, there is already a bookmark for this file, comparing two iters\n");
+				/*	DEBUG_MSG("bmark_get_iter_at_position, there is already a bookmark for this file, comparing two iters\n");*/
 					if (m->offset < tmpm->offset) {
 						gtk_tree_store_insert_before(bfwin->bookmarkstore, &m->iter, parent,
 													 &tmpiter);
@@ -897,54 +904,145 @@ GHashTable *bmark_get_bookmarked_lines(Tdocument * doc, GtkTextIter *fromit, Gtk
 	return NULL;
 }
 
-void bmark_add_backend(Tbfwin *bfwin, const gchar *name, gint offset, gboolean is_temp) {
+/* this function will simply add the bookmark as defined in the arguments
+ *
+ * will use offset if itoffset is NULL
+ * will use itoffset if not NULL
+ */
+static void bmark_add_backend(Tdocument *doc, GtkTextIter *itoffset, gint offset, const gchar *name, const gchar *text, gboolean is_temp) {
 	Tbmark *m;
-	GtkTextIter it, eit, sit;
-	gchar *tmp;
-	DEBUG_MSG("bmark_add_backend, adding bookmark at offset=%d for bfwin=%p\n",offset,bfwin);
-	/* create bookmark */
+	GtkTextIter it;
 	m = g_new0(Tbmark, 1);
-	m->doc = DOCUMENT(bfwin->current_document);
-	m->offset = offset;
-	gtk_text_buffer_get_iter_at_offset(m->doc->buffer,&it,offset);
-	/* if there is a selection, and the offset is within the selection, we'll use it as text content */
-	if (gtk_text_buffer_get_selection_bounds(m->doc->buffer,&sit,&eit) 
-				&& gtk_text_iter_in_range(&it,&sit,&eit)) {
-		m->mark = gtk_text_buffer_create_mark(m->doc->buffer, NULL, &sit, TRUE);
-		m->text = gtk_text_iter_get_text(&sit, &eit);
+	m->doc = doc;
+	if (itoffset) {
+		it = *itoffset;
+		m->offset = gtk_text_iter_get_offset(&it);
 	} else {
-		m->mark = gtk_text_buffer_create_mark(m->doc->buffer, NULL, &it, TRUE);
-			sit = eit = it;
-		gtk_text_iter_forward_to_line_end(&eit);
-		gtk_text_iter_forward_chars(&sit, BMARK_SHOW_NUM_TEXT_CHARS);
-		if (!gtk_text_iter_in_range(&sit, &it, &eit))
-			sit = eit;
-		m->text = gtk_text_iter_get_text(&it, &sit);
+		gtk_text_buffer_get_iter_at_offset(doc->buffer,&it,offset);
+		m->offset = offset;
 	}
-	m->filepath = g_strdup(m->doc->filename);
+	m->mark = gtk_text_buffer_create_mark(doc->buffer, NULL, &it, TRUE);
+	m->filepath = g_strdup(doc->filename);
 	m->is_temp = is_temp;
-	m->name = g_strdup(name);
+	m->text = g_strdup(text);
+	m->name = (name) ? g_strdup(name) : g_strdup("");
 	m->description = g_strdup("");
 	/* insert into tree */
-	bmark_get_iter_at_position(bfwin, m);
-	if (m->name && strlen(m->name)>0) {
-		tmp = g_strconcat(m->name, " - ", m->text, NULL);
-	} else {
-		tmp = g_strdup(m->text);
-	}
-	gtk_tree_store_set(bfwin->bookmarkstore, &m->iter, NAME_COLUMN,
-					   tmp, PTR_COLUMN, m, -1);
-	gtk_tree_view_expand_all(bfwin->bmark);
-	gtk_widget_grab_focus(bfwin->current_document->view);
+	bmark_get_iter_at_position(doc->bfwin, m);
+	gtk_tree_store_set(BFWIN(doc->bfwin)->bookmarkstore, &m->iter, NAME_COLUMN,
+					   bmark_display_text(m->name, m->text), PTR_COLUMN, m, -1);
 	/* and store */
 	if (!m->is_temp) {
-		bmark_store(bfwin, m);
+		bmark_store(BFWIN(doc->bfwin), m);
+	}	
+}
+
+/**
+ * bmark_text_for_offset:
+ *
+ * will use offset if itoffset is NULL
+ * will use itoffset if not NULL
+ */
+static gchar *bmark_text_for_offset(Tdocument *doc, GtkTextIter *itoffset, gint offset) {
+	GtkTextIter it, eit, sit;
+	if (itoffset) {
+		it = *itoffset;
+	} else {
+		gtk_text_buffer_get_iter_at_offset(doc->buffer,&it,offset);
+	}
+	sit = eit = it;
+	gtk_text_iter_forward_to_line_end(&eit);
+	gtk_text_iter_forward_chars(&sit, BMARK_SHOW_NUM_TEXT_CHARS);
+	if (!gtk_text_iter_in_range(&sit, &it, &eit))
+		sit = eit;
+#ifdef DEBUG
+	{
+		gchar *tmp = gtk_text_iter_get_text(&it, &sit);
+		DEBUG_MSG("bmark_text_for_offset, text=%s\n",tmp);
+		g_free(tmp);
+	}
+#endif
+	return gtk_text_iter_get_text(&it, &sit);
+}
+
+/* this function will add a bookmark to the current document at current cursor / selection */
+static void bmark_add_current_doc_backend(Tbfwin *bfwin, const gchar *name, gint offset, gboolean is_temp) {
+	GtkTextIter it, eit, sit;
+	DEBUG_MSG("bmark_add_backend, adding bookmark at offset=%d for bfwin=%p\n",offset,bfwin);
+	/* create bookmark */
+	gtk_text_buffer_get_iter_at_offset(DOCUMENT(bfwin->current_document)->buffer,&it,offset);
+	/* if there is a selection, and the offset is within the selection, we'll use it as text content */
+	if (gtk_text_buffer_get_selection_bounds(DOCUMENT(bfwin->current_document)->buffer,&sit,&eit) 
+				&& gtk_text_iter_in_range(&it,&sit,&eit)) {
+		gchar *text = gtk_text_iter_get_text(&sit, &eit);
+		bmark_add_backend(DOCUMENT(bfwin->current_document), &sit, offset, name, text, is_temp);
+		g_free(text);
+		
+	} else {
+		gchar *text;
+		text = bmark_text_for_offset(DOCUMENT(bfwin->current_document), &it, offset);
+		bmark_add_backend(DOCUMENT(bfwin->current_document), &it, offset, name, text, is_temp);
+		g_free(text);
+	}
+	gtk_tree_view_expand_all(bfwin->bmark);
+	gtk_widget_grab_focus(bfwin->current_document->view);
+}
+
+static gboolean bmark_line_has_bookmark(Tdocument *doc, gint offset) {
+	GtkTextIter sit, eit;
+	GtkTreeIter tmpiter;
+	gtk_text_buffer_get_iter_at_offset(doc->buffer,&sit,offset);
+	eit = sit;
+	gtk_text_iter_set_line_offset(&sit, 0);
+	gtk_text_iter_forward_to_line_end(&eit);
+	DEBUG_MSG("bmark_line_has_bookmark, searching bookmarks between %d - %d\n",gtk_text_iter_get_offset(&sit),gtk_text_iter_get_offset(&eit));
+	/* check for existing bookmark in this place */
+	if (DOCUMENT(doc)->bmark_parent) {
+		gboolean cont;
+		cont = gtk_tree_model_iter_children(GTK_TREE_MODEL(BFWIN(doc->bfwin)->bookmarkstore), &tmpiter,
+										 doc->bmark_parent);
+		while (cont) {
+			Tbmark *m = NULL;
+			gtk_tree_model_get(GTK_TREE_MODEL(BFWIN(doc->bfwin)->bookmarkstore), &tmpiter, PTR_COLUMN, &m, -1);
+			if (m && m->mark) {
+				GtkTextIter testit;
+				gtk_text_buffer_get_iter_at_mark(doc->buffer, &testit,m->mark);
+				if (gtk_text_iter_in_range(&testit,&sit,&eit)) {
+					DEBUG_MSG("bmark_line_has_bookmark, there exists a bookmark already, returning TRUE\n");
+					return TRUE;
+				}
+			}
+			cont = gtk_tree_model_iter_next(GTK_TREE_MODEL(BFWIN(doc->bfwin)->bookmarkstore), &tmpiter);
+		}							/* cont */
+	}
+	DEBUG_MSG("bmark_line_has_bookmark, no existing bookmark found, return FALSE\n");
+	return FALSE;
+}
+
+/**
+ * bmark_add_extern
+ * @doc: a #Tdocument* with the document
+ * @offset: the character position where to set the bookmark
+ * @name: a name to set for the bookmark, or NULL for no name
+ * @text: the text for the bookmark, or NULL to have it set automatically
+ *
+ * Code in bluefish that want to set a bookmark, not related to 
+ * the cursor location or a mouse position should use
+ * this function.
+ */
+void bmark_add_extern(Tdocument *doc, gint offset, const gchar *name, const gchar *text, gboolean is_temp) {
+	if (!bmark_line_has_bookmark(doc, offset)) {
+		if (text) {
+			bmark_add_backend(doc, NULL, offset, (name) ? name : "", text, is_temp);
+		} else {
+			gchar *tmp = bmark_text_for_offset(doc, NULL, offset);
+			bmark_add_backend(doc, NULL, offset, (name) ? name : "", tmp, is_temp);
+			g_free(tmp);
+		}
 	}
 }
 
-void bmark_add(Tbfwin * bfwin)
-{
-	GtkTreeIter tmpiter;
+void bmark_add(Tbfwin * bfwin) {
 	GtkTextMark *im;
 	GtkTextIter it;
 	gint offset;
@@ -959,39 +1057,19 @@ void bmark_add(Tbfwin * bfwin)
 	if (bfwin->bmark == NULL) {
 		DEBUG_MSG("no left panel, this is not implemented yet\n");
 	} else {
+		gboolean has_mark;
 		im = gtk_text_buffer_get_insert(DOCUMENT(bfwin->current_document)->buffer);
 		gtk_text_buffer_get_iter_at_mark(DOCUMENT(bfwin->current_document)->buffer, &it, im);
 		offset = gtk_text_iter_get_offset(&it);
 	
 		/* check for existing bookmark in this place */
-		if (DOCUMENT(bfwin->current_document)->bmark_parent) {
-			gboolean has_mark, cont;
-			has_mark = FALSE;
-			cont =
-				gtk_tree_model_iter_children(GTK_TREE_MODEL(bfwin->bookmarkstore), &tmpiter,
-											 DOCUMENT(bfwin->current_document)->bmark_parent);
-			while (cont) {
-				Tbmark *m = NULL;
-				gtk_tree_model_get(GTK_TREE_MODEL(bfwin->bookmarkstore), &tmpiter, PTR_COLUMN, &m, -1);
-				if (m && m->mark) {
-					GtkTextIter eit;
-					gtk_text_buffer_get_iter_at_mark(DOCUMENT(bfwin->current_document)->buffer, &eit,
-													 m->mark);
-					if (gtk_text_iter_get_offset(&eit) == offset) {
-						has_mark = TRUE;
-						break;
-					}
-				}
-				cont = gtk_tree_model_iter_next(GTK_TREE_MODEL(bfwin->bookmarkstore), &tmpiter);
-			}							/* cont */
-			if (has_mark) {
-				info_dialog(bfwin->main_window, _("Add bookmark"),
-							_("You already have a bookmark here!"));
-				return;
-			}
+		has_mark = bmark_line_has_bookmark(DOCUMENT(bfwin->current_document), offset);
+		if (has_mark) {
+			info_dialog(bfwin->main_window, _("Add bookmark"),
+						_("You already have a bookmark here!"));
+			return;
 		}
-	
-		bmark_add_backend(bfwin, "", offset, !main_v->props.bookmarks_default_store);
+		bmark_add_current_doc_backend(bfwin, "", offset, !main_v->props.bookmarks_default_store);
 	}
 }
 
@@ -1017,7 +1095,7 @@ void bmark_add_at_bevent(Tdocument *doc)
 		if (BFWIN(doc->bfwin)->bmark == NULL) {
 			DEBUG_MSG("adding bookmarks without left panel is not implemented yet\n");
 		} else {
-			bmark_add_backend(doc->bfwin, "", offset, !main_v->props.bookmarks_default_store);
+			bmark_add_current_doc_backend(doc->bfwin, "", offset, !main_v->props.bookmarks_default_store);
 		}
 	}
 }

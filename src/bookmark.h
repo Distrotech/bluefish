@@ -30,6 +30,7 @@ void bmark_clean_for_doc(Tdocument *doc); /* set bookmark's doc to NULL when clo
 void bmark_set_for_doc(Tdocument *doc); /* set bookmark's doc to proper doc when opening file */ 
 void bmark_set_store(Tbfwin *bfwin);
 
+void bmark_add_extern(Tdocument *doc, gint offset, const gchar *name, const gchar *text, gboolean is_temp);
 void bmark_add(Tbfwin *bfwin);
 
 void bmark_del_all(Tbfwin *bfwin,gboolean ask);
