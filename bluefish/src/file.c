@@ -26,6 +26,7 @@
 #include "stringlist.h"
 #include "document.h"
 #include "file.h"
+#include "gui.h"
 
 /*************************** OPEN FILE ASYNC ******************************/
 
@@ -127,6 +128,10 @@ static void file2doc_lcb(gint status,gint error_info,gchar *buffer,GnomeVFSFileS
 		case OPENFILE_FINISHED:
 			DEBUG_MSG("file2doc_lcb, status=%d, now we should convert %s data into a GtkTextBuffer and such\n",status, gnome_vfs_uri_get_path(f2d->uri));
 			doc_buffer_to_textbox(f2d->doc, buffer, buflen, FALSE, TRUE);
+			if (f2d->bfwin->focus_next_new_doc) {
+				switch_to_document_by_pointer(f2d->bfwin,f2d->doc);
+				f2d->bfwin->focus_next_new_doc = FALSE;
+			}
 			file2doc_cleanup(data);
 		break;
 		case OPENFILE_ERROR:
@@ -138,15 +143,52 @@ static void file2doc_lcb(gint status,gint error_info,gchar *buffer,GnomeVFSFileS
 	}
 }
 
+typedef struct {
+	Tdocument *doc;
+	GList *uris;
+} Tfileinfo;
+
+static void file_asyncfileinfo_lcb(GnomeVFSAsyncHandle *handle, GList *results, /* GnomeVFSGetFileInfoResult* items */gpointer data) {
+	GnomeVFSGetFileInfoResult* item;
+	Tfileinfo *fi;
+	DEBUG_MSG("file_asyncfileinfo_lcb, started, results=%p\n",results);
+	fi = data;
+	item = results->data;
+	if (item->result == GNOME_VFS_OK) {
+		DEBUG_MSG("file_asyncfileinfo_lcb, file_info=%p\n",item->file_info);
+		doc_set_fileinfo(fi->doc, item->file_info);
+	}
+	gnome_vfs_uri_unref(fi->uris->data);
+	g_list_free(fi->uris);
+	g_free(fi);
+}
+
+void file_doc_fill_fileinfo(Tdocument *doc, GnomeVFSURI *uri) {
+	GnomeVFSAsyncHandle *handle;
+	Tfileinfo *fi;
+	DEBUG_MSG("file_doc_fill_fileinfo, started\n");
+	fi = g_new(Tfileinfo,1);
+	fi->doc = doc;
+	gnome_vfs_uri_ref(uri);
+	fi->uris = g_list_append(NULL, uri);
+	gnome_vfs_async_get_file_info(&handle,fi->uris,GNOME_VFS_FILE_INFO_DEFAULT|GNOME_VFS_FILE_INFO_FOLLOW_LINKS
+			,GNOME_VFS_PRIORITY_DEFAULT,file_asyncfileinfo_lcb,fi);
+}
+ 
+
 void file_doc_from_uri(Tbfwin *bfwin, GnomeVFSURI *uri, GnomeVFSFileInfo *finfo) {
 	Tfile2doc *f2d;
 	gchar *curi;
 	f2d = g_new(Tfile2doc,1);
 	DEBUG_MSG("file_doc_from_uri, open %s, f2d=%p\n", gnome_vfs_uri_get_path(uri), f2d);
 	f2d->bfwin = bfwin;
-	f2d->uri = gnome_vfs_uri_dup(uri);
+	f2d->uri = gnome_vfs_uri_ref(uri);
 	curi = gnome_vfs_uri_to_string(uri,0);
 	f2d->doc = doc_new_loading_in_background(bfwin, curi, finfo);
+	if (finfo == NULL) {
+		/* get the fileinfo also async */
+		file_doc_fill_fileinfo(f2d->doc, uri);
+	}
 	g_free(curi);
 	file_openfile_uri_async(f2d->uri,file2doc_lcb,f2d);
 }

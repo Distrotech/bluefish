@@ -68,6 +68,7 @@ gboolean doc_buffer_to_textbox(Tdocument * doc, gchar * buffer, gsize buflen, gb
 void doc_bind_signals(Tdocument *doc);
 void doc_unbind_signals(Tdocument *doc);
 gboolean buffer_to_file(Tbfwin *bfwin, gchar *buffer, gchar *filename);
+void doc_set_fileinfo(Tdocument *doc, GnomeVFSFileInfo *finfo);
 void doc_destroy(Tdocument * doc, gboolean delay_activation);
 void document_unset_filename(Tdocument *doc);
 gchar *ask_new_filename(Tbfwin *bfwin,gchar *oldfilename, const gchar *gui_name, gboolean is_move);

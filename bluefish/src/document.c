@@ -904,25 +904,13 @@ to call doc_update_mtime() as well */
 static void doc_set_stat_info(Tdocument *doc) {
 	if (doc->filename) {
 		gchar *ondiskencoding = get_filename_on_disk_encoding(doc->filename);
-#ifdef HAVE_GNOME_VFS
 		if (doc->fileinfo == NULL) {
 			doc->fileinfo = gnome_vfs_file_info_new();
+			DEBUG_MSG("doc_set_stat_info, new fileinfo at %p\n",doc->fileinfo);
 		}
 		gnome_vfs_get_file_info(ondiskencoding, doc->fileinfo
 				,GNOME_VFS_FILE_INFO_DEFAULT|GNOME_VFS_FILE_INFO_FOLLOW_LINKS);
 		doc->is_symlink = GNOME_VFS_FILE_INFO_SYMLINK(doc->fileinfo);
-#else
-		struct stat statbuf;
-		if (lstat(ondiskencoding, &statbuf) == 0) {
-			if (S_ISLNK(statbuf.st_mode)) {
-				doc->is_symlink = 1;
-				stat(ondiskencoding, &statbuf);
-			} else {
-				doc->is_symlink = 0;
-			}
-			doc->statbuf = statbuf;
-		}
-#endif
 		g_free(ondiskencoding);
 		doc_set_tooltip(doc);
 	}
@@ -1625,6 +1613,16 @@ gboolean doc_file_to_textbox(Tdocument *doc, gchar *filename, gboolean enable_un
 	return ret;
 }
 
+void doc_set_fileinfo(Tdocument *doc, GnomeVFSFileInfo *finfo) {
+	DEBUG_MSG("doc_set_fileinfo, doc=%p, new finfo=%p, old fileinfo=%p\n",doc,finfo,doc->fileinfo);
+	if (doc->fileinfo) {
+		DEBUG_MSG("doc_set_fileinfo, unref doc->fileinfo at %p\n",doc->fileinfo);
+		gnome_vfs_file_info_unref(doc->fileinfo);
+	}
+	gnome_vfs_file_info_ref(finfo);
+	doc->fileinfo = finfo;
+	doc_set_tooltip(doc);
+}
 
 /**
  * doc_check_backup:
@@ -2899,7 +2897,11 @@ static Tdocument *doc_new_backend(Tbfwin *bfwin, gboolean force_new) {
  */
 Tdocument *doc_new_loading_in_background(Tbfwin *bfwin, gchar *uri, GnomeVFSFileInfo *finfo) {
 	Tdocument *doc = doc_new_backend(bfwin, FALSE);
-	doc->fileinfo = gnome_vfs_file_info_dup(finfo);
+	if (finfo) {
+		doc->fileinfo = gnome_vfs_file_info_dup(finfo);
+	} else {
+		doc->fileinfo = NULL;
+	}
 	doc_set_filename(doc,uri);
 	
 	doc->status = DOC_STATUS_LOADING;
@@ -3369,56 +3371,6 @@ void file_open_url_cb(GtkWidget * widget, Tbfwin *bfwin) {
 	gtk_widget_show_all(ou->win);
 }
 #endif /* HAVE_GNOME_VFS */
-/**
- * file_open_cb:
- * @widget: unused #GtkWidget
- * @bfwin: #Tbfwin* with the current window
- *
- * Prompt user for files to open.
- *
- * Return value: void
- **/
-void file_open_cb(GtkWidget * widget, Tbfwin *bfwin) {
-	GList *tmplist = NULL;
-	DEBUG_MSG("file_open_cb, started, calling return_files()\n");
-#ifdef HAVE_ATLEAST_GTK_2_4
-	{
-		GtkWidget *dialog;
-		GSList *slist;
-#ifdef HAVE_GNOME_VFS
-		gboolean localonly = FALSE;
-#else
-	gboolean localonly = TRUE;
-#endif /* HAVE_GNOME_VFS */
-		dialog = file_chooser_dialog(bfwin, _("Select files"), GTK_FILE_CHOOSER_ACTION_OPEN, NULL, localonly, TRUE, NULL);
-		if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_ACCEPT) {
-#ifdef HAVE_GNOME_VFS
-			slist = gtk_file_chooser_get_uris(GTK_FILE_CHOOSER(dialog));
-#else
-			slist = gtk_file_chooser_get_filenames(GTK_FILE_CHOOSER(dialog));
-#endif /* HAVE_GNOME_VFS */
-			tmplist = glist_from_gslist(slist);
-			g_slist_free(slist);
-		}
-		gtk_widget_destroy(dialog);
-	}
-#else
-	tmplist = return_files(NULL);
-#endif
-	if (!tmplist) {
-		return;
-	}
-	{
-		gint len = g_list_length(tmplist);
-		gchar *message = g_strdup_printf(_("Loading %d file(s)..."), len);
-		statusbar_message(bfwin,message,2000+len*50);
-		g_free(message);
-		flush_queue();
-	}
-	DEBUG_MSG("file_open_cb, calling docs_new_from_files()\n");
-	docs_new_from_files(bfwin,tmplist, FALSE);
-	free_stringlist(tmplist);
-}
 
 /**
  * file_insert_menucb:
@@ -3759,7 +3711,7 @@ void word_count_cb (Tbfwin *bfwin,guint callback_action,GtkWidget *widget) {
 }
 
 /**
- * doc_toggle_highlighting_cb:
+ * doc_indent_selection:
  * @doc: a #Tdocument*
  * @unindent: #gboolean
  *
