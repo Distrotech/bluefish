@@ -23,7 +23,7 @@
  */
 /*#define HL_TIMING
 #define HL_DEBUG
-#define DEBUG*/
+#define DEBUG */
 
 #ifdef HL_TIMING
 #include <sys/times.h>
@@ -322,6 +322,22 @@ static void add_patterns_to_parent(GList **list, gchar *filetype, gchar *name) {
 void filetype_highlighting_rebuild() {
 	GList *tmplist;
 
+	/* remove filetypes from documents, but to reconnect them 
+	again after the rebuild, we temporary put a string with 
+	the filetype on that pointer */
+	if (main_v->documentlist) {
+		tmplist = g_list_first(main_v->documentlist);
+		while (tmplist) {
+			Tdocument *thisdoc = (Tdocument *)tmplist->data;
+			if (thisdoc->hl) {
+				DEBUG_MSG("doc %p has type %p named %s\n", thisdoc, thisdoc->hl, thisdoc->hl->type);
+				DEBUG_MSG("disconnected document %p from filetype %s\n", thisdoc, thisdoc->hl->type);
+				thisdoc->hl = g_strdup(thisdoc->hl->type);
+			}
+			tmplist = g_list_next(tmplist);
+		}
+	}
+
 	/* first remove the menu widgets, and delete the filetype structs */
 	DEBUG_MSG("filetype_highlighting_rebuild, testing for filetypelist existance\n");
 	if (main_v->filetypelist) {
@@ -342,8 +358,8 @@ void filetype_highlighting_rebuild() {
 		g_list_free(main_v->filetypelist);
 		main_v->filetypelist = NULL;
 	}
-	DEBUG_MSG("filetype_highlighting_rebuild, testing for metapattern existence\n");
 
+	DEBUG_MSG("filetype_highlighting_rebuild, testing for metapattern existence\n");
 	if (highlight.all_highlight_patterns) {
 		tmplist = g_list_first(highlight.all_highlight_patterns);
 		while (tmplist) {
@@ -363,7 +379,7 @@ void filetype_highlighting_rebuild() {
 		g_list_free(highlight.all_highlight_patterns);
 		highlight.all_highlight_patterns = NULL;
 	}
-	
+
 	/* free other lists */
 	g_list_free(highlight.highlight_filetypes);
 	highlight.highlight_filetypes = NULL;
@@ -379,7 +395,7 @@ void filetype_highlighting_rebuild() {
 			filetype = g_new(Tfiletype, 1);
 			filetype->menuitem = NULL;
 			filetype->type = g_strdup(strarr[0]);
-			DEBUG_MSG("extensions loaded from %s\n", strarr[1]);
+			DEBUG_MSG("extensions for %s loaded from %s\n", strarr[0], strarr[1]);
 			filetype->extensions = g_strsplit(strarr[1], ":", 127);
 			filetype->update_chars = g_strdup(strarr[2]);
 			if (strlen(strarr[3])){
@@ -472,6 +488,24 @@ void filetype_highlighting_rebuild() {
 		}
 		tmplist = g_list_next(tmplist);
 	}
+	
+	/* now we have finished the rebuilding of the filetypes, we 
+	have to connect all the documents with their filetypes again, we 
+	stored the name of the filetype temporary in the place of the Tfiletype,
+	undo that now */
+	if (main_v->documentlist) {
+		tmplist = g_list_first(main_v->documentlist);
+		while (tmplist) {
+			if (((Tdocument *)tmplist->data)->hl) {
+				gchar *tmpstr = (gchar *)((Tdocument *)tmplist->data)->hl;
+				((Tdocument *)tmplist->data)->hl = hl_get_highlightset_by_type(tmpstr);
+				DEBUG_MSG("reconnecting document %p to filetype %s\n", tmplist->data, tmpstr);
+				g_free(tmpstr);
+				((Tdocument *)tmplist->data)->need_highlighting = TRUE;
+			}
+			tmplist = g_list_next(tmplist);
+		}
+	}
 }
 
 void hl_init() {
@@ -522,7 +556,7 @@ Tfiletype *hl_get_highlightset_by_filename(gchar * filename)
 	/* if none found return first set (is default set) */
 	tmplist = g_list_first(highlight.highlight_filetypes);
 	if (!tmplist) {
-		DEBUG_MSG("hl_get_highlightset_by_filename, no highlightsets?\n");
+		DEBUG_MSG("hl_get_highlightset_by_filename, no highlightsets? return NULL\n");
 		return NULL;
 	} else {
 		return (Tfiletype *) tmplist->data;
@@ -656,6 +690,11 @@ static void applylevel(Tdocument * doc, gchar * buf, guint buf_char_offset, gint
 		GList *tmplist;
 		gint lowest_pm = -2; /* -2 means no lowest match, -1 means the parents ending is the lowest match, 0... means some pattern is the lowest match */
 			i = 0;
+#ifdef DEBUG
+			if (!childs_list) {
+				DEBUG_MSG("childs_list=%p\n");
+			}
+#endif
 			numpats = g_list_length(childs_list);
 			patmatch = g_new(Tpatmatch, numpats + 1);
 			tmplist = g_list_first(childs_list);
