@@ -910,11 +910,24 @@ if (bfwin->notebook_switch_signal != 0) {
 	}
 }
 
-static gboolean gui_main_window_configure_event_lcb(GtkWidget *widget,GdkEventConfigure *event,Tbfwin *bfwin) {
+static gboolean gui_main_window_configure_event_lcb(GtkWidget *widget,GdkEvent *revent,Tbfwin *bfwin) {
 	if (main_v->props.restore_dimensions) {
-		if (event->type == GDK_CONFIGURE) {
-			if (main_v->props.main_window_w != event->width) main_v->props.main_window_w = event->width;
-			if (main_v->props.main_window_h != event->height) main_v->props.main_window_h = event->height;
+		if (revent->type == GDK_CONFIGURE) {
+			GdkEventConfigure *event = (GdkEventConfigure *)revent;
+			if (main_v->props.main_window_w > 0 ) {
+				main_v->props.main_window_w = event->width;
+				main_v->props.main_window_h = event->height;
+				DEBUG_MSG("gui_main_window_configure_event_lcb, width=%d, height=%d\n",event->width,event->height);
+			}
+		} else if (revent->type == GDK_WINDOW_STATE) {
+			GdkEventWindowState *event = (GdkEventWindowState *)revent;
+			if (event->new_window_state == GDK_WINDOW_STATE_MAXIMIZED && main_v->props.main_window_w > 0) {
+				main_v->props.main_window_w = -1 * main_v->props.main_window_w; /* negative means it is maximized !! */
+				DEBUG_MSG("gui_main_window_configure_event_lcb, maximized!! width=%d\n",main_v->props.main_window_w);
+			} else if (event->new_window_state != GDK_WINDOW_STATE_MAXIMIZED && main_v->props.main_window_w < 0) {
+				main_v->props.main_window_w = -1 * main_v->props.main_window_w; /* make it positive again */
+				DEBUG_MSG("gui_main_window_configure_event_lcb, NOT-maximized, width=%d\n",main_v->props.main_window_w);
+			}
 		}
 	}
 	return FALSE;
@@ -1040,9 +1053,15 @@ void gui_create_main(Tbfwin *bfwin, GList *filenames) {
 	GtkWidget *vbox;
 	bfwin->main_window = window_full2(_("New Bluefish Window"), GTK_WIN_POS_CENTER, 0, G_CALLBACK(main_window_destroy_lcb), bfwin, FALSE, NULL);
 	gtk_window_set_role(GTK_WINDOW(bfwin->main_window), "bluefish");
-	gtk_window_set_default_size(GTK_WINDOW(bfwin->main_window), main_v->props.main_window_w, main_v->props.main_window_h);
+	if (main_v->props.main_window_w > 0) {
+		gtk_window_set_default_size(GTK_WINDOW(bfwin->main_window), main_v->props.main_window_w, main_v->props.main_window_h);
+	} else {
+		gtk_window_set_default_size(GTK_WINDOW(bfwin->main_window), main_v->props.main_window_w * -1, main_v->props.main_window_h);
+		gtk_window_maximize(GTK_WINDOW(bfwin->main_window));
+	}
 	g_signal_connect(G_OBJECT(bfwin->main_window), "delete_event", G_CALLBACK(main_window_delete_event_lcb), bfwin);
 	g_signal_connect(G_OBJECT(bfwin->main_window), "configure-event", G_CALLBACK(gui_main_window_configure_event_lcb), bfwin);
+	g_signal_connect(G_OBJECT(bfwin->main_window), "window-state-event", G_CALLBACK(gui_main_window_configure_event_lcb), bfwin);
 
 	vbox = gtk_vbox_new(FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(bfwin->main_window), vbox);
