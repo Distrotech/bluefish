@@ -1,7 +1,7 @@
 #include <gtk/gtk.h>
 #include <string.h> /* strcasecmp() */
 
-/* #define DEBUG*/
+/* #define DEBUG */
 
 #include "bluefish.h"
 #include "bf_lib.h"
@@ -240,7 +240,7 @@ static void parse_tagstring(Tbfwin *bfwin, gchar * tagstring, gint pos, gint end
 			}
 		}
 		/* to split the item and the value we have to keep track of '=' characters */
-		if (tmpstring[count] == '=') {
+		if (tmpstring[count] == '=' && !in_quote) {
 			item_value_delimiter = count;
 		}
 		/* it is a delimiter if it a space (or tab, newline), outside a quote or the last character of the string */
