@@ -1244,7 +1244,8 @@ static void filebrowser_rpopup_rename(Tfilebrowser *filebrowser) {
 			/* If an error occurs, doc_save takes care of notifying the user.
 			 * Currently, nothing is done here.
 			 */	
-			doc_save(tmpdoc, TRUE, TRUE, FALSE);
+			/*doc_save_single(tmpdoc, TRUE, TRUE, FALSE);*/
+			doc_save_backend(tmpdoc, TRUE, TRUE, FALSE, FALSE);
 		} else {
 			/* Promt user, "File/Move To"-style. */
 			newfilename = ask_new_filename(filebrowser->bfwin, oldfilename, oldfilename, TRUE);

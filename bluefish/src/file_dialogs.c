@@ -365,7 +365,85 @@ static TcheckNsave_return doc_checkNsave_lcb(TcheckNsave_status status,gint erro
 	return CHECKNSAVE_CONT;
 }
 
-static void doc_save_backend(Tdocument *doc, gboolean do_save_as, gboolean do_move, gboolean close_doc, gboolean close_window) {
+/**
+ * ask_new_filename:
+ * @bfwin: #Tbfwin* mainly used to set the dialog transient
+ * @oldfilename: #gchar* with the old filename
+ * @gui_name: #const gchar* with the name of the file used in the GUI
+ * @is_move: #gboolean if the title should be move or save as
+ *
+ * returns a newly allocated string with a new filename
+ *
+ * if a file with the selected name name was
+ * open already it will ask the user what to do, return NULL if
+ * the user wants to abort, or will remove the name of the other file if the user wants
+ * to continue
+ *
+ * Return value: gchar* with newly allocated string, or NULL on failure or abort
+ **/
+gchar *ask_new_filename(Tbfwin *bfwin,gchar *old_curi, const gchar *gui_name, gboolean is_move) {
+	Tdocument *exdoc;
+	GList *alldocs;
+	gchar *new_curi = NULL;
+	gchar *dialogtext;
+	GtkWidget *dialog;
+	
+	dialogtext = g_strdup_printf((is_move) ? _("Move/rename %s to"): _("Save %s as"), gui_name);
+	dialog = file_chooser_dialog(bfwin, dialogtext, GTK_FILE_CHOOSER_ACTION_SAVE, old_curi, FALSE, FALSE, NULL);
+	g_free(dialogtext);
+	
+	if (gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_ACCEPT) {
+		new_curi = gtk_file_chooser_get_uri(GTK_FILE_CHOOSER(dialog));
+	}
+	gtk_widget_destroy(dialog);
+
+	if (!new_curi) return NULL;
+	if (old_curi && strcmp(old_curi,new_curi)==0) {
+		g_free(new_curi);
+		return NULL;
+	}
+	
+	alldocs = return_allwindows_documentlist();
+	exdoc = documentlist_return_document_from_filename(alldocs, new_curi);
+	g_list_free(alldocs);
+	DEBUG_MSG("ask_new_filename, exdoc=%p, newfilename=%s\n", exdoc, new_curi);
+	if (exdoc) {
+		gchar *tmpstr;
+		gint retval;
+		gchar *options[] = {_("_Cancel"), _("_Overwrite"), NULL};
+		tmpstr = g_strdup_printf(_("File %s exists and is opened, overwrite?"), new_curi);
+		retval = multi_warning_dialog(bfwin->main_window,tmpstr, _("The file you have selected is being edited in Bluefish."), 1, 0, options);
+		g_free(tmpstr);
+		if (retval == 0) {
+			g_free(new_curi);
+			return NULL;
+		} else {
+			document_unset_filename(exdoc);
+		}
+	} else {
+		GnomeVFSURI *tmp;
+		gboolean exists;
+		tmp = gnome_vfs_uri_new(new_curi);
+		exists = gnome_vfs_uri_exists(tmp);
+		gnome_vfs_uri_unref(tmp);
+		if (exists) {
+			gchar *tmpstr;
+			gint retval;
+			gchar *options[] = {_("_Cancel"), _("_Overwrite"), NULL};
+			tmpstr = g_strdup_printf(_("A file named \"%s\" already exists."), new_curi);
+			retval = multi_warning_dialog(bfwin->main_window,tmpstr, 
+											_("Do you want to replace the existing file?"), 1, 0, options);
+			g_free(tmpstr);
+			if (retval == 0) {
+				g_free(new_curi);
+				return NULL;
+			}
+		}
+	}
+	return new_curi;
+}
+
+void doc_save_backend(Tdocument *doc, gboolean do_save_as, gboolean do_move, gboolean close_doc, gboolean close_window) {
 	DEBUG_MSG("doc_save_backend, started for doc %p\n",doc);
 	if (doc->uri == NULL) {
 		do_save_as = 1;

@@ -87,6 +87,16 @@ void autoclosing_init(void) {
 #endif
 }
 
+static void session_set_opendir(Tbfwin *bfwin, gchar *curi) {
+	if (curi) {
+		gchar *pos = strrchr(curi, '/');
+		if (pos!=NULL) {
+			if (bfwin->session->opendir) g_free(bfwin->session->opendir);
+			bfwin->session->opendir = g_strndup(curi, pos-curi);
+		}
+	}
+}
+
 /**
  * return_allwindows_documentlist:
  *
@@ -2388,103 +2398,6 @@ void document_unset_filename(Tdocument *doc) {
 }
 
 /**
- * ask_new_filename:
- * @bfwin: #Tbfwin* mainly used to set the dialog transient
- * @oldfilename: #gchar* with the old filename
- * @gui_name: #const gchar* with the name of the file used in the GUI
- * @is_move: #gboolean if the title should be move or save as
- *
- * returns a newly allocated string with a new filename
- *
- * if a file with the selected name name was
- * open already it will ask the user what to do, return NULL if
- * the user wants to abort, or will remove the name of the other file if the user wants
- * to continue
- *
- * Return value: gchar* with newly allocated string, or NULL on failure or abort
- **/
-gchar *ask_new_filename(Tbfwin *bfwin,gchar *oldfilename, const gchar *gui_name, gboolean is_move) {
-	Tdocument *exdoc;
-	GList *alldocs;
-	gchar *ondisk = get_filename_on_disk_encoding(oldfilename);
-	gchar *newfilename = NULL;
-	gchar *dialogtext;
-	
-	dialogtext = g_strdup_printf((is_move) ? _("Move/rename %s to"): _("Save %s as"), gui_name);
-#ifdef HAVE_ATLEAST_GTK_2_4
-	{
-		GtkWidget *dialog;
-/*		dialog = gtk_file_chooser_dialog_new_with_backend ((is_move) ? _("Move/rename document to") : _("Save document as"),GTK_WINDOW(bfwin->main_window),
-				GTK_FILE_CHOOSER_ACTION_SAVE,"gnome-vfs",
-				GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
-				GTK_STOCK_SAVE, GTK_RESPONSE_ACCEPT,
-				NULL);
-		gtk_file_chooser_set_filename(GTK_FILE_CHOOSER(dialog),oldfilename);
-		gtk_file_chooser_set_local_only(GTK_FILE_CHOOSER(dialog),FALSE);
-		FILE_CHOOSER_USE_VFS(dialog);
-		gtk_file_chooser_set_select_multiple(GTK_FILE_CHOOSER(dialog), FALSE);*/
-		dialog = file_chooser_dialog(bfwin, dialogtext, GTK_FILE_CHOOSER_ACTION_SAVE, oldfilename, FALSE, FALSE, NULL);
-		if (gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_ACCEPT) {
-			newfilename = gtk_file_chooser_get_uri(GTK_FILE_CHOOSER(dialog));
-		}
-		gtk_widget_destroy(dialog);
-	}
-#else
-	newfilename = return_file_w_title(ondisk,dialogtext);
-#endif
-	g_free(ondisk);
-	g_free(dialogtext);
-	
-	if (!newfilename || (oldfilename && strcmp(oldfilename,newfilename)==0)) {
-		if (newfilename) g_free(newfilename);
-		return NULL;
-	}
-	
-	/* make a full path, re-use the ondisk variable */
-	ondisk = newfilename;
-	newfilename = create_full_path(ondisk, NULL);
-	g_free(ondisk);
-
-	
-	alldocs = return_allwindows_documentlist();
-	exdoc = documentlist_return_document_from_filename(alldocs, newfilename);
-	g_list_free(alldocs);
-	DEBUG_MSG("ask_new_filename, exdoc=%p, newfilename=%s\n", exdoc, newfilename);
-	if (exdoc) {
-		gchar *tmpstr;
-		gint retval;
-		gchar *options[] = {_("_Cancel"), _("_Overwrite"), NULL};
-		tmpstr = g_strdup_printf(_("File %s exists and is opened, overwrite?"), newfilename);
-		retval = multi_warning_dialog(bfwin->main_window,tmpstr, _("The file you have selected is being edited in Bluefish."), 1, 0, options);
-		g_free(tmpstr);
-		if (retval == 0) {
-			g_free(newfilename);
-			return NULL;
-		} else {
-			document_unset_filename(exdoc);
-		}
-	} else {
-		gchar *ondiskencoding = get_filename_on_disk_encoding(newfilename);
-		if (g_file_test(ondiskencoding, G_FILE_TEST_EXISTS)) {
-			gchar *tmpstr;
-			gint retval;
-			gchar *options[] = {_("_Cancel"), _("_Overwrite"), NULL};
-			tmpstr = g_strdup_printf(_("A file named \"%s\" already exists."), newfilename);
-			retval = multi_warning_dialog(bfwin->main_window,tmpstr, 
-											_("Do you want to replace the existing file?"), 1, 0, options);
-			g_free(tmpstr);
-			if (retval == 0) {
-				g_free(newfilename);
-				g_free(ondiskencoding);
-				return NULL;
-			}
-		}
-		g_free(ondiskencoding);
-	}
-	return newfilename;
-}
-
-/**
  * doc_save:
  * @doc: the #Tdocument to save
  * @do_save_as: #gboolean set to 1 if "save as"
@@ -2503,7 +2416,7 @@ gchar *ask_new_filename(Tbfwin *bfwin,gchar *oldfilename, const gchar *gui_name,
  * -3: if the backup failed and save was aborted by the user
  * -4: if there is no filename, after asking one from the user
  * -5: if another process modified the file, and the user chose cancel
- **/
+ ** /
 gint doc_save(Tdocument * doc, gboolean do_save_as, gboolean do_move, gboolean window_closing) {
 	gint retval;
 #ifdef DEBUG
@@ -2534,13 +2447,13 @@ gint doc_save(Tdocument * doc, gboolean do_save_as, gboolean do_move, gboolean w
 			g_free(doc->uri);
 		}
 		doc->uri = newfilename;
-		/* TODO: should feed the contents to the function too !! */
+		/ * TODO: should feed the contents to the function too !! * /
 		doc_reset_filetype(doc, doc->uri, NULL);
 		doc_set_title(doc);
 		if (doc == BFWIN(doc->bfwin)->current_document) {
 			gui_set_title(BFWIN(doc->bfwin), doc);
 		}
-	} else /* (!do_save_as) */ {
+	} else / * (!do_save_as) * / {
 		gboolean modified;
 		time_t oldmtime, newmtime;
 		GnomeVFSFileInfo *fileinfo;
@@ -2552,7 +2465,7 @@ gint doc_save(Tdocument * doc, gboolean do_save_as, gboolean do_move, gboolean w
 		}
 		gnome_vfs_file_info_unref(fileinfo);
 		if (modified) {
-			gchar *tmpstr, oldtimestr[128], newtimestr[128];/* according to 'man ctime_r' this should be at least 26, so 128 should do ;-)*/
+			gchar *tmpstr, oldtimestr[128], newtimestr[128];/ * according to 'man ctime_r' this should be at least 26, so 128 should do ;-)* /
 			gint retval;
 			gchar *options[] = {_("_Cancel"), _("_Overwrite"), NULL};
 	
@@ -2568,14 +2481,14 @@ gint doc_save(Tdocument * doc, gboolean do_save_as, gboolean do_move, gboolean w
 	}
 	
 	DEBUG_MSG("doc_save, returned file %s\n", doc->uri);
-/*	if (do_save_as && oldfilename && main_v->props.link_management) {
+/ *	if (do_save_as && oldfilename && main_v->props.link_management) {
 		update_filenames_in_file(doc, oldfilename, doc->uri, 1);
-	}*/
+	}* /
 	{
 		gchar *tmp = g_strdup_printf(_("Saving %s"), doc->uri);
 		if (!window_closing) statusbar_message(BFWIN(doc->bfwin),tmp, 1);
 		g_free(tmp);
-		/* re-use tmp */
+		/ * re-use tmp * /
 		tmp = g_path_get_dirname(doc->uri);
 		if (BFWIN(doc->bfwin)->session->savedir) g_free(BFWIN(doc->bfwin)->session->savedir);
 		BFWIN(doc->bfwin)->session->savedir = tmp;
@@ -2585,20 +2498,20 @@ gint doc_save(Tdocument * doc, gboolean do_save_as, gboolean do_move, gboolean w
 	switch (retval) {
 		gchar *errmessage;
 		case -1:
-			/* backup failed and aborted */
+			/ * backup failed and aborted * /
 			errmessage = g_strconcat(_("Could not backup file:\n\""), doc->uri, "\"", NULL);
 			error_dialog(BFWIN(doc->bfwin)->main_window,_("File save aborted.\n"), errmessage);
 			g_free(errmessage);
 		break;
 		case -2:
-			/* could not open the file pointer */
+			/ * could not open the file pointer * /
 			errmessage = g_strconcat(_("Could not write file:\n\""), doc->uri, "\"", NULL);
 			error_dialog(BFWIN(doc->bfwin)->main_window,_("File save error"), errmessage);
 			g_free(errmessage);
 		break;
 		case -3:
 		case -4:
-			/* do nothing, the save is aborted by the user */
+			/*  do nothing, the save is aborted by the user * /
 		break;
 		default:
 			doc_set_stat_info(doc);
@@ -2612,7 +2525,7 @@ gint doc_save(Tdocument * doc, gboolean do_save_as, gboolean do_move, gboolean w
 		break;
 	}
 	return retval;
-}
+}*/
 
 /**
  * doc_close:
@@ -2623,7 +2536,7 @@ gint doc_save(Tdocument * doc, gboolean do_save_as, gboolean do_move, gboolean w
  * and destroy the file unless aborted by user.
  *
  * Return value: #gint set to 0 (when cancelled/aborted) or 1 (when closed or saved&closed)
- **/
+ ** /
 gint doc_close(Tdocument * doc, gint warn_only)
 {
 	gchar *text;
@@ -2636,18 +2549,18 @@ gint doc_close(Tdocument * doc, gint warn_only)
 #endif
 
 	if (doc_is_empty_non_modified_and_nameless(doc) && g_list_length(BFWIN(doc->bfwin)->documentlist) ==1) {
-		/* no need to close this doc, it's an Untitled empty document */
+		/ * no need to close this doc, it's an Untitled empty document * /
 		DEBUG_MSG("doc_close, 1 untitled empty non-modified document, returning\n");
 		return 0;
 	}
 
 	if (doc->modified) {
-		/*if (doc->tab_label) {*/
+		/ *if (doc->tab_label) {* /
 			text = g_strdup_printf(_("Save changes to \"%s\" before closing?."),
 									gtk_label_get_text (GTK_LABEL (doc->tab_label)));
-		/*} else {
+		/ *} else {
 			text = g_strdup(_("Save changes to this untitled file before closing?"));
-		}*/
+		}* /
 	
 		{
 			gchar *buttons[] = {_("Do_n't save"), GTK_STOCK_CANCEL, GTK_STOCK_SAVE, NULL};
@@ -2664,7 +2577,7 @@ gint doc_close(Tdocument * doc, gint warn_only)
 		case 2:
 			doc_save(doc, FALSE, FALSE, FALSE);
 			if (doc->modified == 1) {
-				/* something went wrong it's still not saved */
+				/ * something went wrong it's still not saved * /
 				return 0;
 			}
 			if (!warn_only) {
@@ -2677,7 +2590,7 @@ gint doc_close(Tdocument * doc, gint warn_only)
 			}
 			break;
 		default:
-			return 0;			/* something went wrong */
+			return 0;			/ * something went wrong * /
 			break;
 		}
 	} else {
@@ -2687,13 +2600,13 @@ gint doc_close(Tdocument * doc, gint warn_only)
 		}
 	}
 	DEBUG_MSG("doc_close, finished\n");
-/*	notebook_changed();*/
+/ *	notebook_changed();* /
 	return 1;
-}
+}*/
 
 static void doc_close_but_clicked_lcb(GtkWidget *wid, gpointer data) {
-
-	doc_close(data, 0);
+	/*doc_close(data, 0);*/
+	doc_close_single_backend(data, FALSE);
 }
 
 /* contributed by Oskar Swida <swida@aragorn.pb.bialystok.pl>, with help from the gedit source */
@@ -2966,10 +2879,10 @@ void doc_new_with_new_file(Tbfwin *bfwin, gchar * new_filename) {
  	}
 	ft = get_filetype_by_filename_and_content(doc->uri, NULL);
 	if (ft) doc->hl = ft;
-/*	doc->modified = 1;*/
+	/* doc->modified = 1;*/
 	doc_set_title(doc);
-	doc_save(doc, FALSE, FALSE, FALSE);
-	doc_set_stat_info(doc); /* also sets mtime field */
+	/* doc_save(doc, FALSE, FALSE, FALSE); */
+	/* doc_set_stat_info(doc);  also sets mtime field */
 	switch_to_document_by_pointer(bfwin,doc);
 	doc_activate(doc);
 }
@@ -2989,6 +2902,9 @@ void doc_new_from_uri(Tbfwin *bfwin, gchar *curi, GnomeVFSURI *uri, GnomeVFSFile
 	}
 	tmpcuri = (curi) ? g_strdup(curi) : gnome_vfs_uri_to_string(uri,0);
 	DEBUG_MSG("doc_new_from_uri, started for %s\n",tmpcuri);
+	
+	session_set_opendir(bfwin, tmpcuri);
+	
 	/* check if the document already is opened */
 	alldocs = return_allwindows_documentlist();
 	tmpdoc = documentlist_return_document_from_filename(alldocs, tmpcuri);
@@ -3275,7 +3191,8 @@ void doc_activate(Tdocument *doc) {
 		if (retval == 0) {
 			file_doc_retry_uri(doc);
 		} else {
-			doc_close(doc, FALSE);
+			doc_close_single_backend(doc, FALSE);
+			/*doc_close(doc, FALSE);*/
 		}
 		return;
 	} else if (doc->status == DOC_STATUS_LOADING) {
