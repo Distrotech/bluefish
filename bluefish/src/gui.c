@@ -1287,7 +1287,7 @@ gboolean main_window_delete_event_lcb(GtkWidget *widget,GdkEvent *event,Tbfwin *
 		if (bfwin->documentlist && test_docs_modified(bfwin->documentlist)) {
 			DEBUG_MSG("main_window_delete_event_lcb, we have changed documents!\n");
 			doc_close_multiple_backend(bfwin, TRUE);
-			/* if there are still documents modified we should cancel the closing */
+			/* the last document that closes should close the window */
 			return TRUE;
 		} else {
 			/* no changed documents, but there might be changed bookmarks */
@@ -1410,11 +1410,11 @@ void gui_create_main(Tbfwin *bfwin, GList *filenames) {
 	/* start to open an empty doc */
 	file_new_cb(NULL, bfwin);
 	if (filenames) {
-		tmplist = g_list_first(filenames);
+		tmplist = g_list_last(filenames);
 		bfwin->focus_next_new_doc = TRUE;
 		while (tmplist) {
 			doc_new_from_input(bfwin, tmplist->data, FALSE, (bfwin->project != NULL), -1);
-			tmplist = g_list_next(tmplist);
+			tmplist = g_list_previous(tmplist);
 		}
 		DEBUG_MSG("gui_create_main, we have filenames, load them\n");
 	}
