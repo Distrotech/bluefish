@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: bluefish gtk2-port\n"
-"POT-Creation-Date: 2003-09-17 12:39+0200\n"
+"POT-Creation-Date: 2003-09-20 14:11-0300\n"
 "PO-Revision-Date: 2000-12-01 21:48+0100\n"
 "Last-Translator: Sáska, Péter <sasek@ccsystem.hu>\n"
 "Language-Team: madgyar <hu@li.org>\n"
@@ -86,13 +86,13 @@ msgid "html filter"
 msgstr "html szűrő"
 
 #: ../src/bluefish.c:90
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "\n"
 "Usage: %s [options] [filenames ...]\n"
 msgstr ""
 "\n"
-"Használat: %s [opciók] [fájlnév]\n"
+"Használat: %s [opciók] [fájlnevek]\n"
 
 #: ../src/bluefish.c:91
 msgid ""
@@ -111,13 +111,12 @@ msgid "-v           current version\n"
 msgstr "-v           verziószám kiírása\n"
 
 #: ../src/bluefish.c:94
-#, fuzzy
 msgid "-n           open new window\n"
-msgstr "-v           verziószám kiírása\n"
+msgstr "-v           új ablak megnyitása\n"
 
 #: ../src/bluefish.c:95
 msgid "-p filename  open project\n"
-msgstr ""
+msgstr "-p fájlnév   projekt megnyitása\n"
 
 #: ../src/bluefish.c:96
 msgid "-h           this help screen\n"
@@ -164,14 +163,14 @@ msgid "/Document/Highlight Syntax"
 msgstr "/Dokumentum/Szintaxiskiemelés"
 
 #: ../src/document.c:653
-#, fuzzy, c-format
+#, c-format
 msgid "Untitled %d"
-msgstr "Névtelen"
+msgstr "Névtelen %d"
 
 #: ../src/document.c:1001
-#, fuzzy, c-format
+#, c-format
 msgid " Ln %d, Col %d"
-msgstr "%d of %d"
+msgstr " %d. sor, %d. oszlop"
 
 #: ../src/document.c:1034 ../src/document.c:1035
 #, c-format
@@ -179,9 +178,8 @@ msgid "  %s, %s"
 msgstr "  %s, %s"
 
 #: ../src/document.c:1274 ../src/document.c:1293
-#, fuzzy
 msgid "Could not read file:\n"
-msgstr "Nem sikerült a fájl megnyitása:\n"
+msgstr "A fájl nem olvasható:\n"
 
 #: ../src/document.c:1324
 msgid "Opening file "
@@ -204,14 +202,12 @@ msgid "Saving file"
 msgstr "Fájl mentése"
 
 #: ../src/document.c:1834
-#, fuzzy
 msgid "_Abort save"
-msgstr "Mentés megszakítása"
+msgstr "Mentés _megszakítása"
 
 #: ../src/document.c:1834
-#, fuzzy
 msgid "_Continue save"
-msgstr "Mentés folytatása"
+msgstr "Mentés _folytatása"
 
 #: ../src/document.c:1836
 #, c-format
@@ -240,9 +236,8 @@ msgid "_Cancel"
 msgstr "_Mégsem"
 
 #: ../src/document.c:1992 ../src/document.c:2015 ../src/document.c:2102
-#, fuzzy
 msgid "_Overwrite"
-msgstr "Felülír"
+msgstr "_Felülír"
 
 #: ../src/document.c:1993
 #, c-format
@@ -344,14 +339,12 @@ msgid "Unable to open file"
 msgstr "Nem lehet megnyitni a fájlt"
 
 #: ../src/document.c:2666
-#, fuzzy
 msgid "_Reload"
-msgstr "Újratölt"
+msgstr "Új_ratölt"
 
 #: ../src/document.c:2666
-#, fuzzy
 msgid "_Ignore"
-msgstr "Figyelmen kívül hagy"
+msgstr "F_igyelmen kívül hagy"
 
 #: ../src/document.c:2670
 #, c-format
@@ -420,7 +413,7 @@ msgstr "Rege_x-e:"
 
 #: ../src/document.c:2972
 msgid "Open URL"
-msgstr ""
+msgstr "URL megnyitása"
 
 #: ../src/document.c:3005 ../src/document.c:3023 ../src/document.c:3040
 #, c-format
@@ -498,12 +491,10 @@ msgid "The file will be permanently deleted."
 msgstr "A fájl végérvényesen törlődik."
 
 #: ../src/filebrowser.c:1195 ../src/filebrowser.c:1199
-#, fuzzy
 msgid "Could not delete \n"
-msgstr "Nem sikerült a fájl átnevezése\n"
+msgstr "Nem sikerült a törlés\n"
 
 #: ../src/filebrowser.c:1312
-#, fuzzy
 msgid "/Open _Advanced"
 msgstr "/Fájl/Megnyitás _opciókkal..."
 
@@ -1046,18 +1037,16 @@ msgid "/Document/Line Numbers"
 msgstr "/Dokumentum/Sorok számozása"
 
 #: ../src/gui.c:1008
-#, fuzzy
 msgid "Do_n't Save"
-msgstr "Mentés megszakítása"
+msgstr "Me_ntés megszakítása"
 
 #: ../src/gui.c:1009
 msgid "Failed to save the current project"
-msgstr ""
+msgstr "Nem sikerült a projekt mentése"
 
 #: ../src/gui.c:1033
-#, fuzzy
 msgid "New Bluefish Window"
-msgstr "Bluefish tipp:"
+msgstr "Új Bluefish ablak"
 
 #: ../src/gui.c:1080
 msgid "Stand by..."
@@ -1094,6 +1083,60 @@ msgstr "/Beállítások/Megjelenítés/Fő eszköztár"
 #: ../src/gui.c:1397 ../src/menu.c:912
 msgid "/Options/Display/View Custom Menu"
 msgstr "/Beállítások/Megjelenítés/Saját menü"
+
+#: ../src/html2.c:587
+msgid "Cascading StyleSheet dialog"
+msgstr "Stíluslap párbeszédablak"
+
+#: ../src/html2.c:607
+msgid "_Selector:"
+msgstr "_Szelektor"
+
+#: ../src/html2.c:626
+msgid "_Property:"
+msgstr "_Tulajdonság"
+
+#: ../src/html2.c:628 ../src/html_form.c:283 ../src/html_form.c:350
+#: ../src/html_form.c:411 ../src/html_form.c:466 ../src/html_form.c:528
+#: ../src/html_form.c:636
+msgid "_Value:"
+msgstr "É_rték"
+
+#: ../src/html2.c:646
+msgid "Selector"
+msgstr "Szelektor"
+
+#: ../src/html2.c:646 ../src/html2.c:649
+msgid "Property"
+msgstr "Tulajdonság"
+
+#: ../src/html2.c:646 ../src/html2.c:649
+msgid "Value"
+msgstr "Érték"
+
+#: ../src/html2.c:664
+msgid " _Add "
+msgstr " _Hozzáad "
+
+#: ../src/html2.c:667
+msgid " _Update "
+msgstr " _Frissít "
+
+#: ../src/html2.c:670
+msgid " _Delete "
+msgstr " _Töröl "
+
+#: ../src/html2.c:926 ../src/html2.c:963
+msgid "_Style..."
+msgstr "_Stílus..."
+
+#: ../src/html2.c:1158
+msgid "Bluefish: Select color"
+msgstr "Bluefish: Színválasztás"
+
+#: ../src/html2.c:1178
+msgid "_websafe"
+msgstr "_websafe"
 
 #: ../src/html.c:356
 msgid "Insert Time"
@@ -1467,60 +1510,6 @@ msgstr "_Rel:"
 msgid "_Type:"
 msgstr "_Típus:"
 
-#: ../src/html2.c:587
-msgid "Cascading StyleSheet dialog"
-msgstr "Stíluslap párbeszédablak"
-
-#: ../src/html2.c:607
-msgid "_Selector:"
-msgstr "_Szelektor"
-
-#: ../src/html2.c:626
-msgid "_Property:"
-msgstr "_Tulajdonság"
-
-#: ../src/html2.c:628 ../src/html_form.c:283 ../src/html_form.c:350
-#: ../src/html_form.c:411 ../src/html_form.c:466 ../src/html_form.c:528
-#: ../src/html_form.c:636
-msgid "_Value:"
-msgstr "É_rték"
-
-#: ../src/html2.c:646
-msgid "Selector"
-msgstr "Szelektor"
-
-#: ../src/html2.c:646 ../src/html2.c:649
-msgid "Property"
-msgstr "Tulajdonság"
-
-#: ../src/html2.c:646 ../src/html2.c:649
-msgid "Value"
-msgstr "Érték"
-
-#: ../src/html2.c:664
-msgid " _Add "
-msgstr " _Hozzáad "
-
-#: ../src/html2.c:667
-msgid " _Update "
-msgstr " _Frissít "
-
-#: ../src/html2.c:670
-msgid " _Delete "
-msgstr " _Töröl "
-
-#: ../src/html2.c:926 ../src/html2.c:963
-msgid "_Style..."
-msgstr "_Stílus..."
-
-#: ../src/html2.c:1158
-msgid "Bluefish: Select color"
-msgstr "Bluefish: Színválasztás"
-
-#: ../src/html2.c:1178
-msgid "_websafe"
-msgstr "_websafe"
-
 #: ../src/html_form.c:128
 msgid "Form"
 msgstr "Űrlap"
@@ -1746,9 +1735,8 @@ msgid "/File/Open A_dvanced..."
 msgstr "/Fájl/Megnyitás _opciókkal..."
 
 #: ../src/menu.c:276
-#, fuzzy
 msgid "/File/Open URL..."
-msgstr "/Fájl/_Megnyitás"
+msgstr "/Fájl/URL megnyitása..."
 
 #: ../src/menu.c:278
 msgid "/File/Open r_ecent"
@@ -1779,9 +1767,8 @@ msgid "/File/Save _As..."
 msgstr "/Fájl/Mentés más_ként..."
 
 #: ../src/menu.c:285
-#, fuzzy
 msgid "/File/_Rename..."
-msgstr "/Fájl/_Megnyitás"
+msgstr "/Fájl/Á_tnevezés"
 
 #: ../src/menu.c:286
 msgid "/File/Sa_ve All"
@@ -2981,9 +2968,8 @@ msgid "/Document/Word _Count"
 msgstr "/Dokumentum/Sz_avak száma"
 
 #: ../src/menu.c:674
-#, fuzzy
 msgid "/Document/Floating window"
-msgstr "/Dokumentum/Kódolás"
+msgstr "/Dokumentum/Lebegő ablak"
 
 #: ../src/menu.c:675
 msgid "/_Options"
@@ -3055,87 +3041,75 @@ msgstr "/Beállítások/_Gyorsbillentyű-beállítások mentése"
 
 #: ../src/menu.c:694
 msgid "/TEMP"
-msgstr ""
+msgstr "/TEMP"
 
 #: ../src/menu.c:695
-#, fuzzy
 msgid "/TEMP/tearoff1"
-msgstr "/Fájl/tearoff1"
+msgstr "/TEMP/tearoff1"
 
 #: ../src/menu.c:696 ../src/menu.c:1177
 msgid "/TEMP/Window"
-msgstr ""
+msgstr "/TEMP/Ablak"
 
 #: ../src/menu.c:697
-#, fuzzy
 msgid "/TEMP/Window/tearoff1"
-msgstr "/Címkék/Lista/tearoff1"
+msgstr "/TEMP/Ablak/tearoff1"
 
 #: ../src/menu.c:698
 msgid "/TEMP/Window/New"
-msgstr ""
+msgstr "/TEMP/Ablak/Új ablak"
 
 #: ../src/menu.c:699
-#, fuzzy
 msgid "/TEMP/Window/Close"
-msgstr "/Címkék/Lista/tearoff1"
+msgstr "/TEMP/Ablak/Bezár"
 
 #: ../src/menu.c:700
 msgid "/TEMP/Window/sep1"
-msgstr ""
+msgstr "/TEMP/Ablak/sep1"
 
 #: ../src/menu.c:701
-#, fuzzy
 msgid "/TEMP/Project"
-msgstr "/Fájl/Utóbbi megnyitása"
+msgstr "/TEMP/Projekt"
 
 #: ../src/menu.c:702
-#, fuzzy
 msgid "/TEMP/Project/tearoff1"
-msgstr "/Fájl/tearoff1"
+msgstr "/TEMP/Projekt/tearoff1"
 
 #: ../src/menu.c:703
 msgid "/TEMP/Project/Create new"
-msgstr ""
+msgstr "/TEMP/Projekt/Új projekt"
 
 #: ../src/menu.c:704
-#, fuzzy
 msgid "/TEMP/Project/Open"
-msgstr "/Fájl/Utóbbi megnyitása"
+msgstr "/TEMP/Projekt/Megnyitás"
 
 #: ../src/menu.c:705
-#, fuzzy
 msgid "/TEMP/Project/Open r_ecent"
-msgstr "/Fájl/_Utóbbi megnyitása"
+msgstr "/TEMP/Projekt/_Utóbbi megnyitása"
 
 #: ../src/menu.c:706
-#, fuzzy
 msgid "/TEMP/Project/Open recent/tearoff1"
-msgstr "/Fájl/Utóbbi megnyitása/tearoff1"
+msgstr "/TEMP/Projekt/Utóbbi megnyitása/tearoff1"
 
 #: ../src/menu.c:707
-#, fuzzy
 msgid "/TEMP/Project/sep1"
-msgstr "/Fájl/Utóbbi megnyitása"
+msgstr "/TEMP/Projekt/sep1"
 
 #: ../src/menu.c:708 ../src/project.c:118
-#, fuzzy
 msgid "/TEMP/Project/Save"
-msgstr "/Fájl/Utóbbi megnyitása"
+msgstr "/TEMP/Projekt/Mentés"
 
 #: ../src/menu.c:709 ../src/project.c:119
-#, fuzzy
 msgid "/TEMP/Project/Save as"
-msgstr "/Fájl/Utóbbi megnyitása"
+msgstr "/TEMP/Projekt/Mentés másként"
 
 #: ../src/menu.c:710 ../src/project.c:120
 msgid "/TEMP/Project/Close & save"
-msgstr ""
+msgstr "/TEMP/Projekt/Mentés és bezárás"
 
 #: ../src/menu.c:711 ../src/project.c:121
-#, fuzzy
 msgid "/TEMP/Project/Edit"
-msgstr "/Fájl/Utóbbi megnyitása"
+msgstr "/TEMP/Projekt/Szerkesztés"
 
 #: ../src/menu.c:873
 msgid "/Document/Type"
@@ -3158,9 +3132,8 @@ msgid "Could not open file\n"
 msgstr "Nem sikerült a fájl megnyitása:\n"
 
 #: ../src/menu.c:1010
-#, fuzzy
 msgid "/TEMP/Project/Open recent"
-msgstr "/Fájl/Utóbbi megnyitása"
+msgstr "/TEMP/Projekt/Utóbbi megnyitása"
 
 #: ../src/menu.c:1014
 msgid "/File/Open recent"
@@ -3502,7 +3475,7 @@ msgid ""
 "%f = output filename (for filters)"
 msgstr "%s = aktuális fájl neve%f = kimeneti fájl neve (filtereknél)"
 
-#: ../src/preferences.c:1516 ../src/preferences.c:1563 ../src/project.c:315
+#: ../src/preferences.c:1516 ../src/preferences.c:1563 ../src/project.c:316
 msgid "Name"
 msgstr "Név"
 
@@ -3552,19 +3525,19 @@ msgstr "alul"
 
 #: ../src/preferences.c:1733
 msgid "no check"
-msgstr ""
+msgstr "nincs ellenőrzés"
 
 #: ../src/preferences.c:1733
 msgid "check mtime and size"
-msgstr ""
+msgstr "mtime és méret ellenőrzése"
 
 #: ../src/preferences.c:1733
 msgid "check mtime"
-msgstr ""
+msgstr "mtime ellenőrzése"
 
 #: ../src/preferences.c:1733
 msgid "check size"
-msgstr ""
+msgstr "méret ellenőrzése"
 
 #: ../src/preferences.c:1736
 msgid "Edit preferences"
@@ -3700,7 +3673,7 @@ msgstr "Fájlok megnyitása a már futó bluefish ablakában"
 
 #: ../src/preferences.c:1826
 msgid "File modified on disk check "
-msgstr ""
+msgstr "Fájl módosulásának figyelése "
 
 #: ../src/preferences.c:1827
 msgid "Number of files in 'Open recent'"
@@ -3731,28 +3704,24 @@ msgid "Initial window width"
 msgstr "Kezdő ablakszélesség"
 
 #: ../src/preferences.c:1843
-#, fuzzy
 msgid "General"
-msgstr "<b>Általános</b>"
+msgstr "Általános"
 
 #: ../src/preferences.c:1848
-#, fuzzy
 msgid "Show main toolbar by default"
-msgstr "Sorszámozás alapértelmezett"
+msgstr "Alapértelmezésben a fő eszköztár mutatása"
 
 #: ../src/preferences.c:1849
-#, fuzzy
 msgid "Show left panel by default"
-msgstr "Sorszámozás alapértelmezett"
+msgstr "Alapértelmezésben a baloldali panel mutatása"
 
 #: ../src/preferences.c:1850
-#, fuzzy
 msgid "Show custom menu by default"
-msgstr "Sorszámozás alapértelmezett"
+msgstr "Alapértelmezésben a felhasználói menü mutatása"
 
 #: ../src/preferences.c:1851
 msgid "Show HTML toolbar by default"
-msgstr ""
+msgstr "Alapértelmezésben a HTML eszköztár mutatása"
 
 #: ../src/preferences.c:1852
 msgid "Make HTML dialogs transient"
@@ -3788,7 +3757,7 @@ msgstr "Fájlböngésző"
 
 #: ../src/preferences.c:1868
 msgid "Use separate file and directory view"
-msgstr ""
+msgstr "Fájlok és könyvtárak külön látszódjanak"
 
 #: ../src/preferences.c:1869
 msgid "Show hidden files"
@@ -3859,61 +3828,53 @@ msgid "Outputbox"
 msgstr "Kimenetablak"
 
 #: ../src/project.c:60
-#, fuzzy
 msgid "New project"
-msgstr "Új _könyvtár"
+msgstr "Új projekt"
 
 #: ../src/project.c:102
-#, fuzzy
 msgid "Enter Bluefish project filename"
-msgstr "Bluefish hiba: hiányzó fájlnév"
+msgstr "Írd be a Bluefish projekt fájlnevét"
 
-#: ../src/project.c:173
-#, fuzzy
+#: ../src/project.c:174
 msgid "Select Bluefish project filename"
-msgstr "Bluefish hiba: hiányzó fájlnév"
+msgstr "Válassz Bluefish projekt fájlnevet"
 
-#: ../src/project.c:301
-#, fuzzy
+#: ../src/project.c:302
 msgid "Edit project"
-msgstr "Új _könyvtár"
+msgstr "Projekt szerkesztése"
 
-#: ../src/project.c:311
+#: ../src/project.c:312
 #, c-format
 msgid "This project contains %d files"
-msgstr ""
+msgstr "A projekt %d fájlt tartalmaz"
 
-#: ../src/project.c:316
-#, fuzzy
+#: ../src/project.c:317
 msgid "Basedir"
 msgstr "Alapkönyvtár"
 
-#: ../src/project.c:317
-msgid "Webdir"
-msgstr ""
-
 #: ../src/project.c:318
-#, fuzzy
-msgid "Template"
-msgstr "Cserél"
+msgid "Webdir"
+msgstr "Webkönyvtár"
 
 #: ../src/project.c:319
-#, fuzzy
+msgid "Template"
+msgstr "Sablon"
+
+#: ../src/project.c:320
 msgid "Word wrap by default"
-msgstr "Sortörés csak szóvégen"
+msgstr "Sorok törése alapértelmezésben"
 
-#: ../src/project.c:363
-#, fuzzy
+#: ../src/project.c:364
 msgid "Create project"
-msgstr "Új _könyvtár"
-
-#: ../src/project.c:367
-msgid "Create project with currently opened documents"
-msgstr ""
+msgstr "Projekt létrehozása"
 
 #: ../src/project.c:368
+msgid "Create project with currently opened documents"
+msgstr "Projekt létrehozása a megnyitott dokumentumokból"
+
+#: ../src/project.c:369
 msgid "Create empty project"
-msgstr ""
+msgstr "Üres projekt létrehozása"
 
 #: ../src/rcfile.c:500
 msgid "Galeon"
@@ -3976,9 +3937,8 @@ msgid "Hide objectfiles"
 msgstr "Objektumfájlok elrejtése"
 
 #: ../src/rcfile.c:839
-#, fuzzy
 msgid "Untitled Project"
-msgstr "Névtelen"
+msgstr "Névtelen projekt"
 
 #: ../src/snr2.c:191
 msgid "Regular expression error: "
@@ -4185,9 +4145,6 @@ msgstr "Forrás:"
 msgid "Size:"
 msgstr "Méret:"
 
-#~ msgid "Show other users files"
-#~ msgstr "Más felhasználók fájljainak mutatása"
-
 #~ msgid " Line  %d"
 #~ msgstr " %d. sor "
 
@@ -4205,6 +4162,9 @@ msgstr "Méret:"
 #, fuzzy
 #~ msgid "/TEMP/Open recent project"
 #~ msgstr "/Fájl/Utóbbi megnyitása"
+
+#~ msgid "Show other users files"
+#~ msgstr "Más felhasználók fájljainak mutatása"
 
 #~ msgid "Untitled"
 #~ msgstr "Névtelen"

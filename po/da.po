@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: bluefish gtk2-port\n"
-"POT-Creation-Date: 2003-09-17 12:39+0200\n"
-"PO-Revision-Date: 2003-07-09 10:48+0200\n"
+"POT-Creation-Date: 2003-09-20 14:11-0300\n"
+"PO-Revision-Date: 2003-09-16 11:13+0200\n"
 "Last-Translator: Rasmus Toftdahl Olesen <rto@pohldata.dk>\n"
 "Language-Team: None\n"
 "MIME-Version: 1.0\n"
@@ -82,13 +82,13 @@ msgid "html filter"
 msgstr "html filter"
 
 #: ../src/bluefish.c:90
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "\n"
 "Usage: %s [options] [filenames ...]\n"
 msgstr ""
 "\n"
-"Brug: %s [tilvalg] [filnavn]\n"
+"Brug: %s [tilvalg] [filnavne ...]\n"
 
 #: ../src/bluefish.c:91
 msgid ""
@@ -107,13 +107,12 @@ msgid "-v           current version\n"
 msgstr "-v          nuværende version\n"
 
 #: ../src/bluefish.c:94
-#, fuzzy
 msgid "-n           open new window\n"
-msgstr "-v          nuværende version\n"
+msgstr "-n          åben nyt vindue\n"
 
 #: ../src/bluefish.c:95
 msgid "-p filename  open project\n"
-msgstr ""
+msgstr "-p filnavn  åben projekt\n"
 
 #: ../src/bluefish.c:96
 msgid "-h           this help screen\n"
@@ -161,14 +160,14 @@ msgid "/Document/Highlight Syntax"
 msgstr "/Dokument/Farvelæg Syntaks"
 
 #: ../src/document.c:653
-#, fuzzy, c-format
+#, c-format
 msgid "Untitled %d"
-msgstr "Unavngivet"
+msgstr "Unavngivet %d"
 
 #: ../src/document.c:1001
-#, fuzzy, c-format
+#, c-format
 msgid " Ln %d, Col %d"
-msgstr "%d af %d"
+msgstr "Ln %d, kol %d"
 
 #: ../src/document.c:1034 ../src/document.c:1035
 #, c-format
@@ -176,9 +175,8 @@ msgid "  %s, %s"
 msgstr "  %s, %s"
 
 #: ../src/document.c:1274 ../src/document.c:1293
-#, fuzzy
 msgid "Could not read file:\n"
-msgstr "Kunne ikke hente fil:\n"
+msgstr "Kunne ikke læse fil:\n"
 
 #: ../src/document.c:1324
 msgid "Opening file "
@@ -201,14 +199,12 @@ msgid "Saving file"
 msgstr "Gemmer fil"
 
 #: ../src/document.c:1834
-#, fuzzy
 msgid "_Abort save"
-msgstr "Abort gem"
+msgstr "_Abort gem"
 
 #: ../src/document.c:1834
-#, fuzzy
 msgid "_Continue save"
-msgstr "Fortsæt gem"
+msgstr "_Fortsæt gem"
 
 #: ../src/document.c:1836
 #, c-format
@@ -237,9 +233,8 @@ msgid "_Cancel"
 msgstr "A_nnullér"
 
 #: ../src/document.c:1992 ../src/document.c:2015 ../src/document.c:2102
-#, fuzzy
 msgid "_Overwrite"
-msgstr "Overskriv"
+msgstr "_Overskriv"
 
 #: ../src/document.c:1993
 #, c-format
@@ -343,14 +338,12 @@ msgid "Unable to open file"
 msgstr "Ikke istand til at åbne filen"
 
 #: ../src/document.c:2666
-#, fuzzy
 msgid "_Reload"
-msgstr "Genlæs"
+msgstr "_Genlæs"
 
 #: ../src/document.c:2666
-#, fuzzy
 msgid "_Ignore"
-msgstr "Ignorerér"
+msgstr "_Ignorerér"
 
 #: ../src/document.c:2670
 #, c-format
@@ -419,7 +412,7 @@ msgstr "_Er et regulært udtryk:"
 
 #: ../src/document.c:2972
 msgid "Open URL"
-msgstr ""
+msgstr "Åben URL"
 
 #: ../src/document.c:3005 ../src/document.c:3023 ../src/document.c:3040
 #, c-format
@@ -497,14 +490,12 @@ msgid "The file will be permanently deleted."
 msgstr "Filen vil blive permanent slettet."
 
 #: ../src/filebrowser.c:1195 ../src/filebrowser.c:1199
-#, fuzzy
 msgid "Could not delete \n"
-msgstr "Kunne ikke omdøbe\n"
+msgstr "Kunne ikke slette\n"
 
 #: ../src/filebrowser.c:1312
-#, fuzzy
 msgid "/Open _Advanced"
-msgstr "/Filer/Åbn A_vanceret..."
+msgstr "/Åben _Avanceret"
 
 #: ../src/filebrowser.c:1316
 msgid "/_Refresh"
@@ -1045,18 +1036,16 @@ msgid "/Document/Line Numbers"
 msgstr "/Dokument/Linje Numre"
 
 #: ../src/gui.c:1008
-#, fuzzy
 msgid "Do_n't Save"
 msgstr "Gem i_kke"
 
 #: ../src/gui.c:1009
 msgid "Failed to save the current project"
-msgstr ""
+msgstr "Kunne ikke gamme nuværende projekt"
 
 #: ../src/gui.c:1033
-#, fuzzy
 msgid "New Bluefish Window"
-msgstr "Bluefish tip:"
+msgstr "Nyt Bluefish Vindue"
 
 #: ../src/gui.c:1080
 msgid "Stand by..."
@@ -1093,6 +1082,60 @@ msgstr "/Indstillinger/Vis/Hoved Toolbar"
 #: ../src/gui.c:1397 ../src/menu.c:912
 msgid "/Options/Display/View Custom Menu"
 msgstr "/Indstillinger/Vis/Brugerdefineret Menu"
+
+#: ../src/html2.c:587
+msgid "Cascading StyleSheet dialog"
+msgstr "Cascading StyleSheet dialog"
+
+#: ../src/html2.c:607
+msgid "_Selector:"
+msgstr "_Vælger:"
+
+#: ../src/html2.c:626
+msgid "_Property:"
+msgstr "_Egenskab:"
+
+#: ../src/html2.c:628 ../src/html_form.c:283 ../src/html_form.c:350
+#: ../src/html_form.c:411 ../src/html_form.c:466 ../src/html_form.c:528
+#: ../src/html_form.c:636
+msgid "_Value:"
+msgstr "_Værdi:"
+
+#: ../src/html2.c:646
+msgid "Selector"
+msgstr "Vælger"
+
+#: ../src/html2.c:646 ../src/html2.c:649
+msgid "Property"
+msgstr "Egenskab"
+
+#: ../src/html2.c:646 ../src/html2.c:649
+msgid "Value"
+msgstr "Værdi"
+
+#: ../src/html2.c:664
+msgid " _Add "
+msgstr " _Tilføj "
+
+#: ../src/html2.c:667
+msgid " _Update "
+msgstr " _Opdatér "
+
+#: ../src/html2.c:670
+msgid " _Delete "
+msgstr " _Slet "
+
+#: ../src/html2.c:926 ../src/html2.c:963
+msgid "_Style..."
+msgstr "_Stil"
+
+#: ../src/html2.c:1158
+msgid "Bluefish: Select color"
+msgstr "Bluefish: Vælg farve"
+
+#: ../src/html2.c:1178
+msgid "_websafe"
+msgstr "_web-sikker"
 
 #: ../src/html.c:356
 msgid "Insert Time"
@@ -1466,60 +1509,6 @@ msgstr "_Rel:"
 msgid "_Type:"
 msgstr "_Type:"
 
-#: ../src/html2.c:587
-msgid "Cascading StyleSheet dialog"
-msgstr "Cascading StyleSheet dialog"
-
-#: ../src/html2.c:607
-msgid "_Selector:"
-msgstr "_Vælger:"
-
-#: ../src/html2.c:626
-msgid "_Property:"
-msgstr "_Egenskab:"
-
-#: ../src/html2.c:628 ../src/html_form.c:283 ../src/html_form.c:350
-#: ../src/html_form.c:411 ../src/html_form.c:466 ../src/html_form.c:528
-#: ../src/html_form.c:636
-msgid "_Value:"
-msgstr "_Værdi:"
-
-#: ../src/html2.c:646
-msgid "Selector"
-msgstr "Vælger"
-
-#: ../src/html2.c:646 ../src/html2.c:649
-msgid "Property"
-msgstr "Egenskab"
-
-#: ../src/html2.c:646 ../src/html2.c:649
-msgid "Value"
-msgstr "Værdi"
-
-#: ../src/html2.c:664
-msgid " _Add "
-msgstr " _Tilføj "
-
-#: ../src/html2.c:667
-msgid " _Update "
-msgstr " _Opdatér "
-
-#: ../src/html2.c:670
-msgid " _Delete "
-msgstr " _Slet "
-
-#: ../src/html2.c:926 ../src/html2.c:963
-msgid "_Style..."
-msgstr "_Stil"
-
-#: ../src/html2.c:1158
-msgid "Bluefish: Select color"
-msgstr "Bluefish: Vælg farve"
-
-#: ../src/html2.c:1178
-msgid "_websafe"
-msgstr "_web-sikker"
-
 #: ../src/html_form.c:128
 msgid "Form"
 msgstr "Formular"
@@ -1745,9 +1734,8 @@ msgid "/File/Open A_dvanced..."
 msgstr "/Filer/Åbn A_vanceret..."
 
 #: ../src/menu.c:276
-#, fuzzy
 msgid "/File/Open URL..."
-msgstr "/Filer/_Åbn..."
+msgstr "/Filer/Åbn URL..."
 
 #: ../src/menu.c:278
 msgid "/File/Open r_ecent"
@@ -1778,9 +1766,8 @@ msgid "/File/Save _As..."
 msgstr "/Filer/Gem _Som..."
 
 #: ../src/menu.c:285
-#, fuzzy
 msgid "/File/_Rename..."
-msgstr "/Filer/_Åbn..."
+msgstr "/Filer/_Omdøb..."
 
 #: ../src/menu.c:286
 msgid "/File/Sa_ve All"
@@ -2919,9 +2906,8 @@ msgid "/Document/Word _Count"
 msgstr "/Dokument/Ord _Optælling"
 
 #: ../src/menu.c:674
-#, fuzzy
 msgid "/Document/Floating window"
-msgstr "/Dokument/Kodning"
+msgstr "/Dokument/Svævende vindue"
 
 #: ../src/menu.c:675
 msgid "/_Options"
@@ -2993,87 +2979,75 @@ msgstr "/Indstillinger/Gem Genvejs-_Taster"
 
 #: ../src/menu.c:694
 msgid "/TEMP"
-msgstr ""
+msgstr "/TEMP"
 
 #: ../src/menu.c:695
-#, fuzzy
 msgid "/TEMP/tearoff1"
-msgstr "/Filer/tearoff1"
+msgstr "/TEMP/tearoff1"
 
 #: ../src/menu.c:696 ../src/menu.c:1177
 msgid "/TEMP/Window"
-msgstr ""
+msgstr "/TEMP/Vindue"
 
 #: ../src/menu.c:697
-#, fuzzy
 msgid "/TEMP/Window/tearoff1"
-msgstr "/Tags/Liste/tearoff1"
+msgstr "/TEMP/Vindue/tearoff1"
 
 #: ../src/menu.c:698
 msgid "/TEMP/Window/New"
-msgstr ""
+msgstr "/TEMP/Vindue/Ny"
 
 #: ../src/menu.c:699
-#, fuzzy
 msgid "/TEMP/Window/Close"
-msgstr "/Tags/Liste/tearoff1"
+msgstr "/TEMP/Vindue/Luk"
 
 #: ../src/menu.c:700
 msgid "/TEMP/Window/sep1"
-msgstr ""
+msgstr "/TEMP/Vindue/sep1"
 
 #: ../src/menu.c:701
-#, fuzzy
 msgid "/TEMP/Project"
-msgstr "/Filer/Hent sidst åbnede"
+msgstr "/TEMP/Projekt"
 
 #: ../src/menu.c:702
-#, fuzzy
 msgid "/TEMP/Project/tearoff1"
-msgstr "/Filer/tearoff1"
+msgstr "/TEMP/Projekt/tearoff1"
 
 #: ../src/menu.c:703
 msgid "/TEMP/Project/Create new"
-msgstr ""
+msgstr "/TEMP/Projekt/Opret nyt"
 
 #: ../src/menu.c:704
-#, fuzzy
 msgid "/TEMP/Project/Open"
-msgstr "/Filer/Hent sidst åbnede"
+msgstr "/TEMP/Projekt/Åbn"
 
 #: ../src/menu.c:705
-#, fuzzy
 msgid "/TEMP/Project/Open r_ecent"
-msgstr "/Filer/Åbn s_eneste"
+msgstr "/TEMP/Projekt/Åbn s_eneste"
 
 #: ../src/menu.c:706
-#, fuzzy
 msgid "/TEMP/Project/Open recent/tearoff1"
-msgstr "/Filer/Åbn seneste/tearoff1"
+msgstr "/TEMP/Projekt/Åbn seneste/tearoff1"
 
 #: ../src/menu.c:707
-#, fuzzy
 msgid "/TEMP/Project/sep1"
-msgstr "/Filer/Hent sidst åbnede"
+msgstr "/TEMP/Projekt/sep1"
 
 #: ../src/menu.c:708 ../src/project.c:118
-#, fuzzy
 msgid "/TEMP/Project/Save"
-msgstr "/Filer/Hent sidst åbnede"
+msgstr "/TEMP/Projekt/Gem"
 
 #: ../src/menu.c:709 ../src/project.c:119
-#, fuzzy
 msgid "/TEMP/Project/Save as"
-msgstr "/Filer/Hent sidst åbnede"
+msgstr "/TEMP/Projekt/Gem som"
 
 #: ../src/menu.c:710 ../src/project.c:120
 msgid "/TEMP/Project/Close & save"
-msgstr ""
+msgstr "/TEMP/Projekt/Luk & gem"
 
 #: ../src/menu.c:711 ../src/project.c:121
-#, fuzzy
 msgid "/TEMP/Project/Edit"
-msgstr "/Filer/Hent sidst åbnede"
+msgstr "/TEMP/Projekt/Redigér"
 
 #: ../src/menu.c:873
 msgid "/Document/Type"
@@ -3096,9 +3070,8 @@ msgid "Could not open file\n"
 msgstr "Kunne ikke hente fil\n"
 
 #: ../src/menu.c:1010
-#, fuzzy
 msgid "/TEMP/Project/Open recent"
-msgstr "/Filer/Hent sidst åbnede"
+msgstr "/TEMP/Projekt/Hent sidst åbnede"
 
 #: ../src/menu.c:1014
 msgid "/File/Open recent"
@@ -3442,7 +3415,7 @@ msgstr ""
 "%s = nuværende filnavn\n"
 "%f = udskriv filnavn (for filtre)"
 
-#: ../src/preferences.c:1516 ../src/preferences.c:1563 ../src/project.c:315
+#: ../src/preferences.c:1516 ../src/preferences.c:1563 ../src/project.c:316
 msgid "Name"
 msgstr "Navn"
 
@@ -3492,19 +3465,19 @@ msgstr "bund"
 
 #: ../src/preferences.c:1733
 msgid "no check"
-msgstr ""
+msgstr "intet check"
 
 #: ../src/preferences.c:1733
 msgid "check mtime and size"
-msgstr ""
+msgstr "check mtime og størrelse"
 
 #: ../src/preferences.c:1733
 msgid "check mtime"
-msgstr ""
+msgstr "check mtime"
 
 #: ../src/preferences.c:1733
 msgid "check size"
-msgstr ""
+msgstr "check størerlse"
 
 #: ../src/preferences.c:1736
 msgid "Edit preferences"
@@ -3640,7 +3613,7 @@ msgstr "Åben filer i allerede kørende bluefish vindue"
 
 #: ../src/preferences.c:1826
 msgid "File modified on disk check "
-msgstr ""
+msgstr "Fil ændret på disken check "
 
 #: ../src/preferences.c:1827
 msgid "Number of files in 'Open recent'"
@@ -3671,28 +3644,24 @@ msgid "Initial window width"
 msgstr "Start vindues bredde"
 
 #: ../src/preferences.c:1843
-#, fuzzy
 msgid "General"
-msgstr "<b>Generél</b>"
+msgstr "Generél"
 
 #: ../src/preferences.c:1848
-#, fuzzy
 msgid "Show main toolbar by default"
-msgstr "Linjenumre per standard"
+msgstr "Vis hoved værktøjsline som standard"
 
 #: ../src/preferences.c:1849
-#, fuzzy
 msgid "Show left panel by default"
-msgstr "Linjenumre per standard"
+msgstr "Vis venstre panel som standard"
 
 #: ../src/preferences.c:1850
-#, fuzzy
 msgid "Show custom menu by default"
-msgstr "Linjenumre per standard"
+msgstr "Vis brugerdefineret menu som standard"
 
 #: ../src/preferences.c:1851
 msgid "Show HTML toolbar by default"
-msgstr ""
+msgstr "Vis HTML værktøjslinje som standard"
 
 #: ../src/preferences.c:1852
 msgid "Make HTML dialogs transient"
@@ -3728,7 +3697,7 @@ msgstr "Fil browser"
 
 #: ../src/preferences.c:1868
 msgid "Use separate file and directory view"
-msgstr ""
+msgstr "Brug seperat fil of biblioteks vælger"
 
 #: ../src/preferences.c:1869
 msgid "Show hidden files"
@@ -3799,59 +3768,53 @@ msgid "Outputbox"
 msgstr "Uddata boks"
 
 #: ../src/project.c:60
-#, fuzzy
 msgid "New project"
-msgstr "/_Nyt Bibliotek"
+msgstr "Nyt projekt"
 
 #: ../src/project.c:102
 msgid "Enter Bluefish project filename"
-msgstr ""
+msgstr "Indtast Bluefish projekt filnavn"
 
-#: ../src/project.c:173
+#: ../src/project.c:174
 msgid "Select Bluefish project filename"
-msgstr ""
+msgstr "Vælg Bluefish projekt filnavn"
 
-#: ../src/project.c:301
-#, fuzzy
+#: ../src/project.c:302
 msgid "Edit project"
-msgstr "/_Nyt Bibliotek"
+msgstr "Redigér projekt"
 
-#: ../src/project.c:311
+#: ../src/project.c:312
 #, c-format
 msgid "This project contains %d files"
-msgstr ""
-
-#: ../src/project.c:316
-#, fuzzy
-msgid "Basedir"
-msgstr "Grun_dbibliotek:"
+msgstr "Dette projekt indeholder %d filer"
 
 #: ../src/project.c:317
-msgid "Webdir"
-msgstr ""
+msgid "Basedir"
+msgstr "Grund-bibliotek"
 
 #: ../src/project.c:318
-#, fuzzy
-msgid "Template"
-msgstr "Erstat"
+msgid "Webdir"
+msgstr "Web-bibliotek"
 
 #: ../src/project.c:319
-#, fuzzy
+msgid "Template"
+msgstr "Skabelon"
+
+#: ../src/project.c:320
 msgid "Word wrap by default"
-msgstr "Ord ombrydning standard"
+msgstr "Ord-ombrydning som standard"
 
-#: ../src/project.c:363
-#, fuzzy
+#: ../src/project.c:364
 msgid "Create project"
-msgstr "/_Nyt Bibliotek"
-
-#: ../src/project.c:367
-msgid "Create project with currently opened documents"
-msgstr ""
+msgstr "Opret projekt"
 
 #: ../src/project.c:368
+msgid "Create project with currently opened documents"
+msgstr "Opret projekt med nuværende åbne dokumenter"
+
+#: ../src/project.c:369
 msgid "Create empty project"
-msgstr ""
+msgstr "Opret tomt projekt"
 
 #: ../src/rcfile.c:500
 msgid "Galeon"
@@ -3914,9 +3877,8 @@ msgid "Hide objectfiles"
 msgstr "Skjul objektfiler"
 
 #: ../src/rcfile.c:839
-#, fuzzy
 msgid "Untitled Project"
-msgstr "Unavngivet"
+msgstr "Unavngivet Project"
 
 #: ../src/snr2.c:191
 msgid "Regular expression error: "
@@ -4122,54 +4084,3 @@ msgstr "Kilde:"
 #: ../src/wizards.c:223
 msgid "Size:"
 msgstr "Størrelse:"
-
-#~ msgid "Show other users files"
-#~ msgstr "Vis andre brugeres filer"
-
-#~ msgid " Line  %d"
-#~ msgstr " Linje %d"
-
-#~ msgid "Cancel"
-#~ msgstr "Cancel"
-
-#, fuzzy
-#~ msgid "_Continue close"
-#~ msgstr "Fortsæt gem"
-
-#, fuzzy
-#~ msgid "/TEMP/Open recent project/tearoff1"
-#~ msgstr "/Filer/Åbn seneste/tearoff1"
-
-#, fuzzy
-#~ msgid "/TEMP/Open recent project"
-#~ msgstr "/Filer/Hent sidst åbnede"
-
-#~ msgid "Untitled"
-#~ msgstr "Unavngivet"
-
-#~ msgid " Untitled"
-#~ msgstr " Unavngivet"
-
-#~ msgid "/sep1"
-#~ msgstr "/sep1"
-
-#~ msgid "/sep2"
-#~ msgstr "/sep2"
-
-#~ msgid "/sep3"
-#~ msgstr "/sep3"
-
-#~ msgid "No file to insert."
-#~ msgstr "Ingen fil at indsætte"
-
-#~ msgid "Bluefish"
-#~ msgstr "Bluefish"
-
-#~ msgid "/File/_Move to..."
-#~ msgstr "/Filer/_Flyt til..."
-
-#~ msgid "(none)"
-#~ msgstr "(ingen)"
-
-#~ msgid "Advanced search and replace by default"
-#~ msgstr "Advanceret søg-og-erstat som standard"
