@@ -1224,7 +1224,7 @@ static void cust_con_struc_dialog_ok_lcb(GtkWidget *widget, Tcust_con_struc *ccs
 		} else {
 			replace = g_strdup("");
 		}
-		snr2_run_extern_replace(search, atoi(ccs->array[4]),
+		snr2_run_extern_replace(main_v->current_document, search, atoi(ccs->array[4]),
 				atoi(ccs->array[5]), atoi(ccs->array[6]), replace, TRUE);
 		
 		tmpt = table;
@@ -1317,7 +1317,7 @@ static void cust_menu_lcb(GtkWidget * widget, gpointer data) {
 		if (atoi(cmentry->array[7]) > 0) {
 			cust_con_struc_dialog(cmentry->array, 1);
 		} else {
-		     snr2_run_extern_replace(cmentry->array[2], atoi(cmentry->array[4]),
+		     snr2_run_extern_replace(main_v->current_document,cmentry->array[2], atoi(cmentry->array[4]),
 							atoi(cmentry->array[5]), atoi(cmentry->array[6]), cmentry->array[3],TRUE);
 		}
 	}

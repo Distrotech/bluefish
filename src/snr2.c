@@ -141,7 +141,7 @@ typedef struct {
 static Tlast_snr2 last_snr2;
 
 
-void snr2_run(void);
+void snr2_run(Tdocument *doc);
 
 /***********************************************************/
 
@@ -642,7 +642,7 @@ static void replace_prompt_dialog_ok_lcb(GtkWidget *widget, gpointer data) {
 				last_snr2.result.pmatch = NULL;
 			}
 			if (!last_snr2.replace_once) {
-				snr2_run();
+				snr2_run(NULL);
 			}
 		}
 #ifdef DEBUG
@@ -661,7 +661,7 @@ static void replace_prompt_dialog_all_lcb(GtkWidget *widget, gpointer data) {
 		g_free(last_snr2.result.pmatch);
 		last_snr2.result.pmatch = NULL;
 	}
-	snr2_run();
+	snr2_run(NULL);
 }
 
 void replace_prompt_dialog() {
@@ -768,11 +768,15 @@ void replace_prompt_all(gchar *pattern, gint matchtype, gint is_case_sens, gchar
 
 /*****************************************************/
 
-void snr2_run(void) {
+void snr2_run(Tdocument *doc) {
 	gint startpos, endpos;
 	Tsearch_result result;
 	Tsearch_all_result result_all;
 	replacetypes replacetype;
+
+	if (doc==NULL) {
+		doc = main_v->current_document;
+	}
 
 	if (last_snr2.result.pmatch) {
 		g_free(last_snr2.result.pmatch);
@@ -784,17 +788,17 @@ void snr2_run(void) {
 		startpos = 0;
 		endpos = -1;
 	} else if (last_snr2.region_from_cursor) {
-		startpos = doc_get_cursor_position(main_v->current_document);
+		startpos = doc_get_cursor_position(doc);
 		endpos = -1;
 	} else if (last_snr2.region_selection) {
-		if (!doc_get_selection(main_v->current_document,&startpos,&endpos)) {
+		if (!doc_get_selection(doc,&startpos,&endpos)) {
 			/* what to do if there was no selection ?*/
 			DEBUG_MSG("snr2_run, no selection found, returning\n");
 			return;
 		}
 		DEBUG_MSG("snr2_run, from selection: startpos=%d, endpos=%d\n", startpos, endpos);
 	}
-	if (last_snr2.doc == main_v->current_document) {
+	if (last_snr2.doc == doc) {
 		if (last_snr2.result.end > 0) {
 			if (last_snr2.overlapping_search) {
 				startpos = last_snr2.result.start + 1;
@@ -817,15 +821,15 @@ void snr2_run(void) {
 			if (last_snr2.region_all_open_files) {
 				replace_prompt_all(last_snr2.pattern,last_snr2.matchtype, last_snr2.is_case_sens, last_snr2.replace_string);
 			} else {
-				replace_prompt_doc(last_snr2.pattern, last_snr2.matchtype, last_snr2.is_case_sens, startpos, endpos, last_snr2.replace_string, main_v->current_document);
+				replace_prompt_doc(last_snr2.pattern, last_snr2.matchtype, last_snr2.is_case_sens, startpos, endpos, last_snr2.replace_string, doc);
 			}
 		} else {
 			if (last_snr2.region_all_open_files) {
 				replace_all(last_snr2.pattern, last_snr2.matchtype, last_snr2.is_case_sens, last_snr2.replace_string, replacetype);
 			} else if (last_snr2.replace_once) {
-				replace_doc_once(last_snr2.pattern, last_snr2.matchtype, last_snr2.is_case_sens, startpos, endpos, last_snr2.replace_string, main_v->current_document, replacetype);
+				replace_doc_once(last_snr2.pattern, last_snr2.matchtype, last_snr2.is_case_sens, startpos, endpos, last_snr2.replace_string, doc, replacetype);
 			} else {
-				replace_doc_multiple(last_snr2.pattern, last_snr2.matchtype, last_snr2.is_case_sens, startpos, endpos, last_snr2.replace_string, main_v->current_document, replacetype);
+				replace_doc_multiple(last_snr2.pattern, last_snr2.matchtype, last_snr2.is_case_sens, startpos, endpos, last_snr2.replace_string, doc, replacetype);
 			}		
 		}
 	} else { /* find, not replace */
@@ -839,17 +843,17 @@ void snr2_run(void) {
 				error_dialog(_("Bluefish message"), _("Search: no match found"));
 			}
 		} else {
-			result = search_doc(main_v->current_document, last_snr2.pattern, last_snr2.matchtype, last_snr2.is_case_sens, startpos);
+			result = search_doc(doc, last_snr2.pattern, last_snr2.matchtype, last_snr2.is_case_sens, startpos);
 			if (result.end > 0) {
-				doc_show_result(main_v->current_document, result.start, result.end);	
+				doc_show_result(doc, result.start, result.end);	
 			} else {
 				error_dialog(_("Bluefish message"), _("Search: no match found"));
 			}
 		}
 	}
 	/* if highlighting is needed for this document do this now !! */
-	if (main_v->current_document->need_highlighting && main_v->current_document->highlightstate) {
-		doc_highlight_full(main_v->current_document);
+	if (doc->need_highlighting && doc->highlightstate) {
+		doc_highlight_full(doc);
 	}
 }
 
@@ -871,7 +875,7 @@ replacetype_string = 1
 replacetype_upcase = 0
 replacetype_lowcase = 0
 */
-void snr2_run_extern_replace(gchar *pattern, gint region,
+void snr2_run_extern_replace(Tdocument *doc, gchar *pattern, gint region,
 							gint matchtype, gint is_case_sens, gchar *replace_string,
 							gboolean store_as_last_snr2) {
 	gchar *pattern_bck = last_snr2.pattern, *replace_string_bck = last_snr2.pattern;
@@ -896,7 +900,7 @@ void snr2_run_extern_replace(gchar *pattern, gint region,
 	last_snr2.replacetype_upcase = 0;
 	last_snr2.replacetype_lowcase = 0;
 
-	snr2_run();
+	snr2_run(doc);
 	if (store_as_last_snr2) {
 		g_free(pattern_bck);
 		g_free(replace_string_bck);
@@ -907,8 +911,8 @@ void snr2_run_extern_replace(gchar *pattern, gint region,
 	}
 }
 
-Tsearch_result doc_search_run_extern(gchar *pattern, gint matchtype, gint is_case_sens) {
-	return search_doc(main_v->current_document, pattern, matchtype, is_case_sens, 0);
+Tsearch_result doc_search_run_extern(Tdocument *doc, gchar *pattern, gint matchtype, gint is_case_sens) {
+	return search_doc(doc, pattern, matchtype, is_case_sens, 0);
 } 
 
 /*****************************************************/
@@ -978,7 +982,7 @@ static void snr2dialog_ok_lcb(GtkWidget *widget, Tsnr2_win *data) {
 	window_destroy(data->window);
 	g_free(data);
 
-	snr2_run();
+	snr2_run(NULL);
 }
 
 static void matchingtype_toggled_lcb(GtkToggleButton *togglebutton,Tsnr2_win *snr2win){
@@ -1255,11 +1259,11 @@ void new_search_cb(GtkWidget *widget, gpointer data) {
 }
 
 void search_again_cb(GtkWidget *widget, gpointer data) {
-	snr2_run();	
+	snr2_run(NULL);	
 }
 
 void replace_again_cb(GtkWidget *widget, gpointer data) {
-	snr2_run();
+	snr2_run(NULL);
 }
 
 void replace_cb(GtkWidget *widget, gpointer data) {
