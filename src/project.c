@@ -206,12 +206,18 @@ static void project_edit_cancel_clicked_lcb(GtkWidget *widget, Tprojecteditor *p
 }
 
 static void project_edit_ok_clicked_lcb(GtkWidget *widget, Tprojecteditor *pred) {
+	gchar *oldbasedir;
 	Tproject *prj = pred->bfwin->project;
 	DEBUG_MSG("project_edit_ok_clicked_lcb, Tproject at %p\n",prj);
+	oldbasedir = g_strdup(prj->basedir);
 	string_apply(&prj->name, pred->entries[name]);
 	string_apply(&prj->basedir, pred->entries[basedir]);
 	string_apply(&prj->webdir, pred->entries[webdir]);
 	DEBUG_MSG("project_edit_ok_clicked_lcb, name=%s, basedir=%s, webdir=%s\n",prj->name,prj->basedir,prj->webdir);
+	if (strcmp(prj->basedir, oldbasedir)!=0 && strlen(prj->basedir) > 2) {
+		filebrowser_set_basedir(pred->bfwin, prj->basedir);
+	}
+	g_free(oldbasedir);
 	gui_set_title(pred->bfwin, pred->bfwin->current_document);
 	gtk_widget_destroy(pred->win);
 }

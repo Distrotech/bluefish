@@ -17,8 +17,8 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-/* #define DEBUG
-#define DEBUG_ADDING_TO_TREE */
+/*#define DEBUG
+#define DEBUG_ADDING_TO_TREE*/
 
 #include <gtk/gtk.h>
 #include <sys/types.h> /* stat() getuid */
@@ -159,7 +159,7 @@ static gchar *return_filename_from_path(Tfilebrowser *filebrowser, GtkTreeModel 
 			if (!retval) {
 				retval = g_strdup("/");
 			}
-			DEBUG_MSG("return_filename_from_path, found the root (%s ??), retval=%s\n", name,retval);
+			DEBUG_MSG("return_filename_from_path, found the root (%s ?), retval=%s\n", name,retval);
 			valid = FALSE;
 		} else {
 			tmp = retval;
@@ -658,7 +658,7 @@ static GtkTreePath *build_tree_from_path(Tfilebrowser *filebrowser, const gchar 
 			/* +1 because the basedir does not have a slash / appended, and we want to continue searching after the slash */
 			prevlen = strlen(filebrowser->basedir)+1;
 		}
-		DEBUG_MSG("build_tree_from_path, initial prevlen=%d\n", prevlen);
+		DEBUG_MSG("build_tree_from_path, initial prevlen=%d, searching for / in '%s'\n", prevlen, &filepath[prevlen]);
 		p = strchr(&filepath[prevlen], '/');
 		while (p) {
 			curlen = strlen(p);
@@ -682,6 +682,7 @@ static GtkTreePath *build_tree_from_path(Tfilebrowser *filebrowser, const gchar 
 		GList *direntrylist, *tmplist;
 		
 		dirname = g_path_get_dirname(filepath);
+		DEBUG_MSG("build_tree_from_path, dirname='%s'\n",dirname);
 		
 		if (filebrowser->last_opened_dir) g_free(filebrowser->last_opened_dir);
 		filebrowser->last_opened_dir = g_strdup(dirname);
