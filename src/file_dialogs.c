@@ -321,7 +321,7 @@ static TcheckNsave_return doc_checkNsave_lcb(TcheckNsave_status status,gint erro
 				/* we have to ask the user */
 				gchar *options[] = {_("_Abort save"), _("_Continue save"), NULL};
 				gint retval;
-				gchar *tmpstr = g_strdup_printf(_("A backupfile for %s could not be created. If you continue, this file will be overwritten."), doc->filename);
+				gchar *tmpstr = g_strdup_printf(_("A backupfile for %s could not be created. If you continue, this file will be overwritten."), doc->uri);
 				retval = multi_warning_dialog(BFWIN(doc->bfwin)->main_window,_("File backup failure"), tmpstr, 1, 0, options);
 				g_free(tmpstr);
 				return (retval == 0) ? CHECKNSAVE_STOP : CHECKNSAVE_CONT;
@@ -342,7 +342,7 @@ static TcheckNsave_return doc_checkNsave_lcb(TcheckNsave_status status,gint erro
 				/* we have to ask the user what to do */
 				gchar *options[] = {_("_Abort save"), _("_Continue save"), NULL};
 				gint retval;
-				gchar *tmpstr = g_strdup_printf(_("File %s is modified on disk, overwrite?"), doc->filename);
+				gchar *tmpstr = g_strdup_printf(_("File %s is modified on disk, overwrite?"), doc->uri);
 				retval = multi_warning_dialog(BFWIN(doc->bfwin)->main_window,_("File modified on disk"), tmpstr, 1, 0, options);
 				g_free(tmpstr);
 				return (retval == 0) ? CHECKNSAVE_STOP : CHECKNSAVE_CONT;
@@ -375,17 +375,12 @@ static TcheckNsave_return doc_checkNsave_lcb(TcheckNsave_status status,gint erro
 
 static void doc_save_backend(Tdocument *doc, gboolean do_save_as, gboolean do_move, gboolean close_doc, gboolean close_window) {
 	DEBUG_MSG("doc_save_backend, started for doc %p\n",doc);
-	if (doc->filename == NULL) {
+	if (doc->uri == NULL) {
 		do_save_as = 1;
 	}
 	if (do_move) {
 		do_save_as = 1;
 	}
-/************ SHOULD BE REMOVED ************/
-	if (doc->uri == NULL) {
-		doc->uri = g_strdup(doc->filename);
-	}
-/************************/
 	if (do_save_as) {
 		gchar *newfilename;
 		newfilename = ask_new_filename(BFWIN(doc->bfwin), doc->uri, gtk_label_get_text(GTK_LABEL(doc->tab_label)), do_move);
@@ -399,8 +394,6 @@ static void doc_save_backend(Tdocument *doc, gboolean do_save_as, gboolean do_mo
 			g_free(doc->uri);
 		}
 		doc->uri = newfilename;
-		if (doc->filename) g_free(doc->filename);
-		doc->filename = g_strdup(doc->uri);
 	}
 	{
 		gchar *tmp;

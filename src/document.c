@@ -125,9 +125,9 @@ GList *return_filenamestringlist_from_doclist(GList *doclist) {
 	DEBUG_MSG("return_filenamestringlist_from_doclist, started for doclist %p, len=%d\n",doclist,g_list_length(doclist));
 	tmplist = g_list_first(doclist);
 	while(tmplist){
-		if (DOCUMENT(tmplist->data)->filename) {
-			DEBUG_MSG("return_filenamestringlist_from_doclist, adding filename %s\n",DOCUMENT(tmplist->data)->filename);
-			newlist = g_list_append(newlist, g_strdup(DOCUMENT(tmplist->data)->filename));
+		if (DOCUMENT(tmplist->data)->uri) {
+			DEBUG_MSG("return_filenamestringlist_from_doclist, adding filename %s\n",DOCUMENT(tmplist->data)->uri);
+			newlist = g_list_append(newlist, g_strdup(DOCUMENT(tmplist->data)->uri));
 		}
 		tmplist = g_list_next(tmplist);
 	}
@@ -192,7 +192,7 @@ gint documentlist_return_index_from_filename(GList *doclist, gchar *filename) {
 	
 	tmplist = g_list_first(doclist);
 	while (tmplist) {
-		if (((Tdocument *)tmplist->data)->filename &&(strcmp(filename, ((Tdocument *)tmplist->data)->filename) ==0)) {
+		if (((Tdocument *)tmplist->data)->uri &&(strcmp(filename, ((Tdocument *)tmplist->data)->uri) ==0)) {
 			return count;
 		}
 		count++;
@@ -220,7 +220,7 @@ Tdocument *documentlist_return_document_from_filename(GList *doclist, gchar *fil
 	tmplist = g_list_first(doclist);
 	while (tmplist) {
 		DEBUG_MSG("documentlist_return_document_from_filename, comparing with %s\n",filename);
-		if (DOCUMENT(tmplist->data)->filename &&(strcmp(filename, DOCUMENT(tmplist->data)->filename) ==0)) {
+		if (DOCUMENT(tmplist->data)->uri &&(strcmp(filename, DOCUMENT(tmplist->data)->uri) ==0)) {
 			DEBUG_MSG("documentlist_return_document_from_filename, found, returning %p\n", tmplist->data);
 			return DOCUMENT(tmplist->data);
 		}
@@ -375,7 +375,7 @@ static void doc_set_tooltip(Tdocument *doc) {
 	gchar *text, *tmp;
 	gchar mtimestr[128], *modestr=NULL, *sizestr=NULL;
 	mtimestr[0] = '\0';
-	DEBUG_MSG("doc_set_tooltip, fileinfo=%p for uri %s and filename %s\n", doc->fileinfo, doc->uri, doc->filename);
+	DEBUG_MSG("doc_set_tooltip, fileinfo=%p for uri %s and filename %s\n", doc->fileinfo, doc->uri, doc->uri);
 	if (doc->fileinfo) {
 		if (doc->fileinfo->valid_fields & GNOME_VFS_FILE_INFO_FIELDS_PERMISSIONS) {
 			modestr = filemode_to_string(doc->fileinfo->permissions);
@@ -450,9 +450,9 @@ gboolean doc_set_filetype(Tdocument *doc, Tfiletype *ft) {
  */
 void doc_set_title(Tdocument *doc) {
 	gchar *label_string, *tabmenu_string;
-	if (doc->filename) {
-		label_string = g_path_get_basename(doc->filename);
-		tabmenu_string = g_strdup(doc->filename);
+	if (doc->uri) {
+		label_string = g_path_get_basename(doc->uri);
+		tabmenu_string = g_strdup(doc->uri);
 	} else {
 		label_string = g_strdup_printf(_("Untitled %d"),main_v->num_untitled_documents);
 		tabmenu_string =  g_strdup(label_string);
@@ -503,10 +503,10 @@ void doc_reset_filetype(Tdocument * doc, gchar * newfilename, gchar *buf) {
 void doc_set_filename(Tdocument *doc, gchar *uri) {
 	if (uri) {
 		if (doc->uri) g_free(doc->uri);
-		if (doc->filename) g_free(doc->filename);
+		if (doc->uri) g_free(doc->uri);
 	
 		doc->uri = g_strdup(uri);
-		doc->filename = uri_to_document_filename2(uri);
+		doc->uri = uri_to_document_filename2(uri);
 		doc_set_title(doc);
 		doc_reset_filetype(doc, doc->uri, NULL);
 	}
@@ -631,7 +631,7 @@ gboolean doc_is_empty_non_modified_and_nameless(Tdocument *doc) {
 	if (!doc) {
 		return FALSE;
 	}
-	if (doc->modified || doc->filename || doc->uri) {
+	if (doc->modified || doc->uri || doc->uri) {
 		return FALSE;
 	}
 	if (gtk_text_buffer_get_char_count(doc->buffer) > 0) {
@@ -845,12 +845,12 @@ if newstatbuf is not NULL, it will be filled with the new statbuf from the file 
 leave NULL if you do not need this information, if the file is not changed, this field will not be set!!
 */
 static gboolean doc_check_modified_on_disk(Tdocument *doc, GnomeVFSFileInfo **newfileinfo) {
-	if (main_v->props.modified_check_type == 0 || !doc->filename || doc->fileinfo == NULL) {
+	if (main_v->props.modified_check_type == 0 || !doc->uri || doc->fileinfo == NULL) {
 		return FALSE;
 	} else if (main_v->props.modified_check_type < 4) {
 		GnomeVFSFileInfo *fileinfo;
 		gboolean unref_fileinfo = FALSE;
-		gchar *ondiskencoding = get_filename_on_disk_encoding(doc->filename);
+		gchar *ondiskencoding = get_filename_on_disk_encoding(doc->uri);
 		if (*newfileinfo == NULL) {
 			fileinfo = gnome_vfs_file_info_new();
 			unref_fileinfo = TRUE;
@@ -889,11 +889,11 @@ if newstatbuf is not NULL, it will be filled with the new statbuf from the file 
 leave NULL if you do not need this information, if the file is not changed, this field will not be set!!
 */
 static gboolean doc_check_modified_on_disk(Tdocument *doc, struct stat *newstatbuf) {
-	if (main_v->props.modified_check_type == 0 || !doc->filename || doc->statbuf.st_mtime == 0 || doc->statbuf.st_size == 0) {
+	if (main_v->props.modified_check_type == 0 || !doc->uri || doc->statbuf.st_mtime == 0 || doc->statbuf.st_size == 0) {
 		return FALSE;
 	} else if (main_v->props.modified_check_type < 4) {
 		struct stat statbuf;
-		gchar *ondiskencoding = get_filename_on_disk_encoding(doc->filename);
+		gchar *ondiskencoding = get_filename_on_disk_encoding(doc->uri);
 		if (stat(ondiskencoding, &statbuf) == 0) {
 			g_free(ondiskencoding);
 			*newstatbuf = statbuf;
@@ -918,8 +918,8 @@ static gboolean doc_check_modified_on_disk(Tdocument *doc, struct stat *newstatb
 /* doc_set_stat_info() includes setting the mtime field, so there is no need
 to call doc_update_mtime() as well */
 static void doc_set_stat_info(Tdocument *doc) {
-	if (doc->filename) {
-		gchar *ondiskencoding = get_filename_on_disk_encoding(doc->filename);
+	if (doc->uri) {
+		gchar *ondiskencoding = get_filename_on_disk_encoding(doc->uri);
 		if (doc->fileinfo == NULL) {
 			doc->fileinfo = gnome_vfs_file_info_new();
 			DEBUG_MSG("doc_set_stat_info, new fileinfo at %p\n",doc->fileinfo);
@@ -1653,11 +1653,11 @@ void doc_set_fileinfo(Tdocument *doc, GnomeVFSFileInfo *finfo) {
 static gint doc_check_backup(Tdocument *doc) {
 	gint res = 1;
 
-	if (main_v->props.backup_file && doc->filename && file_exists_and_readable(doc->filename)) {
+	if (main_v->props.backup_file && doc->uri && file_exists_and_readable(doc->uri)) {
 		gchar *backupfilename, *ondiskencoding;
-		backupfilename = g_strconcat(doc->filename, main_v->props.backup_filestring, NULL);
+		backupfilename = g_strconcat(doc->uri, main_v->props.backup_filestring, NULL);
 		ondiskencoding = get_filename_on_disk_encoding(backupfilename);
-		res = file_copy(doc->filename, backupfilename);
+		res = file_copy(doc->uri, backupfilename);
 #ifdef HAVE_GNOME_VFS
 		if (doc->fileinfo) {
 			gnome_vfs_set_file_info(ondiskencoding, doc->fileinfo, GNOME_VFS_SET_FILE_INFO_PERMISSIONS|GNOME_VFS_SET_FILE_INFO_OWNER);
@@ -2193,7 +2193,7 @@ gchar *doc_get_buffer_in_encoding(Tdocument *doc) {
 			column = gtk_text_iter_get_line_offset(&iter);
 			failed[0]='\0';
 			g_utf8_strncpy(failed,buffer+bytes_read,1);
-			tmpstr = g_strdup_printf(_("Failed to convert %s to character encoding %s. Encoding failed on character '%s' at line %d column %d\n\nContinue saving in UTF-8 encoding?"), doc->filename, doc->encoding, failed, line+1, column+1);
+			tmpstr = g_strdup_printf(_("Failed to convert %s to character encoding %s. Encoding failed on character '%s' at line %d column %d\n\nContinue saving in UTF-8 encoding?"), doc->uri, doc->encoding, failed, line+1, column+1);
 			retval = multi_warning_dialog(BFWIN(doc->bfwin)->main_window,_("File encoding conversion failure"), tmpstr, 1, 0, options);
 			g_free(tmpstr);
 			if (retval == 0) {
@@ -2350,8 +2350,8 @@ void doc_destroy(Tdocument * doc, gboolean delay_activation) {
 	bmark_clean_for_doc(doc);
 /*        bmark_adjust_visible(bfwin);   */
 
-	if (doc->filename) {
-		add_to_recent_list(doc->bfwin,doc->filename, 1, FALSE);
+	if (doc->uri) {
+		add_to_recent_list(doc->bfwin,doc->uri, 1, FALSE);
 	}
 	gui_notebook_unbind_signals(BFWIN(doc->bfwin));
 	/* to make this go really quick, we first only destroy the notebook page and run flush_queue(), 
@@ -2384,14 +2384,14 @@ void doc_destroy(Tdocument * doc, gboolean delay_activation) {
 	/* now we really start to destroy the document */
 	g_object_unref(doc->view->parent);
 
-	if (doc->filename) {
+	if (doc->uri) {
 		if (main_v->props.backup_cleanuponclose) {
-			gchar *backupfile = g_strconcat(doc->filename, main_v->props.backup_filestring, NULL);
-			DEBUG_MSG("unlinking %s, doc->filename=%s\n", backupfile,doc->filename);
+			gchar *backupfile = g_strconcat(doc->uri, main_v->props.backup_filestring, NULL);
+			DEBUG_MSG("unlinking %s, doc->uri=%s\n", backupfile,doc->uri);
 			unlink(backupfile);
 			g_free(backupfile);
 		}
-		g_free(doc->filename);
+		g_free(doc->uri);
 	}
 	
 	if (doc->encoding)
@@ -2418,10 +2418,10 @@ void doc_destroy(Tdocument * doc, gboolean delay_activation) {
  * return value: void, ignored
  */
 void document_unset_filename(Tdocument *doc) {
-	if (doc->filename) {
+	if (doc->uri) {
 		gchar *tmpstr2, *tmpstr3;
-		gchar *tmpstr, *oldfilename = doc->filename;
-		doc->filename = NULL;
+		gchar *tmpstr, *oldfilename = doc->uri;
+		doc->uri = NULL;
 		doc_set_title(doc);
 		tmpstr2 = g_path_get_basename(oldfilename);
 		tmpstr3 = get_utf8filename_from_on_disk_encoding(tmpstr2);
@@ -2558,7 +2558,7 @@ gint doc_save(Tdocument * doc, gboolean do_save_as, gboolean do_move, gboolean w
 #endif
 
 	DEBUG_MSG("doc_save, doc=%p, save_as=%d, do_move=%d\n", doc, do_save_as, do_move);
-	if (doc->filename == NULL) {
+	if (doc->uri == NULL) {
 		do_save_as = 1;
 	}
 	if (do_move) {
@@ -2568,21 +2568,21 @@ gint doc_save(Tdocument * doc, gboolean do_save_as, gboolean do_move, gboolean w
 	if (do_save_as) {
 		gchar *newfilename = NULL;
 		if (!window_closing) statusbar_message(BFWIN(doc->bfwin),_("Save as..."), 1);
-		newfilename = ask_new_filename(BFWIN(doc->bfwin), doc->filename, gtk_label_get_text(GTK_LABEL(doc->tab_label)), do_move);
+		newfilename = ask_new_filename(BFWIN(doc->bfwin), doc->uri, gtk_label_get_text(GTK_LABEL(doc->tab_label)), do_move);
 		if (!newfilename) {
 			return 3;
 		}
-		if (doc->filename) {
+		if (doc->uri) {
 			if (do_move) {
-				gchar *ondiskencoding = get_filename_on_disk_encoding(doc->filename);
+				gchar *ondiskencoding = get_filename_on_disk_encoding(doc->uri);
 				gnome_vfs_unlink(ondiskencoding);
 				g_free(ondiskencoding);
 			}
-			g_free(doc->filename);
+			g_free(doc->uri);
 		}
-		doc->filename = newfilename;
+		doc->uri = newfilename;
 		/* TODO: should feed the contents to the function too !! */
-		doc_reset_filetype(doc, doc->filename, NULL);
+		doc_reset_filetype(doc, doc->uri, NULL);
 		doc_set_title(doc);
 		if (doc == BFWIN(doc->bfwin)->current_document) {
 			gui_set_title(BFWIN(doc->bfwin), doc);
@@ -2605,7 +2605,7 @@ gint doc_save(Tdocument * doc, gboolean do_save_as, gboolean do_move, gboolean w
 	
 			ctime_r(&newmtime,newtimestr);
 			ctime_r(&oldmtime,oldtimestr);
-			tmpstr = g_strdup_printf(_("File: %s\n\nNew modification time: %s\nOld modification time: %s"), doc->filename, newtimestr, oldtimestr);
+			tmpstr = g_strdup_printf(_("File: %s\n\nNew modification time: %s\nOld modification time: %s"), doc->uri, newtimestr, oldtimestr);
 			retval = multi_warning_dialog(BFWIN(doc->bfwin)->main_window,_("File has been modified by another process."), tmpstr, 1, 0, options);
 			g_free(tmpstr);
 			if (retval == 0) {
@@ -2614,32 +2614,32 @@ gint doc_save(Tdocument * doc, gboolean do_save_as, gboolean do_move, gboolean w
 		}
 	}
 	
-	DEBUG_MSG("doc_save, returned file %s\n", doc->filename);
+	DEBUG_MSG("doc_save, returned file %s\n", doc->uri);
 /*	if (do_save_as && oldfilename && main_v->props.link_management) {
-		update_filenames_in_file(doc, oldfilename, doc->filename, 1);
+		update_filenames_in_file(doc, oldfilename, doc->uri, 1);
 	}*/
 	{
-		gchar *tmp = g_strdup_printf(_("Saving %s"), doc->filename);
+		gchar *tmp = g_strdup_printf(_("Saving %s"), doc->uri);
 		if (!window_closing) statusbar_message(BFWIN(doc->bfwin),tmp, 1);
 		g_free(tmp);
 		/* re-use tmp */
-		tmp = g_path_get_dirname(doc->filename);
+		tmp = g_path_get_dirname(doc->uri);
 		if (BFWIN(doc->bfwin)->session->savedir) g_free(BFWIN(doc->bfwin)->session->savedir);
 		BFWIN(doc->bfwin)->session->savedir = tmp;
 	}
-	retval = doc_textbox_to_file(doc, doc->filename, window_closing);
+	retval = doc_textbox_to_file(doc, doc->uri, window_closing);
 
 	switch (retval) {
 		gchar *errmessage;
 		case -1:
 			/* backup failed and aborted */
-			errmessage = g_strconcat(_("Could not backup file:\n\""), doc->filename, "\"", NULL);
+			errmessage = g_strconcat(_("Could not backup file:\n\""), doc->uri, "\"", NULL);
 			error_dialog(BFWIN(doc->bfwin)->main_window,_("File save aborted.\n"), errmessage);
 			g_free(errmessage);
 		break;
 		case -2:
 			/* could not open the file pointer */
-			errmessage = g_strconcat(_("Could not write file:\n\""), doc->filename, "\"", NULL);
+			errmessage = g_strconcat(_("Could not write file:\n\""), doc->uri, "\"", NULL);
 			error_dialog(BFWIN(doc->bfwin)->main_window,_("File save error"), errmessage);
 			g_free(errmessage);
 		break;
@@ -2650,7 +2650,7 @@ gint doc_save(Tdocument * doc, gboolean do_save_as, gboolean do_move, gboolean w
 		default:
 			doc_set_stat_info(doc);
 			{ 
-				gchar *tmp = path_get_dirname_with_ending_slash(doc->filename);
+				gchar *tmp = path_get_dirname_with_ending_slash(doc->uri);
 				bfwin_filebrowser_refresh_dir(BFWIN(doc->bfwin),tmp);
 				g_free(tmp);
 			}
@@ -2879,7 +2879,7 @@ static Tdocument *doc_new_backend(Tbfwin *bfwin, gboolean force_new) {
 	doc_set_title(newdoc);
 	/* we initialize already with 0 , so we don't need these:
 	newdoc->need_highlighting = 0;
-	newdoc->filename = NULL;
+	newdoc->uri = NULL;
 	newdoc->modified = 0;
 	newdoc->fileinfo = NULL;*/
 	newdoc->is_symlink = 0;
@@ -3007,11 +3007,11 @@ void doc_new_with_new_file(Tbfwin *bfwin, gchar * new_filename) {
 	DEBUG_MSG("doc_new_with_new_file, new_filename=%s\n", new_filename);
 	add_filename_to_history(bfwin,new_filename);
 	doc = doc_new(bfwin, FALSE);
-	doc->filename = g_strdup(new_filename);
+	doc->uri = g_strdup(new_filename);
 	if (bfwin->project && bfwin->project->template && strlen(bfwin->project->template) > 2) {
 		doc_file_to_textbox(doc, bfwin->project->template, FALSE, FALSE);
  	}
-	ft = get_filetype_by_filename_and_content(doc->filename, NULL);
+	ft = get_filetype_by_filename_and_content(doc->uri, NULL);
 	if (ft) doc->hl = ft;
 /*	doc->modified = 1;*/
 	doc_set_title(doc);
@@ -3119,11 +3119,11 @@ Tdocument * doc_new_with_file(Tbfwin *bfwin, gchar * filename, gboolean delay_ac
 		doc = doc_new(bfwin, delay_activate);
 	}
 	/* we do not need to free fullfilename anymore now */
-	doc->filename = fullfilename;
+	doc->uri = fullfilename;
 	DEBUG_MSG("doc_new_with_file, hl is resetted to filename, about to load file\n");
-	doc_file_to_textbox(doc, doc->filename, FALSE, delay_activate);
+	doc_file_to_textbox(doc, doc->uri, FALSE, delay_activate);
 	/* after the textbuffer is filled the filetype can be found */
-	doc_reset_filetype(doc, doc->filename, NULL);
+	doc_reset_filetype(doc, doc->uri, NULL);
 
 	/* hey, this should be done by doc_activate 
 	menu_current_document_set_toggle_wo_activate(NULL, doc->encoding);*/
@@ -3222,7 +3222,7 @@ Tdocument * doc_new_with_file(Tbfwin *bfwin, gchar * filename, gboolean delay_ac
  * Return value: void
  **/
 void doc_reload(Tdocument *doc) {
-	if ((doc->filename == NULL) || (!file_exists_and_readable(doc->filename))) {
+	if ((doc->uri == NULL) || (!file_exists_and_readable(doc->uri))) {
 		statusbar_message(BFWIN(doc->bfwin),_("Unable to open file"), 2000);
 		return;
 	}
@@ -3232,7 +3232,7 @@ void doc_reload(Tdocument *doc) {
 		gtk_text_buffer_delete(doc->buffer,&itstart,&itend);
 	}
 	
-	doc_file_to_textbox(doc, doc->filename, FALSE, FALSE);
+	doc_file_to_textbox(doc, doc->uri, FALSE, FALSE);
 	doc_unre_clear_all(doc);
 	doc_set_modified(doc, 0);
 	doc_set_stat_info(doc); /* also sets mtime field */
@@ -3267,7 +3267,7 @@ void doc_activate(Tdocument *doc) {
 		gchar *tmpstr;
 		gint retval;
 		DEBUG_MSG("ERROR, RETRY???\n");
-		tmpstr = g_strconcat(_("File "), doc->filename, _(" failed to load."), NULL);
+		tmpstr = g_strconcat(_("File "), doc->uri, _(" failed to load."), NULL);
 		retval = multi_warning_dialog(BFWIN(doc->bfwin)->main_window,_("File failed to load\n"), tmpstr, 0, 1, options);
 		g_free(tmpstr);
 		if (retval == 0) {
@@ -3297,7 +3297,7 @@ void doc_activate(Tdocument *doc) {
 
 		ctime_r(&newmtime,newtimestr);
 		ctime_r(&oldmtime,oldtimestr);
-		tmpstr = g_strdup_printf(_("Filename: %s\n\nNew modification time is: %s\nOld modification time is: %s"), doc->filename, newtimestr, oldtimestr);
+		tmpstr = g_strdup_printf(_("Filename: %s\n\nNew modification time is: %s\nOld modification time is: %s"), doc->uri, newtimestr, oldtimestr);
 		retval = multi_warning_dialog(BFWIN(doc->bfwin)->main_window,_("File has been modified by another process\n"), tmpstr, 0, 1, options);
 		g_free(tmpstr);
 		if (retval == 1) {
@@ -3320,8 +3320,8 @@ void doc_activate(Tdocument *doc) {
 	}
 
 /*	doc_scroll_to_cursor(doc);*/
-	if (doc->filename) {
-		gchar *dir1 = g_path_get_dirname(doc->filename);
+	if (doc->uri) {
+		gchar *dir1 = g_path_get_dirname(doc->uri);
 		gchar *dir2 = ending_slash(dir1);
 		if (dir2[0] == '/') {
 			chdir(dir2);
@@ -3355,10 +3355,10 @@ void file_open_from_selection(Tbfwin *bfwin) {
 	string = gtk_clipboard_wait_for_text(cb);
 	if (string) {
 		DEBUG_MSG("file_open_from_selection, opening %s\n",string);
-		if (NULL == strchr(string,'/') && bfwin->current_document->filename) {
+		if (NULL == strchr(string,'/') && bfwin->current_document->uri) {
 			/* now we should look in the directory of the current file */
 			gchar *dir, *tmp;
-			dir = g_path_get_dirname(bfwin->current_document->filename);
+			dir = g_path_get_dirname(bfwin->current_document->uri);
 			tmp = g_strconcat(dir, "/", string, NULL);
 			DEBUG_MSG("file_open_from_selection, trying %s\n",tmp);
 			doc_new_with_file(bfwin,tmp,FALSE,FALSE);
@@ -3746,14 +3746,14 @@ void menu_indent_cb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget) {
  */
 GList *list_relative_document_filenames(Tdocument *curdoc) {
 	GList *tmplist, *retlist=NULL;
-	if (curdoc->filename == NULL) {
+	if (curdoc->uri == NULL) {
 		return NULL;
 	} 
 	tmplist = g_list_first(BFWIN(curdoc->bfwin)->documentlist);
 	while (tmplist) {
 		Tdocument *tmpdoc = tmplist->data;
-		if (tmpdoc != curdoc && tmpdoc->filename != NULL) {
-			retlist = g_list_append(retlist,create_relative_link_to(curdoc->filename, tmpdoc->filename));
+		if (tmpdoc != curdoc && tmpdoc->uri != NULL) {
+			retlist = g_list_append(retlist,create_relative_link_to(curdoc->uri, tmpdoc->uri));
 		}
 		tmplist = g_list_next(tmplist);
 	}
@@ -3781,7 +3781,7 @@ static void new_floatingview(Tdocument *doc) {
 	fv = g_new(Tfloatingview,1);
 	doc->floatingview = fv;
 	DEBUG_MSG("new_floatingview for doc=%p is at %p\n",doc,doc->floatingview);
-	title = (doc->filename) ? doc->filename : "Untitled";
+	title = (doc->uri) ? doc->uri : "Untitled";
 	fv->window = window_full2(title, GTK_WIN_POS_NONE, 5, G_CALLBACK(floatingview_destroy_lcb), doc, TRUE, NULL);
 	gtk_window_set_role(GTK_WINDOW(fv->window), "floatingview");
 	fv->textview = gtk_text_view_new_with_buffer(doc->buffer);

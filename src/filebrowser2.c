@@ -518,13 +518,13 @@ static void fb2_focus_dir(Tfilebrowser2 *fb2, GnomeVFSURI *uri, gboolean noselec
  * directory
  */
 void fb2_focus_document(Tbfwin *bfwin, Tdocument *doc) {
-	DEBUG_MSG("fb2_focus_document,doc->filename=%s\n",doc->filename);
-	if (bfwin->fb2 && doc->filename) {
+	DEBUG_MSG("fb2_focus_document,doc->uri=%s\n",doc->uri);
+	if (bfwin->fb2 && doc->uri) {
 		GnomeVFSURI *file_uri, *dir_uri;
 		/* first we make sure we have the correct directory open, then
 		we could select the document, but if the directory *was* open already, this
 		could disturb the user... hmmm... */
-		file_uri = gnome_vfs_uri_new(doc->filename);
+		file_uri = gnome_vfs_uri_new(doc->uri);
 		dir_uri = gnome_vfs_uri_get_parent(file_uri);
 		fb2_focus_dir(FILEBROWSER2(bfwin->fb2), dir_uri, FALSE);
 		gnome_vfs_uri_unref(file_uri);
@@ -890,7 +890,7 @@ static void handle_activate_on_file(Tfilebrowser2 *fb2, GnomeVFSURI *uri) {
 		/* doc_new_with_file(fb2->bfwin,filename, FALSE, FALSE); */
 		file_doc_from_uri(fb2->bfwin, uri, NULL);
 	} else if (strcmp(ft->type, "webimage")==0 || strcmp(ft->type, "image")==0) {
-		gchar *relfilename = create_relative_link_to(fb2->bfwin->current_document->filename, filename);
+		gchar *relfilename = create_relative_link_to(fb2->bfwin->current_document->uri, filename);
 		image_insert_from_filename(fb2->bfwin,relfilename);
 		g_free(relfilename);
 	} else if (strcmp(ft->type, "bfproject") == 0) {

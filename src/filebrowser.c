@@ -1177,7 +1177,7 @@ static void handle_activate_on_file(Tfilebrowser *filebrowser, gchar *filename) 
 	if (ft == NULL || ft->editable) {
 		doc_new_with_file(filebrowser->bfwin,filename, FALSE, FALSE);
 	} else if (strcmp(ft->type, "webimage")==0 || strcmp(ft->type, "image")==0) {
-		gchar *relfilename = create_relative_link_to(filebrowser->bfwin->current_document->filename, filename);
+		gchar *relfilename = create_relative_link_to(filebrowser->bfwin->current_document->uri, filename);
 		image_insert_from_filename(filebrowser->bfwin,relfilename);
 		g_free(relfilename);
 	} else if (strcmp(ft->type, "bfproject") == 0) {
@@ -1979,9 +1979,9 @@ GtkWidget *filebrowser_init(Tbfwin *bfwin) {
 		if (bfwin->project && bfwin->project->basedir && strlen(bfwin->project->basedir)>2) {
 			buildfrom = bfwin->project->basedir;
 		} else {
-			if (bfwin->current_document && bfwin->current_document->filename){
+			if (bfwin->current_document && bfwin->current_document->uri){
 				DEBUG_MSG("filebrowser_init, build tree from current doc %s\n",bfwin->current_document->filename);
-				buildfrom = bfwin->current_document->filename; 
+				buildfrom = bfwin->current_document->uri; 
 			} else if (filebrowser->basedir && strlen(filebrowser->basedir)>2) {
 				buildfrom = filebrowser->basedir;
 			} else {

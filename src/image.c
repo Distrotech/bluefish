@@ -64,8 +64,8 @@ static void image_insert_dialogok_lcb(GtkWidget * widget, Timage_diag *imdg) {
 			GdkPixbuf *tmp_im;
 			
 			/* the filename and thumbnailfilename can be relative paths to the current document */
-			if (filename[0] != '/' && imdg->dg->doc->filename && strlen(imdg->dg->doc->filename)) {
-				basedir = path_get_dirname_with_ending_slash(imdg->dg->doc->filename);
+			if (filename[0] != '/' && imdg->dg->doc->uri && strlen(imdg->dg->doc->uri)) {
+				basedir = path_get_dirname_with_ending_slash(imdg->dg->doc->uri);
 			} else if (filename[0] == '/') {
 				basedir = path_get_dirname_with_ending_slash(filename);
 			}
@@ -164,8 +164,8 @@ static void image_filename_changed(GtkWidget * widget, Timage_diag *imdg) {
 
 		filename = gtk_entry_get_text(GTK_ENTRY(imdg->dg->entry[0]));
 		/* we should use the full path to create the thumbnail filename */
-		if (filename[0] != '/' && imdg->dg->doc->filename && strlen(imdg->dg->doc->filename)) {
-			gchar *basedir = path_get_dirname_with_ending_slash(imdg->dg->doc->filename);
+		if (filename[0] != '/' && imdg->dg->doc->uri && strlen(imdg->dg->doc->uri)) {
+			gchar *basedir = path_get_dirname_with_ending_slash(imdg->dg->doc->uri);
 			fullfilename = create_full_path(filename, basedir);
 			g_free(basedir);
 		} else if (filename[0] == '/') {
@@ -431,8 +431,8 @@ static void multi_thumbnail_ok_clicked(GtkWidget *widget, Tmuthudia *mtd) {
 		GError *error=NULL;
 		gchar *thumbfilename, *filename=(gchar *)tmplist->data, *relfilename;
 	
-		if (mtd->bfwin->current_document->filename) {
-			relfilename = create_relative_link_to(mtd->bfwin->current_document->filename, filename);
+		if (mtd->bfwin->current_document->uri) {
+			relfilename = create_relative_link_to(mtd->bfwin->current_document->uri, filename);
 			DEBUG_MSG("create_relative_link_to, filename=%s relfilename=%s \n", filename, relfilename);
 		} else {
 			relfilename = g_strdup (filename);
