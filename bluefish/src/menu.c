@@ -15,7 +15,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-#define DEBUG
+/*#define DEBUG*/
 #include <gtk/gtk.h>
 #include <stdlib.h> /* atoi */
 #include <string.h> /* strchr() */
@@ -603,7 +603,6 @@ void menu_current_document_set_toggle_wo_activate(Tfiletype *hlset, gchar *encod
 }
 
 void filetype_menu_destroy(Tfiletype *filetype) {
-	DEBUG_MSG("");
 	if (filetype->menuitem) {
 		g_signal_handler_disconnect(filetype->menuitem,filetype->menuitem_activate_id);
 		gtk_widget_destroy(filetype->menuitem);
@@ -683,7 +682,7 @@ static void menu_outputbox_lcb(GtkMenuItem *menuitem,gchar **arr) {
 	outputbox(arr[1], atoi(arr[2]), atoi(arr[3]), atoi(arr[4]), arr[5], (arr[6][0]=='1'));
 }
 
-static void dynamic_menu_append_spacing(gchar *basepath) {
+static GtkWidget *dynamic_menu_append_spacing(gchar *basepath) {
 	GtkItemFactory *factory;
 	GtkWidget *menu, *menuitem;
 	factory = gtk_item_factory_from_widget(main_v->menubar);
@@ -691,6 +690,7 @@ static void dynamic_menu_append_spacing(gchar *basepath) {
 	menuitem = gtk_menu_item_new();
 	gtk_widget_show(menuitem);
 	gtk_menu_shell_append(GTK_MENU_SHELL(menu),menuitem);
+	return menuitem;
 }
 
 void menu_outputbox_rebuild() {
@@ -706,7 +706,7 @@ void menu_outputbox_rebuild() {
 		menus.outputbox_menu = NULL;
 	}
 	if (!main_v->props.ext_outputbox_in_submenu) {
-		dynamic_menu_append_spacing(N_("/External"));
+		menus.outputbox_menu = g_list_append(menus.outputbox_menu, dynamic_menu_append_spacing(N_("/External")));
 	}
 	
 	tmplist = g_list_first(main_v->props.outputbox);
@@ -978,10 +978,22 @@ static void external_command_lcb(GtkWidget *widget, gchar **arr) {
 		system(arr[1]);
 	}
 }
-void external_menu_init() {
-	GList *tmplist = g_list_first(main_v->props.browsers);
+void external_menu_rebuild() {
+	GList *tmplist;
+	if (menus.external_menu) {
+		tmplist = g_list_first(menus.external_menu);
+		while (tmplist) {
+			gtk_widget_destroy(tmplist->data);
+			tmplist = g_list_next(tmplist);
+		}
+		g_list_free(menus.external_menu);
+		menus.external_menu = NULL;
+	}
+
+	tmplist = g_list_first(main_v->props.browsers);
 	if (!main_v->props.ext_browsers_in_submenu) {
-		dynamic_menu_append_spacing(N_("/External"));
+		menus.external_menu = g_list_append(menus.external_menu
+					,dynamic_menu_append_spacing(N_("/External")));
 	}
 	while (tmplist) {
 		gchar **arr = tmplist->data;
@@ -1002,7 +1014,8 @@ void external_menu_init() {
 	}
 	
 	if (!main_v->props.ext_commands_in_submenu) {
-		dynamic_menu_append_spacing(N_("/External"));
+		menus.external_menu = g_list_append(menus.external_menu
+					,dynamic_menu_append_spacing(N_("/External")));
 	}
 	
 	tmplist = g_list_first(main_v->props.external_commands);

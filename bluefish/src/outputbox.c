@@ -173,8 +173,10 @@ static GList *run_command() {
 	GList *retlist;
 	Tconvert_table *table, *tmpt;
 	gchar *command1, *command2, *tmpfile;
+	file_save_cb(NULL, NULL);
 	if (!main_v->current_document->filename) {
-		file_save_cb(NULL, NULL);
+		/* if the usder clicked cancel at file_save -> return */
+		return NULL;
 	}
 	table = tmpt = g_new(Tconvert_table, 2);
 	tmpt->my_int = 's';

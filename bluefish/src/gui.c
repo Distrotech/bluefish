@@ -666,7 +666,7 @@ void gui_create_main(GList *filenames) {
 	/* first a menubar */
 	menu_create_main(vbox);
 	recent_menu_init();
-	external_menu_init();
+	external_menu_rebuild();
 	encoding_menu_rebuild();
 	menu_outputbox_rebuild();
 

@@ -27,7 +27,7 @@ void menu_outputbox_rebuild();
 void add_to_recent_list(gchar *filename, gint closed_file);
 void recent_menu_init();
 void browser_toolbar_cb(GtkWidget *widget, gpointer data);
-void external_menu_init();
+void external_menu_rebuild();
 void encoding_menu_rebuild();
 void make_cust_menubar(GtkWidget *cust_handle_box);
 #endif							/* __MENU_H_ */

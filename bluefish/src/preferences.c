@@ -1559,10 +1559,15 @@ static void preferences_ok_clicked_lcb(GtkWidget *wid, Tprefdialog *pd) {
 	free_arraylist(main_v->props.external_commands);
 	main_v->props.external_commands = pd->lists[external_commands];
 	
+	free_arraylist(main_v->props.outputbox);
+	main_v->props.outputbox	 = pd->lists[outputbox];
+	
 	/* apply the changes to highlighting patterns and filetypes to the running program */
 	filetype_highlighting_rebuild();
 	filetype_menu_rebuild(NULL);
-	
+	menu_outputbox_rebuild();
+	encoding_menu_rebuild();
+	external_menu_rebuild();
 	
 	preferences_destroy_lcb(NULL, NULL, pd);
 }
