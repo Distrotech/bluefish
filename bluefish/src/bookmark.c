@@ -380,6 +380,7 @@ static gboolean bmark_name_exists(Tdocument *doc,const gchar *name)
 void bmark_init()
 {
   main_v->bookmarkstore = gtk_tree_store_new(N_COLUMNS,G_TYPE_STRING,G_TYPE_POINTER);  
+  DEBUG_MSG("bmark_init, created main_v->bookmarkstore at %p\n",main_v->bookmarkstore);
 }
 
 
@@ -787,6 +788,5 @@ void bmark_add_rename_dialog(Tbfwin *bfwin, gchar *dialogtitle, gint dialogtype)
 void bmark_cleanup(Tbfwin *bfwin)
 {
   /* I don't know if this is needed */
-  
-  
+    
 }

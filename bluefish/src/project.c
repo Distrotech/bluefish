@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-/* #define DEBUG */
+#define DEBUG
 
 #include <gtk/gtk.h>
 #include <string.h>
@@ -76,6 +76,8 @@ static Tproject *create_new_project(Tbfwin *bfwin) {
 	Tproject *prj;
 	prj = g_new0(Tproject,1);
 	prj->name = g_strdup(_("New project"));
+	prj->bookmarkstore = gtk_tree_store_new(2, G_TYPE_STRING, G_TYPE_POINTER); 
+	DEBUG_MSG("create_new_project, project=%p, bookmarkstore=%p, bfwin=%p\n",prj,prj->bookmarkstore,bfwin);
 	if (bfwin) {
 		DEBUG_MSG("create_new_project, new project for bfwin %p\n",bfwin);
 		update_project_filelist(bfwin,prj);

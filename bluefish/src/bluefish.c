@@ -200,6 +200,7 @@ int main(int argc, char *argv[])
 	/* create the first window */
 	firstbfwin = g_new0(Tbfwin,1);
 	firstbfwin->session = main_v->session;
+	firstbfwin->bookmarkstore = main_v->bookmarkstore;
 	main_v->bfwinlist = g_list_append(NULL, firstbfwin);
 	gui_create_main(firstbfwin,filenames);
 
