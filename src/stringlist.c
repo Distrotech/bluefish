@@ -462,7 +462,7 @@ gint count_array(gchar **array) {
  *
  * Return value: #gchar* newly allocated string
  */
-gchar *array_to_string(gchar **array, gchar delimiter) {
+gchar *array_to_string(gchar **array) {
 	if (array) {
 		gchar **tmp, *escaped1, *finalstring;
 		gint newsize=1;
@@ -471,11 +471,11 @@ gchar *array_to_string(gchar **array, gchar delimiter) {
 		tmp = array;
 		while(*tmp) {
 			DEBUG_MSG("array_to_string, *tmp = %s\n", *tmp);
-			escaped1 = escapestring(*tmp, delimiter);
+			escaped1 = escape_string(*tmp, TRUE);
 			newsize += strlen(escaped1)+1;
 			finalstring = g_realloc(finalstring, newsize);
 			strcat(finalstring, escaped1);
-			finalstring[newsize-2] = delimiter;
+			finalstring[newsize-2] = ':';
 			finalstring[newsize-1] = '\0';
 			g_free(escaped1);
 			tmp++;
@@ -505,7 +505,7 @@ gchar *array_to_string(gchar **array, gchar delimiter) {
  *
  * Return value: #gchar** newly allocated NULL terminated array
  */
-gchar **string_to_array(gchar *string, gchar delimiter) {
+gchar **string_to_array(gchar *string) {
 	gchar **array;
 	gchar *tmpchar, *tmpchar2;
 	gchar *newstring;
@@ -541,17 +541,16 @@ gchar **string_to_array(gchar *string, gchar delimiter) {
 				newstring[count] = '\t';
 				tmpchar++;
 			break;
+			case ':':
+				newstring[count] = ':';
+				tmpchar++;
+			break;
 			default:
-				if (*tmpchar2 == delimiter) {
-					newstring[count] = delimiter;
-					tmpchar++;
-				} else {
-					DEBUG_MSG("string_to_array, weird, an unescaped backslash ?\n");
-					newstring[count] = '\\';
-				}
+				DEBUG_MSG("string_to_array, weird, an unescaped backslash ?\n");
+				newstring[count] = '\\';
 			break;
 			}
-		} else if (*tmpchar == delimiter) {
+		} else if (*tmpchar == ':') {
 			newstring[count] = '\0';  /* end of the current newstring */
 			DEBUG_MSG("string_to_array, newstring(%p)=%s\n", newstring, newstring);
 			array[arraycount] = g_strdup(newstring);
@@ -747,7 +746,7 @@ GList *get_list(const gchar * filename, GList * which_list, gboolean is_arraylis
 			tmpbuf = trunc_on_char(tmpbuf, '\n');
 			tempstr = g_strdup(tmpbuf);
 			if (is_arraylist) {
-				gchar **temparr = string_to_array(tempstr, ':');
+				gchar **temparr = string_to_array(tempstr);
 				which_list = g_list_append(which_list, temparr);
 				g_free(tempstr);
 			} else {

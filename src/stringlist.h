@@ -28,8 +28,8 @@
 				, gint column_num, gchar **column_titles, void (*post_dialog_func)());*/
 
 gint count_array(gchar **array);
-gchar *array_to_string(gchar **array, gchar delimiter);
-gchar **string_to_array(gchar *string, gchar delimiter);
+gchar *array_to_string(gchar **array);
+gchar **string_to_array(gchar *string);
 gchar **array_from_arglist(const gchar *string1, ...);
 
 GList *duplicate_stringlist(GList *list, gint dup_data);
