@@ -701,6 +701,7 @@ void filebrowser_open_dir(const gchar *dirarg) {
 			}
 		}
 		gtk_tree_path_free(path);
+		gtk_tree_path_free(selpath);
 		g_free(dir);
 		g_free(seldir);
 		g_free(selfile);
@@ -859,24 +860,27 @@ static void create_file_or_dir_win(gint is_file) {
 		ws->is_file = is_file;
 
 		ws->win = window_full(title, GTK_WIN_POS_MOUSE, 5,G_CALLBACK(create_file_or_dir_destroy_lcb), ws, TRUE);
-		vbox = gtk_vbox_new(FALSE, 0);
+		vbox = gtk_vbox_new(FALSE, 12);
 		gtk_container_add(GTK_CONTAINER(ws->win), vbox);
 		ws->entry = boxed_entry_with_text(NULL, 250, vbox);
 	
 		hbox = gtk_hbutton_box_new();
 		gtk_hbutton_box_set_layout_default(GTK_BUTTONBOX_END);
-		gtk_button_box_set_spacing(GTK_BUTTON_BOX(hbox), 1);
-	
-		but = bf_stock_ok_button(G_CALLBACK(create_file_or_dir_ok_clicked_lcb), ws);
-		gtk_box_pack_start(GTK_BOX(hbox),but , FALSE, FALSE, 0);
+		gtk_button_box_set_spacing(GTK_BUTTON_BOX(hbox), 6);
 	
 		but = bf_stock_cancel_button(G_CALLBACK(create_file_or_dir_cancel_clicked_lcb), ws);
-		gtk_box_pack_start(GTK_BOX(hbox),but , FALSE, FALSE, 0);
+		gtk_box_pack_start(GTK_BOX(hbox),but , FALSE, FALSE, 0);	
 	
+		but = bf_stock_ok_button(G_CALLBACK(create_file_or_dir_ok_clicked_lcb), ws);
+		gtk_box_pack_start(GTK_BOX(hbox),but , FALSE, FALSE, 0);	
+		
+		gtk_entry_set_activates_default(GTK_ENTRY(ws->entry), TRUE);
 		gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 0);
 		gtk_widget_grab_focus(ws->entry);
+		gtk_widget_grab_default(but);
 		gtk_widget_show_all(GTK_WIDGET(ws->win));
 	}
+	gtk_tree_path_free(path);
 }
 
 
@@ -916,6 +920,7 @@ static void filebrowser_rpopup_open_file_lcb(GtkWidget *widget, gpointer data) {
 	if(path) {
 		row_activated_lcb(GTK_TREE_VIEW(filebrowser.tree), path, NULL, GTK_TREE_STORE(filebrowser.store));
 	}
+	gtk_tree_path_free(path);
 }
 
 static void filebrowser_rpopup_new_file_lcb(GtkWidget *widget, gpointer data) {
@@ -938,7 +943,7 @@ static void filebrowser_rpopup_new_dir_lcb(GtkWidget *widget, gpointer data) {
  */
 static void filebrowser_rpopup_rename_lcb(GtkWidget *widget, gpointer data) {
 	GtkTreePath *path;
-	gchar *newfilename=NULL, *oldfilename, *errmessage = NULL;
+	gchar *newfilename=NULL, *oldfilename, *errmessage = NULL, *dirname;
 	gint index;
 	
 	/* this function should, together with doc_save() use a common backend.. */
@@ -974,18 +979,23 @@ static void filebrowser_rpopup_rename_lcb(GtkWidget *widget, gpointer data) {
 
 		tmp = g_path_get_dirname(oldfilename);
 		DEBUG_MSG("Got olddirname %s\n", tmp);
-		filebrowser_refresh_dir(ending_slash(tmp));
+		dirname = ending_slash(tmp);
+		filebrowser_refresh_dir(dirname);
+		g_free(dirname);
 		g_free(tmp);
 		
 		if (newfilename && (tmp = path_get_dirname_with_ending_slash(newfilename))) { /* Don't refresh the NULL-directory.. */
 			DEBUG_MSG("Got newdirname %s\n", tmp);
-			filebrowser_refresh_dir(ending_slash(tmp));
+			dirname = ending_slash(tmp);
+			filebrowser_refresh_dir(dirname);
+			g_free(dirname);
 			g_free(tmp);
 		}
 	} /* if(error) */
 	if (newfilename) {
 		g_free(newfilename);
 	}
+	gtk_tree_path_free(path);
 	g_free(oldfilename);
 
 }
@@ -1027,6 +1037,7 @@ static void filebrowser_rpopup_refresh_lcb(GtkWidget *widget, gpointer data) {
 	path = filebrowser_get_path_from_selection(&iter);
 	if (path) {
 		gchar *tmp, *dir;
+		GtkTreePath *path;
 		if (gtk_tree_model_iter_has_child(GTK_TREE_MODEL(filebrowser.store), &iter)) {
 			DEBUG_MSG("create_file_or_dir_win, a dir is selected\n");
 		} else {
@@ -1045,6 +1056,7 @@ static void filebrowser_rpopup_refresh_lcb(GtkWidget *widget, gpointer data) {
 		g_free(dir);
 		gtk_tree_path_free(path);
 	}
+	gtk_tree_path_free(path);
 }
 
 static void filebrowser_rpopup_filter_toggled_lcb(GtkWidget *widget, Tfilter *filter) {
@@ -1105,7 +1117,7 @@ static GtkWidget *filebrowser_rpopup_create_menu() {
 		}
 	}
 	gtk_widget_show_all(menu);
-	g_signal_connect_after(G_OBJECT(menu), "hide", G_CALLBACK(destroy_disposable_menu_hide_cb), menu);
+	g_signal_connect_after(G_OBJECT(menu), "destroy", G_CALLBACK(destroy_disposable_menu_hide_cb), menu);
 	return menu;
 }
 
