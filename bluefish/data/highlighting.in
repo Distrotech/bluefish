@@ -158,31 +158,35 @@ perl:Variables (Scalar):1:\\$(\\\\(\\\\)?|\\^[a-z]?|[^0-9a-z_]|[a-z0-9_]+)::2::#
 perl:Variables (Array):1:\\@\\$?[a-z0-9_]([a-z0-9_]+)?::2::#0000ff::0:0:
 perl:Variables (Hash):1:\\%\\$?[a-z]([a-z0-9_]+)?::2::#0000cc::0:0:
 perl:File Functions:1:\\b(bind|binmode|close(?:dir)?|connect|eof|fcntl|fileno|flock|getc|getpeername|getsockname|getsockopt|ioctl|listen|open(?:dir)?|recv|read(?:dir)?|rewinddir|seek(?:dir)?|send|setsockopt|shutdown|socket|sysopen|sysread|sysseek|syswrite|tell(?:dir)?|write|accept|pipe|socketpair|print|printf|select)\\b::2::#900000::2:0:
-php:HTML:1:<((/)?[a-z0-9]+):>:1::#000077::0:0:
-php:<html> Tags:1:1::3:^HTML$:#550044::2:0:
-php:HTML Table Tags:1:^(/)?(table|td|tr|tbody)$::2:^<html Tags>$:#5005AA::0:0:
-php:HTML Special Tags:1:^(/)?(img|a)$::2:^<html> Tags$:#BB0540::0:0:
-php:HTML Attributes:1:([a-z]*=)[ \\n\\t]*("[^"]*")::2:^HTML$:::0:0:
-php:HTML Attribute Contents:1:2::3:^HTML Attributes$:#009900::0:0:
-php:HTML Entities:1:&[^; ]*;::2::#999999::2:0:
-php:Comment:0:<!--:-->:1::#AAAAAA::1:2:
-php:PHP Block:1:<\\?php:\\?>:1:^(top|HTML|HTML Attribute Contents)$:#0000FF::0:0:
-php:Keywords:0:\\b(return|goto|global|var|class|function|new)\\b::2:^PHP Block$:#000000::2:0:
-php:Braces:0:[{()}]::2:^PHP Block$:#000000::2:1:
-php:Brackets:1:[\\[\\]]::2:^PHP Block$:#0000cc::2:0:
-php:String (double quoted):0:":":1:^PHP Block$:#009900::1:1:
+php:Tags:1:<((/)?[a-z0-9]+):>:1::#0000ee::0:0:
+php:<html> Tags:1:1::3:^Tags$:#000066::2:0:
+php:HTML Attributes:1:([a-z]*=)[ \\n\\t]*("[^"]*")::2:^Tags$:#660099::0:0:
+php:HTML Attribute Contents:1:2::3:^HTML Attributes$:#cc0000::0:0:
+php:HTML DocType:1:<![a-z0-9]+:[^?-]>:1::#bb8800::1:1:
+php:HTML Entities:1:&[^;= ]*;::2::#999999::2:0:
+php:Comment:0:<!--:-->:1::#aaaaaa::1:2:
+php:PHP Block:1:<\\?(php)\\s*([\\w_]*.*?)\\s*\\?>::2:^top|HTML Attribute Contents$:#0000ee::2:0:
+php:PHP Block Tags:1:1::3:^PHP Block$:#990099::2:0:
+php:PHP Block Content:1:2::3:^PHP Block$:#009900::1:0:
+php:Keywords:0:\\b(require|return|goto|global|var|class|function|new)\\b::2:^PHP Block Content$:#000000::2:0:
+php:Braces:0:[{()}]::2:^PHP Block Content$:#000000::2:1:
+php:Brackets:1:[\\[\\]]::2:^PHP Block Content$:#0000cc::2:0:
+php:String (double quoted):0:":":1:^PHP Block Content$:#009900::1:1:
 php:String (double quote escaped):0:\\\\.::2:^String \\(double quoted\\)$:::1:1:
-php:Variables:1:\\$[a-z_][a-z0-9>_$-]*::2:^PHP Block$:#cc0000::2:0:
-php:Variables (special characters):0:(\\[|\\]|->)::2:^Variables$:#0000cc::2:0:
-php:String (single quoted):0:':':1:^PHP Block$:#009900::1:1:
+php:Variables:1:\\$[a-z_][a-z0-9>_$-]*::2:^PHP Block Content$:#cc0000::2:0:
+php:Variables (special characters):0:(\\[|\\]|->)::2:^PHP Block Content$:#0000cc::2:0:
+php:String (single quoted):0:':':1:^PHP Block Content$:#009900::1:1:
 php:String (single quote escaped):0:\\\\.::2:^String \\(single quoted\\)$:::1:1:
-php:Comment (C):0:/\\*:\\*/:1:^PHP Block$:#7777aa::1:2:
-php:Comment (C++/single line):0:(//|#).*?$::2:^PHP Block$:#7777aa::1:2:
-php:Flow Control:0:\\b(if|else|elseif|case|default|switch|break|continue|while|do|for|foreach)\\b::2:^PHP Block$:#000000::2:1:
-php:String (SQL Keywords):0:\\b(SELECT|INSERT|UPDATE|DELETE|DROP|GROUP BY|FROM|INTO|ON|AS|AND|NOT|OR|NULL|SET|VALUES|WHERE|ORDER BY|LIMIT|(LEFT|RIGHT|FULL) JOIN|ASC|DESC)\\b::2:^(String \\(single quoted\\)|String \\(double quoted\\))$:#996699::2:1:
+php:Quoted Tags:1:<((/)?[a-z0-9]+):>:1:^String \\(single quoted\\)$:#0000ee::2:0:
+php:Quoted <html> Tags:1:1::3:^Quoted Tags$:#000066::2:0:
+php:Comment (C):0:/\\*:\\*/:1:^PHP Block Content$:#7777aa::1:2:
+php:Comment (C++/single line):0:(//|#).*?$::2:^PHP Block Content$:#7777aa::1:2:
+php:Flow Control:0:\\b(if|else|elseif|case|default|switch|break|continue|while|do|for|foreach)\\b::2:^PHP Block Content$:#000000::2:1:
+php:String (SQL Keywords):0:\\b(SELECT|INSERT|UPDATE|DELETE|DROP|GROUP BY|FROM|INTO|ON|AS|AND|NOT|OR|NULL|SET|VALUES|WHERE|ORDER
+BY|LIMIT|(LEFT|RIGHT|FULL) JOIN|ASC|DESC)\\b::2:^(String \\(single quoted\\)|String \\(double quoted\\))$:#996699::2:1:
 php:String (SQL Functions):0:\\b(MATCH|AGAINST|ASCII|CHAR|SOUNDEX|MAX|MIN|MD5|LCASE|UCASE|PASSWORD|ENCRYPT|RAND|LAST_INSERT_ID|COUNT|AVG|SUM|NOW|CURDATE|CURDATE|FROM_DAYS|FROM_UNIXTIME|PERIOD_ADD|PERIOD_DIFF|TO_DAYS|UNIX_TIMESTAMP|USER|WEEKDAY|CONCAT|DATE_(FORMAT|ADD|SUB))\\b\\(:\\):1:^(String \\(double quoted\\)|String \\(single quoted\\))$:#999966::2:1:
-php:Operators:1:[\\+\\-\\*\\/\\.<>=`!%]+::2:^PHP Block$:#cc0066::2:1:
-php:Numbers:1:(0x)?[0-9]+(?![0-9]*[a-z\\(_\\-])::2:^PHP Block$:#330099::2:1:
+php:Operators:1:[\\+\\-\\*\\/\\.<>=`!%]+::2:^PHP Block Content$:#cc0066::2:1:
+php:Numbers:1:(0x)?[0-9]+(?![0-9]*[a-z\\(_\\-])::2:^PHP Block Content$:#330099::2:1:
 python:definition-keyword:1:(class|def)[\\t ]+[a-zA-Z0-9_-]+(\\([^)]+\\))?[\\t ]*\:::2::#0000AA::2:0:
 python:keywords:0:\\b(and|break|continue|del|elif|else|exec|for|if|in|is|not|or|pass|print|return|while)\\b::2::#000000::2:0:
 python:exception-keywords:0:\\b((assert|except|finally|try)[^\:]*\:|raise[^\\n]*\\n)::2::#DD0000::2:0:
