@@ -536,6 +536,7 @@ void file_save_all_cb(GtkWidget * widget, Tbfwin *bfwin) {
 }
 
 void doc_close_single_backend(Tdocument *doc, gboolean close_window) {
+	Tbfwin *bfwin = doc->bfwin;
 	if (doc_is_empty_non_modified_and_nameless(doc) && g_list_length(BFWIN(doc->bfwin)->documentlist) <=1) {
 		if (close_window) {
 			gtk_widget_destroy(BFWIN(doc->bfwin)->main_window);
@@ -574,9 +575,10 @@ void doc_close_single_backend(Tdocument *doc, gboolean close_window) {
 	} else {
 		doc_destroy(doc, close_window);
 	}
-	if (close_window && BFWIN(doc->bfwin)->documentlist == NULL) { /* the documentlist is empty */
-		gtk_widget_destroy(BFWIN(doc->bfwin)->main_window);
+	if (close_window && bfwin->documentlist == NULL) { /* the documentlist is empty */
+		gtk_widget_destroy(bfwin->main_window);
 	}
+	DEBUG_MSG("doc_close_single_backend, finished!\n");
 }
 
 /**
