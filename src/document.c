@@ -788,6 +788,7 @@ gboolean doc_file_to_textbox(Tdocument * doc, gchar * filename, gboolean enable_
 	fclose(fd);
 	if (doc->highlightstate) {
 		doc->need_highlighting=TRUE;
+		DEBUG_MSG("doc_file_to_textbox, highlightstate=%d, need_highlighting=%d, delay_highlighting=%d\n",doc->highlightstate,doc->need_highlighting,delay_highlighting);
 		if (!delay_highlighting) {
 #ifdef DEBUG
 			g_print("doc_file_to_textbox, doc->hlset=%p\n", doc->hl);
@@ -795,9 +796,7 @@ gboolean doc_file_to_textbox(Tdocument * doc, gchar * filename, gboolean enable_
 				g_print("doc_file_to_textbox, doc->hlset->highlightlist=%p\n", doc->hl->highlightlist);
 			}
 #endif
-			if (main_v->props.cont_highlight_update) {
-				doc_highlight_full(doc);
-			}
+			doc_highlight_full(doc);
 		}
 	}
 	if (!enable_undo) {
@@ -1520,6 +1519,7 @@ Tdocument *doc_new(gboolean delay_activate) {
 		gtk_notebook_append_page_menu(GTK_NOTEBOOK(main_v->notebook), scroll ,hbox, newdoc->tab_menu);
 	}
 	newdoc->highlightstate = main_v->props.defaulthighlight;
+	DEBUG_MSG("doc_new, need_highlighting=%d, highlightstate=%d\n", newdoc->need_highlighting, newdoc->highlightstate);
 	if (!delay_activate) {
 		DEBUG_MSG("doc_new, set notebook page to %d\n", g_list_length(main_v->documentlist) - 1);
 		gtk_notebook_set_page(GTK_NOTEBOOK(main_v->notebook),g_list_length(main_v->documentlist) - 1);
