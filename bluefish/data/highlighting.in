@@ -303,24 +303,17 @@ xml:Entity:1:[\\[]:[\\]]:1:^DocType$:#777777::2:0:
 xml:Character Data:1:<!\\[CDATA\\[:\\]\\]>:1::#a2b300::0:0:
 xml:Character Entity:1:&[^;]+;::2::#9b0054::0:0:
 stylesheet:Selector:1:(\\*|\\b(a|body|abbr|acronym|address|applet|area|b|big|bdo|blockquote|br|button|caption|cite|code|col|colgroup|dd|del|dfn|div|dl|dt|em|embed|fieldset|form|h\\d+|hr|html|i|iframe|img|input|ins|kbd|label|legend|li|map|noframes|noscript|object|ol|optgroup|option|p|pre|q|samp|select|small|span|strong|table|tbody|td|textarea|tfoot|th|thead|tr|tt|ul|var)\\b)::2:^top$:#cc0000::2:0:
-stylesheet:Identifiers:1:(#|\\.)[a-z0-9\\-_\:( >)?]+(?=[, \\{a-z\\*])::2::#cc3300::2:0:
+stylesheet:Identifiers:1:(#|\\.)[a-z0-9\\-_\:( >)?]+(?=[, \\{a-z\\**\\s])::2::#cc3300::2:0:
 stylesheet:Attribute Identifiers:1:\\[[a-z0-9\\.\\-_\\\:]+=":"\\]:1::#cc3300::2:0:
 stylesheet:Pseudo-selectors:1:\\\:(first(\\-child|letter|line)|link|active|visited|hover|focus|lang\\(\\)|left|right|first|before|after)::2::#336633::2:0:
 stylesheet:Braces:1:[\\{\\[]:[\\}\\]]:1:^top$:#0099cc::1:1:
 stylesheet:Comment:1:\\/\\*:\\*\\/:1:^top|Braces$:#888888::0:0:
-stylesheet:Border:1:\\b(border|border\\-(top|bottom|left|right|width|color|style|collapse)*)\\b\\s*\:::2:^Braces$:#000099::2:0:
-stylesheet:Value:1:\\b(absolute|relative|small\\-caps|serif|sans\\-serif|cursive|fantasy|monospace|normal|italic|oblique|small\\-caps|bold|bolder|lighter|smaller|xx\\-small|x\\-small|small|medium|large|x\\-large|xx\\-large|transparent|none|inherit|repeat\\-(x|y)|no\\-repeat|scroll|fixed|top|center|bottom|left|center|right|underline|overline|line\\-through|blink|baseline|sub|super|text\\-top|middle|text\\-bottom|capitalize|uppercase|lowercase|justify|auto|thin|thick|dotted|dashed|solid|double|groove|ridge|inset|outset|both|block|inline|list\\-item|pre|nowrap|disc|circle|square|decimal|lower\\-roman|upper\\-roman|lower\\-alpha|upper\\-alpha|inside|outside|collapse|url)\\b::2:^Braces$:#663399::1:0:
-stylesheet:Misc:1:(\\s*|\\t*)\\b(float|clear|color|max\\-width|min\\-width|width|max\\-height|min\\-height|height|position|top|bottom|left|right|cursor|display|visibility|z\\-index|content|overflow)\\b\\s*\\\:::2:^Braces$:#000099::2:0:
-stylesheet:Length:1:([0-9]+\\.?[0-9]*(\\%|px|em|ex|pt|in|cm|pc|mm)?)(?![a-z\\-\:])::2:^Braces$:#009966::1:0:
-stylesheet:Color:1:#[0-9A-Fa-f]{3,6}::2:^Braces$:#cc0099::1:0:
-stylesheet:Text:1:\\b(word\\-spacing|letter\\-spacing|text\\-decoration|vertical\\-align|text\\-transform|text\\-align|text\\-ident)\\b\\s*\:::2:^Braces$:#000099::2:0:
-stylesheet:Line:1:\\b(line(\\-top|\\-bottom|\\-left|\\-width|\\-color|\\-style|\\-height)*)\\b\\s*\:::2:^Braces$:#000099::2:0:
-stylesheet:Background:1:\\b(background(\\-color|\\-image|\\-repeat|\\-attachment|\\-position)*)\\b\\s*\:::2:^Braces$:#000099::2:0:
-stylesheet:Margin:1:\\b(margin(\\-top|\\-bottom|\\-left|\\-right|\\-width|\\-color|\\-style)*)\\b\\s*\\\:::2:^Braces$:#000099::2:0:
-stylesheet:Padding:1:\\b(padding(\\-top|\\-bottom|\\-left|\\-right|\\-width|\\-color|\\-style)*)\\b\\s*\\\:::2:^Braces$:#000099::2:0:
-stylesheet:Font:1:\\b(font(\\-color|\\-family|\\-weight|\\-size|\\-variant|\\-style)*)\\b::2:^Braces$:#000099::2:0:
-stylesheet:List:1:\\b(list(\\-style|\\-position|\\-image|\\-type)?)\\b\\s*\:::2:^Braces$:#000099::2:0:
-stylesheet:Symbols:1:[;,]::2:^top|Braces$:#000000::2:0:
-stylesheet:Plaintext:1:[a-z]+::2:^Braces$:#000000::1:1:
-stylesheet:String (double quoted):1:":":1:^top|Braces$:#006699::0:2:
-stylesheet:String (single quoted):1:':':1:^top|Braces$:#006699::0:2:
+stylesheet:Declaration:0:(azimuth|background|border|bottom|caption|clear|clip|color|content|counter|cue|cursor|direction|display|elevation|empty|float|font|height|left|letter|line|list|margin|marker|marks|max|min|orphans|outline|overflow|padding|page|pause|pitch|play|position|quotes|richness|right|size|speak|speech|stress|table|text|top|unicode|vertical|visibility|voice|volume|white|widows|width|word|z)[a-z\\-]*[^;\:]*:;:2:^Braces$:#000099::2:0:
+stylesheet:Values:1:\:[^;]*:;:1:^Braces$:#0099cc::0:0:
+stylesheet:Color:0:#[0-9A-Fa-f]{3,6}|rgb|aqua|black|blue|fuchsia|gray|green|lime|maroon|navy|olive|purple|red|silver|teal|transparent|white|yellow::2:^Values$:#cc0099::0:0:
+stylesheet:Misc:0:absolute|auto|baseline|blink|block|bold|bolder|both|bottom|capitalize|center|circle|collapse|cursive|dashed|decimal|disc|dotted|double|fantasy|fixed|groove|hidden|inherit|inline|inset|inside|italic|justify|large|larger|left|lighter|line\\-through|lower\\-(alpha|roman)|lowercase|medium|middle|monospace|no\\-repeat|none|normal|nowrap|oblique|outside|overline|pre|relative|repeat\\-(x|y)|repeat|ridge|right|sans\\-serif|scroll|serif|small\\-caps|small|smaller|solid|square|sub|super|static|text\\-bottom|text\\-top|thick|thin|top|underline|upper\\-(alpha|roman)|uppercase|url|visible|x\\-(large|small)|xx\\-(large|small)::2:^Values$:#663399::1:0:
+stylesheet:Length:1:([0-9]+\\.?[0-9]*(\\%|cm|em|ex|in|mm|pc|pt|px)?)(?![a-z\\-\:])::2:^Values$:#009966::1:0:
+stylesheet:Symbols:1:[;,]::2:^top|Values$:#000000::2:0:
+stylesheet:Plaintext:1:[a-z]+::2:^Values$:#000000::1:1:
+stylesheet:String (double quoted):1:":":1:^top|Values$:#006699::0:2:
+stylesheet:String (single quoted):1:':':1:^top|Values$:#006699::0:2:
