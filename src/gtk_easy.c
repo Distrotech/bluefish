@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-/*#define DEBUG*/
+/* #define DEBUG */
 #include <gtk/gtk.h>
 #include <stdlib.h> /* strtod() */
 #include <string.h> /* strlen() */
@@ -688,8 +688,9 @@ void error_dialog(gchar * window_title, gchar * error_string)
 static void file_but_clicked_lcb(GtkWidget * widget, GtkWidget * which_entry)
 {
 	gchar *tmpstring, *tmp2string;
-
+	DEBUG_MSG("file_but_clicked_lcb, started, which_entry=%p\n",which_entry);
 	tmpstring = return_file(NULL);
+	DEBUG_MSG("file_but_clicked_lcb, return_file returned %s\n",tmpstring);
 	if (tmpstring != NULL) {
 		if (main_v->current_document->filename != NULL) {
 			tmp2string = create_relative_link_to(main_v->current_document->filename, tmpstring);
@@ -697,7 +698,9 @@ static void file_but_clicked_lcb(GtkWidget * widget, GtkWidget * which_entry)
 			tmpstring = tmp2string;
 		}
 		gtk_entry_set_text(GTK_ENTRY(which_entry), tmpstring);
-		gtk_signal_emit_by_name(GTK_OBJECT(which_entry), "activate");
+/*	perhaps I break something by commenting-out this call, but otherwise the dialog is sometimes started
+	again after the signal is emmitted
+		gtk_signal_emit_by_name(GTK_OBJECT(which_entry), "activate"); */
 		g_free(tmpstring);
 	}
 }
@@ -706,8 +709,10 @@ static void file_but_clicked_lcb(GtkWidget * widget, GtkWidget * which_entry)
 static void file_but_clicked_full_lcb(GtkWidget * widget, GtkWidget * which_entry)
 {
 	gchar *tmpstring, *setfile;
+	DEBUG_MSG("file_but_clicked_full_lcb, started, entry=%p\n",which_entry);
 	setfile = gtk_editable_get_chars(GTK_EDITABLE(GTK_ENTRY(which_entry)),0,-1);
 	tmpstring = return_file(setfile);
+	DEBUG_MSG("file_but_clicked_full_lcb, return_file returned %s\n",tmpstring);
 	g_free(setfile);
 	if (tmpstring != NULL) {
 		gtk_entry_set_text(GTK_ENTRY(which_entry), tmpstring);
@@ -728,6 +733,7 @@ GtkWidget *file_but_new(GtkWidget * which_entry, GtkWidget * win, gint full_path
 /*	file_but = gtk_button_new_from_stock(GTK_STOCK_OPEN); */
 
 	file_but = gtk_button_new();
+	DEBUG_MSG("file_but_new, entry=%p, button=%p\n",which_entry,file_but);
 	gtk_container_add(GTK_CONTAINER(file_but), hbox_with_pix_and_text(_("_Browse..."), 1));
 	if (full_pathname == 1) {
 		g_signal_connect(G_OBJECT(file_but), "clicked", G_CALLBACK(file_but_clicked_full_lcb), which_entry);
