@@ -1664,6 +1664,7 @@ gboolean doc_new_with_file(gchar * filename, gboolean delay_activate) {
 	doc_set_modified(doc, 0);
 	doc_set_stat_info(doc); /* also sets mtime field */
 	filebrowser_open_dir(filename);
+	
 	return TRUE;	
 }
 
@@ -1850,40 +1851,35 @@ static void files_advanced_win_select_basedir_lcb(GtkWidget * widget, Tfiles_adv
 }
 
 static void files_advanced_win(Tfiles_advanced *tfs) {
-	GtkWidget *vbox, *hbox, *frame, *vbox2, *but, *hbox2, *label;
+	GtkWidget *vbox, *hbox, *but, *table;
 	GList *list;
 	gchar *curdir=g_get_current_dir();
 	
-	tfs->win = window_full2(_("Advanced open file selector"), GTK_WIN_POS_MOUSE, 5, G_CALLBACK(files_advanced_win_destroy),tfs, TRUE, main_v->main_window);
+	tfs->win = window_full2(_("Advanced open file selector"), GTK_WIN_POS_MOUSE, 12, G_CALLBACK(files_advanced_win_destroy),tfs, TRUE, main_v->main_window);
 	DEBUG_MSG("files_advanced_win, tfs->win=%p\n",tfs->win);
 	tfs->filenames_to_return = NULL;
 	vbox = gtk_vbox_new(FALSE, 0);
-	gtk_container_set_border_width(GTK_CONTAINER(vbox), 6);
 	gtk_container_add(GTK_CONTAINER(tfs->win), vbox);
-	gtk_box_pack_start(GTK_BOX(vbox), gtk_label_new(_("grep {contains} `find {basedir} -name '{pattern}'`")), FALSE, FALSE, 5);
 	
-	frame = gtk_frame_new(_("Filename"));
-	gtk_box_pack_start(GTK_BOX(vbox), frame, TRUE, TRUE, 5);
-	vbox2 = gtk_vbox_new(FALSE, 0);
-	gtk_container_add(GTK_CONTAINER(frame), vbox2);
+	table = gtk_table_new(8, 5, FALSE);
+	gtk_table_set_row_spacings(GTK_TABLE(table), 12);
+	gtk_table_set_col_spacings(GTK_TABLE(table), 12);
+	gtk_box_pack_start(GTK_BOX(vbox), table, FALSE, FALSE, 0);
+	
+	gtk_table_attach_defaults(GTK_TABLE(table), gtk_label_new(_("grep {contains} `find {basedir} -name '{file type}'`")), 0, 5, 0, 1);
+	gtk_table_attach_defaults(GTK_TABLE(table), gtk_hseparator_new(), 0, 5, 1, 2);
+
 	/* filename part */
 	/* curdir should get a value */
 	{
-	        GtkWidget *but = bf_generic_button_with_image(_("_Browse..."), 1, G_CALLBACK(files_advanced_win_select_basedir_lcb), tfs);
-		hbox = gtk_hbox_new(FALSE,3);
-		label = gtk_label_new_with_mnemonic(N_("Base_dir:"));
-		gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 2);
-		tfs->basedir = boxed_entry_with_text(curdir, 255, hbox);
-		gtk_label_set_mnemonic_widget(GTK_LABEL(label), tfs->basedir);
-		gtk_box_pack_start(GTK_BOX(hbox), but, FALSE, FALSE , 2);
-		gtk_box_pack_start(GTK_BOX(vbox2), hbox, FALSE, FALSE, 2);
+		tfs->basedir = entry_with_text(curdir, 255);
+		bf_mnemonic_label_tad_with_alignment(_("Base_dir:"), tfs->basedir, 0, 0.5, table, 1, 2, 2, 3);
+		gtk_table_attach_defaults(GTK_TABLE(table), tfs->basedir, 2, 4, 2, 3);
+	        GtkWidget *but = bf_generic_button_with_image(_("_Browse..."), 112, G_CALLBACK(files_advanced_win_select_basedir_lcb), tfs);
+		gtk_table_attach(GTK_TABLE(table), but, 4, 5, 2, 3, GTK_SHRINK, GTK_SHRINK, 0, 0);
 	}
 	g_free(curdir);
-	hbox2 = gtk_hbox_new(FALSE, 0);
-	gtk_box_pack_start(GTK_BOX(vbox2), hbox2, TRUE, TRUE, 5);
-	label = gtk_label_new_with_mnemonic(N_("_Pattern:"));
-	gtk_box_pack_start(GTK_BOX(hbox2), label, FALSE, FALSE, 5);
-
+	
 	list = g_list_append(NULL, "*.php");
 	list = g_list_append(list, "*.php3");
 	list = g_list_append(list, "*.html");
@@ -1894,31 +1890,45 @@ static void files_advanced_win(Tfiles_advanced *tfs) {
 	list = g_list_append(list, "*.xml");
 	list = g_list_append(list, "*.c");
 	list = g_list_append(list, "*.py");
-	tfs->find_pattern = combo_with_popdown_sized("", list, 1, 300);
-	gtk_label_set_mnemonic_widget(GTK_LABEL(label), (GTK_COMBO(tfs->find_pattern)->entry));
-	gtk_entry_set_activates_default(GTK_ENTRY(GTK_COMBO(tfs->find_pattern)->entry), TRUE);
-	gtk_box_pack_start(GTK_BOX(hbox2), tfs->find_pattern, TRUE, TRUE, 5);
-	g_list_free(list);
-	tfs->recursive = boxed_checkbut_with_value(_("_recursive"), 1, vbox2);
+	tfs->find_pattern = combo_with_popdown("", list, 1);
+	bf_mnemonic_label_tad_with_alignment(_("_File Type:"), tfs->find_pattern, 0, 0.5, table, 1, 2, 3, 4);
+	gtk_table_attach_defaults(GTK_TABLE(table), tfs->find_pattern, 2, 4, 3, 4);
 
-	frame = gtk_frame_new(_("Contains"));
-	gtk_box_pack_start(GTK_BOX(vbox), frame, TRUE, TRUE, 5);
-	vbox2 = gtk_vbox_new(FALSE, 0);
-	gtk_container_add(GTK_CONTAINER(frame), vbox2);
+	g_list_free(list);
+
+	tfs->recursive = checkbut_with_value(NULL, 1);
+	bf_mnemonic_label_tad_with_alignment(_("_Recursive:"), tfs->recursive, 0, 0.5, table, 1, 2, 4, 5);
+	gtk_table_attach_defaults(GTK_TABLE(table), tfs->recursive, 2, 3, 4, 5);	
+	
 	/* content */
-	tfs->grep_pattern = boxed_full_entry(_("Pa_ttern:"), NULL, 255, vbox2);
-	tfs->is_regex = boxed_checkbut_with_value(_("is rege_x"), 0, vbox2);
+	
+	GtkWidget * label = gtk_label_new(NULL);
+	gchar *labeltext = "<b>Contains</b>";
+	gtk_label_set_markup(GTK_LABEL(label), labeltext);
+	gtk_misc_set_alignment(GTK_MISC(label), 0, 0.5);
+	gtk_table_set_row_spacing(GTK_TABLE(table), 6, 18);
+	gtk_table_attach_defaults(GTK_TABLE(table), label, 0, 3, 5, 6);
+	tfs->grep_pattern = entry_with_text(NULL, 255);
+	bf_mnemonic_label_tad_with_alignment(_("Pa_ttern:"), tfs->grep_pattern, 0, 0.5, table, 1, 2, 6, 7);
+	gtk_table_attach_defaults(GTK_TABLE(table), tfs->grep_pattern, 2, 4, 6, 7);
+	
+	tfs->is_regex = checkbut_with_value(NULL, 0);
+	bf_mnemonic_label_tad_with_alignment(_("Is rege_x:"), tfs->is_regex, 0, 0.5, table, 1, 2, 7, 8);
+	gtk_table_attach_defaults(GTK_TABLE(table), tfs->is_regex, 2, 3, 7, 8);
 	
 	/* buttons */
+	hbox = gtk_hbox_new(FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(hbox), gtk_hseparator_new(), TRUE, TRUE, 0);
+	gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 12);
 	hbox = gtk_hbutton_box_new();
 	gtk_hbutton_box_set_layout_default(GTK_BUTTONBOX_END);
 	gtk_button_box_set_spacing(GTK_BUTTON_BOX(hbox), 12);
 	but = bf_stock_cancel_button(G_CALLBACK(files_advanced_win_cancel_clicked), tfs);
 	gtk_box_pack_start(GTK_BOX(hbox),but , FALSE, FALSE, 0);
 	but = bf_stock_ok_button(G_CALLBACK(files_advanced_win_ok_clicked), tfs);
-	gtk_box_pack_start(GTK_BOX(hbox),but , FALSE, FALSE, 2);
+	gtk_box_pack_start(GTK_BOX(hbox),but , FALSE, FALSE, 0);
 	gtk_window_set_default(GTK_WINDOW(tfs->win), but);
-	gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 2);
+	gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 0);
 	gtk_widget_show_all(GTK_WIDGET(tfs->win));
 /*	gtk_grab_add(GTK_WIDGET(tfs->win));
 	gtk_widget_realize(GTK_WIDGET(tfs->win));*/

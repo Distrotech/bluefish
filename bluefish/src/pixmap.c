@@ -118,6 +118,7 @@ static Tpixmap tp[] = {
 	{105, filetree},
 	{110, indent},
 	{111, unindent},
+	{112, open_small},
 	{150,prefseditor},
 	{151,prefsexternal},
 	{152,prefsfiles},

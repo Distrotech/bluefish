@@ -217,7 +217,7 @@ GtkWidget *combo_with_popdown_sized(const gchar * setstring, GList * which_list,
 	GtkWidget *returnwidget;
 	
 	returnwidget = combo_with_popdown(setstring, which_list, editable);
-	gtk_widget_set_usize(returnwidget, width,0);
+	gtk_widget_set_size_request(returnwidget, width , -1);
 	return returnwidget;
 }
 
@@ -429,7 +429,7 @@ GtkWidget *window_full2(gchar * title, GtkWindowPosition position
 	g_signal_connect(G_OBJECT(returnwidget), "destroy", close_func, close_data);
 	DEBUG_MSG("window_full, close_data=%p\n",close_data);
 	if (transientforparent) {
-		gtk_window_set_transient_for(GTK_WINDOW(returnwidget),transientforparent);
+		gtk_window_set_transient_for(GTK_WINDOW(returnwidget), GTK_WINDOW(transientforparent));
 	}
 	if (delete_on_escape) {
 		g_signal_connect(G_OBJECT(returnwidget), "key_press_event", G_CALLBACK(window_full_key_press_event_lcb), returnwidget);
@@ -514,7 +514,7 @@ GtkWidget *bf_generic_button_with_image(const gchar *label, gint pixmap_type, GC
         GtkWidget *button;
 
 	button = gtk_button_new();
-	gtk_container_set_border_width(GTK_CONTAINER(button), 3);
+	gtk_container_set_border_width(GTK_CONTAINER(button), 0);
 	gtk_container_add(GTK_CONTAINER(button), hbox_with_pix_and_text(label, pixmap_type));
 	GTK_WIDGET_SET_FLAGS(button, GTK_CAN_DEFAULT);
 	g_return_val_if_fail(button, NULL);
@@ -634,7 +634,7 @@ void bf_mnemonic_label_tad_with_alignment(const gchar *labeltext, GtkWidget *m_w
 
   label = gtk_label_new_with_mnemonic(labeltext);
   gtk_misc_set_alignment(GTK_MISC(label), xalign, yalign);
-  gtk_table_attach_defaults(GTK_TABLE(table), label, left_attach, right_attach, top_attach, bottom_attach);  
+  gtk_table_attach(GTK_TABLE(table), label, left_attach, right_attach, top_attach, bottom_attach, GTK_FILL, GTK_FILL, 0, 0);  
   
   if (m_widget != NULL)
    {
@@ -948,7 +948,7 @@ static void fs_history_pulldown_changed(GtkOptionMenu *optionmenu,Tfileselect *f
 static void fileselectwin(gchar *setfile, Tfileselect *fileselect, gchar *title) {
 
 	fileselect->fs = gtk_file_selection_new(title);
-		DEBUG_MSG("fileselectwin, started, fileselect->fs=%p\n", fileselect->fs);
+	DEBUG_MSG("fileselectwin, started, fileselect->fs=%p\n", fileselect->fs);		
 	gtk_file_selection_show_fileop_buttons(GTK_FILE_SELECTION(fileselect->fs));
 	/*gtk_file_selection_hide_fileop_buttons(GTK_FILE_SELECTION(fileselect->fs));*/
 	g_signal_connect(G_OBJECT(fileselect->fs), "destroy", G_CALLBACK(close_modal_window_lcb), fileselect->fs);
