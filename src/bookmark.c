@@ -308,15 +308,15 @@ static void bmark_unstore(Tbfwin * bfwin, Tbmark * b)
 	b->strarr = NULL;
 }
 
-/* get bookmark from pointer column */
-static Tbmark *get_current_bmark(Tbfwin * bfwin)
+/* get value from pointer column */
+static gpointer get_current_bmark(Tbfwin * bfwin)
 {
 	if (bfwin->bmark) {
 		GtkTreePath *path;
 		GtkTreeViewColumn *col;
 		gtk_tree_view_get_cursor(bfwin->bmark, &path, &col);
 		if (path != NULL) {
-			Tbmark *retval = NULL;
+			gpointer retval = NULL;
 			GtkTreeIter iter;
 			gtk_tree_model_get_iter(gtk_tree_view_get_model(bfwin->bmark), &iter, path);
 			gtk_tree_model_get(gtk_tree_view_get_model(bfwin->bmark),&iter,1, &retval, -1);
@@ -563,6 +563,61 @@ static void bmark_check_remove(Tbfwin *bfwin,Tbmark *b) {
   	DEBUG_MSG("bmark_check_remove, finished\n");
 }
 
+static void bmark_del_children_backend(Tbfwin *bfwin, GtkTreeIter *parent) {
+	GtkTreeIter tmpiter;
+	while (gtk_tree_model_iter_children(GTK_TREE_MODEL(bfwin->bookmarkstore), &tmpiter, parent)) {
+		Tbmark *b;
+		gtk_tree_model_get(GTK_TREE_MODEL(bfwin->bookmarkstore), &tmpiter, PTR_COLUMN,&b,-1);
+		if (b) {
+			DEBUG_MSG("bmark_del_children_backend, found b=%p\n",b);
+			bmark_check_remove(bfwin,b);
+			if (!b->is_temp)
+				bmark_unstore(bfwin, b);
+			bmark_free(b);
+		} else {
+			DEBUG_MSG("bmark_del_children_backend, iter without bookmark ??? LOOP WARNING!\n");
+		}
+	}
+}
+
+
+static void bmark_popup_menu_deldoc_lcb(GtkWidget * widget, Tbfwin *bfwin) {
+	if (bfwin->bmark) {
+		GtkTreePath *path;
+		GtkTreeViewColumn *col;
+		gtk_tree_view_get_cursor(bfwin->bmark, &path, &col);
+		if (path != NULL) {
+			gchar *name;
+			gchar *pstr;
+			gchar *btns[] = { GTK_STOCK_NO, GTK_STOCK_YES, NULL };
+			GtkTreeIter iter;
+			gint depth, ret;
+			depth = gtk_tree_path_get_depth(path);
+			if (depth == 2) {
+				/* go up to parent */
+				gtk_tree_path_up(path);
+			} else if (depth != 1) {
+				g_print("a bug in function bmark_popup_menu_deldoc_lcb()\n");
+#ifdef DEVELOPMENT
+				exit(124);
+#endif
+				return;
+			}
+			gtk_tree_model_get_iter(gtk_tree_view_get_model(bfwin->bmark), &iter, path);
+			gtk_tree_path_free(path);
+			gtk_tree_model_get(GTK_TREE_MODEL(bfwin->bookmarkstore), &iter, NAME_COLUMN,&name, -1);
+		
+			pstr = g_strdup_printf(_("Do you really want to delete all bookmarks for %s?"), name);
+			ret =	multi_query_dialog(bfwin->main_window, _("Delete bookmarks?"), pstr,
+							   0, 0, btns);
+			g_free(pstr);
+			if (ret == 0)
+				return;
+			bmark_del_children_backend(bfwin, &iter);
+		}
+	}
+}
+
 static void bmark_popup_menu_del_lcb(GtkWidget * widget, gpointer user_data)
 {
 	Tbmark *b;
@@ -610,7 +665,7 @@ static void bmark_popup_menu_delall_lcb(GtkWidget * widget, Tbfwin * bfwin)
 }
 
 
-static GtkWidget *bmark_popup_menu(Tbfwin * bfwin, gboolean show_bmark_specific) {
+static GtkWidget *bmark_popup_menu(Tbfwin * bfwin, gboolean show_bmark_specific, gboolean show_file_specific) {
 	GtkWidget *menu, *menu_item;
 
 	menu = gtk_menu_new();
@@ -632,6 +687,12 @@ static GtkWidget *bmark_popup_menu(Tbfwin * bfwin, gboolean show_bmark_specific)
 						 bfwin);
 		gtk_menu_append(GTK_MENU(menu), menu_item);
 	}
+	if (show_file_specific) {
+		menu_item = gtk_menu_item_new_with_label(_("Delete all in document"));
+		g_signal_connect(GTK_OBJECT(menu_item), "activate", G_CALLBACK(bmark_popup_menu_deldoc_lcb),
+						 bfwin);
+		gtk_menu_append(GTK_MENU(menu), menu_item);
+	}
 	menu_item = gtk_menu_item_new_with_label(_("Delete all"));
 	g_signal_connect(GTK_OBJECT(menu_item), "activate", G_CALLBACK(bmark_popup_menu_delall_lcb),
 					 bfwin);
@@ -647,22 +708,25 @@ static GtkWidget *bmark_popup_menu(Tbfwin * bfwin, gboolean show_bmark_specific)
 /* right mouse click */
 static gboolean bmark_event_mouseclick(GtkWidget * widget, GdkEventButton * event, Tbfwin * bfwin) {
 	GtkTreePath *path;
-	gboolean show_bmark_specific = FALSE;
+	gboolean show_bmark_specific = FALSE, show_file_specific = FALSE;
 	if (gtk_tree_view_get_path_at_pos(GTK_TREE_VIEW(bfwin->bmark), event->x, event->y, &path, NULL, NULL, NULL)) {
 		if (path) {
 			gint depth = gtk_tree_path_get_depth(path);
 			gtk_tree_path_free(path);
 			if (depth==2) {
 				show_bmark_specific = TRUE;
+				show_file_specific = TRUE;
 				if (event->button == 1 && event->type == GDK_2BUTTON_PRESS) {	/* double click  */
 					bmark_popup_menu_goto_lcb(NULL, bfwin);
 					return TRUE;
 				}
+			} else if (depth == 1) {
+				show_file_specific = TRUE;
 			}
 		}
 	}
 	if (event->button == 3 && event->type == GDK_BUTTON_PRESS) {	/* right mouse click */
-		gtk_menu_popup(GTK_MENU(bmark_popup_menu(bfwin, show_bmark_specific)), NULL, NULL, NULL, NULL,
+		gtk_menu_popup(GTK_MENU(bmark_popup_menu(bfwin, show_bmark_specific, show_file_specific)), NULL, NULL, NULL, NULL,
 				   event->button, event->time);
 	}
 	return FALSE;
@@ -1277,29 +1341,25 @@ void bmark_add_at_bevent(Tdocument *doc) {
 	}
 }
 
+/* not used yet
+void bmark_del_for_filename(Tbfwin *bfwin, gchar *filename) {
+	GtkTreeIter *parent = (GtkTreeIter *)g_hash_table_lookup(bfwin->bmark_files,filename);
+	if (parent) {
+		bmark_del_children_backend(bfwin, parent);
+	}
+}
+*/
+
 void bmark_del_for_document(Tbfwin *bfwin, Tdocument *doc) {
 	if (doc->bmark_parent) {
-		GtkTreeIter tmpiter;
-		while (gtk_tree_model_iter_children(GTK_TREE_MODEL(bfwin->bookmarkstore), &tmpiter, doc->bmark_parent)) {
-			Tbmark *b;
-			gtk_tree_model_get(GTK_TREE_MODEL(bfwin->bookmarkstore), &tmpiter, PTR_COLUMN,&b,-1);
-			if (b) {
-				DEBUG_MSG("bmark_del_for_document, found b=%p\n",b);
-				bmark_check_remove(bfwin,b);
-				if (!b->is_temp)
-					bmark_unstore(bfwin, b);
-				bmark_free(b);
-			} else {
-				DEBUG_MSG("bmark_del_for_document, iter without bookmark ??? LOOP WARNING!\n");
-			}
-		}
+		bmark_del_children_backend(bfwin, doc->bmark_parent);
 	}
 }
 
 void bmark_del_all(Tbfwin *bfwin,gboolean ask) {
 	gint ret;
 	gchar *btns[]={GTK_STOCK_NO,GTK_STOCK_YES,NULL};
-	GtkTreeIter tmpiter,child;
+	GtkTreeIter tmpiter;
 
 	if (bfwin==NULL) return;
 			
@@ -1310,23 +1370,11 @@ void bmark_del_all(Tbfwin *bfwin,gboolean ask) {
 	DEBUG_MSG("bmark_del_all, deleting all bookmarks!\n");
 	while (gtk_tree_model_iter_children(GTK_TREE_MODEL(bfwin->bookmarkstore), &tmpiter, NULL) ) {
 #ifdef DEBUG
-	gchar *name;
-	gtk_tree_model_get(GTK_TREE_MODEL(bfwin->bookmarkstore), &tmpiter, NAME_COLUMN,&name, -1);
-	DEBUG_MSG("bmark_del_all, the toplevel has child '%s'\n", name);
+		gchar *name;
+		gtk_tree_model_get(GTK_TREE_MODEL(bfwin->bookmarkstore), &tmpiter, NAME_COLUMN,&name, -1);
+		DEBUG_MSG("bmark_del_all, the toplevel has child '%s'\n", name);
 #endif
-		while (gtk_tree_model_iter_children(GTK_TREE_MODEL(bfwin->bookmarkstore), &child, &tmpiter)) {
-			Tbmark *b = NULL;
-			gtk_tree_model_get(GTK_TREE_MODEL(bfwin->bookmarkstore), &child, PTR_COLUMN,&b, -1);
-			if (b) {
-				DEBUG_MSG("bmark_del_all, found b=%p\n",b);
-				bmark_check_remove(bfwin,b);
-				if (!b->is_temp)
-					bmark_unstore(bfwin, b);
-				bmark_free(b);
-			} else {
-				DEBUG_MSG("bmark_del_all, iter without bookmark ??? LOOP WARNING!\n");
-			}
-		}	
+		bmark_del_children_backend(bfwin, &tmpiter);
 	}
 }	
 
