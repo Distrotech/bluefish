@@ -274,7 +274,7 @@ If you want to disable any of these items by default, you can set these options 
 <para>the <guimenu>Tags</guimenu> and <guimenu>Dialogs</guimenu> menu in <xref linkend="HTML"/></para>
 </listitem>
 <listitem>
-<para>the <guimenu>Go</guimenu> menu is in <xref linkend="navigation-multiple"/></para>
+<para>the <guimenu>Go</guimenu> menu in <xref linkend="navigation-multiple"/></para>
 </listitem>
 <listitem>
 <para>the <guimenu>Project</guimenu> menu in <xref linkend="projects"/></para>
@@ -288,8 +288,10 @@ If you want to disable any of these items by default, you can set these options 
 <sect1 id="working-with-files">
 <title>Working with files</title>
 <?linebreak?>
+<?linebreaka4?>
 <para>Most of the file operations are accessible from the <guimenu>File</guimenu> menu. Using this menu, a new file can be created, existing files opened, and opened files saved or renamed.</para>
 <?linebreak?>
+<?linebreaka4?>
 <para>It is also possible to insert a file into another one, and to revert a modified file to its previously saved state.	
 <?linebreak?>
 <figure id="figure-file-menu">
@@ -303,181 +305,141 @@ If you want to disable any of these items by default, you can set these options 
 </textobject>
 </mediaobject></screenshot>
 </figure></para>
-
+<?linebreaka4?>
 <sect2 id="creating-files">
 <title>Creating files</title>
-<?linebreakus?>
+<?linebreak?>
 <para>Apart from using <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>N</keycap></keycombo></shortcut><guimenu>File</guimenu><guimenuitem>New</guimenuitem></menuchoice> or the <guilabel>New</guilabel> icon to create a new file, you may also use <menuchoice><shortcut><keycombo><keycap>Shift</keycap><keycap>Ctrl</keycap><keycap>N</keycap></keycombo></shortcut><guimenu>File</guimenu><guimenuitem>New Window</guimenuitem></menuchoice>.</para>
-<?linebreakus?>
+<?linebreak?>
 <para>Both methods create an untitled file of type <literal>text</literal> with the default character encoding defined in the <guilabel>Files</guilabel> tab in the <menuchoice><guimenu>Edit</guimenu><guimenuitem>Preferences</guimenuitem></menuchoice> menu option.</para>
 </sect2>
 	
 <sect2 id="opening-files">
 <title>Opening files</title>
-	<para>Through 
-		<menuchoice>
-			<shortcut><keycombo><keycap>Ctrl</keycap><keycap>O</keycap></keycombo></shortcut>
-			<guimenu>File</guimenu><guimenuitem>Open...</guimenuitem>
-		</menuchoice>, one or more files can be opened. When creating new files, you may 
-		want to open the files in a new window. In this case, use 
-		<menuchoice>
-			<guimenu>File</guimenu><guimenuitem>New Window</guimenuitem>
-		</menuchoice> to first open the new window and then open the desired files 
-		as usual.
-				<figure id="figure-open-file">
-				<title id="figure-open-file-title">Bluefish Open File Dialog</title>
-				<screenshot>
-					<mediaobject>
-						<imageobject>
-							<imagedata fileref="figures/open_file.png" format="PNG"/>
-						</imageobject>
-						<textobject>
-							<phrase>A screen shot of the Open File Dialog</phrase>
-						</textobject>
-					</mediaobject>
-				</screenshot>
-			</figure>
-	</para>
-	<variablelist>
-		<varlistentry>
-          <term><emphasis>Note</emphasis></term>
-          <listitem>
-          <para>The most recently opened directories appear in the upper part of the 
-          left side panel, while the lower part contains user-defined locations. To add 
-          a new directory to the list, click on <guilabel>Add</guilabel>. You can 
-          also filter the file list by file type using the pop menu located on the right side.
-          The list of file types in the filter menu is provided through the 
-          <guilabel>Filetypes</guilabel> tab found in Bluefish's
-		<menuchoice>
-			<guimenu>Edit</guimenu><guimenuitem>Preferences</guimenuitem>
-		</menuchoice>
-          menu option.</para>
-	</listitem>
-	</varlistentry>
-	</variablelist>
-	<para>
-	Recently opened files can be opened by selecting them from the list within <menuchoice><guimenu>File</guimenu><guimenuitem>Open recent</guimenuitem></menuchoice>. The number of files in this menu can be set in the preferences under <guilabel>Files</guilabel>.
-	</para>
-	<para>
-	The file browser in the side panel can also be used to open files. It supports filtering files, by right clicking the contextual menu in the file browser.
-				<figure id="figure-file-browser-filtering">
-				<title id="figure-file-browser-filtering-title">Filtering Files with the Bluefish File Browser</title>
-				<screenshot>
-					<mediaobject>
-						<imageobject>
-							<imagedata fileref="figures/file_browser_filtering.png" format="PNG"/>
-						</imageobject>
-						<textobject>
-							<phrase>A screen shot showing how to filter files with the Bluefish file browser</phrase>
-						</textobject>
-					</mediaobject>
-				</screenshot>
-			</figure>
-</para>
-<para>The available filters may be modified in Preferences. For more information, see <xref linkend="modifying-filefilters" />.
-</para>
-<para>If you right click a directory, you can make this directory the base directory for the file browser using the <guimenuitem>Set as basedir</guimenuitem> option. Then you can access it directly from the pop up menu in the upper part of the file browser.</para>	<para> By default the file browser follows the document focus. If you change to
-	a different document, the file browser will show the contents of the directory
-	where this document is located. This behaviour can be changed on the bottom of the 
-	file browser.</para>
-	<para>
-	Information about currently opened files can be seen if you move the mouse over
-	the document tab (by default on the bottom of the screen). A so called tool tip will
-	be shown with information about the full path, size, permissions, file type and 
-	encoding of the file.
-					<figure id="figure-open-file-info">
-				<title id="figure-open-file-info-title">Info on open file with the Bluefish File Browser</title>
-				<screenshot>
-					<mediaobject>
-						<imageobject>
-							<imagedata fileref="figures/open_file_info.png" format="PNG"/>
-						</imageobject>
-						<textobject>
-							<phrase>A screen shot showing Info on open file with the Bluefish file browser</phrase>
-						</textobject>
-					</mediaobject>
-				</screenshot>
-			</figure>
-	</para>
-	<para>
-	An interesting feature of Bluefish is the 
-	ability to open files by selecting the text of a currently opened file. 
-	For example, if a filename is shown in say a terminal application, 
-	you can select the filename, and use <menuchoice><guimenu>File</guimenu><guimenuitem>Open from Selection</guimenuitem></menuchoice> to open that file. 
-	The file, if it exists, will be opened in another tab within Bluefish. 
-	</para>
-	<para>
-	Finally, files can be opened via the command line by feeding filenames to 
-	Bluefish as arguments. This can even be done while Bluefish is running and 
-	the resulting file will then show up in its own tab.
-	</para>
-	<para>Files can also be opened by clicking on the <guilabel>Open...</guilabel> icon in the main tool bar.</para>
-	<variablelist>
-	<varlistentry>
-          <term><emphasis>Note</emphasis></term>
-          <listitem>
-            <para>If you have installed gnome-vfs or gnome-vfs2 before installing Bluefish, you will be able to open files on remote desktop.</para>
-            </listitem>
-     </varlistentry>
-     </variablelist>
-	<para>Be aware that if the file is huge it may take a very long time 
-	to get the rendering if syntax highlighting is enabled. The GTK editing 
-	widget used in Bluefish, furthermore, is not very good at handling files 
-	with very long lines, and that could also slow down Bluefish considerably.
-	</para>
+<?linebreak?>
+<?linebreak?>
+<para>Through <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>O</keycap></keycombo></shortcut><guimenu>File</guimenu><guimenuitem>Open...</guimenuitem></menuchoice>, one or more files can be opened. When creating new files, you may want to open the files in a new window. In this case, use <menuchoice><guimenu>File</guimenu><guimenuitem>New Window</guimenuitem></menuchoice> to first open the new window and then open the desired files as usual.
+<?linebreak?>
+<?linebreak?>
+<?linebreak?>
+<?linebreak?>
+<?linebreak?>
+<?linebreak?>
+<?linebreaka4?>
+<?linebreaka4?>
+<figure id="figure-open-file">
+<title id="figure-open-file-title">Bluefish Open File Dialog</title>
+<screenshot><mediaobject>
+<imageobject>
+<imagedata fileref="figures/open_file.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>A screen shot of the Open File Dialog</phrase>
+</textobject>
+</mediaobject></screenshot>
+</figure></para>
+<?linebreak?>
+<?linebreak?>
+<?linebreak?>
+<?linebreak?>
+<?linebreak?>
+<?linebreaka4?>
+<?linebreaka4?>
+<variablelist>
+<varlistentry>
+<term><emphasis>Note</emphasis></term>
+<listitem>
+<para>The most recently opened directories appear in the upper part of the left side panel, while the lower part contains user-defined locations. To add a new directory to the list, click on <guilabel>Add</guilabel>. You can also filter the file list by file type using the pop menu located on the right side. The list of file types in the filter menu is provided through the <guilabel>Filetypes</guilabel> tab found in Bluefish's <menuchoice><guimenu>Edit</guimenu><guimenuitem>Preferences</guimenuitem></menuchoice> menu option.</para>
+</listitem>
+</varlistentry>
+</variablelist>
+<?linebreaka4?>
+<?linebreaka4?>
+<?linebreak?>
+<?linebreak?>
+<?linebreak?>
+<?linebreak?>
+<?linebreak?>
+<para>Recently opened files can be opened by selecting them from the list within <menuchoice><guimenu>File</guimenu><guimenuitem>Open recent</guimenuitem></menuchoice>. The number of files in this menu can be set in the preferences under <guilabel>Files</guilabel>.</para>
+<?pagebreak?>
+<para>The file browser in the side panel can also be used to open files. It supports filtering files, by right clicking the contextual menu in the file browser.
+<?linebreak?>
+<figure id="figure-file-browser-filtering">
+<title id="figure-file-browser-filtering-title">Filtering Files with the Bluefish File Browser</title>
+<screenshot><mediaobject>
+<imageobject>
+<imagedata fileref="figures/file_browser_filtering.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>A screen shot showing how to filter files with the Bluefish file browser</phrase>
+</textobject>
+</mediaobject></screenshot>
+</figure></para>
+<para>The available filters may be modified in Preferences. For more information, see <xref linkend="modifying-filefilters" />.</para>
+<para>If you right click a directory, you can make this directory the base directory for the file browser using the <guimenuitem>Set as basedir</guimenuitem> option. Then you can access it directly from the pop up menu in the upper part of the file browser.</para>
+<para> By default the file browser follows the document focus. If you change to a different document, the file browser will show the contents of the directory where this document is located. This behaviour can be changed on the bottom of the file browser.</para>
+<para>Information about currently opened files can be seen if you move the mouse over the document tab (by default on the bottom of the screen). A so called tool tip will be shown with information about the full path, size, permissions, file type and encoding of the file.
+<?linebreak?>
+<figure id="figure-open-file-info">
+<title id="figure-open-file-info-title">Info on open file with the Bluefish File Browser</title>
+<screenshot><mediaobject>
+<imageobject>
+<imagedata fileref="figures/open_file_info.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>A screen shot showing Info on open file with the Bluefish file browser</phrase>
+</textobject>
+</mediaobject></screenshot>
+</figure></para>
+<para>An interesting feature of Bluefish is the ability to open files by selecting the text of a currently opened file. For example, if a filename is shown in say a terminal application, you can select the filename, and use <menuchoice><guimenu>File</guimenu><guimenuitem>Open from Selection</guimenuitem></menuchoice> to open that file. The file, if it exists, will be opened in another tab within Bluefish.</para>
+<para>Finally, files can be opened via the command line by feeding filenames to Bluefish as arguments. This can even be done while Bluefish is running and the resulting file will then show up in its own tab.</para>
+<?linebreaka4?>
+<para>Files can also be opened by clicking on the <guilabel>Open...</guilabel> icon in the main tool bar.</para>
+<variablelist>
+<varlistentry>
+<term><emphasis>Note</emphasis></term>
+<listitem>
+<para>If you have installed gnome-vfs or gnome-vfs2 before installing Bluefish, you will be able to open files on remote desktop.</para>
+</listitem>
+</varlistentry>
+</variablelist>
+<?linebreaka4?>
+<para>Be aware that if the file is huge it may take a very long time to get the rendering if syntax highlighting is enabled. The GTK editing widget used in Bluefish, furthermore, is not very good at handling files with very long lines, and that could also slow down Bluefish considerably.</para>
 </sect2>
-
+<?linebreaka4?>
 <sect2 id="saving-files">
 <title>Saving files</title>
-	<para>
-	If a document is modified, the filename is shown in red in the document tabs, and also 
-	if you right click on the tabs, the full path is shown in red in the list that will pop 
-	up.
-		<figure id="figure-modified-file-tooltip">
-				<title id="figure-modified-file-tooltip-title">Tool Tip for Modified File</title>
-				<screenshot>
-					<mediaobject>
-						<imageobject>
-							<imagedata fileref="figures/modified_file_tooltip.png" format="PNG"/>
-						</imageobject>
-						<textobject>
-							<phrase>A screen shot showing the tool tip for modified file</phrase>
-						</textobject>
-					</mediaobject>
-				</screenshot>
-			</figure>
-	</para>
-	<para>
-	To save a document, you can use the <guimenu>File</guimenu> menu, the <guilabel>Save</guilabel> icon in the tool bar, or press the shortcut key combination <keycombo><keycap>Ctrl</keycap><keycap>S</keycap></keycombo>. By default a backup is made during save. The original file
-	is copied to the same filename with a tilde <keycap>~</keycap> appended. This suffix and the backup behaviour can
-	be changed in the preferences under <guilabel>Files</guilabel>.
-	</para>
-	<para>
-	Before saving the file, Bluefish will check if the original file was changed on disk, using the 
-	last modified time and the file size. On some filesystems the last modified time
-	is sometimes not very precise (most notably on samba mounts). This makes Bluefish think the file
-	is modified when it is not. This check can be changed in the preferences 
-	under <guilabel>Files</guilabel>.
-	</para>
-	<para>
-	You can also save a document under a different name, using the <menuchoice><shortcut><keycombo><keycap>Shift</keycap><keycap>Ctrl</keycap><keycap>S</keycap></keycombo></shortcut><guimenuitem>Save As...</guimenuitem></menuchoice> menu entry, or the <guilabel>Save As...</guilabel> icon in the main tool bar. The original file will still exist.
-		<figure id="figure-renaming-file">
-				<title id="figure-renaming-file-title">Saving a File under a new Name</title>
-				<screenshot>
-					<mediaobject>
-						<imageobject>
-							<imagedata fileref="figures/renaming_file.png" format="PNG"/>
-						</imageobject>
-						<textobject>
-							<phrase>A screen shot showing how to save a file under a new name</phrase>
-						</textobject>
-					</mediaobject>
-				</screenshot>
-			</figure>
-	</para>
-	<para>
-	To save all modified files, you can use the <menuchoice><guimenu>File</guimenu><guimenuitem>Save All</guimenuitem></menuchoice> menu entry. This will save all documents that have been modified and present you with a save dialog if some files are new files.
-	</para>
+<para>If a document is modified, the filename is shown in red in the document tabs, and also if you right click on the tabs, the full path is shown in red in the list that will pop up.
+<?linebreaka4?>
+<figure id="figure-modified-file-tooltip">
+<title id="figure-modified-file-tooltip-title">Tool Tip for Modified File</title>
+<screenshot><mediaobject>
+<imageobject>
+<imagedata fileref="figures/modified_file_tooltip.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>A screen shot showing the tool tip for modified file</phrase>
+</textobject>
+</mediaobject></screenshot>
+</figure></para>
+<?linebreaka4?>
+<para>To save a document, you can use the <guimenu>File</guimenu> menu, the <guilabel>Save</guilabel> icon in the tool bar, or press the shortcut key combination <keycombo><keycap>Ctrl</keycap><keycap>S</keycap></keycombo>. By default a backup is made during save. The original file is copied to the same filename with a tilde <keycap>~</keycap> appended. This suffix and the backup behaviour can be changed in the preferences under <guilabel>Files</guilabel>.</para>
+<para>Before saving the file, Bluefish will check if the original file was changed on disk, using the last modified time and the file size. On some filesystems the last modified time is sometimes not very precise (most notably on samba mounts). This makes Bluefish think the file is modified when it is not. This check can be changed in the preferences under <guilabel>Files</guilabel>.</para>
+<?linebreaka4?>
+<para>You can also save a document under a different name, using the <menuchoice><shortcut><keycombo><keycap>Shift</keycap><keycap>Ctrl</keycap><keycap>S</keycap></keycombo></shortcut><guimenuitem>Save As...</guimenuitem></menuchoice> menu entry, or the <guilabel>Save As...</guilabel> icon in the main tool bar. The original file will still exist.
+<?linebreaka4?>
+<figure id="figure-renaming-file">
+<title id="figure-renaming-file-title">Saving a File under a new Name</title>
+<screenshot><mediaobject>
+<imageobject>
+<imagedata fileref="figures/renaming_file.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>A screen shot showing how to save a file under a new name</phrase>
+</textobject>
+</mediaobject></screenshot>
+</figure></para>
+<para>To save all modified files, you can use the <menuchoice><guimenu>File</guimenu><guimenuitem>Save All</guimenuitem></menuchoice> menu entry. This will save all documents that have been modified and present you with a save dialog if some files are new files.</para>
 </sect2>
 
 <sect2 id="renaming">
