@@ -1816,7 +1816,7 @@ static gboolean doc_view_key_release_lcb(GtkWidget *widget,GdkEventKey *kevent,T
 			}
 #endif
 		}
-	} else if (kevent->keyval == GDK_Return || kevent->keyval == GDK_KP_Enter) {
+	} else if ((kevent->keyval == GDK_Return || kevent->keyval == GDK_KP_Enter) && !(kevent->state)) {
 		if (main_v->props.autoindent) {
 			gchar *string, *indenting;
 			GtkTextMark* imark;
