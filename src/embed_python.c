@@ -1,6 +1,8 @@
 #include "config.h"
 #ifdef HAVE_PYTHON
 
+#define DEBUG
+
 #include <Python.h>
 #include <gtk/gtk.h>
 
@@ -11,9 +13,15 @@
 
 static PyObject * bluefish_curdoc_getchars(PyObject *self, PyObject *args) {
 	int ok;
+	PyObject *PyBfwin;
 	Tbfwin *bfwin;
 	long start,end;
-	ok = PyArg_ParseTuple(args, "Oll", &bfwin, &start, &end);
+	ok = PyArg_ParseTuple(args, "Oll", &PyBfwin, &start, &end);
+	if (!ok) {
+		return PyString_FromString("");
+	}
+	bfwin = PyCObject_AsVoidPtr(PyBfwin);
+	DEBUG_MSG("bluefish_curdoc_getchars, bfwin=%p\n",bfwin);
 	if (bfwin->current_document) {
 		PyObject *pName;
 		gchar *buf;
@@ -27,12 +35,17 @@ static PyObject * bluefish_curdoc_getchars(PyObject *self, PyObject *args) {
 
 static PyObject * bluefish_curdoc_replace(PyObject *self, PyObject *args) {
 	int ok;
+	PyObject *PyBfwin;
 	Tbfwin *bfwin;
 	long start,end;
 	const char *string;
-	ok = PyArg_ParseTuple(args, "Olls", &bfwin, &start, &end, &string);
-	if (bfwin->current_document) {
-		doc_replace_text(bfwin->current_document,string,start,end);
+	ok = PyArg_ParseTuple(args, "Olls", &PyBfwin, &start, &end, &string);
+	if (ok) {
+		bfwin = PyCObject_AsVoidPtr(PyBfwin);
+		DEBUG_MSG("bluefish_curdoc_replace, bfwin=%p\n",bfwin);
+		if (bfwin->current_document) {
+			doc_replace_text(bfwin->current_document,string,start,end);
+		}
 	}
 	return Py_BuildValue("");
 }
@@ -50,13 +63,14 @@ void pythonRun(Tbfwin *bfwin, gchar *filename) {
 	
 	if (!bfwin) return;
 	if (!filename) return;
-	
+	DEBUG_MSG("pythonRun %s for bfwin=%p\n",filename,bfwin);
 	Py_Initialize();
 	PyBfwin = PyCObject_FromVoidPtr(bfwin,NULL);
 	BluefishMod = PyImport_AddModule("bluefish");
 	Py_InitModule("bluefish", BluefishMethods);
 	PyModule_AddObject(BluefishMod, "bfwin", PyBfwin);
-	PyRun_AnyFile(NULL, filename);
+	PyRun_SimpleString("import bluefish;bluefish.curdoc_replace(bluefish.bfwin,0,5,'hallo')");
+/*	PyRun_AnyFile(NULL, filename);*/
 	/* what can PySys_SetObject() do ?? */
 	/* perhaps we should use PyRun_File because a pointer globals 
 	can be passed to that function */
