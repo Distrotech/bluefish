@@ -3283,7 +3283,7 @@ void doc_activate(Tdocument *doc) {
 		gtk_widget_show(doc->view); /* This might be the first time this document is activated. */
 	}
 	BFWIN(doc->bfwin)->last_activated_doc = doc;
-	if (doc->uri && doc->fileinfo && !doc->action.checkmodified) {
+	if (doc->uri && doc->fileinfo && !doc->action.checkmodified && !doc->action.save) { /* don't check during another check, or during save */
 		uri = gnome_vfs_uri_new(doc->uri);
 		if (uri) {
 			doc->action.checkmodified = file_checkmodified_uri_async(uri, doc->fileinfo, doc_activate_modified_lcb, doc);

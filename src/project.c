@@ -175,24 +175,13 @@ gboolean project_save(Tbfwin *bfwin, gboolean save_as) {
 
 	if (save_as || bfwin->project->filename == NULL) {
 		gint suflen,filen;
+		GtkWidget *dialog;
 		gchar *filename = NULL;
-#ifdef HAVE_ATLEAST_GTK_2_4
-		{
-			GtkWidget *dialog;
-/*			dialog = gtk_file_chooser_dialog_new(_("Enter Bluefish project filename"),NULL,
-					GTK_FILE_CHOOSER_ACTION_OPEN,
-					GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
-					GTK_STOCK_SAVE, GTK_RESPONSE_ACCEPT,
-					NULL);*/
-			dialog = file_chooser_dialog(bfwin,_("Enter Bluefish project filename"),GTK_FILE_CHOOSER_ACTION_SAVE, NULL, TRUE, FALSE, "bfproject");
-			if (gtk_dialog_run(GTK_DIALOG (dialog)) == GTK_RESPONSE_ACCEPT) {
-				filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog));
-			}
-			gtk_widget_destroy(dialog);
+		dialog = file_chooser_dialog(bfwin,_("Enter Bluefish project filename"),GTK_FILE_CHOOSER_ACTION_SAVE, NULL, TRUE, FALSE, "bfproject");
+		if (gtk_dialog_run(GTK_DIALOG (dialog)) == GTK_RESPONSE_ACCEPT) {
+			filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog));
 		}
-#else
-		filename = return_file_w_title(NULL, _("Enter Bluefish project filename"));
-#endif
+		gtk_widget_destroy(dialog);
 		if (!filename) {
 			return FALSE;
 		}
@@ -393,11 +382,11 @@ gboolean project_save_and_close(Tbfwin *bfwin) {
 		add_to_recent_list(bfwin,bfwin->project->filename, TRUE, TRUE);
 	}
 	doc_close_multiple_backend(bfwin, FALSE);
-	/* BUG the following test does not really work anymore with async saving & closing*/
+	/* BUG the following test does not really work anymore with async saving & closing
 	if (!test_only_empty_doc_left(bfwin->documentlist)) {
 		DEBUG_MSG("closing all documents failed, returning\n");
 		return FALSE;
-	}
+	}*/
 	project_destroy(bfwin->project);
 	setup_bfwin_for_nonproject(bfwin);
 	DEBUG_MSG("project_save_and_close, returning TRUE\n");
