@@ -383,8 +383,7 @@ void doc_scroll_to_cursor(Tdocument *doc) {
 }
 
 /* gchar *doc_get_chars(Tdocument *doc, gint start, gint end)
- * returns len characters from startpos
- * if len == -1 it will return everrything to the end
+ * if end == -1 it will return everrything to the end
  */
 gchar *doc_get_chars(Tdocument *doc, gint start, gint end) {
 	GtkTextIter itstart, itend;
