@@ -125,6 +125,28 @@ static void DEBUG_TPATH(GtkTreeModel *model, GtkTreePath *path, gboolean newline
 	}
 	g_free(tname);
 }
+static void DEBUG_CHILD_ITERS(Tfilebrowser2* fb2, GtkTreeIter *sorted_iter) {
+	GtkTreeIter filter_iter, fs_iter;
+	gchar *name;
+	
+	DEBUG_MSG("DEBUG_CHILD_ITERS, dir_v displays sort_model %p\n", gtk_tree_view_get_model(GTK_TREE_VIEW(fb2->dir_v)));
+	
+	gtk_tree_model_get(fb2->dir_tsort, sorted_iter, FILENAME_COLUMN, &name, -1);
+	DEBUG_MSG("DEBUG_CHILD_ITERS, dir_tsort=%p, sorted name=%s\n",fb2->dir_tsort , name);
+	gtk_tree_model_sort_convert_iter_to_child_iter(GTK_TREE_MODEL_SORT(fb2->dir_tsort),&filter_iter,sorted_iter);
+	DEBUG_MSG("DEBUG_CHILD_ITERS, dir_tsort %p is sorting dir_tfilter %p\n",fb2->dir_tsort ,gtk_tree_model_sort_get_model(GTK_TREE_MODEL_SORT(fb2->dir_tsort)));
+
+	gtk_tree_model_get(fb2->dir_tfilter, &filter_iter, FILENAME_COLUMN, &name, -1);
+	DEBUG_MSG("DEBUG_CHILD_ITERS, dir_tfilter=%p, filter name=%s\n", fb2->dir_tfilter, name);
+	gtk_tree_model_filter_convert_iter_to_child_iter(GTK_TREE_MODEL_FILTER(fb2->dir_tfilter),&fs_iter,&filter_iter);
+	DEBUG_MSG("DEBUG_CHILD_ITERS, dir_tfilter %p is filtering filesystem %p, == %p\n",fb2->dir_tfilter 
+				,gtk_tree_model_filter_get_model(GTK_TREE_MODEL_FILTER(fb2->dir_tfilter))
+				, FILEBROWSER2CONFIG(main_v->fb2config)->filesystem_tstore
+				);
+	
+	gtk_tree_model_get(GTK_TREE_MODEL(FILEBROWSER2CONFIG(main_v->fb2config)->filesystem_tstore), &fs_iter, FILENAME_COLUMN, &name, -1);
+	DEBUG_MSG("DEBUG_CHILD_ITERS, fs name=%s\n", name);
+}
 /**************/
 
 /**
@@ -756,7 +778,16 @@ static GnomeVFSURI *fb2_uri_from_dir_sort_path(Tfilebrowser2 *fb2, GtkTreePath *
  * returns TRUE if 'sort_path' from the directory sort model points to a directory
  */
 static gboolean fb2_isdir_from_dir_sort_path(Tfilebrowser2 *fb2, GtkTreePath *sort_path) {
-	GtkTreePath *fs_path = fb2_fspath_from_dir_sortpath(fb2, sort_path);
+	GtkTreeIter iter;
+	if (gtk_tree_model_get_iter(fb2->dir_tsort,&iter,sort_path)) {
+		gint type;
+		gtk_tree_model_get(fb2->dir_tsort, &iter, TYPE_COLUMN, &type, -1);
+		DEBUG_MSG("fb2_isdir_from_file_sort_path, type=%d\n",type);
+		return (type == TYPE_DIR || type == TYPE_HIDDEN_DIR);
+	} else {
+		DEBUG_MSG("fb2_isdir_from_dir_sort_path, WARNING, sort_path CANNOT be converted into a valid iter!\n");
+	}
+/*	GtkTreePath *fs_path = fb2_fspath_from_dir_sortpath(fb2, sort_path);
 	if (fs_path) {
 		GtkTreeIter fsiter;
 		gint type;
@@ -767,7 +798,7 @@ static gboolean fb2_isdir_from_dir_sort_path(Tfilebrowser2 *fb2, GtkTreePath *so
 			return (type == TYPE_DIR || type == TYPE_HIDDEN_DIR);
 		}
 		gtk_tree_path_free(fs_path);
-	}
+	}*/
 	return FALSE;
 }
 /**
@@ -1147,11 +1178,11 @@ static GtkWidget *fb2_rpopup_create_menu(Tfilebrowser2 *fb2, gboolean is_directo
 	return menu;
 }
 
-static void dir_v_row_expanded_lcb(GtkTreeView *tree,GtkTreeIter *iter,GtkTreePath *sort_path,Tfilebrowser2 *fb2) {
+static void dir_v_row_expanded_lcb(GtkTreeView *tree,GtkTreeIter *sort_iter,GtkTreePath *sort_path,Tfilebrowser2 *fb2) {
 	GnomeVFSURI *uri;
-	DEBUG_MSG("dir_v_row_expanded_lcb, called for fb2=%p\n",fb2);
+	DEBUG_MSG("dir_v_row_expanded_lcb, called for fb2=%p with sort_path=\n",fb2);
 	/* refresh the directory that is being expanded */
-	uri = fb2_uri_from_dir_sort_path(fb2, sort_path);
+	gtk_tree_model_get(fb2->dir_tsort, sort_iter, URI_COLUMN, &uri, -1);
 	if (uri) {
 		fb2_refresh_dir(uri, NULL);
 	}
@@ -1210,50 +1241,29 @@ static gboolean file_v_button_press_lcb(GtkWidget *widget, GdkEventButton *event
 	return FALSE; /* pass the event on */
 }
 
-#ifdef DEBUG
-static void DEBUG_CHILD_ITERS(Tfilebrowser2* fb2, GtkTreeIter *sorted_iter) {
-	GtkTreeIter filter_iter, fs_iter;
-	gchar *name;
-	
-	DEBUG_MSG("DEBUG_CHILD_ITERS, dir_v displays sort_model %p\n", gtk_tree_view_get_model(GTK_TREE_VIEW(fb2->dir_v)));
-	
-	gtk_tree_model_get(fb2->dir_tsort, sorted_iter, FILENAME_COLUMN, &name, -1);
-	DEBUG_MSG("DEBUG_CHILD_ITERS, dir_tsort=%p, sorted name=%s\n",fb2->dir_tsort , name);
-	gtk_tree_model_sort_convert_iter_to_child_iter(GTK_TREE_MODEL_SORT(fb2->dir_tsort),&filter_iter,sorted_iter);
-	DEBUG_MSG("DEBUG_CHILD_ITERS, dir_tsort %p is sorting dir_tfilter %p\n",fb2->dir_tsort ,gtk_tree_model_sort_get_model(GTK_TREE_MODEL_SORT(fb2->dir_tsort)));
-
-	gtk_tree_model_get(fb2->dir_tfilter, &filter_iter, FILENAME_COLUMN, &name, -1);
-	DEBUG_MSG("DEBUG_CHILD_ITERS, dir_tfilter=%p, filter name=%s\n", fb2->dir_tfilter, name);
-	gtk_tree_model_filter_convert_iter_to_child_iter(GTK_TREE_MODEL_FILTER(fb2->dir_tfilter),&fs_iter,&filter_iter);
-	DEBUG_MSG("DEBUG_CHILD_ITERS, dir_tfilter %p is filtering filesystem %p, == %p\n",fb2->dir_tfilter 
-				,gtk_tree_model_filter_get_model(GTK_TREE_MODEL_FILTER(fb2->dir_tfilter))
-				, FILEBROWSER2CONFIG(main_v->fb2config)->filesystem_tstore
-				);
-	
-	gtk_tree_model_get(fb2->dir_tfilter, &fs_iter, FILENAME_COLUMN, &name, -1);
-	DEBUG_MSG("DEBUG_CHILD_ITERS, fs name=%s\n", name);
-}
-#endif
-
 static void dir_v_selection_changed_lcb(GtkTreeSelection *treeselection,Tfilebrowser2 *fb2) {
 	GtkTreeModel *sort_model = NULL;
 	GtkTreeIter sort_iter;
 	/* Get the current selected row and the model. */
 	DEBUG_MSG("dir_v_selection_changed_lcb, treeselection=%p, fb2=%p\n",treeselection,fb2);
 	if (treeselection && gtk_tree_selection_get_selected(treeselection,&sort_model,&sort_iter)) {
-		GtkTreePath *sort_path;
+		GnomeVFSURI *uri;
+		gtk_tree_model_get(sort_model, &sort_iter, URI_COLUMN, &uri, -1);
+		if (uri) {
+			fb2_focus_dir(fb2, uri, TRUE);
+		}
+/*		GtkTreePath *sort_path;
+#ifdef DEBUG11
+		DEBUG_CHILD_ITERS(fb2, &sort_iter);
+#endif
 		sort_path = gtk_tree_model_get_path(sort_model,&sort_iter);
 		if (sort_path) {
 			GnomeVFSURI *uri;
 			uri = fb2_uri_from_dir_sort_path(fb2,sort_path);
-			/*fb2_refresh_dir(fb2, uri, NULL);*/
+			/ *fb2_refresh_dir(fb2, uri, NULL);* /
 			fb2_focus_dir(fb2, uri, TRUE);
 			gtk_tree_path_free(sort_path);
-		}
-#ifdef DEBUG
-		DEBUG_CHILD_ITERS(fb2, &sort_iter);
-#endif
-
+		}*/
 	}
 }
 
