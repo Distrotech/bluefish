@@ -15,7 +15,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-/* #define DEBUG */
+#define DEBUG
 #include <gtk/gtk.h>
 #include <stdlib.h> /* atoi */
 #include <string.h> /* strchr() */
@@ -602,6 +602,40 @@ void menu_current_document_set_toggle_wo_activate(Tfiletype *hlset, gchar *encod
 	}
 }
 
+void filetype_menu_destroy(Tfiletype *filetype) {
+	DEBUG_MSG("");
+	if (filetype->menuitem) {
+		g_signal_handler_disconnect(filetype->menuitem,filetype->menuitem_activate_id);
+		gtk_widget_destroy(filetype->menuitem);
+		filetype->menuitem = NULL;
+	}
+}
+
+void filetype_menu_rebuild(GtkItemFactory *item_factory) {
+	GSList *group=NULL;
+	GtkWidget *parent_menu;
+	GList *tmplist = g_list_first(main_v->filetypelist);
+	if (!item_factory) {
+		item_factory = gtk_item_factory_from_widget(main_v->menubar);
+	}
+	DEBUG_MSG("filetype_menu_rebuild, adding filetypes in menu\n");
+	parent_menu = gtk_item_factory_get_widget(item_factory, N_("/Document/Type"));
+	while (tmplist) {
+		Tfiletype *filetype = (Tfiletype *)tmplist->data;
+#ifdef DEBUG
+		if (filetype->menuitem) {
+			DEBUG_MSG("filetype_menu_rebuild, %s has a menuitem already!!!\n", filetype->type);
+		}
+#endif
+		filetype->menuitem = gtk_radio_menu_item_new_with_label(group, filetype->type);
+		filetype->menuitem_activate_id = g_signal_connect(G_OBJECT(filetype->menuitem), "activate",G_CALLBACK(menu_current_document_type_change), (gpointer) filetype);
+		gtk_widget_show(filetype->menuitem);
+		gtk_menu_insert(GTK_MENU(parent_menu), filetype->menuitem, 1);
+		group = gtk_radio_menu_item_get_group (GTK_RADIO_MENU_ITEM(filetype->menuitem));
+		tmplist = g_list_next(tmplist);
+	}
+}
+
 /* 
  * menu factory crap, thanks to the gtk tutorial for this
  * both the 1.0 and the 1.2 code is directly from the tutorial
@@ -627,23 +661,9 @@ void menu_create_main(GtkWidget *vbox)
 	setup_toggle_item(item_factory, N_("/Options/Display/View Custom menu"), main_v->props.view_custom_menu);
 	setup_toggle_item(item_factory, N_("/Options/Display/View Left panel"), main_v->props.view_left_panel);
 	setup_toggle_item(item_factory, N_("/Options/Auto indent"), main_v->props.autoindent);
-	{
-		GSList *group=NULL;
-		GtkWidget *parent_menu;
-		GList *tmplist = g_list_first(main_v->filetypelist);
-		parent_menu = gtk_item_factory_get_widget(item_factory, N_("/Document/Type"));
-		while (tmplist) {
-			Tfiletype *filetype = (Tfiletype *)tmplist->data;
-			if (filetype->highlightlist) {
-				filetype->menuitem = gtk_radio_menu_item_new_with_label(group, filetype->type);
-				filetype->menuitem_activate_id = g_signal_connect(G_OBJECT(filetype->menuitem), "activate",G_CALLBACK(menu_current_document_type_change), (gpointer) filetype);
-				gtk_widget_show(filetype->menuitem);
-				gtk_menu_insert(GTK_MENU(parent_menu), filetype->menuitem, 1);
-				group = gtk_radio_menu_item_get_group (GTK_RADIO_MENU_ITEM(filetype->menuitem));
-			}
-			tmplist = g_list_next(tmplist);
-		}
-	}
+
+	filetype_menu_rebuild(item_factory);
+	
 	if (main_v->props.ext_browsers_in_submenu) {
 		create_parent_and_tearoff(N_("/External/Browsers/"), item_factory);
 	}

@@ -1,3 +1,5 @@
+
+void filetype_highlighting_rebuild();
 void hl_init();
 Tfiletype *hl_get_highlightset_by_type(gchar *type);
 Tfiletype *hl_get_highlightset_by_filename(gchar *filename);

@@ -21,9 +21,9 @@
  * indenting is done with
  * indent --line-length 100 --k-and-r-style --tab-size 4 -bbo --ignore-newlines highlight.c
  */
-/*#define HL_TIMING
+#define HL_TIMING
 #define HL_DEBUG
-#define DEBUG*/
+#define DEBUG
 
 #ifdef HL_TIMING
 #include <sys/times.h>
@@ -282,6 +282,7 @@ static void compile_pattern(gchar *filetype, gchar *name, gint case_insens
 				g_object_set(pat->tag, "style", PANGO_STYLE_ITALIC, NULL);
 			}
 		}
+		DEBUG_MSG("adding tag %p to table %p\n", pat->tag, highlight.tagtable);
 		gtk_text_tag_table_add(highlight.tagtable, pat->tag);
 		/* from the documentation:
 			When adding a tag to a tag table, it will be assigned the highest priority in the table by 
@@ -298,7 +299,9 @@ static void compile_pattern(gchar *filetype, gchar *name, gint case_insens
 			mpat->parentmatch = g_strdup("^top$");
 		}
 		mpat->filetype = g_strdup(filetype);
+		DEBUG_MSG("adding mpat %s (%p) to list %p\n", mpat->name, mpat, highlight.all_highlight_patterns);
 		highlight.all_highlight_patterns = g_list_append(highlight.all_highlight_patterns, mpat);
+		DEBUG_MSG("finished compiling pattern %s and added it to the list\n", mpat->name);
 	}
 }
 
@@ -316,14 +319,57 @@ static void add_patterns_to_parent(GList **list, gchar *filetype, gchar *name) {
 	}
 }
 
-void hl_init() {
+void filetype_highlighting_rebuild() {
 	GList *tmplist;
-	/* init main_v->filetypelist, the first set is the defaultset */
-	highlight.highlight_filetypes = NULL;
-	highlight.all_highlight_patterns = NULL; 
-	highlight.tagtable = gtk_text_tag_table_new();
 
-	/* start by initializing the types, they should come from the configfile */
+	/* first remove the menu widgets, and delete the filetype structs */
+	DEBUG_MSG("filetype_highlighting_rebuild, testing for filetypelist existance\n");
+	if (main_v->filetypelist) {
+		tmplist = g_list_first(main_v->filetypelist);
+		while (tmplist) {
+			Tfiletype *filetype = (Tfiletype *)tmplist->data;
+			filetype_menu_destroy(filetype);
+			g_free(filetype->type);
+			g_strfreev(filetype->extensions);
+			g_free(filetype->update_chars);
+			if (filetype->icon) {
+				g_object_unref(filetype->icon);
+			}
+			/* the highlightpatterns are freed separately, see below */
+			g_free(filetype);
+			tmplist = g_list_next(tmplist);
+		}
+		g_list_free(main_v->filetypelist);
+		main_v->filetypelist = NULL;
+	}
+	DEBUG_MSG("filetype_highlighting_rebuild, testing for metapattern existence\n");
+
+	if (highlight.all_highlight_patterns) {
+		tmplist = g_list_first(highlight.all_highlight_patterns);
+		while (tmplist) {
+			Tmetapattern *mpat = tmplist->data;
+			pcre_free(mpat->pat->reg1.pcre);
+			pcre_free(mpat->pat->reg1.pcre_e);
+			pcre_free(mpat->pat->reg2.pcre);
+			pcre_free(mpat->pat->reg2.pcre_e);
+			gtk_text_tag_table_remove(highlight.tagtable,mpat->pat->tag);
+			g_free(mpat->pat);
+			g_free(mpat->name);
+			g_free(mpat->parentmatch);
+			g_free(mpat->filetype);
+			g_free(mpat);
+			tmplist = g_list_next(tmplist);
+		}
+		g_list_free(highlight.all_highlight_patterns);
+		highlight.all_highlight_patterns = NULL;
+	}
+	
+	/* free other lists */
+	g_list_free(highlight.highlight_filetypes);
+	highlight.highlight_filetypes = NULL;
+	
+	DEBUG_MSG("filetype_highlighting_rebuild, rebuilding the filetype list\n");
+	/* now rebuild the filetype list */
 	tmplist = g_list_first(main_v->props.filetypes);
 	while (tmplist) {
 		gchar **strarr;
@@ -331,6 +377,7 @@ void hl_init() {
 		strarr = (gchar **) tmplist->data;
 		if (count_array(strarr) == 4) {
 			filetype = g_new(Tfiletype, 1);
+			filetype->menuitem = NULL;
 			filetype->type = g_strdup(strarr[0]);
 			filetype->extensions = g_strsplit(strarr[1], ":", 127);
 			filetype->update_chars = g_strdup(strarr[2]);
@@ -351,12 +398,13 @@ void hl_init() {
 		}
 #ifdef DEBUG
 		else {
-			DEBUG_MSG("hl_init, filetype needs 4 params in array\n");
+			DEBUG_MSG("filetype_list_rebuild, filetype needs 4 params in array\n");
 		}
 #endif
 		tmplist = g_list_next(tmplist);
 	}
-	
+
+	DEBUG_MSG("filetype_highlighting_rebuild, compile configpatterns into metapatterns\n");
 	/* now compile the patterns in metapatterns, they should come from the configfile */
 	tmplist = g_list_first(main_v->props.highlight_patterns);
 	while (tmplist) {
@@ -368,7 +416,7 @@ void hl_init() {
 		}
 #ifdef DEBUG		
 		else {
-			g_print("hl_init, pattern needs 11 parameters in array\n");
+			g_print("filetype_list_rebuild, pattern %s does NOT have 11 parameters in array\n", strarr[0]);
 		}
 #endif
 		tmplist = g_list_next(tmplist);
@@ -378,6 +426,7 @@ void hl_init() {
 	
 	/* first compile the parentmatch pattern */
 	tmplist = g_list_first(highlight.all_highlight_patterns);
+	DEBUG_MSG("filetype_highlighting_rebuild, compile parentmatch pattern\n");
 	while (tmplist) {
 		const char *err=NULL;
 		int erroffset=0;
@@ -390,12 +439,14 @@ void hl_init() {
 	}
 	/* now match the top-level patterns */
 	tmplist = g_list_first(main_v->filetypelist);
+	DEBUG_MSG("filetype_highlighting_rebuild, match toplevel patterns\n");
 	while (tmplist) {
 		Tfiletype *filetype = (Tfiletype *)tmplist->data;
 		add_patterns_to_parent(&filetype->highlightlist, filetype->type, "top");
 		tmplist = g_list_next(tmplist);
 	}
 	/* now match the rest of the patterns */
+	DEBUG_MSG("filetype_highlighting_rebuild, match rest of the patterns\n");
 	tmplist = g_list_first(highlight.all_highlight_patterns);
 	while (tmplist) {
 		Tmetapattern *mpat = (Tmetapattern *)tmplist->data;
@@ -403,6 +454,7 @@ void hl_init() {
 		tmplist = g_list_next(tmplist);
 	}
 	/* free the parentmatch pattern now */
+	DEBUG_MSG("filetype_highlighting_rebuild, free-ing mpat->pcre\n");
 	tmplist = g_list_first(highlight.all_highlight_patterns);
 	while (tmplist) {
 		Tmetapattern *mpat = (Tmetapattern *)tmplist->data;
@@ -411,6 +463,7 @@ void hl_init() {
 	}
 	
 	/* now link the filetypes with highlight patterns to a new list */
+	DEBUG_MSG("filetype_highlighting_rebuild, rebuilding list of filetypes with highlighting patterns\n");
 	tmplist = g_list_first(main_v->filetypelist);
 	while (tmplist) {
 		if (((Tfiletype *)tmplist->data)->highlightlist) {
@@ -418,6 +471,15 @@ void hl_init() {
 		}
 		tmplist = g_list_next(tmplist);
 	}
+}
+
+void hl_init() {
+	/* init main_v->filetypelist, the first set is the defaultset */
+	highlight.highlight_filetypes = NULL;
+	highlight.all_highlight_patterns = NULL; 
+	highlight.tagtable = gtk_text_tag_table_new();
+
+	filetype_highlighting_rebuild();
 }
 
 /**************************************/
@@ -734,10 +796,10 @@ void hl_reset_highlighting_type(Tdocument * doc, gchar * newfilename)
 }
 
 gboolean hl_set_highlighting_type(Tdocument * doc, Tfiletype *filetype) {
-	if (filetype && filetype->highlightlist) {
+	if (filetype) {
+		doc_remove_highlighting(doc);
+		doc->hl = filetype;
 		if (filetype != doc->hl) {
-			doc_remove_highlighting(doc);
-			doc->hl = filetype;
 			doc->need_highlighting = TRUE;
 			menu_current_document_set_toggle_wo_activate(filetype, NULL);
 		}
