@@ -1167,7 +1167,7 @@ static void matchtype_changed_lcb(GtkWidget *widget, Tsnr2_win *snr2win) {
 			gtk_widget_show(snr2win->subpat_help);
 		}
 	}
-	DEBUG_MSG("matchtype_changed_lcb, changing option to %d\n", LASTSNR2(bfwin->snr2)->matchtype_option);
+	DEBUG_MSG("matchtype_changed_lcb, changing option to %d\n", LASTSNR2(snr2win->bfwin->snr2)->matchtype_option);
 }	
 
 static void replacetype_changed_lcb(GtkWidget *widget, Tsnr2_win *snr2win) {

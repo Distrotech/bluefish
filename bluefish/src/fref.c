@@ -1822,6 +1822,8 @@ GtkWidget *fref_gui(Tbfwin *bfwin) {
 	GtkTreeViewColumn *column;
 	Tfref_data *fdata = FREFDATA(main_v->frefdata);
 
+	bfwin->fref = g_new0(Tfref_gui,1);
+
 	pane = gtk_vpaned_new();
 	box = gtk_vbox_new(FALSE,1);
 	box2 = gtk_hbox_new(FALSE,1);
@@ -1831,8 +1833,7 @@ GtkWidget *fref_gui(Tbfwin *bfwin) {
 	FREFGUI(bfwin->fref)->infoscroll = gtk_scrolled_window_new(NULL, NULL);
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(FREFGUI(bfwin->fref)->infoscroll), GTK_POLICY_NEVER,GTK_POLICY_AUTOMATIC);
 	
-	FREFGUI(bfwin->fref)->tree =
-		gtk_tree_view_new_with_model(GTK_TREE_MODEL(fdata->store));
+	FREFGUI(bfwin->fref)->tree = gtk_tree_view_new_with_model(GTK_TREE_MODEL(fdata->store));
 	gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(FREFGUI(bfwin->fref)->tree), FALSE);
 	cell = gtk_cell_renderer_text_new();
 	column =

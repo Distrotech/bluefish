@@ -1063,7 +1063,7 @@ void gui_create_main(Tbfwin *bfwin, GList *filenames) {
 	
 	/* everything is ready - we can start loading documents */
 	/* start to open an empty doc */
-	file_new_cb(NULL, NULL);
+	file_new_cb(NULL, bfwin);
 	if (filenames) {
 		DEBUG_MSG("gui_create_main, we have filenames, load them\n");
 		docs_new_from_files(bfwin,filenames);

@@ -26,4 +26,5 @@ void filebrowser_filters_rebuild();
 GtkWidget *filebrowser_init(Tbfwin *bfwin);
 void filebrowser_cleanup(Tbfwin *bfwin);
 void filebrowser_scroll_initial(Tbfwin *bfwin);
+void filebrowserconfig_init();
 #endif /* __FILEBROWSER_H_ */
