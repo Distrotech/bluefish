@@ -18,7 +18,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-/* #define DEBUG */
+#define DEBUG
 
 #include <gtk/gtk.h>
 #include <unistd.h> /* getopt() */
@@ -215,7 +215,7 @@ int main(int argc, char *argv[])
 	firstbfwin->bookmarkstore = main_v->bookmarkstore;
 	main_v->bfwinlist = g_list_append(NULL, firstbfwin);
 	gui_create_main(firstbfwin,filenames);
-   bmark_reload(firstbfwin);
+	bmark_reload(firstbfwin);
 #ifndef NOSPLASH
 	splash_screen_set_label(_("showing main gui..."));
 #endif /* #ifndef NOSPLASH */
@@ -256,7 +256,7 @@ int main(int argc, char *argv[])
 	/* do the cleanup */
 	msg_queue_cleanup();
 #endif /* WITH_MSG_QUEUE */
-/*	fb2config_cleanup(); this one does not get called ?*/
+	fb2config_cleanup();
 	DEBUG_MSG("Bluefish: exiting cleanly\n");
 	return 0;
 }
@@ -325,11 +325,4 @@ void bluefish_exit_request() {
 	/* I don't understand why, but if I call gtk_main_quit here, the main() function does not continue after gtk_main(), very weird, so I'll call exit() here */
 	gtk_main_quit();
 	DEBUG_MSG("bluefish_exit_request, after gtk_main_quit()\n");
-#ifdef WITH_MSG_QUEUE	
-	/* do the cleanup */
-	msg_queue_cleanup();
-#endif /* WITH_MSG_QUEUE */
-	fb2config_cleanup();
-	DEBUG_MSG("Bluefish: exiting cleanly\n");
-	exit(0);
 }

@@ -2389,8 +2389,8 @@ void doc_destroy(Tdocument * doc, gboolean delay_activation) {
 		notebook_changed(BFWIN(doc->bfwin),-1);
 	}
 	DEBUG_MSG("doc_destroy, (doc=%p) after calling notebook_changed()\n",doc);
-	/* now we really start to destroy the document */
-	g_object_unref(doc->view->parent);
+	/* now we really start to destroy the document, Ky Anh: "we should use gtk_object_sink and not g_object_unref" */
+	gtk_object_sink(GTK_OBJECT(doc->view->parent));
 
 	if (doc->uri) {
 		if (main_v->props.backup_cleanuponclose) {
