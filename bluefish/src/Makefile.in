@@ -67,7 +67,8 @@ SRCS = 	bf_lib.c \
 			snr2.c \
 			stringlist.c \
 			undo_redo.c \
-			wizards.c
+			wizards.c \
+			fref.c
 
 OBJS = $(SRCS:.c=.o)
 

@@ -25,6 +25,7 @@ INSTALL_DIR = $(INSTALL) -d -m 755
 INSTALL_DATA = ${INSTALL} -m 644
 
 DEFAULTFILES = highlighting.default filetypes.default encodings.default
+FUNCREFFILES = funcref_html.xml
 
 %.default : %.in
 	sed -e 's!PKGDATADIR!$(pkgdatadir)!' < $< > $@
@@ -35,6 +36,9 @@ all: $(DEFAULTFILES)
 install: all
 	$(INSTALL_DIR) $(pkgdatadir)
 	@for file in $(DEFAULTFILES) ; do \
+		$(INSTALL_DATA) $$file $(pkgdatadir)/$$file ;\
+	done
+	@for file in $(FUNCREFFILES) ; do \
 		$(INSTALL_DATA) $$file $(pkgdatadir)/$$file ;\
 	done
 	if [ -d $(gnome2menupath) ] ; then \

@@ -200,9 +200,24 @@ The pattern <literal>php-comment-C++</literal> does not have any child patterns,
 <para>
 It is very obvious now, the lowest match will be the end pattern of the <literal>php</literal> pattern, so we're back on the main level, and we have matched all of the code!
 </para>
+<para>
+The config file for highlighting is a colon separated array with the following content:
+</para>
+<programlisting>
+mode:
+patternname:
+case_sensitive(0-on/1-off):
+start reg-ex:
+end reg-ex:
+start & end pattern(1), only start(2), subpattern(3):
+parent-match:
+foreground-color:
+background-color:
+don't change weight(0), non-bold(1), bold(2):
+don't change style(0), non-italic(1), italic(2): 
+</programlisting>
 
-
-		</sect2>
+</sect2>
 	</sect1>
 	<sect1 id="bluefish-ch-4-sect-9">
 		<title>bluefish preferences</title>

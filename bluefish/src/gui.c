@@ -46,6 +46,7 @@
 #include "stringlist.h"
 #include "preferences.h" /* open_preferences_cb */
 #include "outputbox.h" /* init_outputbox() */
+#include "fref.h"
 
 #ifdef HAVE_LIBASPELL
 #include "bfspell.h"
@@ -177,6 +178,7 @@ static void left_panel_notify_position_lcb(GObject *object,GParamSpec *pspec,gpo
 GtkWidget *left_panel_build() {
 	GtkWidget *fileb;
 	GtkWidget *left_notebook = gtk_notebook_new();
+	GtkWidget *fref;
 	gtk_notebook_set_tab_pos(GTK_NOTEBOOK(left_notebook),GTK_POS_BOTTOM);
 	gtk_notebook_set_show_tabs(GTK_NOTEBOOK(left_notebook), TRUE);
 	gtk_notebook_set_show_border(GTK_NOTEBOOK(left_notebook), FALSE);
@@ -184,9 +186,11 @@ GtkWidget *left_panel_build() {
 	gtk_notebook_set_tab_vborder(GTK_NOTEBOOK(left_notebook), 0);
 	gtk_notebook_popup_enable(GTK_NOTEBOOK(left_notebook));
 	fileb = filebrowser_init();
-	gtk_notebook_append_page(GTK_NOTEBOOK(left_notebook),fileb,new_pixmap(105) );
-/*	gtk_notebook_append_page(GTK_NOTEBOOK(left_notebook),fref,gtk_label_new(_(" Reference ")));*/
+	fref = fref_init();
+	gtk_notebook_append_page(GTK_NOTEBOOK(left_notebook),fileb,new_pixmap(105));
+	gtk_notebook_append_page(GTK_NOTEBOOK(left_notebook),fref,new_pixmap(106));
 	gtk_widget_show_all(left_notebook);	
+	gtk_notebook_set_current_page(GTK_NOTEBOOK(left_notebook),0);
 	return left_notebook;
 }
 
@@ -199,6 +203,7 @@ void left_panel_show_hide_toggle(gboolean first_time, gboolean show) {
 			gtk_container_remove(GTK_CONTAINER(main_v->hpane), main_v->notebook);
 			gtk_widget_destroy(main_v->hpane);
 			filebrowser_cleanup();
+			fref_cleanup();
 		}
 	}
 	if (show) {
