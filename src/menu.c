@@ -103,7 +103,7 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/Edit/Redo all"), NULL, redo_all_cb, 0, NULL},
 	{N_("/Edit/sep5"), NULL, NULL, 0, "<Separator>"},
 	{N_("/Edit/_Goto line"), NULL, go_to_line_win_cb, 0, NULL},
-	{N_("/Edit/Goto _selection"), NULL, go_to_line_from_selection_cb, 0, NULL},
+	{N_("/Edit/G_oto selection"), NULL, go_to_line_from_selection_cb, 0, NULL},
 	{N_("/_Tags"), NULL, NULL, 0, "<Branch>"},
 	{N_("/Tags/Tearoff1"), NULL, NULL, 0, "<Tearoff>"},
 /*	{N_("/Tags/Repeat last"), "F4", repeat_last_insert_cb, 0, NULL},*/
