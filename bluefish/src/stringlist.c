@@ -403,6 +403,24 @@ void estrl_dialog(GList **which_list, gchar *title, gint what_list
 
 /************************************************************************/
 
+#ifdef DEBUG
+void debug_array(gchar **array) {
+	gint count=0;
+	gchar **tmpchar=array;
+	
+	if (!tmpchar) {
+		DEBUG_MSG("debug_array, no array!?!?\n");
+	}
+
+	while (*tmpchar != NULL) {
+		count++;
+		DEBUG_MSG("debug_array, tmpchar(%p), count=%d, contains(%p) %s\n", tmpchar, count, *tmpchar, *tmpchar);
+		tmpchar++;
+	}
+}
+#endif
+
+
 gint count_array(gchar **array) {
 	gint count=0;
 	gchar **tmpchar=array;
