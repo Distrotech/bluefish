@@ -97,9 +97,10 @@ gboolean project_save(Tbfwin *bfwin, gboolean save_as) {
 	DEBUG_MSG("project_save, bfwin=%p, save_as=%d\n",bfwin,save_as);
 	if (!bfwin->project) {
 		/* there is no project yet, we have to create one */
+		DEBUG_MSG("project_save, bfwin=%p does not have a project yet, create one\n",bfwin);
 		bfwin->project= create_new_project(bfwin);
 	}
-	DEBUG_MSG("project_save, num files was %d\n", g_list_length(bfwin->project->files));
+	DEBUG_MSG("project_save, project=%p, num files was %d\n", bfwin->project, g_list_length(bfwin->project->files));
 	update_project_filelist(bfwin, bfwin->project);
 	bfwin->project->recentfiles = limit_stringlist(bfwin->project->recentfiles, main_v->props.max_recent_files, TRUE);
 	
@@ -277,7 +278,7 @@ static void project_edit_ok_clicked_lcb(GtkWidget *widget, Tprojecteditor *pred)
 	if (pred->bfwin == NULL) {
 		pred->bfwin = gui_new_window(NULL, pred->project);
 	}
-	DEBUG_MSG("project_edit_ok_clicked_lcb, Tproject at %p\n",prj);
+	DEBUG_MSG("project_edit_ok_clicked_lcb, Tproject at %p, bfwin at %p\n",prj,pred->bfwin);
 	oldbasedir = g_strdup(prj->basedir);
 	string_apply(&prj->name, pred->entries[name]);
 	string_apply(&prj->basedir, pred->entries[basedir]);
@@ -329,7 +330,7 @@ void project_edit(Tbfwin *bfwin) {
 			pred->project = bfwin->project;
 		}
 	}
-	DEBUG_MSG("project_edit, Tproject at %p\n",bfwin->project);
+	DEBUG_MSG("project_edit, Tproject at %p\n",pred->project);
 	pred->bfwin = bfwin;
 	pred->project->editor = pred;
 	
