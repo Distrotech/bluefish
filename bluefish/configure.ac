@@ -57,6 +57,54 @@ if test "$CYGWIN" = "yes"; then
 	LIBS="$LIBS -lintl.dll"
 fi  
 
+AC_ARG_ENABLE(auto-optimization, 
+		AC_HELP_STRING([--enable-auto-optimization],
+				[try to automatically determine the most optimal build options for your architecture]),
+
+		UNAMEP=`uname -p`
+		if test "x$UNAMEP" = "xunknown"; then
+			UNAMEP=`grep "model name" /proc/cpuinfo | cut -d: -f2`
+		fi
+
+		if $CC -dumpversion|egrep -q "^3\.2.*"; then
+# gcc-3.2
+			if echo $UNAMEP|grep -q "Intel(R) Pentium(R) 4 CPU"; then
+				MARCH=-march=pentium4
+			elif echo $UNAMEP|grep -q "Pentium III"; then
+				MARCH=-march=pentium3
+			elif echo $UNAMEP|grep -q "AMD-K6(tm) 3D"; then
+				MARCH=-march=k6-2
+			elif echo $UNAMEP|grep -q "Pentium 75 - 200"; then
+				MARCH=-march=pentium
+			elif echo $UNAMEP|grep -q "Pentium II"; then
+				MARCH=-march=pentium2
+			elif echo $UNAMEP|grep -q "AMD Athlon(TM) XP"; then
+				MARCH=-march=athlon-xp
+			else
+				MARCH=""
+			fi
+			CFLAGS="-O3 $MARCH -fomit-frame-pointer -fno-exceptions -fno-rtti -pipe -s -ffast-math -fexpensive-optimizations -falign-functions -falign-loops"
+		elif $CC -dumpversion|egrep -q "^3\.0.*"; then
+# gcc-3.0
+			CFLAGS="-O3 -fomit-frame-pointer -fno-exceptions -fno-rtti -pipe -s -ffast-math -fexpensive-optimizations -falign-functions -falign-loops"
+		elif $CC -dumpversion | egrep -q "^2\.95.*" ; then
+# gcc-2.95
+			if echo $UNAMEP|egrep -q "(Pentium III|Pentium II|Pentium\(R\) 4|Athlon)"; then
+				MARCH=-march=pentiumpro
+			elif echo $UNAMEP|grep -q "AMD-K6"; then
+				MARCH=-march=k6
+			elif echo $UNAMEP|grep -q "Pentium 75 - 200"; then
+				MARCH=-march=pentium
+			else 
+				MARCH=""
+			fi
+			CFLAGS="$MARCH -O3 -fomit-frame-pointer -fno-exceptions -fno-rtti -pipe -s -ffast-math -fexpensive-optimizations"
+		else
+			echo "warning: compiler is not known: not optimizing!"
+		fi
+		echo "using $CC $CFLAGS"
+)
+
 AC_ARG_ENABLE(gcc3-optimization, 
 		AC_HELP_STRING([--enable-gcc3-optimization=type],
 				[gcc3 can optimize for: i386, i486, pentium, pentium-mmx, pentiumpro, pentium2, pentium3, pentium4, k6, k6-2, k6-3, athlon, athlon-tbird, athlon-4, athlon-xp, athlon-mp, winchip-c6, winchip2, c3]),
