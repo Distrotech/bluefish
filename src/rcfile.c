@@ -1,3 +1,24 @@
+/* Bluefish HTML Editor
+ * rcfile.c - loading and parsing of the configfiles
+ *
+ * Copyright (C) 2000-2002 Olivier Sessink
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ */
+
+/* #define DEBUG */
 
 #include <gtk/gtk.h>
 #include <sys/stat.h>
@@ -56,119 +77,6 @@ gchar **array_from_arglist(const gchar *string1, ...) {
 	return retval;
 }
 
-static gchar *array_to_string(gchar **array, gchar delimiter) {
-	if (array) {
-		gchar **tmp, *escaped1, *finalstring;
-		gint newsize=1;
-		DEBUG_MSG("array_to_string, started\n");
-		finalstring = g_malloc0(newsize);
-		tmp = array;
-		while(*tmp) {
-			DEBUG_MSG("array_to_string, *tmp = %s\n", *tmp);
-			escaped1 = escapestring(*tmp, delimiter);
-			newsize += strlen(escaped1)+1;
-			finalstring = g_realloc(finalstring, newsize);
-			strcat(finalstring, escaped1);
-			finalstring[newsize-2] = delimiter;
-			finalstring[newsize-1] = '\0';
-			g_free(escaped1);
-			tmp++;
-		}	
-		DEBUG_MSG("array_to_string, finalstring = %s\n", finalstring);
-		return finalstring;
-	} else {
-#ifdef DEBUG
-		g_print("array_to_string, array=NULL !!!\n");
-		exit(135);
-#else
-		return g_strdup("");
-#endif
-	}
-}
-
-#define ARRAYBLOCKSIZE 6
-#define BUFBLOCKSIZE 60
-gchar **string_to_array(gchar *string, gchar delimiter) {
-	gchar **array;
-	gchar *tmpchar, *tmpchar2;
-	gchar *newstring;
-	gint count=0;
-	gint newstringsize;
-	gint arraycount=0, arraysize;
-
-	newstringsize = BUFBLOCKSIZE;
-	newstring = g_malloc(newstringsize * sizeof(char));
-	
-	arraysize = ARRAYBLOCKSIZE;
-	array = g_malloc(arraysize * sizeof(char *));
-	DEBUG_MSG("string_to_array, started, array=%p\n", array);	
-	
-	tmpchar = string;
-	while (*tmpchar != '\0') {
-		DEBUG_MSG("string_to_array, count=%d, newstring(%p)\n", count, newstring);
-		if (*tmpchar == '\\') {
-			tmpchar2 = tmpchar;
-			tmpchar2++;
-			switch (*tmpchar2) {
-			case '\0':
-				newstring[count] = '\\';
-			break;
-			case '\\':
-				newstring[count] = '\\';
-				tmpchar++;
-			break;
-			case 'n':
-				newstring[count] = '\n';
-				tmpchar++;
-			break;
-			default:
-				if (*tmpchar2 == delimiter) {
-					newstring[count] = delimiter;
-					tmpchar++;
-				} else {
-					DEBUG_MSG("string_to_array, weird, an unescaped backslash ?\n");
-					newstring[count] = '\\';
-				}
-			break;
-			}
-		} else if (*tmpchar == delimiter) {
-			newstring[count] = '\0';  /* end of the current newstring */
-			DEBUG_MSG("string_to_array, newstring(%p)=%s\n", newstring, newstring);
-			array[arraycount] = g_strdup(newstring);
-			DEBUG_MSG("string_to_array, found delimiter, arraycount=%d, result(%p)=%s\n",arraycount, array[arraycount], array[arraycount]);
-			arraycount++;
-			if (arraycount == arraysize-2) { /* we need 1 spare entry in the array */
-				arraysize += ARRAYBLOCKSIZE;  /* and arraysize starts at 1, arraycount at 0 */
-				DEBUG_MSG("string_to_array, arraycount=%d, about to increase arraysize to %d, sizeof(array(%p))=%d\n", arraycount, arraysize, array, sizeof(&array));
-				array = g_realloc(array, arraysize * sizeof(char *));
-				DEBUG_MSG("string_to_array, arraysize=%d, array(%p), sizeof(array)=%d\n", arraysize, array, sizeof(&array));
-			}
-			count = -1;
-		} else {
-			newstring[count] = *tmpchar;
-		}
-		tmpchar++;
-		count++;
-		if (count == newstringsize-2) {
-			newstringsize += BUFBLOCKSIZE;
-			DEBUG_MSG("string_to_array, about to increase newstring(%p) to %d bytes\n", newstring, newstringsize);
-			newstring = g_realloc(newstring, newstringsize * sizeof(char));
-			DEBUG_MSG("string_to_array, newstringsize=%d, sizeof(newstring(%p))=%d\n", newstringsize, newstring, sizeof(newstring));
-		}
-	}
-	
-	if (count > 0) {
-		newstring[count] = '\0';
-		array[arraycount] = g_strdup(newstring);
-		DEBUG_MSG("string_to_array, last array entry, arraycount=%d, result(%p)=%s\n",arraycount, array[arraycount],array[arraycount]);
-	} else {
-		array[arraycount] = NULL;
-	}
-	array[arraycount+1] = NULL; /* since we have 1 spare entry in the array this is safe to do*/
-	DEBUG_MSG("string_to_array, returning %p\n", array);
-	g_free(newstring);
-	return array;
-}
 
 /*this should add 1 empty entry to the configuration list */
 GList *make_config_list_item(GList * config_list, void *pointer_to_var, unsigned char type_of_var, gchar * name_of_var)
@@ -318,7 +226,7 @@ static gboolean parse_config_file(GList * config_list, gchar * filename)
 	DEBUG_MSG("parse_config_file, started\n");
 
 	rclist = NULL;
-	rclist = get_stringlist(filename, rclist);
+	rclist = get_list(filename, rclist,FALSE);
 	
 	if (rclist == NULL) {
 		return FALSE;
@@ -494,6 +402,48 @@ static GList *props_init_main(GList * config_rc)
 	return config_rc;
 }
 
+static GList *arraylist_load_defaults(GList *thelist, const gchar *filename, const gchar *name) {
+	GList *deflist,*tmplist = g_list_first(thelist);
+	if (name) {
+		while (tmplist) {
+			gchar **tmparr = tmplist->data;
+			if (strcmp(tmparr[0],name)==0) {
+				GList *todelete = tmplist;
+				tmplist = g_list_next(tmplist);
+				g_list_delete_link(tmplist, todelete);
+				g_strfreev(tmparr);
+				g_list_free_1(todelete);
+			} else {
+				tmplist = g_list_next(tmplist);
+			}
+		}
+	} else {
+		while (tmplist) {
+			g_strfreev((gchar **)tmplist->data);
+			tmplist = g_list_next(tmplist);
+		}
+		g_list_free(thelist);
+	}
+	if (name) {
+		deflist = get_list(filename,NULL,TRUE);
+		tmplist = g_list_first(deflist);
+		while (tmplist) {
+			gchar **tmparr = tmplist->data;
+			DEBUG_MSG("arraylist_load_defaults, testing if %s should be added for name %s\n",tmparr[0],name);
+			if (strcmp(tmparr[0],name)==0) {
+				thelist = g_list_append(thelist, duplicate_stringarray(tmparr));
+			}
+			tmplist = g_list_next(tmplist);
+		}
+		free_arraylist(deflist);
+	} else {
+		thelist = get_list(filename,NULL,TRUE);
+	}
+	return thelist;
+}
+
+
+
 void rcfile_parse_main(void)
 {
 	gchar *filename;
@@ -528,27 +478,7 @@ void rcfile_parse_main(void)
 	}
 	if (main_v->props.encodings == NULL) {
 		/* if the user does not have encodings --> set them to defaults values */
-		main_v->props.encodings = g_list_append(main_v->props.encodings,array_from_arglist(_("UTF-8"), "UTF-8",NULL));
-		main_v->props.encodings = g_list_append(main_v->props.encodings,array_from_arglist(_("ISO-8859-1 (Latin 1, West European)"),"ISO-8859-1",NULL));
-		main_v->props.encodings = g_list_append(main_v->props.encodings,array_from_arglist(_("ISO-8859-2 (Latin 2, East European)"),"ISO-8859-2",NULL));
-		main_v->props.encodings = g_list_append(main_v->props.encodings,array_from_arglist(_("ISO-8859-3 (Latin 3, South European)"),"ISO-8859-3",NULL));
-		main_v->props.encodings = g_list_append(main_v->props.encodings,array_from_arglist(_("ISO-8859-4 (Latin 4, North European)"),"ISO-8859-4",NULL));
-		main_v->props.encodings = g_list_append(main_v->props.encodings,array_from_arglist(_("ISO-8859-5 (Cyrillic)"),"ISO-8859-5",NULL));
-		main_v->props.encodings = g_list_append(main_v->props.encodings,array_from_arglist(_("ISO-8859-6 (Arabic)"),"ISO-8859-6",NULL));
-		main_v->props.encodings = g_list_append(main_v->props.encodings,array_from_arglist(_("ISO-8859-7 (Greek)"),"ISO-8859-7",NULL));
-		main_v->props.encodings = g_list_append(main_v->props.encodings,array_from_arglist(_("ISO-8859-8 (Hebrew)"),"ISO-8859-8",NULL));
-		main_v->props.encodings = g_list_append(main_v->props.encodings,array_from_arglist(_("ISO-8859-9 (Turkish)"),"ISO-8859-9",NULL));
-		main_v->props.encodings = g_list_append(main_v->props.encodings,array_from_arglist(_("ISO-8859-10 (Nordic)"),"ISO-8859-10",NULL));
-		main_v->props.encodings = g_list_append(main_v->props.encodings,array_from_arglist(_("ISO-8859-11 (Thai)"),"ISO-8859-11",NULL));
-		main_v->props.encodings = g_list_append(main_v->props.encodings,array_from_arglist(_("ISO-8859-13 (Latin 7)"),"ISO-8859-13",NULL));
-		main_v->props.encodings = g_list_append(main_v->props.encodings,array_from_arglist(_("ISO-8859-14 (Latin 8)"),"ISO-8859-14",NULL));
-		main_v->props.encodings = g_list_append(main_v->props.encodings,array_from_arglist(_("ISO-8859-15 (Latin 9, West European with EURO)"),"ISO-8859-15",NULL));
-		main_v->props.encodings = g_list_append(main_v->props.encodings,array_from_arglist(_("GB2312 (Chinese)"),"GB2312",NULL));
-		main_v->props.encodings = g_list_append(main_v->props.encodings,array_from_arglist(_("BIG5 (Traditional Chinese)"),"BIG5",NULL));
-		main_v->props.encodings = g_list_append(main_v->props.encodings,array_from_arglist(_("SJIS (Japanese)"),"SJIS",NULL));
-		main_v->props.encodings = g_list_append(main_v->props.encodings,array_from_arglist(_("KSC (Korean)"),"KSC",NULL));
-		main_v->props.encodings = g_list_append(main_v->props.encodings,array_from_arglist(_("KOI8-R (Russian)"),"KOI8-R",NULL));
-		main_v->props.encodings = g_list_append(main_v->props.encodings,array_from_arglist(_("EUCJP (Japanese)"),"EUCJP",NULL));
+		main_v->props.encodings = arraylist_load_defaults(main_v->props.encodings, PKGDATADIR"encodings.default", NULL);
 	}
 	if (main_v->props.outputbox==NULL) {
 		/* if the user does not have outputbox settings --> set them to defaults values */
@@ -568,36 +498,7 @@ void rcfile_parse_main(void)
 	}
 	if (main_v->props.filetypes == NULL) {
 		/* if the user does not have file-types --> set them to defaults values */
-		gchar **arr;
-		/* the default file types */
-		arr = array_from_arglist("php", ".php:.php4:.inc:.php3", " <>'\"/?$\t-{}[]{}\n;", PKGDATADIR"icon_php.png", NULL);
-		main_v->props.filetypes = g_list_append(main_v->props.filetypes, arr);
-		arr = array_from_arglist("html", ".html:.htm:.shtml:.shtm", "<> \n\"", PKGDATADIR"icon_html.png", NULL);
-		main_v->props.filetypes = g_list_append(main_v->props.filetypes, arr);
-		arr = array_from_arglist("javascript", ".js", "\n'\" ", "", NULL);
-		main_v->props.filetypes = g_list_append(main_v->props.filetypes, arr);
-		arr = array_from_arglist("xml", ".xml", "<> \n\"", PKGDATADIR"icon_xml.png", NULL);
-		main_v->props.filetypes = g_list_append(main_v->props.filetypes, arr);
-		arr = array_from_arglist("java", ".java:.jar:.class", "(){}'[]\n\" ", PKGDATADIR"icon_java.png", NULL);
-		main_v->props.filetypes = g_list_append(main_v->props.filetypes, arr);
-		arr = array_from_arglist("jsp", ".jsp", "(){}'[]\n\" ", PKGDATADIR"icon_java.png", NULL);
-		main_v->props.filetypes = g_list_append(main_v->props.filetypes, arr);
-		arr = array_from_arglist("sql", ".sql", "(){}'[]\n\" ", "", NULL);
-		main_v->props.filetypes = g_list_append(main_v->props.filetypes, arr);
-		arr = array_from_arglist("c", ".c:.h", "(){}'[]\n\" ", PKGDATADIR"icon_c.png", NULL);
-		main_v->props.filetypes = g_list_append(main_v->props.filetypes, arr);
-		arr = array_from_arglist("image", ".jpg:.png:.gif:.jpeg:.tif:.tiff:.xpm:.xcf", "", PKGDATADIR"icon_image.png", NULL);
-		main_v->props.filetypes = g_list_append(main_v->props.filetypes, arr);
-		arr = array_from_arglist("webimage", ".jpg:.png:.gif:.jpeg", "", PKGDATADIR"icon_image.png", NULL);
-		main_v->props.filetypes = g_list_append(main_v->props.filetypes, arr);
-		arr = array_from_arglist("stylesheet", ".css", "", "", NULL);
-		main_v->props.filetypes = g_list_append(main_v->props.filetypes, arr);
-		arr = array_from_arglist("objectfile", ".o:.class", "", "", NULL);
-		main_v->props.filetypes = g_list_append(main_v->props.filetypes, arr);
-		arr = array_from_arglist("python", ".py", "", "", NULL);
-		main_v->props.filetypes = g_list_append(main_v->props.filetypes, arr);
-		arr = array_from_arglist("perl", ".pl", "", "", NULL);
-		main_v->props.filetypes = g_list_append(main_v->props.filetypes, arr);
+		main_v->props.filetypes = arraylist_load_defaults(main_v->props.filetypes, PKGDATADIR"filetypes.default", NULL);
 	}
 	if (main_v->props.filefilters == NULL) {
 		/* if the user does not have file filters --> set them to defaults values */
@@ -620,6 +521,21 @@ static gint rcfile_save_main(void) {
 	return save_config_file(main_configlist, filename);
 }
 
+static void load_default_highlightingpatterns(gchar *name) {
+	arraylist_load_defaults(main_v->props.highlight_patterns,PKGDATADIR"highlighting.default",name);
+}
+
+static gboolean arraylist_test_identifier_exists(GList *arrlist, const gchar *name) {
+	GList *tmplist = g_list_first(arrlist);
+	while(tmplist) {
+		if (strcmp(name, ((gchar **)(tmplist->data))[0])==0) {
+			return TRUE;
+		}
+		tmplist = g_list_next(tmplist);
+	}
+	return FALSE;
+}
+
 void rcfile_parse_highlighting(void) {
 	gchar *filename;
 
@@ -627,18 +543,32 @@ void rcfile_parse_highlighting(void) {
 
 	highlighting_configlist = NULL;
 	init_prop_arraylist(&highlighting_configlist, &main_v->props.highlight_patterns, "patterns:");
-	init_prop_arraylist(&highlighting_configlist, &main_v->props.highlight_styles, "styles:");
-	
+
 	filename = g_strconcat(g_get_home_dir(), "/.bluefish/highlighting", NULL);
 	if (!parse_config_file(highlighting_configlist, filename)) {
 		/* init the highlighting in some way? */
-		hl_reset_to_default();
+		main_v->props.highlight_patterns = arraylist_load_defaults(main_v->props.highlight_patterns,PKGDATADIR"defaulthighlightingpatterns", NULL);
 		DEBUG_MSG("rcfile_parse_highlighting, about to save highlighting configlist\n");
 		save_config_file(highlighting_configlist, filename);
 		DEBUG_MSG("rcfile_parse_highlighting, done saving\n");
+	} else {
+		gchar *types[] = {"php", "html", "c", "java", "xml","cfml","python", NULL};
+		gint i = 0;
+		while (types[i]) {
+			DEBUG_MSG("rcfile_parse_highlighting, testing for type %s\n", types[i]);
+			if (!arraylist_test_identifier_exists(main_v->props.highlight_patterns,types[i])) {
+				DEBUG_MSG("rcfile_parse_highlighting, type %s not found, reloading from default\n", types[i]);
+				load_default_highlightingpatterns(types[i]);
+			}
+			i++;
+		}
+
 	}
 	g_free(filename);
 }
+
+
+
 static gint rcfile_save_highlighting(void) {
 	gint retval;
 	gchar *filename = g_strconcat(g_get_home_dir(), "/.bluefish/highlighting", NULL);
@@ -752,3 +682,4 @@ void rcfile_save_all(void) {
 	rcfile_save_highlighting();
 	rcfile_save_custom_menu();
 }
+

@@ -1021,7 +1021,7 @@ void doc_highlight_line(Tdocument * doc)
 	}
 	doc->need_highlighting = FALSE;
 }
-
+#ifdef HIGHLIGHTING_DEFAULTS_NOW_EXTERNAL
 void hl_reset_to_default()
 {
 	gchar **arr;
@@ -1146,7 +1146,7 @@ void hl_reset_to_default()
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns,array_from_arglist("python", "comment", "0", "#.*$", "", "2", "", "#AAAAAA", "", "1", "2",  NULL));
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns,array_from_arglist("python", "braces", "0", "[{()}\\[\\]]", "", "2", "", "#000000", "", "2", "0",  NULL));
 }
-
+#endif /* HIGHLIGHTING_DEFAULTS_NOW_EXTERNAL */
 GtkTextTagTable *highlight_return_tagtable() {
 	return highlight.tagtable;
 }
