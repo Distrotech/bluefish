@@ -232,7 +232,7 @@ a project file.
 <sect1 id="working-with-files">
 <title>Working with files</title>
 	<para>
-	Most of the file operations are accessible from the <guimenu>File</guimenu>. 
+	Most of the file operations are accessible from the <guimenu>File</guimenu> menu. 
 	Through it, a new file can be created, existing files opened, and opened files saved or renamed.</para>
 	<para>It is also possible to insert a file into another one, and to revert a modified file to its previously saved state.
 	
@@ -640,12 +640,13 @@ are supported.
 The file type of a file changes the behaviour of Bluefish. File types are recognised 
 by their extension, or by the beginning of the content of the file. The current
 document type is shown in the far right of the status bar. How these extensions
-and patterns can be changed is
+can be changed is
 described in <xref linkend="bluefish-preferences" />.
 </para>
 <para>
 If the type of a file is not properly detected, you can change the type using the 
 <menuchoice><guimenu>Document</guimenu><guisubmenu>Document Type</guisubmenu></menuchoice> menu.
+
 </para>
 <sect3 id="syntax-highlighting">
 <title>Syntax highlighting</title>
@@ -662,9 +663,10 @@ If the type of a file is not properly detected, you can change the type using th
 	<para>The syntax highlighting for the total document can be refreshed
 	using the <menuchoice><shortcut><keycap>F5</keycap></shortcut><guimenu>Document</guimenu><guimenuitem>Update Highlighting</guimenuitem></menuchoice> menu. 
 	The syntax highlighting can be disabled in the preferences under 
-	<emphasis>Editor</emphasis>.
-	
+	<emphasis>Editor</emphasis>.	
 	</para>
+	<para>For more information about adding or modifying syntax highlighting for existent or new languages, see <xref linkend="changing-highlighting-patterns" />.
+</para>
 </sect3>
 </sect2>
 <sect2 id="more-files">
@@ -716,7 +718,8 @@ There are many different standards for character encoding of text files. Most we
 standard, which describes only 127 characters, and is supported by every text editor in the world. 
 The most common standard nowadays is UTF-8, which 
 describes thousands of characters, and is backwards compatible with ASCII. 
-Internally, Bluefish will always work with UTF-8. When opening
+</para>
+<para>Internally, Bluefish will always work with UTF-8. When opening
 a file, Bluefish has to detect the correct encoding for the file. For HTML files the encoding should
 be present in a &lt;meta name=&quot;encoding&quot;&gt; tag. Bluefish will always use this tag if it is 
 available in the file. If this tag has an encoding that is not present in the Bluefish config file, 
@@ -914,14 +917,17 @@ environment to make Gnome and GTK programs detect this encoding.
 				</screenshot>
 			</figure>
 The
-  projects are a sort of 'saved state' of Bluefish. All files open when the
+  projects are a sort of <emphasis>saved state</emphasis> of Bluefish. All files open when the
   project is saved, are automatically opened the next time you open the
-  project. Also the recently used files in that project are shown in the
-  recent menu. Furthermore, a basedir can be set, so the file browser in the
+  project.</para>
+  <para> Also the recently used files in that project are shown in the
+  recent menu.</para>
+  <para>Furthermore, a basedir can be set, so the file browser in the
   left panel will only show the files in the basedir and its subdirectories.
   If Bluefish is installed with gnome-vfs support the basedir might be remote,
   for example sftp://someserver/somedir or
-  smb://user:password@server/someshare/.</para> <para>If the webdir is entered
+  smb://user:password@server/someshare/.</para>
+  <para>If the webdir is entered
   in the project settings, Bluefish will launch the browser to the appropriate
   URL. If your basedir for example is /var/www/ and your webdir
   http://localhost/ Bluefish will use this information to launch the browser
