@@ -1871,13 +1871,11 @@ static void files_advanced_win(Tfiles_advanced *tfs) {
 
 	/* filename part */
 	/* curdir should get a value */
-	{
-		tfs->basedir = entry_with_text(curdir, 255);
-		bf_mnemonic_label_tad_with_alignment(_("Base_dir:"), tfs->basedir, 0, 0.5, table, 1, 2, 2, 3);
-		gtk_table_attach_defaults(GTK_TABLE(table), tfs->basedir, 2, 4, 2, 3);
-	        GtkWidget *but = bf_generic_button_with_image(_("_Browse..."), 112, G_CALLBACK(files_advanced_win_select_basedir_lcb), tfs);
-		gtk_table_attach(GTK_TABLE(table), but, 4, 5, 2, 3, GTK_SHRINK, GTK_SHRINK, 0, 0);
-	}
+	tfs->basedir = entry_with_text(curdir, 255);
+	bf_mnemonic_label_tad_with_alignment(_("Base_dir:"), tfs->basedir, 0, 0.5, table, 1, 2, 2, 3);
+	gtk_table_attach_defaults(GTK_TABLE(table), tfs->basedir, 2, 4, 2, 3);
+	gtk_table_attach(GTK_TABLE(table), bf_generic_button_with_image(_("_Browse..."), 112, G_CALLBACK(files_advanced_win_select_basedir_lcb), tfs), 4, 5, 2, 3, GTK_SHRINK, GTK_SHRINK, 0, 0);
+
 	g_free(curdir);
 	
 	list = g_list_append(NULL, "*.php");
@@ -1901,13 +1899,13 @@ static void files_advanced_win(Tfiles_advanced *tfs) {
 	gtk_table_attach_defaults(GTK_TABLE(table), tfs->recursive, 2, 3, 4, 5);	
 	
 	/* content */
-	
-	GtkWidget * label = gtk_label_new(NULL);
-	gchar *labeltext = "<b>Contains</b>";
-	gtk_label_set_markup(GTK_LABEL(label), labeltext);
-	gtk_misc_set_alignment(GTK_MISC(label), 0, 0.5);
 	gtk_table_set_row_spacing(GTK_TABLE(table), 6, 18);
-	gtk_table_attach_defaults(GTK_TABLE(table), label, 0, 3, 5, 6);
+	{
+		GtkWidget * label = gtk_label_new(NULL);
+		gtk_label_set_markup(GTK_LABEL(label), "<b>Contains</b>");
+		gtk_misc_set_alignment(GTK_MISC(label), 0, 0.5);
+		gtk_table_attach_defaults(GTK_TABLE(table), label, 0, 3, 5, 6);
+	}
 	tfs->grep_pattern = entry_with_text(NULL, 255);
 	bf_mnemonic_label_tad_with_alignment(_("Pa_ttern:"), tfs->grep_pattern, 0, 0.5, table, 1, 2, 6, 7);
 	gtk_table_attach_defaults(GTK_TABLE(table), tfs->grep_pattern, 2, 4, 6, 7);
