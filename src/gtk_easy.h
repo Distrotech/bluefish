@@ -29,17 +29,17 @@ typedef enum { none, file, font } Textra_but;
 void flush_queue(void);
 
 /* Single-button dialogs*/
-void single_button_dialog_backend(gchar * primary, gchar * secondary, gchar * icon);
-void error_dialog(gchar * primary, gchar * secondary);
-void warning_dialog(gchar * primary, gchar * secondary);
-void info_dialog(gchar * primary, gchar * secondary);
+void single_button_dialog_backend(GtkWidget *win,gchar * primary, gchar * secondary, gchar * icon);
+void error_dialog(GtkWidget *win,gchar * primary, gchar * secondary);
+void warning_dialog(GtkWidget *win,gchar * primary, gchar * secondary);
+void info_dialog(GtkWidget *win,gchar * primary, gchar * secondary);
 /* Multi-button dialogs */
-gint multi_error_dialog(gchar *primary, gchar *secondary, gint defval, gint cancelval, gchar **buttons);
-gint multi_warning_dialog(gchar *primary, gchar *secondary, gint defval, gint cancelval, gchar **buttons);
-gint multi_query_dialog(gchar *primary, gchar *secondary, gint defval, gint cancelval, gchar **buttons);
+gint multi_error_dialog(GtkWidget *win,gchar *primary, gchar *secondary, gint defval, gint cancelval, gchar **buttons);
+gint multi_warning_dialog(GtkWidget *win,gchar *primary, gchar *secondary, gint defval, gint cancelval, gchar **buttons);
+gint multi_query_dialog(GtkWidget *win,gchar *primary, gchar *secondary, gint defval, gint cancelval, gchar **buttons);
 /* Progress bar */
 void progress_set(gpointer gp, guint value);
-gpointer progress_popup(gchar *title, guint maxvalue);
+gpointer progress_popup(GtkWidget *win,gchar *title, guint maxvalue);
 void progress_destroy(gpointer gp);
 
 void setup_toggle_item(GtkItemFactory * ifactory, gchar * path, gint state);

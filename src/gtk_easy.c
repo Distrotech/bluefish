@@ -858,9 +858,10 @@ static void hig_dialog_backend (GtkDialog *dialog, gchar *primary, gchar *second
 
 /**
  * multi_button_dialog_backend:
- * @primary #gchar* containing primary dialog message.
- * @secondary #gchar* containing more explanatory message. Set to NULL if unused.
- * @icon #gchar* Your stock GTK image, i.e. GTK_STOCK_DIALOG_WARNING.
+ * @win: #GtkWidget* with the parent window for this dialog
+ * @primary: #gchar* containing primary dialog message.
+ * @secondary: #gchar* containing more explanatory message. Set to NULL if unused.
+ * @icon: #gchar* Your stock GTK image, i.e. GTK_STOCK_DIALOG_WARNING.
  * @defval: #gint default index when user press ENTER.
  * @cancelval: #gint: default index when user press ESCAPE. Should be something non-fatal. If this value is -1, the escape-button will be disabled.
  * @buttons: #gchar** array of buttons. NULL-terminated!! Must contain at least one button.
@@ -869,14 +870,13 @@ static void hig_dialog_backend (GtkDialog *dialog, gchar *primary, gchar *second
  *
  * Return value: #gint the index num of the button label which was clicked	so 0 for the first, 1 for the 2nd etc.
  */
-gint multi_button_dialog_backend(gchar *primary, gchar *secondary, gchar *icon, gint defval, gint cancelval, gchar **buttons)
-{
+gint multi_button_dialog_backend(GtkWidget *win, gchar *primary, gchar *secondary, gchar *icon, gint defval, gint cancelval, gchar **buttons) {
 	GtkWidget *dialog;
 	int i, retval;
 
 	DEBUG_MSG ("multi_button_dialog_backend: Starting. Creating dialog w/button '%s', ID=0\n", *buttons);
 	dialog = gtk_dialog_new_with_buttons (NULL, /* Note that no title is being set. */
-												GTK_WINDOW (main_v->main_window),
+												GTK_WINDOW(win),
 												GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
 												*buttons, 0,
 												NULL);
@@ -908,10 +908,9 @@ gint multi_button_dialog_backend(gchar *primary, gchar *secondary, gchar *icon, 
  * 
  * Create and display a single-button message-dialog - HiG-style.
  **/
-void single_button_dialog_backend(gchar * primary, gchar * secondary, gchar * icon)
-{
+void single_button_dialog_backend(GtkWidget *win,gchar * primary, gchar * secondary, gchar * icon) {
 	gchar *buttons[] = {GTK_STOCK_OK, NULL};
-	multi_button_dialog_backend(primary, secondary, icon, 0, 0, buttons);
+	multi_button_dialog_backend(win,primary, secondary, icon, 0, 0, buttons);
 }
 
 /**
@@ -923,9 +922,8 @@ void single_button_dialog_backend(gchar * primary, gchar * secondary, gchar * ic
  *
  * Return value: void
  */
-void error_dialog(gchar * primary, gchar * secondary)
-{
-	single_button_dialog_backend(primary, secondary, GTK_STOCK_DIALOG_ERROR);
+void error_dialog(GtkWidget *win,gchar * primary, gchar * secondary) {
+	single_button_dialog_backend(win,primary, secondary, GTK_STOCK_DIALOG_ERROR);
 }
 
 /**
@@ -937,9 +935,8 @@ void error_dialog(gchar * primary, gchar * secondary)
  *
  * Return value: void
  */
-void info_dialog(gchar * primary, gchar * secondary)
-{
-	single_button_dialog_backend(primary, secondary, GTK_STOCK_DIALOG_INFO);
+void info_dialog(GtkWidget *win,gchar * primary, gchar * secondary) {
+	single_button_dialog_backend(win,primary, secondary, GTK_STOCK_DIALOG_INFO);
 }
 
 /**
@@ -951,9 +948,8 @@ void info_dialog(gchar * primary, gchar * secondary)
  *
  * Return value: void
  */
-void warning_dialog(gchar * primary, gchar * secondary)
-{
-	single_button_dialog_backend(primary, secondary, GTK_STOCK_DIALOG_WARNING);
+void warning_dialog(GtkWidget *win,gchar * primary, gchar * secondary) {
+	single_button_dialog_backend(win,primary, secondary, GTK_STOCK_DIALOG_WARNING);
 }
 
 /* multi_button_dialog and multi_stockbutton_dialog was here */
@@ -970,8 +966,8 @@ void warning_dialog(gchar * primary, gchar * secondary)
  *
  * Return value: #gint the index num of the button label which was clicked	so 0 for the first, 1 for the 2nd etc.
  */
-gint multi_error_dialog(gchar *primary, gchar *secondary, gint defval, gint cancelval, gchar **buttons) {
-	return multi_button_dialog_backend(primary, secondary, GTK_STOCK_DIALOG_ERROR, defval, cancelval, buttons);
+gint multi_error_dialog(GtkWidget *win,gchar *primary, gchar *secondary, gint defval, gint cancelval, gchar **buttons) {
+	return multi_button_dialog_backend(win,primary, secondary, GTK_STOCK_DIALOG_ERROR, defval, cancelval, buttons);
 }
 
 /**
@@ -986,8 +982,8 @@ gint multi_error_dialog(gchar *primary, gchar *secondary, gint defval, gint canc
  *
  * Return value: #gint the index num of the button label which was clicked	so 0 for the first, 1 for the 2nd etc.
  */
-gint multi_warning_dialog(gchar *primary, gchar *secondary, gint defval, gint cancelval, gchar **buttons) {
-	return multi_button_dialog_backend(primary, secondary, GTK_STOCK_DIALOG_WARNING, defval, cancelval, buttons);
+gint multi_warning_dialog(GtkWidget *win,gchar *primary, gchar *secondary, gint defval, gint cancelval, gchar **buttons) {
+	return multi_button_dialog_backend(win,primary, secondary, GTK_STOCK_DIALOG_WARNING, defval, cancelval, buttons);
 }
  
 /**
@@ -1002,8 +998,8 @@ gint multi_warning_dialog(gchar *primary, gchar *secondary, gint defval, gint ca
  *
  * Return value: #gint the index num of the button label which was clicked	so 0 for the first, 1 for the 2nd etc.
  */
-gint multi_query_dialog(gchar *primary, gchar *secondary, gint defval, gint cancelval, gchar **buttons) {
-	return multi_button_dialog_backend(primary, secondary, GTK_STOCK_DIALOG_QUESTION, defval, cancelval, buttons);
+gint multi_query_dialog(GtkWidget *win,gchar *primary, gchar *secondary, gint defval, gint cancelval, gchar **buttons) {
+	return multi_button_dialog_backend(win,primary, secondary, GTK_STOCK_DIALOG_QUESTION, defval, cancelval, buttons);
 }
 
 /************************************************************************/
@@ -1081,8 +1077,7 @@ void progress_set(gpointer gp, guint value)
  *
  * Returns: #gpointer camouflaged pointer to struct Tprogress, a data-structure passed to progress_update.
  **/
-gpointer progress_popup(gchar *title, guint maxvalue)
-{
+gpointer progress_popup(GtkWidget *win,gchar *title, guint maxvalue) {
 	Tprogress *p;
 	
 	p = g_malloc (sizeof (Tprogress));
@@ -1101,7 +1096,7 @@ gpointer progress_popup(gchar *title, guint maxvalue)
 	p->owner = gtk_dialog_new();
 
 	gtk_window_set_modal (GTK_WINDOW (p->owner), TRUE);
-	gtk_window_set_transient_for (GTK_WINDOW (p->owner), GTK_WINDOW (main_v->main_window));
+	gtk_window_set_transient_for (GTK_WINDOW (p->owner), GTK_WINDOW(win));
 
 
 	/* Label, if applicable. Append pretty icon! */
@@ -1128,13 +1123,14 @@ static void file_but_clicked_lcb(GtkWidget * widget, GtkWidget * which_entry)
 	tmpstring = return_file(NULL);
 	DEBUG_MSG("file_but_clicked_lcb, return_file returned %s\n",tmpstring);
 	if (tmpstring != NULL) {
-		if (main_v->current_document->filename != NULL) {
+	/* I don't know how to get this function to create a relative link again.. */
+/*		if (main_v->current_document->filename != NULL) {
 			tmp2string = create_relative_link_to(main_v->current_document->filename, tmpstring);
 		} else {
 			tmp2string = g_path_get_basename(tmpstring);
 		}
-		g_free(tmpstring);
-		gtk_entry_set_text(GTK_ENTRY(which_entry), tmp2string);
+		g_free(tmpstring);*/
+		gtk_entry_set_text(GTK_ENTRY(which_entry), tmpstring);
 /*	perhaps I break something by commenting-out this call, but otherwise the dialog is sometimes started
 	again after the signal is emmitted
 		gtk_signal_emit_by_name(GTK_OBJECT(which_entry), "activate"); */
@@ -1313,10 +1309,9 @@ static void fileselectwin(gchar *setfile, Tfileselect *fileselect, gchar *title)
 	DEBUG_MSG("gtk_widget_fet_parent returns %p\n",gtk_widget_get_parent(fileselect->fs));
 	{
 		GtkWidget *parent = gtk_widget_get_parent(fileselect->fs);
-		if (!parent) {
-			parent = main_v->main_window;
+		if (parent) {
+			gtk_window_set_transient_for(GTK_WINDOW(fileselect->fs), GTK_WINDOW(parent));
 		}
-		gtk_window_set_transient_for(GTK_WINDOW(fileselect->fs), GTK_WINDOW(parent));
 	}
 }
 /**

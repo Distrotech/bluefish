@@ -22,12 +22,12 @@
 void gui_toggle_autoindent_cb(gpointer callback_data,guint action,GtkWidget *widget);
 void gui_toggle_hidewidget_cb(gpointer callback_data,guint action,GtkWidget *widget);
 
-void notebook_hide(void);
-void notebook_show(void);
-void notebook_changed(gint newpage);
+void notebook_hide(Tbfwin *bfwin);
+void notebook_show(Tbfwin *bfwin);
+void notebook_changed(Tbfwin *bfwin,gint newpage);
 
-void gui_notebook_switch(gpointer callback_data,guint action,GtkWidget *widget);
-void  gui_apply_settings();
+void gui_notebook_switch(Tbfwin *bfwin,guint action,GtkWidget *widget);
+void gui_apply_settings(Tbfwin *bfwin);
 void gui_set_undo_redo_widgets(gboolean undo, gboolean redo);
 void gui_set_widgets(gboolean undo, gboolean redo, gboolean wrap, gboolean highlight, Tfiletype *hl, gchar *encoding, gboolean linenumbers);
 
@@ -36,9 +36,9 @@ void gui_notebook_unbind_signals();
 void gui_create_main();
 void gui_show_main();
 void statusbar_message(gchar *message, gint time);
-gboolean switch_to_document_by_index(gint index);
-gboolean switch_to_document_by_pointer(Tdocument *document);
-gboolean switch_to_document_by_filename(gchar *filename);
+gboolean switch_to_document_by_index(Tbfwin *bfwin,gint index);
+gboolean switch_to_document_by_pointer(Tbfwin *bfwin,Tdocument *document);
+gboolean switch_to_document_by_filename(Tbfwin *bfwin,gchar *filename);
 void go_to_line_win_cb(GtkWidget * widget, gpointer data);
 void go_to_line_from_selection_cb(GtkWidget * widget, gpointer data);
 

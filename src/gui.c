@@ -75,10 +75,9 @@ static Tsplashscreen splashscreen;
  *
  * Return value: void
  **/
-void notebook_hide()
-{
-	gtk_widget_hide (main_v->notebook);
-	gtk_widget_show (main_v->notebook_fake);
+void notebook_hide(Tbfwin *bfwin) {
+	gtk_widget_hide (bfwin->notebook);
+	gtk_widget_show (bfwin->notebook_fake);
 }
 
 /**
@@ -88,88 +87,87 @@ void notebook_hide()
  *
  * Return value: void
  **/
-void notebook_show()
-{
-	gtk_widget_hide (main_v->notebook_fake);
-	gtk_widget_show (main_v->notebook);	
+void notebook_show(Tbfwin *bfwin) {
+	gtk_widget_hide (bfwin->notebook_fake);
+	gtk_widget_show (bfwin->notebook);	
 }
 
-void notebook_changed(gint newpage) {
+void notebook_changed(Tbfwin *bfwin, gint newpage) {
 	gint cur = newpage;
 	gint doclistlen;
 	DEBUG_MSG("notebook_changed, doclistlen=%d, newpage=%d, notebook_curpage=%d, last_notebook_page=%d, curdoc=%p\n"
-			,g_list_length(main_v->documentlist)
+			,g_list_length(bfwin->documentlist)
 			,newpage
-			,gtk_notebook_get_current_page(GTK_NOTEBOOK(main_v->notebook))
-			,main_v->last_notebook_page
-			,main_v->current_document
+			,gtk_notebook_get_current_page(GTK_NOTEBOOK(bfwin->notebook))
+			,bfwin->last_notebook_page
+			,bfwin->current_document
 			);
 	if (newpage == -1) {
 		/* this returns -1 if there is no current page */
-		cur = gtk_notebook_get_current_page(GTK_NOTEBOOK(main_v->notebook));
+		cur = gtk_notebook_get_current_page(GTK_NOTEBOOK(bfwin->notebook));
 	}
-	if ((main_v->last_notebook_page == cur) 
-		&& (main_v->current_document != NULL)
-		&& (main_v->current_document == g_list_nth_data(main_v->documentlist, cur))) {
-		DEBUG_MSG("notebook_changed, NOT CHANGED cur=%d, documentlist[cur]==current_document (=%p), RETURNING\n",cur,main_v->current_document);
+	if ((bfwin->last_notebook_page == cur) 
+		&& (bfwin->current_document != NULL)
+		&& (bfwin->current_document == g_list_nth_data(bfwin->documentlist, cur))) {
+		DEBUG_MSG("notebook_changed, NOT CHANGED cur=%d, documentlist[cur]==current_document (=%p), RETURNING\n",cur,bfwin->current_document);
 		return;
 	}
-	doclistlen = g_list_length(main_v->documentlist);
+	doclistlen = g_list_length(bfwin->documentlist);
 	if (cur == -1) {
 		if (doclistlen > 0) {
 			DEBUG_MSG("notebook_changed, WEIRD 1 cur=%d, but doclistlen=%d RETURNING\n",cur,doclistlen);
-			main_v->last_notebook_page = -2;
+			bfwin->last_notebook_page = -2;
 			return;
 		}
 	}
 	if (doclistlen == 0) {
 		DEBUG_MSG("notebook_changed, doclistlen=%d, before doc_new()!\n",doclistlen);
-		main_v->current_document = doc_new(TRUE);
-		main_v->last_notebook_page = 1;
+		bfwin->current_document = doc_new(bfwin,TRUE);
+		bfwin->last_notebook_page = 1;
 		DEBUG_MSG("notebook_changed, after doc_new(), returning\n");
 		return;
 	}
 	/* if the documentlist has length 1, cur should not be larger then 0, if 2, cur should not be larger then 1, etc.*/
 	if (cur >= doclistlen) {
 		DEBUG_MSG("notebook_changed, DOCALREADYCLOSED, cur=%d, doclistlen=%d, RETURNING\n", cur, doclistlen);
-		main_v->last_notebook_page = -2;
+		bfwin->last_notebook_page = -2;
 		return;
 	}
-	main_v->current_document = g_list_nth_data(main_v->documentlist, cur);
-	if (main_v->current_document == NULL) {
+	bfwin->current_document = g_list_nth_data(bfwin->documentlist, cur);
+	if (bfwin->current_document == NULL) {
 		DEBUG_MSG("notebook_changed, WEIRD 2, doclist[%d] == NULL, RETURNING\n",cur);
 		return;
 	}
-	DEBUG_MSG("notebook_changed, current_document=%p\n",main_v->current_document);
-	main_v->last_notebook_page = cur;
+	DEBUG_MSG("notebook_changed, current_document=%p\n",bfwin->current_document);
+	bfwin->last_notebook_page = cur;
 	/* now we flush the queue first, so that we don't call doc_activate 
 	on _this_ document if the user has another close click in the queue */
 	flush_queue();
 
-	doc_activate(main_v->current_document);
+	doc_activate(bfwin->current_document);
 }
 
-gboolean switch_to_document_by_index(gint index) {
+gboolean switch_to_document_by_index(Tbfwin *bfwin,gint index) {
 	if (index >= 0) {
-		gtk_notebook_set_page(GTK_NOTEBOOK(main_v->notebook), (index));
+		gtk_notebook_set_page(GTK_NOTEBOOK(bfwin->notebook), (index));
 /*		notebook_changed();*/
 		return TRUE;
 	}
 	return FALSE;
 }
 
-gboolean switch_to_document_by_pointer(Tdocument *document) {
+gboolean switch_to_document_by_pointer(Tbfwin *bfwin,Tdocument *document) {
 	gint index;
 
-	index = g_list_index(main_v->documentlist, document);
-	return switch_to_document_by_index(index);
+	index = g_list_index(bfwin->documentlist, document);
+	return switch_to_document_by_index(bfwin,index);
 }
 
-gboolean switch_to_document_by_filename(gchar *filename) {
+gboolean switch_to_document_by_filename(Tbfwin *bfwin,gchar *filename) {
 	gint index;
 
-	index = documentlist_return_index_from_filename(filename);
-	return switch_to_document_by_index(index);
+	index = documentlist_return_index_from_filename(bfwin,filename);
+	return switch_to_document_by_index(bfwin,index);
 }
 
 
@@ -178,11 +176,11 @@ static void notebook_switch_page_lcb(GtkWidget *notebook,GtkNotebookPage *page,g
 	notebook_changed(page_num);
 }
 
-void gui_notebook_switch(gpointer callback_data,guint action,GtkWidget *widget) {
-	if (action) {
-		gtk_notebook_next_page(GTK_NOTEBOOK(main_v->notebook));
+void gui_notebook_switch(Tbfwin *bfwin,guint action,GtkWidget *widget) {
+	if (action == 2) {
+		gtk_notebook_next_page(GTK_NOTEBOOK(bfwin->notebook));
 	} else {
-	gtk_notebook_prev_page(GTK_NOTEBOOK(main_v->notebook));
+		gtk_notebook_prev_page(GTK_NOTEBOOK(bfwin->notebook));
 	}
 }
 
@@ -195,7 +193,7 @@ static void left_panel_notify_position_lcb(GObject *object,GParamSpec *pspec,gpo
 	}
 }
 
-GtkWidget *left_panel_build() {
+GtkWidget *left_panel_build(Tbfwin *bfwin) {
 	GtkWidget *fileb;
 	GtkWidget *left_notebook = gtk_notebook_new();
 	GtkWidget *fref;
@@ -205,7 +203,7 @@ GtkWidget *left_panel_build() {
 	gtk_notebook_set_tab_hborder(GTK_NOTEBOOK(left_notebook), 0);
 	gtk_notebook_set_tab_vborder(GTK_NOTEBOOK(left_notebook), 0);
 	gtk_notebook_popup_enable(GTK_NOTEBOOK(left_notebook));
-	fileb = filebrowser_init();
+	fileb = filebrowser_init(bfwin);
 	fref = fref_init();
 	gtk_notebook_append_page(GTK_NOTEBOOK(left_notebook),fileb,new_pixmap(105));
 	gtk_notebook_append_page(GTK_NOTEBOOK(left_notebook),fref,new_pixmap(106));
@@ -214,39 +212,39 @@ GtkWidget *left_panel_build() {
 	return left_notebook;
 }
 
-void left_panel_show_hide_toggle(gboolean first_time, gboolean show) {
+void left_panel_show_hide_toggle(Tbfwin *bfwin,gboolean first_time, gboolean show) {
 	if (!first_time) {
-		gtk_widget_ref(main_v->notebook_box);
+		gtk_widget_ref(bfwin->notebook_box);
 		if (show) {
-			gtk_container_remove(GTK_CONTAINER(main_v->middlebox), main_v->notebook_box);
+			gtk_container_remove(GTK_CONTAINER(bfwin->middlebox), bfwin->notebook_box);
 		} else {
-			gtk_container_remove(GTK_CONTAINER(main_v->hpane), main_v->notebook_box);
-			gtk_widget_destroy(main_v->hpane);
+			gtk_container_remove(GTK_CONTAINER(bfwin->hpane), bfwin->notebook_box);
+			gtk_widget_destroy(bfwin->hpane);
 			filebrowser_cleanup();
 			fref_cleanup();
 		}
 	}
 	if (show) {
-		main_v->hpane = gtk_hpaned_new();
-		gtk_paned_set_position(GTK_PANED(main_v->hpane), main_v->props.left_panel_width);
-		g_signal_connect(G_OBJECT(main_v->hpane),"notify::position",G_CALLBACK(left_panel_notify_position_lcb), NULL);
-		hidewidgets.leftpanel_notebook = left_panel_build();
-		gtk_paned_add1(GTK_PANED(main_v->hpane), hidewidgets.leftpanel_notebook);
-		gtk_paned_add2(GTK_PANED(main_v->hpane), main_v->notebook_box);
-		gtk_box_pack_start(GTK_BOX(main_v->middlebox), main_v->hpane, TRUE, TRUE, 0);
-		gtk_widget_show(main_v->hpane);
+		bfwin->hpane = gtk_hpaned_new();
+		gtk_paned_set_position(GTK_PANED(bfwin->hpane), main_v->props.left_panel_width);
+		g_signal_connect(G_OBJECT(bfwin->hpane),"notify::position",G_CALLBACK(left_panel_notify_position_lcb), NULL);
+		bfwin->leftpanel_notebook = left_panel_build(bfwin);
+		gtk_paned_add1(GTK_PANED(bfwin->hpane), bfwin->leftpanel_notebook);
+		gtk_paned_add2(GTK_PANED(bfwin->hpane), bfwin->notebook_box);
+		gtk_box_pack_start(GTK_BOX(bfwin->middlebox), bfwin->hpane, TRUE, TRUE, 0);
+		gtk_widget_show(bfwin->hpane);
 	} else {
-		main_v->hpane = NULL;
-		gtk_box_pack_start(GTK_BOX(main_v->middlebox), main_v->notebook_box, TRUE, TRUE, 0);
+		bfwin->hpane = NULL;
+		gtk_box_pack_start(GTK_BOX(bfwin->middlebox), bfwin->notebook_box, TRUE, TRUE, 0);
 	}
 	if (!first_time) {
-		gtk_widget_unref(main_v->notebook_box);
+		gtk_widget_unref(bfwin->notebook_box);
 	}
 }
 
 void  gui_apply_settings() {
-	gtk_notebook_set_tab_pos(GTK_NOTEBOOK(hidewidgets.leftpanel_notebook),main_v->props.leftpanel_tabposition);
-	gtk_notebook_set_tab_pos(GTK_NOTEBOOK(main_v->notebook),main_v->props.document_tabposition);
+	gtk_notebook_set_tab_pos(GTK_NOTEBOOK(bfwin->leftpanel_notebook),main_v->props.leftpanel_tabposition);
+	gtk_notebook_set_tab_pos(GTK_NOTEBOOK(bfwin->notebook),main_v->props.document_tabposition);
 }
 
 typedef struct {
@@ -540,8 +538,8 @@ void make_html_toolbar(Tbfwin *bfwin) {
 }
 
 static void doc_indent_lcb(GtkWidget *wid,gpointer data) {
-	if (main_v->current_document) {
-		doc_indent_selection(main_v->current_document, (GPOINTER_TO_INT(data) == 1));
+	if (bfwin->current_document) {
+		doc_indent_selection(bfwin->current_document, (GPOINTER_TO_INT(data) == 1));
 	}
 }
 
@@ -626,8 +624,8 @@ void gui_notebook_bind_signals(Tbfwin *bfwin) {
 }
 
 void gui_notebook_unbind_signals(Tbfwin *bfwin) {
-if (main_v->notebook_switch_signal != 0) {
-		g_signal_handler_disconnect(G_OBJECT(bfwin->notebook),main_v->notebook_switch_signal);
+if (bfwin->notebook_switch_signal != 0) {
+		g_signal_handler_disconnect(G_OBJECT(bfwin->notebook),bfwin->notebook_switch_signal);
 		bfwin->notebook_switch_signal = 0;
 	}
 }
