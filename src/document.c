@@ -1080,7 +1080,7 @@ gboolean doc_file_to_textbox(Tdocument * doc, gchar * filename, gboolean enable_
 		DEBUG_MSG("file_to_textbox, cannot open file %s\n", filename);
 		errmessage =
 			g_strconcat(_("Could not open file:\n"), filename, NULL);
-		warning_dialog(errmessage, NULL);	/* 7 */
+		warning_dialog(BFWIN(doc->bfwin)->main_window,errmessage, NULL);	/* 7 */
 		g_free(errmessage);
 		if (!enable_undo) {
 			doc_bind_signals(doc);
@@ -1223,7 +1223,7 @@ gboolean doc_file_to_textbox(Tdocument * doc, gchar * filename, gboolean enable_
 								}
 							}
 							if (!newbuf) {
-								error_dialog(_("Cannot display file, unknown characters found."), NULL);
+								error_dialog(BFWIN(doc->bfwin)->main_window,_("Cannot display file, unknown characters found."), NULL);
 							}
 						} else {
 							DEBUG_MSG("doc_file_to_textbox, file is in %s encoding\n", main_v->props.newfile_default_encoding);
@@ -1614,7 +1614,7 @@ gint doc_textbox_to_file(Tdocument * doc, gchar * filename) {
 			gchar *options[] = {N_("Abort save"), N_("Continue save"), NULL};
 			gint retval;
 			gchar *tmpstr = g_strdup_printf(_("A backupfile for %s could not be created. If you continue, this file will be overwritten."), filename);
-			retval = multi_warning_dialog(_("File backup failure"), tmpstr, 1, 0, options);
+			retval = multi_warning_dialog(BFWIN(doc->bfwin)->main_window,_("File backup failure"), tmpstr, 1, 0, options);
 			g_free(tmpstr);
 			if (retval == 0) {
 				DEBUG_MSG("doc_textbox_to_file, backup failure, user aborted!\n");
@@ -1710,7 +1710,7 @@ void doc_destroy(Tdocument * doc, gboolean delay_activation) {
 	DEBUG_MSG("doc_destroy, (doc=%p) about to bind notebook signals...\n",doc);
 	gui_notebook_bind_signals();
 	if (!delay_activation) {
-		notebook_changed(-1);
+		notebook_changed(BFWIN(doc->bfwin),-1);
 	}
 	DEBUG_MSG("doc_destroy, (doc=%p) after calling notebook_changed()\n",doc);
 	/* now we really start to destroy the document */
@@ -1737,6 +1737,7 @@ void doc_destroy(Tdocument * doc, gboolean delay_activation) {
 
 /**
  * ask_new_filename:
+ * @bfwin: #Tbfwin* mainly used to set the dialog transient
  * @oldfilename: #gchar* with the old filename
  * @is_move: #gboolean if the title should be move or save as
  *
@@ -1749,7 +1750,7 @@ void doc_destroy(Tdocument * doc, gboolean delay_activation) {
  *
  * Return value: gchar* with newly allocated string, or NULL on failure or abort
  **/
-gchar *ask_new_filename(gchar *oldfilename, gint is_move) {
+gchar *ask_new_filename(Tbfwin *bfwin,gchar *oldfilename, gint is_move) {
 	Tdocument *exdoc;
 	GList *alldocs;
 	gchar *newfilename = return_file_w_title(oldfilename,
@@ -1767,7 +1768,7 @@ gchar *ask_new_filename(gchar *oldfilename, gint is_move) {
 		gint retval;
 		gchar *options[] = {N_("Cancel"), N_("Overwrite"), NULL};
 		tmpstr = g_strdup_printf(_("File %s exists and is opened, overwrite?"), newfilename);
-		retval = multi_warning_dialog(tmpstr, _("The file you have selected is being edited in Bluefish."), 1, 0, options);
+		retval = multi_warning_dialog(bfwin->main_window,tmpstr, _("The file you have selected is being edited in Bluefish."), 1, 0, options);
 		g_free(tmpstr);
 		if (retval == 0) {
 			g_free(newfilename);
@@ -1790,7 +1791,7 @@ gchar *ask_new_filename(gchar *oldfilename, gint is_move) {
 			gint retval;
 			gchar *options[] = {N_("Cancel"), N_("Overwrite"), NULL};
 			tmpstr = g_strdup_printf(_("File %s exists, overwrite?"), newfilename);
-			retval = multi_warning_dialog(tmpstr, _("The file you have selected exists."), 1, 0, options);
+			retval = multi_warning_dialog(bfwin->main_window,tmpstr, _("The file you have selected exists."), 1, 0, options);
 			g_free(tmpstr);
 			if (retval == 0) {
 				g_free(newfilename);
@@ -1838,7 +1839,7 @@ gint doc_save(Tdocument * doc, gint do_save_as, gboolean do_move) {
 	if (do_save_as) {
 		gchar *newfilename = NULL;
 		statusbar_message(_("Save as..."), 1);
-		newfilename = ask_new_filename(doc->filename, do_move);
+		newfilename = ask_new_filename(BFWIN(doc->bfwin), doc->filename, do_move);
 		if (!newfilename) {
 			return 3;
 		}
@@ -1864,7 +1865,7 @@ gint doc_save(Tdocument * doc, gint do_save_as, gboolean do_move) {
 		ctime_r(&newtime,newtimestr);
  			ctime_r(&doc->mtime,oldtimestr);
 		tmpstr = g_strdup_printf(_("File: %s\n\nNew modification time: %s\nOld modification time: %s"), doc->filename, newtimestr, oldtimestr);
-		retval = multi_warning_dialog(_("The file has been modified by another process."), tmpstr, 1, 0, options);
+		retval = multi_warning_dialog(BFWIN(doc->bfwin)->main_window,_("The file has been modified by another process."), tmpstr, 1, 0, options);
 		g_free(tmpstr);
 		if (retval == 0) {
 			return -5;
@@ -1888,20 +1889,20 @@ gint doc_save(Tdocument * doc, gint do_save_as, gboolean do_move) {
 		case -1:
 			/* backup failed and aborted */
 			errmessage = g_strconcat(_("The filename was:\n"), doc->filename, NULL);
-			error_dialog(_("File save aborted, could not backup file\n"), errmessage);
+			error_dialog(BFWIN(doc->bfwin)->main_window,_("File save aborted, could not backup file\n"), errmessage);
 			g_free(errmessage);
 		break;
 		case -2:
 			/* could not open the file pointer */
 			errmessage = g_strconcat(_("The filename was:\n"), doc->filename, NULL);
-			error_dialog(_("File save error, could not write file\n"), errmessage);
+			error_dialog(BFWIN(doc->bfwin)->main_window,_("File save error, could not write file\n"), errmessage);
 			g_free(errmessage);
 		break;
 		default:
 			doc_update_mtime(doc);
 			{ 
 				gchar *tmp = path_get_dirname_with_ending_slash(doc->filename);
-				filebrowser_refresh_dir(tmp);
+				bfwin_filebrowser_refresh_dir(BFWIN(doc->bfwin),tmp);
 				g_free(tmp);
 			}
 
@@ -1951,7 +1952,7 @@ gint doc_close(Tdocument * doc, gint warn_only)
 	
 		{
 			gchar *buttons[] = {_("Do_n't save"), GTK_STOCK_CANCEL, GTK_STOCK_SAVE, NULL};
-			retval = multi_query_dialog(_("The file is not saved"),text, 2, 1, buttons);
+			retval = multi_query_dialog(BFWIN(doc->bfwin)->main_window,_("The file is not saved"),text, 2, 1, buttons);
 		}
 		g_free(text);
 
@@ -2186,7 +2187,7 @@ void doc_new_with_new_file(Tbfwin *bfwin, gchar * new_filename) {
 	}
 	if (!main_v->props.allow_multi_instances) {
 		gboolean res;
-		res = switch_to_document_by_filename(new_filename);
+		res = switch_to_document_by_filename(bfwin,new_filename);
 		if (res){
 			return;
 		}
@@ -2201,7 +2202,7 @@ void doc_new_with_new_file(Tbfwin *bfwin, gchar * new_filename) {
 /*	doc_set_modified(doc, 0);*/
 	doc_save(doc, 0, 0);
 	doc_set_stat_info(doc); /* also sets mtime field */
-	switch_to_document_by_pointer(doc);
+	switch_to_document_by_pointer(bfwin,doc);
 }
 
 /**
@@ -2229,7 +2230,7 @@ gboolean doc_new_with_file(Tbfwin *bfwin, gchar * filename, gboolean delay_activ
 		if (tmpdoc) {
 			DEBUG_MSG("doc_new_with_file, %s is already open %p\n",filename,tmpdoc);
 			if (!delay_activate) {
-				switch_to_document_by_pointer(tmpdoc);
+				switch_to_document_by_pointer(bfwin,tmpdoc);
 			}
 			return TRUE;
 		}
@@ -2259,8 +2260,8 @@ gboolean doc_new_with_file(Tbfwin *bfwin, gchar * filename, gboolean delay_activ
 		if (opening_in_existing_doc) {
 			doc_activate(doc);
 		} 
-		switch_to_document_by_pointer(doc);
-		filebrowser_open_dir(filename);
+		switch_to_document_by_pointer(bfwin,doc);
+		filebrowser_open_dir(BFWIN(doc->bfwin),filename);
 	}
 	return TRUE;	
 }
@@ -2286,8 +2287,8 @@ void docs_new_from_files(Tbfwin *bfwin, GList * file_list) {
 	/* Hide the notebook and show a progressbar while
 	 * adding several files. */
 	if(g_list_length(file_list) > 8) {
-		notebook_hide();
-		pbar = progress_popup(_("Loading files..."), g_list_length(file_list));
+		notebook_hide(bfwin);
+		pbar = progress_popup(bfwin->main_window,_("Loading files..."), g_list_length(file_list));
 	}
 	
 	tmplist = g_list_first(file_list);
@@ -2307,7 +2308,7 @@ void docs_new_from_files(Tbfwin *bfwin, GList * file_list) {
 		tmp = stringlist_to_string(errorlist, "\n");
 		message = g_strconcat(_("These files were not opened:\n"), tmp, NULL);
 		g_free(tmp);
-		warning_dialog(_("Unable to open file(s)\n"), message);
+		warning_dialog(bfwin->main_window,_("Unable to open file(s)\n"), message);
 		g_free(message);
 	}
 	free_stringlist(errorlist);
@@ -2317,12 +2318,12 @@ void docs_new_from_files(Tbfwin *bfwin, GList * file_list) {
 
 		/* Destroy the progressbar and show the notebook when finished. */
 		progress_destroy(pbar);
-		notebook_show();
+		notebook_show(bfwin);
 
 		gtk_notebook_set_page(GTK_NOTEBOOK(bfwin->notebook),g_list_length(bfwin->documentlist) - 1);
-		notebook_changed(-1);
+		notebook_changed(bfwin,-1);
 		if (bfwin->current_document && bfwin->current_document->filename) {
-			filebrowser_open_dir(bfwin->current_document->filename);
+			filebrowser_open_dir(bfwin,bfwin->current_document->filename);
 			doc_activate(bfwin->current_document);
 		}
 	}
@@ -2387,7 +2388,7 @@ void doc_activate(Tdocument *doc) {
 		ctime_r(&newtime,newtimestr);
 		ctime_r(&doc->mtime,oldtimestr);
 		tmpstr = g_strdup_printf(_("File %s\nis modified by another process\nnew modification time is %s\nold modification time is %s"), doc->filename, newtimestr, oldtimestr);
-		retval = multi_warning_dialog(_("Bluefish: Warning, file is modified"), tmpstr, 0, 1, options);
+		retval = multi_warning_dialog(BFWIN(doc->bfwin)->main_window,_("Bluefish: Warning, file is modified"), tmpstr, 0, 1, options);
 		g_free(tmpstr);
 		if (retval == 1) {
 			doc_set_stat_info(doc);
@@ -2415,7 +2416,7 @@ void doc_activate(Tdocument *doc) {
 		gchar *dir1 = g_path_get_dirname(doc->filename);
 		gchar *dir2 = ending_slash(dir1);
 		chdir(dir2);
-		filebrowser_open_dir(dir2);
+		filebrowser_open_dir(BFWIN(doc->bfwin),dir2);
 		g_free(dir1);
 		g_free(dir2);
 	}
@@ -2730,7 +2731,7 @@ void file_insert_menucb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget) 
 void file_new_cb(GtkWidget *widget, Tbfwin *bfwin) {
 	Tdocument *doc;
 	doc = doc_new(bfwin, FALSE);
-	switch_to_document_by_pointer(doc);
+	switch_to_document_by_pointer(bfwin,doc);
 /*	project management needs a rewite so this is not included yet */
 /* 	if ((main_v->current_project.template) && (file_exists_and_readable(main_v->current_project.template) == 1)) {
              doc_file_to_textbox(doc, main_v->current_project.template);
@@ -2769,7 +2770,7 @@ void file_close_all_cb(GtkWidget * widget, Tbfwin *bfwin) {
 	/* first a warning loop */
 	if (test_docs_modified(NULL)) {
 		gchar *options[] = {_("_Save all"), _("Close _all"), _("Choose per _file"), _("_Cancel"), NULL};
-		retval = multi_query_dialog(_("Some file(s) have been modified"), NULL, 0, 3, options);
+		retval = multi_query_dialog(bfwin->main_window,_("Some file(s) have been modified"), NULL, 0, 3, options);
 		if (retval == 3) {
 			DEBUG_MSG("file_close_all_cb, cancel clicked, returning 0\n");
 			return;
@@ -2814,7 +2815,7 @@ void file_close_all_cb(GtkWidget * widget, Tbfwin *bfwin) {
 		break;
 		}
 	}
-	notebook_changed(-1);
+	notebook_changed(bfwin,-1);
 	DEBUG_MSG("file_close_all_cb, finished\n");
 }
 
