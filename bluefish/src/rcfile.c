@@ -423,6 +423,7 @@ static GList *props_init_main(GList * config_rc)
 	init_prop_arraylist (&config_rc, &main_v->props.external_commands, "external_commands:");
 	init_prop_stringlist(&config_rc, &main_v->props.quickbar_items, "quickbar_items:");
 	init_prop_integer   (&config_rc, &main_v->props.highlight_num_lines_count, "highlight_num_lines_count:", 1);
+	init_prop_integer   (&config_rc, &main_v->props.defaulthighlight, "defaulthighlight:", 1);
 	init_prop_arraylist (&config_rc, &main_v->props.filetypes, "filetypes:");
 	init_prop_arraylist (&config_rc, &main_v->props.filefilters, "filefilters:");
 	init_prop_string    (&config_rc, &main_v->props.last_filefilter, "last_filefilter:", "");
@@ -478,7 +479,6 @@ static GList *props_init_main(GList * config_rc)
 	init_prop_integer(&config_rc, &main_v->props.force_def_style, "force_white_background:", 1);
 	init_prop_integer(&config_rc, &main_v->props.drop_at_drop_pos, "drop_at_drop_position:", 0);
 	init_prop_integer(&config_rc, &main_v->props.link_management, "link_management:", 1);
-	init_prop_integer(&config_rc, &main_v->props.defaulthighlight, "defaulthighlight:", 1);
 	init_prop_integer(&config_rc, &main_v->props.cont_highlight_full, "cont_highlight_full:", 0);
 	init_prop_integer(&config_rc, &main_v->props.cont_highlight_update, "continuous_highlight_update:", 1);
 	init_prop_string(&config_rc, &main_v->props.html_ver, "used_html_version:", "HTML 4.0 Transitional");

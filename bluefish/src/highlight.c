@@ -725,7 +725,9 @@ void hl_reset_highlighting_type(Tdocument * doc, gchar * newfilename)
 		if (filetype != doc->hl) {
 			doc_remove_highlighting(doc);
 			doc->hl = filetype;
-			doc->need_highlighting = TRUE;
+			if (doc->highlightstate) {
+				doc->need_highlighting = TRUE;
+			}
 			menu_current_document_set_toggle_wo_activate(filetype, NULL);
 		}
 	}

@@ -107,9 +107,9 @@ typedef struct {
 	gint last_rbutton_event; /* index of last 3rd button click */
 	Tfiletype *hl; /* filetype & highlighting set to use for this document */
 	gint need_highlighting; /* if you open 10+ documents you don't need immediate highlighting, just set this var, and notebook_switch() will trigger the actual highlighting when needed */
-	gboolean highlightstate;
-	gboolean wrapstate;
-	gboolean linenumberstate;
+	gboolean highlightstate; /* does this document use highlighting ? */
+	gboolean wrapstate; /* does this document use wrap?*/
+	gboolean linenumberstate; /* does this document use linenumbers? */
 } Tdocument;
 
 typedef struct {
@@ -130,6 +130,7 @@ typedef struct {
 	GList *external_commands;	/* external commands array */
 	GList *quickbar_items; /* items in the quickbar toolbar */
 	gint highlight_num_lines_count; /* number of lines to highlight in continous highlighting */	
+	gint defaulthighlight;		/* highlight documents by default */
 	GList *filetypes; /* filetypes for highlighting and filtering */
 	GList *filefilters; /* filebrowser.c filtering */
 	gchar *last_filefilter;	/* last filelist filter type */
@@ -187,7 +188,6 @@ typedef struct {
 	gint force_def_style;  /* force white editor background */
 	gint drop_at_drop_pos; 	/* drop at drop position instead of cursor position */
 	gint link_management; 	/* perform link management */
-	gint defaulthighlight;		/* highlight documents by default */
 	gint cont_highlight_full; 	/* if you want to highlight the full text or just the line */
 	gint cont_highlight_update;	/* update the syntax highlighting continuous */
 	gchar *html_ver;
