@@ -25,6 +25,8 @@
 #include <unistd.h> /* exit() */
 #include <stdlib.h> /* exit() on Solaris */
 
+#include "config.h"
+
 #include "bluefish.h"
 #include "gui.h"
 #include "document.h" /* file_new_cb() */
@@ -45,6 +47,9 @@
 #include "preferences.h" /* open_preferences_cb */
 #include "outputbox.h" /* init_outputbox() */
 
+#ifdef HAVE_LIBASPELL
+#include "bfspell.h"
+#endif /* HAVE_LIBASPELL */
 typedef struct {
 	GtkWidget *main_toolbar_hb;
 	GtkWidget *html_toolbar_hb;
@@ -517,9 +522,11 @@ void make_main_toolbar(GtkWidget *handlebox) {
 							"", new_pixmap(12), G_CALLBACK(open_preferences_cb), NULL);
 /*
 	gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), NULL, _("Print..."), "",
-							new_pixmap(015), G_CALLBACK(file_print_cb), NULL);
+							new_pixmap(015), G_CALLBACK(file_print_cb), NULL);*/
+#ifdef HAVE_LIBASPELL
 	gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), NULL, _("Spellcheck..."),
-							"", new_pixmap(016), G_CALLBACK(spell_check_cb), NULL);*/
+							"", new_pixmap(104), G_CALLBACK(spell_check_cb), NULL);
+#endif /* HAVE_LIBASPELL */
 	gtk_toolbar_append_space(GTK_TOOLBAR(toolbar));
 	gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), NULL,
 							_("View in browser"), "",

@@ -114,6 +114,7 @@ static Tpixmap tp[] = {
 	{101, close_small},
 	{102, view_in_browser},
 	{103, context}, /* context dropdown image */
+	{104, spellcheck},
 	{150,prefseditor},
 	{151,prefsexternal},
 	{152,prefsfiles},
