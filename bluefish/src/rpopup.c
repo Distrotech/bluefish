@@ -9,6 +9,7 @@
 #include "html2.h"
 #include "html_table.h"
 #include "html_form.h"
+#include "image.h"
 
 typedef struct {
 	guint32 findchar;
@@ -198,7 +199,8 @@ static void parse_tagstring(gchar * tagstring, gint pos, gint end)
 		{"textarea",G_CALLBACK(textareadialog_cb)},
 		{"select",G_CALLBACK(selectdialog_cb)},
 		{"option",G_CALLBACK(optiondialog_cb)},
-		{"meta",G_CALLBACK(meta_cb)}
+		{"meta",G_CALLBACK(meta_cb)},
+		{"img",G_CALLBACK(image_insert_dialog_cb)}
 	};
 
 	DEBUG_MSG("parse_tagstring, started, tagstring=%s\n", tagstring);
