@@ -19,11 +19,9 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 <chapter id="developing-bluefish">
 
   <title>Development guidelines</title>
-	<simplesect>    
 		<para>
 	      Work hard but have fun!
 		</para>
-	</simplesect>
 
 
 	<sect1 id="developing-bluefish-formating-style">
@@ -207,10 +205,11 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 		other hand if your locale es Spanish your shortcut key will be
 		<keycap>Alt+a</keycap>.
 		</para>
-		<warning>
-		You have to keep in mind that two GUI elements must not
-		have the same shortcut key at the same level. 
-		</warning>
+		<variablelist><varlistentry>
+          <term><emphasis>Warning</emphasis></term>
+          <listitem>
+            <para>You have to keep in mind that two GUI elements must not have the same shortcut key at the same level.</para>
+		</listitem></varlistentry></variablelist>
 		</sect2>
 		
 		 <sect2>
