@@ -1314,7 +1314,7 @@ static void snr2dialog(Tbfwin *bfwin, gint is_replace, gint is_new_search) {
 	gtk_table_set_row_spacings (GTK_TABLE (table), 12);
 	gtk_table_set_col_spacings (GTK_TABLE (table), 6);
 
-	snr2win->search_label = gtk_label_new_with_mnemonic(_("Search _for: "));
+	snr2win->search_label = gtk_label_new_with_mnemonic(_("_Search for: "));
 	gtk_table_attach (GTK_TABLE (table), snr2win->search_label, 0, 1, 0, 1,
 					(GtkAttachOptions) (GTK_FILL), (GtkAttachOptions) (0), 2, 0);
 	gtk_label_set_justify (GTK_LABEL (snr2win->search_label), GTK_JUSTIFY_LEFT);
@@ -1327,7 +1327,7 @@ static void snr2dialog(Tbfwin *bfwin, gint is_replace, gint is_new_search) {
 	/*g_signal_connect(G_OBJECT(snr2win->search_entry), "key_press_event", G_CALLBACK(search_entry_key_press_event_lcb), snr2win);*/
 
 	if (is_replace) {
-		snr2win->replace_label = gtk_label_new_with_mnemonic(_("Replace wit_h: "));
+		snr2win->replace_label = gtk_label_new_with_mnemonic(_("_Replace with: "));
 		gtk_table_attach (GTK_TABLE (table), snr2win->replace_label, 0, 1, 1, 2,
 						(GtkAttachOptions) (GTK_FILL), (GtkAttachOptions) (0), 2, 0);
 		gtk_label_set_justify (GTK_LABEL (snr2win->replace_label), GTK_JUSTIFY_LEFT);
@@ -1394,12 +1394,12 @@ static void snr2dialog(Tbfwin *bfwin, gint is_replace, gint is_new_search) {
 			g_signal_connect(G_OBJECT((GtkWidget *) snr2win->replacetype_option), "changed", G_CALLBACK(replacetype_changed_lcb), snr2win);
 		}
 	}
-	snr2win->unescape = boxed_checkbut_with_value(_("Patterns contain backslash escape sequences (\\n, \\t)"), LASTSNR2(bfwin->snr2)->unescape, vbox);
-	snr2win->is_case_sens = boxed_checkbut_with_value(_("Match ca_se"), LASTSNR2(bfwin->snr2)->is_case_sens, vbox);
+	snr2win->unescape = boxed_checkbut_with_value(_("_Patterns contain backslash escape sequences (\\n, \\t)"), LASTSNR2(bfwin->snr2)->unescape, vbox);
+	snr2win->is_case_sens = boxed_checkbut_with_value(_("_Match case"), LASTSNR2(bfwin->snr2)->is_case_sens, vbox);
 	snr2win->overlapping_search = boxed_checkbut_with_value(_("O_verlap searches"), LASTSNR2(bfwin->snr2)->overlapping_search, vbox);
 	if (is_replace) {
 		snr2win->prompt_before_replace = boxed_checkbut_with_value(_("Prompt _before replace"), LASTSNR2(bfwin->snr2)->prompt_before_replace, vbox);
-		snr2win->replace_once = boxed_checkbut_with_value(_("Rep_lace once"), LASTSNR2(bfwin->snr2)->replace_once, vbox);
+		snr2win->replace_once = boxed_checkbut_with_value(_("Replace o_nce"), LASTSNR2(bfwin->snr2)->replace_once, vbox);
 	}
 
 	hbox = gtk_hseparator_new ();
@@ -1416,9 +1416,9 @@ static void snr2dialog(Tbfwin *bfwin, gint is_replace, gint is_new_search) {
 	gtk_box_pack_start(GTK_BOX(hbox), button, FALSE, TRUE, 0);
 	gtk_window_set_default(GTK_WINDOW(snr2win->window), button);
 	
-	gtk_label_set_mnemonic_widget(GTK_LABEL(snr2win->search_label), GTK_WIDGET(snr2win->search_combo));
+	gtk_label_set_mnemonic_widget(GTK_LABEL(snr2win->search_label), GTK_COMBO(snr2win->search_combo)->entry);
 	if(is_replace) {
-		gtk_label_set_mnemonic_widget(GTK_LABEL(snr2win->replace_label), GTK_WIDGET(snr2win->replace_combo));
+		gtk_label_set_mnemonic_widget(GTK_LABEL(snr2win->replace_label), GTK_COMBO(snr2win->replace_combo)->entry);
 	}
 	gtk_widget_grab_focus(snr2win->search_combo);
 	gtk_widget_show_all(vbox);
