@@ -175,7 +175,7 @@ void bluefish_exit_request() {
 	}
 
 	gtk_widget_hide(main_v->main_window);
-	rcfile_save_main();
+	rcfile_save_all();
 	{
 		gchar *filename = g_strconcat(g_get_home_dir(), "/.bluefish/dir_history", NULL);
 		put_stringlist_limited(filename, main_v->recent_directories, main_v->props.max_dir_history);

@@ -523,14 +523,9 @@ GList *duplicate_arraylist(GList *arraylist) {
 	GList *tmplist;
 	GList *newlist=NULL;
 
-	gchar **tmpchar;
-
 	tmplist = g_list_first(arraylist);
 	while (tmplist != NULL) {
-		gchar **newchar;
-		tmpchar = (gchar **)tmplist->data;
-		newchar = duplicate_stringarray(tmpchar);
-		newlist = g_list_append(newlist, newchar);
+		newlist = g_list_append(newlist, duplicate_stringarray((gchar **)tmplist->data));
 		tmplist = g_list_next(tmplist);
 	}
 	return newlist;

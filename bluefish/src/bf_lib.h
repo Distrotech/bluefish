@@ -26,6 +26,7 @@ typedef struct {
 	gchar *my_char;
 } Tconvert_table;
 
+void list_switch_order(GList *first, GList *second);
 gboolean file_copy(gchar *source, gchar *dest);
 gboolean append_string_to_file(gchar *filename, gchar *string);
 gint table_convert_char2int(Tconvert_table *table, gchar *my_char);

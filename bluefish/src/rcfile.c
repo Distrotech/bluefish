@@ -1,3 +1,4 @@
+
 #include <gtk/gtk.h>
 #include <sys/stat.h>
 #include <sys/types.h>
@@ -14,12 +15,6 @@
 #include "stringlist.h"
 #include "highlight.h" /* hl_reset_to_default()*/
 
-#undef DEBUG
-#undef DEBUG_MSG
-#ifdef __GNUC__
-#define DEBUG_MSG(format, args...)
- /**/
-#endif
 typedef struct {
 	void *pointer;
 	unsigned char type;
@@ -82,7 +77,12 @@ static gchar *array_to_string(gchar **array, gchar delimiter) {
 		DEBUG_MSG("array_to_string, finalstring = %s\n", finalstring);
 		return finalstring;
 	} else {
+#ifdef DEBUG
+		g_print("array_to_string, array=NULL !!!\n");
+		exit(135);
+#else
 		return g_strdup("");
+#endif
 	}
 }
 
@@ -233,7 +233,7 @@ static gint save_config_file(GList * config_list, gchar * filename)
 	while (tmplist != NULL) {
 		DEBUG_MSG("save_config_file, tmpitem at %p\n", tmplist->data);
 		tmpitem = tmplist->data;
-		DEBUG_MSG("save_config_file, datatype %c\n", tmpitem->type);
+		DEBUG_MSG("save_config_file, identifier=%s datatype %c\n", tmpitem->identifier,tmpitem->type);
 		switch (tmpitem->type) {
 		case 'i':
 			DEBUG_MSG("save_config_file, converting \"%p\" to integer\n", tmpitem);
@@ -570,7 +570,7 @@ void rcfile_parse_main(void)
 	}
 }
 
-gint rcfile_save_main(void) {
+static gint rcfile_save_main(void) {
 	gchar *filename = g_strconcat(g_get_home_dir(), "/.bluefish/rcfile_v2", NULL);
 	return save_config_file(main_configlist, filename);
 }
@@ -594,6 +594,12 @@ void rcfile_parse_highlighting(void) {
 	}
 	g_free(filename);
 }
+static gint rcfile_save_highlighting(void) {
+	gchar *filename = g_strconcat(g_get_home_dir(), "/.bluefish/highlighting", NULL);
+	return save_config_file(highlighting_configlist, filename);
+}
+
+
 
 void rcfile_parse_custom_menu(void) {
 	gchar *filename;
@@ -639,4 +645,9 @@ void rcfile_save_configfile_menu_cb(gpointer callback_data,guint action,GtkWidge
 	break;
 	}
 
+}
+
+void rcfile_save_all(void) {
+	rcfile_save_main();
+	rcfile_save_highlighting();
 }

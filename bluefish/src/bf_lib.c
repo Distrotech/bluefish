@@ -37,6 +37,13 @@
 #define DIRCHR '/'
 #endif
 
+void list_switch_order(GList *first, GList *second) {
+	gpointer tmp;
+	tmp = first->data;
+	first->data = second->data;
+	second->data = tmp;
+}
+
 gboolean file_copy(gchar *source, gchar *dest) {
 #ifdef DEVELOPMENT
 	g_assert(source);
