@@ -2729,7 +2729,9 @@ width="80" height="53" border="0"&gt;&lt;/a&gt;
 
 <sect3 id="external-browsers">
 <title>Customizing browsers</title>
+<?linebreak?>
 <para>The <guilabel>Browsers</guilabel> panel in Preferences shows the items in the same order as in the <guimenu>External</guimenu> menu:
+<?linebreaka4?>
 <figure id="figure-preferences-browsers-panel">
 <title id="figure-preferences-browsers-panel-title">The Browsers panel in Preferences</title>
 <screenshot><mediaobject>
@@ -2747,7 +2749,9 @@ width="80" height="53" border="0"&gt;&lt;/a&gt;
 <para>The first line in the panel will be the browser selected when clicking on the <guilabel>View in browser</guilabel> button in the main tool bar.</para>
 </listitem>
 </varlistentry></variablelist>
+<?linebreakus?>
 <para>If you want to change the order of the browsers, apply the following steps:</para>
+<?linebreakus?>
 <procedure id="external-browsers-order">
 <title>Changing the order of browsers items</title>
 <step>
@@ -2811,9 +2815,11 @@ width="80" height="53" border="0"&gt;&lt;/a&gt;
 <para>Release the mouse button to drop the line at the desired place.</para>
 </step>
 <step>
-<para>Click on the <guibutton>Apply</guibutton> button to validate the change and click on the <guibutton>OK</guibutton> button to close the <guilabel>Edit preferences</guilabel> panel.</para></step>
+<para>Click on the <guibutton>Apply</guibutton> button to save the change if you plan to make further changes in the panel, otherwise click on the <guibutton>OK</guibutton> button to save the change and close the <guilabel>Edit preferences</guilabel> panel.</para></step>
 </procedure>
+<?linebreakus?>
 <para>If you want to customize one of the browsers supplied by default, use the following procedure:</para>
+<?linebreakus?>
 <procedure id="external-browsers-customize">
 <title>Customizing an existent browser</title>
 <step>
@@ -2823,7 +2829,41 @@ width="80" height="53" border="0"&gt;&lt;/a&gt;
 <para>Click on the <guilabel>External programs</guilabel> tab to display the <guilabel>Browsers</guilabel> panel.</para>
 </step>
 <step>
-<para> </para>
+<para>Click on the <guilabel>Command</guilabel> region of the browser's line you want to change. The line will be hightlighted.</para>
+</step>
+<step>
+<para>Double-click on the same location to allow editing. The line will be framed.</para>
+</step>
+<step>
+<para>Make the desired change</para>
+</step>
+<step>
+<para>Click on the <guibutton>OK</guibutton> button to save and close the panel.</para>
+</step>
+</procedure>
+<para>To add a new browser, proceed as follows:</para>
+<procedure id="external-browsers-add">
+<title>Adding a new browser</title>
+<step>
+<para>Click on the <guilabel>Preferences...</guilabel> icon in the main tool bar to acceed the <guilabel>Edit preferences</guilabel> panel.</para>
+</step>
+<step>
+<para>Click on the <guilabel>External programs</guilabel> tab to display the <guilabel>Browsers</guilabel> panel.</para>
+</step>
+<step>
+<para>Click on the <guilabel>Command</guilabel> region of the browser's line you want to change. The line will be hightlighted.</para>
+</step>
+<step>
+<para>Click on the <guibutton>Add</guibutton> button. A new line will be shown, with an <guilabel>Untitled</guilabel> label.</para>
+</step>
+<step>
+<para>Double-click on the label to allow editing, and enter the string you want to appear in the <guimenu>External</guimenu> menu.</para>
+</step>
+<step>
+<para>Double-click in the <guilabel>Command</guilabel> zone and enter the command followed by the &amp; sign to detach it from the main bluefish process, for example: <userinput>amaya %s &amp;</userinput>.</para>
+</step>
+<step>
+<para>Click on the <guibutton>OK</guibutton> button to save and close the panel.</para>
 </step>
 </procedure>
 <para>Though nothing impedes you to put any command (not necessary a browser) in the panel, you may want to avoid to put it at the top range, since it will be somewhat strange to click on <guilabel>View in browser</guilabel> to launch <command>abs</command> for example.</para>
