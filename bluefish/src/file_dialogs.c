@@ -218,7 +218,7 @@ static void open_url_ok_lcb(GtkWidget *widget, Tou *ou) {
 	/*doc_new_with_file(ou->bfwin,url,FALSE,FALSE);*/
 	uri = gnome_vfs_uri_new(url);
 	if (uri) {
-		doc_new_from_uri(ou->bfwin, NULL, uri, NULL, FALSE, FALSE, -1);
+		doc_new_from_uri(ou->bfwin, NULL, uri, NULL, FALSE, FALSE, -1, -1);
 	}
 	g_free(url);
 	gnome_vfs_uri_unref(uri);
@@ -289,6 +289,7 @@ static TcheckNsave_return doc_checkNsave_lcb(TcheckNsave_status status,gint erro
 				gchar *tmpstr = g_strdup_printf(_("A backupfile for %s could not be created. If you continue, this file will be overwritten."), doc->uri);
 				retval = multi_warning_dialog(BFWIN(doc->bfwin)->main_window,_("File backup failure"), tmpstr, 1, 0, options);
 				g_free(tmpstr);
+				DEBUG_MSG("doc_checkNsave_lcb, retval=%d, returning %d\n", retval,(retval == 0) ? CHECKNSAVE_STOP : CHECKNSAVE_CONT);
 				return (retval == 0) ? CHECKNSAVE_STOP : CHECKNSAVE_CONT;
 			}
 		break;

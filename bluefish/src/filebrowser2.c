@@ -945,7 +945,7 @@ static void handle_activate_on_file(Tfilebrowser2 *fb2, GnomeVFSURI *uri) {
 	DEBUG_MSG("handle_activate_on_file, file %s has type %p\n",filename, ft);
 	if (ft == NULL || ft->editable) {
 		/* doc_new_with_file(fb2->bfwin,filename, FALSE, FALSE); */
-		doc_new_from_uri(fb2->bfwin, NULL, uri, NULL, FALSE, FALSE, -1);
+		doc_new_from_uri(fb2->bfwin, NULL, uri, NULL, FALSE, FALSE, -1, -1);
 	} else if (strcmp(ft->type, "webimage")==0 || strcmp(ft->type, "image")==0) {
 		gchar *relfilename = create_relative_link_to(fb2->bfwin->current_document->uri, filename);
 		image_insert_from_filename(fb2->bfwin,relfilename);

@@ -993,7 +993,7 @@ static void open_recent_project_cb(GtkWidget *widget, Tbfwin *bfwin) {
 static void open_recent_file_cb(GtkWidget *widget, Tbfwin *bfwin) {
 	gchar *filename = GTK_LABEL(GTK_BIN(widget)->child)->label;
 	DEBUG_MSG("open_recent_file_cb, started, filename is %s\n", filename);
-	doc_new_from_uri(bfwin, filename, NULL, NULL, FALSE, FALSE, -1);
+	doc_new_from_uri(bfwin, filename, NULL, NULL, FALSE, FALSE, -1, -1);
 	add_to_recent_list(bfwin,filename, 0, FALSE);
 }
 

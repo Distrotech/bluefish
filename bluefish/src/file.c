@@ -179,6 +179,7 @@ typedef struct {
 	gboolean check_modified;
 	CheckNsaveAsyncCallback callback_func;
 	gpointer callback_data;
+	gboolean abort;
 } TcheckNsave;
 
 static void checkNsave_cleanup(TcheckNsave *cns) {
@@ -217,36 +218,53 @@ static void checkNsave_savefile_lcb(Tsavefile_status status,gint error_info,gpoi
 }
 
 gint checkNsave_progress_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSXferProgressInfo *info,gpointer data) {
-	/* Nautilus returns 0 by default for this callback */
-	return 0;
-}
-
-gint checkNsave_sync_lcb(GnomeVFSXferProgressInfo *info,gpointer data) {
 	TcheckNsave *cns = data;
-	DEBUG_MSG("checkNsave_sync_lcb, started with status %d and phase %d for source %s and target %s, index=%d, total=%d\n"
-			,info->status,info->phase,info->source_name,info->target_name,info->file_index,info->files_total);
+	DEBUG_MSG("checkNsave_progress_lcb, started with status %d and phase %d for source %s and target %s, index=%ld, total=%ld, thread=%p\n"
+			,info->status,info->phase,info->source_name,info->target_name,info->file_index,info->files_total, g_thread_self());
 	if (info->status == GNOME_VFS_XFER_PROGRESS_STATUS_OVERWRITE) {
-		DEBUG_MSG("checkNsave_sync_lcb, status=OVERWRITE, return REPLACE\n");
+		DEBUG_MSG("checkNsave_progress_lcb, status=OVERWRITE, return REPLACE\n");
 		return GNOME_VFS_XFER_OVERWRITE_ACTION_REPLACE;
 	} else if (info->status == GNOME_VFS_XFER_PROGRESS_STATUS_VFSERROR) {
-		DEBUG_MSG("checkNsave_sync_lcb, status=VFSERROR, abort?\n");
-		/* this results in "Xlib: unexpected async reply" which seems to be a gnome_vfs bug */
+		DEBUG_MSG("checkNsave_progress_lcb, status=VFSERROR, abort?\n");
+		/* when this code was in the 'sync' callback, this results in "Xlib: unexpected async reply" which seems to be a gnome_vfs bug */
 		if (cns->callback_func(CHECKANDSAVE_ERROR_NOBACKUP, 0, cns->callback_data) == CHECKNSAVE_CONT) {
 			return GNOME_VFS_XFER_ERROR_ACTION_SKIP;
 		} else {
-			checkNsave_cleanup(cns);
+			cns->abort = TRUE;
 			return GNOME_VFS_XFER_ERROR_ACTION_ABORT;
 		}
 	} else if (info->status == GNOME_VFS_XFER_PROGRESS_STATUS_OK) {
-		DEBUG_MSG("checkNsave_sync_lcb, status=OK\n");
+		DEBUG_MSG("checkNsave_progress_lcb, status=OK\n");
 		if (info->phase == GNOME_VFS_XFER_PHASE_COMPLETED) {
 			/* backup == ok, we start the actual file save */
-			DEBUG_MSG("checkNsave_sync_lcb, phase=COMPLETED, starting the actual save\n");
-			file_savefile_uri_async(cns->uri, cns->buffer, cns->buffer_size, checkNsave_savefile_lcb, cns);
+			if (cns->abort) {
+			   DEBUG_MSG("checkNsave_progress_lcb, phase=COMPLETED, but abort=TRUE, so we stop now\n");
+			   checkNsave_cleanup(cns);
+         } else {
+            DEBUG_MSG("checkNsave_progress_lcb, phase=COMPLETED, starting the actual save\n");
+   			file_savefile_uri_async(cns->uri, cns->buffer, cns->buffer_size, checkNsave_savefile_lcb, cns);
+   		}
 		}
 	}
+	return 0; 	/* Nautilus returns 0 by default for this callback */
+}
+
+/*
+ this function is called in the wrong thread by gnome_vfs, so we have to avoid threading issues:
+ <gicmo> Oli4, the first thing is to use gdk_thread_enter () gdk_thread_leave ()
+ <Oli4> I suppose in the start and end of the callback?
+ <gicmo> Oli4, the second thing is you could shedule a message with g_idle_add in the callback and wait for the result through g_thread_cond_wait
+ <gicmo> Oli4, yeah .. look at the gtk doc for some examples how to use them ..
+ <Oli4> ok
+ <gicmo> Oli4, nautilus/libnautilus-private/nautilus-file-operations.c could be a place you should look at
+*/
+gint checkNsave_sync_lcb(GnomeVFSXferProgressInfo *info,gpointer data) {
+   DEBUG_MSG("checkNsave_sync_lcb, started with status %d and phase %d for source %s and target %s, index=%ld, total=%ld, thread=%p\n"
+			,info->status,info->phase,info->source_name,info->target_name,info->file_index,info->files_total, g_thread_self());
 	/* Christian Kellner (gicmo on #nautilus on irc.gimp.ca) found 
-		we should NEVER return 0 for default calls, it aborts!! */
+		we should NEVER return 0 for default calls, it aborts!! 
+		
+		nautilus returns *always* 1 in this callback, no matter what happens */
 	return 1;
 }
 static void checkNsave_checkmodified_lcb(Tcheckmodified_status status,gint error_info, GnomeVFSFileInfo *orig, GnomeVFSFileInfo *new, gpointer data) {
@@ -280,8 +298,8 @@ static void checkNsave_checkmodified_lcb(Tcheckmodified_status status,gint error
 		sourcelist = g_list_append(NULL, cns->uri);
 		gnome_vfs_uri_ref(cns->uri);
 		destlist = g_list_append(NULL, dest);
-		DEBUG_MSG("checkNsave_checkmodified_lcb, start backup, source=%s, dest=%s (len=%d,%d)\n",gnome_vfs_uri_get_path(cns->uri),gnome_vfs_uri_get_path(dest)
-				,g_list_length(sourcelist),g_list_length(destlist));
+		DEBUG_MSG("checkNsave_checkmodified_lcb, start backup, source=%s, dest=%s (len=%d,%d) in thread %p\n",gnome_vfs_uri_get_path(cns->uri),gnome_vfs_uri_get_path(dest)
+				,g_list_length(sourcelist),g_list_length(destlist),g_thread_self());
 		ret = gnome_vfs_async_xfer(&handle,sourcelist,destlist
 					,GNOME_VFS_XFER_FOLLOW_LINKS,GNOME_VFS_XFER_ERROR_MODE_QUERY
 					,GNOME_VFS_XFER_OVERWRITE_MODE_REPLACE,GNOME_VFS_PRIORITY_DEFAULT
@@ -324,6 +342,7 @@ void file_checkNsave_uri_async(GnomeVFSURI *uri, GnomeVFSFileInfo *info, Trefcpo
 	gnome_vfs_uri_ref(uri);
 	cns->finfo = info;
 	cns->check_modified = check_modified;
+	cns->abort = FALSE;
 	if (info) gnome_vfs_file_info_ref(info);
 	if (!info || check_modified) {
 		/* first check if the file is modified on disk */
