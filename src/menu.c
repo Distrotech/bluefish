@@ -28,9 +28,7 @@
 
 #include "bluefish.h"
 #include "bfspell.h"
-#ifdef BOOKMARKS
 #include "bookmark.h"
-#endif /* BOOKMARKS */
 #include "document.h"			/* file_open etc. */
 #include "highlight.h" /* doc_highlight_full */
 #include "menu.h" /* my own .h file */
@@ -273,7 +271,6 @@ static void spell_check_menu_cb(Tbfwin *bfwin,guint callback_action, GtkWidget *
 }
 #endif /* HAVE_LIBASPELL */
 
-#ifdef BOOKMARKS
 static void menu_bmark_operations_cb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget) {
 	switch(callback_action) {
 	case 1:
@@ -292,7 +289,6 @@ static void menu_bmark_operations_cb(Tbfwin *bfwin,guint callback_action, GtkWid
 			g_print("Bmark action no. %d\n",callback_action);
 	}
 }	
-#endif /* BOOKMARKS */
 
 static GtkItemFactoryEntry menu_items[] = {
 	{N_("/_File"), NULL, NULL, 0, "<Branch>"},
@@ -657,15 +653,13 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/Go/sep1"), NULL, NULL, 0, "<Separator>"},	
 	{N_("/Go/Goto _Line"), "<control>l", go_to_line_win_cb, 1, "<StockItem>", GTK_STOCK_JUMP_TO},
 	{N_("/Go/Goto _Selection"), NULL, go_to_line_from_selection_cb, 1, "<Item>"},
-#ifdef BOOKMARKS	
 	{N_("/_Bookmarks"), NULL, NULL, 0, "<Branch>"},
 	{N_("/Bookmarks/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
-    {N_("/Bookmarks/Add _Temporary"), "<control>d", menu_bmark_operations_cb, 1, "<Item>"},	
-    {N_("/Bookmarks/Add _Permanent"), "<shift><control>d", menu_bmark_operations_cb, 2, "<Item>"},	   
+        {N_("/Bookmarks/Add _Temporary"), "<control>d", menu_bmark_operations_cb, 1, "<Item>"},	
+        {N_("/Bookmarks/Add _Permanent"), "<shift><control>d", menu_bmark_operations_cb, 2, "<Item>"},	   
 	{N_("/Bookmarks/sep2"), NULL, NULL, 0, "<Separator>"},   
-    {N_("/Bookmarks/Delete All Temporar_y"), NULL, menu_bmark_operations_cb, 4, "<Item>"},	      
-    {N_("/Bookmarks/Delete All Per_manent"), NULL, menu_bmark_operations_cb, 5, "<Item>"},	      
-#endif /* BOOKMARKS */		
+        {N_("/Bookmarks/Delete All Temporar_y"), NULL, menu_bmark_operations_cb, 4, "<Item>"},	      
+        {N_("/Bookmarks/Delete All Per_manent"), NULL, menu_bmark_operations_cb, 5, "<Item>"},	      
 	{N_("/_Project"), NULL, NULL, 0, "<Branch>"},
 	{N_("/Project/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
 	{N_("/Project/_Open Project..."), NULL, project_menu_cb, 1, "<Item>"},

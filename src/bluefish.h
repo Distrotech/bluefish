@@ -325,9 +325,7 @@ typedef struct {
 	gpointer filebrowser;
 	gpointer snr2;
 	gpointer fref;
-#ifdef BOOKMARKS	
 	gpointer bmark;
-#endif /* BOOKMARKS */	
 } Tbfwin;
 
 typedef struct {
@@ -337,9 +335,7 @@ typedef struct {
 	GList *recent_directories; /* a stringlist with the most recently used directories */
 	gpointer filebrowserconfig;
 	gpointer frefdata;
-#ifdef BOOKMARKS	
 	gpointer bmarkdata;
-#endif /* BOOKMARKS */	
 	gint num_untitled_documents;
 } Tmain;
 

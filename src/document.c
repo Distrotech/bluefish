@@ -50,9 +50,7 @@
 #include "pixmap.h"
 #include "snr2.h" /* snr2_run_extern_replace */
 #include "filebrowser.h"
-#ifdef BOOKMARKS
 #include "bookmark.h"
-#endif /* BOOKMARKS */
 
 typedef struct {
 	GtkWidget *textview;
@@ -1899,10 +1897,8 @@ gint doc_textbox_to_file(Tdocument * doc, gchar * filename) {
 void doc_destroy(Tdocument * doc, gboolean delay_activation) {
 	Tbfwin *bfwin = BFWIN(doc->bfwin);
 
-#ifdef BOOKMARKS
-   bmark_clean_for_doc(doc);
-   bmark_adjust_visible(bfwin);   
-#endif /* BOOKMARKS */
+        bmark_clean_for_doc(doc);
+        bmark_adjust_visible(bfwin);   
 
 	if (doc->filename) {
 		add_to_recent_list(doc->bfwin,doc->filename, 1, FALSE);
@@ -2275,10 +2271,8 @@ static gboolean doc_textview_expose_event_lcb(GtkWidget * widget, GdkEventExpose
 	PangoLayout *l;
 	gchar *pomstr;
 	gint numlines,w,i;
-#ifdef BOOKMARKS
-   GHashTable *temp_tab,*temp_tab2;
-   gpointer ptr;
-#endif /* BOOKMARKS */	
+        GHashTable *temp_tab,*temp_tab2;
+        gpointer ptr;
 
 	win = gtk_text_view_get_window(view,GTK_TEXT_WINDOW_LEFT);
 	if (win!=event->window) return FALSE;
@@ -2295,16 +2289,13 @@ static gboolean doc_textview_expose_event_lcb(GtkWidget * widget, GdkEventExpose
 	pango_layout_get_pixel_size(l,&w,NULL);
 	gtk_text_view_set_border_window_size(view,GTK_TEXT_WINDOW_LEFT,w+4);   
 	it = l_start;
-#ifdef BOOKMARKS
-   temp_tab = bmark_get_lines(DOCUMENT(data),TRUE);
-   temp_tab2 = bmark_get_lines(DOCUMENT(data),FALSE);
-#endif /* BOOKMARKS */	
+        temp_tab = bmark_get_lines(DOCUMENT(data),TRUE);
+        temp_tab2 = bmark_get_lines(DOCUMENT(data),FALSE);
 	for(i=gtk_text_iter_get_line(&l_start);i<=gtk_text_iter_get_line(&l_end);i++) {
 		gtk_text_iter_set_line(&it,i);
 		gtk_text_view_get_line_yrange(view,&it,&w,NULL);      
 		gtk_text_view_buffer_to_window_coords(view,GTK_TEXT_WINDOW_LEFT,0,w,NULL,&w);
 		
-#ifdef BOOKMARKS
 	   ptr = g_hash_table_lookup(temp_tab,&i);      		
 	   if (ptr)
 	   {
@@ -2327,19 +2318,17 @@ static gboolean doc_textview_expose_event_lcb(GtkWidget * widget, GdkEventExpose
 		     pango_layout_set_markup(l,pomstr,-1);
 		  }   
 		} 
-#else		
+/*		
 		pomstr = g_strdup_printf("%d",i+1);
 		pango_layout_set_text(l,pomstr,-1);
-#endif /* BOOKMARKS */		
+*/		
       
 		gtk_paint_layout(widget->style,win,GTK_WIDGET_STATE(widget),FALSE,NULL,widget,NULL,2,w,l);
-      g_free(pomstr);
+                g_free(pomstr);
 	}
 	g_object_unref(G_OBJECT(l));
-#ifdef BOOKMARKS
-   g_hash_table_destroy(temp_tab);
-   g_hash_table_destroy(temp_tab2);
-#endif /* BOOKMARKS */	
+        g_hash_table_destroy(temp_tab);
+        g_hash_table_destroy(temp_tab2);
 	return TRUE;
 }
 
@@ -2594,11 +2583,9 @@ Tdocument * doc_new_with_file(Tbfwin *bfwin, gchar * filename, gboolean delay_ac
 		doc_activate(doc);
 		/*filebrowser_open_dir(BFWIN(doc->bfwin),fullfilename); is already called by doc_activate() */
 	}
-#ifdef BOOKMARKS
-   bmark_set_for_doc(doc);
-   bmark_check_length(bfwin,doc);
-   bmark_adjust_visible(bfwin);   
-#endif /* BOOKMARKS */
+       bmark_set_for_doc(doc);
+       bmark_check_length(bfwin,doc);
+       bmark_adjust_visible(bfwin);   
 	
 	return doc;
 }

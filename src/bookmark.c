@@ -13,7 +13,6 @@
 #include "treetips.h"
 #include "bookmark.h"
 
-#ifdef BOOKMARKS
 
 enum {
  NAME_COLUMN,
@@ -674,6 +673,8 @@ GtkWidget *bmark_gui(Tbfwin *bfwin)
    
    gtk_tree_view_expand_all(GTK_TREE_VIEW(BMARKGUI(bfwin->bmark)->tree));  
    BMARKGUI(bfwin->bmark)->tips = tree_tips_new_full(bfwin,GTK_TREE_VIEW(BMARKGUI(bfwin->bmark)->tree),aa);
+   tree_tips_set_show_interval(BMARKGUI(bfwin->bmark)->tips,1000);
+   tree_tips_set_hide_interval(BMARKGUI(bfwin->bmark)->tips,2000);
 
    return vbox;
 }
@@ -1010,5 +1011,5 @@ void bmark_check_length(Tbfwin *bfwin,Tdocument *doc)
  
 
 
-#endif /* BOOKMARKS */
+
 
