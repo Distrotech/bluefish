@@ -17,7 +17,8 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-/* #define DEBUG */
+/*#define DEBUG
+#define DEBUG_ADDING_TO_TREE*/
 
 #include <gtk/gtk.h>
 #include <sys/types.h> /* stat() getuid */
@@ -74,6 +75,9 @@ typedef struct {
 	GtkWidget *dirmenu;
 	GList *dirmenu_entries;
 } Tfilebrowser;
+
+/* some functions need to be referenced before they are declared*/
+static void row_expanded_lcb(GtkTreeView *tree,GtkTreeIter *iter,GtkTreePath *path,GtkTreeStore *store);
 
 /*******************************/
 /* global vars for this module */
@@ -354,7 +358,7 @@ static gboolean get_iter_at_correct_position(GtkTreeStore *store, GtkTreeIter *p
 		DEBUG_MSG("get_iter_at_correct_position, this parent does NOT have children, returning FALSE\n");
 		return FALSE;
 	}
-	DEBUG_MSG("get_iter_at_correct_position, this parent DOES have children\n");
+	DEBUG_MSG("get_iter_at_correct_position, this parent DOES have children, walk trough the children..\n");
 	num_children = gtk_tree_model_iter_n_children(GTK_TREE_MODEL(store), parent);
 	possible_positions = num_children+1;
 	jumpsize = (possible_positions+1)/2;
@@ -420,12 +424,12 @@ static GtkTreeIter add_tree_item(GtkTreeIter *parent, GtkTreeStore *store, const
 	}
 
 	if (get_iter_at_correct_position(store,parent,&iter2,text,type)) {
-#ifdef DEBUG_SORTING
+#ifdef DEBUG
 		DEBUG_MSG("add_tree_item, inserting %s!\n", text);
 #endif
 		gtk_tree_store_insert_before(store,&iter1,parent,&iter2);
 	} else {
-#ifdef DEBUG_SORTING
+#ifdef DEBUG
 		DEBUG_MSG("add_tree_item, appending %s!\n", text);
 #endif
 		gtk_tree_store_append(store, &iter1, parent);
@@ -599,12 +603,18 @@ static GtkTreePath *filebrowser_path_up_multi(GtkTreePath *path, gint num) {
 
 static void filebrowser_expand_to_root(const GtkTreePath *this_path) {
 	gint num = gtk_tree_path_get_depth((GtkTreePath *)this_path);
+	DEBUG_MSG("filebrowser_expand_to_root, num=%d, ",num);
+	DEBUG_DUMP_TREE_PATH(this_path);
 	while (num >= 0) {
 		GtkTreePath *path = gtk_tree_path_copy(this_path);
 		path = filebrowser_path_up_multi(path, num);
 		DEBUG_MSG("filebrowser_expand_to_root, expanding ");
 		DEBUG_DUMP_TREE_PATH(path);
+		g_signal_handlers_block_matched(G_OBJECT(filebrowser.tree), G_SIGNAL_MATCH_FUNC,
+					0, 0, NULL, row_expanded_lcb, NULL);
 		gtk_tree_view_expand_row(GTK_TREE_VIEW(filebrowser.tree), path, FALSE);
+		g_signal_handlers_unblock_matched(G_OBJECT(filebrowser.tree), G_SIGNAL_MATCH_FUNC,
+					0, 0, NULL, row_expanded_lcb, NULL);
 		gtk_tree_path_free(path);
 		num--;
 	}
