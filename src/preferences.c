@@ -98,11 +98,8 @@ enum {
 	lowercase_tags,		/* use lowercase tags */
 	word_wrap,				/* use wordwrap */
 	autoindent,			/* autoindent code */
-	fontset,				/* load fontset (0 = load font) */
-	force_def_style,  /* force white editor background */
 	drop_at_drop_pos, 	/* drop at drop position instead of cursor position */
 	link_management, 	/* perform link management */
-	cont_highlight_update,	/* update the syntax highlighting continuous */
 	html_ver,
 	cust_menu, 		/* entries in the custom menu */
 #ifdef WITH_SPC

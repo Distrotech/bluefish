@@ -399,12 +399,9 @@ static GList *props_init_main(GList * config_rc)
 	init_prop_integer(&config_rc, &main_v->props.lowercase_tags, "lowercase_tags:", 1, TRUE);
 	init_prop_integer(&config_rc, &main_v->props.word_wrap, "word_wrap:", 0, TRUE);
 	init_prop_integer(&config_rc, &main_v->props.autoindent, "autoindent:", 1, TRUE);
-	init_prop_integer(&config_rc, &main_v->props.fontset, "fontset:", 0, TRUE);
-	init_prop_integer(&config_rc, &main_v->props.force_def_style, "force_white_background:", 1, TRUE);
 	init_prop_integer(&config_rc, &main_v->props.drop_at_drop_pos, "drop_at_drop_position:", 0, TRUE);
 	init_prop_integer(&config_rc, &main_v->props.link_management, "link_management:", 1, TRUE);
 	
-	init_prop_integer(&config_rc, &main_v->props.cont_highlight_update, "continuous_highlight_update:", 1, TRUE);
 	init_prop_string(&config_rc, &main_v->props.html_ver, "used_html_version:", "HTML 4.0 Transitional");
 	/* key conversion */
 	init_prop_integer (&config_rc, &main_v->props.conv_ctrl_enter,"conv_ctrl_enter:",0, TRUE);
