@@ -229,6 +229,7 @@ static Tbmark *get_current_bmark(Tbfwin * bfwin)
 			gtk_tree_model_get_iter(gtk_tree_view_get_model(bfwin->bmark), &iter, path);
 			gtk_tree_model_get(gtk_tree_view_get_model(bfwin->bmark),&iter,1, &retval, -1);
 			gtk_tree_path_free(path);
+			DEBUG_MSG("get_current_bmark, returning %p\n",retval);
 			return retval;
 		}
 	}
@@ -466,12 +467,21 @@ static GtkWidget *bmark_popup_menu(Tbfwin * bfwin, gpointer data)
 /* right mouse click */
 static gboolean bmark_event_mouseclick(GtkWidget * widget, GdkEventButton * event, Tbfwin * bfwin)
 {
-	if (event->button == 3 && event->type == GDK_BUTTON_PRESS) {	/* right mouse click */
-		gtk_menu_popup(GTK_MENU(bmark_popup_menu(bfwin, NULL)), NULL, NULL, NULL, NULL,
-					   event->button, event->time);
-	} else if (event->button == 1 && event->type == GDK_2BUTTON_PRESS) {	/* double click  */
-		bmark_popup_menu_goto_lcb(NULL, bfwin);
-		return TRUE;
+	GtkTreePath *path;
+	if (gtk_tree_view_get_path_at_pos(GTK_TREE_VIEW(bfwin->bmark), event->x, event->y, &path, NULL, NULL, NULL)) {
+		if (path) {
+			gint depth = gtk_tree_path_get_depth(path);
+			gtk_tree_path_free(path);
+			if (depth==2) {
+				if (event->button == 3 && event->type == GDK_BUTTON_PRESS) {	/* right mouse click */
+					gtk_menu_popup(GTK_MENU(bmark_popup_menu(bfwin, NULL)), NULL, NULL, NULL, NULL,
+								   event->button, event->time);
+				} else if (event->button == 1 && event->type == GDK_2BUTTON_PRESS) {	/* double click  */
+					bmark_popup_menu_goto_lcb(NULL, bfwin);
+					return TRUE;
+				}
+			}
+		}
 	}
 	return FALSE;
 }
