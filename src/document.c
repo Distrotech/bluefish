@@ -548,11 +548,7 @@ void doc_set_filename(Tdocument *doc, gchar *uri) {
 __inline__ 
 #endif
 void doc_set_font(Tdocument *doc, gchar *fontstring) {
-	if (fontstring) {
-		apply_font_style(doc->view, fontstring);
-	} else {
-		apply_font_style(doc->view, main_v->props.editor_font_string);
-	}
+	apply_font_style(doc->view, fontstring ? fontstring : main_v->props.editor_font_string);
 }
 
 /**
@@ -780,6 +776,9 @@ void doc_move_to_window(Tdocument *doc, Tbfwin *newwin) {
  *
  * Return value: gboolean
  **/
+#ifdef __GNUC__
+__inline__ 
+#endif
 gboolean doc_has_selection(Tdocument *doc) {
 	return gtk_text_buffer_get_selection_bounds(doc->buffer,NULL,NULL);
 }
@@ -965,6 +964,9 @@ gchar *doc_get_chars(Tdocument *doc, gint start, gint end) {
  * 
  * Return value: gint with the number of characters
  **/
+#ifdef __GNUC__
+__inline__ 
+#endif
 gint doc_get_max_offset(Tdocument *doc) {
 	return gtk_text_buffer_get_char_count(doc->buffer);
 }
