@@ -58,16 +58,16 @@ typedef struct {
 static void ob_lview_row_activated_lcb(GtkTreeView *tree, GtkTreePath *path,GtkTreeViewColumn *column, Toutputbox *ob) {
 	GtkTreeIter iter;
 	gchar *file, *line;
-	gint lineval;
+	gint lineval=-1;
 	gtk_tree_model_get_iter(GTK_TREE_MODEL(ob->lstore),&iter,path);
 	gtk_tree_model_get(GTK_TREE_MODEL(ob->lstore), &iter, 0,&file,1,&line, -1);
 	DEBUG_MSG("ob_lview_row_activated_lcb, file=%s, line=%s\n",file,line);
-	if (file && strlen(file)) {
-		doc_new_with_file(ob->bfwin,file,FALSE,FALSE);
-	}
 	if (line && strlen(line)) {
 		lineval = atoi(line);
-		flush_queue();
+	}
+	if (file && strlen(file)) {
+		doc_new_from_uri(ob->bfwin, file, NULL, NULL, FALSE, FALSE, lineval);
+	} else {
 		doc_select_line(ob->bfwin->current_document, lineval, TRUE);
 	}
 	g_free(line);

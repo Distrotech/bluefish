@@ -987,20 +987,9 @@ static void open_recent_project_cb(GtkWidget *widget, Tbfwin *bfwin) {
  * This function should be called when a menu from the Open Recent list
  * has been selected. */
 static void open_recent_file_cb(GtkWidget *widget, Tbfwin *bfwin) {
-	gboolean success;
 	gchar *filename = GTK_LABEL(GTK_BIN(widget)->child)->label;
 	DEBUG_MSG("open_recent_file_cb, started, filename is %s\n", filename);
-
-	statusbar_message(bfwin,_("Loading file(s)..."),2000);
-	flush_queue();
-	success = (doc_new_with_file(bfwin,filename, FALSE, FALSE) != NULL);
-	if (!success) {
-		gchar *message = g_strconcat(_("The filename was:\n"), filename, NULL);
-		warning_dialog(bfwin->main_window,_("Could not open file\n"), message);
-		g_free(message);
-		return;
-	}
-	DEBUG_MSG("open_recent_file_cb, document %s opened\n", filename);
+	doc_new_from_uri(bfwin, filename, NULL, NULL, FALSE, FALSE, -1);
 	add_to_recent_list(bfwin,filename, 0, FALSE);
 }
 

@@ -220,24 +220,11 @@ static gboolean msg_queue_check(gint started_by_gtk_timeout)
 		} else if (msgp.mtype == MSG_QUEUE_OPENFILE) {
 			GList *lastlist = g_list_last(main_v->bfwinlist);
 			DEBUG_MSG("msg_queue_check, a filename %s is received\n", msgp.mtext);
-			if (!doc_new_with_file(BFWIN(lastlist->data),msgp.mtext, TRUE, FALSE)) {
-				msg_queue.file_error_list = g_list_append(msg_queue.file_error_list, g_strdup(msgp.mtext));
-			}
+			doc_new_from_uri(BFWIN(lastlist->data), msgp.mtext, NULL, NULL, TRUE, FALSE, -1);
 			msg_queue_check(0);	/* call myself again, there may have been multiple files */
-			if (started_by_gtk_timeout) {
-				if (msg_queue.file_error_list) {
-					gchar *message, *tmp;
-					tmp = stringlist_to_string(msg_queue.file_error_list, "\n");
-					free_stringlist(msg_queue.file_error_list);
-					msg_queue.file_error_list = NULL;
-					message = g_strconcat(_("These files were not opened:\n"), tmp, NULL);
-					g_free(tmp);
-					warning_dialog(BFWIN(main_v->bfwinlist->data)->main_window,_("Unable to open file(s)\n"), message);
-					g_free(message);
-				}
-/*				gtk_notebook_set_page(GTK_NOTEBOOK(main_v->notebook),g_list_length(main_v->documentlist) - 1);
-				notebook_changed(-1);*/
-			}
+/*			if (started_by_gtk_timeout) {
+				notebook_changed(-1);
+			}*/
 		} else if (msgp.mtype == MSG_QUEUE_OPENPROJECT) {
 			GList *lastlist = g_list_last(main_v->bfwinlist);
 			DEBUG_MSG("msg_queue_check, a project %s is received\n", msgp.mtext);

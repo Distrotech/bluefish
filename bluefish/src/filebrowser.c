@@ -76,6 +76,7 @@ no subdirectories (and not the other way around like it is right now)
 #include "menu.h" 		/* translation */
 #include "project.h" 	/* project_open_from_file() */
 #include "stringlist.h" /* count_array() */
+#include "file_dialogs.h"
 
 /*#define DEBUG_SORTING
 #define DEBUG_FILTER
@@ -1175,7 +1176,8 @@ static void handle_activate_on_file(Tfilebrowser *filebrowser, gchar *filename) 
 	Tfiletype *ft = get_filetype_by_filename_and_content(filename, NULL);
 	DEBUG_MSG("handle_activate_on_file, file %s has type %p\n",filename, ft);
 	if (ft == NULL || ft->editable) {
-		doc_new_with_file(filebrowser->bfwin,filename, FALSE, FALSE);
+		/* doc_new_with_file(filebrowser->bfwin,filename, FALSE, FALSE);*/
+		doc_new_from_input(filebrowser->bfwin,filename, FALSE, FALSE, -1);
 	} else if (strcmp(ft->type, "webimage")==0 || strcmp(ft->type, "image")==0) {
 		gchar *relfilename = create_relative_link_to(filebrowser->bfwin->current_document->uri, filename);
 		image_insert_from_filename(filebrowser->bfwin,relfilename);

@@ -469,14 +469,16 @@ static void bmark_popup_menu_goto_lcb(GtkWidget * widget, gpointer user_data)
 		tmpdoc = documentlist_return_document_from_filename(doclist, b->filepath);
 		g_list_free(doclist);
 		if (tmpdoc == NULL) {
-			if (!g_file_test(b->filepath, G_FILE_TEST_EXISTS)) {
+/*			if (!g_file_test(b->filepath, G_FILE_TEST_EXISTS)) {
 				gchar *string = g_strdup_printf(_("Could not find the file \"%s\"."), b->filepath);
 				error_dialog(BFWIN(user_data)->main_window, string,
 							 _("This bookmark is set in a file that no longer exists."));
 				g_free(string);
 				return;
 			}
-			tmpdoc = doc_new_with_file(BFWIN(user_data), b->filepath, FALSE, TRUE);
+			tmpdoc = doc_new_with_file(BFWIN(user_data), b->filepath, FALSE, TRUE); */
+			doc_new_from_uri(BFWIN(user_data), b->filepath, NULL, NULL, FALSE, FALSE, b->offset);
+			return;
 		}
 		/* now I have to check all bookmarks */
 		bmark_set_for_doc(tmpdoc);
