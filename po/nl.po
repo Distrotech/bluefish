@@ -1,7 +1,7 @@
 # Dutch translation of Bluefish
 # Copyright (C) 2001 Free Software Foundation, Inc.
 # Olav Sliekers <idunno@mysun.com>, 2001.
-#
+# Olivier Sessink, 2002
 #, fuzzy
 msgid ""
 msgstr ""
@@ -20,7 +20,7 @@ msgid ""
 "Currently accepted options are:\n"
 msgstr ""
 "\n"
-"Huidig geaccepteerde opties zijn:\n"
+"Momenteel geaccepteerde opties zijn:\n"
 
 #: ../src/bluefish.c:72
 msgid "-s           skip root check\n"
@@ -35,26 +35,24 @@ msgid "-h           this help screen\n"
 msgstr "-h           dit help-scherm\n"
 
 #: ../src/bluefish.c:122
-#, fuzzy
 msgid "parsing highlighting file..."
-msgstr "/Opties/Lijst/Oplichten van syntaxis..."
+msgstr "Inlezen van syntax bestand"
 
 #: ../src/bluefish.c:133
-#, fuzzy
 msgid "compiling highlighting patterns..."
-msgstr "geen goede patroon voor oplichten"
+msgstr "Verwerken van syntax patronen"
 
 #: ../src/bluefish.c:137
 msgid "parsing custom menu file..."
-msgstr ""
+msgstr "Verwerken van eigen menu bestand"
 
 #: ../src/bluefish.c:146
 msgid "creating main gui..."
-msgstr ""
+msgstr "Gebruikers interface wordt gemaakt"
 
 #: ../src/bluefish.c:151
 msgid "showing main gui..."
-msgstr ""
+msgstr "Gebruikers interface wordt getoont"
 
 #: ../src/document.c:83 ../src/gui.c:543
 #, fuzzy
@@ -3351,20 +3349,19 @@ msgstr ""
 
 #: ../src/preferences.c:1651
 msgid "Backup"
-msgstr ""
+msgstr "Reserve bestanden"
 
 #: ../src/preferences.c:1655
 msgid "Create backup on save"
-msgstr ""
+msgstr "Maak reservebestand bij opslaan"
 
 #: ../src/preferences.c:1656
 msgid "Backup file suffix"
-msgstr "Backup bestands-suffix"
+msgstr "Reservebestand achtervoegsel"
 
 #: ../src/preferences.c:1661
-#, fuzzy
 msgid "Action on backup failure"
-msgstr "Host name kan niet gevonden worden"
+msgstr "Actie als reservebestand mislukt"
 
 #: ../src/preferences.c:1672
 msgid "Undo history size"
@@ -3380,36 +3377,32 @@ msgid "Misc"
 msgstr ""
 
 #: ../src/preferences.c:1680
-#, fuzzy
 msgid "Allow multi instances of a file"
 msgstr "Meerdere exemplaren van hetzelfde bestand toestaan"
 
 #: ../src/preferences.c:1683
 msgid "User interface"
-msgstr ""
+msgstr "Gebruikers interface"
 
 #: ../src/preferences.c:1685
 msgid "Dimensions"
-msgstr ""
+msgstr "Dimensies"
 
 #: ../src/preferences.c:1689
 msgid "Restore last used dimensions"
-msgstr ""
+msgstr "Herstel laatst gebruikte afmetingen"
 
 #: ../src/preferences.c:1690
-#, fuzzy
 msgid "Initial left panel width"
-msgstr "breedte van programma"
+msgstr "Initiele breedte van linker paneel"
 
 #: ../src/preferences.c:1691
-#, fuzzy
 msgid "Initial window height"
-msgstr "hoogte van programma"
+msgstr "Initiele hoogte van programma"
 
 #: ../src/preferences.c:1692
-#, fuzzy
 msgid "Initial window width"
-msgstr "breedte van programma"
+msgstr "Initiele breedte van programma"
 
 #: ../src/preferences.c:1701
 #, fuzzy
@@ -3430,43 +3423,39 @@ msgid "Notebook tab font (leave empty for gtk default)"
 msgstr ""
 
 #: ../src/preferences.c:1706
-#, fuzzy
 msgid "Make HTML dialogs transient"
 msgstr "HTML dialogen altijd vooraan"
 
 #: ../src/preferences.c:1708
-#, fuzzy
 msgid "File browser"
-msgstr "Filter van betandsbrowser"
+msgstr "Bestands beheerder"
 
 #: ../src/preferences.c:1712
 msgid "Show hidden files"
-msgstr ""
+msgstr "Laat verborgen bestanden zien"
 
 #: ../src/preferences.c:1713
-#, fuzzy
 msgid "Show other users files"
-msgstr "per bestand kiezen"
+msgstr "Laat bestanden van andere gebruikers zien"
 
 #: ../src/preferences.c:1714
-#, fuzzy
 msgid "Show backup files"
-msgstr "Backup bestands-suffix"
+msgstr "Laat reserve bestanden zien"
 
 #: ../src/preferences.c:1715
 #, fuzzy
 msgid "Unknown icon"
-msgstr "Onbekende fout"
+msgstr "Onbekende ikoon"
 
 #: ../src/preferences.c:1716
 #, fuzzy
 msgid "Directory icon"
-msgstr "Map naam"
+msgstr "Map ikoon"
 
 #: ../src/preferences.c:1719
 #, fuzzy
 msgid "Images"
-msgstr "afbeeldingen"
+msgstr "Afbeeldingen"
 
 #: ../src/preferences.c:1721
 #, fuzzy
@@ -3476,7 +3465,7 @@ msgstr "Voorbeeldafbeelding..."
 #: ../src/preferences.c:1725
 #, fuzzy
 msgid "Thumbnail suffix"
-msgstr "Voorbeeldafbeelding (thumbnail) type"
+msgstr "Voorbeeldafbeelding (thumbnail) achtervoegsel"
 
 #: ../src/preferences.c:1729
 #, fuzzy
