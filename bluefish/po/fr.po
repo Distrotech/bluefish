@@ -249,7 +249,7 @@ msgstr "Autorisation requise"
 #: ../src/authen.c:85
 #, c-format
 msgid "Authentication is required for %s."
-msgstr "Une autorisation est requise pour %s."
+msgstr "Une autorisation est requise pour accéder à %s."
 
 #: ../src/authen.c:91
 msgid "Username:"
@@ -375,11 +375,11 @@ msgstr "-h          Aide en ligne\n"
 
 #: ../src/bluefish.c:179
 msgid "parsing highlighting file..."
-msgstr "Traitement de la coloration du fichier..."
+msgstr "Traitement de la coloration syntaxique du fichier..."
 
 #: ../src/bluefish.c:190
 msgid "compiling highlighting patterns..."
-msgstr "Compilation des modèles de coloration..."
+msgstr "Compilation des modèles de coloration syntaxique..."
 
 #: ../src/bluefish.c:197
 msgid "parsing custom menu file..."
@@ -440,11 +440,11 @@ msgstr "Désirez-vous vraiment supprimer %s ?"
 
 #: ../src/bookmark.c:447
 msgid "Delete permanent bookmark."
-msgstr "Effacer le signet permanent"
+msgstr "Supprimer le signet permanent"
 
 #: ../src/bookmark.c:464
 msgid "Edit bookmark"
-msgstr "Editer signet"
+msgstr "Éditer le signet"
 
 #: ../src/bookmark.c:478
 msgid "Goto bookmark"
@@ -592,7 +592,7 @@ msgstr "Rechercher"
 
 #: ../src/document.c:2003
 msgid "Edit color"
-msgstr "Edition de la couleur"
+msgstr "Édition de la couleur"
 
 #: ../src/document.c:2011
 msgid "Edit tag"
@@ -642,7 +642,7 @@ msgstr ""
 
 #: ../src/document.c:2212
 msgid "File encoding conversion failure"
-msgstr "Echec de la conversion d'encodage du fichier"
+msgstr "Échec de la conversion d'encodage du fichier"
 
 #: ../src/document.c:2344
 msgid "Previously: "
@@ -714,7 +714,7 @@ msgid ""
 "Could not backup file:\n"
 "\""
 msgstr ""
-"Impossible de sauvegarder  le fichier :\n"
+"Impossible de sauvegarder le fichier :\n"
 "\""
 
 #: ../src/document.c:2560
@@ -2441,7 +2441,7 @@ msgstr "/Éditer/sep4"
 
 #: ../src/menu.c:363
 msgid "/Edit/S_hift Right"
-msgstr "/Edition/Au_gmenter le retrait"
+msgstr "/Éditer/Au_gmenter le retrait"
 
 #: ../src/menu.c:364
 msgid "/Edit/Shift _Left"
@@ -3477,7 +3477,7 @@ msgstr "/Document/C_olorer le code"
 
 #: ../src/menu.c:653
 msgid "/Document/_Update Highlighting"
-msgstr "/Document/Mettre à jo_ur la coloration"
+msgstr "/Document/Mettre à jo_ur la coloration syntaxique"
 
 #: ../src/menu.c:654
 msgid "/Document/sep3"
@@ -3959,7 +3959,7 @@ msgid ""
 "%i for input and %f for output filename (filters)"
 msgstr ""
 "%s nom du fichier actif (pour toute commande) \n"
-"%i nom du fichier en entrée et %f nom du fichie en sortie (pour les filtres)"
+"%i nom du fichier en entrée et %f nom du fichier en sortie (pour les filtres)"
 
 #: ../src/preferences.c:1740
 msgid "Name"
