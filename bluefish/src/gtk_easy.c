@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-/*#define DEBUG*/
+/* #define DEBUG */
 #include <gtk/gtk.h>
 #include <stdlib.h> /* strtod() */
 #include <string.h> /* strlen() */
@@ -798,12 +798,11 @@ void bf_label_tad_with_markup(const gchar *labeltext, gfloat xalign, gfloat yali
 
 /* Emit a delete-event to the appropriate dialog, to detect a user bailing through escape. */
 static gboolean dialog_key_press_event_lcb(GtkWidget *widget,GdkEventKey *event,GtkWidget *dialog) {
-	DEBUG_MSG("widget is %p and dialog is %p", widget, dialog);
-	DEBUG_MSG("dialog_key_press_event_lcb, started\n");
+	DEBUG_MSG("dialog_key_press_event_lcb, started, widget is %p and dialog is %p\n", widget, dialog);
 	if (event->keyval == GDK_Escape) {
 		DEBUG_MSG("dialog_key_press_event_lcb, emit delete_event on %p\n", dialog);
-		g_signal_emit_by_name(G_OBJECT(dialog), "delete_event");
-		DEBUG_MSG("window_full_key_press_event_lcb, emitted delete-event to %p\n", dialog);
+		/* g_signal_emit_by_name(G_OBJECT(dialog), "delete_event"); */
+		gtk_widget_destroy(dialog);
 		return TRUE;
 	}
 	return FALSE;
@@ -874,12 +873,12 @@ gint multi_button_dialog_backend(GtkWidget *win, gchar *primary, gchar *secondar
 	GtkWidget *dialog;
 	int i, retval;
 
-	DEBUG_MSG ("multi_button_dialog_backend: Starting. Creating dialog w/button '%s', ID=0\n", *buttons);
 	dialog = gtk_dialog_new_with_buttons (NULL, /* Note that no title is being set. */
 												GTK_WINDOW(win),
 												GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
 												*buttons, 0,
 												NULL);
+	DEBUG_MSG ("multi_button_dialog_backend: dialog=%p, primary=%s\n", dialog, primary);
 	/* Add buttons. The index must be correct! */
 	for (i = 1; *++buttons; i++) { /* Walk through the button-list until one reaches NULL. */
 		DEBUG_MSG ("multi_button_dialog_backend: Adding button '%s', ID=%d\n", *buttons, i);
