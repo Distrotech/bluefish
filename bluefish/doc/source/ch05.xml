@@ -48,7 +48,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
   <sect1 id="bluefish-ch-5-sect-3"><title>search and replace (regex
   patterns)</title> 
   
-  <para> With the search and replace you can do increadible
+  <para> With the search and replace you can do incredible
   things. We'll start with a simple example. In some HTML table we have
   several table data tags where we actually want table header tags. Table data
   is &lt;td&gt;&lt;/td&gt; and we want &lt;th&gt;&lt;/th&gt;. </para> <para>
@@ -69,12 +69,20 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
   section of this manual for more information. </para>
   
   <para>
+  In the search and the search and replace dialog it is not possible to insert keys 
+  Enter or Tab. You can, however, insert escape characters, if you enable the 
+  'Patterns contain backslash sequences' option. If you use this option, you can
+  add a newline to your pattern as \n, a tab as a \t, and a backslash becomes a 
+  \\.
+  </para>
+  
+  <para>
   Another useful option in the search dialog is the <emphasis>bookmark results
   </emphasis> option. For example in a php document, you could search for the
   word 'function', and add a bookmark to every function. This results, however,
   in a list of bookmarks that are all named 'function'. Not so useful. But also
   now we can make use of a regular expression. The expression 
-  'function[ \t\n]+[&a-zA-Z0-9_]+' will result in all functions and their name.
+  'function[ \t\n]+[&amp;a-zA-Z0-9_]+' will result in all functions and their name.
   Much more useful!
   </para>
   

@@ -37,7 +37,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
     <listitem><para>use 'gdb src/bluefish' to run bluefish in the debugger, do not run gdb bluefish or gdb /usr/local/bin/bluefish since these binaries do not have any debugging symbols anymore</para></listitem>
     <listitem><para>type 'r' to start</para></listitem>
     <listitem><para>reproduce the crash</para></listitem>
-    <listitem><para>copy & paste the last 50 lines of output to an email</para></listitem>
+    <listitem><para>copy &amp; paste the last 50 lines of output to an email</para></listitem>
     <listitem><para>type 'bt' to get the backstrace info, and copy it also to the mail (if it is over 50 lines, the first lines are the most interesting)</para></listitem>
     <listitem><para>send the mail to the general address, the mailinglist or a specific developer</para></listitem>
 	</itemizedlist>
@@ -132,7 +132,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 <para>Before creating the patch:</para>
 <itemizedlist>
-<listitem><para>run make distclean && ./configure && make and test if it runs successfull</para></listitem>
+<listitem><para>run make distclean &amp;&amp; ./configure &amp;&amp; make and test if it runs successfull</para></listitem>
 <listitem><para>if you have the possibility do this both with gcc-2.95 and gcc-3. as compiler</para></listitem>
 </itemizedlist>
 <para>Now create the patch. Suppose you have two directories, original-tree and my-tree</para>
