@@ -39,5 +39,5 @@ GList *duplicate_arraylist(GList *arraylist);
 GList *remove_from_stringlist(GList *which_list, gchar * string);
 /* adds a string to a stringlist if it is not yet in there */
 GList *add_to_stringlist(GList * which_list, gchar * string);
-
+gchar *stringlist_to_string(GList *stringlist, gchar *delimiter);
 #endif							/* __STRINGLIST_H_ */

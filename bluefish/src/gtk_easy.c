@@ -94,41 +94,6 @@ void window_close_by_data_cb(GtkWidget * widget, gpointer data)
 	window_destroy(GTK_WIDGET(data));
 }
 
-
-/*
- * Function: error_dialog
- * Arguments:
- * 	windiw_title - the title of the error window
- * 	error_string - the description of the error
- * Return value:
- * 	void
- * Description:
- * 	displays an error dialog
- */
-
-void error_dialog(gchar * window_title, gchar * error_string)
-{
-	GtkWidget *dialog, *okbutton;
-
-	dialog = gtk_dialog_new();
-	gtk_window_set_title(GTK_WINDOW(dialog), window_title);
-	gtk_window_position(GTK_WINDOW(dialog), GTK_WIN_POS_MOUSE);
-	gtk_container_border_width(GTK_CONTAINER(dialog), 15);
-
-	okbutton = gtk_button_new_with_label(_("OK"));
-	gtk_box_pack_start(GTK_BOX(GTK_DIALOG(dialog)->action_area), okbutton, TRUE, TRUE, 0);
-	GTK_WIDGET_SET_FLAGS(okbutton, GTK_CAN_DEFAULT);
-	gtk_widget_grab_default(okbutton);
-
-/* maybe we need this attachment here ??: g_signal_connect_object(G_OBJECT(okbutton), "clicked", G_CALLBACK(gtk_widget_destroy), dialog);*/
-	g_signal_connect(G_OBJECT(okbutton), "clicked", G_CALLBACK(window_close_by_data_cb), dialog);
-
-	gtk_box_pack_start(GTK_BOX(GTK_DIALOG(dialog)->vbox), gtk_label_new(error_string), TRUE, TRUE, 0);
-	gtk_widget_show_all(dialog);
-}
-
-
-
 /*
  * Function: setup_toggle_item
  * Arguments:
@@ -515,6 +480,36 @@ GtkWidget *bf_stock_cancel_button(GCallback func, gpointer func_data)
 {
 	return bf_gtkstock_button(GTK_STOCK_CANCEL, func, func_data);
 };
+
+/*
+ * Function: error_dialog
+ * Arguments:
+ * 	windiw_title - the title of the error window
+ * 	error_string - the description of the error
+ * Return value:
+ * 	void
+ * Description:
+ * 	displays an error dialog
+ */
+
+void error_dialog(gchar * window_title, gchar * error_string)
+{
+	GtkWidget *dialog, *okbutton;
+
+	dialog = gtk_dialog_new();
+	gtk_window_set_title(GTK_WINDOW(dialog), window_title);
+	gtk_window_position(GTK_WINDOW(dialog), GTK_WIN_POS_MOUSE);
+	gtk_container_border_width(GTK_CONTAINER(dialog), 10);
+	gtk_window_set_wmclass(GTK_WINDOW(dialog), "Bluefish", "error_dialog");
+	okbutton = bf_stock_ok_button(G_CALLBACK(window_close_by_data_cb), dialog);
+	gtk_box_pack_start(GTK_BOX(GTK_DIALOG(dialog)->action_area), okbutton, TRUE, TRUE, 0);
+	GTK_WIDGET_SET_FLAGS(okbutton, GTK_CAN_DEFAULT);
+	gtk_widget_grab_default(okbutton);
+
+	gtk_box_pack_start(GTK_BOX(GTK_DIALOG(dialog)->vbox), gtk_label_new(error_string), TRUE, TRUE, 0);
+	gtk_widget_show_all(dialog);
+}
+
 
 
 /************************************************************************/

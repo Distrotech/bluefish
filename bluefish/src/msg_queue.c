@@ -9,6 +9,8 @@
 #include <string.h> /* strncpy */
 
 #include "bluefish.h"
+#include "stringlist.h"
+#include "document.h"
 
 #define MSG_QUEUE_DEBUG
 
@@ -21,7 +23,7 @@
 #define MSG_QUEUE_SEND_ALIVE 46064
 #define MSG_QUEUE_OPENFILE 46063
 #define MSG_QUEUE_ASK_ALIVE 46062
-#define MSG_QUEUE_PER_DOCUMENT_TIMEOUT 50000000	/* nanoseconds */
+#define MSG_QUEUE_PER_DOCUMENT_TIMEOUT 20000000	/* nanoseconds */
 
 /* 
 the message queue system is quite easy:
@@ -45,12 +47,13 @@ typedef struct {
 	gboolean functional;
 	gboolean server;
 	int msgid;
+	GList *file_error_list;
 } Tmsg_queue;
 
 /******************************/
 /* global var for this module */
 /******************************/
-Tmsg_queue msg_queue = { TRUE, FALSE, -1 };
+Tmsg_queue msg_queue = { TRUE, FALSE, -1, NULL};
 
 static gboolean msg_queue_check_alive(gboolean wait_first)
 {
@@ -158,9 +161,21 @@ static gboolean msg_queue_check(gint started_by_gtk_timeout)
 				   IPC_NOWAIT);
 		} else if (msgp.mtype == MSG_QUEUE_OPENFILE) {
 			DEBUG_MSG("msg_queue_check, a filename %s is received\n", msgp.mtext);
-			doc_new_with_file(msgp.mtext, TRUE);
+			if (!doc_new_with_file(msgp.mtext, TRUE)) {
+				msg_queue.file_error_list = g_list_append(msg_queue.file_error_list, g_strdup(msgp.mtext));
+			}
 			msg_queue_check(GINT_TO_POINTER(0));	/* call myself again, there may have been multiple files */
 			if (started_by_gtk_timeout) {
+				if (msg_queue.file_error_list) {
+					gchar *message, *tmp;
+					tmp = stringlist_to_string(msg_queue.file_error_list, "\n");
+					free_stringlist(msg_queue.file_error_list);
+					msg_queue.file_error_list = NULL;
+					message = g_strconcat(_("Unable to open file(s)\n"), tmp, NULL);
+					g_free(tmp);
+					error_dialog("Bluefish error", message);
+					g_free(message);
+				}
 				gtk_notebook_set_page(GTK_NOTEBOOK(main_v->notebook),g_list_length(main_v->documentlist) - 1);
 				notebook_changed(-1);
 			}
@@ -228,8 +243,16 @@ static gboolean msg_queue_send_files(GList * filenames)
 			strncpy(msgp.mtext, (gchar *) tmplist->data, MSQ_QUEUE_SIZE - 1);
 			retval =	msgsnd(msg_queue.msgid, (void *) &msgp, MSQ_QUEUE_SIZE * sizeof(char), IPC_NOWAIT);
 			if (retval == -1) {
-				DEBUG_MSG("msg_queue_send_files, failed sending, errno=%d, error=%s\n", errno,g_strerror(errno));
-				send_failure_cnt++;
+				DEBUG_MSG("msg_queue_send_files, failed sending, errno=%d\n", errno);
+				if (errno == EAGAIN) { /* EAGAIN = 11 */
+					static struct timespec const req = { 0, MSG_QUEUE_PER_DOCUMENT_TIMEOUT};
+					static struct timespec rem;
+					nanosleep(&req, &rem);
+					send_failure_cnt++;
+				} else {
+					DEBUG_MSG("msg_queue_send_files, failing to send, errno=%d, aborting\n", errno);
+					success = 0;
+				}
 			} else {
 				if (!received_keepalive) {
 					/* if we fill the message queue with loads of data, the server 
@@ -252,16 +275,11 @@ static gboolean msg_queue_send_files(GList * filenames)
 			DEBUG_MSG("msg_queue_send_files, failed sending, length increased message size\n");
 			success = 0;
 		}
-		if ((check_keepalive_cnt > 5) || (send_failure_cnt > 30)) {
+		if ((check_keepalive_cnt > 5) || (send_failure_cnt > 60)) {
 			DEBUG_MSG
 				("msg_queue_send_files, to many tries, check_keepalive_cnt=%d, send_failure_cnt=%d\n",
 				 check_keepalive_cnt, send_failure_cnt);
 			success = 0;
-		}
-		{
-			static struct timespec const req = { 0, MSG_QUEUE_PER_DOCUMENT_TIMEOUT};
-			static struct timespec rem;
-			nanosleep(&req, &rem);
 		}
 	}
 	if (success) {
