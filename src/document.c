@@ -1416,6 +1416,10 @@ void doc_destroy(Tdocument * doc, gboolean delay_activation)
 		}
 		g_free(doc->filename);
 	}
+	
+	if (doc->encoding)
+		g_free(doc->encoding);
+		
 	DEBUG_MSG("doc_destroy, this is kind of tricky, I don't know if the Buffer is also detroyed when you destroy the view\n");
 	g_object_unref(doc->buffer);
 	DEBUG_MSG("doc_destroy, if this line shows up well I guess we needed to unref the buffer\n");

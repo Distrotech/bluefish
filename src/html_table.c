@@ -245,7 +245,7 @@ void tablerowdialog_cb(GtkWidget * widget, gpointer data)
 
 	dg->combo[3] = combo_with_popdown_sized(tagvalues[2], recent_attribs.colorlist, 1, 90);
 	color_but = color_but_new(GTK_COMBO(dg->combo[3])->entry, dg->dialog);
-	bf_mnemonic_label_tad_with_alignment(_("Backgou_nd Color:"), dg->combo[3], 0, 0.5, dgtable, 2, 3, 1, 2);
+	bf_mnemonic_label_tad_with_alignment(_("Backgrou_nd Color:"), dg->combo[3], 0, 0.5, dgtable, 2, 3, 1, 2);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(GTK_COMBO(dg->combo[3])), 3, 4, 1, 2);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(color_but), 4, 5, 1, 2);
 
