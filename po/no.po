@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: bluefish gtk2-port\n"
-"POT-Creation-Date: 2003-02-14 18:43+0100\n"
+"POT-Creation-Date: 2003-02-23 19:31+0100\n"
 "PO-Revision-Date: 2002-12-22 12:00+0100\n"
 "Last-Translator: Christian Tellefsen <chris@tellefsen.net>\n"
 "Language-Team: Not a member <LL@li.org>\n"
@@ -15,61 +15,61 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8 bit\n"
 
-#: ../src/bfspell.c:246 ../src/bfspell.c:327
+#: ../src/bfspell.c:253 ../src/bfspell.c:334
 msgid "personal dictionary"
 msgstr "personlig ordbok"
 
-#: ../src/bfspell.c:291
+#: ../src/bfspell.c:298
 msgid "Spell checker"
 msgstr "Stavekontroll"
 
-#: ../src/bfspell.c:295
+#: ../src/bfspell.c:302
 msgid "Checking"
 msgstr "Sjekker"
 
-#: ../src/bfspell.c:302
+#: ../src/bfspell.c:309
 msgid "Original"
 msgstr "Original"
 
-#: ../src/bfspell.c:306
+#: ../src/bfspell.c:313
 msgid "Replacement"
 msgstr "Erstatning"
 
-#: ../src/bfspell.c:309 ../src/document.c:1702
+#: ../src/bfspell.c:316 ../src/document.c:1730
 msgid "Ignore"
 msgstr "Ignorer"
 
-#: ../src/bfspell.c:310 ../src/menu.c:1878 ../src/snr2.c:1048
+#: ../src/bfspell.c:317 ../src/menu.c:1878 ../src/snr2.c:1048
 #: ../src/snr2.c:1102
 msgid "Replace"
 msgstr "Erstatt"
 
-#: ../src/bfspell.c:321
+#: ../src/bfspell.c:328
 msgid "In document"
 msgstr "I det aktive dokumentet"
 
-#: ../src/bfspell.c:322 ../src/snr2.c:1083
+#: ../src/bfspell.c:329 ../src/snr2.c:1083
 msgid "In selection"
 msgstr "I det markerte området"
 
-#: ../src/bfspell.c:328
+#: ../src/bfspell.c:335
 msgid "session dictionary"
 msgstr "sesjonsordbok"
 
-#: ../src/bfspell.c:330
+#: ../src/bfspell.c:337
 msgid "Dictionary"
 msgstr "Ordbok"
 
-#: ../src/bfspell.c:332
+#: ../src/bfspell.c:339
 msgid "Add"
 msgstr "Tilføy"
 
-#: ../src/bfspell.c:336 ../src/html.c:591 ../src/html.c:1180
+#: ../src/bfspell.c:343 ../src/html.c:591 ../src/html.c:1180
 #: ../src/html.c:1908
 msgid "Language"
 msgstr "Språk"
 
-#: ../src/bfspell.c:338
+#: ../src/bfspell.c:345
 msgid "Set default"
 msgstr "Sett standardinnstillinger"
 
@@ -102,27 +102,27 @@ msgstr "-v          versjon\n"
 msgid "-h           this help screen\n"
 msgstr "-h          denne listen\n"
 
-#: ../src/bluefish.c:137
+#: ../src/bluefish.c:135
 msgid "parsing highlighting file..."
 msgstr "leser inn syntaksmønstre..."
 
-#: ../src/bluefish.c:148
+#: ../src/bluefish.c:146
 msgid "compiling highlighting patterns..."
 msgstr "kompilerer syntaksmønsre..."
 
-#: ../src/bluefish.c:152
+#: ../src/bluefish.c:150
 msgid "parsing custom menu file..."
 msgstr "leser inn brukerdefinerte menyer..."
 
-#: ../src/bluefish.c:161
+#: ../src/bluefish.c:159
 msgid "creating main gui..."
 msgstr "oppretter gui..."
 
-#: ../src/bluefish.c:166
+#: ../src/bluefish.c:164
 msgid "showing main gui..."
 msgstr "viser gui..."
 
-#: ../src/document.c:96 ../src/gui.c:559
+#: ../src/document.c:96 ../src/gui.c:560
 msgid "/Document/Highlight syntax"
 msgstr "/Vis/Fargelegg syntaks"
 
@@ -139,8 +139,8 @@ msgstr "Henter fil "
 msgid "Could not open file:\n"
 msgstr "Kunne ikke hente fil:\n"
 
-#: ../src/document.c:667 ../src/document.c:791 ../src/document.c:1329
-#: ../src/document.c:1335
+#: ../src/document.c:667 ../src/document.c:791 ../src/document.c:1356
+#: ../src/document.c:1362
 msgid "Error"
 msgstr "Feil"
 
@@ -153,65 +153,65 @@ msgstr "Filen kan ikke vises, ukjente tegn funnet"
 msgid " line %4d "
 msgstr " linje %4d "
 
-#: ../src/document.c:1011
+#: ../src/document.c:1034
 msgid "Edit tag"
 msgstr "Rediger tag"
 
-#: ../src/document.c:1022
+#: ../src/document.c:1045
 msgid "Input _Methods"
 msgstr "Input_metoder"
 
-#: ../src/document.c:1099
+#: ../src/document.c:1122
 msgid "Saving file"
 msgstr "Lagrer fil"
 
-#: ../src/document.c:1120
+#: ../src/document.c:1143
 msgid "Abort save"
 msgstr "Avbryt lagring"
 
-#: ../src/document.c:1120
+#: ../src/document.c:1143
 msgid "Continue save"
 msgstr "Fortsett lagring"
 
-#: ../src/document.c:1122
+#: ../src/document.c:1145
 #, c-format
 msgid "Backup for %s failed"
 msgstr "Backup %s mislyktes"
 
-#: ../src/document.c:1123
+#: ../src/document.c:1146
 msgid "Bluefish warning, file backup failure"
 msgstr "Bluefish advarsel, feil ved backup"
 
-#: ../src/document.c:1249
+#: ../src/document.c:1272
 msgid "Save as..."
 msgstr "Lagre som..."
 
-#: ../src/document.c:1252
+#: ../src/document.c:1275
 msgid "Save document as"
 msgstr "Lagre dokument som"
 
-#: ../src/document.c:1259 ../src/document.c:1301
+#: ../src/document.c:1282 ../src/document.c:1324
 msgid "Overwrite"
 msgstr "Overskriv"
 
-#: ../src/document.c:1259 ../src/document.c:1301
+#: ../src/document.c:1282 ../src/document.c:1324
 msgid "Cancel"
 msgstr "Avbryt"
 
-#: ../src/document.c:1260
+#: ../src/document.c:1283
 #, c-format
 msgid "File %s is open, overwrite?"
 msgstr "Filen %s er åpen, overskriv?"
 
-#: ../src/document.c:1261
+#: ../src/document.c:1284
 msgid "Bluefish: Warning, file is open"
 msgstr "Bluefish: Advarsel: filen er åpen"
 
-#: ../src/document.c:1280
+#: ../src/document.c:1303
 msgid "Previously: "
 msgstr "Forrige: "
 
-#: ../src/document.c:1305
+#: ../src/document.c:1328
 #, c-format
 msgid ""
 "File %s\n"
@@ -226,23 +226,24 @@ msgstr ""
 "Bluefish var sist i kontakt med filen %s\n"
 "Overskriv?"
 
-#: ../src/document.c:1306 ../src/document.c:1707
+#: ../src/document.c:1329 ../src/document.c:1735
 msgid "Bluefish: Warning, file is modified"
 msgstr "Bluefish: Advarsel: Filen er endret"
 
-#: ../src/document.c:1321
-msgid "Save in progress"
-msgstr "Lagrer fil"
+#: ../src/document.c:1345
+#, fuzzy, c-format
+msgid "Saving %s"
+msgstr "Forstørrelse (%) "
 
-#: ../src/document.c:1328
+#: ../src/document.c:1355
 msgid "File save aborted, could not backup file:\n"
 msgstr "Lagring avbrutt, kunne ikke opprette backup:\n"
 
-#: ../src/document.c:1334
+#: ../src/document.c:1361
 msgid "File save error, could not write file:\n"
 msgstr "Kunne ikke lagre filen:\n"
 
-#: ../src/document.c:1382
+#: ../src/document.c:1409
 #, c-format
 msgid ""
 "Are you sure you want to close\n"
@@ -251,7 +252,7 @@ msgstr ""
 "Er du sikker på at du vil lukke\n"
 "%s ?"
 
-#: ../src/document.c:1387
+#: ../src/document.c:1414
 msgid ""
 "Are you sure you want to close\n"
 "this untitled file ?"
@@ -259,27 +260,27 @@ msgstr ""
 "Er du sikker på at du vil lukke\n"
 "uten navn ?"
 
-#: ../src/document.c:1392
+#: ../src/document.c:1419
 msgid "Bluefish warning: file is modified!"
 msgstr "Bluefish advarsel: filen er endret!"
 
-#: ../src/document.c:1583
+#: ../src/document.c:1610
 msgid "No filename"
 msgstr "Uten filnavn"
 
-#: ../src/document.c:1656 ../src/msg_queue.c:180
+#: ../src/document.c:1684 ../src/msg_queue.c:180
 msgid "Unable to open file(s)\n"
 msgstr "Kunne ikke åpne filen(e)\n"
 
-#: ../src/document.c:1672
+#: ../src/document.c:1700
 msgid "Unable to open file"
 msgstr "Kunne ikke åpne filen"
 
-#: ../src/document.c:1702
+#: ../src/document.c:1730
 msgid "Reload"
 msgstr "Les inn"
 
-#: ../src/document.c:1706
+#: ../src/document.c:1734
 #, c-format
 msgid ""
 "File %s\n"
@@ -292,82 +293,82 @@ msgstr ""
 "Filen ble sist endret %s\n"
 "Bluefish var sist i kontakt med filen %s"
 
-#: ../src/document.c:1794
+#: ../src/document.c:1822
 msgid "searching files..."
 msgstr "søker..."
 
-#: ../src/document.c:1809
+#: ../src/document.c:1837
 msgid "Select basedir"
 msgstr "Valg"
 
-#: ../src/document.c:1819
+#: ../src/document.c:1847
 msgid "Advanced file selector"
 msgstr "Advansert filvelger"
 
-#: ../src/document.c:1823
+#: ../src/document.c:1851
 msgid "grep {contains} `find {basedir} -name '{pattern}'`"
 msgstr "grepp {inneholder} `finn {katalog} -name '{søkeuttrykk}'`"
 
-#: ../src/document.c:1825
+#: ../src/document.c:1853
 msgid "Filename"
 msgstr "Filnavn"
 
-#: ../src/document.c:1834
+#: ../src/document.c:1862
 msgid "Basedir"
 msgstr "Startkatalog"
 
-#: ../src/document.c:1842 ../src/document.c:1864 ../src/preferences.c:978
+#: ../src/document.c:1870 ../src/document.c:1892 ../src/preferences.c:978
 #: ../src/preferences.c:1419 ../src/preferences.c:1468
 msgid "Pattern"
 msgstr "Mønster"
 
-#: ../src/document.c:1857
+#: ../src/document.c:1885
 msgid "recursive"
 msgstr "rekursivt"
 
-#: ../src/document.c:1859
+#: ../src/document.c:1887
 msgid "Contains"
 msgstr "Inneholder"
 
-#: ../src/document.c:1865
+#: ../src/document.c:1893
 msgid "is regex"
 msgstr "bruker regexp"
 
-#: ../src/document.c:1923
+#: ../src/document.c:1951
 #, c-format
 msgid "Loading %d file(s)..."
 msgstr "Leser inn %d fil(er)..."
 
-#: ../src/document.c:1941 ../src/gtk_easy.c:801 ../src/menu.c:1303
+#: ../src/document.c:1969 ../src/gtk_easy.c:803 ../src/menu.c:1303
 #: ../src/menu.c:1640 ../src/menu.c:1648
 msgid "Bluefish error"
 msgstr "Bluefish feil"
 
-#: ../src/document.c:1941 ../src/gtk_easy.c:801
+#: ../src/document.c:1969 ../src/gtk_easy.c:803
 msgid "No filename known"
 msgstr "Ukjent filnavn"
 
-#: ../src/document.c:1975
+#: ../src/document.c:2003
 msgid "save all"
 msgstr "lagre alle"
 
-#: ../src/document.c:1975
+#: ../src/document.c:2003
 msgid "close all"
 msgstr "lukk alle"
 
-#: ../src/document.c:1975
+#: ../src/document.c:2003
 msgid "choose per file"
 msgstr "velg per fil"
 
-#: ../src/document.c:1975
+#: ../src/document.c:2003
 msgid "cancel"
 msgstr "avbryt"
 
-#: ../src/document.c:1976
+#: ../src/document.c:2004
 msgid "Bluefish: Warning, some file(s) are modified!"
 msgstr "Bluefish: Advarsel: noen fil(er) er endret!"
 
-#: ../src/document.c:1976
+#: ../src/document.c:2004
 msgid ""
 "Some file(s) are modified\n"
 "please choose your action"
@@ -375,23 +376,23 @@ msgstr ""
 "Noen filer er endret\n"
 "hva skal gjøres"
 
-#: ../src/filebrowser.c:729
+#: ../src/filebrowser.c:742
 msgid "Error creating path"
 msgstr "Feil ved opprettelse av sti"
 
-#: ../src/filebrowser.c:729
+#: ../src/filebrowser.c:742
 msgid "Path exists already"
 msgstr "Stien eksisterer allerede"
 
-#: ../src/filebrowser.c:786
+#: ../src/filebrowser.c:799
 msgid "File name"
 msgstr "Filnavn"
 
-#: ../src/filebrowser.c:788
+#: ../src/filebrowser.c:801
 msgid "Directory name"
 msgstr "Katalognavn"
 
-#: ../src/filebrowser.c:832
+#: ../src/filebrowser.c:845
 #, c-format
 msgid ""
 "Are you sure you want to\n"
@@ -400,497 +401,497 @@ msgstr ""
 "Er du sikker på at du vil\n"
 "slette %s ?"
 
-#: ../src/filebrowser.c:833
+#: ../src/filebrowser.c:846
 msgid "delete file?"
 msgstr "slett fil?"
 
-#: ../src/filebrowser.c:893
+#: ../src/filebrowser.c:906
 msgid "New file"
 msgstr "Ny fil"
 
-#: ../src/filebrowser.c:896
+#: ../src/filebrowser.c:909
 msgid "New directory"
 msgstr "Opprett katalog"
 
-#: ../src/filebrowser.c:899
+#: ../src/filebrowser.c:912
 msgid "Delete file"
 msgstr "Slett filen?"
 
-#: ../src/filebrowser.c:902
+#: ../src/filebrowser.c:915
 msgid "Refresh"
 msgstr "Oppdater dokumentet"
 
-#: ../src/filebrowser.c:905
+#: ../src/filebrowser.c:918
 msgid "Filter"
 msgstr "Filter"
 
-#: ../src/filebrowser.c:1062
+#: ../src/filebrowser.c:1075
 msgid "All files"
 msgstr "Alle filer"
 
-#: ../src/gtk_easy.c:874
+#: ../src/gtk_easy.c:876
 msgid "Select file"
 msgstr "Velg fil"
 
-#: ../src/gtk_easy.c:886
+#: ../src/gtk_easy.c:888
 msgid "Select files"
 msgstr "Velg filer"
 
-#: ../src/gui.c:221
+#: ../src/gui.c:222
 msgid "QuickStart..."
 msgstr "Hurtigstart..."
 
-#: ../src/gui.c:222
+#: ../src/gui.c:223
 msgid "Body..."
 msgstr "Body..."
 
-#: ../src/gui.c:223
+#: ../src/gui.c:224
 msgid "Bold"
 msgstr "Fet"
 
-#: ../src/gui.c:224
+#: ../src/gui.c:225
 msgid "Italic"
 msgstr "Kursiv"
 
-#: ../src/gui.c:225 ../src/html.c:754
+#: ../src/gui.c:226 ../src/html.c:754
 msgid "Paragraph"
 msgstr "Avsnitt"
 
-#: ../src/gui.c:226
+#: ../src/gui.c:227
 msgid "Break"
 msgstr "Break"
 
-#: ../src/gui.c:227
+#: ../src/gui.c:228
 msgid "Break and clear"
 msgstr "Break and clear"
 
-#: ../src/gui.c:228
+#: ../src/gui.c:229
 msgid "Non-breaking space"
 msgstr "Non-breaking space"
 
-#: ../src/gui.c:230
+#: ../src/gui.c:231
 msgid "Anchor..."
 msgstr "Anker"
 
-#: ../src/gui.c:231
+#: ../src/gui.c:232
 msgid "Rule..."
 msgstr "Skillelinje..."
 
-#: ../src/gui.c:232
+#: ../src/gui.c:233
 msgid "Center"
 msgstr "Sentrer"
 
-#: ../src/gui.c:233
+#: ../src/gui.c:234
 msgid "Right Justify"
 msgstr "Høyrestilt"
 
-#: ../src/gui.c:234
+#: ../src/gui.c:235
 msgid "Comment"
 msgstr "Kommentar"
 
-#: ../src/gui.c:235
+#: ../src/gui.c:236
 msgid "E-Mail..."
 msgstr "E-Post..."
 
-#: ../src/gui.c:236
+#: ../src/gui.c:237
 msgid "Font..."
 msgstr "Skrifttype..."
 
-#: ../src/gui.c:237
+#: ../src/gui.c:238
 msgid "Base Font Size..."
 msgstr "Grund skrifttype størrelse..."
 
-#: ../src/gui.c:239
+#: ../src/gui.c:240
 msgid "Font Size +1"
 msgstr "Skriftstørrelse +1"
 
-#: ../src/gui.c:240
+#: ../src/gui.c:241
 msgid "Font Size -1"
 msgstr "Skriftstørrelse -1"
 
-#: ../src/gui.c:241
+#: ../src/gui.c:242
 msgid "Preformatted Text"
 msgstr "Preformatert tekst"
 
-#: ../src/gui.c:242
+#: ../src/gui.c:243
 msgid "Subscript"
 msgstr "Senket"
 
-#: ../src/gui.c:243
+#: ../src/gui.c:244
 msgid "Superscript"
 msgstr "Hevet"
 
-#: ../src/gui.c:244
+#: ../src/gui.c:245
 msgid "Strong"
 msgstr "Fet (strong)"
 
-#: ../src/gui.c:245
+#: ../src/gui.c:246
 msgid "Emphasis"
 msgstr "Kursiv"
 
-#: ../src/gui.c:247 ../src/html.c:763
+#: ../src/gui.c:248 ../src/html.c:763
 msgid "Heading 1"
 msgstr "Overskrift 1"
 
-#: ../src/gui.c:248 ../src/html.c:766
+#: ../src/gui.c:249 ../src/html.c:766
 msgid "Heading 2"
 msgstr "Overskrift 2"
 
-#: ../src/gui.c:249 ../src/html.c:769
+#: ../src/gui.c:250 ../src/html.c:769
 msgid "Heading 3"
 msgstr "Overskrift 3"
 
-#: ../src/gui.c:250 ../src/html.c:772
+#: ../src/gui.c:251 ../src/html.c:772
 msgid "Heading 4"
 msgstr "Overskrift 4"
 
-#: ../src/gui.c:251 ../src/html.c:775
+#: ../src/gui.c:252 ../src/html.c:775
 msgid "Heading 5"
 msgstr "Overskrift 5"
 
-#: ../src/gui.c:252 ../src/html.c:778
+#: ../src/gui.c:253 ../src/html.c:778
 msgid "Heading 6"
 msgstr "Overskrift 6"
 
-#: ../src/gui.c:253
+#: ../src/gui.c:254
 msgid "Table Wizard..."
 msgstr "Tabellveiviser..."
 
-#: ../src/gui.c:255
+#: ../src/gui.c:256
 msgid "Table..."
 msgstr "Tabell..."
 
-#: ../src/gui.c:256
+#: ../src/gui.c:257
 msgid "Table Row..."
 msgstr "Tabellrad..."
 
-#: ../src/gui.c:257
+#: ../src/gui.c:258
 msgid "Table Header..."
 msgstr "Tabelloverskrift..."
 
-#: ../src/gui.c:258
+#: ../src/gui.c:259
 msgid "Table Data..."
 msgstr "Tabelldata..."
 
-#: ../src/gui.c:260 ../src/html_table.c:82
+#: ../src/gui.c:261 ../src/html_table.c:82
 msgid "Table"
 msgstr "Tabell"
 
-#: ../src/gui.c:261 ../src/html_table.c:215
+#: ../src/gui.c:262 ../src/html_table.c:215
 msgid "Table Row"
 msgstr "Tabellrad"
 
-#: ../src/gui.c:262 ../src/html_table.c:326
+#: ../src/gui.c:263 ../src/html_table.c:326
 msgid "Table Header"
 msgstr "Tabelloverskrift"
 
-#: ../src/gui.c:263 ../src/html_table.c:324
+#: ../src/gui.c:264 ../src/html_table.c:324
 msgid "Table Data"
 msgstr "Tabelldata"
 
-#: ../src/gui.c:264
+#: ../src/gui.c:265
 msgid "Table Caption"
 msgstr "Tabell Caption"
 
-#: ../src/gui.c:265
+#: ../src/gui.c:266
 msgid "Frame Wizard..."
 msgstr "Frame veiviser"
 
-#: ../src/gui.c:267
+#: ../src/gui.c:268
 msgid "Frameset..."
 msgstr "Frameset..."
 
-#: ../src/gui.c:268
+#: ../src/gui.c:269
 msgid "Frame..."
 msgstr "Frame..."
 
-#: ../src/gui.c:270 ../src/html.c:1634
+#: ../src/gui.c:271 ../src/html.c:1634
 msgid "Frameset"
 msgstr "Frameset"
 
-#: ../src/gui.c:271 ../src/html.c:1719 ../src/html_table.c:159
+#: ../src/gui.c:272 ../src/html.c:1719 ../src/html_table.c:159
 msgid "Frame"
 msgstr "Frame"
 
-#: ../src/gui.c:272
+#: ../src/gui.c:273
 msgid "Noframes"
 msgstr "Ingen Frames"
 
-#: ../src/gui.c:273 ../src/html.c:568 ../src/html_form.c:171
+#: ../src/gui.c:274 ../src/html.c:568 ../src/html_form.c:171
 msgid "Target"
 msgstr "Target"
 
-#: ../src/gui.c:274
+#: ../src/gui.c:275
 msgid "Form..."
 msgstr "Formr..."
 
-#: ../src/gui.c:275
+#: ../src/gui.c:276
 msgid "Input button..."
 msgstr "Input knapp..."
 
-#: ../src/gui.c:276
+#: ../src/gui.c:277
 msgid "Text..."
 msgstr "Tekst..."
 
-#: ../src/gui.c:277
+#: ../src/gui.c:278
 msgid "Hidden..."
 msgstr "Usynlig..."
 
-#: ../src/gui.c:278
+#: ../src/gui.c:279
 msgid "Textarea..."
 msgstr "Tekstfelt..."
 
-#: ../src/gui.c:279
+#: ../src/gui.c:280
 msgid "Radio Button..."
 msgstr "Radioknapp..."
 
-#: ../src/gui.c:280
+#: ../src/gui.c:281
 msgid "Check Box..."
 msgstr "Avkrysningsboks..."
 
-#: ../src/gui.c:281
+#: ../src/gui.c:282
 msgid "Select..."
 msgstr "Valg..."
 
-#: ../src/gui.c:282
+#: ../src/gui.c:283
 msgid "Option..."
 msgstr "Option..."
 
-#: ../src/gui.c:283
+#: ../src/gui.c:284
 msgid "Option group..."
 msgstr "Option group..."
 
-#: ../src/gui.c:284
+#: ../src/gui.c:285
 msgid "Quick List..."
 msgstr "Hurtigliste..."
 
-#: ../src/gui.c:285
+#: ../src/gui.c:286
 msgid "Unordered List"
 msgstr "Uordnet Liste"
 
-#: ../src/gui.c:286
+#: ../src/gui.c:287
 msgid "Ordered List"
 msgstr "Ordnet Liste"
 
-#: ../src/gui.c:287
+#: ../src/gui.c:288
 msgid "List Item"
 msgstr "Listeelement"
 
-#: ../src/gui.c:288
+#: ../src/gui.c:289
 msgid "Definition List"
 msgstr "Definisjonsliste"
 
-#: ../src/gui.c:289
+#: ../src/gui.c:290
 msgid "Definition Term"
 msgstr "Definisjonsterm"
 
-#: ../src/gui.c:290 ../src/gui.c:299
+#: ../src/gui.c:291 ../src/gui.c:300
 msgid "Definition"
 msgstr "Definition"
 
-#: ../src/gui.c:291
+#: ../src/gui.c:292
 msgid "Create stylesheet..."
 msgstr "Opprett stylesheet..."
 
-#: ../src/gui.c:292
+#: ../src/gui.c:293
 msgid "Span..."
 msgstr "Span..."
 
-#: ../src/gui.c:293
+#: ../src/gui.c:294
 msgid "Div..."
 msgstr "Div..."
 
-#: ../src/gui.c:294 ../src/html2.c:916 ../src/html2.c:954 ../src/html.c:584
-#: ../src/html.c:803 ../src/html.c:1091 ../src/html.c:1165 ../src/html.c:1566
+#: ../src/gui.c:295 ../src/html.c:584 ../src/html.c:803 ../src/html.c:1091
+#: ../src/html.c:1165 ../src/html.c:1566 ../src/html2.c:916 ../src/html2.c:954
 #: ../src/html_table.c:101 ../src/html_table.c:254 ../src/html_table.c:362
 msgid "Style"
 msgstr "Stil"
 
-#: ../src/gui.c:295
+#: ../src/gui.c:296
 msgid "Link to stylesheet..."
 msgstr "Link til stylesheet..."
 
-#: ../src/gui.c:296
+#: ../src/gui.c:297
 msgid "Insert image..."
 msgstr "Sett inn tid..."
 
-#: ../src/gui.c:297
+#: ../src/gui.c:298
 msgid "Insert thumbnail..."
 msgstr "Sett inn bilde som thumbnail..."
 
-#: ../src/gui.c:298
+#: ../src/gui.c:299
 msgid "Multi thumbnail..."
 msgstr "Thumbnail..."
 
-#: ../src/gui.c:300
+#: ../src/gui.c:301
 msgid "Code"
 msgstr "Kode"
 
-#: ../src/gui.c:301
+#: ../src/gui.c:302
 msgid "Sample"
 msgstr "Eksempel"
 
-#: ../src/gui.c:302
+#: ../src/gui.c:303
 msgid "Keyboard"
 msgstr "Tastatur"
 
-#: ../src/gui.c:303
+#: ../src/gui.c:304
 msgid "Variable"
 msgstr "Variabler"
 
-#: ../src/gui.c:304
+#: ../src/gui.c:305
 msgid "Citation"
 msgstr "Inneholder"
 
-#: ../src/gui.c:305
+#: ../src/gui.c:306
 msgid "Abbreviation"
 msgstr "Forkortelse"
 
-#: ../src/gui.c:306
+#: ../src/gui.c:307
 msgid "Acronym"
 msgstr "\"Action\""
 
-#: ../src/gui.c:339
+#: ../src/gui.c:340
 msgid "Remove from quickbar"
 msgstr "Fjern fra hurtigmeny"
 
-#: ../src/gui.c:369
+#: ../src/gui.c:370
 msgid "Add to quickbar"
 msgstr " Legg til hurtigmeny "
 
-#: ../src/gui.c:458
+#: ../src/gui.c:459
 msgid " Quick bar "
 msgstr " Hurtigmeny "
 
-#: ../src/gui.c:462
+#: ../src/gui.c:463
 msgid "Heading"
 msgstr "Overskrifter"
 
-#: ../src/gui.c:464
+#: ../src/gui.c:465
 msgid " Standard bar "
 msgstr " Standard "
 
-#: ../src/gui.c:468
+#: ../src/gui.c:469
 msgid "Context formatting"
 msgstr "Kontekst formatering"
 
-#: ../src/gui.c:470
+#: ../src/gui.c:471
 msgid " Fonts "
 msgstr " Skrifter "
 
-#: ../src/gui.c:474
+#: ../src/gui.c:475
 msgid " Tables "
 msgstr " Tabeller "
 
-#: ../src/gui.c:478
+#: ../src/gui.c:479
 msgid " Frames "
 msgstr " Frames "
 
-#: ../src/gui.c:482
+#: ../src/gui.c:483
 msgid " Forms "
 msgstr " Skjema "
 
-#: ../src/gui.c:486
+#: ../src/gui.c:487
 msgid " List "
 msgstr " Lister "
 
-#: ../src/gui.c:490
+#: ../src/gui.c:491
 msgid " CSS "
 msgstr " CSS "
 
-#: ../src/gui.c:502
+#: ../src/gui.c:503
 msgid "New"
 msgstr "Ny"
 
-#: ../src/gui.c:504
+#: ../src/gui.c:505
 msgid "Open..."
 msgstr "Åpne..."
 
-#: ../src/gui.c:507
+#: ../src/gui.c:508
 msgid "Save"
 msgstr "Lagre"
 
-#: ../src/gui.c:509
+#: ../src/gui.c:510
 msgid "Save As..."
 msgstr "Lagre som..."
 
-#: ../src/gui.c:511
+#: ../src/gui.c:512
 msgid "Close"
 msgstr "Lukk"
 
-#: ../src/gui.c:514
+#: ../src/gui.c:515
 msgid "Copy"
 msgstr "Kopier"
 
-#: ../src/gui.c:516
+#: ../src/gui.c:517
 msgid "Cut"
 msgstr "Klipp"
 
-#: ../src/gui.c:518
+#: ../src/gui.c:519
 msgid "Paste"
 msgstr "Lim inn"
 
-#: ../src/gui.c:520
+#: ../src/gui.c:521
 msgid "Search..."
 msgstr "Søk..."
 
-#: ../src/gui.c:522
+#: ../src/gui.c:523
 msgid "Search and Replace..."
 msgstr "Søk og Erstatt..."
 
-#: ../src/gui.c:525 ../src/preferences.c:1687
+#: ../src/gui.c:526 ../src/preferences.c:1689
 msgid "Undo"
 msgstr "Angre"
 
-#: ../src/gui.c:527
+#: ../src/gui.c:528
 msgid "Redo"
 msgstr "Gjenta"
 
-#: ../src/gui.c:530
+#: ../src/gui.c:531
 msgid "Preferences..."
 msgstr "Innstillinger..."
 
-#: ../src/gui.c:536
+#: ../src/gui.c:537
 msgid "Spellcheck..."
 msgstr "Stavekontroll..."
 
-#: ../src/gui.c:541
+#: ../src/gui.c:542
 msgid "View in browser"
 msgstr "Vis i nettleser"
 
-#: ../src/gui.c:551
+#: ../src/gui.c:552
 msgid "/Edit/Undo"
 msgstr "/Rediger/Angre"
 
-#: ../src/gui.c:552 ../src/menu.c:96
+#: ../src/gui.c:553 ../src/menu.c:96
 msgid "/Edit/Undo all"
 msgstr "/Rediger/Angre alle"
 
-#: ../src/gui.c:553
+#: ../src/gui.c:554
 msgid "/Edit/Redo"
 msgstr "/Rediger/Gjenta"
 
-#: ../src/gui.c:554 ../src/menu.c:97
+#: ../src/gui.c:555 ../src/menu.c:97
 msgid "/Edit/Redo all"
 msgstr "/Rediger/Gjenta alle"
 
-#: ../src/gui.c:560
+#: ../src/gui.c:561
 msgid "/Document/Wrap"
 msgstr "/Dokument/Brekk linjer"
 
-#: ../src/gui.c:561
+#: ../src/gui.c:562
 msgid "/Document/Line numbers"
 msgstr "Linjenummer: "
 
-#: ../src/gui.c:737
+#: ../src/gui.c:738
 msgid " line    1 "
 msgstr " linje    1 "
 
-#: ../src/gui.c:787
+#: ../src/gui.c:788
 msgid "Bluefish tip:"
 msgstr "Bluefish tips:"
 
-#: ../src/gui.c:787
+#: ../src/gui.c:788
 msgid ""
 "This message is shown since you do not have any items in the Quickbar.\n"
 "\n"
@@ -902,75 +903,25 @@ msgstr ""
 "Hvis du høyreklikker på en knapp i HTML-verktøylinjen, kan du legge til "
 "knapper i hurtigmenyen."
 
-#: ../src/gui.c:883
+#: ../src/gui.c:884
 msgid "Goto line"
 msgstr "Gå til linje"
 
-#: ../src/gui.c:891
+#: ../src/gui.c:892
 msgid "Line number: "
 msgstr "Linjenummer: "
 
-#: ../src/gui.c:894
+#: ../src/gui.c:895
 msgid "From selection"
 msgstr "Fra markering"
 
-#: ../src/gui.c:902
+#: ../src/gui.c:903
 msgid "Keep dialog"
 msgstr "Behold dialog"
 
-#: ../src/gui.c:964
+#: ../src/gui.c:965
 msgid "starting bluefish"
 msgstr "starter bluefish"
-
-#: ../src/html2.c:586
-msgid "Cascading StyleSheet dialog"
-msgstr "Cascading StyleSheet dialog"
-
-#: ../src/html2.c:604
-msgid "selector"
-msgstr "velg"
-
-#: ../src/html2.c:623
-msgid "property"
-msgstr "egenskap"
-
-#: ../src/html2.c:625
-msgid "value"
-msgstr "verdi"
-
-#: ../src/html2.c:643
-msgid "Selector"
-msgstr "Velger"
-
-#: ../src/html2.c:643 ../src/html2.c:646
-msgid "Property"
-msgstr "Egenskap"
-
-#: ../src/html2.c:643 ../src/html2.c:646 ../src/html_form.c:286
-#: ../src/html_form.c:353 ../src/html_form.c:415 ../src/html_form.c:471
-#: ../src/html_form.c:534 ../src/html_form.c:644
-msgid "Value"
-msgstr "Verdi"
-
-#: ../src/html2.c:661 ../src/stringlist.c:365
-msgid " Add "
-msgstr " Tilføy "
-
-#: ../src/html2.c:664 ../src/stringlist.c:367
-msgid " Update "
-msgstr " Oppdatér "
-
-#: ../src/html2.c:667 ../src/stringlist.c:369
-msgid " Delete "
-msgstr " Slett "
-
-#: ../src/html2.c:1138
-msgid "Bluefish: Select color"
-msgstr "Bluefish: Velg farge"
-
-#: ../src/html2.c:1158
-msgid "websafe"
-msgstr "web-sikker"
 
 #: ../src/html.c:353
 msgid "Insert Time"
@@ -1227,7 +1178,7 @@ msgstr "Content"
 msgid "Scheme"
 msgstr "Skjema"
 
-#: ../src/html.c:1408 ../src/preferences.c:1631
+#: ../src/html.c:1408 ../src/preferences.c:1633
 msgid "Font"
 msgstr "Skrifttype"
 
@@ -1336,6 +1287,56 @@ msgstr "Rel"
 #: ../src/html.c:1939 ../src/html_form.c:361
 msgid "Type"
 msgstr "Type"
+
+#: ../src/html2.c:586
+msgid "Cascading StyleSheet dialog"
+msgstr "Cascading StyleSheet dialog"
+
+#: ../src/html2.c:604
+msgid "selector"
+msgstr "velg"
+
+#: ../src/html2.c:623
+msgid "property"
+msgstr "egenskap"
+
+#: ../src/html2.c:625
+msgid "value"
+msgstr "verdi"
+
+#: ../src/html2.c:643
+msgid "Selector"
+msgstr "Velger"
+
+#: ../src/html2.c:643 ../src/html2.c:646
+msgid "Property"
+msgstr "Egenskap"
+
+#: ../src/html2.c:643 ../src/html2.c:646 ../src/html_form.c:286
+#: ../src/html_form.c:353 ../src/html_form.c:415 ../src/html_form.c:471
+#: ../src/html_form.c:534 ../src/html_form.c:644
+msgid "Value"
+msgstr "Verdi"
+
+#: ../src/html2.c:661 ../src/stringlist.c:365
+msgid " Add "
+msgstr " Tilføy "
+
+#: ../src/html2.c:664 ../src/stringlist.c:367
+msgid " Update "
+msgstr " Oppdatér "
+
+#: ../src/html2.c:667 ../src/stringlist.c:369
+msgid " Delete "
+msgstr " Slett "
+
+#: ../src/html2.c:1138
+msgid "Bluefish: Select color"
+msgstr "Bluefish: Velg farge"
+
+#: ../src/html2.c:1158
+msgid "websafe"
+msgstr "web-sikker"
 
 #: ../src/html_form.c:129
 msgid "Form"
@@ -1759,67 +1760,83 @@ msgid "/Tags/Special/Accent/Uppercase/A-I/tearoff1"
 msgstr "/Tags/Spesielle/Aksent/Store/A-I/tearoff1"
 
 #: ../src/menu.c:119
-msgid "/Tags/Special/Accent/Uppercase/A-I/A grave "
+#, fuzzy
+msgid "/Tags/Special/Accent/Uppercase/A-I/A grave À"
 msgstr "/Tags/Spesielle/Aksent/Store/A-I/A grave"
 
 #: ../src/menu.c:120
-msgid "/Tags/Special/Accent/Uppercase/A-I/A acute "
+#, fuzzy
+msgid "/Tags/Special/Accent/Uppercase/A-I/A acute Á"
 msgstr "/Tags/Spesielle/Aksent/Store/A-I/A acute"
 
 #: ../src/menu.c:121
-msgid "/Tags/Special/Accent/Uppercase/A-I/A circumflex "
+#, fuzzy
+msgid "/Tags/Special/Accent/Uppercase/A-I/A circumflex Â"
 msgstr "/Tags/Spesielle/Aksent/Store/A-I/A circumflex"
 
 #: ../src/menu.c:122
-msgid "/Tags/Special/Accent/Uppercase/A-I/A tilde "
+#, fuzzy
+msgid "/Tags/Special/Accent/Uppercase/A-I/A tilde Ã"
 msgstr "/Tags/Spesielle/Aksent/Store/A-I/A tilde"
 
 #: ../src/menu.c:123
-msgid "/Tags/Special/Accent/Uppercase/A-I/AE ligature "
+#, fuzzy
+msgid "/Tags/Special/Accent/Uppercase/A-I/AE ligature Æ"
 msgstr "/Tags/Spesielle/Aksent/Store/A-I/Æ"
 
 #: ../src/menu.c:124
-msgid "/Tags/Special/Accent/Uppercase/A-I/A diaeresis "
+#, fuzzy
+msgid "/Tags/Special/Accent/Uppercase/A-I/A diaeresis Ä"
 msgstr "/Tags/Spesielle/Aksent/Store/A-I/A diaeresis"
 
 #: ../src/menu.c:125
-msgid "/Tags/Special/Accent/Uppercase/A-I/A ring "
+#, fuzzy
+msgid "/Tags/Special/Accent/Uppercase/A-I/A ring Å"
 msgstr "/Tags/Spesielle/Aksent/Store/A-I/Å"
 
 #: ../src/menu.c:126
-msgid "/Tags/Special/Accent/Uppercase/A-I/C cedilla "
+#, fuzzy
+msgid "/Tags/Special/Accent/Uppercase/A-I/C cedilla Ç"
 msgstr "/Tags/Spesielle/Aksent/Store/A-I/C cedilla"
 
 #: ../src/menu.c:127
-msgid "/Tags/Special/Accent/Uppercase/A-I/E grave "
+#, fuzzy
+msgid "/Tags/Special/Accent/Uppercase/A-I/E grave È"
 msgstr "/Tags/Spesielle/Aksent/Store/A-I/E grave"
 
 #: ../src/menu.c:128
-msgid "/Tags/Special/Accent/Uppercase/A-I/E acute "
+#, fuzzy
+msgid "/Tags/Special/Accent/Uppercase/A-I/E acute É"
 msgstr "/Tags/Spesielle/Aksent/Store/A-I/E acute"
 
 #: ../src/menu.c:129
-msgid "/Tags/Special/Accent/Uppercase/A-I/E circumflex "
+#, fuzzy
+msgid "/Tags/Special/Accent/Uppercase/A-I/E circumflex Ê"
 msgstr "/Tags/Spesielle/Aksent/Store/A-I/E circumflex"
 
 #: ../src/menu.c:130
-msgid "/Tags/Special/Accent/Uppercase/A-I/E diaeresis "
+#, fuzzy
+msgid "/Tags/Special/Accent/Uppercase/A-I/E diaeresis Ë"
 msgstr "/Tags/Spesielle/Aksent/Store/A-I/I diaeresis"
 
 #: ../src/menu.c:131
-msgid "/Tags/Special/Accent/Uppercase/A-I/I grave "
+#, fuzzy
+msgid "/Tags/Special/Accent/Uppercase/A-I/I grave Ì"
 msgstr "/Tags/Spesielle/Aksent/Store/A-I/I grave"
 
 #: ../src/menu.c:132
-msgid "/Tags/Special/Accent/Uppercase/A-I/I acute "
+#, fuzzy
+msgid "/Tags/Special/Accent/Uppercase/A-I/I acute Í"
 msgstr "/Tags/Spesielle/Aksent/Store/A-I/I acute"
 
 #: ../src/menu.c:133
-msgid "/Tags/Special/Accent/Uppercase/A-I/I circumflex "
+#, fuzzy
+msgid "/Tags/Special/Accent/Uppercase/A-I/I circumflex Î"
 msgstr "/Tags/Spesielle/Aksent/Store/A-I/I circumflex"
 
 #: ../src/menu.c:134
-msgid "/Tags/Special/Accent/Uppercase/A-I/I diaeresis "
+#, fuzzy
+msgid "/Tags/Special/Accent/Uppercase/A-I/I diaeresis Ï"
 msgstr "/Tags/Spesielle/Aksent/Store/A-I/I diaresis"
 
 #: ../src/menu.c:135
@@ -1831,19 +1848,23 @@ msgid "/Tags/Special/Accent/Uppercase/J-Z/tearoff1"
 msgstr "/Tags/Spesielle/Aksent/Store/J-Z/tearoff1"
 
 #: ../src/menu.c:137
-msgid "/Tags/Special/Accent/Uppercase/J-Z/N tilde "
+#, fuzzy
+msgid "/Tags/Special/Accent/Uppercase/J-Z/N tilde Ñ"
 msgstr "/Tags/Spesielle/Aksent/Store/J-Z/N tilde"
 
 #: ../src/menu.c:138
-msgid "/Tags/Special/Accent/Uppercase/J-Z/O grave "
+#, fuzzy
+msgid "/Tags/Special/Accent/Uppercase/J-Z/O grave Ò"
 msgstr "/Tags/Spesielle/Aksent/Store/J-Z/O grave"
 
 #: ../src/menu.c:139
-msgid "/Tags/Special/Accent/Uppercase/J-Z/O acute "
+#, fuzzy
+msgid "/Tags/Special/Accent/Uppercase/J-Z/O acute Ó"
 msgstr "/Tags/Spesielle/Aksent/Store/J-Z/O acute"
 
 #: ../src/menu.c:140
-msgid "/Tags/Special/Accent/Uppercase/J-Z/O circumflex "
+#, fuzzy
+msgid "/Tags/Special/Accent/Uppercase/J-Z/O circumflex Ô"
 msgstr "/Tags/Spesielle/Aksent/Store/J-Z/O circumflex"
 
 #: ../src/menu.c:141
@@ -1851,35 +1872,43 @@ msgid "/Tags/Special/Accent/Uppercase/J-Z/OE ligature"
 msgstr "/Tags/Spesielle/Aksent/Store/A-I/OE ligature"
 
 #: ../src/menu.c:142
-msgid "/Tags/Special/Accent/Uppercase/J-Z/O tilde "
+#, fuzzy
+msgid "/Tags/Special/Accent/Uppercase/J-Z/O tilde Õ"
 msgstr "/Tags/Spesielle/Aksent/Store/J-Z/O tilde"
 
 #: ../src/menu.c:143
-msgid "/Tags/Special/Accent/Uppercase/J-Z/O diaeresis "
+#, fuzzy
+msgid "/Tags/Special/Accent/Uppercase/J-Z/O diaeresis Ö"
 msgstr "/Tags/Spesielle/Aksent/Store/J-Z/O diaeresis"
 
 #: ../src/menu.c:144
-msgid "/Tags/Special/Accent/Uppercase/J-Z/O slash "
+#, fuzzy
+msgid "/Tags/Special/Accent/Uppercase/J-Z/O slash Ø"
 msgstr "/Tags/Spesielle/Aksent/Store/J-Z/Ø"
 
 #: ../src/menu.c:145
-msgid "/Tags/Special/Accent/Uppercase/J-Z/U grave "
+#, fuzzy
+msgid "/Tags/Special/Accent/Uppercase/J-Z/U grave Ù"
 msgstr "/Tags/Spesielle/Aksent/Store/J-Z/U grave"
 
 #: ../src/menu.c:146
-msgid "/Tags/Special/Accent/Uppercase/J-Z/U acute "
+#, fuzzy
+msgid "/Tags/Special/Accent/Uppercase/J-Z/U acute Ú"
 msgstr "/Tags/Spesielle/Aksent/Store/J-Z/U acute"
 
 #: ../src/menu.c:147
-msgid "/Tags/Special/Accent/Uppercase/J-Z/U circumflex "
+#, fuzzy
+msgid "/Tags/Special/Accent/Uppercase/J-Z/U circumflex Û"
 msgstr "/Tags/Spesielle/Aksent/Store/J-Z/U circumflex"
 
 #: ../src/menu.c:148
-msgid "/Tags/Special/Accent/Uppercase/J-Z/U diaeresis "
+#, fuzzy
+msgid "/Tags/Special/Accent/Uppercase/J-Z/U diaeresis Ü"
 msgstr "/Tags/Spesielle/Aksent/Store/J-Z/U diaeresis"
 
 #: ../src/menu.c:150
-msgid "/Tags/Special/Accent/Uppercase/J-Z/Y acute "
+#, fuzzy
+msgid "/Tags/Special/Accent/Uppercase/J-Z/Y acute Ý"
 msgstr "/Tags/Spesielle/Aksent/Store/J-Z/Y acute"
 
 #: ../src/menu.c:152
@@ -1895,67 +1924,83 @@ msgid "/Tags/Special/Accent/Lowercase/A-I/tearoff1"
 msgstr "/Tags/Spesielle/Aksent/Små/A-I/tearoff1"
 
 #: ../src/menu.c:156
-msgid "/Tags/Special/Accent/Lowercase/A-I/a grave "
+#, fuzzy
+msgid "/Tags/Special/Accent/Lowercase/A-I/a grave à"
 msgstr "/Tags/Spesielle/Aksent/Små/A-I/a grave"
 
 #: ../src/menu.c:158
-msgid "/Tags/Special/Accent/Lowercase/A-I/a acute "
+#, fuzzy
+msgid "/Tags/Special/Accent/Lowercase/A-I/a acute á"
 msgstr "/Tags/Spesielle/Aksent/Små/A-I/a acute"
 
 #: ../src/menu.c:160
-msgid "/Tags/Special/Accent/Lowercase/A-I/a circumflex "
+#, fuzzy
+msgid "/Tags/Special/Accent/Lowercase/A-I/a circumflex â"
 msgstr "/Tags/Spesielle/Aksent/Små/A-I/a circumflex"
 
 #: ../src/menu.c:162
-msgid "/Tags/Special/Accent/Lowercase/A-I/a tilde "
+#, fuzzy
+msgid "/Tags/Special/Accent/Lowercase/A-I/a tilde ã"
 msgstr "/Tags/Spesielle/Aksent/Små/A-I/a tilde"
 
 #: ../src/menu.c:164
-msgid "/Tags/Special/Accent/Lowercase/A-I/a ring "
+#, fuzzy
+msgid "/Tags/Special/Accent/Lowercase/A-I/a ring å"
 msgstr "/Tags/Spesielle/Aksent/Små/A-I/å"
 
 #: ../src/menu.c:166
-msgid "/Tags/Special/Accent/Lowercase/A-I/ae ligature "
+#, fuzzy
+msgid "/Tags/Special/Accent/Lowercase/A-I/ae ligature æ"
 msgstr "/Tags/Spesielle/Aksent/Små/A-I/æ"
 
 #: ../src/menu.c:168
-msgid "/Tags/Special/Accent/Lowercase/A-I/a diaeresis "
+#, fuzzy
+msgid "/Tags/Special/Accent/Lowercase/A-I/a diaeresis ä"
 msgstr "/Tags/Spesielle/Aksent/Små/A-I/a diaeresis"
 
 #: ../src/menu.c:170
-msgid "/Tags/Special/Accent/Lowercase/A-I/c cedilla "
+#, fuzzy
+msgid "/Tags/Special/Accent/Lowercase/A-I/c cedilla ç"
 msgstr "/Tags/Spesielle/Aksent/Små/A-I/c cedilla"
 
 #: ../src/menu.c:172
-msgid "/Tags/Special/Accent/Lowercase/A-I/e grave "
+#, fuzzy
+msgid "/Tags/Special/Accent/Lowercase/A-I/e grave è"
 msgstr "/Tags/Spesielle/Aksent/Små/A-I/e grave"
 
 #: ../src/menu.c:174
-msgid "/Tags/Special/Accent/Lowercase/A-I/e acute "
+#, fuzzy
+msgid "/Tags/Special/Accent/Lowercase/A-I/e acute é"
 msgstr "/Tags/Spesielle/Aksent/Små/A-I/e acute"
 
 #: ../src/menu.c:176
-msgid "/Tags/Special/Accent/Lowercase/A-I/e circumflex "
+#, fuzzy
+msgid "/Tags/Special/Accent/Lowercase/A-I/e circumflex ê"
 msgstr "/Tags/Spesielle/Aksent/Små/A-I/e circumflex"
 
 #: ../src/menu.c:178
-msgid "/Tags/Special/Accent/Lowercase/A-I/e diaeresis "
+#, fuzzy
+msgid "/Tags/Special/Accent/Lowercase/A-I/e diaeresis ë"
 msgstr "/Tags/Spesielle/Aksent/Små/A-I/e diaeresis"
 
 #: ../src/menu.c:180
-msgid "/Tags/Special/Accent/Lowercase/A-I/i grave "
+#, fuzzy
+msgid "/Tags/Special/Accent/Lowercase/A-I/i grave ì"
 msgstr "/Tags/Spesielle/Aksent/Små/A-I/i grave"
 
 #: ../src/menu.c:182
-msgid "/Tags/Special/Accent/Lowercase/A-I/i acute "
+#, fuzzy
+msgid "/Tags/Special/Accent/Lowercase/A-I/i acute í"
 msgstr "/Tags/Spesielle/Aksent/Små/A-I/i acute"
 
 #: ../src/menu.c:184
-msgid "/Tags/Special/Accent/Lowercase/A-I/i circumflex "
+#, fuzzy
+msgid "/Tags/Special/Accent/Lowercase/A-I/i circumflex î"
 msgstr "/Tags/Spesielle/Aksent/Små/A-I/i circumflex"
 
 #: ../src/menu.c:186
-msgid "/Tags/Special/Accent/Lowercase/A-I/i diaeresis "
+#, fuzzy
+msgid "/Tags/Special/Accent/Lowercase/A-I/i diaeresis ï"
 msgstr "/Tags/Spesielle/Aksent/Små/A-I/i diaresis"
 
 #: ../src/menu.c:188
@@ -1967,59 +2012,73 @@ msgid "/Tags/Special/Accent/Lowercase/J-Z/tearoff1"
 msgstr "/Tags/Spesielle/Aksent/Små/J-Z/tearoff1"
 
 #: ../src/menu.c:191
-msgid "/Tags/Special/Accent/Lowercase/J-Z/n tilde "
+#, fuzzy
+msgid "/Tags/Special/Accent/Lowercase/J-Z/n tilde ñ"
 msgstr "/Tags/Spesielle/Aksent/Små/J-Z/n tilde"
 
 #: ../src/menu.c:193
-msgid "/Tags/Special/Accent/Lowercase/J-Z/o grave "
+#, fuzzy
+msgid "/Tags/Special/Accent/Lowercase/J-Z/o grave ò"
 msgstr "/Tags/Spesielle/Aksent/Små/J-Z/o grave"
 
 #: ../src/menu.c:195
-msgid "/Tags/Special/Accent/Lowercase/J-Z/o acute "
+#, fuzzy
+msgid "/Tags/Special/Accent/Lowercase/J-Z/o acute ó"
 msgstr "/Tags/Spesielle/Aksent/Små/J-Z/o acute"
 
 #: ../src/menu.c:196
-msgid "/Tags/Special/Accent/Lowercase/J-Z/oe ligature "
+#, fuzzy
+msgid "/Tags/Special/Accent/Lowercase/J-Z/oe ligature æ"
 msgstr "/Tags/Spesielle/Aksent/Små/J-Z/oe ligature"
 
 #: ../src/menu.c:197
-msgid "/Tags/Special/Accent/Lowercase/J-Z/o circumflex "
+#, fuzzy
+msgid "/Tags/Special/Accent/Lowercase/J-Z/o circumflex ô"
 msgstr "/Tags/Spesielle/Aksent/Små/J-Z/o circumflex"
 
 #: ../src/menu.c:199
-msgid "/Tags/Special/Accent/Lowercase/J-Z/o tilde "
+#, fuzzy
+msgid "/Tags/Special/Accent/Lowercase/J-Z/o tilde õ"
 msgstr "/Tags/Spesielle/Aksent/Små/J-Z/o tilde"
 
 #: ../src/menu.c:201
-msgid "/Tags/Special/Accent/Lowercase/J-Z/o diaeresis "
+#, fuzzy
+msgid "/Tags/Special/Accent/Lowercase/J-Z/o diaeresis ö"
 msgstr "/Tags/Spesielle/Aksent/Små/J-Z/o diaeresis"
 
 #: ../src/menu.c:203
-msgid "/Tags/Special/Accent/Lowercase/J-Z/o slash "
+#, fuzzy
+msgid "/Tags/Special/Accent/Lowercase/J-Z/o slash ø"
 msgstr "/Tags/Spesielle/Aksent/Små/J-Z/ø"
 
 #: ../src/menu.c:205
-msgid "/Tags/Special/Accent/Lowercase/J-Z/u grave "
+#, fuzzy
+msgid "/Tags/Special/Accent/Lowercase/J-Z/u grave ù"
 msgstr "/Tags/Spesielle/Aksent/Små/J-Z/u grave"
 
 #: ../src/menu.c:207
-msgid "/Tags/Special/Accent/Lowercase/J-Z/u acute "
+#, fuzzy
+msgid "/Tags/Special/Accent/Lowercase/J-Z/u acute ú"
 msgstr "/Tags/Spesielle/Aksent/Små/J-Z/u acute"
 
 #: ../src/menu.c:209
-msgid "/Tags/Special/Accent/Lowercase/J-Z/u circumflex "
+#, fuzzy
+msgid "/Tags/Special/Accent/Lowercase/J-Z/u circumflex û"
 msgstr "/Tags/Spesielle/Aksent/Små/J-Z/u circumflex"
 
 #: ../src/menu.c:211
-msgid "/Tags/Special/Accent/Lowercase/J-Z/u diaeresis "
+#, fuzzy
+msgid "/Tags/Special/Accent/Lowercase/J-Z/u diaeresis ü"
 msgstr "/Tags/Spesielle/Aksent/Små/J-Z/u diaresis"
 
 #: ../src/menu.c:213
-msgid "/Tags/Special/Accent/Lowercase/J-Z/y acute "
+#, fuzzy
+msgid "/Tags/Special/Accent/Lowercase/J-Z/y acute ý"
 msgstr "/Tags/Spesielle/Aksent/Små/J-Z/y acute"
 
 #: ../src/menu.c:215
-msgid "/Tags/Special/Accent/Lowercase/J-Z/y diaeresis "
+#, fuzzy
+msgid "/Tags/Special/Accent/Lowercase/J-Z/y diaeresis ÿ"
 msgstr "/Tags/Spesielle/Aksent/Små/J-Z/y diaresis"
 
 #: ../src/menu.c:217
@@ -2027,15 +2086,18 @@ msgid "/Tags/Special/Accent/separator"
 msgstr "/Tags/Spesielle/Aksent/separator"
 
 #: ../src/menu.c:218
-msgid "/Tags/Special/Accent/U_mlaut "
+#, fuzzy
+msgid "/Tags/Special/Accent/U_mlaut ¨"
 msgstr "/Tags/Spesielle/Aksent/U_mlaut"
 
 #: ../src/menu.c:219
-msgid "/Tags/Special/Accent/_Acute "
+#, fuzzy
+msgid "/Tags/Special/Accent/_Acute ´"
 msgstr "/Tags/Spesielle/Aksent/_Acute"
 
 #: ../src/menu.c:220
-msgid "/Tags/Special/Accent/_Cedilla "
+#, fuzzy
+msgid "/Tags/Special/Accent/_Cedilla ¸"
 msgstr "/Tags/Spesielle/Aksent/_Cedilla"
 
 #: ../src/menu.c:221
@@ -2047,19 +2109,23 @@ msgid "/Tags/Special/Currency/tearoff1"
 msgstr "/Tags/Spesielle/Valuta/tearoff1"
 
 #: ../src/menu.c:223
-msgid "/Tags/Special/Currency/_Cent sign "
+#, fuzzy
+msgid "/Tags/Special/Currency/_Cent sign ¢"
 msgstr "/Tags/Spesielle/Valuta/_Cent tegn"
 
 #: ../src/menu.c:225
-msgid "/Tags/Special/Currency/_Pound sterling "
+#, fuzzy
+msgid "/Tags/Special/Currency/_Pound sterling £"
 msgstr "/Tags/Spesielle/Valuta/_Pound sterling"
 
 #: ../src/menu.c:227
-msgid "/Tags/Special/Currency/C_urrency sign "
+#, fuzzy
+msgid "/Tags/Special/Currency/C_urrency sign ¤"
 msgstr "/Tags/Spesielle/Valuta/Dollartegn"
 
 #: ../src/menu.c:229
-msgid "/Tags/Special/Currency/_Yen sign "
+#, fuzzy
+msgid "/Tags/Special/Currency/_Yen sign ¥"
 msgstr "/Tags/Spesielle/Valuta/_Yen tegn"
 
 #: ../src/menu.c:230
@@ -2075,19 +2141,23 @@ msgid "/Tags/Special/Math-Science/tearoff1"
 msgstr "/Tags/Spesielle/Matematikk/tearoff1"
 
 #: ../src/menu.c:233
-msgid "/Tags/Special/Math-Science/Logical _not sign "
+#, fuzzy
+msgid "/Tags/Special/Math-Science/Logical _not sign ¬"
 msgstr "/Tags/Spesielle/Matematikk/Logisk ikke lik"
 
 #: ../src/menu.c:235
-msgid "/Tags/Special/Math-Science/_Multiplication sign "
+#, fuzzy
+msgid "/Tags/Special/Math-Science/_Multiplication sign ×"
 msgstr "/Tags/Spesielle/Matematikk/Kartesisk produkt (multiplikasjon)"
 
 #: ../src/menu.c:237
-msgid "/Tags/Special/Math-Science/_Division sign "
+#, fuzzy
+msgid "/Tags/Special/Math-Science/_Division sign ÷"
 msgstr "/Tags/Spesielle/Matematikk/_Divisjon"
 
 #: ../src/menu.c:239
-msgid "/Tags/Special/Math-Science/_Plus-minus sign "
+#, fuzzy
+msgid "/Tags/Special/Math-Science/_Plus-minus sign ±"
 msgstr "/Tags/Spesielle/Matematikk/Pluss-minus"
 
 #: ../src/menu.c:241
@@ -2099,31 +2169,38 @@ msgid "/Tags/Special/Math-Science/_Greater-than sign >"
 msgstr "/Tags/Spesielle/Matematikk/Større enn"
 
 #: ../src/menu.c:245
-msgid "/Tags/Special/Math-Science/Superscript _1 "
+#, fuzzy
+msgid "/Tags/Special/Math-Science/Superscript _1 ¹"
 msgstr "/Tags/Spesielle/Matematikk/Hevet _1"
 
 #: ../src/menu.c:247
-msgid "/Tags/Special/Math-Science/Superscript _2 "
+#, fuzzy
+msgid "/Tags/Special/Math-Science/Superscript _2 ²"
 msgstr "/Tags/Spesielle/Matematikk/Hevet _2"
 
 #: ../src/menu.c:249
-msgid "/Tags/Special/Math-Science/Superscript _3 "
+#, fuzzy
+msgid "/Tags/Special/Math-Science/Superscript _3 ³"
 msgstr "/Tags/Spesielle/Matematikk/Hevet _3"
 
 #: ../src/menu.c:251
-msgid "/Tags/Special/Math-Science/One _quarter "
+#, fuzzy
+msgid "/Tags/Special/Math-Science/One _quarter ¼"
 msgstr "/Tags/Spesielle/Matematikk/Fjerdedel"
 
 #: ../src/menu.c:253
-msgid "/Tags/Special/Math-Science/One _half "
+#, fuzzy
+msgid "/Tags/Special/Math-Science/One _half ½"
 msgstr "/Tags/Spesielle/Matematikk/En halv"
 
 #: ../src/menu.c:255
-msgid "/Tags/Special/Math-Science/_Three quarters "
+#, fuzzy
+msgid "/Tags/Special/Math-Science/_Three quarters ¾"
 msgstr "/Tags/Spesielle/Matematikk/Tre fjerdedeler"
 
 #: ../src/menu.c:257
-msgid "/Tags/Special/Math-Science/Deg_ree sign "
+#, fuzzy
+msgid "/Tags/Special/Math-Science/Deg_ree sign °"
 msgstr "/Tags/Spesielle/Matematikk/Grader"
 
 #: ../src/menu.c:259
@@ -2135,27 +2212,33 @@ msgid "/Tags/Special/Non Latin/tearoff1"
 msgstr "/Tags/Spesielle/Ikke-Latinske tegn/tearoff1"
 
 #: ../src/menu.c:261
-msgid "/Tags/Special/Non Latin/_ETH (Icelandic) "
+#, fuzzy
+msgid "/Tags/Special/Non Latin/_ETH (Icelandic) Ð"
 msgstr "/Tags/Spesielle/Ikke-Latinske tegn/_ETH (Islandsk)"
 
 #: ../src/menu.c:263
-msgid "/Tags/Special/Non Latin/_THORN (Icelandic) "
+#, fuzzy
+msgid "/Tags/Special/Non Latin/_THORN (Icelandic) Þ"
 msgstr "/Tags/Spesielle/Ikke-Latinske tegn/_THORN (Islandsk)"
 
 #: ../src/menu.c:265
-msgid "/Tags/Special/Non Latin/et_h (Icelandic) "
+#, fuzzy
+msgid "/Tags/Special/Non Latin/et_h (Icelandic) ð"
 msgstr "/Tags/Spesielle/Ikke-Latinske tegn/et_h (Islandsk)"
 
 #: ../src/menu.c:267
-msgid "/Tags/Special/Non Latin/th_orn "
+#, fuzzy
+msgid "/Tags/Special/Non Latin/th_orn ÿ"
 msgstr "/Tags/Spesielle/Ikke-Latinske tegn/th_orn (Islandsk)"
 
 #: ../src/menu.c:268
-msgid "/Tags/Special/Non Latin/Sharp _s "
+#, fuzzy
+msgid "/Tags/Special/Non Latin/Sharp _s ß"
 msgstr "/Tags/Spesielle/Ikke-Latinske tegn/Skarp _s"
 
 #: ../src/menu.c:269
-msgid "/Tags/Special/Non Latin/_Micro sign "
+#, fuzzy
+msgid "/Tags/Special/Non Latin/_Micro sign µ"
 msgstr "/Tags/Spesielle/Ikke-Latinske tegn/_Mikro tegn"
 
 #: ../src/menu.c:271
@@ -2171,47 +2254,58 @@ msgid "/Tags/Special/Other/_Non-breaking space"
 msgstr "/Tags/Spesielle/Andre/_Non-breaking mellomrom"
 
 #: ../src/menu.c:275
-msgid "/Tags/Special/Other/_Section sign "
+#, fuzzy
+msgid "/Tags/Special/Other/_Section sign §"
 msgstr "/Tags/Spesielle/Andre/Paragraf"
 
 #: ../src/menu.c:277
-msgid "/Tags/Special/Other/_Copyright sign "
+#, fuzzy
+msgid "/Tags/Special/Other/_Copyright sign ©"
 msgstr "/Tags/Spesielle/Andre/_Copyright"
 
 #: ../src/menu.c:279
-msgid "/Tags/Special/Other/_Left angle quotes "
+#, fuzzy
+msgid "/Tags/Special/Other/_Left angle quotes «"
 msgstr "/Tags/Spesielle/Andre/Venstre gåseøyne"
 
 #: ../src/menu.c:281
-msgid "/Tags/Special/Other/_Right angle quotes "
+#, fuzzy
+msgid "/Tags/Special/Other/_Right angle quotes »"
 msgstr "/Tags/Spesielle/Andre/Høyre gåseøyne"
 
 #: ../src/menu.c:283
-msgid "/Tags/Special/Other/Registered _trademark "
+#, fuzzy
+msgid "/Tags/Special/Other/Registered _trademark ®"
 msgstr "/Tags/Spesielle/Andre/Registrert varemærke"
 
 #: ../src/menu.c:285
-msgid "/Tags/Special/Other/Inverted _exclamation "
+#, fuzzy
+msgid "/Tags/Special/Other/Inverted _exclamation ¡"
 msgstr "/Tags/Spesielle/Andre/Omvendt utropstegn"
 
 #: ../src/menu.c:287
-msgid "/Tags/Special/Other/Inverted _question mark "
+#, fuzzy
+msgid "/Tags/Special/Other/Inverted _question mark ¿"
 msgstr "/Tags/Spesielle/Andre/Omvendt spørsmålstegn"
 
 #: ../src/menu.c:289
-msgid "/Tags/Special/Other/_Feminine ordinal "
+#, fuzzy
+msgid "/Tags/Special/Other/_Feminine ordinal ª"
 msgstr "/Tags/Spesielle/Andre/Feminin ordinal"
 
 #: ../src/menu.c:291
-msgid "/Tags/Special/Other/_Masculine ordinal "
+#, fuzzy
+msgid "/Tags/Special/Other/_Masculine ordinal º"
 msgstr "/Tags/Spesielle/Andre/Maskulin ordinal"
 
 #: ../src/menu.c:293
-msgid "/Tags/Special/Other/_Pilcrow (paragraph sign) "
+#, fuzzy
+msgid "/Tags/Special/Other/_Pilcrow (paragraph sign) ¶"
 msgstr "/Tags/Spesielle/Andre/Paragraf/avsnitt tegn"
 
 #: ../src/menu.c:295
-msgid "/Tags/Special/Other/_Broken bar "
+#, fuzzy
+msgid "/Tags/Special/Other/_Broken bar ¦"
 msgstr "/Tags/Spesielle/Andre/Broken bar"
 
 #: ../src/menu.c:296
@@ -2219,11 +2313,13 @@ msgid "/Tags/Special/Other/Soft _hypen -"
 msgstr "/Tags/Spesielle/Andre/Soft _hyphen"
 
 #: ../src/menu.c:297
-msgid "/Tags/Special/Other/Spa_cing macron "
+#, fuzzy
+msgid "/Tags/Special/Other/Spa_cing macron ¯"
 msgstr "/Tags/Spesielle/Andre/Overstrek"
 
 #: ../src/menu.c:299
-msgid "/Tags/Special/Other/Middle _dot "
+#, fuzzy
+msgid "/Tags/Special/Other/Middle _dot ·"
 msgstr "/Tags/Spesielle/Andre/Mi_dtjustert punktum"
 
 #: ../src/menu.c:301
@@ -2411,7 +2507,8 @@ msgid "/Tags/List/Definition _term"
 msgstr "/Tags/Liste/Definisjons_term"
 
 #: ../src/menu.c:349
-msgid "/Tags/List/_Definition"
+#, fuzzy
+msgid "/Tags/List/De_finition"
 msgstr "/Tags/Liste/_Definisjon"
 
 #: ../src/menu.c:350
@@ -2675,15 +2772,16 @@ msgid "/Document/_Update highlighting"
 msgstr "/Dokument/Oppdater _syntaksmarkering"
 
 #: ../src/menu.c:448
-msgid "/Document/_Next"
-msgstr "/Dokument/_Neste dokument"
-
-#: ../src/menu.c:449
 msgid "/Document/_Previous"
 msgstr "/Dokument/Forrige dokument"
 
+#: ../src/menu.c:449
+msgid "/Document/_Next"
+msgstr "/Dokument/_Neste dokument"
+
 #: ../src/menu.c:451
-msgid "/Document/_Word Count"
+#, fuzzy
+msgid "/Document/Word _Count"
 msgstr "/Dokument/_Ordtelling"
 
 #: ../src/menu.c:452
@@ -3099,659 +3197,663 @@ msgstr "Linje undermønster "
 msgid "Output subpattern #"
 msgstr "Output undermønster "
 
-#: ../src/preferences.c:1613
+#: ../src/preferences.c:1615
 msgid "Edit preferences"
 msgstr "Rediger preferanser"
 
-#: ../src/preferences.c:1624
+#: ../src/preferences.c:1626
 msgid "Editor"
 msgstr "Editor"
 
-#: ../src/preferences.c:1626
+#: ../src/preferences.c:1628
 msgid "Editor options"
 msgstr "Editor Innstillinger"
 
-#: ../src/preferences.c:1632
+#: ../src/preferences.c:1634
 msgid "Tab width"
 msgstr "Tab-størrelse"
 
-#: ../src/preferences.c:1633
+#: ../src/preferences.c:1635
 msgid "Word wrap default"
 msgstr "Bryt linjer"
 
-#: ../src/preferences.c:1634
+#: ../src/preferences.c:1636
 msgid "Line numbers by default"
 msgstr "Vis linjenummer"
 
-#: ../src/preferences.c:1635
+#: ../src/preferences.c:1637
 msgid "Highlight syntax by default"
 msgstr "Marker syntaks"
 
-#: ../src/preferences.c:1636
+#: ../src/preferences.c:1638
 msgid "Highlight # lines"
 msgstr "Highlight som standard"
 
 #: ../src/preferences.c:1639
+msgid "Always highlight full document"
+msgstr ""
+
+#: ../src/preferences.c:1641
 msgid "HTML"
 msgstr "HTML"
 
-#: ../src/preferences.c:1641
+#: ../src/preferences.c:1643
 msgid "HTML options"
 msgstr "HTML alternativer"
 
-#: ../src/preferences.c:1646
+#: ../src/preferences.c:1648
 msgid "Lowercase HTML tags"
 msgstr "Bruk små bokstaver for HTML-tags"
 
-#: ../src/preferences.c:1647
+#: ../src/preferences.c:1649
 msgid "Use deprecated tags (e.g. <font> and <nobr>)"
 msgstr "Bruk foreldede tags (e.g. <font> og <nobr>)"
 
-#: ../src/preferences.c:1648
+#: ../src/preferences.c:1650
 msgid "Use XHTML style tags (<br />)"
 msgstr "Bruk XHTML-syntaks (som <br />)"
 
-#: ../src/preferences.c:1649
+#: ../src/preferences.c:1651
 msgid "Automatic update author meta"
 msgstr "Oppdater author meta automatisk"
 
-#: ../src/preferences.c:1652
+#: ../src/preferences.c:1654
 msgid "Files"
 msgstr "Filer"
 
-#: ../src/preferences.c:1654
+#: ../src/preferences.c:1656
 msgid "Encoding"
 msgstr "Inpit kodning"
 
-#: ../src/preferences.c:1666
+#: ../src/preferences.c:1668
 msgid "Default character set"
 msgstr "Standard tegnsett"
 
-#: ../src/preferences.c:1669
+#: ../src/preferences.c:1671
 msgid "Auto set <meta> encoding tag on change"
 msgstr "Oppdater <meta> encoding tag automatisk"
 
-#: ../src/preferences.c:1671
+#: ../src/preferences.c:1673
 msgid "Backup"
 msgstr "Backup"
 
-#: ../src/preferences.c:1675
+#: ../src/preferences.c:1677
 msgid "Create backup on save"
 msgstr "Opprett backupfil ved lagring"
 
-#: ../src/preferences.c:1676
+#: ../src/preferences.c:1678
 msgid "Backup file suffix"
 msgstr "Filendelse for backup"
 
-#: ../src/preferences.c:1681
+#: ../src/preferences.c:1683
 msgid "Action on backup failure"
 msgstr "Tiltak når backup ikke kan utføres"
 
-#: ../src/preferences.c:1692
+#: ../src/preferences.c:1694
 msgid "Undo history size"
 msgstr "Antall angremuligheter"
 
-#: ../src/preferences.c:1693
+#: ../src/preferences.c:1695
 msgid "Clear undo history on save"
 msgstr "Nullstill angremuligheter ved lagring"
 
-#: ../src/preferences.c:1695 ../src/preferences.c:1716
+#: ../src/preferences.c:1697 ../src/preferences.c:1718
 msgid "Misc"
 msgstr "Diverse"
 
-#: ../src/preferences.c:1700
+#: ../src/preferences.c:1702
 msgid "Allow multi instances of a file"
 msgstr "Tillat flere instanser av samme fil"
 
-#: ../src/preferences.c:1703
+#: ../src/preferences.c:1705
 msgid "User interface"
 msgstr "Brukergrensesnitt"
 
-#: ../src/preferences.c:1705
+#: ../src/preferences.c:1707
 msgid "Dimensions"
 msgstr "Størrelser"
 
-#: ../src/preferences.c:1709
+#: ../src/preferences.c:1711
 msgid "Restore last used dimensions"
 msgstr "Gjenopprett sist brukte vindustørrelser"
 
-#: ../src/preferences.c:1710
+#: ../src/preferences.c:1712
 msgid "Initial left panel width"
 msgstr "Startbreddem, venstre panel"
 
-#: ../src/preferences.c:1711
+#: ../src/preferences.c:1713
 msgid "Initial window height"
 msgstr "Starthøyde"
 
-#: ../src/preferences.c:1712
+#: ../src/preferences.c:1714
 msgid "Initial window width"
 msgstr "Startbredde"
 
-#: ../src/preferences.c:1721
+#: ../src/preferences.c:1723
 msgid "External browsers in submenu"
 msgstr "Eksterne browsere i egen undermeny"
 
-#: ../src/preferences.c:1722
+#: ../src/preferences.c:1724
 msgid "External commands in submenu"
 msgstr "Eksterne kommandoer i egen undermeny"
 
-#: ../src/preferences.c:1723
+#: ../src/preferences.c:1725
 msgid "External outputbox in submenu"
 msgstr "Outputboks-programmer i egen undermeny"
 
-#: ../src/preferences.c:1725
+#: ../src/preferences.c:1727
 msgid "Notebook tab font (leave empty for gtk default)"
 msgstr "Skrifttype for tabs"
 
-#: ../src/preferences.c:1726
+#: ../src/preferences.c:1728
 msgid "Make HTML dialogs transient"
 msgstr "Behold HTML dialoger øverst"
 
-#: ../src/preferences.c:1727
+#: ../src/preferences.c:1729
 msgid "Advanced search and replace by default"
 msgstr "Brukerdefinert søk/erstatt som standard"
 
-#: ../src/preferences.c:1729
+#: ../src/preferences.c:1731
 msgid "File browser"
 msgstr "Filbrowser"
 
-#: ../src/preferences.c:1733
+#: ../src/preferences.c:1735
 msgid "Show hidden files"
 msgstr "Vis skjulte filer"
 
-#: ../src/preferences.c:1734
+#: ../src/preferences.c:1736
 msgid "Show other users files"
 msgstr "Vis andre brukeres filer"
 
-#: ../src/preferences.c:1735
+#: ../src/preferences.c:1737
 msgid "Show backup files"
 msgstr "Vis backupfiler"
 
-#: ../src/preferences.c:1736
+#: ../src/preferences.c:1738
 msgid "Unknown icon"
 msgstr "Ukjent ikon"
 
-#: ../src/preferences.c:1737
+#: ../src/preferences.c:1739
 msgid "Directory icon"
 msgstr "Katalognavn"
 
-#: ../src/preferences.c:1740 ../src/rcfile.c:536
+#: ../src/preferences.c:1742 ../src/rcfile.c:537
 msgid "Images"
 msgstr "Bilder"
 
-#: ../src/preferences.c:1742
+#: ../src/preferences.c:1744
 msgid "Thumbnails"
 msgstr "Thumbnails"
 
-#: ../src/preferences.c:1746
+#: ../src/preferences.c:1748
 msgid "Thumbnail suffix"
 msgstr "Thumbnail endelse"
 
-#: ../src/preferences.c:1750
+#: ../src/preferences.c:1752
 msgid "Thumbnail filetype"
 msgstr "Thumbnail format"
 
-#: ../src/preferences.c:1755 ../src/preferences.c:1757
+#: ../src/preferences.c:1757 ../src/preferences.c:1759
 msgid "Filetypes"
 msgstr "Filtyper"
 
-#: ../src/preferences.c:1764
+#: ../src/preferences.c:1766
 msgid "Filefilters"
 msgstr "Filfilter"
 
-#: ../src/preferences.c:1772
+#: ../src/preferences.c:1774
 msgid "Syntax highlighting"
 msgstr "Syntaksmarkering"
 
-#: ../src/preferences.c:1774
+#: ../src/preferences.c:1776
 msgid "Patterns"
 msgstr "Mønster"
 
-#: ../src/preferences.c:1782
+#: ../src/preferences.c:1784
 msgid "External programs"
 msgstr "Eksterne programmer"
 
-#: ../src/preferences.c:1784
+#: ../src/preferences.c:1786
 msgid "Browsers"
 msgstr "Nettlesere"
 
-#: ../src/preferences.c:1791
+#: ../src/preferences.c:1793
 msgid "Utilities and filters"
 msgstr "Verktøy og filtre"
 
-#: ../src/preferences.c:1799
+#: ../src/preferences.c:1801
 msgid "Output parsers"
 msgstr "Skriv html karakterer"
 
-#: ../src/preferences.c:1801
+#: ../src/preferences.c:1803
 msgid "Outputbox"
 msgstr "Output-boks"
 
-#: ../src/rcfile.c:478
+#: ../src/rcfile.c:479
 msgid "Galeon"
 msgstr "Galeon"
 
-#: ../src/rcfile.c:480
+#: ../src/rcfile.c:481
 msgid "Mozilla"
 msgstr "Mozilla"
 
-#: ../src/rcfile.c:482
+#: ../src/rcfile.c:483
 msgid "Opera"
 msgstr "Opera"
 
-#: ../src/rcfile.c:484
+#: ../src/rcfile.c:485
 msgid "Netscape"
 msgstr "Netscape"
 
-#: ../src/rcfile.c:486
+#: ../src/rcfile.c:487
 msgid "Gnome default"
 msgstr "Gnome standard"
 
-#: ../src/rcfile.c:502
+#: ../src/rcfile.c:503
 msgid "make"
 msgstr "make"
 
-#: ../src/rcfile.c:503
+#: ../src/rcfile.c:504
 msgid "weblint HTML checker"
 msgstr "weblint HTML-skanner"
 
-#: ../src/rcfile.c:504
+#: ../src/rcfile.c:505
 msgid "tidy HTML validator"
 msgstr "tidy HTML validator"
 
-#: ../src/rcfile.c:505
+#: ../src/rcfile.c:506
 msgid "javac"
 msgstr "javac"
 
-#: ../src/rcfile.c:511
+#: ../src/rcfile.c:512
 msgid "Dos2Unix filter"
 msgstr "Dos2Unix filter"
 
-#: ../src/rcfile.c:513
+#: ../src/rcfile.c:514
 msgid "Tidy cleanup filter"
 msgstr "Tidy opprydningsfilter"
 
-#: ../src/rcfile.c:530
+#: ../src/rcfile.c:531
 msgid "C programming"
 msgstr "C programmering"
 
-#: ../src/rcfile.c:532
+#: ../src/rcfile.c:533
 msgid "All web files"
 msgstr "Alle webfiler"
 
-#: ../src/rcfile.c:534
+#: ../src/rcfile.c:535
 msgid "Java programming"
 msgstr "Java programmering"
 
-#: ../src/rcfile.c:538
+#: ../src/rcfile.c:539
 msgid "Hide objectfiles"
 msgstr "Skjul objektfiler"
 
-#: ../src/rcfile.c:619
+#: ../src/rcfile.c:620
 msgid "/php/ibase/ibase fetch row"
 msgstr "/php/ibase/ibase hent række"
 
-#: ../src/rcfile.c:619
+#: ../src/rcfile.c:620
 msgid "ibase result variable name"
 msgstr "ibase resultat variabel navn"
 
-#: ../src/rcfile.c:619 ../src/rcfile.c:620
+#: ../src/rcfile.c:620 ../src/rcfile.c:621
 msgid "row variable name"
 msgstr "rad variabel navn"
 
-#: ../src/rcfile.c:620
+#: ../src/rcfile.c:621
 msgid "/php/mysql/mysql fetch row"
 msgstr "/php/mysql/mysql hent rekke"
 
-#: ../src/rcfile.c:620
+#: ../src/rcfile.c:621
 msgid "mysql result variable name"
 msgstr "mysql resultat variabelnavn"
 
-#: ../src/rcfile.c:621
+#: ../src/rcfile.c:622
 msgid "/php/mysql/mysql connect"
 msgstr "/php/mysql/mysql tilkobling"
 
-#: ../src/rcfile.c:621
+#: ../src/rcfile.c:622
 msgid "mysql host"
 msgstr "mysql tjener"
 
-#: ../src/rcfile.c:621
+#: ../src/rcfile.c:622
 msgid "mysql username"
 msgstr "mysql brukernavn"
 
-#: ../src/rcfile.c:621
+#: ../src/rcfile.c:622
 msgid "mysql password"
 msgstr "mysql passord"
 
-#: ../src/rcfile.c:621
+#: ../src/rcfile.c:622
 msgid "database name"
 msgstr "databasenavn"
 
-#: ../src/rcfile.c:622
+#: ../src/rcfile.c:623
 msgid "/php/ibase/ibase connect"
 msgstr "/php/ibase/ibase tilkobling"
 
-#: ../src/rcfile.c:622
+#: ../src/rcfile.c:623
 msgid "ibase host"
 msgstr "ibase tjener"
 
-#: ../src/rcfile.c:622
+#: ../src/rcfile.c:623
 msgid "ibase database path"
 msgstr "ibase databasesti"
 
-#: ../src/rcfile.c:622
+#: ../src/rcfile.c:623
 msgid "ibase username"
 msgstr "ibase brukernavn"
 
-#: ../src/rcfile.c:622
+#: ../src/rcfile.c:623
 msgid "ibase password"
 msgstr "ibase passord"
 
-#: ../src/rcfile.c:623
+#: ../src/rcfile.c:624
 msgid "/php/general/while each in array list"
 msgstr "/php/generell/while each gjennom array (liste)"
 
-#: ../src/rcfile.c:623
+#: ../src/rcfile.c:624
 msgid "array name"
 msgstr "arraynavn"
 
-#: ../src/rcfile.c:624
+#: ../src/rcfile.c:625
 msgid "/sql/select all from table"
 msgstr "/sql/velg alle fra tabell"
 
-#: ../src/rcfile.c:624
+#: ../src/rcfile.c:625
 msgid "table name"
 msgstr "tabellnavn"
 
-#: ../src/rcfile.c:625
+#: ../src/rcfile.c:626
 msgid "/php/general/mail"
 msgstr "/php/generell/post"
 
-#: ../src/rcfile.c:625
+#: ../src/rcfile.c:626
 msgid "email adress"
 msgstr "e-post adresse:"
 
-#: ../src/rcfile.c:625
+#: ../src/rcfile.c:626
 msgid "subject"
 msgstr "emne"
 
-#: ../src/rcfile.c:625
+#: ../src/rcfile.c:626
 msgid "mail body variable name"
 msgstr "mail body variabelnavn"
 
-#: ../src/rcfile.c:626
+#: ../src/rcfile.c:627
 msgid "/php/general/for loop"
 msgstr "/php/generell/for løkke"
 
-#: ../src/rcfile.c:626
+#: ../src/rcfile.c:627
 msgid "loop variable name"
 msgstr "navn for loopvariabel"
 
-#: ../src/rcfile.c:626
+#: ../src/rcfile.c:627
 msgid "from value"
 msgstr "fra verdi"
 
-#: ../src/rcfile.c:626
+#: ../src/rcfile.c:627
 msgid "to value"
 msgstr "til verdi"
 
-#: ../src/rcfile.c:627
+#: ../src/rcfile.c:628
 msgid "/php/ibase/query"
 msgstr "/php/ibase/query"
 
-#: ../src/rcfile.c:627 ../src/rcfile.c:632 ../src/rcfile.c:650
-#: ../src/rcfile.c:651
+#: ../src/rcfile.c:628 ../src/rcfile.c:633 ../src/rcfile.c:651
+#: ../src/rcfile.c:652
 msgid "result variable name"
 msgstr "resultatets variabelnavn"
 
-#: ../src/rcfile.c:627
+#: ../src/rcfile.c:628
 msgid "ibase connection id name"
 msgstr "ibase tilkobling id-navn"
 
-#: ../src/rcfile.c:627 ../src/rcfile.c:632 ../src/rcfile.c:650
+#: ../src/rcfile.c:628 ../src/rcfile.c:633 ../src/rcfile.c:651
 msgid "query string (quoted) or variable (including $)"
 msgstr "query (i anførselstegn) eller variabel (inkl. $)"
 
-#: ../src/rcfile.c:628
+#: ../src/rcfile.c:629
 msgid "/php/general/include file"
 msgstr "/php/generell/inkluder fil"
 
-#: ../src/rcfile.c:628
+#: ../src/rcfile.c:629
 msgid "filename to include"
 msgstr "filenavn for inkludering"
 
-#: ../src/rcfile.c:629
+#: ../src/rcfile.c:630
 msgid "/php/general/require file"
 msgstr "/php/generell/krever fil"
 
-#: ../src/rcfile.c:629
+#: ../src/rcfile.c:630
 msgid "filename to require"
 msgstr "filnavn som kreves"
 
-#: ../src/rcfile.c:630
+#: ../src/rcfile.c:631
 msgid "/php/general/if isset"
 msgstr "/php/generell/if isset"
 
-#: ../src/rcfile.c:630 ../src/rcfile.c:631
+#: ../src/rcfile.c:631 ../src/rcfile.c:632
 msgid "variable name to test for"
 msgstr "variabelnavn det skal testes for"
 
-#: ../src/rcfile.c:631
+#: ../src/rcfile.c:632
 msgid "/php/general/if not isset"
 msgstr "/php/generell/if not isset"
 
-#: ../src/rcfile.c:632
+#: ../src/rcfile.c:633
 msgid "/php/mysql/query"
 msgstr "/php/mysql/query"
 
-#: ../src/rcfile.c:632
+#: ../src/rcfile.c:633
 msgid "mysql connection id name"
 msgstr "mysql tilkobling id navn"
 
-#: ../src/rcfile.c:633
+#: ../src/rcfile.c:634
 msgid "/html/font symbol"
 msgstr "/html/skrift symbol"
 
-#: ../src/rcfile.c:634
+#: ../src/rcfile.c:635
 msgid "/html/div with class"
 msgstr "/html/div med klasse"
 
-#: ../src/rcfile.c:634 ../src/rcfile.c:635
+#: ../src/rcfile.c:635 ../src/rcfile.c:636
 msgid "CSS class name"
 msgstr "CSS klassenavn"
 
-#: ../src/rcfile.c:635
+#: ../src/rcfile.c:636
 msgid "/html/span with class"
 msgstr "/html/span med klasse"
 
-#: ../src/rcfile.c:636
+#: ../src/rcfile.c:637
 msgid "/php/php block"
 msgstr "/php/php blokk"
 
-#: ../src/rcfile.c:637
+#: ../src/rcfile.c:638
 msgid "/html/made with bluefish"
 msgstr "/html/laget i Bluefish"
 
-#: ../src/rcfile.c:638
+#: ../src/rcfile.c:639
 msgid "/html/meta keywords"
 msgstr "/html/meta nøkkelord"
 
-#: ../src/rcfile.c:638
+#: ../src/rcfile.c:639
 msgid "keywords, space separated"
 msgstr "nøkkelord, separert med mellomrom"
 
-#: ../src/rcfile.c:639
+#: ../src/rcfile.c:640
 msgid "/html/meta refresh (client pull)"
 msgstr "/html/meta refresh (klient pull)"
 
-#: ../src/rcfile.c:639
+#: ../src/rcfile.c:640
 msgid "refresh time, in seconds"
 msgstr "Ventetid før refresh (sekunder)"
 
-#: ../src/rcfile.c:639
+#: ../src/rcfile.c:640
 msgid "URL to redirect to"
 msgstr "URL det skal henvises til"
 
-#: ../src/rcfile.c:640
+#: ../src/rcfile.c:641
 msgid "/active html/form"
 msgstr "/aktiv html/form"
 
-#: ../src/rcfile.c:641
+#: ../src/rcfile.c:642
 msgid "/active html/form and action"
 msgstr "/aktiv html/form"
 
-#: ../src/rcfile.c:641
+#: ../src/rcfile.c:642
 msgid "Submit button text"
 msgstr "Submit-knapp tekst"
 
-#: ../src/rcfile.c:642
+#: ../src/rcfile.c:643
 msgid "/active html/input text"
 msgstr "/aktiv html/input tekst"
 
-#: ../src/rcfile.c:642 ../src/rcfile.c:643 ../src/rcfile.c:644
-#: ../src/rcfile.c:645 ../src/rcfile.c:646 ../src/rcfile.c:647
+#: ../src/rcfile.c:643 ../src/rcfile.c:644 ../src/rcfile.c:645
+#: ../src/rcfile.c:646 ../src/rcfile.c:647 ../src/rcfile.c:648
 msgid "variable name"
 msgstr "variabelnavn"
 
-#: ../src/rcfile.c:643
+#: ../src/rcfile.c:644
 msgid "/active html/input checkbox"
 msgstr "/aktiv html/avkrysningsboks"
 
-#: ../src/rcfile.c:643
+#: ../src/rcfile.c:644
 msgid "value when checked"
 msgstr "verdi når valgt"
 
-#: ../src/rcfile.c:644
+#: ../src/rcfile.c:645
 msgid "/active html/textarea"
 msgstr "/aktiv html/tekstområde"
 
-#: ../src/rcfile.c:645
+#: ../src/rcfile.c:646
 msgid "/active html/select options/from array"
 msgstr "/aktiv html/select alternativer/fra array"
 
-#: ../src/rcfile.c:645
+#: ../src/rcfile.c:646
 msgid "array name containing options"
 msgstr "arraynavn med alternativer"
 
-#: ../src/rcfile.c:646
+#: ../src/rcfile.c:647
 msgid "/active html/select options/from mysql result"
 msgstr "/aktiv html/select alternativer/fra mysql resultat"
 
-#: ../src/rcfile.c:646
+#: ../src/rcfile.c:647
 msgid "mysql query result"
 msgstr "myqsl query resultat"
 
-#: ../src/rcfile.c:646 ../src/rcfile.c:647
+#: ../src/rcfile.c:647 ../src/rcfile.c:648
 msgid "index of the value"
 msgstr "indeks for verdien"
 
-#: ../src/rcfile.c:646 ../src/rcfile.c:647
+#: ../src/rcfile.c:647 ../src/rcfile.c:648
 msgid "index of the label"
 msgstr "indeks for etiketten"
 
-#: ../src/rcfile.c:647
+#: ../src/rcfile.c:648
 msgid "/active html/select options/from ibase result"
 msgstr "/aktiv html/select alternativer/fra ibase resultat"
 
-#: ../src/rcfile.c:647
+#: ../src/rcfile.c:648
 msgid "ibase query result"
 msgstr "ibase query resultat"
 
-#: ../src/rcfile.c:648
+#: ../src/rcfile.c:649
 msgid "/DHTML/mouseover image"
 msgstr "/DHTML/mouseover bilde"
 
-#: ../src/rcfile.c:648
+#: ../src/rcfile.c:649
 msgid "unique name"
 msgstr "unikt navn"
 
-#: ../src/rcfile.c:648
+#: ../src/rcfile.c:649
 msgid "onMouseOut src"
 msgstr "onMouseOut src"
 
-#: ../src/rcfile.c:648
+#: ../src/rcfile.c:649
 msgid "onMouseOver src"
 msgstr "onMouseOver src"
 
-#: ../src/rcfile.c:649
+#: ../src/rcfile.c:650
 msgid "/php/odbc/odbc connect"
 msgstr "/php/odbc/odbc tilkobling"
 
-#: ../src/rcfile.c:649
+#: ../src/rcfile.c:650
 msgid "odbc data source name"
 msgstr "odbc data kildenavn"
 
-#: ../src/rcfile.c:649
+#: ../src/rcfile.c:650
 msgid "username"
 msgstr "brukernavn"
 
-#: ../src/rcfile.c:649
+#: ../src/rcfile.c:650
 msgid "password"
 msgstr "passord"
 
-#: ../src/rcfile.c:650
+#: ../src/rcfile.c:651
 msgid "/php/odbc/odbc exec query"
 msgstr "/php/odbc/odbc send query"
 
-#: ../src/rcfile.c:650
+#: ../src/rcfile.c:651
 msgid "odbc connection id name"
 msgstr "odbc tilkobling id"
 
-#: ../src/rcfile.c:651
+#: ../src/rcfile.c:652
 msgid "/php/odbc/odbc fetch row"
 msgstr "/php/odbc/odbc hent rad"
 
-#: ../src/rcfile.c:652
+#: ../src/rcfile.c:653
 msgid "/php/general/echo date"
 msgstr "/php/generell/skriv dato"
 
-#: ../src/rcfile.c:653
+#: ../src/rcfile.c:654
 msgid "/php/filesystem/open and echo file"
 msgstr "/php/filsystem/åpne og les fil"
 
-#: ../src/rcfile.c:653
+#: ../src/rcfile.c:654
 msgid "file (quoted) or variable (including $)"
 msgstr "fil (i anførselstegn) eller variabel (inkluderende $)"
 
-#: ../src/rcfile.c:654
+#: ../src/rcfile.c:655
 msgid "/php/general/location header"
 msgstr "/php/generell/location header"
 
-#: ../src/rcfile.c:654
+#: ../src/rcfile.c:655
 msgid "location (URL) to redirect to (quoted) or variable (including $)"
 msgstr ""
 "Adresse (URL) det skal videresendes til (i anførselstegn) eller variabel "
 "(inklusiv $)"
 
-#: ../src/rcfile.c:655
+#: ../src/rcfile.c:656
 msgid "/apache/basic password required"
 msgstr "/apache/basic passord nødvendig"
 
-#: ../src/rcfile.c:655
+#: ../src/rcfile.c:656
 msgid "full path to password file"
 msgstr "full sti til passordfil"
 
-#: ../src/rcfile.c:655
+#: ../src/rcfile.c:656
 msgid "security description"
 msgstr "sikkerhetsbeskrivelse"
 
-#: ../src/rcfile.c:656
+#: ../src/rcfile.c:657
 msgid "/apache/deny access to .inc"
 msgstr "/apache/nekt adgang til .inc"
 
-#: ../src/rcfile.c:657
+#: ../src/rcfile.c:658
 msgid "/replace/strip <font>"
 msgstr "/erstatt/fjern <font>"
 
-#: ../src/rcfile.c:658
+#: ../src/rcfile.c:659
 msgid "/replace/strip <any tag> in selection"
 msgstr "/erstatt/fjern <ethvert tag> i markert område"
 
-#: ../src/rcfile.c:659
+#: ../src/rcfile.c:660
 msgid "/replace/convert <td> in <th> in selection"
 msgstr "/erstatt/konverter <td> til <th> i markert område"
 
-#: ../src/rcfile.c:660
+#: ../src/rcfile.c:661
 msgid "/replace/convert <any tag> in <any other tag> in selection"
 msgstr "/erstatt/konverter <ethvert tag> til <et annet tag> i markert område"
 
@@ -3923,6 +4025,9 @@ msgstr "Antall Frames"
 #: ../src/wizards.c:196
 msgid "Frame's"
 msgstr "Frame's"
+
+#~ msgid "Save in progress"
+#~ msgstr "Lagrer fil"
 
 #~ msgid ""
 #~ "File %s\n"
@@ -4942,8 +5047,7 @@ msgstr "Frame's"
 #~ msgstr "Henter fil, %d bytes mottatt, trykk ESC for å avbryte"
 
 #~ msgid "Retrieving file, %d bytes of %d bytes received, press ESC to cancel"
-#~ msgstr ""
-#~ "Henter fil, %d bytes af %d bytes lastet ned, tryk ESC for å avbryte"
+#~ msgstr "Henter fil, %d bytes af %d bytes lastet ned, tryk ESC for å avbryte"
 
 #~ msgid "Bluefish project - files"
 #~ msgstr "Bluefish prosjekt - filer"
