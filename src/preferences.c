@@ -1684,6 +1684,18 @@ static void create_outputbox_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 static void preferences_destroy_lcb(GtkWidget * widget, Tprefdialog *pd) {
 	GtkTreeSelection *select;
 	DEBUG_MSG("preferences_destroy_lcb, started\n");
+
+	free_arraylist(pd->lists[filetypes]);
+	free_arraylist(pd->lists[filefilters]);
+	free_arraylist(pd->lists[highlight_patterns]);
+	free_arraylist(pd->lists[browsers]);
+	free_arraylist(pd->lists[external_commands]);
+	pd->lists[filetypes] = NULL;
+	pd->lists[filefilters] = NULL;
+	pd->lists[highlight_patterns] = NULL;
+	pd->lists[browsers] = NULL;
+	pd->lists[external_commands] = NULL;
+
 	select = gtk_tree_view_get_selection(GTK_TREE_VIEW(pd->ftd.lview));
 	g_signal_handlers_destroy(G_OBJECT(select));
 /* g_signal_handlers_destroy(G_OBJECT(GTK_COMBO(pd->ftd.combo)->list));*/
@@ -1702,7 +1714,7 @@ static void preferences_destroy_lcb(GtkWidget * widget, Tprefdialog *pd) {
 	window_destroy(pd->win);
 	g_free(pd);
 }
-static void preferences_ok_clicked_lcb(GtkWidget *wid, Tprefdialog *pd) {
+static void preferences_apply(Tprefdialog *pd) {
 	string_apply(&main_v->props.editor_font_string, pd->prefs[editor_font_string]);
 	integer_apply(&main_v->props.editor_tab_width, pd->prefs[editor_tab_width], FALSE);
 	integer_apply(&main_v->props.editor_indent_wspaces, pd->prefs[editor_indent_wspaces], TRUE);
@@ -1782,24 +1794,23 @@ static void preferences_ok_clicked_lcb(GtkWidget *wid, Tprefdialog *pd) {
 	outputbox_apply_changes(pd);
 
 	free_arraylist(main_v->props.filetypes);
-	main_v->props.filetypes = pd->lists[filetypes];
+	main_v->props.filetypes = duplicate_arraylist(pd->lists[filetypes]);
 
 	free_arraylist(main_v->props.filefilters);
-	main_v->props.filefilters = pd->lists[filefilters];
+	main_v->props.filefilters = duplicate_arraylist(pd->lists[filefilters]);
 
 	free_arraylist(main_v->props.highlight_patterns);
-	main_v->props.highlight_patterns = pd->lists[highlight_patterns];
+	main_v->props.highlight_patterns = duplicate_arraylist(pd->lists[highlight_patterns]);
 	
 	free_arraylist(main_v->props.browsers);
-	main_v->props.browsers = pd->lists[browsers];
-	DEBUG_MSG("preferences_ok_clicked_lcb, new browsers list=%p\n", main_v->props.browsers);
+	main_v->props.browsers = duplicate_arraylist(pd->lists[browsers]);
 	
 	free_arraylist(main_v->props.external_commands);
-	main_v->props.external_commands = pd->lists[external_commands];
+	main_v->props.external_commands = duplicate_arraylist(pd->lists[external_commands]);
 	
 	free_arraylist(main_v->props.outputbox);
-	main_v->props.outputbox	 = pd->lists[outputbox];
-	
+	main_v->props.outputbox	 = duplicate_arraylist(pd->lists[outputbox]);
+
 	/* apply the changes to highlighting patterns and filetypes to the running program */
 	filetype_highlighting_rebuild();
 	filebrowser_filters_rebuild();
@@ -1821,20 +1832,16 @@ static void preferences_ok_clicked_lcb(GtkWidget *wid, Tprefdialog *pd) {
 			tmplist = g_list_next(tmplist);
 		}
 	}
+}
+
+static void preferences_cancel_clicked_lcb(GtkWidget *wid, Tprefdialog *pd) {
 	preferences_destroy_lcb(NULL, pd);
 }
-static void preferences_cancel_clicked_lcb(GtkWidget *wid, Tprefdialog *pd) {
-	DEBUG_MSG("preferences_cancel_clicked_lcb, started\n");
-	free_arraylist(pd->lists[filetypes]);
-	free_arraylist(pd->lists[filefilters]);
-	free_arraylist(pd->lists[highlight_patterns]);
-	free_arraylist(pd->lists[browsers]);
-	free_arraylist(pd->lists[external_commands]);
-	pd->lists[filetypes] = NULL;
-	pd->lists[filefilters] = NULL;
-	pd->lists[highlight_patterns] = NULL;
-	pd->lists[browsers] = NULL;
-	pd->lists[external_commands] = NULL;
+static void preferences_apply_clicked_lcb(GtkWidget *wid, Tprefdialog *pd) {
+	preferences_apply(pd);
+}
+static void preferences_ok_clicked_lcb(GtkWidget *wid, Tprefdialog *pd) {
+	preferences_apply(pd);
 	preferences_destroy_lcb(NULL, pd);
 }
 
@@ -2095,11 +2102,13 @@ static void preferences_dialog() {
 		gtk_button_box_set_spacing(GTK_BUTTON_BOX(ahbox), 1);
 
 		gtk_box_pack_start(GTK_BOX(dvbox), ahbox, FALSE, FALSE, 0);
-
-		but = bf_stock_cancel_button(GTK_SIGNAL_FUNC(preferences_cancel_clicked_lcb), pd);
+		but = bf_gtkstock_button(GTK_STOCK_APPLY, G_CALLBACK(preferences_apply_clicked_lcb), pd);
 		gtk_box_pack_start(GTK_BOX(ahbox), but, TRUE, TRUE, 0);
 
-		but = bf_stock_ok_button(GTK_SIGNAL_FUNC(preferences_ok_clicked_lcb), pd);
+		but = bf_stock_cancel_button(G_CALLBACK(preferences_cancel_clicked_lcb), pd);
+		gtk_box_pack_start(GTK_BOX(ahbox), but, TRUE, TRUE, 0);
+
+		but = bf_stock_ok_button(G_CALLBACK(preferences_ok_clicked_lcb), pd);
 		gtk_box_pack_start(GTK_BOX(ahbox), but, TRUE, TRUE, 0);
 		gtk_window_set_default(GTK_WINDOW(pd->win), but);
 	}
