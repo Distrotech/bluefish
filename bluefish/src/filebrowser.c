@@ -377,9 +377,11 @@ static GtkTreePath *return_path_from_filename(Tfilebrowser *filebrowser,gchar *t
 
 	gtk_tree_model_get_iter_first(GTK_TREE_MODEL(store), &iter);
 	parent = iter;
+	/* the first thing we do is that we try to find the root element where this filename should belong to */
 	{
 		gchar *root = return_root_with_protocol(this_filename);
 		if (root && root[0] != '/') {
+			/* we have an URL like sftp:// or http:// or something like that */
 			gboolean found = FALSE;
 			while (!found && gtk_tree_model_iter_next(GTK_TREE_MODEL(store), &iter)) {
 				gchar *found_root;
@@ -391,27 +393,33 @@ static GtkTreePath *return_path_from_filename(Tfilebrowser *filebrowser,gchar *t
 				}
 				g_free(found_root);
 			}
-		}
-		if (strcmp(root, this_filename)==0) {
-			/* we are looking for the root!! */
+			if (strcmp(root, this_filename)==0) {
+				/* we are looking for the root!! */
+				g_free(root);
+				return gtk_tree_model_get_path(GTK_TREE_MODEL(store),&parent);
+			}
 			g_free(root);
-			return gtk_tree_model_get_path(GTK_TREE_MODEL(store),&parent);
+		} else {
+			g_free(root);
+			/* it is a local file, that normally means that we can use the first toplevel node in the tree */
+			if (!showfulltree && filebrowser->basedir) {
+				gint basedirlen = strlen(filebrowser->basedir);
+				gint thislen = strlen(this_filename);
+				DEBUG_MSG("return_path_from_filename, basedirlen=%d, strlen(filename)=%d\n",basedirlen,thislen);
+				if (thislen == basedirlen && strcmp(this_filename, filebrowser->basedir)==0) {
+					/* we are looking for the basedir itself */
+					return gtk_tree_model_get_path(GTK_TREE_MODEL(store),&parent);
+				} else if ((strlen(this_filename)>basedirlen) && (strncmp(filebrowser->basedir, this_filename, basedirlen)==0)) {
+					prevlen = strlen(filebrowser->basedir);
+				} else {
+					DEBUG_MSG("return_path_from_filename, the path is outside the current basedir?!?\n");
+					found = FALSE;
+				}
+			}
 		}
-		g_free(root);
 	}
 
 	filepath = g_strdup(this_filename);
-	
-	if (!showfulltree && filebrowser->basedir) {
-		int basedirlen = strlen(filebrowser->basedir);
-		DEBUG_MSG("return_path_from_filename, basedirlen=%d, strlen(filename)=%d\n",basedirlen,strlen(this_filename));
-		if ((strlen(this_filename)>=basedirlen) && (strncmp(filebrowser->basedir, this_filename, basedirlen)==0)) {
-			prevlen = strlen(filebrowser->basedir);
-		} else {
-			found = FALSE;
-		}
-	}
-	
 	totlen = strlen(filepath);
 	curlen = strlen(strchr(&filepath[prevlen], '/'));
 	p = strchr(&filepath[prevlen], '/');
@@ -782,7 +790,10 @@ static GtkTreePath *build_tree_from_path(Tfilebrowser *filebrowser, const gchar 
 	return gtk_tree_model_get_path(GTK_TREE_MODEL(filebrowser->store),&iter);
 }
 
-/* I guess the dir must have a trailing slash in this function .. not sure */
+/* I guess the dir must have a trailing slash in this function .. not sure 
+if the GtkTreePath is already known, one should call refresh_dir_by_path_and_filename() directly
+instead of this function
+*/
 void filebrowser_refresh_dir(Tfilebrowser *filebrowser, gchar *dir) {
 	if (filebrowser->tree) {
 		/* get the path for this dir */
@@ -800,6 +811,8 @@ void filebrowser_refresh_dir(Tfilebrowser *filebrowser, gchar *dir) {
 		gtk_tree_path_free(path);
 	}
 }
+
+
 
 void bfwin_filebrowser_refresh_dir(Tbfwin *bfwin, gchar *dir) {
 	if (bfwin->filebrowser) {
@@ -1291,7 +1304,8 @@ static void filebrowser_rpopup_refresh(Tfilebrowser *filebrowser) {
 		DEBUG_MSG("filebrowser_rpopup_refresh_lcb, return_filename_from_path returned %s\n", tmp);
 		dir = ending_slash(tmp);
 		DEBUG_MSG("filebrowser_rpopup_refresh_lcb, ending_slash returned %s\n", dir);
-		filebrowser_refresh_dir(filebrowser,dir);
+		refresh_dir_by_path_and_filename(filebrowser, path, dir);
+		/* filebrowser_refresh_dir(filebrowser,dir); */
 		g_free(tmp);
 		g_free(dir);
 		gtk_tree_path_free(path);
@@ -1471,7 +1485,8 @@ static gboolean filebrowser_button_press_lcb(GtkWidget *widget, GdkEventButton *
 				tmp = return_filename_from_path(filebrowser,GTK_TREE_MODEL(filebrowser->store),path);
 				dir = ending_slash(tmp);
 				DEBUG_MSG("two paned view, refresh the directory %s\n", dir);
-				filebrowser_refresh_dir(filebrowser,dir);
+				refresh_dir_by_path_and_filename(filebrowser, path, dir);
+				/* filebrowser_refresh_dir(filebrowser,dir); */
 				g_free(tmp);
 				g_free(dir);
 			} else {
@@ -1486,7 +1501,8 @@ static gboolean filebrowser_button_press_lcb(GtkWidget *widget, GdkEventButton *
 						tmp = return_filename_from_path(filebrowser,GTK_TREE_MODEL(filebrowser->store),path);
 						dir = ending_slash(tmp);
 						DEBUG_MSG("filebrowser_button_press_lcb, ending_slash returned %s\n", dir);
-						filebrowser_refresh_dir(filebrowser,dir);
+						refresh_dir_by_path_and_filename(filebrowser, path, dir);
+						/* filebrowser_refresh_dir(filebrowser,dir);*/
 						g_free(tmp);
 						g_free(dir);
 					}
