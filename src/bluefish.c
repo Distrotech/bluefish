@@ -175,12 +175,13 @@ int main(int argc, char *argv[])
 	hl_init();
 	filebrowserconfig_init();
 	filebrowser_filters_rebuild();
-	fref_init();
-        bmark_init();
+	autoclosing_init();
 #ifndef NOSPLASH
 	splash_screen_set_label(_("parsing custom menu file..."));
 #endif /* #ifndef NOSPLASH */
 	rcfile_parse_custom_menu();
+	fref_init();
+	bmark_init();
 #ifdef WITH_MSG_QUEUE
 	if (!filenames && !projectfiles && main_v->props.open_in_running_bluefish) {
 		msg_queue_start(NULL, NULL, open_in_new_window);

@@ -26,7 +26,7 @@ enum {
 	DOCUMENT_BACKUP_ABORT_ABORT,
 	DOCUMENT_BACKUP_ABORT_ASK
 };
-
+void autoclosing_init(void);
 GList *return_allwindows_documentlist(void);
 GList *return_filenamestringlist_from_doclist(GList *doclist);
 gint documentlist_return_index_from_filename(GList *doclist, gchar *filename);

@@ -65,6 +65,7 @@ extern void g_none(...);
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <unistd.h>
+#include <pcre.h>
 
 #ifdef HAVE_GNOME_VFS
 #include <libgnomevfs/gnome-vfs.h>
@@ -338,6 +339,7 @@ typedef struct {
 	gpointer frefdata;
 	gpointer bmarkdata;
 	gint num_untitled_documents;
+	pcre *autoclosingtag_regc; /* the regular expression to check for a valid tag in tag autoclosing*/
 } Tmain;
 
 extern Tmain *main_v;
