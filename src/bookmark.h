@@ -15,6 +15,7 @@ GHashTable *bmark_get_temp_lines(Tdocument *doc);
 void bmark_clean_for_doc(Tdocument *doc); /* set bookmark's doc to NULL when closing file */ 
 
 void bmark_add_temp(Tbfwin *bfwin);
+void bmark_del_all_temp(Tbfwin *bfwin);
 
 
 
