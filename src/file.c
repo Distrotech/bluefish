@@ -635,7 +635,8 @@ static void open_adv_content_filter_lcb(Topenfile_status status,gint error_info,
 			if (open_adv_content_matches_filter(buffer,buflen,oau)) {
 				gchar *curi;
 				Tfile2doc *f2d = g_new(Tfile2doc,1);
-				f2d->uri = gnome_vfs_uri_dup(oau->uri);
+				f2d->uri = oau->uri;
+				gnome_vfs_uri_ref(oau->uri);
 				f2d->bfwin = oau->bfwin;
 				curi = gnome_vfs_uri_to_string(oau->uri,0);
 				f2d->doc = doc_new_loading_in_background(oau->bfwin, curi, oau->finfo);
@@ -660,7 +661,8 @@ static void openadv_content_filter_file(Tbfwin *bfwin, GnomeVFSURI *uri, GnomeVF
 	
 	oau = g_new0(Topenadv_uri,1);
 	oau->bfwin = bfwin;
-	oau->uri = gnome_vfs_uri_dup(uri);
+	oau->uri = uri;
+	gnome_vfs_uri_ref(uri);
 	oau->finfo = gnome_vfs_file_info_dup(finfo);
 	oau->content_filter = g_strdup(content_filter);
 	oau->use_regex = use_regex;
@@ -691,21 +693,28 @@ static void open_adv_load_directory_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSResu
 /*				DEBUG_MSG("open_adv_load_directory_lcb, open dir %s\n", gnome_vfs_uri_get_path(child_uri));*/
 				open_advanced(oa->bfwin, child_uri, oa->recursive, oa->extension_filter, oa->content_filter, oa->use_regex);
 			} else if (finfo->type == GNOME_VFS_FILE_TYPE_REGULAR){
-				if (oa->extension_filter) {
-					if (filename_test_extensions(ext, finfo->name)) { /* test extension */
-						if (oa->content_filter) { /* do we need content filtering */
-							DEBUG_MSG("open_adv_load_directory_lcb, content filter %s\n", gnome_vfs_uri_get_path(child_uri));
-							openadv_content_filter_file(oa->bfwin, child_uri, finfo, oa->content_filter, oa->use_regex);
-						} else { /* open this file as document */
-							DEBUG_MSG("open_adv_load_directory_lcb, open %s\n", gnome_vfs_uri_get_path(child_uri));
-							doc_new_from_uri(oa->bfwin, NULL, child_uri, finfo, TRUE, FALSE, -1);
+				gchar *curi;
+				curi = gnome_vfs_uri_to_string(child_uri,0);
+				list = return_allwindows_documentlist();
+				if (documentlist_return_document_from_filename(list, curi)==NULL) { /* if this file is already open, there is no need to do any of these checks */
+					if (oa->extension_filter) {
+						if (filename_test_extensions(ext, finfo->name)) { /* test extension */
+							if (oa->content_filter) { /* do we need content filtering */
+								DEBUG_MSG("open_adv_load_directory_lcb, content filter %s\n", gnome_vfs_uri_get_path(child_uri));
+								openadv_content_filter_file(oa->bfwin, child_uri, finfo, oa->content_filter, oa->use_regex);
+							} else { /* open this file as document */
+								DEBUG_MSG("open_adv_load_directory_lcb, open %s\n", gnome_vfs_uri_get_path(child_uri));
+								doc_new_from_uri(oa->bfwin, NULL, child_uri, finfo, TRUE, FALSE, -1);
+							}
 						}
+					} else if (oa->content_filter) {
+						openadv_content_filter_file(oa->bfwin, child_uri, finfo, oa->content_filter, oa->use_regex);
+					} else {
+						doc_new_from_uri(oa->bfwin, NULL, child_uri, finfo, TRUE, FALSE, -1);
 					}
-				} else if (oa->content_filter) {
-					openadv_content_filter_file(oa->bfwin, child_uri, finfo, oa->content_filter, oa->use_regex);
-				} else {
-					doc_new_from_uri(oa->bfwin, NULL, child_uri, finfo, TRUE, FALSE, -1);
 				}
+				g_free(curi);
+				g_list_free(list);
 			}
 			gnome_vfs_uri_unref(child_uri);
 		}
