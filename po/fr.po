@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 21-11-03_fr\n"
-"POT-Creation-Date: 2004-11-14 20:38+0100\n"
+"POT-Creation-Date: 2004-11-22 12:51+0100\n"
 "PO-Revision-Date: 2004-11-14 20:57+0100\n"
 "Last-Translator: Michèle Garoche <michele.garoche@easyconnect.fr>\n"
 "Language-Team: français <fr@li.org>\n"
@@ -907,98 +907,98 @@ msgstr "Certains fichiers ont été modifiés."
 msgid "Statistics: %d lines, %d words, %d characters"
 msgstr "Statistiques : %d lignes, %d mots, %d caractères"
 
-#: ../src/filebrowser.c:1015
+#: ../src/filebrowser.c:1054
 msgid "Error creating path"
 msgstr "Erreur de création du chemin"
 
-#: ../src/filebrowser.c:1015
+#: ../src/filebrowser.c:1054
 msgid "The specified pathname already exists."
 msgstr "Le chemin de fichier spécifié existe déjà."
 
-#: ../src/filebrowser.c:1082
+#: ../src/filebrowser.c:1124
 msgid "File name"
 msgstr "Nom du fichier"
 
-#: ../src/filebrowser.c:1084
+#: ../src/filebrowser.c:1126
 msgid "Directory name"
 msgstr "Nom du répertoire"
 
-#: ../src/filebrowser.c:1115
+#: ../src/filebrowser.c:1157
 msgid "Opening directory..."
 msgstr "Ouverture du répertoire en cours..."
 
-#: ../src/filebrowser.c:1204 ../src/filebrowser.c:1208
+#: ../src/filebrowser.c:1246 ../src/filebrowser.c:1250
 msgid "Could not rename\n"
 msgstr "Impossible de renommer le fichier\n"
 
-#: ../src/filebrowser.c:1251
+#: ../src/filebrowser.c:1293
 #, c-format
 msgid "Are you sure you want to delete \"%s\" ?"
 msgstr ""
 "Êtes-vous certain(e) de vouloir\n"
 "supprimer \"%s\" ?"
 
-#: ../src/filebrowser.c:1252
+#: ../src/filebrowser.c:1294
 msgid "If you delete this file, it will be permanently lost."
 msgstr "Le fichier sera définitivement effacé."
 
-#: ../src/filebrowser.c:1261 ../src/filebrowser.c:1265
+#: ../src/filebrowser.c:1303 ../src/filebrowser.c:1307
 msgid "Could not delete \n"
 msgstr "Impossible d'effacer le fichier\n"
 
-#: ../src/filebrowser.c:1404
+#: ../src/filebrowser.c:1446
 msgid "/Open _Advanced..."
 msgstr "/P_aramétrer l'ouverture..."
 
-#: ../src/filebrowser.c:1408
+#: ../src/filebrowser.c:1450
 msgid "/_Refresh"
 msgstr "/Actualise_r"
 
-#: ../src/filebrowser.c:1409
+#: ../src/filebrowser.c:1451
 msgid "/_Set as basedir"
 msgstr "/_Sélectionner comme répertoire de travail"
 
-#: ../src/filebrowser.c:1413
+#: ../src/filebrowser.c:1455
 msgid "/New _File"
 msgstr "/Créer un _fichier"
 
-#: ../src/filebrowser.c:1414
+#: ../src/filebrowser.c:1456
 msgid "/_New Directory"
 msgstr "/Créer u_n répertoire"
 
-#: ../src/filebrowser.c:1419
+#: ../src/filebrowser.c:1461
 msgid "/_Open"
 msgstr "/_Ouvrir un fichier"
 
-#: ../src/filebrowser.c:1420
+#: ../src/filebrowser.c:1462
 msgid "/Rena_me"
 msgstr "/Reno_mmer"
 
-#: ../src/filebrowser.c:1421
+#: ../src/filebrowser.c:1463
 msgid "/_Delete"
 msgstr "/_Supprimer "
 
-#: ../src/filebrowser.c:1443
+#: ../src/filebrowser.c:1485
 msgid "Show hidden files"
 msgstr "Afficher les fichiers cachés"
 
-#: ../src/filebrowser.c:1448
+#: ../src/filebrowser.c:1490
 msgid "Show backup files"
 msgstr "Afficher les fichiers de sauvegarde"
 
-#: ../src/filebrowser.c:1454
+#: ../src/filebrowser.c:1496
 msgid "Filter"
 msgstr "Filtre"
 
-#: ../src/filebrowser.c:1654 ../src/gtk_easy.c:1383
+#: ../src/filebrowser.c:1696 ../src/gtk_easy.c:1383
 msgid "All files"
 msgstr "Tous les fichiers"
 
-#: ../src/filebrowser.c:1926
+#: ../src/filebrowser.c:1968
 msgid "Show full tree"
 msgstr "Afficher toute l'arborescence"
 
-#: ../src/filebrowser.c:1927
+#: ../src/filebrowser.c:1969
 msgid "Follow focus"
 msgstr "Suivre le focus"
 
@@ -3851,8 +3851,8 @@ msgid "Custom Dialo_g"
 msgstr "Dialo_gue personnalisé"
 
 #: ../src/menu.c:2449
-msgid "Custom _Search and Replace"
-msgstr "Recherche et remplacement per_sonnalisés"
+msgid "Custom Replace"
+msgstr "Remplacement personnalisé"
 
 #: ../src/menu.c:2461
 msgid "_Replace:"
