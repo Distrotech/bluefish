@@ -266,12 +266,12 @@ gint checkNsave_progress_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSXferProgressInf
 		if (info->phase == GNOME_VFS_XFER_PHASE_COMPLETED) {
 			/* backup == ok, we start the actual file save */
 			if (cns->abort) {
-			   DEBUG_MSG("checkNsave_progress_lcb, phase=COMPLETED, but abort=TRUE, so we stop now\n");
-			   checkNsave_cleanup(cns);
-         } else {
-            DEBUG_MSG("checkNsave_progress_lcb, phase=COMPLETED, starting the actual save\n");
-   			cns->sf = file_savefile_uri_async(cns->uri, cns->buffer, cns->buffer_size, checkNsave_savefile_lcb, cns);
-   		}
+				DEBUG_MSG("checkNsave_progress_lcb, phase=COMPLETED, but abort=TRUE, so we stop now\n");
+				checkNsave_cleanup(cns);
+			} else {
+				DEBUG_MSG("checkNsave_progress_lcb, phase=COMPLETED, starting the actual save\n");
+				cns->sf = file_savefile_uri_async(cns->uri, cns->buffer, cns->buffer_size, checkNsave_savefile_lcb, cns);
+			}
 		}
 	}
 	return 1; 	/* Nautilus returns 1 by default for this callback */
