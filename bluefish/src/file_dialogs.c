@@ -249,8 +249,8 @@ void file_open_url_cb(GtkWidget * widget, Tbfwin *bfwin) {
 	gtk_container_add(GTK_CONTAINER(ou->win),vbox);
 	tmplist = g_list_first(bfwin->session->recent_files);
 	while (tmplist) {
-		if (NULL != strchr(tmplist->data, ':')) {
-			urlhistory = g_list_append(urlhistory, g_strdup(tmplist->data));
+		if (tmplist->data && strlen(tmplist->data) > 5 && strncmp(tmplist->data, "file:", 5)!=0) {
+			urlhistory = g_list_prepend(urlhistory, g_strdup(tmplist->data));
 		}
 		tmplist = g_list_next(tmplist);
 	}
@@ -258,6 +258,7 @@ void file_open_url_cb(GtkWidget * widget, Tbfwin *bfwin) {
 	free_stringlist(urlhistory);
 /*	ou->entry = boxed_entry_with_text("", 255, vbox); */
 	gtk_box_pack_start(GTK_BOX(vbox), gtk_hseparator_new(), FALSE, FALSE, 5);
+
 	hbox = gtk_hbutton_box_new();
 	gtk_hbutton_box_set_layout_default(GTK_BUTTONBOX_END);
 	gtk_button_box_set_spacing(GTK_BUTTON_BOX(hbox), 6);
