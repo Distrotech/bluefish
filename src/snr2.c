@@ -1159,10 +1159,13 @@ static void snr2dialog(gint is_replace, gint is_new_search) {
 	gtk_box_pack_start(GTK_BOX(hbox), snr2win->advanced_button, FALSE, FALSE, 0);
 
 	gtk_box_pack_start(GTK_BOX(hbox), bf_stock_cancel_button(G_CALLBACK(snr2dialog_cancel_lcb), snr2win), FALSE, TRUE, 0);
+
 	but = bf_stock_ok_button(G_CALLBACK(snr2dialog_ok_lcb), snr2win);
 	gtk_box_pack_start(GTK_BOX(hbox), but, FALSE, TRUE, 0);
 	gtk_window_set_default(GTK_WINDOW(snr2win->window), but);
 
+	g_signal_connect (G_OBJECT (snr2win->patterne), "activate", G_CALLBACK(snr2dialog_ok_lcb),
+                            (gpointer *) snr2win);
 	
 	/* now select all text */
 	if (snr2win->is_advanced) {
@@ -1172,6 +1175,7 @@ static void snr2dialog(gint is_replace, gint is_new_search) {
 		gtk_text_buffer_move_mark_by_name(buffer,"insert",&start);
 		gtk_text_buffer_move_mark_by_name(buffer,"selection_bound",&end);
 		gtk_widget_grab_focus(snr2win->patternv);
+		
 		/* Set correct target for mnemonic label _Find && _Replace with: */
 		gtk_label_set_mnemonic_widget(GTK_LABEL(snr2win->lblPattern), GTK_WIDGET(snr2win->patternv));
 		if(is_replace) {
