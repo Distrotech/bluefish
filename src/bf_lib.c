@@ -47,21 +47,27 @@
  * - "/"
  * - NULL, if the url contains no url, nor does it start with a / character
  *
+ * if there is no trailing slash, this function will return the root WITH a
+ * trailing slash appended!!
+ *
  * Return value: #gchar* newly allocated, or NULL
  */
 gchar *return_root_with_protocol(const gchar *url) {
 	gchar *q = strchr(url,':');
-	if (q && *(q+1)=='/' && *(q+2)=='/') {
+	if (q && *(q+1)=='/' && *(q+2)=='/' && *(q+3)!='\0') {
 		/* we have a protocol */
 		gchar *root = strchr(q+3, '/');
-		return g_strndup(url, root - url + 1);
+		if (root) return g_strndup(url, root - url + 1);
+		/* if there is no third slash character, we probably
+		have an url like http://someserver so we will append 
+		the slash ourselves */
+		return g_strconcat(url, "/",NULL);
 	} else if (url[0] == '/') {
 		/* no protocol, return / */
 		return g_strdup("/");
-	} else {
-		/* no root known */
-		return NULL;
 	}
+	/* no root known */
+	return NULL;
 }
 
 /**
