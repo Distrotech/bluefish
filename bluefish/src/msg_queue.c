@@ -14,16 +14,6 @@
 #include "gui.h" /* notebook_changed() */
 #include "document.h"
 
-#undef DEBUG
-#undef DEBUG_MSG
-#ifdef __GNUC__
-#define DEBUG_MSG(format, args...)
- /**/
-#endif 
-
-
-#define MSG_QUEUE_DEBUG
-
 #ifdef WITH_MSG_QUEUE
 
 #define BLUEFISH_MSG_QUEUE 9723475
