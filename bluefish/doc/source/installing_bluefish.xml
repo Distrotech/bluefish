@@ -23,12 +23,12 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
   <sect1 id="bluefish-ch-2-sect-1">
     <title>Requirements</title>
 
-    <para>Bluefish aims to be portable, that is, wherever GTK is ported. A
+    <para>Bluefish aims to be portable; that is, wherever GTK is ported. A
     comparatively small set of external libraries are necessary for it to
     work. Any recent GNU/Linux distribution or other *NIX with GTK2 installed
     should be sufficient. In addition to the list of requirements below, you
-    may also want to look at <xref linkend="bluefish-ch-2-sect-3" />. Note:
-    These requirements fit the GTK2-version. If you only have GTK1, you want
+    may also want to look at <xref linkend="bluefish-ch-2-sect-3" />. Note that
+    these requirements fit the GTK2 version. If you only have GTK1, you want
     the last GTK1-version, v0.7.</para>
 
     <para>The main requirements:</para>
@@ -65,7 +65,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
       <listitem>
          grep &amp; find 
 
-        <emphasis>- used by the advanced open dialog</emphasis>
+        <emphasis>- used by the <xref linkend="open-advanced">advanced open dialog</xref></emphasis>
 
         . 
 
@@ -75,9 +75,9 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
       </listitem>
     </itemizedlist>
 
-    <para>Compiling Bluefish requires a few additional packages. (Remember
-    that binary packages exists for many platforms. It is likely you won't
-    need to compile ;-) ). Now, let's assume you want to compile, perhaps to
+    <para>Compiling Bluefish requires a few additional packages. However,
+    binary packages exist for many platforms, so it is likely you will not
+    need to compile. Now, let us assume you want to compile, perhaps to
     get the latest and greatest from CVS. The requirements are as
     follows:</para>
 
