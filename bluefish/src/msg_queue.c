@@ -206,7 +206,13 @@ static gboolean msg_queue_check(gint started_by_gtk_timeout)
 				notebook_changed(-1);*/
 			}
 		} else if (msgp.mtype == MSG_QUEUE_OPENNEWWIN) {
-			gui_new_window(NULL);
+			/* now check if this is indeed send by another process
+			if the message queue was dead during the startup of this process,
+			it might be started by this very process */
+			int otherpid = atoi(msgp.mtext);
+			if (otherpid != (int) getpid()) {
+				gui_new_window(NULL);
+			}
 		}
 #ifdef DEBUG
 		 else {
@@ -372,8 +378,9 @@ static void msg_queue_send_new_window(void) {
 		char mtext[MSQ_QUEUE_SMALL_SIZE];
 	} small_msgp;
 	/* perhaps we should first check if the queue is alive */
-	
+	gchar *pid_string = g_strdup_printf("%d", (int) getpid());
 	small_msgp.mtype = MSG_QUEUE_OPENNEWWIN;
+	strncpy(small_msgp.mtext, pid_string, MSQ_QUEUE_SMALL_SIZE - 1);
 	retval = msgsnd(msg_queue.msgid,(void *) &small_msgp, MSQ_QUEUE_SMALL_SIZE * sizeof(char),IPC_NOWAIT);
 	if (retval == -1) {
 		/* hmm an error, we have to do some error handling here */
@@ -386,7 +393,7 @@ static void msg_queue_send_new_window(void) {
 	nanosleep(&req, &rem);
 */
 
-void msg_queue_start(GList * filenames, gboolean in_new_window) {
+void msg_queue_start(GList * filenames, gboolean open_new_window) {
 	gboolean received_keepalive = FALSE;
 	gboolean queue_already_open;
 
@@ -394,7 +401,7 @@ void msg_queue_start(GList * filenames, gboolean in_new_window) {
 	queue_already_open = msg_queue_open();
 	if (queue_already_open && msg_queue.functional) {
 		msg_queue_request_alive();
-		if (in_new_window) {
+		if (open_new_window) {
 			msg_queue_send_new_window();
 		}
 		/* if we have filenames to open, we start sending them now, else we just check if we have to be master or not */
@@ -410,6 +417,9 @@ void msg_queue_start(GList * filenames, gboolean in_new_window) {
 				}
 				check_keepalive_cnt++;
 				DEBUG_MSG("msg_queue_start, no keepalive yet, check %d\n", check_keepalive_cnt);
+			}
+			if (open_new_window && received_keepalive) {
+				exit(0);
 			}
 		}
 	}
