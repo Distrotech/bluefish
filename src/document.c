@@ -2248,22 +2248,11 @@ void doc_destroy(Tdocument * doc, gboolean delay_activation) {
 	after the document is gone from the GUI we complete the destroy, to destroy only the notebook
 	page we ref+ the scrolthingie, remove the page, and unref it again */
 	g_object_ref(doc->view->parent);
-	/* now we remove the document from the document list */
-/*	if (g_list_length(main_v->documentlist) > 1) {
-		main_v->documentlist = g_list_remove(main_v->documentlist, doc);
-		DEBUG_MSG("removed %p from documentlist, list length=%d\n",doc, g_list_length(main_v->documentlist));
-	} else {
-		main_v->documentlist = g_list_remove(main_v->documentlist, doc);
-		DEBUG_MSG("doc_destroy, last document removed from documentlist, documentlist=%p\n", main_v->documentlist);
-		g_list_free(main_v->documentlist);
-		DEBUG_MSG("doc_destroy, freed documentlist\n");
-		main_v->documentlist = NULL;
-		DEBUG_MSG("doc_destroy, documentlist = NULL\n");
-	}*/
 	if (doc->floatingview) {
 		gtk_widget_destroy(FLOATINGVIEW(doc->floatingview)->window);
 		doc->floatingview = NULL;
 	}
+	/* now we remove the document from the document list */
 	bfwin->documentlist = g_list_remove(bfwin->documentlist, doc);
 	DEBUG_MSG("removed %p from documentlist, list %p length=%d\n",doc
 			, bfwin->documentlist
