@@ -1397,7 +1397,7 @@ static void filebrowser_rpopup_action_lcb(Tfilebrowser *filebrowser,guint callba
 	case 7: {
 		gchar *path = get_selected_filename(filebrowser, TRUE);
 		if (path) {
-			open_advanced_from_filebrowser(filebrowser->bfwin, path);
+			files_advanced_win(filebrowser->bfwin, path);
 			g_free(path);
 		}
 	} break;

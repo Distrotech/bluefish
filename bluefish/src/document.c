@@ -3160,15 +3160,15 @@ Tdocument * doc_new_with_file(Tbfwin *bfwin, gchar * filename, gboolean delay_ac
  *
  * Return value: void
  **/
-void docs_new_from_files(Tbfwin *bfwin, GList * file_list, gboolean move_to_this_win) {
+/* void docs_new_from_files(Tbfwin *bfwin, GList * file_list, gboolean move_to_this_win) {
 	GList *tmplist, *errorlist=NULL;
 	gboolean delay = (g_list_length(file_list) > 1);
 	gpointer pbar = NULL;
 	gint i = 0;
 	DEBUG_MSG("docs_new_from_files, lenght=%d\n", g_list_length(file_list));
 	
-	/* Hide the notebook and show a progressbar while
-	 * adding several files. */
+	/ * Hide the notebook and show a progressbar while
+	 * adding several files. * /
 	if(g_list_length(file_list) > 8) {
 		notebook_hide(bfwin);
 		pbar = progress_popup(bfwin->main_window,_("Loading files..."), g_list_length(file_list));
@@ -3199,19 +3199,19 @@ void docs_new_from_files(Tbfwin *bfwin, GList * file_list, gboolean move_to_this
 	if (delay) {
 		DEBUG_MSG("since we delayed the highlighting, we set the notebook and filebrowser page now\n");
 
-		/* Destroy the progressbar and show the notebook when finished. */
+		/ * Destroy the progressbar and show the notebook when finished. * /
 		progress_destroy(pbar);
 		notebook_show(bfwin);
 
 		gtk_notebook_set_page(GTK_NOTEBOOK(bfwin->notebook),g_list_length(bfwin->documentlist) - 1);
 		notebook_changed(bfwin,-1);
 		if (bfwin->current_document && bfwin->current_document->filename) {
-			/*filebrowser_open_dir(bfwin,bfwin->current_document->filename); is called by doc_activate() */
+			/ *filebrowser_open_dir(bfwin,bfwin->current_document->filename); is called by doc_activate() * /
 			doc_activate(bfwin->current_document);
 		}
 	}
 	gui_set_title(bfwin, bfwin->current_document);
-}
+}*/
 
 /**
  * doc_reload:
