@@ -436,12 +436,14 @@ if test "x$WITHGNOME2" != "xno" ; then
 			echo "${GNOME2PREFIX}/share/applications"
 			GNOME2MENU=${GNOME2PREFIX}/share/applications
 			AC_SUBST(GNOME2MENU)
+			INSTALLDATA="$INSTALLDATA install-gnome2-menu"
 		else
 			if test -d ${GNOME2PREFIX}/applications ; then
 				# future FreeBSD default ?
 				echo "${GNOME2PREFIX}/applications"
 				GNOME2MENU=${GNOME2PREFIX}/applications
 				AC_SUBST(GNOME2MENU)
+				INSTALLDATA="$INSTALLDATA install-gnome2-menu"
 			else
 				echo "no"
 			fi
