@@ -156,6 +156,9 @@ typedef struct {
 	GList *encodings; /* all encodings you can choose from */
 	gint auto_set_encoding_meta; /* auto set metatag for the encoding */
 	GList *outputbox; /* all outputbox commands */
+	gint ext_browsers_in_submenu;
+	gint ext_commands_in_submenu;
+	gint ext_outputbox_in_submenu;
 
 	/* not yet in use */
 	gchar *image_editor_cline; 	/* image editor commandline */

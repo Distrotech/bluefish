@@ -15,7 +15,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-/*#define DEBUG*/
+#define DEBUG 
 #include <gtk/gtk.h>
 #include <stdlib.h> /* atoi */
 #include <string.h> /* strchr() */
@@ -54,10 +54,6 @@ static Tmenus menus = {NULL,NULL,NULL,NULL,NULL,NULL};
 static GtkItemFactoryEntry menu_items[] = {
 	{N_("/_File"), NULL, NULL, 0, "<Branch>"},
 	{N_("/File/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
-	{N_("/File/Makeoutput TEMPORARY FOR TESTING"), NULL, outputbox_make, 0, NULL},
-	{N_("/File/weblint output TEMPORARY FOR TESTING"), NULL, outputbox_weblint, 0, NULL},
-	{N_("/File/tidy errors TEMPORARY FOR TESTING"), NULL, outputbox_tidy, 0, NULL},
-	{N_("/File/javac TEMPORARY FOR TESTING"), NULL, outputbox_javac, 0, NULL},
 	{N_("/File/_New"), "F8", file_new_cb, 0, NULL},
 	{N_("/File/_Open..."), "<control>O", file_open_cb, 0, NULL},
 	{N_("/File/Open advanced..."), NULL, file_open_cb, 1, NULL},
@@ -432,9 +428,11 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/Dialogs/WML/Set Variable..."), NULL, vardialog_cb, 0, NULL},*/
 	{N_("/E_xternal"), NULL, NULL, 0, "<Branch>"},
 	{N_("/External/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
-	{N_("/External/_Commands"), NULL, NULL, 0, "<Branch>"},
+/*	{N_("/External/_Commands"), NULL, NULL, 0, "<Branch>"},
 	{N_("/External/Commands/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
-	{N_("/External/sep1"), NULL, NULL, 0, "<Separator>"},
+	{N_("/External/_Outputbox"), NULL, NULL, 0, "<Branch>"},
+	{N_("/External/Outputbox/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
+	{N_("/External/sep1"), NULL, NULL, 0, "<Separator>"},*/
 	{N_("/_Document"), NULL, NULL, 0, "<Branch>"},
 	{N_("/Document/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
 	{N_("/Document/_Type"), NULL, NULL, 0, "<Branch>"},
@@ -476,7 +474,6 @@ static GtkItemFactoryEntry menu_items[] = {
 
 static GtkWidget *find_menuitem_in_list_by_label(GList *itemlist, gchar *label) {
 	GList *tmplist;
-	gpointer tmp;
 
 	tmplist = g_list_first(itemlist);
 	while (tmplist) {
@@ -515,20 +512,43 @@ static GtkWidget *create_dynamic_menuitem(gchar *menubasepath, gchar *label, GCa
 	/* add it to main_v->menubar */
 	factory = gtk_item_factory_from_widget(main_v->menubar);
 	menu = gtk_item_factory_get_widget(factory, menubasepath);
+	DEBUG_MSG("create_dynamic_menuitem, menubar=%p, menu=%p\n", main_v->menubar, menu);
+	if (menu != NULL) {
+		tmp = gtk_menu_item_new_with_label(label);
+		g_signal_connect(G_OBJECT(tmp), "activate",callback, data);
 
-	tmp = gtk_menu_item_new_with_label(label);
-	g_signal_connect(G_OBJECT(tmp), "activate",callback, data);
-
-	gtk_widget_show(tmp);
-	gtk_menu_insert(GTK_MENU(menu), tmp, menu_insert_offset);
-	return tmp;
+		gtk_widget_show(tmp);
+		if (menu_insert_offset == -1) {
+			gtk_menu_shell_append(GTK_MENU_SHELL(menu),tmp);
+		} else {
+			gtk_menu_shell_insert(GTK_MENU_SHELL(menu),tmp,menu_insert_offset);
+		}
+		return tmp;
+	} else {
+		DEBUG_MSG("create_dynamic_menuitem, no menu for basepath %s\n", menubasepath);
+		return NULL;
+	}
 }
-/* DEPRECATED !!!!!!! use create_dynamic_menuitem !!!*/
-static GtkWidget *create_menuitem(gchar *menubasepath, gchar *label, GCallback callback, gint menu_insert_offset) {
-	return create_dynamic_menuitem(menubasepath,label,callback,label,menu_insert_offset);
-}
 
+static void create_parent_and_tearoff(gchar *menupath, GtkItemFactory *ifactory) {
+	char *basepath;
+	GtkWidget *widg=NULL;
+	GtkItemFactoryEntry entry;
 
+	basepath = g_strndup(menupath, (strlen(menupath) - strlen(strrchr(menupath, '/'))));
+	DEBUG_MSG("create_parent_and_tearoff, basepath=%s\n", basepath);
+	widg = gtk_item_factory_get_widget(ifactory, basepath);
+	if (!widg) {
+		create_parent_and_tearoff(basepath, ifactory);
+		entry.path = g_strconcat(basepath, "/sep", NULL);
+		entry.accelerator = NULL;
+		entry.callback = NULL;
+		entry.callback_action = 0;
+		entry.item_type = "<Tearoff>";
+		gtk_item_factory_create_item(ifactory, &entry, NULL, 2);
+		g_free(entry.path);
+	}
+}	
 
 static void menu_current_document_type_change(GtkMenuItem *menuitem,Tfiletype *hlset) {
 	DEBUG_MSG("menu_current_document_type_change, started for hlset %p\n", hlset);
@@ -604,6 +624,15 @@ void menu_create_main(GtkWidget *vbox)
 			tmplist = g_list_next(tmplist);
 		}
 	}
+	if (main_v->props.ext_browsers_in_submenu) {
+		create_parent_and_tearoff(_("/External/Browsers/"), item_factory);
+	}
+	if (main_v->props.ext_commands_in_submenu) {
+		create_parent_and_tearoff(_("/External/Commands/"), item_factory);
+	}
+	if (main_v->props.ext_outputbox_in_submenu) {
+		create_parent_and_tearoff(_("/External/Outputbox/"), item_factory);
+	}
 }
 
 
@@ -612,6 +641,16 @@ void menu_create_main(GtkWidget *vbox)
 /*************************************************************/
 static void menu_outputbox_lcb(GtkMenuItem *menuitem,gchar **arr) {
 	outputbox(arr[1], atoi(arr[2]), atoi(arr[3]), atoi(arr[4]), arr[5], (arr[6][0]=='1'));
+}
+
+static void dynamic_menu_append_spacing(gchar *basepath) {
+	GtkItemFactory *factory;
+	GtkWidget *menu, *menuitem;
+	factory = gtk_item_factory_from_widget(main_v->menubar);
+	menu = gtk_item_factory_get_widget(factory, basepath);
+	menuitem = gtk_menu_item_new();
+	gtk_widget_show(menuitem);
+	gtk_menu_shell_append(GTK_MENU_SHELL(menu),menuitem);
 }
 
 void menu_outputbox_rebuild() {
@@ -626,7 +665,10 @@ void menu_outputbox_rebuild() {
 		g_list_free(menus.outputbox_menu);
 		menus.outputbox_menu = NULL;
 	}
-
+	if (!main_v->props.ext_outputbox_in_submenu) {
+		dynamic_menu_append_spacing(_("<main>/External"));
+	}
+	
 	tmplist = g_list_first(main_v->props.outputbox);
 	while (tmplist) {
 		gchar **arr = tmplist->data;
@@ -640,9 +682,14 @@ void menu_outputbox_rebuild() {
 		 * arr[6] = show_all_output
 		 */
 		if (count_array(arr)==7) {
+			gchar *tmp1;
+			if (main_v->props.ext_outputbox_in_submenu) {
+				tmp1 = _("<main>/External/Outputbox");
+			} else {
+				tmp1 = _("<main>/External");
+			}
 			menus.outputbox_menu = g_list_append(menus.outputbox_menu
-					,create_dynamic_menuitem(_("<main>/External/"),arr[0]
-					,G_CALLBACK(menu_outputbox_lcb),(gpointer)arr,4));
+					,create_dynamic_menuitem(tmp1,arr[0],G_CALLBACK(menu_outputbox_lcb),(gpointer)arr,-1));
 		}
 		tmplist = g_list_next(tmplist);
 	}
@@ -699,8 +746,8 @@ static GtkWidget *create_recent_entry(gchar *filename) {
 		gtk_widget_hide(tmp);
 		gtk_widget_destroy(tmp);
 	}
-	return  create_menuitem(N_("<main>/File/Open recent")
-		, filename, G_CALLBACK(open_recent_file_cb)
+	return  create_dynamic_menuitem(N_("<main>/File/Open recent")
+		, filename, G_CALLBACK(open_recent_file_cb), filename
 		, 1);
 }
 
@@ -820,41 +867,15 @@ void browser_toolbar_cb(GtkWidget *widget, gpointer data) {
 	}
 }
 
-static void browser_lcb(GtkWidget *widget, gchar *name) {
+static void browser_lcb(GtkWidget *widget, gchar **arr) {
 	if (!main_v->current_document->filename) {
 		file_save_cb(NULL, NULL);
 	}
-	if (main_v->current_document->filename) {
-		GList *tmplist = g_list_first(main_v->props.browsers);
-		while (tmplist) {
-			gchar **arr = tmplist->data;
-			if (tmplist->data && strcmp(name, arr[0])==0) {
-				view_in_browser(arr[1]);
-				break;
-			}
-			tmplist = g_list_next(tmplist);
-		}
-	}
+	view_in_browser(arr[1]);
 }
-static void external_command_lcb(GtkWidget *widget, gchar *name) {
-	gchar **arr=NULL;
+static void external_command_lcb(GtkWidget *widget, gchar **arr) {
 	gchar *secure_tempname = NULL;
 	gboolean need_s=FALSE, need_f=FALSE;
-	DEBUG_MSG("external_command_lcb, searching array for '%s'\n", name);
-	{
-		GList *tmplist = g_list_first(main_v->props.external_commands);
-		while (tmplist) {
-			gchar **tmp = tmplist->data;
-			DEBUG_MSG("comparing '%s' and '%s'\n", name, tmp[0]);
-			if (strcmp(name, tmp[0])==0) {
-				arr = tmplist->data;
-				break;
-			}
-			tmplist = g_list_next(tmplist);
-		}
-		if (!arr) return;
-	}
-	DEBUG_MSG("external_command_lcb, found %p\n", arr);
 
 	change_dir(main_v->current_document->filename);
 	/* now check if
@@ -914,18 +935,29 @@ static void external_command_lcb(GtkWidget *widget, gchar *name) {
 }
 void external_menu_init() {
 	GList *tmplist = g_list_first(main_v->props.browsers);
+	if (!main_v->props.ext_browsers_in_submenu) {
+		dynamic_menu_append_spacing(_("<main>/External"));
+	}
 	while (tmplist) {
 		gchar **arr = tmplist->data;
 		/*  arr[0] = name
 		 *  arr[1] = command
 		 */
 		if (count_array(arr)==2) {
+			gchar *tmp1;
+			if (main_v->props.ext_browsers_in_submenu) {
+				tmp1 = _("<main>/External/Browsers");
+			} else {
+				tmp1 = _("<main>/External");
+			}
 			menus.external_menu = g_list_append(menus.external_menu
-					, create_menuitem(_("<main>/External")
-						, arr[0], G_CALLBACK(browser_lcb), 4)
-					);
+					, create_dynamic_menuitem(tmp1,arr[0],G_CALLBACK(browser_lcb),arr,-1));
 		}
 		tmplist = g_list_next(tmplist);
+	}
+	
+	if (!main_v->props.ext_commands_in_submenu) {
+		dynamic_menu_append_spacing(_("<main>/External"));
 	}
 	
 	tmplist = g_list_first(main_v->props.external_commands);
@@ -935,10 +967,14 @@ void external_menu_init() {
 		 *  arr[1] = command
 		 */
 		if (count_array(arr)==2) {
+			gchar *tmp1;
+			if (main_v->props.ext_commands_in_submenu) {
+				tmp1 = _("<main>/External/Commands");
+			} else {
+				tmp1 = _("<main>/External");
+			}		
 			menus.external_menu = g_list_append(menus.external_menu
-					, create_menuitem(_("<main>/External/Commands")
-						, arr[0], G_CALLBACK(external_command_lcb), 1)
-					);
+					, create_dynamic_menuitem(tmp1,arr[0],G_CALLBACK(external_command_lcb),arr,-1));
 		}
 		tmplist = g_list_next(tmplist);
 	}
@@ -1203,27 +1239,6 @@ static void cust_menu_lcb(GtkWidget * widget, gpointer data) {
 	}
 }
 
-static void create_parent_and_tearoff(gchar *menupath, GtkItemFactory *ifactory) {
-	char *basepath;
-	GtkWidget *widg=NULL;
-	GtkItemFactoryEntry entry;
-
-	basepath = g_strndup(menupath, (strlen(menupath) - strlen(strrchr(menupath, '/'))));
-	DEBUG_MSG("create_parent_and_tearoff, basepath=%s\n", basepath);
-	widg = gtk_item_factory_get_widget(ifactory, basepath);
-	if (!widg) {
-		create_parent_and_tearoff(basepath, ifactory);
-		entry.path = g_strconcat(basepath, "/sep", NULL);
-		entry.accelerator = NULL;
-		entry.callback = NULL;
-		entry.callback_action = 0;
-		entry.item_type = "<Tearoff>";
-		gtk_item_factory_create_item(ifactory, &entry, NULL, 2);
-		g_free(entry.path);
-	}
-}
-
-
 static void fill_cust_menubar() {
 	GtkItemFactory *ifactory;
 	gint count;
@@ -1255,7 +1270,7 @@ static void fill_cust_menubar() {
 		DEBUG_MSG("fill_cust_menubar, splittedstring[0]='%s', splittedstring[1]='%s'\n", splittedstring[0], splittedstring[1]);
 		if (count2 < 5) {
 			DEBUG_MSG("fill_cust_menubar, array count < 5, (count2=%d) this is invalid\n", count2);
-#ifdef DEBUG
+#ifdef DEBUGARRAYS
 			debug_array(splittedstring);
 #endif
 			tmplist = g_list_next(tmplist);

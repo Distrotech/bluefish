@@ -207,19 +207,3 @@ void outputbox(gchar *pattern, gint file_subpat, gint line_subpat, gint output_s
 	g_free(ob.def);
 	ob.def = NULL;
 }
-
-void outputbox_make() {
-	outputbox("([a-zA-Z0-9/_.-]+):([0-9]+):(.*)",1,2,3,"make", TRUE);
-}
-
-void outputbox_weblint() {
-	outputbox("([a-zA-Z0-9/_.-]+)\\(([0-9]+)\\): (.*)",1,2,3,"weblint %s", TRUE);
-}
-
-void outputbox_tidy() {
-	outputbox("line ([0-9]+) column [0-9]+ - (.*)",-1,1,2,"tidy -qe %s", FALSE);
-}
-
-void outputbox_javac() {
-	outputbox("([a-zA-Z0-9/_.-]+):([0-9]+):(.*)",1,2,3,"javac %s", FALSE);
-}

@@ -448,6 +448,10 @@ static GList *props_init_main(GList * config_rc)
 	init_prop_string    (&config_rc, &main_v->props.newfile_default_encoding,"newfile_default_encoding:","UTF-8");
 	init_prop_arraylist (&config_rc, &main_v->props.encodings, "encodings:");
 	init_prop_integer   (&config_rc, &main_v->props.auto_set_encoding_meta,"auto_set_encoding_meta:",1);
+	init_prop_arraylist (&config_rc, &main_v->props.outputbox, "outputbox:");
+	init_prop_integer   (&config_rc, &main_v->props.ext_browsers_in_submenu,"ext_browsers_in_submenu:",0);
+	init_prop_integer   (&config_rc, &main_v->props.ext_commands_in_submenu,"ext_commands_in_submenu:",1);
+	init_prop_integer   (&config_rc, &main_v->props.ext_outputbox_in_submenu,"ext_outputbox_in_submenu:",1);
 
 	/* not yet in use */
 	init_prop_string(&config_rc, &main_v->props.image_editor_cline, "image_editor_command:", "gimp-remote -n \"%s\"&");
@@ -540,7 +544,13 @@ void rcfile_parse_main(void)
 		main_v->props.encodings = g_list_append(main_v->props.encodings,array_from_arglist(_("KSC (Korean)"),"KSC",NULL));
 		main_v->props.encodings = g_list_append(main_v->props.encodings,array_from_arglist(_("KOI8-R (Russian)"),"KOI8-R",NULL));
 		main_v->props.encodings = g_list_append(main_v->props.encodings,array_from_arglist(_("EUCJP (Japanese)"),"EUCJP",NULL));
-
+	}
+	if (main_v->props.outputbox==NULL) {
+		main_v->props.outputbox = g_list_append(main_v->props.outputbox,array_from_arglist("make","([a-zA-Z0-9/_.-]+):([0-9]+):(.*)","1","2","3","make","1",NULL));
+		main_v->props.outputbox = g_list_append(main_v->props.outputbox,array_from_arglist("weblint","([a-zA-Z0-9/_.-]+)\\(([0-9]+)\\): (.*)","1","2","3","weblint %s","1",NULL));
+		main_v->props.outputbox = g_list_append(main_v->props.outputbox,array_from_arglist("tidy","line ([0-9]+) column [0-9]+ - (.*)","-1","1","2","tidy -qe %s","0",NULL));
+		main_v->props.outputbox = g_list_append(main_v->props.outputbox,array_from_arglist("javac","([a-zA-Z0-9/_.-]+):([0-9]+):(.*)","1","2","3","javac %s","0",NULL));
+/*		main_v->props.outputbox = g_list_append(main_v->props.outputbox,array_from_arglist(,NULL)); */
 	}
 	if (main_v->props.external_commands == NULL) {
 		gchar **arr;
