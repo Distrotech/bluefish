@@ -264,7 +264,7 @@ static void add_new_filetype_lcb(GtkWidget *wid, Tprefdialog *pd) {
 }
 
 static void filetype_apply_changes(Tprefdialog *pd) {
-if (pd->ftd.curstrarr) {
+	if (pd->ftd.curstrarr) {
 		g_free(pd->ftd.curstrarr[1]);
 		pd->ftd.curstrarr[1] = gtk_editable_get_chars(GTK_EDITABLE(pd->ftd.entry[1]),0,-1);
 		g_free(pd->ftd.curstrarr[2]);
@@ -843,6 +843,11 @@ static void create_externals_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 /**************************************/
 
 static void preferences_destroy_lcb(GtkWidget * widget, GdkEvent *event, Tprefdialog *pd) {
+	g_signal_handlers_destroy(G_OBJECT(GTK_COMBO(pd->ftd.combo)->list));
+	g_signal_handlers_destroy(G_OBJECT(GTK_COMBO(pd->ffd.combo)->list));
+	g_signal_handlers_destroy(G_OBJECT(GTK_COMBO(pd->hpd.combo)->list));
+	g_signal_handlers_destroy(G_OBJECT(GTK_COMBO(pd->bd.combo)->list));
+	g_signal_handlers_destroy(G_OBJECT(GTK_COMBO(pd->ed.combo)->list));
 	window_destroy(pd->win);
 	g_free(pd);
 }
@@ -898,6 +903,11 @@ static void preferences_cancel_clicked_lcb(GtkWidget *wid, Tprefdialog *pd) {
 	free_arraylist(pd->lists[highlight_patterns]);
 	free_arraylist(pd->lists[browsers]);
 	free_arraylist(pd->lists[external_commands]);
+	pd->lists[filetypes] = NULL;
+	pd->lists[filefilters] = NULL;
+	pd->lists[highlight_patterns] = NULL;
+	pd->lists[browsers] = NULL;
+	pd->lists[external_commands] = NULL;
 	preferences_destroy_lcb(NULL, NULL, pd);
 }
 
