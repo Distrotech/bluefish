@@ -16,7 +16,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: \n"                           
+
 
 #: ../src/about.c:123
 msgid ""
@@ -116,7 +117,6 @@ msgstr ""
 "Merci à tous ceux qui ont contribué à donner vie à ce logiciel.\n"
 
 #: ../src/about.c:160
-#, fuzzy
 msgid ""
 "Current translators:\n"
 "\n"
@@ -195,8 +195,8 @@ msgstr ""
 "  Finnois - Juho Roukala\n"
 "   <j.mr@luukku.com>\n"
 "\n"
-"  Français - Roméo Viu-Berges\n"
-"   <apostledemencia@free.fr>\n"
+"  Français - Michèle Garoche\n"
+"   <michele.garoche@easyconnect.fr>\n"
 "\n"
 "  Hongrois - Péter Sáska\n"
 "   <sasek@ccsystem.hu>\n"
@@ -228,7 +228,7 @@ msgstr ""
 
 #: ../src/about.c:197
 msgid "About Bluefish"
-msgstr "A propos de Bluefish"
+msgstr "À propos de Bluefish"
 
 #: ../src/about.c:229 ../src/fref.c:1424 ../src/fref.c:1708 ../src/fref.c:1795
 #: ../src/fref.c:1830 ../src/fref.c:2304
@@ -1048,7 +1048,6 @@ msgid "%d of %d"
 msgstr "%d sur %d"
 
 #: ../src/gtk_easy.c:1241
-#, fuzzy
 msgid "Select File"
 msgstr "Sélectionner un fichier"
 
@@ -2256,7 +2255,6 @@ msgid "/File/_Open..."
 msgstr "/Fichier/_Ouvrir..."
 
 #: ../src/menu.c:314
-#, fuzzy
 msgid "/File/Open _recent"
 msgstr "/Fichier/Récemment ouvert"
 
@@ -2293,7 +2291,6 @@ msgid "/File/Sav_e All"
 msgstr "/Fichier/Tout Enr_egistrer"
 
 #: ../src/menu.c:329
-#, fuzzy
 msgid "/File/Rever_t to Saved"
 msgstr "/Fichier/_Revenir au dernier enregistrement"
 
@@ -2463,7 +2460,7 @@ msgstr "/Éditer/Préférences"
 
 #: ../src/menu.c:373
 msgid "/_View"
-msgstr "/Affichage"
+msgstr "/A_ffichage"
 
 #: ../src/menu.c:374
 msgid "/View/tearoff1"
@@ -3507,7 +3504,7 @@ msgstr "/Document/Compter les _mots"
 
 #: ../src/menu.c:667
 msgid "/_Go"
-msgstr "/Aller à"
+msgstr "/A_ller à"
 
 #: ../src/menu.c:668
 msgid "/Go/tearoff1"
@@ -3599,11 +3596,11 @@ msgstr "/Externe/tearoff1"
 
 #: ../src/menu.c:696
 msgid "/_Help"
-msgstr "/Aide"
+msgstr "/_Aide"
 
 #: ../src/menu.c:697
 msgid "/Help/_About..."
-msgstr "/Aide/_A propos..."
+msgstr "/Aide/À _propos..."
 
 #: ../src/menu.c:859
 msgid "/Document/Document Type"
