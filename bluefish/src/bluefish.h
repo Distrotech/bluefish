@@ -147,6 +147,7 @@ typedef struct {
 	gint highlight_num_lines_count; /* number of lines to highlight in continous highlighting */	
 	gint defaulthighlight;		/* highlight documents by default */
 	GList *filetypes; /* filetypes for highlighting and filtering */
+	gint numcharsforfiletype; /* maximum number of characters in the file to use to find the filetype */
 	GList *filefilters; /* filebrowser.c filtering */
 	gchar *last_filefilter;	/* last filelist filter type */
 	GList *highlight_patterns; /* the highlight patterns */

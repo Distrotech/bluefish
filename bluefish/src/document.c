@@ -27,6 +27,7 @@
 #include <regex.h> 		/* regcomp() */
 #include <stdlib.h>		/* system() */
 #include <time.h>			/* ctime_r() */
+#include <pcre.h>
 
 /* #define DEBUG */
 
@@ -211,25 +212,59 @@ Tfiletype *get_filetype_by_name(gchar * name) {
 }
 /**
  * get_filetype_by_filename_and_content:
- * @filename: a #gchar* with the filename
- * @buf: a #gchar* with the contents of the file
+ * @filename: a #gchar* with the filename or NULL
+ * @buf: a #gchar* with the contents to search for with the Tfiletype->content_regex or NULL
  *
- * returns the Tfiletype* for corresponding to filename, using the file extension
- * and any matches in the buffer
+ * returns the Tfiletype* for corresponding to filename, using the file extension. If
+ * nothing is found using the file extension or filename==NULL it will start matching 
+ * the contents in buf with Tfiletype->content_regex
  *
- * Return value: Tfiletype* 
+ * if no filetype is found it will return NULL
+ *
+ * Return value: #Tfiletype* or NULL
  **/
 Tfiletype *get_filetype_by_filename_and_content(gchar *filename, gchar *buf) {
 	GList *tmplist;
 
-	if (!filename) return NULL;
-	
-	tmplist = g_list_first(main_v->filetypelist);
-	while (tmplist) {
-		if (filename_test_extensions(((Tfiletype *) tmplist->data)->extensions, filename)) {
-			return (Tfiletype *) tmplist->data;
+	if (filename) {
+		tmplist = g_list_first(main_v->filetypelist);
+		while (tmplist) {
+			if (filename_test_extensions(((Tfiletype *) tmplist->data)->extensions, filename)) {
+				return (Tfiletype *) tmplist->data;
+			}
+			tmplist = g_list_next(tmplist);
 		}
-		tmplist = g_list_next(tmplist);
+	}
+	if (buf) {
+		tmplist = g_list_first(main_v->filetypelist);
+		while (tmplist) {
+			Tfiletype *ft = (Tfiletype *)tmplist->data;
+			if (strlen(ft->content_regex)) {
+				pcre *pcreg;
+				const char *err=NULL;
+				int erroffset=0;
+				DEBUG_MSG("get_filetype_by_filename_and_content, compiling pattern %s\n",ft->content_regex);
+				pcreg = pcre_compile(ft->content_regex, PCRE_DOTALL|PCRE_MULTILINE,&err, &erroffset,NULL);
+				if (err) {
+					g_print("while testing for filetype '%s', pattern '%s' resulted in error '%s' at position %d\n", ft->type, ft->content_regex, err, erroffset);
+				}
+				if (pcreg) {
+					int ovector[30];
+					int retval = pcre_exec(pcreg,NULL,buf,strlen(buf),0,0,ovector,30);
+					DEBUG_MSG("get_filetype_by_filename_and_content, buf='%s'\n",buf);
+					DEBUG_MSG("get_filetype_by_filename_and_content, pcre_exec retval=%d\n",retval);
+					if (retval > 0) {
+						/* we have a match!! */
+						pcre_free(pcreg);
+						return ft;
+					}
+					pcre_free(pcreg);
+				}
+			} else {
+				DEBUG_MSG("get_filetype_by_filename_and_content, type %s does not have a pattern (%s)\n",ft->type,ft->content_regex);
+			}
+			tmplist = g_list_next(tmplist);
+		}
 	}
 	return NULL;
 }
@@ -237,7 +272,7 @@ Tfiletype *get_filetype_by_filename_and_content(gchar *filename, gchar *buf) {
  * doc_reset_filetype:
  * @doc: #Tdocument to reset
  * @newfilename: a #gchar* with the new filename
- * @buf: a #gchar* with the contents of the file
+ * @buf: a #gchar* with the contents of the file, or NULL if the function should get that from the TextBuffer
  *
  * sets the new filetype based on newfilename and content, updates the widgets and highlighting
  * (using doc_set_filetype())
@@ -245,7 +280,14 @@ Tfiletype *get_filetype_by_filename_and_content(gchar *filename, gchar *buf) {
  * Return value: void
  **/
 void doc_reset_filetype(Tdocument * doc, gchar * newfilename, gchar *buf) {
-	Tfiletype *ft= get_filetype_by_filename_and_content(newfilename, buf);
+	Tfiletype *ft;
+	if (buf) {
+		ft = get_filetype_by_filename_and_content(newfilename, buf);
+	} else {
+		gchar *tmp = doc_get_chars(doc, 0, main_v->props.numcharsforfiletype);
+		ft = get_filetype_by_filename_and_content(newfilename, tmp);
+		g_free(tmp);
+	}
 	if (!ft) {
 		GList *tmplist;
 		/* if none found return first set (is default set) */
@@ -2106,6 +2148,7 @@ if (!delay_activate) {
  **/
 void doc_new_with_new_file(gchar * new_filename) {
 	Tdocument *doc;
+	Tfiletype *ft;
 	if (new_filename == NULL) {
 		statusbar_message(_("No filename"), 2);
 		return;
@@ -2121,6 +2164,8 @@ void doc_new_with_new_file(gchar * new_filename) {
 	add_filename_to_history(new_filename);
 	doc = doc_new(FALSE);
 	doc->filename = g_strdup(new_filename);
+	ft = get_filetype_by_filename_and_content(doc->filename, NULL);
+	if (ft) doc->hl = ft;
 	doc->modified = 1; /* force doc_set_modified() (in doc_save()) to update the tab-label */
 /*	doc_set_modified(doc, 0);*/
 	doc_save(doc, 0, 0);
@@ -2167,10 +2212,11 @@ gboolean doc_new_with_file(gchar * filename, gboolean delay_activate) {
 		doc = doc_new(delay_activate);
 	}
 	doc->filename = g_strdup(filename);
-	/* TODO: should feed the contents of the file too! */
-	doc_reset_filetype(doc, doc->filename, NULL);
 	DEBUG_MSG("doc_new_with_file, hl is resetted to filename, about to load file\n");
 	doc_file_to_textbox(doc, doc->filename, FALSE, delay_activate);
+	/* after the textbuffer is filled the filetype can be found */
+	doc_reset_filetype(doc, doc->filename, NULL);
+
 	/* hey, this should be done by doc_activate 
 	menu_current_document_set_toggle_wo_activate(NULL, doc->encoding);*/
 	doc->modified = 1; /* force doc_set_modified() to update the tab-label */
