@@ -435,7 +435,8 @@ static void bmark_popup_menu_del_lcb(GtkWidget * widget, gpointer user_data)
 		return;
 	/* check if it is temp mark */
 	if (b->is_temp) {
-		gtk_tree_store_remove(BFWIN(user_data)->bookmarkstore, &(b->iter));
+		/* gtk_tree_store_remove(BFWIN(user_data)->bookmarkstore, &(b->iter)); */
+		bmark_check_remove(BFWIN(user_data),b); /* check  if we should remove a filename too */	
 		/* bmark_unstore(BFWIN(user_data), b); */
 		bmark_free(b);
 	} else {
@@ -1056,7 +1057,10 @@ void bmark_check_length(Tbfwin * bfwin, Tdocument * doc)
 void bmark_cleanup(Tbfwin * bfwin)
 {
 	DEBUG_MSG("bmark_cleanup, cleanup for bfwin=%p\n",bfwin);
-	if (bfwin->bmark_files) g_hash_table_destroy(bfwin->bmark_files);
-	bfwin->bmark_files = NULL;
+/* we are not destroying a store, so let's not destroy tree positions, it seems, they 
+   are recovered from store - Oskar */	
+/*	if (bfwin->bmark_files) g_hash_table_destroy(bfwin->bmark_files);
+	bfwin->bmark_files = NULL; */ 
+
 	bfwin->bmark = NULL;
 }
