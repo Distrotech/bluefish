@@ -1653,12 +1653,21 @@ static void doc_buffer_insert_text_after_lcb(GtkTextBuffer *textbuffer,GtkTextIt
 	}
 }
 
+static gboolean doc_view_key_press_lcb(GtkWidget *widget,GdkEventKey *kevent,Tdocument *doc) {
+	DEBUG_MSG("doc_view_key_press_lcb, keyval=%d, hardware_keycode=%d\n",kevent->keyval, kevent->hardware_keycode);
+	main_v->lastkp_keyval = kevent->keyval;
+	main_v->lastkp_hardware_keycode = kevent->hardware_keycode;
+	return FALSE; /* we didn't handle all of the event */
+}
+
 static gboolean doc_view_key_release_lcb(GtkWidget *widget,GdkEventKey *kevent,Tdocument *doc) {
 #ifdef DEBUG
 	guint32 character = gdk_keyval_to_unicode(kevent->keyval);
-	DEBUG_MSG("doc_view_key_release_lcb, started for keycode=%d (or %X), character='%d\n",kevent->keyval,kevent->keyval, character);
+	DEBUG_MSG("doc_view_key_release_lcb, started for keyval=%d (or %X), character=%d, string=%s, state=%d, hw_keycode=%d\n",kevent->keyval,kevent->keyval, character,kevent->string,kevent->state, kevent->hardware_keycode);
 #endif
-	if (kevent->keyval == GDK_greater) {
+	/* if the shift key is released before the '>' key, we get a key release not for '>' but for '.'. We, therefore
+	 have set that in the key_press event, and check if the same hardware keycode was released */
+	if ((kevent->keyval == GDK_greater) || (kevent->hardware_keycode == main_v->lastkp_hardware_keycode && main_v->lastkp_keyval == GDK_greater)) {
 		if (doc->autoclosingtag) {
 			/* start the autoclosing! the code is modified from the patch sent by more <more@irpin.com> because that
 			 * patch did not work with php code (the < and > characters can be inside a php block as well with a 
@@ -2654,6 +2663,8 @@ Tdocument *doc_new(Tbfwin* bfwin, gboolean delay_activate) {
 		G_CALLBACK(doc_view_drag_begin_lcb), newdoc);
 	g_signal_connect_after(G_OBJECT(newdoc->view), "key-release-event", 
 		G_CALLBACK(doc_view_key_release_lcb), newdoc);
+	g_signal_connect(G_OBJECT(newdoc->view), "key-press-event", 
+		G_CALLBACK(doc_view_key_press_lcb), newdoc);
 	g_signal_connect_after(G_OBJECT(newdoc->view), "populate-popup", 
 		G_CALLBACK(doc_view_populate_popup_lcb), newdoc);
 
