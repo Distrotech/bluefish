@@ -7,8 +7,8 @@ java:.java:(){}'[]\n/" :PKGDATADIRicon_java.png:1::0:
 perl:.pl\:.PL\:.cgi:::1:^#!/[a-z/]+perl:0:
 objectfile:.o\:.class:::0::0:
 stylesheet:.css:::1::0:
-webimage:.jpg\:.png\:.gif\:.jpeg::PKGDATADIRicon_image.png:1::0:
-image:.jpg\:.png\:.gif\:.jpeg\:.tif\:.tiff\:.xpm\:.xcf::PKGDATADIRicon_image.png:1::0:
+webimage:.jpg\:.png\:.gif\:.jpeg::PKGDATADIRicon_image.png:0::0:
+image:.jpg\:.png\:.gif\:.jpeg\:.tif\:.tiff\:.xpm\:.xcf::PKGDATADIRicon_image.png:0::0:
 sql:.sql:(){}'[]\n" ::1::0:
 jsp:.jsp:(){}'[]\n/#" :PKGDATADIRicon_java.png:1:^#!/[a-z/]+jsp:0:
 xml:.xml\:.sgml:<> \n":PKGDATADIRicon_xml.png:1:<\\?xml:1:
