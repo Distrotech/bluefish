@@ -559,7 +559,7 @@ static void bmark_get_iter_at_position(Tbfwin * bfwin, Tbmark * m)
 					gint val = strcmp(m->filepath, tmpm->filepath);
 					if (val == 0) {
 						DEBUG_MSG("bmark_get_iter_at_position, there is already a bookmark for this file, comparing two iters\n");
-						if (m->offset > tmpm->offset) {
+						if (m->offset < tmpm->offset) {
 							gtk_tree_store_insert_before(bfwin->bookmarkstore, &m->iter, parent,
 														 &tmpiter);
 							return;
