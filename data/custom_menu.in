@@ -18,13 +18,13 @@ cmenu_insert: /PHP/InterBase/Connect:$ibase_id = ibase_connect('%0\:%1', '%2', '
 cmenu_insert: /PHP/General/Simple Data Cleanse:trim(htmlspecialchars(%0));:1:To clean (quoted or variable with $):
 cmenu_insert: /PHP/General/Set Cookie:setcookie(%0, %1, %2, %3, %4, '%5');::6:Cookie name (quoted or variable with $):Cookie Value (quoted or variable with $):Seconds to Expire (quoted or variable with $):Cookie Path (quoted or variable with $):Cookie Domain (quoted or variable with $):Secure (0 or 1):
 cmenu_insert: /PHP/General/Send Mail:mail("%0", "%1", $%2);\n::3:Destination Address:Subject Line:Message Body (variable name):
-cmenu_insert: /PHP/General/Save Uploaded Files:foreach ($_FILES as $key=>$value) {\n\t$temp = $_FILES[$key]['tmp_name'];\n\t$filename = strtolower(str_replace(' ', '', $_FILES[$key]['name']));\n\t$dest = '%0' . $filename;\n\tif ($temp) {\n\t\tif (!move_uploaded_file($tempLoc, $dest))\n\t\t\t$message .= "<p>An error occurred uploading <strong>$filename</strong>.  Please try again.<p>";\n\t\telse {\n\t\t\tchmod($dest, 0775);\n\t\t\t$message .= '<p>' . $filename . 'succefully uploaded to "%0".</p>';\n\t\t}\n\t}\n}::1:Destination Directory:
+cmenu_insert: /PHP/General/Save Uploaded Files:foreach ($_FILES as $key=>$value) {\n\t$temp = $_FILES[$key]['tmp_name'];\n\t$filename = strtolower(str_replace(' ', '', $_FILES[$key]['name']));\n\t$dest = '%0' . $filename;\n\tif ($temp) {\n\t\tif (!move_uploaded_file($tempLoc, $dest))\n\t\t\t$message .= "<p>An error occurred uploading <strong>$filename</strong>.  Please try again.<p>";\n\t\telse {\n\t\t\tchmod($dest, 0775);\n\t\t\t$message .= '<p>' . $filename . 'successfully uploaded to "%0".</p>';\n\t\t}\n\t}\n}::1:Destination Directory:
 cmenu_insert: /PHP/General/Pretty Print Array:print_r($%0);::1:Array Name:
 cmenu_insert: /PHP/General/Loop (for):for ($%0 = %1; $%0 <= %2; $%0++) {\n :\n}\n:3:Iterator Variable Name:Start Value:End Value:
 cmenu_insert: /PHP/General/Location header:header('Location\: '.%0);::1:Destination URL (quoted or variable with $):
 cmenu_insert: /PHP/General/Iterate over Array:foreach ($%0 as $key => $value) {\n\t:\n}\n:1:Array Name:
 cmenu_insert: /PHP/General/Define Constant:define('%0', %1);::2:Constant Name (unquoted string):Value (quoted or variable with $):
-cmenu_insert: /PHP/General/Date/Month Dth, YYYY:print date('F S, Y');::0:
+cmenu_insert: /PHP/General/Date/Month Dth, YYYY:print date('F jS, Y');::0:
 cmenu_insert: /PHP/General/Date/MM\\/DD\\/YY:print date('m/d/y');::0:
 cmenu_insert: /PHP/General/Date/HH:MM:SS (AM\\/PM):print date('h:i:s A');::0:
 cmenu_insert: /PHP/General/Date/HH:MM:SS:print date('H:i:s');::0:
@@ -96,8 +96,8 @@ cmenu_insert: /DocBook/Warnings/Warning:<warning><para>\n:</para></warning>\n:0:
 cmenu_insert: /DocBook/Warnings/Tip:<tip><para>:</para></tip>\n\n:0:
 cmenu_insert: /DocBook/Warnings/Note:<note><para>:</para></note>\n\n:0:
 cmenu_insert: /DocBook/Warnings/Important:<important><para>:</para></important>\n\n:0:
-cmenu_insert: /DocBook/Tables/Row:<row>\n\t<entry align="%0" valign="%1">:</entry>\n</row>\n:2:Horizontal Alignement:Vertical Alignement:
-cmenu_insert: /DocBook/Tables/Entry:<entry align="%0" valign="%1">:</entry>\n:2:Horizontal Alignement:Vertical Alignement:
+cmenu_insert: /DocBook/Tables/Row:<row>\n\t<entry align="%0" valign="%1">:</entry>\n</row>\n:2:Horizontal Alignment:Vertical Alignment:
+cmenu_insert: /DocBook/Tables/Entry:<entry align="%0" valign="%1">:</entry>\n:2:Horizontal Alignment:Vertical Alignment:
 cmenu_insert: /DocBook/Program Listing:<programlisting>:</programlisting>:0:
 cmenu_insert: /DocBook/Procedures/Substep:<substeps>\n\t<step><para>\n:</para></step>\n</substeps>\n\n\n\n:0:
 cmenu_insert: /DocBook/Procedures/Step:<step><para>\n:</para>\n\n\n:0:
