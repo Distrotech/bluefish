@@ -81,7 +81,7 @@ void autoclosing_init(void) {
 /**
  * return_allwindows_documentlist:
  *
- * returns a documentlist with all documents in all windows
+ * returns a documentlist with all documents in all windows, the list should be freed, the Tdocuments obviously not
  *
  * Return value: #GList* with all documents
  */
