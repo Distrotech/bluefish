@@ -423,8 +423,32 @@ void doc_replace_text(Tdocument * doc, const gchar * newstring, gint start, gint
 }
 
 void doc_insert_two_strings(Tdocument *doc, const gchar *before_str, const gchar *after_str) {
-	DEBUG_MSG("doc_insert_two_strings, not finished yet!!\n");
-
+	GtkTextIter itinsert, itselect;
+	GtkTextMark *insert, *select;
+	insert = gtk_text_buffer_get_insert(doc->buffer);
+	select = gtk_text_buffer_get_selection_bound(doc->buffer);
+	gtk_text_buffer_get_iter_at_mark(doc->buffer,&itinsert,insert);
+	gtk_text_buffer_get_iter_at_mark(doc->buffer,&itselect,select);
+	if (gtk_text_iter_equal(&itinsert, &itselect)) {
+		/* no selection */
+		gchar *double_str = g_strconcat(before_str, after_str, NULL);
+		gtk_text_buffer_insert(doc->buffer,&itinsert,double_str,-1);
+		g_free(double_str);
+		/* the buffer has changed, renew the iterator */
+		gtk_text_buffer_get_iter_at_mark(doc->buffer,&itinsert,insert);
+		/* now set it between the two strings, this is definately not multibyte-char 
+		safe, since strlen() returns bytes, and the functions wants chars */
+		gtk_text_iter_backward_chars(&itinsert, strlen(after_str));
+		gtk_text_buffer_place_cursor(doc->buffer, &itinsert);
+	} else {
+		/* there is a selection */
+		gtk_text_buffer_insert(doc->buffer,&itinsert,before_str,-1);
+		/* the buffer is changed, reset the select iterator */
+		gtk_text_buffer_get_iter_at_mark(doc->buffer,&itselect,select);
+		gtk_text_buffer_insert(doc->buffer,&itselect,after_str,-1);
+	}
+	
+	DEBUG_MSG("doc_insert_two_strings, finished\n");
 }
 
 
