@@ -25,7 +25,7 @@ INSTALL_DIR = $(INSTALL) -d -m 755
 INSTALL_DATA = ${INSTALL} -m 644
 
 DEFAULTFILES = highlighting.default filetypes.default encodings.default custom_menu.default
-FUNCREFFILES = funcref_html.xml funcref_php.xml
+FUNCREFFILES = funcref_html.xml funcref_php.xml funcref_css.xml
 .SUFFIXES: .in .default
 
 .in.default:
