@@ -26,8 +26,12 @@
 Tdocument *doc_new() {
 	Tdocument *newdoc = g_new0(Tdocument, 1);
 
+	newdoc->hl = hl_get_highlightset_by_filename(NULL);
+	newdoc->buffer = gtk_text_buffer_new(newdoc->hl->tagtable);
+	newdoc->view = gtk_text_view_new_with_buffer(newdoc->buffer);
+
 	main_v->documentlist = g_list_append(main_v->documentlist, newdoc);
-	
+
 	gtk_notebook_append_page(GTK_NOTEBOOK(main_v->notebook), newdoc->view,newdoc->tab_label);
 	gtk_widget_show(tmptable);
 	
