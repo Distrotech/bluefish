@@ -1361,30 +1361,33 @@ static void dirmenu_set_curdir(Tfilebrowser2 *fb2, GnomeVFSURI *newcurdir) {
 	gboolean cont, havesetiter=FALSE;
 	if (fb2->currentdir) {
 		if (gnome_vfs_uri_equal(fb2->currentdir, newcurdir)) return;
-		DEBUG_MSG("dirmenu_set_curdir, old_curdir=%s, new_curdir=%s\n",gnome_vfs_uri_extract_short_name(fb2->currentdir),gnome_vfs_uri_extract_short_name(newcurdir));
+		DEBUG_MSG("dirmenu_set_curdir, old_curdir=%s, new_curdir=%s\n",gnome_vfs_uri_get_path(fb2->currentdir),gnome_vfs_uri_get_path(newcurdir));
 		gnome_vfs_uri_unref(fb2->currentdir);
 	}
 	fb2->currentdir = newcurdir;
 	gnome_vfs_uri_ref(fb2->currentdir);
-	
+	/* block the signal handler */
+	g_signal_handler_block(fb2->dirmenu_v, fb2->dirmenu_changed_signal);
 	cont = gtk_tree_model_get_iter_first(GTK_TREE_MODEL(fb2->dirmenu_m), &iter);
 	while (cont) {
 		gboolean inhis;
-		DEBUG_MSG("dirmenu_set_curdir, getting in_his\n");
 		gtk_tree_model_get(GTK_TREE_MODEL(fb2->dirmenu_m), &iter, DIR_IN_HISTORY_COLUMN, &inhis, -1);
 		if (!inhis) {
-			GtkTreeIter iter2;
+			/*GtkTreeIter iter2;*/
 			GnomeVFSURI *uri;
 			gchar *name;
-			iter2 = iter;
-			cont = gtk_tree_model_iter_next(GTK_TREE_MODEL(fb2->dirmenu_m), &iter);
+			/*iter2 = iter;*/
+			/*cont = gtk_tree_model_iter_next(GTK_TREE_MODEL(fb2->dirmenu_m), &iter);*/
 			/* now remove iter2 */
-			gtk_tree_model_get(GTK_TREE_MODEL(fb2->dirmenu_m), &iter2, DIR_NAME_COLUMN, &name, DIR_URI_COLUMN, &uri, -1);
+			gtk_tree_model_get(GTK_TREE_MODEL(fb2->dirmenu_m), &iter, DIR_NAME_COLUMN, &name, DIR_URI_COLUMN, &uri, -1);
+			DEBUG_MSG("dirmenu_set_curdir, will remove inhis %d for name %s and uri %s, cont=%d\n",inhis,name,gnome_vfs_uri_get_path(uri),cont);
 			g_free(name);
 			gnome_vfs_uri_unref(uri);
-			gtk_list_store_remove(GTK_LIST_STORE(fb2->dirmenu_m),&iter2);
+			/* hmm if this last remove results in an empty listtore there is a crash?? */
+			cont = gtk_list_store_remove(GTK_LIST_STORE(fb2->dirmenu_m),&iter);
 		} else {
 			cont = gtk_tree_model_iter_next(GTK_TREE_MODEL(fb2->dirmenu_m), &iter);
+			DEBUG_MSG("dirmenu_set_curdir, inhis=%d, cont=%d\n",inhis,cont);
 		}
 	}
 	/* then we rebuild the current uri */
@@ -1392,6 +1395,7 @@ static void dirmenu_set_curdir(Tfilebrowser2 *fb2, GnomeVFSURI *newcurdir) {
 	cont = gnome_vfs_uri_has_parent(tmp);
 	while (cont) {
 		gchar *name = uri_to_document_filename(tmp);
+		DEBUG_MSG("dirmenu_set_curdir, appending %s\n",name);
 		gtk_list_store_append(GTK_LIST_STORE(fb2->dirmenu_m),&iter);
 		if (!havesetiter) {
 			setiter = iter;
@@ -1408,6 +1412,7 @@ static void dirmenu_set_curdir(Tfilebrowser2 *fb2, GnomeVFSURI *newcurdir) {
 		}
 	}
 	gtk_combo_box_set_active_iter(GTK_COMBO_BOX(fb2->dirmenu_v),&setiter);
+	g_signal_handler_unblock(fb2->dirmenu_v, fb2->dirmenu_changed_signal);
 }
 
 static void dir_v_selection_changed_lcb(GtkTreeSelection *treeselection,Tfilebrowser2 *fb2) {
@@ -1470,7 +1475,9 @@ static void dirmenu_changed_lcb(GtkComboBox *widget,gpointer data) {
 	DEBUG_MSG("dirmenu_changed_lcb, started\n");
 	if (gtk_combo_box_get_active_iter(widget,&iter)) {
 		GnomeVFSURI *uri;
+		DEBUG_MSG("dirmenu_changed_lcb. we have an active iter\n");
 		gtk_tree_model_get(GTK_TREE_MODEL(fb2->dirmenu_m), &iter, DIR_URI_COLUMN, &uri, -1);
+		DEBUG_MSG("dirmenu_changed_lcb. active iter has url %s\n",gnome_vfs_uri_get_path(uri));
 		g_signal_handler_block(fb2->dirmenu_v, fb2->dirmenu_changed_signal);
 		fb2_focus_dir(FILEBROWSER2(fb2), uri, FALSE);
 		g_signal_handler_unblock(fb2->dirmenu_v, fb2->dirmenu_changed_signal);
