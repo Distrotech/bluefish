@@ -328,7 +328,9 @@ static void setup_bfwin_for_nonproject(Tbfwin *bfwin) {
 	bfwin->bookmarkstore = main_v->bookmarkstore;
 	bfwin->project = NULL;
 	bmark_set_store(bfwin);
-	gui_set_title(bfwin, bfwin->current_document);
+	/* normally there is always a current_document, but this function might be called in the transition
+	after all documents are just closed */
+	if (bfwin->current_document) gui_set_title(bfwin, bfwin->current_document);
 /*	fb2_set_basedir(bfwin, newbasedir);
 	g_free (newbasedir);*/
 	recent_menu_from_list(bfwin, main_v->session->recent_files, FALSE);
@@ -341,6 +343,7 @@ static void setup_bfwin_for_nonproject(Tbfwin *bfwin) {
  */
 gboolean project_save_and_close(Tbfwin *bfwin, gboolean close_win) {
 	gboolean dont_save = FALSE;
+	DEBUG_MSG("project_save_and_close, bfwin=%p, close_win=%d, project->close=%d\n",bfwin,close_win,bfwin->project->close);
 	if (bfwin->project->close) {
 		project_destroy(bfwin->project);
 		setup_bfwin_for_nonproject(bfwin);
