@@ -444,97 +444,92 @@ If you want to disable any of these items by default, you can set these options 
 
 <sect2 id="renaming">
 <title>Renaming files</title>
-<para>
-It is also possible to move or rename a document, using the 
-<menuchoice><shortcut><keycap>F2</keycap></shortcut><guimenu>File</guimenu><guimenuitem>Rename...</guimenuitem></menuchoice> menu item, or right-clicking the file name in the side panel and choosing the <guimenuitem>Rename</guimenuitem> item.
-		<figure id="figure-moving-file">
-				<title id="figure-moving-file-title">Moving a file to another location</title>
-				<screenshot>
-					<mediaobject>
-						<imageobject>
-							<imagedata fileref="figures/moving_file.png" format="PNG"/>
-						</imageobject>
-						<textobject>
-							<phrase>A screen shot showing how to move a file to another location</phrase>
-						</textobject>
-					</mediaobject>
-				</screenshot>
-			</figure>
-</para>
+<?linebreak?>
+<para>It is also possible to move or rename a document, using the <menuchoice><shortcut><keycap>F2</keycap></shortcut><guimenu>File</guimenu><guimenuitem>Rename...</guimenuitem></menuchoice> menu item, or right-clicking the file name in the side panel and choosing the <guimenuitem>Rename</guimenuitem> item.
+<?linebreak?>
+<?linebreaka4?>
+<?linebreaka4?>
+<figure id="figure-moving-file">
+<title id="figure-moving-file-title">Moving a file to another location</title>
+<screenshot><mediaobject>
+<imageobject>
+<imagedata fileref="figures/moving_file.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>A screen shot showing how to move a file to another location</phrase>
+</textobject>
+</mediaobject></screenshot>
+</figure></para>
 </sect2>
-
+<?linebreaka4?>
+<?linebreak?>
 <sect2 id="closing">
 <title>Closing files</title>
+<?linebreak?>
 <para>When you want to close a file quickly, click on the <guilabel>close</guilabel> icon in the document tab. You may also use the <guilabel>Close</guilabel> icon in the main tool bar, or the <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>W</keycap></keycombo></shortcut><guimenu>File</guimenu><guimenuitem>Close</guimenuitem></menuchoice> menu item.		
-		<figure id="figure-document-tab-icon">
-				<title id="figure-document-tab-icon-title">Closing a file with the document tab icon</title>
-				<screenshot>
-					<mediaobject>
-						<imageobject>
-							<imagedata fileref="figures/closing_file_with_tab_icon.png" format="PNG"/>
-						</imageobject>
-						<textobject>
-							<phrase>A screen shot of the close icon in the document tab</phrase>
-						</textobject>
-					</mediaobject>
-				</screenshot>
-			</figure>
-</para>
+<?linebreak?>
+<?linebreaka4?>
+<?linebreaka4?>
+<figure id="figure-document-tab-icon">
+<title id="figure-document-tab-icon-title">Closing a file with the document tab icon</title>
+<screenshot><mediaobject>
+<imageobject>
+<imagedata fileref="figures/closing_file_with_tab_icon.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>A screen shot of the close icon in the document tab</phrase>
+</textobject>
+</mediaobject></screenshot>
+</figure></para>
+<?pagebreaka4?>
 <para>If the file is unchanged, it is merely closed. If the file has been modified, you will be presented with a save dialog.
-		<figure id="figure-closing-a-file">
-				<title id="figure-closing-a-file-title">Closing a modified file</title>
-				<screenshot>
-					<mediaobject>
-						<imageobject>
-							<imagedata fileref="figures/closing_a_file.png" format="PNG"/>
-						</imageobject>
-						<textobject>
-							<phrase>A screen shot showing how to close a modified file</phrase>
-						</textobject>
-					</mediaobject>
-				</screenshot>
-			</figure>
-</para>
-	<variablelist>
-	<varlistentry>
-          <term><emphasis>Tip</emphasis></term>
-          <listitem>
-            <para>Use it to save and close a file in one step.</para>
-            </listitem>
-     </varlistentry>
-     </variablelist>
+<figure id="figure-closing-a-file">
+<title id="figure-closing-a-file-title">Closing a modified file</title>
+<screenshot><mediaobject>
+<imageobject>
+<imagedata fileref="figures/closing_a_file.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>A screen shot showing how to close a modified file</phrase>
+</textobject>
+</mediaobject></screenshot>
+</figure></para>
+<variablelist>
+<varlistentry>
+ <term><emphasis>Tip</emphasis></term>
+ <listitem>
+<para>Use it to save and close a file in one step.</para>
+</listitem>
+</varlistentry>
+</variablelist>
 <para>When dealing with multiple files, you may want to use the <menuchoice><shortcut><keycombo><keycap>Shift</keycap><keycap>Ctrl</keycap><keycap>W</keycap></keycombo></shortcut><guimenu>File</guimenu><guimenuitem>Close All</guimenuitem></menuchoice> menu item.</para>
 <para>For each modified file, you will be presented with a save dialog, where you can choose to save the changes, close the file (i.e. discarding any change), or cancel the operation.
-		<figure id="figure-closing-all-files">
-				<title id="figure-closing-all-files-title">Closing all files</title>
-				<screenshot>
-					<mediaobject>
-						<imageobject>
-							<imagedata fileref="figures/closing_all_files.png" format="PNG"/>
-						</imageobject>
-						<textobject>
-							<phrase>A screen shot showing how to close all files</phrase>
-						</textobject>
-					</mediaobject>
-				</screenshot>
-			</figure>
-</para>
-	<variablelist>
-	<varlistentry>
-          <term><emphasis>Tip</emphasis></term>
-          <listitem>
-            <para>Say you have a number of open files, and only a few of them have been changed. To quickly close the unchanged files, and remain with the modified ones, use it answering cancel for the latter ones.</para>
-            </listitem>
-     </varlistentry>
-     </variablelist>
+<figure id="figure-closing-all-files">
+<title id="figure-closing-all-files-title">Closing all files</title>
+<screenshot><mediaobject>
+<imageobject>
+<imagedata fileref="figures/closing_all_files.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>A screen shot showing how to close all files</phrase>
+</textobject>
+</mediaobject></screenshot>
+</figure></para>
+<variablelist>
+<varlistentry>
+ <term><emphasis>Tip</emphasis></term>
+ <listitem>
+<para>Say you have a number of open files, and only a few of them have been changed. To quickly close the unchanged files, and remain with the modified ones, use it answering cancel for the latter ones.</para>
+</listitem>
+</varlistentry>
+</variablelist>
 <para>Note that the <menuchoice><guimenu>File</guimenu><guimenuitem>Close Window</guimenuitem></menuchoice> menu item offers the same behaviour.</para>
 </sect2>
 
 <sect2 id="inserting">
 <title>Inserting files</title>
 <para>You can insert any file into the current document with the <menuchoice><guimenu>File</guimenu><guimenuitem>Insert...</guimenuitem></menuchoice> menu item. The file will be inserted at the cursor location.</para>
-<para>For more in-depth information about dealing with files, see <xref linkend="more-files" />.
-</para>
+<para>For more in-depth information about dealing with files, see <xref linkend="more-files" />.</para>
 </sect2>
 
 <sect2 id="editing">
@@ -542,64 +537,53 @@ It is also possible to move or rename a document, using the
 
 <sect3 id="undo-redo">
 <title>Undo and Redo</title>
-<para>
-The undo and redo functionalities are available from the <guimenu>Edit</guimenu> menu,  the main tool bar, and the keyboard shortcuts. 
-</para>
+<para>The undo and redo functionalities are available from the <guimenu>Edit</guimenu> menu,  the main tool bar, and the keyboard shortcuts. </para>
 <itemizedlist>
-	  <listitem><para><menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>Z</keycap></keycombo></shortcut><guimenuitem>Undo</guimenuitem></menuchoice></para></listitem>
-	  <listitem><para><menuchoice><shortcut><keycombo><keycap>Shift</keycap><keycap>Ctrl</keycap><keycap>Z</keycap></keycombo></shortcut><guimenuitem>Redo</guimenuitem></menuchoice></para></listitem>
-</itemizedlist>
-<para>
-The functions <guimenuitem>Undo All</guimenuitem> and <guimenuitem>Redo All</guimenuitem> in the <guimenu>Edit</guimenu> menu will undo or redo all 
-of the stored changes. The maximum number of changes can be configured in
-the preferences, by default Bluefish will remember the last 100 changes per 
-document. It is possible to clear the changes after the document is saved, 
-an option in the preferences which is disabled by default.
+<listitem>
+<para><menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>Z</keycap></keycombo></shortcut><guimenuitem>Undo</guimenuitem></menuchoice></para>
+</listitem>
+<listitem>
+<para><menuchoice><shortcut><keycombo><keycap>Shift</keycap><keycap>Ctrl</keycap><keycap>Z</keycap></keycombo></shortcut><guimenuitem>Redo</guimenuitem></menuchoice>
 </para>
+</listitem>
+</itemizedlist>
+<para>The functions <guimenuitem>Undo All</guimenuitem> and <guimenuitem>Redo All</guimenuitem> in the <guimenu>Edit</guimenu> menu will undo or redo all of the stored changes. The maximum number of changes can be configured in the preferences, by default Bluefish will remember the last 100 changes per document. It is possible to clear the changes after the document is saved, an option in the preferences which is disabled by default.</para>
 </sect3>
 
 <sect3 id="cut-copy-paste">
 <title>Cut, Copy, and Paste</title>
-<para>
-The functions <guimenuitem>Cut</guimenuitem>, <guimenuitem>Copy</guimenuitem>, and <guimenuitem>Paste</guimenuitem> are available from the <guimenu>Edit</guimenu> menu, the main tool bar, and the keyboard shortcuts.
-</para>
-<itemizedlist>
-	  <listitem><para><menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>X</keycap></keycombo></shortcut><guimenuitem>Cut</guimenuitem></menuchoice></para></listitem>
-	  <listitem><para><menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>C</keycap></keycombo></shortcut><guimenuitem>Copy</guimenuitem></menuchoice></para></listitem>
-	  <listitem><para><menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>V</keycap></keycombo></shortcut><guimenuitem>Paste</guimenuitem></menuchoice></para></listitem>
+<para>The functions <guimenuitem>Cut</guimenuitem>, <guimenuitem>Copy</guimenuitem>, and <guimenuitem>Paste</guimenuitem> are available from the <guimenu>Edit</guimenu> menu, the main tool bar, and the keyboard shortcuts.</para>
+<itemizedlist spacing="compact">
+<listitem>
+<para><menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>X</keycap></keycombo></shortcut><guimenuitem>Cut</guimenuitem></menuchoice></para>
+</listitem>
+<listitem>
+<para><menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>C</keycap></keycombo></shortcut><guimenuitem>Copy</guimenuitem></menuchoice></para>
+</listitem>
+<listitem>
+<para><menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>V</keycap></keycombo></shortcut><guimenuitem>Paste</guimenuitem></menuchoice></para>
+</listitem>
 </itemizedlist>
-<para>
-On X Windows Systems, you can also paste the current selected text using the 
-middle mouse button. First select some text (in Bluefish or in any other X 
-application), then press the middle mouse button where you want to paste the
-selected text.
-</para>
-<para>
-Cut or copy and then paste can also be done by selecting some text and 
-dragging it to the destination. If the text is dragged to another 
-document (or another application), it is copied. If the text is 
-dragged within one document it is moved. Dragging highlighted text from one application to another may or may not work. However, most GNOME and GTK programs support this feature.
-</para>
+<para>On X Windows Systems, you can also paste the current selected text using the middle mouse button. First select some text (in Bluefish or in any other X application), then press the middle mouse button where you want to paste the selected text.</para>
+<para>Cut or copy and then paste can also be done by selecting some text and dragging it to the destination. If the text is dragged to another document (or another application), it is copied. If the text is dragged within one document it is moved. Dragging highlighted text from one application to another may or may not work. However, most GNOME and GTK programs support this feature.</para>
 </sect3>
 
 <sect3 id="input-methods">
 <title>Input methods</title>
 <para>Bluefish handles a number of input methods, available from the contextual menu within a given document.
-	<figure id="figure-input-methods-cm">
-				<title id="figure-input-methods-cm-title">The Input Methods Contextual menu</title>
-				<screenshot>
-					<mediaobject>
-						<imageobject>
-							<imagedata fileref="figures/input_methods_cm.png" format="PNG"/>
-						</imageobject>
-						<textobject>
-							<phrase>A screen shot showing the input methods contextual menu</phrase>
-						</textobject>
-					</mediaobject>
-				</screenshot>
-			</figure>
-	</para>
-<itemizedlist>
+<?linebreaka4?>
+<figure id="figure-input-methods-cm">
+<title id="figure-input-methods-cm-title">The Input Methods Contextual menu</title>
+<screenshot><mediaobject>
+<imageobject>
+<imagedata fileref="figures/input_methods_cm.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>A screen shot showing the input methods contextual menu</phrase>
+</textobject>
+</mediaobject></screenshot>
+</figure></para>
+<itemizedlist spacing="compact">
 <listitem>
 <para>The default mode switches all input methods off.</para>
 </listitem>
@@ -619,15 +603,15 @@ dragged within one document it is moved. Dragging highlighted text from one appl
 <para>The IPA mode is used for International phonetic alphabet.</para>
 </listitem>
 <listitem>
-<para>Other modes are used for Erythrean, Ethiopian, Thai and Vietnamense languages.</para>
+<para>Other modes are used for Erythrean, Ethiopian, Thai and Vietnamese languages.</para>
 </listitem>
 </itemizedlist>
 <para>The X Input method relies on a client-server input system, and an input server.</para>
 <para>For Japanese, Chinese, and Korean documents, you may have to install and launch the correct input system, such as canna, and the appropriate input server, such as kinput2.</para>
 <para>Here is how to write a Japanese document on a non-Japanese system.</para>
 <procedure id="japanese-writing"><title>Writing in Japanese with Bluefish on a non-Japanese system</title>
-	<step>
-	<para>Launch the canna server if it is not running already</para>
+<step>
+<para>Launch the canna server if it is not running already</para>
 </step>
 <step>
 <para>Set the encoding to Japanese, for example: <userinput>export LANG=ja_JP.UTF-8</userinput></para>
@@ -645,216 +629,183 @@ dragged within one document it is moved. Dragging highlighted text from one appl
 <para>To activate the Xinput method within bluefish, use <keycombo><keycap>Shift</keycap><keycap>Space</keycap></keycombo>. A small window with a Japanese glyph will appear at one of the corner of the Bluefish window. Once the desired glyph has been composed, press <keycap>Space</keycap>, and hit <keycap>enter</keycap> to validate it.</para>
 </step>
 </procedure>
-	<para>Here, you can see the small Xinput method window, at the bottom left corner of the window and the first Japanese word not already validated in the Bluefish window launched on a French system.	
-	<figure id="figure-japanese-with-bluefish">
-				<title id="figure-japanese-with-bluefish-title">Writing in Japanese with Bluefish</title>
-				<screenshot>
-					<mediaobject>
-						<imageobject>
-							<imagedata fileref="figures/japanese_with_bluefish.png" format="PNG"/>
-						</imageobject>
-						<textobject>
-							<phrase>A screen shot showing how to write in Japanese with Bluefish</phrase>
-						</textobject>
-					</mediaobject>
-				</screenshot>
-			</figure>
-	</para>
-	<para>For an in-depth discussion on that subject, see <ulink url="http://www.jw-stumpel.nl/stestu.html#T6">Inputting from the keyboard</ulink>.</para>
+<para>Here, you can see the small Xinput method window, at the bottom left corner of the window and the first Japanese word not already validated in the Bluefish window launched on a French system.	
+<?linebreaka4?>
+<figure id="figure-japanese-with-bluefish">
+<title id="figure-japanese-with-bluefish-title">Writing in Japanese with Bluefish</title>
+<screenshot><mediaobject>
+<imageobject>
+<imagedata fileref="figures/japanese_with_bluefish.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>A screen shot showing how to write in Japanese with Bluefish</phrase>
+</textobject>
+</mediaobject></screenshot>
+</figure></para>
+<para>For an in-depth discussion on that subject, see <ulink url="http://www.jw-stumpel.nl/stestu.html#T6">Inputting from the keyboard</ulink>.</para>
 </sect3>
 
 </sect2>
+<?linebreaka4?>
 
 <sect2 id="basic-find-replace">
 <title>Basic Find and Replace</title>
-<para>Bluefish offers a wide range of find and replace methods in the <guimenu>Edit</guimenu> menu. Here we will explore the most basic ones. For advanced find and replace methods, see <xref linkend="find-replace" />.
-</para>
-
+<para>Bluefish offers a wide range of find and replace methods in the <guimenu>Edit</guimenu> menu. Here we will explore the most basic ones. For advanced find and replace methods, see <xref linkend="find-replace" />.</para>
 <sect3 id="basic-find">
 <title>Searching for a word within a whole document</title>
-<para>Let's start with the most basic example: searching a word in a document, from the beginning of the document till the end of the document.</para>
-<para>Choose the <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>F</keycap></keycombo></shortcut><guimenu>Edit</guimenu><guimenuitem>Find...</guimenuitem></menuchoice> menu item. A <guilabel>Find</guilabel> dialog will be displayed. Enter the word to search for in the <guilabel>Search for:</guilabel> field. Then click <guibutton>OK</guibutton>.</para>
-<para>
-	<figure id="figure-find-word-whole">
-	<title id="figure-find-word-whole-title">Finding a word in a document, from start to end</title>
-		<screenshot>
-			<mediaobject>
-				<imageobject>
-				<imagedata fileref="figures/find_word_whole.png" format="PNG"/>
-				</imageobject>
-				<textobject>
-					<phrase>A screen shot showing how to search a string within a document, from start to end.</phrase>
-				</textobject>
-			</mediaobject>
-		</screenshot>
-	</figure>
-</para>
-<para>If the word does not exist in the document, a small window pops up.</para>
-<para>
-	<figure id="figure-search-not-found">
-	<title id="figure-search-not-found-title">Unsuccessful search window</title>
-		<screenshot>
-			<mediaobject>
-				<imageobject>
-				<imagedata fileref="figures/search_not_found.png" format="PNG"/>
-				</imageobject>
-				<textobject>
-					<phrase>A screen shot showing the unsuccessful search window.</phrase>
-				</textobject>
-			</mediaobject>
-		</screenshot>
-	</figure>
-</para>
-<para>If the search is successful, the document window scrolls up to the first occurrence of the string in the document and highlights it. Below is an example of a search applied to a shell script.</para>
-<para>
-	<figure id="figure-search-found">
-	<title id="figure-search-found-title">Highlighted search result in the document window</title>
-		<screenshot>
-			<mediaobject>
-				<imageobject>
-				<imagedata fileref="figures/search_found.png" format="PNG"/>
-				</imageobject>
-				<textobject>
-					<phrase>A screen shot showing the search result highlighted in the document window.</phrase>
-				</textobject>
-			</mediaobject>
-		</screenshot>
-	</figure>
-</para>
-<para>To retrieve next occurrences of the string, if any, you will use the 
-<menuchoice>
-	<shortcut><keycombo><keycap>Ctrl</keycap><keycap>G</keycap></keycombo></shortcut>
-	<guimenu>Edit</guimenu><guimenuitem>Find again</guimenuitem>
-</menuchoice> menu item repeatedly. Again, when no further occurrence 
-is found, a dialog will be displayed notifying you that no match was found.
-dialog.</para>
+<?linebreaka4?>
+<para>Choose the <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>F</keycap></keycombo></shortcut><guimenu>Edit</guimenu><guimenuitem>Find...</guimenuitem></menuchoice> menu item. A <guilabel>Find</guilabel> dialog will be displayed. Enter the word to search for in the <guilabel>Search for:</guilabel> field. Then click <guibutton>OK</guibutton>.
+<?linebreaka4?>
+<?linebreaka4?>
+<figure id="figure-find-word-whole">
+<title id="figure-find-word-whole-title">Finding a word in a document, from start to end</title>
+<screenshot><mediaobject>
+<imageobject>
+<imagedata fileref="figures/find_word_whole.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>A screen shot showing how to search a string within a document, from start to end.</phrase>
+</textobject>
+</mediaobject></screenshot>
+</figure></para>
+<?linebreaka4?>
+<para>If the word does not exist in the document, a small window pops up.
+<?linebreaka4?>
+<?linebreaka4?>
+<figure id="figure-search-not-found">
+<title id="figure-search-not-found-title">Unsuccessful search window</title>
+<screenshot><mediaobject>
+<imageobject>
+<imagedata fileref="figures/search_not_found.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>A screen shot showing the unsuccessful search window.</phrase>
+</textobject>
+</mediaobject></screenshot>
+</figure></para>
+<?linebreaka4?>
+<?linebreaka4?>
+<para>If the search is successful, the document window scrolls up to the first occurrence of the string in the document and highlights it.</para>
+<?pagebreaka4?>
+<para>Below is an example of a search applied to a shell script.
+<?linebreaka4?>
+<figure id="figure-search-found">
+<title id="figure-search-found-title">Highlighted search result in the document window</title>
+<screenshot><mediaobject>
+<imageobject>
+<imagedata fileref="figures/search_found.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>A screen shot showing the search result highlighted in the document window.</phrase>
+</textobject>
+</mediaobject></screenshot>
+</figure></para>
+<para>To retrieve next occurrences of the string, if any, you will use the <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>G</keycap></keycombo></shortcut><guimenu>Edit</guimenu><guimenuitem>Find again</guimenuitem></menuchoice> menu item repeatedly. Again, when no further occurrence is found, a dialog will be displayed notifying you that no match was found.</para>
 </sect3>
-
+<?linebreaka4?>
 <sect3 id="basic-find-selection">
 <title>Setting limits to the search scope</title>
+<?linebreaka4?>
 <para>You may want to search for a string from the cursor location till the end of the document. Here's an example to search all <literal>name ==</literal> occurrences within a python script from a given location.</para>
 <procedure id="search-selection"><title>Searching from selection</title>
-	<step>
-	<para>Put the cursor where you want to start the search from in the document window</para>
- <para>
-	<figure id="figure-find-limited-cursor">
-	<title id="figure-find-limited-cursor-title">Setting the cursor location</title>
-		<screenshot>
-			<mediaobject>
-				<imageobject>
-				<imagedata fileref="figures/find_limited_cursor.png" format="PNG"/>
-				</imageobject>
-				<textobject>
-					<phrase>A screen shot showing how to set the cursor location for a limited search.</phrase>
-				</textobject>
-			</mediaobject>
-		</screenshot>
-	</figure>
-</para>
+<step>
+<para>Put the cursor where you want to start the search from in the document window
+<?linebreaka4?>
+<figure id="figure-find-limited-cursor">
+<title id="figure-find-limited-cursor-title">Setting the cursor location</title>
+<screenshot><mediaobject>
+<imageobject>
+<imagedata fileref="figures/find_limited_cursor.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>A screen shot showing how to set the cursor location for a limited search.</phrase>
+</textobject>
+</mediaobject></screenshot>
+</figure></para>
 </step>
-	<step>
-	<para>Open the <guilabel>Find...</guilabel> dialog</para>
+<step>
+<para>Open the <guilabel>Find...</guilabel> dialog</para>
 </step>
-	<step>
-	<para>Enter your search string in the <guilabel>Search for:</guilabel> field</para>
+<step>
+<para>Enter your search string in the <guilabel>Search for:</guilabel> field</para>
 </step>
-	<step>
-	<para>Choose <guilabel>Current position till end</guilabel> from the <guilabel>Starts at:</guilabel> pop up menu</para>
- <para>
-	<figure id="figure-find-limited-dialog">
-	<title id="figure-find-limited-dialog-title">Choosing a limited search method</title>
-		<screenshot>
-			<mediaobject>
-				<imageobject>
-				<imagedata fileref="figures/find_limited_dialog.png" format="PNG"/>
-				</imageobject>
-				<textobject>
-					<phrase>A screen shot showing how to search from the cursor's location.</phrase>
-				</textobject>
-			</mediaobject>
-		</screenshot>
-	</figure>
-</para>
+<step>
+<para>Choose <guilabel>Current position till end</guilabel> from the <guilabel>Starts at:</guilabel> pop up menu
+<figure id="figure-find-limited-dialog">
+<title id="figure-find-limited-dialog-title">Choosing a limited search method</title>
+<screenshot><mediaobject>
+<imageobject>
+<imagedata fileref="figures/find_limited_dialog.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>A screen shot showing how to search from the cursor's location.</phrase>
+</textobject>
+</mediaobject></screenshot>
+</figure></para>
 </step>
-	<step>
-	<para>Click OK.</para>
+<step>
+<para>Click OK.</para>
 </step>
 </procedure>
-<para>Here's the result.</para>
- <para>
-	<figure id="figure-find-limited-result">
-	<title id="figure-find-limited-result-title">Limited search result</title>
-		<screenshot>
-			<mediaobject>
-				<imageobject>
-				<imagedata fileref="figures/find_limited_result.png" format="PNG"/>
-				</imageobject>
-				<textobject>
-					<phrase>A screen shot showing the result of a limited search.</phrase>
-				</textobject>
-			</mediaobject>
-		</screenshot>
-	</figure>
-</para>
+<para>Here's the result:
+<figure id="figure-find-limited-result">
+<title id="figure-find-limited-result-title">Limited search result</title>
+<screenshot><mediaobject>
+<imageobject>
+<imagedata fileref="figures/find_limited_result.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>A screen shot showing the result of a limited search.</phrase>
+</textobject>
+</mediaobject></screenshot>
+</figure></para>
 <para>Notice that the search does not take into account the occurrence of the same string at line 50, since it is outside the search scope.</para>
 <para>You can also limit the search scope to a selection range. In that case, highlight the selection before the search, and choose <guilabel>Beginning of selection till end of selection</guilabel> from the <guilabel>Starts at:</guilabel> pop up menu in the <guilabel>Find</guilabel> dialog.</para>
 </sect3>
-
+<?linebreakus?>
 <sect3 id="find-matching-case">
 <title>Case sensitive search</title>
-<para>By default, the search process is case insensitive. If you want to make it case sensitive, just check the <guilabel>Match case</guilabel> box in the <guilabel>Find dialog</guilabel>.</para>
-<para>
-	<figure id="figure-find-match-case">
-	<title id="figure-find-match-case-title">Making the search case sensitive</title>
-		<screenshot>
-			<mediaobject>
-				<imageobject>
-				<imagedata fileref="figures/find_match_case.png" format="PNG"/>
-				</imageobject>
-				<textobject>
-					<phrase>A screen shot showing how to make the search case sensitive</phrase>
-				</textobject>
-			</mediaobject>
-		</screenshot>
-	</figure>
-</para>
-<para>Here's the result applied to a ruby script.</para>
-<para>
-	<figure id="figure-find-match-result-case">
-	<title id="figure-find-match-case-result-title">Case sensitive search result</title>
-		<screenshot>
-			<mediaobject>
-				<imageobject>
-				<imagedata fileref="figures/find_match_case_result.png" format="PNG"/>
-				</imageobject>
-				<textobject>
-					<phrase>A screen shot showing a case sensitive search</phrase>
-				</textobject>
-			</mediaobject>
-		</screenshot>
-	</figure>
-</para>
+<para>By default, the search process is case insensitive. If you want to make it case sensitive, just check the <guilabel>Match case</guilabel> box in the <guilabel>Find dialog</guilabel>.
+<figure id="figure-find-match-case">
+<title id="figure-find-match-case-title">Making the search case sensitive</title>
+<screenshot><mediaobject>
+<imageobject>
+<imagedata fileref="figures/find_match_case.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>A screen shot showing how to make the search case sensitive</phrase>
+</textobject>
+</mediaobject></screenshot>
+</figure></para>
+<para>Here's the result applied to a ruby script:
+<figure id="figure-find-match-result-case">
+<title id="figure-find-match-case-result-title">Case sensitive search result</title>
+<screenshot><mediaobject>
+<imageobject>
+<imagedata fileref="figures/find_match_case_result.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>A screen shot showing a case sensitive search</phrase>
+</textobject>
+</mediaobject></screenshot>
+</figure></para>
 <para>Notice again that the result does not catch the XML string at line 45, since the search string was xml and case sensitive search was requested.</para>
 </sect3>
-
+<?linebreaka4?>
 <sect3 id="find-old-search">
 <title>Retrieving previous search strings</title>
-<para>Notice that the pop up menu to the right of the <guilabel>Search for</guilabel> field in the <guilabel>Find</guilabel> dialog allows you to retrieve previous search strings. They are listed in reverse order by search history, providing quicker access to the most recent searches.</para>
-<para>
-	<figure id="figure-find-recent">
-	<title id="figure-find-recent-title">Retrieving recent searches</title>
-		<screenshot>
-			<mediaobject>
-				<imageobject>
-				<imagedata fileref="figures/find_recent.png" format="PNG"/>
-				</imageobject>
-				<textobject>
-					<phrase>A screen shot showing the search for pop up menu to retrieve recent search string</phrase>
-				</textobject>
-			</mediaobject>
-		</screenshot>
-	</figure>
-</para>
+<para>Notice that the pop up menu to the right of the <guilabel>Search for</guilabel> field in the <guilabel>Find</guilabel> dialog allows you to retrieve previous search strings. They are listed in reverse order by search history, providing quicker access to the most recent searches.
+<figure id="figure-find-recent">
+<title id="figure-find-recent-title">Retrieving recent searches</title>
+<screenshot><mediaobject>
+<imageobject>
+<imagedata fileref="figures/find_recent.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>A screen shot showing the search for pop up menu to retrieve recent search string</phrase>
+</textobject>
+</mediaobject></screenshot>
+</figure></para>
 </sect3>
 
 <sect3 id="more-on-find">
