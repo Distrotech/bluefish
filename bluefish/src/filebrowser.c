@@ -1821,6 +1821,8 @@ GtkWidget *filebrowser_init(Tbfwin *bfwin) {
 			if (bfwin->current_document && bfwin->current_document->filename){
 				DEBUG_MSG("filebrowser_init, build tree from current doc %s\n",bfwin->current_document->filename);
 				buildfrom = bfwin->current_document->filename; 
+			} else if (main_v->props.default_basedir && strlen(main_v->props.default_basedir)>2) {
+				buildfrom = main_v->props.default_basedir;
 			} else {
 				gchar curdir[1024];
 				getcwd(curdir, 1023);
