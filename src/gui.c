@@ -41,6 +41,7 @@ typedef struct {
 typedef struct {
 	GtkWidget *undo;
 	GtkWidget *redo;
+	GtkWidget *html_toolbar_quickbar;
 } Ttoolbar;
 
 typedef struct {
@@ -212,18 +213,24 @@ void filebrowser_show(gint first_time) {
 }
 
 typedef struct {
-	gint num;
+	gchar *ident;
 	void *func;
 	gpointer func_data;
 	gint pixmaptype;
 	gchar *tooltiptext;
 } Ttoolbaritem;
 
-static gboolean html_toolbar_item_button_press_lcb(GtkWidget *widget,GdkEventButton *bevent,gpointer user_data) {
+
+static void html_toolbar_add_to_quickbar(GtkMenuItem *menuitem, Ttoolbaritem *tbitem) {
+	main_v->props.quickbar_items = add_to_stringlist(main_v->props.quickbar_items, tbitem->ident);
+}
+
+static gboolean html_toolbar_item_button_press_lcb(GtkWidget *widget,GdkEventButton *bevent,Ttoolbaritem *tbitem) {
 	DEBUG_MSG("html_toolbar_item_button_press_lcb, button=%d\n", bevent->button);
 	if (bevent->button == 3) {
 		GtkWidget *menu = gtk_menu_new ();
 		GtkWidget *menuitem = gtk_menu_item_new_with_label(_("Add to quickbar"));
+		g_signal_connect(G_OBJECT(menuitem), "activate", G_CALLBACK(html_toolbar_add_to_quickbar), tbitem);
 		gtk_menu_append(GTK_MENU(menu), menuitem);
 		gtk_widget_show_all (menu);
 		gtk_menu_popup (GTK_MENU (menu), NULL, NULL,
@@ -232,19 +239,8 @@ static gboolean html_toolbar_item_button_press_lcb(GtkWidget *widget,GdkEventBut
 	}
 	return FALSE;
 }
-static gboolean html_toolbar_item_button_press_quickbar_lcb(GtkWidget *widget,GdkEventButton *bevent,gpointer user_data) {
-	if (bevent->button == 3) {
-		GtkWidget *menu = gtk_menu_new ();
-		GtkWidget *menuitem = gtk_menu_item_new_with_label(_("Remove from quickbar"));
-		gtk_menu_append(GTK_MENU(menu), menuitem);
-		gtk_widget_show_all (menu);
-		gtk_menu_popup (GTK_MENU (menu), NULL, NULL,
-			  NULL, widget, 0, gtk_get_current_event_time ());
-		return TRUE;
-	}
-	return FALSE;
-}
-static void html_toolbar_add_items(GtkWidget *html_toolbar, Ttoolbaritem *tbi, gint from, gint to, gboolean is_quickbar) {
+
+static void html_toolbar_add_items(GtkWidget *html_toolbar, Ttoolbaritem *tbi, gint from, gint to) {
 	gint i;
 	GtkWidget *item;
 	for (i=from;i<to;i++) {
@@ -253,11 +249,7 @@ static void html_toolbar_add_items(GtkWidget *html_toolbar, Ttoolbaritem *tbi, g
 		} else {
 			item = gtk_toolbar_append_item(GTK_TOOLBAR(html_toolbar), NULL, _(tbi[i].tooltiptext),
 						"", new_pixmap(tbi[i].pixmaptype), G_CALLBACK(tbi[i].func), tbi[i].func_data);
-			if (is_quickbar) {
-				g_signal_connect(item, "button-press-event", html_toolbar_item_button_press_quickbar_lcb, &tbi[i]);
-			} else {
-				g_signal_connect(item, "button-press-event", html_toolbar_item_button_press_lcb, &tbi[i]);
-			}
+			g_signal_connect(item, "button-press-event", html_toolbar_item_button_press_lcb, &tbi[i]);
 		}
 	}
 }
@@ -273,12 +265,12 @@ void make_html_toolbar(GtkWidget *handlebox) {
 	GtkWidget *menu_item, *sub_menu;
 	gint i=0;
 	Ttoolbaritem tbi[] = {
-		{0, NULL, NULL, 0, NULL},
-		{1,tabledialog_cb, NULL, 134, N_("Table...")},
-		{2, tablerowdialog_cb, NULL, 135, N_("Table Row...")},
-		{3, tableheaddialog_cb, NULL, 136, N_("Table Header...")},
-		{4, tabledatadialog_cb, NULL, 137, N_("Table Data...")},
-		{0, NULL, NULL, 0, NULL} /* spacing */
+		{"", NULL, NULL, 0, NULL},
+		{"table...",tabledialog_cb, NULL, 134, N_("Table...")},
+		{"tablerow...", tablerowdialog_cb, NULL, 135, N_("Table Row...")},
+		{"tableheader...", tableheaddialog_cb, NULL, 136, N_("Table Header...")},
+		{"tabledata...", tabledatadialog_cb, NULL, 137, N_("Table Data...")},
+		{"", NULL, NULL, 0, NULL} /* spacing */
 	};
 
 	DEBUG_MSG("make_html_toolbar, started\n");
@@ -289,12 +281,30 @@ void make_html_toolbar(GtkWidget *handlebox) {
 	gtk_notebook_set_page(GTK_NOTEBOOK(html_notebook), 0);
 	gtk_container_add(GTK_CONTAINER(handlebox), html_notebook);
 
-	html_toolbar = gtk_toolbar_new();
+	toolbarwidgets.html_toolbar_quickbar = gtk_toolbar_new();
+	DEBUG_MSG("make_html_toolbar, creating quickbar\n");
+	{
+		GList *tmplist;
+		gint i, numitems=(sizeof(tbi)/sizeof(Ttoolbaritem));
+		tmplist = g_list_first(main_v->props.quickbar_items);
+		while (tmplist) {
+			gchar **tmpstr = tmplist->data;
+			DEBUG_MSG("make_html_toolbar, searching for %s\n", tmpstr[0]);
+			for (i=0;i<numitems;i++) {
+				if (strcmp(tbi[i].ident, tmpstr[0])==0) {
+					gtk_toolbar_append_item(GTK_TOOLBAR(toolbarwidgets.html_toolbar_quickbar), NULL, _(tbi[i].tooltiptext),
+						"", new_pixmap(tbi[i].pixmaptype), G_CALLBACK(tbi[i].func), tbi[i].func_data);
+					break;
+				}
+			}
+			tmplist = g_list_next(tmplist);
+		}
+	}
 /*	gtk_toolbar_append_item(GTK_TOOLBAR(html_toolbar), NULL, _("QuickStart..."), "", new_pixmap(100), GTK_SIGNAL_FUNC(quickstart_cb), NULL);*/
-	gtk_notebook_append_page(GTK_NOTEBOOK(html_notebook), html_toolbar, gtk_label_new(_(" Quick bar ")));
+	gtk_notebook_append_page(GTK_NOTEBOOK(html_notebook), toolbarwidgets.html_toolbar_quickbar, gtk_label_new(_(" Quick bar ")));
 
 	html_toolbar = gtk_toolbar_new();
-	html_toolbar_add_items(html_toolbar, tbi, 0, 6, FALSE);
+	html_toolbar_add_items(html_toolbar, tbi, 0, 6);
 	gtk_notebook_append_page(GTK_NOTEBOOK(html_notebook), html_toolbar, gtk_label_new(_(" Tables ")));
 
 	gtk_widget_show_all(html_notebook);
