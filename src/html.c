@@ -22,7 +22,7 @@
  */
 /* 
  * Changes by Antti-Juhani Kaijanaho <gaia@iki.fi> on 1999-10-20
- * $Id: html.c,v 1.12 2003-02-13 08:26:22 oli4 Exp $
+ * $Id: html.c,v 1.13 2003-02-19 11:00:44 oli4 Exp $
  */
 
 #include <gtk/gtk.h>
@@ -239,7 +239,7 @@ void general_html_cb(GtkWidget * widget, gpointer data)
 		break; */
 	case 47:
 		tmp = g_strconcat(cap("<META NAME=\"Generator\" CONTENT=\"")
-			, "Bluefish ",  VERSION
+			, "Bluefish ",  VERSION, " http://bluefish.openoffice.nl/"
 			, main_v->props.xhtml == 1 ? "\" />\n" : "\">\n" , NULL);
 		doc_insert_two_strings(main_v->current_document, tmp, NULL);
 		g_free(tmp);
