@@ -3979,21 +3979,18 @@ void doc_indent_selection(Tdocument *doc, gboolean unindent) {
 					cont = gtk_text_iter_forward_char(&itend);
 					buf = g_strdup("\t");
 				} else if (cchar == 32) { /* 32 is ascii for space */
-					gchar *tmpstr;
 					gint i=0;
 					itend = itstart;
 					gtk_text_iter_forward_chars(&itend,main_v->props.editor_tab_width);
-					tmpstr = gtk_text_buffer_get_text(doc->buffer,&itstart,&itend,FALSE);
-					DEBUG_MSG("tab_width=%d, strlen(tmpstr)=%d, tmpstr='%s'\n",main_v->props.editor_tab_width,strlen(tmpstr),tmpstr);
-					while (cont && tmpstr[i] != '\0') {
-						cont = (tmpstr[i] == ' ');
-						DEBUG_MSG("doc_indent_selection, tmpstr[%d]='%c'\n",i,tmpstr[i]);
+					buf = gtk_text_buffer_get_text(doc->buffer,&itstart,&itend,FALSE);
+					DEBUG_MSG("tab_width=%d, strlen(buf)=%d, buf='%s'\n",main_v->props.editor_tab_width,strlen(buf),buf);
+					while (cont && buf[i] != '\0') {
+						cont = (buf[i] == ' ');
+						DEBUG_MSG("doc_indent_selection, buf[%d]='%c'\n",i,buf[i]);
 						i++;
 					}
-					if (cont) {
-						buf = tmpstr;
-					} else {
-						g_free(tmpstr);
+					if (!cont) {
+						g_free (buf);
 					}
 				} else {
 					cont = FALSE;
@@ -4004,6 +4001,7 @@ void doc_indent_selection(Tdocument *doc, gboolean unindent) {
 					offsetend = gtk_text_iter_get_offset(&itend);
 					gtk_text_buffer_delete(doc->buffer,&itstart,&itend);
 					doc_unre_add(doc, buf, offsetstart, offsetend, UndoDelete);
+					g_free (buf);
 				}
 #ifdef DEBUG
 				else {
