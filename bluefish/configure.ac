@@ -187,7 +187,7 @@ AC_CHECK_LIB(posix4, nanosleep,
 )
 
 AC_CHECK_HEADER(aspell.h, 
-	AC_CHECK_LIB(libaspell, new_aspell_config, 
+	AC_CHECK_LIB(aspell, new_aspell_config, 
 		LIBS="$LIBS -laspell"
 		AC_DEFINE(HAVE_LIBASPELL),
 		echo "libaspell not found please install libaspell-dev or similar"), 
