@@ -3197,6 +3197,9 @@ static void doc_activate_modified_lcb(Tcheckmodified_status status,gint error_in
 	case CHECKMODIFIED_ERROR:
 		DEBUG_MSG("doc_activate_modified_lcb, CHECKMODIFIED_ERROR ??\n");
 	break;
+	case CHECKMODIFIED_CANCELLED:
+		DEBUG_MSG("doc_activate_modified_lcb, CHECKMODIFIED_CANCELLED\n");
+	break;
 	case CHECKMODIFIED_MODIFIED:
 		{
 		gchar *tmpstr, oldtimestr[128], newtimestr[128];/* according to 'man ctime_r' this should be at least 26, so 128 should do ;-)*/

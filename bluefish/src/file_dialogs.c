@@ -296,6 +296,7 @@ static TcheckNsave_return doc_checkNsave_lcb(TcheckNsave_status status,gint erro
 		case CHECKANDSAVE_ERROR:
 		case CHECKANDSAVE_ERROR_NOCHANNEL:
 		case CHECKANDSAVE_ERROR_NOWRITE:
+		case CHECKANDSAVE_ERROR_CANCELLED:
 			{
 				DEBUG_MSG("doc_checkNsave_lcb, some ERROR, give user a message\n");
 				errmessage = g_strconcat(_("Could not save file:\n\""), doc->uri, "\"", NULL);
@@ -543,7 +544,8 @@ void doc_close_single_backend(Tdocument *doc, gboolean close_window) {
 	}
 	if (doc->action.load != NULL || doc->action.info != NULL) {
 		/* we should cancel the action now..., and then let the callbacks close it... 	*/
-
+		if (doc->action.load) file2doc_cancel(doc->action.load);
+		if (doc->action.info) file_asyncfileinfo_cancel(doc->action.info);
 		/* we will not cancel save operations, because it might corrupt the file, let 
 		them just timeout */
 		doc->action.close_doc = TRUE;
