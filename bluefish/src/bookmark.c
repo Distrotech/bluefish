@@ -814,7 +814,7 @@ void bmark_add_backend(Tbfwin *bfwin, const gchar *name, gint offset, gboolean i
 	/* create bookmark */
 	m = g_new0(Tbmark, 1);
 	m->doc = DOCUMENT(bfwin->current_document);
-	
+	m->offset = offset;
 	gtk_text_buffer_get_iter_at_offset(m->doc->buffer,&it,offset);
 	m->mark = gtk_text_buffer_create_mark(m->doc->buffer, NULL, &it, TRUE);
 	m->filepath = g_strdup(m->doc->filename);
