@@ -509,7 +509,7 @@ static void fb2_focus_dir(Tfilebrowser2 *fb2, GnomeVFSURI *uri, gboolean noselec
 		/* set this directory as the top tree for the file widget */
 		fs_path = gtk_tree_model_get_path(GTK_TREE_MODEL(FILEBROWSER2CONFIG(main_v->fb2config)->filesystem_tstore),dir);
 		if (fs_path) {
-			DEBUG_MSG("fb2_focus_dir, set new root for file list..\n");
+			DEBUG_MSG("fb2_focus_dir, set new root %s for file list..\n",gnome_vfs_uri_extract_short_name(uri));
 			refilter_filelist(fb2, fs_path);
 			DEBUG_MSG("fb2_focus_dir, expand dir tree to this dir..\n");
 			if (!noselect) {
@@ -689,6 +689,7 @@ static void refilter_dirlist(Tfilebrowser2 *fb2, GtkTreePath *newroot) {
 		useroot = gtk_tree_path_copy(newroot);
 		gtk_tree_path_up(useroot);
 	} else {
+		DEBUG_MSG("refilter_dirlist, show full tree, and unset basedir\n");
 		useroot = NULL;
 		if (fb2->basedir) gnome_vfs_uri_unref(fb2->basedir);
 		fb2->basedir = NULL;
@@ -1250,6 +1251,9 @@ static GtkWidget *fb2_rpopup_create_menu(Tfilebrowser2 *fb2, gboolean is_directo
 	} 
 	if (!is_file) {
 		gtk_widget_set_sensitive(gtk_item_factory_get_widget(menumaker, "/Open"), FALSE);
+	}
+	if (fb2->basedir == NULL) {
+		gtk_widget_set_sensitive(gtk_item_factory_get_widget(menumaker, "/Show Full Tree"), FALSE);
 	}
 	
 	/* Add filter submenu */
