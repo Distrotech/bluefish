@@ -5,16 +5,16 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: bluefish gtk2-port\n"
-"POT-Creation-Date: 2004-02-25 16:08+0100\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-02-25 18:52-0300\n"
 "PO-Revision-Date: 2001-11-17 15:24+0100\n"
 "Last-Translator: Walter Echarri <wecharri@yahoo.com>\n"
 "Language-Team: español <es@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8 bit\n"
-"Report-Msgid-Bugs-To: \n"
 
-#: ../src/about.c:121
+#: ../src/about.c:123
 msgid ""
 "Bluefish is an editor for experienced web designers and programmers. It "
 "supports many programming and markup languages, but focuses on editing "
@@ -28,26 +28,22 @@ msgid ""
 msgstr ""
 "Bluefish es un editor para programadores y diseñadores web experimentados. "
 "Reconoce diversos lenguajes de programación y de marcas, pero se centra en "
-"la edición de sitios web dinámicos e interactivos. Bluefish es proyecto open "
-"source con licencia GPL.\n"
+"la edición de sitios web dinámicos e interactivos. Bluefish es un proyecto "
+"open source con licencia GPL.\n"
 "\n"
 "Para más información, visite la página principal de Bluefish en http://"
 "bluefish.openoffice.nl/\n"
 "\n"
 "La presente versión de Bluefish fue compilada con las siguientes opciones:\n"
 
-#: ../src/about.c:121
-msgid "\n"
-msgstr "\n"
-
-#: ../src/about.c:122
+#: ../src/about.c:124
 msgid ""
 "Project leader:\n"
 "  Olivier Sessink <olivier@bluefish.openoffice.nl>\n"
 "\n"
 "Developers for this release:\n"
 "  Jim Hayward <jimhayward@linuxexperience.com>\n"
-"  Oskar ¿wida <swida@aragorn.pb.bialystok.pl>\n"
+"  Oskar Swida <swida@aragorn.pb.bialystok.pl>\n"
 "  Christian Tellefsen <christian@tellefsen.net>\n"
 "  Eugene Morenko(More) <more@irpin.com>\n"
 "\n"
@@ -79,8 +75,45 @@ msgid ""
 "\n"
 "Thanks to all who helped making this software available.\n"
 msgstr ""
+"Lider del Proyecto:\n"
+"  Olivier Sessink <olivier@bluefish.openoffice.nl>\n"
+"\n"
+"Desarrolladores de esta versión:\n"
+"  Jim Hayward <jimhayward@linuxexperience.com>\n"
+"  Oskar Swida <swida@aragorn.pb.bialystok.pl>\n"
+"  Christian Tellefsen <christian@tellefsen.net>\n"
+"  Eugene Morenko(More) <more@irpin.com>\n"
+"\n"
+"Desarrolladores de las versiones anteriores:\n"
+"  Chris Mazuc\n"
+"  Neil Millar\n"
+"  Gero Takke\n"
+"  Bo Forslund\n"
+"  David Arno\n"
+"  Pablo De Napoli\n"
+"  Santiago Capel Torres\n"
+"  Rasmus Toftdahl Olesen <rto@pohldata.dk>\n"
+"  Roland Steinbach <roland@netzblick.de>\n"
+"  Christian Tellefsen <chris@tellefsen.net>\n"
+"  Antti-Juhani Kaijanaho\n"
+"\n"
+"Documentación:\n"
+"  Alastair Porter <alastair@linuxexperience.com>\n"
+"  Daniel Blair <joecamel@realcoders.org>\n"
+"  Denny Reeh\n"
+"\n"
+"Encargados de paquetes:\n"
+"  Debian:   Davide Puricelli <evo@debian.org>\n"
+"  Redhat:   Matthias Haase <matthias_haase@bennewitz.com>\n"
+"  Mandrake: Todd Lyons <todd@mrball.net>\n"
+"\n"
+"Si cree que en esta lista falta alguien, por favor, háganoslo "
+"saber\n"
+"<bluefish@bluefish.openoffice.nl>\n"
+"\n"
+"Gracias a todos los que han ayudado a crear este programa.\n"
 
-#: ../src/about.c:159
+#: ../src/about.c:161
 msgid ""
 "Current translators:\n"
 "\n"
@@ -117,7 +150,7 @@ msgid ""
 "  Russian - Eugene Rupakov\n"
 "   <rupakov@jet.msk.ru>\n"
 "\n"
-"  Serbian - Marko Milenovic\n"
+"  Serbian - Marko Milenović\n"
 "   <raven@sbb.co.yu>\n"
 "\n"
 "  Spanish - Walter Oscar Echarri\n"
@@ -130,23 +163,71 @@ msgid ""
 "   <barathee@yahoo.com>\n"
 "\n"
 msgstr ""
+"Traductores actuales:\n"
+"\n"
+"  Alemán - Roland Steinbach\n"
+"   <roland@netzblick.de>\n"
+"\n"
+"  Chino - Ting Yang (Dormouse)\n"
+"   <mouselinux@163.com>\n"
+"\n"
+"  Danés - Rasmus Toftdahl Olesen\n"
+"   <rto@pohldata.dk>\n"
+"\n"
+"  Español - Walter Oscar Echarri\n"
+"   <wecharri@infovia.com.ar>\n"
+"\n"
+"  Finlandés - Juho Roukala\n"
+"   <j.mr@luukku.com>\n"
+"\n"
+"  Francés - Roméo Viu-Berges\n"
+"   <apostledemencia@free.fr>\n"
+"\n"
+"  Húngaro - Péter Sáska\n"
+"   <sasek@ccsystem.hu>\n"
+"\n"
+"  Italiano - Stefano Canepa\n"
+"   <sc@linux.it>\n"
+"\n"
+"  Polaco - Oskar Swida\n"
+"   <swida@aragorn.pb.bialystok.pl>\n"
+"\n"
+"  Portugués - Lopo Pizarro\n"
+"   <lopopizarro@netcabo.pt>\n"
+"\n"
+"  Portugués Brasileño - Anderson Rocha\n"
+"   <anderson@maxlinux.com.br>\n"
+"\n"
+"  Ruso - Eugene Rupakov\n"
+"   <rupakov@jet.msk.ru>\n"
+"\n"
+"  Serbio - Marko Milenović\n"
+"   <raven@sbb.co.yu>\n"
+"\n"
+"  Sueco - David Smeringe\n"
+"   <david.smeringe@telia.com>\n"
+"\n"
+"  Tamil - Murugapandian Barathee\n"
+"   <barathee@yahoo.com>\n"
+"\n"
 
-#: ../src/about.c:192
+
+#: ../src/about.c:196
 msgid "About Bluefish"
 msgstr "Sobre Bluefish"
 
 # src/html.c:1847
 # src/html.c:1131
-#: ../src/about.c:223 ../src/fref.c:1309 ../src/fref.c:1603 ../src/fref.c:1688
+#: ../src/about.c:227 ../src/fref.c:1309 ../src/fref.c:1603 ../src/fref.c:1688
 #: ../src/fref.c:1715 ../src/fref.c:2129
 msgid "Info"
 msgstr "Info"
 
-#: ../src/about.c:224
+#: ../src/about.c:228
 msgid "Authors"
 msgstr "Autores"
 
-#: ../src/about.c:225
+#: ../src/about.c:229
 msgid "Translators"
 msgstr "Traductores"
 
@@ -1929,6 +2010,79 @@ msgstr "/Ver/Barra de Herramientas Principal"
 msgid "/View/View Custom Menu"
 msgstr "/Ver/Menú Personalizado"
 
+#: ../src/html2.c:588
+msgid "Cascading StyleSheet dialog"
+msgstr "Diálogo de CSS"
+
+# src/html.c:1797
+# src/html_form.c:398
+#: ../src/html2.c:608
+msgid "_Selector:"
+msgstr "_Selector:"
+
+#: ../src/html2.c:627
+msgid "_Property:"
+msgstr "_Propiedad:"
+
+# src/html.c:1525 src/html.c:1545 src/html.c:1579 src/html.c:1630
+# src/html.c:1667 src/html.c:1719 src/html.c:1763
+# src/html_form.c:126 src/html_form.c:146 src/html_form.c:180
+# src/html_form.c:231 src/html_form.c:268 src/html_form.c:320
+# src/html_form.c:364 src/wml.c:171 src/wml.c:211
+#: ../src/html2.c:629 ../src/html_form.c:650 ../src/html_form.c:799
+#: ../src/html_form.c:894
+msgid "_Value:"
+msgstr "_Valor:"
+
+# src/html.c:1797
+# src/html_form.c:398
+#: ../src/html2.c:647
+msgid "Selector"
+msgstr "Selector"
+
+#: ../src/html2.c:647 ../src/html2.c:650
+msgid "Property"
+msgstr "Propiedad"
+
+# src/html.c:1525 src/html.c:1545 src/html.c:1579 src/html.c:1630
+# src/html.c:1667 src/html.c:1719 src/html.c:1763
+# src/html_form.c:126 src/html_form.c:146 src/html_form.c:180
+# src/html_form.c:231 src/html_form.c:268 src/html_form.c:320
+# src/html_form.c:364 src/wml.c:171 src/wml.c:211
+#: ../src/html2.c:647 ../src/html2.c:650
+msgid "Value"
+msgstr "Valor"
+
+# src/stringlist.c:146
+# src/stringlist.c:142
+#: ../src/html2.c:665
+msgid " _Add "
+msgstr "_Agregar "
+
+# src/stringlist.c:147
+# src/stringlist.c:143
+#: ../src/html2.c:668
+msgid " _Update "
+msgstr "_Actualizar "
+
+# src/stringlist.c:148
+# src/stringlist.c:144
+#: ../src/html2.c:671
+msgid " _Delete "
+msgstr "_Borrar "
+
+# src/html.c:1844 src/toolbars.c:440
+# src/html.c:1128 src/toolbars.c:444
+#: ../src/html2.c:927 ../src/html2.c:964
+msgid "_Style..."
+msgstr "_Estilo..."
+
+# src/callbacks.c:647
+# src/project.c:56
+#: ../src/html2.c:1121
+msgid "Bluefish: Select color"
+msgstr "Bluefish - Selector de colores"
+
 # src/toolbars.c:465
 # src/toolbars.c:510
 #: ../src/html.c:356
@@ -2505,79 +2659,6 @@ msgstr "_Idioma:"
 #: ../src/html.c:2075
 msgid "_Custom:"
 msgstr "_Personalizar:"
-
-#: ../src/html2.c:588
-msgid "Cascading StyleSheet dialog"
-msgstr "Diálogo de CSS"
-
-# src/html.c:1797
-# src/html_form.c:398
-#: ../src/html2.c:608
-msgid "_Selector:"
-msgstr "_Selector:"
-
-#: ../src/html2.c:627
-msgid "_Property:"
-msgstr "_Propiedad:"
-
-# src/html.c:1525 src/html.c:1545 src/html.c:1579 src/html.c:1630
-# src/html.c:1667 src/html.c:1719 src/html.c:1763
-# src/html_form.c:126 src/html_form.c:146 src/html_form.c:180
-# src/html_form.c:231 src/html_form.c:268 src/html_form.c:320
-# src/html_form.c:364 src/wml.c:171 src/wml.c:211
-#: ../src/html2.c:629 ../src/html_form.c:650 ../src/html_form.c:799
-#: ../src/html_form.c:894
-msgid "_Value:"
-msgstr "_Valor:"
-
-# src/html.c:1797
-# src/html_form.c:398
-#: ../src/html2.c:647
-msgid "Selector"
-msgstr "Selector"
-
-#: ../src/html2.c:647 ../src/html2.c:650
-msgid "Property"
-msgstr "Propiedad"
-
-# src/html.c:1525 src/html.c:1545 src/html.c:1579 src/html.c:1630
-# src/html.c:1667 src/html.c:1719 src/html.c:1763
-# src/html_form.c:126 src/html_form.c:146 src/html_form.c:180
-# src/html_form.c:231 src/html_form.c:268 src/html_form.c:320
-# src/html_form.c:364 src/wml.c:171 src/wml.c:211
-#: ../src/html2.c:647 ../src/html2.c:650
-msgid "Value"
-msgstr "Valor"
-
-# src/stringlist.c:146
-# src/stringlist.c:142
-#: ../src/html2.c:665
-msgid " _Add "
-msgstr "_Agregar "
-
-# src/stringlist.c:147
-# src/stringlist.c:143
-#: ../src/html2.c:668
-msgid " _Update "
-msgstr "_Actualizar "
-
-# src/stringlist.c:148
-# src/stringlist.c:144
-#: ../src/html2.c:671
-msgid " _Delete "
-msgstr "_Borrar "
-
-# src/html.c:1844 src/toolbars.c:440
-# src/html.c:1128 src/toolbars.c:444
-#: ../src/html2.c:927 ../src/html2.c:964
-msgid "_Style..."
-msgstr "_Estilo..."
-
-# src/callbacks.c:647
-# src/project.c:56
-#: ../src/html2.c:1121
-msgid "Bluefish: Select color"
-msgstr "Bluefish - Selector de colores"
 
 # src/html.c:1478
 # src/html_form.c:79
@@ -6276,19 +6357,3 @@ msgstr "Fuente:"
 msgid "Size:"
 msgstr "Tamaño:"
 
-#~ msgid "Show all bookmarks"
-#~ msgstr "Mostrar todos los marcadores"
-
-#~ msgid "Show bookmarks for opened files"
-#~ msgstr "Mostrar marcadores para los archivos abiertos"
-
-#~ msgid "Show bookmarks for active file"
-#~ msgstr "Mostrar marcadores para el archivo activo"
-
-#~ msgid "You can overwrite next temp bookmark (number %d). Overwrite?"
-#~ msgstr ""
-#~ "Puede sobreescribir el siguiente marcador temp (número %d). "
-#~ "¿Sobreescribir?"
-
-#~ msgid "Maximum number of temp bookmarks assigned"
-#~ msgstr "Máximo número de marcadores temp asignados"
