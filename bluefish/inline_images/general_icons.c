@@ -1,12 +1,12 @@
 /* GdkPixbuf RGBA C-Source image dump */
 
 #ifdef __SUNPRO_C
-#pragma align 4 (close_small)
+#pragma align 4 (pixmap_close_small)
 #endif
 #ifdef __GNUC__
-const guint8 close_small[] __attribute__ ((__aligned__ (4))) = 
+const guint8 pixmap_close_small[] __attribute__ ((__aligned__ (4))) = 
 #else
-const guint8 close_small[] = 
+const guint8 pixmap_close_small[] = 
 #endif
 { ""
   /* Pixbuf magic (0x47646b50) */
@@ -34,12 +34,12 @@ const guint8 close_small[] =
 /* GdkPixbuf RGBA C-Source image dump */
 
 #ifdef __SUNPRO_C
-#pragma align 4 (edit_tag)
+#pragma align 4 (pixmap_edit_tag)
 #endif
 #ifdef __GNUC__
-const guint8 edit_tag[] __attribute__ ((__aligned__ (4))) = 
+const guint8 pixmap_edit_tag[] __attribute__ ((__aligned__ (4))) = 
 #else
-const guint8 edit_tag[] = 
+const guint8 pixmap_edit_tag[] = 
 #endif
 { ""
   /* Pixbuf magic (0x47646b50) */

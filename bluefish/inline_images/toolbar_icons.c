@@ -1,12 +1,12 @@
 /* GdkPixbuf RGBA C-Source image dump */
 
 #ifdef __SUNPRO_C
-#pragma align 4 (abbr)
+#pragma align 4 (pixmap_abbr)
 #endif
 #ifdef __GNUC__
-static const guint8 abbr[] __attribute__ ((__aligned__ (4))) = 
+const guint8 pixmap_abbr[] __attribute__ ((__aligned__ (4))) = 
 #else
-static const guint8 abbr[] = 
+const guint8 pixmap_abbr[] = 
 #endif
 { ""
   /* Pixbuf magic (0x47646b50) */
@@ -137,12 +137,12 @@ static const guint8 abbr[] =
 /* GdkPixbuf RGBA C-Source image dump */
 
 #ifdef __SUNPRO_C
-#pragma align 4 (acronym)
+#pragma align 4 (pixmap_acronym)
 #endif
 #ifdef __GNUC__
-static const guint8 acronym[] __attribute__ ((__aligned__ (4))) = 
+const guint8 pixmap_acronym[] __attribute__ ((__aligned__ (4))) = 
 #else
-static const guint8 acronym[] = 
+const guint8 pixmap_acronym[] = 
 #endif
 { ""
   /* Pixbuf magic (0x47646b50) */
@@ -273,12 +273,12 @@ static const guint8 acronym[] =
 /* GdkPixbuf RGBA C-Source image dump */
 
 #ifdef __SUNPRO_C
-#pragma align 4 (anchor)
+#pragma align 4 (pixmap_anchor)
 #endif
 #ifdef __GNUC__
-static const guint8 anchor[] __attribute__ ((__aligned__ (4))) = 
+const guint8 pixmap_anchor[] __attribute__ ((__aligned__ (4))) = 
 #else
-static const guint8 anchor[] = 
+const guint8 pixmap_anchor[] = 
 #endif
 { ""
   /* Pixbuf magic (0x47646b50) */
@@ -372,12 +372,12 @@ static const guint8 anchor[] =
 /* GdkPixbuf RGBA C-Source image dump */
 
 #ifdef __SUNPRO_C
-#pragma align 4 (bluefish_icon1)
+#pragma align 4 (pixmap_bluefish_icon1)
 #endif
 #ifdef __GNUC__
-static const guint8 bluefish_icon1[] __attribute__ ((__aligned__ (4))) = 
+const guint8 pixmap_bluefish_icon1[] __attribute__ ((__aligned__ (4))) = 
 #else
-static const guint8 bluefish_icon1[] = 
+const guint8 pixmap_bluefish_icon1[] = 
 #endif
 { ""
   /* Pixbuf magic (0x47646b50) */
@@ -716,12 +716,12 @@ static const guint8 bluefish_icon1[] =
 /* GdkPixbuf RGBA C-Source image dump */
 
 #ifdef __SUNPRO_C
-#pragma align 4 (body)
+#pragma align 4 (pixmap_body)
 #endif
 #ifdef __GNUC__
-static const guint8 body[] __attribute__ ((__aligned__ (4))) = 
+const guint8 pixmap_body[] __attribute__ ((__aligned__ (4))) = 
 #else
-static const guint8 body[] = 
+const guint8 pixmap_body[] = 
 #endif
 { ""
   /* Pixbuf magic (0x47646b50) */
@@ -851,12 +851,12 @@ static const guint8 body[] =
 /* GdkPixbuf RGBA C-Source image dump */
 
 #ifdef __SUNPRO_C
-#pragma align 4 (bold)
+#pragma align 4 (pixmap_bold)
 #endif
 #ifdef __GNUC__
-static const guint8 bold[] __attribute__ ((__aligned__ (4))) = 
+const guint8 pixmap_bold[] __attribute__ ((__aligned__ (4))) = 
 #else
-static const guint8 bold[] = 
+const guint8 pixmap_bold[] = 
 #endif
 { ""
   /* Pixbuf magic (0x47646b50) */
@@ -982,12 +982,12 @@ static const guint8 bold[] =
 /* GdkPixbuf RGBA C-Source image dump */
 
 #ifdef __SUNPRO_C
-#pragma align 4 (bookmarks)
+#pragma align 4 (pixmap_bookmarks)
 #endif
 #ifdef __GNUC__
-static const guint8 bookmarks[] __attribute__ ((__aligned__ (4))) = 
+const guint8 pixmap_bookmarks[] __attribute__ ((__aligned__ (4))) = 
 #else
-static const guint8 bookmarks[] = 
+const guint8 pixmap_bookmarks[] = 
 #endif
 { ""
   /* Pixbuf magic (0x47646b50) */
@@ -1084,12 +1084,12 @@ static const guint8 bookmarks[] =
 /* GdkPixbuf RGBA C-Source image dump */
 
 #ifdef __SUNPRO_C
-#pragma align 4 (brbreak)
+#pragma align 4 (pixmap_brbreak)
 #endif
 #ifdef __GNUC__
-static const guint8 brbreak[] __attribute__ ((__aligned__ (4))) = 
+const guint8 pixmap_brbreak[] __attribute__ ((__aligned__ (4))) = 
 #else
-static const guint8 brbreak[] = 
+const guint8 pixmap_brbreak[] = 
 #endif
 { ""
   /* Pixbuf magic (0x47646b50) */
@@ -1188,12 +1188,12 @@ static const guint8 brbreak[] =
 /* GdkPixbuf RGBA C-Source image dump */
 
 #ifdef __SUNPRO_C
-#pragma align 4 (breakall)
+#pragma align 4 (pixmap_breakall)
 #endif
 #ifdef __GNUC__
-static const guint8 breakall[] __attribute__ ((__aligned__ (4))) = 
+const guint8 pixmap_breakall[] __attribute__ ((__aligned__ (4))) = 
 #else
-static const guint8 breakall[] = 
+const guint8 pixmap_breakall[] = 
 #endif
 { ""
   /* Pixbuf magic (0x47646b50) */
@@ -1301,12 +1301,12 @@ static const guint8 breakall[] =
 /* GdkPixbuf RGBA C-Source image dump */
 
 #ifdef __SUNPRO_C
-#pragma align 4 (center)
+#pragma align 4 (pixmap_center)
 #endif
 #ifdef __GNUC__
-static const guint8 center[] __attribute__ ((__aligned__ (4))) = 
+const guint8 pixmap_center[] __attribute__ ((__aligned__ (4))) = 
 #else
-static const guint8 center[] = 
+const guint8 pixmap_center[] = 
 #endif
 { ""
   /* Pixbuf magic (0x47646b50) */
@@ -1442,12 +1442,12 @@ static const guint8 center[] =
 /* GdkPixbuf RGBA C-Source image dump */
 
 #ifdef __SUNPRO_C
-#pragma align 4 (cite)
+#pragma align 4 (pixmap_cite)
 #endif
 #ifdef __GNUC__
-static const guint8 cite[] __attribute__ ((__aligned__ (4))) = 
+const guint8 pixmap_cite[] __attribute__ ((__aligned__ (4))) = 
 #else
-static const guint8 cite[] = 
+const guint8 pixmap_cite[] = 
 #endif
 { ""
   /* Pixbuf magic (0x47646b50) */
@@ -1575,12 +1575,12 @@ static const guint8 cite[] =
 /* GdkPixbuf RGBA C-Source image dump */
 
 #ifdef __SUNPRO_C
-#pragma align 4 (close)
+#pragma align 4 (pixmap_close)
 #endif
 #ifdef __GNUC__
-static const guint8 close[] __attribute__ ((__aligned__ (4))) = 
+const guint8 pixmap_close[] __attribute__ ((__aligned__ (4))) = 
 #else
-static const guint8 close[] = 
+const guint8 pixmap_close[] = 
 #endif
 { ""
   /* Pixbuf magic (0x47646b50) */
@@ -1670,12 +1670,12 @@ static const guint8 close[] =
 /* GdkPixbuf RGBA C-Source image dump */
 
 #ifdef __SUNPRO_C
-#pragma align 4 (code)
+#pragma align 4 (pixmap_code)
 #endif
 #ifdef __GNUC__
-static const guint8 code[] __attribute__ ((__aligned__ (4))) = 
+const guint8 pixmap_code[] __attribute__ ((__aligned__ (4))) = 
 #else
-static const guint8 code[] = 
+const guint8 pixmap_code[] = 
 #endif
 { ""
   /* Pixbuf magic (0x47646b50) */
@@ -1808,12 +1808,12 @@ static const guint8 code[] =
 /* GdkPixbuf RGBA C-Source image dump */
 
 #ifdef __SUNPRO_C
-#pragma align 4 (color_select)
+#pragma align 4 (pixmap_color_select)
 #endif
 #ifdef __GNUC__
-static const guint8 color_select[] __attribute__ ((__aligned__ (4))) = 
+const guint8 pixmap_color_select[] __attribute__ ((__aligned__ (4))) = 
 #else
-static const guint8 color_select[] = 
+const guint8 pixmap_color_select[] = 
 #endif
 { ""
   /* Pixbuf magic (0x47646b50) */
@@ -1925,12 +1925,12 @@ static const guint8 color_select[] =
 /* GdkPixbuf RGBA C-Source image dump */
 
 #ifdef __SUNPRO_C
-#pragma align 4 (comment)
+#pragma align 4 (pixmap_comment)
 #endif
 #ifdef __GNUC__
-static const guint8 comment[] __attribute__ ((__aligned__ (4))) = 
+const guint8 pixmap_comment[] __attribute__ ((__aligned__ (4))) = 
 #else
-static const guint8 comment[] = 
+const guint8 pixmap_comment[] = 
 #endif
 { ""
   /* Pixbuf magic (0x47646b50) */
@@ -2063,12 +2063,12 @@ static const guint8 comment[] =
 /* GdkPixbuf RGBA C-Source image dump */
 
 #ifdef __SUNPRO_C
-#pragma align 4 (context)
+#pragma align 4 (pixmap_context)
 #endif
 #ifdef __GNUC__
-static const guint8 context[] __attribute__ ((__aligned__ (4))) = 
+const guint8 pixmap_context[] __attribute__ ((__aligned__ (4))) = 
 #else
-static const guint8 context[] = 
+const guint8 pixmap_context[] = 
 #endif
 { ""
   /* Pixbuf magic (0x47646b50) */
@@ -2169,12 +2169,12 @@ static const guint8 context[] =
 /* GdkPixbuf RGBA C-Source image dump */
 
 #ifdef __SUNPRO_C
-#pragma align 4 (css_small)
+#pragma align 4 (pixmap_css_small)
 #endif
 #ifdef __GNUC__
-static const guint8 css_small[] __attribute__ ((__aligned__ (4))) = 
+const guint8 pixmap_css_small[] __attribute__ ((__aligned__ (4))) = 
 #else
-static const guint8 css_small[] = 
+const guint8 pixmap_css_small[] = 
 #endif
 { ""
   /* Pixbuf magic (0x47646b50) */
@@ -2224,12 +2224,12 @@ static const guint8 css_small[] =
 /* GdkPixbuf RGBA C-Source image dump */
 
 #ifdef __SUNPRO_C
-#pragma align 4 (cssdiv)
+#pragma align 4 (pixmap_cssdiv)
 #endif
 #ifdef __GNUC__
-static const guint8 cssdiv[] __attribute__ ((__aligned__ (4))) = 
+const guint8 pixmap_cssdiv[] __attribute__ ((__aligned__ (4))) = 
 #else
-static const guint8 cssdiv[] = 
+const guint8 pixmap_cssdiv[] = 
 #endif
 { ""
   /* Pixbuf magic (0x47646b50) */
@@ -2356,12 +2356,12 @@ static const guint8 cssdiv[] =
 /* GdkPixbuf RGBA C-Source image dump */
 
 #ifdef __SUNPRO_C
-#pragma align 4 (cssnewstyle)
+#pragma align 4 (pixmap_cssnewstyle)
 #endif
 #ifdef __GNUC__
-static const guint8 cssnewstyle[] __attribute__ ((__aligned__ (4))) = 
+const guint8 pixmap_cssnewstyle[] __attribute__ ((__aligned__ (4))) = 
 #else
-static const guint8 cssnewstyle[] = 
+const guint8 pixmap_cssnewstyle[] = 
 #endif
 { ""
   /* Pixbuf magic (0x47646b50) */
@@ -2484,12 +2484,12 @@ static const guint8 cssnewstyle[] =
 /* GdkPixbuf RGBA C-Source image dump */
 
 #ifdef __SUNPRO_C
-#pragma align 4 (cssspan)
+#pragma align 4 (pixmap_cssspan)
 #endif
 #ifdef __GNUC__
-static const guint8 cssspan[] __attribute__ ((__aligned__ (4))) = 
+const guint8 pixmap_cssspan[] __attribute__ ((__aligned__ (4))) = 
 #else
-static const guint8 cssspan[] = 
+const guint8 pixmap_cssspan[] = 
 #endif
 { ""
   /* Pixbuf magic (0x47646b50) */
@@ -2616,12 +2616,12 @@ static const guint8 cssspan[] =
 /* GdkPixbuf RGBA C-Source image dump */
 
 #ifdef __SUNPRO_C
-#pragma align 4 (cssstyle)
+#pragma align 4 (pixmap_cssstyle)
 #endif
 #ifdef __GNUC__
-static const guint8 cssstyle[] __attribute__ ((__aligned__ (4))) = 
+const guint8 pixmap_cssstyle[] __attribute__ ((__aligned__ (4))) = 
 #else
-static const guint8 cssstyle[] = 
+const guint8 pixmap_cssstyle[] = 
 #endif
 { ""
   /* Pixbuf magic (0x47646b50) */
@@ -2742,12 +2742,12 @@ static const guint8 cssstyle[] =
 /* GdkPixbuf RGBA C-Source image dump */
 
 #ifdef __SUNPRO_C
-#pragma align 4 (dfn)
+#pragma align 4 (pixmap_dfn)
 #endif
 #ifdef __GNUC__
-static const guint8 dfn[] __attribute__ ((__aligned__ (4))) = 
+const guint8 pixmap_dfn[] __attribute__ ((__aligned__ (4))) = 
 #else
-static const guint8 dfn[] = 
+const guint8 pixmap_dfn[] = 
 #endif
 { ""
   /* Pixbuf magic (0x47646b50) */
@@ -2878,12 +2878,12 @@ static const guint8 dfn[] =
 /* GdkPixbuf RGBA C-Source image dump */
 
 #ifdef __SUNPRO_C
-#pragma align 4 (email)
+#pragma align 4 (pixmap_email)
 #endif
 #ifdef __GNUC__
-static const guint8 email[] __attribute__ ((__aligned__ (4))) = 
+const guint8 pixmap_email[] __attribute__ ((__aligned__ (4))) = 
 #else
-static const guint8 email[] = 
+const guint8 pixmap_email[] = 
 #endif
 { ""
   /* Pixbuf magic (0x47646b50) */
@@ -2998,12 +2998,12 @@ static const guint8 email[] =
 /* GdkPixbuf RGBA C-Source image dump */
 
 #ifdef __SUNPRO_C
-#pragma align 4 (embed)
+#pragma align 4 (pixmap_embed)
 #endif
 #ifdef __GNUC__
-static const guint8 embed[] __attribute__ ((__aligned__ (4))) = 
+const guint8 pixmap_embed[] __attribute__ ((__aligned__ (4))) = 
 #else
-static const guint8 embed[] = 
+const guint8 pixmap_embed[] = 
 #endif
 { ""
   /* Pixbuf magic (0x47646b50) */
@@ -3117,12 +3117,12 @@ static const guint8 embed[] =
 /* GdkPixbuf RGBA C-Source image dump */
 
 #ifdef __SUNPRO_C
-#pragma align 4 (filetree)
+#pragma align 4 (pixmap_filetree)
 #endif
 #ifdef __GNUC__
-static const guint8 filetree[] __attribute__ ((__aligned__ (4))) = 
+const guint8 pixmap_filetree[] __attribute__ ((__aligned__ (4))) = 
 #else
-static const guint8 filetree[] = 
+const guint8 pixmap_filetree[] = 
 #endif
 { ""
   /* Pixbuf magic (0x47646b50) */
@@ -3239,12 +3239,12 @@ static const guint8 filetree[] =
 /* GdkPixbuf RGBA C-Source image dump */
 
 #ifdef __SUNPRO_C
-#pragma align 4 (font)
+#pragma align 4 (pixmap_font)
 #endif
 #ifdef __GNUC__
-static const guint8 font[] __attribute__ ((__aligned__ (4))) = 
+const guint8 pixmap_font[] __attribute__ ((__aligned__ (4))) = 
 #else
-static const guint8 font[] = 
+const guint8 pixmap_font[] = 
 #endif
 { ""
   /* Pixbuf magic (0x47646b50) */
@@ -3371,12 +3371,12 @@ static const guint8 font[] =
 /* GdkPixbuf RGBA C-Source image dump */
 
 #ifdef __SUNPRO_C
-#pragma align 4 (font_base)
+#pragma align 4 (pixmap_font_base)
 #endif
 #ifdef __GNUC__
-static const guint8 font_base[] __attribute__ ((__aligned__ (4))) = 
+const guint8 pixmap_font_base[] __attribute__ ((__aligned__ (4))) = 
 #else
-static const guint8 font_base[] = 
+const guint8 pixmap_font_base[] = 
 #endif
 { ""
   /* Pixbuf magic (0x47646b50) */
@@ -3503,12 +3503,12 @@ static const guint8 font_base[] =
 /* GdkPixbuf RGBA C-Source image dump */
 
 #ifdef __SUNPRO_C
-#pragma align 4 (fonth1)
+#pragma align 4 (pixmap_fonth1)
 #endif
 #ifdef __GNUC__
-static const guint8 fonth1[] __attribute__ ((__aligned__ (4))) = 
+const guint8 pixmap_fonth1[] __attribute__ ((__aligned__ (4))) = 
 #else
-static const guint8 fonth1[] = 
+const guint8 pixmap_fonth1[] = 
 #endif
 { ""
   /* Pixbuf magic (0x47646b50) */
@@ -3640,12 +3640,12 @@ static const guint8 fonth1[] =
 /* GdkPixbuf RGBA C-Source image dump */
 
 #ifdef __SUNPRO_C
-#pragma align 4 (fonth2)
+#pragma align 4 (pixmap_fonth2)
 #endif
 #ifdef __GNUC__
-static const guint8 fonth2[] __attribute__ ((__aligned__ (4))) = 
+const guint8 pixmap_fonth2[] __attribute__ ((__aligned__ (4))) = 
 #else
-static const guint8 fonth2[] = 
+const guint8 pixmap_fonth2[] = 
 #endif
 { ""
   /* Pixbuf magic (0x47646b50) */
@@ -3776,12 +3776,12 @@ static const guint8 fonth2[] =
 /* GdkPixbuf RGBA C-Source image dump */
 
 #ifdef __SUNPRO_C
-#pragma align 4 (fonth3)
+#pragma align 4 (pixmap_fonth3)
 #endif
 #ifdef __GNUC__
-static const guint8 fonth3[] __attribute__ ((__aligned__ (4))) = 
+const guint8 pixmap_fonth3[] __attribute__ ((__aligned__ (4))) = 
 #else
-static const guint8 fonth3[] = 
+const guint8 pixmap_fonth3[] = 
 #endif
 { ""
   /* Pixbuf magic (0x47646b50) */
@@ -3912,12 +3912,12 @@ static const guint8 fonth3[] =
 /* GdkPixbuf RGBA C-Source image dump */
 
 #ifdef __SUNPRO_C
-#pragma align 4 (fonth4)
+#pragma align 4 (pixmap_fonth4)
 #endif
 #ifdef __GNUC__
-static const guint8 fonth4[] __attribute__ ((__aligned__ (4))) = 
+const guint8 pixmap_fonth4[] __attribute__ ((__aligned__ (4))) = 
 #else
-static const guint8 fonth4[] = 
+const guint8 pixmap_fonth4[] = 
 #endif
 { ""
   /* Pixbuf magic (0x47646b50) */
@@ -4049,12 +4049,12 @@ static const guint8 fonth4[] =
 /* GdkPixbuf RGBA C-Source image dump */
 
 #ifdef __SUNPRO_C
-#pragma align 4 (fonth5)
+#pragma align 4 (pixmap_fonth5)
 #endif
 #ifdef __GNUC__
-static const guint8 fonth5[] __attribute__ ((__aligned__ (4))) = 
+const guint8 pixmap_fonth5[] __attribute__ ((__aligned__ (4))) = 
 #else
-static const guint8 fonth5[] = 
+const guint8 pixmap_fonth5[] = 
 #endif
 { ""
   /* Pixbuf magic (0x47646b50) */
@@ -4185,12 +4185,12 @@ static const guint8 fonth5[] =
 /* GdkPixbuf RGBA C-Source image dump */
 
 #ifdef __SUNPRO_C
-#pragma align 4 (fonth6)
+#pragma align 4 (pixmap_fonth6)
 #endif
 #ifdef __GNUC__
-static const guint8 fonth6[] __attribute__ ((__aligned__ (4))) = 
+const guint8 pixmap_fonth6[] __attribute__ ((__aligned__ (4))) = 
 #else
-static const guint8 fonth6[] = 
+const guint8 pixmap_fonth6[] = 
 #endif
 { ""
   /* Pixbuf magic (0x47646b50) */
@@ -4321,12 +4321,12 @@ static const guint8 fonth6[] =
 /* GdkPixbuf RGBA C-Source image dump */
 
 #ifdef __SUNPRO_C
-#pragma align 4 (fontm1)
+#pragma align 4 (pixmap_fontm1)
 #endif
 #ifdef __GNUC__
-static const guint8 fontm1[] __attribute__ ((__aligned__ (4))) = 
+const guint8 pixmap_fontm1[] __attribute__ ((__aligned__ (4))) = 
 #else
-static const guint8 fontm1[] = 
+const guint8 pixmap_fontm1[] = 
 #endif
 { ""
   /* Pixbuf magic (0x47646b50) */
@@ -4457,12 +4457,12 @@ static const guint8 fontm1[] =
 /* GdkPixbuf RGBA C-Source image dump */
 
 #ifdef __SUNPRO_C
-#pragma align 4 (fontp1)
+#pragma align 4 (pixmap_fontp1)
 #endif
 #ifdef __GNUC__
-static const guint8 fontp1[] __attribute__ ((__aligned__ (4))) = 
+const guint8 pixmap_fontp1[] __attribute__ ((__aligned__ (4))) = 
 #else
-static const guint8 fontp1[] = 
+const guint8 pixmap_fontp1[] = 
 #endif
 { ""
   /* Pixbuf magic (0x47646b50) */
@@ -4593,12 +4593,12 @@ static const guint8 fontp1[] =
 /* GdkPixbuf RGBA C-Source image dump */
 
 #ifdef __SUNPRO_C
-#pragma align 4 (fontpre)
+#pragma align 4 (pixmap_fontpre)
 #endif
 #ifdef __GNUC__
-static const guint8 fontpre[] __attribute__ ((__aligned__ (4))) = 
+const guint8 pixmap_fontpre[] __attribute__ ((__aligned__ (4))) = 
 #else
-static const guint8 fontpre[] = 
+const guint8 pixmap_fontpre[] = 
 #endif
 { ""
   /* Pixbuf magic (0x47646b50) */
@@ -4728,12 +4728,12 @@ static const guint8 fontpre[] =
 /* GdkPixbuf RGBA C-Source image dump */
 
 #ifdef __SUNPRO_C
-#pragma align 4 (fontsub)
+#pragma align 4 (pixmap_fontsub)
 #endif
 #ifdef __GNUC__
-static const guint8 fontsub[] __attribute__ ((__aligned__ (4))) = 
+const guint8 pixmap_fontsub[] __attribute__ ((__aligned__ (4))) = 
 #else
-static const guint8 fontsub[] = 
+const guint8 pixmap_fontsub[] = 
 #endif
 { ""
   /* Pixbuf magic (0x47646b50) */
@@ -4864,12 +4864,12 @@ static const guint8 fontsub[] =
 /* GdkPixbuf RGBA C-Source image dump */
 
 #ifdef __SUNPRO_C
-#pragma align 4 (fontsuper)
+#pragma align 4 (pixmap_fontsuper)
 #endif
 #ifdef __GNUC__
-static const guint8 fontsuper[] __attribute__ ((__aligned__ (4))) = 
+const guint8 pixmap_fontsuper[] __attribute__ ((__aligned__ (4))) = 
 #else
-static const guint8 fontsuper[] = 
+const guint8 pixmap_fontsuper[] = 
 #endif
 { ""
   /* Pixbuf magic (0x47646b50) */
@@ -5000,12 +5000,12 @@ static const guint8 fontsuper[] =
 /* GdkPixbuf RGBA C-Source image dump */
 
 #ifdef __SUNPRO_C
-#pragma align 4 (form)
+#pragma align 4 (pixmap_form)
 #endif
 #ifdef __GNUC__
-static const guint8 form[] __attribute__ ((__aligned__ (4))) = 
+const guint8 pixmap_form[] __attribute__ ((__aligned__ (4))) = 
 #else
-static const guint8 form[] = 
+const guint8 pixmap_form[] = 
 #endif
 { ""
   /* Pixbuf magic (0x47646b50) */
@@ -5137,12 +5137,12 @@ static const guint8 form[] =
 /* GdkPixbuf RGBA C-Source image dump */
 
 #ifdef __SUNPRO_C
-#pragma align 4 (form_check)
+#pragma align 4 (pixmap_form_check)
 #endif
 #ifdef __GNUC__
-static const guint8 form_check[] __attribute__ ((__aligned__ (4))) = 
+const guint8 pixmap_form_check[] __attribute__ ((__aligned__ (4))) = 
 #else
-static const guint8 form_check[] = 
+const guint8 pixmap_form_check[] = 
 #endif
 { ""
   /* Pixbuf magic (0x47646b50) */
@@ -5248,12 +5248,12 @@ static const guint8 form_check[] =
 /* GdkPixbuf RGBA C-Source image dump */
 
 #ifdef __SUNPRO_C
-#pragma align 4 (form_hidden)
+#pragma align 4 (pixmap_form_hidden)
 #endif
 #ifdef __GNUC__
-static const guint8 form_hidden[] __attribute__ ((__aligned__ (4))) = 
+const guint8 pixmap_form_hidden[] __attribute__ ((__aligned__ (4))) = 
 #else
-static const guint8 form_hidden[] = 
+const guint8 pixmap_form_hidden[] = 
 #endif
 { ""
   /* Pixbuf magic (0x47646b50) */
@@ -5365,12 +5365,12 @@ static const guint8 form_hidden[] =
 /* GdkPixbuf RGBA C-Source image dump */
 
 #ifdef __SUNPRO_C
-#pragma align 4 (form_option)
+#pragma align 4 (pixmap_form_option)
 #endif
 #ifdef __GNUC__
-static const guint8 form_option[] __attribute__ ((__aligned__ (4))) = 
+const guint8 pixmap_form_option[] __attribute__ ((__aligned__ (4))) = 
 #else
-static const guint8 form_option[] = 
+const guint8 pixmap_form_option[] = 
 #endif
 { ""
   /* Pixbuf magic (0x47646b50) */
@@ -5506,12 +5506,12 @@ static const guint8 form_option[] =
 /* GdkPixbuf RGBA C-Source image dump */
 
 #ifdef __SUNPRO_C
-#pragma align 4 (form_radio)
+#pragma align 4 (pixmap_form_radio)
 #endif
 #ifdef __GNUC__
-static const guint8 form_radio[] __attribute__ ((__aligned__ (4))) = 
+const guint8 pixmap_form_radio[] __attribute__ ((__aligned__ (4))) = 
 #else
-static const guint8 form_radio[] = 
+const guint8 pixmap_form_radio[] = 
 #endif
 { ""
   /* Pixbuf magic (0x47646b50) */
@@ -5613,12 +5613,12 @@ static const guint8 form_radio[] =
 /* GdkPixbuf RGBA C-Source image dump */
 
 #ifdef __SUNPRO_C
-#pragma align 4 (form_select)
+#pragma align 4 (pixmap_form_select)
 #endif
 #ifdef __GNUC__
-static const guint8 form_select[] __attribute__ ((__aligned__ (4))) = 
+const guint8 pixmap_form_select[] __attribute__ ((__aligned__ (4))) = 
 #else
-static const guint8 form_select[] = 
+const guint8 pixmap_form_select[] = 
 #endif
 { ""
   /* Pixbuf magic (0x47646b50) */
@@ -5753,12 +5753,12 @@ static const guint8 form_select[] =
 /* GdkPixbuf RGBA C-Source image dump */
 
 #ifdef __SUNPRO_C
-#pragma align 4 (form_submit)
+#pragma align 4 (pixmap_form_submit)
 #endif
 #ifdef __GNUC__
-static const guint8 form_submit[] __attribute__ ((__aligned__ (4))) = 
+const guint8 pixmap_form_submit[] __attribute__ ((__aligned__ (4))) = 
 #else
-static const guint8 form_submit[] = 
+const guint8 pixmap_form_submit[] = 
 #endif
 { ""
   /* Pixbuf magic (0x47646b50) */
@@ -5873,12 +5873,12 @@ static const guint8 form_submit[] =
 /* GdkPixbuf RGBA C-Source image dump */
 
 #ifdef __SUNPRO_C
-#pragma align 4 (form_text)
+#pragma align 4 (pixmap_form_text)
 #endif
 #ifdef __GNUC__
-static const guint8 form_text[] __attribute__ ((__aligned__ (4))) = 
+const guint8 pixmap_form_text[] __attribute__ ((__aligned__ (4))) = 
 #else
-static const guint8 form_text[] = 
+const guint8 pixmap_form_text[] = 
 #endif
 { ""
   /* Pixbuf magic (0x47646b50) */
@@ -5992,12 +5992,12 @@ static const guint8 form_text[] =
 /* GdkPixbuf RGBA C-Source image dump */
 
 #ifdef __SUNPRO_C
-#pragma align 4 (form_textarea)
+#pragma align 4 (pixmap_form_textarea)
 #endif
 #ifdef __GNUC__
-static const guint8 form_textarea[] __attribute__ ((__aligned__ (4))) = 
+const guint8 pixmap_form_textarea[] __attribute__ ((__aligned__ (4))) = 
 #else
-static const guint8 form_textarea[] = 
+const guint8 pixmap_form_textarea[] = 
 #endif
 { ""
   /* Pixbuf magic (0x47646b50) */
@@ -6132,12 +6132,12 @@ static const guint8 form_textarea[] =
 /* GdkPixbuf RGBA C-Source image dump */
 
 #ifdef __SUNPRO_C
-#pragma align 4 (form_optiongroup)
+#pragma align 4 (pixmap_form_optiongroup)
 #endif
 #ifdef __GNUC__
-static const guint8 form_optiongroup[] __attribute__ ((__aligned__ (4))) = 
+const guint8 pixmap_form_optiongroup[] __attribute__ ((__aligned__ (4))) = 
 #else
-static const guint8 form_optiongroup[] = 
+const guint8 pixmap_form_optiongroup[] = 
 #endif
 { ""
   /* Pixbuf magic (0x47646b50) */
@@ -6239,12 +6239,12 @@ static const guint8 form_optiongroup[] =
 /* GdkPixbuf RGBA C-Source image dump */
 
 #ifdef __SUNPRO_C
-#pragma align 4 (frame)
+#pragma align 4 (pixmap_frame)
 #endif
 #ifdef __GNUC__
-static const guint8 frame[] __attribute__ ((__aligned__ (4))) = 
+const guint8 pixmap_frame[] __attribute__ ((__aligned__ (4))) = 
 #else
-static const guint8 frame[] = 
+const guint8 pixmap_frame[] = 
 #endif
 { ""
   /* Pixbuf magic (0x47646b50) */
@@ -6346,12 +6346,12 @@ static const guint8 frame[] =
 /* GdkPixbuf RGBA C-Source image dump */
 
 #ifdef __SUNPRO_C
-#pragma align 4 (frame2)
+#pragma align 4 (pixmap_frame2)
 #endif
 #ifdef __GNUC__
-static const guint8 frame2[] __attribute__ ((__aligned__ (4))) = 
+const guint8 pixmap_frame2[] __attribute__ ((__aligned__ (4))) = 
 #else
-static const guint8 frame2[] = 
+const guint8 pixmap_frame2[] = 
 #endif
 { ""
   /* Pixbuf magic (0x47646b50) */
@@ -6453,12 +6453,12 @@ static const guint8 frame2[] =
 /* GdkPixbuf RGBA C-Source image dump */
 
 #ifdef __SUNPRO_C
-#pragma align 4 (frame_base)
+#pragma align 4 (pixmap_frame_base)
 #endif
 #ifdef __GNUC__
-static const guint8 frame_base[] __attribute__ ((__aligned__ (4))) = 
+const guint8 pixmap_frame_base[] __attribute__ ((__aligned__ (4))) = 
 #else
-static const guint8 frame_base[] = 
+const guint8 pixmap_frame_base[] = 
 #endif
 { ""
   /* Pixbuf magic (0x47646b50) */
@@ -6578,12 +6578,12 @@ static const guint8 frame_base[] =
 /* GdkPixbuf RGBA C-Source image dump */
 
 #ifdef __SUNPRO_C
-#pragma align 4 (frame_no)
+#pragma align 4 (pixmap_frame_no)
 #endif
 #ifdef __GNUC__
-static const guint8 frame_no[] __attribute__ ((__aligned__ (4))) = 
+const guint8 pixmap_frame_no[] __attribute__ ((__aligned__ (4))) = 
 #else
-static const guint8 frame_no[] = 
+const guint8 pixmap_frame_no[] = 
 #endif
 { ""
   /* Pixbuf magic (0x47646b50) */
@@ -6695,12 +6695,12 @@ static const guint8 frame_no[] =
 /* GdkPixbuf RGBA C-Source image dump */
 
 #ifdef __SUNPRO_C
-#pragma align 4 (frameset)
+#pragma align 4 (pixmap_frameset)
 #endif
 #ifdef __GNUC__
-static const guint8 frameset[] __attribute__ ((__aligned__ (4))) = 
+const guint8 pixmap_frameset[] __attribute__ ((__aligned__ (4))) = 
 #else
-static const guint8 frameset[] = 
+const guint8 pixmap_frameset[] = 
 #endif
 { ""
   /* Pixbuf magic (0x47646b50) */
@@ -6822,12 +6822,12 @@ static const guint8 frameset[] =
 /* GdkPixbuf RGBA C-Source image dump */
 
 #ifdef __SUNPRO_C
-#pragma align 4 (frameset2)
+#pragma align 4 (pixmap_frameset2)
 #endif
 #ifdef __GNUC__
-static const guint8 frameset2[] __attribute__ ((__aligned__ (4))) = 
+const guint8 pixmap_frameset2[] __attribute__ ((__aligned__ (4))) = 
 #else
-static const guint8 frameset2[] = 
+const guint8 pixmap_frameset2[] = 
 #endif
 { ""
   /* Pixbuf magic (0x47646b50) */
@@ -6950,12 +6950,12 @@ static const guint8 frameset2[] =
 /* GdkPixbuf RGBA C-Source image dump */
 
 #ifdef __SUNPRO_C
-#pragma align 4 (framewhiz)
+#pragma align 4 (pixmap_framewhiz)
 #endif
 #ifdef __GNUC__
-static const guint8 framewhiz[] __attribute__ ((__aligned__ (4))) = 
+const guint8 pixmap_framewhiz[] __attribute__ ((__aligned__ (4))) = 
 #else
-static const guint8 framewhiz[] = 
+const guint8 pixmap_framewhiz[] = 
 #endif
 { ""
   /* Pixbuf magic (0x47646b50) */
@@ -7076,12 +7076,12 @@ static const guint8 framewhiz[] =
 /* GdkPixbuf RGBA C-Source image dump */
 
 #ifdef __SUNPRO_C
-#pragma align 4 (fref)
+#pragma align 4 (pixmap_fref)
 #endif
 #ifdef __GNUC__
-static const guint8 fref[] __attribute__ ((__aligned__ (4))) = 
+const guint8 pixmap_fref[] __attribute__ ((__aligned__ (4))) = 
 #else
-static const guint8 fref[] = 
+const guint8 pixmap_fref[] = 
 #endif
 { ""
   /* Pixbuf magic (0x47646b50) */
@@ -7193,12 +7193,12 @@ static const guint8 fref[] =
 /* GdkPixbuf RGBA C-Source image dump */
 
 #ifdef __SUNPRO_C
-#pragma align 4 (frdialog)
+#pragma align 4 (pixmap_frdialog)
 #endif
 #ifdef __GNUC__
-static const guint8 frdialog[] __attribute__ ((__aligned__ (4))) = 
+const guint8 pixmap_frdialog[] __attribute__ ((__aligned__ (4))) = 
 #else
-static const guint8 frdialog[] = 
+const guint8 pixmap_frdialog[] = 
 #endif
 { ""
   /* Pixbuf magic (0x47646b50) */
@@ -7253,12 +7253,12 @@ static const guint8 frdialog[] =
 /* GdkPixbuf RGBA C-Source image dump */
 
 #ifdef __SUNPRO_C
-#pragma align 4 (frinfo)
+#pragma align 4 (pixmap_frinfo)
 #endif
 #ifdef __GNUC__
-static const guint8 frinfo[] __attribute__ ((__aligned__ (4))) = 
+const guint8 pixmap_frinfo[] __attribute__ ((__aligned__ (4))) = 
 #else
-static const guint8 frinfo[] = 
+const guint8 pixmap_frinfo[] = 
 #endif
 { ""
   /* Pixbuf magic (0x47646b50) */
@@ -7308,12 +7308,12 @@ static const guint8 frinfo[] =
 /* GdkPixbuf RGBA C-Source image dump */
 
 #ifdef __SUNPRO_C
-#pragma align 4 (frsearch)
+#pragma align 4 (pixmap_frsearch)
 #endif
 #ifdef __GNUC__
-static const guint8 frsearch[] __attribute__ ((__aligned__ (4))) = 
+const guint8 pixmap_frsearch[] __attribute__ ((__aligned__ (4))) = 
 #else
-static const guint8 frsearch[] = 
+const guint8 pixmap_frsearch[] = 
 #endif
 { ""
   /* Pixbuf magic (0x47646b50) */
@@ -7369,12 +7369,12 @@ static const guint8 frsearch[] =
 /* GdkPixbuf RGBA C-Source image dump */
 
 #ifdef __SUNPRO_C
-#pragma align 4 (headings)
+#pragma align 4 (pixmap_headings)
 #endif
 #ifdef __GNUC__
-static const guint8 headings[] __attribute__ ((__aligned__ (4))) = 
+const guint8 pixmap_headings[] __attribute__ ((__aligned__ (4))) = 
 #else
-static const guint8 headings[] = 
+const guint8 pixmap_headings[] = 
 #endif
 { ""
   /* Pixbuf magic (0x47646b50) */
@@ -7501,12 +7501,12 @@ static const guint8 headings[] =
 /* GdkPixbuf RGBA C-Source image dump */
 
 #ifdef __SUNPRO_C
-#pragma align 4 (hrule)
+#pragma align 4 (pixmap_hrule)
 #endif
 #ifdef __GNUC__
-static const guint8 hrule[] __attribute__ ((__aligned__ (4))) = 
+const guint8 pixmap_hrule[] __attribute__ ((__aligned__ (4))) = 
 #else
-static const guint8 hrule[] = 
+const guint8 pixmap_hrule[] = 
 #endif
 { ""
   /* Pixbuf magic (0x47646b50) */
@@ -7640,12 +7640,12 @@ static const guint8 hrule[] =
 /* GdkPixbuf RGBA C-Source image dump */
 
 #ifdef __SUNPRO_C
-#pragma align 4 (image)
+#pragma align 4 (pixmap_image)
 #endif
 #ifdef __GNUC__
-static const guint8 image[] __attribute__ ((__aligned__ (4))) = 
+const guint8 pixmap_image[] __attribute__ ((__aligned__ (4))) = 
 #else
-static const guint8 image[] = 
+const guint8 pixmap_image[] = 
 #endif
 { ""
   /* Pixbuf magic (0x47646b50) */
@@ -7769,12 +7769,12 @@ static const guint8 image[] =
 /* GdkPixbuf RGBA C-Source image dump */
 
 #ifdef __SUNPRO_C
-#pragma align 4 (indent)
+#pragma align 4 (pixmap_indent)
 #endif
 #ifdef __GNUC__
-static const guint8 indent[] __attribute__ ((__aligned__ (4))) = 
+const guint8 pixmap_indent[] __attribute__ ((__aligned__ (4))) = 
 #else
-static const guint8 indent[] = 
+const guint8 pixmap_indent[] = 
 #endif
 { ""
   /* Pixbuf magic (0x47646b50) */
@@ -7904,12 +7904,12 @@ static const guint8 indent[] =
 /* GdkPixbuf RGBA C-Source image dump */
 
 #ifdef __SUNPRO_C
-#pragma align 4 (italic)
+#pragma align 4 (pixmap_italic)
 #endif
 #ifdef __GNUC__
-static const guint8 italic[] __attribute__ ((__aligned__ (4))) = 
+const guint8 pixmap_italic[] __attribute__ ((__aligned__ (4))) = 
 #else
-static const guint8 italic[] = 
+const guint8 pixmap_italic[] = 
 #endif
 { ""
   /* Pixbuf magic (0x47646b50) */
@@ -8040,12 +8040,12 @@ static const guint8 italic[] =
 /* GdkPixbuf RGBA C-Source image dump */
 
 #ifdef __SUNPRO_C
-#pragma align 4 (kbd)
+#pragma align 4 (pixmap_kbd)
 #endif
 #ifdef __GNUC__
-static const guint8 kbd[] __attribute__ ((__aligned__ (4))) = 
+const guint8 pixmap_kbd[] __attribute__ ((__aligned__ (4))) = 
 #else
-static const guint8 kbd[] = 
+const guint8 pixmap_kbd[] = 
 #endif
 { ""
   /* Pixbuf magic (0x47646b50) */
@@ -8173,12 +8173,12 @@ static const guint8 kbd[] =
 /* GdkPixbuf RGBA C-Source image dump */
 
 #ifdef __SUNPRO_C
-#pragma align 4 (linkstylesheet)
+#pragma align 4 (pixmap_linkstylesheet)
 #endif
 #ifdef __GNUC__
-static const guint8 linkstylesheet[] __attribute__ ((__aligned__ (4))) = 
+const guint8 pixmap_linkstylesheet[] __attribute__ ((__aligned__ (4))) = 
 #else
-static const guint8 linkstylesheet[] = 
+const guint8 pixmap_linkstylesheet[] = 
 #endif
 { ""
   /* Pixbuf magic (0x47646b50) */
@@ -8298,12 +8298,12 @@ static const guint8 linkstylesheet[] =
 /* GdkPixbuf RGBA C-Source image dump */
 
 #ifdef __SUNPRO_C
-#pragma align 4 (list)
+#pragma align 4 (pixmap_list)
 #endif
 #ifdef __GNUC__
-static const guint8 list[] __attribute__ ((__aligned__ (4))) = 
+const guint8 pixmap_list[] __attribute__ ((__aligned__ (4))) = 
 #else
-static const guint8 list[] = 
+const guint8 pixmap_list[] = 
 #endif
 { ""
   /* Pixbuf magic (0x47646b50) */
@@ -8431,12 +8431,12 @@ static const guint8 list[] =
 /* GdkPixbuf RGBA C-Source image dump */
 
 #ifdef __SUNPRO_C
-#pragma align 4 (list_dd)
+#pragma align 4 (pixmap_list_dd)
 #endif
 #ifdef __GNUC__
-static const guint8 list_dd[] __attribute__ ((__aligned__ (4))) = 
+const guint8 pixmap_list_dd[] __attribute__ ((__aligned__ (4))) = 
 #else
-static const guint8 list_dd[] = 
+const guint8 pixmap_list_dd[] = 
 #endif
 { ""
   /* Pixbuf magic (0x47646b50) */
@@ -8567,12 +8567,12 @@ static const guint8 list_dd[] =
 /* GdkPixbuf RGBA C-Source image dump */
 
 #ifdef __SUNPRO_C
-#pragma align 4 (list_dl)
+#pragma align 4 (pixmap_list_dl)
 #endif
 #ifdef __GNUC__
-static const guint8 list_dl[] __attribute__ ((__aligned__ (4))) = 
+const guint8 pixmap_list_dl[] __attribute__ ((__aligned__ (4))) = 
 #else
-static const guint8 list_dl[] = 
+const guint8 pixmap_list_dl[] = 
 #endif
 { ""
   /* Pixbuf magic (0x47646b50) */
@@ -8701,12 +8701,12 @@ static const guint8 list_dl[] =
 /* GdkPixbuf RGBA C-Source image dump */
 
 #ifdef __SUNPRO_C
-#pragma align 4 (list_dt)
+#pragma align 4 (pixmap_list_dt)
 #endif
 #ifdef __GNUC__
-static const guint8 list_dt[] __attribute__ ((__aligned__ (4))) = 
+const guint8 pixmap_list_dt[] __attribute__ ((__aligned__ (4))) = 
 #else
-static const guint8 list_dt[] = 
+const guint8 pixmap_list_dt[] = 
 #endif
 { ""
   /* Pixbuf magic (0x47646b50) */
@@ -8833,12 +8833,12 @@ static const guint8 list_dt[] =
 /* GdkPixbuf RGBA C-Source image dump */
 
 #ifdef __SUNPRO_C
-#pragma align 4 (list_li)
+#pragma align 4 (pixmap_list_li)
 #endif
 #ifdef __GNUC__
-static const guint8 list_li[] __attribute__ ((__aligned__ (4))) = 
+const guint8 pixmap_list_li[] __attribute__ ((__aligned__ (4))) = 
 #else
-static const guint8 list_li[] = 
+const guint8 pixmap_list_li[] = 
 #endif
 { ""
   /* Pixbuf magic (0x47646b50) */
@@ -8969,12 +8969,12 @@ static const guint8 list_li[] =
 /* GdkPixbuf RGBA C-Source image dump */
 
 #ifdef __SUNPRO_C
-#pragma align 4 (list_ol)
+#pragma align 4 (pixmap_list_ol)
 #endif
 #ifdef __GNUC__
-static const guint8 list_ol[] __attribute__ ((__aligned__ (4))) = 
+const guint8 pixmap_list_ol[] __attribute__ ((__aligned__ (4))) = 
 #else
-static const guint8 list_ol[] = 
+const guint8 pixmap_list_ol[] = 
 #endif
 { ""
   /* Pixbuf magic (0x47646b50) */
@@ -9103,12 +9103,12 @@ static const guint8 list_ol[] =
 /* GdkPixbuf RGBA C-Source image dump */
 
 #ifdef __SUNPRO_C
-#pragma align 4 (list_ul)
+#pragma align 4 (pixmap_list_ul)
 #endif
 #ifdef __GNUC__
-static const guint8 list_ul[] __attribute__ ((__aligned__ (4))) = 
+const guint8 pixmap_list_ul[] __attribute__ ((__aligned__ (4))) = 
 #else
-static const guint8 list_ul[] = 
+const guint8 pixmap_list_ul[] = 
 #endif
 { ""
   /* Pixbuf magic (0x47646b50) */
@@ -9237,12 +9237,12 @@ static const guint8 list_ul[] =
 /* GdkPixbuf RGBA C-Source image dump */
 
 #ifdef __SUNPRO_C
-#pragma align 4 (meta)
+#pragma align 4 (pixmap_meta)
 #endif
 #ifdef __GNUC__
-static const guint8 meta[] __attribute__ ((__aligned__ (4))) = 
+const guint8 pixmap_meta[] __attribute__ ((__aligned__ (4))) = 
 #else
-static const guint8 meta[] = 
+const guint8 pixmap_meta[] = 
 #endif
 { ""
   /* Pixbuf magic (0x47646b50) */
@@ -9339,12 +9339,12 @@ static const guint8 meta[] =
 /* GdkPixbuf RGBA C-Source image dump */
 
 #ifdef __SUNPRO_C
-#pragma align 4 (multithumbs)
+#pragma align 4 (pixmap_multithumbs)
 #endif
 #ifdef __GNUC__
-static const guint8 multithumbs[] __attribute__ ((__aligned__ (4))) = 
+const guint8 pixmap_multithumbs[] __attribute__ ((__aligned__ (4))) = 
 #else
-static const guint8 multithumbs[] = 
+const guint8 pixmap_multithumbs[] = 
 #endif
 { ""
   /* Pixbuf magic (0x47646b50) */
@@ -9456,12 +9456,12 @@ static const guint8 multithumbs[] =
 /* GdkPixbuf RGBA C-Source image dump */
 
 #ifdef __SUNPRO_C
-#pragma align 4 (nbsp)
+#pragma align 4 (pixmap_nbsp)
 #endif
 #ifdef __GNUC__
-static const guint8 nbsp[] __attribute__ ((__aligned__ (4))) = 
+const guint8 pixmap_nbsp[] __attribute__ ((__aligned__ (4))) = 
 #else
-static const guint8 nbsp[] = 
+const guint8 pixmap_nbsp[] = 
 #endif
 { ""
   /* Pixbuf magic (0x47646b50) */
@@ -9558,12 +9558,12 @@ static const guint8 nbsp[] =
 /* GdkPixbuf RGBA C-Source image dump */
 
 #ifdef __SUNPRO_C
-#pragma align 4 (new)
+#pragma align 4 (pixmap_new)
 #endif
 #ifdef __GNUC__
-static const guint8 new[] __attribute__ ((__aligned__ (4))) = 
+const guint8 pixmap_new[] __attribute__ ((__aligned__ (4))) = 
 #else
-static const guint8 new[] = 
+const guint8 pixmap_new[] = 
 #endif
 { ""
   /* Pixbuf magic (0x47646b50) */
@@ -9694,12 +9694,12 @@ static const guint8 new[] =
 /* GdkPixbuf RGBA C-Source image dump */
 
 #ifdef __SUNPRO_C
-#pragma align 4 (nothing)
+#pragma align 4 (pixmap_nothing)
 #endif
 #ifdef __GNUC__
-static const guint8 nothing[] __attribute__ ((__aligned__ (4))) = 
+const guint8 pixmap_nothing[] __attribute__ ((__aligned__ (4))) = 
 #else
-static const guint8 nothing[] = 
+const guint8 pixmap_nothing[] = 
 #endif
 { ""
   /* Pixbuf magic (0x47646b50) */
@@ -9829,12 +9829,12 @@ static const guint8 nothing[] =
 /* GdkPixbuf RGBA C-Source image dump */
 
 #ifdef __SUNPRO_C
-#pragma align 4 (open_small)
+#pragma align 4 (pixmap_open_small)
 #endif
 #ifdef __GNUC__
-static const guint8 open_small[] __attribute__ ((__aligned__ (4))) = 
+const guint8 pixmap_open_small[] __attribute__ ((__aligned__ (4))) = 
 #else
-static const guint8 open_small[] = 
+const guint8 pixmap_open_small[] = 
 #endif
 { ""
   /* Pixbuf magic (0x47646b50) */
@@ -9896,12 +9896,12 @@ static const guint8 open_small[] =
 /* GdkPixbuf RGBA C-Source image dump */
 
 #ifdef __SUNPRO_C
-#pragma align 4 (paragraph)
+#pragma align 4 (pixmap_paragraph)
 #endif
 #ifdef __GNUC__
-static const guint8 paragraph[] __attribute__ ((__aligned__ (4))) = 
+const guint8 pixmap_paragraph[] __attribute__ ((__aligned__ (4))) = 
 #else
-static const guint8 paragraph[] = 
+const guint8 pixmap_paragraph[] = 
 #endif
 { ""
   /* Pixbuf magic (0x47646b50) */
@@ -10034,12 +10034,12 @@ static const guint8 paragraph[] =
 /* GdkPixbuf RGBA C-Source image dump */
 
 #ifdef __SUNPRO_C
-#pragma align 4 (php3)
+#pragma align 4 (pixmap_php3)
 #endif
 #ifdef __GNUC__
-static const guint8 php3[] __attribute__ ((__aligned__ (4))) = 
+const guint8 pixmap_php3[] __attribute__ ((__aligned__ (4))) = 
 #else
-static const guint8 php3[] = 
+const guint8 pixmap_php3[] = 
 #endif
 { ""
   /* Pixbuf magic (0x47646b50) */
@@ -10135,12 +10135,12 @@ static const guint8 php3[] =
 /* GdkPixbuf RGBA C-Source image dump */
 
 #ifdef __SUNPRO_C
-#pragma align 4 (prefseditor)
+#pragma align 4 (pixmap_prefseditor)
 #endif
 #ifdef __GNUC__
-static const guint8 prefseditor[] __attribute__ ((__aligned__ (4))) = 
+const guint8 pixmap_prefseditor[] __attribute__ ((__aligned__ (4))) = 
 #else
-static const guint8 prefseditor[] = 
+const guint8 pixmap_prefseditor[] = 
 #endif
 { ""
   /* Pixbuf magic (0x47646b50) */
@@ -10266,12 +10266,12 @@ static const guint8 prefseditor[] =
 /* GdkPixbuf RGBA C-Source image dump */
 
 #ifdef __SUNPRO_C
-#pragma align 4 (prefsfiletypes)
+#pragma align 4 (pixmap_prefsfiletypes)
 #endif
 #ifdef __GNUC__
-static const guint8 prefsfiletypes[] __attribute__ ((__aligned__ (4))) = 
+const guint8 pixmap_prefsfiletypes[] __attribute__ ((__aligned__ (4))) = 
 #else
-static const guint8 prefsfiletypes[] = 
+const guint8 pixmap_prefsfiletypes[] = 
 #endif
 { ""
   /* Pixbuf magic (0x47646b50) */
@@ -10381,12 +10381,12 @@ static const guint8 prefsfiletypes[] =
 /* GdkPixbuf RGBA C-Source image dump */
 
 #ifdef __SUNPRO_C
-#pragma align 4 (prefsinterface)
+#pragma align 4 (pixmap_prefsinterface)
 #endif
 #ifdef __GNUC__
-static const guint8 prefsinterface[] __attribute__ ((__aligned__ (4))) = 
+const guint8 pixmap_prefsinterface[] __attribute__ ((__aligned__ (4))) = 
 #else
-static const guint8 prefsinterface[] = 
+const guint8 pixmap_prefsinterface[] = 
 #endif
 { ""
   /* Pixbuf magic (0x47646b50) */
@@ -10503,12 +10503,12 @@ static const guint8 prefsinterface[] =
 /* GdkPixbuf RGBA C-Source image dump */
 
 #ifdef __SUNPRO_C
-#pragma align 4 (prefsexternal)
+#pragma align 4 (pixmap_prefsexternal)
 #endif
 #ifdef __GNUC__
-static const guint8 prefsexternal[] __attribute__ ((__aligned__ (4))) = 
+const guint8 pixmap_prefsexternal[] __attribute__ ((__aligned__ (4))) = 
 #else
-static const guint8 prefsexternal[] = 
+const guint8 pixmap_prefsexternal[] = 
 #endif
 { ""
   /* Pixbuf magic (0x47646b50) */
@@ -10625,12 +10625,12 @@ static const guint8 prefsexternal[] =
 /* GdkPixbuf RGBA C-Source image dump */
 
 #ifdef __SUNPRO_C
-#pragma align 4 (prefshtml)
+#pragma align 4 (pixmap_prefshtml)
 #endif
 #ifdef __GNUC__
-static const guint8 prefshtml[] __attribute__ ((__aligned__ (4))) = 
+const guint8 pixmap_prefshtml[] __attribute__ ((__aligned__ (4))) = 
 #else
-static const guint8 prefshtml[] = 
+const guint8 pixmap_prefshtml[] = 
 #endif
 { ""
   /* Pixbuf magic (0x47646b50) */
@@ -10758,12 +10758,12 @@ static const guint8 prefshtml[] =
 /* GdkPixbuf RGBA C-Source image dump */
 
 #ifdef __SUNPRO_C
-#pragma align 4 (prefsoutputparser)
+#pragma align 4 (pixmap_prefsoutputparser)
 #endif
 #ifdef __GNUC__
-static const guint8 prefsoutputparser[] __attribute__ ((__aligned__ (4))) = 
+const guint8 pixmap_prefsoutputparser[] __attribute__ ((__aligned__ (4))) = 
 #else
-static const guint8 prefsoutputparser[] = 
+const guint8 pixmap_prefsoutputparser[] = 
 #endif
 { ""
   /* Pixbuf magic (0x47646b50) */
@@ -10870,12 +10870,12 @@ static const guint8 prefsoutputparser[] =
 /* GdkPixbuf RGBA C-Source image dump */
 
 #ifdef __SUNPRO_C
-#pragma align 4 (prefsfiles)
+#pragma align 4 (pixmap_prefsfiles)
 #endif
 #ifdef __GNUC__
-static const guint8 prefsfiles[] __attribute__ ((__aligned__ (4))) = 
+const guint8 pixmap_prefsfiles[] __attribute__ ((__aligned__ (4))) = 
 #else
-static const guint8 prefsfiles[] = 
+const guint8 pixmap_prefsfiles[] = 
 #endif
 { ""
   /* Pixbuf magic (0x47646b50) */
@@ -11006,12 +11006,12 @@ static const guint8 prefsfiles[] =
 /* GdkPixbuf RGBA C-Source image dump */
 
 #ifdef __SUNPRO_C
-#pragma align 4 (prefsimages)
+#pragma align 4 (pixmap_prefsimages)
 #endif
 #ifdef __GNUC__
-static const guint8 prefsimages[] __attribute__ ((__aligned__ (4))) = 
+const guint8 pixmap_prefsimages[] __attribute__ ((__aligned__ (4))) = 
 #else
-static const guint8 prefsimages[] = 
+const guint8 pixmap_prefsimages[] = 
 #endif
 { ""
   /* Pixbuf magic (0x47646b50) */
@@ -11135,12 +11135,12 @@ static const guint8 prefsimages[] =
 /* GdkPixbuf RGBA C-Source image dump */
 
 #ifdef __SUNPRO_C
-#pragma align 4 (prefssyntax)
+#pragma align 4 (pixmap_prefssyntax)
 #endif
 #ifdef __GNUC__
-static const guint8 prefssyntax[] __attribute__ ((__aligned__ (4))) = 
+const guint8 pixmap_prefssyntax[] __attribute__ ((__aligned__ (4))) = 
 #else
-static const guint8 prefssyntax[] = 
+const guint8 pixmap_prefssyntax[] = 
 #endif
 { ""
   /* Pixbuf magic (0x47646b50) */
@@ -11231,12 +11231,12 @@ static const guint8 prefssyntax[] =
 /* GdkPixbuf RGBA C-Source image dump */
 
 #ifdef __SUNPRO_C
-#pragma align 4 (quick_start)
+#pragma align 4 (pixmap_quick_start)
 #endif
 #ifdef __GNUC__
-static const guint8 quick_start[] __attribute__ ((__aligned__ (4))) = 
+const guint8 pixmap_quick_start[] __attribute__ ((__aligned__ (4))) = 
 #else
-static const guint8 quick_start[] = 
+const guint8 pixmap_quick_start[] = 
 #endif
 { ""
   /* Pixbuf magic (0x47646b50) */
@@ -11364,12 +11364,12 @@ static const guint8 quick_start[] =
 /* GdkPixbuf RGBA C-Source image dump */
 
 #ifdef __SUNPRO_C
-#pragma align 4 (right)
+#pragma align 4 (pixmap_right)
 #endif
 #ifdef __GNUC__
-static const guint8 right[] __attribute__ ((__aligned__ (4))) = 
+const guint8 pixmap_right[] __attribute__ ((__aligned__ (4))) = 
 #else
-static const guint8 right[] = 
+const guint8 pixmap_right[] = 
 #endif
 { ""
   /* Pixbuf magic (0x47646b50) */
@@ -11505,12 +11505,12 @@ static const guint8 right[] =
 /* GdkPixbuf RGBA C-Source image dump */
 
 #ifdef __SUNPRO_C
-#pragma align 4 (samp)
+#pragma align 4 (pixmap_samp)
 #endif
 #ifdef __GNUC__
-static const guint8 samp[] __attribute__ ((__aligned__ (4))) = 
+const guint8 pixmap_samp[] __attribute__ ((__aligned__ (4))) = 
 #else
-static const guint8 samp[] = 
+const guint8 pixmap_samp[] = 
 #endif
 { ""
   /* Pixbuf magic (0x47646b50) */
@@ -11640,12 +11640,12 @@ static const guint8 samp[] =
 /* GdkPixbuf RGBA C-Source image dump */
 
 #ifdef __SUNPRO_C
-#pragma align 4 (table)
+#pragma align 4 (pixmap_table)
 #endif
 #ifdef __GNUC__
-static const guint8 table[] __attribute__ ((__aligned__ (4))) = 
+const guint8 pixmap_table[] __attribute__ ((__aligned__ (4))) = 
 #else
-static const guint8 table[] = 
+const guint8 pixmap_table[] = 
 #endif
 { ""
   /* Pixbuf magic (0x47646b50) */
@@ -11766,12 +11766,12 @@ static const guint8 table[] =
 /* GdkPixbuf RGBA C-Source image dump */
 
 #ifdef __SUNPRO_C
-#pragma align 4 (table2)
+#pragma align 4 (pixmap_table2)
 #endif
 #ifdef __GNUC__
-static const guint8 table2[] __attribute__ ((__aligned__ (4))) = 
+const guint8 pixmap_table2[] __attribute__ ((__aligned__ (4))) = 
 #else
-static const guint8 table2[] = 
+const guint8 pixmap_table2[] = 
 #endif
 { ""
   /* Pixbuf magic (0x47646b50) */
@@ -11894,12 +11894,12 @@ static const guint8 table2[] =
 /* GdkPixbuf RGBA C-Source image dump */
 
 #ifdef __SUNPRO_C
-#pragma align 4 (table_capt)
+#pragma align 4 (pixmap_table_capt)
 #endif
 #ifdef __GNUC__
-static const guint8 table_capt[] __attribute__ ((__aligned__ (4))) = 
+const guint8 pixmap_table_capt[] __attribute__ ((__aligned__ (4))) = 
 #else
-static const guint8 table_capt[] = 
+const guint8 pixmap_table_capt[] = 
 #endif
 { ""
   /* Pixbuf magic (0x47646b50) */
@@ -12025,12 +12025,12 @@ static const guint8 table_capt[] =
 /* GdkPixbuf RGBA C-Source image dump */
 
 #ifdef __SUNPRO_C
-#pragma align 4 (table_td)
+#pragma align 4 (pixmap_table_td)
 #endif
 #ifdef __GNUC__
-static const guint8 table_td[] __attribute__ ((__aligned__ (4))) = 
+const guint8 pixmap_table_td[] __attribute__ ((__aligned__ (4))) = 
 #else
-static const guint8 table_td[] = 
+const guint8 pixmap_table_td[] = 
 #endif
 { ""
   /* Pixbuf magic (0x47646b50) */
@@ -12150,12 +12150,12 @@ static const guint8 table_td[] =
 /* GdkPixbuf RGBA C-Source image dump */
 
 #ifdef __SUNPRO_C
-#pragma align 4 (table_td2)
+#pragma align 4 (pixmap_table_td2)
 #endif
 #ifdef __GNUC__
-static const guint8 table_td2[] __attribute__ ((__aligned__ (4))) = 
+const guint8 pixmap_table_td2[] __attribute__ ((__aligned__ (4))) = 
 #else
-static const guint8 table_td2[] = 
+const guint8 pixmap_table_td2[] = 
 #endif
 { ""
   /* Pixbuf magic (0x47646b50) */
@@ -12277,12 +12277,12 @@ static const guint8 table_td2[] =
 /* GdkPixbuf RGBA C-Source image dump */
 
 #ifdef __SUNPRO_C
-#pragma align 4 (table_th)
+#pragma align 4 (pixmap_table_th)
 #endif
 #ifdef __GNUC__
-static const guint8 table_th[] __attribute__ ((__aligned__ (4))) = 
+const guint8 pixmap_table_th[] __attribute__ ((__aligned__ (4))) = 
 #else
-static const guint8 table_th[] = 
+const guint8 pixmap_table_th[] = 
 #endif
 { ""
   /* Pixbuf magic (0x47646b50) */
@@ -12406,12 +12406,12 @@ static const guint8 table_th[] =
 /* GdkPixbuf RGBA C-Source image dump */
 
 #ifdef __SUNPRO_C
-#pragma align 4 (table_th2)
+#pragma align 4 (pixmap_table_th2)
 #endif
 #ifdef __GNUC__
-static const guint8 table_th2[] __attribute__ ((__aligned__ (4))) = 
+const guint8 pixmap_table_th2[] __attribute__ ((__aligned__ (4))) = 
 #else
-static const guint8 table_th2[] = 
+const guint8 pixmap_table_th2[] = 
 #endif
 { ""
   /* Pixbuf magic (0x47646b50) */
@@ -12537,12 +12537,12 @@ static const guint8 table_th2[] =
 /* GdkPixbuf RGBA C-Source image dump */
 
 #ifdef __SUNPRO_C
-#pragma align 4 (table_tr)
+#pragma align 4 (pixmap_table_tr)
 #endif
 #ifdef __GNUC__
-static const guint8 table_tr[] __attribute__ ((__aligned__ (4))) = 
+const guint8 pixmap_table_tr[] __attribute__ ((__aligned__ (4))) = 
 #else
-static const guint8 table_tr[] = 
+const guint8 pixmap_table_tr[] = 
 #endif
 { ""
   /* Pixbuf magic (0x47646b50) */
@@ -12661,12 +12661,12 @@ static const guint8 table_tr[] =
 /* GdkPixbuf RGBA C-Source image dump */
 
 #ifdef __SUNPRO_C
-#pragma align 4 (table_tr2)
+#pragma align 4 (pixmap_table_tr2)
 #endif
 #ifdef __GNUC__
-static const guint8 table_tr2[] __attribute__ ((__aligned__ (4))) = 
+const guint8 pixmap_table_tr2[] __attribute__ ((__aligned__ (4))) = 
 #else
-static const guint8 table_tr2[] = 
+const guint8 pixmap_table_tr2[] = 
 #endif
 { ""
   /* Pixbuf magic (0x47646b50) */
@@ -12785,12 +12785,12 @@ static const guint8 table_tr2[] =
 /* GdkPixbuf RGBA C-Source image dump */
 
 #ifdef __SUNPRO_C
-#pragma align 4 (tablewhiz)
+#pragma align 4 (pixmap_tablewhiz)
 #endif
 #ifdef __GNUC__
-static const guint8 tablewhiz[] __attribute__ ((__aligned__ (4))) = 
+const guint8 pixmap_tablewhiz[] __attribute__ ((__aligned__ (4))) = 
 #else
-static const guint8 tablewhiz[] = 
+const guint8 pixmap_tablewhiz[] = 
 #endif
 { ""
   /* Pixbuf magic (0x47646b50) */
@@ -12910,12 +12910,12 @@ static const guint8 tablewhiz[] =
 /* GdkPixbuf RGBA C-Source image dump */
 
 #ifdef __SUNPRO_C
-#pragma align 4 (thumbnail)
+#pragma align 4 (pixmap_thumbnail)
 #endif
 #ifdef __GNUC__
-static const guint8 thumbnail[] __attribute__ ((__aligned__ (4))) = 
+const guint8 pixmap_thumbnail[] __attribute__ ((__aligned__ (4))) = 
 #else
-static const guint8 thumbnail[] = 
+const guint8 pixmap_thumbnail[] = 
 #endif
 { ""
   /* Pixbuf magic (0x47646b50) */
@@ -13026,12 +13026,12 @@ static const guint8 thumbnail[] =
 /* GdkPixbuf RGBA C-Source image dump */
 
 #ifdef __SUNPRO_C
-#pragma align 4 (underline)
+#pragma align 4 (pixmap_underline)
 #endif
 #ifdef __GNUC__
-static const guint8 underline[] __attribute__ ((__aligned__ (4))) = 
+const guint8 pixmap_underline[] __attribute__ ((__aligned__ (4))) = 
 #else
-static const guint8 underline[] = 
+const guint8 pixmap_underline[] = 
 #endif
 { ""
   /* Pixbuf magic (0x47646b50) */
@@ -13122,12 +13122,12 @@ static const guint8 underline[] =
 /* GdkPixbuf RGBA C-Source image dump */
 
 #ifdef __SUNPRO_C
-#pragma align 4 (unindent)
+#pragma align 4 (pixmap_unindent)
 #endif
 #ifdef __GNUC__
-static const guint8 unindent[] __attribute__ ((__aligned__ (4))) = 
+const guint8 pixmap_unindent[] __attribute__ ((__aligned__ (4))) = 
 #else
-static const guint8 unindent[] = 
+const guint8 pixmap_unindent[] = 
 #endif
 { ""
   /* Pixbuf magic (0x47646b50) */
@@ -13257,12 +13257,12 @@ static const guint8 unindent[] =
 /* GdkPixbuf RGBA C-Source image dump */
 
 #ifdef __SUNPRO_C
-#pragma align 4 (var)
+#pragma align 4 (pixmap_var)
 #endif
 #ifdef __GNUC__
-static const guint8 var[] __attribute__ ((__aligned__ (4))) = 
+const guint8 pixmap_var[] __attribute__ ((__aligned__ (4))) = 
 #else
-static const guint8 var[] = 
+const guint8 pixmap_var[] = 
 #endif
 { ""
   /* Pixbuf magic (0x47646b50) */
@@ -13395,12 +13395,12 @@ static const guint8 var[] =
 /* GdkPixbuf RGBA C-Source image dump */
 
 #ifdef __SUNPRO_C
-#pragma align 4 (view_in_browser)
+#pragma align 4 (pixmap_view_in_browser)
 #endif
 #ifdef __GNUC__
-static const guint8 view_in_browser[] __attribute__ ((__aligned__ (4))) = 
+const guint8 pixmap_view_in_browser[] __attribute__ ((__aligned__ (4))) = 
 #else
-static const guint8 view_in_browser[] = 
+const guint8 pixmap_view_in_browser[] = 
 #endif
 { ""
   /* Pixbuf magic (0x47646b50) */
