@@ -50,10 +50,7 @@
 #include "stringlist.h"
 #include "undo_redo.h"		/* undo_cb() redo_cb() etc. */
 #include "wizards.h"
-
-#ifdef FB2
 #include "filebrowser2.h"
-#endif
 
 
 #ifdef HAVE_LIBASPELL
@@ -227,12 +224,10 @@ GtkWidget *left_panel_build(Tbfwin *bfwin) {
 	gtk_notebook_append_page_menu(GTK_NOTEBOOK(left_notebook),fileb,new_pixmap(105),gtk_label_new(_("Filebrowser")));
 	gtk_notebook_append_page_menu(GTK_NOTEBOOK(left_notebook),fref,new_pixmap(106),gtk_label_new(_("Function reference")));
 	gtk_notebook_append_page_menu(GTK_NOTEBOOK(left_notebook),bmarks,new_pixmap(104),gtk_label_new(_("Bookmarks")));
-#ifdef FB2
 	{
 		GtkWidget *fb2g = fb2_init(bfwin);
 		gtk_notebook_append_page_menu(GTK_NOTEBOOK(left_notebook),fb2g,new_pixmap(105),gtk_label_new(_("Filebrowser")));
 	}
-#endif
 	gtk_widget_show_all(left_notebook);
 	gtk_notebook_set_current_page(GTK_NOTEBOOK(left_notebook),0);
 	return left_notebook;
@@ -249,9 +244,7 @@ void left_panel_rebuild(Tbfwin *bfwin) {
 		filebrowser_cleanup(bfwin);
 		fref_cleanup(bfwin);
 		bmark_cleanup(bfwin);
-#ifdef FB2
 		fb2_cleanup(bfwin);
-#endif
 		DEBUG_MSG("left_panel_rebuild, re-init\n");
 		bfwin->leftpanel_notebook = left_panel_build(bfwin);
 		if (main_v->props.left_panel_left) {

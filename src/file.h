@@ -21,6 +21,7 @@
 #define __FILE_H_
 
 void file_doc_from_uri(Tbfwin *bfwin, GnomeVFSURI *uri, GnomeVFSFileInfo *finfo);
+void file_docs_from_uris(Tbfwin *bfwin, GSList *urislist);
 void open_advanced(Tbfwin *bfwin, GnomeVFSURI *basedir, gboolean recursive, gchar *extension_filter, gchar *content_filter, gboolean use_regex);
 
 #endif /* __FILE_H_ */

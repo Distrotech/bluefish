@@ -27,6 +27,7 @@
 #include "document.h"
 #include "file.h"
 #include "gui.h"
+#include "bookmark.h"
 
 /*************************** OPEN FILE ASYNC ******************************/
 
@@ -130,6 +131,8 @@ static void file2doc_lcb(gint status,gint error_info,gchar *buffer,GnomeVFSFileS
 			doc_buffer_to_textbox(f2d->doc, buffer, buflen, FALSE, TRUE);
 			if (f2d->bfwin->focus_next_new_doc) {
 				switch_to_document_by_pointer(f2d->bfwin,f2d->doc);
+				bmark_set_for_doc(f2d->doc);
+				bmark_check_length(f2d->bfwin,f2d->doc);
 				f2d->bfwin->focus_next_new_doc = FALSE;
 			}
 			file2doc_cleanup(data);

@@ -2966,6 +2966,43 @@ void doc_new_with_new_file(Tbfwin *bfwin, gchar * new_filename) {
 	doc_activate(doc);
 }
 
+void doc_new_from_uri(Tbfwin *bfwin, gchar *curi, gboolean delay_activate, gboolean move_to_this_win) {
+	GList *alldocs;
+	Tdocument *tmpdoc;
+	if (!curi || !bfwin) {
+		return;
+	}
+	/* check if the document already is opened */
+	alldocs = return_allwindows_documentlist();
+	tmpdoc = documentlist_return_document_from_filename(alldocs, curi);
+	g_list_free(alldocs);
+	if (tmpdoc) { /* document is already open */
+		if (move_to_this_win) {
+			doc_move_to_window(tmpdoc, bfwin);
+		} else if (!delay_activate) { /* switch to window, only if we should */
+			switch_to_document_by_pointer(BFWIN(tmpdoc->bfwin),tmpdoc);
+			if (bfwin != tmpdoc->bfwin) gtk_window_present(GTK_WINDOW(BFWIN(tmpdoc->bfwin)->main_window));
+		}
+	} else { /* document is not yet opened */
+		GnomeVFSURI *uri = gnome_vfs_uri_new(curi);
+		if (!delay_activate)	bfwin->focus_next_new_doc = TRUE;
+		file_doc_from_uri(bfwin, uri, NULL);
+		gnome_vfs_uri_unref(uri);
+	}
+}
+
+void docs_new_from_uris(Tbfwin *bfwin, GSList *urislist, gboolean move_to_this_win) {
+	GSList *tmpslist;
+	
+	bfwin->focus_next_new_doc = TRUE;
+	tmpslist = urislist;
+	while (tmpslist) {
+		doc_new_from_uri(bfwin, tmpslist->data, TRUE, move_to_this_win);
+		tmpslist = g_slist_next(tmpslist);
+	}
+}
+
+
 /**
  * doc_new_with_file:
  * @bfwin: #Tbfwin* with the window to open the document in
@@ -3050,6 +3087,8 @@ Tdocument * doc_new_with_file(Tbfwin *bfwin, gchar * filename, gboolean delay_ac
 	
 	return doc;
 }
+
+
 
 /**
  * docs_new_from_files:

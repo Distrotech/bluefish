@@ -261,6 +261,7 @@ void project_open_from_file(Tbfwin *bfwin, gchar *fromfilename) {
 	prj->filename = g_strdup(fromfilename);
 	DEBUG_MSG("project_open_from_file, basedir=%s\n",prj->basedir);
 	if (bfwin->project == NULL && test_only_empty_doc_left(bfwin->documentlist)) {
+		GSList *slist;
 		/* we will use this Bluefish window to open the project */
 		prwin = bfwin;
 		/* now we need to clean the session, and reset it to the session from the project */
@@ -276,20 +277,27 @@ void project_open_from_file(Tbfwin *bfwin, gchar *fromfilename) {
 		left_panel_show_hide_toggle(prwin,FALSE,prj->view_left_panel, TRUE);
 		filebrowser_set_basedir(prwin, prj->basedir);
 		fb2_set_basedir(prwin, prj->basedir);
+		/* we should set these before we actually open any files, so every file can update 
+		their bookmarks after the loading of the data is finished */
+		bmark_reload(bfwin);
+		bmark_set_store(bfwin);
+
 		DEBUG_MSG("project_open_from_file, calling docs_new_from_files for existing bfwin=%p\n",prwin);
-		docs_new_from_files(prwin, prj->files, TRUE);
+		slist = gslist_from_glist(prj->files);
+		docs_new_from_uris(prwin, slist, TRUE);
+		/* docs_new_from_files(prwin, prj->files, TRUE); */
+		g_slist_free(slist);
 	} else {
 		/* we will open a new Bluefish window for this project */
 		DEBUG_MSG("project_open_from_file, we need a new window\n");
 		prwin = gui_new_window(prj->files, prj);
 		DEBUG_MSG("project_open_from_file, new window with files ready\n");
 		gui_set_title(prwin, prwin->current_document);
+		bmark_reload(bfwin);
+		bmark_set_store(bfwin);
 	}
-
 	set_project_menu_widgets(prwin, TRUE);
 	recent_menu_init_project(prwin);
-   bmark_reload(bfwin);
-   bmark_set_store(bfwin);
 }
 
 static void project_open(Tbfwin *bfwin) {
