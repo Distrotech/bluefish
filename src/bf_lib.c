@@ -589,7 +589,8 @@ gchar *create_relative_link_to(gchar * current_filepath, gchar * link_to_filepat
 	}
 	eff_current_filepath = most_efficient_filename(g_strdup(current_filepath));
 	eff_link_to_filepath = most_efficient_filename(g_strdup(link_to_filepath));
-
+	DEBUG_MSG("eff_current: '%s'\n",eff_current_filepath);
+	DEBUG_MSG("eff_link_to: '%s'\n",eff_link_to_filepath);
 	/* get the size of the directory of the current_filename */
 	current_filename_length = strlen(strrchr(eff_current_filepath, DIRCHR))-1;
 	link_to_filename_length = strlen(strrchr(eff_link_to_filepath, DIRCHR))-1;
