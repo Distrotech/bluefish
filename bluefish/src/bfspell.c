@@ -61,6 +61,13 @@ typedef struct {
 	Tbfwin *bfwin;
 } Tbfspell;
 
+static void spell_gui_set_button_status(Tbfspell *bfspell, gboolean is_running) {
+	gtk_widget_set_sensitive(bfspell->runbut,!is_running);
+	gtk_widget_set_sensitive(bfspell->lang,!is_running);
+	gtk_widget_set_sensitive(bfspell->repbut,is_running);
+	gtk_widget_set_sensitive(bfspell->ignbut,is_running);
+}
+
 static gboolean test_unichar(gunichar ch,gpointer data) {
 	if (ch == GPOINTER_TO_INT(data)) {
 		return TRUE;
@@ -156,22 +163,27 @@ gboolean spell_check_word(Tbfspell *bfspell, gchar * tocheck, GtkTextIter *itsta
 	}
 }
 
+static void spell_run_finished(Tbfspell *bfspell) {
+	GList *poplist = NULL;
+	DEBUG_MSG("spell_run_finished\n");
+	gtk_entry_set_text(GTK_ENTRY(bfspell->incorrectword), "");
+	gtk_entry_set_text(GTK_ENTRY(GTK_COMBO(bfspell->suggestions)->entry), "");
+	poplist = g_list_append(poplist,"");
+	gtk_combo_set_popdown_strings(GTK_COMBO(bfspell->suggestions), poplist);
+	g_list_free(poplist);
+	bfspell->offset = 0;
+	aspell_speller_save_all_word_lists(bfspell->spell_checker);
+	delete_aspell_speller(bfspell->spell_checker);
+	bfspell->spell_checker = NULL;
+	spell_gui_set_button_status(bfspell, FALSE);
+}
+
 gboolean spell_run(Tbfspell *bfspell) {
 	GtkTextIter itstart,itend;
 	gchar *word = doc_get_next_word(bfspell, &itstart,&itend);
 	DEBUG_MSG("spell_run, started, bfspell=%p, word=%s\n",bfspell,word);
 	if (!word) {
-		GList *poplist = NULL;
-		DEBUG_MSG("spell_run: finished\n");
-		gtk_entry_set_text(GTK_ENTRY(bfspell->incorrectword), "");
-		gtk_entry_set_text(GTK_ENTRY(GTK_COMBO(bfspell->suggestions)->entry), "");
-		poplist = g_list_append(poplist,"");
-		gtk_combo_set_popdown_strings(GTK_COMBO(bfspell->suggestions), poplist);
-		g_list_free(poplist);
-		bfspell->offset = 0;
-		aspell_speller_save_all_word_lists(bfspell->spell_checker);
-		delete_aspell_speller(bfspell->spell_checker);
-		bfspell->spell_checker = NULL;
+		spell_run_finished(bfspell);
 		return FALSE; /* finished */
 	}
 	while (word) {
@@ -179,7 +191,11 @@ gboolean spell_run(Tbfspell *bfspell) {
 		if (spell_check_word(bfspell,word,&itstart,&itend)) {
 			g_free(word);
 			word = doc_get_next_word(bfspell,&itstart,&itend);
-		} else {
+			if (!word) {
+				spell_run_finished(bfspell);
+				return FALSE; /* finished */
+			}
+		} else { /* not correct ! */
 			g_free(word);
 			word = NULL;
 		}
@@ -226,13 +242,6 @@ static void spell_gui_destroy(GtkWidget * widget, Tbfspell *bfspell) {
 
 void spell_gui_cancel_clicked_cb(GtkWidget *widget, Tbfspell *bfspell) {
 	spell_gui_destroy(NULL, bfspell);
-}
-
-static void spell_gui_set_button_status(Tbfspell *bfspell, gboolean is_running) {
-	gtk_widget_set_sensitive(bfspell->runbut,!is_running);
-	gtk_widget_set_sensitive(bfspell->lang,!is_running);
-	gtk_widget_set_sensitive(bfspell->repbut,is_running);
-	gtk_widget_set_sensitive(bfspell->ignbut,is_running);
 }
 
 void spell_gui_ok_clicked_cb(GtkWidget *widget, Tbfspell *bfspell) {
