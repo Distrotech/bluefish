@@ -174,25 +174,21 @@ static gint save_config_file(GList * config_list, gchar * filename)
 			}
 			break;
 		case 'l':
-		case 'm':
+		case 'm': {
+			gint max = -1; /* by setting it to -1, it will never become zero if we substract 1 every round */
 			DEBUG_MSG("save_config_file, type %c, tmpitem(%p), &tmpitem=%p\n", tmpitem->type, tmpitem, &tmpitem);
-			tmplist2 = NULL;
-			if (tmpitem->type == 'm') {
-				tmplist2 = g_list_nth((GList *) * (void **) tmpitem->pointer,tmpitem->len);
-			}
-			if (!tmplist2) {
-				tmplist2 = g_list_last((GList *) * (void **) tmpitem->pointer);
-			}
-			DEBUG_MSG("save_config_file, the tmplist2(%p)\n", tmplist2);
-			while (tmplist2 != NULL) {
+			if (tmpitem->type == 'm') max = tmpitem->len;
+			tmplist2 = g_list_last((GList *) * (void **) tmpitem->pointer);
+			while (tmplist2 != NULL && max != 0) {
 				tmpstring2 = (char *) tmplist2->data;
 				DEBUG_MSG("save_config_file, tmpstring2(%p)=%s\n", tmpstring2, tmpstring2);
 				tmpstring = g_strdup_printf("%s %s", tmpitem->identifier, tmpstring2);
 				DEBUG_MSG("save_config_file, tmpstring(%p)=%s\n", tmpstring, tmpstring);
 				rclist = g_list_append(rclist, tmpstring);
 				tmplist2 = g_list_previous(tmplist2);
+				max--;
 			}
-			break;
+			} break;
 		case 'a':
 			DEBUG_MSG("save_config_file, tmpitem(%p), &tmpitem=%p\n", tmpitem, &tmpitem);
 			tmplist2 = g_list_last((GList *) * (void **) tmpitem->pointer);
