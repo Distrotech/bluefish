@@ -69,6 +69,28 @@ gint documentlist_return_index_from_filename(gchar *filename) {
 	}
 	return -1;
 }
+
+void doc_toggle_highlighting_cb(GtkWidget * w, gpointer data)
+{
+	DEBUG_MSG("doc_toggle_highlighting_cb, started\n");
+	main_v->current_document->highlightstate = 1 - main_v->current_document->highlightstate;
+	if (main_v->current_document->highlightstate == 0) {
+		doc_remove_highlighting(main_v->current_document);
+	} else {
+		doc_highlight_full(main_v->current_document);
+	}
+	setup_toggle_item(gtk_item_factory_from_widget(main_v->menubar),
+					  N_("/Options/Current document/Highlight syntax"), main_v->current_document->highlightstate);
+}
+
+void doc_update_highlighting(GtkWidget *wid, gpointer data) {
+	if (main_v->current_document->highlightstate == 0) {
+		doc_toggle_highlighting_cb(NULL, NULL);
+	} else {
+		doc_highlight_full(main_v->current_document);
+	}
+}
+
 /* void document_set_wrap(Tdocument * document, gint wraptype)
  * type=0 = none, type=1=word wrap
  * type=-1 means get type from main_v->props.word_wrap
@@ -434,29 +456,33 @@ void doc_insert_two_strings(Tdocument *doc, const gchar *before_str, const gchar
 		gchar *double_str = g_strconcat(before_str, after_str, NULL);
 		gtk_text_buffer_insert(doc->buffer,&itinsert,double_str,-1);
 		g_free(double_str);
-		/* the buffer has changed, renew the iterator */
-		gtk_text_buffer_get_iter_at_mark(doc->buffer,&itinsert,insert);
-		/* now set it between the two strings, this is definately not multibyte-char 
-		safe, since strlen() returns bytes, and the functions wants chars */
-		gtk_text_iter_backward_chars(&itinsert, strlen(after_str));
-		gtk_text_buffer_place_cursor(doc->buffer, &itinsert);
+		if (after_str && strlen(after_str)) {
+			/* the buffer has changed, renew the iterator */
+			gtk_text_buffer_get_iter_at_mark(doc->buffer,&itinsert,insert);
+			/* now set it between the two strings, this is definately not multibyte-char 
+			safe, since strlen() returns bytes, and the functions wants chars */
+			gtk_text_iter_backward_chars(&itinsert, strlen(after_str));
+			gtk_text_buffer_place_cursor(doc->buffer, &itinsert);
+		}
 	} else {
 		/* there is a selection */
 		gtk_text_buffer_insert(doc->buffer,&itinsert,before_str,-1);
-		/* the buffer is changed, reset the select iterator */
-		gtk_text_buffer_get_iter_at_mark(doc->buffer,&itselect,select);
-		gtk_text_buffer_insert(doc->buffer,&itselect,after_str,-1);
+		if (after_str && strlen(after_str)) {
+			/* the buffer is changed, reset the select iterator */
+			gtk_text_buffer_get_iter_at_mark(doc->buffer,&itselect,select);
+			gtk_text_buffer_insert(doc->buffer,&itselect,after_str,-1);
+		}
 	}
 	
 	DEBUG_MSG("doc_insert_two_strings, finished\n");
 }
 
 
-#define STARTING_BUFFER_SIZE 2048
+#define STARTING_BUFFER_SIZE 4096
 gboolean doc_file_to_textbox(Tdocument * doc, gchar * filename, gboolean enable_undo, gboolean delay_highlighting)
 {
 	FILE *fd;
-	gchar *errmessage, line[STARTING_BUFFER_SIZE], *message;
+	gchar *errmessage, *message;
 	gint cursor_offset;
 
 	if (!enable_undo) {
@@ -487,9 +513,44 @@ gboolean doc_file_to_textbox(Tdocument * doc, gchar * filename, gboolean enable_
 		gtk_text_buffer_get_iter_at_mark(doc->buffer, &iter, insert);
 		cursor_offset = gtk_text_iter_get_offset(&iter);
 	}
-
-	while (fgets(line, STARTING_BUFFER_SIZE, fd) != NULL) {
-		gtk_text_buffer_insert_at_cursor(doc->buffer,line,-1);
+	{
+		gchar chunk[STARTING_BUFFER_SIZE+1];
+		gint buffer_size = STARTING_BUFFER_SIZE + 1;
+		gchar *buffer = g_malloc(buffer_size * sizeof(gchar));
+		buffer[0] = '\0';
+		while (fgets(chunk, STARTING_BUFFER_SIZE, fd) != NULL) {
+			strcat(buffer, chunk);
+			buffer_size += STARTING_BUFFER_SIZE;
+			buffer = g_realloc(buffer, buffer_size);
+		}
+		if(!g_utf8_validate(buffer, -1, NULL)) {
+			gchar *newbuf;
+			gsize wsize;
+			newbuf = g_locale_to_utf8(buffer,-1,NULL,&wsize,NULL);
+			if (!newbuf) {
+				newbuf = g_convert(buffer,-1,"UTF-8","ISO-8859-1",NULL, &wsize, NULL);
+				if (!newbuf) {
+					error_dialog(_("Error"), _("Cannot display file, unknown characters found."));
+				} else {
+					g_free(doc->encoding);
+					doc->encoding = g_strdup("ISO-8859-1");
+				}
+			} else {
+				gchar *encoding;
+				g_get_charset(&encoding);
+				g_free(doc->encoding);
+				doc->encoding = g_strdup(encoding);
+			}
+			g_free(buffer);
+			buffer = newbuf;
+		} else {
+			g_free(doc->encoding);
+			doc->encoding = NULL;
+		}
+		if (buffer) {
+			gtk_text_buffer_insert_at_cursor(doc->buffer,buffer,-1);
+			g_free(buffer);
+		}
 	}
 	fclose(fd);
 	doc->need_highlighting=TRUE;
@@ -510,7 +571,6 @@ gboolean doc_file_to_textbox(Tdocument * doc, gchar * filename, gboolean enable_
 	
 	/* set the cursor position back */
 	{
-		GtkTextMark* insert;
 		GtkTextIter iter;
 		gtk_text_buffer_get_iter_at_offset(doc->buffer,&iter,cursor_offset);
 		gtk_text_buffer_place_cursor(doc->buffer,&iter);
@@ -560,7 +620,7 @@ static void doc_update_linenumber(Tdocument *doc, GtkTextIter *iter, gint offset
 	string = g_strdup_printf(_(" line %4d "), line + offset); 
 	gtk_label_set(GTK_LABEL(main_v->statuslabel),string);	
 	g_free(string);
-	g_print("doc_update_linenumber, line=%d\n", line);
+	DEBUG_MSG("doc_update_linenumber, line=%d\n", line);
 }
 
 static void doc_buffer_insert_text_lcb(GtkTextBuffer *textbuffer,GtkTextIter * iter,gchar * string,gint len, Tdocument * doc) {
@@ -779,6 +839,11 @@ Tdocument *doc_new(gboolean delay_activate) {
 	doc_unre_init(newdoc);
 	doc_set_font(newdoc, NULL);
 	document_set_wrap(newdoc, -1);
+	{
+		PangoTabArray* panarr = pango_tab_array_new_with_positions(1,TRUE,PANGO_TAB_LEFT,30);
+		gtk_text_view_set_tabs(newdoc->view,panarr);
+		pango_tab_array_free(panarr);
+	}
 
 /* this will force function doc_set_modified to update the tab label*/
 	newdoc->modified = 1;
@@ -842,7 +907,6 @@ Tdocument *doc_new(gboolean delay_activate) {
 
 gint doc_textbox_to_file(Tdocument * doc, gchar * filename) {
 	FILE *fd;
-	gchar *tmpchar;
 	gint backup_retval;
 
 	statusbar_message(_("Saving file"), 1000);
@@ -857,7 +921,7 @@ gint doc_textbox_to_file(Tdocument * doc, gchar * filename) {
 		} else if (strcmp(main_v->props.backup_abort_style, "ask")==0) {
 			gchar *options[] = {N_("Abort save"), N_("Continue save"), NULL};
 			gint retval;
-			gchar *tmpstr =  g_strdup_printf(_("Backup %s failed"), filename);
+			gchar *tmpstr =  g_strdup_printf(_("Backup for %s failed"), filename);
 			retval = multi_button_dialog(_("Bluefish warning, file backup failure"), 1, tmpstr, options);
 			g_free(tmpstr);
 			if (retval == 0) {
@@ -872,11 +936,23 @@ gint doc_textbox_to_file(Tdocument * doc, gchar * filename) {
 		DEBUG_MSG("textbox_to_file, cannot open file %s\n", filename);
 		return -2;
 	} else {
+		gchar *buffer;
 		GtkTextIter itstart, itend;
 		gtk_text_buffer_get_bounds(doc->buffer,&itstart,&itend);
-		tmpchar = gtk_text_buffer_get_text(doc->buffer,&itstart,&itend,FALSE);
-		fputs(tmpchar, fd);
-		g_free(tmpchar);
+		buffer = gtk_text_buffer_get_text(doc->buffer,&itstart,&itend,FALSE);
+		
+		if (doc->encoding) {
+			gchar *newbuf;
+			gsize wsize;
+			newbuf = g_convert(buffer,-1,doc->encoding,"UTF-8",NULL,&wsize,NULL);
+			if (newbuf) {
+				g_free(buffer);
+				buffer = newbuf;
+			}
+		}
+		
+		fputs(buffer, fd);
+		g_free(buffer);
 		fclose(fd);
 
 		doc_set_modified(doc, 0);
