@@ -861,3 +861,58 @@ void open_advanced(Tbfwin *bfwin, GnomeVFSURI *basedir, gboolean recursive, gcha
 	}
 }
 
+/************************/
+typedef struct {
+	GnomeVFSAsyncHandle *handle;
+	GList *sourcelist;
+	GList *destlist;
+} Tcopyfile;
+
+static void copyfile_cleanup(Tcopyfile *cf) {
+	DEBUG_MSG("copyfile_cleanup %p\n",cf);
+	gnome_vfs_uri_list_free(cf->sourcelist);
+	gnome_vfs_uri_list_free(cf->destlist);
+	g_free(cf);
+}
+
+static gint copyfile_progress_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSXferProgressInfo *info,gpointer data) {
+	Tcopyfile *cf = data;
+	DEBUG_MSG("copyfile_progress_lcb, started with status %d and phase %d for source %s and target %s, index=%ld, total=%ld, thread=%p\n"
+		,info->status,info->phase,info->source_name,info->target_name,info->file_index,info->files_total, g_thread_self());
+
+	if (info->status == GNOME_VFS_XFER_PROGRESS_STATUS_OVERWRITE) {
+		/* BUG: we should ask the user what to do ? */
+		DEBUG_MSG("copyfile_progress_lcb, overwrite? skip for the moment\n");
+		return GNOME_VFS_XFER_OVERWRITE_ACTION_SKIP;
+	} else if (info->status == GNOME_VFS_XFER_PROGRESS_STATUS_VFSERROR) {
+		DEBUG_MSG("copyfile_progress_lcb, vfs error! skip for the moment\n");
+		return GNOME_VFS_XFER_ERROR_ACTION_SKIP;
+	} else if (info->status == GNOME_VFS_XFER_PROGRESS_STATUS_OK) {
+		if (info->phase == GNOME_VFS_XFER_PHASE_COMPLETED) {
+			/* hey! we're finished!! */
+			copyfile_cleanup(cf);
+		}
+	}
+	return 0; 	/* Nautilus returns 0 by default for this callback */
+}
+
+static gint copyfile_sync_lcb(GnomeVFSXferProgressInfo *info,gpointer data) {
+	DEBUG_MSG("copyfile_sync_lcb, started with status %d and phase %d for source %s and target %s, index=%ld, total=%ld, thread=%p\n"
+		,info->status,info->phase,info->source_name,info->target_name,info->file_index,info->files_total, g_thread_self());
+	return 1;
+}
+
+void copy_file_async(Tbfwin *bfwin, GnomeVFSURI *srcuri, GnomeVFSURI *desturi) {
+	Tcopyfile *cf;
+	GnomeVFSResult ret;
+	cf = g_new(Tcopyfile,1);
+	cf->sourcelist = g_list_append(NULL, srcuri);
+	cf->destlist = g_list_append(NULL, desturi);
+	gnome_vfs_uri_ref(srcuri);
+	gnome_vfs_uri_ref(desturi);
+	ret = gnome_vfs_async_xfer(&cf->handle,cf->sourcelist,cf->destlist
+			,GNOME_VFS_XFER_FOLLOW_LINKS,GNOME_VFS_XFER_ERROR_MODE_QUERY
+			,GNOME_VFS_XFER_OVERWRITE_MODE_QUERY,GNOME_VFS_PRIORITY_DEFAULT
+			,copyfile_progress_lcb, cf ,copyfile_sync_lcb, cf);
+}
+
