@@ -28,6 +28,7 @@ typedef enum {
 	CHECKANDSAVE_ERROR_NOCHANNEL,
 	CHECKANDSAVE_ERROR_NOWRITE,
 	CHECKANDSAVE_ERROR_MODIFIED,
+	CHECKANDSAVE_ERROR_CANCELLED,
 	CHECKANDSAVE_CHECKED,
 	CHECKANDSAVE_BACKUP,
 	CHECKANDSAVE_CHANNEL_OPENED,
@@ -41,18 +42,24 @@ typedef enum {
 
 typedef enum {
 	CHECKMODIFIED_ERROR,
+	CHECKMODIFIED_CANCELLED,
 	CHECKMODIFIED_MODIFIED,
 	CHECKMODIFIED_OK
 } Tcheckmodified_status;
 
+typedef void (* CheckmodifiedAsyncCallback) (Tcheckmodified_status status,gint error_info,GnomeVFSFileInfo *orig, GnomeVFSFileInfo *new, gpointer callback_data);
+
 typedef struct {
 	GnomeVFSAsyncHandle *handle;
-} Tfileaction; /* we can typecast all different actions that start with a GnomeVFSAsyncHandle * as Tfileaction */
+	GList *uris;
+	GnomeVFSFileInfo *orig_finfo;
+	CheckmodifiedAsyncCallback callback_func;
+	gpointer callback_data;
+} Tcheckmodified;
 
-typedef void (* CheckmodifiedAsyncCallback) (Tcheckmodified_status status,gint error_info,GnomeVFSFileInfo *orig, GnomeVFSFileInfo *new, gpointer callback_data);
 typedef TcheckNsave_return (* CheckNsaveAsyncCallback) (TcheckNsave_status status,gint error_info,gpointer callback_data);
 
-void file_checkmodified_uri_async(GnomeVFSURI *uri, GnomeVFSFileInfo *curinfo, CheckmodifiedAsyncCallback callback_func, gpointer callback_data);
+Tcheckmodified *file_checkmodified_uri_async(GnomeVFSURI *uri, GnomeVFSFileInfo *curinfo, CheckmodifiedAsyncCallback callback_func, gpointer callback_data);
 void file_checkNsave_uri_async(GnomeVFSURI *uri, GnomeVFSFileInfo *info, Trefcpointer *buffer, GnomeVFSFileSize buffer_size, gboolean check_modified, CheckNsaveAsyncCallback callback_func, gpointer callback_data);
 void file_doc_fill_fileinfo(Tdocument *doc, GnomeVFSURI *uri);
 void file_doc_retry_uri(Tdocument *doc);
