@@ -1,10 +1,12 @@
 #include <gtk/gtk.h>
-#include <sys/types.h>
 
+#include <sys/types.h>
 #include <sys/ipc.h>			/* msgsnd() */
 #include <sys/msg.h>			/* msgsnd() */
-
+#include <time.h>
 #include <errno.h>				/* errno */
+#include <unistd.h> /* getpid, getuid */
+#include <string.h> /* strncpy */
 
 #include "bluefish.h"
 
@@ -102,6 +104,25 @@ static gboolean msg_queue_open(void)
 	if (msg_queue.msgid == -1) {
 		msg_queue.msgid = msgget((key_t) BLUEFISH_MSG_QUEUE + getuid(), 0666);
 		DEBUG_MSG("msg_queue_open, connected to existing message queue, id=%d\n", msg_queue.msgid);
+		
+		/* now we want to avoid the situation where the message queue is full (because the server died)
+		so we cannot send a keepalive, so we check if the queue is filled (assume when there are >5 messages)
+		and the last completed msgrcv() call was > 5 seconds ago */
+		{
+			struct msqid_ds msg_stat;
+			gint timediff;
+			/* check if there are messages on the queue, if so, check when the last msgrcv() call was on this queue */
+			msgctl(msg_queue.msgid, IPC_STAT, &msg_stat);
+			if (msg_stat.msg_qnum > 5) {
+				timediff = time(NULL) - msg_stat.msg_ctime;
+				if (timediff > 2) {
+					DEBUG_MSG("msg_queue_request_alive, more then 2 seconds no reads on message_queue, timediff=%d, deleting queue\n", timediff);
+					msgctl(msg_queue.msgid, IPC_RMID, NULL);
+					msg_queue.msgid = msgget((key_t) BLUEFISH_MSG_QUEUE + getuid(), 0666 | IPC_CREAT | IPC_EXCL);
+					return FALSE;
+				}
+			}
+		}
 		if (msg_queue.msgid == -1) {
 			DEBUG_MSG("msg_queue_open, errno=%d, error=%s\n", errno, g_strerror(errno));
 			msg_queue.functional = FALSE;
@@ -111,7 +132,7 @@ static gboolean msg_queue_open(void)
 	return FALSE;
 }
 
-static gboolean msg_queue_check(gpointer data)
+static gboolean msg_queue_check(gint started_by_gtk_timeout)
 {
 	struct msgbuf {
 		long mtype;
@@ -122,12 +143,7 @@ static gboolean msg_queue_check(gpointer data)
 	if (msg_queue.msgid == -1) {
 		return FALSE;
 	}
-#ifdef MSG_QUEUE_DEBUG
-	DEBUG_MSG("msg_queue_check, checking\n");
-#endif 
-	retval =
-		msgrcv(msg_queue.msgid, &msgp, MSQ_QUEUE_SIZE * sizeof(char), -MSG_QUEUE_OPENFILE,
-			   IPC_NOWAIT);
+	retval =	msgrcv(msg_queue.msgid, &msgp, MSQ_QUEUE_SIZE, -MSG_QUEUE_OPENFILE, IPC_NOWAIT);
 	if (retval != -1) {
 		DEBUG_MSG("msg_queue_check, found type %ld\n", msgp.mtype);
 		if (msgp.mtype == MSG_QUEUE_ASK_ALIVE) {
@@ -142,18 +158,34 @@ static gboolean msg_queue_check(gpointer data)
 				   IPC_NOWAIT);
 		} else if (msgp.mtype == MSG_QUEUE_OPENFILE) {
 			DEBUG_MSG("msg_queue_check, a filename %s is received\n", msgp.mtext);
-			if (file_is_dir(msgp.mtext)) {
-/*				browse_to_dir(msgp.mtext);*/
-			} else {
-				doc_new_with_file(msgp.mtext);
+			doc_new_with_file(msgp.mtext, TRUE);
+			msg_queue_check(GINT_TO_POINTER(0));	/* call myself again, there may have been multiple files */
+			if (started_by_gtk_timeout) {
+				gtk_notebook_set_page(GTK_NOTEBOOK(main_v->notebook),g_list_length(main_v->documentlist) - 1);
+				notebook_changed(-1);
 			}
-			msg_queue_check(NULL);	/* call it again, there may have been multiple files */
 		}
+#ifdef DEBUG
+		 else {
+		 	DEBUG_MSG("msg_queue_check, unknown message queue type %ld\n", msgp.mtype);
+		 }
+#endif
+		
 	} else {
-		if (errno == 22) {
+#ifdef MSG_QUEUE_DEBUG
+		DEBUG_MSG("msg_queue_check, found errno(%d)=%s\n", errno, g_strerror(errno));
+#endif
+	/*
+	43 = Identifier removed
+	*/
+		if (errno == 22 || errno == 43) {
 			DEBUG_MSG("msg_queue_check, re-opening message queue ?!?!?\n");
 			/* the msg_queue was removed !?!?! */
-			msg_queue_open();
+			if (msg_queue_open()) {
+				DEBUG_MSG("msg_queue_check, another process has opened the message_queue, stopping server\n");
+				msg_queue.server = FALSE;
+				return FALSE;
+			}
 		}
 	}
 	return TRUE;
@@ -206,23 +238,23 @@ static gboolean msg_queue_send_files(GList * filenames)
 					   a reply often */
 					if (msg_queue_check_alive(TRUE)) {
 						received_keepalive = TRUE;
-						DEBUG_MSG("main (msg queue), received keepalive\n");
+						DEBUG_MSG("msg_queue_send_files, received keepalive\n");
 					} else {
 						check_keepalive_cnt++;
-						DEBUG_MSG("main (msg queue), no keepalive (try %d)\n", check_keepalive_cnt);
+						DEBUG_MSG("msg_queue_send_files, no keepalive (try %d)\n", check_keepalive_cnt);
 					}
 				}
-				DEBUG_MSG("main (msg queue), sending %s succeeded\n", (gchar *) tmplist->data);
+				DEBUG_MSG("msg_queue_send_files, sending %s succeeded\n", (gchar *) tmplist->data);
 				send_failure_cnt = 0;
 				tmplist = g_list_next(tmplist);
 			}
 		} else {
-			DEBUG_MSG("main (msg queue), failed sending, length increased message size\n");
+			DEBUG_MSG("msg_queue_send_files, failed sending, length increased message size\n");
 			success = 0;
 		}
 		if ((check_keepalive_cnt > 5) || (send_failure_cnt > 30)) {
 			DEBUG_MSG
-				("main (msg queue), to many tries, check_keepalive_cnt=%d, send_failure_cnt=%d\n",
+				("msg_queue_send_files, to many tries, check_keepalive_cnt=%d, send_failure_cnt=%d\n",
 				 check_keepalive_cnt, send_failure_cnt);
 			success = 0;
 		}
@@ -234,7 +266,7 @@ static gboolean msg_queue_send_files(GList * filenames)
 	}
 	if (success) {
 		DEBUG_MSG
-			("main (msg queue), sending filenames complete and successfull, received_keepalive=%d\n",
+			("msg_queue_send_files, sending filenames complete and successfull, received_keepalive=%d\n",
 			 received_keepalive);
 		/* all filenames send to other process, test if it is alive */
 		if (received_keepalive) {
@@ -251,7 +283,6 @@ static gboolean msg_queue_send_files(GList * filenames)
 	return FALSE;
 }
 
-
 static void msg_queue_request_alive(void)
 {
 	gboolean ask_alive;
@@ -261,7 +292,7 @@ static void msg_queue_request_alive(void)
 	} small_msgp;
 	gchar *pid_string = g_strdup_printf("%d", (int) getpid());
 
-	DEBUG_MSG("msg_queue_ask_alive, asking for keepalive, string %s\n", pid_string);
+	DEBUG_MSG("msg_queue_request_alive, asking for keepalive, string %s\n", pid_string);
 	small_msgp.mtype = MSG_QUEUE_ASK_ALIVE;
 	strncpy(small_msgp.mtext, pid_string, MSQ_QUEUE_SMALL_SIZE - 1);
 	ask_alive =
@@ -269,7 +300,21 @@ static void msg_queue_request_alive(void)
 			   IPC_NOWAIT);
 	g_free(pid_string);
 	if (ask_alive == -1) {
-		DEBUG_MSG("main (msg queue), errno=%d, error=%s\n", errno, g_strerror(errno));
+		if (errno == 11) {
+			/* the resource is temporary unavailable - perhaps the queue is full, this could mean a very busy
+			message queue or a dead server */
+			struct msqid_ds msg_stat;
+			gint timediff;
+
+			/* check the last time a process listened to the queue */
+			msgctl(msg_queue.msgid, IPC_STAT, &msg_stat);
+			timediff = time(NULL) - msg_stat.msg_rtime;
+			if (timediff > 2) {
+				DEBUG_MSG("msg_queue_request_alive, more then 2 seconds no reads on message_queue, timediff=%d, deleting queue\n", timediff);
+				
+			}
+		}
+		DEBUG_MSG("msg_queue_request_alive, errno=%d, error=%s\n", errno, g_strerror(errno));
 		msg_queue.functional = FALSE;
 	}
 }
@@ -314,7 +359,7 @@ void msg_queue_start(GList * filenames)
 		msg_queue.server = TRUE;
 		DEBUG_MSG
 			("msg_queue_start, we opened the queue, or we didn't get a keepalive, we will be server!\n");
-		gtk_timeout_add(MSQ_QUEUE_CHECK_TIME, msg_queue_check, NULL);
+		gtk_timeout_add(MSQ_QUEUE_CHECK_TIME, msg_queue_check, GINT_TO_POINTER(1));
 	}
 }
 
@@ -322,7 +367,7 @@ void msg_queue_cleanup(void)
 {
 	if (msg_queue.functional && msg_queue.server) {
 		DEBUG_MSG("msg_queue_cleanup, removing msg_queue()\n");
-		msgctl(msg_queue.msgid, IPC_RMID, 0);
+		msgctl(msg_queue.msgid, IPC_RMID, NULL);
 	}
 }
 

@@ -1247,8 +1247,11 @@ void doc_new_with_file(gchar * filename, gboolean delay_activate) {
 		return;
 	}
 	if (!main_v->props.allow_multi_instances) {
-		gboolean res = switch_to_document_by_filename(filename);
-		if (res){
+		gint index = documentlist_return_index_from_filename(filename);
+		if (index != -1) {
+			if (!delay_activate) {
+				switch_to_document_by_index(index);
+			}
 			return;
 		}
 	}
