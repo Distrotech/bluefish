@@ -1,0 +1,316 @@
+/* Bluefish HTML Editor
+ * quickstart.c --> quickstart dialog
+ *
+ * Copyright (C) 2005 James Hayward and Olivier Sessink
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ */
+ 
+/*
+ * Initial work on a new dialog.
+ * A lot more work to do still. some features are still missing
+ *
+ * DTD's now have an easily readable name
+ *
+ * meta tags can now be edited by double clicking on them in the list
+ *
+ * all meta tags displayed in the list are now added to the new quickstart
+ * document. the remove button is used to remove tags you don't want 
+ *
+ * new dialog resizes better then the old one.
+ */
+ 
+#define DEBUG
+
+#include <gtk/gtk.h>
+#include <string.h>
+
+#include "bluefish.h"
+#include "cap.h"
+#include "document.h"
+#include "gtk_easy.h"
+#include "quickstart.h"
+
+
+typedef struct {
+	GtkWidget *dtd;
+	GtkWidget *title;
+	GtkWidget *metaTagsView;
+	GtkWidget *removeButton;
+	Tbfwin *bfwin;
+} TQuickStart;
+
+/* Temporarily hard code the DTD's for now.
+ * TODO's:
+ *
+ * Load the DTD's from a file. This would make adding new ones possible 
+ * without having to change the code here.
+ *
+ * Add the ability for the user to add DTD's.
+ *
+ * Add an option to the preferences and per project options for a default DTD 
+ * to be selected when the quick start dialog is opened.
+ *
+ * other?
+ */
+static struct {
+	gchar const *name;
+	gchar const *dtd;
+} const dtds[] = {
+	{ "HTML 4.01 Strict", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\" \"http://www.w3.org/TR/html4/strict.dtd\">" },
+	{ "HTML 4.01 Transitional", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\" \"http://www.w3.org/TR/html4/loose.dtd\">" },
+	{ "HTML 4.01 Frameset", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Frameset//EN\" \"http://www.w3.org/TR/html4/frameset.dtd\">" },
+	{ "XHTML 1.0 Strict", "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">"  },
+	{ "XHTML 1.0 Transitional", "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">" },
+	{ "XHTML 1.0 Frameset", "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Frameset//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd\">" },
+};
+
+static void
+quickstart_load_metatags(GtkListStore *lstore) {
+	GtkTreeIter iter;
+	unsigned int i = 0;
+
+/* Temporarily hard code the meta tag list.
+ * TODO's:
+ *
+ * Load the meta tag's from a file.  
+ * 
+ * Allow the user to select a list of default tags to be displayed when the 
+ * quick start dialog is opened.
+ *
+ * Allow per project default tags that are displayed when the quick start 
+ * dialog is opened
+ *
+ * other?
+ */	
+	const gchar *metaTags[] = {
+		"meta name=\"generator\" content=\"Bluefish\"",
+		"meta name=\"author\" content=\"\"",
+		"meta name=\"copyright\" content=\"\"",
+		"meta name=\"keywords\" content=\"\"",
+		"meta name=\"description\" content=\"\"",
+		"meta name=\"ROBOTS\" content=\"NOINDEX, NOFOLLOW\"",
+		"meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"",
+		"meta http-equiv=\"Content-Type\" content=\"application/xhtml+xml; charset=UTF-8\"",
+		"meta http-equiv=\"Content-Style-Type\" content=\"text/css\"",
+		"meta http-equiv=\"Expires\" content=\"\"",
+		"meta http-equiv=\"refresh\" content=\"5; URL=http://\"",
+	};
+
+	for (i = 0; i < G_N_ELEMENTS (metaTags); i++) {
+		gtk_list_store_append (lstore, &iter);
+		gtk_list_store_set (lstore, &iter, 0, metaTags[i], -1);
+	}	
+	
+}
+
+static void
+quickstart_metatags_selection_changed(GtkTreeSelection *tselection, TQuickStart *qstart) {
+	DEBUG_MSG("quickstart_metatags_selection_changed() started\n");
+	GtkTreeModel *tmodel;
+	GtkTreeIter iter;
+	
+	tmodel = gtk_tree_view_get_model (GTK_TREE_VIEW (qstart->metaTagsView));
+	if (gtk_tree_selection_get_selected (tselection, &tmodel, &iter)) {
+		gtk_widget_set_sensitive (qstart->removeButton, TRUE);	
+	} else {
+		gtk_widget_set_sensitive (qstart->removeButton, FALSE);
+	}
+}
+
+static void
+quickstart_metatags_add_clicked(GtkWidget *widget, TQuickStart *qstart) {
+	DEBUG_MSG("quickstart_metatags_add_clicked() started\n");
+	/* FIXME: We can't add any new tags yet */
+	GtkWidget *dialog = gtk_message_dialog_new (GTK_WINDOW (qstart->bfwin->main_window),
+															  GTK_DIALOG_DESTROY_WITH_PARENT,
+															  GTK_MESSAGE_INFO,
+															  GTK_BUTTONS_CLOSE,
+															  "%s",
+															  "Feature not implemented yet");
+ 	gtk_dialog_run (GTK_DIALOG (dialog));
+ 	gtk_widget_destroy (dialog);
+}
+
+static void
+quickstart_metatags_remove_clicked(GtkWidget *widget, TQuickStart *qstart) {
+	GtkTreeModel *tmodel;
+	GtkTreeIter iter;
+	GtkTreeSelection *tselection;
+
+	tselection = gtk_tree_view_get_selection (GTK_TREE_VIEW (qstart->metaTagsView));
+	tmodel = gtk_tree_view_get_model (GTK_TREE_VIEW (qstart->metaTagsView));
+	if (gtk_tree_selection_get_selected (tselection, &tmodel, &iter)) {
+		gtk_list_store_remove (GTK_LIST_STORE (tmodel), &iter);
+	}
+}
+
+static void
+quickstart_metatags_cell_edited(GtkCellRendererText *cell, const gchar *path_string, const gchar *new_text, TQuickStart *qstart) {
+	GtkTreeModel *tmodel;
+	GtkTreeIter iter;
+	GtkTreePath *path;
+
+	tmodel = gtk_tree_view_get_model (GTK_TREE_VIEW (qstart->metaTagsView));
+	path = gtk_tree_path_new_from_string (path_string);
+	
+	if (gtk_tree_model_get_iter (tmodel, &iter, path)) {
+		gtk_list_store_set (GTK_LIST_STORE (tmodel), &iter, 0, new_text, -1);
+	}
+	
+	gtk_tree_path_free (path);
+}
+
+static void 
+quickstart_response_lcb(GtkDialog *dialog, gint response, TQuickStart *qstart) {
+	DEBUG_MSG("quickstart_response_lcb() started\n");
+	if (response == GTK_RESPONSE_ACCEPT) {
+		GtkTreeModel *dtdmodel, *metamodel;
+		GtkTreeIter iter;		
+		gchar *tmpstr, *tmpstr2, *name, *xmlstr, *titlestr, *endstr, *finalstr, *metatag;
+		gchar *dtdstr = NULL;
+		GString *metastr;
+		unsigned int i = 0;
+		
+		gtk_combo_box_get_active_iter (GTK_COMBO_BOX (qstart->dtd), &iter);
+		dtdmodel = gtk_combo_box_get_model (GTK_COMBO_BOX (qstart->dtd));
+		gtk_tree_model_get (GTK_TREE_MODEL (dtdmodel), &iter, 0, &name, -1);
+			
+		if (strstr(name, "XHTML")) {
+			xmlstr = g_strconcat ("<?xml version=\"1.0\" encoding=\"", main_v->props.newfile_default_encoding, "\"?>\n", NULL);
+			tmpstr = g_strdup_printf ("%shttp://www.w3.org/1999/xhtml%sen%sen\">\n%s\n", cap("<HTML XMLNS=\""), cap("\" XML:LANG=\""), cap("\" LANG=\""), cap("<HEAD>"));
+			endstr = g_strdup ("/>\n");
+		} else {
+			xmlstr = g_strdup ("");
+			tmpstr = g_strdup_printf ("%s\n", cap("<HTML>\n<HEAD>"));
+			endstr = g_strdup (">\n");
+		}
+		for (i = 0; i < G_N_ELEMENTS (dtds); i++) {
+			if (strcmp(name, dtds[i].name) == 0) {
+				dtdstr = g_strconcat (dtds[i].dtd, "\n", NULL);
+			}
+		}
+		g_free (name);
+		
+		metastr = g_string_new ("");
+		metamodel = gtk_tree_view_get_model (GTK_TREE_VIEW (qstart->metaTagsView));
+		if (gtk_tree_model_get_iter_first (GTK_TREE_MODEL (metamodel), &iter)) {
+			do {
+				gtk_tree_model_get (GTK_TREE_MODEL (metamodel), &iter, 0, &metatag, -1);
+				tmpstr2 = g_strconcat ("<", metatag, endstr, NULL);
+				g_free (metatag);				
+				metastr = g_string_append (metastr, tmpstr2);
+				g_free (tmpstr2);
+			} while (gtk_tree_model_iter_next (GTK_TREE_MODEL (metamodel), &iter));
+		}
+		
+		titlestr = g_strconcat (cap("<TITLE>"), gtk_entry_get_text (GTK_ENTRY (qstart->title)), cap("</TITLE>\n"), cap("</HEAD>\n<BODY>\n"), NULL);
+		finalstr = g_strconcat (xmlstr, dtdstr, tmpstr, metastr->str, titlestr, NULL);
+		
+		g_free (xmlstr);
+		g_free (dtdstr);
+		g_free (tmpstr);
+		g_free (titlestr);
+		g_string_free (metastr, TRUE);
+		
+		/* FIXME: the old quick start dialog added the code to the current document.
+		 * I think it would be better to open a new document and add the code to it 
+		 * or possibly add an option "open is new document" or something similar
+		 */
+		doc_insert_two_strings(qstart->bfwin->current_document, finalstr, cap("\n</BODY>\n</HTML>"));	
+		g_free (finalstr);
+	}
+	
+	g_free (qstart);
+	gtk_widget_destroy (GTK_WIDGET (dialog));
+	DEBUG_MSG("quickstart_response_lcb() finished\n");
+}
+
+void 
+quickstart_dialog_new(Tbfwin *bfwin) {
+	TQuickStart *qstart;
+	GtkWidget *dialog, *table, *scrolwin, *button, *bbox;
+	GtkListStore *lstore;
+	GtkCellRenderer *renderer;
+	GtkTreeViewColumn *column;
+	GtkTreeSelection *selection;
+	unsigned int i = 0;
+	
+	qstart = g_new (TQuickStart, 1);
+	qstart->bfwin = bfwin;
+	
+	dialog = gtk_dialog_new_with_buttons (_("Quick Start"), GTK_WINDOW (bfwin->main_window),
+													  GTK_DIALOG_DESTROY_WITH_PARENT,
+													  GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+													  GTK_STOCK_OK, GTK_RESPONSE_ACCEPT,
+													  NULL);	  
+	g_signal_connect (G_OBJECT (dialog), "response", G_CALLBACK (quickstart_response_lcb), qstart);
+
+	table = gtk_table_new (4, 3, FALSE);
+	gtk_container_set_border_width (GTK_CONTAINER (table), 6);
+	gtk_table_set_row_spacings (GTK_TABLE (table), 12);
+	gtk_table_set_col_spacings (GTK_TABLE (table), 12);
+	gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog)->vbox), table, TRUE, TRUE, 0);
+	
+	qstart->dtd = gtk_combo_box_new_text ();
+	for (i = 0; i < G_N_ELEMENTS (dtds); i++) {
+		gtk_combo_box_append_text (GTK_COMBO_BOX (qstart->dtd), dtds[i].name);
+	}
+	gtk_combo_box_set_active (GTK_COMBO_BOX (qstart->dtd), 0);
+	bf_mnemonic_label_tad_with_alignment(_("_DTD:"), qstart->dtd, 0, 0.5, table, 0, 1, 0, 1);
+	gtk_table_attach (GTK_TABLE (table), qstart->dtd, 1, 2, 0, 1, GTK_FILL, GTK_SHRINK, 0, 0);
+	
+	qstart->title = gtk_entry_new ();
+	bf_mnemonic_label_tad_with_alignment(_("_Title:"), qstart->title, 0, 0.5, table, 0, 1, 1, 2);
+	gtk_table_attach (GTK_TABLE (table), qstart->title, 1, 2, 1, 2, GTK_FILL, GTK_SHRINK, 0, 0);
+
+	scrolwin = gtk_scrolled_window_new (NULL, NULL);
+	gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (scrolwin), GTK_SHADOW_IN);
+	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolwin), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
+	gtk_widget_set_size_request (scrolwin, 350, 150);
+	gtk_table_attach_defaults (GTK_TABLE (table), scrolwin, 1, 2, 2, 3);
+	
+	lstore = gtk_list_store_new (1, G_TYPE_STRING);
+	quickstart_load_metatags(lstore);
+
+	qstart->metaTagsView = gtk_tree_view_new ();
+	gtk_tree_view_set_headers_visible (GTK_TREE_VIEW (qstart->metaTagsView), FALSE);
+	selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (qstart->metaTagsView));
+	g_signal_connect (G_OBJECT (selection), "changed", G_CALLBACK (quickstart_metatags_selection_changed), qstart);
+	gtk_tree_selection_set_mode (selection, GTK_SELECTION_SINGLE);
+	gtk_container_add (GTK_CONTAINER (scrolwin), qstart->metaTagsView);
+	renderer = gtk_cell_renderer_text_new ();
+	g_object_set (renderer, "editable", TRUE, NULL);
+	g_signal_connect (renderer, "edited", G_CALLBACK (quickstart_metatags_cell_edited), qstart);
+	column = gtk_tree_view_column_new_with_attributes ("Meta Tag", renderer, "text", 0, NULL);
+	gtk_tree_view_append_column (GTK_TREE_VIEW (qstart->metaTagsView), column);
+	gtk_tree_view_set_model (GTK_TREE_VIEW (qstart->metaTagsView), GTK_TREE_MODEL (lstore));
+	g_object_unref (lstore);
+	bf_mnemonic_label_tad_with_alignment(_("_Meta Tags:"), qstart->metaTagsView, 0, 0, table, 0, 1, 2, 3);
+
+	bbox = gtk_vbutton_box_new ();
+	gtk_box_set_spacing (GTK_BOX (bbox), 6);
+	gtk_button_box_set_layout (GTK_BUTTON_BOX (bbox), GTK_BUTTONBOX_START);
+	button = gtk_button_new_from_stock (GTK_STOCK_ADD);
+	g_signal_connect (G_OBJECT (button), "clicked", G_CALLBACK (quickstart_metatags_add_clicked), qstart);
+	gtk_box_pack_start (GTK_BOX (bbox), button, FALSE, FALSE, 0);
+	qstart->removeButton = gtk_button_new_from_stock (GTK_STOCK_REMOVE);
+	g_signal_connect (G_OBJECT (qstart->removeButton), "clicked", G_CALLBACK (quickstart_metatags_remove_clicked), qstart);
+	gtk_box_pack_start (GTK_BOX (bbox), qstart->removeButton, FALSE, FALSE, 0);
+	gtk_widget_set_sensitive (qstart->removeButton, FALSE);
+	gtk_table_attach (GTK_TABLE (table), bbox, 2, 3, 2, 3, GTK_SHRINK, GTK_SHRINK, 0, 0);
+	
+	gtk_widget_show_all (dialog);
+}

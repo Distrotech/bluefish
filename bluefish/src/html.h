@@ -39,7 +39,6 @@ void h4_dialog(Tbfwin *bfwin, Ttagpopup *data);
 void h5_dialog(Tbfwin *bfwin, Ttagpopup *data);
 void h6_dialog(Tbfwin *bfwin, Ttagpopup *data);
 void quickrule_dialog(Tbfwin *bfwin, Ttagpopup *data);
-void quickstart_dialog(Tbfwin *bfwin, Ttagpopup *data);
 void body_dialog(Tbfwin *bfwin, Ttagpopup *data);
 void meta_dialog(Tbfwin *bfwin, Ttagpopup *data);
 void font_dialog(Tbfwin *bfwin, Ttagpopup *data);

@@ -32,6 +32,7 @@
 #include "bookmark.h"
 #include "document.h"		/* file_new_cb() */
 /* #include "filebrowser.h" */
+#include "filebrowser2.h"
 #include "file_dialogs.h"
 #include "fref.h"
 #include "gtk_easy.h"
@@ -46,11 +47,11 @@
 #include "pixmap.h"			/* new_pixmap(); */
 #include "preferences.h"	/* open_preferences_cb */
 #include "project.h"
+#include "quickstart.h"
 #include "snr2.h"				/* search_cb, replace_cb */
 #include "stringlist.h"
 #include "undo_redo.h"		/* undo_cb() redo_cb() etc. */
 #include "wizards.h"
-#include "filebrowser2.h"
 
 #ifdef HAVE_LIBASPELL
 #include "bfspell.h"
@@ -489,7 +490,7 @@ static void acronym_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
 }
 
 static void quickstart_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
-	quickstart_dialog(bfwin,NULL);
+	quickstart_dialog_new(bfwin);
 }
 static void body_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
 	body_dialog(bfwin,NULL);
