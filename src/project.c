@@ -294,22 +294,20 @@ void project_open_from_file(Tbfwin *bfwin, gchar *fromfilename) {
 	recent_menu_init_project(prwin);
 }
 
-static void project_open(Tbfwin *bfwin) {
-	/* first we ask for a filename */
-	gchar *filename = NULL;
-	GtkWidget *dialog;
-	dialog = file_chooser_dialog(bfwin, _("Select Bluefish project filename"), GTK_FILE_CHOOSER_ACTION_OPEN, NULL, TRUE, FALSE, "bfproject");
-	if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_ACCEPT) {
+static void project_open_response_lcb(GtkDialog *dialog,gint response,Tbfwin *bfwin) {
+	if (response == GTK_RESPONSE_ACCEPT) {
+		gchar *filename;
 		filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog));
-	}
-	gtk_widget_destroy(dialog);
-	if (filename) {
-		DEBUG_MSG("project_open, for filename %s\n",filename);
 		project_open_from_file(bfwin,filename);
 		g_free(filename);
-	} else {
-		DEBUG_MSG("project_open, no filename.., returning\n");
 	}
+	gtk_widget_destroy(GTK_WIDGET(dialog));
+}
+static void project_open(Tbfwin *bfwin) {
+	GtkWidget *dialog;
+	dialog = file_chooser_dialog(bfwin, _("Select Bluefish project filename"), GTK_FILE_CHOOSER_ACTION_OPEN, NULL, TRUE, FALSE, "bfproject");
+	g_signal_connect(dialog, "response", G_CALLBACK(project_open_response_lcb), bfwin);
+	gtk_widget_show_all(dialog);
 }
 
 static void project_destroy(Tproject *project) {
