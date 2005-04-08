@@ -180,6 +180,16 @@ void file_open_advanced_cb(GtkWidget * widget, Tbfwin *bfwin) {
 
 /*************** end of advanced open code *************/
 
+static void file_open_ok_lcb(GtkDialog *dialog,gint response,Tbfwin *bfwin) {
+	if (response == GTK_RESPONSE_ACCEPT) {
+		GSList *slist;
+		bfwin->focus_next_new_doc = TRUE;
+		slist = gtk_file_chooser_get_uris(GTK_FILE_CHOOSER(dialog));
+		docs_new_from_uris(bfwin, slist, FALSE);
+		g_slist_free(slist);
+	}
+	gtk_widget_destroy(GTK_WIDGET(dialog));
+}
 /**
  * file_open_cb:
  * @widget: unused #GtkWidget
@@ -192,14 +202,16 @@ void file_open_advanced_cb(GtkWidget * widget, Tbfwin *bfwin) {
 void file_open_cb(GtkWidget * widget, Tbfwin *bfwin) {
 	GtkWidget *dialog;
 	dialog = file_chooser_dialog(bfwin, _("Select files"), GTK_FILE_CHOOSER_ACTION_OPEN, NULL, FALSE, TRUE, NULL);
-	if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_ACCEPT) {
+	g_signal_connect(dialog, "response", G_CALLBACK(file_open_ok_lcb), bfwin);
+	gtk_widget_show_all(dialog);
+/*	if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_ACCEPT) {
 		GSList *slist;
 		bfwin->focus_next_new_doc = TRUE;
 		slist = gtk_file_chooser_get_uris(GTK_FILE_CHOOSER(dialog));
 		docs_new_from_uris(bfwin, slist, FALSE);
 		g_slist_free(slist);
 	}
-	gtk_widget_destroy(dialog);
+	gtk_widget_destroy(dialog);*/
 }
 
 typedef struct {
