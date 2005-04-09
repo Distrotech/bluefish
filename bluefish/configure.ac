@@ -20,7 +20,20 @@ AC_INIT
 AC_CONFIG_SRCDIR(src/bluefish.c)
 AC_CONFIG_HEADER(src/config.h)
 
-PACKAGE=bluefish
+AC_ARG_ENABLE([bluefish-dev],
+	AC_HELP_STRING(
+		[--enable-bluefish-dev],
+		[Enables the installation of an bluefish development version with independent directories and files.]
+	),
+	[bluefish_dev=$enableval],
+	[bluefish_dev=no]
+)
+if test "$bluefish_dev" = yes; then
+	PACKAGE=bluefish-dev
+else
+	PACKAGE=bluefish
+fi
+
 VERSION=pre1.1
 AC_SUBST(PACKAGE)
 AC_SUBST(VERSION)
