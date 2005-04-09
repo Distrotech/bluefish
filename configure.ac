@@ -615,7 +615,6 @@ if test "x$ICONPATH" != "xno" ; then
 	if test "${ICONPATH}" != "no" ; then
 		AC_SUBST(ICONPATH)
 		INSTALLMAIN="${INSTALLMAIN} install-icon"
-		INSTALLDATA="${INSTALLDATA} install-icon"
 	fi
 fi
 

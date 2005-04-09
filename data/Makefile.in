@@ -33,49 +33,70 @@ INSTALL_DATA = ${INSTALL} -m 644
 
 DEFAULTFILES = highlighting.default filetypes.default encodings.default custom_menu.default custom_menu.fr.default custom_menu.de.default
 FUNCREFFILES = funcref_html.xml funcref_php.xml funcref_css.xml funcref_python.xml
+# For the new fref2: comment out the above line, go to 
+# http://aragorn.pb.bialystok.pl/~swida/bluefish/ and download and unzip
+# the new bflib_*.xml.{gz|bz2} files and uncomment the next line - adjust the
+# files you want to install
+#FUNCREFFILES = \
+	bflib_css2.xml \
+	bflib_php.xml \
+	bflib_php5.xml \
+	bflib_php5_examples.xml \
+	bflib_python.xml \
+	bflib_xhtml_strict.xml \
+	bflib_xhtml_transitional.xml
+
 .SUFFIXES: .in .default
 
 .in.default:
 	sed -e 's!PKGDATADIR!$(pkgdatadir)!' < $< > $@
 
 all: $(DEFAULTFILES)
-	sed -e 's!ICONDIR!$(ICONPATH)!' < bluefish.desktop.in > bluefish.desktop
+	sed -e  's!PACKAGE!$(PACKAGE)!g' \
+		-e 's!ICONDIR!$(ICONPATH)!' \
+		< bluefish.desktop.in > $(PACKAGE).desktop
 	if test "x${HAVE_GNOME_VFS}" = "x1" ; then \
-		sed -e 's!EXPECT_URIS!true!' -e 's!SUPPORTED_URI_SCHEMES!file,http,ftp,sftp,smb!' < bluefish.applications.in > bluefish.applications ;\
+		sed -e 's!EXPECT_URIS!true!' \
+			-e 's!SUPPORTED_URI_SCHEMES!file,http,ftp,sftp,smb!' \
+			< bluefish.applications.in > $(PACKAGE).applications ;\
 	else \
-		sed -e 's!EXPECT_URIS!false!' -e 's!SUPPORTED_URI_SCHEMES!!' < bluefish.applications.in > bluefish.applications ;\
+		sed -e 's!EXPECT_URIS!false!' \
+			-e 's!SUPPORTED_URI_SCHEMES!!' \
+			< bluefish.applications.in > $(PACKAGE).applications ;\
 	fi
 
 install-gnome1-menu:
 	$(INSTALL_DIR) $(DESTDIR)$(GNOME1MENU)
-	$(INSTALL_DATA) bluefish.desktop $(DESTDIR)$(GNOME1MENU)
+	$(INSTALL_DATA) $(PACKAGE).desktop $(DESTDIR)$(GNOME1MENU)
 
 install-fdmenu:
 	$(INSTALL_DIR) $(DESTDIR)$(FDMENU)
-	$(INSTALL_DATA) bluefish.desktop $(DESTDIR)$(FDMENU)
+	$(INSTALL_DATA) $(PACKAGE).desktop $(DESTDIR)$(FDMENU)
 
 install-update-menu:
 	$(UPDATE_DESKTOP)
 
 install-fdmime:
 	$(INSTALL_DIR) $(DESTDIR)$(FDMIME)/packages
-	$(INSTALL_DATA) bluefish.xml $(DESTDIR)$(FDMIME)/packages
+	$(INSTALL_DATA) bluefish.xml $(DESTDIR)$(FDMIME)/packages/$(PACKAGE).xml
 
 install-update-mime:
 	$(UPDATE_MIME) $(FDMIME)
 
-install-gnome-2.4-mime:
+install-gnome-2.4-mime: install-icon
 	$(INSTALL_DIR) $(DESTDIR)$(GMIMEINFO)
-	$(INSTALL_DATA) bluefish.mime $(DESTDIR)$(GMIMEINFO)
-	$(INSTALL_DATA) bluefish.keys $(DESTDIR)$(GMIMEINFO)
+	$(INSTALL_DATA) bluefish.mime $(DESTDIR)$(GMIMEINFO)/$(PACKAGE).mime
+	$(INSTALL_DATA) bluefish.keys $(DESTDIR)$(GMIMEINFO)/$(PACKAGE).keys
 
 install-gnome-2.4-appreg:
 	$(INSTALL_DIR) $(DESTDIR)$(GAPPREG)
-	$(INSTALL_DATA) bluefish.applications $(DESTDIR)$(GAPPREG)
+	$(INSTALL_DATA) $(PACKAGE).applications $(DESTDIR)$(GAPPREG)
 
 install-icon:
-	$(INSTALL_DIR) $(DESTDIR)$(ICONPATH)
-	$(INSTALL_DATA) gnome-application-bluefish.png $(DESTDIR)$(ICONPATH)/gnome-application-bluefish-project.png
+	if test "$(ICONPATH)" != "no"; then \
+		$(INSTALL_DIR) $(DESTDIR)$(ICONPATH); \
+		$(INSTALL_DATA) gnome-application-bluefish.png $(DESTDIR)$(ICONPATH)/gnome-application-bluefish-project.png; \
+	fi
 
 install: all $(INSTALLDATA)
 	$(INSTALL_DIR) $(DESTDIR)$(pkgdatadir)
@@ -85,15 +106,23 @@ install: all $(INSTALLDATA)
 	for file in $(FUNCREFFILES) ; do \
 		$(INSTALL_DATA) $$file $(DESTDIR)$(pkgdatadir) ;\
 	done
+	# for the new fref2: comment out the 3 above lines and uncomment the
+	# following 4 lines.
+	#for file in $(FUNCREFFILES) ; do \
+	#	$(INSTALL_DATA) $$file $(DESTDIR)$(pkgdatadir) ;\
+	#	gzip $(DESTDIR)$(pkgdatadir)/$$file ;\
+	#done
 
 uninstall:
-	rm -f $(FDMIME)/packages/bluefish.xml
-	rm -f $(GMIMEINFO)/bluefish.mime
-	rm -f $(GMIMEINFO)/bluefish.keys
-	rm -f $(GAPPREG)/bluefish.applications
-	rm -f $(GNOME1MENU)/bluefish.desktop
-	rm -f $(FDMENU)/bluefish.desktop
-	rm -f $(ICONPATH)/gnome-application-bluefish-project.png
+	rm -f $(FDMIME)/packages/$(PACKAGE).xml
+	rm -f $(GMIMEINFO)/$(PACKAGE).mime
+	rm -f $(GMIMEINFO)/$(PACKAGE).keys
+	rm -f $(GAPPREG)/$(PACKAGE).applications
+	rm -f $(GNOME1MENU)/$(PACKAGE).desktop
+	rm -f $(FDMENU)/$(PACKAGE).desktop
+	if test "$(ICONPATH)" != "no"; then \
+		rm -f $(ICONPATH)/gnome-application-bluefish-project.png; \
+	fi
 	@for file in $(DEFAULTFILES) ; do \
 		rm -f $(pkgdatadir)$$file ;\
 	done
@@ -103,8 +132,8 @@ uninstall:
 
 clean:
 	rm -f *.default
-	rm -f bluefish.desktop
-	rm -f bluefish.applications
+	rm -f $(PACKAGE).desktop
+	rm -f $(PACKAGE).applications
 
 distclean: clean
 	rm -f Makefile *.rej *.orig *~
