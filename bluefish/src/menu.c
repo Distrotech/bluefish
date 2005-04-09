@@ -1082,8 +1082,8 @@ GList *recent_menu_from_list(Tbfwin *bfwin, GList *startat, gboolean is_project)
  * because this is the first time Bluefish is running) then a menu
  * item telling that no recent files exist will appear */
 void recent_menu_init(Tbfwin *bfwin) {
-/*	recent_menu_from_file(bfwin, "/.bluefish/recentlist", FALSE);
-	recent_menu_from_file(bfwin, "/.bluefish/recentprojects", TRUE);*/
+/*	recent_menu_from_file(bfwin, "/."PACKAGE"/recentlist", FALSE);
+	recent_menu_from_file(bfwin, "/."PACKAGE"/recentprojects", TRUE);*/
 	recent_menu_from_list(bfwin, bfwin->session->recent_files, FALSE);
 	recent_menu_from_list(bfwin, main_v->globses.recent_projects, TRUE);
 }
@@ -1151,7 +1151,7 @@ void add_to_recent_list(Tbfwin *bfwin,gchar *filename, gint closed_file, gboolea
 			/ * we do nothing when the file is opened, since opened files are anyway opened again in a project * /
 		} else {
 			gchar *tmpfilename, *recentfile;
-			recentfile = g_strconcat(g_get_home_dir(), (is_project) ? "/.bluefish/recentprojects" : "/.bluefish/recentlist", NULL);
+			recentfile = g_strconcat(g_get_home_dir(), (is_project) ? "/."PACKAGE"/recentprojects" : "/."PACKAGE"/recentlist", NULL);
 			/ * save the new list * /
 			tmpfilename = g_strconcat(filename, "\n", NULL);
 			DEBUG_MSG("add_to_recent_list, trying to append to %s\n", recentfile);

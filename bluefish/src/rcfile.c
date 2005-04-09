@@ -480,7 +480,7 @@ void rcfile_parse_main(void)
 	/*Make the config_rc list ready for filling with data and set default values */
 	main_configlist = props_init_main(NULL);
 
-	filename = g_strconcat(g_get_home_dir(), "/.bluefish/rcfile_v2", NULL);
+	filename = g_strconcat(g_get_home_dir(), "/."PACKAGE"/rcfile_v2", NULL);
 	if (!parse_config_file(main_configlist, filename)) {
 		/* should we initialize some things ?? */
 	}
@@ -572,7 +572,7 @@ void rcfile_parse_main(void)
 		main_v->props.filefilters = g_list_append(main_v->props.filefilters, arr);
 	}
 	if (main_v->props.reference_files == NULL) {
-		gchar *userdir = g_strconcat(g_get_home_dir(), "/.bluefish/", NULL);
+		gchar *userdir = g_strconcat(g_get_home_dir(), "/."PACKAGE"/", NULL);
 		/* if the user does not yet have any function reference files, set them to default values */
 		fref_rescan_dir(PKGDATADIR);
 		fref_rescan_dir(userdir);
@@ -606,7 +606,7 @@ void rcfile_parse_main(void)
 }
 
 static gint rcfile_save_main(void) {
-	gchar *filename = g_strconcat(g_get_home_dir(), "/.bluefish/rcfile_v2", NULL);
+	gchar *filename = g_strconcat(g_get_home_dir(), "/."PACKAGE"/rcfile_v2", NULL);
 	return save_config_file(main_configlist, filename);
 }
 /*
@@ -630,7 +630,7 @@ void rcfile_parse_highlighting(void) {
 	highlighting_configlist = NULL;
 	init_prop_arraylist(&highlighting_configlist, &main_v->props.highlight_patterns, "patterns:", 0, TRUE);
 
-	filename = g_strconcat(g_get_home_dir(), "/.bluefish/highlighting", NULL);
+	filename = g_strconcat(g_get_home_dir(), "/."PACKAGE"/highlighting", NULL);
 	defaultfile = return_first_existing_filename(PKGDATADIR"highlighting.default",
 									"data/highlighting.default",
 									"../data/highlighting.default",NULL);
@@ -656,7 +656,7 @@ void rcfile_parse_highlighting(void) {
 
 static gint rcfile_save_highlighting(void) {
 	gint retval;
-	gchar *filename = g_strconcat(g_get_home_dir(), "/.bluefish/highlighting", NULL);
+	gchar *filename = g_strconcat(g_get_home_dir(), "/."PACKAGE"/highlighting", NULL);
 	retval = save_config_file(highlighting_configlist, filename);
 	g_free(filename);
 	return retval;
@@ -684,7 +684,7 @@ static void rcfile_custom_menu_load_all(gboolean full_reset, gchar *defaultfile)
 	init_prop_arraylist(&custom_menu_configlist, &main_v->props.cmenu_insert, "cmenu_insert:", 0, TRUE);
 	init_prop_arraylist(&custom_menu_configlist, &main_v->props.cmenu_replace, "cmenu_replace:", 0, TRUE);
 
-	filename = g_strconcat(g_get_home_dir(), "/.bluefish/custom_menu", NULL);
+	filename = g_strconcat(g_get_home_dir(), "/."PACKAGE"/custom_menu", NULL);
 
 	if (full_reset || !parse_config_file(custom_menu_configlist, filename) || (main_v->props.cust_menu==NULL && main_v->props.cmenu_insert==NULL && main_v->props.cmenu_replace==NULL )) {
 		DEBUG_MSG("error parsing the custom menu file, or full_reset is set\n");
@@ -792,7 +792,7 @@ void rcfile_parse_custom_menu(gboolean full_reset, gboolean load_new) {
 }
 static gint rcfile_save_custom_menu(void) {
 	gint retval;
-	gchar *filename = g_strconcat(g_get_home_dir(), "/.bluefish/custom_menu", NULL);
+	gchar *filename = g_strconcat(g_get_home_dir(), "/."PACKAGE"/custom_menu", NULL);
 	retval = save_config_file(custom_menu_configlist, filename);
 	g_free(filename);
 	return retval;
@@ -800,7 +800,7 @@ static gint rcfile_save_custom_menu(void) {
 
 #define DIR_MODE (S_IRWXU | S_IRGRP | S_IXGRP | S_IROTH | S_IXOTH)	/* same as 0755 */
 void rcfile_check_directory(void) {
-	gchar *rcdir = g_strconcat(g_get_home_dir(), "/.bluefish", NULL);
+	gchar *rcdir = g_strconcat(g_get_home_dir(), "/."PACKAGE, NULL);
 	if (!g_file_test(rcdir, G_FILE_TEST_IS_DIR)) {
 		mkdir(rcdir, DIR_MODE);
 	}
@@ -820,7 +820,7 @@ void rcfile_save_configfile_menu_cb(gpointer callback_data,guint action,GtkWidge
 	break;
 	case 3:
 		{
-			gchar *shortcutfilename = g_strconcat(g_get_home_dir(), "/.bluefish/menudump_2", NULL);
+			gchar *shortcutfilename = g_strconcat(g_get_home_dir(), "/."PACKAGE"/menudump_2", NULL);
 			gtk_accel_map_save(shortcutfilename);
 			g_free(shortcutfilename);
 		}
@@ -917,7 +917,7 @@ gboolean rcfile_save_project(Tproject *project, gchar *filename) {
 
 gboolean rcfile_save_global_session(void) {
 	gboolean retval;
-	gchar *filename = g_strconcat(g_get_home_dir(), "/.bluefish/session", NULL);
+	gchar *filename = g_strconcat(g_get_home_dir(), "/."PACKAGE"/session", NULL);
 	GList *configlist = return_globalsession_configlist(FALSE);
 	configlist = return_session_configlist(configlist, main_v->session);
 	DEBUG_MSG("rcfile_save_global_session, saving global session to %s\n",filename);
@@ -936,12 +936,12 @@ gboolean rcfile_parse_global_session(void) {
 	gchar *filename;
 	GList *configlist = return_globalsession_configlist(TRUE);
 	configlist = return_session_configlist(configlist, main_v->session);
-	filename = g_strconcat(g_get_home_dir(), "/.bluefish/session", NULL);
+	filename = g_strconcat(g_get_home_dir(), "/."PACKAGE"/session", NULL);
 	if (!file_exists_and_readable(filename)) {
 		/* versions before 0.13 did not have a separate session file, so 
 		we'll try to load these items from rcfile_v2 */
 		g_free(filename);
-		filename = g_strconcat(g_get_home_dir(), "/.bluefish/rcfile_v2", NULL);
+		filename = g_strconcat(g_get_home_dir(), "/."PACKAGE"/rcfile_v2", NULL);
 	}
 	retval = parse_config_file(configlist, filename);
 	free_configlist(configlist);

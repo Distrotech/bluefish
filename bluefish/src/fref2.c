@@ -1827,7 +1827,7 @@ static Tfref_record *get_current_entry(Tbfwin * bfwin)
 
 static void fref_popup_menu_rescan_lcb(GtkWidget * widget, gpointer user_data)
 {
-	gchar *userdir = g_strconcat(g_get_home_dir(), "/.bluefish/", NULL);
+	gchar *userdir = g_strconcat(g_get_home_dir(), "/."PACKAGE"/", NULL);
 	DEBUG_MSG("fref_popup_menu_rescan_lcb, started\n");
 	fref_rescan_dir(PKGDATADIR);
 	fref_rescan_dir(userdir);
@@ -3383,7 +3383,7 @@ static void frefcb_new_library(GtkWidget * widget, Tbfwin *bfwin)
 							{
 									if ( strcmp("",gtk_entry_get_text(GTK_ENTRY(e1))) != 0 )
 									{
-										gchar *userdir = g_strconcat(g_get_home_dir(), "/.bluefish/", NULL);
+										gchar *userdir = g_strconcat(g_get_home_dir(), "/."PACKAGE"/", NULL);
 										FILE *ff;
 										gchar *pomstr;
 										
@@ -3431,7 +3431,7 @@ static void frefcb_delete_library(GtkWidget * widget, Tbfwin *bfwin)
 		gtk_tree_model_get_value(gtk_tree_view_get_model(GTK_TREE_VIEW(FREFGUI(bfwin->fref)->tree)),
 								 &iter, FILE_COLUMN, val);
 		if (G_IS_VALUE(val) && g_value_fits_pointer(val) && g_value_peek_pointer(val)) {
-					gchar *userdir = g_strconcat(g_get_home_dir(), "/.bluefish/", NULL);		
+					gchar *userdir = g_strconcat(g_get_home_dir(), "/."PACKAGE"/", NULL);		
 					retval = message_dialog_new_multi(bfwin->main_window,
 																 GTK_MESSAGE_QUESTION,
 																 buttons,

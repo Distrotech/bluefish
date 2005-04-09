@@ -74,7 +74,7 @@ distclean:
 
 install-icon:
 	$(INSTALL_DIR) $(DESTDIR)$(iconpath)
-	$(INSTALL_DATA) inline_images/bluefish_icon1.png $(DESTDIR)$(iconpath)/bluefish-icon.png
+	$(INSTALL_DATA) inline_images/bluefish_icon1.png $(DESTDIR)$(iconpath)/$(PACKAGE)-icon.png
 
 install-nls:
 	cd po/ && $(MAKE) install

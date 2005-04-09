@@ -182,7 +182,7 @@ int main(int argc, char *argv[])
 #endif /* #ifndef NOSPLASH */
 
 	{
-		gchar *filename = g_strconcat(g_get_home_dir(), "/.bluefish/dir_history", NULL);
+		gchar *filename = g_strconcat(g_get_home_dir(), "/."PACKAGE"/dir_history", NULL);
 		main_v->recent_directories = get_stringlist(filename, NULL);
 		g_free(filename);
 	}
@@ -227,7 +227,7 @@ int main(int argc, char *argv[])
 		gchar *shortcutfilename;
 		GtkSettings* gtksettings = gtk_settings_get_default();
 		g_object_set(G_OBJECT(gtksettings), "gtk-can-change-accels", TRUE, NULL); 
-		shortcutfilename = g_strconcat(g_get_home_dir(), "/.bluefish/menudump_2", NULL);
+		shortcutfilename = g_strconcat(g_get_home_dir(), "/."PACKAGE"/menudump_2", NULL);
 		gtk_accel_map_load(shortcutfilename);
 		g_free(shortcutfilename);
 	}
@@ -313,7 +313,7 @@ void bluefish_exit_request() {
 	
 	rcfile_save_all();
 	{
-		gchar *filename = g_strconcat(g_get_home_dir(), "/.bluefish/dir_history", NULL);
+		gchar *filename = g_strconcat(g_get_home_dir(), "/."PACKAGE"/dir_history", NULL);
 		put_stringlist_limited(filename, main_v->recent_directories, main_v->props.max_dir_history);
 		g_free(filename);
 	}

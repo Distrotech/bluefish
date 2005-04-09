@@ -16,6 +16,9 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
+PACKAGE = @PACKAGE@
+VERSION = @VERSION@
+
 top_srcdir = @top_srcdir@
 top_builddir = @top_srcdir@
 srcdir = @srcdir@
@@ -104,7 +107,7 @@ distclean: patchclean
 
 install: all
 	$(INSTALL_DIR) $(DESTDIR)$(bindir)
-	$(INSTALL_PROGRAM) ./bluefish $(DESTDIR)$(bindir)/bluefish
+	$(INSTALL_PROGRAM) ./bluefish $(DESTDIR)$(bindir)/$(PACKAGE)
 
 uninstall:
-	/bin/rm -f $(DESTDIR)$(bindir)/bluefish
+	/bin/rm -f $(DESTDIR)$(bindir)/$(PACKAGE)
