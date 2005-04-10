@@ -63,6 +63,7 @@ typedef struct {
 	GtkWidget *stylelinktype;
 	GtkWidget *stylehref;
 	GtkWidget *stylemedia;
+	GtkWidget *styletitle;
 	GtkWidget *stylearea;
 	GtkWidget *scriptsrc;
 	GtkWidget *scriptarea;
@@ -127,6 +128,13 @@ quickstart_stylelinktype_changed(GtkComboBox *combobox, TQuickStart *qstart)
 		gtk_widget_set_sensitive (qstart->stylehref, TRUE);
 		gtk_widget_set_sensitive (qstart->stylemedia, TRUE);	
 	}
+	
+	if (strcmp(type, "Linked") == 0) {
+		gtk_widget_set_sensitive (qstart->styletitle, TRUE);
+	} else {
+		gtk_widget_set_sensitive (qstart->styletitle, FALSE);
+	}
+	
 	g_free (type);
 }
 
@@ -292,18 +300,27 @@ quickstart_response_lcb(GtkDialog *dialog, gint response, TQuickStart *qstart)
 		gtk_tree_model_get (model, &iter, 0, &name, -1);
 		
 		if (strcmp(name, "") != 0) {
-			gchar *stylehref, *stylemedia;
+			gchar *stylehref, *stylemedia, *styletitle;
 			
 			stylehref = gtk_editable_get_chars (GTK_EDITABLE (GTK_BIN (qstart->stylehref)->child), 0, -1);
 			qstart->bfwin->session->urllist = add_to_stringlist(qstart->bfwin->session->urllist, stylehref);
 			stylemedia = gtk_editable_get_chars (GTK_EDITABLE (qstart->stylemedia), 0, -1);
+			styletitle = gtk_editable_get_chars (GTK_EDITABLE (qstart->styletitle), 0, -1);
 			
 			if (strcmp(name, "Linked") == 0) {
 				stylestr = g_string_append (stylestr, "<link rel=stylesheet type=\"text/css\" ");
 				if (strlen(stylemedia) > 0) {
-					tmpstr2 = g_strdup_printf ("media=\"%s\" href=\"%s\">\n", stylemedia, stylehref);
+					if (strlen(styletitle) > 0) {
+						tmpstr2 = g_strdup_printf ("media=\"%s\" href=\"%s\" title=\"%s\">\n", stylemedia, stylehref, styletitle);
+					} else {
+						tmpstr2 = g_strdup_printf ("media=\"%s\" href=\"%s\">\n", stylemedia, stylehref);
+					}
 				} else {
-					tmpstr2 = g_strdup_printf ("href=\"%s\">\n", stylehref);
+					if (strlen(styletitle) > 0) {
+						tmpstr2 = g_strdup_printf ("href=\"%s\" title=\"%s\">\n", stylehref, styletitle);
+					} else {
+						tmpstr2 = g_strdup_printf ("href=\"%s\">\n", stylehref);
+					}
 				}
 			} else {
 				stylestr = g_string_append (stylestr, "<style type=\"text/css\">\n   @import url(");
@@ -317,7 +334,8 @@ quickstart_response_lcb(GtkDialog *dialog, gint response, TQuickStart *qstart)
 
 			g_free (tmpstr2);
 			g_free (stylehref);
-			g_free (stylemedia);	
+			g_free (stylemedia);
+			g_free (styletitle);
 		}
 		g_free (name);
 		
@@ -466,7 +484,7 @@ quickstart_style_page_create(TQuickStart *qstart)
 	gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, FALSE, 0);
 	gtk_box_pack_start (GTK_BOX (hbox), qstart->stylelinktype, FALSE, FALSE, 0);
 
-	table = dialog_table_in_vbox(2, 2, 0, vbox2, FALSE, FALSE, 0);
+	table = dialog_table_in_vbox(3, 2, 0, vbox2, FALSE, FALSE, 0);
 	
 	history = gtk_list_store_new (1, G_TYPE_STRING);
 	urllist = g_list_first (qstart->bfwin->session->urllist);
@@ -485,6 +503,10 @@ quickstart_style_page_create(TQuickStart *qstart)
 	dialog_mnemonic_label_in_table(_("_Media:"), qstart->stylemedia, table, 0, 1, 1, 2);
 	gtk_table_attach (GTK_TABLE (table), qstart->stylemedia, 1, 2, 1, 2, GTK_EXPAND|GTK_FILL, GTK_SHRINK, 0, 0);	
 
+	qstart->styletitle = gtk_entry_new ();
+	dialog_mnemonic_label_in_table(_("Titl_e:"), qstart->styletitle, table, 0, 1, 2, 3);
+	gtk_table_attach (GTK_TABLE (table), qstart->styletitle, 1, 2, 2, 3, GTK_EXPAND|GTK_FILL, GTK_SHRINK, 0, 0);
+	
 	/* TODO: add an option to place content in the style area
 	 * Possibly from a code snippet library
 	 */
@@ -492,7 +514,7 @@ quickstart_style_page_create(TQuickStart *qstart)
 	
 	hbox = gtk_hbox_new (FALSE, 12);
 	gtk_box_pack_start (GTK_BOX (vbox2), hbox, FALSE, FALSE, 0);
-	qstart->stylearea = gtk_check_button_new_with_mnemonic (_("Create _empty style area"));
+	qstart->stylearea = gtk_check_button_new_with_mnemonic (_("Cre_ate empty style area"));
 	gtk_box_pack_start (GTK_BOX (hbox), qstart->stylearea, FALSE, FALSE, 0);	
 
 	gtk_combo_box_set_active (GTK_COMBO_BOX (qstart->stylelinktype), 0);
