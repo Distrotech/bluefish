@@ -576,14 +576,55 @@ if test "${GAPPREG}" != "no" ; then
 	fi
 fi
 
+AC_ARG_WITH(theme-path,
+	AC_HELP_STRING([--without-theme-path],[do not install theme icons in /usr/share/icons/hicolor, use --with-theme-path=/path to override the default path or theme (GNOME >= 2.8 users should use --without-icon-path in addition to this option)]),[
+	THEMEPATH=$withval
+], [
+	THEMEPATH=yes
+])
+
+if test "x$THEMEPATH" != "xno" ; then
+	if test "x${THEMEPATH}" = "xyes" ; then
+		echo -n "checking icon path... "
+		# the default answer is yes, so this is for users that did not use theicon-path option at all
+		if test -d /usr/share/icons/hicolor ; then
+			THEMEPATH=/usr/share/icons/hicolor
+		else
+			if test -d ${prefix}/share/icons/hicolor ; then
+				THEMEPATH=${prefix}/share/icons/hicolor
+			else
+				# FreeBSD defaults to:
+				if test -d /usr/X11R6/share/gnome/icons/hicolor ; then
+					THEMEPATH=/usr/X11R6/share/gnome/icons/hicolor
+				else
+					if test -d ${prefix}/share/gnome/icons/hicolor ; then
+						THEMEPATH=${prefix}/share/gnome/icons/hicolor
+					else
+						# the user did not specify an theme-path, and the default path
+						# seems to be wrong for this system
+						# we will not install an theme icons
+						THEMEPATH=no
+					fi
+				fi
+			fi
+		fi
+		echo $THEMEPATH
+	fi	
+	if test "${THEMEPATH}" != "no" ; then
+		AC_SUBST(THEMEPATH)
+		INSTALLMAIN="${INSTALLMAIN} install-theme-icon"
+		INSTALLDATA="${INSTALLDATA} install-theme-icon"
+	fi
+fi
+
 AC_ARG_WITH(icon-path,
-	AC_HELP_STRING([--without-icon-path],[do not install icon in /usr/share/pixmaps/, use --with-icon-path=/path to override the default path]),[
+	AC_HELP_STRING([--without-icon-path],[do not install icon in /usr/share/pixmaps, use --with-icon-path=/path to override the default path (you should use --without-theme-path in addition to this option; if the theme path cannot be determined, --without-icon-path will not have any effect)]),[
 	ICONPATH=$withval
 ], [
 	ICONPATH=yes
 ])
 
-if test "x$ICONPATH" != "xno" ; then
+if test "x$ICONPATH" != "xno" -o "${THEMEPATH}" = "no" ; then
 	if test "x${ICONPATH}" = "xyes" ; then
 		echo -n "checking icon path... "
 		# the default answer is yes, so this is for users that did not use theicon-path option at all
@@ -600,7 +641,8 @@ if test "x$ICONPATH" != "xno" ; then
 					if test -d ${prefix}/share/gnome/pixmaps ; then
 						ICONPATH=${prefix}/share/gnome/pixmaps
 					else
-						# the user did not specify an icon-path, and the default path seems to be wrong for this system
+						# the user did not specify an icon-path, and the default path
+						# seems to be wrong for this system
 						# we will not install an icon
 						ICONPATH=no
 					fi
@@ -608,7 +650,7 @@ if test "x$ICONPATH" != "xno" ; then
 			fi
 		fi
 		echo $ICONPATH
-	fi	
+	fi
 	if test "${ICONPATH}" != "no" ; then
 		AC_SUBST(ICONPATH)
 		INSTALLMAIN="${INSTALLMAIN} install-icon"
@@ -647,10 +689,19 @@ if test "$USE_NLS" = "yes" ; then
 	MAKEMAIN="${MAKEMAIN} make-nls"
 fi
 
-# this is for upcoming theme-icon support
-eval ICONDIR=`echo $ICONPATH`
-BF_APP_ICON="${ICONDIR}/${PACKAGE}-icon.png"
-AC_SUBST(BF_APP_ICON)
+if test "${ICONPATH}" != "no"; then
+	eval ICONDIR=`echo $ICONPATH`
+	BF_APP_ICON="${ICONDIR}/${PACKAGE}-icon.png"
+	AC_SUBST(BF_APP_ICON)
+else
+	if test "${THEMEPATH}" != "no"; then
+		BF_APP_ICON="${PACKAGE}"
+		AC_SUBST(BF_APP_ICON)
+	else
+		BF_APP_ICON="${PACKAGE}-icon.png"
+		AC_SUBST(BF_APP_ICON)
+	fi
+fi
 
 AC_SUBST(INSTALLDATA)
 AC_SUBST(INSTALLMAIN)
