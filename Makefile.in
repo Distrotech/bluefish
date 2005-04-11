@@ -35,7 +35,8 @@ pixmapsdir=@prefix@/share/pixmaps
 INSTALLMAIN=@INSTALLMAIN@
 MAKEMAIN=@MAKEMAIN@
 
-iconpath=@ICONPATH@
+ICONPATH=@ICONPATH@
+THEMEPATH=@THEMEPATH@
 
 INSTALL = @INSTALL@
 INSTALL_DIR = $(INSTALL) -d -m 755 
@@ -73,8 +74,13 @@ distclean:
 	rm -f *.orig *.rej
 
 install-icon:
-	$(INSTALL_DIR) $(DESTDIR)$(iconpath)
-	$(INSTALL_DATA) inline_images/bluefish_icon1.png $(DESTDIR)$(iconpath)/$(PACKAGE)-icon.png
+	$(INSTALL_DIR) $(DESTDIR)$(ICONPATH)
+	$(INSTALL_DATA) inline_images/bluefish_icon1.png $(DESTDIR)$(ICONPATH)/$(PACKAGE)-icon.png
+
+# this for now, later install icons in .svgz 
+install-theme-icon:
+	$(INSTALL_DIR) $(DESTDIR)$(THEMEPATH)/48x48/apps
+	$(INSTALL_DATA) inline_images/bluefish_icon1.png $(DESTDIR)$(THEMEPATH)/48x48/apps/$(PACKAGE).png
 
 install-nls:
 	cd po/ && $(MAKE) install
@@ -92,6 +98,7 @@ uninstall:
 	@cd src/ && $(MAKE) uninstall
 	@cd po/ && $(MAKE) uninstall
 	@cd data/ && $(MAKE) uninstall
-	rm -f $(pkgdatadir)/bluefish_splash.png
-	rm -f $(iconpath)/bluefish-icon.png
+	rm -f $(DESTDIR)$(pkgdatadir)/bluefish_splash.png
+	rm -f $(DESTDIR)$(ICONPATH)/bluefish-icon.png
+	rm -r $(DESTDIR)$(THEMEPATH)/48x48/apps/$(PACKAGE).png
 	/bin/rmdir $(DESTDIR)$(pkgdatadir)

@@ -23,6 +23,7 @@ UPDATE_MIME=@UPDATE_MIME@
 GMIMEINFO=@GMIMEINFO@
 GAPPREG=@GAPPREG@
 ICONPATH=@ICONPATH@
+THEMEPATH=@THEMEPATH@
 INSTALLDATA=@INSTALLDATA@
 
 INSTALL = @INSTALL@
@@ -75,6 +76,12 @@ install-icon:
 		$(INSTALL_DATA) gnome-application-bluefish.png $(DESTDIR)$(ICONPATH)/gnome-mime-application-bluefish-project.png; \
 	fi
 
+# this is for now, later install pictures in .svgz
+install-theme-icon:
+	$(INSTALL_DIR) $(DESTDIR)$(THEMEPATH)/48x48/mimetypes
+	$(INSTALL_DATA) gnome-application-bluefish.png \
+		$(DESTDIR)$(THEMEPATH)/48x48/mimetypes/gnome-mime-application-bluefish-project.png
+
 install: all $(INSTALLDATA)
 	$(INSTALL_DIR) $(DESTDIR)$(pkgdatadir)
 	for file in $(DEFAULTFILES) ; do \
@@ -91,19 +98,20 @@ install: all $(INSTALLDATA)
 	#done
 
 uninstall:
-	rm -f $(FDMIME)/packages/$(PACKAGE).xml
-	rm -f $(GMIMEINFO)/$(PACKAGE).mime
-	rm -f $(GMIMEINFO)/$(PACKAGE).keys
-	rm -f $(GAPPREG)/$(PACKAGE).applications
-	rm -f $(FDMENU)/$(PACKAGE).desktop
+	rm -f $(DESTDIR)$(FDMIME)/packages/$(PACKAGE).xml
+	rm -f $(DESTDIR)$(GMIMEINFO)/$(PACKAGE).mime
+	rm -f $(DESTDIR)$(GMIMEINFO)/$(PACKAGE).keys
+	rm -f $(DESTDIR)$(GAPPREG)/$(PACKAGE).applications
+	rm -f $(DESTDIR)$(FDMENU)/$(PACKAGE).desktop
 	if test "$(ICONPATH)" != "no"; then \
-		rm -f $(ICONPATH)/gnome-mime-application-bluefish-project.png; \
+		rm -f $(DESTDIR)$(ICONPATH)/gnome-mime-application-bluefish-project.png; \
 	fi
+	rm -f $(DESTDIR)$(THEMEPATH)/48x48/mimetypes/gnome-mime-application-bluefish-project.png
 	@for file in $(DEFAULTFILES) ; do \
-		rm -f $(pkgdatadir)$$file.default ;\
+		rm -f $(DESTDIR)$(pkgdatadir)$$file.default ;\
 	done
 	@for file in $(FUNCREFFILES) ; do \
-		rm -f $(pkgdatadir)$$file ;\
+		rm -f $(DESTDIR)$(pkgdatadir)$$file ;\
 	done
 
 clean:
