@@ -221,6 +221,8 @@ Thanks to all who helped making this software available.\n\
    <david.smeringe@telia.com>\n\n\
   Tamil: Murugapandian Barathee\n\
    <barathee@yahoo.com>\n\n\
+  Turkish: Oğuz Eren\n\
+   <ogzeren@gmail.com>\n\n\
 ");
 
 	info = window_full2(_("About Bluefish"), GTK_WIN_POS_CENTER, 6
