@@ -24,13 +24,12 @@ GMIMEINFO=@GMIMEINFO@
 GAPPREG=@GAPPREG@
 ICONPATH=@ICONPATH@
 INSTALLDATA=@INSTALLDATA@
-HAVE_GNOME_VFS=@HAVE_GNOME_VFS@
 
 INSTALL = @INSTALL@
 INSTALL_DIR = $(INSTALL) -d -m 755 
 INSTALL_DATA = ${INSTALL} -m 644
 
-DEFAULTFILES = highlighting.default filetypes.default encodings.default custom_menu.default custom_menu.fr.default custom_menu.de.default
+DEFAULTFILES = highlighting filetypes encodings custom_menu custom_menu.fr custom_menu.de
 FUNCREFFILES = funcref_html.xml funcref_php.xml funcref_css.xml funcref_python.xml
 # For the new fref2: comment out the above line, go to 
 # http://aragorn.pb.bialystok.pl/~swida/bluefish/ and download and unzip
@@ -45,28 +44,11 @@ FUNCREFFILES = funcref_html.xml funcref_php.xml funcref_css.xml funcref_python.x
 	bflib_xhtml_strict.xml \
 	bflib_xhtml_transitional.xml
 
-.SUFFIXES: .in .default
-
-.in.default:
-	sed -e 's!PKGDATADIR!$(pkgdatadir)!' < $< > $@
-
-all: $(DEFAULTFILES)
-	sed -e  's!PACKAGE!$(PACKAGE)!g' \
-		-e 's!ICONDIR!$(ICONPATH)!' \
-		< bluefish.desktop.in > $(PACKAGE).desktop
-	if test "x${HAVE_GNOME_VFS}" = "x1" ; then \
-		sed -e 's!EXPECT_URIS!true!' \
-			-e 's!SUPPORTED_URI_SCHEMES!file,http,ftp,sftp,smb!' \
-			< bluefish.applications.in > $(PACKAGE).applications ;\
-	else \
-		sed -e 's!EXPECT_URIS!false!' \
-			-e 's!SUPPORTED_URI_SCHEMES!!' \
-			< bluefish.applications.in > $(PACKAGE).applications ;\
-	fi
+all:
 
 install-fdmenu:
 	$(INSTALL_DIR) $(DESTDIR)$(FDMENU)
-	$(INSTALL_DATA) $(PACKAGE).desktop $(DESTDIR)$(FDMENU)
+	$(INSTALL_DATA) bluefish.desktop $(DESTDIR)$(FDMENU)/$(PACKAGE).desktop
 
 install-update-menu:
 	$(UPDATE_DESKTOP)
@@ -85,18 +67,18 @@ install-gnome-2.4-mime: install-icon
 
 install-gnome-2.4-appreg:
 	$(INSTALL_DIR) $(DESTDIR)$(GAPPREG)
-	$(INSTALL_DATA) $(PACKAGE).applications $(DESTDIR)$(GAPPREG)
+	$(INSTALL_DATA) bluefish.applications $(DESTDIR)$(GAPPREG)/$(PACKAGE).applications
 
 install-icon:
 	if test "$(ICONPATH)" != "no"; then \
 		$(INSTALL_DIR) $(DESTDIR)$(ICONPATH); \
-		$(INSTALL_DATA) gnome-application-bluefish.png $(DESTDIR)$(ICONPATH)/gnome-application-bluefish-project.png; \
+		$(INSTALL_DATA) gnome-application-bluefish.png $(DESTDIR)$(ICONPATH)/gnome-mime-application-bluefish-project.png; \
 	fi
 
 install: all $(INSTALLDATA)
 	$(INSTALL_DIR) $(DESTDIR)$(pkgdatadir)
 	for file in $(DEFAULTFILES) ; do \
-		$(INSTALL_DATA) $$file $(DESTDIR)$(pkgdatadir) ;\
+		$(INSTALL_DATA) $$file $(DESTDIR)$(pkgdatadir)$$file.default ;\
 	done
 	for file in $(FUNCREFFILES) ; do \
 		$(INSTALL_DATA) $$file $(DESTDIR)$(pkgdatadir) ;\
@@ -115,19 +97,17 @@ uninstall:
 	rm -f $(GAPPREG)/$(PACKAGE).applications
 	rm -f $(FDMENU)/$(PACKAGE).desktop
 	if test "$(ICONPATH)" != "no"; then \
-		rm -f $(ICONPATH)/gnome-application-bluefish-project.png; \
+		rm -f $(ICONPATH)/gnome-mime-application-bluefish-project.png; \
 	fi
 	@for file in $(DEFAULTFILES) ; do \
-		rm -f $(pkgdatadir)$$file ;\
+		rm -f $(pkgdatadir)$$file.default ;\
 	done
 	@for file in $(FUNCREFFILES) ; do \
 		rm -f $(pkgdatadir)$$file ;\
 	done
 
 clean:
-	rm -f *.default
-	rm -f $(PACKAGE).desktop
-	rm -f $(PACKAGE).applications
+	rm -f bluefish.desktop bluefish.applications bluefish.keys filetypes
 
 distclean: clean
 	rm -f Makefile *.rej *.orig *~

@@ -1,10 +1,10 @@
 [Desktop Entry]
-Name=Bluefish Editor
-Name[de]=Bluefish Editor
-Comment=Web Development Editor
-Comment[de]=Editor für Web-Entwickler
-Exec=PACKAGE -n
-Icon=ICONDIR/PACKAGE-icon.png
+Name=Bluefish Editor @BF_APP_PACKAGE_ADDSTRING@
+Name[de]=Bluefish Editor @BF_APP_PACKAGE_ADDSTRING@
+Comment=Web Development Editor @BF_APP_PACKAGE_ADDSTRING@
+Comment[de]=Editor für Web-Entwickler @BF_APP_PACKAGE_ADDSTRING@
+Exec=@PACKAGE@ -n
+Icon=@BF_APP_ICON@
 Terminal=false
 Type=Application
 Categories=Application;Development;WebDevelopment;GTK;GNOME;
