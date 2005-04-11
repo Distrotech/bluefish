@@ -16,7 +16,6 @@ pkgdatadir = @pkgdatadir@
 datadir = @datadir@
 localedir = $(datadir)/locale
 
-GNOME1MENU=@GNOME1MENU@
 FDMENU=@FDMENU@
 FDMIME=@FDMIME@
 UPDATE_DESKTOP=@UPDATE_DESKTOP@
@@ -64,10 +63,6 @@ all: $(DEFAULTFILES)
 			-e 's!SUPPORTED_URI_SCHEMES!!' \
 			< bluefish.applications.in > $(PACKAGE).applications ;\
 	fi
-
-install-gnome1-menu:
-	$(INSTALL_DIR) $(DESTDIR)$(GNOME1MENU)
-	$(INSTALL_DATA) $(PACKAGE).desktop $(DESTDIR)$(GNOME1MENU)
 
 install-fdmenu:
 	$(INSTALL_DIR) $(DESTDIR)$(FDMENU)
@@ -118,7 +113,6 @@ uninstall:
 	rm -f $(GMIMEINFO)/$(PACKAGE).mime
 	rm -f $(GMIMEINFO)/$(PACKAGE).keys
 	rm -f $(GAPPREG)/$(PACKAGE).applications
-	rm -f $(GNOME1MENU)/$(PACKAGE).desktop
 	rm -f $(FDMENU)/$(PACKAGE).desktop
 	if test "$(ICONPATH)" != "no"; then \
 		rm -f $(ICONPATH)/gnome-application-bluefish-project.png; \
