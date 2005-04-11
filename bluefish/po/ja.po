@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish gtk2-port\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-04-08 10:34+0200\n"
+"POT-Creation-Date: 2005-04-11 23:04+0200\n"
 "PO-Revision-Date: 2004-11-27 22:43-0300\n"
 "Last-Translator: Takeshi HAMASAKI <hma@syd.odn.ne.jp>\n"
 "MIME-Version: 1.0\n"
@@ -225,6 +225,9 @@ msgid ""
 "  Tamil: Murugapandian Barathee\n"
 "   <barathee@yahoo.com>\n"
 "\n"
+"  Turkish: Oğuz Eren\n"
+"   <ogzeren@gmail.com>\n"
+"\n"
 msgstr ""
 "このバージョンの翻訳者たち:\n"
 "\n"
@@ -274,20 +277,20 @@ msgstr ""
 "   <barathee@yahoo.com>\n"
 "\n"
 
-#: ../src/about.c:226
+#: ../src/about.c:228
 msgid "About Bluefish"
 msgstr "Bluefish について"
 
-#: ../src/about.c:258 ../src/fref.c:1448 ../src/fref.c:1732 ../src/fref.c:1819
+#: ../src/about.c:260 ../src/fref.c:1448 ../src/fref.c:1732 ../src/fref.c:1819
 #: ../src/fref.c:1854 ../src/fref.c:2331
 msgid "Info"
 msgstr "情報"
 
-#: ../src/about.c:260
+#: ../src/about.c:262
 msgid "Authors"
 msgstr "作者たち"
 
-#: ../src/about.c:261
+#: ../src/about.c:263
 msgid "Translators"
 msgstr "翻訳者たち"
 
@@ -640,7 +643,7 @@ msgstr "色の編集"
 msgid "Edit tag"
 msgstr "タグの編集"
 
-#: ../src/document.c:2196 ../src/file_dialogs.c:291 ../src/file_dialogs.c:330
+#: ../src/document.c:2196 ../src/file_dialogs.c:303 ../src/file_dialogs.c:342
 msgid "_Abort save"
 msgstr "保存中止(_A)"
 
@@ -867,7 +870,7 @@ msgstr "ファイルフォーカスに従う"
 msgid "_Skip"
 msgstr "スキップ(_S)"
 
-#: ../src/file.c:937 ../src/file_dialogs.c:432 ../src/file_dialogs.c:455
+#: ../src/file.c:937 ../src/file_dialogs.c:444 ../src/file_dialogs.c:467
 #: ../src/project.c:190
 msgid "_Overwrite"
 msgstr "上書き(_O)"
@@ -923,23 +926,23 @@ msgstr "パターン(_T):"
 msgid "Is rege_x:"
 msgstr "正規表現(_X):"
 
-#: ../src/file_dialogs.c:194
+#: ../src/file_dialogs.c:204
 msgid "Select files"
 msgstr "ファイル選択"
 
-#: ../src/file_dialogs.c:245
+#: ../src/file_dialogs.c:257
 msgid "Open URL"
 msgstr "URLを開く"
 
-#: ../src/file_dialogs.c:249
+#: ../src/file_dialogs.c:261
 msgid "<b>Open URL</b>"
 msgstr "URLを開く"
 
-#: ../src/file_dialogs.c:291 ../src/file_dialogs.c:330
+#: ../src/file_dialogs.c:303 ../src/file_dialogs.c:342
 msgid "_Continue save"
 msgstr "保存継続(_C)"
 
-#: ../src/file_dialogs.c:293
+#: ../src/file_dialogs.c:305
 #, c-format
 msgid ""
 "A backupfile for %s could not be created. If you continue, this file will be "
@@ -948,11 +951,11 @@ msgstr ""
 "%s のバックアップを作成できませんでした. 作業を続けるのであれば, このファイル"
 "が上書きされます."
 
-#: ../src/file_dialogs.c:297
+#: ../src/file_dialogs.c:309
 msgid "File backup failure"
 msgstr "ファイルのバックアップに失敗"
 
-#: ../src/file_dialogs.c:315
+#: ../src/file_dialogs.c:327
 #, fuzzy
 msgid ""
 "Could not save file:\n"
@@ -961,97 +964,97 @@ msgstr ""
 "ファイルを書き込めませんでした:\n"
 "\""
 
-#: ../src/file_dialogs.c:319
+#: ../src/file_dialogs.c:331
 #, fuzzy
 msgid "File save failed!\n"
 msgstr "ファイル保存を中止しました.\n"
 
-#: ../src/file_dialogs.c:334
+#: ../src/file_dialogs.c:346
 #, fuzzy, c-format
 msgid "File %s is modified on disk, overwrite?"
 msgstr "ファイル %s は存在し, 開いています. 上書きしますか ?"
 
-#: ../src/file_dialogs.c:336
+#: ../src/file_dialogs.c:348
 #, fuzzy, c-format
 msgid "Failed to check if %s is modified on disk"
 msgstr "ファイル変更チェックの方法"
 
-#: ../src/file_dialogs.c:341
+#: ../src/file_dialogs.c:353
 #, fuzzy
 msgid "File modified on disk"
 msgstr "ファイル変更チェックの方法"
 
-#: ../src/file_dialogs.c:410
+#: ../src/file_dialogs.c:422
 #, c-format
 msgid "Move/rename %s to"
 msgstr "文書 %s を移動/名前変更"
 
-#: ../src/file_dialogs.c:410
+#: ../src/file_dialogs.c:422
 #, c-format
 msgid "Save %s as"
 msgstr "文書 %s を別名で保存"
 
-#: ../src/file_dialogs.c:432 ../src/file_dialogs.c:455
-#: ../src/file_dialogs.c:671 ../src/project.c:190
+#: ../src/file_dialogs.c:444 ../src/file_dialogs.c:467
+#: ../src/file_dialogs.c:683 ../src/project.c:190
 msgid "_Cancel"
 msgstr "キャンセル(_C)"
 
-#: ../src/file_dialogs.c:433
+#: ../src/file_dialogs.c:445
 #, c-format
 msgid "File %s exists and is opened, overwrite?"
 msgstr "ファイル %s は存在し, 開いています. 上書きしますか ?"
 
-#: ../src/file_dialogs.c:438
+#: ../src/file_dialogs.c:450
 msgid "The file you have selected is being edited in Bluefish."
 msgstr "選択したファイルは Bluefish で編集されています."
 
-#: ../src/file_dialogs.c:456 ../src/project.c:191
+#: ../src/file_dialogs.c:468 ../src/project.c:191
 #, c-format
 msgid "A file named \"%s\" already exists."
 msgstr "\"%s\"  というファイル名は既に存在します."
 
-#: ../src/file_dialogs.c:461 ../src/project.c:196
+#: ../src/file_dialogs.c:473 ../src/project.c:196
 msgid "Do you want to replace the existing file?"
 msgstr "存在しているファイルと置換しますか？"
 
-#: ../src/file_dialogs.c:477
+#: ../src/file_dialogs.c:489
 #, fuzzy
 msgid ""
 "File:\n"
 "\""
 msgstr "フィルタ:"
 
-#: ../src/file_dialogs.c:481
+#: ../src/file_dialogs.c:493
 #, fuzzy
 msgid "Save in progress!"
 msgstr "保存中です"
 
-#: ../src/file_dialogs.c:617 ../src/project.c:358
+#: ../src/file_dialogs.c:629 ../src/project.c:356
 msgid "Do_n't save"
 msgstr "保存しない(_N)"
 
-#: ../src/file_dialogs.c:620
+#: ../src/file_dialogs.c:632
 #, c-format
 msgid "Save changes to \"%s\" before closing?."
 msgstr "閉じる前に\"%s\"に行われた変更を保存しますか？"
 
-#: ../src/file_dialogs.c:625 ../src/file_dialogs.c:676 ../src/project.c:370
+#: ../src/file_dialogs.c:637 ../src/file_dialogs.c:688 ../src/project.c:368
 msgid "If you don't save your changes they will be lost."
 msgstr "ファイルを保存しない場合は、ファイルに行われて変更がなくなります。"
 
-#: ../src/file_dialogs.c:671
+#: ../src/file_dialogs.c:683
 msgid "Choose per _File"
 msgstr "ファイル毎に指定(_F)"
 
-#: ../src/file_dialogs.c:671
+#: ../src/file_dialogs.c:683
 msgid "Close _All"
 msgstr "すべて閉じる(_A)"
 
-#: ../src/file_dialogs.c:671
+#: ../src/file_dialogs.c:683
 msgid "_Save All"
 msgstr "すべて保存(_A)"
 
-#: ../src/file_dialogs.c:675
+#: ../src/file_dialogs.c:687
 msgid "Multiple open files have been changed."
 msgstr "いくつかのファイルが変更されています."
 
@@ -4892,126 +4895,131 @@ msgstr "新規プロジェクト"
 msgid "Enter Bluefish project filename"
 msgstr "Bluefishプロジェクトのファイル名を入力してください"
 
-#: ../src/project.c:301
+#: ../src/project.c:308
 msgid "Select Bluefish project filename"
 msgstr "プロジェクトのファイル名を選択"
 
-#: ../src/project.c:365
+#: ../src/project.c:363
 #, fuzzy
 msgid "Save current project?"
 msgstr "現在のプロジェクトの保存に失敗しました"
 
-#: ../src/project.c:498
+#: ../src/project.c:496
 msgid "Create New Project"
 msgstr "新規プロジェクトの作成"
 
-#: ../src/project.c:501
+#: ../src/project.c:499
 msgid "Edit Project"
 msgstr "プロジェクトの編集"
 
-#: ../src/project.c:524
+#: ../src/project.c:522
 #, c-format
 msgid "This project contains %d files"
 msgstr "このプロジェクトには %d 個のファイルが存在します"
 
-#: ../src/project.c:536
+#: ../src/project.c:534
 msgid "Project _Name:"
 msgstr "プロジェクト名(_N):"
 
-#: ../src/project.c:540
+#: ../src/project.c:538
 msgid "_Basedir:"
 msgstr "ベースディレクトリ(_B):"
 
-#: ../src/project.c:544
+#: ../src/project.c:542
 msgid "_Preview URL:"
 msgstr "プレビューに使うURL(_P):"
 
-#: ../src/project.c:548
+#: ../src/project.c:546
 msgid "_Template:"
 msgstr "テンプレート(_T):"
 
-#: ../src/project.c:554
+#: ../src/project.c:552
 msgid "_Word wrap by default"
 msgstr "テキストを折り返す(_W)"
 
-#: ../src/project.c:565
+#: ../src/project.c:563
 msgid "Create _Project"
 msgstr "プロジェクトを作成(_P)"
 
-#: ../src/project.c:605
+#: ../src/project.c:603
 msgid "Create project"
 msgstr "プロジェクトを作成する"
 
-#: ../src/project.c:609
+#: ../src/project.c:607
 msgid "Create project with currently opened documents"
 msgstr "現在開いているファイルからプロジェクトを作成する"
 
-#: ../src/project.c:610
+#: ../src/project.c:608
 msgid "Create empty project"
 msgstr "空のプロジェクトを作成する"
 
-#: ../src/quickstart.c:453
+#: ../src/quickstart.c:471
 msgid "<b>External Style Sheet</b>"
 msgstr ""
 
-#: ../src/quickstart.c:463
+#: ../src/quickstart.c:481
 #, fuzzy
 msgid "Ty_pe:"
 msgstr "種類(_T):"
 
-#: ../src/quickstart.c:481
+#: ../src/quickstart.c:499
 #, fuzzy
 msgid "Hre_f:"
 msgstr "Href(_H):"
 
-#: ../src/quickstart.c:485
+#: ../src/quickstart.c:503
 #, fuzzy
 msgid "_Media:"
 msgstr "メディア:"
 
-#: ../src/quickstart.c:491
+#: ../src/quickstart.c:507
+#, fuzzy
+msgid "Titl_e:"
+msgstr "タイトル(_T):"
+
+#: ../src/quickstart.c:513
 #, fuzzy
 msgid "<b>Style Area</b>"
 msgstr "<b>全般</b>"
 
-#: ../src/quickstart.c:495
+#: ../src/quickstart.c:517
 #, fuzzy
-msgid "Create _empty style area"
+msgid "Cre_ate empty style area"
 msgstr "空のプロジェクトを作成する"
 
-#: ../src/quickstart.c:517
+#: ../src/quickstart.c:539
 #, fuzzy
 msgid "<b>Attributes</b>"
 msgstr "属性値"
 
-#: ../src/quickstart.c:532
+#: ../src/quickstart.c:554
 #, fuzzy
 msgid "_Src:"
 msgstr "ソース(_S):"
 
-#: ../src/quickstart.c:539
+#: ../src/quickstart.c:561
 msgid "<b>Script Area</b>"
 msgstr ""
 
-#: ../src/quickstart.c:543
+#: ../src/quickstart.c:565
 #, fuzzy
 msgid "Create _empty script area"
 msgstr "空のプロジェクトを作成する"
 
-#: ../src/quickstart.c:570
+#: ../src/quickstart.c:592
 msgid "Quick Start"
 msgstr "クイック・スタート"
 
-#: ../src/quickstart.c:584
+#: ../src/quickstart.c:606
 #, fuzzy
 msgid "_DTD:"
 msgstr "_DTDを使用する:"
 
-#: ../src/quickstart.c:588 ../src/wizards.c:187
+#: ../src/quickstart.c:610 ../src/wizards.c:187
 msgid "_Title:"
 msgstr "タイトル(_T):"
 
-#: ../src/quickstart.c:611
+#: ../src/quickstart.c:633
 #, fuzzy
 msgid "_Head:"
 msgstr "Href(_H):"
