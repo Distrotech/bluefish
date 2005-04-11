@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bluefish\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-04-08 10:34+0200\n"
+"POT-Creation-Date: 2005-04-11 23:04+0200\n"
 "PO-Revision-Date: 2004-12-08 18:48-0300\n"
 "Last-Translator: Funda Wang <fundawang@linux.net.cn>\n"
 "Language-Team: zh_CN <i18n-translation@lists.linux.net.cn>\n"
@@ -196,6 +196,9 @@ msgid ""
 "  Tamil: Murugapandian Barathee\n"
 "   <barathee@yahoo.com>\n"
 "\n"
+"  Turkish: Oğuz Eren\n"
+"   <ogzeren@gmail.com>\n"
+"\n"
 msgstr ""
 "当前翻译者：\n"
 "\n"
@@ -251,20 +254,20 @@ msgstr ""
 "   <barathee@yahoo.com>\n"
 "\n"
 
-#: ../src/about.c:226
+#: ../src/about.c:228
 msgid "About Bluefish"
 msgstr "关于 Bluefish"
 
-#: ../src/about.c:258 ../src/fref.c:1448 ../src/fref.c:1732 ../src/fref.c:1819
+#: ../src/about.c:260 ../src/fref.c:1448 ../src/fref.c:1732 ../src/fref.c:1819
 #: ../src/fref.c:1854 ../src/fref.c:2331
 msgid "Info"
 msgstr "信息"
 
-#: ../src/about.c:260
+#: ../src/about.c:262
 msgid "Authors"
 msgstr "作者"
 
-#: ../src/about.c:261
+#: ../src/about.c:263
 msgid "Translators"
 msgstr "翻译者"
 
@@ -614,7 +617,7 @@ msgstr "编辑颜色"
 msgid "Edit tag"
 msgstr "编辑标签"
 
-#: ../src/document.c:2196 ../src/file_dialogs.c:291 ../src/file_dialogs.c:330
+#: ../src/document.c:2196 ../src/file_dialogs.c:303 ../src/file_dialogs.c:342
 msgid "_Abort save"
 msgstr "中断保存(_A)"
 
@@ -838,7 +841,7 @@ msgstr "跟随焦点"
 msgid "_Skip"
 msgstr "跳过(_S)"
 
-#: ../src/file.c:937 ../src/file_dialogs.c:432 ../src/file_dialogs.c:455
+#: ../src/file.c:937 ../src/file_dialogs.c:444 ../src/file_dialogs.c:467
 #: ../src/project.c:190
 msgid "_Overwrite"
 msgstr "覆盖(_O)"
@@ -894,34 +897,34 @@ msgstr "模式(_T)："
 msgid "Is rege_x:"
 msgstr "是正规表达式(_X)："
 
-#: ../src/file_dialogs.c:194
+#: ../src/file_dialogs.c:204
 msgid "Select files"
 msgstr "选择文件"
 
-#: ../src/file_dialogs.c:245
+#: ../src/file_dialogs.c:257
 msgid "Open URL"
 msgstr "打开 URL"
 
-#: ../src/file_dialogs.c:249
+#: ../src/file_dialogs.c:261
 msgid "<b>Open URL</b>"
 msgstr "<b>打开 URL</b>"
 
-#: ../src/file_dialogs.c:291 ../src/file_dialogs.c:330
+#: ../src/file_dialogs.c:303 ../src/file_dialogs.c:342
 msgid "_Continue save"
 msgstr "继续保存(_C)"
 
-#: ../src/file_dialogs.c:293
+#: ../src/file_dialogs.c:305
 #, c-format
 msgid ""
 "A backupfile for %s could not be created. If you continue, this file will be "
 "overwritten."
 msgstr "%s 的备份文件无法创建。如果继续，此文件将被覆盖。"
 
-#: ../src/file_dialogs.c:297
+#: ../src/file_dialogs.c:309
 msgid "File backup failure"
 msgstr "文件备份失败"
 
-#: ../src/file_dialogs.c:315
+#: ../src/file_dialogs.c:327
 #, fuzzy
 msgid ""
 "Could not save file:\n"
@@ -930,98 +933,98 @@ msgstr ""
 "无法写入文件：\n"
 "\""
 
-#: ../src/file_dialogs.c:319
+#: ../src/file_dialogs.c:331
 #, fuzzy
 msgid "File save failed!\n"
 msgstr "文件保存中断。\n"
 
-#: ../src/file_dialogs.c:334
+#: ../src/file_dialogs.c:346
 #, fuzzy, c-format
 msgid "File %s is modified on disk, overwrite?"
 msgstr "文件 %s 存在且已打开，要覆盖吗？"
 
-#: ../src/file_dialogs.c:336
+#: ../src/file_dialogs.c:348
 #, fuzzy, c-format
 msgid "Failed to check if %s is modified on disk"
 msgstr "文件修改依据"
 
-#: ../src/file_dialogs.c:341
+#: ../src/file_dialogs.c:353
 #, fuzzy
 msgid "File modified on disk"
 msgstr "文件修改依据"
 
 # c-format
-#: ../src/file_dialogs.c:410
+#: ../src/file_dialogs.c:422
 #, c-format
 msgid "Move/rename %s to"
 msgstr "移动/重命名文档为"
 
 # c-format
-#: ../src/file_dialogs.c:410
+#: ../src/file_dialogs.c:422
 #, c-format
 msgid "Save %s as"
 msgstr "另存为..."
 
-#: ../src/file_dialogs.c:432 ../src/file_dialogs.c:455
-#: ../src/file_dialogs.c:671 ../src/project.c:190
+#: ../src/file_dialogs.c:444 ../src/file_dialogs.c:467
+#: ../src/file_dialogs.c:683 ../src/project.c:190
 msgid "_Cancel"
 msgstr "取消(_C)"
 
-#: ../src/file_dialogs.c:433
+#: ../src/file_dialogs.c:445
 #, c-format
 msgid "File %s exists and is opened, overwrite?"
 msgstr "文件 %s 存在且已打开，要覆盖吗？"
 
-#: ../src/file_dialogs.c:438
+#: ../src/file_dialogs.c:450
 msgid "The file you have selected is being edited in Bluefish."
 msgstr "您选择的文件已经在 Bluefish 中编辑了。"
 
-#: ../src/file_dialogs.c:456 ../src/project.c:191
+#: ../src/file_dialogs.c:468 ../src/project.c:191
 #, c-format
 msgid "A file named \"%s\" already exists."
 msgstr "名为“%s”的文件已存在。"
 
-#: ../src/file_dialogs.c:461 ../src/project.c:196
+#: ../src/file_dialogs.c:473 ../src/project.c:196
 msgid "Do you want to replace the existing file?"
 msgstr "您要替换已经存在的文件吗？"
 
-#: ../src/file_dialogs.c:477
+#: ../src/file_dialogs.c:489
 #, fuzzy
 msgid ""
 "File:\n"
 "\""
 msgstr "过滤器："
 
-#: ../src/file_dialogs.c:481
+#: ../src/file_dialogs.c:493
 msgid "Save in progress!"
 msgstr ""
 
-#: ../src/file_dialogs.c:617 ../src/project.c:358
+#: ../src/file_dialogs.c:629 ../src/project.c:356
 msgid "Do_n't save"
 msgstr "不保存(_N)"
 
-#: ../src/file_dialogs.c:620
+#: ../src/file_dialogs.c:632
 #, c-format
 msgid "Save changes to \"%s\" before closing?."
 msgstr "关闭前要保存 \"%s\" 吗?."
 
-#: ../src/file_dialogs.c:625 ../src/file_dialogs.c:676 ../src/project.c:370
+#: ../src/file_dialogs.c:637 ../src/file_dialogs.c:688 ../src/project.c:368
 msgid "If you don't save your changes they will be lost."
 msgstr "如果你不保存则所有的改动将消失."
 
-#: ../src/file_dialogs.c:671
+#: ../src/file_dialogs.c:683
 msgid "Choose per _File"
 msgstr "选择每个文件(_F)"
 
-#: ../src/file_dialogs.c:671
+#: ../src/file_dialogs.c:683
 msgid "Close _All"
 msgstr "全部关闭(_A)"
 
-#: ../src/file_dialogs.c:671
+#: ../src/file_dialogs.c:683
 msgid "_Save All"
 msgstr "全部保存(_S)"
 
-#: ../src/file_dialogs.c:675
+#: ../src/file_dialogs.c:687
 msgid "Multiple open files have been changed."
 msgstr "多个打开的文件已更改。"
 
@@ -4859,126 +4862,131 @@ msgstr "新建项目"
 msgid "Enter Bluefish project filename"
 msgstr "输入 Bluefish 项目文件名"
 
-#: ../src/project.c:301
+#: ../src/project.c:308
 msgid "Select Bluefish project filename"
 msgstr "选择 Bluefish 项目文件名"
 
-#: ../src/project.c:365
+#: ../src/project.c:363
 #, fuzzy
 msgid "Save current project?"
 msgstr "创建空项目"
 
-#: ../src/project.c:498
+#: ../src/project.c:496
 msgid "Create New Project"
 msgstr "创建新项目"
 
-#: ../src/project.c:501
+#: ../src/project.c:499
 msgid "Edit Project"
 msgstr "编辑项目"
 
-#: ../src/project.c:524
+#: ../src/project.c:522
 #, c-format
 msgid "This project contains %d files"
 msgstr "这个项目包含%d个文件"
 
-#: ../src/project.c:536
+#: ../src/project.c:534
 msgid "Project _Name:"
 msgstr "项目名称(_N)："
 
-#: ../src/project.c:540
+#: ../src/project.c:538
 msgid "_Basedir:"
 msgstr "基础目录(_D)："
 
-#: ../src/project.c:544
+#: ../src/project.c:542
 msgid "_Preview URL:"
 msgstr "预览 URL(_P)："
 
-#: ../src/project.c:548
+#: ../src/project.c:546
 msgid "_Template:"
 msgstr "模板(_T)："
 
-#: ../src/project.c:554
+#: ../src/project.c:552
 msgid "_Word wrap by default"
 msgstr "默认自动换行(_W)"
 
-#: ../src/project.c:565
+#: ../src/project.c:563
 msgid "Create _Project"
 msgstr "创建项目(_P)"
 
-#: ../src/project.c:605
+#: ../src/project.c:603
 msgid "Create project"
 msgstr "创建项目"
 
-#: ../src/project.c:609
+#: ../src/project.c:607
 msgid "Create project with currently opened documents"
 msgstr "使用当前打开的文件创建项目"
 
-#: ../src/project.c:610
+#: ../src/project.c:608
 msgid "Create empty project"
 msgstr "创建空项目"
 
-#: ../src/quickstart.c:453
+#: ../src/quickstart.c:471
 msgid "<b>External Style Sheet</b>"
 msgstr ""
 
-#: ../src/quickstart.c:463
+#: ../src/quickstart.c:481
 #, fuzzy
 msgid "Ty_pe:"
 msgstr "类型(_T)："
 
-#: ../src/quickstart.c:481
+#: ../src/quickstart.c:499
 #, fuzzy
 msgid "Hre_f:"
 msgstr "_Href："
 
-#: ../src/quickstart.c:485
+#: ../src/quickstart.c:503
 #, fuzzy
 msgid "_Media:"
 msgstr "介质："
 
-#: ../src/quickstart.c:491
+#: ../src/quickstart.c:507
+#, fuzzy
+msgid "Titl_e:"
+msgstr "标题(_T)："
+
+#: ../src/quickstart.c:513
 #, fuzzy
 msgid "<b>Style Area</b>"
 msgstr "<b>常规</b>"
 
-#: ../src/quickstart.c:495
+#: ../src/quickstart.c:517
 #, fuzzy
-msgid "Create _empty style area"
+msgid "Cre_ate empty style area"
 msgstr "创建空项目"
 
-#: ../src/quickstart.c:517
+#: ../src/quickstart.c:539
 #, fuzzy
 msgid "<b>Attributes</b>"
 msgstr "属性"
 
-#: ../src/quickstart.c:532
+#: ../src/quickstart.c:554
 #, fuzzy
 msgid "_Src:"
 msgstr "源代码(_S)："
 
-#: ../src/quickstart.c:539
+#: ../src/quickstart.c:561
 msgid "<b>Script Area</b>"
 msgstr ""
 
-#: ../src/quickstart.c:543
+#: ../src/quickstart.c:565
 #, fuzzy
 msgid "Create _empty script area"
 msgstr "创建空项目"
 
-#: ../src/quickstart.c:570
+#: ../src/quickstart.c:592
 msgid "Quick Start"
 msgstr "快速启动"
 
-#: ../src/quickstart.c:584
+#: ../src/quickstart.c:606
 #, fuzzy
 msgid "_DTD:"
 msgstr "使用 _DTD："
 
-#: ../src/quickstart.c:588 ../src/wizards.c:187
+#: ../src/quickstart.c:610 ../src/wizards.c:187
 msgid "_Title:"
 msgstr "标题(_T)："
 
-#: ../src/quickstart.c:611
+#: ../src/quickstart.c:633
 #, fuzzy
 msgid "_Head:"
 msgstr "_Href："

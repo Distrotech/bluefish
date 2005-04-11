@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bluefish gtk2-port\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-04-08 10:34+0200\n"
+"POT-Creation-Date: 2005-04-11 23:04+0200\n"
 "PO-Revision-Date: 2002-12-13 23:02+0100\n"
 "Last-Translator: Roland Steinbach <roland@netzblick.de>\n"
 "Language-Team: Not a member <LL@li.org>\n"
@@ -222,6 +222,9 @@ msgid ""
 "  Tamil: Murugapandian Barathee\n"
 "   <barathee@yahoo.com>\n"
 "\n"
+"  Turkish: Oğuz Eren\n"
+"   <ogzeren@gmail.com>\n"
+"\n"
 msgstr ""
 "Aktuelle Übersetzer:\n"
 "\n"
@@ -279,21 +282,24 @@ msgstr ""
 "  Tamil - Murugapandian Barathee\n"
 "   <barathee@yahoo.com>\n"
 "\n"
+"  Turkish: Oğuz Eren\n"
+"   <ogzeren@gmail.com>\n"
+"\n"
 
-#: ../src/about.c:226
+#: ../src/about.c:228
 msgid "About Bluefish"
 msgstr "Über Bluefish"
 
-#: ../src/about.c:258 ../src/fref.c:1448 ../src/fref.c:1732 ../src/fref.c:1819
+#: ../src/about.c:260 ../src/fref.c:1448 ../src/fref.c:1732 ../src/fref.c:1819
 #: ../src/fref.c:1854 ../src/fref.c:2331
 msgid "Info"
 msgstr "Info"
 
-#: ../src/about.c:260
+#: ../src/about.c:262
 msgid "Authors"
 msgstr "Autoren"
 
-#: ../src/about.c:261
+#: ../src/about.c:263
 msgid "Translators"
 msgstr "Übersetzer"
 
@@ -644,7 +650,7 @@ msgstr "Farbe bearbeiten"
 msgid "Edit tag"
 msgstr "Tag bearbeiten"
 
-#: ../src/document.c:2196 ../src/file_dialogs.c:291 ../src/file_dialogs.c:330
+#: ../src/document.c:2196 ../src/file_dialogs.c:303 ../src/file_dialogs.c:342
 msgid "_Abort save"
 msgstr "Sichern _abbrechen"
 
@@ -861,7 +867,7 @@ msgstr "Fokus folgen"
 msgid "_Skip"
 msgstr "Ü_berspringen"
 
-#: ../src/file.c:937 ../src/file_dialogs.c:432 ../src/file_dialogs.c:455
+#: ../src/file.c:937 ../src/file_dialogs.c:444 ../src/file_dialogs.c:467
 #: ../src/project.c:190
 msgid "_Overwrite"
 msgstr "Ü_berschreiben"
@@ -915,23 +921,23 @@ msgstr "Mus_ter:"
 msgid "Is rege_x:"
 msgstr "ist regulärer Ausdruck:"
 
-#: ../src/file_dialogs.c:194
+#: ../src/file_dialogs.c:204
 msgid "Select files"
 msgstr "Dateien wählen"
 
-#: ../src/file_dialogs.c:245
+#: ../src/file_dialogs.c:257
 msgid "Open URL"
 msgstr "URL Öffnen"
 
-#: ../src/file_dialogs.c:249
+#: ../src/file_dialogs.c:261
 msgid "<b>Open URL</b>"
 msgstr "<b>URL Öffnen</b>"
 
-#: ../src/file_dialogs.c:291 ../src/file_dialogs.c:330
+#: ../src/file_dialogs.c:303 ../src/file_dialogs.c:342
 msgid "_Continue save"
 msgstr "Sichern _fortsetzen"
 
-#: ../src/file_dialogs.c:293
+#: ../src/file_dialogs.c:305
 #, c-format
 msgid ""
 "A backupfile for %s could not be created. If you continue, this file will be "
@@ -940,11 +946,11 @@ msgstr ""
 "Sicherungsdatei für %s konnte nicht erstellt werde. Falls Sie weitermachen, "
 "wird die Datei überschrieben."
 
-#: ../src/file_dialogs.c:297
+#: ../src/file_dialogs.c:309
 msgid "File backup failure"
 msgstr "Backup fehlgeschlagen"
 
-#: ../src/file_dialogs.c:315
+#: ../src/file_dialogs.c:327
 msgid ""
 "Could not save file:\n"
 "\""
@@ -952,59 +958,59 @@ msgstr ""
 "Kann Datei nicht schreiben:\n"
 "\""
 
-#: ../src/file_dialogs.c:319
+#: ../src/file_dialogs.c:331
 msgid "File save failed!\n"
 msgstr "Speichern fehlgeschlagen.\n"
 
-#: ../src/file_dialogs.c:334
+#: ../src/file_dialogs.c:346
 #, c-format
 msgid "File %s is modified on disk, overwrite?"
 msgstr "Datei %s auf der Platte geändert, überschreiben?"
 
-#: ../src/file_dialogs.c:336
+#: ../src/file_dialogs.c:348
 #, c-format
 msgid "Failed to check if %s is modified on disk"
 msgstr "Dateiüberprüfung von %s fehlgeschlagen"
 
-#: ../src/file_dialogs.c:341
+#: ../src/file_dialogs.c:353
 msgid "File modified on disk"
 msgstr "Datei auf Festplatte geändert "
 
 # c-format
-#: ../src/file_dialogs.c:410
+#: ../src/file_dialogs.c:422
 #, c-format
 msgid "Move/rename %s to"
 msgstr "%s umbenennen/verschieben nach"
 
-#: ../src/file_dialogs.c:410
+#: ../src/file_dialogs.c:422
 #, c-format
 msgid "Save %s as"
 msgstr "%s speichern unter..."
 
-#: ../src/file_dialogs.c:432 ../src/file_dialogs.c:455
-#: ../src/file_dialogs.c:671 ../src/project.c:190
+#: ../src/file_dialogs.c:444 ../src/file_dialogs.c:467
+#: ../src/file_dialogs.c:683 ../src/project.c:190
 msgid "_Cancel"
 msgstr "_Abbrechen"
 
-#: ../src/file_dialogs.c:433
+#: ../src/file_dialogs.c:445
 #, c-format
 msgid "File %s exists and is opened, overwrite?"
 msgstr "Die Datei %s existiert und ist geöffnet, überschreiben?"
 
-#: ../src/file_dialogs.c:438
+#: ../src/file_dialogs.c:450
 msgid "The file you have selected is being edited in Bluefish."
 msgstr "Die Datei wird bereits in Bluefish bearbeitet"
 
-#: ../src/file_dialogs.c:456 ../src/project.c:191
+#: ../src/file_dialogs.c:468 ../src/project.c:191
 #, c-format
 msgid "A file named \"%s\" already exists."
 msgstr "Die Datei \"%s\" existiert bereits."
 
-#: ../src/file_dialogs.c:461 ../src/project.c:196
+#: ../src/file_dialogs.c:473 ../src/project.c:196
 msgid "Do you want to replace the existing file?"
 msgstr "Vorhandene Datei ersetzen?"
 
-#: ../src/file_dialogs.c:477
+#: ../src/file_dialogs.c:489
 msgid ""
 "File:\n"
 "\""
@@ -1012,36 +1018,36 @@ msgstr ""
 "Datei:\n"
 "\""
 
-#: ../src/file_dialogs.c:481
+#: ../src/file_dialogs.c:493
 msgid "Save in progress!"
 msgstr "Speichere..."
 
-#: ../src/file_dialogs.c:617 ../src/project.c:358
+#: ../src/file_dialogs.c:629 ../src/project.c:356
 msgid "Do_n't save"
 msgstr "_Nicht Speichern"
 
-#: ../src/file_dialogs.c:620
+#: ../src/file_dialogs.c:632
 #, c-format
 msgid "Save changes to \"%s\" before closing?."
 msgstr "Datei \"%s\" vor dem Schließen speichern?"
 
-#: ../src/file_dialogs.c:625 ../src/file_dialogs.c:676 ../src/project.c:370
+#: ../src/file_dialogs.c:637 ../src/file_dialogs.c:688 ../src/project.c:368
 msgid "If you don't save your changes they will be lost."
 msgstr "Änderungen gehen ohne Sicherung verloren."
 
-#: ../src/file_dialogs.c:671
+#: ../src/file_dialogs.c:683
 msgid "Choose per _File"
 msgstr "_Pro Datei auswählen"
 
-#: ../src/file_dialogs.c:671
+#: ../src/file_dialogs.c:683
 msgid "Close _All"
 msgstr "Alle s_chließen"
 
-#: ../src/file_dialogs.c:671
+#: ../src/file_dialogs.c:683
 msgid "_Save All"
 msgstr "_Alle Speichern"
 
-#: ../src/file_dialogs.c:675
+#: ../src/file_dialogs.c:687
 msgid "Multiple open files have been changed."
 msgstr "Mehrere geöffnete Dateien wurden geändert."
 
@@ -1078,7 +1084,6 @@ msgid ""
 msgstr ""
 " \n"
 "Sollte <ref> oder <r> sein"
-
 
 #: ../src/fref2.c:879
 msgid "Bad reference"
@@ -1292,9 +1297,7 @@ msgstr "Fehler"
 msgid ""
 "Perhaps you didn't load a library, or you did not select a library to search "
 "in."
-msgstr ""
-"Keine Referenz geladen oder keine Referenz zum Suchen ausgewählt."
-""
+msgstr "Keine Referenz geladen oder keine Referenz zum Suchen ausgewählt."
 
 #: ../src/fref2.c:3340
 #, c-format
@@ -1336,7 +1339,8 @@ msgstr "Defektes Element"
 
 #: ../src/fref2.c:3494
 msgid "You can define notes for: library, group or element."
-msgstr "Du kannst Anmerkungen für Bibliotheken, Gruppen oder Elemente definieren."
+msgstr ""
+"Du kannst Anmerkungen für Bibliotheken, Gruppen oder Elemente definieren."
 
 #: ../src/fref2.c:3497
 msgid "New note"
@@ -4845,116 +4849,120 @@ msgstr "Neues Projekt"
 msgid "Enter Bluefish project filename"
 msgstr "Bluefish Projektdateinamen eingeben"
 
-#: ../src/project.c:301
+#: ../src/project.c:308
 msgid "Select Bluefish project filename"
 msgstr "Bluefish Projektdateinamen wählen"
 
-#: ../src/project.c:365
+#: ../src/project.c:363
 msgid "Save current project?"
 msgstr "Aktuelles Projekt speichern?"
 
-#: ../src/project.c:498
+#: ../src/project.c:496
 msgid "Create New Project"
 msgstr "Neues Projekt erzeugen"
 
-#: ../src/project.c:501
+#: ../src/project.c:499
 msgid "Edit Project"
 msgstr "Projekt bearbeiten"
 
-#: ../src/project.c:524
+#: ../src/project.c:522
 #, c-format
 msgid "This project contains %d files"
 msgstr "Dieses Projekt enthält %d Dateien"
 
-#: ../src/project.c:536
+#: ../src/project.c:534
 msgid "Project _Name:"
 msgstr "Projekt_name:"
 
-#: ../src/project.c:540
+#: ../src/project.c:538
 msgid "_Basedir:"
 msgstr "_Basisverzeichnis:"
 
-#: ../src/project.c:544
+#: ../src/project.c:542
 msgid "_Preview URL:"
 msgstr "URL Vorschau:"
 
-#: ../src/project.c:548
+#: ../src/project.c:546
 msgid "_Template:"
 msgstr "_Vorlage:"
 
-#: ../src/project.c:554
+#: ../src/project.c:552
 msgid "_Word wrap by default"
 msgstr "Wortumbruch standardmäßig"
 
-#: ../src/project.c:565
+#: ../src/project.c:563
 msgid "Create _Project"
 msgstr "_Neues Projekt"
 
-#: ../src/project.c:605
+#: ../src/project.c:603
 msgid "Create project"
 msgstr "Neues Projekt"
 
-#: ../src/project.c:609
+#: ../src/project.c:607
 msgid "Create project with currently opened documents"
 msgstr "Erzeuge Projekt mit aktuell offenen Dokumenten"
 
-#: ../src/project.c:610
+#: ../src/project.c:608
 msgid "Create empty project"
 msgstr "Leeres Projekt erzeugen"
 
-#: ../src/quickstart.c:453
+#: ../src/quickstart.c:471
 msgid "<b>External Style Sheet</b>"
 msgstr "<b>Externes Stylesheet</b>"
 
-#: ../src/quickstart.c:463
+#: ../src/quickstart.c:481
 msgid "Ty_pe:"
 msgstr "_Typ:"
 
-#: ../src/quickstart.c:481
+#: ../src/quickstart.c:499
 msgid "Hre_f:"
 msgstr "_Href:"
 
-#: ../src/quickstart.c:485
+#: ../src/quickstart.c:503
 msgid "_Media:"
 msgstr "Me_dium:"
 
-#: ../src/quickstart.c:491
+#: ../src/quickstart.c:507
+msgid "Titl_e:"
+msgstr "_Titel:"
+
+#: ../src/quickstart.c:513
 msgid "<b>Style Area</b>"
 msgstr "<b>Stilbereich</b>"
 
-#: ../src/quickstart.c:495
-msgid "Create _empty style area"
+#: ../src/quickstart.c:517
+msgid "Cre_ate empty style area"
 msgstr "L_eeren Stilbereich erzeugen"
 
-#: ../src/quickstart.c:517
+#: ../src/quickstart.c:539
 msgid "<b>Attributes</b>"
 msgstr "<b>Attribute</b>"
 
-#: ../src/quickstart.c:532
+#: ../src/quickstart.c:554
 msgid "_Src:"
 msgstr "_Quelle:"
 
-#: ../src/quickstart.c:539
+#: ../src/quickstart.c:561
 msgid "<b>Script Area</b>"
 msgstr "<b>Scriptbereich</b>"
 
-#: ../src/quickstart.c:543
+#: ../src/quickstart.c:565
 msgid "Create _empty script area"
 msgstr "Leeren _Scriptbereich erzeugen"
 
-#: ../src/quickstart.c:570
+#: ../src/quickstart.c:592
 msgid "Quick Start"
 msgstr "Schnellstart"
 
-#: ../src/quickstart.c:584
+#: ../src/quickstart.c:606
 msgid "_DTD:"
 msgstr "_DTD:"
 
-#: ../src/quickstart.c:588 ../src/wizards.c:187
+#: ../src/quickstart.c:610 ../src/wizards.c:187
 msgid "_Title:"
 msgstr "_Titel:"
 
-#: ../src/quickstart.c:611
+#: ../src/quickstart.c:633
 msgid "_Head:"
 msgstr "_Head:"
 
