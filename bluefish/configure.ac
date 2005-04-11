@@ -30,6 +30,8 @@ AC_ARG_ENABLE([bluefish-dev],
 )
 if test "$bluefish_dev" = yes; then
 	PACKAGE=bluefish-dev
+	BF_APP_PACKAGE_ADDSTRING="(CVS)"
+	AC_SUBST(BF_APP_PACKAGE_ADDSTRING)
 else
 	PACKAGE=bluefish
 fi
@@ -261,8 +263,12 @@ if pkg-config --exists gnome-vfs-2.0 ; then
 	CFLAGS="$CFLAGS `pkg-config --cflags gnome-vfs-2.0`"
 	echo "yes, `pkg-config --modversion gnome-vfs-2.0`"
 	HAVE_GNOME_VFS=1
+	BF_APP_EXPECT_URIS="true"
+	BF_APP_SUPPORTED_URI_SCHEMES="file,http,ftp,sftp,smb"
 	AC_DEFINE(HAVE_GNOME_VFS)
 	AC_SUBST(HAVE_GNOME_VFS)
+	AC_SUBST(BF_APP_EXPECT_URIS)
+	AC_SUBST(BF_APP_SUPPORTED_URI_SCHEMES)
 else
 	AC_MSG_ERROR(gnome-vfs2 is required, please install libgnomevfs2-dev)
 fi
@@ -612,6 +618,9 @@ fi
 pkgdatadir=${datadir}/${PACKAGE}/
 AC_SUBST(pkgdatadir)
 
+eval BF_APP_PKGDATADIR=`echo $pkgdatadir`
+AC_SUBST(BF_APP_PKGDATADIR)
+
 dnl *******************************
 dnl   GETTEXT
 dnl *******************************
@@ -638,11 +647,25 @@ if test "$USE_NLS" = "yes" ; then
 	MAKEMAIN="${MAKEMAIN} make-nls"
 fi
 
+# this is for upcoming theme-icon support
+eval ICONDIR=`echo $ICONPATH`
+BF_APP_ICON="${ICONDIR}/${PACKAGE}-icon.png"
+AC_SUBST(BF_APP_ICON)
+
 AC_SUBST(INSTALLDATA)
 AC_SUBST(INSTALLMAIN)
 AC_SUBST(MAKEMAIN)
 
-AC_CONFIG_FILES(Makefile icons/Makefile src/Makefile po/Makefile data/Makefile)
+AC_CONFIG_FILES(
+	Makefile
+	icons/Makefile
+	src/Makefile
+	po/Makefile
+	data/Makefile
+	data/filetypes
+	data/bluefish.applications
+	data/bluefish.desktop
+	data/bluefish.keys)
 AC_OUTPUT
 
 echo "-----------"
