@@ -415,28 +415,6 @@ if test "${prefix}" == "NONE"; then
 	AC_SUBST(prefix)
 fi
 
-AC_ARG_WITH(gnome1-menu, 
-	AC_HELP_STRING([--with-gnome1-menu],[enable gnome1 menu, use --with-gnome1-menu=/path to override the gnome1 prefix default /usr/share/gnome/apps]),[
-	GNOME1MENU=$withval
-	],[
-	GNOME1MENU=no]
-)
-if test "x${GNOME1MENU}" != "xno" ; then
-	if test "x$GNOME1MENU" = "xyes" ; then
-		echo -n "checking for gnome1 menu directory... "
-		if test -d /usr/share/gnome/apps ; then
-			GNOME1MENU=/usr/share/gnome/apps
-		else
-			GNOME1MENU=no
-		fi
-		echo $GNOME1MENU
-	fi
-	if test "x${GNOME1MENU}" != "xno" ; then
-		INSTALLDATA="$INSTALLDATA install-gnome1-menu"
-		AC_SUBST(GNOME1MENU)
-	fi
-fi
-
 AC_ARG_ENABLE([update-databases],
 	AC_HELP_STRING([--disable-update-databases],[do not run the update-desktop-database or update-mime-database utilities, mostly useful for package maintainers]),[
 	UPDATEDATABASES=$enableval
