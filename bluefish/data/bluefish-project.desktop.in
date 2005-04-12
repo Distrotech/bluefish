@@ -1,0 +1,13 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=Bluefish Editor @BF_APP_PACKAGE_ADDSTRING@
+Name[de]=Bluefish Editor @BF_APP_PACKAGE_ADDSTRING@
+Comment=Web Development Editor @BF_APP_PACKAGE_ADDSTRING@
+Comment[de]=Editor für Web-Entwickler @BF_APP_PACKAGE_ADDSTRING@
+Exec=@PACKAGE@ -n -p %f
+Icon=@BF_APP_ICON@
+Terminal=false
+Type=Application
+StartupNotify=true
+NoDisplay=true
+MimeType=application/bluefish-project;
