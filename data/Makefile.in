@@ -50,6 +50,7 @@ all:
 install-fdmenu:
 	$(INSTALL_DIR) $(DESTDIR)$(FDMENU)
 	$(INSTALL_DATA) bluefish.desktop $(DESTDIR)$(FDMENU)/$(PACKAGE).desktop
+	$(INSTALL_DATA) bluefish-project.desktop $(DESTDIR)$(FDMENU)/$(PACKAGE)-project.desktop
 
 install-update-menu:
 	$(UPDATE_DESKTOP)
@@ -103,6 +104,7 @@ uninstall:
 	rm -f $(DESTDIR)$(GMIMEINFO)/$(PACKAGE).keys
 	rm -f $(DESTDIR)$(GAPPREG)/$(PACKAGE).applications
 	rm -f $(DESTDIR)$(FDMENU)/$(PACKAGE).desktop
+	rm -f $(DESTDIR)$(FDMENU)/$(PACKAGE)-project.desktop
 	if test "$(ICONPATH)" != "no"; then \
 		rm -f $(DESTDIR)$(ICONPATH)/gnome-mime-application-bluefish-project.png; \
 	fi
@@ -115,7 +117,7 @@ uninstall:
 	done
 
 clean:
-	rm -f bluefish.desktop bluefish.applications bluefish.keys filetypes
+	rm -f bluefish.desktop bluefish-project.desktop bluefish.applications bluefish.keys filetypes
 
 distclean: clean
 	rm -f Makefile *.rej *.orig *~

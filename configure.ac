@@ -716,6 +716,7 @@ AC_CONFIG_FILES(
 	data/filetypes
 	data/bluefish.applications
 	data/bluefish.desktop
+	data/bluefish-project.desktop
 	data/bluefish.keys)
 AC_OUTPUT
 
