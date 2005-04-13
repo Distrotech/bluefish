@@ -1,7 +1,7 @@
 HOW-TO:  Compiling the Bluefish Book
 ======================================
 
-This Bluefish Book is written in Docbook XML 4.3.
+This Bluefish Book is written in Docbook XML 4.4.
 
 The goal of this document is to give simple instructions to anyone who
 wants to compile this book into a useful format, like HTML or PDF.  It
@@ -37,7 +37,7 @@ II. REQUIREMENTS
    The "Docbook Open Repository" on Sourceforge has a large collection
    of XSL stylesheets that specifically operate on Docbook.  
    
-   If the version 1.67.2 is not already installed on your system, download
+   If the version 1.68.1 is not already installed on your system, download
    and install it from this page:
   
       http://sourceforge.net/project/showfiles.php?group_id=21935
@@ -91,7 +91,7 @@ II. REQUIREMENTS
      the following recipe:
 
         1. Download the latest from http://xml.apache.org/dist/fop/,
-           for example, fop-0.20.4-bin.tar.gz.  Just get a binary
+           for example, fop-0.20.5-bin.tar.gz.  Just get a binary
            distribution, there's no need for the Java source.
 
         2. Unpack it into fop/
@@ -105,11 +105,12 @@ II. REQUIREMENTS
      environment.  Try java.sun.com or www.blackdown.org if you don't
      already have that. 
 
-   * This may not be relevant any more...
-     If you want images to be included in the PDF, you'll need to use
-     the JIMI image processing library.  Grab the latest release from
-     http://java.sun.com/products/jimi/, then cp the jar file into the
-     same place as the FOP jar files. Or JAI for Mac Users.
+    * As of version 0.20.5 of fop, the JAI is included in fop.
+     For older versions, if you want images to be included in the PDF, 
+     you'll need to use the JIMI OR JAI image processing library.  Grab 
+     the latest release from http://java.sun.com/products/jimi/, then 
+     cp the jar file into the same place as the FOP jar files.  For Mac 
+     Users, use JAI on ADC.
 
      Note for Debian users: fop and JIMI - learn more at
      /usr/share/doc/fop/README.Debian

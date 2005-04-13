@@ -5,11 +5,7 @@
 	exclude-result-prefixes="#default">
 <xsl:import href="http://docbook.sourceforge.net/release/xsl/current/html/docbook.xsl"/>
 <!-- <xsl:import href="../xsl/html/docbook.xsl"/> -->
-<xsl:import href="titlepage-html.xsl"/>
-<!-- Allow to use extensions -->
-<xsl:param name="use.extensions" select="'1'"></xsl:param>
-<!-- For revision history -->
-<xsl:param name="tablecolumns.extension" select="'1'"></xsl:param>
+<xsl:include href="titlepage-html.xsl"/>
 <!-- Define the output encoding as UTF-8 -->
 <xsl:output method="html"
 	encoding="UTF-8"

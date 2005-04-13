@@ -1798,7 +1798,7 @@ Prints labels too.</span></dd>
 
 </sect1>
 
-<sect1 id="more-then-text-editor">
+<sect1 id="more-than-text-editor">
 <title>More than a Text Editor</title>
 
 <sect2 id="indenting">
@@ -2812,7 +2812,7 @@ width="80" height="53" border="0"&gt;&lt;/a&gt;
 
 <sect3 id="external-browsers">
 <title>Customizing browsers</title>
-<?linebreak?>
+<?linebreaka4?>
 <para>The <guilabel>Browsers</guilabel> panel in Preferences shows the items in the same order as in the <guimenu>External</guimenu> menu:
 <?linebreaka4?>
 <figure id="figure-preferences-browsers-panel">
@@ -2832,9 +2832,7 @@ width="80" height="53" border="0"&gt;&lt;/a&gt;
 <para>The first line in the panel will be the browser selected when clicking on the <guilabel>View in browser</guilabel> button in the main tool bar.</para>
 </listitem>
 </varlistentry></variablelist>
-<?linebreakus?>
 <para>If you want to change the order of the browsers, apply the following steps:</para>
-<?linebreakus?>
 <procedure id="external-browsers-order">
 <title>Changing the order of browsers items</title>
 <step>
@@ -2900,9 +2898,7 @@ width="80" height="53" border="0"&gt;&lt;/a&gt;
 <step>
 <para>Click on the <guibutton>Apply</guibutton> button to save the change if you plan to make further changes in the panel, otherwise click on the <guibutton>OK</guibutton> button to save the change and close the <guilabel>Edit preferences</guilabel> panel.</para></step>
 </procedure>
-<?linebreakus?>
 <para>If you want to customize one of the browsers supplied by default, use the following procedure:</para>
-<?linebreakus?>
 <procedure id="external-browsers-customize">
 <title>Customizing an existent browser</title>
 <step>
@@ -2952,9 +2948,12 @@ width="80" height="53" border="0"&gt;&lt;/a&gt;
 
 </sect3>
 
+<?linebreakus?>
 <sect3 id="external-commands">
 <title>Customizing Commands menu</title>
+<?linebreakus?>
 <para>To add items to the <menuchoice><guimenu>External</guimenu><guisubmenu>Commands</guisubmenu></menuchoice> submenu, you use the <guilabel>External programs</guilabel> tab of the <guilabel>Edit Preferences</guilabel> panel:
+<?linebreakus?>
 <figure id="figure-preferences-utilities-panel">
 <title id="figure-preferences-utilities-panel-title">Utilities and Filters panel in Preferences</title>
 <screenshot><mediaobject>
@@ -3086,7 +3085,7 @@ The first part embedded into parentheses will match the script name, i.e. foo.rb
 </itemizedlist>
 <?linebreaka4?>
 <para>You add, modify, delete, move output boxes the same way as described in <xref linkend="external-browsers"/>.</para>
-<?linebreak?>
+<?linebreaka4?>
 <procedure id="outputbox-add">
 <title>Adding an Outputbox menu item</title>
 <step>
@@ -3152,7 +3151,6 @@ The first part embedded into parentheses will match the script name, i.e. foo.rb
 <para>Many menu entries are accessible via key combination, also called a shortcut. For example, pressing the <keycombo><keycap>Ctrl</keycap><keycap>S</keycap></keycombo> keys saves the current file to disk. If available, shortcut key combinations are shown on the right of the menu entry.</para>
 <para>To add or change a shortcut, move the mouse over the desired menu entry, and press the key combination you would like to use. Immediately this combination will show up on the right of the menu entry.</para>
 <para>Here's a shortcut added to the <menuchoice><guimenu>File</guimenu><guimenuitem>Open URL...</guimenuitem></menuchoice> menu item:
-<?linebreakus?>
 <figure id="figure-prefs-add-shortcut">
 <title id="figure-prefs-add-shortcut-title">Adding a shortcut to a menu item</title>
 <screenshot><mediaobject>
@@ -3209,25 +3207,337 @@ The first part embedded into parentheses will match the script name, i.e. foo.rb
 <sect2 id="show-backup-files">
 <title>Showing backup files</title>
 <para>By default, backup files are not shown in the file browser tab of the side panel.</para>
-<para>You may turn on their visibilty at a given level of the file system by right clicking on the desired folder name in the file browser within the side panel and toggle <guilabel>Show backup files</guilabel> in the contextual menu.</para>
+<para>You may turn on their visibility at a given level of the file system by right clicking on the desired folder name in the file browser within the side panel and toggle <guilabel>Show backup files</guilabel> in the contextual menu.</para>
 </sect2>
 
-<sect2 id="editor-preferences">
-<title>Editor preferences</title>
-<para>The font of the editor can be set in the preferences under <guilabel>Editor</guilabel>. </para>
-<para>A frequently asked question is how to change the background color of the editor in Bluefish. Bluefish uses the default editor background color as set in your GTK theme. If you want to override the color of the theme, edit ~/.gtkrc-2.0 and add this section: <programlisting>style "EditorStyle" {
-  base[NORMAL]="#eeeeee"
+<sect2 id="editor-appearance">
+<title>Editor appearance</title>
+<?linebreakus?>
+<?linebreakus?>
+<para>Most of the editor appearance depends on your GKT theme, which may be customized through the <filename>~/.gtkrc-2.0</filename> resource file.</para>
+<?linebreakus?>
+<?linebreakus?>
+<para>Parts that you may want to customize through that resource file are among others:</para>
+<itemizedlist spacing="compact">
+<listitem><para>the background color of the editor</para></listitem>
+<listitem><para>the colors of GUI elements</para></listitem>
+<listitem><para>the position of arrows in a drop down list</para></listitem>
+</itemizedlist>
+<?linebreakus?>
+<?linebreakus?>
+<para>You will find examples of themes resource files while searching for a <filename>gtkrc</filename> file in a <filename>gtk-2.0</filename> folder within the various directories under <filename>$prefix/share/themes/</filename>, where $prefix is your installation prefix (it may be <filename>/usr</filename>, <filename>/usr/local</filename>, <filename>/sw</filename>, <filename>/opt</filename>, etc.).</para>
+<?linebreakus?>
+<?linebreakus?>
+<variablelist><varlistentry>
+<term><emphasis>Warning</emphasis></term>
+<listitem>
+<para>You should not customize those files, instead customize <filename>~/.gtkrc-2.0</filename>. If the file does not already exist in your home directory, just create it with:  <command>touch ~/.gtkrc-2.0</command></para>
+</listitem>
+</varlistentry></variablelist>
+<?linebreakus?>
+<?linebreakus?>
+<para>Here is an example made on a Crux theme:<programlisting><![CDATA[style "bluefish"
+{
+ # For up and down arrows grouped together at right side
+ GtkNotebook::has_secondary_forward_stepper = 1
+ GtkNotebook::has_secondary_backward_stepper = 1
+ 
+ # Editor background color 
+ # (background of editor view)
+ base[NORMAL]="#fcfff5"
+ 
+ # GUI normal background color
+ # (most of the GUI)
+ bg[NORMAL]="#dbe9e9"
+ 
+ # GUI highlighted background color
+ #(GUI when mouse over elements)
+ bg[PRELIGHT]="#c6e9e9"
+ 
+ # GUI unactive background color
+ #(GUI disabled elements)
+ bg[INSENSITIVE]="#9fb2b2"
+
+ # GUI active background color
+ #(GUI enabled elements)
+ bg[ACTIVE]="#c7d4d4"
 }
-class "GtkTextView" style "EditorStyle"</programlisting></para>
+class "GtkWidget" style "bluefish"
+]]></programlisting></para>
+<?linebreak?>
+<?linebreakus?>
+<variablelist><varlistentry>
+<term><emphasis>Note</emphasis></term>
+<listitem>
+<para>You may give any name to the style on the first line, provided that you use the same on the last line.</para>
+<para>The customization applies to any Gtk application.</para>
+</listitem>
+</varlistentry></variablelist>
+<?linebreak?>
+<?linebreakus?>
+<para>It will give this appearance to bluefish:
+<?linebreak?>
+<?linebreakus?>
+<?linebreakus?>
+<?linebreakus?>
+<?linebreakus?>
+<?linebreakus?>
+<?linebreakus?>
+<?linebreakus?>
+<?linebreakus?>
+<?linebreakus?>
+<figure id="figure-gui-appearance">
+<title id="figure-gui-appearance-title">Bluefish with a customized Gtk theme</title>
+<screenshot><mediaobject>
+<imageobject>
+<imagedata fileref="figures/gui_appearance.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>A screen shot of Bluefish with a customized Gtk theme</phrase>
+</textobject>
+</mediaobject></screenshot>
+</figure></para>
+<?linebreaka4?>
+<?pagebreakus?>
+<para>Other options for the Editor are available in the <guilabel>Editor</guilabel> tab of the <guilabel>Edit preferences</guilabel> panel accessible via the <guilabel>Edit preferences...</guilabel> button in the main tool bar. In particular you may want to customize the font of the editor, the end of line wrapping, and the undo history size:
+<?linebreakus?>
+<?linebreakus?>
+<?linebreakus?>
+<?linebreakus?>
+<figure id="figure-prefs-editor-tab">
+<title id="figure-prefs-editor-tab-title">The Editor tab in Preferences</title>
+<screenshot><mediaobject>
+<imageobject>
+<imagedata fileref="figures/prefs_editor_tab.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>A screen shot of the Editor tab in Preferences</phrase>
+</textobject>
+</mediaobject></screenshot>
+</figure></para>
+</sect2>
+
+<?linebreakus?>
+<?linebreakus?>
+<?linebreakus?>
+<sect2 id="bookmark-path">
+<title>Customizing the bookmarks path</title>
+<?linebreakus?>
+<para>When you add bookmarks to document, the name of the file it refers to is displayed from the base directory. You can choice another path from the <guilabel>Bookmarks filename display</guilabel> pop up menu in the <guilabel>Editor</guilabel> tab of the <guilabel>Edit preferences</guilabel> panel:
+<?linebreakus?>
+<?linebreakus?>
+<?linebreakus?>
+<?linebreakus?>
+<figure id="figure-prefs-bookmarks-path">
+<title id="figure-prefs-bookmarks-path-title">The Bookmarks path pop up menu in Preferences</title>
+<screenshot><mediaobject>
+<imageobject>
+<imagedata fileref="figures/prefs_bookmarks_path.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>A screen shot of the Bookmarks path pop up menu in Preferences</phrase>
+</textobject>
+</mediaobject></screenshot>
+</figure></para>
+</sect2>
+
+<sect2 id="html-tags-style">
+<title>Customizing the html tags style</title>
+<para>The <guilabel>HTML</guilabel> tab of the <guilabel>Edit preferences</guilabel> panel provides you with some options to change the style of the html tags:
+<figure id="figure-prefs-html-tab">
+<title id="figure-prefs-html-tab-title">The HTML tab in Preferences</title>
+<screenshot><mediaobject>
+<imageobject>
+<imagedata fileref="figures/prefs_html_tab.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>A screen shot of the HTML tab in Preferences</phrase>
+</textobject>
+</mediaobject></screenshot>
+</figure></para>
+</sect2>
+
+<sect2 id="changing-author-meta">
+<title>Changing the author meta tag on the fly</title>
+<?linebreaka4?>
+<para>One interesting feature in the <guilabel>HTML</guilabel> tab of the <guilabel>Edit preferences</guilabel> panel is that you can let <application>bluefish</application> update the author meta tag on save.</para>
+<?linebreaka4?>
+<?linebreaka4?>
+<para>Let's say you created an html file with an author meta tag while you were logged in as user <emphasis>foo</emphasis>. On save <application>bluefish</application> will fill up the contents attribute of the author meta tag with the full name associated with the <emphasis>foo</emphasis> user:
+<?linebreak?>
+<?linebreaka4?>
+<?linebreaka4?>
+<?linebreaka4?>
+<?linebreaka4?>
+<?linebreaka4?>
+<?linebreaka4?>
+<?linebreaka4?>
+<figure id="figure-author-meta-name1">
+<title id="figure-author-meta-name1-title">The author meta tag filled in on save</title>
+<screenshot><mediaobject>
+<imageobject>
+<imagedata fileref="figures/author_meta_name1.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>A screen shot of the author meta tag filled in on save</phrase>
+</textobject>
+</mediaobject></screenshot>
+</figure></para>
+<?linebreaka4?>
+<?linebreaka4?>
+<para>You share this html file with another user <emphasis>bar</emphasis> or you change the owner of the file to <emphasis>bar</emphasis>. When you modify the html file while logged in as user <emphasis>bar</emphasis>, the author meta tag is updated to reflect the new author on save, providing that the user <emphasis>bar</emphasis> has write permission on the file:
+<?linebreak?>
+<?linebreaka4?>
+<?linebreaka4?>
+<?linebreaka4?>
+<?linebreaka4?>
+<?linebreaka4?>
+<?linebreaka4?>
+<?linebreaka4?>
+<figure id="figure-author-meta-name2">
+<title id="figure-author-meta-name2-title">Update of the author meta tag on save</title>
+<screenshot><mediaobject>
+<imageobject>
+<imagedata fileref="figures/author_meta_name2.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>A screen shot of the author meta tag updated on save</phrase>
+</textobject>
+</mediaobject></screenshot>
+</figure></para>
+<?linebreaka4?>
+<?linebreaka4?>
+<variablelist>
+<varlistentry>
+<term><emphasis>Warning</emphasis></term>
+<listitem>
+<para>If you do not want that the author meta tag be changed while editing the file under another user's login, uncheck the box.</para>
+</listitem>
+</varlistentry>
+</variablelist>
+</sect2>
+
+<?linebreakus?>
+<sect2 id="customizing-files-handling">
+<title>Customizing files handling and browsing</title>
+<?linebreakus?>
+<para>The <guilabel>Files</guilabel> tab of the <guilabel>Edit preferences</guilabel> panel allows you to set some options related to the way files are handled and displayed in the file browser.
+<?linebreakus?>
+<?linebreakus?>
+<?linebreakus?>
+<figure id="figure-prefs-files-tab">
+<title id="figure-prefs-files-tab-title">The Files preference panel</title>
+<screenshot><mediaobject>
+<imageobject>
+<imagedata fileref="figures/prefs_files_tab.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>A screen shot of the Files preferences panel</phrase>
+</textobject>
+</mediaobject></screenshot>
+</figure></para>
+
+<?linebreakus?>
+<sect3 id="setting-encoding-meta">
+<title>Setting the encoding meta tag on save</title>
+<?linebreakus?>
+<para>Apart from setting the default character encoding in the <guilabel>Files</guilabel> tab of the <guilabel>Edit preferences</guilabel> panel, you may also instruct <application>bluefish</application> to set the encoding meta tag when you modify the document character set encoding.</para>
+<?linebreakus?>
+<para>Note that, if the encoding meta tag does not exist, it is inserted in the file, otherwise it is changed. Either modification occurs immediately.</para>
+</sect3>
+
+<?linebreakus?>
+<sect3 id="setting-default-basedir">
+<title>Setting the default base directory</title>
+<?linebreakus?>
+<para>You can set a default base directory in the <guilabel>Files</guilabel> tab of the <guilabel>Edit preferences</guilabel> panel.</para>
+<?linebreakus?>
+<para>This directory will serve as the initial point for the file browser.</para>
+</sect3>
+
+<?linebreakus?>
+<?linebreakus?>
+<?linebreakus?>
+<sect3 id="merged-views">
+<title>Merging file browser views</title>
+<?linebreakus?>
+<para>By default, the file browser uses separate views for files and directories.</para>
+<?linebreakus?>
+<para>You can have a single view by unchecking the <guilabel>Use separate file and directory view</guilabel> option in the <guilabel>Files</guilabel> tab of the <guilabel>Edit preferences</guilabel> panel.</para>
+</sect3>
+
+<?linebreakus?>
+<?linebreakus?>
+<?linebreakus?>
+<sect3 id="backups">
+<title>Backup files</title>
+<?linebreakus?>
+<para>By default, a backup file is created on save in the same directory as the original file based on the same filename with the exception that a <keycap>~</keycap> suffix is added. This backup file is deleted on closing the file.</para>
+<?linebreakus?>
+<para>You can change this behaviour in the <guilabel>Files</guilabel> tab of the <guilabel>Edit preferences</guilabel> panel.</para>
+<?linebreakus?>
+<para>When the backup fails to be created, you can choose what to do:
+<?linebreakus?>
+<?linebreakus?>
+<figure id="figure-prefs-askonbackup">
+<title id="figure-prefs-askonbackup-title">Choosing an action on backup failure</title>
+<screenshot><mediaobject>
+<imageobject>
+<imagedata fileref="figures/prefs_askonbackup.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>A screen shot of the action on backup failure pop up menu</phrase>
+</textobject>
+</mediaobject></screenshot>
+</figure></para>
+</sect3>
+
+<?linebreakus?>
+<?linebreakus?>
+<?linebreakus?>
+<sect3 id="multiple-file-instances">
+<title>Using multiple instances of a file</title>
+<?linebreakus?>
+<para>A nice feature of <application>bluefish</application> is it allows you to open multiple instances of a file. Combined with either launching two instances of bluefish or opening the same file in two windows, it eases the modification of a file in one window while browsing it in another one.</para>
+<?linebreakus?>
+<para>This feature can be disabled in the <guilabel>Files</guilabel> tab of the <guilabel>Edit preferences</guilabel> panel.</para>
+<?linebreakus?>
+<variablelist>
+<varlistentry>
+<term><emphasis>Warning</emphasis></term>
+<listitem>
+<?linebreakus?>
+<para>Be aware that the last closed instance of the file wins. Hence it is important that you remember which instance is the modified one. You can, for example, always open the file to be modified on the left side of your screen, the file to be browsed on the right side.</para>
+</listitem>
+</varlistentry>
+</variablelist>
+</sect3>
+
+</sect2>
+
+<sect2 id="prefs-user-interface">
+<title>Customizing the user interface</title>
+<para>The <guilabel>User interface</guilabel> tab of the <guilabel>Edit preferences</guilabel> panel allows you to customize most part of the user interface:
+<figure id="figure-prefs-ui-tab">
+<title id="figure-prefs-files-ui-title">The User interface preference panel</title>
+<screenshot><mediaobject>
+<imageobject>
+<imagedata fileref="figures/prefs_ui_tab.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>A screen shot of the User Interface preferences panel</phrase>
+</textobject>
+</mediaobject></screenshot>
+</figure></para>
 </sect2>
 
 <sect2 id="changing-filetypes">
 <title>Modifying file types</title>
-<para>Here you can define all file types that should be recognised by Bluefish. The defaults for these file types are retrieved from a file called file types.default in ${prefix}/share/bluefish/.</para>
-<para>The file types consist:</para>
+<para>In the <guilabel>Filetypes</guilabel>  tab of the <guilabel>Edit preferences</guilabel> panel you can define all file types that should be recognized by <application>bluefish</application>.</para>
+<para>The file types consist of:</para>
 <orderedlist>
 <listitem>
-<para>a name (this name is also used in the file filters, and in the highlighting patterns).</para>
+<para>a label (this label is also used in the file filters, and in the highlighting patterns).</para>
 </listitem>
 <listitem>
 <para>a list of extensions, separated by a colon (:).</para>
@@ -3248,37 +3558,210 @@ class "GtkTextView" style "EditorStyle"</programlisting></para>
 <para>the auto-tag-closing mode. A value of 0 means that Bluefish should not close XML/HTML tags, a value of 1 means it should close the tags XML style (&lt;br /&gt;), a value of 2 means HTML style.</para>
 </listitem>
 </orderedlist>
+<para>You add, modify, delete, or move file types the same way it is described in <xref linkend="external-browsers"/>.</para>
+<example id="adding-filetype"><title>Adding a file type</title>
+<para>Let's say you use DocBook xsl stylesheets. Those files are recognized by <application>bluefish</application> as xml files, but they do not appear with the xml icon in the file browser as their extension (.xsl) is not listed in the <guilabel>Extensions</guilabel> field of the <guilabel>Filetypes</guilabel> tab of the <guilabel>Edit preferences</guilabel> panel.</para>
+<para>On the other hand, adding them to the xml file type would impede to group them into a stylesheet filter, where they belong from a semantical point of view. And you cannot add them to the provided stylesheet filetype made for css stylesheet, since the highlighting patterns are different.</para>
+<para>To add an xsl stylesheet file type, execute the following steps:</para>
+<orderedlist>
+<listitem>
+<para>Click on the <guilabel>Preferences...</guilabel> icon in the main tool bar to access the <guilabel>Edit preferences</guilabel> panel.</para>
+</listitem>
+<listitem>
+<para>Click on the <guilabel>Filetypes</guilabel> tab to display the <guilabel>Filetypes</guilabel> panel.</para>
+</listitem>
+<listitem>
+<para>Click on the <guibutton>Add</guibutton> button in the <guilabel>Filetypes</guilabel> part. A new line will be shown, with an <guilabel>Untitled</guilabel> label.</para>
+</listitem>
+<listitem>
+<para>Double-click on the label to allow editing, and enter the string you want to appear in the <guimenu>Label</guimenu> field. Here enter <code>xsl stylesheet</code>.</para>
+</listitem>
+<listitem>
+<para>Click in the <guilabel>Extensions</guilabel> zone and enter the extension: <code>.xsl</code>.</para>
+</listitem>
+<listitem>
+<para>Click in the <guilabel>Update chars</guilabel> field of the <guilabel>xml</guilabel> filetype line to copy and paste this field into the corresponding field of the <guilabel>xsl stylesheet</guilabel> filetype line. Once the field is highlighted, use <keycombo><keycap>Ctrl</keycap><keycap>C</keycap></keycombo> to copy the field. Click again in the <guilabel>Update chars</guilabel> field of the <guilabel>xsl stylesheet</guilabel> filetype line and use <keycombo><keycap>Ctrl</keycap><keycap>V</keycap></keycombo> to paste the field.</para>
+</listitem>
+<listitem>
+<para>For the icon field, you can either use the xml icon path used in the <guilabel>Icon</guilabel> field of the <guilabel>xml</guilabel> filetype line or better create a new icon based on the xml one by changing its colors with the Colormap Rotation filter of <application>gimp</application>, located under the <guimenu>Filters</guimenu><guisubmenu>Colors</guisubmenu><guisubmenu>Map...</guisubmenu> menu.</para>
+<para>To do it, first copy the xml icon on your Desktop, apply the filter on it, and save it under <filename>bluefish_icon_xsl.png</filename> in a dedicated folder in your home directory, for example <filename>~/Pictures</filename> for Mac users.</para>
+<para>Whichever icon you decided to use, click on the <guilabel>Icon</guilabel> field to enter its path.</para>
+</listitem>
+<listitem>
+<para>Check the <guilabel>Editable</guilabel> box, if it is not already checked.</para>
+</listitem>
+<listitem>
+<para>Copy and paste <guilabel>Content regex</guilabel> field of the <guilabel>xml</guilabel> filetype line into the corresponding field of the <guilabel>xsl stylesheet</guilabel> filetype line.</para>
+</listitem>
+<listitem>
+<para>Set the <guilabel>Auto close tags mode</guilabel> to 1.</para>
+</listitem>
+<listitem>
+<para>Click on the <guibutton>OK</guibutton> button to save and close the panel.</para>
+</listitem>
+</orderedlist>
+</example>
+<variablelist>
+<varlistentry>
+<term><emphasis>Note</emphasis></term>
+<listitem>
+<para>If you want to enter more than one extension in the <guilabel>Extensions</guilabel> field, you should separate them with a colon.</para>
+<para>When you define a new filetype, you should also provide new highlighting patterns.</para>
+</listitem>
+</varlistentry>
+</variablelist>
 </sect2>
 
 <sect2 id="modifying-filefilters">
 <title>Modifying the files filters</title>
-<para>TO BE WRITTEN</para>
+<para>The files filters allow you to group files types from the usage point of view. Once a file filter is created, you can view, hide, or open files based on a filter in the <guilabel>File browser</guilabel> contextual menu.</para>
+<para>The file filters consist of:</para>
+<orderedlist>
+<listitem>
+<para>a label.</para>
+</listitem>
+<listitem>
+<para>whether or not the filter as defined in the <guilabel>Filetypes in filter</guilabel> hides the retrieved files or shows them.</para>
+</listitem>
+<listitem>
+<para>a list of filetypes, as defined in the <guilabel>Filetypes</guilabel> part, separated by a colon.</para>
+</listitem>
+</orderedlist>
+<para>You add, modify, delete, or move file types the same way it is described in <xref linkend="external-browsers"/>.</para>
+<example id="adding-filefilters"><title>Adding a file filter</title>
+<para>Following with our example in <xref linkend="changing-filetypes"/>, we can add a stylesheet filter to group css and xsl stylesheets together.</para>
+<para>To add a stylesheet filter, execute the following steps:</para>
+<orderedlist>
+<listitem>
+<para>Click on the <guilabel>Preferences...</guilabel> icon in the main tool bar to access the <guilabel>Edit preferences</guilabel> panel.</para>
+</listitem>
+<listitem>
+<para>Click on the <guilabel>Filetypes</guilabel> tab to display the <guilabel>Filetypes</guilabel> panel.</para>
+</listitem>
+<listitem>
+<para>Click on the <guibutton>Add</guibutton> button in the <guilabel>Filefilters</guilabel> part at the bottom. A new line will be shown, with an <guilabel>Untitled</guilabel> label.</para>
+</listitem>
+<listitem>
+<para>Double-click on the label to allow editing, and enter the string you want to appear in the <guimenu>Label</guimenu> field. Here enter <code>All stylesheets</code>.</para>
+</listitem>
+<listitem>
+<para>Check the <guilabel>Inverse filter</guilabel> box.</para>
+</listitem>
+<listitem>
+<para>Click in the <guilabel>Filetypes in filter</guilabel> field  and enter the filetypes you want to group together, separated with a colon. Here it is <code>stylesheet:xsl stylesheet</code>.</para>
+</listitem>
+<listitem>
+<para>Click on the <guibutton>OK</guibutton> button to save and close the panel.</para>
+</listitem>
+</orderedlist>
+</example>
+<variablelist>
+<varlistentry>
+<term><emphasis>Important</emphasis></term>
+<listitem>
+<para>The file types used in the <guilabel>Filetypes in filter</guilabel> match those defined in the <guilabel>Filetypes</guilabel> part. Do not confuse them with the file extensions. For example the <guilabel>C programming</guilabel> file filter matches c and image filetypes, i.e. files whose extensions are .c, .h, etc...</para>
+</listitem>
+</varlistentry>
+</variablelist>
 </sect2>
 
 <sect2 id="changing-highlighting-patterns">
 <title>Modifying the highlighting patterns</title>
-<para>The highlight patterns are build from Perl compatible regular expressions. A pattern has options for coloring and style of the text it matches. Within a match other patterns can be used to color parts of that match. There are three types of patterns:
-<itemizedlist>
-<listitem><para>1 Two patterns, match from the start to the end pattern</para></listitem>
-<listitem><para>2 One pattern that matches from start to end</para></listitem>
-<listitem><para>3	Match a subpattern from the parent pattern</para></listitem>
-</itemizedlist>
+<para>The highlight patterns are build from Perl compatible regular expressions. A pattern has options for coloring and styling the text it matches. Within a match other patterns can be used to color parts of that match. There are three types of patterns:
+<orderedlist>
+<listitem><para>Start pattern and end pattern: that is two distinct patterns, match from the start pattern to the end pattern</para></listitem>
+<listitem><para>Only start pattern: that is a unique pattern that matches from start to end</para></listitem>
+<listitem><para>Subpattern from parent: that is a subpattern from the parent pattern, specified by the range in the parent pattern.</para></listitem>
+</orderedlist>
 </para>
 <para>One specific pattern can also be used within several other parent patterns. The parent-match option is a regular expression that defines all parents for a certain pattern. If empty it will default to ^top$, so basically it will be on the top level.</para>
 <para>So how does it work? Lets take a look at a little example text, a piece of PHP code within some HTML code: <programlisting>&lt;p align="center"&gt;
 &lt;?php
 // this is a comment ?&gt;
 ?&gt;</programlisting></para>
-<para>The first thing the highlighting engine does is finding the pattern that has the lowest match. Using the default patterns for PHP, the pattern named <literal>html</literal> has a match at position 0: <programlisting>&lt;p align="center"&gt;</programlisting></para>
-<para>So now the highlighting engine searches for the lowest match in all subpatterns of <literal>html</literal>, in the region matched by the type 2 <literal>html</literal> pattern. Again, the lowest match will count. The pattern named <literal>html-tag</literal> has a match at position 1. This pattern is a type 3 pattern, so it matches a subpattern of the parent: <programlisting>p</programlisting></para>
-<para>the match from subpattern <literal>html-tag</literal> ends at position 2 and it does not have any child patterns, so the highlighting engine continues at position 2 with all subpatterns from <literal>html</literal>. A type 2 pattern named <literal>html-attrib</literal> has the lowest match: <programlisting>align="center"</programlisting></para>
-<para>This pattern does have a child pattern, again a type 3 pattern called <literal>html-attrib-sub2</literal> matching: <programlisting>"center"</programlisting></para>
-<para>The pattern <literal>html-attrib-sub2</literal> does not have any child patterns, and subpatterns of <literal>html-attrib</literal> do not have any more matches, and also <literal>html</literal> subpatterns do not have any more matches. So we are back on the main level, the remaining code to highlight is: <programlisting>&lt;?php
+<para>The first thing the highlighting engine does is finding the pattern that has the lowest match. Using the default patterns for PHP, the pattern named <guilabel>HTML</guilabel>: 
+<figure id="figure-highlighting-pattern1">
+<title id="figure-highlighting-pattern1-title">The HTML pattern</title>
+<screenshot><mediaobject>
+<imageobject>
+<imagedata fileref="figures/highlighting_pattern1.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>A screen shot of the HTML pattern</phrase>
+</textobject>
+</mediaobject></screenshot>
+</figure></para>
+<para>has a match at position 0:
+<programlisting>&lt;p align="center"&gt;</programlisting></para>
+<para>So now the highlighting engine searches for the lowest match in all subpatterns of <guilabel>HTML</guilabel>, in the region matched by a type 2 pattern. Again, the lowest match will count. The pattern named <guilabel>&lt;html&gt; Tags</guilabel>:
+<figure id="figure-highlighting-pattern2">
+<title id="figure-highlighting-pattern2-title">The &lt;html&gt; Tags pattern</title>
+<screenshot><mediaobject>
+<imageobject>
+<imagedata fileref="figures/highlighting_pattern2.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>A screen shot of the &lt;html&gt; Tags pattern</phrase>
+</textobject>
+</mediaobject></screenshot>
+</figure></para>
+<para>has a match at position 1. This pattern is a type 3 pattern, so it matches a subpattern of the parent: <programlisting>p</programlisting></para>
+<para>The match from subpattern <guilabel>&lt;html&gt; Tags</guilabel> ends at position 2 and it does not have any child patterns, so the highlighting engine continues at position 2 with all subpatterns from <guilabel>HTML</guilabel>. A type 2 pattern named <guilabel>HTML Attributes</guilabel>:
+<figure id="figure-highlighting-pattern3">
+<title id="figure-highlighting-pattern3-title">The HTML Attributes pattern</title>
+<screenshot><mediaobject>
+<imageobject>
+<imagedata fileref="figures/highlighting_pattern3.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>A screen shot of the HTML Attributes pattern</phrase>
+</textobject>
+</mediaobject></screenshot>
+</figure></para>
+<para>has the lowest match: <programlisting>align="center"</programlisting></para>
+<para>This pattern does have a child pattern, again a type 3 pattern called <guilabel>HTML Attribute Contents</guilabel>:
+<figure id="figure-highlighting-pattern4">
+<title id="figure-highlighting-pattern4-title">The HTML Attribute Contents pattern</title>
+<screenshot><mediaobject>
+<imageobject>
+<imagedata fileref="figures/highlighting_pattern4.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>A screen shot of the HTML Attribute Contents pattern</phrase>
+</textobject>
+</mediaobject></screenshot>
+</figure></para>
+<para>matching: <programlisting>"center"</programlisting></para>
+<para>The pattern <guilabel>HTML Attribute Contents</guilabel> does not have any child patterns, and subpatterns of <guilabel>HTML Attributes</guilabel> do not have any more matches, and also <guilabel>HTML</guilabel> subpatterns do not have any more matches. So we are back on the main level, the remaining code to highlight is: <programlisting>&lt;?php
 // this is a comment ?&gt;
 ?&gt;</programlisting></para>
-<para>Now a pattern named <literal>php</literal> has the lowest match. This is a type 0 pattern, so the highlight engine continues with all the remaining code, but it will not only search for the lowest match of the child patterns of <literal>php</literal>, but it will also use for the end pattern of <literal>php</literal>. The lowest match in this example is a pattern named <literal>php-comment-C++</literal> As you can see the ?&gt; within the comment does not end the <literal>php</literal> pattern, because it lies within a subpattern of <literal>php</literal>: <programlisting>// this is a comment ?&gt;</programlisting></para>
-<para>The pattern <literal>php-comment-C++</literal> does not have any child patterns, so the remaining code for the <literal>php</literal> subpatterns is: <programlisting>?&gt;</programlisting></para>
-<para>It is very obvious now, the lowest match will be the end pattern of the <literal>php</literal> pattern, so we're back on the main level, and we have matched all of the code!
+<para>Now a pattern named <guilabel>PHP Block</guilabel>:
+<figure id="figure-highlighting-pattern5">
+<title id="figure-highlighting-pattern5-title">The PHP Block pattern</title>
+<screenshot><mediaobject>
+<imageobject>
+<imagedata fileref="figures/highlighting_pattern5.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>A screen shot of the PHP Block pattern</phrase>
+</textobject>
+</mediaobject></screenshot>
+</figure></para>
+<para>has the lowest match. This is a type 1 pattern, so the highlight engine continues with all the remaining code, but it will not only search for the lowest match of the child patterns of <guilabel>PHP Block</guilabel>, but it will also ue it for the end pattern of <guilabel>PHP Block</guilabel>. The lowest match in this example is a pattern named <guilabel>Comment (C++/single line)</guilabel>:
+<figure id="figure-highlighting-pattern6">
+<title id="figure-highlighting-pattern6-title">The Comment (C++/single line) pattern</title>
+<screenshot><mediaobject>
+<imageobject>
+<imagedata fileref="figures/highlighting_pattern6.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>A screen shot of the Comment (C++/single line) pattern</phrase>
+</textobject>
+</mediaobject></screenshot>
+</figure></para>
+<para>As you can see the ?&gt; within the comment does not end the <literal>php</literal> pattern, because it lies within a subpattern of <guilabel>PHP Block</guilabel>: <programlisting>// this is a comment ?&gt;</programlisting></para>
+<para>The pattern <guilabel>Comment (C++/single line)</guilabel> does not have any child patterns, so the remaining code for the <guilabel>PHP</guilabel> subpatterns is: <programlisting>?&gt;</programlisting></para>
+<para>It is very obvious now, the lowest match will be the end pattern of the <guilabel>php</guilabel> pattern, so we're back on the main level, and we have matched all of the code!
 <figure id="figure-syntax-highlighting-example">
 <title id="figure-syntax-highlighting-example-title">Syntax highlighting example</title>
 <screenshot><mediaobject>
@@ -3290,8 +3773,7 @@ class "GtkTextView" style "EditorStyle"</programlisting></para>
 </textobject>
 </mediaobject></screenshot>
 </figure></para>
-<para>The config file for highlighting is a colon separated array with
-the following content:<programlisting>mode:
+<para>The config file for highlighting is a colon separated array with the following content:<programlisting>mode:
 patternname:
 case_sensitive(0-on/1-off):
 start reg-ex:
@@ -3301,9 +3783,9 @@ parent-match:
 foreground-color:
 background-color:
 don't change weight(0), non-bold(1), bold(2):
-don't change style(0), non-italic(1), italic(2): </programlisting></para>
+don't change style(0), non-italic(1), italic(2):</programlisting></para>
 <para>The same options are found in the syntax highlighting preferences.</para>
-<para>SCREENSHOT BY ????</para>
+<para>As an exercise you may want to add the highlighting patterns for the xsl stylesheet file type created previously. They will be based on the xml patterns with just small changes.</para>
 </sect2>
 
 </sect1>

@@ -18,7 +18,7 @@
              xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
 <!-- ********************************************************************
-     $Id: titlepage-us.xml,v 1.3 2005-02-03 18:02:21 michga Exp $
+     $Id: titlepage-us.xml,v 1.4 2005-04-13 17:02:27 michga Exp $
      ********************************************************************
 
      This file is part of the DocBook XSL Stylesheet distribution.
@@ -82,7 +82,7 @@
       <corpauthor/>
       <authorgroup t:named-template="verso.authorgroup"
       text-align="center"/>
-      <author font-style="italic"/>
+      <author/>
       <othercredit text-align="center"/>
       <revision font-size="11pt"
 	      space-before="0in"
@@ -93,7 +93,7 @@
 	      space-after="1in"
 	      keep-with-next="always"/>
       <copyright 
-      space-before="5.5in"
+      space-before="5in"
       space-after="0in"
       text-align="center"/>
       <abstract/>
@@ -177,8 +177,9 @@
 	     space-before.optimum="0em"
 	     space-before.maximum="0em"
 	     space-after="0em"/>
-      <subtitle />
-      <authorgroup />
+      <subtitle/>
+      <corpauthor/>
+      <authorgroup/>
       <author/>
       <othercredit/>
       <releaseinfo/>
@@ -218,7 +219,8 @@
 	     font-weight="bold"
 	     font-family="{$title.fontset}"
 	     text-align="center"/>
-      <subtitle/>
+      <subtitle
+			font-family="{$title.fontset}"/>
       <corpauthor/>
       <authorgroup/>
       <author/>
@@ -495,6 +497,35 @@
 	     font-weight="bold"
 	     font-family="{$title.fontset}"
 	     text-align="center"/>
+    </t:titlepage-content>
+
+    <t:titlepage-content t:side="verso">
+    </t:titlepage-content>
+
+    <t:titlepage-separator>
+    </t:titlepage-separator>
+
+    <t:titlepage-before t:side="recto">
+    </t:titlepage-before>
+
+    <t:titlepage-before t:side="verso">
+    </t:titlepage-before>
+  </t:titlepage>
+
+  <t:titlepage t:element="list.of.tables" t:wrapper="fo:block">
+    <t:titlepage-content t:side="recto">
+      <title
+	     t:force="1"
+	     t:named-template="gentext"
+	     param:key="'ListofTables'"
+             space-before.minimum="0em"
+             space-before.optimum="0em"
+             space-before.maximum="0em"
+	     space-after="0.5em"
+	     margin-left="{$title.margin.left}"
+	     font-size="&hsize3;"
+	     font-weight="bold"
+	     font-family="{$title.fontset}"/>
     </t:titlepage-content>
 
     <t:titlepage-content t:side="verso">

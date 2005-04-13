@@ -3,7 +3,7 @@ HAVE_XSL_DIR=1
 
 ## You shouldn't normally need to edit anything below here.
 SHELL = /bin/sh
-VERSION=1.0-1
+VERSION=1.0-2
 BOOK_PREFIX=bluefish-doc
 BOOK_TOP=.
 BOOK_DIR=${BOOK_TOP}/src
@@ -84,6 +84,14 @@ rm -f ${BOOK_LAYER_US}-orig; \
 fi
 endef
 
+define hackhtmltoc
+mv ${OUTPUT_DIR}/bk01-toc.html ${OUTPUT_DIR}/bk01-toc-temp.html
+sed -e 's|<h1>|<div class="book"><h1>|' \
+		-e 's|<div class="navfooter">|<\/div><div class="navfooter">|' \
+		<${OUTPUT_DIR}/bk01-toc-temp.html >${OUTPUT_DIR}/bk01-toc.html
+rm -f ${OUTPUT_DIR}/bk01-toc-temp.html
+endef
+
 all: html-all pspdf-a4 pspdf-us
 
 all-a4: html-all pspdf-a4
@@ -119,6 +127,7 @@ html: clean-html  validate-all builtdoc-create init-html
 	${XSLTPROC} -output ${OUTPUT_DIR}/ ${XSL_HTML_CHUNK} ${BOOK_XML_SOURCE}	
 	${move-pictures}
 	${reinit-html}
+	${hackhtmltoc}
 
 html-one-big: clean-html validate-all builtdoc-create init-big-html
 	${XSLTPROC} -output ${BOOK_HTML_XSL} ${BOOK_TEMPLATE} ${BOOK_HTML_XML}
@@ -133,6 +142,8 @@ html-all: clean-html validate-all builtdoc-create init-big-html init-html
 	${move-pictures}
 	${reinit-html}
 	${reinit-big-html}
+	${hackhtmltoc}
+
 	
 pdf-a4: clean-pdf-a4 validate-all fo-a4 builtdoc-create
 	${RUN_FOP} ${BOOK_TOP} -fo ${BOOK_FO_TARGET} -pdf ${BOOK_PDF_A4_TARGET}

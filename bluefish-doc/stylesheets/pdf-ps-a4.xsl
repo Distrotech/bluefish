@@ -10,8 +10,6 @@
 <xsl:param name="use.extensions" select="'1'"></xsl:param>
 <!-- For bookmarks -->
 <xsl:param name="fop.extensions" select="1"></xsl:param>
-<!-- For revision history -->
-<xsl:param name="tablecolumns.extension" select="'1'"></xsl:param>
 
 <!-- Ensure the page orientation is portrait -->
 <xsl:param name="page.orientation" select="portrait"></xsl:param>
@@ -34,19 +32,19 @@
 <xsl:param name="page.margin.inner" select="'15mm'"></xsl:param>
 <xsl:param name="page.margin.outer" select="'12mm'"></xsl:param>
 
-<!-- Insert list of procedures in toc -->
-<xsl:param name="generate.toc">
-book      toc,title,figure,example,procedure
-</xsl:param>
+<!-- No headers on blank pages -->
+<xsl:param name="headers.on.blank.pages" select="0"></xsl:param>
+
+<!-- Indentation of the titles for sections-->
+<xsl:param name="body.start.indent" select="'1pc'"></xsl:param>
 
 <!-- Depth of table of contents -->
 <xsl:param name="toc.section.depth">3</xsl:param>
 
-<!-- No headers on blank pages -->
-<xsl:param name="headers.on.blank.pages" select="0"></xsl:param>
-
-<!-- Negative indentation of the titles for sections-->
-<xsl:param name="title.margin.left" select="'-1pc'"></xsl:param>
+<!-- Insert list of procedures in toc -->
+<xsl:param name="generate.toc">
+book      toc,title,figure,example,procedure
+</xsl:param>
 
 <!-- Format variable lists as blocks -->
 <xsl:param name="variablelist.as.blocks" select="1"></xsl:param>

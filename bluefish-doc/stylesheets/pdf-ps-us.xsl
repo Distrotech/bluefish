@@ -32,8 +32,19 @@
 <xsl:param name="page.margin.inner" select="'15mm'"></xsl:param>
 <xsl:param name="page.margin.outer" select="'12mm'"></xsl:param>
 
-<!-- Negative indentation of the titles for sections-->
-<xsl:param name="title.margin.left" select="'-1pc'"></xsl:param>
+<!-- No headers on blank pages -->
+<xsl:param name="headers.on.blank.pages" select="0"></xsl:param>
+
+<!-- Indentation of the titles for sections-->
+<xsl:param name="body.start.indent" select="'1pc'"></xsl:param>
+
+<!-- Depth of table of contents -->
+<xsl:param name="toc.section.depth">3</xsl:param>
+
+<!-- Insert list of procedures in toc -->
+<xsl:param name="generate.toc">
+book      toc,title,figure,example,procedure
+</xsl:param>
 
 <!-- Format variable lists as blocks -->
 <xsl:param name="variablelist.as.blocks" select="1"></xsl:param>
@@ -126,12 +137,6 @@
   <xsl:attribute name="space-before.maximum">0.6em</xsl:attribute>
 </xsl:attribute-set>
 
-<!-- Depth of table of contents -->
-<xsl:param name="toc.section.depth">3</xsl:param>
-
-<!-- No headers on blank pages -->
-<xsl:param name="headers.on.blank.pages" select="0"></xsl:param>
-
 <!-- Normal paragraph spacing -->
 <xsl:attribute-set name="normal.para.spacing">   <xsl:attribute name="space-before.optimum">0.5em</xsl:attribute>   <xsl:attribute name="space-before.minimum">0.5em</xsl:attribute>   <xsl:attribute name="space-before.maximum">0.5em</xsl:attribute>	<xsl:attribute name="text-indent">0em</xsl:attribute>
 </xsl:attribute-set>
@@ -215,10 +220,5 @@ procedure before
 <xsl:template match="processing-instruction('linebreakus')">
         <fo:block>&#160;</fo:block>
 </xsl:template>
-
-<!-- Insert list of procedures in toc -->
-<xsl:param name="generate.toc">
-book      toc,title,figure,example,procedure
-</xsl:param>
 
 </xsl:stylesheet>  

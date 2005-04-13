@@ -5,11 +5,9 @@
                 exclude-result-prefixes="#default">
 <xsl:import href="http://docbook.sourceforge.net/release/xsl/current/html/chunk.xsl"/>
 <!-- <xsl:import href="../xsl/html/chunk.xsl"/> -->
-<xsl:import href="titlepage-html.xsl"/>
-<!-- Allow to use extensions -->
-<xsl:param name="use.extensions" select="'1'"></xsl:param>
-<!-- For revision history -->
-<xsl:param name="tablecolumns.extension" select="'1'"></xsl:param>
+<!-- Work around a bug in stylesheets to get table of contents outside of titlepage -->
+<xsl:include href="chunk-common-patched.xsl"/>
+<xsl:include href="titlepage-html.xsl"/>
 <!-- Define the output encoding as UTF-8 -->
 <xsl:param name="chunker.output.encoding" select="'UTF-8'"/>
  <!-- Insert list of procedures in toc -->
@@ -26,11 +24,11 @@ section		toc
 <!-- Toc depth -->
 <xsl:variable name="toc.section.depth">3</xsl:variable>
 <!-- Allow toc in section -->
-<xsl:param name="generate.section.toc.level" select="3"></xsl:param>
-<!-- Toc max depth -->
-<xsl:param name="toc.max.depth">3</xsl:param>
+<xsl:param name="generate.section.toc.level" select="2"></xsl:param>
 <!-- Section autolabelling -->
 <xsl:variable name="section.autolabel">f</xsl:variable>
 <!-- Css stylesheet -->
-<xsl:param name='html.stylesheet' select="'manual.css'"/>
+<xsl:param name="html.stylesheet" select="'manual.css'"/>
+<!-- Separate toc -->
+<xsl:param name="chunk.tocs.and.lots" select="'1'"/>
 </xsl:stylesheet>

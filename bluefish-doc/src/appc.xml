@@ -32,10 +32,10 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 <para>the Bluefish manual source files via CVS</para>
 </listitem>
 <listitem>
-<para>DocBook 4.3.0</para>
+<para>DocBook 4.4.0</para>
 </listitem>
 <listitem>
-<para>DocBook XSL style sheets 1.67.2</para>
+<para>DocBook XSL style sheets 1.68.1</para>
 </listitem>
 <listitem>
 <para>XSLT Processors and Parsers: we use <command>xsltproc</command> for HTML production, and <command>fop</command> for PDF and PostScript production.</para>
@@ -63,9 +63,9 @@ co bluefish-doc</screen></para>
 <procedure id="installing-docbook-xsl">
 <title>Installing DocBook and DocBook XSL</title>
 <step>
-<para>Install DocBook 4.3 for your distribution</para>
+<para>Install DocBook 4.4 for your distribution</para>
 </step>
-<step><para>Install DocBook XSL version 1.67.2 if it is available for your distribution</para>
+<step><para>Install DocBook XSL version 1.68.1 if it is available for your distribution</para>
 <para>Otherwise, get them it from the <ulink url="http://sourceforge.net/projects/docbook/">DocBook Project</ulink> page on SourceForge.net and unpack it into the <filename>bluefish-doc</filename> directory.</para>
 </step>
 </procedure>
