@@ -59,6 +59,24 @@ static void free_session(Tsessionvars *session) {
 	g_free(session);
 }
 
+static void project_setup_initial_session(Tsessionvars *session, gboolean before_parse) {
+	if (!before_parse) {
+		/* session parts that will be filled by rcfile_parse() will not be included
+		   in this initial setup */
+		session->encoding = g_strdup(main_v->session->encoding);
+		session->opendir = g_strdup(main_v->session->opendir);
+		session->savedir = g_strdup(main_v->session->savedir);
+		session->last_filefilter = g_strdup(main_v->session->last_filefilter);
+	}
+	session->adv_open_recursive = main_v->session->adv_open_recursive;
+	session->view_html_toolbar = main_v->session->view_html_toolbar;
+	session->view_custom_menu = main_v->session->view_custom_menu;
+	session->view_main_toolbar = main_v->session->view_main_toolbar;
+	session->view_left_panel = main_v->session->view_left_panel;
+	session->filebrowser_show_hidden_files = main_v->session->filebrowser_show_hidden_files;
+	session->filebrowser_show_backup_files = main_v->session->filebrowser_show_backup_files;
+}
+
 Tbfwin *project_is_open(gchar *filename) {
 	GList *tmplist;
 	tmplist = g_list_first(main_v->bfwinlist);
@@ -106,14 +124,7 @@ static Tproject *create_new_project(Tbfwin *bfwin) {
 		DEBUG_MSG("create_new_project, new project, no bfwin\n");
 	}
 	prj->session = g_new0(Tsessionvars,1);
-	prj->session->encoding = g_strdup(main_v->props.newfile_default_encoding);
-	prj->session->adv_open_recursive = main_v->session->adv_open_recursive;
-	prj->session->view_html_toolbar = main_v->session->view_html_toolbar;
-	prj->session->view_custom_menu = main_v->session->view_custom_menu;
-	prj->session->view_main_toolbar = main_v->session->view_main_toolbar;
-	prj->session->view_left_panel = main_v->session->view_left_panel;
-	prj->session->filebrowser_show_hidden_files = main_v->session->filebrowser_show_hidden_files;
-	prj->session->filebrowser_show_backup_files = main_v->session->filebrowser_show_backup_files;
+	project_setup_initial_session(prj->session, FALSE);
 	
 	if (bfwin && prj->files) {
 		GList *tmplist;
@@ -256,10 +267,13 @@ void project_open_from_file(Tbfwin *bfwin, gchar *fromfilename) {
 	prj = g_new0(Tproject,1);
 	prj->session = g_new0(Tsessionvars,1);
 	DEBUG_MSG("project_open_from_file, project=%p, session=%p\n",prj,prj->session);
+	project_setup_initial_session(prj->session, TRUE);
 	prj->bookmarkstore = gtk_tree_store_new(2, G_TYPE_STRING, G_TYPE_POINTER); 
 	retval = rcfile_parse_project(prj, fromfilename);
 	if (!retval) {
 		DEBUG_MSG("project_open_from_file, failed parsing the project at file %s\n",fromfilename);
+		g_object_unref(prj->bookmarkstore);
+		g_free(prj->session);
 		g_free(prj);
 		return;
 	}
