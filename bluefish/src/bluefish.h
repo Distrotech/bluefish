@@ -220,7 +220,6 @@ typedef struct {
 	gint bookmarks_filename_mode; /* 0=FULLPATH, 1=DIR FROM BASE 2=BASENAME */
 	gint document_tabposition;
 	gint leftpanel_tabposition;
-	gchar *default_basedir;
 	gchar *project_suffix;
 #ifdef HAVE_LIBASPELL
 	gchar *spell_default_lang;

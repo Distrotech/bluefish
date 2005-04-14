@@ -50,8 +50,8 @@ static void free_session(Tsessionvars *session) {
 	free_stringlist(session->searchlist);
 	free_stringlist(session->replacelist);
 	free_arraylist(session->bmarks);
-	free_arraylist(session->recent_files);
-	free_arraylist(session->recent_dirs);
+	free_stringlist(session->recent_files);
+	free_stringlist(session->recent_dirs);
 	if (session->opendir) g_free(session->opendir);
 	if (session->savedir) g_free(session->savedir);
 	if (session->encoding) g_free(session->encoding);
@@ -359,7 +359,8 @@ static void setup_bfwin_for_nonproject(Tbfwin *bfwin) {
 	/* normally there is always a current_document, but this function might be called in the transition
 	after all documents are just closed */
 	if (bfwin->current_document) gui_set_title(bfwin, bfwin->current_document);
-	fb2_set_basedir(bfwin, main_v->props.default_basedir);
+	fb2_update_settings_from_session(bfwin);
+/*	fb2_set_basedir(bfwin, main_v->props.default_basedir);*/
 /*	g_free (newbasedir);*/
 	recent_menu_from_list(bfwin, main_v->session->recent_files, FALSE);
 	set_project_menu_widgets(bfwin, FALSE);

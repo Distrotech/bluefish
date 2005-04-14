@@ -1816,12 +1816,17 @@ GtkWidget *fb2_init(Tbfwin *bfwin) {
 	gtk_widget_show_all(vbox);	
 	{
 		GnomeVFSURI *uri = NULL;
-		if (bfwin->project && bfwin->project->basedir && strlen(bfwin->project->basedir)>2) {
+		if (bfwin->session->recent_dirs) {
+			uri = gnome_vfs_uri_new(strip_trailing_slash(((GList *)g_list_first(bfwin->session->recent_dirs))->data));
+		} else if (bfwin->project) {
+			uri = gnome_vfs_uri_new(strip_trailing_slash(bfwin->project->basedir));
+		}
+/*		if (bfwin->project && bfwin->project->basedir && strlen(bfwin->project->basedir)>2) {
 			uri = gnome_vfs_uri_new(strip_trailing_slash(bfwin->project->basedir));
 			fb2_build_dir(uri);
 		} else if (main_v->props.default_basedir && strlen(main_v->props.default_basedir)>2) {
 			uri = gnome_vfs_uri_new(strip_trailing_slash(main_v->props.default_basedir));
-		}
+		}*/
 		if (uri) {
 			DEBUG_MSG("fb2_init, first build, and then set the basedir to ");
 			DEBUG_URI(uri, TRUE);
@@ -1944,10 +1949,12 @@ void fb2config_init(void) {
 	fb2config->dir_icon = gdk_pixbuf_new_from_file(filename, NULL);
 	g_free(filename);
 
-	if (main_v->props.default_basedir && strlen(main_v->props.default_basedir) > 2) {
+	{
 		GtkTreeIter *iter;
 		GnomeVFSURI *uri;
-		uri = gnome_vfs_uri_new(strip_trailing_slash(main_v->props.default_basedir));
+		gchar *home = g_strdup(g_get_home_dir());
+		uri = gnome_vfs_uri_new(strip_trailing_slash(home));
+		g_free(home);
 		iter = fb2_build_dir(uri);
 		gnome_vfs_uri_unref(uri);
 	}
