@@ -298,7 +298,7 @@ void project_open_from_file(Tbfwin *bfwin, gchar *fromfilename) {
 		left_panel_show_hide_toggle(prwin,FALSE,prj->session->view_left_panel, TRUE);
 		/*filebrowser_set_basedir(prwin, prj->basedir);*/
 		fb2_update_settings_from_session(prwin);
-		fb2_set_basedir(prwin, prj->basedir);
+
 		/* we should set these before we actually open any files, so every file can update 
 		their bookmarks after the loading of the data is finished */
 		bmark_reload(bfwin);
