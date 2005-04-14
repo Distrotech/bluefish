@@ -521,7 +521,8 @@ static void fileintodoc_lcb(Topenfile_status status,gint error_info,gchar *buffe
 		case OPENFILE_FINISHED:
 			tmp = fid->doc->encoding;
 			doc_buffer_to_textbox(fid->doc, buffer, buflen, FALSE, TRUE);
-			if (!fid->doc->hl) {
+/*			DEBUG_MSG("fileintodoc_lcb, fid->doc->hl=%p, %s, first=%p\n",fid->doc->hl,fid->doc->hl->type,((GList *)g_list_first(main_v->filetypelist))->data);*/
+			if (fid->doc->hl == ((GList *)g_list_first(main_v->filetypelist))->data || fid->doc->hl == NULL) {
 				doc_reset_filetype(fid->doc, fid->doc->uri, buffer);
 			} else if (tmp != fid->doc->encoding) { /* the pointer only changes if the encoding changes */
 				doc_set_tooltip(fid->doc);
@@ -588,7 +589,7 @@ static void file2doc_lcb(Topenfile_status status,gint error_info,gchar *buffer,G
 			DEBUG_MSG("file2doc_lcb, status=%d, now we should convert %s data into a GtkTextBuffer and such\n",status, gnome_vfs_uri_get_path(f2d->uri));
 			tmp = f2d->doc->encoding;
 			doc_buffer_to_textbox(f2d->doc, buffer, buflen, FALSE, TRUE);
-			if (!f2d->doc->hl) {
+			if (f2d->doc->hl == ((GList *)g_list_first(main_v->filetypelist))->data || f2d->doc->hl == NULL) {
 				doc_reset_filetype(f2d->doc, f2d->doc->uri, buffer);
 			} else if (tmp != f2d->doc->encoding) { /* the pointer only changes if the encoding changes */
 				doc_set_tooltip(f2d->doc);
