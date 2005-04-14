@@ -50,6 +50,12 @@ static void free_session(Tsessionvars *session) {
 	free_stringlist(session->searchlist);
 	free_stringlist(session->replacelist);
 	free_arraylist(session->bmarks);
+	free_arraylist(session->recent_files);
+	free_arraylist(session->recent_dirs);
+	if (session->opendir) g_free(session->opendir);
+	if (session->savedir) g_free(session->savedir);
+	if (session->encoding) g_free(session->encoding);
+	if (session->last_filefilter) g_free(session->last_filefilter);
 	g_free(session);
 }
 
@@ -101,6 +107,14 @@ static Tproject *create_new_project(Tbfwin *bfwin) {
 	}
 	prj->session = g_new0(Tsessionvars,1);
 	prj->session->encoding = g_strdup(main_v->props.newfile_default_encoding);
+	prj->session->adv_open_recursive = main_v->session->adv_open_recursive;
+	prj->session->view_html_toolbar = main_v->session->view_html_toolbar;
+	prj->session->view_custom_menu = main_v->session->view_custom_menu;
+	prj->session->view_main_toolbar = main_v->session->view_main_toolbar;
+	prj->session->view_left_panel = main_v->session->view_left_panel;
+	prj->session->filebrowser_show_hidden_files = main_v->session->filebrowser_show_hidden_files;
+	prj->session->filebrowser_show_backup_files = main_v->session->filebrowser_show_backup_files;
+	
 	if (bfwin && prj->files) {
 		GList *tmplist;
 		tmplist = g_list_first(bfwin->documentlist);
