@@ -1835,10 +1835,12 @@ GtkWidget *fb2_init(Tbfwin *bfwin) {
 }
 
 void fb2_cleanup(Tbfwin *bfwin) {
-	Tfilebrowser2 *fb2 = FILEBROWSER2(bfwin->fb2);
-	if (fb2->basedir) gnome_vfs_uri_unref(fb2->basedir);
-	g_free(fb2);
-	bfwin->fb2 = NULL;
+	if (bfwin->fb2) {
+		Tfilebrowser2 *fb2 = FILEBROWSER2(bfwin->fb2);
+		if (fb2->basedir) gnome_vfs_uri_unref(fb2->basedir);
+		g_free(fb2);
+		bfwin->fb2 = NULL;
+	}
 }
 
 static Tfilter *new_filter(gchar *name, gchar *mode, gchar *filetypes) {
