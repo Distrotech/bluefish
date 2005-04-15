@@ -543,7 +543,11 @@ static void fileintodoc_lcb(Topenfile_status status,gint error_info,gchar *buffe
 			fileintodoc_cleanup(data);
 		break;
 		case OPENFILE_ERROR_CANCELLED: /* hmm what to do here ? */
-			doc_buffer_to_textbox(fid->doc, buffer, buflen, FALSE, TRUE);
+			if (fid->isTemplate) {
+				doc_buffer_to_textbox(fid->doc, buffer, buflen, FALSE, TRUE);
+			} else {
+				/* do nothing */
+			}
 			fid->doc->action.load = NULL;
 			fileintodoc_cleanup(data);
 		break;
