@@ -243,9 +243,10 @@ static GtkTreeIter *fb2_add_filesystem_entry(GtkTreeIter *parent, GnomeVFSURI *c
 			if (ft && ft->icon) pixmap = ft->icon;
 			else pixmap = FB2CONFIG(main_v->fb2config)->unknown_icon;
 		}
+		DEBUG_MSG("fb2_add_filesystem_entry, appending iter\n");
 		gtk_tree_store_append(GTK_TREE_STORE(FB2CONFIG(main_v->fb2config)->filesystem_tstore),newiter,parent);
-/*		DEBUG_MSG("fb2_add_filesystem_entry, will add ");
-		DEBUG_URI(uri_dup, TRUE);*/
+		DEBUG_MSG("fb2_add_filesystem_entry, will add ");
+		DEBUG_URI(uri_dup, TRUE);
 		gtk_tree_store_set(GTK_TREE_STORE(FB2CONFIG(main_v->fb2config)->filesystem_tstore),newiter,
 				PIXMAP_COLUMN, pixmap,
 				FILENAME_COLUMN, display_name,
@@ -650,11 +651,14 @@ static gboolean tree_model_filter_func(GtkTreeModel *model,GtkTreeIter *iter,gpo
 	gchar *name;
 	gint len, type;
 	GnomeVFSURI *uri;
-/*	DEBUG_MSG("tree_model_filter_func, called for model=%p and fb2=%p\n",model,fb2);*/
+	DEBUG_MSG("tree_model_filter_func, called for model=%p and fb2=%p\n",model,fb2);
 	gtk_tree_model_get(GTK_TREE_MODEL(model), iter, FILENAME_COLUMN, &name, URI_COLUMN, &uri, TYPE_COLUMN, &type, -1);
-	if (!name) return FALSE;
-/*	DEBUG_MSG("tree_model_filter_func, name=%s and uri=",name);
-	DEBUG_URI(uri, TRUE); */
+	if (!name) {
+		DEBUG_MSG("tree_model_filter_func, WEIRD, HOW CAN WE HAVE ITERMS WITHOUT NAME?, uri=%p, type=%d\n",uri,type);
+		return TRUE;
+	}
+	DEBUG_MSG("tree_model_filter_func, name=%s and uri=",name);
+	DEBUG_URI(uri, TRUE);
 	if (type != TYPE_DIR) {
 		if (main_v->props.filebrowser_two_pane_view) return FALSE;
 		if (!fb2->filebrowser_show_backup_files) {
@@ -680,7 +684,7 @@ static gboolean tree_model_filter_func(GtkTreeModel *model,GtkTreeIter *iter,gpo
 	}
 	if (!fb2->filebrowser_show_hidden_files) {
 		if (name[0] == '.') return FALSE;
-#ifdef DEBUGTEST
+#ifdef TEST
 		{
 			GnomeVFSURI *tmp1, *tmp2;
 			tmp1 = gnome_vfs_uri_dup(uri);
@@ -1479,7 +1483,7 @@ static void fb2_set_basedir_backend(Tfilebrowser2 *fb2, GnomeVFSURI *uri) {
 	/* disconnect the dir_v and file_v for higher performance */
 	gtk_tree_view_set_model(GTK_TREE_VIEW(fb2->dir_v),NULL);
 	gtk_tree_view_set_model(GTK_TREE_VIEW(fb2->file_v),NULL);
-	fb2->file_lfilter = NULL; /* this is required, because the refilter_filelist function tries to check id the virtual root did change for the file filter */
+	fb2->file_lfilter = NULL; /* this is required, because the refilter_filelist function tries to check if the virtual root did change for the file filter */
 	DEBUG_MSG("fb2_set_basedir_backend, disconnected current filter/sort models, lfilter=%p\n",fb2->file_lfilter);
 	
 	iter = g_hash_table_lookup(FB2CONFIG(main_v->fb2config)->filesystem_itable, uri);
@@ -1736,7 +1740,7 @@ GtkWidget *fb2_init(Tbfwin *bfwin) {
 		
 		gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(fb2->dir_v), FALSE);
 		dirselection = gtk_tree_view_get_selection(GTK_TREE_VIEW(fb2->dir_v));
-		DEBUG_MSG("fb2_init, NEW FILEBROWSER2, bfwin=%p, treeselection=%p, fb2=%p\n",bfwin,dirselection,fb2);
+		DEBUG_MSG("fb2_init, NEW FILEBROWSER2, bfwin=%p, treeselection=%p, fb2=%p, dir_tfilter=%p\n",bfwin,dirselection,fb2,fb2->dir_tfilter);
 		g_signal_connect(G_OBJECT(dirselection), "changed", G_CALLBACK(dir_v_selection_changed_lcb), fb2);
 		
 		renderer = gtk_cell_renderer_pixbuf_new();
