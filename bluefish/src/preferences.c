@@ -2030,7 +2030,7 @@ static void preferences_dialog() {
 	vbox2 = gtk_vbox_new(FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(frame), vbox2);
 	{
-		GList *tmplist, *poplist = g_list_append(NULL, "");
+		GList *tmplist, *poplist = NULL;
 		tmplist = g_list_first(main_v->props.encodings);
 		while (tmplist) {
 			gchar **strarr = (gchar **)tmplist->data;
