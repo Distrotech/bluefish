@@ -760,7 +760,7 @@ void file_new_cb(GtkWidget *widget, Tbfwin *bfwin) {
 		GnomeVFSURI *uri;
 		uri = gnome_vfs_uri_new(bfwin->project->template);
 		if (uri) {
-			file_into_doc(bfwin->current_document, uri);
+			file_into_doc(bfwin->current_document, uri, TRUE);
 			gnome_vfs_uri_unref(uri);
 		}
 		/*doc_file_to_textbox(doc, bfwin->project->template, FALSE, FALSE);

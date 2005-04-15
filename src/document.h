@@ -69,6 +69,7 @@ void doc_replace_text_backend(Tdocument *doc, const gchar * newstring, gint star
 void doc_replace_text(Tdocument *doc, const gchar * newstring, gint start, gint end);
 
 void doc_insert_two_strings(Tdocument *doc, const gchar *before_str, const gchar *after_str);
+gchar *buffer_find_encoding(gchar *buffer, gsize buflen, gchar **encoding, const gchar *sessionencoding);
 gboolean doc_buffer_to_textbox(Tdocument * doc, gchar * buffer, gsize buflen, gboolean enable_undo, gboolean delay);
 void doc_bind_signals(Tdocument *doc);
 void doc_unbind_signals(Tdocument *doc);
