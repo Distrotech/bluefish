@@ -567,7 +567,7 @@ void file_into_doc(Tdocument *doc, GnomeVFSURI *uri, gboolean isTemplate) {
 	fid->bfwin = doc->bfwin;
 	fid->doc = doc;
 	fid->isTemplate = isTemplate;
-	doc_set_status(doc, DOC_STATUS_LOADING);
+	if (isTemplate) doc_set_status(doc, DOC_STATUS_LOADING);
 	fid->uri = uri;
 	gnome_vfs_uri_ref(uri);
 	file_openfile_uri_async(fid->uri,fileintodoc_lcb,fid);
