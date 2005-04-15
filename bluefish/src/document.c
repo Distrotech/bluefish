@@ -1427,44 +1427,17 @@ static gchar *get_buffer_from_filename(Tbfwin *bfwin, gchar *filename, int *retu
 }*/
 
 /**
- * doc_buffer_to_textbox:
- * @doc: #Tdocument*
- * @buffer: #gchar*
- * @buflen: #gsize
- * @enable_undo: #gboolean, if the buffer insert should be undo-able
- * @delay: #gboolean
+ * buffer_find_encoding:
+ * @buffer: gchar* with \- terminated string
+ * @encoding: gchar**, if found a newly allocated encoding string will be here
  *
- * inserts buffer at the current cursor position, tries to find the encoding of the document
- * using the contents of the buffer (<meta encoding)
- * and places the cursor back at this position
- *
+ * Return value: newly allocated buffer in UTF-8
  */
-gboolean doc_buffer_to_textbox(Tdocument * doc, gchar * buffer, gsize buflen, gboolean enable_undo, gboolean delay) {
-	gint cursor_offset;
-	gchar *encoding=NULL;
+gchar *buffer_find_encoding(gchar *buffer, gsize buflen, gchar **encoding, const gchar *sessionencoding) {
 	gchar *newbuf=NULL;
 	gsize wsize;
 	GError *error=NULL;
-	GtkTextMark* insert;
-	GtkTextIter iter;
-
-
-	if (!buffer) {
-		DEBUG_MSG("doc_buffer_to_textbox, buffer==NULL, returning\n");
-		return FALSE;
-	}
-
-	if (!enable_undo) {
-		doc_unbind_signals(doc);
-	}
-	/* now get the current cursor position */
-	insert = gtk_text_buffer_get_insert(doc->buffer);
-	gtk_text_buffer_get_iter_at_mark(doc->buffer, &iter, insert);
-	cursor_offset = gtk_text_iter_get_offset(&iter);
-
-	/* This opens the contents of a file to a textbox */
-
-	
+	gchar *tmpencoding = NULL;
 	/* the first try is if the encoding is set in the file */
 	{
 		regex_t preg;
@@ -1497,7 +1470,7 @@ gboolean doc_buffer_to_textbox(Tdocument * doc, gchar * buffer, gsize buflen, gb
 		if (retval==0 && pmatch[0].rm_so != -1 && pmatch[1].rm_so != -1) {
 			/* we have a match */
 			DEBUG_MSG("doc_buffer_to_textbox, match so=%d,eo=%d\n", pmatch[1].rm_so,pmatch[1].rm_eo);
-			encoding = g_strndup(&buffer[pmatch[1].rm_so], pmatch[1].rm_eo-pmatch[1].rm_so);
+			tmpencoding = g_strndup(&buffer[pmatch[1].rm_so], pmatch[1].rm_eo-pmatch[1].rm_so);
 			DEBUG_MSG("doc_buffer_to_textbox, detected encoding %s\n", encoding);
 		}
 		regfree(&preg);
@@ -1506,48 +1479,52 @@ gboolean doc_buffer_to_textbox(Tdocument * doc, gchar * buffer, gsize buflen, gb
 		print_time_diff("encoding regex match", &locals.tms2, &locals.tms1);
 #endif		
 	}
-	if (encoding) {
+	if (tmpencoding) {
 		DEBUG_MSG("doc_buffer_to_textbox, try encoding %s from <meta>\n", encoding);
-		newbuf = g_convert(buffer,-1,"UTF-8",encoding,NULL, &wsize, &error);
+		newbuf = g_convert(buffer,-1,"UTF-8",tmpencoding,NULL, &wsize, &error);
 		if (!newbuf || error) {
-			DEBUG_MSG("doc_buffer_to_textbox, cound not convert %s to UTF-8: \n", encoding);
-			g_free(encoding);
-			encoding=NULL;
+			DEBUG_MSG("doc_buffer_to_textbox, cound not convert %s to UTF-8: \n", tmpencoding);
+			g_free(tmpencoding);
+			tmpencoding=NULL;
+		} else {
+			*encoding = tmpencoding;
+			return newbuf;
 		}
 	}
-	if (!newbuf && BFWIN(doc->bfwin)->session->encoding) {
+	if (sessionencoding) {
 		DEBUG_MSG("doc_buffer_to_textbox, file does not have <meta> encoding, or could not convert, trying session default encoding %s\n", BFWIN(doc->bfwin)->session->encoding);
-		newbuf = g_convert(buffer,-1,"UTF-8",BFWIN(doc->bfwin)->session->encoding,NULL, &wsize, NULL);
+		newbuf = g_convert(buffer,-1,"UTF-8",sessionencoding,NULL, &wsize, NULL);
 		if (newbuf) {
 			DEBUG_MSG("doc_buffer_to_textbox, file is in default encoding: %s\n", BFWIN(doc->bfwin)->session->encoding);
-			encoding = g_strdup(BFWIN(doc->bfwin)->session->encoding);
+			*encoding = g_strdup(sessionencoding);
+			return newbuf;
 		}
 	}
-	if (!newbuf) {
-		DEBUG_MSG("doc_buffer_to_textbox, file does not have <meta> encoding, or could not convert, trying newfile default encoding %s\n", main_v->props.newfile_default_encoding);
-		newbuf = g_convert(buffer,-1,"UTF-8",main_v->props.newfile_default_encoding,NULL, &wsize, NULL);
-		if (newbuf) {
-			DEBUG_MSG("doc_buffer_to_textbox, file is in default encoding: %s\n", main_v->props.newfile_default_encoding);
-			encoding = g_strdup(main_v->props.newfile_default_encoding);
-		}
+	DEBUG_MSG("doc_buffer_to_textbox, file does not have <meta> encoding, or could not convert, trying newfile default encoding %s\n", main_v->props.newfile_default_encoding);
+	newbuf = g_convert(buffer,-1,"UTF-8",main_v->props.newfile_default_encoding,NULL, &wsize, NULL);
+	if (newbuf) {
+		DEBUG_MSG("doc_buffer_to_textbox, file is in default encoding: %s\n", main_v->props.newfile_default_encoding);
+		*encoding = g_strdup(main_v->props.newfile_default_encoding);
+		return newbuf;
 	}
-	if (!newbuf) {
-		DEBUG_MSG("doc_buffer_to_textbox, file is not in UTF-8, trying encoding from locale\n");
-		newbuf = g_locale_to_utf8(buffer,-1,NULL,&wsize,NULL);
-		if (newbuf) {
-			const gchar *tmpencoding=NULL;
-			g_get_charset(&tmpencoding);
-			DEBUG_MSG("doc_buffer_to_textbox, file is in locale encoding: %s\n", tmpencoding);
-			encoding = g_strdup(tmpencoding);
-		}
+
+	DEBUG_MSG("doc_buffer_to_textbox, file is not in UTF-8, trying encoding from locale\n");
+	newbuf = g_locale_to_utf8(buffer,-1,NULL,&wsize,NULL);
+	if (newbuf) {
+		const gchar *tmpencoding=NULL;
+		g_get_charset(&tmpencoding);
+		DEBUG_MSG("doc_buffer_to_textbox, file is in locale encoding: %s\n", tmpencoding);
+		*encoding = g_strdup(tmpencoding);
+		return newbuf;
 	}
-	if (!newbuf) {
-		DEBUG_MSG("doc_buffer_to_textbox, file NOT is converted yet, trying UTF-8 encoding\n");
-		if(g_utf8_validate(buffer, -1, NULL)) {
-			encoding = g_strdup("UTF-8");
-		}
+
+	DEBUG_MSG("doc_buffer_to_textbox, file NOT is converted yet, trying UTF-8 encoding\n");
+	if(g_utf8_validate(buffer, -1, NULL)) {
+		*encoding = g_strdup("UTF-8");
+		return g_strdup(buffer);
 	}
-	if (!newbuf) {
+
+	{
 		GList *tmplist;
 		DEBUG_MSG("doc_buffer_to_textbox, tried the most obvious encodings, nothing found.. go trough list\n");
 		tmplist = g_list_first(main_v->props.encodings);
@@ -1556,14 +1533,51 @@ gboolean doc_buffer_to_textbox(Tdocument * doc, gchar * buffer, gsize buflen, gb
 			DEBUG_MSG("doc_buffer_to_textbox, trying encoding %s\n", enc[1]);
 			newbuf = g_convert(buffer,-1,"UTF-8",enc[1],NULL, &wsize, NULL);
 			if (newbuf) {
-				encoding = g_strdup(enc[1]);
-				tmplist = NULL;
-			} else {
-				DEBUG_MSG("doc_buffer_to_textbox, no newbuf, next in list\n");
-				tmplist = g_list_next(tmplist);
+				*encoding = g_strdup(enc[1]);
+				return newbuf;
 			}
+			tmplist = g_list_next(tmplist);
 		}
 	}
+	return NULL;
+}
+
+/**
+ * doc_buffer_to_textbox:
+ * @doc: #Tdocument*
+ * @buffer: #gchar*
+ * @buflen: #gsize
+ * @enable_undo: #gboolean, if the buffer insert should be undo-able
+ * @delay: #gboolean
+ *
+ * inserts buffer at the current cursor position, tries to find the encoding of the document
+ * using the contents of the buffer (<meta encoding)
+ * and places the cursor back at this position
+ *
+ */
+gboolean doc_buffer_to_textbox(Tdocument * doc, gchar * buffer, gsize buflen, gboolean enable_undo, gboolean delay) {
+	gint cursor_offset;
+	gchar *encoding=NULL, *newbuf;
+	GtkTextMark* insert;
+	GtkTextIter iter;
+
+	if (!buffer) {
+		DEBUG_MSG("doc_buffer_to_textbox, buffer==NULL, returning\n");
+		return FALSE;
+	}
+
+	if (!enable_undo) {
+		doc_unbind_signals(doc);
+	}
+	/* now get the current cursor position */
+	insert = gtk_text_buffer_get_insert(doc->buffer);
+	gtk_text_buffer_get_iter_at_mark(doc->buffer, &iter, insert);
+	cursor_offset = gtk_text_iter_get_offset(&iter);
+
+	/* This opens the contents of a file to a textbox */
+
+	newbuf = buffer_find_encoding(buffer, buflen, &encoding,BFWIN(doc->bfwin)->session->encoding);
+
 	if (!newbuf) {
 		message_dialog_new(BFWIN(doc->bfwin)->main_window, 
 								 GTK_MESSAGE_ERROR, 
@@ -2931,7 +2945,7 @@ void doc_new_with_new_file(Tbfwin *bfwin, gchar *new_curi) {
 		GnomeVFSURI *uri;
 		uri = gnome_vfs_uri_new(bfwin->project->template);
 		if (uri) {
-			file_into_doc(bfwin->current_document, uri);
+			file_into_doc(bfwin->current_document, uri, TRUE);
 			gnome_vfs_uri_unref(uri);
 		}
  	}
@@ -3412,7 +3426,7 @@ void file_insert_menucb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget) 
 	} else {
 		GnomeVFSURI *uri;
 		uri = gnome_vfs_uri_new(tmpfilename);
-		file_into_doc(bfwin->current_document, uri);
+		file_into_doc(bfwin->current_document, uri, FALSE);
 		gnome_vfs_uri_unref(uri);
 		g_free(tmpfilename);
 		/* doc_file_to_textbox(bfwin->current_document, tmpfilename, TRUE, FALSE);

@@ -507,6 +507,7 @@ typedef struct {
 	Tbfwin *bfwin;
 	Tdocument *doc;
 	GnomeVFSURI *uri;
+	gboolean isTemplate;
 } Tfileintodoc;
 
 static void fileintodoc_cleanup(Tfileintodoc *fid) {
@@ -519,16 +520,26 @@ static void fileintodoc_lcb(Topenfile_status status,gint error_info,gchar *buffe
 	gchar *tmp;
 	switch (status) {
 		case OPENFILE_FINISHED:
-			tmp = fid->doc->encoding;
-			doc_buffer_to_textbox(fid->doc, buffer, buflen, FALSE, TRUE);
-/*			DEBUG_MSG("fileintodoc_lcb, fid->doc->hl=%p, %s, first=%p\n",fid->doc->hl,fid->doc->hl->type,((GList *)g_list_first(main_v->filetypelist))->data);*/
-			if (fid->doc->hl == ((GList *)g_list_first(main_v->filetypelist))->data || fid->doc->hl == NULL) {
-				doc_reset_filetype(fid->doc, fid->doc->uri, buffer);
-			} else if (tmp != fid->doc->encoding) { /* the pointer only changes if the encoding changes */
-				doc_set_tooltip(fid->doc);
+			if (fid->isTemplate) {
+				tmp = fid->doc->encoding;
+				doc_buffer_to_textbox(fid->doc, buffer, buflen, FALSE, TRUE);
+	/*			DEBUG_MSG("fileintodoc_lcb, fid->doc->hl=%p, %s, first=%p\n",fid->doc->hl,fid->doc->hl->type,((GList *)g_list_first(main_v->filetypelist))->data);*/
+				if (fid->doc->hl == ((GList *)g_list_first(main_v->filetypelist))->data || fid->doc->hl == NULL) {
+					doc_reset_filetype(fid->doc, fid->doc->uri, buffer);
+				} else if (tmp != fid->doc->encoding) { /* the pointer only changes if the encoding changes */
+					doc_set_tooltip(fid->doc);
+				}
+				doc_set_status(fid->doc, DOC_STATUS_COMPLETE);
+				fid->doc->action.load = NULL;
+			} else { /* file_insert, convert to UTF-8 and insert it! */
+				gchar *encoding, *newbuf;
+				newbuf = buffer_find_encoding(buffer, buflen, &encoding, BFWIN(fid->doc->bfwin)->session->encoding);
+				if (newbuf) {
+					doc_insert_two_strings(fid->doc, newbuf, NULL);
+					g_free(newbuf);
+					g_free(encoding);
+				}
 			}
-			doc_set_status(fid->doc, DOC_STATUS_COMPLETE);
-			fid->doc->action.load = NULL;
 			fileintodoc_cleanup(data);
 		break;
 		case OPENFILE_ERROR_CANCELLED: /* hmm what to do here ? */
@@ -549,11 +560,13 @@ static void fileintodoc_lcb(Topenfile_status status,gint error_info,gchar *buffe
 	}
 }
 
-void file_into_doc(Tdocument *doc, GnomeVFSURI *uri) {
+/* used for template loading, and for file_insert */
+void file_into_doc(Tdocument *doc, GnomeVFSURI *uri, gboolean isTemplate) {
 	Tfileintodoc *fid;
 	fid = g_new(Tfileintodoc,1);
 	fid->bfwin = doc->bfwin;
 	fid->doc = doc;
+	fid->isTemplate = isTemplate;
 	doc_set_status(doc, DOC_STATUS_LOADING);
 	fid->uri = uri;
 	gnome_vfs_uri_ref(uri);
