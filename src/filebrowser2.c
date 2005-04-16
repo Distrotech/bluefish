@@ -651,13 +651,13 @@ static gboolean tree_model_filter_func(GtkTreeModel *model,GtkTreeIter *iter,gpo
 	gchar *name;
 	gint len, type;
 	GnomeVFSURI *uri;
-	DEBUG_MSG("tree_model_filter_func, called for model=%p and fb2=%p\n",model,fb2);
+
 	gtk_tree_model_get(GTK_TREE_MODEL(model), iter, FILENAME_COLUMN, &name, URI_COLUMN, &uri, TYPE_COLUMN, &type, -1);
 	if (!name) {
-		DEBUG_MSG("tree_model_filter_func, WEIRD, HOW CAN WE HAVE ITERMS WITHOUT NAME?, uri=%p, type=%d\n",uri,type);
+		DEBUG_MSG("tree_model_filter_func, model=%p, fb2=%p, item without name!!, uri=%p, type=%d\n",model,fb2,uri,type);
 		return TRUE;
 	}
-	DEBUG_MSG("tree_model_filter_func, name=%s and uri=",name);
+	DEBUG_MSG("tree_model_filter_func, model=%p and fb2=%p, name=%s and uri=",model,fb2,name);
 	DEBUG_URI(uri, TRUE);
 	if (type != TYPE_DIR) {
 		if (main_v->props.filebrowser_two_pane_view) return FALSE;
