@@ -28,7 +28,7 @@ INSTALLDATA=@INSTALLDATA@
 
 INSTALL = @INSTALL@
 INSTALL_DIR = $(INSTALL) -d -m 755 
-INSTALL_DATA = ${INSTALL} -m 644
+INSTALL_DATA = $(INSTALL) -m 644
 
 DEFAULTFILES = highlighting filetypes encodings custom_menu custom_menu.fr custom_menu.de
 FUNCREFFILES = funcref_html.xml funcref_php.xml funcref_css.xml funcref_python.xml
@@ -62,7 +62,7 @@ install-fdmime:
 install-update-mime:
 	$(UPDATE_MIME) $(FDMIME)
 
-install-gnome-2.4-mime: install-icon
+install-gnome-2.4-mime:
 	$(INSTALL_DIR) $(DESTDIR)$(GMIMEINFO)
 	$(INSTALL_DATA) bluefish.mime $(DESTDIR)$(GMIMEINFO)/$(PACKAGE).mime
 	$(INSTALL_DATA) bluefish.keys $(DESTDIR)$(GMIMEINFO)/$(PACKAGE).keys
@@ -72,10 +72,8 @@ install-gnome-2.4-appreg:
 	$(INSTALL_DATA) bluefish.applications $(DESTDIR)$(GAPPREG)/$(PACKAGE).applications
 
 install-icon:
-	if test "$(ICONPATH)" != "no"; then \
-		$(INSTALL_DIR) $(DESTDIR)$(ICONPATH); \
-		$(INSTALL_DATA) gnome-application-bluefish.png $(DESTDIR)$(ICONPATH)/gnome-mime-application-bluefish-project.png; \
-	fi
+	$(INSTALL_DIR) $(DESTDIR)$(ICONPATH); \
+	$(INSTALL_DATA) gnome-application-bluefish.png $(DESTDIR)$(ICONPATH)/gnome-mime-application-bluefish-project.png; \
 
 # this is for now, later install pictures in .svgz
 install-theme-icon:
@@ -105,9 +103,7 @@ uninstall:
 	rm -f $(DESTDIR)$(GAPPREG)/$(PACKAGE).applications
 	rm -f $(DESTDIR)$(FDMENU)/$(PACKAGE).desktop
 	rm -f $(DESTDIR)$(FDMENU)/$(PACKAGE)-project.desktop
-	if test "$(ICONPATH)" != "no"; then \
-		rm -f $(DESTDIR)$(ICONPATH)/gnome-mime-application-bluefish-project.png; \
-	fi
+	rm -f $(DESTDIR)$(ICONPATH)/gnome-mime-application-bluefish-project.png
 	rm -f $(DESTDIR)$(THEMEPATH)/48x48/mimetypes/gnome-mime-application-bluefish-project.png
 	@for file in $(DEFAULTFILES) ; do \
 		rm -f $(DESTDIR)$(pkgdatadir)$$file.default ;\
