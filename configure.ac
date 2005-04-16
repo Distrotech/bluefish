@@ -585,7 +585,7 @@ AC_ARG_WITH(theme-path,
 
 if test "x$THEMEPATH" != "xno" ; then
 	if test "x${THEMEPATH}" = "xyes" ; then
-		echo -n "checking icon path... "
+		echo -n "checking theme path... "
 		# the default answer is yes, so this is for users that did not use theicon-path option at all
 		if test -d /usr/share/icons/hicolor ; then
 			THEMEPATH=/usr/share/icons/hicolor
@@ -654,6 +654,9 @@ if test "x$ICONPATH" != "xno" -o "${THEMEPATH}" = "no" ; then
 	if test "${ICONPATH}" != "no" ; then
 		AC_SUBST(ICONPATH)
 		INSTALLMAIN="${INSTALLMAIN} install-icon"
+		if test "${GMIMEINFO}" != "no" ; then
+			INSTALLDATA="${INSTALLDATA} install-icon"
+		fi
 	fi
 fi
 
