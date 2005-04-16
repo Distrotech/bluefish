@@ -1476,8 +1476,7 @@ static void fb2_set_basedir_backend(Tfilebrowser2 *fb2, GnomeVFSURI *uri) {
 	GtkTreePath *basepath;
 	GtkTreeIter *iter;
 	
-	if (gnome_vfs_uri_equal(fb2->basedir, uri)) {
-		gnome_vfs_uri_unref(uri);
+	if (uri && fb2->basedir && gnome_vfs_uri_equal(fb2->basedir, uri)) {
 		return;
 	}
 	/* disconnect the dir_v and file_v for higher performance */
@@ -1524,6 +1523,7 @@ void fb2_set_basedir(Tbfwin *bfwin, gchar *curi) {
 			path before we create the new treemodelfilter */
 			if (uri) {
 				fb2_set_basedir_backend(fb2, uri);
+				gnome_vfs_uri_unref(uri);
 			} else {
 				DEBUG_MSG("fb2_set_basedir, failed to convert to GnomeVFSURI!!!!!!!\n");
 			}
@@ -1845,6 +1845,7 @@ GtkWidget *fb2_init(Tbfwin *bfwin) {
 			DEBUG_MSG("fb2_init, focus fb2->basedir ");
 			DEBUG_URI(fb2->basedir, TRUE);
 			fb2_focus_dir(fb2, fb2->basedir, FALSE);
+			gnome_vfs_uri_unref(uri);
 		}
 	}
 	return vbox;
