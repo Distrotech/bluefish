@@ -1641,7 +1641,7 @@ static void frefcb_inserthelp_clicked(GtkButton *button, GtkWidget *w)
 							 GTK_BUTTONS_OK,
 							 _("Insert syntax"), 
 							 _("All elements:\n%0,%1,... - value of parameter number 0,1,...%* - values of all parameters\n\
-Tag element:\n%_ - only non-empty attributes\n%! - only required attributes\n%~ only non-empty OR required attributes."));
+Tag element:\n%_ - only non-empty attributes\n%! - only required attributes\n%~ - only non-empty OR required attributes."));
 }
 
 /* dialog for element */
@@ -1769,7 +1769,7 @@ GtkWidget* fref_editor_elemdialog (gchar *title, Tfref_elemdialog_data *data,Tbf
   gtk_container_add (GTK_CONTAINER (vbuttonbox1), data->btn_add);
   GTK_WIDGET_SET_FLAGS (data->btn_add, GTK_CAN_DEFAULT);
 
-  data->btn_addref = gtk_button_new_with_mnemonic (_("Add definition ref"));
+  data->btn_addref = gtk_button_new_with_mnemonic (_("Add ref definition"));
   gtk_container_add (GTK_CONTAINER (vbuttonbox1), data->btn_addref);
   GTK_WIDGET_SET_FLAGS (data->btn_addref, GTK_CAN_DEFAULT);
 
