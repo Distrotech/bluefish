@@ -343,9 +343,9 @@ static TcheckNsave_return doc_checkNsave_lcb(TcheckNsave_status status,gint erro
 				gint retval;
 				gchar *tmpstr;
 				if (status == CHECKANDSAVE_ERROR_MODIFIED) {
-					tmpstr = g_strdup_printf(_("File %s is modified on disk, overwrite?"), doc->uri);
+					tmpstr = g_strdup_printf(_("File %s has been modified on disk, overwrite?"), doc->uri);
 				} else {
-					tmpstr = g_strdup_printf(_("Failed to check if %s is modified on disk"), doc->uri);
+					tmpstr = g_strdup_printf(_("Failed to check if %s has been modified on disk"), doc->uri);
 				}
 				retval = message_dialog_new_multi(BFWIN(doc->bfwin)->main_window,
 															 GTK_MESSAGE_WARNING,
@@ -442,7 +442,7 @@ gchar *ask_new_filename(Tbfwin *bfwin,gchar *old_curi, const gchar *gui_name, gb
 		gchar *tmpstr;
 		gint retval;
 		const gchar *buttons[] = {_("_Cancel"), _("_Overwrite"), NULL};
-		tmpstr = g_strdup_printf(_("File %s exists and is opened, overwrite?"), new_curi);
+		tmpstr = g_strdup_printf(_("File %s exists and is open, overwrite?"), new_curi);
 		retval = message_dialog_new_multi(bfwin->main_window,
 													 GTK_MESSAGE_WARNING,
 													 buttons,
@@ -629,7 +629,7 @@ void doc_close_single_backend(Tdocument *doc, gboolean delay_activate, gboolean 
 		const gchar *buttons[] = {_("Do_n't save"), GTK_STOCK_CANCEL, GTK_STOCK_SAVE, NULL};
 		gchar *text;
 		gint retval;
-		text = g_strdup_printf(_("Save changes to \"%s\" before closing?."),gtk_label_get_text (GTK_LABEL (doc->tab_label)));
+		text = g_strdup_printf(_("Save changes to \"%s\" before closing?"),gtk_label_get_text (GTK_LABEL (doc->tab_label)));
 		retval = message_dialog_new_multi(BFWIN(doc->bfwin)->main_window,
 													 GTK_MESSAGE_QUESTION,
 													 buttons,
