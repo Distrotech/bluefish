@@ -778,7 +778,7 @@ static void refilter_dirlist(Tfilebrowser2 *fb2, GtkTreePath *newroot) {
  *
  */
 static void refilter_filelist(Tfilebrowser2 *fb2, GtkTreePath *newroot) {
-	DEBUG_MSG("refilter_filelist, started for fb2=%p, file_lfilter=%p\n",fb2,fb2->file_lfilter);
+	DEBUG_MSG("refilter_filelist, started for fb2=%p, file_lfilter=%p, two_pane_view=%d\n",fb2,fb2->file_lfilter,main_v->props.filebrowser_two_pane_view);
 	if (main_v->props.filebrowser_two_pane_view) {
 		if (fb2->file_lfilter) {
 			GtkTreePath *curpath;
@@ -1481,7 +1481,7 @@ static void fb2_set_basedir_backend(Tfilebrowser2 *fb2, GnomeVFSURI *uri) {
 	}
 	/* disconnect the dir_v and file_v for higher performance */
 	gtk_tree_view_set_model(GTK_TREE_VIEW(fb2->dir_v),NULL);
-	gtk_tree_view_set_model(GTK_TREE_VIEW(fb2->file_v),NULL);
+	if (main_v->props.filebrowser_two_pane_view) gtk_tree_view_set_model(GTK_TREE_VIEW(fb2->file_v),NULL);
 	fb2->file_lfilter = NULL; /* this is required, because the refilter_filelist function tries to check if the virtual root did change for the file filter */
 	DEBUG_MSG("fb2_set_basedir_backend, disconnected current filter/sort models, lfilter=%p\n",fb2->file_lfilter);
 	
@@ -1689,7 +1689,6 @@ GtkWidget *fb2_init(Tbfwin *bfwin) {
 	fb2->bfwin = bfwin;
 	DEBUG_MSG("fb2_init, started for bfwin=%p, fb2=%p\n",bfwin,fb2);
 
-	fb2_update_settings_from_session(bfwin);
 	vbox = gtk_vbox_new(FALSE, 0);
 
 	fb2->dirmenu_m = GTK_TREE_MODEL(gtk_list_store_new(3,G_TYPE_STRING,G_TYPE_BOOLEAN,G_TYPE_POINTER));
@@ -1813,6 +1812,9 @@ GtkWidget *fb2_init(Tbfwin *bfwin) {
 	} else {
 		gtk_box_pack_start(GTK_BOX(vbox), scrolwin, TRUE, TRUE, 0);
 	}
+
+	fb2_update_settings_from_session(bfwin); /* call this *after* we have created the widgets */
+
 	fb2->expand_signal = g_signal_connect(G_OBJECT(fb2->dir_v), "row-expanded", G_CALLBACK(dir_v_row_expanded_lcb), fb2);
 	g_signal_connect(G_OBJECT(fb2->dir_v), "row-activated",G_CALLBACK(dir_v_row_activated_lcb),fb2);
 	g_signal_connect(G_OBJECT(fb2->dir_v), "button_press_event",G_CALLBACK(dir_v_button_press_lcb),fb2);
