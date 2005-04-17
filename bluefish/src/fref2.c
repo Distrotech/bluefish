@@ -761,7 +761,7 @@ gchar *fref_load_refname(gchar *filename) {
 	}	
 	cur = xmlDocGetRootElement(doc);	
 	if ( xmlStrcmp(cur->name, "ref") != 0  && xmlStrcmp(cur->name, "r") != 0) {
-		g_warning(_("Bad root element in reference file %s\nShould be <ref>or <r> and found %s"),filename,cur->name);
+		g_warning(_("Bad root element in reference file %s\nShould be <ref> or <r> and found %s"),filename,cur->name);
 		xmlFreeDoc(doc);
 		return NULL;
 	}
@@ -877,7 +877,7 @@ void fref_load_from_file(gchar * filename, GtkWidget * tree, GtkTreeStore * stor
 						 		 GTK_MESSAGE_WARNING, 
 						 		 GTK_BUTTONS_CLOSE, 
 						 		 _("Bad reference"), 
-						 		 _("This is probably old reference file. \nPlease update it to the new format."));
+						 		 _("This is probably an old reference file. \nPlease update it to the new format."));
 		g_hash_table_destroy(info->dictionary);
 		g_hash_table_destroy(info->commons);		
 		g_hash_table_destroy(info->elements);
