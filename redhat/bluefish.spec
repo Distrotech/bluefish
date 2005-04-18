@@ -1,8 +1,8 @@
 %define	desktop_vendor 	endur
 %define name  		bluefish
 %define version		1.1
-%define release 	020050414
-%define source		bluefish-CVS-2005-04-14
+%define release 	020050417
+%define source		bluefish-CVS-2005-04-17
 
 
 Summary:	  A GTK2 web development application for experienced users.
@@ -45,13 +45,6 @@ desktop-file-install --vendor %{desktop_vendor} --delete-original \
   --add-category Development                                      \
   %{buildroot}%{_datadir}/applications/%{name}.desktop
 
-desktop-file-install --vendor %{desktop_vendor}                   \
-  --dir %{buildroot}%{_datadir}/applications                      \
-  --add-category X-Fedora                                         \
-  --add-category Application                                      \
-  --add-category Development                                      \
-  %{buildroot}%{_datadir}/applications/%{name}-project.desktop
-
 %clean
 %{__rm} -rf %{buildroot}
 
@@ -79,5 +72,5 @@ update-desktop-database {_datadir}/applications > /dev/null 2>&1 || :
 
 
 %changelog
-* Fri Apr 15 2005 Matthias Haase <matthias_haase@bennewitz.com>
-- Automatic build - snapshot of 2005-04-14
+* Mon Apr 18 2005 Matthias Haase <matthias_haase@bennewitz.com>
+- Automatic build - snapshot of 2005-04-17
