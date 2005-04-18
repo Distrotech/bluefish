@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 21-11-03_fr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-04-11 23:04+0200\n"
-"PO-Revision-Date: 2004-11-26 05:45+0100\n"
+"POT-Creation-Date: 2005-04-18 08:42+0200\n"
+"PO-Revision-Date: 2005-04-18 8:50+0200\n"
 "Last-Translator: Michèle Garoche <michele.garoche@easyconnect.fr>\n"
 "Language-Team: français <fr@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -166,7 +166,6 @@ msgstr ""
 "Merci à tous ceux qui ont contribué à donner vie à ce logiciel.\n"
 
 #: ../src/about.c:185
-#, fuzzy
 msgid ""
 "Current translators:\n"
 "\n"
@@ -233,56 +232,65 @@ msgid ""
 msgstr ""
 "Traducteurs actuels :\n"
 "\n"
-"  Allemand - Roland Steinbach\n"
+"  Allemand : Roland Steinbach\n"
 "   <roland@netzblick.de>\n"
 "\n"
-"  Bulgare - Peio Popov\n"
+"  Bulgare : Peio Popov\n"
 "   <peio@peio.org>\n"
 "\n"
-"  Brésilien - Anderson Rocha\n"
+"  Brésilien : Anderson Rocha\n"
 "   <anderson@maxlinux.com.br>\n"
 "\n"
-"  Chinois - Ting Yang (Dormouse)\n"
+"  Chinois : Ting Yang (Dormouse)\n"
 "   <mouselinux@163.com>\n"
 "\n"
-"  Danois - Rasmus Toftdahl Olesen\n"
+"  Chinois traditionnel : OLS3\n"
+"   <ols3@lxer.idv.tw>\n"
+"\n"
+"  Danois : Rasmus Toftdahl Olesen\n"
 "   <rto@pohldata.dk>\n"
 "\n"
-"  Espagnol - Walter Oscar Echarri\n"
+"  Espagnol : Walter Oscar Echarri\n"
 "   <wecharri@arnet.com.ar>\n"
 "\n"
-"  Finnois - Juho Roukala\n"
+"  Finnois : Juho Roukala\n"
 "   <j.mr@luukku.com>\n"
 "\n"
-"  Français - Michèle Garoche\n"
+"  Français : Michèle Garoche\n"
 "   <michele.garoche@easyconnect.fr>\n"
 "\n"
-"  Hongrois - Péter Sáska\n"
+"  Hongrois : Péter Sáska\n"
 "   <sasek@ccsystem.hu>\n"
 "\n"
-"  Italien - Stefano Canepa\n"
+"  Italien : Stefano Canepa\n"
 "   <sc@linux.it>\n"
 "\n"
-"  Norvégien - Christian Tellefsen\n"
+"  Japonais : Takeshi Hamasaki\n"
+"   <hma@syd.odn.ne.jp>\n"
+"\n"
+"  Norvégien : Christian Tellefsen\n"
 "   <chris@tellefsen.net>\n"
 "\n"
-"  Polonais - Oskar Swida\n"
+"  Polonais : Oskar Swida\n"
 "   <swida@aragorn.pb.bialystok.pl>\n"
 "\n"
-"  Portugais - Lopo Pizarro\n"
+"  Portugais : Lopo Pizarro\n"
 "   <lopopizarro@netcabo.pt>\n"
 "\n"
-"  Russe - Eugene Rupakov\n"
+"  Russe : Eugene Rupakov\n"
 "   <rupakov@jet.msk.su>\n"
 "\n"
-"  Serbe - Marko Milenovic\n"
+"  Serbe : Marko Milenovic\n"
 "   <raven@sbb.co.yu>\n"
 "\n"
-"  Suédois - David Smeringe\n"
+"  Suédois : David Smeringe\n"
 "   <david.smeringe@telia.com>\n"
 "\n"
-"  Tamil - Murugapandian Barathee\n"
+"  Tamil : Murugapandian Barathee\n"
 "   <barathee@yahoo.com>\n"
+"\n"
+"  Turc : Oğuz Eren\n"
+"   <ogzeren@gmail.com>\n"
 "\n"
 
 #: ../src/about.c:228
@@ -431,7 +439,7 @@ msgstr "-p nomdefichier ouvrir un projet\n"
 
 #: ../src/bluefish.c:105
 msgid "-h           this help screen\n"
-msgstr "-h          Aide en ligne\n"
+msgstr "-h          Aide en ligne de commande\n"
 
 #: ../src/bluefish.c:181
 msgid "parsing highlighting file..."
@@ -501,7 +509,7 @@ msgstr "Désirez-vous vraiment supprimer %s ?"
 
 #: ../src/bookmark.c:611
 msgid "Delete permanent bookmark."
-msgstr "Supprimer le signet permanent"
+msgstr "Supprimer le signet permanent."
 
 #: ../src/bookmark.c:628
 msgid "Edit bookmark"
@@ -528,23 +536,20 @@ msgid "Delete all"
 msgstr "Tout supprimer"
 
 #: ../src/bookmark.c:1252 ../src/bookmark.c:1311
-#, fuzzy
 msgid "Error adding bookmark"
-msgstr "Éditer le signet"
+msgstr "Erreur lors de l'ajout de signet"
 
 #: ../src/bookmark.c:1253 ../src/bookmark.c:1312
-#, fuzzy
 msgid "Cannot add bookmarks to unsaved files."
-msgstr "Impossible d'ajouter un signet pour un fichier sans nom"
+msgstr "Impossible d'ajouter des signets à des fichiers non enregistrés."
 
 #: ../src/bookmark.c:1272
-#, fuzzy
 msgid "Can't add bookmark"
-msgstr "Ajouter un signet"
+msgstr "Impossible d'ajouter un signet"
 
 #: ../src/bookmark.c:1273
 msgid "You already have a bookmark here!"
-msgstr "Vous disposez déjà d'un signet ici !"
+msgstr "Il existe déjà un signet à cet endroit !"
 
 #: ../src/bookmark.c:1352
 msgid "Delete all bookmarks."
@@ -562,7 +567,7 @@ msgstr ""
 
 #: ../src/document.c:284
 msgid "/Document/Highlight Syntax"
-msgstr "/Document/Syntaxe de la coloration"
+msgstr "/Document/Coloration syntaxique"
 
 #: ../src/document.c:417
 msgid "Name: "
@@ -618,53 +623,53 @@ msgid "Untitled %d"
 msgstr "Sans titre %d"
 
 #: ../src/document.c:1121
-#, fuzzy, c-format
+#, c-format
 msgid " Ln: %d, Col: %d"
-msgstr " Lig %d, Col %d"
+msgstr " Lig : %d, Col : %d"
 
 #: ../src/document.c:1154 ../src/document.c:1155
 #, c-format
 msgid "  %s, %s"
 msgstr "  %s, %s"
 
-#: ../src/document.c:1571
+#: ../src/document.c:1585
 msgid "Cannot display file, unknown characters found."
 msgstr ""
 "Impossible d'afficher le fichier, des caractères inconnus ont été trouvés."
 
-#: ../src/document.c:2031 ../src/snr2.c:1349
+#: ../src/document.c:2045 ../src/snr2.c:1349
 msgid "Replace"
 msgstr "Remplacer"
 
-#: ../src/document.c:2036 ../src/fref2.c:4486 ../src/snr2.c:1352
+#: ../src/document.c:2050 ../src/fref2.c:4486 ../src/snr2.c:1352
 msgid "Find"
 msgstr "Rechercher"
 
-#: ../src/document.c:2044
+#: ../src/document.c:2058
 msgid "Delete bookmark"
 msgstr "Supprimer le signet"
 
-#: ../src/document.c:2048
+#: ../src/document.c:2062
 msgid "Add bookmark"
 msgstr "Ajouter un signet"
 
-#: ../src/document.c:2064
+#: ../src/document.c:2078
 msgid "Edit color"
 msgstr "Édition de la couleur"
 
-#: ../src/document.c:2072
+#: ../src/document.c:2086
 msgid "Edit tag"
 msgstr "Éditer la balise"
 
-#: ../src/document.c:2196 ../src/file_dialogs.c:303 ../src/file_dialogs.c:342
+#: ../src/document.c:2210 ../src/file_dialogs.c:303 ../src/file_dialogs.c:342
 msgid "_Abort save"
 msgstr "_Abandonner l'enregistrement"
 
-#: ../src/document.c:2196
+#: ../src/document.c:2210
 msgid "_Continue save in UTF-8"
 msgstr "_Continuer l'enregistrement en UTF-8"
 
-#: ../src/document.c:2207
+#: ../src/document.c:2221
 #, c-format
 msgid ""
 "Failed to convert %s to character encoding %s. Encoding failed on character "
@@ -677,31 +682,31 @@ msgstr ""
 "\n"
 "Continuer l'enregistrement en UTF-8 ?"
 
-#: ../src/document.c:2211
+#: ../src/document.c:2225
 msgid "File encoding conversion failure"
 msgstr "Échec de la conversion d'encodage du fichier"
 
-#: ../src/document.c:2443
+#: ../src/document.c:2457
 msgid "Previously: "
 msgstr "Précédemment : "
 
-#: ../src/document.c:2916
+#: ../src/document.c:2930
 msgid "No filename"
 msgstr "Aucun nom de fichier"
 
-#: ../src/document.c:3207
+#: ../src/document.c:3221
 msgid "Unable to open file"
 msgstr "Impossible d'ouvrir le fichier"
 
-#: ../src/document.c:3234
+#: ../src/document.c:3248
 msgid "_Reload"
 msgstr "_Recharger"
 
-#: ../src/document.c:3234
+#: ../src/document.c:3248
 msgid "_Ignore"
 msgstr "_Ignorer"
 
-#: ../src/document.c:3238
+#: ../src/document.c:3252
 #, c-format
 msgid ""
 "Filename: %s\n"
@@ -714,197 +719,68 @@ msgstr ""
 "Heure de la nouvelle modification : %s\n"
 "Heure de l'ancienne modification : %s"
 
-#: ../src/document.c:3242
+#: ../src/document.c:3256
 msgid "File has been modified by another process\n"
-msgstr "Le fichier a été modifié par un autre processus.\n"
+msgstr "Le fichier a été modifié par un autre processus\n"
 
-#: ../src/document.c:3292
+#: ../src/document.c:3306
 msgid "_Retry"
-msgstr ""
+msgstr "_Réessayer"
 
-#: ../src/document.c:3292
-#, fuzzy
+#: ../src/document.c:3306
 msgid "_Close"
-msgstr "Fermer"
+msgstr "_Fermer"
 
-#: ../src/document.c:3296
-#, fuzzy
+#: ../src/document.c:3310
 msgid "File "
-msgstr "Fichier #"
+msgstr "Le fichier "
 
-#: ../src/document.c:3296
+#: ../src/document.c:3310
 msgid " failed to load."
-msgstr ""
+msgstr " n'a pas pu être chargé."
 
-#: ../src/document.c:3300
+#: ../src/document.c:3314
 msgid "File failed to load\n"
-msgstr ""
+msgstr "Le fichier n'a pas pu être chargé\n"
 
-#: ../src/document.c:3403
+#: ../src/document.c:3417
 msgid "Select file to insert"
 msgstr "Sélectionner le fichier à insérer"
 
-#: ../src/document.c:3410
+#: ../src/document.c:3424
 msgid "No file to insert"
 msgstr "Aucun fichier à insérer"
 
-#: ../src/document.c:3580
+#: ../src/document.c:3594
 #, c-format
 msgid "Statistics: %d lines, %d words, %d characters"
 msgstr "Statistiques : %d lignes, %d mots, %d caractères"
 
-#: ../src/filebrowser2.c:986
-#, fuzzy
-msgid "New directory"
-msgstr "/Créer u_n répertoire"
-
-#: ../src/filebrowser2.c:990
-#, fuzzy
-msgid "New file"
-msgstr "/Créer un _fichier"
-
-#: ../src/filebrowser2.c:1037 ../src/filebrowser.c:1257
-msgid "Could not rename\n"
-msgstr "Impossible de renommer le fichier\n"
-
-#: ../src/filebrowser2.c:1072 ../src/filebrowser.c:1299
-#, c-format
-msgid "Are you sure you want to delete \"%s\" ?"
-msgstr ""
-"Êtes-vous certain(e) de vouloir\n"
-"supprimer \"%s\" ?"
-
-#: ../src/filebrowser2.c:1077 ../src/filebrowser.c:1300
-msgid "If you delete this file, it will be permanently lost."
-msgstr "Le fichier sera définitivement effacé."
-
-#: ../src/filebrowser2.c:1088 ../src/filebrowser.c:1309
-#: ../src/filebrowser.c:1313
-msgid "Could not delete \n"
-msgstr "Impossible d'effacer le fichier\n"
-
-#: ../src/filebrowser2.c:1200 ../src/filebrowser.c:1467
-msgid "/_Open"
-msgstr "/_Ouvrir un fichier"
-
-#: ../src/filebrowser2.c:1201 ../src/filebrowser.c:1452
-msgid "/Open _Advanced..."
-msgstr "/P_aramétrer l'ouverture..."
-
-#: ../src/filebrowser2.c:1202 ../src/filebrowser.c:1468
-msgid "/Rena_me"
-msgstr "/Reno_mmer"
-
-#: ../src/filebrowser2.c:1203 ../src/filebrowser.c:1469
-msgid "/_Delete"
-msgstr "/_Supprimer "
-
-#: ../src/filebrowser2.c:1205 ../src/filebrowser.c:1461
-msgid "/New _File"
-msgstr "/Créer un _fichier"
-
-#: ../src/filebrowser2.c:1206 ../src/filebrowser.c:1462
-msgid "/_New Directory"
-msgstr "/Créer u_n répertoire"
-
-#: ../src/filebrowser2.c:1208 ../src/filebrowser.c:1456
-msgid "/_Refresh"
-msgstr "/Actualise_r"
-
-#: ../src/filebrowser2.c:1209
-#, fuzzy
-msgid "/Show Full _Tree"
-msgstr "Afficher toute l'arborescence"
-
-#: ../src/filebrowser2.c:1210 ../src/filebrowser.c:1457
-msgid "/_Set as basedir"
-msgstr "/_Sélectionner comme répertoire de travail"
-
-#: ../src/filebrowser2.c:1212
-#, fuzzy
-msgid "/Follow active document"
-msgstr "/Aller à/Dernier doc_ument"
-
-#: ../src/filebrowser2.c:1213
-#, fuzzy
-msgid "/Show hidden files"
-msgstr "Afficher les fichiers cachés"
-
-#: ../src/filebrowser2.c:1214
-#, fuzzy
-msgid "/Show backup files"
-msgstr "Afficher les fichiers de sauvegarde"
-
-#: ../src/filebrowser2.c:1265 ../src/filebrowser.c:1502
-msgid "Filter"
-msgstr "Filtre"
-
-#: ../src/filebrowser2.c:1899 ../src/filebrowser.c:1702 ../src/gtk_easy.c:1384
-msgid "All files"
-msgstr "Tous les fichiers"
-
-#: ../src/filebrowser.c:1064
-msgid "Error creating path"
-msgstr "Erreur de création du chemin"
-
-#: ../src/filebrowser.c:1064
-msgid "The specified pathname already exists."
-msgstr "Le chemin de fichier spécifié existe déjà."
-
-#: ../src/filebrowser.c:1134
-msgid "File name"
-msgstr "Nom du fichier"
-
-#: ../src/filebrowser.c:1136
-msgid "Directory name"
-msgstr "Nom du répertoire"
-
-#: ../src/filebrowser.c:1167
-msgid "Opening directory..."
-msgstr "Ouverture du répertoire en cours..."
-
-#: ../src/filebrowser.c:1491
-msgid "Show hidden files"
-msgstr "Afficher les fichiers cachés"
-
-#: ../src/filebrowser.c:1496
-msgid "Show backup files"
-msgstr "Afficher les fichiers de sauvegarde"
-
-#: ../src/filebrowser.c:1974
-msgid "Show full tree"
-msgstr "Afficher toute l'arborescence"
-
-#: ../src/filebrowser.c:1975
-msgid "Follow focus"
-msgstr "Suivre le focus"
-
-#: ../src/file.c:937 ../src/snr2.c:892
+#: ../src/file.c:955 ../src/snr2.c:892
 msgid "_Skip"
 msgstr "_Ignorer"
 
-#: ../src/file.c:937 ../src/file_dialogs.c:444 ../src/file_dialogs.c:467
-#: ../src/project.c:190
+#: ../src/file.c:955 ../src/file_dialogs.c:444 ../src/file_dialogs.c:467
+#: ../src/project.c:215
 msgid "_Overwrite"
 msgstr "_Écraser"
 
-#: ../src/file.c:942
-#, fuzzy, c-format
+#: ../src/file.c:960
+#, c-format
 msgid "%s already exists, overwrite?"
-msgstr "Le fichier %s est déjà ouvert, voulez-vous vraiment l'écraser ?"
+msgstr "%s existe déjà, voulez-vous vraiment l'écraser ?"
 
-#: ../src/file.c:946
-#, fuzzy
+#: ../src/file.c:964
 msgid "Overwrite file?"
-msgstr "_Écraser"
+msgstr "Voulez-vous écraser le fichier ?"
 
 #: ../src/file_dialogs.c:80
 msgid "Select basedir"
-msgstr "Sélectionner le répertoire de travail"
+msgstr "Choisir le répertoire de base"
 
 #: ../src/file_dialogs.c:117
 msgid "Advanced open file selector"
-msgstr "Paramétrer la sélection des fichiers"
+msgstr "Paramétrer l'ouverture des fichiers"
 
 #: ../src/file_dialogs.c:130
 msgid "<b>General</b>"
@@ -912,14 +788,13 @@ msgstr "<b>Général</b>"
 
 #: ../src/file_dialogs.c:136
 msgid "Base_dir:"
-msgstr "Répertoire _de base :"
+msgstr "Répertoire de _base :"
 
 #: ../src/file_dialogs.c:138 ../src/gtk_easy.c:1315
 msgid "_Browse..."
 msgstr "_Parcourir..."
 
 #: ../src/file_dialogs.c:147
-#, fuzzy
 msgid "_Pattern:"
 msgstr "_Modèle :"
 
@@ -933,7 +808,7 @@ msgstr "<b>Contient</b>"
 
 #: ../src/file_dialogs.c:159
 msgid "Pa_ttern:"
-msgstr "_Modèle :"
+msgstr "Mo_dèle :"
 
 #: ../src/file_dialogs.c:163
 msgid "Is rege_x:"
@@ -941,7 +816,7 @@ msgstr "Est une e_xpression régulière :"
 
 #: ../src/file_dialogs.c:204
 msgid "Select files"
-msgstr "Sélectionner des fichiers"
+msgstr "Choisir les fichiers"
 
 #: ../src/file_dialogs.c:257
 msgid "Open URL"
@@ -949,7 +824,7 @@ msgstr "Ouvrir une URL"
 
 #: ../src/file_dialogs.c:261
 msgid "<b>Open URL</b>"
-msgstr "<b>Ouvrir une URL/b>"
+msgstr "<b>Ouvrir l'URL</b>"
 
 #: ../src/file_dialogs.c:303 ../src/file_dialogs.c:342
 msgid "_Continue save"
@@ -969,33 +844,32 @@ msgid "File backup failure"
 msgstr "Échec de la sauvegarde"
 
 #: ../src/file_dialogs.c:327
-#, fuzzy
 msgid ""
 "Could not save file:\n"
 "\""
 msgstr ""
-"Impossible d'écrire le fichier sur le disque :\n"
+"Impossible d'enregistrer le fichier :\n"
 "\""
 
 #: ../src/file_dialogs.c:331
-#, fuzzy
 msgid "File save failed!\n"
-msgstr "Sauvegarde du fichier annulée.\n"
+msgstr "Échec de l'enregistrement du fichier :\n"
 
 #: ../src/file_dialogs.c:346
-#, fuzzy, c-format
-msgid "File %s is modified on disk, overwrite?"
-msgstr "Le fichier %s est déjà ouvert, voulez-vous vraiment l'écraser ?"
+#, c-format
+msgid "File %s has been modified on disk, overwrite?"
+msgstr ""
+"Le fichier %s a été modifié sur le disque, voulez-vous vraiment l'écraser ?"
 
 #: ../src/file_dialogs.c:348
-#, fuzzy, c-format
-msgid "Failed to check if %s is modified on disk"
-msgstr "Fichier modifié sur le disque : vérifier"
+#, c-format
+msgid "Failed to check if %s has been modified on disk"
+msgstr "Échec de la vérification d'éventuelles modifications de %s sur le "
+"disque"
 
 #: ../src/file_dialogs.c:353
-#, fuzzy
 msgid "File modified on disk"
-msgstr "Fichier modifié sur le disque : vérifier"
+msgstr "Fichier modifié sur le disque"
 
 #: ../src/file_dialogs.c:422
 #, c-format
@@ -1008,51 +882,51 @@ msgid "Save %s as"
 msgstr "Enregistrer %s sous"
 
 #: ../src/file_dialogs.c:444 ../src/file_dialogs.c:467
-#: ../src/file_dialogs.c:683 ../src/project.c:190
+#: ../src/file_dialogs.c:683 ../src/project.c:215
 msgid "_Cancel"
 msgstr "An_nuler"
 
 #: ../src/file_dialogs.c:445
 #, c-format
-msgid "File %s exists and is opened, overwrite?"
+msgid "File %s exists and is open, overwrite?"
 msgstr "Le fichier %s est déjà ouvert, voulez-vous vraiment l'écraser ?"
 
 #: ../src/file_dialogs.c:450
 msgid "The file you have selected is being edited in Bluefish."
 msgstr "Le fichier sélectionné est en cours d'édition dans Bluefish."
 
-#: ../src/file_dialogs.c:468 ../src/project.c:191
+#: ../src/file_dialogs.c:468 ../src/project.c:216
 #, c-format
 msgid "A file named \"%s\" already exists."
 msgstr "Un fichier nommé \"%s\" existe déjà."
 
-#: ../src/file_dialogs.c:473 ../src/project.c:196
+#: ../src/file_dialogs.c:473 ../src/project.c:221
 msgid "Do you want to replace the existing file?"
 msgstr "Désirez-vous remplacer le fichier existant ?"
 
 #: ../src/file_dialogs.c:489
-#, fuzzy
 msgid ""
 "File:\n"
 "\""
-msgstr "Filtre :"
+msgstr ""
+"Fichier :\n"
+"\""
 
 #: ../src/file_dialogs.c:493
 msgid "Save in progress!"
-msgstr ""
+msgstr "Enregistrement en cours !"
 
-#: ../src/file_dialogs.c:629 ../src/project.c:356
+#: ../src/file_dialogs.c:629 ../src/project.c:385
 msgid "Do_n't save"
 msgstr "Ne pas enre_gistrer"
 
 #: ../src/file_dialogs.c:632
 #, c-format
-msgid "Save changes to \"%s\" before closing?."
-msgstr ""
-"Voulez-vous enregistrer les modifications apportées à \"%s\" avant de le "
-"fermer ?"
+msgid "Save changes to \"%s\" before closing?"
+msgstr "Voulez-vous enregistrer les modifications apportées à \"%s\" avant de "
+"le fermer ?"
 
-#: ../src/file_dialogs.c:637 ../src/file_dialogs.c:688 ../src/project.c:368
+#: ../src/file_dialogs.c:637 ../src/file_dialogs.c:688 ../src/project.c:397
 msgid "If you don't save your changes they will be lost."
 msgstr "Si vous n'enregistrez pas les modifications, elles seront perdues."
 
@@ -1062,7 +936,7 @@ msgstr "Choisir par _fichier"
 
 #: ../src/file_dialogs.c:683
 msgid "Close _All"
-msgstr "Tout fermer"
+msgstr "_Tout fermer"
 
 #: ../src/file_dialogs.c:683
 msgid "_Save All"
@@ -1072,489 +946,123 @@ msgstr "Tout enregi_strer"
 msgid "Multiple open files have been changed."
 msgstr "Certains fichiers ont été modifiés."
 
-#: ../src/fref2.c:759
-#, fuzzy, c-format
-msgid "Cannot load reference file %s\n"
-msgstr "Rescanner les fichiers de référence"
+#: ../src/filebrowser.c:1064
+msgid "Error creating path"
+msgstr "Erreur lors de la création du chemin"
 
-#: ../src/fref2.c:764
-#, c-format
-msgid ""
-"Bad root element in reference file %s\n"
-"Should be <ref>or <r> and found %s"
-msgstr ""
+#: ../src/filebrowser.c:1064
+msgid "The specified pathname already exists."
+msgstr "Le chemin de fichier spécifié existe déjà."
 
-#: ../src/fref2.c:839
-msgid "Load error"
-msgstr ""
+#: ../src/filebrowser.c:1134
+msgid "File name"
+msgstr "Nom du fichier"
 
-#: ../src/fref2.c:840
-msgid "Cannot load reference file, perhaps it is not well-formed."
-msgstr ""
-
-#: ../src/fref2.c:853
-#, fuzzy
-msgid "Bad root element in reference file"
-msgstr "Rescanner les fichiers de référence"
-
-#: ../src/fref2.c:854
-msgid ""
-" \n"
-"Should be <ref> or <r> "
-msgstr ""
-
-#: ../src/fref2.c:879
-#, fuzzy
-msgid "Bad reference"
-msgstr "Éditer les préférences"
-
-#: ../src/fref2.c:880
-msgid ""
-"This is probably old reference file. \n"
-"Please update it to the new format."
-msgstr ""
-
-#: ../src/fref2.c:892
-#, fuzzy
-msgid "Loading reference"
-msgstr "Éditer les préférences"
-
-#: ../src/fref2.c:991
-#, fuzzy
-msgid "Unloading reference"
-msgstr "Référence de fonctions"
-
-#: ../src/fref2.c:992
-msgid " Freeing reference memory "
-msgstr ""
-
-#: ../src/fref2.c:1512 ../src/fref2.c:3518 ../src/fref2.c:3526
-#, fuzzy
-msgid "Identifier"
-msgstr "Centré"
-
-#: ../src/fref2.c:1532 ../src/fref2.c:1682
-#, fuzzy
-msgid "Kind"
-msgstr "Rechercher"
-
-#: ../src/fref2.c:1538 ../src/fref2.c:1673 ../src/fref2.c:3511
-#: ../src/preferences.c:1741
-msgid "Name"
-msgstr "Nom"
-
-#: ../src/fref2.c:1549
-#, fuzzy
-msgid "Type"
-msgstr "_Type :"
-
-#: ../src/fref2.c:1560
-#, fuzzy
-msgid "Default value"
-msgstr "Répertoire de travail par défaut"
-
-#: ../src/fref2.c:1571
-#, fuzzy
-msgid "Input type"
-msgstr "Type d'informations"
-
-#: ../src/fref2.c:1589
-msgid "Required"
-msgstr ""
-
-#: ../src/fref2.c:1593 ../src/fref2.c:1720 ../src/fref2.c:1863
-#: ../src/fref2.c:3381 ../src/fref2.c:3511 ../src/fref2.c:4387
-#: ../src/fref.c:1864
-msgid "Description"
-msgstr "Description"
-
-#: ../src/fref2.c:1612
-#, fuzzy
-msgid "Values"
-msgstr "Valeur"
-
-#: ../src/fref2.c:1642
-#, fuzzy
-msgid "Insert syntax"
-msgstr "Insérer une image"
-
-#: ../src/fref2.c:1643
-msgid ""
-"All elements:\n"
-"%0,%1,... - value of parameter number 0,1,...%* - values of all parameters\n"
-"Tag element:\n"
-"%_ - only non-empty attributes\n"
-"%! - only required attributes\n"
-"%~ only non-empty OR required attributes."
-msgstr ""
-
-#: ../src/fref2.c:1700
-#, fuzzy
-msgid "Insert text"
-msgstr "Insérer l'heure"
-
-#: ../src/fref2.c:1705
-msgid " ? "
-msgstr ""
-
-#: ../src/fref2.c:1707
-#, fuzzy
-msgid "Help"
-msgstr "/_Aide"
-
-#: ../src/fref2.c:1737
-#, fuzzy
-msgid "Properties"
-msgstr "Propriété"
-
-#: ../src/fref2.c:1768
-#, fuzzy
-msgid "Add property"
-msgstr "Propriété"
-
-#: ../src/fref2.c:1772
-#, fuzzy
-msgid "Add definition ref"
-msgstr "Terme"
-
-#: ../src/fref2.c:1840
-#, fuzzy
-msgid "Select font for reference view"
-msgstr "Rescanner les fichiers de référence"
-
-#: ../src/fref2.c:1851
-#, fuzzy
-msgid "Set reference colors"
-msgstr "Éditer les préférences"
-
-#: ../src/fref2.c:1867 ../src/fref2.c:4392 ../src/fref.c:1869
-msgid "Attributes/Parameters"
-msgstr "Attributs/Paramètres"
-
-#: ../src/fref2.c:1871 ../src/fref2.c:4397 ../src/fref.c:1874
-msgid "Notes"
-msgstr "Notes"
-
-#: ../src/fref2.c:1875 ../src/fref2.c:4402
-#, fuzzy
-msgid "Examples"
-msgstr "Échantillon"
-
-#: ../src/fref2.c:1879 ../src/fref2.c:4407
-#, fuzzy
-msgid "Links"
-msgstr "Lien"
-
-#: ../src/fref2.c:2022
-msgid "TAG: "
-msgstr ""
-
-#: ../src/fref2.c:2028
-msgid "PARENT TAGS: "
-msgstr ""
-
-#: ../src/fref2.c:2033
-msgid "FUNCTION: "
-msgstr ""
-
-#: ../src/fref2.c:2039
-msgid "RETURNS: "
-msgstr ""
-
-#: ../src/fref2.c:2044 ../src/fref2.c:2055 ../src/fref2.c:2066
-msgid "DEPENDENCIES: "
-msgstr ""
-
-#: ../src/fref2.c:2049
-msgid "PROPERTY: "
-msgstr ""
-
-#: ../src/fref2.c:2060
-msgid "SELECTOR: "
-msgstr ""
-
-#: ../src/fref2.c:2071
-msgid "VAR: "
-msgstr ""
-
-#: ../src/fref2.c:2077
-msgid "SNIPPET: "
-msgstr ""
-
-#: ../src/fref2.c:2089 ../src/fref2.c:2128
-msgid "PARAMS:\n"
-msgstr ""
-
-#: ../src/fref2.c:2101
-msgid "ATTRIBUTES:\n"
-msgstr ""
-
-#: ../src/fref2.c:2149
-msgid ""
-"\n"
-"NOTES:\n"
-msgstr ""
-
-#: ../src/fref2.c:2172
-msgid ""
-"\n"
-"EXAMPLES:\n"
-msgstr ""
-
-#: ../src/fref2.c:2189
-msgid ""
-"SEE ALSO:\n"
-" "
-msgstr ""
-
-#: ../src/fref2.c:2729
-msgid "Choose colour"
-msgstr ""
-
-#: ../src/fref2.c:3331 ../src/fref2.c:3407 ../src/fref2.c:3452
-#: ../src/fref2.c:3477 ../src/fref.c:2082
-msgid "Error"
-msgstr "Erreur"
-
-#: ../src/fref2.c:3332
-#, fuzzy
-msgid ""
-"Perhaps you didn't load a library, or you did not select a library to search "
-"in."
-msgstr ""
-"Peut-être n'avez-vous pas chargé de référence ou bien n'avez vous pas choisi "
-"de référence dans laquelle rechercher."
-
-#: ../src/fref2.c:3340
-#, fuzzy, c-format
-msgid "Element %s not found"
-msgstr "Référence introuvable"
-
-#: ../src/fref2.c:3344
-#, fuzzy
-msgid "Element search"
-msgstr "Recherche dans la référence"
-
-#: ../src/fref2.c:3381 ../src/fref2.c:4444
-#, fuzzy
-msgid "New library"
-msgstr "/Créer u_n répertoire"
-
-#: ../src/fref2.c:3381
-#, fuzzy
-msgid "Library name"
+#: ../src/filebrowser.c:1136
+msgid "Directory name"
 msgstr "Nom du répertoire"
 
-#: ../src/fref2.c:3408
-msgid "Library has to have a name."
-msgstr ""
+#: ../src/filebrowser.c:1167
+msgid "Opening directory..."
+msgstr "Ouverture du répertoire en cours..."
 
-#: ../src/fref2.c:3438
-#, fuzzy
-msgid "Delete library?"
-msgstr "Voulez-vous supprimer les signets ?"
+#: ../src/filebrowser.c:1257 ../src/filebrowser2.c:1041
+msgid "Could not rename\n"
+msgstr "Impossible de renommer le fichier\n"
 
-#: ../src/fref2.c:3453
-msgid "You have to select a reference."
-msgstr ""
+#: ../src/filebrowser.c:1299 ../src/filebrowser2.c:1076
+#, c-format
+msgid "Are you sure you want to delete \"%s\" ?"
+msgstr "Voulez-vous vraiment supprimer \"%s\" ?"
 
-#: ../src/fref2.c:3478
-#, fuzzy
-msgid "Reference not loaded."
-msgstr "Référence introuvable"
+#: ../src/filebrowser.c:1300 ../src/filebrowser2.c:1081
+msgid "If you delete this file, it will be permanently lost."
+msgstr "Si vous supprimez ce fichier, vous le perdrez définitivement."
 
-#: ../src/fref2.c:3493 ../src/fref2.c:3507 ../src/fref2.c:4007
-#: ../src/fref2.c:4191
-msgid "Bad element"
-msgstr ""
+#: ../src/filebrowser.c:1309 ../src/filebrowser.c:1313
+#: ../src/filebrowser2.c:1092
+msgid "Could not delete \n"
+msgstr "Impossible d'effacer le fichier\n"
 
-#: ../src/fref2.c:3494
-msgid "You can define notes for: library, group or element."
-msgstr ""
+#: ../src/filebrowser.c:1452 ../src/filebrowser2.c:1205
+msgid "/Open _Advanced..."
+msgstr "/P_aramétrer l'ouverture..."
 
-#: ../src/fref2.c:3497
-#, fuzzy
-msgid "New note"
-msgstr "Créer un Projet"
+#: ../src/filebrowser.c:1456 ../src/filebrowser2.c:1212
+msgid "/_Refresh"
+msgstr "/Actualise_r"
 
-#: ../src/fref2.c:3497
-#, fuzzy
-msgid "Title"
-msgstr "_Titre :"
+#: ../src/filebrowser.c:1457 ../src/filebrowser2.c:1214
+msgid "/_Set as basedir"
+msgstr "/_Sélectionner comme répertoire de base"
 
-#: ../src/fref2.c:3497
-#, fuzzy
-msgid "Text"
-msgstr "Zone de texte"
+#: ../src/filebrowser.c:1461 ../src/filebrowser2.c:1209
+msgid "/New _File"
+msgstr "/Nouveau _fichier"
 
-#: ../src/fref2.c:3508
-msgid "You can define group for: library or group."
-msgstr ""
+#: ../src/filebrowser.c:1462 ../src/filebrowser2.c:1210
+msgid "/_New Directory"
+msgstr "/Nouveau ré_pertoire"
 
-#: ../src/fref2.c:3511
-#, fuzzy
-msgid "New group"
-msgstr "Créer un Projet"
+#: ../src/filebrowser.c:1467 ../src/filebrowser2.c:1204
+msgid "/_Open"
+msgstr "/_Ouvrir un fichier"
 
-#: ../src/fref2.c:3518
-#, fuzzy
-msgid "New description def"
-msgstr "Description"
+#: ../src/filebrowser.c:1468 ../src/filebrowser2.c:1206
+msgid "/Rena_me"
+msgstr "/Reno_mmer"
 
-#: ../src/fref2.c:3518
-#, fuzzy
-msgid "Description text"
-msgstr "Description"
+#: ../src/filebrowser.c:1469 ../src/filebrowser2.c:1207
+msgid "/_Delete"
+msgstr "/_Supprimer "
 
-#: ../src/fref2.c:3526
-#, fuzzy
-msgid "New values def"
-msgstr "Nouvelle fenêtre Bluefish"
+#: ../src/filebrowser.c:1491
+msgid "Show hidden files"
+msgstr "Afficher les fichiers cachés"
 
-#: ../src/fref2.c:3526
-msgid "Values separated by comma"
-msgstr ""
+#: ../src/filebrowser.c:1496
+msgid "Show backup files"
+msgstr "Afficher les fichiers de sauvegarde"
 
-#: ../src/fref2.c:3710 ../src/fref2.c:3940
-msgid "Missing value"
-msgstr ""
+#: ../src/filebrowser.c:1502 ../src/filebrowser2.c:1269
+msgid "Filter"
+msgstr "Filtre"
 
-#: ../src/fref2.c:3711 ../src/fref2.c:3941
-msgid "Property has to have a name."
-msgstr ""
+#: ../src/filebrowser.c:1702 ../src/filebrowser2.c:1920 ../src/gtk_easy.c:1384
+msgid "All files"
+msgstr "Tous les fichiers"
 
-#: ../src/fref2.c:3832 ../src/fref2.c:4134
-#, fuzzy
-msgid "Definitions"
-msgstr "Définition de terme"
+#: ../src/filebrowser.c:1974
+msgid "Show full tree"
+msgstr "Afficher toute l'arborescence"
 
-#: ../src/fref2.c:3879
-#, fuzzy
-msgid "New property"
-msgstr "Créer un Projet"
+#: ../src/filebrowser.c:1975
+msgid "Follow focus"
+msgstr "Suivre le focus"
 
-#: ../src/fref2.c:4008
-msgid "Please select library or group."
-msgstr ""
+#: ../src/filebrowser2.c:990
+msgid "New directory"
+msgstr "Nouveau répertoire"
 
-#: ../src/fref2.c:4011
-msgid "New element"
-msgstr ""
+#: ../src/filebrowser2.c:994
+msgid "New file"
+msgstr "Nouveau fichier"
 
-#: ../src/fref2.c:4104
-#, fuzzy
-msgid "No name"
-msgstr "Aucun nom de fichier"
+#: ../src/filebrowser2.c:1213
+msgid "/Show Full _Tree"
+msgstr "/Afficher toute l'_arborescence"
 
-#: ../src/fref2.c:4105
-msgid "Element has to have a name."
-msgstr ""
+#: ../src/filebrowser2.c:1216
+msgid "/Follow active document"
+msgstr "/Suivre le document actif"
 
-#: ../src/fref2.c:4160
-#, fuzzy
-msgid "Delete definition?"
-msgstr "Définition de terme"
+#: ../src/filebrowser2.c:1217
+msgid "/Show hidden files"
+msgstr "/Afficher les fichiers cachés"
 
-#: ../src/fref2.c:4192
-msgid "Please use delete library instead."
-msgstr ""
-
-#: ../src/fref2.c:4198
-#, fuzzy
-msgid "Delete group"
-msgstr " Supprimer "
-
-#: ../src/fref2.c:4199
-msgid "Not implemented yet"
-msgstr ""
-
-#: ../src/fref2.c:4213
-#, fuzzy
-msgid "Delete group?"
-msgstr " Supprimer "
-
-#: ../src/fref2.c:4214
-#, fuzzy
-msgid "Do you really want to delete current entity?"
-msgstr "Désirez-vous vraiment supprimer %s ?"
-
-#: ../src/fref2.c:4368 ../src/fref.c:2316
-msgid "Show info window"
-msgstr "Afficher la fenêtre d'informations"
-
-#: ../src/fref2.c:4376 ../src/fref.c:1472 ../src/fref.c:1816
-#: ../src/fref.c:1843
-msgid "Insert"
-msgstr "Insérer"
-
-#: ../src/fref2.c:4379 ../src/fref2.c:4386
-msgid "Show"
-msgstr ""
-
-#: ../src/fref2.c:4416 ../src/fref2.c:4422
-msgid "Settings"
-msgstr ""
-
-#: ../src/fref2.c:4423 ../src/fref.c:1833
-msgid "Rescan reference files"
-msgstr "Rescanner les fichiers de référence"
-
-#: ../src/fref2.c:4427
-#, fuzzy
-msgid "Set view font"
-msgstr "Sélection de police"
-
-#: ../src/fref2.c:4430
-msgid "Set view colors"
-msgstr ""
-
-#: ../src/fref2.c:4447
-#, fuzzy
-msgid "Delete library"
-msgstr "Supprimer le signet"
-
-#: ../src/fref2.c:4451
-msgid "New entity"
-msgstr ""
-
-#: ../src/fref2.c:4454
-#, fuzzy
-msgid "Note"
-msgstr "Notes"
-
-#: ../src/fref2.c:4457
-msgid "Group"
-msgstr ""
-
-#: ../src/fref2.c:4460
-#, fuzzy
-msgid "Property definition"
-msgstr "Définition de terme"
-
-#: ../src/fref2.c:4463
-#, fuzzy
-msgid "Description definition"
-msgstr "Description"
-
-#: ../src/fref2.c:4466
-#, fuzzy
-msgid "Values definition"
-msgstr "Définition de terme"
-
-#: ../src/fref2.c:4470
-#, fuzzy
-msgid "Element"
-msgstr "Évènements"
-
-#: ../src/fref2.c:4474
-#, fuzzy
-msgid "Delete definition"
-msgstr "Définition de terme"
-
-#: ../src/fref2.c:4477
-#, fuzzy
-msgid "Delete entity"
-msgstr "Supprimer l'entrée du Menu"
+#: ../src/filebrowser2.c:1218
+msgid "/Show backup files"
+msgstr "/Afficher les fichiers de sauvegarde"
 
 #: ../src/fref.c:1467 ../src/gui.c:1123
 msgid "Close"
@@ -1564,9 +1072,18 @@ msgstr "Fermer"
 msgid "Dialog"
 msgstr "Dialogue"
 
+#: ../src/fref.c:1472 ../src/fref.c:1816 ../src/fref.c:1843
+#: ../src/fref2.c:4376
+msgid "Insert"
+msgstr "Insérer"
+
 #: ../src/fref.c:1825 ../src/html.c:1042
 msgid "Options"
 msgstr "Options"
+
+#: ../src/fref.c:1833 ../src/fref2.c:4423
+msgid "Rescan reference files"
+msgstr "Rescanner les fichiers de référence"
 
 #: ../src/fref.c:1837
 msgid "Left doubleclick action"
@@ -1576,6 +1093,20 @@ msgstr "Action du double clic gauche"
 msgid "Info type"
 msgstr "Type d'informations"
 
+#: ../src/fref.c:1864 ../src/fref2.c:1593 ../src/fref2.c:1720
+#: ../src/fref2.c:1863 ../src/fref2.c:3381 ../src/fref2.c:3511
+#: ../src/fref2.c:4387
+msgid "Description"
+msgstr "Description"
+
+#: ../src/fref.c:1869 ../src/fref2.c:1867 ../src/fref2.c:4392
+msgid "Attributes/Parameters"
+msgstr "Attributs/Paramètres"
+
+#: ../src/fref.c:1874 ../src/fref2.c:1871 ../src/fref2.c:4397
+msgid "Notes"
+msgstr "Notes"
+
 #: ../src/fref.c:2050 ../src/fref.c:2064
 msgid "Reference search"
 msgstr "Recherche dans la référence"
@@ -1584,17 +1115,451 @@ msgstr "Recherche dans la référence"
 msgid "Reference not found"
 msgstr "Référence introuvable"
 
+#: ../src/fref.c:2082 ../src/fref2.c:3331 ../src/fref2.c:3407
+#: ../src/fref2.c:3452 ../src/fref2.c:3477
+msgid "Error"
+msgstr "Erreur"
+
 #: ../src/fref.c:2084
 msgid ""
 "Perhaps you didn't load a reference, or you did not select a reference to "
 "search in."
 msgstr ""
-"Peut-être n'avez-vous pas chargé de référence ou bien n'avez vous pas choisi "
-"de référence dans laquelle rechercher."
+"Vous n'avez-vous peut-être pas chargé de référence ou choisi une référence "
+"dans laquelle chercher."
+
+#: ../src/fref.c:2316 ../src/fref2.c:4368
+msgid "Show info window"
+msgstr "Afficher la fenêtre d'informations"
 
 #: ../src/fref.c:2332
 msgid "Search"
 msgstr "Rechercher"
+
+#: ../src/fref2.c:759
+#, c-format
+msgid "Cannot load reference file %s\n"
+msgstr "Impossible de charger le fichier de références %s\n"
+
+#: ../src/fref2.c:764
+#, c-format
+msgid ""
+"Bad root element in reference file %s\n"
+"Should be <ref> or <r> and found %s"
+msgstr ""
+"Élément racine erroné dans le fichier de références %s\n"
+"Doit être <ref> ou <r>, mais on trouve %s"
+
+#: ../src/fref2.c:839
+msgid "Load error"
+msgstr "Erreur lors du chargement"
+
+#: ../src/fref2.c:840
+msgid "Cannot load reference file, perhaps it is not well-formed."
+msgstr ""
+"Impossible de charger le fichier de références, il se peut qu'il ne soit pas "
+"grammaticalement correct."
+
+#: ../src/fref2.c:853
+msgid "Bad root element in reference file"
+msgstr "Élément racine incorrect dans le fichier de références"
+
+#: ../src/fref2.c:854
+msgid ""
+" \n"
+"Should be <ref> or <r> "
+msgstr ""
+" \n"
+"Doit être <ref> ou <r> "
+
+#: ../src/fref2.c:879
+msgid "Bad reference"
+msgstr "Référence erronée"
+
+#: ../src/fref2.c:880
+msgid ""
+"This is probably an old reference file. \n"
+"Please update it to the new format."
+msgstr ""
+"Il s'agit probablement d'un ancien fichier de références.\n"
+"Veuillez le mettre à jour au nouveau format."
+
+#: ../src/fref2.c:892
+msgid "Loading reference"
+msgstr "Chargement de la référence"
+
+#: ../src/fref2.c:991
+msgid "Unloading reference"
+msgstr "Déchargement de la référence"
+
+#: ../src/fref2.c:992
+msgid " Freeing reference memory "
+msgstr " Libération de l'espace occupé en mémoire par la référence "
+
+#: ../src/fref2.c:1512 ../src/fref2.c:3518 ../src/fref2.c:3526
+msgid "Identifier"
+msgstr "Identifiant"
+
+#: ../src/fref2.c:1532 ../src/fref2.c:1682
+msgid "Kind"
+msgstr "Type de code"
+
+#: ../src/fref2.c:1538 ../src/fref2.c:1673 ../src/fref2.c:3511
+#: ../src/preferences.c:1741
+msgid "Name"
+msgstr "Nom"
+
+#: ../src/fref2.c:1549
+msgid "Type"
+msgstr "Type"
+
+#: ../src/fref2.c:1560
+msgid "Default value"
+msgstr "Valeur par défaut"
+
+#: ../src/fref2.c:1571
+msgid "Input type"
+msgstr "Type d'informations"
+
+#: ../src/fref2.c:1589
+msgid "Required"
+msgstr "Obligatoire"
+
+#: ../src/fref2.c:1612
+msgid "Values"
+msgstr "Valeurs"
+
+#: ../src/fref2.c:1642
+msgid "Insert syntax"
+msgstr "Insérer la syntaxe"
+
+#: ../src/fref2.c:1643
+msgid ""
+"All elements:\n"
+"%0,%1,... - value of parameter number 0,1,...%* - values of all parameters\n"
+"Tag element:\n"
+"%_ - only non-empty attributes\n"
+"%! - only required attributes\n"
+"%~ - only non-empty OR required attributes."
+msgstr ""
+"Tout élément :\n"
+"%0,%1,... - valeur du paramètre numéro 0,1,...%* - valeur de tous les "
+"paramètres\n"
+"Élément balise:\n"
+"%_ - uniquement des attributs non vides\n"
+"%! - uniquement des attributs obligatoires\n"
+"%~ - uniquement des attributs non vides ou obligatoires."
+
+#: ../src/fref2.c:1700
+msgid "Insert text"
+msgstr "Insérer du texte"
+
+#: ../src/fref2.c:1705
+msgid " ? "
+msgstr " ? "
+
+#: ../src/fref2.c:1707
+msgid "Help"
+msgstr "Aide"
+
+#: ../src/fref2.c:1737
+msgid "Properties"
+msgstr "Propriétés"
+
+#: ../src/fref2.c:1768
+msgid "Add property"
+msgstr "Ajouter une propriété"
+
+#: ../src/fref2.c:1772
+msgid "Add ref definition"
+msgstr "Ajouter une définition de référence"
+
+#: ../src/fref2.c:1840
+msgid "Select font for reference view"
+msgstr "Choisir la police pour l'affichage des références"
+
+#: ../src/fref2.c:1851
+msgid "Set reference colors"
+msgstr "Choisir les couleurs pour les références"
+
+#: ../src/fref2.c:1875 ../src/fref2.c:4402
+msgid "Examples"
+msgstr "Exemples"
+
+#: ../src/fref2.c:1879 ../src/fref2.c:4407
+msgid "Links"
+msgstr "Liens"
+
+#: ../src/fref2.c:2022
+msgid "TAG: "
+msgstr "Balise : "
+
+#: ../src/fref2.c:2028
+msgid "PARENT TAGS: "
+msgstr "Balises parentes : "
+
+#: ../src/fref2.c:2033
+msgid "FUNCTION: "
+msgstr "Fonction : "
+
+#: ../src/fref2.c:2039
+msgid "RETURNS: "
+msgstr "Renvoie : "
+
+#: ../src/fref2.c:2044 ../src/fref2.c:2055 ../src/fref2.c:2066
+msgid "DEPENDENCIES: "
+msgstr "Dépendances : "
+
+#: ../src/fref2.c:2049
+msgid "PROPERTY: "
+msgstr "Propriété : "
+
+#: ../src/fref2.c:2060
+msgid "SELECTOR: "
+msgstr "Sélecteur : "
+
+#: ../src/fref2.c:2071
+msgid "VAR: "
+msgstr "Variable : "
+
+#: ../src/fref2.c:2077
+msgid "SNIPPET: "
+msgstr "Fragment : "
+
+#: ../src/fref2.c:2089 ../src/fref2.c:2128
+msgid "PARAMS:\n"
+msgstr "Paramètres :\n"
+
+#: ../src/fref2.c:2101
+msgid "ATTRIBUTES:\n"
+msgstr "Attributs :\n"
+
+#: ../src/fref2.c:2149
+msgid ""
+"\n"
+"NOTES:\n"
+msgstr ""
+"\n"
+"Notes :\n"
+
+#: ../src/fref2.c:2172
+msgid ""
+"\n"
+"EXAMPLES:\n"
+msgstr ""
+"\n"
+"Exemples :\n"
+
+#: ../src/fref2.c:2189
+msgid ""
+"SEE ALSO:\n"
+" "
+msgstr ""
+"Voir aussi : \n"
+" "
+
+#: ../src/fref2.c:2729
+msgid "Choose colour"
+msgstr "Choisir une couleur"
+
+#: ../src/fref2.c:3332
+msgid ""
+"Perhaps you didn't load a library, or you did not select a library to search "
+"in."
+msgstr ""
+"Vous n'avez peut-être pas chargé de librairie ou choisi une librairie dans "
+"laquelle rechercher."
+
+#: ../src/fref2.c:3340
+#, c-format
+msgid "Element %s not found"
+msgstr "Élément %s introuvable"
+
+#: ../src/fref2.c:3344
+msgid "Element search"
+msgstr "Recherche d'élément"
+
+#: ../src/fref2.c:3381 ../src/fref2.c:4444
+msgid "New library"
+msgstr "Nouvelle librairie"
+
+#: ../src/fref2.c:3381
+msgid "Library name"
+msgstr "Nom de la librairie"
+
+#: ../src/fref2.c:3408
+msgid "Library has to have a name."
+msgstr "La librairie doit avoir un nom."
+
+#: ../src/fref2.c:3438
+msgid "Delete library?"
+msgstr "Voulez-vous supprimer la librairie ?"
+
+#: ../src/fref2.c:3453
+msgid "You have to select a reference."
+msgstr "Vous devez choisir une référence."
+
+#: ../src/fref2.c:3478
+msgid "Reference not loaded."
+msgstr "Référence non chargée."
+
+#: ../src/fref2.c:3493 ../src/fref2.c:3507 ../src/fref2.c:4007
+#: ../src/fref2.c:4191
+msgid "Bad element"
+msgstr "Élément incorrect"
+
+#: ../src/fref2.c:3494
+msgid "You can define notes for: library, group or element."
+msgstr ""
+"Vous pouvez définir des notes pour une librairie, un groupe ou un élément."
+
+#: ../src/fref2.c:3497
+msgid "New note"
+msgstr "Nouvelle note"
+
+#: ../src/fref2.c:3497
+msgid "Title"
+msgstr "Titre"
+
+#: ../src/fref2.c:3497
+msgid "Text"
+msgstr "Texte"
+
+#: ../src/fref2.c:3508
+msgid "You can define group for: library or group."
+msgstr "Vous pouvez définir un groupe pour une librairie ou un groupe."
+
+#: ../src/fref2.c:3511
+msgid "New group"
+msgstr "Nouveau groupe"
+
+#: ../src/fref2.c:3518
+msgid "New description def"
+msgstr "Nouvelle définition de description"
+
+#: ../src/fref2.c:3518
+msgid "Description text"
+msgstr "Texte de description"
+
+#: ../src/fref2.c:3526
+msgid "New values def"
+msgstr "Nouvelle définition de valeurs"
+
+#: ../src/fref2.c:3526
+msgid "Values separated by comma"
+msgstr "Valeurs séparées par une virgule"
+
+#: ../src/fref2.c:3710 ../src/fref2.c:3940
+msgid "Missing value"
+msgstr "Valeur manquante"
+
+#: ../src/fref2.c:3711 ../src/fref2.c:3941
+msgid "Property has to have a name."
+msgstr "La propriété doit avoir un nom."
+
+#: ../src/fref2.c:3832 ../src/fref2.c:4134
+msgid "Definitions"
+msgstr "Définitions"
+
+#: ../src/fref2.c:3879
+msgid "New property"
+msgstr "Nouvelle propriété"
+
+#: ../src/fref2.c:4008
+msgid "Please select library or group."
+msgstr "Veuillez choisir une librairie ou un groupe."
+
+#: ../src/fref2.c:4011
+msgid "New element"
+msgstr "Nouvel élément"
+
+#: ../src/fref2.c:4104
+msgid "No name"
+msgstr "Sans nom"
+
+#: ../src/fref2.c:4105
+msgid "Element has to have a name."
+msgstr "L'élément doit avoir un nom."
+
+#: ../src/fref2.c:4160
+msgid "Delete definition?"
+msgstr "Voulez-vous supprimer la définition ?"
+
+#: ../src/fref2.c:4192
+msgid "Please use delete library instead."
+msgstr "Veuillez utiliser supprimer la librairie."
+
+#: ../src/fref2.c:4198
+msgid "Delete group"
+msgstr "Supprimer le groupe"
+
+#: ../src/fref2.c:4199
+msgid "Not implemented yet"
+msgstr "Non encore implanté"
+
+#: ../src/fref2.c:4213
+msgid "Delete group?"
+msgstr "Voulez-vous supprimer le groupe ?"
+
+#: ../src/fref2.c:4214
+msgid "Do you really want to delete current entity?"
+msgstr "Voulez-vous vraiment supprimer l'entité active ?"
+
+#: ../src/fref2.c:4379 ../src/fref2.c:4386
+msgid "Show"
+msgstr "Afficher"
+
+#: ../src/fref2.c:4416 ../src/fref2.c:4422
+msgid "Settings"
+msgstr "Préférences"
+
+#: ../src/fref2.c:4427
+msgid "Set view font"
+msgstr "Choisir la police d'affichage"
+
+#: ../src/fref2.c:4430
+msgid "Set view colors"
+msgstr "Choisir les couleurs d'affichage"
+
+#: ../src/fref2.c:4447
+msgid "Delete library"
+msgstr "Supprimer la librairie"
+
+#: ../src/fref2.c:4451
+msgid "New entity"
+msgstr "Nouvelle entité"
+
+#: ../src/fref2.c:4454
+msgid "Note"
+msgstr "Note"
+
+#: ../src/fref2.c:4457
+msgid "Group"
+msgstr "Groupe"
+
+#: ../src/fref2.c:4460
+msgid "Property definition"
+msgstr "Définition de propriété"
+
+#: ../src/fref2.c:4463
+msgid "Description definition"
+msgstr "Définition de description"
+
+#: ../src/fref2.c:4466
+msgid "Values definition"
+msgstr "Définition de valeurs"
+
+#: ../src/fref2.c:4470
+msgid "Element"
+msgstr "Élément"
+
+#: ../src/fref2.c:4474
+msgid "Delete definition"
+msgstr "Supprimer la définition"
+
+#: ../src/fref2.c:4477
+msgid "Delete entity"
+msgstr "Supprimer l'entité"
 
 #: ../src/gtk_easy.c:1161
 #, c-format
@@ -1995,7 +1960,7 @@ msgstr " CSS "
 
 #: ../src/gui.c:1115
 msgid "New"
-msgstr " Nouveau "
+msgstr "Nouveau"
 
 #: ../src/gui.c:1117
 msgid "Open..."
@@ -2029,7 +1994,7 @@ msgstr "Rechercher..."
 msgid "Replace..."
 msgstr "Remplacer..."
 
-#: ../src/gui.c:1138 ../src/preferences.c:1993
+#: ../src/gui.c:1138
 msgid "Undo"
 msgstr "Annuler"
 
@@ -2109,55 +2074,6 @@ msgstr "compilation du second modèle '%s' : %s à la position %d"
 #, c-format
 msgid "studying 2nd pattern '%s': %s"
 msgstr "vérification du second modèle '%s' : %s"
-
-#: ../src/html2.c:557
-msgid "Cascading StyleSheet dialog"
-msgstr "Dialogue des feuilles de style CSS"
-
-#: ../src/html2.c:577
-msgid "_Selector:"
-msgstr "_Sélecteur :"
-
-#: ../src/html2.c:596
-msgid "_Property:"
-msgstr "_Propriété :"
-
-#: ../src/html2.c:598 ../src/html_form.c:650 ../src/html_form.c:799
-#: ../src/html_form.c:894
-msgid "_Value:"
-msgstr "_Valeur :"
-
-#: ../src/html2.c:616
-msgid "Selector"
-msgstr "Sélecteur"
-
-#: ../src/html2.c:616 ../src/html2.c:619
-msgid "Property"
-msgstr "Propriété"
-
-#: ../src/html2.c:616 ../src/html2.c:619
-msgid "Value"
-msgstr "Valeur"
-
-#: ../src/html2.c:634
-msgid " _Add "
-msgstr " _Ajouter "
-
-#: ../src/html2.c:637
-msgid " _Update "
-msgstr " _Mettre à jour "
-
-#: ../src/html2.c:640
-msgid " _Delete "
-msgstr " _Supprimer "
-
-#: ../src/html2.c:896 ../src/html2.c:933
-msgid "_Style..."
-msgstr "_Style..."
-
-#: ../src/html2.c:1090
-msgid "Bluefish: Select color"
-msgstr "Bluefish : Sélection de couleurs"
 
 #: ../src/html.c:392
 msgid "Insert Time"
@@ -2457,7 +2373,7 @@ msgstr "Style :"
 
 #: ../src/html.c:1539 ../src/html_form.c:240
 msgid "Co_ls:"
-msgstr "Col_onnes :"
+msgstr "Colo_nnes :"
 
 #: ../src/html.c:1548
 msgid "_Add <frame> elements"
@@ -2534,7 +2450,56 @@ msgstr "L_angue :"
 
 #: ../src/html.c:1887
 msgid "_Custom:"
-msgstr "_Personnalisé :"
+msgstr "Pers_onnalisé :"
+
+#: ../src/html2.c:557
+msgid "Cascading StyleSheet dialog"
+msgstr "Dialogue des feuilles de style CSS"
+
+#: ../src/html2.c:577
+msgid "_Selector:"
+msgstr "Sé_lecteur :"
+
+#: ../src/html2.c:596
+msgid "_Property:"
+msgstr "_Propriété :"
+
+#: ../src/html2.c:598 ../src/html_form.c:650 ../src/html_form.c:799
+#: ../src/html_form.c:894
+msgid "_Value:"
+msgstr "Vale_ur :"
+
+#: ../src/html2.c:616
+msgid "Selector"
+msgstr "Sélecteur"
+
+#: ../src/html2.c:616 ../src/html2.c:619
+msgid "Property"
+msgstr "Propriété"
+
+#: ../src/html2.c:616 ../src/html2.c:619
+msgid "Value"
+msgstr "Valeur"
+
+#: ../src/html2.c:634
+msgid " _Add "
+msgstr " _Ajouter "
+
+#: ../src/html2.c:637
+msgid " _Update "
+msgstr " _Mettre à jour "
+
+#: ../src/html2.c:640
+msgid " _Delete "
+msgstr " _Supprimer "
+
+#: ../src/html2.c:896 ../src/html2.c:933
+msgid "_Style..."
+msgstr "_Style..."
+
+#: ../src/html2.c:1090
+msgid "Bluefish: Select color"
+msgstr "Bluefish : Sélection de couleurs"
 
 #: ../src/html_form.c:141
 msgid "Form"
@@ -2845,13 +2810,12 @@ msgid "/File/_Quit"
 msgstr "/Fichier/_Quitter"
 
 #: ../src/menu.c:352
-#, fuzzy
 msgid "/File/sep5"
-msgstr "/Fichier/sep1"
+msgstr "/Fichier/sep5"
 
 #: ../src/menu.c:353
 msgid "/File/Run Python Script"
-msgstr ""
+msgstr "/Fichier/Exécuter un script Python"
 
 #: ../src/menu.c:355
 msgid "/_Edit"
@@ -4098,19 +4062,16 @@ msgid "/Document/Word _Count"
 msgstr "/Document/Compter les _mots"
 
 #: ../src/menu.c:702
-#, fuzzy
 msgid "/Document/sep5"
-msgstr "/Document/sep1"
+msgstr "/Document/sep5<h1></h1>"
 
 #: ../src/menu.c:703
-#, fuzzy
 msgid "/Document/Move left"
-msgstr "/Document/Indentation _automatique"
+msgstr "/Document/Déplacer vers la gauche"
 
 #: ../src/menu.c:704
-#, fuzzy
 msgid "/Document/Move right"
-msgstr "/Document/sep1"
+msgstr "/Document/Déplacer vers la droite"
 
 #: ../src/menu.c:705
 msgid "/_Go"
@@ -4229,13 +4190,12 @@ msgid "/Windows"
 msgstr "/Fenêtres"
 
 #: ../src/menu.c:1283
-#, fuzzy
 msgid "Could not view file in browser."
-msgstr "Impossible de trouver le fichier \"%s\"."
+msgstr "Impossible d'afficher le fichier dans le navigateur."
 
 #: ../src/menu.c:1284
 msgid "File has not been saved\n"
-msgstr ""
+msgstr "Le fichier n'a pas été enregistré\n"
 
 #: ../src/menu.c:1419
 msgid "/External/Outputbox/"
@@ -4567,23 +4527,23 @@ msgstr "Afficher tous les résultats"
 
 #: ../src/preferences.c:1962 ../src/preferences.c:1963
 msgid "left"
-msgstr "gauche"
+msgstr "Á gauche"
 
 #: ../src/preferences.c:1962 ../src/preferences.c:1963
 msgid "right"
-msgstr "droite"
+msgstr "Á droite"
 
 #: ../src/preferences.c:1962
 msgid "top"
-msgstr "haut"
+msgstr "En haut"
 
 #: ../src/preferences.c:1962
 msgid "bottom"
-msgstr "bas"
+msgstr "En bas"
 
 #: ../src/preferences.c:1964
 msgid "no check"
-msgstr "Aucune correspondance"
+msgstr "Ne rien vérifier"
 
 #: ../src/preferences.c:1964
 msgid "check mtime and size"
@@ -4632,6 +4592,10 @@ msgstr "Coloration syntaxique par défaut"
 #: ../src/preferences.c:1991
 msgid "Highlight # lines"
 msgstr "Coloration nombre de lignes"
+
+#: ../src/preferences.c:1993
+msgid "Undo options"
+msgstr "Options de l'éditeur"
 
 #: ../src/preferences.c:1998
 msgid "Undo history size"
@@ -4709,7 +4673,7 @@ msgstr ""
 
 #: ../src/preferences.c:2045
 msgid "Backup"
-msgstr "Sauvegarder"
+msgstr "Sauvegarde"
 
 #: ../src/preferences.c:2049
 msgid "Create backup on save"
@@ -4753,7 +4717,7 @@ msgstr "Ouvrir les fichiers dans la fenêtre active de Bluefish"
 
 #: ../src/preferences.c:2068
 msgid "File modified on disk check "
-msgstr "Fichier modifié sur le disque : vérifier"
+msgstr "Vérification de la modification du fichier sur le disque "
 
 #: ../src/preferences.c:2069
 msgid "Number of files in 'Open recent'"
@@ -4762,10 +4726,6 @@ msgstr "Nombre de fichiers dans 'Récemment ouvert'"
 #: ../src/preferences.c:2071
 msgid "File browser"
 msgstr "Navigateur de fichiers"
-
-#: ../src/preferences.c:2075
-msgid "Default basedir"
-msgstr "Répertoire de travail par défaut"
 
 #: ../src/preferences.c:2076
 msgid "Use separate file and directory view"
@@ -4903,142 +4863,130 @@ msgstr "Serveurs distants :"
 msgid "Zope compatibility mode"
 msgstr "Mode compatible Zope"
 
-#: ../src/project.c:92
+#: ../src/project.c:116
 msgid "New project"
 msgstr "Créer un Projet"
 
-#: ../src/project.c:177
+#: ../src/project.c:202
 msgid "Enter Bluefish project filename"
 msgstr "Saisir le nom du projet Bluefish"
 
-#: ../src/project.c:308
+#: ../src/project.c:336
 msgid "Select Bluefish project filename"
 msgstr "Sélectionner le nom de fichier du projet Bluefish"
 
-#: ../src/project.c:363
-#, fuzzy
+#: ../src/project.c:392
 msgid "Save current project?"
-msgstr "Créer un projet vide"
+msgstr "Enregistrer le projet actif ?"
 
-#: ../src/project.c:496
+#: ../src/project.c:525
 msgid "Create New Project"
 msgstr "Créer un projet"
 
-#: ../src/project.c:499
+#: ../src/project.c:528
 msgid "Edit Project"
 msgstr "Éditer le projet"
 
-#: ../src/project.c:522
+#: ../src/project.c:551
 #, c-format
 msgid "This project contains %d files"
 msgstr "Ce projet contient %d fichiers"
 
-#: ../src/project.c:534
+#: ../src/project.c:563
 msgid "Project _Name:"
 msgstr "_Nom du projet :"
 
-#: ../src/project.c:538
+#: ../src/project.c:567
 msgid "_Basedir:"
 msgstr "Répertoire de _base :"
 
-#: ../src/project.c:542
+#: ../src/project.c:571
 msgid "_Preview URL:"
 msgstr "_Prévisualiser l'URL :"
 
-#: ../src/project.c:546
+#: ../src/project.c:575
 msgid "_Template:"
 msgstr "_Modèle :"
 
-#: ../src/project.c:552
+#: ../src/project.c:581
 msgid "_Word wrap by default"
 msgstr "_Césure par défaut"
 
-#: ../src/project.c:563
+#: ../src/project.c:592
 msgid "Create _Project"
 msgstr "Créer un _projet"
 
-#: ../src/project.c:603
+#: ../src/project.c:632
 msgid "Create project"
 msgstr "Créer un projet"
 
-#: ../src/project.c:607
+#: ../src/project.c:636
 msgid "Create project with currently opened documents"
 msgstr "Créer un projet avec les documents ouverts"
 
-#: ../src/project.c:608
+#: ../src/project.c:637
 msgid "Create empty project"
 msgstr "Créer un projet vide"
 
 #: ../src/quickstart.c:471
 msgid "<b>External Style Sheet</b>"
-msgstr ""
+msgstr "<b>Feuille de styles externe</b>"
 
 #: ../src/quickstart.c:481
-#, fuzzy
 msgid "Ty_pe:"
-msgstr "_Type :"
+msgstr "T_ype :"
 
 #: ../src/quickstart.c:499
-#, fuzzy
 msgid "Hre_f:"
 msgstr "_Href :"
 
 #: ../src/quickstart.c:503
-#, fuzzy
 msgid "_Media:"
-msgstr "Media :"
+msgstr "_Media :"
 
 #: ../src/quickstart.c:507
-#, fuzzy
 msgid "Titl_e:"
 msgstr "_Titre :"
 
 #: ../src/quickstart.c:513
-#, fuzzy
 msgid "<b>Style Area</b>"
-msgstr "<b>Général</b>"
+msgstr "<b>Zone de styles</b>"
 
 #: ../src/quickstart.c:517
-#, fuzzy
 msgid "Cre_ate empty style area"
-msgstr "Créer un projet vide"
+msgstr "Créer une _zone de styles vierge"
 
 #: ../src/quickstart.c:539
-#, fuzzy
 msgid "<b>Attributes</b>"
-msgstr "Attributs"
+msgstr "<b>Attributs</b>"
 
 #: ../src/quickstart.c:554
-#, fuzzy
 msgid "_Src:"
 msgstr "_Source :"
 
 #: ../src/quickstart.c:561
 msgid "<b>Script Area</b>"
-msgstr ""
+msgstr "<b>Zone de script</b>"
 
 #: ../src/quickstart.c:565
-#, fuzzy
 msgid "Create _empty script area"
-msgstr "Créer un projet vide"
+msgstr "Créer une zone de script _vierge"
 
 #: ../src/quickstart.c:592
 msgid "Quick Start"
 msgstr "Démarrage rapide"
 
 #: ../src/quickstart.c:606
-#, fuzzy
 msgid "_DTD:"
-msgstr "Utiliser une _DTD :"
+msgstr " _DTD :"
 
 #: ../src/quickstart.c:610 ../src/wizards.c:187
 msgid "_Title:"
 msgstr "_Titre :"
 
 #: ../src/quickstart.c:633
-#, fuzzy
 msgid "_Head:"
-msgstr "_Href :"
+msgstr "_En-tête :"
 
 #: ../src/rcfile.c:493
 msgid "Galeon"
@@ -5151,7 +5099,7 @@ msgstr "Remplacer _par : "
 
 #: ../src/snr2.c:1401
 msgid "\\0 refers to the first subsearch_pattern, \\1 to the second etc."
-msgstr "\\0 se réfère au premier sous-modèle, \\1 au deuxième, etc."
+msgstr "\\0 fait référence au premier sous-modèle, \\1 au deuxième, etc..."
 
 #: ../src/snr2.c:1416
 msgid "Beginning of document till end"
@@ -5175,7 +5123,7 @@ msgstr "Désactivé"
 
 #: ../src/snr2.c:1417
 msgid "POSIX type"
-msgstr "Type POSIX"
+msgstr "De type POSIX"
 
 #: ../src/snr2.c:1417
 msgid "PERL type"
@@ -5215,7 +5163,7 @@ msgstr "Respecter la ca_sse"
 
 #: ../src/snr2.c:1460
 msgid "O_verlap searches"
-msgstr "Recherches en _parallèle"
+msgstr "Recherches en para_llèle"
 
 #: ../src/snr2.c:1462
 msgid "Prompt _before replace"
@@ -5243,11 +5191,11 @@ msgstr " Supprimer "
 
 #: ../src/stringlist.c:372
 msgid " Up "
-msgstr " Précédent"
+msgstr " Précédent "
 
 #: ../src/stringlist.c:374
 msgid " Down "
-msgstr "Suivant"
+msgstr " Suivant "
 
 #: ../src/stringlist.c:376
 msgid " Sort "
@@ -5287,11 +5235,11 @@ msgstr "Orientation :"
 
 #: ../src/wizards.c:197
 msgid "_Horizontal"
-msgstr "_Horizontal"
+msgstr "_Horizontale"
 
 #: ../src/wizards.c:198
 msgid "_Vertical"
-msgstr "_Vertical"
+msgstr "_Verticale"
 
 #: ../src/wizards.c:203
 msgid "Number of _Frames:"
@@ -5312,117 +5260,3 @@ msgstr "Source :"
 #: ../src/wizards.c:224
 msgid "Size:"
 msgstr "Taille :"
-
-#~ msgid "This bookmark is set in a file that no longer exists."
-#~ msgstr "Ce signet concerne un fichier qui n'existe plus."
-
-#~ msgid "Are you sure?"
-#~ msgstr "En êtes-vous sûr(e) ?"
-
-#~ msgid "Could not read file:\n"
-#~ msgstr "Impossible de lire le fichier :\n"
-
-#~ msgid "Opening file "
-#~ msgstr "Ouverture du fichier"
-
-#~ msgid "Saving file"
-#~ msgstr "Enregistrement du fichier"
-
-#~ msgid "Save as..."
-#~ msgstr "Enregistrer sous..."
-
-#~ msgid ""
-#~ "File: %s\n"
-#~ "\n"
-#~ "New modification time: %s\n"
-#~ "Old modification time: %s"
-#~ msgstr ""
-#~ "Le fichier %s\n"
-#~ "\n"
-#~ "Heure de la nouvelle modification : %s\n"
-#~ "Heure de l'ancienne modification : %s"
-
-#~ msgid "File has been modified by another process."
-#~ msgstr "Le fichier a été modifié par un autre processus."
-
-#~ msgid "Saving %s"
-#~ msgstr "Enregistrement de %s"
-
-#~ msgid ""
-#~ "Could not backup file:\n"
-#~ "\""
-#~ msgstr ""
-#~ "Impossible de sauvegarder le fichier :\n"
-#~ "\""
-
-#~ msgid "File save error"
-#~ msgstr "Erreur d'enregistrement de fichier"
-
-#~ msgid "Loading files..."
-#~ msgstr "Chargement des fichiers..."
-
-#~ msgid ""
-#~ "These files could not opened:\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Ces fichiers n'ont pas pu être ouverts :\n"
-#~ "\n"
-
-#~ msgid "Unable to open file(s)\n"
-#~ msgstr "Impossible d'ouvrir le(s) fichier(s)\n"
-
-#~ msgid "searching files..."
-#~ msgstr "Recherche des fichiers..."
-
-#~ msgid "grep {contains} `find {basedir} -name '{file type}'`"
-#~ msgstr "grep {contenu} `find {répertoire} -name '{type de fichier}'`"
-
-#~ msgid "_File Type:"
-#~ msgstr "Type de _fichier :"
-
-#~ msgid "Loading %d file(s)..."
-#~ msgstr "Chargement de %d fichier(s)..."
-
-#~ msgid "No matching files found"
-#~ msgstr "Aucun fichier ne correspond à la demande"
-
-#~ msgid "Select file"
-#~ msgstr "Sélectionner un fichier"
-
-#~ msgid "_Doctype:"
-#~ msgstr "_Doctype :"
-
-#~ msgid "Header tags:"
-#~ msgstr "Balises Head :"
-
-#~ msgid "Loading file(s)..."
-#~ msgstr "Chargement des fichier(s)..."
-
-#~ msgid "The filename was:\n"
-#~ msgstr "Le nom du fichier était :\n"
-
-#~ msgid "Could not open file\n"
-#~ msgstr "Impossible d'ouvrir le fichier\n"
-
-#~ msgid "Could not view file in browser, the file does not yet have a name\n"
-#~ msgstr ""
-#~ "Impossible de visualiser le fichier dans le navigateur, le fichier n'a "
-#~ "pas encore de nom\n"
-
-#~ msgid "These files were not opened:\n"
-#~ msgstr "Ces fichiers n'ont pas été ouverts :\n"
-
-#~ msgid "Show main toolbar by default"
-#~ msgstr "Afficher la barre d'outils principale par défaut"
-
-#~ msgid "Show sidebar by default"
-#~ msgstr "Afficher le panneau latéral par défaut"
-
-#~ msgid "Show custom menu by default"
-#~ msgstr "Afficher le menu personnalisé par défaut"
-
-#~ msgid "Show HTML toolbar by default"
-#~ msgstr "Afficher la barre HTML par défaut"
-
-#~ msgid "Do you want to save the project?"
-#~ msgstr "Voulez-vous enregistrer le projet ?"
