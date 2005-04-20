@@ -101,7 +101,7 @@ uninstall:
 		rm -f $(DESTDIR)$(pkgdatadir)$$file.default ;\
 	done
 	@for file in $(FUNCREFFILES) ; do \
-		rm -f $(DESTDIR)$(pkgdatadir)$$file ;\
+		rm -f $(DESTDIR)$(pkgdatadir)$$file.gz ;\
 	done
 
 clean:
