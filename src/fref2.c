@@ -192,7 +192,7 @@ typedef struct {
 guchar *tmps;
 static void fill_toplevels(Tfref_data * fdata, gboolean empty_first);
 static void frefcb_cursor_changed(GtkTreeView * treeview, Tbfwin * bfwin);
-
+static void fref_search(Tbfwin * bfwin,const gchar *phrase);
 
 /* *********************************************************************
 *****************************     PARSING  *******************************
@@ -3230,12 +3230,158 @@ static void frefcb_row_expanded(GtkTreeView * treeview, GtkTreeIter * arg1, GtkT
 	gtk_tree_view_set_cursor(treeview,arg2,NULL,FALSE);
 }
 
+static GList *fref_get_entry_links(Tfref_record *entry)
+{
+	GList *lst=NULL,*lst2=NULL;
+	
+	if (!entry || !entry->data) return NULL;
+	if (entry->etype!=FREF_EL_TAG &&
+			entry->etype!= FREF_EL_FUNCTION &&
+			entry->etype!=FREF_EL_VAR &&
+			entry->etype!=FREF_EL_CSSPROP &&
+			entry->etype!=FREF_EL_CSSSELECT &&			
+			entry->etype!=FREF_EL_SNIPPET) return NULL;
+
+	lst = g_list_first(FREFELEMENT(entry->data)->properties);
+	while (lst)
+	{
+		if (FREFPROPERTY(lst->data)->ptype == FREF_EL_LINK)
+		 lst2 = g_list_append(lst2,g_strstrip(FREFPROPERTY(lst->data)->description));
+		lst = g_list_next(lst);
+	}
+	return lst2;
+}
+
+/* ----------------------------  INTERNAL LINKS STUFF (from gtk-demo) ----------------------------------------------------*/
+
+static void fref_insert_link (GtkTextBuffer *buffer,GtkTextIter   *iter, gchar  *text, gchar  *page)
+{
+  GtkTextTag *tag;
+  
+  tag = gtk_text_buffer_create_tag (buffer, NULL, 
+				    "foreground", "blue", 
+				    "underline", PANGO_UNDERLINE_SINGLE, 
+				    NULL);
+  g_object_set_data (G_OBJECT (tag), "page", page);
+  gtk_text_buffer_insert_with_tags (buffer, iter, text, -1, tag, NULL);
+}
+
+static void fref_follow_if_link (GtkWidget   *text_view,GtkTextIter *iter,Tbfwin *bfwin)
+{
+  GSList *tags = NULL, *tagp = NULL;
+
+  tags = gtk_text_iter_get_tags (iter);
+  for (tagp = tags;  tagp != NULL;  tagp = tagp->next)
+    {
+      GtkTextTag *tag = tagp->data;
+      gchar *page = g_object_get_data (G_OBJECT (tag), "page");
+
+      if (page != 0)
+        {
+        	  fref_search(bfwin,page);
+			  break;
+        }
+    }
+
+  if (tags) 
+    g_slist_free (tags);
+}
+
+static gboolean fref_link_event (GtkWidget *text_view, GdkEvent  *ev,Tbfwin *bfwin)
+{
+  GtkTextIter start, end, iter;
+  GtkTextBuffer *buffer;
+  GdkEventButton *event;
+  gint x, y;
+
+  if (ev->type != GDK_BUTTON_RELEASE)
+    return FALSE;
+  event = (GdkEventButton *)ev;
+  if (event->button != 1)
+    return FALSE;
+  buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (text_view));
+  gtk_text_buffer_get_selection_bounds (buffer, &start, &end);
+  if (gtk_text_iter_get_offset (&start) != gtk_text_iter_get_offset (&end))
+    return FALSE;
+  gtk_text_view_window_to_buffer_coords (GTK_TEXT_VIEW (text_view), 
+                                         GTK_TEXT_WINDOW_WIDGET,
+                                         event->x, event->y, &x, &y);
+  gtk_text_view_get_iter_at_location (GTK_TEXT_VIEW (text_view), &iter, x, y);
+  fref_follow_if_link (text_view, &iter,bfwin);
+  return FALSE;
+}
+
+gboolean fref_hovering_over_link = FALSE;
+GdkCursor *fref_hand_cursor = NULL;
+GdkCursor *fref_regular_cursor = NULL;
+
+static void fref_set_link_cursor(GtkTextView    *text_view,gint x,gint  y)
+{
+  GSList *tags = NULL, *tagp = NULL;
+  GtkTextBuffer *buffer;
+  GtkTextIter iter;
+  gboolean hovering = FALSE;
+
+  buffer = gtk_text_view_get_buffer (text_view);
+  gtk_text_view_get_iter_at_location (text_view, &iter, x, y);
+    tags = gtk_text_iter_get_tags (&iter);
+  for (tagp = tags;  tagp != NULL;  tagp = tagp->next)
+    {
+      GtkTextTag *tag = tagp->data;
+      gchar  *page = g_object_get_data (G_OBJECT (tag), "page");
+
+      if (page != NULL) 
+        {
+          hovering = TRUE;
+          break;
+        }
+    }
+
+  if (hovering != fref_hovering_over_link)
+    {
+      fref_hovering_over_link = hovering;
+
+      if (fref_hovering_over_link)
+        gdk_window_set_cursor (gtk_text_view_get_window (text_view, GTK_TEXT_WINDOW_TEXT), fref_hand_cursor);
+      else
+        gdk_window_set_cursor (gtk_text_view_get_window (text_view, GTK_TEXT_WINDOW_TEXT), fref_regular_cursor);
+    }
+
+  if (tags) 
+    g_slist_free (tags);
+}
+
+static gboolean fref_link_motion_event (GtkWidget      *text_view,  GdkEventMotion *event)
+{
+  gint x, y;
+  gtk_text_view_window_to_buffer_coords (GTK_TEXT_VIEW (text_view), 
+                                         GTK_TEXT_WINDOW_WIDGET,
+                                         event->x, event->y, &x, &y);
+  fref_set_link_cursor (GTK_TEXT_VIEW (text_view), x, y);
+  gdk_window_get_pointer (text_view->window, NULL, NULL, NULL);
+  return FALSE;
+}
+
+static gboolean fref_link_visibility_event (GtkWidget          *text_view, GdkEventVisibility *event)
+{
+  gint wx, wy, bx, by;
+  gdk_window_get_pointer (text_view->window, &wx, &wy, NULL);
+  gtk_text_view_window_to_buffer_coords (GTK_TEXT_VIEW (text_view), 
+                                         GTK_TEXT_WINDOW_WIDGET,
+                                         wx, wy, &bx, &by);
+  fref_set_link_cursor(GTK_TEXT_VIEW (text_view), bx, by);
+  return FALSE;
+}
+
+/* ----------------------------  END OF INTERNAL LINKS STUFF (from gtk-demo) ----------------------------------------------------*/
+
 static void frefcb_cursor_changed(GtkTreeView * treeview, Tbfwin * bfwin)
 {
  	Tfref_record *entry;
 	gchar *tmpinfo = NULL; 
 	GtkTextIter its,ite;
 	GtkTextBuffer *buff = gtk_text_view_get_buffer(GTK_TEXT_VIEW(FREFGUI(bfwin->fref)->infoview));
+	GList *lst=NULL;
 
 	gtk_text_buffer_get_start_iter(buff,&its);
 	gtk_text_buffer_get_end_iter(buff,&ite);
@@ -3279,12 +3425,29 @@ static void frefcb_cursor_changed(GtkTreeView * treeview, Tbfwin * bfwin)
 				}	
 			}						
 			if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(FREFGUI(bfwin->fref)->m_link))) {
-				tmpinfo = g_strconcat(fref_prepare_info(entry, FR_INFO_LINKS),NULL);
+				lst = fref_get_entry_links(entry);
+				if (lst)
+				{
+					gtk_text_buffer_get_end_iter(buff,&its);
+					tmpinfo=g_strdup("SEE ALSO:\n");
+					gtk_text_buffer_insert_with_tags_by_name(buff,&its,tmpinfo,strlen(tmpinfo),"color_link",NULL);
+					g_free(tmpinfo);
+				}
+				while (lst)
+				{
+					gtk_text_buffer_get_end_iter(buff,&its);
+					tmpinfo=g_strconcat(lst->data,"\n",NULL);
+					fref_insert_link(buff,&its,tmpinfo,lst->data);
+					g_free(tmpinfo);
+					lst=g_list_next(lst);					
+				}
+				g_list_free(lst);
+				/*tmpinfo = g_strconcat(fref_prepare_info(entry, FR_INFO_LINKS),NULL);
 				if ( tmpinfo ) {
 					gtk_text_buffer_get_end_iter(buff,&its);
 					gtk_text_buffer_insert_with_tags_by_name(buff,&its,tmpinfo,strlen(tmpinfo),"color_link",NULL);
 					g_free(tmpinfo);
-				}	
+				}	*/
 			}									
 	} 
 }
@@ -4420,6 +4583,12 @@ GtkWidget *fref_gui(Tbfwin * bfwin)
 	gtk_text_view_set_wrap_mode(GTK_TEXT_VIEW(FREFGUI(bfwin->fref)->infoview),GTK_WRAP_WORD_CHAR);
 	gtk_text_view_set_editable(GTK_TEXT_VIEW(FREFGUI(bfwin->fref)->infoview),FALSE);
 	gtk_text_view_set_cursor_visible(GTK_TEXT_VIEW(FREFGUI(bfwin->fref)->infoview),FALSE);
+	fref_hand_cursor = gdk_cursor_new (GDK_HAND2);
+   fref_regular_cursor = gdk_cursor_new (GDK_XTERM);
+ 	g_signal_connect (FREFGUI(bfwin->fref)->infoview, "event-after",G_CALLBACK (fref_link_event), bfwin);
+   g_signal_connect (FREFGUI(bfwin->fref)->infoview, "motion-notify-event",G_CALLBACK (fref_link_motion_event), NULL);
+   g_signal_connect (FREFGUI(bfwin->fref)->infoview, "visibility-notify-event", G_CALLBACK (fref_link_visibility_event), NULL);
+
 
 	g_signal_connect(G_OBJECT(FREFGUI(bfwin->fref)->tree), "cursor-changed",
 					 G_CALLBACK(frefcb_cursor_changed), bfwin);
