@@ -31,17 +31,14 @@ INSTALL_DIR = $(INSTALL) -d -m 755
 INSTALL_DATA = $(INSTALL) -m 644
 
 DEFAULTFILES = highlighting filetypes encodings custom_menu custom_menu.fr custom_menu.de
-FUNCREFFILES = funcref_html.xml funcref_php.xml funcref_css.xml funcref_python.xml
-# For the new fref2: comment out the above line, go to 
-# http://aragorn.pb.bialystok.pl/~swida/bluefish/ and download and unzip
-# the new bflib_*.xml.{gz|bz2} files and uncomment the next line - adjust the
-# files you want to install
-#FUNCREFFILES = \
+FUNCREFFILES = \
 	bflib_css2.xml \
+	bflib_html.xml \
 	bflib_php.xml \
 	bflib_php5.xml \
 	bflib_php5_examples.xml \
 	bflib_python.xml \
+	bflib_xhtml.xml \
 	bflib_xhtml_strict.xml \
 	bflib_xhtml_transitional.xml
 
@@ -88,13 +85,8 @@ install: all $(INSTALLDATA)
 	done
 	for file in $(FUNCREFFILES) ; do \
 		$(INSTALL_DATA) $$file $(DESTDIR)$(pkgdatadir) ;\
+		gzip $(DESTDIR)$(pkgdatadir)/$$file ;\
 	done
-	# for the new fref2: comment out the 3 above lines and uncomment the
-	# following 4 lines.
-	#for file in $(FUNCREFFILES) ; do \
-	#	$(INSTALL_DATA) $$file $(DESTDIR)$(pkgdatadir) ;\
-	#	gzip $(DESTDIR)$(pkgdatadir)/$$file ;\
-	#done
 
 uninstall:
 	rm -f $(DESTDIR)$(FDMIME)/packages/$(PACKAGE).xml
