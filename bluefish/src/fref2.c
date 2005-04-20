@@ -101,6 +101,7 @@ typedef struct {
 	GHashTable *commons, *elements;
 	GHashTable *proplists;
 	guchar *description;
+	gboolean readonly;
 } Tfref_info;
 #define FREFINFO(var) ((Tfref_info *)(var))
 
@@ -252,6 +253,21 @@ static Tfref_info *fref_refinfo_for_current(Tbfwin *bfwin)
 	g_value_unset(val);
 	g_free(val);	
 	return NULL;
+}
+
+static gboolean fref_ro_for_current(Tbfwin *bfwin)
+{
+	GtkTreePath *path;
+	GtkTreeViewColumn *col;
+	GtkTreeIter auxit;
+	gboolean ro=TRUE;
+
+	gtk_tree_view_get_cursor(GTK_TREE_VIEW(FREFGUI(bfwin->fref)->tree), &path, &col);
+	if (path==NULL) return TRUE;
+	while (gtk_tree_path_get_depth(path) > 1 && gtk_tree_path_up(path));
+	gtk_tree_model_get_iter(GTK_TREE_MODEL(FREFDATA(main_v->frefdata)->store),&auxit,path);
+	gtk_tree_model_get(GTK_TREE_MODEL(FREFDATA(main_v->frefdata)->store),&auxit,VISIBLE_COLUMN, &ro,-1);
+	return ro;
 }
 
 
@@ -596,7 +612,7 @@ static void fref_parse_node(xmlNodePtr node,GtkWidget * tree, GtkTreeStore * sto
 		}
 		gtk_tree_store_append(store, &auxit, parent);
 		gtk_tree_store_set(store, &auxit, PIXMAP_COLUMN,gtk_image_get_pixbuf(GTK_IMAGE(new_pixmap(163))),
-		STR_COLUMN,n->title, FILE_COLUMN, NULL, PTR_COLUMN, el, VISIBLE_COLUMN,TRUE,-1);
+		STR_COLUMN,n->title, FILE_COLUMN, NULL, PTR_COLUMN, el, -1);
 		
 		auxn = node->xmlChildrenNode;
 		
@@ -618,7 +634,7 @@ static void fref_parse_node(xmlNodePtr node,GtkWidget * tree, GtkTreeStore * sto
 			if ( el ) {
 				gtk_tree_store_append(store, &auxit, parent);
 				gtk_tree_store_set(store, &auxit, PIXMAP_COLUMN,gtk_image_get_pixbuf(GTK_IMAGE(new_pixmap(164))),
-				STR_COLUMN,n->title, FILE_COLUMN, NULL, PTR_COLUMN,el,VISIBLE_COLUMN,TRUE, -1);
+				STR_COLUMN,n->title, FILE_COLUMN, NULL, PTR_COLUMN,el, -1);
 			} else {
 				xmlFree(n->title);
 				xmlFree(n->text);
@@ -691,7 +707,7 @@ static void fref_parse_node(xmlNodePtr node,GtkWidget * tree, GtkTreeStore * sto
 							if ( rec ) { 
 								gtk_tree_store_append(store, &auxit, parent);
 								gtk_tree_store_set(store, &auxit, STR_COLUMN,el->name, FILE_COLUMN, NULL, 
-								                               PTR_COLUMN,rec,VISIBLE_COLUMN,TRUE, -1);			
+								                               PTR_COLUMN,rec, -1);			
 								switch (el->etype)
 								{
 									case FREF_EL_FUNCTION:gtk_tree_store_set(store, &auxit, PIXMAP_COLUMN,
@@ -3418,8 +3434,15 @@ static void frefcb_delete_library(GtkWidget * widget, Tbfwin *bfwin)
 	gint retval;	
 	GtkTreePath *path;
 	GtkTreeViewColumn *col;
-
 	
+	
+	if (fref_ro_for_current(bfwin))
+	{
+		message_dialog_new(bfwin->main_window, GTK_MESSAGE_ERROR, GTK_BUTTONS_CLOSE, 
+																 _("Error"), 
+																 _("This library is readonly."));
+		return;														 
+	}	
 	gtk_tree_view_get_cursor(GTK_TREE_VIEW(FREFGUI(bfwin->fref)->tree), &path, &col);
 	if (path != NULL) {
 		GValue *val;
@@ -3466,6 +3489,15 @@ static void frefcb_new_td(GtkWidget * widget, Tbfwin *bfwin, gint type, gboolean
 	GtkWidget *dialog=NULL;
 	GtkWidget *e1,*e2;
 	GtkTreeIter iter,auxit;
+
+	if (fref_ro_for_current(bfwin))
+	{
+		message_dialog_new(bfwin->main_window, GTK_MESSAGE_ERROR, GTK_BUTTONS_CLOSE, 
+																 _("Error"), 
+																 _("This library is readonly."));
+		return;														 
+	}	
+
 		
 	gtk_tree_view_get_cursor(GTK_TREE_VIEW(FREFGUI(bfwin->fref)->tree), &path, &col);
 	if (path == NULL) return;
@@ -3567,7 +3599,7 @@ static void frefcb_new_td(GtkWidget * widget, Tbfwin *bfwin, gint type, gboolean
 						gtk_tree_store_append(GTK_TREE_STORE(FREFDATA(main_v->frefdata)->store), &auxit, &iter);				
 						gtk_tree_store_set(GTK_TREE_STORE(FREFDATA(main_v->frefdata)->store), &auxit, 
 						PIXMAP_COLUMN,gtk_image_get_pixbuf(GTK_IMAGE(new_pixmap(164))),
-						STR_COLUMN,note->title, FILE_COLUMN, NULL, PTR_COLUMN,rec,VISIBLE_COLUMN,TRUE, -1);	
+						STR_COLUMN,note->title, FILE_COLUMN, NULL, PTR_COLUMN,rec, -1);	
 					}
 					else /* note for element */
 					{
@@ -3600,7 +3632,7 @@ static void frefcb_new_td(GtkWidget * widget, Tbfwin *bfwin, gint type, gboolean
 				
 					gtk_tree_store_set(GTK_TREE_STORE(FREFDATA(main_v->frefdata)->store), &auxit, 
 					PIXMAP_COLUMN,gtk_image_get_pixbuf(GTK_IMAGE(new_pixmap(163))),
-					STR_COLUMN,note->title, FILE_COLUMN, NULL, PTR_COLUMN,rec, VISIBLE_COLUMN,TRUE,-1);	
+					STR_COLUMN,note->title, FILE_COLUMN, NULL, PTR_COLUMN,rec, -1);	
 				break;	
 				case FREF_EL_DESCR:
 					if (inf)
@@ -3645,6 +3677,13 @@ static void frefcb_new_re_prop(GtkWidget * widget, Tbfwin *bfwin) {
 	Tfref_info *inf;
 	Tfref_propdialog_data *data;
 	
+	if (fref_ro_for_current(bfwin))
+	{
+		message_dialog_new(bfwin->main_window, GTK_MESSAGE_ERROR, GTK_BUTTONS_CLOSE, 
+																 _("Error"), 
+																 _("This library is readonly."));
+		return;														 
+	}	
 
 	data = g_new0(Tfref_propdialog_data,1);
 	dlg = fref_editor_propdialog("New property def",data,TRUE);
@@ -3996,6 +4035,15 @@ static void frefcb_new_element(GtkWidget * widget, Tbfwin *bfwin)
 	GtkTreeIter iter,auxit;
 	GtkTreePath *path;
 	Tfref_record *rec=NULL;
+
+	if (fref_ro_for_current(bfwin))
+	{
+		message_dialog_new(bfwin->main_window, GTK_MESSAGE_ERROR, GTK_BUTTONS_CLOSE, 
+																 _("Error"), 
+																 _("This library is readonly."));
+		return;														 
+	}	
+
 	
 	 rec = get_current_entry(bfwin);		
 	 if ( !rec ) return;
@@ -4078,7 +4126,7 @@ static void frefcb_new_element(GtkWidget * widget, Tbfwin *bfwin)
 				gtk_tree_model_get_iter(GTK_TREE_MODEL(FREFDATA(main_v->frefdata)->store),&iter, path);			
 				gtk_tree_store_append(GTK_TREE_STORE(FREFDATA(main_v->frefdata)->store), &auxit, &iter);				
 				gtk_tree_store_set(GTK_TREE_STORE(FREFDATA(main_v->frefdata)->store), &auxit, 
-					STR_COLUMN,el->name, FILE_COLUMN, NULL, PTR_COLUMN,rec,VISIBLE_COLUMN,TRUE, -1);	
+					STR_COLUMN,el->name, FILE_COLUMN, NULL, PTR_COLUMN,rec, -1);	
 				switch (el->etype)
 				{
 					case FREF_EL_FUNCTION:gtk_tree_store_set(GTK_TREE_STORE(FREFDATA(main_v->frefdata)->store), &auxit, PIXMAP_COLUMN,
@@ -4128,6 +4176,15 @@ static void frefcb_del_reusable(GtkWidget * widget, Tbfwin *bfwin)
 	GtkTreeIter it2;
 	GtkTreePath *path=NULL;
 	
+
+	if (fref_ro_for_current(bfwin))
+	{
+		message_dialog_new(bfwin->main_window, GTK_MESSAGE_ERROR, GTK_BUTTONS_CLOSE, 
+																 _("Error"), 
+																 _("This library is readonly."));
+		return;														 
+	}	
+
 	
 	if ( !inf ) return;
 	
@@ -4180,6 +4237,15 @@ static void frefcb_del_entity(GtkWidget * widget, Tbfwin *bfwin)
 	gint retval;
 	GtkTreePath *path;
 	GtkTreeIter it;
+
+	if (fref_ro_for_current(bfwin))
+	{
+		message_dialog_new(bfwin->main_window, GTK_MESSAGE_ERROR, GTK_BUTTONS_CLOSE, 
+																 _("Error"), 
+																 _("This library is readonly."));
+		return;														 
+	}	
+
 	
 	if (!rec) return;
 	switch (rec->etype)
@@ -4233,6 +4299,7 @@ static void fill_toplevels(Tfref_data * fdata, gboolean empty_first)
 {
 	GList *reflist;
 	gint *cnt;
+	FILE *auxf;
 
 	if (empty_first) {
 		gtk_tree_store_clear(fdata->store);
@@ -4245,9 +4312,21 @@ static void fill_toplevels(Tfref_data * fdata, gboolean empty_first)
 				GtkTreeIter iter;
 				GtkTreeIter iter2;
 				gtk_tree_store_append(fdata->store, &iter, NULL);
-				gtk_tree_store_set(fdata->store, &iter,PIXMAP_COLUMN,gtk_image_get_pixbuf(GTK_IMAGE(new_pixmap(162))),
+				auxf = fopen(tmparray[1],"a");
+				if ( auxf!=NULL )
+				{
+					gtk_tree_store_set(fdata->store, &iter,PIXMAP_COLUMN,gtk_image_get_pixbuf(GTK_IMAGE(new_pixmap(162))),
+				               STR_COLUMN, tmparray[0], PTR_COLUMN, 0,
+								   FILE_COLUMN, tmparray[1], VISIBLE_COLUMN,FALSE,-1);
+					fclose(auxf);				   			   
+				}				   
+				else
+				{
+					gtk_tree_store_set(fdata->store, &iter,PIXMAP_COLUMN,gtk_image_get_pixbuf(GTK_IMAGE(new_pixmap(170))),
 				               STR_COLUMN, tmparray[0], PTR_COLUMN, 0,
 								   FILE_COLUMN, tmparray[1], VISIBLE_COLUMN,TRUE,-1);
+				}				   
+				
 				cnt = g_new0(gint, 1);
 				*cnt = 0;
 				g_hash_table_replace(fdata->refcount, g_strdup(tmparray[0]), cnt);
@@ -4308,11 +4387,6 @@ GtkWidget *fref_gui(Tbfwin * bfwin)
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(FREFGUI(bfwin->fref)->infoscroll),
 								   GTK_POLICY_NEVER, GTK_POLICY_AUTOMATIC);
 
-/*	if ( gtk_tree_model_get_iter_first(GTK_TREE_MODEL(fdata->store),&it) )
-		path = gtk_tree_model_get_path (GTK_TREE_MODEL(fdata->store),&it);
-		
-	FREFGUI(bfwin->fref)->view_filter = GTK_TREE_MODEL_FILTER(gtk_tree_model_filter_new(GTK_TREE_MODEL(fdata->store),path));
-	gtk_tree_model_filter_set_visible_column(FREFGUI(bfwin->fref)->view_filter,VISIBLE_COLUMN);	*/
 
 	FREFGUI(bfwin->fref)->tree = gtk_tree_view_new_with_model(GTK_TREE_MODEL(fdata->store));
 	gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(FREFGUI(bfwin->fref)->tree), FALSE);
