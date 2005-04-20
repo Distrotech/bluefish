@@ -141,6 +141,7 @@ static Tpixmap tp[] = {
 	{160, pixmap_frhide},
 	{161, pixmap_frdialog2},
 	{162, pixmap_frlibrary},
+	{170, pixmap_frlibrary_ro},	
 	{163, pixmap_frgroup},
 	{164, pixmap_frnote},
 	{165, pixmap_frfunction},

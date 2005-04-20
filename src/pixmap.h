@@ -64,6 +64,7 @@ extern const guint8 pixmap_frhide[];
 extern const guint8 pixmap_frinfo[];
 extern const guint8 pixmap_frsearch[];
 extern const guint8 pixmap_frlibrary[];
+extern const guint8 pixmap_frlibrary_ro[];
 extern const guint8 pixmap_frgroup[];
 extern const guint8 pixmap_frnote[];
 extern const guint8 pixmap_frfunction[];
