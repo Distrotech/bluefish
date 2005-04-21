@@ -3066,6 +3066,28 @@ static void fref_insert_lcb(GtkButton * button, Tbfwin * bfwin) {
 }
 
 
+gboolean  fref_keypressed(GtkWidget *widget,GdkEventKey *event,gpointer user_data)
+{
+	GtkTextBuffer *buffer;
+	GtkTextIter it1,it2,it3;
+	
+	if (event->keyval == GDK_F1 && user_data!=NULL)
+	{
+		buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(BFWIN(user_data)->current_document->view));
+		gtk_text_buffer_get_iter_at_mark(buffer,&it1,gtk_text_buffer_get_insert(buffer));
+		it2=it1; it3=it1;
+		if (gtk_text_iter_inside_word(&it1) )
+		{
+			gtk_text_iter_backward_word_start(&it2);
+			gtk_text_iter_forward_word_end(&it3);
+			fref_search(BFWIN(user_data),gtk_text_buffer_get_text(buffer,&it2,&it3,FALSE));
+			gtk_widget_grab_focus(BFWIN(user_data)->current_document->view);									
+		}		
+		
+	}
+	return FALSE;
+}
+
 
 static gboolean frefcb_event_mouseclick(GtkWidget * widget, GdkEventButton * event, Tbfwin * bfwin);
 
@@ -4749,6 +4771,9 @@ GtkWidget *fref_gui(Tbfwin * bfwin)
 
 	if (!gtk_tree_model_iter_nth_child(GTK_TREE_MODEL(fdata->store), &it, NULL, 0))
 		fill_toplevels(fdata, FALSE);
+		
+	g_signal_connect(G_OBJECT(bfwin->main_window),"key-press-event",G_CALLBACK(fref_keypressed),bfwin);	
+		
 	return pane;
 }
 
