@@ -195,12 +195,13 @@ static void savefile_asyncwrite_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSResult r
 
 static void savefile_asyncopenuri_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSResult result,gpointer data) {
 	Tsavefile *sf = data;
-	DEBUG_MSG("savefile_asyncopenuri_lcb, called with result=%d\n",result);
 	if (result == GNOME_VFS_OK) {
+		DEBUG_MSG("savefile_asyncopenuri_lcb, called with GNOME_VFS_OK (%d)\n",result);
 		sf->callback_func(SAVEFILE_CHANNEL_OPENED, result, sf->callback_data);
 		gnome_vfs_async_write(handle,sf->buffer->data,sf->buffer_size,savefile_asyncwrite_lcb, sf);
 	} else {
 		/* error! */
+		DEBUG_MSG("savefile_asyncopenuri_lcb, called with some error (%d=%s)!!! calling NOCHANNEL and aborting\n",result,gnome_vfs_result_to_string(result));
 		sf->callback_func(SAVEFILE_ERROR_NOCHANNEL, result, sf->callback_data);
 		savefile_cleanup(sf);
 	}
@@ -215,7 +216,9 @@ Tsavefile *file_savefile_uri_async(GnomeVFSURI *uri, Trefcpointer *buffer, Gnome
 	sf->buffer = buffer;
 	refcpointer_ref(buffer);
 	sf->buffer_size = buffer_size;
-	gnome_vfs_async_create_uri(&sf->handle,uri,GNOME_VFS_OPEN_WRITE, FALSE,0644,GNOME_VFS_PRIORITY_DEFAULT
+	/* BUG: we should first try to open the existing file, and only if that failes with a 'not exists'
+	we should create a new file */
+	gnome_vfs_async_create_uri(&sf->	handle,uri,GNOME_VFS_OPEN_WRITE, FALSE,0644,GNOME_VFS_PRIORITY_DEFAULT
 				,savefile_asyncopenuri_lcb,sf);
 	return sf;
 }
