@@ -4352,6 +4352,26 @@ static gboolean remove_me(gpointer key,gpointer value,gpointer user_data)
 	return FALSE;
 }
 
+static gboolean check_me(gpointer key,gpointer element,gpointer rec)
+{
+	Tfref_record *rr = FREFRECORD(element);
+	if (	rr->etype != FREF_EL_FUNCTION &&
+			rr->etype != FREF_EL_TAG &&
+			rr->etype != FREF_EL_VAR &&
+			rr->etype != FREF_EL_CSSPROP &&
+			rr->etype != FREF_EL_CSSSELECT &&
+			rr->etype != FREF_EL_SNIPPET
+	   ) return FALSE;
+	GList *lst = g_list_first(FREFELEMENT(rr->data)->properties);
+	if (lst==NULL) return FALSE;
+	while (lst)
+	{
+		if (lst->data == FREFRECORD(rec)->data) return TRUE;
+		lst = g_list_next(lst);
+	}
+	return FALSE;
+}
+
 static void frefcb_del_reusable(GtkWidget * widget, Tbfwin *bfwin) 
 {
 	Tfref_info *inf = fref_refinfo_for_current(bfwin);
@@ -4360,6 +4380,7 @@ static void frefcb_del_reusable(GtkWidget * widget, Tbfwin *bfwin)
 	Tfref_reudata *rd;
 	GtkTreeIter it2;
 	GtkTreePath *path=NULL;
+	gboolean used;
 	
 
 	if (fref_ro_for_current(bfwin))
@@ -4392,7 +4413,11 @@ static void frefcb_del_reusable(GtkWidget * widget, Tbfwin *bfwin)
 			gtk_tree_model_get_iter(GTK_TREE_MODEL(store),&it2,path);	
 			gtk_tree_model_get(GTK_TREE_MODEL(store),&it2,0, &rec,-1);
 			gtk_tree_model_get(GTK_TREE_MODEL(store),&it2,1, &nm,-1);
-			if (rec)
+			/* check if property is used */
+			used = FALSE;
+			if ( g_hash_table_find(inf->elements,check_me,rec) != NULL ) used = TRUE;
+			   
+			if (rec && !used)
 			{
 				const gchar *buttons[] = { GTK_STOCK_NO, GTK_STOCK_YES, NULL };					
 				gchar *pstr = g_strdup_printf(_("Do you really want to delete %s?"), nm);
@@ -4410,6 +4435,13 @@ static void frefcb_del_reusable(GtkWidget * widget, Tbfwin *bfwin)
 					frefcb_cursor_changed(GTK_TREE_VIEW(FREFGUI(bfwin->fref)->tree), bfwin);
 				}
 			}
+			else
+			{
+					message_dialog_new(bfwin->main_window, GTK_MESSAGE_ERROR, GTK_BUTTONS_CLOSE, 
+																 _("Error"), 
+																 _("This property is used by some elements. Cannot delete."));
+			
+			}
 		}	
 	}
 	gtk_widget_destroy(winfo);		
@@ -4422,6 +4454,7 @@ static void frefcb_del_entity(GtkWidget * widget, Tbfwin *bfwin)
 	gint retval;
 	GtkTreePath *path;
 	GtkTreeIter it;
+	Tfref_info *inf = fref_refinfo_for_current(bfwin);
 
 	if (fref_ro_for_current(bfwin))
 	{
@@ -4469,6 +4502,7 @@ static void frefcb_del_entity(GtkWidget * widget, Tbfwin *bfwin)
 				while (gtk_tree_path_get_depth(path) > 1 && gtk_tree_path_up(path));
 				gtk_tree_store_remove(GTK_TREE_STORE(FREFDATA(main_v->frefdata)->store),&it); 
 				gtk_tree_view_set_cursor(GTK_TREE_VIEW(FREFGUI(bfwin->fref)->tree), path, NULL,FALSE);
+				g_hash_table_remove(inf->elements,FREFELEMENT(rec->data)->name);
 				fref_free_record(NULL,rec,bfwin);
 				fref_save_ref(bfwin);					
 				frefcb_cursor_changed(GTK_TREE_VIEW(FREFGUI(bfwin->fref)->tree), bfwin);	
