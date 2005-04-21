@@ -33,12 +33,12 @@ INSTALL_DATA = $(INSTALL) -m 644
 DEFAULTFILES = highlighting filetypes encodings custom_menu custom_menu.fr custom_menu.de
 FUNCREFFILES = \
 	bflib_css2.xml \
-	bflib_html.xml \
-	bflib_php.xml \
+	bflib_html_4.01.xml \
+	bflib_php4.xml \
 	bflib_php5.xml \
-	bflib_php5_examples.xml \
-	bflib_python.xml \
-	bflib_xhtml.xml \
+	bflib_php5_with_examples.xml \
+	bflib_python_2.3.xml \
+	bflib_xhtml_strict_test.xml \
 	bflib_xhtml_strict.xml \
 	bflib_xhtml_transitional.xml
 
