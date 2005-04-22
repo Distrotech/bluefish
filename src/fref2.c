@@ -1998,7 +1998,12 @@ static void info_common(gpointer key,gpointer value,gpointer data)
 					*ret = g_strconcat(*ret," | default=",FREFPROPERTY(rec->data)->def,NULL);
 					g_free(tofree);
 				}
-				
+				if (FREFPROPERTY(rec->data)->description)
+				{
+					tofree = *ret;
+					*ret = g_strconcat(*ret,"\n ",FREFPROPERTY(rec->data)->description,NULL);
+					g_free(tofree);				
+				}
 			break;	
 		}	   
 	}	
@@ -3291,6 +3296,7 @@ static void fref_insert_link (GtkTextBuffer *buffer,GtkTextIter   *iter, gchar  
 static void fref_follow_if_link (GtkWidget   *text_view,GtkTextIter *iter,Tbfwin *bfwin)
 {
   GSList *tags = NULL, *tagp = NULL;
+  gchar *command;
 
   tags = gtk_text_iter_get_tags (iter);
   for (tagp = tags;  tagp != NULL;  tagp = tagp->next)
@@ -3300,7 +3306,19 @@ static void fref_follow_if_link (GtkWidget   *text_view,GtkTextIter *iter,Tbfwin
 
       if (page != 0)
         {
-        	  fref_search(bfwin,page);
+           if (g_str_has_prefix(page,"http://"))
+           {
+					GList *tmplist = g_list_first(main_v->props.browsers);
+					if (tmplist && tmplist->data) {
+						gchar **arr = tmplist->data;
+						command = g_strdup_printf(arr[1],page);
+						system(command);
+						g_free(command);
+					}           
+           } else
+           {
+        	  		fref_search(bfwin,page);
+        	  }	
 			  break;
         }
     }
@@ -3464,12 +3482,6 @@ static void frefcb_cursor_changed(GtkTreeView * treeview, Tbfwin * bfwin)
 					lst=g_list_next(lst);					
 				}
 				g_list_free(lst);
-				/*tmpinfo = g_strconcat(fref_prepare_info(entry, FR_INFO_LINKS),NULL);
-				if ( tmpinfo ) {
-					gtk_text_buffer_get_end_iter(buff,&its);
-					gtk_text_buffer_insert_with_tags_by_name(buff,&its,tmpinfo,strlen(tmpinfo),"color_link",NULL);
-					g_free(tmpinfo);
-				}	*/
 			}									
 	} 
 }
@@ -3834,6 +3846,13 @@ static void frefcb_new_td(GtkWidget * widget, Tbfwin *bfwin, gint type, gboolean
 			frefcb_cursor_changed(GTK_TREE_VIEW(FREFGUI(bfwin->fref)->tree), bfwin);
 			/*gtk_tree_view_expand_row(GTK_TREE_VIEW(FREFGUI(bfwin->fref)->tree),path,FALSE);*/
 		}		
+		else {
+					message_dialog_new(bfwin->main_window, 
+ 								 GTK_MESSAGE_ERROR, 
+ 								 GTK_BUTTONS_CLOSE, 
+								 _("Error"), 
+								_("Element has to have a name."));
+		}
 	}		
 	gtk_widget_destroy(dialog);
 }
