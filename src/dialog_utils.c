@@ -22,7 +22,6 @@
 
 #include <gtk/gtk.h>
 
-#include "bluefish.h"
 #include "dialog_utils.h"
 
 
@@ -40,15 +39,23 @@ dialog_mnemonic_label_in_table(const gchar *labeltext,
 	gtk_label_set_mnemonic_widget (GTK_LABEL(label), m_widget);
 }
 
-GtkWidget *
-dialog_vbox_labeled(const gchar *labeltext, GtkWidget *box)
+static GtkWidget *
+dialog_vbox_label_new(const gchar *labeltext, gfloat xalign, gfloat yalign, GtkWidget *box)
 {
-	GtkWidget *label, *alignment, *vbox;
-
+	GtkWidget *label;
+	
 	label = gtk_label_new (NULL);
-	gtk_label_set_markup (GTK_LABEL (label), labeltext);
-	gtk_misc_set_alignment (GTK_MISC (label), 0, 0);	
+	gtk_label_set_markup_with_mnemonic (GTK_LABEL (label), labeltext);
+	gtk_misc_set_alignment (GTK_MISC (label), xalign, yalign);
 	gtk_box_pack_start (GTK_BOX (box), label, FALSE, FALSE, 0);
+	
+	return label;
+}
+
+static GtkWidget *
+dialog_vbox_new(GtkWidget *box)
+{
+	GtkWidget *alignment, *vbox;
 	
 	alignment = gtk_alignment_new (0, 0, 1, 1);
 	gtk_alignment_set_padding (GTK_ALIGNMENT (alignment), 0, 0, 12, 6);
@@ -57,6 +64,31 @@ dialog_vbox_labeled(const gchar *labeltext, GtkWidget *box)
 	gtk_container_add (GTK_CONTAINER (alignment), vbox);
 	
 	return vbox;
+}
+
+GtkWidget *
+dialog_vbox_labeled(const gchar *labeltext, GtkWidget *box)
+{
+	GtkWidget *label;
+
+	label = dialog_vbox_label_new(labeltext, 0, 0, box);
+		
+	return dialog_vbox_new(box);
+}
+
+GtkWidget *
+dialog_vbox_labeled_checkbutton(const gchar *labeltext, GtkWidget *checkbutton, GtkWidget *box)
+{
+	GtkWidget *label, *hbox;
+
+	hbox = gtk_hbox_new (FALSE, 2);
+	gtk_box_pack_start (GTK_BOX (hbox), checkbutton, FALSE, FALSE, 0);
+	
+	label = dialog_vbox_label_new(labeltext, 0, 0.5, hbox);
+	gtk_label_set_mnemonic_widget (GTK_LABEL (label), checkbutton);
+	gtk_box_pack_start (GTK_BOX (box), hbox, FALSE, FALSE, 0);
+			
+	return dialog_vbox_new(box);
 }
 
 static GtkWidget *
@@ -97,6 +129,9 @@ dialog_table_in_vbox_defaults(gint rows, gint cols, gint borderWidth, GtkWidget 
 	return table;
 }
 
+/*****************************************************************************/
+/* Message Dialog Functions																  */
+/*****************************************************************************/
 static gchar *
 message_dialog_set_text(const gchar *primaryText, const gchar *secondaryText)
 {
