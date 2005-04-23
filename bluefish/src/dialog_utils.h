@@ -27,6 +27,7 @@ void dialog_mnemonic_label_in_table(const gchar *labeltext,
 												guint left_attach, guint right_attach, guint top_attach, guint bottom_attach);
 												
 GtkWidget * dialog_vbox_labeled(const gchar *labeltext, GtkWidget *box);
+GtkWidget * dialog_vbox_labeled_checkbutton(const gchar *labeltext, GtkWidget *checkbutton, GtkWidget *box);
 
 GtkWidget * dialog_table_in_vbox(gint rows, gint cols, 
 											gint borderWidth, 

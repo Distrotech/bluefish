@@ -32,7 +32,7 @@
  * new dialog resizes better then the old one.
  */
  
-#define DEBUG
+/*#define DEBUG*/
 
 #include <gtk/gtk.h>
 #include <string.h>
@@ -60,6 +60,7 @@ typedef struct {
 	GtkWidget *headView;
 	GtkWidget *metaView;
 	GtkWidget *notebook;
+	GtkWidget *extstyle;
 	GtkWidget *stylelinktype;
 	GtkWidget *stylehref;
 	GtkWidget *stylemedia;
@@ -111,31 +112,46 @@ quickstart_head_selection_changed(GtkTreeSelection *tselection, TQuickStart *qst
 }
 
 static void
-quickstart_stylelinktype_changed(GtkComboBox *combobox, TQuickStart *qstart)
+quickstart_extstyle_set_widget_sensitive (TQuickStart *qstart)
 {
-	GtkTreeIter iter;
-	GtkTreeModel *model;
-	gchar *type;
-
-	gtk_combo_box_get_active_iter (GTK_COMBO_BOX (qstart->stylelinktype), &iter);
-	model = gtk_combo_box_get_model (GTK_COMBO_BOX (qstart->stylelinktype));
-	gtk_tree_model_get (model, &iter, 0, &type, -1);
+	if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (qstart->extstyle))) {
+		GtkTreeIter iter;
+		GtkTreeModel *model;
+		gchar *type;
+		
+		gtk_widget_set_sensitive (qstart->stylelinktype, TRUE);
+		gtk_widget_set_sensitive (qstart->stylehref, TRUE);
+		gtk_widget_set_sensitive (qstart->stylemedia, TRUE);
+		
+		gtk_combo_box_get_active_iter (GTK_COMBO_BOX (qstart->stylelinktype), &iter);
+		model = gtk_combo_box_get_model (GTK_COMBO_BOX (qstart->stylelinktype));
+		gtk_tree_model_get (model, &iter, 0, &type, -1);
 	
-	if (strcmp(type, "") == 0) {
+		if (strcmp(type, "Linked") == 0) {
+			gtk_widget_set_sensitive (qstart->styletitle, TRUE);
+		} else {
+			gtk_widget_set_sensitive (qstart->styletitle, FALSE);
+		}
+	
+		g_free (type);
+	} else {
+		gtk_widget_set_sensitive (qstart->stylelinktype, FALSE);
 		gtk_widget_set_sensitive (qstart->stylehref, FALSE);
 		gtk_widget_set_sensitive (qstart->stylemedia, FALSE);
-	} else {
-		gtk_widget_set_sensitive (qstart->stylehref, TRUE);
-		gtk_widget_set_sensitive (qstart->stylemedia, TRUE);	
-	}
-	
-	if (strcmp(type, "Linked") == 0) {
-		gtk_widget_set_sensitive (qstart->styletitle, TRUE);
-	} else {
 		gtk_widget_set_sensitive (qstart->styletitle, FALSE);
 	}
-	
-	g_free (type);
+}
+
+static void
+quickstart_extstyle_toggled(GtkToggleButton *togglebutton, TQuickStart *qstart)
+{
+	quickstart_extstyle_set_widget_sensitive (qstart);
+}
+
+static void
+quickstart_stylelinktype_changed(GtkComboBox *combobox, TQuickStart *qstart)
+{
+	quickstart_extstyle_set_widget_sensitive (qstart);
 }
 
 static void
@@ -175,7 +191,6 @@ quickstart_load_metatags(GtkListStore *lstore)
 		gtk_list_store_append (lstore, &iter);
 		gtk_list_store_set (lstore, &iter, 0, metaTags[i], -1);
 	}	
-	
 }
 
 static void
@@ -294,13 +309,13 @@ quickstart_response_lcb(GtkDialog *dialog, gint response, TQuickStart *qstart)
 			} while (gtk_tree_model_iter_next (model, &iter));
 		}
 		
-		stylestr = g_string_new ("");
-		gtk_combo_box_get_active_iter (GTK_COMBO_BOX (qstart->stylelinktype), &iter);
-		model = gtk_combo_box_get_model (GTK_COMBO_BOX (qstart->stylelinktype));
-		gtk_tree_model_get (model, &iter, 0, &name, -1);
-		
-		if (strcmp(name, "") != 0) {
+		stylestr = g_string_new ("");		
+		if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (qstart->extstyle))) {
 			gchar *stylehref, *stylemedia, *styletitle;
+			
+			gtk_combo_box_get_active_iter (GTK_COMBO_BOX (qstart->stylelinktype), &iter);
+			model = gtk_combo_box_get_model (GTK_COMBO_BOX (qstart->stylelinktype));
+			gtk_tree_model_get (model, &iter, 0, &name, -1);
 			
 			stylehref = gtk_editable_get_chars (GTK_EDITABLE (GTK_BIN (qstart->stylehref)->child), 0, -1);
 			qstart->bfwin->session->urllist = add_to_stringlist(qstart->bfwin->session->urllist, stylehref);
@@ -336,8 +351,8 @@ quickstart_response_lcb(GtkDialog *dialog, gint response, TQuickStart *qstart)
 			g_free (stylehref);
 			g_free (stylemedia);
 			g_free (styletitle);
+			g_free (name);
 		}
-		g_free (name);
 		
 		if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (qstart->stylearea))) {
 			stylearea = g_strdup ("<style>\n\n</style>\n");
@@ -457,7 +472,6 @@ quickstart_style_page_create(TQuickStart *qstart)
 	unsigned int i = 0;
 
 	const gchar *type[] = {
-		"",
 		"Linked",
 		"Imported",
 	};
@@ -468,7 +482,9 @@ quickstart_style_page_create(TQuickStart *qstart)
 	gtk_container_set_border_width (GTK_CONTAINER (vbox), 6);
 	gtk_container_add (GTK_CONTAINER (frame), vbox);
 
-	vbox2 = dialog_vbox_labeled(_("<b>External Style Sheet</b>"), vbox);	
+	qstart->extstyle = gtk_check_button_new ();
+	g_signal_connect (G_OBJECT (qstart->extstyle), "toggled", G_CALLBACK (quickstart_extstyle_toggled), qstart);
+	vbox2 = dialog_vbox_labeled_checkbutton(_("<b>E_xternal Style Sheet</b>"), qstart->extstyle, vbox);
 	
 	hbox = gtk_hbox_new (FALSE, 12);
 	gtk_box_pack_start (GTK_BOX (vbox2), hbox, FALSE, FALSE, 0);
