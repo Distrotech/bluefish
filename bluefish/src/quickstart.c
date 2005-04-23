@@ -578,7 +578,7 @@ quickstart_script_page_create(TQuickStart *qstart)
 	
 	hbox = gtk_hbox_new (FALSE, 12);
 	gtk_box_pack_start (GTK_BOX (vbox2), hbox, FALSE, FALSE, 0);
-	qstart->scriptarea = gtk_check_button_new_with_mnemonic (_("Create _empty script area"));
+	qstart->scriptarea = gtk_check_button_new_with_mnemonic (_("Cre_ate empty script area"));
 	gtk_box_pack_start (GTK_BOX (hbox), qstart->scriptarea, FALSE, FALSE, 0);	
 
 	return frame;
