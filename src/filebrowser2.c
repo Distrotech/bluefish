@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-#define DEBUG
+/* #define DEBUG */
 
 /* ******* FILEBROWSER DESIGN ********
 there is only one treestore left for all bluefish windows. This treestore has all files 
@@ -1813,12 +1813,11 @@ GtkWidget *fb2_init(Tbfwin *bfwin) {
 		gtk_box_pack_start(GTK_BOX(vbox), scrolwin, TRUE, TRUE, 0);
 	}
 
-	fb2_update_settings_from_session(bfwin); /* call this *after* we have created the widgets */
-
-	fb2->expand_signal = g_signal_connect(G_OBJECT(fb2->dir_v), "row-expanded", G_CALLBACK(dir_v_row_expanded_lcb), fb2);
 	g_signal_connect(G_OBJECT(fb2->dir_v), "row-activated",G_CALLBACK(dir_v_row_activated_lcb),fb2);
 	g_signal_connect(G_OBJECT(fb2->dir_v), "button_press_event",G_CALLBACK(dir_v_button_press_lcb),fb2);
+	fb2->expand_signal = g_signal_connect(G_OBJECT(fb2->dir_v), "row-expanded", G_CALLBACK(dir_v_row_expanded_lcb), fb2);
 
+	fb2_update_settings_from_session(bfwin); /* call this *after* we have created the widgets */
 	gtk_widget_show_all(vbox);	
 	{
 		GnomeVFSURI *uri = NULL;
