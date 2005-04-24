@@ -909,16 +909,16 @@ Tmultientrywidget *build_multi_entry_window(gchar *title,GCallback ok_func
 /*    If this code doesn't work, blame Christian <chris@tellefsen.net>    */
 
 /* Emit a delete-event to the appropriate dialog, to detect a user bailing through escape. */
-static gboolean dialog_key_press_event_lcb(GtkWidget *widget,GdkEventKey *event,GtkWidget *dialog) {
+/*static gboolean dialog_key_press_event_lcb(GtkWidget *widget,GdkEventKey *event,GtkWidget *dialog) {
 	DEBUG_MSG("dialog_key_press_event_lcb, started, widget is %p and dialog is %p\n", widget, dialog);
 	if (event->keyval == GDK_Escape) {
-		DEBUG_MSG("dialog_key_press_event_lcb, emit delete_event on %p\n", dialog);
+		DEBUG_MSG("dialog_key_press_event_lcb, emit delete_event on %p\n", dialog);*/
 		/* g_signal_emit_by_name(G_OBJECT(dialog), "delete_event"); */
-		gtk_widget_destroy(dialog);
+/*		gtk_widget_destroy(dialog);
 		return TRUE;
 	}
 	return FALSE;
-}
+}*/
 
 /* This function is called from single_button_dialog_backend() and multiple_button_dialog_backend()
  * The dialog passed is made HIG-compliant.
@@ -985,35 +985,35 @@ static void hig_dialog_backend (GtkDialog *dialog, gchar *primary, gchar *second
  *
  * Return value: #gint the index num of the button label which was clicked	so 0 for the first, 1 for the 2nd etc.
  */
-gint multi_button_dialog_backend(GtkWidget *win, gchar *primary, gchar *secondary, gchar *icon, gint defval, gint cancelval, gchar **buttons) {
+/*gint multi_button_dialog_backend(GtkWidget *win, gchar *primary, gchar *secondary, gchar *icon, gint defval, gint cancelval, gchar **buttons) {
 	GtkWidget *dialog;
 	int i, retval;
 
-	dialog = gtk_dialog_new_with_buttons (NULL, /* Note that no title is being set. */
-												GTK_WINDOW(win),
+	dialog = gtk_dialog_new_with_buttons (NULL,*/ /* Note that no title is being set. */
+/*												GTK_WINDOW(win),
 												GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
 												*buttons, 0,
 												NULL);
-	DEBUG_MSG ("multi_button_dialog_backend: dialog=%p, primary=%s\n", dialog, primary);
+	DEBUG_MSG ("multi_button_dialog_backend: dialog=%p, primary=%s\n", dialog, primary);*/
 	/* Add buttons. The index must be correct! */
-	for (i = 1; *++buttons; i++) { /* Walk through the button-list until one reaches NULL. */
-		DEBUG_MSG ("multi_button_dialog_backend: Adding button '%s', ID=%d\n", *buttons, i);
+/*	for (i = 1; *++buttons; i++) {*/ /* Walk through the button-list until one reaches NULL. */
+/*		DEBUG_MSG ("multi_button_dialog_backend: Adding button '%s', ID=%d\n", *buttons, i);
 		gtk_dialog_add_button (GTK_DIALOG (dialog), *buttons, i);
 	}
 
-	gtk_dialog_set_default_response (GTK_DIALOG (dialog), defval); /* enter-default*/
-	if(cancelval != -1)/* enable escape ? */
-		g_signal_connect(G_OBJECT(dialog), "key_press_event",
-				G_CALLBACK(dialog_key_press_event_lcb), dialog); /* kill when escape is hit */
+	gtk_dialog_set_default_response (GTK_DIALOG (dialog), defval);*/ /* enter-default*/
+/*	if(cancelval != -1)*//* enable escape ? */
+/*		g_signal_connect(G_OBJECT(dialog), "key_press_event",
+				G_CALLBACK(dialog_key_press_event_lcb), dialog);*/ /* kill when escape is hit */
 
-	hig_dialog_backend (GTK_DIALOG (dialog), primary, secondary, icon);
+/*	hig_dialog_backend (GTK_DIALOG (dialog), primary, secondary, icon);
 	gtk_widget_show_all (dialog);
 	retval = gtk_dialog_run (GTK_DIALOG (dialog));
 	gtk_widget_destroy (dialog);
 
 	DEBUG_MSG("multi_button_dialog_backend: got %d\n", retval);	
-	return (retval == GTK_RESPONSE_DELETE_EVENT) ? cancelval : retval; /* When user hits escape -- give cancelval. */
-} 
+	return (retval == GTK_RESPONSE_DELETE_EVENT) ? cancelval : retval;*/ /* When user hits escape -- give cancelval. */
+/*}*/
 
 /**
  * single_button_dialog_backend:
@@ -1023,10 +1023,10 @@ gint multi_button_dialog_backend(GtkWidget *win, gchar *primary, gchar *secondar
  * 
  * Create and display a single-button message-dialog - HiG-style.
  **/
-void single_button_dialog_backend(GtkWidget *win,gchar * primary, gchar * secondary, gchar * icon) {
+/*void single_button_dialog_backend(GtkWidget *win,gchar * primary, gchar * secondary, gchar * icon) {
 	gchar *buttons[] = {GTK_STOCK_OK, NULL};
 	multi_button_dialog_backend(win,primary, secondary, icon, 0, 0, buttons);
-}
+}*/
 
 /**
  * error_dialog:
@@ -1037,9 +1037,9 @@ void single_button_dialog_backend(GtkWidget *win,gchar * primary, gchar * second
  *
  * Return value: void
  */
-void error_dialog(GtkWidget *win,gchar * primary, gchar * secondary) {
+/*void error_dialog(GtkWidget *win,gchar * primary, gchar * secondary) {
 	single_button_dialog_backend(win,primary, secondary, GTK_STOCK_DIALOG_ERROR);
-}
+}*/
 
 /**
  * info_dialog:
@@ -1050,9 +1050,9 @@ void error_dialog(GtkWidget *win,gchar * primary, gchar * secondary) {
  *
  * Return value: void
  */
-void info_dialog(GtkWidget *win,gchar * primary, gchar * secondary) {
+/*void info_dialog(GtkWidget *win,gchar * primary, gchar * secondary) {
 	single_button_dialog_backend(win,primary, secondary, GTK_STOCK_DIALOG_INFO);
-}
+}*/
 
 /**
  * warning_dialog:
@@ -1063,9 +1063,9 @@ void info_dialog(GtkWidget *win,gchar * primary, gchar * secondary) {
  *
  * Return value: void
  */
-void warning_dialog(GtkWidget *win,gchar * primary, gchar * secondary) {
+/*void warning_dialog(GtkWidget *win,gchar * primary, gchar * secondary) {
 	single_button_dialog_backend(win,primary, secondary, GTK_STOCK_DIALOG_WARNING);
-}
+}*/
 
 /* multi_button_dialog and multi_stockbutton_dialog was here */
 
@@ -1081,9 +1081,9 @@ void warning_dialog(GtkWidget *win,gchar * primary, gchar * secondary) {
  *
  * Return value: #gint the index num of the button label which was clicked	so 0 for the first, 1 for the 2nd etc.
  */
-gint multi_error_dialog(GtkWidget *win,gchar *primary, gchar *secondary, gint defval, gint cancelval, gchar **buttons) {
+/*gint multi_error_dialog(GtkWidget *win,gchar *primary, gchar *secondary, gint defval, gint cancelval, gchar **buttons) {
 	return multi_button_dialog_backend(win,primary, secondary, GTK_STOCK_DIALOG_ERROR, defval, cancelval, buttons);
-}
+}*/
 
 /**
  * multi_warning_dialog:
@@ -1097,9 +1097,9 @@ gint multi_error_dialog(GtkWidget *win,gchar *primary, gchar *secondary, gint de
  *
  * Return value: #gint the index num of the button label which was clicked	so 0 for the first, 1 for the 2nd etc.
  */
-gint multi_warning_dialog(GtkWidget *win,gchar *primary, gchar *secondary, gint defval, gint cancelval, gchar **buttons) {
+/*gint multi_warning_dialog(GtkWidget *win,gchar *primary, gchar *secondary, gint defval, gint cancelval, gchar **buttons) {
 	return multi_button_dialog_backend(win,primary, secondary, GTK_STOCK_DIALOG_WARNING, defval, cancelval, buttons);
-}
+}*/
  
 /**
  * multi_error_dialog:
@@ -1113,9 +1113,9 @@ gint multi_warning_dialog(GtkWidget *win,gchar *primary, gchar *secondary, gint 
  *
  * Return value: #gint the index num of the button label which was clicked	so 0 for the first, 1 for the 2nd etc.
  */
-gint multi_query_dialog(GtkWidget *win,gchar *primary, gchar *secondary, gint defval, gint cancelval, gchar **buttons) {
+/*gint multi_query_dialog(GtkWidget *win,gchar *primary, gchar *secondary, gint defval, gint cancelval, gchar **buttons) {
 	return multi_button_dialog_backend(win,primary, secondary, GTK_STOCK_DIALOG_QUESTION, defval, cancelval, buttons);
-}
+}*/
 
 /************************************************************************/
 /*********************** PROGRESS-BAR FUNCTIONS *************************/
