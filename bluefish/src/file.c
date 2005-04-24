@@ -155,6 +155,7 @@ Tcheckmodified * file_checkmodified_uri_async(GnomeVFSURI *uri, GnomeVFSFileInfo
 static void savefile_cleanup(Tsavefile *sf) {
 	DEBUG_MSG("savefile_cleanup, called for %p\n",sf);
 	refcpointer_unref(sf->buffer);
+	gnome_vfs_uri_unref(sf->uri);
 	g_free(sf);
 }
 
@@ -178,7 +179,7 @@ static void savefile_asyncclose_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSResult r
 
 static void savefile_asyncwrite_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSResult result,gconstpointer buffer,GnomeVFSFileSize bytes_requested,GnomeVFSFileSize bytes_written,gpointer data) {
 	Tsavefile *sf = data;
-	DEBUG_MSG("savefile_asyncwrite_lcb, called with result=%d, %"GNOME_VFS_SIZE_FORMAT_STR" bytes written\n",result,bytes_written);
+	DEBUG_MSG("savefile_asyncwrite_lcb, called with result=%d (%s), %"GNOME_VFS_SIZE_FORMAT_STR" bytes written\n",result,gnome_vfs_result_to_string(result),bytes_written);
 	if (result == GNOME_VFS_OK) {
 #ifdef DEBUG
 		if (sf->buffer_size != bytes_written || bytes_written != bytes_requested) {
@@ -193,8 +194,9 @@ static void savefile_asyncwrite_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSResult r
 	}
 }
 
-static void savefile_asyncopenuri_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSResult result,gpointer data) {
+static void savefile_asynccreateuri_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSResult result,gpointer data) {
 	Tsavefile *sf = data;
+	DEBUG_MSG("savefile_asynccreateuri_lcb, called with result=%d (%s)\n",result,gnome_vfs_result_to_string(result));
 	if (result == GNOME_VFS_OK) {
 		DEBUG_MSG("savefile_asyncopenuri_lcb, called with GNOME_VFS_OK (%d)\n",result);
 		sf->callback_func(SAVEFILE_CHANNEL_OPENED, result, sf->callback_data);
@@ -207,6 +209,17 @@ static void savefile_asyncopenuri_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSResult
 	}
 }
 
+static void savefile_asyncopenuri_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSResult result,gpointer data) {
+	DEBUG_MSG("savefile_asyncopenuri_lcb, result=%d (%s)\n",result,gnome_vfs_result_to_string(result));
+	if (result == GNOME_VFS_ERROR_NOT_FOUND) {
+		Tsavefile *sf = data;
+		gnome_vfs_async_create_uri(&sf->handle,sf->uri,GNOME_VFS_OPEN_WRITE, FALSE,0644,GNOME_VFS_PRIORITY_DEFAULT
+					,savefile_asynccreateuri_lcb,sf);
+	} else {
+		savefile_asynccreateuri_lcb(handle, result, data);
+	}
+}
+
 Tsavefile *file_savefile_uri_async(GnomeVFSURI *uri, Trefcpointer *buffer, GnomeVFSFileSize buffer_size, SavefileAsyncCallback callback_func, gpointer callback_data) {
 	Tsavefile *sf;
 	sf = g_new(Tsavefile,1);
@@ -214,11 +227,11 @@ Tsavefile *file_savefile_uri_async(GnomeVFSURI *uri, Trefcpointer *buffer, Gnome
 	sf->callback_data = callback_data;
 	sf->callback_func = callback_func;
 	sf->buffer = buffer;
+	gnome_vfs_uri_ref(uri);
+	sf->uri = uri;
 	refcpointer_ref(buffer);
 	sf->buffer_size = buffer_size;
-	/* BUG: we should first try to open the existing file, and only if that failes with a 'not exists'
-	we should create a new file */
-	gnome_vfs_async_create_uri(&sf->	handle,uri,GNOME_VFS_OPEN_WRITE, FALSE,0644,GNOME_VFS_PRIORITY_DEFAULT
+	gnome_vfs_async_open_uri(&sf->handle,uri,GNOME_VFS_OPEN_WRITE,GNOME_VFS_PRIORITY_DEFAULT
 				,savefile_asyncopenuri_lcb,sf);
 	return sf;
 }
@@ -476,7 +489,7 @@ static void openfile_asyncread_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSResult re
 		of->callback_func(OPENFILE_FINISHED,result,of->buffer,of->used_size, of->callback_data);
 		gnome_vfs_async_close(handle,openfile_asyncclose_lcb,of);
 	} else {
-		DEBUG_MSG("openfile_asyncread_lcb, error?? result=%d\n",result);
+		DEBUG_MSG("openfile_asyncread_lcb, error?? result=%d (%s)\n",result,gnome_vfs_result_to_string(result));
 		/* should we call close, or the cleanup function now? */
 	}
 }

@@ -59,6 +59,7 @@ typedef struct {
 	GnomeVFSAsyncHandle *handle;
 	GnomeVFSFileSize buffer_size;
 	Trefcpointer *buffer;
+	GnomeVFSURI *uri;
 	SavefileAsyncCallback callback_func;
 	gpointer callback_data;
 } Tsavefile;
