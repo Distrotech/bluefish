@@ -268,6 +268,7 @@ static void menu_html_dialogs_lcb(Tbfwin *bfwin,guint callback_action, GtkWidget
 	break;
 	case 36:
 		new_css_dialog(NULL,bfwin);
+	break;
 	case 37:
 		sel_colour_cb(NULL,bfwin);	
 	break;
