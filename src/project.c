@@ -100,7 +100,7 @@ static void update_project_filelist(Tbfwin *bfwin, Tproject *prj) {
 
 static void setup_bfwin_for_project(Tbfwin *bfwin) {
 	bfwin->session = bfwin->project->session;
-	bfwin->bookmarkstore = bfwin->project->bookmarkstore;
+	bfwin->bmarkdata = bfwin->project->bmarkdata;
 	bmark_set_store(bfwin);
 	bmark_reload(bfwin);
 	/*filebrowser_set_basedir(bfwin, bfwin->project->basedir);*/
@@ -114,8 +114,8 @@ static Tproject *create_new_project(Tbfwin *bfwin) {
 	Tproject *prj;
 	prj = g_new0(Tproject,1);
 	prj->name = g_strdup(_("New project"));
-	prj->bookmarkstore = gtk_tree_store_new(2, G_TYPE_STRING, G_TYPE_POINTER); 
-	DEBUG_MSG("create_new_project, project=%p, bookmarkstore=%p, bfwin=%p\n",prj,prj->bookmarkstore,bfwin);
+	prj->bmarkdata = bookmark_data_new(); 
+	DEBUG_MSG("create_new_project, project=%p, bfwin=%p\n",prj,bfwin);
 	if (bfwin) {
 		DEBUG_MSG("create_new_project, new project for bfwin %p\n",bfwin);
 		update_project_filelist(bfwin,prj);
@@ -268,11 +268,11 @@ void project_open_from_file(Tbfwin *bfwin, gchar *fromfilename) {
 	prj->session = g_new0(Tsessionvars,1);
 	DEBUG_MSG("project_open_from_file, project=%p, session=%p\n",prj,prj->session);
 	project_setup_initial_session(prj->session, TRUE);
-	prj->bookmarkstore = gtk_tree_store_new(2, G_TYPE_STRING, G_TYPE_POINTER); 
+	prj->bmarkdata = bookmark_data_new();
 	retval = rcfile_parse_project(prj, fromfilename);
 	if (!retval) {
 		DEBUG_MSG("project_open_from_file, failed parsing the project at file %s\n",fromfilename);
-		g_object_unref(prj->bookmarkstore);
+		bookmark_data_cleanup(prj->bmarkdata);
 		g_free(prj->session);
 		g_free(prj);
 		return;
@@ -289,7 +289,7 @@ void project_open_from_file(Tbfwin *bfwin, gchar *fromfilename) {
 		/* free_session(bfwin->session); there is no session specific to a window anymore, only a global one*/
 		bfwin->session = prj->session;
 		prwin->project = prj;
-		prwin->bookmarkstore = prj->bookmarkstore;
+		prwin->bmarkdata = prj->bmarkdata;
 		
 		gui_set_html_toolbar_visible(prwin, prj->session->view_html_toolbar, TRUE);
 		gui_set_main_toolbar_visible(prwin, prj->session->view_main_toolbar, TRUE);
@@ -339,7 +339,7 @@ static void project_open(Tbfwin *bfwin) {
 }
 
 static void project_destroy(Tproject *project) {
-	g_object_unref(G_OBJECT(project->bookmarkstore));
+	bookmark_data_cleanup(project->bmarkdata);
 	free_stringlist(project->files);
 	free_session(project->session);
 	g_free(project->filename);
@@ -353,7 +353,7 @@ static void project_destroy(Tproject *project) {
 static void setup_bfwin_for_nonproject(Tbfwin *bfwin) {
 /*	gchar * newbasedir = g_strdup (g_get_home_dir());*/
 	bfwin->session = main_v->session;
-	bfwin->bookmarkstore = main_v->bookmarkstore;
+	bfwin->bmarkdata = main_v->bmarkdata;
 	bfwin->project = NULL;
 	bmark_set_store(bfwin);
 	/* normally there is always a current_document, but this function might be called in the transition

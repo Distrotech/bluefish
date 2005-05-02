@@ -22,7 +22,8 @@
 
 void bmark_store_all(Tbfwin *bfwin);
 GtkWidget *bmark_gui(Tbfwin *bfwin); /* used in gui.c to build the bookmark panel */
-void bmark_init(void); /* only used once from bluefish.c */
+gpointer bookmark_data_new(void); /* only used once from bluefish.c */
+void bookmark_data_cleanup();
 void bmark_reload(Tbfwin *bfwin);
 void bmark_set_store(Tbfwin *bfwin);
 void bmark_clean_for_doc(Tdocument *doc); /* set bookmark's doc to NULL when closing file */ 
