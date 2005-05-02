@@ -94,9 +94,12 @@ typedef struct {
 } Tbmarkdata;
 #define BMARKDATA(var) ((Tbmarkdata *)(var))
 
-#define BM_FMODE_FULL     0
-#define BM_FMODE_HOME     1
-#define BM_FMODE_FILE     2
+enum {
+	BM_FMODE_FULL,
+	BM_FMODE_HOME, /* not implemented, defaults to full */
+	BM_FMODE_FILE,
+	BM_FMODE_PATH
+};
 
 static void gnome_vfs_uri_hash_destroy(gpointer data) {
 	gnome_vfs_uri_unref((GnomeVFSURI *)data);
@@ -331,25 +334,11 @@ static gpointer get_current_bmark(Tbfwin * bfwin)
 	}
 	return NULL;
 }
-/*
-void bmark_name_entry_changed(GtkEntry * entry, GtkDialog * dialog)
-{
-	const gchar *string;
-
-	string = gtk_entry_get_text(GTK_ENTRY(entry));
-	if (strlen(string) <= 0)
-		gtk_dialog_set_response_sensitive(GTK_DIALOG(dialog), GTK_RESPONSE_OK, FALSE);
-	else
-		gtk_dialog_set_response_sensitive(GTK_DIALOG(dialog), GTK_RESPONSE_OK, TRUE);
-}*/
 
 void bmark_add_rename_dialog(Tbfwin * bfwin, gchar * dialogtitle)
 {
 	GtkWidget *dlg, *name, *desc, *button, *table, *istemp;
 	gint result;
-/*	GtkTextMark *im;
-	gchar *pstr;
-	GtkTextIter it, sit, eit;*/
 	Tbmark *m = get_current_bmark(bfwin);
 	if (!m) return;
 
@@ -359,7 +348,7 @@ void bmark_add_rename_dialog(Tbfwin * bfwin, gchar * dialogtitle)
 	button = gtk_button_new_from_stock(GTK_STOCK_OK);
 	GTK_WIDGET_SET_FLAGS(button, GTK_CAN_DEFAULT);
 	gtk_dialog_add_action_widget(GTK_DIALOG(dlg), button, GTK_RESPONSE_OK);
-/*	gtk_widget_set_sensitive(GTK_WIDGET(button), FALSE);*/
+
 	table = gtk_table_new(2, 3, FALSE);
 	gtk_table_set_col_spacings(GTK_TABLE(table), 12);
 	gtk_table_set_row_spacings(GTK_TABLE(table), 6);
@@ -369,7 +358,7 @@ void bmark_add_rename_dialog(Tbfwin * bfwin, gchar * dialogtitle)
 	gtk_entry_set_activates_default(GTK_ENTRY(name), TRUE);
 	bf_mnemonic_label_tad_with_alignment(_("_Name:"), name, 0, 0.5, table, 0, 1, 0, 1);
 	gtk_table_attach_defaults(GTK_TABLE(table), name, 1, 2, 0, 1);
-/*	g_signal_connect(G_OBJECT(name), "changed", G_CALLBACK(bmark_name_entry_changed), dlg);*/
+
 	desc = entry_with_text(m->description, 200);
 	gtk_entry_set_activates_default(GTK_ENTRY(desc), TRUE);
 	bf_mnemonic_label_tad_with_alignment(_("_Description:"), desc, 0, 0.5, table, 0, 1, 1, 2);
@@ -384,74 +373,27 @@ void bmark_add_rename_dialog(Tbfwin * bfwin, gchar * dialogtitle)
 
 	if (result == GTK_RESPONSE_OK) {
 		gchar *tmpstr;
-		/* check if name exists */
-/*		if (bmark_name_exists
-			(DOCUMENT(bfwin->current_document), gtk_entry_get_text(GTK_ENTRY(name)))) {
-			pstr =
-				g_strdup_printf(_("You already have a bookmark named %s!"),
-								gtk_entry_get_text(GTK_ENTRY(name)));
-			if (dialogtype == BMARK_ADD_PERM_DIALOG) {
-				info_dialog(bfwin->main_window, dialogtitle, pstr);
-			} else {
-				info_dialog(bfwin->main_window, dialogtitle, pstr);
+		g_free(m->name);
+		m->name = g_strdup(gtk_entry_get_text(GTK_ENTRY(name)));
+		g_free(m->description);
+		m->description = g_strdup(gtk_entry_get_text(GTK_ENTRY(desc)));
+		m->is_temp = GTK_TOGGLE_BUTTON(istemp)->active;
+		if (m->name && strlen(m->name) > 0) {
+			tmpstr = g_strconcat(m->name, " - ", m->text,NULL);
+		} else {
+			tmpstr = g_strdup(m->text);
+		}
+		gtk_tree_store_set(BMARKDATA(bfwin->bmarkdata)->bookmarkstore, &m->iter, NAME_COLUMN,
+						   tmpstr,-1);
+		g_free(tmpstr);
+		if (m->is_temp) {
+			if (m->strarr) {
+				/* hmm previously this was not a temporary bookmark */
+				bmark_unstore(bfwin, m);
 			}
-			g_free(pstr);
-			gtk_widget_destroy(dlg);
-			bmark_add_rename_dialog(bfwin, dialogtitle, dialogtype);
-			return;
-		} else */
-/*		if (dialogtype == BMARK_ADD_PERM_DIALOG) {
-			m = g_new0(Tbmark, 1);
-			m->doc = DOCUMENT(bfwin->current_document);
-			if (!m->doc)
-				return;
-			im = gtk_text_buffer_get_insert(m->doc->buffer);
-			gtk_text_buffer_get_iter_at_mark(m->doc->buffer, &it, im);
-			m->mark =
-				gtk_text_buffer_create_mark(m->doc->buffer,
-											g_strdup(gtk_entry_get_text(GTK_ENTRY(name))), &it,
-											TRUE);
-			m->filepath = g_strdup(m->doc->uri);
-			m->is_temp = FALSE;
-			m->name = g_strdup(gtk_entry_get_text(GTK_ENTRY(name)));
-			m->description = g_strdup(gtk_entry_get_text(GTK_ENTRY(desc)));
-			sit = eit = it;
-			gtk_text_iter_forward_to_line_end(&eit);
-			gtk_text_iter_forward_chars(&sit, 10);
-			if (!gtk_text_iter_in_range(&sit, &it, &eit))
-				sit = eit;
-			m->text = g_strdup(gtk_text_iter_get_slice(&it, &sit));
-
-			bmark_get_iter_at_tree_position(bfwin, m);
-			gtk_tree_store_set(BMARKDATA(bfwin->bmarkdata)->bookmarkstore, &m->iter, NAME_COLUMN,
-							   g_strdup_printf("[%s] --> %s", gtk_entry_get_text(GTK_ENTRY(name)),
-											   m->text), PTR_COLUMN, m, -1);
-			gtk_tree_view_expand_all(bfwin->bmark);
-			gtk_widget_grab_focus(bfwin->current_document->view);
+		} else {
 			bmark_store(bfwin, m);
-		} else {*/
-			g_free(m->name);
-			m->name = g_strdup(gtk_entry_get_text(GTK_ENTRY(name)));
-			g_free(m->description);
-			m->description = g_strdup(gtk_entry_get_text(GTK_ENTRY(desc)));
-			m->is_temp = GTK_TOGGLE_BUTTON(istemp)->active;
-			if (m->name && strlen(m->name) > 0) {
-				tmpstr = g_strconcat(m->name, " - ", m->text,NULL);
-			} else {
-				tmpstr = g_strdup(m->text);
-			}
-			gtk_tree_store_set(BMARKDATA(bfwin->bmarkdata)->bookmarkstore, &m->iter, NAME_COLUMN,
-							   tmpstr,-1);
-			g_free(tmpstr);
-			if (m->is_temp) {
-				if (m->strarr) {
-					/* hmm previously this was not a temporary bookmark */
-					bmark_unstore(bfwin, m);
-				}
-			} else {
-				bmark_store(bfwin, m);
-			}
-	/*	} */
+		}
 	}
 	gtk_widget_destroy(dlg);
 }
@@ -495,40 +437,16 @@ static void bmark_check_remove(Tbfwin *bfwin,Tbmark *b) {
 				if (b->doc) b->doc->bmark_parent = NULL;
 			}
 		}
-	} else {
+	}
+#ifdef DEVELOPMENT	
+	 else {
 		gchar *name;
 		gtk_tree_model_get(GTK_TREE_MODEL(BMARKDATA(bfwin->bmarkdata)->bookmarkstore), &b->iter, NAME_COLUMN,&name, -1);
 		g_print("bmark_check_remove, very weird, bookmark %s for %s does not have a parent ?????\n",name,gnome_vfs_uri_get_path(b->filepath));
 		g_free(name);
 		exit(123);
 	}
-
-/*	according to the gtk documentation this function is slow and should be used
-	only for testing purposes
-	if ( gtk_tree_store_iter_is_valid(BMARKDATA(bfwin->bmarkdata)->bookmarkstore, &(b->iter)) )*/
-/*	DEBUG_MSG("bmark_check_remove, removing bookmark %p from treestore\n",b);
-	gtk_tree_store_remove(BMARKDATA(bfwin->bmarkdata)->bookmarkstore, &(b->iter));
-   if (BMARKDATA(bfwin->bmarkdata)->bmarkfiles) {
-		ptr = g_hash_table_lookup(BMARKDATA(bfwin->bmarkdata)->bmarkfiles,b->filepath);
-		if (ptr!=NULL) {
-			DEBUG_MSG("bmark_check_remove, %s has an entry in the hashtable\n",b->filepath);
-			if (!gtk_tree_model_iter_has_child(GTK_TREE_MODEL(BMARKDATA(bfwin->bmarkdata)->bookmarkstore), (GtkTreeIter*)ptr)) {
-				re = TRUE;
-				DEBUG_MSG("bmark_check_remove, the entry in the hashtable does NOT have a child, re=%d\n", re);
-			} else {
-				DEBUG_MSG("bmark_check_remove, the entry in the hashtable does have a child\n");
-			}
-		}
-	}
-	if (re) {
-	/ *if (gtk_tree_store_iter_is_valid(BMARKDATA(bfwin->bmarkdata)->bookmarkstore,(GtkTreeIter*)ptr))* /
-		DEBUG_MSG("bmark_check_remove, removing the entry from the treestore\n");
-		gtk_tree_store_remove(BMARKDATA(bfwin->bmarkdata)->bookmarkstore,(GtkTreeIter*)ptr);
-		DEBUG_MSG("bmark_check_remove, removing the entry from the hashtable\n");
-		g_hash_table_remove(BMARKDATA(bfwin->bmarkdata)->bmarkfiles,b->filepath);
-		g_free(ptr);
-		if (b->doc) b->doc->bmark_parent = NULL;
-  	}*/
+#endif
   	DEBUG_MSG("bmark_check_remove, finished\n");
 }
 
@@ -605,9 +523,7 @@ static void bmark_popup_menu_del_lcb(GtkWidget * widget, gpointer user_data)
 		return;
 	/* check if it is temp mark */
 	if (b->is_temp) {
-		/* gtk_tree_store_remove(BFWIN(user_data)->bookmarkstore, &(b->iter)); */
 		bmark_check_remove(BFWIN(user_data),b); /* check  if we should remove a filename too */	
-		/* bmark_unstore(BFWIN(user_data), b); */
 		bmark_free(b);
 	} else {
 		pstr = g_strdup_printf(_("Do you really want to delete %s?"), b->name);
@@ -747,40 +663,39 @@ static void bmark_get_iter_at_tree_position(Tbfwin * bfwin, Tbmark * m) {
 	GtkTreeIter *parent;
 	gpointer ptr;
 	DEBUG_MSG("bmark_get_iter_at_tree_position, started for filepath=%s\n",gnome_vfs_uri_get_path(m->filepath));
-/*	if (!BMARKDATA(bfwin->bmarkdata)->bmarkfiles) {
-		DEBUG_MSG("bmark_get_iter_at_tree_position, creating hashtable for bfwin=%p\n",bfwin);
-		BMARKDATA(bfwin->bmarkdata)->bmarkfiles = g_hash_table_new_full(gnome_vfs_uri_hash, gnome_vfs_uri_hequal,gnome_vfs_uri_hash_destroy,NULL);
-		/ *BMARKDATA(bfwin->bmarkdata)->bmarkfiles = g_hash_table_new_full(g_str_hash, g_str_equal, g_free, NULL);* /
-	}*/
 	ptr = g_hash_table_lookup(BMARKDATA(bfwin->bmarkdata)->bmarkfiles, m->filepath);
 	DEBUG_MSG("bmark_get_iter_at_tree_position, found %p for filepath %s in hashtable %p\n",ptr,gnome_vfs_uri_get_path(m->filepath),BMARKDATA(bfwin->bmarkdata)->bmarkfiles);
 	if (ptr == NULL) {			/* closed document or bookmarks never set */
-		gchar *title = NULL;
+		gchar *title, *rawtitle = NULL;
 		parent = g_new0(GtkTreeIter, 1);
 		gtk_tree_store_append(BMARKDATA(bfwin->bmarkdata)->bookmarkstore, parent, NULL);
 		switch (main_v->props.bookmarks_filename_mode) {
-		case BM_FMODE_FULL:
-			title = gnome_vfs_uri_to_string(m->filepath,GNOME_VFS_URI_HIDE_PASSWORD);
-			break;
-		case BM_FMODE_HOME:	/* todo */
+		/*case BM_FMODE_HOME:
 			if (bfwin->project != NULL && bfwin->project->basedir && strlen(bfwin->project->basedir)) {
 				gint baselen = strlen(bfwin->project->basedir);
 				gchar *tmp;
 				tmp = gnome_vfs_uri_to_string(m->filepath,GNOME_VFS_URI_HIDE_PASSWORD);
-				if (tmp[baselen] == '/') baselen++;  /* ignore the / */
+				if (tmp[baselen] == '/') baselen++;
 				if (strncmp(tmp, bfwin->project->basedir, baselen)==0) {
 					title = g_strdup(tmp + baselen);
 				}
 				g_free(tmp);
 			}
-			break;
-/*		case BM_FMODE_FILE:
-			title = g_path_get_basename(m->filepath);
 			break;*/
+		case BM_FMODE_PATH:
+			title = g_strdup(gnome_vfs_uri_get_path(m->filepath));
+			break;
+		case BM_FMODE_FILE:
+			title = gnome_vfs_uri_extract_short_name(m->filepath);
+			break;
+		case BM_FMODE_FULL:
+		default:
+			rawtitle = gnome_vfs_uri_to_string(m->filepath,GNOME_VFS_URI_HIDE_PASSWORD);
+			title = gnome_vfs_format_uri_for_display(rawtitle);
+			g_free(rawtitle);
+			break;
 		}
-		if (title == NULL) {
-			title = gnome_vfs_uri_to_string(m->filepath,GNOME_VFS_URI_HIDE_PASSWORD);
-		}
+		
 		gtk_tree_store_set(BMARKDATA(bfwin->bmarkdata)->bookmarkstore, parent, NAME_COLUMN, title, PTR_COLUMN, m->doc, -1);
 		g_free(title);
 		  
@@ -807,32 +722,6 @@ static void bmark_get_iter_at_tree_position(Tbfwin * bfwin, Tbmark * m) {
 	}
 }
 
-/*
-because we don't store them in a hashtable anymore, it's no problem to have 
-bookmarks with the same name
-static gboolean bmark_name_exists(Tdocument * doc, const gchar * name)
-{
-	GtkTreeIter tmpiter;
-	gboolean cont;
-
-	if (doc->bmark_parent == NULL)
-		return FALSE;
-	cont =
-		gtk_tree_model_iter_children(GTK_TREE_MODEL(BMARKDATA(BFWIN(doc->bfwin)->bmarkdata)->bookmarkstore), &tmpiter,
-									 doc->bmark_parent);
-	while (cont) {
-		Tbmark *mark = NULL;
-		gtk_tree_model_get(GTK_TREE_MODEL(BMARKDATA(BFWIN(doc->bfwin)->bmarkdata)->bookmarkstore), &tmpiter, PTR_COLUMN,
-						   &mark, -1);
-		if (mark) {
-			if (strcmp(mark->name, name) == 0)
-				return TRUE;
-		}
-		cont = gtk_tree_model_iter_next(GTK_TREE_MODEL(BMARKDATA(BFWIN(doc->bfwin)->bmarkdata)->bookmarkstore), &tmpiter);
-	}							
-	return FALSE;
-}
-*/
 
 /*
  * this function should create the global
@@ -868,10 +757,6 @@ void bmark_reload(Tbfwin * bfwin) {
 	GnomeVFSURI *cacheduri=NULL;
 	GList *tmplist = g_list_first(bfwin->session->bmarks);
 	DEBUG_MSG("bmark_reload for bfwin %p\n",bfwin);
-/*	if (BMARKDATA(bfwin->bmarkdata)->bmarkfiles != NULL)
-		g_hash_table_destroy(BMARKDATA(bfwin->bmarkdata)->bmarkfiles);* /
-	/ *BMARKDATA(bfwin->bmarkdata)->bmarkfiles = g_hash_table_new_full(g_str_hash, g_str_equal, g_free, NULL);* /
-/ *	BMARKDATA(bfwin->bmarkdata)->bmarkfiles = g_hash_table_new_full(gnome_vfs_uri_hash, gnome_vfs_uri_hequal,gnome_vfs_uri_hash_destroy,NULL);*/
 	while (tmplist) {
 		gchar **items = (gchar **) tmplist->data;
 		if (items && count_array(items) == 6) {
@@ -1372,11 +1257,7 @@ void bmark_add_at_bevent(Tdocument *doc) {
 	if (BMARKDATA(main_v->bmarkdata)->bevent_doc == doc) {
 		gint offset = BMARKDATA(main_v->bmarkdata)->bevent_charoffset;
 		/* we have the location */
-		/*if (BFWIN(doc->bfwin)->bmark == NULL) {
-			DEBUG_MSG("adding bookmarks without left panel is not implemented yet\n");
-		} else */ {
-			bmark_add_current_doc_backend(doc->bfwin, "", offset, !main_v->props.bookmarks_default_store);
-		}
+		bmark_add_current_doc_backend(doc->bfwin, "", offset, !main_v->props.bookmarks_default_store);
 	}
 }
 
@@ -1469,10 +1350,5 @@ void bmark_check_length(Tbfwin * bfwin, Tdocument * doc) {
 
 void bmark_cleanup(Tbfwin * bfwin) {
 	DEBUG_MSG("bmark_cleanup, cleanup for bfwin=%p\n",bfwin);
-/* we are not destroying a store, so let's not destroy tree positions, it seems, they 
-   are recovered from store - Oskar */	
-/*	if (BMARKDATA(bfwin->bmarkdata)->bmarkfiles) g_hash_table_destroy(BMARKDATA(bfwin->bmarkdata)->bmarkfiles);
-	BMARKDATA(bfwin->bmarkdata)->bmarkfiles = NULL; */ 
-
 	bfwin->bmark = NULL;
 }
