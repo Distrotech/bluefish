@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-/*#define DEBUG*/
+#define DEBUG
 
 #include <gtk/gtk.h>
 #include <sys/types.h>
@@ -782,7 +782,7 @@ static void bmark_get_iter_at_tree_position(Tbfwin * bfwin, Tbmark * m) {
 			title = gnome_vfs_uri_to_string(m->filepath,GNOME_VFS_URI_HIDE_PASSWORD);
 		}
 		gtk_tree_store_set(BMARKDATA(bfwin->bmarkdata)->bookmarkstore, parent, NAME_COLUMN, title, PTR_COLUMN, m->doc, -1);
-		g_free (title);
+		g_free(title);
 		  
 		if (m->doc != NULL) {
 			DEBUG_MSG("bmark_get_iter_at_tree_position, setting parent iter %p for doc%p\n",parent,m->doc);
@@ -864,8 +864,8 @@ void bookmark_data_cleanup(gpointer *data) {
  * this function should ALSO check all douments that are
  * opened (bfwin->documentlist) if they have bookmarks !!
  */
-void bmark_reload(Tbfwin * bfwin)
-{
+void bmark_reload(Tbfwin * bfwin) {
+	GnomeVFSURI *cacheduri=NULL;
 	GList *tmplist = g_list_first(bfwin->session->bmarks);
 	DEBUG_MSG("bmark_reload for bfwin %p\n",bfwin);
 /*	if (BMARKDATA(bfwin->bmarkdata)->bmarkfiles != NULL)
@@ -888,6 +888,14 @@ void bmark_reload(Tbfwin * bfwin)
 				g_free(tmp);
 			} else {
 				b->filepath = gnome_vfs_uri_new(items[2]);
+			}
+			/* because the bookmark list is usually sorted, we try to cache the uri's and consume less memory */
+			if (gnome_vfs_uri_equal(cacheduri,b->filepath)) {
+				gnome_vfs_uri_unref(b->filepath);
+				gnome_vfs_uri_ref(cacheduri);
+				b->filepath = cacheduri;
+			} else {
+				cacheduri = b->filepath;
 			}
 			b->offset = atoi(items[3]);
 			b->text = g_strdup(items[4]);
