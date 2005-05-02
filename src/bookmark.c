@@ -747,11 +747,11 @@ static void bmark_get_iter_at_tree_position(Tbfwin * bfwin, Tbmark * m) {
 	GtkTreeIter *parent;
 	gpointer ptr;
 	DEBUG_MSG("bmark_get_iter_at_tree_position, started for filepath=%s\n",gnome_vfs_uri_get_path(m->filepath));
-	if (!BMARKDATA(bfwin->bmarkdata)->bmarkfiles) {
+/*	if (!BMARKDATA(bfwin->bmarkdata)->bmarkfiles) {
 		DEBUG_MSG("bmark_get_iter_at_tree_position, creating hashtable for bfwin=%p\n",bfwin);
 		BMARKDATA(bfwin->bmarkdata)->bmarkfiles = g_hash_table_new_full(gnome_vfs_uri_hash, gnome_vfs_uri_hequal,gnome_vfs_uri_hash_destroy,NULL);
-		/*BMARKDATA(bfwin->bmarkdata)->bmarkfiles = g_hash_table_new_full(g_str_hash, g_str_equal, g_free, NULL);*/
-	}
+		/ *BMARKDATA(bfwin->bmarkdata)->bmarkfiles = g_hash_table_new_full(g_str_hash, g_str_equal, g_free, NULL);* /
+	}*/
 	ptr = g_hash_table_lookup(BMARKDATA(bfwin->bmarkdata)->bmarkfiles, m->filepath);
 	DEBUG_MSG("bmark_get_iter_at_tree_position, found %p for filepath %s in hashtable %p\n",ptr,gnome_vfs_uri_get_path(m->filepath),BMARKDATA(bfwin->bmarkdata)->bmarkfiles);
 	if (ptr == NULL) {			/* closed document or bookmarks never set */
@@ -858,6 +858,9 @@ void bookmark_data_cleanup(gpointer *data) {
  * from bfwin->session->bmarks and parse
  * them into treestore BMARKDATA(bfwin->bmarkdata)->bookmarkstore
  *
+ * it is called from bluefish.c for the first window (global bookmarks)
+ * and from project.c after opening a project
+ *
  * this function should ALSO check all douments that are
  * opened (bfwin->documentlist) if they have bookmarks !!
  */
@@ -865,10 +868,10 @@ void bmark_reload(Tbfwin * bfwin)
 {
 	GList *tmplist = g_list_first(bfwin->session->bmarks);
 	DEBUG_MSG("bmark_reload for bfwin %p\n",bfwin);
-	if (BMARKDATA(bfwin->bmarkdata)->bmarkfiles != NULL)
-		g_hash_table_destroy(BMARKDATA(bfwin->bmarkdata)->bmarkfiles);
-	/*BMARKDATA(bfwin->bmarkdata)->bmarkfiles = g_hash_table_new_full(g_str_hash, g_str_equal, g_free, NULL);*/
-	BMARKDATA(bfwin->bmarkdata)->bmarkfiles = g_hash_table_new_full(gnome_vfs_uri_hash, gnome_vfs_uri_hequal,gnome_vfs_uri_hash_destroy,NULL);
+/*	if (BMARKDATA(bfwin->bmarkdata)->bmarkfiles != NULL)
+		g_hash_table_destroy(BMARKDATA(bfwin->bmarkdata)->bmarkfiles);* /
+	/ *BMARKDATA(bfwin->bmarkdata)->bmarkfiles = g_hash_table_new_full(g_str_hash, g_str_equal, g_free, NULL);* /
+/ *	BMARKDATA(bfwin->bmarkdata)->bmarkfiles = g_hash_table_new_full(gnome_vfs_uri_hash, gnome_vfs_uri_hequal,gnome_vfs_uri_hash_destroy,NULL);*/
 	while (tmplist) {
 		gchar **items = (gchar **) tmplist->data;
 		if (items && count_array(items) == 6) {
