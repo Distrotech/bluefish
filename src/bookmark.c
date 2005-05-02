@@ -552,21 +552,21 @@ static void bmark_rpopup_action_lcb(gpointer data, guint action, GtkWidget *widg
 			bmark_popup_menu_deldoc(bfwin);
 		break;
 		case 20:
-			main_v->props.bookmarks_default_store = gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(widget));
+			main_v->globses.bookmarks_default_store = gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(widget));
 		break;
 		case 30:
 			if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(widget))) {
-				main_v->props.bookmarks_filename_mode = BM_FMODE_FILE;
+				bfwin->session->bookmarks_filename_mode = BM_FMODE_FILE;
 			}
 		break;
 		case 31:
 			if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(widget))) {
-				main_v->props.bookmarks_filename_mode = BM_FMODE_PATH;
+				bfwin->session->bookmarks_filename_mode = BM_FMODE_PATH;
 			}
 		break;
 		case 32:
 			if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(widget))) {
-				main_v->props.bookmarks_filename_mode = BM_FMODE_FULL;
+				bfwin->session->bookmarks_filename_mode = BM_FMODE_FULL;
 			}
 		break;
 		default:
@@ -609,10 +609,10 @@ static GtkWidget *bmark_popup_menu(Tbfwin * bfwin, gboolean show_bmark_specific,
 	if (!show_file_specific) {
 		gtk_widget_set_sensitive(gtk_item_factory_get_widget(menumaker, "/Delete All in document"), FALSE);
 	}
-	setup_toggle_item(menumaker, "/Permanent by default", main_v->props.bookmarks_default_store);
-	setup_toggle_item(menumaker, "/Show by file name", main_v->props.bookmarks_filename_mode == BM_FMODE_FILE);
-	setup_toggle_item(menumaker, "/Show by full path", main_v->props.bookmarks_filename_mode == BM_FMODE_PATH);
-	setup_toggle_item(menumaker, "/Show by full uri", main_v->props.bookmarks_filename_mode != BM_FMODE_FILE && main_v->props.bookmarks_filename_mode != BM_FMODE_PATH);
+	setup_toggle_item(menumaker, "/Permanent by default", main_v->globses.bookmarks_default_store);
+	setup_toggle_item(menumaker, "/Show by file name", bfwin->session->bookmarks_filename_mode == BM_FMODE_FILE);
+	setup_toggle_item(menumaker, "/Show by full path", bfwin->session->bookmarks_filename_mode == BM_FMODE_PATH);
+	setup_toggle_item(menumaker, "/Show by full uri", bfwin->session->bookmarks_filename_mode != BM_FMODE_FILE && bfwin->session->bookmarks_filename_mode != BM_FMODE_PATH);
 	gtk_widget_show_all(menu);
 	g_signal_connect_after(G_OBJECT(menu), "destroy", G_CALLBACK(destroy_disposable_menu_cb), menu);
 	return menu;
@@ -675,7 +675,6 @@ GtkWidget *bmark_gui(Tbfwin * bfwin)
 	return vbox;
 }
 
-
 /**
  * bmark_get_iter_at_tree_position:
  *
@@ -691,7 +690,7 @@ static void bmark_get_iter_at_tree_position(Tbfwin * bfwin, Tbmark * m) {
 		gchar *title, *rawtitle = NULL;
 		parent = g_new0(GtkTreeIter, 1);
 		gtk_tree_store_append(BMARKDATA(bfwin->bmarkdata)->bookmarkstore, parent, NULL);
-		switch (main_v->props.bookmarks_filename_mode) {
+		switch (bfwin->session->bookmarks_filename_mode) {
 		/*case BM_FMODE_HOME:
 			if (bfwin->project != NULL && bfwin->project->basedir && strlen(bfwin->project->basedir)) {
 				gint baselen = strlen(bfwin->project->basedir);
@@ -776,8 +775,12 @@ void bookmark_data_cleanup(gpointer *data) {
  */
 void bmark_reload(Tbfwin * bfwin) {
 	GnomeVFSURI *cacheduri=NULL;
-	GList *tmplist = g_list_first(bfwin->session->bmarks);
+	GList *tmplist;
+
 	DEBUG_MSG("bmark_reload for bfwin %p\n",bfwin);
+	bmark_store_all(bfwin);
+
+	tmplist = g_list_first(bfwin->session->bmarks);
 	while (tmplist) {
 		gchar **items = (gchar **) tmplist->data;
 		if (items && count_array(items) == 6) {
@@ -1236,7 +1239,7 @@ void bmark_add(Tbfwin * bfwin) {
 									 _("You already have a bookmark here!"));
 			return;
 		}
-		bmark_add_current_doc_backend(bfwin, "", offset, !main_v->props.bookmarks_default_store);
+		bmark_add_current_doc_backend(bfwin, "", offset, !main_v->globses.bookmarks_default_store);
 	}
 }
 
@@ -1278,7 +1281,7 @@ void bmark_add_at_bevent(Tdocument *doc) {
 	if (BMARKDATA(main_v->bmarkdata)->bevent_doc == doc) {
 		gint offset = BMARKDATA(main_v->bmarkdata)->bevent_charoffset;
 		/* we have the location */
-		bmark_add_current_doc_backend(doc->bfwin, "", offset, !main_v->props.bookmarks_default_store);
+		bmark_add_current_doc_backend(doc->bfwin, "", offset, !main_v->globses.bookmarks_default_store);
 	}
 }
 

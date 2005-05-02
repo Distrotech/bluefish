@@ -374,8 +374,6 @@ static GList *props_init_main(GList * config_rc)
 	init_prop_integer   (&config_rc, &main_v->props.ext_commands_in_submenu,"ext_commands_in_submenu:",1, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.ext_outputbox_in_submenu,"ext_outputbox_in_submenu:",1, TRUE);
 	init_prop_arraylist (&config_rc, &main_v->props.reference_files, "reference_files:", 2, TRUE);
-	init_prop_integer   (&config_rc, &main_v->props.bookmarks_default_store,"bookmarks_default_store:",1, TRUE);
-	init_prop_integer   (&config_rc, &main_v->props.bookmarks_filename_mode,"bookmarks_filename_mode:",1, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.document_tabposition,"document_tabposition:",(gint)GTK_POS_BOTTOM, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.leftpanel_tabposition,"leftpanel_tabposition:",(gint)GTK_POS_BOTTOM, TRUE);
 /*	init_prop_string    (&config_rc, &main_v->props.default_basedir,"default_basedir:",g_get_home_dir());*/
@@ -854,6 +852,7 @@ static GList *return_globalsession_configlist(gboolean init_values) {
 	init_prop_integer   (&config_rc, &main_v->globses.lasttime_filetypes, "lasttime_filetypes:", 0, init_values);
 	init_prop_integer   (&config_rc, &main_v->globses.lasttime_encodings, "lasttime_encodings:", 0, init_values);
 	init_prop_limitedstringlist(&config_rc, &main_v->globses.recent_projects, "recent_projects:", main_v->props.max_recent_files, FALSE);
+	init_prop_integer   (&config_rc, &main_v->globses.bookmarks_default_store,"bookmarks_default_store:",1, init_values);
 	return config_rc;
 }
 
@@ -880,6 +879,7 @@ static GList *return_session_configlist(GList *configlist, Tsessionvars *session
 	init_prop_integer   (&configlist, &session->view_left_panel, "view_left_panel:", 1, FALSE);
 	init_prop_integer   (&configlist, &session->filebrowser_show_hidden_files, "fb_show_hidden_f:", 0, FALSE);
 	init_prop_integer   (&configlist, &session->filebrowser_show_backup_files, "fb_show_backup_f:", 0, FALSE);
+	init_prop_integer   (&configlist, &session->bookmarks_filename_mode,"bookmarks_filename_mode:",1, FALSE);
 	return configlist;
 }
 
