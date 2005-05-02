@@ -72,7 +72,7 @@ enum {
 
 typedef struct {
 	GtkTextMark *mark;
-	gchar *filepath;
+	GnomeVFSURI *filepath;
 	gint offset;
 	Tdocument *doc;
 	GtkTreeIter iter;			/* for tree view */
@@ -95,6 +95,10 @@ typedef struct {
 #define BM_FMODE_FULL     0
 #define BM_FMODE_HOME     1
 #define BM_FMODE_FILE     2
+
+static void gnome_vfs_uri_hash_destroy(gpointer data) {
+	gnome_vfs_uri_unref((GnomeVFSURI *)data);
+}
 
 static gchar *bmark_display_text(gchar *name, gchar *text) {
 	if (name && strlen(name) > 0) {
@@ -120,7 +124,7 @@ static void bmark_free(gpointer ptr)
 		DEBUG_MSG("bmark_free, NOT GOOD, strarr should be NULL here...\n");
 	}
 #endif
-	g_free(m->filepath);
+	gnome_vfs_uri_unref(m->filepath);
 	g_free(m->text);
 	g_free(m->name);
 	g_free(m->description);
@@ -232,8 +236,8 @@ static void bmark_store(Tbfwin * bfwin, Tbmark * b) {
 	if (b->strarr == NULL) {
 		DEBUG_MSG("bmark_store, creating new strarr for bookmark %p\n",b);
 		strarr = g_malloc0(sizeof(gchar *) * 7);
-		DEBUG_MSG("name=%s, description=%s, filepath=%s, text=%s\n", b->name, b->description, b->filepath, b->text);
-		strarr[2] = g_strdup(b->filepath);
+		DEBUG_MSG("name=%s, description=%s, filepath=%s, text=%s\n", b->name, b->description, gnome_vfs_uri_get_path(b->filepath), b->text);
+		strarr[2] = gnome_vfs_uri_to_string(b->filepath,GNOME_VFS_URI_HIDE_PASSWORD);
 		strarr[4] = g_strdup(b->text);
 	} else {
 		DEBUG_MSG("bmark_store, bookmark %p has strarr at %p\n",b,b->strarr);
@@ -463,8 +467,8 @@ static void bmark_popup_menu_goto_lcb(GtkWidget * widget, gpointer user_data)
 	if (!b)
 		exit(2);
 #endif
-	DEBUG_MSG("bmark_popup_menu_goto_lcb, calling doc_new_from_uri for %s with goto_offset %d\n",b->filepath,b->offset);
-	doc_new_from_uri(bfwin, b->filepath, NULL, NULL, FALSE, FALSE, -1, b->offset);
+	DEBUG_MSG("bmark_popup_menu_goto_lcb, calling doc_new_from_uri for %s with goto_offset %d\n",gnome_vfs_uri_get_path(b->filepath),b->offset);
+	doc_new_from_uri(bfwin, NULL, b->filepath, NULL, FALSE, FALSE, -1, b->offset);
 }
 /* 
  * removes the bookmark from the treestore, and if it is the last remaining bookmark
@@ -492,7 +496,7 @@ static void bmark_check_remove(Tbfwin *bfwin,Tbmark *b) {
 	} else {
 		gchar *name;
 		gtk_tree_model_get(GTK_TREE_MODEL(bfwin->bookmarkstore), &b->iter, NAME_COLUMN,&name, -1);
-		g_print("bmark_check_remove, very weird, bookmark %s for %s does not have a parent ?????\n",name,b->filepath);
+		g_print("bmark_check_remove, very weird, bookmark %s for %s does not have a parent ?????\n",name,gnome_vfs_uri_get_path(b->filepath));
 		g_free(name);
 		exit(123);
 	}
@@ -740,27 +744,32 @@ GtkWidget *bmark_gui(Tbfwin * bfwin)
 static void bmark_get_iter_at_tree_position(Tbfwin * bfwin, Tbmark * m) {
 	GtkTreeIter *parent;
 	gpointer ptr;
-	DEBUG_MSG("bmark_get_iter_at_tree_position, started for filepath=%s\n",m->filepath);
+	DEBUG_MSG("bmark_get_iter_at_tree_position, started for filepath=%s\n",gnome_vfs_uri_get_path(m->filepath));
 	if (!bfwin->bmark_files) {
 		DEBUG_MSG("bmark_get_iter_at_tree_position, creating hashtable for bfwin=%p\n",bfwin);
-		bfwin->bmark_files = g_hash_table_new_full(g_str_hash, g_str_equal, g_free, NULL);
+		bfwin->bmark_files = g_hash_table_new_full(gnome_vfs_uri_hash, gnome_vfs_uri_hequal,gnome_vfs_uri_hash_destroy,NULL);
+		/*bfwin->bmark_files = g_hash_table_new_full(g_str_hash, g_str_equal, g_free, NULL);*/
 	}
 	ptr = g_hash_table_lookup(bfwin->bmark_files, m->filepath);
+	DEBUG_MSG("bmark_get_iter_at_tree_position, found %p for filepath %s in hashtable %p\n",ptr,gnome_vfs_uri_get_path(m->filepath),bfwin->bmark_files);
 	if (ptr == NULL) {			/* closed document or bookmarks never set */
 		gchar *title = NULL;
 		parent = g_new0(GtkTreeIter, 1);
 		gtk_tree_store_append(bfwin->bookmarkstore, parent, NULL);
 		switch (main_v->props.bookmarks_filename_mode) {
 		case BM_FMODE_FULL:
-			g_strdup(m->filepath);
+			title = gnome_vfs_uri_to_string(m->filepath,GNOME_VFS_URI_HIDE_PASSWORD);
 			break;
 		case BM_FMODE_HOME:	/* todo */
 			if (bfwin->project != NULL && bfwin->project->basedir && strlen(bfwin->project->basedir)) {
 				gint baselen = strlen(bfwin->project->basedir);
-				if (m->filepath[baselen] == '/') baselen++;  /* ignore the / */
-				if (strncmp(m->filepath, bfwin->project->basedir, baselen)==0) {
-					title = g_strdup(m->filepath + baselen);
+				gchar *tmp;
+				tmp = gnome_vfs_uri_to_string(m->filepath,GNOME_VFS_URI_HIDE_PASSWORD);
+				if (tmp[baselen] == '/') baselen++;  /* ignore the / */
+				if (strncmp(tmp, bfwin->project->basedir, baselen)==0) {
+					title = g_strdup(tmp + baselen);
 				}
+				g_free(tmp);
 			}
 			break;
 /*		case BM_FMODE_FILE:
@@ -768,7 +777,7 @@ static void bmark_get_iter_at_tree_position(Tbfwin * bfwin, Tbmark * m) {
 			break;*/
 		}
 		if (title == NULL) {
-			title = g_path_get_basename(m->filepath);
+			title = gnome_vfs_uri_to_string(m->filepath,GNOME_VFS_URI_HIDE_PASSWORD);
 		}
 		gtk_tree_store_set(bfwin->bookmarkstore, parent, NAME_COLUMN, title, PTR_COLUMN, m->doc, -1);
 		g_free (title);
@@ -777,9 +786,10 @@ static void bmark_get_iter_at_tree_position(Tbfwin * bfwin, Tbmark * m) {
 			DEBUG_MSG("bmark_get_iter_at_tree_position, setting parent iter %p for doc%p\n",parent,m->doc);
 			m->doc->bmark_parent = parent;
 		}
-		DEBUG_MSG("bmark_get_iter_at_tree_position, appending parent %p in hashtable for filepath=%s\n",parent, m->filepath);
+		DEBUG_MSG("bmark_get_iter_at_tree_position, appending parent %p in hashtable %p for filepath=%s\n",parent,bfwin->bmark_files,gnome_vfs_uri_get_path(m->filepath));
 		/* the hash table frees the key, but not the value, on destroy */
-		g_hash_table_insert(bfwin->bmark_files, g_strdup(m->filepath), parent);
+		gnome_vfs_uri_ref(m->filepath);
+		g_hash_table_insert(bfwin->bmark_files, m->filepath, parent);
 	} else
 		parent = (GtkTreeIter *) ptr;
 
@@ -847,7 +857,8 @@ void bmark_reload(Tbfwin * bfwin)
 	DEBUG_MSG("bmark_reload for bfwin %p\n",bfwin);
 	if (bfwin->bmark_files != NULL)
 		g_hash_table_destroy(bfwin->bmark_files);
-	bfwin->bmark_files = g_hash_table_new_full(g_str_hash, g_str_equal, g_free, NULL);
+	/*bfwin->bmark_files = g_hash_table_new_full(g_str_hash, g_str_equal, g_free, NULL);*/
+	bfwin->bmark_files = g_hash_table_new_full(gnome_vfs_uri_hash, gnome_vfs_uri_hequal,gnome_vfs_uri_hash_destroy,NULL);
 	while (tmplist) {
 		gchar **items = (gchar **) tmplist->data;
 		if (items && count_array(items) == 6) {
@@ -857,7 +868,14 @@ void bmark_reload(Tbfwin * bfwin)
 			b->name = g_strdup(items[0]);
 			b->description = g_strdup(items[1]);
 			/* convert old (Bf 1.0) bookmarks to new bookmarks with uri's */
-			b->filepath = (strchr(items[2], ':')==NULL) ? g_strconcat("file://", items[2], NULL) : g_strdup(items[2]);
+			if (strchr(items[2], ':')==NULL) {
+				gchar *tmp;
+				tmp = g_strconcat("file://", items[2], NULL);
+				b->filepath = gnome_vfs_uri_new(tmp);
+				g_free(tmp);
+			} else {
+				b->filepath = gnome_vfs_uri_new(items[2]);
+			}
 			b->offset = atoi(items[3]);
 			b->text = g_strdup(items[4]);
 			b->len = atoi(items[5]);
@@ -900,8 +918,13 @@ void bmark_set_store(Tbfwin * bfwin) {
 void bmark_clean_for_doc(Tdocument * doc) {
 	GtkTreeIter tmpiter;
 	gboolean cont;
+	GnomeVFSURI *docuri;
 
 	if (doc->bmark_parent == NULL)
+		return;
+
+	docuri = gnome_vfs_uri_new(doc->uri);
+	if (!docuri) 
 		return;
 	DEBUG_MSG("bmark_clean_for_doc, getting children for parent_iter=%p\n",doc->bmark_parent);
 	cont =
@@ -929,8 +952,9 @@ void bmark_clean_for_doc(Tdocument * doc) {
 	DEBUG_MSG("bmark_clean_for_doc, unsetting and freeing parent_iter %p for doc %p\n",doc->bmark_parent,doc);
 	gtk_tree_store_set(GTK_TREE_STORE(BFWIN(doc->bfwin)->bookmarkstore), doc->bmark_parent, PTR_COLUMN, NULL, -1);
 	/* remove the pointer from the hastable */
-	g_hash_table_remove(BFWIN(doc->bfwin)->bmark_files,doc->uri);
+	g_hash_table_remove(BFWIN(doc->bfwin)->bmark_files,docuri);
 	g_free(doc->bmark_parent);
+	gnome_vfs_uri_unref(docuri);
 	doc->bmark_parent = NULL;
 }
 
@@ -942,10 +966,13 @@ void bmark_set_for_doc(Tdocument * doc) {
 	GtkTreeIter tmpiter;
 	GtkTextIter it;
 	gboolean cont;
+	GnomeVFSURI *docuri;
 	if (!doc->uri) {
 		DEBUG_MSG("bmark_set_for_doc, document %p does not have a filename, returning\n", doc);
 		return;
 	}
+	docuri = gnome_vfs_uri_new(doc->uri);
+	
 	DEBUG_MSG("bmark_set_for_doc, doc=%p, filename=%s\n",doc,doc->uri);
 /*	if (!BFWIN(doc->bfwin)->bmark) {
 		DEBUG_MSG("bmark_set_for_doc, no leftpanel, not implemented yet!!\n");
@@ -967,7 +994,7 @@ void bmark_set_for_doc(Tdocument * doc) {
 			gtk_tree_model_get(GTK_TREE_MODEL(BFWIN(doc->bfwin)->bookmarkstore), &child, PTR_COLUMN,
 							   &mark, -1);
 			if (mark) {
-				if (strcmp(mark->filepath, doc->uri) == 0) {	/* this is it */
+				if (gnome_vfs_uri_equal(mark->filepath, docuri)) {	/* this is it */
 					gboolean cont2;
 					DEBUG_MSG("bmark_set_for_doc, we found a bookmark for document %s at offset=%d!\n",doc->uri,mark->offset);
 					/* we will now first set the Tdocument * into the second column of the parent */
@@ -995,7 +1022,11 @@ void bmark_set_for_doc(Tdocument * doc) {
 													 (BFWIN(doc->bfwin)->bookmarkstore), &child);
 					}
 					doc->bmark_parent = g_memdup(&tmpiter, sizeof(GtkTreeIter));
-					DEBUG_MSG("bmark_set_for_doc, added parent_iter %p to doc %p\n",doc->bmark_parent,doc);
+					/* now we add that to the hastbale */
+					gnome_vfs_uri_ref(docuri);
+					g_hash_table_insert(BFWIN(doc->bfwin)->bmark_files, docuri, doc->bmark_parent);
+					DEBUG_MSG("bmark_set_for_doc, added parent_iter %p to doc %p, and adding that to the hashtable %p\n",doc->bmark_parent,doc,BFWIN(doc->bfwin)->bmark_files);
+					gnome_vfs_uri_unref(docuri);
 					return;
 				}
 			}
@@ -1003,6 +1034,7 @@ void bmark_set_for_doc(Tdocument * doc) {
 		cont = gtk_tree_model_iter_next(GTK_TREE_MODEL(BFWIN(doc->bfwin)->bookmarkstore), &tmpiter);
 	}							/* cont */
 	DEBUG_MSG("bmark_set_for_doc, no bookmarks found for document %s\n", doc->uri);
+	gnome_vfs_uri_unref(docuri);
 }
 
 /**
@@ -1075,8 +1107,10 @@ static void bmark_add_backend(Tdocument *doc, GtkTextIter *itoffset, gint offset
 	Tbmark *m;
 	gchar *displaytext = NULL;
 	GtkTextIter it;
+	GnomeVFSURI *docuri;
 	m = g_new0(Tbmark, 1);
 	m->doc = doc;
+	docuri = gnome_vfs_uri_new(doc->uri);
 	
 	if (itoffset) {
 		it = *itoffset;
@@ -1087,7 +1121,8 @@ static void bmark_add_backend(Tdocument *doc, GtkTextIter *itoffset, gint offset
 	}
 	
 	m->mark = gtk_text_buffer_create_mark(doc->buffer, NULL, &it, TRUE);
-	m->filepath = g_strdup(doc->uri);
+	gnome_vfs_uri_ref(docuri);
+	m->filepath = docuri;
 	m->is_temp = is_temp;
 	m->text = g_strdup(text);
 	m->name = (name) ? g_strdup(name) : g_strdup("");
@@ -1102,7 +1137,8 @@ static void bmark_add_backend(Tdocument *doc, GtkTextIter *itoffset, gint offset
 	/* and store */
 	if (!m->is_temp) {
 		bmark_store(BFWIN(doc->bfwin), m);
-	}	
+	}
+	gnome_vfs_uri_unref(docuri);
 }
 
 /**
