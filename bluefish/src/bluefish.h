@@ -216,8 +216,6 @@ typedef struct {
 	gint ext_commands_in_submenu;
 	gint ext_outputbox_in_submenu;
 	GList *reference_files; /* all reference files */
-	gint bookmarks_default_store; /* 0= temporary by default, 1= permanent by default */
-	gint bookmarks_filename_mode; /* 0=FULLPATH, 1=DIR FROM BASE 2=BASENAME */
 	gint document_tabposition;
 	gint leftpanel_tabposition;
 	gchar *project_suffix;
@@ -260,6 +258,7 @@ typedef struct {
 	gint lasttime_highlighting; /* see above */
 	gint lasttime_filetypes; /* see above */
 	gint lasttime_encodings; /* see above */
+	gint bookmarks_default_store; /* 0= temporary by default, 1= permanent by default */
 	GList *recent_projects;
 } Tglobalsession;
 
@@ -288,6 +287,7 @@ typedef struct {
 	gint view_left_panel;  	/* view filebrowser/functionbrowser etc. */
 	gint filebrowser_show_hidden_files;
 	gint filebrowser_show_backup_files;
+	gint bookmarks_filename_mode; /* 0=FULLPATH, 1=DIR FROM BASE 2=BASENAME */
 } Tsessionvars;
 
 typedef struct {
