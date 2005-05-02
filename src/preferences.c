@@ -76,8 +76,8 @@ enum {
 	ext_browsers_in_submenu,
 	ext_commands_in_submenu,
 	ext_outputbox_in_submenu,
-	bookmarks_default_store,
-	bookmarks_filename_mode,
+/*	bookmarks_default_store,
+	bookmarks_filename_mode,*/
 	document_tabposition,
 	leftpanel_tabposition,
 /*	default_basedir,*/
@@ -1825,8 +1825,8 @@ static void preferences_apply(Tprefdialog *pd) {
 	integer_apply(&main_v->props.defaulthighlight, pd->prefs[defaulthighlight], TRUE);
 	integer_apply(&main_v->props.highlight_num_lines_count, pd->prefs[highlight_num_lines_count], FALSE);
 
-	integer_apply(&main_v->props.bookmarks_default_store, pd->prefs[bookmarks_default_store], TRUE);
-	main_v->props.bookmarks_filename_mode = gtk_option_menu_get_history(GTK_OPTION_MENU(pd->prefs[bookmarks_filename_mode]));
+/*	integer_apply(&main_v->props.bookmarks_default_store, pd->prefs[bookmarks_default_store], TRUE);
+	main_v->props.bookmarks_filename_mode = gtk_option_menu_get_history(GTK_OPTION_MENU(pd->prefs[bookmarks_filename_mode]));*/
 
 	integer_apply(&main_v->props.xhtml, pd->prefs[xhtml], TRUE);
 	if (main_v->props.xhtml) {
@@ -1998,7 +1998,7 @@ static void preferences_dialog() {
 	pd->prefs[num_undo_levels] = prefs_integer(_("Undo history size"), main_v->props.num_undo_levels, vbox2, pd, 50, 10000);
 	pd->prefs[clear_undo_on_save] = boxed_checkbut_with_value(_("Clear undo history on save"), main_v->props.clear_undo_on_save, vbox2);
 	
-	frame = gtk_frame_new(_("Bookmark options"));
+/*	frame = gtk_frame_new(_("Bookmark options"));
 	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
 	vbox2 = gtk_vbox_new(FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(frame), vbox2);
@@ -2007,7 +2007,7 @@ static void preferences_dialog() {
 	{
 		gchar *actions[] = {N_("full path"), N_("path from basedir"), N_("filename"), NULL};
 		pd->prefs[bookmarks_filename_mode] = boxed_optionmenu_with_value(_("Bookmarks filename display"), main_v->props.bookmarks_filename_mode, vbox2, actions);
-	}
+	}*/
 
 	vbox1 = gtk_vbox_new(FALSE, 5);
 	gtk_notebook_append_page(GTK_NOTEBOOK(pd->noteb), vbox1, hbox_with_pix_and_text(_("HTML"),154,TRUE));
