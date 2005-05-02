@@ -232,8 +232,7 @@ fi
 
 echo -n "checking for gtk+ ... "
 if pkg-config --exists gtk+-2.0 ; then
-	LIBS="$LIBS `pkg-config --libs gtk+-2.0`"
-	CFLAGS="$CFLAGS `pkg-config --cflags gtk+-2.0`"
+	PKGCONFIGFILES="${PKGCONFIGFILES} gtk+-2.0"
 	echo "yes, `pkg-config --modversion gtk+-2.0`"
 else
 	echo "no"
@@ -257,10 +256,30 @@ else
 	echo "no"
 fi
 
+echo -n "checking for gtk+ requirements: gobject, gmodule, glib, gdk-pixbuf, gdk, and pango ... "
+if pkg-config --exists gobject-2.0 ; then
+	PKGCONFIGFILES="${PKGCONFIGFILES} gobject-2.0"
+fi
+if pkg-config --exists gmodule-2.0; then
+	PKGCONFIGFILES="${PKGCONFIGFILES} gmodule-2.0"
+fi
+if pkg-config --exists glib-2.0; then
+	PKGCONFIGFILES="${PKGCONFIGFILES} glib-2.0"
+fi
+if pkg-config --exists pango; then
+	PKGCONFIGFILES="${PKGCONFIGFILES} pango"
+fi
+if pkg-config --exists gdk-pixbuf-2.0; then
+	PKGCONFIGFILES="${PKGCONFIGFILES} gdk-pixbuf-2.0"
+fi
+if pkg-config --exists gdk-2.0; then
+	PKGCONFIGFILES="${PKGCONFIGFILES} gdk-2.0"
+fi
+echo " done"
+
 echo -n "checking for gnome-vfs-2.0... "
 if pkg-config --exists gnome-vfs-2.0 ; then
-	LIBS="$LIBS `pkg-config --libs gnome-vfs-2.0`"
-	CFLAGS="$CFLAGS `pkg-config --cflags gnome-vfs-2.0`"
+	PKGCONFIGFILES="${PKGCONFIGFILES} gnome-vfs-2.0"
 	echo "yes, `pkg-config --modversion gnome-vfs-2.0`"
 	HAVE_GNOME_VFS=1
 	BF_APP_EXPECT_URIS="true"
@@ -291,8 +310,7 @@ fi
 
 echo -n "checking for libxml... "
 if pkg-config --exists libxml-2.0 ; then
-	LIBS="$LIBS `pkg-config --libs libxml-2.0`"
-	CFLAGS="$CFLAGS `pkg-config --cflags libxml-2.0`"
+	PKGCONFIGFILES="${PKGCONFIGFILES} libxml-2.0"
 	echo "yes, `pkg-config --modversion libxml-2.0`"
 else
 	AC_MSG_ERROR(libxml2 is required, please install libxml2-dev)
@@ -308,13 +326,19 @@ if test "x${LGNOMEUI}" = "xyes" ; then
 	echo -n "checking for libgnomeui >= 2.6... "
 	if pkg-config libgnomeui-2.0 --atleast-version=2.6 ; then
 		AC_DEFINE(HAVE_ATLEAST_GNOMEUI_2_6)
-		LIBS="$LIBS `pkg-config --libs libgnomeui-2.0`"
-		CFLAGS="$CFLAGS `pkg-config --cflags libgnomeui-2.0`"
+		PKGCONFIGFILES="${PKGCONFIGFILES} libgnomeui-2.0"
 		echo "yes"
 	else
 		echo "no"
 	fi
 fi
+
+dnl ******************************************************
+dnl handling all pkg-config libraries into LIBS and CFLAGS
+dnl ******************************************************
+
+LIBS="$LIBS `pkg-config --libs ${PKGCONFIGFILES}`"
+CFLAGS="$CFLAGS `pkg-config --cflags ${PKGCONFIGFILES}`"
 
 AC_PATH_PROG(PCRE_CONFIG, pcre-config, no)
 if test "x$PCRE_CONFIG" = "xno" ; then
