@@ -1402,7 +1402,7 @@ static void dirmenu_set_curdir(Tfilebrowser2 *fb2, GnomeVFSURI *newcurdir) {
 	GnomeVFSURI *tmp;
 	gboolean cont, havesetiter=FALSE;
 	if (fb2->currentdir) {
-		if (gnome_vfs_uri_equal(fb2->currentdir, newcurdir)) return;
+		if (fb2->currentdir == newcurdir || gnome_vfs_uri_equal(fb2->currentdir, newcurdir)) return;
 		DEBUG_MSG("dirmenu_set_curdir, old_curdir=%s, new_curdir=%s\n",gnome_vfs_uri_get_path(fb2->currentdir),gnome_vfs_uri_get_path(newcurdir));
 		gnome_vfs_uri_unref(fb2->currentdir);
 	}
@@ -1476,7 +1476,7 @@ static void fb2_set_basedir_backend(Tfilebrowser2 *fb2, GnomeVFSURI *uri) {
 	GtkTreePath *basepath;
 	GtkTreeIter *iter;
 	
-	if (uri && fb2->basedir && gnome_vfs_uri_equal(fb2->basedir, uri)) {
+	if (uri && fb2->basedir && (fb2->basedir == uri || gnome_vfs_uri_equal(fb2->basedir, uri))) {
 		return;
 	}
 	/* disconnect the dir_v and file_v for higher performance */

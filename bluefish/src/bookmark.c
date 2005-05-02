@@ -890,7 +890,7 @@ void bmark_reload(Tbfwin * bfwin) {
 				b->filepath = gnome_vfs_uri_new(items[2]);
 			}
 			/* because the bookmark list is usually sorted, we try to cache the uri's and consume less memory */
-			if (gnome_vfs_uri_equal(cacheduri,b->filepath)) {
+			if (cacheduri == b->filepath || gnome_vfs_uri_equal(cacheduri,b->filepath)) {
 				gnome_vfs_uri_unref(b->filepath);
 				gnome_vfs_uri_ref(cacheduri);
 				b->filepath = cacheduri;
@@ -1015,7 +1015,7 @@ void bmark_set_for_doc(Tdocument * doc) {
 			gtk_tree_model_get(GTK_TREE_MODEL(BMARKDATA(BFWIN(doc->bfwin)->bmarkdata)->bookmarkstore), &child, PTR_COLUMN,
 							   &mark, -1);
 			if (mark) {
-				if (gnome_vfs_uri_equal(mark->filepath, docuri)) {	/* this is it */
+				if (mark->filepath == docuri || gnome_vfs_uri_equal(mark->filepath, docuri)) {	/* this is it */
 					gboolean cont2;
 					DEBUG_MSG("bmark_set_for_doc, we found a bookmark for document %s at offset=%d!\n",doc->uri,mark->offset);
 					/* we will now first set the Tdocument * into the second column of the parent */
