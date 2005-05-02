@@ -1719,15 +1719,14 @@ void gui_toggle_hidewidget_cb(Tbfwin *bfwin,guint action,GtkWidget *widget) {
 
 Tbfwin *gui_new_window(GList *filenames, Tproject *project) {
 	Tbfwin *bfwin = g_new0(Tbfwin,1);
-	bfwin->bmark_files = NULL; /* Oskar */
 	if (project) {
 		bfwin->project = project;
 		bfwin->session = project->session;
-		bfwin->bookmarkstore = project->bookmarkstore;
+		bfwin->bmarkdata = project->bmarkdata;
 		DEBUG_MSG("gui_new_window, bfwin=%p, bfwin->session=%p, bfwin->bookmarkstore=%p (from project %p)\n",bfwin,bfwin->session,bfwin->bookmarkstore,project);
 	} else {
 		bfwin->session = main_v->session;
-		bfwin->bookmarkstore = main_v->bookmarkstore;
+		bfwin->bmarkdata = main_v->bmarkdata;
 		DEBUG_MSG("gui_new_window, bfwin=%p, bfwin->bookmarkstore=%p (from main_v)\n",bfwin,bfwin->bookmarkstore);
 	}
 	gui_create_main(bfwin,filenames);

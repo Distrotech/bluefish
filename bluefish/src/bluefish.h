@@ -300,7 +300,7 @@ typedef struct {
 	gpointer editor;
 	gint word_wrap;
 	Tsessionvars *session;
-	GtkTreeStore *bookmarkstore; /* project bookmarks */
+	gpointer bmarkdata; /* project bookmarks */
 	gboolean close; /* if this is TRUE, it means the project is saved and all, 
 	so after all documents are closed it just just be cleaned up and discarded */
 } Tproject;
@@ -350,16 +350,15 @@ typedef struct {
 	in the file where it is needed */
 	gpointer outputbox;
 	gpointer bfspell;
-	gpointer filebrowser;
-#ifdef FB2
+/*	gpointer filebrowser;*/
 	gpointer fb2; /* filebrowser2 gui */
-#endif
 	gpointer snr2;
 	gpointer fref;
 	gpointer bmark;
-	GtkTreeStore *bookmarkstore; /* this is a link to project->bookmarkstore OR main_v->bookmarkstore
-											  and it is only here for convenience !!!! */
-	GHashTable *bmark_files;     /* no way, I have to have list of file iters. Other way I 
+	gpointer bmarkdata; /* a link to the global main_v->bmarkdata, OR project->bmarkdata */
+/*	GtkTreeStore *bookmarkstore; / * this is a link to project->bookmarkstore OR main_v->bookmarkstore
+											  and it is only here for convenience !!!! * /
+	GHashTable *bmark_files;     / * no way, I have to have list of file iters. Other way I 
 	                                cannot properly load bmarks for closed files */
 } Tbfwin;
 
@@ -376,7 +375,7 @@ typedef struct {
 #endif
 	gpointer frefdata;
 	gpointer bmarkdata;
-	GtkTreeStore *bookmarkstore; /* the global bookmarks from the global session */
+/* 	GtkTreeStore *bookmarkstore; the global bookmarks from the global session */
 	gint num_untitled_documents;
 	GtkTooltips *tooltips;
 	guint16 lastkp_hardware_keycode; /* for the autoclosing, we need to know the last pressed key, in the key release callback, */

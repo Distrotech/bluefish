@@ -202,7 +202,7 @@ int main(int argc, char *argv[])
 	rcfile_parse_custom_menu(FALSE,FALSE);
 	main_v->tooltips = gtk_tooltips_new();
 	fref_init();
-	bmark_init();
+	main_v->bmarkdata = bookmark_data_new();
 #ifdef WITH_MSG_QUEUE
 	if (!filenames && !projectfiles && main_v->props.open_in_running_bluefish) {
 		msg_queue_start(NULL, NULL, open_in_new_window);
@@ -215,7 +215,7 @@ int main(int argc, char *argv[])
 	/* create the first window */
 	firstbfwin = g_new0(Tbfwin,1);
 	firstbfwin->session = main_v->session;
-	firstbfwin->bookmarkstore = main_v->bookmarkstore;
+	firstbfwin->bmarkdata = main_v->bmarkdata;
 	main_v->bfwinlist = g_list_append(NULL, firstbfwin);
 	gui_create_main(firstbfwin,filenames);
 	bmark_reload(firstbfwin);
