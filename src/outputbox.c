@@ -304,25 +304,26 @@ static void start_command(Toutputbox *ob, const gchar *command) {
 static void run_command(Toutputbox *ob) {
 	Tconvert_table *table, *tmpt;
 	gchar *command1;
-	const gchar *localfilename = NULL;
 	
 	if (!ob->bfwin->current_document->uri) {
 		/* cannot (yet) use nameless files */
 		return;
 	}
-	if (gnome_vfs_uri_is_local(ob->bfwin->current_document->uri)) {
-		localfilename = gnome_vfs_uri_get_path(ob->bfwin->current_document->uri);
-	}
+	
 	table = tmpt = g_new(Tconvert_table, 2);
 	tmpt->my_int = 's';
-	tmpt->my_char = localfilename ? localfilename : ob->bfwin->current_document->uri;
+	if (gnome_vfs_uri_is_local(ob->bfwin->current_document->uri)) {
+		tmpt->my_char = gnome_vfs_uri_get_path(ob->bfwin->current_document->uri);
+	} else {
+		tmpt->my_char = gnome_vfs_uri_to_string(ob->bfwin->current_document->uri,GNOME_VFS_URI_HIDE_PASSWORD);
+	}
 	tmpt++;
 	tmpt->my_char = NULL;
 	command1 = replace_string_printflike(ob->def->command, table);
 	g_free(table);
 	DEBUG_MSG("run_command, should run %s now\n", command1);
-	{
-		gchar *tmpstring = g_path_get_dirname(localfilename ? localfilename : ob->bfwin->current_document->uri);
+	if (gnome_vfs_uri_is_local(ob->bfwin->current_document->uri)) {
+		gchar *tmpstring = g_path_get_dirname(gnome_vfs_uri_get_path(ob->bfwin->current_document->uri));
 		chdir(tmpstring);
 		g_free(tmpstring);
 	}

@@ -1019,7 +1019,7 @@ static void fb2rpopup_rename(Tfilebrowser2 *fb2) {
 		/* Use doc_save(doc, 1, 1) if the file is open. */
 		oldfilename = gnome_vfs_uri_to_string(olduri,0);
 		alldocs = return_allwindows_documentlist();
-		tmpdoc = documentlist_return_document_from_filename(alldocs,olduri);
+		tmpdoc = documentlist_return_document_from_uri(alldocs,olduri);
 		g_list_free(alldocs);
 		if (tmpdoc != NULL) {
 			DEBUG_MSG("File is open. Calling doc_save().\n");
@@ -1095,7 +1095,7 @@ static void fb2rpopup_delete(Tfilebrowser2 *fb2) {
 				g_free(errmessage);
 			} else {
 				GList *alldocs = return_allwindows_documentlist();
-				Tdocument *exdoc = documentlist_return_document_from_filename(alldocs, uri);
+				Tdocument *exdoc = documentlist_return_document_from_uri(alldocs, uri);
 				if (exdoc) document_unset_filename(exdoc);
 				g_list_free(alldocs);
 			}

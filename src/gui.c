@@ -171,10 +171,10 @@ gboolean switch_to_document_by_pointer(Tbfwin *bfwin,Tdocument *document) {
 	return switch_to_document_by_index(bfwin,index);
 }
 
-gboolean switch_to_document_by_filename(Tbfwin *bfwin,gchar *filename) {
+gboolean switch_to_document_by_uri(Tbfwin *bfwin,GnomeVFSURI *uri) {
 	gint index;
 
-	index = documentlist_return_index_from_filename(bfwin->documentlist,filename);
+	index = documentlist_return_index_from_uri(bfwin->documentlist,uri);
 	return switch_to_document_by_index(bfwin,index);
 }
 

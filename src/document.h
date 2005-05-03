@@ -29,7 +29,7 @@ enum {
 void autoclosing_init(void);
 GList *return_allwindows_documentlist(void);
 GList *return_urilist_from_doclist(GList *doclist);
-gint documentlist_return_index_from_filename(GList *doclist, GnomeVFSURI *uri);
+gint documentlist_return_index_from_uri(GList *doclist, GnomeVFSURI *uri);
 Tdocument *documentlist_return_document_from_filename(GList *doclist, GnomeVFSURI *uri);
 Tdocument *documentlist_return_document_from_index(GList *doclist, gint index);
 
