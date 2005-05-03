@@ -193,7 +193,7 @@ void add_filename_to_history(Tbfwin *bfwin, gchar *filename) {
 }
 
 /**
- * documentlist_return_index_from_filename:
+ * documentlist_return_index_from_uri:
  * @doclist: #GList* with the documents to search in
  * @filename: a #gchar
  * 
@@ -203,7 +203,7 @@ void add_filename_to_history(Tbfwin *bfwin, gchar *filename) {
  *
  * Return value: the index number on success, -1 if the file is not open
  **/
-gint documentlist_return_index_from_filename(GList *doclist, GnomeVFSURI *uri) {
+gint documentlist_return_index_from_uri(GList *doclist, GnomeVFSURI *uri) {
 	GList *tmplist;
 	gint count=0;
 
@@ -223,7 +223,7 @@ gint documentlist_return_index_from_filename(GList *doclist, GnomeVFSURI *uri) {
 	return -1;
 }
 /**
- * documentlist_return_index_from_filename:
+ * documentlist_return_document_from_uri:
  * @doclist: #GList* with the documents to search in
  * @filename: a #gchar
  * 
@@ -232,7 +232,7 @@ gint documentlist_return_index_from_filename(GList *doclist, GnomeVFSURI *uri) {
  *
  * Return value: #Tdocument* or NULL if not open
  **/
-Tdocument *documentlist_return_document_from_filename(GList *doclist, GnomeVFSURI *uri) {
+Tdocument *documentlist_return_document_from_uri(GList *doclist, GnomeVFSURI *uri) {
 	GList *tmplist;
 	if (!uri) {
 		DEBUG_MSG("documentlist_return_document_from_filename, no filename! returning\n");
@@ -2933,13 +2933,15 @@ Tdocument *doc_new(Tbfwin* bfwin, gboolean delay_activate) {
 void doc_new_with_new_file(Tbfwin *bfwin, gchar *new_curi) {
 	Tdocument *doc;
 	Tfiletype *ft;
+	GnomeVFSURI *new_uri;
 	if (new_curi == NULL) {
 		statusbar_message(bfwin,_("No filename"), 2);
 		return;
 	}
+	new_uri = gnome_vfs_uri_new(new_curi);
 	if (!main_v->props.allow_multi_instances) {
 		gboolean res;
-		res = switch_to_document_by_filename(bfwin,new_curi);
+		res = switch_to_document_by_uri(bfwin,new_uri);
 		if (res){
 			return;
 		}
@@ -2947,7 +2949,7 @@ void doc_new_with_new_file(Tbfwin *bfwin, gchar *new_curi) {
 	DEBUG_MSG("doc_new_with_new_file, new_curi=%s\n", new_curi);
 	add_filename_to_history(bfwin,new_curi);
 	doc = doc_new(bfwin, FALSE);
-	doc->uri = gnome_vfs_uri_new(new_curi);
+	doc->uri = new_uri;
 	if (bfwin->project && bfwin->project->template && strlen(bfwin->project->template) > 2) {
 		GnomeVFSURI *uri;
 		uri = gnome_vfs_uri_new(bfwin->project->template);
@@ -2993,7 +2995,7 @@ void doc_new_from_uri(Tbfwin *bfwin, gchar *curi, GnomeVFSURI *opturi, GnomeVFSF
 	
 	/* check if the document already is opened */
 	alldocs = return_allwindows_documentlist();
-	tmpdoc = documentlist_return_document_from_filename(alldocs, uri);
+	tmpdoc = documentlist_return_document_from_uri(alldocs, uri);
 	g_list_free(alldocs);
 	if (tmpdoc) { /* document is already open */
 		if (move_to_this_win) {

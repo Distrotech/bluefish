@@ -415,6 +415,7 @@ gchar *ask_new_filename(Tbfwin *bfwin,gchar *old_curi, const gchar *gui_name, gb
 	Tdocument *exdoc;
 	GList *alldocs;
 	gchar *new_curi = NULL;
+	GnomeVFSURI *uri;
 	gchar *dialogtext;
 	GtkWidget *dialog;
 	
@@ -434,7 +435,9 @@ gchar *ask_new_filename(Tbfwin *bfwin,gchar *old_curi, const gchar *gui_name, gb
 	}
 	
 	alldocs = return_allwindows_documentlist();
-	exdoc = documentlist_return_document_from_filename(alldocs, new_curi);
+	uri = gnome_vfs_uri_new(new_curi);
+	exdoc = documentlist_return_document_from_uri(alldocs, uri);
+	gnome_vfs_uri_unref(uri);
 	g_list_free(alldocs);
 	DEBUG_MSG("ask_new_filename, exdoc=%p, newfilename=%s\n", exdoc, new_curi);
 	if (exdoc) {

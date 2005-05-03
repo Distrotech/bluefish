@@ -889,7 +889,7 @@ static void open_adv_load_directory_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSResu
 				gchar *curi;
 				curi = gnome_vfs_uri_to_string(child_uri,0);
 				list = return_allwindows_documentlist();
-				if (documentlist_return_document_from_filename(list, child_uri)==NULL) { /* if this file is already open, there is no need to do any of these checks */
+				if (documentlist_return_document_from_uri(list, child_uri)==NULL) { /* if this file is already open, there is no need to do any of these checks */
 					if (oa->patspec) {
 						if (g_pattern_match_string(oa->patspec, finfo->name)) { /* test extension */
 							if (oa->content_filter) { /* do we need content filtering */
