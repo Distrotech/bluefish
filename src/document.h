@@ -82,9 +82,9 @@ gchar *ask_new_filename(Tbfwin *bfwin,gchar *oldfilename, const gchar *gui_name,
 gint doc_save(Tdocument * doc, gboolean do_save_as, gboolean do_move, gboolean window_closing);
 void document_set_line_numbers(Tdocument *doc, gboolean value);
 Tdocument *doc_new(Tbfwin* bfwin, gboolean delay_activate);
-void doc_new_with_new_file(Tbfwin *bfwin, gchar * new_filename);
+/* void doc_new_with_new_file(Tbfwin *bfwin, gchar * new_filename); */
 Tdocument *doc_new_loading_in_background(Tbfwin *bfwin, GnomeVFSURI *uri, GnomeVFSFileInfo *finfo);
-void doc_new_from_uri(Tbfwin *bfwin, gchar *curi, GnomeVFSURI *uri, GnomeVFSFileInfo *finfo, gboolean delay_activate, gboolean move_to_this_win, gint goto_line, gint goto_offset);
+void doc_new_from_uri(Tbfwin *bfwin, GnomeVFSURI *opturi, GnomeVFSFileInfo *finfo, gboolean delay_activate, gboolean move_to_this_win, gint goto_line, gint goto_offset);
 void doc_new_from_input(Tbfwin *bfwin, gchar *input, gboolean delay_activate, gboolean move_to_this_win, gint goto_line);
 void docs_new_from_uris(Tbfwin *bfwin, GSList *urislist, gboolean move_to_this_win);
 

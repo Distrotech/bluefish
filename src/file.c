@@ -897,13 +897,13 @@ static void open_adv_load_directory_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSResu
 								openadv_content_filter_file(oa->bfwin, child_uri, finfo, oa->content_filter, oa->use_regex);
 							} else { /* open this file as document */
 								DEBUG_MSG("open_adv_load_directory_lcb, open %s\n", gnome_vfs_uri_get_path(child_uri));
-								doc_new_from_uri(oa->bfwin, NULL, child_uri, finfo, TRUE, FALSE, -1, -1);
+								doc_new_from_uri(oa->bfwin, child_uri, finfo, TRUE, FALSE, -1, -1);
 							}
 						}
 					} else if (oa->content_filter) {
 						openadv_content_filter_file(oa->bfwin, child_uri, finfo, oa->content_filter, oa->use_regex);
 					} else {
-						doc_new_from_uri(oa->bfwin, NULL, child_uri, finfo, TRUE, FALSE, -1, -1);
+						doc_new_from_uri(oa->bfwin, child_uri, finfo, TRUE, FALSE, -1, -1);
 					}
 				}
 				g_free(curi);
