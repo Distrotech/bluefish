@@ -132,7 +132,7 @@ GList *return_allwindows_documentlist() {
 }
 
 /**
- * return_filenamestringlist_from_doclist:
+ * return_urilist_from_doclist:
  * @doclist: #GList*
  *
  * Returns a stringlist with filenames given a 
@@ -314,7 +314,7 @@ void doc_set_wrap(Tdocument * doc) {
  *
  * Return value: Tfiletype* 
  **/
-Tfiletype *get_filetype_by_name(gchar * name) {
+Tfiletype *get_filetype_by_name(const gchar * name) {
 	GList *tmplist;
 	tmplist = g_list_first(main_v->filetypelist);
 	while (tmplist) {
@@ -338,7 +338,7 @@ Tfiletype *get_filetype_by_name(gchar * name) {
  *
  * Return value: #Tfiletype* or NULL
  **/
-Tfiletype *get_filetype_by_filename_and_content(gchar *filename, gchar *buf) {
+Tfiletype *get_filetype_by_filename_and_content(const gchar *filename, gchar *buf) {
 	GList *tmplist;
 	DEBUG_MSG("get_filetype_by_filename_and_content, filename=%s, buf=%p\n",filename,buf);
 	if (filename) {
@@ -512,12 +512,11 @@ void doc_set_title(Tdocument *doc) {
  **/
 void doc_reset_filetype(Tdocument * doc, GnomeVFSURI *newuri, gchar *buf) {
 	Tfiletype *ft;
-	gchar *newfilename = gnome_vfs_uri_to_string(newuri,GNOME_VFS_URI_HIDE_PASSWORD);
 	if (buf) {
-		ft = get_filetype_by_filename_and_content(newfilename, buf);
+		ft = get_filetype_by_filename_and_content(gnome_vfs_uri_get_path(newuri), buf);
 	} else {
 		gchar *tmp = doc_get_chars(doc, 0, main_v->props.numcharsforfiletype);
-		ft = get_filetype_by_filename_and_content(newfilename, tmp);
+		ft = get_filetype_by_filename_and_content(gnome_vfs_uri_get_path(newuri), tmp);
 		g_free(tmp);
 	}
 	if (!ft) {
@@ -526,13 +525,11 @@ void doc_reset_filetype(Tdocument * doc, GnomeVFSURI *newuri, gchar *buf) {
 		tmplist = g_list_first(main_v->filetypelist);
 		if (!tmplist) {
 			DEBUG_MSG("doc_reset_filetype, no default filetype? huh?\n");
-			g_free(newfilename);
 			return;
 		}
 		ft = (Tfiletype *)tmplist->data;
 	}
 	doc_set_filetype(doc, ft);
-	g_free(newfilename);
 }
 
 void doc_set_filename(Tdocument *doc, GnomeVFSURI *newuri) {

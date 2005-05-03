@@ -1341,7 +1341,7 @@ void bmark_check_length(Tbfwin * bfwin, Tdocument * doc) {
 				gint retval;
 				const gchar *buttons[] = {GTK_STOCK_NO, GTK_STOCK_YES, NULL};
 				gchar *str;
-				str = g_strconcat(_("File size changed in file\n"),doc->uri,NULL);
+				str = g_strconcat(_("File size changed in file \n"),gtk_label_get_text(GTK_LABEL(doc->tab_menu)),NULL);
 				retval = message_dialog_new_multi(bfwin->main_window,
 															 GTK_MESSAGE_QUESTION,
 															 buttons,

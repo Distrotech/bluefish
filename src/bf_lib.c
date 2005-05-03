@@ -1297,7 +1297,7 @@ gchar *return_first_existing_filename(const gchar *filename, ...) {
  *
  * Return value: gboolean, TRUE if the file has one of the extensions in the array
  **/
-gboolean filename_test_extensions(gchar **extensions, gchar *filename) {
+gboolean filename_test_extensions(gchar **extensions, const gchar *filename) {
 	gint fnlen;
 	if (!extensions) {
 		return FALSE;
