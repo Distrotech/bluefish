@@ -2155,6 +2155,13 @@ void doc_unbind_signals(Tdocument *doc) {
 	}
 }
 
+/**
+ * buffer_to_file:
+ *
+ * this function is still used to create a temporary file for a filter
+ * or external command
+ *
+ */
 gboolean buffer_to_file(Tbfwin *bfwin, gchar *buffer, gchar *filename) {
 	GnomeVFSHandle *handle;
 	GnomeVFSFileSize bytes_written=0;
@@ -2449,21 +2456,16 @@ void doc_destroy(Tdocument * doc, gboolean delay_activation) {
  */
 void document_unset_filename(Tdocument *doc) {
 	if (doc->uri) {
-		gchar *tmpstr2, *tmpstr3;
-		gchar *tmpstr, *oldfilename;
+		gchar *tmpstr;
+		tmpstr = g_strconcat(_("Previously: "), gtk_label_get_text(GTK_LABEL(doc->tab_label)), NULL);
 
-		oldfilename = gnome_vfs_uri_to_string(doc->uri,GNOME_VFS_URI_HIDE_PASSWORD);
 		gnome_vfs_uri_unref(doc->uri);
 		doc->uri = NULL;
 		doc_set_title(doc);
-		tmpstr2 = g_path_get_basename(oldfilename);
-		tmpstr3 = get_utf8filename_from_on_disk_encoding(tmpstr2);
-		tmpstr = g_strconcat(_("Previously: "), tmpstr3, NULL);
-		g_free(tmpstr2);
-		g_free(tmpstr3);
+
 		gtk_label_set(GTK_LABEL(doc->tab_label),tmpstr);
+		
 		g_free(tmpstr);
-		g_free(oldfilename);
 	}
 }
 
@@ -2927,7 +2929,7 @@ Tdocument *doc_new(Tbfwin* bfwin, gboolean delay_activate) {
  *
  * Return value: void
  **/
-void doc_new_with_new_file(Tbfwin *bfwin, gchar *new_curi) {
+/*void doc_new_with_new_file(Tbfwin *bfwin, gchar *new_curi) {
 	Tdocument *doc;
 	Tfiletype *ft;
 	GnomeVFSURI *new_uri;
@@ -2957,13 +2959,13 @@ void doc_new_with_new_file(Tbfwin *bfwin, gchar *new_curi) {
  	}
 	ft = get_filetype_by_filename_and_content(new_curi, NULL);
 	if (ft) doc->hl = ft;
-	/* doc->modified = 1;*/
+	/ * doc->modified = 1;* /
 	doc_set_title(doc);
-	/* doc_save(doc, FALSE, FALSE, FALSE); */
-	/* doc_set_stat_info(doc);  also sets mtime field */
+	/ * doc_save(doc, FALSE, FALSE, FALSE); * /
+	/ * doc_set_stat_info(doc);  also sets mtime field * /
 	switch_to_document_by_pointer(bfwin,doc);
 	doc_activate(doc);
-}
+}*/
 
 /**
  * doc_new_from_uri:
@@ -2972,22 +2974,17 @@ void doc_new_with_new_file(Tbfwin *bfwin, gchar *new_curi) {
  *
  * and goto_line and goto_offset should not BOTH be >= 0 (if so, offset is ignored)
  */
-void doc_new_from_uri(Tbfwin *bfwin, gchar *curi, GnomeVFSURI *opturi, GnomeVFSFileInfo *finfo, gboolean delay_activate, gboolean move_to_this_win, gint goto_line, gint goto_offset) {
+void doc_new_from_uri(Tbfwin *bfwin, GnomeVFSURI *opturi, GnomeVFSFileInfo *finfo, gboolean delay_activate, gboolean move_to_this_win, gint goto_line, gint goto_offset) {
 	GList *alldocs;
 	Tdocument *tmpdoc;
 	gchar *tmpcuri;
 	GnomeVFSURI *uri;
-	if (!bfwin || (!curi && !opturi)) {
+	if (!bfwin || !opturi) {
 		return;
 	}
-	if (opturi) {
-		uri = opturi;
-		gnome_vfs_uri_ref(opturi);
-		tmpcuri = gnome_vfs_uri_to_string(opturi,0);
-	} else {
-		uri = gnome_vfs_uri_new(curi);	
-		tmpcuri = g_strdup(curi);
-	}
+	uri = opturi;
+	gnome_vfs_uri_ref(opturi);
+	tmpcuri = gnome_vfs_uri_to_string(opturi,0);
 	DEBUG_MSG("doc_new_from_uri, started for %s\n",tmpcuri);
 	
 	/* check if the document already is opened */
@@ -3038,7 +3035,9 @@ void doc_new_from_input(Tbfwin *bfwin, gchar *input, gboolean delay_activate, gb
 		curi = gnome_vfs_make_uri_from_input(input);
 	}
 	if (curi) {
-		doc_new_from_uri(bfwin, curi, NULL, NULL, delay_activate, move_to_this_win, goto_line, -1);
+		GnomeVFSURI *uri = gnome_vfs_uri_new(curi);
+		doc_new_from_uri(bfwin, uri, NULL, delay_activate, move_to_this_win, goto_line, -1);
+		gnome_vfs_uri_unref(uri);
 	}
 }
 
@@ -3048,7 +3047,9 @@ void docs_new_from_uris(Tbfwin *bfwin, GSList *urislist, gboolean move_to_this_w
 	bfwin->focus_next_new_doc = TRUE;
 	tmpslist = urislist;
 	while (tmpslist) {
-		doc_new_from_uri(bfwin, tmpslist->data, NULL, NULL, TRUE, move_to_this_win, -1, -1);
+		GnomeVFSURI *uri = gnome_vfs_uri_new(tmpslist->data);
+		doc_new_from_uri(bfwin, uri, NULL, TRUE, move_to_this_win, -1, -1);
+		gnome_vfs_uri_unref(uri);
 		tmpslist = g_slist_next(tmpslist);
 	}
 }

@@ -404,7 +404,7 @@ static void bmark_popup_menu_goto(Tbfwin *bfwin) {
 	b = get_current_bmark(bfwin);
 	if (b) {
 		DEBUG_MSG("bmark_popup_menu_goto_lcb, calling doc_new_from_uri for %s with goto_offset %d\n",gnome_vfs_uri_get_path(b->filepath),b->offset);
-		doc_new_from_uri(bfwin, NULL, b->filepath, NULL, FALSE, FALSE, -1, b->offset);
+		doc_new_from_uri(bfwin, b->filepath, NULL, FALSE, FALSE, -1, b->offset);
 	}
 }
 /* 

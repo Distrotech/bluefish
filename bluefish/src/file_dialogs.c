@@ -231,7 +231,7 @@ static void open_url_ok_lcb(GtkWidget *widget, Tou *ou) {
 	/*doc_new_with_file(ou->bfwin,url,FALSE,FALSE);*/
 	uri = gnome_vfs_uri_new(url);
 	if (uri) {
-		doc_new_from_uri(ou->bfwin, NULL, uri, NULL, FALSE, FALSE, -1, -1);
+		doc_new_from_uri(ou->bfwin, uri, NULL, FALSE, FALSE, -1, -1);
 	}
 	g_free(url);
 	gnome_vfs_uri_unref(uri);
@@ -518,9 +518,9 @@ void doc_save_backend(Tdocument *doc, gboolean do_save_as, gboolean do_move, gbo
 			}
 			gnome_vfs_uri_unref(doc->uri);
 		}
-		doc->uri = newfilename;
+		doc->uri = gnome_vfs_uri_new(newfilename);
 		g_free(curi);
-		curi = gnome_vfs_uri_to_string(doc->uri,GNOME_VFS_URI_HIDE_PASSWORD);
+		curi = newfilename;
 	}
 	session_set_savedir(doc->bfwin, curi);
 	{
@@ -539,7 +539,7 @@ void doc_save_backend(Tdocument *doc, gboolean do_save_as, gboolean do_move, gbo
 		doc->action.save = file_checkNsave_uri_async(doc->uri, doc->fileinfo, buffer, strlen(buffer->data), !do_save_as, doc_checkNsave_lcb, doc);
 
 		if (do_save_as) {
-			doc_reset_filetype(doc, curi, buffer->data);
+			doc_reset_filetype(doc, doc->uri, buffer->data);
 			doc_set_title(doc);
 		}
 		refcpointer_unref(buffer);

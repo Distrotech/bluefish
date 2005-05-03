@@ -1007,10 +1007,12 @@ static void open_recent_project_cb(GtkWidget *widget, Tbfwin *bfwin) {
  * This function should be called when a menu from the Open Recent list
  * has been selected. */
 static void open_recent_file_cb(GtkWidget *widget, Tbfwin *bfwin) {
-	gchar *filename = GTK_LABEL(GTK_BIN(widget)->child)->label;
+	GnomeVFSURI *uri;
+	uri = gnome_vfs_uri_new(GTK_LABEL(GTK_BIN(widget)->child)->label);
 	DEBUG_MSG("open_recent_file_cb, started, filename is %s\n", filename);
-	doc_new_from_uri(bfwin, filename, NULL, NULL, FALSE, FALSE, -1, -1);
-	add_to_recent_list(bfwin,filename, 0, FALSE);
+	doc_new_from_uri(bfwin, uri, NULL, FALSE, FALSE, -1, -1);
+	gnome_vfs_uri_unref(uri);
+	add_to_recent_list(bfwin,GTK_LABEL(GTK_BIN(widget)->child)->label, 0, FALSE);
 }
 
 /* create_recent_entry
