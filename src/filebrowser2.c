@@ -603,22 +603,17 @@ static void fb2_focus_dir(Tfilebrowser2 *fb2, GnomeVFSURI *uri, gboolean noselec
  * directory
  */
 void fb2_focus_document(Tbfwin *bfwin, Tdocument *doc) {
-	DEBUG_MSG("fb2_focus_document,doc->uri=%s\n",doc->uri);
+	DEBUG_MSG("fb2_focus_document,doc %s\n",gtk_label_get_text(GTK_LABEL(doc->tab_menu)));
 	if (bfwin->fb2 && doc->uri) {
-		GnomeVFSURI *file_uri, *dir_uri;
+		GnomeVFSURI *dir_uri;
 		/* first we make sure we have the correct directory open, then
 		we could select the document, but if the directory *was* open already, this
 		could disturb the user... hmmm... */
-		file_uri = gnome_vfs_uri_new(doc->uri);
-#ifdef DEVELOPMENT
-		if (!file_uri) exit(333);
-#endif
-		dir_uri = gnome_vfs_uri_get_parent(file_uri);
+		dir_uri = gnome_vfs_uri_get_parent(doc->uri);
 #ifdef DEVELOPMENT
 		if (!dir_uri) exit(334);
 #endif
 		fb2_focus_dir(FILEBROWSER2(bfwin->fb2), dir_uri, FALSE);
-		gnome_vfs_uri_unref(file_uri);
 		gnome_vfs_uri_unref(dir_uri);
 	}
 }
@@ -942,12 +937,14 @@ static void handle_activate_on_file(Tfilebrowser2 *fb2, GnomeVFSURI *uri) {
 	ft = get_filetype_by_filename_and_content(filename, NULL);
 	DEBUG_MSG("handle_activate_on_file, file %s has type %p\n",filename, ft);
 	if (ft == NULL || ft->editable) {
-		/* doc_new_with_file(fb2->bfwin,filename, FALSE, FALSE); */
 		doc_new_from_uri(fb2->bfwin, NULL, uri, NULL, FALSE, FALSE, -1, -1);
 	} else if (strcmp(ft->type, "webimage")==0 || strcmp(ft->type, "image")==0) {
-		gchar *relfilename = create_relative_link_to(fb2->bfwin->current_document->uri, filename);
+		gchar *relfilename, *curi;
+		curi = gnome_vfs_uri_to_string(fb2->bfwin->current_document->uri,GNOME_VFS_URI_HIDE_PASSWORD);
+		relfilename = create_relative_link_to(curi, filename);
 		image_insert_from_filename(fb2->bfwin,relfilename);
 		g_free(relfilename);
+		g_free(curi);
 	} else if (strcmp(ft->type, "bfproject") == 0) {
 		project_open_from_file(fb2->bfwin, filename);
 	} else {
@@ -1022,7 +1019,7 @@ static void fb2rpopup_rename(Tfilebrowser2 *fb2) {
 		/* Use doc_save(doc, 1, 1) if the file is open. */
 		oldfilename = gnome_vfs_uri_to_string(olduri,0);
 		alldocs = return_allwindows_documentlist();
-		tmpdoc = documentlist_return_document_from_filename(alldocs,oldfilename);
+		tmpdoc = documentlist_return_document_from_filename(alldocs,olduri);
 		g_list_free(alldocs);
 		if (tmpdoc != NULL) {
 			DEBUG_MSG("File is open. Calling doc_save().\n");
@@ -1098,7 +1095,7 @@ static void fb2rpopup_delete(Tfilebrowser2 *fb2) {
 				g_free(errmessage);
 			} else {
 				GList *alldocs = return_allwindows_documentlist();
-				Tdocument *exdoc = documentlist_return_document_from_filename(alldocs, filename);
+				Tdocument *exdoc = documentlist_return_document_from_filename(alldocs, uri);
 				if (exdoc) document_unset_filename(exdoc);
 				g_list_free(alldocs);
 			}

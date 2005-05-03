@@ -1299,7 +1299,7 @@ gboolean main_window_delete_event_lcb(GtkWidget *widget,GdkEvent *event,Tbfwin *
 void gui_create_main(Tbfwin *bfwin, GList *filenames) {
 	GtkWidget *vbox;
 	GList *tmplist;
-	DEBUG_MSG("gui_create_main, bfwin=%p, bfwin->bookmarkstore=%p\n",bfwin,bfwin->bookmarkstore);
+	DEBUG_MSG("gui_create_main, bfwin=%p\n",bfwin);
 	bfwin->main_window = window_full2(_("New Bluefish Window"), GTK_WIN_POS_CENTER, 0, G_CALLBACK(main_window_destroy_lcb), bfwin, FALSE, NULL);
 	gtk_window_set_role(GTK_WINDOW(bfwin->main_window), "bluefish");
 	if (main_v->globses.main_window_w > 0) {
@@ -1723,11 +1723,11 @@ Tbfwin *gui_new_window(GList *filenames, Tproject *project) {
 		bfwin->project = project;
 		bfwin->session = project->session;
 		bfwin->bmarkdata = project->bmarkdata;
-		DEBUG_MSG("gui_new_window, bfwin=%p, bfwin->session=%p, bfwin->bookmarkstore=%p (from project %p)\n",bfwin,bfwin->session,bfwin->bookmarkstore,project);
+		DEBUG_MSG("gui_new_window, bfwin=%p, bfwin->session=%p, (from project %p)\n",bfwin,bfwin->session,project);
 	} else {
 		bfwin->session = main_v->session;
 		bfwin->bmarkdata = main_v->bmarkdata;
-		DEBUG_MSG("gui_new_window, bfwin=%p, bfwin->bookmarkstore=%p (from main_v)\n",bfwin,bfwin->bookmarkstore);
+		DEBUG_MSG("gui_new_window, bfwin=%p, (from main_v)\n",bfwin);
 	}
 	gui_create_main(bfwin,filenames);
 	/* never comment this out again Jim! */

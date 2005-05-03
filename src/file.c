@@ -734,7 +734,8 @@ void file_doc_retry_uri(Tdocument *doc) {
 	f2d->bfwin = doc->bfwin;
 	f2d->doc = doc;
 	doc_set_status(doc, DOC_STATUS_LOADING);
-	f2d->uri = gnome_vfs_uri_new(doc->uri);
+	f2d->uri = doc->uri;
+	gnome_vfs_uri_ref(doc->uri);
 	if (doc->fileinfo == NULL) {
 		file_doc_fill_fileinfo(f2d->doc, f2d->uri);
 	}
@@ -757,13 +758,12 @@ void file_doc_fill_from_uri(Tdocument *doc, GnomeVFSURI *uri, GnomeVFSFileInfo *
 
 void file_doc_from_uri(Tbfwin *bfwin, GnomeVFSURI *uri, GnomeVFSFileInfo *finfo, gint goto_line, gint goto_offset) {
 	Tfile2doc *f2d;
-	gchar *curi;
 	f2d = g_new(Tfile2doc,1);
 	DEBUG_MSG("file_doc_from_uri, open %s, f2d=%p\n", gnome_vfs_uri_get_path(uri), f2d);
 	f2d->bfwin = bfwin;
-	f2d->uri = gnome_vfs_uri_ref(uri);
-	curi = gnome_vfs_uri_to_string(uri,0);
-	f2d->doc = doc_new_loading_in_background(bfwin, curi, finfo);
+	f2d->uri = uri;
+	gnome_vfs_uri_ref(uri);
+	f2d->doc = doc_new_loading_in_background(bfwin, uri, finfo);
 	f2d->doc->action.load = f2d;
 	f2d->doc->action.goto_line = goto_line;
 	f2d->doc->action.goto_offset = goto_offset;
@@ -772,7 +772,6 @@ void file_doc_from_uri(Tbfwin *bfwin, GnomeVFSURI *uri, GnomeVFSFileInfo *finfo,
 		/* get the fileinfo also async */
 		file_doc_fill_fileinfo(f2d->doc, uri);
 	}
-	g_free(curi);
 	f2d->of = file_openfile_uri_async(f2d->uri,file2doc_lcb,f2d);
 }
 
@@ -830,14 +829,11 @@ static void open_adv_content_filter_lcb(Topenfile_status status,gint error_info,
 			DEBUG_MSG("open_adv_content_filter_lcb, status=%d, now we should do the content filtering\n",status);
 			/* we have all content, do the filtering, and if correct, open the file as document */
 			if (open_adv_content_matches_filter(buffer,buflen,oau)) {
-				gchar *curi;
 				Tfile2doc *f2d = g_new(Tfile2doc,1);
 				f2d->uri = oau->uri;
 				gnome_vfs_uri_ref(oau->uri);
 				f2d->bfwin = oau->bfwin;
-				curi = gnome_vfs_uri_to_string(oau->uri,0);
-				f2d->doc = doc_new_loading_in_background(oau->bfwin, curi, oau->finfo);
-				g_free(curi);
+				f2d->doc = doc_new_loading_in_background(oau->bfwin, oau->uri, oau->finfo);
 				file2doc_lcb(status,error_info,buffer,buflen,f2d);
 			}
 			open_adv_open_uri_cleanup(data);
@@ -893,7 +889,7 @@ static void open_adv_load_directory_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSResu
 				gchar *curi;
 				curi = gnome_vfs_uri_to_string(child_uri,0);
 				list = return_allwindows_documentlist();
-				if (documentlist_return_document_from_filename(list, curi)==NULL) { /* if this file is already open, there is no need to do any of these checks */
+				if (documentlist_return_document_from_filename(list, child_uri)==NULL) { /* if this file is already open, there is no need to do any of these checks */
 					if (oa->patspec) {
 						if (g_pattern_match_string(oa->patspec, finfo->name)) { /* test extension */
 							if (oa->content_filter) { /* do we need content filtering */

@@ -304,14 +304,15 @@ static void start_command(Toutputbox *ob, const gchar *command) {
 static void run_command(Toutputbox *ob) {
 	Tconvert_table *table, *tmpt;
 	gchar *command1;
-	gchar *localfilename;
+	const gchar *localfilename = NULL;
 	
 	if (!ob->bfwin->current_document->uri) {
 		/* cannot (yet) use nameless files */
 		return;
 	}
-	localfilename = gnome_vfs_get_local_path_from_uri(ob->bfwin->current_document->uri);
-	
+	if (gnome_vfs_uri_is_local(ob->bfwin->current_document->uri)) {
+		localfilename = gnome_vfs_uri_get_path(ob->bfwin->current_document->uri);
+	}
 	table = tmpt = g_new(Tconvert_table, 2);
 	tmpt->my_int = 's';
 	tmpt->my_char = localfilename ? localfilename : ob->bfwin->current_document->uri;

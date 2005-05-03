@@ -53,6 +53,40 @@ void refcpointer_unref(Trefcpointer *rp) {
 	}
 }
 
+GnomeVFSURI *add_suffix_to_uri(GnomeVFSURI *uri, const char *suffix) {
+	if (!suffix) {
+		gnome_vfs_uri_ref(uri);
+		return uri;
+	} else {
+		gchar *tmp, *tmp2;
+		GnomeVFSURI *retval;
+		tmp = gnome_vfs_uri_to_string(uri,0);
+		tmp2 = g_strconcat(tmp, suffix, NULL);
+		retval = gnome_vfs_uri_new(tmp2);
+		g_free(tmp);
+		g_free(tmp2);
+		return retval;
+	}
+}
+
+GList *urilist_to_stringlist(GList *urilist) {
+	GList *retlist=NULL, *tmplist = g_list_last(urilist);
+	while (tmplist) {
+		retlist = g_list_prepend(retlist, gnome_vfs_uri_to_string((GnomeVFSURI *)tmplist->data,GNOME_VFS_URI_HIDE_PASSWORD));
+		tmplist = g_list_previous(tmplist);
+	}
+	return retlist;
+}
+
+void free_urilist(GList *urilist) {
+	GList *tmplist = g_list_first(urilist);
+	while (tmplist) {
+		gnome_vfs_uri_unref((GnomeVFSURI *)tmplist->data);
+		tmplist = g_list_next(tmplist);
+	}
+	g_list_free(urilist);
+}
+
 /**
  * uri_to_document_filename:
  *

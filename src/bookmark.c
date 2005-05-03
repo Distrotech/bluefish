@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-#define DEBUG
+/* #define DEBUG */
 
 #include <gtk/gtk.h>
 #include <sys/types.h>
@@ -288,7 +288,7 @@ void bmark_store_all(Tbfwin *bfwin) {
 			/* the document is open, so the offsets could be changed, store all permanent */
 			GtkTreeIter bmit;
 			gboolean cont2 = gtk_tree_model_iter_children(GTK_TREE_MODEL(BMARKDATA(bfwin->bmarkdata)->bookmarkstore), &bmit,&fileit);
-			DEBUG_MSG("bmark_store_all, storing bookmarks for %s\n",doc->uri);
+			DEBUG_MSG("bmark_store_all, storing bookmarks for %s\n",gtk_label_get_text(GTK_LABEL(doc->tab_menu)));
 			while (cont2) {
 				Tbmark *bmark;
 				gtk_tree_model_get(GTK_TREE_MODEL(BMARKDATA(bfwin->bmarkdata)->bookmarkstore), &bmit, PTR_COLUMN,&bmark, -1);
@@ -848,13 +848,11 @@ void bmark_set_store(Tbfwin * bfwin) {
 void bmark_clean_for_doc(Tdocument * doc) {
 	GtkTreeIter tmpiter;
 	gboolean cont;
-	GnomeVFSURI *docuri;
 
 	if (doc->bmark_parent == NULL)
 		return;
 
-	docuri = gnome_vfs_uri_new(doc->uri);
-	if (!docuri) 
+	if (!doc->uri) 
 		return;
 	DEBUG_MSG("bmark_clean_for_doc, getting children for parent_iter=%p\n",doc->bmark_parent);
 	cont =
@@ -882,9 +880,8 @@ void bmark_clean_for_doc(Tdocument * doc) {
 	DEBUG_MSG("bmark_clean_for_doc, unsetting and freeing parent_iter %p for doc %p\n",doc->bmark_parent,doc);
 	gtk_tree_store_set(GTK_TREE_STORE(BMARKDATA(BFWIN(doc->bfwin)->bmarkdata)->bookmarkstore), doc->bmark_parent, PTR_COLUMN, NULL, -1);
 	/* remove the pointer from the hastable */
-	g_hash_table_remove(BMARKDATA(BFWIN(doc->bfwin)->bmarkdata)->bmarkfiles,docuri);
+	g_hash_table_remove(BMARKDATA(BFWIN(doc->bfwin)->bmarkdata)->bmarkfiles,doc->uri);
 	g_free(doc->bmark_parent);
-	gnome_vfs_uri_unref(docuri);
 	doc->bmark_parent = NULL;
 }
 
@@ -896,14 +893,12 @@ void bmark_set_for_doc(Tdocument * doc) {
 	GtkTreeIter tmpiter;
 	GtkTextIter it;
 	gboolean cont;
-	GnomeVFSURI *docuri;
 	if (!doc->uri) {
 		DEBUG_MSG("bmark_set_for_doc, document %p does not have a filename, returning\n", doc);
 		return;
 	}
-	docuri = gnome_vfs_uri_new(doc->uri);
-	
-	DEBUG_MSG("bmark_set_for_doc, doc=%p, filename=%s\n",doc,doc->uri);
+
+	DEBUG_MSG("bmark_set_for_doc, doc=%p, filename=%s\n",doc,gtk_label_get_text(GTK_LABEL(doc->tab_menu)));
 /*	if (!BFWIN(doc->bfwin)->bmark) {
 		DEBUG_MSG("bmark_set_for_doc, no leftpanel, not implemented yet!!\n");
 		return;
@@ -924,9 +919,9 @@ void bmark_set_for_doc(Tdocument * doc) {
 			gtk_tree_model_get(GTK_TREE_MODEL(BMARKDATA(BFWIN(doc->bfwin)->bmarkdata)->bookmarkstore), &child, PTR_COLUMN,
 							   &mark, -1);
 			if (mark) {
-				if (mark->filepath == docuri || gnome_vfs_uri_equal(mark->filepath, docuri)) {	/* this is it */
+				if (mark->filepath == doc->uri || gnome_vfs_uri_equal(mark->filepath, doc->uri)) {	/* this is it */
 					gboolean cont2;
-					DEBUG_MSG("bmark_set_for_doc, we found a bookmark for document %s at offset=%d!\n",doc->uri,mark->offset);
+					DEBUG_MSG("bmark_set_for_doc, we found a bookmark for document %s at offset=%d!\n",gtk_label_get_text(GTK_LABEL(doc->tab_menu)),mark->offset);
 					/* we will now first set the Tdocument * into the second column of the parent */
 					gtk_tree_store_set(GTK_TREE_STORE(BMARKDATA(BFWIN(doc->bfwin)->bmarkdata)->bookmarkstore), &tmpiter, PTR_COLUMN, doc, -1);
 					
@@ -953,18 +948,16 @@ void bmark_set_for_doc(Tdocument * doc) {
 					}
 					doc->bmark_parent = g_memdup(&tmpiter, sizeof(GtkTreeIter));
 					/* now we add that to the hastbale */
-					gnome_vfs_uri_ref(docuri);
-					g_hash_table_insert(BMARKDATA(BFWIN(doc->bfwin)->bmarkdata)->bmarkfiles, docuri, doc->bmark_parent);
+					gnome_vfs_uri_ref(doc->uri);
+					g_hash_table_insert(BMARKDATA(BFWIN(doc->bfwin)->bmarkdata)->bmarkfiles, doc->uri, doc->bmark_parent);
 					DEBUG_MSG("bmark_set_for_doc, added parent_iter %p to doc %p, and adding that to the hashtable %p\n",doc->bmark_parent,doc,BMARKDATA(BFWIN(doc->bfwin)->bmarkdata)->bmarkfiles);
-					gnome_vfs_uri_unref(docuri);
 					return;
 				}
 			}
 		}
 		cont = gtk_tree_model_iter_next(GTK_TREE_MODEL(BMARKDATA(BFWIN(doc->bfwin)->bmarkdata)->bookmarkstore), &tmpiter);
 	}							/* cont */
-	DEBUG_MSG("bmark_set_for_doc, no bookmarks found for document %s\n", doc->uri);
-	gnome_vfs_uri_unref(docuri);
+	DEBUG_MSG("bmark_set_for_doc, no bookmarks found for document %s\n", gtk_label_get_text(GTK_LABEL(doc->tab_menu)));
 }
 
 /**
@@ -1037,10 +1030,8 @@ static void bmark_add_backend(Tdocument *doc, GtkTextIter *itoffset, gint offset
 	Tbmark *m;
 	gchar *displaytext = NULL;
 	GtkTextIter it;
-	GnomeVFSURI *docuri;
 	m = g_new0(Tbmark, 1);
 	m->doc = doc;
-	docuri = gnome_vfs_uri_new(doc->uri);
 	
 	if (itoffset) {
 		it = *itoffset;
@@ -1051,8 +1042,8 @@ static void bmark_add_backend(Tdocument *doc, GtkTextIter *itoffset, gint offset
 	}
 	
 	m->mark = gtk_text_buffer_create_mark(doc->buffer, NULL, &it, TRUE);
-	gnome_vfs_uri_ref(docuri);
-	m->filepath = docuri;
+	gnome_vfs_uri_ref(doc->uri);
+	m->filepath = doc->uri;
 	m->is_temp = is_temp;
 	m->text = g_strdup(text);
 	m->name = (name) ? g_strdup(name) : g_strdup("");
@@ -1068,7 +1059,6 @@ static void bmark_add_backend(Tdocument *doc, GtkTextIter *itoffset, gint offset
 	if (!m->is_temp) {
 		bmark_store(BFWIN(doc->bfwin), m);
 	}
-	gnome_vfs_uri_unref(docuri);
 }
 
 /**
@@ -1334,7 +1324,7 @@ void bmark_check_length(Tbfwin * bfwin, Tdocument * doc) {
 		DEBUG_MSG("bmark_check_length, no bmark_parent iter => no bookmarks, returning\n");
 		return;
 	}
-	DEBUG_MSG("bmark_check_length, doc %p, filename %s\n\n", doc, doc->uri);
+	DEBUG_MSG("bmark_check_length, doc %p, filename %s\n\n", doc, gtk_label_get_text(GTK_LABEL(doc->tab_menu)));
 
 	cont =
 		gtk_tree_model_iter_children(GTK_TREE_MODEL(BMARKDATA(bfwin->bmarkdata)->bookmarkstore), &tmpiter,

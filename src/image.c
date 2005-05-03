@@ -284,9 +284,9 @@ static void image_filename_changed(GtkWidget * widget, Timage_diag *imdg) {
 	filename = gtk_entry_get_text(GTK_ENTRY(imdg->dg->entry[0]));
 	/* we should use the full path to create the thumbnail filename */
 	tmp = strstr(filename, "://");
-	if ((tmp == NULL && filename[0] != '/') && imdg->dg->doc->uri && strlen(imdg->dg->doc->uri)) {
+	if ((tmp == NULL && filename[0] != '/') && imdg->dg->doc->uri) {
 		GnomeVFSURI *parent;
-		gchar *basedir = path_get_dirname_with_ending_slash(imdg->dg->doc->uri);
+		gchar *basedir = gnome_vfs_uri_extract_dirname(imdg->dg->doc->uri);
 		parent = gnome_vfs_uri_new(basedir);
 		fullfilename = gnome_vfs_uri_resolve_relative (parent,filename);
 		g_free(basedir);
@@ -506,18 +506,21 @@ static void mt_dialog_destroy(GtkWidget *wid, Tmuthudia *mtd) {
 /* needs both pixbufs to get the width !! */
 static void mt_fill_string(Timage2thumb *i2t, GdkPixbuf *image, GdkPixbuf *thumb) {
 	gint tw,th,ow,oh;
-	gchar *relthumb, *tmp, *relimage;
+	gchar *relthumb, *tmp, *relimage, *doc_curi;
 
 	relimage = tmp = gnome_vfs_uri_to_string(i2t->imagename,GNOME_VFS_URI_HIDE_PASSWORD);
+	doc_curi = gnome_vfs_uri_to_string(i2t->mtd->document->uri,GNOME_VFS_URI_HIDE_PASSWORD);
+	
 	if (i2t->mtd->document->uri) {
-		relimage = create_relative_link_to(i2t->mtd->document->uri, tmp);
+		relimage = create_relative_link_to(doc_curi, tmp);
 		g_free(tmp);
 	}
 	relthumb = tmp = gnome_vfs_uri_to_string(i2t->thumbname,GNOME_VFS_URI_HIDE_PASSWORD);
 	if (i2t->mtd->bfwin->current_document->uri) {
-		relthumb = create_relative_link_to(i2t->mtd->document->uri, tmp);
+		relthumb = create_relative_link_to(doc_curi, tmp);
 		g_free(tmp);
 	}
+	g_free(doc_curi);
 
 	ow = gdk_pixbuf_get_width(image);
 	oh = gdk_pixbuf_get_height(image);

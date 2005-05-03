@@ -24,7 +24,6 @@
  * regarding the ctime_r() function
  * the problem is that it generates a compiler warning on Linux, lstat() undefined.. */
 #define _POSIX_C_SOURCE 200312L
-
 #include <gtk/gtk.h>
 #include <gdk/gdkkeysyms.h> /* for the keyboard event codes */
 #include <sys/types.h> 	/* stat() */
@@ -141,14 +140,15 @@ GList *return_allwindows_documentlist() {
  *
  * Return value: #GList* stringlist with filenames
  */
-GList *return_filenamestringlist_from_doclist(GList *doclist) {
+GList *return_urilist_from_doclist(GList *doclist) {
 	GList *newlist=NULL, *tmplist;
 	DEBUG_MSG("return_filenamestringlist_from_doclist, started for doclist %p, len=%d\n",doclist,g_list_length(doclist));
 	tmplist = g_list_first(doclist);
 	while(tmplist){
 		if (DOCUMENT(tmplist->data)->uri) {
-			DEBUG_MSG("return_filenamestringlist_from_doclist, adding filename %s\n",DOCUMENT(tmplist->data)->uri);
-			newlist = g_list_prepend(newlist, g_strdup(DOCUMENT(tmplist->data)->uri));
+			DEBUG_MSG("return_filenamestringlist_from_doclist, adding filename %s\n",gnome_vfs_uri_get_path(DOCUMENT(tmplist->data)->uri));
+			gnome_vfs_uri_ref(DOCUMENT(tmplist->data)->uri);
+			newlist = g_list_prepend(newlist, DOCUMENT(tmplist->data)->uri);
 		}
 		tmplist = g_list_next(tmplist);
 	}
@@ -203,17 +203,18 @@ void add_filename_to_history(Tbfwin *bfwin, gchar *filename) {
  *
  * Return value: the index number on success, -1 if the file is not open
  **/
-gint documentlist_return_index_from_filename(GList *doclist, gchar *filename) {
+gint documentlist_return_index_from_filename(GList *doclist, GnomeVFSURI *uri) {
 	GList *tmplist;
 	gint count=0;
 
-	if (!filename) {
+	if (!uri) {
 		return -1;
 	}
 	
 	tmplist = g_list_first(doclist);
 	while (tmplist) {
-		if (((Tdocument *)tmplist->data)->uri &&(strcmp(filename, ((Tdocument *)tmplist->data)->uri) ==0)) {
+		Tdocument *doc = tmplist->data;
+		if (doc->uri && (doc->uri == uri || gnome_vfs_uri_equal(doc->uri,uri) )) {
 			return count;
 		}
 		count++;
@@ -231,17 +232,16 @@ gint documentlist_return_index_from_filename(GList *doclist, gchar *filename) {
  *
  * Return value: #Tdocument* or NULL if not open
  **/
-Tdocument *documentlist_return_document_from_filename(GList *doclist, gchar *filename) {
+Tdocument *documentlist_return_document_from_filename(GList *doclist, GnomeVFSURI *uri) {
 	GList *tmplist;
-	if (!filename) {
+	if (!uri) {
 		DEBUG_MSG("documentlist_return_document_from_filename, no filename! returning\n");
 		return NULL;
 	}
-	DEBUG_MSG("documentlist_return_document_from_filename, filename=%s\n",filename);
+	DEBUG_MSG("documentlist_return_document_from_filename, filename=%s\n",gnome_vfs_uri_get_path(uri));
 	tmplist = g_list_first(doclist);
 	while (tmplist) {
-		DEBUG_MSG("documentlist_return_document_from_filename, comparing with %s\n",filename);
-		if (DOCUMENT(tmplist->data)->uri &&(strcmp(filename, DOCUMENT(tmplist->data)->uri) ==0)) {
+		if (DOCUMENT(tmplist->data)->uri &&(DOCUMENT(tmplist->data)->uri == uri || gnome_vfs_uri_equal(DOCUMENT(tmplist->data)->uri,uri))) {
 			DEBUG_MSG("documentlist_return_document_from_filename, found, returning %p\n", tmplist->data);
 			return DOCUMENT(tmplist->data);
 		}
@@ -396,7 +396,7 @@ void doc_set_tooltip(Tdocument *doc) {
 	gchar *encoding;
 	gchar mtimestr[128], *modestr=NULL, *sizestr=NULL;
 	mtimestr[0] = '\0';
-	DEBUG_MSG("doc_set_tooltip, fileinfo=%p for uri %s and filename %s\n", doc->fileinfo, doc->uri, doc->uri);
+	DEBUG_MSG("doc_set_tooltip, fileinfo=%p for doc %s\n", doc->fileinfo, gtk_label_get_text(GTK_LABEL(doc->tab_menu)));
 	if (doc->fileinfo) {
 		if (doc->fileinfo->valid_fields & GNOME_VFS_FILE_INFO_FIELDS_PERMISSIONS) {
 			tmp = filemode_to_string(doc->fileinfo->permissions);
@@ -479,8 +479,7 @@ void doc_set_title(Tdocument *doc) {
 	gchar *label_string, *tabmenu_string;
 	if (doc->uri) {
 		gchar *utf8uri, *tmp;
-		utf8uri = gnome_vfs_format_uri_for_display(doc->uri);
-		DEBUG_MSG("doc_set_title, uri=%s, utf8uri=%s\n",doc->uri,utf8uri);
+		utf8uri = uri_to_document_filename(doc->uri);
 		tmp = g_path_get_basename(utf8uri);
 		label_string = gnome_vfs_unescape_string(tmp, "");
 		tabmenu_string = g_strdup(utf8uri);
@@ -511,8 +510,9 @@ void doc_set_title(Tdocument *doc) {
  *
  * Return value: void
  **/
-void doc_reset_filetype(Tdocument * doc, gchar * newfilename, gchar *buf) {
+void doc_reset_filetype(Tdocument * doc, GnomeVFSURI *newuri, gchar *buf) {
 	Tfiletype *ft;
+	gchar *newfilename = gnome_vfs_uri_to_string(newuri,GNOME_VFS_URI_HIDE_PASSWORD);
 	if (buf) {
 		ft = get_filetype_by_filename_and_content(newfilename, buf);
 	} else {
@@ -526,17 +526,20 @@ void doc_reset_filetype(Tdocument * doc, gchar * newfilename, gchar *buf) {
 		tmplist = g_list_first(main_v->filetypelist);
 		if (!tmplist) {
 			DEBUG_MSG("doc_reset_filetype, no default filetype? huh?\n");
+			g_free(newfilename);
 			return;
 		}
 		ft = (Tfiletype *)tmplist->data;
 	}
 	doc_set_filetype(doc, ft);
+	g_free(newfilename);
 }
 
-void doc_set_filename(Tdocument *doc, gchar *uri) {
-	if (uri) {
-		if (doc->uri) g_free(doc->uri);
-		doc->uri = g_strdup(uri);
+void doc_set_filename(Tdocument *doc, GnomeVFSURI *newuri) {
+	if (newuri) {
+		if (doc->uri) gnome_vfs_uri_unref(doc->uri);
+		doc->uri = newuri;
+		gnome_vfs_uri_ref(newuri);
 		doc_set_title(doc);
 		doc_reset_filetype(doc, doc->uri, NULL);
 	}
@@ -1471,7 +1474,7 @@ gchar *buffer_find_encoding(gchar *buffer, gsize buflen, gchar **encoding, const
 			/* we have a match */
 			DEBUG_MSG("doc_buffer_to_textbox, match so=%d,eo=%d\n", pmatch[1].rm_so,pmatch[1].rm_eo);
 			tmpencoding = g_strndup(&buffer[pmatch[1].rm_so], pmatch[1].rm_eo-pmatch[1].rm_so);
-			DEBUG_MSG("doc_buffer_to_textbox, detected encoding %s\n", encoding);
+			DEBUG_MSG("doc_buffer_to_textbox, detected encoding %s\n", tmpencoding);
 		}
 		regfree(&preg);
 #ifdef DEBUGPROFILING
@@ -1480,7 +1483,7 @@ gchar *buffer_find_encoding(gchar *buffer, gsize buflen, gchar **encoding, const
 #endif		
 	}
 	if (tmpencoding) {
-		DEBUG_MSG("doc_buffer_to_textbox, try encoding %s from <meta>\n", encoding);
+		DEBUG_MSG("doc_buffer_to_textbox, try encoding %s from <meta>\n", tmpencoding);
 		newbuf = g_convert(buffer,-1,"UTF-8",tmpencoding,NULL, &wsize, &error);
 		if (!newbuf || error) {
 			DEBUG_MSG("doc_buffer_to_textbox, cound not convert %s to UTF-8: \n", tmpencoding);
@@ -1492,10 +1495,10 @@ gchar *buffer_find_encoding(gchar *buffer, gsize buflen, gchar **encoding, const
 		}
 	}
 	if (sessionencoding) {
-		DEBUG_MSG("doc_buffer_to_textbox, file does not have <meta> encoding, or could not convert, trying session default encoding %s\n", BFWIN(doc->bfwin)->session->encoding);
+		DEBUG_MSG("doc_buffer_to_textbox, file does not have <meta> encoding, or could not convert, trying session default encoding %s\n", sessionencoding);
 		newbuf = g_convert(buffer,-1,"UTF-8",sessionencoding,NULL, &wsize, NULL);
 		if (newbuf) {
-			DEBUG_MSG("doc_buffer_to_textbox, file is in default encoding: %s\n", BFWIN(doc->bfwin)->session->encoding);
+			DEBUG_MSG("doc_buffer_to_textbox, file is in default encoding: %s\n", sessionencoding);
 			*encoding = g_strdup(sessionencoding);
 			return newbuf;
 		}
@@ -2218,7 +2221,7 @@ gchar *doc_get_buffer_in_encoding(Tdocument *doc) {
 			column = gtk_text_iter_get_line_offset(&iter);
 			failed[0]='\0';
 			g_utf8_strncpy(failed,buffer+bytes_read,1);
-			tmpstr = g_strdup_printf(_("Failed to convert %s to character encoding %s. Encoding failed on character '%s' at line %d column %d\n\nContinue saving in UTF-8 encoding?"), doc->uri, doc->encoding, failed, line+1, column+1);
+			tmpstr = g_strdup_printf(_("Failed to convert %s to character encoding %s. Encoding failed on character '%s' at line %d column %d\n\nContinue saving in UTF-8 encoding?"), gtk_label_get_text(GTK_LABEL(doc->tab_menu)), doc->encoding, failed, line+1, column+1);
 			retval = message_dialog_new_multi(BFWIN(doc->bfwin)->main_window,
 														 GTK_MESSAGE_WARNING,
 														 buttons,
@@ -2380,7 +2383,9 @@ void doc_destroy(Tdocument * doc, gboolean delay_activation) {
 /*        bmark_adjust_visible(bfwin);   */
 
 	if (doc->uri) {
-		add_to_recent_list(doc->bfwin,doc->uri, 1, FALSE);
+		gchar *curi = gnome_vfs_uri_to_string(doc->uri,GNOME_VFS_URI_HIDE_PASSWORD);
+		add_to_recent_list(doc->bfwin,curi, 1, FALSE);
+		g_free(curi);
 	}
 	gui_notebook_unbind_signals(BFWIN(doc->bfwin));
 	/* to make this go really quick, we first only destroy the notebook page and run flush_queue(), 
@@ -2415,12 +2420,11 @@ void doc_destroy(Tdocument * doc, gboolean delay_activation) {
 
 	if (doc->uri) {
 		if (main_v->props.backup_cleanuponclose) {
-			gchar *backupfile = g_strconcat(doc->uri, main_v->props.backup_filestring, NULL);
-			DEBUG_MSG("unlinking %s, doc->uri=%s\n", backupfile,doc->uri);
-			unlink(backupfile);
-			g_free(backupfile);
+			GnomeVFSURI *backupuri = add_suffix_to_uri(doc->uri, main_v->props.backup_filestring);
+			gnome_vfs_unlink_from_uri(backupuri);
+			gnome_vfs_uri_unref(backupuri);
 		}
-		g_free(doc->uri);
+		gnome_vfs_uri_unref(doc->uri);
 	}
 	
 	if (doc->encoding)
@@ -2449,7 +2453,10 @@ void doc_destroy(Tdocument * doc, gboolean delay_activation) {
 void document_unset_filename(Tdocument *doc) {
 	if (doc->uri) {
 		gchar *tmpstr2, *tmpstr3;
-		gchar *tmpstr, *oldfilename = doc->uri;
+		gchar *tmpstr, *oldfilename;
+
+		oldfilename = gnome_vfs_uri_to_string(doc->uri,GNOME_VFS_URI_HIDE_PASSWORD);
+		gnome_vfs_uri_unref(doc->uri);
 		doc->uri = NULL;
 		doc_set_title(doc);
 		tmpstr2 = g_path_get_basename(oldfilename);
@@ -2883,7 +2890,7 @@ static Tdocument *doc_new_backend(Tbfwin *bfwin, gboolean force_new) {
  *
  * creates a new document, which will be loaded in the background
  */
-Tdocument *doc_new_loading_in_background(Tbfwin *bfwin, gchar *uri, GnomeVFSFileInfo *finfo) {
+Tdocument *doc_new_loading_in_background(Tbfwin *bfwin, GnomeVFSURI *uri, GnomeVFSFileInfo *finfo) {
 	Tdocument *doc = doc_new_backend(bfwin, FALSE);
 	if (finfo) {
 		doc->fileinfo = gnome_vfs_file_info_dup(finfo);
@@ -2940,7 +2947,7 @@ void doc_new_with_new_file(Tbfwin *bfwin, gchar *new_curi) {
 	DEBUG_MSG("doc_new_with_new_file, new_curi=%s\n", new_curi);
 	add_filename_to_history(bfwin,new_curi);
 	doc = doc_new(bfwin, FALSE);
-	doc->uri = g_strdup(new_curi);
+	doc->uri = gnome_vfs_uri_new(new_curi);
 	if (bfwin->project && bfwin->project->template && strlen(bfwin->project->template) > 2) {
 		GnomeVFSURI *uri;
 		uri = gnome_vfs_uri_new(bfwin->project->template);
@@ -2949,7 +2956,7 @@ void doc_new_with_new_file(Tbfwin *bfwin, gchar *new_curi) {
 			gnome_vfs_uri_unref(uri);
 		}
  	}
-	ft = get_filetype_by_filename_and_content(doc->uri, NULL);
+	ft = get_filetype_by_filename_and_content(new_curi, NULL);
 	if (ft) doc->hl = ft;
 	/* doc->modified = 1;*/
 	doc_set_title(doc);
@@ -2966,19 +2973,27 @@ void doc_new_with_new_file(Tbfwin *bfwin, gchar *new_curi) {
  *
  * and goto_line and goto_offset should not BOTH be >= 0 (if so, offset is ignored)
  */
-void doc_new_from_uri(Tbfwin *bfwin, gchar *curi, GnomeVFSURI *uri, GnomeVFSFileInfo *finfo, gboolean delay_activate, gboolean move_to_this_win, gint goto_line, gint goto_offset) {
+void doc_new_from_uri(Tbfwin *bfwin, gchar *curi, GnomeVFSURI *opturi, GnomeVFSFileInfo *finfo, gboolean delay_activate, gboolean move_to_this_win, gint goto_line, gint goto_offset) {
 	GList *alldocs;
 	Tdocument *tmpdoc;
 	gchar *tmpcuri;
-	if (!bfwin || (!curi && !uri)) {
+	GnomeVFSURI *uri;
+	if (!bfwin || (!curi && !opturi)) {
 		return;
 	}
-	tmpcuri = (curi) ? g_strdup(curi) : gnome_vfs_uri_to_string(uri,0);
+	if (opturi) {
+		uri = opturi;
+		gnome_vfs_uri_ref(opturi);
+		tmpcuri = gnome_vfs_uri_to_string(opturi,0);
+	} else {
+		uri = gnome_vfs_uri_new(curi);	
+		tmpcuri = g_strdup(curi);
+	}
 	DEBUG_MSG("doc_new_from_uri, started for %s\n",tmpcuri);
 	
 	/* check if the document already is opened */
 	alldocs = return_allwindows_documentlist();
-	tmpdoc = documentlist_return_document_from_filename(alldocs, tmpcuri);
+	tmpdoc = documentlist_return_document_from_filename(alldocs, uri);
 	g_list_free(alldocs);
 	if (tmpdoc) { /* document is already open */
 		if (move_to_this_win) {
@@ -2992,21 +3007,9 @@ void doc_new_from_uri(Tbfwin *bfwin, gchar *curi, GnomeVFSURI *uri, GnomeVFSFile
 			else if (goto_offset >= 0) doc_select_line_by_offset(tmpdoc, goto_offset, TRUE);
 		}
 	} else { /* document is not yet opened */
-		GnomeVFSURI *tmpuri = uri;
-		if (tmpuri) {
-			gnome_vfs_uri_ref(tmpuri);
-		} else {
-			tmpuri = gnome_vfs_uri_new(tmpcuri);
-			if (!tmpuri) {
-				g_print("WARNING: could not create uri from %s\n",tmpcuri);
-				g_free(tmpcuri);
-				return;
-			}
-		}
 		if (!delay_activate)	bfwin->focus_next_new_doc = TRUE;
-		DEBUG_MSG("doc_new_from_uri, uri=%p, delay_activate=%d, focus_next_new_doc=%d\n",tmpuri,delay_activate, bfwin->focus_next_new_doc);
-		file_doc_from_uri(bfwin, tmpuri, finfo, goto_line, goto_offset);
-		gnome_vfs_uri_unref(tmpuri);
+		DEBUG_MSG("doc_new_from_uri, uri=%p, delay_activate=%d, focus_next_new_doc=%d\n",uri,delay_activate, bfwin->focus_next_new_doc);
+		file_doc_from_uri(bfwin, uri, finfo, goto_line, goto_offset);
 	}
 	add_filename_to_history(bfwin, tmpcuri);
 	session_set_opendir(bfwin, tmpcuri);
@@ -3023,9 +3026,8 @@ void doc_new_from_input(Tbfwin *bfwin, gchar *input, gboolean delay_activate, gb
 		if (bfwin->current_document->uri) {
 			gchar *relname;
 			GnomeVFSURI *tmp1;
-			tmp1 = gnome_vfs_uri_new(bfwin->current_document->uri);
+			tmp1 = bfwin->current_document->uri;
 			relname = gnome_vfs_uri_to_string(tmp1,0);
-			gnome_vfs_uri_unref(tmp1);
 			curi = gnome_vfs_uri_make_full_from_relative(relname, input);
 			g_free(relname);
 		} else {
@@ -3216,8 +3218,7 @@ Tdocument * doc_new_with_file(Tbfwin *bfwin, gchar * filename, gboolean delay_ac
  * Return value: void
  **/
 void doc_reload(Tdocument *doc) {
-	GnomeVFSURI *uri;
-	if ((doc->uri == NULL) || (!file_exists_and_readable(doc->uri))) {
+	if ((doc->uri == NULL)/* || (!file_exists_and_readable(doc->uri))*/) {
 		statusbar_message(BFWIN(doc->bfwin),_("Unable to open file"), 2000);
 		return;
 	}
@@ -3226,10 +3227,8 @@ void doc_reload(Tdocument *doc) {
 		gtk_text_buffer_get_bounds(doc->buffer,&itstart,&itend);
 		gtk_text_buffer_delete(doc->buffer,&itstart,&itend);
 	}
-	uri = gnome_vfs_uri_new(doc->uri);
 	doc_set_status(doc, DOC_STATUS_LOADING);
-	file_doc_fill_from_uri(doc, uri, NULL, -1);
-	gnome_vfs_uri_unref(uri);
+	file_doc_fill_from_uri(doc, doc->uri, NULL, -1);
 }
 
 static void doc_activate_modified_lcb(Tcheckmodified_status status,gint error_info,GnomeVFSFileInfo *orig, GnomeVFSFileInfo *new, gpointer callback_data) {
@@ -3292,7 +3291,6 @@ static gboolean doc_close_from_activate(gpointer data) {
  * Return value: void
  **/
 void doc_activate(Tdocument *doc) {
-	GnomeVFSURI *uri;
 #ifdef DEBUG
 	if (!doc) {
 		DEBUG_MSG("doc_activate, doc=NULL!!! ABORTING!!\n");
@@ -3329,11 +3327,7 @@ void doc_activate(Tdocument *doc) {
 	}
 	BFWIN(doc->bfwin)->last_activated_doc = doc;
 	if (doc->uri && doc->fileinfo && !doc->action.checkmodified && !doc->action.save) { /* don't check during another check, or during save */
-		uri = gnome_vfs_uri_new(doc->uri);
-		if (uri) {
-			doc->action.checkmodified = file_checkmodified_uri_async(uri, doc->fileinfo, doc_activate_modified_lcb, doc);
-			gnome_vfs_uri_unref(uri);
-		}
+		doc->action.checkmodified = file_checkmodified_uri_async(doc->uri, doc->fileinfo, doc_activate_modified_lcb, doc);
 	}
 	
 	DEBUG_MSG("doc_activate, calling gui_set_document_widgets()\n");
@@ -3748,17 +3742,22 @@ void menu_indent_cb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget) {
  */
 GList *list_relative_document_filenames(Tdocument *curdoc) {
 	GList *tmplist, *retlist=NULL;
+	gchar *curi;
 	if (curdoc->uri == NULL) {
 		return NULL;
 	} 
+	curi = gnome_vfs_uri_to_string(curdoc->uri,GNOME_VFS_URI_HIDE_PASSWORD);
 	tmplist = g_list_first(BFWIN(curdoc->bfwin)->documentlist);
 	while (tmplist) {
 		Tdocument *tmpdoc = tmplist->data;
 		if (tmpdoc != curdoc && tmpdoc->uri != NULL) {
-			retlist = g_list_prepend(retlist,create_relative_link_to(curdoc->uri, tmpdoc->uri));
+			gchar *tmp = gnome_vfs_uri_to_string(tmpdoc->uri,GNOME_VFS_URI_HIDE_PASSWORD);
+			retlist = g_list_prepend(retlist,create_relative_link_to(curi, tmp));
+			g_free(tmp);
 		}
 		tmplist = g_list_next(tmplist);
 	}
+	g_free(curi);
 	return retlist;
 }
 
@@ -3783,8 +3782,9 @@ static void new_floatingview(Tdocument *doc) {
 	fv = g_new(Tfloatingview,1);
 	doc->floatingview = fv;
 	DEBUG_MSG("new_floatingview for doc=%p is at %p\n",doc,doc->floatingview);
-	title = (doc->uri) ? doc->uri : "Untitled";
+	title = (doc->uri) ? uri_to_document_filename(doc->uri) : g_strdup("Untitled");
 	fv->window = window_full2(title, GTK_WIN_POS_NONE, 5, G_CALLBACK(floatingview_destroy_lcb), doc, TRUE, NULL);
+	g_free(title);
 	gtk_window_set_role(GTK_WINDOW(fv->window), "floatingview");
 	fv->textview = gtk_text_view_new_with_buffer(doc->buffer);
 	gtk_text_view_set_editable(GTK_TEXT_VIEW(fv->textview),FALSE);
