@@ -341,12 +341,14 @@ static TcheckNsave_return doc_checkNsave_lcb(TcheckNsave_status status,gint erro
 				/* we have to ask the user what to do */
 				const gchar *buttons[] = {_("_Abort save"), _("_Continue save"), NULL};
 				gint retval;
-				gchar *tmpstr;
+				gchar *tmpstr, *utf8uri;
+				utf8uri = uri_to_document_filename(doc->uri);
 				if (status == CHECKANDSAVE_ERROR_MODIFIED) {
-					tmpstr = g_strdup_printf(_("File %s has been modified on disk, overwrite?"), doc->uri);
+					tmpstr = g_strdup_printf(_("File %s has been modified on disk, overwrite?"), utf8uri);
 				} else {
-					tmpstr = g_strdup_printf(_("Failed to check if %s has been modified on disk"), doc->uri);
+					tmpstr = g_strdup_printf(_("Failed to check if %s has been modified on disk"), utf8uri);
 				}
+				g_free(utf8uri);
 				retval = message_dialog_new_multi(BFWIN(doc->bfwin)->main_window,
 															 GTK_MESSAGE_WARNING,
 															 buttons,
@@ -378,14 +380,11 @@ static TcheckNsave_return doc_checkNsave_lcb(TcheckNsave_status status,gint erro
 				}
 				return CHECKNSAVE_STOP; /* it actually doesn't matter what we return, this was the last callback anyway */
 			} else {
-				GnomeVFSURI *uri;
 				/* YES! we're done! update the fileinfo !*/
 				DEBUG_MSG("doc_checkNsave_lcb, re-set async doc->fileinfo (current=%p)\n",doc->fileinfo);
 				if (doc->fileinfo) gnome_vfs_file_info_unref(doc->fileinfo);
 				doc->fileinfo = NULL;
-				uri = gnome_vfs_uri_new(doc->uri);
-				file_doc_fill_fileinfo(doc, uri);
-				gnome_vfs_uri_unref(uri);
+				file_doc_fill_fileinfo(doc, doc->uri);
 				if (main_v->props.clear_undo_on_save) {
 					doc_unre_clear_all(doc);
 				}
@@ -482,7 +481,9 @@ gchar *ask_new_filename(Tbfwin *bfwin,gchar *old_curi, const gchar *gui_name, gb
 }
 
 void doc_save_backend(Tdocument *doc, gboolean do_save_as, gboolean do_move, gboolean close_doc, gboolean close_window) {
+	gchar *curi;
 	DEBUG_MSG("doc_save_backend, started for doc %p\n",doc);
+	curi = gnome_vfs_uri_to_string(doc->uri,GNOME_VFS_URI_HIDE_PASSWORD);
 	if(doc->action.save) {
 		gchar *errmessage;
 		/* this message is not in very nice english I'm afraid */
@@ -503,42 +504,44 @@ void doc_save_backend(Tdocument *doc, gboolean do_save_as, gboolean do_move, gbo
 	}
 	if (do_save_as) {
 		gchar *newfilename;
-		newfilename = ask_new_filename(BFWIN(doc->bfwin), doc->uri, gtk_label_get_text(GTK_LABEL(doc->tab_label)), do_move);
+		newfilename = ask_new_filename(BFWIN(doc->bfwin), curi, gtk_label_get_text(GTK_LABEL(doc->tab_label)), do_move);
 		if (!newfilename) {
+			g_free(curi);
 			return;
 		}
 		if (doc->uri) {
 			if (do_move) {
-				gnome_vfs_unlink(doc->uri);
+				gnome_vfs_unlink_from_uri(doc->uri);
 			}
-			g_free(doc->uri);
+			gnome_vfs_uri_unref(doc->uri);
 		}
 		doc->uri = newfilename;
+		g_free(curi);
+		curi = gnome_vfs_uri_to_string(doc->uri,GNOME_VFS_URI_HIDE_PASSWORD);
 	}
-	session_set_savedir(doc->bfwin, doc->uri);
+	session_set_savedir(doc->bfwin, curi);
 	{
 		gchar *tmp;
 		Trefcpointer *buffer;
-		GnomeVFSURI *uri;
 		tmp = doc_get_buffer_in_encoding(doc);
 		if (!tmp) {
+			g_free(curi);
 			return;
 		}
 
 		buffer = refcpointer_new(tmp);
-		uri = gnome_vfs_uri_new(doc->uri);
 		doc->action.close_doc = close_doc;
 		doc->action.close_window = close_window;
 		gtk_text_view_set_editable(GTK_TEXT_VIEW(doc->view),FALSE);
-		doc->action.save = file_checkNsave_uri_async(uri, doc->fileinfo, buffer, strlen(buffer->data), !do_save_as, doc_checkNsave_lcb, doc);
+		doc->action.save = file_checkNsave_uri_async(doc->uri, doc->fileinfo, buffer, strlen(buffer->data), !do_save_as, doc_checkNsave_lcb, doc);
 
 		if (do_save_as) {
-			doc_reset_filetype(doc, doc->uri, buffer->data);
+			doc_reset_filetype(doc, curi, buffer->data);
 			doc_set_title(doc);
 		}
 		refcpointer_unref(buffer);
-		gnome_vfs_uri_unref(uri);
 	}
+	g_free(curi);
 }
 
 /**

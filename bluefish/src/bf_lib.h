@@ -41,7 +41,9 @@ typedef struct {
 Trefcpointer *refcpointer_new(gpointer data);
 #define refcpointer_ref(rp) rp->count++
 void refcpointer_unref(Trefcpointer *rp);
-
+GnomeVFSURI *add_suffix_to_uri(GnomeVFSURI *uri, const char *suffix);
+GList *urilist_to_stringlist(GList *urilist);
+void free_urilist(GList *urilist);
 gchar *uri_to_document_filename(GnomeVFSURI *uri);
 
 gchar *get_filename_on_disk_encoding(const gchar *utf8filename);

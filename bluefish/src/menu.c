@@ -1257,16 +1257,19 @@ static void view_in_browser(Tbfwin *bfwin, gchar *browser) {
 	if (bfwin->current_document->uri) {
 		Tconvert_table *table, *tmpt;
 		gchar *command;
+		gchar *curi;
+		
+		curi = gnome_vfs_uri_to_string(bfwin->current_document->uri,GNOME_VFS_URI_HIDE_PASSWORD);
 		table = tmpt = g_new(Tconvert_table, 2);
 		tmpt->my_int = 's';
 		if (bfwin->project && bfwin->project->webdir 
 				&& bfwin->project->basedir && strlen(bfwin->project->webdir)>2
 				&& strlen(bfwin->project->basedir)>2 
-				&& strncmp(bfwin->current_document->uri, bfwin->project->basedir, strlen(bfwin->project->basedir))==0
+				&& strncmp(curi, bfwin->project->basedir, strlen(bfwin->project->basedir))==0
 				) {
-			tmpt->my_char = g_strconcat(bfwin->project->webdir, &bfwin->current_document->uri[strlen(bfwin->project->basedir)], NULL);
+			tmpt->my_char = g_strconcat(bfwin->project->webdir, &curi[strlen(bfwin->project->basedir)], NULL);
 		} else {
-			tmpt->my_char = g_strdup(bfwin->current_document->uri);
+			tmpt->my_char = g_strdup(curi);
 		}
 		tmpt++;
 		tmpt->my_char = NULL;
@@ -1276,6 +1279,7 @@ static void view_in_browser(Tbfwin *bfwin, gchar *browser) {
 		DEBUG_MSG("view_in_browser, should start %s now\n", command);
 		system(command);
 		g_free(command);
+		g_free(curi);
 	} else {
 		message_dialog_new(bfwin->main_window, 
 							 	 GTK_MESSAGE_ERROR, 
@@ -1319,9 +1323,9 @@ static void external_command_lcb(GtkWidget *widget, Tbfw_dynmenu *bdm) {
 		if (!bdm->bfwin->current_document->uri) {
 			return;
 		}
-		if (bdm->bfwin->current_document->uri[0] == '/'){
+		if (gnome_vfs_uri_is_local(bdm->bfwin->current_document->uri)) {
 			/* for local files we chdir() to their directory */
-			gchar *tmpstring = g_path_get_dirname(bdm->bfwin->current_document->uri);
+			gchar *tmpstring = gnome_vfs_uri_extract_dirname(bdm->bfwin->current_document->uri);
 			chdir(tmpstring);
 			g_free(tmpstring);
 		}
@@ -1333,7 +1337,7 @@ static void external_command_lcb(GtkWidget *widget, Tbfw_dynmenu *bdm) {
 		if (need_s) {
 			DEBUG_MSG("adding 's' to table\n");
 			tmpt->my_int = 's';
-			tmpt->my_char = bdm->bfwin->current_document->uri;
+			tmpt->my_char = gnome_vfs_uri_to_string(bdm->bfwin->current_document->uri,GNOME_VFS_URI_HIDE_PASSWORD);
 			tmpt++;
 		}
 		if (need_f) {
@@ -1359,6 +1363,8 @@ static void external_command_lcb(GtkWidget *widget, Tbfw_dynmenu *bdm) {
 		}
 		tmpt->my_char = NULL;
 		command = replace_string_printflike(arr[1], table);
+		/* BUG: there is a memory leak here !!!!!!!! some entries of the table have newly
+		allocated strings which should be freed !!!!!!!!!!!*/
 		g_free(table);
 		system(command);
 		g_free(command);

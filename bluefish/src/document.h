@@ -28,9 +28,9 @@ enum {
 };
 void autoclosing_init(void);
 GList *return_allwindows_documentlist(void);
-GList *return_filenamestringlist_from_doclist(GList *doclist);
-gint documentlist_return_index_from_filename(GList *doclist, gchar *filename);
-Tdocument *documentlist_return_document_from_filename(GList *doclist, gchar *filename);
+GList *return_urilist_from_doclist(GList *doclist);
+gint documentlist_return_index_from_filename(GList *doclist, GnomeVFSURI *uri);
+Tdocument *documentlist_return_document_from_filename(GList *doclist, GnomeVFSURI *uri);
 Tdocument *documentlist_return_document_from_index(GList *doclist, gint index);
 
 void doc_update_highlighting(Tbfwin *bfwin,guint callback_action, GtkWidget *widget);
@@ -40,7 +40,7 @@ gboolean doc_set_filetype(Tdocument *doc, Tfiletype *ft);
 void doc_set_title(Tdocument *doc);
 Tfiletype *get_filetype_by_name(gchar * name);
 Tfiletype *get_filetype_by_filename_and_content(gchar *filename, gchar *buf);
-void doc_reset_filetype(Tdocument * doc, gchar * newfilename, gchar *buf);
+void doc_reset_filetype(Tdocument * doc, GnomeVFSURI *newuri, gchar *buf);
 void doc_set_font(Tdocument *doc, gchar *fontstring);
 void doc_set_tabsize(Tdocument *doc, gint tabsize);
 void gui_change_tabsize(Tbfwin *bfwin,guint action,GtkWidget *widget);
@@ -83,7 +83,7 @@ gint doc_save(Tdocument * doc, gboolean do_save_as, gboolean do_move, gboolean w
 void document_set_line_numbers(Tdocument *doc, gboolean value);
 Tdocument *doc_new(Tbfwin* bfwin, gboolean delay_activate);
 void doc_new_with_new_file(Tbfwin *bfwin, gchar * new_filename);
-Tdocument *doc_new_loading_in_background(Tbfwin *bfwin, gchar *uri, GnomeVFSFileInfo *finfo);
+Tdocument *doc_new_loading_in_background(Tbfwin *bfwin, GnomeVFSURI *uri, GnomeVFSFileInfo *finfo);
 void doc_new_from_uri(Tbfwin *bfwin, gchar *curi, GnomeVFSURI *uri, GnomeVFSFileInfo *finfo, gboolean delay_activate, gboolean move_to_this_win, gint goto_line, gint goto_offset);
 void doc_new_from_input(Tbfwin *bfwin, gchar *input, gboolean delay_activate, gboolean move_to_this_win, gint goto_line);
 void docs_new_from_uris(Tbfwin *bfwin, GSList *urislist, gboolean move_to_this_win);
