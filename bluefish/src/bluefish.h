@@ -367,12 +367,10 @@ typedef struct {
 	Tglobalsession globses; /* global session */
 	GList *filetypelist; /* highlighting.c: a list of all filetypes with their icons and highlighting sets */
 	GList *bfwinlist;
-	GList *recent_directories; /* a stringlist with the most recently used directories */
+/*	GList *recent_directories; / * a stringlist with the most recently used directories */
 	Tsessionvars *session; /* holds all session variables for non-project windows */
 	gpointer filebrowserconfig;
-#ifdef FB2
 	gpointer fb2config; /* filebrowser2config */
-#endif
 	gpointer frefdata;
 	gpointer bmarkdata;
 /* 	GtkTreeStore *bookmarkstore; the global bookmarks from the global session */

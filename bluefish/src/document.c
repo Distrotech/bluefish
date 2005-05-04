@@ -186,10 +186,10 @@ void add_filename_to_history(Tbfwin *bfwin, gchar *filename) {
 	gchar *dirname;
 
 	add_to_recent_list(bfwin, filename, 0, FALSE); /* the recent menu */
-	dirname = g_path_get_dirname(filename);
+/*	dirname = g_path_get_dirname(filename);
 	DEBUG_MSG("add_filename_to_history, adding %s\n",dirname);
 	main_v->recent_directories = add_to_history_stringlist(main_v->recent_directories,dirname,FALSE,TRUE);
-	g_free(dirname);
+	g_free(dirname);*/
 }
 
 /**
