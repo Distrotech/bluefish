@@ -806,11 +806,11 @@ gboolean put_stringlist_limited(gchar * filename, GList * which_list, gint maxen
 	GList *tmplist;
 
 	DEBUG_MSG("put_stringlist_limited, started with filename=%s\n", filename);
-	{
+/*	{
 		gchar *backupfilename = g_strconcat(filename, main_v->props.backup_filestring,NULL);
 		file_copy(filename, backupfilename);
 		g_free(backupfilename);
-	}
+	}*/
 
 	DEBUG_MSG("put_stringlist_limited, opening %s for saving list(%p)\n", filename, which_list);
 	fd = fopen(filename, "w");
