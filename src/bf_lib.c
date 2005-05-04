@@ -114,14 +114,12 @@ gchar *get_filename_on_disk_encoding(const gchar *utf8filename) {
 			g_print(_("Bluefish has trouble reading the filenames. Try to set the environment variable G_BROKEN_FILENAMES=1\n"));
 			ondiskencoding = g_strdup(utf8filename);
 		}
-#ifdef HAVE_GNOME_VFS
 		/* convert local path's */
 		if (ondiskencoding[0] == '/') {
 			gchar *tmp = gnome_vfs_escape_path_string(ondiskencoding);
 			g_free(ondiskencoding);
 			ondiskencoding = tmp;
 		}
-#endif /* HAVE_GNOME_VFS */
 		return ondiskencoding;
 	}
 	return NULL;
@@ -200,27 +198,27 @@ gchar *filemode_to_string(mode_t statmode) {
  * trailing slash appended!!
  *
  * Return value: #gchar* newly allocated, or NULL
- */
+ * /
 gchar *return_root_with_protocol(const gchar *url) {
 	gchar *q;
 	if (!url) return NULL;
 	q = strchr(url,':');
 	if (q && *(q+1)=='/' && *(q+2)=='/' && *(q+3)!='\0') {
-		/* we have a protocol */
+		/ * we have a protocol * /
 		gchar *root = strchr(q+3, '/');
 		if (root) return g_strndup(url, root - url + 1);
-		/* if there is no third slash character, we probably
+		/ * if there is no third slash character, we probably
 		have an url like http://someserver so we will append 
-		the slash ourselves */
+		the slash ourselves * /
 		return g_strconcat(url, "/",NULL);
 	} else if (url[0] == '/') {
-		/* no protocol, return / */
+		/ * no protocol, return / * /
 		return g_strdup("/");
 	}
-	/* no root known */
+	/ * no root known * /
 	return NULL;
 }
-
+*/
 /**
  * pointer_switch_addresses:
  * a: #gpointer;
@@ -269,8 +267,7 @@ void list_switch_order(GList *first, GList *second) {
  * this function is Gnome-VFS aware, so it will work on URI's
  * 
  * Return value: gboolean, TRUE if the function succeeds
- **/
-#ifdef HAVE_GNOME_VFS
+ ** /
 #define BYTES_TO_PROCESS 8196
 gboolean file_copy(gchar *source, gchar *dest) {
 	GnomeVFSHandle *read_handle, *write_handle;
@@ -305,38 +302,7 @@ gboolean file_copy(gchar *source, gchar *dest) {
 	gnome_vfs_close(read_handle);
 	return TRUE;
 }
-#else  /* HAVE_GNOME_VFS */
-gboolean file_copy(gchar *source, gchar *dest) {
-#ifdef DEVELOPMENT
-	g_assert(source);
-	g_assert(dest);
-#endif
-	int c;
-	FILE *in, *out;
-	gchar *OnDiEn_source, *OnDiEn_dest;
-	OnDiEn_source = get_filename_on_disk_encoding(source);
-	OnDiEn_dest = get_filename_on_disk_encoding(dest);
-
-	in = fopen(OnDiEn_source, "r");
-	g_free(OnDiEn_source);
-	if (!in) {
-		return FALSE;
-	}
-	out = fopen(OnDiEn_dest, "w");
-	g_free(OnDiEn_dest);
-	if (!out) {
-		fclose(in);
-		return FALSE;
-	}
-	while((c=fgetc(in)) != EOF) {
-		fputc(c,out);
-	}
-	fclose(in);
-	fclose(out);
-	return TRUE;
-}
-#endif /* HAVE_GNOME_VFS */
-
+*/
 static gint length_common_prefix(gchar *first, gchar *second) {
 	gint i=0;
 	while (first[i] == second[i] && first[i] != '\0') {
@@ -386,7 +352,7 @@ gint find_common_prefixlen_in_stringlist(GList *stringlist) {
  * DOES NOT YET SUPPORT GNOME_VFS !!!
  * 
  * Return value: gboolean, TRUE if the function succeeds
- **/
+ ** /
 gboolean append_string_to_file(gchar *filename, gchar *string) {
 	FILE *out;
 	gchar *ondiskencoding = get_filename_on_disk_encoding(filename);
@@ -399,7 +365,7 @@ gboolean append_string_to_file(gchar *filename, gchar *string) {
 	fputs(string, out);
 	fclose(out);
 	return TRUE;
-}
+}*/
 /**
  * countchars:
  * @string: a gchar * to count the chars in
@@ -1132,13 +1098,7 @@ gchar *create_full_path(const gchar * filename, const gchar *basedir) {
 	if (strchr(filename, ':') != NULL) { /* it is an URI!! */
 		DEBUG_MSG("create_full_path, %s is an URI\n",filename);
 		if (strncmp(filename, "file://", 7)==0) {
-#ifdef HAVE_GNOME_VFS
 			return gnome_vfs_get_local_path_from_uri(filename);
-#else
-			/* THIS IS A BUG, IF YOU DON'T HAVE GNOME_VFS BUT YOU DO HAVE 
-			GTK-2.4 A %21 OR SOMETHING LIKE THAT IS NOW NOT CONVERTED !!!!!!!!! */
-			return g_strdup(filename+7); /* file:// URI's are never relative paths */
-#endif
 		}
 		return g_strdup(filename); /* cannot do this on remote paths */
 	}
