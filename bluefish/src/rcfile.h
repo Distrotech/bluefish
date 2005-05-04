@@ -25,7 +25,10 @@ void rcfile_parse_highlighting(void);
 void rcfile_parse_custom_menu(gboolean full_reset, gboolean load_new);
 void rcfile_check_directory(void);
 void rcfile_save_configfile_menu_cb(gpointer callback_data,guint action,GtkWidget *widget);
-void rcfile_save_all(void);
+
+gint rcfile_save_main(void);
+gint rcfile_save_highlighting(void);
+gint rcfile_save_custom_menu(void);
 gboolean rcfile_parse_project(Tproject *project, gchar *filename);
 gboolean rcfile_save_project(Tproject *project, gchar *filename);
 gboolean rcfile_save_global_session(void);
