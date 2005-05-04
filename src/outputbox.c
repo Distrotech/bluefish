@@ -313,7 +313,7 @@ static void run_command(Toutputbox *ob) {
 	table = tmpt = g_new(Tconvert_table, 2);
 	tmpt->my_int = 's';
 	if (gnome_vfs_uri_is_local(ob->bfwin->current_document->uri)) {
-		tmpt->my_char = gnome_vfs_uri_get_path(ob->bfwin->current_document->uri);
+		tmpt->my_char = g_strdup(gnome_vfs_uri_get_path(ob->bfwin->current_document->uri));
 	} else {
 		tmpt->my_char = gnome_vfs_uri_to_string(ob->bfwin->current_document->uri,GNOME_VFS_URI_HIDE_PASSWORD);
 	}

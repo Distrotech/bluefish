@@ -328,7 +328,7 @@ static GList *props_init_main(GList * config_rc)
 /* these are used in the gtk-2 port already */
 	init_prop_integer   (&config_rc, &main_v->props.view_line_numbers, "view_line_numbers:", 1, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.filebrowser_two_pane_view, "fb_two_pane_view:", 1, TRUE);
-	init_prop_integer   (&config_rc, &main_v->props.filebrowser_focus_follow, "fb_focus_follow:", 1, TRUE);
+
 	init_prop_string    (&config_rc, &main_v->props.filebrowser_unknown_icon, "fb_unknown_icon:", PKGDATADIR"icon_unknown.png");
 	init_prop_string    (&config_rc, &main_v->props.filebrowser_dir_icon, "fb_dir_icon:", PKGDATADIR"icon_dir.png");
 	init_prop_string    (&config_rc, &main_v->props.editor_font_string, "editor_font_string:", "courier 11");
@@ -345,7 +345,7 @@ static GList *props_init_main(GList * config_rc)
 	init_prop_arraylist (&config_rc, &main_v->props.filefilters, "filefilters:", 3, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.transient_htdialogs, "transient_htdialogs:", 1, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.restore_dimensions, "restore_dimensions:", 1, TRUE);	
-	init_prop_integer   (&config_rc, &main_v->props.left_panel_width, "left_panel_width:", 150, TRUE);
+
 	init_prop_integer   (&config_rc, &main_v->props.left_panel_left, "left_panel_left:", 1, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.max_recent_files, "max_recent_files:", 15, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.max_dir_history, "max_dir_history:", 10, TRUE);
@@ -355,11 +355,6 @@ static GList *props_init_main(GList * config_rc)
 	init_prop_integer   (&config_rc, &main_v->props.backup_cleanuponclose,"backup_cleanuponclose:",0, TRUE);
 	init_prop_string    (&config_rc, &main_v->props.image_thumbnailstring, "image_thumbnailstring:", "_thumbnail");
 	init_prop_string    (&config_rc, &main_v->props.image_thumbnailtype, "image_thumbnailtype:", "png");
-	init_prop_integer   (&config_rc, &main_v->props.image_thumbnail_refresh_quality,"image_thumbnail_refresh_quality:",1, TRUE);
-	init_prop_integer   (&config_rc, &main_v->props.image_thumbnailsizing_type,"image_thumbnailsizing_type:",0, TRUE);
-	init_prop_integer   (&config_rc, &main_v->props.image_thumbnailsizing_val1,"image_thumbnailsizing_val1:",100, TRUE);
-	init_prop_integer   (&config_rc, &main_v->props.image_thumbnailsizing_val2,"image_thumbnailsizing_val2:",100, TRUE);
-	init_prop_string    (&config_rc, &main_v->props.image_thumnailformatstring,"image_thumnailformatstring:","<a href=\"%r\"><img src=\"%t\" width=\"%x\" height=\"%y\" border=\"0\"></a>");
 	init_prop_integer   (&config_rc, &main_v->props.allow_multi_instances,"allow_multi_instances:",0, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.modified_check_type,"modified_check_type:",1, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.num_undo_levels,"num_undo_levels:",100, TRUE);
@@ -373,14 +368,10 @@ static GList *props_init_main(GList * config_rc)
 	init_prop_integer   (&config_rc, &main_v->props.ext_browsers_in_submenu,"ext_browsers_in_submenu:",0, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.ext_commands_in_submenu,"ext_commands_in_submenu:",1, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.ext_outputbox_in_submenu,"ext_outputbox_in_submenu:",1, TRUE);
-	init_prop_arraylist (&config_rc, &main_v->props.reference_files, "reference_files:", 2, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.document_tabposition,"document_tabposition:",(gint)GTK_POS_BOTTOM, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.leftpanel_tabposition,"leftpanel_tabposition:",(gint)GTK_POS_BOTTOM, TRUE);
 /*	init_prop_string    (&config_rc, &main_v->props.default_basedir,"default_basedir:",g_get_home_dir());*/
 	init_prop_string    (&config_rc, &main_v->props.project_suffix,"project_suffix:",".bfproject");
-#ifdef HAVE_LIBASPELL
-	init_prop_string(&config_rc, &main_v->props.spell_default_lang, "spell_default_lang:", "en");
-#endif /* HAVE_LIBASPELL */
 	/* not yet in use */
 	init_prop_string(&config_rc, &main_v->props.image_editor_cline, "image_editor_command:", "gimp-remote -n \"%s\"&");
 	init_prop_integer(&config_rc, &main_v->props.allow_dep, "allow_the_use_of_font:", 0, TRUE);
@@ -569,7 +560,7 @@ void rcfile_parse_main(void)
 		arr = array_from_arglist(_("Hide objectfiles"),"0", "objectfile", NULL);
 		main_v->props.filefilters = g_list_append(main_v->props.filefilters, arr);
 	}
-	if (main_v->props.reference_files == NULL) {
+	if (main_v->globses.reference_files == NULL) {
 		gchar *userdir = g_strconcat(g_get_home_dir(), "/."PACKAGE"/", NULL);
 		/* if the user does not yet have any function reference files, set them to default values */
 		fref_rescan_dir(PKGDATADIR);
@@ -835,17 +826,24 @@ void rcfile_save_configfile_menu_cb(gpointer callback_data,guint action,GtkWidge
 static GList *return_globalsession_configlist(gboolean init_values) {
 	GList *config_rc = NULL;
 	init_prop_stringlist(&config_rc, &main_v->globses.quickbar_items, "quickbar_items:", TRUE);
-	init_prop_integer   (&config_rc, &main_v->globses.two_pane_filebrowser_height, "two_pane_filebrowser_height:", 250, init_values);
 	init_prop_integer   (&config_rc, &main_v->globses.main_window_h, "main_window_height:", 400, init_values);
 	init_prop_integer   (&config_rc, &main_v->globses.main_window_w, "main_window_width:", 600, init_values); /* negative width means maximized */
+	init_prop_integer   (&config_rc, &main_v->globses.two_pane_filebrowser_height, "two_pane_filebrowser_height:", 250, init_values);
+	init_prop_integer   (&config_rc, &main_v->globses.left_panel_width, "left_panel_width:", 150, TRUE);
 	init_prop_integer   (&config_rc, &main_v->globses.fref_ldoubleclick_action,"fref_ldoubleclick_action:",0, init_values);
 	init_prop_integer   (&config_rc, &main_v->globses.fref_info_type,"fref_info_type:",0, init_values);
 	init_prop_integer   (&config_rc, &main_v->globses.lasttime_cust_menu, "lasttime_cust_menu:", 0, init_values);
 	init_prop_integer   (&config_rc, &main_v->globses.lasttime_highlighting, "lasttime_highlighting:", 0, init_values);
 	init_prop_integer   (&config_rc, &main_v->globses.lasttime_filetypes, "lasttime_filetypes:", 0, init_values);
 	init_prop_integer   (&config_rc, &main_v->globses.lasttime_encodings, "lasttime_encodings:", 0, init_values);
-	init_prop_limitedstringlist(&config_rc, &main_v->globses.recent_projects, "recent_projects:", main_v->props.max_recent_files, FALSE);
 	init_prop_integer   (&config_rc, &main_v->globses.bookmarks_default_store,"bookmarks_default_store:",1, init_values);
+	init_prop_integer   (&config_rc, &main_v->globses.image_thumbnail_refresh_quality,"image_thumbnail_refresh_quality:",1, init_values);
+	init_prop_integer   (&config_rc, &main_v->globses.image_thumbnailsizing_type,"image_thumbnailsizing_type:",0, init_values);
+	init_prop_integer   (&config_rc, &main_v->globses.image_thumbnailsizing_val1,"image_thumbnailsizing_val1:",100, init_values);
+	init_prop_integer   (&config_rc, &main_v->globses.image_thumbnailsizing_val2,"image_thumbnailsizing_val2:",100, init_values);
+	init_prop_string    (&config_rc, &main_v->globses.image_thumnailformatstring,"image_thumnailformatstring:",(init_values ? "<a href=\"%r\"><img src=\"%t\" width=\"%x\" height=\"%y\" border=\"0\"></a>" : NULL));
+	init_prop_arraylist (&config_rc, &main_v->globses.reference_files, "reference_files:", 2, init_values);
+	init_prop_limitedstringlist(&config_rc, &main_v->globses.recent_projects, "recent_projects:", main_v->props.max_recent_files, init_values);
 	return config_rc;
 }
 
@@ -872,7 +870,12 @@ static GList *return_session_configlist(GList *configlist, Tsessionvars *session
 	init_prop_integer   (&configlist, &session->view_left_panel, "view_left_panel:", 1, FALSE);
 	init_prop_integer   (&configlist, &session->filebrowser_show_hidden_files, "fb_show_hidden_f:", 0, FALSE);
 	init_prop_integer   (&configlist, &session->filebrowser_show_backup_files, "fb_show_backup_f:", 0, FALSE);
+	init_prop_integer   (&configlist, &session->filebrowser_focus_follow, "fb_focus_follow:", 1, FALSE);
 	init_prop_integer   (&configlist, &session->bookmarks_filename_mode,"bookmarks_filename_mode:",1, FALSE);
+#ifdef HAVE_LIBASPELL
+	init_prop_string(&configlist, &session->spell_default_lang, "spell_default_lang:", NULL);
+#endif /* HAVE_LIBASPELL */
+
 	return configlist;
 }
 

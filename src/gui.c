@@ -234,9 +234,9 @@ static void left_panel_notify_position_lcb(GObject *object,GParamSpec *pspec,gpo
 	DEBUG_MSG("left_panel_notify_position_lcb, new position=%d\n", position);
 	if (main_v->props.restore_dimensions) {
 		if (main_v->props.left_panel_left) {
-			main_v->props.left_panel_width = position;
+			main_v->globses.left_panel_width = position;
 		} else {
-			main_v->props.left_panel_width = main_v->globses.main_window_w - position;
+			main_v->globses.left_panel_width = main_v->globses.main_window_w - position;
 		}
 	}
 }
@@ -318,11 +318,11 @@ void left_panel_show_hide_toggle(Tbfwin *bfwin,gboolean first_time, gboolean sho
 	if (show) {
 		bfwin->hpane = gtk_hpaned_new();
 		if (main_v->props.left_panel_left) {
-			DEBUG_MSG("set paned position to %d (left)\n",main_v->props.left_panel_width);
-			gtk_paned_set_position(GTK_PANED(bfwin->hpane), main_v->props.left_panel_width);
+			DEBUG_MSG("set paned position to %d (left)\n",main_v->globses.left_panel_width);
+			gtk_paned_set_position(GTK_PANED(bfwin->hpane), main_v->globses.left_panel_width);
 		} else {
-			DEBUG_MSG("set paned position to %d (right)\n",main_v->globses.main_window_w - main_v->props.left_panel_width);
-			gtk_paned_set_position(GTK_PANED(bfwin->hpane), main_v->globses.main_window_w - main_v->props.left_panel_width);
+			DEBUG_MSG("set paned position to %d (right)\n",main_v->globses.main_window_w - main_v->globses.left_panel_width);
+			gtk_paned_set_position(GTK_PANED(bfwin->hpane), main_v->globses.main_window_w - main_v->globses.left_panel_width);
 		}
 		g_signal_connect(G_OBJECT(bfwin->hpane),"notify::position",G_CALLBACK(left_panel_notify_position_lcb), NULL);
 		bfwin->leftpanel_notebook = left_panel_build(bfwin);

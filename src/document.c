@@ -3350,7 +3350,7 @@ void doc_activate(Tdocument *doc) {
 		if (dir2[0] == '/') {
 			chdir(dir2);
 		}*/
-		if (main_v->props.filebrowser_focus_follow) {
+		if (BFWIN(doc->bfwin)->session->filebrowser_focus_follow) {
 /*			DEBUG_MSG("doc_activate, call filebrowser_open_dir() for %s\n",dir2);
 			filebrowser_open_dir(BFWIN(doc->bfwin),dir2);*/
 			fb2_focus_document(BFWIN(doc->bfwin), doc);

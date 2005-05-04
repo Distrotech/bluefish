@@ -213,8 +213,8 @@ void spell_start(Tbfspell *bfspell) {
 	 * default language should come from config file, runtime from GUI,
 	 * should first set the default one 
 	 */
-	aspell_config_replace(bfspell->spell_config, "lang", main_v->props.spell_default_lang);
-	DEBUG_MSG("spell_start, default lang=%s\n",main_v->props.spell_default_lang);
+	aspell_config_replace(bfspell->spell_config, "lang", bfspell->bfwin->session->spell_default_lang);
+	DEBUG_MSG("spell_start, default lang=%s\n",bfwin->session->spell_default_lang);
 	/*
 	 * it is unclear from the manual if aspell supports utf-8 in the
 	 * library, the utility does not support it.. 
@@ -305,7 +305,7 @@ void spell_gui_fill_dicts(Tbfspell *bfspell) {
 		gtk_misc_set_alignment(GTK_MISC(label),0,0.5);
 		gtk_container_add(GTK_CONTAINER(menuitem), label);
 /*		g_signal_connect(G_OBJECT (menuitem), "activate",G_CALLBACK(),GINT_TO_POINTER(0));*/
-		if (strcmp(entry->name, main_v->props.spell_default_lang) == 0) {
+		if (strcmp(entry->name, bfspell->bfwin->session->spell_default_lang) == 0) {
 			DEBUG_MSG("spell_gui_fill_dicts, lang %s is the default language, inserting menuitem %p at position 0\n",entry->name,menuitem);
 			gtk_menu_shell_insert(GTK_MENU_SHELL(menu), menuitem, 0);
 			bfspell->langs = g_list_prepend(bfspell->langs,g_strdup(entry->name));
@@ -371,9 +371,9 @@ static void defaultlang_clicked_lcb(GtkWidget *widget,Tbfspell *bfspell) {
 	gint indx;
 	indx = gtk_option_menu_get_history(GTK_OPTION_MENU(bfspell->lang));
 	lang = g_list_nth_data(bfspell->langs, indx);
-	g_free(main_v->props.spell_default_lang);
+	g_free(bfspell->bfwin->session->spell_default_lang);
 	DEBUG_MSG("defaultlang_clicked_lcb, index=%d, default lang is now %s\n",indx, lang);
-	main_v->props.spell_default_lang = g_strdup(lang);
+	bfspell->bfwin->session->spell_default_lang = g_strdup(lang);
 }
 void filter_changed_lcb(GtkOptionMenu *optionmenu,Tbfspell *bfspell) {
 	bfspell->filtert = gtk_option_menu_get_history(GTK_OPTION_MENU(bfspell->filter));
