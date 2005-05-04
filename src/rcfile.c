@@ -386,12 +386,12 @@ static GList *props_init_main(GList * config_rc)
 	init_prop_integer(&config_rc, &main_v->props.autoindent, "autoindent:", 1, TRUE);
 	init_prop_integer(&config_rc, &main_v->props.drop_at_drop_pos, "drop_at_drop_position:", 0, TRUE);
 	init_prop_integer(&config_rc, &main_v->props.link_management, "link_management:", 1, TRUE);
-	
 #ifdef WITH_MSG_QUEUE
 	init_prop_integer (&config_rc, &main_v->props.open_in_running_bluefish,"open_in_running_bluefish:",1, TRUE);
 #endif
-#ifdef HAVE_GNOME_VFS
 	init_prop_integer (&config_rc, &main_v->props.server_zope_compat,"server_zope_compat:", 0, TRUE); 
+#ifndef NOSPLASH
+	init_prop_integer(&config_rc, &main_v->props.show_splash_screen, "show_splash_screen:", 1, TRUE);
 #endif
 	return config_rc;
 }
