@@ -20,16 +20,16 @@ AC_INIT
 AC_CONFIG_SRCDIR(src/bluefish.c)
 AC_CONFIG_HEADER(src/config.h)
 
-AC_ARG_ENABLE([bluefish-dev],
+AC_ARG_ENABLE([unstable-install],
 	AC_HELP_STRING(
-		[--enable-bluefish-dev],
-		[Enables the installation of an bluefish development version with independent directories and files.]
+		[--enable-unstable-install],
+		[Enables the installation of a bluefish development version with independent directories and files. Use this for CVS snapshots.]
 	),
 	[bluefish_dev=$enableval],
 	[bluefish_dev=no]
 )
 if test "$bluefish_dev" = yes; then
-	PACKAGE=bluefish-dev
+	PACKAGE=bluefish-unstable
 	BF_APP_PACKAGE_ADDSTRING="(CVS)"
 	AC_SUBST(BF_APP_PACKAGE_ADDSTRING)
 else
