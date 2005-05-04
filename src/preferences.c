@@ -30,6 +30,7 @@
 #include "gui.h"
 #include "highlight.h"
 #include "menu.h"
+#include "rcfile.h"
 #include "pixmap.h"
 #include "stringlist.h"	/* duplicate_arraylist*/
 
@@ -1933,6 +1934,8 @@ static void preferences_apply(Tprefdialog *pd) {
 			tmplist = g_list_next(tmplist);
 		}
 	}
+	rcfile_save_main();
+	rcfile_save_highlighting();
 }
 
 static void preferences_cancel_clicked_lcb(GtkWidget *wid, Tprefdialog *pd) {

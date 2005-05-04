@@ -603,7 +603,7 @@ void rcfile_parse_main(void)
 	}
 }
 
-static gint rcfile_save_main(void) {
+gint rcfile_save_main(void) {
 	gchar *filename = g_strconcat(g_get_home_dir(), "/."PACKAGE"/rcfile_v2", NULL);
 	return save_config_file(main_configlist, filename);
 }
@@ -652,7 +652,7 @@ void rcfile_parse_highlighting(void) {
 	g_free(defaultfile);
 }
 
-static gint rcfile_save_highlighting(void) {
+gint rcfile_save_highlighting(void) {
 	gint retval;
 	gchar *filename = g_strconcat(g_get_home_dir(), "/."PACKAGE"/highlighting", NULL);
 	retval = save_config_file(highlighting_configlist, filename);
@@ -788,7 +788,7 @@ void rcfile_parse_custom_menu(gboolean full_reset, gboolean load_new) {
 	g_free(langdefaultfile1);
 	g_free(langdefaultfile2);
 }
-static gint rcfile_save_custom_menu(void) {
+gint rcfile_save_custom_menu(void) {
 	gint retval;
 	gchar *filename = g_strconcat(g_get_home_dir(), "/."PACKAGE"/custom_menu", NULL);
 	retval = save_config_file(custom_menu_configlist, filename);
@@ -830,13 +830,6 @@ void rcfile_save_configfile_menu_cb(gpointer callback_data,guint action,GtkWidge
 #endif
 	break;
 	}
-}
-
-void rcfile_save_all(void) {
-	rcfile_save_main();
-	rcfile_save_highlighting();
-	rcfile_save_custom_menu();
-	rcfile_save_global_session();
 }
 
 static GList *return_globalsession_configlist(gboolean init_values) {

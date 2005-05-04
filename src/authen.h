@@ -23,9 +23,10 @@
 #ifndef __AUTHEN_H_
 #define __AUTHEN_H_
 
-#ifdef HAVE_ATLEAST_GNOMEVFS_2_5
+#include "config.h"
+
 #ifndef HAVE_ATLEAST_GNOMEUI_2_6
 void set_authen_callbacks(void);
 #endif
-#endif
+
 #endif							/* __AUTHEN_H_ */

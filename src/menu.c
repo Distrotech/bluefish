@@ -2018,6 +2018,7 @@ static void cme_ok_lcb(GtkWidget *widget, Tcmenu_editor *cme) {
 		fill_cust_menubar(BFWIN(tmplist->data));
 		tmplist = g_list_next(tmplist);
 	}
+	rcfile_save_custom_menu();
 }
 
 static void cme_create_entries(Tcmenu_editor *cme, gint num) {

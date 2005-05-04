@@ -311,12 +311,13 @@ void bluefish_exit_request() {
 	}
 	flush_queue();
 	
-	rcfile_save_all();
-	{
+	rcfile_save_global_session();
+	
+/*	{
 		gchar *filename = g_strconcat(g_get_home_dir(), "/."PACKAGE"/dir_history", NULL);
 		put_stringlist_limited(filename, main_v->recent_directories, main_v->props.max_dir_history);
 		g_free(filename);
-	}
+	}*/
 	
 /*	NEEDS TO BE PORTED FOR MULTIPLE-WINDOW SUPPORT
 	tmplist = gtk_window_list_toplevels();
