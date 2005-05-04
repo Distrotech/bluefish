@@ -167,7 +167,6 @@ typedef struct {
 typedef struct {
 	gint view_line_numbers; /* view line numbers on the left side by default */
 	gint filebrowser_two_pane_view; /* have one or two panes in the filebrowser */
-	gint filebrowser_focus_follow; /* have the directory of the current document in focus */
 	gchar *filebrowser_unknown_icon;
 	gchar *filebrowser_dir_icon;
 	gchar *editor_font_string;		/* editor font */
@@ -187,7 +186,6 @@ typedef struct {
 	GList *highlight_patterns; /* the highlight patterns */
 	gint transient_htdialogs;  /* set html dialogs transient ro the main window */
 	gint restore_dimensions; /* use the dimensions as used the previous run */
-	gint left_panel_width; 	/* width of filelist */
 	gint left_panel_left; /* 1 = left, 0 = right */
 	gint max_recent_files;	/* length of Open Recent list */
 	gint max_dir_history;	/* length of directory history */
@@ -197,11 +195,6 @@ typedef struct {
 	gint backup_cleanuponclose; /* remove the backupfile after close ? */
 	gchar *image_thumbnailstring;	/* string to append to thumbnail filenames */
 	gchar *image_thumbnailtype;	/* fileformat to use for thumbnails, "jpeg" or "png" can be handled by gdkpixbuf*/
-	gint image_thumbnail_refresh_quality; /* 1=GDK_INTERP_BILINEAR, 0=GDK_INTERP_NEAREST*/
-	gint image_thumbnailsizing_type;	/* scaling ratio=0, fixed width=1, height=2, width+height (discard aspect ratio)=3 */
-	gint image_thumbnailsizing_val1;	/* the width, height or ratio, depending on the value above */
-	gint image_thumbnailsizing_val2; /* height if the type=3 */
-	gchar *image_thumnailformatstring; /* like <a href="%r"><img src="%t"></a> or more advanced */
 	gint allow_multi_instances; /* allow multiple instances of the same file */
 	gint modified_check_type; /* 0=no check, 1=by mtime and size, 2=by mtime, 3=by size, 4,5,...not implemented (md5sum?) */
 	gint num_undo_levels; 	/* number of undo levels per document */
@@ -215,13 +208,9 @@ typedef struct {
 	gint ext_browsers_in_submenu;
 	gint ext_commands_in_submenu;
 	gint ext_outputbox_in_submenu;
-	GList *reference_files; /* all reference files */
 	gint document_tabposition;
 	gint leftpanel_tabposition;
 	gchar *project_suffix;
-#ifdef HAVE_LIBASPELL
-	gchar *spell_default_lang;
-#endif /* HAVE_LIBASPELL */
 	/* not yet in use */
 	gchar *image_editor_cline; 	/* image editor commandline */
 	gint allow_dep;				/* allow <FONT>... */
@@ -239,9 +228,8 @@ typedef struct {
 	gint cont_highlight_update;	/* update the syntax highlighting continuous */
 	/* key conversion */
 	gint open_in_running_bluefish; /* open commandline documents in already running session*/
-#ifdef HAVE_GNOME_VFS
 	gint server_zope_compat;        /* add 'document_src' to uri when reading remote files */
-#endif
+	gint show_splash_screen;
 } Tproperties;
 
 /* the Tglobalsession contains all settings that can change 
@@ -252,6 +240,7 @@ typedef struct {
 	gint main_window_h;			/* main window height */
 	gint main_window_w;			/* main window width */
 	gint two_pane_filebrowser_height; /* position of the pane separater on the two paned file browser */
+	gint left_panel_width; 	/* width of filelist */
 	gint fref_ldoubleclick_action; /* left doubleclick in the function reference */
 	gint fref_info_type; /* type of info shown in a small function reference window */
 	gint lasttime_cust_menu; /* the last time the defaultfile was checked for new entries */
@@ -259,6 +248,12 @@ typedef struct {
 	gint lasttime_filetypes; /* see above */
 	gint lasttime_encodings; /* see above */
 	gint bookmarks_default_store; /* 0= temporary by default, 1= permanent by default */
+	gint image_thumbnail_refresh_quality; /* 1=GDK_INTERP_BILINEAR, 0=GDK_INTERP_NEAREST*/
+	gint image_thumbnailsizing_type;	/* scaling ratio=0, fixed width=1, height=2, width+height (discard aspect ratio)=3 */
+	gint image_thumbnailsizing_val1;	/* the width, height or ratio, depending on the value above */
+	gint image_thumbnailsizing_val2; /* height if the type=3 */
+	gchar *image_thumnailformatstring; /* like <a href="%r"><img src="%t"></a> or more advanced */
+	GList *reference_files; /* all reference files */
 	GList *recent_projects;
 } Tglobalsession;
 
@@ -287,7 +282,11 @@ typedef struct {
 	gint view_left_panel;  	/* view filebrowser/functionbrowser etc. */
 	gint filebrowser_show_hidden_files;
 	gint filebrowser_show_backup_files;
+	gint filebrowser_focus_follow; /* have the directory of the current document in focus */
 	gint bookmarks_filename_mode; /* 0=FULLPATH, 1=DIR FROM BASE 2=BASENAME */
+#ifdef HAVE_LIBASPELL
+	gchar *spell_default_lang;
+#endif /* HAVE_LIBASPELL */
 } Tsessionvars;
 
 typedef struct {

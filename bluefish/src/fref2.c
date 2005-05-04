@@ -791,7 +791,7 @@ gchar *fref_load_refname(gchar *filename) {
 
 static gboolean reference_file_known(gchar * path)
 {
-	GList *tmplist = g_list_first(main_v->props.reference_files);
+	GList *tmplist = g_list_first(main_v->globses.reference_files);
 	while (tmplist) {
 		gchar **arr = tmplist->data;
 		if (count_array(arr) == 2 && strcmp(arr[1], path) == 0) {
@@ -818,8 +818,8 @@ void fref_rescan_dir(const gchar * dir)
 			DEBUG_MSG("filename %s has a match!\n", filename);
 			if (!reference_file_known(path)) {
 				tofree = fref_load_refname(path);
-				main_v->props.reference_files =
-					g_list_append(main_v->props.reference_files,
+				main_v->globses.reference_files =
+					g_list_append(main_v->globses.reference_files,
 								  array_from_arglist(g_strdup(tofree), path, NULL));
 				g_free(tofree);
 			}
@@ -4545,7 +4545,7 @@ static void fill_toplevels(Tfref_data * fdata, gboolean empty_first)
 	if (empty_first) {
 		gtk_tree_store_clear(fdata->store);
 	}
-	reflist = g_list_first(main_v->props.reference_files);
+	reflist = g_list_first(main_v->globses.reference_files);
 	while (reflist) {
 		gchar **tmparray = reflist->data;
 		if (count_array(tmparray) == 2) {

@@ -1856,7 +1856,7 @@ static void preferences_apply(Tprefdialog *pd) {
 	
 	integer_apply(&main_v->props.restore_dimensions, pd->prefs[restore_dimensions], TRUE);
 	if (!main_v->props.restore_dimensions) {
-		integer_apply(&main_v->props.left_panel_width, pd->prefs[left_panel_width], FALSE);
+		integer_apply(&main_v->globses.left_panel_width, pd->prefs[left_panel_width], FALSE);
 		integer_apply(&main_v->globses.main_window_h, pd->prefs[main_window_h], FALSE);
 		integer_apply(&main_v->globses.main_window_w, pd->prefs[main_window_w], FALSE);
 	}
@@ -2088,7 +2088,7 @@ static void preferences_dialog() {
 	vbox2 = gtk_vbox_new(FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(frame), vbox2);
 	pd->prefs[restore_dimensions] = boxed_checkbut_with_value(_("Restore last used dimensions"), main_v->props.restore_dimensions, vbox2);
-	pd->prefs[left_panel_width] = prefs_integer(_("Initial sidebar width"), main_v->props.left_panel_width, vbox2, pd, 1, 4000);
+	pd->prefs[left_panel_width] = prefs_integer(_("Initial sidebar width"), main_v->globses.left_panel_width, vbox2, pd, 1, 4000);
 	pd->prefs[main_window_h] = prefs_integer(_("Initial window height"), main_v->globses.main_window_h, vbox2, pd, 1, 4000);
 	pd->prefs[main_window_w] = prefs_integer(_("Initial window width"), main_v->globses.main_window_w, vbox2, pd, 1, 4000);
 	restore_dimensions_toggled_lcb(GTK_TOGGLE_BUTTON(pd->prefs[restore_dimensions]), pd);

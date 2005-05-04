@@ -1153,8 +1153,8 @@ static void fb2rpopup_rpopup_action_lcb(Tfilebrowser2 *fb2,guint callback_action
 			fb2_focus_document(fb2->bfwin, fb2->bfwin->current_document);
 		break;
 		case 15:
-			main_v->props.filebrowser_focus_follow = gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(widget));
-			if (main_v->props.filebrowser_focus_follow) {
+			fb2->bfwin->session->filebrowser_focus_follow = gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(widget));
+			if (fb2->bfwin->session->filebrowser_focus_follow) {
 				fb2_focus_document(fb2->bfwin, fb2->bfwin->current_document);
 			}
 		break;
@@ -1244,7 +1244,7 @@ static GtkWidget *fb2_rpopup_create_menu(Tfilebrowser2 *fb2, gboolean is_directo
 	menu = gtk_item_factory_get_widget(menumaker, "<Filebrowser>");
 
 	/* set toggle options */
-	setup_toggle_item(menumaker, "/Follow active document", main_v->props.filebrowser_focus_follow);
+	setup_toggle_item(menumaker, "/Follow active document", fb2->bfwin->session->filebrowser_focus_follow);
 	setup_toggle_item(menumaker, "/Show hidden files", fb2->filebrowser_show_hidden_files);
 	setup_toggle_item(menumaker, "/Show backup files", fb2->filebrowser_show_backup_files);
 	if (!is_directory && !is_file) {
@@ -1765,7 +1765,7 @@ GtkWidget *fb2_init(Tbfwin *bfwin) {
 		GtkTreeViewColumn *column;
 		GtkWidget *vpaned;
 		vpaned = gtk_vpaned_new();
-		gtk_widget_set_size_request(vpaned, main_v->props.left_panel_width, -1);
+		gtk_widget_set_size_request(vpaned, main_v->globses.left_panel_width, -1);
 		gtk_paned_set_position(GTK_PANED(vpaned), main_v->globses.two_pane_filebrowser_height);
 
 		gtk_paned_add1(GTK_PANED(vpaned), scrolwin);
