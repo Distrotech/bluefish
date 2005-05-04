@@ -181,11 +181,11 @@ int main(int argc, char *argv[])
 	splash_screen_set_label(_("parsing highlighting file..."));
 #endif /* #ifndef NOSPLASH */
 
-	{
+/*	{
 		gchar *filename = g_strconcat(g_get_home_dir(), "/."PACKAGE"/dir_history", NULL);
 		main_v->recent_directories = get_stringlist(filename, NULL);
 		g_free(filename);
-	}
+	}*/
 	rcfile_parse_global_session();
 	rcfile_parse_highlighting();
 #ifndef NOSPLASH
