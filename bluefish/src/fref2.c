@@ -833,7 +833,7 @@ void fref_rescan_dir(const gchar * dir)
 }
 
 
-void fref_load_from_file(gchar * filename, GtkWidget * tree, GtkTreeStore * store,
+gboolean fref_load_from_file(gchar * filename, GtkWidget * tree, GtkTreeStore * store,
 							  GtkTreeIter * parent, Tfref_info *info, Tbfwin *bfwin )
 {
 	xmlDocPtr doc;
@@ -841,7 +841,7 @@ void fref_load_from_file(gchar * filename, GtkWidget * tree, GtkTreeStore * stor
 	xmlChar *tmps;
 
 	if (filename == NULL)
-		return;
+		return FALSE;
 	info->dictionary =g_hash_table_new(g_str_hash, g_str_equal);
 	info->commons = g_hash_table_new(g_str_hash, g_str_equal);
 	info->elements = g_hash_table_new(g_str_hash, g_str_equal);
@@ -858,7 +858,7 @@ void fref_load_from_file(gchar * filename, GtkWidget * tree, GtkTreeStore * stor
 		g_hash_table_destroy(info->commons);
 		g_hash_table_destroy(info->elements);
 		g_hash_table_destroy(info->proplists);
-		return;
+		return FALSE;
 	}	
 	cur = xmlDocGetRootElement(doc);	
 	if ( xmlStrcmp(cur->name, "ref") != 0 &&  xmlStrcmp(cur->name,"r") != 0 ) {
@@ -872,7 +872,7 @@ void fref_load_from_file(gchar * filename, GtkWidget * tree, GtkTreeStore * stor
 		g_hash_table_destroy(info->commons);		
 		g_hash_table_destroy(info->elements);
 		xmlFreeDoc(doc);
-		return;
+		return FALSE;
 	}
 	if (xmlStrcmp(cur->name, "ref") == 0) 
 	{
@@ -899,7 +899,7 @@ void fref_load_from_file(gchar * filename, GtkWidget * tree, GtkTreeStore * stor
 		g_hash_table_destroy(info->elements);
 		xmlFree(tmps);
 		xmlFreeDoc(doc);
-		return;		
+		return FALSE;		
 	}
 	tmps = xmlGetProp(cur,fref_names[FID_DESCRIPTION]);
 	if (tmps!=NULL)
@@ -913,7 +913,7 @@ void fref_load_from_file(gchar * filename, GtkWidget * tree, GtkTreeStore * stor
 	}
 	progress_destroy(FREFGUI(bfwin->fref)->prg);
 	xmlFreeDoc(doc);
-
+	return TRUE;
 }
 
 void fref_free_record(gpointer key, gpointer value,gpointer udata) {
@@ -3237,17 +3237,20 @@ static void frefcb_row_expanded(GtkTreeView * treeview, GtkTreeIter * arg1, GtkT
 		DEBUG_MSG("frefcb_row_expanded, search hash_table at %p\n", info->dictionary);
 		
 		if (G_IS_VALUE(val) && g_value_peek_pointer(val) != NULL) {			
-			fref_load_from_file((gchar *) g_value_peek_pointer(val), GTK_WIDGET(treeview),
-									 GTK_TREE_STORE(user_data), arg1, info,bfwin);			
-			el = g_new0(Tfref_record,1);						 
-			el->etype = FREF_EL_REF;
-			el->data = info;
-			gtk_tree_store_set(GTK_TREE_STORE(user_data), arg1, PTR_COLUMN, el, -1);
+			if ( fref_load_from_file((gchar *) g_value_peek_pointer(val), GTK_WIDGET(treeview),
+						 GTK_TREE_STORE(user_data), arg1, info,bfwin) )
+			{			 			
+			 el = g_new0(Tfref_record,1);						 
+			 el->etype = FREF_EL_REF;
+			 el->data = info;
+			 gtk_tree_store_set(GTK_TREE_STORE(user_data), arg1, PTR_COLUMN, el, -1);
+
+			} 
 		}
-		if (g_value_peek_pointer(val) != NULL
-			&& gtk_tree_model_iter_nth_child(GTK_TREE_MODEL(user_data), &iter, arg1, 0)) {
-			gtk_tree_store_remove(GTK_TREE_STORE(user_data), &iter);
-		}
+               if (g_value_peek_pointer(val) != NULL
+			     && gtk_tree_model_iter_nth_child(GTK_TREE_MODEL(user_data), &iter, arg1, 0)) {
+			     gtk_tree_store_remove(GTK_TREE_STORE(user_data), &iter);
+	        }		
 		g_value_unset(val);
 		g_free(val);
 	}
