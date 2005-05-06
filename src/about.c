@@ -25,6 +25,8 @@
 #include <string.h>
 #include <unistd.h>				/* getopt() */
 
+#include "config.h"
+
 #include "bluefish.h"
 #include "about.h"
 #include "gtk_easy.h"

@@ -31,13 +31,15 @@
 
 #ifdef HAVE_ATLEAST_GNOMEUI_2_6
 #include <libgnomeui/libgnomeui.h>
+#else
+#include "authen2.h"			/* authen_init() */
 #endif
 
 #ifdef ENABLE_NLS
 #include <locale.h>
 #endif
 
-#include "authen.h"			/* set_authen_callbacks() */
+
 #include "bf_lib.h"			/* create_full_path() */
 #include "bookmark.h"		/* bmark_init() */
 #include "dialog_utils.h"	/* message_dialog_new() */
@@ -150,15 +152,14 @@ int main(int argc, char *argv[])
 	gnome_init(PACKAGE, VERSION, argc, argv);
 #else
 	gtk_init(&argc, &argv);
-#endif /* HAVE_ATLEAST_GNOMEUI_2_6
- */
+#endif /* HAVE_ATLEAST_GNOMEUI_2_6 */
 	DEBUG_MSG("main, we have gnome_vfs, so we init it\n");
 	gnome_vfs_init();
 #ifdef HAVE_ATLEAST_GNOMEUI_2_6
 	gnome_authentication_manager_init();
 #else
 #ifdef HAVE_ATLEAST_GNOMEVFS_2_6
-	set_authen_callbacks();
+	authen_init();
 #endif /* HAVE_ATLEAST_GNOMEVFS_2_6 */
 #endif /* HAVE_ATLEAST_GNOME_2_6 */
 	main_v = g_new0(Tmain, 1);
