@@ -1069,7 +1069,7 @@ static void fb2rpopup_delete(Tfilebrowser2 *fb2) {
 		gchar *text;
 		gint retval;
 		gchar *filename;
-		filename = gnome_vfs_uri_to_string(uri,0);
+		filename = uri_to_document_filename(uri);
 		text = g_strdup_printf(_("Are you sure you want to delete \"%s\" ?"), filename);
 		retval = message_dialog_new_multi(fb2->bfwin->main_window,
 													 GTK_MESSAGE_QUESTION,
@@ -1399,7 +1399,7 @@ static void dirmenu_set_curdir(Tfilebrowser2 *fb2, GnomeVFSURI *newcurdir) {
 	GnomeVFSURI *tmp;
 	gboolean cont, havesetiter=FALSE;
 	if (fb2->currentdir) {
-		if (fb2->currentdir == newcurdir || gnome_vfs_uri_equal(fb2->currentdir, newcurdir)) return;
+		if (newcurdir && (fb2->currentdir == newcurdir || gnome_vfs_uri_equal(fb2->currentdir, newcurdir))) return;
 		DEBUG_MSG("dirmenu_set_curdir, old_curdir=%s, new_curdir=%s\n",gnome_vfs_uri_get_path(fb2->currentdir),gnome_vfs_uri_get_path(newcurdir));
 		gnome_vfs_uri_unref(fb2->currentdir);
 	}
