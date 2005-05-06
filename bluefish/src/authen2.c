@@ -138,15 +138,6 @@ typedef struct {
 	gpointer out;
 } Tauthfill;
 
-/*static void password_dialog_response_lcb(GtkDialog *dialog,gint response,gpointer data) {
-	Tauthdialog *ad = data;
-	if (response == GTK_RESPONSE_ACCEPT) {
-		
-	
-	}
-	ad->response(ad->response_data);
-}*/
-
 static Tauthdialog *password_dialog(Tauthen *auth, gchar *location, gchar *default_user, gchar *default_domain) {
 	Tauthdialog *ad;
 	gchar *tmp;
@@ -196,14 +187,16 @@ static void vfs_authentication_lcb(gconstpointer in, size_t in_size,
 
 static void full_authentication_response_lcb(GtkDialog *dialog,gint response,gpointer data) {
 	Tauthdialog *ad = data;
-	GnomeVFSModuleCallbackFullAuthenticationIn *in_real = ad->in;
 	GnomeVFSModuleCallbackFullAuthenticationOut *out_real = ad->out;
 
 	if (response == GTK_RESPONSE_ACCEPT) {
+		out_real->abort_auth = FALSE;
+		out_real->save_password = TRUE;
 		out_real->password = gtk_editable_get_chars(GTK_EDITABLE(ad->password), 0, -1);
 		if (ad->username) out_real->username = gtk_editable_get_chars(GTK_EDITABLE(ad->username), 0, -1);
 		if (ad->domain) out_real->domain = gtk_editable_get_chars(GTK_EDITABLE(ad->domain), 0, -1);
-		authen_insert(ad->auth, out_real->password, in_real->protocol, in_real->server, in_real->port, in_real->object, in_real->authtype, out_real->username, out_real->domain);
+	} else {
+		out_real->abort_auth = TRUE;
 	}
 	
 	gtk_widget_destroy(ad->dialog);
@@ -227,7 +220,9 @@ static void vfs_async_full_authentication_lcb(gconstpointer in, size_t in_size,
 
 	in_real = (GnomeVFSModuleCallbackFullAuthenticationIn *)in;
 	out_real = (GnomeVFSModuleCallbackFullAuthenticationOut *)out;
-	ad = password_dialog(auth, in_real->uri, in_real->default_user ? in_real->default_user : in_real->username, in_real->domain);
+	ad = password_dialog(auth, in_real->uri, 
+			(in_real->flags & GNOME_VFS_MODULE_CALLBACK_FULL_AUTHENTICATION_NEED_USERNAME) ? (in_real->default_user ? in_real->default_user : in_real->username) : NULL, 
+			(in_real->flags & GNOME_VFS_MODULE_CALLBACK_FULL_AUTHENTICATION_NEED_DOMAIN) ? (in_real->domain ? in_real->domain : "" ): NULL);
 	ad->in = in_real;
 	ad->out = out_real;
 	ad->response = response;
@@ -240,30 +235,6 @@ static void vfs_full_authentication_lcb(gconstpointer in, size_t in_size,
 				  gpointer user_data) {
 	DEBUG_MSG("vfs_full_authentication_lcb, called\n");
 }
-
-/*static void fill_authentication_response_lcb(GtkDialog *dialog,gint response,gpointer data) {
-	Tauthdialog *ad = data;
-	GnomeVFSModuleCallbackFillAuthenticationIn *in_real = ad->in;
-	GnomeVFSModuleCallbackFillAuthenticationOut *out_real = ad->out;
-
-	if (response == GTK_RESPONSE_ACCEPT) {
-		gchar *key;
-		out_real->password = gtk_editable_get_chars(GTK_EDITABLE(ad->password), 0, -1);
-		if (in_real->username) out_real->username = g_strdup(in_real->username);
-		if (in_real->domain) out_real->domain = g_strdup(in_real->domain);
-		out_real->valid = TRUE;
-		key = authen_key_new(NULL, in_real->server, in_real->port, in_real->object);
-		g_hash_table_replace(ad->auth->hash, key, authen_value_new(out_real->username, out_real->password, out_real->domain));
-	} else {
-		out_real->valid = FALSE;
-	}
-	
-	gtk_widget_destroy(ad->dialog);
-	DEBUG_MSG("fill_authentication_response_lcb, valid=%d, calling response(response_data)\n",out_real->valid);
-	ad->response(ad->response_data);
-	
-	g_free(ad);
-}*/
 
 static gboolean fill_authentication_idle_lcb(gpointer user_data) {
 	Tauthfill *af = user_data;
@@ -302,35 +273,6 @@ static void vfs_async_fill_authentication_lcb(gconstpointer in, size_t in_size,
 	af->response_data = response_data;
 	/* for some reason, I get a hanging bluefish if I call 'response' directly */
 	g_idle_add_full(G_PRIORITY_HIGH, fill_authentication_idle_lcb, af, NULL);
-	
-/*	Tauthen *auth = user_data;
-	gchar *key;
-	Tauthdialog *ad;
-	Tauthenval *val;
-	GnomeVFSModuleCallbackFillAuthenticationIn *in_real = (GnomeVFSModuleCallbackFillAuthenticationIn *)in;
-	GnomeVFSModuleCallbackFillAuthenticationOut *out_real = (GnomeVFSModuleCallbackFillAuthenticationOut *)out;
-
-	DEBUG_MSG("vfs_async_fill_authentication_lcb, called, auth=%p\n", auth);
-	key = authen_key_new("", in_real->server, in_real->port, in_real->object);
-	DEBUG_MSG("vfs_async_fill_authentication_lcb, key=%s, will look in hash %p\n",key,auth->hash);
-	val = (Tauthenval *)g_hash_table_lookup(auth->hash, key);
-	g_free(key);
-	if (val) {
-		DEBUG_MSG("vfs_async_fill_authentication_lcb, found val %p\n",val);
-		out_real->password = g_strdup(val->password);
-		if (in_real->username) out_real->username = g_strdup(val->username);
-		if (in_real->domain) out_real->domain = g_strdup(val->domain);
-		out_real->valid = TRUE;
-		DEBUG_MSG("vfs_async_fill_authentication_lcb, found the key, calling response()\n");
-		response(response_data);
-	} else {
-		ad = password_dialog(auth, in_real->uri, NULL, NULL);
-		ad->in = in_real;
-		ad->out = out_real;
-		ad->response = response;
-		ad->response_data = response_data;
-		g_signal_connect(ad->dialog, "response", G_CALLBACK(fill_authentication_response_lcb), ad);
-	}*/
 }
 
 static void vfs_fill_authentication_lcb(gconstpointer in, size_t in_size, 
@@ -338,13 +280,34 @@ static void vfs_fill_authentication_lcb(gconstpointer in, size_t in_size,
 				  gpointer user_data) {
 	DEBUG_MSG("vfs_fill_authentication_lcb, called\n");
 }
+
+static gboolean save_authentication_idle_lcb(gpointer user_data) {
+	Tauthfill *af = user_data;
+	GnomeVFSModuleCallbackSaveAuthenticationIn *in_real = (GnomeVFSModuleCallbackSaveAuthenticationIn *)af->in;
+	
+	authen_insert(af->auth, in_real->password, in_real->protocol, in_real->server, in_real->port, in_real->object, in_real->authtype, in_real->username, in_real->domain);
+	
+	DEBUG_MSG("save_authentication_idle_lcb, calling response()\n");
+	af->response(af->response_data);
+	g_free(af);
+	return FALSE;
+}
+
 static void vfs_async_save_authentication_lcb(gconstpointer in, size_t in_size, 
 					gpointer out, size_t out_size, 
 					gpointer user_data,
 					GnomeVFSModuleCallbackResponse response,
 					gpointer response_data) {
+	Tauthfill *af;
 	DEBUG_MSG("vfs_async_save_authentication_lcb, called\n");
-	response(response_data);
+	af = g_new0(Tauthfill,1);
+	af->auth = user_data;
+	af->in = (gpointer)in;
+	af->out = (gpointer)out;
+	af->response = response;
+	af->response_data = response_data;
+	/* for some reason, I get a hanging bluefish if I call 'response' directly */
+	g_idle_add_full(G_PRIORITY_HIGH, save_authentication_idle_lcb, af, NULL);
 }
 
 static void vfs_save_authentication_lcb(gconstpointer in, size_t in_size, 
