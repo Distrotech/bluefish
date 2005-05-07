@@ -512,11 +512,11 @@ void rcfile_parse_main(void)
 	if (main_v->props.outputbox==NULL) {
 		/* if the user does not have outputbox settings --> set them to defaults values */
 		main_v->props.outputbox = g_list_append(main_v->props.outputbox,array_from_arglist(_("make"),"([a-zA-Z0-9/_.-]+):([0-9]+):(.*)","1","2","3","make","1",NULL));
-		main_v->props.outputbox = g_list_append(main_v->props.outputbox,array_from_arglist(_("weblint HTML checker"),"([a-zA-Z0-9/_.-]+)\\(([0-9]+)\\): (.*)","1","2","3","weblint '%s'","1",NULL));
+		main_v->props.outputbox = g_list_append(main_v->props.outputbox,array_from_arglist(_("weblint HTML checker"),"([a-zA-Z0-9/_.-]+) \\(([0-9\:]+)\\) (.*)","1","2","3","weblint '%s'","0",NULL));
 		main_v->props.outputbox = g_list_append(main_v->props.outputbox,array_from_arglist(_("tidy HTML validator"),"line ([0-9]+) column [0-9]+ - (.*)","-1","1","2","tidy -qe '%s'","0",NULL));
 		main_v->props.outputbox = g_list_append(main_v->props.outputbox,array_from_arglist(_("javac"),"([a-zA-Z0-9/_.-]+):([0-9]+):(.*)","1","2","3","javac '%s'","0",NULL));
-		main_v->props.outputbox = g_list_append(main_v->props.outputbox,array_from_arglist(_("xmllint XML checker"),"([a-zA-Z0-9/_.-]+)\\(([0-9]+)\\): (.*)","1","2","3","xmllint --noout --valid '%s'","1",NULL));
-		main_v->props.outputbox = g_list_append(main_v->props.outputbox,array_from_arglist(_("php"),"([a-zA-Z0-9/_.-]+)\\:([0-9]+)\\:(.*)","1","2","3","php '%s'","1",NULL));
+		main_v->props.outputbox = g_list_append(main_v->props.outputbox,array_from_arglist(_("xmllint XML checker"),"([a-zA-Z0-9/_.-]+)\\:(([0-9]+)\\: (.*)","1","2","3","xmllint --noout --valid '%s'","0",NULL));
+		main_v->props.outputbox = g_list_append(main_v->props.outputbox,array_from_arglist(_("php"),"(.*) in (/[a-zA-Z0-9/_.-]+) on line ([0-9]+)","1","2","3","php '%s'","0",NULL));
 /*		main_v->props.outputbox = g_list_append(main_v->props.outputbox,array_from_arglist(,NULL)); */
 	}
 	if (main_v->props.external_commands == NULL) {
