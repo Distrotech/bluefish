@@ -138,10 +138,26 @@ typedef struct {
 	gpointer out;
 } Tauthfill;
 
+static void add_row(GtkWidget *table, int row, const char *label_text, GtkWidget *entry) {
+	GtkWidget *label;
+
+	label = gtk_label_new_with_mnemonic(label_text);
+	gtk_misc_set_alignment(GTK_MISC(label), 1.0, 0.5);
+	gtk_table_attach (GTK_TABLE (table), label,
+			0, 1,row, row + 1,
+			GTK_FILL,(GTK_FILL|GTK_EXPAND),0, 0);
+	gtk_table_attach (GTK_TABLE (table), entry,
+			1, 2,row, row + 1,
+			(GTK_FILL|GTK_EXPAND),(GTK_FILL|GTK_EXPAND),0, 0);
+	gtk_label_set_mnemonic_widget(GTK_LABEL(label), entry);
+}
+
 static Tauthdialog *password_dialog(Tauthen *auth, gchar *location, gchar *default_user, gchar *default_domain) {
 	Tauthdialog *ad;
 	gchar *tmp;
-
+	GtkWidget *table, *label;
+	gint row;
+	DEBUG_MSG("password_dialog, started for location %s\n",location);
 	ad = g_new0(Tauthdialog,1);
 	ad->auth = auth;
 	ad->dialog = gtk_dialog_new_with_buttons(_("Authentication required"), NULL,
@@ -149,28 +165,40 @@ static Tauthdialog *password_dialog(Tauthen *auth, gchar *location, gchar *defau
 			GTK_STOCK_OK, GTK_RESPONSE_ACCEPT,
 			GTK_STOCK_CANCEL, GTK_RESPONSE_REJECT,NULL);
 	gtk_dialog_set_default_response(GTK_DIALOG(ad->dialog), GTK_RESPONSE_ACCEPT);
+
+	gtk_dialog_set_has_separator (GTK_DIALOG(ad->dialog), FALSE);
 	gtk_window_set_position(GTK_WINDOW(ad->dialog), GTK_WIN_POS_CENTER);
+	gtk_container_set_border_width(GTK_CONTAINER(ad->dialog), 10);
 	
 	tmp = g_strconcat(_("You must log in to access "), location, NULL);
-	gtk_box_pack_start(GTK_BOX(GTK_DIALOG(ad->dialog)->vbox), gtk_label_new(tmp), TRUE, TRUE, 5);
+	label = gtk_label_new(tmp);
+	gtk_label_set_line_wrap(GTK_LABEL(label), TRUE);
+	gtk_label_set_justify(GTK_LABEL(label), GTK_JUSTIFY_LEFT);
+	gtk_box_pack_start(GTK_BOX(GTK_DIALOG(ad->dialog)->vbox), label, TRUE, TRUE, 5);
 	g_free(tmp);
-	if (default_user) {
-		ad->username = boxed_entry_with_text(default_user, 20, GTK_DIALOG(ad->dialog)->vbox);
-	}
 	
-	ad->password = boxed_entry_with_text("", 20, GTK_DIALOG(ad->dialog)->vbox);
+	table = gtk_table_new (3, 2, FALSE);
+	gtk_table_set_col_spacings(GTK_TABLE (table), 12);
+	gtk_table_set_row_spacings(GTK_TABLE (table), 6);
+	gtk_box_pack_start (GTK_BOX(GTK_DIALOG(ad->dialog)->vbox), table, TRUE, TRUE, 5);
+	row = 0;
+	if (default_user) {
+		ad->username = entry_with_text(default_user, 20);
+		add_row(table, row++, _("_Username:"), ad->username);
+	}
 	
 	if (default_domain) {
-		ad->domain = boxed_entry_with_text(default_domain, 20, GTK_DIALOG(ad->dialog)->vbox);
+		ad->domain = entry_with_text(default_domain, 20);
+		add_row(table, row++, _("_Domain:"), ad->domain);
 	}
-	
+	ad->password = entry_with_text("", 20);
+	add_row(table, row++, _("_Pasword:"), ad->password);
 	gtk_entry_set_visibility(GTK_ENTRY(ad->password), FALSE);
 
-/*	g_signal_connect(dialog, "response", G_CALLBACK(password_dialog_response_lcb), bfwin);*/
 	gtk_widget_show_all(ad->dialog);
 	return ad;
 }
-
+/*
 static void vfs_async_authentication_lcb(gconstpointer in, size_t in_size, 
 				   gpointer out, size_t out_size, 
 				   gpointer user_data,
@@ -184,7 +212,7 @@ static void vfs_authentication_lcb(gconstpointer in, size_t in_size,
 			     gpointer user_data) {
 	DEBUG_MSG("vfs_authentication_lcb, called\n");
 }
-
+*/
 static void full_authentication_response_lcb(GtkDialog *dialog,gint response,gpointer data) {
 	Tauthdialog *ad = data;
 	GnomeVFSModuleCallbackFullAuthenticationOut *out_real = ad->out;
@@ -200,9 +228,10 @@ static void full_authentication_response_lcb(GtkDialog *dialog,gint response,gpo
 	}
 	
 	gtk_widget_destroy(ad->dialog);
-	DEBUG_MSG("full_authentication_response_lcb, calling response(response_data)\n");
-	ad->response(ad->response_data);
-	
+	if (ad->response) {
+		DEBUG_MSG("full_authentication_response_lcb, calling response(response_data)\n");
+		ad->response(ad->response_data);
+	}
 	g_free(ad);
 }
 
@@ -213,13 +242,11 @@ static void vfs_async_full_authentication_lcb(gconstpointer in, size_t in_size,
 					gpointer response_data) {
 	Tauthdialog *ad;
 	Tauthen *auth = user_data;
-	GnomeVFSModuleCallbackFullAuthenticationIn *in_real;
-	GnomeVFSModuleCallbackFullAuthenticationOut *out_real;
+	GnomeVFSModuleCallbackFullAuthenticationIn *in_real = (GnomeVFSModuleCallbackFullAuthenticationIn *)in;
+	GnomeVFSModuleCallbackFullAuthenticationOut *out_real = (GnomeVFSModuleCallbackFullAuthenticationOut *)out;
 
 	DEBUG_MSG("vfs_async_full_authentication_lcb, called\n");
 
-	in_real = (GnomeVFSModuleCallbackFullAuthenticationIn *)in;
-	out_real = (GnomeVFSModuleCallbackFullAuthenticationOut *)out;
 	ad = password_dialog(auth, in_real->uri, 
 			(in_real->flags & GNOME_VFS_MODULE_CALLBACK_FULL_AUTHENTICATION_NEED_USERNAME) ? (in_real->default_user ? in_real->default_user : in_real->username) : NULL, 
 			(in_real->flags & GNOME_VFS_MODULE_CALLBACK_FULL_AUTHENTICATION_NEED_DOMAIN) ? (in_real->domain ? in_real->domain : "" ): NULL);
@@ -231,9 +258,23 @@ static void vfs_async_full_authentication_lcb(gconstpointer in, size_t in_size,
 }
 
 static void vfs_full_authentication_lcb(gconstpointer in, size_t in_size, 
-				  gpointer out, size_t out_size, 
-				  gpointer user_data) {
+				  gpointer out, size_t out_size, gpointer user_data) {
+	Tauthdialog *ad;
+	Tauthen *auth = user_data;
+	GnomeVFSModuleCallbackFullAuthenticationIn *in_real = (GnomeVFSModuleCallbackFullAuthenticationIn *)in;
+	GnomeVFSModuleCallbackFullAuthenticationOut *out_real = (GnomeVFSModuleCallbackFullAuthenticationOut *)out;
+	gint ret;
+
 	DEBUG_MSG("vfs_full_authentication_lcb, called\n");
+	ad = password_dialog(auth, in_real->uri, 
+			(in_real->flags & GNOME_VFS_MODULE_CALLBACK_FULL_AUTHENTICATION_NEED_USERNAME) ? (in_real->default_user ? in_real->default_user : in_real->username) : NULL, 
+			(in_real->flags & GNOME_VFS_MODULE_CALLBACK_FULL_AUTHENTICATION_NEED_DOMAIN) ? (in_real->domain ? in_real->domain : "" ): NULL);
+	ad->in = in_real;
+	ad->out = out_real;
+	ad->response = NULL;
+	ad->response_data = NULL;
+	ret = gtk_dialog_run(GTK_DIALOG(ad->dialog));
+	full_authentication_response_lcb(GTK_DIALOG(ad->dialog),ret,ad);
 }
 
 static gboolean fill_authentication_idle_lcb(gpointer user_data) {
@@ -252,8 +293,10 @@ static gboolean fill_authentication_idle_lcb(gpointer user_data) {
 	} else {
 		out_real->valid = FALSE;
 	}
-	DEBUG_MSG("fill_authentication_idle_lcb, valid=%d, calling response()\n",out_real->valid);
-	af->response(af->response_data);
+	if (af->response) {
+		DEBUG_MSG("fill_authentication_idle_lcb, valid=%d, calling response()\n",out_real->valid);
+		af->response(af->response_data);
+	}
 	g_free(af);
 	return FALSE;
 }
@@ -264,7 +307,7 @@ static void vfs_async_fill_authentication_lcb(gconstpointer in, size_t in_size,
 					GnomeVFSModuleCallbackResponse response,
 					gpointer response_data) {
 	Tauthfill *af;
-	
+	DEBUG_MSG("vfs_async_fill_authentication_lcb, started\n");
 	af = g_new0(Tauthfill,1);
 	af->auth = user_data;
 	af->in = (gpointer)in;
@@ -278,7 +321,15 @@ static void vfs_async_fill_authentication_lcb(gconstpointer in, size_t in_size,
 static void vfs_fill_authentication_lcb(gconstpointer in, size_t in_size, 
 				  gpointer out, size_t out_size, 
 				  gpointer user_data) {
-	DEBUG_MSG("vfs_fill_authentication_lcb, called\n");
+	DEBUG_MSG("vfs_fill_authentication_lcb, started\n");
+	Tauthfill *af;
+	af = g_new0(Tauthfill,1);
+	af->auth = user_data;
+	af->in = (gpointer)in;
+	af->out = (gpointer)out;
+	af->response = NULL;
+	af->response_data = NULL;
+	fill_authentication_idle_lcb(af);
 }
 
 static gboolean save_authentication_idle_lcb(gpointer user_data) {
@@ -286,9 +337,10 @@ static gboolean save_authentication_idle_lcb(gpointer user_data) {
 	GnomeVFSModuleCallbackSaveAuthenticationIn *in_real = (GnomeVFSModuleCallbackSaveAuthenticationIn *)af->in;
 	
 	authen_insert(af->auth, in_real->password, in_real->protocol, in_real->server, in_real->port, in_real->object, in_real->authtype, in_real->username, in_real->domain);
-	
-	DEBUG_MSG("save_authentication_idle_lcb, calling response()\n");
-	af->response(af->response_data);
+	if (af->response) {
+		DEBUG_MSG("save_authentication_idle_lcb, calling response()\n");
+		af->response(af->response_data);
+	}
 	g_free(af);
 	return FALSE;
 }
@@ -313,9 +365,17 @@ static void vfs_async_save_authentication_lcb(gconstpointer in, size_t in_size,
 static void vfs_save_authentication_lcb(gconstpointer in, size_t in_size, 
 				  gpointer out, size_t out_size, 
 				  gpointer user_data) {
+	Tauthfill *af;
 	DEBUG_MSG("vfs_save_authentication_lcb, called\n");
+	af = g_new0(Tauthfill,1);
+	af->auth = user_data;
+	af->in = (gpointer)in;
+	af->out = (gpointer)out;
+	af->response = NULL;
+	af->response_data = NULL;
+	save_authentication_idle_lcb(af);
 }
-
+/*
 static void vfs_async_question_lcb(gconstpointer in, size_t in_size, 
 			     gpointer out, size_t out_size, 
 			     gpointer user_data,
@@ -329,7 +389,7 @@ static void vfs_question_lcb(gconstpointer in, size_t in_size,
 		       gpointer out, size_t out_size, 
 		       gpointer user_data) {
 	DEBUG_MSG("vfs_question_lcb, called\n");
-}
+} */
 
 void authen_init(void) {
 	Tauthen * auth;
@@ -338,12 +398,12 @@ void authen_init(void) {
 	auth->hash = g_hash_table_new_full(g_str_hash, g_str_equal, g_free, (GDestroyNotify) authen_value_free);
 	DEBUG_MSG("authen_init, auth=%p, hash=%p\n",auth,auth->hash);
 
-	gnome_vfs_async_module_callback_set_default(GNOME_VFS_MODULE_CALLBACK_AUTHENTICATION,
+/*	gnome_vfs_async_module_callback_set_default(GNOME_VFS_MODULE_CALLBACK_AUTHENTICATION,
 				vfs_async_authentication_lcb, 
 				auth,NULL);
 	gnome_vfs_async_module_callback_set_default(GNOME_VFS_MODULE_CALLBACK_HTTP_PROXY_AUTHENTICATION, 
 				vfs_async_authentication_lcb, 
-				auth,NULL);
+				auth,NULL);*/
 	gnome_vfs_async_module_callback_set_default(GNOME_VFS_MODULE_CALLBACK_FILL_AUTHENTICATION,
 				vfs_async_fill_authentication_lcb, 
 				auth,NULL);
@@ -353,7 +413,7 @@ void authen_init(void) {
 	gnome_vfs_async_module_callback_set_default(GNOME_VFS_MODULE_CALLBACK_SAVE_AUTHENTICATION,
 				vfs_async_save_authentication_lcb, 
 				auth,NULL);
-	gnome_vfs_async_module_callback_set_default(GNOME_VFS_MODULE_CALLBACK_QUESTION,
+/*	gnome_vfs_async_module_callback_set_default(GNOME_VFS_MODULE_CALLBACK_QUESTION,
 				vfs_async_question_lcb, 
 				auth,NULL);
 	gnome_vfs_module_callback_set_default(GNOME_VFS_MODULE_CALLBACK_AUTHENTICATION,
@@ -361,7 +421,7 @@ void authen_init(void) {
 				auth,NULL);
 	gnome_vfs_module_callback_set_default(GNOME_VFS_MODULE_CALLBACK_HTTP_PROXY_AUTHENTICATION, 
 				vfs_authentication_lcb, 
-				auth,NULL);
+				auth,NULL);*/
 	gnome_vfs_module_callback_set_default(GNOME_VFS_MODULE_CALLBACK_FILL_AUTHENTICATION,
 				vfs_fill_authentication_lcb, 
 				auth,NULL);
@@ -371,8 +431,8 @@ void authen_init(void) {
 	gnome_vfs_module_callback_set_default(GNOME_VFS_MODULE_CALLBACK_SAVE_AUTHENTICATION,
 				vfs_save_authentication_lcb, 
 				auth,NULL);
-	gnome_vfs_module_callback_set_default(GNOME_VFS_MODULE_CALLBACK_QUESTION,
+/*	gnome_vfs_module_callback_set_default(GNOME_VFS_MODULE_CALLBACK_QUESTION,
 				vfs_question_lcb, 
-				auth,NULL);
+				auth,NULL);*/
 }
 #endif /* ifndef HAVE_ATLEAST_GNOMEUI_2_6 */
