@@ -491,15 +491,15 @@ void rcfile_parse_main(void)
 		main_v->props.browsers = g_list_append(main_v->props.browsers,arr);
 	}
 	{
-		gchar *defaultfile = return_first_existing_filename(PKGDATADIR"encodings.default",
-											"data/encodings.default",
-										"../data/encodings.default",NULL);
+		gchar *defaultfile = return_first_existing_filename(PKGDATADIR"encodings",
+											"data/encodings",
+										"../data/encodings",NULL);
 		if (main_v->props.encodings == NULL) {
 			/* if the user does not have encodings --> set them to defaults values */
 			if (defaultfile) {
 				main_v->props.encodings = get_list(defaultfile,NULL,TRUE);
 			} else {
-				g_print("Unable to find '"PKGDATADIR"encodings.default'\n");
+				g_print("Unable to find '"PKGDATADIR"encodings'\n");
 			}
 		} else {
 			if (config_file_is_newer(main_v->globses.lasttime_encodings,defaultfile)) {
@@ -528,15 +528,15 @@ void rcfile_parse_main(void)
 		main_v->props.external_commands = g_list_append(main_v->props.external_commands,arr);
 	}
 	{
-		gchar *defaultfile = return_first_existing_filename(PKGDATADIR"filetypes.default",
-									"data/filetypes.default",
-									"../data/filetypes.default",NULL);
+		gchar *defaultfile = return_first_existing_filename(PKGDATADIR"filetypes",
+									"data/filetypes",
+									"../data/filetypes",NULL);
 		if (main_v->props.filetypes == NULL) {
 			/* if the user does not have file-types --> set them to defaults values */
 			if (defaultfile) {
 				main_v->props.filetypes = get_list(defaultfile,NULL,TRUE);
 			} else {
-				g_print("Unable to find '"PKGDATADIR"filetypes.default'\n");
+				g_print("Unable to find '"PKGDATADIR"filetypes'\n");
 			}
 		} else {
 			if (config_file_is_newer(main_v->globses.lasttime_filetypes,defaultfile)) {
@@ -620,15 +620,15 @@ void rcfile_parse_highlighting(void) {
 	init_prop_arraylist(&highlighting_configlist, &main_v->props.highlight_patterns, "patterns:", 0, TRUE);
 
 	filename = g_strconcat(g_get_home_dir(), "/."PACKAGE"/highlighting", NULL);
-	defaultfile = return_first_existing_filename(PKGDATADIR"highlighting.default",
-									"data/highlighting.default",
-									"../data/highlighting.default",NULL);
+	defaultfile = return_first_existing_filename(PKGDATADIR"highlighting",
+									"data/highlighting",
+									"../data/highlighting",NULL);
 	if (!parse_config_file(highlighting_configlist, filename)) {
 		/* init the highlighting in some way? */
 		if (defaultfile) {
 			main_v->props.highlight_patterns = get_list(defaultfile,NULL,TRUE);
 		} else {
-			g_print("Unable to find '"PKGDATADIR"highlighting.default'\n");
+			g_print("Unable to find '"PKGDATADIR"highlighting'\n");
 		}
 		save_config_file(highlighting_configlist, filename);
 		DEBUG_MSG("rcfile_parse_highlighting, done saving\n");
@@ -681,7 +681,7 @@ static void rcfile_custom_menu_load_all(gboolean full_reset, gchar *defaultfile)
 		if (defaultfile) {
 			parse_config_file(custom_menu_configlist, defaultfile);
 		} else {
-			g_print("Unable to find '"PKGDATADIR"custom_menu.default'\n");
+			g_print("Unable to find '"PKGDATADIR"custom_menu'\n");
 		}
 	}
 	g_free(filename);
@@ -753,13 +753,13 @@ void rcfile_parse_custom_menu(gboolean full_reset, gboolean load_new) {
 	}
 	if (langdefaultfile1) {
 		defaultfile = return_first_existing_filename(langdefaultfile1, langdefaultfile2,
-									PKGDATADIR"custom_menu.default",
-									"data/custom_menu.default",
-									"../data/custom_menu.default",NULL);
+									PKGDATADIR"custom_menu",
+									"data/custom_menu",
+									"../data/custom_menu",NULL);
 	} else {
-		defaultfile = return_first_existing_filename(PKGDATADIR"custom_menu.default",
-									"data/custom_menu.default",
-									"../data/custom_menu.default",NULL);
+		defaultfile = return_first_existing_filename(PKGDATADIR"custom_menu",
+									"data/custom_menu",
+									"../data/custom_menu",NULL);
 	}
 	DEBUG_MSG("rcfile_parse_custom_menu, defaultfile is: %s", defaultfile);
 	
