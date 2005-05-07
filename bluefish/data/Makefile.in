@@ -81,7 +81,7 @@ install-theme-icon:
 install: all $(INSTALLDATA)
 	$(INSTALL_DIR) $(DESTDIR)$(pkgdatadir)
 	for file in $(DEFAULTFILES) ; do \
-		$(INSTALL_DATA) $$file $(DESTDIR)$(pkgdatadir)$$file.default ;\
+		$(INSTALL_DATA) $$file $(DESTDIR)$(pkgdatadir)$$file ;\
 	done
 	for file in $(FUNCREFFILES) ; do \
 		$(INSTALL_DATA) $$file $(DESTDIR)$(pkgdatadir) ;\
