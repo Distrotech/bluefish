@@ -17,6 +17,49 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
+
+/*****
+ * THE WORKING OF THE CONFIG FILES AND STRUCTURES IN BLUEFISH
+ * 
+ * there are 3 different places to store options in bluefish
+ *
+ * 1) main_v->props.item stored in ~/.bluefish/rcfile_v2
+ * these items are only stored after preferences OK button 
+ * is hit, so they should only change if they are changed
+ * by the user in the preferences panel
+ * They should be added in bluefish.h in struct Tproperties
+ * They should be added in rcfile.c in props_init_main
+ * They should be added in preferences.c
+ *        - in the enum on top
+ *        - in preferences_dialog() to create the widget
+ *        - in the preferences_apply(Tprefdialog *pd) to do something with the new value
+ *
+ * 2) main_v->globses.item stored in ~/.bluefish/session
+ * these are the *global* session variables. global means
+ * that they cannot have a different value in projects. This
+ * file is saved on exit. Items in here should be items that
+ * are always global for all bluefish windows, but can be 
+ * changed outside the preference panel (such as main window
+ * width, or recent project files)
+ * They should be added in bluefish.h in struct Tglobalsession
+ * They should be in rcfile.c in return_globalsession_configlist()
+ * They can be set in any bluefish file
+ *
+ * 3) bfwin->session->item, stored in ~/.bluefish/session for non-project
+ * windows, or stored as part of the project for project windows
+ * these are specific session variables. that means they can be different
+ * for project windows. Items in here should be items that are useful to 
+ * have a different value in a project. For example the encoding, the spell 
+ * check language, the filebrowser filter, etc.
+ * They should be added in bluefish.h in struct Tsessionvars
+ * They should be in rcfile.c in return_session_configlist()
+ * They *probably* should be added to project.c 
+ *        - in project_setup_initial_session()
+ *        - in setup_bfwin_for_nonproject()
+ *        - in project_open_from_file()
+ * 
+ */
+
 /*#define DEBUG*/
 
 #include <gtk/gtk.h>
@@ -848,6 +891,9 @@ static GList *return_globalsession_configlist(gboolean init_values) {
 }
 
 static GList *return_session_configlist(GList *configlist, Tsessionvars *session) {
+	/* this function should *NOT* initialize any values to default values
+	because it is also used on existing sessions that already have a value, and
+	that would wipe out the value of the existing session */
 	init_prop_limitedstringlist(&configlist, &session->searchlist, "searchlist:", 10, FALSE);
 	init_prop_limitedstringlist(&configlist, &session->replacelist, "replacelist:", 10, FALSE);
 	init_prop_stringlist(&configlist, &session->classlist, "classlist:", FALSE);
