@@ -484,9 +484,9 @@ gchar *ask_new_filename(Tbfwin *bfwin,gchar *old_curi, const gchar *gui_name, gb
 }
 
 void doc_save_backend(Tdocument *doc, gboolean do_save_as, gboolean do_move, gboolean close_doc, gboolean close_window) {
-	gchar *curi;
+	gchar *curi=NULL;
 	DEBUG_MSG("doc_save_backend, started for doc %p\n",doc);
-	curi = gnome_vfs_uri_to_string(doc->uri,GNOME_VFS_URI_HIDE_PASSWORD);
+	if (doc->uri) curi = gnome_vfs_uri_to_string(doc->uri,GNOME_VFS_URI_HIDE_PASSWORD);
 	if(doc->action.save) {
 		gchar *errmessage;
 		/* this message is not in very nice english I'm afraid */
@@ -509,7 +509,7 @@ void doc_save_backend(Tdocument *doc, gboolean do_save_as, gboolean do_move, gbo
 		gchar *newfilename;
 		newfilename = ask_new_filename(BFWIN(doc->bfwin), curi, gtk_label_get_text(GTK_LABEL(doc->tab_label)), do_move);
 		if (!newfilename) {
-			g_free(curi);
+			if (curi) g_free(curi);
 			return;
 		}
 		if (doc->uri) {
@@ -519,7 +519,7 @@ void doc_save_backend(Tdocument *doc, gboolean do_save_as, gboolean do_move, gbo
 			gnome_vfs_uri_unref(doc->uri);
 		}
 		doc->uri = gnome_vfs_uri_new(newfilename);
-		g_free(curi);
+		if (curi) g_free(curi);
 		curi = newfilename;
 	}
 	session_set_savedir(doc->bfwin, curi);
