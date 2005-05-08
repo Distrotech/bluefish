@@ -214,7 +214,7 @@ void spell_start(Tbfspell *bfspell) {
 	 * should first set the default one 
 	 */
 	aspell_config_replace(bfspell->spell_config, "lang", bfspell->bfwin->session->spell_default_lang);
-	DEBUG_MSG("spell_start, default lang=%s\n",bfwin->session->spell_default_lang);
+	DEBUG_MSG("spell_start, default lang=%s\n",bfspell->bfwin->session->spell_default_lang);
 	/*
 	 * it is unclear from the manual if aspell supports utf-8 in the
 	 * library, the utility does not support it.. 
