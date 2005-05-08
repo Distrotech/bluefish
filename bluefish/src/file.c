@@ -778,46 +778,56 @@ void file_doc_from_uri(Tbfwin *bfwin, GnomeVFSURI *uri, GnomeVFSFileInfo *finfo,
 /*************************** OPEN ADVANCED ******************************/
 
 typedef struct {
-	GnomeVFSAsyncHandle *handle;
+	guint refcount;
 	Tbfwin *bfwin;
-	GnomeVFSURI *basedir;
 	gboolean recursive;
 	gchar *extension_filter;
 	GPatternSpec* patspec;
 	gchar *content_filter;
 	gboolean use_regex;
-} Topenadv_dir; /* can be typecasted to Tfileaction !!*/
+	pcre *contentf_pcre; /* a compiled content_filter */
+} Topenadv;
 
 typedef struct {
-	Tbfwin *bfwin;
+	Topenadv *oa;
+	GnomeVFSAsyncHandle *handle;
+	GnomeVFSURI *basedir;
+} Topenadv_dir;
+
+typedef struct {
+	Topenadv *oa;
 	GnomeVFSURI *uri;
 	GnomeVFSFileInfo *finfo;
-	gchar *content_filter;
-	gboolean use_regex;
-} Topenadv_uri; /* can be typecasted to Tfileaction !!*/
+} Topenadv_uri;
+
+static void openadv_unref(Topenadv *oa) {
+	oa->refcount--;
+	DEBUG_MSG("openadv_unref, count=%d\n",oa->refcount);
+	statusbar_message(oa->bfwin,_("Advanced open: finished searching files"), 3000);
+	if (oa->refcount <= 0 ) {
+		if (oa->extension_filter) g_free(oa->extension_filter);
+		if (oa->patspec) g_pattern_spec_free(oa->patspec);
+		if (oa->content_filter) g_free(oa->content_filter);
+		if (oa->contentf_pcre) pcre_free(oa->contentf_pcre);
+		g_free(oa);
+	}
+}
 
 static void open_adv_open_uri_cleanup(Topenadv_uri *oau) {
 	gnome_vfs_uri_unref(oau->uri);
 	gnome_vfs_file_info_unref(oau->finfo);
-	g_free(oau->content_filter);
+	openadv_unref(oau->oa);
 	g_free(oau);
 }
 
 static gboolean open_adv_content_matches_filter(gchar *buffer,GnomeVFSFileSize buflen, Topenadv_uri *oau) {
-	if (oau->use_regex) {
-		pcre *re;
-		const char *error;
-		int erroffset;
-		re = pcre_compile(oau->content_filter, 0, &error, &erroffset, NULL);
-		if (re) {
-			int rc;
-			int ovector[30];
-			rc = pcre_exec(re, NULL, buffer, buflen, 0, 0, ovector, 30);
-			pcre_free(re);
-			return rc;
-		}
+	if (oau->oa->use_regex) {
+		int rc;
+		int ovector[30];
+		rc = pcre_exec(oau->oa->contentf_pcre, NULL, buffer, buflen, 0, 0, ovector, 30);
+		return rc;
 	} else {
-		return (strstr(buffer, oau->content_filter) != NULL);
+		return (strstr(buffer, oau->oa->content_filter) != NULL);
 	}
 	return FALSE;
 }
@@ -832,8 +842,8 @@ static void open_adv_content_filter_lcb(Topenfile_status status,gint error_info,
 				Tfile2doc *f2d = g_new(Tfile2doc,1);
 				f2d->uri = oau->uri;
 				gnome_vfs_uri_ref(oau->uri);
-				f2d->bfwin = oau->bfwin;
-				f2d->doc = doc_new_loading_in_background(oau->bfwin, oau->uri, oau->finfo);
+				f2d->bfwin = oau->oa->bfwin;
+				f2d->doc = doc_new_loading_in_background(oau->oa->bfwin, oau->uri, oau->finfo);
 				file2doc_lcb(status,error_info,buffer,buflen,f2d);
 			}
 			open_adv_open_uri_cleanup(data);
@@ -850,60 +860,59 @@ static void open_adv_content_filter_lcb(Topenfile_status status,gint error_info,
 	}
 }
 
-static void openadv_content_filter_file(Tbfwin *bfwin, GnomeVFSURI *uri, GnomeVFSFileInfo* finfo, gchar *content_filter, gboolean use_regex) {
+static void openadv_content_filter_file(Topenadv *oa, GnomeVFSURI *uri, GnomeVFSFileInfo* finfo) {
 	Topenadv_uri *oau;
 	
 	oau = g_new0(Topenadv_uri,1);
-	oau->bfwin = bfwin;
+	oau->oa = oa;
+	oa->refcount++;
 	oau->uri = uri;
 	gnome_vfs_uri_ref(uri);
 	oau->finfo = gnome_vfs_file_info_dup(finfo);
-	oau->content_filter = g_strdup(content_filter);
-	oau->use_regex = use_regex;
 	file_openfile_uri_async(uri, open_adv_content_filter_lcb, oau);
 }
 
-static void open_adv_load_directory_cleanup(Topenadv_dir *oa) {
-	DEBUG_MSG("open_adv_load_directory_cleanup %p for %s\n", oa, gnome_vfs_uri_get_path(oa->basedir));
-	gnome_vfs_uri_unref(oa->basedir);
-	if (oa->extension_filter) g_free(oa->extension_filter);
-	if (oa->patspec) g_pattern_spec_free(oa->patspec);
-	if (oa->content_filter) g_free(oa->content_filter);
-	g_free(oa);
+static void open_adv_load_directory_cleanup(Topenadv_dir *oad) {
+	DEBUG_MSG("open_adv_load_directory_cleanup %p for %s\n", oad, gnome_vfs_uri_get_path(oad->basedir));
+	gnome_vfs_uri_unref(oad->basedir);
+	openadv_unref(oad->oa);
+	g_free(oad);
 }
 
+static void open_advanced_backend(Topenadv *oa, GnomeVFSURI *basedir);
+
 static void open_adv_load_directory_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSResult result,GList *list,guint entries_read,gpointer data) {
-	Topenadv_dir *oa = data;
+	Topenadv_dir *oad = data;
 	GList *tmplist;
-	DEBUG_MSG("open_adv_load_directory_lcb, called for %p %s with %d items, result=%d\n",oa, gnome_vfs_uri_get_path(oa->basedir), entries_read, result);
+	DEBUG_MSG("open_adv_load_directory_lcb, called for %p %s with %d items, result=%d\n",oad, gnome_vfs_uri_get_path(oad->basedir), entries_read, result);
 	tmplist = g_list_first(list);
 	while (tmplist) {
 		GnomeVFSFileInfo *finfo = tmplist->data;
 		GnomeVFSURI *child_uri;
 		if (strcmp(finfo->name,".")!=0 && strcmp(finfo->name,"..")!=0) {
-			child_uri = gnome_vfs_uri_append_file_name(oa->basedir,finfo->name);
-			if (finfo->type == GNOME_VFS_FILE_TYPE_DIRECTORY && oa->recursive) {
+			child_uri = gnome_vfs_uri_append_file_name(oad->basedir,finfo->name);
+			if (finfo->type == GNOME_VFS_FILE_TYPE_DIRECTORY && oad->oa->recursive) {
 /*				DEBUG_MSG("open_adv_load_directory_lcb, open dir %s\n", gnome_vfs_uri_get_path(child_uri));*/
-				open_advanced(oa->bfwin, child_uri, oa->recursive, oa->extension_filter, oa->content_filter, oa->use_regex);
+				open_advanced_backend(oad->oa, child_uri);
 			} else if (finfo->type == GNOME_VFS_FILE_TYPE_REGULAR){
 				gchar *curi;
 				curi = gnome_vfs_uri_to_string(child_uri,0);
 				list = return_allwindows_documentlist();
 				if (documentlist_return_document_from_uri(list, child_uri)==NULL) { /* if this file is already open, there is no need to do any of these checks */
-					if (oa->patspec) {
-						if (g_pattern_match_string(oa->patspec, finfo->name)) { /* test extension */
-							if (oa->content_filter) { /* do we need content filtering */
+					if (oad->oa->patspec) {
+						if (g_pattern_match_string(oad->oa->patspec, finfo->name)) { /* test extension */
+							if (oad->oa->content_filter) { /* do we need content filtering */
 								DEBUG_MSG("open_adv_load_directory_lcb, content filter %s\n", gnome_vfs_uri_get_path(child_uri));
-								openadv_content_filter_file(oa->bfwin, child_uri, finfo, oa->content_filter, oa->use_regex);
+								openadv_content_filter_file(oad->oa, child_uri, finfo);
 							} else { /* open this file as document */
 								DEBUG_MSG("open_adv_load_directory_lcb, open %s\n", gnome_vfs_uri_get_path(child_uri));
-								doc_new_from_uri(oa->bfwin, child_uri, finfo, TRUE, FALSE, -1, -1);
+								doc_new_from_uri(oad->oa->bfwin, child_uri, finfo, TRUE, FALSE, -1, -1);
 							}
 						}
-					} else if (oa->content_filter) {
-						openadv_content_filter_file(oa->bfwin, child_uri, finfo, oa->content_filter, oa->use_regex);
+					} else if (oad->oa->content_filter) {
+						openadv_content_filter_file(oad->oa, child_uri, finfo);
 					} else {
-						doc_new_from_uri(oa->bfwin, child_uri, finfo, TRUE, FALSE, -1, -1);
+						doc_new_from_uri(oad->oa->bfwin, child_uri, finfo, TRUE, FALSE, -1, -1);
 					}
 				}
 				g_free(curi);
@@ -914,19 +923,30 @@ static void open_adv_load_directory_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSResu
 		tmplist = g_list_next(tmplist);
 	}	
 	if (result == GNOME_VFS_ERROR_EOF) {
-		open_adv_load_directory_cleanup(oa);
+		open_adv_load_directory_cleanup(oad);
 	}
+}
+
+static void open_advanced_backend(Topenadv *oa, GnomeVFSURI *basedir) {
+	Topenadv_dir *oad;
+	
+	oad = g_new0(Topenadv_dir, 1);
+	oad->oa = oa;
+	oa->refcount++;
+
+	oad->basedir = basedir;
+	gnome_vfs_uri_ref(basedir);
+
+	gnome_vfs_async_load_directory_uri(&oad->handle,oad->basedir,GNOME_VFS_FILE_INFO_DEFAULT|GNOME_VFS_FILE_INFO_FOLLOW_LINKS,
+									10,GNOME_VFS_PRIORITY_DEFAULT,open_adv_load_directory_lcb,oad);
 }
 
 void open_advanced(Tbfwin *bfwin, GnomeVFSURI *basedir, gboolean recursive, gchar *extension_filter, gchar *content_filter, gboolean use_regex) {
 	if (basedir) {
-		GnomeVFSAsyncHandle *handle;
-		Topenadv_dir *oa;
-		
-		oa = g_new0(Topenadv_dir, 1);
+		Topenadv *oa;
+		oa = g_new0(Topenadv, 1);
 		DEBUG_MSG("open_advanced, open dir %s, oa=%p, extension_filter=%s\n", gnome_vfs_uri_get_path(basedir), oa, extension_filter);
 		oa->bfwin = bfwin;
-		oa->basedir = gnome_vfs_uri_dup(basedir);
 		oa->recursive = recursive;
 		if (extension_filter) {
 			oa->extension_filter = g_strdup(extension_filter);
@@ -934,9 +954,14 @@ void open_advanced(Tbfwin *bfwin, GnomeVFSURI *basedir, gboolean recursive, gcha
 		}
 		if (content_filter) oa->content_filter = g_strdup(content_filter);
 		oa->use_regex = use_regex;
-	
-		gnome_vfs_async_load_directory_uri(&handle,basedir,GNOME_VFS_FILE_INFO_DEFAULT|GNOME_VFS_FILE_INFO_FOLLOW_LINKS,
-										10,GNOME_VFS_PRIORITY_DEFAULT,open_adv_load_directory_lcb,oa);
+		if (oa->use_regex) {
+			const char *error;
+			int erroffset;
+			oa->contentf_pcre = pcre_compile(oa->content_filter, 0, &error, &erroffset, NULL);
+			/* BUG: need error handling here */
+			openadv_unref(oa);
+		}
+		open_advanced_backend(oa, basedir);
 	}
 }
 
