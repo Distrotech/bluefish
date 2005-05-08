@@ -803,8 +803,8 @@ typedef struct {
 static void openadv_unref(Topenadv *oa) {
 	oa->refcount--;
 	DEBUG_MSG("openadv_unref, count=%d\n",oa->refcount);
-	statusbar_message(oa->bfwin,_("Advanced open: finished searching files"), 3000);
 	if (oa->refcount <= 0 ) {
+		statusbar_message(oa->bfwin,_("Advanced open: finished searching files"), 4000);
 		if (oa->extension_filter) g_free(oa->extension_filter);
 		if (oa->patspec) g_pattern_spec_free(oa->patspec);
 		if (oa->content_filter) g_free(oa->content_filter);
@@ -929,6 +929,7 @@ static void open_adv_load_directory_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSResu
 
 static void open_advanced_backend(Topenadv *oa, GnomeVFSURI *basedir) {
 	Topenadv_dir *oad;
+	gchar *tmp, *utf8uri;
 	
 	oad = g_new0(Topenadv_dir, 1);
 	oad->oa = oa;
@@ -936,7 +937,11 @@ static void open_advanced_backend(Topenadv *oa, GnomeVFSURI *basedir) {
 
 	oad->basedir = basedir;
 	gnome_vfs_uri_ref(basedir);
-
+	utf8uri = uri_to_document_filename(basedir);
+	tmp = g_strdup_printf("Advanced open: searching in %s", utf8uri);
+	statusbar_message(oa->bfwin,tmp, 1000);
+	g_free(tmp);
+	g_free(utf8uri);
 	gnome_vfs_async_load_directory_uri(&oad->handle,oad->basedir,GNOME_VFS_FILE_INFO_DEFAULT|GNOME_VFS_FILE_INFO_FOLLOW_LINKS,
 									10,GNOME_VFS_PRIORITY_DEFAULT,open_adv_load_directory_lcb,oad);
 }
