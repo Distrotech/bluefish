@@ -9,7 +9,7 @@ Standards-Version: 3.6.1.1
 Package: bluefish
 Architecture: any
 Depends: ${shlibs:Depends}
-Suggests: galeon | mozilla | www-browser, weblint-perl | weblint, libxml2-utils, php4-cli
+Suggests: galeon | mozilla | www-browser, weblint-perl | weblint, libxml2-utils, php4-cli, tidy, sysutils
 Description: advanced Gtk+ HTML editor
  Bluefish is a GTK HTML editor for the experienced web designer.
  Its features include nice wizards for startup, tables and frame; a
