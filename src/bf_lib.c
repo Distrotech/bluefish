@@ -90,6 +90,7 @@ void free_urilist(GList *urilist) {
 /**
  * uri_to_document_filename:
  *
+ * does uri to utf8 display name conversion
  */
 gchar *uri_to_document_filename(GnomeVFSURI *uri) {
 	gchar *tmpuri, *utf8uri;
