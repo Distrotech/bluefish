@@ -163,8 +163,6 @@ int main(int argc, char *argv[])
 #endif /* HAVE_ATLEAST_GNOMEVFS_2_6 */
 #endif /* HAVE_ATLEAST_GNOME_2_6 */
 	main_v = g_new0(Tmain, 1);
-	main_v->session = g_new0(Tsessionvars,1);
-	main_v->session->view_html_toolbar = main_v->session->view_main_toolbar = main_v->session->view_custom_menu = main_v->session->view_left_panel = main_v->session->filebrowser_focus_follow =1;
 	DEBUG_MSG("main, main_v is at %p\n", main_v);
 
 	rcfile_check_directory();
@@ -189,7 +187,13 @@ int main(int argc, char *argv[])
 		main_v->recent_directories = get_stringlist(filename, NULL);
 		g_free(filename);
 	}*/
+	main_v->session = g_new0(Tsessionvars,1);
+	main_v->session->view_html_toolbar = main_v->session->view_main_toolbar = main_v->session->view_custom_menu = main_v->session->view_left_panel = main_v->session->filebrowser_focus_follow =1;
 	rcfile_parse_global_session();
+	if (main_v->session->recent_dirs == NULL) {
+		main_v->session->recent_dirs = g_list_append(main_v->session->recent_dirs, g_strconcat("file://", g_get_home_dir(), NULL));
+	}
+	
 	rcfile_parse_highlighting();
 #ifndef NOSPLASH
 	if (main_v->props.show_splash_screen) splash_screen_set_label(_("compiling highlighting patterns..."));
