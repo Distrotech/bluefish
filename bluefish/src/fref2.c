@@ -64,8 +64,18 @@ FREF_INP_COLOUR_LIST,
 FREF_INP_FILE
 };
 
-
 typedef struct {
+	GdkPixbuf *icon_ro; /* 162 */
+	GdkPixbuf *icon_rw; /* 170 */
+	GdkPixbuf *icon_hide; /* 160 */
+	GdkPixbuf *icon_dialog2; /* 161 */
+	GdkPixbuf *icon_group; /* 163 */
+	GdkPixbuf *icon_note; /* 164 */
+	GdkPixbuf *icon_function; /* 165 */
+	GdkPixbuf *icon_tag; /* 166 */
+	GdkPixbuf *icon_var; /* 167 */
+	GdkPixbuf *icon_css; /* 168 */
+	GdkPixbuf *icon_snippet; /* 169 */
 	GtkTreeStore *store;
 	GHashTable *refcount;		/* Opened reference count */
 } Tfref_data;
@@ -611,7 +621,7 @@ static void fref_parse_node(xmlNodePtr node,GtkWidget * tree, GtkTreeStore * sto
 			auxn = auxn->next;
 		}
 		gtk_tree_store_append(store, &auxit, parent);
-		gtk_tree_store_set(store, &auxit, PIXMAP_COLUMN,gtk_image_get_pixbuf(GTK_IMAGE(new_pixmap(163))),
+		gtk_tree_store_set(store, &auxit, PIXMAP_COLUMN,FREFDATA(main_v->frefdata)->icon_group,
 		STR_COLUMN,n->title, FILE_COLUMN, NULL, PTR_COLUMN, el, -1);
 		
 		auxn = node->xmlChildrenNode;
@@ -633,7 +643,7 @@ static void fref_parse_node(xmlNodePtr node,GtkWidget * tree, GtkTreeStore * sto
 			el = fref_insert_into_commons(info,auxs,FREF_EL_NOTE,n,FALSE);
 			if ( el ) {
 				gtk_tree_store_append(store, &auxit, parent);
-				gtk_tree_store_set(store, &auxit, PIXMAP_COLUMN,gtk_image_get_pixbuf(GTK_IMAGE(new_pixmap(164))),
+				gtk_tree_store_set(store, &auxit, PIXMAP_COLUMN,FREFDATA(main_v->frefdata)->icon_note,
 				STR_COLUMN,n->title, FILE_COLUMN, NULL, PTR_COLUMN,el, -1);
 			} else {
 				xmlFree(n->title);
@@ -711,17 +721,17 @@ static void fref_parse_node(xmlNodePtr node,GtkWidget * tree, GtkTreeStore * sto
 								switch (el->etype)
 								{
 									case FREF_EL_FUNCTION:gtk_tree_store_set(store, &auxit, PIXMAP_COLUMN,
-									gtk_image_get_pixbuf(GTK_IMAGE(new_pixmap(165))), -1);break;
+									FREFDATA(main_v->frefdata)->icon_function, -1);break;
 									case FREF_EL_TAG:gtk_tree_store_set(store, &auxit, PIXMAP_COLUMN,
-									gtk_image_get_pixbuf(GTK_IMAGE(new_pixmap(166))), -1);break;
+									FREFDATA(main_v->frefdata)->icon_tag, -1);break;
 									case FREF_EL_VAR:gtk_tree_store_set(store, &auxit, PIXMAP_COLUMN,
-									gtk_image_get_pixbuf(GTK_IMAGE(new_pixmap(167))), -1);break;
+									FREFDATA(main_v->frefdata)->icon_var, -1);break;
 									case FREF_EL_CSSPROP:
 									case FREF_EL_CSSSELECT:
 									gtk_tree_store_set(store, &auxit, PIXMAP_COLUMN,
-									gtk_image_get_pixbuf(GTK_IMAGE(new_pixmap(168))), -1);break;
+									FREFDATA(main_v->frefdata)->icon_css, -1);break;
 									case FREF_EL_SNIPPET:gtk_tree_store_set(store, &auxit, PIXMAP_COLUMN,
-									gtk_image_get_pixbuf(GTK_IMAGE(new_pixmap(169))), -1);break;																					
+									FREFDATA(main_v->frefdata)->icon_snippet, -1);break;
 								}                               
 								path = gtk_tree_model_get_path(GTK_TREE_MODEL(store), &auxit);
 								GtkTreeRowReference *rref = gtk_tree_row_reference_new(GTK_TREE_MODEL(store), path);
@@ -3798,7 +3808,7 @@ static void frefcb_new_td(GtkWidget * widget, Tbfwin *bfwin, gint type, gboolean
 						gtk_tree_model_get_iter(GTK_TREE_MODEL(FREFDATA(main_v->frefdata)->store),&iter, path);			
 						gtk_tree_store_append(GTK_TREE_STORE(FREFDATA(main_v->frefdata)->store), &auxit, &iter);				
 						gtk_tree_store_set(GTK_TREE_STORE(FREFDATA(main_v->frefdata)->store), &auxit, 
-						PIXMAP_COLUMN,gtk_image_get_pixbuf(GTK_IMAGE(new_pixmap(164))),
+						PIXMAP_COLUMN,FREFDATA(main_v->frefdata)->icon_note,
 						STR_COLUMN,note->title, FILE_COLUMN, NULL, PTR_COLUMN,rec, -1);	
 					}
 					else /* note for element */
@@ -3831,7 +3841,7 @@ static void frefcb_new_td(GtkWidget * widget, Tbfwin *bfwin, gint type, gboolean
 					gtk_tree_store_append(GTK_TREE_STORE(FREFDATA(main_v->frefdata)->store), &auxit, &iter);
 				
 					gtk_tree_store_set(GTK_TREE_STORE(FREFDATA(main_v->frefdata)->store), &auxit, 
-					PIXMAP_COLUMN,gtk_image_get_pixbuf(GTK_IMAGE(new_pixmap(163))),
+					PIXMAP_COLUMN,FREFDATA(main_v->frefdata)->icon_group,
 					STR_COLUMN,note->title, FILE_COLUMN, NULL, PTR_COLUMN,rec, -1);	
 				break;	
 				case FREF_EL_DESCR:
@@ -4337,17 +4347,17 @@ static void frefcb_new_element(GtkWidget * widget, Tbfwin *bfwin)
 				switch (el->etype)
 				{
 					case FREF_EL_FUNCTION:gtk_tree_store_set(GTK_TREE_STORE(FREFDATA(main_v->frefdata)->store), &auxit, PIXMAP_COLUMN,
-								gtk_image_get_pixbuf(GTK_IMAGE(new_pixmap(165))), -1);break;
+								FREFDATA(main_v->frefdata)->icon_function, -1);break;
 					case FREF_EL_TAG:gtk_tree_store_set(GTK_TREE_STORE(FREFDATA(main_v->frefdata)->store), &auxit, PIXMAP_COLUMN,
-								gtk_image_get_pixbuf(GTK_IMAGE(new_pixmap(166))), -1);break;
+								FREFDATA(main_v->frefdata)->icon_tag, -1);break;
 					case FREF_EL_VAR:gtk_tree_store_set(GTK_TREE_STORE(FREFDATA(main_v->frefdata)->store), &auxit, PIXMAP_COLUMN,
-								gtk_image_get_pixbuf(GTK_IMAGE(new_pixmap(167))), -1);break;
+								FREFDATA(main_v->frefdata)->icon_var, -1);break;
 					case FREF_EL_CSSPROP:
 					case FREF_EL_CSSSELECT:
 					gtk_tree_store_set(GTK_TREE_STORE(FREFDATA(main_v->frefdata)->store), &auxit, PIXMAP_COLUMN,
-								gtk_image_get_pixbuf(GTK_IMAGE(new_pixmap(168))), -1);break;
+								FREFDATA(main_v->frefdata)->icon_css, -1);break;
 					case FREF_EL_SNIPPET:gtk_tree_store_set(GTK_TREE_STORE(FREFDATA(main_v->frefdata)->store), &auxit, PIXMAP_COLUMN,
-								gtk_image_get_pixbuf(GTK_IMAGE(new_pixmap(169))), -1);break;				
+								FREFDATA(main_v->frefdata)->icon_snippet, -1);break;				
 				}	
 				fref_save_ref(bfwin);
 				frefcb_cursor_changed(GTK_TREE_VIEW(FREFGUI(bfwin->fref)->tree), bfwin);
@@ -4556,14 +4566,14 @@ static void fill_toplevels(Tfref_data * fdata, gboolean empty_first)
 				auxf = fopen(tmparray[1],"a");
 				if ( auxf!=NULL )
 				{
-					gtk_tree_store_set(fdata->store, &iter,PIXMAP_COLUMN,gtk_image_get_pixbuf(GTK_IMAGE(new_pixmap(162))),
+					gtk_tree_store_set(fdata->store, &iter,PIXMAP_COLUMN,fdata->icon_rw,
 				               STR_COLUMN, tmparray[0], PTR_COLUMN, 0,
 								   FILE_COLUMN, tmparray[1], VISIBLE_COLUMN,FALSE,-1);
 					fclose(auxf);				   			   
 				}				   
 				else
 				{
-					gtk_tree_store_set(fdata->store, &iter,PIXMAP_COLUMN,gtk_image_get_pixbuf(GTK_IMAGE(new_pixmap(170))),
+					gtk_tree_store_set(fdata->store, &iter,PIXMAP_COLUMN,fdata->icon_ro,
 				               STR_COLUMN, tmparray[0], PTR_COLUMN, 0,
 								   FILE_COLUMN, tmparray[1], VISIBLE_COLUMN,TRUE,-1);
 				}				   
@@ -4579,14 +4589,29 @@ static void fill_toplevels(Tfref_data * fdata, gboolean empty_first)
 }
 
 
-void fref_init() {
-	Tfref_data *fdata = g_new(Tfref_data, 1);
+void fref_init(void) {
+	Tfref_data *fdata;
+	
 	fref_rand = g_rand_new();
+	
+	fdata = g_new(Tfref_data, 1);
+	main_v->frefdata = fdata;
 	fdata->store = gtk_tree_store_new(N_COLUMNS, G_TYPE_BOOLEAN,GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_POINTER, G_TYPE_STRING);
 	fdata->refcount = g_hash_table_new_full(g_str_hash, g_str_equal, g_free, g_free);
+	fdata->icon_rw = gdk_pixbuf_new_from_inline(-1,pixmap_frlibrary,FALSE,NULL);
+	fdata->icon_ro = gdk_pixbuf_new_from_inline(-1,pixmap_frlibrary_ro,FALSE,NULL);
+	fdata->icon_hide = gdk_pixbuf_new_from_inline(-1,pixmap_frhide ,FALSE,NULL);
+	fdata->icon_dialog2 = gdk_pixbuf_new_from_inline(-1,pixmap_frdialog2 ,FALSE,NULL);
+	fdata->icon_group = gdk_pixbuf_new_from_inline(-1,pixmap_frgroup ,FALSE,NULL);
+	fdata->icon_note = gdk_pixbuf_new_from_inline(-1,pixmap_frnote ,FALSE,NULL);
+	fdata->icon_function = gdk_pixbuf_new_from_inline(-1,pixmap_frfunction ,FALSE,NULL);
+	fdata->icon_tag = gdk_pixbuf_new_from_inline(-1,pixmap_frtag ,FALSE,NULL); 
+	fdata->icon_var = gdk_pixbuf_new_from_inline(-1,pixmap_frvar ,FALSE,NULL);
+	fdata->icon_css = gdk_pixbuf_new_from_inline(-1,pixmap_frcss ,FALSE,NULL);
+	fdata->icon_snippet = gdk_pixbuf_new_from_inline(-1,pixmap_frsnippet ,FALSE,NULL);
 	fill_toplevels(fdata, FALSE);
 	DEBUG_MSG("fref_init, refcount at %p\n", fdata->refcount);
-	main_v->frefdata = fdata;
+	
 }
 
 void fref_cleanup(Tbfwin *bfwin) {
