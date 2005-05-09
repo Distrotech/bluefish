@@ -189,8 +189,6 @@ GtkWidget *new_pixmap(gint type) {
 	return widget;
 }
 
-GList *default_icon_list() {
-	GList *retlist = NULL;
-	retlist = g_list_append(retlist, gdk_pixbuf_new_from_inline(-1,pixmap_bluefish_icon1,FALSE,NULL));
-	return retlist;
+void set_default_icon(void) {
+	gtk_window_set_default_icon_list(g_list_append(NULL, gdk_pixbuf_new_from_inline(-1,pixmap_bluefish_icon1,FALSE,NULL)));
 }

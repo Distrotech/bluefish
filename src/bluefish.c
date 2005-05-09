@@ -39,7 +39,7 @@
 #include <locale.h>
 #endif
 
-
+#include "pixmap.h"			/* set_default_icon() */
 #include "bf_lib.h"			/* create_full_path() */
 #include "bookmark.h"		/* bmark_init() */
 #include "dialog_utils.h"	/* message_dialog_new() */
@@ -225,6 +225,7 @@ int main(int argc, char *argv[])
 	firstbfwin->bmarkdata = main_v->bmarkdata;
 	main_v->bfwinlist = g_list_append(NULL, firstbfwin);
 	gui_create_main(firstbfwin,filenames);
+	set_default_icon();
 	bmark_reload(firstbfwin);
 #ifndef NOSPLASH
 	if (main_v->props.show_splash_screen) splash_screen_set_label(_("showing main gui..."));
