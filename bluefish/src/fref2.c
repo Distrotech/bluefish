@@ -825,12 +825,12 @@ void fref_rescan_dir(const gchar * dir)
 		if (g_pattern_match(ps, strlen(filename), filename, NULL) ||
 		    g_pattern_match(ps2, strlen(filename), filename, NULL)) {
 			gchar *path = g_strconcat(dir, filename, NULL);
-			DEBUG_MSG("filename %s has a match!\n", filename);
+			DEBUG_MSG("fref_rescan_dir, filename %s has a match!\n", filename);
 			if (!reference_file_known(path)) {
 				tofree = fref_load_refname(path);
 				main_v->globses.reference_files =
 					g_list_append(main_v->globses.reference_files,
-								  array_from_arglist(g_strdup(tofree), path, NULL));
+								  array_from_arglist(tofree, path, NULL));
 				g_free(tofree);
 			}
 			g_free(path);
@@ -4562,6 +4562,7 @@ static void fill_toplevels(Tfref_data * fdata, gboolean empty_first)
 			if (file_exists_and_readable(tmparray[1])) {
 				GtkTreeIter iter;
 				GtkTreeIter iter2;
+				DEBUG_MSG("fill_toplevels, adding %s as %s\n",tmparray[1],tmparray[0]);
 				gtk_tree_store_append(fdata->store, &iter, NULL);
 				auxf = fopen(tmparray[1],"a");
 				if ( auxf!=NULL )
@@ -4687,10 +4688,10 @@ GtkWidget *fref_gui(Tbfwin * bfwin)
 	gtk_text_view_set_editable(GTK_TEXT_VIEW(FREFGUI(bfwin->fref)->infoview),FALSE);
 	gtk_text_view_set_cursor_visible(GTK_TEXT_VIEW(FREFGUI(bfwin->fref)->infoview),FALSE);
 	fref_hand_cursor = gdk_cursor_new (GDK_HAND2);
-   fref_regular_cursor = gdk_cursor_new (GDK_XTERM);
+	fref_regular_cursor = gdk_cursor_new (GDK_XTERM);
  	g_signal_connect (FREFGUI(bfwin->fref)->infoview, "event-after",G_CALLBACK (fref_link_event), bfwin);
-   g_signal_connect (FREFGUI(bfwin->fref)->infoview, "motion-notify-event",G_CALLBACK (fref_link_motion_event), NULL);
-   g_signal_connect (FREFGUI(bfwin->fref)->infoview, "visibility-notify-event", G_CALLBACK (fref_link_visibility_event), NULL);
+	g_signal_connect (FREFGUI(bfwin->fref)->infoview, "motion-notify-event",G_CALLBACK (fref_link_motion_event), NULL);
+	g_signal_connect (FREFGUI(bfwin->fref)->infoview, "visibility-notify-event", G_CALLBACK (fref_link_visibility_event), NULL);
 
 
 	g_signal_connect(G_OBJECT(FREFGUI(bfwin->fref)->tree), "cursor-changed",
@@ -4707,7 +4708,7 @@ GtkWidget *fref_gui(Tbfwin * bfwin)
  	FREFGUI(bfwin->fref)->tag_note = gtk_text_buffer_create_tag(buff,"color_note","foreground-gdk",&FREFGUI(bfwin->fref)->col_note,NULL);
  	FREFGUI(bfwin->fref)->tag_example = gtk_text_buffer_create_tag(buff,"color_example","foreground-gdk",&FREFGUI(bfwin->fref)->col_example,NULL);
  	FREFGUI(bfwin->fref)->tag_link = gtk_text_buffer_create_tag(buff,"color_link","foreground-gdk",&FREFGUI(bfwin->fref)->col_link,NULL);
-   gtk_widget_modify_font(FREFGUI(bfwin->fref)->infoview,pango_font_description_from_string("Sans 10"));
+	gtk_widget_modify_font(FREFGUI(bfwin->fref)->infoview,pango_font_description_from_string("Sans 10"));
 
 
 	FREFGUI(bfwin->fref)->infocheck = gtk_toggle_button_new();
@@ -4715,7 +4716,7 @@ GtkWidget *fref_gui(Tbfwin * bfwin)
 	gtk_container_add(GTK_CONTAINER(FREFGUI(bfwin->fref)->infocheck), new_pixmap(160));
 	GTK_WIDGET_SET_FLAGS(FREFGUI(bfwin->fref)->infocheck, GTK_CAN_DEFAULT);
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(FREFGUI(bfwin->fref)->infocheck), TRUE);
-   g_signal_connect(G_OBJECT(FREFGUI(bfwin->fref)->infocheck), "toggled",
+	g_signal_connect(G_OBJECT(FREFGUI(bfwin->fref)->infocheck), "toggled",
 					 G_CALLBACK(frefcb_infocheck_toggled), bfwin);
 					 
 	btn1 = bf_allbuttons_backend(NULL, FALSE, 161, G_CALLBACK(fref_insert_lcb), bfwin);
