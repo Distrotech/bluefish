@@ -1,5 +1,5 @@
 GtkWidget *new_pixmap(gint type);
-GList *default_icon_list(void);
+void set_default_icon(void);
 
 extern const guint8 pixmap_edit_tag[];
 extern const guint8 pixmap_abbr[];

@@ -1621,7 +1621,6 @@ GtkWidget *start_splash_screen() {
 	GdkColor color;
 
 	splashscreen.window = window_with_title(CURRENT_VERSION_NAME, GTK_WIN_POS_CENTER_ALWAYS, 0);
-	gtk_window_set_default_icon_list(default_icon_list());
 	gtk_window_set_decorated(GTK_WINDOW(splashscreen.window), FALSE);
 	gtk_window_set_role(GTK_WINDOW(splashscreen.window), "splash");
 	gtk_window_set_resizable(GTK_WINDOW(splashscreen.window),FALSE);
@@ -1629,7 +1628,6 @@ GtkWidget *start_splash_screen() {
 	color.blue = 65535;
 	color.green = 65535;
 	gtk_widget_modify_bg(splashscreen.window, GTK_STATE_NORMAL,&color);
-
 
 	vbox = gtk_vbox_new(FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(splashscreen.window), vbox);
