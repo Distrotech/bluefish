@@ -652,6 +652,9 @@ static gboolean tree_model_filter_func(GtkTreeModel *model,GtkTreeIter *iter,gpo
 		DEBUG_MSG("tree_model_filter_func, model=%p, fb2=%p, item without name!!, uri=%p, type=%d\n",model,fb2,uri,type);
 		return TRUE;
 	}
+	/* BUG: ?? valgrind seems to think that 'name' is strdup'ed and thus should be freed here, but I
+	don't know if that is true. Seems weird that gtk_tree_model_get() would return something else
+	then the pointer it was given... */
 	DEBUG_MSG("tree_model_filter_func, model=%p and fb2=%p, name=%s and uri=",model,fb2,name);
 	DEBUG_URI(uri, TRUE);
 	if (type != TYPE_DIR) {

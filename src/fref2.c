@@ -815,6 +815,7 @@ static gboolean reference_file_known(gchar * path)
 
 void fref_rescan_dir(const gchar * dir)
 {
+	/* BUG: deprecated reference files are never removed from the list !! */
 	const gchar *filename;
 	GError *error = NULL;
 	gchar *tofree;
