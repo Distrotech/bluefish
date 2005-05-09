@@ -603,13 +603,6 @@ void rcfile_parse_main(void)
 		arr = array_from_arglist(_("Hide objectfiles"),"0", "objectfile", NULL);
 		main_v->props.filefilters = g_list_append(main_v->props.filefilters, arr);
 	}
-	if (main_v->globses.reference_files == NULL) {
-		gchar *userdir = g_strconcat(g_get_home_dir(), "/."PACKAGE"/", NULL);
-		/* if the user does not yet have any function reference files, set them to default values */
-		fref_rescan_dir(PKGDATADIR);
-		fref_rescan_dir(userdir);
-		g_free(userdir);
-	}
 	/* for backwards compatibility with old filetypes, 
 		before version 0.10 had length 4, 
 		before version 0.13 had length 6 */
@@ -988,5 +981,16 @@ gboolean rcfile_parse_global_session(void) {
 	retval = parse_config_file(configlist, filename);
 	free_configlist(configlist);
 	g_free(filename);
+	
+	if (main_v->globses.reference_files == NULL) {
+		gchar *userdir = g_strconcat(g_get_home_dir(), "/."PACKAGE"/", NULL);
+		/* if the user does not yet have any function reference files, set them to default values */
+		DEBUG_MSG("rcfile_parse_global_session, no reference files yet, scan directories!\n");
+		fref_rescan_dir(PKGDATADIR);
+		fref_rescan_dir(userdir);
+		g_free(userdir);
+	}
+
+	
 	return retval;
 }

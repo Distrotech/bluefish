@@ -18,6 +18,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
+#define DEBUG
 
 #include <gtk/gtk.h>
 #include <string.h>
@@ -828,6 +829,7 @@ void fref_rescan_dir(const gchar * dir)
 			DEBUG_MSG("fref_rescan_dir, filename %s has a match!\n", filename);
 			if (!reference_file_known(path)) {
 				tofree = fref_load_refname(path);
+				DEBUG_MSG("fref_rescan_dir, adding %s:%s to list\n",tofree,path);
 				main_v->globses.reference_files =
 					g_list_append(main_v->globses.reference_files,
 								  array_from_arglist(tofree, path, NULL));
