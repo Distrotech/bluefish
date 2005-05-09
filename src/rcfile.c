@@ -545,7 +545,7 @@ void rcfile_parse_main(void)
 				g_print("Unable to find '"PKGDATADIR"encodings'\n");
 			}
 		} else {
-			if (config_file_is_newer(main_v->globses.lasttime_encodings,defaultfile)) {
+			if (defaultfile && config_file_is_newer(main_v->globses.lasttime_encodings,defaultfile)) {
 				main_v->props.encodings = arraylist_load_new_identifiers_from_file(main_v->props.encodings,defaultfile,1);
 				main_v->globses.lasttime_encodings = TIME_T_TO_GINT(time(NULL));
 			}
@@ -582,7 +582,7 @@ void rcfile_parse_main(void)
 				g_print("Unable to find '"PKGDATADIR"filetypes'\n");
 			}
 		} else {
-			if (config_file_is_newer(main_v->globses.lasttime_filetypes,defaultfile)) {
+			if (defaultfile && config_file_is_newer(main_v->globses.lasttime_filetypes,defaultfile)) {
 				main_v->props.filetypes = arraylist_load_new_identifiers_from_file(main_v->props.filetypes,defaultfile,1);
 				main_v->globses.lasttime_filetypes = TIME_T_TO_GINT(time(NULL));
 			}
@@ -676,7 +676,7 @@ void rcfile_parse_highlighting(void) {
 		save_config_file(highlighting_configlist, filename);
 		DEBUG_MSG("rcfile_parse_highlighting, done saving\n");
 	} else {
-		if (config_file_is_newer(main_v->globses.lasttime_highlighting,defaultfile)) {
+		if (defaultfile && config_file_is_newer(main_v->globses.lasttime_highlighting,defaultfile)) {
 			/* HERE WE SHOULD SEND A POPUP TO THE USER, SAYING THERE ARE NEW HIGHLIGHTING PATTERNS AVAILABLE, IF THEY WANT TO HAVE THEM */
 /*			main_v->props.highlight_patterns = arraylist_load_new_identifiers_from_file(main_v->props.highlight_patterns,defaultfile,2);
 			main_v->globses.lasttime_highlighting = TIME_T_TO_GINT(time(NULL));*/
