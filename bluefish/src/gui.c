@@ -998,6 +998,7 @@ static void html_toolbar_add_items_to_submenu(Tbfwin *bfwin, GtkWidget *html_too
 			gtk_menu_append(GTK_MENU(sub_menu), menu_item);
 		}
 	}
+	gtk_object_sink(GTK_OBJECT(tooltips));
 	/* BUG: should we decrement the reference count of 'tooltips' after the loop? 
 	valgrind thinks we have a memory leak here */
 	menu_bar = gtk_menu_bar_new();
@@ -1261,6 +1262,7 @@ void gui_bfwin_cleanup(Tbfwin *bfwin) {
 	fb2_cleanup(bfwin);
 	bmark_cleanup(bfwin);
 	outputbox_cleanup(bfwin);
+	snr2_cleanup(bfwin);
 }
 
 void main_window_destroy_lcb(GtkWidget *widget,Tbfwin *bfwin) {

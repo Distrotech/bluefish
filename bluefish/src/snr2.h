@@ -37,6 +37,7 @@ typedef struct {
 } Tsearch_result;
 
 void snr2_init(Tbfwin *bfwin);
+void snr2_cleanup(Tbfwin *bfwin);
 
 void snr2_run_extern_replace(Tdocument *doc, gchar *search_pattern, gint region,
 							gint matchtype, gint is_case_sens, gchar *replace_pattern,

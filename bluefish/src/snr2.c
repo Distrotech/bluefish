@@ -129,6 +129,10 @@ void snr2_init(Tbfwin *bfwin) {
 	bfwin->snr2 = lsnr2;
 }
 
+void snr2_cleanup(Tbfwin *bfwin) {
+	g_free(bfwin->snr2);
+}
+
 static void reset_last_snr2(Tbfwin *bfwin) {
 	if (LASTSNR2(bfwin->snr2)->search_pattern) {
 		g_free(LASTSNR2(bfwin->snr2)->search_pattern);
