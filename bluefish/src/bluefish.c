@@ -47,7 +47,7 @@
 /*#include "filebrowser.h"*/ /* filters_rebuild() */
 #include "filebrowser2.h"
 #include "file_dialogs.h"
-#include "fref.h"				/* fref_init() */
+#include "fref2.h"				/* fref_init() */
 #include "gtk_easy.h"		/* flush_queue() */
 #include "gui.h"				/* gui_create_main() */
 #include "highlight.h"		/* hl_init() */

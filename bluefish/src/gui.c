@@ -34,7 +34,7 @@
 /* #include "filebrowser.h" */
 #include "filebrowser2.h"
 #include "file_dialogs.h"
-#include "fref.h"
+#include "fref2.h"
 #include "gtk_easy.h"
 #include "gui.h"
 #include "html.h"
