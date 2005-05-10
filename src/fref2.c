@@ -754,6 +754,7 @@ gint fref_count_nodes(xmlDocPtr doc, xmlChar *xpath){
 	
 	xmlXPathContextPtr context;
 	xmlXPathObjectPtr result;
+	gint ret;
 
 	context = xmlXPathNewContext(doc);
 	if (context == NULL) {
@@ -770,8 +771,9 @@ gint fref_count_nodes(xmlDocPtr doc, xmlChar *xpath){
 		xmlXPathFreeObject(result);
 		return 0;
 	}
-	/* BUG: should't we free 'result' before returning a gint ? valgrind thinks we have a memory leak here */
-	return result->nodesetval->nodeNr;
+	ret = result->nodesetval->nodeNr;
+	xmlXPathFreeObject(result);
+	return ret;
 }
 
 
@@ -2314,6 +2316,7 @@ while (p) {
 																	 gtk_entry_get_text(GTK_ENTRY(dlgitem)),
 																	 "\"",NULL);
 														/* BUG: valgrind reports that this 'converted' is never freed: memory leak! */
+														/* O.S. It seems to me it is freed at the end  near line 2654 */
 													else
 													{
 														if (first)
@@ -2677,18 +2680,6 @@ static GList *fref_string_to_list(gchar * string, gchar * delimiter)
 	return lst;
 }
 
-/* copied from html2 - could be in gtkeasy */
-static gchar *fref_GdkColor_to_hexstring(GdkColor *color, gboolean websafe) {
-	gchar *tmpstr;
-
-	tmpstr = g_malloc(8*sizeof(char));
-	if (websafe) {
-		g_snprintf (tmpstr, 8,"#%.2X%.2X%.2X", (0x33 * color->red/(256*0x33)), (0x33 * color->green/(256*0x33)), (0x33 * color->blue/(256*0x33)) );
-	} else {
-		g_snprintf (tmpstr, 8,"#%.2X%.2X%.2X", color->red/256, color->green/256, color->blue/256);
-	}
-	return tmpstr;
-}
 
 
 static void fref_input_button_cb(GtkButton *button,Tfref_property *prop)
@@ -2720,7 +2711,7 @@ static void fref_input_button_cb(GtkButton *button,Tfref_property *prop)
 				
 				gtk_color_selection_get_current_color(GTK_COLOR_SELECTION(
 				      GTK_COLOR_SELECTION_DIALOG(sdlg)->colorsel),&cc);
-				tmp = fref_GdkColor_to_hexstring(&cc,TRUE);
+				tmp = gdk_color_to_hexstring(&cc,TRUE);
 				if ( tmp )
 				{
 					if ( GTK_IS_ENTRY(prop->dlgitem) )
@@ -4630,6 +4621,8 @@ GtkWidget *fref_gui(Tbfwin * bfwin)
 	gtk_text_view_set_wrap_mode(GTK_TEXT_VIEW(FREFGUI(bfwin->fref)->infoview),GTK_WRAP_WORD_CHAR);
 	gtk_text_view_set_editable(GTK_TEXT_VIEW(FREFGUI(bfwin->fref)->infoview),FALSE);
 	gtk_text_view_set_cursor_visible(GTK_TEXT_VIEW(FREFGUI(bfwin->fref)->infoview),FALSE);
+	gtk_text_view_set_left_margin(GTK_TEXT_VIEW(FREFGUI(bfwin->fref)->infoview),8);
+	gtk_text_view_set_right_margin(GTK_TEXT_VIEW(FREFGUI(bfwin->fref)->infoview),8);
 	fref_hand_cursor = gdk_cursor_new (GDK_HAND2);
 	fref_regular_cursor = gdk_cursor_new (GDK_XTERM);
  	g_signal_connect (FREFGUI(bfwin->fref)->infoview, "event-after",G_CALLBACK (fref_link_event), bfwin);
