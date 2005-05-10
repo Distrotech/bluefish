@@ -247,6 +247,11 @@ static GtkTreeIter *fb2_add_filesystem_entry(GtkTreeIter *parent, GnomeVFSURI *c
 		gtk_tree_store_append(GTK_TREE_STORE(FB2CONFIG(main_v->fb2config)->filesystem_tstore),newiter,parent);
 		DEBUG_MSG("fb2_add_filesystem_entry, will add ");
 		DEBUG_URI(uri_dup, TRUE);
+#ifdef DEVELOPMENT
+		if (strcmp(display_name, "test1.html")==0) {
+			g_print("will add test1.html with pointer %p\n",display_name);
+		}
+#endif
 		gtk_tree_store_set(GTK_TREE_STORE(FB2CONFIG(main_v->fb2config)->filesystem_tstore),newiter,
 				PIXMAP_COLUMN, pixmap,
 				FILENAME_COLUMN, display_name,
@@ -720,6 +725,11 @@ static gboolean file_list_filter_func(GtkTreeModel *model,GtkTreeIter *iter,gpoi
 	gtk_tree_model_get(GTK_TREE_MODEL(model), iter, FILENAME_COLUMN, &name, TYPE_COLUMN, &type, -1);
 	if (type != TYPE_FILE) return FALSE;
 	if (!name) return FALSE;
+#ifdef DEVELOPMENT
+	if (strcmp(name, "test1.html")==0) {
+		g_print("test1.html is found with pointer %p\n",name);
+	}
+#endif
 	if (!fb2->filebrowser_show_backup_files) {
 		len = strlen(name);
 		if (len > 1 && (name[len-1] == '~')) return FALSE;
