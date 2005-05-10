@@ -144,6 +144,7 @@ static void DEBUG_DIRITER(GtkTreeIter *diriter) {
 	gtk_tree_model_get(GTK_TREE_MODEL(FB2CONFIG(main_v->fb2config)->filesystem_tstore), diriter, FILENAME_COLUMN, &name, URI_COLUMN, &uri, -1);
 	DEBUG_MSG("DEBUG_DIRITER, iter(%p) has filename %s, uri ",diriter,name);
 	DEBUG_URI(uri, TRUE);
+	g_free(name);
 }
 
 static void DEBUG_TPATH(GtkTreeModel *model, GtkTreePath *path, gboolean newline) {
@@ -161,28 +162,7 @@ static void DEBUG_TPATH(GtkTreeModel *model, GtkTreePath *path, gboolean newline
 		DEBUG_MSG("\n");
 	}
 	g_free(tname);
-}
-static void DEBUG_CHILD_ITERS(Tfilebrowser2* fb2, GtkTreeIter *sorted_iter) {
-	GtkTreeIter filter_iter, fs_iter;
-	gchar *name;
-	
-	DEBUG_MSG("DEBUG_CHILD_ITERS, dir_v displays sort_model %p\n", gtk_tree_view_get_model(GTK_TREE_VIEW(fb2->dir_v)));
-	
-	gtk_tree_model_get(fb2->dir_tsort, sorted_iter, FILENAME_COLUMN, &name, -1);
-	DEBUG_MSG("DEBUG_CHILD_ITERS, dir_tsort=%p, sorted name=%s\n",fb2->dir_tsort , name);
-	gtk_tree_model_sort_convert_iter_to_child_iter(GTK_TREE_MODEL_SORT(fb2->dir_tsort),&filter_iter,sorted_iter);
-	DEBUG_MSG("DEBUG_CHILD_ITERS, dir_tsort %p is sorting dir_tfilter %p\n",fb2->dir_tsort ,gtk_tree_model_sort_get_model(GTK_TREE_MODEL_SORT(fb2->dir_tsort)));
-
-	gtk_tree_model_get(fb2->dir_tfilter, &filter_iter, FILENAME_COLUMN, &name, -1);
-	DEBUG_MSG("DEBUG_CHILD_ITERS, dir_tfilter=%p, filter name=%s\n", fb2->dir_tfilter, name);
-	gtk_tree_model_filter_convert_iter_to_child_iter(GTK_TREE_MODEL_FILTER(fb2->dir_tfilter),&fs_iter,&filter_iter);
-	DEBUG_MSG("DEBUG_CHILD_ITERS, dir_tfilter %p is filtering filesystem %p, == %p\n",fb2->dir_tfilter 
-				,gtk_tree_model_filter_get_model(GTK_TREE_MODEL_FILTER(fb2->dir_tfilter))
-				, FB2CONFIG(main_v->fb2config)->filesystem_tstore
-				);
-	
-	gtk_tree_model_get(GTK_TREE_MODEL(FB2CONFIG(main_v->fb2config)->filesystem_tstore), &fs_iter, FILENAME_COLUMN, &name, -1);
-	DEBUG_MSG("DEBUG_CHILD_ITERS, fs name=%s\n", name);
+	g_free(filename);
 }
 /**************/
 
@@ -259,6 +239,7 @@ static GtkTreeIter *fb2_add_filesystem_entry(GtkTreeIter *parent, GnomeVFSURI *c
 				REFRESH_COLUMN, 0,
 				TYPE_COLUMN, type,
 				-1);
+		g_free(display_name); /* a column of type string holds a copy, not the original */
 /*		DEBUG_MSG("fb2_add_filesystem_entry adding iter %p to hashtable\n",newiter);*/
 		gnome_vfs_uri_ref(child_uri);
 		g_hash_table_insert(FB2CONFIG(main_v->fb2config)->filesystem_itable,child_uri,newiter);
@@ -289,9 +270,8 @@ static void fb2_treestore_delete_children_refresh1(GtkTreeStore *tstore, GtkTree
 			cont = gtk_tree_model_iter_next(GTK_TREE_MODEL(tstore), &child);
 			if (refresh == 1) {
 				GnomeVFSURI *d_uri;
-				gchar *d_name;
 				/* delete 'this' ! */
-				gtk_tree_model_get(GTK_TREE_MODEL(tstore), &this, FILENAME_COLUMN, &d_name, URI_COLUMN, &d_uri, -1);
+				gtk_tree_model_get(GTK_TREE_MODEL(tstore), &this, URI_COLUMN, &d_uri, -1);
 				DEBUG_MSG("fb2_treestore_delete_children_refresh1, delete %s ",d_name);
 				DEBUG_URI(d_uri, TRUE);
 				gtk_tree_store_remove(tstore,&this);
@@ -299,7 +279,6 @@ static void fb2_treestore_delete_children_refresh1(GtkTreeStore *tstore, GtkTree
 				g_hash_table_remove(FB2CONFIG(main_v->fb2config)->filesystem_itable, d_uri);
 				
 				gnome_vfs_uri_unref(d_uri);
-				g_free(d_name);
 			}
 		}
 	}
@@ -651,6 +630,7 @@ static gboolean tree_model_filter_func(GtkTreeModel *model,GtkTreeIter *iter,gpo
 	gchar *name;
 	gint len, type;
 	GnomeVFSURI *uri;
+	gboolean retval = TRUE;
 
 	gtk_tree_model_get(GTK_TREE_MODEL(model), iter, FILENAME_COLUMN, &name, URI_COLUMN, &uri, TYPE_COLUMN, &type, -1);
 	if (!name) {
@@ -663,54 +643,58 @@ static gboolean tree_model_filter_func(GtkTreeModel *model,GtkTreeIter *iter,gpo
 	DEBUG_MSG("tree_model_filter_func, model=%p and fb2=%p, name=%s and uri=",model,fb2,name);
 	DEBUG_URI(uri, TRUE);
 	if (type != TYPE_DIR) {
-		if (main_v->props.filebrowser_two_pane_view) return FALSE;
-		if (!fb2->filebrowser_show_backup_files) {
+		if (main_v->props.filebrowser_two_pane_view) retval = FALSE;
+		if (retval && !fb2->filebrowser_show_backup_files) {
 			len = strlen(name);
-			if (len > 1 && (name[len-1] == '~')) return FALSE;
+			if (len > 1 && (name[len-1] == '~')) retval = FALSE;
 		}
-		if (!fb2->filebrowser_show_hidden_files) {
-			if (name[0] == '.') return FALSE;
+		if (retval && !fb2->filebrowser_show_hidden_files) {
+			if (name[0] == '.') retval = FALSE;
 		}
-		return name_visible_in_filter(fb2, name);
-	}
-	if (fb2->basedir) {
-		/* show only our basedir on the root level, no other directories at that level */
-		if (!gnome_vfs_uri_is_parent(fb2->basedir, uri, TRUE) && !gnome_vfs_uri_equal(fb2->basedir, uri)) {
+		if (retval)	retval =  name_visible_in_filter(fb2, name);
+		g_free(name);
+		return retval;
+	} else {
+		if (fb2->basedir) {
+			/* show only our basedir on the root level, no other directories at that level */
+			if (!gnome_vfs_uri_is_parent(fb2->basedir, uri, TRUE) && !gnome_vfs_uri_equal(fb2->basedir, uri)) {
 #ifdef DEBUG1
-			DEBUG_MSG("tree_model_filter_func, not showing because is_parent=%d, equal=%d, for ",gnome_vfs_uri_is_parent(fb2->basedir,uri,TRUE),gnome_vfs_uri_equal(fb2->basedir,uri));
-			DEBUG_URI(uri,FALSE);
-			DEBUG_MSG(" compared to basedir ");
-			DEBUG_URI(fb2->basedir,TRUE);
+				DEBUG_MSG("tree_model_filter_func, not showing because is_parent=%d, equal=%d, for ",gnome_vfs_uri_is_parent(fb2->basedir,uri,TRUE),gnome_vfs_uri_equal(fb2->basedir,uri));
+				DEBUG_URI(uri,FALSE);
+				DEBUG_MSG(" compared to basedir ");
+				DEBUG_URI(fb2->basedir,TRUE);
 #endif
-			return FALSE;
-		}
-	}
-	if (!fb2->filebrowser_show_hidden_files) {
-		if (name[0] == '.') return FALSE;
-#ifdef TEST
-		{
-			GnomeVFSURI *tmp1, *tmp2;
-			tmp1 = gnome_vfs_uri_dup(uri);
-			while (gnome_vfs_uri_has_parent(tmp1)) {
-				gchar *tmpname;
-				tmp2 = tmp1;
-				tmp1 = gnome_vfs_uri_get_parent(tmp2);
-				gnome_vfs_uri_unref(tmp2);
-				tmpname = gnome_vfs_uri_extract_short_path_name(tmp1);
-				if (tmpname[0] == '.') {
-					DEBUG_MSG("tree_model_filter_func, one of the parents %s is not visible, make invisible too ", tmpname);
-					DEBUG_URI(tmp1, TRUE);
-					gnome_vfs_uri_unref(tmp1);
-					g_free(tmpname);
-					return FALSE;
-				}
-				g_free(tmpname);
+				retval = FALSE;
 			}
-			gnome_vfs_uri_unref(tmp1);
 		}
+		if (retval && !fb2->filebrowser_show_hidden_files) {
+			if (name[0] == '.') retval = FALSE;
+#ifdef TEST
+			{
+				GnomeVFSURI *tmp1, *tmp2;
+				tmp1 = gnome_vfs_uri_dup(uri);
+				while (gnome_vfs_uri_has_parent(tmp1)) {
+					gchar *tmpname;
+					tmp2 = tmp1;
+					tmp1 = gnome_vfs_uri_get_parent(tmp2);
+					gnome_vfs_uri_unref(tmp2);
+					tmpname = gnome_vfs_uri_extract_short_path_name(tmp1);
+					if (tmpname[0] == '.') {
+						DEBUG_MSG("tree_model_filter_func, one of the parents %s is not visible, make invisible too ", tmpname);
+						DEBUG_URI(tmp1, TRUE);
+						gnome_vfs_uri_unref(tmp1);
+						g_free(tmpname);
+						return FALSE;
+					}
+					g_free(tmpname);
+				}
+				gnome_vfs_uri_unref(tmp1);
+			}
 #endif
+		}
 	}
-	return TRUE;
+	g_free(name);
+	return retval;
 }
 /**
  * file_list_filter_func:
@@ -721,23 +705,23 @@ static gboolean file_list_filter_func(GtkTreeModel *model,GtkTreeIter *iter,gpoi
 	Tfilebrowser2 *fb2 = data;
 	gchar *name;
 	gint len, type;
+	gboolean retval = TRUE;
 /*	DEBUG_MSG("file_list_filter_func, called for model=%p and fb2=%p\n",model,fb2);*/
 	gtk_tree_model_get(GTK_TREE_MODEL(model), iter, FILENAME_COLUMN, &name, TYPE_COLUMN, &type, -1);
-	if (type != TYPE_FILE) return FALSE;
 	if (!name) return FALSE;
-#ifdef DEVELOPMENT
-	if (strcmp(name, "test1.html")==0) {
-		g_print("test1.html is found with pointer %p\n",name);
-	}
-#endif
-	if (!fb2->filebrowser_show_backup_files) {
+	
+	if (type != TYPE_FILE) retval = FALSE;
+	
+	if (retval && !fb2->filebrowser_show_backup_files) {
 		len = strlen(name);
-		if (len > 1 && (name[len-1] == '~')) return FALSE;
+		if (len > 1 && (name[len-1] == '~')) retval = FALSE;
 	}
-	if (!fb2->filebrowser_show_hidden_files) {
-		if (name[0] == '.') return FALSE;
+	if (retval && !fb2->filebrowser_show_hidden_files) {
+		if (name[0] == '.') retval = FALSE;
 	}
-	return name_visible_in_filter(fb2, name);
+	if (retval ) retval = name_visible_in_filter(fb2, name);
+	g_free(name);
+	return retval;
 }
 /**
  * refilter_dirlist:
@@ -778,6 +762,7 @@ static void refilter_dirlist(Tfilebrowser2 *fb2, GtkTreePath *newroot) {
 	/* we remove our reference, so the only reference is kept by the treeview, if the treeview is destroyed, the models will be destroyed */
 	g_object_unref(fb2->dir_tfilter);
 	g_object_unref(fb2->dir_tsort);
+	if (useroot) gtk_tree_path_free(useroot);
 }
 /**
  * refilter_filelist:
@@ -790,8 +775,11 @@ static void refilter_filelist(Tfilebrowser2 *fb2, GtkTreePath *newroot) {
 	if (main_v->props.filebrowser_two_pane_view) {
 		if (fb2->file_lfilter) {
 			GtkTreePath *curpath;
+			gboolean equal;
 			g_object_get(fb2->file_lfilter, "virtual-root", &curpath, NULL);
-			if ((curpath == NULL && newroot == NULL) || (curpath != NULL && newroot != NULL && gtk_tree_path_compare(curpath, newroot) == 0)) {
+			equal = (curpath == NULL && newroot == NULL) || (curpath != NULL && newroot != NULL && gtk_tree_path_compare(curpath, newroot) == 0);
+			gtk_tree_path_free(curpath);
+			if (equal) {
 #ifdef DEBUG
 				DEBUG_MSG("refilter_filelist, root did not change!\n");
 #endif
@@ -1392,10 +1380,7 @@ static gboolean dirmenu_idle_cleanup_lcb(gpointer callback_data) {
 	cont = gtk_tree_model_get_iter_first(GTK_TREE_MODEL(oldmodel), &iter);
 	while (cont) {
 		GnomeVFSURI *uri;
-		gchar *name;
-		gtk_tree_model_get(GTK_TREE_MODEL(oldmodel), &iter, DIR_NAME_COLUMN, &name, DIR_URI_COLUMN, &uri, -1);
-		DEBUG_MSG("dirmenu_idle_cleanup_lcb, removing %s from the old model\n",name);
-		g_free(name);
+		gtk_tree_model_get(GTK_TREE_MODEL(oldmodel), &iter, DIR_URI_COLUMN, &uri, -1);
 		gnome_vfs_uri_unref(uri);
 		/* hmm if this last remove results in an empty listtore there is a crash?? */
 		cont = gtk_list_store_remove(GTK_LIST_STORE(oldmodel),&iter);
@@ -1433,6 +1418,7 @@ static void dirmenu_set_curdir(Tfilebrowser2 *fb2, GnomeVFSURI *newcurdir) {
 					,DIR_NAME_COLUMN,name
 					,DIR_URI_COLUMN,uri
 					,-1);
+			g_free(name);
 		}
 		tmplist = g_list_next(tmplist);
 	}
