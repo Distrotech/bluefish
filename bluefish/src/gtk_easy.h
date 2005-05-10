@@ -102,4 +102,6 @@ void destroy_disposable_menu_cb(GtkWidget *widget, GtkWidget *menu);
 GnomeVFSResult gnome_vfs_read_entire_file (const char *uri,int *file_size,char **file_contents);
 #endif
 
+gchar *gdk_color_to_hexstring(GdkColor *color, gboolean websafe);
+
 #endif

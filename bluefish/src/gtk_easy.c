@@ -1278,6 +1278,18 @@ void destroy_disposable_menu_cb(GtkWidget *widget, GtkWidget *menu) {
 	gtk_widget_destroy(GTK_WIDGET(menu));
 }
 
+gchar *gdk_color_to_hexstring(GdkColor *color, gboolean websafe) {
+	gchar *tmpstr;
+	tmpstr = g_malloc(8*sizeof(char));
+	if (websafe) {
+		g_snprintf (tmpstr, 8,"#%.2X%.2X%.2X", (0x33 * color->red/(256*0x33)), (0x33 * color->green/(256*0x33)), (0x33 * color->blue/(256*0x33)) );
+	} else {
+		g_snprintf (tmpstr, 8,"#%.2X%.2X%.2X", color->red/256, color->green/256, color->blue/256);
+	}
+	return tmpstr;
+}
+
+
 /*****************************************
  * workaround for gnome-vfs-2.0
  * this is copied from gnome-vfs-utils.c
@@ -1326,4 +1338,5 @@ GnomeVFSResult gnome_vfs_read_entire_file (const char *uri,int *file_size,char *
 	return GNOME_VFS_OK;
 }			    
 #endif /* ifndef HAVE_ATLEAST_GNOMEVFS_2_2 */
+
 #endif /* HAVE_GNOME_VFS */
