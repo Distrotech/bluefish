@@ -33,7 +33,7 @@
 #include "char_table.h"
 #include "dialog_utils.h"
 #include "document.h"
-#include "fref.h"
+#include "fref2.h"
 #include "gtk_easy.h"
 #include "pixmap.h"
 #include "rcfile.h"				/* array_from_arglist() */
@@ -89,12 +89,12 @@ typedef struct {
 	GtkWidget *infocheck;
 	GtkWidget *infoview;
 	GtkWidget *infoscroll;
-	GtkWidget *menu_show,*menu_pref,*menu_edit;
+	GtkWidget *menu_show,/**menu_pref,*/*menu_edit;
 	GtkWidget *m_descr,*m_ap,*m_note,*m_example,*m_link;
 	GtkWidget *sentry;
 	GtkWidget *btn_show,*btn_pref,*btn_edit;
 	GdkColor col_descr,col_ap,col_note,col_example,col_link;
-	GtkTextTag *tag_descr,*tag_ap,*tag_note,*tag_example,*tag_link;
+	/* GtkTextTag *tag_descr,*tag_ap,*tag_note,*tag_example,*tag_link; */
 	Tbfwin *bfwin;
 	guint tree_signal, row_collapse_signal, row_expand_signal;
 	gpointer prg; /* progress dialog */
@@ -915,8 +915,7 @@ gboolean fref_load_from_file(gchar * filename, GtkWidget * tree, GtkTreeStore * 
 		xmlFreeDoc(doc);
 		return FALSE;		
 	}
-	/* BUG: we should free 'tmps' here before we assign a new pointer value to it! valgrind
-	 thinks we have a memory leak here  */
+	if (tmps) xmlFree(tmps);
 	tmps = xmlGetProp(cur,fref_names[FID_DESCRIPTION]);
 	if (tmps!=NULL)
 		info->description = tmps;
@@ -1866,68 +1865,6 @@ static void fref_popup_menu_rescan_lcb(GtkWidget * widget, gpointer user_data)
 	g_free(userdir);
 	DEBUG_MSG("about to refill toplevels\n");
 	fill_toplevels(FREFDATA(main_v->frefdata), TRUE);
-}
-
-static void fref_setfont_lcb(GtkWidget * widget, Tbfwin *bfwin) {
-	GtkWidget *dlg = gtk_font_selection_dialog_new(_("Select font for reference view"));
-	gchar *f;
-	
-	gtk_dialog_run(GTK_DIALOG(dlg));
-	f = gtk_font_selection_dialog_get_font_name(GTK_FONT_SELECTION_DIALOG(dlg));
-	gtk_widget_destroy(dlg);
-	gtk_widget_modify_font(FREFGUI(bfwin->fref)->infoview,pango_font_description_from_string(f));
-	g_free(f);
-}
-
-static void fref_setcolors_lcb(GtkWidget * widget, Tbfwin *bfwin) {
-	GtkWidget *dlg = gtk_dialog_new_with_buttons (_("Set reference colors"),
-                                         NULL,
-                                         GTK_DIALOG_DESTROY_WITH_PARENT,
-                                         GTK_STOCK_OK,
-                                         GTK_RESPONSE_OK,
-                                         GTK_STOCK_CANCEL,
-                                         GTK_RESPONSE_CANCEL,                                         
-                                         NULL);
- GtkWidget *btn_descr,*btn_ap,*btn_note,*btn_example,*btn_link;
- GtkWidget *label;
- GtkTextBuffer *buff = NULL;
- 
- label = gtk_label_new(_("Description"));
- gtk_container_add (GTK_CONTAINER (GTK_DIALOG(dlg)->vbox),label);
- btn_descr = gtk_color_button_new_with_color(&FREFGUI(bfwin->fref)->col_descr);
- gtk_container_add (GTK_CONTAINER (GTK_DIALOG(dlg)->vbox),btn_descr);
- label = gtk_label_new(_("Attributes/Parameters"));
- gtk_container_add (GTK_CONTAINER (GTK_DIALOG(dlg)->vbox),label);
- btn_ap = gtk_color_button_new_with_color(&FREFGUI(bfwin->fref)->col_ap);
- gtk_container_add (GTK_CONTAINER (GTK_DIALOG(dlg)->vbox),btn_ap);                                        
- label = gtk_label_new(_("Notes"));
- gtk_container_add (GTK_CONTAINER (GTK_DIALOG(dlg)->vbox),label); 
- btn_note = gtk_color_button_new_with_color(&FREFGUI(bfwin->fref)->col_note);
- gtk_container_add (GTK_CONTAINER (GTK_DIALOG(dlg)->vbox),btn_note);          
- label = gtk_label_new(_("Examples"));
- gtk_container_add (GTK_CONTAINER (GTK_DIALOG(dlg)->vbox),label);                               
- btn_example = gtk_color_button_new_with_color(&FREFGUI(bfwin->fref)->col_example);
- gtk_container_add (GTK_CONTAINER (GTK_DIALOG(dlg)->vbox),btn_example);                                        
- label = gtk_label_new(_("Links"));
- gtk_container_add (GTK_CONTAINER (GTK_DIALOG(dlg)->vbox),label); 
- btn_link = gtk_color_button_new_with_color(&FREFGUI(bfwin->fref)->col_link);
- gtk_container_add (GTK_CONTAINER (GTK_DIALOG(dlg)->vbox),btn_link);                                        
- gtk_widget_show_all(GTK_DIALOG(dlg)->vbox);
- if ( gtk_dialog_run(GTK_DIALOG(dlg)) == GTK_RESPONSE_OK ) {
- 	gtk_color_button_get_color(GTK_COLOR_BUTTON(btn_descr),&FREFGUI(bfwin->fref)->col_descr);
- 	gtk_color_button_get_color(GTK_COLOR_BUTTON(btn_ap),&FREFGUI(bfwin->fref)->col_ap);
- 	gtk_color_button_get_color(GTK_COLOR_BUTTON(btn_note),&FREFGUI(bfwin->fref)->col_note);
- 	gtk_color_button_get_color(GTK_COLOR_BUTTON(btn_example),&FREFGUI(bfwin->fref)->col_example);
- 	gtk_color_button_get_color(GTK_COLOR_BUTTON(btn_link),&FREFGUI(bfwin->fref)->col_link);
- 	buff = gtk_text_view_get_buffer(GTK_TEXT_VIEW(FREFGUI(bfwin->fref)->infoview));
- 	g_object_set(G_OBJECT(FREFGUI(bfwin->fref)->tag_descr),"foreground-gdk",&FREFGUI(bfwin->fref)->col_descr,NULL);
- 	g_object_set(G_OBJECT(FREFGUI(bfwin->fref)->tag_ap),"foreground-gdk",&FREFGUI(bfwin->fref)->col_ap,NULL);
- 	g_object_set(G_OBJECT(FREFGUI(bfwin->fref)->tag_note),"foreground-gdk",&FREFGUI(bfwin->fref)->col_note,NULL);
-	g_object_set(G_OBJECT(FREFGUI(bfwin->fref)->tag_example),"foreground-gdk",&FREFGUI(bfwin->fref)->col_example,NULL); 	
-	g_object_set(G_OBJECT(FREFGUI(bfwin->fref)->tag_link),"foreground-gdk",&FREFGUI(bfwin->fref)->col_link,NULL);
- 	frefcb_cursor_changed(GTK_TREE_VIEW(FREFGUI(bfwin->fref)->tree), bfwin);
- }
- gtk_widget_destroy(dlg);                                        
 }
 
 static gchar *fref_notnull_str(gchar *str) {
@@ -3456,7 +3393,7 @@ static void frefcb_cursor_changed(GtkTreeView * treeview, Tbfwin * bfwin)
 				tmpinfo = g_strconcat(fref_prepare_info(entry, FR_INFO_DESC),NULL);
 				if ( tmpinfo ) {
 					gtk_text_buffer_get_end_iter(buff,&its);
-					gtk_text_buffer_insert_with_tags_by_name(buff,&its,tmpinfo,strlen(tmpinfo),"color_descr",NULL);
+					gtk_text_buffer_insert(buff,&its,tmpinfo,strlen(tmpinfo));
 					g_free(tmpinfo);
 				}
 			}
@@ -3464,7 +3401,7 @@ static void frefcb_cursor_changed(GtkTreeView * treeview, Tbfwin * bfwin)
 				tmpinfo = g_strconcat(fref_prepare_info(entry, FR_INFO_ATTRS),NULL);
 				if ( tmpinfo ) {
 					gtk_text_buffer_get_end_iter(buff,&its);
-					gtk_text_buffer_insert_with_tags_by_name(buff,&its,tmpinfo,strlen(tmpinfo),"color_ap",NULL);
+					gtk_text_buffer_insert(buff,&its,tmpinfo,strlen(tmpinfo));
 					g_free(tmpinfo);				
 				}	
 			}
@@ -3472,7 +3409,7 @@ static void frefcb_cursor_changed(GtkTreeView * treeview, Tbfwin * bfwin)
 				tmpinfo = g_strconcat(fref_prepare_info(entry, FR_INFO_NOTES),NULL);
 				if ( tmpinfo ) {
 					gtk_text_buffer_get_end_iter(buff,&its);
-					gtk_text_buffer_insert_with_tags_by_name(buff,&its,tmpinfo,strlen(tmpinfo),"color_note",NULL);
+					gtk_text_buffer_insert(buff,&its,tmpinfo,strlen(tmpinfo));
 					g_free(tmpinfo);
 				}	
 			}						
@@ -3480,7 +3417,7 @@ static void frefcb_cursor_changed(GtkTreeView * treeview, Tbfwin * bfwin)
 				tmpinfo = g_strconcat(fref_prepare_info(entry, FR_INFO_EXAMPLES),NULL);
 				if ( tmpinfo ) {
 					gtk_text_buffer_get_end_iter(buff,&its);
-					gtk_text_buffer_insert_with_tags_by_name(buff,&its,tmpinfo,strlen(tmpinfo),"color_example",NULL);
+					gtk_text_buffer_insert(buff,&its,tmpinfo,strlen(tmpinfo));
 					g_free(tmpinfo);
 				}	
 			}						
@@ -3490,7 +3427,7 @@ static void frefcb_cursor_changed(GtkTreeView * treeview, Tbfwin * bfwin)
 				{
 					gtk_text_buffer_get_end_iter(buff,&its);
 					tmpinfo=g_strdup("SEE ALSO:\n");
-					gtk_text_buffer_insert_with_tags_by_name(buff,&its,tmpinfo,strlen(tmpinfo),"color_link",NULL);
+					gtk_text_buffer_insert(buff,&its,tmpinfo,strlen(tmpinfo));
 					g_free(tmpinfo);
 				}
 				while (lst)
@@ -3520,9 +3457,8 @@ static void frefcb_showbtn_clicked(GtkToggleButton * togglebutton, Tbfwin * bfwi
                              gtk_get_current_event_time()); 
 }
 
-static void frefcb_prefbtn_clicked(GtkToggleButton * togglebutton, Tbfwin * bfwin) {
- gtk_menu_popup(GTK_MENU(FREFGUI(bfwin->fref)->menu_pref),NULL,NULL,NULL,NULL,1,
-                             gtk_get_current_event_time());
+static void frefcb_prefbtn_clicked(GtkWidget * button, Tbfwin * bfwin) {
+	fref_popup_menu_rescan_lcb(button,bfwin);
 }
 
 static void frefcb_editbtn_clicked(GtkToggleButton * togglebutton, Tbfwin * bfwin) {
@@ -4645,7 +4581,7 @@ GtkWidget *fref_gui(Tbfwin * bfwin)
 	GtkTreeIter it;
 	GtkWidget *item,*menu,*wdg;
 	GtkTextBuffer *buff;
-	/* GtkTreePath *path=NULL; */
+	GdkColor cc;
 
 	bfwin->fref = g_new0(Tfref_gui, 1);
 
@@ -4700,22 +4636,12 @@ GtkWidget *fref_gui(Tbfwin * bfwin)
 	g_signal_connect (FREFGUI(bfwin->fref)->infoview, "motion-notify-event",G_CALLBACK (fref_link_motion_event), NULL);
 	g_signal_connect (FREFGUI(bfwin->fref)->infoview, "visibility-notify-event", G_CALLBACK (fref_link_visibility_event), NULL);
 
-
 	g_signal_connect(G_OBJECT(FREFGUI(bfwin->fref)->tree), "cursor-changed",
 					 G_CALLBACK(frefcb_cursor_changed), bfwin);
 
 	buff = gtk_text_view_get_buffer(GTK_TEXT_VIEW(FREFGUI(bfwin->fref)->infoview));
-	gdk_color_parse("#B71212",&(FREFGUI(bfwin->fref)->col_descr));
-	gdk_color_parse("#4D4D4D",&(FREFGUI(bfwin->fref)->col_ap));
-	gdk_color_parse("#4D4D4D",&(FREFGUI(bfwin->fref)->col_note));
-	gdk_color_parse("#FFA500",&(FREFGUI(bfwin->fref)->col_example));
-	gdk_color_parse("#84559D",&(FREFGUI(bfwin->fref)->col_link));
- 	FREFGUI(bfwin->fref)->tag_descr = gtk_text_buffer_create_tag(buff,"color_descr","foreground-gdk",&FREFGUI(bfwin->fref)->col_descr,NULL);
- 	FREFGUI(bfwin->fref)->tag_ap = gtk_text_buffer_create_tag(buff,"color_ap","foreground-gdk",&FREFGUI(bfwin->fref)->col_ap,NULL);
- 	FREFGUI(bfwin->fref)->tag_note = gtk_text_buffer_create_tag(buff,"color_note","foreground-gdk",&FREFGUI(bfwin->fref)->col_note,NULL);
- 	FREFGUI(bfwin->fref)->tag_example = gtk_text_buffer_create_tag(buff,"color_example","foreground-gdk",&FREFGUI(bfwin->fref)->col_example,NULL);
- 	FREFGUI(bfwin->fref)->tag_link = gtk_text_buffer_create_tag(buff,"color_link","foreground-gdk",&FREFGUI(bfwin->fref)->col_link,NULL);
-	gtk_widget_modify_font(FREFGUI(bfwin->fref)->infoview,pango_font_description_from_string("Sans 10"));
+	
+	gtk_widget_modify_font(FREFGUI(bfwin->fref)->infoview,pango_font_description_from_string(main_v->props.bflib_info_font));
 
 
 	FREFGUI(bfwin->fref)->infocheck = gtk_toggle_button_new();
@@ -4767,25 +4693,11 @@ GtkWidget *fref_gui(Tbfwin * bfwin)
 
 
 	FREFGUI(bfwin->fref)->btn_pref = gtk_button_new();
-	gtk_tooltips_set_tip(FREFGUI(bfwin->fref)->argtips,FREFGUI(bfwin->fref)->btn_pref , _("Settings"), "");
+	gtk_tooltips_set_tip(FREFGUI(bfwin->fref)->argtips,FREFGUI(bfwin->fref)->btn_pref , _("Rescan directories"), "");
 	gtk_container_add(GTK_CONTAINER(FREFGUI(bfwin->fref)->btn_pref), new_pixmap(1002));	
 	g_signal_connect(G_OBJECT(FREFGUI(bfwin->fref)->btn_pref), "clicked",
 					 G_CALLBACK(frefcb_prefbtn_clicked), bfwin);	
 	GTK_WIDGET_SET_FLAGS(FREFGUI(bfwin->fref)->btn_pref, GTK_CAN_DEFAULT);				 
-	FREFGUI(bfwin->fref)->menu_pref = gtk_menu_new();
-	gtk_menu_set_title(GTK_MENU(FREFGUI(bfwin->fref)->menu_pref),_("Settings"));
-	item = gtk_menu_item_new_with_label(_("Rescan reference files"));
-	gtk_menu_append(GTK_MENU(FREFGUI(bfwin->fref)->menu_pref),item);
-	g_signal_connect(GTK_OBJECT(item), "activate", G_CALLBACK(fref_popup_menu_rescan_lcb),NULL);
-	gtk_menu_append(GTK_MENU(FREFGUI(bfwin->fref)->menu_pref),gtk_separator_menu_item_new());
-	item = gtk_menu_item_new_with_label(_("Set view font"));
-	gtk_menu_append(GTK_MENU(FREFGUI(bfwin->fref)->menu_pref),item);
-	g_signal_connect(GTK_OBJECT(item), "activate", G_CALLBACK(fref_setfont_lcb),bfwin);
-	item = gtk_menu_item_new_with_label(_("Set view colors"));
-	gtk_menu_append(GTK_MENU(FREFGUI(bfwin->fref)->menu_pref),item);
-	g_signal_connect(GTK_OBJECT(item), "activate", G_CALLBACK(fref_setcolors_lcb),bfwin);
-	
-	gtk_widget_show_all(FREFGUI(bfwin->fref)->menu_pref);
 
 	FREFGUI(bfwin->fref)->btn_edit = gtk_button_new();
 	gtk_tooltips_set_tip(FREFGUI(bfwin->fref)->argtips,FREFGUI(bfwin->fref)->btn_edit , _("Edit"), "");
@@ -4857,6 +4769,12 @@ GtkWidget *fref_gui(Tbfwin * bfwin)
 	gtk_paned_pack1(GTK_PANED(pane), box, TRUE, FALSE);
 	gtk_paned_pack2(GTK_PANED(pane), FREFGUI(bfwin->fref)->infoscroll, TRUE, TRUE);
 	gtk_widget_show_all(pane);
+
+	gdk_color_parse(main_v->props.bflib_info_bkg,&cc);
+	gtk_widget_modify_base(FREFGUI(bfwin->fref)->infoview,FREFGUI(bfwin->fref)->infoview->state,&cc);
+	gdk_color_parse(main_v->props.bflib_info_fg,&cc);
+	gtk_widget_modify_text(FREFGUI(bfwin->fref)->infoview,FREFGUI(bfwin->fref)->infoview->state,&cc);
+
 
 	if (!gtk_tree_model_iter_nth_child(GTK_TREE_MODEL(fdata->store), &it, NULL, 0))
 		fill_toplevels(fdata, FALSE);

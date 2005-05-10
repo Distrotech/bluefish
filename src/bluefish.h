@@ -230,6 +230,9 @@ typedef struct {
 	gint open_in_running_bluefish; /* open commandline documents in already running session*/
 	gint server_zope_compat;        /* add 'document_src' to uri when reading remote files */
 	gint show_splash_screen;
+	gchar *bflib_info_font;
+	gchar *bflib_info_bkg;
+	gchar *bflib_info_fg;
 } Tproperties;
 
 /* the Tglobalsession contains all settings that can change 

@@ -129,6 +129,9 @@ enum {
 #ifdef HAVE_GNOME_VFS
 	server_zope_compat,
 #endif /* HAVE_GNOME_VFS */
+	bflib_info_font,
+	bflib_info_bkg,
+	bflib_info_fg,
 	property_num_max
 };
 
@@ -312,6 +315,34 @@ static void font_button_lcb(GtkWidget *wid, GtkWidget *entry) {
 	gtk_widget_show(fsd);
 }
 
+static void color_dialog_response_lcb(GtkDialog *fsd,gint response,GtkWidget *entry) {
+	if (response == GTK_RESPONSE_OK) {
+		GdkColor cc;
+		gtk_color_selection_get_current_color(GTK_COLOR_SELECTION(GTK_COLOR_SELECTION_DIALOG(fsd)->colorsel),&cc);
+		gtk_entry_set_text(GTK_ENTRY(entry), gdk_color_to_hexstring(&cc,TRUE));
+	}
+	gtk_widget_destroy(GTK_WIDGET(fsd));
+}
+
+static void color_button_lcb(GtkWidget *wid, GtkWidget *entry) {
+	GtkWidget *fsd;
+	const gchar *cname;
+	GdkColor cc;
+	fsd = gtk_color_selection_dialog_new(_("Select color"));
+	cname = gtk_entry_get_text(GTK_ENTRY(entry)); /* do NOT free, this is an internal pointer */
+	if (strlen(cname)) {
+		gdk_color_parse(cname,&cc);
+		gtk_color_selection_set_current_color(GTK_COLOR_SELECTION(GTK_COLOR_SELECTION_DIALOG(fsd)->colorsel), &cc);
+	}
+	g_signal_connect(GTK_OBJECT(fsd),"response",G_CALLBACK(color_dialog_response_lcb),entry);
+	gtk_window_set_transient_for(GTK_WINDOW(GTK_DIALOG(fsd)), GTK_WINDOW(gtk_widget_get_toplevel(entry)));
+	gtk_window_set_modal(GTK_WINDOW(GTK_DIALOG(fsd)), TRUE);
+	gtk_window_set_destroy_with_parent(GTK_WINDOW(GTK_DIALOG(fsd)), TRUE);
+	gtk_widget_show(fsd);
+}
+
+
+
 static GtkWidget *prefs_string(const gchar *title, const gchar *curval, GtkWidget *box, Tprefdialog *pd, Tprefstringtype prefstringtype) {
 	GtkWidget *hbox, *return_widget;
 
@@ -323,6 +354,9 @@ static GtkWidget *prefs_string(const gchar *title, const gchar *curval, GtkWidge
 		gtk_box_pack_start(GTK_BOX(hbox), file_but_new(return_widget, 1, NULL), FALSE, FALSE, 3);
 	} else if (prefstringtype == font) {
 		GtkWidget *but = bf_gtkstock_button(GTK_STOCK_SELECT_FONT, G_CALLBACK(font_button_lcb), return_widget);
+		gtk_box_pack_start(GTK_BOX(hbox), but, FALSE, FALSE, 3);
+	}	 else if (prefstringtype == string_color) {
+		GtkWidget *but = bf_gtkstock_button(GTK_STOCK_SELECT_COLOR, G_CALLBACK(color_button_lcb), return_widget);
 		gtk_box_pack_start(GTK_BOX(hbox), but, FALSE, FALSE, 3);
 	}
 	return return_widget;
@@ -1865,6 +1899,10 @@ static void preferences_apply(Tprefdialog *pd) {
 	main_v->props.leftpanel_tabposition = gtk_option_menu_get_history(GTK_OPTION_MENU(pd->prefs[leftpanel_tabposition]));
 	main_v->props.left_panel_left = gtk_option_menu_get_history(GTK_OPTION_MENU(pd->prefs[left_panel_left]));
 
+	string_apply(&main_v->props.bflib_info_font, pd->prefs[bflib_info_font]);
+	string_apply(&main_v->props.bflib_info_bkg, pd->prefs[bflib_info_bkg]);
+	string_apply(&main_v->props.bflib_info_fg, pd->prefs[bflib_info_fg]);
+	
 /*	integer_apply(&main_v->props.view_main_toolbar, pd->prefs[view_main_toolbar], TRUE);
 	integer_apply(&main_v->props.view_left_panel, pd->prefs[view_left_panel], TRUE);
 	integer_apply(&main_v->props.view_custom_menu, pd->prefs[view_custom_menu], TRUE);
@@ -2098,6 +2136,7 @@ static void preferences_dialog() {
 	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
 	vbox2 = gtk_vbox_new(FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(frame), vbox2);
+	
 
 /*	pd->prefs[view_main_toolbar] = boxed_checkbut_with_value(_("Show main toolbar by default"), main_v->props.view_main_toolbar, vbox2);
 	pd->prefs[view_left_panel] = boxed_checkbut_with_value(_("Show sidebar by default"), main_v->props.view_left_panel, vbox2);
@@ -2114,6 +2153,15 @@ static void preferences_dialog() {
 	pd->prefs[document_tabposition] = boxed_optionmenu_with_value(_("Document notebook tab position"), main_v->props.document_tabposition, vbox2, notebooktabpositions);
 	pd->prefs[leftpanel_tabposition] = boxed_optionmenu_with_value(_("Sidebar notebook tab position"), main_v->props.leftpanel_tabposition, vbox2, notebooktabpositions);
 	pd->prefs[left_panel_left] = boxed_optionmenu_with_value(_("Sidebar location"), main_v->props.left_panel_left, vbox2, panellocations);
+
+	frame = gtk_frame_new(_("Reference library"));
+	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
+	vbox2 = gtk_vbox_new(FALSE, 0);
+	gtk_container_add(GTK_CONTAINER(frame), vbox2);
+
+	pd->prefs[bflib_info_font] = prefs_string(_("Font"), main_v->props.bflib_info_font, vbox2, pd, string_font);
+   pd->prefs[bflib_info_bkg] = prefs_string(_("Info background color"), main_v->props.bflib_info_bkg, vbox2, pd, string_color);
+   pd->prefs[bflib_info_fg] = prefs_string(_("Info foreground color"), main_v->props.bflib_info_fg, vbox2, pd, string_color);
 
 	vbox1 = gtk_vbox_new(FALSE, 5);
 	gtk_notebook_append_page(GTK_NOTEBOOK(pd->noteb), vbox1, hbox_with_pix_and_text(_("Images"), 155,TRUE));
