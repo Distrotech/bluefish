@@ -998,6 +998,8 @@ static void html_toolbar_add_items_to_submenu(Tbfwin *bfwin, GtkWidget *html_too
 			gtk_menu_append(GTK_MENU(sub_menu), menu_item);
 		}
 	}
+	/* BUG: should we decrement the reference count of 'tooltips' after the loop? 
+	valgrind thinks we have a memory leak here */
 	menu_bar = gtk_menu_bar_new();
 	menu_item = gtk_menu_item_new();
 	gtk_container_add(GTK_CONTAINER(menu_item),new_pixmap(menupix));
