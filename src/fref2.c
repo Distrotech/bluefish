@@ -915,7 +915,7 @@ gboolean fref_load_from_file(gchar * filename, GtkWidget * tree, GtkTreeStore * 
 		xmlFreeDoc(doc);
 		return FALSE;		
 	}
-	/* BUG: should we not free 'tmps' here before we assign a new pointer value to it? valgrind
+	/* BUG: we should free 'tmps' here before we assign a new pointer value to it! valgrind
 	 thinks we have a memory leak here  */
 	tmps = xmlGetProp(cur,fref_names[FID_DESCRIPTION]);
 	if (tmps!=NULL)
@@ -2375,18 +2375,19 @@ while (p) {
 									   			if (proptype==FREF_EL_ATTR)
 														converted = g_strconcat(converted," ",FREFPROPERTY(lst->data)->name,"=\"",
 																	 gtk_entry_get_text(GTK_ENTRY(dlgitem)),
-																	 "\"",NULL);									   	
+																	 "\"",NULL);
+														/* BUG: valgrind reports that this 'converted' is never freed: memory leak! */
 													else
 													{
 														if (first)
 														{
 															converted = g_strconcat(converted,gtk_entry_get_text(GTK_ENTRY(dlgitem)),NULL);				 
 															first=FALSE;
-														} 
+														}
 														else
 															converted = g_strconcat(converted,sep,gtk_entry_get_text(GTK_ENTRY(dlgitem)),NULL);
-													}		
-												}					 
+													}
+												}
 									   	break;
 									   	case FREF_INP_LIST:
 									   	{
