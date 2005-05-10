@@ -76,7 +76,7 @@
 #include "bluefish.h"
 #include "rcfile.h"
 #include "bf_lib.h"
-#include "fref.h"
+#include "fref2.h"
 #include "stringlist.h"
 #include "highlight.h" /* hl_reset_to_default()*/
 #include "document.h" /* DOCUMENT_BACKUP_ABORT_ASK */
