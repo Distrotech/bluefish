@@ -770,6 +770,7 @@ gint fref_count_nodes(xmlDocPtr doc, xmlChar *xpath){
 		xmlXPathFreeObject(result);
 		return 0;
 	}
+	/* BUG: should't we free 'result' before returning a gint ? valgrind thinks we have a memory leak here */
 	return result->nodesetval->nodeNr;
 }
 
@@ -914,6 +915,8 @@ gboolean fref_load_from_file(gchar * filename, GtkWidget * tree, GtkTreeStore * 
 		xmlFreeDoc(doc);
 		return FALSE;		
 	}
+	/* BUG: should we not free 'tmps' here before we assign a new pointer value to it? valgrind
+	 thinks we have a memory leak here  */
 	tmps = xmlGetProp(cur,fref_names[FID_DESCRIPTION]);
 	if (tmps!=NULL)
 		info->description = tmps;
