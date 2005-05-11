@@ -632,7 +632,7 @@ void doc_close_single_backend(Tdocument *doc, gboolean delay_activate, gboolean 
 		return;
 	}
 	if (doc->modified) {
-		const gchar *buttons[] = {_("Do_n't save"), GTK_STOCK_CANCEL, GTK_STOCK_SAVE, NULL};
+		const gchar *buttons[] = {_("Close _Without Saving"), GTK_STOCK_CANCEL, GTK_STOCK_SAVE, NULL};
 		gchar *text;
 		gint retval;
 		text = g_strdup_printf(_("Save changes to \"%s\" before closing?"),gtk_label_get_text (GTK_LABEL (doc->tab_label)));
