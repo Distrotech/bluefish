@@ -272,6 +272,8 @@ message_dialog_new(GtkWidget *parent,
 																button,
 																text);	
 	g_free (text);
+	gtk_window_set_title (GTK_WINDOW(dialog), "");
+	
 	gtk_dialog_run (GTK_DIALOG (dialog));
 	gtk_widget_destroy (dialog);
 }
@@ -307,6 +309,7 @@ message_dialog_new_multi(GtkWidget *parent,
 																GTK_BUTTONS_NONE,
 																text);
 	g_free (text);
+	gtk_window_set_title (GTK_WINDOW(dialog), "");
 
 	for (i = 0; *buttons; i++) {
 		gtk_dialog_add_button (GTK_DIALOG (dialog), *buttons++, i);
