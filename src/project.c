@@ -385,7 +385,7 @@ gboolean project_save_and_close(Tbfwin *bfwin, gboolean close_win) {
 	while (!bfwin->project->filename) {
 		gchar *text;
 		gint retval;
-		const gchar *buttons[] = {_("Do_n't save"), GTK_STOCK_CANCEL, GTK_STOCK_SAVE, NULL};
+		const gchar *buttons[] = {_("Close _Without Saving"), GTK_STOCK_CANCEL, GTK_STOCK_SAVE, NULL};
 		if (dont_save) {
 			break;
 		}
