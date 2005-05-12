@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-#define DEBUG
+/* #define DEBUG */
 
 #include <gtk/gtk.h>
 #include <string.h> /* memcpy */
@@ -361,28 +361,30 @@ static gint checkNsave_sync_lcb(GnomeVFSXferProgressInfo *info,gpointer data) {
 }
 static void checkNsave_checkmodified_lcb(Tcheckmodified_status status,gint error_info, GnomeVFSFileInfo *orig, GnomeVFSFileInfo *new, gpointer data) {
 	TcheckNsave *cns = data;
-	gboolean startbackup = FALSE;
+	gboolean startbackup = main_v->props.backup_file, contsave = TRUE;
+	
 	DEBUG_MSG("checkNsave_checkmodified_lcb, status=%d\n",status);
 	switch (status) {
 	case CHECKMODIFIED_OK:
-		startbackup = TRUE;
+		contsave = TRUE;
 	break;
 	case CHECKMODIFIED_MODIFIED:
-		startbackup = (cns->callback_func(CHECKANDSAVE_ERROR_MODIFIED, error_info, cns->callback_data) == CHECKNSAVE_CONT);
+		contsave = (cns->callback_func(CHECKANDSAVE_ERROR_MODIFIED, error_info, cns->callback_data) == CHECKNSAVE_CONT);
 	break;
 	case CHECKMODIFIED_ERROR:
 		if (error_info == GNOME_VFS_ERROR_NOT_FOUND) {
-			startbackup = TRUE;
+			contsave = TRUE;
+			startbackup = FALSE;
 		} else {
-			startbackup = (cns->callback_func(CHECKANDSAVE_ERROR_MODIFIED_FAILED, error_info, cns->callback_data) == CHECKNSAVE_CONT);
+			contsave = (cns->callback_func(CHECKANDSAVE_ERROR_MODIFIED_FAILED, error_info, cns->callback_data) == CHECKNSAVE_CONT);
 		}
 	break;
 	case CHECKMODIFIED_CANCELLED:
 		cns->callback_func(CHECKANDSAVE_ERROR_CANCELLED, error_info, cns->callback_data);
 	break;
 	}
-	if (startbackup) {
-		if (main_v->props.backup_file)  {
+	if (contsave) {
+		if (startbackup)  {
 			GList *sourcelist;
 			GList *destlist;
 			gchar *tmp, *tmp2;
