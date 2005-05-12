@@ -2461,7 +2461,12 @@ void document_unset_filename(Tdocument *doc) {
 
 		gnome_vfs_uri_unref(doc->uri);
 		doc->uri = NULL;
+		if (doc->fileinfo) {
+			gnome_vfs_file_info_unref(doc->fileinfo);
+			doc->fileinfo = NULL;
+		}
 		doc_set_title(doc);
+		doc_set_modified(doc, TRUE);
 
 		gtk_label_set(GTK_LABEL(doc->tab_label),tmpstr);
 		
@@ -3236,6 +3241,24 @@ static void doc_activate_modified_lcb(Tcheckmodified_status status,gint error_in
 	switch (status) {
 	case CHECKMODIFIED_ERROR:
 		DEBUG_MSG("doc_activate_modified_lcb, CHECKMODIFIED_ERROR ??\n");
+		if (error_info == GNOME_VFS_ERROR_NOT_FOUND) {
+			gchar *tmpstr;
+			gint retval;
+			const gchar *buttons[] = {_("_Unset file name"),_("_Save"), NULL};
+			/* file is deleted on disk, what do we do now ? */
+			tmpstr = g_strdup_printf(_("File name: %s"), gtk_label_get_text(GTK_LABEL(doc->tab_menu)));
+			retval = message_dialog_new_multi(BFWIN(doc->bfwin)->main_window,
+													 GTK_MESSAGE_WARNING,
+													 buttons,
+													 _("File disappeared from disk\n"),
+													 tmpstr);
+			g_free(tmpstr);
+			if (retval == 1) { /* save */
+				doc_save_backend(doc, FALSE, FALSE, FALSE, FALSE);
+			} else { /* unset */
+				document_unset_filename(doc);
+			}
+		}
 	break;
 	case CHECKMODIFIED_CANCELLED:
 		DEBUG_MSG("doc_activate_modified_lcb, CHECKMODIFIED_CANCELLED\n");
@@ -3244,7 +3267,7 @@ static void doc_activate_modified_lcb(Tcheckmodified_status status,gint error_in
 		{
 		gchar *tmpstr, oldtimestr[128], newtimestr[128];/* according to 'man ctime_r' this should be at least 26, so 128 should do ;-)*/
 		gint retval;
-		const gchar *buttons[] = {_("_Reload"), _("_Ignore"), NULL};
+		const gchar *buttons[] = {_("_Ignore"),_("_Reload"), NULL};
 
 		ctime_r(&new->mtime,newtimestr);
 		ctime_r(&orig->mtime,oldtimestr);
@@ -3255,14 +3278,14 @@ static void doc_activate_modified_lcb(Tcheckmodified_status status,gint error_in
 													 _("File has been modified by another process\n"),
 													 tmpstr);
 		g_free(tmpstr);
-		if (retval == 1) {
+		if (retval == 0) { /* ignore */
 			if (doc->fileinfo) {
 				gnome_vfs_file_info_unref(doc->fileinfo);
 			}
 			doc->fileinfo = new;
 			gnome_vfs_file_info_ref(doc->fileinfo);
 			doc_set_tooltip(doc);
-		} else {
+		} else { /* reload */
 			doc_reload(doc);
 		}
 		}
@@ -3272,6 +3295,12 @@ static void doc_activate_modified_lcb(Tcheckmodified_status status,gint error_in
 	break;
 	}
 	doc->action.checkmodified = NULL;
+}
+
+void doc_start_modified_check(Tdocument *doc) {
+	if (doc->uri && doc->fileinfo && !doc->action.checkmodified && !doc->action.save) { /* don't check during another check, or during save */
+		doc->action.checkmodified = file_checkmodified_uri_async(doc->uri, doc->fileinfo, doc_activate_modified_lcb, doc);
+	}
 }
 
 static gboolean doc_close_from_activate(gpointer data) {
@@ -3326,9 +3355,7 @@ void doc_activate(Tdocument *doc) {
 		gtk_widget_show(doc->view); /* This might be the first time this document is activated. */
 	}
 	BFWIN(doc->bfwin)->last_activated_doc = doc;
-	if (doc->uri && doc->fileinfo && !doc->action.checkmodified && !doc->action.save) { /* don't check during another check, or during save */
-		doc->action.checkmodified = file_checkmodified_uri_async(doc->uri, doc->fileinfo, doc_activate_modified_lcb, doc);
-	}
+	doc_start_modified_check(doc);
 	
 	DEBUG_MSG("doc_activate, calling gui_set_document_widgets()\n");
 	gui_set_document_widgets(doc);

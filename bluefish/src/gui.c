@@ -178,7 +178,6 @@ gboolean switch_to_document_by_uri(Tbfwin *bfwin,GnomeVFSURI *uri) {
 	return switch_to_document_by_index(bfwin,index);
 }
 
-
 static void notebook_switch_page_lcb(GtkWidget *notebook,GtkNotebookPage *page,gint page_num,Tbfwin *bfwin) {
 	DEBUG_MSG("notebook_switch_page_lcb, page=%d\n", page_num);
 	notebook_changed(bfwin,page_num);
@@ -1269,6 +1268,7 @@ void main_window_destroy_lcb(GtkWidget *widget,Tbfwin *bfwin) {
 	DEBUG_MSG("main_window_destroy_lcb, started\n");
 	DEBUG_MSG("main_window_destroy_lcb, will hide the window now\n");
 	gtk_widget_hide(bfwin->main_window);
+	g_source_remove(bfwin->periodic_check_id);
 	main_v->bfwinlist = g_list_remove(main_v->bfwinlist, bfwin);
 	DEBUG_MSG("main_window_destroy_lcb, bfwin(%p) is removed from bfwinlist\n",bfwin);
 	gui_bfwin_cleanup(bfwin);
@@ -1298,6 +1298,14 @@ gboolean main_window_delete_event_lcb(GtkWidget *widget,GdkEvent *event,Tbfwin *
 		}
 	}
 	return FALSE;
+}
+
+static gboolean gui_periodic_check_lcb(gpointer data) {
+	Tbfwin *bfwin = data;
+	if (bfwin->current_document) {
+		doc_start_modified_check(bfwin->current_document);
+	}
+	return TRUE;
 }
 
 void gui_create_main(Tbfwin *bfwin, GList *filenames) {
@@ -1446,6 +1454,8 @@ void gui_create_main(Tbfwin *bfwin, GList *filenames) {
 				GDK_ACTION_LINK | GDK_ACTION_PRIVATE | GDK_ACTION_ASK));
 		g_signal_connect(G_OBJECT(bfwin->main_window), "drag_data_received", G_CALLBACK(main_win_on_drag_data_lcb), bfwin);
 	}
+	bfwin->periodic_check_id = g_timeout_add_full(G_PRIORITY_LOW,4000
+				,gui_periodic_check_lcb,bfwin,NULL);
 }
 
 void gui_show_main(Tbfwin *bfwin) {
