@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-/* #define DEBUG */
+#define DEBUG
 
 #include <gtk/gtk.h>
 #include <string.h> /* memcpy */
@@ -126,7 +126,7 @@ static void checkmodified_asyncfileinfo_lcb(GnomeVFSAsyncHandle *handle, GList *
 			cm->callback_func(CHECKMODIFIED_OK, item->result, cm->orig_finfo, item->file_info, cm->callback_data);
 		}
 	} else {
-		DEBUG_MSG("checkmodified_asyncfileinfo_lcb, there was an error retrieving the fileinfo\n");
+		DEBUG_MSG("checkmodified_asyncfileinfo_lcb, there was an error %d retrieving the fileinfo: %s\n",item->result, gnome_vfs_result_to_string(item->result) );
 		cm->callback_func(CHECKMODIFIED_ERROR, item->result, NULL, NULL, cm->callback_data);
 	}	
 	checkmodified_cleanup(cm);
@@ -371,7 +371,11 @@ static void checkNsave_checkmodified_lcb(Tcheckmodified_status status,gint error
 		startbackup = (cns->callback_func(CHECKANDSAVE_ERROR_MODIFIED, error_info, cns->callback_data) == CHECKNSAVE_CONT);
 	break;
 	case CHECKMODIFIED_ERROR:
-		startbackup = (cns->callback_func(CHECKANDSAVE_ERROR_MODIFIED_FAILED, error_info, cns->callback_data) == CHECKNSAVE_CONT);
+		if (error_info == GNOME_VFS_ERROR_NOT_FOUND) {
+			startbackup = TRUE;
+		} else {
+			startbackup = (cns->callback_func(CHECKANDSAVE_ERROR_MODIFIED_FAILED, error_info, cns->callback_data) == CHECKNSAVE_CONT);
+		}
 	break;
 	case CHECKMODIFIED_CANCELLED:
 		cns->callback_func(CHECKANDSAVE_ERROR_CANCELLED, error_info, cns->callback_data);

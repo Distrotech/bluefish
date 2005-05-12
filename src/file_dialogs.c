@@ -350,10 +350,7 @@ static TcheckNsave_return doc_checkNsave_lcb(TcheckNsave_status status,gint erro
 				}
 				g_free(utf8uri);
 				retval = message_dialog_new_multi(BFWIN(doc->bfwin)->main_window,
-															 GTK_MESSAGE_WARNING,
-															 buttons,
-															 _("File modified on disk"),
-															 tmpstr);
+												GTK_MESSAGE_WARNING,buttons,"",tmpstr);
 				g_free(tmpstr);
 				if (retval == 0) {
 					doc->action.save = NULL;
