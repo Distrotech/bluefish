@@ -75,6 +75,7 @@ void file_delete_file_async(GnomeVFSURI *uri) {
 /*************************** FILE INFO ASYNC ******************************/
 
 static void checkmodified_cleanup(Tcheckmodified *cm) {
+	DEBUG_MSG("checkmodified_cleanup, started\n");
 	gnome_vfs_uri_unref(cm->uris->data);
 	g_list_free(cm->uris);
 	gnome_vfs_file_info_unref(cm->orig_finfo);
@@ -126,7 +127,7 @@ static void checkmodified_asyncfileinfo_lcb(GnomeVFSAsyncHandle *handle, GList *
 			cm->callback_func(CHECKMODIFIED_OK, item->result, cm->orig_finfo, item->file_info, cm->callback_data);
 		}
 	} else {
-		DEBUG_MSG("checkmodified_asyncfileinfo_lcb, there was an error %d retrieving the fileinfo: %s\n",item->result, gnome_vfs_result_to_string(item->result) );
+		DEBUG_MSG("checkmodified_asyncfileinfo_lcb, there was an error %d retrieving the fileinfo: %s\n",item->result, gnome_vfs_result_to_string(item->result));
 		cm->callback_func(CHECKMODIFIED_ERROR, item->result, NULL, NULL, cm->callback_data);
 	}	
 	checkmodified_cleanup(cm);

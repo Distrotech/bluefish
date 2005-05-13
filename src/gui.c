@@ -1454,7 +1454,7 @@ void gui_create_main(Tbfwin *bfwin, GList *filenames) {
 				GDK_ACTION_LINK | GDK_ACTION_PRIVATE | GDK_ACTION_ASK));
 		g_signal_connect(G_OBJECT(bfwin->main_window), "drag_data_received", G_CALLBACK(main_win_on_drag_data_lcb), bfwin);
 	}
-	bfwin->periodic_check_id = g_timeout_add_full(G_PRIORITY_LOW,4000
+	bfwin->periodic_check_id = g_timeout_add_full(G_PRIORITY_LOW,8000
 				,gui_periodic_check_lcb,bfwin,NULL);
 }
 
