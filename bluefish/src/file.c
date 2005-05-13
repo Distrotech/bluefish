@@ -38,7 +38,8 @@
 
 typedef struct {
 	GnomeVFSAsyncHandle *handle;
-	
+	DeleteAsyncCallback callback;
+	gpointer callback_data;
 } Tfiledelete;
 
 static gint deletefile_progress_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSXferProgressInfo *info,gpointer data) {
@@ -49,6 +50,10 @@ static gint deletefile_progress_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSXferProg
 	} else if (info->status == GNOME_VFS_XFER_PROGRESS_STATUS_OK) {
 		if (info->phase == GNOME_VFS_XFER_PHASE_COMPLETED) {
 			/* call the user callback */
+			if (fd->callback) {
+				fd->callback(fd->callback_data);
+			}
+			g_free(fd);
 		}
 	}
 	return 1; 	/* Nautilus returns 1 by default for this callback */
@@ -57,12 +62,14 @@ static gint deletefile_sync_lcb(GnomeVFSXferProgressInfo *info,gpointer data) {
 	return 1;
 }
 
-void file_delete_file_async(GnomeVFSURI *uri) {
+void file_delete_file_async(GnomeVFSURI *uri, DeleteAsyncCallback callback, gpointer callback_data) {
 	GnomeVFSResult ret;
 	GList *sourcelist;
 	Tfiledelete *fd;
 	
 	fd = g_new0(Tfiledelete,1);
+	fd->callback = callback;
+	fd->callback_data = callback_data;
 	sourcelist = g_list_append(NULL, uri);
 	gnome_vfs_uri_ref(uri);
 	ret = gnome_vfs_async_xfer(&fd->handle,sourcelist,NULL

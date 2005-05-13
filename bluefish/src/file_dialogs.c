@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-#define DEBUG
+/* #define DEBUG */
 
 #include <gtk/gtk.h>
 #include <string.h> /* memcpy */
@@ -299,6 +299,12 @@ static void docsavebackend_cleanup(Tdocsavebackend *dsb) {
 	g_free(dsb);
 }
 
+static void docsavebackend_async_unlink_lcb(gpointer data) {
+	Tdocsavebackend *dsb = data;
+	fb2_refresh_parent_of_uri(dsb->unlink_uri);
+	docsavebackend_cleanup(dsb);
+}
+
 static TcheckNsave_return doc_checkNsave_lcb(TcheckNsave_status status,gint error_info,gpointer data) {
 	Tdocsavebackend *dsb = data;
 	Tdocument *doc = dsb->doc;
@@ -380,10 +386,10 @@ static TcheckNsave_return doc_checkNsave_lcb(TcheckNsave_status status,gint erro
 			/* do nothing, or perhaps we could change the notebook tab color or a statusbar message? */
 		break;
 		case CHECKANDSAVE_FINISHED:
-			/* if the user wanted to close the doc we should do very diffferent things here !! */
 			if (dsb->unlink_uri) {
-				file_delete_file_async(dsb->unlink_uri);
+				file_delete_file_async(dsb->unlink_uri, docsavebackend_async_unlink_lcb, dsb);
 			}
+			/* if the user wanted to close the doc we should do very diffferent things here !! */
 			doc->action.save = NULL;
 			gtk_text_view_set_editable(GTK_TEXT_VIEW(doc->view),TRUE);
 			if (doc->action.close_doc) {
@@ -411,21 +417,20 @@ static TcheckNsave_return doc_checkNsave_lcb(TcheckNsave_status status,gint erro
 					GnomeVFSURI *parent1, *parent2;
 					parent1 = gnome_vfs_uri_get_parent(dsb->unlink_uri);
 					parent2 = gnome_vfs_uri_get_parent(dsb->fbrefresh_uri);
-					if (gnome_vfs_uri_equal(parent1,parent2)) {
-						fb2_refresh_dir_from_uri(parent1);
-					} else {
-						fb2_refresh_dir_from_uri(parent1);
+					if (!gnome_vfs_uri_equal(parent1,parent2)) {
+						/* if they are equal, the directory will be refreshed by the unlink callback */
 						fb2_refresh_dir_from_uri(parent2);
 					}
 					gnome_vfs_uri_unref(parent1);
 					gnome_vfs_uri_unref(parent2);
-				} else if (dsb->unlink_uri) {
-					fb2_refresh_parent_of_uri(dsb->unlink_uri);
 				} else if (dsb->fbrefresh_uri) {
 					fb2_refresh_parent_of_uri(dsb->fbrefresh_uri);
 				}
 			}
-			docsavebackend_cleanup(dsb);
+			if (!dsb->unlink_uri) {
+				/* if there is an unlink uri, that means the unlink callback will free the dsb structure */
+				docsavebackend_cleanup(dsb);
+			}
 		break;
 	}
 	return CHECKNSAVE_CONT;
