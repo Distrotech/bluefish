@@ -25,6 +25,7 @@
 #include "dialog_utils.h"
 #include "document.h"
 #include "file.h"
+#include "filebrowser2.h"
 #include "gtk_easy.h"
 #include "gui.h"
 #include "stringlist.h"
@@ -283,11 +284,24 @@ void file_open_url_cb(GtkWidget * widget, Tbfwin *bfwin) {
 	gtk_window_set_default(GTK_WINDOW(ou->win), but);
 	gtk_widget_show_all(ou->win);
 }
+/***********************************/
+/*        async save code          */
 
-/* async save code */
+typedef struct {
+	Tdocument *doc;
+	GnomeVFSURI *unlink_uri;
+	GnomeVFSURI *fbrefresh_uri;
+} Tdocsavebackend;
+
+static void docsavebackend_cleanup(Tdocsavebackend *dsb) {
+	if (dsb->unlink_uri) gnome_vfs_uri_unref(dsb->unlink_uri);
+	if (dsb->fbrefresh_uri) gnome_vfs_uri_unref(dsb->fbrefresh_uri);
+	g_free(dsb);
+}
 
 static TcheckNsave_return doc_checkNsave_lcb(TcheckNsave_status status,gint error_info,gpointer data) {
-	Tdocument *doc = data;
+	Tdocsavebackend *dsb = data;
+	Tdocument *doc = dsb->doc;
 	gchar *errmessage;
 	DEBUG_MSG("doc_checkNsave_lcb, doc=%p, status=%d\n",doc,status);
 	switch (status) {
@@ -333,6 +347,7 @@ static TcheckNsave_return doc_checkNsave_lcb(TcheckNsave_status status,gint erro
 				g_free(errmessage);
 				doc->action.save = NULL;
 				gtk_text_view_set_editable(GTK_TEXT_VIEW(doc->view),TRUE);
+				docsavebackend_cleanup(dsb);
 			}
 		break;
 		case CHECKANDSAVE_ERROR_MODIFIED:
@@ -366,6 +381,9 @@ static TcheckNsave_return doc_checkNsave_lcb(TcheckNsave_status status,gint erro
 		break;
 		case CHECKANDSAVE_FINISHED:
 			/* if the user wanted to close the doc we should do very diffferent things here !! */
+			if (dsb->unlink_uri) {
+				file_delete_file_async(dsb->unlink_uri);
+			}
 			doc->action.save = NULL;
 			gtk_text_view_set_editable(GTK_TEXT_VIEW(doc->view),TRUE);
 			if (doc->action.close_doc) {
@@ -386,10 +404,28 @@ static TcheckNsave_return doc_checkNsave_lcb(TcheckNsave_status status,gint erro
 					doc_unre_clear_all(doc);
 				}
 				doc_set_modified(doc, 0);
-				/* BUG: if we have a filebrowser, AND it was a 'save as' or 'move to' we we should 
-				refresh the filebrowser for the old and new location */
-				/* BUG: now the saving is finished we should unlink the old name on 'move to', so not before saving */
+				/* in fact the filebrowser should also be refreshed if the document was closed, but
+				when a document is closed, the filebrowser is anyway refreshed (hmm perhaps only if 
+				'follow document focus' is set).*/
+				if (dsb->unlink_uri && dsb->fbrefresh_uri) {
+					GnomeVFSURI *parent1, *parent2;
+					parent1 = gnome_vfs_uri_get_parent(dsb->unlink_uri);
+					parent2 = gnome_vfs_uri_get_parent(dsb->fbrefresh_uri);
+					if (gnome_vfs_uri_equal(parent1,parent2)) {
+						fb2_refresh_dir_from_uri(parent1);
+					} else {
+						fb2_refresh_dir_from_uri(parent1);
+						fb2_refresh_dir_from_uri(parent2);
+					}
+					gnome_vfs_uri_unref(parent1);
+					gnome_vfs_uri_unref(parent2);
+				} else if (dsb->unlink_uri) {
+					fb2_refresh_parent_of_uri(dsb->unlink_uri);
+				} else if (dsb->fbrefresh_uri) {
+					fb2_refresh_parent_of_uri(dsb->fbrefresh_uri);
+				}
 			}
+			docsavebackend_cleanup(dsb);
 		break;
 	}
 	return CHECKNSAVE_CONT;
@@ -487,7 +523,12 @@ void doc_save_backend(Tdocument *doc, gboolean do_save_as, gboolean do_move, gbo
 	gchar *tmp;
 	Trefcpointer *buffer;
 	gchar *curi=NULL;
+	Tdocsavebackend *dsb;
 	DEBUG_MSG("doc_save_backend, started for doc %p, save_as=%d, do_move=%d, close_doc=%d, close_window=%d\n",doc,do_save_as,do_move,close_doc,close_window);
+	
+	dsb = g_new(Tdocsavebackend,1);
+	dsb->doc = doc;
+	
 	if (doc->uri) curi = gnome_vfs_uri_to_string(doc->uri,GNOME_VFS_URI_HIDE_PASSWORD);
 	if(doc->action.save) {
 		gchar *errmessage;
@@ -512,14 +553,13 @@ void doc_save_backend(Tdocument *doc, gboolean do_save_as, gboolean do_move, gbo
 		newfilename = ask_new_filename(BFWIN(doc->bfwin), curi, gtk_label_get_text(GTK_LABEL(doc->tab_label)), do_move);
 		if (!newfilename) {
 			if (curi) g_free(curi);
+			g_free(dsb);
 			return;
 		}
 		if (doc->uri) {
 			if (do_move) {
-				DEBUG_MSG("doc_save_backend, do_move=%d, starting unlink\n",do_move);
-				/* BUG: we should postpone the unlink until the new save is successfull */
-				file_delete_file_async(doc->uri);
-				/* gnome_vfs_unlink_from_uri(doc->uri);*/
+				dsb->unlink_uri = doc->uri;/* unlink this uri later */
+				gnome_vfs_uri_ref(dsb->unlink_uri);
 			}
 			gnome_vfs_uri_unref(doc->uri);
 		}
@@ -527,6 +567,8 @@ void doc_save_backend(Tdocument *doc, gboolean do_save_as, gboolean do_move, gbo
 		if (curi) g_free(curi);
 		curi = newfilename;
 		DEBUG_MSG("doc_save_backend, new uri=%s\n",curi);
+		dsb->fbrefresh_uri = doc->uri; /* refresh this uri later */
+		gnome_vfs_uri_ref(dsb->fbrefresh_uri);
 	}
 	session_set_savedir(doc->bfwin, curi);
 
@@ -540,7 +582,8 @@ void doc_save_backend(Tdocument *doc, gboolean do_save_as, gboolean do_move, gbo
 	doc->action.close_doc = close_doc;
 	doc->action.close_window = close_window;
 	gtk_text_view_set_editable(GTK_TEXT_VIEW(doc->view),FALSE);
-	doc->action.save = file_checkNsave_uri_async(doc->uri, doc->fileinfo, buffer, strlen(buffer->data), !do_save_as, doc_checkNsave_lcb, doc);
+	
+	doc->action.save = file_checkNsave_uri_async(doc->uri, doc->fileinfo, buffer, strlen(buffer->data), !do_save_as, doc_checkNsave_lcb, dsb);
 
 	if (do_save_as) {
 		doc_reset_filetype(doc, doc->uri, buffer->data);
