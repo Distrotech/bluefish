@@ -211,9 +211,14 @@ static void savefile_asynccreateuri_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSResu
 }
 
 static void savefile_asyncopenuri_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSResult result,gpointer data) {
+	Tsavefile *sf = data;
 	DEBUG_MSG("savefile_asyncopenuri_lcb, result=%d (%s)\n",result,gnome_vfs_result_to_string(result));
+	/* WORKAROUND for the ssh/sftp module */
+	if (strcmp(gnome_vfs_uri_get_scheme(sf->uri),"sftp")==0 && result == 18) {
+		result = GNOME_VFS_ERROR_NOT_FOUND;
+	}
+	/* end of WORKAROUND */
 	if (result == GNOME_VFS_ERROR_NOT_FOUND) {
-		Tsavefile *sf = data;
 		gnome_vfs_async_create_uri(&sf->handle,sf->uri,GNOME_VFS_OPEN_WRITE, FALSE,0644,GNOME_VFS_PRIORITY_DEFAULT
 					,savefile_asynccreateuri_lcb,sf);
 	} else {
