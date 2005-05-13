@@ -22,7 +22,8 @@
 
 #include "bf_lib.h"
 
-void file_delete_file_async(GnomeVFSURI *uri);
+typedef void (* DeleteAsyncCallback) (gpointer callback_data);
+void file_delete_file_async(GnomeVFSURI *uri, DeleteAsyncCallback callback, gpointer callback_data);
 
 typedef enum {
 	CHECKMODIFIED_ERROR,
