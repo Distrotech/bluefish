@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-/* #define DEBUG */
+#define DEBUG
 
 #include <gtk/gtk.h>
 #include <string.h> /* memcpy */
@@ -323,7 +323,7 @@ static TcheckNsave_return doc_checkNsave_lcb(TcheckNsave_status status,gint erro
 		case CHECKANDSAVE_ERROR_NOWRITE:
 		case CHECKANDSAVE_ERROR_CANCELLED:
 			{
-				DEBUG_MSG("doc_checkNsave_lcb, some ERROR, give user a message\n");
+				DEBUG_MSG("doc_checkNsave_lcb, error=%d (%s), give user a message\n",error_info,gnome_vfs_result_to_string(error_info));
 				errmessage = g_strconcat(_("Could not save file:\n\""),gtk_label_get_text(GTK_LABEL(doc->tab_label)), "\"", NULL);
 				message_dialog_new(BFWIN(doc->bfwin)->main_window, 
 								 		 GTK_MESSAGE_ERROR, 
@@ -386,6 +386,9 @@ static TcheckNsave_return doc_checkNsave_lcb(TcheckNsave_status status,gint erro
 					doc_unre_clear_all(doc);
 				}
 				doc_set_modified(doc, 0);
+				/* BUG: if we have a filebrowser, AND it was a 'save as' or 'move to' we we should 
+				refresh the filebrowser for the old and new location */
+				/* BUG: now the saving is finished we should unlink the old name on 'move to', so not before saving */
 			}
 		break;
 	}
@@ -481,8 +484,10 @@ gchar *ask_new_filename(Tbfwin *bfwin,gchar *old_curi, const gchar *gui_name, gb
 }
 
 void doc_save_backend(Tdocument *doc, gboolean do_save_as, gboolean do_move, gboolean close_doc, gboolean close_window) {
+	gchar *tmp;
+	Trefcpointer *buffer;
 	gchar *curi=NULL;
-	DEBUG_MSG("doc_save_backend, started for doc %p\n",doc);
+	DEBUG_MSG("doc_save_backend, started for doc %p, save_as=%d, do_move=%d, close_doc=%d, close_window=%d\n",doc,do_save_as,do_move,close_doc,close_window);
 	if (doc->uri) curi = gnome_vfs_uri_to_string(doc->uri,GNOME_VFS_URI_HIDE_PASSWORD);
 	if(doc->action.save) {
 		gchar *errmessage;
@@ -511,36 +516,38 @@ void doc_save_backend(Tdocument *doc, gboolean do_save_as, gboolean do_move, gbo
 		}
 		if (doc->uri) {
 			if (do_move) {
-				gnome_vfs_unlink_from_uri(doc->uri);
+				DEBUG_MSG("doc_save_backend, do_move=%d, starting unlink\n",do_move);
+				/* BUG: we should postpone the unlink until the new save is successfull */
+				file_delete_file_async(doc->uri);
+				/* gnome_vfs_unlink_from_uri(doc->uri);*/
 			}
 			gnome_vfs_uri_unref(doc->uri);
 		}
 		doc->uri = gnome_vfs_uri_new(newfilename);
 		if (curi) g_free(curi);
 		curi = newfilename;
+		DEBUG_MSG("doc_save_backend, new uri=%s\n",curi);
 	}
 	session_set_savedir(doc->bfwin, curi);
-	{
-		gchar *tmp;
-		Trefcpointer *buffer;
-		tmp = doc_get_buffer_in_encoding(doc);
-		if (!tmp) {
-			g_free(curi);
-			return;
-		}
 
-		buffer = refcpointer_new(tmp);
-		doc->action.close_doc = close_doc;
-		doc->action.close_window = close_window;
-		gtk_text_view_set_editable(GTK_TEXT_VIEW(doc->view),FALSE);
-		doc->action.save = file_checkNsave_uri_async(doc->uri, doc->fileinfo, buffer, strlen(buffer->data), !do_save_as, doc_checkNsave_lcb, doc);
-
-		if (do_save_as) {
-			doc_reset_filetype(doc, doc->uri, buffer->data);
-			doc_set_title(doc);
-		}
-		refcpointer_unref(buffer);
+	tmp = doc_get_buffer_in_encoding(doc);
+	if (!tmp) {
+		g_free(curi);
+		return;
 	}
+
+	buffer = refcpointer_new(tmp);
+	doc->action.close_doc = close_doc;
+	doc->action.close_window = close_window;
+	gtk_text_view_set_editable(GTK_TEXT_VIEW(doc->view),FALSE);
+	doc->action.save = file_checkNsave_uri_async(doc->uri, doc->fileinfo, buffer, strlen(buffer->data), !do_save_as, doc_checkNsave_lcb, doc);
+
+	if (do_save_as) {
+		doc_reset_filetype(doc, doc->uri, buffer->data);
+		doc_set_title(doc);
+	}
+	refcpointer_unref(buffer);
+
 	g_free(curi);
 }
 

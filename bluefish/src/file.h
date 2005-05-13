@@ -22,6 +22,8 @@
 
 #include "bf_lib.h"
 
+void file_delete_file_async(GnomeVFSURI *uri);
+
 typedef enum {
 	CHECKMODIFIED_ERROR,
 	CHECKMODIFIED_CANCELLED,

@@ -180,6 +180,7 @@ static Turi_in_refresh *fb2_get_uri_in_refresh(GnomeVFSURI *uri) {
 }
 
 static void fb2_uri_in_refresh_cleanup(Turi_in_refresh *uir) {
+	DEBUG_MSG("fb2_uri_in_refresh_cleanup, called for %p\n",uir);
 	gnome_vfs_uri_unref(uir->uri);
 	g_free(uir);
 }
@@ -272,12 +273,12 @@ static void fb2_treestore_delete_children_refresh1(GtkTreeStore *tstore, GtkTree
 				GnomeVFSURI *d_uri;
 				/* delete 'this' ! */
 				gtk_tree_model_get(GTK_TREE_MODEL(tstore), &this, URI_COLUMN, &d_uri, -1);
-				DEBUG_MSG("fb2_treestore_delete_children_refresh1, delete %s ",d_name);
+				DEBUG_MSG("fb2_treestore_delete_children_refresh1, delete %s ",gnome_vfs_uri_get_path(d_uri));
 				DEBUG_URI(d_uri, TRUE);
 				gtk_tree_store_remove(tstore,&this);
 				
 				g_hash_table_remove(FB2CONFIG(main_v->fb2config)->filesystem_itable, d_uri);
-				
+				DEBUG_MSG("fb2_treestore_delete_children_refresh1, unref d_uri\n");
 				gnome_vfs_uri_unref(d_uri);
 			}
 		}
@@ -352,6 +353,7 @@ static void fb2_load_directory_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSResult re
  *
  */
 static void fb2_fill_dir_async(GtkTreeIter *parent, GnomeVFSURI *uri) {
+	DEBUG_MSG("fb2_fill_dir_async, uri=%p\n",uri);
 	if (fb2_get_uri_in_refresh(uri) == NULL) {
 		Turi_in_refresh *uir;
 
@@ -441,7 +443,9 @@ void fb2_refresh_dir_from_uri(GnomeVFSURI *dir) {
  * convenience function, will refresh the parent directory of child_uri
  */
 static void fb2_refresh_parent_of_uri(GnomeVFSURI *child_uri) {
-	GnomeVFSURI *parent_uri = gnome_vfs_uri_get_parent(child_uri);
+	GnomeVFSURI *parent_uri;
+	DEBUG_MSG("fb2_refresh_parent_of_uri, started\n");
+	parent_uri = gnome_vfs_uri_get_parent(child_uri);
 	fb2_refresh_dir(parent_uri, NULL);
 	gnome_vfs_uri_unref(parent_uri);
 }
@@ -463,6 +467,7 @@ static GtkTreeIter *fb2_build_dir(GnomeVFSURI *uri) {
 	while (!parent && gnome_vfs_uri_has_parent(tmp)) {
 		GnomeVFSURI* tmp2 = gnome_vfs_uri_get_parent(tmp);
 #ifdef DEVELOPMENT
+		if (!tmp) exit(455);
 		if (!tmp2) exit(456);
 #endif
 		gnome_vfs_uri_unref(tmp);
@@ -1015,23 +1020,29 @@ static void fb2rpopup_rename(Tfilebrowser2 *fb2) {
 	if (olduri) {
 		Tdocument *tmpdoc;
 		GList *alldocs;
-		gchar *oldfilename;
-		GnomeVFSURI *newuri=NULL;
+		gnome_vfs_uri_ref(olduri);
+		
 		/* Use doc_save(doc, 1, 1) if the file is open. */
-		oldfilename = gnome_vfs_uri_to_string(olduri,0);
+		
 		alldocs = return_allwindows_documentlist();
 		tmpdoc = documentlist_return_document_from_uri(alldocs,olduri);
 		g_list_free(alldocs);
 		if (tmpdoc != NULL) {
-			DEBUG_MSG("File is open. Calling doc_save().\n");
+			DEBUG_MSG("fb2rpopup_rename, file is open. Calling doc_save() with 'do_move'.\n");
 			/* If an error occurs, doc_save takes care of notifying the user.
 			 * Currently, nothing is done here. */	
 			doc_save_backend(tmpdoc, TRUE, TRUE, FALSE, FALSE);
+			/* Refresh the appropriate parts of the filebrowser 
+			BUG: because file saving is asynchronous, it could be that the new file is not yet created, or the
+			old file not yet removed, so perhaps we should delay this, or call it from the doc_save_backend.. */
 		} else { /* olduri is not open */
-			gchar *newfilename=NULL;
+			gchar *newfilename=NULL, *oldfilename;
+			
 			/* Promt user, "File/Move To"-style. */
+			oldfilename = gnome_vfs_uri_to_string(olduri,0);
 			newfilename = ask_new_filename(fb2->bfwin, oldfilename, oldfilename, TRUE);
 			if (newfilename) {
+				GnomeVFSURI *newuri=NULL;
 				GnomeVFSResult res;
 				newuri = gnome_vfs_uri_new(newfilename);
 				res = gnome_vfs_move_uri(olduri,newuri,TRUE);
@@ -1044,16 +1055,18 @@ static void fb2rpopup_rename(Tfilebrowser2 *fb2) {
 								 			 NULL);
 					g_free(errmessage);
 				}
+				
+				fb2_refresh_parent_of_uri(olduri);
+				if (newuri) {
+					fb2_refresh_parent_of_uri(newuri);
+				}
+				
 				g_free(newfilename);
+				gnome_vfs_uri_unref(newuri);
 			}
+			g_free(oldfilename);
 		}
-		/* Refresh the appropriate parts of the filebrowser */
-		fb2_refresh_parent_of_uri(olduri);
-		if (newuri) {
-			fb2_refresh_parent_of_uri(newuri);
-		}
-		g_free(oldfilename);
-		gnome_vfs_uri_unref(newuri);
+		gnome_vfs_uri_unref(olduri);
 	}
 }
 
