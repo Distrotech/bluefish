@@ -531,7 +531,7 @@ void doc_save_backend(Tdocument *doc, gboolean do_save_as, gboolean do_move, gbo
 	Tdocsavebackend *dsb;
 	DEBUG_MSG("doc_save_backend, started for doc %p, save_as=%d, do_move=%d, close_doc=%d, close_window=%d\n",doc,do_save_as,do_move,close_doc,close_window);
 	
-	dsb = g_new(Tdocsavebackend,1);
+	dsb = g_new0(Tdocsavebackend,1);
 	dsb->doc = doc;
 	
 	if (doc->uri) curi = gnome_vfs_uri_to_string(doc->uri,GNOME_VFS_URI_HIDE_PASSWORD);
