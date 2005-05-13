@@ -442,7 +442,7 @@ void fb2_refresh_dir_from_uri(GnomeVFSURI *dir) {
  *
  * convenience function, will refresh the parent directory of child_uri
  */
-static void fb2_refresh_parent_of_uri(GnomeVFSURI *child_uri) {
+void fb2_refresh_parent_of_uri(GnomeVFSURI *child_uri) {
 	GnomeVFSURI *parent_uri;
 	DEBUG_MSG("fb2_refresh_parent_of_uri, started\n");
 	parent_uri = gnome_vfs_uri_get_parent(child_uri);
